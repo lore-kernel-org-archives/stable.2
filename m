@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E87264A49B5;
-	Mon, 21 Sep 2026 13:45:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B58624A204C;
+	Mon, 21 Sep 2026 13:45:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789998327; cv=none; b=kPP6x5XjPvJKlORQvFJf3Go2kd89pvHf1bTy3eZwY9Fd+iJIwlfd8XiyVjkqgPZpEy9t2B7frUprXP5uXRJ2so92FwYNbxpvyIEamxMjEpqXec4qSaF379OVDrvz2fmNHoCsCq0Ilmj1wCOhrjUw988hiuR/F884rtgajV4K8Xs=
+	t=1789998341; cv=none; b=oTaRoxvv33FRo8zkZBnQl4FyptbZo3iG11N5hZmjYn7rdjmNNZlvIElxtGQ9D42+3sgTCVurnPd7JKyG3L4Sr6xJMNYsVCH4dBPqEZgkz/ktjmgnxonClpAjpBgN8LXI6CZeoMp/D7m+DF/bWFwbkvIkrPX70IRxtbyrGUyGSXk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789998327; c=relaxed/simple;
-	bh=NXtk4J120gvy6duSbM7CGMlQIgVMXPYHLccJxo13+TM=;
+	s=arc-20240116; t=1789998341; c=relaxed/simple;
+	bh=8SAsMjkrngSWGdQKZl/aHd6rJ4X+T1wuo4AkDdyJKso=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=aUyiv8dSILibIZXNb8KSeY5RmgRgqTwZ3e+qH8xDaWCymBd5h13uyUvv6b2ysU+lcbewyCJ1YOg1sNFt/08hbSGDwdqIsF3gSysayPPLBwCayO5+0uekbC788Z/fsgm9+oYBv0Y+f8VYaIAv/IHNQkb4ZeN2WzjaLemP8Wl3Vag=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VXXdeRh3; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=WbIx09o0MWUKtNQJY3TdOFTgvtgbd6iSy7CerF7KqUg0+x/xrwpIuj4maLBJLG9na3pxXrjmt48vo/lNBViE6eh//oRw+akvJHi1YCGQ+ssXZW8x9GuPrT9O4+9mbre/0Rl4cgDmgULMzqPWMTmVlNrlz4RfAAr9J8y0d1pvDPw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jluAyHbw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VXXdeRh3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 575E61F000FF;
-	Mon, 21 Sep 2026 13:45:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jluAyHbw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43E5A1F00898;
+	Mon, 21 Sep 2026 13:45:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789998325;
-	bh=b32xekZALDJ73u8pNgOkOniEszxsMWAgHksCs7g4tyE=;
+	s=k20260515; t=1789998339;
+	bh=85CevHKublMmHOSHJkcM1sjBk3a15MmFBWjuAkGzmnQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=VXXdeRh35T9i1/ADIdWf8z7aG6ksc04+VkB5STDx4Keu3VjrFeVir8HzGTUPSEFoQ
-	 uYpVIZocN+hq6enflkH/uE+gY/AT4JY/eQZj2UobHgbyYaHUB8XEm2eWk16SOkIyjF
-	 5GKp/nv7D2Jmbx/Y60Ra/3EjVm8pvfN0btMXoEmAOS84Tfm/EURd3qrwR1iZsXKQ5n
-	 5fI07y6F3NyfvrpEWEbI5LkJKA0phbqx29KNvxt65faoYPOLP57nnWrNBmAUV3iZQw
-	 iWC6yLOk/1s62qdSCtvpEMUwsUjSc2t+QPKIHEUnYa2Svs3Vm+RJ1f2G3LKcw1+pge
-	 gVswbNbkcIy1A==
+	b=jluAyHbw2vEqmozixFTqdTe7zlSB6njFRBAJ0ExWMwKyQQrPnuLpAfq1sqHtIkLQv
+	 /vCwG0jwKhX5dWk1usPTY5RW9pPsMgHw/K5WZYgbKog0mB29goPiwAmHbEvRXAhQqj
+	 RMfOhw10tX/dA8m8hj4rPGsV1pIROIrdBpAZb4o6n+Cs+mJPL66eJUmoyaRjUv5QPx
+	 Dpxe2vQvNMW+mVzy2NCrfmhfTaorDsespkd/MKmFbrgmHY90Twh1Fc3WXLh0CkHrrR
+	 uMwGGpE25bIuDTXFfhKq6JyqvdVuUGD9lD4XRX4dKj1FKCbfuqIISCcPqkJKjNIv7/
+	 6H5hC1Tk1CVew==
 From: Christian Brauner <brauner@kernel.org>
-Date: Mon, 21 Sep 2026 15:44:54 +0200
-Subject: [PATCH v3 05/17] signal: don't retarget shared signals in a dying
- thread group
+Date: Mon, 21 Sep 2026 15:44:58 +0200
+Subject: [PATCH v3 09/17] ptrace: refuse to change the signal mask of a
+ user worker
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-work-coredump-fixes-v3-5-8e4adb1619e6@kernel.org>
+Message-Id: <20260921-work-coredump-fixes-v3-9-8e4adb1619e6@kernel.org>
 References: <20260921-work-coredump-fixes-v3-0-8e4adb1619e6@kernel.org>
 In-Reply-To: <20260921-work-coredump-fixes-v3-0-8e4adb1619e6@kernel.org>
 To: Oleg Nesterov <oleg@redhat.com>, Chris Mason <mason@kernel.org>, 
@@ -49,60 +49,61 @@ Cc: Jens Axboe <axboe@kernel.dk>, Alexander Viro <viro@zeniv.linux.org.uk>,
  linux-mm@kvack.org, io-uring@vger.kernel.org, 
  "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
 X-Mailer: b4 0.17-dev-db0b7
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1843; i=brauner@kernel.org;
- h=from:subject:message-id; bh=NXtk4J120gvy6duSbM7CGMlQIgVMXPYHLccJxo13+TM=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRtNLlzePcG6a9a3w7tc8ydY3Fyl+UFjmkv3qySODjXP
- FdkwvXsNR2lLAxiXAyyYoosDu0m4XLLeSo2G2VqwMxhZQIZwsDFKQATiWVjZNi+pjv63mODniep
- wecDuRav+6uZ9dp1Z6TLAW6hZYHHdj1j+B+tOd0vdlbJ5lZJh9qWhlsKXxiuZsleXvvuzrzv1tc
- PNnADAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1918; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=8SAsMjkrngSWGdQKZl/aHd6rJ4X+T1wuo4AkDdyJKso=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRtNLmzsfIlz+eogHshBmkqp7OcPmRILunQf6EqGXw1y
+ /2qO/PzjlIWBjEuBlkxRRaHdpNwueU8FZuNMjVg5rAygQxh4OIUgInUyDL8s1+X5tHrcadbPnPv
+ 4o/nblRe+tdRGHO29Plc/bz/J/+6MzP8M30iLPbjpPCdKJsZOpv87HT7G+4+eLAnId91l7tlTUM
+ OCwA=
 X-Developer-Key: i=brauner@kernel.org; a=openpgp;
  fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-If the calling thread has blocked a signal then
-retarget_shared_pending() slingshots a shared pending signal to a
-sibling thread. Today it only skips PF_EXITING threads but not a
-coredumping thread.
+A user worker is created with every signal other than SIGKILL and
+SIGSTOP blocked. It never runs user code and that mask is what keeps
+get_signal() from dequeuing anything else for it. complete_signal()
+never picks a thread that blocks the signal, tkill() queues on the
+worker but nothing dequeues it. ptrace_signal() requeues an injected
+signal that the tracee blocks.
 
-But if SIGNAL_GROUP_EXIT is set no thread in the thread-group can
-dequeue such signals anymore as get_signal() sends SIGKILL to every
-thread and prepare_signal() drops any other signal.
+PTRACE_SETSIGMASK is the only way to change that mask from the outside.
+A tracer that clears it makes the worker eligible for every signal.
+Whatever the worker then dequeues it can only act on by leaving.
 
-exit_signals() also returns early on SIGNAL_GROUP_EXIT. But neither
-sigprocmask() nor the mask restore in sigtimedwait() do.
+Refuse PTRACE_SETSIGMASK for a user worker with -EPERM, the way
+ptrace_attach() refuses a kernel thread. A worker is guaranteed to only
+ever dequeue SIGKILL or SIGSTOP and an injected signal stays pending on
+it, which is what already happens when the mask isn't touched.
 
-Say a thread sleeps in sigtimedwait() and a sibling thread crashes. The
-sleeping thread gets woken by the zap call. It restores its mask on the
-way out and retargets a signal that was queued for the coredumping
-process. That means TIF_SIGPENDING is set on the coredumping task which
-zap_threads() had cleared. So a blocking write sees TIF_SIGPENDING and
-truncates the dump.
+Taking the request and quietly leaving the mask alone was the other
+option, the way set_current_blocked() keeps SIGKILL and SIGSTOP
+unblocked whatever userspace asks for. But then a tracer gets success
+back with nothing changed and no way to tell that apart from a mask that
+took effect.
 
-Stop retargeting signals when SIGNAL_GROUP_EXIT is set and avoid
-needlessly truncating coredumps.
-
-Fixes: e6fa16ab9c1e ("signal: sigprocmask() should do retarget_shared_pending()")
+Fixes: e8b33b8cfafc ("Revert "kernel: treat PF_IO_WORKER like PF_KTHREAD for ptrace/signals"")
 Cc: stable@vger.kernel.org
-Acked-by: Oleg Nesterov <oleg@redhat.com>
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- kernel/signal.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ kernel/ptrace.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/kernel/signal.c b/kernel/signal.c
-index d8bb1f168055..c3bad983dd37 100644
---- a/kernel/signal.c
-+++ b/kernel/signal.c
-@@ -3117,6 +3117,10 @@ static void retarget_shared_pending(struct task_struct *tsk, sigset_t *which)
- 	sigset_t retarget;
- 	struct task_struct *t;
+diff --git a/kernel/ptrace.c b/kernel/ptrace.c
+index d041645d9d17..4e9822a87aab 100644
+--- a/kernel/ptrace.c
++++ b/kernel/ptrace.c
+@@ -1227,6 +1227,12 @@ int ptrace_request(struct task_struct *child, long request,
+ 	case PTRACE_SETSIGMASK: {
+ 		sigset_t new_set;
  
-+	/* Nobody dequeues them in a dying group, see get_signal(). */
-+	if (tsk->signal->flags & SIGNAL_GROUP_EXIT)
-+		return;
++		/* A user worker only ever takes SIGKILL and SIGSTOP. */
++		if (child->flags & PF_USER_WORKER) {
++			ret = -EPERM;
++			break;
++		}
 +
- 	sigandsets(&retarget, &tsk->signal->shared_pending.signal, which);
- 	if (sigisemptyset(&retarget))
- 		return;
+ 		if (addr != sizeof(sigset_t)) {
+ 			ret = -EINVAL;
+ 			break;
 
 -- 
 2.53.0
