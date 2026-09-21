@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4A1C495AF3;
-	Mon, 21 Sep 2026 12:48:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D335A496D3B;
+	Mon, 21 Sep 2026 12:52:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789994937; cv=none; b=Ro3+os++gpuZTVWiKhwQ4aoZp4jW4qfs/KU8j07Nkla5X6kNrDW/Y0Hf5kWTe8kX5i9spRwyuJ7dghOxhIiwjrLn2c19/u3zk8KLqEyzE1hnfXgofmLCWT9/1RUFraTuFD4YIWLkGNBxHf2wkzq/NdUMPE86olamuQPD2eoEbio=
+	t=1789995127; cv=none; b=R0h2UH0+ZUmfoSPjvdbcLTiamMrLhZ7TdNQZz3sLpU7MlFAPCnB7DRo7z45j4slj6c6dCpeHHjalUfOAIY7vKTPXN3q/ri3mJB9xr/BVa79Xm+Kfu56wfmnAKhLQYoVuA1O/Z2IlHmCtAvWDhkQ60NgjZRQ+y+Kjii9NtTHhmH8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789994937; c=relaxed/simple;
-	bh=Lvz1+adIfTVALde6cIc9D2krFiJkrABbwz95Yp9nPFQ=;
+	s=arc-20240116; t=1789995127; c=relaxed/simple;
+	bh=wk8WqgVggF8LJTmOp5H6FQx6D/MULWBtpqoasVAAaqM=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=FnDrstjamqQ1kKbSOZUqHxT6zVrmbsfJKxqCza3P4sgPqFj6Px7fP969B5YjLR9+UGYRYHfoZg4Q386sbCxVpae3Ck5UqGEx3ZjvXPgzxwjnGxqeMpIMLDzskg8T00kbCF0TFpIvivlyObW46n2C6ZuPdfomEhAw08YRQs6AjT8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UE6SO3WY; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=AqP84pk79HyD9bF13tBvx7R6DXRbEHmVn4Y2hqt1PMZpEZatiU9OWQi3RZOMfYCBf+SD4p55mdcNcIkbtIi5xOoskD22/rYh9Q+qSkKX13W0aX6P8k9LGWGhU+NHMbwnqovvzermx9zOVq90tPHJETbKneZvvI7mc1SsjDKSoko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UEoXuMgk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UE6SO3WY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15BBE1F000FF;
-	Mon, 21 Sep 2026 12:48:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UEoXuMgk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D81E81F000FF;
+	Mon, 21 Sep 2026 12:52:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789994932;
-	bh=NFKSxMIgnM898Y7oTLkz3ataAvKd+EhOD1s4RO4tj3U=;
+	s=k20260515; t=1789995125;
+	bh=gBrB4ZvsDxz9T+FKuvYovOtJhOMUC4zhQspG5dCkzqI=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=UE6SO3WY/k6pXgr3BejY0rHDo2ynd6BaUlT/AIlFdd8aM5xlG+04BJet4FBMpEqek
-	 691IzMIrJ/nI62ercdIsl436gXX0iawHxYoUNOSeNwSih0MzvVY4bT+DcEwhi0CK7d
-	 xJDnvQkwpPONuQIiiIieNvXQ4eJ1P8yzOvY+6dsPe1XCqPv8Zr4EeWsVkE9BW8XAdI
-	 nTau/53RsFNf51Of017LHrMAJA6VvxCvV9LBZoBrCgvbz0ASLW+z7g8NA7ZZpVEE7w
-	 CUbEdzSPxRJXNg05JbI0IyixBTS+7gHUCrhfd2Yp9gVq5OwJ89i1U2wZvKuwM007fU
-	 hnmOSsIuC7Xpg==
-Subject: Re: [PATCH] net/mlx5: Fix rev_entry reference leak in
- mlx5_tc_ct_shared_counter_get()
+	b=UEoXuMgk3tQR7VKss5G7TCH5r2PNVxKIgUqvy03V3f2uk/2Ph6lX19r0ed/+h2e4e
+	 bDVJ8hMF7A6V8+AvzTV0lrEBHMw8lyCzO0N1Xud2ENdLe8BpvuiiBRZz2J/riVAs9r
+	 iliuMt+mIA+BPEmVnZ5Cae07HGJfPl/vOW+t+HSil3Aj4EAQrQTMbVLuyfpp+5d+gX
+	 OhBP10nnepB70F532dZSrX99wGzghWQb63X3l2HQ1Ppk5NFoDDMCGMDH8irTojud2I
+	 qHlMVWV5j2Ty8l4FhvbQDGRFKr7w1lCUTKNByQC7w24IQDeWpshm9HlTaLjQPiUH1i
+	 A5LSb3N8CAV8g==
+Subject: Re: [PATCH] mlxsw: spectrum_flower: Fix port range register leak
 From: netdev-bot+sashiko@kernel.org
 To: vulab@iscas.ac.cn
 Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, leon@kernel.org, linux-kernel@vger.kernel.org,
- linux-rdma@vger.kernel.org, mbloch@nvidia.com, netdev@vger.kernel.org,
- ozsh@mellanox.com, pabeni@redhat.com, roid@nvidia.com, saeedm@nvidia.com,
- tariqt@nvidia.com, stable@vger.kernel.org
-Date: Mon, 21 Sep 2026 12:48:50 +0000
-Message-ID: <178999493051.2160803.6214466192510331412@kernel.org>
-In-Reply-To: <20260917113131.2149024-1-vulab@iscas.ac.cn>
-References: <20260917113131.2149024-1-vulab@iscas.ac.cn>
-X-sashiko-severity: Medium
+ idosch@nvidia.com, kuba@kernel.org, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, pabeni@redhat.com, petrm@nvidia.com,
+ stable@vger.kernel.org
+Date: Mon, 21 Sep 2026 12:52:04 +0000
+Message-ID: <178999512438.2160803.8624213916637783363@kernel.org>
+In-Reply-To: <20260917113236.2149095-1-vulab@iscas.ac.cn>
+References: <20260917113236.2149095-1-vulab@iscas.ac.cn>
+X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -49,10 +47,10 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential
+Thank you for your contribution! Sashiko AI review found 1 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 0
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -60,124 +58,153 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] The commit message misidentifies the condition that makes the
-  leak reachable.
-- [Medium] The Fixes: tag points at the wrong commit.
+- [High] Incomplete fix: the port-range register leak the commit message
+  claims to close remains fully reachable.
 
 --
 
-net/mlx5: Fix rev_entry reference leak in mlx5_tc_ct_shared_counter_get()
+mlxsw: spectrum_flower: Fix port range register leak
 
-This adds a mlx5_tc_ct_entry_put() on the fall-through path of
-mlx5_tc_ct_shared_counter_get() so that the reverse entry reference taken by
-mlx5_tc_ct_entry_get() is dropped when the shared counter cannot be reused.
-The put itself looks correct; the questions below are about the described
-trigger condition and the Fixes tag.
+Adds an unwind to mlxsw_sp_flower_parse_ports_range() so that the source
+port range register is released when acquiring the destination port range
+register fails.  The commit message motivates this by callers that pass a
+stack allocated rule info and never release it.
 
-> Fixes: 1edae2335adf ("net/mlx5e: CT: Use the same counter for both directions")
-> Cc: stable@vger.kernel.org
-
-[Severity: Medium]
-Is this the right commit to blame?  What this patch balances is the entry
-reference taken by mlx5_tc_ct_entry_get() in
-mlx5_tc_ct_shared_counter_get(), and that reference-taking lookup plus the
-matching put on the success path came from a2173131526d ("net/mlx5e: CT:
-manage the lifetime of the ct entry object"), not from 1edae2335adf.
-
-git blame on the pre-patch file attributes this whole block to
-a2173131526d:
-
-	spin_lock_bh(&ct_priv->ht_lock);
-	rev_entry = mlx5_tc_ct_entry_get(ct_priv, &rev_tuple);
-
-	if (IS_ERR(rev_entry)) {
-		spin_unlock_bh(&ct_priv->ht_lock);
-		goto create_counter;
-	}
-
-	if (rev_entry && refcount_inc_not_zero(&rev_entry->counter->refcount)) {
-		...
-		mlx5_tc_ct_entry_put(rev_entry);
-		return shared_counter;
-	}
-
-1edae2335adf only contributed the tuple-reversal code above it; at that
-point the reverse tuple was looked up with a plain rhashtable_lookup_fast()
-and no entry reference was taken, so there was nothing to leak.
-
-With Cc: stable, does the current tag select the wrong backport range?
-Trees that contain 1edae2335adf but not a2173131526d (1edae2335adf landed
-in v5.9, a2173131526d in v5.12) would be picked, and there
-mlx5_tc_ct_shared_counter_get() holds no rev_entry reference at all, so the
-hunk cannot apply as written and a hand-resolved backport that added the put
-anyway would underflow the rev_entry refcount.
-
-> When the reverse entry is found but its counter is already being
-> released, refcount_inc_not_zero() fails and the reference taken by
-> mlx5_tc_ct_entry_get() is never dropped before falling through to
-> create_counter.
-
-[Severity: Medium]
-Can the "counter is already being released" case actually happen for a
-non-NULL rev_entry?
-
-mlx5_tc_ct_entry_get() only returns a non-NULL, non-ERR entry after both the
-valid test and the entry refcount succeed:
-
-	if (entry && mlx5_tc_ct_entry_valid(entry) &&
-	    refcount_inc_not_zero(&entry->refcnt)) {
-		return entry;
-
-So the returned rev_entry is VALID and holds a live reference, which means
-it cannot be inside mlx5_tc_ct_entry_del() - the only teardown site calling
-mlx5_tc_ct_counter_put().  The other mlx5_tc_ct_counter_put() call, in the
-err_orig path of mlx5_tc_ct_entry_add_rules(), runs before
-MLX5_CT_ENTRY_FLAG_VALID is set, so such an entry is never returned by the
-lookup either.  A shared counter owned by a live VALID entry therefore
-always has refcount >= 1.
-
-Is the reachable trigger instead the private-counter case?
-mlx5_tc_ct_counter_create() kzallocs the counter and never calls
-refcount_set():
-
-	counter->is_shared = false;
-	counter->counter = mlx5_fc_create(ct_priv->dev, true);
-
-so private counters keep refcount == 0 permanently, and
-mlx5_tc_ct_entry_add_rules() picks between the two kinds at runtime:
-
-	if (nf_ct_acct_enabled(dev_net(ct_priv->netdev)))
-		entry->counter = mlx5_tc_ct_counter_create(ct_priv);
-	else
-		entry->counter = mlx5_tc_ct_shared_counter_get(ct_priv, entry);
-
-nf_ct_acct_enabled() reads net->ct.sysctl_acct, the writable per-netns
-net.netfilter.nf_conntrack_acct sysctl, so both counter kinds coexist after
-accounting is toggled from enabled to disabled.  A new entry then takes the
-shared path, finds a live reverse entry owning a private refcount == 0
-counter, refcount_inc_not_zero() fails, and the rev_entry reference is
-leaked.
-
-Could the changelog describe that path instead?  As written the fixed branch
-reads like dead code, which makes reachability hard to judge for stable, and
-it hides the companion cleanup question: should
-mlx5_tc_ct_counter_create() refcount_set() the private counter, or should
-the consumer test is_shared explicitly?
-
-> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en/tc_ct.c b/drivers/net/ethernet/mellanox/mlx5/core/en/tc_ct.c
-> index 6c87a1c7db095..c1841ce74d9ac 100644
-> --- a/drivers/net/ethernet/mellanox/mlx5/core/en/tc_ct.c
-> +++ b/drivers/net/ethernet/mellanox/mlx5/core/en/tc_ct.c
-> @@ -1082,6 +1082,9 @@ mlx5_tc_ct_shared_counter_get(struct mlx5_tc_ct_priv *ct_priv,
+> diff --git a/drivers/net/ethernet/mellanox/mlxsw/spectrum_flower.c b/drivers/net/ethernet/mellanox/mlxsw/spectrum_flower.c
+> index 353fd9ca89a68..4cad6c46b07e9 100644
+> --- a/drivers/net/ethernet/mellanox/mlxsw/spectrum_flower.c
+> +++ b/drivers/net/ethernet/mellanox/mlxsw/spectrum_flower.c
+> @@ -486,8 +486,14 @@ mlxsw_sp_flower_parse_ports_range(struct mlxsw_sp *mlxsw_sp,
 >  
->  	spin_unlock_bh(&ct_priv->ht_lock);
+>  		err = mlxsw_sp_port_range_reg_get(mlxsw_sp, &range,
+>  						  f->common.extack, &prr_index);
+> -		if (err)
+> +		if (err) {
+> +			if (rulei->src_port_range_reg_valid) {
+> +				mlxsw_sp_port_range_reg_put(mlxsw_sp,
+> +							    rulei->src_port_range_reg_index);
+> +				rulei->src_port_range_reg_valid = false;
+> +			}
+>  			return err;
+> +		}
 >  
-> +	if (rev_entry)
-> +		mlx5_tc_ct_entry_put(rev_entry);
-> +
->  create_counter:
->  
->  	shared_counter = mlx5_tc_ct_counter_create(ct_priv);
+>  		rulei->dst_port_range_reg_index = prr_index;
+>  		rulei->dst_port_range_reg_valid = true;
+
+[Severity: High]
+
+Does this hunk actually close the leak the changelog describes?
+
+mlxsw_sp_flower_parse() has two callers.  The first is
+mlxsw_sp_flower_replace(), which uses the heap rulei owned by the rule and
+routes every error through mlxsw_sp_acl_rule_destroy() ->
+mlxsw_sp_acl_rulei_destroy(), which already drops both registers:
+
+drivers/net/ethernet/mellanox/mlxsw/spectrum_acl.c:mlxsw_sp_acl_rulei_destroy() {
+	if (rulei->src_port_range_reg_valid)
+		mlxsw_sp_port_range_reg_put(mlxsw_sp,
+					    rulei->src_port_range_reg_index);
+	if (rulei->dst_port_range_reg_valid)
+		mlxsw_sp_port_range_reg_put(mlxsw_sp,
+					    rulei->dst_port_range_reg_index);
+	kfree(rulei);
+}
+
+So on the replace path the new put looks redundant.
+
+The second caller is the stack rulei one named in the changelog,
+mlxsw_sp_flower_tmplt_create():
+
+	struct mlxsw_sp_acl_rule_info rulei;
+	...
+	memset(&rulei, 0, sizeof(rulei));
+	err = mlxsw_sp_flower_parse(mlxsw_sp, block, &rulei, f);
+	if (err)
+		return err;
+	ruleset = mlxsw_sp_acl_ruleset_get(mlxsw_sp, block,
+					   f->common.chain_index,
+					   MLXSW_SP_ACL_PROFILE_FLOWER,
+					   &rulei.values.elusage);
+
+	/* keep the reference to the ruleset */
+	return PTR_ERR_OR_ZERO(ruleset);
+
+This never calls mlxsw_sp_acl_rulei_destroy() (it cannot, that function ends
+in kfree(rulei)), and mlxsw_sp_flower_tmplt_destroy() only drops ruleset
+references.  Isn't every port range register recorded in that stack rulei
+still leaked?
+
+The new unwind only covers the narrow window "source acquired, destination
+acquisition failed".  For the template caller the reference is still dropped
+on the floor in these cases:
+
+  - the success path, where one or two registers stay pinned per template
+    (this is the common case)
+  - later failures inside mlxsw_sp_flower_parse() after
+    mlxsw_sp_flower_parse_ports_range() already succeeded, namely
+    mlxsw_sp_flower_parse_tcp() rejecting reserved flags,
+    mlxsw_sp_flower_parse_ip() rejecting a non-IP n_proto, and
+    mlxsw_sp_flower_parse_actions() failing:
+
+	err = mlxsw_sp_flower_parse_ports_range(mlxsw_sp, rulei, f, ip_proto);
+	if (err)
+		return err;
+
+	err = mlxsw_sp_flower_parse_tcp(mlxsw_sp, rulei, f, ip_proto);
+	if (err)
+		return err;
+
+	err = mlxsw_sp_flower_parse_ip(mlxsw_sp, rulei, f, n_proto_key & n_proto_mask);
+	if (err)
+		return err;
+
+	return mlxsw_sp_flower_parse_actions(mlxsw_sp, block, rulei,
+					     &f->rule->action,
+					     f->common.extack);
+
+  - mlxsw_sp_acl_ruleset_get() returning an error in
+    mlxsw_sp_flower_tmplt_create()
+
+Is the template key really non-zero here?  fl_tmplt_create() in
+net/sched/cls_flower.c fills tmplt->dummy_key and tmplt->mask from the user
+attributes via fl_set_key(), fl_set_key_port_range() sets
+mask->tp_range.tp_min.src/dst to all ones for TCP/UDP/SCTP, and
+fl_hw_create_tmplt() hands that dissector, key and mask to the driver.
+FLOW_DISSECTOR_KEY_PORTS_RANGE is in the accepted key mask in
+mlxsw_sp_flower_parse(), so mlxsw_sp_port_range_reg_get() takes a real
+reference for a template such as:
+
+	tc chain add dev swp1 ingress protocol ip \
+		flower ip_proto tcp src_port 100-200
+
+The pool is small and fixed.  mlxsw_sp_port_range_init() sets
+pr_core->prr_ids.max from MLXSW_CORE_RES_GET(core, ACL_MAX_L4_PORT_RANGE)
+and warns above 16 entries:
+
+	max = MLXSW_CORE_RES_GET(core, ACL_MAX_L4_PORT_RANGE);
+
+	/* Each port range register is represented using a single bit in the
+	 * two bytes "l4_port_range" ACL key element.
+	 */
+	WARN_ON(max > BITS_PER_BYTE * sizeof(u16));
+
+Once it is exhausted, mlxsw_sp_port_range_reg_create() fails:
+
+	err = xa_alloc(&pr_core->prr_xa, &prr->index, prr, pr_core->prr_ids,
+		       GFP_KERNEL);
+	if (err) {
+		if (err == -EBUSY)
+			NL_SET_ERR_MSG_MOD(extack, "Exceeded number of port range registers");
+
+Can repeated template add/delete with distinct port ranges therefore pin all
+registers for the lifetime of the device, keep devlink prr_count inflated,
+and make mlxsw_sp_port_range_fini()'s WARN_ON(!xa_empty(&pr_core->prr_xa))
+fire on teardown?
+
+Would it be better to drop this hunk and instead release the rulei's port
+range registers in mlxsw_sp_flower_tmplt_create(), for example through a
+non-freeing rulei cleanup helper that mirrors mlxsw_sp_acl_rulei_destroy(),
+or to skip register acquisition altogether when parsing a template?
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260917113131.2149024-1-vulab%40iscas.ac.cn
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260917113236.2149095-1-vulab%40iscas.ac.cn
