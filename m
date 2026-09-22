@@ -1,174 +1,123 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B16C3518159;
-	Tue, 22 Sep 2026 14:46:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCFAB552939
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 14:50:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790088408; cv=none; b=aOx/F7Fp0YoHCTe1lgDvHzjBKGCx1SHvN02pfAAqqymsp349ZBFYNh96gzSRyNE5Gyb8RRG4yY88s3szZde0745x5s4rQ/fcJtdd6Qv3i0eT6ELQWL2QDhH8ZrfRCia8uKnjlK9064HyPJMVaYg5aqSXgGxRqg+zhQxgf2q6T+Y=
+	t=1790088605; cv=none; b=J81+48MYphSjKViL81MOkiu6jls9DsPCIayoEF8P0CJeHROpBsT+mH7tB1levH/EYPB14ayzVBhm/ihIAgPyqpWPWp5Fs9fJrFCXBeAlm920a98W4HpfN0FWo05DE+eQ7UJT4ZvzqoPsgss2cAtOkEpOd9Oduv3MZlPWSzPL2+0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790088408; c=relaxed/simple;
-	bh=E4cSuppnIp2pwOfBP/pUAETACaKGAEzCsLOo2D2Ta4o=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rIjJEc+iB5qNQWVhwJCjZFpfQuBcmBxuVGn3GaHijPXKm+Td8XgGLIhvjSiuFETq6BGh7P0JdxBFtxGCNjVvZq4IErQ9MQ9pK/qVNVZGI8pDbzTkP7uOKDLvoQWp7Ms5Pk6Nc3jvdqn3OnniXUHObDSAwVT+GJVTfrnRvW5UXUE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VrpDDnjv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790088605; c=relaxed/simple;
+	bh=+kinYMR0yMhivzrs8ORg4/MSyFKtdP9Mj3lZS+87das=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=OM2590BYN/sHFhLHewII3ObsAQHAXvMwuOYEUEj8W0BzQh6J+qgGHMTXe0GH7Ww9XyJvyv0BJmko8C+sxkU+ssJEIoyMRWPFD+zlBeoGO8uDM7b03M/Hgcui/dWeZq6rulZQd2NX0EMyOdVvX+12oYKv/pL1laH40tV+P2BnClM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=LfFhn0bo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VrpDDnjv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 067D31F000FF;
-	Tue, 22 Sep 2026 14:46:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790088406;
-	bh=fP7jaUZpZpC0yyACVfmaXPb1j6WuKsKDVWes/4ekrk8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VrpDDnjvzNuAu9gzfSTcFMvhVLbnl0oppvMJVDI/I5WA+v8OJygBw3M2VUTpl7KYI
-	 3CAm2B60beuoNd9YxRkyjJCrm2VRqNCEOM6G8KMCr4TwxXwHhVSiwTTi/PnyX4AlhK
-	 WCXMdBKLgc8qgsaVBi13t3vvxnB6W2UMF461BsPjWBYMtkA72l2ZONs2fFCfvaBjMQ
-	 H9r4yhHXx2Xz9nhDsxFYkY8S8Rtdm1PAoYjmd4lPgJKnTIX/NFcNHcdx02q7k0TNSZ
-	 PJsdHF/PzdDmbIWm0CVJ5+wsJjJ3jygHuefnZEtsI1Y5ejz4XXcxHve5Ux0Akp5E5e
-	 rUTlxuFshUCjg==
-From: Claudiu Beznea <claudiu.beznea@kernel.org>
-To: lpieralisi@kernel.org,
-	kwilczynski@kernel.org,
-	mani@kernel.org,
-	robh@kernel.org,
-	bhelgaas@google.com,
-	p.zabel@pengutronix.de
-Cc: claudiu.beznea@tuxon.dev,
-	linux-pci@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v4 2/8] PCI: rzg3s-host: Fix runtime PM handling in the NOIRQ suspend/resume phase
-Date: Tue, 22 Sep 2026 17:46:22 +0300
-Message-ID: <20260922144629.586997-3-claudiu.beznea@kernel.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260922144629.586997-1-claudiu.beznea@kernel.org>
-References: <20260922144629.586997-1-claudiu.beznea@kernel.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="LfFhn0bo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5C591F000FF;
+	Tue, 22 Sep 2026 14:50:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790088603;
+	bh=01MqJadwCBQgXfrsVSNifetfEEh5CE50BbKBB4eZOFQ=;
+	h=Subject:To:Cc:From:Date;
+	b=LfFhn0boA0+SiC/sdP59hRJ7Zybl0AqAFz6exlEQ+C15sYjNlaZ9fXrJYf8wbvH2J
+	 AkZT20w9etL12S4FT7zxdOUSN06WZOiUuL0rMN4zlAobRiBCRuH9k6bXAGUvcFUzs6
+	 0Biaw9efiLbALku4CTNNHDRqC5vRL+3WOhJoKqKc=
+Subject: FAILED: patch "[PATCH] mmc: hsq: Fix use-after-free in retry work" failed to apply to 6.1-stable tree
+To: fanwu01@zju.edu.cn,ulfh@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Tue, 22 Sep 2026 16:49:56 +0200
+Message-ID: <2026092256-daytime-musty-b7f1@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 
-The runtime PM documentation states the following:
-- During system suspend, pm_runtime_get_noresume() is called for every
-  device right before executing the subsystem-level .prepare() callback
-  (in device_prepare()). In addition, the PM core disables runtime PM for
-  every device right before executing the subsystem-level .suspend_late()
-  callback (in device_suspend_late()).
-- During system resume, pm_runtime_enable() is called for every device
-  right after executing the subsystem-level .resume_early() callback (in
-  device_resume_early()), and pm_runtime_put() is called right after
-  executing the subsystem-level .complete() callback (in
-  device_complete()).
+The patch below does not apply to the 6.1-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-The driver's .suspend_noirq() callback is invoked after .suspend_late(),
-while .resume_noirq() is invoked before .resume_early().
+To reproduce the conflict and resubmit, you may use the following commands:
 
-If:
-- the device is not part of the wake-up path, and
-- its runtime PM status is not RPM_SUSPENDED,
-the generic power domain .suspend_noirq()/.resume_noirq() callbacks
-(genpd_suspend_noirq()/genpd_resume_noirq()) invoke the driver's
-.suspend_noirq()/.resume_noirq() callbacks and call
-genpd_stop_dev()/genpd_start_dev() before and after them, respectively.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git checkout FETCH_HEAD
+git cherry-pick -x 5d132990475f02cfa1debe03d50b479432864ebd
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092256-daytime-musty-b7f1@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
-Calling genpd_stop_dev()/genpd_start_dev() allows devices whose power is
-controlled by generic power domains to be powered off and on during
-system suspend and resume, even though their runtime PM usage count does
-not reach zero.
+Possible dependencies:
 
-Since the runtime PM usage count is incremented in device_prepare() and
-decremented in device_complete(), runtime PM operations performed from
-the driver's .suspend_noirq()/.resume_noirq() callbacks are no-ops. The
-actual power transitions are handled by the generic power domain
-.suspend_noirq()/.resume_noirq() callbacks.
 
-Moreover, attempting to runtime resume a device while runtime PM is
-disabled may return -EACCES. This may cause system resume to fail when
-resuming after a failed Root Port reset, as described in a subsequent
-patch adding hot-plug support.
 
-Remove the runtime PM calls from the driver's
-.suspend_noirq()/.resume_noirq() callbacks and rely on the generic power
-domain callbacks to power the device off and on.
+thanks,
 
-Fixes: 7ef502fb35b2 ("PCI: Add Renesas RZ/G3S host controller driver")
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 5d132990475f02cfa1debe03d50b479432864ebd Mon Sep 17 00:00:00 2001
+From: Fan Wu <fanwu01@zju.edu.cn>
+Date: Fri, 14 Aug 2026 08:23:54 +0000
+Subject: [PATCH] mmc: hsq: Fix use-after-free in retry work
+
+mmc_hsq_pump_requests() queues retry_work when request_atomic() returns
+-EBUSY; today sdhci-sprd is the only consumer that implements
+request_atomic(). The work is embedded in a devm-allocated mmc_hsq, but
+is never cancelled during driver removal. Work still pending at unbind
+can therefore run after the devm allocation has been released and
+dereference hsq->mmc and hsq->mrq.
+
+Use devm_work_autocancel() to cancel and drain retry_work before the devm
+allocation is released. By the time devres cleanup begins,
+mmc_remove_host() has already stopped the host, so no new requests can
+arm the work.
+
+This issue was found by an in-house static analysis tool.
+
+Fixes: 6db96e5810e0 ("mmc: host: Introduce the request_atomic() for the host")
 Cc: stable@vger.kernel.org
-Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
----
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Signed-off-by: Ulf Hansson <ulfh@kernel.org>
 
-Changes in v4:
-- simplified the comments in rzg3s_pcie_suspend_noirq()/rzg3s_pcie_resume_noirq()
-
-Changes in v3:
-- none, this patch is new
-
- drivers/pci/controller/pcie-rzg3s-host.c | 22 ++++++++++------------
- 1 file changed, 10 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/pci/controller/pcie-rzg3s-host.c b/drivers/pci/controller/pcie-rzg3s-host.c
-index e1105b1f2652..0ef49bb5ab1a 100644
---- a/drivers/pci/controller/pcie-rzg3s-host.c
-+++ b/drivers/pci/controller/pcie-rzg3s-host.c
-@@ -1961,19 +1961,18 @@ static int rzg3s_pcie_suspend_noirq(struct device *dev)
- 	if (ret)
- 		goto config_reinit;
+diff --git a/drivers/mmc/host/mmc_hsq.c b/drivers/mmc/host/mmc_hsq.c
+index 79836705c176..57e172bd3487 100644
+--- a/drivers/mmc/host/mmc_hsq.c
++++ b/drivers/mmc/host/mmc_hsq.c
+@@ -7,6 +7,7 @@
+  * Author: Baolin Wang <baolin.wang@linaro.org>
+  */
  
--	ret = pm_runtime_put_sync(dev);
--	if (ret)
--		goto power_resets_restore;
-+	/*
-+	 * Since the power domain's genpd_suspend_noirq() will disable clocks,
-+	 * there is no need to manually invoke runtime PM API here.
-+	 */
++#include <linux/devm-helpers.h>
+ #include <linux/mmc/card.h>
+ #include <linux/mmc/host.h>
+ #include <linux/module.h>
+@@ -345,6 +346,7 @@ static const struct mmc_cqe_ops mmc_hsq_ops = {
  
- 	ret = rzg3s_sysc_config_func(sysc, RZG3S_SYSC_FUNC_ID_RST_RSM_B, 0);
- 	if (ret)
--		goto rpm_resume;
-+		goto power_resets_restore;
+ int mmc_hsq_init(struct mmc_hsq *hsq, struct mmc_host *mmc)
+ {
++	int ret;
+ 	int i;
+ 	hsq->num_slots = HSQ_NUM_SLOTS;
+ 	hsq->next_tag = HSQ_INVALID_TAG;
+@@ -363,7 +365,11 @@ int mmc_hsq_init(struct mmc_hsq *hsq, struct mmc_host *mmc)
+ 	for (i = 0; i < HSQ_NUM_SLOTS; i++)
+ 		hsq->tag_slot[i] = HSQ_INVALID_TAG;
  
- 	return 0;
+-	INIT_WORK(&hsq->retry_work, mmc_hsq_retry_handler);
++	ret = devm_work_autocancel(mmc_dev(mmc), &hsq->retry_work,
++				   mmc_hsq_retry_handler);
++	if (ret)
++		return ret;
++
+ 	spin_lock_init(&hsq->lock);
+ 	init_waitqueue_head(&hsq->wait_queue);
  
- 	/* Restore the previous state if any error happens */
--rpm_resume:
--	pm_runtime_resume_and_get(dev);
- power_resets_restore:
- 	reset_control_bulk_deassert(data->num_power_resets,
- 				    host->power_resets);
-@@ -2011,13 +2010,14 @@ static int rzg3s_pcie_resume_noirq(struct device *dev)
- 			goto assert_rst_rsm_b;
- 	}
- 
--	ret = pm_runtime_resume_and_get(dev);
--	if (ret)
--		goto assert_rst_rsm_b;
-+	/*
-+	 * Since the power domain's genpd_resume_noirq() will enable clocks,
-+	 * there is no need to manually invoke runtime PM API here.
-+	 */
- 
- 	ret = rzg3s_pcie_power_resets_deassert(host);
- 	if (ret)
--		goto rpm_put;
-+		goto assert_rst_rsm_b;
- 
- 	ret = rzg3s_pcie_host_setup(host, rzg3s_pcie_msi_hw_setup,
- 				    rzg3s_pcie_msi_hw_teardown);
-@@ -2033,8 +2033,6 @@ static int rzg3s_pcie_resume_noirq(struct device *dev)
- assert_power_resets:
- 	reset_control_bulk_assert(data->num_power_resets,
- 				  host->power_resets);
--rpm_put:
--	pm_runtime_put_sync(dev);
- assert_rst_rsm_b:
- 	rzg3s_sysc_config_func(sysc, RZG3S_SYSC_FUNC_ID_RST_RSM_B, 0);
- 	return ret;
--- 
-2.43.0
 
