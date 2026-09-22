@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC0C43BD22E
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 18:16:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46EF1488747
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 18:16:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790101010; cv=none; b=r8r/MdiNtASBksYkTxJJxHa+VIRnVxi+eksUA4vNavcX6cWa3C7qbjha5P+PLzg1vgCDedNNK9tiQ2HFWM3Jvh4bkcxM9X8MEtwvpP8o+6NCClkb2A0cTnec2gOlj+v+ke8CAbTS6TEDr0DQhEbXiNDQp6jyClB/93Yzj2ADtmI=
+	t=1790101011; cv=none; b=W4Bczr6fMkEZe4XOOJiQ8bn4gH9kHty8JuzAZN32pFF3lZjkPc3KD+YUyftcrxMuFv/5bcU0OTXangLIhwLQYYIiiJAu9Qdzfssin3/ITZBBu28MnBXI9qVR2IgZ3xru3KkZG/bitYdLNfpj4pD8+XJ9tanXUqKxmDpDqa9EpqQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790101010; c=relaxed/simple;
-	bh=LMlr/tSu+fM+THZuRlczf46JuQYcdCBuhKx6dxMS20U=;
+	s=arc-20240116; t=1790101011; c=relaxed/simple;
+	bh=7o+xQTati0WzfD3PV7C5CB34jTaauNMD3iGtt4c+Oac=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LXBgfXhtq32fS9ucRjohRTBXE/0e0l6BjvA5wDNqN8lY3RzHXzr477WnfYkn2QvsqlMk82rfUPh2knmw9gGCW2f0onB1wAKFhYPKO8fy7YGgJ0Bc2gHKz9Rgawb+bg79ff07cYDQco8V+VBczxIM8So7ZqF7X66ag82veUHqCl0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eGlj+kaF; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ONk3BFyZr60fVNlcGvMHs7AtjC+gVX15yixTiiKlc/J1fyBz5sOSpGZ77jvKnR+EBNN39YQOzRVqqr5QhSlRRL0VuHpGdbdMsF6HFqLBgBYFahmdP7CPC9PdCibbYASxloaqkRvt1tvcr8yUxiJsYNjGVN44lNGkq56UHZ+hHos=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E/gU4n4r; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eGlj+kaF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B3331F000FF;
-	Tue, 22 Sep 2026 18:16:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E/gU4n4r"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6676F1F00898;
+	Tue, 22 Sep 2026 18:16:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790101009;
-	bh=kbYlzvjvnqqbf4affvvPnC52Tv/rJfZYo8DkGbwjOcI=;
+	s=k20260515; t=1790101010;
+	bh=Og0bsNk51VxcOusHSBhNpF9GQ0Y99zGeEv4k7FfWXvQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eGlj+kaFDhbZV9xWhLnBr4iMb8uD5LCjOGK4mEF7n0SU99XFC7IbcmUBNSQjRN3gv
-	 Fs7d+gE7NvjJeilRet4PiVHfktWkIQLq5SXoOSxY0849sbXvmiA5Y+bElx31b9eD+a
-	 uB5xky+/GdCzFv6lom4ecZkv1IvKuqJ6vj2x7+cdm2zP+fgrTLEZVTGg4W5zfBOQIz
-	 gYfr+9bsZWsJNQTV8BIdUvJZ8kDF+cN4Rxa58ZK2yKIdBQ8ZoGwiik28QzEc7KBaCj
-	 9Mq5QIEShaPD/Orm1J6fRdkKbqCBGgI7rZZrR+ABV3lmeLEOOm61QEcA9ZnbepNA25
-	 Q52Zlm2xjNfcw==
+	b=E/gU4n4rlRJthHjuWQ6Pp7/HJovTCoe5wPnBDS0pJPQucwiOIcKWAKUqYiPhZGCro
+	 G4Jh6gRbH0u5JXrQ81OnLlmJfVjE6szpkNEPfpPGLPcmzTPHCWqvLgVAGvcpm4c3r8
+	 3g9inczauhfjvkODYH2CwCbM4UmHpAeLmdfGStiYrBfpyE1u2z+QBr686puuzVuIC5
+	 Oip6BKVFtWq+VvxPHUuIVendJsTC0UI+0bDw0V7O2tEQrVVhbluL2TFC1tMf3ENT2f
+	 vj9W4SuXfJ5UL5fiKMP5t4Fq1sT6nK4S24r2HhM6zbU296GYbvkyDfGXfEpwTCE3qg
+	 3kgFyBhWwBg7A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
 	Hans de Goede <hdegoede@redhat.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 1/4] workqueue: Add resource managed version of delayed work init
-Date: Tue, 22 Sep 2026 14:16:44 -0400
-Message-ID: <20260922181647.3522363-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 2/4] devm-helpers: Add resource managed version of work init
+Date: Tue, 22 Sep 2026 14:16:45 -0400
+Message-ID: <20260922181647.3522363-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092257-ranger-harmonize-17aa@gregkh>
+In-Reply-To: <20260922181647.3522363-1-sashal@kernel.org>
 References: <2026092257-ranger-harmonize-17aa@gregkh>
+ <20260922181647.3522363-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,85 +49,60 @@ Content-Transfer-Encoding: 8bit
 
 From: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>
 
-[ Upstream commit 0341ce5443949588e93581b49b934cdde2befbf8 ]
+[ Upstream commit 7a2c4cc537fa9f05fe90812e7d789b9faf7eb869 ]
 
-A few drivers which need a delayed work-queue must cancel work at driver
-detach. Some of those implement remove() solely for this purpose. Help
-drivers to avoid unnecessary remove and error-branch implementation by
-adding managed verision of delayed work initialization. This will also
-help drivers to avoid mixing manual and devm based unwinding when other
-resources are handled by devm.
+A few drivers which need a work-queue must cancel work at driver detach.
+Some of those implement remove() solely for this purpose. Help drivers to
+avoid unnecessary remove and error-branch implementation by adding managed
+verision of work initialization. This will also help drivers to avoid
+mixing manual and devm based unwinding when other resources are handled by
+devm.
 
-Reviewed-by: Hans de Goede <hdegoede@redhat.com>
 Signed-off-by: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>
-Link: https://lore.kernel.org/r/51769ea4668198deb798fe47fcfb5f5288d61586.1616506559.git.matti.vaittinen@fi.rohmeurope.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+Reviewed-by: Hans de Goede <hdegoede@redhat.com>
+Link: https://lore.kernel.org/r/94ff4175e7f2ff134ed2fa7d6e7641005cc9784b.1623146580.git.matti.vaittinen@fi.rohmeurope.com
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 Stable-dep-of: 5d132990475f ("mmc: hsq: Fix use-after-free in retry work")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/devm-helpers.h | 53 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 53 insertions(+)
- create mode 100644 include/linux/devm-helpers.h
+ include/linux/devm-helpers.h | 25 +++++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
 
 diff --git a/include/linux/devm-helpers.h b/include/linux/devm-helpers.h
-new file mode 100644
-index 0000000000000..f64e0c9f3763c
---- /dev/null
+index f64e0c9f3763c..50557f04ce802 100644
+--- a/include/linux/devm-helpers.h
 +++ b/include/linux/devm-helpers.h
-@@ -0,0 +1,53 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+#ifndef __LINUX_DEVM_HELPERS_H
-+#define __LINUX_DEVM_HELPERS_H
-+
-+/*
-+ * Functions which do automatically cancel operations or release resources upon
-+ * driver detach.
-+ *
-+ * These should be helpful to avoid mixing the manual and devm-based resource
-+ * management which can be source of annoying, rarely occurring,
-+ * hard-to-reproduce bugs.
-+ *
-+ * Please take into account that devm based cancellation may be performed some
-+ * time after the remove() is ran.
-+ *
-+ * Thus mixing devm and manual resource management can easily cause problems
-+ * when unwinding operations with dependencies. IRQ scheduling a work in a queue
-+ * is typical example where IRQs are often devm-managed and WQs are manually
-+ * cleaned at remove(). If IRQs are not manually freed at remove() (and this is
-+ * often the case when we use devm for IRQs) we have a period of time after
-+ * remove() - and before devm managed IRQs are freed - where new IRQ may fire
-+ * and schedule a work item which won't be cancelled because remove() was
-+ * already ran.
-+ */
-+
-+#include <linux/device.h>
-+#include <linux/workqueue.h>
-+
-+static inline void devm_delayed_work_drop(void *res)
+@@ -50,4 +50,29 @@ static inline int devm_delayed_work_autocancel(struct device *dev,
+ 	return devm_add_action(dev, devm_delayed_work_drop, w);
+ }
+ 
++static inline void devm_work_drop(void *res)
 +{
-+	cancel_delayed_work_sync(res);
++	cancel_work_sync(res);
 +}
 +
 +/**
-+ * devm_delayed_work_autocancel - Resource-managed work allocation
-+ * @dev: Device which lifetime work is bound to
-+ * @pdata: work to be cancelled when driver is detached
++ * devm_work_autocancel - Resource-managed work allocation
++ * @dev:	Device which lifetime work is bound to
++ * @w:		Work to be added (and automatically cancelled)
++ * @worker:	Worker function
 + *
 + * Initialize work which is automatically cancelled when driver is detached.
-+ * A few drivers need delayed work which must be cancelled before driver
++ * A few drivers need to queue work which must be cancelled before driver
 + * is detached to avoid accessing removed resources.
-+ * devm_delayed_work_autocancel() can be used to omit the explicit
++ * devm_work_autocancel() can be used to omit the explicit
 + * cancelleation when driver is detached.
 + */
-+static inline int devm_delayed_work_autocancel(struct device *dev,
-+					       struct delayed_work *w,
-+					       work_func_t worker)
++static inline int devm_work_autocancel(struct device *dev,
++				       struct work_struct *w,
++				       work_func_t worker)
 +{
-+	INIT_DELAYED_WORK(w, worker);
-+	return devm_add_action(dev, devm_delayed_work_drop, w);
++	INIT_WORK(w, worker);
++	return devm_add_action(dev, devm_work_drop, w);
 +}
 +
-+#endif
+ #endif
 -- 
 2.53.0
 
