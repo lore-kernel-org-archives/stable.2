@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1A0E5616C5
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 16:13:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50E5F566C4E
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 16:20:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790093616; cv=none; b=jPxh5cxH4HkeG9SQvmF7KUqxTPH7nH2zHW7Nkuc52D9kCZ6BG7fYQFNxg44ONotNb+B61KpKvwPxFIdDzdxDYaFbnPPxl30bU5c8UIMvoEjaUXkmj62Vx6wIpICfczjKXfFzKilyjdyndx1SAb0IHo6u3gVYtarEUnqiOhN8faM=
+	t=1790094017; cv=none; b=g9RRTeN7BlC6DsLOemJzwcrSXnUKyhu4Xlfkx2KPP3v3/bSjKKfSzVUXTZVUV7mqbBgCS4VOVqt12aeLmHKdrJwrP3TR1vmPjmcYlE5GsaGKQ6sz9gDgVqLKMmzqN46BtKJtxdF+KfwR3ATxdI92pI29Vk7VqCOOKTQYGat+i34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790093616; c=relaxed/simple;
-	bh=E1CK8hjQ9CtRgCjhh+PsJycWkLt262tQo1V6bmvBce4=;
+	s=arc-20240116; t=1790094017; c=relaxed/simple;
+	bh=Fy2FGKlJsh14oN/DQe+8VGJqWoS6YNSbu/tqvoG2XtU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=idawF02rhFGNsHpUN5a5jLYnuKrQY803xiqSj13SSCvkLsxvweDGVFahyIJG5ErH7JoxstiuZjIGa08LOWuESGr0ULl/FpSSbDua8U/En9taziALv3gSd/p2kfy++ojmN6MpLEeHbOhVIArsvNvsRB5p9w+gD8u69WGSwA35QMc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g4TI4JOb; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=hVUa46eXTZA/O3EHeRuHaAoll0ztCwxboCZgpghMNF/0GWBcYDMIWUjohJ2G0a3Nm+Szfp6zFbDLMdi35JC+8OXq+vqqpGAjDxU2i0xUGD3FfSglvb+aU2YPs3/NSCHL5JS29X8R/mxPLV0VqmqvZNI9mx5Iu3E7nbyQI0Z66mU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=id3lR8ba; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g4TI4JOb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F5791F00893;
-	Tue, 22 Sep 2026 16:13:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="id3lR8ba"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23DA21F000FF;
+	Tue, 22 Sep 2026 16:20:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790093614;
-	bh=Ogk4CiV9yASjCsNFRptxL/HCOfqBGJeiXSet3a+t2H4=;
+	s=k20260515; t=1790094015;
+	bh=YxyhnOqM/vZAJ21E2eyDBx8cvrIyUl0b1+tahYfTxzU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=g4TI4JOb8C5nsJga3ZlU3e91ig30FJGYzhZydok6qwWxc38p+ys8s7nIOMfYE0POm
-	 FgfUjyQ7LmcrsF75pKXYSnWlGhiVnD+Od09VJ+Uj8xizpiwMcbOKgkdlcQ3TyxnoWC
-	 v4c/XdLcaECr06AWt6GVamVqsn2snnwzbssKD4+0gvkuhhUC7qz0s/BDkUbeR73TUk
-	 IEzpSRiN3V3jj+h5nlSP9P0xVuFLe1qHWw/B/9y78TAkAawk+6SJ/NmOD9h8fDMdl8
-	 v6Grr4epar0FrAi7jlGb77EQyTTSCvhig10EQ2rgZnMy/SnVb9GcC8ugSm452IaCHQ
-	 dqs/2rZnleiXA==
+	b=id3lR8baHaX0++zJLa99Gzy/jJt/THFOxbOlV1qzMSSoTi4+bARd7prXOtu/DIaMq
+	 +hTL84+Ozrisl1Mt26wVHYRMqxd+WkuhJxqOHgZq11+38swBxNZQ4Md1Hb53H2f0FY
+	 5FX9jPJR0AbQgAhnAuLiDvCIvDo2IdjoESWRm+DXPyiKctiTXTBZ7c4UBhKt3zc70r
+	 8T7Bupjj+yQpRZEh8xOgNupknt4KXxRUA9i2OB5gwYdsbm9Yzp6ogj3IIkqp4nCVHM
+	 +JhgjTP8jjKziYUT4cdnUDH8vJ9lsmVmNOlADmMwqqOL6+jXGa6bPblje6Qbt2bqgi
+	 8GGYlkBvRYxww==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Shuhei Takeshita <jyohuku.alterego@gmail.com>,
-	Leon Romanovsky <leon@kernel.org>,
+Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Richard Acayan <mailingradian@gmail.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] IB/hfi1: Resolve the credit-return buffer through the send context's node
-Date: Tue, 22 Sep 2026 12:13:32 -0400
-Message-ID: <20260922161332.2979388-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/3] i2c: qcom-cci: Stop complaining about DT set clock rate
+Date: Tue, 22 Sep 2026 12:20:11 -0400
+Message-ID: <20260922162013.3007836-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260922161332.2979388-1-sashal@kernel.org>
-References: <2026092206-enjoyably-shrapnel-5c31@gregkh>
- <20260922161332.2979388-1-sashal@kernel.org>
+In-Reply-To: <2026092210-spookily-spirited-3697@gregkh>
+References: <2026092210-spookily-spirited-3697@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,57 +47,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Shuhei Takeshita <jyohuku.alterego@gmail.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-[ Upstream commit 975396b9e5a4028e649f4b9a6a5ca5dfb76a824b ]
+[ Upstream commit 8284750a182937bf805f703311501730f02eb40e ]
 
-hfi1_file_mmap()'s PIO_CRED case derives this context's credit-return
-page offset, and the DMA handle for it, from dd->cr_base[uctxt->numa_id].
-uctxt->numa_id is the node of whichever CPU the process happened to be
-running on, but the entry itself lives in the credit-return allocation of
-the send context's own node:
+It is common practice in the downstream and upstream CCI dt to set CCI
+clock rates to 19.2 MHz. It appears to be fairly common for initial code to
+set the CCI clock rate to 37.5 MHz.
 
-	sc->hw_free = &sc->dd->cr_base[sc->node].va[gc].cr[index];
+Applying the widely used CCI clock rates from downstream ought not to cause
+warning messages in the upstream kernel where our general policy is to
+usually copy downstream hardware clock rates across the range of Qualcomm
+drivers.
 
-and user send contexts are allocated with sc_alloc(dd, SC_USER, ...,
-dd->node), the HFI-local node.  On a multi-socket host with the process
-running off that node the two allocations differ, so the subtraction
-produces an offset into an unrelated buffer and the DMA handle belongs to
-the wrong allocation.
+Drop the warning it is pervasive across CAMSS users but doesn't add any
+information or warrant any changes to the DT to align the DT clock rate to
+the bootloader clock rate.
 
-Use the send context's own node for all three references.  The
-continuation lines are reindented at the same time; they mixed spaces and
-tabs.
-
-Fixes: 7724105686e7 ("IB/hfi1: add driver files")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shuhei Takeshita <jyohuku.alterego@gmail.com>
-Link: https://patch.msgid.link/20260809032743.2671579-2-jyohuku.alterego@gmail.com
-Signed-off-by: Leon Romanovsky <leon@kernel.org>
+Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+Link: https://lore.kernel.org/linux-arm-msm/20240824115900.40702-1-bryan.odonoghue@linaro.org
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
+Stable-dep-of: 7362a1553eb0 ("i2c: qcom-cci: fix device_node refcount leak in cci_probe()/cci_remove()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/infiniband/hw/hfi1/file_ops.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/i2c/busses/i2c-qcom-cci.c | 8 --------
+ 1 file changed, 8 deletions(-)
 
-diff --git a/drivers/infiniband/hw/hfi1/file_ops.c b/drivers/infiniband/hw/hfi1/file_ops.c
-index a02a90a9606cf..81e3cc7cbd47b 100644
---- a/drivers/infiniband/hw/hfi1/file_ops.c
-+++ b/drivers/infiniband/hw/hfi1/file_ops.c
-@@ -384,10 +384,10 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
- 		 * of enabled contexts > 64 and 128 respectively).
- 		 */
- 		cr_page_offset = ((u64)uctxt->sc->hw_free -
--			  	     (u64)dd->cr_base[uctxt->numa_id].va) &
--				   PAGE_MASK;
--		memvirt = dd->cr_base[uctxt->numa_id].va + cr_page_offset;
--		memdma = dd->cr_base[uctxt->numa_id].dma + cr_page_offset;
-+				  (u64)dd->cr_base[uctxt->sc->node].va) &
-+				 PAGE_MASK;
-+		memvirt = dd->cr_base[uctxt->sc->node].va + cr_page_offset;
-+		memdma = dd->cr_base[uctxt->sc->node].dma + cr_page_offset;
- 		memlen = PAGE_SIZE;
- 		flags &= ~VM_MAYWRITE;
- 		flags |= VM_DONTCOPY | VM_DONTEXPAND;
+diff --git a/drivers/i2c/busses/i2c-qcom-cci.c b/drivers/i2c/busses/i2c-qcom-cci.c
+index 85de659bb3627..22fae6a5a9022 100644
+--- a/drivers/i2c/busses/i2c-qcom-cci.c
++++ b/drivers/i2c/busses/i2c-qcom-cci.c
+@@ -602,14 +602,6 @@ static int cci_probe(struct platform_device *pdev)
+ 		}
+ 	}
+ 
+-	if (cci_clk_rate != cci->data->cci_clk_rate) {
+-		/* cci clock set by the bootloader or via assigned clock rate
+-		 * in DT.
+-		 */
+-		dev_warn(dev, "Found %lu cci clk rate while %lu was expected\n",
+-			 cci_clk_rate, cci->data->cci_clk_rate);
+-	}
+-
+ 	ret = cci_enable_clocks(cci);
+ 	if (ret < 0)
+ 		return ret;
 -- 
 2.53.0
 
