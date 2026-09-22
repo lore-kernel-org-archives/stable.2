@@ -1,47 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4808B4A689D
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 19:40:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47F8B4A5EA4
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 19:43:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790106047; cv=none; b=QpgQEN0p8w76cF+oJq0UD+VWZj0ZVAc25vWg/lkyrR+yBfDuxWJHkZ3pZwFNghSHnwFeY8KWsegY6kNJZhhklPQsbOz+t2FPBm+kXc9LFZqWLnZTbDRV7SrmwGk5AXxGHd+MGgyCJ684dJNbzOiMHim7TG1ZtN68U1t13OIGqwg=
+	t=1790106230; cv=none; b=RQgC9gjfrAP/NIQJwyphHhu0/yQvn3189Ex3Hw9EHOW1qTGLXh3q27Bg0DpBH0lmuQNH8LjSQ/mZj2pPRetf2o/5ESm8E+px0VwNpRNM9YOwBHHWzMdJy1b6KRw9EnDQ3thUGN1TNY0iKxpFSqo3kKsgC4KcySjo2AfIVeghnuM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790106047; c=relaxed/simple;
-	bh=et2jN+++Omxsk+CLG3DsOW56BP70mqB7g39YoC5HQFw=;
+	s=arc-20240116; t=1790106230; c=relaxed/simple;
+	bh=yj0xSGB2uWooKTiU0NsS6Vek7OLKQ2odKoPawS1eqZA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DG2i0iTqtYaixUHyxn+FjCd8Er+gO5irzlWbthPfkF66bj/HToYXfI3aWdpzecgNhFkWB689Fy4eyBsJrvL94T8ek/oVTX4Lt5nDkMWoR1Wj4sXU/CQYUI2r8CDLthOPkCmzNhv3l8UR8j5ObNCInPL77pwCcUslxUTx7idm8s8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AcvAV7zS; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=B4BBb62uz7JRBUu5qdbSt1ICapDFxNt/wBbsLsvJ227zOk7cM/h4vdf4+EEMSvYJAxLuoIME+uRmZd/SUUBOWUlNj844GK4pqS6BW5u0n4g03L6ee9lA8kbx4o9/6uP310SRE+1VF4kHKN9Df5awPWdxldi41QSj+kr5CUBLVRk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W+7vHvTc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AcvAV7zS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 421911F0089A;
-	Tue, 22 Sep 2026 19:40:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W+7vHvTc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5010B1F000FF;
+	Tue, 22 Sep 2026 19:43:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790106046;
-	bh=RzFWDLqukI7+amTjWanNlaVX40EdTN79ISq1+Qx7C2k=;
+	s=k20260515; t=1790106228;
+	bh=r+5mQkfZvZFrhLSJD9Z7ZquDA9cQOMs7529isHu1yI0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AcvAV7zSI4KHLKsHWPZksSQnUsk4q1FxvrtiNWbtoAc5HCnZQILjyqy7SirOkVK5L
-	 i7O/fqsfHdSYLpz0ANuHO7CA1NhCC4KNmmVHfSifyr+NEZ7DsYcLu+ZhDLCl946Ya+
-	 QoLZtM76BYo2nlIUMQ8nVxFO6dNLWKrEbyNHN2zpaV5CcPCBYoVn0pipsHFGFdAQno
-	 obBxh/yMdJg5tYkW+3s/J4JGrQFpS8Cf0IhleAzQb1DdGo3F+5GgzVTnXqWGYTXJN4
-	 RfusTNp1K9m5h4UM842syxh91TMv9wUNijBbVh7E5rSJSG7aNKlUtIlEXQ/e5VUSby
-	 cd2hgmqVTYJ+Q==
+	b=W+7vHvTclBIE9YlgTIS5tbbs+xda0sXFEWtKSrEau4F0zQioSTLm6/XDa5unGr2p+
+	 dcBslHd+jMOuF6XQZqPdlVirRxdT4SttdVf+FQ6y00KgMZx/wkHZe6KbHCUNeilPtd
+	 ADBaCBCBrR19Xh2eFzsFRL806EWl7xn3JNdmRaETHUpZ7a9tneDqXvKpmhKtpamTsd
+	 Ixv7dDqQZee0eh7/FbvmR9ySPZg/v3svdfnAnuj26+NQmy/wa4VUVg6mK+49L/4KO3
+	 b9aOV+9Wa/5NGDRptZ+VuaFp/VoIyKIQa0IX0t/BqkYdKjtWZhPsUA/uCrLuiqjZqh
+	 p6JuzjJQ0V2Tg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Paulo Alcantara <pc@manguebit.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Tom Talpey <tom@talpey.com>,
-	Stefan Metzmacher <metze@samba.org>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Bharath SM <bharathsm@microsoft.com>,
+Cc: Yibo Tan <lhfff@tju.edu.cn>,
+	Guenter Roeck <linux@roeck-us.net>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] smb: client: fix smbd_connection leak on cifs_get_tcp_session() error
-Date: Tue, 22 Sep 2026 15:40:43 -0400
-Message-ID: <20260922194043.23710-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] hwmon: (pwm-fan) Stop RPM timer before freeing tach data
+Date: Tue, 22 Sep 2026 15:43:46 -0400
+Message-ID: <20260922194346.51836-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092222-drool-acetone-c3a8@gregkh>
-References: <2026092222-drool-acetone-c3a8@gregkh>
+In-Reply-To: <2026092256-reword-critter-a4b6@gregkh>
+References: <2026092256-reword-critter-a4b6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,47 +45,86 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Paulo Alcantara <pc@manguebit.org>
+From: Yibo Tan <lhfff@tju.edu.cn>
 
-[ Upstream commit e75c96157d45e498970158c8f7373d90102e33b9 ]
+[ Upstream commit 26d5ff79768548efb1e604bb6e8697c101e06269 ]
 
-When an RDMA connection is successfully established via
-smbd_get_connection() but cifs_get_tcp_session() later fails (e.g.
-kthread_create() returns an error), the error path frees tcp_ses
-without first destroying the smbd_connection.
+sample_timer() rearms the RPM timer and accesses the devm-managed
+ctx->tachs and ctx->pulses_per_revolution arrays. The cleanup action
+which stops the timer is registered before those arrays are allocated.
 
-Fix this by calling smbd_destroy() in the out_err cleanup path before
-kfree(tcp_ses).  smbd_destroy() safely handles the case where
-smbd_conn is NULL, so it can be called unconditionally.
+Since devres releases entries in reverse order, driver detach can free
+the arrays before pwm_fan_cleanup() shuts down the timer. A timer expiry
+in that window accesses the freed tach data.
 
-Closes: https://sashiko.dev/#/patchset/20260912165503.521597-1-pc%40manguebit.org
-Fixes: 2f8946464b11 ("CIFS: SMBD: Upper layer connects to SMBDirect session")
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-Cc: Tom Talpey <tom@talpey.com>
-Cc: Stefan Metzmacher <metze@samba.org>
-Cc: Shyam Prasad N <sprasad@microsoft.com>
-Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
-Cc: Bharath SM <bharathsm@microsoft.com>
-Cc: Namjae Jeon <linkinjeon@kernel.org>
+With a KASAN kernel, a test-only kprobe delayed entry to
+pwm_fan_cleanup() while normal sysfs unbind ran. Each of three runs
+reported three four-byte reads and two four-byte writes in sample_timer()
+after its backing devm allocations had been freed. The helper did not
+invoke the timer callback, cleanup actions or free functions.
+
+With the fix, three matching unbind runs completed without KASAN, BUG,
+WARNING, Oops or panic. Instrumentation confirmed that timer retirement
+completed before the first timer backing allocation was released.
+
+Split timer retirement from the power cleanup and register its devres
+action after the timer backing data and IRQ actions are installed. This
+preserves the early power rollback action while ensuring the timer is
+retired before its backing data is released. Use timer_shutdown_sync()
+because the callback can rearm itself.
+
+Fixes: 01695410d452 ("hwmon: (pwm-fan) Store tach data separately")
 Cc: stable@vger.kernel.org
+Assisted-by: Codex:GPT-5
+Signed-off-by: Yibo Tan <lhfff@tju.edu.cn>
+Link: https://patch.msgid.link/20260911071809.130151-1-lhfff@tju.edu.cn
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+[ adapted cleanup changes to the older pwm_fan_pwm_disable() and pwm_fan_shutdown() implementations. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/cifs/connect.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/hwmon/pwm-fan.c | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
 
-diff --git a/fs/cifs/connect.c b/fs/cifs/connect.c
-index a95b9d2318fa2..db54cbbe8cc5e 100644
---- a/fs/cifs/connect.c
-+++ b/fs/cifs/connect.c
-@@ -2676,6 +2676,7 @@ cifs_get_tcp_session(struct smb_vol *volume_info)
- 			kfree(tcp_ses->hostname);
- 		if (tcp_ses->ssocket)
- 			sock_release(tcp_ses->ssocket);
-+		smbd_destroy(tcp_ses);
- 		kfree(tcp_ses);
+diff --git a/drivers/hwmon/pwm-fan.c b/drivers/hwmon/pwm-fan.c
+index f12b9a28a232d..05ba32d44230e 100644
+--- a/drivers/hwmon/pwm-fan.c
++++ b/drivers/hwmon/pwm-fan.c
+@@ -291,7 +291,13 @@ static void pwm_fan_pwm_disable(void *__ctx)
+ 
+ 	ctx->pwm_state.enabled = false;
+ 	pwm_apply_state(ctx->pwm, &ctx->pwm_state);
+-	del_timer_sync(&ctx->rpm_timer);
++}
++
++static void pwm_fan_timer_cleanup(void *__ctx)
++{
++	struct pwm_fan_ctx *ctx = __ctx;
++
++	timer_shutdown_sync(&ctx->rpm_timer);
+ }
+ 
+ static int pwm_fan_probe(struct platform_device *pdev)
+@@ -424,6 +430,10 @@ static int pwm_fan_probe(struct platform_device *pdev)
  	}
- 	return ERR_PTR(rc);
+ 
+ 	if (ctx->tach_count > 0) {
++		ret = devm_add_action_or_reset(dev, pwm_fan_timer_cleanup, ctx);
++		if (ret)
++			return ret;
++
+ 		ctx->sample_start = ktime_get();
+ 		mod_timer(&ctx->rpm_timer, jiffies + HZ);
+ 
+@@ -490,6 +500,9 @@ static int pwm_fan_disable(struct device *dev)
+ 
+ static void pwm_fan_shutdown(struct platform_device *pdev)
+ {
++	struct pwm_fan_ctx *ctx = platform_get_drvdata(pdev);
++
++	pwm_fan_timer_cleanup(ctx);
+ 	pwm_fan_disable(&pdev->dev);
+ }
+ 
 -- 
 2.53.0
 
