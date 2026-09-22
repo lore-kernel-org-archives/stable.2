@@ -1,44 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 897EC541E75
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 12:19:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C1B6542809
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 12:19:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790079553; cv=none; b=BoqCxKt8M9P7QzNeZDLfSMu94lTuizpxwtRd05pVbvHHrFvJNCZzvMM2xMhfUfRMikErOvQgg/Vu4RJkWsLpDDRTihp/AEG0KBdJaIUs2oT/m9zQ4R8NMrADUv2w8UPpYUNAx73p6EAq50T/OZK4ZnKajiccAxu/1FPdCqsBQrM=
+	t=1790079559; cv=none; b=dVtsrgxJvhKp0wtyfcYuasuVv7fbwRMsGBmM9BQWoZOhp7B2X6Qf2ns+QLQWxgzxz9mY3LDSvBK+TMaf0N+CSbyJsDsWxgwIg+c2G7VknxVdJNiA6RNWXnoj8spkC3qLU7kGL3xZTrIgoHB+hvtOtzS7oNp8l17QGwVGpXXIldc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790079553; c=relaxed/simple;
-	bh=hy5cywyBrX35BSrBugIuTatJyEVhOuALUCSqgqRuOA4=;
+	s=arc-20240116; t=1790079559; c=relaxed/simple;
+	bh=CX5oUVuN8qssSU5rS+knkqdOyl8P7Vp/oqzWrlJmyV4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=B+IwhwRkpbr6SJnp8A5iysNd1JiZTxp/ymDkbvh2MgyLU+ou2RQbtBUPqFfwU/5iwn6i6vuzY6lEoEapxiKc6qQjV6h14a71DJdhlXJ4zZJKmwZ7CyZiBwjIJi+EF2ic21f63kYq5Moerkc461hG9tgMZ1t5fd0cBshf8Vtl/t8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lE1m5Vg4; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Sv1e9e9kQm//WPJQTazKbt2WVSUokLeGKgReMz4Egaztlz9/mO/wWVWS1ccW74wO501nFAO7Oj6BN7d2vbYpeGjENGpcKCrCwu3CXnxXB/7XJbX4gZ/5nDRCmara0JkO/IBA2T/Toihmo6qQX3bk8rjss9umxfKcVYNWP7seyMw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G+qRe+l7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lE1m5Vg4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8FAC1F000FF;
-	Tue, 22 Sep 2026 12:19:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G+qRe+l7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 632131F00893;
+	Tue, 22 Sep 2026 12:19:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790079552;
-	bh=x7gbyzhyHekExF/wXMz8tyTFNXf7bkVWg490tH0i7Es=;
+	s=k20260515; t=1790079557;
+	bh=E544rzttkM0A4PMMSv1gowZ4+M8RJrn6IQuTZbRq/8w=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lE1m5Vg4IZXOW/rr5go+hB7PdM8Ae1/iZ9ZIxQr+xBIkgGvxyJXiq11gTAHipYL8z
-	 UCwr/8WQsdk4OzOgdb3EgnNT1i0qo068x/klji/h+lMAU7hIzBu5+7sIlbouS1CM13
-	 GKJzLvH7KqNEhMzaXZuNsgfRxeAlCFqTSUdKCbB/H/SJCJBdHPieU8mWH8A1AL45mX
-	 y/fAQGXg3fRY2LSvQMKhBtna/zd5njS8rXtfyWnLLzBdxMjOl0aWvwmTD/gIUtZSYd
-	 GZuOiPzmXknfzsC2OtWZT978H/gsTCIHp+hJv3AkbnGg+uw0gPYja4Uo+/7868WxNG
-	 1MF2g5nqkA29Q==
+	b=G+qRe+l7HQ0bZyKtNhatizYPtVLUJz52T15+BIQoCGSQoI4rJFq/V0AD5EY+Dnn/b
+	 sNw6c5TyUyhNwAOIja7CF4BXkIMIdnc3Fe6Md2hy64YUN68WYA9S8xlrgKRCf9oG7T
+	 P2MtwsAaKXePM20AD0q95kPgSIXKK8EbCqGqwSHPlRcVpNmmALmAhdAI/tkn2/QGIj
+	 f6yyz6fcJSSk3LT+92hHKhedJr9HJAWtWOoAU8qH55iD1hzyBrFqIUvwOrz9eAytht
+	 FqJ9T5lh7yWftKJ3J+0A4okaEYTFid699NURBJPLaB6mNmkqw7cH/piAP6agWuG6Ab
+	 rXbxazgtrG8Dw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: David Howells <dhowells@redhat.com>,
-	Michael Mulqueen <mike@method-b.uk>,
-	Dominique Martinet <asmadeus@codewreck.org>,
+Cc: Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] 9p: Fix v9fs_issue_write() to update i_size and remote_i_size
-Date: Tue, 22 Sep 2026 08:19:07 -0400
-Message-ID: <20260922121907.2213071-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] ALSA: usb-audio: Optimize the copy of packet sizes for implicit fb handling
+Date: Tue, 22 Sep 2026 08:19:14 -0400
+Message-ID: <20260922121915.2213648-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260922121907.2213071-1-sashal@kernel.org>
-References: <2026092222-rubbing-overplay-5a22@gregkh>
- <20260922121907.2213071-1-sashal@kernel.org>
+In-Reply-To: <2026092245-renewably-elevate-ca0d@gregkh>
+References: <2026092245-renewably-elevate-ca0d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,56 +44,64 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: David Howells <dhowells@redhat.com>
+From: Takashi Iwai <tiwai@suse.de>
 
-[ Upstream commit c60ae98c5aa64021751b38ab1313b19d620bf640 ]
+[ Upstream commit 36adb51ac0b19edb32ffeea3fe66b174bad25ead ]
 
-Fix v9fs_issue_write() to update i_size and remote_i_size to the new size
-of the server file if we made it larger, using the start fpos and the count
-returned by p9_client_write() to calculate the new minimum file size.
+We did manual copies over loop for the packet data update of the
+implicit feedback, but this can be optimized with a simple memcpy().
 
-This assumes that if the 9P server makes a short write (say it hits
-ENOSPC), a reduced count is returned.
+Along with it, change the data type of snd_usb_packet_info struct to
+align with other (from uint32_t to int).
 
-Fixes: 5fb70e7275a6 ("netfs, 9p: Implement helpers for new write code")
-Reported-by: Michael Mulqueen <mike@method-b.uk>
-Closes: https://lore.kernel.org/r/fbb9e395-1e07-4212-8f70-23f3cd498074@method-b.uk/
-Cc: stable@vger.kernel.org
-Signed-off-by: David Howells <dhowells@redhat.com>
-Message-ID: <2226525.1789118704@warthog.procyon.org.uk>
-Signed-off-by: Dominique Martinet <asmadeus@codewreck.org>
-[ replaced unavailable netfs_write_sizes() with i_size_write() and direct remote_i_size updates under inode->i_lock. ]
+No functional changes but only code optimizations.
+
+Link: https://patch.msgid.link/20260216141209.1849200-3-tiwai@suse.de
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Stable-dep-of: 76a986c980bb ("ALSA: usb-audio: Clamp implicit feedback packet count to URB capacity")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/9p/vfs_addr.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ sound/usb/card.h     | 2 +-
+ sound/usb/endpoint.c | 6 +++---
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/fs/9p/vfs_addr.c b/fs/9p/vfs_addr.c
-index d6107ac50e882..5bf1e5caaa623 100644
---- a/fs/9p/vfs_addr.c
-+++ b/fs/9p/vfs_addr.c
-@@ -54,9 +54,21 @@ static void v9fs_begin_writeback(struct netfs_io_request *wreq)
- static void v9fs_issue_write(struct netfs_io_subrequest *subreq)
- {
- 	struct p9_fid *fid = subreq->rreq->netfs_priv;
-+	struct inode *inode = subreq->rreq->inode;
-+	struct netfs_inode *ictx = netfs_inode(inode);
- 	int err, len;
+diff --git a/sound/usb/card.h b/sound/usb/card.h
+index 94404c24d240d..e34d92d576a27 100644
+--- a/sound/usb/card.h
++++ b/sound/usb/card.h
+@@ -90,7 +90,7 @@ struct snd_usb_endpoint {
+ 	struct snd_urb_ctx urb[MAX_URBS];
  
- 	len = p9_client_write(fid, subreq->start, &subreq->io_iter, &err);
-+	if (len > 0) {
-+		unsigned long long end = subreq->start + len;
-+
-+		spin_lock(&inode->i_lock);
-+		if (end > i_size_read(inode))
-+			i_size_write(inode, end);
-+		if (end > ictx->remote_i_size)
-+			ictx->remote_i_size = end;
-+		spin_unlock(&inode->i_lock);
-+	}
- 	netfs_write_subrequest_terminated(subreq, len ?: err, false);
- }
+ 	struct snd_usb_packet_info {
+-		uint32_t packet_size[MAX_PACKS_HS];
++		int packet_size[MAX_PACKS_HS];
+ 		int packets;
+ 	} next_packet[MAX_URBS];
+ 	unsigned int next_packet_head;	/* ring buffer offset to read */
+diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
+index bdf0e724d4187..3f46b82561966 100644
+--- a/sound/usb/endpoint.c
++++ b/sound/usb/endpoint.c
+@@ -470,7 +470,7 @@ int snd_usb_queue_pending_output_urbs(struct snd_usb_endpoint *ep,
+ 	while (ep_state_running(ep)) {
+ 		struct snd_usb_packet_info *packet;
+ 		struct snd_urb_ctx *ctx = NULL;
+-		int err, i;
++		int err;
  
+ 		scoped_guard(spinlock_irqsave, &ep->lock) {
+ 			if ((!implicit_fb || ep->next_packet_queued > 0) &&
+@@ -490,8 +490,8 @@ int snd_usb_queue_pending_output_urbs(struct snd_usb_endpoint *ep,
+ 		/* copy over the length information */
+ 		if (implicit_fb) {
+ 			ctx->packets = packet->packets;
+-			for (i = 0; i < packet->packets; i++)
+-				ctx->packet_size[i] = packet->packet_size[i];
++			memcpy(ctx->packet_size, packet->packet_size,
++			       packet->packets * sizeof(packet->packet_size[0]));
+ 		}
+ 
+ 		/* call the data handler to fill in playback data */
 -- 
 2.53.0
 
