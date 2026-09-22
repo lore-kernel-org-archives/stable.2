@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06B1D51DDF4
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 16:20:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40E19566C4E
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 16:20:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790094019; cv=none; b=d8DmumnXdDg3XK1GX7P7YeXKOmK4s67y/G3RqKKYyD32F0wfeYf6adpLmyKp5Gj4eDNrwgFP54g3GvkWKILnhlD1VQ3CXd2ACCYninnvwKEUQWNkav7xS3vKQ+7C45AFipcrsC1nsEqGbBJYkI1RX4tki0dneVTAizvkc6JBdjU=
+	t=1790094019; cv=none; b=jhcDkEGizUJPhOsvIqlfGWJrDwE9F3LP/bFKBtAQ09i1mbXV6bkDpueGN1jC0Rfw71fpItSAX83op2GWM0nqfT61d5FtDF+QgR8fnV3C7Keqoif2i0J8+g+aEMOD/unmHxxx3+O6je0TdL01G8Gjk0+va6MnecGj8iay+HDBFWY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790094019; c=relaxed/simple;
-	bh=SIoWBTjZeP+48zqUjEEm3VLLwg8I8h6f5ol13J+qkiQ=;
+	bh=gX6B/1xHS5VyyfHXVfZhgozeS7ergQo+Ay+JkwaFffY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VpSCcW6qD8aOBmNk4jsHSEBeD2dMxdsOJi2imNcoulgRnSA3BykGZTEF+bbZ4+HtZYn4p5DQ0XLvY/uJi2gAA+cBtM1Ys2HmCF96myUADafZA6Zh9kp2a/AmqdGbKTPwomEvznTGp8nH3JJaYgv1joENjjmiSWhGsUG6ePuZcjI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o1Z+JQnR; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=MW3cSiTPUM3lIVkeFZ9zU1+OshAxR6YuD40OaiubN67OcSCsue8wlFXrPiWBKC02J1nYsa5Ha1UeDFg0jJkQeq6bZ1e0mOiyUINgugDHMZOuABHirkfbDS/FyCpLuKf5FR9zZCCTBYwUUfkBGQin6kNaHnat9xxQL2TG3TJMx9E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CvQkvVFN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o1Z+JQnR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A8931F00899;
-	Tue, 22 Sep 2026 16:20:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CvQkvVFN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72DA01F0089A;
+	Tue, 22 Sep 2026 16:20:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1790094017;
-	bh=SyV2wueMb0pT7jSlibdnGZLneAZ0EYXI/WhKLc3QyBw=;
+	bh=LseOoqMxol0ih6YWbXsDxlbP3IOV64LYPBmSqVxfLw8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=o1Z+JQnRiP9O7cu9rqupaHM5IJ7nPUNMbt5gPprwwl4jQO2RJ6bL1F0inWJY6c1J8
-	 nXvIlnA3840mJH64tHVOws7/koSdvRCItF9etQ7Ls2z2HqEDwC5MgrMxQ2sLN7nQTO
-	 LyHWBhpQRh5CjwWyAbuq39Ykny/mAB3Wolq6GO2Xw90xNGL05ZK7+C1YbxtBKupvHx
-	 Vr8yYbPpzSLPcKH7Hv5tof1XYMY5ICdqazGZOglpyJu5b854GucqfsC8Dh0tlac2FP
-	 F9MG5Fpir8Hdsh8qlN48Wy7S41hBww+zj5arvRd+lsR13rJjNmC9FoCtl7DZBU2xxV
-	 yEhD9PVMCZr0w==
+	b=CvQkvVFN/qDsyrquqEsqh4T/SR3pwORKiiKHge5OnvJkgYBYn1NQvLeC/gSvOnLo0
+	 cDcr8tK3KvdA/+opx29CFoj76pCjvFrMCq2hjzqi/SsfFZmKV+/9HD8KXMZcnmj93P
+	 n8CTVRK+ZjQY81w0jF5gWradL1U1Uk7J3PcmrozN+Ci1QrZ25He11u1FqjJkMQ3CXM
+	 nPmfeNdjhPRehqME6YWOlJ7BNiDu1/46zOQ00pxew9XxEi0beIkUQ9oq0hpsaHn02t
+	 w9adQqhb+fq1lG0psWkJF2TMrYtUf5kk1ZXe1RLOapio5pRu5BBBnoY7LHiu75QEOu
+	 0362PSqWOP/mQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Liu Zhenlong <dragonliu2018@gmail.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Andi Shyti <andi.shyti@kernel.org>,
+Cc: Shuhei Takeshita <jyohuku.alterego@gmail.com>,
+	Leon Romanovsky <leon@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 3/3] i2c: qcom-cci: fix device_node refcount leak in cci_probe()/cci_remove()
-Date: Tue, 22 Sep 2026 12:20:13 -0400
-Message-ID: <20260922162013.3007836-3-sashal@kernel.org>
+Subject: [PATCH 5.10.y 2/2] IB/hfi1: Resolve the credit-return buffer through the send context's node
+Date: Tue, 22 Sep 2026 12:20:15 -0400
+Message-ID: <20260922162015.3008344-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260922162013.3007836-1-sashal@kernel.org>
-References: <2026092210-spookily-spirited-3697@gregkh>
- <20260922162013.3007836-1-sashal@kernel.org>
+In-Reply-To: <20260922162015.3008344-1-sashal@kernel.org>
+References: <2026092207-spotless-rambling-6fce@gregkh>
+ <20260922162015.3008344-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,106 +46,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Liu Zhenlong <dragonliu2018@gmail.com>
+From: Shuhei Takeshita <jyohuku.alterego@gmail.com>
 
-[ Upstream commit 7362a1553eb09a8cdf8be7e509bd5309a8342486 ]
+[ Upstream commit 975396b9e5a4028e649f4b9a6a5ca5dfb76a824b ]
 
-The of_node_put() matching of_node_get() runs after i2c_del_adapter(),
-whose trailing memset() zeroes adap->dev and thus adap->dev.of_node,
-making the put a no-op and leaking the node on every adapter removal
-and error cleanup.
+hfi1_file_mmap()'s PIO_CRED case derives this context's credit-return
+page offset, and the DMA handle for it, from dd->cr_base[uctxt->numa_id].
+uctxt->numa_id is the node of whichever CPU the process happened to be
+running on, but the entry itself lives in the credit-return allocation of
+the send context's own node:
 
-Use a devm action: the pointer is captured at registration, out of
-reach of that memset(), and devres runs the put once on probe failure
-and detach, replacing the three manual of_node_put() calls.  The
-setup loop uses the scoped iterator form so the child node is released
-automatically if devm_add_action_or_reset() fails mid-loop.
+	sc->hw_free = &sc->dd->cr_base[sc->node].va[gc].cr[index];
 
-Suggested-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Fixes: 02a4a69667a2 ("i2c: qcom-cci: don't put a device tree node before i2c_add_adapter()")
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Liu Zhenlong <dragonliu2018@gmail.com>
-Cc: <stable@vger.kernel.org> # v5.17+
-Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
-Link: https://patch.msgid.link/20260818175750.4205-1-dragonliu2018@gmail.com
+and user send contexts are allocated with sc_alloc(dd, SC_USER, ...,
+dd->node), the HFI-local node.  On a multi-socket host with the process
+running off that node the two allocations differ, so the subtraction
+produces an offset into an unrelated buffer and the DMA handle belongs to
+the wrong allocation.
+
+Use the send context's own node for all three references.  The
+continuation lines are reindented at the same time; they mixed spaces and
+tabs.
+
+Fixes: 7724105686e7 ("IB/hfi1: add driver files")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shuhei Takeshita <jyohuku.alterego@gmail.com>
+Link: https://patch.msgid.link/20260809032743.2671579-2-jyohuku.alterego@gmail.com
+Signed-off-by: Leon Romanovsky <leon@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/i2c/busses/i2c-qcom-cci.c | 20 +++++++++++---------
- 1 file changed, 11 insertions(+), 9 deletions(-)
+ drivers/infiniband/hw/hfi1/file_ops.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/i2c/busses/i2c-qcom-cci.c b/drivers/i2c/busses/i2c-qcom-cci.c
-index 87a4c2d0ee9cd..c0309bf61595b 100644
---- a/drivers/i2c/busses/i2c-qcom-cci.c
-+++ b/drivers/i2c/busses/i2c-qcom-cci.c
-@@ -520,10 +520,14 @@ static const struct dev_pm_ops qcom_cci_pm = {
- 	SET_RUNTIME_PM_OPS(cci_suspend_runtime, cci_resume_runtime, NULL)
- };
- 
-+static void cci_put_of_node(void *data)
-+{
-+	of_node_put(data);
-+}
-+
- static int cci_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
--	struct device_node *child;
- 	struct resource *r;
- 	struct cci *cci;
- 	int ret, i;
-@@ -539,7 +543,7 @@ static int cci_probe(struct platform_device *pdev)
- 	if (!cci->data)
- 		return -ENOENT;
- 
--	for_each_available_child_of_node(dev->of_node, child) {
-+	for_each_available_child_of_node_scoped(dev->of_node, child) {
- 		struct cci_master *master;
- 		u32 idx;
- 
-@@ -560,6 +564,9 @@ static int cci_probe(struct platform_device *pdev)
- 		master->adap.algo = &cci_algo;
- 		master->adap.dev.parent = dev;
- 		master->adap.dev.of_node = of_node_get(child);
-+		ret = devm_add_action_or_reset(dev, cci_put_of_node, child);
-+		if (ret)
-+			return ret;
- 		master->master = idx;
- 		master->cci = cci;
- 
-@@ -631,10 +638,8 @@ static int cci_probe(struct platform_device *pdev)
- 			continue;
- 
- 		ret = i2c_add_adapter(&cci->master[i].adap);
--		if (ret < 0) {
--			of_node_put(cci->master[i].adap.dev.of_node);
-+		if (ret < 0)
- 			goto error_i2c;
--		}
- 	}
- 
- 	return 0;
-@@ -644,10 +649,8 @@ static int cci_probe(struct platform_device *pdev)
- 	pm_runtime_dont_use_autosuspend(dev);
- 
- 	for (--i ; i >= 0; i--) {
--		if (cci->master[i].cci) {
-+		if (cci->master[i].cci)
- 			i2c_del_adapter(&cci->master[i].adap);
--			of_node_put(cci->master[i].adap.dev.of_node);
--		}
- 	}
- error:
- 	disable_irq(cci->irq);
-@@ -665,7 +668,6 @@ static void cci_remove(struct platform_device *pdev)
- 	for (i = 0; i < cci->data->num_masters; i++) {
- 		if (cci->master[i].cci) {
- 			i2c_del_adapter(&cci->master[i].adap);
--			of_node_put(cci->master[i].adap.dev.of_node);
- 			cci_halt(cci, i);
- 		}
- 	}
+diff --git a/drivers/infiniband/hw/hfi1/file_ops.c b/drivers/infiniband/hw/hfi1/file_ops.c
+index 322060f7d289a..4a0745cb26827 100644
+--- a/drivers/infiniband/hw/hfi1/file_ops.c
++++ b/drivers/infiniband/hw/hfi1/file_ops.c
+@@ -425,10 +425,10 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
+ 		 * of enabled contexts > 64 and 128 respectively).
+ 		 */
+ 		cr_page_offset = ((u64)uctxt->sc->hw_free -
+-			  	     (u64)dd->cr_base[uctxt->numa_id].va) &
+-				   PAGE_MASK;
+-		memvirt = dd->cr_base[uctxt->numa_id].va + cr_page_offset;
+-		memdma = dd->cr_base[uctxt->numa_id].dma + cr_page_offset;
++				  (u64)dd->cr_base[uctxt->sc->node].va) &
++				 PAGE_MASK;
++		memvirt = dd->cr_base[uctxt->sc->node].va + cr_page_offset;
++		memdma = dd->cr_base[uctxt->sc->node].dma + cr_page_offset;
+ 		memlen = PAGE_SIZE;
+ 		flags &= ~VM_MAYWRITE;
+ 		flags |= VM_DONTCOPY | VM_DONTEXPAND;
 -- 
 2.53.0
 
