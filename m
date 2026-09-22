@@ -1,218 +1,103 @@
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70F31539774;
-	Tue, 22 Sep 2026 11:07:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2040539774;
+	Tue, 22 Sep 2026 11:08:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790075265; cv=none; b=QR4HHAUhTDvebxzhVBMKSy55K2XXs0Vura4Vl12Uain/ddRcxvR2tlj6FamqmUhaCFj21YXI346O/eEMLRQS/r+P39OkxVLZdEOiM2x5XFc1vQo1n8eTQnH2zm5OF7fRJAmp9Qr9QbqjErllY4ZnCO3uMs9z9W+QjSgpGC+tYUw=
+	t=1790075338; cv=none; b=OxErr+vDBTqDAenKhusAzbGWpZ02kDe3kO+FPln7gkjcslDziVLGRtGylBMatWNs9gzlw83Z0Mx1hZMhX4RQfluzcxEE6YOoOsrqU+goLbkr2Y5hvD3gZi8yQ8+sgzjCmVWOa7m8H/0aiCYH++KEB+IgK+gRtdwEq9Hq5eTa3n0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790075265; c=relaxed/simple;
-	bh=SHvtGxXgNMvGyygQAiQ1q6w0L9s2Np1w5ba1MsQivro=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=fU0G5QK4WfVI1uDGR05uV6AVBKqIJm4FNrjqFtNqOxO0GGfNUW8RUCWvmhiUd5XGxcOu2EvEK3LgF4qRk8HDQBTY9M2GjVprt/YIEwbsi67mSxlmGm0rHa8fE96KV+dESoBZ2paJVAroLJF8VBbBFo3g6f7Gb9d1VaGD5JtXyN8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=YErEVXBR; arc=none smtp.client-ip=45.254.49.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1790075338; c=relaxed/simple;
+	bh=9HJlPMXZt1Oe7sRztWY6mkw2AEFppgWFpyodapDPlmQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lNCS8ZZMPRT6yfS+9NKcS/hWL5Lq9F958UgL7Q/n8J0smE4N5WVMqA/hfNdj/pLQ2Pk21L6sscpEZyXwDRiQnh30TNJni2ZJfkexpW9vmhrC/ZG+oArI86eDvo4DLVkcmJ5XPSU076eFmM9YtottmWzRqA0vbjBGPKxzL7CEn1M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C68WpyvL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="YErEVXBR"
-Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4eb93f492;
-	Tue, 22 Sep 2026 19:07:29 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Ronak Doshi <ronak.doshi@broadcom.com>
-Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH net] net: vmxnet3: unwind partial IRQ setup
-Date: Tue, 22 Sep 2026 19:07:10 +0800
-Message-Id: <20260922110710.1569410-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C68WpyvL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 389C61F000FF;
+	Tue, 22 Sep 2026 11:08:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790075337;
+	bh=lVyM4uSRQe4zagUkjvqSwMHe9bzVnEvtY2U1tg6ZCW8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=C68WpyvLLExwx6r+W9Xaf/fqB5P65iaOFCppaaVkylizbXj4VLETX+f4C0DSEM6cU
+	 RR+Mwr3B/eUK1CE6DaJwXOLxJPoIXMSHqaFhYJfRyY9FW6LQnJfVSMN6tMVajkqXaK
+	 2RGUrqAFWSfxUGmj0LgNyKjYsGzlsDG+2/vMjJ9EpQTfWROszOfMpuRODql+09OyLu
+	 nGD8FGKzh7b0oSxHrt4apTqsb9G+jdAZkCs8Rpw9KYn10X9UMFfBfRR2cTUHBwylnw
+	 6JpUvrkvFw+ohR03TDz6qsjE+DLo2uw2cFOYHtJUzUNM4x5zhZ6QxMvZUR+BQu+q5i
+	 jRHNMvMmuO7HA==
+Date: Tue, 22 Sep 2026 12:08:52 +0100
+From: Simon Horman <horms@kernel.org>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: davem@davemloft.net, david+nfc@ixit.cz, edumazet@google.com,
+	kuba@kernel.org, linma@zju.edu.cn, linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org, oe-linux-nfc@lists.linux.dev,
+	pabeni@redhat.com, stable@vger.kernel.org,
+	Ren Wei <weir@nebusec.ai>
+Subject: Re: [PATCH] nfc: llcp: Fix local use-after-free in
+ nfc_llcp_general_bytes()
+Message-ID: <20260922110852.GC13925@horms.kernel.org>
+References: <20260917163836.2162706-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0c8cca4df03a1kunm2435552e8ccfb
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaSE8eVhkfSR8dT09LHR8fSlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=YErEVXBRrBFGGmGslHOHm++mhQzQIPwnL1/Pl1Xdf/PsJBtebymeKrQDpOe3Umzwc9iIJHVoZarqYwY+NoZg6qEluw30PeIJ20IlV22eDN3/j25lk9gTFyut08ScZ4npOyT9KHMM+v9jRr0Riw4aDNvCAPbrlXF/8jsw2L6Neds=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=4Vt4GYyH3vk6ruOLyiToHUHMMB3orGntk58ZnG778Vs=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917163836.2162706-1-vulab@iscas.ac.cn>
 
-Track which interrupt vectors successfully acquired an IRQ handler and
-release that subset when a later request fails. This prevents activation
-error paths from leaving handlers registered while queue resources are
-being torn down.
++ Ren Wei
 
-Reproducer:
+On Thu, Sep 17, 2026 at 04:38:36PM +0000, Wentao Liang wrote:
+> nfc_llcp_general_bytes() drops the reference on the llcp local structure
+> with nfc_llcp_local_put() and then still reads local->gb for the return
+> value. If that was the last reference, the local structure is freed and
+> the read happens on freed memory.
+> 
+> Capture the pointer to the general bytes before dropping the reference
+> so the local structure is no longer used after the put.
+> 
+> Fixes: 6709d4b7bc2e ("net: nfc: Fix use-after-free caused by nfc_llcp_find_local")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 
-  Build an x86_64 kernel with CONFIG_PCI=y, CONFIG_PCI_MSI=y,
-  CONFIG_NET=y, CONFIG_NETDEVICES=y, and CONFIG_VMXNET3=m. For testing,
-  add a test-only wrapper around vmxnet3_request_irqs() that lets the
-  first request_irq() succeed and returns -EBUSY for the second request.
-  Boot QEMU with a vmxnet3 device, for example:
+I believe this duplicates a more comprehensive approach by Ren Wei:
+- [PATCH 1/1] nfc: llcp: Pass caller buffer to nfc_llcp_general_bytes to fix UAF and memory leaks
+  https://lore.kernel.org/all/006437e618b55acc0df69d94255244a490b11461.1786029423.git.rakukuip@gmail.com/
 
-    qemu-system-x86_64 -machine pc -m 1G -smp 2 -nodefaults \
-      -no-reboot -display none -serial file:console.log \
-      -kernel arch/x86/boot/bzImage -initrd test.cpio.gz \
-      -append 'console=ttyS0 rdinit=/init loglevel=7 panic=1' \
-      -netdev user,id=n0 -device vmxnet3,netdev=n0
+Please check prior work before posting patches.
 
-  In the guest, load the driver and open the interface:
-
-    insmod vmxnet3.ko
-    ip link set dev eth0 up
-    cat /proc/interrupts
-
-  The injected second request makes the open fail with -EBUSY. On the
-  unfixed kernel, the first handler remains registered and
-  /proc/interrupts contains an eth0-rxtx-0 entry. On the fixed kernel,
-  the same failure leaves no vmxnet3 IRQ entry. The injection is
-  deliberate to exercise the partial-registration path and is not a
-  claim that ordinary interface activation fails this way.
-
-Fixes: d1a890fa37f2 ("net: VMware virtual Ethernet NIC driver: vmxnet3")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- drivers/net/vmxnet3/vmxnet3_drv.c | 38 ++++++++++++++++++++++++-------
- drivers/net/vmxnet3/vmxnet3_int.h |  1 +
- 2 files changed, 31 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/net/vmxnet3/vmxnet3_drv.c b/drivers/net/vmxnet3/vmxnet3_drv.c
-index f8df83f99..05373ba4d 100644
---- a/drivers/net/vmxnet3/vmxnet3_drv.c
-+++ b/drivers/net/vmxnet3/vmxnet3_drv.c
-@@ -53,6 +53,9 @@ static int enable_mq = 1;
- static void
- vmxnet3_write_mac_addr(struct vmxnet3_adapter *adapter, const u8 *mac);
- 
-+static void
-+vmxnet3_free_irqs(struct vmxnet3_adapter *adapter);
-+
- /*
-  *    Enable/Disable the given intr
-  */
-@@ -2585,8 +2588,11 @@ vmxnet3_request_irqs(struct vmxnet3_adapter *adapter)
- 					"Failed to request irq for MSIX, %s, "
- 					"error %d\n",
- 					adapter->tx_queue[i].name, err);
-+				vmxnet3_free_irqs(adapter);
- 				return err;
- 			}
-+			if (adapter->share_intr != VMXNET3_INTR_BUDDYSHARE)
-+				intr->irq_requested[vector] = true;
- 
- 			/* Handle the case where only 1 MSIx was allocated for
- 			 * all tx queues */
-@@ -2620,8 +2626,10 @@ vmxnet3_request_irqs(struct vmxnet3_adapter *adapter)
- 					   "Failed to request irq for MSIX, "
- 					   "%s, error %d\n",
- 					   adapter->rx_queue[i].name, err);
-+				vmxnet3_free_irqs(adapter);
- 				return err;
- 			}
-+			intr->irq_requested[vector] = true;
- 
- 			adapter->rx_queue[i].comp_ring.intr_idx = vector++;
- 		}
-@@ -2631,6 +2639,8 @@ vmxnet3_request_irqs(struct vmxnet3_adapter *adapter)
- 		err = request_irq(intr->msix_entries[vector].vector,
- 				  vmxnet3_msix_event, 0,
- 				  intr->event_msi_vector_name, adapter->netdev);
-+		if (!err)
-+			intr->irq_requested[vector] = true;
- 		intr->event_intr_idx = vector;
- 
- 	} else if (intr->type == VMXNET3_IT_MSI) {
-@@ -2646,11 +2656,14 @@ vmxnet3_request_irqs(struct vmxnet3_adapter *adapter)
- #ifdef CONFIG_PCI_MSI
- 	}
- #endif
-+	if (intr->type != VMXNET3_IT_MSIX && !err)
-+		intr->irq_requested[0] = true;
- 	intr->num_intrs = vector + 1;
- 	if (err) {
- 		netdev_err(adapter->netdev,
- 			   "Failed to request irq (intr type:%d), error %d\n",
- 			   intr->type, err);
-+		vmxnet3_free_irqs(adapter);
- 	} else {
- 		/* Number of rx queues will not change after this */
- 		for (i = 0; i < adapter->num_rx_queues; i++) {
-@@ -2693,29 +2706,38 @@ vmxnet3_free_irqs(struct vmxnet3_adapter *adapter)
- 
- 		if (adapter->share_intr != VMXNET3_INTR_BUDDYSHARE) {
- 			for (i = 0; i < adapter->num_tx_queues; i++) {
--				free_irq(intr->msix_entries[vector++].vector,
--					 &(adapter->tx_queue[i]));
-+				if (intr->irq_requested[vector])
-+					free_irq(intr->msix_entries[vector].vector,
-+						 &adapter->tx_queue[i]);
-+				intr->irq_requested[vector++] = false;
- 				if (adapter->share_intr == VMXNET3_INTR_TXSHARE)
- 					break;
- 			}
- 		}
- 
- 		for (i = 0; i < adapter->num_rx_queues; i++) {
--			free_irq(intr->msix_entries[vector++].vector,
--				 &(adapter->rx_queue[i]));
-+			if (intr->irq_requested[vector])
-+				free_irq(intr->msix_entries[vector].vector,
-+					 &adapter->rx_queue[i]);
-+			intr->irq_requested[vector++] = false;
- 		}
- 
--		free_irq(intr->msix_entries[vector].vector,
--			 adapter->netdev);
-+		if (intr->irq_requested[vector])
-+			free_irq(intr->msix_entries[vector].vector, adapter->netdev);
-+		intr->irq_requested[vector] = false;
- 		BUG_ON(vector >= intr->num_intrs);
- 		break;
- 	}
- #endif
- 	case VMXNET3_IT_MSI:
--		free_irq(adapter->pdev->irq, adapter->netdev);
-+		if (intr->irq_requested[0])
-+			free_irq(adapter->pdev->irq, adapter->netdev);
-+		intr->irq_requested[0] = false;
- 		break;
- 	case VMXNET3_IT_INTX:
--		free_irq(adapter->pdev->irq, adapter->netdev);
-+		if (intr->irq_requested[0])
-+			free_irq(adapter->pdev->irq, adapter->netdev);
-+		intr->irq_requested[0] = false;
- 		break;
- 	default:
- 		BUG();
-diff --git a/drivers/net/vmxnet3/vmxnet3_int.h b/drivers/net/vmxnet3/vmxnet3_int.h
-index 9f24d66db..93c545eb6 100644
---- a/drivers/net/vmxnet3/vmxnet3_int.h
-+++ b/drivers/net/vmxnet3/vmxnet3_int.h
-@@ -362,6 +362,7 @@ struct vmxnet3_intr {
- 	enum vmxnet3_intr_type       type;	/* MSI-X, MSI, or INTx? */
- 	u8  num_intrs;			/* # of intr vectors */
- 	u8  event_intr_idx;		/* idx of the intr vector for event */
-+	bool irq_requested[VMXNET3_LINUX_MAX_MSIX_VECT];
- 	u8  mod_levels[VMXNET3_LINUX_MAX_MSIX_VECT]; /* moderation level */
- 	char	event_msi_vector_name[IFNAMSIZ+17];
- #ifdef CONFIG_PCI_MSI
--- 
-2.34.1
+> ---
+>  net/nfc/llcp_core.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/net/nfc/llcp_core.c b/net/nfc/llcp_core.c
+> index db5bc6a878dd..d0f17fbacfee 100644
+> --- a/net/nfc/llcp_core.c
+> +++ b/net/nfc/llcp_core.c
+> @@ -638,6 +638,7 @@ static int nfc_llcp_build_gb(struct nfc_llcp_local *local)
+>  u8 *nfc_llcp_general_bytes(struct nfc_dev *dev, size_t *general_bytes_len)
+>  {
+>  	struct nfc_llcp_local *local;
+> +	u8 *gb;
+>  
+>  	local = nfc_llcp_find_local(dev);
+>  	if (local == NULL) {
+> @@ -648,10 +649,11 @@ u8 *nfc_llcp_general_bytes(struct nfc_dev *dev, size_t *general_bytes_len)
+>  	nfc_llcp_build_gb(local);
+>  
+>  	*general_bytes_len = local->gb_len;
+> +	gb = local->gb;
+>  
+>  	nfc_llcp_local_put(local);
+>  
+> -	return local->gb;
+> +	return gb;
+>  }
+>  
+>  int nfc_llcp_set_remote_gb(struct nfc_dev *dev, const u8 *gb, u8 gb_len)
+> -- 
+> 2.34.1
+> 
