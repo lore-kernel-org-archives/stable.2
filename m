@@ -1,103 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f42.google.com (mail-qk2-f42.google.com [74.125.230.234])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C74C48A8A4;
-	Tue, 22 Sep 2026 05:37:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF537489FD9
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 05:41:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.234
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790055478; cv=none; b=bEYTgtX8YPW+wcp6hTad4GbpIZux7Szxss3Czy4CsTtoYGzsqIUMntLDKMIxVDTtWtMBM6rTaNNZIX+oUNlb8U3Yj98Gssb7HTsSOe4uLQaCuPh/E7Uv0MPy0X/1HDZ7sulV6JlezUQg5mY8sUpQzlc5X5+s+GVLVw0Edrtv2r8=
+	t=1790055684; cv=none; b=NxGAedVywqxHmo5b+s+wMi0sFntlq9u8FPPyqTLWUiyvj5Pwu57fTzaZ+BGt9uKs9TvI3QLuEmIemP5RdkUxdlZ3RtteVJqdOzfRcgm602tlJVMW+5mclstyK2Yu2DB5OoLyR9JU2ILp53pjwdDtvtporm8NqKqMsrbPpucfuA8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790055478; c=relaxed/simple;
-	bh=xZp9r60+dCXnIa0A3ozzNGf0cC3IAb+FgBmuAxrQszs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nN8tMU5zDbCbmij7cAE13y4EXEThsFn7pvR17o1V11S+kwFdPSp97MGt2zWvbXVqgIH8k+w15qUORa2TGwuYocYkIdo30dVWFQcP7By9aqMPakWufA1QJ+r8LOM8LPM1IYTjivThl20/pE6cJ1aqW0yDlliiM3vdgaivFVbUOgA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Y4UeLvnT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790055684; c=relaxed/simple;
+	bh=iFLkf+rOhLizaAv8+B8/2aNKubqrFbO1iPrtUYCmcBM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rGbfybjSLqUJXjv5PYWgkzhMzCigNQBImoM4MmzRlLlwWEp1hpDPdQ5+66NotxEI6M7e/2qD0YYpAHALbesuF1EOcOxKshH8Ub/AZ+Sd/ECUUZ6G2g4VVr5635NEgqfSa5UHRmctCzk5/HIaKTxswClURsylGa2zks1T1nyW6Zs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lkb43kdX; arc=none smtp.client-ip=74.125.230.234
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Y4UeLvnT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D0CA1F000FF;
-	Tue, 22 Sep 2026 05:37:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790055465;
-	bh=WrxXD5R9VUQi7qUjgHG9Pa6uBFBwGP/N2AEeSkpeg4c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Y4UeLvnT9ESvaLjRVUfDxsMLCYn12RSn8ZmCqCwMse5WUryxP/1iiVlagkc6um9EE
-	 PYK1TR2DMtoJO+bc5qU6+nbKrKcCzdh0A/3X9Qe/zswL2UzGOu8pNFOxJObM+jRKyv
-	 CPBuDAcNDVxwTrxr3JMuE+NHBHOwcKnr5ePhe96E=
-Date: Tue, 22 Sep 2026 07:37:41 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Myeonghun Pak <mhun512@gmail.com>
-Cc: Valentina Manea <valentina.manea.m@gmail.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Hongren Zheng <i@zenithal.me>, Ijae Kim <ae878000@gmail.com>,
-	Michael Bommarito <michael.bommarito@gmail.com>,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] usbip: vudc: Prevent transfer timer rearm during teardown
-Message-ID: <2026092207-secluded-pregame-8464@gregkh>
-References: <20260921224130.492681-1-mhun512@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lkb43kdX"
+Received: by mail-qk2-f42.google.com with SMTP id d75a77b69052e-52fb766bfd8so33953571cf.3
+        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 22:41:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790055682; x=1790660482; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OCtKANYoOWihnD2FHnwq5WRM5Q7npRAqL2fydivBlQ4=;
+        b=lkb43kdXEE9LC504DyqgZ/afe8lw0Bl4z1YlnM/Tag0QABB/RiggqKjvKCk14/HvuN
+         zKr6IV1fF/4ZaYLTvryU75+XW4y52SSEwaUXwZ1e0OYf7JqBjULFpY7SXwcdCbnQSuZG
+         GsbdRkO2a6nN30DA0XJby4gMBx37lxQsMQl8rjFaAfZYIf7ioeIiq8y+/f2ICsPA2Qlt
+         O+9OIUn40wNDrfg2uOx9QxNBJItaStG5UexhoHwcyVQwO8kG39nnxR6aM8Nn5sjz3kng
+         peNA2SkOCZGrCJ51kjASB+DZMH4kPDYC8xe3Wi6+Q9Cg6qCblA5owgcQ2aKG9ailxxkt
+         6SyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790055682; x=1790660482;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OCtKANYoOWihnD2FHnwq5WRM5Q7npRAqL2fydivBlQ4=;
+        b=0uGplAUQwhEemYeemMPocTyRJ77S5PdGoyKxQwLa/Y3H9x4+B6WphKqHw6nN4wIHuP
+         Y9Q91wjyFd6pi6KQcrBHFOedwaL29XjKLhiokO4boz/6qdn3i4wYiR0Sx5pY1K5kaG+J
+         V8viGDGKdDRBu6Tk1ZNZs+Ny80Cx2ohGyMnAD5d1AWksDQ2CQTH8QqkAvc65mvtuURPp
+         M2BbA/FIJui17QepfkTv9seDOVKYoS1CMoiq7ENUmlRJ+YyF1GIFotMu6GJgJbp5Z5Pz
+         RGUBDKEjTYak0P5yXLhqIH7QcDkwWaUcTR3lY/mWLlM/fO9RxFoKmm2s3IcwX9CeGOlw
+         sZSg==
+X-Forwarded-Encrypted: i=1; AKwUvByYVacd6/oTZEJrNEo9C5Dwi3eqBhnJuymaDtY/FJlE5h//hEHdAspdoQjrfYtE77fE9dc3+mc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kZDfcacW1RqorSu1rLucwomKF+t0Vk+3Gw2lcRaL0fernBcg1s
+	NLvsLnGpzTMn+DdR2TI4RNMNR8JI0PQA4oikx3JWqD8jXIoD7E5hRR9Xc9UkJKDq
+X-Gm-Gg: AYBFou1WXdzrznBhG0b6G6k7gt5XWuHEYEjWLg2dlKmxU094eVvkFAKorFVpo4t5ke/
+	w/U0iobfFov9BWOR2mtgEK9KUkWIKP7juPneMu7aWHaWi70K9vrN9sp/RD7P2YYl1rXb5OxABLa
+	vi7TX3KOXvwQt8xCJthOCDBN0SxB/W7v3LFqpZwCUhu4P+tUFvaNA7bBwHYiHIhOgqOk2CiilEb
+	vt0cZm7f3/xcFwxt+UtVeJaXCZB0gpo4PQA4TfhU6IXxtebeKDKlGtiR+1tLgV6umpKaHu96TD8
+	EkMgo3BWkRPPELcCwDLVorwAtGCEZrB24hVRcbTASaj/R7oIWu3HklKrqRpFg/fJOWgLVqge9yv
+	CtB+mrPETMufNzokQgwvKote/eS5YTIDsdRAMr3NX0rhM8ld+YFBl+NkpB7yscL73/C1M7S6WpE
+	dciA0xbZw3W9E97CWmsRigoluPU767Y3G060KS4IYxnUSB9hC3FkTR2lViMKjV0CsdvRkGkjpqT
+	DEgVuA93MGVoL+JpnV8Kw==
+X-Received: by 2002:a05:622a:1aaa:b0:532:9adc:639f with SMTP id d75a77b69052e-532d8e70943mr39247461cf.67.1790055681695;
+        Mon, 21 Sep 2026 22:41:21 -0700 (PDT)
+Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-532e192f96dsm4515801cf.23.2026.09.21.22.41.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 22:41:21 -0700 (PDT)
+From: Yuho Choi <oss.patchbox@gmail.com>
+To: Jean-Philippe Brucker <jpb@kernel.org>,
+	Joerg Roedel <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>
+Cc: Robin Murphy <robin.murphy@arm.com>,
+	"Michael S . Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowangio@gmail.com>,
+	virtualization@lists.linux.dev,
+	iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Yuho Choi <oss.patchbox@gmail.com>
+Subject: [PATCH v1] iommu/virtio: Reset device before deleting virtqueues on probe failure
+Date: Tue, 22 Sep 2026 01:41:16 -0400
+Message-ID: <20260922054116.416333-1-oss.patchbox@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260921224130.492681-1-mhun512@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 21, 2026 at 06:41:30PM -0400, Myeonghun Pak wrote:
-> Commit d96209626a29 ("usbip: vudc: Fix use after free bug in
-> vudc_remove due to race condition") made v_stop_timer() delete the
-> transfer timer synchronously before vudc_remove() frees its containing
-> struct vudc.
-> 
-> That does not close the race with the receive thread, which is stopped
-> later through usb_del_gadget_udc() and vudc_shutdown().  The thread
-> calls v_kick_timer() for CMD_SUBMIT and CMD_UNLINK packets, and
-> v_kick_timer() deliberately calls mod_timer() when the transfer state is
-> VUDC_TR_STOPPED.  A packet received after v_stop_timer() returns can
-> therefore enqueue the timer again before the vudc is freed.
-> 
-> timer_delete_sync() only drains the current timer instance and cannot
-> prevent such a rearm.  Use timer_shutdown_sync(), which makes subsequent
-> attempts to arm the timer no-ops.  The transfer state no longer needs to
-> be updated, as it is freed along with the timer.
-> 
-> On a KASAN and DEBUG_OBJECTS enabled x86_64 QEMU guest, repeatedly
-> binding the device, submitting a request and unbinding it produced a
-> "free active timer_list" warning followed by a slab-use-after-free in
-> v_timer().  With this change the same harness completed 4000 iterations
-> cleanly.
-> 
-> This issue was identified during our ongoing static-analysis research
-> while reviewing kernel code.
-> 
-> Fixes: d96209626a29 ("usbip: vudc: Fix use after free bug in vudc_remove due to race condition")
-> Link: https://lore.kernel.org/all/20230316180940.1601515-1-zyytlz.wz@163.com/
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Co-developed-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-> ---
->  drivers/usb/usbip/vudc_transfer.c | 6 ++----
->  1 file changed, 2 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/usb/usbip/vudc_transfer.c b/drivers/usb/usbip/vudc_transfer.c
-> index d4ce85c4c6a2..4146b746a320 100644
-> --- a/drivers/usb/usbip/vudc_transfer.c
-> +++ b/drivers/usb/usbip/vudc_transfer.c
-> @@ -441,7 +441,7 @@ static void v_timer(struct timer_list *t)
->  	spin_unlock_irqrestore(&udc->lock, flags);
->  }
->  
-> -/* All timer functions are run with udc->lock held */
-> +/* v_start_timer() and v_kick_timer() are called with udc->lock held. */
+viommu_probe() marks the device DRIVER_OK before populating the event
+virtqueue and registering the IOMMU device in sysfs.  viommu_fill_evtq()
+hands the device a set of device-writable buffers through
+virtqueue_add_inbuf(), so from that point on the device may write into
+them and into the rings.
 
-If this is true, use the correct documentation/metadata style for this,
-so that checkers can catch this.  A comment like this will not work.
+If either step fails, the error path deletes the virtqueues without
+resetting the device first.  The event buffers are allocated with
+devm_kmalloc_array() and are released as probe unwinds, so the device can
+go on writing to memory that has been freed.
 
-thanks,
+Reset the device before deleting the virtqueues, the way viommu_remove()
+already does.
 
-greg k-h
+Fixes: edcd69ab9a32 ("iommu: Add virtio-iommu driver")
+Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
+---
+ drivers/iommu/virtio-iommu.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/iommu/virtio-iommu.c b/drivers/iommu/virtio-iommu.c
+index 587fc13197f12..fa72ae23b8afa 100644
+--- a/drivers/iommu/virtio-iommu.c
++++ b/drivers/iommu/virtio-iommu.c
+@@ -1227,12 +1227,12 @@ static int viommu_probe(struct virtio_device *vdev)
+ 	/* Populate the event queue with buffers */
+ 	ret = viommu_fill_evtq(viommu);
+ 	if (ret)
+-		goto err_free_vqs;
++		goto err_reset_vdev;
+ 
+ 	ret = iommu_device_sysfs_add(&viommu->iommu, dev, NULL, "%s",
+ 				     virtio_bus_name(vdev));
+ 	if (ret)
+-		goto err_free_vqs;
++		goto err_reset_vdev;
+ 
+ 	vdev->priv = viommu;
+ 
+@@ -1244,6 +1244,8 @@ static int viommu_probe(struct virtio_device *vdev)
+ 
+ 	return 0;
+ 
++err_reset_vdev:
++	virtio_reset_device(vdev);
+ err_free_vqs:
+ 	vdev->config->del_vqs(vdev);
+ 
+
+base-commit: f0100363d8c374bd8e9ea7c9ba02744f0b802ca4
+-- 
+2.43.0
+
