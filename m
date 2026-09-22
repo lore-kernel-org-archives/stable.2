@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48C5938737A
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 15:14:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C75F3EB0FF
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 15:14:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790090052; cv=none; b=m6uOJteViSQh/af08RfcLXo9PHuCEJcB9MfPt68raBbhB4G6YNiIvuRUwKqnm3DTbC5/aTB0YM0K4MsmrGAkN/matzfD6PwJql0d1l5pwLn/PwkviFC6KdsMsZFA0iNhstO+0AnUkueZ4C2DWhlnUOkSXbhzkXbNYLzBDQh39dE=
+	t=1790090056; cv=none; b=SHtGva1oQ5YwWyb8dacTRk4ouJW4yepSI3hMiTcf1hB395PhCbBqRcC/QxGuVmX3i4ktBpwWweTmmvBJ6vkFrflM+xkBRVf+t+uMMyZjCRd0qTM+xC5lj3DlzGYGXW2+Wxe2z9yQTCvWFf6Ng4YKRVnHBdNHcwolEJ2Qb9livHc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790090052; c=relaxed/simple;
-	bh=PNhayetvnOpLCFHQ+w2Eh0LxeZ6PrF2/E5RiVesaUws=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=IFK0ED7uWTBNm3xCHONEJhO28F2/mraOCl2rSo4E/MTdX0IPRBBITRN0ZUXzROoR1nYJUDXIqkw9+Tlmos3P+m+2pPE7SBODeg8N4MZztCRwC6kkMbD4RGNyIK+SMJMMO0F1Nkvg/t1LPuRvVjQGOTnv+aCUr6gKXJoVolTmNQw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=xmEeZ2qB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790090056; c=relaxed/simple;
+	bh=hLQCWgczg4Hdb+W2bJWh4hGh2VbW0eqUvddCEaryUYE=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=URrpwqUyDNRU2SoL0Dbd5mUZ+uHNXjD5+6tbJZGBrr/ILtiHjSHmIskSJmkvuYKponWU74ipgoAFr0gz8Bvip95zDI9ES/4ELnT07gjpGMCyzlW8YVMaDuTL54L+QcvmwoTJ4PVXFY9gVQUXfXWzWh3dNBkL6/Cgb/8S6NFNIV8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=rdk8vZJ8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="xmEeZ2qB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44F641F00893;
-	Tue, 22 Sep 2026 15:14:10 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="rdk8vZJ8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D12A11F00893;
+	Tue, 22 Sep 2026 15:14:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790090050;
-	bh=1QS4SOzVzDage7JtuY+JFDDU++JJ2yyrM8kC5QPgIzU=;
+	s=korg; t=1790090055;
+	bh=yhOoYRDTtBTF1irNgAUgvZu+JxbPqioQCNFklQcJsEs=;
 	h=Subject:To:Cc:From:Date;
-	b=xmEeZ2qBuABLuG6of7WUUky69TUEMlfQeFguArtHJnMz/Xgj4LaEyqyJca+ZNnv1m
-	 FQ03g1njWAvBhLymS1s7teF+PtE+oXbNRhxjlM0jorYjf87V9s6mDHydn1HI8ZlHjP
-	 eJfvncVNt3mjZIa8b6qr9Nu1EOnVRNuKRZMTVs+0=
-Subject: FAILED: patch "[PATCH] smb: client: fix potential OOB read in smb3_enum_snapshots()" failed to apply to 5.10-stable tree
+	b=rdk8vZJ8RMDbI/7T7tPJoHiB208TTMsV2miQZ7eSod1MLa4IKU4E4s2zBThviW2TD
+	 ZLLHNvnAm8c6nnXzcT2aA5QcrKRMkswvQnEKraP0p84zOqlR4LinesDqDHwiJHkE+q
+	 dVBeMzBS6zvz2706BAZEEjilQbklFSmi91hGbZnQ=
+Subject: FAILED: patch "[PATCH] smb: client: fix reparse buffer bounds in" failed to apply to 6.18-stable tree
 To: sorenson@redhat.com,dhowells@redhat.com,pc@manguebit.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 22 Sep 2026 17:07:46 +0200
-Message-ID: <2026092246-amplifier-zookeeper-348a@gregkh>
+Date: Tue, 22 Sep 2026 17:07:56 +0200
+Message-ID: <2026092256-matchbox-catfish-7337@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 4775c3b7a597907e0b97556c7986fda238a377ae
+git cherry-pick -x 5f0306e731e2f46e91419eae57eee3a241c055e0
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092246-amplifier-zookeeper-348a@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092256-matchbox-catfish-7337@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,53 +62,41 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 4775c3b7a597907e0b97556c7986fda238a377ae Mon Sep 17 00:00:00 2001
+From 5f0306e731e2f46e91419eae57eee3a241c055e0 Mon Sep 17 00:00:00 2001
 From: Frank Sorenson <sorenson@redhat.com>
-Date: Wed, 16 Sep 2026 16:33:59 -0500
-Subject: [PATCH] smb: client: fix potential OOB read in smb3_enum_snapshots()
+Date: Wed, 16 Sep 2026 16:34:00 -0500
+Subject: [PATCH] smb: client: fix reparse buffer bounds in
+ cifs_query_reparse_point()
 
-If snapshot_array_size is smaller than GMT_TOKEN_SIZE,
-smb3_enum_snapshots() sets ret_data_len to
-sizeof(struct smb_snapshot_array) without verifying the actual length
-of the server's reply.
+In cifs_query_reparse_point(), the start >= end check before casting to
+struct reparse_data_buffer * only ensures the start pointer is within the
+response. It fails to verify that there is enough space remaining for the
+fixed 8-byte header of the structure.
 
-Because SMB2_ioctl() places no lower bound on the server-supplied
-OutputCount and allocates retbuf to exactly that length, a short reply
-results in ret_data_len exceeding the size of retbuf. The subsequent
-copy_to_user() then reads past the end of retbuf, leaking adjacent slab
-memory to userspace.  The subsequent clamp check is ineffective as it
-only reduces ret_data_len.
+If a server provides a DataOffset that leaves less than 8 bytes remaining,
+the check passes, but subsequent reads of ReparseTag and ReparseDataLength
+will occur out-of-bounds.
 
-Fix this by rejecting replies shorter than
-sizeof(struct smb_snapshot_array) with -EIO. Note that the bound is set
-to the 12-byte struct size rather than the 16-byte
-MIN_SNAPSHOT_ARRAY_SIZE defined in MS-SMB2 3.3.5.15.1, because 12 bytes
-is exactly what copy_to_user() attempts to read.
+Fix this by ensuring the remaining space is at least the size of the
+reparse_data_buffer structure before accessing its fields.
 
-Fixes: e02789a53d71 ("smb3: enumerating snapshots was leaving part of the data off end")
+Fixes: 56e84c64fc25 ("cifs: Fix validation of SMB1 query reparse point response")
 Cc: stable@vger.kernel.org
 Signed-off-by: Frank Sorenson <sorenson@redhat.com>
 Reviewed-by: David Howells <dhowells@redhat.com>
 Signed-off-by: Paulo Alcantara <pc@manguebit.org>
 
-diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
-index ee3c98e3f316..3464470d3297 100644
---- a/fs/smb/client/smb2ops.c
-+++ b/fs/smb/client/smb2ops.c
-@@ -2463,8 +2463,14 @@ smb3_enum_snapshots(const unsigned int xid, struct cifs_tcon *tcon,
- 		 * and retry the ioctl again with larger array size sufficient
- 		 * to hold all of the snapshot GMT tokens on the second try.
- 		 */
--		if (snapshot_in.snapshot_array_size < GMT_TOKEN_SIZE)
-+		if (snapshot_in.snapshot_array_size < GMT_TOKEN_SIZE) {
-+			if (ret_data_len < sizeof(struct smb_snapshot_array)) {
-+				rc = -EIO;
-+				kfree(retbuf);
-+				return rc;
-+			}
- 			ret_data_len = sizeof(struct smb_snapshot_array);
-+		}
+diff --git a/fs/smb/client/cifssmb.c b/fs/smb/client/cifssmb.c
+index f9aff0712794..6dddbd84b93b 100644
+--- a/fs/smb/client/cifssmb.c
++++ b/fs/smb/client/cifssmb.c
+@@ -3080,7 +3080,7 @@ int cifs_query_reparse_point(const unsigned int xid,
  
- 		/*
- 		 * We return struct SRV_SNAPSHOT_ARRAY, followed by
+ 	end = 2 + get_bcc(&io_rsp->hdr) + (__u8 *)&io_rsp->ByteCount;
+ 	start = (__u8 *)&io_rsp->hdr.Protocol + data_offset;
+-	if (start >= end) {
++	if (start >= end || (size_t)(end - start) < sizeof(*buf)) {
+ 		rc = smb_EIO2(smb_eio_trace_qreparse_data_area,
+ 			      (unsigned long)start - (unsigned long)io_rsp,
+ 			      (unsigned long)end - (unsigned long)io_rsp);
 
