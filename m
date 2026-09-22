@@ -1,111 +1,115 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB64247CA9D
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 18:06:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D78DD3BD22E
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 18:16:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790100387; cv=none; b=mKvkv5f0ikuY0tNlLN1lIkqUXjjHVls1kSiaxMc+q9uf96gZZ0/QTccYE+tFXlwUmpwaRyIfT74wby53KxShSFI2DHJeoHjJH/+EIUln3U4CcGmvf28wDGqC1ii2o9VMpecsLd/gJ3iFIf4I7dKlMLb6ZHTDVXXg5LOy7PdkNVQ=
+	t=1790101003; cv=none; b=Fp2c6AUX2ZCR69a3qYNQqqdRhhzLhmco+E52o7BQCTEExbRzkESUZvGlSH84yXEFfZLVbffWesUxX3BKSEKk6Rg+IQ07BgcZW30tIXFgx99QZVRuGwDDHJ9lIKXbMSyAT1yJ3fBOU4u1bxkCCm2wPXbhOLGCD7XoTEyEjKSlWYY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790100387; c=relaxed/simple;
-	bh=0OwfDnFT9Wb6BLGQCwCop/k/W8dtNm/dMAVTKwTp0so=;
+	s=arc-20240116; t=1790101003; c=relaxed/simple;
+	bh=30FON/ydJ6oUS3B9vlPnBIx363eOH3WPlJzyqM1zND0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=TPJN17QJuEQLfa7UOtfLhUmFe7+sNkd4J9mJWXo29rZOL32D6LZqQ8ESB7mFb/vCTWl6ZlGRMwzAUAaeyFm2jfkcnpf4xY0KIWCAcssMP1aV5hv7mIrestTdpFJ5jEliJmOOZJSWS4LrHgSctbPBwhfAhNu6Dd1UIjo1ZUI4gRY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C890mTF3; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=UU4SEwJdWoMsiVcFS1J5CE7T6olMG6iddYLJ2sikjqvJilF5c5KzLCPmelAGZNHmmTDqvXKbcNV0d9PfxB86MNLymqHKNE0RCC4unayRhzhFVt0ToaHGgB1vNuMBBZiYWpOstynRH85ZdEcuaAEfqIKYoaDCAGVNJ+uuPpoyeQQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q7e4esRG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C890mTF3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C9DB1F00899;
-	Tue, 22 Sep 2026 18:06:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q7e4esRG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE6851F000FF;
+	Tue, 22 Sep 2026 18:16:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790100385;
-	bh=K6hKV3MnyGczckr/ToqkWSBn0GIkkLhfYI3md5x4ip0=;
+	s=k20260515; t=1790101001;
+	bh=OpJKSarrKBrDBb7r6I5pDw+E/OnUMF+9drQeXlp6sOc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=C890mTF3arfd3kajurcgySrMmrt9T/fPSSsvvpdkG+scMwFn/6VRvhmLMDidcIbny
-	 qG26+w3hrex7G7nnWDwRVzl2fDJMVrYgg3jPxhCnWnMCVt9Adwq/5nsEj1ynCYkqoj
-	 w8wNzqfYoHQ/5HjjXHNeARUJQa4pDGTMRRgJNq2z4cMCRCU3oHe5UbgyoP7QCLjJWS
-	 iUFc+t5GAuNjbHrbhupX1Vpt+pmdmnDxnyFmCef9ew5Z2ngata16vJRkhod5HXVUFr
-	 d+qkgOL0yFet5mo/dGoPCLJk2exgerZREny/EtgB2jnK86m33uU22bWHp3OkjccjWE
-	 rzD2x3fAH72XA==
+	b=Q7e4esRGR9MpOi6O/wqeEtOUfEioZQz4GQGJmKQiThnOw0xHtcXfJq45QVil9iguF
+	 YVWf+jrGD3phBoQExc2MNoiy41w4VQpr0LuW6jgHi5G+FFYUh8egyYdjFqiLF39yXa
+	 XJLch/yguwU+l+8GGLnPYjRAeLDO4a70NO2R0zA5hZZCWi2rvINWKhovQ506G5ShhU
+	 O2JXKHi06n8p/Vj4ejz0SWlIA5hsTclweB/DgFxFt2BnvDcWLTZV8mcUfeEbk2n8xp
+	 m4MGrhoRZAKCC1/EFCACPF+8Gw4RPb6jCw8ik2obhH9qGOh+ReOXXNBQWU0+uKSBT7
+	 6esSCJF67W24Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Alvin=20=C5=A0ipraga?= <alvin.sipraga@analog.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 3/3] Input: adp5588-keys - cache GPIO state before registering the gpiochip
-Date: Tue, 22 Sep 2026 14:06:21 -0400
-Message-ID: <20260922180621.3403178-3-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] watchdog: rtd119x: Use devm_clk_get_enabled() helper
+Date: Tue, 22 Sep 2026 14:16:38 -0400
+Message-ID: <20260922181639.3520872-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260922180621.3403178-1-sashal@kernel.org>
-References: <2026092232-fetal-skinhead-12b6@gregkh>
- <20260922180621.3403178-1-sashal@kernel.org>
+In-Reply-To: <2026092229-endowment-helpless-158e@gregkh>
+References: <2026092229-endowment-helpless-158e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Alvin Šipraga <alvin.sipraga@analog.com>
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
 
-[ Upstream commit 21efadc62272cabee9bec27777ae75d84a9ca8a8 ]
+[ Upstream commit 6cc0768ba6f5293a4435612164a2cfbf2edbd025 ]
 
-So as not to clobber any pre-programmed GPIO state in the execution
-of its gpiochip ops, the driver caches things during probe time.
-However, since those ops can be called both during and immediately after
-the call to devm_gpiochip_add_data(), it is imperative that things are
-cached before that. That's not the case right now, so reorder the two
-steps to prevent any clobbering.
+The devm_clk_get_enabled() helper:
+   - calls devm_clk_get()
+   - calls clk_prepare_enable() and registers what is needed in order to
+     call clk_disable_unprepare() when needed, as a managed resource.
 
-In the concrete example which motivated this change, a bootloader was
-preconfiguring an important GPIO output to HIGH before booting the
-kernel. Linux would then inadvertently set that output to LOW while
-configuring a GPIO hog on a discrete GPIO line within the same 8-bit
-bank (because the cached value was 0=LOW).
+This simplifies the code and avoids the need of a dedicated function used
+with devm_add_action_or_reset().
 
-Fixes: ba9f507a1bea ("Input: adp5588-keys - export unused GPIO pins")
-Signed-off-by: Alvin Šipraga <alvin.sipraga@analog.com>
-Reviewed-by: Nuno Sá <nuno.sa@analog.com>
-Link: https://patch.msgid.link/20260818-adp5588-gpio-cache-v1-1-650a2674fc0d@analog.com
-Cc: stable@vger.kernel.org
-Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Reviewed-by: Guenter Roeck <linux@roeck-us.net>
+Link: https://lore.kernel.org/r/14b521b821279bc5111dc80b55d0936c5767c737.1672418470.git.christophe.jaillet@wanadoo.fr
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+Signed-off-by: Wim Van Sebroeck <wim@linux-watchdog.org>
+Stable-dep-of: 5af7d2cbd20f ("watchdog: rtd119x: Avoid division by zero")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/input/keyboard/adp5588-keys.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/watchdog/rtd119x_wdt.c | 16 +---------------
+ 1 file changed, 1 insertion(+), 15 deletions(-)
 
-diff --git a/drivers/input/keyboard/adp5588-keys.c b/drivers/input/keyboard/adp5588-keys.c
-index 161dc6a7bf445..ee2054732c34c 100644
---- a/drivers/input/keyboard/adp5588-keys.c
-+++ b/drivers/input/keyboard/adp5588-keys.c
-@@ -225,12 +225,6 @@ static int adp5588_gpio_add(struct adp5588_kpad *kpad)
+diff --git a/drivers/watchdog/rtd119x_wdt.c b/drivers/watchdog/rtd119x_wdt.c
+index 834b94ff3f903..95c8d7abce42e 100644
+--- a/drivers/watchdog/rtd119x_wdt.c
++++ b/drivers/watchdog/rtd119x_wdt.c
+@@ -94,16 +94,10 @@ static const struct of_device_id rtd119x_wdt_dt_ids[] = {
+ 	 { }
+ };
  
- 	mutex_init(&kpad->gpio_lock);
- 
--	error = devm_gpiochip_add_data(dev, &kpad->gc, kpad);
--	if (error) {
--		dev_err(dev, "gpiochip_add failed: %d\n", error);
--		return error;
--	}
+-static void rtd119x_clk_disable_unprepare(void *data)
+-{
+-	clk_disable_unprepare(data);
+-}
 -
- 	for (i = 0; i <= ADP5588_BANK(ADP5588_MAXGPIO); i++) {
- 		kpad->dat_out[i] = adp5588_read(kpad->client,
- 						GPIO_DAT_OUT1 + i);
-@@ -252,6 +246,12 @@ static int adp5588_gpio_add(struct adp5588_kpad *kpad)
- 				 error);
- 	}
+ static int rtd119x_wdt_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
+ 	struct rtd119x_watchdog_device *data;
+-	int ret;
  
-+	error = devm_gpiochip_add_data(dev, &kpad->gc, kpad);
-+	if (error) {
-+		dev_err(dev, "gpiochip_add failed: %d\n", error);
-+		return error;
-+	}
-+
- 	return 0;
- }
+ 	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
+ 	if (!data)
+@@ -113,18 +107,10 @@ static int rtd119x_wdt_probe(struct platform_device *pdev)
+ 	if (IS_ERR(data->base))
+ 		return PTR_ERR(data->base);
  
+-	data->clk = devm_clk_get(dev, NULL);
++	data->clk = devm_clk_get_enabled(dev, NULL);
+ 	if (IS_ERR(data->clk))
+ 		return PTR_ERR(data->clk);
+ 
+-	ret = clk_prepare_enable(data->clk);
+-	if (ret)
+-		return ret;
+-	ret = devm_add_action_or_reset(dev, rtd119x_clk_disable_unprepare,
+-				       data->clk);
+-	if (ret)
+-		return ret;
+-
+ 	data->wdt_dev.info = &rtd119x_wdt_info;
+ 	data->wdt_dev.ops = &rtd119x_wdt_ops;
+ 	data->wdt_dev.timeout = 120;
 -- 
 2.53.0
 
