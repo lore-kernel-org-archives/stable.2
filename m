@@ -1,41 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 685ED42C51C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F395033F59A
 	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 12:34:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790080483; cv=none; b=pZ4axiC0Xi789zUsCIMIZg+PO5N1/cyc02cBkCKeiBmvJ9U4kFV7/tb5tdiC+D61iYNeUJBOZ49Vx/bWHnHSLBqjbQBLsAeZmJ8G9vpBXucJO6Y25hcrli72UoG0mKbWnslH9oGOafAt5X3sFj9xzwFwpRRpcHjfDVfpioDK09Y=
+	t=1790080484; cv=none; b=DOInZuR99uTmUE4T+CxSaDKosnUFIIUI1VD6UKEjWycdDHVhV/1/RaNswN1uy5PWujw99Povf0dxpdLFE5CH9ugRuyIQxnGZ5byedgz2inIWbep/DwJHmrn7Zq2yQttsJudBZmsPXBrbG1l9UQMqRQzvYfj8OBr3/YPTZikwLbg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790080483; c=relaxed/simple;
-	bh=1wiliW0Isxh/e8+urgxAa4Oi4TtrDbKZ7J1e4oD2ZgQ=;
+	s=arc-20240116; t=1790080484; c=relaxed/simple;
+	bh=7JS5nqdzH4z+RASmPy1my9OYo312Unx96b1UY01ZQ4o=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bOwJeEUpj0048u+V+SDGVR84dLmKa6YC9oCY+tfhkwikEa1o1CwuaD1YxNd4Lb5TsSZc35xR47S3mbRkl0BA8Cc0X6AFsxDq86S2X/ot8iyzz+Hydbn7ZSraWU+/8TplrhlCD7q6g6jVYdyOV0cNTiNjFZx/OoZjC8et8ryC+Dw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Oob2c4uo; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=hUK4rhAruKl3OKJ4DvH3XEayZRoNPyfXDcKfbUTGpEiKKe1pnatDdOadaT342H6xdpUqv0aYUzpyuieV+XiCuFHklTZfrDNatnkOADMn4n/K7arjtqjFMMVgIGU5S1Jd9rTI3O8Jug+WjnMaiwh+19GglzgulNuXvjqz1yUFn6Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VHvT4GTb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Oob2c4uo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A89021F000FF;
-	Tue, 22 Sep 2026 12:34:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VHvT4GTb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 514FD1F00893;
+	Tue, 22 Sep 2026 12:34:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1790080482;
-	bh=5DpkGbqJml1Q+OH8veE0Z5oRC3YfhcL3fRnPb0ub1Lg=;
+	bh=W2SYIQg8vdeECK94yM2ZqawNFld51q931c8s4c47q4o=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Oob2c4uoSAA5l+Pi7JjQJfRi8U88xdVVl9dEPOgXHV0JtZIEcsgbdeH5BYrCsDg0y
-	 VsOK9qvEj81rwq3lzOclJcSfHhyFSHaZgu/jipHGOV7e0XTVV+PO/UZrPRJc5hj1QZ
-	 aQeGqO0VjpLv/pqdgWQ1wkyP5Jlcg+gfeRxk44lo6q2zjidLHxxzoSaEeN4FCj8mjo
-	 ot3ETXqGI4TusPL75vPtP+vGb0oBUnStvMcoC2IVKdD3OUtyK1amwoXkVkME/fCQwk
-	 INO9VSrQHTy2alHXdoEAIXTN29g0g9YTt9R2EBR1XJGptqF0SF/3tpdXs+b7RZ9yeZ
-	 zAtO0VjxgR5MQ==
+	b=VHvT4GTb8Ub/Sy4Po7MosYarsm8uTRpcIfXw/vJJQftVzmDs/gb2QkenbxyclEoGJ
+	 jIMMgAYAUnqj9CmnQlTF++pwfVHSBWw3UHB/cdWHEWACByIPegl/hf8LUlDu6ylzBj
+	 rwz+WpmHCZbeT+X0JnvoDOZpzGd/AMXzB9BavDyhSNehKw6mJsx4CGvvDOg1fd1M4Z
+	 gLRLi/+ws4pnt3GbWJ2dJk/rYQziwYY4V3d0AkJDSMPquNsO1nomlC6mCx6zkltXaQ
+	 tuW947vC6tT2ETz85Xpg8U3L2pKZC5qwqXyu9hdqyK0IPSJ8y8+JqBu2/dDW7leWx9
+	 pokGg9n2p/duA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Takashi Iwai <tiwai@suse.de>,
+Cc: Xiang Mei <xmei5@asu.edu>,
+	co+8eacd4fa193b1b28@bugs.sh,
+	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] ALSA: usb-audio: Optimize the copy of packet sizes for implicit fb handling
-Date: Tue, 22 Sep 2026 08:34:39 -0400
-Message-ID: <20260922123440.2257183-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/2] ALSA: usb-audio: Clamp implicit feedback packet count to URB capacity
+Date: Tue, 22 Sep 2026 08:34:40 -0400
+Message-ID: <20260922123440.2257183-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092246-smasher-unpleased-5c4c@gregkh>
+In-Reply-To: <20260922123440.2257183-1-sashal@kernel.org>
 References: <2026092246-smasher-unpleased-5c4c@gregkh>
+ <20260922123440.2257183-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,64 +47,108 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Takashi Iwai <tiwai@suse.de>
+From: Xiang Mei <xmei5@asu.edu>
 
-[ Upstream commit 36adb51ac0b19edb32ffeea3fe66b174bad25ead ]
+[ Upstream commit 76a986c980bb502c7688d605ac7a67fd257a9a1b ]
 
-We did manual copies over loop for the packet data update of the
-implicit feedback, but this can be optimized with a simple memcpy().
+data_ep_set_params() allocates each data URB for exactly u->packets
+isochronous frames, so urb->iso_frame_desc[] has u->packets slots and
+ctx->packets is the driver's only record of that limit. For an implicit
+feedback sink, snd_usb_queue_pending_output_urbs() overwrites it with the
+sync source's packet count, which is calculated independently from the
+capture endpoint's parameters. When that count is larger,
+prepare_playback_urb() and prepare_silent_urb() can write
+iso_frame_desc[] past the allocation; their existing bounds limit payload
+bytes, not the descriptor index.
 
-Along with it, change the data type of snd_usb_packet_info struct to
-align with other (from uint32_t to int).
+The reproducer uses a high-speed UAC2 device declaring bInterval 1 for
+implicit feedback capture (8 packets) and bInterval 4 for playback
+(1 packet). On the first capture completion after the stream starts, it
+accesses seven descriptors spanning 112 bytes beyond the one-packet URB:
 
-No functional changes but only code optimizations.
+  BUG: KASAN: slab-out-of-bounds in prepare_playback_urb (sound/usb/pcm.c:1560)
+  Write of size 4 at addr ffff88801e696ad0 by task vhci_rx/178
+   prepare_playback_urb (sound/usb/pcm.c:1560)
+   prepare_outbound_urb (sound/usb/endpoint.c:340)
+   snd_usb_queue_pending_output_urbs (sound/usb/endpoint.c:501)
+   snd_complete_urb (sound/usb/endpoint.c:1834)
+   __usb_hcd_giveback_urb (drivers/usb/core/hcd.c:1657)
+   usb_hcd_giveback_urb (drivers/usb/core/hcd.c:1741)
+   vhci_rx_loop (drivers/usb/usbip/vhci_rx.c:107)
+   kthread (kernel/kthread.c:436)
+  The buggy address belongs to the object at ffff88801e696a00
+   which belongs to the cache kmalloc-256 of size 256
+  The buggy address is located 0 bytes to the right of
+   allocated 208-byte region [ffff88801e696a00, ffff88801e696ad0)
 
-Link: https://patch.msgid.link/20260216141209.1849200-3-tiwai@suse.de
+Record the allocated packet count per endpoint and clamp both the adopted
+count and the packet-size copy to it. Fold the Format Type II delimiter
+into urb_packs before the allocation loop so the recorded limit matches
+every URB.
+
+Fixes: cf044e441902 ("ALSA: usb-audio: Update the number of packets properly at receiving")
+Reported-by: co+8eacd4fa193b1b28@bugs.sh
+Closes: https://lore.kernel.org/all/22xPn8drvIUtYgVeQnBiNqXuevOTpBAjepLz%40bugs.sh/
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Xiang Mei <xmei5@asu.edu>
+Link: https://patch.msgid.link/20260912200530.1955491-1-xmei5@asu.edu
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Stable-dep-of: 76a986c980bb ("ALSA: usb-audio: Clamp implicit feedback packet count to URB capacity")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/usb/card.h     | 2 +-
- sound/usb/endpoint.c | 6 +++---
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ sound/usb/card.h     |  1 +
+ sound/usb/endpoint.c | 12 +++++++-----
+ 2 files changed, 8 insertions(+), 5 deletions(-)
 
 diff --git a/sound/usb/card.h b/sound/usb/card.h
-index 6ec95b2edf863..ac5505ce046de 100644
+index ac5505ce046de..0d860c57d9d9d 100644
 --- a/sound/usb/card.h
 +++ b/sound/usb/card.h
-@@ -89,7 +89,7 @@ struct snd_usb_endpoint {
- 	struct snd_urb_ctx urb[MAX_URBS];
- 
- 	struct snd_usb_packet_info {
--		uint32_t packet_size[MAX_PACKS_HS];
-+		int packet_size[MAX_PACKS_HS];
- 		int packets;
- 	} next_packet[MAX_URBS];
- 	unsigned int next_packet_head;	/* ring buffer offset to read */
+@@ -115,6 +115,7 @@ struct snd_usb_endpoint {
+ 	unsigned int phase;		/* phase accumulator */
+ 	unsigned int maxpacksize;	/* max packet size in bytes */
+ 	unsigned int maxframesize;      /* max packet size in frames */
++	unsigned int max_urb_packs;	/* packets allocated per data URB */
+ 	unsigned int max_urb_frames;	/* max URB size in frames */
+ 	unsigned int curpacksize;	/* current packet size in bytes (for capture) */
+ 	unsigned int curframesize;      /* current packet size in frames (for capture) */
 diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
-index c573d74641d42..77e2887e81ae2 100644
+index 77e2887e81ae2..a7ec1e31da383 100644
 --- a/sound/usb/endpoint.c
 +++ b/sound/usb/endpoint.c
-@@ -478,7 +478,7 @@ int snd_usb_queue_pending_output_urbs(struct snd_usb_endpoint *ep,
- 		unsigned long flags;
- 		struct snd_usb_packet_info *packet;
- 		struct snd_urb_ctx *ctx = NULL;
--		int err, i;
-+		int err;
+@@ -497,9 +497,10 @@ int snd_usb_queue_pending_output_urbs(struct snd_usb_endpoint *ep,
  
- 		spin_lock_irqsave(&ep->lock, flags);
- 		if ((!implicit_fb || ep->next_packet_queued > 0) &&
-@@ -498,8 +498,8 @@ int snd_usb_queue_pending_output_urbs(struct snd_usb_endpoint *ep,
  		/* copy over the length information */
  		if (implicit_fb) {
- 			ctx->packets = packet->packets;
--			for (i = 0; i < packet->packets; i++)
--				ctx->packet_size[i] = packet->packet_size[i];
-+			memcpy(ctx->packet_size, packet->packet_size,
-+			       packet->packets * sizeof(packet->packet_size[0]));
+-			ctx->packets = packet->packets;
++			ctx->packets = min_t(int, packet->packets,
++					     ep->max_urb_packs);
+ 			memcpy(ctx->packet_size, packet->packet_size,
+-			       packet->packets * sizeof(packet->packet_size[0]));
++			       ctx->packets * sizeof(packet->packet_size[0]));
  		}
  
  		/* call the data handler to fill in playback data */
+@@ -1259,15 +1260,16 @@ static int data_ep_set_params(struct snd_usb_endpoint *ep)
+ 		ep->nurbs = min(max_urbs, urbs_per_period * ep->cur_buffer_periods);
+ 	}
+ 
++	if (fmt->fmt_type == UAC_FORMAT_TYPE_II)
++		urb_packs++; /* for transfer delimiter */
++	ep->max_urb_packs = urb_packs;
++
+ 	/* allocate and initialize data urbs */
+ 	for (i = 0; i < ep->nurbs; i++) {
+ 		struct snd_urb_ctx *u = &ep->urb[i];
+ 		u->index = i;
+ 		u->ep = ep;
+ 		u->packets = urb_packs;
+-
+-		if (fmt->fmt_type == UAC_FORMAT_TYPE_II)
+-			u->packets++; /* for transfer delimiter */
+ 		u->buffer_size = maxsize * u->packets;
+ 		u->urb = usb_alloc_urb(u->packets, GFP_KERNEL);
+ 		if (!u->urb)
 -- 
 2.53.0
 
