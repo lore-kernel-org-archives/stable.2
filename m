@@ -1,49 +1,87 @@
-Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DDD32222CC;
-	Tue, 22 Sep 2026 12:45:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98759545DA0
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 12:48:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790081133; cv=none; b=uo3Cvsp5ZbNFS/cnREg9Gzgs7jWv1mIQ2wz8U09tL850FRgMhqVj2ub7XdYPBxnX8RD0xJf5kEtnGynzNPt1wOgD+Z7vmR+KdB9HoEoOFKvIeuLr2M356S2c519p6lMbLE6tCk85TyJqlf6xPnP6iYvIF8Y8cWfk89+op3Hof10=
+	t=1790081290; cv=none; b=MJSTy3rC/SmWr1fpGE4liZ0ySV20CdJXdQBQIgK9v/k4aFER6s/eB3VX5TdrBHf0eGG2w5wB3miTOxm0g5YlXdmsKOQfyihvxJ3NUvgyL6qoUPbOBlha47AoLXTklbx8QMb6q8ZMqVAnkPErzpbvdJUstWsoK8pVakj0qPJDlvU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790081133; c=relaxed/simple;
-	bh=SexyDCDDA86IrxgleDDpgNquGCBXEAW+5IL256OLIYg=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=UQEIxBRxkYVL5ebgJvBWHz9Y6ZaUja6wiRMmp8dFQ+G8zVLM8LDVIPOhFQnX+igH0pJ2B3mRjblgFl6F/0vR4Jsd13XShatZaQb4KgmXyKaTyecsBaiMkztLbQkdAOs96dlV9snZPJaZBe8ZKJ9zRAvLt2s/ceOnHDMo+mJFHNU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=pIw/gEsw; arc=none smtp.client-ip=117.135.210.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+	s=arc-20240116; t=1790081290; c=relaxed/simple;
+	bh=QVFwYIiKUZVL+YjJoBnUJAKPe/wKV4GXCUpDX8JPQGA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cecAeNk5LwJK0lOi+rogw539zgyaPHnMHDPcsh0CuEyVmdld/jzBAHWvWztKtfBbGp/euJLkAiaF3YdA6lPpsg6C23Uq2Sa454fnfm44GAUvtYs3rOVXn/7cQlaHyys7n/QVBVO4bbypK2pQ6YU4hJGTHs5WCu3PpRkisNEoegs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aYsHQOUJ; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="pIw/gEsw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=dJ
-	/NF/IKzyTCf3s98R9LljNUJNr1ysT/7jTS8YD1kDA=; b=pIw/gEsw9hc1kv9ou/
-	jvGzbKBcUQ31Ucys3yYzr7CAgtmNo8A2er9874K7ht7fKVc1qN4vqf3b4TwhpFl0
-	nKg7uJXyEiIhv0UwwzGcu6QYNE2CI1lZ0F/ZH1XLBaFFOtHnqhVc+MKcuFFobgw6
-	bmV5IPQs57ZzAChDwKhdApAUc=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wD3f90ZeLJqrJ0eAA--.64182S2;
-	Tue, 22 Sep 2026 20:44:09 +0800 (CST)
-From: Linkui Xiao <xiaolinkui@126.com>
-To: maxime.chevallier@bootlin.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	mcoquelin.stm32@gmail.com,
-	alexandre.torgue@foss.st.com
-Cc: netdev@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aYsHQOUJ"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccda24a3so3077220a91.0
+        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 05:48:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790081288; x=1790686088; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QVFwYIiKUZVL+YjJoBnUJAKPe/wKV4GXCUpDX8JPQGA=;
+        b=aYsHQOUJk8gURJi/wRAffvbYAr+oEuDTWRAItRq/qCgXtqxo3hvP3NZs5BSqDmhwmM
+         yiXCaIYl9kiVqJmvFS/nH818r5prYUCi0RF5OSTM+8XznXvBcBPnuL2XqcVINEjvCWpt
+         t6ahYriwMQ9DmqX97K+Ro58vmGGR7CA0XN60P0BrOFupN+b/cLCST1QaZNaviWJ2uQux
+         ESeQazpkBDC8rUXDcQoyAO0mQ01UMV44omwe7b+BgNCp7d3jCrlf+Lb4x5DK4njRe9lA
+         dmzKI8iSY3u/4Tp5XuLzMaGVIhnTLMXS3OyrMNk/U+U1sBSnKj+RsmbZS5ZOLUEvJI/t
+         Voiw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790081288; x=1790686088;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QVFwYIiKUZVL+YjJoBnUJAKPe/wKV4GXCUpDX8JPQGA=;
+        b=Mi644gADWPTQnqkQtzaM+Gf2BnupDG2IolbKdxSPT5iGVNHAr8bM0k3+nLTi2jplTl
+         ErV2wldhv76jCpQM2XCiMaB1sdA6Db2aZrXIh+sMLGqZk3c73YFlyiZseZCfPRNyuNG3
+         M3XiWQppS/i5PKVNsZbaBldXvxkChp/lUb64UOmtZW3X6Pogy/9P/p8ptjeWFt3U04oY
+         aqALBkhAo72nuSqrkWFPuosybpqnNL/7RLmVZxeKapl/TBbSHeMwpyr76k+8Rg+9TiPa
+         0hrAZqWuFcUFQ7dnSFJqG7wdGBe9iCmWimeXwotCE4V8gUTmf2nKebM383yV5lBctmIa
+         EpTg==
+X-Forwarded-Encrypted: i=1; AKwUvBwh7Jiv+alqV2AkPYEcrqXa7fz554lCPSDILzJVmmhCjDnK5+xMCmHjAMNK50agnNILhHOdRxg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lXXwOBCOiIz2skRQXQD7MtWx0Lfjoo4JgiLG+PSW/k1Bkt9i/G
+	dffFff+DCaszYjDVQ1N0zBE866Odw6CdAgnP7AdYJ7sahGxFFltnGuM=
+X-Gm-Gg: AYBFou1w/3W8wjQ9Aq064rIb14wMWGmVoOntRmfBlU0lC624aIE/CcjR7TVWiFTkQJ/
+	BuFu3MsOYtKjRTme2sFQsQgSo4Vu82Y3TyaG6iMEr4kJa1ovh29HZhAipx5xtSLyWUERdVTIpE1
+	r/2b+TlNBMtbZeHj9tjnIHGxDiWZeagcWx4q9u4IKZq1MqQWt9B9IrUXs9gEbOfsRLDgMExRwWC
+	c26AgmvTUJBWkVv5ov+Tl4C+ixBkXNn2Rk00Me5LLAYzk+ywT6VTUqCzDyEXo5jzVsv9Ajw95Ne
+	xlkvUYnmLPq26jL6iljww0HeeHZkxMHfKLa6Mx0192WuIn8o23vbyfL9ebDwYmqpBeQgK8BpOof
+	lXP514zVielxyGyFnkUzC3hIej6NMJgKbhIbgDbi62RRYY7ZZS8io11vjk866s8O9OYri37Cwey
+	jChY+lVyyleH0H7/KoY4dDQBCaK2WsoGiJk9LcjWh/XmPLga4PRF4sbTTS+lg4i6IamW2iy+bX1
+	od8nMaoFtwtV/PCdceon2IloFBH
+X-Received: by 2002:a17:90b:582e:b0:38e:bbf1:de3f with SMTP id 98e67ed59e1d1-3a0730d0610mr995564a91.12.1790081287829;
+        Tue, 22 Sep 2026 05:48:07 -0700 (PDT)
+Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:7f00:8c85:2466:805a:e198:cde8])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a06e574c49sm3442051a91.8.2026.09.22.05.48.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 05:48:07 -0700 (PDT)
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+To: rppt@kernel.org
+Cc: akpm@linux-foundation.org,
+	peterx@redhat.com,
+	surenb@google.com,
+	aarcange@redhat.com,
+	david@kernel.org,
+	ljs@kernel.org,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	mhocko@suse.com,
+	shuah@kernel.org,
+	linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Linkui Xiao <xiaolinkui@kylinos.cn>,
 	stable@vger.kernel.org,
-	Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
-Subject: [PATCH net v3] net: stmmac: do not cache the new TSO MSS before it reaches the DMA
-Date: Tue, 22 Sep 2026 20:44:08 +0800
-Message-Id: <20260922124408.645496-1-xiaolinkui@126.com>
-X-Mailer: git-send-email 2.25.1
+	donggeunyoo.kernel@gmail.com
+Subject: Re: [PATCH v1 1/2] userfaultfd: clear the inherited uffd bit in move_swap_pte()
+Date: Tue, 22 Sep 2026 21:47:59 +0900
+Message-ID: <20260922124759.1676901-1-donggeunyoo.kernel@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <arIj-DZ3BtxMEzLB@kernel.org>
+References: <20260919004630.1159895-2-donggeunyoo.kernel@gmail.com> <arIj-DZ3BtxMEzLB@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,108 +89,8 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3f90ZeLJqrJ0eAA--.64182S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxAr17KFyUur4DJw43Aw13Arb_yoWrZrWxpF
-	4UZa90yr95Jr1fWw48C3y0va45Jayrtay5Cw18G3sxCwsIyryvgryfKrWUWa4UAF95ZF1a
-	ka1q9asxAF4UJrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Ul-ewUUUUU=
-X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBqRlrQmqyeBnq-AAA32
 
-From: Linkui Xiao <xiaolinkui@kylinos.cn>
+Thank you for the review.
 
-stmmac_tso_xmit() fills the MSS context descriptor and stores the new MSS
-in tx_q->mss right away, but the descriptor only gets its OWN bit much
-later, right before the frame is handed to the DMA. Every error path in
-between - the dma_map_single() of the linear part and the
-skb_frag_dma_map() of each fragment - returns with tx_q->mss already
-updated while the MAC is still programmed with the previous MSS.
-
-The abandoned context descriptor is never handed to the DMA:
-stmmac_set_mss() does not set the OWN bit, and the error paths return
-before stmmac_flush_tx_descriptors(), which is the only place that
-advances the TX tail pointer. When a later xmit advances the tail pointer
-past the abandoned slot, the DMA stops on the not-owned context
-descriptor and suspends; stmmac_tx_clean() then reclaims the slot in
-software but stops at the first descriptor the DMA still owns, so the
-ring can never wrap around. The queue stalls until the watchdog fires
-and stmmac_tx_err() resets the channel, which also clears the stale
-tx_q->mss via stmmac_reset_tx_queue().
-
-Update tx_q->mss only once the context descriptor has been given to the
-DMA, so that the cached value always describes what the hardware is
-actually programmed with.
-
-The context descriptor is now handled like the data descriptors are:
-tx_q->cur_tx is not advanced while it is being filled. Whether the frame
-can be queued is only known after every dma_map_single() and
-skb_frag_dma_map() has succeeded, so the descriptor stays at the slot
-tx_q->cur_tx points to and the index moves past it later, together with
-the data descriptors. That also keeps the context descriptor outside the
-range stmmac_tx_clean() walks when the ring is cleaned after a failure,
-so the error paths have to release it explicitly. A mapping failure
-therefore leaves the slot reusable instead of parked in the middle of
-the ring as a descriptor the DMA will stop on.
-
-Fixes: f748be531d70 ("stmmac: support new GMAC4")
-Cc: stable@vger.kernel.org
-Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
-Acked-by: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
----
-Changes in v3:
-- Rewrote the failure description in the commit message: after a mapping
-  failure the not-owned context descriptor wedges the TX ring (the DMA
-  suspends on it, stmmac_tx_clean() pins dirty_tx, only the watchdog
-  reset recovers), it does not produce mis-sized segments as previously
-  claimed. No code change. (Sashiko AI review)
-- Kept Lorenzo's Acked-by, as the patch is unchanged from v2.
-- Link: https://lore.kernel.org/all/20260920061609.1919876-1-xiaolinkui@126.com/
-
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index a268cd4acdef..276187f50ee3 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -4563,10 +4563,6 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
- 			mss_desc = &tx_q->dma_tx[tx_q->cur_tx];
- 
- 		stmmac_set_mss(priv, mss_desc, mss);
--		tx_q->mss = mss;
--		tx_q->cur_tx = STMMAC_NEXT_ENTRY(tx_q->cur_tx,
--						priv->dma_conf.dma_tx_size);
--		WARN_ON(tx_q->tx_skbuff[tx_q->cur_tx]);
- 	}
- 
- 	if (netif_msg_tx_queued(priv)) {
-@@ -4577,6 +4573,9 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
- 	}
- 
- 	first_entry = tx_q->cur_tx;
-+	if (mss_desc)
-+		first_entry = STMMAC_NEXT_ENTRY(first_entry,
-+						priv->dma_conf.dma_tx_size);
- 	entry = first_entry;
- 
- 	WARN_ON(tx_q->tx_skbuff[entry]);
-@@ -4714,6 +4713,7 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
- 		 */
- 		dma_wmb();
- 		stmmac_set_tx_owner(priv, mss_desc);
-+		tx_q->mss = mss;
- 	}
- 
- 	if (netif_msg_pktdata(priv)) {
-@@ -4745,6 +4745,9 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
- 						priv->dma_conf.dma_tx_size);
- 	}
- error:
-+	if (mss_desc)
-+		stmmac_release_tx_desc(priv, mss_desc, priv->descriptor_mode);
-+
- 	dev_err(priv->device, "Tx dma map failed\n");
- 	dev_kfree_skb(skb);
- 	priv->xstats.tx_dropped++;
--- 
-2.25.1
-
+I'll rewrite the changelog for readability and add the Assisted-by tag
+in v2.
