@@ -1,134 +1,159 @@
-Received: from pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.34.181.151])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87AA446982F;
-	Tue, 22 Sep 2026 17:57:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.34.181.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA86F37F015;
+	Tue, 22 Sep 2026 18:02:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790099831; cv=none; b=UNmSTPAm/x9EjnFoNxVQecabKVXV3oTYcZYy4pQeVKp3B2nWr+in49J8db8bALx5VfnP3wTeJfrE5tk1b6xADeXIhchfFIg49idbnJDgHo4JqAy12KAKnOwfhmE0WxTqN3cg/c37fzd9wVF4y2kUlZ/vv1Udz9eog83rF3LP5Xg=
+	t=1790100153; cv=none; b=dBZd+2rK5HAESE12aFVU2UbX+6+5lUMjW69dReR7VRFcEg/7b4R/ERaYpF+X9LY9woC1gflenO3/OJ3/fA4k3fW3doudbqDA+vTwO2nA5AdmI1KNg0KwCF9le0wvKy0QPhQYsSll3EBYN0Y6ZAALOoVelq5eKNn5U18aN82TLSA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790099831; c=relaxed/simple;
-	bh=Q8au4sTrqz4YIvyNguOhIkoAy69QlyaYpnbwvs4cJl0=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=LB2VaRsbx/8bZ2oNp1YyFiZtjy6LVGRIUXmajw6d1kdCzeSmWE5n8a97/EbUJj4J4EhHosmPoFyz2VZ/q7z76c/BxSqrVQdjvuK9KJrofZWoqvF3v5WQces440SW4HekpkJHVcqrH4CjHspXrXMcNM20TrmUuSPjfqpStOxjbRk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=jHiQvgsv; arc=none smtp.client-ip=52.34.181.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	s=arc-20240116; t=1790100153; c=relaxed/simple;
+	bh=BcHBn2UZtUK7aNlCdO+R/2PD6ujgJGUXD8/c94ZM4Go=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qfjt/H10AhcO+kJzM+wjjsHgRLv6OW8iDkxn7W8WMYEM+m73HX/UzKgO4iDP/X2CmhbhfD2MjVZh/mEKcHF1DQEz21/D+7TsiaTFWzv9CR4KSLnCUmugmSOgUlzz6CL0ZwdNVcSgJRYCwSXwEsKUHjhE+jBmi7z1r0M2pabS3Y8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ma5VY+M4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="jHiQvgsv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1790099830; x=1821635830;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=qN5XnQIzCII0JvDnuh1uh6pvZD1IP2URc4wRLzLGKJM=;
-  b=jHiQvgsv0RB7uk1x0PbZzoLJovD+FH8fpBWUfZ76ulEP/AN9Jg3dxUMO
-   dZWy1H1DJQgigwr7acXfkTFxrMyMibnsYu62dFli1kHsjAtfIGYUeYue2
-   6r5VD6SdE6i2lWDPxpSaPytG4cnf7dOF9spb3xiTIWU0c/PEsTBKguOzc
-   BJ2e9VrGStrXCA6cnMVGIy8fl+g/STflcBeMFmVD7/azqDoBiku/JLane
-   T8Juu7pxvjS+wuAIxcQX7Aod8tRVGvHvVSqAT2KSqL45OjDm8Tkc5Grrw
-   V0pHVV5XYUU1rAagw98YP68WfMbFHuEZ00/GXdilfzjge0w2hhqzCRWHY
-   w==;
-X-CSE-ConnectionGUID: JYPe3dSdRE2Jst86+ehwXA==
-X-CSE-MsgGUID: Ghgc5jPVTNiP74Z4PG1YBg==
-X-IronPort-AV: E=Sophos;i="6.27,116,1787011200"; 
-   d="scan'208";a="29355524"
-Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
-  by internal-pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 17:57:10 +0000
-Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.51:27790]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.5.10:2525] with esmtp (Farcaster)
- id 7f634d42-ea37-4bd3-8072-578b37438cbd; Tue, 22 Sep 2026 17:57:09 +0000 (UTC)
-X-Farcaster-Flow-ID: 7f634d42-ea37-4bd3-8072-578b37438cbd
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Tue, 22 Sep 2026 17:57:09 +0000
-Received: from dev-dsk-jamz-1e-e35f4cd9.us-east-1.amazon.com (10.189.35.140)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Tue, 22 Sep 2026 17:57:08 +0000
-From: Jimmy Zuber <jamz@amazon.com>
-To: Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>
-CC: NeilBrown <neilb@ownmail.net>, <linux-nfs@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: [PATCH RESEND] NFS: Fix stale negative cache on failed nfs_mkdir()
-Date: Tue, 22 Sep 2026 17:56:56 +0000
-Message-ID: <20260922175656.2833041-1-jamz@amazon.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ma5VY+M4"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id A31731F000FF;
+	Tue, 22 Sep 2026 18:02:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790100151;
+	bh=H6j3A0y/Tme7E56rKeVsNuePB6a3BtF46Purg/cD7vE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ma5VY+M4GxwSzam50epjE1EDS+OqK5wBITylo8jWZB/eUMHJJR8FKWFFTtEVgkyZt
+	 egBk3TK6PfSxQxeuTMZXrqnwhEVk/mkqfCWzgEJPUle78WrDDQLkzYNjv/yHVsQsEu
+	 lupaoGDnMjy4dAezOlHNt5dnC2VxGp9vcaE5Lk3B48PJIo42cz73uNWiMYZdR955io
+	 lwiifaUzLgT40z1vHr83mKr4e2B3bJ+XkPmLVE+hDll0dzoiKlp7MUgUzrlGaxJ2Tj
+	 ZiHFaUHQIu/Txio26pOBHMzgXQAvaQWafqnaKrNyR6eG6SHnxE40R4EPQQ4t1wHDwM
+	 Ap45iel3Yh1hw==
+Date: Tue, 22 Sep 2026 11:02:31 -0700
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: cem@kernel.org
+Cc: stable@vger.kernel.org, linux-xfs@vger.kernel.org
+Subject: Re: [PATCH 02/14] xfs: online quotacheck must dirty dquot if
+ enforcement adjustments needed
+Message-ID: <20260922180231.GX2705364@frogsfrogsfrogs>
+References: <178996120463.181988.9152653965555322220.stgit@frogsfrogsfrogs>
+ <178996120594.181988.17443723006471773386.stgit@frogsfrogsfrogs>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D037UWC004.ant.amazon.com (10.13.139.254) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <178996120594.181988.17443723006471773386.stgit@frogsfrogsfrogs>
 
-Since commit 8376583b84a1 ("nfs: change mkdir inode_operation to return
-alternate dentry if needed"), nfs_mkdir() no longer drops the dentry on
-RPC failure.  A negative cache value can then result in spurious ENOENT
-results for further operations within that directory, such as open or
-stat.
+On Sun, Sep 20, 2026 at 11:15:30PM -0700, Darrick J. Wong wrote:
+> From: Darrick J. Wong <djwong@kernel.org>
+> 
+> LOLLM noticed that we have no way to force xchk_commit_dquot to call
+> xfs_qm_adjust_dqenforcement if nothing else is wrong with the dquot.
+> Therefore, add a new predicate to force the dirty flag if the dquot has
+> zero limits and there are default limits; or if the grace period timer
+> needs adjusting.
+> 
+> Cc: <stable@vger.kernel.org> # v6.9
+> Fixes: 96ed2ae4a9b06b ("xfs: repair dquots based on live quotacheck results")
+> Signed-off-by: "Darrick J. Wong" <djwong@kernel.org>
+> Assisted-by: LOLLM # finding obvious bugs
+> ---
+>  fs/xfs/scrub/quotacheck_repair.c |   51 ++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 51 insertions(+)
+> 
+> 
+> diff --git a/fs/xfs/scrub/quotacheck_repair.c b/fs/xfs/scrub/quotacheck_repair.c
+> index 48ee08df302a42..e2208510939f08 100644
+> --- a/fs/xfs/scrub/quotacheck_repair.c
+> +++ b/fs/xfs/scrub/quotacheck_repair.c
+> @@ -39,6 +39,54 @@
+>   * dquot is locked.
+>   */
+>  
+> +static bool
+> +xqcheck_dqres_force_dirty(
+> +	const struct xfs_dquot_res	*res,
+> +	const struct xfs_quota_limits	*qlim)
+> +{
+> +	/* zero limits mean that we should set the default limits */
+> +	if (res->softlimit == 0 && qlim->soft != 0)
+> +		return true;
+> +	if (res->hardlimit == 0 && qlim->hard != 0)
+> +		return true;
+> +
+> +	/* do we need to adjust the timer setting? */
+> +	if ((res->softlimit && res->count > res->softlimit) ||
+> +	    (res->hardlimit && res->count > res->hardlimit)) {
+> +		if (res->timer == 0 && qlim->time != 0)
 
-We observed this breaking some applications where an EEXIST on mkdir
-caused the application to assume the directory to exist, only to fail
-operations within that directory due to the retained negative cache
-entry.  The other create paths, nfs_create() and nfs_mknod(), still drop
-the dentry on failure.  This patch restores the previous behavior.
+Shashiko says:
 
-Fixes: 8376583b84a1 ("nfs: change mkdir inode_operation to return alternate dentry if needed")
-Cc: stable@vger.kernel.org # v6.15+
-Signed-off-by: Jimmy Zuber <jamz@amazon.com>
----
+"Does this skip repairing missing grace period timers when the default grace
+period is configured to 0?
+If a quota usage exceeds its limit but has a missing or corrupt timer
+(res->timer == 0) and the default grace period (qlim->time) is 0, this
+condition evaluates to false. This causes the repair code to skip dirtying
+the dquot, bypassing xfs_qm_adjust_dqenforcement().
+When the unfixed dquot is subsequently flushed (e.g., via background
+writeback or a log force), xfs_qm_dqflush_check() will find count > softlimit
+but timer == 0. This is treated as a fatal inconsistency and triggers
+SHUTDOWN_CORRUPT_INCORE, effectively turning a reparable condition into a
+denial of service."
 
-Resend of:
-https://lore.kernel.org/linux-nfs/20260819015111.2743908-1-jamz@amazon.com/
+Yes, that should just be "if (!res->timer) return true;" since we want
+to force xfs_qm_adjust_dqtimers to reset it.  I forgot that !qlim->time
+just means "expires immediately", not "expires never".
 
-No change to the patch itself; rebased onto v7.3-rc4 and Cc'ing NeilBrown as
-the author of the Fixes: commit.  nfs_mkdir() in v7.3-rc4 still returns the
-error without unhashing @dentry, and vfs_mkdir()'s error path only calls
-end_creating()/end_dirop(), which unlocks the parent and dputs the dentry, so
-the hashed negative dentry survives in the dcache.
+Will fix in next revision.
 
-We reproduced this against a local knfsd export over NFSv4.1.  The export is
-mounted several times with "nosharecache" so that each mount acts as an
-independent client with its own dcache:
+--D
 
-  # /etc/exports
-  /srv/nfs 127.0.0.1(rw,sync,no_subtree_check,no_root_squash,fsid=0)
-
-  for i in $(seq 0 5); do
-      mount -t nfs4 -o vers=4.1,nosharecache,acdirmin=30,acdirmax=60 \
-          127.0.0.1:/ /mnt/nfs$i
-  done
-
-For each of 40 new cache/<id> directories, every mount stats the directory to
-seed a negative entry, then all mounts race to mkdir it.  The winner writes a
-file and renames it, and the losers that got EEXIST then read that file back.
-On a vanilla v6.17 kernel, the 200 loser reads were:
-
-  unpatched:   read OK   0 / ENOENT 200
-  patched:     read OK 200 / ENOENT   0
-
- fs/nfs/dir.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/fs/nfs/dir.c b/fs/nfs/dir.c
-index 49394123b..a26c459ff 100644
---- a/fs/nfs/dir.c
-+++ b/fs/nfs/dir.c
-@@ -2490,6 +2490,8 @@ struct dentry *nfs_mkdir(struct mnt_idmap *idmap, struct inode *dir,
- 	trace_nfs_mkdir_enter(dir, dentry);
- 	ret = NFS_PROTO(dir)->mkdir(dir, dentry, &attr);
- 	trace_nfs_mkdir_exit(dir, dentry, PTR_ERR_OR_ZERO(ret));
-+	if (IS_ERR(ret))
-+		d_drop(dentry);
- 	return ret;
- }
- EXPORT_SYMBOL_GPL(nfs_mkdir);
-
-base-commit: c4e9f74da4389a6b3e505d329d99232915a6b9cd
--- 
-2.50.1
-
+> +			return true;
+> +	} else {
+> +		if (res->timer)
+> +			return true;
+> +	}
+> +
+> +	return false;
+> +}
+> +
+> +/* Decide if we need to adjust the dquot limits or timers */
+> +static bool
+> +xqcheck_dquot_force_dirty(
+> +	const struct xfs_dquot	*dq)
+> +{
+> +	struct xfs_quotainfo	*qi = dq->q_mount->m_quotainfo;
+> +	struct xfs_def_quota	*defq;
+> +
+> +	/* root dquot does not enforce limits */
+> +	if (dq->q_id == 0)
+> +		return false;
+> +
+> +	defq = xfs_get_defquota(qi, xfs_dquot_type(dq));
+> +
+> +	if (xqcheck_dqres_force_dirty(&dq->q_blk, &defq->blk))
+> +		return true;
+> +	if (xqcheck_dqres_force_dirty(&dq->q_ino, &defq->ino))
+> +		return true;
+> +	if (xqcheck_dqres_force_dirty(&dq->q_rtb, &defq->rtb))
+> +		return true;
+> +
+> +	return false;
+> +}
+> +
+>  /* Commit new counters to a dquot. */
+>  static int
+>  xqcheck_commit_dquot(
+> @@ -91,6 +139,9 @@ xqcheck_commit_dquot(
+>  		dirty = true;
+>  	}
+>  
+> +	if (!dirty && xqcheck_dquot_force_dirty(dq))
+> +		dirty = true;
+> +
+>  	xcdq.flags |= (XQCHECK_DQUOT_REPAIR_SCANNED | XQCHECK_DQUOT_WRITTEN);
+>  	error = xfarray_store(counts, dq->q_id, &xcdq);
+>  	if (error == -EFBIG) {
+> 
+> 
