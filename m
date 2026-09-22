@@ -1,104 +1,76 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1EE9544890
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 12:41:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B7282FCBF6;
+	Tue, 22 Sep 2026 12:43:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790080887; cv=none; b=DxRGKrA7wblJFkjnUQ+IIttbZI/h7MM7c4oyvVf09+yZuGmmyP/tOAZ3RM59r1llzg39TZCpcbnGzClLTIQWtB8gcFGM8k5WhQ9g+seluwUTyRrdnnzUxBBfZ7HUDMEqbRV6dJdSXIvVUoy0vlzDwsjZqJqcS9wwrsuUqcPMayo=
+	t=1790080987; cv=none; b=s33Oub4aPcae4g/ganRa821jlAKTg/CiGPX79phMnjDiTiUlLSZ59KfdpA9iMNIaeYGsv7IkK0BfdBCKFrBZ6GU8IzTO2zfPIhBKuOMTViSqJ6lmFQ6pDZ43Nmzr1j4Sx2B0NmIBztPXcT6b1SWNMUii2KVN7wUjfBKwqmgRm/c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790080887; c=relaxed/simple;
-	bh=QZXui/sNrmgEF8EYt9qJR72fsL3JvuFjYWH/NetcEM4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fFfjwq0tSvphV1h8wsbiNPXgWutc76P5OIzJtwnSWsaoTP40dS1eRWTpXu4ggLTeTdQ4NFlmcZsAznsScaYqt67p2cwKsz34Dj5gI+1Qp3cEwnVnCc/ils8zdevnlenUSrCnCb14DfqJhLMxkmtAZHjRAfomsVwwdNAIZw2zXM8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Yckl43p/; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790080987; c=relaxed/simple;
+	bh=L0BFb0MRMWNJAEyVL4vg13EtcNccoadLPCaffIUTt2A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FtxKLPAt8KEZnTaweOQOo49Ul5uQ1oQzFM1jUhW7fhYEFEQmwGoikkahIvS35gdFRfSXa3kKCpZOzsmggefIji5eVA9yhvwpSEYY0w2rZJJXJvzMlnfCqFxXf0ZPjLhTntDAVCxjtMyf+NcH3Y6nstgdcBKsUR0j+RLU7anU/aQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=bL6aXDMr; arc=none smtp.client-ip=220.197.31.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Yckl43p/"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396cccbba91so2857138a91.1
-        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 05:41:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790080881; x=1790685681; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iw/dw+ccTq952L+vCfsl+Z5DyyMuf5zXMzQFZZc0Va0=;
-        b=Yckl43p/X1qGl9jsdqKYhbPDSUBjFoDIEqjPfz5Q2LQZVt492bLshmkDxge67eJYOh
-         qGOOFo9T5yMZOht4YlRNL7ndvYFk5akmskD1UjXM5MxZ6cJmqW6Nfu1NPRV5rxviKB11
-         xA22aUOz0QCkoSEXoThhLaiPc4416Gs4kCLHXON7lRNXpP09n016wUN+Hsol+jWutkLh
-         x3HLNeEdHu0sgh9ifwaMgatCzJUxdFal0wUpqV9AatNpf+cyXBJx4nDKT8NJoQBbsdcK
-         16f/Nz9lNM5tnqdbSSeYZw3FTjTwNRRw2Vdv+Z+/fdu1CHlYbnA6Kwd3it0HycY57MDf
-         i4+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790080881; x=1790685681;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iw/dw+ccTq952L+vCfsl+Z5DyyMuf5zXMzQFZZc0Va0=;
-        b=AzO6AAD3/4ugGlB+WZzZmrXKE7VSd5NWFo5FNK4+ahtlLll/hPVrQIlngmSRhXdNbl
-         aNyTFjE1KiApCSLzX2Eqkq5bWlqYxjCBWxq0mBeGXTA6kZSKb2rOa5L3F87h43eyxHWq
-         KdsF0hoLKk9JhNC6W3rlTzlwEn+l4hmTdXsiYndsy0VVI787800RZHV9KHFVzLtwd1PH
-         F0E2NMf+pmL/v+iiNXD9HE10oFjRxLrZJDPjY5a7WZmdj+oowmM8wBGVEiNqUL2UOF92
-         HtFl5Wy7pO7niypTxj5oL/bSYzfmeDVc/JUGhx3DjrH+wvuAYViwMBy1LN867tCDofHH
-         6oiw==
-X-Forwarded-Encrypted: i=1; AKwUvBzeL8Gh6BZ7Iju3sTm1eHvyNhLv+cony0cbrItsrzMPb6fAzJtwn0/MGnxvkLuMEWARWNxi2ck=@vger.kernel.org
-X-Gm-Message-State: AFuF++lH0bOLz3Fqn66bzkwm9DYFH5lIBWxcrjcieNax1et9fnfbRzPx
-	1R7t8/cmSXLHEF5Zhn+9/C3X6hb/sKOSCuV3Jp32gTvEtYEWhclhOeo=
-X-Gm-Gg: AYBFou03A5YHqdj112AZckse0XXSWaLyiNcwbFVICXuObCF/cJOkqh7Hj7mKSiAWql9
-	7te7Mej3tn6azWwgVDp1QdDNSXsNDxyekilW9OJTil6YqSQoIq2+sQwgwKKHSr1bojGNvlngUoD
-	yGmHWLrLkyCdYTtmJ1HkAIwx51QcduWzXiDSOupzjWJqldcvMPQPT1Ba6HGQLat7la6CMHrlSEK
-	aYHAQj6qlOEkzmZXL5fTEISH78CMDHs6d5Zy8HOJq2e0EiZCI/00FVoz4Bn/Gpj1w/SfhOVs3Bg
-	g8l9IevefFsKpofiq9TTA/GCdtQuoU+5cxknzmPkUBu8D8P6MM50fjZ1jFrBKviSTE9x/a9WoX8
-	RIXID798pEheX+9PbJBNq3bu8wwXKBOD5L2X7H8ZJDQOUwhcizyeqr/Q+EVg+vp5z+ipce7czhK
-	nO8aXxuxQ+cFSkZ3cPcKDnPA9FIE/B9yYEbN45GIp2gJE9WTheETp4tk8mRpgEchcETJ8CKdp8i
-	Lz0mJ/K3A6Nr4V8lbNFPD1Qj3o=
-X-Received: by 2002:a17:90a:ec90:b0:39e:4c81:6c65 with SMTP id 98e67ed59e1d1-3a0731f717fmr1052233a91.32.1790080881311;
-        Tue, 22 Sep 2026 05:41:21 -0700 (PDT)
-Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:7f00:8c85:2466:805a:e198:cde8])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a06e5cd2e4sm3134535a91.16.2026.09.22.05.41.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 05:41:20 -0700 (PDT)
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-To: david@kernel.org
-Cc: akpm@linux-foundation.org,
-	rppt@kernel.org,
-	peterx@redhat.com,
-	surenb@google.com,
-	aarcange@redhat.com,
-	ljs@kernel.org,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	mhocko@suse.com,
-	shuah@kernel.org,
-	linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	donggeunyoo.kernel@gmail.com
-Subject: Re: [PATCH v1 1/2] userfaultfd: clear the inherited uffd bit in move_swap_pte()
-Date: Tue, 22 Sep 2026 21:41:13 +0900
-Message-ID: <20260922124113.1675993-1-donggeunyoo.kernel@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <49208ed6-6c20-49a9-9c0d-0e1cffe1898f@kernel.org>
-References: <20260919004630.1159895-2-donggeunyoo.kernel@gmail.com> <49208ed6-6c20-49a9-9c0d-0e1cffe1898f@kernel.org>
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="bL6aXDMr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=UQMVZR7bVQz/sE2rQ7Oi7HxPrv/jQ3e7sAgi8F8An/U=;
+	b=bL6aXDMrst6lk2NFKD6Ol0yi5HnAthxMTQGNKz/L1lzaf/SFtIGtLmRJq6JFgF
+	IsbpJAPLexX6oLZIXKcvOhB30Liap0aRj6cTeoUe5lunRMgvCCKxdC4ME2GskHbf
+	jakLG7O5nlEVjaBpcbS1EoDFFAbvsmy4VMv1KLZNiy86c=
+Message-ID: <6ee07707-a1f2-4f3d-8ff7-d309e94c3dd6@126.com>
+Date: Tue, 22 Sep 2026 20:41:35 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v2] net: stmmac: do not cache the new TSO MSS before
+ it reaches the DMA
+To: netdev-bot+sashiko@kernel.org
+Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ xiaolinkui@kylinos.cn, stable@vger.kernel.org
+References: <20260920061609.1919876-1-xiaolinkui@126.com>
+ <178997153300.2160803.9722094587431911734@kernel.org>
+Content-Language: en-US
+From: Linkui Xiao <xiaolinkui@126.com>
+In-Reply-To: <178997153300.2160803.9722094587431911734@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3955_d7JqnfIhAA--.28161S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWruw1DWr1rAw1DuFW5tFy3CFg_yoWDKwc_ur
+	yay3srG34UGF9agFn29rn8ZrW29FWj9ry7tw1kJayIgrWxXa95uFZ7Wr92vr17A3yYyr9r
+	CryYq3Wfur13ujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IU1hID7UUUUU==
+X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBqB9EG2qyd3-d8QAA3U
 
-Thank you for the review.
+- [Medium] The commit message of "net: stmmac: do not cache the new TSO
+   MSS before it reaches the DMA" describes a failure mode that cannot…
 
-My guess is that wp protection always leaves the destination PTE
-non-none, and the move path has
+Agreed -- thanks for the analysis, the on-the-wire symptom I described
+cannot happen. After a mapping failure the abandoned context descriptor
+stays at OWN=0, the error paths never advance the tail pointer, and once
+a later xmit publishes it the DMA suspends on the not-owned descriptor;
+stmmac_tx_clean() reclaims the slot in software but pins dirty_tx at the
+first descriptor the DMA still owns, so no later frame is ever segmented
+at all -- stale MSS or otherwise. The real pre-patch consequence is the
+wedged TX ring you describe, recovered only by the reset path
+(stmmac_tx_err() -> stmmac_reset_tx_queue(), which also clears the stale
+tx_q->mss; reachable from both the watchdog and the DMA error interrupt).
 
-1566	if (!pte_none(orig_dst_pte)) {
-1567		ret = -EEXIST;
-1568		goto out;
-1569	}
+I will respin with the commit message rewritten to describe the stall;
+the code change is unchanged (keeping tx_q->cur_tx on the context slot
+and releasing it on the error paths is what prevents the wedge).
 
-The move fails when the destination PTE is not none. So there's nothing
-to preserve for wp in the first place.
+pw-bot: cr
+
