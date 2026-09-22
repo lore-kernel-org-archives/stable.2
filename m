@@ -1,147 +1,92 @@
-Received: from mta-65-227.siemens.flowmailer.net (mta-65-227.siemens.flowmailer.net [185.136.65.227])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7894652122E
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 07:53:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.65.227
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CA9039F188;
+	Tue, 22 Sep 2026 07:54:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790063599; cv=none; b=pbEai7ufAAa2qXPsWcAhq5amWmB6ofnZRaK0z1svix/paOkYgEu5VWR7skJ1HTmwM0FDYtH4Vx7p3+X3IE2no7rDuBtnDNvCuWImQkounq0H226hoRwbAchIZ1ponTmBfUt3a2ENE/+428M1/l7BkEepH6wiDrYeYoj7E2CHexU=
+	t=1790063656; cv=none; b=hPe0XptgM/+PA1ld4utRlfl/AnYxZYlgE5UDD2a0LlkbHkYaR3w1VLgUFHFN9BIqlPiQxtUe9bj2tbFza3pBaQNcIT8gHFIX4ue94ZmKN/rmJMIz4+83qxTkpTzK+2umAp/2QcGneTOFurhz1mgjDRSlMR1Kmf7WWFkZz3988fM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790063599; c=relaxed/simple;
-	bh=m5EoRua0q9A2AIEu5UEySzNXUjtv5J9RR+mgTqZVnTQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hWsUG/7dr2HVK/RkdDRNmP69oxt8laPjtgh4qkRvdNhrKqpPJsHtACACsA7QDqlO9ieMT3dz6qz9kZUTY2QmPZgSM/M73YEhXLJ2euzqIo1g4slBFIp0D3RMZOmRGGNJUP5N7NnStrd5yn6VwZRtAllpMW1KkIqtmCKd/PcBQU0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b=KUZSIUrX; arc=none smtp.client-ip=185.136.65.227
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
+	s=arc-20240116; t=1790063656; c=relaxed/simple;
+	bh=KoI4mNGuiofuUwVL60X69VSUVc8IOT6JSlFKwqLihUM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=efi2x4toZs4WgvBrEQCllr8TVdJU7GvCmfaZtQ6B3YEguQ5c9GvuChKlF+fVANPZRTgyvAJe8HW2htpuKNPr3WOibqN0x1mtbI3Il5w7VAq7h0eCPvtDrLgqXEXms56nL9cAzPmDvUo+d00PuDrtslI0+8+ccLcIGOtafLGK+HM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E9BNng5S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b="KUZSIUrX"
-Received: by mta-65-227.siemens.flowmailer.net with ESMTPSA id 2026092207525432e8870c0600020721
-        for <stable@vger.kernel.org>;
-        Tue, 22 Sep 2026 09:52:54 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm1;
- d=siemens.com; i=alexander.sverdlin@siemens.com;
- h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc;
- bh=5SshI8N4ivJLLkeBdfLpv1CjXhh2GgUQgsKDnILaqkg=;
- b=KUZSIUrXUhFpgCNQ644uND8V0eOC3R4jjQfW3wzpmpiRJfRR/NwDwedlMwxy96G4Btq/lx
- ZLV7+6KH8c0F+nAleoD351nfJlR45QFq04QqUg2xzgF0ILmNqt+r/4GttXhRxufz6iqWgWkV
- EYaGhh+0tJhhjwMTzfCni2bz/OQhrqoCVuATp50HDiM7M3Xnoq1fiHuSG+fJfl+8FQinhFET
- mDUkMko3zEqroujh+2mltR6RsIqQwRIXtRMMhoX1HlPVqTh3Ss/B1uhNKE0il9SDIBlVEczw
- rGZU/unDJCY5hx0qDxxg69mIgvJPOSFAFMMvgRgG4zEbPZfXE52g+Wyw==;
-From: "A. Sverdlin" <alexander.sverdlin@siemens.com>
-To: netdev@vger.kernel.org
-Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	"Aleksander Jan Bajkowski" <olek2@wp.pl>,
-	Daniel Golle <daniel@makrotopia.org>,
-	John Crispin <john@phrozen.org>,
-	Hauke Mehrtens <hauke@hauke-m.de>,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] net: phy: intel-xway: workaround 100BASE-TX Link-Up issue
-Date: Tue, 22 Sep 2026 09:52:46 +0200
-Message-ID: <20260922075251.23386-1-alexander.sverdlin@siemens.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E9BNng5S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF3371F000FF;
+	Tue, 22 Sep 2026 07:54:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790063644;
+	bh=TgeKIblBe1/xue7/qgjT+0OwbKuQ61ADgY1/uG2WxQs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=E9BNng5SOdG3QtfLBVMfwAhd6vZRaeuy/NtiYcnDS2aeIxtLBHFX5f63dlGNlZ/ak
+	 2Qa6GexUuAveE70dANZINtMcuYh63lGnpYhTI/GPXV+r64J24Ej2oDXlJLnUvOO3Bh
+	 C1eOO1mzwNxPTacVvQGE0+BfRqmz9Wig2OJR4qLGdW2rcWbMNQMWpfx1TXVLI4oSZc
+	 3h/YznfnIWSUtP52RFQfg5X+UDorROWzAjs2P8aw9AX/ff1x7Dc2VX/2jxm8kuknFW
+	 rtkbafqw53HwwzARrULrRFJX73HGFyn++O4vC5daugLZn21PtE2WoArpQI1Uzxe7lh
+	 vkynowTjDGSlQ==
+Date: Tue, 22 Sep 2026 08:54:00 +0100
+From: Lee Jones <lee@kernel.org>
+To: Jiri Kosina <jikos@kernel.org>, stable@vger.kernel.org
+Cc: Benoit Sevens <bsevens@google.com>,
+	Filipe =?iso-8859-1?Q?La=EDns?= <lains@riseup.net>,
+	Bastien Nocera <hadess@hadess.net>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [STABLE v6.18-v6.6][PATCH] HID: logitech-hidpp: fix race condition
+ when accessing stale stack pointer
+Message-ID: <20260922075400.GA2268440@google.com>
+References: <20260401144811.1242722-1-bsevens@google.com>
+ <81n26386-p78s-5rqq-5s7o-p8s01sr95q74@xreary.bet>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Flowmailer-Platform: Siemens
-Feedback-ID: 519:519-456497:519-21489:flowmailer
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <81n26386-p78s-5rqq-5s7o-p8s01sr95q74@xreary.bet>
 
-From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+Dear Stable,
 
-MaxLinear GSW12x/GSW14x Ethernet Switch Errata Sheet states:
-"An issue has been sporadically observed after device power-on on the first
-link-up attempt in 100BASE-TX mode resulting in either the link-up taking a
-long time, or failing to link-up altogether...
+On Thu, 09 Apr 2026, Jiri Kosina wrote:
 
-Workaround:
-After power-on, enable Cable Diagnostic Mode for all ports and disable
-it..."
+> On Wed, 1 Apr 2026, Benoit Sevens wrote:
+> 
+> > From: Beno=C3=AEt Sevens <bsevens@google.com>
+> > 
+> > The driver uses hidpp->send_receive_buf to point to a stack-allocated
+> > buffer in the synchronous command path (__do_hidpp_send_message_sync).
+> > However, this pointer is not cleared when the function returns.
+> > 
+> > If an event is processed (e.g. by a different thread) while the
+> > send_mutex is held by a new command, but before that command has
+> > updated send_receive_buf, the handler (hidpp_raw_hidpp_event) will
+> > observe that the mutex is locked and dereference the stale pointer.
+> > 
+> > This results in an out-of-bounds access on a different thread's kernel
+> > stack (or a NULL pointer dereference on the very first command).
+> > 
+> > Fix this by:
+> > 1. Clearing hidpp->send_receive_buf to NULL before releasing the mutex
+> >    in the synchronous command path.
+> > 2. Moving the assignment of the local 'question' and 'answer' pointers
+> >    inside the mutex_is_locked() block in the handler, and adding
+> >    a NULL check before dereferencing.
+> 
+> Now applied.
+> 
+> Benjamin had some ideas on further cleanup (allocating with __free__ 
+> instead of using stack pointer), but that'd be a little bigger cleanup, so 
+> let's keep that separate.
 
-Implement the proposed workaround unconditionally in the Intel XWAY driver
-(MaxLinear GSW1xx switches incorporate Intel XWAY PHYs) because the
-diagnostic bits have the same meaning even in older integral PHYs such as
-GPY111/PEF7071/PHY11G. So it's not clear how to distinguish the affected
-newer integrated PHYs, but the workaround should not hurt the older PHYs.
+Please could we have this commit backported through to linux-6.6.y.
 
-Cc: stable@vger.kernel.org
-Fixes: 22335939ec90 ("net: dsa: add driver for MaxLinear GSW1xx switch family")
-Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
----
-Changelog:
-v2:
-- added "Fixes:" tag (refers GSW1xx introduction commit, because it's the
-  first known silicon to contain affected IP, kernels w/o GSW1xx support
-  do not need XWAY PHY workaround)
-v1:
-- https://lore.kernel.org/all/20260915085921.1354706-1-alexander.sverdlin@siemens.com/
+e2aaf2d3ad92 ("HID: logitech-hidpp: fix race condition when accessing stale stack pointer")
 
- drivers/net/phy/intel-xway.c | 29 ++++++++++++++++++++++++++++-
- 1 file changed, 28 insertions(+), 1 deletion(-)
+I will follow-up with a backported version for the older releases.
 
-diff --git a/drivers/net/phy/intel-xway.c b/drivers/net/phy/intel-xway.c
-index afbcec7117443..3cee31bb931f2 100644
---- a/drivers/net/phy/intel-xway.c
-+++ b/drivers/net/phy/intel-xway.c
-@@ -16,6 +16,11 @@
- #define XWAY_MDIO_ISTAT			0x1A	/* interrupt status */
- #define XWAY_MDIO_LED			0x1B	/* led control */
- 
-+#define XWAY_MDIO_GCTRL_TM_MASK		GENMASK(15, 13)
-+#define XWAY_MDIO_GCTRL_TM(mode)	FIELD_PREP(XWAY_MDIO_GCTRL_TM_MASK, (mode))
-+#define XWAY_MDIO_GCTRL_TM_NOP		XWAY_MDIO_GCTRL_TM(0)	/* Normal operation */
-+#define XWAY_MDIO_GCTRL_TM_CDIAG	XWAY_MDIO_GCTRL_TM(6)	/* Cable diagnostics */
-+
- #define XWAY_MDIO_ERRCNT_SEL		GENMASK(11, 8)
- #define XWAY_MDIO_ERRCNT_COUNT		GENMASK(7, 0)
- #define XWAY_MDIO_ERRCNT_SEL_RXERR	0
-@@ -326,6 +331,28 @@ static int xway_gphy_probe(struct phy_device *phydev)
- 	return 0;
- }
- 
-+static int xway_11g_int_config_init(struct phy_device *phydev)
-+{
-+	int err;
-+
-+	/* An issue has been sporadically observed after device power-on on the
-+	 * first link-up attempt in 100BASE-TX mode resulting in either the
-+	 * link-up taking a long time, or failing to link-up altogether.
-+	 *
-+	 * Workaround:
-+	 * After power-on, enable Cable Diagnostic Mode for all ports and
-+	 * disable it.
-+	 */
-+	err = phy_modify(phydev, MII_CTRL1000, XWAY_MDIO_GCTRL_TM_MASK, XWAY_MDIO_GCTRL_TM_CDIAG);
-+	if (err)
-+		return err;
-+	err = phy_modify(phydev, MII_CTRL1000, XWAY_MDIO_GCTRL_TM_MASK, XWAY_MDIO_GCTRL_TM_NOP);
-+	if (err)
-+		return err;
-+
-+	return xway_gphy_config_init(phydev);
-+}
-+
- static int xway_gphy14_config_aneg(struct phy_device *phydev)
- {
- 	int reg, err;
-@@ -735,7 +762,7 @@ static struct phy_driver xway_gphy[] = {
- 		.phy_id_mask	= 0xffffffff,
- 		.name		= "Intel XWAY PHY11G (xRX v1.2 integrated)",
- 		/* PHY_GBIT_FEATURES */
--		.config_init	= xway_gphy_config_init,
-+		.config_init	= xway_11g_int_config_init,
- 		.probe		= xway_gphy_probe,
- 		.handle_interrupt = xway_gphy_handle_interrupt,
- 		.config_intr	= xway_gphy_config_intr,
 -- 
-2.55.0
-
+Lee Jones
