@@ -1,210 +1,144 @@
-Received: from mout.web.de (mout.web.de [212.227.15.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF238437130;
-	Tue, 22 Sep 2026 09:07:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BBB4524AE6
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 09:10:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790068073; cv=none; b=er8i+OA/c9FDkjvtuDJl+rdvfdcmrb5CFFkMuxl92ErELUMMiFY2L3EAcPEFV/cVSWN0or8xfs3k6PEDrMygoj8X5YytHmi+fAxesCbbgYgD2Y7znBZJWdZzTAA3fOrHRkMXLaOch8htGvQ/gi2S1KpZdZeiebtkI4zwFeLnakQ=
+	t=1790068204; cv=none; b=q5Q7JScc6FFETIF6oEA5Ywv5wYplBj6cKRvtWMyk/DH4ot5kFCgDGqcJx0wLXgESM50hpBwDYjJVJjRfUqurbrD+rtZqkHMoDxkrb9Hj5gu5gklmM4AvDYvame7VHILP25IK+SiUrl9XPsZ3SY5NOvEd4fFkqlNLPkap2UlQBmg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790068073; c=relaxed/simple;
-	bh=UVAQGIca5VWKSCNT7YEDdXCZ+KM7/2fzl7Rn5zW4Kik=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MUanVU7vQRE1RS7oNd0H2/jqjS/Mos/qDWgQ1CMGW0lB/ObLHYSi3bqtpzFpfYADnt5TsiWvO2fQ5spHg5uphjWhko1QL8mGx3+f0VD3txhgP2wbpka1u3j+mEi829aXbV5uccQQg+/WGMMONsHWIHPuVcet/jlYRM5OfAbZuOA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b=WzaDY62/; arc=none smtp.client-ip=212.227.15.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
+	s=arc-20240116; t=1790068204; c=relaxed/simple;
+	bh=mBKCdwfTWDIJbik3smJ3FVVaENLpL49N6QgmGQgMO0k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aZb49aUBH7srpNhOjmODQSN+sjuCRbPf0+jf0omIamA0Y0TnGadEzjx3ezxsfg6ziqr+DxzqYZrYSiZpzh46D3BIPGZmOvxqhRZFnJ+u9yKZU7MDE5yj+NEaA+AjdZ8yyqFAvfZvuRjOvoHzLMQ+4NKITHrBjYGeIsc6kMrVNqM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PjoHib4E; arc=none smtp.client-ip=74.125.227.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b="WzaDY62/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
-	s=s29768273; t=1790068050; x=1790672850; i=markus.elfring@web.de;
-	bh=ZpeZmx6qMtsJjdwBX9521OYFfWQPRVX4NgiXC90ZrP4=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=WzaDY62/hWqnkCD/cKcSUHDHtEDnTw83Z1P8v9KYtQBCX2dSyY/K2f5GSdcFjSzw
-	 Dz+sOukEO0GSJI3rC2K2mkeCLi4oca86hIbR0mNuCujPMSPWWAWOyLQ55lllHEbNf
-	 Bm6j6hzUPcYl9pKCdCq/6eKHgoRodjsI9E1qCUesooryMrgJbrIpPTHN6QfDrNApT
-	 ZPLhj4I2pbUlLxUQ2zZyhSaaOyahljAz4CF9NT7LeS2lPG2ZHohYM8G2jx+EPfrM3
-	 wFZHvMsEELI15ryJAAkfU5ul4Vmn0Bfi7c0bd/EgugP8G7iWM+Aq7HqpyiBVcOEe5
-	 oJReXSChM8+UZ5f3Wg==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb006
- [213.165.67.108]) with ESMTPSA (Nemesis) id 1MjPUE-1wSmIy1Okk-00bHD3; Tue, 22
- Sep 2026 11:07:30 +0200
-Message-ID: <9a96d707-ee9d-423c-86ad-2a1328b88fdf@web.de>
-Date: Tue, 22 Sep 2026 11:07:25 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PjoHib4E"
+Received: by mail-pj2-f42.google.com with SMTP id d9443c01a7336-2df4c9d14b8so5974975ad.0
+        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 02:10:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790068202; x=1790673002; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6sUggSTSWzovoPTvZ/2iI6ZTqKPXi6q928x/LkDAbDk=;
+        b=PjoHib4E0Surftr+HNkx/qSOVU2BvH0cmRGEy62GPQtup708OWvVQ/ZWG1q04yhuUe
+         Cfrw7CzLQuY+zCX5gBifNDWqmiJvVqC2vMayMfpzvzJ2UyLlqS+crtbpa92UbkUU3D8E
+         KDgohJw1X0ZeQs1IWm29KeDTdu9Vjk83mx5rfj6ITtIsAqawD/JD1Ufqrs2CcotG1B7w
+         WeVKQM4eKAy83XMrEHIUiOjuasHiNJQ4HhldGtGF6e0uqcEnw1nblOk30PAr3gDjhvX9
+         itIpYwByB9cy1u+78ELhSI04J+HBW+E5CiF2uZ0DsVaiw1fDDiIWYBMCIE57HJP+c1Yh
+         XEiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790068202; x=1790673002;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6sUggSTSWzovoPTvZ/2iI6ZTqKPXi6q928x/LkDAbDk=;
+        b=m7wXogiVJYkjhByQxfWLl+zbHVjWEAMfuUDD8uqDWCRRi8s0XfhKoKgjK3H+m9KxuQ
+         aPZCkdkXR26FsaVXB5Ce5lMVB4HyOVZGXo5hBQLnOb1SLfdxhilkTBCaCnf+kfSBKD/l
+         uQD2x/6khGtnxDPrUlFLHOhRBP8hKFC79B5GvoKA4/1w08i+10RonjN+DKC7YCuww5JW
+         4l9+mlMrwVrtWmzKce51Ex8WfHAq1YiqIcBCCCEI5KJHhLkBpqoVEPZt1qzoCLdTN/Or
+         7JF8TQz3jpCvk9iNRuolJBcNmkzafUiNfUGJ+hWJsAysEXbUhm+l96M9XuD6FBPetnPl
+         +3Mw==
+X-Forwarded-Encrypted: i=1; AKwUvBw8zc/TxfyfBmZfHax9uz19JTUxJlJpt5KKzegUIf3VWkAm0JTMhasoRqwhJV0exixxS/22KTI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mRv7bg59mD7WcrpeFAZdf0Ob86YNUIW187LwAOEB7xtgwJBAOb
+	ikNYUdaEfFieD8grMxOLsOyzIb2IfYX219Z6PKg3Ga0y7j0tuUHRWOUj
+X-Gm-Gg: AYBFou0cn0Uab6BHewJ7V0mRxTT2sbnpHl788psepXN5Smfv+DwPyNTM+ZWMDZYkpvb
+	SFQxd9TooYDUuy0yWAUYtojJTYmQN27RJbqbC6G3ght9pWXliC5NgMFQLwcDxePBddfKEthIwu3
+	Ofb11IVv26s00A152EEFqeUB+y3sMqWp6YGISXT6QHzb++MuCW42LuIM0HcX3rO/g843AFrWP5O
+	WZpP6WrafLL0ZbjQrYcYbwuGTYTgZ2OxRapdDxR/Z4CoJ3Z9PIeTLvK0l/YUxpu9DglPz0MWJo+
+	OEW9er7pdpwvrXQmRKZyOjQpA39hxFSm0UTxBMjutYZ1gRSbAn2zlFGaFD0JBWnCPdKse+Uz6BK
+	xNodt+vCuwiISliv9yvck6G2hzvNlTl4gNehjTcoobwQ2mgXUEm1I4Pp55BAhu+qMCxFkLGl4DS
+	/8RHG/FlmWpg7pC7efK3eFcKN/XrO+yTQNnlFDybyY3CMQEdacbJVN28C7Fi9/kaC+nKraA1ypD
+	aBJKDsklw4QTWH2IiL3WcXrqmwl+g==
+X-Received: by 2002:a17:902:e892:b0:2dd:c053:b9c8 with SMTP id d9443c01a7336-2df60ee2fc6mr3676585ad.25.1790068202190;
+        Tue, 22 Sep 2026 02:10:02 -0700 (PDT)
+Received: from rigel (194-223-74-160.tpgi.com.au. [194.223.74.160])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df5cf84150sm6490615ad.6.2026.09.22.02.09.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 02:10:01 -0700 (PDT)
+Date: Tue, 22 Sep 2026 17:09:55 +0800
+From: Kent Gibson <warthog618@gmail.com>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v3] gpio: cdev: fix kernel stack leak to user-space in
+ error path
+Message-ID: <20260922090955.GA35938@rigel>
+References: <20260922-gpio-cdev-stack-leak-fixes-v3-1-7a0c7a4299d5@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] platform/x86: simatic-ipc: fix platform device leak on
- registration failure
-To: Guangshuo Li <lgs201920130244@gmail.com>,
- platform-driver-x86@vger.kernel.org
-Cc: Bao Cheng Su <baocheng.su@siemens.com>,
- Benedikt Niedermayr <benedikt.niedermayr@siemens.com>,
- Hans de Goede <hansg@kernel.org>, Henning Schild
- <henning.schild@siemens.com>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?=
- <ilpo.jarvinen@linux.intel.com>,
- Tobias Schaffner <tobias.schaffner@siemens.com>, stable@vger.kernel.org,
- LKML <linux-kernel@vger.kernel.org>, kernel-janitors@vger.kernel.org
-References: <20260921075312.120983-1-lgs201920130244@gmail.com>
- <cdb67eed-9e75-4310-ae4f-21ca67f20bd2@web.de>
- <CANUHTR9+rLuPrd1aifKws++POOKSm+2jxBaJaC1iF5z5x0e13Q@mail.gmail.com>
-Content-Language: en-GB, de-DE
-From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <CANUHTR9+rLuPrd1aifKws++POOKSm+2jxBaJaC1iF5z5x0e13Q@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:XuEHa3VN2LJpQiP48q9ctz5EtuX4ss0zjc7wkOlj7W0Kcd0pMWu
- pFbEg9e4yU+qJs183OU2sftzw5V9T0sqsZ+b3LnSeZRGHI1e9CkVy91BclOSYF71kOPKA3y
- dN5fO2GHbJgIcTf7fr1dLUN3SVeM8Khrj6rI/fgE/QTEZSeKWMVQSLGyvZ9ugTQ1z0/KsC2
- ryFPk0FqMn0PzEhdjVAHQ==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:ZqnABTHnTqQ=;sSOQxmthe7xEIdJg3GgRr2zo/DT
- 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
- 8=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922-gpio-cdev-stack-leak-fixes-v3-1-7a0c7a4299d5@oss.qualcomm.com>
 
->> =E2=80=A6
->>> +++ b/drivers/platform/x86/siemens/simatic-ipc.c
->> =E2=80=A6
->>> @@ -118,8 +119,11 @@ static int register_platform_devices(u32 station_=
-id)
->>>                       platform_device_register_data(NULL, pdevname,
->>>                               PLATFORM_DEVID_NONE, &platform_data,
->>>                               sizeof(struct simatic_ipc_platform));
->>> -             if (IS_ERR(ipc_batt_platform_device))
->>> -                     return PTR_ERR(ipc_batt_platform_device);
->>> +             if (IS_ERR(ipc_batt_platform_device)) {
->>> +                     ret =3D PTR_ERR(ipc_batt_platform_device);
->>> +                     ipc_batt_platform_device =3D NULL;
->>> +                     goto err_unregister;
->>> +             }
->> =E2=80=A6
->>
->> How do you think about to avoid duplicate checks and variable resets
->> in such a function implementation?
-=E2=80=A6
-> Would it make sense to share the cleanup path and rely on
-> platform_device_unregister() handling NULL/ERR_PTR, like this?
+On Tue, Sep 22, 2026 at 10:52:28AM +0200, Bartosz Golaszewski wrote:
+> If we fail to acquire the GPIO chip guard in gpio_desc_to_lineinfo(), we
+> return immediately before zeroing the info struct we'll end up passing
+> to the user-space later in lineinfo_get_v1(). This may leak the kernel
+> stack contents. Make gpio_desc_to_lineinfo() return int so that the
+> -ENODEV returned on failure to acquire the guard can be propagated to
+> the callers.
+> 
+> While not strictly necessary: move the memset() before trying to acquire
+> the SRCU read lock too for good measure.
+> 
+> Fixes: d83cee3d2bb1 ("gpio: protect the pointer to gpio_chip in gpio_device with SRCU")
+> Cc: stable@vger.kernel.org
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/patchset/20260912123529.7951-1-tzungbi%40kernel.org?part=3
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> ---
+> Changes in v3:
+> - Don't emit an error log message from the line info notifier if we fail
+>   to acquire the chip guard
+> - Link to v2: https://patch.msgid.link/20260921-gpio-cdev-stack-leak-fixes-v2-1-3307c4320352@oss.qualcomm.com
+> 
+> Changes in v2:
+> - Make gpio_desc_to_lineinfo() return an integer return value so that
+>   the error code returned in case of a failure to acquire the guard can
+>   be propagated down the stack
+> - Link to v1: https://patch.msgid.link/20260917-gpio-cdev-stack-leak-fixes-v1-1-2bb52879e49c@oss.qualcomm.com
+> ---
+>  drivers/gpio/gpiolib-cdev.c | 32 +++++++++++++++++++++++++-------
+>  1 file changed, 25 insertions(+), 7 deletions(-)
+> 
 
-It probably depends on corresponding case distinctions.
-
-
-> +static void unregister_platform_devices(void)
-> +{
-> +        platform_device_unregister(ipc_wdt_platform_device);
-> +        platform_device_unregister(ipc_led_platform_device);
-> +        platform_device_unregister(ipc_batt_platform_device);
-> +}
-
-* Would you like to avoid the passing of any error pointers here?
-
-* How do you think about the relevance for variable resets?
-
-
+> @@ -2491,6 +2502,7 @@ static int lineinfo_changed_notify(struct notifier_block *nb,
+>  	struct lineinfo_changed_ctx *ctx;
+>  	struct gpio_desc *desc = data;
+>  	struct file *fp;
+> +	int ret;
+>  
+>  	if (!test_bit(gpiod_hwgpio(desc), cdev->watched_lines))
+>  		return NOTIFY_DONE;
+> @@ -2521,7 +2533,13 @@ static int lineinfo_changed_notify(struct notifier_block *nb,
+>  
+>  	ctx->chg.event_type = action;
+>  	ctx->chg.timestamp_ns = ktime_get_ns();
+> -	gpio_desc_to_lineinfo(desc, &ctx->chg.info, true);
 > +
->  static int register_platform_devices(u32 station_id)
->  {
-=E2=80=A6
->         return 0;
+> +	ret = gpio_desc_to_lineinfo(desc, &ctx->chg.info, true);
+> +	if (ret) {
+> +		fput(fp);
+> +		return NOTIFY_DONE;
+> +	}
 > +
-> +err_unregister:
-> +       unregister_platform_devices();
-> +       return ret;
->  }=E2=80=A6
 
-Regards,
-Markus
+Drop the ret and just test the return directly?
+
+Sorry - should've picked that up in the previous version.
+
+Cheers,
+Kent.
+
