@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6A9343CEC7;
-	Tue, 22 Sep 2026 08:32:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA6864399D0;
+	Tue, 22 Sep 2026 08:32:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790065948; cv=none; b=hicG0uZVEdJJy28iE/pVgDiSR91sTk9eGlborihyz4I8kB50UulfYBy8Jg1z/CJOOfgMHIvEZFehXyZzN8kuopxzPClt7H5FFtPgQ/nNQnwlSGKsLaZgF50ZRcggNQELP5cPaD4aKUAA7XAKPROZLkwW+bkywHxjFd11UYtdE0M=
+	t=1790065950; cv=none; b=ss4fIiyF0rkbmRxjUByDJrMyndUXUi/+LhFqMb9DjRG1Vbt6xmzyEvRtF1A5NxsCWHirwebrp6bTUJomrow3N2Fs5/RMPLeTj8W320FoYHVbyPB+7rHXnCULuRN/KMU64wWAaq6BXd9aebOyhgh07HTzYQPJwWNjQwv4hXCx5tE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790065948; c=relaxed/simple;
-	bh=s2W+vC7qfOlhoVhBtv2it42AY6T85OB7bCXVy7nHOEU=;
+	s=arc-20240116; t=1790065950; c=relaxed/simple;
+	bh=Vv6fPgCUZj/soRazk9ebt3+wPAoAtsHUWWOxCZBUoAw=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=XDokSM+OC/JlEPdAbqt10/pfxRP0isZZLhSUbJB2Cvqt6DDVoSLXKctuUpGVtqmWNOyFRhqhcJE6s0u5sxuEDC2/Q3eEdQRBpYwUmWNfGrsLUwId6Lqgczs3bj2n5/Yrp0MfctCGA2NVnQlUs0cgI+ABgY86/C7pDBq0qxhCcjY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Td+dKVFD; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=UFuj0wD5WUNTE65XnuvO+KwnIXqHr4Z5eB3Cc9CwcWk6N2lcxuW4+v8txVxlNr2s4c7N2TEnLGPVEIHsmJBnEp6u2fbn1OHuzdCY6qi+OvB6zDsZtQayLEdTRLfAWdLhGlHIMkMs0GxceKl2jw8Oly9uMzpRVZ/haTAltRKpa+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k8gLeeo0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Td+dKVFD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFF381F000FF;
-	Tue, 22 Sep 2026 08:32:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k8gLeeo0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AAFA1F00893;
+	Tue, 22 Sep 2026 08:32:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790065946;
-	bh=qPOLWIlNSFJKAgu6FC0EaLpmyXSHOORaVLH5FqtG1qs=;
+	s=k20260515; t=1790065947;
+	bh=fAIA8Q2J3svLfWDXTx4EauJ5wfM4s9L5MuIAOMddNks=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Td+dKVFDSzQ62WjvTS0iQQ5HrArXQJmn4ccapDVLkEpAILpFmi8a2GdOWXIxn4c1+
-	 b8krARHBSV9cXPEKxYildP1NQawSBuNdcihYWqJt/NOXQ276aF3j2ZxYwnAm5vEbc7
-	 DBnMvEZ/1prV5MXDSfl62DegplM+9J8+Yxp0wOrsuaDF/S90ngPpAKwcPZDBYftRqs
-	 5a/fakwGes54fBvVpLqaCpZYHApTtZes8lof5KSaX3kPtnSL2W5TzJCt97TXqH/ahT
-	 d3gNpAvoWd44VLFuqBpz1766KGRtVqs5GN8e3NJj2LyzfUVn0H3VfgHHN9vQEbnWRf
-	 r/DN2NKCy1EWw==
-Subject: Re: [PATCH net v2 1/3] ieee802154: ca8210: prevent stack buffer
- overflow in ca8210_rx_done()
+	b=k8gLeeo0tHm73NzfON2KVkA9/T2cX1q+yv80RtP0lyFfICYiF5ewdnE6t2tuwIzRl
+	 9nPkq0FMMz7Ab0D9Ev7MaZE/+H8bWGYmgFzjv3xATygZDMstQBmc7D7ZBOc6bPPun/
+	 ivpfGo40M/ejsE1oa0nAXFivV33C8fXnrV5vY0vrw4eUgkqw9XDwj2w0cfzFbsh5BF
+	 zbR8H1zlRuzTHvuCCURq3IZ/odmTbmQrcb6mQIRtleSACXo/SyZD8mB9e1gGtHvEgp
+	 yDSo/gGViQG5nUGnjMP4dZg6OTFGora4Sna+1xHfV63ZXhd1eErz/bSYLua0qW/hbw
+	 0JE6eBGrHxXFw==
+Subject: Re: [PATCH net v2 2/3] ieee802154: ca8210: prevent stack buffer
+ overflow in hwme_get_request_sync()
 From: netdev-bot+sashiko@kernel.org
 To: benquike@gmail.com
 Cc: h.morris@cascoda.com, alex.aring@gmail.com, miquel.raynal@bootlin.com,
  stefan@datenfreihafen.org, linux-wpan@vger.kernel.org, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, stable@vger.kernel.org, kuba@kernel.org
-Date: Tue, 22 Sep 2026 08:32:25 +0000
-Message-ID: <179006594544.2160803.13499921947508364292@kernel.org>
-In-Reply-To: <20260921074205.2289211-1-benquike@gmail.com>
-References: <20260921074205.2289211-1-benquike@gmail.com>
+Date: Tue, 22 Sep 2026 08:32:26 +0000
+Message-ID: <179006594674.2160803.16794276288943461505@kernel.org>
+In-Reply-To: <20260921074205.2289211-2-benquike@gmail.com>
+References: <20260921074205.2289211-2-benquike@gmail.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -47,10 +47,10 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential
+Thank you for your contribution! Sashiko AI review found 4 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 (2) · Medium: 2 · Low: 0 (1)
+Critical: 0 · High: 0 · Medium: 3 · Low: 1
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -58,237 +58,185 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] The commit message's factual basis is wrong.
-- [Medium] ca8210_rx_done() still validates the device-declared frame
-  length against the software buffer size instead of the number of bytes…
-
-Pre-existing issues:
-- [High] Unsynchronized stale stack pointer: ca8210_rx_done() writes
-  device data through priv->sync_command_response, a bare pointer to the…
-- [High] Sleeping calls in the spi_async() completion callback.
-- [Low] Device-supplied length in the synchronous response consumer:
-  hwme_get_request_sync() copies…
+- [Medium] The commit message presents the KASAN stack-out-of-bounds
+  splat as a live, device-triggerable overflow (Fixes: + Cc: stable,…
+- [Medium] The new bound check in hwme_get_request_sync()
+  (drivers/net/ieee802154/ca8210.c:1681-1683) is one-sided: it only…
+- [Medium] hwme_get_request_sync() still declares `struct mac_message
+  command, response;` with no initialiser (ca8210.c:1663) and then makes…
+- [Low] The patch converts `hw_attribute_length` of
+  `hwme_get_request_sync()` into an in/out parameter — the caller must…
 
 --
 
-ieee802154: ca8210: prevent stack buffer overflow in ca8210_rx_done()
+ieee802154: ca8210: prevent stack buffer overflow in hwme_get_request_sync()
 
-This patch clamps the synchronous response memcpy() in ca8210_rx_done() to
-min_t(size_t, len, sizeof(struct mac_message)) so that a device-declared
-length larger than the destination object cannot overwrite the synchronous
-caller's stack frame.
+This adds an upper-bound check in hwme_get_request_sync() so that a
+HWME-GET.confirm reporting a hw_attribute_length larger than the caller's
+destination buffer is rejected with IEEE802154_SYSTEM_ERROR, and
+initialises lenvar = 1 in ca8210_get_ed() so the helper knows the
+capacity of the one-byte level buffer.
 
-A few questions about the change and the commit message below.
+A few questions about the change and the changelog below.
 
-The commit message states:
-
->     priv->sync_command_response is non-NULL, memcpy() copies up to 256 bytes
->     into priv->sync_command_response, which points to a struct mac_message
->     object (sizeof(struct mac_message) = 250 bytes) on the synchronous
->     caller's stack, overflowing the stack buffer by up to 6 bytes:
+>     In ca8210_get_ed(), an uninitialized u8 lenvar and a pointer to a 1-byte
+>     stack buffer (u8 *level) are passed to hwme_get_request_sync(), which
+>     unconditionally copies response.pdata.hwme_get_cnf.hw_attribute_length
+>     bytes into hw_attribute_value without checking the caller's destination
+>     buffer capacity, overflowing level on the stack when hw_attribute_length
+>     exceeds 1:
+>
+>       BUG: KASAN: stack-out-of-bounds in hwme_get_request_sync.constprop.0.isra.0+0xf3/0x170
+>       Write of size 16 at addr ffff888001907780 by task init/1
+>       Call Trace:
+>        <TASK>
+>        dump_stack_lvl+0x70/0xa0
+>        print_report+0x153/0x4c6
+>        kasan_report+0xf1/0x120
+>        kasan_check_range+0x125/0x200
+>        __asan_memcpy+0x3c/0x60
+>        hwme_get_request_sync.constprop.0.isra.0+0xf3/0x170
+>        ca8210_get_ed+0x9c/0xf0
+>       ...
+> [ ... ]
+>     Fixes: ded845a781a5 ("ieee802154: Add CA8210 IEEE 802.15.4 device driver")
+>     Cc: stable@vger.kernel.org
 
 [Severity: Medium]
-Is the 250 byte figure correct?  struct mac_message in this file is:
+Is this splat reachable from anything in tree today?
 
-	struct mac_message {
-		u8      command_id;
-		u8      length;
-		union {
-			struct mcps_data_request_pset       data_req;
-			...
-			u8                                  payload[148];
-		} pdata;
-	};
+ca8210_get_ed() is only installed as the .ed member of ca8210_phy_ops, and
+the only reference to that member in the 802.15.4 stack is the presence
+check in ieee802154_alloc_hw():
 
-All members are u8, so the alignment is 1 and the largest union member is
-payload[148] (data_req is 1+11+1+1+1+MAX_DATA_SIZE(114) = 129, set_req is
-3+MAX_ATTRIBUTE_SIZE(122) = 125, hwme_get_cnf is 3+MAX_HWME_ATTRIBUTE_SIZE(16)
-= 19).  That gives 2 + 148 = 150 bytes, not 250.
+net/mac802154/main.c:ieee802154_alloc_hw() {
+	if (WARN_ON(!ops || !(ops->xmit_async || ops->xmit_sync) || !ops->ed ||
+		    !ops->start || !ops->stop || !ops->set_channel))
+		return NULL;
+}
 
-If that is right, then with len bounded only by CA8210_SPI_BUF_SIZE the
-pre-patch worst case wrote 256 bytes into a 150 byte object, i.e. up to 106
-bytes out of bounds rather than 6.  Could the description be corrected, since
-stable backporters will be triaging this based on the stated magnitude?
+There is no drv_* wrapper, cfg802154 op or netlink path that actually calls
+ops->ed, and ca8210_get_ed() is the single caller of
+hwme_get_request_sync(). The changelog itself notes the trace came from
+passing "an oversized hw_attribute_length response into ca8210_get_ed()"
+in QEMU.
 
-The pasted report also says:
-
->       The buggy address belongs to stack of task init/1
->        and is located at offset 32 in frame:
->        ca8210_spi_exchange+0x0/0x190
->       This frame has 1 object:
->        [32, 282) 'response'
-
-Can this frame come from this driver?  ca8210_spi_exchange() only receives a
-pointer:
-
-	static int ca8210_spi_exchange(
-		const u8 *buf,
-		size_t len,
-		u8 *response,
-		void *device_ref
-	)
-
-The struct mac_message response objects live in the sync helpers
-(tdme_setsfr_request_sync(), mlme_*_request_sync(), hwme_*_request_sync()) and
-are 150 bytes, so a 250 byte local named response in ca8210_spi_exchange()
-does not appear to exist.  Could the actual reproducer output be included
-instead?
+Could the changelog say that the path is currently only reachable through
+the never-invoked .ed callback? With a Fixes: tag, a Cc: stable and a call
+trace that is truncated right above ca8210_get_ed(), a stable backporter
+would reasonably conclude that shipping kernels have a device-reachable
+stack overflow here.
 
 > diff --git a/drivers/net/ieee802154/ca8210.c b/drivers/net/ieee802154/ca8210.c
-> index 01af4f9cf7f2..c009930da77a 100644
+> index c009930da77a..1de63142a45a 100644
 > --- a/drivers/net/ieee802154/ca8210.c
 > +++ b/drivers/net/ieee802154/ca8210.c
-> @@ -697,7 +697,8 @@ static void ca8210_rx_done(struct cas_control *cas_ctl)
+> @@ -1678,6 +1678,9 @@ static u8 hwme_get_request_sync(
+>  		return IEEE802154_SYSTEM_ERROR;
 >  
->  	if (buf[0] & SPI_SYN) {
->  		if (priv->sync_command_response) {
-> -			memcpy(priv->sync_command_response, buf, len);
-> +			memcpy(priv->sync_command_response, buf,
-> +			       min_t(size_t, len, sizeof(struct mac_message)));
+>  	if (response.pdata.hwme_get_cnf.status == IEEE802154_SUCCESS) {
+> +		if (response.pdata.hwme_get_cnf.hw_attribute_length >
+> +		    *hw_attribute_length)
+> +			return IEEE802154_SYSTEM_ERROR;
+>  		*hw_attribute_length =
+>  			response.pdata.hwme_get_cnf.hw_attribute_length;
+>  		memcpy(
 
 [Severity: Medium]
-Would it be better to fix the length validation instead of clamping one
-consumer?  ca8210_rx_done() still validates the device-declared length against
-the software buffer size:
+Should this check also reject a shorter-than-expected length?
 
+The test only covers lengths larger than the caller's capacity. A confirm
+with status == IEEE802154_SUCCESS and hw_attribute_length == 0 still takes
+the success path: *hw_attribute_length becomes 0, the memcpy copies
+nothing, and IEEE802154_SUCCESS is returned.
+
+ca8210_get_ed() discards lenvar, so link_to_linux_err(IEEE802154_SUCCESS)
+returns 0:
+
+drivers/net/ieee802154/ca8210.c:ca8210_get_ed() {
+	u8 lenvar = 1;
+	struct ca8210_priv *priv = hw->priv;
+
+	return link_to_linux_err(
+		hwme_get_request_sync(HWME_EDVALUE, &lenvar, level, priv->spi)
+	);
+}
+
+Does that report a successful energy-detect read while *level still holds
+the caller's uninitialised stack byte, contrary to the ieee802154_ops::ed
+contract in include/net/mac802154.h that a 0 return means level was filled
+in?
+
+HWME attribute sizes are fixed and known to the caller, so would an exact
+length comparison (!= against the caller-supplied expected length) cover
+both directions of the mismatch in one check?
+
+[Severity: Medium]
+Can this check be made on never-written stack memory?
+
+hwme_get_request_sync() declares its response with no initialiser:
+
+	struct mac_message command, response;
+
+The only writer of that memory is ca8210_rx_done(), which copies exactly as
+many bytes as the device claims:
+
+drivers/net/ieee802154/ca8210.c:ca8210_rx_done() {
+	buf = cas_ctl->tx_in_buf;
 	len = buf[1] + 2;
-	if (len > CA8210_SPI_BUF_SIZE) {
-		dev_crit(&priv->spi->dev,
-			 "Received packet len (%u) erroneously long\n", len);
-		goto finish;
-	}
-
-but every exchange only clocks in sizeof(struct mac_message) bytes, into a
-buffer pre-filled with the idle pattern, in ca8210_spi_transfer():
-
-	memset(cas_ctl->tx_in_buf, SPI_IDLE, CA8210_SPI_BUF_SIZE);
 	...
-	cas_ctl->transfer.len = sizeof(struct mac_message);
+	if (buf[0] & SPI_SYN) {
+		if (priv->sync_command_response) {
+			memcpy(priv->sync_command_response, buf,
+			       min_t(size_t, len, sizeof(struct mac_message)));
+}
 
-So for any declared len between 151 and 256, bytes 150..len-1 are the driver's
-own 0xFF fill and were never driven by the CA8210.  The patch bounds the sync
-memcpy only, while the same unbounded len is still handed to the other two
-consumers in this function:
+SPI_HWME_GET_CONFIRM is HWME_GET_CONFIRM + SPI_S2M + SPI_SYN, so a frame
+with buf[0] = 0x73 and buf[1] = 0 passes the
 
-	cascoda_api_upstream(buf, len, priv->spi);
-	...
-	ca8210_net_rx(priv->hw, buf, len);
+	if (response.command_id != SPI_HWME_GET_CONFIRM)
 
-ca8210_net_rx() then calls ca8210_skb_rx(hw, len - 2, command + 2), so up to
-106 bytes of idle fill can be delivered as 802.15.4 payload and exported
-through the debugfs test FIFO.  This is reachable with well-formed traffic
-too: a maximum size MCPS_DATA_indication (msdu 127 bytes at data_ind offset
-29, plus an 11 byte secspec) declares len in the 158..169 range, so its tail
-is replaced by 0xFF.
+gate while leaving .status, .hw_attribute_length and .hw_attribute_value[]
+as stack garbage.
 
-Would bounding the existing check by sizeof(struct mac_message) and dropping
-the frame close this for all three consumers at once?
+If the garbage status happens to be 0 and the garbage length happens to be
+0 or 1, does this copy up to one byte of uninitialised kernel stack into
+the caller's *level and return success? And for other garbage status values,
+does link_to_linux_err() map them to an arbitrary errno?
 
-On the sync path the truncated copy is also followed unconditionally by
-complete(&priv->sync_exchange_complete), so ca8210_spi_exchange() returns 0
-and the caller parses a struct mac_message whose length field describes more
-payload than was delivered.  Should a truncated confirm be reported as an
-error rather than success?
+Would zeroing response, or validating response.length against the size of
+struct hwme_get_confirm_pset, close this along with the out-of-bounds write
+the patch targets?
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does the clamp cover the
-lifetime of the destination as well as its size?  priv->sync_command_response
-is a bare pointer to the synchronous caller's on-stack struct mac_message,
-published without any lock in ca8210_spi_exchange():
-
-	if ((buf[0] & SPI_SYN) && response) { /* if sync wait for confirm */
-		reinit_completion(&priv->sync_exchange_complete);
-		priv->sync_command_response = response;
-	}
-
-On the -ETIME (CA8210_SYNC_TIMEOUT) and -ERESTARTSYS paths it simply clears
-the pointer and returns, without cancelling or flushing the in-flight SPI
-message:
-
-	} else if (wait_remaining == 0) {
-		dev_err(&spi->dev, "Synchronous confirm timeout\n");
-		status = -ETIME;
-	}
-
-cleanup:
-	priv->sync_command_response = NULL;
-	return status;
-
-The write side runs from the spi_async() completion callback,
-ca8210_spi_transfer_complete() -> ca8210_rx_done(), and the confirm read is
-queued straight from the hard IRQ handler
-ca8210_interrupt_handler() -> ca8210_spi_transfer() -> spi_async().  Neither
-side takes priv->lock and there is no READ_ONCE() or barrier, so can this
-happen?
-
-CPU0 (spi completion)			CPU1 (sync caller)
-if (priv->sync_command_response)	/* non-NULL */
-					wait ... times out
-					priv->sync_command_response = NULL;
-					return -ETIME;
-					/* tdme_setsfr_request_sync() etc.
-					   returns, frame reused */
-memcpy(priv->sync_command_response,
-       buf, ... );			/* writes dead stack frame */
-
-Since the pointer is a plain load used both for the NULL test and as the
-memcpy destination, and memcpy() is expanded inline through fortify-string,
-could the compiler also reload it and observe the concurrent NULL store,
-giving memcpy(NULL, ...)?
-
-Would landing the confirm in a driver-owned buffer, or quiescing the
-completion path before clearing the pointer, be a better fix than bounding the
-length?
-
->  			complete(&priv->sync_exchange_complete);
->  		} else {
->  			if (cascoda_api_upstream)
-
-[Severity: High]
-This is a pre-existing issue and not something this patch introduced, but
-while this function is being touched: can ca8210_rx_done() sleep in the
-context it runs in?  It is called directly from
-ca8210_spi_transfer_complete(), which is installed as cas_ctl->msg.complete
-and submitted with spi_async().  The spi_async() kernel-doc in
-drivers/spi/spi.c states "The completion callback is invoked in a context
-which can't sleep", and ca8210_spi_transfer() itself allocates with
-GFP_ATOMIC.
-
-Further down in the same function, for
-buf[0] == SPI_MCPS_DATA_CONFIRM with buf[3] == IEEE802154_TRANSACTION_OVERFLOW:
-
-	msleep(2000);
-	...
-	mlme_reset_wpc = kmalloc_obj(*mlme_reset_wpc);
-
-msleep() and the implicit GFP_KERNEL allocation can both sleep, and the test
-path reaches ca8210_test_int_driver_write() which does kmemdup(..., GFP_KERNEL)
-as well.  On controllers that finalize messages from hard IRQ or DMA
-completion context, would this produce a "sleeping function called from
-invalid context" splat, and on kthread-pump controllers stall the bus for two
-seconds inside the completion callback?
-
-The MLME reset is already deferred to priv->mlme_workqueue, so could the
-msleep() and the allocation move into ca8210_mlme_reset_worker()?
+> @@ -2028,7 +2031,7 @@ static int ca8210_xmit_async(struct ieee802154_hw *hw, struct sk_buff *skb)
+>   */
+>  static int ca8210_get_ed(struct ieee802154_hw *hw, u8 *level)
+>  {
+> -	u8 lenvar;
+> +	u8 lenvar = 1;
+>  	struct ca8210_priv *priv = hw->priv;
+>  
+>  	return link_to_linux_err(
 
 [Severity: Low]
-This is a pre-existing issue rather than something introduced here, and the
-out-of-bounds part of it is already addressed by patch 2/3 of this series,
-which adds:
+This isn't a bug, but the kernel-doc above hwme_get_request_sync() no
+longer matches the new calling convention:
 
-	if (response.pdata.hwme_get_cnf.status == IEEE802154_SUCCESS) {
-		if (response.pdata.hwme_get_cnf.hw_attribute_length >
-		    *hw_attribute_length)
-			return IEEE802154_SYSTEM_ERROR;
+ * @hw_attribute_length: Attribute length
+ * @hw_attribute_value:  Pointer to Attribute Value
+ * @device_ref:          Nondescript pointer to target device
+ *
+ * Return: 802.15.4 status code of HWME-GET.confirm
 
-together with u8 lenvar = 1 in ca8210_get_ed().  What remains after the series
-is that struct mac_message response is not zero-initialized in
-hwme_get_request_sync() and the mlme_*_request_sync() helpers, unlike
-tdme_setsfr_request_sync() which sets response.command_id = SPI_IDLE.  Since
-ca8210_rx_done() now copies only the bytes the device actually sent, can a
-short confirm leave response.command_id, status or the attribute bytes as
-stale stack data, so that a wrong ED level or status is returned?  Would
-zero-initializing response in those helpers close that?
+hw_attribute_length is now an in/out parameter that the caller must
+pre-initialise with the capacity of hw_attribute_value, which is what makes
+lenvar = 1 load-bearing here, and the function can now return
+IEEE802154_SYSTEM_ERROR for a purely local capacity rejection rather than a
+device confirm status (which link_to_linux_err() turns into -EPROTO).
+
+Could the kernel-doc be updated to state both, so a future caller reading
+only the documented interface does not pass an uninitialised or zero length
+and reintroduce the overflow or the silent truncation?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260921074205.2289211-1-benquike%40gmail.com
