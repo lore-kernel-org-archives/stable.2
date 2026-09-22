@@ -1,96 +1,76 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98759545DA0
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 12:48:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E9AD542EE8;
+	Tue, 22 Sep 2026 12:48:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790081290; cv=none; b=MJSTy3rC/SmWr1fpGE4liZ0ySV20CdJXdQBQIgK9v/k4aFER6s/eB3VX5TdrBHf0eGG2w5wB3miTOxm0g5YlXdmsKOQfyihvxJ3NUvgyL6qoUPbOBlha47AoLXTklbx8QMb6q8ZMqVAnkPErzpbvdJUstWsoK8pVakj0qPJDlvU=
+	t=1790081318; cv=none; b=LTH3JHnT/n7nFp/L2vvHVfpfsbqa1WVZhPpwdes8f4V+EwWWUE/aH90WAPBp4UlNJpKU0FFq5AIJsRnE6+LRfXbTOy3jD/izfo5FWSyJDXNXu/eOGwH9BWRHFv86SDNsgmySMGUQa4kBF1w0BD/fYZ7pvq0iEmI9AZ8OA/eC/cQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790081290; c=relaxed/simple;
-	bh=QVFwYIiKUZVL+YjJoBnUJAKPe/wKV4GXCUpDX8JPQGA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cecAeNk5LwJK0lOi+rogw539zgyaPHnMHDPcsh0CuEyVmdld/jzBAHWvWztKtfBbGp/euJLkAiaF3YdA6lPpsg6C23Uq2Sa454fnfm44GAUvtYs3rOVXn/7cQlaHyys7n/QVBVO4bbypK2pQ6YU4hJGTHs5WCu3PpRkisNEoegs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aYsHQOUJ; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790081318; c=relaxed/simple;
+	bh=NCFWg+kcaSwFg2EVbYFbZdOdpWQY1hayFPx+qEea7Us=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uo0X0dSciphlvp8hHRrO9LzEC5Ba7dTXDaHaRt+HEwyLKZxBcd+ognRlveEINaN6R9Zdwgz1YFRuRcdpLNfwOmFDqb7ba+kX/i1+xFYzZsB9QZfIyQZn+duORVxxpEnafCrtmRDo/cRaCbQnH7xqn4iYZnFDcGu1pGY36QJ00Ak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=4KD4mA5q; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aYsHQOUJ"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccda24a3so3077220a91.0
-        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 05:48:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790081288; x=1790686088; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QVFwYIiKUZVL+YjJoBnUJAKPe/wKV4GXCUpDX8JPQGA=;
-        b=aYsHQOUJk8gURJi/wRAffvbYAr+oEuDTWRAItRq/qCgXtqxo3hvP3NZs5BSqDmhwmM
-         yiXCaIYl9kiVqJmvFS/nH818r5prYUCi0RF5OSTM+8XznXvBcBPnuL2XqcVINEjvCWpt
-         t6ahYriwMQ9DmqX97K+Ro58vmGGR7CA0XN60P0BrOFupN+b/cLCST1QaZNaviWJ2uQux
-         ESeQazpkBDC8rUXDcQoyAO0mQ01UMV44omwe7b+BgNCp7d3jCrlf+Lb4x5DK4njRe9lA
-         dmzKI8iSY3u/4Tp5XuLzMaGVIhnTLMXS3OyrMNk/U+U1sBSnKj+RsmbZS5ZOLUEvJI/t
-         Voiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790081288; x=1790686088;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QVFwYIiKUZVL+YjJoBnUJAKPe/wKV4GXCUpDX8JPQGA=;
-        b=Mi644gADWPTQnqkQtzaM+Gf2BnupDG2IolbKdxSPT5iGVNHAr8bM0k3+nLTi2jplTl
-         ErV2wldhv76jCpQM2XCiMaB1sdA6Db2aZrXIh+sMLGqZk3c73YFlyiZseZCfPRNyuNG3
-         M3XiWQppS/i5PKVNsZbaBldXvxkChp/lUb64UOmtZW3X6Pogy/9P/p8ptjeWFt3U04oY
-         aqALBkhAo72nuSqrkWFPuosybpqnNL/7RLmVZxeKapl/TBbSHeMwpyr76k+8Rg+9TiPa
-         0hrAZqWuFcUFQ7dnSFJqG7wdGBe9iCmWimeXwotCE4V8gUTmf2nKebM383yV5lBctmIa
-         EpTg==
-X-Forwarded-Encrypted: i=1; AKwUvBwh7Jiv+alqV2AkPYEcrqXa7fz554lCPSDILzJVmmhCjDnK5+xMCmHjAMNK50agnNILhHOdRxg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lXXwOBCOiIz2skRQXQD7MtWx0Lfjoo4JgiLG+PSW/k1Bkt9i/G
-	dffFff+DCaszYjDVQ1N0zBE866Odw6CdAgnP7AdYJ7sahGxFFltnGuM=
-X-Gm-Gg: AYBFou1w/3W8wjQ9Aq064rIb14wMWGmVoOntRmfBlU0lC624aIE/CcjR7TVWiFTkQJ/
-	BuFu3MsOYtKjRTme2sFQsQgSo4Vu82Y3TyaG6iMEr4kJa1ovh29HZhAipx5xtSLyWUERdVTIpE1
-	r/2b+TlNBMtbZeHj9tjnIHGxDiWZeagcWx4q9u4IKZq1MqQWt9B9IrUXs9gEbOfsRLDgMExRwWC
-	c26AgmvTUJBWkVv5ov+Tl4C+ixBkXNn2Rk00Me5LLAYzk+ywT6VTUqCzDyEXo5jzVsv9Ajw95Ne
-	xlkvUYnmLPq26jL6iljww0HeeHZkxMHfKLa6Mx0192WuIn8o23vbyfL9ebDwYmqpBeQgK8BpOof
-	lXP514zVielxyGyFnkUzC3hIej6NMJgKbhIbgDbi62RRYY7ZZS8io11vjk866s8O9OYri37Cwey
-	jChY+lVyyleH0H7/KoY4dDQBCaK2WsoGiJk9LcjWh/XmPLga4PRF4sbTTS+lg4i6IamW2iy+bX1
-	od8nMaoFtwtV/PCdceon2IloFBH
-X-Received: by 2002:a17:90b:582e:b0:38e:bbf1:de3f with SMTP id 98e67ed59e1d1-3a0730d0610mr995564a91.12.1790081287829;
-        Tue, 22 Sep 2026 05:48:07 -0700 (PDT)
-Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:7f00:8c85:2466:805a:e198:cde8])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a06e574c49sm3442051a91.8.2026.09.22.05.48.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 05:48:07 -0700 (PDT)
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-To: rppt@kernel.org
-Cc: akpm@linux-foundation.org,
-	peterx@redhat.com,
-	surenb@google.com,
-	aarcange@redhat.com,
-	david@kernel.org,
-	ljs@kernel.org,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	mhocko@suse.com,
-	shuah@kernel.org,
-	linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	donggeunyoo.kernel@gmail.com
-Subject: Re: [PATCH v1 1/2] userfaultfd: clear the inherited uffd bit in move_swap_pte()
-Date: Tue, 22 Sep 2026 21:47:59 +0900
-Message-ID: <20260922124759.1676901-1-donggeunyoo.kernel@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <arIj-DZ3BtxMEzLB@kernel.org>
-References: <20260919004630.1159895-2-donggeunyoo.kernel@gmail.com> <arIj-DZ3BtxMEzLB@kernel.org>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="4KD4mA5q"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=s+Tv/KNbzYtfGmuVjgMSs8v9UCgfv8RtrNbqZ5747F0=; b=4KD4mA5q1dKLIxig9MDWVv82pK
+	AreoaLLm95hrEZ8uKPfQIjKrL8Y8kNDiryoF2/LwGdT02Vkqn0moMnWjmn/96GmwCsc/IB1voy+4h
+	TrfjXRbHDoVLUWb4GiyjDf6xEqyrWAN30lL/Kt0RGTGXz507hfl8kJOTS3FZco6N1+g6Qhm3EOGJl
+	xJ0fnl2clupT0WibzdwaHAwOQ0/x3nalSR7+Xg0ONULFGT6giKCficVENkmdJpFKb6MfzASdlLCRM
+	nBXjtay2/X4iXJhnR4woPZfLsEj1ymHXlqWrivZ0gGrHX7aZYL5MX7MPQn4gQ6XXGmXhbFdN8n/90
+	paDQrNOQ==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x8zvI-00000005MIQ-1XPx;
+	Tue, 22 Sep 2026 12:48:36 +0000
+Date: Tue, 22 Sep 2026 05:48:36 -0700
+From: Christoph Hellwig <hch@infradead.org>
+To: Keith Busch <kbusch@meta.com>
+Cc: axboe@kernel.dk, linux-block@vger.kernel.org,
+	Keith Busch <kbusch@kernel.org>, stable@vger.kernel.org,
+	Henry Hu <huhai@kylinos.cn>
+Subject: Re: [PATCH] blk-mq: set RQF_USE_SCHED when the operation is known
+Message-ID: <arJ5JISABWd7uahn@infradead.org>
+References: <20260921212624.1942234-1-kbusch@meta.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260921212624.1942234-1-kbusch@meta.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-Thank you for the review.
+On Mon, Sep 21, 2026 at 02:26:24PM -0700, Keith Busch wrote:
+> From: Keith Busch <kbusch@kernel.org>
+> 
+> The cached requests are allocated for one operation but can be handed
+> out for another. A passthrough command has RQF_USE_SCHED cleared, so
+> using those flags for a subsequent read/write bio will insert it into
+> the scheduler without ->prepare_request() and frees it without
+> ->finish_request(). For kyber, this leaks the domain token acquired at
+> dispatch and stalls the queue.
+> 
+> Don't set RQF_USE_SCHED based on the first operation the batch happened
+> to be allocated for. Instead, set it after the request is claimed by an
+> operation.
 
-I'll rewrite the changelog for readability and add the Assisted-by tag
-in v2.
+This looks generally good, but also a bit hard to follow.
+
+Notes:
+
+ - mq-deadline refers to blk_mq_rq_ctx_init in a comment that needs
+   to be updated or removed.
+ - blk_mq_rq_time_init is always called right next to
+   blk_mq_set_rq_sched.  Should these be comined in a single late
+   init helper?
+ - AFAICS the op_is_flush check removal is enabled by this, but not
+   required, so maybe move it in a well-documened follow on patch?
