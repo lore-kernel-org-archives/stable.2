@@ -1,383 +1,170 @@
-Received: from mail-yx2-f43.google.com (mail-yx2-f43.google.com [74.125.224.171])
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FD4D3DD51C
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 21:52:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.171
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790113952; cv=none; b=GWVtqYWCgk93eRj44IMc8b3PAXSU0UvJYp2KvsrJ5OhxxKaH7f71+qPxHRIo9QwaLhFn7X9RsxuCCvgGx4RRUi2H7nU/DzDR5Py4J8JzqHbyojgsALYPF0DlA7qGKksuieJcFE9FpuFw5z0x4ZwH/Q2nzTiAzSBp4Pn5Vr1gnrc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790113952; c=relaxed/simple;
-	bh=urTZ69sfotSRNr3yRQFdTcNB1ixPj2XhlGVls350Uuk=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=D0MkOdUIMHOgigUIkKfDucnnk/5JvvGl2YCMX7AgmJxsxLOv6DJ8pJA1QkMysj+WyC29v6fttQlpM8f7RmdVuaUPbuAq3UjnPqvUQv8FoZP9DRI/5FF+jF0aqB3FzKiS813EB758R22B+9S9Edblz7wLgMmynuityRHBgx/Q3tI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=a8/d5e5c; arc=none smtp.client-ip=74.125.224.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DECAE549380
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 21:57:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790114263; cv=pass; b=VYaI48+QmS9XzTfOrlDtUOYp3IKuE9ltqLMtx9xNRCFdXirTBihRRfwpfPP7A8zS6kfj0AIBV41Tn5MjSMIVRSqxHz8kf2JRjc86RZngKU8nfsigkA3PKb8Fs04KAmjaHvBPUkZ4ZbpCcifct87epAsDtYGZyuXemiek07jYuTo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790114263; c=relaxed/simple;
+	bh=CO3As2TmPZjHhrml1U6HFpp8ONG/W6yW1foBj5kICTA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=AM+1xRQFjEvbUkFVoTjxF0CQGUVI6loU4DXE43N3uuJyZVSmmmlEKXgAEiLWzXXffezwVB2GNg3A0mqlJO6FyXO8Zheb24BQXuaBM2F/o5sZLJCNLgzR32l1OU+Yszlmpy3h7BlCoKFT6V7WnNVy9WHkk3c6NSKTnBbp04sD5jY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Us5TBGfs; arc=pass smtp.client-ip=74.125.228.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="a8/d5e5c"
-Received: by mail-yx2-f43.google.com with SMTP id 00721157ae682-895353e9051so6078417b3.0
-        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 14:52:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Us5TBGfs"
+Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc4d2fe2056so211996a12.2
+        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 14:57:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790114252; cv=none;
+        d=google.com; s=arc-20260327;
+        b=a/faYYO5a9FbpT+/gJEwJBHEpVYRq+B7f5elJZv4Ud8a+xFppqaY91u8YHet5fjIOn
+         NtXJdm3xSycoVsL+DySdUKXVSgOiz2wB6649sGJ4YFg9DunQIollOviToNikyXJvIZ+A
+         1FgmtH14p13V0AcG6Tu/FcSp+kJUmCk0nsoi+kGU0gd04qVoUPJ0vtkgstHfPFgojzRd
+         G2liX29J8RGHMnG5J159cA7vWZ7DQuRuL2t4dxxaZ61uRAvmMd8br43j/6btO/omIQ8Y
+         NwH41vxmYCkapDu5tIdcmzuhHkiIDeRKSnNDUTjEpRGXvROX1Jz7oQzkRo6rkIjhRZFP
+         3a5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=2BfXLyRqjaoskONnpzQx5gIvbEJzshUx98T89RqkqU4=;
+        fh=tFyfoUezasWyLr3R2h46BeXE3WA/dueNHP1w/cJ3np8=;
+        b=ZjVcd5WmQrZN3VPJSG+ihed8rW91qTYIcv+AK1Kt2o/2eIUxzmBLSnMgYUoic+FXIi
+         ScBsB+CC3xrJ7s7N3e33d8N4WKOBn1dJqzPwyRArD3+DCRWgkDaf2a2lkR/5wdX3JWrx
+         eHMIZmDT8ZvpMZEAwf/4zFqlAdR0+mLCxuFunCnmfrU6AhOX8U0rL/YuGN+4kdmziZQO
+         Csy5IKkVLqg5BNL7bpcxGEBpnA+EDRY9H/SVzY1h3eJzbsVtLJhH0i3Fs8fCNiow/S+L
+         78Ep8gm6D/Efas0EV4KgGcl9R5KcHNtrU/B58g492zt/hcvAi6zOPnS6+T7mfomhkTTT
+         ugyA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1790113940; x=1790718740; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=urTZ69sfotSRNr3yRQFdTcNB1ixPj2XhlGVls350Uuk=;
-        b=a8/d5e5cEazayFRyZAHttB78mHtesi5LKviqIj9GKGOXr8s0+valbhsVtOzwRpr2lv
-         HEooO9c07SCcbm5KzQP8EuGjABemJbP2QtJcjoRO0MO1XoXe3kPZ+7Zl+b/sKlhZaPXR
-         N/l1cBBXcZwPxsC2JgIGvwlF1wEfRiaUtIr4bYUhBPoioStAZZZagQJ+Kk70UjJdp4o3
-         rC5FNg5CTu0reQ+aM0mLIIIo8oOvoCqLs7YS0nM1fMJu3UYPj9gl3R14N3C+hXqbc5Ls
-         Scp8U/H861cF5xJGeaEykkKndzbuvTT6PHbF+NA0ELzdPTjBmwxIho3/sTDDs98fbGbS
-         axKA==
+        d=gmail.com; s=20251104; t=1790114252; x=1790719052; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2BfXLyRqjaoskONnpzQx5gIvbEJzshUx98T89RqkqU4=;
+        b=Us5TBGfs3qeUoDvHlwFmC+tSk+tOUiIYUmkdxk1M782cBUKM4Qf0A7UehHiYOfZJ5v
+         0Kz9TqdS3FH7E2gtjnYuhgiIv6FoIR14bvBhNZSSm6kVEbJeIHgWR9ENHw2p3OFUy+ld
+         8lrM/oIl8ubdqz3YLpsJMvr7bFyr+XbJ56HfEXMyxgIHLuOSZ60QJvPqt6RA/+z0+9DO
+         49Nqgnib+bSy9rw0ALx2Q33lDChp0cFdhmy7HKN6xZOxAgpDCVZJwj/amL2cD3NbmNhN
+         BFm8ilOSy2mZsmMcGxvASomAh05FBM3D+WTZW+s3vs07/1Gjcz40EeBpG7HIM7iN1F0L
+         1qaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790113940; x=1790718740;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=urTZ69sfotSRNr3yRQFdTcNB1ixPj2XhlGVls350Uuk=;
-        b=bIs55RxKomXvjsKjAxNOoRiPdSMWykhLTo2aYf4VccLAVFJpX2q69bAdozXbZQ2g5Q
-         SV3XtyWI7qhd6OplMN29CQGBTtvXEcfYEbApfdA1mmb4HbZhjgQsqnRpDvWwOe6QsnPJ
-         nufFpuF8rnWXSXjhuqRWDivKVgQVPKJFPwE56/w3qrmQihknVyuzvqbym9ssXtSYd5Kr
-         Fsrn837L3SdKkZO9a1+tDE/+iIfAq8P2EhQr4XAuBjYCtCiVlhLUErvhwK9UhYV0NC6h
-         znq5qmBH2ZY60QYnA972VfA6gbKf70MoOHZ2iK/hAFoJej+cdHTPHRZhQ9TRQCrNjUkJ
-         7G6w==
-X-Forwarded-Encrypted: i=1; AKwUvBzGTzjKdnKtnbki8SLflcCoSxia56m61XKi7Wif4rm3kzit+2oVkiX4LyZZLJz2Q+6oP2Xj8Bc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mSZPHw41G+45Mk6Fd0jvUz1qmCF5jOBp0aryOCiwbpQbN3es5w
-	+cyjNNRvTgI+Hnwt8BckxNjpYwn5oNr1qvyH8fT62loYWGpaPQMfZLzNHEAZxF+C0Sg=
-X-Gm-Gg: AYBFou2bjeYazp/9HBzMcCuN3FslKY4anp38GaiQuZyjIci1O0HTWNhipKiLBMikGfu
-	SbbMvZNtz9HbDZ0/j0tm5Ijousr4n7vQP67flzF/X87huHi535girBURMUTUQaHtDM9eTLGnB0b
-	osuLIA0hfOTsePE6wEU4TZpXC+8DhwqtqwFmA7l48uZ8m9Si8j/fHf6nlP7xi10dUkZIYR3K3CH
-	DXawzhAVSvDpuECz7lsQkX4BbOOP9Oy+Vtu2HxYRd0tdUwclXO424Q2SzpVCr3WRRmig6RthEDt
-	fd4Rby4tVrMkb0u+vN/FhmkNPBKosQfsFdXdPwO7a84BBn7U2O+uwhBCVw/gEgt6IKE0xM+vb6y
-	p6j1Pf5Ebw94JYWptcjMUK42WVazK3BPdBBaSepoqmArIcbzz5rStSYZnP+aeWion34CAKqkZ1v
-	Vtp4swQ1O9i2dWs9SHnkA2z8xf0L4eM6V8RlkD76nTqNiyZIy4ob948tU/w7BFppm7+vYtCQlOc
-	CUr0V1j5DYNkbaBizOaJAjkzYexBZRL1d3Bcy5cPRSj5vZrCt2REqYB9eEsmmL2SZQY74sRkDM9
-	T2k7r7CduH80J7gV3/bVG2NoXJMjlHLUxpKIccbwSClwnLL/aZ+SD2B+/rujw+APKbECFDySxbQ
-	=
-X-Received: by 2002:a05:690e:151c:b0:671:70d1:d6c8 with SMTP id 956f58d0204a3-672d58c288amr447516d50.58.1790113939894;
-        Tue, 22 Sep 2026 14:52:19 -0700 (PDT)
-Received: from ?IPv6:2600:1700:6476:1430:af0a:8535:f1b1:7cb0? ([2600:1700:6476:1430:af0a:8535:f1b1:7cb0])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-672d81e102asm188929d50.19.2026.09.22.14.52.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 14:52:19 -0700 (PDT)
-Message-ID: <abb39d97b90401669f7d6ba24d35747a676fded0.camel@dubeyko.com>
-Subject: Re: [PATCH v4] nilfs2: fix checkpoint root lifetime on sysfs errors
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: Ryusuke Konishi <konishi.ryusuke@gmail.com>, dubeyko@comp.asu.ru
-Cc: Aldo Ariel Panzardo <qwe.aldo@gmail.com>, linux-nilfs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Tue, 22 Sep 2026 14:52:16 -0700
-In-Reply-To: <CAKFNMokXBG6C2gHfM+PnhjhJK7BbT84Oou3Gnr+4StR6XTb1Aw@mail.gmail.com>
-References: 
-	<CAKFNMonYVUbzjYm343Aw-=xjUk78x4EdUwGBfNRwE6zfmRVhvA@mail.gmail.com>
-	 <20260921152144.3983736-1-qwe.aldo@gmail.com>
-	 <20260921152144.3983736-2-qwe.aldo@gmail.com>
-	 <CAKFNMokXBG6C2gHfM+PnhjhJK7BbT84Oou3Gnr+4StR6XTb1Aw@mail.gmail.com>
-Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
- keydata=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
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (by Flathub.org) 
+        d=1e100.net; s=20260707; t=1790114252; x=1790719052;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2BfXLyRqjaoskONnpzQx5gIvbEJzshUx98T89RqkqU4=;
+        b=CP5vBCVh9VLPADz1i0t57qR7MPySEMrIarUWGM+xmZxXBj+FjZsc48LGe1xyLUmeOz
+         rE3eMQ+KB7vha637vlYLIscSuc4F9bIYTFrOSVKaDtHWIaa0krBXDjOiAWvcMkHLSn0H
+         ucn6B+5nlVHFiOIENdKD7SOSXFgSFSQHOltLGdcn83+SVKRn3aoJDdVNBBk9sJZp0KjI
+         HpAArOHLT0EfIQojDjtIaksOdx0oiqFRBgPjZCFC32tjR/urWdGzqdjpC7KjdHsNIj+K
+         vxRmllvrGfAl+9ZOg3ZpYDGCyquIe1pHFCPDUmn7uuMsImJu15tJ1Ov0gk7yz+OYyrr5
+         uJZA==
+X-Forwarded-Encrypted: i=1; AKwUvBzKwv45AMLb1sNVialXe8jxuH1dqLnsEylPBoEF7W+o6cpv4pIlhLHcs0XXghM/jW0Hz7dCSHU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nwWlULY72fBOEkH/tJJQYf7W05R/j1BN0xf3KQn6/M2Ud0PsKh
+	wM97kQGxrNMdO/Lxp3wqAMSMhGoW/wKBZ2v/GzKuEQ6Yu0kS9tcilnhAiKP61nwOBvqtq4QXfNd
+	dxKZAsDgAAuMtZ5mjM0DgdUtFwJ904kw=
+X-Gm-Gg: AYBFou03Tb3AkncaB+nXrsI3+tcORUAcHGXk37MshA2732joRUozBQlsaOfrkbhqzL7
+	ogZsQph5F/NqX2mM8WHrbRzVEN9smrEqz0b7QMS/czGiJ/ml/4fKGKd34LlOXDa0KWARK3ay8oH
+	z96eKOOhCRxOhbYG2jVVsXpCN8oaflT2fmRAkn+uA5d0Pg3jsVQDNmcF21z21kk/9AzyJYzudWl
+	w2wDGswiRBCK2Ympe4KSEUfdZyYW/sq5V/yo7WTOVVHWxoEck4LNJtYUiIrzJO3mR3NJPiIeqIg
+	604pc8Wbxn/1eRVLLHUlmxVlozjscU5LaC0w62gaNYhgP7IGrwNHTYxEMvtp4PkPw7/rI2H637B
+	TGT67oqQNS/ggu4KNXA0vgFMtmN1xhLN309PlPGMcubdOgJ+O8ppPuIwY28WnpgZ0zw==
+X-Received: by 2002:a05:6a21:ed0e:b0:3dd:85aa:4524 with SMTP id
+ adf61e73a8af0-3ddf7f621c9mr671555637.31.1790114251607; Tue, 22 Sep 2026
+ 14:57:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <CADvbK_eQjfg_-HLT3zJ5Bt5LWbUTx_+fLG5ggLPNY1Ah+sF9GA@mail.gmail.com>
+ <20260921093707.1432184-1-ljp1205831794@gmail.com>
+In-Reply-To: <20260921093707.1432184-1-ljp1205831794@gmail.com>
+From: Xin Long <lucien.xin@gmail.com>
+Date: Tue, 22 Sep 2026 17:57:19 -0400
+X-Gm-Features: AcwNN1U7cgG6CZuztU84c0xhghDR4KjaSxl8F5SVHRVMSVuORbENN7O2ZFigJc4
+Message-ID: <CADvbK_ftzE++ETSSjwUL8qHAzjy6eZY6uU0oMJyfBABC1CdFKg@mail.gmail.com>
+Subject: Re: [PATCH net v2] sctp: discard the rest of the packet on a
+ stale-cookie error
+To: Aohan Mei <ljp1205831794@gmail.com>
+Cc: netdev@vger.kernel.org, linux-sctp@vger.kernel.org, 
+	marcelo.leitner@gmail.com, imv4bel@gmail.com, 
+	Aohan Mei <henrymei@tencent.com>, TencentOS Corvus AI <corvus@tencent.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 2026-09-22 at 08:55 +0900, Ryusuke Konishi wrote:
-> On Tue, Sep 22, 2026 at 12:22=E2=80=AFAM Aldo Ariel Panzardo wrote:
-> >=20
-> > nilfs_find_or_create_root() links a new checkpoint root into the
-> > checkpoint tree and drops ns_cptree_lock before creating the root's
-> > sysfs group.=C2=A0 If nilfs_sysfs_create_snapshot_group() then fails,
-> > the
-> > root is freed while it is still reachable from ns_cptree, so a
-> > concurrent nilfs_lookup_root() can dereference freed memory.
-> >=20
-> > nilfs_sysfs_create_snapshot_group() allocates memory and creates
-> > sysfs
-> > nodes and may sleep, so it cannot run under the ns_cptree_lock
-> > spinlock.
-> > Reorder the creation path so that the sysfs group is set up before
-> > the
-> > root is published: initialize the root, create its sysfs group
-> > outside
-> > the lock, and only then take ns_cptree_lock to link it into the
-> > tree.
-> > On sysfs failure the root was never visible and is freed directly;
-> > in
-> > the unlikely case a root with the same checkpoint number is already
-> > present, the sysfs group of the new root is removed before it is
-> > freed.
-> > Concurrent insertions are already serialized by
-> > ns_snapshot_mount_mutex,
-> > so only the race against nilfs_lookup_root() needs to be closed.
-> >=20
-> > Because kobject_put() does not guarantee that the embedded
-> > kobject's
-> > release callback has run by the time it returns
-> > (CONFIG_DEBUG_KOBJECT_RELEASE defers it), the container must not be
-> > freed until the release completes.=C2=A0 Keep that wait_for_completion(=
-)
-> > of
-> > snapshot_kobj_unregister inside the sysfs helpers, so both the
-> > creation
-> > error path and nilfs_sysfs_delete_snapshot_group() wait for the
-> > release
-> > before their callers free the root.
-> >=20
-> > Fixes: dd70edbde262 ("nilfs2: integrate sysfs support into driver")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-> > ---
-> > Changes in v4:
-> > =C2=A0 - Keep ns_cptree_lock as a spinlock instead of converting it to =
-a
-> > =C2=A0=C2=A0=C2=A0 mutex, and create the sysfs group before taking the =
-lock, as
-> > =C2=A0=C2=A0=C2=A0 suggested by Ryusuke Konishi. Concurrent insertions =
-are already
-> > =C2=A0=C2=A0=C2=A0 serialized by ns_snapshot_mount_mutex; only the race=
- against
-> > =C2=A0=C2=A0=C2=A0 nilfs_lookup_root() needs to be closed.
-> > =C2=A0 - Move the wait_for_completion() of snapshot_kobj_unregister int=
-o
-> > the
-> > =C2=A0=C2=A0=C2=A0 sysfs helpers (create error path and delete), so the=
- checkpoint
-> > =C2=A0=C2=A0=C2=A0 tree functions no longer manage the kobject completi=
-on state,
-> > as
-> > =C2=A0=C2=A0=C2=A0 suggested by Ryusuke Konishi.
-> >=20
-> > Changes in v3:
-> > =C2=A0 - Move wait_for_completion() out of the locked section in
-> > =C2=A0=C2=A0=C2=A0 nilfs_put_root() (the mutex-based v2/v3 approach; dr=
-opped in
-> > v4).
-> >=20
-> > Changes in v2:
-> > =C2=A0 - Serialize the sysfs registration against the tree instead of
-> > adding
-> > =C2=A0=C2=A0=C2=A0 a second lock, as suggested by Viacheslav Dubeyko.
->=20
-> Acked-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
->=20
-> Looks good to me.
->=20
-> Viacheslav, could you please apply this v4 patch directly?
-> (Please keep the 'Cc: stable' tag this time, since this fixes a
-> Use-After-Free bug.)
->=20
-> One note regarding this change: if a sysfs directory corresponding to
-> the checkpoint already exists, nilfs_sysfs_create_snapshot_group()
-> will not only return an error, but kobject_init_and_add() will also
-> output an
-> error message.
->=20
-> However, nilfs_find_or_create_root() checks for an existing entry at
-> the beginning using nilfs_lookup_root(), and
-> nilfs_attach_checkpoint(), which calls this function, is always
-> invoked exclusively =E2=80=94 either under 'ns_snapshot_mount_mutex' or
-> during
-> the serialized initial mount path.
-> Therefore, this side effect is avoided.
->=20
-> Thanks,
-> Ryusuke Konishi
->=20
-> >=20
-> > =C2=A0fs/nilfs2/sysfs.c=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 5 ++++-
-> > =C2=A0fs/nilfs2/the_nilfs.c | 34 +++++++++++++++++++++-------------
-> > =C2=A02 files changed, 25 insertions(+), 14 deletions(-)
-> >=20
-> > diff --git a/fs/nilfs2/sysfs.c b/fs/nilfs2/sysfs.c
-> > index bc52afbfc5c7..5bb74a45ad1e 100644
-> > --- a/fs/nilfs2/sysfs.c
-> > +++ b/fs/nilfs2/sysfs.c
-> > @@ -195,8 +195,10 @@ int nilfs_sysfs_create_snapshot_group(struct
-> > nilfs_root *root)
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "%llu", root->cno);
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
-> >=20
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (err)
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (err) {
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 kobject_put(&root->snapshot_kobj);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 wait_for_completion(&root-
-> > >snapshot_kobj_unregister);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
-> >=20
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return err;
-> > =C2=A0}
-> > @@ -204,6 +206,7 @@ int nilfs_sysfs_create_snapshot_group(struct
-> > nilfs_root *root)
-> > =C2=A0void nilfs_sysfs_delete_snapshot_group(struct nilfs_root *root)
-> > =C2=A0{
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 kobject_put(&root->snapshot_=
-kobj);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 wait_for_completion(&root->snapsh=
-ot_kobj_unregister);
-> > =C2=A0}
-> >=20
-> > =C2=A0/****************************************************************=
-*
-> > *******
-> > diff --git a/fs/nilfs2/the_nilfs.c b/fs/nilfs2/the_nilfs.c
-> > index ecd71c190885..1d5d2293c9c7 100644
-> > --- a/fs/nilfs2/the_nilfs.c
-> > +++ b/fs/nilfs2/the_nilfs.c
-> > @@ -869,6 +869,26 @@ nilfs_find_or_create_root(struct the_nilfs
-> > *nilfs, __u64 cno)
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (!new)
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 return NULL;
-> >=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 new->cno =3D cno;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 new->ifile =3D NULL;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 new->nilfs =3D nilfs;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 refcount_set(&new->count, 1);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 atomic64_set(&new->inodes_count, =
-0);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 atomic64_set(&new->blocks_count, =
-0);
-> > +
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /*
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * Register the sysfs group =
-before publishing the root in
-> > the
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * checkpoint tree.=C2=A0 ni=
-lfs_sysfs_create_snapshot_group()
-> > can sleep,
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * so it must run outside ns=
-_cptree_lock; creating it first
-> > also
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * ensures a concurrent nilf=
-s_lookup_root() can never
-> > observe a root
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * whose sysfs registration =
-later fails and gets freed.
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 err =3D nilfs_sysfs_create_snapsh=
-ot_group(new);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (err) {
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 kfree(new);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 return NULL;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
-> > +
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 spin_lock(&nilfs->ns_cptree_=
-lock);
-> >=20
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 p =3D &nilfs->ns_cptree.rb_n=
-ode;
-> > @@ -885,29 +905,17 @@ nilfs_find_or_create_root(struct the_nilfs
-> > *nilfs, __u64 cno)
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 } else {
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 refco=
-unt_inc(&root->count);
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 spin_=
-unlock(&nilfs->ns_cptree_lock);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 nilfs_sysfs=
-_delete_snapshot_group(new);
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 kfree=
-(new);
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 retur=
-n root;
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 }
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
-> >=20
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 new->cno =3D cno;
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 new->ifile =3D NULL;
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 new->nilfs =3D nilfs;
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 refcount_set(&new->count, 1);
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 atomic64_set(&new->inodes_count, =
-0);
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 atomic64_set(&new->blocks_count, =
-0);
-> > -
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 rb_link_node(&new->rb_node, =
-parent, p);
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 rb_insert_color(&new->rb_nod=
-e, &nilfs->ns_cptree);
-> >=20
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 spin_unlock(&nilfs->ns_cptre=
-e_lock);
-> >=20
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 err =3D nilfs_sysfs_create_snapsh=
-ot_group(new);
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (err) {
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 kfree(new);
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 new =3D NULL;
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
-> > -
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return new;
-> > =C2=A0}
-> >=20
-> > --
-> > 2.43.0
-> >=20
+On Mon, Sep 21, 2026 at 5:37=E2=80=AFAM Aohan Mei <ljp1205831794@gmail.com>=
+ wrote:
+>
+> Hi Xin,
+>
+> Thanks a lot for the review and the suggestion.  Implemented in v2:
+> SCTP_CMD_DISCARD_PACKET queued at the end of the stale-cookie retry.
+>
+> Verified with the reproducer: the kprobe trace now shows the ERROR
+> chunk still removing the transport (sctp_assoc_rm_peer/
+> sctp_transport_free fire as before) but no further chunk of the packet
+> being processed, and asoc->peer.last_data_from keeps the redirection
+> done by sctp_assoc_rm_peer().  The KASAN use-after-free is gone and
+> the association completes the retry handshake normally.
+>
+> This also takes care of the other same-packet sinks the sashiko review
+> pointed out (sctp_cmd_setup_t2() and the sctp_make_*() reply chunks
+> copying chunk->transport into association-lifetime state): the
+> remaining chunks are now dropped before they can run, in line with
+> what sctp_inq_push() does for chunks whose transport was removed
+> before processing.
+>
+> Regarding the cookie-echo restart path the review mentioned
+> (sctp_assoc_update() removing the arrival transport mid-packet, with a
+> bundled [COOKIE ECHO][SHUTDOWN] reaching SCTP_CMD_SETUP_T2): discarding
+> the packet does not look like an option there, as bundling DATA with
+> COOKIE-ECHO is a legitimate fast path.  I can look into clearing the
+> in-progress chunk's transport on removal, or a loop-level check, as a
+> follow-up - please let me know if you'd rather have it handled here.
+>
+Thanks for checking the AI comments from the last version.
 
-Applied.
+First, you need to check if it's possible to remove a transport that is
+the same as chunk->transport in sctp_assoc_update(). As far as I know,
+the chunk->transport should always be included in the new asoc.
 
-Thanks,
-Slava.
+> On the bitfield concern: v2 no longer reads transport->dead at all.
+> The race described (sctp_icmp_frag_needed() in softirq doing a
+> non-atomic read-modify-write of pmtu_pending racing dead =3D 1) would
+> also defeat the existing transport->dead check in sctp_inq_push() from
+> 03a9d10ecf71, so it might be worth moving that flag into its own word
+> separately.
+>
+Sounds good to me.
+
+But move pmtu_pending instead, as I think it's the only one bit that might
+get updated without holding the sock lock.
+
+Also, split this __u32 field to two __u16 fields without changing the size
+of struct sctp_transport.
+
+> As for the reproducer: it is a single static binary that plays both
+> roles over a TUN device - the victim side is a plain SCTP client
+> socket, while the peer side answers the INIT-ACK advertising a primary
+> and a non-primary address plus FWD-TSN support, injects the bundled
+> [ERROR(Stale Cookie)][DATA] from the non-primary address while the
+> association is COOKIE-ECHOED, completes the retry handshake, and sends
+> an FWD-TSN one second later to consume the dangling pointer.  It was
+> verified on tlinux 6.6.119 and on mainline v7.2-rc6-343, where it
+> still fires with 03a9d10ecf71f applied and is clean with this patch on
+> top.
+>
+> Since it is a ready-to-run trigger for the bug, I'd prefer not to post
+> it to the public list - would it be OK if I send it to you and Marcelo
+> off-list instead?  Happy to share it in whatever way you prefer.
+>
+Sure, sending to the maintainers is okay to me.
+
+Thanks.
