@@ -1,79 +1,113 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2374B56E05C;
-	Tue, 22 Sep 2026 17:36:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EF703C0600
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 17:50:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790098595; cv=none; b=Y3TNcDoa9RNX2eljaLFm7MPJDotsgzliyrTWblnGzhjbo9CXo5IQdp6UnMYxOE0/9jiUprq1p6PoY/qKSNAT+QVbyuzHEVCZIRpF4QOQAlqVLh5h4qvF203UfQUyU8nmVF+DX6NaD81sAgy4E7jSsPJ1UjkXcOcvVAiQLAWlfQY=
+	t=1790099436; cv=none; b=sYkeFUmRGDnW11iHfqSXNDfP3yox52jKULKr0Y+uYSIkpLzuGt+E8jsWbzKptQ8vuN29EMKkW5nwxfoTeBQTl2J0IO0Tj+bRs26EXDNVAA+WZrfL2p5O6hCM2SXhH4HK+JmAFO7wC4WOv5x5cp6ICXO9FjtEamAi7dr22IRJi5I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790098595; c=relaxed/simple;
-	bh=BcR4NrlPgIKjBgbTBnyeyWv0byiojlnO/s2OolHEr0w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Y8sxhXOs7UZC6x2/gVTcFouS+Fet+814Gs+enNOwYq61q3ezwQDnsfJiMklvipBs9E2ua5tfIfOSsy9VL1ZECieGLn0BJdkjHkCgtCKJNVu17i3JE8bIcSytbmv5PkrJJJ0qmFTCRAVro7jXMCnPts000pWH4VDlY+/16F6B7io=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DR5HcBvG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790099436; c=relaxed/simple;
+	bh=cZ67qDwdDBXW8MnNqXE32Lk/opMdpdJkN6CGBD9TGh8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=gQDDA0rSDCbritp7HPQ47CqGyvDez89vAKv/JO24WtjQ5DzzFcfadQYA8xmfAO5nv63YB8vPALpegnDA47eCLtwYXE7CZvoe2wJibIX6IooIetkqRWeWODmQvlNz2m6N/5ETjisHj8Rm48bjckw3b21rjKKkaKEDmMQBbPsh2+A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GyE+gVwk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DR5HcBvG"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id AB3D71F00893;
-	Tue, 22 Sep 2026 17:36:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GyE+gVwk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDC6E1F000FF;
+	Tue, 22 Sep 2026 17:50:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790098593;
-	bh=059fGmqBGRizwF23FdWfipqynGEXzoEpe4Tj3yyu1sQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DR5HcBvGq9l47a6s7iXhD0/UcUADKnyDnnMaHVKmwvNpyOVCYpdToCnZC5lICI8rU
-	 0l4hg33XqshRbSd/dSij11bJB6l/jd7ao7sR++WvA9bUhKAMEYQ8toK7FeDG9/XXSO
-	 YAEyuTfXJAwIlZ5qv0AzT0t7sfN3AxMGH+5jLOd3rEGcit7X/yxfgKcblJKSZsgoVn
-	 8LkTDNG7TRHG9NAcADD2OFIqYDb8tG7qYhaJ5ESmUauIaoY+A56Pbm8Fq7fVNThpUm
-	 rHp2FAPPrICffUx4oHpC2xFs2kqCZZSvpymylMfnWThOQp4NlDdVpcUd9MwsRb0ehd
-	 jnmuuAmW0SllQ==
-Date: Tue, 22 Sep 2026 10:36:33 -0700
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: Christoph Hellwig <hch@infradead.org>
-Cc: cem@kernel.org, stable@vger.kernel.org, linux-xfs@vger.kernel.org
-Subject: Re: [PATCH 06/14] xfs: fix xfs_rename_space_res for non-pptr
- filesystems
-Message-ID: <20260922173633.GV2705364@frogsfrogsfrogs>
-References: <178996120463.181988.9152653965555322220.stgit@frogsfrogsfrogs>
- <178996120679.181988.11124162026436295653.stgit@frogsfrogsfrogs>
- <arIQAfUjbdiWmx6P@infradead.org>
+	s=k20260515; t=1790099434;
+	bh=ryNYcCwCW3hHpw46qAah668Ubeuy1RtewgH9z2szuw4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=GyE+gVwkW0+HUfT0gjelaWcpWSReBSzTehE3K9KPRZmGMg+5JaxelAvy0HGuirsiK
+	 8WAE3OPjgaCVm+i37wS5HWdp+fQO1FyU43toOHeztoV05BBKV9IhnguUlAgWmM9Oq8
+	 orduAMI2rlloJJhEuT6wSgB+h3EyChIucWgpgIn6Scc1NT1bTws0ozJydIrak7aJgr
+	 OSI5Pv9c9axOF/+3y5nYgYlPAQY9QlAFNAxqldOl7/sEDmyTQHhr7dEY21SP6NGg1O
+	 3EmuWtABUf+j/mjQe7PY5tYA/w6VludGGQywzlQbKcrygu5MiOOR13iBaMP3gizRF0
+	 INt8UjLXHwRYA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Fan Wu <fanwu01@zju.edu.cn>,
+	Ulf Hansson <ulfh@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] mmc: hsq: Fix use-after-free in retry work
+Date: Tue, 22 Sep 2026 13:50:32 -0400
+Message-ID: <20260922175032.3306721-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026092256-daytime-musty-b7f1@gregkh>
+References: <2026092256-daytime-musty-b7f1@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arIQAfUjbdiWmx6P@infradead.org>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 21, 2026 at 10:20:01PM -0700, Christoph Hellwig wrote:
-> On Sun, Sep 20, 2026 at 11:16:32PM -0700, Darrick J. Wong wrote:
-> > From: Darrick J. Wong <djwong@kernel.org>
-> > 
-> > We don't need to reserve space for a parent pointer update for an
-> > existing target if parent pointers are disabled.  Fix this regression
-> > (which LOLLM noticed) so that rename reservations go back to what they
-> > were before parent pointers.
-> > 
-> > Cc: <stable@vger.kernel.org> # v6.10
-> > Fixes: 5a8338c88284df ("xfs: Add parent pointers to rename")
-> 
-> This just relaxed a reservation.  I don't think this is a stable/7.3
-> candidate and probably should not have a fixes tag that causes folks
-> to backport it.
+From: Fan Wu <fanwu01@zju.edu.cn>
 
-Yes it relaxes a reservation, but only for non-parent pointers
-filesystems running on newer kernels.  IOWs, it reduces the reservation
-back to what it was before parent pointers, so it actually has some
-performance implications for old filesystems.
+[ Upstream commit 5d132990475f02cfa1debe03d50b479432864ebd ]
 
-OTOH nobody's complained about the dip in performance so <shrug> I don't
-really care that much either way.
+mmc_hsq_pump_requests() queues retry_work when request_atomic() returns
+-EBUSY; today sdhci-sprd is the only consumer that implements
+request_atomic(). The work is embedded in a devm-allocated mmc_hsq, but
+is never cancelled during driver removal. Work still pending at unbind
+can therefore run after the devm allocation has been released and
+dereference hsq->mmc and hsq->mrq.
 
-> Otherwise looks good:
-> 
-> Reviewed-by: Christoph Hellwig <hch@lst.de>
+Use devm_work_autocancel() to cancel and drain retry_work before the devm
+allocation is released. By the time devres cleanup begins,
+mmc_remove_host() has already stopped the host, so no new requests can
+arm the work.
 
-Thanks!
+This issue was found by an in-house static analysis tool.
 
---D
+Fixes: 6db96e5810e0 ("mmc: host: Introduce the request_atomic() for the host")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Signed-off-by: Ulf Hansson <ulfh@kernel.org>
+[ Adjusted mmc_hsq_init() context for the missing int i declaration and tag_slot[] initialization loop. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/mmc/host/mmc_hsq.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/mmc/host/mmc_hsq.c b/drivers/mmc/host/mmc_hsq.c
+index 9d35453e7371b..929cdb496cdd7 100644
+--- a/drivers/mmc/host/mmc_hsq.c
++++ b/drivers/mmc/host/mmc_hsq.c
+@@ -7,6 +7,7 @@
+  * Author: Baolin Wang <baolin.wang@linaro.org>
+  */
+ 
++#include <linux/devm-helpers.h>
+ #include <linux/mmc/card.h>
+ #include <linux/mmc/host.h>
+ #include <linux/module.h>
+@@ -339,6 +340,8 @@ static const struct mmc_cqe_ops mmc_hsq_ops = {
+ 
+ int mmc_hsq_init(struct mmc_hsq *hsq, struct mmc_host *mmc)
+ {
++	int ret;
++
+ 	hsq->num_slots = HSQ_NUM_SLOTS;
+ 	hsq->next_tag = HSQ_INVALID_TAG;
+ 
+@@ -351,7 +354,11 @@ int mmc_hsq_init(struct mmc_hsq *hsq, struct mmc_host *mmc)
+ 	hsq->mmc->cqe_private = hsq;
+ 	mmc->cqe_ops = &mmc_hsq_ops;
+ 
+-	INIT_WORK(&hsq->retry_work, mmc_hsq_retry_handler);
++	ret = devm_work_autocancel(mmc_dev(mmc), &hsq->retry_work,
++				   mmc_hsq_retry_handler);
++	if (ret)
++		return ret;
++
+ 	spin_lock_init(&hsq->lock);
+ 	init_waitqueue_head(&hsq->wait_queue);
+ 
+-- 
+2.53.0
+
