@@ -1,131 +1,104 @@
-Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD6712F260C
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 15:13:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA7E153B359
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 15:13:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790090004; cv=none; b=lpZF850qAFcPtzU3DPvy9AQmLvd59A1bpXKgwIUBpPCOlTgEgtH6LZwZXg9xxUy8pEviBgVwHXenwCAjpQkKCA35xZ0zeB+lo+iigRv0lAfEK4QX64tLwvQP/DqPv8JX1u2CBEpQpDWCHENSPNhREQmqSLxDCi20SA/DpA7EAVE=
+	t=1790090007; cv=none; b=nLUu9FrkP5TgydHoOvM3scBYXuu23IOfzHfcwc/Gd5Rg2Tcenu1vKXYObjPTNrKB2zCA+/3xNp+lcKHu045RFls/vVGkwqTnUQI7W8cDBHMKkclqeBcjj389gC46eK/hvoqroYNMCW7BMtbejGnmjL99GNbD7i6X0muFbIim8Ac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790090004; c=relaxed/simple;
-	bh=V+7rsFQPKnOBAlz/LmYg2ZdalQA3vgQb/HuQrB2V3dU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:Cc:From:
-	 In-Reply-To:Content-Type; b=ASxvt1Ai9ym5N+hq9qoJprl6bbuU0NN1wwxGvV1XYfPTHiTYpL7yEPXoh1zQQTlAsWwIhj6Tz4Oer0T91GTSWkWGTbOb5jZmxlfjuHxVpmWO+K2+Z21pbYbit3pr0x8lwTHAp5oKQO3Ag+cMr/DU8UXPqo5SH/+ynWo33AvfUZI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ccDAFl+W; arc=none smtp.client-ip=74.125.228.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	s=arc-20240116; t=1790090007; c=relaxed/simple;
+	bh=ApdUowlDdHQKbb9iBK0pUUxeLjdLTZGIbdRBlh6f8KA=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=OY0IZBhiWnHXVSSt7M/ZiKEXAtO7yH4f5rVnCkcXM8lVkGeLEZLraT13/1n0LhnxVOrTEEKSrWrF/v8ZJZvlAdHTtm7o6+T4zhzIG6tdYw4ENCv6s3kF8DCX4hRatq/l6pB6lv7OLzEpOkJVD9E0pIOQrY2moQh4Av6yZrFZkOM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=esaZw4Fu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ccDAFl+W"
-Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6aa1da63791so5402197a12.1
-        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 08:13:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1790090000; x=1790694800; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8GaZEEmN9wNq82T/9Yu9vmbJ6QJ0MSvGHJAIrLmYMR8=;
-        b=ccDAFl+WGZzjKVGFWYJdS8g/1qurWy5XMEGe54eSNxr3yJn8jUY1aTE7kkCP9oKWOI
-         Q5aaqnl0TiDrZz5hT4Tt55RunzQxDZnUAHbgmHvpL5ZUy7O9jvBVX6lXZjXtbQhyfl++
-         wNnrBeVSy2inQsONMB49cg2bOWFcD+SWCyj5g=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790090000; x=1790694800;
-        h=content-transfer-encoding:content-type:in-reply-to:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8GaZEEmN9wNq82T/9Yu9vmbJ6QJ0MSvGHJAIrLmYMR8=;
-        b=uWCiIOJCOMXzS5OwgbA+cGW23wSv9CGhY06zzViovMaW1bTVh3u5V7dMuwZHtkCGEz
-         aT/x15FRTBX18SgFPbUI8Z8N/TdHh3oE9QSugddGlS2vFThz0ymd0ahYBBdiPcVnsvyW
-         erkEfHda2yuHBw2E2MDf5Yo23cpgcJen/v6S0+WylUI6E4LzgX8LvhCBu/cNLw4Dg/os
-         od8t0564eRf54wfsyy+X6OnZRTuJ9EX7z4LFBiuDKY55ioi5saebVOnmnnDLy/vIw87Y
-         uQO1mKVYxT5EWDeQE7MQj4s+gPLa+w0r+KPp5fdQz5aN64KALex55VxBP8e5Uryxyj1v
-         LaNA==
-X-Forwarded-Encrypted: i=1; AKwUvBwMbyptuW7K5XxxFqFX3HSF74IvPQyU575+gChsoIWp48/NpuQ8DjclYBq6MJBgKJA/RBOUhJI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nj0VKT593Xg9nc3VdSSkvRPudjEkP/ipkq7+tqg859dROdewLx
-	tF7KZ5mMAeweJhTx0XLZYsD6Ifp4t7zZu5BWyXSZNdrWzdh6cj8yTbx+zMNYsOOj8M0=
-X-Gm-Gg: AYBFou0YEL/bX0/323RY06iYEN59WSUS8I1EIUQg0z6Pb4IkXke4IpiT/IsjhGU/YHv
-	0XJBC0tM304xXdvw5T+8AoOr6+aac/RSQ+9SyhrcZjYWoZIq3ltUID8CUIX2ec0uFGogmRMXfZz
-	hdmBTAPJPKQsF3Dxrxzwm/qKiM1VKjrdIHzUuNACMn7vsWhvbu3IwCLlS8exeA/gsOBgZkKYiLU
-	fy5SY/Fegu5QOVWh+6toU6BoNh6mwo/xwxkQBuubpMqK+ZbJSOKJjH5sKrUOcGQffUytGkLlw92
-	vNoPPYhaB7U6NN9ZgoganMXMOO0xWL7vlYGszhhoSL8XllkrYyMxpgA1bTe+XatKK1RpfjVDC8W
-	DRteU01wLQEWN8fdVdqGZjMenQZYrPLenZAhnym+bhqPkS76SytR5Na1ldG/gCfIDyS3io+za9Y
-	hzGZIt3M7TO9jano/0KzK/onQSdJ32rWBikvhJwlQteuny4GJyz6Jw0ZfuFtWvlqu2X+nSFA==
-X-Received: by 2002:a05:6402:3209:b0:6a7:ee54:f89e with SMTP id 4fb4d7f45d1cf-6aa531b8f50mr11963548a12.34.1790089999809;
-        Tue, 22 Sep 2026 08:13:19 -0700 (PDT)
-Received: from [10.214.128.75] ([38.97.137.190])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aaa44f9a77sm1278240a12.17.2026.09.22.08.13.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 22 Sep 2026 08:13:19 -0700 (PDT)
-Message-ID: <bc0459ae-390f-4d48-b517-53388b0c5452@linuxfoundation.org>
-Date: Tue, 22 Sep 2026 09:13:14 -0600
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="esaZw4Fu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 143921F000FF;
+	Tue, 22 Sep 2026 15:13:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790090005;
+	bh=oo/kJy0pw6EOesqTIrTx71o21GtoY7XlO76D10G3RBs=;
+	h=Subject:To:Cc:From:Date;
+	b=esaZw4FuAK9axcVHwX7rsNnZQyzxDPdc5+wa6G6tQYAIjLgAPPMxmfIuhm+LZrESG
+	 fMgv5t4m10BVcCUn+gNWPl6cJ0ilweKiaMeDZXjO0OwP8cAvPJg45Oo0lk6LaDQ38Y
+	 mvW3RAnqXnoCww3OnD3+KlaMzI6/gOGbUoVR95/k=
+Subject: FAILED: patch "[PATCH] smb: client: fix smbd_connection leak on" failed to apply to 5.10-stable tree
+To: pc@manguebit.org,bharathsm@microsoft.com,linkinjeon@kernel.org,metze@samba.org,ronniesahlberg@gmail.com,sprasad@microsoft.com,tom@talpey.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Tue, 22 Sep 2026 17:06:22 +0200
+Message-ID: <2026092222-drool-acetone-c3a8@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] usbip: tools: fix wrong variable and double le16toh in
- list_gadget_devices
-To: longlong yan <yanlonglong@kylinos.cn>, linux-usb@vger.kernel.org,
- valentina.manea.m@gmail.com, shuah@kernel.org, stable@vger.kernel.org,
- i@zenithal.me
-References: <20260818020140.1863-1-yanlonglong@kylinos.cn>
-Content-Language: en-US
-Cc: Shuah Khan <skhan@linuxfoundation.org>
-From: Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <20260818020140.1863-1-yanlonglong@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-
-On 8/17/26 20:01, longlong yan wrote:
-> In list_gadget_devices(), the sprintf() call for idProduct_buf incorrectly
-> uses idVendor instead of idProduct due to a copy-paste mistake. This causes
-> the displayed product ID of vudc gadget devices to always show the vendor
-> ID instead.
-> 
-> Additionally, usbip_names_get_product() is called with le16toh() on
-> idVendor and idProduct values that were already converted from
-> little-endian to host byte order on the preceding lines. This double
-> conversion produces incorrect vendor/product IDs on big-endian
-> architectures, leading to wrong product name lookups.
-
-Why isn't this a problem on little-indian? Shouldn't this double
-conversion cause problem on both little and big endian systems?
-
-> 
-> Fixes: e0546fd8b748 ("usbip: tools: Start using VUDC backend in usbip tools")
-> Signed-off-by: longlong yan <yanlonglong@kylinos.cn>
-> ---
->   tools/usb/usbip/src/usbip_list.c | 5 ++---
->   1 file changed, 2 insertions(+), 3 deletions(-)
-> 
-> diff --git a/tools/usb/usbip/src/usbip_list.c b/tools/usb/usbip/src/usbip_list.c
-> index 3d810bcca02f..85e6a8a1fc36 100644
-> --- a/tools/usb/usbip/src/usbip_list.c
-> +++ b/tools/usb/usbip/src/usbip_list.c
-> @@ -298,13 +298,12 @@ static int list_gadget_devices(bool parsable)
->   		idVendor = le16toh(d_desc->idVendor);
->   		sprintf(idVendor_buf, "0x%4x", idVendor);
->   		idProduct = le16toh(d_desc->idProduct);
-> -		sprintf(idProduct_buf, "0x%4x", idVendor);
-> +		sprintf(idProduct_buf, "0x%4x", idProduct);
-
-This is a good find. How did you find it and can you send me usbip list output
-before and after this change on little and big endian systems? Are these systems
-running linux?
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
 
->   		busid = udev_device_get_sysname(dev);
->   
->   		/* Get product name. */
->   		usbip_names_get_product(product_name, sizeof(product_name),
-> -					le16toh(idVendor),
-> -					le16toh(idProduct));
-> +					idVendor, idProduct);
->   
->   		/* Print information. */
->   		print_device(busid, idVendor_buf, idProduct_buf, parsable);
+The patch below does not apply to the 5.10-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
+
+To reproduce the conflict and resubmit, you may use the following commands:
+
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git checkout FETCH_HEAD
+git cherry-pick -x e75c96157d45e498970158c8f7373d90102e33b9
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092222-drool-acetone-c3a8@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+
+Possible dependencies:
+
+
 
 thanks,
--- Shuah
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From e75c96157d45e498970158c8f7373d90102e33b9 Mon Sep 17 00:00:00 2001
+From: Paulo Alcantara <pc@manguebit.org>
+Date: Sat, 12 Sep 2026 14:20:08 -0300
+Subject: [PATCH] smb: client: fix smbd_connection leak on
+ cifs_get_tcp_session() error
+
+When an RDMA connection is successfully established via
+smbd_get_connection() but cifs_get_tcp_session() later fails (e.g.
+kthread_create() returns an error), the error path frees tcp_ses
+without first destroying the smbd_connection.
+
+Fix this by calling smbd_destroy() in the out_err cleanup path before
+kfree(tcp_ses).  smbd_destroy() safely handles the case where
+smbd_conn is NULL, so it can be called unconditionally.
+
+Closes: https://sashiko.dev/#/patchset/20260912165503.521597-1-pc%40manguebit.org
+Fixes: 2f8946464b11 ("CIFS: SMBD: Upper layer connects to SMBDirect session")
+Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+Cc: Tom Talpey <tom@talpey.com>
+Cc: Stefan Metzmacher <metze@samba.org>
+Cc: Shyam Prasad N <sprasad@microsoft.com>
+Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
+Cc: Bharath SM <bharathsm@microsoft.com>
+Cc: Namjae Jeon <linkinjeon@kernel.org>
+Cc: stable@vger.kernel.org
+
+diff --git a/fs/smb/client/connect.c b/fs/smb/client/connect.c
+index 4bd9f9fb93bb..28e1ddeb6182 100644
+--- a/fs/smb/client/connect.c
++++ b/fs/smb/client/connect.c
+@@ -1934,6 +1934,7 @@ cifs_get_tcp_session(struct smb3_fs_context *ctx,
+ 		kfree(tcp_ses->leaf_fullpath);
+ 		if (tcp_ses->ssocket)
+ 			sock_release(tcp_ses->ssocket);
++		smbd_destroy(tcp_ses);
+ 		kfree(tcp_ses);
+ 	}
+ 	return ERR_PTR(rc);
+
