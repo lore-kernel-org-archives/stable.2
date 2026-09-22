@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2DF64BB271
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 09:43:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23736383C66
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 09:43:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790070207; cv=none; b=bPP9WQsvVNbc7XfvBsyoCYhAbEIlbs4djlg3N7qU1fTSmfRt7ENmWEnR1SZrwlHqeS3iAhd0m82nIU+cuyIMlF2mW5vCD+ZgkeDrJfsfGaUc9WjhEAE/zZKcTl7wpQ6aQlnIf19xZsBHWQM1xSPijVrpWdF2RK/A8LMFZ+r5dVY=
+	t=1790070210; cv=none; b=ge//9ObNJi52x2pYlOOvbbV3gFXdANa5kZV+rg8o9m+5VIGb9hi2XefVcGYW+bSichpeL3gkDrtnE6wh4oN99dkpL3ETdMHyitUSKXfb6RjC7YiX5uB5Emmv08CU9TvhzZSfUiJ7RKf8lECRZGuvy0rd36Sj17B35inpcI9iI2g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790070207; c=relaxed/simple;
-	bh=OsDMFFxZrWIyOXSPzYKPNPsHUM2r3kxi7fab5LOUWrI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=PzUXK05qZ8u7RSod+OS6mpgkAou4yAkM82Q4nagOLqimDp1xbMdHQHg28PY140hOZ3vsDbskoFIfeGwviYLsqGimRfsjSRfNBogVPaENC1vQ8B+ijXp5g8m/6OoVnZrUCZIAebc9bQAfRucCo4hYGKRsG2k6XYEXstg+lSy8qgM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=yAft6YxO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790070210; c=relaxed/simple;
+	bh=rCfJZxdDilXvXdbTvZcg8ktWR2iHn7Gp4kOZ/22Pz8Q=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=cxA3WTcAxQ7bWjXGCZeuyDOwY4BiCJktxeaj9JmhRjLrePgY7tLl4QrLqGLfP83hh2lcRRjFz8WGqjJ2I9IdDNmPgyPFg1wksY8CsxS+0sWbkJ9CwpmjsJXVoiLELkiyswvbMSFuBaWfw7B9QuIOjXODKBq6xL6ajmc3LjzW3Zo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=BrMVeH5d; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="yAft6YxO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2127D1F00899;
-	Tue, 22 Sep 2026 09:43:24 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="BrMVeH5d"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 727361F000FF;
+	Tue, 22 Sep 2026 09:43:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790070205;
-	bh=aqIl+KsILpysAM4ReIRg/GWuSssoHnH+7vujlHegzk4=;
+	s=korg; t=1790070209;
+	bh=Wozghzkwez7BHCWhzxMRhem7+F+0MHlfvlGDek+/GSc=;
 	h=Subject:To:Cc:From:Date;
-	b=yAft6YxOH1SW2mFATZDgY9n33Py5i2sebpVNfIn+IwRuY4QDF4YFtQccZPhnSLdgC
-	 fagUK1DlYm8wBpfnl81DT+qCdm1Xa897sxflZFsam+Kb+o9adU0RBGT21bokvZz+69
-	 b3Tq38735x8EO3yVK3Drhdx6mtZWJn5JlII6AJXU=
-Subject: FAILED: patch "[PATCH] mm/mlock: use the IRQ-safe accessor for NR_MLOCK in" failed to apply to 6.1-stable tree
-To: shakeel.butt@linux.dev,akpm@linux-foundation.org,hughd@google.com,jannh@google.com,liam@infradead.org,ljs@kernel.org,pfalcato@suse.de,stable@vger.kernel.org,vbabka@kernel.org,willy@infradead.org
+	b=BrMVeH5dPag3XWICUPdINDLgJp+w2znanSD0dnfJ/o0WOCfjq6VuYfDrZphh1H9j5
+	 PPVd2I+bI2JFM9sq2xy1RTpoMl4jwfo3lHKX8rAD6+ImjtbfJeU6L7bnBgfRj2+ayE
+	 9scVC+PKEvyE+4fYHyIAYg0LQlJ3IxcREgpAIiIE=
+Subject: FAILED: patch "[PATCH] mm/vma: correctly unaccount on mmap_prepare() failure" failed to apply to 6.18-stable tree
+To: ljs@kernel.org,akpm@linux-foundation.org,jannh@google.com,liam@infradead.org,pfalcato@suse.de,stable@vger.kernel.org,vbabka@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 22 Sep 2026 11:37:14 +0200
-Message-ID: <2026092214-ranged-caucasian-42c9@gregkh>
+Date: Tue, 22 Sep 2026 11:37:35 +0200
+Message-ID: <2026092235-visor-glance-dc8e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x e14a3454806468b086fe2e4ca2e1bff95b528531
+git cherry-pick -x 6cc27d82196385fe06853319f74312a7d8019726
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092214-ranged-caucasian-42c9@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092235-visor-glance-dc8e@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,80 +62,53 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From e14a3454806468b086fe2e4ca2e1bff95b528531 Mon Sep 17 00:00:00 2001
-From: Shakeel Butt <shakeel.butt@linux.dev>
-Date: Tue, 1 Sep 2026 11:01:09 -0700
-Subject: [PATCH] mm/mlock: use the IRQ-safe accessor for NR_MLOCK in
- __munlock_folio()
+From 6cc27d82196385fe06853319f74312a7d8019726 Mon Sep 17 00:00:00 2001
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Wed, 2 Sep 2026 19:08:08 +0100
+Subject: [PATCH] mm/vma: correctly unaccount on mmap_prepare() failure
 
-NR_MLOCK is updated from interrupt context.  __free_pages_prepare() clears
-a stray PG_mlocked and adjusts NR_MLOCK, and a folio can reach it with the
-flag still set from a bio completion handler:
+__mmap_setup() accounts memory for relevant mappings via:
 
-  __free_pages_ok+0x6af/0x7a0
-  <IRQ>
-  __bio_release_pages+0xde/0x260
-  __iomap_dio_bio_end_io+0x16e/0x1a0
-  blk_update_request+0x14b/0x3d0
-  blk_mq_end_request+0x18/0x30
-  blk_done_softirq+0x49/0x60
+security_vm_enough_memory_mm()
+  -> __vm_enough_memory()
+    -> vm_acct_memory()
 
-The folio gets there like this.  A MAP_SHARED file mapping is mlocked, so
-its page cache folios carry PG_mlocked, and an O_DIRECT write sourced from
-that mapping GUP-pins those same folios.  munlock() then runs
-mlock_vma_pages_range(), which clears VM_LOCKED before walking the page
-tables to munlock each folio.  A concurrent hole punch reaches the folio
-through the rmap (i_mmap_rwsem, not mmap_lock) and can land inside that
-window: __folio_remove_rmap() -> munlock_vma_folio() sees VM_LOCKED
-already clear, so it neither queues the folio on the mlock batch nor takes
-a reference, and the pte it clears makes the pending mlock_pte_range()
-walk skip the folio at its !pte_present() check.  filemap_remove_folio()
-then drops the page cache reference, leaving the bio's pin as the last
-one, released from the completion handler above.
+If __mmap_setup() fails, this indicates that this accounting did not take
+place, and thus it's appropriate for __mmap_region() to jump to
+abort_munmap.
 
-So __zone_stat_mod_folio() here needs interrupts disabled, not merely
-preemption, and __munlock_folio() has a path where they are not: when the
-folio has already been taken off the LRU by somebody else the function
-jumps straight to the counter update without taking the lruvec lock.  The
-read-modify-write of the per-CPU NR_MLOCK diff can then be interrupted by
-the softirq above, and one of the two decrements is lost, leaving Mlocked
-in /proc/meminfo permanently overstated.
+However if call_mmap_prepare() fails, it also jumps there and any accounted
+memory is not correctly unaccounted.
 
-Use zone_stat_mod_folio().  mod_zone_state()'s this_cpu_try_cmpxchg() is
-atomic against a same-CPU interrupt and retries, and on the path where the
-lruvec lock is held its cost is negligible next to the lock itself.
+Fix this by handling each error separately.
 
-The UNEVICTABLE_PG* events are deliberately left on the __ accessors: they
-occupy different vm_event_states slots from the UNEVICTABLE_PGCLEARED that
-__free_pages_prepare() bumps, and nothing updates those two from interrupt
-context.
-
-Link: https://lore.kernel.org/20260901180109.3797944-1-shakeel.butt@linux.dev
-Fixes: 2fbb0c10d1e8 ("mm/munlock: mlock_page() munlock_page() batch by pagevec")
-Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
-Reported-by: syzbot+cd2073ee6d958a8d0fcd@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/linux-mm/6a931c5a.08e933ee.dbf97.0093.GAE@google.com/
-Acked-by: Hugh Dickins <hughd@google.com>
+Link: https://lore.kernel.org/20260902-fix-unaccount-mmap_prepare-v1-1-ea070189fdfb@kernel.org
+Fixes: c84bf6dd2b83 ("mm: introduce new .mmap_prepare() file callback")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 Cc: Jann Horn <jannh@google.com>
 Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
 Cc: Pedro Falcato <pfalcato@suse.de>
 Cc: Vlastimil Babka <vbabka@kernel.org>
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 
-diff --git a/mm/mlock.c b/mm/mlock.c
-index efa6716e4dfb..39215a3eab1f 100644
---- a/mm/mlock.c
-+++ b/mm/mlock.c
-@@ -141,7 +141,7 @@ static struct lruvec *__munlock_folio(struct folio *folio, struct lruvec *lruvec
+diff --git a/mm/vma.c b/mm/vma.c
+index 35e7a64855fa..f29abb30956b 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -2859,10 +2859,12 @@ static unsigned long __mmap_region(struct file *file, unsigned long addr,
+ 	map.check_ksm_early = can_set_ksm_flags_early(&map);
  
- munlock:
- 	if (folio_test_clear_mlocked(folio)) {
--		__zone_stat_mod_folio(folio, NR_MLOCK, -nr_pages);
-+		zone_stat_mod_folio(folio, NR_MLOCK, -nr_pages);
- 		if (isolated || !folio_test_unevictable(folio))
- 			__count_vm_events(UNEVICTABLE_PGMUNLOCKED, nr_pages);
- 		else
+ 	error = __mmap_setup(&map, &desc, uf);
+-	if (!error && have_mmap_prepare)
+-		error = call_mmap_prepare(&map, &desc);
+ 	if (error)
+ 		goto abort_munmap;
++	if (have_mmap_prepare)
++		error = call_mmap_prepare(&map, &desc);
++	if (error)
++		goto unacct_error;
+ 
+ 	if (map.check_ksm_early)
+ 		update_ksm_flags(&map);
 
