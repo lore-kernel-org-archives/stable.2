@@ -1,114 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26C344DEC32
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 09:44:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0A654DE703;
+	Tue, 22 Sep 2026 09:46:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790070249; cv=none; b=tnvJ64gpIlJzoNXjOINBNQ61oL5rQtKHNoX5rIWUFKwHnR9MbeRJYHqzfKWsLkVc7DHE1cXlgqOg1iaklUwAt7L3shOuzejx36P9rsJIH5dugaHaIh7+PtPuoAjOtfOZEP0c/DgvmWRGZA8cmifQU20Td38WEtbosLpEVVVk1Yw=
+	t=1790070392; cv=none; b=IQy6wSiaebye+qYBldUYqaHE2HBA8Cur0iBLwnEFw6Zkjkh1kMTyC1rz38usrtF7YnE+0wifZdrl/VMnUZyU5p/YhzKYRXApdgwRAAF+9n3UaNEqX5b5NgJZAqoWd2JSKD57N1BgVAFdXNDxd038bWlJV8RmK00y8ZnIidhS1RY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790070249; c=relaxed/simple;
-	bh=50tOeINFt+xIzqRuVyc3jUlI8GsU1ht1kVAbltHcjoY=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=kIHCpafGmIz+xOa1i/6kEZaSwtwHzxTp6uXS8aOYdJHIZaAjgbPh3tGBBZxWQZtHQPW4+/viNp/PBzcS1UrdCZZXZ+KhdmCXl9pjbv0ZO6khnt2KjQ9u6rtdW0KzaS01oxy/ukLFKQDgIeIh3kRfX8mh3IvzJ9eSK+QzjLBDUas=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Uj0Pe57F; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790070392; c=relaxed/simple;
+	bh=Ohc+POuEZ8exh2NwTUCRxGX8iAG4TwM/bhruIJ1rcKE=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=naYjpxJGdeEZugBI+zuYCJc6WRexqDTr7TZhBtPFx8BFMnO/0NakCSUC3P+05h4DAesj1BjdUFG+CZ+2r+++G4dlNqe7gCqn5NTDpAWAE8c80UboawBEFKQvXL8vCwIQ6IN4kbWQ+1IgvjOgYocOrrzkP0K6FkoLirkcupWCILc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=S5l1LIei; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=h6pp+xvU; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Uj0Pe57F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C3D31F000FF;
-	Tue, 22 Sep 2026 09:44:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790070248;
-	bh=uknRrAhBDfUUX+sOVMGBULHEG8aGojeapHJrT2RnK3A=;
-	h=Subject:To:Cc:From:Date;
-	b=Uj0Pe57FYMH5AYrnf1GfDjqHF842bARJQjaW/M2Yh+rC/pl1t33pSCdSeWvAk7TvU
-	 9D5RozwUHQcBmtPV4uQjgIBa8vZ9/il/Lv0gwyQvhIlPg2ZwYgB1kUdXxDohBCVPwX
-	 977jgou1CWQ+k0wqAf3LfSuFwXJu/NFZLNNGrS9U=
-Subject: FAILED: patch "[PATCH] IB/hfi1: Resolve the credit-return buffer through the send" failed to apply to 5.10-stable tree
-To: jyohuku.alterego@gmail.com,leon@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Tue, 22 Sep 2026 11:40:07 +0200
-Message-ID: <2026092207-spotless-rambling-6fce@gregkh>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="S5l1LIei";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="h6pp+xvU"
+Date: Tue, 22 Sep 2026 09:46:26 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1790070388;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WBGP4XMjBG3iz6sjgiyQw55/b40qX6SuE5n8+2NrFsw=;
+	b=S5l1LIei0kNn1zhVHub1KjzYP5JbfTByaRmMnJySmWQwYJ0snQrjSnw8Gk/PnqQTbu9aNU
+	SzazC4B1+Ep8xEBqCrZcOOXtDzJ9SNzUNwNWNot6GDr/jvg/XpVjg84bcruFqxnAcfoPn7
+	IfjZkVleg4mL5NsAzsnUpqEhw5l6a91UBJRiJa5Gilep/STJifimNXJb3QHWGTBOVYvYGn
+	ojGIPvsf+b2z/0gScMweep4QRg4HEerJCFUgXHQaGk+L7sggUQK3i0dqBsHBk9WSgJJrNT
+	l7OtV1i2eNPsa/fIvUMpOHQf5Y0cWbN0UA5tdUU9K83FdopF0v2i/D4MMidGUg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1790070388;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WBGP4XMjBG3iz6sjgiyQw55/b40qX6SuE5n8+2NrFsw=;
+	b=h6pp+xvUW1ybr61WzIizaxj1SOaHidqospbAjMmrfbxGBzQbWff/VIx8LdHvKc33PUs1wQ
+	rXs5YiEOWBIS0fCw==
+From: "tip-bot2 for Dapeng Mi" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: perf/urgent] perf/x86/intel: Constrain Panther Cove
+ UOPS_DISPATCHED events to PMCs 0-3
+Cc: Dapeng Mi <dapeng1.mi@linux.intel.com>,
+ "Peter Zijlstra (Intel)" <peterz@infradead.org>,
+ Ingo Molnar <mingo@kernel.org>,  <stable@vger.kernel.org>, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260917015234.981153-10-dapeng1.mi@linux.intel.com>
+References: <20260917015234.981153-10-dapeng1.mi@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Message-ID: <179007038661.2819794.2643528060383889322.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
+The following commit has been merged into the perf/urgent branch of tip:
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Commit-ID:     04a7ef3b7aa3af34202285043e3423a2e3983595
+Gitweb:        https://git.kernel.org/tip/04a7ef3b7aa3af34202285043e3423a2e39=
+83595
+Author:        Dapeng Mi <dapeng1.mi@linux.intel.com>
+AuthorDate:    Thu, 17 Sep 2026 09:52:31 +08:00
+Committer:     Ingo Molnar <mingo@kernel.org>
+CommitterDate: Tue, 22 Sep 2026 11:35:40 +02:00
 
-To reproduce the conflict and resubmit, you may use the following commands:
+perf/x86/intel: Constrain Panther Cove UOPS_DISPATCHED events to PMCs 0-3
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x 975396b9e5a4028e649f4b9a6a5ca5dfb76a824b
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092207-spotless-rambling-6fce@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+Per the latest Panther Cove event definitions, the following events are
+only supported on PMCs 0-3:
 
-Possible dependencies:
+- UOPS_DISPATCHED.INT_EU_ALL (0x1b2)
+- UOPS_DISPATCHED.ALU (0x2b2)
 
+Add explicit event constraints for these two events so scheduling does
+not place them on unsupported counters.
 
+Fixes: d345b6bb8860 ("perf/x86/intel: Add core PMU support for DMR")
+Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Signed-off-by: Ingo Molnar <mingo@kernel.org>
+Cc: <stable@vger.kernel.org> # v7.0+
+Link: https://patch.msgid.link/20260917015234.981153-10-dapeng1.mi@linux.inte=
+l.com
+---
+ arch/x86/events/intel/core.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 975396b9e5a4028e649f4b9a6a5ca5dfb76a824b Mon Sep 17 00:00:00 2001
-From: Shuhei Takeshita <jyohuku.alterego@gmail.com>
-Date: Sun, 9 Aug 2026 12:27:42 +0900
-Subject: [PATCH] IB/hfi1: Resolve the credit-return buffer through the send
- context's node
-
-hfi1_file_mmap()'s PIO_CRED case derives this context's credit-return
-page offset, and the DMA handle for it, from dd->cr_base[uctxt->numa_id].
-uctxt->numa_id is the node of whichever CPU the process happened to be
-running on, but the entry itself lives in the credit-return allocation of
-the send context's own node:
-
-	sc->hw_free = &sc->dd->cr_base[sc->node].va[gc].cr[index];
-
-and user send contexts are allocated with sc_alloc(dd, SC_USER, ...,
-dd->node), the HFI-local node.  On a multi-socket host with the process
-running off that node the two allocations differ, so the subtraction
-produces an offset into an unrelated buffer and the DMA handle belongs to
-the wrong allocation.
-
-Use the send context's own node for all three references.  The
-continuation lines are reindented at the same time; they mixed spaces and
-tabs.
-
-Fixes: 7724105686e7 ("IB/hfi1: add driver files")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shuhei Takeshita <jyohuku.alterego@gmail.com>
-Link: https://patch.msgid.link/20260809032743.2671579-2-jyohuku.alterego@gmail.com
-Signed-off-by: Leon Romanovsky <leon@kernel.org>
-
-diff --git a/drivers/infiniband/hw/hfi1/file_ops.c b/drivers/infiniband/hw/hfi1/file_ops.c
-index dc548e6802e2..72c21d7455fd 100644
---- a/drivers/infiniband/hw/hfi1/file_ops.c
-+++ b/drivers/infiniband/hw/hfi1/file_ops.c
-@@ -382,10 +382,10 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
- 		 * of enabled contexts > 64 and 128 respectively).
- 		 */
- 		cr_page_offset = ((u64)uctxt->sc->hw_free -
--			  	     (u64)dd->cr_base[uctxt->numa_id].va) &
--				   PAGE_MASK;
--		memvirt = dd->cr_base[uctxt->numa_id].va + cr_page_offset;
--		memdma = dd->cr_base[uctxt->numa_id].dma + cr_page_offset;
-+				  (u64)dd->cr_base[uctxt->sc->node].va) &
-+				 PAGE_MASK;
-+		memvirt = dd->cr_base[uctxt->sc->node].va + cr_page_offset;
-+		memdma = dd->cr_base[uctxt->sc->node].dma + cr_page_offset;
- 		memlen = PAGE_SIZE;
- 		flags &= ~VM_MAYWRITE;
- 		flags |= VM_DONTCOPY | VM_DONTEXPAND;
-
+diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
+index a7dbbed..ecf6d63 100644
+--- a/arch/x86/events/intel/core.c
++++ b/arch/x86/events/intel/core.c
+@@ -506,6 +506,8 @@ static struct event_constraint intel_pnc_event_constraint=
+s[] =3D {
+ 	INTEL_EVENT_CONSTRAINT(0xce, 0x1),
+=20
+ 	INTEL_UEVENT_CONSTRAINT(0x01b1, 0x8),
++	INTEL_UEVENT_CONSTRAINT(0x01b2, 0xf),
++	INTEL_UEVENT_CONSTRAINT(0x02b2, 0xf),
+ 	INTEL_UEVENT_CONSTRAINT(0x0847, 0xf),
+ 	INTEL_UEVENT_CONSTRAINT(0x0446, 0xf),
+ 	INTEL_UEVENT_CONSTRAINT(0x0846, 0xf),
