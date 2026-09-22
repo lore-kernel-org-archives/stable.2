@@ -1,136 +1,113 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D548B41D110;
-	Tue, 22 Sep 2026 17:53:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20F8F46D09D
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 17:55:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790099595; cv=none; b=SGQphsDXvOKlzW0UdpPcnC2TQsEyvF400vqvmNoGlrLP91eO8MGDhnPxH/C1ObItwkq6uk2xawZprpFDEZnjsZwoGRM77Ua9WGalFeZLxsP3ew0174ZWqpcUXr+KYBBeqveGbxzUoTskCKgYFmBVxCBUPiCfhKdwaJ5uLoqlZ5M=
+	t=1790099758; cv=none; b=B4FOh8tfvifiC8SAN2Pvp0MEFMlmVmr2eui53bUcJInE93ox0cWDagz38zjsn0+5bi4CErdVFhBgN7J3xFUGFVl7R6se3yrt1XdWx/QPdoV4pANTSTehV1Zb5swqVdpCG+KJO1k/G9smosFeTY/ObdWid5jx/7SlN0xirdXKUkI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790099595; c=relaxed/simple;
-	bh=N1s1xykM9udH9D1Q7vI6ohgS3hen/bOXe2eF5Lo6LNI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=doB+kvbxWoDrdI0ADqsAgYORSDzLuCRCqmbJfZlGlSl3QCjkuMrv52TVJmyfh/41oji42RLtzS3SDY62rCZxp/oCZRpy21hYFpLwFL9oarSNcQSdrnHwq02vqXUXAXUeVOBm/fElv/sfAXw8n5vibXyyqEKjXyLTub5Z/PzfxO8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cW3kT+Tt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790099758; c=relaxed/simple;
+	bh=cZ67qDwdDBXW8MnNqXE32Lk/opMdpdJkN6CGBD9TGh8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=OZCtgCTyYEkWcNI45ZmUuA0bfizVVZpdc9b0A7u2wb3y6qizVD4qJOHXiuQboc0P2ShBGf2IyxOuuRZi173xag+v4+F4UokpfhO8FtDvbrD2vZ8O+gwao0YEjf3j7eoqv19pVYWGDmss1WvoSzbH76UEPrnDNQnTpWbF71LryXo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VOw16TzD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cW3kT+Tt"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 5E19D1F000FF;
-	Tue, 22 Sep 2026 17:53:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VOw16TzD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CD4D1F00893;
+	Tue, 22 Sep 2026 17:55:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790099594;
-	bh=AOUvqYrzkVQeE0zJHncPX0TuL47fg1J7H0yhLQP1Guw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cW3kT+TtGAAwLmTLQA6fbGqZiryG5hmYP96PeQjKGRO0/r7h6XlK7LLYgoA6H6o8h
-	 bGjencKVEjH2qZzHFKaTjVT7YT9LlQt2jWgE/sAQQctznzhxt7bssGFDfjbGuzM+Pq
-	 fL+WA0dMg0qiksoCGgL0yl6g9lB6pnoxuhRkN5TdGWvuiR9VQtKKK8CdRbfZ0S3mfu
-	 kJ1CkZjodx27S44Lb+cdDE16VTohUE4UcuAZXjCEK6d0sRJ54Yr9/GpmKyRPhlwmEA
-	 zxghUsQNzfsp90nWevEeMRleDwG1SeqbukMxINs8qQ19uVxppjbXWrdScoh/7/SYwI
-	 0PmyHBBWkZtkw==
-Date: Tue, 22 Sep 2026 10:53:13 -0700
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: Christoph Hellwig <hch@infradead.org>
-Cc: cem@kernel.org, stable@vger.kernel.org, linux-xfs@vger.kernel.org
-Subject: Re: [PATCH 10/14] xfarray: don't crash when sorting if array element
- crosses a folio
-Message-ID: <20260922175313.GW2705364@frogsfrogsfrogs>
-References: <178996120463.181988.9152653965555322220.stgit@frogsfrogsfrogs>
- <178996120763.181988.2563798655569721557.stgit@frogsfrogsfrogs>
- <arIQntfRrNKGHyoF@infradead.org>
+	s=k20260515; t=1790099756;
+	bh=ryNYcCwCW3hHpw46qAah668Ubeuy1RtewgH9z2szuw4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=VOw16TzDCyTrhr4m5lujZ5TVFmLmDm0tTxKiD8mMjvnxLV4bSOjISaYLlgpwc+qa0
+	 mVHYNHhWGOL/tFC/rWg16VnFfDTJxnLlcFQ213+dcryP/T9eruxVyjyEtPev3FW8d+
+	 +uuw1GXXab2K3G6Lmcx9kW+Olfcu4EXJWQXAq3JHjwN/2DJ211tgZj5UL9zXTl2Rmf
+	 Lseak2gIZLvjXooSXHU4KWxu7FMeazUdhcEogIoD+KL/mPk1IZtq/CgByZzEAz8rQx
+	 EdazbMoKt8xhkp3hd5xu7NjZGCym88nEKNCyiz47bP2cXMh6K/wQgtd+7N5p6x+Zo8
+	 CNaHvirJsnKyg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Fan Wu <fanwu01@zju.edu.cn>,
+	Ulf Hansson <ulfh@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] mmc: hsq: Fix use-after-free in retry work
+Date: Tue, 22 Sep 2026 13:55:54 -0400
+Message-ID: <20260922175554.3320626-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026092257-unnamed-ligament-6b2b@gregkh>
+References: <2026092257-unnamed-ligament-6b2b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arIQntfRrNKGHyoF@infradead.org>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 21, 2026 at 10:22:38PM -0700, Christoph Hellwig wrote:
-> On Sun, Sep 20, 2026 at 11:17:35PM -0700, Darrick J. Wong wrote:
-> > From: Darrick J. Wong <djwong@kernel.org>
-> > 
-> > LOLLM points out that if an array element crosses a folio boundary,
-> > xfile_get_folio returns a NULL folio pointer.  If this happens,
-> > si->folio is also set to NULL, and calling folio_pos/folio_address will
-> > just crash the kernel.  Teach this function to handle this condition by
-> > falling back to reading the array element into scratchpad memory.
-> > 
-> > Cc: <stable@vger.kernel.org> # v6.6
-> > Fixes: cf36f4f64c2d4e ("xfs: cache pages used for xfarray quicksort convergence")
-> > Signed-off-by: "Darrick J. Wong" <djwong@kernel.org>
-> > Assisted-by: LOLLM # finding obvious bugs
-> > ---
-> >  fs/xfs/scrub/xfarray.c |   18 ++++++++++--------
-> >  1 file changed, 10 insertions(+), 8 deletions(-)
-> > 
-> > 
-> > diff --git a/fs/xfs/scrub/xfarray.c b/fs/xfs/scrub/xfarray.c
-> > index 2ce24bfe4c0fab..30a58e9d4378e4 100644
-> > --- a/fs/xfs/scrub/xfarray.c
-> > +++ b/fs/xfs/scrub/xfarray.c
-> > @@ -830,22 +830,24 @@ xfarray_sort_scan(
-> >  			return PTR_ERR(folio);
-> >  		si->folio = folio;
-> >  
-> > -		si->first_folio_idx = xfarray_idx(si->array,
-> > -				folio_pos(si->folio) + si->array->obj_size - 1);
-> > +		if (si->folio) {
-> > +			si->first_folio_idx = xfarray_idx(si->array,
-> > +					folio_pos(si->folio) + si->array->obj_size - 1);
-> 
-> Overly long line.
-> 
-> > +			if (xfarray_pos(si->array, si->last_folio_idx + 1) > next_pos)
-> 
-> Another one.
-> 
-> > +	if (!si->folio || idx < si->first_folio_idx || idx > si->last_folio_idx) {
-> 
-> And one more.
+From: Fan Wu <fanwu01@zju.edu.cn>
 
-On second glance, I think a cleaner way to fix this is to move the logic
-that loads the folio, computes the new {first,last}_folio_idx, and
-validates them into a new helper:
+[ Upstream commit 5d132990475f02cfa1debe03d50b479432864ebd ]
 
-static int
-xfarray_sort_load_folio(
-	struct xfarray_sortinfo	*si,
-	xfarray_idx_t		idx,
-	loff_t			idx_pos)
-{
-	struct folio		*folio;
-	loff_t			next_pos;
+mmc_hsq_pump_requests() queues retry_work when request_atomic() returns
+-EBUSY; today sdhci-sprd is the only consumer that implements
+request_atomic(). The work is embedded in a devm-allocated mmc_hsq, but
+is never cancelled during driver removal. Work still pending at unbind
+can therefore run after the devm allocation has been released and
+dereference hsq->mmc and hsq->mrq.
 
-	folio = xfile_get_folio(si->array->xfile, idx_pos, si->array->obj_size,
-			XFILE_ALLOC);
-	if (IS_ERR(folio))
-		return PTR_ERR(folio);
-	si->folio = folio;
+Use devm_work_autocancel() to cancel and drain retry_work before the devm
+allocation is released. By the time devres cleanup begins,
+mmc_remove_host() has already stopped the host, so no new requests can
+arm the work.
 
-	/* No folio?  Get the caller to read into the scratchpad. */
-	if (!si->folio)
-		return 0;
+This issue was found by an in-house static analysis tool.
 
-	si->first_folio_idx = xfarray_idx(si->array,
-			folio_pos(si->folio) + si->array->obj_size - 1);
+Fixes: 6db96e5810e0 ("mmc: host: Introduce the request_atomic() for the host")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Signed-off-by: Ulf Hansson <ulfh@kernel.org>
+[ Adjusted mmc_hsq_init() context for the missing int i declaration and tag_slot[] initialization loop. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/mmc/host/mmc_hsq.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-	next_pos = folio_next_pos(si->folio);
-	si->last_folio_idx = xfarray_idx(si->array, next_pos - 1);
-	if (xfarray_pos(si->array, si->last_folio_idx + 1) > next_pos)
-		si->last_folio_idx--;
+diff --git a/drivers/mmc/host/mmc_hsq.c b/drivers/mmc/host/mmc_hsq.c
+index 9d35453e7371b..929cdb496cdd7 100644
+--- a/drivers/mmc/host/mmc_hsq.c
++++ b/drivers/mmc/host/mmc_hsq.c
+@@ -7,6 +7,7 @@
+  * Author: Baolin Wang <baolin.wang@linaro.org>
+  */
+ 
++#include <linux/devm-helpers.h>
+ #include <linux/mmc/card.h>
+ #include <linux/mmc/host.h>
+ #include <linux/module.h>
+@@ -339,6 +340,8 @@ static const struct mmc_cqe_ops mmc_hsq_ops = {
+ 
+ int mmc_hsq_init(struct mmc_hsq *hsq, struct mmc_host *mmc)
+ {
++	int ret;
++
+ 	hsq->num_slots = HSQ_NUM_SLOTS;
+ 	hsq->next_tag = HSQ_INVALID_TAG;
+ 
+@@ -351,7 +354,11 @@ int mmc_hsq_init(struct mmc_hsq *hsq, struct mmc_host *mmc)
+ 	hsq->mmc->cqe_private = hsq;
+ 	mmc->cqe_ops = &mmc_hsq_ops;
+ 
+-	INIT_WORK(&hsq->retry_work, mmc_hsq_retry_handler);
++	ret = devm_work_autocancel(mmc_dev(mmc), &hsq->retry_work,
++				   mmc_hsq_retry_handler);
++	if (ret)
++		return ret;
++
+ 	spin_lock_init(&hsq->lock);
+ 	init_waitqueue_head(&hsq->wait_queue);
+ 
+-- 
+2.53.0
 
-	/*
-	 * If this folio still doesn't cover the desired element, it must cross
-	 * a folio boundary.  Get the caller to read into the scratchpad.
-	 */
-	if (idx < si->first_folio_idx || idx > si->last_folio_idx) {
-		xfarray_sort_scan_done(si);
-		return 0;
-	}
-
-	trace_xfarray_sort_scan(si, idx);
-	return 0;
-}
-
---D
