@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 271CB3C0A00
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 18:37:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65527492196
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 18:37:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790102254; cv=none; b=tDnHnagKLSFCAm/SAdCNiFlSyj4tKHa595KqcybnjBVSrzrrV4OIgKWHTuD0QksgpIV5WfJlwZx+QSdYiqWx8WoyP5ZVMh973BDu8bm8/6dRpTi2i7jhCISH3k06e/Gthgf7EyxvFDxBZbfTTQCzk8lSw5ogJr4K4wsXLyg5hmc=
+	t=1790102255; cv=none; b=qi/pRmj5hCqI1hH6w9nUMrOhwrw4weO4YBwl4M/IeUW10nzQ7sluQdOH2hblHCADwl3P/tR5ZLc6f4k3OhakfyKsAuMq0WzOjuEb43S6l4rb3x+sFQDq/un+fp1hpqTCX22rKf7gWIXhKBFXf0VEHYzv51sFOOGZ+FBDZnhjm4s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790102254; c=relaxed/simple;
-	bh=Cyj/a7aD0htE+cYAQCmhWbDxWS5SIn806XBiddZWImQ=;
+	s=arc-20240116; t=1790102255; c=relaxed/simple;
+	bh=fer5oaQNKIooHVA4KS6uYfmDcGPynMwF19rDheOI7LU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Kb6C/Cp9W8JUTfxHQ80B/LN61svZ5Q5vb2tfS0rhp/NqbjHFSk30H9P9gyw9ZBsywNVH8RQhOvCWUTaICUc45MMAnOBqgB0AfOAfoFJ5SrONhF6oVmjs7FJdCbn+62yVX76YdwvN81PZOVZjz13sDNjRXYwHV8BTegfJ0f8Kls0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Oq5XoqOM; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=hwujIAL78J1WbNyAk6yTwMXJS5hVosmfjQptu9M2fPgcOrRNfcy0L9YiOCXvnhVaFZl/wa6O1gkXVMw7klU5Q930ugVYXmv7O/u0aq2NhixBr90FXXrQvfpFdGZRGkUPJ/cm48TGnPYdRG+3g/HQ1F+zIHsKLaueBZiEDKDCe5U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q/iM4zOw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Oq5XoqOM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AAF51F000FF;
-	Tue, 22 Sep 2026 18:37:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q/iM4zOw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A2851F00898;
+	Tue, 22 Sep 2026 18:37:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790102252;
-	bh=lDCdQ0OvaacXvY7qiiixqWhPom2MScUJxqQFozZZWfs=;
+	s=k20260515; t=1790102254;
+	bh=W5rfXKY7BjI5gLq96KyFuclf9aFeX7xMf+6FyDn9kdo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Oq5XoqOMb1i4Beg1nEYExvKqFbW7bueqPzhptwRmyQCxFMs9dJZVKHlej/96+gcm9
-	 rlnQfB8G1RuMt1OkgEGnXXzlv6kuXDkf7k7vOGe6oXVhYM85nh2fSEuzf5Aj5Z3h96
-	 rHTyT9wEPCSQgoSXINGy7ID0Tz2hcXzCjT+eLd8mFVkXXBj802GHoubVVKE9n/Empw
-	 LRshBnnLrWCleL3l8/qb0jxafx6CQgIArs7AY8Qwzuc2wOxexWIoXxZEPto3I41Pvv
-	 P4a2+ISkAOa1RRole0jzhOYWzJ3BdgWVKHhxUyW4Ot99CZq1nZ6g4n7wz5a+RbJKEU
-	 Xziq5D0fDq+gw==
+	b=Q/iM4zOwRw/Ps4jq3ePSodqQBqYWfr8J+Jpw6MjKaEXjfdrvPRw56EzmKxqaKcogd
+	 8uh72FP40NACy/NzuThCO3bXe/nzBt0DxeFBxS9sAIlKdm/gbwuT5MXtbUUpKXrWMZ
+	 5HH7aO53uyLosrXfipHmf1itm7w0iEdizbVypdRzmJ8XDdErjUtkLwVo7cflaZjCQs
+	 nq+NYtIfBf2AVoriPxKNdRUbPN+4B8oSevMg0gYya0k3gd0DeNVv18zyMb4WMESrlw
+	 eJJ2pnh8omMw7dyCFxy/px96dirLqrmdhcTF498yPXlsOgnP8c/Mdl8lpakke2+ZHa
+	 UK/2/z+qBoZTg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Helge Deller <deller@gmx.de>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+Cc: Cen Zhang <cenzhang@linux.microsoft.com>,
+	Francis Perron <francis@akrites.dev>,
+	Jarkko Sakkinen <jarkko@kernel.org>,
+	R Nageswara Sastry <rnsastry@linux.ibm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] Input: hp_sdc - shut down kicker timer on module exit
-Date: Tue, 22 Sep 2026 14:37:30 -0400
-Message-ID: <20260922183730.3715251-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] KEYS: encrypted: fix integer overflow of datablob_len
+Date: Tue, 22 Sep 2026 14:37:31 -0400
+Message-ID: <20260922183732.3715414-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092215-retrieval-garlic-5b53@gregkh>
-References: <2026092215-retrieval-garlic-5b53@gregkh>
+In-Reply-To: <2026092202-sureness-playpen-b398@gregkh>
+References: <2026092202-sureness-playpen-b398@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,45 +47,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+From: Cen Zhang <cenzhang@linux.microsoft.com>
 
-[ Upstream commit 309731e95917125bbd13626a7a5600490a5bf44f ]
+[ Upstream commit 8697c431e297eb0d0ab13dda6bc172b48a34f05c ]
 
-hp_sdc_kicker() rearms hp_sdc.kicker with mod_timer() after scheduling the
-tasklet.  The module exit path uses timer_delete_sync().  That waits for a
-callback already running but can still leave the timer rearmed.
+encrypted_key_alloc() stores datablob_len in a u16. It is computed from
+multiple string and payload lengths. If the result exceeds U16_MAX, the
+assignment truncates the allocation size. KASAN reports a 32760-byte
+slab-out-of-bounds write when __ekey_init() copies the master key
+description into the undersized buffer.
 
-A callback can therefore leave the timer pending while hp_sdc_exit() tears
-down the driver, allowing timer activity to access dismantled driver state.
+The total payload length stored in key->datalen is also a u16. Use
+check_add_overflow() to reject values that do not fit either destination,
+and use kzalloc_flex() for the flexible-array allocation.
 
-Use timer_shutdown_sync() for final teardown.  It waits for a running
-callback and prevents rearming after module exit begins.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: 7e70cb497850 ("keys: add new key-type encrypted")
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:GPT-5
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Acked-by: Helge Deller <deller@gmx.de>
-Link: https://patch.msgid.link/20260902154004.3595416-1-runyu.xiao@seu.edu.cn
-Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-[ adjusted the removal hunk to match del_timer_sync() instead of timer_delete_sync() ]
+Assisted-by: GitHub-Copilot:claude-opus-4.6
+Signed-off-by: Cen Zhang <cenzhang@linux.microsoft.com>
+Signed-off-by: Francis Perron <francis@akrites.dev>
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
+Link: https://lore.kernel.org/r/20260909153433.83117-1-cenzhang@linux.microsoft.com
+Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+[ replaced unavailable kzalloc_flex() with kzalloc(struct_size(...)) ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/input/serio/hp_sdc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ security/keys/encrypted-keys/encrypted.c | 20 ++++++++++++++------
+ 1 file changed, 14 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/input/serio/hp_sdc.c b/drivers/input/serio/hp_sdc.c
-index 13eacf6ab4310..ee096d7c7846c 100644
---- a/drivers/input/serio/hp_sdc.c
-+++ b/drivers/input/serio/hp_sdc.c
-@@ -980,7 +980,7 @@ static void hp_sdc_exit(void)
- 	free_irq(hp_sdc.irq, &hp_sdc);
- 	write_unlock_irq(&hp_sdc.lock);
+diff --git a/security/keys/encrypted-keys/encrypted.c b/security/keys/encrypted-keys/encrypted.c
+index 87432b35d7713..fcfe3e873ec12 100644
+--- a/security/keys/encrypted-keys/encrypted.c
++++ b/security/keys/encrypted-keys/encrypted.c
+@@ -18,6 +18,7 @@
+ #include <linux/parser.h>
+ #include <linux/string.h>
+ #include <linux/err.h>
++#include <linux/overflow.h>
+ #include <keys/user-type.h>
+ #include <keys/trusted-type.h>
+ #include <keys/encrypted-type.h>
+@@ -599,6 +600,7 @@ static struct encrypted_key_payload *encrypted_key_alloc(struct key *key,
+ {
+ 	struct encrypted_key_payload *epayload = NULL;
+ 	unsigned short datablob_len;
++	unsigned short payload_totallen;
+ 	unsigned short decrypted_datalen;
+ 	unsigned short payload_datalen;
+ 	unsigned int encrypted_datalen;
+@@ -633,16 +635,22 @@ static struct encrypted_key_payload *encrypted_key_alloc(struct key *key,
  
--	del_timer_sync(&hp_sdc.kicker);
-+	timer_shutdown_sync(&hp_sdc.kicker);
+ 	encrypted_datalen = roundup(decrypted_datalen, blksize);
  
- 	tasklet_kill(&hp_sdc.task);
+-	datablob_len = format_len + 1 + strlen(master_desc) + 1
+-	    + strlen(datalen) + 1 + ivsize + 1 + encrypted_datalen;
++	if (check_add_overflow(format_len + 1 + strlen(master_desc) + 1
++			       + strlen(datalen) + 1 + ivsize + 1,
++			       encrypted_datalen, &datablob_len))
++		return ERR_PTR(-EINVAL);
++
++	if (check_add_overflow(datablob_len,
++			       payload_datalen + HASH_SIZE + 1,
++			       &payload_totallen))
++		return ERR_PTR(-EINVAL);
+ 
+-	ret = key_payload_reserve(key, payload_datalen + datablob_len
+-				  + HASH_SIZE + 1);
++	ret = key_payload_reserve(key, payload_totallen);
+ 	if (ret < 0)
+ 		return ERR_PTR(ret);
+ 
+-	epayload = kzalloc(sizeof(*epayload) + payload_datalen +
+-			   datablob_len + HASH_SIZE + 1, GFP_KERNEL);
++	epayload = kzalloc(struct_size(epayload, payload_data, payload_totallen),
++			   GFP_KERNEL);
+ 	if (!epayload)
+ 		return ERR_PTR(-ENOMEM);
  
 -- 
 2.53.0
