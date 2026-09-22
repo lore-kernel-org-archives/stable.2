@@ -1,175 +1,106 @@
-Received: from fhigh-b6-smtp.messagingengine.com (fhigh-b6-smtp.messagingengine.com [202.12.124.157])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 934E74ED1AC;
-	Tue, 22 Sep 2026 20:50:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.157
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2ECD521219
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 21:05:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790110230; cv=none; b=fntVjNeAaqwy0IygA+CPYGp24T168318pIWkkAZiYv6IY+O4XBuMReMTMU0P0BQAosX/MWOeFUwcEBck2NHfSIU+D2iYQ/Z5y0/6z/zgHRXnz8MPSt3TSdYuO9DsDpPjODpUkIDCkMjTI49+FbIc7wMDXj6TNjHA69yRlYmKgmE=
+	t=1790111114; cv=none; b=rPR5367qm/c0ONWaJxa6ifblTSqX9efB+tjL6bOUp+SnXSofEqwpfTuqs+njsSgeAFz/juYs3/MAUZCWw6dYxChKMWDzdF8uEQmPxdGmmFQMet0RxFqH7xuQOFPj4l/zWAsOX7nJtZG9dwrIEEqE9rA/qJaTWtNeEvt+h1xJOzU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790110230; c=relaxed/simple;
-	bh=HbgCPzgoAKay2IMV+ycxnDXMpBwaWGsOh9mCKh23T2I=;
-	h=Content-Type:MIME-Version:From:To:Cc:Subject:In-reply-to:
-	 References:Date:Message-id; b=pm66uiy4bHcU0L4a2RQW0ost8gtqTp0n7OkJRVk32YG4MYug8uXPaclj9HQW42/cXqnxL2gQrHiqOlUbkBTNW/wnRLz+RWVx9hi4e1z0GZF4NtBlE0k60xDKgLFGA32JiYfGAYM/4PkQO5PY90CSoIOyVx5v+1aUaRQhndXrAog=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net; spf=pass smtp.mailfrom=ownmail.net; dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b=lagOQRgN; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=lhh9PPre; arc=none smtp.client-ip=202.12.124.157
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ownmail.net
+	s=arc-20240116; t=1790111114; c=relaxed/simple;
+	bh=QNlUH25C7E50LHY3oqo2JuAw8PHVhDd0DcED9togR4g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=E0zJtV3E/VbxvxwM2Axe1j1TghsKzOqSRyk/faaq+ftBXhche0y4urz61T+NXp3sDCbb1Kcu6KUMGVSdMcBMsMwYTSkI3ktE9W3CQuyghO77t3f7Bw3/0JX44B9pHlznNIrzKFMpcfuhuMJAEBynlppIahvbZPVzMqzLlWQnNCY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YlqkrbNA; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b="lagOQRgN";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="lhh9PPre"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id E95187A00C8;
-	Tue, 22 Sep 2026 16:50:06 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-06.internal (MEProxy); Tue, 22 Sep 2026 16:50:07 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:reply-to:subject:subject:to:to; s=fm1; t=
-	1790110206; x=1790196606; bh=gBk8S0l/2e3+GtAciCVbs4AYRTzJIY+8BCB
-	sKo2GZJ8=; b=lagOQRgNC/TfEsXp3NVXbbcx9jbsfbFhyfalYCnj76VN/19M1r6
-	KgA0vocqrBil1WE79fFyYr4+01OD7oyaOEiv9ENrkWEPKjV+4kKjD3j2P2Ka8m+H
-	YmzBhwO74UMlWwgs8iLj40XOLv3bOzB4ZJsPt2w2212CGJYon2XJIZtk69dmec7C
-	3QsW8yq7QZh28gLRlC/rVIvpzQFmtCEOeBgqGPDeipRhRtGoSqGHCvVa3cTcCikO
-	XYKYLO4OI+lzHrYGJjxymFnBpUEsB0aAWRWJV1IeInsNueiuYa5jbXScAHF6jTmj
-	cwAM/YKqCvB2+15ZjWTiFEDwl5ZIdoWoBoQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790110206; x=
-	1790196606; bh=gBk8S0l/2e3+GtAciCVbs4AYRTzJIY+8BCBsKo2GZJ8=; b=l
-	hh9PPre5vD2ttPIBX12gDk5KtL3xtNp7g90nYifsTNbjIi3D2upTbX85pdcscs+Q
-	pR1NyvHYi0aB6MpGZt3febZt/trm+wT0JGXcUsrPkfgBjhZu2/2sytQrn7dPBpfd
-	mPtFPd6SbIAdPqO34CxUJor39CZs2NLHR5+3axPZwR9jfoTiF+pPb8WDdSZjYcWR
-	/HtW6XPm+MqsT7k7ro+cI0oMLCKN20gDu7NCrqUoIz0TbVwZQ8xS6exXmgZvr6GE
-	NdoeNBlAcxq+UkZ7RxJUgR581IY8mAD6WVi9jevZ27aKmrf0wNk8MFdmxxAjuBCt
-	549Hnjjb6pJHXsgSKtTJA==
-X-ME-Sender: <xms:_umyakePbVoxTflREMV19kxOb4xkLR2JpY7R2cNTtuGKLqIVxVRyVw>
-    <xme:_umyahLqAyYRPGwb2UdkKIOe7slt5Ip2_PZKM7SU-P4bHdIznHyZt_CM6Ot8b_17T
-    YHeMofJ8ffKLdzAlQTzoaKVRsVWFdMGjvfERTxfl67OzgYdH2Q>
-X-ME-Received: <xmr:_umyakhMlybWP2FozaLbD1LQOVzmH9TSbbUzA4f5TlfSakfx_Qmsf-p3UMWNv3U3o8Zk6WhRxYmAKR8vyxSk_bsZzHoADhE>
-X-ME-Proxy-Cause: dmFkZTFGysTC7TzCzVoSP9+sAC92X3mLNvOTcRxStzmIwDQ+HB/it5VtDQ54r5Ko+5scrm
-    YVjbu87IdZfcv9BsxgM+oMQIqKM3vWoqPP+dW/wtW97wvR2QDsTWzRKWZkZxt9SFRiR8tp
-    GS4kacOGWPS+6rq1CQWvvNjGEm4dGFKdRw3P67LPVHTNe4jI/QaixdMRkCWkSixEpKygIE
-    q3WFEctywLUpdg/CW1Z0gKhbnkl2rLrMeWymj4oVTjyPW2v25UeV5pF/5DCz59EbgIIc5N
-    IMFC+smh5r7G7ixtlA9yn4WwAGe1nT0qEXf+Us97OKPpwHmjPXebpMWTb4pBcrbqGHX4PZ
-    vJ1ER04myVA8tGViPmRFKdbLyKpzcQOnTnL7o9Wm7Bwno1Hdmq2H5LuWPtn70e8eQrWuAb
-    TqJSxCpSWOa5hInFaoLS5CJ6jjE7Ti7zom4Dc0b6joPpihzYx859agJTbgdZebX9gAtJK9
-    v54QPniA1JrLPy7Zaqxmu/2k0B4OZBEpLOWANSl0YJ+GV2IkiBfg9HQqIFdNhFGgRYuX4y
-    wkgK9QRlVOwth9Fq0lLQZrCOovSraCXcMMqczPnw/SeYaKpqy6fx3G9ZZmxdRRbKoQtde5
-    qu525YC9i423Gik7/OXOio8gI7fH/0x8hwcNS42dw0LinaXzkwS5Ei+r02yQ
-X-ME-Proxy: <xmx:_umyavQuIh4_uFQMziqBazPujayfi78zaJtmCevr-qMEqqvIU7aNlA>
-    <xmx:_umyauUR8VaVtikifacjDQeoVTNmj4QO6WWbZXs26PpWDHybwq8zgA>
-    <xmx:_umyarTKgz77oxpda6SGQ3OIkq8fnzafLd6M5cY1rQ6tjP3bRRiz8w>
-    <xmx:_umyagnb30MkohdMHXnpSrNsc1IY5Sd2F47IwEruXsL5iFaebPP5AQ>
-    <xmx:_umyah2Mhd2Du9D9IB1gJgdzzoLogePuCJBRKzkrLKYvyQducFM_bzOv>
-Feedback-ID: i9d664b8f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 22 Sep 2026 16:50:04 -0400 (EDT)
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YlqkrbNA"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-398c066106cso217376a91.1
+        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 14:05:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790111099; x=1790715899; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=q7rwFgan0mLtbX8Widb//2oeduLN/KJSajKrQlLNQLw=;
+        b=YlqkrbNAuI5BbFcK3fBA2tbN+oYIQVaC26uMzgfwQ3N4fkP5ym5hqvAczntU9w70iV
+         7ppLJFLz77Ofl5MNwPBM34zhhppzm0r8UzlPaUGD+BOouYXuQXLAA4EHisVYQoXCMUNc
+         j4Qtppvn2oKZmcriqvpsH4EUZOXvnowr2lX7dMKU8iTOgGZmuJJok49EO8EKuaNWZi6F
+         Vi50EN+kR5RRMoUi6bOeytufKwx6q2N/qDX+IjSNkkq96ua56RxDEido5rstAj4B0Tbz
+         1NEjwcRIJfw9ZyOMKOGLYHVVCiJi5P4SjKnWVJpiWohFEeBlTzDtjxF+Mp8XT3kzm9sW
+         xWww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790111099; x=1790715899;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=q7rwFgan0mLtbX8Widb//2oeduLN/KJSajKrQlLNQLw=;
+        b=FfNv7s15zaMRDziceNGT2yZhAoxcE3JSm3lqsY/USl+5JOlwc/z6sXJ27VFHC1PMYr
+         Q873KlMOWCF8DQMXQa//5AiNH7PcmWN/m2ZjDzrj8td0rQzHPhxc26e/ykjKYfNVuuO9
+         QyJ4HTCVjwtYztmDywHVdGFgFMpgqng0ObF2zjkO6Nln9yesBYeSe3/v7G4MRIlQt2rT
+         lVKOy0+8M6q1LTSceBSqv1Ko7g5jZ+tRTSz7xxnEnrG/KkLgViKOx9BoQqp/iAvqpAGt
+         TK+xWHvidxSd4sGjTXBuXGR/zf4k/pBDL2h86iH67AXdTGsNgfRUi0l4qHur41MfbzhG
+         wY3A==
+X-Gm-Message-State: AFuF++mBjDsJfvB3pKRTF3H6QzqUyOEOAoSt2azvp7Q79b07OtEPwyTD
+	6YNPtfrg1gTwyJphXWwHpwi1K3o3k2LUJI6TEKyR744tKRIkZHU0/YrX
+X-Gm-Gg: AYBFou00W7mLnkbfZtSYw/QqFEINBXbOCwFsej2vQrUYZ0UmN6E2pjxzLupNudciRlN
+	M98TbYuJ0DmFlbRPo4IS+aMMKYSh4fnuR7B+GuXdwG/j5Y8t7Iu4bEzwHa7eE2NJezKCuw+9NNU
+	CwSQn0p+D0IEc/do4ThZ0ZYEnqvT3UmYW1ddNcckzg9yqTSpleknGWDB0Ft65rQKqTTftO9afbL
+	exRsuPUoBnh1UsWt5585bdfwE4awIHpJwFrxHeCw1jbtl3QFTKIG3mR05xZIb+37YG7htZIuyQT
+	GURsrsAb9Rj9/BkvxEPHGhLbZBHj66jTcSWgWlsF4pMOCguJjNKq4/CManmgTQJ+TBnGvUoJ48P
+	n3V0AwVH0qRp2Sm3PQXwIaqeQQ5RpeUoxEb+1gabRXIJBJwrSrIiJqf+PV72HFnQSSKgvA+9l36
+	E82YcJ9GUc+yVDwqYPm2jv8gtDhETd9aWyG/7++o2O3+Inl5QAIph9aisGXjbUMDM+kVJv
+X-Received: by 2002:a17:90b:164c:b0:39d:e9b6:cec9 with SMTP id 98e67ed59e1d1-3a07e4f35d7mr581261a91.7.1790111099229;
+        Tue, 22 Sep 2026 14:04:59 -0700 (PDT)
+Received: from fedora ([2607:fb92:3080:83e3:3c6f:fd76:69b:10ff])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a081324d24sm38262a91.3.2026.09.22.14.04.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 14:04:58 -0700 (PDT)
+From: Ping Cheng <pinglinux@gmail.com>
+X-Google-Original-From: Ping Cheng <ping.cheng@wacom.com>
+To: lee@kernel.org,
+	jikos@kernel.org,
+	bentiss@kernel.org,
+	linux-input@vger.kernel.org
+Cc: stable@vger.kernel.org,
+	Ping Cheng <ping.cheng@wacom.com>
+Subject: [PATCH 1/2] HID: wacom: Write shared touch initial status only once
+Date: Tue, 22 Sep 2026 14:04:54 -0700
+Message-ID: <20260922210454.22351-1-ping.cheng@wacom.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: NeilBrown <neilb@ownmail.net>
-To: "Jimmy Zuber" <jamz@amazon.com>
-Cc: "Trond Myklebust" <trondmy@kernel.org>, "Anna Schumaker" <anna@kernel.org>,
- linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject:
- Re: [PATCH RESEND] NFS: Fix stale negative cache on failed nfs_mkdir()
-In-reply-to: <20260922175656.2833041-1-jamz@amazon.com>
-References: <20260922175656.2833041-1-jamz@amazon.com>
-Date: Wed, 23 Sep 2026 06:49:59 +1000
-Message-id: <179011019969.37859.10884923411198387227@noble.neil.brown.name>
-Reply-To: NeilBrown <neil@brown.name>
+Content-Transfer-Encoding: 8bit
 
-On Wed, 23 Sep 2026, Jimmy Zuber wrote:
-> Since commit 8376583b84a1 ("nfs: change mkdir inode_operation to return
-> alternate dentry if needed"), nfs_mkdir() no longer drops the dentry on
-> RPC failure.  A negative cache value can then result in spurious ENOENT
-> results for further operations within that directory, such as open or
-> stat.
->=20
-> We observed this breaking some applications where an EEXIST on mkdir
-> caused the application to assume the directory to exist, only to fail
-> operations within that directory due to the retained negative cache
-> entry.  The other create paths, nfs_create() and nfs_mknod(), still drop
-> the dentry on failure.  This patch restores the previous behavior.
->=20
-> Fixes: 8376583b84a1 ("nfs: change mkdir inode_operation to return alternate=
- dentry if needed")
-> Cc: stable@vger.kernel.org # v6.15+
-> Signed-off-by: Jimmy Zuber <jamz@amazon.com>
+From: Ping Cheng <ping.cheng@wacom.com>
 
-Reviewed-by: NeilBrown <neil@brown.name>
+For consistency with how the shared has_mute_touch_switch is handled during
+registration, let's apply WRITE_ONCE to is_touch_on too.
 
-Thanks for finding and reporting this!
+Cc: stable@vger.kernel.org
+Fixes: ba16e5ffbaa1 ("HID: wacom: Advertise SW_MUTE_DEVICE capability prior to registration")
+Reviewed-by: Lee Jones <lee@kernel.org>
+Signed-off-by: Ping Cheng <ping.cheng@wacom.com>
+---
+ drivers/hid/wacom_sys.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-NeilBrown
-
-
-> ---
->=20
-> Resend of:
-> https://lore.kernel.org/linux-nfs/20260819015111.2743908-1-jamz@amazon.com/
->=20
-> No change to the patch itself; rebased onto v7.3-rc4 and Cc'ing NeilBrown as
-> the author of the Fixes: commit.  nfs_mkdir() in v7.3-rc4 still returns the
-> error without unhashing @dentry, and vfs_mkdir()'s error path only calls
-> end_creating()/end_dirop(), which unlocks the parent and dputs the dentry, =
-so
-> the hashed negative dentry survives in the dcache.
->=20
-> We reproduced this against a local knfsd export over NFSv4.1.  The export is
-> mounted several times with "nosharecache" so that each mount acts as an
-> independent client with its own dcache:
->=20
->   # /etc/exports
->   /srv/nfs 127.0.0.1(rw,sync,no_subtree_check,no_root_squash,fsid=3D0)
->=20
->   for i in $(seq 0 5); do
->       mount -t nfs4 -o vers=3D4.1,nosharecache,acdirmin=3D30,acdirmax=3D60 \
->           127.0.0.1:/ /mnt/nfs$i
->   done
->=20
-> For each of 40 new cache/<id> directories, every mount stats the directory =
-to
-> seed a negative entry, then all mounts race to mkdir it.  The winner writes=
- a
-> file and renames it, and the losers that got EEXIST then read that file bac=
-k.
-> On a vanilla v6.17 kernel, the 200 loser reads were:
->=20
->   unpatched:   read OK   0 / ENOENT 200
->   patched:     read OK 200 / ENOENT   0
->=20
->  fs/nfs/dir.c | 2 ++
->  1 file changed, 2 insertions(+)
->=20
-> diff --git a/fs/nfs/dir.c b/fs/nfs/dir.c
-> index 49394123b..a26c459ff 100644
-> --- a/fs/nfs/dir.c
-> +++ b/fs/nfs/dir.c
-> @@ -2490,6 +2490,8 @@ struct dentry *nfs_mkdir(struct mnt_idmap *idmap, str=
-uct inode *dir,
->  	trace_nfs_mkdir_enter(dir, dentry);
->  	ret =3D NFS_PROTO(dir)->mkdir(dir, dentry, &attr);
->  	trace_nfs_mkdir_exit(dir, dentry, PTR_ERR_OR_ZERO(ret));
-> +	if (IS_ERR(ret))
-> +		d_drop(dentry);
->  	return ret;
->  }
->  EXPORT_SYMBOL_GPL(nfs_mkdir);
->=20
-> base-commit: c4e9f74da4389a6b3e505d329d99232915a6b9cd
-> --=20
-> 2.50.1
->=20
->=20
+diff --git a/drivers/hid/wacom_sys.c b/drivers/hid/wacom_sys.c
+index 8dc7aa1c0a26..33fa491fba92 100644
+--- a/drivers/hid/wacom_sys.c
++++ b/drivers/hid/wacom_sys.c
+@@ -2386,7 +2386,7 @@ static void wacom_set_shared_values(struct wacom_wac *wacom_wac)
+ 		 * match historic default.
+ 		 */
+ 		if (wacom_wac->is_soft_touch_switch)
+-			wacom_wac->shared->is_touch_on = true;
++			WRITE_ONCE(wacom_wac->shared->is_touch_on, true);
+ 	}
+ 
+ 	if (wacom_wac->features.device_type & WACOM_DEVICETYPE_TOUCH) {
+-- 
+2.55.0
 
