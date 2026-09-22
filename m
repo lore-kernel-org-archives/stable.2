@@ -1,106 +1,259 @@
-Received: from fhigh-b2-smtp.messagingengine.com (fhigh-b2-smtp.messagingengine.com [202.12.124.153])
+Received: from out30-99.freemail.mail.aliyun.com (out30-99.freemail.mail.aliyun.com [115.124.30.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAC5D3C1D58;
-	Tue, 22 Sep 2026 16:01:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.153
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C547A3C942B;
+	Tue, 22 Sep 2026 16:01:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790092880; cv=none; b=UBW51D+IIeaqI3KKjmXNsQRBLLWNbxcN0XWUSAs9gkMmhFGillZlqDuQyk+KFsoYUA13A4iDLA4TA5DemNwXprM+mjN6RvExUdXZRpxUd5GK1e214X6JGFi+6Z/ulO2VvUALrGJyh7OYxBZg8fNARuWucRKsqwQBZq2pfoquKzk=
+	t=1790092882; cv=none; b=Gls7NpgqgSBrssBmmEKla/mJviQKvZT+sBxCA0CoMVhPJwSatlMuQRcxxqQilZbTHGXfh3yOK9aSrNUmE3b2lgQ6MyiZmN4aAce7nG6BGYya9wvZO1ioXIBbuU/ebqJF/K/DTkxymw8nFQiErpqvzcwOVfK5ZygStXEkE85MoWU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790092880; c=relaxed/simple;
-	bh=1BHDXP9SPa86TCNoGFU/GPnUzSH1ghF5dYA779LFE3U=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=mJOGmjvif4xJlO/I6Q6sw8fg1bEUJB6TC8QWbFuA7oeSEs9HOww77NlA+yCD2Peo5RAlmaxgMAugVKoe36Icwl+/LAy3Vv1o7Iu2rXDqM39gqNjdlukY9Urn6DvDln/A7XWzRLWPDOsuLhIq+2S3WQdZ5OSgUoFC0QV34vflNIs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=serow.io; spf=pass smtp.mailfrom=serow.io; dkim=pass (2048-bit key) header.d=serow.io header.i=@serow.io header.b=Zbq76+3P; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=S7GwnU19; arc=none smtp.client-ip=202.12.124.153
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=serow.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=serow.io
+	s=arc-20240116; t=1790092882; c=relaxed/simple;
+	bh=bbouN4XikNN4VfImQG6aQfyahi8ezoXY7igGGmga81g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=T72FsG55lH3inQBVInKCUxw9LQ7XPKAwsWtVGu2JaH4GCfShHWGW87yvQWavsKx8b2EDmhyRTMS4QYJO/gked7B65C6UAZegt/BQJiCOtoj/sbDbvsT1XBYd0z5vT3pEpAQUb/V6p+DaMDGu0YnI5nWwi4qceeef8JJhj4nRzTI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=WH87jzOw; arc=none smtp.client-ip=115.124.30.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=serow.io header.i=@serow.io header.b="Zbq76+3P";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="S7GwnU19"
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id B71637A011A;
-	Tue, 22 Sep 2026 12:01:17 -0400 (EDT)
-Received: from phl-imap-16 ([10.202.2.88])
-  by phl-compute-03.internal (MEProxy); Tue, 22 Sep 2026 12:01:18 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=serow.io; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1790092877;
-	 x=1790179277; bh=1BHDXP9SPa86TCNoGFU/GPnUzSH1ghF5dYA779LFE3U=; b=
-	Zbq76+3PvnXmDd4Pce0gfTYk2ZYQaOpxyjU8jzkxS1C0r6BPDc6/7+SFb7Mx2N4D
-	5JzSQ/VrmMr2lVChJnV/jE/ciUhYLFm2WAJrfGno4Gw1NtvMi6km04s/X1mBEVx/
-	dW7OqYbW4EwBsV3oq5ZkwtcVUgFu7DyQ+3zk0T74T8N8vjeIV/Ck4H3Opoy8s+Ap
-	X2xPa3+atSunXcRsBUMUXiijQtzJEwnIEGgkc9Z0a9rDCsBXS7G5d+Uq8bCXhJm1
-	oD48s/ixprbF5wy6rf5TOjSFQnAbaWkw9lWD7qMZn4hBw3fx/Whb6Z5eZ/diL8IM
-	+JDSNspyJwbAlUrioOPLhA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790092877; x=
-	1790179277; bh=1BHDXP9SPa86TCNoGFU/GPnUzSH1ghF5dYA779LFE3U=; b=S
-	7GwnU198JLRCb1RYhTluCJB/pRR4qaAhusyy/Hh/W+8jDpY5Sefiqu1Zrr8qypUd
-	i6v09M/lhzKDxxna0aIdkPZYrsdjSg8aP98kVH/FIG7YbcnbyaND4XhWzCgIxLBA
-	F1ee/kNsCIMr5wNkY2T1kYVKHaW9wWc01YehDlbZmu5lc/UNLOu2FshbFc0biSpd
-	uZoWy3lAtXzgzksA/uxTKucCAT3HSAcx5l+ARE4hm07uD9BawyjaRG3rDCR/AwcX
-	KQ0tQzk7/UXzWeE8uzMPv0wpEPKoZZqTS6c+bRHvoV5Ayiben+tNZgBXjfm3Ox4F
-	8fXanlISCDjbhpSpUQ5nw==
-X-ME-Sender: <xms:TKayasjU9gzu4YipKB2vH2NiQ7YoaYy2L4Wk7oUyomLF2YFPFE2Kag>
-    <xme:TKayav0cM7xm54za7sQ-0oIPbJAgVEERkPGfQg6st07pDJJMIJYrW_yBkypnoIRhF
-    OnvDOd4EslM2dBWMlRXJNbrh81fJkYKGunhcIrD7VoA6uVVBSwsmoY>
-X-ME-Proxy-Cause: dmFkZTGZK6nRv/cWj1JAervq2HUjZNYdf1ALSojhw2bph6pxt8KAy7u2nJagTsH/t8+j6+
-    sXxdyBted5V4lyH1RUoCShfASvA+Bjl/NVP7ntodf1n/GCXoAIK+oQxXGugjLrgv2KJhpa
-    9OPZOh4usGD88VP1Nbd/d/2VT5NRClzuW9miF97VpGZ9V9HRFbIdR1wT+gFbhr4XsW6Spm
-    94Nm3xKltOsL9NllXGz0xN/nfi+ef67IrCwVXkjpjL6Aevp0JkH4Ky7SrITnHagv++WuLA
-    eMfKbFmVNbaxxb7S1hE/ZrIsIWbetB+KaHUofcfwmj+XtwN8bz1u+qaCTKrLaOD82sF4Ej
-    q5ad/dcvYFKfzE5S4dClNqxJoq3cGwrBBTn167X83vJ2H0hVl23mrc/zdvVw+MJgHZIZEV
-    R2DZUKwNM+YJ7dJV7oDiXUvB2weg2E75m+DPf90VkE5JyqSPsXgm73uBo74NEIwxQiQ1GT
-    YoQJ8BInX3iScnqUgI6oJcJ6Cf807S98GalT0cLkpC/cJq5dIpxDUsw74h4yqNi2YTXUAj
-    xVj0kHUUFGPUpIGBF3ka3lyMLpoQyMYX3iNjBSoom8HrIh7v17Ih8KjZGSh6xBUvtCD0KO
-    E8fSI5RKVIQz+95R0TltxRvhHNrlOQxApmO9DicnNoDDiBYr9kCbhMvCNNDg
-X-ME-Proxy: <xmx:TKayamYj5uYTklu7kmBHqBaYZFrKvlq6El9p1PZFfgt4otgBRI2b5g>
-    <xmx:TKayahiI0VTYIZGXxnU8bc19GDgnGvCbypmgL4xZoGkmuqjsQju2Ag>
-    <xmx:TKayageQNW3PaItIg0riv4BPyZmePByUpiCopAmn2en0vQKcdb7R7w>
-    <xmx:TKayaokbE8qgAQPdXZugMmscIMiWVMfitblTbff89SE2g-N0b1vJCQ>
-    <xmx:TaayasSnUawkpPIwBzmSZzFjYvGTuimC-GdwqrlYj93u_i5oBxhy4d0U>
-Feedback-ID: ia6364811:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id D2D632CC0091; Tue, 22 Sep 2026 12:01:16 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="WH87jzOw"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1790092868; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
+	bh=+ClSnMxfSM/WITTo4HDenJcjEtkXpEipTYk1bTX5b6E=;
+	b=WH87jzOw3CM7NZAIm52MM+5jY2bDuLBVxEe54cCixUBU1kPbLIdGBwroDMnXNQl8xEHAzkaai0PgKRuKplH+fvZUdXpOuI0XMtA3EFq3nwEu38donXhw1LXl37+NB886FJhBwUsuPnQnzg0NENmozuZKgWx2Mj4xALen+OS4VJU=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R131e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=dust.li@linux.alibaba.com;NM=1;PH=DS;RN=17;SR=0;TI=SMTPD_---0XBUGdpo_1790092866;
+Received: from localhost(mailfrom:dust.li@linux.alibaba.com fp:SMTPD_---0XBUGdpo_1790092866 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 23 Sep 2026 00:01:07 +0800
+Date: Wed, 23 Sep 2026 00:01:06 +0800
+From: Dust Li <dust.li@linux.alibaba.com>
+To: Mahanta Jambigi <mjambigi@linux.ibm.com>, andrew+netdev@lunn.ch,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, alibuda@linux.alibaba.com, sidraya@linux.ibm.com
+Cc: pasic@linux.ibm.com, horms@kernel.org, tonylu@linux.alibaba.com,
+	guwen@linux.alibaba.com, hidayath@linux.ibm.com,
+	stable@vger.kernel.org, netdev@vger.kernel.org,
+	linux-s390@vger.kernel.org, linux-rdma@vger.kernel.org
+Subject: Re: [PATCH net v4] net/smc: fix lgr/lnk lifetime vs diag reader race
+Message-ID: <arKmQvQUeHb84Mlu@linux.alibaba.com>
+Reply-To: dust.li@linux.alibaba.com
+References: <20260911090906.1949163-1-mjambigi@linux.ibm.com>
+ <aqlgtaEk3kNcg-Yp@linux.alibaba.com>
+ <69676c38-3d68-41db-8b26-3e589d7477d5@linux.ibm.com>
+ <aqq0rnQjiKymR3TM@linux.alibaba.com>
+ <2111df0c-33b1-4330-8adf-ac5a0f1de451@linux.ibm.com>
+ <aqwM5USzvdm5zF40@linux.alibaba.com>
+ <d11098fd-042c-4246-ba3b-9c2662447f21@linux.ibm.com>
+ <arD_Wzbv3Z01ZSCv@linux.alibaba.com>
+ <6b7736f4-d759-476a-8bc9-9038ef5823ea@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Tue, 22 Sep 2026 10:59:22 -0500
-From: "Grant King" <gking@serow.io>
-To: "Sasha Levin" <sashal@kernel.org>, "Jiri Kosina" <jikos@kernel.org>,
- "Benjamin Tissoires" <bentiss@kernel.org>
-Cc: linux-input <linux-input@vger.kernel.org>,
- "Linux Regressions" <regressions@lists.linux.dev>,
- "Linux Stable" <stable@vger.kernel.org>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- "Antheas Kapenekakis" <lkml@antheas.dev>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
- "Jann Horn" <jannh@google.com>
-Message-Id: <dd81d216-cab7-41fb-b678-ba235ef603c0@slotpi16m74>
-In-Reply-To: 
- <2026-09-22-daily-reply-0005-re-hid-asus-nkey-regression-report@kernel.org>
-References: <069bd866-4eb0-4c42-bcf4-6983ba59aa49@slotpi16m74>
- <2026-09-22-daily-reply-0005-re-hid-asus-nkey-regression-report@kernel.org>
-Subject: Re: [REGRESSION 6.18.48 -> 6.18.49] hid-asus: ROG N-Key keyboard dead, also in
- 6.12.y
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <6b7736f4-d759-476a-8bc9-9038ef5823ea@linux.ibm.com>
 
-On Tue, 22 Sep 2026 at 15:39, Sasha Levin <sashal@kernel.org> wrote:
-> If you can confirm the keyboard comes back on the GA403UV with that
-> commit on top of 6.18.49, I would like to have that before it goes out.
+On 2026-09-22 18:57:24, Mahanta Jambigi wrote:
+>
+>
+>On 21/09/26 3:26 pm, Dust Li wrote:
+>> On 2026-09-18 12:57:13, Mahanta Jambigi wrote:
+>>>
+>>>
+>>> On 17/09/26 9:23 pm, Dust Li wrote:
+>>>> On 2026-09-17 13:15:23, Mahanta Jambigi wrote:
+>>>>>
+>>>>>
+>>>>> On 16/09/26 8:54 pm, Dust Li wrote:
+>>>>>> On 2026-09-16 14:04:42, Mahanta Jambigi wrote:
+>>>>>>>
+>>>>>>>
+>>>>>>> On 15/09/26 8:43 pm, Dust Li wrote:
+>>>>>>>> On 2026-09-11 11:09:06, Mahanta Jambigi wrote:
+>>>>>>>>> The diag dump walks the socket hash table under a read_lock and
+>>>>>>>>> dereferences conn->lgr and conn->lnk.  Two terminal teardown paths
+>>>>>>>>> drop those references via smc_conn_free() while the socket is still
+>>>>>>>>> hashed:
+>>>>>>>>>
+>>>>>>>>> - smc_conn_kill() -> smc_close_active_abort() -> smc_conn_free() -
+>>>>>>>>> smc_close_passive_work() -> smc_conn_free()
+>>>>>>>>>
+>>>>>>>>> This allows the diag reader to dereference a freed lgr or lnk.
+>>>>>>>>>
+>>>>>>>>> Fix it by unhashing the socket before smc_conn_free() is called at
+>>>>>>>>> each of these two sites.  Any socket visible to the diag reader
+>>>>>>>>> under the hash read_lock then has valid conn->lgr and conn->lnk
+>>>>>>>>> pointers.
+>>>>>>>>>
+>>>>>>>>> Fixes: f16a7dd5cf27 ("smc: netlink interface for SMC sockets") Fixes:
+>>>>>>>>> 9dbe086c69b8 ("net/smc: fix invalid link access in dumping SMC-R
+>>>>>>>>> connections") Signed-off-by: Mahanta Jambigi <mjambigi@linux.ibm.com>
+>>>>>>>>> --- Changes in v4: - dropped smc_conn_unhash() wrapper, conn-
+>>>>>>>>>> unhashed flag, and all changes to af_smc.c, smc.h, smc_core.c and
+>>>>>>>>> smc_core.h; smc_unhash_sk() is already idempotent via sk_hashed(),
+>>>>>>>>> so direct calls at the two teardown sites in smc_close.c are
+>>>>>>>>> sufficient - dropped the __smc_release() hunk: it needs no change
+>>>>>>>>> since the subsequent unhash there is already a safe no-op - fixed
+>>>>>>>>> premature-unhash issue present in v3: smc_conn_free() must not unhash
+>>>>>>>>> because smc_conn_abort() calls it before smc_switch_to_fallback() in
+>>>>>>>>> both smc_listen_decline() and smc_connect_rdma() error paths; unhashing
+>>>>>>>>> there would make live fallback sockets invisible to smcss -
+>>>>>>>>> likewise, the ISM/RDMA retry loops (smc_find_ism_v2_device_serv(), 
+>>>>>>>>> smc_find_rdma_v2_device_serv()) call smc_conn_abort() on a failed attempt
+>>>>>>>>> and then smc_conn_create() on the next device; unhashing in 
+>>>>>>>>> smc_conn_free() would permanently hide the established connection
+>>>>>>>>> from smc_diag since smc_conn_create() does not re-hash the socket
+>>>>>>>>
+>>>>>>>> Hi Mahanta,
+>>>>>>>>
+>>>>>>>> This version looks clean. And you explained why we can't call unhash
+>>>>>>>> in smc_conn_abort() well. But smc_conn_abort() still calls
+>>>>>>>> smc_conn_free(), when the smc_sk is still hashed, is there still a
+>>>>>>>> race window with dump ?
+>>>>>>>
+>>>>>>> Hi Dust,
+>>>>>>>
+>>>>>>> Thank you for catching this corner case!
+>>>>>>>
+>>>>>>> During early handshake setup (when sk_state is *SMC_INIT*),
+>>>>>>> smc_conn_abort() can be called on connection failure/fallback and
+>>>>>>> invokes smc_conn_free() while the socket remains hashed, leaving a
+>>>>>>> window where a concurrent diag dump could evaluate smc_conn_lgr_valid()
+>>>>>>> and dereference conn->lgr / conn->lnk.
+>>>>>>>
+>>>>>>> Since sockets in *SMC_INIT* are in a transient embryonic handshake phase
+>>>>>>> and userspace (smcss) *skips displaying link-group, DMB, and connection
+>>>>>>> details for INIT state sockets anyway*, we could have __smc_diag_dump()
+>>>>>>> skip inspecting connection/link-group extensions when r->diag_state ==
+>>>>>>> SMC_INIT:
+>>>>>>>
+>>>>>>> diff --git a/net/smc/smc_diag.c b/net/smc/smc_diag.c
+>>>>>>> --- a/net/smc/smc_diag.c
+>>>>>>> +++ b/net/smc/smc_diag.c
+>>>>>>> @@ -90,6 +90,9 @@ static int __smc_diag_dump(struct sock *sk, struct
+>>>>>>> sk_buff *skb,
+>>>>>>> 	r->diag_state = sk->sk_state;
+>>>>>>> +	if (r->diag_state == SMC_INIT)
+>>>>>>> +		return 0;
+>>>>>>> +
+>>>>>>> 	if (smc->use_fallback)
+>>>>>>> 		r->diag_mode = SMC_DIAG_MODE_FALLBACK_TCP;
+>>>>>>> 	else if (smc_conn_lgr_valid(&smc->conn) && smc->conn.lgr->is_smcd)
+>>>>>>>
+>>>>>>> Together with unhashing before smc_conn_free() in smc_close.c for
+>>>>>>> established and closing sockets, this cleanly closes the race window
+>>>>>>> across all socket states without touching the hash table mechanics
+>>>>>>> during fallback/retry.
+>>>>>>>
+>>>>>>> Does this approach look good to you? If you agree, I will prepare and
+>>>>>>> submit v5 with this change. Please let me know if you have any other
+>>>>>>> suggestions or alternative approaches, and I'll be happy to look into them.
+>>>>>>
+>>>>>> What about this path ?
+>>>>>>
+>>>>>> smc_listen_decline() -> smc_listen_out_err(), where smc_conn_abort() has
+>>>>>> already run, and the sock state is then changed from SMC_INIT to SMC_CLOSED.
+>>>>>
+>>>>> Hi Dust,
+>>>>>
+>>>>> Good catch on the smc_listen_out_err() path as well!
+>>>>>
+>>>>> In smc_listen_decline() -> smc_listen_out_err(), the server socket fails
+>>>>> handshake and is transitioned to SMC_CLOSED while remaining in the hash
+>>>>> table until smc_accept_dequeue() runs.
+>>>>>
+>>>>> Since userspace (smcss) skips displaying all connection, link-group, and
+>>>>> DMB details for both SMC_INIT and SMC_CLOSED sockets (smcss.c:186 and
+>>>>> smcss.c:199), we can update __smc_diag_dump() to check for both states:
+>>>>>
+>>>>> diff --git a/net/smc/smc_diag.c b/net/smc/smc_diag.c
+>>>>> --- a/net/smc/smc_diag.c
+>>>>> +++ b/net/smc/smc_diag.c
+>>>>> @@ -90,6 +90,9 @@ static int __smc_diag_dump(struct sock *sk, struct
+>>>>> sk_buff *skb,
+>>>>> 	r->diag_state = sk->sk_state;
+>>>>> +	if (r->diag_state == SMC_INIT || r->diag_state == SMC_CLOSED)
+>>>>> +		return 0;
+>>>>> +
+>>>>> 	if (smc->use_fallback)
+>>>>> 		r->diag_mode = SMC_DIAG_MODE_FALLBACK_TCP;
+>>>>> 	else if (smc_conn_lgr_valid(&smc->conn) && smc->conn.lgr->is_smcd)
+>>>>>
+>>>>
+>>>> I checked the code again, and I'm afraid adding SMC_CLOSED is still not right.
+>>>>
+>>>> smc_listen_decline(): smc_switch_to_fallback(), smc_clc_send_decline() then
+>>>> fails, and smc_listen_out_err() sets the socket to SMC_CLOSED. The socket
+>>>> stays on the accept queue, hashed, until accept() reaches smc_accept_dequeue().
+>>>>
+>>>> But the early return sits after nlmsg_put() but before diag_mode,
+>>>> smc_diag_msg_attrs_fill() and the SMC_DIAG_FALLBACK attribute are filled.
+>>>> The record is still emitted, but diag_mode is left at 0 -- which is
+>>>> SMC_DIAG_MODE_SMCR, not "unknown" -- and the fallback reason attribute is gone.
+>>>
+>>> Regarding your concern about wrong output when the early return fires
+>>> before diag_mode and SMC_DIAG_FALLBACK are filled: you are right that
+>>> diag_mode must be filled before the guard. *smcss.c* reads diag_mode at
+>>> lines 177 and 179 for --smcr/--smcd filtering, which happens before the
+>>> SMC_INIT and SMC_CLOSED state checks. If diag_mode is left as 0 for
+>>> a failed-fallback SMC_CLOSED socket, --smcr would incorrectly include it
+>>> and --smcd would incorrectly exclude it.
+>>>
+>>> *SMC_DIAG_FALLBACK* however is *not* needed before the guard — smcss
+>>> only reads it inside the diag_mode == SMC_DIAG_MODE_FALLBACK_TCP branch
+>>> which is never reached for *SMC_INIT* or *SMC_CLOSED* sockets, as those
+>>> two states hit goto newline before that point.
+>> 
+>> I don't agree on this.
+>> 
+>> Here what we are changing is the UAPI behaviour, which should not be
+>> constrained by what smcss did.
+>> 
+>> And SMC_INIT can coexist with fallback. For example:
+>> 
+>> smc_sendmsg() calls smc_switch_to_fallback(SMC_CLC_DECL_OPTUNSUPP) under
+>> MSG_FASTOPEN while sk_state is SMC_INIT and never changes it afterwards --
+>> fastopen does not call connect(), so the state never goes to SMC_ACTIVE.
+>
+>In that case how about moving the check further down, like below? This
+>way I am not changing the UAPI behaviour and SMC_INIT can co-exist with
+>fallback.
 
-Will do. I am building vanilla 6.18.49 with e82ae34af29e910 on top now,
-and will let you know as soon as I have tested it.
+Yes, I think we should do that.
 
-Grant
+Best regards,
+Dust
+
+>
+>smc_sendmsg() calls smc_switch_to_fallback(SMC_CLC_DECL_OPTUNSUPP) under
+>MSG_FASTOPEN while sk_state is SMC_INIT and it never transitions further
+>— connect() is not called in that path, so the fallback reason is real
+>diagnostic information that should be reported. The guard after the
+>SMC_DIAG_FALLBACK nla_put preserves that.
+>
+>--- a/net/smc/smc_diag.c
+>+++ b/net/smc/smc_diag.c
+>@@ -103,6 +103,9 @@ static int __smc_diag_dump(struct sock *sk, struct
+>sk_buff *skb,
+> 	if (nla_put(skb, SMC_DIAG_FALLBACK, sizeof(fallback), &fallback) < 0)
+> 		goto errout;
+>
+>+	if (sk->sk_state == SMC_INIT || sk->sk_state == SMC_CLOSED)
+>+		goto out;
+>+
+> 	if ((req->diag_ext & (1 << (SMC_DIAG_CONNINFO - 1))) &&
+> 	    smc->conn.alert_token_local) {
+>@@ -185,5 +188,6 @@ static int __smc_diag_dump(struct sock *sk, struct
+>sk_buff *skb,
+> 		goto errout;
+> 	}
+>
+>+out:
+> 	nlmsg_end(skb, nlh);
+> 	return 0;
+
+
