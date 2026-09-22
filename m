@@ -1,126 +1,120 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+Received: from mail-ej2-f31.google.com (mail-ej2-f31.google.com [74.125.228.159])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BE334EE85B
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 23:42:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790120564; cv=none; b=KZnT+CEgro+6zwPUJ19gjSUCA6/e3B3+VhNg0mAwPJyZDiPjsdmI57DAOkS7Hl8nh1L5NAl5nzrxK/zTP+lCr1L/cgSRQvHdqp0u2aMaKYzvgWTaVVlWK/JcKr3DFEraDtFRY3tWfY4LPGkxARX0mqmjDcF8tDUpBeFanCU/T1A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790120564; c=relaxed/simple;
-	bh=Tm5Q1x/A1C9qLPGuuJEixa/lYRMV/+fSTph2SixjdSY=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4020E534443
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 23:46:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.159
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790120766; cv=pass; b=UopEZBZVaCs27HY8hrzVsISzhuNFPKF+tAypMC0JGZvTIErigNS965C+2W5N0dfqfH9aEmv/grBpauDPRnccibWJMwHr7qc7CN3fiobF/UoKFgM5MA1pN9+kOqTki7PBKoFixI7AnDuzijoYD2wdI7FkvZMKktemKCIPnpg/k/A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790120766; c=relaxed/simple;
+	bh=h/FQKBX76Px5OlX/uim5VN6v2EtgZzOe2bZfqB/myBE=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=q80RSV4FBDD2RVIv751NVXyrA2+MEAL94Zg4pDA10QF4ThDzcKuJj9HGb0lFIZu83ecZXsyDzdwFrWleM2GGOu1OWJ5oupXBzPDg3x+CpIDkq98VF8+5DJEwDHJnPId/f4bWMjg2NinubwDKc47iORrB6jyYP5T9/VuPv1nDflE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=nUJazm6F; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	 To:Cc:Content-Type; b=VrKGcU4uuQseoD4iw5+Hbr/KltVKMdr4DogaVekMTou21FJDcLEatLV6pORe70Zi2633kxE+8xN8EgPYHBjqWwRPbu7GbZPoqkp6hZZdXoJAfclUozyG9msq1+z7ZHFwNcnWP00dfZ84O/Kf9qrh22PGMpbQiHva+8lL3Evr+NE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K6v/c2pi; arc=pass smtp.client-ip=74.125.228.159
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="nUJazm6F"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c2940ef15c1so41598266b.1
-        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 16:42:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K6v/c2pi"
+Received: by mail-ej2-f31.google.com with SMTP id a640c23a62f3a-c29703cb796so43780566b.2
+        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 16:46:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790120762; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Hh8xP1Z+TB0+bKF2uDb6J3XwFJRbKw5GzNSp6/4NB6/P7HvPuPyPsVdBzep72G46bp
+         H10Wp9rwiAPAh/X0wZi4ZvLGz8Q18Wn5+qa7BOcMsr6v1wLv2O2mHFBsQz2tmn1vrPyx
+         2Ww7bV85iKW45srzvsKdLmS4KxMznTYNT5P36KzxMjFC/Hu3LNTQLe8Ldu5erzgR7A39
+         2nnBxKKbdI0bGxIUQNijBUD97V6N18WLmRXWJ3Q4UmYtZXX1wHnfRV4WWZ1lhoQCdzZT
+         onUzqjPY4VwgiH5XAK7cb0E/d7574dPBb4geZPQxcO12nlgv+sGVs9oEQpqLU1pPSMJI
+         f6wA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=h/FQKBX76Px5OlX/uim5VN6v2EtgZzOe2bZfqB/myBE=;
+        fh=TyHpKCcPOT9or2ZJFytsjS6wUG1lN5xgYnEy4vDSfqw=;
+        b=GymL0TsdaEn/Vw9UdZ/VcqEpEurvf0FQ97coqFqeUW+iLGb2/S0OmjM0IF6f9dlh+S
+         DMDteFqh+w4zq0NLPHbtoj6g8AxLKr8FfPZLkycorTLI+sTc3w3JnhrHqB8LYtrBLwQy
+         jyWJju1PD9AXXA8lnTSTu2Lu8rNJrvmxpZmezKfa2AtrchpZ3X+7ZUmpmsKYA+s+Q6Wa
+         dupMEFzVQiPAS/2EPgFbw1sD2y7wwojgtAwiiUjy6pYwV0t18AXca3JFpv8md6OvsT92
+         KcNnro3DZNrv5ev/kETurhclgxrTz2jaEjhQ7DwFtvTFDeyz0IBIFtXKZKobXKLKTbcJ
+         NXmA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1790120554; x=1790725354; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6QEQxoavMoQIndMMFiVqJDQ1ivheIExybb74B+VtDiU=;
-        b=nUJazm6F17ssn9doIlAiR6ItVQHdioeVXvDt1azF2ucNq/m7i4Xpt0enBIQOoxpeSi
-         q+VP5d5VavHoiL3PIVWLE6URltbvi6HjQdvR+Yv8zNKhj1PvcxKUKRYjiNigYbggQDv8
-         6pGvhgwKJUA0S98hEo7RoqB8N+TeN/z63a6Nk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790120554; x=1790725354;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1790120762; x=1790725562; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=6QEQxoavMoQIndMMFiVqJDQ1ivheIExybb74B+VtDiU=;
-        b=WOx82jJYsQmBU/8eM7RKY1V9xIeexSKhQYiRNug1/wJMkg5g9tBJtWm+0CHW7yLLtR
-         FnmwcOa3Ye6cOhn3jV5HXIeaBsinQsqnsMcYaTAbwlDUAECEG2ioOAN0b4UQqmQOZPck
-         jVnw3OI2w0V7cijZjjCYLxgDBfaVKwEiBVddpjxdQ+vZ1hkibeh9H0Oii4F7TOkwQm/d
-         hboEi9mZbXd5gzJEJDA5x4XeHznhcyU6ea73ins2oBU2n0dlqY8yVq4ul9BjeftBUcOj
-         nSBMqQu21uaaddYlF6UlWOwsGeUwZpQDea1INdS5+031Nd9JcFTbEOHHGndQa4Ml+8AF
-         y+mw==
-X-Forwarded-Encrypted: i=1; AKwUvBzJnsAkJ3Zz8ASLo0hRwU1d3X7ywxSVpFK3Zi/TUh9uR23QR1s1lSVHUyK/ghgKB9eD4LwL8V8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lAW7uB2xg9hViams0w+8CzV4ntJfnBvUoI2pcgMbXVAwuAweDv
-	XsbVQ/4nS4Ib9Xc20XIKRA9S/QjXw3NAJkq3cJhCjZTFeQ10kw8XkBh8y7j97v54bHRG3hgYhIa
-	6f6ldYQ==
-X-Gm-Gg: AYBFou3xhjdkd/A18ofLa3qixLURg2tvkO0EvO9y3W1wnSTIQlNE7A8C6tUwaMQA39M
-	g/mBv0UvH/m+d2XbvU/mxGVJK3nDSUK0w5cWxtVJtCuHFei1Hhiq3ZFfWdx0JnT1oSIL7+JnAMV
-	Lqv+flpAxZuEATyVT6f6QCVNrepBnGnU7wau7HrFha9fJR0Eeaxi3eQFPqUNt9D7x40o4LPZ5LY
-	zhuhfK2WGxFXE45czz6/iXuRKDK5eonBDSOEnf8+v1s0Lgma13PFJL2gQwjqj0RJmGXJchJCO4W
-	OOTBr4WPYnL0dplo/WFPllz1/TP9EnAg8hm6cWY2pAO/lnXOLU4hO329jq5uNlq250UCHnIPHbz
-	BVI1OwWxYScZ4iC++/zAKBAzWiVmW/MpQj7Ug4UNkdkdVcl/pF5cQNM65O040nNU+5IKEpgsLbj
-	TLWhe+PKDq0IGBa5jLjRQyx5CgMNNqqIFO2kxKvFntTIO38FNvJNhHxieILnssYN8EI130ep4Gu
-	a8GSLINmHSFcNDW270A+SOegQa6Jdz+ARrAzw==
-X-Received: by 2002:a17:906:6a1f:b0:c2a:8b27:325c with SMTP id a640c23a62f3a-c2aae2d019cmr57335166b.24.1790120553814;
-        Tue, 22 Sep 2026 16:42:33 -0700 (PDT)
-Received: from mail-wr2-f30.google.com (mail-wr2-f30.google.com. [74.125.225.94])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aae658569sm25836366b.37.2026.09.22.16.42.31
-        for <stable@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 22 Sep 2026 16:42:32 -0700 (PDT)
-Received: by mail-wr2-f30.google.com with SMTP id ffacd0b85a97d-48439feca17so359842f8f.1
-        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 16:42:31 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxsbkzIAEAefBJLrD1HAUxLq0u/LuGRR+v9q1NT06km2GkyMXc/AwniSeLusdFa9k+jwFMu5zY=@vger.kernel.org
-X-Received: by 2002:a5d:6f06:0:b0:487:ff2:12f4 with SMTP id
- ffacd0b85a97d-48867095bc9mr1161089f8f.40.1790120551055; Tue, 22 Sep 2026
- 16:42:31 -0700 (PDT)
+        bh=h/FQKBX76Px5OlX/uim5VN6v2EtgZzOe2bZfqB/myBE=;
+        b=K6v/c2piZtIsDHbJTO8RYzuzjv+zmveCCQ/c5nSZb/8I2GiVXIcg3n8qwY7mfs7aV6
+         8iQV7eYWHmzloIya2F6vYDS16FNWga0rOa7uc4kCCoW46al8gMfbLNO6VdTfX9nx86Dr
+         s9PgZN2DAzTSNd6BHlAzeF2U3RgcpxHb1WEkz1HNWcaJi2vbSzr6JtGa6wBxjjuYTsk1
+         e0zLibIh1p0XQa5y4KVBRsDUBcN+uH+ySwQjTcTmYakq2qEzvXJ734zzC4ZqUX/U60mS
+         Cldo7LPfsM3mW8hhH4ITa5azN/JquNqSYwHO/B3NR/VGJIKmsAJGBsovBceDfswiYV3s
+         ESHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790120762; x=1790725562;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=h/FQKBX76Px5OlX/uim5VN6v2EtgZzOe2bZfqB/myBE=;
+        b=TYLuBTSlO6hKzp4Y6cyH3q9DISvjOC235t/W7q/aRIY3occrFqzaGLCK12i0zyd5dY
+         lYNFilwv8iG6K1NtcuO5jgy+L0/lDFP9ZmfVrNx0pjQO1/d4lfSxQf+0aEnbPnF2iAng
+         rq03dhuO0yFPmbt7leC89CHJbk5Rbp1aUjIUrzCqlKrDyWS1IXixJQ1cfI58J6eHNXE5
+         duVGoIYJGtYfoRh/MBRn58FfRV5i7KfnCuwHth+v7hJjWn2rZZz2OxCBtFeveYHjN8Xq
+         dDkoFzg4A6NCXPLCvlvGnpyrCpRlztchwewhuNYMjzSbswv8fxaby9tAt/DeZorhXpcQ
+         z/ZA==
+X-Gm-Message-State: AFuF++mCb0wRssz0fEE1aSWbCwQbJvvcnWb8fUYVPZi4UclNbyxPQIJE
+	DefYjAXCjQy6wPZixl1PEk6iZ/pTOW8RajJ1AdiWC7e1OyNjti2u85DRVw2/4TFsvdzXzGXUZDd
+	8RTBP5/Yf2WLjut19/sE/TJ4LtgCHYio=
+X-Gm-Gg: AYBFou2UzowyUe2CqMDwfP7WD2XAJYZnGHcsO0soK35XuUQ0UzCjOhm4m2vH769t6Zo
+	KvofwPhLnzgJS1ezxkMdiKEu4H2MFEJQ5tg0e02Ntk4EoEwvgameJ9ChH36YjbtHap838Z0gXlz
+	K77A6i8qy0s5WsHL9Dt47DldPmI9CK9mmK3n+/BMLfmWSW1w1cMac+hKdz/rB1GgIt9I9voiwhM
+	ZKEIdls/EpAhBP8VTbeLpVMkxFRbtHd0LrmYfh9BUjODOdtfbgJA1GThxJDJ47zHL0EowLC0kw0
+	WJzwSm+uyiMqxoYL9g5aYuxkSkAG9GUth2WOie4mooOEFrAKfIpuQZS8
+X-Received: by 2002:a17:907:9610:b0:c25:23d:5295 with SMTP id
+ a640c23a62f3a-c2aadcde5d4mr60744666b.17.1790120762110; Tue, 22 Sep 2026
+ 16:46:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260922154907.90535-1-fangxy@xiaopeng.com>
-In-Reply-To: <20260922154907.90535-1-fangxy@xiaopeng.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Tue, 22 Sep 2026 16:42:19 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=UDqPUAWw+h-t4Jkno0Sy0_2T8xfXZgfjsVMM1fTG3JkA@mail.gmail.com>
-X-Gm-Features: AclHuK-NWZIE87V6rWLLln_WhNGGFfao7sLjyvoRWdgPG1M9Jc2x8BXnX1LZRPc
-Message-ID: <CAD=FV=UDqPUAWw+h-t4Jkno0Sy0_2T8xfXZgfjsVMM1fTG3JkA@mail.gmail.com>
-Subject: Re: [PATCH v2] kgdb: Fix buffer overflow in the 'M' and 'X' packet handlers
-To: Fang Xieyan <fangxy@xiaopeng.com>
-Cc: jason.wessel@windriver.com, danielt@kernel.org, 
-	kgdb-bugreport@lists.sourceforge.net, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
+References: <16dd5af86510d1fed6e9dc9aaa4b1e350e0087d8.1789702442.git.jamie.bainbridge@gmail.com>
+ <2026-09-18-daily-reply-0010-re-af-unix-peek-tail-uaf@kernel.org>
+In-Reply-To: <2026-09-18-daily-reply-0010-re-af-unix-peek-tail-uaf@kernel.org>
+From: Jamie Bainbridge <jamie.bainbridge@gmail.com>
+Date: Wed, 23 Sep 2026 09:45:50 +1000
+X-Gm-Features: AclHuK8eG9jx-PhwMWsNp6HXpCgqZnmw_ZqxjflwO-tltkNsRA0A5rWLveIKxms
+Message-ID: <CAAvyFNjZJJVqivRushxodQ-yDEu27bB9jSC5tU1i-nXJ7+G6GQ@mail.gmail.com>
+Subject: Re: [PATCH 6.1.y] af_unix: Fix peek then tail dereference UAF in unix_stream_data_wait()
+To: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org, Davide Caratti <dcaratti@redhat.com>, 
+	Hannes Frederic Sowa <hannes@stressinduktion.org>, Jann Horn <jannh@google.com>, 
+	Kuniyuki Iwashima <kuniyu@google.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi,
-
-On Tue, Sep 22, 2026 at 8:49=E2=80=AFAM Fang Xieyan <fangxy@xiaopeng.com> w=
-rote:
+On Sat, 19 Sept 2026 at 05:45, Sasha Levin <sashal@kernel.org> wrote:
 >
-> write_mem_msg() passes the length claimed by an 'M' or 'X' packet directl=
-y
-> to kgdb_hex2mem() or kgdb_ebin2mem(). A malformed packet can claim more
-> data than was actually received, causing the decoders to read past
-> remcom_in_buffer.
+> > Linux mainline commit be309f8eae8b ("af_unix: Fix UAF read of tail->len
+> > in unix_stream_data_wait()") describes a UAF which it fixes by removing
+> > the offending tail->len dereference. This was assigned CVE-2026-64109.
 >
-> Record the received payload length in get_packet() and use it to bound
-> the decoders. 'M' carries two hex characters per byte, while 'X' carries
-> one byte per output byte except that a 0x7d escape consumes an additional
-> input byte. Pass the packet end to kgdb_ebin2mem() so both reads are
-> checked against the received data.
+> This is a stable-only fix with no upstream equivalent for 6.1, since
+> mainline deletes the tail->len read instead and that change is documented
+> as unsuitable before 6.5. I would rather have the af_unix maintainer ack
+> the approach before I queue it.
 >
-> Keep zero-length 'X' packets valid, as GDB uses them to probe binary
-> download support.
+> Kuniyuki, does taking the receive queue lock around the peek look right to
+> you for 6.1 and older?
+>
+> > Cc: stable@vger.kernel.org # 6.1.x
+> > Cc: stable@vger.kernel.org # 5.15.x
+> > Cc: stable@vger.kernel.org # 5.10.x
+>
+> The diff does not apply at full context on 5.15 or 5.10. Could you send
+> the variants for those two trees?
 
-My analysis shows that the above isn't true and that zero-length 'X'
-packets are no longer valid with your patch. I haven't tested this
-myself, though. Yell if I got it wrong.
+Yes, once the fix is confirmed with Kuniyuki, I will send patches for each tree.
 
-
-> @@ -43,6 +43,8 @@
->  /* Our I/O buffers. */
->  static char                    remcom_in_buffer[BUFMAX];
->  static char                    remcom_out_buffer[BUFMAX];
-> +/* Payload bytes get_packet() stored in remcom_in_buffer, excluding the =
-NUL. */
-> +static int                     remcom_in_len;
-
-I don't love making this a global. Can we just pass it down? ...and
-maybe for functions where you pass the length you also pass
-"remcom_in_buffer" as a parameter and stop accessing the global?
-
--Doug
+Jamie
