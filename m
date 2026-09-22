@@ -1,43 +1,50 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F6D45476E4
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 14:44:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4FBF3911AF;
+	Tue, 22 Sep 2026 14:46:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790088245; cv=none; b=g+tY0h/7mXUtIS0kAaWb9XR1PyP70+u6VoxNyARS2USN63lq1hnND+JW4sUHIGXCGXRwi/SH2J6gAuyuje0JiAicyVJPViOgoJe4MD8yxwIIzzEv22wk3mIEldC5fYJ8o3erL2TWfgqePXhwVbNr/PUSh7/akdZcGPXK2BrLYxk=
+	t=1790088404; cv=none; b=sZnmXX+uBWlsBxAjpj4tsYcuz3kG+OSlzYbNNBELqNbIS7fbTYW9G5udv7rn8kF8d03xdlG6Zra9YOEZxIiBJsftuDKzeUxNhFnD+Vs0aXnZxJKZOVMgtDz2m9d+v9DmJVw4KWA38zBHMEewXxkiA6aQhkpgwjp1JUwNNGro4LM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790088245; c=relaxed/simple;
-	bh=oYSCaJWTjpIMjBSxmSsb7GAow7ONIXA2eTKkImNfxpM=;
+	s=arc-20240116; t=1790088404; c=relaxed/simple;
+	bh=1kZch10bGj8PCCnDosR7xVAAGOeC5xf//7Byt2ewcz4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=buelvqKYIxy56XdZUfvhM5l/Du2j3QtMYl3OqEzvc//vYxhBAGnX5mtNeJ/dKwpVtQnn0p6V9wQX6IWzjzgjCgQefBvonO1jsdkXtSb1o/G0lqxxWIKlKCqx71nfetOcmFU3jW/eh5OA3Xnec/0X4uLjTYDTpVrIf7BAyhfu3lM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TEwdu2Ji; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=tnngWGn5xM0UyUsdAnGG6Xd6x3pncWsU+bzW7mEYdzUj/RpGq6IcB4rxlsn+vJM7MxXd51CTA/DfUITnzsa1jkI+XoNKxQiKRv/guztsi6ZR9vMWXmuXj9X5hrZq92h0xMJEqYA/dl+auCqWfJEf5pQK6MlW2PBPM5NLA2L7y2M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cgZ2qpZc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TEwdu2Ji"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73A2B1F000FF;
-	Tue, 22 Sep 2026 14:44:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cgZ2qpZc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 871BC1F00899;
+	Tue, 22 Sep 2026 14:46:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790088244;
-	bh=7KI+fbL9p43/r57EVzLJbQ5ZTqMVFvgtgVJYTn60lB8=;
+	s=k20260515; t=1790088402;
+	bh=MlpgsnaDiTpidihd3mBcz2ZDd8K8o0293XNhbkNgmmM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TEwdu2JimhuioDY31DREdRGUMxjbBw8k8jnCHrCdWegSRYKVCsbTmcguiI/vxoOzZ
-	 HJ5Ds8sZSL2ZQ8jee+TCn4bxOPdOddkQUyTPNnWlNUpWKx4ipKio6P14dWRpGfcEVd
-	 /zpPKCtAfJgNheycmT4rByVdvSHDjHxh/w2P/QneGYult7j6mC5o8G7BmvICJ2p3FW
-	 PF7d+A9vRhERRl4c9In3ddu0tIWHrhMfuCj2JwvomYbNGusY/g9tlcVunhSYKVRQiL
-	 iZor3YTNEivKioBe9sAWZYdfixQrQmP+PawncOyOKSDpnK1iqBTeEsaGU66u4CVXqo
-	 FqRXD1y6Pbgyw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Ahmed Naseef <naseefkm@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] net: phy: mediatek: do not report link and per-speed LED rules together
-Date: Tue, 22 Sep 2026 10:44:01 -0400
-Message-ID: <20260922144401.2671743-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092202-coastal-version-cfe0@gregkh>
-References: <2026092202-coastal-version-cfe0@gregkh>
+	b=cgZ2qpZcINv5q5/oUFQR2RZdb3XRIVfCbt8mOHnssVxzKyKhbuVjO7AyusulY4nMw
+	 A42PJ2VP4PE2sUkuz5WpEm/DxKYtTw8L07HJLp5xai1ngV3grxKIY3KxF+8Bgs2r0j
+	 65S0d2e6zIIk/cuC5oOD29lPcwBQnjp9QvO8FZ2WzgpKD2s1rV/2l69yCDA+byHPVG
+	 sdtTh/Qwh9+gtqc6EREYVH4qMHigIv9cECa5jbEFJdkHl2jnfTuZqFETZK5jw1ekNz
+	 ujG07RCIzEAVXNINbJL7nHbP5TcsURKD/Y8w7P5gkp0zq1gPGxjkWig1uDIHmBichH
+	 yATv0LWPFJAnw==
+From: Claudiu Beznea <claudiu.beznea@kernel.org>
+To: lpieralisi@kernel.org,
+	kwilczynski@kernel.org,
+	mani@kernel.org,
+	robh@kernel.org,
+	bhelgaas@google.com,
+	p.zabel@pengutronix.de
+Cc: claudiu.beznea@tuxon.dev,
+	linux-pci@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v4 1/8] PCI: rzg3s-host: Follow hardware manual clock/reset initialization order
+Date: Tue, 22 Sep 2026 17:46:21 +0300
+Message-ID: <20260922144629.586997-2-claudiu.beznea@kernel.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260922144629.586997-1-claudiu.beznea@kernel.org>
+References: <20260922144629.586997-1-claudiu.beznea@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,85 +53,154 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ahmed Naseef <naseefkm@gmail.com>
+From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 
-[ Upstream commit bde5212360bd44506edec073ebbd6d0c72f75820 ]
+The RZ/G3S PCIe hardware manual specifies that the clocks must be enabled
+before the reset signals are deasserted during initialization.
 
-mtk_phy_led_hw_ctrl_get() reports TRIGGER_NETDEV_LINK whenever any of the
-speed bits in on_set is on, and in addition reports every individual
-TRIGGER_NETDEV_LINK_* bit that is set. The netdev trigger refuses that
-combination: netdev_led_attr_store() rejects TRIGGER_NETDEV_LINK together
-with any per-speed rule, and it validates the whole resulting mode rather
-than just the bit being written. Once the hardware has any link bit
-programmed, every write to the trigger attributes of that LED therefore
-fails with -EINVAL and the LED can no longer be configured.
+Follow this sequence in the probe(), suspend(), and resume() paths to
+match the hardware requirements and avoid potential issues.
 
-The rules are also fed back into the hardware: the trigger stores what is
-read back, and a later write of device_name programs it again, expanding
-TRIGGER_NETDEV_LINK to every speed in on_set. An LED configured for a
-single speed is thereby silently widened to "on at any link speed".
-
-Both are easy to see on the EcoNet EN7528, whose four PHYs share one LED
-block. The first LED programs the block correctly, the second reads those
-rules back and rewrites them widened, and the remaining two then read the
-widened value, so an LED configured for "link_10 link_100" ends up lit on a
-1000 Mbps link.
-
-on_set holds every speed the LED can indicate and is exactly what
-mtk_phy_led_hw_ctrl_set() programs for TRIGGER_NETDEV_LINK, so report the
-speed independent rule only when all of them are on, and the individual
-speeds otherwise. The mapping is then the inverse of the one used when
-programming the LED and round trips without changing the register.
-
-Fixes: c66937b0f8db ("net: phy: mediatek-ge-soc: support PHY LEDs")
+Fixes: 7ef502fb35b2 ("PCI: Add Renesas RZ/G3S host controller driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Ahmed Naseef <naseefkm@gmail.com>
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-Link: https://patch.msgid.link/20260912134306.3544329-1-naseefkm@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ adapted the LED helper changes to the existing gigabit-only implementation in mtk-ge-soc.c. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 ---
- drivers/net/phy/mediatek/mtk-ge-soc.c | 23 +++++++++++++++--------
- 1 file changed, 15 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/net/phy/mediatek/mtk-ge-soc.c b/drivers/net/phy/mediatek/mtk-ge-soc.c
-index 4b2a9a5444c57..ac356937a501d 100644
---- a/drivers/net/phy/mediatek/mtk-ge-soc.c
-+++ b/drivers/net/phy/mediatek/mtk-ge-soc.c
-@@ -1276,17 +1276,24 @@ static int mt798x_phy_led_hw_control_get(struct phy_device *phydev, u8 index,
- 	if (!rules)
- 		return 0;
+Changes in v4:
+- none
+
+Changes in v3:
+- none, this patch is new
+
+ drivers/pci/controller/pcie-rzg3s-host.c | 40 +++++++++++++-----------
+ 1 file changed, 21 insertions(+), 19 deletions(-)
+
+diff --git a/drivers/pci/controller/pcie-rzg3s-host.c b/drivers/pci/controller/pcie-rzg3s-host.c
+index 077cfb0834b3..e1105b1f2652 100644
+--- a/drivers/pci/controller/pcie-rzg3s-host.c
++++ b/drivers/pci/controller/pcie-rzg3s-host.c
+@@ -1888,10 +1888,6 @@ static int rzg3s_pcie_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		goto sysc_signal_restore;
  
--	if (on & MTK_PHY_LED_ON_LINK)
-+	/* TRIGGER_NETDEV_LINK must not be reported together with any of the
-+	 * per-speed rules, the netdev trigger rejects that combination.
-+	 * MTK_PHY_LED_ON_LINK holds every speed this LED can indicate and is what
-+	 * mt798x_phy_led_hw_control_set() programs for TRIGGER_NETDEV_LINK, so
-+	 * report the speed independent rule only when they are all on.
-+	 */
-+	if ((on & MTK_PHY_LED_ON_LINK) == MTK_PHY_LED_ON_LINK) {
- 		*rules |= BIT(TRIGGER_NETDEV_LINK);
-+	} else {
-+		if (on & MTK_PHY_LED_ON_LINK10)
-+			*rules |= BIT(TRIGGER_NETDEV_LINK_10);
- 
--	if (on & MTK_PHY_LED_ON_LINK10)
--		*rules |= BIT(TRIGGER_NETDEV_LINK_10);
+-	ret = rzg3s_pcie_power_resets_deassert(host);
+-	if (ret)
+-		goto sysc_signal_restore;
 -
--	if (on & MTK_PHY_LED_ON_LINK100)
--		*rules |= BIT(TRIGGER_NETDEV_LINK_100);
-+		if (on & MTK_PHY_LED_ON_LINK100)
-+			*rules |= BIT(TRIGGER_NETDEV_LINK_100);
+ 	pm_runtime_enable(dev);
  
--	if (on & MTK_PHY_LED_ON_LINK1000)
--		*rules |= BIT(TRIGGER_NETDEV_LINK_1000);
-+		if (on & MTK_PHY_LED_ON_LINK1000)
-+			*rules |= BIT(TRIGGER_NETDEV_LINK_1000);
-+	}
+ 	/*
+@@ -1902,12 +1898,16 @@ static int rzg3s_pcie_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		goto rpm_disable;
  
- 	if (on & MTK_PHY_LED_ON_FDX)
- 		*rules |= BIT(TRIGGER_NETDEV_FULL_DUPLEX);
++	ret = rzg3s_pcie_power_resets_deassert(host);
++	if (ret)
++		goto rpm_put;
++
+ 	raw_spin_lock_init(&host->hw_lock);
+ 
+ 	ret = rzg3s_pcie_host_setup(host, rzg3s_pcie_init_irqdomain,
+ 				    rzg3s_pcie_teardown_irqdomain);
+ 	if (ret)
+-		goto rpm_put;
++		goto power_resets_assert;
+ 
+ 	bridge->sysdata = host;
+ 	bridge->ops = &rzg3s_pcie_root_ops;
+@@ -1922,12 +1922,13 @@ static int rzg3s_pcie_probe(struct platform_device *pdev)
+ 	clk_disable_unprepare(host->port.refclk);
+ 	rzg3s_pcie_teardown_irqdomain(host);
+ 	host->data->config_deinit(host);
++power_resets_assert:
++	reset_control_bulk_assert(host->data->num_power_resets,
++				  host->power_resets);
+ rpm_put:
+ 	pm_runtime_put_sync(dev);
+ rpm_disable:
+ 	pm_runtime_disable(dev);
+-	reset_control_bulk_assert(host->data->num_power_resets,
+-				  host->power_resets);
+ sysc_signal_restore:
+ 	/*
+ 	 * SYSC RST_RSM_B signal need to be asserted before turning off the
+@@ -1948,10 +1949,6 @@ static int rzg3s_pcie_suspend_noirq(struct device *dev)
+ 	struct rzg3s_sysc *sysc = host->sysc;
+ 	int ret;
+ 
+-	ret = pm_runtime_put_sync(dev);
+-	if (ret)
+-		return ret;
+-
+ 	clk_disable_unprepare(port->refclk);
+ 
+ 	/* SoC-specific de-initialization */
+@@ -1964,13 +1961,19 @@ static int rzg3s_pcie_suspend_noirq(struct device *dev)
+ 	if (ret)
+ 		goto config_reinit;
+ 
+-	ret = rzg3s_sysc_config_func(sysc, RZG3S_SYSC_FUNC_ID_RST_RSM_B, 0);
++	ret = pm_runtime_put_sync(dev);
+ 	if (ret)
+ 		goto power_resets_restore;
+ 
++	ret = rzg3s_sysc_config_func(sysc, RZG3S_SYSC_FUNC_ID_RST_RSM_B, 0);
++	if (ret)
++		goto rpm_resume;
++
+ 	return 0;
+ 
+ 	/* Restore the previous state if any error happens */
++rpm_resume:
++	pm_runtime_resume_and_get(dev);
+ power_resets_restore:
+ 	reset_control_bulk_deassert(data->num_power_resets,
+ 				    host->power_resets);
+@@ -1980,7 +1983,6 @@ static int rzg3s_pcie_suspend_noirq(struct device *dev)
+ 	data->config_post_init(host);
+ refclk_restore:
+ 	clk_prepare_enable(port->refclk);
+-	pm_runtime_resume_and_get(dev);
+ 	return ret;
+ }
+ 
+@@ -2009,18 +2011,18 @@ static int rzg3s_pcie_resume_noirq(struct device *dev)
+ 			goto assert_rst_rsm_b;
+ 	}
+ 
+-	ret = rzg3s_pcie_power_resets_deassert(host);
++	ret = pm_runtime_resume_and_get(dev);
+ 	if (ret)
+ 		goto assert_rst_rsm_b;
+ 
+-	ret = pm_runtime_resume_and_get(dev);
++	ret = rzg3s_pcie_power_resets_deassert(host);
+ 	if (ret)
+-		goto assert_power_resets;
++		goto rpm_put;
+ 
+ 	ret = rzg3s_pcie_host_setup(host, rzg3s_pcie_msi_hw_setup,
+ 				    rzg3s_pcie_msi_hw_teardown);
+ 	if (ret)
+-		goto rpm_put;
++		goto assert_power_resets;
+ 
+ 	return 0;
+ 
+@@ -2028,11 +2030,11 @@ static int rzg3s_pcie_resume_noirq(struct device *dev)
+ 	 * If any error happens there is no way to recover the IP. Put it in the
+ 	 * lowest possible power state.
+ 	 */
+-rpm_put:
+-	pm_runtime_put_sync(dev);
+ assert_power_resets:
+ 	reset_control_bulk_assert(data->num_power_resets,
+ 				  host->power_resets);
++rpm_put:
++	pm_runtime_put_sync(dev);
+ assert_rst_rsm_b:
+ 	rzg3s_sysc_config_func(sysc, RZG3S_SYSC_FUNC_ID_RST_RSM_B, 0);
+ 	return ret;
 -- 
-2.53.0
+2.43.0
 
