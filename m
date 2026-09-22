@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19485387364
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 15:12:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3750538757B
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 15:12:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790089972; cv=none; b=RiiShoDNXBiwmbmd9dwuo1rid8IebZCNHv2lQLZMfMlHZBPI2x99KmPvHOkDJoKeAiVR96zt+5nA0M+079bw4K6lDdEvzk5W6MKndJQo2tFU9aSSpDVyLq0S0GjQaHvWQ4W3ob6Ybnz3eMBgEtSR9k/8W1/Ogg5EXgLg2QSftm0=
+	t=1790089974; cv=none; b=sBAcvtgUQxigJPv+A+tGb2SSZb9gmG1eqyYTlGSiV2mjoLPFgWl0CHEgMNsUmKtfK20hLkxobUHQu67W10TZfYAFAoLqFZFgVPcAHltDUND+/xmQykQPSoSzzWT/S1cK2361PJPcuTfnTvJxgVO0ZWOiwxPPhirhMSN1XWbE3Z0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790089972; c=relaxed/simple;
-	bh=ZwaFfjtzcNrxLjRujhbajSfh9oBECtVRYzVdP0vxTVo=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=eyc8xF43tGn+AdXVE0/8mqRZ2vx1xrHXVKJTFwjfSSLlOjt5Npq5cMk6YEY/V+fPaJ4EMkBtUpCEgBZ47PYmajZRjTcJ5+xBcOwxwIzObS6hF+dwS33mnVcwOQM3vW1HByShe6Ni73FvHtTHbnc/mUjcPbt+yInw9EGe3dPHQDE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=xxYd4H9z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790089974; c=relaxed/simple;
+	bh=Vt5INrsJXLby2kL8h7v2YX5QAK+vtKv9qyh7SAJo0pI=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=a0QFg+0DlrY4+6sdqX8qgAN/XPs0APaThXZL6TJ8R3jVtoGbrfreXa7CtTAg4f81QJ+jEjnvDbVGh8X8nRZavGcPceFoxbjsPPBGA2ptK2alaHT6of4CeRBFMBzWx95vYjIFiAUg8jY0yHvuqA3ChMJpjgJW8bnKAoi+CTuFkJo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ge5rz6hA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="xxYd4H9z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 760981F000FF;
-	Tue, 22 Sep 2026 15:12:48 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ge5rz6hA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B6951F000FF;
+	Tue, 22 Sep 2026 15:12:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790089969;
-	bh=bMY5aTDiIdfj2espzwH2u4lMZ8F9O3FvzA6obbOgzRo=;
+	s=korg; t=1790089973;
+	bh=4L8tB57176hXJqmMzqV669z5PEjx1jYreMHJeXocvAI=;
 	h=Subject:To:Cc:From:Date;
-	b=xxYd4H9zQkrTx9Qp9ThvBc4F3gZmaZiIukyKhWwOAq6lxcyeJL5KOS5cO0lHIykBn
-	 axwnZ/v2m7WwnK/bqMdyn+F1yLQH02f7Mv7VJyYre6tTJElIkFP6z6Anohmt/26rAO
-	 DlI2CiS3wRwd+RmzZFwuFvXdXfSQTnn+jmOt7OKU=
-Subject: FAILED: patch "[PATCH] drm/amdgpu: hold a runtime PM reference for P2P dma-buf" failed to apply to 6.12-stable tree
-To: mike@fireburn.co.uk,alexander.deucher@amd.com,christian.koenig@amd.com
+	b=ge5rz6hAWkquQBmbbKpyAl3kWP5zbi7xkxzOXmiWGBCHf10bqrdfQhJpgJndzNprk
+	 hor8hac7LjzFLprxw0cXHfJAJ47UwPOqf66L7McjkWE600sO5UuDSKu0cefV4RpULm
+	 vRNgeTNsHQVaeOVrcbfSybsh/menFOE+w0uzBOlM=
+Subject: FAILED: patch "[PATCH] drm/amdgpu: Fix GPU PCIe link capability reporting" failed to apply to 7.2-stable tree
+To: mario.limonciello@amd.com,alexander.deucher@amd.com,lijo.lazar@amd.com,maraeo@gmail.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 22 Sep 2026 17:03:55 +0200
-Message-ID: <2026092255-footer-unscathed-ed09@gregkh>
+Date: Tue, 22 Sep 2026 17:04:10 +0200
+Message-ID: <2026092210-sprinkled-coherent-e132@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 7.2-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
 git checkout FETCH_HEAD
-git cherry-pick -x 636139603b99d2e3a18a46cf3f8d39313ce8042e
+git cherry-pick -x 04de4007d32385b8b6a5dd72bff3146dfdc592c3
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092255-footer-unscathed-ed09@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092210-sprinkled-coherent-e132@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,127 +62,149 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 636139603b99d2e3a18a46cf3f8d39313ce8042e Mon Sep 17 00:00:00 2001
-From: Mike Lothian <mike@fireburn.co.uk>
-Date: Sat, 12 Sep 2026 00:29:08 +0100
-Subject: [PATCH] drm/amdgpu: hold a runtime PM reference for P2P dma-buf
- attachments
+From 04de4007d32385b8b6a5dd72bff3146dfdc592c3 Mon Sep 17 00:00:00 2001
+From: Mario Limonciello <mario.limonciello@amd.com>
+Date: Tue, 15 Sep 2026 10:59:45 -0500
+Subject: [PATCH] drm/amdgpu: Fix GPU PCIe link capability reporting
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-amdgpu_dma_buf_map() adds VRAM to the allowed domains for a peer2peer
-attachment.  GTT is only a fallback placement when VRAM is preferred, so
-ttm_bo_validate() migrates the buffer from GTT into VRAM.  While the
-exporting device is runtime suspended its SDMA rings are down and the
-move fails:
+Commit eb53125a7ad9 ("drm/amd: Add dedicated helper for
+amdgpu_device_find_parent()") made amdgpu_device_gpu_bandwidth() query
+the first device outside the dGPU. That is the host side of the
+physical link, not the GPU side.
 
-  amdgpu: Move buffer fallback to memcpy unavailable
+As a result, the ASIC and platform capability masks can both be based
+on the host port. drm_amdgpu_info_device then exposes the host
+capabilities to userspace, such as Gen5 x16 for a Gen4 x8 GPU.
 
-An importer on a second GPU reaches this holding no runtime PM
-reference on the exporter, e.g. a compositor on the APU submitting a
-frame that references a buffer exported by an idle dGPU:
+Cache both ends of the physical link during device initialization.
+Use link_dev for the GPU capability and link_partner for the platform
+capability and _PR3 detection.
 
-  amdgpu_cs_ioctl -> amdgpu_cs_parser_bos -> amdgpu_cs_bo_validate
-    -> ttm_bo_validate -> amdgpu_bo_move -> dma_buf_map_attachment
-      -> amdgpu_dma_buf_map -> ttm_bo_validate -> amdgpu_bo_move
-
-Pinning a dma-buf into VRAM has the same requirement, which
-commit 030631e97b20 ("drm/amdgpu: revert "take runtime pm reference
-when we attach a buffer" v2") called out as the one case that would
-need the reference back.
-
-Take it in attach and drop it in detach.  pm_runtime_get_if_active()
-never resumes the device, so it cannot deadlock against the reservation
-taken during resume, which is why the old pm_runtime_get_sync() had to
-go.  If the device is not active, clear peer2peer instead: the buffer
-then stays in GTT, which remains accessible while the GPU is powered
-down.  If runtime PM is disabled, take a plain reference so the put in
-detach stays balanced.
-
-Fixes: 030631e97b20 ("drm/amdgpu: revert "take runtime pm reference when we attach a buffer" v2")
-Suggested-by: Christian König <christian.koenig@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
-Assisted-by: Claude:Opus-5 [Claude Code]
+Reported-by: "Marek Olšák" <maraeo@gmail.com>
+Closes: https://lore.kernel.org/amd-gfx/CAAxE2A4VhsAzzO1QjBjUg+NgnbD04ZzMyN6xsUJxjKJHH6hxiw@mail.gmail.com/
+Suggested-by: Lijo Lazar <lijo.lazar@amd.com>
+Fixes: eb53125a7ad9 ("drm/amd: Add dedicated helper for amdgpu_device_find_parent()")
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 062ff15e30a48d14fb7d7558eba84f8dc97197f0)
+(cherry picked from commit 7ea6a47224e2c6e89a3a682d7fbaace4817a55aa)
 Cc: stable@vger.kernel.org
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-index b33c300e26e2..9adf3eed8822 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-@@ -43,6 +43,7 @@
- #include <linux/dma-buf.h>
- #include <linux/dma-fence-array.h>
- #include <linux/pci-p2pdma.h>
-+#include <linux/pm_runtime.h>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 7974f9b7944f..a9c6f5d4a639 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -621,6 +621,9 @@ enum amdgpu_enforce_isolation_mode {
+ struct amdgpu_device {
+ 	struct device			*dev;
+ 	struct pci_dev			*pdev;
++	/* The two ends of the physical PCIe link outside the device. */
++	struct pci_dev			*link_dev;
++	struct pci_dev			*link_partner;
+ 	struct drm_device		ddev;
  
- static const struct dma_buf_attach_ops amdgpu_dma_buf_attach_ops;
+ #ifdef CONFIG_DRM_AMD_ACP
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 104d1d2cbad9..933804349dbf 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -1954,18 +1954,17 @@ static void amdgpu_uid_fini(struct amdgpu_device *adev)
+ 	adev->uid_info = NULL;
+ }
  
-@@ -100,15 +101,54 @@ static int amdgpu_dma_buf_attach(struct dma_buf *dmabuf,
- 	    pci_p2pdma_distance(adev->pdev, attach->dev, false) < 0)
- 		attach->peer2peer = false;
+-static struct pci_dev *amdgpu_device_find_parent(struct amdgpu_device *adev)
++static void amdgpu_device_init_pcie_links(struct amdgpu_device *adev)
+ {
+-	struct pci_dev *parent = adev->pdev;
++	adev->link_dev = adev->pdev;
++	adev->link_partner = pci_upstream_bridge(adev->link_dev);
  
-+	/*
-+	 * Only allow P2P while the exporter is active, and keep it active
-+	 * until detach.  With runtime PM disabled take a plain reference so
-+	 * the put in detach stays balanced.
-+	 */
-+	if (attach->peer2peer) {
-+		struct device *dev = adev_to_drm(adev)->dev;
-+		int ret = pm_runtime_get_if_active(dev);
-+
-+		if (!ret)
-+			attach->peer2peer = false;
-+		else if (ret < 0)
-+			pm_runtime_get_noresume(dev);
-+	}
-+
- 	r = dma_resv_lock(bo->tbo.base.resv, NULL);
- 	if (r)
--		return r;
-+		goto err_pm_put;
- 
- 	amdgpu_vm_bo_update_shared(bo);
- 
- 	dma_resv_unlock(bo->tbo.base.resv);
- 
- 	return 0;
-+
-+err_pm_put:
-+	if (attach->peer2peer)
-+		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
-+	return r;
-+}
-+
-+/**
-+ * amdgpu_dma_buf_detach - &dma_buf_ops.detach implementation
-+ *
-+ * @dmabuf: DMA-buf where we remove the attachment from
-+ * @attach: the attachment to remove
-+ *
-+ * Drop the runtime PM reference taken in amdgpu_dma_buf_attach().
-+ */
-+static void amdgpu_dma_buf_detach(struct dma_buf *dmabuf,
-+				  struct dma_buf_attachment *attach)
-+{
-+	struct drm_gem_object *obj = dmabuf->priv;
-+	struct amdgpu_bo *bo = gem_to_amdgpu_bo(obj);
-+	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
-+
-+	if (attach->peer2peer)
-+		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+-	/* skip upstream/downstream switches internal to dGPU */
+-	while ((parent = pci_upstream_bridge(parent))) {
+-		if (parent->vendor == PCI_VENDOR_ID_ATI)
+-			continue;
+-		break;
++	/* Skip upstream/downstream switches internal to the dGPU. */
++	while (adev->link_partner &&
++	       adev->link_partner->vendor == PCI_VENDOR_ID_ATI) {
++		adev->link_dev = adev->link_partner;
++		adev->link_partner = pci_upstream_bridge(adev->link_dev);
+ 	}
+-
+-	return parent;
  }
  
  /**
-@@ -350,6 +390,7 @@ static void amdgpu_dma_buf_vunmap(struct dma_buf *dma_buf, struct iosys_map *map
+@@ -1981,7 +1980,6 @@ static struct pci_dev *amdgpu_device_find_parent(struct amdgpu_device *adev)
+ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
+ {
+ 	struct amdgpu_ip_block *ip_block;
+-	struct pci_dev *parent;
+ 	bool total, skip_bios, early_full_gpu_access = false;
+ 	uint32_t bios_flags;
+ 	int i, r;
+@@ -2077,10 +2075,9 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
+ 	    !dev_is_removable(&adev->pdev->dev))
+ 		adev->flags |= AMD_IS_PX;
  
- const struct dma_buf_ops amdgpu_dmabuf_ops = {
- 	.attach = amdgpu_dma_buf_attach,
-+	.detach = amdgpu_dma_buf_detach,
- 	.pin = amdgpu_dma_buf_pin,
- 	.unpin = amdgpu_dma_buf_unpin,
- 	.map_dma_buf = amdgpu_dma_buf_map,
+-	if (!(adev->flags & AMD_IS_APU)) {
+-		parent = amdgpu_device_find_parent(adev);
+-		adev->has_pr3 = parent ? pci_pr3_present(parent) : false;
+-	}
++	if (!(adev->flags & AMD_IS_APU))
++		adev->has_pr3 = adev->link_partner &&
++			pci_pr3_present(adev->link_partner);
+ 
+ 	adev->pm.pp_feature = amdgpu_pp_feature_mask;
+ 	if (amdgpu_sriov_vf(adev) || sched_policy == KFD_SCHED_POLICY_NO_HWS)
+@@ -3776,6 +3773,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ 
+ 	adev->shutdown = false;
+ 	adev->flags = flags;
++	amdgpu_device_init_pcie_links(adev);
+ 
+ 	if (amdgpu_force_asic_type >= 0 && amdgpu_force_asic_type < CHIP_LAST)
+ 		adev->asic_type = amdgpu_force_asic_type;
+@@ -5872,11 +5870,9 @@ static void amdgpu_device_partner_bandwidth(struct amdgpu_device *adev,
+ 	*width = PCIE_LNK_WIDTH_UNKNOWN;
+ 
+ 	if (amdgpu_device_pcie_dynamic_switching_supported(adev)) {
+-		struct pci_dev *parent = amdgpu_device_find_parent(adev);
+-
+-		if (parent) {
+-			*speed = pcie_get_speed_cap(parent);
+-			*width = pcie_get_width_cap(parent);
++		if (adev->link_partner) {
++			*speed = pcie_get_speed_cap(adev->link_partner);
++			*width = pcie_get_width_cap(adev->link_partner);
+ 		}
+ 	} else {
+ 		/* use the current speeds rather than max if switching is not supported */
+@@ -5898,21 +5894,11 @@ static void amdgpu_device_gpu_bandwidth(struct amdgpu_device *adev,
+ 					enum pci_bus_speed *speed,
+ 					enum pcie_link_width *width)
+ {
+-	struct pci_dev *parent = adev->pdev;
+-
+ 	if (!speed || !width)
+ 		return;
+ 
+-	/* use the device itself */
+-	*speed = pcie_get_speed_cap(adev->pdev);
+-	*width = pcie_get_width_cap(adev->pdev);
+-
+-	/* use the link outside the device */
+-	parent = amdgpu_device_find_parent(adev);
+-	if (parent) {
+-		*speed = pcie_get_speed_cap(parent);
+-		*width = pcie_get_width_cap(parent);
+-	}
++	*speed = pcie_get_speed_cap(adev->link_dev);
++	*width = pcie_get_width_cap(adev->link_dev);
+ }
+ 
+ /**
 
