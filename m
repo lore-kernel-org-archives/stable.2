@@ -1,111 +1,161 @@
-Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 313484562BD
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 09:51:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5175841685B
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 09:52:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790070709; cv=none; b=tyWFKJQbE3p7h96sQmRIkS/CVwRmlBCAn9UamLT5TQwRVGth3rQNfTPiMHZF7LH5LUCUnYVKxOtmfxibO67EmvNne2f7u1XkUc6BEnKWawmdZVGAcYYMS/hxGVWvKBYYFj9STg/wwoA4yCr2uzGvYSUnwdpbxkkM9ZkRmi5kW8w=
+	t=1790070771; cv=none; b=rsQfa6tggkhzcRoT+UwckX4aqi9fHuRYL7n/S044KJI5IZWtzZQn+0jlnsrflhNn/qO/7mkAaEbkG7WRSWDEULHp/CcMr1kZEgPFmB5FfKGp3YuTWyZaLy0sSqaDF9e9yJKJR9QCh8RaM1M0JIs4oSvVsBTlR4DPoDr6ZIotJGQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790070709; c=relaxed/simple;
-	bh=ZBPCUNSzlh8OrE7I3vX7kLf5GHZkpBuPSmSzeXxhF/k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DUEm6h/rUwsfvmUVyPMjL3XigFbUdV0ippsH8JrH8WqCDu6FNbaXsuDkx4vOCZ/1I0ffr/rvUUjf/1X57POCscRkib6SGUeqghgXmY8S0mqlE2t4P+tHui8XFb6A1PmtcooCObSSQXAa7vsOuVy5LIEowy5GiY3BmylYRoLAyBc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JV+oi2st; arc=none smtp.client-ip=74.125.228.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790070771; c=relaxed/simple;
+	bh=oW5fjXkU1LjFKqoyF7Qy3vvc5V+m/IzJ7Oa3bKJcpYc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=d/WAWkXgzKIT6PYjqw6WIv7t3r/UW9HmRz7fcv+PUa2LmKIHcqaV9Nn5GuTxwA6Gw7kC0Mvj07nESA1RS6y4aujRbPgqjT5fUmsFXTrwT27lxWI+/ih5usmzxp52Gwy4KOooCBzi+lv3oCYd3FFZY7w6bRWA3iX2f+fvhFHovnc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=rIZb1s8/; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JV+oi2st"
-Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6aa1da63791so4917242a12.1
-        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 02:51:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="rIZb1s8/"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccc09d65so3605344a91.3
+        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 02:52:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790070701; x=1790675501; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0ojJwuub1Y4MtscC/4lreaXIfEEy9YAbRM1nlvmy108=;
-        b=JV+oi2st557afPOPicddWXalRHHtnM7WNv5Mq4UzWwFx/9wBUdQWoUQmG08EIBEJts
-         5h0R3ALakbAEj7Ee6JDQSEFLbaaNTlh7Nd9OVhO35kf4Zf8eG6fSSYw2R7Ff/0XA34wB
-         Ahkki4Mobza8/mbhuR7r/NrM126sPnYsQslvRL4OdlkhgqpH9a0/pcDXYkXGlRR2ksv3
-         TSzQ6/E2FJUlgcdboaAiWYLgyJ/3vVo+pgbZBtzQz+1o9yPj/i5ydqDyZvN8iL60PSHH
-         BCVbdVHFIMhnLdgjmfvEMFcucqQUP/e9H3BqEYEWr8t86ektI4vAPeKu5ynUQx2QAkta
-         HRcg==
+        d=nebusec.ai; s=google; t=1790070769; x=1790675569; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UnrR1m0kZk2/oAOYVJ8Ilr0rQHlguOaTVy++aK2OkWM=;
+        b=rIZb1s8/XeYrPs2dr+9tO7v/sM09EMTZJb6a6gP//sqvoJNfxvjsVGQ+YcDXVMUpkX
+         AmJfvM3W2DQrg+jF1lqa7/2YSDd4G58yzF5reFSUQgPi3WVLDYclpMAW5SmvzZkKmDSu
+         acQ1Dnjm7QFljTSrw3JDONafkcN1bnT78K0OIf50raXWAMPeKZUs6f3FILz707dmGdYn
+         En1z4fdGlc96OIKShQFo+YCAYLsrvH+WC26s5F3hDoJXHOQt20oWEkCN2g6E92B3NZhN
+         SBmJQs+/zQGtdns8LdRWY6Jd1oU0UFiX990PMmy3VFjhCtI+0JyoqbiFlKrNnqD1sSzF
+         akfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790070701; x=1790675501;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0ojJwuub1Y4MtscC/4lreaXIfEEy9YAbRM1nlvmy108=;
-        b=JR6n9qfM4AFOsNJ6HZ8jthyXd1HlI3oQ41GHHLYkLywI6lUft42FHtGdySs2B7ippJ
-         X9hoWASpHn05JVGluhK3KaPfPum961DbgjyejF3smwokQntuHokvozLAwjYQWWned7QF
-         6s4UbEZan2Zv3mzP/9MbR7dxOf/LsdaGBVJZwSK+6LRvNa7L+YTrwHe2lW1D3J94Dyih
-         9JhGQ0Q6yLlmoZ6p3El9lZ1FkUQpYHbflZoNkak0Frl3KQ+bY/p8m72I6G0QXPjBqX/h
-         xy/F0p527ExDsNWI5iffFX8kE436A3qBjqmX6eQr051QjB/NYp2tgcirQ5kQbnMmm0U5
-         3QMg==
-X-Forwarded-Encrypted: i=1; AKwUvBxPdbi1mGMXiH2imqftEIvqkTXqoSNSdccMGnGXwShx//ODT1Ae7P2Z7/uneygpL/+qZZhkEzU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nurgbgKt0oJoehBYVr5/IOoQk7rJoAhDIhEckTZ9x3mtpDMWPt
-	NWHrSfihqxNCXVe1d5fhArB5awDD1gtZMwLctBb+oMBoB5jHLlj5E28D
-X-Gm-Gg: AYBFou2L8W7TqXtkrXKxYCCmHfYxL/2n82zvwiBS93RCxAtaiWcXqtY/QXPbvsCvXci
-	YEum3/I54+xweOzO/fGZjHw52FLIoTmdlpch+uhOKKNrCH7Wx9n1k27tqfmvJrhk9SUiEPxbiKa
-	0sCORVAtbNsmNIdvqvKWEDXsVUw2Mjf8Yu0QIRBvlDKcoUMEFGHsTE5wIHs8j4XbiNCVlQ45dB5
-	9WjVb56xzKqr8imHFjfYBlfzCHMxtRUvpwYStFw8AaVr7Uv2d7TU1HQNV6rDsOjiyk2ZnofszUY
-	l/xe0R99/1rfYVwYXlFcqXbWd6h/7LvNsTHM3E73deLJ12pCqxF0bVhUsX8Z65Ydbcc6yX5egXf
-	jGr++cXWrnhxTbMXc5+EzIFZ781lq/v1WKNjyv9dYOJA1Dw2PtiJBradvYlbu5C4d0+3UfQtCsH
-	lKIxfYACE8mSxxoHxHlEzoRZH8oRXs8vIsW3gFTYxcibsYp4t9inGHx4GMG2eQxl0/r1w2gHcF1
-	8v95g==
-X-Received: by 2002:a05:6402:e04:b0:6a9:946a:d085 with SMTP id 4fb4d7f45d1cf-6aa53142126mr11493309a12.19.1790070700342;
-        Tue, 22 Sep 2026 02:51:40 -0700 (PDT)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aaa4510c0fsm709687a12.23.2026.09.22.02.51.39
+        d=1e100.net; s=20260707; t=1790070769; x=1790675569;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UnrR1m0kZk2/oAOYVJ8Ilr0rQHlguOaTVy++aK2OkWM=;
+        b=laXerC+Pe/aXJ8bLqCQuWdR6mmL3Y2rDgcB1bFNSlGa+gqnLa52TPohJ1CC+mlwH9F
+         C9vxOdkjg4YDXs8BEV0rqanKZnwufUCbRcYBNl4p1OqygPENFeahcrktSmyk2A8MFt4r
+         VefUiJabFZh+lnROSl1w+1Vb8rCj3VKpVCB0opB+tFp29OpyMSRebD5Q4ULdR0pU+I8e
+         GrYSagrd2QBr08jxfpImtcdAwgAKZSGAc8cp1ORoDHpKJerJ8iGDDAkdAeCdFnnDKjO/
+         C/UTth+az3u2zlJYQmyofx2r9ujJ/+28p5S8NLMq28yDjgjCOhnJKdiXvUqm+j28WY5N
+         AM7w==
+X-Forwarded-Encrypted: i=1; AKwUvBzZp5zihXkdgxiOcUy+wTxEPKXLcvjKRWy+gGw1dAm4VbrsLRtQ/OQK590O0NXJLwnzDf9zpMo=@vger.kernel.org
+X-Gm-Message-State: AFuF++nPT+TIOTzHikKpZ1DuWxsoZC6E8xHGJztDuToeX/fiRdS/ZkKc
+	qNYLn3dS9sfeom0b9Z0d2XS9vt2asf70yYpYuZDSrLPQERbhUbBjJaY7hq5ms7N+OjYy
+X-Gm-Gg: AYBFou1rSBTA7QFV1XxyRoEtnlu2gAv9ADUuJahK+TSMLdZvcAbINy1UPE/RPqzEC0A
+	43EMPRw5vh2ffCTxVH0IhBT+3+EQB+SvZkRM2fLlQrZwq3pJ5+tQP3z6NXySG/3IIUzrPpgd3b5
+	6Y3pE9L6x+OjRw8l/MB1NhcbT2mVBk0pwSLcNN1/Cf1HK268JjamJd6bjeJ4/7gOnEX0prGRba+
+	x6ogftRAMkhr6npyiLDBpj41dOpnzsMXkmRpwV81bQF33H3hP194gI10O5ee3FIZCTGj1qjJnBx
+	9VB/SOOab1XPrLWGP4qGOewSklwCNUxlb89GLJB8wvxOL+zo9XxFVBop9Q20R8/aNf8otd3p5om
+	mdtAGQQGk0In+/RskRuMub1JancMa3vq0QB4MZJcSKQ8ZsO1Fy63Ty7PHSY5og0KpoCctiQkgUG
+	++VowUanbdYCMCRupJb15s+7WcF9WlDNalKtW/tPGx5Bv1n62H1kRSUJwm1YppDwiAZgu7Ju2TS
+	kXg1MA6G4L2fEl+MZVuS/wqfcRDJac=
+X-Received: by 2002:a17:90b:2ccb:b0:39e:6c68:c77a with SMTP id 98e67ed59e1d1-3a07323d479mr709033a91.48.1790070768485;
+        Tue, 22 Sep 2026 02:52:48 -0700 (PDT)
+Received: from 954df21a5119.. ([122.51.212.64])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a06dfd6705sm2679525a91.0.2026.09.22.02.52.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 02:51:39 -0700 (PDT)
-Date: Tue, 22 Sep 2026 12:51:36 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Markus Elfring <Markus.Elfring@web.de>,
-	platform-driver-x86@vger.kernel.org,
-	Bao Cheng Su <baocheng.su@siemens.com>,
-	Benedikt Niedermayr <benedikt.niedermayr@siemens.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Henning Schild <henning.schild@siemens.com>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Tobias Schaffner <tobias.schaffner@siemens.com>,
-	stable@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
-	kernel-janitors@vger.kernel.org
-Subject: Re: [PATCH] platform/x86: simatic-ipc: fix platform device leak on
- registration failure
-Message-ID: <arJPqCrNK-NR41uU@stanley.mountain>
-References: <20260921075312.120983-1-lgs201920130244@gmail.com>
- <cdb67eed-9e75-4310-ae4f-21ca67f20bd2@web.de>
- <CANUHTR9+rLuPrd1aifKws++POOKSm+2jxBaJaC1iF5z5x0e13Q@mail.gmail.com>
+        Tue, 22 Sep 2026 02:52:47 -0700 (PDT)
+From: Zihan Xi <zihanx@nebusec.ai>
+To: netfilter-devel@vger.kernel.org
+Cc: zihanx@nebusec.ai,
+	pablo@netfilter.org,
+	fw@strlen.de,
+	phil@nwl.cc,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	coreteam@netfilter.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Vega <vega@nebusec.ai>,
+	Luxing Yin <root@tr0jan.top>
+Subject: [PATCH nf v3 1/1] netfilter: nf_dup: disable duplication in user namespaces
+Date: Tue, 22 Sep 2026 09:52:31 +0000
+Message-ID: <b9e860571e049e0830d3b08626e28ca571e1ecc0.1790042930.git.zihanx@nebusec.ai>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1790042930.git.zihanx@nebusec.ai>
+References: <cover.1790042930.git.zihanx@nebusec.ai>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CANUHTR9+rLuPrd1aifKws++POOKSm+2jxBaJaC1iF5z5x0e13Q@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 22, 2026 at 04:13:17PM +0800, Guangshuo Li wrote:
-> 
-> Would it make sense to share the cleanup path and rely on
-> platform_device_unregister() handling NULL/ERR_PTR, like this?
-> 
-> +static void unregister_platform_devices(void)
-> +{
-> +        platform_device_unregister(ipc_wdt_platform_device);
-> +        platform_device_unregister(ipc_led_platform_device);
-> +        platform_device_unregister(ipc_batt_platform_device);
-> +}
+nf_dup_ipv4() and nf_dup_ipv6() send a cloned packet through
+ip_local_out() or ip6_local_out(), so the clone can traverse netfilter
+hooks again. A network namespace owned by a non-initial user namespace
+can combine NFQUEUE with TEE or nftables dup and retain the clone until
+a later verdict resumes it. The transient in_nf_duplicate task guard
+has already been cleared by then, so the resumed clone can be
+duplicated again and generate packets without bound.
 
-Having one magical cleanup function is the most bug prone way to
-write cleanup.  Use an unwind ladder.
+There is no sensible use case for packet duplication in a user
+namespace. Skip IPv4 and IPv6 duplication when the network namespace
+is not owned by the initial user namespace. Keep the existing TEE/dup
+behavior in the initial user namespace.
 
-https://staticthinking.wordpress.com/2022/04/28/free-the-last-thing-style/
+Fixes: cd58bcd9787e ("netfilter: xt_TEE: have cloned packet travel through Xtables too")
+Cc: stable@vger.kernel.org
+Reported-by: Vega <vega@nebusec.ai>
+Assisted-by: LLM
+Co-developed-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
+---
+changes in v3:
+  - rerolled the unchanged fix against the latest nf.git main
+    after no follow-up was received on v2
+  - add the required Co-developed-by trailer and matching
+    Signed-off-by
+  - v2 Link: https://lore.kernel.org/all/cover.1788425393.git.zihanx@nebusec.ai/
+changes in v2:
+  - drop the persistent struct sk_buff::nf_duplicated field and nf_copy()
+    change from v1
+  - disable IPv4/IPv6 duplication in network namespaces owned by a
+    non-initial user namespace, as preferred on review
+  - v1 Link: https://lore.kernel.org/all/cover.1787903722.git.zihanx@nebusec.ai/
 
-regards,
-dan carpenter
+ net/ipv4/netfilter/nf_dup_ipv4.c | 3 +++
+ net/ipv6/netfilter/nf_dup_ipv6.c | 3 +++
+ 2 files changed, 6 insertions(+)
+
+diff --git a/net/ipv4/netfilter/nf_dup_ipv4.c b/net/ipv4/netfilter/nf_dup_ipv4.c
+index 9a773502f10ac..c33dae248c477 100644
+--- a/net/ipv4/netfilter/nf_dup_ipv4.c
++++ b/net/ipv4/netfilter/nf_dup_ipv4.c
+@@ -53,6 +53,9 @@ void nf_dup_ipv4(struct net *net, struct sk_buff *skb, unsigned int hooknum,
+ {
+ 	struct iphdr *iph;
+ 
++	if (net->user_ns != &init_user_ns)
++		return;
++
+ 	local_bh_disable();
+ 	if (current->in_nf_duplicate)
+ 		goto out;
+diff --git a/net/ipv6/netfilter/nf_dup_ipv6.c b/net/ipv6/netfilter/nf_dup_ipv6.c
+index 6da3102b7c1b3..a5f6f074a7e91 100644
+--- a/net/ipv6/netfilter/nf_dup_ipv6.c
++++ b/net/ipv6/netfilter/nf_dup_ipv6.c
+@@ -47,6 +47,9 @@ static bool nf_dup_ipv6_route(struct net *net, struct sk_buff *skb,
+ void nf_dup_ipv6(struct net *net, struct sk_buff *skb, unsigned int hooknum,
+ 		 const struct in6_addr *gw, int oif)
+ {
++	if (net->user_ns != &init_user_ns)
++		return;
++
+ 	local_bh_disable();
+ 	if (current->in_nf_duplicate)
+ 		goto out;
+-- 
+2.43.0
 
