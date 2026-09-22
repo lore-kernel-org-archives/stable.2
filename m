@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11DC73A5E67;
-	Tue, 22 Sep 2026 07:44:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D2E64D4868;
+	Tue, 22 Sep 2026 07:44:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790063067; cv=none; b=DybgOCzQh2JlWElkbCVjMXObnmCGF14VE9Qu+NWn7trwQtXDL1oFhq5uqIaCbOmIDl6nb5wxHyA8ZQcfbYvn0RdIDsnC761gO9Cqb5ge0VQLCRrKJNhkRuz8F9skAAXi3j9RgoCY8KsyZG8H+FBpUdkVNRDsYGwXs1lqF+hPQ9Q=
+	t=1790063069; cv=none; b=K1YrwdVHDCnJLktIlVkWketWPBvUNplkkAKlj1vi8ilxkGkdMufrcCQj7je7cqiflvP296pRQNxkLNgh55TD/92PxzJCl1haeq8VgyFgc8luxcN3Ikt8Alm/TU4HexOK6Jc1V09cBrPx9FLg0uIQJwpWCw/5stjKv4CxlpBdBrc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790063067; c=relaxed/simple;
-	bh=QlMeLu+L6xiQInXI2eIs27kOYDpTjPvxGpELNX1DjAI=;
+	s=arc-20240116; t=1790063069; c=relaxed/simple;
+	bh=BLSRwa20kCE7EArPXcKQr5kZ43kSG+lur4OacCc6AJ4=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=aD3XiK8ABFvuUAWQmmbre/WXBS/7fiZwz3kNb0SKF6nxOZVV5xubj3ZJhx45MhD5hFVy7TQOP4Gk6IwQAME2ge/RZJO7EG5PcSP9fJ03STJqG5srBtwra/31ZkHQZ+ONifXkyN3hdrddstBy+eVQxqTvlfJE5/057dZ6IYWllfo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R+qMIj9L; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=k3UUs2JFOz2FhFawt5tdAvRP3+Bcqx4V86OtUsRLzeTkeaIAUAHLepUO2ucaiyagcNdWHIXgsjA9lB3liY0GakaLdLNPGDhE2+JHfkswADadorSiYlNbwjPRCQWOVR56o9JK0H+aAkoLaeWSXrYVNZqo6nDxm/+yv94sMvk67uw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T7AtoFqx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R+qMIj9L"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F5701F00893;
-	Tue, 22 Sep 2026 07:44:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T7AtoFqx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FF571F00898;
+	Tue, 22 Sep 2026 07:44:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790063061;
-	bh=zNg10MyXKAU0YY+tfsXTm8HcUimI/me8kiBIccG4eZ4=;
+	s=k20260515; t=1790063062;
+	bh=Dc+7ht9AUxPqxIO1kN1mC4z7K0gjkXpcd+T6+V+HMG0=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=R+qMIj9LmafDYOefhiougjsD0KXuPebaCO4QoxIGBtW05mOeHctoXQK4rEdfwqurl
-	 DNu+XGr9OQihlLjhvRTqt4Aa0yyxK76hMlxfnXL30ScOS98H3IepCBjQII6saPFyPT
-	 2aga1IMni0WzBoKpi6p2NQxOj8hAdvf2L0FtBSBqTSbI+AuU75MRnTie8juCr1xsg1
-	 O2LG3rWkHwyZRl5K06p5Fv90mosxCSr9lZxxnc41RtoG/mtyIQCN2dMSF5q7SsUfiG
-	 v3pQ3CkWbuoauXxlII8GUp/3j7DwNPEO1SavveP3GrdWCGTIQnPjn17A2hRz26GtTC
-	 Z+jTwGS40AwKQ==
-Subject: Re: [PATCH net v2 3/4] ieee802154: mcr20a: drop corrupted RX frames
- instead of reading 125 stale bytes
+	b=T7AtoFqxlZ/L+zN5uj4QcwJz6QQnFP0ptj2oDUI76ZNHH+kAAt3xl1hQwpzKe/bdJ
+	 mftNDZI88BJLbF++syCex3dTKWYy/vbolwaNjm5+HG7XSiEirMde/O2GaP/crp3m0L
+	 mLLcAZ0/VG16GAQ0VCduqLPCqLHGPqhgeV8ucaOJJTktIJO4AMgOjJY32y040wgcS/
+	 vWdlIQiCGw901fvd5l7IBQiwzlnZPrAXpoMi6bDfZcnBRhppvKj8m3oUjgeia4aaZD
+	 W5rmHQabUIeRpPv9xdz7YaE90y163qrfSiKI8jzzpdu+94jEyJ73sIqq85pq8YKtUv
+	 Dn0edq1huV68Q==
+Subject: Re: [PATCH net v2 4/4] ieee802154: mcr20a: fix 1-byte out-of-bounds
+ read in mcr20a_handle_tx()
 From: netdev-bot+sashiko@kernel.org
 To: benquike@gmail.com
 Cc: alex.aring@gmail.com, miquel.raynal@bootlin.com, stefan@datenfreihafen.org,
  linux-wpan@vger.kernel.org, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, stable@vger.kernel.org, kuba@kernel.org
-Date: Tue, 22 Sep 2026 07:44:20 +0000
-Message-ID: <179006306060.2160803.5728215627968945017@kernel.org>
-In-Reply-To: <20260921074207.2289391-3-benquike@gmail.com>
-References: <20260921074207.2289391-3-benquike@gmail.com>
+Date: Tue, 22 Sep 2026 07:44:21 +0000
+Message-ID: <179006306173.2160803.2024412371470708989@kernel.org>
+In-Reply-To: <20260921074207.2289391-4-benquike@gmail.com>
+References: <20260921074207.2289391-4-benquike@gmail.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -50,7 +50,7 @@ MIME-Version: 1.0
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 (2) · Medium: 1 · Low: 0
+Critical: 0 · High: 0 (1) · Medium: 1 · Low: 0
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -58,153 +58,146 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] The commit message justifies the change with a KASAN slab-out-
-  of-bounds splat ("Read of size 125 at addr ffff888002853f40 ... cache…
+- [Medium] The commit message of "ieee802154: mcr20a: fix 1-byte out-of-
+  bounds read in mcr20a_handle_tx()" misrepresents the severity of the…
 
 Pre-existing issues:
-- [High] mcr20a_irq_status_complete() unconditionally programs XCVSEQ to
-  MCR20A_XCVSEQ_IDLE (mcr20a.c:938-939) before the RX length/buffer read…
-- [High] mcr20a_handle_rx_read_buf_complete() strips the two FCS bytes
-  from the received PSDU (`len = len - 2; /* get rid of frame check…
+- [High] Unhandled spi_async() failure in the TX state machine leaks the
+  skb and wedges the TX queue forever.
 
 --
 
-ieee802154: mcr20a: drop corrupted RX frames instead of reading 125 stale bytes
+ieee802154: mcr20a: fix 1-byte out-of-bounds read in mcr20a_handle_tx()
 
-When the reported PSDU length is invalid, mcr20a_handle_rx_read_buf_complete()
-no longer forces len to IEEE802154_MTU and copies the whole buffer; it now
-drops the frame and re-arms reception with mcr20a_request_rx(lp).
+This drops the "+ 1" from lp->tx_xfer_buf.len in mcr20a_handle_tx(), so the
+payload SPI transfer now clocks out exactly lp->tx_skb->len bytes instead of
+one extra byte. The 1-byte psduLength prefix is already carried by the
+separate lp->tx_xfer_len transfer.
 
-First, a question about the justification in the commit message:
+A couple of questions below, one about the commit message and one about the
+error path that the hunk touches.
 
->     In mcr20a_handle_rx_read_buf_complete(), when
->     !ieee802154_is_valid_psdu_len(len) is true, the driver overwrites len
->     with IEEE802154_MTU (127) and copies 125 bytes from lp->rx_buf into a new
->     skb even though only the original len bytes were transferred over SPI,
->     reading past the valid RX data and leaking up to 125 bytes of stale heap
->     memory to the network stack:
+>     In mcr20a_handle_tx(), the 1-byte psduLength prefix (lp->tx_len[0]) is
+>     already sent in a separate SPI transfer (lp->tx_xfer_len), while
+>     lp->tx_xfer_buf transfers the payload from lp->tx_skb->data. Setting
+>     lp->tx_xfer_buf.len = lp->tx_skb->len + 1 causes the SPI transfer to read
+>     1 byte past the end of lp->tx_skb->data:
 >
->       BUG: KASAN: slab-out-of-bounds in mcr20a_handle_rx_read_buf_complete.constprop.0+0x91/0xc0
->       Read of size 125 at addr ffff888002853f40 by task init/1
+>       BUG: KASAN: slab-out-of-bounds in mcr20a_handle_tx+0xf5/0x150
+>       Read of size 17 at addr ffff8880057f7500 by task init/1
 >       ...
->       The buggy address belongs to the object at ffff888002853f40
->        which belongs to the cache kmalloc-8 of size 8
->       The buggy address is located 0 bytes inside of
->        allocated 4-byte region [ffff888002853f40, ffff888002853f44)
+>       The buggy address belongs to the object at ffff8880057f7500
+>        which belongs to the cache kmalloc-16 of size 16
 
 [Severity: Medium]
-Can this KASAN splat actually be produced by this driver?  The memcpy source
-in mcr20a_handle_rx_read_buf_complete() is lp->rx_buf, which is a fixed array
-embedded in struct mcr20a_local:
+Can this splat actually be produced by the driver's own TX path?
 
-drivers/net/ieee802154/mcr20a.c:
-	u8 rx_buf[MCR20A_MAX_BUF];
+lp->tx_skb comes from mac802154 via mcr20a_xmit(), and an skb head allocated
+by __alloc_skb()/kmalloc_reserve() is always sized as the data area plus
+SKB_DATA_ALIGN(sizeof(struct skb_shared_info)) inside one slab object.
+sizeof(struct skb_shared_info) alone is a few hundred bytes, so an skb head
+cannot live in kmalloc-16, and skb->data[skb->len] always lands inside the
+same allocation (tailroom or shared info) where KASAN has no redzone to
+report.
 
-with MCR20A_MAX_BUF defined as 127, and mcr20a_setup_rx_spi_messages() binds
-the SPI transfer to it permanently:
+The last paragraph says:
 
-	lp->rx_xfer_buf.rx_buf = lp->rx_buf;
+>     Tested in QEMU with KASAN enabled by transferring a 16-byte tx_skb->data
+>     buffer in mcr20a_handle_tx().
 
-struct mcr20a_local itself is the priv blob from ieee802154_alloc_hw(sizeof(*lp),
-...), so a 125-byte read from rx_buf stays inside the object and cannot be
-reported as a slab-out-of-bounds access, and the source object can never be a
-4-byte allocation in kmalloc-8.  The only small heap object in the driver is
-lp->buf from devm_kzalloc(SPI_COMMAND_BUFFER), which is never the memcpy
-source here.
+Would it be clearer to state up front that the trace comes from an
+instrumented/synthetic buffer rather than from a normal transmit, and to
+describe the real effect instead?
 
-The defect the patch fixes looks narrower: mcr20a_handle_rx_read_len_complete()
-only refreshes lp->rx_xfer_buf.len bytes,
+As far as I can tell the real effect is that one byte of unrelated
+in-allocation memory was clocked into the transceiver packet buffer at the
+first FCS position, which the chip then overwrites because mcr20a_hw_setup()
+sets IEEE802154_HW_TX_OMIT_CKSUM and the hardware generates the FCS itself.
+That reads as a correctness fix with no kernel memory-safety violation and
+no over-the-air leak, which matters for how stable maintainers judge the
+Cc: stable tag.
 
-	lp->rx_xfer_buf.len = len;
+The code change itself looks right: mcr20a_setup_tx_spi_messages() already
+sends psduLength as its own transfer:
 
-so with the old "len = IEEE802154_MTU" fallback the driver handed the stale
-tail of its own RX buffer (leftovers of previously received frames, or zeros)
-to the 802.15.4 stack as if it were received data.  Given the Cc: stable tag,
-would it make sense to describe it that way and drop the KASAN block, so that
-backporters do not read this as an out-of-bounds read?
+	lp->tx_xfer_len.len = 1;
+	lp->tx_xfer_len.tx_buf = lp->tx_len;
+
+and at86rf230_write_frame() uses the same layout (length byte = skb->len + 2,
+payload = skb->len bytes).
 
 > diff --git a/drivers/net/ieee802154/mcr20a.c b/drivers/net/ieee802154/mcr20a.c
-> index 020d392a98b6..ee3c1e67ef60 100644
+> index ee3c1e67ef60..d7e076397550 100644
 > --- a/drivers/net/ieee802154/mcr20a.c
 > +++ b/drivers/net/ieee802154/mcr20a.c
-> @@ -790,7 +790,8 @@ mcr20a_handle_rx_read_buf_complete(void *context)
+> @@ -867,8 +867,7 @@ mcr20a_handle_tx(struct mcr20a_local *lp)
+>  	/* add 2 bytes of FCS */
+>  	lp->tx_len[0]		= lp->tx_skb->len + 2;
+>  	lp->tx_xfer_buf.tx_buf	= lp->tx_skb->data;
+> -	/* add 1 byte psduLength */
+> -	lp->tx_xfer_buf.len	= lp->tx_skb->len + 1;
+> +	lp->tx_xfer_buf.len	= lp->tx_skb->len;
 >  
->  	if (!ieee802154_is_valid_psdu_len(len)) {
->  		dev_vdbg(&lp->spi->dev, "corrupted frame received\n");
-> -		len = IEEE802154_MTU;
-> +		mcr20a_request_rx(lp);
-> +		return;
->  	}
->  
->  	len = len - 2;  /* get rid of frame check field */
+>  	ret = spi_async(lp->spi, &lp->tx_buf_msg);
+>  	if (ret) {
 
 [Severity: High]
-This isn't a bug introduced by this patch, but the new branch highlights the
-sibling exits of the same RX chain that do not re-arm reception.
-mcr20a_irq_status_complete() always parks the sequence manager first:
+This isn't a bug introduced by this patch, but since the hunk sits right
+above it: does this error path leak lp->tx_skb and stall the TX queue for
+good?
 
-	regmap_update_bits_async(lp->regmap_dar, DAR_PHY_CTRL1,
-				 DAR_PHY_CTRL1_XCVSEQ_MASK, MCR20A_XCVSEQ_IDLE);
-
-so RX only resumes when mcr20a_request_rx() writes MCR20A_XCVSEQ_RX.  A few
-lines below the hunk, mcr20a_handle_rx_read_buf_complete() returns without
-doing that:
-
-	skb = dev_alloc_skb(len);
-	if (!skb)
-		return;
-
-and mcr20a_handle_rx_read_len_complete() does the same on a submission
-failure:
-
-	ret = spi_async(lp->spi, &lp->rx_buf_msg);
-	if (ret)
-		dev_err(printdev(lp), "failed to read rx buffer length\n");
-
-With XCVSEQ left at IDLE, does the part generate any further RXIRQ/SEQIRQ that
-could restart the chain?  mcr20a_request_rx() is only reachable from
-mcr20a_handle_rx_read_buf_complete(), mcr20a_handle_tx_complete() and
-mcr20a_start(), so recovery would seem to require a transmit or an interface
-down/up, while the netdev stays up and silently deaf - for a receive-only or
-monitor configuration there is no such event.  Would it be worth re-arming RX
-on these paths too, in the same way the new corrupted-length branch does?
-
-Related: mcr20a_request_rx() issues the re-arm with
-regmap_update_bits_async() and returns 0 unconditionally:
-
-	regmap_update_bits_async(lp->regmap_dar, DAR_PHY_CTRL1,
-				 DAR_PHY_CTRL1_XCVSEQ_MASK, MCR20A_XCVSEQ_RX);
-
-	return 0;
-
-so is a failed register write distinguishable from a successful re-arm?
-
-[Severity: High]
-This is a pre-existing issue, but it sits on the length computation this patch
-touches.  The driver removes the two FCS bytes and hands the FCS-less data to
-ieee802154_rx_irqsafe(), while mcr20a_hw_setup() advertises:
-
-	hw->flags = IEEE802154_HW_TX_OMIT_CKSUM |
-			IEEE802154_HW_AFILT |
-			IEEE802154_HW_PROMISCUOUS;
-
-i.e. without IEEE802154_HW_RX_OMIT_CKSUM.  In net/mac802154/rx.c,
-ieee802154_rx() only synthesizes an FCS when that flag is set, and then trims
-two bytes regardless:
-
-	if (local->hw.flags & IEEE802154_HW_RX_OMIT_CKSUM) {
-		crc = crc_ccitt(0, skb->data, skb->len);
-		put_unaligned_le16(crc, skb_put(skb, 2));
+	ret = spi_async(lp->spi, &lp->tx_buf_msg);
+	if (ret) {
+		dev_err(printdev(lp), "SPI write Failed for TX buf\n");
+		return ret;
 	}
-	...
-	skb_trim(skb, skb->len - 2);
 
-Does this mean every frame received through mcr20a loses two bytes of real MAC
-payload, and gets dropped by the crc_ccitt() check when
-phy->filtering == IEEE802154_FILTERING_NONE?  adf7242, the other driver that
-strips the CRC, sets IEEE802154_HW_OMIT_CKSUM in adf7242_hw_init().  Should
-mcr20a either advertise IEEE802154_HW_RX_OMIT_CKSUM or keep the FCS in the
-skb?
+On failure the message is never submitted, so no completion callback runs.
+lp->tx_skb is neither completed nor freed and lp->is_tx stays 1. The only
+caller discards the return value:
+
+mcr20a_irq_clean_complete() {
+	...
+	case (DAR_IRQSTS1_SEQIRQ):
+		if (lp->is_tx) {
+			dev_dbg(printdev(lp), "TX is starting\n");
+			mcr20a_handle_tx(lp);
+	...
+}
+
+Meanwhile ieee802154_tx() in net/mac802154/tx.c already did
+ieee802154_hold_queue() and atomic_inc(&local->phy->ongoing_txs) when the
+earlier drv_xmit_async() (mcr20a_xmit()) returned 0, and only
+mcr20a_handle_tx_complete() -> ieee802154_xmit_complete() undoes that. So
+the queue is never woken and ongoing_txs stays non-zero.
+
+Does that then make ieee802154_sync_queue() wait forever?
+
+net/mac802154/tx.c:ieee802154_sync_queue() {
+	...
+	wait_event(local->phy->sync_txq, !atomic_read(&local->phy->ongoing_txs));
+	...
+}
+
+There is no timeout and no alternative wake condition, so any MLME operation
+going through ieee802154_mlme_op_pre() would block indefinitely.
+
+spi_async() can fail for real reasons: -EBUSY when ctlr->bus_lock_flag is
+set by a concurrent spi_bus_lock() user, or an error propagated from
+spi_maybe_optimize_message()/__spi_async().
+
+Would ieee802154_xmit_error(lp->hw, lp->tx_skb, IEEE802154_SYSTEM_ERROR),
+or ieee802154_wake_queue() plus kfree_skb(), together with clearing
+lp->is_tx, be the right handling here?
+
+mcr20a_write_tx_buf_complete() looks to have the same gap for the SEQ TX
+register write:
+
+	ret = spi_async(lp->spi, &lp->reg_msg);
+	if (ret)
+		dev_err(printdev(lp), "failed to set SEQ TX\n");
+
+Should that path also release the skb and the queue?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260921074207.2289391-1-benquike%40gmail.com
