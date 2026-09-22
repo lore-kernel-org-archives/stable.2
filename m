@@ -1,142 +1,298 @@
-Received: from mail-oi2-f12.google.com (mail-oi2-f12.google.com [74.125.231.204])
+Received: from mail-wr2-f10.google.com (mail-wr2-f10.google.com [74.125.225.74])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4403D2D12F3
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 15:49:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.204
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790092198; cv=pass; b=qNXN5LV+5a5hnZufcmEkCKAFhfUclnhfJTu/SiXf6KpanQ2hbBtC7gERv5DbFAi6q1n4Jt6pgSvp5emU2+LftC6hcZA/YlLfwzh6N8GYZqLPvpqR0L0JaxVFxoB4BMN4IQDWM2TWNh09i/hfhsoOWkkVaS7GJeDZpfavAA8s9vI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790092198; c=relaxed/simple;
-	bh=FwvYiaDcG7fL1f29jUItXT2GNsF0KQa+Oubzhul7ezg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OeFmSaxgxjbM3Y+rz0PkHYBBujVUdiN9QhcIIOXXhUDavVlxwggBml4Xb2Eqn6dVucSLRg1+bhnSVzfxvqHaDNfQ7dorIk38AslGfxYv49sqlKRrOkius6o85NerGkUOaTgfXzgWaVa7YFJEODwYeApgXkRhlO8Nq4xezW04LN0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=BgxwzVEb; arc=pass smtp.client-ip=74.125.231.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="BgxwzVEb"
-Received: by mail-oi2-f12.google.com with SMTP id 5614622812f47-4c4bf3defecso26351b6e.3
-        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 08:49:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790092195; cv=none;
-        d=google.com; s=arc-20260327;
-        b=S4qozllEoRnFK/d1DT5YSrQ10ETaTnDtSTYdMnghte1GSPW9//zkRlIS5t01PtDXyl
-         9q7FIBxXpC4wKECAo4Q8UrqFUEBKmVVGB7YKH3SfQD8uV38lswLLI2cZzzYfZE5TbcjX
-         OXEqNS9FqTkIFY6GaUAPV6W+0KinPbAHzdmzPXQqjpdZRskcoVZ0t8GaGDmFDkSLGKTf
-         lciAV6X5OyFWncDj65iVHpaYEQwaoPaE8IH0uSIfyhzrGX4X8Zm0fRWJ0/Gh3VtAXXfE
-         1JM8CdwbfrlVZ8yLkw6Qfv9YXlg6Yrcd7synn569nPTyNOMEQcvb66eYfdIgPZpTpDm4
-         QjYA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=+IB+UJijWjaTnFVpSDyUcRlyFG+GunEChS+weWwWm14=;
-        fh=fWZ7A/cc9mGbfYs7uL8f9LOQu+jw7ixWdwhBcZ1d/VA=;
-        b=tDlYHdDtd7q3kONEfjWCO01ZkBSSESOS2KdB0TEOGMmLI7oyahewWL2WWs/gBMVwMm
-         3jgMLwtcguCwvWP7ABJKhAQserl+QuhzsCUf8ptuPoN9CK9O42UY/vcasU+iO1aB04qF
-         86K/IQHLU3ctHXOp78qwtmWWNbdiSMV96pjUlYNzLy1gmvQa7LCjt4389SF5HdgyC+7O
-         0FQdJJ6WTTAXthSgtju8yEnZxI7bJvwPbEGiuGl+IJIAtgvvi8zNjEHDflmRFI87mGKE
-         haP9ytcwAX+x/GnutKmp7Stm9rDkFADfbWuG5/A0xkmgFr9RGlVdBHV08ysQttcWqmoN
-         Mtkg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1790092195; x=1790696995; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+IB+UJijWjaTnFVpSDyUcRlyFG+GunEChS+weWwWm14=;
-        b=BgxwzVEblWiqw4mRVWVmI4pnlSxui5x0Bf2OsqGawV5jibxnZZTyjI4MjWPGo2rORP
-         UT6n/LXhCEKVuxz8IonyoR1PKSb5yUCKUVvf4DGwH6ODiisG6cGvoZi/pu155G+mFP34
-         oPSxUs//AqOi3kpCEhwsxxKi+gjRBPzCP6Ana/VnUzg7JLEY98J6+DsmqNCyE5As9b07
-         zioKxS79+XJ1i1Jw2TTEd+bTdobHk1YebdEh1JY/ku0Y72fAbnSF+hT5hbgVAPei9omU
-         3pjrJOaLYHmx8r/Q3Sv4TC6ewMkMQF9bysJadkgmINToJbiVvoLNJRONum13BQlWHFoF
-         XaAw==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 480A14F68A3
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 15:52:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.74
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790092337; cv=none; b=GocorH305BpOkrN5+Wd/i3pgPinO05MhzQFCa+Yca/04DEOMARtgqtTrZ3lfx9MYC10QV6KoEIgMaSfuOgF25LqjwOn31+2lsXQJ3kbKoDurFNDi9J2+/TQVOBBbBOYiXBmZnrWX8Y9s2d0lsQvkn2SIslqIWARwNEq/q+zqFRY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790092337; c=relaxed/simple;
+	bh=t2BkDoPXJqVAxcWBUrhg4hh5+X8J1TmxXzpE9rjW0Tg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=grI+zMQTwid1d/DfWlyXLjegs7VCZUHRWzsDetqtTxwWXcP/DeKl2ZFEBZxZY9f17UEWnwHGCgJqbFVojz1kd1qM4FFHKhih81A9GoLw5+M/QNB5wWbeChNO+SFCrAZUPYX5kzseDw7dzVNGSgg3kkiQcvhMv1ecUXbakNfY70E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wr2-f10.google.com with SMTP id ffacd0b85a97d-484373a2e82so45958f8f.0
+        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 08:52:15 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790092195; x=1790696995;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=+IB+UJijWjaTnFVpSDyUcRlyFG+GunEChS+weWwWm14=;
-        b=EsnPTyjF0OZe2AQCVEbX3dxuRW6PpIaSS9m77fNI+xhvgI4bz+8HZhYuQhooosBs8L
-         Xg9hIFMTWgpJNWP87Po2fWhWva2xSB18tKD1aodmlSELVlinUQQFnZmRG6gJGKXTetLJ
-         OVv3yHM+DcI5jHdTAGBwp8u5hkFXQJXtsRCRI/LKBpaelco9MwEn5kV+HqVVUgCQJaxm
-         H71K2tIpBfumwGtfPWzenxzzvO6KKGdiGEyFonBK4kgAjr6luptaL21Cc74YwKVugLsq
-         Fe/aKWw7rDRojNqApCGy+mE+0zV3vTogOYYFgD2zR61DnE2ZcMhmwpCc0qksk+8YQ+lZ
-         ihUg==
-X-Forwarded-Encrypted: i=1; AKwUvBxACNpwpuEhMkIVI6nJ9V/00VyVM91dChNy4/KqJancAq2Zc0DmD9oAL+PcBk6k/8wjgdesFNc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mTnhGYb5zyvLWIrF+ODmnSBMHumaG/2F+vu557EnaL3eFMy26A
-	4ulxjT23Arc1hm8MKMcBGiVTFQyH4QUyVQsgE1WvIT/My2mnbhYGl1PQWt2vbO1C3X6NfsfjV02
-	8N6dESJD8W1qhqTi774JQ8CMdKmkdUmNjv9uY+OYHaw==
-X-Gm-Gg: AYBFou2/NBaHMP+okkTNcgZeyRlNkh0ZVX+qGGjUjsJ5rVwX8bVgda3xKITEL7U2Z+S
-	TvWtivPk7ANDIKnuie6jYjswbUVyVBQO1mivwqCdS/v+GWGxotX6YtC2/WgGzCc4NN/duvqbeZO
-	fjjHkAmRCR+UAbbWmd2Go4oVjUVVniVbaq9jtbXBW1H6LbN3RphGIp/cI9G77hNBOGVmNhzCis/
-	8cbpee6LSvY52xtaLrjZXo4mpjbsu6Nn6sOkuoWMR6SFEjBE81gaQEY4ylaEtEr7l1g5PLaZIuh
-	/KymGLKZQeQVxpc4IcGpLfhZsZMU6afPEuMxmM4OcXiIrJ7VFkTPRvaWQTeOI5eug5DiRIo/7LM
-	C7lc6DhLr2nHkcefp3sSWZWr1Oqvshz1dBhJ7Z+qO9EdwU8tLJWLAh2Q6sxALFxwwO9LfeWo=
-X-Received: by 2002:a05:6820:4b91:b0:6cd:3ffc:e32a with SMTP id
- 006d021491bc7-6cd3ffcea03mr10302175eaf.72.1790092195059; Tue, 22 Sep 2026
- 08:49:55 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790092333; x=1790697133;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5i9r/pPIqKuMdr6zdOQlfdPCoyhibMvQVpWDyWeclbw=;
+        b=mEwmm6wTriJId69x/hu93TDHj0IjGsOKCU+rIYilooZEVtOifcbk4xfOMBJnqzQ7Wx
+         MckR5Fu4zZt9LRrkikNk405ak8t4o2aCVRWAaG1Oo5lQwAbgBzhTJ61UjSAHiZyELbx7
+         Ja0VJ7RjnOGqGWDQ2srmEq3R2Ka7t6afQZrhptYQrv1JKHCEC/UlV4zZ9Zg+W4QjIb21
+         sRAq11LwgD984DZEO8Qswh/bwb/m3DRSgTvwdYA5Iivpeke2sqSk+dUvnKEry3WVxjT/
+         bgXNmizThTVi8BiN1e2bBj6nLVk1CeuuW6kmD5YK4kqsCkPmCYUSK4wLC7qYOL3dCaml
+         m3ng==
+X-Forwarded-Encrypted: i=1; AKwUvBwHcmA2HbfrJM54CCKOVPWSm5btqx8EcmqYb31Zo409YQPKO2U9yDeMp23lnLGywfP0ME5ji8s=@vger.kernel.org
+X-Gm-Message-State: AFuF++lJ429YNDzsaLFIEd9CaCTvUh+eqfxP20pjsUTBynnOKm+XE/XQ
+	995jIoloMHVzwy2ilx9WgDgXACC9P0qhG8+gEH5rLgH8Tqnf8DsZemeA
+X-Gm-Gg: AYBFou01W0IjWnLCHgDXtVBnl7SCCgsw0hhoXVxoCbZd9y8Pu7+uSEfOhUDVXBsu57D
+	JPPf5mTesTkvuJGZe9nzYmJxixwGxJFZ7uEnpn/U5mkzaf3zfjhbfjdkxGA6nd3WJNLz0ua9i36
+	1nmGhoeUd52s535h+e9NOn5LYoW2l93762TwOwg+4P0CutyQ7pJ5hn4J03mOsgdlG++V/DVGu3x
+	eLZ3h5lhtxqFDbnAGD81ik8GpY+08eXB1vlbKDCeaIE92rhM13A2sJva+/uHXW3Ka7s16dC6eGs
+	MpgIv2S7I5LX1nKV+9nTWtrarjjfqAZX884H16mxgFGWpwsvyVmRJunPM7ioan2edOAm/ke/XLG
+	ZS10HLrBjNvSJ0eZn8QeS6GlCIAJofw1yGvGyuH4z6YDPgPPvValLMh5G4X9GdBtjz0lpAJxDgt
+	tx7r2oAF0xH/lXDGDDPpl8L2ofDVtH8yQ5sSOBJu1xFVVageQAvxfZGVdeSuPq8A7RqnP2iu2B/
+	NtPxMVVukR0x39tmLtN4D1Wu4xAv6ZLprLDukIrRGvx+Z8=
+X-Received: by 2002:a05:6000:41de:b0:487:a9f:4fa5 with SMTP id ffacd0b85a97d-4886705fc4cmr48898f8f.4.1790092333223;
+        Tue, 22 Sep 2026 08:52:13 -0700 (PDT)
+Received: from [192.168.88.241] (78-80-107-225.customers.tmcz.cz. [78.80.107.225])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886277e185sm6166579f8f.16.2026.09.22.08.52.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 22 Sep 2026 08:52:12 -0700 (PDT)
+Message-ID: <dbffdb43-4fe8-4072-82ba-fcd19aec8739@ovn.org>
+Date: Tue, 22 Sep 2026 17:52:11 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260922084009.506362-1-lgs201920130244@gmail.com>
-In-Reply-To: <20260922084009.506362-1-lgs201920130244@gmail.com>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Tue, 22 Sep 2026 16:49:38 +0100
-X-Gm-Features: AcwNN1UYho_M2TCkxcYs2QRUgoK-S9ENUK4v-9idaeTrzc5fL3QAaoHR4mTs8VA
-Message-ID: <CAPY8ntD6kWi7Q57oL43SLe37szXpptdBXs6cs+vxVehA0eJPjg@mail.gmail.com>
-Subject: Re: [PATCH v2] media: i2c: ov5647: fix power cleanup on remove
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Jacopo Mondi <jacopo@jmondi.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net 4/6] net/sched: act_ct: avoid modifying shared
+ unconfirmed ct entry
+To: netdev-bot+sashiko@kernel.org, i.maximets@ovn.org
+Cc: netdev@vger.kernel.org, pablo@netfilter.org, fw@strlen.de, phil@nwl.cc,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, aconole@redhat.com,
+ echaudro@redhat.com, jhs@mojatatu.com, jiri@resnulli.us,
+ lucien.xin@gmail.com, marcelo.leitner@gmail.com,
+ netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
+ linux-kernel@vger.kernel.org, dev@openvswitch.org, stable@vger.kernel.org
+References: <20260921145655.3167436-5-i.maximets@ovn.org>
+ <179008912095.2160803.9187949237353089190@kernel.org>
+Content-Language: en-US
+From: Ilya Maximets <i.maximets@ovn.org>
+Autocrypt: addr=i.maximets@ovn.org; keydata=
+ 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
+In-Reply-To: <179008912095.2160803.9187949237353089190@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thanks Guangshuo
-
-On Tue, 22 Sept 2026 at 09:40, Guangshuo Li <lgs201920130244@gmail.com> wrote:
->
-> ov5647_remove() disables runtime PM without powering off the sensor if
-> it is still runtime active. pm_runtime_disable() does not invoke the
-> runtime suspend callback, so the sensor can remain powered on.
->
-> If the device is not already runtime suspended, call ov5647_power_off()
-> and mark the runtime PM state as suspended.
->
-> This issue was found by manual code inspection.
->
-> Fixes: 089b7c70f0d8 ("media: ov5647: Use pm_runtime infrastructure")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-
-Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-
-> ---
-> v2 :
->   - Move pm_runtime_set_suspended() into the conditional so it is only
->     called when the sensor is explicitly powered off.
->
->  drivers/media/i2c/ov5647.c | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/drivers/media/i2c/ov5647.c b/drivers/media/i2c/ov5647.c
-> index 3facf92b3841..3b3e5653a0c6 100644
-> --- a/drivers/media/i2c/ov5647.c
-> +++ b/drivers/media/i2c/ov5647.c
-> @@ -1271,6 +1271,10 @@ static void ov5647_remove(struct i2c_client *client)
->         v4l2_ctrl_handler_free(&sensor->ctrls);
->         v4l2_device_unregister_subdev(sd);
->         pm_runtime_disable(&client->dev);
-> +       if (!pm_runtime_status_suspended(&client->dev)) {
-> +               ov5647_power_off(&client->dev);
-> +               pm_runtime_set_suspended(&client->dev);
-> +       }
->  }
->
->  static const struct dev_pm_ops ov5647_pm_ops = {
+On 9/22/26 4:58 PM, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider.
+> 
+> Critical: 0 · High: 0 · Medium: 1 (1) · Low: 0
+> 
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+> 
+> - [Medium] tcf_ct_act() now discards an unconfirmed conntrack entry
+>   purely because its refcount is >1, without checking whether the…
+> 
+> Pre-existing issues:
+> - [Medium] At this commit, tcf_ct_act() still calls nf_ct_helper()
+>   (net/sched/act_ct.c:1106) before the commit block that grows the…
+> 
 > --
-> 2.43.0
->
+> 
+> net/sched: act_ct: avoid modifying shared unconfirmed ct entry
+> 
+> tcf_ct_act() now resets the skb conntrack association when the cached entry
+> is unconfirmed and its refcount shows it is shared with another skb, so that
+> a commit or nat pass cannot grow the extension area of an entry another
+> clone still points into.  The nat flag is also hoisted into a local
+> variable.
+> 
+>> diff --git a/net/sched/act_ct.c b/net/sched/act_ct.c
+>> index 55f3521edb4c9..e72143d36b119 100644
+>> --- a/net/sched/act_ct.c
+>> +++ b/net/sched/act_ct.c
+> 
+> [ ... ]
+> 
+>> @@ -998,6 +998,7 @@ TC_INDIRECT_SCOPE int tcf_ct_act(struct sk_buff *skb, const struct tc_action *a,
+>>  	retval = p->action;
+>>  	commit = p->ct_action & TCA_CT_ACT_COMMIT;
+>>  	clear = p->ct_action & TCA_CT_ACT_CLEAR;
+>> +	nat = p->ct_action & TCA_CT_ACT_NAT;
+>>  	tmpl = p->tmpl;
+>>  
+>>  	tcf_lastuse_update(&c->tcf_tm);
+>> @@ -1046,6 +1047,19 @@ TC_INDIRECT_SCOPE int tcf_ct_act(struct sk_buff *skb, const struct tc_action *a,
+>>  	 * different zone.
+>>  	 */
+>>  	cached = tcf_ct_skb_nfct_cached(net, skb, p);
+>> +
+>> +	/* If the ct entry is not confirmed and shared with some other skb,
+>> +	 * e.g., a cloned one, we can't just modify it with a commit or nat
+>> +	 * as we must not modify the extension set.  Reset.
+>> +	 */
+>> +	if (cached && (commit || nat)) {
+>> +		ct = nf_ct_get(skb, &ctinfo);
+>> +		if (ct && !nf_ct_is_confirmed(ct) && nf_ct_shared(ct)) {
+>> +			nf_reset_ct(skb);
+>> +			cached = false;
+>> +		}
+>> +	}
+>> +
+> 
+> [Severity: Medium]
+> Can this drop NAT state that was already applied to the packet?
+> 
+> The condition keys off nf_ct_shared(ct), i.e. refcount > 1, and not off
+> whether the sharing skb will ever be re-processed by conntrack.  act_ct
+> permits nat without commit, and in that case
+> tcf_ct_act_nat()->nf_ct_nat() (net/netfilter/nf_nat_ovs.c) already
+> installs the binding and translates the headers on the unconfirmed entry:
+> 
+> net/netfilter/nf_nat_ovs.c:nf_ct_nat() {
+> 	...
+> 	/* Add NAT extension if not confirmed yet. */
+> 	if (!nf_ct_is_confirmed(ct) && !nf_ct_nat_ext_add(ct))
+> 		return NF_DROP;   /* Can't NAT. */
+> 	...
+> 	err = nf_ct_nat_execute(skb, ct, ctinfo, action, range, maniptype);
+> }
+> 
+> If the skb is then cloned by a path that keeps the nfct reference, and a
+> later filter runs "action ct zone N commit" on the original, the new block
+> sees cached && commit with an unconfirmed, shared entry, calls
+> nf_reset_ct(skb) and sets cached = false.  nf_conntrack_in() then re-tracks
+> the already translated packet, so the entry that gets committed carries the
+> post-NAT tuple as its ORIGINAL tuple and no matching binding, and reply
+> traffic is no longer reverse translated.  Before this change the cached,
+> NAT'ed unconfirmed entry was simply committed.
+
+It's true that some information will be lost on reset, but it is expected.
+The described sequence of events should also not happen in a practical
+networking pipeline.  Alternative is to forbid nat without commit, which
+would be a significant uAPI break.
+
+> 
+> One note on the trigger: act_mirred and AF_PACKET taps do not produce this
+> sharing, since both clear the association on the clone:
+> 
+> net/sched/act_mirred.c:tcf_mirred_to_dev() {
+> 	/* All mirred/redirected skbs should clear previous ct info */
+> 	nf_reset_ct(skb_to_send);
+> }
+> 
+> net/packet/af_packet.c:packet_rcv() {
+> 	/* drop conntrack reference */
+> 	nf_reset_ct(skb);
+> }
+> 
+> Bridge flood/multicast delivery does keep it, though -
+> net/bridge/br_forward.c:deliver_clone() calls skb_clone() with no
+> nf_reset_ct(), so __nf_copy() raises ct_general.use on the clone.
+> 
+> Would it be worth mentioning in the changelog that the reset also fires
+> when the second pass does commit?  The changelog currently only argues
+> about the "without commit" case:
+> 
+>     This, however, doesn't really change the picture for sensible
+>     networking cases as there should be no need to run the same packet
+>     twice (before and after the clone) through conntrack without packet
+>     header or zone changes and without commit.
+
+Flood cases will be addressed separately, there is no need to spell out
+every single thing.
+
+> 
+> [Severity: Medium]
+> This is a pre-existing ordering problem and is not introduced by this
+> patch, but it is worth flagging for backports since the new guard does not
+> cover it.
+> 
+> At this commit tcf_ct_act() still runs the helper before the commit block
+> grows the extension area of an unconfirmed entry:
+> 
+> net/sched/act_ct.c:tcf_ct_act() {
+> 	...
+> 	if (nf_ct_is_confirmed(ct) ? ((!cached && !skip_add) || add_helper) : commit) {
+> 		err = nf_ct_helper(skb, ct, ctinfo, family);
+> 		if (err != NF_ACCEPT)
+> 			goto nf_error;
+> 	}
+> 
+> 	if (commit) {
+> 		tcf_ct_act_set_mark(ct, p->mark, p->mark_mask);
+> 		tcf_ct_act_set_labels(ct, p->labels, p->labels_mask);
+> 
+> 		if (!nf_ct_is_confirmed(ct))
+> 			nf_conn_act_ct_ext_add(skb, ct, ctinfo);
+> 	...
+> }
+> 
+> A helper that inserts an expectation links exp->lnode into a list head that
+> lives inside ct->ext:
+> 
+> net/netfilter/nf_conntrack_expect.c:nf_ct_expect_insert() {
+> 	hlist_add_head_rcu(&exp->lnode, &master_help->expectations);
+> }
+> 
+> and the following nf_ct_ext_add(NF_CT_EXT_ACT_CT) relocates that memory:
+> 
+> net/netfilter/nf_conntrack_extend.c:nf_ct_ext_add() {
+> 	new = krealloc(old, alloc, gfp);
+> }
+> 
+> leaving exp->lnode.pprev pointing into the freed block, which is written
+> through when the expectation is unlinked via nf_ct_remove_expectations().
+> 
+> The new reset only fires for cached entries with refcount > 1, so an entry
+> that was just tracked (cached == false), or the replacement entry created
+> after the reset, still follows the helper-then-realloc sequence with a
+> single skb reference.
+> 
+> The later patch in this series ("net/sched: act_ct: fix helper UAF due to
+> extensions realloc") moves nf_ct_helper() after the
+> nf_conn_act_ct_ext_add() block with the comment "This has to be done after
+> all the extensions are already added.", so the ordering is resolved within
+> the series.  Given the stable tag here, should the two patches be marked so
+> that backporters take the reordering change together with this one?
+Preexisting.  Fixed later in the set.
+
+Best regards, Ilya Maximets.
