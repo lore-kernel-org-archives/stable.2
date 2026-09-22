@@ -1,126 +1,162 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43E5C5226B1
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 08:00:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E620C522F0C;
+	Tue, 22 Sep 2026 08:01:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790064074; cv=none; b=THm5zujGchEVezMB81Wz5E5tEttVFFBpCom0SWCIy+9M+prd2LH9nJsY92G9ZiBiITiQQV0L6jevP+o5hRB5WfLjkgzdzkc9CXbLQ5ZHCfw4zUZFUV0sNZMT8crTvrPSHW3K2iggcfopMZ8Fw5T+0N6NFB0IuXXEpyoqTws6oQs=
+	t=1790064106; cv=none; b=gUXuZGymRosyWB9L9fFZMIJrZpj12dGUN4NX0laGt0uRIHsiQ/D1kcwQevg3N9MIb3awj+o/udLLRVtMX+uqzPmhVh3+HVNJTJBLzuQsxp7k35CyhhXWNrtlYuQbwhIBDQpxP0CI+batbNN5xB739kGkUh7T9LiOHi5ArYTAnE4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790064074; c=relaxed/simple;
-	bh=Kz0+Gm3KFWWMIgbjBI3C3yS7MzZWyY5UKhB8HQObcAw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VJASBsUlg7IJdIBOztR2AW9/huYZyKCHSFAGJ1hzlaO2mbuIws/zOjhLxa3kd1b3GRAgkTpyGJnQFwYmwiKvjkLiSqDHOFNmX09JyaMZPfSylXINYIIo51lcUQg/0lqWVuOwR/hM7It6Fnw2H0nF7VMmFKDep6TqRhfzy2boyjg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WhdPOZ6N; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790064106; c=relaxed/simple;
+	bh=K5a4irdVg5GqminvoZlcv6xJQ44kH6rk1iM8qfqqAbQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EpaE+j2t/dhuFCe0sNCbKljgC57oVNDWIHP7fyBuOmX02gpQ7dVq7eyW9K/hqhgfuyBOltP3fJm5iudB0pKsF62TEd80pJ2LUhBbvYCuzceTbYmwj2a5QQOXL+4ijQgdr8V7Ts35IfVOz9Z8GhQMPybuGa8PlnKak+gKXUFKGzg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=anf4GRXt; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WhdPOZ6N"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea50dc3so2797199a12.3
-        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 01:00:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790064057; x=1790668857; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jjOpUlt+UjJ6VV4ZayWYwJ5pQEbpQ8Gjw+EW35MyDL8=;
-        b=WhdPOZ6NhZ7nD8bHQQqKf6PAEIH3DtQMCFp4FLChYekJ4Cud/5MZFUe0RymNlhZ4z1
-         FpIMq8eWR19hCsKxSygMVN9ODy80/KJN4/BL8XV9tTQ/q0uyFQIJIedzt4QNzLL0KQQe
-         O2DKPnOXXXIqII3h6vA/eoWh/pjiI/Lb4zWRT/wnaD4pryKIWcfAQCbNcXIqS0QDNFs2
-         htNxsN2EepS6YTtbj0Hh9qOydKgZ1f8Krwt/OQXpIGWrSHhlzgcr5vq++zVkTDWl5vJL
-         dMA+zYd1MQj/SByVe2raNQwd8AyaHK5CV68uZxhjgVbIJtTT4BZlJ28/Vbg7P0uUMGRh
-         zYoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790064057; x=1790668857;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jjOpUlt+UjJ6VV4ZayWYwJ5pQEbpQ8Gjw+EW35MyDL8=;
-        b=aoBk3sciUb5zN7Fu+dWo33htXramf2tDZaAOMIKVwyCmOaAssyx5i2NklyVWrow1OP
-         jPNWWCk95xw4b75SUxD8YW+xoYhXGouaNeEGD1GE5OJXIhtTPxlpNpL3SQ2mM88hKn0D
-         OcnnL/NVxtPYgbdT5At1ZiQR3TlNscfxZawwYuVx5oRf3laozPirfEHT5s/WOPMaw/IL
-         9oZGC8r2HeWzKdG0dc/HOQ9rG+hDekrmIDtHHPZNLtOTYZZ3Vn36EDdkFQoJVz2GwOAt
-         zsybhL/ZGAAOp3HrzkzOTt7zgK08La3CC70dB3QMBT6Uv1Z572YuZVOY70VPCinVIDWI
-         HZvg==
-X-Forwarded-Encrypted: i=1; AKwUvBywb0h7akJr8qlazRzzI79ra5JPiY+BHva4twJgysfCuA8Aw5PefzLRNWFTCKy/NgbksX1fTAU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nsMjiQ3pYNaDcws9gp4ut1hpv5KPrBr6Ep1rt6kDlKTkEM0FDB
-	Uk9kYYIWDXvgHuw38LfxArmj36QdW9bENqhCRbpeEQuUVRWVdQZ5QCVH
-X-Gm-Gg: AYBFou1kr9e/TKljUmC+vymJ0u1kFAsnlW2pJVQ/rgI9VUuVHzNSCG9V8AB3QeDT/Av
-	et2/NGktcxPvC6murYghVTTDyd5oHRSO58YzqQEa7hKl2p1zQ3n8kRSgroTOdqRIZb8SszNrcJA
-	iO9Vx62auMGMc9PCgkb+pIGQla6GtvUHkZgRpmZgZAwq54uiwMeky4cUm+QXau96GEzFaBUPpPc
-	razZzrXiNiQBRiaKbbbeX2pcCwe3M4UTAEduprhoITqwPzgDfgFf0CNjjrwljZHCcIL7lVgxK+K
-	rH6anQGNghgUwEThOwrUOzM1R8aNIHw9+iaZnw8mL4Pvo1QzxRZXteqPVS7QFaX3cn1BeaDmCq6
-	q+4jj6YyT5y6kSSf+dbEIb65uKI+eV6VH+8fc08MQjhq5mSsKLfu6WVya9XFBpmBYN4kbuuXfnu
-	zUpYLetguFOuqmGzHWlxGXTR2kj0S9Gwm/V7nyu5lO8XCbSY7mKAXjxU74PT86lmssXAus7YXAi
-	5GSO21kRjqIizww1rxbv7TsXQYA90MZYYynfFR8XbqCvlfPQG47Zzly2Zz6EiwvExXeHGZzt1as
-	EPlZC43W4w==
-X-Received: by 2002:a05:6a20:6a1c:b0:3dd:85a9:55a2 with SMTP id adf61e73a8af0-3ddec7aef29mr380694637.36.1790064056935;
-        Tue, 22 Sep 2026 01:00:56 -0700 (PDT)
-Received: from phui-2.c.googlers.com.com (67.51.127.34.bc.googleusercontent.com. [34.127.51.67])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc756b4239fsm494006a12.19.2026.09.22.01.00.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 01:00:56 -0700 (PDT)
-From: Hui Peng <benquike@gmail.com>
-To: Ridong Chen <ridong.chen@linux.dev>
-Cc: Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
-	Waiman Long <longman@redhat.com>,
-	Guopeng Zhang <guopeng.zhang@linux.dev>,
-	Shuah Khan <shuah@kernel.org>,
-	cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hui Peng <benquike@gmail.com>
-Subject: Re: [PATCH v3 1/3] cgroup/cpuset: return PERR_NOCPUS in remote_partition_enable()
-Date: Tue, 22 Sep 2026 08:00:54 +0000
-Message-ID: <20260922080054.3895080-1-benquike@gmail.com>
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-In-Reply-To: <a00dbaaa-99f1-4172-b337-911ff45ae71e@linux.dev>
-References: <a00dbaaa-99f1-4172-b337-911ff45ae71e@linux.dev>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="anf4GRXt"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790064096; x=1821600096;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=K5a4irdVg5GqminvoZlcv6xJQ44kH6rk1iM8qfqqAbQ=;
+  b=anf4GRXtUUM6gy+axzR233QhhAhWSvVL6BSWjVxywiIHVW1re7vBslAc
+   ejbuSgFlbgY2bk3HhflJOeXdj9+bQhjQ707RluOuO8rszJqXb0SDegpKz
+   d4KIjKZue0UTBUHNaVGZ09gzzL54TXyqxDEMi9lJoMsF/zlNa3gorf00U
+   83nLNeilRCUKt1FS9X8btCPe7X+lh7YlRMog9xxEhHdNqcuSoS/dd6kbA
+   opB6OmJIr5jlPT8ADlnYoZoY9J3VOSaUVPQIYVtbnImjlYYLWwsPtjJq7
+   +MeB3wbhUvNmk1THukdEgFdkCkQCozAn4p48PTYQPlCuSWjbIAua3Wrj+
+   w==;
+X-CSE-ConnectionGUID: mKucwaTTRtKRxBozCkk7BA==
+X-CSE-MsgGUID: PY1zd84IQKSM+qfsS5g/1g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="89565767"
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="89565767"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 01:01:27 -0700
+X-CSE-ConnectionGUID: v4hnpuodQz2oQna5x2atZw==
+X-CSE-MsgGUID: 89ebydLZStGlxUgM+WBClg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="273192073"
+Received: from carterle-desk.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.41])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 01:01:26 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 4C6BE121B9F;
+	Tue, 22 Sep 2026 11:01:25 +0300 (EEST)
+Date: Tue, 22 Sep 2026 11:01:25 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Jacopo Mondi <jacopo@jmondi.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] media: i2c: ov5647: fix power cleanup on remove
+Message-ID: <arI11VsxaiJ8v4Ye@kekkonen.localdomain>
+References: <20260915090457.2342778-1-lgs201920130244@gmail.com>
+ <CAPY8ntA2h_ChCWJbAmCVygYiviTdsd9TA2LcVh5ffto__LgZAg@mail.gmail.com>
+ <aqz4fLrtW3f7OoYk@kekkonen.localdomain>
+ <CANUHTR9_XR7Q1CJQwKHd6dZRLaJdRNpHxYbUVXkJj_iM7ywoeA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CANUHTR9_XR7Q1CJQwKHd6dZRLaJdRNpHxYbUVXkJj_iM7ywoeA@mail.gmail.com>
 
-On Mon, Sep 21, 2026 at 03:08:55PM +0800, Ridong Chen wrote:
-> What is going on here?
->
-> Please do not reply with a new series. And I think the changes should be listed
-> in the cover letter. Otherwise, it will get very confusing.
->
-> ...
->
-> I cannot apply this patch. It seems quite different from v2.
+Hi,
 
-Hi Ridong,
+On Tue, Sep 22, 2026 at 03:45:13PM +0800, Guangshuo Li wrote:
+> Hi Dave, Sakari,
+> 
+> Thanks for the clarification.
+> 
+> On Fri, 18 Sept 2026 at 16:45, Sakari Ailus
+> <sakari.ailus@linux.intel.com> wrote:
+> >
+> > Hi Dave,
+> >
+> > On Thu, Sep 17, 2026 at 02:27:30PM +0100, Dave Stevenson wrote:
+> > > Hi Guangshuo
+> > >
+> > > On Tue, 15 Sept 2026 at 10:05, Guangshuo Li <lgs201920130244@gmail.com> wrote:
+> > > >
+> > > > ov5647_remove() disables runtime PM without powering off the sensor if
+> > > > it is still runtime active or updating the runtime PM state to
+> > > > suspended.
+> > > >
+> > > > pm_runtime_disable() prevents further runtime PM callbacks and waits for
+> > > > pending operations, but it does not force the runtime suspend callback
+> > > > to run. If the sensor is active when the driver is removed, the external
+> > > > clock and regulators can remain enabled and the power-down GPIO can
+> > > > remain deasserted.
+> > > >
+> > > > After disabling runtime PM, call ov5647_power_off() if the device is not
+> > > > already runtime suspended, and then mark the runtime PM state as
+> > > > suspended. Checking the runtime status avoids disabling the hardware
+> > > > resources a second time when runtime PM has already powered off the
+> > > > sensor.
+> > > >
+> > > > This issue was found by manual code inspection.
+> > > >
+> > > > Fixes: 089b7c70f0d8 ("media: ov5647: Use pm_runtime infrastructure")
+> > > > Cc: stable@vger.kernel.org
+> > > > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> > > > ---
+> > > >  drivers/media/i2c/ov5647.c | 3 +++
+> > > >  1 file changed, 3 insertions(+)
+> > > >
+> > > > diff --git a/drivers/media/i2c/ov5647.c b/drivers/media/i2c/ov5647.c
+> > > > index 3facf92b3841..d42d009772ac 100644
+> > > > --- a/drivers/media/i2c/ov5647.c
+> > > > +++ b/drivers/media/i2c/ov5647.c
+> > > > @@ -1271,6 +1271,9 @@ static void ov5647_remove(struct i2c_client *client)
+> > > >         v4l2_ctrl_handler_free(&sensor->ctrls);
+> > > >         v4l2_device_unregister_subdev(sd);
+> > > >         pm_runtime_disable(&client->dev);
+> > > > +       if (!pm_runtime_status_suspended(&client->dev))
+> > > > +               ov5647_power_off(&client->dev);
+> > > > +       pm_runtime_set_suspended(&client->dev);
+> > >
+> > > I was unsure whether pm_runtime_set_suspended can be unconditional or
+> > > should be in the if clause. There are numerous drivers doing each.
+> > >
+> > > As it happens, Sakari's just answered that in [1] that it should be
+> > > conditional, so I'd take that as gospel. It looks like he's given a
+> > > similar answer on your ov2740 patch.
+> >
+> > Runtime PM is a bit mystical in some places. pm_runtime_set_suspended()
+> > appears to be setting the device's Runtime PM state disabled as it name
+> > implies, but it may also e.g. increment dev->power.disable_depth. I'm not
+> > fully certain if this is by design or not.
+> >
+> > --
+> > Sakari Ailus
+> 
+> Would this be the right way to change it?
+> 
+> -       if (!pm_runtime_status_suspended(&client->dev))
+> +       if (!pm_runtime_status_suspended(&client->dev)) {
+>                 ov5647_power_off(&client->dev);
+> -       pm_runtime_set_suspended(&client->dev);
+> +               pm_runtime_set_suspended(&client->dev);
+> +       }
 
-Sorry for the confusion and the noise. Two mistakes happened when I
-prepared v3 after splitting patch 2/2 per Guopeng's feedback:
+Correct.
 
-1. I mistakenly passed --in-reply-to pointing to the v2 thread and
-   omitted the 0/3 cover letter.
-2. Patch 1/3 was accidentally overwritten with a broken diff instead of
-   the remote_partition_enable() hunk from v2 1/2:
+> 
+> If so, I can send a v2 with this change.
 
-@@ -1591,10 +1591,11 @@ static int remote_partition_enable(struct cpuset *cs, int new_prs,
- 	 * above it or remote partition root underneath it is not allowed.
- 	 */
- 	compute_excpus(cs, tmp->new_cpus);
--	WARN_ON_ONCE(cpumask_intersects(tmp->new_cpus, subpartitions_cpus));
- 	if (!cpumask_intersects(tmp->new_cpus, cpu_active_mask) ||
- 	    cpumask_subset(top_cpuset.effective_cpus, tmp->new_cpus))
- 		return PERR_INVCPUS;
-+	if (cpumask_intersects(tmp->new_cpus, subpartitions_cpus))
-+		return PERR_NOCPUS;
+Please!
 
-Would it be OK if I post a clean, standalone [PATCH v4 0/3..3/3] series
-(as a new thread with a 0/3 cover letter listing the changelog and with
-the v2 1/2 diff restored in patch 1/3)?
+-- 
+Regards,
 
-Best regards,
-Hui
+Sakari Ailus
