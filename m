@@ -1,161 +1,154 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D37D6559CB7
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 15:34:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDD1F559C9D
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 15:35:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790091277; cv=none; b=oqtK4V7dvOJMEuz6hPFQ+YFn7LTV17Q3uNtdAazDleOnH3BAULEIBwQCzYKi0xXN8S9EfxVB4k4qrYMIL5EZXUkvLraQ+WZqbsRITpaFNxxIToot3NKZANuqPthLFIc7A56sR2XVYfiRH5VgHYpNWXiaWnITbgoToXNcb4kqlyo=
+	t=1790091358; cv=none; b=SCC+wn52qxVWFueb+SvQUlrcU7arfXUj9zOE89BzkCv/GK766IV9kk9vo3FeIBimfMdFs29pw57dTkFMjlMGvRxFnJ7+aygSN7eH8P+NW0uOxA96gbF+gkibLoCGp0yN2v5BtMaVvBY0GpWRidZMeEr/i+CeXq0RaaZaW5Szi8U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790091277; c=relaxed/simple;
-	bh=6e8xt0qDiGDgPIVCvPiLiACnTIXW/UAJW4Lcp864Cpk=;
+	s=arc-20240116; t=1790091358; c=relaxed/simple;
+	bh=QfwsydRxIhDzJmym0LsrxbqSTBdd6CSpFxV/E4WMzKg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=HO/bH368kxCwsOTyV55RV1RKyvpG78o9jkULsuh+pxnHtohEiKijZ1m+1Q76aE503kd21dGwQ3UfSjtofGQ2/wcKEM5iQw6iV2vZw/eXJEOiBN7PUF6UNiqBJYECHAQpo2WPtbbJNMYrsoKPs4dz28S6WF9npKp7S36JhRQI+60=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T1QA7esm; arc=none smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=D8q1HXXjmQk71fJvgknfBnTg12P69DksF0PSYKQkfcvTwD0MkRYJB6G8LuZojul/sqmV1DJorod0am2wyZdsiTPGFhC+7WYSlYcR2ZZNOc69vCS/+zhO/rJ4CSED+MsYVmtAfGCqrs7eMEZv2NPdbG+Sc+pnz5I75gTe6erc6R0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SJBgVEPo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T1QA7esm"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a985fba28bso5268247a12.3
-        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 08:34:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790091274; x=1790696074; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=KqNXgwrnC6/yf8ldr9VODDt8z7mpX7HYSVueoRJSAsQ=;
-        b=T1QA7esmWDTFrS3cZfYWRaaJy6hRqqUArXo9B0MyPFfzuJckg5+3AMoRKBpB7qtJQb
-         98rx8RF2yX/kCP3QVQ2VVOxAmB4+oma6V9+c1rMgrtAwxyt0+82C5e8MI7UWMAO1imNP
-         T6RSdSA4htxZEokb4OksEYBVmRWmG3Q/weEhanMW7BjCz/yT9IqZNc0Ji6iyxXhIWWiy
-         c8GtK5IJhUqy/av7Pl7W7qgWAUGsFl9zwzaUbsszQlQBJbkbVeWmclWwfdlhYr8Q/Px4
-         shOXVfkgGcRG/343awB+JLEOybQm2foQQvDw2DXZurI2zGhbkCvWqIQT/qonR0t27/ey
-         OEpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790091274; x=1790696074;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KqNXgwrnC6/yf8ldr9VODDt8z7mpX7HYSVueoRJSAsQ=;
-        b=wOohWPsXYp07Wwmy0cNTJ9ecEaQ0wPX8TQkxojXkN1e8VnnVkVhOohu78KBbflIf3+
-         f+pjwxKsnAZXbLWIqmmQWsRrlI8NQgzaK6HLQNrKI00T0YsY3KMTLnoporYEWGJcihMW
-         ZtWgJEnzkQlI0ISGoEkYfE1soHDPBcXGgBKzeOX+/5s4E6wDZi4Nn7bHNTIka1qutPcc
-         WoSdCCbUipas69Bn5cI3LYpSdHebfBE0df4fzrM0Iu6leddLjdDRvVVjI4vfmOHHBU7f
-         QsBdUeu093jNd5FclWK3+Bm+RvqtiLuk6yFuWKPZBxiA32g1DSeioxIWzkELjoj1N4VM
-         q7Og==
-X-Gm-Message-State: AFuF++musD9aOZGuumH/s2c3ikjXOtAa/x9AHczl3YcHwRMwjEea2fIw
-	s8/mXDvo3ErQAtQUuSpkcuUoI9t9iS5D2ptOHwunO5ND3630Vv5TFHvXhG35xrUHaRvbZg==
-X-Gm-Gg: AYBFou0SUD/Lw8a+0xtymnfX2EJGqkYSGLaqCISI/KJuDUKIx8TAgYv23D3pE3LsH9W
-	pV4VdsdWUDc8V6fRSKfPxQ0KZlWJhl8tfta5M6W8j8g5k3yGPSR883drvCC6LOfmREJvRRj0QQx
-	+gtQUUym+TNfulL9DkP2LA8vB+8rWR3jvAEboIxvtGG1f0XgrxZ4L4MFf9IC/tuGUj+9vnV65fw
-	ye4gFU032ZRI8JWIRl/xPHUEkiuMX9ksbaaIO469b+XFnkJwmatPvmJKrzC/4Ttc1bjZZlmV83Q
-	MEwvXaenspViCXXy8fY5cTSfSXYUkPxAev6xmXYe1zquFeHmVtaVOfZtPTQREn69Veepzzq8gGC
-	BLjvdWboJFtww8NuGhxlAlSCgtGlaMpnDR47Z+B4kmCFl1pPQQzHtU+uVlwh++c3AlF7nWfqUbG
-	DY1OxrrrglKMftcfjSUggoUXrjVM0DltBheBqpvRcHQvcIGYLgceZ24VRLTizgZ5rhHPzQqb3EH
-	Gdd24ixx2jmaUQ=
-X-Received: by 2002:a05:6402:13d0:b0:6aa:a01e:f177 with SMTP id 4fb4d7f45d1cf-6aaa01ef223mr3266486a12.21.1790091273890;
-        Tue, 22 Sep 2026 08:34:33 -0700 (PDT)
-Received: from bbzr-mini (cool-t.fvds.ru. [103.137.251.133])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aaa450c4basm1272517a12.20.2026.09.22.08.34.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 08:34:33 -0700 (PDT)
-From: Vadim Nikitushkin <bub4z0r@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SJBgVEPo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 031121F000FF;
+	Tue, 22 Sep 2026 15:35:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790091356;
+	bh=ATECcJqOaCrnaGsX/XwJKJZPHw3ofx/9YFQfmJAaBr8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=SJBgVEPon9ur0fIS+3lpaiKPtoV0Ug11dDW6QknIbCJg+KdE/7O882MkehPo5wcMS
+	 Ct/bonx16QGXmcjjx5bAQx355KNQ/mdhHkPVKwkbCikarDa8/qzxMf82BvwDD2E2sR
+	 j8j/SR3PHVWI+heojGBjxg+SmTkvQl0GmKBZI3wDo3H6nw21xqtv403WH5NEvvwVKJ
+	 B+NVKG0hI5IpINenWFyi0aKHofdCFPWrlYAKOtyw6yB6DPXlTWyrdm/fPb0oNSXhEi
+	 JIujYIkaHDDPqWafsuF6RmFRoFKqxcLhcWhkrFGxcmYlfQL3GRG2KIG9OKwcAQHLrn
+	 yjo13Gb6UC9Eg==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: gregkh@linuxfoundation.org,
-	christian.koenig@amd.com,
-	thomas.hellstrom@linux.intel.com,
-	dri-devel@lists.freedesktop.org,
-	skainsworth@gmail.com,
-	Vadim Nikitushkin <bub4z0r@gmail.com>
-Subject: [PATCH 7.2.y] drm/ttm: fix swapped-out resources never leaving their bulk_move range
-Date: Tue, 22 Sep 2026 18:33:34 +0300
-Message-ID: <20260922153334.136648-1-bub4z0r@gmail.com>
+Cc: Jianbo Liu <jianbol@nvidia.com>,
+	Cosmin Ratiu <cratiu@nvidia.com>,
+	Steffen Klassert <steffen.klassert@secunet.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/3] xfrm: Refactor xfrm_input lock to reduce contention with RSS
+Date: Tue, 22 Sep 2026 11:35:52 -0400
+Message-ID: <20260922153554.2829723-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092253-dimness-unethical-2515@gregkh>
-References: <2026092253-dimness-unethical-2515@gregkh>
+In-Reply-To: <2026092225-extortion-shelving-5087@gregkh>
+References: <2026092225-extortion-shelving-5087@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-commit 3db7d7d583419f7b1f2e141e36418802dbb25cf8 upstream.
+From: Jianbo Liu <jianbol@nvidia.com>
 
-ttm_tt_swapout() returns the number of pages swapped out on success and
-a negative error code on failure; for a populated ttm it never returns
-zero. Commit b2ed01e7ad3d ("drm/ttm: Fix ttm_bo_swapout() infinite LRU
-walk on swapout failure") moved the bulk_move bookkeeping in
-ttm_bo_swapout_cb() under "if (!ret)", so the
-ttm_resource_del_bulk_move_unevictable() / ttm_resource_move_to_lru_tail()
-pair is now skipped on every successful swapout. The equivalent change
-for the shrinker in commit 1d59f36e95f7 ("drm/ttm: Fix ttm_bo_shrink()
-infinite LRU walk on backup failure") tests "lret > 0", which is what
-was intended here as well.
+[ Upstream commit 10a11861943902fda74f37f456b45183b2bca270 ]
 
-Before b2ed01e7ad3d the resource was taken off the bulk_move before the
-swapout; since then a swapped-out resource stays inside its BO's
-bulk_move range (and on the manager LRU) although it is unevictable.
-When it is later freed or the BO leaves the bulk_move
-(ttm_resource_free(), ttm_bo_set_bulk_move() via amdgpu_vm_bo_del()),
-ttm_resource_del_bulk_move() skips it because of its
-!ttm_resource_unevictable() guard, so a range endpoint in pos->first /
-pos->last is left pointing at freed memory. The next
-ttm_lru_bulk_move_tail() or ttm_resource_add_bulk_move() on that cursor
-is a use-after-free, seen as the resv WARN in ttm_lru_bulk_move_add(),
-"list_del corruption" in ttm_resource_move_to_lru_tail() or a NULL
-dereference in ttm_resource_manager_next() -- minutes to hours after a
-hibernation, or at process exit / reboot following one. Samuel
-Ainsworth's analysis of drm/amd issue 5387 (see Link) identified the
-dangling cursor; the missing removal at swapout time is the reason it
-dangles.
+With newer NICs like mlx5 supporting RSS for IPsec crypto offload,
+packets for a single Security Association (SA) are scattered across
+multiple CPU cores for parallel processing. The xfrm_state spinlock
+(x->lock) is held for each packet during xfrm processing.
 
-Testing the condition for success restores the removal. On an AMD
-Phoenix APU (ASUS UM3406GA, gfx1103) running suspend-then-hibernate on
-a 7.0.y stable kernel carrying the backport (Ubuntu 7.0.0-31) the bug
-crashed 5 of 18 hibernation cycles; a function profile of one
-hibernation showed 336 ttm_tt_swapout() calls and zero
-ttm_resource_del_bulk_move_unevictable() calls. With this change the
-removal happens for every swapped-out resource and 12 further cycles
-were clean.
+When multiple connections or flows share the same SA, this parallelism
+causes high lock contention on x->lock, creating a performance
+bottleneck and limiting scalability.
 
-Fixes: b2ed01e7ad3d ("drm/ttm: Fix ttm_bo_swapout() infinite LRU walk on swapout failure")
-Cc: stable@vger.kernel.org # v7.1+
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5387
-Link: https://lore.kernel.org/dri-devel/CAHYiNPa6aVacJoLOje-qZ1GyYx-9p0tN4NuP8D_eSL+UJeevXw@mail.gmail.com/
-Signed-off-by: Vadim Nikitushkin <bub4z0r@gmail.com>
-Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Christian König <christian.koenig@amd.com>
-Link: https://lore.kernel.org/r/20260909205028.13799-1-bub4z0r@gmail.com
-[ Squashed with commit fcfe64715b425262af1b36f498f9197f3537ceed
-  ("drm/ttm: apply the swapout bulk_move fix to the intended condition"):
-  upstream 3db7d7d58341 was applied to the "if (ret)" after
-  ttm_resource_try_charge() in ttm_bo_alloc_at_place() instead of the
-  "if (!ret)" after ttm_tt_swapout() in ttm_bo_swapout_cb(), and
-  fcfe64715b42 restored the former and changed the latter. 7.2.y has no
-  ttm_resource_try_charge() (dmem cgroup charging is 7.3 material), so
-  neither commit applies on its own; the net effect of the two is the
-  single hunk below, which is the change the changelog describes. ]
+The original xfrm_input() function exacerbated this issue by releasing
+and immediately re-acquiring x->lock. For hardware crypto offload
+paths, this unlock/relock sequence is unnecessary and introduces
+significant overhead. This patch refactors the function to relocate
+the type_offload->input_tail call for the offload path, performing all
+necessary work while continuously holding the lock. This reordering is
+safe, since packets which don't pass the checks below will still fail
+them with the new code.
+
+Performance testing with iperf using multiple parallel streams over a
+single IPsec SA shows significant improvement in throughput as the
+number of queues (and thus CPU cores) increases:
+
++-----------+---------------+--------------+-----------------+
+| RX queues | Before (Gbps) | After (Gbps) | Improvement (%) |
++-----------+---------------+--------------+-----------------+
+|         2 |          32.3 |         34.4 |             6.5 |
+|         4 |          34.4 |         40.0 |            16.3 |
+|         6 |          24.5 |         38.3 |            56.3 |
+|         8 |          23.1 |         38.3 |            65.8 |
+|        12 |          18.1 |         29.9 |            65.2 |
+|        16 |          16.0 |         25.2 |            57.5 |
++-----------+---------------+--------------+-----------------+
+
+Signed-off-by: Jianbo Liu <jianbol@nvidia.com>
+Reviewed-by: Cosmin Ratiu <cratiu@nvidia.com>
+Signed-off-by: Steffen Klassert <steffen.klassert@secunet.com>
+Stable-dep-of: 3cf5cdecd99c ("xfrm: save input state data before secpath resets")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/ttm/ttm_bo.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ net/xfrm/xfrm_input.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-index bcd76f6..ca6fc5c 100644
---- a/drivers/gpu/drm/ttm/ttm_bo.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo.c
-@@ -1178,7 +1178,7 @@ ttm_bo_swapout_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *bo)
+diff --git a/net/xfrm/xfrm_input.c b/net/xfrm/xfrm_input.c
+index cfee63a6c87d2..8b2d2bb72d362 100644
+--- a/net/xfrm/xfrm_input.c
++++ b/net/xfrm/xfrm_input.c
+@@ -504,6 +504,7 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
+ 		if (encap_type == -1) {
+ 			async = 1;
+ 			seq = XFRM_SKB_CB(skb)->seq.input.low;
++			spin_lock(&x->lock);
+ 			goto resume;
+ 		}
+ 		/* GRO call */
+@@ -540,6 +541,8 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
+ 				XFRM_INC_STATS(net, LINUX_MIB_XFRMINHDRERROR);
+ 				goto drop;
+ 			}
++
++			nexthdr = x->type_offload->input_tail(x, skb);
+ 		}
  
- 	if (ttm_tt_is_populated(tt)) {
- 		ret = ttm_tt_swapout(bdev, tt, swapout_walk->gfp_flags);
--		if (!ret) {
-+		if (ret > 0) {
- 			spin_lock(&bdev->lru_lock);
- 			ttm_resource_del_bulk_move_unevictable(bo->resource, bo);
- 			ttm_resource_move_to_lru_tail(bo->resource);
+ 		goto lock;
+@@ -637,11 +640,9 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
+ 			goto drop_unlock;
+ 		}
+ 
+-		spin_unlock(&x->lock);
+-
+ 		if (xfrm_tunnel_check(skb, x, family)) {
+ 			XFRM_INC_STATS(net, LINUX_MIB_XFRMINSTATEMODEERROR);
+-			goto drop;
++			goto drop_unlock;
+ 		}
+ 
+ 		seq_hi = htonl(xfrm_replay_seqhi(x, seq));
+@@ -649,9 +650,8 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
+ 		XFRM_SKB_CB(skb)->seq.input.low = seq;
+ 		XFRM_SKB_CB(skb)->seq.input.hi = seq_hi;
+ 
+-		if (crypto_done) {
+-			nexthdr = x->type_offload->input_tail(x, skb);
+-		} else {
++		if (!crypto_done) {
++			spin_unlock(&x->lock);
+ 			dev_hold(skb->dev);
+ 
+ 			nexthdr = x->type->input(x, skb);
+@@ -662,9 +662,9 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
+ 			}
+ 
+ 			dev_put(skb->dev);
++			spin_lock(&x->lock);
+ 		}
+ resume:
+-		spin_lock(&x->lock);
+ 		if (nexthdr < 0) {
+ 			if (nexthdr == -EBADMSG) {
+ 				xfrm_audit_state_icvfail(x, skb,
 -- 
 2.53.0
 
