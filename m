@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58733403AF8
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 08:24:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8657241A4E2
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 08:24:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790065467; cv=none; b=nk5+VKYlHrARZkqhy2wFJnL1zO4dPmrN014cpBMG4r/PbLC29d3lCHW4yQIzEw8oVJl1x1FQ/lRBxtX3KqXfRSi0USIcVs3/STlpFU9kCBW6rXWstUjpx5qxYUt9ZVK4DGhB8EWweYN7j8P36GCA7Cvt92E+03bZR/GPfUMa4NE=
+	t=1790065490; cv=none; b=cejtBIwNqSFV8EK1iLWqiuPlhbW+cc7ynsTIwnHrn1SK4BQVA4w9wptWTUflM0yFXb+5fiktRDDWXJs0jrAsNpcO7nYVtuvaOjCG0nVHriaH+ofRx5tuA4C0MgPHLRv01KwXNOf/TdvGGxNj3CSIdrrxG5HhzzP2tCZOikFR/p0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790065467; c=relaxed/simple;
-	bh=W+a1zqKAX9SYLgjiZBl+xb4cjZidKRSrVhKdo7Pd6Eg=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=E1iXtFGYuv5F6oV1+wrFfBebU382nWDkFtDLyt+/d+MVhX/FdyL+/orHceFLTHKucmLpLOTTncI6MpuZpXxXhoz5TXYJKu+pp6oiKPTvKrZGOI8qfG46ofSwVp+16D8OxU3l7Iv4RWfOKyA7BTjxm+/8B0qlbqub4dTmFwTI+IM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Y+laU7YL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790065490; c=relaxed/simple;
+	bh=MS4El0R8AG8atWKJq0bPRReWpsbAv8hM0YFC/HYJsnA=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=bNnjbmGtiIoICAtFNUA2Vb5gQkQHUEjI6FpuZc0C1RKCzXbAGWQcnL1EozeA9uurWGwsymVVsOAe3vPUREXa1wTbuHqh059Q0zY12yL1vVZVuiQnj3fpLVdqVHfWpAky5ixDh+Fqx3fdnkLkGvUZsrOB0x8dMyl7znuCB8iqvW8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=U7fiebic; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Y+laU7YL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E6F11F000FF;
-	Tue, 22 Sep 2026 08:24:24 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="U7fiebic"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 702361F000FF;
+	Tue, 22 Sep 2026 08:24:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790065465;
-	bh=TpA/nkpeJCJYh1eELEm6ybfm6rUd8Zc0peFZ/1XUpeI=;
+	s=korg; t=1790065489;
+	bh=LBFceQk/PVQfbwrb8GGNx0Ok92XoE3L4MQWJfiPHfIQ=;
 	h=Subject:To:Cc:From:Date;
-	b=Y+laU7YL4JiWPyZTqTlDhBpe8/JyUi4K5GeIfTJgZVLVfuveICL2bzdqccgdv/JzP
-	 42Ap+eXlBdRz0BPFY80W6VBzyhTyFxMLQpM50EAbr/Ovos70eTHsMz3hzESeEBlEb+
-	 JOg+6zTp3c0ozi8O6CCtJdkcvMfkeylyWD5JOxKM=
-Subject: FAILED: patch "[PATCH] 9p: Fix v9fs_issue_write() to update i_size and remote_i_size" failed to apply to 6.12-stable tree
-To: dhowells@redhat.com,asmadeus@codewreck.org,mike@method-b.uk
+	b=U7fiebic5hAit4nnEXUfb/VNg1UbTvD7c4HaPHynICcFtJJpUYv1Y6qryU+YPKFwm
+	 ksom3d6pUKcXyqFnmC8NmcfrqJ93rCU5tmR0Llrq+pmdVRWy0AHvYhxBbdGDjUuTPx
+	 bq3jxo470OVMwyOBrTueElgPmoiOjh/K8/FRpLAE=
+Subject: FAILED: patch "[PATCH] ALSA: usb-audio: Clamp implicit feedback packet count to URB" failed to apply to 6.18-stable tree
+To: xmei5@asu.edu,tiwai@suse.de
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 22 Sep 2026 10:24:22 +0200
-Message-ID: <2026092222-rubbing-overplay-5a22@gregkh>
+Date: Tue, 22 Sep 2026 10:24:45 +0200
+Message-ID: <2026092245-renewably-elevate-ca0d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x c60ae98c5aa64021751b38ab1313b19d620bf640
+git cherry-pick -x 76a986c980bb502c7688d605ac7a67fd257a9a1b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092222-rubbing-overplay-5a22@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092245-renewably-elevate-ca0d@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,67 +62,103 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From c60ae98c5aa64021751b38ab1313b19d620bf640 Mon Sep 17 00:00:00 2001
-From: David Howells <dhowells@redhat.com>
-Date: Fri, 11 Sep 2026 10:25:04 +0100
-Subject: [PATCH] 9p: Fix v9fs_issue_write() to update i_size and remote_i_size
+From 76a986c980bb502c7688d605ac7a67fd257a9a1b Mon Sep 17 00:00:00 2001
+From: Xiang Mei <xmei5@asu.edu>
+Date: Sat, 12 Sep 2026 13:05:30 -0700
+Subject: [PATCH] ALSA: usb-audio: Clamp implicit feedback packet count to URB
+ capacity
 
-Fix v9fs_issue_write() to update i_size and remote_i_size to the new size
-of the server file if we made it larger, using the start fpos and the count
-returned by p9_client_write() to calculate the new minimum file size.
+data_ep_set_params() allocates each data URB for exactly u->packets
+isochronous frames, so urb->iso_frame_desc[] has u->packets slots and
+ctx->packets is the driver's only record of that limit. For an implicit
+feedback sink, snd_usb_queue_pending_output_urbs() overwrites it with the
+sync source's packet count, which is calculated independently from the
+capture endpoint's parameters. When that count is larger,
+prepare_playback_urb() and prepare_silent_urb() can write
+iso_frame_desc[] past the allocation; their existing bounds limit payload
+bytes, not the descriptor index.
 
-This assumes that if the 9P server makes a short write (say it hits
-ENOSPC), a reduced count is returned.
+The reproducer uses a high-speed UAC2 device declaring bInterval 1 for
+implicit feedback capture (8 packets) and bInterval 4 for playback
+(1 packet). On the first capture completion after the stream starts, it
+accesses seven descriptors spanning 112 bytes beyond the one-packet URB:
 
-Fixes: 5fb70e7275a6 ("netfs, 9p: Implement helpers for new write code")
-Reported-by: Michael Mulqueen <mike@method-b.uk>
-Closes: https://lore.kernel.org/r/fbb9e395-1e07-4212-8f70-23f3cd498074@method-b.uk/
+  BUG: KASAN: slab-out-of-bounds in prepare_playback_urb (sound/usb/pcm.c:1560)
+  Write of size 4 at addr ffff88801e696ad0 by task vhci_rx/178
+   prepare_playback_urb (sound/usb/pcm.c:1560)
+   prepare_outbound_urb (sound/usb/endpoint.c:340)
+   snd_usb_queue_pending_output_urbs (sound/usb/endpoint.c:501)
+   snd_complete_urb (sound/usb/endpoint.c:1834)
+   __usb_hcd_giveback_urb (drivers/usb/core/hcd.c:1657)
+   usb_hcd_giveback_urb (drivers/usb/core/hcd.c:1741)
+   vhci_rx_loop (drivers/usb/usbip/vhci_rx.c:107)
+   kthread (kernel/kthread.c:436)
+  The buggy address belongs to the object at ffff88801e696a00
+   which belongs to the cache kmalloc-256 of size 256
+  The buggy address is located 0 bytes to the right of
+   allocated 208-byte region [ffff88801e696a00, ffff88801e696ad0)
+
+Record the allocated packet count per endpoint and clamp both the adopted
+count and the packet-size copy to it. Fold the Format Type II delimiter
+into urb_packs before the allocation loop so the recorded limit matches
+every URB.
+
+Fixes: cf044e441902 ("ALSA: usb-audio: Update the number of packets properly at receiving")
+Reported-by: co+8eacd4fa193b1b28@bugs.sh
+Closes: https://lore.kernel.org/all/22xPn8drvIUtYgVeQnBiNqXuevOTpBAjepLz%40bugs.sh/
 Cc: stable@vger.kernel.org
-Signed-off-by: David Howells <dhowells@redhat.com>
-Message-ID: <2226525.1789118704@warthog.procyon.org.uk>
-Signed-off-by: Dominique Martinet <asmadeus@codewreck.org>
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Xiang Mei <xmei5@asu.edu>
+Link: https://patch.msgid.link/20260912200530.1955491-1-xmei5@asu.edu
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 
-diff --git a/fs/9p/vfs_addr.c b/fs/9p/vfs_addr.c
-index 1ac0b3dcc077..13cf87a5f90c 100644
---- a/fs/9p/vfs_addr.c
-+++ b/fs/9p/vfs_addr.c
-@@ -54,11 +54,37 @@ static void v9fs_begin_writeback(struct netfs_io_request *wreq)
- static void v9fs_issue_write(struct netfs_io_subrequest *subreq)
- {
- 	struct p9_fid *fid = subreq->rreq->netfs_priv;
-+	struct inode *inode = subreq->rreq->inode;
-+	struct netfs_inode *ictx = netfs_inode(inode);
- 	int err, len;
+diff --git a/sound/usb/card.h b/sound/usb/card.h
+index e34d92d576a2..8299ac241c60 100644
+--- a/sound/usb/card.h
++++ b/sound/usb/card.h
+@@ -116,6 +116,7 @@ struct snd_usb_endpoint {
+ 	unsigned int phase;		/* phase accumulator */
+ 	unsigned int maxpacksize;	/* max packet size in bytes */
+ 	unsigned int maxframesize;      /* max packet size in frames */
++	unsigned int max_urb_packs;	/* packets allocated per data URB */
+ 	unsigned int max_urb_frames;	/* max URB size in frames */
+ 	unsigned int curpacksize;	/* current packet size in bytes (for capture) */
+ 	unsigned int curframesize;      /* current packet size in frames (for capture) */
+diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
+index 0835943d7b0e..b72ce1e9bfb1 100644
+--- a/sound/usb/endpoint.c
++++ b/sound/usb/endpoint.c
+@@ -492,9 +492,10 @@ int snd_usb_queue_pending_output_urbs(struct snd_usb_endpoint *ep,
  
- 	len = p9_client_write(fid, subreq->start, &subreq->io_iter, &err);
--	if (len > 0)
-+	if (len > 0) {
-+		uoff_t end = subreq->start + len, i_size, remote, zp;
-+		bool set = false;
-+
-+		spin_lock(&inode->i_lock);
-+
-+		/* We can read the sizes directly as we hold i_lock. */
-+		i_size = inode->i_size;
-+		remote = ictx->_remote_i_size;
-+		zp = ictx->_zero_point;
-+
-+		if (end > i_size) {
-+			i_size = end;
-+			set = true;
-+		}
-+		if (end > remote) {
-+			remote = end;
-+			set = true;
-+		}
-+
-+		if (set)
-+			netfs_write_sizes(inode, i_size, remote, zp);
-+		spin_unlock(&inode->i_lock);
-+
- 		__set_bit(NETFS_SREQ_MADE_PROGRESS, &subreq->flags);
-+	}
- 	netfs_write_subrequest_terminated(subreq, len ?: err);
- }
+ 		/* copy over the length information */
+ 		if (implicit_fb) {
+-			ctx->packets = packet->packets;
++			ctx->packets = min_t(int, packet->packets,
++					     ep->max_urb_packs);
+ 			memcpy(ctx->packet_size, packet->packet_size,
+-			       packet->packets * sizeof(packet->packet_size[0]));
++			       ctx->packets * sizeof(packet->packet_size[0]));
+ 		}
  
+ 		/* call the data handler to fill in playback data */
+@@ -1242,15 +1243,16 @@ static int data_ep_set_params(struct snd_usb_endpoint *ep)
+ 			ep->nurbs = min(max_urbs, urbs_per_period * ep->cur_buffer_periods);
+ 	}
+ 
++	if (fmt->fmt_type == UAC_FORMAT_TYPE_II)
++		urb_packs++; /* for transfer delimiter */
++	ep->max_urb_packs = urb_packs;
++
+ 	/* allocate and initialize data urbs */
+ 	for (i = 0; i < ep->nurbs; i++) {
+ 		struct snd_urb_ctx *u = &ep->urb[i];
+ 		u->index = i;
+ 		u->ep = ep;
+ 		u->packets = urb_packs;
+-
+-		if (fmt->fmt_type == UAC_FORMAT_TYPE_II)
+-			u->packets++; /* for transfer delimiter */
+ 		u->buffer_size = maxsize * u->packets;
+ 		u->urb = usb_alloc_urb(u->packets, GFP_KERNEL);
+ 		if (!u->urb)
 
