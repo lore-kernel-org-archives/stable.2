@@ -1,145 +1,183 @@
-Received: from mta1.migadu.com (out-71.mta1.migadu.com [95.215.58.71])
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A343E38F954
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 02:35:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.71
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790044503; cv=none; b=QuTwUwIbOw94739tZ6ZoMQKnZGyUQMsFOQDubieowAJzpGuyvjEPdRsGumbcNvURe6uRbn6GE0zBaQGrSeBgi4L8DF14A4LtcIE6jf7O5SfljLsgMSqCAVrxye3SkmkeN/49S0UT2Iou8Bk/ABrWXROU1MIfocqguD6JuzksXDA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790044503; c=relaxed/simple;
-	bh=whZxFE06ngNi6m7iZYGv3lT4S6CYGGhwLE/SdTxm/LU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=NvitVngsGQTVPfAVQoM7rWe9NuTBOUMfRMEOZUfYDWLby871rAtPlkqLa0inuD1SQp8N2D7BGVJGWpjfx8uZTh6G6fmHhbcIL7ObOiF0a7suG4UV7oVBcP6yOBFwA7L2dGTcnwyv/Myaz31+bcXgnSSwTmEw3UH9NAulmk3q4KA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ZR6V2xjL; arc=none smtp.client-ip=95.215.58.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 592D1383993
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 02:38:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790044710; cv=pass; b=YFql0KcJpY1eUAlyGOgABh9m8LHtof1fkD1eNtNt74Z0k2TcOynw9cMzeoaADnX6sAxk8cyGRkR9U9nZoCf3qLdbIA21Wndctr8ixdcARWMV+JqQAlR1kn5lNxqOZl9sOwHbZcrj5fIq1gp2ff0IKdmzN393HuOM0ciSbRcPTVs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790044710; c=relaxed/simple;
+	bh=WbSgfukLRhlbeKFLy822gliOp3+chBonUKVsDk9aHns=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=JwCsT7RFGfJYmodgvTDaRFOeQZcgFAWk1Dul3VbF8lpXW0V9R37/Ac5RoULj64ZUK6dAmV3xN6RMdqHx6L00E6UBJlte5Npjy9mFVJBlFXxeOTMYxbg+qvrOTmwB2R0ZCGDG/trrVxgV7STu49jg4vtaqMv4kR5isyxVKEmHLtc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q9Iiscu8; arc=pass smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ZR6V2xjL"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=whZxFE06ngNi6m7iZYGv3lT4S6CYGGhwLE/SdTxm/LU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790044498; v=1; x=1790649298;
- b=ZR6V2xjLePExbG3feuqR8sCqRepq2VRl8vgEN9NogtbpC8rgxupWgt3kt3YtKV7J6TgD5NHd
- jSDLO8C5uat0Ebl1gsv+IhWENaVS0hSAIGH33V85Tb5I+0+FeTQb/AFIhAFuxkQs2OKWeSsO7+H
- 4IJ5D5J1HuMTD3/qm5ktqurw=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d068ef4ae6c970bb;
-	Tue, 22 Sep 2026 02:34:58 +0000
-X-Mizu-Trace-ID: d068ef4ae6c970bb
-X-Migadu-Flow: FLOW_OUT
-From: Hao Ge <hao.ge@linux.dev>
-To: David Howells <dhowells@redhat.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>
-Cc: netfs@lists.linux.dev,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hao Ge <hao.ge@linux.dev>,
-	Erhard Furtner <erhard_f@mailbox.org>,
-	stable@vger.kernel.org
-Subject: [PATCH] netfs: Fix missing alloc tagging of direct mempool allocations
-Date: Tue, 22 Sep 2026 10:35:41 +0800
-Message-Id: <20260922023541.51532-1-hao.ge@linux.dev>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q9Iiscu8"
+Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66fded6b087so3544692d50.1
+        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 19:38:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790044708; cv=none;
+        d=google.com; s=arc-20260327;
+        b=RIVnQWGvJ6B4kqFWaMahBr4DAQdUcfcwgZ3EdN2Y605uMZ/XjrvCLTbU4mfVrf+2r0
+         dB2eYIlmgi1t7spHBLCa61yqcU30OIugJBX6FsjV3zd7cy/q8wo7r5KYFDfa4GgzS5QZ
+         4PYB1uLinloNAFRnT41jMiIEw8IzMpmoX2XbORHpSR8gqxcLHUjihYNonRUZgRgOpT7S
+         aGT5czBLl4zZGzqVo3c8x1plGVvjNo09SjVweCxkfUzzHF0GEI17MmP8htKWcmzuMTMF
+         Vn+HJHAZ29EGTaNEKpG0mT2Bke9L50dify/ipp5o4fMUZZZj/hIXc6Kuwy1TUbBWqObG
+         252Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=i+YOLUgl686GA9xLdxwBjrm4qOHndQYdgO5GBb0/IXw=;
+        fh=B8lnrxOtIJBu0vAxo/mQ7gY7s1EBNvwRf5YMuZIDerI=;
+        b=F/JwaMi0Fj+kj/HV1OnNChnEiPFFcwSs1XEwCLz/P6dgxi/RotLuEkemcXu/AIOFTG
+         5/0c0iUWPz8dHO1Q7oJlJa7DXzZriSZhtN6aq+10dMMc8wnztw6m4FxF8yKb3CYISS03
+         J11VwMPL+RidnINEG24GEQTrYdCltz0wjx61FAkSHoletS2tf4ZtjBAdww6dYPeQQohg
+         4Pu5NMnVm5GVKvOlj+diB9D9yZRNnHUGJaLiQUQVK1Vkd0xO1IMlsIBWJtomleCMBSnt
+         BtTj4i2EVR5TgqDOPaTPDvqG5c2l5UujIdCiE+sjjVX3pSGuYTCTeWZQoqk8xmfL0sOF
+         nnSg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790044708; x=1790649508; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=i+YOLUgl686GA9xLdxwBjrm4qOHndQYdgO5GBb0/IXw=;
+        b=q9Iiscu85T7PbDBOf3XfGOjjE2szbejlfeeomMtQaUoh2lIfTD3TVTUg1l1v+H6x0u
+         2MeEF/D1hJRsIqmQXECa91jNsvywWHxrZAw6G7TJj9VqqDjtCjQdie9l934Ufg1Kaobz
+         1o6pc/mZnFO0pQtmikPsOyYnbaZaIoZ5LbhFS+pJPxqq59339iMzgquyzFe0+X1S8Kwz
+         rEhdGsf3r8RrcW1xgI4/YyHbG2HjOf8peeVIg4+0dBoFRnSPPZiWP2HrSSaldEeHxISa
+         UUKtX5kW77tP49yXyYbeFgzLVlK1+KI8I3ddCD4k+i2OPkL41n9jouL9NtX6YvhR5U2Q
+         oFhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790044708; x=1790649508;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=i+YOLUgl686GA9xLdxwBjrm4qOHndQYdgO5GBb0/IXw=;
+        b=o7bWfzQwXyBRRBG+4BcEsBCtmSsx1rm8/9sDlI8zYftLbAjqxUIv3UO8gT8r4Xz+uJ
+         SvbR19no32ty5QEki9vlHscwwiKAxcGGfNKmEE931G++6HCWoutddO8Z1FOTU0kMVujn
+         vVMlyGjDPfcRw9eH61GhzNluLBTzZehgSyzisSnvt+3DTwpo/n0ohTPXr/tCkTQgiOe3
+         vw9u0MpbQnB9MuyPzCWOpCM7eMsoQ+U3ZC95cq0oxdszxXhoCfWPyTfFfLomtNd1VuG8
+         UcHKJuD8rByWwZ2ccgEpAv6dnJjjUk5D4LejhT5I2jcZ2yM6SxMdTfmh3vRHfGIK3RhX
+         hEKQ==
+X-Gm-Message-State: AFuF++mnFWK7B+3mUddyFTDSgrDH+DKD4iRdf3XqIVotJvsHRNEToEVb
+	YdfRbWaTX9Fp3p9Y9v6vNmc2K1dJwOQzllNjqpSHyfJpk3oQXUUbDusRylSd/0S8D8uFAdcMiVY
+	0zJrt9R+jPVMAqZ6aOFSGqkvVE+Fy678=
+X-Gm-Gg: AYBFou0KFlGQ3idgQAYxY4EFzU8eUgy91IjYpqrs9W6b7tfQwXIU0wtqCLvKhttZ9Lb
+	Nwvc3cHHAxUKb3npZhmCG4yXb8hvEak2pVyxnRk+4f/qW0WmT6E51AMvb/e6lcTF0N5z1eMlWIj
+	huYVA5HE14v1NVaa7eQrkPJhpEtdZBUHK4N2/C64aiQcVuJrdguXEERbR6GJDvjT8NC01VIhwum
+	/1uPbQ24uk/sjl+PAJDoCL0s/NTwu8s9dzQ6y4sCAsDPqDNM+IQo1LCWhGtyInjVtC6fKPKaU/A
+	avwY4nxpTSITmqW6TbspTqYgcIkZe82JB51BbsFuemau1JD9YfP7YOT5gg==
+X-Received: by 2002:a05:690e:4548:20b0:670:fe0f:fe39 with SMTP id
+ 956f58d0204a3-6717fdfd203mr2973986d50.88.1790044708293; Mon, 21 Sep 2026
+ 19:38:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260921075312.120983-1-lgs201920130244@gmail.com> <arFH0ridHWo3Z_w9@quoll>
+In-Reply-To: <arFH0ridHWo3Z_w9@quoll>
+From: Guangshuo Li <lgs201920130244@gmail.com>
+Date: Tue, 22 Sep 2026 10:38:15 +0800
+X-Gm-Features: AcwNN1XWb8ExjcuFj63-aya245KYEcnQa1inFwfN-VmRqAKafLrlWEitnVlBJsg
+Message-ID: <CANUHTR9tUL6Dif8MoJ92w0TQYx42zc6jksN8D5_0nHbRVE0aLg@mail.gmail.com>
+Subject: Re: [PATCH] platform/x86: simatic-ipc: fix platform device leak on
+ registration failure
+To: krzk@kernel.org
+Cc: stable@vger.kernel.org, 
+	Benedikt Niedermayr <benedikt.niedermayr@siemens.com>, linux-kernel@vger.kernel.org, 
+	Tobias Schaffner <tobias.schaffner@siemens.com>, platform-driver-x86@vger.kernel.org, 
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	Hans de Goede <hansg@kernel.org>, Bao Cheng Su <baocheng.su@siemens.com>, 
+	Henning Schild <henning.schild@siemens.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Commit 1d78d56c43ef ("netfs: Fix folio_queue ENOMEM in writeback by
-adding a mempool") added a mempool for the folio_queues and made the
-request, subrequest and folio_queue allocations distinguish between
-writeback and everything else.  Writeback is part of memory reclaim
-and must not fail due to ENOMEM, so it allocates under GFP_NOFS
-through mempool_alloc(), which may dip into the pool's reserve and,
-if that runs empty, wait for elements to be returned.  The
-GFP_KERNEL paths, which can return -ENOMEM to their callers, invoke
-the pool's ->alloc() callback directly instead.
+Hi Krzysztof,
 
-The direct call, however, skips the alloc_hooks() wrapper that the
-mempool_alloc() macro provides.  The pool callbacks, mempool_alloc_slab()
-and mempool_kmalloc(), call kmem_cache_alloc_noprof() and kmalloc_noprof()
-and rely on current->alloc_tag having been set by the caller.  With
-CONFIG_MEM_ALLOC_PROFILING_DEBUG=y this leads to
+Thank you for your feedback.
 
-    current->alloc_tag not set
-    WARNING: ./include/linux/alloc_tag.h:161 at __alloc_tagging_slab_alloc_hook
-    alloc_tag was not set
-    WARNING: ./include/linux/alloc_tag.h:166 at __alloc_tagging_slab_free_hook
+On Mon, 21 Sept 2026 at 23:05, <krzk@kernel.org> wrote:
+>
+>
+> On Mon, 21 Sep 2026 15:53:12 +0800, Guangshuo Li wrote:
+> > register_platform_devices() creates multiple platform devices using
+> > platform_device_register_data(), but returns directly when a later
+> > platform device registration fails.
+> >
+> > If LED or watchdog platform device registration fails, previously
+> > registered platform devices are left registered. Since module init
+> > failure does not invoke the module exit cleanup path, these platform
+> > devices remain allocated and their backing platform_object memory is
+> > leaked.
+> >
+> > Unregister successfully created platform devices on registration failure
+> > paths to restore the missing cleanup.
+> >
+> > The issue was identified by a static analysis tool I developed and
+> > confirmed by manual review.
+> >
+> > Fixes: dd123e62bded ("platform/x86: simatic-ipc: add main driver for Siemens devices")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> > ---
+> >  drivers/platform/x86/siemens/simatic-ipc.c | 40 ++++++++++++++++++----
+> >  1 file changed, 34 insertions(+), 6 deletions(-)
+> >
+>
+>
+> You sent multiple independent patches, to multiple independent
+> subsystems. The amount of these patches clearly suggest this was
+> AI generated and most likely not tested.
+>
+> More importantly, you sent all this work without properly organizing
+> relevant patches into patchsets. This makes reviewing difficult
+> and might cause multiple reviewers to address the same issue.
+> Replying to the entire set is impossible and requires handling each
+> patch independently, instead of applying or discarding the set.
+> Maintainers also won't see the bigger picture of your work. Quite
+> worrying.
+>
+> This is on the verge of hostile patch: bomb us with so many
+> contributions, we won't be able to handle them in efficient manner,
+> like responding ONCE to ask you to slow down.  Considering all this
+> is untested and LLM generated, I have even more doubts whether this
+> should be considered for review.
+>
+> Please read kernel documentation BEFORE posting more work. It will
+> explain you how to identify subsystems, how to organize your work per
+> subsystem, how to document usage of LLM and how what you should not
+> do if this was posted in a good faith.
+>
+> Best regards,
+> Krzysztof
+>
+>
+>
 
-at allocation and free time respectively, as reported when reading
-files on a CIFS mount.  The allocations are also missing from
-/proc/allocinfo.
+I would like to clarify that these patches were manually reviewed and
+audited by us; they were not simply generated and submitted by an LLM.
+However, I understand why the recent submission pattern may have given
+that impression. We sent too many patches in a short period of time,
+and we also failed to respond to some discussions in a timely manner,
+which made the situation look worse.
 
-Wrap the direct ->alloc() invocations in alloc_hooks() with the new
-netfs_mempool_alloc_noreserve() helper.  The GFP_KERNEL paths keep their
-failable allocation semantics, they just get tagged now.
+Many of the recent patches, especially the v2 revisions, are
+corrections and improvements based on previous review feedback rather
+than completely new untested changes. That said, we recognize that the
+way we submitted them increased the burden on maintainers and
+reviewers.
 
-Fixes: 1d78d56c43ef ("netfs: Fix folio_queue ENOMEM in writeback by adding a mempool")
-Reported-by: Erhard Furtner <erhard_f@mailbox.org>
-Closes: https://lore.kernel.org/all/0b004319-9ef7-437c-a4dd-174d6a9a83db@mailbox.org/
-Tested-by: Erhard Furtner <erhard_f@mailbox.org>
-Cc: stable@vger.kernel.org
-Signed-off-by: Hao Ge <hao.ge@linux.dev>
----
- fs/netfs/internal.h       | 3 +++
- fs/netfs/objects.c        | 4 ++--
- fs/netfs/rolling_buffer.c | 2 +-
- 3 files changed, 6 insertions(+), 3 deletions(-)
+We apologize for the pressure this caused to the community. We will be
+more careful about organizing patches by subsystem, preparing proper
+patchsets, and following the kernel contribution guidelines before
+sending future work.
 
-diff --git a/fs/netfs/internal.h b/fs/netfs/internal.h
-index c79c8e69d60c..08ba7f0ebff0 100644
---- a/fs/netfs/internal.h
-+++ b/fs/netfs/internal.h
-@@ -45,6 +45,9 @@ extern mempool_t netfs_request_pool;
- extern mempool_t netfs_subrequest_pool;
- extern mempool_t netfs_folioq_pool;
- 
-+#define netfs_mempool_alloc_noreserve(_pool, _gfp)				\
-+	alloc_hooks((_pool)->alloc(_gfp, (_pool)->pool_data))
-+
- #ifdef CONFIG_PROC_FS
- static inline void netfs_proc_add_rreq(struct netfs_io_request *rreq)
- {
-diff --git a/fs/netfs/objects.c b/fs/netfs/objects.c
-index 7f6a3e912602..0b509c93d4af 100644
---- a/fs/netfs/objects.c
-+++ b/fs/netfs/objects.c
-@@ -34,7 +34,7 @@ struct netfs_io_request *netfs_alloc_request(struct address_space *mapping,
- 
- 		rreq = mempool_alloc(mempool, gfp);
- 	} else {
--		rreq = mempool->alloc(gfp, mempool->pool_data);
-+		rreq = netfs_mempool_alloc_noreserve(mempool, gfp);
- 		if (!rreq)
- 			return ERR_PTR(-ENOMEM);
- 	}
-@@ -214,7 +214,7 @@ struct netfs_io_subrequest *netfs_alloc_subrequest(struct netfs_io_request *rreq
- 	struct kmem_cache *cache = mempool->pool_data;
- 
- 	if (rreq->gfp == GFP_KERNEL)
--		subreq = mempool->alloc(rreq->gfp, mempool->pool_data);
-+		subreq = netfs_mempool_alloc_noreserve(mempool, rreq->gfp);
- 	else
- 		subreq = mempool_alloc(mempool, rreq->gfp);
- 	if (!subreq)
-diff --git a/fs/netfs/rolling_buffer.c b/fs/netfs/rolling_buffer.c
-index 424e77a9a109..54867ceaa205 100644
---- a/fs/netfs/rolling_buffer.c
-+++ b/fs/netfs/rolling_buffer.c
-@@ -29,7 +29,7 @@ struct folio_queue *netfs_folioq_alloc(unsigned int rreq_id, gfp_t gfp,
- 	struct folio_queue *fq;
- 
- 	if (gfp == GFP_KERNEL)
--		fq = netfs_folioq_pool.alloc(gfp, netfs_folioq_pool.pool_data);
-+		fq = netfs_mempool_alloc_noreserve(&netfs_folioq_pool, gfp);
- 	else
- 		fq = mempool_alloc(&netfs_folioq_pool, gfp);
- 	if (fq) {
--- 
-2.25.1
+Thank you again for pointing this out.
 
+Best regards,
+Guangshuo
