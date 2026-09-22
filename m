@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8F7C471269
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEA1D46D571
 	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 17:51:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790099483; cv=none; b=VDtF3UO+X429J5056n8RUSFEtMwTgfjbGjhB6d4cLl/z4anjZ+cU+YNxep7PxujpG0/TW1O7bsto8hxCx7Rn1wvb46vq+D7jm5fYPwORK+vxAzQXIMQ8WujDLM3F/OyLjGOPrrsFBcGACqAdqj7Aila+gEO+gazD2Tr1xzX9e7Y=
+	t=1790099483; cv=none; b=P/pg/ez/QbiXKybLi9/j/+LAqNryjZZ1f019L/lpr1dvB+rEwVsMXzj329alibgWhtyKJJtmUgQAST0uWWbN/mBg95x0RPcfIaJoexPm8GKdE9zplkniGUhpz8yX9qhbXtln/Xawibqs/3bpxTRliyjO17Zl2uKqg6Hscw1Qac0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790099483; c=relaxed/simple;
-	bh=P0xSKV92wE5c+XcGNhho/1VgCGhSIK9sO5k0vXf2t7Y=;
+	bh=fVolzbCZG8gOVYmhPIFnew56YI4yN2ZD1uBhyxFN9ZI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=M0RYCUlnK8Ednz/ueusyZjavSdGMNOAMGHl7nE3NfiWXOrwcq1G/589FDj3bwgRyCOz0BPudvgxJXIWavp0qWvErNc7FPgRMKrmEbGKAiCSl7BsEMBR99XObTTwg/4i7/NPb+pciXPEuwc8/Xx9gPV398N1/hpney87JDiyGt2A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DOh6qmj1; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=YhIz8xDrjtOqxcXJXs6iuC/x0/zOFOFH2XAmp3Zg1qlQepQ8xV7W3+9djZyG3cSEYVLN6if2lK98ZHaqfhAGFb+Fz1ZTp50fSXOvGrEzm+x7shjBiPBZ64fdKeRAHgdCMH0EFET7tv84QBlUfgHHCxASJ1rrievrRzDvtgaqXfs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R2T3Zfgp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DOh6qmj1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14A821F00898;
-	Tue, 22 Sep 2026 17:51:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R2T3Zfgp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B206C1F000FF;
+	Tue, 22 Sep 2026 17:51:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1790099481;
-	bh=UcUM1ymPb6iusR3VVtoDCLJTkBIw3QsvQ4z3+0eY+Lg=;
+	bh=eBhpQcvgZ9Hr1gCQ14I7SyOX9nidLJFwnptwNuJndyI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DOh6qmj1G270b26eKQRUeRRPiRLBHLfNc1k2Q2AYLzwCcvLFJsH6iG0fy4JhBlM2X
-	 DfuP/jTgZIUQV6I5PMlbZC8OluaAgNMjFDAw7VxcgcO2FpAwXA7YLU0BeIuocKpFqY
-	 F9VCm/gjGkgokY21oWJ9rGfDxCj2TU9QL+XqyQDpq1v0d2Ifv1Di8lztX217YC+6GD
-	 XEIhOPqC0K1Cl6hL4F7j+lxCSQ/F54WA0HRq8+0kGrhhgd7aYAZ6rOBah192u5mJDq
-	 C1Qu2D4e+1k41FHxgI6rEEQe+xkqB3JOk04fDLn/pEyTX2qlnPiUyxbh2O51nHzUpg
-	 dR2kGFc4LU7VA==
+	b=R2T3ZfgpC9hwW5BLGHmqQsNRQfD5nzyRAmx3bq8HgLvqGPPsJZ5ZkqHdHKka3o+Pg
+	 rDCQvBcgih+rHYwhrPP9vXhe9zjXx74Zl8+PHppDQ/ZZbDZ3rw+1eqIqoyyMPWS98L
+	 8AUmbp4pd9OvtM2jxS8cPl51MhQdtItkGSQ1lD3XOX6VdqM7Otd0i3GXJ/zJkaf5Pf
+	 o9vP+oJhOv324pGhQKxmAffUjBaErbaSpEwmsXLT7GHYUROhX3SzGb4Mo2amVoQMZl
+	 Gybj4P3XmZ5Hi2SXQRfM/bY2b2exFune3MJGY+uN1H9jac6eouzKV8v7HW590Uj5sj
+	 W79nf5jP6olJw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
+Cc: Yifei Gao <gyf161023@gmail.com>,
+	Ulf Hansson <ulfh@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 3/3] i2c: imx: disable autosuspend on remove
-Date: Tue, 22 Sep 2026 13:51:15 -0400
-Message-ID: <20260922175115.3308967-3-sashal@kernel.org>
+Subject: [PATCH 5.10.y] memstick: ms_block: destroy io_queue workqueue on removal
+Date: Tue, 22 Sep 2026 13:51:19 -0400
+Message-ID: <20260922175119.3309427-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260922175115.3308967-1-sashal@kernel.org>
-References: <2026092239-arguable-reunion-62af@gregkh>
- <20260922175115.3308967-1-sashal@kernel.org>
+In-Reply-To: <2026092240-eel-composure-463d@gregkh>
+References: <2026092240-eel-composure-463d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,49 +45,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Guangshuo Li <lgs201920130244@gmail.com>
+From: Yifei Gao <gyf161023@gmail.com>
 
-[ Upstream commit e0c3e9d76adbe522dd420a766ce42d03ce887c29 ]
+[ Upstream commit 90af7fde083e1b22c349c3a8b1626728e44e474c ]
 
-i2c_imx_probe() enables runtime PM autosuspend with
-pm_runtime_use_autosuspend(). The probe error path correctly undoes
-this setting with pm_runtime_dont_use_autosuspend(), but the normal
-remove path only disables runtime PM.
+msb_init_disk() creates the per-card ordered workqueue msb->io_queue with
+alloc_ordered_workqueue(). It is torn down with destroy_workqueue() only
+on the init error path; msb_remove() never destroys it. msb_stop() merely
+flushes the queue, and neither msb_data_clear() nor put_disk() free it. As
+a result every card insert/remove cycle leaks the workqueue and its
+kworker, exhausting kernel memory over repeated cycles.
 
-The runtime PM API requires pm_runtime_use_autosuspend() to be undone
-with pm_runtime_dont_use_autosuspend() at driver exit unless runtime PM
-was enabled with devm_pm_runtime_enable(). Leaving the autosuspend flag
-set therefore leaves the runtime PM state incompletely cleaned up after
-the driver is unbound.
+Destroy the workqueue in msb_remove() after the disk has been removed and
+the queue drained.
 
-Add the missing pm_runtime_dont_use_autosuspend() call to the remove
-path.
-
-This issue was found by manual code inspection.
-
-Fixes: 588eb93ea49f ("i2c: imx: add runtime pm support to improve the performance")
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: <stable@vger.kernel.org> # v4.5+
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
-Link: https://patch.msgid.link/20260914091544.1667137-1-lgs201920130244@gmail.com
+Fixes: 0ab30494bc4f ("memstick: add support for legacy memorysticks")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Yifei Gao <gyf161023@gmail.com>
+Signed-off-by: Ulf Hansson <ulfh@kernel.org>
+[ adjusted context to retain msb_disk_release() instead of upstream put_disk(). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/i2c/busses/i2c-imx.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/memstick/core/ms_block.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/i2c/busses/i2c-imx.c b/drivers/i2c/busses/i2c-imx.c
-index 7bba042bf2e53..3ef97023c4bb5 100644
---- a/drivers/i2c/busses/i2c-imx.c
-+++ b/drivers/i2c/busses/i2c-imx.c
-@@ -1355,6 +1355,7 @@ static void i2c_imx_remove(struct platform_device *pdev)
+diff --git a/drivers/memstick/core/ms_block.c b/drivers/memstick/core/ms_block.c
+index 1d9e83baf6414..f4c0177460b02 100644
+--- a/drivers/memstick/core/ms_block.c
++++ b/drivers/memstick/core/ms_block.c
+@@ -2226,6 +2226,8 @@ static void msb_remove(struct memstick_dev *card)
+ 	msb_data_clear(msb);
+ 	mutex_unlock(&msb_disk_lock);
  
- 	pm_runtime_put_noidle(&pdev->dev);
- 	pm_runtime_disable(&pdev->dev);
-+	pm_runtime_dont_use_autosuspend(&pdev->dev);
++	destroy_workqueue(msb->io_queue);
++
+ 	msb_disk_release(msb->disk);
+ 	memstick_set_drvdata(card, NULL);
  }
- 
- static int __maybe_unused i2c_imx_runtime_suspend(struct device *dev)
 -- 
 2.53.0
 
