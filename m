@@ -1,73 +1,73 @@
 Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA6314FC8C3
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 11:04:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FA594FC8C3
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 11:04:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790075084; cv=none; b=VHKvEiNPL/sf96kwYenzWQQ0Pm9n45FZAf+x48uyGNxBEC/XIq6ggZk10ZmFVKZmgbIY5OgBZLsNQzAIGx29M84IvxLeMtLVFD2WfuPT0/2kfjJyHVGCtG71Ibby+Jk3+7zj4KxQ5/AOaYr1QPMajtIKDb/rPTQnF241i5zWCIw=
+	t=1790075086; cv=none; b=bEUa17m2EhD7yvWzMLTZ1DbCgyCUjoOR39UqltFg3yBdkpsJMwwVbiqc1zY7wNABFJuTL5kDi034H9b0CNfdiEQW+Rd8hc5mnotxCho7Q4x1hjNTDj4z5vtDK2WAiO5AqThWSOsxavtKVz2zLKz7ljnKCpDVcc+nIv4Kyz0Fsno=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790075084; c=relaxed/simple;
-	bh=PYzSkL852hcLeUFxSoaRxJXgoEzcGLF5FAIMBv4Ogww=;
+	s=arc-20240116; t=1790075086; c=relaxed/simple;
+	bh=il6FDGKCGQ3ltGODPhMBRswkBHRyGXjwl/hLnyywj6s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Q80iGQvib7Lbmk9FlCP1w1tSTmxmQlbnRZnxkt6A/orqEHVSTF0tYHnE7jKKKgu8hZuxwLSoLr6TUdD4RBtQyRokgGggE7GCpqWGRd6q7eOck5Wy0DR+0zmTrqmc/gQCRWtxGnKtvXVZxLeGA7TlVdYmrwX+GnwtwWB0hqO9yi8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cxW9+puZ; arc=none smtp.client-ip=74.125.225.140
+	 MIME-Version; b=QDJUEzLXsUHk3stPGk+kOcvS/AnyY3AwE0rDmzP8wDsdp3L/aqyGRtYttswKim8cDEWEA2H7Vu2iWqVFnK6WEc9STPVzNZOE5eFflPJQw7UVVLfCq6CHK4cE2FF2uWlBe0U7UHuugHR1JPTw53CBufh/mDn4ExVtP1UTefuE08Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aSHzXkKZ; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cxW9+puZ"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ce364488dso11174125e9.0
-        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 04:04:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aSHzXkKZ"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b91369d18so29923535e9.0
+        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 04:04:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790075081; x=1790679881; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790075083; x=1790679883; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=2NUp+T7FsL1k/tkMnskFv7wW1SlQORDRxaD0LCyU9b0=;
-        b=cxW9+puZOaCXIx0+MAwecAu459B5efUFPBoxLJlj7FQ53ZTRu0HB274oUBcFpcPzQ0
-         ts3chpkfEXHF8zNbfQeElvhkQs7jl8hBVq9erNNXbFavSvTqFNhTGlTBrw4RYqsoKFD0
-         clmEz7/w1nEZ/+rLSHU5ekDufTmWzhQ85VZncFoIiJsJIPfqsMojC9Cy+WZCREKM3pSF
-         LfbBGhRd12Bux/BomObnVeoUlbVbAMoOg2xGgPkZ15meaLO/3HdSggtaRfHKKw5hPcwQ
-         5egVzgv7W9ZzbCfzEfRNCHGKFRM/OePcv+hOt06ChOI1PwBlfodmGpyA3IePe0PMnDSA
-         /0tg==
+        bh=HJrfhcf5/3HcyaGlirHsZFpoVVhbQLF/RDLKqw4E1Qs=;
+        b=aSHzXkKZCauvrszWiKN/lKj9eglOaqPF0HMH1SxfOPzXmQqMiT0JbJrFnrVPY0z+wp
+         voa1QYoImM7WpCwjyHQULB7LGRvBvrzqpY1fP68y+489F7QBmFY+LeHresU5HyuNoM5C
+         uScgHUKZn/y0QjL9GPbnAslUMo/dKrxT5W+A80E82osoRhM+8aYv40/vI2tqtBvTUCke
+         DnXD5OhtzXRBNsYPE6GfZ1og/puBAzD5+V1FlDaJAQ1+5f3wtSq1uUJgehzmN8xI8m04
+         v27FxAQ1C0CwCtL6AuGmUBUKw6r21mA8iAgXVxz/NlQkjjfYwM9wZd4NEtEs9UYZ8Cs8
+         b7qw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790075081; x=1790679881;
+        d=1e100.net; s=20260707; t=1790075083; x=1790679883;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2NUp+T7FsL1k/tkMnskFv7wW1SlQORDRxaD0LCyU9b0=;
-        b=Kxf4IfU6AtSD8M5KbZp41D37/RZWsQ2xMZDgMitz/KT6f63Pu0FCUBIT9LHszbEExx
-         TllQ96yFVFl8LBSVWkWzPFBkzOfUeXANd6TXh+Af4O1ms1Yj8iuLtKQqnaDu/ewtDTUv
-         tYxycEJb5LeYGbPyr+Qt9FLXK6i12EpsAHW8bPPn/vFmMvURJ8XN7pfhtJ9fRtUvp71x
-         0VUFnglYwNifyR7vCYl1tp0ead5epPA1IP9t3pB6yTU07z8dqAVR6Nm2JiHJoVZXHx5+
-         IVEUK2qQIQdqJnf2NTWbMWjxutBgbTGS2a1Ikqs3pQ4mCeXE55Zhxalho9gG+JXLAubc
-         LAbg==
-X-Forwarded-Encrypted: i=1; AKwUvBzZtDyoN4FtXW0lbGueFsk2pflGl4oUbN/HQzaW1C3X3ETbO8OpoP62b1FQfUGw7eIVc+XGRcI=@vger.kernel.org
-X-Gm-Message-State: AFuF++m8pTC7JxwQiaZYRAK6r5oQ89TFTxLmJjrmuW9/TbkqexQQgEX7
-	/nioEc6rRxkrE1cOG9IwixV0r+8aJM5TXsZ4WpefOlbjfAJRQufjOVqb
-X-Gm-Gg: AYBFou2yIXCJ5N0skXBTrUWw7hJ0zvQUBrybn+d0EqU5N50yN7Fy1z5Kkcyj5HMk13y
-	JvW48vqvA2+M6RGsb86aQLU6F79rvJqMnm0bxqxsJnxvjMzqHpERr5+FlJG25eh8V9gMLAQDqdc
-	sDm99CiN4LVNYt6mQq8q/4JjHHzDDTSO9hciWsQ0x+trO/Mbj4LOhdy5uqAu9d5Ds/HbrrVXMmT
-	HtFB22gACMrnVvkH6niGxAqFaMjEhagOdFmnJolr2eM9L3kRJ97/n4S/H/4QHmVg7ENrI6Z5uFz
-	jSJLuV2Fmb75y6eqBYtjBKJddy/TLsJ7OhlSvv3oGAYlbZs2AALn7Gz0N6XLXtETZg7f8v8s+RF
-	PDG1q35tuzTukTPJVBzdVOhCKfc4+2BP4PmK0TbFqXw/Asyg/+s8z8uwnceoSX5P/flJjGMYNab
-	oziBHjUhl3fMh1xlK79ABbpHHIX8nn6a8NVdLySyeV+n2r2SHC97irSi1I5TW4FORhWnShcdQ90
-	LCitqsWTSO2d52GkqwgpA==
-X-Received: by 2002:a05:600c:8b38:b0:49e:63cc:6324 with SMTP id 5b1f17b1804b1-49fd8860a5amr39629505e9.6.1790075081018;
-        Tue, 22 Sep 2026 04:04:41 -0700 (PDT)
+        bh=HJrfhcf5/3HcyaGlirHsZFpoVVhbQLF/RDLKqw4E1Qs=;
+        b=k6bKGMhGK9ObqBE+xGWkXSGEEv6JyC22Tw+FDjVAJzYkJMxclLCKbr4A3yYR8oQKMU
+         Yhg4sAkRAb+yZ4wpdnuen5izLXXVdXZoR3Wff9l2X0BpGlIoVpWlmIjDdSww4Y9EU67W
+         M3sWrCuSH5kua7zebOWiJnR2J9fi21R2tEad+VbS3eIY6P7kSTBI+dLI9vjs3Q7gHdMb
+         jsIFos2a1PuMgZ0apcN0DETpoDsVfoNIzd2Yrr3LuzKAItX5nzB8qBPWXaV8yhg6cA4E
+         PR81DDDSesMZ648domWtc644N0fP+e7jr2aMax1YkrV8rSRMdTl/4qcE/7x1lMERVfez
+         DZog==
+X-Forwarded-Encrypted: i=1; AKwUvBwfbv82VAq1uUYML3WgnBgI3CTKINtNP8rxecIaFvRvDusHqEGrbb1PUc0lThj/doSw7AY8EFQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++npUxLLvxquzGW8fKrqh9I3BAUODO+przTuKFhm86aWfcP6Hkyt
+	PgA3T5qIqgfWK5/WBZq/g0yW09I2k4Vho33xb4yLNDvi2y3fbr9hzOMo
+X-Gm-Gg: AYBFou2iRMEVRPEe3v70f1fNn8hShaL8y21HPHACkiQumdSztABrNHzHav+erQHzOR/
+	jXRrGrw/Me2E7PEFEQVlKECNesFmMen7f3eGrJtnJEV0Cdnj/uIK7RsP8B11jit/55YdhhqkwG4
+	1M1UyQ/LriR2SURUkDKo/L6oWeOwU4lMxFzJ1dFe3uAntHqA5LxwejZzSXzTN4pgjF5aOlRxym1
+	z27N/ZpIXwuI+IlBkKU/FQkB30x4q3+9Ip3Jl/LmyoBqQgKYgxgb7cC4Jgudk6Xt+x5xKL9eIXO
+	VCovInSgZ/QKKxqZzElJ4QdrjwkZdm2T/+HAwfL6/9Zba9afclTlyBuJ9f1lpEh57S6R023r9Sp
+	qvDc88V/6Vc6UljcWjCr3Qr2HbAH7hzybmZtPQEcOvtlpQwhrNSJWC7FsTzcE58ixZ/8ixBDMLx
+	AMpvaG8s3CnuAHGEJ6daLGNjYJ9TDf5pUEtAdqX44oxFCOl/nZW7QVE/divE19DNlvdXA/u8cGx
+	Ha2Ep5mr4jOBnoEBBwGZw==
+X-Received: by 2002:a05:600c:8b21:b0:49d:1df8:156d with SMTP id 5b1f17b1804b1-49fc574f001mr189984325e9.18.1790075083148;
+        Tue, 22 Sep 2026 04:04:43 -0700 (PDT)
 Received: from localhost.localdomain ([194.9.6.210])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fd8ccd185sm74611795e9.8.2026.09.22.04.04.39
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fd8ccd185sm74611795e9.8.2026.09.22.04.04.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 04:04:40 -0700 (PDT)
+        Tue, 22 Sep 2026 04:04:42 -0700 (PDT)
 From: Eduard Zateev <hackerowskiy@gmail.com>
 To: hackerowskiy@gmail.com
 Cc: "Darrick J. Wong" <djwong@kernel.org>,
 	stable@vger.kernel.org,
 	Christoph Hellwig <hch@lst.de>,
 	Carlos Maiolino <cem@kernel.org>
-Subject: [PATCH 17/26] xfs: call xfs_dquot_set_prealloc_limits if we installed default rtb limits
-Date: Tue, 22 Sep 2026 13:02:12 +0200
-Message-ID: <20260922110221.1431-17-hackerowskiy@gmail.com>
+Subject: [PATCH 18/26] xfs: fix rtgroup repair estimations
+Date: Tue, 22 Sep 2026 13:02:13 +0200
+Message-ID: <20260922110221.1431-18-hackerowskiy@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260922110221.1431-1-hackerowskiy@gmail.com>
 References: <20260922110221.1431-1-hackerowskiy@gmail.com>
@@ -81,42 +81,105 @@ Content-Transfer-Encoding: 8bit
 
 From: "Darrick J. Wong" <djwong@kernel.org>
 
-Now that we have quotas for the realtime volume, we also have
-precomputed watermark limits for the realtime block counts.  These
-precomputations should be done any time we change the rtb limits, which
-means that xfs_qm_adjust_dqlimits needs to ensure that if we installed
-a default rtb limit.
+When I added online fsck for realtime reflink, I forgot to update
+xrep_calc_rtgroup_resblks to factor in the size of the refcount btree
+when it guesses how much space we need to start a repair.  This hasn't
+been a huge problem in practice because there are few filesystems with
+(a) realtime, (b) rtgroups, (c) reflink, and (d) no rmap.  But let's fix
+this before someone stumbles upon it, especially since LOLLM flagged
+this for me.
 
-Cc: stable@vger.kernel.org # v6.13
-Fixes: 5dd70852b03901 ("xfs: create quota preallocation watermarks for realtime quota")
+Cc: stable@vger.kernel.org # v6.14
+Fixes: 83ccffc489975d ("xfs: online repair of the realtime refcount btree")
 Signed-off-by: Darrick J. Wong <djwong@kernel.org>
+Assisted-by: LOLLM # finding obvious bugs
 Reviewed-by: Christoph Hellwig <hch@lst.de>
 Signed-off-by: Carlos Maiolino <cem@kernel.org>
 ---
- fs/xfs/xfs_dquot.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ fs/xfs/scrub/repair.c | 19 +++++++++++++++++--
+ fs/xfs/scrub/trace.h  | 12 ++++++++----
+ 2 files changed, 25 insertions(+), 6 deletions(-)
 
-diff --git a/fs/xfs/xfs_dquot.c b/fs/xfs/xfs_dquot.c
-index b4f6c594808c..e696ee36c2e8 100644
---- a/fs/xfs/xfs_dquot.c
-+++ b/fs/xfs/xfs_dquot.c
-@@ -139,10 +139,14 @@ xfs_qm_adjust_dqlimits(
- 		dq->q_ino.softlimit = defq->ino.soft;
- 	if (!dq->q_ino.hardlimit)
- 		dq->q_ino.hardlimit = defq->ino.hard;
--	if (!dq->q_rtb.softlimit)
-+	if (!dq->q_rtb.softlimit) {
- 		dq->q_rtb.softlimit = defq->rtb.soft;
--	if (!dq->q_rtb.hardlimit)
-+		prealloc = 1;
-+	}
-+	if (!dq->q_rtb.hardlimit) {
- 		dq->q_rtb.hardlimit = defq->rtb.hard;
-+		prealloc = 1;
-+	}
+diff --git a/fs/xfs/scrub/repair.c b/fs/xfs/scrub/repair.c
+index 11697a8b2a1d..c2a437416227 100644
+--- a/fs/xfs/scrub/repair.c
++++ b/fs/xfs/scrub/repair.c
+@@ -399,6 +399,7 @@ xrep_calc_rtgroup_resblks(
+ 	struct xfs_mount		*mp = sc->mp;
+ 	struct xfs_scrub_metadata	*sm = sc->sm;
+ 	uint64_t			usedlen;
++	xfs_extlen_t			refcbt_sz = 0;
+ 	xfs_extlen_t			rmapbt_sz = 0;
  
- 	if (prealloc)
- 		xfs_dquot_set_prealloc_limits(dq);
+ 	if (!(sm->sm_flags & XFS_SCRUB_IFLAG_REPAIR))
+@@ -411,13 +412,27 @@ xrep_calc_rtgroup_resblks(
+ 	usedlen = xfs_rtbxlen_to_blen(mp, xfs_rtgroup_extents(mp, sm->sm_agno));
+ 	ASSERT(usedlen <= XFS_MAX_RGBLOCKS);
+ 
++	if (xfs_has_reflink(mp))
++		refcbt_sz = xfs_rtrefcountbt_calc_size(mp, usedlen);
++
+ 	if (xfs_has_rmapbt(mp))
+ 		rmapbt_sz = xfs_rtrmapbt_calc_size(mp, usedlen);
+ 
++	/*
++	 * Guess how many blocks we need to rebuild the rmapbt.  For
++	 * non-reflink filesystems we can't have more records than used blocks.
++	 * However, with reflink it's possible to have more than one rmap
++	 * record per rtgroup block.  We don't know how many rmaps there could
++	 * be in the rtgroup, so we start off with what we hope is an generous
++	 * over-estimation.
++	 */
++	if (refcbt_sz > 0 && rmapbt_sz > 0)
++		rmapbt_sz *= 2;
++
+ 	trace_xrep_calc_rtgroup_resblks_btsize(mp, sm->sm_agno, usedlen,
+-			rmapbt_sz);
++			rmapbt_sz, refcbt_sz);
+ 
+-	return rmapbt_sz;
++	return max(rmapbt_sz, refcbt_sz);
+ }
+ #endif /* CONFIG_XFS_RT */
+ 
+diff --git a/fs/xfs/scrub/trace.h b/fs/xfs/scrub/trace.h
+index 0f5adc293962..cb85f75ce101 100644
+--- a/fs/xfs/scrub/trace.h
++++ b/fs/xfs/scrub/trace.h
+@@ -2376,25 +2376,29 @@ TRACE_EVENT(xrep_calc_ag_resblks_btsize,
+ #ifdef CONFIG_XFS_RT
+ TRACE_EVENT(xrep_calc_rtgroup_resblks_btsize,
+ 	TP_PROTO(struct xfs_mount *mp, xfs_rgnumber_t rgno,
+-		 xfs_rgblock_t usedlen, xfs_rgblock_t rmapbt_sz),
+-	TP_ARGS(mp, rgno, usedlen, rmapbt_sz),
++		 xfs_rgblock_t usedlen, xfs_rgblock_t rmapbt_sz,
++		 xfs_rgblock_t refcbt_sz),
++	TP_ARGS(mp, rgno, usedlen, rmapbt_sz, refcbt_sz),
+ 	TP_STRUCT__entry(
+ 		__field(dev_t, dev)
+ 		__field(xfs_rgnumber_t, rgno)
+ 		__field(xfs_rgblock_t, usedlen)
+ 		__field(xfs_rgblock_t, rmapbt_sz)
++		__field(xfs_rgblock_t, refcbt_sz)
+ 	),
+ 	TP_fast_assign(
+ 		__entry->dev = mp->m_super->s_dev;
+ 		__entry->rgno = rgno;
+ 		__entry->usedlen = usedlen;
+ 		__entry->rmapbt_sz = rmapbt_sz;
++		__entry->refcbt_sz = refcbt_sz;
+ 	),
+-	TP_printk("dev %d:%d rgno 0x%x usedlen %u rmapbt %u",
++	TP_printk("dev %d:%d rgno 0x%x usedlen %u rmapbt %u refcountbt %u",
+ 		  MAJOR(__entry->dev), MINOR(__entry->dev),
+ 		  __entry->rgno,
+ 		  __entry->usedlen,
+-		  __entry->rmapbt_sz)
++		  __entry->rmapbt_sz,
++		  __entry->refcbt_sz)
+ );
+ #endif /* CONFIG_XFS_RT */
+ 
 -- 
 2.55.0
 
