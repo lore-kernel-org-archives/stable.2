@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E02F7443C14
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 09:42:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35803369D56
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 09:42:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790070135; cv=none; b=OPo7TJfYVGeKDYSZJB86rrhKtgsWfF0jvhUihFmzSTxn2aNiwenojnlTc5hfZt414xmJWsbL9i36mqoTE2EP8bGenqfvdoI2T5MOioa3m98iDHEARZPKtsdr8bsNMV1rXhf6L6BCPXSbkGLj2fYbQM39c6xiYNmgfUWKf5WILmc=
+	t=1790070138; cv=none; b=pWw2d4v7HUePW7KCK8/hiL5b+pwNclL22O66RaUvsmEEdEsfAq2idIZ7lHOZEvoLGCtdxmmEEMR1rXukEUn8c/BbM+MPFJOcrLZdKHwMSRyYs5JNBs1bYYBJo7JWDKp+TmOcZjCkm5dv8euqbRIr48J2R/jeNQGmqLfi50YifGc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790070135; c=relaxed/simple;
-	bh=PbzCNJBY7MIj9AGkK7gRQo6NnFonuF+icO3II83NSqc=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=aHNFlhYv3OdnS3iY+XVsDWfuUbrBG+Lf8syzOzmybmQf0jOlUWmls7Ra26RGzCptHel9G75Uld5cihZhhuJPD5J2PtfPQHgxDI7xc++JhOS8gCVtUinynZ5JtxF1xLlceOmo3f0FUCNeK3Nqv9mCYEVq9l5bF03Tq/abn/76hmw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=e3wwHwMT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790070138; c=relaxed/simple;
+	bh=HUomVh1VSx3IowmWyIJyxAF0EglVuINOCq0v3FoSJ2s=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=E9S8Ak+YrsOPXbBxzsMPWxfSSg8W2G/2jecf5Yoxr5yvpk3HibqUCFM9egbPLU0AIh8z8PflT0bcUTImvOWgco2YfnaB0XU0j+FyDhozYIooRnoDZ8rsVKv8p8uA2J8w+gTUe1GwZJOxo7G7plwcqI7p4jomUmmaoU9lT1KYsVI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=CaABdJcc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="e3wwHwMT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 315F01F000FF;
-	Tue, 22 Sep 2026 09:42:12 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="CaABdJcc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79DEB1F00893;
+	Tue, 22 Sep 2026 09:42:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790070133;
-	bh=9gmq+iHmUvQ15yXhIXvgDgB/h/p6pXeKLifXVYiufdU=;
+	s=korg; t=1790070137;
+	bh=ioCytmk37zoXbginLjiwHUVZHg+INZ55HpN384av1iY=;
 	h=Subject:To:Cc:From:Date;
-	b=e3wwHwMT19m6plYc+fUW0j9J0H3oW4uiG1+Uau+uiguo6bO6Ppkv3QYN4gzQ6z71w
-	 UvHAGoKrnwA8J9TozeFdLw7deluxAKmDhCdY5pJoixslDKEs5q0F/C/4RlOnAMcu1g
-	 qtbmsxRc+DGfjtIhKsSeIM0xepUBonT5Lvf84mzQ=
-Subject: FAILED: patch "[PATCH] arm64: percpu: Fix LSE operations on {8,16}-bit types" failed to apply to 5.10-stable tree
-To: mark.rutland@arm.com,ada.coupriediaz@arm.com,ardb@kernel.org,catalin.marinas@arm.com,james.morse@arm.com,maz@kernel.org,peterz@infradead.org,ruanjinjie@huawei.com,vladimir.murzin@arm.com,will@kernel.org,yang@os.amperecomputing.com
+	b=CaABdJccrJglXQzmIiq152JTtN7rFftdDbqdbQrhAULNRSskDqC7qZJ8ml2x2ncUY
+	 6Va/ouYFjKVWoF9X3upcIrhjWiX/aHCLzfCRu/pXbbvz4w3H/sYiLTmpuqA7h6DmED
+	 XmBn+mrULTaoewXQdgpcT1gwBgWE/8xecsvYtuTQ=
+Subject: FAILED: patch "[PATCH] btrfs: take commit root semaphore when iterating in" failed to apply to 6.12-stable tree
+To: zenghongling@kylinos.cn,dsterba@suse.com,johannes.thumshirn@wdc.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 22 Sep 2026 11:29:26 +0200
-Message-ID: <2026092226-habitat-wipe-a94c@gregkh>
+Date: Tue, 22 Sep 2026 11:30:45 +0200
+Message-ID: <2026092245-unlovely-antarctic-7c00@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 8cf2093f5372952a9ebc805c418d45df7112cd14
+git cherry-pick -x 0594e3423f4ba3137c734371169491f9a98e9af4
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092226-habitat-wipe-a94c@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092245-unlovely-antarctic-7c00@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,59 +62,37 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 8cf2093f5372952a9ebc805c418d45df7112cd14 Mon Sep 17 00:00:00 2001
-From: Mark Rutland <mark.rutland@arm.com>
-Date: Tue, 8 Sep 2026 16:17:23 +0100
-Subject: [PATCH] arm64: percpu: Fix LSE operations on {8,16}-bit types
+From 0594e3423f4ba3137c734371169491f9a98e9af4 Mon Sep 17 00:00:00 2001
+From: Hongling Zeng <zenghongling@kylinos.cn>
+Date: Mon, 31 Aug 2026 13:38:01 +0800
+Subject: [PATCH] btrfs: take commit root semaphore when iterating in
+ mark_block_group_to_copy()
 
-The assembly for __percpu_##name##_case_##sz() and
-__percpu_##name##_return_case_##sz() doesn't use the 'sfx' macro
-argument to form the LSE instruction. Without 'sfx', a W register
-argument will imply a 32-bit memory location, and consequently
-{8,16}-bit ops will erroneously read and write 32 bits of memory when
-the LSE instruction is used.
+mark_block_group_to_copy() iterates over the commit root with
+skip_locking=true. A concurrent transaction commit can swap and free
+the commit root during iteration, causing use-after-free when
+accessing extent buffers.
 
-Fix this by appending 'sfx' to 'op_lse' to LSE instruction. It is not
-necessary (and not valid) to append 'sfx' to 'op_llsc', as 'op_llsc' is
-a register-register operation which does not access memory (and does not
-take a size suffix).
+Fix it by using path->need_commit_sem to protect the commit root search.
 
-Fixes: 959bf2fd03b5 ("arm64: percpu: Rewrite per-cpu ops to allow use of LSE atomics")
-Signed-off-by: Mark Rutland <mark.rutland@arm.com>
-Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: Ada Couprie Diaz <ada.coupriediaz@arm.com>
-Cc: Ard Biesheuvel <ardb@kernel.org>
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: James Morse <james.morse@arm.com>
-Cc: Marc Zyngier <maz@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>
-Cc: Vladimir Murzin <vladimir.murzin@arm.com>
-Cc: Will Deacon <will@kernel.org>
-Cc: Yang Shi <yang@os.amperecomputing.com>
-Cc: stable@vger.kernel.org
-Reviewed-by: Vladimir Murzin <vladimir.murzin@arm.com>
-Signed-off-by: Will Deacon <will@kernel.org>
+Fixes: 78ce9fc269af ("btrfs: zoned: mark block groups to copy for device-replace")
+CC: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.5
+Reviewed-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+Reviewed-by: David Sterba <dsterba@suse.com>
+Signed-off-by: David Sterba <dsterba@suse.com>
 
-diff --git a/arch/arm64/include/asm/percpu.h b/arch/arm64/include/asm/percpu.h
-index 31193bcf89a2..8cf4068ce1b5 100644
---- a/arch/arm64/include/asm/percpu.h
-+++ b/arch/arm64/include/asm/percpu.h
-@@ -77,7 +77,7 @@ __percpu_##name##_case_##sz(void *ptr, unsigned long val)		\
- 	"	stxr" #sfx "\t%w[loop], %" #w "[tmp], %[ptr]\n"		\
- 	"	cbnz	%w[loop], 1b",					\
- 	/* LSE atomics */						\
--		#op_lse "\t%" #w "[val], %" #w "[tmp], %[ptr]\n"	\
-+		#op_lse #sfx "\t%" #w "[val], %" #w "[tmp], %[ptr]\n"	\
- 		__nops(3))						\
- 	: [loop] "=&r" (loop), [tmp] "=&r" (tmp),			\
- 	  [ptr] "+Q"(*(u##sz *)ptr)					\
-@@ -98,7 +98,7 @@ __percpu_##name##_return_case_##sz(void *ptr, unsigned long val)	\
- 	"	stxr" #sfx "\t%w[loop], %" #w "[ret], %[ptr]\n"		\
- 	"	cbnz	%w[loop], 1b",					\
- 	/* LSE atomics */						\
--		#op_lse "\t%" #w "[val], %" #w "[ret], %[ptr]\n"	\
-+		#op_lse #sfx "\t%" #w "[val], %" #w "[ret], %[ptr]\n"	\
- 		#op_llsc "\t%" #w "[ret], %" #w "[ret], %" #w "[val]\n"	\
- 		__nops(2))						\
- 	: [loop] "=&r" (loop), [ret] "=&r" (ret),			\
+diff --git a/fs/btrfs/dev-replace.c b/fs/btrfs/dev-replace.c
+index bf0b78790171..1894c7ebe9d9 100644
+--- a/fs/btrfs/dev-replace.c
++++ b/fs/btrfs/dev-replace.c
+@@ -493,6 +493,7 @@ static int mark_block_group_to_copy(struct btrfs_fs_info *fs_info,
+ 	path->reada = READA_FORWARD;
+ 	path->search_commit_root = true;
+ 	path->skip_locking = true;
++	path->need_commit_sem = true;
+ 
+ 	key.objectid = src_dev->devid;
+ 	key.type = BTRFS_DEV_EXTENT_KEY;
 
