@@ -1,223 +1,142 @@
-Received: from out28-197.mail.aliyun.com (out28-197.mail.aliyun.com [115.124.28.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f12.google.com (mail-oi2-f12.google.com [74.125.231.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E710B2E6CB8;
-	Tue, 22 Sep 2026 15:49:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.197
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790092156; cv=none; b=K8VLrLWK1+opdOGYRTP25bVLd38uJaABTg5/8lLFi0E1xdR4Oa1ohbQ1yVAiiABUvR2baFPhNMZj66/UcdKaROMKDZXGr38/O31unj3zRObjmUC+NQ4wFlQyCN7jwUyvCh2xW9wKHAm+AP5yOsnB3WNU5YwbvmkCNiULiElb8Cc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790092156; c=relaxed/simple;
-	bh=m9MzsfBhY2+fdPnGx77j+tlrSCT/JbHFCOAFN90ErJs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=m9wZZmIM2TV/A7QKQb0E9IJ4lN/6qp0J9zY4wMS+HlJcRpNK/AwGgzDXhH2tnUCjqqjzfpHU7fXC+Pz51J1nTjX5+Jg4/l2tV1+01OKd9pu1jds3rk5lswYKLclUr457pCCA/8AENcsjmBnO/3Y6bxNw4DntrHeYa+6Tun6I/fg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=lm8dznlC; arc=none smtp.client-ip=115.124.28.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4403D2D12F3
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 15:49:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790092198; cv=pass; b=qNXN5LV+5a5hnZufcmEkCKAFhfUclnhfJTu/SiXf6KpanQ2hbBtC7gERv5DbFAi6q1n4Jt6pgSvp5emU2+LftC6hcZA/YlLfwzh6N8GYZqLPvpqR0L0JaxVFxoB4BMN4IQDWM2TWNh09i/hfhsoOWkkVaS7GJeDZpfavAA8s9vI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790092198; c=relaxed/simple;
+	bh=FwvYiaDcG7fL1f29jUItXT2GNsF0KQa+Oubzhul7ezg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=OeFmSaxgxjbM3Y+rz0PkHYBBujVUdiN9QhcIIOXXhUDavVlxwggBml4Xb2Eqn6dVucSLRg1+bhnSVzfxvqHaDNfQ7dorIk38AslGfxYv49sqlKRrOkius6o85NerGkUOaTgfXzgWaVa7YFJEODwYeApgXkRhlO8Nq4xezW04LN0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=BgxwzVEb; arc=pass smtp.client-ip=74.125.231.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="lm8dznlC"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1790092149; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=xzX3oI+nIvhLqrrsstw3vJ/BC6DIPbs/7ONFCx7bqz0=;
-	b=lm8dznlCLAApVm3d6svtBv+vUWhrBYOEUcSvHAVYZ+xzqM7mQweiw4HDGQJrg4UclD3dN4SolQmPtCgrF28PVMbfp25/b8ie/KuN2H7Z2rocjHcpW9B721vmpB2KrJicwCqEQa6wzklz0kk7QRpyVDickh2lzDXIZbS81IZLDj8=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.04436259|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00786389-0.000226249-0.99191;FP=15315377223126031482|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033022149254;MF=fangxy@xiaopeng.com;NM=1;PH=DS;RN=6;RT=6;SR=0;TI=SMTPD_---.jKA4tlN_1790092147;
-Received: from localhost.localdomain(mailfrom:fangxy@xiaopeng.com fp:SMTPD_---.jKA4tlN_1790092147 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Tue, 22 Sep 2026 23:49:08 +0800
-From: Fang Xieyan <fangxy@xiaopeng.com>
-To: jason.wessel@windriver.com,
-	danielt@kernel.org,
-	dianders@chromium.org
-Cc: kgdb-bugreport@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] kgdb: Fix buffer overflow in the 'M' and 'X' packet handlers
-Date: Tue, 22 Sep 2026 23:49:07 +0800
-Message-ID: <20260922154907.90535-1-fangxy@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="BgxwzVEb"
+Received: by mail-oi2-f12.google.com with SMTP id 5614622812f47-4c4bf3defecso26351b6e.3
+        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 08:49:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790092195; cv=none;
+        d=google.com; s=arc-20260327;
+        b=S4qozllEoRnFK/d1DT5YSrQ10ETaTnDtSTYdMnghte1GSPW9//zkRlIS5t01PtDXyl
+         9q7FIBxXpC4wKECAo4Q8UrqFUEBKmVVGB7YKH3SfQD8uV38lswLLI2cZzzYfZE5TbcjX
+         OXEqNS9FqTkIFY6GaUAPV6W+0KinPbAHzdmzPXQqjpdZRskcoVZ0t8GaGDmFDkSLGKTf
+         lciAV6X5OyFWncDj65iVHpaYEQwaoPaE8IH0uSIfyhzrGX4X8Zm0fRWJ0/Gh3VtAXXfE
+         1JM8CdwbfrlVZ8yLkw6Qfv9YXlg6Yrcd7synn569nPTyNOMEQcvb66eYfdIgPZpTpDm4
+         QjYA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=+IB+UJijWjaTnFVpSDyUcRlyFG+GunEChS+weWwWm14=;
+        fh=fWZ7A/cc9mGbfYs7uL8f9LOQu+jw7ixWdwhBcZ1d/VA=;
+        b=tDlYHdDtd7q3kONEfjWCO01ZkBSSESOS2KdB0TEOGMmLI7oyahewWL2WWs/gBMVwMm
+         3jgMLwtcguCwvWP7ABJKhAQserl+QuhzsCUf8ptuPoN9CK9O42UY/vcasU+iO1aB04qF
+         86K/IQHLU3ctHXOp78qwtmWWNbdiSMV96pjUlYNzLy1gmvQa7LCjt4389SF5HdgyC+7O
+         0FQdJJ6WTTAXthSgtju8yEnZxI7bJvwPbEGiuGl+IJIAtgvvi8zNjEHDflmRFI87mGKE
+         haP9ytcwAX+x/GnutKmp7Stm9rDkFADfbWuG5/A0xkmgFr9RGlVdBHV08ysQttcWqmoN
+         Mtkg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=raspberrypi.com; s=google; t=1790092195; x=1790696995; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+IB+UJijWjaTnFVpSDyUcRlyFG+GunEChS+weWwWm14=;
+        b=BgxwzVEblWiqw4mRVWVmI4pnlSxui5x0Bf2OsqGawV5jibxnZZTyjI4MjWPGo2rORP
+         UT6n/LXhCEKVuxz8IonyoR1PKSb5yUCKUVvf4DGwH6ODiisG6cGvoZi/pu155G+mFP34
+         oPSxUs//AqOi3kpCEhwsxxKi+gjRBPzCP6Ana/VnUzg7JLEY98J6+DsmqNCyE5As9b07
+         zioKxS79+XJ1i1Jw2TTEd+bTdobHk1YebdEh1JY/ku0Y72fAbnSF+hT5hbgVAPei9omU
+         3pjrJOaLYHmx8r/Q3Sv4TC6ewMkMQF9bysJadkgmINToJbiVvoLNJRONum13BQlWHFoF
+         XaAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790092195; x=1790696995;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=+IB+UJijWjaTnFVpSDyUcRlyFG+GunEChS+weWwWm14=;
+        b=EsnPTyjF0OZe2AQCVEbX3dxuRW6PpIaSS9m77fNI+xhvgI4bz+8HZhYuQhooosBs8L
+         Xg9hIFMTWgpJNWP87Po2fWhWva2xSB18tKD1aodmlSELVlinUQQFnZmRG6gJGKXTetLJ
+         OVv3yHM+DcI5jHdTAGBwp8u5hkFXQJXtsRCRI/LKBpaelco9MwEn5kV+HqVVUgCQJaxm
+         H71K2tIpBfumwGtfPWzenxzzvO6KKGdiGEyFonBK4kgAjr6luptaL21Cc74YwKVugLsq
+         Fe/aKWw7rDRojNqApCGy+mE+0zV3vTogOYYFgD2zR61DnE2ZcMhmwpCc0qksk+8YQ+lZ
+         ihUg==
+X-Forwarded-Encrypted: i=1; AKwUvBxACNpwpuEhMkIVI6nJ9V/00VyVM91dChNy4/KqJancAq2Zc0DmD9oAL+PcBk6k/8wjgdesFNc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mTnhGYb5zyvLWIrF+ODmnSBMHumaG/2F+vu557EnaL3eFMy26A
+	4ulxjT23Arc1hm8MKMcBGiVTFQyH4QUyVQsgE1WvIT/My2mnbhYGl1PQWt2vbO1C3X6NfsfjV02
+	8N6dESJD8W1qhqTi774JQ8CMdKmkdUmNjv9uY+OYHaw==
+X-Gm-Gg: AYBFou2/NBaHMP+okkTNcgZeyRlNkh0ZVX+qGGjUjsJ5rVwX8bVgda3xKITEL7U2Z+S
+	TvWtivPk7ANDIKnuie6jYjswbUVyVBQO1mivwqCdS/v+GWGxotX6YtC2/WgGzCc4NN/duvqbeZO
+	fjjHkAmRCR+UAbbWmd2Go4oVjUVVniVbaq9jtbXBW1H6LbN3RphGIp/cI9G77hNBOGVmNhzCis/
+	8cbpee6LSvY52xtaLrjZXo4mpjbsu6Nn6sOkuoWMR6SFEjBE81gaQEY4ylaEtEr7l1g5PLaZIuh
+	/KymGLKZQeQVxpc4IcGpLfhZsZMU6afPEuMxmM4OcXiIrJ7VFkTPRvaWQTeOI5eug5DiRIo/7LM
+	C7lc6DhLr2nHkcefp3sSWZWr1Oqvshz1dBhJ7Z+qO9EdwU8tLJWLAh2Q6sxALFxwwO9LfeWo=
+X-Received: by 2002:a05:6820:4b91:b0:6cd:3ffc:e32a with SMTP id
+ 006d021491bc7-6cd3ffcea03mr10302175eaf.72.1790092195059; Tue, 22 Sep 2026
+ 08:49:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260922084009.506362-1-lgs201920130244@gmail.com>
+In-Reply-To: <20260922084009.506362-1-lgs201920130244@gmail.com>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Tue, 22 Sep 2026 16:49:38 +0100
+X-Gm-Features: AcwNN1UYho_M2TCkxcYs2QRUgoK-S9ENUK4v-9idaeTrzc5fL3QAaoHR4mTs8VA
+Message-ID: <CAPY8ntD6kWi7Q57oL43SLe37szXpptdBXs6cs+vxVehA0eJPjg@mail.gmail.com>
+Subject: Re: [PATCH v2] media: i2c: ov5647: fix power cleanup on remove
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Jacopo Mondi <jacopo@jmondi.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-write_mem_msg() passes the length claimed by an 'M' or 'X' packet directly
-to kgdb_hex2mem() or kgdb_ebin2mem(). A malformed packet can claim more
-data than was actually received, causing the decoders to read past
-remcom_in_buffer.
+Thanks Guangshuo
 
-Record the received payload length in get_packet() and use it to bound
-the decoders. 'M' carries two hex characters per byte, while 'X' carries
-one byte per output byte except that a 0x7d escape consumes an additional
-input byte. Pass the packet end to kgdb_ebin2mem() so both reads are
-checked against the received data.
+On Tue, 22 Sept 2026 at 09:40, Guangshuo Li <lgs201920130244@gmail.com> wrote:
+>
+> ov5647_remove() disables runtime PM without powering off the sensor if
+> it is still runtime active. pm_runtime_disable() does not invoke the
+> runtime suspend callback, so the sensor can remain powered on.
+>
+> If the device is not already runtime suspended, call ov5647_power_off()
+> and mark the runtime PM state as suspended.
+>
+> This issue was found by manual code inspection.
+>
+> Fixes: 089b7c70f0d8 ("media: ov5647: Use pm_runtime infrastructure")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 
-Keep zero-length 'X' packets valid, as GDB uses them to probe binary
-download support.
+Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 
-Fixes: dc7d55270521 ("kgdb: core")
-Cc: stable@vger.kernel.org
-Assisted-by: Hawkeye:GLM-5.3-flash
-Assisted-by: Qoder:Qwen3.8-Max
-Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
----
-
-Changes in v2:
-  - Bound the decode by the bytes actually received instead of a fixed
-    divisor. get_packet() now returns the received count and
-    write_mem_msg() uses it as the end of the payload.
-  - Split the 'M' and 'X' bounds. 'X' is no longer capped at BUFMAX / 2,
-    so a valid binary write between BUFMAX / 2 and BUFMAX - header is
-    accepted again; v1 rejected it with E22, and GDB aborts a write
-    that gets E22 rather than falling back to 'M'.
-  - Give kgdb_ebin2mem() a buf_end argument and check it before both
-    reads in the loop, so a 0x7d escape cannot read past the received
-    data.
-  - v1: https://lore.kernel.org/all/20260916080306.13395-1-fangxy@xiaopeng.com/
-
-Write-side sibling of the 'm' memread overflow in gdb_cmd_memread()
-(remcom_out_buffer); both handlers trust the same unvalidated length
-field. The read-side fix was posted separately:
-https://lore.kernel.org/all/20260914180344.15485-1-fangxy@xiaopeng.com/
-
-Reproducer ('M', x86 BUFMAX=1024): send "M<addr>,200:4142434445464748"
-on a kgdboc console. The stub decodes 2 * 512 bytes from an 8-byte
-payload, so the in-place hex conversion runs off remcom_in_buffer.
-Unpatched: KASAN global-out-of-bounds read in kgdb_hex2mem at
-remcom_in_buffer+0x415/0x420, guest panics. Patched: $E22, guest
-resumes. A minimal over-claim reproduces best: a huge length smashes
-past the buffer through the uninstrumented copy in
-copy_to_kernel_nofault() with no report at all.
-
-'X' cases (patched kernel answers shown; x86, same harness):
-  - over-claim "X<addr>,400:" with an 8-byte body: $E22. Unpatched this
-    splats in write_mem_msg (kgdb_ebin2mem inlined) at
-    remcom_in_buffer+0x400/0x420 and the guest dies.
-  - well-formed 900-byte write "X<addr>,384:": $OK, accepted again.
-    This is the packet v1 wrongly rejected; the write lands on
-    init_task, so the harness asserts $OK without resuming the guest.
-  - lone trailing escape "X<addr>,40:": $E22.
-  - zero-length "X0,0:": $OK (GDB's binary-download probe).
-
-Built and run on 704340f1cd0d (9 commits past v7.3-rc3), x86_64
-defconfig + CONFIG_KASAN_GENERIC, gcc 13.2.0, QEMU under TCG; the
-before/after kernels are built from byte-identical .config files and
-differ only by this patch. CONFIG_KGDB_KDB has to be off so the packet
-is parsed by the gdb stub rather than kdb. An unrelated early-boot
-"wild-memory-access in _raw_spin_lock" TCG+KASAN flake can reboot the
-guest before the break-in; re-running the boot clears it.
-
- kernel/debug/gdbstub.c | 45 +++++++++++++++++++++++++++++++++++-------
- 1 file changed, 38 insertions(+), 7 deletions(-)
-
-diff --git a/kernel/debug/gdbstub.c b/kernel/debug/gdbstub.c
-index e271a43..0293524 100644
---- a/kernel/debug/gdbstub.c
-+++ b/kernel/debug/gdbstub.c
-@@ -43,6 +43,8 @@
- /* Our I/O buffers. */
- static char			remcom_in_buffer[BUFMAX];
- static char			remcom_out_buffer[BUFMAX];
-+/* Payload bytes get_packet() stored in remcom_in_buffer, excluding the NUL. */
-+static int			remcom_in_len;
- static int			gdbstub_use_prev_in_buf;
- static int			gdbstub_prev_in_buf_pos;
- 
-@@ -87,7 +89,7 @@ static int gdbstub_read_wait(void)
- }
- #endif
- /* scan for the sequence $<data>#<checksum> */
--static void get_packet(char *buffer)
-+static int get_packet(char *buffer)
- {
- 	unsigned char checksum;
- 	unsigned char xmitcsum;
-@@ -135,6 +137,8 @@ static void get_packet(char *buffer)
- 		}
- 		buffer[count] = 0;
- 	} while (checksum != xmitcsum);
-+
-+	return count;
- }
- 
- /*
-@@ -321,16 +325,26 @@ int kgdb_hex2long(char **ptr, unsigned long *long_val)
-  * Copy the binary array pointed to by buf into mem.  Fix $, #, and
-  * 0x7d escaped with 0x7d. Return -EFAULT on failure or 0 on success.
-  * The input buf is overwritten with the result to write to mem.
-+ *
-+ * buf_end points one past the last byte received for this packet. Each
-+ * 0x7d escape consumes a second input byte, so decoding count bytes can
-+ * read up to 2 * count input bytes; stop at buf_end rather than running
-+ * off the end of remcom_in_buffer.
-  */
--static int kgdb_ebin2mem(char *buf, char *mem, int count)
-+static int kgdb_ebin2mem(char *buf, char *mem, int count, char *buf_end)
- {
- 	int size = 0;
- 	char *c = buf;
- 
- 	while (count-- > 0) {
-+		if (buf >= buf_end)
-+			return -EINVAL;
- 		c[size] = *buf++;
--		if (c[size] == 0x7d)
-+		if (c[size] == 0x7d) {
-+			if (buf >= buf_end)
-+				return -EINVAL;
- 			c[size] = *buf++ ^ 0x20;
-+		}
- 		size++;
- 	}
- 
-@@ -367,16 +381,33 @@ void gdb_regs_to_pt_regs(unsigned long *gdb_regs, struct pt_regs *regs)
- static int write_mem_msg(int binary)
- {
- 	char *ptr = &remcom_in_buffer[1];
-+	char *buf_end = &remcom_in_buffer[remcom_in_len];
- 	unsigned long addr;
- 	unsigned long length;
- 	int err;
- 
- 	if (kgdb_hex2long(&ptr, &addr) > 0 && *(ptr++) == ',' &&
- 	    kgdb_hex2long(&ptr, &length) > 0 && *(ptr++) == ':') {
--		if (binary)
--			err = kgdb_ebin2mem(ptr, (char *)addr, length);
--		else
-+		/*
-+		 * Trust only the bytes actually received, not length: the
-+		 * client can claim more payload than it sent. 'M' decodes two
-+		 * hex chars per byte in place, so it needs 2 * length bytes at
-+		 * ptr; 'X' decodes one byte per byte, and kgdb_ebin2mem() bounds
-+		 * its extra 0x7d-escape reads against buf_end itself.
-+		 */
-+		if (ptr >= buf_end)
-+			return -EINVAL;
-+
-+		if (binary) {
-+			if (length > (unsigned long)(buf_end - ptr))
-+				return -EINVAL;
-+			err = kgdb_ebin2mem(ptr, (char *)addr, length, buf_end);
-+		} else {
-+			if (length > (unsigned long)(buf_end - ptr) / 2)
-+				return -EINVAL;
- 			err = kgdb_hex2mem(ptr, (char *)addr, length);
-+		}
-+
- 		if (err)
- 			return err;
- 		if (CACHE_FLUSH_IS_SAFE)
-@@ -985,7 +1016,7 @@ int gdb_serial_stub(struct kgdb_state *ks)
- 		/* Clear the out buffer. */
- 		memset(remcom_out_buffer, 0, sizeof(remcom_out_buffer));
- 
--		get_packet(remcom_in_buffer);
-+		remcom_in_len = get_packet(remcom_in_buffer);
- 
- 		switch (remcom_in_buffer[0]) {
- 		case '?': /* gdbserial status */
--- 
-2.50.1 (Apple Git-155)
-
+> ---
+> v2 :
+>   - Move pm_runtime_set_suspended() into the conditional so it is only
+>     called when the sensor is explicitly powered off.
+>
+>  drivers/media/i2c/ov5647.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+>
+> diff --git a/drivers/media/i2c/ov5647.c b/drivers/media/i2c/ov5647.c
+> index 3facf92b3841..3b3e5653a0c6 100644
+> --- a/drivers/media/i2c/ov5647.c
+> +++ b/drivers/media/i2c/ov5647.c
+> @@ -1271,6 +1271,10 @@ static void ov5647_remove(struct i2c_client *client)
+>         v4l2_ctrl_handler_free(&sensor->ctrls);
+>         v4l2_device_unregister_subdev(sd);
+>         pm_runtime_disable(&client->dev);
+> +       if (!pm_runtime_status_suspended(&client->dev)) {
+> +               ov5647_power_off(&client->dev);
+> +               pm_runtime_set_suspended(&client->dev);
+> +       }
+>  }
+>
+>  static const struct dev_pm_ops ov5647_pm_ops = {
+> --
+> 2.43.0
+>
