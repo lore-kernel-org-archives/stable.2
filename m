@@ -1,79 +1,76 @@
-Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
+Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97032360EC5
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 01:46:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.235
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C3872E2663
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 01:53:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790041573; cv=none; b=u0L/acGRNv1zhpslGY6zP0EarixUbLTRYypZnbejVWP+ahp18dUTbcGYYZf2BnJ7QtEgBJaZfuHY/KFde1e+ZgOrbqteoYi4S5ut8PjyGe1Ppft/BA2p6Myt5Hrj8+l7MV15OuIjdWDptQ4Vk7OiiHJnDTCK0QO5uYmgftmKs20=
+	t=1790042015; cv=none; b=hgKzupdw1Lwv8JYlZ70QNh7PDwnp7u4kYq2FNRsSLqAry4pFAgcAMITRXQBNbNXkhy7o0orUD8nQ6cmhNBAa2izd7MBnm3NCjM1wWitArEiXFPy3E+BqY7/SksfLLknJqydpXE3TvBUtBmJQH5Huowy8WRjcb9GVZ6Ggh5wqqxY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790041573; c=relaxed/simple;
-	bh=y+XAD1bzLlPmvSg9e/3OC75RDcM7A3CrfnaE1zi3yj8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=flUmuNvS6RM3Ss32y/udA7xKhykEJt65fbP50v5vCDGtmV+3LzI3Cds5Dro3T1Tbt0EqxZFg3Lk9ht3rSE2vMYkJS8FyaHWUxc9uZ9AQknBvd8QZxo62rshJ4Qj0fVCNeYIKIXdYsJXT1gk8rpdUTtY2SYoKI3w1hz4Va3zNPsA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NwNHhgDL; arc=none smtp.client-ip=74.125.230.235
+	s=arc-20240116; t=1790042015; c=relaxed/simple;
+	bh=3BgYikqSax4HF0A6zgnHHnuQB1alfzJJhKARWIQRbhE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sWDPhm0d/1sjPQzfN0e9bhSw08iorBwRIJyFIPqE9bp/gX7zoGJyO+QCp6iYQp6dDwTCHfKFj1x3hgw4obRPEQmxUhduxv6CUXHr8OFsitU635Pe4Y2u1qFN/RLpuTrsWaEx4aSL7OiY2SQwuvSj9+Q8LEPDt2mJx0Qi/lPKLjk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g0A7KPqD; arc=none smtp.client-ip=74.125.230.205
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NwNHhgDL"
-Received: by mail-qk2-f43.google.com with SMTP id d75a77b69052e-532db7db0c6so3927601cf.2
-        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 18:46:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g0A7KPqD"
+Received: by mail-qk2-f13.google.com with SMTP id af79cd13be357-93910cc46c7so343174285a.3
+        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 18:53:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790041570; x=1790646370; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790042012; x=1790646812; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Y8xPShnnQq1RRm8SZPF19MXAMPQrqUo2Z2vKGdJI+3o=;
-        b=NwNHhgDL4rP/C/q35BW5E+4t4rw7psMkxYpIWrRf7Rtw2yYmiE82xVbc7x9E69lbgL
-         ccBJ6OPJkKusO0h8nCldSxZwLhojVaYSsXxJ5jf6JRHSk45SlmTy53ncHVocjs2pXq9e
-         ji//CEeZUuuSUtYufvXJ4IVhufQN6gA6Z5jRHqZ6nS8atrvq1Zf/yCmeVbThH2PSobvG
-         TMQS7qBTvmSJpMEZqfkudm1R5GpPeubd/iL0Gkzl6KFr/BAdbX/+YrLtfX37x7Afgf4f
-         XdtRwkyY7O1UjXwHGT5CoK2lvrgXIP+17QaR27EcEuMtfiw3ql8KpKDbsCf9jy4dMoI7
-         Us5Q==
+        bh=ByHXe55/uuBbCQG8Zppw6bo6YHny9xMuvL7YZ42cUcg=;
+        b=g0A7KPqDAU/BRD52u0DeQ795PUnt4z2wxmWUcKMnccLBXUfZ/JecrDV7N2Dsc0n0Qw
+         +wu8Vrbb57fIYTs1FWnNHxI/p6G2uwMe0rJTc2SnmS7sD4SzFLA11m54grNk7CNkmAcw
+         VHwYPVqmn/CjO7amfRXJ4Hw12rfg31Duqk2jJ9YVnB568rFnY030N32UkUdx98MJE5Tl
+         Tsx+EDhBgx2QvDT+i7/v3OA576RpLZCvGQ7grePqO9dhY5YcdON3QUGnSTEvKdMhZQK/
+         aD8f4uITXi3r2S8lAadDQNpxiTwnlTZnENhQGuBfLPWPj4jb8xrAXZGjvainyQ7dAN8B
+         AmVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790041570; x=1790646370;
+        d=1e100.net; s=20260707; t=1790042012; x=1790646812;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Y8xPShnnQq1RRm8SZPF19MXAMPQrqUo2Z2vKGdJI+3o=;
-        b=p0S7IJX8UdyEdzQrzX1nPRICbNP5gVwOYl3dB4fgLTOdxZyU0/oxLeXktqwuZcviWS
-         NenDNmF5Al6NPwTB9oStbjvfvHF7Hr0LIBX0C1qw5JDlhmUmbV5QquKdPmvj7epaydaX
-         SEU6y5OWXBbhKGbbrqzFn2PwZvIh3E1uZpk08odxOuoclX/XtFVOHTCpXiqESphrV9Pn
-         w4edIl9Lv9PcdguIr4D9OA9VToJOKphe7D77s5LRyjr7ornFwf2cybqn1ddFw1YYhqzZ
-         oyPXrx18T4uavcRiqTeRihVrCvCoRVrUOmz3XoHzetkOkH657WbIzaabBmyzwPw22Hj5
-         Wq3g==
-X-Forwarded-Encrypted: i=1; AKwUvBwjR63C9oTLN0hFVHJdC4xTmhewdpDRNmfoZ+bS79cJOYvnoEd4Q2mQFkEIGs7Za14g6xLp6es=@vger.kernel.org
-X-Gm-Message-State: AFuF++lytBy86tgzL69He+LC8r8Dl7trYkPAcYyYxdfb+68ytOzQVG3l
-	vsa6r7jON5dxMp//SkJBnNfCz6w8tJzQUlVappskKEQ6K0rgk8agUNk=
-X-Gm-Gg: AYBFou2NF37hFd+rtACnPeQx7x0SXi3Vbqt+BxkWWT6DWFmYrxdmFqB5gL5EvS7+JLJ
-	9h0Gprf0MbCNOt8g4tGTNtOR1fKCVvO1Nph7CXUpONF8p+ZsBbI8HqxnJk7aefwNDoSsPDQUQVt
-	hle0CDUKVI59jIouqdpsvHpocJzLUJphwAINW+z8TfnnxLBFkTW5cvlIYyIuDZOQFIfVLEfgEJ8
-	pg4rtz9aRgIWHUTB9T1xLj58vR5JCTvTWpmbaE1qaRVhw8Fi1zDRYBlnnf1OocbYDqd9x6iUfJp
-	eX4If3UhlHkZ98yFFhQn34i9Edo53NSQhGaj4LrnJ8O5R6Ggf2/ZDHxW9emLAu3ftxb54efrB/k
-	Oh7mGGPnh+lNFwF1rxO5sFlR96BdAtY7REVrXyB5Tvuf4we2kgff4F2mTw9rWxniSbVdTZEHoTb
-	12k9obIuVx/RPDaAwQFkROwmPRFHK8BpH1IJqlVf2CTw86Y2pYvKQyoIJi8F2uZbKUVgsdrKM4/
-	XGkXV8ncJVx3eE8GvYWBSrJ3xy7eNbiGgzCVfUb1AvGq/W5ZqvcwGwexmDxe/a0p9Q+XzrJCTiv
-	gdW66I37Wt+2M1YxmZ6mn4pggJ43
-X-Received: by 2002:a05:622a:1cc5:b0:532:c925:c31e with SMTP id d75a77b69052e-532d8d34820mr37916871cf.16.1790041570399;
-        Mon, 21 Sep 2026 18:46:10 -0700 (PDT)
+        bh=ByHXe55/uuBbCQG8Zppw6bo6YHny9xMuvL7YZ42cUcg=;
+        b=bC++/zuUxKnDo8DREI7VQaYJcWEl3Y82lkBzqsU1nZj9VRkZe4DJStyeG/wamp5y6J
+         Zsqz75BQO3hsdzuwm03EJfB1u/A1qMJRnQV3Udtxh2vRF4f19FvO4gnY3z220HdEU7wP
+         LiOBA+x6/ERnJI5Bp2dGla3cd9JRqPUMRq9q5qsnZfEIe2RTFfX6/bzpYMiNdu9B+VBb
+         ybgJ2C1kfK0TMhpn61M9BLs5c7tayEkIQYdz39t7d3NwpQ9f7ziK3/GjCh4h5Pkw6SKq
+         YMXbjZwuC/Mroe5O6SipBBdUDv4HC70QzYB2jMQsGTKa4pE++kfmjwEOPOa2ilgJkzUD
+         QcYg==
+X-Forwarded-Encrypted: i=1; AKwUvBw4YCIY02xXNCSUXkOe8UvIFAaUcF9iXVLHoR3PnGgZ0QlV7RoPb6ry8J1pcdu9gEjYwjvID3k=@vger.kernel.org
+X-Gm-Message-State: AFuF++mBVQHzBsiWesQLiIaVqDTe1Rck3BraohZqe7GniJeGEuosfCbl
+	hu1LlbGQ/lPmjBAWnZOsNDN/rRKvnee2RSVVd95naT91N5FfvupMTHE=
+X-Gm-Gg: AYBFou0GWNUrfizPIy7LViRwa0WfwUlZRwH9fRUQh8Ce8bDdcF1DhFTg2JOf4Tw2/lZ
+	YA+mnaut6PsWflueER2Td1qRVQPmG5KG3G6sguyLNABBjfCPuW99EefdhZN9y6guvcAPxCFhk4+
+	/rRzd458IyPBtD+3FUCN++HxUCgFkaj3sbSG9wxtDeJqOzQjqS0oDyllXJTZgWN/+UZr2QVSIle
+	XTh26xWFT1Udxuux9xeel2rzA4KlzGc9kg2EzY+psLuoPK2PVBe9ZvWcCXjJ5nruwfnNz7VNKt4
+	6AAj71e1X8ui2Cdrg6AgBDoRySPBTmCBPyFusReHVHVTGedLyk4ue0J80Rdbd1f9MjJAgrNJoCK
+	IgH3l8b5W8EMcW0dpyvbJzqVmt+lPeMfYxqAW1gEKQBrKQxnPIsxU7K28O7CMHyzyhO/DkyFNtM
+	0MmFGleKylB4NjYIpROlFApgVSYE+yKCb1HKxZyy1Hit1PgQG5/0CFd0hZu1v1uUIGPnWAjetuR
+	F+gPrYNIekZ9luZEDtjeRQsHpElmGeVsZF9diNyPsewxuvipmr/McqNdziUsSvz+VC15Z+bFcjv
+	itcY1CNd2lhDAqLF5cWDEKvYf/Ey
+X-Received: by 2002:a05:6214:2128:b0:910:345b:4c5e with SMTP id 6a1803df08f44-914008bbd47mr17891176d6.37.1790042012011;
+        Mon, 21 Sep 2026 18:53:32 -0700 (PDT)
 Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-532e17123casm1228641cf.3.2026.09.21.18.46.09
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91402536633sm3857706d6.49.2026.09.21.18.53.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 18:46:09 -0700 (PDT)
+        Mon, 21 Sep 2026 18:53:30 -0700 (PDT)
 From: Myeonghun Pak <mhun512@gmail.com>
-To: Rasesh Mody <rmody@marvell.com>,
-	Sudarsana Kalluru <skalluru@marvell.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: GR-Linux-NIC-Dev@marvell.com,
-	netdev@vger.kernel.org,
+To: Oder Chiou <oder_chiou@realtek.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: Myeonghun Pak <mhun512@gmail.com>,
+	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH net] bna: prevent IOC timer rearm during teardown
-Date: Mon, 21 Sep 2026 21:46:05 -0400
-Message-ID: <20260922014605.588040-1-mhun512@gmail.com>
+	stable@vger.kernel.org
+Subject: [PATCH] ASoC: rt5663: Cancel jack detect work on unbind
+Date: Mon, 21 Sep 2026 21:53:27 -0400
+Message-ID: <20260922015327.637137-1-mhun512@gmail.com>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -83,85 +80,77 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-bna: prevent IOC timer rearm during teardown
+ASoC: rt5663: Cancel jack detect work on unbind
 
-bnad_pci_remove() and the probe disable_ioceth path call
-timer_delete_sync() for ioc_timer, sem_timer and hb_timer, but not for
-iocpf_timer.  bnad_iocpf_timeout() then takes bnad->bna_lock after
-free_netdev() has freed the struct bnad.
+jack_detect_work and jd_unplug_work live in struct rt5663_priv, which
+devres frees after rt5663_i2c_remove() returns.  The IRQ queues the
+first work, a button press queues the second, and jd_unplug_work
+rearms itself while the jack stays inserted.  Both callbacks load
+rt5663->component before checking it, and nothing clears that pointer.
+rt5663_suspend() cancels the works; unbind does not.
 
-Deleting iocpf_timer last does not fix this.  sem_timer and
-iocpf_timer rearm each other: bnad_iocpf_sem_timeout() can arm
-iocpf_timer, and bnad_iocpf_timeout() arms sem_timer from
-bfa_ioc_hw_sem_get() when the semaphore is busy.
-timer_delete_sync() only waits out its own callback.
-bnad_ioceth_disable() can time out and leave that callback live.
+rt5663_remove() alone does not cover unbind.
+snd_soc_del_component_unlocked() skips it when component->card is
+NULL, which is true if the codec was never bound or the card was
+already unbound.  The jack IRQ is requested before the component is
+registered, so it can arm the work with no card, and it stays live
+across a card unbind.
 
-Shut all four IOC timers down with timer_shutdown_sync() on both
-paths, so a later mod_timer() is ignored.
+rt5663_i2c_remove() alone is not enough either.
+rt5663_set_jack_detect() queues jack_detect_work even when clearing
+the jack.  On a bound I2C unbind that call comes from
+snd_soc_link_exit() after rt5663_i2c_remove() has returned.
+
+Cancel both works after free_irq() in rt5663_i2c_remove(), and again
+in rt5663_remove().  Cancel jack_detect_work first; it can queue
+jd_unplug_work.
 
 This issue was identified during our ongoing static-analysis research
 while reviewing kernel code.
 
-Fixes: 1d32f7696286 ("bna: IOC failure auto recovery fix")
+Fixes: df7c52168ee1 ("ASoC: add rt5663 codec driver")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 ---
- drivers/net/ethernet/brocade/bna/bnad.c | 24 ++++++++++++++++++------
- 1 file changed, 18 insertions(+), 6 deletions(-)
+Found by inspection; not runtime tested.
 
-diff --git a/drivers/net/ethernet/brocade/bna/bnad.c b/drivers/net/ethernet/brocade/bna/bnad.c
-index 8b75004ba7c9..55dfd4896785 100644
---- a/drivers/net/ethernet/brocade/bna/bnad.c
-+++ b/drivers/net/ethernet/brocade/bna/bnad.c
-@@ -2571,6 +2571,22 @@ bnad_ioceth_disable(struct bnad *bnad)
- 	return err;
+ sound/soc/codecs/rt5663.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/sound/soc/codecs/rt5663.c b/sound/soc/codecs/rt5663.c
+index 262d3bba1f3d..2430bce31b3b 100644
+--- a/sound/soc/codecs/rt5663.c
++++ b/sound/soc/codecs/rt5663.c
+@@ -3179,6 +3179,13 @@ static void rt5663_remove(struct snd_soc_component *component)
+ {
+ 	struct rt5663_priv *rt5663 = snd_soc_component_get_drvdata(component);
+ 
++	/*
++	 * Bound teardown runs this after snd_soc_link_exit().  set_jack()
++	 * there can queue jack_detect_work, which can queue jd_unplug_work.
++	 */
++	cancel_delayed_work_sync(&rt5663->jack_detect_work);
++	cancel_delayed_work_sync(&rt5663->jd_unplug_work);
++
+ 	regmap_write(rt5663->regmap, RT5663_RESET, 0);
  }
  
-+/*
-+ * The IOC timers rearm one another, so deleting one cannot stop a
-+ * sibling callback from arming it again.  Shut them down so a later
-+ * mod_timer() is ignored.
-+ */
-+static void
-+bnad_ioc_timers_shutdown(struct bnad *bnad)
-+{
-+	struct bfa_ioc *ioc = &bnad->bna.ioceth.ioc;
-+
-+	timer_shutdown_sync(&ioc->ioc_timer);
-+	timer_shutdown_sync(&ioc->sem_timer);
-+	timer_shutdown_sync(&ioc->hb_timer);
-+	timer_shutdown_sync(&ioc->iocpf_timer);
-+}
-+
- static int
- bnad_ioceth_enable(struct bnad *bnad)
- {
-@@ -3727,9 +3743,7 @@ bnad_pci_probe(struct pci_dev *pdev,
- 	bnad_res_free(bnad, &bnad->mod_res_info[0], BNA_MOD_RES_T_MAX);
- disable_ioceth:
- 	bnad_ioceth_disable(bnad);
--	timer_delete_sync(&bnad->bna.ioceth.ioc.ioc_timer);
--	timer_delete_sync(&bnad->bna.ioceth.ioc.sem_timer);
--	timer_delete_sync(&bnad->bna.ioceth.ioc.hb_timer);
-+	bnad_ioc_timers_shutdown(bnad);
- 	spin_lock_irqsave(&bnad->bna_lock, flags);
- 	bna_uninit(bna);
- 	spin_unlock_irqrestore(&bnad->bna_lock, flags);
-@@ -3770,9 +3784,7 @@ bnad_pci_remove(struct pci_dev *pdev)
+@@ -3728,6 +3735,13 @@ static void rt5663_i2c_remove(struct i2c_client *i2c)
+ 	if (i2c->irq)
+ 		free_irq(i2c->irq, rt5663);
  
- 	mutex_lock(&bnad->conf_mutex);
- 	bnad_ioceth_disable(bnad);
--	timer_delete_sync(&bnad->bna.ioceth.ioc.ioc_timer);
--	timer_delete_sync(&bnad->bna.ioceth.ioc.sem_timer);
--	timer_delete_sync(&bnad->bna.ioceth.ioc.hb_timer);
-+	bnad_ioc_timers_shutdown(bnad);
- 	spin_lock_irqsave(&bnad->bna_lock, flags);
- 	bna_uninit(bna);
- 	spin_unlock_irqrestore(&bnad->bna_lock, flags);
++	/*
++	 * component .remove is skipped when component->card is NULL.
++	 * jack_detect_work can queue jd_unplug_work, so cancel it first.
++	 */
++	cancel_delayed_work_sync(&rt5663->jack_detect_work);
++	cancel_delayed_work_sync(&rt5663->jd_unplug_work);
++
+ 	regulator_bulk_disable(ARRAY_SIZE(rt5663->supplies), rt5663->supplies);
+ }
+ 
+
 base-commit: 238650ef6c7c7cca08e032527329424c9fbd70e5
 -- 
 2.53.0
