@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 043465187FB
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 13:30:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E860354CF48
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 13:30:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790083846; cv=none; b=NeQuefswrgSdor8Ok7L5AyxA8HLmtw6IobNgNliaUBJwu77kuA5o5h+8/LdV3M6h7+aA7Z8UetURZnxG+39nR/vTpQMQEp7iAtr0UhJcYuRnbawEAENEgk5V3dsMR9zYqrTLR3xmRE31V17ujgKNHKfURpAQ9/vCCq063UqdqwI=
+	t=1790083849; cv=none; b=Px0we4BnYoVBJSmWDX94oxOBR4AWL/EiWc8eoi/y84BUogsXOM8CwIhAnUG5ZkfuhESzR7I/7hhE6EGJuUXx1Q5H0BICLcK0W5KewbBT9p0M5fB2+XVJDWFlg5p91zfEQWL6WpfrwQXVYvlGMZzUPsLbx8sVzE0hlaMsbnzk8Y8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790083846; c=relaxed/simple;
-	bh=BfSWKrIuWcW3s4KFqIu1o+i2Ff7wi4tcDP9TCLCoNzU=;
+	s=arc-20240116; t=1790083849; c=relaxed/simple;
+	bh=wXUf5BccZFVgfDBfvIlzXLvhc+NhsICUnKJDyJp3Gfk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LsRdcPcyYrMskJAfmVziOwTHqPtkOeViikoduJ/BZ5HSgdvCR/KyYkZDvhHIYANCEN36MQetTjzD31LNE644lIHvAYq+abHkaFaQu6oZ3dySxtpyex4IjPt6KQ+swq5pUXQgZ0E9SmsxxWHJa/x88xxStTV4lsOIL/BXqDBUhXY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kHExCbak; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=rxgXmlW579iOWYO51zMn7gad66pJnWDSe7bqELvTRYOy7ixzOisE+xbfG9dyY3jt+8Z2D84eMaxn6ubeKcMzy30XNsTxi2vMSHHqX/uGDIB8glsZmqEfn3SZiWxXSBXibriVEbHCleuIKf/z1xR3q+8csIRuQIguEGqcNnGkrTk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dhaknke6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kHExCbak"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0974C1F00898;
-	Tue, 22 Sep 2026 13:30:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dhaknke6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 055501F000FF;
+	Tue, 22 Sep 2026 13:30:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790083844;
-	bh=AGxXqabvfWwT9GwS17jrBDkVkmrVL19Ir6iUItSvuuk=;
+	s=k20260515; t=1790083847;
+	bh=PL2T9Vj3kPjjCi0wrEIsbMIpqbD5l4li/r11wpDskak=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kHExCbakS00ORDFwim/S8Ad8rbqyx2pozvizP77UfTuCaV7v2db2tpGzppsZuyi5X
-	 YNV2w2Lc9hXR35JyWSX2SNT2FrDVvPY1G8CKqR7Gq9QDbygEv9hWQI0IXKx2aZa60U
-	 o/WSdHf2CR5szgAr6p61knU9zT7682rVXqcHjqPxzM60oqy4T9Uotz3t9YFGkeziP1
-	 t+9FGX1ViHk+cpLy2D6IIDlBY5ZtxSOMBvQq4ygCKIcAvEoSjoTx4OSGOJ/RSjFgc4
-	 Ir6ISugYivoP9bwVZR5NjT2lv+9cQU58f+cLR1DPa+wvxjfOyckXoXCh4Unbf1rd3j
-	 FSx+V1QAkK4Hg==
+	b=Dhaknke6XjfpPUSOKw4mYS88S9O3HI7raPzGAQTknBS17nZV3suZ6o3JoDgLzx/vt
+	 5awqC7cD9tvH9e/xC4RHxVykrBBrjP9b+FtjZP1QPIa0ehYuAGT1MstvTFUGsvASFl
+	 jhKBbKLHE1y3c3jcNYWMbYabBpvAt8rVevEixbbumP3Su0m1uSGw0FNLnKJsOVIwUm
+	 kgtE1uT+z1YMqUL4ZZBzU/3fL8T9Ld597DeYIyDi3lE1PUKerG3j+Zs1OGRDt1GS0s
+	 P22KKIsWc+HdXl94xOFs7gC8WyxI2R0BZKYk0xUeXe88QU76zDuoj8u4nY3sd44l5Z
+	 LmWJrHtWcmovA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Xiang Mei <xmei5@asu.edu>,
-	co+8eacd4fa193b1b28@bugs.sh,
-	Takashi Iwai <tiwai@suse.de>,
+Cc: Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
+	Michael Kelley <mhklinux@outlook.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] ALSA: usb-audio: Clamp implicit feedback packet count to URB capacity
-Date: Tue, 22 Sep 2026 09:30:41 -0400
-Message-ID: <20260922133041.2479161-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y] swiotlb: use the adjusted address for the highmem page lookup
+Date: Tue, 22 Sep 2026 09:30:45 -0400
+Message-ID: <20260922133045.2479238-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260922133041.2479161-1-sashal@kernel.org>
-References: <2026092250-strudel-coastal-4db3@gregkh>
- <20260922133041.2479161-1-sashal@kernel.org>
+In-Reply-To: <2026092244-diocese-pointing-0bdd@gregkh>
+References: <2026092244-diocese-pointing-0bdd@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,108 +46,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Xiang Mei <xmei5@asu.edu>
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 
-[ Upstream commit 76a986c980bb502c7688d605ac7a67fd257a9a1b ]
+[ Upstream commit b7d7914a9ae3097e63d113007e4fb44d33d515b1 ]
 
-data_ep_set_params() allocates each data URB for exactly u->packets
-isochronous frames, so urb->iso_frame_desc[] has u->packets slots and
-ctx->packets is the driver's only record of that limit. For an implicit
-feedback sink, snd_usb_queue_pending_output_urbs() overwrites it with the
-sync source's packet count, which is calculated independently from the
-capture endpoint's parameters. When that count is larger,
-prepare_playback_urb() and prepare_silent_urb() can write
-iso_frame_desc[] past the allocation; their existing bounds limit payload
-bytes, not the descriptor index.
+swiotlb_bounce() reads the page frame number from the slot's recorded
+orig_addr, then advances orig_addr by tlb_offset to reach the address
+the caller asked about. The highmem branch mixes the two: the offset
+within the page comes from the adjusted address, the page from the value
+before it.
 
-The reproducer uses a high-speed UAC2 device declaring bInterval 1 for
-implicit feedback capture (8 packets) and bInterval 4 for playback
-(1 packet). On the first capture completion after the stream starts, it
-accesses seven descriptors spanning 112 bytes beyond the one-packet URB:
+Once the adjustment crosses a page boundary the pair no longer describes
+one location, and the whole copy lands one page below the intended one
+for a positive tlb_offset, one above for a negative one. DMA_FROM_DEVICE
+writes the device data over the wrong page and leaves the intended one
+stale, DMA_TO_DEVICE feeds the device from a page the mapping may not
+cover. Partial syncs through dma_sync_single_range_for_*() are what make
+tlb_offset non-zero.
 
-  BUG: KASAN: slab-out-of-bounds in prepare_playback_urb (sound/usb/pcm.c:1560)
-  Write of size 4 at addr ffff88801e696ad0 by task vhci_rx/178
-   prepare_playback_urb (sound/usb/pcm.c:1560)
-   prepare_outbound_urb (sound/usb/endpoint.c:340)
-   snd_usb_queue_pending_output_urbs (sound/usb/endpoint.c:501)
-   snd_complete_urb (sound/usb/endpoint.c:1834)
-   __usb_hcd_giveback_urb (drivers/usb/core/hcd.c:1657)
-   usb_hcd_giveback_urb (drivers/usb/core/hcd.c:1741)
-   vhci_rx_loop (drivers/usb/usbip/vhci_rx.c:107)
-   kthread (kernel/kthread.c:436)
-  The buggy address belongs to the object at ffff88801e696a00
-   which belongs to the cache kmalloc-256 of size 256
-  The buggy address is located 0 bytes to the right of
-   allocated 208-byte region [ffff88801e696a00, ffff88801e696ad0)
+The branch test is picked the same way, so a slot recorded in lowmem can
+be adjusted into highmem and the lowmem path then hands a highmem
+address to phys_to_virt().
 
-Record the allocated packet count per endpoint and clamp both the adopted
-count and the packet-size copy to it. Fold the Format Type II delimiter
-into urb_packs before the allocation loop so the recorded limit matches
-every URB.
+Take both from orig_addr once it is final and keep pfn in the branch
+that uses it. PhysHighMem() asks the question straight from the address,
+as dma-debug already does.
 
-Fixes: cf044e441902 ("ALSA: usb-audio: Update the number of packets properly at receiving")
-Reported-by: co+8eacd4fa193b1b28@bugs.sh
-Closes: https://lore.kernel.org/all/22xPn8drvIUtYgVeQnBiNqXuevOTpBAjepLz%40bugs.sh/
+Fixes: 5f89468e2f06 ("swiotlb: manipulate orig_addr when tlb_addr has offset")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Xiang Mei <xmei5@asu.edu>
-Link: https://patch.msgid.link/20260912200530.1955491-1-xmei5@asu.edu
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Reviewed-by: Michael Kelley <mhklinux@outlook.com>
+Link: https://lore.kernel.org/r/20260905084210.148255-1-donggeunyoo.kernel@gmail.com
+Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+[ Replaced unavailable PhysHighMem(orig_addr) with PageHighMem(pfn_to_page(PFN_DOWN(orig_addr))). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/usb/card.h     |  1 +
- sound/usb/endpoint.c | 12 +++++++-----
- 2 files changed, 8 insertions(+), 5 deletions(-)
+ kernel/dma/swiotlb.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/usb/card.h b/sound/usb/card.h
-index ac5505ce046de..0d860c57d9d9d 100644
---- a/sound/usb/card.h
-+++ b/sound/usb/card.h
-@@ -115,6 +115,7 @@ struct snd_usb_endpoint {
- 	unsigned int phase;		/* phase accumulator */
- 	unsigned int maxpacksize;	/* max packet size in bytes */
- 	unsigned int maxframesize;      /* max packet size in frames */
-+	unsigned int max_urb_packs;	/* packets allocated per data URB */
- 	unsigned int max_urb_frames;	/* max URB size in frames */
- 	unsigned int curpacksize;	/* current packet size in bytes (for capture) */
- 	unsigned int curframesize;      /* current packet size in frames (for capture) */
-diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
-index aab0ea614f4a8..5219111b79e58 100644
---- a/sound/usb/endpoint.c
-+++ b/sound/usb/endpoint.c
-@@ -496,9 +496,10 @@ int snd_usb_queue_pending_output_urbs(struct snd_usb_endpoint *ep,
+diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
+index ffb7b021e2fb9..90651d535a923 100644
+--- a/kernel/dma/swiotlb.c
++++ b/kernel/dma/swiotlb.c
+@@ -869,7 +869,6 @@ static void swiotlb_bounce(struct device *dev, phys_addr_t tlb_addr, size_t size
+ 	int index = (tlb_addr - mem->start) >> IO_TLB_SHIFT;
+ 	phys_addr_t orig_addr = mem->slots[index].orig_addr;
+ 	size_t alloc_size = mem->slots[index].alloc_size;
+-	unsigned long pfn = PFN_DOWN(orig_addr);
+ 	unsigned char *vaddr = mem->vaddr + tlb_addr - mem->start;
+ 	int tlb_offset;
  
- 		/* copy over the length information */
- 		if (implicit_fb) {
--			ctx->packets = packet->packets;
-+			ctx->packets = min_t(int, packet->packets,
-+					     ep->max_urb_packs);
- 			memcpy(ctx->packet_size, packet->packet_size,
--			       packet->packets * sizeof(packet->packet_size[0]));
-+			       ctx->packets * sizeof(packet->packet_size[0]));
- 		}
- 
- 		/* call the data handler to fill in playback data */
-@@ -1247,15 +1248,16 @@ static int data_ep_set_params(struct snd_usb_endpoint *ep)
- 		ep->nurbs = min(max_urbs, urbs_per_period * ep->cur_buffer_periods);
+@@ -899,7 +898,8 @@ static void swiotlb_bounce(struct device *dev, phys_addr_t tlb_addr, size_t size
+ 		size = alloc_size;
  	}
  
-+	if (fmt->fmt_type == UAC_FORMAT_TYPE_II)
-+		urb_packs++; /* for transfer delimiter */
-+	ep->max_urb_packs = urb_packs;
-+
- 	/* allocate and initialize data urbs */
- 	for (i = 0; i < ep->nurbs; i++) {
- 		struct snd_urb_ctx *u = &ep->urb[i];
- 		u->index = i;
- 		u->ep = ep;
- 		u->packets = urb_packs;
--
--		if (fmt->fmt_type == UAC_FORMAT_TYPE_II)
--			u->packets++; /* for transfer delimiter */
- 		u->buffer_size = maxsize * u->packets;
- 		u->urb = usb_alloc_urb(u->packets, GFP_KERNEL);
- 		if (!u->urb)
+-	if (PageHighMem(pfn_to_page(pfn))) {
++	if (PageHighMem(pfn_to_page(PFN_DOWN(orig_addr)))) {
++		unsigned long pfn = PFN_DOWN(orig_addr);
+ 		unsigned int offset = orig_addr & ~PAGE_MASK;
+ 		struct page *page;
+ 		unsigned int sz = 0;
 -- 
 2.53.0
 
