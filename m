@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 309C94BF92B
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 09:42:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C3574BE452
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 09:42:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790070155; cv=none; b=nfJiKSmkFd7UeOzrVoWCx5AFoGZEV9ygOYLbio/fakTB1M/53PSA6Jn3j7HVQaWpuDvlr3/2qQO3s9Y+Az6ojKw57ol2WyPOVM5v2VJ4wfCJdfQUvKGmf/U5lzIKeMImpM+r6bnbdmaiJVxqhi79xw2i4OZEKObV/QY8yJ1zA0s=
+	t=1790070158; cv=none; b=njANIwBoheQj1H8IjgePYP1I7iAK7vQg+nEbfFjlrmVIiVbuLei/YbAJjfF0aLyOl1ajxEZmBHDJMrgEQN6Zb2GEQSth05jbM26mP3HpjCst6TEapA0N8tMK333V56zffh+MUEz3tWqFyDtj8Be7p7VzIxGBF0Nq9J4F4ZTaN9Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790070155; c=relaxed/simple;
-	bh=12BhVIk3NJ5u9N0zAyr+usPmyxiZd90cX+vtjLHR/yM=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=LdaAs9r9ucHHjjOxyYpt2GqxJXBoro8zuMqGEKpA8lMiiOSRVUdpKgQYZLT+D0dBwtUMjaWd/j8isEILvJXaax27vgrWqX2u5XsGUqlqGstTXCWgH8X4VK2YtOKTCaRvLjomxN6AF3bcn/3N2fsZBjxgxMLD+Z+LXa+BLGRmGRc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=NVZmdNUh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790070158; c=relaxed/simple;
+	bh=J4KuKy/8EpdIYXmVG6nG+gwuyJ2jJ+5Ny7NSYqsd8Rk=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=icZTvQWdFbbjuGWCzGm+fE34Il/qmZwCkMGaemiuFnp1UH5EuOYMcqvmSqxEv+gbepI48J6jjpCdIJSkoDlkj0wYh0mOVWUymbYnP2UrcqBFscp2z49gE8F3E8qKbb6J+7gn4lruZgK/pyXWSWrzc/g60efl9oJaptftCw9bNMg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=G/V/vrCJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="NVZmdNUh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34CE71F000FF;
-	Tue, 22 Sep 2026 09:42:32 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="G/V/vrCJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EC621F000FF;
+	Tue, 22 Sep 2026 09:42:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790070153;
-	bh=Hj0bz2q7iRd51CwgoWtijaQJ/r7j9Ut299Q33XAcXsY=;
+	s=korg; t=1790070157;
+	bh=jp54ZLTPlTCrSNTYoN0NjseTW8P/RiwMX7JF4UD2bXE=;
 	h=Subject:To:Cc:From:Date;
-	b=NVZmdNUh8j1yIKRnyYL+miyofGdn0McUUCCcn9WXpKBhWB9aE04S+Q4AFwK0Y8XJy
-	 /F8b0iZ5IvpXwInSACQT+VU9rkCfg2F6jAOSV5WdERne3MCRFtFMnnW8uWdr6YGS3E
-	 nzl8ikp/qanKBQV5yrdPIaSmc7g68txlfLnAil4o=
-Subject: FAILED: patch "[PATCH] net: wwan: t7xx: validate the netif index in" failed to apply to 6.1-stable tree
-To: zhugl3@xiaopeng.com,kuba@kernel.org
+	b=G/V/vrCJe7pJhCnWUKG22W/o2mw/OkVvo2PTigWi1lMCqpnvVnVArBuRXJv3/5clz
+	 guU9wAxzxRxNCiqW5OTdvLA6Egvat3CYuVv4qG+UK34DfZk2CjwYitP4+U+zDCCuJ5
+	 47zBdgFucZZa/UrijTm6yY1vdFsHrYBXUuB0dghk=
+Subject: FAILED: patch "[PATCH] scsi: fnic: Fix missed link-up when critical IRQ targets" failed to apply to 6.18-stable tree
+To: aeasi@cisco.com,arulponn@cisco.com,gcboffa@cisco.com,kartilak@cisco.com,loberman@redhat.com,mkp@kernel.org,sebaddel@cisco.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 22 Sep 2026 11:33:15 +0200
-Message-ID: <2026092215-sincere-shack-66e6@gregkh>
+Date: Tue, 22 Sep 2026 11:34:49 +0200
+Message-ID: <2026092249-remedial-elsewhere-96be@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x c7ead9704249d57d4693a04697e3bbd285138fa9
+git cherry-pick -x 0cb1fd924126f1f581621a5e804df98a02be9dff
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092215-sincere-shack-66e6@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092249-remedial-elsewhere-96be@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,50 +62,140 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From c7ead9704249d57d4693a04697e3bbd285138fa9 Mon Sep 17 00:00:00 2001
-From: Guanglei Zhu <zhugl3@xiaopeng.com>
-Date: Fri, 11 Sep 2026 10:17:34 +0800
-Subject: [PATCH] net: wwan: t7xx: validate the netif index in
- t7xx_ccmni_recv_skb()
+From 0cb1fd924126f1f581621a5e804df98a02be9dff Mon Sep 17 00:00:00 2001
+From: Arun Easi <aeasi@cisco.com>
+Date: Thu, 3 Sep 2026 10:55:47 -0700
+Subject: [PATCH] scsi: fnic: Fix missed link-up when critical IRQ targets
+ offline CPU
 
-The netif index carried in the DPMAIF PIT header is five bits wide,
-but ccmni_inst[] only has room for NIC_DEV_MAX (21) entries.
-t7xx_ccmni_recv_skb() indexes the array without a bounds check, so
-indexes 21 to 31 read past it.  The out-of-bounds value lands in the
-callback table that follows the array, which is never NULL, so the
-existing !ccmni check does not catch it and the driver dereferences
-whatever sits there as a struct t7xx_ccmni.
+When CPU Hyper Threading is disabled, sibling CPUs remain present but
+are reported offline. Managed MSI-X IRQs can still receive affinity
+masks that include those offline CPUs. If a driver-critical vector is
+managed, it can be parked on an offline CPU and the driver may miss
+critical events such as link-up.
 
-Drop the skb when the index is out of range.
+Keep driver-critical vectors unmanaged so they can be migrated by the
+IRQ core when their target CPU is offlined.
 
-Fixes: 05d19bf500f8 ("net: wwan: t7xx: Add WWAN network interface")
+Since HWQ-0 is unmanaged now, in some queue combinations there can be no
+mappings to it in mq_map. So without the blk-mq fix mentioned below,
+system may crash during cpu offline/online tests.
+
+Fixes: 8a8449ca5e33 ("scsi: fnic: Modify ISRs to support multiqueue (MQ)")
 Cc: stable@vger.kernel.org
-Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+Depends-on: commit 10845a105bbc ("blk-mq: skip CPU offline notify on unmapped hctx")
+Reviewed-by: Sesidhar Baddela <sebaddel@cisco.com>
+Reviewed-by: Arulprabhu Ponnusamy <arulponn@cisco.com>
+Reviewed-by: Gian Carlo Boffa <gcboffa@cisco.com>
+Reviewed-by: Karan Tilak Kumar <kartilak@cisco.com>
+Signed-off-by: Arun Easi <aeasi@cisco.com>
+Reviewed-by: Laurence Oberman <loberman@redhat.com>
+Link: https://patch.msgid.link/20260903175547.57971-1-aeasi@cisco.com
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
 
-Verified in a QEMU guest with a fault injector setting the netif
-index to 25: the unpatched driver reads a value past ccmni_inst[],
-which lands in the callback table, and dereferences it far enough to
-queue the skb.  With this check the packet is dropped.  Well-formed
-traffic on index 0 is unaffected.
-
-Changes in v2: none.
-
-Link: https://patch.msgid.link/20260911021734.1396599-3-zhugl3@xiaopeng.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-
-diff --git a/drivers/net/wwan/t7xx/t7xx_netdev.c b/drivers/net/wwan/t7xx/t7xx_netdev.c
-index fc0a7cb181df..8f32c2d26931 100644
---- a/drivers/net/wwan/t7xx/t7xx_netdev.c
-+++ b/drivers/net/wwan/t7xx/t7xx_netdev.c
-@@ -420,6 +420,10 @@ static void t7xx_ccmni_recv_skb(struct t7xx_ccmni_ctrl *ccmni_ctlb, struct sk_bu
+diff --git a/drivers/scsi/fnic/fnic.h b/drivers/scsi/fnic/fnic.h
+index c576a7f5083e..3ba1592940ca 100644
+--- a/drivers/scsi/fnic/fnic.h
++++ b/drivers/scsi/fnic/fnic.h
+@@ -31,7 +31,7 @@
  
- 	skb_cb = T7XX_SKB_CB(skb);
- 	netif_id = skb_cb->netif_idx;
-+	if (netif_id >= NIC_DEV_MAX) {
-+		dev_kfree_skb(skb);
-+		return;
+ #define DRV_NAME		"fnic"
+ #define DRV_DESCRIPTION		"Cisco FCoE HBA Driver"
+-#define DRV_VERSION		"1.9.0.0"
++#define DRV_VERSION		"1.9.0.1"
+ #define PFX			DRV_NAME ": "
+ #define DFX                     DRV_NAME "%d: "
+ 
+diff --git a/drivers/scsi/fnic/fnic_isr.c b/drivers/scsi/fnic/fnic_isr.c
+index 02856745580f..43149d8312ec 100644
+--- a/drivers/scsi/fnic/fnic_isr.c
++++ b/drivers/scsi/fnic/fnic_isr.c
+@@ -245,7 +245,14 @@ int fnic_set_intr_mode_msix(struct fnic *fnic)
+ 	unsigned int m = ARRAY_SIZE(fnic->wq);
+ 	unsigned int o = ARRAY_SIZE(fnic->hw_copy_wq);
+ 	unsigned int min_irqs = n + m + 1 + 1; /*rq, raw wq, wq, err*/
+-
++	/*
++	 * Make driver critical vectors unmanaged, or else it can get tied
++	 * to an offline CPU. This can happen when hyper-threading is off.
++	 */
++	struct irq_affinity affd = {
++		.pre_vectors = n + m + 1, /* rq, raw wq, 1 ioq */
++		.post_vectors = 1, /* err */
++	};
+ 	/*
+ 	 * We need n RQs, m WQs, o Copy WQs, n+m+o CQs, and n+m+o+1 INTRs
+ 	 * (last INTR is used for WQ/RQ errors and notification area)
+@@ -263,8 +270,8 @@ int fnic_set_intr_mode_msix(struct fnic *fnic)
+ 		int vec_count = 0;
+ 		int vecs = fnic->rq_count + fnic->raw_wq_count + fnic->wq_copy_count + 1;
+ 
+-		vec_count = pci_alloc_irq_vectors(fnic->pdev, min_irqs, vecs,
+-					PCI_IRQ_MSIX | PCI_IRQ_AFFINITY);
++		vec_count = pci_alloc_irq_vectors_affinity(fnic->pdev, min_irqs,
++			    vecs, PCI_IRQ_MSIX|PCI_IRQ_AFFINITY, &affd);
+ 		FNIC_ISR_DBG(KERN_INFO, fnic,
+ 					"allocated %d MSI-X vectors\n",
+ 					vec_count);
+diff --git a/drivers/scsi/fnic/fnic_main.c b/drivers/scsi/fnic/fnic_main.c
+index 9b3025007075..f13c381a66d7 100644
+--- a/drivers/scsi/fnic/fnic_main.c
++++ b/drivers/scsi/fnic/fnic_main.c
+@@ -744,8 +744,19 @@ static int fnic_nvme_drv_init(struct fnic *fnic)
+ 	return ret;
+ }
+ 
++static void fnic_mq_init_queue_map(struct fnic *fnic,
++		struct blk_mq_queue_map *qmap)
++{
++	unsigned int cpu;
++
++	for_each_possible_cpu(cpu)
++		qmap->mq_map[cpu] = 0;
++}
++
+ void fnic_mq_map_queues_cpus(struct Scsi_Host *host)
+ {
++	const struct cpumask *mask;
++	unsigned int queue, cpu;
+ 	struct fnic *fnic = *((struct fnic **) shost_priv(host));
+ 	struct pci_dev *l_pdev = fnic->pdev;
+ 	int intr_mode = fnic->config.intr_mode;
+@@ -766,7 +777,35 @@ void fnic_mq_map_queues_cpus(struct Scsi_Host *host)
+ 		return;
+ 	}
+ 
+-	blk_mq_map_hw_queues(qmap, &l_pdev->dev, FNIC_PCI_OFFSET);
++	fnic_mq_init_queue_map(fnic, qmap);
++
++	/*
++	 * Setup CPU to Queue mapping for all managed MSI-X IRQs.
++	 * Q0 is driver critical and non-managed, hence start from Q1.
++	 */
++	for (queue = 1; queue < qmap->nr_queues; queue++) {
++		int irq_num = pci_irq_vector(fnic->pdev,
++					     queue + FNIC_PCI_OFFSET);
++
++		if (irq_num < 0)
++			continue;
++
++		mask = pci_irq_get_affinity(fnic->pdev,
++					    queue + FNIC_PCI_OFFSET);
++		if (!mask) {
++			shost_printk(KERN_ERR, host,
++				"failed to get irq_affinity map for queue:%d\n", irq_num);
++			continue;
++		}
++		FNIC_MAIN_DBG(KERN_INFO, fnic,
++				"got irq_affinity map for %d:\n", irq_num);
++		for_each_cpu(cpu, mask) {
++			qmap->mq_map[cpu] = qmap->queue_offset + queue;
++			FNIC_MAIN_DBG(KERN_INFO, fnic,
++				      "[Q%d] cpu:%d <=> irq:%d\n",
++				      queue, cpu, irq_num);
++		}
 +	}
- 	ccmni = READ_ONCE(ccmni_ctlb->ccmni_inst[netif_id]);
- 	if (!ccmni) {
- 		dev_kfree_skb(skb);
+ }
+ 
+ static int fnic_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
 
