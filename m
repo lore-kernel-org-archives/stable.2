@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F395033F59A
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 12:34:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85CD6541453
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 12:34:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790080484; cv=none; b=DOInZuR99uTmUE4T+CxSaDKosnUFIIUI1VD6UKEjWycdDHVhV/1/RaNswN1uy5PWujw99Povf0dxpdLFE5CH9ugRuyIQxnGZ5byedgz2inIWbep/DwJHmrn7Zq2yQttsJudBZmsPXBrbG1l9UQMqRQzvYfj8OBr3/YPTZikwLbg=
+	t=1790080485; cv=none; b=od5nkGzm1YbIn2My3rx+kOEvV1gNwjyMuBe9sOchuA5GQ3DPjnDv9Y9JrlkC8RQia5MWguX5iAI2lLyXkpjQooi1Pj95oD5r22QoAWin/svNHebWhpjdbv6FtMXM6e7MTjJQ0PlhwDpKl2Qn8jbg/Io6EeiFLfM2G/o3PBLDdfg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790080484; c=relaxed/simple;
-	bh=7JS5nqdzH4z+RASmPy1my9OYo312Unx96b1UY01ZQ4o=;
+	s=arc-20240116; t=1790080485; c=relaxed/simple;
+	bh=dBg1rvPQz0WA683QxAOoMgPuXEN/iu167f/jrjEy3rE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hUK4rhAruKl3OKJ4DvH3XEayZRoNPyfXDcKfbUTGpEiKKe1pnatDdOadaT342H6xdpUqv0aYUzpyuieV+XiCuFHklTZfrDNatnkOADMn4n/K7arjtqjFMMVgIGU5S1Jd9rTI3O8Jug+WjnMaiwh+19GglzgulNuXvjqz1yUFn6Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VHvT4GTb; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=DxJEPvClyhSsgleDv6YKc+fG0zM5ap5EFy9tbkX5c0J3D0Xl/ZLoQoRD5i0JVzEutwrcoYTiMChw1o4OQif+b8Ygikfb6jDlwOkULfAQ1ww/kB+EfkAlEci3al+eFmIduJRKbaxr+eDf3Vk7hUjnWjHm+A9E8CcS3rhvXLjuUV8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EvJkheKe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VHvT4GTb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 514FD1F00893;
-	Tue, 22 Sep 2026 12:34:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EvJkheKe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 801011F00898;
+	Tue, 22 Sep 2026 12:34:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790080482;
-	bh=W2SYIQg8vdeECK94yM2ZqawNFld51q931c8s4c47q4o=;
+	s=k20260515; t=1790080484;
+	bh=rJclwSE6MP6QcUQr+trUt24c//8t/uJ7wyHNqbdwFzA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VHvT4GTb8Ub/Sy4Po7MosYarsm8uTRpcIfXw/vJJQftVzmDs/gb2QkenbxyclEoGJ
-	 jIMMgAYAUnqj9CmnQlTF++pwfVHSBWw3UHB/cdWHEWACByIPegl/hf8LUlDu6ylzBj
-	 rwz+WpmHCZbeT+X0JnvoDOZpzGd/AMXzB9BavDyhSNehKw6mJsx4CGvvDOg1fd1M4Z
-	 gLRLi/+ws4pnt3GbWJ2dJk/rYQziwYY4V3d0AkJDSMPquNsO1nomlC6mCx6zkltXaQ
-	 tuW947vC6tT2ETz85Xpg8U3L2pKZC5qwqXyu9hdqyK0IPSJ8y8+JqBu2/dDW7leWx9
-	 pokGg9n2p/duA==
+	b=EvJkheKeuUGujonInY+/MasknyNnVM5YVDvum7iDMz/Ylcl0S/vfec60jA0DyXwg+
+	 aPkyI8w2NHjvTxAecn2EKi5WP/MWT8hV0h1AT8fIkUQgX5E0ahdbu73GLjE1Ytaf9o
+	 FJ/jwm0RyOQa0Qugi1D7/Hd1fecfezX+BkjhF7RClgjhmJm3G6e94FsQoU6kM+iF9S
+	 9N1r/JQH+RYYW9N20YXt5743FZ0KCJuenbtIq6hhP5aVSBhOuyeJv5OoaTe1/SnQ6b
+	 E/hUyscm1uq2tWKPFn4WqkluCNPLj5h17MLko2nqwG86846CIz5cUIWZvzV2xq9VDC
+	 bk5tfuI4xtEGg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Xiang Mei <xmei5@asu.edu>,
-	co+8eacd4fa193b1b28@bugs.sh,
-	Takashi Iwai <tiwai@suse.de>,
+Cc: Zhang Zekun <zhangzekun11@huawei.com>,
+	Niklas Cassel <cassel@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] ALSA: usb-audio: Clamp implicit feedback packet count to URB capacity
-Date: Tue, 22 Sep 2026 08:34:40 -0400
-Message-ID: <20260922123440.2257183-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] ata: libahci_platform: Simplify code with for_each_child_of_node_scoped()
+Date: Tue, 22 Sep 2026 08:34:41 -0400
+Message-ID: <20260922123442.2257247-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260922123440.2257183-1-sashal@kernel.org>
-References: <2026092246-smasher-unpleased-5c4c@gregkh>
- <20260922123440.2257183-1-sashal@kernel.org>
+In-Reply-To: <2026092255-disaster-skittle-8855@gregkh>
+References: <2026092255-disaster-skittle-8855@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,108 +45,98 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Xiang Mei <xmei5@asu.edu>
+From: Zhang Zekun <zhangzekun11@huawei.com>
 
-[ Upstream commit 76a986c980bb502c7688d605ac7a67fd257a9a1b ]
+[ Upstream commit aa3ca1faf3222af7aaa194a910995820135fc54e ]
 
-data_ep_set_params() allocates each data URB for exactly u->packets
-isochronous frames, so urb->iso_frame_desc[] has u->packets slots and
-ctx->packets is the driver's only record of that limit. For an implicit
-feedback sink, snd_usb_queue_pending_output_urbs() overwrites it with the
-sync source's packet count, which is calculated independently from the
-capture endpoint's parameters. When that count is larger,
-prepare_playback_urb() and prepare_silent_urb() can write
-iso_frame_desc[] past the allocation; their existing bounds limit payload
-bytes, not the descriptor index.
+for_each_child_of_node_scoped() can put the device_node automatically.
+So let's use it to make the code simpler by avoiding the need to
+explicitly call of_node_put().
 
-The reproducer uses a high-speed UAC2 device declaring bInterval 1 for
-implicit feedback capture (8 packets) and bInterval 4 for playback
-(1 packet). On the first capture completion after the stream starts, it
-accesses seven descriptors spanning 112 bytes beyond the one-packet URB:
-
-  BUG: KASAN: slab-out-of-bounds in prepare_playback_urb (sound/usb/pcm.c:1560)
-  Write of size 4 at addr ffff88801e696ad0 by task vhci_rx/178
-   prepare_playback_urb (sound/usb/pcm.c:1560)
-   prepare_outbound_urb (sound/usb/endpoint.c:340)
-   snd_usb_queue_pending_output_urbs (sound/usb/endpoint.c:501)
-   snd_complete_urb (sound/usb/endpoint.c:1834)
-   __usb_hcd_giveback_urb (drivers/usb/core/hcd.c:1657)
-   usb_hcd_giveback_urb (drivers/usb/core/hcd.c:1741)
-   vhci_rx_loop (drivers/usb/usbip/vhci_rx.c:107)
-   kthread (kernel/kthread.c:436)
-  The buggy address belongs to the object at ffff88801e696a00
-   which belongs to the cache kmalloc-256 of size 256
-  The buggy address is located 0 bytes to the right of
-   allocated 208-byte region [ffff88801e696a00, ffff88801e696ad0)
-
-Record the allocated packet count per endpoint and clamp both the adopted
-count and the packet-size copy to it. Fold the Format Type II delimiter
-into urb_packs before the allocation loop so the recorded limit matches
-every URB.
-
-Fixes: cf044e441902 ("ALSA: usb-audio: Update the number of packets properly at receiving")
-Reported-by: co+8eacd4fa193b1b28@bugs.sh
-Closes: https://lore.kernel.org/all/22xPn8drvIUtYgVeQnBiNqXuevOTpBAjepLz%40bugs.sh/
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Xiang Mei <xmei5@asu.edu>
-Link: https://patch.msgid.link/20260912200530.1955491-1-xmei5@asu.edu
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Zhang Zekun <zhangzekun11@huawei.com>
+Link: https://lore.kernel.org/r/20240810023426.110624-1-zhangzekun11@huawei.com
+Signed-off-by: Niklas Cassel <cassel@kernel.org>
+Stable-dep-of: 0d1cb83337f1 ("ata: libahci_platform: Fix device reference leak in ahci_platform_get_resources()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/usb/card.h     |  1 +
- sound/usb/endpoint.c | 12 +++++++-----
- 2 files changed, 8 insertions(+), 5 deletions(-)
+ drivers/ata/libahci_platform.c | 19 +++++--------------
+ 1 file changed, 5 insertions(+), 14 deletions(-)
 
-diff --git a/sound/usb/card.h b/sound/usb/card.h
-index ac5505ce046de..0d860c57d9d9d 100644
---- a/sound/usb/card.h
-+++ b/sound/usb/card.h
-@@ -115,6 +115,7 @@ struct snd_usb_endpoint {
- 	unsigned int phase;		/* phase accumulator */
- 	unsigned int maxpacksize;	/* max packet size in bytes */
- 	unsigned int maxframesize;      /* max packet size in frames */
-+	unsigned int max_urb_packs;	/* packets allocated per data URB */
- 	unsigned int max_urb_frames;	/* max URB size in frames */
- 	unsigned int curpacksize;	/* current packet size in bytes (for capture) */
- 	unsigned int curframesize;      /* current packet size in frames (for capture) */
-diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
-index 77e2887e81ae2..a7ec1e31da383 100644
---- a/sound/usb/endpoint.c
-+++ b/sound/usb/endpoint.c
-@@ -497,9 +497,10 @@ int snd_usb_queue_pending_output_urbs(struct snd_usb_endpoint *ep,
+diff --git a/drivers/ata/libahci_platform.c b/drivers/ata/libahci_platform.c
+index d4fccc0625800..50aaa82d4971a 100644
+--- a/drivers/ata/libahci_platform.c
++++ b/drivers/ata/libahci_platform.c
+@@ -418,7 +418,6 @@ static int ahci_platform_get_regulator(struct ahci_host_priv *hpriv, u32 port,
+ static int ahci_platform_get_firmware(struct ahci_host_priv *hpriv,
+ 				      struct device *dev)
+ {
+-	struct device_node *child;
+ 	u32 port;
  
- 		/* copy over the length information */
- 		if (implicit_fb) {
--			ctx->packets = packet->packets;
-+			ctx->packets = min_t(int, packet->packets,
-+					     ep->max_urb_packs);
- 			memcpy(ctx->packet_size, packet->packet_size,
--			       packet->packets * sizeof(packet->packet_size[0]));
-+			       ctx->packets * sizeof(packet->packet_size[0]));
- 		}
+ 	if (!of_property_read_u32(dev->of_node, "hba-cap", &hpriv->saved_cap))
+@@ -427,14 +426,12 @@ static int ahci_platform_get_firmware(struct ahci_host_priv *hpriv,
+ 	of_property_read_u32(dev->of_node,
+ 			     "ports-implemented", &hpriv->saved_port_map);
  
- 		/* call the data handler to fill in playback data */
-@@ -1259,15 +1260,16 @@ static int data_ep_set_params(struct snd_usb_endpoint *ep)
- 		ep->nurbs = min(max_urbs, urbs_per_period * ep->cur_buffer_periods);
+-	for_each_child_of_node(dev->of_node, child) {
++	for_each_child_of_node_scoped(dev->of_node, child) {
+ 		if (!of_device_is_available(child))
+ 			continue;
+ 
+-		if (of_property_read_u32(child, "reg", &port)) {
+-			of_node_put(child);
++		if (of_property_read_u32(child, "reg", &port))
+ 			return -EINVAL;
+-		}
+ 
+ 		if (!of_property_read_u32(child, "hba-port-cap", &hpriv->saved_port_cap[port]))
+ 			hpriv->saved_port_cap[port] &= PORT_CMD_CAP;
+@@ -482,7 +479,6 @@ struct ahci_host_priv *ahci_platform_get_resources(struct platform_device *pdev,
+ 	int child_nodes, rc = -ENOMEM, enabled_ports = 0;
+ 	struct device *dev = &pdev->dev;
+ 	struct ahci_host_priv *hpriv;
+-	struct device_node *child;
+ 	u32 mask_port_map = 0;
+ 	u32 max_port;
+ 
+@@ -604,7 +600,7 @@ struct ahci_host_priv *ahci_platform_get_resources(struct platform_device *pdev,
  	}
  
-+	if (fmt->fmt_type == UAC_FORMAT_TYPE_II)
-+		urb_packs++; /* for transfer delimiter */
-+	ep->max_urb_packs = urb_packs;
-+
- 	/* allocate and initialize data urbs */
- 	for (i = 0; i < ep->nurbs; i++) {
- 		struct snd_urb_ctx *u = &ep->urb[i];
- 		u->index = i;
- 		u->ep = ep;
- 		u->packets = urb_packs;
--
--		if (fmt->fmt_type == UAC_FORMAT_TYPE_II)
--			u->packets++; /* for transfer delimiter */
- 		u->buffer_size = maxsize * u->packets;
- 		u->urb = usb_alloc_urb(u->packets, GFP_KERNEL);
- 		if (!u->urb)
+ 	if (child_nodes) {
+-		for_each_child_of_node(dev->of_node, child) {
++		for_each_child_of_node_scoped(dev->of_node, child) {
+ 			u32 port;
+ 			struct platform_device *port_dev __maybe_unused;
+ 
+@@ -613,7 +609,6 @@ struct ahci_host_priv *ahci_platform_get_resources(struct platform_device *pdev,
+ 
+ 			if (of_property_read_u32(child, "reg", &port)) {
+ 				rc = -EINVAL;
+-				of_node_put(child);
+ 				goto err_out;
+ 			}
+ 
+@@ -631,18 +626,14 @@ struct ahci_host_priv *ahci_platform_get_resources(struct platform_device *pdev,
+ 			if (port_dev) {
+ 				rc = ahci_platform_get_regulator(hpriv, port,
+ 								&port_dev->dev);
+-				if (rc == -EPROBE_DEFER) {
+-					of_node_put(child);
++				if (rc == -EPROBE_DEFER)
+ 					goto err_out;
+-				}
+ 			}
+ #endif
+ 
+ 			rc = ahci_platform_get_phy(hpriv, port, dev, child);
+-			if (rc) {
+-				of_node_put(child);
++			if (rc)
+ 				goto err_out;
+-			}
+ 
+ 			enabled_ports++;
+ 		}
 -- 
 2.53.0
 
