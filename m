@@ -1,73 +1,79 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59BBF4E0B65
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 21:05:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A69B954DAFE
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 21:12:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790111150; cv=none; b=GK1uE8f5W10uD8rHacFesDxAr8LPn8SiK8gEqAMblaidaD+FrEUYDvSLohh1184uke3sxtKonDg6amIXyqRDpVgL49BIpTpRjcdxDcTZQdXpaWLlx+HgJN5uFEsGBl7xSCknvFqJkaQLCn8VMMCNOQkTUeM/uXbV/KHHvs/sKOI=
+	t=1790111552; cv=none; b=OSyRiz+rK0UgSmgGTBLYWujPxDls8qfs8cQsCACZ2+8dA0ZGMF5rWb2U2ws+S5aZoV3BAQ6ODKOFwDBjz8FfASUmGbf433ZoG6fm9HlRuQobmJpP1AtveTJkLOO1mTKKQWLcgKPy7950dhM6Hwl7EO4DEkwJyGcXyI6TMKBPLE4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790111150; c=relaxed/simple;
-	bh=MznEH0TSSJNDns08TLLQFMMA/yS10ggZ0IYUvrXf7WI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Xq+ZVAiy+ezbJ2oiYnuelhS7LfvOWqbDkoCSYj8s+6prEkyOEFeHrkO4+UbQx5H32M2bpLOS78TUDKZ8bunRaCj4ZHYWyn9l/IvLiCUp9GXlbXZUywXtd+tB0vPLdACWR3yp1et/ZuoN5eCCgIz67O+sPrXEGftZZv8BJPaLVcA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QN04uSwo; arc=none smtp.client-ip=74.125.228.12
+	s=arc-20240116; t=1790111552; c=relaxed/simple;
+	bh=2+E9WLAhddquoAhrHExJTH/ipVluXO40UC60vRyiwHg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Sd5LNOzOfWPE5tsXpGFMmFAdU40HGPR0XjYLpyFGA48qKvPRWVEoOl7dQThSrG07LWNqi40sc6hOqGLnehH5pxtfcbxhPJzfiFu3TJjnxaZ0rF+kT1yjJR9rOQPEgMInZRGe+COZzocCz370dWqu/pPaT2E652zomYVGV+WkIAU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e+ObHwaF; arc=none smtp.client-ip=74.125.230.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QN04uSwo"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cebad4aeso233000a12.2
-        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 14:05:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e+ObHwaF"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-91235f46716so2574686d6.1
+        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 14:12:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790111131; x=1790715931; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790111534; x=1790716334; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5UcDSQfjol8c/MRKdgxKYWGRN9zsJz0+FFVZfxAT1YE=;
-        b=QN04uSwoAnOGYX3m01Yg/WO0OGbLYwd31xvAXYcVNQZz0aEYUI0E+cyMVQocIU5yV1
-         aoPJ4tbWK/Gu1g6X1kFXVbqerwUCHqhc3iB7QAF2Oovb7lrMW/P8SOnEBcmZOvgFS1+I
-         ALSnTJvI55axzOf3k1vUYZTYDVlmTmSB3eYN1X6ihI7ScwtHrIY11uY1kAMKhosew2Zs
-         WshkE07wNcab0IF63iH3AhB2HoMUpuD8sQDDe781Cy2ElgXi1KR/bOJS5m/WT6oJf27B
-         kCgYvzZuGoxDXvfxhjOD6qcpCVGU1Z+9s6sn9kvoyP+iY1QwK7ESMFEAuUYJVEaO+uxW
-         VxzA==
+        bh=NCOJ4IYbfFaRdEJKYXl8sjbEptgWjDvoJQmY8J0q84k=;
+        b=e+ObHwaF5irV8lCqiCCfQD+0jvXngq0cWnSJ7DRgHKo8UjBNIm6eXvW2tPIXT6xwtM
+         ZbRx/c3Z382fZ37xfKtJCdtx4RP/x5qWVB6SzitNr2swgL1QnILKeKZrR1D6OqQM/JY/
+         nSul8fAW2D91nnhcX08DeltgmFw0jh7yboE5LUcAU0rTC/WHH7QCnjZ0Phc+IvO78tDa
+         5LxIc8KqPP3gCxmQCBAgtrmbIGixMyyP34jSlwKClHElfzMJVYQhpOOW0vipZM3MuDk4
+         cg1hDTsH7gYlLYOk5DE2UEJRV37eh2BLnJkoX4nR1jBVB1LLMguUn4EeCQ6MdVTCCzUv
+         gVdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790111131; x=1790715931;
+        d=1e100.net; s=20260707; t=1790111534; x=1790716334;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=5UcDSQfjol8c/MRKdgxKYWGRN9zsJz0+FFVZfxAT1YE=;
-        b=eb7o4uBxAO4obt+SiU/Kd1YEzJh3Dy5BfSrT7Pfom4Ii8ySAR/C5OBLzmlv5l5IW3Z
-         O9UHeq3BdkVmMwtf7GveA1o8BD6ZABletWNvmLVmF58gzpEdQD5on+xsfB4ri4tXV2Kj
-         jErVI/+Y2MGcVeYIdbBlQU+fmVweVLL5LeB/gDjre2FgAs3csFKOOZaB6Au/AwSNVx+K
-         FOZM3jH5nT2+cy2AyWOeFgYll7LrPUjTTQILfR/sSnq/8w8wm5h8polqgcizvfdC/DIU
-         CMMzedwn+1ApHvzBcbPlY7bFiiOIBuzQ6v0RnZ3OJnlFqS/rsMKV4grkTFTgt/Yip88r
-         RHEA==
-X-Gm-Message-State: AFuF++n7rHDlBravVDqGiEFYTBECM/IJ7fZ+mGZ8E2od74RT8M+qN9L4
-	2mPmNeirMuc2q6996HGdb8SHJ6iMhkAq9sJdMCfZahBOMht/hMVyK0xFTer+SuvIgY4=
-X-Gm-Gg: AYBFou2twDnBnNduvnqSJo0WuG40gD6mPDT7nwUd5XZPo8pl2mJhf/HVeCTJpV3S3X+
-	XCZybnPX0qnw6Kcyx4txSlEUFaOSz/m3k0+FTflcA+m/ItPMDALqKZWW+UNoWmrvmJ6LztKi3fa
-	OjZGXEkIsgLYiTyNaR0qWXRmcHUlJWNSB/DJB2fgnBHVAEq04Gn0oEsE3fhEJreonjglJvfdVFk
-	NwYE/drhtiYHn/0Ui+MQYmaA7Jm65k4q1htzoHsE8gs+oF15utbz+lRoCTaohKmBKuGwip6P/mJ
-	qyfd8OjPXilWU7oSlRhyRRpOwp74S6R5C5GUJOOWNRnOP2o5sN8Jg6HI2mqZNX+J2JHBD8RuuOm
-	dRXTSjBtUfXcwzVBwZdAjxoGjrV1P7D1VqT8rQ13ZiHVs1SFAPTp0kxK6lG+O9wxVsvI3wiVRqm
-	xycYyKH8bhs9s6rtVpY5BR3ukO//xj+HlVXyrwfNFtJs+NWfvn1TfYMsCs+LigXB7+53uvK4KCU
-	/EMXEY=
-X-Received: by 2002:a05:6a21:e08c:b0:3da:ec28:2cc9 with SMTP id adf61e73a8af0-3ddf7e52c5bmr651260637.23.1790111130866;
-        Tue, 22 Sep 2026 14:05:30 -0700 (PDT)
-Received: from fedora ([2607:fb92:3080:83e3:3c6f:fd76:69b:10ff])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87d1d5c1646sm300083b3a.30.2026.09.22.14.05.29
+        bh=NCOJ4IYbfFaRdEJKYXl8sjbEptgWjDvoJQmY8J0q84k=;
+        b=iTTvGblNJPDq5HBhNlVOYluCT8jPSv4h3efmAzLah68SLqlSZTRwwrhxhn5ghRWuKi
+         JOaYGQ52BA+YkDkLikqp/2r/wSbIRTZtG5P8RWUZPGhNJUZKaKrr5SvGW2NWO8f9HUf+
+         SlrySi1/INQ1CB6azAbsTtx6mXag35OMkOd7m9IT9wri5Ug2MJhYjwppmGkeonnmI+XI
+         VNgFw1l+pPUEYb/9fuxKpQdpSHPkEqXKnRVoVP8+LfnrAPR1nYCBpjS5ocmlCs3Srbwn
+         KcQNiY2m+Mjgi0XSRHlybSqNn/YjEur+9HY53MZ+XTP9d5u36QzeDr3Vq1Tkav3mQIjW
+         /b7w==
+X-Forwarded-Encrypted: i=1; AKwUvBx+vqJUUvqFnPF2G2KkdUdA14HnFsFk2IA9RP14tK2UWytB2+GsfyHKoVY+ExcMwg4jIVM1e7I=@vger.kernel.org
+X-Gm-Message-State: AFuF++nPPMvv6N8mjE6H5iVAqZWVAlYfJRo50QeAJP+DdTyoERkHY+8M
+	9fl9GIVC/8SqEiVvGndtlOxfWgk7ZxDUXumtohBWFYNuCvKAl6GQK/mM
+X-Gm-Gg: AYBFou2NglJqBDKrIi9QBEwRznQB/fm9xkUrj46hnssXEMn8x6LYio5WUd4iZElgkAn
+	zve6DsVkGFzZNIaZp1uQlGArc5HiU3fMLQPOl5DMknFN/5FeEeOxS8wJzw3v0y7dT2u3nOTMqid
+	L4oFwt5asRri95QGEu2sQ/WysBGj6XDa8Oof8QmDmNqc7GTiiT4aBWK/VA+zcoz1r+qD38Vrlh3
+	3UwUb46kdNf4p0b9Vuy/zGPSku7euhcgqTDizY52Iat4RggLQEReMiI5MkWN6HCKh6zZ2FUAPC/
+	zXF2csR07wUZNzWHp9odq46uacx7WPtiAed1jywS4hof4iekS4dvGWrvX1plwb4P2rj6yl9PEuF
+	TTR7+A5vnHTLzjeCFkdZRPsZjN3iUaz6h+vfnJ/ZzDoXC5uSWNAobwxGZRgG8H6vBlzriv1k+Ne
+	5UYKTwI8Jh3XB9v0T8KMHyEjnXvYKNEWvS54M37YLOkvWr0mxSWDJIrFgbjDu44MEDYCf4aXb1h
+	BthibTi5SJeWbIWwZmvjw==
+X-Received: by 2002:a05:6214:4a88:b0:912:533a:4a43 with SMTP id 6a1803df08f44-9140c3f990dmr12597706d6.32.1790111533845;
+        Tue, 22 Sep 2026 14:12:13 -0700 (PDT)
+Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9140c4640c9sm6319316d6.40.2026.09.22.14.12.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 14:05:30 -0700 (PDT)
-From: Ping Cheng <pinglinux@gmail.com>
-X-Google-Original-From: Ping Cheng <ping.cheng@wacom.com>
-To: lee@kernel.org,
-	jikos@kernel.org,
-	bentiss@kernel.org,
-	linux-input@vger.kernel.org
-Cc: stable@vger.kernel.org,
-	Ping Cheng <ping.cheng@wacom.com>
-Subject: [PATCH 2/2] HID: wacom: Setup SW_MUTE_DEVICE according to the order of input registration
-Date: Tue, 22 Sep 2026 14:05:26 -0700
-Message-ID: <20260922210527.22420-1-ping.cheng@wacom.com>
-X-Mailer: git-send-email 2.55.0
+        Tue, 22 Sep 2026 14:12:13 -0700 (PDT)
+From: Yuho Choi <oss.patchbox@gmail.com>
+To: "Michael S . Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowangio@gmail.com>,
+	Jens Axboe <axboe@kernel.dk>
+Cc: Stefan Hajnoczi <stefanha@redhat.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	virtualization@lists.linux.dev,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Yuho Choi <oss.patchbox@gmail.com>
+Subject: [PATCH v1] virtio_blk: Reset device on probe error paths after DRIVER_OK
+Date: Tue, 22 Sep 2026 17:11:41 -0400
+Message-ID: <20260922211207.523999-1-oss.patchbox@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -76,64 +82,33 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ping Cheng <ping.cheng@wacom.com>
+virtblk_probe() marks the device ready before revalidating zones and
+adding the disk, and either of those can fail.  The out_cleanup_disk path
+they take goes on to delete the virtqueues, but nothing tells the device
+to stop first, so it is still live when the rings are freed.
 
-The refactored SW_MUTE_DEVICE code assumed that stylus will be
-the first regiestered input. In reality, touch can be registered
-before stylus, such as the Wacom Cintiq Pro 13 and 16.
+Reset the device at out_cleanup_disk, which is only reachable after
+virtio_device_ready().  virtblk_remove() and virtblk_freeze_priv() both
+reset before deleting the virtqueues for the same reason.
 
-This patch covers both touch-first and stylus-first cases.
-
-Cc: stable@vger.kernel.org
-Fixes: ba16e5ffbaa1 ("HID: wacom: Advertise SW_MUTE_DEVICE capability prior to registration")
-Reviewed-by: Lee Jones <lee@kernel.org>
-Signed-off-by: Ping Cheng <ping.cheng@wacom.com>
+Fixes: dbb301f91fc8 ("virtio_blk: add error handling support for add_disk()")
+Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
 ---
- drivers/hid/wacom_wac.c | 22 +++++++++++++++++++---
- 1 file changed, 19 insertions(+), 3 deletions(-)
+ drivers/block/virtio_blk.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/hid/wacom_wac.c b/drivers/hid/wacom_wac.c
-index c4cd87b781c4..9520296cb349 100644
---- a/drivers/hid/wacom_wac.c
-+++ b/drivers/hid/wacom_wac.c
-@@ -3977,10 +3977,12 @@ int wacom_setup_touch_input_capabilities(struct input_dev *input_dev,
+diff --git a/drivers/block/virtio_blk.c b/drivers/block/virtio_blk.c
+index 32bf3ba07a9dc..ed97dafebe164 100644
+--- a/drivers/block/virtio_blk.c
++++ b/drivers/block/virtio_blk.c
+@@ -1547,6 +1547,7 @@ static int virtblk_probe(struct virtio_device *vdev)
+ 	return 0;
  
- 	if (features->type == HID_GENERIC) {
- 		hid_dbg(hdev, "generic touch setup\n");
--		if (wacom_wac->has_mute_touch_switch ||
--		    (wacom_wac->shared && READ_ONCE(wacom_wac->shared->has_mute_touch_switch))) {
-+
-+		/* setup touch switch for those devices that report pen interface first
-+		 * can only be done here since we only call this routine once
-+		 */
-+		if (wacom_wac->shared && READ_ONCE(wacom_wac->shared->has_mute_touch_switch)) {
- 			input_set_capability(input_dev, EV_SW, SW_MUTE_DEVICE);
--			wacom_wac->has_mute_touch_switch = true;
- 		}
- 		/* setup has already been done */
- 		return 0;
-@@ -4403,7 +4405,21 @@ int wacom_setup_pad_input_capabilities(struct input_dev *input_dev,
- 		break;
- 
- 	case INTUOSHT3_BT:
-+		break;
-+
- 	case HID_GENERIC:
-+		if (wacom_wac->shared) {
-+			/*
-+			 * setup touch switch capability can only be done here
-+			 * for those devices that have touch input registered
-+			 * before stylus and pad inputs.
-+			 */
-+			if (wacom_wac->has_mute_touch_switch &&
-+			    wacom_wac->shared->touch_input) {
-+				input_set_capability(wacom_wac->shared->touch_input,
-+				    EV_SW, SW_MUTE_DEVICE);
-+			}
-+		}
- 		break;
- 
- 	default:
+ out_cleanup_disk:
++	virtio_reset_device(vdev);
+ 	put_disk(vblk->disk);
+ out_free_tags:
+ 	blk_mq_free_tag_set(&vblk->tag_set);
 -- 
-2.55.0
+2.43.0
 
