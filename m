@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CB0A38757B
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 15:11:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3E6553D0B1
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 15:12:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790089920; cv=none; b=mzWfT9LeN0xuHkjbE1c7iqsrhdgQMS2+AYnEbh2mvIJL5vV6BpIbK4I5jzHey0qXN56P42pJHRvk8sr3Z0PMkC8jL9jgXV89IS6pmgpn92oqdEn/phKoJdlWoY1w+vfs9X7tNNPFQSn1DFnlVcwyxIQN5rex5x2iN3jQuBR5Vvs=
+	t=1790089925; cv=none; b=Qy78Cy9Hr8veEjUazvSHNZk/7lCRCiOS2HSUFhvQ1muJN0DDZ+rEV98TOcGtdLuzJHCYpJxd6apd03t1qhWqFx5Ovs0KY35t58I2TONE5OGF9AZCf9zyOEZFvU9zguNfk0VXUB70JuIfk5yy80s88SIhX0N/MeOsNaEqlkArPpc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790089920; c=relaxed/simple;
-	bh=g7ixTmWjjOZc0YjtKKQHPZn4CnA5nOiRoYBs/YEDAVs=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=nDe8vt6v6Q0IG1GrEPVf3y27QPtRQlC6pjSwK7yt132YnnV/1HCtiJKw7bVIu8F5E36DjsWZJM43V7Edi0aOjOywwr/1v0r8WoX0o4GArJ/A7+v+ioYmdZ3i8h5pFLBC3jMjbDh+nz7iB8sh6+GzMC0/Ph51eNzpAmsD20QSyWM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=g6pac91s; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790089925; c=relaxed/simple;
+	bh=iCvni6RHDBlEsvXQhcEmv2yBdISpqHcUS37BoK3yuAU=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=r4hmfT4d0X7vYEuLK3wuDw/kMeF+fC0Ep/fGtwZAao9bF7RTo25ipgj2FdWbY0Y9Uzic6jvhB7yWsFK/jTuIIM5WsJs57IQ5YOB9ekNoEoUKgUST/z2FDFWi8bzDZ8OizzYojLpUKphK8vaSP5ryJj68WpDZcXdTKLeR1MMjiSk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=eCUTor3j; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="g6pac91s"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DEC91F000FF;
-	Tue, 22 Sep 2026 15:11:58 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="eCUTor3j"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A0461F000FF;
+	Tue, 22 Sep 2026 15:12:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790089919;
-	bh=NJMIB4YedVrtXX+C2n2ZZhQ5RARC0cUAZeHgDrLk5rs=;
+	s=korg; t=1790089923;
+	bh=yNfE7325JW84VrisTjCj0PsgWS4ZvwkqWM/jmt6DsZs=;
 	h=Subject:To:Cc:From:Date;
-	b=g6pac91s054j9IVT5lJOw5/1yGgqThzGU+QXs6NxU+KNWz6H52TdIztOCUWSHr+dt
-	 /moDh/99tdX4yPNdm0XdSv26X0UgkIWICWTQntqPbbeThGToZkbFFKa9QMvIXBZ1y+
-	 udkgox1Ng/caY4lB1h/kvSjMYz7eFtQvOtkaWlNU=
-Subject: FAILED: patch "[PATCH] wifi: mac80211: refuse to make a monitor active when it has" failed to apply to 6.18-stable tree
+	b=eCUTor3jLpP6vsYv9gQpTEOFvpS/naJcoiqK6W7Ya643KjHxngTmTPNwii13AfJ8X
+	 U1vUCHpGhUomneT2TXx/slgYE7T+eF2IEvPJJ8cnaKojPTV5aromI8sfoDIi4Xq3V0
+	 TDCcGacMvgd0Hvm+wXA882+HdT8gupH6ScE+vPPk=
+Subject: FAILED: patch "[PATCH] wifi: mac80211: refuse to make a monitor active when it has" failed to apply to 6.6-stable tree
 To: lucid_duck@justthetip.ca,johannes.berg@intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 22 Sep 2026 17:01:21 +0200
-Message-ID: <2026092221-dislodge-perfume-02cd@gregkh>
+Date: Tue, 22 Sep 2026 17:01:22 +0200
+Message-ID: <2026092222-setback-rupture-f2fe@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 2b04d6556964ae9f89819b86a0a7801e39c3aae5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092221-dislodge-perfume-02cd@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092222-setback-rupture-f2fe@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
