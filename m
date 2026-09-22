@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D65F356C64D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 189BC56C653
 	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 16:48:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790095737; cv=none; b=OJC+vfaIJ4+C762+hYlfIj5Yh4Eit0GSwyGnLfPsZiidtOsgtVuLZ+htSzYwV4ScJZrudiNM2vNbIwA3nBG11EH7INc0Dh9mLegbna0ENXohlwbUkRszhNPlDofH0mAsTmlSq263xXS6vmfPE6V7JB4sc+nLD3Wu87Hftd3yM/g=
+	t=1790095739; cv=none; b=rJd9PYc7PUHRM+rz+QjhfmkQ5Bq/qxs/1DHxVEGtnujK7dA/B68PKlHN8CgtxIqcF4Ywxb27IzOgq23HXzpA31msP3jh9MzYELbLGcbn3gqctBGJmQH+xMky9b/sPKVJuomP+8ESg2m5/vWeUwWil8OiTnKL/nEqbJ63Ms1klYU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790095737; c=relaxed/simple;
-	bh=KSJ93yiDpH5XJhhuldYygql4nz/wcL7PNjwvM6dTnDE=;
+	s=arc-20240116; t=1790095739; c=relaxed/simple;
+	bh=CNLswHmrXfd84ye0Kt7sXIpUx6vi6G1xuek1EYi5BIk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PgNdF4tVhdQbP2czB2ooTaQKsCUHewjlCnfcfnr+aSUzEjaRGcyWmoLPYTcnrN67nqGWHzScaBpSXwntLUQI5mYgNuVaLGDKiFWEbz/WsA8TH/5VbWFwEBzNVnpw/4Zvd7Rl12ht0EEbEzIH+hQfcNvrxXQ05ZV49E+N7n0dU+0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LXZiiycg; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=PzsurKc7229GyBLBBIAPh22agKkF1N+8Q28xyRZ3PC7ZLYy0MdhWG1WPYxlrSvbmdbovFGCH8V+qnb0Uqs5gVVJqKkiWCaH6aqyFm+4mBb0cFSdLtGrT2pGXMfHrF2pL4JbuMqeDICNHJ3KZVaXUHoaaiQsts9LHD5xnwEjU6kM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KeKA9b7r; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LXZiiycg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D4E71F0089B;
-	Tue, 22 Sep 2026 16:48:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KeKA9b7r"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB0F41F00893;
+	Tue, 22 Sep 2026 16:48:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790095732;
-	bh=8tKvk5LV8Bd+uobnm4PlB0vbUX67IYBCAHrLvkIOG54=;
+	s=k20260515; t=1790095730;
+	bh=YZL7VrRmf3cG/c+Kehs0oCOpD6Lg8b8VQHhgOCrEWaA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LXZiiycgPe3uiVZTiRsq2yKM48wZiDT/q2Gn3kPBChMdOBf6APHn5xJn6V2nj5DPo
-	 qv+AfJuN78hf7EsC+VNwmX5rbqh6vbzOoB590LgXGx5G5TR9/AdSFF+3RTPGo07dV5
-	 tp5iqvgaIatPgQM2ajFinenxVEo5B+348Sce6X9Q81BDX/WzDfe+Zb5QYwvDo3oiqj
-	 jb8aeghEIn4tJbc0LNI32Eg2ZsN4siS1dQJHBMiRVXnRivNjQE+D3Xt4cHN4fQs4OJ
-	 ZbChk/e9zJ24wgXvRylIuRExj4iSSpUDx8WBY8DkTgIGu/oRX0PYwDAw7qm0N7fXn0
-	 Sh7SWDar76cgA==
+	b=KeKA9b7rUA/AcPZRX726KaGq9VYbEvokfyCWzwLITPf8mgAvhb8mebMJ50JlAB2XG
+	 vZL6/mrshiuN2h+iuIm6kc1IvU8IKt+EcithLDM2eGaqPiw6gKZprgCwfXI1EhRLE+
+	 X6JnjA3H421+EqKj8cGcWbLRqJrSBh+2+vTGCcgWfVGAacCDlPDqqWfSf0sZx/4fZo
+	 y9YKBBsM8UC1qpHPyqaIXvQ3sbh5lOIjMNjRJ/s87qVIRZmRfodVeJGs7ELqTqdhnu
+	 bdGpr5p/AEvdfg5IPquT8G7nAq6Q79jb4mTJ3VOJSsIwZy4uLSLfRnnqcVKxfS6TUQ
+	 RRiAnWev8cEYw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Yifei Gao <gyf161023@gmail.com>,
-	Ulf Hansson <ulfh@kernel.org>,
+Cc: Christoph Hellwig <hch@lst.de>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	Jens Axboe <axboe@kernel.dk>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 3/3] memstick: ms_block: destroy io_queue workqueue on removal
-Date: Tue, 22 Sep 2026 12:48:48 -0400
-Message-ID: <20260922164848.3125553-3-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/3] block: move blk_drop_partitions to blk.h
+Date: Tue, 22 Sep 2026 12:48:46 -0400
+Message-ID: <20260922164848.3125553-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260922164848.3125553-1-sashal@kernel.org>
+In-Reply-To: <2026092239-justify-dizzy-3fd4@gregkh>
 References: <2026092239-justify-dizzy-3fd4@gregkh>
- <20260922164848.3125553-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,43 +47,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yifei Gao <gyf161023@gmail.com>
+From: Christoph Hellwig <hch@lst.de>
 
-[ Upstream commit 90af7fde083e1b22c349c3a8b1626728e44e474c ]
+[ Upstream commit e7243285c0fc87054990fcde630583586ff8ed5f ]
 
-msb_init_disk() creates the per-card ordered workqueue msb->io_queue with
-alloc_ordered_workqueue(). It is torn down with destroy_workqueue() only
-on the init error path; msb_remove() never destroys it. msb_stop() merely
-flushes the queue, and neither msb_data_clear() nor put_disk() free it. As
-a result every card insert/remove cycle leaks the workqueue and its
-kworker, exhausting kernel memory over repeated cycles.
+No need to have this declaration in a public header.
 
-Destroy the workqueue in msb_remove() after the disk has been removed and
-the queue drained.
-
-Fixes: 0ab30494bc4f ("memstick: add support for legacy memorysticks")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Yifei Gao <gyf161023@gmail.com>
-Signed-off-by: Ulf Hansson <ulfh@kernel.org>
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Chaitanya Kulkarni <kch@nvidia.com>
+Reviewed-by: Martin K. Petersen <martin.petersen@oracle.com>
+Link: https://lore.kernel.org/r/20220124093913.742411-3-hch@lst.de
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Stable-dep-of: 90af7fde083e ("memstick: ms_block: destroy io_queue workqueue on removal")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/memstick/core/ms_block.c | 2 ++
- 1 file changed, 2 insertions(+)
+ block/blk.h           | 1 +
+ include/linux/genhd.h | 1 -
+ 2 files changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/memstick/core/ms_block.c b/drivers/memstick/core/ms_block.c
-index 0486bbb10e44d..8f0e993403951 100644
---- a/drivers/memstick/core/ms_block.c
-+++ b/drivers/memstick/core/ms_block.c
-@@ -2208,6 +2208,8 @@ static void msb_remove(struct memstick_dev *card)
- 	msb_data_clear(msb);
- 	mutex_unlock(&msb_disk_lock);
+diff --git a/block/blk.h b/block/blk.h
+index 07f571e1ece0a..395aba99026e5 100644
+--- a/block/blk.h
++++ b/block/blk.h
+@@ -350,6 +350,7 @@ int bdev_add_partition(struct gendisk *disk, int partno, sector_t start,
+ int bdev_del_partition(struct gendisk *disk, int partno);
+ int bdev_resize_partition(struct gendisk *disk, int partno, sector_t start,
+ 		sector_t length);
++void blk_drop_partitions(struct gendisk *disk);
  
-+	destroy_workqueue(msb->io_queue);
-+
- 	put_disk(msb->disk);
- 	memstick_set_drvdata(card, NULL);
+ int bio_add_hw_page(struct request_queue *q, struct bio *bio,
+ 		struct page *page, unsigned int len, unsigned int offset,
+diff --git a/include/linux/genhd.h b/include/linux/genhd.h
+index 3f49a3a30e9bc..ccad6b4b5d289 100644
+--- a/include/linux/genhd.h
++++ b/include/linux/genhd.h
+@@ -235,7 +235,6 @@ static inline sector_t get_capacity(struct gendisk *disk)
  }
+ 
+ int bdev_disk_changed(struct gendisk *disk, bool invalidate);
+-void blk_drop_partitions(struct gendisk *disk);
+ 
+ struct gendisk *__alloc_disk_node(struct request_queue *q, int node_id,
+ 		struct lock_class_key *lkclass);
 -- 
 2.53.0
 
