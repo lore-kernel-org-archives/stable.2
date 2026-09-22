@@ -1,190 +1,204 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE79633F589
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 14:03:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F09C8355049;
+	Tue, 22 Sep 2026 14:03:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790085821; cv=none; b=UJvc74C/dR/hxSGNOIoLPtWwSK3aHehJvo3ck9p5c/sX5xyxVGN9RSgnvrgAsguhpVIkzH6crHkPwwWyyLWIVl9CJG3dfQHtLbNSCvKSnvgHE9z0Zgo06QWxmxgeW224vFwN3wL6EWIO9PmrHwOOS2yRzTwDeEFajIZ04XELVok=
+	t=1790085822; cv=none; b=ORjc4NG6un6Q1ChBO/yq341y3l/aMmb+7JpCrgroQi2YHmdodkruGAHVpuKV2ZPaJI13EYmfPPeitJSYUM/Z4t485tZbB6D4SAKun6hi7grvg5ootABwSoL89ICFZCjacmxhNd7JR75BQi94MgpM0QcAsW0Y/TpGBsDOcMmDMls=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790085821; c=relaxed/simple;
-	bh=rIemxOOxWeIyMf5vvkr5XaHULz7xopIMSpU9mw6kJkU=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=RsaDqzvSeI/Z1ib2fiUQf5eR7uZFgR3RG3zy9U/jQ2dzdnxDLdd+yCcHuuyAQbIpfJqg7N92jPHQBcsRXPmtV9NoVzHit8tjTKklC9EtRYQivxPNhwwfKI8urXP24iPy9B7nP+uui+UHQstdgSrgxGXhH97DsP0quA49LdAlfGc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oS8vGcfh; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790085822; c=relaxed/simple;
+	bh=VteDioE9EKgPhL1HmKnMvQIBLW6tFZwEmG5fda6ugTg=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=RNqlRYU+9kGS0Q2JE4BPVwsFOcyeEZyXZmFWGI5Yums8zeMlK3ogcsqNSjOnta0Cf6MSqK+lsXvcVbTBVx+ffLn9Sp1dTQ/KdH+SkbtkCtV+iT87n8vCjViTqS3po5nMXOgh6BfK72i+h8EQex0W3ZtzceT2oCZ28hDYiuzhRtM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=giVhRNNh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oS8vGcfh"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e82ea30faso2627055e9.1
-        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 07:03:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790085818; x=1790690618; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gaBw9cHd2AoEde7RLnFiRt5/QcOMY27gfbbceHB6xOM=;
-        b=oS8vGcfhYKiJ6IAL5Sm5gmB5GJS/hIlbHwLTyNn6EccAFw0yDhENjKoNlwy1mJM7fd
-         ZT/I6hyNqlCqvOLcKw2rL0GtQH5UYJyh8BpGurAHjM33I/Uhw1nT3lPBeUEsw4XsibkC
-         alobwi7E0sVNVgTXEME9RanfNqRvMiN4a5h+NG5cr5HP+NHRxRu5M0MsQAVoeEaLnDDZ
-         BlS0ibYjC1MWUPaheDTHG8wVbYTbkMHVct79ZFK8QiXbVQ62NFI4bqj7m5x9wZjf779V
-         1ji89ervBUaoE6FFiirQfrkJuUfjeA4NepwlUt2hLSO/o3M+KMIhqJAic5JaYwVg/SKg
-         iNGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790085818; x=1790690618;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gaBw9cHd2AoEde7RLnFiRt5/QcOMY27gfbbceHB6xOM=;
-        b=sGB1e3ZaBPovDJIBaU08apXTbxg2MkthKdNNmE9CZ3zbpJ1EvRQXk1N7k/ksI3VQc3
-         57RSVzh6bc967R0Bkp9M/qZrtqRrkfif0z43EXISscDu3YGkX6pu/bZhlp5mVGbkXriW
-         68bTN6Lrk51uSM8CFfnEQATV0Dj9cB29/wu+MOEJFQeEjOIN7k8+743aP+MoD4YnqQrm
-         s6f69lHKKS5NGbOblo0RXey3337pe5f/pc0XuZiqCKn8wIhxQQ0JMp2qVXjzvrQhNYRo
-         UQH8mVqUF4w6H7OR2/4aOdz7gti1TOJsPdLrf/CiRTE1gKY0GdS9fa7HJdghW+1YfGsG
-         DJGg==
-X-Gm-Message-State: AFuF++nOY2XqZkyqrj/v/ucp+TKHGIq0JaO2Oi+GvgZXDLoYB2G6/eRP
-	vbVpWlwUEnmKdY/mH/bFV7NQSYM9X6ndX7qE7SYUi88tQH7qyoNQdc2gwvaXZg==
-X-Gm-Gg: AYBFou010KIXoVkRH0bJL0t4kfZtvmBm+qB6TF9dpCOsTT0RxJyYIPN99iz2/eTkESo
-	JEojvORgDseqqEdZXsfzx5P7d8ARxwNjhdRV5KKkqaXZr8TDFMUZuFxYp5yvL3kmQ2ih7T2erKj
-	vQKB2G+QttvsH7T23wEpg0DGKgDFuKnue1g119Cfxfoq0CwKSjd5twy0Qs7Pank3azCfcjGwYtk
-	vOQLmQcz/7kyMKADcy8MZJK2gsDGJgCbTdjUbTuQa3bLswcANQ2DsnL2+waeAQ+/kh5UV2MadR4
-	Uj37hxCqXclUuhbDFImJHsFO2tcCn28x7Laz3n/xC+IpBiNGBnIolmAEpgKKOLcbDFiGkhEqGsO
-	cjOQ+9j9HxpfCUU8fCHLup99Ru7lYq0oGZX2/bTF8Hd9BHAKzcPHrp43HwZgbtFLYkEH3tcwtLW
-	9T7UDXllVohXAnnpYUjvTqIw1V4lURD0I1wPn09F7ci9EzAVkEA6zTMb+U2+Gkan6GxOBZh6Kjk
-	c1shfKrdFRzcjc3teb3Co1vVDce8Q==
-X-Received: by 2002:a05:600c:a15:b0:49e:7c8b:fdef with SMTP id 5b1f17b1804b1-49fc7f27299mr178118715e9.2.1790085817581;
-        Tue, 22 Sep 2026 07:03:37 -0700 (PDT)
-Received: from L-P-ITAIH2-L-RF.rf.local ([193.169.70.108])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdaaec8ebsm50745105e9.2.2026.09.22.07.03.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 07:03:37 -0700 (PDT)
-From: Itai Handler <itai.handler@gmail.com>
-To: stable@vger.kernel.org
-Cc: Itai Handler <itai.handler@gmail.com>,
-	Mark Brown <broonie@kernel.org>
-Subject: [PATCH 5.10.y] spi: spi-zynqmp-gqspi: stop the controller on shutdown
-Date: Tue, 22 Sep 2026 17:03:18 +0300
-Message-Id: <20260922140318.668429-1-itai.handler@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <2026092228-clasp-turmoil-85b0@gregkh>
-References: <2026092228-clasp-turmoil-85b0@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="giVhRNNh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEA981F00893;
+	Tue, 22 Sep 2026 14:03:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790085820;
+	bh=PZmFwgh0hVDeZa3TgR4QqJqkWaKALIRY2ecMMmXWkGY=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=giVhRNNhgVntMadv7JcylznJvXWAIZcvEsiHudgRRECnIsY6oDWfbjFcgxHz3y0S6
+	 ceeo1cHAvQZxyTRBrqrwSIKA5FeQIPqW9vEDCGkvf8HMrcyNTFcQSFfUu663ofvSsd
+	 v7iQ+TxjrtEvfFD6IgP5lCpKJW6ZcgOrg8qrRIACbyJyT0EWyGxBPAkg3peJSqkfcb
+	 a1FzTAhv1JrgtBhKondeSZweI8xQtJ7lzJf7aDM9QUoZl+lJoZPjIz/FdIkEbhS9Yt
+	 9ihnF/fadBhQcUAdIWCS5/JyCSM/jzZTE8UTQyH7Wy8tlljCjt+iffiLg0KpduHJoq
+	 4T7UwMl51kRrg==
+Subject:
+ Re: [PATCH net] net: cap skb->queue_mapping when the tx queue is picked
+From: netdev-bot+sashiko@kernel.org
+To: jhs@mojatatu.com
+Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, jiri@resnulli.us,
+ vinicius.gomes@intel.com, horms@kernel.org, victor@mojatatu.com,
+ xiangxia.m.yue@gmail.com, zdi-disclosures@trendmicro.com, hybris@mojatatu.ai,
+ stable@vger.kernel.org
+Date: Tue, 22 Sep 2026 14:03:39 +0000
+Message-ID: <179008581937.2160803.7117814290574262942@kernel.org>
+In-Reply-To: <QDISC-9R8V.v1.20260921065103@mojatatu.com>
+References: <QDISC-9R8V.v1.20260921065103@mojatatu.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-commit e922bad8b2d5028c51a096d083fea41cd0987154 upstream.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-The driver has no ->shutdown, and platform_drv_shutdown() has no
-fallback of its own.  Unlike pci_device_shutdown(), which clears bus
-mastering when kexec_in_progress, nothing on the platform bus disarms a
-device that can still write to memory.  The normal kexec path never
-calls ->suspend either, so the quiesce in zynqmp_qspi_suspend() is not
-reached.
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
-A controller that is still executing a DMA read may therefore keep
-writing to memory across a kexec.  QSPIDMA_DST_ADDR still points at
-memory owned by the kernel that called kexec, DST_SIZE is non-zero and
-the flash is still clocked, so data can keep landing in RAM while the
-new kernel is being relocated, and after it has started executing.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-That destination is a physical address which means nothing to the new
-kernel, so the writes can corrupt whatever now occupies it: kernel text
-or data, page tables, or the initrd.  Nothing reports an error and the
-resulting behaviour is undefined.
+- [High] The commit message's justification and reproducer cannot reach
+  the code the patch changes, so the patch's stated bug (and its…
 
-This can be observed by reading GQSPI_EN (offset 0x114) and
-QSPIDMA_DST_ADDR/SIZE/STS/CTRL (offsets 0x800 to 0x80c) early in the new
-kernel, before the driver probes: without this patch GQSPI_EN reads 1
-and QSPIDMA_DST_ADDR still points into the previous kernel's memory.
+--
 
-Add a ->shutdown that stops the controller the way zynqmp_qspi_suspend()
-already does.  spi_controller_suspend() stops the queue, waits for a
-message that is already executing and makes any later transfer fail with
--ESHUTDOWN, so nothing can be cut short by the register write that
-follows.  It may sleep, which is fine here: device_shutdown() runs in
-process context.  Unlike ->suspend this cannot abort on error, because a
-controller left mastering the bus is worse than a truncated transfer, so
-a failure to drain is only logged.
+net: cap skb->queue_mapping when the tx queue is picked
 
-GQSPI_EN_OFST is then cleared, as zynqmp_qspi_remove() and
-zynqmp_qspi_suspend() already do.  Skip that write only when
-pm_runtime_get_if_in_use() returns 0, i.e. runtime suspended: the clocks
-are gated, so the registers are unreachable and the controller cannot be
-mastering the bus.  A negative return is not the same thing - it is what
-the CONFIG_PM=n stub always returns, and there probe() has enabled pclk
-and refclk for good, so the controller is running and must be stopped.
+This stores the value returned by netdev_cap_txqueue() back into
+skb->queue_mapping in netdev_tx_queue_mapping(), so that later readers of
+skb_get_queue_mapping() on the xmit path see an in-range index. The
+changelog attributes the out-of-range mapping to an skbedit + mirred
+egress redirect from a device with more TX queues to one with fewer.
 
-Fixes: dfe11a11d523 ("spi: Add support for Zynq Ultrascale+ MPSoC GQSPI controller")
-Cc: stable@vger.kernel.org
-Signed-off-by: Itai Handler <itai.handler@gmail.com>
-Link: https://patch.msgid.link/20260910174832.873352-1-itai.handler@gmail.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-[ itai: context only - zynqmp_qspi_of_match[] still sits between
-  zynqmp_qspi_remove() and MODULE_DEVICE_TABLE() in this tree, hoisted to
-  the top of the file upstream by commit 29f4d95b97bc ("spi:
-  spi-zynqmp-gqspi: Add tap delay support for GQSPI controller on Versal
-  platform"), so zynqmp_qspi_shutdown() is placed above it ]
-Signed-off-by: Itai Handler <itai.handler@gmail.com>
----
- drivers/spi/spi-zynqmp-gqspi.c | 34 ++++++++++++++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
+> diff --git a/net/core/dev.c b/net/core/dev.c
+> index c67900354fa64..736b3664b6354 100644
+> --- a/net/core/dev.c
+> +++ b/net/core/dev.c
+> @@ -4404,9 +4404,14 @@ EXPORT_SYMBOL(dev_loopback_xmit);
+>  static struct netdev_queue *
+>  netdev_tx_queue_mapping(struct net_device *dev, struct sk_buff *skb)
+>  {
+> -	int qm = skb_get_queue_mapping(skb);
+> +	int queue = skb_get_queue_mapping(skb);
+> +	int capped;
+>  
+> -	return netdev_get_tx_queue(dev, netdev_cap_txqueue(dev, qm));
+> +	capped = netdev_cap_txqueue(dev, queue);
+> +	if (unlikely(capped != queue))
+> +		skb_set_queue_mapping(skb, capped);
+> +
+> +	return netdev_get_tx_queue(dev, capped);
+>  }
 
-diff --git a/drivers/spi/spi-zynqmp-gqspi.c b/drivers/spi/spi-zynqmp-gqspi.c
-index bbc918815634..13f3abef4349 100644
---- a/drivers/spi/spi-zynqmp-gqspi.c
-+++ b/drivers/spi/spi-zynqmp-gqspi.c
-@@ -1220,6 +1220,39 @@ static int zynqmp_qspi_remove(struct platform_device *pdev)
- 	return 0;
- }
- 
-+static void zynqmp_qspi_shutdown(struct platform_device *pdev)
-+{
-+	struct zynqmp_qspi *xqspi = platform_get_drvdata(pdev);
-+	int ret;
-+
-+	/*
-+	 * Stop the queue and reject any later transfer first, so the write
-+	 * below cannot cut into a message that is still being executed.
-+	 * Unlike ->suspend this cannot abort on error: a controller left
-+	 * mastering the bus is worse than a truncated transfer.
-+	 */
-+	ret = spi_controller_suspend(xqspi->ctlr);
-+	if (ret)
-+		dev_warn(&pdev->dev, "could not stop the queue: %d\n", ret);
-+
-+	/*
-+	 * Only a runtime suspended controller can be left alone: its clocks
-+	 * are gated, so it cannot be mastering the bus, and its registers
-+	 * must not be accessed either.  Any other answer means it may be
-+	 * running and has to be stopped.  In particular, on a kernel built
-+	 * without runtime PM this returns -EINVAL, and there the clocks
-+	 * enabled in probe() are never gated at all.
-+	 */
-+	ret = pm_runtime_get_if_in_use(&pdev->dev);
-+	if (!ret)
-+		return;
-+
-+	zynqmp_gqspi_write(xqspi, GQSPI_EN_OFST, 0x0);
-+
-+	if (ret > 0)
-+		pm_runtime_put_noidle(&pdev->dev);
-+}
-+
- static const struct of_device_id zynqmp_qspi_of_match[] = {
- 	{ .compatible = "xlnx,zynqmp-qspi-1.0", },
- 	{ /* End of table */ }
-@@ -1230,6 +1263,7 @@ MODULE_DEVICE_TABLE(of, zynqmp_qspi_of_match);
- static struct platform_driver zynqmp_qspi_driver = {
- 	.probe = zynqmp_qspi_probe,
- 	.remove = zynqmp_qspi_remove,
-+	.shutdown = zynqmp_qspi_shutdown,
- 	.driver = {
- 		.name = "zynqmp-qspi",
- 		.of_match_table = zynqmp_qspi_of_match,
+[Severity: High]
+Can the reproducer in the changelog actually reach this function?
+
+netdev_tx_queue_mapping() has a single caller, and it is gated on the
+per-CPU (or per-task, on PREEMPT_RT) skip_txqueue flag:
+
+net/core/dev.c:__dev_queue_xmit() {
+	...
+	if (static_branch_unlikely(&egress_needed_key)) {
+		...
+		netdev_xmit_skip_txqueue(false);
+
+		nf_skip_egress(skb, true);
+		skb = sch_handle_egress(skb, &rc, dev);
+		if (!skb)
+			goto out;
+		nf_skip_egress(skb, false);
+
+		if (netdev_xmit_txqueue_skipped())
+			txq = netdev_tx_queue_mapping(dev, skb);
+	}
+	...
+}
+
+The clear at netdev_xmit_skip_txqueue(false) runs unconditionally at the
+top of that block, in every egress-enabled frame.
+
+The described redirect enters the target device through a nested
+__dev_queue_xmit():
+
+tcf_mirred_forward()
+  tcf_dev_queue_xmit(skb, dev_queue_xmit)
+    dev_queue_xmit()
+      __dev_queue_xmit()   /* for qb */
+
+Since clsact on qa has already raised egress_needed_key, that nested
+frame for qb takes the same block and clears the flag that skbedit set
+while running on qa. netdev_xmit_txqueue_skipped() is then false, txq
+stays NULL, and qb's queue comes from netdev_core_pick_tx(), which caps
+and rewrites the mapping itself:
+
+net/core/dev.c:netdev_core_pick_tx() {
+	...
+		queue_index = netdev_cap_txqueue(dev, queue_index);
+	}
+
+	skb_set_queue_mapping(skb, queue_index);
+	return netdev_get_tx_queue(dev, queue_index);
+}
+
+So by the time taprio_enqueue() runs:
+
+net/sched/sch_taprio.c:taprio_enqueue() {
+	queue = skb_get_queue_mapping(skb);
+
+	child = q->qdiscs[queue];
+
+the index it reads looks already in range for qb, on the patched and the
+unpatched kernel alike. Does the quoted "BUG: KASAN: slab-out-of-bounds
+in taprio_enqueue", the read 0 bytes past the 16-byte taprio_init
+allocation, really come from this skbedit + mirred sequence?
+
+A second point on the rationale:
+
+    So the decision is to cap the value where it is first trusted and
+    result is it fixes all downstream readers at once.
+
+Is this site where the value is first trusted? The only in-tree setter of
+the flag validates against the same device before arming it, and stores an
+already capped value:
+
+net/sched/act_skbedit.c:tcf_skbedit_act() {
+	...
+	if (params->flags & SKBEDIT_F_QUEUE_MAPPING &&
+	    skb->dev->real_num_tx_queues > params->queue_mapping) {
+#ifdef CONFIG_NET_EGRESS
+		netdev_xmit_skip_txqueue(true);
+#endif
+		skb_set_queue_mapping(skb, tcf_skbedit_hash(params, skb));
+	}
+
+and tcf_skbedit_hash() ends with:
+
+	return netdev_cap_txqueue(skb->dev, queue_mapping);
+
+With that, capped != queue in the new code seems to require either
+real_num_tx_queues shrinking concurrently (the index still being below
+dev->num_tx_queues, so still inside dev->_tx[] and taprio's q->qdiscs[]),
+or something rewriting skb->queue_mapping later in the same egress run.
+
+A path that does look able to deliver a genuinely out-of-range value to
+the new statement is a tc BPF program writing skb->queue_mapping after
+skbedit armed the flag on the same device, since
+tc_cls_act_is_valid_access() permits BPF_WRITE of that field and
+bpf_convert_ctx_access() emits the store. Would describing that (or a
+similar in-frame rewrite) instead of the cross-device mirred path make the
+Fixes: tag and the reported scenario verifiable for reviewers and stable
+backporters?
+
+Also, this isn't a bug, but the changelog says:
+
+    Another approach was to cap it in skbedit;  cannot work: the
+    redirect target, whose queue count bounds the mapping, is not known
+    when the action runs, and act_mirred sets skb->dev afterwards.
+
+there is a double space after the semicolon.
+
 -- 
-2.34.1
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/QDISC-9R8V.v1.20260921065103%40mojatatu.com
