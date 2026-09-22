@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C953423EA7
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 08:30:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6A1F433BCE
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 08:30:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790065806; cv=none; b=kxT2Ndfe2oEuJ7e2iT3GkK45GaRjo+5kGOnie1/cIb078Xyn5FJsTcsKbA5YiIcmnqEP+2JRmtL0i2OzEAY4iAvb/tOEhdzJKEIS8mZEv5jPaQlrhqbC3G3lOKiPfVpsdg8VK6Fl/a2WG5ovnOZ+4JMIjqJh5LbbGyVq0rl0sck=
+	t=1790065832; cv=none; b=OUiP1dBS4G0MldxAcXS0ef0D6H9CMkBHDKJBq83xdMq+SWJoWiH143RZaccNPGowSEREwiYDd8vgaC30n4vCCWxQVPybHRNtEKUu/I8eEdqkl9GIELbt28e2rkW+lc+gztc7Sdo8TKckPLrtHCB8VusTUuz/nsf/O4eMTjYiHE8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790065806; c=relaxed/simple;
-	bh=QSp3+nIMoHP5mC3gE0PR/KgQRqMlZllZIlxYKwflVVY=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=TKDhNArfOuSTmk+YcfjyebyaQavACEKrRqKfPHFd7NFKausXf3xzmauIqP7A3VeehmIuL143+wGkrlh6ZWJ7loVQKB+mJVQfX3DUlKNq3gGiP8We6EiRWPm0uqiqq4/OAOtow70ydeXjeRpj/CPTalV023iDbDqZAJ5f37hfTgE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=bZ5I9W6T; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790065832; c=relaxed/simple;
+	bh=Ucd92HUGl5iv/aGRR1r2z5bWNPWlWoP6ME0Fgt/brsM=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=QCOZuAG2dVR35lJkk4OKvf9wdcdsHMDWEyUiquKwLhbxnkbe7i3PagTponlXdD8qyWg1jgn6GmKi9CQ1HvD+Gf5HLb9pIaChk2nuBvMW7NqAV8almvinNQVw9+vQZHs6crckJXR3xlvLm8VWRJMuWk3AVCf34JiIPue7IjVWD9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=XSIWQ9/D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="bZ5I9W6T"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D3E41F000FF;
-	Tue, 22 Sep 2026 08:30:04 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="XSIWQ9/D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 608211F00893;
+	Tue, 22 Sep 2026 08:30:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790065805;
-	bh=5/zeAjPZ4jj2Y1XxDsskm4cPRGTO/jAGZka0qYGcT34=;
+	s=korg; t=1790065827;
+	bh=s368DshZ/ADZSMIUiChm8BHRt0XNFn9JHvIeR7OyPaM=;
 	h=Subject:To:Cc:From:Date;
-	b=bZ5I9W6ToY76gwJyYj5dMJE/MEe87X0Q4JPYZL8bsSiiY6vbHNbRsawGM3/jgCSRA
-	 G8WsVGr35rMUvfrG5k7Q8sQEMFnLe9C+IAEcLhUcW6HZ6eWseslm1tAh5lG/roH2ep
-	 SzuZYz2vTu5J+nlKrTi6tMI+YK8IbiZGRY8jG5NQ=
-Subject: FAILED: patch "[PATCH] swiotlb: use the adjusted address for the highmem page lookup" failed to apply to 5.10-stable tree
-To: donggeunyoo.kernel@gmail.com,m.szyprowski@samsung.com,mhklinux@outlook.com
+	b=XSIWQ9/DTUwuzNwAKMV+Y5/mZiyny69RiOyTpq4kD9CsBd4RX7z9mNBdvjrioEyVZ
+	 J/4pAcHBO0H0I/gphuxygDZThBjlsW0Z3sQL0J/TiEhJzDqdZsMOzR0vf9cXRkIfvF
+	 RfvqQQ3tyXYeSMd+KJVnj6fwT+/HweLff7LpvvV0=
+Subject: FAILED: patch "[PATCH] spi: spi-zynqmp-gqspi: stop the controller on shutdown" failed to apply to 6.12-stable tree
+To: itai.handler@gmail.com,broonie@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 22 Sep 2026 10:29:53 +0200
-Message-ID: <2026092253-catlike-script-bf6a@gregkh>
+Date: Tue, 22 Sep 2026 10:30:23 +0200
+Message-ID: <2026092222-marital-chasing-0267@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x b7d7914a9ae3097e63d113007e4fb44d33d515b1
+git cherry-pick -x e922bad8b2d5028c51a096d083fea41cd0987154
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092253-catlike-script-bf6a@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092222-marital-chasing-0267@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,60 +62,105 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From b7d7914a9ae3097e63d113007e4fb44d33d515b1 Mon Sep 17 00:00:00 2001
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Date: Sat, 5 Sep 2026 17:42:10 +0900
-Subject: [PATCH] swiotlb: use the adjusted address for the highmem page lookup
+From e922bad8b2d5028c51a096d083fea41cd0987154 Mon Sep 17 00:00:00 2001
+From: Itai Handler <itai.handler@gmail.com>
+Date: Thu, 10 Sep 2026 20:48:32 +0300
+Subject: [PATCH] spi: spi-zynqmp-gqspi: stop the controller on shutdown
 
-swiotlb_bounce() reads the page frame number from the slot's recorded
-orig_addr, then advances orig_addr by tlb_offset to reach the address
-the caller asked about. The highmem branch mixes the two: the offset
-within the page comes from the adjusted address, the page from the value
-before it.
+The driver has no ->shutdown, and platform_drv_shutdown() has no
+fallback of its own.  Unlike pci_device_shutdown(), which clears bus
+mastering when kexec_in_progress, nothing on the platform bus disarms a
+device that can still write to memory.  The normal kexec path never
+calls ->suspend either, so the quiesce in zynqmp_qspi_suspend() is not
+reached.
 
-Once the adjustment crosses a page boundary the pair no longer describes
-one location, and the whole copy lands one page below the intended one
-for a positive tlb_offset, one above for a negative one. DMA_FROM_DEVICE
-writes the device data over the wrong page and leaves the intended one
-stale, DMA_TO_DEVICE feeds the device from a page the mapping may not
-cover. Partial syncs through dma_sync_single_range_for_*() are what make
-tlb_offset non-zero.
+A controller that is still executing a DMA read may therefore keep
+writing to memory across a kexec.  QSPIDMA_DST_ADDR still points at
+memory owned by the kernel that called kexec, DST_SIZE is non-zero and
+the flash is still clocked, so data can keep landing in RAM while the
+new kernel is being relocated, and after it has started executing.
 
-The branch test is picked the same way, so a slot recorded in lowmem can
-be adjusted into highmem and the lowmem path then hands a highmem
-address to phys_to_virt().
+That destination is a physical address which means nothing to the new
+kernel, so the writes can corrupt whatever now occupies it: kernel text
+or data, page tables, or the initrd.  Nothing reports an error and the
+resulting behaviour is undefined.
 
-Take both from orig_addr once it is final and keep pfn in the branch
-that uses it. PhysHighMem() asks the question straight from the address,
-as dma-debug already does.
+This can be observed by reading GQSPI_EN (offset 0x114) and
+QSPIDMA_DST_ADDR/SIZE/STS/CTRL (offsets 0x800 to 0x80c) early in the new
+kernel, before the driver probes: without this patch GQSPI_EN reads 1
+and QSPIDMA_DST_ADDR still points into the previous kernel's memory.
 
-Fixes: 5f89468e2f06 ("swiotlb: manipulate orig_addr when tlb_addr has offset")
+Add a ->shutdown that stops the controller the way zynqmp_qspi_suspend()
+already does.  spi_controller_suspend() stops the queue, waits for a
+message that is already executing and makes any later transfer fail with
+-ESHUTDOWN, so nothing can be cut short by the register write that
+follows.  It may sleep, which is fine here: device_shutdown() runs in
+process context.  Unlike ->suspend this cannot abort on error, because a
+controller left mastering the bus is worse than a truncated transfer, so
+a failure to drain is only logged.
+
+GQSPI_EN_OFST is then cleared, as zynqmp_qspi_remove() and
+zynqmp_qspi_suspend() already do.  Skip that write only when
+pm_runtime_get_if_in_use() returns 0, i.e. runtime suspended: the clocks
+are gated, so the registers are unreachable and the controller cannot be
+mastering the bus.  A negative return is not the same thing - it is what
+the CONFIG_PM=n stub always returns, and there probe() has enabled pclk
+and refclk for good, so the controller is running and must be stopped.
+
+Fixes: dfe11a11d523 ("spi: Add support for Zynq Ultrascale+ MPSoC GQSPI controller")
 Cc: stable@vger.kernel.org
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Reviewed-by: Michael Kelley <mhklinux@outlook.com>
-Link: https://lore.kernel.org/r/20260905084210.148255-1-donggeunyoo.kernel@gmail.com
-Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+Signed-off-by: Itai Handler <itai.handler@gmail.com>
+Link: https://patch.msgid.link/20260910174832.873352-1-itai.handler@gmail.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 
-diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
-index ded7016a46a7..aa2f1c4588b9 100644
---- a/kernel/dma/swiotlb.c
-+++ b/kernel/dma/swiotlb.c
-@@ -1019,7 +1019,6 @@ static void swiotlb_bounce(struct device *dev, phys_addr_t tlb_addr, size_t size
- 	int index = (tlb_addr - mem->start) >> IO_TLB_SHIFT;
- 	phys_addr_t orig_addr = mem->slots[index].orig_addr;
- 	size_t alloc_size = mem->slots[index].alloc_size;
--	unsigned long pfn = PFN_DOWN(orig_addr);
- 	unsigned char *vaddr = mem->vaddr + tlb_addr - mem->start;
- 	int tlb_offset;
+diff --git a/drivers/spi/spi-zynqmp-gqspi.c b/drivers/spi/spi-zynqmp-gqspi.c
+index 4d55090fa443..15e9d3ef8839 100644
+--- a/drivers/spi/spi-zynqmp-gqspi.c
++++ b/drivers/spi/spi-zynqmp-gqspi.c
+@@ -1373,11 +1373,45 @@ static void zynqmp_qspi_remove(struct platform_device *pdev)
+ 	clk_disable_unprepare(xqspi->pclk);
+ }
  
-@@ -1052,7 +1051,8 @@ static void swiotlb_bounce(struct device *dev, phys_addr_t tlb_addr, size_t size
- 		size = alloc_size;
- 	}
++static void zynqmp_qspi_shutdown(struct platform_device *pdev)
++{
++	struct zynqmp_qspi *xqspi = platform_get_drvdata(pdev);
++	int ret;
++
++	/*
++	 * Stop the queue and reject any later transfer first, so the write
++	 * below cannot cut into a message that is still being executed.
++	 * Unlike ->suspend this cannot abort on error: a controller left
++	 * mastering the bus is worse than a truncated transfer.
++	 */
++	ret = spi_controller_suspend(xqspi->ctlr);
++	if (ret)
++		dev_warn(&pdev->dev, "could not stop the queue: %d\n", ret);
++
++	/*
++	 * Only a runtime suspended controller can be left alone: its clocks
++	 * are gated, so it cannot be mastering the bus, and its registers
++	 * must not be accessed either.  Any other answer means it may be
++	 * running and has to be stopped.  In particular, on a kernel built
++	 * without runtime PM this returns -EINVAL, and there the clocks
++	 * enabled in probe() are never gated at all.
++	 */
++	ret = pm_runtime_get_if_in_use(&pdev->dev);
++	if (!ret)
++		return;
++
++	zynqmp_gqspi_write(xqspi, GQSPI_EN_OFST, 0x0);
++
++	if (ret > 0)
++		pm_runtime_put_noidle(&pdev->dev);
++}
++
+ MODULE_DEVICE_TABLE(of, zynqmp_qspi_of_match);
  
--	if (PageHighMem(pfn_to_page(pfn))) {
-+	if (PhysHighMem(orig_addr)) {
-+		unsigned long pfn = PFN_DOWN(orig_addr);
- 		unsigned int offset = orig_addr & ~PAGE_MASK;
- 		struct page *page;
- 		unsigned int sz = 0;
+ static struct platform_driver zynqmp_qspi_driver = {
+ 	.probe = zynqmp_qspi_probe,
+ 	.remove = zynqmp_qspi_remove,
++	.shutdown = zynqmp_qspi_shutdown,
+ 	.driver = {
+ 		.name = "zynqmp-qspi",
+ 		.of_match_table = zynqmp_qspi_of_match,
 
