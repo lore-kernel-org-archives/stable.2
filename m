@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F4AD41B8E0
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 08:27:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7380F2737FC
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 08:28:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790065666; cv=none; b=LBM9n+MwualrgPuuL0UfSJwlLe1z0yPR47SBntnFGKIMtLtaC5lnOtW7K+tP86NT8T4TfrxoHKbqDUBRGoBCSgNekEMDxKI3LYrQHcyYAe5DY6cGA0+IYsaimzfnRYDK+vqA++vHwC+eG7r9JJFoNTo5gXSyXocZulBy73ebWEE=
+	t=1790065686; cv=none; b=oTc2yPazhZcgIRSyzLMaUgtbzd+o+S/KbWUKHu6es5So1F3JQ0qrXBXzaUf1fvlddq2WqOAo0ENqzeknOqCOGFSexoPV0Hk1PtMgWxVSpWfFvaj5+2F5u9JozsRQ+NY9vT2d8Tj7AavpkU+eqfGdmqGuJPql/lP6beI6kWBIpyE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790065666; c=relaxed/simple;
-	bh=dUeh9I4mwpSyFvxgU0lCnUdIou2alkmCzDTJqu1+1BM=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=u2mwDiBnAnukiIih/ievdZ9Y32PTm2iXSxWR54hOBLbnEoXwsI5bwPG+cpmZdopZTDWtwNdo/yEzW2yMJyFEpvxhB723YdkTjv9eoTFytFhPYBn75fal7uF+Sz6pteM+2Brl5yw3Qj4X4C5hI2RWK9cTZkcCoYQvMyWNEz/Kvqc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=YmI+Qsjt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790065686; c=relaxed/simple;
+	bh=JmV3Iv9vIsBUa7XJEJbzXxyqqORSeWjuxqNaNqipbb0=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=cZyazGbSRqQkDGWUWVneeiqVA6zQdfwUbHOmcmKb3IoRt/IrfTC8rrrTzjL2oFaAepMZxRNG0yzaufszGvdASqm7fz3968MgLmgNpEr+BDG4ZMtvWr2DMWr8/3Uc0YyEoxa6bOZovOiJ23KV5N3n2NWHZpHKfg53/4tYJ9lSSRg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=RN65aIYU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="YmI+Qsjt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 805EC1F000FF;
-	Tue, 22 Sep 2026 08:27:43 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="RN65aIYU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84E711F000FF;
+	Tue, 22 Sep 2026 08:28:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790065664;
-	bh=VDr3rc1724M6ORe25BrST4UvLZ0YvCOGi7f2RxGbdzk=;
+	s=korg; t=1790065684;
+	bh=tWTLm/ymp37pnhsvVcbwryuJKx9MrrhfX0ifYL+ttSY=;
 	h=Subject:To:Cc:From:Date;
-	b=YmI+QsjtonAMfR7NGU9EHkyqyxmVGXnbDVAJuW7hrXguoNSvkuSfAL2aN9ce8kEyE
-	 ZQhqnZP9txfIfMQmavhO827k8wkMb2CetYEBbUVnkUgqL12r4DFGcRa+IXFqMo3mbo
-	 W69l4xcvz4YqMo7vklWELQ4QYyotGp1Xfg7m9nCw=
-Subject: FAILED: patch "[PATCH] phy: renesas: rcar-gen3-usb2: Avoid long delay in atomic" failed to apply to 5.10-stable tree
-To: claudiu.beznea.uj@bp.renesas.com,iwamatsu@nigauri.org,manivannan.sadhasivam@oss.qualcomm.com,pavel@nabladev.com,vkoul@kernel.org
+	b=RN65aIYUxwpDIU0GGqq/SVjcE4JJZbbAQI/c9Y9T+Auwm56LWJUu7memOUAfcIlxh
+	 q31fJT6/xQYd3pQ33TqnTQm1X0OEjNNfxNK3LUIiNXSlnEP9PZloR/s5eyiv2PklEe
+	 T/eBqmNXlKzIkwZeUiWrVNdZ4SANd+bH5voU182o=
+Subject: FAILED: patch "[PATCH] signal: Prevent exec() race" failed to apply to 6.18-stable tree
+To: tglx@kernel.org,ebiederm@xmission.com,frederic@kernel.org,imv4bel@gmail.com,oleg@redhat.com,red993688@gmail.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 22 Sep 2026 10:27:25 +0200
-Message-ID: <2026092225-spyglass-sharper-3f7c@gregkh>
+Date: Tue, 22 Sep 2026 10:28:01 +0200
+Message-ID: <2026092201-refining-banner-c772@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 48e97c59a49c9e90270f5e3d221db253b76de5da
+git cherry-pick -x d2710c8d938ae6a825a6463158e6e6f31eac792a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092225-spyglass-sharper-3f7c@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092201-refining-banner-c772@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,535 +62,374 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 48e97c59a49c9e90270f5e3d221db253b76de5da Mon Sep 17 00:00:00 2001
-From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-Date: Thu, 16 Jul 2026 21:32:46 +0300
-Subject: [PATCH] phy: renesas: rcar-gen3-usb2: Avoid long delay in atomic
- context
+From d2710c8d938ae6a825a6463158e6e6f31eac792a Mon Sep 17 00:00:00 2001
+From: Thomas Gleixner <tglx@kernel.org>
+Date: Fri, 11 Sep 2026 11:09:12 +0200
+Subject: [PATCH] signal: Prevent exec() race
 
-The OTG PHY initialization sequence needs to wait for 20 ms at a specific
-step, as described in commit 72c0339c115b ("phy: renesas:
-rcar-gen3-usb2: follow the hardware manual procedure").
+Hyunwoo debugged the following KASAN UAF splat:
 
-Commit 55a387ebb921 ("phy: renesas: rcar-gen3-usb2: Lock around hardware
-registers and driver data") tried to address various problems in the
-rcar-gen3-usb2 driver and converted the mutex protecting HW register
-accesses to a spin lock, leaving, however, a long delay in the critical
-section protected by the spin lock. This may become a problem,
-especially on RT kernels.
+  BUG: KASAN: slab-use-after-free in __send_signal_locked+0xb27/0xba0
+  Write of size 8 at addr ffff888007ed80c8 by task poc/79
+  ...
+  Call Trace:
+   __send_signal_locked+0xb27/0xba0
+   do_send_sig_info+0xa7/0x160
+   do_send_specific+0x76/0xa0
+   __x64_sys_tgkill+0x193/0x270
+  ...
+  Allocated by task 80:
+   do_timer_create+0x1a4/0x1030
+   __x64_sys_timer_create+0x145/0x190
+  ...
+  Freed by task 12:
+   kmem_cache_free_bulk+0x1f8/0x4a0
+   kvfree_rcu_bulk+0x14f/0x1c0
+   kfree_rcu_work+0x128/0x1a0
+  ...
+  Last potentially related work creation:
+   kvfree_call_rcu+0x39/0x390
+   __flush_itimer_signals+0x211/0x320
+   flush_itimer_signals+0x47/0x90
+   begin_new_exec+0xa6b/0x28c0
 
-To address this, release the spin lock before sleeping for 20 ms as
-required by the HW manual and reacquire it afterwards. To avoid other
-threads entering the critical section and configuring the HW while the
-software is waiting for the OTG initialization to complete, introduce the
-otg_initializing variable alongside the otg_init_done wait queue. Any
-other thread trying to configure the HW while the OTG PHY initialization
-is in progress waits for the wait queue instead of immediately returning
-errors to PHY users. The IRQs were also disabled while waiting for the OTG
-PHY initialization to complete, as the interrupt handler may also apply HW
-settings.
+It turned out that this happens with a non-leader exec() as Hyunwoo
+explained:
 
-The OTG can only be initialized once. It is initialized by the first PHY
-that calls struct phy_ops::rcar_gen3_phy_usb2_init().
+de_thread() calls exchange_tids() before release_task(leader), so the
+struct pid held by a SIGEV_THREAD_ID timer created against the leader's tid
+now points to the thread which called execve(). pid_task() returns that
+thread and lock_task_sighand() on it succeeds.
 
-To avoid failures when multiple PHYs call struct
-phy_ops::rcar_gen3_phy_usb2_init() simultaneously, and the PHY responsible
-for initializing the OTG either fails or deinit quiqly and another PHY
-takes over the PHY init role), the code waiting for the
-channel->otg_init_done wait queue retries up to NUM_OF_PHYS times.
+If the timer signal is blocked, its sigqueue stays queued on the leader's
+task::pending. The next expiry of that timer can then run while
+release_task() flushes the queue.
 
-Fixes: 55a387ebb921 ("phy: renesas: rcar-gen3-usb2: Lock around hardware registers and driver data")
+posixtimer_send_sigqueue() checks whether the sigqueue is already queued
+with a plain list_empty(), which only reads list_head::next.
+list_del_init() is not atomic and INIT_LIST_HEAD() stores list_head::next
+before list_head::prev, so the check can pass in between. list_add_tail()
+queues the entry on the task::pending of the live thread, and the
+list_head::prev store from the flush then overwrites the list_head::prev
+link that list_add_tail() has just set.
+
+__flush_itimer_signals() does not undo that either. With list_head::prev
+pointing at the entry itself, its list_del_init() only stores the same
+values again, so the entry is not removed from the list. It is still there
+after the last reference is dropped and the timer is freed by RCU, and the
+list_add_tail() of a later tgkill() follows that list_head::prev into the
+freed timer.
+
+This problem surfaced with the recent commit which moved the sigqueue flush
+out of the sighand lock held region.
+
+Hyonwoo proposed to fix this by using list_del_init_careful(), but that
+just papers over the problem. After some disucssions and various attempts
+to solve it, Eric pointed out that there is no reason to flush
+task::pending late in release_task() and it should be done in
+exit_signals() already.
+
+As nothing can collect and deliver signals which are queued in a dying
+task's pending queue, there is no reason to delay it further.
+
+But it has to be ensured that no signals can be queued into it after that
+point. exit_signals() sets PF_EXITING in task::flags, which can be used as
+an indicator for this.
+
+Cure it by:
+
+  - Preventing signal queueing for task private signals (PIDTYPE_PID) when
+    the task has PF_EXITING set in __send_signal_locked() and in
+    posixtimer_send_sigqueue().
+
+  - Protecting the unlocked setting of PF_EXITING in exit_signals() for the
+    task group empty and the group exit case with sighand lock
+
+  - Flushing task::pending signals right there.
+
+    Optimize that by moving the whole pending list to an on-stack list head
+    under sighand lock and free the signals without the lock held.
+
+There has been quite some discussion about the lockless flush and the
+non-leader exec case on weakly ordered systems. The problem is that a third
+party which tries to send a posix timer signal relies on the PID lookup to
+find the target task and that lookup might result in the new leader when
+the signal was originaly directed to the old leader. In case that the
+signal was queued on the old leader then the lockless flush raised a
+concern over the following situation:
+
+   old_leader		new_leader              third party
+
+A: flush_list()	// list_del_init() stores to sigqueue
+
+   LOCK (tasklist)
+   old_leader->exit_state = EXIT_ZOMBIE;
+B: UNLOCK (tasklist)
+
+C:			LOCK (tasklist)
+			if (old_leader->exit_state)
+			   transfer_tids()
+D:			     store PID
+						posix_timer_send_sigqueue()
+						// Observes #D so t = new_leader
+E:						t = get_target()
+
+F:						LOCK (sighand)
+
+G:						   if (list_empty(sigqueue))
+							list_add(sigqueue)
+
+The concern was that the third party might observe #D but not observe #A
+and therefore would proceed to #G while the list_del() stores (#A) in
+flush_list() are not visible yet, which could result in list corruption.
+
+That would be possible if looking at it solely from a RELEASE+ACQUIRE
+ordering point of view, but B-C is a UNLOCK+LOCK hand-over, which is not
+the same as RELEASE+ACQUIRE:
+
+  RELEASE+ACQUIRE: RCpc,  only the CPUs involved agree on the ordering
+  UNLOCK+LOCK:     RCtso, the hand-over is store-ordering
+
+As B-C is UNLOCK+LOCK, which is RCtso and that does impose store order,
+A stores must happen before the D store.
+
+Combine with E-F, which has a data dependency from the LOAD to the LOCK and
+thereby constraints later LOADs, those sigqueue loads in G that come after
+F must in fact observe the A stores.
+
+Fixes: fb3bbcfe344e ("exit: change the release_task() paths to call flush_sigqueue() lockless")
+Reported-by: Hyunwoo Kim <imv4bel@gmail.com>
+Debugged-by: Hyunwoo Kim <imv4bel@gmail.com>
+Suggested-by: "Eric W. Biederman" <ebiederm@xmission.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Tested-by: Kijo Park <red993688@gmail.com>
+Reviewed-by: Oleg Nesterov <oleg@redhat.com>
+Reviewed-by: Frederic Weisbecker <frederic@kernel.org>
 Cc: stable@vger.kernel.org
-Reported-by: Pavel Machek <pavel@nabladev.com>
-Closes: https://lore.kernel.org/all/afhkX2Ys2BG1gnqy@duo.ucw.cz
-Reported-by: Nobuhiro Iwamatsu <iwamatsu@nigauri.org>
-Closes: https://lore.kernel.org/all/afhkX2Ys2BG1gnqy@duo.ucw.cz
-Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Link: https://lore.kernel.org/all/afhkX2Ys2BG1gnqy@duo.ucw.cz
-Link: https://patch.msgid.link/20260716183246.3183877-1-claudiu.beznea+renesas@tuxon.dev
-Signed-off-by: Vinod Koul <vkoul@kernel.org>
+Link: https://patch.msgid.link/20260911090541.572536604@kernel.org
+Closes: https://patch.msgid.link/aok1rdkBgZsynHZB@v4bel
 
-diff --git a/drivers/phy/renesas/phy-rcar-gen3-usb2.c b/drivers/phy/renesas/phy-rcar-gen3-usb2.c
-index 9ae9975d3255..b5ba751805aa 100644
---- a/drivers/phy/renesas/phy-rcar-gen3-usb2.c
-+++ b/drivers/phy/renesas/phy-rcar-gen3-usb2.c
-@@ -27,6 +27,7 @@
- #include <linux/reset.h>
- #include <linux/string.h>
- #include <linux/usb/of.h>
-+#include <linux/wait.h>
- #include <linux/workqueue.h>
+diff --git a/kernel/exit.c b/kernel/exit.c
+index 4e028f157597..424c44a42a4d 100644
+--- a/kernel/exit.c
++++ b/kernel/exit.c
+@@ -302,12 +302,13 @@ void release_task(struct task_struct *p)
+ 	free_pids(post.pids);
+ 	release_thread(p);
+ 	/*
+-	 * This task was already removed from the process/thread/pid lists
+-	 * and lock_task_sighand(p) can't succeed. Nobody else can touch
+-	 * ->pending or, if group dead, signal->shared_pending. We can call
+-	 * flush_sigqueue() lockless.
++	 * This task was already removed from the process/thread/pid lists and
++	 * lock_task_sighand(p) can't succeed. If it's the group leader then
++	 * flush tsk->signal->shared_pending. tsk->pending has been flushed
++	 * already in exit_signals(). Nothing else can touch
++	 * signal->shared_pending anymore, so flush_sigqueue() can be invoked
++	 * lockless.
+ 	 */
+-	flush_sigqueue(&p->pending);
+ 	if (thread_group_leader(p))
+ 		flush_sigqueue(&p->signal->shared_pending);
  
- /******* USB2.0 Host registers (original offset is +0x200) *******/
-@@ -106,6 +107,13 @@
- /*  RZ/G2L specific */
- #define USB2_LINECTRL1_USB2_IDMON	BIT(0)
+diff --git a/kernel/signal.c b/kernel/signal.c
+index ec30550951ec..d31ebcb6ed4d 100644
+--- a/kernel/signal.c
++++ b/kernel/signal.c
+@@ -457,18 +457,42 @@ static void __sigqueue_free(struct sigqueue *q)
+ 	kmem_cache_free(sigqueue_cachep, q);
+ }
+ 
+-void flush_sigqueue(struct sigpending *queue)
++/*
++ * flush_sigqueue_list() can only be invoked without holding sighand::siglock in
++ * the following cases:
++ *
++ *  1) When flushing task::pending _after_ setting task::flags PF_EXITING
++ *
++ *     All functions which try to send a signal to @task will observe PF_EXITING
++ *     and drop the signal.
++ *
++ *  2) When flushing task::signal::shared_pending _after_ the last task in a
++ *     thread group was unhashed and task::sighand is NULL.
++ *
++ *     Nothing can queue a signal anymore because sighand is NULL.
++ */
++static void flush_sigqueue_list(struct list_head *head)
+ {
+-	struct sigqueue *q;
++	struct sigqueue *q, *tmp;
+ 
+-	sigemptyset(&queue->signal);
+-	while (!list_empty(&queue->list)) {
+-		q = list_entry(queue->list.next, struct sigqueue , list);
++	list_for_each_entry_safe(q, tmp, head, list) {
+ 		list_del_init(&q->list);
+ 		__sigqueue_free(q);
+ 	}
+ }
+ 
++void flush_sigqueue(struct sigpending *queue)
++{
++	sigemptyset(&queue->signal);
++	flush_sigqueue_list(&queue->list);
++}
++
++static void sigqueue_dequeue_pending(struct sigpending *queue, struct list_head *head)
++{
++	sigemptyset(&queue->signal);
++	list_splice_init(&queue->list, head);
++}
++
+ /*
+  * Flush all pending signals for this kthread.
+  */
+@@ -1019,6 +1043,21 @@ static inline bool legacy_queue(struct sigpending *signals, int sig)
+ 	return (sig < SIGRTMIN) && sigismember(&signals->signal, sig);
+ }
  
 +/*
-+ * The OTG initialization is expected to finish in 20ms. Choose a large enough
-+ * timeout to avoid waiters exit prematurely the waiting section under heavy
-+ * CPU load.
++ * When PF_EXITING is set the task is on the way out and has t::pending
++ * flushed already. Prevent queueing of PIDTYPE_PID signals as they would
++ * be leaked.
 + */
-+#define USB2_OTG_INIT_TIMEOUT		msecs_to_jiffies(120)
++static inline bool task_can_queue_signal(struct task_struct *t, enum pid_type type)
++{
++	lockdep_assert_held(&t->sighand->siglock);
 +
- #define NUM_OF_PHYS			4
- enum rcar_gen3_phy_index {
- 	PHY_INDEX_BOTH_HC,
-@@ -138,12 +146,20 @@ struct rcar_gen3_chan {
- 	struct rcar_gen3_phy rphys[NUM_OF_PHYS];
- 	struct regulator *vbus;
- 	struct work_struct work;
-+	wait_queue_head_t otg_init_done;
- 	spinlock_t lock;	/* protects access to hardware and driver data structure. */
- 	enum usb_dr_mode dr_mode;
- 	bool extcon_host;
- 	bool is_otg_channel;
- 	bool uses_otg_pins;
- 	bool otg_internal_reg;
-+	/*
-+	 * The OTG can be initialized only once and needs to release the spinlock
-+	 * and wait for 20 ms due to hardware constraints. If a thread executes
-+	 * PHY configuration code while the OTG PHY is waiting for the 20 ms, the
-+	 * thread will have to wait for the OTG PHY initialization to complete.
-+	 */
-+	bool otg_initializing;
- };
- 
- struct rcar_gen3_phy_drv_data {
-@@ -392,26 +408,58 @@ static ssize_t role_store(struct device *dev, struct device_attribute *attr,
- 	struct rcar_gen3_chan *ch = dev_get_drvdata(dev);
- 	bool is_b_device;
- 	enum phy_mode cur_mode, new_mode;
-+	int retries = NUM_OF_PHYS;
-+	unsigned long flags;
-+	int ret = -EIO;
- 
--	guard(spinlock_irqsave)(&ch->lock);
-+	spin_lock_irqsave(&ch->lock, flags);
- 
--	if (!ch->is_otg_channel || !rcar_gen3_is_any_otg_rphy_initialized(ch))
--		return -EIO;
-+	if (!ch->is_otg_channel)
-+		goto unlock;
- 
--	if (sysfs_streq(buf, "host"))
-+	while (retries-- && ch->otg_initializing) {
-+		spin_unlock_irqrestore(&ch->lock, flags);
++	if (!(t->flags & PF_EXITING))
++		return true;
 +
-+		ret = wait_event_timeout(ch->otg_init_done, !ch->otg_initializing,
-+					 USB2_OTG_INIT_TIMEOUT);
-+		ret = ret ? 0 : -ETIMEDOUT;
-+		if (ret && !retries)
-+			goto exit;
++	return type != PIDTYPE_PID;
++}
 +
-+		spin_lock_irqsave(&ch->lock, flags);
-+	}
-+
-+	/* If another thread started a new initialization just return -EBUSY. */
-+	if (ch->otg_initializing) {
-+		ret = -EBUSY;
-+		goto unlock;
-+	} else {
-+		ret = 0;
-+	}
-+
-+	if (!rcar_gen3_is_any_otg_rphy_initialized(ch)) {
-+		ret = -EIO;
-+		goto unlock;
-+	}
-+
-+	if (sysfs_streq(buf, "host")) {
- 		new_mode = PHY_MODE_USB_HOST;
--	else if (sysfs_streq(buf, "peripheral"))
-+	} else if (sysfs_streq(buf, "peripheral")) {
- 		new_mode = PHY_MODE_USB_DEVICE;
--	else
--		return -EINVAL;
-+	} else {
-+		ret = -EINVAL;
-+		goto unlock;
-+	}
- 
- 	/* is_b_device: true is B-Device. false is A-Device. */
- 	is_b_device = rcar_gen3_check_id(ch);
- 	cur_mode = rcar_gen3_get_phy_mode(ch);
- 
- 	/* If current and new mode is the same, this returns the error */
--	if (cur_mode == new_mode)
--		return -EINVAL;
-+	if (cur_mode == new_mode) {
-+		ret = -EINVAL;
-+		goto unlock;
-+	}
- 
- 	if (new_mode == PHY_MODE_USB_HOST) { /* And is_host must be false */
- 		if (!is_b_device)	/* A-Peripheral */
-@@ -425,7 +473,10 @@ static ssize_t role_store(struct device *dev, struct device_attribute *attr,
- 			rcar_gen3_init_for_peri(ch);
- 	}
- 
--	return count;
-+unlock:
-+	spin_unlock_irqrestore(&ch->lock, flags);
-+exit:
-+	return ret ?: count;
- }
- 
- static ssize_t role_show(struct device *dev, struct device_attribute *attr,
-@@ -441,14 +492,11 @@ static ssize_t role_show(struct device *dev, struct device_attribute *attr,
- }
- static DEVICE_ATTR_RW(role);
- 
--static void rcar_gen3_init_otg(struct rcar_gen3_chan *ch)
-+static void rcar_gen3_init_otg_phase0(struct rcar_gen3_chan *ch)
+ static int __send_signal_locked(int sig, struct kernel_siginfo *info,
+ 				struct task_struct *t, enum pid_type type, bool force)
  {
- 	void __iomem *usb2_base = ch->base;
- 	u32 val;
+@@ -1030,6 +1069,10 @@ static int __send_signal_locked(int sig, struct kernel_siginfo *info,
+ 	lockdep_assert_held(&t->sighand->siglock);
  
--	if (!ch->is_otg_channel || rcar_gen3_is_any_otg_rphy_initialized(ch))
+ 	result = TRACE_SIGNAL_IGNORED;
++
++	if (!task_can_queue_signal(t, type))
++		goto ret;
++
+ 	if (!prepare_signal(sig, t, force))
+ 		goto ret;
+ 
+@@ -1980,11 +2023,25 @@ static inline struct task_struct *posixtimer_get_target(struct k_itimer *tmr)
+ 	struct task_struct *t = pid_task(tmr->it_pid, tmr->it_pid_type);
+ 
+ 	if (t && tmr->it_pid_type != PIDTYPE_PID &&
+-	    same_thread_group(t, current) && !current->exit_state)
++	    same_thread_group(t, current) && !(current->flags & PF_EXITING))
+ 		t = current;
+ 	return t;
+ }
+ 
++/*
++ * Find the target task for the POSIX timer signal and prevent that a
++ * PIDTYPE_PID signal is queued on a task which has PF_EXITING set.
++ */
++static inline struct task_struct *posixtimer_get_unignore_target(struct k_itimer *tmr)
++{
++	struct task_struct *t = posixtimer_get_target(tmr);
++
++	if (t && task_can_queue_signal(t, tmr->it_pid_type))
++		return t;
++
++	return NULL;
++}
++
+ void posixtimer_send_sigqueue(struct k_itimer *tmr)
+ {
+ 	struct sigqueue *q = &tmr->sigq;
+@@ -2002,6 +2059,9 @@ void posixtimer_send_sigqueue(struct k_itimer *tmr)
+ 	if (!likely(lock_task_sighand(t, &flags)))
+ 		return;
+ 
++	if (!task_can_queue_signal(t, tmr->it_pid_type))
++		goto unlock;
++
+ 	/*
+ 	 * Update @tmr::sigqueue_seq for posix timer signals with sighand
+ 	 * locked to prevent a race against dequeue_signal().
+@@ -2093,6 +2153,7 @@ void posixtimer_send_sigqueue(struct k_itimer *tmr)
+ 	result = TRACE_SIGNAL_DELIVERED;
+ out:
+ 	trace_signal_generate(sig, &q->info, t, tmr->it_pid_type != PIDTYPE_PID, result);
++unlock:
+ 	unlock_task_sighand(t, &flags);
+ }
+ 
+@@ -2148,7 +2209,7 @@ static void posixtimer_sig_unignore(struct task_struct *tsk, int sig)
+ 		 * has exited by now, drop the reference count.
+ 		 */
+ 		guard(rcu)();
+-		target = posixtimer_get_target(tmr);
++		target = posixtimer_get_unignore_target(tmr);
+ 		if (target)
+ 			posixtimer_queue_sigqueue(&tmr->sigq, target, tmr->it_pid_type);
+ 		else
+@@ -3132,42 +3193,36 @@ static void retarget_shared_pending(struct task_struct *tsk, sigset_t *which)
+ 
+ void exit_signals(struct task_struct *tsk)
+ {
++	LIST_HEAD(sigq_list);
+ 	int group_stop = 0;
+-	sigset_t unblocked;
+ 
+ 	/*
+ 	 * @tsk is about to have PF_EXITING set - lock out users which
+-	 * expect stable threadgroup.
++	 * expect a stable threadgroup.
+ 	 */
+ 	cgroup_threadgroup_change_begin(tsk);
+ 
+-	if (thread_group_empty(tsk) || (tsk->signal->flags & SIGNAL_GROUP_EXIT)) {
++	scoped_guard(spinlock_irq, &tsk->sighand->siglock) {
+ 		tsk->flags |= PF_EXITING;
+-		cgroup_threadgroup_change_end(tsk);
 -		return;
+-	}
+ 
+-	spin_lock_irq(&tsk->sighand->siglock);
+-	/*
+-	 * From now this task is not visible for group-wide signals,
+-	 * see wants_signal(), do_signal_stop().
+-	 */
+-	tsk->flags |= PF_EXITING;
++		sigqueue_dequeue_pending(&tsk->pending, &sigq_list);
++
++		if (task_sigpending(tsk) && !thread_group_empty(tsk) &&
++		    !(tsk->signal->flags & SIGNAL_GROUP_EXIT)) {
++			sigset_t unblocked = tsk->blocked;
++
++			signotset(&unblocked);
++			retarget_shared_pending(tsk, &unblocked);
++
++			if (unlikely(tsk->jobctl & JOBCTL_STOP_PENDING) &&
++			    task_participate_group_stop(tsk))
++				group_stop = CLD_STOPPED;
++		}
++	}
+ 
+ 	cgroup_threadgroup_change_end(tsk);
+ 
+-	if (!task_sigpending(tsk))
+-		goto out;
 -
- 	/* Should not use functions of read-modify-write a register */
- 	val = readl(usb2_base + USB2_LINECTRL1);
- 	val = (val & ~USB2_LINECTRL1_DP_RPD) | USB2_LINECTRL1_DPRPD_EN |
-@@ -471,7 +519,11 @@ static void rcar_gen3_init_otg(struct rcar_gen3_chan *ch)
- 			writel(val | USB2_ADPCTRL_IDPULLUP, usb2_base + USB2_ADPCTRL);
- 		}
- 	}
--	mdelay(20);
-+}
-+
-+static void rcar_gen3_init_otg_phase1(struct rcar_gen3_chan *ch)
-+{
-+	void __iomem *usb2_base = ch->base;
+-	unblocked = tsk->blocked;
+-	signotset(&unblocked);
+-	retarget_shared_pending(tsk, &unblocked);
+-
+-	if (unlikely(tsk->jobctl & JOBCTL_STOP_PENDING) &&
+-	    task_participate_group_stop(tsk))
+-		group_stop = CLD_STOPPED;
+-out:
+-	spin_unlock_irq(&tsk->sighand->siglock);
++	flush_sigqueue_list(&sigq_list);
  
- 	writel(0xffffffff, usb2_base + USB2_OBINTSTA);
- 	writel(ch->phy_data->obint_enable_bits, usb2_base + USB2_OBINTEN);
-@@ -502,6 +554,7 @@ static irqreturn_t rcar_gen3_phy_usb2_irq(int irq, void *_ch)
- 	void __iomem *usb2_base = ch->base;
- 	struct device *dev = ch->dev;
- 	irqreturn_t ret = IRQ_NONE;
-+	unsigned long flags;
- 	u32 status;
- 
- 	pm_runtime_get_noresume(dev);
-@@ -509,33 +562,102 @@ static irqreturn_t rcar_gen3_phy_usb2_irq(int irq, void *_ch)
- 	if (pm_runtime_suspended(dev))
- 		goto rpm_put;
- 
--	scoped_guard(spinlock, &ch->lock) {
--		status = readl(usb2_base + USB2_OBINTSTA);
--		if (status & ch->phy_data->obint_enable_bits) {
--			dev_vdbg(dev, "%s: %08x\n", __func__, status);
--			if (ch->phy_data->vblvl_ctrl)
--				writel(USB2_OBINTSTA_CLEAR, usb2_base + USB2_OBINTSTA);
--			else
--				writel(ch->phy_data->obint_enable_bits, usb2_base + USB2_OBINTSTA);
--			rcar_gen3_device_recognition(ch);
--			rcar_gen3_configure_vblvl_ctrl(ch);
--			ret = IRQ_HANDLED;
--		}
-+	spin_lock_irqsave(&ch->lock, flags);
-+
-+	status = readl(usb2_base + USB2_OBINTSTA);
-+	if (status & ch->phy_data->obint_enable_bits) {
-+		dev_vdbg(dev, "%s: %08x\n", __func__, status);
-+		if (ch->phy_data->vblvl_ctrl)
-+			writel(USB2_OBINTSTA_CLEAR, usb2_base + USB2_OBINTSTA);
-+		else
-+			writel(ch->phy_data->obint_enable_bits, usb2_base + USB2_OBINTSTA);
-+
-+		ret = IRQ_HANDLED;
-+
-+		/* This should not happen! */
-+		if (ch->otg_initializing)
-+			goto unlock;
-+
-+		rcar_gen3_device_recognition(ch);
-+		rcar_gen3_configure_vblvl_ctrl(ch);
- 	}
- 
-+unlock:
-+	spin_unlock_irqrestore(&ch->lock, flags);
- rpm_put:
- 	pm_runtime_put_noidle(dev);
- 	return ret;
- }
- 
-+static void rcar_gen3_phy_usb2_irqs_mask_all(struct rcar_gen3_chan *channel,
-+					     u32 *masked_irqs_bits)
-+{
-+	u32 val, bitmask = USB2_INT_ENABLE_UCOM_INTEN;
-+	void __iomem *usb2_base = channel->base;
-+
-+	for (unsigned int i = 0; i < NUM_OF_PHYS; i++)
-+		bitmask |= channel->rphys[i].int_enable_bits;
-+
-+	val = readl(usb2_base + USB2_INT_ENABLE);
-+	*masked_irqs_bits = val & bitmask;
-+	val &= ~bitmask;
-+	writel(val, usb2_base + USB2_INT_ENABLE);
-+
-+	/*
-+	 * Don't report channel->phy_data->obint_enable_bits IRQs. These are
-+	 * unmasked anyway in rcar_gen3_init_otg_phase1().
-+	 */
-+	val = readl(usb2_base + USB2_OBINTEN);
-+	val &= ~channel->phy_data->obint_enable_bits;
-+	writel(val, usb2_base + USB2_OBINTEN);
-+}
-+
-+static void rcar_gen3_phy_usb2_irqs_unmask(struct rcar_gen3_chan *channel,
-+					   u32 irqs_bits)
-+{
-+	u32 val, bitmask = USB2_INT_ENABLE_UCOM_INTEN;
-+	void __iomem *usb2_base = channel->base;
-+
-+	for (unsigned int i = 0; i < NUM_OF_PHYS; i++)
-+		bitmask |= channel->rphys[i].int_enable_bits;
-+
-+	val = readl(usb2_base + USB2_INT_ENABLE);
-+	val &= ~bitmask;
-+	val |= irqs_bits;
-+	writel(val, usb2_base + USB2_INT_ENABLE);
-+}
-+
- static int rcar_gen3_phy_usb2_init(struct phy *p)
- {
- 	struct rcar_gen3_phy *rphy = phy_get_drvdata(p);
- 	struct rcar_gen3_chan *channel = rphy->ch;
- 	void __iomem *usb2_base = channel->base;
-+	int retries = NUM_OF_PHYS;
-+	unsigned long flags;
- 	u32 val;
-+	int ret;
- 
--	guard(spinlock_irqsave)(&channel->lock);
-+	spin_lock_irqsave(&channel->lock, flags);
-+
-+	while (retries-- && channel->otg_initializing) {
-+		spin_unlock_irqrestore(&channel->lock, flags);
-+
-+		ret = wait_event_timeout(channel->otg_init_done, !channel->otg_initializing,
-+					 USB2_OTG_INIT_TIMEOUT);
-+		ret = ret ? 0 : -ETIMEDOUT;
-+		if (ret && !retries)
-+			return ret;
-+
-+		spin_lock_irqsave(&channel->lock, flags);
-+	}
-+
-+	/* If another thread started a new initialization just return -EBUSY. */
-+	if (channel->otg_initializing) {
-+		ret = -EBUSY;
-+		goto unlock;
-+	} else {
-+		ret = 0;
-+	}
- 
- 	/* Initialize USB2 part */
- 	val = readl(usb2_base + USB2_INT_ENABLE);
-@@ -548,8 +670,23 @@ static int rcar_gen3_phy_usb2_init(struct phy *p)
- 	}
- 
- 	/* Initialize otg part (only if we initialize a PHY with IRQs). */
--	if (rphy->int_enable_bits)
--		rcar_gen3_init_otg(channel);
-+	if (rphy->int_enable_bits && channel->is_otg_channel &&
-+	    !rcar_gen3_is_any_otg_rphy_initialized(channel)) {
-+		u32 masked_irq_bits = 0;
-+
-+		rcar_gen3_init_otg_phase0(channel);
-+		rcar_gen3_phy_usb2_irqs_mask_all(channel, &masked_irq_bits);
-+		channel->otg_initializing = true;
-+		spin_unlock_irqrestore(&channel->lock, flags);
-+
-+		fsleep(20000);
-+
-+		spin_lock_irqsave(&channel->lock, flags);
-+		rcar_gen3_phy_usb2_irqs_unmask(channel, masked_irq_bits);
-+		rcar_gen3_init_otg_phase1(channel);
-+		channel->otg_initializing = false;
-+		wake_up_all(&channel->otg_init_done);
-+	}
- 
- 	if (channel->phy_data->vblvl_ctrl) {
- 		/* SIDDQ mode release */
-@@ -568,7 +705,10 @@ static int rcar_gen3_phy_usb2_init(struct phy *p)
- 
- 	rphy->initialized = true;
- 
--	return 0;
-+unlock:
-+	spin_unlock_irqrestore(&channel->lock, flags);
-+
-+	return ret;
- }
- 
- static int rcar_gen3_phy_usb2_exit(struct phy *p)
-@@ -576,9 +716,32 @@ static int rcar_gen3_phy_usb2_exit(struct phy *p)
- 	struct rcar_gen3_phy *rphy = phy_get_drvdata(p);
- 	struct rcar_gen3_chan *channel = rphy->ch;
- 	void __iomem *usb2_base = channel->base;
-+	int retries = NUM_OF_PHYS;
-+	unsigned long flags;
- 	u32 val;
-+	int ret;
- 
--	guard(spinlock_irqsave)(&channel->lock);
-+	spin_lock_irqsave(&channel->lock, flags);
-+
-+	while (retries-- && channel->otg_initializing) {
-+		spin_unlock_irqrestore(&channel->lock, flags);
-+
-+		ret = wait_event_timeout(channel->otg_init_done, !channel->otg_initializing,
-+					 USB2_OTG_INIT_TIMEOUT);
-+		ret = ret ? 0 : -ETIMEDOUT;
-+		if (ret && !retries)
-+			return ret;
-+
-+		spin_lock_irqsave(&channel->lock, flags);
-+	}
-+
-+	/* If another thread started a new initialization just return -EBUSY. */
-+	if (channel->otg_initializing) {
-+		ret = -EBUSY;
-+		goto unlock;
-+	} else {
-+		ret = 0;
-+	}
- 
- 	rphy->initialized = false;
- 
-@@ -588,7 +751,9 @@ static int rcar_gen3_phy_usb2_exit(struct phy *p)
- 		val &= ~USB2_INT_ENABLE_UCOM_INTEN;
- 	writel(val, usb2_base + USB2_INT_ENABLE);
- 
--	return 0;
-+unlock:
-+	spin_unlock_irqrestore(&channel->lock, flags);
-+	return ret;
- }
- 
- static int rcar_gen3_phy_usb2_power_on(struct phy *p)
-@@ -596,8 +761,10 @@ static int rcar_gen3_phy_usb2_power_on(struct phy *p)
- 	struct rcar_gen3_phy *rphy = phy_get_drvdata(p);
- 	struct rcar_gen3_chan *channel = rphy->ch;
- 	void __iomem *usb2_base = channel->base;
-+	int retries = NUM_OF_PHYS;
-+	unsigned long flags;
- 	u32 val;
--	int ret = 0;
-+	int ret;
- 
- 	if (channel->vbus && !channel->otg_internal_reg) {
- 		ret = regulator_enable(channel->vbus);
-@@ -605,7 +772,27 @@ static int rcar_gen3_phy_usb2_power_on(struct phy *p)
- 			return ret;
- 	}
- 
--	guard(spinlock_irqsave)(&channel->lock);
-+	spin_lock_irqsave(&channel->lock, flags);
-+
-+	while (retries-- && channel->otg_initializing) {
-+		spin_unlock_irqrestore(&channel->lock, flags);
-+
-+		ret = wait_event_timeout(channel->otg_init_done, !channel->otg_initializing,
-+					 USB2_OTG_INIT_TIMEOUT);
-+		ret = ret ? 0 : -ETIMEDOUT;
-+		if (ret && !retries)
-+			goto disable_regulator;
-+
-+		spin_lock_irqsave(&channel->lock, flags);
-+	}
-+
-+	/* If another thread started a new initialization just return -EBUSY. */
-+	if (channel->otg_initializing) {
-+		ret = -EBUSY;
-+		goto unlock;
-+	} else {
-+		ret = 0;
-+	}
- 
- 	if (!rcar_gen3_are_all_rphys_power_off(channel))
- 		goto out;
-@@ -620,27 +807,59 @@ static int rcar_gen3_phy_usb2_power_on(struct phy *p)
- 	/* The powered flag should be set for any other phys anyway */
- 	rphy->powered = true;
- 
--	return 0;
-+unlock:
-+	spin_unlock_irqrestore(&channel->lock, flags);
-+
-+disable_regulator:
-+	if (ret && channel->vbus && !channel->otg_internal_reg)
-+		regulator_disable(channel->vbus);
-+
-+	return ret;
- }
- 
- static int rcar_gen3_phy_usb2_power_off(struct phy *p)
- {
- 	struct rcar_gen3_phy *rphy = phy_get_drvdata(p);
- 	struct rcar_gen3_chan *channel = rphy->ch;
--	int ret = 0;
-+	int retries = NUM_OF_PHYS;
-+	unsigned long flags;
-+	int ret;
- 
--	scoped_guard(spinlock_irqsave, &channel->lock) {
--		rphy->powered = false;
-+	spin_lock_irqsave(&channel->lock, flags);
- 
--		if (rcar_gen3_are_all_rphys_power_off(channel)) {
--			u32 val = readl(channel->base + USB2_USBCTR);
-+	while (retries-- && channel->otg_initializing) {
-+		spin_unlock_irqrestore(&channel->lock, flags);
- 
--			val |= USB2_USBCTR_PLL_RST;
--			writel(val, channel->base + USB2_USBCTR);
--		}
-+		ret = wait_event_timeout(channel->otg_init_done, !channel->otg_initializing,
-+					 USB2_OTG_INIT_TIMEOUT);
-+		ret = ret ? 0 : -ETIMEDOUT;
-+		if (ret && !retries)
-+			return ret;
-+
-+		spin_lock_irqsave(&channel->lock, flags);
- 	}
- 
--	if (channel->vbus && !channel->otg_internal_reg)
-+	/* If another thread started a new initialization just return -EBUSY. */
-+	if (channel->otg_initializing) {
-+		ret = -EBUSY;
-+		goto unlock;
-+	} else {
-+		ret = 0;
-+	}
-+
-+	rphy->powered = false;
-+
-+	if (rcar_gen3_are_all_rphys_power_off(channel)) {
-+		u32 val = readl(channel->base + USB2_USBCTR);
-+
-+		val |= USB2_USBCTR_PLL_RST;
-+		writel(val, channel->base + USB2_USBCTR);
-+	}
-+
-+unlock:
-+	spin_unlock_irqrestore(&channel->lock, flags);
-+
-+	if (!ret && channel->vbus && !channel->otg_internal_reg)
- 		ret = regulator_disable(channel->vbus);
- 
- 	return ret;
-@@ -1022,6 +1241,7 @@ static int rcar_gen3_phy_usb2_probe(struct platform_device *pdev)
- 		return ret;
- 
- 	spin_lock_init(&channel->lock);
-+	init_waitqueue_head(&channel->otg_init_done);
- 	for (i = 0; i < NUM_OF_PHYS; i++) {
- 		channel->rphys[i].phy = devm_phy_create(dev, NULL,
- 							channel->phy_data->phy_usb2_ops);
+ 	/*
+ 	 * If group stop has completed, deliver the notification.  This
 
