@@ -1,161 +1,250 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5175841685B
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 09:52:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00D194E4C4D
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 09:58:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790070771; cv=none; b=rsQfa6tggkhzcRoT+UwckX4aqi9fHuRYL7n/S044KJI5IZWtzZQn+0jlnsrflhNn/qO/7mkAaEbkG7WRSWDEULHp/CcMr1kZEgPFmB5FfKGp3YuTWyZaLy0sSqaDF9e9yJKJR9QCh8RaM1M0JIs4oSvVsBTlR4DPoDr6ZIotJGQ=
+	t=1790071136; cv=none; b=oCfrHRG0x1ViBB2vGHGyDL1emmUzF1/Rib1Agul8Ufwurwhs5+x+UCK3xYlnBEQOwlcP6yf6aJWMkBlgZ5bXhbkPtNchbPH1UtUPiwuBxHHF/jMz/MQu0+3Axn6O43Mw47tCufgVsTG/Ym1RsHMcikRRji2w1yWZc74rUJ9ON/g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790070771; c=relaxed/simple;
-	bh=oW5fjXkU1LjFKqoyF7Qy3vvc5V+m/IzJ7Oa3bKJcpYc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=d/WAWkXgzKIT6PYjqw6WIv7t3r/UW9HmRz7fcv+PUa2LmKIHcqaV9Nn5GuTxwA6Gw7kC0Mvj07nESA1RS6y4aujRbPgqjT5fUmsFXTrwT27lxWI+/ih5usmzxp52Gwy4KOooCBzi+lv3oCYd3FFZY7w6bRWA3iX2f+fvhFHovnc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=rIZb1s8/; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+	s=arc-20240116; t=1790071136; c=relaxed/simple;
+	bh=RwCFSgGwANKGfvDoF5VZzkTz9TJE6jsyfOd5Cbm/aqU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IalLdavJ9/Q6SonVh8nGL82KJCWXtHYFMLrWS2niYrSEAJACFHweP50xeSNpGwzys5u8yZW+TnTrSblx0yPoelA2tqM0Hn3a+RVOHahM6QKKoOFQXV9PWfiSwpQfsq1IcHSoNyBGUq+Tewa3O1uVCk4m99Q7Z0oEOBZ+2Ht2tQg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=K8+fofch; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=Y0r44oIp; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=wfyLr/Mm; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=E+BXUt+D; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="rIZb1s8/"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccc09d65so3605344a91.3
-        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 02:52:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1790070769; x=1790675569; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UnrR1m0kZk2/oAOYVJ8Ilr0rQHlguOaTVy++aK2OkWM=;
-        b=rIZb1s8/XeYrPs2dr+9tO7v/sM09EMTZJb6a6gP//sqvoJNfxvjsVGQ+YcDXVMUpkX
-         AmJfvM3W2DQrg+jF1lqa7/2YSDd4G58yzF5reFSUQgPi3WVLDYclpMAW5SmvzZkKmDSu
-         acQ1Dnjm7QFljTSrw3JDONafkcN1bnT78K0OIf50raXWAMPeKZUs6f3FILz707dmGdYn
-         En1z4fdGlc96OIKShQFo+YCAYLsrvH+WC26s5F3hDoJXHOQt20oWEkCN2g6E92B3NZhN
-         SBmJQs+/zQGtdns8LdRWY6Jd1oU0UFiX990PMmy3VFjhCtI+0JyoqbiFlKrNnqD1sSzF
-         akfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790070769; x=1790675569;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UnrR1m0kZk2/oAOYVJ8Ilr0rQHlguOaTVy++aK2OkWM=;
-        b=laXerC+Pe/aXJ8bLqCQuWdR6mmL3Y2rDgcB1bFNSlGa+gqnLa52TPohJ1CC+mlwH9F
-         C9vxOdkjg4YDXs8BEV0rqanKZnwufUCbRcYBNl4p1OqygPENFeahcrktSmyk2A8MFt4r
-         VefUiJabFZh+lnROSl1w+1Vb8rCj3VKpVCB0opB+tFp29OpyMSRebD5Q4ULdR0pU+I8e
-         GrYSagrd2QBr08jxfpImtcdAwgAKZSGAc8cp1ORoDHpKJerJ8iGDDAkdAeCdFnnDKjO/
-         C/UTth+az3u2zlJYQmyofx2r9ujJ/+28p5S8NLMq28yDjgjCOhnJKdiXvUqm+j28WY5N
-         AM7w==
-X-Forwarded-Encrypted: i=1; AKwUvBzZp5zihXkdgxiOcUy+wTxEPKXLcvjKRWy+gGw1dAm4VbrsLRtQ/OQK590O0NXJLwnzDf9zpMo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nPT+TIOTzHikKpZ1DuWxsoZC6E8xHGJztDuToeX/fiRdS/ZkKc
-	qNYLn3dS9sfeom0b9Z0d2XS9vt2asf70yYpYuZDSrLPQERbhUbBjJaY7hq5ms7N+OjYy
-X-Gm-Gg: AYBFou1rSBTA7QFV1XxyRoEtnlu2gAv9ADUuJahK+TSMLdZvcAbINy1UPE/RPqzEC0A
-	43EMPRw5vh2ffCTxVH0IhBT+3+EQB+SvZkRM2fLlQrZwq3pJ5+tQP3z6NXySG/3IIUzrPpgd3b5
-	6Y3pE9L6x+OjRw8l/MB1NhcbT2mVBk0pwSLcNN1/Cf1HK268JjamJd6bjeJ4/7gOnEX0prGRba+
-	x6ogftRAMkhr6npyiLDBpj41dOpnzsMXkmRpwV81bQF33H3hP194gI10O5ee3FIZCTGj1qjJnBx
-	9VB/SOOab1XPrLWGP4qGOewSklwCNUxlb89GLJB8wvxOL+zo9XxFVBop9Q20R8/aNf8otd3p5om
-	mdtAGQQGk0In+/RskRuMub1JancMa3vq0QB4MZJcSKQ8ZsO1Fy63Ty7PHSY5og0KpoCctiQkgUG
-	++VowUanbdYCMCRupJb15s+7WcF9WlDNalKtW/tPGx5Bv1n62H1kRSUJwm1YppDwiAZgu7Ju2TS
-	kXg1MA6G4L2fEl+MZVuS/wqfcRDJac=
-X-Received: by 2002:a17:90b:2ccb:b0:39e:6c68:c77a with SMTP id 98e67ed59e1d1-3a07323d479mr709033a91.48.1790070768485;
-        Tue, 22 Sep 2026 02:52:48 -0700 (PDT)
-Received: from 954df21a5119.. ([122.51.212.64])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a06dfd6705sm2679525a91.0.2026.09.22.02.52.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 02:52:47 -0700 (PDT)
-From: Zihan Xi <zihanx@nebusec.ai>
-To: netfilter-devel@vger.kernel.org
-Cc: zihanx@nebusec.ai,
-	pablo@netfilter.org,
-	fw@strlen.de,
-	phil@nwl.cc,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Vega <vega@nebusec.ai>,
-	Luxing Yin <root@tr0jan.top>
-Subject: [PATCH nf v3 1/1] netfilter: nf_dup: disable duplication in user namespaces
-Date: Tue, 22 Sep 2026 09:52:31 +0000
-Message-ID: <b9e860571e049e0830d3b08626e28ca571e1ecc0.1790042930.git.zihanx@nebusec.ai>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1790042930.git.zihanx@nebusec.ai>
-References: <cover.1790042930.git.zihanx@nebusec.ai>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="K8+fofch";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="Y0r44oIp";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="wfyLr/Mm";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="E+BXUt+D"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id CA9B6219DF;
+	Tue, 22 Sep 2026 09:58:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790071119; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dyXC0qvUVpIhSk2IhvGo0kA+uk0SK/Z5hz/KOeDBmU4=;
+	b=K8+fofchFWOwYOyx3KzDPQyIGOilZq0/PYZy3IZ9fvpbZO8Zj8iPBCv0dcLp83HG71O22e
+	u+bOSYXynzFbquKGLjrC1A2zRPKOg/34zzH14RR++kGTWi9a2vtMJfUvKuRYCxMkbTllF4
+	vsKgZxhZWkcPS6H9ZqrcpDjHSXxYJ70=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790071119;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dyXC0qvUVpIhSk2IhvGo0kA+uk0SK/Z5hz/KOeDBmU4=;
+	b=Y0r44oIpALfJ3Ep7Dz2t1mxdkwT4kOgUluMgJzY+qII5PjcblOVx3A6TZpRc3ifrGtMlN/
+	t2fP0FDi8/pNSUDQ==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b="wfyLr/Mm";
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=E+BXUt+D
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790071115; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dyXC0qvUVpIhSk2IhvGo0kA+uk0SK/Z5hz/KOeDBmU4=;
+	b=wfyLr/MmYA1O18+FzeiMqsWb2OSwEVAUSESatbDaRWn3B/lxdVjsvcWzPAmOWWXCi2bwj8
+	esIP9p3xCKJld/Kb5FFoOaIhG3D0+PgoPPfjknu8I/IR5xlyiNSUmg+UqPfrC96AMn9c2h
+	q4T6a4z8Ng6MImZQSd1TBP/KP5jHNrk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790071115;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dyXC0qvUVpIhSk2IhvGo0kA+uk0SK/Z5hz/KOeDBmU4=;
+	b=E+BXUt+DrdqHUFIaRLqtXHI+knoiaEqEhy19xRFrG3mPyK1UWUqmP5/agsK56M6a8FanrT
+	7g8gUJDLoxm03ICA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9C402139EE;
+	Tue, 22 Sep 2026 09:58:35 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id ONGaH0tRsmrpBwAAD6G6ig
+	(envelope-from <jack@suse.cz>); Tue, 22 Sep 2026 09:58:35 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 14746A13D4; Tue, 22 Sep 2026 11:58:35 +0200 (CEST)
+Date: Tue, 22 Sep 2026 11:58:35 +0200
+From: Jan Kara <jack@suse.cz>
+To: Palla Raghunath <raghunathpalla.0209@gmail.com>
+Cc: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Shuah Khan <shuah@kernel.org>, 
+	Brigham Campbell <me@brighamcampbell.com>, linux-kernel-mentees@lists.linux.dev, 
+	syzbot+e8ebfecec06a009dd2d3@syzkaller.appspotmail.com, stable@vger.kernel.org, 
+	=?utf-8?B?7J207IOB7Zi4?= <kudo3228@gmail.com>, Mateusz Guzik <mjguzik@gmail.com>, Jan Kara <jack@suse.cz>, 
+	Deepanshu Kartikey <kartikey406@gmail.com>, David Howells <dhowells@redhat.com>
+Subject: Re: [PATCH RESEND] romfs: reject directory entry chains that do not
+ move forward
+Message-ID: <34t4huzelgho3zelar7vp332rwerth7nso6e76jrfced4chtrt@7q2cjbeymwov>
+References: <20260918164645.9230-1-raghunathpalla.0209@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918164645.9230-1-raghunathpalla.0209@gmail.com>
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: CA9B6219DF
+X-Spamd-Result: default: False [-2.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_COUNT_THREE(0.00)[3];
+	FREEMAIL_TO(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	TAGGED_RCPT(0.00)[e8ebfecec06a009dd2d3];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,vger.kernel.org,brighamcampbell.com,lists.linux.dev,syzkaller.appspotmail.com,gmail.com,suse.cz,redhat.com];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.cz:email,appspotmail.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:email,syzkaller.appspot.com:url]
+X-Spam-Flag: NO
+X-Spam-Score: -2.51
 
-nf_dup_ipv4() and nf_dup_ipv6() send a cloned packet through
-ip_local_out() or ip6_local_out(), so the clone can traverse netfilter
-hooks again. A network namespace owned by a non-initial user namespace
-can combine NFQUEUE with TEE or nftables dup and retain the clone until
-a later verdict resumes it. The transient in_nf_duplicate task guard
-has already been cleared by then, so the resumed clone can be
-duplicated again and generate packets without bound.
+Adding Dave Howells since he put himself into the headers of this
+filesystem :)
 
-There is no sensible use case for packet duplication in a user
-namespace. Skip IPv4 and IPv6 duplication when the network namespace
-is not owned by the initial user namespace. Keep the existing TEE/dup
-behavior in the initial user namespace.
+On Fri 18-09-26 17:46:41, Palla Raghunath wrote:
+> romfs_lookup() and romfs_readdir() walk a directory's entry chain by
+> following ri.next, and stop only once the offset is zero or past the end
+> of the image. Nothing stops an entry from pointing at itself, so on a
+> crafted image a lookup of a name that is not present spins forever.
+> 
+> That loop has no cond_resched() and no signal check, so the task cannot
+> be killed, and it spins with i_rwsem held and the dentry left in the
+> in-lookup state. A second lookup of the same name then waits forever in
+> d_alloc_parallel(), and it is that waiter the hung task watchdog
+> reports, which makes this look like a dcache problem:
+> 
+>   INFO: task syz-executor239:5636 blocked for more than 143 seconds.
+>    d_alloc_parallel+0xd13/0x16c0 fs/dcache.c:2839
+>    __lookup_slow+0x82/0x2f0 fs/namei.c:1904
+> 
+> Require the chain to move forward and return -EIO if it does not. File
+> headers are laid out in increasing order and both loops already treat
+> the chain as a bounded forward-only walk, so this only enforces what
+> they assume. In romfs_readdir() a cycle never advances ctx->pos and has
+> getdents() repeat entries forever, so check there too.
+> 
+> The hard link chain bounded by commit d30b5a954e0a ("romfs: detect hard
+> link cycles") is a separate one. Sangho Lee posted a fix for this chain
+> in July 2026 that validates it at inode instantiation; it has had no
+> replies.
+> 
+> Reported-by: syzbot+e8ebfecec06a009dd2d3@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=e8ebfecec06a009dd2d3
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
 
-Fixes: cd58bcd9787e ("netfilter: xt_TEE: have cloned packet travel through Xtables too")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: LLM
-Co-developed-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
----
-changes in v3:
-  - rerolled the unchanged fix against the latest nf.git main
-    after no follow-up was received on v2
-  - add the required Co-developed-by trailer and matching
-    Signed-off-by
-  - v2 Link: https://lore.kernel.org/all/cover.1788425393.git.zihanx@nebusec.ai/
-changes in v2:
-  - drop the persistent struct sk_buff::nf_duplicated field and nf_copy()
-    change from v1
-  - disable IPv4/IPv6 duplication in network namespaces owned by a
-    non-initial user namespace, as preferred on review
-  - v1 Link: https://lore.kernel.org/all/cover.1787903722.git.zihanx@nebusec.ai/
+I doubt these bugs have any practical relevance so I wouldn't CC stable.
+But I guess that's for Christian.
 
- net/ipv4/netfilter/nf_dup_ipv4.c | 3 +++
- net/ipv6/netfilter/nf_dup_ipv6.c | 3 +++
- 2 files changed, 6 insertions(+)
+> Signed-off-by: Palla Raghunath <raghunathpalla.0209@gmail.com>
 
-diff --git a/net/ipv4/netfilter/nf_dup_ipv4.c b/net/ipv4/netfilter/nf_dup_ipv4.c
-index 9a773502f10ac..c33dae248c477 100644
---- a/net/ipv4/netfilter/nf_dup_ipv4.c
-+++ b/net/ipv4/netfilter/nf_dup_ipv4.c
-@@ -53,6 +53,9 @@ void nf_dup_ipv4(struct net *net, struct sk_buff *skb, unsigned int hooknum,
- {
- 	struct iphdr *iph;
- 
-+	if (net->user_ns != &init_user_ns)
-+		return;
-+
- 	local_bh_disable();
- 	if (current->in_nf_duplicate)
- 		goto out;
-diff --git a/net/ipv6/netfilter/nf_dup_ipv6.c b/net/ipv6/netfilter/nf_dup_ipv6.c
-index 6da3102b7c1b3..a5f6f074a7e91 100644
---- a/net/ipv6/netfilter/nf_dup_ipv6.c
-+++ b/net/ipv6/netfilter/nf_dup_ipv6.c
-@@ -47,6 +47,9 @@ static bool nf_dup_ipv6_route(struct net *net, struct sk_buff *skb,
- void nf_dup_ipv6(struct net *net, struct sk_buff *skb, unsigned int hooknum,
- 		 const struct in6_addr *gw, int oif)
- {
-+	if (net->user_ns != &init_user_ns)
-+		return;
-+
- 	local_bh_disable();
- 	if (current->in_nf_duplicate)
- 		goto out;
+The patch looks good, I'm just not sure we are guaranteed ROMFS directories
+are indeed following monotonically increasing disk offset (although that's
+the most logical thing to do) - added Dave to CC for that. Otherwise feel
+free to add:
+
+Reviewed-by: Jan Kara <jack@suse.cz>
+
+								Honza
+
+> ---
+>  fs/romfs/super.c | 26 +++++++++++++++++++++-----
+>  1 file changed, 21 insertions(+), 5 deletions(-)
+> 
+> diff --git a/fs/romfs/super.c b/fs/romfs/super.c
+> index 7f783d6173e8..846b57f265ef 100644
+> --- a/fs/romfs/super.c
+> +++ b/fs/romfs/super.c
+> @@ -143,7 +143,7 @@ static int romfs_readdir(struct file *file, struct dir_context *ctx)
+>  {
+>  	struct inode *i = file_inode(file);
+>  	struct romfs_inode ri;
+> -	unsigned long offset, maxoff;
+> +	unsigned long offset, maxoff, next;
+>  	int j, ino, nextfh;
+>  	char fsname[ROMFS_MAXFN];	/* XXX dynamic? */
+>  	int ret;
+> @@ -191,7 +191,16 @@ static int romfs_readdir(struct file *file, struct dir_context *ctx)
+>  			    romfs_dtype_table[nextfh & ROMFH_TYPE]))
+>  			goto out;
+>  
+> -		offset = nextfh & ROMFH_MASK;
+> +		/* likewise, a chain that does not move forward would have
+> +		 * getdents() repeat entries forever
+> +		 */
+> +		next = nextfh & ROMFH_MASK;
+> +		if (next && next <= offset) {
+> +			offset = maxoff;
+> +			ctx->pos = offset;
+> +			goto out;
+> +		}
+> +		offset = next;
+>  	}
+>  out:
+>  	return 0;
+> @@ -203,7 +212,7 @@ static int romfs_readdir(struct file *file, struct dir_context *ctx)
+>  static struct dentry *romfs_lookup(struct inode *dir, struct dentry *dentry,
+>  				   unsigned int flags)
+>  {
+> -	unsigned long offset, maxoff;
+> +	unsigned long offset, maxoff, next;
+>  	struct inode *inode = NULL;
+>  	struct romfs_inode ri;
+>  	const char *name;		/* got from dentry */
+> @@ -245,8 +254,15 @@ static struct dentry *romfs_lookup(struct inode *dir, struct dentry *dentry,
+>  			break;
+>  		}
+>  
+> -		/* next entry */
+> -		offset = be32_to_cpu(ri.next) & ROMFH_MASK;
+> +		/* next entry; the chain must move forward, or a corrupt image
+> +		 * will keep us here forever
+> +		 */
+> +		next = be32_to_cpu(ri.next) & ROMFH_MASK;
+> +		if (next && next <= offset) {
+> +			ret = -EIO;
+> +			goto error;
+> +		}
+> +		offset = next;
+>  	}
+>  
+>  	return d_splice_alias(inode, dentry);
+> -- 
+> 2.34.1
+> 
 -- 
-2.43.0
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
