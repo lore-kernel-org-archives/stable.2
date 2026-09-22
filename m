@@ -1,177 +1,159 @@
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-b1-smtp.messagingengine.com (fhigh-b1-smtp.messagingengine.com [202.12.124.152])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47ED5368D47
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 01:23:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DBB7279DCC;
+	Tue, 22 Sep 2026 01:23:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790040207; cv=none; b=BngR9NcFiOyDq8+sRNpLEoh0A5HROGcpJ3HnTjHpxN5q24OjlON25/RXnGYoaSc5Xp8ImDe7ljOHCvGVYZu8b2x1M54xyPS0k3ClgfVcWah0BQ5w0rUgfac11mAs88K6w6hjHT7wxp7yhcUKrbihzMa/skbonsv4v1dFRucGwTw=
+	t=1790040220; cv=none; b=H9o4o1u4h9FVLEmwywQhrYFMPR8tmaTd4VMqY17UT9BpD9EulvJS20WWq/WrEHNQPbq5lyHdRdC3eii47es/l5PlWKqkWoiIQQR12AjC00Pae2Sf94myYflD1ghYePH/8Q3tTl/AmWMub8/KLK+894xbplTZbnesXq72Pn9wiQw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790040207; c=relaxed/simple;
-	bh=VWYvwt9yyDEggsy4Q+9+VuOIfUMjuty+TeN8CSEFPKI=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type; b=QOkHoNASjRax9NhP4Rk5AzEEhxtIijgDhU+c9qV10ZLYKS4w86nt+yGwPRKZymx7dL+EevB8m8pvfbRl1Z4fGGUY9sWRPzIDijN1RCS9VFj22CsToB+hhT3dEVgFwI441c7Kg//F9WwSvnid/dAaF3l+M/m8WPm1kEyak7tLuww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ottkzwYH; arc=none smtp.client-ip=74.125.224.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790040220; c=relaxed/simple;
+	bh=qkwY7bpZcT8tzaU519Lq5BhL2mG7LNy2Xqg6UPj/Tf8=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:Subject:Content-Type; b=CB/pyCzwPgskh9l0/rakv/8OHeaC6xge949Tr/a/Nm2pHp1diwWKDcElT0rqosbQMEk7W23QLt8ZGmTDqoce2MRgw8Q9nLfeT4JB7I8zopjlR0auODlxOzLa8SEPxhUXOLBsKQ2fsuk53dT4g3/Yp7Rhm+k88p0BgO6HMPm1nd8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=serow.io; spf=pass smtp.mailfrom=serow.io; dkim=pass (2048-bit key) header.d=serow.io header.i=@serow.io header.b=DMUMLNSd; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=LpWECrBh; arc=none smtp.client-ip=202.12.124.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=serow.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=serow.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ottkzwYH"
-Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66fb93aee5eso3671977d50.1
-        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 18:23:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790040204; x=1790645004; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=PBOt0OoBsQFCcu7Wjsc5maKeziBC8Q+8HaeFpnFZROA=;
-        b=ottkzwYH7vLrB6b0LexznzrJIHShxy9fIEiXo96jkkG/gMZ2NAA8vgp2o79R4rc46Z
-         1zRd1WEk8H4CWgoJQNgDmI44M7VFJ7HkX/v7XyFCnGX0/OhfvLz603PoNRUCaZ4paU9+
-         XKAKbXUORLBKhfPPnfFiIQ1eOJknd0Wd6F96oA614fZwrp+PRVrOZci7EBoKmje0Pfaf
-         tEbGVvMHwBpv+Pc67D8mXp4MRmEBwmaeTU0R0bUZi0Vk1A0qkDnRVHAOojT/CRWxQ05s
-         aQ+8d8NrLfWNo/OrDHcE39qHmTHL+nd4YxPVz3IerWtxMOXecFen6r96Q/5O3rZsD0Wp
-         yW9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790040204; x=1790645004;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PBOt0OoBsQFCcu7Wjsc5maKeziBC8Q+8HaeFpnFZROA=;
-        b=Y8S0oQN1Cl0cWvIb9XQCrcSrjeJQJCuP71tsSBFqAdwsYRi3604qtseIS3//WMy2Gx
-         nXmOyl5xXlho2afUGXj+YIvkfsyJGlgywK+qKlmPgceYUEHIGpH9zNe5LWg7+NGx/Dq+
-         m2IcJxPrN8hTQvO1mqUODgzyjTrEhZ49y/RQAgzmIQ2LToH8UNjCCKEZ+3pfi3SmhoFJ
-         HSbdWOmPzo6qaGrCKygixYEdPWJiSLLu6NkzJRSt8mCIPK+7yRajAvOXRtaXUmRoB7dI
-         CX3V+RszZKdOJ4m15RobA2ifzRrIWr+fRQl8ICo9oMbcLGEejVP3VF42if56WH76E7b0
-         mIOg==
-X-Forwarded-Encrypted: i=1; AKwUvBw3cy30sZ1+SH06OjB2Cx8FaPxVb7FqQ9vRz8kHnS4iYFV2+pvHYNqMgTGuUBfAoKTcq/nl1yM=@vger.kernel.org
-X-Gm-Message-State: AFuF++k0OW5v5+PslcbKSfWrMDmI8z/avyBKPK/tDUEFTZK9nM3+ENhD
-	xOisEHcv91NL2MSUo0JOoqpgaUJ3Kb9tmPy4mXC1W8NxuYudGU4ry6U3
-X-Gm-Gg: AYBFou0Fnfpx2m4nOiYh7rwPlEc/I/9DR9trdgs9W3U4A/jSjQoYo/8wp3qcg9jsuc6
-	zsxPHHmJjW5hCCdwiUj1H/nId6hOa54VrpMv3eReoc2KrqrQtoUWO/jVjmtyhDlISXmgH2GHg49
-	6gPciYM68Z9XHnu9ivC5MWn+PehbJNMOkUquoNudBPEZ/vaFySJR4yK0vLYIXbcKqjP3YY4VSvZ
-	K4z5LQV7/Z3RQzWGqqC1L+qYvNhfuEHkXEcbnSGGOCBNhY1YoYZRCOWk7C1SRMvpBY97YxZWzjD
-	bwyz0CnEWeK33hpYxrvk9FmNdga52ZVd1w4Eq7I3NjtC2o1KkTqJbYTESNJ3fcpi+aCWNVhy1HY
-	UDmYtpRnOw3e3qxC67VIPtJ8wjy4e89qPgLXhW1RjtpLdzOxETdsSTQAebtUREswn1cHk6IhUXS
-	8Y/poLG0B2MJQTWggjSTKnZ/8j6BLjsbuwEp47gbXNBB5PKjrOURaIbtt/12COj+ezUAoDZKl9K
-	QeHz9Pd6eALzXON4SspnMcpZ3XHaGupgkSWXUoDn23Uu1VwNJ8Sq6vReL7Ybi4=
-X-Received: by 2002:a05:690e:43c5:b0:671:f0:c756 with SMTP id 956f58d0204a3-6717fcb7f11mr2862439d50.23.1790040204156;
-        Mon, 21 Sep 2026 18:23:24 -0700 (PDT)
-Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-672c72fe63csm172542d50.0.2026.09.21.18.23.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 18:23:22 -0700 (PDT)
-Date: Mon, 21 Sep 2026 21:23:22 -0400
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: Zihan Xi <zihanx@nebusec.ai>, 
- netdev@vger.kernel.org
-Cc: zihanx@nebusec.ai, 
- davem@davemloft.net, 
- edumazet@google.com, 
- kuba@kernel.org, 
- pabeni@redhat.com, 
- horms@kernel.org, 
- steffen.klassert@secunet.com, 
- herbert@gondor.apana.org.au, 
- dsahern@kernel.org, 
- idosch@nvidia.com, 
- willemb@google.com, 
- kuniyu@google.com, 
- kees@kernel.org, 
- richardbgobert@gmail.com, 
- alice.kernel@fastmail.im, 
- gal@nvidia.com, 
- jibin.zhang@mediatek.com, 
- luoxuanqiang@kylinos.cn, 
- linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, 
- Vega <vega@nebusec.ai>, 
- Luxing Yin <root@tr0jan.top>
-Message-ID: <willemdebruijn.kernel.102e0468a26de@gmail.com>
-In-Reply-To: <43510074c063f57e5738ecc55057e7fbbcdb1fbc.1789802623.git.zihanx@nebusec.ai>
-References: <cover.1789802623.git.zihanx@nebusec.ai>
- <43510074c063f57e5738ecc55057e7fbbcdb1fbc.1789802623.git.zihanx@nebusec.ai>
-Subject: Re: [PATCH net v3 1/1] net: gso: limit recursive IP-in-IP
- segmentation
+	dkim=pass (2048-bit key) header.d=serow.io header.i=@serow.io header.b="DMUMLNSd";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="LpWECrBh"
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 1FCF77A0073;
+	Mon, 21 Sep 2026 21:23:37 -0400 (EDT)
+Received: from phl-imap-16 ([10.202.2.88])
+  by phl-compute-03.internal (MEProxy); Mon, 21 Sep 2026 21:23:37 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=serow.io; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:message-id:mime-version:reply-to
+	:subject:subject:to:to; s=fm1; t=1790040216; x=1790126616; bh=y2
+	yB26Ce1uR5hfdEhMeGbsIPkmpdfEsE9PbOrwadxpI=; b=DMUMLNSdEPHaS+Q6vP
+	3umnZnJnVuH3OR1VQPDy2YlH2F+dz0ZEAOD5YHqfnAn4AEH9ogKGtj2ArPVPTXpK
+	LwAHDuLUU+suXHSaU1V97eh/ZQk/lSV63ZzZG/G7TSSReu1Af+q3bJukAYIh1mul
+	IQ1K3dVZ0EW+tfMfXWr4p0ehykiAHlss5bETe3OmMQ8gwrWwjDen3N3qTWMq7ygW
+	fQF+8GwpuhJ2vHcQHFx8FgLwJEkQLT/o9ZaNbpiRISpsAhdRCi3vbqPZNLQynE50
+	G1rW6sU8U+HcaNxbe2uAMFCtpAJvgaAS2HGqPpNMCXqTZkWin1L7VoDHSdP3pMvk
+	G2Tw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1790040216; x=1790126616; bh=y2yB26Ce1uR5hfdEhMeGbsIPkmpd
+	fEsE9PbOrwadxpI=; b=LpWECrBhpldkybrjUnKaefygsEgszwxrBpMkbTHcfRlY
+	jbCtXYFkXhD1Y7FgW+RTsvA742bn5ZBp8rjcfse2HBojNk1a72xWcD+XL8GXsqpu
+	gEPFM7mIYYcjOWU53AE/ZpVx0BsGV1T/fjxTxMmrWEFGxAN4tfqAzAV+78ts9tFW
+	4n3W66JMb4HCt/N8OXm9SiJXdzSj0clVgb6eyK8Z2AvNo0HZNpaJj6rAiCpXRfJ7
+	dAx/oOS3VhuzH6JJOBVGrESYzr9JMte8asaOyy2+t98gi/7OKpZMRyCgSPLdxgCN
+	tWOUCL17fkuLRe0pZTIAPelbIkwSrduGV7AvKQqK8w==
+X-ME-Sender: <xms:mNixapLPzTwA-gCCSMNe4y4m-INxIkfXqvQbnzTH40JFh1KBrDRPUw>
+    <xme:mNixav9gRZ6xQIZJV5MjNbRQdJuGiQpfy-O1VqGMBLm4O9IT5jY7wZvAP7VPj7Edj
+    oOy5VRsKD_Z7sF4Ru4WMsRsKN0UybH0csTeOX__a5yiy-8EWGHFF4yb>
+X-ME-Proxy-Cause: dmFkZTEq/TRVa6MTThR+1j2LN7qpYuXLwj82iFMxFu7q2MHMZOafcjaLEkJPlhejv3pSpc
+    /ElWdVMUpec69cp/px/F0Wxsu3GPPntu3MAqspCcPU1GNM01jSCnHcyjaD5ikIQVeDE+Cr
+    4sCCVRJ9gh0ZdnEoAszKCUSsP6csTFLAjZj1wEtS/74TJNYgsd2hSUPkpf8aCVezRLB1JL
+    YIniF4KN9FSeinCTBDBksxUC26hiU9KlE+B4qWHQZXhfiI3U+m1ajz0WJOiU5LOhYljI4C
+    7WTf5cK4fMjR4OXtjoKrTc1XwLkNlXBJiCWDFjyqzaa9MJLxFbx+qJqMwK1BoL/4aFQ7lX
+    67jLEsR02Ayu17aXVWr796qW2eh3tBeJLseybVQYwIK2V2CybIjnR7EQaxo5sR910nnA4H
+    tzARjVcKtG4k91nISkSFqGcXn89n4BXQXjqwlZ0gN4Zi5FcIbNyJ9ptLogV4xDN2WvDaMw
+    bCquXEGYCq0k3zdDlOFbSqsWQlyN9Qqwf/O9bDPb+151TON0AvCbulzt1zuYawvb6L7bN1
+    BUDKKTi+StHB29VziB4Ki7A6T1mBax8GaAhe5uesJSw89e3SN8jot57fTT5218uAk26ykC
+    fmvn9wRDf17IqIFkrgSBQf/KXioLTYRNqAedI5OLRiFlUuiVy6JE+gxFa2Pw
+X-ME-Proxy: <xmx:mNixaiB3LRJ7zMUWTHqUPeyn8xABqUA_qIYjImRFFrdVC_wgwJ1Zhw>
+    <xmx:mNixakpK4VKT_lia1abp00vLl3Q75e6oDTsX4PdnQ6BJaiHwZq6mbQ>
+    <xmx:mNixalErfCSzzZjgnuYvhetIMGHIaGuZdrzZBOr36NC8ZkFmKMgb1w>
+    <xmx:mNixagu235b7EoNQ5kC5Z31DTeLroTMuu80ySPcoiQIUop8MfIII9g>
+    <xmx:mNixam482eNPiQIQTX3TlQkrpvdTzutZX5mWZaqGRtbWhp5yln8Wa9QF>
+Feedback-ID: ia6364811:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id 7032A2CC0086; Mon, 21 Sep 2026 21:23:36 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
+Date: Mon, 21 Sep 2026 20:23:16 -0500
+From: "Grant King" <gking@serow.io>
+To: "Jiri Kosina" <jikos@kernel.org>,
+ "Benjamin Tissoires" <bentiss@kernel.org>
+Cc: linux-input <linux-input@vger.kernel.org>,
+ "Linux Regressions" <regressions@lists.linux.dev>,
+ "Linux Stable" <stable@vger.kernel.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ "Antheas Kapenekakis" <lkml@antheas.dev>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ "Sasha Levin" <sashal@kernel.org>,
+ "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+ "Jann Horn" <jannh@google.com>
+Message-Id: <069bd866-4eb0-4c42-bcf4-6983ba59aa49@slotpi16m74>
+Subject: [REGRESSION 6.18.48 -> 6.18.49] hid-asus: ROG N-Key keyboard dead, also in
+ 6.12.y
+Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
 
-Zihan Xi wrote:
-> IPIP GSO/TSO support makes IP-in-IP GSO dispatch re-enter
-> inet_gso_segment() or ipv6_gso_segment() for every nested IP header. The
-> only state that tracks this nesting is encap_level, which records header
-> bytes and has no recursion bound. A sufficiently deep chain can consume the
-> kernel stack before a transport GSO callback is reached.
-> 
-> The unbounded callback nesting was introduced when inet_gso_segment() was
-> made stackable by "ipv4: gso: make inet_gso_segment() stackable". GRE GSO
-> support predated that change, and IP-in-IP GSO/TSO support later made the
-> affected path reachable.
-> 
-> The corresponding IPv6 stackable path was introduced separately by
-> "ipv6: gso: make ipv6_gso_segment() stackable". This patch uses the same
-> budget for IPv6, but the Fixes tag covers the IPv4 root cause only.
-> 
-> Limit the cumulative header budget for a GSO operation to GSO_MAX_HEADER
-> (256 bytes). Keep the consumed budget in skb_gso_cb and charge each header
-> before dispatching the next GSO callback. The callback wrapper checks the
-> same state, so direct IP handler re-entry and nested tunnel dispatch share
-> one monotonic budget. GRE and UDP context resets cannot restart it before
-> an inner GSO callback; other GSO tunnel and extension handlers charge their
-> stripped headers before inner dispatch as well.
-> 
-> GSO_MAX_HEADER is a practical header budget, not a measured stack-overflow
-> threshold or an architecture-independent stack-safety proof. With a zero
-> initial offset, 12 minimum-sized IPv4 headers consume 240 bytes; the next
-> header is rejected. IPv6 base headers, extension headers, and tunnel
-> headers use the budget faster. Validation of the preceding
-> implementation on x86_64 used a 16 KiB task stack and completed without a
-> stack-guard fault, but this does not establish a uniform margin for
-> architectures with smaller stacks.
-> 
-> Fixes: 3347c9602955 ("ipv4: gso: make inet_gso_segment() stackable")
-> Cc: stable@vger.kernel.org
-> Reported-by: Vega <vega@nebusec.ai>
-> Assisted-by: LLM
-> Co-developed-by: Luxing Yin <root@tr0jan.top>
-> Signed-off-by: Luxing Yin <root@tr0jan.top>
-> Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
-> 
-> ---
-> changes in v3:
->   - Treat an exhausted 256-byte budget as a callback-entry failure, including
->     the zero-length check used by the common callback wrapper and IP handlers.
->   - v2 Link: https://lore.kernel.org/all/cover.1789618203.git.zihanx@nebusec.ai/
-> changes in v2:
->   - Replace the callback counter with a cumulative 256-byte header budget
->     carried in skb_gso_cb.
->   - Apply the budget at common callback entry and across IP, GRE, UDP, MPLS,
->     NSH, ESP, and IPv6 extension dispatch, including GRE/UDP context resets.
->   - Rebase the UDP hunk onto selected revision c9151088f167 and rerun both
->     IPv4 PoCs; use the decoded crash evidence from unpatched 88c17de85ddb.
->   - v1 Link: https://lore.kernel.org/all/cover.1789302084.git.zihanx@nebusec.ai/
->  include/net/gso.h       | 29 +++++++++++++++++++++++++++++
->  net/core/gso.c          |  7 +++++--
->  net/ipv4/af_inet.c      |  7 ++++++-
->  net/ipv4/esp4_offload.c |  9 +++++++--
->  net/ipv4/gre_offload.c  |  2 ++
->  net/ipv4/udp_offload.c  |  4 +++-
->  net/ipv6/esp6_offload.c |  9 +++++++--
->  net/ipv6/ip6_offload.c  | 11 ++++++++++-
->  net/mpls/mpls_gso.c     |  2 ++
->  net/nsh/nsh.c           |  2 ++
->  10 files changed, 73 insertions(+), 9 deletions(-)
+Hi,
 
-This is a lot of code change compared to v1, a simple recursion
-counter. Wang already suggested a simplication.
+The built-in keyboard on my ROG Zephyrus G14 (GA403UV) stops working on 6.18.49. 6.18.48 is fine. The N-Key controller enumerates, but hid-asus fails to initialise it:
 
-If the previous approach could be tested at only the two
-network header callbacks, then this likely can too. By just bounding
-skb_network_header - skb_mac_header? Or skb->data. Each pass through
-these functions does an skb_pull.
+`asus 0003:0B05:19B6.0004: using HID for asus::kbd_backlight
+asus 0003:0B05:19B6.0004: Asus failed to request functions: -75
+asus 0003:0B05:19B6.0004: Failed to initialize backlight.
+asus 0003:0B05:19B6.0004: input,hiddev98,hidraw3: USB HID v1.10 Keyboard
+    [ITE Tech. Inc. ITE Device(8910)] on usb-0000:65:00.3-4/input0
+`
+An input node still appears, the keyboard just does nothing. On 6.18.48 those two error lines are absent and /sys/class/leds/asus::kbd_backlight shows up.
+
+`ASUS ROG Zephyrus G14 GA403UV, BIOS GA403UV.308
+keyboard 0b05:19b6 (ROG N-Key), usb-0000:65:00.3-4
+`
+The culprit looks like d0754db7883c ("HID: asus: simplify RGB init sequence") in 6.18.y, a backport of 56d1b33e644c taken as Stable-dep-of: 02bf61dfb44f ("HID: asus: fix missing hid_is_usb() check"). Reading drivers/hid/hid-asus.c at each tag, v6.18.48 has the old code and v6.18.49 is the first with the merged init path; it is still there at v6.18.52. 6.12 LTS has it too, good at v6.12.107 and first bad at v6.12.108, still there at v6.12.110. 6.6.y never took the refactor and 7.1.y already has the mainline structure, so neither looks affected.
+
+Before the patch, the N-Key branch ran the init reports and never called asus_kbd_get_functions():
+
+`if (drvdata->quirks & QUIRK_ROG_NKEY_KEYBOARD) {
+        ret = asus_kbd_init(hdev, FEATURE_KBD_REPORT_ID);
+        ...
+        ret = asus_kbd_init(hdev, FEATURE_KBD_LED_REPORT_ID1);
+        ...
+        ret = asus_kbd_init(hdev, FEATURE_KBD_LED_REPORT_ID2);
+`
+After it, get_functions runs for every device and returns early on failure, so the 0x5d and 0x5e inits never happen when it fails. That is what kills the keyboard here.
+
+It fails because of a size mismatch. The controller declares feature report 0x5a as 62 bytes:
+
+`06 31 ff     Usage Page (Vendor 0xFF31)
+09 76        Usage (0x76)
+a1 01        Collection (Application)
+85 5a          Report ID (0x5a)
+...
+75 08          Report Size (8)
+95 3e          Report Count (62)
+b1 00          Feature
+c0           End Collection
+`
+and asus_kbd_get_functions() asks for FEATURE_KBD_REPORT_SIZE, which is 16:
+
+`readbuf = kzalloc(FEATURE_KBD_REPORT_SIZE, GFP_KERNEL);
+ret = hid_hw_raw_request(hdev, FEATURE_KBD_REPORT_ID, readbuf,
+                         FEATURE_KBD_REPORT_SIZE, HID_FEATURE_REPORT,
+                         HID_REQ_GET_REPORT);
+`
+The device answers with all 62 bytes into a 16 byte control transfer, so it overflows and hid_hw_raw_request() returns -EOVERFLOW, the -75 above. The call cannot succeed on this device, which I assume is why the old code kept it out of the N-Key path. That descriptor came from /sys/bus/hid/devices/0003:0B05:19B6.0004/report_descriptor; I can send the whole thing if it is useful.
+
+The patch says "There should be no functional change with this patch", and in mainline that holds, because 0919db9f3583 ("HID: asus: always fully initialize devices") had already moved the init reports into asus_probe() where a failed get_functions only warns. 0919db9f3583 is not in 6.18.y or 6.12.y, so there the inits are still behind the call that fails.
+
+So either revert d0754db7883c in both trees and rework the hid_is_usb() fix against the old structure, or backport 0919db9f3583 alongside it. The revert looks like less risk for stable, but that is your call. Separately, asking for a fixed 16 bytes from a report the device declares as 62 seems wrong in any tree. Sizing the request from the report would make the call work here rather than just avoiding it.
+
+Alpine has what looks like the same bug on a ProArt P16, same error string, same controller, bisected there to the same commit:
+
+`https://gitlab.alpinelinux.org/alpine/aports/-/work_items/18451
+`
+That reporter only loses the keyboard before root is mounted, mine is dead in the running session.
+
+Caveats. I am on a patched distro kernel (Fedora 44, Bazzite "ogc"), not a vanilla build. The function symbols in its hid-asus.ko match upstream v6.18.44's, so I do not think it patches this file, but I have not proven that. I have not bisected; the first-bad releases above come from reading the tags. I have not captured evdev output proving no key events get through, and the 6.12.y entry is from reading source, not from running it. The descriptor was read on 6.18.44, but it comes from the device so it should not vary by kernel.
+
+I can reproduce this on demand and have a USB keyboard for recovery, so I am happy to test patches or build a vanilla 6.18.49 if that would help.
+
+#regzbot introduced: v6.18.48..v6.18.49
+
+Thanks, Grant
