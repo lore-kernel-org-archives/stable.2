@@ -1,162 +1,146 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E620C522F0C;
-	Tue, 22 Sep 2026 08:01:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA9A63DEFF3
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 08:07:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790064106; cv=none; b=gUXuZGymRosyWB9L9fFZMIJrZpj12dGUN4NX0laGt0uRIHsiQ/D1kcwQevg3N9MIb3awj+o/udLLRVtMX+uqzPmhVh3+HVNJTJBLzuQsxp7k35CyhhXWNrtlYuQbwhIBDQpxP0CI+batbNN5xB739kGkUh7T9LiOHi5ArYTAnE4=
+	t=1790064482; cv=none; b=ZLXOay7OiV5PbJQ0KEYVvI51g8wstx1521JpxvcBIjTFlJxDfBqzj6noTFxCSg6EjjePx5xX4dY+92SwBrc4d6EoLro66c6SV4IIJJp26B7KyBzUD4YSk9LgIXi8UxjLhBJmwcw0BUzDX0a8Y9dxtZrfiQcXE4yMoHX3XXjYAKA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790064106; c=relaxed/simple;
-	bh=K5a4irdVg5GqminvoZlcv6xJQ44kH6rk1iM8qfqqAbQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EpaE+j2t/dhuFCe0sNCbKljgC57oVNDWIHP7fyBuOmX02gpQ7dVq7eyW9K/hqhgfuyBOltP3fJm5iudB0pKsF62TEd80pJ2LUhBbvYCuzceTbYmwj2a5QQOXL+4ijQgdr8V7Ts35IfVOz9Z8GhQMPybuGa8PlnKak+gKXUFKGzg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=anf4GRXt; arc=none smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790064482; c=relaxed/simple;
+	bh=Xgr9P5NDRohHNy557cU23inSf3q8IPgz3jcsZq7IAqg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=lcPkLEdDPcBnxhbtr1MpE8fy5bpgZ2+1yhkkETkeVlvOxeI5qHZoBsTJS0Oe9T26sZf/HW4DEmCW0I7PynAwxP/8fwmTke7C4IoEGeIkT/WrVHXa61UZyazbJT+BaKzvHsRX3JcUuTWs6UBC9MpwQbl5anmmzm9lbF7GsTTdz/I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ltYACqk1; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="anf4GRXt"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790064096; x=1821600096;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=K5a4irdVg5GqminvoZlcv6xJQ44kH6rk1iM8qfqqAbQ=;
-  b=anf4GRXtUUM6gy+axzR233QhhAhWSvVL6BSWjVxywiIHVW1re7vBslAc
-   ejbuSgFlbgY2bk3HhflJOeXdj9+bQhjQ707RluOuO8rszJqXb0SDegpKz
-   d4KIjKZue0UTBUHNaVGZ09gzzL54TXyqxDEMi9lJoMsF/zlNa3gorf00U
-   83nLNeilRCUKt1FS9X8btCPe7X+lh7YlRMog9xxEhHdNqcuSoS/dd6kbA
-   opB6OmJIr5jlPT8ADlnYoZoY9J3VOSaUVPQIYVtbnImjlYYLWwsPtjJq7
-   +MeB3wbhUvNmk1THukdEgFdkCkQCozAn4p48PTYQPlCuSWjbIAua3Wrj+
-   w==;
-X-CSE-ConnectionGUID: mKucwaTTRtKRxBozCkk7BA==
-X-CSE-MsgGUID: PY1zd84IQKSM+qfsS5g/1g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="89565767"
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="89565767"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 01:01:27 -0700
-X-CSE-ConnectionGUID: v4hnpuodQz2oQna5x2atZw==
-X-CSE-MsgGUID: 89ebydLZStGlxUgM+WBClg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="273192073"
-Received: from carterle-desk.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.41])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 01:01:26 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 4C6BE121B9F;
-	Tue, 22 Sep 2026 11:01:25 +0300 (EEST)
-Date: Tue, 22 Sep 2026 11:01:25 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Jacopo Mondi <jacopo@jmondi.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] media: i2c: ov5647: fix power cleanup on remove
-Message-ID: <arI11VsxaiJ8v4Ye@kekkonen.localdomain>
-References: <20260915090457.2342778-1-lgs201920130244@gmail.com>
- <CAPY8ntA2h_ChCWJbAmCVygYiviTdsd9TA2LcVh5ffto__LgZAg@mail.gmail.com>
- <aqz4fLrtW3f7OoYk@kekkonen.localdomain>
- <CANUHTR9_XR7Q1CJQwKHd6dZRLaJdRNpHxYbUVXkJj_iM7ywoeA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ltYACqk1"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccafb752so3170232a91.0
+        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 01:07:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790064471; x=1790669271; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Xgr9P5NDRohHNy557cU23inSf3q8IPgz3jcsZq7IAqg=;
+        b=ltYACqk1NgRGIPzuHyjM+S8aRi+uXZiBTFqZ7w1wk2P26MexfhLv+Hr+0dDO1fMtaV
+         YOcENv2MHNP8yjwnFatsaAEgn8O1yihs79Zona0D6GQovk5VJcMTaysEFNAaBOcXFbr7
+         S3ngnI1LwJd9HbgoKUqGamrAn1hvQAOC/2vinHtIaLykJhs9pSzrBwsMgt4bUedJSIsq
+         afju83H/hwUcW/AQXaaJZg7eL325xaQ3sm+HBaQjegMhuM6RDfeX7DbYI8b5NjY8iANM
+         2ivk3zVrxghi49foV617+f4lmaccxH0ZVZ+NWhSTHzoEJ4lVWZ3UjylG7QPh1bkoESiJ
+         SLNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790064471; x=1790669271;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Xgr9P5NDRohHNy557cU23inSf3q8IPgz3jcsZq7IAqg=;
+        b=KaiQDYS+duxXYPrf/zwKwftF9EW38smiV1sZhcTtfs3uxUb9puVIPWrDU5PmIiAFyg
+         hKNhQG46ZVab/na/C9LOzs48pdFcwMKoh4XeHF+jlUBtwRWkguPc8E44Xj9YcuHMIEn6
+         6/WPC6FKUsk7HuQe5rp+wfBTYP23yCeeL/UI+iGeiEYVhYxERYka7gK/MRfI+g8j/SXz
+         9AiWuKuKsorVsMCJXVAhBARQ1dsAW8aPs3oTCX5gvS/cPn0nePXagCMfYZU+xl03pu3C
+         cE3mDLGqyglMwgdNfyKbWaBp6psJUICO+SaKM8Dt/BCuYQLXlS/bKu0G5FTUQGto4p8v
+         hGDA==
+X-Forwarded-Encrypted: i=1; AKwUvByqLuf1IHCrn1W6ZTHyhx3a1wCzb4f0hrfgDtCoybt/vEz9chrCp4fVtYzwE9iJ7xQz1UzwwLA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mtxbEzD32XwiFrZOb8JmdidH83Hkve3P/vL70tF0B1Jk2YmDmB
+	x6L+PpWhLdKZkYibFOWl3PLnmWo10nt0sUS5keAPZMJwkJ1jqCJ880fC
+X-Gm-Gg: AYBFou0M8m3E+ls6eV+z0kA0mLPRiv3725YbDHV2qkf3djXunJBuRPje06xY39Yhr6s
+	FRiRBeN03N95xVPz2E2PiNmQ4zcpYG4MHjvBlUMDAyHLUyT8o2iy8Tqs98dfXtXwk/AoKtr6Hz/
+	pb6qakVLwwx2wXltnZOcakZAoLxGC0+NTyojxLnH+4G3Jl5zEQhaZMT6v6WTktmvOy/p5tLBMXd
+	8x1rqH8q+xg5/ZmxYkBGLVaUUnZD+0bRq+XFfx6+kPgw0RDSITDFudpQXpqYGLWBwlqWFXZ9mj6
+	14XqSMuQ7bf5/FjKktZxTIE7sLtRXlZWduQe4UPdYxl/5rrFL7mVOdXbIuAMTVol4a0Y7qe2A/u
+	Y+/0Vd7OI8LUQRyhR7fCPzxp9VplaYyEe54xoPcXKL66HSeRUiYdcyZXuztmGZ0XkNPMc21hJGj
+	8baBYsJTsm42hPCsL9h6qRcFk5lX7pWBN0LuZRQg0jDyypODuUbj826hQyfuudTTk+fP+eaY8j9
+	X0B8UjZLXljQNaEqFUUfjNzg5VIXpjJVbq+1GJpcSySUZlR5Q==
+X-Received: by 2002:a17:90b:2e0e:b0:39e:6a7f:eef0 with SMTP id 98e67ed59e1d1-3a0731ef86fmr388880a91.21.1790064470681;
+        Tue, 22 Sep 2026 01:07:50 -0700 (PDT)
+Received: from localhost.localdomain ([2409:8a1e:2e81:7320:c92a:4bc0:f68c:8fc1])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a06747204csm3350233a91.11.2026.09.22.01.07.45
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 22 Sep 2026 01:07:48 -0700 (PDT)
+From: Yuchao Zhang <ndaugoing@gmail.com>
+To: Simon Horman <horms@kernel.org>
+Cc: david@ixit.cz,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	oe-linux-nfc@lists.linux.dev,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Yuchao Zhang <ndaugoing@gmail.com>
+Subject: Re: [PATCH 1/1] nfc: nci: ignore unexpected CORE_RESET_NTF
+Date: Tue, 22 Sep 2026 16:07:39 +0800
+Message-ID: <20260922080739.35915-1-ndaugoing@gmail.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260921125805.224979-1-horms@kernel.org>
+References: <20260921125805.224979-1-horms@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CANUHTR9_XR7Q1CJQwKHd6dZRLaJdRNpHxYbUVXkJj_iM7ywoeA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi,
+Hi Simon,
 
-On Tue, Sep 22, 2026 at 03:45:13PM +0800, Guangshuo Li wrote:
-> Hi Dave, Sakari,
-> 
-> Thanks for the clarification.
-> 
-> On Fri, 18 Sept 2026 at 16:45, Sakari Ailus
-> <sakari.ailus@linux.intel.com> wrote:
-> >
-> > Hi Dave,
-> >
-> > On Thu, Sep 17, 2026 at 02:27:30PM +0100, Dave Stevenson wrote:
-> > > Hi Guangshuo
-> > >
-> > > On Tue, 15 Sept 2026 at 10:05, Guangshuo Li <lgs201920130244@gmail.com> wrote:
-> > > >
-> > > > ov5647_remove() disables runtime PM without powering off the sensor if
-> > > > it is still runtime active or updating the runtime PM state to
-> > > > suspended.
-> > > >
-> > > > pm_runtime_disable() prevents further runtime PM callbacks and waits for
-> > > > pending operations, but it does not force the runtime suspend callback
-> > > > to run. If the sensor is active when the driver is removed, the external
-> > > > clock and regulators can remain enabled and the power-down GPIO can
-> > > > remain deasserted.
-> > > >
-> > > > After disabling runtime PM, call ov5647_power_off() if the device is not
-> > > > already runtime suspended, and then mark the runtime PM state as
-> > > > suspended. Checking the runtime status avoids disabling the hardware
-> > > > resources a second time when runtime PM has already powered off the
-> > > > sensor.
-> > > >
-> > > > This issue was found by manual code inspection.
-> > > >
-> > > > Fixes: 089b7c70f0d8 ("media: ov5647: Use pm_runtime infrastructure")
-> > > > Cc: stable@vger.kernel.org
-> > > > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> > > > ---
-> > > >  drivers/media/i2c/ov5647.c | 3 +++
-> > > >  1 file changed, 3 insertions(+)
-> > > >
-> > > > diff --git a/drivers/media/i2c/ov5647.c b/drivers/media/i2c/ov5647.c
-> > > > index 3facf92b3841..d42d009772ac 100644
-> > > > --- a/drivers/media/i2c/ov5647.c
-> > > > +++ b/drivers/media/i2c/ov5647.c
-> > > > @@ -1271,6 +1271,9 @@ static void ov5647_remove(struct i2c_client *client)
-> > > >         v4l2_ctrl_handler_free(&sensor->ctrls);
-> > > >         v4l2_device_unregister_subdev(sd);
-> > > >         pm_runtime_disable(&client->dev);
-> > > > +       if (!pm_runtime_status_suspended(&client->dev))
-> > > > +               ov5647_power_off(&client->dev);
-> > > > +       pm_runtime_set_suspended(&client->dev);
-> > >
-> > > I was unsure whether pm_runtime_set_suspended can be unconditional or
-> > > should be in the if clause. There are numerous drivers doing each.
-> > >
-> > > As it happens, Sakari's just answered that in [1] that it should be
-> > > conditional, so I'd take that as gospel. It looks like he's given a
-> > > similar answer on your ov2740 patch.
-> >
-> > Runtime PM is a bit mystical in some places. pm_runtime_set_suspended()
-> > appears to be setting the device's Runtime PM state disabled as it name
-> > implies, but it may also e.g. increment dev->power.disable_depth. I'm not
-> > fully certain if this is by design or not.
-> >
-> > --
-> > Sakari Ailus
-> 
-> Would this be the right way to change it?
-> 
-> -       if (!pm_runtime_status_suspended(&client->dev))
-> +       if (!pm_runtime_status_suspended(&client->dev)) {
->                 ov5647_power_off(&client->dev);
-> -       pm_runtime_set_suspended(&client->dev);
-> +               pm_runtime_set_suspended(&client->dev);
-> +       }
+Thank you (and the sashiko reviewer) for the thorough review.
+The points raised are completely valid and insightful.
 
-Correct.
+1. Regarding FDP firmware update breakage (Severity: High):
+You are absolutely right. In nci_ntf_packet(), returning -EINVAL from
+nci_core_reset_ntf_packet() aborts the dispatch pipeline (goto end), which
+prevents nci_core_ntf_packet() from running driver-specific handlers. In
+drivers/nfc/fdp/fdp.c, the firmware patching path relies on this spontaneous
+CORE_RESET_NTF to wake up info->setup_wq; dropping the packet causes it to
+block indefinitely.
 
-> 
-> If so, I can send a v2 with this change.
+As suggested, in v2 we drop only the core-level bookkeeping (skipping the
+ndev->nci_ver update and nci_req_complete) and return 0 so that driver-registered
+ops continue to receive the notification.
 
-Please!
+2. Regarding ntf->reset_trigger (Severity: Medium):
+The reset_trigger field is revision-dependent: in NCI 1.0, CORE_RESET_CMD
+is reported as 0x00 (0x01 is powered-on), while NCI 2.0 defines 0x00 as
+an unrecoverable error and reports CORE_RESET_CMD as 0x02. Hardcoding
+either value would break the other generation of devices, so v2 gates
+the core bookkeeping on NCI_RESET_PENDING alone and only skips power-on
+notifications (trigger 0x01, which means the same in both revisions).
+Power-on notifications never overlap a pending reset in the protocol
+flow, and both revision's command-triggered values reach the flag gate.
 
--- 
-Regards,
+3. Regarding nci_core_reset_rsp_packet() (Severity: Medium):
+Agreed. nci_core_reset_rsp_packet() now checks whether NCI_RESET_PENDING
+is set before calling nci_req_complete() on non-OK or NCI 1.x responses to avoid
+prematurely completing an unrelated request.
 
-Sakari Ailus
+4. Regarding NCI 1.x response length check (Severity: Low):
+In v2, we explicitly check skb->len >= sizeof(*rsp) to ensure config_status is
+not read out-of-bounds in pr_debug().
+
+5. Regarding request serialization / stale notifications (Severity: Medium):
+All requests are serialized under ndev->req_lock, and __nci_request() unconditionally
+clears NCI_RESET_PENDING before dropping req_lock. Filtering out power-on notifications
+(trigger 0x01) ensures spontaneous controller power-ups are ignored, while checking and
+clearing the pending flag ensures each command matches at most one notification.
+
+6. Regarding request generation (Severity: Medium on both questions):
+The NCI protocol gives notifications no request correlation, so a stale
+CORE_RESET_NTF/RSP that is already inside nci_rx_work when a reset times
+out and userspace retries cannot be distinguished from the new attempt's
+own frame: the flag gate and the trigger check narrow the window, but a
+generation identity would require protocol support that does not exist.
+The failure path purges queued frames; only an in-flight worker frame can
+straddle, and the data it carries originates from the same controller.
+If you would prefer, I can add a per-request generation check for the RSP
+path where an identity exists, as a follow-up.
+
+v2 patch has been sent as reply to this thread.
+
+Thanks,
+Yuchao
