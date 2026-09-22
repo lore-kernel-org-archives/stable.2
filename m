@@ -1,50 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 582663E4C6B
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 17:50:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFAE340DB20
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 17:51:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790099460; cv=none; b=bJH3T97RO8fh0J0Fz3IQpYPbT0hKQxdaR30ms8W9fsew1cO/OqVXxzOXxurWWnRUURm5gk4v3h+gQicYveFmJ71W5bfQeFBTAa9JAV2GrqcSJoROk59yqs8htJjSbZsIsQv1lH7QqYQzsjCDFkAzJAtjjCfTUcFdcCg+1H0MPPA=
+	t=1790099463; cv=none; b=VPnCsFTqec3Lv2pGM9c6gchKyoqUm0oO2LKeGNzwasHrzznAbOlgab36Gx8BhaXzTXP5+duEQJ+/EyaJ0u/dKQv6dxZk/JGGk62pQsGF0Uyr5drmv7q9hmx8WdKE7Ml+ZOZW/HWPGtjvRIsllSg8gMvLtIPktwH1g/Z5XpLQjGU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790099460; c=relaxed/simple;
-	bh=h6ZqLD9Igm5EMhoJBPVzM81sjF7ve9i1mQWntAP+HiM=;
+	s=arc-20240116; t=1790099463; c=relaxed/simple;
+	bh=VR5tFn3rSX7//VD301sT6UCne+8HG8+J1jyY2RsKEIQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VsVr5JP1s0lb1aZg8qQmyZf0daFdXKRAtqJ8We+g6yrx7zlw2PDgROqJu06wxj6I3ymkVI25J+tBPaHShko2Q0izAbhf5oLRPnVfj7ZvGZoS4rXnExO/6qTcsvtfj65ZxdQz9oAZkjQT0G+LMIYPdt5mJMKqgpHJajQlxX/H7Vk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OU8OTmyU; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=M9bIdgsHqTB8jmGeCQFNKA0nP4hPSe+Xt1ASg5YsqoI5yYGr8SbFZRZgVBA/FkaqViVThSObCt4H4NYmZgCgaRZDbgoDdRlVBuPVgGCisrFWipiwVAO4nXDVKtFxrKGQiEcY438qYtPwvadivDmSjpAHd/hXCam2FkbZMZRIuQ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iWeJLqe5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OU8OTmyU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF0CB1F000FF;
-	Tue, 22 Sep 2026 17:50:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iWeJLqe5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 331681F000FF;
+	Tue, 22 Sep 2026 17:51:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790099458;
-	bh=ce3vlyngO6BLUFzcYwuU1Yuzd5Y+Tf7r5veH9LZ1Jo8=;
+	s=k20260515; t=1790099461;
+	bh=S9oBD45P8SyruGvgdh+CRPLKdbAtvZSrzWc/XbEhpqU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OU8OTmyU7VfklvulF104sVS5aMehlKNvoL1npUUWHwaNoxFi7oPSbsm7NasJ0s/BQ
-	 kLjbCV+UDL8RKPZpG6poGGEzJabV2C/GN6Hyxbapmv7Fqte/MGGFXF1DdGV52y7+LA
-	 CVu0ZwQokIG6FiwuUZoPOfTkaummbRrBxAimSMvXcXEoDLGF7JpQS84RoCoYn+kZJb
-	 iNze41EVNBD30ZVEomC9Evw6z5cs033VcG/2Jkswd9R9UU1Oc17X8e9aufbUd9jmUU
-	 /HeM4osFh2czawG1vHKcgP5dSnL+BN3i8KDgFWfrTMHCB0oOrHACboWAGzSyAfTZrG
-	 lKnjDVmowP3Vw==
+	b=iWeJLqe57bdHXznEPl0rUMDWVvemJuB28rbDU5G4DYUZtwQxD23AKEbjtqFxj7V0T
+	 f6BQqXcDUYbSEeyIXsCYO45TtdjD+DNxV3JKS9hfkettKhhVjrLlcmagSLTsWRZaDn
+	 PG8X2QfETFpPXPSSr2nSrFmRzbLbnV16R+0kwWFP8Z1BPwcHJ6r5JosBuD017mVqqz
+	 ZdwhvE+lcfJNDVk5orRWrBMcWF89dMA8e5b9cLPNKjsRq5kYui/8pXEo4KRCNs6Hr2
+	 wO/duAvErPnUne/o1u5bKom1IOp0QtEppvOelX/h4LTD6G7N5/WGEdJlhDpJLzu0Od
+	 Ptf89AWpieERg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Shakeel Butt <shakeel.butt@linux.dev>,
-	syzbot+cd2073ee6d958a8d0fcd@syzkaller.appspotmail.com,
-	Hugh Dickins <hughd@google.com>,
-	Jann Horn <jannh@google.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
+Cc: Zhiling Zou <zhilinz@nebusec.ai>,
+	Vega <vega@nebusec.ai>,
+	Steffen Klassert <steffen.klassert@secunet.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] mm/mlock: use the IRQ-safe accessor for NR_MLOCK in __munlock_folio()
-Date: Tue, 22 Sep 2026 13:50:55 -0400
-Message-ID: <20260922175055.3307750-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] xfrm: save input state data before secpath resets
+Date: Tue, 22 Sep 2026 13:50:59 -0400
+Message-ID: <20260922175059.3307828-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092214-ranged-caucasian-42c9@gregkh>
-References: <2026092214-ranged-caucasian-42c9@gregkh>
+In-Reply-To: <2026092227-quarry-haggler-ba0c@gregkh>
+References: <2026092227-quarry-haggler-ba0c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -53,84 +46,104 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Shakeel Butt <shakeel.butt@linux.dev>
+From: Zhiling Zou <zhilinz@nebusec.ai>
 
-[ Upstream commit e14a3454806468b086fe2e4ca2e1bff95b528531 ]
+[ Upstream commit 3cf5cdecd99c9c186a5ea518d93bbf3045b6e3aa ]
 
-NR_MLOCK is updated from interrupt context.  __free_pages_prepare() clears
-a stray PG_mlocked and adjusts NR_MLOCK, and a folio can reach it with the
-flag still set from a bio completion handler:
+xfrm_input() stores the current xfrm_state in the skb secpath while it
+continues receive-side processing. Some input paths can reset that secpath
+before xfrm_input() has finished dereferencing the state.
 
-  __free_pages_ok+0x6af/0x7a0
-  <IRQ>
-  __bio_release_pages+0xde/0x260
-  __iomap_dio_bio_end_io+0x16e/0x1a0
-  blk_update_request+0x14b/0x3d0
-  blk_mq_end_request+0x18/0x30
-  blk_done_softirq+0x49/0x60
+Receive callback users such as VTI and XFRM interfaces can reset the
+secpath. The VTI receive path does so before checking whether the packet
+crosses network namespaces, while the XFRM interface path does so only for
+cross-network-namespace packets. The XFRM_MAX_DEPTH error path can also
+reset the secpath before the final drop callback reports the current
+state's protocol.
 
-The folio gets there like this.  A MAP_SHARED file mapping is mlocked, so
-its page cache folios carry PG_mlocked, and an O_DIRECT write sourced from
-that mapping GUP-pins those same folios.  munlock() then runs
-mlock_vma_pages_range(), which clears VM_LOCKED before walking the page
-tables to munlock each folio.  A concurrent hole punch reaches the folio
-through the rmap (i_mmap_rwsem, not mmap_lock) and can land inside that
-window: __folio_remove_rmap() -> munlock_vma_folio() sees VM_LOCKED
-already clear, so it neither queues the folio on the mlock batch nor takes
-a reference, and the pte it clears makes the pending mlock_pte_range()
-walk skip the folio at its !pte_present() check.  filemap_remove_folio()
-then drops the page cache reference, leaving the bio's pin as the last
-one, released from the completion handler above.
+If secpath_reset() drops the last state reference while the state is
+concurrently deleted, xfrm_input() can still dereference the freed state
+when selecting transport_finish() or reporting the drop callback protocol.
 
-So __zone_stat_mod_folio() here needs interrupts disabled, not merely
-preemption, and __munlock_folio() has a path where they are not: when the
-folio has already been taken off the LRU by somebody else the function
-jumps straight to the counter update without taking the lruvec lock.  The
-read-modify-write of the per-CPU NR_MLOCK diff can then be interrupted by
-the softirq above, and one of the two decrements is lost, leaving Mlocked
-in /proc/meminfo permanently overstated.
+Save the state protocol on the stack while the state is still valid,
+and use the already saved address family for transport_finish(). A larval
+XFRM_STATE_ACQ state has no type, so retain nexthdr as its protocol. This
+preserves the existing drop-path fallback while avoiding the post-reset
+state dereferences without adding an extra state reference to every
+received packet.
 
-Use zone_stat_mod_folio().  mod_zone_state()'s this_cpu_try_cmpxchg() is
-atomic against a same-CPU interrupt and retries, and on the path where the
-lruvec lock is held its cost is negligible next to the lock itself.
-
-The UNEVICTABLE_PG* events are deliberately left on the __ accessors: they
-occupy different vm_event_states slots from the UNEVICTABLE_PGCLEARED that
-__free_pages_prepare() bumps, and nothing updates those two from interrupt
-context.
-
-Link: https://lore.kernel.org/20260901180109.3797944-1-shakeel.butt@linux.dev
-Fixes: 2fbb0c10d1e8 ("mm/munlock: mlock_page() munlock_page() batch by pagevec")
-Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
-Reported-by: syzbot+cd2073ee6d958a8d0fcd@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/linux-mm/6a931c5a.08e933ee.dbf97.0093.GAE@google.com/
-Acked-by: Hugh Dickins <hughd@google.com>
-Cc: Jann Horn <jannh@google.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
-Cc: Pedro Falcato <pfalcato@suse.de>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Fixes: df3893c176e9 ("vti: Update the ipv4 side to use it's own receive hook.")
+Cc: stable@vger.kernel.org
+Reported-by: Vega <vega@nebusec.ai>
+Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
+Signed-off-by: Steffen Klassert <steffen.klassert@secunet.com>
+[ omitted the protocol fallback assignment for the state-direction rejection branch absent in 6.6. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/mlock.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ net/xfrm/xfrm_input.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/mm/mlock.c b/mm/mlock.c
-index 3bf9e1d263da4..0124022f0f379 100644
---- a/mm/mlock.c
-+++ b/mm/mlock.c
-@@ -141,7 +141,7 @@ static struct lruvec *__munlock_page(struct page *page, struct lruvec *lruvec)
+diff --git a/net/xfrm/xfrm_input.c b/net/xfrm/xfrm_input.c
+index 1483770f84564..26f2fd7e01da9 100644
+--- a/net/xfrm/xfrm_input.c
++++ b/net/xfrm/xfrm_input.c
+@@ -462,6 +462,7 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
+ 	struct xfrm_state *x = NULL;
+ 	xfrm_address_t *daddr;
+ 	u32 mark = skb->mark;
++	u8 xfrm_proto = nexthdr;
+ 	unsigned int family = AF_UNSPEC;
+ 	int decaps = 0;
+ 	int async = 0;
+@@ -472,6 +473,7 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
  
- munlock:
- 	if (TestClearPageMlocked(page)) {
--		__mod_zone_page_state(page_zone(page), NR_MLOCK, -nr_pages);
-+		mod_zone_page_state(page_zone(page), NR_MLOCK, -nr_pages);
- 		if (isolated || !PageUnevictable(page))
- 			__count_vm_events(UNEVICTABLE_PGMUNLOCKED, nr_pages);
- 		else
+ 	if (encap_type < 0 || (xo && (xo->flags & XFRM_GRO || encap_type == 0))) {
+ 		x = xfrm_input_state(skb);
++		xfrm_proto = x->type ? x->type->proto : nexthdr;
+ 
+ 		if (unlikely(x->km.state != XFRM_STATE_VALID)) {
+ 			if (x->km.state == XFRM_STATE_ACQ)
+@@ -572,11 +574,13 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
+ 
+ 		x = xfrm_state_lookup(net, mark, daddr, spi, nexthdr, family);
+ 		if (x == NULL) {
++			xfrm_proto = nexthdr;
+ 			secpath_reset(skb);
+ 			XFRM_INC_STATS(net, LINUX_MIB_XFRMINNOSTATES);
+ 			xfrm_audit_state_notfound(skb, family, spi, seq);
+ 			goto drop;
+ 		}
++		xfrm_proto = x->type ? x->type->proto : nexthdr;
+ 
+ 		skb->mark = xfrm_smark_get(skb->mark, x);
+ 
+@@ -693,7 +697,7 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
+ 		crypto_done = false;
+ 	} while (!err);
+ 
+-	err = xfrm_rcv_cb(skb, family, x->type->proto, 0);
++	err = xfrm_rcv_cb(skb, family, xfrm_proto, 0);
+ 	if (err)
+ 		goto drop;
+ 
+@@ -714,7 +718,7 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
+ 
+ 		err = -EAFNOSUPPORT;
+ 		rcu_read_lock();
+-		afinfo = xfrm_state_afinfo_get_rcu(x->props.family);
++		afinfo = xfrm_state_afinfo_get_rcu(family);
+ 		if (likely(afinfo))
+ 			err = afinfo->transport_finish(skb, xfrm_gro || async);
+ 		rcu_read_unlock();
+@@ -734,7 +738,7 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
+ drop_unlock:
+ 	spin_unlock(&x->lock);
+ drop:
+-	xfrm_rcv_cb(skb, family, x && x->type ? x->type->proto : nexthdr, -1);
++	xfrm_rcv_cb(skb, family, xfrm_proto, -1);
+ 	kfree_skb(skb);
+ 	return 0;
+ }
 -- 
 2.53.0
 
