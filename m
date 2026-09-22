@@ -1,59 +1,55 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.6])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7422953D9D4;
-	Tue, 22 Sep 2026 12:29:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6B8A43B6DA;
+	Tue, 22 Sep 2026 12:29:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790080175; cv=none; b=R6lEfnTOhjzO4QY6qSK3yemJTvZ2jMI0f+TKSwi7zvPwk2XwJiaR92SjTm5sWNCtB7e8BdowJg245weenHPtV8qg0+PqBmgCAiczUhIo4eH0Ry1O+DMtogQa2c/aGHmNa/vqKcdaF2VqAFq0UWt/gL73AbigU9VNinse83r4o5c=
+	t=1790080177; cv=none; b=dmz2XXK8p4i7fZGHBIkNQikQzY//q2mkyU390CXVP9wusLzO0zMmIpP6Cc75oN51ERSbOthEOWb2BwpI8euLA9qF4OVZ1Jd9YrvpUFJJcFlj5MqNUk67GxnXJ6uj23tfZ1rVD2bdYjLDNKLi/D0L+L2jRAvovwObyDy07gUMurM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790080175; c=relaxed/simple;
-	bh=pqD36nJS2t/GmEx9i84xJKll99YBX8VLzR/Coeg3uWw=;
+	s=arc-20240116; t=1790080177; c=relaxed/simple;
+	bh=yQ+U4XZCYy44+RkfZNVReW6Q63ZGKd1VRAiBXXQOG+I=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IJly/GEsERiMynKaL5cMJvmOP/vnX7HyavByjBKzQhWjjzcF3woo7Oyg7/zmXOpzu/fpqku5QBljNzbzXF7dg2jZyLvB3I3DQkWJ4bUCFbmgGkDMpYz/qQQKdSm8birA4JcunWnEqYJ9ND9LoW8CNDtzC2Xl7A4olElEtkGK3VU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mhXi4wI/; arc=none smtp.client-ip=192.198.163.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=gyDXZqBrxWXXT38rFkdDULNM7RXpzVRPjA2SM4aymEdivUGlPV91LWoqSeEUrqfRd8rJD6sUMBiUfH0YucPDO39u5ZSLm51b55aKJbTEBfzTiLFaOZdpwqqzDVQG6LudtHKSFWYajffmk8d8n4BFA0C1GYfdoPjqcr46prWT+5E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=MF6G13Vo; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mhXi4wI/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790080174; x=1821616174;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=pqD36nJS2t/GmEx9i84xJKll99YBX8VLzR/Coeg3uWw=;
-  b=mhXi4wI/mic/IJOh+JIip01hvs+myuPKZnr+n9iD2TI4FGVKAGb1iui/
-   NU2wIXxwWPtANeoWd49c29GTtdQZzOkQVORNDwzWWhr0m0KJwLRvcFwjL
-   bXhtRwwL1EJdH1lpXVLQ83SFq8vVH1fVeqbQoKyr3C923lxyomrlNAAoK
-   tSjv9czlnEM3vk0dKOoqvfGk4QwhHs/6dSz4u1sL5FeH3YQagLD0UfIFG
-   aXor6UlPT1caoaRSNYT4TzY/x5Ncn+2wnJsFZMkjdveaZjrnSTGhIw0EL
-   HyDZzMk+tM/gPrzyQiE3dfj2IRRbPzhtwfyr+Jaz6paCUgNxm1szzhNpX
-   Q==;
-X-CSE-ConnectionGUID: R68bK0qKQnK06qbd591HLg==
-X-CSE-MsgGUID: KlEEBqdyQeOepTP+4JWyJw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="1179527"
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="1179527"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa116.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 05:29:28 -0700
-X-CSE-ConnectionGUID: u5rgthFRRceF6JOgL9hxFg==
-X-CSE-MsgGUID: D1/+FC9OQ4qRh3912qp6/w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="299350500"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.93])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 05:29:27 -0700
-Date: Tue, 22 Sep 2026 15:29:24 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Lee Jones <lee@kernel.org>, mfd@lists.linux.dev,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] mfd: intel-lpss: fix iDMA device leak on probe failure
-Message-ID: <arJ0pDlXpdlsF0sT@ashevche-desk.local>
-References: <20260921104058.353748-1-lgs201920130244@gmail.com>
- <20260921110512.GS106095@black.igk.intel.com>
- <CANUHTR9gA-mKn8Y496Pty4_Fhu3BSSyhXWrmiod1WvuVdQjkag@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="MF6G13Vo"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=0I42Cxwy1gWdxihb7G1jRdQeFiN50ZxPBQZhSNRVuS0=; b=MF6G13VoSsYuEzodrQpQVxlqcs
+	ukXcDXXfv1lL3PR4Kxs+5fA9CJlPiA2gnVQ4iVVijWZ6FmHm/kY0nvBwhizIhBco9UgvRsizvGeO5
+	27bHioJjHlJlGNI51k5U3SJOFF45FMeFK1gbYfT2A7i0YA5Ucu/8+wXU8TEb6wErISrLdTxbkDoxR
+	Cr+/6KD8IGe4AKBtfaB4px7Rdb7lxN+DC4M460Crty2yp2T5l5bpaS7gjTVG/doEXvhPDE1KTHTfH
+	UYyDGC9+1es4GrLcZgrwuGERapTgAKGubeko41aW1YLWYYmf1mf35Nq04Ksu3DrQUOUipvg+Vcojc
+	s6cN6t3A==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x8zcn-00000005JCz-4799;
+	Tue, 22 Sep 2026 12:29:29 +0000
+Date: Tue, 22 Sep 2026 05:29:29 -0700
+From: Christoph Hellwig <hch@infradead.org>
+To: Andrea Parri <parri.andrea@gmail.com>
+Cc: Christoph Hellwig <hch@infradead.org>,
+	Christian Brauner <brauner@kernel.org>,
+	"Darrick J . Wong" <djwong@kernel.org>,
+	Joanne Koong <joannelkoong@gmail.com>,
+	Brian Foster <bfoster@redhat.com>,
+	Damien Le Moal <dlemoal@kernel.org>, Hannes Reinecke <hare@suse.de>,
+	Daniel Gomez <da.gomez@samsung.com>,
+	Pankaj Raghav <p.raghav@samsung.com>,
+	Dave Chinner <dchinner@redhat.com>, linux-xfs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/3] iomap: don't resubmit an ioend after
+ ->writeback_submit() failed
+Message-ID: <arJ0qe1KZoIaRCQk@infradead.org>
+References: <20260921083133.2960-1-parri.andrea@gmail.com>
+ <20260921083133.2960-2-parri.andrea@gmail.com>
+ <arITIy2upsoN-DlW@infradead.org>
+ <arJETViXYZbX8ckp@andreayoga.localdomain>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -62,30 +58,15 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CANUHTR9gA-mKn8Y496Pty4_Fhu3BSSyhXWrmiod1WvuVdQjkag@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <arJETViXYZbX8ckp@andreayoga.localdomain>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-On Tue, Sep 22, 2026 at 03:59:32PM +0800, Guangshuo Li wrote:
-> On Mon, 21 Sept 2026 at 19:05, Mika Westerberg
-> <mika.westerberg@linux.intel.com> wrote:
-> > On Mon, Sep 21, 2026 at 06:40:58PM +0800, Guangshuo Li wrote:
+On Tue, Sep 22, 2026 at 11:03:09AM +0200, Andrea Parri wrote:
+> Yes.  xfs_reflink_convert_cow() is the only in-tree way
+> xfs_writeback_submit() can fail, so I added a boot param that forces
+> it to return -EIO, reflinked a file, dirtied several widely
+> separated CoW regions so writeback has to submit more than one
+> ioend, and let background writeback run under the fault injector.
 
-> > I think this could use devm_mfd_add_devices() instead.
-> >
-> > > The issue was identified by a static analysis tool I developed and
-> > > confirmed by manual review.
-
-> Do you mean converting both MFD registrations to devm_mfd_add_devices()
-> and dropping the explicit mfd_remove_devices() from the remove path, like
-> this?
-
-Won't work properly. The rule of thumb, it should be no 'goto' after devm_*() call.
-
-> Would this be the preferred change?
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Can you add an errortag in fs/xfs/libxfs/xfs_errortag.h to inject
+such an error and write an xfstest that uses it?
