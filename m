@@ -1,227 +1,226 @@
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99C5545628F
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 11:09:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DA9853B325;
+	Tue, 22 Sep 2026 11:10:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.12
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790075375; cv=pass; b=TGHmWCm/7mEgScxFicqvYhS13RU1dQ1ZpQuEVgua6zb2Zu8VX+Ll1ZGkLTxJYRF5fmPNG1lwMpevfpxKe8L/BYCwtoWWu2FbkxO0VbN/sFRXZ/3K+z8NTv1IomSCDeW2dfn5Kanq3voTT4uggmkACeF7UBn5aVPlOPOYpLmGT/g=
+	t=1790075418; cv=fail; b=bvu+irTOgHI6z//+cCoCzzsOhurWunnFV5dcGYNY3/rXzNGkAP64SKhfVhRG9QO/pkbuLPPZ798Cc6lDMwbX1wESAIFoNSwIDjJi9q1qKKH2hApe7ig71hwRIjizwMf/YmaDSW8Rl+KClUDfsNClloVBTOCagTf4cqIgiFqut64=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790075375; c=relaxed/simple;
-	bh=6GVB7x9ben233bUd/Gl4RRPxsbae5e6i40S+8Q0zN4Q=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MHHM8bPzDwKuSVqDWjZDZyf7GfOLZro0fbGD56qFD18wp2IPqB7ehqAeoeKk70Qv7u5c/T+SnwV5UA7mf+KnHhleA3yrUj8ckT9BHOH2PD1+2EKEDgt7rO2grANW9VX242THMIFezGcilkXzyMQQFr813dpb26RvqXMocUX9UOk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HT3/B50d; arc=pass smtp.client-ip=209.85.218.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790075418; c=relaxed/simple;
+	bh=QjvJ5Hq0N2vsRlvRPt64jcK4kb92CqxCsl+6xg6S+dw=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=QL1odPswhPDAMZkMA5MGd612ff9Z4LbHZ0oC79saSJDnodWA4EI/FZObcyo+69vKZ0TG46awFwoxI6v3Eb5xXATDnMJWGGEZkc/FDBx9WhKFAZ+qOkf4pq0TKhP8QQb6zOnP36HmQVbMsi/5ev+ie1/6SxEL5vgrzhAwaJOzDas=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=k7+jH2Rs; arc=fail smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HT3/B50d"
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c294ad260fdso125010966b.1
-        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 04:09:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790075372; cv=none;
-        d=google.com; s=arc-20260327;
-        b=KqFVPzlzqoz45v9Bvr1zSbN91SPeJXETNP2BnjdqBm/JxCQbEUahQOE24+PLN3QToC
-         y9qxDEZuROINrTa8qTpeXUf+VK8XN81bqrKtXQe6Fy5sEGAV6RsIS5MZ1sZcW8ryrSD4
-         ABKHzhJIb+ZMI8Vzw01VOUfj72hm9FSMRz0UIT26rNmHqTKI+NEceSOsrnF7axQJgh4K
-         5WmKsI0Q0wR2gQDUk1oECtDekvBsxF6kwM6pjDC137RPwb7wxmMuXOZAydO7ejG54KnR
-         jAGmzexIk/tjknTAGqDoHRj207gwyfaYwiWKmam7ar5GoS3OYHKHIXXV2UozDVhalRAy
-         +F9g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=bYkI/YWQ8yKeluntLIACqYIRC6CpwK4iAnqdkQvaVCg=;
-        fh=cyR9Xd7Bl1EUClZF2vo7jnmQevVRG2bhH0mCn+j92FI=;
-        b=SG2D28dBKtfWuOnLaL3br7mi4nbqKO0WFo9C762dIr9ctsyR7hsymz1kdVM9jjWiZg
-         OK70bgE72HTXxrxdtZqj9mUNRXtwRaaTdcxxcAMDmBD6KUrjqaKL1v58zFZe+5GdVN9w
-         n9A0O+jCkGE78dMQSwQ1rQeOgI6vy4kWFDVi32n2xNT2/nBpYMuRvDCC4d/FJJfzTmj+
-         rt2fyRI9d2JP68+tHOTCBRWLPCrPw8L2M6e69ftmRKUBHYjwI1JRFan6QJc0+ZMLE82k
-         eV8EjNKra5KbwS5AsGoBg7cEiIWj0s6Yzh7ThImh4txaZ5GjhEtaGyL/XbbfDUirIQe2
-         67MA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790075372; x=1790680172; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bYkI/YWQ8yKeluntLIACqYIRC6CpwK4iAnqdkQvaVCg=;
-        b=HT3/B50d4ZrdjbN7WnmcXIP6V1M9sdOiAR8RPhxHjiWviVaDgZOW6ATuMyK60LVTy6
-         THxPvcCRZq+n4YUbfVJClT1SjC7sBS9Yty/7saJyXzqBvGIBtT37FKPJdyWSkA4ZOGDs
-         Odn0MwyLTV14KiRLLR928cuHnxuin26acRRJ9OIjGaVQOU3bo2FwSfiQT/mWAfYMqWQM
-         KC7Jl3V1x0b9/PYtoivt9ZqcJFlvpJ7TqL2bUddQ78KrExlpi2CzOGREjz/jyN1uv5xI
-         xxBbiWztfXYC3GALY9bHK8MxRGjQq9Bq0m+4/mF+mtgJMfhb/rGsItkXU0fU/sOjBDtT
-         LpCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790075372; x=1790680172;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bYkI/YWQ8yKeluntLIACqYIRC6CpwK4iAnqdkQvaVCg=;
-        b=Pw1LOuIxpegFv4nHn9wV/71CM/JaQNSGWh+S1+YXG884kKEWnByLlYU+pbE6FQtLig
-         rvrkP/l+TrKHppp1hyPWtKYAIu33wKRNkaol8BsgIa2R0TVX9kzHnpWN3erCPIZjqN7m
-         AMtlSqvZZriJW5FDHR8vXkWbdk/mml/gkFGB7DVUcP8Tuu5wvW5rTBE8GxWT2Z0LMkH6
-         3S57Hn6UvnYYhtsO2u2CiEIfvs5ImMuHW6HdJPpE7UqQLhM63mIdHxSaj+f7fu5244sG
-         G12Q1VGaHjvqNTbicgIAG0cYu8X2MM5IaHsbIp6SWFcgW342DIr3YThgzFKgKE1Qk5Ea
-         Klkw==
-X-Forwarded-Encrypted: i=1; AKwUvBwGtE0BFGSnumjdBAsTcarTTX/8H6pDUQlEUlQtopz6nk0QxRlH09TYM1wg3QV2xOfj270p8SA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kkadapTA01T/i6wfdC5CUJT1cOWTYKAexXK5ETTeilsVmPI+0P
-	/p8GTEiAfoS867zLDfCptShQXhlXRkmHsneTTrgWQY+hdwpRtQgoFOJDqCLAqMMxpKKJS2Bj7Iv
-	Bwbsu1MXa4pypyfNLWeL6PyhKlVS3f9Q=
-X-Gm-Gg: AYBFou3NptVH5vgzXPD5aBW2MpEV6rclzBAPNp5R3/lkoKvsOi3l2fmCpR0crpjY9ku
-	Jdyr6HHz9u+R+1RIjxPHknTn0ytOYedtp5T3ETbuPRwVu5h1lWMrMlw3epgtI3J8PM0dIYoKiv5
-	K/hi3BsxklpJtfFDMZEyOwmm+Q9Bcc7XWZ8lpBGV1qXM7veTWUxcdKErlWnHQon9qrD5gol3sO/
-	RAuQ68xTFi0S1EadoXz22K042VFYe5LY2Aqx8qAf4siappi7QJQwraKmOXKUuuV4H8l6xan/3q5
-	OqifQ/C7hwGbdvEwockhI9mlWgfZbd3gxsFGgiyltpgM3MISknNohk8mMs/i1Q4Kn5rv3lvg7x6
-	lC+NOo/+GgxbJBMyW3QQYsDmI9RC6H+rN6LGjXs8=
-X-Received: by 2002:a17:907:1c1d:b0:c25:4d9e:bb28 with SMTP id
- a640c23a62f3a-c2a8d44e967mr204909166b.3.1790075371598; Tue, 22 Sep 2026
- 04:09:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="k7+jH2Rs"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790075414; x=1821611414;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=QjvJ5Hq0N2vsRlvRPt64jcK4kb92CqxCsl+6xg6S+dw=;
+  b=k7+jH2RsVdjvMEbejjkgmkNwvHjXI1hgDpF8Lwkn9eP5Ie14ATYzc9r+
+   PgODurXkgRfipCqWm7+YCvwKcj6wp3GaoxKomdVeBHFr8GDoKTs2afYHA
+   cf5ax3q8nlGnLckXiWarycdfHSEMSDMtvBVQPsRD5OMSi+ZxOoa/BnrjV
+   timWs37kMyWgX+ftdEcL0QTrzdZmhWpXbU9XiF1AzOCqGTpxIA1NuS5DJ
+   b1SuL5erdNpFZqkqCamP6zhebAEia2tKAzhDmbhIiIUufx2YNiUac/hRu
+   pAiow0CcrPQDi5bHdJopce58Jd4dUOMyUBbxiQoZ83uS/ils4sH9y5QFW
+   w==;
+X-CSE-ConnectionGUID: DtNtgwA2RP6drGvynImGkQ==
+X-CSE-MsgGUID: WiHg0HA/TJmxMKF7nYpgBA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="94499008"
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="94499008"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 04:10:13 -0700
+X-CSE-ConnectionGUID: EeoFPqGoQ721TzNaeCtuQQ==
+X-CSE-MsgGUID: O2yC7fDeTnGywyAA6mR3JA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="271645499"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+  by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 04:10:13 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 22 Sep 2026 04:10:13 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Tue, 22 Sep 2026 04:10:13 -0700
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (40.93.194.53)
+ by edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 22 Sep 2026 04:10:13 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wDqNA6vEugpRp1hvq0YsYk41oPavCCOQbPUzSVlI5NlTAxtQXcj21Bf76gX+tcvQLo2IriS4VB+ryAB/F+F6Fy7a0hA9jgR+z3FRBylkSilSSR7TnrizjXdbtpI8IJ3KjEbefbG7+llDJo8rMoWpRQBvajrGmwTaOG/qPil5NSnPFvDKnOQhf2NAhalXce0n3dQb6w0v0d64bcu2SePgHD30YdDQV3dQz5m3R7dDDysW0Cvf1Eya06UEwxN11W9hhEsNs32OboD5rckeKP1WRlatJLs+qKz2PC6n4A2g2BPIVuh4Gto6Em6wNi3spcJ5PnSFpqV20rl4VaWLIVBYAQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TcImw6TAtXdfcIvSLuvwtmiUI9xzabHp25+dBj8Dip8=;
+ b=TcSTxGqa2fZVXpZ/yQD1k2KLooS/yIpufAFNeULra4QvnqeNUSBsCxf85mNnIe+tQR2AsTGY4ivnBnuZIVORip7OhwmopD7sAASz0rov5pfq9Px+i69jOrMwr5sI9T6LtAh2CJ+EURRv+dg8YG/9SjcuqD6tBRZSj08AW5H+dbO8s9e/yxOqQWheOHwmUF8Aftbks/TVsQEe4TicwmbMnRFnqygtga4dv5rOANcfEJqfqpbKdo95D7S26Fjj/JAx2NbE9l9mn5aMG2zl66zNmi+KbPwO1+DXvgd9jM0RxtBv0TqPX7l2qkdmm1cqmj43Tld8L/P3udCt/G+OZPCwTg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from IA3PR11MB8986.namprd11.prod.outlook.com (2603:10b6:208:577::21)
+ by MW4PR11MB7103.namprd11.prod.outlook.com (2603:10b6:303:225::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.13; Tue, 22 Sep
+ 2026 11:10:08 +0000
+Received: from IA3PR11MB8986.namprd11.prod.outlook.com
+ ([fe80::e6f0:6afb:6ef9:ab5c]) by IA3PR11MB8986.namprd11.prod.outlook.com
+ ([fe80::e6f0:6afb:6ef9:ab5c%6]) with mapi id 15.21.0428.015; Tue, 22 Sep 2026
+ 11:10:08 +0000
+From: "Loktionov, Aleksandr" <aleksandr.loktionov@intel.com>
+To: Zhang Yunfei <zhangyunfei1@kylinos.cn>, "netdev@vger.kernel.org"
+	<netdev@vger.kernel.org>
+CC: "jiawenwu@trustnetic.com" <jiawenwu@trustnetic.com>,
+	"mengyuanlou@net-swift.com" <mengyuanlou@net-swift.com>,
+	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>, "davem@davemloft.net"
+	<davem@davemloft.net>, "edumazet@google.com" <edumazet@google.com>,
+	"kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
+	"leitao@debian.org" <leitao@debian.org>, "weirongguang@kylinos.cn"
+	<weirongguang@kylinos.cn>, "u.kleine-koenig@baylibre.com"
+	<u.kleine-koenig@baylibre.com>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>
+Subject: RE: [PATCH net v2 2/2] net: ngbe: clear DRV_LOAD bit when ngbe_open()
+ fails
+Thread-Topic: [PATCH net v2 2/2] net: ngbe: clear DRV_LOAD bit when
+ ngbe_open() fails
+Thread-Index: AQHdSnpnx+oSLtCkK0S+imE28XwZ87bacNyA
+Date: Tue, 22 Sep 2026 11:10:08 +0000
+Message-ID: <IA3PR11MB89862B76AF0C1214CE44DEB8E5832@IA3PR11MB8986.namprd11.prod.outlook.com>
+References: <20260922100836.1147718-1-zhangyunfei1@kylinos.cn>
+ <20260922100836.1147718-3-zhangyunfei1@kylinos.cn>
+In-Reply-To: <20260922100836.1147718-3-zhangyunfei1@kylinos.cn>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: IA3PR11MB8986:EE_|MW4PR11MB7103:EE_
+x-ms-office365-filtering-correlation-id: 21cccc4f-b21f-48c2-3fe0-08df189a1054
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|376014|7416014|23010399003|366016|1800799024|38070700021|4143699003|56012099006|11063799006|10067099003|18002099003|22082099003;
+x-microsoft-antispam-message-info: Kfg1jY9ZJ+C1vCtJMPniJymJmGs1EQUWDRgx2HeUysyhG/OIY+/3x6g1dyvv+RHmhkT3//8mQhvkvp5JZZv7gpRqnmEfx8HK05XL/Fjkxt4UDQK2H4aIAOZtmS636CwQrBH8RsA/PSKDtTZhSuCwJjwmpCq1bXZWRG0DW3WWOMyemuwpB0KpsbTa+1w8OZLTPWOS2PwyIDk2sXVZhAhgK+MqpS+Xy5oxjHrkkyjj9QXijiiD4JpdAx+5EgKTR9bE3IwPiajvQuWRSbJTaOCexAxXe9ljzMkjF3cJP0Evu45/J9/Sxf0t0voCrZFoRmVx7YhGEUkk3W20AfcWwW8UEitPqUHCprmSiiUtLq06A+NOZI1DDOFRppO4GEJFsqtBz6Hpuq4agfTaThbuNSA+sLhhoUevQ4zcCdj8LjQXZzLJ8hpQkLmrdlms8/xm105kfsZXFl0u0CBDzkP6mTxqKaDw23lNBVbzyWuXFKkeOO2C8rmFOcMbLIbkPqjV7/iMk75dpL0g74k6cBVRYbsN7Gb9Q4PiyIS8n9e/1rw8Uq53Czl63jPaIDZj+qS3FUFf7Rold8nhYesUOrtFFkKlC/lLlbSFgPrXjMnPK1nhbeHaUavcGByR3uBCKfaLXxAR+PGcwAegm7TCH+d/11koKfJH8YRWrS22Qzf6epMiwznaG0FOCVUobMOeaUrEeKVWTOUMBG+xHoABDqlHHDGMvMGQyeEh1Lj6XwDBQ5bLJgU=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA3PR11MB8986.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(366016)(1800799024)(38070700021)(4143699003)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?DUQaH5NmLxhjETNIOCCh6uJRe5WhDYNXKt3GzphuWnK4rtAyCuPPqOAkl1Pr?=
+ =?us-ascii?Q?+6HdJMWj4a9A06I/DOPT0HvIzh5uxykYYOFyAgi6BHtl6IDYS3IbQaSImcKs?=
+ =?us-ascii?Q?PFC5xqiXtXFRsEzkxV6hYsjDAlc8kzKEP63lX9wEelrxGh0lS1ozlmFPoOvF?=
+ =?us-ascii?Q?G5xeAeQsKTKrIftz0vY5X534y8wNPplFIxisACrAtGwkAMAckxXuzeBNFh1e?=
+ =?us-ascii?Q?mdcox19NtLIrPrrSbzYGWWBVYBHTtiae66RZb3TkXE7GFd3TpD3oijTK3eiq?=
+ =?us-ascii?Q?nKsxErE9VaBuBpRsWemwQkvnKDywTxF3rr/MM8+272C6lJn0l5sNIfyy5Ihj?=
+ =?us-ascii?Q?JNk1JoegU0e58FPRmYzyNU8xdrvAYGyC+3+ZPA8vrB7KWZ5KKJ4w38CbNIwM?=
+ =?us-ascii?Q?5gPDxsJc5YzM3cMWYAeyVg4DXPfNF4k6tjLrBQvy+6HcTfEpfCeuSGffRJWK?=
+ =?us-ascii?Q?i4y0SjfXj0gJ6ffQHVI1KLn1L0JrwvaGWg8+jHbsDzkj1ZQ87jJrg4k178UI?=
+ =?us-ascii?Q?tef2m41H4adRwncCokVKaVOOlckdKnbB9b4Sx2leSld8wKIrv+qvbKTJ62tO?=
+ =?us-ascii?Q?U+ctvCBO/Z3TMAGmiLQ3okJk7M5SFF+v8Xe7Jbf4xMpYe1rsv2Ap42AyZHm5?=
+ =?us-ascii?Q?2URVYx2djcd4q3VAaETFfxDJgWy5CuAmKC0Q4G9TELYteTAtHC0EB0VjrctI?=
+ =?us-ascii?Q?qLZO44ExZXwKGG/XYCCJURPaApicoWAhZ7WCz7gt1tSTjUOq3LN4mtoy97yc?=
+ =?us-ascii?Q?uSuHl2gK4VvUMMS6SfAjudXhPGLdflTuaV7vLmAmD8db2yJPsq0wD7UTxIT4?=
+ =?us-ascii?Q?gvrsKNLidPV0wCPjsaIC3Qjc5Ksj0y9ozkj2H/VG+4GMSgakQG2vI+OPQmaO?=
+ =?us-ascii?Q?tibK5gtIJASiobRnfX89EU9Rd/O3cR9uo076MupNYjPWgebIMQ/M2dh5Pc+Z?=
+ =?us-ascii?Q?RtttH1IWByeBKwUcVpMjzMXl2+7uIBfEQA+nKsicu2y+4ibSNQNwYWoZxrz4?=
+ =?us-ascii?Q?W8qlP5RTJ6X3w8k+lxjefJ851cjfZKT6NcwnA1P+LY4IvYfleniRBkbOC7L+?=
+ =?us-ascii?Q?gJU4cGmbqv2TNv6l3yX52WVF2JxVpU+CY0ZziWNKeuXQS1350QQug713QSZ7?=
+ =?us-ascii?Q?IyDghoZOmIAWROQ0ZpLnsp8eyVWVlRHs6LjVgDh5Pk+H4LFspA0XQlNbOdwL?=
+ =?us-ascii?Q?p636GYKcRegu8xHCNHCkKfB+B2AR49bfDHp51V2jnkr6xYADK0ELQTFlkXRh?=
+ =?us-ascii?Q?H+ErGvtxguODqOVBztWQlR3GY5uJ+i/SRWMZwp3XCKIsnZx/zkaeiYGnUO9+?=
+ =?us-ascii?Q?zz1uWd00OGAQGZfyw2Syuz3F9TJp9CteO9FWvfVI4R//+hlq1gtdmxNQhQ9T?=
+ =?us-ascii?Q?mXfjyH0KoIvJEedkf2om/PhPiks3Sech0W3Gj1soZFv5XHgT8sOjn0MNXlV6?=
+ =?us-ascii?Q?xLpcfsqjyZlADChI8MYeSmXGwUv7Z4Xic7wlmAEzan3rTCbfEt3pm4A9Hl13?=
+ =?us-ascii?Q?FDOQ1yGYnHgPoaHZGVFIaAhTZ0RTxGE/3v2LsDCVS2gamS836Eb56aqW8q1P?=
+ =?us-ascii?Q?ZvyDg78Mu2ywBT0CKwPv8+eZzHFlds2JOOxKLad60fIAXd9k60oDyforL/IN?=
+ =?us-ascii?Q?eTPjLHQaypq3rGAMup395gYBC0/3j0pWk5gq4u5JzjDnsQd11tij8GLYaxPH?=
+ =?us-ascii?Q?D4xmxKlcO1QFQuf0/LpS4rOJ6xFagPTisO81w5jYTXhr7dMJCQmKvCZ4a3gp?=
+ =?us-ascii?Q?/dgxa6IWG1LAGdCYuSP3Vi10C7xebs8=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260824225610.18471-1-meatuni001@gmail.com> <20260824225610.18471-3-meatuni001@gmail.com>
- <a67d4e52-5e87-0e76-4c91-cb8ba2be31f9@linux.intel.com> <CADqcGBnGHd+rRn6b=eWVjhWDU-NQ4CFb-3B9cgwBeouN-sbw4Q@mail.gmail.com>
- <ab2078e1-4388-6311-0363-afdfc131ea60@linux.intel.com>
-In-Reply-To: <ab2078e1-4388-6311-0363-afdfc131ea60@linux.intel.com>
-From: Muhammad Bilal <meatuni001@gmail.com>
-Date: Tue, 22 Sep 2026 16:09:20 +0500
-X-Gm-Features: AcwNN1UiG-gE9yMoTAKVEMCJSlXjpgp0-QY2lWEbGt4QUYok2K-kPFaSQ5j-SHY
-Message-ID: <CADqcGBnuzxwKiQ-r94gin0+8oWpvsWQ+tL=PRpK=tee7A2okdw@mail.gmail.com>
-Subject: Re: [PATCH 2/2] platform/x86: hp-bioscfg: fix heap OOB read and
- buffer desync in hp_get_string_from_buffer()
-To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: jorge.lopez2@hp.com, Hans de Goede <hansg@kernel.org>, linux@weissschuh.net, 
-	platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-Exchange-RoutingPolicyChecked: J17pubWYPPSQZM3o76K2ZcxTdIlFteogA0kVNkFkCgWGjkIfYlvZRx3YPysH0zeOvMWWZdzk7vvp3WgvyDJsnuQs2K437TWbCQKJQMnlKrmYhSgbcqTqQpWzgr2JmmNyVEKCCGzf1kAr3WTYlPx4+EaTeAIBXIWQf3J+8EIc+EvCnJ5igg+5wS3JHlRQ3KHc/BvmbUv66uEpHicvyRIQ534QaV1gbMTFzqPIpgo/8HzIA1eCQb5y83fXCTAXYiQezlCc+vlCOWmbKBcyQh4fwPE2llK+Yo4Jdr44V4xpX7EGj5VvsLSbY7nxbr5siPf5IAKrz3BQcnL4xJVfEDwtNw==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB8986.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 21cccc4f-b21f-48c2-3fe0-08df189a1054
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Sep 2026 11:10:08.7473
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: u88aoxKm7wmN8CBvZPxSsQpVw/+2eEM6QfzU1FsUpRpylp0mCv3j3cjxcRQU2Y1JBcHXOBKNrI2ryHdsuntUI8R7K0NRpyVmGX9YBNKLaYM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR11MB7103
+X-OriginatorOrg: intel.com
 
-That makes sense, thanks for the pointers. Here's what I found and a
-concrete proposal.
 
-string_escape_mem() (lib/string_helpers.c) does exactly what the
-manual loop is trying to do, safely: it takes a source byte buffer and
-length, writes escaped output into dst up to osz without ever writing
-past it, and returns the true escaped length so truncation is
-detectable by comparing the return value to osz. I checked
-escape_passthrough(), the fallback for anything not matched by a flag:
-it copies the byte through unchanged. ESCAPE_SPACE covers \n \r \t \v
-\f, ESCAPE_SPECIAL covers \\ \a \e and ". All of those are ASCII
-values below 0x80, so none of them can collide with a UTF-8
-continuation or lead byte (those are always >=3D 0x80). So running
-string_escape_mem() over already-converted UTF-8 output is safe
-without needing to be UTF-8-aware itself.
 
-Proposed shape: convert with utf16s_to_utf8s() into a scratch buffer,
-then string_escape_mem() that scratch buffer into dst.
-
-char utf8_buf[MAX_BUFF_SIZE];
-int utf8_len;
-int escaped_len;
-
-utf8_len =3D utf16s_to_utf8s(src, orig_size, UTF16_HOST_ENDIAN,
-utf8_buf, sizeof(utf8_buf));
-
-escaped_len =3D string_escape_mem(utf8_buf, utf8_len, dst, dst_size - 1,
-ESCAPE_SPACE | ESCAPE_SPECIAL, NULL);
-dst[escaped_len] =3D 0;
-
-I want to flag the scratch buffer sizing specifically, since I got
-this wrong in my first pass at this reply and want to be upfront about
-it. src_size is attacker/firmware controlled (a u16 read straight from
-the WMI buffer), so orig_size can be up to ~32767 u16 units, worst
-case UTF-8 expansion of that is close to 100KB, nowhere near safe for
-a fixed-size stack buffer, and the kernel doesn't allow sizing a stack
-array off a runtime value. I checked all three call sites in this
-file: dst_size is 512 (MAX_BUFF_SIZE) at every one of them, no
-exceptions. So the above caps the conversion at MAX_BUFF_SIZE
-regardless of what orig_size claims, same capping discipline the
-current code already applies to conv_dst_size, just applied a step
-earlier, before the escape-inflated count. Open to a different
-constant or a kmalloc'd buffer instead if you'd rather not hardcode a
-dependency on MAX_BUFF_SIZE inside this function.
-
-Two more things I want your input on:
-
-1. Quote handling changes. ESCAPE_SPECIAL turns " into \", the current
-code turns it into ' instead (no backslash). Switching to the library
-means losing that substitution, a visible output change I'd rather
-confirm than assume is fine.
-
-2. \v and \f get escaped now, where they weren't before. Matches what
-you said about \v being an oversight, just flagging that \f comes
-along with it from the same flag, there's no way to get one without
-the other from ESCAPE_SPACE.
-
-On utf8clen(): found it, static inline and duplicated in both
-fs/unicode/mkutf8data.c and fs/unicode/utf8-norm.c, unusable from a
-driver as is. I don't think this fix needs it though,
-string_escape_mem() is already byte-transparent to UTF-8 as noted
-above. The only thing utf8clen() would buy is guaranteeing a dst_size
-truncation never lands mid-character. Given this is short BIOS
-attribute strings, I'd lean toward leaving that as a known, minor
-limitation for now rather than pulling in a separate cross-subsystem
-cleanup patch to fs/unicode just for it. Let me know if you'd rather I
-do that properly first.
-
-Thanks,
-Muhammad
-
-On Mon, Sep 21, 2026 at 7:29=E2=80=AFPM Ilpo J=C3=A4rvinen
-<ilpo.jarvinen@linux.intel.com> wrote:
->
-> On Sat, 19 Sep 2026, Muhammad Bilal wrote:
->
-> > Confirmed, you're right about the redundancy.
-> >
-> > utf16s_to_utf8s() takes src by value, so it can't advance the caller's
-> > src pointer. The second loop then restarts from the same position and
-> > overwrites everything the conversion just wrote, using dst[i] =3D *src,
-> > a raw truncating cast with no UTF-8 encoding. So step 2 is currently
-> > dead work, and the function is ASCII-only in practice: any character
-> > above 0x7f gets truncated to garbage instead of being properly
-> > encoded.
-> >
-> > Two ways to fix that, and I'd like your preference before I send
-> > anything more for it:
-> >
-> > (a) Keep utf16s_to_utf8s() as the real conversion, and rewrite the
-> > second loop to do escaping as a pass over its UTF-8 output instead of
-> > re-deriving from UTF-16 src.
->
-> Not exactly this, but somewhere there.
->
-> You should not try to build the escaping nor utf-8 parsing/length
-> calculation within the driver but use generic code for that.
->
-> To give some directions...
->
-> There seems to be some escaping function in lib/string_helpers.c but sinc=
-e
-> we're dealing with an UTF-8 string here, there might not be a readily
-> available function for string inputs/outputs.
->
-> escape_space() seems to also cover escaping \v, which wasn't among the
-> characters this driver escapes. You might need to check that particular
-> character in driver before calling the library's escape funtion though
-> I'm more thinking along the lines of not escaping it was an oversight fro=
-m
-> the original submitter (given the questionable quality of this driver to
-> begin with).
->
-> utf8clen() seems to exists, but is currently in inconvinient place (and
-> already duplicated so it should be placed into some header anyway).
->
-> > (b) Drop utf16s_to_utf8s() entirely if ASCII-only was always the
-> > intent, and keep only the manual loop, fixing its bounds instead..
->
-> I think ASCII only was not the intent, but it just happens to work in
-> many cases which is why this has survived so far.
->
+> -----Original Message-----
+> From: Zhang Yunfei <zhangyunfei1@kylinos.cn>
+> Sent: Tuesday, September 22, 2026 12:09 PM
+> To: netdev@vger.kernel.org
+> Cc: jiawenwu@trustnetic.com; mengyuanlou@net-swift.com;
+> andrew+netdev@lunn.ch; davem@davemloft.net; edumazet@google.com;
+> kuba@kernel.org; pabeni@redhat.com; Loktionov, Aleksandr
+> <aleksandr.loktionov@intel.com>; leitao@debian.org;
+> weirongguang@kylinos.cn; u.kleine-koenig@baylibre.com; linux-
+> kernel@vger.kernel.org; stable@vger.kernel.org
+> Subject: [PATCH net v2 2/2] net: ngbe: clear DRV_LOAD bit when
+> ngbe_open() fails
+>=20
+> ngbe_open() sets the WX_CFG_PORT_CTL_DRV_LOAD bit via
+> wx_control_hw(wx, true) to tell the management firmware that the host
+> driver has taken over the port (NCSI/OOB firmware stops using its
+> management channel). Every error path of ngbe_open() returns without
+> clearing it, leaving rings, IRQs and the PHY torn down while the
+> firmware still believes the host owns the port, an inconsistent
+> driver-firmware handshake state that persists until the next
+> successful ifup.
+>=20
+> Roll the bit back on all open error paths, matching ngbe_close() and
+> ngbe_dev_shutdown(), which already clear it.
+>=20
+> Fixes: e7956139a6cf ("net: ngbe: Add irqs request flow")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zhang Yunfei <zhangyunfei1@kylinos.cn>
+> ---
+>  drivers/net/ethernet/wangxun/ngbe/ngbe_main.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/net/ethernet/wangxun/ngbe/ngbe_main.c
+> b/drivers/net/ethernet/wangxun/ngbe/ngbe_main.c
+> index e8cabcc84a41..7e2cc69fe8f8 100644
+> --- a/drivers/net/ethernet/wangxun/ngbe/ngbe_main.c
+> +++ b/drivers/net/ethernet/wangxun/ngbe/ngbe_main.c
+> @@ -494,7 +494,7 @@ static int ngbe_open(struct net_device *netdev)
+>=20
+>  	err =3D wx_setup_resources(wx);
+>  	if (err)
+> -		return err;
+> +		goto err_control_hw;
+>=20
+>  	wx_configure(wx);
+>=20
+> @@ -526,6 +526,8 @@ static int ngbe_open(struct net_device *netdev)
+>  err_free_resources:
+>  	wx_free_isb_resources(wx);
+>  	wx_free_resources(wx);
+> +err_control_hw:
+> +	wx_control_hw(wx, false);
+>  	return err;
+>  }
+>=20
 > --
->  i.
->
+> 2.25.1
+
+Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
