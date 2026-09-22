@@ -1,130 +1,142 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47F8B4A5EA4
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 19:43:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 136BE37DEBF;
+	Tue, 22 Sep 2026 19:45:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790106230; cv=none; b=RQgC9gjfrAP/NIQJwyphHhu0/yQvn3189Ex3Hw9EHOW1qTGLXh3q27Bg0DpBH0lmuQNH8LjSQ/mZj2pPRetf2o/5ESm8E+px0VwNpRNM9YOwBHHWzMdJy1b6KRw9EnDQ3thUGN1TNY0iKxpFSqo3kKsgC4KcySjo2AfIVeghnuM=
+	t=1790106328; cv=none; b=giE0Dd+tW3LbLcy1qsBRnvcu8T0l8BF/+6CX8GQ1krsrZi2SpeS9PyruzJ/7lrOCiqe6Uq6ZIxl0eKd3hF49s0Gwjimjyry2H/DAev7dnGRzDsMmvfmJyAq5y3gRZNedoPGw21Ocn4zLKvHxcfiqsMDOYLtlJnCJ6Cp8tiAZAp0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790106230; c=relaxed/simple;
-	bh=yj0xSGB2uWooKTiU0NsS6Vek7OLKQ2odKoPawS1eqZA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=B4BBb62uz7JRBUu5qdbSt1ICapDFxNt/wBbsLsvJ227zOk7cM/h4vdf4+EEMSvYJAxLuoIME+uRmZd/SUUBOWUlNj844GK4pqS6BW5u0n4g03L6ee9lA8kbx4o9/6uP310SRE+1VF4kHKN9Df5awPWdxldi41QSj+kr5CUBLVRk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W+7vHvTc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790106328; c=relaxed/simple;
+	bh=a/7BwpSpY6mpaPX2IIOTwLyYWdIL+4qn0H4aSvy6Olk=;
+	h=Date:To:From:Subject:Message-Id; b=jypx2cmlj5fK2buee7GRH33w4UupfKVGf+Joss5YDkANcpxGqPIYYvmYZEThdV6VQ5MRFbe2rSS4G2FWC9llkiWLA82pnkXNlWQuBC5ENeMx1bMwgmTXqwc66eqyWsYIWTRttyx/bOi2UMW0EVRDDnwWNJngRhIo/HhFb9/0q2A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=WCIDt/sV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W+7vHvTc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5010B1F000FF;
-	Tue, 22 Sep 2026 19:43:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790106228;
-	bh=r+5mQkfZvZFrhLSJD9Z7ZquDA9cQOMs7529isHu1yI0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=W+7vHvTclBIE9YlgTIS5tbbs+xda0sXFEWtKSrEau4F0zQioSTLm6/XDa5unGr2p+
-	 dcBslHd+jMOuF6XQZqPdlVirRxdT4SttdVf+FQ6y00KgMZx/wkHZe6KbHCUNeilPtd
-	 ADBaCBCBrR19Xh2eFzsFRL806EWl7xn3JNdmRaETHUpZ7a9tneDqXvKpmhKtpamTsd
-	 Ixv7dDqQZee0eh7/FbvmR9ySPZg/v3svdfnAnuj26+NQmy/wa4VUVg6mK+49L/4KO3
-	 b9aOV+9Wa/5NGDRptZ+VuaFp/VoIyKIQa0IX0t/BqkYdKjtWZhPsUA/uCrLuiqjZqh
-	 p6JuzjJQ0V2Tg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Yibo Tan <lhfff@tju.edu.cn>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] hwmon: (pwm-fan) Stop RPM timer before freeing tach data
-Date: Tue, 22 Sep 2026 15:43:46 -0400
-Message-ID: <20260922194346.51836-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092256-reword-critter-a4b6@gregkh>
-References: <2026092256-reword-critter-a4b6@gregkh>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="WCIDt/sV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7750F1F000FF;
+	Tue, 22 Sep 2026 19:45:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1790106326;
+	bh=2BRL1KfRL0JD5zpY8krUU0g8hecnNbyUjvcw+jbI/Fo=;
+	h=Date:To:From:Subject;
+	b=WCIDt/sV4aGQ3OF2bJ3c97VeaPCaAFtlrPK2vQs7W3Bmnn0ZnzJ2SARg65RXcSa4a
+	 heOW//haWHtTnqjEabiJtEb6ICQArjyGt7DoH2eDv66TDvCC91mMTeDGO2MH/vObQk
+	 bH9RxqGED0X1D37b7kp7lvCIIZ2m39OOH3rsVoLE=
+Date: Tue, 22 Sep 2026 12:45:26 -0700
+To: mm-commits@vger.kernel.org,thomas.weissschuh@linutronix.de,stable@vger.kernel.org,sashiko-bot@kernel.org,ryan.roberts@arm.com,mark.rutland@arm.com,leitao@debian.org,ekffu200098@gmail.com,dianders@chromium.org,chenhuacai@kernel.org,brauner@kernel.org,mhiramat@kernel.org,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: [wrecked] tools-bootconfig-fix-integer-overflow-and-truncation-in-size-checks.patch removed from -mm tree
+Message-Id: <20260922194526.7750F1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Yibo Tan <lhfff@tju.edu.cn>
 
-[ Upstream commit 26d5ff79768548efb1e604bb6e8697c101e06269 ]
+The quilt patch titled
+     Subject: tools/bootconfig: fix integer overflow and truncation in size checks
+has been removed from the -mm tree.  Its filename was
+     tools-bootconfig-fix-integer-overflow-and-truncation-in-size-checks.patch
 
-sample_timer() rearms the RPM timer and accesses the devm-managed
-ctx->tachs and ctx->pulses_per_revolution arrays. The cleanup action
-which stops the timer is registered before those arrays are allocated.
+This patch was dropped because other changes were merged, which wrecked this patch
 
-Since devres releases entries in reverse order, driver detach can free
-the arrays before pwm_fan_cleanup() shuts down the timer. A timer expiry
-in that window accesses the freed tach data.
+------------------------------------------------------
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Subject: tools/bootconfig: fix integer overflow and truncation in size checks
+Date: Fri, 11 Sep 2026 00:15:24 +0900
 
-With a KASAN kernel, a test-only kprobe delayed entry to
-pwm_fan_cleanup() while normal sysfs unbind ran. Each of three runs
-reported three four-byte reads and two four-byte writes in sample_timer()
-after its backing devm allocations had been freed. The helper did not
-invoke the timer callback, cleanup actions or free functions.
+Sashiko reported that on 32-bit systems, if an attacker crafts size in the
+bootconfig footer such that adding BOOTCONFIG_FOOTER_SIZE wraps around
+(for instance, if size is 0xFFFFFFFF), the size check in
+load_xbc_from_initrd() can be bypassed:
 
-With the fix, three matching unbind runs completed without KASAN, BUG,
-WARNING, Oops or panic. Instrumentation confirmed that timer retirement
-completed before the first timer backing allocation was released.
+    if (stat.st_size < size + BOOTCONFIG_FOOTER_SIZE) {
+        pr_err("bootconfig size is too big\n");
+        return -E2BIG;
+    }
 
-Split timer retirement from the power cleanup and register its devres
-action after the timer backing data and IRQ actions are installed. This
-preserves the early power rollback action while ensuring the timer is
-retired before its backing data is released. Use timer_shutdown_sync()
-because the callback can rearm itself.
+Furthermore, on 64-bit systems with an initrd > 4.29 GB, comparing a
+corrupted 32-bit size (e.g.  0xFFFFFFFF) against stat.st_size -
+BOOTCONFIG_FOOTER_SIZE can also bypass the check if size is not bounded. 
+Similarly, load_xbc_file() passes 64-bit stat.st_size directly into the
+32-bit int size parameter of load_xbc_fd(), truncating large standalone
+files (>= 2GB).
 
-Fixes: 01695410d452 ("hwmon: (pwm-fan) Store tach data separately")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:GPT-5
-Signed-off-by: Yibo Tan <lhfff@tju.edu.cn>
-Link: https://patch.msgid.link/20260911071809.130151-1-lhfff@tju.edu.cn
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-[ adapted cleanup changes to the older pwm_fan_pwm_disable() and pwm_fan_shutdown() implementations. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+In both cases, passing 0xFFFFFFFF to load_xbc_fd() truncates to -1,
+resulting in malloc(0), an integer overflow in read(), and an
+out-of-bounds null-byte write.
+
+Fix this by:
+1. Rejecting size > XBC_DATA_MAX or
+   size > stat.st_size - BOOTCONFIG_FOOTER_SIZE in load_xbc_from_initrd().
+2. Rejecting stat.st_size > XBC_DATA_MAX in load_xbc_file() before passing
+   it to load_xbc_fd().
+3. Checking size < 0 || size > XBC_DATA_MAX defensively in load_xbc_fd().
+
+Link: https://lore.kernel.org/178905332413.213925.3179977110281463499.stgit@devnote2
+Fixes: 950313ebf79c ("tools: bootconfig: Add bootconfig command")
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260909161113.16C691F00A3A@smtp.kernel.org/
+Closes: https://lore.kernel.org/all/20260910010137.EE0431F000FF@smtp.kernel.org/
+Assisted-by: Antigravity:gemini-3.8-flash
+Reviewed-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+Cc: Breno Leitao <leitao@debian.org>
+Cc: Christian Brauner <brauner@kernel.org>
+Cc: Doug Anderson <dianders@chromium.org>
+Cc: Huacai Chen <chenhuacai@kernel.org>
+Cc: Marc Rutland <mark.rutland@arm.com>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
+Cc: <stable@vger.kernel.org>
 ---
- drivers/hwmon/pwm-fan.c | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/hwmon/pwm-fan.c b/drivers/hwmon/pwm-fan.c
-index f12b9a28a232d..05ba32d44230e 100644
---- a/drivers/hwmon/pwm-fan.c
-+++ b/drivers/hwmon/pwm-fan.c
-@@ -291,7 +291,13 @@ static void pwm_fan_pwm_disable(void *__ctx)
+ tools/bootconfig/main.c |   13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
+
+--- a/tools/bootconfig/main.c~tools-bootconfig-fix-integer-overflow-and-truncation-in-size-checks
++++ a/tools/bootconfig/main.c
+@@ -140,6 +140,9 @@ static int load_xbc_fd(int fd, char **bu
+ {
+ 	int ret;
  
- 	ctx->pwm_state.enabled = false;
- 	pwm_apply_state(ctx->pwm, &ctx->pwm_state);
--	del_timer_sync(&ctx->rpm_timer);
-+}
++	if (size < 0 || size > XBC_DATA_MAX)
++		return -EINVAL;
 +
-+static void pwm_fan_timer_cleanup(void *__ctx)
-+{
-+	struct pwm_fan_ctx *ctx = __ctx;
-+
-+	timer_shutdown_sync(&ctx->rpm_timer);
- }
- 
- static int pwm_fan_probe(struct platform_device *pdev)
-@@ -424,6 +430,10 @@ static int pwm_fan_probe(struct platform_device *pdev)
+ 	*buf = malloc(size + 1);
+ 	if (!*buf)
+ 		return -ENOMEM;
+@@ -168,6 +171,13 @@ static int load_xbc_file(const char *pat
+ 		return ret;
  	}
  
- 	if (ctx->tach_count > 0) {
-+		ret = devm_add_action_or_reset(dev, pwm_fan_timer_cleanup, ctx);
-+		if (ret)
-+			return ret;
++	if (stat.st_size > XBC_DATA_MAX) {
++		pr_err("%s size is too big\n", path);
++		ret = -E2BIG;
++		close(fd);
++		return ret;
++	}
 +
- 		ctx->sample_start = ktime_get();
- 		mod_timer(&ctx->rpm_timer, jiffies + HZ);
+ 	ret = load_xbc_fd(fd, buf, stat.st_size);
  
-@@ -490,6 +500,9 @@ static int pwm_fan_disable(struct device *dev)
+ 	close(fd);
+@@ -218,7 +228,8 @@ static int load_xbc_from_initrd(int fd,
+ 	csum = le32toh(csum);
  
- static void pwm_fan_shutdown(struct platform_device *pdev)
- {
-+	struct pwm_fan_ctx *ctx = platform_get_drvdata(pdev);
-+
-+	pwm_fan_timer_cleanup(ctx);
- 	pwm_fan_disable(&pdev->dev);
- }
- 
--- 
-2.53.0
+ 	/* Wrong size error  */
+-	if (stat.st_size < size + BOOTCONFIG_FOOTER_SIZE) {
++	if (size > XBC_DATA_MAX ||
++	    size > stat.st_size - BOOTCONFIG_FOOTER_SIZE) {
+ 		pr_err("bootconfig size is too big\n");
+ 		return -E2BIG;
+ 	}
+_
+
+Patches currently in -mm which might be from mhiramat@kernel.org are
+
+bootconfig-reject-unexpected-data-after-null-character.patch
+tools-bootconfig-consolidate-xbc_init-to-error-message-wrapper.patch
+bootconfig-skip-internal-tree-sanity-checks-in-kernel.patch
 
