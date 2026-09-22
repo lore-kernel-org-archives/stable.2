@@ -1,66 +1,56 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 481355427F9;
-	Tue, 22 Sep 2026 12:28:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11F3C38A29A;
+	Tue, 22 Sep 2026 12:28:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790080108; cv=none; b=hZItHC29q9SxtZO1jaJUlwzEn9WimZZ94FB7dB9hnT46eIDNaYiv3kQ4u2ALlzdH/HJE9a92w847WC1f7VANRp8XSxwS4baYZHI4Dl8GWqJwDrnn17NOgSoS9tDkjLoiizycYn5bia8pajXL9IpnBP30bMhI3b7/g31Ho9bqkfA=
+	t=1790080133; cv=none; b=CWX7tAJ38DYOEjD878WbDh1QZq4NBepmXxExtFqZs1vWiBxhJNMNWbsaRdsws7TJJKdLxFd1tv4YBjSVroRegEbCOlW8lmV69ut2ditLQmz0IP682fnU1r7NaXuI+UTivsjYyVkLJEL9HlgXGpluAKTLd06vfxdF8xsKBJ50kXE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790080108; c=relaxed/simple;
-	bh=EWY9Bvnz8rYWx3ifpprjhjFA3DIBpRife5PllKzgFkU=;
+	s=arc-20240116; t=1790080133; c=relaxed/simple;
+	bh=WwsWF/lpI0aKuZc167ppsxhbW8HrcFlp0JC6ZwKNtWs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GwDei5O2MMQi9mg+puv77jFBC95ZnzRDG+a3bgHa5cPQAbgVeBve/btab+Kyk69tZNdWbWEs/ldQqYCePf7mq7CidjMCN+Qm1+f2W5QKv1MLl9aQPkXvOnlBM9xOv9MJsV+tm9DirOudwG7gMC+GL+gCdD+u3A/8OiZ04PL8edg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Q+2yrDeJ; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=npKTurVBFE7Hmt7yvaXLxE4gjf3xd4poNRBw3hWd0f0XbUeLntNOITD4Rh4dYFUcQJmhVjzM0dJOejBybSm3BBk4SHfvWNuz3ONj8Rd1aaRS1LjvBhvCKbpx4jnMJNd1Dl4f37SZzQW8R+Qqmb4gzF981xUepwCIJ1Rhc7qM/A4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=zbKU06Pe; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Q+2yrDeJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790080106; x=1821616106;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=EWY9Bvnz8rYWx3ifpprjhjFA3DIBpRife5PllKzgFkU=;
-  b=Q+2yrDeJ4Cobb7GKAnbsaizErEIA6b+gu8/ypzYCfbgNM4fjk2FnlOCX
-   8HYg3gjdB3d6XXHHXUfExMssdSloeHEHz0qA4s+70kjVhIOZHOYOziP0Y
-   CXqY1xToGdR1+Oo/wUe5RY9sodbAHWd2fAnh8WPb/AWPWwsapRjg44Ozy
-   4aEUHPga1vF2zjs3tDcF4gCrv/GlnwDQb68gfNdme8Nv4xAJg4UYshWOD
-   rN5T3tiODiSGPuQhQm2bywCGe93Qvdo0SyakWYAoVdKqr5j2kLDJG+j2c
-   5/jMD1THuEosM3IYjf1h9Nk47SFHeAZGwTVxfpaq7MvNVMYOaEOUwSNrg
-   Q==;
-X-CSE-ConnectionGUID: um6dUMjHSSKaEfMfSQoJ7A==
-X-CSE-MsgGUID: eyV7aLxGQ/WIvJEoSNl00g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="108175236"
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="108175236"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 05:28:25 -0700
-X-CSE-ConnectionGUID: MSjZ7MenTlKCG44pM6XfDA==
-X-CSE-MsgGUID: 9XqblcrdRCOZIhU9GkIf0Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="281172922"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa005.fm.intel.com with ESMTP; 22 Sep 2026 05:28:23 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 3026C99; Tue, 22 Sep 2026 14:28:17 +0200 (CEST)
-Date: Tue, 22 Sep 2026 14:28:17 +0200
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: jens.glathe@oldschoolsolutions.biz
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Sebastian Reichel <sre@kernel.org>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	stable@vger.kernel.org, "Dr. David Alan Gilbert" <dave@treblig.org>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: [PATCH v4 2/3] usb: typec: mux: ps883x: add a delay after
- writing config regs
-Message-ID: <arJ0YRr5zhZU76Wx@black.igk.intel.com>
-References: <20260922-ps883x-disable-usb4-v4-0-0a7b5b70cba3@oldschoolsolutions.biz>
- <20260922-ps883x-disable-usb4-v4-2-0a7b5b70cba3@oldschoolsolutions.biz>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="zbKU06Pe"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=hGo6eU1o9GNAle32mTYCxcoAhPMYTLb0x27Bwef97sE=; b=zbKU06Pe5ofTFH3hIb6e3kLHxV
+	vvkmv+QxXAgWsqH9x6hfhwsU2WiVfEtBZU1drf7tsvbTw55Jw8EVG19V1VjMGkp6eiheKs1ITlkyg
+	gv8AjbOanmtDnIoFx63Ue++eEwPHejY2RBkTjaDx9pLGNyQKh7ZJ/D6xRYVUmdrhP54TAY1e1SWM+
+	9R2WeWDmD5Z4iXqiHVPu4IW88Bm/U8Fr4+WeAaLlwsHEKxjYx3Lwt/eHrtLIVCXbjrm1P5zdyiwfa
+	uzKjMCnT7Eoa/617a1bJJI/xFzcmlgChLv5rM6dsl7rbBl8Rr15SDp/EXGDwDhZsDb7NkGCm1TnfE
+	775SiK5Q==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x8zc2-00000005J89-0JzU;
+	Tue, 22 Sep 2026 12:28:42 +0000
+Date: Tue, 22 Sep 2026 05:28:42 -0700
+From: Christoph Hellwig <hch@infradead.org>
+To: Andrea Parri <parri.andrea@gmail.com>
+Cc: Christoph Hellwig <hch@infradead.org>,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	Christian Brauner <brauner@kernel.org>,
+	Joanne Koong <joannelkoong@gmail.com>,
+	Brian Foster <bfoster@redhat.com>,
+	Damien Le Moal <dlemoal@kernel.org>, Hannes Reinecke <hare@suse.de>,
+	Daniel Gomez <da.gomez@samsung.com>,
+	Pankaj Raghav <p.raghav@samsung.com>,
+	Dave Chinner <dchinner@redhat.com>, linux-xfs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 3/3] iomap: don't lose a failed direct I/O bio's error
+ when zeroing the tail
+Message-ID: <arJ0eljPZIuj5PFD@infradead.org>
+References: <20260921083133.2960-1-parri.andrea@gmail.com>
+ <20260921083133.2960-4-parri.andrea@gmail.com>
+ <20260921223432.GO6283@frogsfrogsfrogs>
+ <arIT5A3MR7VtCeba@infradead.org>
+ <arJF9USiUqIEWB1M@andreayoga.localdomain>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,61 +59,20 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260922-ps883x-disable-usb4-v4-2-0a7b5b70cba3@oldschoolsolutions.biz>
+In-Reply-To: <arJF9USiUqIEWB1M@andreayoga.localdomain>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-On Tue, Sep 22, 2026 at 02:20:20PM +0200, Jens Glathe via B4 Relay wrote:
-> From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+On Tue, Sep 22, 2026 at 11:10:13AM +0200, Andrea Parri wrote:
+> > > Why ssize_t?  iomap_dio_zero returns int, right?
+> > 
+> > More importantly iomap_dio_zero can only return an error for a
+> > logic bomb assert using WARN_ON.  I'd suggest to simply return without
+> > an error there and remove the handling of the iomap_dio_zero return
+> > value entirely, as it clearly casues more harm than it helps.
 > 
-> The connection-status registers need time to propagate through the
-> analog front-end (PLLs, lane training) after they are written. A 30 ms
-> delay after ps883x_configure() brings DisplayPort Alt Mode hotplug on
-> the Lenovo 40B0 to a reliable success rate.
-> 
-> Tested with T14s G6 and IdeaCentre Mini with the 40B0 dock on the HDMI
-> port with a Type-C host cable. Qualcomm firmware that programs this
-> retimer from an MCU uses a similar post-config delay.
-> 
-> Assisted-by: Grok(xAI):4.6
-> Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+> Agreed, that's cleaner than retyping the local.  I'll drop the
+> zerror/ret handling entirely for v2 and just call iomap_dio_zero()
+> without capturing its return.
 
-Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Please drop the return value from iomap_dio_zero entirely.
 
-> ---
->  drivers/usb/typec/mux/ps883x.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
-> 
-> diff --git a/drivers/usb/typec/mux/ps883x.c b/drivers/usb/typec/mux/ps883x.c
-> index a5696aef054ee..15aee1d613b1a 100644
-> --- a/drivers/usb/typec/mux/ps883x.c
-> +++ b/drivers/usb/typec/mux/ps883x.c
-> @@ -7,6 +7,7 @@
->  
->  #include <drm/bridge/aux-bridge.h>
->  #include <linux/clk.h>
-> +#include <linux/delay.h>
->  #include <linux/gpio/consumer.h>
->  #include <linux/i2c.h>
->  #include <linux/kernel.h>
-> @@ -184,6 +185,15 @@ static int ps883x_configure(struct ps883x_retimer *retimer, int cfg0,
->  		return ret;
->  	}
->  
-> +	/*
-> +	 * The retimer needs time after the connection-status registers are
-> +	 * written for the analog front-end (PLLs, lane training) to settle.
-> +	 * Without this, DisplayPort Alt Mode hotplug is unreliable on some
-> +	 * docks (e.g. Lenovo 40B0). Qualcomm firmware on platforms that
-> +	 * program this chip from an MCU uses a similar post-config delay.
-> +	 */
-> +	fsleep(30000);
-> +
->  	return 0;
->  }
->  
-> 
-> -- 
-> 2.53.0
-> 
-
--- 
-heikki
