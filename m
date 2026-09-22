@@ -1,87 +1,39 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71EFF4EB872
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 10:02:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B344F503BC4;
+	Tue, 22 Sep 2026 10:06:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790071323; cv=none; b=eWXqsAIQIOxdE7Lf5DThRXJC17+B3L1J8agfb5E9TlAySEihjTvcStvkPfW0/kE/BOru7ho+QYjQTEewBudTw1Oo5WovSqgiPgXQyuhunHyq/fBvtAT0GJe4Ek2wwy1hQekqTQOkOjST1uY6c/kBdBDg6X1EXiFpcAZQZgUEp9o=
+	t=1790071566; cv=none; b=kCOgPVYVikZBm1obzD+1OfCHWtwtMdilo+OZlWWtgnDqxqJQtQf1e9/kO50eHh4vOtITf6K/sCvDlWohHsmunSrZbDnB5b0A/YFZxLhGqwAXo+qVfBlApgGm197aw/QH2tEQpaVYy0brX/U4DQ/FDrM1Q7yV1mS60l9rKpsjJ34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790071323; c=relaxed/simple;
-	bh=207cRhtOF6NzUqdPBujl5zqVEED8VL4pXa16JxsEym4=;
+	s=arc-20240116; t=1790071566; c=relaxed/simple;
+	bh=W4nSWtq0rCx2aXdYYlhzNnRlElDXfo22KeIxkEuVqDw=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LuNx/cH0wQcoF9NXUvY34/jIlbYxv8VFpcsTxQ2tkNED8+CpaHxbU3ec/axWaKYszDl3F6W1DSjlI4ihFTRwLVZZmeftZO7vtXYVxjbHr0XResgC/DKS2OcEWcUrwYesQscLZwiwQxRvryMi3622ilSgW2FeMX5zI+Y0ufpn5xQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=RZVn7zS0; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=izfsOyU0; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 In-Reply-To:Content-Type; b=YwI5Xv7H8lgqoL/hz6SM4trUtuRDMYQwSc6DSGnucWAUPsHLWnLaHlHcf+lm3lznJkc2qqnApqTVnf6rnNj9e8hzFzrT9fS7sMSAdxrjIUgKCCUcFdiCDpCC5l8HpVpgTzoVgSpXTfuWdr9mfdoPa2qJdbkVC3ROm9rqRCRy4Cc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=eobpKmKk; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="RZVn7zS0";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="izfsOyU0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790071321;
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="eobpKmKk"
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 7FF85534096D;
+	Tue, 22 Sep 2026 12:05:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1790071553;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XPYZNeIyiYj7gOq6QRXPEwzFCOAwM8Zc2zjq+jeGRJc=;
-	b=RZVn7zS0I9XQtr+Xc+Ca01c/z2lF+HxgqikV2XA+24ZccRFBMGXw4Cx2l6nvXS0Jpe1pBS
-	w+BQUxRB5SrR4R6z+gJ5XURushvvWpnOnxbl4pHdimlPgp5/g7i7wGEFR9VIByaCNMjxQy
-	snJCDpNBeWDTJYOIglFAnHmLp5KqC9g=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-261-vc3jwhHbMl-ByMtZuSGuCQ-1; Tue, 22 Sep 2026 06:02:00 -0400
-X-MC-Unique: vc3jwhHbMl-ByMtZuSGuCQ-1
-X-Mimecast-MFC-AGG-ID: vc3jwhHbMl-ByMtZuSGuCQ_1790071319
-Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-487041c4c82so1209392f8f.2
-        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 03:01:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790071319; x=1790676119; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XPYZNeIyiYj7gOq6QRXPEwzFCOAwM8Zc2zjq+jeGRJc=;
-        b=izfsOyU0WFguVFQcG+kXD6kF4mRthWdF8+qSKJ0u563lMWVRRBVaBcZN+VOVdsnAB3
-         VWiiWrJBnF8Lq7BPr6RuilBlTq+Lwv8mCzgEU9T2095KpBXbTzL4Dz1yszUBpZfXv70W
-         lim2kjl/J4jQS0+HMmlrfDOzhaVRAFj7zkkFhEKULm30vEvgj7NfV27MdwF0EzXDQA2E
-         oIHW+2PhuPtuIDJXxVAFL5fHK23vOT0qhm5C84N5KyCixi0tADb21THNZtE/QOafsoHO
-         pmwWdrN5t7GeLWyMCYaY4YRR8SLAmPjvM4p/X3UbORfLDellbQwO+Sm647YUETs73Zud
-         iXcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790071319; x=1790676119;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XPYZNeIyiYj7gOq6QRXPEwzFCOAwM8Zc2zjq+jeGRJc=;
-        b=UbGcW2GIoDqM73T2h1kgjN2JrZB828QVW217YMNH7tDi4mpXaa/cACY9liB2bFC9rX
-         qrYQHwhWxNr49qIup5HqimAYjiB6iRcCIlAljVhKIpR1mz3PzSn/uWqHsMkMl0FcIlVO
-         tUxHrTcvPsaX4nnfIe1B1W+UrsOkyiI55qRJvyrAt2Iosf8jAIMIlCotM87NbGRn9vAU
-         r9UOtNXs/pci2qGAvV8xAJp1u09/vAH2sIRqjISl53j0ME2Y3zJMbUjdKE7OBDI+WifC
-         BZYvNXMI4dGQuIG2Uwe8cCLaFa9C19/XgwT6WAHVShcvSO+V+pqfCtsF/SweM4iV7ZuJ
-         DOfg==
-X-Forwarded-Encrypted: i=1; AKwUvBwGxNB4biZmxIB3/fs19Fh+Ij4UHxC3v3yLCANo2kU/M/MgCTfkIU+mkvHnB7b8jZJzaBfKwls=@vger.kernel.org
-X-Gm-Message-State: AFuF++kdPAp2aBJlFNKRyOfxAtq3eMZIIYkmEpH2sgdasSsyC1Hyb5s4
-	UdFGQYV5TAKBzmdWa3elMaUi/KOPSgIYd1EbvaYO2ya5BnIQuMWVqZZ/32tBE73mcpHe0M7GXp6
-	NGNxwf+uxORKlMJvLQmh8t3u+cIdrscwD9674RNEjL1dcqfpkdcAro5EqlQ==
-X-Gm-Gg: AYBFou3aS42iC/xAbTwtJHrTcvE1lNu33taCvEhJ/fv02DB3tpLdglQHf8iPmtRu+AY
-	cPyOY8S7/x10slXMBq239UliHPVuhHTW0LUk68K9kvvhhCFa65BEdjhmIBgRsYWQMqs2skeWYIL
-	sSEEZjuG41tB3HcKrlNn44Ux59eRJP2OnIw17KogSijW5ZSuI2GyXT6S6YneWLxoU1FAMQTf3e2
-	unHZCRffU4XZgvz2jhjBvkRdTRpb+LKJjDP9w5rDVBCjVlWeNjkWQGxHB2NIEmeH2Qpsff32OK3
-	zH8vB5qJd4wMPI6tXOUJa1WhC+7wbRkPEbMBf7FVyRj01y5Ph40D+UsIdDnXg37hJ2ZQfhSG/sl
-	O6PBdfGiQgT0DMU7orQGF/Pd6+jPwQrWWCeU48Pcpu1ragiPNF6eAHDO/6lvPGS1h/36o7ZlG+w
-	==
-X-Received: by 2002:a05:6000:38a:b0:487:36b:1816 with SMTP id ffacd0b85a97d-4871e244bd2mr18225744f8f.7.1790071318695;
-        Tue, 22 Sep 2026 03:01:58 -0700 (PDT)
-X-Received: by 2002:a05:6000:38a:b0:487:36b:1816 with SMTP id ffacd0b85a97d-4871e244bd2mr18225706f8f.7.1790071318182;
-        Tue, 22 Sep 2026 03:01:58 -0700 (PDT)
-Received: from [192.168.188.234] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48862795232sm3867019f8f.32.2026.09.22.03.01.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 22 Sep 2026 03:01:57 -0700 (PDT)
-Message-ID: <99bcc883-1cbb-46f9-9283-cd03e5efafe7@redhat.com>
-Date: Tue, 22 Sep 2026 12:01:56 +0200
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=vYjbKYQm+3MirI28Nbxa57oqPw0EyhcQBOTmEe/lJi0=;
+	b=eobpKmKkZJR896nYq1Y2ltBucdT5SJy00Xv7LHr1iectgFlYqUuZchSjKoJJASq8MR23sT
+	lKM1bAEplJtA4GtKFnwKf07xm/q1+Y4L+i6CtF6Cn/CYe0lP0NcJcniaig9xVH4j79uAKo
+	felpxt3PQDwACXABtD2Iqg9B9llTaiQ=
+Message-ID: <049e03e2-3648-4a8a-8959-d88a56545f4d@ixit.cz>
+Date: Tue, 22 Sep 2026 12:05:53 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -89,120 +41,127 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2] net: dsa: microchip: save the periodic output
- request
-To: Bastien Curutchet <bastien.curutchet@bootlin.com>,
- netdev-bot+sashiko@kernel.org
-Cc: woojung.huh@microchip.com, UNGLinuxDriver@microchip.com, andrew@lunn.ch,
- olteanv@gmail.com, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, richardcochran@gmail.com, ceggers@arri.de,
- arun.ramadoss@microchip.com, pascal.eberhard@se.com,
- miquel.raynal@bootlin.com, thomas.petazzoni@bootlin.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260917-fix-perout-v2-1-d8acf3eea6f7@bootlin.com>
- <178998077822.2160803.3867886756893254872@kernel.org>
- <635cfefd-c588-4b3f-bbc4-1cf11ef0a2c5@bootlin.com>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <635cfefd-c588-4b3f-bbc4-1cf11ef0a2c5@bootlin.com>
+Subject: Re: [PATCH v2] nfc: nci: ignore unexpected CORE_RESET_NTF and
+ CORE_RESET_RSP
+To: Yuchao Zhang <ndaugoing@gmail.com>, Simon Horman <horms@kernel.org>
+Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260921125805.224979-1-horms@kernel.org>
+ <20260922080750.35929-1-ndaugoing@gmail.com>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <20260922080750.35929-1-ndaugoing@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 9/22/26 08:32, Bastien Curutchet wrote:
-> On 9/21/26 10:52 AM, netdev-bot+sashiko@kernel.org wrote:
->> Thank you for your contribution! Sashiko AI review found 2 potential
->> issue(s) to consider.
->>
->> Critical: 0 · High: 1 (2) · Medium: 1 (2) · Low: 0 (1)
->>
->> If you believe none of the issues are legitimate, please reply to each
->> issue of Medium severity or higher and explain why the AI is wrong.
->> If any of them are legitimate and you plan to respin, please let patchwork
->> know by including "pw-bot: cr" as a separate line at the end of your reply
->> (one such reply per series is enough).
->>
->> - [High] ksz_ptp_enable_perout()
->>    (drivers/net/dsa/microchip/ksz_ptp.c:226) commits the caller-supplied…
->> - [Medium] The commit message states that 'if a flag was set in the
->>    request that triggered the periodic output, it is lost when the output…
->>
->> Pre-existing issues:
->> - [High] A non-canonical but ABI-accepted period whose timespec64
->>    conversion is zero (e.g. period.sec = -1, period.nsec = 1000000000;…
->> - [High] In ksz_ptp_restart_perout()
->>    (drivers/net/dsa/microchip/ksz_ptp.c) the elapsed-period quotient is…
->> - [Medium] The device exposes three trigger output units (caps.n_per_out
->>    = 3 at drivers/net/dsa/microchip/ksz_ptp.c:1056, PTP_TOU_INDEX =…
->> - [Medium] ksz_ptp_enable_perout() resolves the output pin with
->>    ptp_find_pin() (drivers/net/dsa/microchip/ksz_ptp.c:206).
->> - [Low] ksz_ptp_tou_reset() (drivers/net/dsa/microchip/ksz_ptp.c:66-86)
->>    assigns the result of the TRIG_RESET read-modify-write to 'ret' at…
->>
->> -- 
->>
->> net: dsa: microchip: save the periodic output request
->>
->> The patch replaces the two stored timespec64 values (perout_target_time_first
->> and perout_period) in struct ksz_ptp_data with a copy of the full
->> ptp_perout_request, so that the index and flags survive a perout restart.
->> ksz_ptp_restart_perout() now replays the saved request with only the start
->> time recomputed.
->>
->> A few questions below.
->>
->>>      When a periodic output is initialized, only the start and the period are
->>>      stored, not the flags nor the pin index. So when the periodic output is
->>>      restarted, the request flags and index are always set to 0. So if a pin
->>>      other than the first one was used, or if a flag was set in the request
->>>      that triggered the periodic output, it is lost when the output is
->>>      restarted.
->>
->> [Severity: Medium]
->> Can request->flags ever be non-zero in this driver?
->>
->> ksz_ptp_clock_register() sets caps.n_pins, caps.n_per_out and the callbacks,
->> but never sets caps.supported_perout_flags, and caps lives in the zeroed
->> struct ksz_device, so the mask stays 0. The core rejects any flag that is not
->> advertised before it calls the driver:
->>
->> drivers/ptp/ptp_chardev.c:ptp_perout_request() {
->>     ...
->>     if (perout->flags & ~ops->supported_perout_flags)
->>         return -EOPNOTSUPP;
->>     ...
->>     return ops->enable(ops, &req, perout->period.sec || perout->period.nsec);
->> }
->>
+On 22/09/2026 10:07, Yuchao Zhang wrote:
+> Commit bcd684aace34 ("net/nfc/nci: Support NCI 2.x initial sequence")
+> added handling of CORE_RESET_NTF in nci_core_reset_ntf_packet(). When
+> received, it updates ndev->nci_ver, ndev->manufact_id, and
+> ndev->manufact_specific_info, and calls nci_req_complete(ndev,
+> NCI_STATUS_OK) to finish the pending reset request.
 > 
-> This check is 'fairly' recent, it was added by d9f3e9ecc456 ("net: ptp: introduce .supported_perout_flags to ptp_clock_info") (v6.15). I experienced the reset issue on a v6.12 kernel.
+> However, unlike other notification handlers in ntf.c (which validate
+> ndev->state before completing requests), nci_core_reset_ntf_packet()
+> does not check whether a core reset request is actually pending.
+> If an unsolicited or delayed CORE_RESET_NTF arrives (e.g. after a reset
+> command times out or from a misbehaving NFCC), it unconditionally:
+> 1. Completes whatever request is currently in-flight (such as CORE_INIT,
+>     RF_DISCOVER, or CONN_CREATE) with NCI_STATUS_OK, leading to kernel
+>     state desynchronization.
+> 2. Overwrites ndev->nci_ver and manufacturer info. Because
+>     ndev->nci_ver is used as a selector for subsequent packet formats
+>     and parsers (e.g., in nci_open_device() and nci_core_init_rsp_packet()),
+>     unexpectedly modifying it can cause protocol format confusion.
 > 
-> Even if it can't happen right now, as soon as this driver registers any new flag, the bug will come back.
+> A similar issue exists in nci_core_reset_rsp_packet(): an unexpected or
+> delayed response packet can prematurely complete an unrelated in-flight
+> request.
 > 
+> Fix this by ensuring CORE_RESET_NTF and CORE_RESET_RSP are only processed
+> by the core layer when a reset command is actively awaiting them:
+> - Set NCI_RESET_PENDING in nci_reset_req() when sending CORE_RESET_CMD.
+> - In nci_core_reset_rsp_packet(), ignore the response if NCI_RESET_PENDING
+>    is not set. If set, clear the flag and complete the request on failure
+>    or for NCI 1.x (checking skb->len >= sizeof(*rsp)).
+> - In __nci_request(), ensure NCI_RESET_PENDING is cleared upon request
+>    completion, cancellation, or timeout.
+> - In nci_core_reset_ntf_packet(), skip power-on notifications (trigger
+>    0x01, identical in NCI 1.0 and 2.0), then check and clear
+>    NCI_RESET_PENDING before updating device fields and completing the
+>    request. The CORE_RESET_CMD trigger value is revision-dependent
+>    (0x00 in NCI 1.0, 0x02 in NCI 2.0), so both are accepted and gated
+>    on NCI_RESET_PENDING alone. If unexpected, log a warning and return
+>    0 so driver-specific handlers (such as fdp firmware patch handling)
+>    still receive the notification.
 > 
-> 
-> All others comments are already existing issues that can be fixed independently from this patch so I don't plan to address them right now.
-This one:
+> Fixes: bcd684aace34 ("net/nfc/nci: Support NCI 2.x initial sequence")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yuchao Zhang <ndaugoing@gmail.com>
+> ---
+> v2:
+>   - Do not abort the notification pipeline on unexpected CORE_RESET_NTF (return 0
+>     instead of -EINVAL), preserving driver-level hooks (e.g. fdp firmware
+>     patching) per Simon Horman.
+>   - Skip power-on notifications (trigger 0x01, identical in NCI 1.0 and 2.0)
+>     while gating both NCI 1.0 (0x00) and NCI 2.0 (0x02) command-triggered resets
+>     on NCI_RESET_PENDING alone.
+>   - Check NCI_RESET_PENDING in nci_core_reset_rsp_packet() to avoid completing
+>     unrelated requests on unexpected responses.
+>   - Explicitly check skb->len >= sizeof(*rsp) in nci_core_reset_rsp_packet()
+>     for NCI 1.x handling.
+Hello Yuchao,
 
-"""
-Should the request be committed to ptp_data->perout_request only after it has
-been validated and the hardware has actually been programmed?
-[...]
+please never send follow-ups as part of the thread. Always send them as a 
+separate message (otherwise they may get lost and we already have patchwork wich 
+can track the submissions.
 
-There is also a period that this check rejects but the memcpy has already
-stored: period.sec = 4, period.nsec = 294967296 gives 0x100000000 ns, and
-TRIG_CYCLE_WIDTH_M is GENMASK(31, 0), so the request returns -EINVAL. On the
-next clock step, ksz_ptp_restart_perout() feeds that value to
-div_u64(now_ns - first_ns, period_ns), whose divisor parameter is u32, so the
-divisor truncates to 0. Is that a divide error in process context with
-ptp_data->lock held?
-"""
+Even better, try to use tools such as b4 to submit patches (easier for you, sent 
+in expected format for us).
 
-Looks new to me, and bad.
-
-Also if the issue you are observing on an older kernel is already fixed in
-the vanilla tree, I suggest instead sending to stable the relevant change.
-
-Thanks,
-
-Paolo
-
+Thanks
+David
