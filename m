@@ -1,42 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8663F494835
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 18:40:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1D7E48F02F
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 18:40:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790102450; cv=none; b=nIVcLxxCpeDDGkuMJEOZHs5WXzoLP+JyArXhghuFw7eHUB327YK1thM+nXJc48jaEL0HGJ9v3rFS5QVVqnO5NfYt+uxTT+ymDALRKEOqYKwBFmW30Im5qp9Nme3uhX0E1PjfFVlc17UQe3UJYL3CDyQYORKLRXxXP2w96oWSEM8=
+	t=1790102451; cv=none; b=PWDXJSFO6kX3SM93CraSS2Wmw1/KGnlEkdGn9yLHxh1NHo51qb6EWbks10+tUI3cUqqdX8HHRscVIcyFlUnasZRTOIWQe6p1fxrPwl56suSYIpoOFz88SxvziCuYk58YUggqnQGqxsbdjUJRx3P5xbjF76aRSgdnhjiyWByoP+4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790102450; c=relaxed/simple;
-	bh=4qrutqATbNF86wPThifHYWbladvv+DQbCwx/E2LflEw=;
+	s=arc-20240116; t=1790102451; c=relaxed/simple;
+	bh=cKt8VswxBxfYlu6pNq+iqQhxhtHwKEfC46NIFIwrhmk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PkKKicVkAbhVkOYRGqCHBKVT0nq9+mqvFe3avMJw3PWISoQ36bUK5rbga4RD11y1XSPawoxherztn0r84/WuF9d4sV1/POD274oIqL+qqtoUq08t/WRHTl7M+2AVd/LDV8Yqqu5n1Dp8/FASB3ij7jmUbKAw+Z+FxqpCQR49J8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ACf8Ne7k; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Wb9zCwQZv/jXWw+s6pJHHvnYNSksF0xYPQZa5H+hnyjoA7eZ4iSz77LIc3Z753mLQbupDAPJJ5qSuu4B1zRbAQE19pmm81Il8lccUrnNzNsovyZEa05u8zKAgKeVgglkhY/pMfiKRegiXwGy3bplFJ1HDbXg5kE8ONZqRbeNyHg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T94jVAhU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ACf8Ne7k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCE8A1F000FF;
-	Tue, 22 Sep 2026 18:40:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T94jVAhU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABC681F00898;
+	Tue, 22 Sep 2026 18:40:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790102447;
-	bh=WkmmHACeLJFqWw0MH2W1q15T2KgehouT7ZXnypSKPkU=;
+	s=k20260515; t=1790102449;
+	bh=beBfvZjipTC+6sZaM3ukWFGtmgxLCucMdKK7nhfZw5c=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ACf8Ne7kq31AICk0rAwbqNT3k2a7uPxCk64/Jdyo0ltBbkNMoUel6Knw8a4OCDGAE
-	 GNFhFhqXqPiqNu1qWqGQjPSlapOxaxdO7ssGDMhtNofXf29jCyl15aFWl5awJTU3wo
-	 7SjJebEcm6xY33mo+SsCeiPCFOARLGIUVdyTf5nyWG6HzdzIrF1eC+uTX8PGYLvfB8
-	 hSNicVgzYqUA3C8fUfgiEeEdWOB0EK6pP+XwewXtQZXTja0B0KL9n82pUSkSYrhgk2
-	 KjWyuIW+sXnkAn9In0bpBo3QisuXqpk85kJy+OuK/xvw8BA/PFHspvCATooQ5vB/ZT
-	 dgFJyZ0FHMK1g==
+	b=T94jVAhUpBDYSUZzJ7T0G7di5O/PQ1LthGEYRFJXVGbwQTkNPniR1VpZdAiuHpMjP
+	 xeZUNacwB2jQcE1yn+Vep5IhYe9TXiqAZ05AuBRuPvxeFrq9Zvf7JRrwF2LfV2ROr1
+	 bz21Q/J2iC1EeqEeFED3bbheefbUMcoa1AYC33oLLwB7J5hW+W6uz/jIFVYJLvhaQO
+	 g6OwB0Qkvyfx6AA87B/g1ILgN174hNuX+7V103Z3lGVOOVHkKiMxTBxPcGX3lF3N9z
+	 HlVwo2sx/H4Jfj7XvUqWZkdKmgji2J3NTyLPhiUvr+xQpHF3tTZuHEXcOABFi+uj8z
+	 kvZII2vQ0bIcw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Yibo Tan <lhfff@tju.edu.cn>,
-	Guenter Roeck <linux@roeck-us.net>,
+Cc: Fan Wu <fanwu01@zju.edu.cn>,
+	Song Li <songl@zju.edu.cn>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] hwmon: (pwm-fan) Stop RPM timer before freeing tach data
-Date: Tue, 22 Sep 2026 14:40:45 -0400
-Message-ID: <20260922184045.3744020-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] wifi: wcn36xx: Fix potential use-after-free in TX ack timer teardown
+Date: Tue, 22 Sep 2026 14:40:47 -0400
+Message-ID: <20260922184047.3744251-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092254-carat-drift-7011@gregkh>
-References: <2026092254-carat-drift-7011@gregkh>
+In-Reply-To: <2026092257-dyslexic-stinging-ab11@gregkh>
+References: <2026092257-dyslexic-stinging-ab11@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,89 +47,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yibo Tan <lhfff@tju.edu.cn>
+From: Fan Wu <fanwu01@zju.edu.cn>
 
-[ Upstream commit 26d5ff79768548efb1e604bb6e8697c101e06269 ]
+[ Upstream commit d9be5e75530772fc31637070d51e5717d6aeaa2a ]
 
-sample_timer() rearms the RPM timer and accesses the devm-managed
-ctx->tachs and ctx->pulses_per_revolution arrays. The cleanup action
-which stops the timer is registered before those arrays are allocated.
+wcn36xx_dxe_deinit() tears down the TX ack timer with timer_delete(),
+which only dequeues the timer and does not wait for a callback that is
+already executing; the preceding free_irq() calls synchronize the
+interrupt handlers only. The callback, wcn36xx_dxe_tx_timer(), can
+therefore be running past the teardown and use the wcn freed along
+with the ieee80211_hw in wcn36xx_remove(): it takes wcn->dxe_lock,
+reads wcn->tx_ack_skb and passes wcn->hw to
+ieee80211_tx_status_irqsafe().
 
-Since devres releases entries in reverse order, driver detach can free
-the arrays before pwm_fan_cleanup() shuts down the timer. A timer expiry
-in that window accesses the freed tach data.
+Fix this by using timer_shutdown_sync(), which waits for a running
+callback and also prevents the timer from being rearmed again. The
+timer is set up again by wcn36xx_dxe_init() on the next start, so the
+start/stop cycle is unaffected.
 
-With a KASAN kernel, a test-only kprobe delayed entry to
-pwm_fan_cleanup() while normal sysfs unbind ran. Each of three runs
-reported three four-byte reads and two four-byte writes in sample_timer()
-after its backing devm allocations had been freed. The helper did not
-invoke the timer callback, cleanup actions or free functions.
+This issue was found by an in-house static analysis tool.
 
-With the fix, three matching unbind runs completed without KASAN, BUG,
-WARNING, Oops or panic. Instrumentation confirmed that timer retirement
-completed before the first timer backing allocation was released.
-
-Split timer retirement from the power cleanup and register its devres
-action after the timer backing data and IRQ actions are installed. This
-preserves the early power rollback action while ensuring the timer is
-retired before its backing data is released. Use timer_shutdown_sync()
-because the callback can rearm itself.
-
-Fixes: 01695410d452 ("hwmon: (pwm-fan) Store tach data separately")
+Fixes: fdf21cc37149 ("wcn36xx: Add TX ack support")
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:GPT-5
-Signed-off-by: Yibo Tan <lhfff@tju.edu.cn>
-Link: https://patch.msgid.link/20260911071809.130151-1-lhfff@tju.edu.cn
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-[ Adapted cleanup changes to the older pwm_fan_cleanup() using del_timer_sync() without pwm_shutdown handling. ]
+Assisted-by: LLM
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Link: https://patch.msgid.link/20260910020907.3353-1-fanwu01@zju.edu.cn
+Signed-off-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+[ Adapted the patch to replace del_timer() instead of timer_delete(). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hwmon/pwm-fan.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+ drivers/net/wireless/ath/wcn36xx/dxe.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/hwmon/pwm-fan.c b/drivers/hwmon/pwm-fan.c
-index b67bc9e833c01..90254f8eb56f6 100644
---- a/drivers/hwmon/pwm-fan.c
-+++ b/drivers/hwmon/pwm-fan.c
-@@ -466,12 +466,18 @@ static void pwm_fan_cleanup(void *__ctx)
- {
- 	struct pwm_fan_ctx *ctx = __ctx;
+diff --git a/drivers/net/wireless/ath/wcn36xx/dxe.c b/drivers/net/wireless/ath/wcn36xx/dxe.c
+index 9013f056eecb4..02e66839ab3ac 100644
+--- a/drivers/net/wireless/ath/wcn36xx/dxe.c
++++ b/drivers/net/wireless/ath/wcn36xx/dxe.c
+@@ -1055,7 +1055,7 @@ void wcn36xx_dxe_deinit(struct wcn36xx *wcn)
  
--	del_timer_sync(&ctx->rpm_timer);
- 	/* Switch off everything */
- 	ctx->enable_mode = pwm_disable_reg_disable;
- 	pwm_fan_power_off(ctx);
- }
+ 	free_irq(wcn->tx_irq, wcn);
+ 	free_irq(wcn->rx_irq, wcn);
+-	del_timer(&wcn->tx_ack_timer);
++	timer_shutdown_sync(&wcn->tx_ack_timer);
  
-+static void pwm_fan_timer_cleanup(void *__ctx)
-+{
-+	struct pwm_fan_ctx *ctx = __ctx;
-+
-+	timer_shutdown_sync(&ctx->rpm_timer);
-+}
-+
- static int pwm_fan_probe(struct platform_device *pdev)
- {
- 	struct thermal_cooling_device *cdev;
-@@ -606,6 +612,10 @@ static int pwm_fan_probe(struct platform_device *pdev)
- 	}
- 
- 	if (ctx->tach_count > 0) {
-+		ret = devm_add_action_or_reset(dev, pwm_fan_timer_cleanup, ctx);
-+		if (ret)
-+			return ret;
-+
- 		ctx->sample_start = ktime_get();
- 		mod_timer(&ctx->rpm_timer, jiffies + HZ);
- 
-@@ -647,6 +657,7 @@ static void pwm_fan_shutdown(struct platform_device *pdev)
- {
- 	struct pwm_fan_ctx *ctx = platform_get_drvdata(pdev);
- 
-+	pwm_fan_timer_cleanup(ctx);
- 	pwm_fan_cleanup(ctx);
- }
- 
+ 	if (wcn->tx_ack_skb) {
+ 		ieee80211_tx_status_irqsafe(wcn->hw, wcn->tx_ack_skb);
 -- 
 2.53.0
 
