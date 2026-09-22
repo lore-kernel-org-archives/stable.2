@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F58B4A5C24
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 19:33:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70A304A5C29
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 19:34:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790105641; cv=none; b=QzIQMlmksMUmHAXKZUtSko43tQy2l6kitniRbHI+Lt4HFhz3SV85bDfHyq04WqM01AnBL4PVElPTMSwfAL8rtsWUmF4ZsJrmFf7/3VL6O00iL/6UVrvZnkPkE1f2CsR59HduEHQFCgCHKnqbBaa/NISq3faa+27RpKy3zfHqrQo=
+	t=1790105643; cv=none; b=dsXmGllExMMw/dhimO6aqyinkZ2n1SOJdNJT5H2mMRkfMc2PzjeAEtNUGoQezGsbQHf6pe9ImdwtzP4nP/uTHuL00j8qiuj0lB2EOmUdYQ1zcTvaKYrvYqrGvMCGJQ6XF+lK5PJAj/niTyOTfCjc2AApcyBGc5+r2srxN0SJ9MA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790105641; c=relaxed/simple;
-	bh=baPp316kSexsGxxnG9qcVtoL/pkYlvfritzxgBrxQDE=;
+	s=arc-20240116; t=1790105643; c=relaxed/simple;
+	bh=3RzoHKVKo7Qtp89ur7QHIFqP7wYS71hqd05ZnBxdBNs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cv7cCHkJa2s6t6XbiESsp5/v3yXydBm0rSSN5vzo8lcEdUlxih93rLJUHnTcaCIuXrLe6E6vFd/i9YldKGfI/xTNvQYWlyeSww1tzLDSHNXYqo2rlCdFnkIwAY0IsuZxcG2Jj3GjUqxRNWRv2EpcKBPGqrWbVu4ySOanO3rlPog=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eIvXjU+T; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=fPnWblU/fRdtLK1bk8UWziGM5OaONwNqOciv/dXyd91THwtmZ6QP3/xKIi68wHJ3+p1i78HcfGTD2xxeONY6rE5rxR22Po2FiyJpcfDKXFWzLQvkDDABLbP0hwFUU/RTF/68JN7ll2vyVoI1v5HBzBOr8j4c9bryy/XSOEyxTO0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R7UqtTMJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eIvXjU+T"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 196151F00893;
-	Tue, 22 Sep 2026 19:33:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R7UqtTMJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87BB21F000FF;
+	Tue, 22 Sep 2026 19:34:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790105639;
-	bh=U+WE309/aTJOqLYFaXJnE2MjyFd/XtynudBFSyWn2X8=;
+	s=k20260515; t=1790105642;
+	bh=ekKejQfhfRhUbtqx0xS+zIE+onjkuxc8qD5kS5fI7Ww=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eIvXjU+T2cVxzEmUfpCM/RU3FewtgpzFyQYClREIlbbdwVLLj5v6X3wcsdhPQ/bYx
-	 twfrd5rj/dkMnYuUVIeEiu3lJB0qf9IbDB2zo/2MdTqHttqu1zB+UGXq3TFU5J/KKf
-	 tDG+vAY//vMN7Ov7H5ZFP/MsveTU6yl9Wh3fmKu9se7O/MQBx1+2yc8G21wlHBxMKd
-	 7wGP0iEQCsDTyTpyzfMDiCqybU2nqAw7gVq1pmBsjihZp985NKjCwd0Ana5wajJmcp
-	 i9ziVtFTNFKd1XUzqZTXTY746EFTPdP7uoj3MVteoAr/w2UF76FDtukQvSk1/2PLGc
-	 uOC9QvFOwo9Ew==
+	b=R7UqtTMJ2La+bx2gNH/+1IQ7Ud4sFJpNPT8fbRigELihcfLqtm3WWtP6sEiDVfTRf
+	 MjowgS6baKJIo6stbraf+HUxlyBafrXn9Fy4whp1kEU3qzNJtf6t+AYat8yj5ghN9z
+	 0gwvi4winH8LDaHuVSmjLiOSED9/uivJOtbMCJgLJg2TiinkdkD0lRHu3C3zIc8ydZ
+	 JCNZctmY5AyNbcE6WrWVaPL2Iiwer4DLLA3ZTi2VDS9nJgwKWWyWuGwFycKXD3Lr4x
+	 u5wCRolluf+nkYL21C7Yk/FOdZvzbIuuBFLQp8w1s/Sj8AIw0vr6yjgk/o//hG1D6g
+	 QHFENWQkns4mQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Joseph Qi <joseph.qi@linux.alibaba.com>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Paulo Alcantara <pc@manguebit.org>,
+Cc: chong li <chongli2@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] smb: client: fix use-after-free of iface in cifs_try_adding_channels()
-Date: Tue, 22 Sep 2026 15:33:56 -0400
-Message-ID: <20260922193356.4155447-2-sashal@kernel.org>
+Subject: [PATCH 7.2.y 1/2] drm/amdgpu: reduce early full GPU access during SR-IOV init
+Date: Tue, 22 Sep 2026 15:33:59 -0400
+Message-ID: <20260922193400.4156340-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260922193356.4155447-1-sashal@kernel.org>
-References: <2026092253-trailing-directed-c0c9@gregkh>
- <20260922193356.4155447-1-sashal@kernel.org>
+In-Reply-To: <2026092210-sprinkled-coherent-e132@gregkh>
+References: <2026092210-sprinkled-coherent-e132@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,192 +45,175 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
+From: chong li <chongli2@amd.com>
 
-[ Upstream commit d034e836eefd7ce75e588f7031cffbeec594f5ac ]
+[ Upstream commit cba4928cdffaa0f9012acff0ec4f896320107077 ]
 
-cifs_try_adding_channels() iterates ses->iface_list with
-list_for_each_entry_safe_from(), which captures the next entry
-(niface) under iface_lock.  The loop body then drops iface_lock for
-the whole duration of cifs_ses_add_channel().
+Allow early FB reads to fall back to BAR0 when the VRAM aperture is not ready.
+This lets SR-IOV VFs consume host-provided init data before requesting full GPU access.
 
-A concurrent interface refresh (SMB3_request_interfaces() ->
-parse_server_interfaces()) marks all ifaces inactive and removes and
-frees any that are not re-advertised via list_del() + kref_put(),
-where release_iface() is a bare kfree().  Since niface typically has
-no channel holding a reference, the list reference is its last and it
-can be freed inside the unlocked window.  On continue, the iterator
-advance step then dereferences niface->iface_head.next, and the loop
-body reads iface->rdma_capable/is_active, both on freed memory.
+For ASICs that support request_init_data,
+defer full GPU access until after non-GPU early init to shorten the full-access window.
 
-Fix this by never keeping an unreferenced list pointer across the
-unlocked window.  Each channel attempt now re-scans the list from the
-head under iface_lock, takes a kref on the selected candidate, and
-passes only that referenced candidate to cifs_ses_add_channel().
-weight_fulfilled still tracks selection progress, so restarting the
-scan preserves the original weighted distribution and the
-weight_fulfilled-before-kref_put ordering on the failure path.
+Legacy ASICs(before NV12) do not send request_init_data;
+the host dumps init data only during full GPU access,
+so keep the original early full-access request path for them.
 
-Add a per-pass attempts cap so a flapping interface refresh cannot
-keep the inner loop spinning within a single tries increment.
-
-Fixes: aa45dadd34e4 ("cifs: change iface_list from array to sorted linked list")
-Cc: stable@vger.kernel.org
-Assisted-by: Qoder:Qwen3.8-Max
-Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Acked-by: Shyam Prasad N <sprasad@microsoft.com>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+Signed-off-by: chong li <chongli2@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Stable-dep-of: 04de4007d323 ("drm/amdgpu: Fix GPU PCIe link capability reporting")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/client/sess.c | 106 ++++++++++++++++++++++++++-----------------
- 1 file changed, 64 insertions(+), 42 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 88 ++++++++++++++++++++--
+ drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c      |  7 +-
+ 2 files changed, 88 insertions(+), 7 deletions(-)
 
-diff --git a/fs/smb/client/sess.c b/fs/smb/client/sess.c
-index 84bc7f70dbbea..cc211f5b6d1b2 100644
---- a/fs/smb/client/sess.c
-+++ b/fs/smb/client/sess.c
-@@ -175,9 +175,9 @@ int cifs_try_adding_channels(struct cifs_ses *ses)
- 	int old_chan_count, new_chan_count;
- 	int left;
- 	int rc = 0;
--	int tries = 0;
-+	int tries = 0, attempts;
- 	size_t iface_weight = 0, iface_min_speed = 0;
--	struct cifs_server_iface *iface = NULL, *niface = NULL;
-+	struct cifs_server_iface *iface = NULL, *candidate = NULL;
- 	struct cifs_server_iface *last_iface = NULL;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index ddfc51a92d79d..5934fe1b295b3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -750,6 +750,64 @@ void amdgpu_device_mm_access(struct amdgpu_device *adev, loff_t pos,
+ 	drm_dev_exit(idx);
+ }
  
- 	spin_lock(&ses->chan_lock);
-@@ -223,67 +223,89 @@ int cifs_try_adding_channels(struct cifs_ses *ses)
- 			break;
- 		}
- 
--		if (!iface)
--			iface = list_first_entry(&ses->iface_list, struct cifs_server_iface,
--						 iface_head);
- 		last_iface = list_last_entry(&ses->iface_list, struct cifs_server_iface,
- 					     iface_head);
- 		iface_min_speed = last_iface->speed;
-+		spin_unlock(&ses->iface_lock);
- 
--		list_for_each_entry_safe_from(iface, niface, &ses->iface_list,
--				    iface_head) {
--			/* do not mix rdma and non-rdma interfaces */
--			if (iface->rdma_capable != ses->server->rdma)
--				continue;
--
--			/* skip ifaces that are unusable */
--			if (!iface->is_active ||
--			    (is_ses_using_iface(ses, iface) &&
--			     !iface->rss_capable))
--				continue;
-+		attempts = 0;
-+		while (left > 0) {
-+			spin_lock(&ses->iface_lock);
- 
--			/* check if we already allocated enough channels */
--			iface_weight = iface->speed / iface_min_speed;
-+			/*
-+			 * iface_lock must be dropped while opening a channel,
-+			 * and a concurrent interface refresh may remove and
-+			 * free entries during that window, so no list entry
-+			 * may be kept across it without a reference.  Scan
-+			 * the list from the beginning each time and only pass
-+			 * a referenced candidate to cifs_ses_add_channel();
-+			 * weight_fulfilled tracks the progress so that no
-+			 * iface is selected beyond its weight.
-+			 */
-+			candidate = NULL;
-+			list_for_each_entry(iface, &ses->iface_list, iface_head) {
-+				/* do not mix rdma and non-rdma interfaces */
-+				if (iface->rdma_capable != ses->server->rdma)
-+					continue;
++#ifdef CONFIG_64BIT
++/*
++ * During early SR-IOV VF init, host-provided init data can live in FB before
++ * the normal VRAM aperture mapping is ready.  Use a temporary BAR0 mapping for
++ * reads only, and verify it matches the VRAM aperture when aperture information
++ * is already available.
++ */
++static int amdgpu_device_read_fb_via_bar0(struct amdgpu_device *adev,
++					  u64 offset, void *buf, size_t size)
++{
++	resource_size_t aper_base, aper_size, bar_start, bar_size, map_base;
++	void __iomem *vram;
++	size_t map_offset, map_size;
++	unsigned long flags;
++	u64 end;
 +
-+				/* skip ifaces that are unusable */
-+				if (!iface->is_active ||
-+				    (is_ses_using_iface(ses, iface) &&
-+				     !iface->rss_capable))
-+					continue;
++	if (!buf || !size)
++		return -EINVAL;
 +
-+				/* check if we already allocated enough channels */
-+				iface_weight = iface->speed / iface_min_speed;
++	flags = pci_resource_flags(adev->pdev, 0);
++	if ((flags & IORESOURCE_UNSET) || !(flags & IORESOURCE_MEM))
++		return -EINVAL;
 +
-+				if (iface->weight_fulfilled >= iface_weight)
-+					continue;
++	bar_start = pci_resource_start(adev->pdev, 0);
++	bar_size = pci_resource_len(adev->pdev, 0);
++	if (!bar_size)
++		return -ENODEV;
 +
-+				/* take ref before unlock */
-+				kref_get(&iface->refcount);
-+				candidate = iface;
-+				break;
-+			}
++	aper_base = adev->gmc.aper_base;
++	aper_size = adev->gmc.visible_vram_size ? adev->gmc.visible_vram_size :
++						  adev->gmc.aper_size;
++
++	if (aper_base || aper_size) {
++		if (aper_base != bar_start || aper_size > bar_size)
++			return -EINVAL;
++	} else {
++		aper_base = bar_start;
++		aper_size = bar_size;
++	}
++
++	if (check_add_overflow(offset, size, &end) || end > aper_size)
++		return -EINVAL;
++
++	map_offset = offset_in_page(offset);
++	map_base = aper_base + (offset & PAGE_MASK);
++	map_size = PAGE_ALIGN(map_offset + size);
++
++	vram = ioremap_wc(map_base, map_size);
++	if (!vram)
++		return -ENOMEM;
++
++	memcpy_fromio(buf, (u8 __iomem *)vram + map_offset, size);
++	iounmap(vram);
++
++	return 0;
++}
++#endif
++
+ /**
+  * amdgpu_device_aper_access - access vram by vram aperture
+  *
+@@ -769,8 +827,12 @@ size_t amdgpu_device_aper_access(struct amdgpu_device *adev, loff_t pos,
+ 	size_t count = 0;
+ 	uint64_t last;
  
--			if (iface->weight_fulfilled >= iface_weight)
--				continue;
-+			if (!candidate) {
-+				/* no usable iface. reset weight_fulfilled and start over */
-+				list_for_each_entry(iface, &ses->iface_list, iface_head)
-+					iface->weight_fulfilled = 0;
-+				spin_unlock(&ses->iface_lock);
-+				break;
-+			}
+-	if (!adev->mman.aper_base_kaddr)
++	if (!adev->mman.aper_base_kaddr) {
++		/* Writes still require the regular aperture/MM path. */
++		if (!write && !amdgpu_device_read_fb_via_bar0(adev, pos, buf, size))
++			return size;
+ 		return 0;
++	}
  
--			/* take ref before unlock */
--			kref_get(&iface->refcount);
-+			attempts++;
-+			if (attempts > 3 * ses->chan_max) {
-+				kref_put(&candidate->refcount, release_iface);
-+				spin_unlock(&ses->iface_lock);
-+				break;
-+			}
+ 	last = min(pos + size, adev->gmc.visible_vram_size);
+ 	if (last > pos) {
+@@ -2011,16 +2073,25 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
+ {
+ 	struct amdgpu_ip_block *ip_block;
+ 	struct pci_dev *parent;
+-	bool total, skip_bios;
++	bool total, skip_bios, early_full_gpu_access = false;
+ 	uint32_t bios_flags;
+ 	int i, r;
  
- 			spin_unlock(&ses->iface_lock);
--			rc = cifs_ses_add_channel(ses, iface);
-+			rc = cifs_ses_add_channel(ses, candidate);
- 			spin_lock(&ses->iface_lock);
+ 	amdgpu_device_enable_virtual_display(adev);
  
- 			if (rc) {
- 				cifs_dbg(VFS, "failed to open extra channel on iface:%pIS rc=%d\n",
--					 &iface->sockaddr,
-+					 &candidate->sockaddr,
- 					 rc);
- 				/* failure to add chan should increase weight */
--				iface->weight_fulfilled++;
--				kref_put(&iface->refcount, release_iface);
-+				candidate->weight_fulfilled++;
-+				kref_put(&candidate->refcount, release_iface);
-+				spin_unlock(&ses->iface_lock);
- 				continue;
- 			}
- 
--			iface->num_channels++;
--			iface->weight_fulfilled++;
-+			candidate->num_channels++;
-+			candidate->weight_fulfilled++;
- 			cifs_info("successfully opened new channel on iface:%pIS\n",
--				 &iface->sockaddr);
--			break;
--		}
--
--		/* reached end of list. reset weight_fulfilled and start over */
--		if (list_entry_is_head(iface, &ses->iface_list, iface_head)) {
--			list_for_each_entry(iface, &ses->iface_list, iface_head)
--				iface->weight_fulfilled = 0;
-+				 &candidate->sockaddr);
- 			spin_unlock(&ses->iface_lock);
--			iface = NULL;
--			continue;
--		}
--		spin_unlock(&ses->iface_lock);
- 
--		left--;
--		new_chan_count++;
-+			left--;
-+			new_chan_count++;
-+			break;
+ 	if (amdgpu_sriov_vf(adev)) {
+-		r = amdgpu_virt_request_full_gpu(adev, true);
+-		if (r)
+-			return r;
++		/*
++		 * Legacy hosts do not provide init data before early init, so
++		 * keep the original early full GPU access request for them.  Newer
++		 * hosts publish the init data through VF FB, which lets us defer
++		 * full GPU access until after non-GPU early init work is done.
++		 */
++		early_full_gpu_access = (adev->virt.req_init_data_ver == 0);
++		if (early_full_gpu_access) {
++			r = amdgpu_virt_request_full_gpu(adev, true);
++			if (r)
++				return r;
 +		}
+ 
+ 		r = amdgpu_virt_init_critical_region(adev);
+ 		if (r)
+@@ -2183,6 +2254,13 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
+ 	if (!total)
+ 		return -ENODEV;
+ 
++	/* Request full GPU access only for the remaining SR-IOV init work. */
++	if (amdgpu_sriov_vf(adev) && !early_full_gpu_access) {
++		r = amdgpu_virt_request_full_gpu(adev, true);
++		if (r)
++			return r;
++	}
++
+ 	if (adev->gmc.xgmi.supported)
+ 		amdgpu_xgmi_early_init(adev);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
+index 9a40107a0869d..fec08f235b920 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
++++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
+@@ -185,8 +185,11 @@ static int xgpu_ai_send_access_requests(struct amdgpu_device *adev,
+ 	} else if (req == IDH_REQ_GPU_INIT_DATA){
+ 		/* Dummy REQ_GPU_INIT_DATA handling */
+ 		r = xgpu_ai_poll_msg(adev, IDH_REQ_GPU_INIT_DATA_READY);
+-		/* version set to 0 since dummy */
+-		adev->virt.req_init_data_ver = 0;	
++		/*
++		 * AI uses the GPU_CRIT_REGION_V1 layout in practice, so fix the
++		 * dummy version value to match the actual init-data format.
++		 */
++		adev->virt.req_init_data_ver = GPU_CRIT_REGION_V1;
  	}
  
- 	return new_chan_count - old_chan_count;
+ 	return 0;
 -- 
 2.53.0
 
