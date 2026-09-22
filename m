@@ -1,46 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B565B472077
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 18:06:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A13C472077
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 18:06:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790100368; cv=none; b=Xqb0jJo5f6SxPvO5RVi0FCWRxJX7fiPIqUQ1nEyz0+zkwbqoiraaEBs+iAP94165QPjSSwi3Kpi31u0exIhJoPj8LjX0X90ZKa9MLgNj7dpaCVE2aZjQtGgJZ2W7HCsdw1LZaKqpqBWzujZ+2ol2awckdP+zVRdbLRjycUZGO5U=
+	t=1790100385; cv=none; b=oNjqu8zAB/yIA3JShk4REeDjqrDiwGxzo4lG7YRG7q74LTWSzeq1G3cVnfuS+ATz8Q5kASFowW3fRezeV1RWv14wG8Tu9gjZVPB1P4nIX83gbuNfpMEhga30LPmpEMT8aX3P3KykXiMVIozR6YpFj0BzarM/x75yGK0ceRfw3tk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790100368; c=relaxed/simple;
-	bh=aHhCyhi31T7sRvPmZ/vTo4R8QUjr9FJ8uPAqSl+kXHs=;
+	s=arc-20240116; t=1790100385; c=relaxed/simple;
+	bh=di6h4mixklrrT0z+XNUYzsIIDikaCcB65MjUCepTva8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KFUzQrtrooy0JBPCVjDbZy3Uwk2MHJC/hStEfCcgj3ydhHTTaGAJ5IY6cZlK0wksLCthqcCwpKwNcK6ICmU+jXcB7vjQLWc9fXPAbDbHonXNHVuEnI23NxVj3+Bb76DzzAT3PpPMP066HtsclahX7bSbzL6fJuBjhwNw8shPQzo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K4vYPuSP; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=TjbsH5zOXZmN/R4WLrbDP17zuwIhCiVue5NDg4WTG8tQK/agT+MsLbjfSmqRQClkM0XKSiOLXNVpSO1Tv8K3A6U9K2cCmhMoGJRtgDnwWWruk4lQrL73f2hnJCl9xkMaEChrdLGj9uPzdvJkO3QhlgV3zkTO6iRFqH2o2a7UDdM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aRjEF59r; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K4vYPuSP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B36841F00898;
-	Tue, 22 Sep 2026 18:06:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aRjEF59r"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91E961F00893;
+	Tue, 22 Sep 2026 18:06:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790100367;
-	bh=uZ+DBjLol2gS2YZbPbP/JGJ3joxYBt5ptN8cutmQg2E=;
+	s=k20260515; t=1790100384;
+	bh=7KicByk7BgcISK6APTf0tg3e0vLlJxqt3FOuyxGUsaI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=K4vYPuSPZd+Dtabf8YCya6RZL+nNBaNLMEQ+zmf0STU7adUuFCYiRV4l8S+2WM6Ch
-	 xqbzv7eL0e9GX9GDD3uqcabwWWQ3pvf2ZpgofR9po1PB0IV4QR1qYOKYA5S/BbOw+Y
-	 FoM62T/eB62Y4NrYxBPTj1utofmCShUyqBrdLGAo/JzrCkb+IUhjs7ZLswjiWBdbwU
-	 KjY5AZGk57STlGqee1UvfrtiO+hCoiWjKR0s/K478Zzfecff3bxmNx7ZPOekzHmQZY
-	 QPJnt9D2aGmiPZd2eFg0BXYKItR/vFwQKBI85uK5RVRU/qW2xo94WNFMKyo3Uv7o+Z
-	 j50qd3d7hBIVg==
+	b=aRjEF59rOSGK8XE2KONTNLST+MmyHe5WrLlhWpX9uXSoHZBhF5y8AVMtf6EjralT+
+	 cgS6eCQBMlfTHcI4FkjEfxXZ7JBGumbZxJyeQFHFSxU/zVuy051oGBAZuYX2aTKP5m
+	 OAtmh5uSHrRn/AseR8UXDNvANLRiQ75DBfaLYxMPMlROZesA1KZlZetnsY/guFbWn2
+	 MFw8/40yZjTMVYGvxb7KNfIwPuui1cjfyyCvygJ63Ftrgxr4hKv4oBEoJGN8VcxY1M
+	 B3+gYCixQCAOJhanW55vZT+glW+KEwDN5szPImXctpRUZODe6lJOA1HtcAmV+7WEfk
+	 wHOD5f1utmaTw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Jann Horn <jannh@google.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Michael Hennerich <michael.hennerich@analog.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] mm/vma: correctly unaccount on mmap_prepare() failure
-Date: Tue, 22 Sep 2026 14:06:05 -0400
-Message-ID: <20260922180605.3399750-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/3] Input: adp5588-keys - switch to using threaded interrupt
+Date: Tue, 22 Sep 2026 14:06:19 -0400
+Message-ID: <20260922180621.3403178-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092235-visor-glance-dc8e@gregkh>
-References: <2026092235-visor-glance-dc8e@gregkh>
+In-Reply-To: <2026092232-fetal-skinhead-12b6@gregkh>
+References: <2026092232-fetal-skinhead-12b6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,58 +45,203 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 
-[ Upstream commit 6cc27d82196385fe06853319f74312a7d8019726 ]
+[ Upstream commit 2d1159854f86835dd661b5289c1df5de7856e583 ]
 
-__mmap_setup() accounts memory for relevant mappings via:
+Instead of using hard interrupt handler and manually scheduling work
+item to handle I2C communications, let's switch to threaded interrupt
+handling.
 
-security_vm_enough_memory_mm()
-  -> __vm_enough_memory()
-    -> vm_acct_memory()
+While at that enforce the readout delay required on pre- revision 4
+silicon.
 
-If __mmap_setup() fails, this indicates that this accounting did not take
-place, and thus it's appropriate for __mmap_region() to jump to
-abort_munmap.
-
-However if call_mmap_prepare() fails, it also jumps there and any accounted
-memory is not correctly unaccounted.
-
-Fix this by handling each error separately.
-
-Link: https://lore.kernel.org/20260902-fix-unaccount-mmap_prepare-v1-1-ea070189fdfb@kernel.org
-Fixes: c84bf6dd2b83 ("mm: introduce new .mmap_prepare() file callback")
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Pedro Falcato <pfalcato@suse.de>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Acked-by: Michael Hennerich <michael.hennerich@analog.com>
+Link: https://lore.kernel.org/r/20220528045631.289821-2-dmitry.torokhov@gmail.com
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Stable-dep-of: 21efadc62272 ("Input: adp5588-keys - cache GPIO state before registering the gpiochip")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/vma.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/input/keyboard/adp5588-keys.c | 81 +++++++++++++++------------
+ 1 file changed, 45 insertions(+), 36 deletions(-)
 
-diff --git a/mm/vma.c b/mm/vma.c
-index 30148e6af7751..dcaa2d8998bfb 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -2693,10 +2693,12 @@ static unsigned long __mmap_region(struct file *file, unsigned long addr,
- 	map.check_ksm_early = can_set_ksm_flags_early(&map);
+diff --git a/drivers/input/keyboard/adp5588-keys.c b/drivers/input/keyboard/adp5588-keys.c
+index 1592da4de3360..a94ebd8d6c6e3 100644
+--- a/drivers/input/keyboard/adp5588-keys.c
++++ b/drivers/input/keyboard/adp5588-keys.c
+@@ -8,17 +8,19 @@
+  * Copyright (C) 2008-2010 Analog Devices Inc.
+  */
  
- 	error = __mmap_prepare(&map, uf);
--	if (!error && have_mmap_prepare)
--		error = call_mmap_prepare(&map);
- 	if (error)
- 		goto abort_munmap;
-+	if (have_mmap_prepare)
-+		error = call_mmap_prepare(&map);
-+	if (error)
-+		goto unacct_error;
+-#include <linux/module.h>
++#include <linux/delay.h>
++#include <linux/errno.h>
++#include <linux/gpio/driver.h>
++#include <linux/i2c.h>
++#include <linux/input.h>
+ #include <linux/interrupt.h>
+ #include <linux/irq.h>
+-#include <linux/workqueue.h>
+-#include <linux/errno.h>
+-#include <linux/pm.h>
++#include <linux/ktime.h>
++#include <linux/module.h>
+ #include <linux/platform_device.h>
+-#include <linux/input.h>
+-#include <linux/i2c.h>
+-#include <linux/gpio/driver.h>
++#include <linux/pm.h>
+ #include <linux/slab.h>
++#include <linux/timekeeping.h>
  
- 	if (map.check_ksm_early)
- 		update_ksm_flags(&map);
+ #include <linux/platform_data/adp5588.h>
+ 
+@@ -36,11 +38,12 @@
+  * asserted.
+  */
+ #define WA_DELAYED_READOUT_REVID(rev)		((rev) < 4)
++#define WA_DELAYED_READOUT_TIME			25
+ 
+ struct adp5588_kpad {
+ 	struct i2c_client *client;
+ 	struct input_dev *input;
+-	struct delayed_work work;
++	ktime_t irq_time;
+ 	unsigned long delay;
+ 	unsigned short keycode[ADP5588_KEYMAPSIZE];
+ 	const struct adp5588_gpi_map *gpimap;
+@@ -289,13 +292,36 @@ static void adp5588_report_events(struct adp5588_kpad *kpad, int ev_cnt)
+ 	}
+ }
+ 
+-static void adp5588_work(struct work_struct *work)
++static irqreturn_t adp5588_hard_irq(int irq, void *handle)
++{
++	struct adp5588_kpad *kpad = handle;
++
++	kpad->irq_time = ktime_get();
++
++	return IRQ_WAKE_THREAD;
++}
++
++static irqreturn_t adp5588_thread_irq(int irq, void *handle)
+ {
+-	struct adp5588_kpad *kpad = container_of(work,
+-						struct adp5588_kpad, work.work);
++	struct adp5588_kpad *kpad = handle;
+ 	struct i2c_client *client = kpad->client;
++	ktime_t target_time, now;
++	unsigned long delay;
+ 	int status, ev_cnt;
+ 
++	/*
++	 * Readout needs to wait for at least 25ms after the notification
++	 * for REVID < 4.
++	 */
++	if (kpad->delay) {
++		target_time = ktime_add_ms(kpad->irq_time, kpad->delay);
++		now = ktime_get();
++		if (ktime_before(now, target_time)) {
++			delay = ktime_to_us(ktime_sub(target_time, now));
++			usleep_range(delay, delay + 1000);
++		}
++	}
++
+ 	status = adp5588_read(client, INT_STAT);
+ 
+ 	if (status & ADP5588_OVR_FLOW_INT)	/* Unlikely and should never happen */
+@@ -308,20 +334,8 @@ static void adp5588_work(struct work_struct *work)
+ 			input_sync(kpad->input);
+ 		}
+ 	}
+-	adp5588_write(client, INT_STAT, status); /* Status is W1C */
+-}
+ 
+-static irqreturn_t adp5588_irq(int irq, void *handle)
+-{
+-	struct adp5588_kpad *kpad = handle;
+-
+-	/*
+-	 * use keventd context to read the event fifo registers
+-	 * Schedule readout at least 25ms after notification for
+-	 * REVID < 4
+-	 */
+-
+-	schedule_delayed_work(&kpad->work, kpad->delay);
++	adp5588_write(client, INT_STAT, status); /* Status is W1C */
+ 
+ 	return IRQ_HANDLED;
+ }
+@@ -505,7 +519,6 @@ static int adp5588_probe(struct i2c_client *client,
+ 
+ 	kpad->client = client;
+ 	kpad->input = input;
+-	INIT_DELAYED_WORK(&kpad->work, adp5588_work);
+ 
+ 	ret = adp5588_read(client, DEV_ID);
+ 	if (ret < 0) {
+@@ -515,7 +528,7 @@ static int adp5588_probe(struct i2c_client *client,
+ 
+ 	revid = (u8) ret & ADP5588_DEVICE_ID_MASK;
+ 	if (WA_DELAYED_READOUT_REVID(revid))
+-		kpad->delay = msecs_to_jiffies(30);
++		kpad->delay = msecs_to_jiffies(WA_DELAYED_READOUT_TIME);
+ 
+ 	input->name = client->name;
+ 	input->phys = "adp5588-keys/input0";
+@@ -560,9 +573,10 @@ static int adp5588_probe(struct i2c_client *client,
+ 		goto err_free_mem;
+ 	}
+ 
+-	error = request_irq(client->irq, adp5588_irq,
+-			    IRQF_TRIGGER_FALLING,
+-			    client->dev.driver->name, kpad);
++	error = request_threaded_irq(client->irq,
++				     adp5588_hard_irq, adp5588_thread_irq,
++				     IRQF_TRIGGER_FALLING | IRQF_ONESHOT,
++				     client->dev.driver->name, kpad);
+ 	if (error) {
+ 		dev_err(&client->dev, "irq %d busy?\n", client->irq);
+ 		goto err_unreg_dev;
+@@ -587,7 +601,6 @@ static int adp5588_probe(struct i2c_client *client,
+ 
+  err_free_irq:
+ 	free_irq(client->irq, kpad);
+-	cancel_delayed_work_sync(&kpad->work);
+  err_unreg_dev:
+ 	input_unregister_device(input);
+ 	input = NULL;
+@@ -604,7 +617,6 @@ static int adp5588_remove(struct i2c_client *client)
+ 
+ 	adp5588_write(client, CFG, 0);
+ 	free_irq(client->irq, kpad);
+-	cancel_delayed_work_sync(&kpad->work);
+ 	input_unregister_device(kpad->input);
+ 	adp5588_gpio_remove(kpad);
+ 	kfree(kpad);
+@@ -615,11 +627,9 @@ static int adp5588_remove(struct i2c_client *client)
+ #ifdef CONFIG_PM
+ static int adp5588_suspend(struct device *dev)
+ {
+-	struct adp5588_kpad *kpad = dev_get_drvdata(dev);
+-	struct i2c_client *client = kpad->client;
++	struct i2c_client *client = to_i2c_client(dev);
+ 
+ 	disable_irq(client->irq);
+-	cancel_delayed_work_sync(&kpad->work);
+ 
+ 	if (device_may_wakeup(&client->dev))
+ 		enable_irq_wake(client->irq);
+@@ -629,8 +639,7 @@ static int adp5588_suspend(struct device *dev)
+ 
+ static int adp5588_resume(struct device *dev)
+ {
+-	struct adp5588_kpad *kpad = dev_get_drvdata(dev);
+-	struct i2c_client *client = kpad->client;
++	struct i2c_client *client = to_i2c_client(dev);
+ 
+ 	if (device_may_wakeup(&client->dev))
+ 		disable_irq_wake(client->irq);
 -- 
 2.53.0
 
