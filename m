@@ -1,91 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B7A52D12F3;
-	Tue, 22 Sep 2026 12:51:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93E1C5158AB
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 12:55:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790081517; cv=none; b=f32s30sEpFV8Nie10zksypwv+AM/uR2c8Sw9n/Zbe6pnVpsVZH8R8f2RTcLOIhJdgy7fSP8bfMgIWHZZN1h4bchU8PsMQDq+ylQZcSTi4tF1MfpyzP53Y/46azcFJ+PwAZkz7JyCVfcNzc58nEYLRDqaxeEglhAkx4Z2fqgD5W4=
+	t=1790081758; cv=none; b=BA9O3csGUu3YVGHwm/FCcdSa6B5H9B5PnMTatxnrGeRb4LkthTjseuinibhftZsFbPKLidw/q9Zz+WWPi4aYXQ9OaIxDaItYWsTS477GV5tATsqt9t7rUwGWM3D+AMyg/XMjUlJjGFmpVT0SSbpvVf83LyVmo9LbH26fUGNMrvQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790081517; c=relaxed/simple;
-	bh=xFpxlzu1SH7kFoX4Fmr5tfR2CvWslninUOlAtwBKpFU=;
+	s=arc-20240116; t=1790081758; c=relaxed/simple;
+	bh=ubxku8kcwK9zep0RugzAUAMfdFzxf1SrVF+xee3tIEU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=U2Gc0WAot6dIkeyCb/Y8MwwJgd7XZZlQDUnkZlRWv26VYfs386fe7zi08gM4sElzbgFGfNQq+rFk0OSE4b1iIZQ+2ysZBDgjd33fp4y9YHifR4PPdkWxxPinoUMQcr9JWJBEKvb5YsOu7uqXVj1MNIDyQiGKjxkFXJhwc35XSzA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gvegNx+y; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=i6ztcypCdckCiV+8cewmDEGRgn2aeWznN5FscYmAM/wmWueLekOPNqxgB22EXhpFNKpcnTciDAqBipJf48trcc7sI8PPWjwWTZZU4KJ0Nme2K82ecQWZSn6ksuMAiWdW+us0T7Bw5ODsPlss1SX+ZcgRwzlx56SCkWUbLTMxqk0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=f3dkxaOX; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gvegNx+y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87D2E1F000FF;
-	Tue, 22 Sep 2026 12:51:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790081515;
-	bh=fiMlgP1e00pJ9OYBpmJDP/4QtkAS97V78LW/zmFPMUg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gvegNx+yhAzmeRvs+R3bUP32kC367DnxpOccZ0a9Ui3XILxfJ8BjbLuBhgPrxJkU6
-	 nDfRDCYpBz6W92/Aoli556lGZYo6nAq4s+bEMdcY5u+to/vG9Y2zOI6D0o208it25x
-	 aLC3kD0RlDS7zRJp4MzrZxnYzY7nVpOsaB7MW5z8ATZu6VeU1M7WIW9GIWEtdaNVB3
-	 /q0sbGVkUFS8koHsZjdGqnkVqb4JAtSOS7UzP1UmgWAoMVJqCc5DrU8qo/rChVeLQr
-	 a71nIpbBrkB+YbdEZnAIsirzeMhKmRAQRmOPAXIaJ802lbEFtjaSIgYZzfeaipeLQ9
-	 LyFMi/XCihlyQ==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 877FC1AC56BF; Tue, 22 Sep 2026 13:51:51 +0100 (BST)
-Date: Tue, 22 Sep 2026 14:51:51 +0200
-From: Mark Brown <broonie@kernel.org>
-To: Myeonghun Pak <mhun512@gmail.com>
-Cc: Oder Chiou <oder_chiou@realtek.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] ASoC: rt5663: Cancel jack detect work on unbind
-Message-ID: <arJ551jJ9cXjAua8@sirena.co.uk>
-References: <20260922015327.637137-1-mhun512@gmail.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="f3dkxaOX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790081755;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=q+Q202Ulk36gGraSq8aGSjuKZeytZD98yewc/uwH6yE=;
+	b=f3dkxaOXuSlYNsZpQMJfgZV2zpR2de0Y+XPkjF+C1N5C/LxeUJ093yt0XzX9IuPCGQgUhl
+	AxHFJiHCxZ1Dl3k9SuCNFQ1hzsa01erggOkjSwxoS2KPWZ+XK8GlCn2IHDGYXBstADv1n8
+	c6gNaPPoPr16nzJ2Qj/FfqkNqej0kkc=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-537-Cetgdzf5PD-aejzMw1bNew-1; Tue,
+ 22 Sep 2026 08:55:50 -0400
+X-MC-Unique: Cetgdzf5PD-aejzMw1bNew-1
+X-Mimecast-MFC-AGG-ID: Cetgdzf5PD-aejzMw1bNew_1790081748
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 0AC7D1802171;
+	Tue, 22 Sep 2026 12:55:47 +0000 (UTC)
+Received: from fedora (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 545E21956042;
+	Tue, 22 Sep 2026 12:55:43 +0000 (UTC)
+Received: by fedora (nbSMTP-1.00) for uid 1000
+	oleg@redhat.com; Tue, 22 Sep 2026 14:55:46 +0200 (CEST)
+Date: Tue, 22 Sep 2026 14:55:41 +0200
+From: Oleg Nesterov <oleg@redhat.com>
+To: Christian Brauner <brauner@kernel.org>
+Cc: Chris Mason <mason@kernel.org>, linux-fsdevel@vger.kernel.org,
+	Jens Axboe <axboe@kernel.dk>,
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
+	NeilBrown <neil@brown.name>, Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>, linux-mm@kvack.org,
+	io-uring@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3 02/17] signal: only SIGKILL and the freezers interrupt
+ a coredumping task
+Message-ID: <arJ6zZuI59BJnXpl@redhat.com>
+References: <20260921-work-coredump-fixes-v3-0-8e4adb1619e6@kernel.org>
+ <20260921-work-coredump-fixes-v3-2-8e4adb1619e6@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="PUUJfxvHa6/CLNO6"
-Content-Disposition: inline
-In-Reply-To: <20260922015327.637137-1-mhun512@gmail.com>
-X-Cookie: Too clever is dumb.
-
-
---PUUJfxvHa6/CLNO6
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260921-work-coredump-fixes-v3-2-8e4adb1619e6@kernel.org>
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-On Mon, Sep 21, 2026 at 09:53:27PM -0400, Myeonghun Pak wrote:
-> ASoC: rt5663: Cancel jack detect work on unbind
+On 09/21, Christian Brauner wrote:
+>
+> For quite a while now coredump has allowed either SIGKILL or freezing to
+> interrupt an ongoing coredump. Since we seem to like it complicated
+> "freezing" can mean a lot of things:
+>
+> (1) Power Management induced freezing
+> (2) cgroup v1 freezer controller induced freezing
+> (3) cgroup v2 freezer controller induced freezing
 
-This is an extra copy.
+All of them do signal_wake_up() which sets TIF_SIGPENDING
+However, zap_threads() clears this flag.
 
->=20
-> jack_detect_work and jd_unplug_work live in struct rt5663_priv, which
-> devres frees after rt5663_i2c_remove() returns.  The IRQ queues the
-> first work, a button press queues the second, and jd_unplug_work
-> rearms itself while the jack stays inserted.  Both callbacks load
-> rt5663->component before checking it, and nothing clears that pointer.
-> rt5663_suspend() cancels the works; unbind does not.
+With the recent changes including your PF_NO_NOTIFY_SIGNAL and
+05/17 "signal: don't retarget shared signals in a dying thread group",
+what else can make signal_pending() true? Apart from SIGKILL.
 
-The same is true for the probe error handling, if we fail component
-registration the same situation can happen.
+So perhaps we can simply do _something_ like
 
---PUUJfxvHa6/CLNO6
-Content-Type: application/pgp-signature; name="signature.asc"
+	--- x/fs/coredump.c
+	+++ x/fs/coredump.c
+	@@ -508,7 +508,8 @@ static int zap_threads(struct task_struc
+		int nr = -EAGAIN;
+	 
+		spin_lock_irq(&tsk->sighand->siglock);
+	-	if (!(signal->flags & SIGNAL_GROUP_EXIT) && !signal->group_exec_task) {
+	+	if (!(signal->flags & SIGNAL_GROUP_EXIT) && !signal->group_exec_task
+	+	    && !freezing(tsk) && !(tsk->jobctl & JOBCTL_TRAP_FREEZE)) {
+			/* Allow SIGKILL, see prepare_signal() */
+			signal->core_state = core_state;
+			nr = zap_process(signal, exit_code);
+	@@ -583,7 +584,7 @@ static bool dump_interrupted(void)
+		 * but then we need to teach dump_write() to restart and clear
+		 * TIF_SIGPENDING.
+		 */
+	-	return fatal_signal_pending(current) || freezing(current);
+	+	return signal_pending(current);
+	 }
+	 
+	 static void wait_for_dump_helpers(struct file *file)
 
------BEGIN PGP SIGNATURE-----
+?
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqyeeMACgkQJNaLcl1U
-h9Dwgwf/VLJ6cIAOqVazl1MbSP9/a7PBF7lNHSPlmhMWbvpE6H1r45MExf3+QHUY
-b2q38OILreuxCStw8dDQOAgLklqQz2aamyfI0spcuY/13nzztJzI4ufBJCyqGShd
-SE6JC8z8emA1Ie/w64EtYuqLt8gAQvmwsjSSjBOs5IUCAz2/4KTzFCWbIV8GoucE
-26nFwPNL3VChcnItHsiT4Qt7JgeLOuFngiK+fACeqsmjEZh4zuWMIW6BKzolSwYg
-45Vn1Yib6lFJsp8nljixGCV8lUy/EGj6ILopA2KT7/jFQ/STzXL3GWUB+KV7mqlR
-WpvI3mPupg9OCesR0ff9gN3cE9YwHg==
-=nKgT
------END PGP SIGNATURE-----
+At first glance the change in dump_interrupted() makes sense anyway.
+For example, dumping to pipe can't tolerate signal_pendin() == true.
 
---PUUJfxvHa6/CLNO6--
+What do you think?
+
+> Fixes: 403bad72b67d ("coredump: only SIGKILL should interrupt the coredumping task")
+
+Well, I think we should blame 76f969e8948d ("cgroup: cgroup v2 freezer")
+
+Oleg.
+
