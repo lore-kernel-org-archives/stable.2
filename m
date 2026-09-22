@@ -1,197 +1,223 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from out28-197.mail.aliyun.com (out28-197.mail.aliyun.com [115.124.28.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE048560AB0;
-	Tue, 22 Sep 2026 15:46:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E710B2E6CB8;
+	Tue, 22 Sep 2026 15:49:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790092007; cv=none; b=sksIaDCUw2Dx7CvCyDXca+jkLeo4LG7R3BKhatyxcpbWNmyK9AJ+7rnelaVW9EQfC3uCi9T5/ZQJkKqH1ZDgPHW/Fsxk5oPfGi5LE1lyWRnLil3H8Lq/pEhx0DCQCRaUPJaBmqAhBfAyAStW/P8/ufvZpAFlHApDDxOB3FGPVek=
+	t=1790092156; cv=none; b=K8VLrLWK1+opdOGYRTP25bVLd38uJaABTg5/8lLFi0E1xdR4Oa1ohbQ1yVAiiABUvR2baFPhNMZj66/UcdKaROMKDZXGr38/O31unj3zRObjmUC+NQ4wFlQyCN7jwUyvCh2xW9wKHAm+AP5yOsnB3WNU5YwbvmkCNiULiElb8Cc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790092007; c=relaxed/simple;
-	bh=/84ulKuRLrs8JM+UqU/ZGjQ8z7YJ3q+WX3pPrJ/0BE4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=WgVutZi/B23ji3oE0D23rf1uDQHulfXckFG/WI0rVOOd3ZS9SPoH2OriLgmRuSwXtyBYQSmO/Y533FjZ2pfPxgTeYBLUakMD8HWwzRyDSrU35Rf5AiEfa0SM/f/wOIRLw1ilyDojgci8ERRyxg9cVYMrh20skRpbVlVnHDwYskQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mh7fk7Yx; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790092156; c=relaxed/simple;
+	bh=m9MzsfBhY2+fdPnGx77j+tlrSCT/JbHFCOAFN90ErJs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=m9wZZmIM2TV/A7QKQb0E9IJ4lN/6qp0J9zY4wMS+HlJcRpNK/AwGgzDXhH2tnUCjqqjzfpHU7fXC+Pz51J1nTjX5+Jg4/l2tV1+01OKd9pu1jds3rk5lswYKLclUr457pCCA/8AENcsjmBnO/3Y6bxNw4DntrHeYa+6Tun6I/fg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=lm8dznlC; arc=none smtp.client-ip=115.124.28.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mh7fk7Yx"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 5192BC2BCF6;
-	Tue, 22 Sep 2026 15:46:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790092007;
-	bh=/84ulKuRLrs8JM+UqU/ZGjQ8z7YJ3q+WX3pPrJ/0BE4=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=mh7fk7YxHnYpkeWneEvQsAc0QHC6gr9hTS+oaTBa34n/zKwDJOJvm+Pct87ecV8G3
-	 xW5/pCTzkNTkMYFFXfLyCcrlB/BXQFG/kE0wVZbfs6HLwxochCmdS3wvopn3gjmc1v
-	 /oqd7dG1E8E2WcDARe5UngNDGDG1rCzd3ylL/k7KXk2MQftDh11DsAfS4mdxNaeZVL
-	 SQ289HaPYT9x2fMjlcgyv2u0jOyNKA1eOkLMyT3aBTd5Qdz7oZVvDgpWWpy/mIsNXx
-	 a4zQYocKypw3njVdxuD/XqQwc70GbQAnBXqsR2wGdJHmM7DoA7F1N+6m5BePaw/O+X
-	 /KeURuc+qUDLA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 27F5AC98302;
-	Tue, 22 Sep 2026 15:46:47 +0000 (UTC)
-From: Ahmed Abdelhaleem Ahmed via B4 Relay <devnull+ahmedhal.gmail.com@kernel.org>
-Date: Tue, 22 Sep 2026 15:46:46 +0000
-Subject: [PATCH] scsi: ch: Do not keep references to data transfer element
- devices
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="lm8dznlC"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1790092149; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=xzX3oI+nIvhLqrrsstw3vJ/BC6DIPbs/7ONFCx7bqz0=;
+	b=lm8dznlCLAApVm3d6svtBv+vUWhrBYOEUcSvHAVYZ+xzqM7mQweiw4HDGQJrg4UclD3dN4SolQmPtCgrF28PVMbfp25/b8ie/KuN2H7Z2rocjHcpW9B721vmpB2KrJicwCqEQa6wzklz0kk7QRpyVDickh2lzDXIZbS81IZLDj8=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.04436259|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00786389-0.000226249-0.99191;FP=15315377223126031482|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033022149254;MF=fangxy@xiaopeng.com;NM=1;PH=DS;RN=6;RT=6;SR=0;TI=SMTPD_---.jKA4tlN_1790092147;
+Received: from localhost.localdomain(mailfrom:fangxy@xiaopeng.com fp:SMTPD_---.jKA4tlN_1790092147 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Tue, 22 Sep 2026 23:49:08 +0800
+From: Fang Xieyan <fangxy@xiaopeng.com>
+To: jason.wessel@windriver.com,
+	danielt@kernel.org,
+	dianders@chromium.org
+Cc: kgdb-bugreport@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] kgdb: Fix buffer overflow in the 'M' and 'X' packet handlers
+Date: Tue, 22 Sep 2026 23:49:07 +0800
+Message-ID: <20260922154907.90535-1-fangxy@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260922-ch-dt-leak-v1-1-2b2e40bf1624@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAOWismoC/yXMQQ5AMBBA0avIrE2isxBcRSyqHQyCtIikcXfF8
- i3+D+DZCXuokgCOT/GyLhEqTcAMeukZxUYDZZRnJRGaAe2OM+sJDalCtbntrC4gBpvjTq5vVje
- //dGObPb3APf9AEgl7kZuAAAA
-X-Change-ID: 20260922-ch-dt-leak-c2181b6dfda8
-To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>
-Cc: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Yang Hao <yanghao_ht@163.com>, stable@vger.kernel.org, 
- Ahmed Abdelhaleem Ahmed <ahmedhal@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790092005; l=4470;
- i=ahmedhal@gmail.com; s=20260922; h=from:subject:message-id;
- bh=iZVNPPB7mUfBqJBncawixvxcm8hSCLkSxjGpPuZxEew=;
- b=2UeofKhw6wI3aDTyud1oM5f9gWPbzV/lXmlrRTDrU5Zin6Goi0XrWOYBjoukeqmobkRtEamLV
- Q4zxzAKCxGeAIi45BP/0CXWSByCib97cq3Wj7wrIAU2JschKSHZPQU6
-X-Developer-Key: i=ahmedhal@gmail.com; a=ed25519;
- pk=UEFWTgykG696wvaHZw+52zx9UkpJCW3L3hvdRay28Fo=
-X-Endpoint-Received: by B4 Relay for ahmedhal@gmail.com/20260922 with
- auth_id=1049
-X-Original-From: Ahmed Abdelhaleem Ahmed <ahmedhal@gmail.com>
-Reply-To: ahmedhal@gmail.com
+Content-Transfer-Encoding: 8bit
 
-From: Ahmed Abdelhaleem Ahmed <ahmedhal@gmail.com>
+write_mem_msg() passes the length claimed by an 'M' or 'X' packet directly
+to kgdb_hex2mem() or kgdb_ebin2mem(). A malformed packet can claim more
+data than was actually received, causing the decoders to read past
+remcom_in_buffer.
 
-ch_readconfig() looks up the scsi_device of every data transfer element
-whose SCSI id the changer reports in READ ELEMENT STATUS, and stores it
-in ch->dt[]. scsi_device_lookup() takes a reference, and nothing ever
-drops it: ch_destroy() frees the array with kfree(). ch->dt[] is read
-nowhere else - it only supplies the vendor, model and revision printed
-in the same loop.
+Record the received payload length in get_packet() and use it to bound
+the decoders. 'M' carries two hex characters per byte, while 'X' carries
+one byte per output byte except that a 0x7d escape consumes an additional
+input byte. Pass the packet end to kgdb_ebin2mem() so both reads are
+checked against the received data.
 
-Once such a drive is removed, its scsi_device can never be released. It
-stays on the host's device list at its address, so a new device there is
-refused by anything that walks the list - target_core_pscsi reports
-"scsi_device_get() failed for H:C:T:L" - and the low-level driver's
-module can no longer be unloaded. Only a reboot recovers.
+Keep zero-length 'X' packets valid, as GDB uses them to probe binary
+download support.
 
-It shows with any changer that reports its drives' ids; with the mhvtl
-virtual library (IBM 3573-TL personality), each create and remove of a
-library with four drives leaves four references behind, counted by the
-module's use count in lsmod. With ch not bound the count is unchanged,
-and with this patch applied it is unchanged too.
-
-Drop the reference as soon as the name has been printed, and remove the
-now unused dt[] array. That also removes the array leaked when
-ch_probe() fails after ch_readconfig().
-
-The same leak was reported with an RFC patch in 2022, which was not
-merged.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: dc7d55270521 ("kgdb: core")
 Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/linux-scsi/20220719075442.6215-1-yanghao_ht@163.com/
-Signed-off-by: Ahmed Abdelhaleem Ahmed <ahmedhal@gmail.com>
+Assisted-by: Hawkeye:GLM-5.3-flash
+Assisted-by: Qoder:Qwen3.8-Max
+Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
 ---
-Reproduced and tested on RHEL 9 (5.14.0-687.47.1.el9_8) with mhvtl,
-IBM 3573-TL personality, four ULT3580-HHA drives, library created and
-removed; mhvtl module use count leaked:
 
-  stock ch.ko:                          4
-  ch.ko with this fix:                  0
-  ch.ko with this fix, changer daemon
-  restarted twice while it existed:     0
+Changes in v2:
+  - Bound the decode by the bytes actually received instead of a fixed
+    divisor. get_packet() now returns the received count and
+    write_mem_msg() uses it as the end of the payload.
+  - Split the 'M' and 'X' bounds. 'X' is no longer capped at BUFMAX / 2,
+    so a valid binary write between BUFMAX / 2 and BUFMAX - header is
+    accepted again; v1 rejected it with E22, and GDB aborts a write
+    that gets E22 rather than falling back to 'M'.
+  - Give kgdb_ebin2mem() a buf_end argument and check it before both
+    reads in the loop, so a 0x7d escape cannot read past the received
+    data.
+  - v1: https://lore.kernel.org/all/20260916080306.13395-1-fangxy@xiaopeng.com/
 
-Build-tested on mkp/scsi.git for-next.
----
- drivers/scsi/ch.c | 29 +++++++++--------------------
- 1 file changed, 9 insertions(+), 20 deletions(-)
+Write-side sibling of the 'm' memread overflow in gdb_cmd_memread()
+(remcom_out_buffer); both handlers trust the same unvalidated length
+field. The read-side fix was posted separately:
+https://lore.kernel.org/all/20260914180344.15485-1-fangxy@xiaopeng.com/
 
-diff --git a/drivers/scsi/ch.c b/drivers/scsi/ch.c
-index 87e51e50a..b2c9fb71c 100644
---- a/drivers/scsi/ch.c
-+++ b/drivers/scsi/ch.c
-@@ -112,7 +112,6 @@ typedef struct {
- 	int                 minor;
- 	char                name[8];
- 	struct scsi_device  *device;
--	struct scsi_device  **dt;        /* ptrs to data transfer elements */
- 	u_int               firsts[CH_TYPES];
- 	u_int               counts[CH_TYPES];
- 	u_int		    voltags;
-@@ -354,15 +353,10 @@ ch_readconfig(scsi_changer *ch)
- 			vendor_labels[i]);
- 	}
+Reproducer ('M', x86 BUFMAX=1024): send "M<addr>,200:4142434445464748"
+on a kgdboc console. The stub decodes 2 * 512 bytes from an 8-byte
+payload, so the in-place hex conversion runs off remcom_in_buffer.
+Unpatched: KASAN global-out-of-bounds read in kgdb_hex2mem at
+remcom_in_buffer+0x415/0x420, guest panics. Patched: $E22, guest
+resumes. A minimal over-claim reproduces best: a huge length smashes
+past the buffer through the uninstrumented copy in
+copy_to_kernel_nofault() with no report at all.
+
+'X' cases (patched kernel answers shown; x86, same harness):
+  - over-claim "X<addr>,400:" with an 8-byte body: $E22. Unpatched this
+    splats in write_mem_msg (kgdb_ebin2mem inlined) at
+    remcom_in_buffer+0x400/0x420 and the guest dies.
+  - well-formed 900-byte write "X<addr>,384:": $OK, accepted again.
+    This is the packet v1 wrongly rejected; the write lands on
+    init_task, so the harness asserts $OK without resuming the guest.
+  - lone trailing escape "X<addr>,40:": $E22.
+  - zero-length "X0,0:": $OK (GDB's binary-download probe).
+
+Built and run on 704340f1cd0d (9 commits past v7.3-rc3), x86_64
+defconfig + CONFIG_KASAN_GENERIC, gcc 13.2.0, QEMU under TCG; the
+before/after kernels are built from byte-identical .config files and
+differ only by this patch. CONFIG_KGDB_KDB has to be off so the packet
+is parsed by the gdb stub rather than kdb. An unrelated early-boot
+"wild-memory-access in _raw_spin_lock" TCG+KASAN flake can reboot the
+guest before the break-in; re-running the boot clears it.
+
+ kernel/debug/gdbstub.c | 45 +++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 38 insertions(+), 7 deletions(-)
+
+diff --git a/kernel/debug/gdbstub.c b/kernel/debug/gdbstub.c
+index e271a43..0293524 100644
+--- a/kernel/debug/gdbstub.c
++++ b/kernel/debug/gdbstub.c
+@@ -43,6 +43,8 @@
+ /* Our I/O buffers. */
+ static char			remcom_in_buffer[BUFMAX];
+ static char			remcom_out_buffer[BUFMAX];
++/* Payload bytes get_packet() stored in remcom_in_buffer, excluding the NUL. */
++static int			remcom_in_len;
+ static int			gdbstub_use_prev_in_buf;
+ static int			gdbstub_prev_in_buf_pos;
  
--	/* look up the devices of the data transfer elements */
--	ch->dt = kzalloc_objs(*ch->dt, ch->counts[CHET_DT]);
--
--	if (!ch->dt) {
--		kfree(buffer);
--		return -ENOMEM;
--	}
--
-+	/* report the devices of the data transfer elements */
- 	for (elem = 0; elem < ch->counts[CHET_DT]; elem++) {
-+		struct scsi_device *sdev;
+@@ -87,7 +89,7 @@ static int gdbstub_read_wait(void)
+ }
+ #endif
+ /* scan for the sequence $<data>#<checksum> */
+-static void get_packet(char *buffer)
++static int get_packet(char *buffer)
+ {
+ 	unsigned char checksum;
+ 	unsigned char xmitcsum;
+@@ -135,6 +137,8 @@ static void get_packet(char *buffer)
+ 		}
+ 		buffer[count] = 0;
+ 	} while (checksum != xmitcsum);
 +
- 		id  = -1;
- 		lun = 0;
- 		if (elem < CH_DT_MAX  &&  -1 != dt_id[elem]) {
-@@ -378,10 +372,8 @@ ch_readconfig(scsi_changer *ch)
- 			VPRINTK(KERN_INFO, "dt 0x%x: ",elem+ch->firsts[CHET_DT]);
- 			if (data[6] & 0x80) {
- 				VPRINTK(KERN_CONT, "not this SCSI bus\n");
--				ch->dt[elem] = NULL;
- 			} else if (0 == (data[6] & 0x30)) {
- 				VPRINTK(KERN_CONT, "ID/LUN unknown\n");
--				ch->dt[elem] = NULL;
- 			} else {
- 				id  = ch->device->id;
- 				lun = 0;
-@@ -391,18 +383,16 @@ ch_readconfig(scsi_changer *ch)
- 		}
- 		if (-1 != id) {
- 			VPRINTK(KERN_CONT, "ID %i, LUN %i, ",id,lun);
--			ch->dt[elem] =
--				scsi_device_lookup(ch->device->host,
--						   ch->device->channel,
--						   id,lun);
--			if (!ch->dt[elem]) {
-+			sdev = scsi_device_lookup(ch->device->host,
-+						  ch->device->channel,
-+						  id, lun);
-+			if (!sdev) {
- 				/* should not happen */
- 				VPRINTK(KERN_CONT, "Huh? device not found!\n");
- 			} else {
- 				VPRINTK(KERN_CONT, "name: %8.8s %16.16s %4.4s\n",
--					ch->dt[elem]->vendor,
--					ch->dt[elem]->model,
--					ch->dt[elem]->rev);
-+					sdev->vendor, sdev->model, sdev->rev);
-+				scsi_device_put(sdev);
- 			}
- 		}
- 	}
-@@ -566,7 +556,6 @@ static void ch_destroy(struct kref *ref)
- 	scsi_changer *ch = container_of(ref, scsi_changer, ref);
- 
- 	ch->device = NULL;
--	kfree(ch->dt);
- 	kfree(ch);
++	return count;
  }
  
-
----
-base-commit: c3cff7fac01638ab58e85fe7df41a04fa25c5bae
-change-id: 20260922-ch-dt-leak-c2181b6dfda8
-
-Best regards,
---  
-Ahmed Abdelhaleem Ahmed <ahmedhal@gmail.com>
-
+ /*
+@@ -321,16 +325,26 @@ int kgdb_hex2long(char **ptr, unsigned long *long_val)
+  * Copy the binary array pointed to by buf into mem.  Fix $, #, and
+  * 0x7d escaped with 0x7d. Return -EFAULT on failure or 0 on success.
+  * The input buf is overwritten with the result to write to mem.
++ *
++ * buf_end points one past the last byte received for this packet. Each
++ * 0x7d escape consumes a second input byte, so decoding count bytes can
++ * read up to 2 * count input bytes; stop at buf_end rather than running
++ * off the end of remcom_in_buffer.
+  */
+-static int kgdb_ebin2mem(char *buf, char *mem, int count)
++static int kgdb_ebin2mem(char *buf, char *mem, int count, char *buf_end)
+ {
+ 	int size = 0;
+ 	char *c = buf;
+ 
+ 	while (count-- > 0) {
++		if (buf >= buf_end)
++			return -EINVAL;
+ 		c[size] = *buf++;
+-		if (c[size] == 0x7d)
++		if (c[size] == 0x7d) {
++			if (buf >= buf_end)
++				return -EINVAL;
+ 			c[size] = *buf++ ^ 0x20;
++		}
+ 		size++;
+ 	}
+ 
+@@ -367,16 +381,33 @@ void gdb_regs_to_pt_regs(unsigned long *gdb_regs, struct pt_regs *regs)
+ static int write_mem_msg(int binary)
+ {
+ 	char *ptr = &remcom_in_buffer[1];
++	char *buf_end = &remcom_in_buffer[remcom_in_len];
+ 	unsigned long addr;
+ 	unsigned long length;
+ 	int err;
+ 
+ 	if (kgdb_hex2long(&ptr, &addr) > 0 && *(ptr++) == ',' &&
+ 	    kgdb_hex2long(&ptr, &length) > 0 && *(ptr++) == ':') {
+-		if (binary)
+-			err = kgdb_ebin2mem(ptr, (char *)addr, length);
+-		else
++		/*
++		 * Trust only the bytes actually received, not length: the
++		 * client can claim more payload than it sent. 'M' decodes two
++		 * hex chars per byte in place, so it needs 2 * length bytes at
++		 * ptr; 'X' decodes one byte per byte, and kgdb_ebin2mem() bounds
++		 * its extra 0x7d-escape reads against buf_end itself.
++		 */
++		if (ptr >= buf_end)
++			return -EINVAL;
++
++		if (binary) {
++			if (length > (unsigned long)(buf_end - ptr))
++				return -EINVAL;
++			err = kgdb_ebin2mem(ptr, (char *)addr, length, buf_end);
++		} else {
++			if (length > (unsigned long)(buf_end - ptr) / 2)
++				return -EINVAL;
+ 			err = kgdb_hex2mem(ptr, (char *)addr, length);
++		}
++
+ 		if (err)
+ 			return err;
+ 		if (CACHE_FLUSH_IS_SAFE)
+@@ -985,7 +1016,7 @@ int gdb_serial_stub(struct kgdb_state *ks)
+ 		/* Clear the out buffer. */
+ 		memset(remcom_out_buffer, 0, sizeof(remcom_out_buffer));
+ 
+-		get_packet(remcom_in_buffer);
++		remcom_in_len = get_packet(remcom_in_buffer);
+ 
+ 		switch (remcom_in_buffer[0]) {
+ 		case '?': /* gdbserial status */
+-- 
+2.50.1 (Apple Git-155)
 
