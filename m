@@ -1,210 +1,147 @@
-Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com [74.125.229.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 067E14BF921
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 20:05:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F15E3B3BEC
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 20:21:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790107522; cv=none; b=Tp6OAXhSNG32tl9YfNXVgBYtJrUCIpNugxTXaTJYjOYO/ZpD67k8pZmIym3r7P0nRGW2t7MmK0rsYHltEoye69pwdAhVy4vRhNa8UqhRdzC7r15gUnCPdfU57ng6jK0w6oTCs4U/bZXpCPCJzZrhJVQvW36jdXhzGE04hfXIfyk=
+	t=1790108517; cv=none; b=Mf4iQt55s+CS66jR35/rXk4gzmFyHYkSCDrMbZ2h2aqTc4uOODZxmAk/VV1F5mEH25aVHU3TFjuU3s+vNK+pqpjlCDYVWiAaHQEUg+AOToAPJClSML5dOeFAH8SjoYaTsZcqWc6oWsUZ+5ZPE8YEMQsPWgVyMFGOxDwvkgXJP7o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790107522; c=relaxed/simple;
-	bh=bFw02r6jaNHaixJWkVpkqw5kzInfhX7ALGYlfWx0JxU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KugTb9qa6Y7eiAM6c6S0OMjl/XKNbN6byZPiE+vZUkTJIVElRV3KWoZRy7/a0xrh2onOmnGCl2CMBZmg+hxrMnPR8+K78/xn5h8ClmoSyZC7X7cJpwqqRsoFgYddyhynUDrkKUU30cDa5zZO4MdFsLcZ+mDy45nZZb2/KeajrEE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=QBsn78Bg; arc=none smtp.client-ip=74.125.229.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	s=arc-20240116; t=1790108517; c=relaxed/simple;
+	bh=qf7Jhvlpto+YQaPLd8xjFzZPBrjOJul/qhE2Z1fkH1w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=E37fX3jyJ5i8rRZkDpLBwYAQ/8zAO/AfeiIyqNvGgONElosW8njnwRcfTCLp6UeFXCwB1B4iYbhD8NO+eHnskGUQnJdnXxKlbSCKi57CUwxI7GT9WZtFCbmXlWlMg4unqGDSDIYuXChjZAmAGPl4Pj4teXJnEqPBxpvH7YJZhQo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Li40UMtd; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="QBsn78Bg"
-Received: by mail-dl2-f43.google.com with SMTP id a92af1059eb24-142dd05d97cso336631c88.2
-        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 13:05:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1790107493; x=1790712293; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uyRungl+NqmtYNgL/8dH71XCYpq6TtSAT/snP5PAQEU=;
-        b=QBsn78BgjpJcmnggRqdiZ7VA86NmropjefaQcSEznCpE+jZdF0E8ppUsN7K5CbRgo/
-         eJS6dp1tvQ4Blg81vhRdNxEp5Rp5V+6KlMu4CkdbolgDEoTrwxQzMmEth1OYSLDrEzDt
-         1tcqlL2pwI2O0fZzM13BBwL1U0nvBhCNTsQf3FlbmvMWg7O2mvIc2AaXeSfCttefzLj8
-         cAwtB33TG21cmyKWUvwxliR89HDKTgJL71dowMlM5+L7j/oMfuf3sZH1jjpGzo4lq7HP
-         rmxcVQjGuHu9BlQXu5ySRMHRlYyc5x08J/TKoDeYirVbtNcOlQukJPmVC4s35rDEUMh0
-         e/sA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790107493; x=1790712293;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uyRungl+NqmtYNgL/8dH71XCYpq6TtSAT/snP5PAQEU=;
-        b=153cO6quk4RpceR6iJ6z12AaIvA1Ur7XLEp/u5OTAXMdrFO6K0J2QlXDtWsy6QoOHx
-         qcjKhlfCOh28GC1jdnnV5XCX9cCZHyCLvTBIT5TLyUsUXU7AdyhYWY7t6ggNSe+4FjW7
-         Mp7Es5UMywTZ58XS9rY9bWsHCCaAW2v6yuNlBPMEJT+AaEAIhfYZo+IO1TaEj19xPUZF
-         AxldOGD/LdWTy62ltxLM7xwMmlOXOz2I0EUDuXYR8ExElkHOKtelWf8qalQ3O4igV4Hf
-         iQHuQvOKaI4Eac8lg/KngTg/zBRZSIWovBql6VMyj8usyLcTeSJ1w29jn/dwJcskzToV
-         4GHw==
-X-Gm-Message-State: AFuF++lC4wPBb08ZEeH5KZ9AAoCCIdEsiYDstibklHwD0V5/19bpROG9
-	YL3GkIXBTNRgDoiDUTReZck3QAQb2SgJT/2TlNJ/1Eo+Qcj9h/FKSAx2MEvprA6bv7WdXuwhLgW
-	MEPBF4Nw=
-X-Gm-Gg: AYBFou1dUnIvDO28SycGK4hYpEpdMtafgAwE4bSP/GFRvM1yhwoCwnhsi81MJIxC0r7
-	jBUf+hKf9iqN+oS3mkxnkScWYmv9UqSpvOR21iM3OwbFGwYvOzj/fkEoJh39PJdlTBiEsFTzmVM
-	0C63rUOcbN+NxlHEOcNk3QnbfWfXIh6qMXhIjx/k6Hm/kZERiXA5ku0pa09BoahoRdnp7irxk3I
-	8MCor1A5by09AB5urUTk1sBlF/Tt+UAsQx8hc4N9AUbRE/zweZe+oIk1y/24oUHSR68zLpkV/g6
-	CBX/4ppPtdQ3XB+L/Ngk91PqCb0qJ1adBqyKLHp2QwzjELa5Ls7RAPL2GifaCSBIFo5gFUsdEEB
-	iNgUh3zb1aaXrNW8uWYyRdg6X84fLm3chDSNCI1PpnWpOxNMeYxi88PNsPvWsiqV+8eTEkST/o+
-	OfWilGc0n8us99y0m0bimoS7DwknSx5H7is1vgfUMIsEOCHiRK/5BZTUgKSUnfdFTG6QFbNwCMA
-	uOIfiwGQkgPm41KBt25BCMYksSq/Tbykw4+AfV2wdN+ctxSd75WcNVD8Qa6HdQq+SSo6Dw=
-X-Received: by 2002:a05:7022:3a08:b0:143:4710:a84e with SMTP id a92af1059eb24-144f9186b23mr505519c88.15.1790107493262;
-        Tue, 22 Sep 2026 13:04:53 -0700 (PDT)
-Received: from localhost.localdomain ([2603:8001:5f01:8bab:c016:77a6:d382:7611])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f983c5a1sm852614c88.7.2026.09.22.13.04.52
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 22 Sep 2026 13:04:52 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: Artem Dinaburg <artem@trailofbits.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Gao Xiang <xiang@kernel.org>,
-	Chao Yu <chao@kernel.org>,
-	Yue Hu <huyue2@coolpad.com>,
-	Jeffle Xu <jefflexu@linux.alibaba.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	linux-erofs@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	Sandeep Dhavale <dhavale@google.com>,
-	Will Shiu <will.shiu@mediatek.com>,
-	Gao Xiang <hsiangkao@linux.alibaba.com>,
-	Alexandre Mergnat <amergnat@baylibre.com>,
-	Will Shiu <Will.Shiu@mediatek.com>
-Subject: [PATCH 6.1.y] erofs: Fix detection of atomic context
-Date: Tue, 22 Sep 2026 16:04:36 -0400
-Message-ID: <20260922200448.27724-1-artem@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Li40UMtd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790108500;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lmFVZilOMn/yRZfsmK1Eg1J9bzLw2lur3L0aHYwLcTo=;
+	b=Li40UMtdIMuWORsiX18PbpJCC1HzzomYFatnJ+p0zuFgkRXmvk4wuayozsxTYIbbTz3fZS
+	pu63p9R1rqr9OlGngNMTNrtb1sPRkhVuBDj6CcIGhsHqU4PMAD8tanbVLmhgqJiGdNGBpc
+	q6LlgoRBZtsG9PObNItsr86uc54U4qU=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-623-r7jBYWoeMJKo6n2PqoYroA-1; Tue,
+ 22 Sep 2026 16:21:36 -0400
+X-MC-Unique: r7jBYWoeMJKo6n2PqoYroA-1
+X-Mimecast-MFC-AGG-ID: r7jBYWoeMJKo6n2PqoYroA_1790108494
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 552B119772F3;
+	Tue, 22 Sep 2026 20:21:34 +0000 (UTC)
+Received: from [100.91.18.181] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 35FA1300106D;
+	Tue, 22 Sep 2026 20:21:32 +0000 (UTC)
+Message-ID: <d95e0c38-87f4-4ff7-bdb9-e76da31547b8@redhat.com>
+Date: Tue, 22 Sep 2026 16:21:31 -0400
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/3] cgroup/cpuset: prevent activating local partition
+ over remote one
+To: Hui Peng <benquike@gmail.com>, Guopeng Zhang <guopeng.zhang@linux.dev>,
+ Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ Ridong Chen <ridong.chen@linux.dev>
+Cc: Michal Koutny <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>,
+ cgroups@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <aa90bb73-c2af-4d13-8f2a-0435aa528058@linux.dev>
+ <20260920181449.3122336-1-benquike@gmail.com>
+ <20260920181449.3122336-2-benquike@gmail.com>
+Content-Language: en-US
+From: Waiman Long <longman@redhat.com>
+In-Reply-To: <20260920181449.3122336-2-benquike@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-From: Sandeep Dhavale <dhavale@google.com>
+On 9/20/26 2:14 PM, Hui Peng wrote:
+> Commit 6da580ec656a ("cgroup/cpuset: Don't allow creation of local
+> partition over a remote one") added a check in update_prstate() to reject
+> creating a top-level local partition whose cs->exclusive_cpus intersects
+> subpartitions_cpus.
+>
+> However, if a top-level cgroup A1 is first set to "root" with all CPUs
+> (CX0-7:P1, becoming "root invalid" because no CPUs would remain in
+> top_cpuset), has a child A1/A2 enabled as a remote partition on a subset
+> of those exclusive CPUs (CX2-3:P2), and A1 is then updated to a valid CPU
+> subset (CX1-3), update_exclusive_cpumask() / update_cpumask() calls
+> validate_partition() without going through update_prstate(). Because
+> validate_partition() does not check trialcs->exclusive_cpus against
+> subpartitions_cpus, A1 transitions from "root invalid" to a valid local
+> partition over the existing remote partition A1/A2 and triggers:
+>
+>    WARNING: kernel/cgroup/cpuset.c:1943 at update_parent_effective_cpumask+0x189b/0x1fd0
+>
+> Check trialcs->exclusive_cpus against subpartitions_cpus in
+> validate_partition() when !is_partition_valid(cs), and add a regression
+> test case to tools/testing/selftests/cgroup/test_cpuset_prs.sh.
+>
+> Tested in QEMU on Linux 7.3.0-rc3 using
+> tools/testing/selftests/cgroup/test_cpuset_prs.sh.
+>
+> Fixes: 6da580ec656a ("cgroup/cpuset: Don't allow creation of local partition over a remote one")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Hui Peng <benquike@gmail.com>
+> ---
+> Changes in v3:
+> - Split the validate_partition() fix (Fixes: 6da580ec656a) and the
+>    cpus_excl_conflict() fix (Fixes: 2a3602030d80) into separate patches.
+>
+>   kernel/cgroup/cpuset.c                        | 4 ++++
+>   tools/testing/selftests/cgroup/test_cpuset_prs.sh | 2 ++
+>   2 files changed, 6 insertions(+)
+>
+> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+> index 7381fa8502e7..7c5b4a8f1f3a 100644
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+> @@ -2415,6 +2415,10 @@ static enum prs_errcode validate_partition(struct cpuset *cs, struct cpuset *tri
+>   	if (cpumask_empty(trialcs->effective_xcpus))
+>   		return PERR_INVCPUS;
+>   
+> +	if ((parent == &top_cpuset) && !is_partition_valid(cs) &&
+> +	    cpumask_intersects(trialcs->exclusive_cpus, subpartitions_cpus))
+> +		return PERR_REMOTE;
+> +
+This additional check looks good.
+>   	if (prstate_housekeeping_conflict(trialcs->partition_root_state,
+>   					  trialcs->effective_xcpus))
+>   		return PERR_HKEEPING;
+> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> index b732078bf319..f4d1822d4e21 100755
+> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> @@ -321,6 +321,8 @@ TEST_MATRIX=(
+>   	" C1-3:P2  X4:P2    .      .      .    X3:P2    .      .     0 A1:1-2|XA1:1-3|A2:3:XA2:3 A1:P2|A2:P2 1-3"
+>   	" C0-3:P2    .      .    C4-6   C0-4     .      .      .     0 A1:0-4|B1:5-6 A1:P2|B1:P0"
+>   	" C0-3:P2    .      .    C4-6 C0-4:C0-3  .      .      .     0 A1:0-3|B1:4-6 A1:P2|B1:P0 0-3"
+> +	" CX0-7:P1 CX2-3:P2 .      .    CX1-3    .      .      .     0 A1:1|A2:2-3|XA2:2-3 \
+> +								       A1:P-1|A2:P2 2-3"
 
-[ Upstream commit 12d0a24afd9ea58e581ea64d64e066f2027b28d9 ]
+This test will not work because you are assuming the test system only 
+have 8 CPUs. That may not be the case and 2 local partitions may be 
+created instead.
 
-Current check for atomic context is not sufficient as
-z_erofs_decompressqueue_endio can be called under rcu lock
-from blk_mq_flush_plug_list(). See the stacktrace [1]
+Cheers,
+Longman
 
-In such case we should hand off the decompression work for async
-processing rather than trying to do sync decompression in current
-context. Patch fixes the detection by checking for
-rcu_read_lock_any_held() and while at it use more appropriate
-!in_task() check than in_atomic().
-
-Background: Historically erofs would always schedule a kworker for
-decompression which would incur the scheduling cost regardless of
-the context. But z_erofs_decompressqueue_endio() may not always
-be in atomic context and we could actually benefit from doing the
-decompression in z_erofs_decompressqueue_endio() if we are in
-thread context, for example when running with dm-verity.
-This optimization was later added in patch [2] which has shown
-improvement in performance benchmarks.
-
-==============================================
-[1] Problem stacktrace
-[name:core&]BUG: sleeping function called from invalid context at kernel/locking/mutex.c:291
-[name:core&]in_atomic(): 0, irqs_disabled(): 0, non_block: 0, pid: 1615, name: CpuMonitorServi
-[name:core&]preempt_count: 0, expected: 0
-[name:core&]RCU nest depth: 1, expected: 0
-CPU: 7 PID: 1615 Comm: CpuMonitorServi Tainted: G S      W  OE      6.1.25-android14-5-maybe-dirty-mainline #1
-Hardware name: MT6897 (DT)
-Call trace:
- dump_backtrace+0x108/0x15c
- show_stack+0x20/0x30
- dump_stack_lvl+0x6c/0x8c
- dump_stack+0x20/0x48
- __might_resched+0x1fc/0x308
- __might_sleep+0x50/0x88
- mutex_lock+0x2c/0x110
- z_erofs_decompress_queue+0x11c/0xc10
- z_erofs_decompress_kickoff+0x110/0x1a4
- z_erofs_decompressqueue_endio+0x154/0x180
- bio_endio+0x1b0/0x1d8
- __dm_io_complete+0x22c/0x280
- clone_endio+0xe4/0x280
- bio_endio+0x1b0/0x1d8
- blk_update_request+0x138/0x3a4
- blk_mq_plug_issue_direct+0xd4/0x19c
- blk_mq_flush_plug_list+0x2b0/0x354
- __blk_flush_plug+0x110/0x160
- blk_finish_plug+0x30/0x4c
- read_pages+0x2fc/0x370
- page_cache_ra_unbounded+0xa4/0x23c
- page_cache_ra_order+0x290/0x320
- do_sync_mmap_readahead+0x108/0x2c0
- filemap_fault+0x19c/0x52c
- __do_fault+0xc4/0x114
- handle_mm_fault+0x5b4/0x1168
- do_page_fault+0x338/0x4b4
- do_translation_fault+0x40/0x60
- do_mem_abort+0x60/0xc8
- el0_da+0x4c/0xe0
- el0t_64_sync_handler+0xd4/0xfc
- el0t_64_sync+0x1a0/0x1a4
-
-[2] Link: https://lore.kernel.org/all/20210317035448.13921-1-huangjianan@oppo.com/
-
-Reported-by: Will Shiu <Will.Shiu@mediatek.com>
-Suggested-by: Gao Xiang <xiang@kernel.org>
-Signed-off-by: Sandeep Dhavale <dhavale@google.com>
-Reviewed-by: Gao Xiang <hsiangkao@linux.alibaba.com>
-Reviewed-by: Alexandre Mergnat <amergnat@baylibre.com>
-Link: https://lore.kernel.org/r/20230621220848.3379029-1-dhavale@google.com
-Signed-off-by: Gao Xiang <hsiangkao@linux.alibaba.com>
-
-[ Backport to 6.1.y: the source change is unchanged; only its location
-  in z_erofs_decompress_kickoff() differs. ]
-Assisted-by: LLM
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
----
-Hi Greg, Sasha, and EROFS maintainers,
-
-I am continuing backporting CVE fixes still missing from 6.1.y.
-This fix is inherited by v6.6 and every later mainline release, but 6.1.y
-still has the affected code. The target-specific adjustment is described
-in the bracketed note above.
-
-Could you please queue it for 6.1.y?
-
-Thanks,
-Artem Dinaburg
-
-CVE: CVE-2023-53231
-
-Build: This patch was included in an x86_64 allmodconfig and
-CONFIG_WERROR=y build.
-It produced vmlinux and modules with no new warnings or errors.
-
-AI assistance: An LLM helped find, adapt, and validate this
-backport; I reviewed the patch and test output.
-
- fs/erofs/zdata.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/fs/erofs/zdata.c b/fs/erofs/zdata.c
-index 66c323cbdd73e1..49b7c77488415a 100644
---- a/fs/erofs/zdata.c
-+++ b/fs/erofs/zdata.c
-@@ -1271,7 +1271,7 @@ static void z_erofs_decompress_kickoff(struct z_erofs_decompressqueue *io,
- 	if (atomic_add_return(bios, &io->pending_bios))
- 		return;
- 	/* Use workqueue and sync decompression for atomic contexts only */
--	if (in_atomic() || irqs_disabled()) {
-+	if (!in_task() || irqs_disabled() || rcu_read_lock_any_held()) {
- 		queue_work(z_erofs_workqueue, &io->u.work);
- 		/* enable sync decompression for readahead */
- 		if (sbi->opt.sync_decompress == EROFS_SYNC_DECOMPRESS_AUTO)
--- 
-2.39.5
+>   
+>   	# Local partition invalidation tests
+>   	" C0-3:X1-3:P2 C1-3:X2-3:P2 C2-3:X3:P2 \
 
