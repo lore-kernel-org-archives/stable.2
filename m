@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E860354CF48
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 13:30:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB1E1314D1F
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 13:40:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790083849; cv=none; b=Px0we4BnYoVBJSmWDX94oxOBR4AWL/EiWc8eoi/y84BUogsXOM8CwIhAnUG5ZkfuhESzR7I/7hhE6EGJuUXx1Q5H0BICLcK0W5KewbBT9p0M5fB2+XVJDWFlg5p91zfEQWL6WpfrwQXVYvlGMZzUPsLbx8sVzE0hlaMsbnzk8Y8=
+	t=1790084459; cv=none; b=YsSQk9KA8lOMj29vtgSGFW46wiwOOaWcreSksEvJB7aCMJcV4iCL0jRNwYpkUFGuLYtJpxGKb0MJeb+tp0ohNOomHDVsEyrs6sUHWLWRwHu1yIn1U6IcAPR3GQGwcwLLOYw/4BY2LRlQ/uFFA7eheBxMfsdz/g8zkSnOZDUCpBY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790083849; c=relaxed/simple;
-	bh=wXUf5BccZFVgfDBfvIlzXLvhc+NhsICUnKJDyJp3Gfk=;
+	s=arc-20240116; t=1790084459; c=relaxed/simple;
+	bh=UeUHf9LkHO95zs22zUTdMRAD6/7uwZLMA15ryS0SRSQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rxgXmlW579iOWYO51zMn7gad66pJnWDSe7bqELvTRYOy7ixzOisE+xbfG9dyY3jt+8Z2D84eMaxn6ubeKcMzy30XNsTxi2vMSHHqX/uGDIB8glsZmqEfn3SZiWxXSBXibriVEbHCleuIKf/z1xR3q+8csIRuQIguEGqcNnGkrTk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dhaknke6; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=pGzBGQ+b/n0Vgz1ujA70o/btdgR6lAi/LnhVd5b6uQcxRHPKTpKf3m7xJwwhMRrtND5cSy9ahg43hUeyU4tQcmiMd2YoZM+NI4XjtKjh8fN66rAuzxio3xXSkRjzPWriiuaMQFjS5D4S4pWpDK/Yz7C8DzaLxlOlVKdeE2EsRZI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eMNTogjq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dhaknke6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 055501F000FF;
-	Tue, 22 Sep 2026 13:30:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eMNTogjq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E23991F000FF;
+	Tue, 22 Sep 2026 13:40:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790083847;
-	bh=PL2T9Vj3kPjjCi0wrEIsbMIpqbD5l4li/r11wpDskak=;
+	s=k20260515; t=1790084458;
+	bh=LBEFCTq2v1vlAW9vGN4S0NSnoS8/2iKFCzpxs77wwyM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Dhaknke6XjfpPUSOKw4mYS88S9O3HI7raPzGAQTknBS17nZV3suZ6o3JoDgLzx/vt
-	 5awqC7cD9tvH9e/xC4RHxVykrBBrjP9b+FtjZP1QPIa0ehYuAGT1MstvTFUGsvASFl
-	 jhKBbKLHE1y3c3jcNYWMbYabBpvAt8rVevEixbbumP3Su0m1uSGw0FNLnKJsOVIwUm
-	 kgtE1uT+z1YMqUL4ZZBzU/3fL8T9Ld597DeYIyDi3lE1PUKerG3j+Zs1OGRDt1GS0s
-	 P22KKIsWc+HdXl94xOFs7gC8WyxI2R0BZKYk0xUeXe88QU76zDuoj8u4nY3sd44l5Z
-	 LmWJrHtWcmovA==
+	b=eMNTogjqqLDZQNx84fQoI1sn8d3DuKUrshkpx7MpbnNzRQLTvPuTVc3ycLFrSOS0Z
+	 +929BGvHN1kUmxOLK2nkocG9gFn8QXmCMlEMcSd74lENGUKOnMv6EkniDXn5yhKNnC
+	 Bhyo1+RKxP2EwIJFbn6pQoSaE2LwWzDCZnJ7N0VZb8s2Cwih1kkQPDayTRrDphEBX+
+	 2xV+IJnGxFBV1NWcjgimn3DicX+zYZ3u9UcUFuu+Ns9Kz9N7clbtkIGafmCPU3krRh
+	 KGfmNjQgJD7yX7ftOW1wWQr/y7jqK17XZhSd+uwh2Vny6fRep9g4m2fRDLNtn0BmQq
+	 RA0ulOZOyPsUw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
-	Michael Kelley <mhklinux@outlook.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
+Cc: Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+	Rob Herring <robh@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] swiotlb: use the adjusted address for the highmem page lookup
-Date: Tue, 22 Sep 2026 09:30:45 -0400
-Message-ID: <20260922133045.2479238-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/3] of: Introduce for_each_*_child_of_node_scoped() to automate of_node_put() handling
+Date: Tue, 22 Sep 2026 09:40:54 -0400
+Message-ID: <20260922134056.2503713-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092244-diocese-pointing-0bdd@gregkh>
-References: <2026092244-diocese-pointing-0bdd@gregkh>
+In-Reply-To: <2026092256-genetics-desecrate-9b80@gregkh>
+References: <2026092256-genetics-desecrate-9b80@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,66 +45,62 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+From: Jonathan Cameron <Jonathan.Cameron@huawei.com>
 
-[ Upstream commit b7d7914a9ae3097e63d113007e4fb44d33d515b1 ]
+[ Upstream commit 34af4554fb0ce164e2c4876683619eb1e23848d4 ]
 
-swiotlb_bounce() reads the page frame number from the slot's recorded
-orig_addr, then advances orig_addr by tlb_offset to reach the address
-the caller asked about. The highmem branch mixes the two: the offset
-within the page comes from the adjusted address, the page from the value
-before it.
+To avoid issues with out of order cleanup, or ambiguity about when the
+auto freed data is first instantiated, do it within the for loop definition.
 
-Once the adjustment crosses a page boundary the pair no longer describes
-one location, and the whole copy lands one page below the intended one
-for a positive tlb_offset, one above for a negative one. DMA_FROM_DEVICE
-writes the device data over the wrong page and leaves the intended one
-stale, DMA_TO_DEVICE feeds the device from a page the mapping may not
-cover. Partial syncs through dma_sync_single_range_for_*() are what make
-tlb_offset non-zero.
+The disadvantage is that the struct device_node *child variable creation
+is not immediately obvious where this is used.
+However, in many cases, if there is another definition of
+struct device_node *child; the compiler / static analysers will notify us
+that it is unused, or uninitialized.
 
-The branch test is picked the same way, so a slot recorded in lowmem can
-be adjusted into highmem and the lowmem path then hands a highmem
-address to phys_to_virt().
+Note that, in the vast majority of cases, the _available_ form should be
+used and as code is converted to these scoped handers, we should confirm
+that any cases that do not check for available have a good reason not
+to.
 
-Take both from orig_addr once it is final and keep pfn in the branch
-that uses it. PhysHighMem() asks the question straight from the address,
-as dma-debug already does.
-
-Fixes: 5f89468e2f06 ("swiotlb: manipulate orig_addr when tlb_addr has offset")
-Cc: stable@vger.kernel.org
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Reviewed-by: Michael Kelley <mhklinux@outlook.com>
-Link: https://lore.kernel.org/r/20260905084210.148255-1-donggeunyoo.kernel@gmail.com
-Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
-[ Replaced unavailable PhysHighMem(orig_addr) with PageHighMem(pfn_to_page(PFN_DOWN(orig_addr))). ]
+Signed-off-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
+Reviewed-by: Rob Herring <robh@kernel.org>
+Link: https://lore.kernel.org/r/20240225142714.286440-3-jic23@kernel.org
+Signed-off-by: Rob Herring <robh@kernel.org>
+Stable-dep-of: 0d1cb83337f1 ("ata: libahci_platform: Fix device reference leak in ahci_platform_get_resources()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/dma/swiotlb.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ include/linux/of.h | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
-index ffb7b021e2fb9..90651d535a923 100644
---- a/kernel/dma/swiotlb.c
-+++ b/kernel/dma/swiotlb.c
-@@ -869,7 +869,6 @@ static void swiotlb_bounce(struct device *dev, phys_addr_t tlb_addr, size_t size
- 	int index = (tlb_addr - mem->start) >> IO_TLB_SHIFT;
- 	phys_addr_t orig_addr = mem->slots[index].orig_addr;
- 	size_t alloc_size = mem->slots[index].alloc_size;
--	unsigned long pfn = PFN_DOWN(orig_addr);
- 	unsigned char *vaddr = mem->vaddr + tlb_addr - mem->start;
- 	int tlb_offset;
+diff --git a/include/linux/of.h b/include/linux/of.h
+index d8cd02433f910..36ef19f8bd08a 100644
+--- a/include/linux/of.h
++++ b/include/linux/of.h
+@@ -1279,10 +1279,23 @@ static inline int of_property_read_s32(const struct device_node *np,
+ #define for_each_child_of_node(parent, child) \
+ 	for (child = of_get_next_child(parent, NULL); child != NULL; \
+ 	     child = of_get_next_child(parent, child))
++
++#define for_each_child_of_node_scoped(parent, child) \
++	for (struct device_node *child __free(device_node) =		\
++	     of_get_next_child(parent, NULL);				\
++	     child != NULL;						\
++	     child = of_get_next_child(parent, child))
++
+ #define for_each_available_child_of_node(parent, child) \
+ 	for (child = of_get_next_available_child(parent, NULL); child != NULL; \
+ 	     child = of_get_next_available_child(parent, child))
  
-@@ -899,7 +898,8 @@ static void swiotlb_bounce(struct device *dev, phys_addr_t tlb_addr, size_t size
- 		size = alloc_size;
- 	}
- 
--	if (PageHighMem(pfn_to_page(pfn))) {
-+	if (PageHighMem(pfn_to_page(PFN_DOWN(orig_addr)))) {
-+		unsigned long pfn = PFN_DOWN(orig_addr);
- 		unsigned int offset = orig_addr & ~PAGE_MASK;
- 		struct page *page;
- 		unsigned int sz = 0;
++#define for_each_available_child_of_node_scoped(parent, child) \
++	for (struct device_node *child __free(device_node) =		\
++	     of_get_next_available_child(parent, NULL);			\
++	     child != NULL;						\
++	     child = of_get_next_available_child(parent, child))
++
+ #define for_each_of_cpu_node(cpu) \
+ 	for (cpu = of_get_next_cpu_node(NULL); cpu != NULL; \
+ 	     cpu = of_get_next_cpu_node(cpu))
 -- 
 2.53.0
 
