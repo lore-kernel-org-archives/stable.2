@@ -1,42 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9D0D37F8C1
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 02:23:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B667364EBF;
+	Tue, 22 Sep 2026 02:23:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790043833; cv=none; b=t599huRwHRpLPmtQtNEuzxmGAbJuVC02L18K2HgnjuRDz0dJY3u9naAbq6b3HsDuAD/CxHLk5yZI+fP4y/V6xZXSoMtZ5DXNXscNJ1DxlhKsc/SvtloIAPBBpfzUtFg1x26ybtebnm5iGlO1ASMNnejZxiRs4RieUCdv5Ys8uwI=
+	t=1790043835; cv=none; b=P2aclTaSz0+RVsOt58RTth0TICuOnPvAqedBlcsO6BIWYtHWpF3Hcih0u0TrPQdBXqt8mzHUE+CuAM0GCJo/EUbYBch2EG41iKBUhn/TY3fq6PD38qIb3s/8tNrnMjFwz+RMHuCdEpmDkkK2aS/Fu5mcaaxNL6D2h+JmGJxIx4Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790043833; c=relaxed/simple;
-	bh=gjV7Dwx5C+Rj0HTDT0ZI2AqqTmhdTHzp40dQ2Of35kc=;
+	s=arc-20240116; t=1790043835; c=relaxed/simple;
+	bh=xoq6/jLcqwF9yk9d/FxrRv8Kp4YdOAN79i1PrTAqbZs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DKv4FVF2PtErQmbOLddXyYsYPBOhyo/lH4XwwkswodxXdIqNUXBQgMfJBauAY7mRQ6ZuoUKiXSdcOHMZ/gMxtavFH7veu8th6DPHiBNqxvLRz85hBkkJtaQb5ymggsQm6duz1rTGNjeIng2wt60ZPkfhbqFZnUguRuPiyeL9zQk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bDEwCCJk; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=eKta3LoCADOeTYgg6t55t19DEEVYz4/MD/ipfh5y6FWIiheb4UqBvH1/y1vy/S2DZ8y+FV67RltzXNcsWK/c0KUe311S8JtiMlj+hrmOIzGVOLRBJRL1XlWO158SH/HAb+97lRSNWtITQT34pu/mcq3mwxZ4Ua7lBmwUUYYt8GE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KaLdrqos; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bDEwCCJk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C0291F00893;
-	Tue, 22 Sep 2026 02:23:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KaLdrqos"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86FD21F0089A;
+	Tue, 22 Sep 2026 02:23:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790043832;
-	bh=xevCBX2cDU3dNET17gklLceYTTGMHaJ+Wvo5KyGdRXc=;
+	s=k20260515; t=1790043834;
+	bh=VJJy58Bp2GJegnzFAIFwaP1Zzk+cIgNcFrNWfEcdySY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bDEwCCJkd0T5UEb4CLDTpa+qGQfPIyGxN5opSNqnuORHnqbQjb7YrIbh9G9bdQn92
-	 MsCfrtu/IBsY/v2w9/Rjr1rUVq2tLiB6SCOAt2I9VrCJvlvlIgvdV+ZDsKgsVH5W6z
-	 rjVZuAZwPZlVisYjL5uCn651zu/jmFSiC4BKd+PbQ1FNLgRlWT8DUrKtyW1OO+XNKP
-	 qcbbgKMWhnica4VC3wemz52gpGtoP2XMBSi6PKOGDDzFJxyi+pBXg9WR5NJIph3sMN
-	 QVimHWe8sM8kT+bjpOgHx5hI1CBLgUxRCBC6JN+2No+Asw0DhmqjAHHGiKW4888Fzd
-	 YvICSL2YJ2NgA==
+	b=KaLdrqosI+azP5SNxyfJZ8/851yYYC8FqOxX25vJ9OnokOBfQS0sq4mCHH47fYLuu
+	 d18m5D0YIFiYxAbIlInGc4qIduapk7fyBn2Abo9wWZmj3WwicSHDy66PNDTiul3Qd4
+	 n4VP719aNd9u2venpxSkfrXUQOXSdMgISJAG/c+n6RK6cxviHiWfDucb1laQyEyzrv
+	 7IFTveYBrPJ3nJxHI3FcgWD7AVlg0aIec4Kk8D16N/soKnPVLiPBlJ/6Cx/epGbR/X
+	 x8/+pyvuK5BRzk2QOy7UqtXeixNvXziGTb6xu9Vsk5ihE6VSYz4p9HyDwv9rJd8x9S
+	 ucyOU6ekAZ6Mw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Kevin Hao <haokexin@gmail.com>
-Subject: Re: [PATCH 6.6.y 0/2] Porting two fixes for the cpsw Ethernet driver to the v6.6.y stable kernel
-Date: Mon, 21 Sep 2026 22:23:41 -0400
-Message-ID: <2026-09-21-daily-reply-0004-re-cpsw-rx-mode-work-6-6@kernel.org>
+	Bitterblue Smith <rtl8821cerfe2@gmail.com>,
+	Ping-Ke Shih <pkshih@realtek.com>,
+	linux-wireless@vger.kernel.org,
+	Josef Schlehofer <pepe.schlehofer@gmail.com>
+Subject: Re: wifi: rtw88: backport 737e980e1298 and f24d0d8c3cd7 to 6.18.y and 6.12.y
+Date: Mon, 21 Sep 2026 22:23:43 -0400
+Message-ID: <2026-09-21-daily-reply-0006-re-rtw88-null-data-and-beacon-valid@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260920-v6-6-cpsw-v1-0-a4a4b3dd4eb2@gmail.com>
-References: <20260920-v6-6-cpsw-v1-0-a4a4b3dd4eb2@gmail.com>
+In-Reply-To: <20260921150005.95894-1-pepe.schlehofer@gmail.com>
+References: <20260921150005.95894-1-pepe.schlehofer@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,16 +47,22 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> As requested by Sasha, both commits are now being ported together to the v6.12,
-> v6.6, and v5.15 stable kernels. The only minor adjustment is replacing
-> disable_work_sync() with cancel_work_sync(), as disable_work_sync() is not
-> available in the v6.6 kernel.
+>   737e980e1298 ("wifi: rtw88: TX QOS Null data the same way as Null data")
+>       for 6.18.y and 6.12.y. It was merged in v7.1, so 7.1.y and 7.2.y
+>       already have it, and it applies to both trees unmodified. It does
+>       not apply to 6.6.y as is, only because the lines around the changed
+>       one differ there; the changed line itself is identical.
 
-Queued the series for 6.6, thanks. The cancel_work_sync() swap is the right
-call for this tree.
+Queued for 6.18, 6.12 and 6.6, thanks. Your reading of 6.6 is right: only the
+surrounding context differs, so the three way merge puts the change on the
+intended line and it went in there too.
 
-You had already sent all three versions when I asked for them, sorry for the
-duplicate request. I replied separately about 5.15.
+>   f24d0d8c3cd7 ("wifi: rtw88: Fix the random "error beacon valid" messages
+>       for USB")
+>       for 6.12.y. It was merged in v6.16 and 6.18.y already has it.
+>       It applies unmodified, to 6.6.y as well should you want it there.
+
+Queued for 6.12 and 6.6, thanks.
 
 -- 
 Thanks,
