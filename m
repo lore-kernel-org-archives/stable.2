@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 029035158A5
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 15:11:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21F254F93BC
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 15:11:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790089872; cv=none; b=jQs+ixpo+HDJXsD5xroxbOGiPakQbdakp9gjwAVUWNJpIJ0wgnustYL+2B9eYebk5NY9EWkU0lUzINcvUFRcwdrrqDcBX9A+hspB2ewnOxxHHd2ZnNjD5os8R6tXbbcsWatx43BfLfRor2bknvVrd8w+h9tSLzzj/3XTy8LggNQ=
+	t=1790089876; cv=none; b=G5Uj9b6BcI55HbH3jmjfVKO+H/7J7p1OQN6Y8BBb0kBfk+oWiN4UrL3I+mLSf0bVhIIo0qZsbPIHQpJDPEfhCbAVp/gHeD+JC0sQGQt5FhqBUAD9yC+Y4M7z/O6cZPglbTJkeovlqRZLvPzQnlc/V3HxP13e/FEyUCRDu3NsxV0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790089872; c=relaxed/simple;
-	bh=9kVygVsi68dWoXbf8cjvdx4adVS4DppeQQ8RvqlQuIU=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=dR4kBNdI5PjRwWIG7221OWacJF49G2y8Tp/067G/oLMJJiLCBc405z34JF/F2xacC/ARBGsBwPP/RCa9x1IExBt2/CY4Gb/j2z85CitvTni9F0GtlgrPZ3TT6ApC44jSDn0/ZBqZYpodShn7VUew1fLxGqbmB4YNSQ2Lo9Jbxlg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=xRi+XrL3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790089876; c=relaxed/simple;
+	bh=ViRef6WAzCyVwYhM59Cyd6CaHMCXFAndVbKHcimJ7Zo=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=moBGnDQl7WkHWV5wmrW+npLrmhKad6/Is54ksju3x+h7jDo+CzMZ3VtSEMOegjEzljJMO3GowW+OIi6w+WTS3U5ZCDJHcmXo7yXcNIBqCOO34Mdxdy0ctpKZNWSa4Djpta9oIDhxoHNBYghIIO5ebM+Duw6GkDHo255fPCfWxrM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=WeIc1Tod; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="xRi+XrL3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A71CB1F000FF;
-	Tue, 22 Sep 2026 15:11:09 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="WeIc1Tod"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBC9E1F000FF;
+	Tue, 22 Sep 2026 15:11:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790089870;
-	bh=/eMYDXK3FqphtybsoSxiGTOXJHy8r96j4TFYD9SRmak=;
+	s=korg; t=1790089874;
+	bh=kKlQEmIXTtSIF57K0MpfQgLJWW3nFz+S5DMKf8bnol8=;
 	h=Subject:To:Cc:From:Date;
-	b=xRi+XrL3R8RqfJUgFZEGVbvSSUhN80rmftM1dRspcZv6JfWez5MJkkrlsNRWsMLtZ
-	 p8/jX9EcT0PJUp35Qg4QmT8djMMHK33p3tsSgb678mQv9kHxlhoLSy//rvv51EZXJA
-	 5GJuCNEJmJ3ACtNuXw4hhXHoorZkBGcMhdQdAekg=
-Subject: FAILED: patch "[PATCH] watchdog: rtd119x: Avoid division by zero" failed to apply to 5.15-stable tree
-To: tzungbi@kernel.org,linux@roeck-us.net
+	b=WeIc1TodOHFSAVEGsuI0/2W4czN42wDJTSjpVC4Wwy8LVLPI5w05MUO5yantvmnLG
+	 ikBLJYYMeYem/hHOueWqoYGD7M36HhICqK6E/rxV3lXaZ3sKl98bSnuclf9g0bn61+
+	 VklqPoa70S0yOxN3++v6CT5N1fO9oTl2011JPv+c=
+Subject: FAILED: patch "[PATCH] wifi: libipw: reject TKIP frames without a full MIC" failed to apply to 6.18-stable tree
+To: 4ncienth@gmail.com,johannes.berg@intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 22 Sep 2026 16:57:30 +0200
-Message-ID: <2026092230-thriving-ungraded-3c65@gregkh>
+Date: Tue, 22 Sep 2026 16:58:31 +0200
+Message-ID: <2026092231-good-mahogany-cb59@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 5af7d2cbd20f893def03c8310a460ade66a5d822
+git cherry-pick -x 06f42accaf3c6aecab1dcc57f68dde6c06c8b380
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092230-thriving-ungraded-3c65@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092231-good-mahogany-cb59@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,45 +62,57 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 5af7d2cbd20f893def03c8310a460ade66a5d822 Mon Sep 17 00:00:00 2001
-From: Tzung-Bi Shih <tzungbi@kernel.org>
-Date: Sun, 13 Sep 2026 14:48:50 +0800
-Subject: [PATCH] watchdog: rtd119x: Avoid division by zero
+From 06f42accaf3c6aecab1dcc57f68dde6c06c8b380 Mon Sep 17 00:00:00 2001
+From: Daehyeon Ko <4ncienth@gmail.com>
+Date: Wed, 9 Sep 2026 15:11:24 +0900
+Subject: [PATCH] wifi: libipw: reject TKIP frames without a full MIC
 
-clk_get_rate() could return 0.  Avoid a division by zero panic.
+libipw_michael_mic_verify() assumes that an skb contains an eight-byte
+Michael MIC. A short TKIP frame makes the unsigned payload length wrap,
+causing michael_mic() to read past the skb.
 
-Fixes: 2bdf6acbfead ("watchdog: Add Realtek RTD1295")
+Check that the MIC is present before verifying it, and use the existing
+MICHAEL_MIC_LEN constant for all MIC lengths in the verifier.
+
+Fixes: b453872c35cf ("[NET] ieee80211 subsystem")
 Cc: stable@vger.kernel.org
-Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
-Link: https://patch.msgid.link/20260913064851.8239-3-tzungbi@kernel.org
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+Assisted-by: LLM
+Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+Link: https://patch.msgid.link/20260909061124.3802517-1-4ncienth@gmail.com
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
 
-diff --git a/drivers/watchdog/rtd119x_wdt.c b/drivers/watchdog/rtd119x_wdt.c
-index 984905695dde..0bfadb58917b 100644
---- a/drivers/watchdog/rtd119x_wdt.c
-+++ b/drivers/watchdog/rtd119x_wdt.c
-@@ -98,6 +98,7 @@ static int rtd119x_wdt_probe(struct platform_device *pdev)
+diff --git a/drivers/net/wireless/intel/ipw2x00/libipw_crypto_tkip.c b/drivers/net/wireless/intel/ipw2x00/libipw_crypto_tkip.c
+index 24bb28ab7a49..2b0cf0ec496a 100644
+--- a/drivers/net/wireless/intel/ipw2x00/libipw_crypto_tkip.c
++++ b/drivers/net/wireless/intel/ipw2x00/libipw_crypto_tkip.c
+@@ -474,14 +474,16 @@ static int libipw_michael_mic_verify(struct sk_buff *skb, int keyidx,
+ 					int hdr_len, void *priv)
  {
- 	struct device *dev = &pdev->dev;
- 	struct rtd119x_watchdog_device *data;
-+	unsigned long rate;
+ 	struct libipw_tkip_data *tkey = priv;
+-	u8 mic[8];
++	u8 mic[MICHAEL_MIC_LEN];
  
- 	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
- 	if (!data)
-@@ -111,10 +112,14 @@ static int rtd119x_wdt_probe(struct platform_device *pdev)
- 	if (IS_ERR(data->clk))
- 		return PTR_ERR(data->clk);
+-	if (!tkey->key_set)
++	if (!tkey->key_set || skb->len < hdr_len + MICHAEL_MIC_LEN)
+ 		return -1;
  
-+	rate = clk_get_rate(data->clk);
-+	if (!rate)
-+		return -EINVAL;
-+
- 	data->wdt_dev.info = &rtd119x_wdt_info;
- 	data->wdt_dev.ops = &rtd119x_wdt_ops;
- 	data->wdt_dev.timeout = 120;
--	data->wdt_dev.max_timeout = 0xffffffff / clk_get_rate(data->clk);
-+	data->wdt_dev.max_timeout = 0xffffffff / rate;
- 	data->wdt_dev.min_timeout = 1;
- 	data->wdt_dev.parent = dev;
+ 	michael_mic(&tkey->key[24], (struct ieee80211_hdr *)skb->data,
+-		    skb->data + hdr_len, skb->len - 8 - hdr_len, mic);
+-	if (memcmp(mic, skb->data + skb->len - 8, 8) != 0) {
++		    skb->data + hdr_len,
++		    skb->len - MICHAEL_MIC_LEN - hdr_len, mic);
++	if (memcmp(mic, skb->data + skb->len - MICHAEL_MIC_LEN,
++		   MICHAEL_MIC_LEN) != 0) {
+ 		struct ieee80211_hdr *hdr;
+ 		hdr = (struct ieee80211_hdr *)skb->data;
+ 		printk(KERN_DEBUG "%s: Michael MIC verification failed for "
+@@ -499,7 +501,7 @@ static int libipw_michael_mic_verify(struct sk_buff *skb, int keyidx,
+ 	tkey->rx_iv32 = tkey->rx_iv32_new;
+ 	tkey->rx_iv16 = tkey->rx_iv16_new;
  
+-	skb_trim(skb, skb->len - 8);
++	skb_trim(skb, skb->len - MICHAEL_MIC_LEN);
+ 
+ 	return 0;
+ }
 
