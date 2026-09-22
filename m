@@ -1,81 +1,71 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAD3B5476F2
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 13:13:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FC1554B1CB;
+	Tue, 22 Sep 2026 13:13:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790082834; cv=none; b=FrPh3fThT5mzkXlZa44c+twJ0NiUmj8vcNcOJRwjAmMAYatR+jSOAPAqLT4V87ueU0K6FQJ3RWnTKIlHxlp9CuYU9Vq4SpAxPi5XOov0ENw9Db5l4bz03u74jdyGT0nt5UilDlY0oW7T/kvM3clIvFVr5gp206TPUiQ8DwXez34=
+	t=1790082835; cv=none; b=ZwHCuNAkReXq3VexfYmXpFHzxcD9sPC4yp4SxvtyV74Xs3Yq6EsSfM/bGFDuQvXD65xZ/7GXmDOm2gBC3Aga9XhjXKTCmtPxfLrXA8qAc2Hhh4BJaEQAo20k8MujDLGD0LV7M0bRfBZk+AXanXrFxWDfXEfMmYvYVtv9NBmq2J0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790082834; c=relaxed/simple;
-	bh=oOui4zK6FIe70bxPh3uf6x1iuyJg4jcWicCOXddxrNQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VHM3Gbk4EKWhWfOaIqIBckCToCmEY60HRNWJgP8wYDU9SRDC5D57t9tV4/9vqfzPeIyM0GYC4Gve8yoBpCtqmNYAJb9RhyYAYHP43WXRTa82bskLQWvb7p890fbquaV0j3fn/vxRmwrdh21ywq8/v7moc5iJ1yPRT3WC1snZA+k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PjH/QJ8h; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790082835; c=relaxed/simple;
+	bh=eGeZAQPDXdolGYpsApnujjkkSWNew0KyXu9UdOni0Ec=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=GNX5m2DGkC5ulCTD0k19k4+VwkvwmCaoaOfG1oO9oqJJ87DZ0RGE0VYE1H418W3O2Lz1INVlROfWjnbj4+bf6fuo1pUN5kHvgz40qrZsUGUlvq5+cpe3Muy8D1qOyvSdIgGu1hrh+re+75qG/k5Gi9OdR2+lMDXI9QQRthF7gYM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CIgfkEkp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PjH/QJ8h"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 973E31F00A0F
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 13:13:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CIgfkEkp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73C6E1F0089C;
+	Tue, 22 Sep 2026 13:13:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790082832;
-	bh=oOui4zK6FIe70bxPh3uf6x1iuyJg4jcWicCOXddxrNQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=PjH/QJ8hvA0sOl2Dpfs8o9nh3ZPYx/skwjWu6d+Lm0WirmbyAFPVzv3IqYUUEoVsV
-	 rnkr5IPkYjwet47lyZR62BE4UDJstR+kHrWs2IM0IwrENJJd1WsXYFA+4Wew743eui
-	 mQkFvGLz4awouErA26ETfEZbzyS5gC9BqfskAR7D1Iernc7qbiirkSNiZ4RtjvI+VC
-	 DDNVV12LLIXURBAzFaKK5+1Jvf++r/vR9YMUBmVHo5sOPXEBhukRf+tlxw6wyL2AQt
-	 cUC6XMW1gmTthUjE1BcG7Ii/IP3/c0wmTAKOhG2vJM6XHYfgDetPWLT4DccRMzUiUV
-	 cNGf/1KuAQfsA==
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a98dfb8002so5824634a12.2
-        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 06:13:52 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwJ0CG5OU8P/NScZkRflBPR3ZIudG8FasjJFRLhmqpqY2wWJf2/jIEjOUD9601xHz4plJYZgog=@vger.kernel.org
-X-Gm-Message-State: AFuF++kR8zkgwjuib3UhiAQ1o91MSuehjMVdm28UPBSHqPcpKv4y/0Rq
-	TMGbsRc6bp7cg2n1LfcbZREZBU/7KJ9O9txmPqeVA+s5bpJfLYygVHIeXx2T5lZMxoJG1CybHAp
-	3bnjljHPD5U3VsWxyBbHH4zvunra5Ayw=
-X-Received: by 2002:a05:6402:a509:10b0:6aa:96b3:9d7b with SMTP id
- 4fb4d7f45d1cf-6aa96b39e75mr2793518a12.45.1790082831228; Tue, 22 Sep 2026
- 06:13:51 -0700 (PDT)
+	s=k20260515; t=1790082834;
+	bh=lFpj+ISgjbQkMiUIYm/dxfsT2GFXZm5jRNEMsFvP8ls=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=CIgfkEkp4e6Q4pwHvOUvAYsO+M2TMBNFHX/wUk0U3/4z7MihqBoEuE6zqLEuSAYmr
+	 CBPbiAywyKxcCLQqEY+Oa03Q61zmMQ+y3Qwwgg3PdrCnJXgOq7N8fWUdk7RLSQv1D9
+	 ctp82eqH81bSc38dkv85d8cn3U5HhQg7kFscb1f7CtUc6KUYnyAB75dXfmiEWwNhrX
+	 LLaj1oTwHG/f0Ik6Y5JSqljcMNuG9rOfntZv59uDN4oiROsQ59QB9l7KkgR5R7+zEU
+	 5Ls6qoVNA9fmz8Bpsd43lv8bHUS5ufL7tNdTds+FPpwrigCrEdAKqX8+XtgU75FkLW
+	 sr7l2supVe8aQ==
+From: Leon Romanovsky <leon@kernel.org>
+To: Tatyana Nikolova <tatyana.e.nikolova@intel.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Shiraz Saleem <shiraz.saleem@intel.com>, 
+ Mustafa Ismail <mustafa.ismail@intel.com>, 
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-rdma@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Guangshuo Li <lgs201920130244@gmail.com>
+Cc: stable@vger.kernel.org
+In-Reply-To: <20260914122840.1709743-1-lgs201920130244@gmail.com>
+References: <20260914122840.1709743-1-lgs201920130244@gmail.com>
+Subject: Re: [PATCH] RDMA/irdma: avoid use-after-free in icrdma_remove
+Message-Id: <179008283122.3238103.2042812322939438468.b4-ty@kernel.org>
+Date: Tue, 22 Sep 2026 09:13:51 -0400
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260922043301.15101-1-kmehltretter@gmail.com>
-In-Reply-To: <20260922043301.15101-1-kmehltretter@gmail.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Tue, 22 Sep 2026 22:13:39 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd_3w_pjF9Y4H97UrCQ5Q6wYtCmfbiFBYa4t+5HkcJOYJQ@mail.gmail.com>
-X-Gm-Features: AclHuK8pziMClaJLRmRE5rz8-0BWbIB6CDlKWZzsGG_dIfU-CEW00nSs6TQpmGs
-Message-ID: <CAKYAXd_3w_pjF9Y4H97UrCQ5Q6wYtCmfbiFBYa4t+5HkcJOYJQ@mail.gmail.com>
-Subject: Re: [PATCH] ntfs: include the final partial cluster in sync writes
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Hyunchul Lee <hyc.lee@gmail.com>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15-dev-18f8f
 
-On Tue, Sep 22, 2026 at 1:33=E2=80=AFPM Karl Mehltretter <kmehltretter@gmai=
-l.com> wrote:
->
-> ntfs_attrlist_repack() synchronously writes the replacement attribute
-> list before updating its mapping pairs and freeing the old run. With
-> 512-byte clusters, a 544-byte list submits a 512-byte bio, but the
-> write returns 544 and repack accepts it as complete. If the later
-> buffered update does not reach disk, the replacement list lacks its
-> final 32 bytes.
->
-> __ntfs_inode_non_resident_attr_pwrite() converts attr_len to clusters
-> with ntfs_bytes_to_cluster(), which rounds down. Before repack, its
-> synchronous callers used either cluster-aligned lengths or lengths
-> smaller than one cluster, where max_t() selects one.
->
-> Round attr_len up so repack writes the final partial cluster before
-> publishing the new mapping pairs.
->
-> Fixes: b1d732e62a5b ("ntfs: repack $MFT/$ATTRIBUTE LIST")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-Applied it to #ntfs-next.
-Thanks!
+
+On Mon, 14 Sep 2026 20:28:40 +0800, Guangshuo Li wrote:
+> icrdma_remove() dereferences iwdev after calling
+> irdma_ib_unregister_device():
+> 
+>   irdma_ib_unregister_device(iwdev)
+>     -> ib_unregister_device(&iwdev->ibdev)
+>       -> __ib_unregister_device()
+>         -> ib_dealloc_device()
+> 
+> [...]
+
+Applied, thanks!
+
+[1/1] RDMA/irdma: avoid use-after-free in icrdma_remove
+      https://git.kernel.org/rdma/rdma/c/8a8088b899e4cd
+
+Best regards,
+-- 
+Leon Romanovsky <leon@kernel.org>
+
