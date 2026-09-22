@@ -1,44 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F7BA56852F
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 16:36:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E695563FCA
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 16:36:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790095025; cv=none; b=ruwXdvLnu+fsU2aS/jpBNY+4d7WVAYi5RrlSDOj0hxMEDaTh1u8qmNbZCi/jhRm4hPjwcprsuE5y0UGuQlTaZ8qOgbmLIC2AytObLUw0B8fe88ynDX0tmETrqcUNuKI0GZ0yMY/mAAVbcUOV9btKedRvM1gUkNaXareZ+4pWiOU=
+	t=1790095028; cv=none; b=FAM7bDYXqd5temN6C4iHhwLentIuJM1u/ge7jq3XUUJmHpCjovuicLYjIdaknzDIh70C/iREV04PCPdownSRkt0gt6qnJ5B7VbRv+2h6SJGODfWgU+/47warhABNcvChM0UaE4xPfVLUTHoB3tz+87CJK3kB3ydQ34wDcnvUPkM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790095025; c=relaxed/simple;
-	bh=Fy2FGKlJsh14oN/DQe+8VGJqWoS6YNSbu/tqvoG2XtU=;
+	s=arc-20240116; t=1790095028; c=relaxed/simple;
+	bh=SIoWBTjZeP+48zqUjEEm3VLLwg8I8h6f5ol13J+qkiQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VYDJtPBVbTZsWiewTfpQgp2sfJELay7gRVcOsRGB9vKAb9mhWrygf1F04Q8ZYo7sw75NHj0vIOZmOTPiylKCMWj/Z/h0zUeFyhoHKNG2krQEaYZBPve6/xM80lwdwmJ2x7pt18lomkJwBQ1POwV7efH1FJdDKLPcVHZ4Fsd0ESQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H3ECSfBW; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ph8VAsHkHmsVBcS3ivnd1WRgo13rA4xrM4dCCXbDAxbq4hSFncvBL9N6RSE+rUXMawpgmj9mE0YZsba0+GaIqYNWj4EjihlUfZZrS92KS1Lp4XesqYHMkpIS/b6Vl/EDfP46SGzIp+LcUIrQ2xMLnc5bAARKOqHBhVbTz17GMbo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kV2IuxHV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H3ECSfBW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C9AF1F000FF;
-	Tue, 22 Sep 2026 16:36:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kV2IuxHV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 485791F00898;
+	Tue, 22 Sep 2026 16:36:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790095015;
-	bh=YxyhnOqM/vZAJ21E2eyDBx8cvrIyUl0b1+tahYfTxzU=;
+	s=k20260515; t=1790095016;
+	bh=SyV2wueMb0pT7jSlibdnGZLneAZ0EYXI/WhKLc3QyBw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=H3ECSfBWFvqMkwZ2mE1t/Xpcx7SvUi2GvBUmBghAitNX4alyOVajIsf7efz3lamnt
-	 hkvhFh+uk1sDunU7wHZEzf9EoQu9rVNOf5H086Uz46sLom0JqTB+9+4i4+UM5PUCpo
-	 9D21JbuSqxOUlahVVaqL9HkczRJluJf8e0SMLnZcaF6j7BACsx8uub4ol7Svvjd5ps
-	 rEPRxv7gXLZEASlMT2EvP5Tazmi7RLuUApUZwV2ni2vazp4C77wG7fResMemgdzWuo
-	 +ZUebKX/ef5UaMdqW2FL3BOrUfmsgucA0LMLrjDOivjlcy41Ev7JNGiiXjOB4B74Fv
-	 3qSYE3MDyXD7w==
+	b=kV2IuxHVVTTu2Q+IyqDO2VOpu1YuILYn7V6dKYx/b3Zl8wQtJVn57L96jTw2j3bW1
+	 N5RrvyzUvZ+B38gAZnFvcTw4NCQO1S6IMRH7B1GA3raxHBdHDKSnXL24DZ0mGLjW2c
+	 y/mKNjkWETVKRlMPGNRw3+e6QX1jHy1t7ICgwskDZqPHyR5r8+K4AiUZMG6451hhCy
+	 CELuqiGOxg2AHiYXkawc/9VrbbhIxmVkIIoviuiPGwN0hzEZ3B1RMgJ14la8ehzzeU
+	 mmgfKvZmy4h8AXlwjFEzUM38HiTgrs8ap+M4e7vADp2ObHU6e+tEnjoHBWpMJYOng0
+	 ocfKC1aE3kMEg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+Cc: Liu Zhenlong <dragonliu2018@gmail.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
 	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Richard Acayan <mailingradian@gmail.com>,
 	Andi Shyti <andi.shyti@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/3] i2c: qcom-cci: Stop complaining about DT set clock rate
-Date: Tue, 22 Sep 2026 12:36:50 -0400
-Message-ID: <20260922163652.3066989-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 3/3] i2c: qcom-cci: fix device_node refcount leak in cci_probe()/cci_remove()
+Date: Tue, 22 Sep 2026 12:36:52 -0400
+Message-ID: <20260922163652.3066989-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092210-vacation-hangnail-e82f@gregkh>
+In-Reply-To: <20260922163652.3066989-1-sashal@kernel.org>
 References: <2026092210-vacation-hangnail-e82f@gregkh>
+ <20260922163652.3066989-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,53 +48,106 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+From: Liu Zhenlong <dragonliu2018@gmail.com>
 
-[ Upstream commit 8284750a182937bf805f703311501730f02eb40e ]
+[ Upstream commit 7362a1553eb09a8cdf8be7e509bd5309a8342486 ]
 
-It is common practice in the downstream and upstream CCI dt to set CCI
-clock rates to 19.2 MHz. It appears to be fairly common for initial code to
-set the CCI clock rate to 37.5 MHz.
+The of_node_put() matching of_node_get() runs after i2c_del_adapter(),
+whose trailing memset() zeroes adap->dev and thus adap->dev.of_node,
+making the put a no-op and leaking the node on every adapter removal
+and error cleanup.
 
-Applying the widely used CCI clock rates from downstream ought not to cause
-warning messages in the upstream kernel where our general policy is to
-usually copy downstream hardware clock rates across the range of Qualcomm
-drivers.
+Use a devm action: the pointer is captured at registration, out of
+reach of that memset(), and devres runs the put once on probe failure
+and detach, replacing the three manual of_node_put() calls.  The
+setup loop uses the scoped iterator form so the child node is released
+automatically if devm_add_action_or_reset() fails mid-loop.
 
-Drop the warning it is pervasive across CAMSS users but doesn't add any
-information or warrant any changes to the DT to align the DT clock rate to
-the bootloader clock rate.
-
-Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Suggested-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Fixes: 02a4a69667a2 ("i2c: qcom-cci: don't put a device tree node before i2c_add_adapter()")
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Liu Zhenlong <dragonliu2018@gmail.com>
+Cc: <stable@vger.kernel.org> # v5.17+
 Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-Link: https://lore.kernel.org/linux-arm-msm/20240824115900.40702-1-bryan.odonoghue@linaro.org
-Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
-Stable-dep-of: 7362a1553eb0 ("i2c: qcom-cci: fix device_node refcount leak in cci_probe()/cci_remove()")
+Link: https://patch.msgid.link/20260818175750.4205-1-dragonliu2018@gmail.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/i2c/busses/i2c-qcom-cci.c | 8 --------
- 1 file changed, 8 deletions(-)
+ drivers/i2c/busses/i2c-qcom-cci.c | 20 +++++++++++---------
+ 1 file changed, 11 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/i2c/busses/i2c-qcom-cci.c b/drivers/i2c/busses/i2c-qcom-cci.c
-index 85de659bb3627..22fae6a5a9022 100644
+index 87a4c2d0ee9cd..c0309bf61595b 100644
 --- a/drivers/i2c/busses/i2c-qcom-cci.c
 +++ b/drivers/i2c/busses/i2c-qcom-cci.c
-@@ -602,14 +602,6 @@ static int cci_probe(struct platform_device *pdev)
- 		}
+@@ -520,10 +520,14 @@ static const struct dev_pm_ops qcom_cci_pm = {
+ 	SET_RUNTIME_PM_OPS(cci_suspend_runtime, cci_resume_runtime, NULL)
+ };
+ 
++static void cci_put_of_node(void *data)
++{
++	of_node_put(data);
++}
++
+ static int cci_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
+-	struct device_node *child;
+ 	struct resource *r;
+ 	struct cci *cci;
+ 	int ret, i;
+@@ -539,7 +543,7 @@ static int cci_probe(struct platform_device *pdev)
+ 	if (!cci->data)
+ 		return -ENOENT;
+ 
+-	for_each_available_child_of_node(dev->of_node, child) {
++	for_each_available_child_of_node_scoped(dev->of_node, child) {
+ 		struct cci_master *master;
+ 		u32 idx;
+ 
+@@ -560,6 +564,9 @@ static int cci_probe(struct platform_device *pdev)
+ 		master->adap.algo = &cci_algo;
+ 		master->adap.dev.parent = dev;
+ 		master->adap.dev.of_node = of_node_get(child);
++		ret = devm_add_action_or_reset(dev, cci_put_of_node, child);
++		if (ret)
++			return ret;
+ 		master->master = idx;
+ 		master->cci = cci;
+ 
+@@ -631,10 +638,8 @@ static int cci_probe(struct platform_device *pdev)
+ 			continue;
+ 
+ 		ret = i2c_add_adapter(&cci->master[i].adap);
+-		if (ret < 0) {
+-			of_node_put(cci->master[i].adap.dev.of_node);
++		if (ret < 0)
+ 			goto error_i2c;
+-		}
  	}
  
--	if (cci_clk_rate != cci->data->cci_clk_rate) {
--		/* cci clock set by the bootloader or via assigned clock rate
--		 * in DT.
--		 */
--		dev_warn(dev, "Found %lu cci clk rate while %lu was expected\n",
--			 cci_clk_rate, cci->data->cci_clk_rate);
--	}
--
- 	ret = cci_enable_clocks(cci);
- 	if (ret < 0)
- 		return ret;
+ 	return 0;
+@@ -644,10 +649,8 @@ static int cci_probe(struct platform_device *pdev)
+ 	pm_runtime_dont_use_autosuspend(dev);
+ 
+ 	for (--i ; i >= 0; i--) {
+-		if (cci->master[i].cci) {
++		if (cci->master[i].cci)
+ 			i2c_del_adapter(&cci->master[i].adap);
+-			of_node_put(cci->master[i].adap.dev.of_node);
+-		}
+ 	}
+ error:
+ 	disable_irq(cci->irq);
+@@ -665,7 +668,6 @@ static void cci_remove(struct platform_device *pdev)
+ 	for (i = 0; i < cci->data->num_masters; i++) {
+ 		if (cci->master[i].cci) {
+ 			i2c_del_adapter(&cci->master[i].adap);
+-			of_node_put(cci->master[i].adap.dev.of_node);
+ 			cci_halt(cci, i);
+ 		}
+ 	}
 -- 
 2.53.0
 
