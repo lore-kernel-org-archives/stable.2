@@ -1,190 +1,127 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9607446853
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 09:31:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 436E74B1260
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 09:33:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790069493; cv=none; b=DOBdkzRrFO4QSuctt4L9UBvdORz8/VimgSeiR2ToLQ/hPJm22U0BjJU/jykb8H4RhGM+8Z193jIT04qtdLqCB0esWuRKy3+zDB9sIcFVw/TOVy+utsKOS0DhkFjMrgyH+VIPIsPLoRUVzCkONJPh4qTVjbZgzdzr8VYRAnM/DTg=
+	t=1790069620; cv=none; b=f8PBT1AbPH0tG0tT1n+H79aMw3IRKXRzoIzuuI1SmJd1Q++mG9fALtSlgWMvb27xp9T8QSWxZhL9sy+/YL1lTbmfdPOKeBkYREcQTIPLUFrffxk5AG+pMxVcsOYl+UUKR9aiYn186XpKjiqgD5LRdcyTcJXJdD9yD9KgQMR68Gw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790069493; c=relaxed/simple;
-	bh=HsCTEwCejflIPGn6aDN5s1ankMoE3xb+l71/mPF9Rtk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=C8805OArXWeKkytbvpFWLpN/uK27nlqzv5kMW47dE7pv3RCmAGtHBUoW0kWfG20fOewBazS+qCCavlc4ze3nce5SwRUr9IhOOSJ/uU47ErJ0x6x/aSkREOsxgGVsPsgvXGgPUbV+2p6Smx5ZuOzead9BV3gW5pqFF6UolKx8ZzM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VFES/QKq; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790069620; c=relaxed/simple;
+	bh=Ydb8A5IsSmXFv8QsCXm2Zg3ISAVzToCc4PjSnCMZxDY=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=UlDQbilHu+K+IRAGDe5qhJ/23WqgtIpePOjfRIFekIgD5mDbhYtK955+/CzwnexrQBJimNdqn0BAYzenQr8vhHBzsCN511dVFxwFUVW26paR9qaIwsD0wo9zQEs6gJ0Sy5seeUALu3ktaxbYPgF0ZPEhnzKIZKq/7VaJVlNnNt8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cdrZ9XjI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VFES/QKq"
-Received: by mail-pj2-f43.google.com with SMTP id d9443c01a7336-2d90ba1d807so47718255ad.3
-        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 02:31:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790069489; x=1790674289; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SSk/o6B7IWQ+VmqUZ/savpxYdtj5YDadYMQXYJCjXc8=;
-        b=VFES/QKqFYMpjZFNWkcWcFi5dFQSjHZstd5TZflEVJwY76hQbTgE7ofQDLNCpM/Y8+
-         6OJ0WgwxIVJTXSPS8zIdrABmQ6+BwtPj3hZIfv1HLIsZirihnuxmyAjcV85gff8qpqSB
-         AO9AbLszt0Pyxids6NUgzAadi36hJhe3kspf1n1LIbpUe6gmudMP+A//W+oK/MiWa18r
-         kaCTWCiWp1V3EVDFIUzy72CEO1fQHmAIbbDoWigjX1yQZxoiLwHQ89XuSxI77U+o59Ck
-         vhd1jhZahCuMzwWMsImrdR6ZuCucFg1gVNaHJei9XSGI4S0+328KI4CRkejSDM20vdSk
-         tZxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790069489; x=1790674289;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SSk/o6B7IWQ+VmqUZ/savpxYdtj5YDadYMQXYJCjXc8=;
-        b=bBigrtjCp7aBERBU/DtZd2fqp3IMvrqhvFwh6SuTL22Jh0dYQNw5864BCF+ixQkmuC
-         IalVmvc/RrpP9l61r2KXfMU/7v6HZwCRAXSc1azCI/MCYyZb4HkKiNTTBqBoLQEgkSkG
-         Z0ewpBkkDQkna1SMp5drt5LYOFldvYheqAHAbmWCAQ6jZT7Jk4xdapWvLXi0Juzlmgbc
-         PD5bOxzjpC3hwEcrl4QeoCunqp/qhLjP8u9Vkn7hPLMRGZMCRXXD/AtkdgsOuHgz0lZl
-         XXq0uVzQggM94LVe222fhGHkhGmPYj1KEDbHG2e6UWZYyRTddqIl47GwcMpYHjYunhwg
-         kffg==
-X-Forwarded-Encrypted: i=1; AKwUvBw9LG2r/qQ0wx+yPSPqRsho4Tthkd3BwUs8blmMZii25aInPOul6SvCOT6qnpX/AJBdeioQKjI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nQGs1Micw0rMS+1lzahorkVzUKuyHrEFJugBqgIhC3ldbETf10
-	t8jrwtJ34O2CwgHaOpA5JWQKY5sJCiOczJ39rO06try2AqJTBx2o20T9
-X-Gm-Gg: AYBFou151d6PNsZrMJsk+d4tn6afAk/lXok7DI7545Sa27/9rmXbhiapZsuPiW1A9gK
-	EauwFyK/EsoxzSnFMzPBNpgH5U0463xO4h/cBCldjgi1psbikBaix6fTS9RJHAkDF6A7/idxp12
-	47/f7DsPuADqqWCbMDF+uq5BKpDOYXd5GHGN/uHvp6CC5zrkVJBVARxrWMpobM5vDboIsbIb3Gr
-	ieM80wjFWecUw17NnIAsVEuYMyXBsOwjXlVDABEalz8KlXdPWdW7xp7X+0vK0foWBDcFeE0sKnF
-	nzMDdPFb7lMJH34BrrP2Mwf5nHBlyjVMq/On2JLdYmirvjBknGIHSfVECrrjyUDQJ2upN3O9g+Z
-	odhfeCimjTIq9nLYYaQQ0gkjlcxmUDigirkUCd4SjY+ZpcajFRPenwo2gAQDX5nBkUzd7Nf178g
-	9N/2c3WzpJfhTuR5F9RoeU7w/tLgd9GC++Byj0ISMqM7IpAy9ULy4mFG/aR/Nv7hZOoi9QcLFwW
-	RP5eANDDAtW0YAmJtjo2z9Ia4XwFAz1M3h9xbFPvw8HS7U/OgYUJitNswWTwKnorvec5P1v1FnD
-	LMyN1KPgtlZmDMRzC8yI
-X-Received: by 2002:a17:903:3c4d:b0:2dd:88b4:6920 with SMTP id d9443c01a7336-2df609d2351mr6599915ad.22.1790069489351;
-        Tue, 22 Sep 2026 02:31:29 -0700 (PDT)
-Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df63a22f54sm103915ad.61.2026.09.22.02.31.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 02:31:29 -0700 (PDT)
-From: Hui Peng <benquike@gmail.com>
-To: Harry Morris <h.morris@cascoda.com>,
-	Alexander Aring <alex.aring@gmail.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Stefan Schmidt <stefan@datenfreihafen.org>
-Cc: Hui Peng <benquike@gmail.com>,
-	David Laight <david.laight.linux@gmail.com>,
-	linux-wpan@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net v3 3/3] ieee802154: ca8210: validate data_ind length upfront in ca8210_skb_rx()
-Date: Tue, 22 Sep 2026 09:30:25 +0000
-Message-ID: <20260922093126.141969-4-benquike@gmail.com>
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-In-Reply-To: <20260922093126.141969-1-benquike@gmail.com>
-References: <20260922093126.141969-1-benquike@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cdrZ9XjI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F00C81F000FF
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 09:33:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790069619;
+	bh=069+GQ/DIF+/n6F/rVAvVoNM7EVQnIJJNnVPO8L6lWU=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=cdrZ9XjIRkpQIxdl0l0Y+Jl9JSLQgRL7EE8hm/8hwWobiOGtRN1xti+y2R36t3vM3
+	 PgrgnSlhugjy9OdzTSAfLw0T6pOagpps8Kg5gVmsmGefUfyxgvGDBc6LXfENuI7KOf
+	 LzcQHIYS3iF7e5RCYjZwWJE2IXptY+UhR/2LL4QvHpgRN86QFkf3Hd6ieKZntHJyKs
+	 CcbnjwXg7ZLXkLRn4bAGUGB1w4eIYbuULh37WWo6mdKaCbFPGrNNDaGKfA8vh68CTo
+	 Ijb+B/Oe/jNu1sP1b7/3piCHmYJpqjY4IT2rMs9rdr9LKKrBgDPwedBX7H1DO4Pi78
+	 PH5kULd5VW9fg==
+Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-3a49a40209dso4365211fa.0
+        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 02:33:38 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzga+d5xNB/xJ5+x8vLbHjwfYbwMzCQjG6QtSxFghV7E0saJS41ckNzPxFApweZWUIIdvBv4Xg=@vger.kernel.org
+X-Gm-Message-State: AFuF++kaoeIcAAp74AGYTkWNJPwe21jiBQ5bO7+c+95FxWdyNkbGqrAE
+	q8R9bMdQrCQ2aVi/Ceh24IRzkc5BYDlZkXSwomM5z+n9BYVjiJfKiElbuF+YJQz1vipq40LGpw5
+	YFjlm+DynTKpu6gIhYMlETtbjF5niPkXxin7xK4JRwQ==
+X-Received: by 2002:a05:651c:a189:b0:3a5:eacf:9811 with SMTP id
+ 38308e7fff4ca-3a624d70958mr4810711fa.14.1790069617628; Tue, 22 Sep 2026
+ 02:33:37 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 22 Sep 2026 02:33:35 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 22 Sep 2026 02:33:35 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260922090955.GA35938@rigel>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260922-gpio-cdev-stack-leak-fixes-v3-1-7a0c7a4299d5@oss.qualcomm.com>
+ <20260922090955.GA35938@rigel>
+Date: Tue, 22 Sep 2026 02:33:35 -0700
+X-Gmail-Original-Message-ID: <CAMRc=MfT-T0pQTvB3a_1BeOhPHztPh5pGs1Br225GVm1pFN_Yw@mail.gmail.com>
+X-Gm-Features: AcwNN1XpWe_ilycObMRbYUBy0psjXERCXkaGG5VxtWxmcE7WWxLhXalMicOFPN0
+Message-ID: <CAMRc=MfT-T0pQTvB3a_1BeOhPHztPh5pGs1Br225GVm1pFN_Yw@mail.gmail.com>
+Subject: Re: [PATCH v3] gpio: cdev: fix kernel stack leak to user-space in
+ error path
+To: Kent Gibson <warthog618@gmail.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Sashiko <sashiko-bot@kernel.org>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
 
-In ca8210_skb_rx(), data_ind is read at offsets 22 (msdulen), 23
-(mpdulinkquality), 29 + msdulen (hdr.sec.level), 30..39 + msdulen
-(security header), and 29 .. 29 + msdulen (payload) without verifying
-that the received SPI frame length len covers those offsets, causing an
-out-of-bounds read when msdulen exceeds len - 30:
+On Tue, 22 Sep 2026 11:09:55 +0200, Kent Gibson <warthog618@gmail.com> said:
+> On Tue, Sep 22, 2026 at 10:52:28AM +0200, Bartosz Golaszewski wrote:
+>> If we fail to acquire the GPIO chip guard in gpio_desc_to_lineinfo(), we
+>> return immediately before zeroing the info struct we'll end up passing
+>> to the user-space later in lineinfo_get_v1(). This may leak the kernel
+>> stack contents. Make gpio_desc_to_lineinfo() return int so that the
+>> -ENODEV returned on failure to acquire the guard can be propagated to
+>> the callers.
+>>
+>> While not strictly necessary: move the memset() before trying to acquire
+>> the SRCU read lock too for good measure.
+>>
+>> Fixes: d83cee3d2bb1 ("gpio: protect the pointer to gpio_chip in gpio_device with SRCU")
+>> Cc: stable@vger.kernel.org
+>> Reported-by: Sashiko <sashiko-bot@kernel.org>
+>> Closes: https://sashiko.dev/#/patchset/20260912123529.7951-1-tzungbi%40kernel.org?part=3
+>> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+>> ---
+>> Changes in v3:
+>> - Don't emit an error log message from the line info notifier if we fail
+>>   to acquire the chip guard
+>> - Link to v2: https://patch.msgid.link/20260921-gpio-cdev-stack-leak-fixes-v2-1-3307c4320352@oss.qualcomm.com
+>>
+>> Changes in v2:
+>> - Make gpio_desc_to_lineinfo() return an integer return value so that
+>>   the error code returned in case of a failure to acquire the guard can
+>>   be propagated down the stack
+>> - Link to v1: https://patch.msgid.link/20260917-gpio-cdev-stack-leak-fixes-v1-1-2bb52879e49c@oss.qualcomm.com
+>> ---
+>>  drivers/gpio/gpiolib-cdev.c | 32 +++++++++++++++++++++++++-------
+>>  1 file changed, 25 insertions(+), 7 deletions(-)
+>>
+>
+>> @@ -2491,6 +2502,7 @@ static int lineinfo_changed_notify(struct notifier_block *nb,
+>>  	struct lineinfo_changed_ctx *ctx;
+>>  	struct gpio_desc *desc = data;
+>>  	struct file *fp;
+>> +	int ret;
+>>
+>>  	if (!test_bit(gpiod_hwgpio(desc), cdev->watched_lines))
+>>  		return NOTIFY_DONE;
+>> @@ -2521,7 +2533,13 @@ static int lineinfo_changed_notify(struct notifier_block *nb,
+>>
+>>  	ctx->chg.event_type = action;
+>>  	ctx->chg.timestamp_ns = ktime_get_ns();
+>> -	gpio_desc_to_lineinfo(desc, &ctx->chg.info, true);
+>> +
+>> +	ret = gpio_desc_to_lineinfo(desc, &ctx->chg.info, true);
+>> +	if (ret) {
+>> +		fput(fp);
+>> +		return NOTIFY_DONE;
+>> +	}
+>> +
+>
+> Drop the ret and just test the return directly?
+>
+> Sorry - should've picked that up in the previous version.
+>
 
-  BUG: KASAN: slab-out-of-bounds in ca8210_skb_rx.constprop.0.isra.0+0x137/0x160
-  Read of size 64 at addr ffff888006453ddd by task init/1
-  Call Trace:
-   <TASK>
-   dump_stack_lvl+0x70/0xa0
-   print_report+0x153/0x4c6
-   kasan_report+0xf1/0x120
-   kasan_check_range+0x125/0x200
-   __asan_memcpy+0x23/0x60
-   ca8210_skb_rx.constprop.0.isra.0+0x137/0x160
-   ca8210_net_rx+0x96/0xc0
-  ...
-  The buggy address belongs to the object at ffff888006453dc0
-   which belongs to the cache kmalloc-32 of size 32
-  The buggy address is located 29 bytes inside of
-   allocated 32-byte region [ffff888006453dc0, ffff888006453de0)
+I actually prefer the assignment, I find it more readable.
 
-Consolidate all length and msdulen validations into a single upfront check
-at the beginning of ca8210_skb_rx() before allocating the skb.
-
-Tested in QEMU with KASAN enabled by passing a short data_ind buffer with
-msdulen = 64 and len = 30 into ca8210_skb_rx().
-
-Fixes: ded845a781a5 ("ieee802154: Add CA8210 IEEE 802.15.4 device driver")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Hui Peng <benquike@gmail.com>
----
-Changes in v3:
-- No changes.
-
-Changes in v2:
-- Split out as patch 3/3.
-- Consolidated all length checks in ca8210_skb_rx() into a single place
-  at the beginning of the function before dev_alloc_skb() and dropped the
-  unrelated hdr.seq assignment as requested by Miquel Raynal.
-
- drivers/net/ieee802154/ca8210.c | 32 ++++++++++++++++++++++----------
- 1 file changed, 22 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/net/ieee802154/ca8210.c b/drivers/net/ieee802154/ca8210.c
-index 8aa7ffe..ab245ad 100644
---- a/drivers/net/ieee802154/ca8210.c
-+++ b/drivers/net/ieee802154/ca8210.c
-@@ -1758,19 +1758,15 @@ static int ca8210_skb_rx(
- 	u8                    *data_ind
- )
- {
--	struct ieee802154_hdr hdr;
-+	struct ieee802154_hdr hdr = { };
- 	int msdulen;
- 	int hlen;
--	u8 mpdulinkquality = data_ind[23];
-+	u8 mpdulinkquality;
- 	struct sk_buff *skb;
- 	struct ca8210_priv *priv = hw->priv;
- 
--	/* Allocate mtu size buffer for every rx packet */
--	skb = dev_alloc_skb(IEEE802154_MTU + sizeof(hdr));
--	if (!skb)
--		return -ENOMEM;
--
--	skb_reserve(skb, sizeof(hdr));
-+	if (len < 30)
-+		return -EMSGSIZE;
- 
- 	msdulen = data_ind[22]; /* msdu_length */
- 	if (msdulen > IEEE802154_MTU) {
-@@ -1778,9 +1774,25 @@ static int ca8210_skb_rx(
- 			&priv->spi->dev,
- 			"received erroneously large msdu length!\n"
- 		);
--		kfree_skb(skb);
- 		return -EMSGSIZE;
- 	}
-+
-+	if (len < 30 + msdulen ||
-+	    (!priv->promiscuous && data_ind[29 + msdulen] > 0 &&
-+	     len < 29 + msdulen + sizeof(struct secspec))) {
-+		dev_err(&priv->spi->dev,
-+			"received truncated data indication!\n");
-+		return -EMSGSIZE;
-+	}
-+
-+	mpdulinkquality = data_ind[23];
-+
-+	/* Allocate mtu size buffer for every rx packet */
-+	skb = dev_alloc_skb(IEEE802154_MTU + sizeof(hdr));
-+	if (!skb)
-+		return -ENOMEM;
-+
-+	skb_reserve(skb, sizeof(hdr));
- 	dev_dbg(&priv->spi->dev, "skb buffer length = %d\n", msdulen);
- 
- 	if (priv->promiscuous)
--- 
-2.49.0
+Bartosz
