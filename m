@@ -1,228 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 082612741B6;
-	Tue, 22 Sep 2026 05:48:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78A5A30568B;
+	Tue, 22 Sep 2026 05:49:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790056138; cv=none; b=ORDl37YQIL9ZHpHLSSmpCmBVu6dH0Qohn7zjIl7wFnPRKJiNLsd2LJpKVvGJKdAMhCLdX8pBccmaZHhPA9IhW3orFeRKRVDIag4xZr3l03t50SfwU6z9bUAl4zxVrbeuhaRO17JBydzCmXRMR2ymW8SA5YcHIlOYg0uxRPqN3JE=
+	t=1790056149; cv=none; b=kVTt81hvdbHBlmZ3focQPL3MfIaWfLBBxou9KLy+dgSarL1Ft2KXySjSf5o2w7l4o+cHZUXlQXlpddfRkjN/A38DE0ySEQKEMGW8M4OsFoCFOaY6dDQm8TxO85Y/q23f/z0bDnAVr3/Z8GPFU0HnXcVdPNWB6o0JJ13EtipiTzA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790056138; c=relaxed/simple;
-	bh=b01VZ0Vp1qb9nnDhMRxEwmUFW07QDuf2xELoVdmBcvQ=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ZK6eCCAl44Uv7KBiysD3Ec66OzS2ZtBzE4YKknnPjc5l1kE6Kpyvf3bHhw1bhXnjk0iBnohfWk5k1OqDh/2gvHQSenEQwnvZcTEjkbCp2IGcDho7xASTdN4seWf88EMYFUndC8XBEs4yavDvMybIzxRCO70CQDVnswUe5NCWKrA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fMT39g4d; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790056149; c=relaxed/simple;
+	bh=rsi1UYhlwL0IRMGewvmaBWPdRFDdAAGxobftKp9hJb4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=co8VeDVSP8YPwfM0ruxs0AzuDS74ZwUG7H1owYp+ngbxp8eKDhcehnzvckYHbHwNrCeR+h4txmrGGqyLkSyBW9kvzg+UcWtjSyzklsc5Uc0cB1riYFnWJHh+dosUOylwawAbTCBVoTNnWhzU9dzRTfi4qAMKF2E342B6hJuK2qY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=cYJAACZ4; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=iUt/cfEs; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=1sK17876; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=gI0/JnvD; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fMT39g4d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4B001F000FF;
-	Tue, 22 Sep 2026 05:48:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790056136;
-	bh=2G+vPWS/Dr/CNZlR2fFsrRypqIqJxGQg7XWIt7mou2Y=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=fMT39g4dGkgLRv9p0Y35txIv0Wti/Vaxch6Z/3i4OKxCrxKQsSuYJp+I3JIvFEYEF
-	 R92ku/MYFSbEuhPH4ZNLb5v3F67XW29bIygzwKeI8+oyDcsVzRG6QF9mix9FCpcRC7
-	 JzjKowsdPfbIsosVqQI9B5uk+dnIeXn5AAXk3HgpIV0Dtqi10PAUX+KppSDxdkATLg
-	 s8Ac7sZCgjdbxJbFeaNH5wGxYLRngWLyRGkBIMqEkcgZhqu9MHgC+PPDdSWkJZ0jJz
-	 aFwXe194OExRGUFIgFgSFy01dXfObppJEpGc0NVDG+zOCXC/xAIzIQf9ZT4omt3X3a
-	 pSJeyG3JmUjxw==
-Subject: Re: [PATCH net v2 2/2] af_unix: skip consumed OOB skb and pull
- consumed bytes in unix_stream_read_skb()
-From: netdev-bot+sashiko@kernel.org
-To: benquike@gmail.com
-Cc: kuniyu@google.com, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, willemb@google.com,
- mhal@rbox.co, jakub@cloudflare.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Tue, 22 Sep 2026 05:48:55 +0000
-Message-ID: <179005613539.2160803.10700195733714069280@kernel.org>
-In-Reply-To: <20260921054823.1822122-2-benquike@gmail.com>
-References: <20260921054823.1822122-2-benquike@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="cYJAACZ4";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="iUt/cfEs";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="1sK17876";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="gI0/JnvD"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 3B01321B01;
+	Tue, 22 Sep 2026 05:48:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790056137; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Rpjf0C6MDmDa1rDAe8T9fb2JVI5664QOqqPh8p264Ac=;
+	b=cYJAACZ4mfkerIAzlp0Z0/uqPaIsj9SSezU22kMWTDKev0vXDN5SJg25NOOcWIhx8RVkLP
+	YygCl9AECnK+1N7M19NjJFueYEwuIK6C4up+mi88hEB9v7HE56sIdXqIZl3/LT6rTeLmWK
+	pJL0xe7TOGfotIBDsWC9cgmd9Uou4Jw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790056137;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Rpjf0C6MDmDa1rDAe8T9fb2JVI5664QOqqPh8p264Ac=;
+	b=iUt/cfEsPOtxeABp2BolOdKl16fgeAOaH02gFM3HUW3tRmBqujIiBx9+AnMy00vSeloXIT
+	PS69C6Qt4XfUrGDg==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=1sK17876;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="gI0/JnvD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790056133; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Rpjf0C6MDmDa1rDAe8T9fb2JVI5664QOqqPh8p264Ac=;
+	b=1sK17876ngU9s05FR7T1z0nCo7g/2r/whD5g9BQXH8gZcPLJB096xCPF3p0F9xH4AD7NoR
+	c2kpM/1fqBPjivi1NHKPRbHYQCfXnpFOuVz1YCzNiu7/s1x/lMHx/4T2N8Eq06PW2v1E0U
+	Fbk0It5vzjZ31aAyulPkHM1EsxFxw8c=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790056133;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Rpjf0C6MDmDa1rDAe8T9fb2JVI5664QOqqPh8p264Ac=;
+	b=gI0/JnvD0j/4j7x5exB9zg7SsCGE1F1hwIrN8aummr00DIDbxhfmsjzTuty7C0ORY9e3U/
+	5mbXRZpabDViMtCQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C38BA136D9;
+	Tue, 22 Sep 2026 05:48:52 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id Wq4/H8QWsmoUdAAAD6G6ig
+	(envelope-from <hare@suse.de>); Tue, 22 Sep 2026 05:48:52 +0000
+Message-ID: <d415d07b-023c-4dcb-92f3-2eb2f7159341@suse.de>
+Date: Tue, 22 Sep 2026 07:48:52 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] blk-mq: set RQF_USE_SCHED when the operation is known
+To: Keith Busch <kbusch@meta.com>, axboe@kernel.dk,
+ linux-block@vger.kernel.org
+Cc: Keith Busch <kbusch@kernel.org>, stable@vger.kernel.org,
+ Henry Hu <huhai@kylinos.cn>
+References: <20260921212624.1942234-1-kbusch@meta.com>
+Content-Language: en-US
+From: Hannes Reinecke <hare@suse.de>
+In-Reply-To: <20260921212624.1942234-1-kbusch@meta.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 3B01321B01
+X-Spamd-Result: default: False [-4.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:email,suse.de:mid];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Flag: NO
+X-Spam-Score: -4.51
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On 9/21/26 11:26 PM, Keith Busch wrote:
+> From: Keith Busch <kbusch@kernel.org>
+> 
+> The cached requests are allocated for one operation but can be handed
+> out for another. A passthrough command has RQF_USE_SCHED cleared, so
+> using those flags for a subsequent read/write bio will insert it into
+> the scheduler without ->prepare_request() and frees it without
+> ->finish_request(). For kyber, this leaks the domain token acquired at
+> dispatch and stalls the queue.
+> 
+> Don't set RQF_USE_SCHED based on the first operation the batch happened
+> to be allocated for. Instead, set it after the request is claimed by an
+> operation.
+> 
+> Fixes: 4b6a5d9cea91 ("block: enable batched allocation for blk_mq_alloc_request()")
+> Cc: stable@vger.kernel.org
+> Reported-by: Henry Hu <huhai@kylinos.cn>
+> Signed-off-by: Keith Busch <kbusch@kernel.org>
+> ---
+>   block/blk-mq.c | 51 +++++++++++++++++++++++++++++---------------------
+>   1 file changed, 30 insertions(+), 21 deletions(-)
+> 
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
 
-Critical: 0 · High: 1 · Medium: 0 (1) · Low: 0
+Cheers,
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] net/unix/af_unix.c, unix_stream_read_skb(): the newly added pull
-  block frees the whole SKB and returns -ENOMEM when pskb_pull(skb,…
-
-Pre-existing issues:
-- [Medium] Unbalanced u->scm_stat.nr_fds accounting on AF_UNIX skb drop
-  paths.
-
---
-
-af_unix: skip consumed OOB skb and pull consumed bytes in unix_stream_read_skb()
-
-This changes unix_stream_read_skb() to drop zero-length skbs left behind
-after an OOB byte was consumed, and to pull UNIXCB(skb).consumed bytes off
-a partially consumed skb before handing it to recv_actor().  Without this,
-sockmap readers re-deliver bytes that a previous recv() already consumed.
-
-> diff --git a/net/unix/af_unix.c b/net/unix/af_unix.c
-> index 0903bd587696..a1c06b9995c7 100644
-> --- a/net/unix/af_unix.c
-> +++ b/net/unix/af_unix.c
-> @@ -2885,6 +2885,7 @@ static int unix_stream_read_skb(struct sock *sk, skb_read_actor_t recv_actor)
->  		return err;
->  
->  	mutex_lock(&u->iolock);
-> +again:
->  	spin_lock(&queue->lock);
->  
->  	skb = __skb_dequeue(queue);
-> @@ -2894,6 +2895,13 @@ static int unix_stream_read_skb(struct sock *sk, skb_read_actor_t recv_actor)
->  		return -EAGAIN;
->  	}
->  
-> +	if (!unix_skb_len(skb)) {
-> +		spin_unlock(&queue->lock);
-> +		unix_orphan_scm(sk, skb);
-> +		consume_skb(skb);
-> +		goto again;
-> +	}
-> +
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but the new block here uses the
-correct pairing (unix_orphan_scm() before consume_skb()) while several
-neighbouring free paths for the same class of skb do not, so it highlights
-an existing imbalance in u->scm_stat.nr_fds.
-
-scm_stat_del(), reached only from unix_orphan_scm(), is the only place that
-does the matching decrement:
-
-net/unix/af_unix.c:scm_stat_del() {
-	...
-	if (unlikely(fp && fp->count)) {
-		atomic_sub(fp->count, &u->scm_stat.nr_fds);
-		unix_del_edges(fp);
-	}
-	...
-}
-
-unix_destruct_scm() -> unix_detach_fds() -> unix_destroy_fpl() releases the
-files and the GC edges but never touches nr_fds.
-
-The OOB drop branch a few lines below in this same function frees a skb that
-may still carry UNIXCB(skb).fp without going through unix_orphan_scm():
-
-	if (skb == u->oob_skb) {
-		WRITE_ONCE(u->oob_skb, NULL);
-		spin_unlock(&queue->lock);
-		mutex_unlock(&u->iolock);
-
-		kfree_skb_reason(skb, SKB_DROP_REASON_UNIX_SKIP_OOB);
-		return -EAGAIN;
-	}
-
-manage_oob() does the same with a bare consume_skb(read_skb) /
-kfree_skb_reason(unread_skb), and unix_stream_recv_urg() frees a zero-length
-predecessor with consume_skb(read_skb).
-
-unix_stream_recv_urg() is also what creates the zero-length-with-fds state:
-it copies the OOB byte and bumps UNIXCB(oob_skb).consumed without detaching
-fds, so the leftover skb can still hold SCM_RIGHTS charged earlier by
-scm_stat_add() in queue_oob().
-
-Should those paths also call unix_orphan_scm() so the nr_fds charge reported
-as scm_fds: in /proc/<pid>/fdinfo does not stay permanently inflated?
-
->  	WRITE_ONCE(u->inq_len, u->inq_len - unix_skb_len(skb));
->  
->  #if IS_ENABLED(CONFIG_AF_UNIX_OOB)
-> @@ -2913,6 +2921,14 @@ static int unix_stream_read_skb(struct sock *sk, skb_read_actor_t recv_actor)
->  
->  	mutex_unlock(&u->iolock);
->  
-> +	if (UNIXCB(skb).consumed) {
-> +		if (!pskb_pull(skb, UNIXCB(skb).consumed)) {
-> +			kfree_skb(skb);
-> +			return -ENOMEM;
-> +		}
-> +		UNIXCB(skb).consumed = 0;
-> +	}
-> +
-
-[Severity: High]
-Can this kfree_skb() discard unread stream bytes?
-
-At this point in unix_stream_read_skb() the skb has already been unlinked by
-__skb_dequeue(), and u->inq_len has already been reduced:
-
-	WRITE_ONCE(u->inq_len, u->inq_len - unix_skb_len(skb));
-
-so once the skb is freed the remaining unix_skb_len(skb) bytes are neither
-recoverable nor still accounted for in the queue length.
-
-The commit message describes pskb_pull() as the way to "safely handle both
-linear and non-linear paged skbs", but it can still fail.  For a pull past
-the linear head it goes pskb_pull() -> pskb_may_pull() ->
-__pskb_pull_tail() -> pskb_expand_head():
-
-net/core/skbuff.c:__pskb_pull_tail() {
-	...
-	if (eat > 0 || skb_cloned(skb)) {
-		if (pskb_expand_head(skb, 0, eat > 0 ? eat + 128 : 0,
-				     GFP_ATOMIC))
-			return NULL;
-	}
-	...
-}
-
-unix_stream_sendmsg() produces exactly the skbs that reach that branch:
-
-net/unix/af_unix.c:unix_stream_sendmsg() {
-	...
-		data_len = max_t(int, 0, size - SKB_MAX_HEAD(0));
-		data_len = min_t(size_t, size, PAGE_ALIGN(data_len));
-		skb = sock_alloc_send_pskb(sk, size - data_len, data_len, ...);
-	...
-}
-
-MSG_SPLICE_PAGES skbs have skb_headlen() == 0 entirely, so any partial
-recv() leaves UNIXCB(skb).consumed beyond the linear head and forces the
-fallible path with a GFP_ATOMIC expansion of up to the full frag size.
-
-The return value also does not appear to reach anyone who can retry:
-
-net/core/skmsg.c:sk_psock_verdict_data_ready() {
-	...
-	copied = ops->read_skb(sk, sk_psock_verdict_recv);
-	if (copied >= 0) {
-		...
-		sk_psock_data_ready(sk, psock);
-	}
-	...
-}
-
-The -ENOMEM is swallowed, sk_psock_data_ready() is skipped for data still
-queued behind the dropped skb, and the sockmap consumer sees a hole in an
-ordered byte stream with no error reported to userspace.
-
-Would it be better to restore the state on failure, for example
-__skb_queue_head() plus adding unix_skb_len(skb) back to u->inq_len, and let
-the caller come back later, instead of freeing the skb?
-
->  	return recv_actor(sk, skb);
->  }
->
-
+Hannes
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260921054823.1822122-1-benquike%40gmail.com
+Dr. Hannes Reinecke                  Kernel Storage Architect
+hare@suse.de                                +49 911 74053 688
+SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
+HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
