@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A706E55C1D2
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 15:41:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DA5C55C1DF
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 15:41:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790091714; cv=none; b=ChEz/C9oCeMhUKEKP4U5AOFLCpI/6JL2MhVrMBzeih+kJDOe8BzkNeN4R8blDxXv9fHFzLBLU0sI9LgzcJ2vwuz0kjiPDLSSB7OWpxiKKsVZa8oWy3yON6IySpvN75h2gmKOiZAbv/66g/URY+ACfh5IdjsrMkYwF8hxyCLCU9o=
+	t=1790091715; cv=none; b=er6PfW2nECxFzVkoxgvFLXeIVjtY+XzrQomxNH6eEvJdGlSRifN+YNwaATTgEEyid6xih0rw3I9hcZcDkDX+eoFGCBOEwHi+WbJ60IajGW49tvjKawe1KgYnUOlUaKTAoXwH/QGu9rC+ATB5hxWDODbU5PF5DqLvPlNK0s+F4Bs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790091714; c=relaxed/simple;
-	bh=4i4IVQoZM2TmAG0/9qcPC73aT0gobf0PZBzG+Jny0NM=;
+	s=arc-20240116; t=1790091715; c=relaxed/simple;
+	bh=E4p/YTZYlZO89hN1/DcJyaH0itU0603/tZr1ucJcUaE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=No03P+uEslSdDtwayU24Zr20+Chv2LIL3S6atrpguV8pbPKnmPdLQ3kbM8OPFuCXACf+D9sRCJB7XBOtd80lGzdAYxhRg4b9KfwTisFL+jBW51bHzBtYDX7y1pl/xBKMg0ZOG6NT/v/rFFLHPA2MV8ZF2X5sgWnkefRTXnqBzhA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WBH1AE//; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=aSzdBMLmcW9nlbkqQJIzh7PJBYBYE8CvIF4eguQc0bZ9omwRFwWUXCzv5wcYU2uVvRuobygSHzGtW2tGRZMfHZFCsCUVMZsjXyxiJsySZ2QeQ23UkOl4OzlaM0avBqEpUD3kbnCNSr+rY7+RqsH/CerZ0LFqfYOnxD5pkdqE814=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UzRhqR8j; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WBH1AE//"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D8981F000FF;
-	Tue, 22 Sep 2026 15:41:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UzRhqR8j"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F7F51F00898;
+	Tue, 22 Sep 2026 15:41:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790091713;
-	bh=dEzSEGQ95uQb0UliQs/rgVTyn2lf9w3BHz5/jghJWsg=;
+	s=k20260515; t=1790091714;
+	bh=H954rAeWEU0UkOjOsXlhyPDZLsZG+0fSwG/2dF5WZQk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WBH1AE//Fin6P++4wuqNac3dki8FEwCDW2RAh/FNDjRdpAFlN3oxQiAGaR4n2DfnA
-	 EAVvBqAVlvLsluiWBeu27bTshGBMVCJmifz1ysZiIFdDSVu7vEwCxV0aG62XH/89vT
-	 ym+9qVaxR9eD0jFLpJ89xG5l9/HO+Skzxvkgb7gbfBwu2KhWigythXehbjt5PEdfZq
-	 67SUbtRq/3QEXXxoY+j0UURLmDmcLu4hVQ3uiAg6qJclEM0QfE+ixzH1LNzmESLD+w
-	 jFURTGiN+e9zYJfX0Hl3z/T3/zE+ss8B+5M5xRaxwxv5frDCboAH42rZwtszmc1GOD
-	 capfGJTT/J2AQ==
+	b=UzRhqR8jZ2YWzEWtNqcrOr+k8iEIh0u9niXkI5ooEVsBJw1ciQUOYpjjWWLyA+oF6
+	 zNs5HRwZ/BNAeWaBTLShUqu5Ltjbx351mu3wwVtHdU37vSVrJaa2fr78RYDY8AYIVI
+	 Q9TyNWyfObl0ze4bqDEIU1iHhWa16cFyKBAp4iVqjSl8Cjmh/rHwSUly8gr4k1LoJy
+	 f7h4NKmd3jxqFeoyszW227V1QFR9eDCP/68Pdg/VZffjODu6Cf5tdHRVfHfmSPVLSe
+	 h3ELOIIbf7GQbWYL0tlVBCdb0acYzFYSoBwBrTCXbd913VXwqyFmyYvMxa/N4QmKAA
+	 Ilp04K84PsbcA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Will Deacon <will@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
+Cc: Hongling Zeng <zenghongling@kylinos.cn>,
+	Johannes Thumshirn <johannes.thumshirn@wdc.com>,
+	David Sterba <dsterba@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 1/2] arm64: Use load LSE atomics for the non-return per-CPU atomic operations
-Date: Tue, 22 Sep 2026 11:41:49 -0400
-Message-ID: <20260922154150.2890616-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] btrfs: take commit root semaphore when iterating in mark_block_group_to_copy()
+Date: Tue, 22 Sep 2026 11:41:52 -0400
+Message-ID: <20260922154152.2890713-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092224-crabmeat-morbidity-9c34@gregkh>
-References: <2026092224-crabmeat-morbidity-9c34@gregkh>
+In-Reply-To: <2026092247-irritably-diabolic-9ca6@gregkh>
+References: <2026092247-irritably-diabolic-9ca6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,73 +46,42 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Catalin Marinas <catalin.marinas@arm.com>
+From: Hongling Zeng <zenghongling@kylinos.cn>
 
-[ Upstream commit 535fdfc5a228524552ee8810c9175e877e127c27 ]
+[ Upstream commit 0594e3423f4ba3137c734371169491f9a98e9af4 ]
 
-The non-return per-CPU this_cpu_*() atomic operations are implemented as
-STADD/STCLR/STSET when FEAT_LSE is available. On many microarchitecture
-implementations, these instructions tend to be executed "far" in the
-interconnect or memory subsystem (unless the data is already in the L1
-cache). This is in general more efficient when there is contention as it
-avoids bouncing cache lines between CPUs. The load atomics (e.g. LDADD
-without XZR as destination), OTOH, tend to be executed "near" with the
-data loaded into the L1 cache.
+mark_block_group_to_copy() iterates over the commit root with
+skip_locking=true. A concurrent transaction commit can swap and free
+the commit root during iteration, causing use-after-free when
+accessing extent buffers.
 
-STADD executed back to back as in srcu_read_{lock,unlock}*() incur an
-additional overhead due to the default posting behaviour on several CPU
-implementations. Since the per-CPU atomics are unlikely to be used
-concurrently on the same memory location, encourage the hardware to to
-execute them "near" by issuing load atomics - LDADD/LDCLR/LDSET - with
-the destination register unused (but not XZR).
+Fix it by using path->need_commit_sem to protect the commit root search.
 
-Signed-off-by: Catalin Marinas <catalin.marinas@arm.com>
-Link: https://lore.kernel.org/r/e7d539ed-ced0-4b96-8ecd-048a5b803b85@paulmck-laptop
-Reported-by: Paul E. McKenney <paulmck@kernel.org>
-Tested-by: Paul E. McKenney <paulmck@kernel.org>
-Cc: Will Deacon <will@kernel.org>
-Reviewed-by: Palmer Dabbelt <palmer@dabbelt.com>
-[will: Add comment and link to the discussion thread]
-Signed-off-by: Will Deacon <will@kernel.org>
-Stable-dep-of: 8cf2093f5372 ("arm64: percpu: Fix LSE operations on {8,16}-bit types")
+Fixes: 78ce9fc269af ("btrfs: zoned: mark block groups to copy for device-replace")
+CC: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.5
+Reviewed-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+Reviewed-by: David Sterba <dsterba@suse.com>
+Signed-off-by: David Sterba <dsterba@suse.com>
+[ changed path->need_commit_sem assignment from true to 1 to match the older unsigned bitfield representation. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm64/include/asm/percpu.h | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
+ fs/btrfs/dev-replace.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/arch/arm64/include/asm/percpu.h b/arch/arm64/include/asm/percpu.h
-index b9ba19dbdb694..aaa96f746c1ab 100644
---- a/arch/arm64/include/asm/percpu.h
-+++ b/arch/arm64/include/asm/percpu.h
-@@ -77,7 +77,7 @@ __percpu_##name##_case_##sz(void *ptr, unsigned long val)		\
- 	"	stxr" #sfx "\t%w[loop], %" #w "[tmp], %[ptr]\n"		\
- 	"	cbnz	%w[loop], 1b",					\
- 	/* LSE atomics */						\
--		#op_lse "\t%" #w "[val], %[ptr]\n"			\
-+		#op_lse "\t%" #w "[val], %" #w "[tmp], %[ptr]\n"	\
- 		__nops(3))						\
- 	: [loop] "=&r" (loop), [tmp] "=&r" (tmp),			\
- 	  [ptr] "+Q"(*(u##sz *)ptr)					\
-@@ -124,9 +124,16 @@ PERCPU_RW_OPS(8)
- PERCPU_RW_OPS(16)
- PERCPU_RW_OPS(32)
- PERCPU_RW_OPS(64)
--PERCPU_OP(add, add, stadd)
--PERCPU_OP(andnot, bic, stclr)
--PERCPU_OP(or, orr, stset)
-+
-+/*
-+ * Use value-returning atomics for CPU-local ops as they are more likely
-+ * to execute "near" to the CPU (e.g. in L1$).
-+ *
-+ * https://lore.kernel.org/r/e7d539ed-ced0-4b96-8ecd-048a5b803b85@paulmck-laptop
-+ */
-+PERCPU_OP(add, add, ldadd)
-+PERCPU_OP(andnot, bic, ldclr)
-+PERCPU_OP(or, orr, ldset)
- PERCPU_RET_OP(add, add, ldadd)
+diff --git a/fs/btrfs/dev-replace.c b/fs/btrfs/dev-replace.c
+index aa03f2bbcc11c..d19260ccb1c34 100644
+--- a/fs/btrfs/dev-replace.c
++++ b/fs/btrfs/dev-replace.c
+@@ -516,6 +516,7 @@ static int mark_block_group_to_copy(struct btrfs_fs_info *fs_info,
+ 	path->reada = READA_FORWARD;
+ 	path->search_commit_root = 1;
+ 	path->skip_locking = 1;
++	path->need_commit_sem = 1;
  
- #undef PERCPU_RW_OPS
+ 	key.objectid = src_dev->devid;
+ 	key.type = BTRFS_DEV_EXTENT_KEY;
 -- 
 2.53.0
 
