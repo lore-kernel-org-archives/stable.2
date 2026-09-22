@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FEA7456E07
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 09:42:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 090FE478859
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 09:42:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790070162; cv=none; b=mmacOakopmxcucYxKC6nPSYZvwGZA3DXx5r6Qz6yLZGxNv3EG9lzbDxXvUjJPa84i0d/hRLnlKoG2p0zaLciN9BTGKIkrJqr4zB6FErnG0q1l3sewYO/kGkjajI5Pz4koFDfwlKtaC4Z2jIJHDQK+Y3bBJ9+RIMNL9H9EukmdDI=
+	t=1790070166; cv=none; b=FPn0tpx0bYR46m7xl+wQy52K0CUATvQ88WAxcBC39/2YuymiEdm3xkqFZqHxYFVXvjPljNNLJwVFG6KmPr48Ynnt9+oMM/GCBS+KXJJUuj37L4f61m2hXxfysu6fq1LzR7Tw/QelEa7L5/tlEbXrDJ50goTwmlzq+fH8vt2V0+0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790070162; c=relaxed/simple;
-	bh=h33KWWKO/6OWhN28c60GFt/hvuMRGxChfU1y2L5T9js=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=k5STmkyuVA759j1nAeXCs9Ym5MeMr3eMhvWF3VvNKyJgZaE1rd0v0FfrNwztUpvBJEGQpTUjn22t0PyM+wvuRNQrEQ8k7nU4mYFeefvupNTGazBJ+P9DXYcx/SvA6Pqb7kaZdnHIMdxBigmMklo4jKYkVr9Fpj04jEw9nDrZuog=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=bfHgwNOi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790070166; c=relaxed/simple;
+	bh=dCNYBv9PWcjBkDVT/JhWfnOSTNtMZYSAbeXHx909a70=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=GSARtqm7REeHcugEQjKEHTTiAPfCthploRWTjY3lGMK16XH5+aXniSmISYd4i+l8QpuqUbdMXWl3Or2XxlW8D5wxPfMYqV3MnaNR2V5zaXyHuFCDDYphtNSsnzAEMQXe7nPxbClx/WP3vGhn6lMT2c9IKnlD8vsNDPm3ql1+zoY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=XquvYE3G; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="bfHgwNOi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09BC81F000FF;
-	Tue, 22 Sep 2026 09:42:39 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="XquvYE3G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C76E11F000FF;
+	Tue, 22 Sep 2026 09:42:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790070160;
-	bh=PD6uZGIfI1u9kHaxON62jOkgjh6htMYyIF34kGGim9c=;
+	s=korg; t=1790070164;
+	bh=IMtwk7DZmiQSJM+uZxJ8rrOZpdbd4Rgq5hE1s+vL1tg=;
 	h=Subject:To:Cc:From:Date;
-	b=bfHgwNOic+XI+nSzmOx+NZk06id4qbLzuiRSfSjtyhkwn88svml1EF8sfvyjO+NBL
-	 xyOSdQYv/FQNaBzuCoYopDu6QkO/YPdxQ6eu/6DPqHSRq5jDwg2CArM4vA9XNthJJR
-	 N5CZ7Po8pwj0Rn1Z/paGW962WRpb7IrpQw0HNfe8=
-Subject: FAILED: patch "[PATCH] scsi: fnic: Fix missed link-up when critical IRQ targets" failed to apply to 7.2-stable tree
+	b=XquvYE3GnHTZSo39EaQQ3vISJkdcF73WSxGuqf/1SobAXl8L1btgBVqvshOhScOIV
+	 H1rPanDnVYCcrBVam9OdWdZzNMdeKdGb2qCIgLZTwT+AmuFlHh8EFLfodXl9yr/HeB
+	 crubOj43cw2hunuJK1j/hJcpReI74ZTD+mW5oq8M=
+Subject: FAILED: patch "[PATCH] scsi: fnic: Fix missed link-up when critical IRQ targets" failed to apply to 6.12-stable tree
 To: aeasi@cisco.com,arulponn@cisco.com,gcboffa@cisco.com,kartilak@cisco.com,loberman@redhat.com,mkp@kernel.org,sebaddel@cisco.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 22 Sep 2026 11:34:49 +0200
-Message-ID: <2026092249-reminder-deed-f10e@gregkh>
+Date: Tue, 22 Sep 2026 11:34:50 +0200
+Message-ID: <2026092250-economy-trend-aee5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.2-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x 0cb1fd924126f1f581621a5e804df98a02be9dff
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092249-reminder-deed-f10e@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092250-economy-trend-aee5@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
