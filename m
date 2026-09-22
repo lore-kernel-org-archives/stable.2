@@ -1,177 +1,64 @@
-Received: from mail-yx2-f43.google.com (mail-yx2-f43.google.com [74.125.224.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C9721F1534
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 02:13:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790043216; cv=pass; b=qn628YGI7HMSl0aH7Dh7SzBwi+fYzdaYRY/BdVJUg45VNTCx2rbeybir2ugdGo7nrNGt2qA/+qEyE+eEQyol8K0hrZ+8/F2r/ftvYpm8HKvHy3ExsglVp2Q9Ed5LUzNmqJke3ByfMvFC3eogxsciztwoV8sqeiqErer6ckb0YWY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790043216; c=relaxed/simple;
-	bh=Ap/YzZGyzo2cO+qILnS+HOrD1LlO3Fjr9oA3SoqgiQI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hnWG/fM1E+tFWO1NvU+iXyf/ovqRP+GrZ9s2Z44Bqe5NRWEEjlm8Z/osAnBm0iYB7nVUH+GC4cIoL3s0lu+zgQnyj0iuC8amnjrSk6tDROTC5fTe8nhHqwxhNjz3sYn59jZJd0QTJQRblEkX/jjCjjkuaCs9Ynw8qoKx0vOzjlY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cn7o6r3g; arc=pass smtp.client-ip=74.125.224.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A6CE364EBF;
+	Tue, 22 Sep 2026 02:23:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790043830; cv=none; b=H672JcLwYcLPo83OHEDoCHPsKeCTL7cT8rY58Oy7IbgjD2uXS1bGXHMJDfGPMjFtxSTVXXCTs0I2x9F9oMYiDeFM/2UUNA3aDyCLeakVu96M2oxtjiOsDmMwGUFXijYShCvYqEZY6vF3W6GB7JIwRUypeK0o4t/eLTpg0vNC5SY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790043830; c=relaxed/simple;
+	bh=nHTAfk6up/ZYAY+CtnjjHsvqW4nyG3UPuK9IbK8/oM4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=oz+qvMmkUeUhF18njabsJ7xT2toR5+pNVY3TVJakwX9aTykidsrYlIH0ng0++bICbbjqzx4FdM4DTHnhIv+05P6nn4rJptcgnxZo5tz7j5hqfKKqQfeFEXG+kfiavGK5XChtsirsieLwH4NJ2RHZrL59RehOW3hyACBBh2X+0a0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hKKB/1C3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cn7o6r3g"
-Received: by mail-yx2-f43.google.com with SMTP id 956f58d0204a3-66e4ab201ecso3171431d50.2
-        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 19:13:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790043214; cv=none;
-        d=google.com; s=arc-20260327;
-        b=dO7Bbv1PkudVG5ZNUFlnmyx7pGuTicWT9f/C2UtMxe7PiqLyR+m/sOjZRiP11CejhE
-         q8uKTOCLxHrxP/+SF3LPJVn4J8YMgULfmJ0cHWvag20cCNNK6E+DTDYfo/Ck3m9+J0EP
-         GHIdEb13aCrm8N7Eom7SZP6uEdmEy23UkgTZpSZpL7/jIiwMIB51vyciIItCvSkfwykD
-         g/cDYZvQautPDMeY3us5QbrxQlLrDd9ZLx1yTjjxSZUXb/Uy7+/cBR8HDjfKNuixhlmo
-         7ngBlAuGLQQMqagTaeZTUyVRm3nu8xdTxHGzJHrY5T9mK9Lbd49X4390HerSjjumw6bO
-         l62A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=OCxAavhsCK8ZFakY3+2+r6Yw5rmMKHTrZRwA8H/yqhM=;
-        fh=0wZwb3ScWYKsjiSSa6QXgbMjw+w8qwoIsq/XkSDtUTo=;
-        b=Qizc8oZZ+OBPry4rWabDQa4terRJmhhYPDnPTE7esNY9Cu69m7mFk8sXGI/VWrQuH3
-         HvO+nTMpKAWoSvJR1CY2aHVXQ5+DFLTbHFP4qGH0nCfO87lYJVA0GbRUpTUHmNzMcYBv
-         kAOxRTqBztIbzHfGRAssRNWXU6aIoSXVfxPJYLMEE9DGHgclfutDRpkOZ9l4UmRjMfUC
-         Pg6QrIwiChT73+t1En8Sw2dRHy1/w4Oippwa7LOkgFHeixRy2XYWodG6qZbq2HlvUs/K
-         r/JhO3frmhXqUUIlajB2yYLaghOCbl+SHfR3v4RjfOi6iMNNDqac6IVSpJNfN7l8gcjs
-         5yig==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790043214; x=1790648014; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OCxAavhsCK8ZFakY3+2+r6Yw5rmMKHTrZRwA8H/yqhM=;
-        b=cn7o6r3gMueb+t4GKFvoTSxKU1SJovRPQ+4SbRkDpdy3j/ZIb/rqwd8WMrH0u94Gt9
-         dzrto80zXH5FL8YnwxOAAyG2KHbw6QXO9XnR+iYVc6kQxrxUUhSNMBPdaPnM8laUPYW5
-         DzAkkf8yeyLQGHxr//dkZNYMfXhGv/bAgEMFJp1g1H8K1ytMAPUq6LZGSHfAE6prNAnF
-         V54tcvc1AMnt3aBhOI2QT7UDypM9v3QVVTnTUWwHIapQfQmo9r9gVmLHX5TeLGHzNzHU
-         Qnw23dIP/MquuXx7AXzJioBQ2Pr7xOOiDOb6oDFkKEDhrZKUJUeJTSqilIl0LKC+7l8V
-         p3WA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790043214; x=1790648014;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=OCxAavhsCK8ZFakY3+2+r6Yw5rmMKHTrZRwA8H/yqhM=;
-        b=VnQGOQbImhyzL1ED6XFUt0r0rw57m06XhhmrlDrl+3eSGXJFVX4gcUa7QeG9fw7WCV
-         hWK2pud8ePdRY+4tyG4kQjsgOY9MsRATFT2RTOSR4CnFE1dfHwHw/7nbaoD5wMlTdRtA
-         6g9Fju26WKGHoWfdDK0eJQANj1C14BROJ5rYRSa+m4pnkqMBeYOyEuRjacfSmW9DLEYO
-         HS+kW/3rzg/aFstaqZmgqIUjTHgbte50y8GqfpLXxbgUFASwgP0NyrEhh5cKC7b/F+mU
-         sRyBkijLw054SjDdN0QFU5FL1gGF/VszGiAhWw/yqBNf29On7npl1q1pQ7o+qzr53rQt
-         iqpw==
-X-Forwarded-Encrypted: i=1; AKwUvBwRad10KgcWz0IiJlyU9BfbSrEyzl17uS0s1zkNVLj815awwRc4uiXh0i+lc6Zggc+60cB06Dg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lFb60rFb6F7zT2GxMbPnkcfcDfFo/gq1nSqDahvMwOVknNA70+
-	bX1nMEUp86maXFYOmONKY+XzC/T2YGfqzKPTE6tAG1VsFAX1+/F9vHdY/t7Zo5CPVHIfJ5DfGUa
-	SovPDo8QTwb1IUqp1DYmobXNJjIeXnJA=
-X-Gm-Gg: AYBFou3jJS3HeOwPXdtG/AcT1GQbdI3PmliX4ofAG9wY99BcUKNZF/7sCJ2XGbJasEx
-	UcNqepVHFbDSZwAbl9QcH1ZiPHeNmQUMLrC3wqzIwKOH/EJyZA/+k1D7Ref5h8juFkCuLJovQNN
-	5HlHqIWkaG3/lGOmz4P/DkGYpUDJW4os6G2T3PJIKXU6id+NdmN7tQJ0vqdaaqq2npbmXdM+R9J
-	44VMQZrajZEork9zdr12cEeAoQezeshnjchlrpEXMmB9J0vGK1DjksRXmmjLMxDewQsn47yUNFH
-	jTWSneaHffiFUEC5fCMk4sE/AVoXfz8uTbCFoqPTN9gs9heMNPhk5ythYQ==
-X-Received: by 2002:a05:690e:4192:b0:672:99e1:11e3 with SMTP id
- 956f58d0204a3-67299e1168fmr2220506d50.128.1790043214123; Mon, 21 Sep 2026
- 19:13:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hKKB/1C3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E6B21F000FF;
+	Tue, 22 Sep 2026 02:23:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790043829;
+	bh=aT3WSQsjijWvUk3bgetXyUamJ9XvWlHmx7vZ7os7un8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=hKKB/1C3uOnDztTuRZBpSndHcV/CYFBsxhOq0o8XdkWY3qE1c7b98xtaVX+vAYANG
+	 zcCzllxjA2umT2xCRjwRacv+3UDVqE09H2wtsS2wNf6U4j/2tBNyNHGlFY702LKojn
+	 F90c7qQt3DUlbjupiinYJlyNser2hzkwVl48m9q3VOrKDqMb8R6dqU0rdtPBfXS3G3
+	 ojMs1TJyIpAEH6JNn7XOkj55Np/Lo9yyGHNcKlLXkGJmtUOXd4MTXM153gguPjgHcE
+	 VZn8auKZa1V58AYvMNL5q+RGqlrLSbzNo4KnouZj0TuNLC14b639ZGpy/a/CzIG1e1
+	 M/yGCgcWPhMcw==
+From: Sasha Levin <sashal@kernel.org>
+To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Cc: Sasha Levin <sashal@kernel.org>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	regressions <regressions@lists.linux.dev>,
+	linux-acpi <linux-acpi@vger.kernel.org>,
+	linux-pm <linux-pm@vger.kernel.org>,
+	xen-devel <xen-devel@lists.xenproject.org>,
+	linux-kernel <linux-kernel@vger.kernel.org>,
+	Stable <stable@vger.kernel.org>,
+	Support TRINITY <support@trinity-net.com>
+Subject: Re: [REGRESSION] ACPI processor/cpuidle change in 6.18.52 breaks bare-metal Xen dom0 boot
+Date: Mon, 21 Sep 2026 22:23:38 -0400
+Message-ID: <2026-09-21-daily-reply-0001-re-acpi-cpuidle-xen-dom0-6-18@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <1909296988.289641012.1790015372050.JavaMail.zimbra@trinity-net.com>
+References: <1909296988.289641012.1790015372050.JavaMail.zimbra@trinity-net.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916063118.2924049-1-lgs201920130244@gmail.com> <arFJ_2HfXWuWCsUO@quoll>
-In-Reply-To: <arFJ_2HfXWuWCsUO@quoll>
-From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Tue, 22 Sep 2026 10:13:20 +0800
-X-Gm-Features: AcwNN1VtWhrPTDbeTQKN8w96m2efeF0oPfkRnX5dnHLNyPZ4NdQAmU7V51gzM7I
-Message-ID: <CANUHTR84U+tLdA6SCqyB9p0PnZ_Six0nD688goE9q8K2qvXb3g@mail.gmail.com>
-Subject: Re: [PATCH] net: wan: farsync: disable PCI device on removal
-To: krzk@kernel.org
-Cc: "David S. Miller" <davem@davemloft.net>, stable@vger.kernel.org, 
-	Eric Dumazet <edumazet@google.com>, linux-kernel@vger.kernel.org, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, Kevin Curtis <kevin.curtis@farsite.co.uk>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Krzysztof,
+> I will try testing 6.18.52 with commit 0089ce1c056a ("ACPI: processor:
+> Update cpuidle driver check in __acpi_processor_start()") applied,
+> instead of using my lifecycle revert.
 
-Thank you for your feedback.
+Queued for 6.18, thanks.
 
-On Mon, 21 Sept 2026 at 23:15, <krzk@kernel.org> wrote:
->
->
-> On Wed, 16 Sep 2026 14:31:18 +0800, Guangshuo Li wrote:
-> > fst_add_one() calls pci_enable_device() to enable the PCI device. The
-> > probe failure paths call pci_disable_device() to release the matching
-> > enable reference, but fst_remove_one() does not disable the device
-> > after a successful probe.
-> >
-> > As a result, the PCI device enable reference remains unbalanced after
-> > the driver is removed.
-> >
-> > Call pci_disable_device() after the existing interrupt, tasklet,
-> > mapping, DMA and PCI region cleanup to release the enable reference.
-> >
-> > This issue was found by manual code inspection.
-> >
-> > Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> > ---
-> >  drivers/net/wan/farsync.c | 1 +
-> >  1 file changed, 1 insertion(+)
-> >
->
->
-> You sent multiple independent patches, to multiple independent
-> subsystems. The amount of these patches clearly suggest this was
-> AI generated and most likely not tested.
->
-> More importantly, you sent all this work without properly organizing
-> relevant patches into patchsets. This makes reviewing difficult
-> and might cause multiple reviewers to address the same issue.
-> Replying to the entire set is impossible and requires handling each
-> patch independently, instead of applying or discarding the set.
-> Maintainers also won't see the bigger picture of your work. Quite
-> worrying.
->
-> This is on the verge of hostile patch: bomb us with so many
-> contributions, we won't be able to handle them in efficient manner,
-> like responding ONCE to ask you to slow down.  Considering all this
-> is untested and LLM generated, I have even more doubts whether this
-> should be considered for review.
->
-> Please read kernel documentation BEFORE posting more work. It will
-> explain you how to identify subsystems, how to organize your work per
-> subsystem, how to document usage of LLM and how what you should not
-> do if this was posted in a good faith.
->
-> Best regards,
-> Krzysztof
->
->
->
-I would like to clarify that these patches were manually reviewed and
-audited by us; they were not simply generated and submitted by an LLM.
-However, I understand why the recent submission pattern may have given
-that impression. We sent too many patches in a short period of time,
-and we also failed to respond to some discussions in a timely manner,
-which made the situation look worse.
+Please still post the result of that test once you have it.
 
-Many of the recent patches, especially the v2 revisions, are
-corrections and improvements based on previous review feedback rather
-than completely new untested changes. That said, we recognize that the
-way we submitted them increased the burden on maintainers and
-reviewers.
-
-We apologize for the pressure this caused to the community. We will be
-more careful about organizing patches by subsystem, preparing proper
-patchsets, and following the kernel contribution guidelines before
-sending future work.
-
-Thank you again for pointing this out.
-
-Best regards,
-Guangshuo
+-- 
+Thanks,
+Sasha
