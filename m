@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D535A2F260C
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 15:10:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41D0655295D
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 15:10:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790089826; cv=none; b=QxDWOpReJGRryLePQdXZC9hGpbWf5iMycQiHcSE3emuDsgm4A41VwhAHRCTHuMH6XJuW9Zuvsae2chNb/jsKoBTS0pECQhE9InSk7iVoShx32XdnXJ/8wQHGU3kFpK6zPLvYGnF76qKfwV73sSqb+Lr6yCfYQUur+//+7JpcLfU=
+	t=1790089830; cv=none; b=FQ91xq5Nh7UsMkavCjHjxZOoaK8biJA1+kTD/20Q63UdAmEQ+WExREv62VonhgHoz01uUgB8QG5WT0e4fgyDLgrMQCsyOCChXY0/oslCedBFpUFhiqMxy3taYE2SaeFbCGUsx1uLQHqD81QBhPCz8W8BANyLFpWU5ck1J6IMp0g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790089826; c=relaxed/simple;
-	bh=GFi55UPyZZ2gRjg4G3GhaQuBAeDrDwyVmzvbYgJy2Oc=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=dc6eLenCwLflL1KwxExhICWpDj04vRFw1n4rJGrXy1ELlhAiS1ks8n5zLmc36DZ2oyR/NoQxG3AuE8Izdx719uXogOgoWfx/EsWm02B4UMRKQpIF+gtRAmvjEvwwOINAlzqmynlWNyxNn31wh+nB5n4nMYX/cNMSwFKKJsZ5Dck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=VlyLnJeL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790089830; c=relaxed/simple;
+	bh=lyMJqKwpKpCYPKlucGOdqfhy0TnTyYommPfOuRu7Jos=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Aq2Mt+XIJaWKxig0hwlUk/bKt09A4+HHj5p+5ArQdgZ+MFeIb0m9pw0drSejHlF+AIUIG/Z/TJTEkWKrYrVsqHg+FbPjVhvpkjGlzF2GzL6Ij/hhSBnqA4+7qVVNUaD/qZcndHRaGekeJTap2E+nJpeelvwUtha9N9Jyp31LfjQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=TxmId8PD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VlyLnJeL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 100241F00893;
-	Tue, 22 Sep 2026 15:10:22 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="TxmId8PD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E7C41F000FF;
+	Tue, 22 Sep 2026 15:10:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790089823;
-	bh=7yIWuHa2gkXdkGsub0LAhMR/tdXtV6exi87Z8PvgG3s=;
+	s=korg; t=1790089827;
+	bh=3Re31uWdHmkHS9BqbdaHAhntO3tXfRLWX8YzzVs/XwU=;
 	h=Subject:To:Cc:From:Date;
-	b=VlyLnJeLWBf4YZ+d7eFtVRUGn/YjhNa6aWwLJWhjNcG3FPZzbeO4QBpv7gFcIo8TH
-	 DG9eRMTB43yvj2RAmgssLPYY1VMF2keHOad5tlj9neMWUBLXLG+cmJHLbild4069HM
-	 MYgC50K4z2jtr8CKlbrNcNds9bij5qzEXX43tgIA=
-Subject: FAILED: patch "[PATCH] Input: hp_sdc - shut down kicker timer on module exit" failed to apply to 6.12-stable tree
+	b=TxmId8PDrVeTSPGZcrv1Wbo6uFjxyg2jsH8vC+NqpoGsyCnQUyvzF4XXWbot1B4nP
+	 NUZ53+cI9ogPY6FyZOjNgueSxki7cVHi0qtXLHCuCFmd2zl1BN4M4c7BMrY1tayEA6
+	 /gK2uE0CkcpcOTp8WvjIiLRIiIr4+05T044r3nwU=
+Subject: FAILED: patch "[PATCH] Input: hp_sdc - shut down kicker timer on module exit" failed to apply to 6.6-stable tree
 To: runyu.xiao@seu.edu.cn,deller@gmx.de,dmitry.torokhov@gmail.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 22 Sep 2026 16:53:13 +0200
-Message-ID: <2026092213-clinking-taunt-b525@gregkh>
+Date: Tue, 22 Sep 2026 16:53:14 +0200
+Message-ID: <2026092214-backpedal-genetics-2368@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 309731e95917125bbd13626a7a5600490a5bf44f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092213-clinking-taunt-b525@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092214-backpedal-genetics-2368@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
