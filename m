@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 577765427EF
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 12:18:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D22F54147B
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 12:18:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790079517; cv=none; b=UVWUzVwCrpJehyvTGOh7QDssHhBVHWmC6obUm5VpF+7/2nzwIDzd61KEcd1ayCWsYUZ/BZmSRy/eoPCbqfYAzTgx4055OvIzqNCNgpQzkEuT4e2c4se5SAsStjTC6KEBWTPPNkRUQy5SEx8z8oGDTmNgLtldvzGEBuIrC60lXLk=
+	t=1790079523; cv=none; b=jeapFpYR5T63PbycxTXwBTl+W/Ois8j0W0KK/khOFw0Vlx1eGFJPRA5IPefIJAW3jCsEIDpXjSU/PL5nr/EFMopNnhX3busuniqMoL/DzSlNqObdBCF0CHyxKHluSLw792Cp1dBLTGR91q9jFssR76jO+DFrfLIRR0PRSbWOEH8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790079517; c=relaxed/simple;
-	bh=0id/AsYoJsVRlur92PqDw/m/3km0rGUDQscTq3qZYkc=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=NPn14AiicSWm+da21cDymEV0MUDaWEG80MnYTKS3XMXLoXNIB5jthr1h/rwz0A8LZGx5J/72tqfF3cEZOD9uhyUVOBEPylx4ozkps8ioS1gYpLzQzcMQJ7qr8QtsQZ3T0GXozPPj4LCW89xAWPOHw98c3Jq1a2JxG53ovJddCo0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=TKsXnjtB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790079523; c=relaxed/simple;
+	bh=LoOZuski8uiJB2mMgnZ6om3i1HqfYTbFniLyPp2qsVY=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=kaFx2Za0C9z7M2l61zVnv68vbN9CH+2jOFGdHZ2aZWZIAs9Xqgk36OzzuKlu72S/3XlpWn5izpYdCEcXkVsKCrGbvUNr4hoWrOtNwIgON189FiIfTWzDM23p7HZz9I7zd5P2tEw/OuMTdsk5QmbEWUFs38gWkl+7DFbdEgF9l2Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=EbOJl+5D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="TKsXnjtB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D31711F000FF;
-	Tue, 22 Sep 2026 12:18:34 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="EbOJl+5D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F6011F00893;
+	Tue, 22 Sep 2026 12:18:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790079516;
-	bh=3jb/VUqm9xOg7FPsx/xSENiSQKvPnytZArp3lBk0J4A=;
+	s=korg; t=1790079522;
+	bh=tPQOUYzKyg9PteLpGWe7l3TqgeT2cRsWDn/1c7ojo9g=;
 	h=Subject:To:Cc:From:Date;
-	b=TKsXnjtBfiRXJsyYmGC2FnCK0iZvHIFCbbU0yKYqy1vnoWcMybSWGtlm0Tb/KTdUI
-	 hPIVgOWlMc1hztNtLrYbGjSUPNeIR6Dsgt83K3UpQ6glV7cLpNHMd/c8j/QC20iWe8
-	 hqlF5H/iM1gvYOQZAxWGXImNioweTboimRCRixgE=
-Subject: FAILED: patch "[PATCH] mm/huge_memory: bypass THP tuneables for huge pfnmap mappings" failed to apply to 6.18-stable tree
-To: ljs@kernel.org,akpm@linux-foundation.org,baohua@kernel.org,baolin.wang@linux.alibaba.com,clg@redhat.com,david@kernel.org,dev.jain@arm.com,jgg@ziepe.ca,lance.yang@linux.dev,liam@infradead.org,peterx@redhat.com,ryan.roberts@arm.com,saravanand@crusoe.ai,sj@kernel.org,stable@vger.kernel.org,ziy@nvidia.com
+	b=EbOJl+5DIxZ7q3vFaz/5lLqovSojCeqSgE7FIuXIJf5LjO8zmGfpbww+F1jpAWBcW
+	 +ajeEtbMldR4jGa16rvylnZ72zd9RTJhezPvt7YCJT0fDlb7YlNRzjDuVbNJEYDnER
+	 ZPslrAhAFiCayRAmtRqMvM4tpPhS7UCrU2CybM1w=
+Subject: FAILED: patch "[PATCH] KEYS: encrypted: fix integer overflow of datablob_len" failed to apply to 6.1-stable tree
+To: cenzhang@linux.microsoft.com,francis@akrites.dev,jarkko@kernel.org,rnsastry@linux.ibm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 22 Sep 2026 14:08:11 +0200
-Message-ID: <2026092210-parabola-undercut-a08b@gregkh>
+Date: Tue, 22 Sep 2026 14:10:01 +0200
+Message-ID: <2026092201-deity-art-3047@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x e384abeb559d10d6505aec053ede9368d81d4c71
+git cherry-pick -x 8697c431e297eb0d0ab13dda6bc172b48a34f05c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092210-parabola-undercut-a08b@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092201-deity-art-3047@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,182 +62,78 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From e384abeb559d10d6505aec053ede9368d81d4c71 Mon Sep 17 00:00:00 2001
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Thu, 27 Aug 2026 20:55:57 +0100
-Subject: [PATCH] mm/huge_memory: bypass THP tuneables for huge pfnmap mappings
+From 8697c431e297eb0d0ab13dda6bc172b48a34f05c Mon Sep 17 00:00:00 2001
+From: Cen Zhang <cenzhang@linux.microsoft.com>
+Date: Sat, 12 Sep 2026 00:31:16 +0300
+Subject: [PATCH] KEYS: encrypted: fix integer overflow of datablob_len
 
-The sysfs THP tuneables at /sys/kernel/mm/transparent_huge_pages/ rather
-confusingly only control the behaviour of THP in some instances.
+encrypted_key_alloc() stores datablob_len in a u16. It is computed from
+multiple string and payload lengths. If the result exceeds U16_MAX, the
+assignment truncates the allocation size. KASAN reports a 32760-byte
+slab-out-of-bounds write when __ekey_init() copies the master key
+description into the undersized buffer.
 
-They are not applicable to MADV_COLLAPSE operations, nor to DAX mappings.
+The total payload length stored in key->datalen is also a u16. Use
+check_add_overflow() to reject values that do not fit either destination,
+and use kzalloc_flex() for the flexible-array allocation.
 
-Long-term, THP is predicated upon compaction being able to obtain large
-folios to populate THP ranges.
+Fixes: 7e70cb497850 ("keys: add new key-type encrypted")
+Cc: stable@vger.kernel.org
+Assisted-by: GitHub-Copilot:claude-opus-4.6
+Signed-off-by: Cen Zhang <cenzhang@linux.microsoft.com>
+Signed-off-by: Francis Perron <francis@akrites.dev>
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
+Link: https://lore.kernel.org/r/20260909153433.83117-1-cenzhang@linux.microsoft.com
+Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
 
-However, vm_normal_folio() returns NULL for PFN map mappings, thus their
-reference count is maintained by the driver, not core mm.
-
-As a consequence, the folios are not subject to reclaim nor compaction, so
-are not truly part of the THP mechanism at all.
-
-However, since commit 5dd40721f147 ("mm: allow THP orders for PFNMAPs")
-introduced the ability to establish huge PFN maps, they have been subject
-to THP tuneables.
-
-This is incorrect - if a huge PFN map is available (defined by
-vma->vm_ops->huge_fault being non-NULL for a VMA_PFNMAP_BIT VMA), then it
-should be mapped huge upon fault-in.
-
-Correct this by explicitly checking for this while ensuring that smaps
-continues to accurately report THPeligible statistics.
-
-While here, abstract the entire file-backed THP check in
-vma_can_map_huge_file(), with sensible separation of logic into helper
-functions.
-
-Note that drm_gem_shmem_mmap() and panthor_gem_mmap() establish huge PFN
-maps of shmem folios, however they are marked unevictable in
-drm_gem_get_pages(), and in any case would fail the reference check in
-__remove_mapping() even if they weren't.
-
-Failing to map huge PFN maps has resulted in significant real-world
-performance degradation, see links for details.
-
-[ziy@nvidia.com: rename some functions]
-  Link: https://lore.kernel.org/DL1HIHWYJ7TB.1CY76SJS0V03L@nvidia.com
-Link: https://lore.kernel.org/20260827-hugepfn-allowable-orders-v1-1-94819c8807c8@kernel.org
-Fixes: 5dd40721f147 ("mm: allow THP orders for PFNMAPs")
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Signed-off-by: Zi Yan <ziy@nvidia.com>
-Reported-by: Cedric Le Goater <clg@redhat.com>
-Closes: https://lore.kernel.org/linux-mm/20260805055544.1568534-1-clg@redhat.com/
-Reported-by: Saravanan D <saravanand@crusoe.ai>
-Closes: https://lore.kernel.org/linux-mm/20260821070520.25759-1-saravanand@crusoe.ai/
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Tested-by: Saravanan D <saravanand@crusoe.ai>
-Tested-by: Lance Yang <lance.yang@linux.dev>
-Reviewed-by: SJ Park <sj@kernel.org>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Barry Song <baohua@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Dev Jain <dev.jain@arm.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index afbb5974bd22..1e5d68acf62a 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -92,7 +92,7 @@ unsigned long huge_anon_orders_madvise __read_mostly;
- unsigned long huge_anon_orders_inherit __read_mostly;
- static bool anon_orders_configured __initdata;
- 
--static inline bool file_thp_enabled(struct vm_area_struct *vma)
-+static inline bool file_thp_enabled(const struct vm_area_struct *vma)
+diff --git a/security/keys/encrypted-keys/encrypted.c b/security/keys/encrypted-keys/encrypted.c
+index 59cb77b237b3..e07092ea301a 100644
+--- a/security/keys/encrypted-keys/encrypted.c
++++ b/security/keys/encrypted-keys/encrypted.c
+@@ -19,6 +19,7 @@
+ #include <linux/parser.h>
+ #include <linux/string.h>
+ #include <linux/err.h>
++#include <linux/overflow.h>
+ #include <keys/user-type.h>
+ #include <keys/trusted-type.h>
+ #include <keys/encrypted-type.h>
+@@ -579,6 +580,7 @@ static struct encrypted_key_payload *encrypted_key_alloc(struct key *key,
  {
- 	struct inode *inode;
+ 	struct encrypted_key_payload *epayload = NULL;
+ 	unsigned short datablob_len;
++	unsigned short payload_totallen;
+ 	unsigned short decrypted_datalen;
+ 	unsigned short payload_datalen;
+ 	unsigned int encrypted_datalen;
+@@ -632,16 +634,22 @@ static struct encrypted_key_payload *encrypted_key_alloc(struct key *key,
  
-@@ -118,6 +118,67 @@ static bool vma_is_special_huge(const struct vm_area_struct *vma)
- 	return vma_test_any(vma, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT);
- }
+ 	encrypted_datalen = roundup(decrypted_datalen, blksize);
  
-+static bool vma_file_bypass_thp_tuneables(const struct vm_area_struct *vma,
-+		enum tva_type type)
-+{
-+	const bool has_huge_fault = vma->vm_ops->huge_fault;
-+
-+	/* MADV_COLLAPSE ignores tuneables. */
-+	if (type == TVA_FORCED_COLLAPSE)
-+		return true;
-+	/* Huge PFN mappings are uncompactable so the policy doesn't apply. */
-+	if (vma_test(vma, VMA_PFNMAP_BIT) && has_huge_fault)
-+		return true;
-+	return false;
-+}
-+
-+static bool vma_file_allow_thp_tuneables(vm_flags_t vm_flags)
-+{
-+	/* THP=always? */
-+	if (hugepage_global_always())
-+		return true;
-+	/* THP=madvise and marked MADV_HUGEPAGE? */
-+	if (hugepage_global_enabled() && (vm_flags & VM_HUGEPAGE))
-+		return true;
-+	return false;
-+}
-+
-+static bool vma_file_check_thp_tuneables(const struct vm_area_struct *vma,
-+		vm_flags_t vm_flags, enum tva_type type)
-+{
-+	return vma_file_bypass_thp_tuneables(vma, type) ||
-+		vma_file_allow_thp_tuneables(vm_flags);
-+}
-+
-+static bool vma_can_map_huge_file(const struct vm_area_struct *vma,
-+		vm_flags_t vm_flags, enum tva_type type)
-+{
-+	const bool has_huge_fault = vma->vm_ops->huge_fault;
-+
-+	/*
-+	 * Enforce THP collapse requirements as necessary. Anonymous vmas
-+	 * were already handled in thp_vma_allowable_orders().
-+	 */
-+	if (!vma_file_check_thp_tuneables(vma, vm_flags, type))
-+		return false;
-+
-+	switch (type) {
-+	case TVA_PAGEFAULT:
-+		/*
-+		 * Trust that ->huge_fault() handlers know what they are doing
-+		 * in fault path.
-+		 */
-+		return has_huge_fault;
-+	case TVA_SMAPS:
-+		if (has_huge_fault)
-+			return true;
-+		fallthrough;
-+	default:
-+		/* Only regular file is valid in collapse path. */
-+		return file_thp_enabled(vma);
-+	}
-+}
-+
- unsigned long __thp_vma_allowable_orders(struct vm_area_struct *vma,
- 					 vm_flags_t vm_flags,
- 					 enum tva_type type,
-@@ -190,27 +251,8 @@ unsigned long __thp_vma_allowable_orders(struct vm_area_struct *vma,
- 						   vma, vma_start_pgoff(vma), 0,
- 						   forced_collapse);
+-	datablob_len = format_len + 1 + strlen(master_desc) + 1
+-	    + strlen(datalen) + 1 + ivsize + 1 + encrypted_datalen;
++	if (check_add_overflow(format_len + 1 + strlen(master_desc) + 1
++			       + strlen(datalen) + 1 + ivsize + 1,
++			       encrypted_datalen, &datablob_len))
++		return ERR_PTR(-EINVAL);
  
--	if (!vma_is_anonymous(vma)) {
--		/*
--		 * Enforce THP collapse requirements as necessary. Anonymous vmas
--		 * were already handled in thp_vma_allowable_orders().
--		 */
--		if (!forced_collapse &&
--		    (!hugepage_global_enabled() || (!(vm_flags & VM_HUGEPAGE) &&
--						    !hugepage_global_always())))
--			return 0;
--
--		/*
--		 * Trust that ->huge_fault() handlers know what they are doing
--		 * in fault path.
--		 */
--		if (((in_pf || smaps)) && vma->vm_ops->huge_fault)
--			return orders;
--		/* Only regular file is valid in collapse path */
--		if (((!in_pf || smaps)) && file_thp_enabled(vma))
--			return orders;
--		return 0;
--	}
-+	if (!vma_is_anonymous(vma))
-+		return vma_can_map_huge_file(vma, vm_flags, type) ? orders : 0;
+-	ret = key_payload_reserve(key, payload_datalen + datablob_len
+-				  + HASH_SIZE + 1);
++	if (check_add_overflow(datablob_len,
++			       payload_datalen + HASH_SIZE + 1,
++			       &payload_totallen))
++		return ERR_PTR(-EINVAL);
++
++	ret = key_payload_reserve(key, payload_totallen);
+ 	if (ret < 0)
+ 		return ERR_PTR(ret);
  
- 	if (vma_is_temporary_stack(vma))
- 		return 0;
+-	epayload = kzalloc(sizeof(*epayload) + payload_datalen +
+-			   datablob_len + HASH_SIZE + 1, GFP_KERNEL);
++	epayload = kzalloc_flex(*epayload, payload_data, payload_totallen,
++				GFP_KERNEL);
+ 	if (!epayload)
+ 		return ERR_PTR(-ENOMEM);
+ 
 
