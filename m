@@ -1,428 +1,161 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADF4B38735D
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 15:32:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D37D6559CB7
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 15:34:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790091131; cv=none; b=VdlJ8D6tbZxhV7BrlCE0bsttcJtZbsfUn7iSdHc0C5D5V3CERSW1qBi7unSCDzh2YngP1Wrnn4DyUGL9EHSTlfkVuOVzlzJ0H7jwWa3q+M+J48+OT1rkWld61SWncGzNa3kDugnf8E5icr8JTgat4tR9/VtZzO9BNwcZTVIk3ps=
+	t=1790091277; cv=none; b=oqtK4V7dvOJMEuz6hPFQ+YFn7LTV17Q3uNtdAazDleOnH3BAULEIBwQCzYKi0xXN8S9EfxVB4k4qrYMIL5EZXUkvLraQ+WZqbsRITpaFNxxIToot3NKZANuqPthLFIc7A56sR2XVYfiRH5VgHYpNWXiaWnITbgoToXNcb4kqlyo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790091131; c=relaxed/simple;
-	bh=9/ypLj0/5ZShU8JEQvMlG3sw/9zqiOuQxior6y2hSKs=;
+	s=arc-20240116; t=1790091277; c=relaxed/simple;
+	bh=6e8xt0qDiGDgPIVCvPiLiACnTIXW/UAJW4Lcp864Cpk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GQtjqenfYD3XrkmoUN9m9yIagbBGNXZjNku46ungg+Ne4yi262Z+2AIh4+IBM0yszf/c4MYytmQcE4v5PHVE1nOeRKbtzbssUU3DBims+AALeFkfc5FahgYe6m6Z04jvoVPPvsCdN6/cDFHKLN63mHAitqTZL2ge5cHCDbq/S+8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EAS34MSW; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=HO/bH368kxCwsOTyV55RV1RKyvpG78o9jkULsuh+pxnHtohEiKijZ1m+1Q76aE503kd21dGwQ3UfSjtofGQ2/wcKEM5iQw6iV2vZw/eXJEOiBN7PUF6UNiqBJYECHAQpo2WPtbbJNMYrsoKPs4dz28S6WF9npKp7S36JhRQI+60=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T1QA7esm; arc=none smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EAS34MSW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E2521F000FF;
-	Tue, 22 Sep 2026 15:32:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790091129;
-	bh=nCAG7qTy5e9p1Hp8u6xnV0XZusDVfJfdMoDsZIBZ0TA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EAS34MSWk8lEKQD5DYjpGUVm2TPX1psz5zVkZ3VxxR/536lupAroKP37Aw56y7B/t
-	 09NltuVQk4wWvvZZ7dTPsChsb2L91Tr3ec6iN4/zVvI4vE+SORNPlsqaNGx4njBHcv
-	 2SFtuywQkh5JJUqhDxuPszYdX5qlBFp2Y4SUujXXAkcaxQGu5wRQGqsbznd5/ihRks
-	 KqEiAiZzZnu0oDSOzdvRGIgMkdkITAm6LxE42AopROv/gbHo5z7RrHEFIhSKyiGcgP
-	 X7g4ugm9sV1laDYoKzUJW3CH7F+igrkLDs2r+yKqAEF6+xTb8khXRozLKeOq+O2c6a
-	 PAJd34VGN2tbg==
-From: Sasha Levin <sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T1QA7esm"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a985fba28bso5268247a12.3
+        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 08:34:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790091274; x=1790696074; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KqNXgwrnC6/yf8ldr9VODDt8z7mpX7HYSVueoRJSAsQ=;
+        b=T1QA7esmWDTFrS3cZfYWRaaJy6hRqqUArXo9B0MyPFfzuJckg5+3AMoRKBpB7qtJQb
+         98rx8RF2yX/kCP3QVQ2VVOxAmB4+oma6V9+c1rMgrtAwxyt0+82C5e8MI7UWMAO1imNP
+         T6RSdSA4htxZEokb4OksEYBVmRWmG3Q/weEhanMW7BjCz/yT9IqZNc0Ji6iyxXhIWWiy
+         c8GtK5IJhUqy/av7Pl7W7qgWAUGsFl9zwzaUbsszQlQBJbkbVeWmclWwfdlhYr8Q/Px4
+         shOXVfkgGcRG/343awB+JLEOybQm2foQQvDw2DXZurI2zGhbkCvWqIQT/qonR0t27/ey
+         OEpw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790091274; x=1790696074;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KqNXgwrnC6/yf8ldr9VODDt8z7mpX7HYSVueoRJSAsQ=;
+        b=wOohWPsXYp07Wwmy0cNTJ9ecEaQ0wPX8TQkxojXkN1e8VnnVkVhOohu78KBbflIf3+
+         f+pjwxKsnAZXbLWIqmmQWsRrlI8NQgzaK6HLQNrKI00T0YsY3KMTLnoporYEWGJcihMW
+         ZtWgJEnzkQlI0ISGoEkYfE1soHDPBcXGgBKzeOX+/5s4E6wDZi4Nn7bHNTIka1qutPcc
+         WoSdCCbUipas69Bn5cI3LYpSdHebfBE0df4fzrM0Iu6leddLjdDRvVVjI4vfmOHHBU7f
+         QsBdUeu093jNd5FclWK3+Bm+RvqtiLuk6yFuWKPZBxiA32g1DSeioxIWzkELjoj1N4VM
+         q7Og==
+X-Gm-Message-State: AFuF++musD9aOZGuumH/s2c3ikjXOtAa/x9AHczl3YcHwRMwjEea2fIw
+	s8/mXDvo3ErQAtQUuSpkcuUoI9t9iS5D2ptOHwunO5ND3630Vv5TFHvXhG35xrUHaRvbZg==
+X-Gm-Gg: AYBFou0SUD/Lw8a+0xtymnfX2EJGqkYSGLaqCISI/KJuDUKIx8TAgYv23D3pE3LsH9W
+	pV4VdsdWUDc8V6fRSKfPxQ0KZlWJhl8tfta5M6W8j8g5k3yGPSR883drvCC6LOfmREJvRRj0QQx
+	+gtQUUym+TNfulL9DkP2LA8vB+8rWR3jvAEboIxvtGG1f0XgrxZ4L4MFf9IC/tuGUj+9vnV65fw
+	ye4gFU032ZRI8JWIRl/xPHUEkiuMX9ksbaaIO469b+XFnkJwmatPvmJKrzC/4Ttc1bjZZlmV83Q
+	MEwvXaenspViCXXy8fY5cTSfSXYUkPxAev6xmXYe1zquFeHmVtaVOfZtPTQREn69Veepzzq8gGC
+	BLjvdWboJFtww8NuGhxlAlSCgtGlaMpnDR47Z+B4kmCFl1pPQQzHtU+uVlwh++c3AlF7nWfqUbG
+	DY1OxrrrglKMftcfjSUggoUXrjVM0DltBheBqpvRcHQvcIGYLgceZ24VRLTizgZ5rhHPzQqb3EH
+	Gdd24ixx2jmaUQ=
+X-Received: by 2002:a05:6402:13d0:b0:6aa:a01e:f177 with SMTP id 4fb4d7f45d1cf-6aaa01ef223mr3266486a12.21.1790091273890;
+        Tue, 22 Sep 2026 08:34:33 -0700 (PDT)
+Received: from bbzr-mini (cool-t.fvds.ru. [103.137.251.133])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aaa450c4basm1272517a12.20.2026.09.22.08.34.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 08:34:33 -0700 (PDT)
+From: Vadim Nikitushkin <bub4z0r@gmail.com>
 To: stable@vger.kernel.org
-Cc: Thomas Gleixner <tglx@kernel.org>,
-	Hyunwoo Kim <imv4bel@gmail.com>,
-	"Eric W. Biederman" <ebiederm@xmission.com>,
-	Kijo Park <red993688@gmail.com>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] signal: Prevent exec() race
-Date: Tue, 22 Sep 2026 11:32:06 -0400
-Message-ID: <20260922153206.2821032-2-sashal@kernel.org>
+Cc: gregkh@linuxfoundation.org,
+	christian.koenig@amd.com,
+	thomas.hellstrom@linux.intel.com,
+	dri-devel@lists.freedesktop.org,
+	skainsworth@gmail.com,
+	Vadim Nikitushkin <bub4z0r@gmail.com>
+Subject: [PATCH 7.2.y] drm/ttm: fix swapped-out resources never leaving their bulk_move range
+Date: Tue, 22 Sep 2026 18:33:34 +0300
+Message-ID: <20260922153334.136648-1-bub4z0r@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260922153206.2821032-1-sashal@kernel.org>
-References: <2026092201-refining-banner-c772@gregkh>
- <20260922153206.2821032-1-sashal@kernel.org>
+In-Reply-To: <2026092253-dimness-unethical-2515@gregkh>
+References: <2026092253-dimness-unethical-2515@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Thomas Gleixner <tglx@kernel.org>
+commit 3db7d7d583419f7b1f2e141e36418802dbb25cf8 upstream.
 
-[ Upstream commit d2710c8d938ae6a825a6463158e6e6f31eac792a ]
+ttm_tt_swapout() returns the number of pages swapped out on success and
+a negative error code on failure; for a populated ttm it never returns
+zero. Commit b2ed01e7ad3d ("drm/ttm: Fix ttm_bo_swapout() infinite LRU
+walk on swapout failure") moved the bulk_move bookkeeping in
+ttm_bo_swapout_cb() under "if (!ret)", so the
+ttm_resource_del_bulk_move_unevictable() / ttm_resource_move_to_lru_tail()
+pair is now skipped on every successful swapout. The equivalent change
+for the shrinker in commit 1d59f36e95f7 ("drm/ttm: Fix ttm_bo_shrink()
+infinite LRU walk on backup failure") tests "lret > 0", which is what
+was intended here as well.
 
-Hyunwoo debugged the following KASAN UAF splat:
+Before b2ed01e7ad3d the resource was taken off the bulk_move before the
+swapout; since then a swapped-out resource stays inside its BO's
+bulk_move range (and on the manager LRU) although it is unevictable.
+When it is later freed or the BO leaves the bulk_move
+(ttm_resource_free(), ttm_bo_set_bulk_move() via amdgpu_vm_bo_del()),
+ttm_resource_del_bulk_move() skips it because of its
+!ttm_resource_unevictable() guard, so a range endpoint in pos->first /
+pos->last is left pointing at freed memory. The next
+ttm_lru_bulk_move_tail() or ttm_resource_add_bulk_move() on that cursor
+is a use-after-free, seen as the resv WARN in ttm_lru_bulk_move_add(),
+"list_del corruption" in ttm_resource_move_to_lru_tail() or a NULL
+dereference in ttm_resource_manager_next() -- minutes to hours after a
+hibernation, or at process exit / reboot following one. Samuel
+Ainsworth's analysis of drm/amd issue 5387 (see Link) identified the
+dangling cursor; the missing removal at swapout time is the reason it
+dangles.
 
-  BUG: KASAN: slab-use-after-free in __send_signal_locked+0xb27/0xba0
-  Write of size 8 at addr ffff888007ed80c8 by task poc/79
-  ...
-  Call Trace:
-   __send_signal_locked+0xb27/0xba0
-   do_send_sig_info+0xa7/0x160
-   do_send_specific+0x76/0xa0
-   __x64_sys_tgkill+0x193/0x270
-  ...
-  Allocated by task 80:
-   do_timer_create+0x1a4/0x1030
-   __x64_sys_timer_create+0x145/0x190
-  ...
-  Freed by task 12:
-   kmem_cache_free_bulk+0x1f8/0x4a0
-   kvfree_rcu_bulk+0x14f/0x1c0
-   kfree_rcu_work+0x128/0x1a0
-  ...
-  Last potentially related work creation:
-   kvfree_call_rcu+0x39/0x390
-   __flush_itimer_signals+0x211/0x320
-   flush_itimer_signals+0x47/0x90
-   begin_new_exec+0xa6b/0x28c0
+Testing the condition for success restores the removal. On an AMD
+Phoenix APU (ASUS UM3406GA, gfx1103) running suspend-then-hibernate on
+a 7.0.y stable kernel carrying the backport (Ubuntu 7.0.0-31) the bug
+crashed 5 of 18 hibernation cycles; a function profile of one
+hibernation showed 336 ttm_tt_swapout() calls and zero
+ttm_resource_del_bulk_move_unevictable() calls. With this change the
+removal happens for every swapped-out resource and 12 further cycles
+were clean.
 
-It turned out that this happens with a non-leader exec() as Hyunwoo
-explained:
-
-de_thread() calls exchange_tids() before release_task(leader), so the
-struct pid held by a SIGEV_THREAD_ID timer created against the leader's tid
-now points to the thread which called execve(). pid_task() returns that
-thread and lock_task_sighand() on it succeeds.
-
-If the timer signal is blocked, its sigqueue stays queued on the leader's
-task::pending. The next expiry of that timer can then run while
-release_task() flushes the queue.
-
-posixtimer_send_sigqueue() checks whether the sigqueue is already queued
-with a plain list_empty(), which only reads list_head::next.
-list_del_init() is not atomic and INIT_LIST_HEAD() stores list_head::next
-before list_head::prev, so the check can pass in between. list_add_tail()
-queues the entry on the task::pending of the live thread, and the
-list_head::prev store from the flush then overwrites the list_head::prev
-link that list_add_tail() has just set.
-
-__flush_itimer_signals() does not undo that either. With list_head::prev
-pointing at the entry itself, its list_del_init() only stores the same
-values again, so the entry is not removed from the list. It is still there
-after the last reference is dropped and the timer is freed by RCU, and the
-list_add_tail() of a later tgkill() follows that list_head::prev into the
-freed timer.
-
-This problem surfaced with the recent commit which moved the sigqueue flush
-out of the sighand lock held region.
-
-Hyonwoo proposed to fix this by using list_del_init_careful(), but that
-just papers over the problem. After some disucssions and various attempts
-to solve it, Eric pointed out that there is no reason to flush
-task::pending late in release_task() and it should be done in
-exit_signals() already.
-
-As nothing can collect and deliver signals which are queued in a dying
-task's pending queue, there is no reason to delay it further.
-
-But it has to be ensured that no signals can be queued into it after that
-point. exit_signals() sets PF_EXITING in task::flags, which can be used as
-an indicator for this.
-
-Cure it by:
-
-  - Preventing signal queueing for task private signals (PIDTYPE_PID) when
-    the task has PF_EXITING set in __send_signal_locked() and in
-    posixtimer_send_sigqueue().
-
-  - Protecting the unlocked setting of PF_EXITING in exit_signals() for the
-    task group empty and the group exit case with sighand lock
-
-  - Flushing task::pending signals right there.
-
-    Optimize that by moving the whole pending list to an on-stack list head
-    under sighand lock and free the signals without the lock held.
-
-There has been quite some discussion about the lockless flush and the
-non-leader exec case on weakly ordered systems. The problem is that a third
-party which tries to send a posix timer signal relies on the PID lookup to
-find the target task and that lookup might result in the new leader when
-the signal was originaly directed to the old leader. In case that the
-signal was queued on the old leader then the lockless flush raised a
-concern over the following situation:
-
-   old_leader		new_leader              third party
-
-A: flush_list()	// list_del_init() stores to sigqueue
-
-   LOCK (tasklist)
-   old_leader->exit_state = EXIT_ZOMBIE;
-B: UNLOCK (tasklist)
-
-C:			LOCK (tasklist)
-			if (old_leader->exit_state)
-			   transfer_tids()
-D:			     store PID
-						posix_timer_send_sigqueue()
-						// Observes #D so t = new_leader
-E:						t = get_target()
-
-F:						LOCK (sighand)
-
-G:						   if (list_empty(sigqueue))
-							list_add(sigqueue)
-
-The concern was that the third party might observe #D but not observe #A
-and therefore would proceed to #G while the list_del() stores (#A) in
-flush_list() are not visible yet, which could result in list corruption.
-
-That would be possible if looking at it solely from a RELEASE+ACQUIRE
-ordering point of view, but B-C is a UNLOCK+LOCK hand-over, which is not
-the same as RELEASE+ACQUIRE:
-
-  RELEASE+ACQUIRE: RCpc,  only the CPUs involved agree on the ordering
-  UNLOCK+LOCK:     RCtso, the hand-over is store-ordering
-
-As B-C is UNLOCK+LOCK, which is RCtso and that does impose store order,
-A stores must happen before the D store.
-
-Combine with E-F, which has a data dependency from the LOAD to the LOCK and
-thereby constraints later LOADs, those sigqueue loads in G that come after
-F must in fact observe the A stores.
-
-Fixes: fb3bbcfe344e ("exit: change the release_task() paths to call flush_sigqueue() lockless")
-Reported-by: Hyunwoo Kim <imv4bel@gmail.com>
-Debugged-by: Hyunwoo Kim <imv4bel@gmail.com>
-Suggested-by: "Eric W. Biederman" <ebiederm@xmission.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Tested-by: Kijo Park <red993688@gmail.com>
-Reviewed-by: Oleg Nesterov <oleg@redhat.com>
-Reviewed-by: Frederic Weisbecker <frederic@kernel.org>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260911090541.572536604@kernel.org
-Closes: https://patch.msgid.link/aok1rdkBgZsynHZB@v4bel
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: b2ed01e7ad3d ("drm/ttm: Fix ttm_bo_swapout() infinite LRU walk on swapout failure")
+Cc: stable@vger.kernel.org # v7.1+
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5387
+Link: https://lore.kernel.org/dri-devel/CAHYiNPa6aVacJoLOje-qZ1GyYx-9p0tN4NuP8D_eSL+UJeevXw@mail.gmail.com/
+Signed-off-by: Vadim Nikitushkin <bub4z0r@gmail.com>
+Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Christian König <christian.koenig@amd.com>
+Link: https://lore.kernel.org/r/20260909205028.13799-1-bub4z0r@gmail.com
+[ Squashed with commit fcfe64715b425262af1b36f498f9197f3537ceed
+  ("drm/ttm: apply the swapout bulk_move fix to the intended condition"):
+  upstream 3db7d7d58341 was applied to the "if (ret)" after
+  ttm_resource_try_charge() in ttm_bo_alloc_at_place() instead of the
+  "if (!ret)" after ttm_tt_swapout() in ttm_bo_swapout_cb(), and
+  fcfe64715b42 restored the former and changed the latter. 7.2.y has no
+  ttm_resource_try_charge() (dmem cgroup charging is 7.3 material), so
+  neither commit applies on its own; the net effect of the two is the
+  single hunk below, which is the change the changelog describes. ]
 ---
- kernel/exit.c   |  11 ++---
- kernel/signal.c | 115 +++++++++++++++++++++++++++++++++++-------------
- 2 files changed, 91 insertions(+), 35 deletions(-)
+ drivers/gpu/drm/ttm/ttm_bo.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/kernel/exit.c b/kernel/exit.c
-index de904800e630a..e38b2bb850978 100644
---- a/kernel/exit.c
-+++ b/kernel/exit.c
-@@ -304,12 +304,13 @@ void release_task(struct task_struct *p)
- 	free_pids(post.pids);
- 	release_thread(p);
- 	/*
--	 * This task was already removed from the process/thread/pid lists
--	 * and lock_task_sighand(p) can't succeed. Nobody else can touch
--	 * ->pending or, if group dead, signal->shared_pending. We can call
--	 * flush_sigqueue() lockless.
-+	 * This task was already removed from the process/thread/pid lists and
-+	 * lock_task_sighand(p) can't succeed. If it's the group leader then
-+	 * flush tsk->signal->shared_pending. tsk->pending has been flushed
-+	 * already in exit_signals(). Nothing else can touch
-+	 * signal->shared_pending anymore, so flush_sigqueue() can be invoked
-+	 * lockless.
- 	 */
--	flush_sigqueue(&p->pending);
- 	if (thread_group_leader(p))
- 		flush_sigqueue(&p->signal->shared_pending);
+diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+index bcd76f6..ca6fc5c 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo.c
++++ b/drivers/gpu/drm/ttm/ttm_bo.c
+@@ -1178,7 +1178,7 @@ ttm_bo_swapout_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *bo)
  
-diff --git a/kernel/signal.c b/kernel/signal.c
-index ec64845778457..0d2fcf9d30237 100644
---- a/kernel/signal.c
-+++ b/kernel/signal.c
-@@ -475,18 +475,42 @@ static void __sigqueue_free(struct sigqueue *q)
- 	kmem_cache_free(sigqueue_cachep, q);
- }
- 
--void flush_sigqueue(struct sigpending *queue)
-+/*
-+ * flush_sigqueue_list() can only be invoked without holding sighand::siglock in
-+ * the following cases:
-+ *
-+ *  1) When flushing task::pending _after_ setting task::flags PF_EXITING
-+ *
-+ *     All functions which try to send a signal to @task will observe PF_EXITING
-+ *     and drop the signal.
-+ *
-+ *  2) When flushing task::signal::shared_pending _after_ the last task in a
-+ *     thread group was unhashed and task::sighand is NULL.
-+ *
-+ *     Nothing can queue a signal anymore because sighand is NULL.
-+ */
-+static void flush_sigqueue_list(struct list_head *head)
- {
--	struct sigqueue *q;
-+	struct sigqueue *q, *tmp;
- 
--	sigemptyset(&queue->signal);
--	while (!list_empty(&queue->list)) {
--		q = list_entry(queue->list.next, struct sigqueue , list);
-+	list_for_each_entry_safe(q, tmp, head, list) {
- 		list_del_init(&q->list);
- 		__sigqueue_free(q);
- 	}
- }
- 
-+void flush_sigqueue(struct sigpending *queue)
-+{
-+	sigemptyset(&queue->signal);
-+	flush_sigqueue_list(&queue->list);
-+}
-+
-+static void sigqueue_dequeue_pending(struct sigpending *queue, struct list_head *head)
-+{
-+	sigemptyset(&queue->signal);
-+	list_splice_init(&queue->list, head);
-+}
-+
- /*
-  * Flush all pending signals for this kthread.
-  */
-@@ -1039,6 +1063,21 @@ static inline bool legacy_queue(struct sigpending *signals, int sig)
- 	return (sig < SIGRTMIN) && sigismember(&signals->signal, sig);
- }
- 
-+/*
-+ * When PF_EXITING is set the task is on the way out and has t::pending
-+ * flushed already. Prevent queueing of PIDTYPE_PID signals as they would
-+ * be leaked.
-+ */
-+static inline bool task_can_queue_signal(struct task_struct *t, enum pid_type type)
-+{
-+	lockdep_assert_held(&t->sighand->siglock);
-+
-+	if (!(t->flags & PF_EXITING))
-+		return true;
-+
-+	return type != PIDTYPE_PID;
-+}
-+
- static int __send_signal_locked(int sig, struct kernel_siginfo *info,
- 				struct task_struct *t, enum pid_type type, bool force)
- {
-@@ -1050,6 +1089,10 @@ static int __send_signal_locked(int sig, struct kernel_siginfo *info,
- 	lockdep_assert_held(&t->sighand->siglock);
- 
- 	result = TRACE_SIGNAL_IGNORED;
-+
-+	if (!task_can_queue_signal(t, type))
-+		goto ret;
-+
- 	if (!prepare_signal(sig, t, force))
- 		goto ret;
- 
-@@ -1993,11 +2036,25 @@ static inline struct task_struct *posixtimer_get_target(struct k_itimer *tmr)
- 	struct task_struct *t = pid_task(tmr->it_pid, tmr->it_pid_type);
- 
- 	if (t && tmr->it_pid_type != PIDTYPE_PID &&
--	    same_thread_group(t, current) && !current->exit_state)
-+	    same_thread_group(t, current) && !(current->flags & PF_EXITING))
- 		t = current;
- 	return t;
- }
- 
-+/*
-+ * Find the target task for the POSIX timer signal and prevent that a
-+ * PIDTYPE_PID signal is queued on a task which has PF_EXITING set.
-+ */
-+static inline struct task_struct *posixtimer_get_unignore_target(struct k_itimer *tmr)
-+{
-+	struct task_struct *t = posixtimer_get_target(tmr);
-+
-+	if (t && task_can_queue_signal(t, tmr->it_pid_type))
-+		return t;
-+
-+	return NULL;
-+}
-+
- void posixtimer_send_sigqueue(struct k_itimer *tmr)
- {
- 	struct sigqueue *q = &tmr->sigq;
-@@ -2015,6 +2072,9 @@ void posixtimer_send_sigqueue(struct k_itimer *tmr)
- 	if (!likely(lock_task_sighand(t, &flags)))
- 		return;
- 
-+	if (!task_can_queue_signal(t, tmr->it_pid_type))
-+		goto unlock;
-+
- 	/*
- 	 * Update @tmr::sigqueue_seq for posix timer signals with sighand
- 	 * locked to prevent a race against dequeue_signal().
-@@ -2106,6 +2166,7 @@ void posixtimer_send_sigqueue(struct k_itimer *tmr)
- 	result = TRACE_SIGNAL_DELIVERED;
- out:
- 	trace_signal_generate(sig, &q->info, t, tmr->it_pid_type != PIDTYPE_PID, result);
-+unlock:
- 	unlock_task_sighand(t, &flags);
- }
- 
-@@ -2161,7 +2222,7 @@ static void posixtimer_sig_unignore(struct task_struct *tsk, int sig)
- 		 * has exited by now, drop the reference count.
- 		 */
- 		guard(rcu)();
--		target = posixtimer_get_target(tmr);
-+		target = posixtimer_get_unignore_target(tmr);
- 		if (target)
- 			posixtimer_queue_sigqueue(&tmr->sigq, target, tmr->it_pid_type);
- 		else
-@@ -3140,42 +3201,36 @@ static void retarget_shared_pending(struct task_struct *tsk, sigset_t *which)
- 
- void exit_signals(struct task_struct *tsk)
- {
-+	LIST_HEAD(sigq_list);
- 	int group_stop = 0;
--	sigset_t unblocked;
- 
- 	/*
- 	 * @tsk is about to have PF_EXITING set - lock out users which
--	 * expect stable threadgroup.
-+	 * expect a stable threadgroup.
- 	 */
- 	cgroup_threadgroup_change_begin(tsk);
- 
--	if (thread_group_empty(tsk) || (tsk->signal->flags & SIGNAL_GROUP_EXIT)) {
-+	scoped_guard(spinlock_irq, &tsk->sighand->siglock) {
- 		tsk->flags |= PF_EXITING;
--		cgroup_threadgroup_change_end(tsk);
--		return;
--	}
- 
--	spin_lock_irq(&tsk->sighand->siglock);
--	/*
--	 * From now this task is not visible for group-wide signals,
--	 * see wants_signal(), do_signal_stop().
--	 */
--	tsk->flags |= PF_EXITING;
-+		sigqueue_dequeue_pending(&tsk->pending, &sigq_list);
- 
--	cgroup_threadgroup_change_end(tsk);
-+		if (task_sigpending(tsk) && !thread_group_empty(tsk) &&
-+		    !(tsk->signal->flags & SIGNAL_GROUP_EXIT)) {
-+			sigset_t unblocked = tsk->blocked;
- 
--	if (!task_sigpending(tsk))
--		goto out;
-+			signotset(&unblocked);
-+			retarget_shared_pending(tsk, &unblocked);
- 
--	unblocked = tsk->blocked;
--	signotset(&unblocked);
--	retarget_shared_pending(tsk, &unblocked);
-+			if (unlikely(tsk->jobctl & JOBCTL_STOP_PENDING) &&
-+			    task_participate_group_stop(tsk))
-+				group_stop = CLD_STOPPED;
-+		}
-+	}
- 
--	if (unlikely(tsk->jobctl & JOBCTL_STOP_PENDING) &&
--	    task_participate_group_stop(tsk))
--		group_stop = CLD_STOPPED;
--out:
--	spin_unlock_irq(&tsk->sighand->siglock);
-+	cgroup_threadgroup_change_end(tsk);
-+
-+	flush_sigqueue_list(&sigq_list);
- 
- 	/*
- 	 * If group stop has completed, deliver the notification.  This
+ 	if (ttm_tt_is_populated(tt)) {
+ 		ret = ttm_tt_swapout(bdev, tt, swapout_walk->gfp_flags);
+-		if (!ret) {
++		if (ret > 0) {
+ 			spin_lock(&bdev->lru_lock);
+ 			ttm_resource_del_bulk_move_unevictable(bo->resource, bo);
+ 			ttm_resource_move_to_lru_tail(bo->resource);
 -- 
 2.53.0
 
