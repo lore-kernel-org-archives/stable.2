@@ -1,159 +1,120 @@
-Received: from mta0.migadu.com (out-159.mta0.migadu.com [91.218.175.159])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 164E24BB27C
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 09:39:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.159
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35412443C14
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 09:41:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790069944; cv=none; b=QTXBw3L+iFb0Pq5/dVhn9uwfzsNLb8OFb05UMKDNZ3Lhqn3H01PrpU+XAdAQ1v+757O5qQhRx4yB/lpxdvDbcpVQqpux42Dhw2zr9aUZGRPC/sPeh7fCa3UxfjHLZnAmNs3Vytew5V9YDbUU6VvQapPOninPQ64fcZc4juqcJ7c=
+	t=1790070121; cv=none; b=e04y5IouBqx7Bx5VEwfC6C54bIWZ+zv28h319q9y5PvzEu9oPbzvMwI43YQNj5tnBE2g/gpSmduzVgG3y/AEc5NaoYCZi5FHezgIk736UHzJQMz8HmrmrTxULU/BO8Uony/9x29tOneHw4AxlCSgdD7t5Ldp9roKJqnYPz9bAAs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790069944; c=relaxed/simple;
-	bh=hi1vDGEifONMUPQI29D6K7Rz4VLkNWGHmR08F4W6XWs=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=qQOOgfS0flGk0ayCMGn1lJff9RA6YTbBi4puEg9cnF95Rgq71XKHDL+PsvnflnUK2yN6vaViKRDqw3n7bHskBWfwZe7uGk/ugR5UeYA51vHIbqe3DLhgUo5YimVmyn3Oz73sz34jQLWdUFp/6gcb7Dy/jfwqWJrtQToz1kvGQ2k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=cASNak4y; arc=none smtp.client-ip=91.218.175.159
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790070121; c=relaxed/simple;
+	bh=jsWmz3vQ4MB2OuekQEpHoKFVvwi6/87qpr+Hl7Tz1V8=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=HVeI9+giHOAVEd72krbdY/PPbaUbtnFesmY5JZA9PLfoPVo31opp+zShqH8Xs8xksfhldiiNKgpJICnR2wS9HfwySHU08B0cvMwOeEOcbufNPt4qUHfIY3oNUqYtmAmQ6TpN/LtZ9TA8lZQ2YUDSGq4FkKJPLz0vQgyAZ6SIO1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=cgXOca30; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="cASNak4y"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=hi1vDGEifONMUPQI29D6K7Rz4VLkNWGHmR08F4W6XWs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790069939; v=1; x=1790674739;
- b=cASNak4ysuWjNi33n5bSDcBdcWis2zVS9qvdGrVjHVup11L/H4Fy2JLJIERrGeYANXz8CszW
- oLautxEeyd2Gjpi4VrSY37vqwZe2ZMcT5H+QQ91vdpC6IbVWed6Etmxj5X9apohdoXYrE+Gj8TE
- q0+yoU3mYLQ4aBgDeLCnyNpw=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9d2428c7de0bd619;
-	Tue, 22 Sep 2026 09:38:59 +0000
-X-Mizu-Trace-ID: 9d2428c7de0bd619
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <d9c97d83-f29b-440c-9385-47d13afc38f3@linux.dev>
-Date: Tue, 22 Sep 2026 17:38:51 +0800
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="cgXOca30"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2114B1F000FF;
+	Tue, 22 Sep 2026 09:41:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790070119;
+	bh=hDsnpYTTgSE/mscyT+CMijPZhhZHTqdJCBIzbwks9R8=;
+	h=Subject:To:Cc:From:Date;
+	b=cgXOca30TorpTI+3sgKYjYRAtxgTKgqSn6kLxHHlq92LrB1rKah//Rcdaw3S2bCFo
+	 uFvx/3/ovwM2hLHn9uSXxqjH8r0OrRPVPVackGVjdPEhOlZ2wCLfNFvGVrzvlagZEi
+	 a/0GokAq4+PSbODP6OC3l4z1RJ4XQKIsWx7T6zgs=
+Subject: FAILED: patch "[PATCH] arm64: percpu: Fix LSE operations on {8,16}-bit types" failed to apply to 6.12-stable tree
+To: mark.rutland@arm.com,ada.coupriediaz@arm.com,ardb@kernel.org,catalin.marinas@arm.com,james.morse@arm.com,maz@kernel.org,peterz@infradead.org,ruanjinjie@huawei.com,vladimir.murzin@arm.com,will@kernel.org,yang@os.amperecomputing.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Tue, 22 Sep 2026 11:29:22 +0200
+Message-ID: <2026092222-surpass-tapping-3d56@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: hongfu.li@linux.dev, Oscar Salvador <osalvador@suse.de>,
- David Hildenbrand <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Shakeel Butt <shakeel.butt@linux.dev>, Michal Hocko <mhocko@suse.com>,
- Roman Gushchin <roman.gushchin@linux.dev>, Nhat Pham <nphamcs@gmail.com>,
- Chris Down <chris@chrisdown.name>, Johannes Weiner <hannes@cmpxchg.org>,
- Michal Hocko <mhocko@kernel.org>, Joshua Hahn <joshua.hahnjy@gmail.com>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, cgroups@vger.kernel.org,
- Hongfu Li <lihongfu@kylinos.cn>, stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] mm/memcg: migrate per-node hugetlb lruvec stat
- together with hugetlb folio
-To: Muchun Song <muchun.song@linux.dev>
-References: <20260921-for-hugetlb_state-v1-0-8a6eec92661f@kylinos.cn>
- <20260921-for-hugetlb_state-v1-2-8a6eec92661f@kylinos.cn>
- <B710AD66-B826-4138-B1D4-2DB3E00FDC1D@linux.dev>
-From: Hongfu Li <hongfu.li@linux.dev>
-In-Reply-To: <B710AD66-B826-4138-B1D4-2DB3E00FDC1D@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-On 9/22/26 2:18 PM, Muchun Song wrote:
->
->> On Sep 21, 2026, at 17:12, Hongfu Li <hongfu.li@linux.dev> wrote:
->>
->> From: Hongfu Li <lihongfu@kylinos.cn>
->>
->> memory.numa_stat exposes per-node hugetlb counters from per-node lruvec
->> stats. These stats are accounted against folio_nid(): incremented on
->> the folio's node when handed to a user, decremented when the folio is
->> returned to the pool.
->>
->> During hugetlb folio migration, mem_cgroup_migrate() moves the charge
->> to the new folio and drops the memcg data of the old one, so the free
->> of the old folio right after the migration skips the memcg per-node
->> lruvec decrement. The hugetlb count stays attributed to the old node
->> for the rest of the life of the charge, while the target folio gets no
->> increment on the new node; its later free decrements a counter that
->> was never incremented.
->>
->> Migrate the per-node lruvec accounting alongside migration. Global
->> memcg totals remain balanced because they track resource consumption,
->> not node placement.
->>
->> Fixes: 05d4532b60e3 ("memcg/hugetlb: add hugeTLB counters to memcg")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
->> ---
->> mm/memcontrol.c | 31 +++++++++++++++++++++++++++++++
->> 1 file changed, 31 insertions(+)
->>
->> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
->> index 1460cba53588..9c96ebd5436f 100644
->> --- a/mm/memcontrol.c
->> +++ b/mm/memcontrol.c
->> @@ -5598,6 +5598,34 @@ void mem_cgroup_replace_folio(struct folio *old, struct folio *new)
->> rcu_read_unlock();
->> }
->>
->> +#ifdef CONFIG_HUGETLB_PAGE
->> +static void move_hugetlb_lruvec_stat(struct obj_cgroup *objcg,
-> Actually, we don't need this objcg parameter since we could get it from folio.
-> And I'd like to move this function to hugetlb.c.
->
->> +     				struct folio *old, struct folio *new)
->> +{
->> + 	long nr_pages = folio_nr_pages(old);
->> + 	struct mem_cgroup *memcg;
->> + 	int old_nid = folio_nid(old);
->> + 	int new_nid = folio_nid(new);
->> +
->> + 	if (old_nid == new_nid)
->> + 		return;
->> +
->> + 	rcu_read_lock();
-> Please use guard(rcu)() to simplify the code a little.
+The patch below does not apply to the 6.12-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Hi Muchun,
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Thanks a lot for your suggestions. I will drop the objcg parameter of
-move_hugetlb_lruvec_stat(), move the function to mm/hugetlb.c, and use
-guard(rcu)() in it.  I will post a v2 for review shortly.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git checkout FETCH_HEAD
+git cherry-pick -x 8cf2093f5372952a9ebc805c418d45df7112cd14
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092222-surpass-tapping-3d56@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
->> + 	memcg = obj_cgroup_memcg(objcg);
->> + 	mod_memcg_lruvec_state(mem_cgroup_lruvec(memcg, NODE_DATA(old_nid)),
->> +       		NR_HUGETLB, -nr_pages);
->> + 	mod_memcg_lruvec_state(mem_cgroup_lruvec(memcg, NODE_DATA(new_nid)),
->> +       		NR_HUGETLB, nr_pages);
->> + 	rcu_read_unlock();
->> +}
->> +#else /* CONFIG_HUGETLB_PAGE */
->> +static inline void move_hugetlb_lruvec_stat(struct obj_cgroup *objcg,
->> +    					struct folio *old,
->> +    					struct folio *new)
->> +{
->> +}
->> +#endif /* CONFIG_HUGETLB_PAGE */
->> +
->> /**
->>   * mem_cgroup_migrate - Transfer the memcg data from the old to the new folio.
->>   * @old: Currently circulating folio.
->> @@ -5635,6 +5663,9 @@ void mem_cgroup_migrate(struct folio *old, struct folio *new)
->>
->> 	new_objcg = get_migration_objcg(old, new);
->>
->> + 	if (folio_test_hugetlb(old))
->> + 		move_hugetlb_lruvec_stat(new_objcg, old, new);
->> +
->> /*
->> * @old was charged through a non-root objcg, so its charge is in the
->> * page counters. If the re-derivation walked up to the root objcg -
->>
->> -- 
->> 2.54.0
->>
--- 
-Best regards,
-Hongfu
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 8cf2093f5372952a9ebc805c418d45df7112cd14 Mon Sep 17 00:00:00 2001
+From: Mark Rutland <mark.rutland@arm.com>
+Date: Tue, 8 Sep 2026 16:17:23 +0100
+Subject: [PATCH] arm64: percpu: Fix LSE operations on {8,16}-bit types
+
+The assembly for __percpu_##name##_case_##sz() and
+__percpu_##name##_return_case_##sz() doesn't use the 'sfx' macro
+argument to form the LSE instruction. Without 'sfx', a W register
+argument will imply a 32-bit memory location, and consequently
+{8,16}-bit ops will erroneously read and write 32 bits of memory when
+the LSE instruction is used.
+
+Fix this by appending 'sfx' to 'op_lse' to LSE instruction. It is not
+necessary (and not valid) to append 'sfx' to 'op_llsc', as 'op_llsc' is
+a register-register operation which does not access memory (and does not
+take a size suffix).
+
+Fixes: 959bf2fd03b5 ("arm64: percpu: Rewrite per-cpu ops to allow use of LSE atomics")
+Signed-off-by: Mark Rutland <mark.rutland@arm.com>
+Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: Ada Couprie Diaz <ada.coupriediaz@arm.com>
+Cc: Ard Biesheuvel <ardb@kernel.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Cc: James Morse <james.morse@arm.com>
+Cc: Marc Zyngier <maz@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>
+Cc: Vladimir Murzin <vladimir.murzin@arm.com>
+Cc: Will Deacon <will@kernel.org>
+Cc: Yang Shi <yang@os.amperecomputing.com>
+Cc: stable@vger.kernel.org
+Reviewed-by: Vladimir Murzin <vladimir.murzin@arm.com>
+Signed-off-by: Will Deacon <will@kernel.org>
+
+diff --git a/arch/arm64/include/asm/percpu.h b/arch/arm64/include/asm/percpu.h
+index 31193bcf89a2..8cf4068ce1b5 100644
+--- a/arch/arm64/include/asm/percpu.h
++++ b/arch/arm64/include/asm/percpu.h
+@@ -77,7 +77,7 @@ __percpu_##name##_case_##sz(void *ptr, unsigned long val)		\
+ 	"	stxr" #sfx "\t%w[loop], %" #w "[tmp], %[ptr]\n"		\
+ 	"	cbnz	%w[loop], 1b",					\
+ 	/* LSE atomics */						\
+-		#op_lse "\t%" #w "[val], %" #w "[tmp], %[ptr]\n"	\
++		#op_lse #sfx "\t%" #w "[val], %" #w "[tmp], %[ptr]\n"	\
+ 		__nops(3))						\
+ 	: [loop] "=&r" (loop), [tmp] "=&r" (tmp),			\
+ 	  [ptr] "+Q"(*(u##sz *)ptr)					\
+@@ -98,7 +98,7 @@ __percpu_##name##_return_case_##sz(void *ptr, unsigned long val)	\
+ 	"	stxr" #sfx "\t%w[loop], %" #w "[ret], %[ptr]\n"		\
+ 	"	cbnz	%w[loop], 1b",					\
+ 	/* LSE atomics */						\
+-		#op_lse "\t%" #w "[val], %" #w "[ret], %[ptr]\n"	\
++		#op_lse #sfx "\t%" #w "[val], %" #w "[ret], %[ptr]\n"	\
+ 		#op_llsc "\t%" #w "[ret], %" #w "[ret], %" #w "[val]\n"	\
+ 		__nops(2))						\
+ 	: [loop] "=&r" (loop), [ret] "=&r" (ret),			\
 
