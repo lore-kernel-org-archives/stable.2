@@ -1,169 +1,140 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A83B559301
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 15:23:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 053B155C1C0
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 15:26:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790090630; cv=none; b=vDQxF4qLI+KwBWiCa7I0U9nWTqY3pl8opPuJgexMWv1PmHTC6QSlbGWvc4UeLyn/OSPYpnt4z8iSPZMXQzBopGG8ERucHIBnjc2b352haR+iWPh/822bHEhNqO89ye832AUpTbVRYKMAu3aEsZwxi3qD10lGO6XcVyzAmEh06lg=
+	t=1790090798; cv=none; b=dngb3WHUELIuPZCSzvXq4Z75Yz758cYKriuZ9GtOK9JIgKoPEjX1gF1Mf+uWlazc3L8Sb+EJ4n5Mb7YWeWAtjdyATXGIqcEZSr6w+nEC38w+LpqFYqjPLXdcpc+KfrQi4aVv9D7uGMQcDr6aO1dmS7u3635XWwlq4VGE0G2vYfs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790090630; c=relaxed/simple;
-	bh=wUM6fb0tuOzagzfkYb4kCS8D/QCp3V/7KkQWbozSFKo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GpZz7ghpWDdUEsGIIt35GTv5+HZ+pc1fwZ2t6Hsc9ogq3jq5lrJ52wOMhgjrvjDDhMJp31Du/D8fZv1YVpDI3uMJ9u+IzvHP4Q4cQVgWP7MNoGuh/v+YA7iqJqqMSKUcvw/VpGh95tClNJ5gjjBJiiQPx0d2EcaIxr00ZwDiYyQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y0R0EPdG; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790090798; c=relaxed/simple;
+	bh=4tTfIyxQFrJO0eYjaziEFGFnUgNWltKT23dBmntSrLc=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=FKb8Cl298J6fW4ivJMvlJGxSViDyMUokaAqglQQUFFl3Wi7btjcBBPwironxNa9hLHcLAYx/m/9ts4doI8NZWXWzaR1PawjTtC943jVioF7Nyjr/njuXCy8yNv5I59FBtY6mgGNC6XYAA5kjg+Y88aMpsRjpZgzR8E1bfE17+J8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=a7mao0lK; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Dg5AaW+c; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y0R0EPdG"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747f05ffdso30961875ad.1
-        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 08:23:48 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="a7mao0lK";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Dg5AaW+c"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790090796;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/8zY26QjQrdL1DZs1bTzu+yz0u+JYpgALxi7/8nmtuE=;
+	b=a7mao0lKt+TWvY6OEuWnVs5xsX+/n+/UIkqV3UvzsLwllL0TYHW9PfGNyZhWUTla+kN3sQ
+	mPjM4UW/uVwakGuXvJ4zPF7ca2p9sMNW8R7uWbAIxy+khQunINJMnXqkwWOXUKZHqGnEEG
+	x5WryQmHGPtgUpsmQC2agLHHUNPtabM=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-331-c-CcBqMNNGG297zggDlECA-1; Tue, 22 Sep 2026 11:26:31 -0400
+X-MC-Unique: c-CcBqMNNGG297zggDlECA-1
+X-Mimecast-MFC-AGG-ID: c-CcBqMNNGG297zggDlECA_1790090790
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-49cf9df1eadso37942025e9.3
+        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 08:26:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790090628; x=1790695428; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=N5nWO2H5iRZirg/RaIY9a9oyFRHWVOmzKpoAp4+ltrw=;
-        b=Y0R0EPdGSd1CTJpXm9XP59V5MUmnW0ZgsjRA4+SB4CegPtlU8zS9l0AvGaiWTSs6kp
-         4JCXLTllqAA8hn0YltjERdTrX7GNPZBmcsJbU8auVRrItK50/uH0k4tyQ5Tt6f59KaCC
-         6xbsUX/WVgScAqcpPWNk7Z7UMqcqKV4UbC8NRAfPihIXFB40MQn6TrVU5IYlqoiKsZt1
-         hI34bCoBuq5w2b3b12NrCIqFLVYuehHBb4A2kmUs5itqhr727kWz6o1eHuVDMzFAMZL4
-         TObPCcuOQo+s0tbv4h/E7FPtWf+nU+5dSlnsFnpavU6lVnWYy98tJ/yuYiQefCvY974i
-         1gsA==
+        d=redhat.com; s=google; t=1790090790; x=1790695590; darn=vger.kernel.org;
+        h=content-type:mime-version:user-agent:message-id:date:references
+         :in-reply-to:subject:cc:to:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=/8zY26QjQrdL1DZs1bTzu+yz0u+JYpgALxi7/8nmtuE=;
+        b=Dg5AaW+cXOG3UCb117mUsmYWky0JYfwjukmhT5YrjX0uSYZufp9ySioGC6uY/T2kFb
+         DpFVJGLVdmi06uE8stG2Ld/0ga5sLnuqZCErQAXV2UMz4EX59Au2kG1kY+OURt02g3V5
+         Dek6VhkxEUsIsQFMXMVZ+Ae1ee5PUoq23nqvDKc/0xaY3LVDtHV30QzfctbT+BiVVrJx
+         ua9/l6ZshDdrYI5msQrOyhR9hR/v+vzBIW1rSKIO/yGC6kkzjMc7W59F9SnM3utVpkcD
+         QV4j61mq0upYvBhGfDGjeclKE5nMQWMyytTTZCzlqSmX+sW7hFUhR5xnWWU5FtJGwWd4
+         79nw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790090628; x=1790695428;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=N5nWO2H5iRZirg/RaIY9a9oyFRHWVOmzKpoAp4+ltrw=;
-        b=W51XxRVaOgOd/19ss4cotZPhpuBZV1VcoqQ8onhFRBPcuJtlMMCF2cV/N+QjfORX82
-         TexLRPD4W3E1GszO0URmDMU7cZyUH0GZOFZgjkKoTtPkj6ZRZocOfMjpuUYc05EetC/Y
-         56wfEME9uBJxKdaG2sdyZrLniqbpyzcB1RHvTcXIxt/yuS70kfwXpb1Meup4aEw0Uv1e
-         qRemQzdLIeYU6pflc+vzeb9iGKmMYvWFblpfmG7uhcGdvw2lscLZvSnLS9S9U1ZIhPgf
-         EtJhOUc42yvv74iCWyxOT+P+HCG88YRXR7vAPLZjbscNvVfRk1CNqL3869qVo19By6u0
-         K29Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxOAwMWBKuQBCeu/vG9tZ7WH9x7dgELbVBlsczNhTKClUlQSZt07Xi3G1mrJexiz6WcCqJQ5rM=@vger.kernel.org
-X-Gm-Message-State: AFuF++k3si4XJRzX4VWxGeNhHQobCBuSu2qxBUALYsoOuxc+VmRU5S7D
-	lMMEGj1QhGddZskEStqhb/0UFY9Z7YxBhO2s5rwyYfxYuxD7CcufiKjr
-X-Gm-Gg: AYBFou0rlvJJ8agAh7hIgpZ3mHRJgJdh1cUORO2cj2FRzxYUo/tGg5m9qd3uoorpeuH
-	cLYQ5wYGWoXI4qsJNNj+JK3WXYHq8ps112iOfiUvt1M4bGfPTuh61OUqczwVbi0RPgz0ibkavtZ
-	MZbD6/sQ17KutPZ4+y7B9xWipZVS7sNaZ3Uqvc5HiCZZHWUb56c/NQzP59QKw4SxLp8Cm5Jk/AP
-	kEXzKkcqCDT5oOR8MxjsuU+E3vYvwMLekcq0BtXLbOc2YO0a6gjjzHke4u+Hxvjzxz56P9NlAdJ
-	9BQ3h+W5jd+J2XaxzC+Z4jHRpfI4zi+KUdIcZVweHmwBPEoOuq7IHCLRGJJiXWx5rbR5t9u/4NV
-	Y+hRqS+JBzknMnWTHgFn8WVgNVAwECdaMZAWLNTUPz3gp/tK+yKAwHajQWz58G32W6YsrlIA02A
-	8yEYfd9i1XMVfu4SEw3tGOz0K0Hs81rHBsLjRTVkHo6yVswcsL8UIkqFNrpz/CdCFIZc3Frg==
-X-Received: by 2002:a17:903:2f0e:b0:2dd:c1a0:c7e0 with SMTP id d9443c01a7336-2df609d446fmr17792025ad.15.1790090627746;
-        Tue, 22 Sep 2026 08:23:47 -0700 (PDT)
-Received: from localhost ([180.184.49.32])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df5d047c35sm12892635ad.53.2026.09.22.08.23.45
+        d=1e100.net; s=20260707; t=1790090790; x=1790695590;
+        h=content-type:mime-version:user-agent:message-id:date:references
+         :in-reply-to:subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=/8zY26QjQrdL1DZs1bTzu+yz0u+JYpgALxi7/8nmtuE=;
+        b=n+krm25iH95MFaHi0oit85sMq3NI4WS/XsVktmVEp0+7m+x5mLyVH1a8exmpkKC8ZI
+         yw/wK3YDRaKFCIJ47c2v8IicY/sNeNWCWeVrLt1EFIv1KPdH8brQWrV2T4wZhsf8A3I8
+         oR7wp2UBnkoGJuAp5f74YS/DE/qghs0H6S5qqfVwptmwejtv+G+UQ0aZplHAcVsInd1F
+         1JC19mnjsPhsek4qYg8krTAeAGagsAfHbs66216x4pzbrJ5BGgvLGg/kefRONPstSr+l
+         uh8LY8Gwhbo3i89U2mljy3G2ObCdXBIiYa7unVAdnohSp3DUBaP3RjVtfSk0CGNMJhvz
+         Kbjg==
+X-Forwarded-Encrypted: i=1; AKwUvByA0i2UT6dtlCcYCm6KSCXYOX+xbcF82rnBtI5ukh0Gc59acFOMSFvDcmC9jz6VLn/q0fzqbjU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mWW2Ll/JiecWEUmIM7ywd/WSBSByq0ZzHPugQIXcChbOAP04nI
+	EYHipHemNdaITgmtFFF4I0Vdqimd587yKrXSnqiXAtGmHDxVPqNvwzB3w4FXOpcS21iKrwaZeXn
+	tGcjW/A3Rj86/ZpIJJxe2LUARkf5/tWz+qQjd75C70KjVEtSXkaV6hPHjRA==
+X-Gm-Gg: AYBFou1afuPOec3gPBN0i7q+uqYaloHDDVwscI6iMBw63eG8dzz6aLj8rFz7fR1vhWE
+	SxMDRxZrjCix0MrvSQ3ZGasX6njKgXd0XLRs2+brO0WLaaM+vInO/IIR/1DvzaDx//8aiodPnqa
+	isRP5lW7wcFvEsd87Mq2wvoNz4gyD5jNUmk1H3pfX3He1CRl8CYYIszTmrKVp+1fk0ljABEixRN
+	QpN/59P5H54IY3+13YIO+Vi+uGFUivSmXhHB61y6bZAQ6bTxoSBCb98Nk9GQY5qg/Ympu0w+yuw
+	moG3vNjxCqoLpsrrOXnH36b4ZR2g0wm0XQGQjrwfxtqgEnD9Vdk5NpwPbcj2U3icYg0oRstFSdw
+	RBacHCSg/dEMQHktzsuMcwg4B5fCaCvCOiUIuswA=
+X-Received: by 2002:a05:600d:16:b0:49f:c1a1:5222 with SMTP id 5b1f17b1804b1-49fcbb0de51mr143310095e9.33.1790090790101;
+        Tue, 22 Sep 2026 08:26:30 -0700 (PDT)
+X-Received: by 2002:a05:600d:16:b0:49f:c1a1:5222 with SMTP id 5b1f17b1804b1-49fcbb0de51mr143309765e9.33.1790090789634;
+        Tue, 22 Sep 2026 08:26:29 -0700 (PDT)
+Received: from aconole-thinkpadt14gen4.rmtusnh.csb ([216.212.25.12])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde00473dsm3653365e9.0.2026.09.22.08.26.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 08:23:47 -0700 (PDT)
-From: Dairui Zhang <zhangdairui@gmail.com>
-To: linux-rdma@vger.kernel.org
-Cc: security@kernel.org,
-	Leon Romanovsky <leon@kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Dairui Zhang <zhangdairui@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] IB/mad: fix UAF and double-free in RMPP receive reassembly
-Date: Tue, 22 Sep 2026 23:23:42 +0800
-Message-ID: <20260922152342.1474845-1-zhangdairui@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        Tue, 22 Sep 2026 08:26:29 -0700 (PDT)
+From: Aaron Conole <aconole@redhat.com>
+To: Ilya Maximets <i.maximets@ovn.org>
+Cc: netdev@vger.kernel.org,  Pablo Neira Ayuso <pablo@netfilter.org>,
+  Florian Westphal <fw@strlen.de>,  Phil Sutter <phil@nwl.cc>,  "David S.
+ Miller" <davem@davemloft.net>,  Eric Dumazet <edumazet@google.com>,  Jakub
+ Kicinski <kuba@kernel.org>,  Paolo Abeni <pabeni@redhat.com>,  Simon
+ Horman <horms@kernel.org>,  Eelco Chaudron <echaudro@redhat.com>,  Jamal
+ Hadi Salim <jhs@mojatatu.com>,  Jiri Pirko <jiri@resnulli.us>,  Xin Long
+ <lucien.xin@gmail.com>,  Marcelo Ricardo Leitner
+ <marcelo.leitner@gmail.com>,  netfilter-devel@vger.kernel.org,
+  coreteam@netfilter.org,  linux-kernel@vger.kernel.org,
+  dev@openvswitch.org,  stable@vger.kernel.org,  Axel Mierczuk
+ <axel.mierczuk@1password.com>
+Subject: Re: [PATCH net 1/6] net: openvswitch: conntrack: avoid modifying
+ shared unconfirmed ct entry
+In-Reply-To: <20260921145655.3167436-2-i.maximets@ovn.org> (Ilya Maximets's
+	message of "Mon, 21 Sep 2026 16:55:43 +0200")
+References: <20260921145655.3167436-1-i.maximets@ovn.org>
+	<20260921145655.3167436-2-i.maximets@ovn.org>
+Date: Tue, 22 Sep 2026 11:26:25 -0400
+Message-ID: <f7tecelb93y.fsf@aconole-thinkpadt14gen4.rmtusnh.csb>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-mad_rmpp_recv.state is protected by two locks that do not exclude
-each other: recv_timeout_handler() (port workqueue) uses agent->lock,
-continue_rmpp() (CQ softirq) uses rmpp_recv->lock. Nothing serializes
-the check-then-set sequence on the state word:
+Ilya Maximets <i.maximets@ovn.org> writes:
 
-  T1 (CQ softirq)              T2 (port workqueue)
-  continue_rmpp()
-    lock(rmpp_recv->lock)
-    state == ACTIVE  [passes]
-                               recv_timeout_handler()
-                                 lock(agent->lock)
-                                 state = TIMEOUT
-                                 list_del(&rmpp_recv->list)
-                                 unlock(agent->lock)
-                                 destroy_rmpp_recv()
-                                   wait_for_completion()
-                                   [blocks on T1's ref]
-    state = COMPLETE
-    unlock(rmpp_recv->lock)
-    complete_rmpp()
-      queue cleanup_work (+10s)
-    deref()
-                               [unblocks]
-                               kfree(rmpp_recv)
-                               ib_free_recv_mad(done_wc)
+> In a case where skb with an unconfirmed ct entry gets cloned, we may
+> end up committing both but with different sets of extensions.
+>
+> The series of events:
+>
+>  1. The first clone wants to commit and runs the helpers wiring up
+>     the extension pointer into the expectation list.
+>  2. Then it looses the confirmation keeping the entry unconfirmed.
+>  3. Second clone now wants to commit labels and adds the new extension
+>     for that breaking the pointer in the expectation list causing
+>     UAF on the destruction path later.
+>
+> While this is possible to trigger, there should be no practical
+> network pipeline where committing both clones without modifications
+> into the same zone is needed.  So, let's just reset the entry in case
+> for some reason we got an skb with a shared one during commit.  This
+> doesn't affect any known use cases, but avoids any potential problems
+> with sharing and modification of the unconfirmed ct entry.
+>
+> The fixes tag points to the introduction of helpers, since that's the
+> main UAF trigger for the sharing.
+>
+> Fixes: cae3a2627520 ("openvswitch: Allow attaching helpers to ct action")
+> Cc: stable@vger.kernel.org
+> Reported-by: Axel Mierczuk <axel.mierczuk@1password.com>
+> Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
+> ---
 
-  +10s: recv_cleanup_handler() runs lock/list_del/destroy on the
-        freed rmpp_recv -> UAF write and double free; nothing can
-        cancel that cleanup_work anymore, the entry is already off
-        agent->rmpp_list. done_wc is also returned to
-        ib_mad_complete_recv() and freed again -> UAF read and
-        double free.
-
-Reaching this requires sending MADs to a kernel RMPP agent from the
-InfiniBand/RoCE fabric: the per-port sa_query agent accepts subnet
-manager responses whose SLID/GID/TID are not authenticated on the
-fabric, and legacy user_mad agents registered without
-IB_USER_MAD_USER_RMPP start reassembly on any incoming RMPP DATA
-MAD with an attacker-chosen TID, no in-flight send required. The
-attacker controls segment timing and can run many transactions in
-parallel (agent->rmpp_list has no cap), so landing the
-microseconds-wide receive critical section on the 40-second timeout
-boundary is a matter of patience, not luck.
-
-Unify state transitions under rmpp_recv->lock in
-recv_timeout_handler(), keeping list manipulation under agent->lock
-(which preserves the agent->lock -> rmpp_recv->lock ordering used
-by continue_rmpp()). State check/set in both paths is then
-serialized, so the loser of the race always observes the final
-state and bails out. recv_cleanup_handler() needs no change: with
-transitions serialized, a cleanup_work can only be pending after
-COMPLETE, in which case the timeout handler exits early.
-
-The race is as old as the RMPP implementation itself.
-
-Fixes: fa619a77046b ("[PATCH] IB: Add RMPP implementation")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Dairui Zhang <zhangdairui@gmail.com>
----
-Earlier version was shared privately with security@kernel.org;
-posted publicly at Leon's request with a reworked commit message
-(race description as a function ladder, reachability wording).
-
- drivers/infiniband/core/mad_rmpp.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/infiniband/core/mad_rmpp.c b/drivers/infiniband/core/mad_rmpp.c
-index 17c4c52..f05e9ce 100644
---- a/drivers/infiniband/core/mad_rmpp.c
-+++ b/drivers/infiniband/core/mad_rmpp.c
-@@ -245,12 +245,15 @@ static void recv_timeout_handler(struct work_struct *work)
- 	struct ib_mad_recv_wc *rmpp_wc;
- 	unsigned long flags;
- 
--	spin_lock_irqsave(&rmpp_recv->agent->lock, flags);
-+	spin_lock_irqsave(&rmpp_recv->lock, flags);
- 	if (rmpp_recv->state != RMPP_STATE_ACTIVE) {
--		spin_unlock_irqrestore(&rmpp_recv->agent->lock, flags);
-+		spin_unlock_irqrestore(&rmpp_recv->lock, flags);
- 		return;
- 	}
- 	rmpp_recv->state = RMPP_STATE_TIMEOUT;
-+	spin_unlock_irqrestore(&rmpp_recv->lock, flags);
-+
-+	spin_lock_irqsave(&rmpp_recv->agent->lock, flags);
- 	list_del(&rmpp_recv->list);
- 	spin_unlock_irqrestore(&rmpp_recv->agent->lock, flags);
- 
--- 
-2.53.0
+Reviewed-by: Aaron Conole <aconole@redhat.com>
 
