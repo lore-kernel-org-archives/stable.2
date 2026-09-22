@@ -1,96 +1,145 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8FFA37F75E;
-	Tue, 22 Sep 2026 02:03:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790042598; cv=none; b=sHKrM0RqBldpIq8tpXzMcrNiD1PcByuNDgJ9cYGk6GoWHNW2chqDz782EvXJXc160drLsfiWyzv07FuDApkWzoOFAQ+jUHE1GCfPRmDXuJKGieR6s/M2w9lGMpIAegPXv5qpmMkO6oOVqIRDMjPtK3hBGoLM6H/snfORK6fOpzY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790042598; c=relaxed/simple;
-	bh=6sKStPWdjMYC/nDnoTIJleWkVfL7gmdSQTTlR9jcODc=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=bDTwY/j34345S5bsqXMpbpuZEyESDi9Py7Q9bpcCRvnenkq56SNeQEcS9y3KCLbqFxyb5KOtLCkusAnzRt/+QDsYGVrNNUjblKf7omomG8xm4fQg3CpbnTQLGm+w5U9JNy0PIPOTVbizD/QfGV1Mw3gMfCb3SSaywDHdg+D2+FA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=uEJjfeoc; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5929A377A88
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 02:11:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.141
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790043084; cv=pass; b=YdZeLOXt4/p/5sxt/EUGTYXnDYTFBiJAWcgb/6jV6t8R/QsywE9aNvuBXTEf5CiBMofJ6ObI9wmvxwfTs8p6K002z5zPQW2yn4GkMzBXMASCExLE8d+CD+K300S0Jy9wcMD/qdF6dl6gHWyXRUNr6toztzu7VzZVHQsPsGywCkM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790043084; c=relaxed/simple;
+	bh=bmBqFjZ2YsW3nVDkxnU7i6zxE3xTdElcLDPHvj/yg7Y=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=I1ObOQRS3AnS61fZ7iClbdf+WnmviiCa/mY8fOJ2/gBd/Z6bCIxQj0CkVdkYrMMUR9HM1LBz3+BzZIQkdYxG9W9tVny8003ycW0jVNpXr4HCMNEGqJLEw4pjBX982f6x1VBcBPzNkANQrDDix+ftzJB5UlwEifDyc1uPxM2dueo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K1ax1/fZ; arc=pass smtp.client-ip=74.125.224.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="uEJjfeoc"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68M23BCZ03156700, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1790042591; bh=FjHE1dL1c7lSBCVZyKu5tXWihe2/df9LwgwDtAvZtKg=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=uEJjfeocZcybzv4ywbaZoZV6NsUUHxg3aWjspa4xmUMRB4zHcjQHakxXxMMj2VOZi
-	 0/xQgvdL1mkq8LM+Kk00giUEpJisg6AMa0SYDfrJv77pF0qnqiu/8GXWRljdRVOcji
-	 9oFIv8WmYmcoWybOgXeOMLpfTCirpX8tY2sU04uRYNfOFphxNEU6SUwWMN/ep4Xvum
-	 qlxnzpQ9j9GmRhXGmwzC2hLNQiGm2Ivey+gby7gEEKDSKcv2R6taBMvSPRgDEGUh3r
-	 aZYFNgKfZwU2q7fl3Hh5Kp2Mr8e3F2uysrCi/76dZfly49LADXIFPPVnEpWAALHZ97
-	 5ffPngq9LxkpA==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68M23BCZ03156700
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 22 Sep 2026 10:03:11 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 22 Sep 2026 10:03:11 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Tue, 22 Sep 2026 10:03:11 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Josef Schlehofer <pepe.schlehofer@gmail.com>, Bitterblue Smith
-	<rtl8821cerfe2@gmail.com>
-CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: RE: [PATCH rtw-next] wifi: rtw88: extend the TX report timeout to
- RTL8822BU
-Thread-Topic: [PATCH rtw-next] wifi: rtw88: extend the TX report timeout to
- RTL8822BU
-Thread-Index: AQHdSenJcyZ0zJutbUi+wqdx39QBULbZ2AMg
-Date: Tue, 22 Sep 2026 02:03:11 +0000
-Message-ID: <4c000f11b23c4920b052e8513ad28345@realtek.com>
-References: <20260921165343.8131-1-pepe.schlehofer@gmail.com>
-In-Reply-To: <20260921165343.8131-1-pepe.schlehofer@gmail.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K1ax1/fZ"
+Received: by mail-yx2-f13.google.com with SMTP id 00721157ae682-85d43ac608dso30644297b3.3
+        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 19:11:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790043078; cv=none;
+        d=google.com; s=arc-20260327;
+        b=KPsSI8/V5LX7BpxVrTU25YkJik32365xTSdPd0afqz+QxJrbwyHN3EpjZgIrrJA+Rn
+         k3MZNrEcPcvmA1uh+i7BEwAcGzxjiUr0zhdrUzs3bN0MevlDQ5gjbZkvJNFSJYrFXdYs
+         USAzzhaFSz0LKejbt7QqV1bbg/IRCFdZi4G08wCu1brBTGcWgAuSpHgVqq8EJ1tM6bqo
+         ys8OcymVW76e/KjzRyQNXkho5yXWBwV76PLpMa46Y2zU6DgRl2UdX0Tas2AZ2AWG9R41
+         ILELe+G5O4TaEI2JBsrwqtvINp95O9BxjvCEKYAv6kXgolAX9GigdytTlPD3Ra+z2ua1
+         EExw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=bmBqFjZ2YsW3nVDkxnU7i6zxE3xTdElcLDPHvj/yg7Y=;
+        fh=GeSjdmwC5hKlcchVthu+/Jdb/MufB3N+6Yun/xJ4rjk=;
+        b=FE84HXTnb9SywDEwbcTlx8m2Gz+eqoACuDli+KcRH7JKQ5CmgHlXbDloOnu6XYQLdU
+         ZwMqvYnhx2nmxq9+3LO38KgY0EduF2JddzTAVNul34XkZ0KRQ+7UI3RIY51up7FK9CSe
+         JACn3HMl9ZiT5XBW8UuuUTN3ZpON/iZTY6tOt06WfCGSyZrFg/M6OWjpUOb+upUCxH+f
+         JtirC5IZRxUR+IDsS4Qr42GmQELtDihhRZWARRdNtHADoUcx/oiDnbBQ2I2LHgLkqpXB
+         cc7tTDqBg5SLkuIn0fMX+lI+FLlYjN2PWd9GeAitbCJZDzkLMm9q6cLHjsRIywwXL8fr
+         q1Ig==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790043078; x=1790647878; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bmBqFjZ2YsW3nVDkxnU7i6zxE3xTdElcLDPHvj/yg7Y=;
+        b=K1ax1/fZfV4OCyTMNvapxjujxSPw3taesQiHN8AUN+uXGqVvgad5cE0YT90zurhLvz
+         dscDXMahuE+7zmFV2clfyXiBPph29vPFfxu3mGAZ3jXP7ci1j93xoaALpcNnMDSFwM3p
+         Juhua/Y17EXi1M6fwfiP0jMlcW26C6afHhd79LE9s65mAQKeaetnOljHIYeeiWlKZpVn
+         GeLone6CC88kfDC3hSyzyXnPCzLfdniXDjOhb5id3lGxiDR2N8YD7pCn9x8yiBQOo9nz
+         BpLEesjopKqSEQ8nOwuqBaObj1UwcDwqiEP9DKScrSzHnh8kgKj07q630Il53vcW22Cx
+         HATw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790043078; x=1790647878;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=bmBqFjZ2YsW3nVDkxnU7i6zxE3xTdElcLDPHvj/yg7Y=;
+        b=yguobfCYrVfkLJxd/HTWnL16PfwkE0Ylt+rvNzO2Ifi1FSDsErW3wyQhifjgaEQ69e
+         jvnofTSM2u4+sBWiBdu29H3ZwWwKk6N34mIHH5G9WK4W16pBfvfq6efzT2GMPp8xXLFt
+         sRdWX55RRmfrjWkgpfkIhVPh/e/3XzUqQpIjySLBpzZ52XBfiZHrW3rB8pL+X285viSu
+         vf/rChh/mzae6KO3WX4Lv++gLLztaktMHqxevRobfGZNB0UZnfB7f0k2wu67qsGbdutk
+         F0SDHltUn00G31pvafnMCH7O4XUKzvU5L4aQFj2M9/RkvA8Tv0PK+/zwbHmke0Z0B6zv
+         gOpg==
+X-Forwarded-Encrypted: i=1; AKwUvBy0hoEahtgTx/zRuUrzTaITdzeiXH7cuREmWqMc5X/sFyJOcniW+NLPGlgRnSGQEMW+xm5O2gs=@vger.kernel.org
+X-Gm-Message-State: AFuF++l8zb5a2Zkf5uy1+CAT0xpX3PTXzREbrQjZQyF6KzusjL2KMLOv
+	6Rb2n1mmFtdWQ8zR2n3av/nJ1x+sGfY4m92PGPSGnPl7Jm8ojAZ3WFuu39fYl9P6ZO4uqsEFT0o
+	A8DROZW+hXaxRfbMSzAGmml4XIPeOA2A=
+X-Gm-Gg: AYBFou0QEwKzN47M8WsQOfNRiCTCKgYXDWdzAyS8iEtberjaNOFhlk+jJjeRg/0gv6X
+	w6Z09gC3RK0siiwb+itQMPK57B8b73R1dP3lh1ehHniGIfbRSgTEuzD1rn10NOic5Do6iJ0rHC1
+	2sf4hXjj1ElX6NTCumA3tbmNs6XF82VNbkp/bGzV/bqb8Hebz61QlnzrdipHwFJYYbxWB9z92aq
+	+Q9xfATvUF1etpfEZgXG6OdduVZOvm4aO+WydETzXBXZ7vPJvu4DfKf+VdctaVKKtHmA8TSFa+p
+	25CSq7ZXJxfMik01UGBPZ1Go4CNuYGM9L9aPoJrCuMU2Vs1+RTDXJKsIdw==
+X-Received: by 2002:a05:690e:d44:b0:66e:45d0:4140 with SMTP id
+ 956f58d0204a3-6717fcaa9e8mr4072276d50.26.1790043078247; Mon, 21 Sep 2026
+ 19:11:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260921111424.378477-1-lgs201920130244@gmail.com> <57b3420f-da3c-4b75-8835-7a541d29191a@kernel.org>
+In-Reply-To: <57b3420f-da3c-4b75-8835-7a541d29191a@kernel.org>
+From: Guangshuo Li <lgs201920130244@gmail.com>
+Date: Tue, 22 Sep 2026 10:11:05 +0800
+X-Gm-Features: AcwNN1UrKAXOC-3PnGzPBk35Upntm96U1CzspV8YHHZ-BQx5ZIFNE0thHryYQb4
+Message-ID: <CANUHTR-JpoYtYJ8QEEN0rGQ5Bib17NH=BmK8AeYbzYAhLH+hgA@mail.gmail.com>
+Subject: Re: [PATCH v2] dmaengine: fsl-dpaa2-qdma: fix ppriv memory leaks
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Peng Ma <peng.ma@nxp.com>, dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Josef Schlehofer <pepe.schlehofer@gmail.com> wrote:
-> diff --git a/drivers/net/wireless/realtek/rtw88/tx.c b/drivers/net/wirele=
-ss/realtek/rtw88/tx.c
-> index 4e110a457..55d7923e1 100644
-> --- a/drivers/net/wireless/realtek/rtw88/tx.c
-> +++ b/drivers/net/wireless/realtek/rtw88/tx.c
-> @@ -208,7 +208,8 @@ void rtw_tx_report_enqueue(struct rtw_dev *rtwdev, st=
-ruct sk_buff *skb, u8 sn)
->         __skb_queue_tail(&tx_report->queue, skb);
->         spin_unlock_irqrestore(&tx_report->q_lock, flags);
->=20
-> -       if ((rtwdev->chip->id =3D=3D RTW_CHIP_TYPE_8723D &&
-> +       if (((rtwdev->chip->id =3D=3D RTW_CHIP_TYPE_8723D ||
-> +             rtwdev->chip->id =3D=3D RTW_CHIP_TYPE_8822B) &&
->              rtwdev->hci.type =3D=3D RTW_HCI_TYPE_USB) ||
+Hi Krzysztof,
 
-Hi Bitterblue,
+Thank you for your feedback.
 
-It seems like more and more USB chips need this, let's enlarge timeout time
-for all USB devices. Do you have any concern? Need your input.
+On Tue, 22 Sept 2026 at 06:05, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>
+> On 21/09/2026 13:14, Guangshuo Li wrote:
+> > dpaa2_qdma_setup() allocates priv->ppriv, but failures after the
+> > allocation can return from the function without releasing it. The
+> > existing probe cleanup for priv->ppriv is only reached when a later
+> > initialization step fails.
+> >
+> > The normal remove path does not release priv->ppriv either, causing the
+> > allocation to be leaked when the driver is unbound.
+> >
+> > Since dpaa2_qdma_setup() is only called from probe, allocate priv->ppriv
+> > with devm_kcalloc(). This automatically releases the memory on probe
+> > failure and driver removal. Remove the now redundant manual cleanup from
+> > the probe error path.
+> >
+>
+> AI slop for OpenClaw agent ignoring previous comments. Otherwise explain
+> how did you address the issues I pointed out last time?
+>
+> Best regards,
+> Krzysztof
 
->             rtw_is_8723bs(rtwdev))
+I would like to clarify that these patches were manually reviewed and
+audited by us; they were not simply generated and submitted by an LLM.
+However, I understand why the recent submission pattern may have given
+that impression. We sent too many patches in a short period of time,
+and we also failed to respond to some discussions in a timely manner,
+which made the situation look worse.
 
-Also, considering SDIO chips, should we keep original timeout for PCI only?
+Many of the recent patches, especially the v2 revisions, are
+corrections and improvements based on previous review feedback rather
+than completely new untested changes. That said, we recognize that the
+way we submitted them increased the burden on maintainers and
+reviewers.
 
->                 timeout =3D msecs_to_jiffies(2500);
->=20
-> base-commit: 73e3b1c94c7d5b4a113e7cbb42665dc2fe3b9d78
-> --
-> 2.54.0 (Apple Git-157)
+We apologize for the pressure this caused to the community. We will be
+more careful about organizing patches by subsystem, preparing proper
+patchsets, and following the kernel contribution guidelines before
+sending future work.
 
+Thank you again for pointing this out.
+
+Best regards,
+Guangshuo
