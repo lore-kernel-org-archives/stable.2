@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5629239021F
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 15:11:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F0864F0552
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 15:11:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790089895; cv=none; b=Qre/qDI2oFEU1jT5g+Vt/FhbqF455t8MMbQpEL/TWS0EaYVsEWzzsqFC1TtjCKUocWm2oEw97FihGMYASSGHnw0I4MMat4JDwAV0WkBhK1Em0/XlW0qBwFerOr7TUEO4PJzt3MR1LP1HEoLIaY7NfqkR87dS+NbvNT+yVh2t32w=
+	t=1790089900; cv=none; b=qb07+IUYAekYoV3+t1yLNfI+qM/tglTKKWvOSeue/p8vf3zEqf/Ysss0aYaP4jfKcdQEuZAxCKWXsviZCPiWcGXP3XYtggbdeWkEBrypQCsQZQFVqXJGXits9SoJlQY0KbYYoW01VefKS7suvKwaROxmGMB7e3QISXPVwbdI2oU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790089895; c=relaxed/simple;
-	bh=ibuBi8cJjfGRS9grwEQN3lsbd3OPdkkukgePeg/CNmc=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=NiQgnalw6pC3Bs8/zuAme09VkbPlWrUGb3f4dTOCs9NGoTEewLpbLApUvB4n7W6Ll6fAu0jFEVSK94xCQ1Jw8CW3Zn/VQHSyyZiIxMXDBx9M4jndbf65aEZRKsbW1ktc7QdzdSb1R+5iSdcY9GlNTKovw13qfKC5Cn1inSDNhYg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=j03pnrg3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790089900; c=relaxed/simple;
+	bh=iBF1oHMtEVTsHwhZ1JR+uBfZHHe2xDZIi14TI+cmwq0=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=hVThzvdTQvnABoWThIIbKgd1OIcATTdaNjo6Iuh48z0T3Y9hrGzbcBYs0U+ji/06cgxBG+EQ4shbmCkdnLdWlF1bLR3GZYUdhXq9p1eJdozngEaQTx/X26Qf2prEGjtXgkMnsUhZksoevQuhXv4Jnj5f1sz37gb38dcE2nq0CFw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=rbJa16YV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="j03pnrg3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42A081F000FF;
-	Tue, 22 Sep 2026 15:11:33 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="rbJa16YV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13ECB1F000FF;
+	Tue, 22 Sep 2026 15:11:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790089893;
-	bh=eXln/P62jt6teGg+9hyuCec6QPKtxh40vMk8eZFHkvM=;
+	s=korg; t=1790089897;
+	bh=DbNUHGH0CHldv6wipAmmPe0pflsmp8kq98bFKi+9y+Q=;
 	h=Subject:To:Cc:From:Date;
-	b=j03pnrg3BrAMGlR0tri0972BmPMnqWsi+idUJ/JL2hRS+rmb0zFX//G58WrsWxgpW
-	 tFl8sfqeqH/hGH6LnS9A+y9uuxCCBvHMBy5aFVNZehzpzCSU9Y9Kan/i4LX5edaaPX
-	 uBog5RBqs+ZDbnxI7HzuPrfDhVFVUEpkoOm4pU7c=
-Subject: FAILED: patch "[PATCH] wifi: libipw: reject TKIP frames without a full MIC" failed to apply to 5.10-stable tree
-To: 4ncienth@gmail.com,johannes.berg@intel.com
+	b=rbJa16YVr5QOaXHrWu9lYXtSlwWyHMLfbyXCpYuYua1turZj6I0XHWhHXoM2YB3x2
+	 V9V+D+LKG5SsaqIULrn+Kbweo+sdVuQV+3ZXM+gIo8cJ4pl/rHQF8/Yj7NkFYZdiyr
+	 wz0B/vQRpI7MA4t7zPQJuKY1oNdBlDIGULoOfl5M=
+Subject: FAILED: patch "[PATCH] wifi: wcn36xx: Fix potential use-after-free in TX ack timer" failed to apply to 6.12-stable tree
+To: fanwu01@zju.edu.cn,jeff.johnson@oss.qualcomm.com,loic.poulain@oss.qualcomm.com,songl@zju.edu.cn
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 22 Sep 2026 16:58:34 +0200
-Message-ID: <2026092234-durably-dose-a2ea@gregkh>
+Date: Tue, 22 Sep 2026 16:58:56 +0200
+Message-ID: <2026092256-silk-bodacious-1e88@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 06f42accaf3c6aecab1dcc57f68dde6c06c8b380
+git cherry-pick -x d9be5e75530772fc31637070d51e5717d6aeaa2a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092234-durably-dose-a2ea@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092256-silk-bodacious-1e88@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,57 +62,49 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 06f42accaf3c6aecab1dcc57f68dde6c06c8b380 Mon Sep 17 00:00:00 2001
-From: Daehyeon Ko <4ncienth@gmail.com>
-Date: Wed, 9 Sep 2026 15:11:24 +0900
-Subject: [PATCH] wifi: libipw: reject TKIP frames without a full MIC
+From d9be5e75530772fc31637070d51e5717d6aeaa2a Mon Sep 17 00:00:00 2001
+From: Fan Wu <fanwu01@zju.edu.cn>
+Date: Thu, 10 Sep 2026 02:09:07 +0000
+Subject: [PATCH] wifi: wcn36xx: Fix potential use-after-free in TX ack timer
+ teardown
 
-libipw_michael_mic_verify() assumes that an skb contains an eight-byte
-Michael MIC. A short TKIP frame makes the unsigned payload length wrap,
-causing michael_mic() to read past the skb.
+wcn36xx_dxe_deinit() tears down the TX ack timer with timer_delete(),
+which only dequeues the timer and does not wait for a callback that is
+already executing; the preceding free_irq() calls synchronize the
+interrupt handlers only. The callback, wcn36xx_dxe_tx_timer(), can
+therefore be running past the teardown and use the wcn freed along
+with the ieee80211_hw in wcn36xx_remove(): it takes wcn->dxe_lock,
+reads wcn->tx_ack_skb and passes wcn->hw to
+ieee80211_tx_status_irqsafe().
 
-Check that the MIC is present before verifying it, and use the existing
-MICHAEL_MIC_LEN constant for all MIC lengths in the verifier.
+Fix this by using timer_shutdown_sync(), which waits for a running
+callback and also prevents the timer from being rearmed again. The
+timer is set up again by wcn36xx_dxe_init() on the next start, so the
+start/stop cycle is unaffected.
 
-Fixes: b453872c35cf ("[NET] ieee80211 subsystem")
+This issue was found by an in-house static analysis tool.
+
+Fixes: fdf21cc37149 ("wcn36xx: Add TX ack support")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
-Link: https://patch.msgid.link/20260909061124.3802517-1-4ncienth@gmail.com
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Link: https://patch.msgid.link/20260910020907.3353-1-fanwu01@zju.edu.cn
+Signed-off-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
 
-diff --git a/drivers/net/wireless/intel/ipw2x00/libipw_crypto_tkip.c b/drivers/net/wireless/intel/ipw2x00/libipw_crypto_tkip.c
-index 24bb28ab7a49..2b0cf0ec496a 100644
---- a/drivers/net/wireless/intel/ipw2x00/libipw_crypto_tkip.c
-+++ b/drivers/net/wireless/intel/ipw2x00/libipw_crypto_tkip.c
-@@ -474,14 +474,16 @@ static int libipw_michael_mic_verify(struct sk_buff *skb, int keyidx,
- 					int hdr_len, void *priv)
- {
- 	struct libipw_tkip_data *tkey = priv;
--	u8 mic[8];
-+	u8 mic[MICHAEL_MIC_LEN];
+diff --git a/drivers/net/wireless/ath/wcn36xx/dxe.c b/drivers/net/wireless/ath/wcn36xx/dxe.c
+index 44020ec265fb..801f1218ef89 100644
+--- a/drivers/net/wireless/ath/wcn36xx/dxe.c
++++ b/drivers/net/wireless/ath/wcn36xx/dxe.c
+@@ -1055,7 +1055,7 @@ void wcn36xx_dxe_deinit(struct wcn36xx *wcn)
  
--	if (!tkey->key_set)
-+	if (!tkey->key_set || skb->len < hdr_len + MICHAEL_MIC_LEN)
- 		return -1;
+ 	free_irq(wcn->tx_irq, wcn);
+ 	free_irq(wcn->rx_irq, wcn);
+-	timer_delete(&wcn->tx_ack_timer);
++	timer_shutdown_sync(&wcn->tx_ack_timer);
  
- 	michael_mic(&tkey->key[24], (struct ieee80211_hdr *)skb->data,
--		    skb->data + hdr_len, skb->len - 8 - hdr_len, mic);
--	if (memcmp(mic, skb->data + skb->len - 8, 8) != 0) {
-+		    skb->data + hdr_len,
-+		    skb->len - MICHAEL_MIC_LEN - hdr_len, mic);
-+	if (memcmp(mic, skb->data + skb->len - MICHAEL_MIC_LEN,
-+		   MICHAEL_MIC_LEN) != 0) {
- 		struct ieee80211_hdr *hdr;
- 		hdr = (struct ieee80211_hdr *)skb->data;
- 		printk(KERN_DEBUG "%s: Michael MIC verification failed for "
-@@ -499,7 +501,7 @@ static int libipw_michael_mic_verify(struct sk_buff *skb, int keyidx,
- 	tkey->rx_iv32 = tkey->rx_iv32_new;
- 	tkey->rx_iv16 = tkey->rx_iv16_new;
- 
--	skb_trim(skb, skb->len - 8);
-+	skb_trim(skb, skb->len - MICHAEL_MIC_LEN);
- 
- 	return 0;
- }
+ 	if (wcn->tx_ack_skb) {
+ 		ieee80211_tx_status_irqsafe(wcn->hw, wcn->tx_ack_skb);
 
