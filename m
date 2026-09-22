@@ -1,100 +1,96 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5391497B9B
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 18:45:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C89BF33ADB9
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 18:51:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790102768; cv=none; b=a+9aD01gCgMDYXi72u71CgRsGs9VPdQuVnxopaoZ4fH6UGxg0OgHL1sQYWziLoLLsRYRXmS10LURQWnCG04doPq9u8n/fbpBKQiG3IfrGuYCTtVyx2RkeIWV6QbQs8An5IvGdjTORrsVnvbxJpWlh3y5Xvbx5LrW8Lc6pWtHaaU=
+	t=1790103076; cv=none; b=ct5+sFZ7NNdbpJ6nrKqvSHITELp1eTcn0BMBjdNbL22rNf5HRU28RipnM36ZdmZW5rRwavdYUmBgENo5G7Expjf8jDdHwrDs3mMLo3VUN9KgEDt2AzX8tlG9dQ8o1DGAXuWeh1sGzLN0yuTKG38jBbMm/Ke46FLm8LZjbPkf5i4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790102768; c=relaxed/simple;
-	bh=bv45vaYuAfxT2R3yggfg5ajVwMhVFouvBnm4WJjlmmM=;
+	s=arc-20240116; t=1790103076; c=relaxed/simple;
+	bh=uSt5HGENkSzKeLM7YG1zvQiFhZ9kGV9pPmTU7v2wUrw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=D3jfaTWFq6MFA2fsDhfUF1bZu3ZhoBE651pEoHORo3zjNTN6zDaHIe4i29ECvAV6hXOXMbwddu68d/XPm5RzXIDSHz1p0mluDe5MepiZVVoro2A+Z8AqjsJS4RjqqUNTPX+Jf4QEAXtR6K3q14ER9fa6qmUoF4946L/sTvESqao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OWT1s/Oj; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=CyMKtUnfGJWqmkJVXQpmPX2BNNEcY+BwzlifTfLwH/1+mlGyugqxL4sIIFECrZuHkiJYUi+pRgnglBWUXB1zRBa2TZkvpVUDOHq46V1tqGizgze5xtHZH+KiqcQgaAy6xkk9qpxEUfJ/u3fC9XDgYNEEoWHZEYriqdiwDVgoq54=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WkKAHqK5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OWT1s/Oj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FAF91F00899;
-	Tue, 22 Sep 2026 18:45:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WkKAHqK5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAC221F000FF;
+	Tue, 22 Sep 2026 18:51:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790102753;
-	bh=7UpNvoFkTlNNnekXzF1wUqq7iFlW64wMg1J6ytMrI0Y=;
+	s=k20260515; t=1790103074;
+	bh=iTI6mIfA6bQJ+X7S2ZebytqveyZYZpU1Gl4veF5ZvtE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OWT1s/OjQ73BmWzejD5toxQfdwWqDyfJemIvOdLpVqiusdEjIFFml9bh4drGmTzTu
-	 zgaoPXidXnvUfEJfnEYpfIHYm6a/hLiO2a87BGSOSaCRmML/vK8yUghfnKcZgwaJiW
-	 JocLaEepgsBXQiuKlrR3CsycSqZKGZExggRK8T8M/kS9cqAY+XGyRB8EE8w6jsfjRp
-	 UAGvSD584p/XgD8VwDzrD5FKRg2gulsvdaafSTUSxKv4p/Kumm2aXASfFb+HnVKbhq
-	 r1H0jpDMRO5gd65z2VxG7AKo6IjlRzlZTxb9Hr+X736Yqa1OYnuFWgL8nS/OG14O/Q
-	 rOrbyZaEpOy1g==
+	b=WkKAHqK5GzV5AvOPm3ut2OyDTaRnjAGV0Waf4sWHgpAsrjno7Ewhc/VLHghPqY3Cw
+	 GiTU1u3qQCG1T/earxF622Xvukc5FQxK6/xxRXjfk4IzeWmjnHeP6/Ge92+zCwYQxn
+	 CaWJ1PFydQhlf/rHHIanV6McuJKcRcATSG9PBk3+whLR+oVhn/u312f6NBwDh/cbuV
+	 +jNukLLCHKnp50YzGN6g2yBYYXqSeQowl+E1KooOpS2ncK9t673WHk1kqc69ZvtAmc
+	 +wRo7sf3lIlIs0RW/kXBBlGIT/beYkkdXd4O4fx27iVatqEdfcoXNkwugeiRsE/TSx
+	 HVDHcl/zwEEBg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Fan Wu <fanwu01@zju.edu.cn>,
-	Song Li <songl@zju.edu.cn>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
+Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] wifi: wcn36xx: Fix potential use-after-free in TX ack timer teardown
-Date: Tue, 22 Sep 2026 14:45:50 -0400
-Message-ID: <20260922184550.3791121-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] drm/amdgpu: lock bo before calling amdgpu_vm_bo_update_shared
+Date: Tue, 22 Sep 2026 14:51:11 -0400
+Message-ID: <20260922185112.3837468-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092258-patriot-carless-32a6@gregkh>
-References: <2026092258-patriot-carless-32a6@gregkh>
+In-Reply-To: <2026092254-cactus-employee-2903@gregkh>
+References: <2026092254-cactus-employee-2903@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Fan Wu <fanwu01@zju.edu.cn>
+From: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 
-[ Upstream commit d9be5e75530772fc31637070d51e5717d6aeaa2a ]
+[ Upstream commit 36ffc58b8a8704e690a0ce679db26baa5759256f ]
 
-wcn36xx_dxe_deinit() tears down the TX ack timer with timer_delete(),
-which only dequeues the timer and does not wait for a callback that is
-already executing; the preceding free_irq() calls synchronize the
-interrupt handlers only. The callback, wcn36xx_dxe_tx_timer(), can
-therefore be running past the teardown and use the wcn freed along
-with the ieee80211_hw in wcn36xx_remove(): it takes wcn->dxe_lock,
-reads wcn->tx_ack_skb and passes wcn->hw to
-ieee80211_tx_status_irqsafe().
+BO's reservation object must be locked before using
+amdgpu_vm_bo_update_shared otherwise dma_resv_assert_held will
+complain in amdgpu_vm_update_shared.
 
-Fix this by using timer_shutdown_sync(), which waits for a running
-callback and also prevents the timer from being rearmed again. The
-timer is set up again by wcn36xx_dxe_init() on the next start, so the
-start/stop cycle is unaffected.
-
-This issue was found by an in-house static analysis tool.
-
-Fixes: fdf21cc37149 ("wcn36xx: Add TX ack support")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Link: https://patch.msgid.link/20260910020907.3353-1-fanwu01@zju.edu.cn
-Signed-off-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-[ Adapted the patch to replace del_timer() instead of timer_delete(). ]
+Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Stable-dep-of: 636139603b99 ("drm/amdgpu: hold a runtime PM reference for P2P dma-buf attachments")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/wireless/ath/wcn36xx/dxe.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/net/wireless/ath/wcn36xx/dxe.c b/drivers/net/wireless/ath/wcn36xx/dxe.c
-index 4e9e13941c8f4..b168db800e07e 100644
---- a/drivers/net/wireless/ath/wcn36xx/dxe.c
-+++ b/drivers/net/wireless/ath/wcn36xx/dxe.c
-@@ -1054,7 +1054,7 @@ void wcn36xx_dxe_deinit(struct wcn36xx *wcn)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+index f20d4bc58904d..83fed04436ad7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+@@ -81,6 +81,7 @@ static int amdgpu_dma_buf_attach(struct dma_buf *dmabuf,
+ 	struct drm_gem_object *obj = dmabuf->priv;
+ 	struct amdgpu_bo *bo = gem_to_amdgpu_bo(obj);
+ 	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
++	int r;
  
- 	free_irq(wcn->tx_irq, wcn);
- 	free_irq(wcn->rx_irq, wcn);
--	del_timer(&wcn->tx_ack_timer);
-+	timer_shutdown_sync(&wcn->tx_ack_timer);
+ 	/*
+ 	 * Disable peer-to-peer access for DCC-enabled VRAM surfaces on GFX12+.
+@@ -98,8 +99,14 @@ static int amdgpu_dma_buf_attach(struct dma_buf *dmabuf,
+ 	    pci_p2pdma_distance(adev->pdev, attach->dev, false) < 0)
+ 		attach->peer2peer = false;
  
- 	if (wcn->tx_ack_skb) {
- 		ieee80211_tx_status_irqsafe(wcn->hw, wcn->tx_ack_skb);
++	r = dma_resv_lock(bo->tbo.base.resv, NULL);
++	if (r)
++		return r;
++
+ 	amdgpu_vm_bo_update_shared(bo);
+ 
++	dma_resv_unlock(bo->tbo.base.resv);
++
+ 	return 0;
+ }
+ 
 -- 
 2.53.0
 
