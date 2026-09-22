@@ -1,122 +1,163 @@
 Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5929A377A88
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 02:11:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29367201278
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 02:11:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.141
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790043084; cv=pass; b=YdZeLOXt4/p/5sxt/EUGTYXnDYTFBiJAWcgb/6jV6t8R/QsywE9aNvuBXTEf5CiBMofJ6ObI9wmvxwfTs8p6K002z5zPQW2yn4GkMzBXMASCExLE8d+CD+K300S0Jy9wcMD/qdF6dl6gHWyXRUNr6toztzu7VzZVHQsPsGywCkM=
+	t=1790043115; cv=pass; b=C/Wg3t7822SY4WkUt2y88rhfT2EwQTEOL2Yl5U7J24uMG83ia2Q+oxcXclE0jQfG9Ps5s5XrMN0epDkbzUHlH5GePscQTuE9eOaU5/0UtTkrr6m80lR9hsYBdwyZEzPnRjat3bUSufpNHXuMVg/cwzgt4KjRclaXTK9YsMG8H9w=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790043084; c=relaxed/simple;
-	bh=bmBqFjZ2YsW3nVDkxnU7i6zxE3xTdElcLDPHvj/yg7Y=;
+	s=arc-20240116; t=1790043115; c=relaxed/simple;
+	bh=RmO5GLrXflVxVmPF7qPo5gCMEyya6HFKnHxRxQwc4N0=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=I1ObOQRS3AnS61fZ7iClbdf+WnmviiCa/mY8fOJ2/gBd/Z6bCIxQj0CkVdkYrMMUR9HM1LBz3+BzZIQkdYxG9W9tVny8003ycW0jVNpXr4HCMNEGqJLEw4pjBX982f6x1VBcBPzNkANQrDDix+ftzJB5UlwEifDyc1uPxM2dueo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K1ax1/fZ; arc=pass smtp.client-ip=74.125.224.141
+	 To:Cc:Content-Type; b=KMxtExer6a7rgQltgJIRo2Egs/ZfFWIQHlqnBuaO9ftj5BFnGAIsHesNgQ/UN1Xou5AVNZQElltrBEWaN+3DNtEEabWtAQCMmuomSx5qxR31KWE7q8m5HDNYcGLPR7MEqX7jqtCOy0NMJaB/ac82/r4a88jojOYhRH6kXlD06cQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cs2OCwuc; arc=pass smtp.client-ip=74.125.224.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K1ax1/fZ"
-Received: by mail-yx2-f13.google.com with SMTP id 00721157ae682-85d43ac608dso30644297b3.3
-        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 19:11:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790043078; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cs2OCwuc"
+Received: by mail-yx2-f13.google.com with SMTP id 00721157ae682-8659af7454eso36976607b3.1
+        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 19:11:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790043109; cv=none;
         d=google.com; s=arc-20260327;
-        b=KPsSI8/V5LX7BpxVrTU25YkJik32365xTSdPd0afqz+QxJrbwyHN3EpjZgIrrJA+Rn
-         k3MZNrEcPcvmA1uh+i7BEwAcGzxjiUr0zhdrUzs3bN0MevlDQ5gjbZkvJNFSJYrFXdYs
-         USAzzhaFSz0LKejbt7QqV1bbg/IRCFdZi4G08wCu1brBTGcWgAuSpHgVqq8EJ1tM6bqo
-         ys8OcymVW76e/KjzRyQNXkho5yXWBwV76PLpMa46Y2zU6DgRl2UdX0Tas2AZ2AWG9R41
-         ILELe+G5O4TaEI2JBsrwqtvINp95O9BxjvCEKYAv6kXgolAX9GigdytTlPD3Ra+z2ua1
-         EExw==
+        b=NID1dN/IZQIZgG4D4LMUtuLOnH5ScKUoR+SXtgHtJz6k9OHGs/6OL1vHSl0BYHmck2
+         S7q9yW/NkrO1gO1Citd1Ne9ePRvRQR1UWIU5mdNSuJHFsChqzm8HlT/L9HzkeF8wTRne
+         yhPhRERK7jvKdTMbbYR+m2ocDM4T04STZqSp8+GCbkwbE8L3abFxqDhXR2RHrf1CCick
+         RhW3a/J6RvKJDhpOq9vAemo0+sx55atVHHU6QNYB3rMGWlDwL8mKnukf31c6Ot8prMP8
+         7o7ddiyiQNqhEIkKE2y1PvBC1kpyjeRB2dyIXvUPNPfS305iHRhQSTO3M+TdfGZOi57n
+         ijBw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:dkim-signature;
-        bh=bmBqFjZ2YsW3nVDkxnU7i6zxE3xTdElcLDPHvj/yg7Y=;
-        fh=GeSjdmwC5hKlcchVthu+/Jdb/MufB3N+6Yun/xJ4rjk=;
-        b=FE84HXTnb9SywDEwbcTlx8m2Gz+eqoACuDli+KcRH7JKQ5CmgHlXbDloOnu6XYQLdU
-         ZwMqvYnhx2nmxq9+3LO38KgY0EduF2JddzTAVNul34XkZ0KRQ+7UI3RIY51up7FK9CSe
-         JACn3HMl9ZiT5XBW8UuuUTN3ZpON/iZTY6tOt06WfCGSyZrFg/M6OWjpUOb+upUCxH+f
-         JtirC5IZRxUR+IDsS4Qr42GmQELtDihhRZWARRdNtHADoUcx/oiDnbBQ2I2LHgLkqpXB
-         cc7tTDqBg5SLkuIn0fMX+lI+FLlYjN2PWd9GeAitbCJZDzkLMm9q6cLHjsRIywwXL8fr
-         q1Ig==;
+        bh=WSqFKvA76kHZ8WDjK46gOjRVqZHbeKSy5ARU/kjfg/Q=;
+        fh=mpZdrzmVUeDa94JfkRdKdLsMTZ1FvGcaQe/zsutHe38=;
+        b=YJS3s5XneDEgwILkf8sYKfbLQq0lcPsmZzHuVdSrZo6nxBuhVzyUuP++Dd3xSbFNEF
+         NjgwsIAsoMw2hmUqijwBrZLw7VpV7ilxUqlCehOuYJyk0e/8XK+5IQNhVEgWNr6hzAZT
+         4yPDKM20MEvI9ATI7jww1gO/RoEVnahjN85Q3ILCBHM7AcHHqksPyAOovtTAvHlE+tTu
+         6Umrz+SCTGw5KLChizyOBvSe4ns4lluQbqcr9O39zjw7WBvCSFMfefe9nAQnQpelQnZH
+         NLojot3EdtsTau9zrSTzx3m5C28Rl9rP2qABo9rDq4vwp+vvAUiNvrmhfe0XWCHEqA4Q
+         8Aug==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790043078; x=1790647878; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790043109; x=1790647909; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=bmBqFjZ2YsW3nVDkxnU7i6zxE3xTdElcLDPHvj/yg7Y=;
-        b=K1ax1/fZfV4OCyTMNvapxjujxSPw3taesQiHN8AUN+uXGqVvgad5cE0YT90zurhLvz
-         dscDXMahuE+7zmFV2clfyXiBPph29vPFfxu3mGAZ3jXP7ci1j93xoaALpcNnMDSFwM3p
-         Juhua/Y17EXi1M6fwfiP0jMlcW26C6afHhd79LE9s65mAQKeaetnOljHIYeeiWlKZpVn
-         GeLone6CC88kfDC3hSyzyXnPCzLfdniXDjOhb5id3lGxiDR2N8YD7pCn9x8yiBQOo9nz
-         BpLEesjopKqSEQ8nOwuqBaObj1UwcDwqiEP9DKScrSzHnh8kgKj07q630Il53vcW22Cx
-         HATw==
+        bh=WSqFKvA76kHZ8WDjK46gOjRVqZHbeKSy5ARU/kjfg/Q=;
+        b=cs2OCwuc0eStrOhMReEqbKDwoowqPnRikJEKPI+HTe2oFFAHlK8CrU0Q7J71OQHocb
+         C0hAx+bNYenHHqkyv4Ai3KfxI+5LRuPQf12xhrF+16Q4J4CtYOaCf6m/WGxpLp5Z60XO
+         lGp5HfkQt9QM6+cfbxWB8L0qJg2dAB5Rx6151nXkofO/39Z6ExjyMJ5kaXymmtGnGsia
+         K4/udMHrtHkg+/4hzHTTaD/YQ21XLr0bM4SURTbquQzqsO1wdbCySw3nwUUzGbkIsrxP
+         Fe0SXHUJse5Ii5lCMycW1yXXZl75jE33jfMsfRLFJY1gV80hX6m9A8Q1SjlqvkP1h0m9
+         qTKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790043078; x=1790647878;
+        d=1e100.net; s=20260707; t=1790043109; x=1790647909;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=bmBqFjZ2YsW3nVDkxnU7i6zxE3xTdElcLDPHvj/yg7Y=;
-        b=yguobfCYrVfkLJxd/HTWnL16PfwkE0Ylt+rvNzO2Ifi1FSDsErW3wyQhifjgaEQ69e
-         jvnofTSM2u4+sBWiBdu29H3ZwWwKk6N34mIHH5G9WK4W16pBfvfq6efzT2GMPp8xXLFt
-         sRdWX55RRmfrjWkgpfkIhVPh/e/3XzUqQpIjySLBpzZ52XBfiZHrW3rB8pL+X285viSu
-         vf/rChh/mzae6KO3WX4Lv++gLLztaktMHqxevRobfGZNB0UZnfB7f0k2wu67qsGbdutk
-         F0SDHltUn00G31pvafnMCH7O4XUKzvU5L4aQFj2M9/RkvA8Tv0PK+/zwbHmke0Z0B6zv
-         gOpg==
-X-Forwarded-Encrypted: i=1; AKwUvBy0hoEahtgTx/zRuUrzTaITdzeiXH7cuREmWqMc5X/sFyJOcniW+NLPGlgRnSGQEMW+xm5O2gs=@vger.kernel.org
-X-Gm-Message-State: AFuF++l8zb5a2Zkf5uy1+CAT0xpX3PTXzREbrQjZQyF6KzusjL2KMLOv
-	6Rb2n1mmFtdWQ8zR2n3av/nJ1x+sGfY4m92PGPSGnPl7Jm8ojAZ3WFuu39fYl9P6ZO4uqsEFT0o
-	A8DROZW+hXaxRfbMSzAGmml4XIPeOA2A=
-X-Gm-Gg: AYBFou0QEwKzN47M8WsQOfNRiCTCKgYXDWdzAyS8iEtberjaNOFhlk+jJjeRg/0gv6X
-	w6Z09gC3RK0siiwb+itQMPK57B8b73R1dP3lh1ehHniGIfbRSgTEuzD1rn10NOic5Do6iJ0rHC1
-	2sf4hXjj1ElX6NTCumA3tbmNs6XF82VNbkp/bGzV/bqb8Hebz61QlnzrdipHwFJYYbxWB9z92aq
-	+Q9xfATvUF1etpfEZgXG6OdduVZOvm4aO+WydETzXBXZ7vPJvu4DfKf+VdctaVKKtHmA8TSFa+p
-	25CSq7ZXJxfMik01UGBPZ1Go4CNuYGM9L9aPoJrCuMU2Vs1+RTDXJKsIdw==
-X-Received: by 2002:a05:690e:d44:b0:66e:45d0:4140 with SMTP id
- 956f58d0204a3-6717fcaa9e8mr4072276d50.26.1790043078247; Mon, 21 Sep 2026
- 19:11:18 -0700 (PDT)
+        bh=WSqFKvA76kHZ8WDjK46gOjRVqZHbeKSy5ARU/kjfg/Q=;
+        b=LDFdRYEM2ParIlLL0zWrl1eFT6fIyq6cH248gtss9cUyRbtCvxDhWETaUlsjzykW/+
+         owmLs7xEOREW/wQUNaymVbD0VRRNdn/WoVlcwZxsvGWapVe+WNwC5IV8mTZ8EUybSoKC
+         syk6ErhNVhbLeYOwUraSle2dxQnTDnMrvA55kW88F/ni+L5Q4XY+EZ9jIdGLNNEeIEY4
+         DTfBuj2QSLF9pKAnr6wuFbYsBZpmS9u9R/PHoHpBo9tOSuzZp2bzgFJhNp1SeAGEmkRu
+         Um6SHJ/MOEDCsobtUQlMaECrJjcffHEe+RPVsyrTxHRwEOuQoGwBDx/7yfenXQvWL7Ic
+         /0Lw==
+X-Forwarded-Encrypted: i=1; AKwUvBzd4vXn4xKtjCqcNlU+7bc1Nbyw9DwfM0Fk9rzdlhhXO3ibuXrL0ULVzuLJhpFsrx0/9jKK6eQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nQwiS1uLQuqYnH0CIrt71w5AY50H3rMNGk+Wwv//XFSg9qWV68
+	S2kL8e5/Qe0iGRAH/YioqA19zXel5jgXJjnCpjX47m7cbMmJH9FoGKSHkwkmTPJ6zLObQxsaQXj
+	KgpVSZPCWDouJ1zNTCR8hSdjUn8CWSRU=
+X-Gm-Gg: AYBFou2XDyOzl7ztwZgXRg74IcLwP0oXnopYqGrp/RgRpQ9NaZJXwO1G/qSzaaxjCde
+	j/PcvhwxNUtACOaOvCGnHrs8dxIO/X/LucT5/tdx5POE5Ya1BT5d4WvwnS8t6jaPr/2rlqbjTR5
+	CvFGrCQ0cT2nrEDCFNBo9x7/zgxLXHWswlZRxVGq6QtUcKEAODZv8FUX6hhom3ApvaDF0q9F1c/
+	ogVUjYsEQqq3dc7Ts+5q0STiD/RitX40tPPYad0uIsXrLNh77/MjEwbqS1Tk/6dRkZLdj07pOu/
+	iH3SIRgfGG0ZV7/nVsTHvhj3b4sv0taQk0ShRbNVGDdnSxrRWSy8xyjv8SY=
+X-Received: by 2002:a53:d006:0:b0:671:3b1b:997d with SMTP id
+ 956f58d0204a3-672c54d38a1mr307218d50.88.1790043109182; Mon, 21 Sep 2026
+ 19:11:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921111424.378477-1-lgs201920130244@gmail.com> <57b3420f-da3c-4b75-8835-7a541d29191a@kernel.org>
-In-Reply-To: <57b3420f-da3c-4b75-8835-7a541d29191a@kernel.org>
+References: <20260921082609.244774-1-lgs201920130244@gmail.com>
+ <arFKFmkpldopUIMI@quoll> <89bd2593-e0ef-4b9b-8c9b-833aff327a3e@kernel.org>
+In-Reply-To: <89bd2593-e0ef-4b9b-8c9b-833aff327a3e@kernel.org>
 From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Tue, 22 Sep 2026 10:11:05 +0800
-X-Gm-Features: AcwNN1UrKAXOC-3PnGzPBk35Upntm96U1CzspV8YHHZ-BQx5ZIFNE0thHryYQb4
-Message-ID: <CANUHTR-JpoYtYJ8QEEN0rGQ5Bib17NH=BmK8AeYbzYAhLH+hgA@mail.gmail.com>
-Subject: Re: [PATCH v2] dmaengine: fsl-dpaa2-qdma: fix ppriv memory leaks
+Date: Tue, 22 Sep 2026 10:11:36 +0800
+X-Gm-Features: AcwNN1ULcRqBryBnufCeX7rqeQatFi1km04Dy1jR2ehl0tsOS-FvTsDL2fGI_aw
+Message-ID: <CANUHTR91qqHtCbaFHSqcMa8eZuD7EnTqyFSfDMwX=LsiMiHoEA@mail.gmail.com>
+Subject: Re: [PATCH] platform/x86/amd/hfi: fix platform device leak on init failure
 To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Peng Ma <peng.ma@nxp.com>, dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
+Cc: Perry Yuan <perry.yuan@amd.com>, linux-kernel@vger.kernel.org, 
+	"Gautham R. Shenoy" <gautham.shenoy@amd.com>, platform-driver-x86@vger.kernel.org, 
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	stable@vger.kernel.org, Mario Limonciello <mario.limonciello@amd.com>, 
+	"Borislav Petkov (AMD)" <bp@alien8.de>, Hans de Goede <hansg@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 
 Hi Krzysztof,
 
 Thank you for your feedback.
 
-On Tue, 22 Sept 2026 at 06:05, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+On Tue, 22 Sept 2026 at 06:03, Krzysztof Kozlowski <krzk@kernel.org> wrote:
 >
-> On 21/09/2026 13:14, Guangshuo Li wrote:
-> > dpaa2_qdma_setup() allocates priv->ppriv, but failures after the
-> > allocation can return from the function without releasing it. The
-> > existing probe cleanup for priv->ppriv is only reached when a later
-> > initialization step fails.
+> On 21/09/2026 17:15, krzk@kernel.org wrote:
 > >
-> > The normal remove path does not release priv->ppriv either, causing the
-> > allocation to be leaked when the driver is unbound.
+> > On Mon, 21 Sep 2026 16:26:09 +0800, Guangshuo Li wrote:
+> >> amd_hfi_init() registers the HFI platform device before registering
+> >> the platform driver. If platform_driver_register() fails, the function
+> >> returns the error without unregistering the already registered platform
+> >> device.
+> >>
+> >> Since the failed init path does not run amd_hfi_exit(), the platform
+> >> device remains registered and its reference is never dropped, preventing
+> >> the associated platform object from being released.
+> >>
+> >> Unregister the platform device when platform driver registration fails
+> >> to properly unwind the successful device registration.
+> >>
+> >> The issue was identified by a static analysis tool I developed and
+> >> confirmed by manual review.
+> >>
+> >> Fixes: 5d902ee5609a ("platform/x86: hfi: Introduce AMD Hardware Feedback Interface Driver")
+> >> Cc: stable@vger.kernel.org
+> >> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> >> ---
+> >>  drivers/platform/x86/amd/hfi/hfi.c | 4 +++-
+> >>  1 file changed, 3 insertions(+), 1 deletion(-)
+> >>
 > >
-> > Since dpaa2_qdma_setup() is only called from probe, allocate priv->ppriv
-> > with devm_kcalloc(). This automatically releases the memory on probe
-> > failure and driver removal. Remove the now redundant manual cleanup from
-> > the probe error path.
 > >
+> > You sent multiple independent patches, to multiple independent
+> > subsystems. The amount of these patches clearly suggest this was
+> > AI generated and most likely not tested.
+> >
+> > More importantly, you sent all this work without properly organizing
+> > relevant patches into patchsets. This makes reviewing difficult
+> > and might cause multiple reviewers to address the same issue.
+> > Replying to the entire set is impossible and requires handling each
+> > patch independently, instead of applying or discarding the set.
+> > Maintainers also won't see the bigger picture of your work. Quite
+> > worrying.
+> >
+> > This is on the verge of hostile patch: bomb us with so many
+> > contributions, we won't be able to handle them in efficient manner,
+> > like responding ONCE to ask you to slow down.  Considering all this
+> > is untested and LLM generated, I have even more doubts whether this
+> > should be considered for review.
+> >
+> > Please read kernel documentation BEFORE posting more work. It will
+> > explain you how to identify subsystems, how to organize your work per
+> > subsystem, how to document usage of LLM and how what you should not
+> > do if this was posted in a good faith.
 >
-> AI slop for OpenClaw agent ignoring previous comments. Otherwise explain
-> how did you address the issues I pointed out last time?
+>
+> Apologies for spamming here, mistake on my side.
+>
+> I guess the OpenClaw on the other side did not even notice...
+>
 >
 > Best regards,
 > Krzysztof
