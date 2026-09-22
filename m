@@ -1,124 +1,95 @@
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 315B0279329;
-	Tue, 22 Sep 2026 03:05:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0901279329;
+	Tue, 22 Sep 2026 03:06:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790046339; cv=none; b=BqLPXD69j4syFRdr0qfVEJISUCcDIDli0ChRFBQB0FohYB72niWZQkYjdMbv2hq2sm402bcxSGhgx3RYt9ctaG0Wp6p5YC6aWOW9JL3j4jei1AgN96AeIR7Eva2scRVbM+eJpa4aFNO8Z5Cr/JdCJPJV3YsP2XInbCZ4Rl81za0=
+	t=1790046377; cv=none; b=WPYw7Hipft9PnCgYMAVcH6EYMGNgGhYyMjtLSZgyp/CvZ/5wpkgoG640fpttK1dqBJGw6j/EQgtSPxvy3TWVV3AV1CEbE4I6KXiul/kIEgcWNXAyCX/9mmvLk1cRPdWfc7/bS7XA+oky2WNDrse8Ur6fM79cA/yr4R+0o3AhO6k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790046339; c=relaxed/simple;
-	bh=jNzOnq1/TZ39LDjuPRMZdUwRjEuolZVGcIxQ+s+XyP0=;
-	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=afmxDh32rBs1/S5zyusLwg2n+Uo3a8N/KgK6xmqo68Uy10//W40ZNNtwjRDA7N+x+33ca39reaW8Zk78B0hNnk26ElfB6498RB9AYinNvqikJxymHNWPEc78y/oJXViYlLA5wqi7UArlOw4UjwFsbmiMnL8y4d7ieL4EaZs5nG4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=F21fCrBB; arc=none smtp.client-ip=210.61.82.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	s=arc-20240116; t=1790046377; c=relaxed/simple;
+	bh=t9h8ZVkyMnzfe78FDh6yAY9agt1lEEmfFjtXgEfbJMg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Oirx2gFSumlD4ONsPrRcYiSGwFJnyX6gfNvi3exl8e+sSxKydMK/VsUoKS3UjEVncf2AL5274aaCOihQR9iiX4lF2PdklIsmTVk3olGne9HKPpL36m1xVrCziHs3U/jIGKl4u2NxomJIU7JZYi9MiPQgZK7OdhG7tOg69k7ljFA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=kuELMu5S; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="F21fCrBB"
-X-UUID: 7942d38ab63211f18dc8c9802ae25ab1-20260922
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID; bh=jNzOnq1/TZ39LDjuPRMZdUwRjEuolZVGcIxQ+s+XyP0=;
-	b=F21fCrBBvLujxrB9o+ZNeNVMswTOUTu3jPg8Sk4WulZChmrz5hNlPDPQ1QZvPSL0Fh0UV74s8+FC7nZJcjnS3nnyP6kdd5gxOcc9AwotrXK95Fc7bZU5TKZCYpFfOX9d87NzSVU3cDFFHh7gPm01q2mkw3kcjS/q6twGbSgTtVo=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:69a34c20-cc2d-4800-9829-af1d32a32567,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:76b4657c-2058-4298-90ad-1156c3f1dffd,B
-	ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|836|865|888|898,TC:-5,Content:
-	0|15|50|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,
-	OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 7942d38ab63211f18dc8c9802ae25ab1-20260922
-Received: from mtkmbs10n2.mediatek.inc [(172.21.101.183)] by mailgw02.mediatek.com
-	(envelope-from <peter.wang@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 11498419; Tue, 22 Sep 2026 11:05:32 +0800
-Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
- mtkmbs11n2.mediatek.inc (172.21.101.187) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Tue, 22 Sep 2026 11:05:31 +0800
-Received: from [10.233.130.16] (10.233.130.16) by mtkmbs11n1.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.2.2562.29 via Frontend
- Transport; Tue, 22 Sep 2026 11:05:31 +0800
-Message-ID: <d48ff9b9b74b2e1f9feef1322ca5d3cfb1704b62.camel@mediatek.com>
-Subject: Re: [PATCH v2 1/2] scsi: ufs: core: Avoid unsafe MMIO reads in
- ufshcd_mcq_compl_all_cqes_lock()
-From: Peter Wang <peter.wang@mediatek.com>
-To: Stanley Jhu <stanleyjhu@google.com>, "Martin K . Petersen"
-	<martin.petersen@oracle.com>, Bean Huo <beanhuo@micron.com>, "Bart Van
- Assche" <bvanassche@acm.org>
-CC: Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman <avri.altman@wdc.com>,
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>, Manivannan
- Sadhasivam <mani@kernel.org>, <linux-scsi@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Date: Tue, 22 Sep 2026 11:05:31 +0800
-In-Reply-To: <20260918143809.3034592-2-stanleyjhu@google.com>
-References: <CAE14pdek6ynze+muDZrK+yNX-3ioe3vprxOA4W22qokg352tJQ@mail.gmail.com>
-	 <20260918143809.3034592-1-stanleyjhu@google.com>
-	 <20260918143809.3034592-2-stanleyjhu@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="kuELMu5S"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 7C1FD40E015D;
+	Tue, 22 Sep 2026 03:06:12 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id QU5ejKskzQrx; Tue, 22 Sep 2026 03:06:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1790046362; bh=kH1JZ27xJw/Zb8sSjLOGFLtkumZbC4RSOO28oxUsB3Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=kuELMu5SA05bU1VTv3AkSiButq37SAbQyyhm9Loy+I0LUkOAKJRtJzwFTfRHmxibb
+	 u7zQYD8ppy8R9my0SxaWJ63+OisFW0dww/JHpOqc4yxMx2vu/IIyYAbUL6nvyhWzcX
+	 ccv21IchubY0J7LEOhm0bL+LRZLdInyHfc1+bum+Tz8lKQHL6MvcpKqs/atC0JlWaf
+	 wUeaVwzzhon2gNlExGlCMJh4OY97HmGT6elu3ob6MarcIkscAgqUrqN4vP+jG3scEb
+	 SkAOlS8zHIlWvkB1iwxuGFToQgBIXWjca6SysOUOZUJ6A9poBm/Tx2nwPekC2Ckj8c
+	 AY5o3P4iGD/YgoXqfjsj80RQRD9NVwB2QfodpiT8zezgxLtIKsdtsYXRa/qQ13a+87
+	 oCvQascsPgkbSpsUTssKUV3g2e7fhn5QFxv6HEmUObd73LlOcQ1rJVP7mAMqaRPXGK
+	 vtVD5LfJB3NiYbbQb5x6WSnCpiWWRZ44AFFNTt9cpPRGF147Dyfvk0mPPBVp3r2XRS
+	 KEGETn9F7MecGh2vd/tBeGMUcuBGzJBFlUBBDSJA9t/+81xs/BrSWP0Kmqm2v4vs85
+	 xJ0MyLXh3HWR4iON3zkwOO8cUEVmeD68xvquDXx2DfOPHhZO/7lKIk3+b0xx0M0rCK
+	 W2I43ef0VQW4hGAwg3RyHXYs=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::e])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 031A440E00E8;
+	Tue, 22 Sep 2026 03:05:51 +0000 (UTC)
+Date: Mon, 21 Sep 2026 20:05:48 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Perry Yuan <perry.yuan@amd.com>,
+	linux-kernel@vger.kernel.org,
+	"Gautham R. Shenoy" <gautham.shenoy@amd.com>,
+	platform-driver-x86@vger.kernel.org,
+	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
+	stable@vger.kernel.org,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Hans de Goede <hansg@kernel.org>
+Subject: Re: [PATCH] platform/x86/amd/hfi: fix platform device leak on init
+ failure
+Message-ID: <20260922030548.GDarHwjL6ocubz8Lzp@fat_crate.local>
+References: <20260921082609.244774-1-lgs201920130244@gmail.com>
+ <arFKFmkpldopUIMI@quoll>
+ <89bd2593-e0ef-4b9b-8c9b-833aff327a3e@kernel.org>
+ <CANUHTR91qqHtCbaFHSqcMa8eZuD7EnTqyFSfDMwX=LsiMiHoEA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MTK: N
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CANUHTR91qqHtCbaFHSqcMa8eZuD7EnTqyFSfDMwX=LsiMiHoEA@mail.gmail.com>
 
-On Fri, 2026-09-18 at 22:38 +0800, Stanley Jhu wrote:
-> During MCQ host reset, ufshcd_host_reset_and_restore() stops the host
-> controller via ufshcd_hba_stop() (HCE =3D 0) before calling
-> ufshcd_complete_requests(hba, true) ->
-> ufshcd_mcq_compl_pending_transfer(hba, true) ->
-> ufshcd_mcq_force_compl_one() -> ufshcd_mcq_compl_all_cqes_lock().
-> Because ufshcd_mcq_force_compl_one() is its sole caller,
-> ufshcd_mcq_compl_all_cqes_lock() always runs with HCE =3D 0.
->=20
-> Despite the comment above ufshcd_mcq_compl_all_cqes_lock() stating
-> that
-> reading CQTPy may not be safe with the controller disabled, the
-> function
-> still calls ufshcd_mcq_update_cq_tail_slot() at the end of its sweep:
->=20
-> 1. Unsafe CQTPy MMIO read:
-> =C2=A0=C2=A0 Calling ufshcd_mcq_update_cq_tail_slot() at the end of the s=
-weep
-> =C2=A0=C2=A0 reads CQTPy over MMIO while HCE =3D 0, directly contradictin=
-g the
-> =C2=A0=C2=A0 function's documented contract (commit 1373df88d535 ("scsi: =
-ufs:
-> =C2=A0=C2=A0 core: Add a comment block above
-> ufshcd_mcq_compl_all_cqes_lock()"))
-> =C2=A0=C2=A0 that reading CQTPy may not be safe with the controller disab=
-led.
->=20
-> 2. Spurious error logs on empty slots:
-> =C2=A0=C2=A0 Sweeping all max_entries slots visits empty entries where
-> =C2=A0=C2=A0 command_desc_base_addr is 0, causing ufshcd_mcq_process_cqe(=
-) to
-> log
-> =C2=A0=C2=A0 unguarded dev_err(hba->dev, "Abnormal CQ entry!\n") messages=
-.
->=20
-> Fix both issues in ufshcd_mcq_compl_all_cqes_lock():
-> - Synchronize hwq->cq_tail_slot =3D hwq->cq_head_slot in software after
-> =C2=A0 sweeping the ring, avoiding CQTPy MMIO reads while HCE =3D 0.
-> - Extract ufshcd_mcq_compl_cqe() and invoke it only on non-empty
-> slots
-> =C2=A0 during full-ring sweeps, keeping "Abnormal CQ entry!" logging
-> strictly
-> =C2=A0 for unexpected empty entries in ufshcd_mcq_poll_cqe_lock().
->=20
-> Fixes: ab248643d3d6 ("scsi: ufs: core: Add error handling for MCQ
-> mode")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
-> ---
+On Tue, Sep 22, 2026 at 10:11:36AM +0800, Guangshuo Li wrote:
+> We apologize for the pressure this caused to the community. We will be
+> more careful about organizing patches by subsystem, preparing proper
+> patchsets, and following the kernel contribution guidelines before
+> sending future work.
 
-Reviewed-by: Peter Wang <peter.wang@mediatek.com>
+If you're wondering how to really help the community, try to review and test
+some patches you see on the ML. Whatever you choose - there's no shortage of
+patches. You can even let your AI run on them and see what it catches.
+
+This would be a lot more helpful than only dumping patches on people and
+waiting for review.
+
+Thx.
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
