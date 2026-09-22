@@ -1,161 +1,241 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21E1553CA72
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 11:50:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC30F3C6600;
+	Tue, 22 Sep 2026 11:52:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790077862; cv=none; b=EJWrNKPE2FWX0aDMmJInwo9HZ/NEG1noYPymX8gGTCO+DmkEUs4wT1yvBWDms0Sr1U/eUfXrubndA7rHuTYS1/qAfNQIgwqZ2OFuF7gpLuq+zkUJwK6hmryu69nChBhPS6IVWKyqGrroy50MeSfgDgxBJOwpjEZ7Esx49xX99Do=
+	t=1790077926; cv=none; b=jCg1LGCAViiLHVplO2k5+m5ejwRrETQ6bZX1y0xz+w53E+3tqg3pIkppzBiTjFOb5Wbor8oPjWwSYp7WKneC7fFE9pwWL+gbDx2ryU7MoMeGCMuBminNSsBA6t9vagFpzzuTs0pcCkbBVqVixEqxmPwfIlFe0j5Atvx6TqWSLDw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790077862; c=relaxed/simple;
-	bh=9Z0/S6ZmABrK+l27B5I2Z8yd1uEctVo+Rmj2z6kxKM4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=pUsp1FsuR8FnHcSX549cbqlpHBXHo5+CMSb+lP/1y+cXlgqLeelmpzSj2/q/oJwtCMa60Juf9n+rLX8rBYwa87Pqhi/xOsHg9gyZ6l8xtZmfgE+eU9oyWINLFknSqzND/TcequadKchfnVvlG9hRx5BQBHtzOlVe8LY9sNTIMq0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=fAZI3SPP; arc=none smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	s=arc-20240116; t=1790077926; c=relaxed/simple;
+	bh=D9ZnlxhLyS5+nP0zqh4D73xmn+7BRn5CzcEEG4vfSJ4=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=HiNC7i0uWi9AMC5ME9INDSpOb2zHQhv9fmSgiRhpXeBcgP5CywJ54637Pb5MebVBvOOBk0dft8Aa/VJZYjBFC2BpR3W/SMYPNIAVVb93kpVc/52HL1uZ11A/Cib1SD9yBNyWOm0RCdA/qz1XEDW6n0a9ezg8CZI46BIIqcq0/z0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ipzqRLhR; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="fAZI3SPP"
-Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-5311edbc154so33106211cf.3
-        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 04:50:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1790077859; x=1790682659; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0saLHrvWxSfUHEQ01OMjuyvbZ8NuQR40GLYKRy9/kyQ=;
-        b=fAZI3SPPERHKxgQmI/DGUMQH1VuMotPv+gSaFIhp5ZVzHOKJC1pQI4ws5VLRZEbNYz
-         Q2UZrnhQFiRCmbx9FFMEkswIkggUl0M4SyEjB8paYTGQc2BRvXVB6GaFOZaecf/K6MiP
-         MsihZJszrKZkDTh7QL9KcdE3Acl5xQgiei/aA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790077859; x=1790682659;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0saLHrvWxSfUHEQ01OMjuyvbZ8NuQR40GLYKRy9/kyQ=;
-        b=W4bUut+vsmwqRlgosSh583jWEVL5X27sPrJfauZEZpo261AqxdidLvZy9EP1G12zGn
-         4MWQ91QUXdp2IxzGGNra7QKjd3dg5D3OpZK8V8aHIAtgaLrOUoZPss/Gauba9TOL4JX0
-         wbGp+w3FXXDtJzwB/hyCB4KBr+en4tq9MwyI9YT05JbLGe4/AOT67Bu1MqczlnB8boPN
-         SJY/+v9y8oymncIO/NDr26u5HG9ZMiDbCwZL3+7I7AOd8E6vrwA+IN7kgsD8BttHywBQ
-         p6BteDmv1xS9ZD4Yn8IoQTrbSrKvCt7Hn5AJcX0FQ1+0Ep/qSvEYNT3vEwQaPImkSjE7
-         XAxA==
-X-Forwarded-Encrypted: i=1; AKwUvBwNMebzuLl6j8KN4CWasrdyI+nlitdsGEHnauUfZu2O7aMgUOQ1RS4Sh+Bq/O0sAI0+6ngTffQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nWxRbXJrwAAlssuDBbXbEtwEvXpvQJVHvKx3HrRiJLyPYkywe3
-	wZOf/ORI3voHhPL3wxmBle7iOpEn/aou+OqOq1rt5IojjgdaswhXz1KBp2JVwjbiRA==
-X-Gm-Gg: AYBFou0SNzcnoHHYaN1EGYOYFGOdLu9KSn04XDYe4EgF/QUcrI7jqmc9IVcK5i8OqJp
-	uN9+878tdG9zX0fj0G6Wvh8xhOW8eiohwSFMLqYE+Pm5CEQuTUMGBaUh6nBHkFcu3jNiwl3zIkM
-	yK1Ia2UZknzFf6SOwsOjzZfOlwAnhC9ZgFCzlCETMz7kXWl7hiFWZbh9AVQk50gJinW+M88NtIB
-	qb0RJQzpZS1WZ1fV57vTd/GDuqaayadHBMgI5NAwNKOC1Lb1VNW/gmDyhZ0HmjSRdEbqcfigzMx
-	vMxjOhqDXIniLwy1vM3USEbIO1BBfhWpwedNCEUvEzWBgGhY+9OnnLUq5VGxqgxLvsEw1AfM9Ui
-	LYHeGFmhuOeVX6ZXB/csYswYWRQAVlycZWoHtZoDCgRPPYWZ5ohW/hQ36z2av6D1LpuGnHeHDYU
-	ccx1FRLOI7nueILmwwpDtUCQFv/vwrZ61UTxs20zryTTczFPKRUOJhCTglh+aGoGp94TJWzPazt
-	1HE0h8pXmOCSQT54DsYN68M/5SF2/EZuPQ0PC8pJ4j2HmJg+uvOSVjjaVG90/t+t3qpwA9/e/ao
-	LJupisqk3wrhr8nSKbXWSxY=
-X-Received: by 2002:a05:622a:259b:b0:530:f9e4:a0eb with SMTP id d75a77b69052e-532d8d21d97mr50658031cf.18.1790077858801;
-        Tue, 22 Sep 2026 04:50:58 -0700 (PDT)
-Received: from majuu.waya (pool-174-112-106-84.cpe.net.cable.rogers.com. [174.112.106.84])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-532e1903c5fsm10927391cf.16.2026.09.22.04.50.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 04:50:57 -0700 (PDT)
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-To: netdev@vger.kernel.org
-Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
-	stable@vger.kernel.org,
-	Jiri Pirko <jiri@resnulli.us>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Vlad Buslov <vladbu@nvidia.com>,
-	Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
-	hybris <hybris@mojatatu.ai>,
-	sashiko-bot@kernel.org
-Subject: [PATCH net 1/2] net/sched: act_api: reject duplicate actions in a batch
-Date: Tue, 22 Sep 2026 07:50:54 -0400
-Message-Id: <QDISC-K1TH.v1.20260922072206@mojatatu.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ipzqRLhR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790077924; x=1821613924;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=D9ZnlxhLyS5+nP0zqh4D73xmn+7BRn5CzcEEG4vfSJ4=;
+  b=ipzqRLhRHg+58pQSPIf5EsMTzqYEy0zhsJlyVbclUzngDRMkIa1zMJ/L
+   7FJl4Tr9j+gcmwK3cOWDaLRDA3Q7lLKA5WpB3+zLpzoVe7ih+B5iWeQFZ
+   68sOYqS8svMi5H8DiPLup5kEVj6wFtzk8tQiuAAWEeqPZo3IOAFtupC8w
+   +5pYVJFq+p7yl2ADksGaOglgUIf2YyS22O45Fu6+8NH8CbGOkdVTfmNgR
+   9YOK8+Ldm5EUeqoWet4GO45oTrVCcIZ8UhBCYxBBHo/ZI0j0Zv+b4+wyb
+   x2nMLy7oP18aYhbiwwlXrFNjUr5ZskpU3BZUCUQPs418VCXGVOXM9mg5J
+   A==;
+X-CSE-ConnectionGUID: Gqqvh3MVSwqVHgk31LOL1A==
+X-CSE-MsgGUID: ckty+CXgQrKzle8EbW1oJw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="89806327"
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="89806327"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 04:52:03 -0700
+X-CSE-ConnectionGUID: R4SQEZlLRnWYR+hGiUhMnA==
+X-CSE-MsgGUID: yAZKAI+QQPOLPkwXu+xHeg==
+X-ExtLoop1: 1
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.80])
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 04:52:00 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Tue, 22 Sep 2026 14:51:57 +0300 (EEST)
+To: Muhammad Bilal <meatuni001@gmail.com>
+cc: jorge.lopez2@hp.com, Hans de Goede <hansg@kernel.org>, 
+    linux@weissschuh.net, platform-driver-x86@vger.kernel.org, 
+    LKML <linux-kernel@vger.kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH 2/2] platform/x86: hp-bioscfg: fix heap OOB read and
+ buffer desync in hp_get_string_from_buffer()
+In-Reply-To: <CADqcGBnuzxwKiQ-r94gin0+8oWpvsWQ+tL=PRpK=tee7A2okdw@mail.gmail.com>
+Message-ID: <328dceac-d5cd-269d-518d-6f7a7bbf52f0@linux.intel.com>
+References: <20260824225610.18471-1-meatuni001@gmail.com> <20260824225610.18471-3-meatuni001@gmail.com> <a67d4e52-5e87-0e76-4c91-cb8ba2be31f9@linux.intel.com> <CADqcGBnGHd+rRn6b=eWVjhWDU-NQ4CFb-3B9cgwBeouN-sbw4Q@mail.gmail.com> <ab2078e1-4388-6311-0363-afdfc131ea60@linux.intel.com>
+ <CADqcGBnuzxwKiQ-r94gin0+8oWpvsWQ+tL=PRpK=tee7A2okdw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/mixed; boundary="8323328-1313611999-1790077917=:1233"
 
-tca_action_gd() builds actions[] with one tcf_action_get_1() per nested
-TCA_ACT_TAB entry.  Each successful lookup takes its own reference to the
-resolved action, so repeated TCA_ACT_INDEX entries in one request yield
-the same pointer in multiple slots.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-For RTM_DELACTION, tcf_action_delete() then consumes two references per
-slot: one in tcf_action_put() and one in tcf_idr_delete_index().  A
-duplicate therefore drives the refcount to zero mid-walk -- the delete
-frees the action and removes its IDR slot -- and the next slot calls
-tcf_action_put() on the freed action:
+--8323328-1313611999-1790077917=:1233
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-  refcount_t: underflow; use-after-free.
-  WARNING: lib/refcount.c:87 at refcount_dec_not_one
-   refcount_dec_and_mutex_lock
-   __tcf_action_put
-   tca_action_gd
+On Tue, 22 Sep 2026, Muhammad Bilal wrote:
 
-Three duplicate entries are enough.  Reject a repeated action while a
-delete batch is built, dropping the reference the extra lookup took, and
-return -EINVAL.  RTM_GETACTION balances its own references and keeps
-accepting duplicate entries.
+> That makes sense, thanks for the pointers. Here's what I found and a
+> concrete proposal.
+>=20
+> string_escape_mem() (lib/string_helpers.c) does exactly what the
+> manual loop is trying to do, safely: it takes a source byte buffer and
+> length, writes escaped output into dst up to osz without ever writing
+> past it, and returns the true escaped length so truncation is
+> detectable by comparing the return value to osz. I checked
+> escape_passthrough(), the fallback for anything not matched by a flag:
+> it copies the byte through unchanged. ESCAPE_SPACE covers \n \r \t \v
+> \f, ESCAPE_SPECIAL covers \\ \a \e and ".
 
-Conditions to recreate the bug:
-  tc actions add action gact index 100
-  tc actions delete action gact index 100 action gact index 100 \
-                     action gact index 100
+I think what we don't want is to add other characters beyond \\ from this=
+=20
+ESCAPE_SPECIAL set, definitely not " I'd way. So one needs to perhaps add=
+=20
+another flag to have it do only backslash escapes _without_ changing the=20
+meaning of ESCAPE_SPECIAL.
 
-Fixes: 16af6067392c ("net: sched: implement reference counted action release")
-Reported-by: Sashiko (gemini) <sashiko-bot@kernel.org>
-Link: https://sashiko.dev/#/patchset/20260824153903.4143642-1-victor@mojatatu.com
-Tested-by: hybris <hybris@mojatatu.ai>
-Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
----
- net/sched/act_api.c | 21 ++++++++++++++++++++-
- 1 file changed, 20 insertions(+), 1 deletion(-)
+> All of those are ASCII
+> values below 0x80, so none of them can collide with a UTF-8
+> continuation or lead byte (those are always >=3D 0x80). So running
+> string_escape_mem() over already-converted UTF-8 output is safe
+> without needing to be UTF-8-aware itself.
 
-diff --git a/net/sched/act_api.c b/net/sched/act_api.c
-index e45a63be397c..a9323c42a69a 100644
---- a/net/sched/act_api.c
-+++ b/net/sched/act_api.c
-@@ -2026,7 +2026,7 @@ static int
- tca_action_gd(struct net *net, struct nlattr *nla, struct nlmsghdr *n,
- 	      u32 portid, int event, struct netlink_ext_ack *extack)
- {
--	int i, ret;
-+	int i, j, ret;
- 	struct nlattr *tb[TCA_ACT_MAX_PRIO + 1];
- 	struct tc_action *act;
- 	size_t attr_size = 0;
-@@ -2051,6 +2051,25 @@ tca_action_gd(struct net *net, struct nlattr *nla, struct nlmsghdr *n,
- 			ret = PTR_ERR(act);
- 			goto err;
- 		}
-+
-+		/* A delete consumes two references per slot (tcf_action_put()
-+		 * and tcf_idr_delete_index()) but each entry takes one, so a
-+		 * repeated action would hit zero mid-walk.  GET balances its
-+		 * own references and keeps accepting duplicates.
-+		 */
-+		if (event == RTM_DELACTION) {
-+			for (j = 0; j < i - 1; j++) {
-+				if (actions[j] != act)
-+					continue;
-+
-+				tcf_action_put(act);
-+				NL_SET_ERR_MSG(extack,
-+					       "Duplicate TC action in a delete batch");
-+				ret = -EINVAL;
-+				goto err;
-+			}
-+		}
-+
- 		attr_size += tcf_action_fill_size(act);
- 		actions[i - 1] = act;
- 	}
--- 
-2.43.0
+Yes. I didn't realize this >=3D 0x80 property earlier.
 
+> Proposed shape: convert with utf16s_to_utf8s() into a scratch buffer,
+> then string_escape_mem() that scratch buffer into dst.
+>=20
+> char utf8_buf[MAX_BUFF_SIZE];
+> int utf8_len;
+> int escaped_len;
+>=20
+> utf8_len =3D utf16s_to_utf8s(src, orig_size, UTF16_HOST_ENDIAN,
+> utf8_buf, sizeof(utf8_buf));
+>=20
+> escaped_len =3D string_escape_mem(utf8_buf, utf8_len, dst, dst_size - 1,
+> ESCAPE_SPACE | ESCAPE_SPECIAL, NULL);
+> dst[escaped_len] =3D 0;
+>=20
+> I want to flag the scratch buffer sizing specifically, since I got
+> this wrong in my first pass at this reply and want to be upfront about
+> it. src_size is attacker/firmware controlled (a u16 read straight from
+> the WMI buffer), so orig_size can be up to ~32767 u16 units, worst
+> case UTF-8 expansion of that is close to 100KB, nowhere near safe for
+> a fixed-size stack buffer, and the kernel doesn't allow sizing a stack
+> array off a runtime value. I checked all three call sites in this
+> file: dst_size is 512 (MAX_BUFF_SIZE) at every one of them, no
+> exceptions. So the above caps the conversion at MAX_BUFF_SIZE
+> regardless of what orig_size claims, same capping discipline the
+> current code already applies to conv_dst_size, just applied a step
+> earlier, before the escape-inflated count. Open to a different
+> constant or a kmalloc'd buffer instead if you'd rather not hardcode a
+> dependency on MAX_BUFF_SIZE inside this function.
+>=20
+> Two more things I want your input on:
+>=20
+> 1. Quote handling changes. ESCAPE_SPECIAL turns " into \", the current
+> code turns it into ' instead (no backslash). Switching to the library
+> means losing that substitution, a visible output change I'd rather
+> confirm than assume is fine.
+>=20
+> 2. \v and \f get escaped now, where they weren't before. Matches what
+> you said about \v being an oversight,
+
+It might be AI just parroting what I said about it being an oversight, I=20
+don't know if it was an oversight or not but having these strings contain=
+=20
+\v in unescaped form doesn't seem very useful, same goes for \f which I=20
+just didn't remember (I didn't check the code that deeply while writing=20
+the previous email).
+
+> just flagging that \f comes
+> along with it from the same flag, there's no way to get one without
+> the other from ESCAPE_SPACE.
+
+I'm arguing ESCAPE_SPACE might work for us, because both \f and \v relate=
+=20
+to characters that might not have use in realistic characters this=20
+interface is going to have, BUT I'm definitely not sure of that. But it=20
+would seem worth a try.
+
+=2E..And not using ESCAPE_SPECIAL but add ESCAPE_BACKSLASH along side with=
+=20
+ESCAPE_SPECIAL. It's easy to claim that \ always needs escapes when=20
+there's any escaping going on so the justification for adding it=20
+separately is there (both ESCAPE_SPACE and ESCAPE_NULL currently produce=20
+broken output without backslashes getting escaped).
+
+> On utf8clen(): found it, static inline and duplicated in both
+> fs/unicode/mkutf8data.c and fs/unicode/utf8-norm.c, unusable from a
+> driver as is. I don't think this fix needs it though,
+> string_escape_mem() is already byte-transparent to UTF-8 as noted
+> above. The only thing utf8clen() would buy is guaranteeing a dst_size
+> truncation never lands mid-character. Given this is short BIOS
+> attribute strings, I'd lean toward leaving that as a known, minor
+> limitation for now rather than pulling in a separate cross-subsystem
+> cleanup patch to fs/unicode just for it. Let me know if you'd rather I
+> do that properly first.
+
+Yes, since string_escape_mem() likely works, utf8clen() doesn't matter.
+
+--=20
+ i.
+
+>=20
+> Thanks,
+> Muhammad
+>=20
+> On Mon, Sep 21, 2026 at 7:29=E2=80=AFPM Ilpo J=C3=A4rvinen
+> <ilpo.jarvinen@linux.intel.com> wrote:
+> >
+> > On Sat, 19 Sep 2026, Muhammad Bilal wrote:
+> >
+> > > Confirmed, you're right about the redundancy.
+> > >
+> > > utf16s_to_utf8s() takes src by value, so it can't advance the caller'=
+s
+> > > src pointer. The second loop then restarts from the same position and
+> > > overwrites everything the conversion just wrote, using dst[i] =3D *sr=
+c,
+> > > a raw truncating cast with no UTF-8 encoding. So step 2 is currently
+> > > dead work, and the function is ASCII-only in practice: any character
+> > > above 0x7f gets truncated to garbage instead of being properly
+> > > encoded.
+> > >
+> > > Two ways to fix that, and I'd like your preference before I send
+> > > anything more for it:
+> > >
+> > > (a) Keep utf16s_to_utf8s() as the real conversion, and rewrite the
+> > > second loop to do escaping as a pass over its UTF-8 output instead of
+> > > re-deriving from UTF-16 src.
+> >
+> > Not exactly this, but somewhere there.
+> >
+> > You should not try to build the escaping nor utf-8 parsing/length
+> > calculation within the driver but use generic code for that.
+> >
+> > To give some directions...
+> >
+> > There seems to be some escaping function in lib/string_helpers.c but si=
+nce
+> > we're dealing with an UTF-8 string here, there might not be a readily
+> > available function for string inputs/outputs.
+> >
+> > escape_space() seems to also cover escaping \v, which wasn't among the
+> > characters this driver escapes. You might need to check that particular
+> > character in driver before calling the library's escape funtion though
+> > I'm more thinking along the lines of not escaping it was an oversight f=
+rom
+> > the original submitter (given the questionable quality of this driver t=
+o
+> > begin with).
+> >
+> > utf8clen() seems to exists, but is currently in inconvinient place (and
+> > already duplicated so it should be placed into some header anyway).
+> >
+> > > (b) Drop utf16s_to_utf8s() entirely if ASCII-only was always the
+> > > intent, and keep only the manual loop, fixing its bounds instead..
+> >
+> > I think ASCII only was not the intent, but it just happens to work in
+> > many cases which is why this has survived so far.
+> >
+> > --
+> >  i.
+> >
+>=20
+--8323328-1313611999-1790077917=:1233--
