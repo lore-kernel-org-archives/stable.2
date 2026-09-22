@@ -1,102 +1,106 @@
 Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14DBC480359
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 19:00:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790103616; cv=none; b=s34IiQ/VrW8UQGoovGZWJRnymAxPecUKQwGUsp+7/SZLN1ZYX+6pZJPBQ6AwFHD8lK5xy2AhPDD1dXJFGDvDcHti2byXPmIi1Er4ClNP5mYt/18caSkbAnaws2rudufWB6wXOfkK9P5SHG7jFtQPWjtyaw7B+Gy7SAce47zSAKs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790103616; c=relaxed/simple;
-	bh=lwDc/4soCDTwvQjj3WdMQO97x7jDvcnzTKVIHsRmsDA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WiAc3IEr7AsQTrNTugHpJb49u6F9Lj6H+WQnQTqhrWyDFB9UoOkIPKw94P4m3M1vjvsRp1DZaiCGc4cqreg7TQ9sdZ5E9koqbJy4CmjPA2P9cZpacHvM6afiD7Dg1bULa+yUyCwX+g49SQtEnRjYrBl3VW4eraEujSPGZYlEXr8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c+EmNE0m; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A6AC3C454F
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 19:22:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790104952; cv=pass; b=PbMeI5ndaZfysjOIUtiL2dZEOqYyTTAknxbQoLvWJWw4x3yb3dgZMoAiup+WTR98y4vhJ1QobT+lLJsklQFTfGDzplBefchXEj8ocdqnP8/KuOjmwI4nXIwzfovdN8IfmFSkVTGfx0e92nwqMWkevlInxgjwFefCJpZFMCaVC7M=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790104952; c=relaxed/simple;
+	bh=FrghvNfO6wG37HOsjGNu81UndxQM4a69x6R59D1YIa8=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=hmvldCpNPwLoMyOiGJu2mMbPZ3oE8zImeTtAetl5+zLQWxjlcoaFE8DCbtZlyHuQGpDdfewSLdLF6cvbwdRXR4wlHAV0rk/82yD4QxcBHVwOn0mCLCRCgBJqXuqFpGoUcD6r7Gq7GWIFux4WqavU2iutGxbRbv7FzMbrNRdyqi4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=loGAi4Lc; arc=pass smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c+EmNE0m"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d1ca5b0d6so1159055e9.0
-        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 12:00:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="loGAi4Lc"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd38e0e5dso1775825e9.2
+        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 12:22:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790104949; cv=none;
+        d=google.com; s=arc-20260327;
+        b=CpWbWEA22qwGH7L/Dz7JbOFZmlJy4S4rAGN3lynM7OL0yeZ6hRgmls8J1n/CBH+xxl
+         PhEfPKO6lxzSOBtPf+eECR7rWK8Xa7UV7Zc+HtoOYzaLk0sxCG8w4DyVa8yo+v9+iyuZ
+         DKXJBEChNIpFJc22CJpLD3rGpSjwT4Zf5S+SUn5TeKePGOrXl8xqbwoUa5Y9JQnoCY90
+         fTSsoSg8HuqMuajsBgoG5dcZQlEDn6z/0Twv3q6SQrMrO/e8q3BAg8LC4PVaDbH2KBKN
+         YLYmjPBJuxZQdEfRXJyzghbRCk+2W4+J2H5foBlG0R02bWfu6kn8DQqhkr9yS7Teo+BC
+         4eAA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=PaneUziA5ZoH4HTRhCIK7Hhw0UG0gVQ61sVYvGw4p5A=;
+        fh=RvEWwL4CdzthXqFPrJY1v5EhszSUJtREhzms1oh7XMQ=;
+        b=KHpWF+u3u8Na7JHMumZOzYuN7v3f5ogBrBFiMmHRRJw8ZguBqJ/FGySYtdR5tjJgcn
+         EgIEN+1SrSsG2zwGo/PTUBDvBKfxYGCCohti7S5RQXVPXcYtbu108KWE2rr6t/1K6NgE
+         fhHOQZ1U0YUR1QcKWGpMfT6R1Xmbs3PHYrFNXrAnWA1CwlV6q67jBZ8O6mfW21V1cqWf
+         LBVbUn7cZkS/iWt1pD0SccT+HjBH0BBcVeEkHJGLMrccTbFtDllFP9kj4vz4wcHEKIAF
+         9h4sYdY9yy9Ana7eyr2gq9Hgo38BO5WkWoQcvA5VSDKIf20Q7LlsY1X1uflSRDcC6mE6
+         xmMQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790103612; x=1790708412; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VEpKCI2OAMvJmBnkvfe9WlT81W7n7zUyoGhbmIGEDGM=;
-        b=c+EmNE0mpDQJ4eQlQ3ZGiNyv7YTSwhfNQurSkejNkS44k+pXfE0klYjsX7RzZrkJic
-         c6oX1x6oMQIn7dUBf4VpoNGj4PQ6oXwuPjkwam+Dvy4U2IrjfEWd8NQga/SGelPQXKEk
-         2Lt7KPGaJjqktxVLLTMm1tlWhgHAm4mFp/hSjJnDpRQVZDxugIJ0PRn1wBfEsB7NZmpv
-         sNUsQNi0B/RFVWwtmcRIslHs35nPDp60e8MGMHQYfgYWhnmRzs/t/EO5q94T4FbjEFN0
-         HJDmMpq5qCPmrDSk31mRCfAfEW+ioHwkk+wPLaNqtOfqSH0/Zjr4TCBo2HdhN7Udw6lR
-         trKQ==
+        d=google.com; s=20251104; t=1790104949; x=1790709749; darn=vger.kernel.org;
+        h=content-type:to:subject:message-id:date:from:mime-version:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=PaneUziA5ZoH4HTRhCIK7Hhw0UG0gVQ61sVYvGw4p5A=;
+        b=loGAi4LcnzWL8fX/Et732//3x1cqiVPN4ObdJ9b75b1VyQt9GoIeMzfHbUtrQ/qiOs
+         4y0/yO0co0WrO5eZvAlbM8FuDzPd64Tai63ctTQSralE2rnicomMVN1JhQjqcFJNSRMt
+         ZxO5mnh+9CHTmBuMf39SDkbmt2TxDe23rxcRQKITjsFUe+OXabTvq+eeWrUjMWfs/mNR
+         ppBrg8oqVLTXWPBbRpXEqSBd0cipVL0bEan0VXNRAPb3LRIPrfZu3xrCCTGiSCukXMLX
+         zWnKT6RIYRNo/DmEBacLNppV5XjNBov8qpaMTSRK+hCG2lPfereWUXczXd+TN0SmX1ZN
+         Hhpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790103612; x=1790708412;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1790104949; x=1790709749;
+        h=content-type:to:subject:message-id:date:from:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=VEpKCI2OAMvJmBnkvfe9WlT81W7n7zUyoGhbmIGEDGM=;
-        b=i1apkkD0v/4TgVnH+/sVlP0Z57oCZ7tf/wDiNP3fgfsy0abQkv1pfA6Hcml+Vphbz+
-         OFqSJxJNGUczQLQDSptaezXHfrt6Agq/C3y+eOvfdAjEU6cZTbQjGA69R98tNfQLu09u
-         QlhuEpy/XsZcCMWp6C5AIQKO2CKxxFrnTCa389WdgaG/OK8FgduTrNFbRAyxP5/tXa7s
-         nawuT3DzzXLhlx0jFp7t3saiut+zH+s1L7MQUYoD99/96GxIBvY1kIMzcT2zAttnUcxr
-         XPnfTaiEjC68P/sxwQci1saQInnnJgAOsHA9lXI9e+LThaiXISaG/ScfcBp+1bHvwWRA
-         5JvA==
-X-Forwarded-Encrypted: i=1; AKwUvBzDqD5R2cK8laXTIfTQJRdVnQ8csluHS2hqOVP0u9VRLYBRVFGRfpT8PkYRlrNxbFs3YeUmAtI=@vger.kernel.org
-X-Gm-Message-State: AFuF++n8+h+OQQXd7KTw4DBgbL5NlBf4jS/gPWJcRgK6OMVn6dQJDFys
-	0Zl47aVIC4jyphJ+badD0GIYh0oMnfwxerLnlIQlRv+GE9ci+DfSjhuv
-X-Gm-Gg: AYBFou1vlqHKUIH9lkf1GZSanyap5t+m+tUkH4mAckK3tKh5hCVqt1bhNQlNlLSyLn9
-	420ByxyonuZ//ubjpEOltsZTJqFwLFLqH+N0FIzvJFcgbcXqWOSSA2b9hMPT8C8iFDuF6oide6j
-	KeITD9dGrkuuhmkzzBikTr9YZQihm0itRvDDZN415kzTgbnfReGa/2urx2TVxiI5+DJR1m/3rTW
-	Wb4IceAHRs68ms2/yGsV1N6T9l1DB4nzeMfR4TM1UQoiepD/ymNUz9+K876aJr44/RAbErcGTUJ
-	JaEnotZU2HdsC/Pe5PA+dnwj9IEZlc/CwbkfcRjGrYY34aH3Wuourv47f+4unM3NW54JDmQxYM0
-	Qtd1MZIFuLNzTUuEYo3docZ5/7bFEBpWGIiZCTraPujB25+oOCpFbPUrZgUyraiigXP7bjVXcOq
-	TLAh1ufvTW0oPRRcXSzixIzRCjPk2im/byDGMiTd+eknDOTEZE2d6Nlz0U8NzbNZWxVIBJ7JNQ9
-	hfkVWTK/3/5M9IP4LaLM2XbyjZDUCtyx/YKqJuYLkS9m38=
-X-Received: by 2002:a05:600c:6297:b0:49c:fe46:7219 with SMTP id 5b1f17b1804b1-49fdf12ba37mr1731935e9.20.1790103612057;
-        Tue, 22 Sep 2026 12:00:12 -0700 (PDT)
-Received: from andreayoga.localdomain ([31.189.116.68])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886876c48esm418281f8f.20.2026.09.22.12.00.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 12:00:11 -0700 (PDT)
-Date: Tue, 22 Sep 2026 21:00:08 +0200
-From: Andrea Parri <parri.andrea@gmail.com>
-To: Christoph Hellwig <hch@infradead.org>
-Cc: Christian Brauner <brauner@kernel.org>,
-	"Darrick J . Wong" <djwong@kernel.org>,
-	Joanne Koong <joannelkoong@gmail.com>,
-	Brian Foster <bfoster@redhat.com>,
-	Damien Le Moal <dlemoal@kernel.org>, Hannes Reinecke <hare@suse.de>,
-	Daniel Gomez <da.gomez@samsung.com>,
-	Pankaj Raghav <p.raghav@samsung.com>,
-	Dave Chinner <dchinner@redhat.com>, linux-xfs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 1/3] iomap: don't resubmit an ioend after
- ->writeback_submit() failed
-Message-ID: <arLQFnituIhphayt@andreayoga.localdomain>
-References: <20260921083133.2960-1-parri.andrea@gmail.com>
- <20260921083133.2960-2-parri.andrea@gmail.com>
- <arITIy2upsoN-DlW@infradead.org>
- <arJETViXYZbX8ckp@andreayoga.localdomain>
- <arJ0qe1KZoIaRCQk@infradead.org>
+        bh=PaneUziA5ZoH4HTRhCIK7Hhw0UG0gVQ61sVYvGw4p5A=;
+        b=RnQ0y3AfxtxoJhkP2tzeq52sg/tDEn2q0z8/XgNmLaVGh2LtcR0BqvblRt+w+sW7T3
+         6QZ0JySjBMCXN+uqMO+HHJEZXgEpzfMdxVmjxet06JOtskTmkawS9MbmkFDCzdrWHoBE
+         SblvcbZGLorU41BpKFBpEHFSViDs04/xdkG9cu3DewWBJk72wT/2Th7Q2sgMvGWkSb/m
+         kIO1a6mwZDeU6GFl+sPkSo6C+25Ryh0Zu3CF1adcMeGHjajw3YrpesxMOy7ti/gRDYdN
+         6gArBOMu7AB48Hu1QKEJeE8N4FvMTeEGj+DwrslcC/q5n8qG2UMoCux6tbTJuWOd/Xr+
+         IENA==
+X-Gm-Message-State: AFuF++lMcrQGhthUF24iJJDvtlhXusTMY1bEE3A6kdYrnt/n/cT3lZmT
+	3fkwrh34C+DRYKy94uIw92zmT/niLvEJVMuioQ1bgiTLAcnt21Rc6BLTam0xkK1P4qzumsy6Vm8
+	U/b/tyW5FwBEUjD0UpbhAlUqyoPY2XwuvATGocFlIIqBNbCACK2NgVWBzFqY=
+X-Gm-Gg: AYBFou2wbadkM4SAkWEWz17+uhYyExuoFSdyKnHo7NL+yampxygXAu5PuI5oKatCcnt
+	vnNTnLfofrsDMdTWy7KD1kIp1FrLa5xrHzf/1cAyL2yT6ufchMF512idbXE32IZQfN8xSlWJBAt
+	SCOTxBwNR5ahsQt9540ICjuYeSF4qZ6z2BE4TPRSOO6OFdfckZ/7PTt9CX/b2PlwEYu4BgD6owD
+	dJvJHW7CQCWAkHM2DxCZ8I5T6/BytIVHdsRdilnucTThjBcJB5ZxychSe2rVmh/4++eSEzOAHzO
+	Ek5bYVbnVSW+T/0ADIhk/H19t6kKtHqgx7cXpxFORPq6rCsCsS73eukt9ZUmjTwsB1fRO/1NcMf
+	GE+NdFHRIG2+Z+h5Tkg93
+X-Received: by 2002:a05:600c:6215:b0:49d:1e09:694a with SMTP id
+ 5b1f17b1804b1-49fdf0fd2f5mr3154375e9.11.1790104948764; Tue, 22 Sep 2026
+ 12:22:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arJ0qe1KZoIaRCQk@infradead.org>
+From: Alice Ryhl <aliceryhl@google.com>
+Date: Tue, 22 Sep 2026 21:22:15 +0200
+X-Gm-Features: AclHuK9_1to_5H48A_5Cg8z7nauN_oUV9xO4yWHmKgbTfypVtoCbct8v2nimMCM
+Message-ID: <CAH5fLggWya+4rz8LWjaCqYQ8eBfds2-yim9NFZ7nZpz6ABdG+Q@mail.gmail.com>
+Subject: [stable 6.18.y] Backport request: two ntsync fixes
+To: stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-> Can you add an errortag in fs/xfs/libxfs/xfs_errortag.h to inject
-> such an error and write an xfstest that uses it?
+Hi stable team,
 
-Looking into it.  Running a few more local iterations both w/ and w/o my
-fix, the plan is to include the errortag patch in v2 of this series.
+Could you please queue the following two upstream commits for the
+6.18.y stable tree? Both apply cleanly to linux-6.18.y:
 
-Thanks!
-  Andrea
+  180a232ea78003d1dc869b217b4e49106fd58e8f ("ntsync: Honour caller's
+time namespace for absolute MONOTONIC timeouts")
+  61611481f7b599e0526a3782c626b1a9deeb48bd ("ntsync: reject wait
+ioctls with zero owner")
 
+The first is needed for correct operation of the driver, and the
+second prevents wait ioctls with owner == 0 from leaving an unowned
+mutex in a corrupted state (count > 0 with owner == 0).
+
+Not sure why Fixes tags were not included for one of them.
+
+Thanks,
+Alice
