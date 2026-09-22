@@ -1,107 +1,128 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 065AA415F09
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 08:22:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58733403AF8
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 08:24:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790065355; cv=none; b=qzZgj8vyhtqM9yQ8VjOwUylxBDA7RyMLRkhbJZOipTuzXVNVwu1ghenb3aMAFA3v4HYg14XYvz+jRsTCnRl7g61cAE6qxkpmI6OQ0y44k2l+vBLKWp+BXOrGp0XYsAYOn/YSIbzwYl5TcGniQdHu8uoDhmn8ojTMBNfxfCNbIPA=
+	t=1790065467; cv=none; b=nk5+VKYlHrARZkqhy2wFJnL1zO4dPmrN014cpBMG4r/PbLC29d3lCHW4yQIzEw8oVJl1x1FQ/lRBxtX3KqXfRSi0USIcVs3/STlpFU9kCBW6rXWstUjpx5qxYUt9ZVK4DGhB8EWweYN7j8P36GCA7Cvt92E+03bZR/GPfUMa4NE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790065355; c=relaxed/simple;
-	bh=NdzYMIksNJSWd6DZYV8PauoE6FhKGoc4oC8+l3TBidk=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=UgcNTfiFOJMYMLza6eIswtir1fjJ/pH8lTVBmuYBgDtVaL8fn+I5VX/ZhnPIKxoHrBHahrIedUqKx0JqIUgxkrADsKZdgS8DbEnVKkJ+zB8LvBigLCZ5UZnjwjJRfPXpcm2YznpsYY+qRVUxZ1blhR1uBX4j2f3qfK8OZ5aNOzE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eUQDEo/V; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790065467; c=relaxed/simple;
+	bh=W+a1zqKAX9SYLgjiZBl+xb4cjZidKRSrVhKdo7Pd6Eg=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=E1iXtFGYuv5F6oV1+wrFfBebU382nWDkFtDLyt+/d+MVhX/FdyL+/orHceFLTHKucmLpLOTTncI6MpuZpXxXhoz5TXYJKu+pp6oiKPTvKrZGOI8qfG46ofSwVp+16D8OxU3l7Iv4RWfOKyA7BTjxm+/8B0qlbqub4dTmFwTI+IM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Y+laU7YL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eUQDEo/V"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C21421F0089D
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 08:22:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790065353;
-	bh=EvmHxqXCLy9EWZ/6cZQhXtH5A4Fz3V8fxmDhtm5wIEY=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=eUQDEo/VyBbty7zYwjUEuWbUnVXyxrpFbehq+ywlN21JMUY5QY5LQyol2y8nxGy6M
-	 IFq4nNCNdU3YaoVEDrvipjNLXDzlOYWXTZ/bwFUEKnefzc+jvK2Z6XWkQf0o4BjWWv
-	 pL7h6Q14BIpmO8cuK2ybx54SzbuJpYlhtycA9cGoks05pERHJf/B71L/kpcz1oYBQi
-	 usl1PJNdfmXOYVJPWQN2SQuT6t7r0mXXHizDxoOU1pKAy2UXkdOlR7f2BOij2nL/Jf
-	 z62oKFFafcy3tUsGkSIkPhMt4u6pGgkXRVBmfCilFJ8FhC1nOhA0pioIvsbao0Kmmq
-	 EWvYD8/FEBiGg==
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff176d5bso31067981fa.2
-        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 01:22:33 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBylpJLTaOmMJcZLsrOArlz79MUfW6UjX3QSULJ+JKgvheyqyirjyF9syvNE8PIJT4ZlXM40CPA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lyLk9KQrPlX4//qD8cmzBBWLffyiSQbFVfASnj2CAR1CD12tHS
-	1NGK5N+wnNP3OdY9lz5356GoKjXvrmtTmELx9V4dVCvv79UaerXumyiJNG1ji8z4/+72hMfS/v+
-	j29PTVYn5CT8Ri5AuOJ1F5yqb9+i2jVu2qIttA+tWHg==
-X-Received: by 2002:a2e:bc16:0:b0:3a4:95f0:c5b7 with SMTP id
- 38308e7fff4ca-3a5fbebf807mr28969311fa.3.1790065352455; Tue, 22 Sep 2026
- 01:22:32 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 22 Sep 2026 01:22:31 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 22 Sep 2026 01:22:31 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260921-qce-fix-self-tests-v8-0-107537869a72@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Y+laU7YL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E6F11F000FF;
+	Tue, 22 Sep 2026 08:24:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790065465;
+	bh=TpA/nkpeJCJYh1eELEm6ybfm6rUd8Zc0peFZ/1XUpeI=;
+	h=Subject:To:Cc:From:Date;
+	b=Y+laU7YL4JiWPyZTqTlDhBpe8/JyUi4K5GeIfTJgZVLVfuveICL2bzdqccgdv/JzP
+	 42Ap+eXlBdRz0BPFY80W6VBzyhTyFxMLQpM50EAbr/Ovos70eTHsMz3hzESeEBlEb+
+	 JOg+6zTp3c0ozi8O6CCtJdkcvMfkeylyWD5JOxKM=
+Subject: FAILED: patch "[PATCH] 9p: Fix v9fs_issue_write() to update i_size and remote_i_size" failed to apply to 6.12-stable tree
+To: dhowells@redhat.com,asmadeus@codewreck.org,mike@method-b.uk
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Tue, 22 Sep 2026 10:24:22 +0200
+Message-ID: <2026092222-rubbing-overplay-5a22@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921-qce-fix-self-tests-v8-0-107537869a72@oss.qualcomm.com>
-Date: Tue, 22 Sep 2026 01:22:31 -0700
-X-Gmail-Original-Message-ID: <CAMRc=MdWZhLy7AXd2OiVsaT92xTh1EF+B+LNo2b-1D2TO3rAmA@mail.gmail.com>
-X-Gm-Features: AcwNN1VBTSPEWx1h-ie8zLso64KBEpFrX6miRGn5DdROKODYpn6wzkN3-uBIp-k
-Message-ID: <CAMRc=MdWZhLy7AXd2OiVsaT92xTh1EF+B+LNo2b-1D2TO3rAmA@mail.gmail.com>
-Subject: Re: [PATCH v8 00/14] crypto: qce - Fix crypto self-test failures
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, brgl@kernel.org, 
-	linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org, 
-	Thara Gopinath <thara.gopinath@gmail.com>, Herbert Xu <herbert@gondor.apana.org.au>, 
-	"David S. Miller" <davem@davemloft.net>, Stanimir Varbanov <svarbanov@mm-sol.com>, 
-	Eneas U de Queiroz <cotequeiroz@gmail.com>, Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>, 
-	Eric Biggers <ebiggers@kernel.org>, Demi Marie Obenour <demiobenour@gmail.com>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Russell King <linux@armlinux.org.uk>, Abel Vesa <abelvesa@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-On Mon, 21 Sep 2026 14:58:09 +0200, Bartosz Golaszewski
-<bartosz.golaszewski@oss.qualcomm.com> said:
-> This iteration - in addition to the previous fixes - proposes to split
-> the QCE driver into a core part necessary to bind to the QCE DT node and
-> enable runtime power management in order to allow to drop the
-> interconnect votes, and the crypto part registering the crypto
-> algorithms. The core module is then enabled in arm64 defconfig while the
-> crypto part stays disabled by default. In addition: the actual
-> registration of crypto algos is gated with a module parameter that
-> default to false.
->
-> Note that remaining reported bugs will still be fixed in follow-up
-> series. This series addresses self-tests and disables the algos by
-> default.
->
-> The QCE hardware crypto engine has several limitations that cause it to
-> produce incorrect results or stall on certain inputs. This series fixes
-> several bugs and adds workaround allowing the deiver to pass crypto
-> self-tests.
->
-> The failures addressed are:
->
-> - HMAC self-test failures for empty messages
-> - AES-XTS returning success on zero-length input (should be -EINVAL)
-> - AES-CTR: partial final block causes the engine to stall, output IV
->   derivation was incorrect
-> - AES-XTS with key1 == key2 is not supported by the CE
-> - AES-CCM: partial final block and fragmented payload both stall the
->   engine
->
-> All fixes were tested on an SM8650 QRD board with
-> CONFIG_CRYPTO_SELFTESTS=y and CONFIG_CRYPTO_SELFTESTS_FULL=y.
->
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> ---
 
-Herbert: Sashiko still says it fails to apply. I have no idea why, it applies
-fine on top of current linux-next.
+The patch below does not apply to the 6.12-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Bart
+To reproduce the conflict and resubmit, you may use the following commands:
+
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git checkout FETCH_HEAD
+git cherry-pick -x c60ae98c5aa64021751b38ab1313b19d620bf640
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092222-rubbing-overplay-5a22@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From c60ae98c5aa64021751b38ab1313b19d620bf640 Mon Sep 17 00:00:00 2001
+From: David Howells <dhowells@redhat.com>
+Date: Fri, 11 Sep 2026 10:25:04 +0100
+Subject: [PATCH] 9p: Fix v9fs_issue_write() to update i_size and remote_i_size
+
+Fix v9fs_issue_write() to update i_size and remote_i_size to the new size
+of the server file if we made it larger, using the start fpos and the count
+returned by p9_client_write() to calculate the new minimum file size.
+
+This assumes that if the 9P server makes a short write (say it hits
+ENOSPC), a reduced count is returned.
+
+Fixes: 5fb70e7275a6 ("netfs, 9p: Implement helpers for new write code")
+Reported-by: Michael Mulqueen <mike@method-b.uk>
+Closes: https://lore.kernel.org/r/fbb9e395-1e07-4212-8f70-23f3cd498074@method-b.uk/
+Cc: stable@vger.kernel.org
+Signed-off-by: David Howells <dhowells@redhat.com>
+Message-ID: <2226525.1789118704@warthog.procyon.org.uk>
+Signed-off-by: Dominique Martinet <asmadeus@codewreck.org>
+
+diff --git a/fs/9p/vfs_addr.c b/fs/9p/vfs_addr.c
+index 1ac0b3dcc077..13cf87a5f90c 100644
+--- a/fs/9p/vfs_addr.c
++++ b/fs/9p/vfs_addr.c
+@@ -54,11 +54,37 @@ static void v9fs_begin_writeback(struct netfs_io_request *wreq)
+ static void v9fs_issue_write(struct netfs_io_subrequest *subreq)
+ {
+ 	struct p9_fid *fid = subreq->rreq->netfs_priv;
++	struct inode *inode = subreq->rreq->inode;
++	struct netfs_inode *ictx = netfs_inode(inode);
+ 	int err, len;
+ 
+ 	len = p9_client_write(fid, subreq->start, &subreq->io_iter, &err);
+-	if (len > 0)
++	if (len > 0) {
++		uoff_t end = subreq->start + len, i_size, remote, zp;
++		bool set = false;
++
++		spin_lock(&inode->i_lock);
++
++		/* We can read the sizes directly as we hold i_lock. */
++		i_size = inode->i_size;
++		remote = ictx->_remote_i_size;
++		zp = ictx->_zero_point;
++
++		if (end > i_size) {
++			i_size = end;
++			set = true;
++		}
++		if (end > remote) {
++			remote = end;
++			set = true;
++		}
++
++		if (set)
++			netfs_write_sizes(inode, i_size, remote, zp);
++		spin_unlock(&inode->i_lock);
++
+ 		__set_bit(NETFS_SREQ_MADE_PROGRESS, &subreq->flags);
++	}
+ 	netfs_write_subrequest_terminated(subreq, len ?: err);
+ }
+ 
+
