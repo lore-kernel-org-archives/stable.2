@@ -1,268 +1,267 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C42723E7BBF
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 08:07:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.7
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790064485; cv=fail; b=e6JmVR1se87rNtGlKnO970M753Sd4wAFH4QETS8wWzfSE84LuxsJCMtP9JbbdptnVvn1BbXCA2SOAHE8M1aDsR2Gul/g8tHU9EztUumSNLlQvJupoBOj0zTpwbnJLY1eHmmI1w0sPQEHd/OfOYyvs3tzZLtQH9RWNmjSGqKXZTE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790064485; c=relaxed/simple;
-	bh=p+6T2sW6+DsB67jV+pUfssvg0SOfTISEC7+gJ6190ik=;
-	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=UnjMMRsGeY95Gpp8YNVmcrU/f+93n2GTSR1SpBnfnKly+gViMoS4NLLOwFFcEXzUnUx1EVNXSUAMaVWn9tWS9hp0qrt5YzZNNYLH7BRmacV2qacaAzEdfybot5TOFWlGWvLByzyQFdSrdbNiIrfvqMR/5B74thYYLZjgM+P8/4Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hMMdnXRY; arc=fail smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D70F03FD12A
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 08:08:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790064494; cv=none; b=ShP8W7iWDa8t42dNi+0zduIdYO+csv9L/9PaVAc6RwY1gJTgfbhlk7ZJSsB//Qzb8HKYVsD6qQkXzTNbbwWQXfovb4vv5HzNwlaIgp+9/vaUzKmXChfrCK/B4+Oi6rvcSdkqCzvIVDMO5GKP7i0FGzoxohV9Pw3pi3l6+zTJ+cg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790064494; c=relaxed/simple;
+	bh=PB10iJXwaQiQpgWMplLuUrRqupycNcSJ1CXoBYEhb+M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=J5CJlmGbBhE6tsggSx7P/VbPtArc1+UPIT+/158vBIrcV+qz6Z6zSje0lllxIMS2K7zMY87bZ6Eb2CZG98msiJYta2P+ZqvnPbPcbpLvlOqfGZDmhklWhpHNP3kkSme3xJFhT9YN4xWMDIbuFli5QBQIOfeo0QPU6raCuCGHmzQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hW7eogJm; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hMMdnXRY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790064477; x=1821600477;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=p+6T2sW6+DsB67jV+pUfssvg0SOfTISEC7+gJ6190ik=;
-  b=hMMdnXRYUme4dk0kaMQE/Qm0iCy1G+DmekSdojWMUo4pwJX/S5o1KOco
-   mKxNM/IUdYAxOpC5zqmOgLoslILj+wLbci0Imbla1wZDJJusNaBd7X1MU
-   UjiSoqBVGUges+V587WW0eZymezVdwGjWNWCddfq6Awa7ZdYgvxY8ZloE
-   fUEqb7uoIvxGfs98Gtt12ynt5NaEt6Tf/lBIb5852zBeGeepSFB/IjOeA
-   67ylciv6/Lv3lnJl11HMbQtIiZnvY0vEQ+iTEJLj79Zoq+nHZpBv0L3ed
-   fr8iiXt4eFZdOQ7qvQ+G18bpFswk5Lsto8ywM9rNUvVJ5eX5EWON34/BW
-   A==;
-X-CSE-ConnectionGUID: rnc+yMT2SCubi8o2Larp8g==
-X-CSE-MsgGUID: 9/P1e6OiTTOoC/gNys/P7g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="116166175"
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="116166175"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 01:07:54 -0700
-X-CSE-ConnectionGUID: F5uXBwYXRg2cuxxxqyUnMg==
-X-CSE-MsgGUID: hNTcVFdnQDWPvWeCUprc7w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="271574409"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
-  by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 01:07:54 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 22 Sep 2026 01:07:53 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Tue, 22 Sep 2026 01:07:53 -0700
-Received: from CH4PR04CU002.outbound.protection.outlook.com (40.107.201.36) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 22 Sep 2026 01:07:51 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vCLu+WZYbJJpccJWqDhlNB6Bkn4rezldxXwtlyJQmuLycynqDezQwFL0IIrbYNM5ebQN9sS4plrEmoGl7SlsPdROBqNVHp7jsUGM3ptaCTDzCRIk5pnJ7cHlyxi2XDR/808c2Obo+HCTxw8lArKzkQunm14EBTP/hVWDLqBzq5SpuJYb/8SUR64MeANSUqKiJRG5KMAN/AN5kpaABrNXh3pvgrVEufIbeRae/mfqyXlgKprQsajt2Z35YyKa4Gpg4f5/gGBaho1VU+G5YLiFe/88gXotbl4loivK1YgaKn4spSr/5A4gBuvcKOFQ7NuZA73Meib2tYTePhDcKABeVw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hG58c7XP/BxRz5995xY/THarA0PD3J8EYe6GzgZ5A8E=;
- b=obypR3S3CVY25S7VTYUaBwqFRbZ6gcizDIZvmWTm5as0zFDlPD2JLGrpEcRMw/MnjitrQTBC2r86aOAehakJp+FLWmjXKips+onkXUHfAQgpkR6vhMJRB6hczwg0WM8FQNzrar8ucyI5cl2PyFyRXuhDzsXNoi6Hlu0F4vURewgdPJPzaQ5+o6/FdLbvlihlCszVT0HVr/jw71h21ocAn4Hj2NtV3ZiQoCM3d8GFHizMB66p8SpTdy8o6TWBOWwHHZDs1JyRi7FYb1lLyfvnJj05cHWrtUCCK9dRHa9HpUjHUKgLDtPNmvUrAaKAAlG+sYm63e08gDlUijHs3XuM2Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH0PR11MB7424.namprd11.prod.outlook.com (2603:10b6:510:287::7)
- by SJ0PR11MB6790.namprd11.prod.outlook.com (2603:10b6:a03:483::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Tue, 22 Sep
- 2026 08:07:46 +0000
-Received: from PH0PR11MB7424.namprd11.prod.outlook.com
- ([fe80::c448:1138:6981:52e2]) by PH0PR11MB7424.namprd11.prod.outlook.com
- ([fe80::c448:1138:6981:52e2%5]) with mapi id 15.21.0451.014; Tue, 22 Sep 2026
- 08:07:46 +0000
-Date: Tue, 22 Sep 2026 08:07:12 +0000
-From: Krzysztof Karas <krzysztof.karas@intel.com>
-To: Jakub Legowski <jakub.legowski@intel.com>
-CC: <intel-xe@lists.freedesktop.org>, <matthew.brost@intel.com>,
-	<maciej.patelczyk@intel.com>, <stable@vger.kernel.org>
-Subject: Re: [PATCH v3 1/1] drm/xe/guc: Fix wake_up race in handle_sched_done
-Message-ID: <2wqmigdd42uq6uupdolxnfl67gob2u5rymw7joasbqauaokimf@ynmehd4i5nve>
-"Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
- 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316"
-References: <20260910121759.1835037-1-jakub.legowski@intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-In-Reply-To: <20260910121759.1835037-1-jakub.legowski@intel.com>
-X-ClientProxiedBy: VI1PR06CA0106.eurprd06.prod.outlook.com
- (2603:10a6:803:8c::35) To PH0PR11MB7424.namprd11.prod.outlook.com
- (2603:10b6:510:287::7)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hW7eogJm"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d91ede8035so46620055ad.3
+        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 01:08:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790064480; x=1790669280; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qRPMgMOIc56QBWBupM6kM1mJ5Xh3d/f5V1FOIpaRUQI=;
+        b=hW7eogJmi7wBX3TS/82OiMHwtUW0ANzbNAl3SmwRZXM5okmjtgIzaTORE1dKhbwvTv
+         yFzG42GKPXoldCbk/lgv2AXNFIfNZrousO0Hvotz6Th5CvhvKsuwzpSW9nPxLnpee4El
+         ZLSrIyzEuYg2tKZy6BM+AiUx6cdcUwWIJtkwqxMD4EEIj5O0djeK9lKn5h7flJO/tFWN
+         dStcUlPEkC/b8cEbzejgYQjdfbbn28vP0SWc3XJiUYuP5YrqpcB85WbnS9GVPd2QkBxX
+         +j8atyVlQXTau5dp+ee9IhodZKL3GWmFGGoF+wdXUumbRJNMSk7paDnRhXdHef55oYaG
+         M/eA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790064480; x=1790669280;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qRPMgMOIc56QBWBupM6kM1mJ5Xh3d/f5V1FOIpaRUQI=;
+        b=QvpoZ8zb4I5LiWhBA7FEOoy9XvJi0Jud+8+E5a3o0DjJ+O0JbLWh6HFlaXPPjgajLM
+         jYyelOt2c9uN6dmxGFslsdbaqPo9H+95mwIZv1aCV3zONWdQLIbIo/8NP7SS8OnlkoJJ
+         QWWFEPJIIb3iUagcjmRfz9lzV16vS4Fax0qWq7nHPVRBuofcH8O88uMyf41Bu1BbQNc2
+         Is6F3v80rUnVaKXF5K2nJO56HVBbwig0pxX66dE3VEUguA0+DlNUwjn3scw0X8PhAPum
+         7nsi68kwIATVvin8obiVzu7rZ09ix/+tiKxuoejr9F8n+QplEC/V4us8nRUjMhD4YkUl
+         8cXg==
+X-Forwarded-Encrypted: i=1; AKwUvBy/Sew+RsGlOv9H+eR4PfAwVIO9e1Hc1eDJ2Lgau9gucv3bw7dOGuXoqpwfihIXAo0kVkbvvco=@vger.kernel.org
+X-Gm-Message-State: AFuF++nOlZEIKygMnwX7oYtMG0omcplKFEEvK0idW8WLMUxYC8AKgEbr
+	9Q502+/bTDGzF51lhgvqciIpR7SSr9t131at7jacLVOxCz+fRnJSB5Bo
+X-Gm-Gg: AYBFou2MFE6jO1Lq7cPhUwL1fipPmbg9aCqUr6cF2CAmyAc4iB5l1mbYpDlMfkNEU6a
+	O4zKE1C+ZmXg0qChgqjHAAxuJpVfMN15/YSl3Tp+1Bn5FlIgnGNAzj2b6jm603WGVEDa9uqFDbQ
+	KJPzO8xyJfRBPJtBxf9/K6zCINlBwxfhxGebgl2TdgzkGnGQN9KydaYtmLAKNTCGYZoL86n867W
+	d3g3zPhm1nZSvkV0JaP3F0qv44EoRgsozfoLJ2M2bOC6aMRx644Z5bZIzwAbUuvTl3VB9XcSm9v
+	8CTLhblw42XRL5h5l7XrLOA71km2Il6+ovAgfakQZXLEVsYIjZMUPLNuzbXo8uUUqfjx8H/pyBN
+	isrDmljurdUG9hgU90p1MISymqP8ZtVz9hDD9tubrQ1pilnM6wZh5Xn2Ahq002nwtdKCnpQsNB1
+	Wggog3CmZzJkAL9IC4VG1jYlwfKgCAIZXpG26jFDuBpR0RWvyNx5+5+1UshqpwF+nRsbs8yrwov
+	ltslGa4wQ8w9Cm55sZRjZJRvFraDhr8FDNxLjE=
+X-Received: by 2002:a17:903:19cf:b0:2d9:484:861d with SMTP id d9443c01a7336-2df609ad034mr4138015ad.10.1790064479957;
+        Tue, 22 Sep 2026 01:07:59 -0700 (PDT)
+Received: from localhost.localdomain ([2409:8a1e:2e81:7320:c92a:4bc0:f68c:8fc1])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df5d0581f0sm5584365ad.74.2026.09.22.01.07.56
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 22 Sep 2026 01:07:59 -0700 (PDT)
+From: Yuchao Zhang <ndaugoing@gmail.com>
+To: Simon Horman <horms@kernel.org>
+Cc: david@ixit.cz,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	oe-linux-nfc@lists.linux.dev,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Yuchao Zhang <ndaugoing@gmail.com>
+Subject: [PATCH v2] nfc: nci: ignore unexpected CORE_RESET_NTF and CORE_RESET_RSP
+Date: Tue, 22 Sep 2026 16:07:50 +0800
+Message-ID: <20260922080750.35929-1-ndaugoing@gmail.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260921125805.224979-1-horms@kernel.org>
+References: <20260921125805.224979-1-horms@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR11MB7424:EE_|SJ0PR11MB6790:EE_
-X-MS-Office365-Filtering-Correlation-Id: c277cd07-6812-4966-42e2-08df188095f7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|23010399003|366016|3023799007|6133799003|10067099003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: 9YOWx03PEw3QEDXvKs35doDbBLb5+KvSMsR5NFyx1MdhO415ezz/grei1Wbx/4m0feWOqUsjf6ORbLxcT//3vnWOKRT9inlWCY0IvRsmOliSlVoeF8YBi6eZvzALq00y8GfsHXmLdpZNKFMm1VMx9Rg6XCtllFP5njAlD50aMVvPKtNXcPRogpej5lKshZg54VYTv7U7BUXOE/kHXxDiQpi/EPvIrmaVjew8wCqtJK8AcyYwPYFUTXo1qX+ckdabPA9FeUInveLEbbYtvO9w8Xy5OhECGf5t07HwBgyCHrPZrtDSP55Rr5aZGROgrSikQtj1+fIJmabWZayCrs/1M/nbY9xlUjvLA5YuJTDgdBxu8Qfp9ytzOKBmZrFmrfzwZdOFd+kXIjsfSH1OQgjkMW2/syp55cxVmwvApG6qNgjBUPvwVhXVOZOc+PmcCgFcXEbgyBHw2DeQnxsXaugIp97z1T3EaXcVMOJoW5AMaV1BySE/Yup9anZdrC1S+O+topglV9Hu1E939TvjAZXpSjPh+TAhFZDITn8gC/FogWFy6Aldq4VIKVPAK1bXABd1R8x83PAw3PbyqwXOhvyizRwuchBfF4+7hw0WT3Lr1vIe5lrwriFP0pZl4m9Ts9hg6FfB33fvZO8cEvRBhm5O7r/hEksOrLur4DTp1jvPaus=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR11MB7424.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(3023799007)(6133799003)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T0UrcDNsVVkxQTFVWHRVWGNGRzE3a3lwSVZnWFVSUnB5TTNjb1ZVaVpMMUMy?=
- =?utf-8?B?ZE12MDdndUN2eEpUK2VEVXo1ZGhWQTVnc0NERmI0YjdPajRvKzQzemFGd2V0?=
- =?utf-8?B?R0k4VGJOaXU0MklqOE4vQTFXd2ppT3J5T1poZzZnOFA5NzFoZ29WYnNNdHVX?=
- =?utf-8?B?VlNBK2ZRVFYrVm5CcHhSNzNXWTRQeVlMdktQbC96QjVVa0d3Qm1TZkZuQjVr?=
- =?utf-8?B?ZGtzdW1QTms5cU5DeFFEK3Fua2pPL1VRdkFTZXNTdktGWGFoS0ZUZG4xRFgx?=
- =?utf-8?B?Ty9zNm5zLzdublVCRis2a1RwY0Q5NUsvY0tqWFZoYWRmWGZsN0ZBTkhQSWJS?=
- =?utf-8?B?WVJZOTR5OGZ4MzJ1b1JkQUh2TGI0V0dCU3ZjTWpIbjI3Q0dlaG5hTDNNSGZK?=
- =?utf-8?B?WHQ1ZUZrUTFWQTJRanZNN091bVErQy9iWS9TTk5oNWF2b2hCTUR2T29XcnI1?=
- =?utf-8?B?T2RYbGJGQ0RCR2RobXV6Q0FhOHBGUzNtOVFtTkdUaVEzM1lycmVFYktLKzN4?=
- =?utf-8?B?WjVHV3F2akFzWDNJVXEwanhYS29SNWlPRmFSSUZqV3ExcHAxSXhER2tReldm?=
- =?utf-8?B?WTFCU25nQXhoV2xKT3dnRU5TVDFIWEd1eDhqMk1XZHgzV2RjQkhPWEllRnpI?=
- =?utf-8?B?YkpGUkdRN1BuUW5YV1V1d1UrQjN3ZnRjOEJuYUQ3TW5QejNKY1JBK1hvOG93?=
- =?utf-8?B?N3ZmTjlmT3hXKzQ3OVM4WmVka2M5WVV3UWVyUTJ5bUo1RnAyT0x5MDBWYUxS?=
- =?utf-8?B?d1F3djhHOCsraGFGbzAvM1VaQXpJLzcrejQ0OXFLek8wNzFkb3FTeEhISWk0?=
- =?utf-8?B?TEltMi9MQ2pid2VrYkxlZDRVOUptWUJJWFVTd2RHbzNUMHRtMkM3SU9KL2Vm?=
- =?utf-8?B?SUJEeXFURFJNY2gxaUFscnJxYkE1WVZuem5IaHFDb1dUS1NLcFVyUUpvOXZy?=
- =?utf-8?B?dW5DSHZNLzY4VmViNDFrb2pxZlpEd0VENWI4WlNYYm12aE9pV2dscXpKTmcw?=
- =?utf-8?B?L08wcTZnRVRtdUpyekRxckowa3lwdGxJVFZVa01ETUlkL1JQMEdVSXllNCtr?=
- =?utf-8?B?bXFJUXplaDFKUkJuYWNVZXE0T0xoRjVucHUzKytDY3RSWXdKVHUvRURXTml5?=
- =?utf-8?B?ODREazVHTDZpVUlDNmNVMjYzWW5oR0drUVFjeGxheTN6R2FmaDB1V29oR0hv?=
- =?utf-8?B?azhHREY5U0hWeENWVjBIdHo3ZTd4UEVrUHlKbDhpWGlDeHdJMjRGRXN3bmFN?=
- =?utf-8?B?dUZHNlRFaVJReGFKbmRQaklOQzlzaWphSi9NU0x0aXhZSTE3TW9TOVZXRnFn?=
- =?utf-8?B?eXE5cnZuZ0xCWDRmN1dxTk9VMlZoMFlnaDE1OVFYZklCVXpLeFI3TDAxNm9F?=
- =?utf-8?B?UlZYM1dNOFJGcUJKWTdVM1FiNkdzZUZsZ2xBMHFHeVVGZWtMNndqMkx4Q1lu?=
- =?utf-8?B?bkRKYzV6TnRUYUozTEZzMWlPU1FiamVxSVlUZVZKMGdGRG93cDZqSFRkR1NJ?=
- =?utf-8?B?b0Z5b2FnNUJWRzQxMFFab2pHVlcwMWs1R3V1WFBKdXdjdGpVUzFmTG82dHho?=
- =?utf-8?B?a3B0d0xUOEJMaTVEcEdPejIrRytnbzNwb25DMktFR25jb1lJaVFscEtoS0sw?=
- =?utf-8?B?N3gxcFlxNkg4Qm1BWSs5aEh0aVBwajI0d0ZCeFdXa1hJeTlKOGNxZ2hYV3Zy?=
- =?utf-8?B?c3dDK3pVQngwdUdiZkhWWnZqMFV1QW95c28rU0IrYzJSWUppUXNIQ2ZmblVa?=
- =?utf-8?B?WGprcEw2aHlwaTUvcUxGQ2lKWlltR0N4bm0yM1lFV1pHL01DYjhia2ljUWlR?=
- =?utf-8?B?M1o5MThRTWdINXJqbG15UDlaaUJ2T01Za0JXRmFoZEFzMzVNb3lYMHV3SkFW?=
- =?utf-8?B?WHVnWDROZkRxczZYUjN4ZWFkQ0syWlpUQkx0V1N6SlhOT2dTTzY1d09xMWl0?=
- =?utf-8?B?eDE1dFVhalRGTWRyUWFZTkZIU1FWbkIvOUw3TWZNSTdRcjkwTG5WT2l4VFJT?=
- =?utf-8?B?SThuT2tTRlB3MTBUSy9zejZCMkg0QnNtWXdlYWV2Nkx1QmVVVUdIRmtEK2xT?=
- =?utf-8?B?TzVadFYxdkFSdFA1elZYM2JzbFlEMUhqMHlxRGtvOEZaQkZqUzRCRktsZ3Fk?=
- =?utf-8?B?RDJLKzJ1KzZKSDgvallyNisreHVhbVNtNVZrUkNqcjRodFQ0OUtUWm1wNnVy?=
- =?utf-8?B?dVhlNGczR1VERUFEQzF2eDVpL2FzNnVMZytMcSt0akNxSUJHcG11eDBoUTUw?=
- =?utf-8?B?NFRkWG1OdTR2V3A0aUJpcHdmMEMzRDNvcGtZNC9RNXA1QUhYV1BYcDV2N2RN?=
- =?utf-8?B?eStWYXlwWDlsSkFpeTExZHh2WDVsN0ZEaFYxQ05vSkY2cXBmaG00SFNCUWZN?=
- =?utf-8?Q?xxpOnWg5jzm8uez4=3D?=
-X-Exchange-RoutingPolicyChecked: Hg1r/W4Za2KiygpOevbXgdwD7ed5rFkJDhw4mBBvAXlyM0+tbYb2/lfQFl4rYjJH8nsDSvG1GumHTHmF1jHNEkWXAsnN8mg46IptRpH0vY2eGdMeZL0ZvrxvSFaPzD193IGH6y4fNDxS0RlDrUGrb9NHaB2hPuyrYBHt88cZcnVhJ0JH2t3bmsUekV7ndodqRnFwCVn88gjaRmndaUDQiQJj4/vVK9kuLqR7fNsrxVm0Uy+4PP2XWI/UZe3qxQaU+dMsMfXiokHbLVZG5o9ulU4St/2bLOkbAqoV/AmfogFAuIcbGgEtaCRJlQDNklEK10Y25/bDtmrPiauNOPejhw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: c277cd07-6812-4966-42e2-08df188095f7
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB7424.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 08:07:46.2266
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: W3jG9e0o2b8fMJi/prVEi2JNO22EXX4riU0uNyH4ZPRHfJ1GheiS/uLQSGRo1TSq8kmUqCxrbC5vOoVS0HP0NvTU/mNRcvuADSdyg65MNo8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR11MB6790
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 
-Hi Jakub,
+Commit bcd684aace34 ("net/nfc/nci: Support NCI 2.x initial sequence")
+added handling of CORE_RESET_NTF in nci_core_reset_ntf_packet(). When
+received, it updates ndev->nci_ver, ndev->manufact_id, and
+ndev->manufact_specific_info, and calls nci_req_complete(ndev,
+NCI_STATUS_OK) to finish the pending reset request.
 
-I looked at this patch per your off-list request and did not
-find anything suspicious, so:
+However, unlike other notification handlers in ntf.c (which validate
+ndev->state before completing requests), nci_core_reset_ntf_packet()
+does not check whether a core reset request is actually pending.
+If an unsolicited or delayed CORE_RESET_NTF arrives (e.g. after a reset
+command times out or from a misbehaving NFCC), it unconditionally:
+1. Completes whatever request is currently in-flight (such as CORE_INIT,
+   RF_DISCOVER, or CONN_CREATE) with NCI_STATUS_OK, leading to kernel
+   state desynchronization.
+2. Overwrites ndev->nci_ver and manufacturer info. Because
+   ndev->nci_ver is used as a selector for subsequent packet formats
+   and parsers (e.g., in nci_open_device() and nci_core_init_rsp_packet()),
+   unexpectedly modifying it can cause protocol format confusion.
 
-Reviewed-by: Krzysztof Karas <krzysztof.karas@intel.com> 
+A similar issue exists in nci_core_reset_rsp_packet(): an unexpected or
+delayed response packet can prematurely complete an unrelated in-flight
+request.
 
-On 2026-09-10 at 14:17:59 +0200, Jakub Legowski wrote:
-> Move wake_up_all() after clear_exec_queue_pending_disable()
-> 
-> When a SCHED_DONE G2H arrives for a banned exec queue,
-> handle_sched_done() calls wake_up_all() before
-> clear_exec_queue_pending_disable(). This creates a race with the
-> wait_event_timeout() in guc_exec_queue_timedout_job() that waits
-> for pending_disable to be cleared:
-> 
->     smp_rmb();
->     ret = wait_event_timeout(guc->ct.wq,
->                  ...
->                  ...);
-> 
-> This was observed as:
-> [drm:guc_exec_queue_timedout_job [xe]] Tile0: GT0: Check job
->  timeout: seqno=4294967169, lrc_seqno=4294967169,
->  guc_id=4, running_time_ms=0, timeout_ms=5000, diff=0x00000001
-> 
-> Moving the wake_up_all() (along with its smp_wmb())
-> after all paths that clear pending_disable, ensuring that waiters
-> always observe the updated state when woken.
-> 
-> Same as for runnable_state == 1 in the beginning of
-> handle_sched_done().
-> 
-> Fixes: dd08ebf6c352 ("drm/xe: Introduce a new DRM driver for Intel GPUs")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Matthew Brost <matthew.brost@intel.com>
-> Reviewed-by: Maciej Patelczyk <maciej.patelczyk@intel.com>
-> Signed-off-by: Jakub Legowski <jakub.legowski@intel.com>
-> ---
->  drivers/gpu/drm/xe/xe_guc_submit.c | 30 ++++++++++++++++--------------
->  1 file changed, 16 insertions(+), 14 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/xe/xe_guc_submit.c b/drivers/gpu/drm/xe/xe_guc_submit.c
-> index 99d8c807ff05..a181b5042293 100644
-> --- a/drivers/gpu/drm/xe/xe_guc_submit.c
-> +++ b/drivers/gpu/drm/xe/xe_guc_submit.c
-> @@ -3239,25 +3239,27 @@ static void handle_sched_done(struct xe_guc *guc, struct xe_exec_queue *q,
->  			clear_exec_queue_pending_disable(q);
->  			suspend_fence_signal(q);
->  		} else {
-> +			bool destroyed = exec_queue_destroyed(q);
-> +
-> +			/*
-> +			 * Make sure to clear the pending_disable only
-> +			 * after sampling the destroyed state. We want
-> +			 * to ensure we don't trigger the unregister too
-> +			 * early with something intending to only
-> +			 * disable scheduling. The caller doing the
-> +			 * destroy must wait for an ongoing
-> +			 * pending_disable before marking as destroyed.
-> +			 */
-> +			clear_exec_queue_pending_disable(q);
-> +
->  			if (exec_queue_banned(q)) {
-> +				/* Pairs with smp_rmb in guc_exec_queue_timedout_job */
->  				smp_wmb();
->  				wake_up_all(&guc->ct.wq);
->  			}
-> -			if (exec_queue_destroyed(q)) {
-> -				/*
-> -				 * Make sure to clear the pending_disable only
-> -				 * after sampling the destroyed state. We want
-> -				 * to ensure we don't trigger the unregister too
-> -				 * early with something intending to only
-> -				 * disable scheduling. The caller doing the
-> -				 * destroy must wait for an ongoing
-> -				 * pending_disable before marking as destroyed.
-> -				 */
-> -				clear_exec_queue_pending_disable(q);
-> +
-> +			if (destroyed)
->  				deregister_exec_queue(guc, q);
-> -			} else {
-> -				clear_exec_queue_pending_disable(q);
-> -			}
->  		}
->  	}
->  }
-> -- 
-> 2.48.1
-> 
-> ---------------------------------------------------------------------
-> Intel Technology Poland sp. z o.o.
-> ul. Slowackiego 173 | 80-298 Gdansk | Sad Rejonowy Gdansk Polnoc | VII Wydzial Gospodarczy Krajowego Rejestru Sadowego - KRS 101882 | NIP 957-07-52-316 | Kapital zakladowy 200.000 PLN.
-> Spolka oswiadcza, ze posiada status duzego przedsiebiorcy w rozumieniu ustawy z dnia 8 marca 2013 r. o przeciwdzialaniu nadmiernym opoznieniom w transakcjach handlowych.
-> 
-> Ta wiadomosc wraz z zalacznikami jest przeznaczona dla okreslonego adresata i moze zawierac informacje poufne. W razie przypadkowego otrzymania tej wiadomosci, prosimy o powiadomienie nadawcy oraz trwale jej usuniecie; jakiekolwiek przegladanie lub rozpowszechnianie jest zabronione.
-> This e-mail and any attachments may contain confidential material for the sole use of the intended recipient(s). If you are not the intended recipient, please contact the sender and delete all copies; any review or distribution by others is strictly prohibited.
-> 
+Fix this by ensuring CORE_RESET_NTF and CORE_RESET_RSP are only processed
+by the core layer when a reset command is actively awaiting them:
+- Set NCI_RESET_PENDING in nci_reset_req() when sending CORE_RESET_CMD.
+- In nci_core_reset_rsp_packet(), ignore the response if NCI_RESET_PENDING
+  is not set. If set, clear the flag and complete the request on failure
+  or for NCI 1.x (checking skb->len >= sizeof(*rsp)).
+- In __nci_request(), ensure NCI_RESET_PENDING is cleared upon request
+  completion, cancellation, or timeout.
+- In nci_core_reset_ntf_packet(), skip power-on notifications (trigger
+  0x01, identical in NCI 1.0 and 2.0), then check and clear
+  NCI_RESET_PENDING before updating device fields and completing the
+  request. The CORE_RESET_CMD trigger value is revision-dependent
+  (0x00 in NCI 1.0, 0x02 in NCI 2.0), so both are accepted and gated
+  on NCI_RESET_PENDING alone. If unexpected, log a warning and return
+  0 so driver-specific handlers (such as fdp firmware patch handling)
+  still receive the notification.
 
-FYI: this footnote can be disabled. I sent you instructions
-off-list if you'd be interested in doing so.
+Fixes: bcd684aace34 ("net/nfc/nci: Support NCI 2.x initial sequence")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yuchao Zhang <ndaugoing@gmail.com>
+---
+v2:
+ - Do not abort the notification pipeline on unexpected CORE_RESET_NTF (return 0
+   instead of -EINVAL), preserving driver-level hooks (e.g. fdp firmware
+   patching) per Simon Horman.
+ - Skip power-on notifications (trigger 0x01, identical in NCI 1.0 and 2.0)
+   while gating both NCI 1.0 (0x00) and NCI 2.0 (0x02) command-triggered resets
+   on NCI_RESET_PENDING alone.
+ - Check NCI_RESET_PENDING in nci_core_reset_rsp_packet() to avoid completing
+   unrelated requests on unexpected responses.
+ - Explicitly check skb->len >= sizeof(*rsp) in nci_core_reset_rsp_packet()
+   for NCI 1.x handling.
 
+ include/net/nfc/nci.h      |  5 +++++
+ include/net/nfc/nci_core.h |  1 +
+ net/nfc/nci/core.c         |  3 +++
+ net/nfc/nci/ntf.c          | 17 ++++++++++++++++-
+ net/nfc/nci/rsp.c          | 24 ++++++++++++++++++------
+ 5 files changed, 43 insertions(+), 7 deletions(-)
+
+diff --git a/include/net/nfc/nci.h b/include/net/nfc/nci.h
+index 09efcaed7c3f..2ac45adba088 100644
+--- a/include/net/nfc/nci.h
++++ b/include/net/nfc/nci.h
+@@ -140,6 +140,11 @@
+ #define NCI_RESET_TYPE_KEEP_CONFIG				0x00
+ #define NCI_RESET_TYPE_RESET_CONFIG				0x01
+ 
++/* NCI Reset Triggers */
++#define NCI_RESET_TRIGGER_ERROR					0x00
++#define NCI_RESET_TRIGGER_POWER_ON				0x01
++#define NCI_RESET_TRIGGER_RESET_CMD				0x02
++
+ /* NCI Static RF connection ID */
+ #define NCI_STATIC_RF_CONN_ID					0x00
+ 
+diff --git a/include/net/nfc/nci_core.h b/include/net/nfc/nci_core.h
+index 664d5058e66e..504ea91ddf27 100644
+--- a/include/net/nfc/nci_core.h
++++ b/include/net/nfc/nci_core.h
+@@ -31,6 +31,7 @@ enum nci_flag {
+ 	NCI_DATA_EXCHANGE,
+ 	NCI_DATA_EXCHANGE_TO,
+ 	NCI_UNREG,
++	NCI_RESET_PENDING,
+ };
+ 
+ /* NCI device states */
+diff --git a/net/nfc/nci/core.c b/net/nfc/nci/core.c
+index 5f46c4b5720f..5a90591cd9af 100644
+--- a/net/nfc/nci/core.c
++++ b/net/nfc/nci/core.c
+@@ -134,6 +134,7 @@ static int __nci_request(struct nci_dev *ndev,
+ 	}
+ 
+ 	ndev->req_status = ndev->req_result = 0;
++	clear_bit(NCI_RESET_PENDING, &ndev->flags);
+ 
+ 	return rc;
+ }
+@@ -163,6 +164,8 @@ static void nci_reset_req(struct nci_dev *ndev, const void *opt)
+ {
+ 	struct nci_core_reset_cmd cmd;
+ 
++	set_bit(NCI_RESET_PENDING, &ndev->flags);
++
+ 	cmd.reset_type = NCI_RESET_TYPE_RESET_CONFIG;
+ 	nci_send_cmd(ndev, NCI_OP_CORE_RESET_CMD, 1, &cmd);
+ }
+diff --git a/net/nfc/nci/ntf.c b/net/nfc/nci/ntf.c
+index f5c9a8ab7ec1..57f99bf46a22 100644
+--- a/net/nfc/nci/ntf.c
++++ b/net/nfc/nci/ntf.c
+@@ -36,7 +36,22 @@ static int nci_core_reset_ntf_packet(struct nci_dev *ndev,
+ 	if (skb->len < sizeof(struct nci_core_reset_ntf))
+ 		return -EINVAL;
+ 
+-	ntf = (struct nci_core_reset_ntf *)skb->data;
++	ntf = (const struct nci_core_reset_ntf *)skb->data;
++
++	/*
++	 * A power-on notification must not update core protocol state nor
++	 * complete a pending request.  The CORE_RESET_CMD trigger value is
++	 * revision-dependent (0x00 in NCI 1.0, 0x02 in NCI 2.0), so both
++	 * are let through to the reset-pending gate below instead.
++	 * Return 0 so driver-specific notification hooks can still run.
++	 */
++	if (ntf->reset_trigger == NCI_RESET_TRIGGER_POWER_ON)
++		return 0;
++
++	if (!test_and_clear_bit(NCI_RESET_PENDING, &ndev->flags)) {
++		pr_warn_ratelimited("unexpected CORE_RESET_NTF\n");
++		return 0;
++	}
+ 
+ 	ndev->nci_ver = ntf->nci_ver;
+ 	pr_debug("nci_ver 0x%x, config_status 0x%x\n",
+diff --git a/net/nfc/nci/rsp.c b/net/nfc/nci/rsp.c
+index b0ab4f5acbce..3a2491497e4b 100644
+--- a/net/nfc/nci/rsp.c
++++ b/net/nfc/nci/rsp.c
+@@ -32,14 +32,26 @@ static void nci_core_reset_rsp_packet(struct nci_dev *ndev,
+ 
+ 	pr_debug("status 0x%x\n", rsp->status);
+ 
++	/*
++	 * If no reset request is pending, ignore unexpected responses to avoid
++	 * prematurely completing an unrelated request.
++	 */
++	if (!test_bit(NCI_RESET_PENDING, &ndev->flags))
++		return;
++
++	if (rsp->status != NCI_STATUS_OK) {
++		clear_bit(NCI_RESET_PENDING, &ndev->flags);
++		nci_req_complete(ndev, rsp->status);
++		return;
++	}
++
+ 	/* Handle NCI 1.x ver */
+-	if (skb->len != 1) {
+-		if (rsp->status == NCI_STATUS_OK) {
+-			ndev->nci_ver = rsp->nci_ver;
+-			pr_debug("nci_ver 0x%x, config_status 0x%x\n",
+-				 rsp->nci_ver, rsp->config_status);
+-		}
++	if (skb->len >= sizeof(*rsp)) {
++		ndev->nci_ver = rsp->nci_ver;
++		pr_debug("nci_ver 0x%x, config_status 0x%x\n",
++			 rsp->nci_ver, rsp->config_status);
+ 
++		clear_bit(NCI_RESET_PENDING, &ndev->flags);
+ 		nci_req_complete(ndev, rsp->status);
+ 	}
+ }
 -- 
-Best Regards,
-Krzysztof
+2.53.0
+
