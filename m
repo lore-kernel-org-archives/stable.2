@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1215455C1B0
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 16:10:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 994FA3C942B
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 16:13:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790093431; cv=none; b=szkjxdNxfrPg0tew8suyl/htrX0odlKEPCBIuFhSDOeeR9FIzwoBDZRipTGxr1oElE1WGNYGv6q34D5O1UaBGZYx1xkZbBnV4YKjh/9Ueak+05ozxgzrq2du7kTM7fYec4qaNgUboX2sKSLn8Sbrt6gYZnYxWyOdApQXtO1UoJ8=
+	t=1790093616; cv=none; b=eYb8pKSFIg+eaNfH6EqB2ejcFv3Kn1U04Zh3nXhGg1A7UkuLiKX4vyP6jWoe6eVtDMXtisX6OgUGDPXkPVxVPo4yAaUJCdmsKH+nvXSFfl2bBe6fWi18MB3jyZ/39vyYVfzBEtnaLiHtVRmFqh7rCahpLnoSnzIf7JnhHKVBCMA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790093431; c=relaxed/simple;
-	bh=Q2fav7lT5Wm1jSPZGfu7p06qqaxx4bDBq6f5zjIn+xE=;
+	s=arc-20240116; t=1790093616; c=relaxed/simple;
+	bh=6N4odhVzO9ZREsJkNvzCq+lJzrzH+3lj2HxmIuJU5K0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=POsl/Ki3cwEiDZyjIKdEYrMth4iPMU30BHkysGnhf6zxnxTcGi90JthJMp78FfH1v1itgJNGBRXKGuY4bYp2wFxeTKQuUmxmeh/vjAQOCzjib/SSI+CtYQdhiXw/HeXU1YlCKaWlMvR069IcyVTeyIAPY5j1bHeJhi55AUaC57A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iJUAGcm6; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=qMSBC4wYb8z8oMPFKtPOWW73wQ7IopBJHPR9V/rhxDxyQb4I3juMKJskvBcaXs3dE8dEXtPyCJimmvER/pgJWWg+MvyUtqD3fDz/25YZWMFLiWuebLW8pYXi8lyEhy+cY0SQCrZgTaVl1/DuKrwZJTAioReA7P6Xj0heQUrIp8M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WivogikR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iJUAGcm6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 241F01F00898;
-	Tue, 22 Sep 2026 16:10:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WivogikR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79B4F1F000FF;
+	Tue, 22 Sep 2026 16:13:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790093428;
-	bh=4cV8Jxf8bWIRaWz9RjJww3JcYFzMw/h1LGP+IHOQy24=;
+	s=k20260515; t=1790093614;
+	bh=tBNlRA8+vBg8bvSix7zJ6HE6X959gSnjSXVf4ZFSquk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iJUAGcm6uS1rpb6h0h2J2UnOlDYksroy/2Jp0zhW0MHpJCvu85I+eXkJbDdr6CsDF
-	 4bSM7FqFe1OZPOc7pwATh1jhLu1DBRrhsLuO0adKnQ8IbXSGmniQwDy7SJfDa877CP
-	 vijUe/GQUYCnA8lnhYiwjSmxEUDnRnU4QIygCEgjIMQGBjqBTSa8TzPMYCfdmbj/5w
-	 j52JSRgQaNwxzISM7nrN54CzLUfW1Y98VQBwTZtHQbkVJH+LK0CphNK2JK2MxqXuUx
-	 S9O/+K1XHx+a41x5peDMXfDpucvFQmbqYCUdlYdU/9e2T8sdC2rd2RSexotEPxqVOA
-	 WSmhfvHoDQdqQ==
+	b=WivogikR4j5Vxo2C7X/DgwjcnIbGlI/xrorzz1n/G8soVM6oXG0s9B13Itfwz3hIP
+	 joef7kAasOPkSmdAHgcXeGqeWX7NNVwHt7pLHypyqHQog675rgyEvIq/sSJZDqERvL
+	 jPv1JawhE4xtXjw9XYAE0Do2ZPnvIqPHjNvE9CpWNLh8Ijn/mWev7hHrJ0UZaka5/r
+	 K+SqNj5vLyXf6xcQDiWt/rgiSflKPSbcQQIGCrS3dKLxbFmOr3IPB6993KJHNfSs6C
+	 3UAAMwoaRnT1J5oqgq8cOzKPQ0+vUW9TqpmMUXg9qyaUfSQFZpJZrm0m3egubH3JmO
+	 ON+hG4Z+nP+Ug==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Dean Luick <dean.luick@cornelisnetworks.com>,
 	Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
 	Leon Romanovsky <leon@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 1/2] IB/hfi1: Use dma_mmap_coherent for matching buffers
-Date: Tue, 22 Sep 2026 12:10:25 -0400
-Message-ID: <20260922161026.2969429-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] IB/hfi1: Use dma_mmap_coherent for matching buffers
+Date: Tue, 22 Sep 2026 12:13:31 -0400
+Message-ID: <20260922161332.2979388-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092205-wobble-lusty-9a31@gregkh>
-References: <2026092205-wobble-lusty-9a31@gregkh>
+In-Reply-To: <2026092206-enjoyably-shrapnel-5c31@gregkh>
+References: <2026092206-enjoyably-shrapnel-5c31@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -64,7 +64,7 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 57 insertions(+), 24 deletions(-)
 
 diff --git a/drivers/infiniband/hw/hfi1/file_ops.c b/drivers/infiniband/hw/hfi1/file_ops.c
-index 7c5d487ec9168..e03b0207856e7 100644
+index 1c1172aeb36e9..a02a90a9606cf 100644
 --- a/drivers/infiniband/hw/hfi1/file_ops.c
 +++ b/drivers/infiniband/hw/hfi1/file_ops.c
 @@ -306,6 +306,17 @@ static ssize_t hfi1_write_iter(struct kiocb *kiocb, struct iov_iter *from)
