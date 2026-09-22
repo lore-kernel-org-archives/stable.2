@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3F8D488DA0
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 18:21:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70C3948A2B6
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 18:21:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790101284; cv=none; b=kqwlJzAdjjq6aWkGpqbP3/QIzouxdfbMYXuEgP9lDg8u8N0NHZlVuGDIV1SO4EbvzHAPpEnbJmULOtqs9ju9imA77weFeh4PWDWNzivQOGiBrT3LlkpyFqOtlg29bFidF5Pz5+zr+JVTx4ceHCBYzUjpaCTH1E+BgTD3cKqxuI4=
+	t=1790101285; cv=none; b=HvjpzYYc6mofyLXRQN+89wxQRkozJH2I881Jz7+K0/ydDWcNNvBiTpe+5VLEvRwSFy0GTrG84ltZO+vvSsyTFqNvC9bxLhW5DkotN1JgsLdJ4hALoilf0QDMaCEyoLshnM6C6hlL633xjFJRuubiiaq17z+3n6u514GOU1BiBS0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790101284; c=relaxed/simple;
-	bh=dcWT4PyT3SSMREXFO5uGs6tyexBRi/eP9T1UJf4CWZQ=;
+	s=arc-20240116; t=1790101285; c=relaxed/simple;
+	bh=ogbT8w1xTpgMzce0HDCvz39BaI7jV1RVZ5npQi9g4GM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=T9XRA5tWTrMGbCXQ7T5f06ncwKI+I0twuj6F9D7YUG1nJsj3QrxpQGFrplvtMwSUvT92hoK5Rg+cM+Kq78y4ktqlJ88PDKgNIUvUjnqkhC4zrzkiaicAxYlGDQo3kPpHxfhIvHhF5f5l+ef7gfFw3dZCBEDBluaRB+3CM6xoUQc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X0l7dERr; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=NxwgcnjeRVH0PdcbJ0d8NlDxaFqS3pFBjQNGG1h6nEtc0DGagCFV0FaO1AxVek5qGw+CItOuCW+Qz31T46KKdn/Y2Ohk7L9Ve/4mA5i1HIgqsuZotRxS0XLnJOrxnlaqXKUQYp0W2VUHTV7Q1zo1IFGMG7RxAthpL9iJt2qkiLQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FMfiKBFx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X0l7dERr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25E1D1F00899;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FMfiKBFx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA45E1F0089A;
 	Tue, 22 Sep 2026 18:21:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790101283;
-	bh=54WXhi1v3m4jQI6docYD6jcpDAfNARusGZSxSXJjp4A=;
+	s=k20260515; t=1790101284;
+	bh=tQKsEYzm9juEAg2VEqwRXgAfPAW4NP8aMCGzT6CzCWM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=X0l7dERr7J4BJsi66lBZLVTyxd6dxQayvrPo9Ja+JnJvVCKPgxIfuv829biwCNq7+
-	 eoStawOWXsNn8t+WQUR4wb30cD2dxSwQjpkS23fB2D8YZhMBezMXDimz+OwuEtIrlZ
-	 9mzb6YLCCZmb5vlz/a5/mX3AQc+KJTaRSOd4I5IFXGRq4y2fbGtwD6conPIKST+jDc
-	 +XbzHf+sDKV9adeIgdfV4K9Yuwngb/EmNdUoCg2YUsNHjz0wSxRrChw23TlhElowkv
-	 T7m2qNU//qZQMJZ3sLAmIlXBDhfehPufzKUAN79p2hL0o05I3s/JePB8q6FfCVn3fW
-	 JgV4cSAoF2bLA==
+	b=FMfiKBFxiHCiz1JP7J8JjNXAovW7HvRgmGljo7jzXaZYZyC/xWYmMAoPldAZ5ogUS
+	 I5m4OOzvyOKxsTRFT6VwEGkbaSgY3BTUlS2teS4CL/UagcLGHU9WVsZfnfCAjS8+9F
+	 CDVSANRfI96n89xBNUntEVwKm04O/k13va1wgonUYlBIvAngnxqGsuOPWnc59kCDmM
+	 ElxI5JKMbtwRbPe1VRqAE7Ph/H6bY3Ze5gUA4q7WTO2Gd0sRwFpjLPIQqMB6aiYbMK
+	 XycogyE5SaeBYa1uObnfp6fZaqA6wfg3+Jmws/hLg+Xx71BiecU8RBB10q5yd8hYJS
+	 yp0+RKSZ+YGGA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Eric Biggers <ebiggers@kernel.org>,
 	Johannes Berg <johannes.berg@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/4] wifi: mac80211, cfg80211: Export michael_mic() and move it to cfg80211
-Date: Tue, 22 Sep 2026 14:21:18 -0400
-Message-ID: <20260922182120.3570035-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y 3/4] wifi: ipw2x00: Use michael_mic() from cfg80211
+Date: Tue, 22 Sep 2026 14:21:19 -0400
+Message-ID: <20260922182120.3570035-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260922182120.3570035-1-sashal@kernel.org>
 References: <2026092231-good-mahogany-cb59@gregkh>
@@ -48,137 +48,221 @@ Content-Transfer-Encoding: 8bit
 
 From: Eric Biggers <ebiggers@kernel.org>
 
-[ Upstream commit 613c83766884503f0f6bfdc45964c84b5286091c ]
+[ Upstream commit 32a0e1c63cdfaa9a6f1405b552b5f9eb2be61c59 ]
 
-Export michael_mic() so that the ath11k and ath12k drivers can call it.
-In addition, move it from mac80211 to cfg80211 so that the ipw2x00
-drivers, which depend on cfg80211 but not mac80211, can also call it.
-
-Currently these drivers have their own local implementations of
-michael_mic() based on crypto_shash, which is redundant and inefficient.
-By consolidating all the Michael MIC code into cfg80211, we'll be able
-to remove the duplicate Michael MIC code in the crypto/ directory.
+Just use the michael_mic() function from cfg80211 instead of a local
+implementation of it using the crypto_shash API.
 
 Signed-off-by: Eric Biggers <ebiggers@kernel.org>
-Link: https://patch.msgid.link/20260408030651.80336-3-ebiggers@kernel.org
+Link: https://patch.msgid.link/20260408030651.80336-6-ebiggers@kernel.org
 Signed-off-by: Johannes Berg <johannes.berg@intel.com>
 Stable-dep-of: 06f42accaf3c ("wifi: libipw: reject TKIP frames without a full MIC")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/ieee80211.h                     |  5 +++++
- net/mac80211/Makefile                         |  1 -
- net/mac80211/michael.h                        | 22 -------------------
- net/mac80211/wpa.c                            |  1 -
- net/wireless/Makefile                         |  2 +-
- .../michael.c => wireless/michael-mic.c}      |  5 ++++-
- 6 files changed, 10 insertions(+), 26 deletions(-)
- delete mode 100644 net/mac80211/michael.h
- rename net/{mac80211/michael.c => wireless/michael-mic.c} (96%)
+ drivers/net/wireless/intel/ipw2x00/Kconfig    |   1 -
+ .../intel/ipw2x00/libipw_crypto_tkip.c        | 120 +-----------------
+ 2 files changed, 5 insertions(+), 116 deletions(-)
 
-diff --git a/include/linux/ieee80211.h b/include/linux/ieee80211.h
-index 2526ccd8a4a06..2cf3ae4b940a2 100644
---- a/include/linux/ieee80211.h
-+++ b/include/linux/ieee80211.h
-@@ -2249,6 +2249,11 @@ enum ieee80211_radio_measurement_actioncode {
- #define PMK_MAX_LEN			64
- #define SAE_PASSWORD_MAX_LEN		128
- 
-+#define MICHAEL_MIC_LEN			8
-+
-+void michael_mic(const u8 *key, struct ieee80211_hdr *hdr,
-+		 const u8 *data, size_t data_len, u8 *mic);
-+
- /* Public action codes (IEEE Std 802.11-2016, 9.6.8.1, Table 9-307) */
- enum ieee80211_pub_actioncode {
- 	WLAN_PUB_ACTION_20_40_BSS_COEX = 0,
-diff --git a/net/mac80211/Makefile b/net/mac80211/Makefile
-index a33884967f212..85eaf72ba803c 100644
---- a/net/mac80211/Makefile
-+++ b/net/mac80211/Makefile
-@@ -18,7 +18,6 @@ mac80211-y := \
- 	iface.o \
- 	link.o \
- 	rate.o \
--	michael.o \
- 	tkip.o \
- 	aes_cmac.o \
- 	aes_gmac.o \
-diff --git a/net/mac80211/michael.h b/net/mac80211/michael.h
-deleted file mode 100644
-index a7fdb8e84615a..0000000000000
---- a/net/mac80211/michael.h
-+++ /dev/null
-@@ -1,22 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0-only */
--/*
-- * Michael MIC implementation - optimized for TKIP MIC operations
-- * Copyright 2002-2003, Instant802 Networks, Inc.
-- */
--
--#ifndef MICHAEL_H
--#define MICHAEL_H
--
--#include <linux/types.h>
--#include <linux/ieee80211.h>
--
--#define MICHAEL_MIC_LEN 8
--
--struct michael_mic_ctx {
--	u32 l, r;
--};
--
--void michael_mic(const u8 *key, struct ieee80211_hdr *hdr,
--		 const u8 *data, size_t data_len, u8 *mic);
--
--#endif /* MICHAEL_H */
-diff --git a/net/mac80211/wpa.c b/net/mac80211/wpa.c
-index bb0fa505cdcae..42bbe64617a11 100644
---- a/net/mac80211/wpa.c
-+++ b/net/mac80211/wpa.c
-@@ -18,7 +18,6 @@
- #include <crypto/utils.h>
- 
- #include "ieee80211_i.h"
--#include "michael.h"
- #include "tkip.h"
- #include "aes_ccm.h"
- #include "aes_cmac.h"
-diff --git a/net/wireless/Makefile b/net/wireless/Makefile
-index 62a83faf0e07d..a77fd5ba63686 100644
---- a/net/wireless/Makefile
-+++ b/net/wireless/Makefile
-@@ -8,7 +8,7 @@ obj-$(CONFIG_WEXT_PRIV) += wext-priv.o
- 
- cfg80211-y += core.o sysfs.o radiotap.o util.o reg.o scan.o nl80211.o
- cfg80211-y += mlme.o ibss.o sme.o chan.o ethtool.o mesh.o ap.o trace.o ocb.o
--cfg80211-y += pmsr.o
-+cfg80211-y += michael-mic.o pmsr.o
- cfg80211-$(CONFIG_OF) += of.o
- cfg80211-$(CONFIG_CFG80211_DEBUGFS) += debugfs.o
- cfg80211-$(CONFIG_CFG80211_WEXT) += wext-compat.o wext-sme.o
-diff --git a/net/mac80211/michael.c b/net/wireless/michael-mic.c
-similarity index 96%
-rename from net/mac80211/michael.c
-rename to net/wireless/michael-mic.c
-index 8a1afc93e7499..50cdb67f0503d 100644
---- a/net/mac80211/michael.c
-+++ b/net/wireless/michael-mic.c
-@@ -8,7 +8,9 @@
+diff --git a/drivers/net/wireless/intel/ipw2x00/Kconfig b/drivers/net/wireless/intel/ipw2x00/Kconfig
+index b92df91adb3a4..b508f14542d5d 100644
+--- a/drivers/net/wireless/intel/ipw2x00/Kconfig
++++ b/drivers/net/wireless/intel/ipw2x00/Kconfig
+@@ -154,7 +154,6 @@ config LIBIPW
+ 	depends on PCI && CFG80211
+ 	select WIRELESS_EXT
+ 	select CRYPTO
+-	select CRYPTO_MICHAEL_MIC
+ 	select CRYPTO_LIB_ARC4
+ 	select CRC32
+ 	help
+diff --git a/drivers/net/wireless/intel/ipw2x00/libipw_crypto_tkip.c b/drivers/net/wireless/intel/ipw2x00/libipw_crypto_tkip.c
+index c91218d457e0f..0106e2c8f8e3c 100644
+--- a/drivers/net/wireless/intel/ipw2x00/libipw_crypto_tkip.c
++++ b/drivers/net/wireless/intel/ipw2x00/libipw_crypto_tkip.c
+@@ -25,8 +25,6 @@
  #include <linux/ieee80211.h>
- #include <linux/unaligned.h>
+ #include <net/iw_handler.h>
+ #include <crypto/arc4.h>
+-#include <crypto/hash.h>
+-#include <linux/crypto.h>
+ #include <linux/crc32.h>
+ #include "libipw.h"
  
--#include "michael.h"
-+struct michael_mic_ctx {
-+	u32 l, r;
-+};
+@@ -57,11 +55,6 @@ struct libipw_tkip_data {
  
- static void michael_block(struct michael_mic_ctx *mctx, u32 val)
- {
-@@ -81,3 +83,4 @@ void michael_mic(const u8 *key, struct ieee80211_hdr *hdr,
- 	put_unaligned_le32(mctx.l, mic);
- 	put_unaligned_le32(mctx.r, mic + 4);
+ 	struct arc4_ctx rx_ctx_arc4;
+ 	struct arc4_ctx tx_ctx_arc4;
+-	struct crypto_shash *rx_tfm_michael;
+-	struct crypto_shash *tx_tfm_michael;
+-
+-	/* scratch buffers for virt_to_page() (crypto API) */
+-	u8 rx_hdr[16], tx_hdr[16];
+ 
+ 	unsigned long flags;
+ };
+@@ -89,41 +82,14 @@ static void *libipw_tkip_init(int key_idx)
+ 
+ 	priv = kzalloc(sizeof(*priv), GFP_ATOMIC);
+ 	if (priv == NULL)
+-		goto fail;
++		return priv;
+ 
+ 	priv->key_idx = key_idx;
+-
+-	priv->tx_tfm_michael = crypto_alloc_shash("michael_mic", 0, 0);
+-	if (IS_ERR(priv->tx_tfm_michael)) {
+-		priv->tx_tfm_michael = NULL;
+-		goto fail;
+-	}
+-
+-	priv->rx_tfm_michael = crypto_alloc_shash("michael_mic", 0, 0);
+-	if (IS_ERR(priv->rx_tfm_michael)) {
+-		priv->rx_tfm_michael = NULL;
+-		goto fail;
+-	}
+-
+ 	return priv;
+-
+-      fail:
+-	if (priv) {
+-		crypto_free_shash(priv->tx_tfm_michael);
+-		crypto_free_shash(priv->rx_tfm_michael);
+-		kfree(priv);
+-	}
+-
+-	return NULL;
  }
-+EXPORT_SYMBOL_GPL(michael_mic);
+ 
+ static void libipw_tkip_deinit(void *priv)
+ {
+-	struct libipw_tkip_data *_priv = priv;
+-	if (_priv) {
+-		crypto_free_shash(_priv->tx_tfm_michael);
+-		crypto_free_shash(_priv->rx_tfm_michael);
+-	}
+ 	kfree_sensitive(priv);
+ }
+ 
+@@ -464,73 +430,6 @@ static int libipw_tkip_decrypt(struct sk_buff *skb, int hdr_len, void *priv)
+ 	return keyidx;
+ }
+ 
+-static int libipw_michael_mic(struct crypto_shash *tfm_michael, u8 *key, u8 *hdr,
+-		       u8 *data, size_t data_len, u8 *mic)
+-{
+-	SHASH_DESC_ON_STACK(desc, tfm_michael);
+-	int err;
+-
+-	if (tfm_michael == NULL) {
+-		pr_warn("%s(): tfm_michael == NULL\n", __func__);
+-		return -1;
+-	}
+-
+-	desc->tfm = tfm_michael;
+-
+-	if (crypto_shash_setkey(tfm_michael, key, 8))
+-		return -1;
+-
+-	err = crypto_shash_init(desc);
+-	if (err)
+-		goto out;
+-	err = crypto_shash_update(desc, hdr, 16);
+-	if (err)
+-		goto out;
+-	err = crypto_shash_update(desc, data, data_len);
+-	if (err)
+-		goto out;
+-	err = crypto_shash_final(desc, mic);
+-
+-out:
+-	shash_desc_zero(desc);
+-	return err;
+-}
+-
+-static void michael_mic_hdr(struct sk_buff *skb, u8 * hdr)
+-{
+-	struct ieee80211_hdr *hdr11;
+-
+-	hdr11 = (struct ieee80211_hdr *)skb->data;
+-
+-	switch (le16_to_cpu(hdr11->frame_control) &
+-		(IEEE80211_FCTL_FROMDS | IEEE80211_FCTL_TODS)) {
+-	case IEEE80211_FCTL_TODS:
+-		memcpy(hdr, hdr11->addr3, ETH_ALEN);	/* DA */
+-		memcpy(hdr + ETH_ALEN, hdr11->addr2, ETH_ALEN);	/* SA */
+-		break;
+-	case IEEE80211_FCTL_FROMDS:
+-		memcpy(hdr, hdr11->addr1, ETH_ALEN);	/* DA */
+-		memcpy(hdr + ETH_ALEN, hdr11->addr3, ETH_ALEN);	/* SA */
+-		break;
+-	case IEEE80211_FCTL_FROMDS | IEEE80211_FCTL_TODS:
+-		memcpy(hdr, hdr11->addr3, ETH_ALEN);	/* DA */
+-		memcpy(hdr + ETH_ALEN, hdr11->addr4, ETH_ALEN);	/* SA */
+-		break;
+-	default:
+-		memcpy(hdr, hdr11->addr1, ETH_ALEN);	/* DA */
+-		memcpy(hdr + ETH_ALEN, hdr11->addr2, ETH_ALEN);	/* SA */
+-		break;
+-	}
+-
+-	if (ieee80211_is_data_qos(hdr11->frame_control)) {
+-		hdr[12] = le16_to_cpu(*((__le16 *)ieee80211_get_qos_ctl(hdr11)))
+-			& IEEE80211_QOS_CTL_TID_MASK;
+-	} else
+-		hdr[12] = 0;		/* priority */
+-
+-	hdr[13] = hdr[14] = hdr[15] = 0;	/* reserved */
+-}
+-
+ static int libipw_michael_mic_add(struct sk_buff *skb, int hdr_len,
+ 				     void *priv)
+ {
+@@ -544,12 +443,9 @@ static int libipw_michael_mic_add(struct sk_buff *skb, int hdr_len,
+ 		return -1;
+ 	}
+ 
+-	michael_mic_hdr(skb, tkey->tx_hdr);
+ 	pos = skb_put(skb, 8);
+-	if (libipw_michael_mic(tkey->tx_tfm_michael, &tkey->key[16], tkey->tx_hdr,
+-			skb->data + hdr_len, skb->len - 8 - hdr_len, pos))
+-		return -1;
+-
++	michael_mic(&tkey->key[16], (struct ieee80211_hdr *)skb->data,
++		    skb->data + hdr_len, skb->len - 8 - hdr_len, pos);
+ 	return 0;
+ }
+ 
+@@ -583,10 +479,8 @@ static int libipw_michael_mic_verify(struct sk_buff *skb, int keyidx,
+ 	if (!tkey->key_set)
+ 		return -1;
+ 
+-	michael_mic_hdr(skb, tkey->rx_hdr);
+-	if (libipw_michael_mic(tkey->rx_tfm_michael, &tkey->key[24], tkey->rx_hdr,
+-			skb->data + hdr_len, skb->len - 8 - hdr_len, mic))
+-		return -1;
++	michael_mic(&tkey->key[24], (struct ieee80211_hdr *)skb->data,
++		    skb->data + hdr_len, skb->len - 8 - hdr_len, mic);
+ 	if (memcmp(mic, skb->data + skb->len - 8, 8) != 0) {
+ 		struct ieee80211_hdr *hdr;
+ 		hdr = (struct ieee80211_hdr *)skb->data;
+@@ -614,17 +508,13 @@ static int libipw_tkip_set_key(void *key, int len, u8 * seq, void *priv)
+ {
+ 	struct libipw_tkip_data *tkey = priv;
+ 	int keyidx;
+-	struct crypto_shash *tfm = tkey->tx_tfm_michael;
+ 	struct arc4_ctx *tfm2 = &tkey->tx_ctx_arc4;
+-	struct crypto_shash *tfm3 = tkey->rx_tfm_michael;
+ 	struct arc4_ctx *tfm4 = &tkey->rx_ctx_arc4;
+ 
+ 	keyidx = tkey->key_idx;
+ 	memset(tkey, 0, sizeof(*tkey));
+ 	tkey->key_idx = keyidx;
+-	tkey->tx_tfm_michael = tfm;
+ 	tkey->tx_ctx_arc4 = *tfm2;
+-	tkey->rx_tfm_michael = tfm3;
+ 	tkey->rx_ctx_arc4 = *tfm4;
+ 	if (len == TKIP_KEY_LEN) {
+ 		memcpy(tkey->key, key, TKIP_KEY_LEN);
 -- 
 2.53.0
 
