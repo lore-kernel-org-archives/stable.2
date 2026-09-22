@@ -1,55 +1,50 @@
-Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B02831DA57;
-	Thu,  8 Oct 2026 03:10:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=111.22.67.137
+Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7B05C377004;
+	Thu,  8 Oct 2026 03:19:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=111.22.67.135
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791429050; cv=none; b=tgubAAS2RH/n2/ePfJECwwphnUdFH6vLlEPwvDPUYM173pnreyAWePp0xc0B+tgo1+bV8f5bXs37ar0Yh3Tp7AcDYl+w4BDpGZxJL1xkuQV9nErSDkfbHgdwJjJX7cBEQbsAb9AyMjf9qXG/yRhCcxTXHLsOT7vPwel/vu8A7pg=
+	t=1791429557; cv=none; b=tGZ/NAAHOOy7PictgGYNZmS8WRGk9EK0nOAy7J4SP/bNY6knDprIirFrYa5KQ5B4q7dHCf0ZIPQBwxJkeXzRK0gW4O+oCL3yAIRq8IKubv/mnJn+Cx8l/pofy4AcvXwZYDRVbrG4mMrXZxWz82A5YI6JFKVJLUelbOiICyJN+Hk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791429050; c=relaxed/simple;
-	bh=TQ2iUFMwvL7RF9GVlG5grjdNcDasf2Uxxka0SgKT0cM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=M7lgmUKBkT8JSAnt3UJweRkDbsa+4OJz79syTI7f48+INcyvcxaiaMV0DGp04vSIj90XnJ6N01IoT7yQpXIuBBeNIxtxFu15grYfNijc5A2TyoOCoYX5hnB4h7L4yJUwv7Oo0RMp7ircwz7nSptjVWraEodVj8xZ0jUn+UVLR8s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com; spf=pass smtp.mailfrom=cmss.chinamobile.com; dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.b=VK4qdkri; arc=none smtp.client-ip=111.22.67.137
+	s=arc-20240116; t=1791429557; c=relaxed/simple;
+	bh=ygZeOiN67Rzk+FnquSronkA+wHQJCrOrkL8Gahj1UQ0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZDhBDFPFU1ELw6hiMVZvOdwa52i+NYhAGWoJMaf31y0N6ePO4kiQSuHHFrI0P6rruTwBq/nl0qMx4VFPsmo82ATaE2PdyNEAqeogytiRUMn+NUDNZlqDXc5CGHeAn42lQBvDbWWAJERPQJ1KB4H+HkoLfoZGXUEFoQifa6zsitU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com; spf=pass smtp.mailfrom=cmss.chinamobile.com; dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.b=GQBpAUDt; arc=none smtp.client-ip=111.22.67.135
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.b="VK4qdkri"
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.b="GQBpAUDt"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=cmss.chinamobile.com; s=default; l=0;
 	h=from:subject:message-id:to:cc:mime-version;
 	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=VK4qdkri3Fir7Ua5Ca6ybw5owzi/xCkA8W8Z5xoIluxIBH7IHpiTKTsHAaSxkpRU3BS76pyuJJNAq
-	 jeSUrM7zy6q6cze5qq2VAho7o/0+DcO9Kd30Mzz7+3iByBvbKO8wHc5M+ZfssbJt7zCMmm/lRLZY5v
-	 buvNRhZNF/wguwbA=
+	b=GQBpAUDtorvm29I2PbDRVgZks3wqK/2xaJWLcaRHer42TMDW4zAfYTwb/pdePVvJXPgMyFqmuSVY2
+	 nUEJe/pNbmSbZo6SQULEPrWGsWBZ3isz3GfumSO8nHKcATR2+3MMmicann56GE+GcZ+SWtMzmNsyz+
+	 f0w9zHPgM1CX9rNc=
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
 Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app08-12008 (RichMail) with SMTP id 2ee86ac709b0125-5052a;
-	Thu, 08 Oct 2026 11:10:41 +0800 (CST)
-X-RM-TRANSID:2ee86ac709b0125-5052a
+	by rmmx-syy-dmz-app07-12007 (RichMail) with SMTP id 2ee76ac70bae06d-b1d6d;
+	Thu, 08 Oct 2026 11:19:11 +0800 (CST)
+X-RM-TRANSID:2ee76ac70bae06d-b1d6d
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
 Received:from localhost.localdomain (unknown[223.108.79.99])
-	by rmsmtp-syy-appsvr02-12002 (RichMail) with SMTP id 2ee26ac709af673-024c3;
-	Thu, 08 Oct 2026 11:10:41 +0800 (CST)
-X-RM-TRANSID:2ee26ac709af673-024c3
+	by rmsmtp-syy-appsvr04-12004 (RichMail) with SMTP id 2ee46ac70ba7eb5-03ba6;
+	Thu, 08 Oct 2026 11:19:11 +0800 (CST)
+X-RM-TRANSID:2ee46ac70ba7eb5-03ba6
 From: lvjunyu <lvjunyu@cmss.chinamobile.com>
-To: netdev-bot+sashiko@kernel.org
-Cc: pablo@netfilter.org,
-	fw@strlen.de,
+To: pablo@netfilter.org
+Cc: fw@strlen.de,
 	phil@nwl.cc,
 	netfilter-devel@vger.kernel.org,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	kuba@kernel.org,
 	lvjunyu <lvjunyu@cmss.chinamobile.com>
-Subject: Re: [PATCH v2] netfilter: nf_nat: Fix stale outer UDP checksum on VXLAN encapsulated packets
-Date: Tue, 22 Sep 2026 14:14:41 +0800
-Message-ID: <20260922061441.752117-1-lvjunyu@cmss.chinamobile.com>
+Subject: [PATCH v3] netfilter: nf_nat: Fix stale outer UDP checksum on VXLAN encapsulated packets
+Date: Tue, 22 Sep 2026 14:23:05 +0800
+Message-ID: <20260922062305.752147-1-lvjunyu@cmss.chinamobile.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260921130312.686493-1-lvjunyu@cmss.chinamobile.com>
-References: <20260921130312.686493-1-lvjunyu@cmss.chinamobile.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -58,74 +53,100 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On the Sashiko AI review comments:
+When MASQUERADE --random-fully rewrites the outer UDP source port and
+address of a VXLAN-encapsulated packet whose inner header has
+CHECKSUM_PARTIAL, the outer UDP checksum is not updated correctly.
 
-> [Medium] Peer call-site divergence: after this patch nf_nat's
-> __udp_manip_pkt() treats a CHECKSUM_PARTIAL skb whose offload target...
+udp_set_csum() takes the LCO (Local Checksum Offload) branch for
+encapsulated CHECKSUM_PARTIAL non-GSO packets, writing a complete
+(folded and complemented) checksum into uh->check while leaving
+csum_start pointing at the inner transport header.  In this state:
 
-The flowtable software path (nf_flow_nat_ip_udp) is not reached by
-the packets this patch fixes. VXLAN outer headers are locally
-generated via vxlan_xmit() -> udp_set_csum() and traverse OUTPUT ->
-POSTROUTING, where they hit the conntrack NAT path
-(__udp_manip_pkt). The flowtable hook (nf_flow_offload_ip_hook)
-processes forwarded flows with offloaded conntrack entries; the
-VXLAN outer flow uses a random source port (MASQUERADE
---random-fully) and represents a new conntrack entry that has not
-yet been offloaded.
+  - inet_proto_csum_replace2() is a no-op (pseudohdr=false,
+    CHECKSUM_PARTIAL)
+  - nf_csum_update() -> inet_proto_csum_replace4(pseudohdr=true)
+    takes the pseudo-header branch which treats uh->check as an
+    uncomplemented seed, applying the address delta with the wrong
+    sign
 
-The architectural inconsistency is acknowledged: if flowtable
-offload of VXLAN tunnel flows is ever introduced, the same LCO
-detection would be needed in nf_flow_nat_ip_udp(). The
-zero-checksum gate difference (do_csum = !!hdr->check vs.
-udph->check || ip_summed == CHECKSUM_PARTIAL) is pre-existing and
-unrelated to this patch.
+Fix this by using the offload target (csum_start + csum_offset) to
+distinguish the LCO state from the seed/offload state, and temporarily
+flipping ip_summed to CHECKSUM_NONE so both the address and port updates
+use csum_replace*() (the complete-checksum path).
 
-> [Medium] Incomplete/asymmetric fix: the same unguarded
-> nf_csum_update() pattern exists at three sibling sites...
+Test results (10 connections, single netns vxlan + veth environment):
+  Before fix: ~1080ms avg first-connection latency, 10 SYN retransmits,
+              UdpInCsumErrors incremented per connection
+  After fix:  ~29ms avg first-connection latency, 0 SYN retransmits,
+              UdpInCsumErrors unchanged
 
-The LCO state being fixed is specific to the UDP encapsulation
-path: udp_set_csum() LCO branch writes a complete checksum into
-uh->check while setting csum_start to the inner transport header.
-This split state does not occur for the sibling call sites:
+Fixes: faec18dbb0405 ("netfilter: nat: remove l4proto->manip_pkt")
+Cc: stable@vger.kernel.org
+Signed-off-by: lvjunyu <lvjunyu@cmss.chinamobile.com>
 
-- tcp_manip_pkt(): TCP checksum includes the pseudo-header
-  (addresses + ports); the offload target is the TCP header itself
-  (csum_start points at the TCP header, not an inner header), so
-  the offload-target test would not match.
+---
 
-- icmpv6_manip_pkt(): ICMPv6 checksum includes a pseudo-header;
-  the offload target is the ICMPv6 header itself.
+Changes in v3:
+- Reword comment to distinguish port delta (no-op) from address
+  delta (wrong sign) as suggested by Sashiko AI review
 
-- Headers embedded in ICMP errors (via
-  nf_nat_icmp_reply_translation): these are byte copies in the
-  ICMP payload, not live checksum-offloaded data; ip_summed is
-  typically NONE or COMPLETE.
+Changes in v2:
+- Fix both address and port delta (v1 only fixed port delta)
+- Use offload-target test instead of skb->encapsulation as the LCO
+  discriminator (addresses Sashiko AI review feedback)
+- Update comment to describe both CHECKSUM_PARTIAL states
 
-- nf_nat_*_csum_recalc(): handles length field changes in the
-  pseudo-header, a different scenario.
+v2: https://lore.kernel.org/netdev/20260921130312.686493-1-lvjunyu@cmss.chinamobile.com/
+---
+ net/netfilter/nf_nat_proto.c | 30 ++++++++++++++++++++++++++++++
+ 1 file changed, 30 insertions(+)
 
-Putting the offload-target test in a shared helper (e.g.,
-wrapping nf_csum_update()) is architecturally sound and could be
-done as a follow-up. This patch is intentionally scoped to the
-UDP path where the bug is observed and verified.
+diff --git a/net/netfilter/nf_nat_proto.c b/net/netfilter/nf_nat_proto.c
+index 64b9bac228e..6779e9f2812 100644
+--- a/net/netfilter/nf_nat_proto.c
++++ b/net/netfilter/nf_nat_proto.c
+@@ -54,9 +54,39 @@ __udp_manip_pkt(struct sk_buff *skb,
+ 		portptr = &hdr->dest;
+ 	}
+ 	if (do_csum) {
++		/* When udp_set_csum() takes the LCO branch (encapsulated
++		 * CHECKSUM_PARTIAL, non-GSO), uh->check holds a complete
++		 * (folded and complemented) checksum while csum_start
++		 * points at the inner transport header, not at this outer
++		 * udphdr.  In that state:
++		 *   - nf_csum_update() -> inet_proto_csum_replace4(pseudohdr=true)
++		 *     takes the pseudo-header branch and applies the address
++		 *     delta with the wrong sign (to an uncomplemented seed).
++		 *   - inet_proto_csum_replace2(pseudohdr=false) is a no-op:
++		 *     neither branch is taken for CHECKSUM_PARTIAL when
++		 *     pseudohdr is false.
++		 * Temporarily flip ip_summed so both use the csum_replace*()
++		 * path that correctly updates the complete checksum.
++		 *
++		 * The seed/offload branch of udp_set_csum() sets csum_start
++		 * to the outer UDP header, so the offload-target test
++		 * below distinguishes the two states.
++		 */
++		bool lco = skb->ip_summed == CHECKSUM_PARTIAL &&
++			   !skb_is_gso(skb) &&
++			   (skb->head + skb->csum_start + skb->csum_offset) !=
++			   (unsigned char *)&hdr->check;
++
++		if (lco)
++			skb->ip_summed = CHECKSUM_NONE;
++
+ 		nf_csum_update(skb, iphdroff, &hdr->check, tuple, maniptype);
+ 		inet_proto_csum_replace2(&hdr->check, skb, *portptr, newport,
+ 					 false);
++
++		if (lco)
++			skb->ip_summed = CHECKSUM_PARTIAL;
++
+ 		if (!hdr->check)
+ 			hdr->check = CSUM_MANGLED_0;
+ 	}
+--
+2.43.0
 
-> [Low] The new comment states that both the address and the port
-> delta are "applying the address and port deltas with the wrong
-> sign"...
-
-The reviewer is correct. The two cases are distinct:
-
-- Port delta (pseudohdr=false, PARTIAL): no-op -- neither branch
-  in inet_proto_csum_replace4() is taken.
-
-- Address delta (pseudohdr=true, PARTIAL): applied to wrong seed
-  -- the else-if(pseudohdr) branch operates on an uncomplemented
-  value.
-
-The comment will be reworded to distinguish "not applied at all"
-(port) from "applied to the wrong seed" (address) in the next
-revision.
-
-pw-bot: cr
 
 
