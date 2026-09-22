@@ -1,139 +1,147 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53CD4541E6B
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 12:18:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99306541E5E;
+	Tue, 22 Sep 2026 12:19:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790079532; cv=none; b=rLDBwnyvgWBhsPO+RZPhu95Co73RL1xfDxtBhivuaLQQWuAxRKFo4YgBMuT98/dTQN+M/DCj72Od/xquk3CHDieMx590aYdKONKy9GHbqFEnomZU6idto4ih9UADBKe7f+Zm2yZsTlzbg+ICiqYocvTwXb8b6PO79P0l32gZLpY=
+	t=1790079552; cv=none; b=fFkXf/u31uJ366Y0hPXDMhSnn5kMzzT+v0vuiaVwqr6X5fhwmnHRNxVZo4yiheSC2v5FfPV+A8nrW+l2Dbgb2zKJgoQI0X9KyY/SjLdeEz04jj0rYbcSYKfNZqWJRu+Gfz32aQ4j7g550n/2tjaO+TdAIgichGHGmu1BYuasuNM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790079532; c=relaxed/simple;
-	bh=LM/afi65aWZ4+XAKFFtZ7nutNXveXVpODzLOJyBh0gI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Y6qCS3ao7PyJfVIH3ESwXZqfw/o/+mGqnJz/wM5Eo4Wqudp7rEMh37tT0PMs+ZUm2VJDYXFGOgY6YLMhBSB19DhToxoJQI1STAHD8a8vxaZ9V9U/AGCSXW/QI+mGjDgG5s+JbjTJYNHUAPH9s98acJJDs7oj+TDw7jqyD9J2eSs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=S3ekDX2Q; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790079552; c=relaxed/simple;
+	bh=vrNSAD0zEYyjfJk03+WsZR8WvK/X5v4FTCoyjX/HhHc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=lk0jRIjp1wmOsXssRgMNpW+VKLhz7EFbWnfLy7s6vddU9/dfrBdjG0DbDabghW1ERwbXEV8bhb2xmWWxgZ4mqAJiTf+Bsh4AIxwvghLj0z12yVhOhgeexgdCJro4APv89tTylZ0j3xYyrMabsfaa/Tiit9i9OppdBYagVrAlEsc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U+fTsZuY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="S3ekDX2Q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95F2C1F000FF;
-	Tue, 22 Sep 2026 12:18:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790079531;
-	bh=Vbui7HjCdBBHvujgz5AmfH+5PLds9eIRfrm2gZ3T880=;
-	h=Subject:To:Cc:From:Date;
-	b=S3ekDX2QxNjMjnnj5T4f8KReFnAh9Witg+DSfrgPgD8WNiW6GyM1l30UDGHUQKozR
-	 k9qs2KVGg5epkDnbxygzEPVUPM7lXcqMqz6pgTBA+jkgB2ye799ug53rDw4TbEMJIy
-	 4oxl2Nmd700kmJblAAqkzctUFtOHoZzpIAfh4aWc=
-Subject: FAILED: patch "[PATCH] KEYS: encrypted: fix integer overflow of datablob_len" failed to apply to 5.15-stable tree
-To: cenzhang@linux.microsoft.com,francis@akrites.dev,jarkko@kernel.org,rnsastry@linux.ibm.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Tue, 22 Sep 2026 14:10:02 +0200
-Message-ID: <2026092202-sureness-playpen-b398@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U+fTsZuY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF0C81F0089F;
+	Tue, 22 Sep 2026 12:19:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790079551;
+	bh=sqSNUoFYVQFnhYlC2sjuNpB8Pn6nj7ytmhctuSitdjw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=U+fTsZuY84AhcM5D68JC/QR6LwxnY9jSNUH+S+Xig/In/YtmlYSN/Sro3PUZp5w+B
+	 VW3toJj9yuK1JsaZlCzoVI7IgCTbr6A33q33RC8Y2rX8Ji4YMJFS9DtrXFb5gAOxvs
+	 zNhf46kYB3tGEahcGb3+5G3Vzjh9JPX7TJuFImxIrtTbAEs8Rebjf6jgioWjAUFtHU
+	 dYr3Jrh85xijGr1QGNXOlKzWdv9P1LJa0RkZrfHy/dvUFA2zSaOur8xb+U3XjTUef6
+	 zFH5MmWEjMq+yDCdUfDf2fdDeBSPLkvIoQK6Ri0WFQDyLyJa8IushCcBOMLYu6TJ3I
+	 M9qwvJQe1Hftg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: David Howells <dhowells@redhat.com>,
+	"Paulo Alcantara (Red Hat)" <pc@manguebit.org>,
+	linux-cifs@vger.kernel.org,
+	Steve French <stfrench@microsoft.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] cifs: Fix specification of function pointers
+Date: Tue, 22 Sep 2026 08:19:06 -0400
+Message-ID: <20260922121907.2213071-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026092222-rubbing-overplay-5a22@gregkh>
+References: <2026092222-rubbing-overplay-5a22@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+From: David Howells <dhowells@redhat.com>
 
-The patch below does not apply to the 5.15-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+[ Upstream commit 6a86a4cc281a5cfceda7af60ea6fa506b3db7430 ]
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Change the mid_receive_t, mid_callback_t and mid_handle_t function pointers
+to have the pointer marker in the typedef.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
-git checkout FETCH_HEAD
-git cherry-pick -x 8697c431e297eb0d0ab13dda6bc172b48a34f05c
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092202-sureness-playpen-b398@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+Signed-off-by: David Howells <dhowells@redhat.com>
+Reviewed-by: Paulo Alcantara (Red Hat) <pc@manguebit.org>
+cc: linux-cifs@vger.kernel.org
+Signed-off-by: Steve French <stfrench@microsoft.com>
+Stable-dep-of: c60ae98c5aa6 ("9p: Fix v9fs_issue_write() to update i_size and remote_i_size")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/smb/client/cifsglob.h  | 12 ++++++------
+ fs/smb/client/cifsproto.h |  8 ++++----
+ fs/smb/client/transport.c |  4 ++--
+ 3 files changed, 12 insertions(+), 12 deletions(-)
 
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 8697c431e297eb0d0ab13dda6bc172b48a34f05c Mon Sep 17 00:00:00 2001
-From: Cen Zhang <cenzhang@linux.microsoft.com>
-Date: Sat, 12 Sep 2026 00:31:16 +0300
-Subject: [PATCH] KEYS: encrypted: fix integer overflow of datablob_len
-
-encrypted_key_alloc() stores datablob_len in a u16. It is computed from
-multiple string and payload lengths. If the result exceeds U16_MAX, the
-assignment truncates the allocation size. KASAN reports a 32760-byte
-slab-out-of-bounds write when __ekey_init() copies the master key
-description into the undersized buffer.
-
-The total payload length stored in key->datalen is also a u16. Use
-check_add_overflow() to reject values that do not fit either destination,
-and use kzalloc_flex() for the flexible-array allocation.
-
-Fixes: 7e70cb497850 ("keys: add new key-type encrypted")
-Cc: stable@vger.kernel.org
-Assisted-by: GitHub-Copilot:claude-opus-4.6
-Signed-off-by: Cen Zhang <cenzhang@linux.microsoft.com>
-Signed-off-by: Francis Perron <francis@akrites.dev>
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
-Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
-Link: https://lore.kernel.org/r/20260909153433.83117-1-cenzhang@linux.microsoft.com
-Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
-
-diff --git a/security/keys/encrypted-keys/encrypted.c b/security/keys/encrypted-keys/encrypted.c
-index 59cb77b237b3..e07092ea301a 100644
---- a/security/keys/encrypted-keys/encrypted.c
-+++ b/security/keys/encrypted-keys/encrypted.c
-@@ -19,6 +19,7 @@
- #include <linux/parser.h>
- #include <linux/string.h>
- #include <linux/err.h>
-+#include <linux/overflow.h>
- #include <keys/user-type.h>
- #include <keys/trusted-type.h>
- #include <keys/encrypted-type.h>
-@@ -579,6 +580,7 @@ static struct encrypted_key_payload *encrypted_key_alloc(struct key *key,
+diff --git a/fs/smb/client/cifsglob.h b/fs/smb/client/cifsglob.h
+index 3f9c03828cd4f..1734ae9bf318e 100644
+--- a/fs/smb/client/cifsglob.h
++++ b/fs/smb/client/cifsglob.h
+@@ -1619,7 +1619,7 @@ static inline void cifs_stats_bytes_read(struct cifs_tcon *tcon,
+  * Returns zero on a successful receive, or an error. The receive state in
+  * the TCP_Server_Info will also be updated.
+  */
+-typedef int (mid_receive_t)(struct TCP_Server_Info *server,
++typedef int (*mid_receive_t)(struct TCP_Server_Info *server,
+ 			    struct mid_q_entry *mid);
+ 
+ /*
+@@ -1630,13 +1630,13 @@ typedef int (mid_receive_t)(struct TCP_Server_Info *server,
+  * - it will be called by cifsd, with no locks held
+  * - the mid will be removed from any lists
+  */
+-typedef void (mid_callback_t)(struct mid_q_entry *mid);
++typedef void (*mid_callback_t)(struct mid_q_entry *mid);
+ 
+ /*
+  * This is the protopyte for mid handle function. This is called once the mid
+  * has been recognized after decryption of the message.
+  */
+-typedef int (mid_handle_t)(struct TCP_Server_Info *server,
++typedef int (*mid_handle_t)(struct TCP_Server_Info *server,
+ 			    struct mid_q_entry *mid);
+ 
+ /* one of these for every pending CIFS request to the server */
+@@ -1654,9 +1654,9 @@ struct mid_q_entry {
+ 	unsigned long when_sent; /* time when smb send finished */
+ 	unsigned long when_received; /* when demux complete (taken off wire) */
+ #endif
+-	mid_receive_t *receive; /* call receive callback */
+-	mid_callback_t *callback; /* call completion callback */
+-	mid_handle_t *handle; /* call handle mid callback */
++	mid_receive_t receive;	/* call receive callback */
++	mid_callback_t callback; /* call completion callback */
++	mid_handle_t handle;	/* call handle mid callback */
+ 	void *callback_data;	  /* general purpose pointer for callback */
+ 	struct task_struct *creator;
+ 	void *resp_buf;		/* pointer to received SMB header */
+diff --git a/fs/smb/client/cifsproto.h b/fs/smb/client/cifsproto.h
+index d2d004764a708..e2a7d55a2502d 100644
+--- a/fs/smb/client/cifsproto.h
++++ b/fs/smb/client/cifsproto.h
+@@ -96,10 +96,10 @@ extern int cifs_ipaddr_cmp(struct sockaddr *srcaddr, struct sockaddr *rhs);
+ extern bool cifs_match_ipaddr(struct sockaddr *srcaddr, struct sockaddr *rhs);
+ extern int cifs_discard_remaining_data(struct TCP_Server_Info *server);
+ extern int cifs_call_async(struct TCP_Server_Info *server,
+-			struct smb_rqst *rqst,
+-			mid_receive_t *receive, mid_callback_t *callback,
+-			mid_handle_t *handle, void *cbdata, const int flags,
+-			const struct cifs_credits *exist_credits);
++			   struct smb_rqst *rqst,
++			   mid_receive_t receive, mid_callback_t callback,
++			   mid_handle_t handle, void *cbdata, const int flags,
++			   const struct cifs_credits *exist_credits);
+ extern struct TCP_Server_Info *cifs_pick_channel(struct cifs_ses *ses);
+ extern int cifs_send_recv(const unsigned int xid, struct cifs_ses *ses,
+ 			  struct TCP_Server_Info *server,
+diff --git a/fs/smb/client/transport.c b/fs/smb/client/transport.c
+index c3940d3ecd5f3..14dacf2967146 100644
+--- a/fs/smb/client/transport.c
++++ b/fs/smb/client/transport.c
+@@ -792,8 +792,8 @@ cifs_setup_async_request(struct TCP_Server_Info *server, struct smb_rqst *rqst)
+  */
+ int
+ cifs_call_async(struct TCP_Server_Info *server, struct smb_rqst *rqst,
+-		mid_receive_t *receive, mid_callback_t *callback,
+-		mid_handle_t *handle, void *cbdata, const int flags,
++		mid_receive_t receive, mid_callback_t callback,
++		mid_handle_t handle, void *cbdata, const int flags,
+ 		const struct cifs_credits *exist_credits)
  {
- 	struct encrypted_key_payload *epayload = NULL;
- 	unsigned short datablob_len;
-+	unsigned short payload_totallen;
- 	unsigned short decrypted_datalen;
- 	unsigned short payload_datalen;
- 	unsigned int encrypted_datalen;
-@@ -632,16 +634,22 @@ static struct encrypted_key_payload *encrypted_key_alloc(struct key *key,
- 
- 	encrypted_datalen = roundup(decrypted_datalen, blksize);
- 
--	datablob_len = format_len + 1 + strlen(master_desc) + 1
--	    + strlen(datalen) + 1 + ivsize + 1 + encrypted_datalen;
-+	if (check_add_overflow(format_len + 1 + strlen(master_desc) + 1
-+			       + strlen(datalen) + 1 + ivsize + 1,
-+			       encrypted_datalen, &datablob_len))
-+		return ERR_PTR(-EINVAL);
- 
--	ret = key_payload_reserve(key, payload_datalen + datablob_len
--				  + HASH_SIZE + 1);
-+	if (check_add_overflow(datablob_len,
-+			       payload_datalen + HASH_SIZE + 1,
-+			       &payload_totallen))
-+		return ERR_PTR(-EINVAL);
-+
-+	ret = key_payload_reserve(key, payload_totallen);
- 	if (ret < 0)
- 		return ERR_PTR(ret);
- 
--	epayload = kzalloc(sizeof(*epayload) + payload_datalen +
--			   datablob_len + HASH_SIZE + 1, GFP_KERNEL);
-+	epayload = kzalloc_flex(*epayload, payload_data, payload_totallen,
-+				GFP_KERNEL);
- 	if (!epayload)
- 		return ERR_PTR(-ENOMEM);
- 
+ 	int rc;
+-- 
+2.53.0
 
