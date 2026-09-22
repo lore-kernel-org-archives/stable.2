@@ -1,137 +1,160 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f31.google.com (mail-pj2-f31.google.com [74.125.227.159])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0009E39182A;
-	Tue, 22 Sep 2026 03:14:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DFA7299920
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 03:15:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.159
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790046860; cv=none; b=ofsxQRCXKSgydGP+/xH+Qr1UTyiIFlsPeZ/Z09onoXLX5mWyqyTsmkt6mBONk6xvzMBq5/wqImc6dG6APY1i1XMBcZvoiy3uYnIyIHs1wagvO1k3x+x7MtPVEnMUYraJiiFa0l9ps2Q2NJAisENGWVSl1yfdnFSnrVyxH/M6GOQ=
+	t=1790046955; cv=none; b=qc+y7LcTuuOkD6c+fsjLG7LSzBfghgqBnXYXd679YcSBOVQhTDdWUzTzKfw6p0KXT0eMpsDA6GkML2EwocjgqWUOiXYgwtVE9vKly/wfjnJHVkRV4rEhLrz0uuZMf/HOr5+Qv6T01fVbgbMuEkWxX4gld3D/GI1VWCEryZVdDz4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790046860; c=relaxed/simple;
-	bh=obg0oXGgsBAMkBRdKYDmxHCHeYv8nX7lxnpuF9gPeY8=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=RuOTjznXgI/cEcunFLVxO6zMU1+jm51Ix2j29NlUDNpnuCjDOOx39rI/+c1ssqffl3YMvKjHODVXN1GA5FUfvbiVm2Z5R+yErxuQ5qSeIse11j765/80uDdNeshk8X/Dc/TpOXk1JHs4hMCD3j7uNfQV7IhNOeWUW/lW+ATuKA8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Qu4AwNB2; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Ywbb4kPt; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1790046955; c=relaxed/simple;
+	bh=iSmmkgyOikY+CwgD/N7u04Ao1UfAh/QWnDwyIjtT3rQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OrEvfYUg+80B/myL6azq5uXVHlDbyrYPTNyC27mzttBKv5Vg3f6DRcriDdgALgRZZqLDNXEP4xjbweuZvnWMKWU+GPdBsrMFC5+25MQhW0gHlH5ZQ8/2sWa2+0nEGT2nezQtSd4Cu7mlPp/uSFdMGG60UuBTRTv+ue5AL9/B2W4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BoytIRsp; arc=none smtp.client-ip=74.125.227.159
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Qu4AwNB2";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Ywbb4kPt"
-Date: Tue, 22 Sep 2026 03:14:12 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790046854;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=x6PBSO4w1mJ8PEEYgWsvL6BPY0w4uOQhVpwDDkQcYZk=;
-	b=Qu4AwNB2QlnO3p/qYhWF/DIiL7N6EApYjAje4Rf9g0MYTTJq/Pg9b+FPT9t/nMc55RSJpa
-	dL8nq7kGkoy/G5FF0YeyP5aNj6CkvSeI3yVtexJD0lJYMLZDYAVLvtuK/0Re65wBM+4Zxj
-	kOZFDrkwNNkW/vS7ME0FMtFpmcsvUP3rtAR7dfqo1vfUgC74wfMKI4GaxryPuNF/cocmhr
-	NKXcoaAI6Dkvln+Esb0rPXFHSp0VsayNTeNSEVdGe57gDhKnScmECzJrIFaQ0SA6AiyZCv
-	Hyo7+1S8VDd/5LPsqEsfUyV1Hzz8PJcDM5Gi8DDNugrk1FVMFGzSCBkoJoz+Bw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790046854;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=x6PBSO4w1mJ8PEEYgWsvL6BPY0w4uOQhVpwDDkQcYZk=;
-	b=Ywbb4kPt0ZApDkBkxUV6BNfTEvot5SynJcjLrAgwIxyIvtZP64OAf/Do37nLmjD2UKNJMO
-	X3AIdPtuGCXiOQBQ==
-From: "tip-bot2 for Melody Wang" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: x86/urgent] x86/sev: Make vTPM SVSM calls preemption-safe
-Cc: Melody Wang <huibo.wang@amd.com>, "Borislav Petkov (AMD)" <bp@alien8.de>,
- Stefano Garzarella <sgarzare@redhat.com>, stable@vger.kernel.org,
- x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To:
- <a5bc0d4a2c462a0089109e145c21626b244b2ff0.1789345277.git.huibo.wang@amd.com>
-References:
- <a5bc0d4a2c462a0089109e145c21626b244b2ff0.1789345277.git.huibo.wang@amd.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BoytIRsp"
+Received: by mail-pj2-f31.google.com with SMTP id d9443c01a7336-2dd53691be5so34125275ad.1
+        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 20:15:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790046953; x=1790651753; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Uvk79jd+WkOqoSsKYqTDa1SfAv/OPPokbPe5GWlulBo=;
+        b=BoytIRspLzHOGgFvPKbFZ8AuNmWz6hbkuY/d//8pfnmUlFz787w1Lr8tHMMRDE7PVh
+         kO+k06SdRarVJ94t/06HYAc0kTNCtZIbXupY5aPxE2OrLjgYKuyxurZ2n8VC4jxG6TXS
+         TAZiL9509jCUbNsdHunNSR7KXh5mE7q29p8IT4i91djM62Owt2grIbNzxlzU/1zn0eIE
+         Laoz+ndT2e780Qm19WlzIIK28GzclL0ZyJ2o3ZywUjNC9oTAtx7Ca7AR1p5SJlfNfVTm
+         +zfn+WFxlfuXTZuS52UbyIokIElZiU2igCCZrMR6UnnHOqyFXDRc/wZr2a8YPgM7syhn
+         CwfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790046953; x=1790651753;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Uvk79jd+WkOqoSsKYqTDa1SfAv/OPPokbPe5GWlulBo=;
+        b=Dk0cogrGVnSYVi8Q8p3jBBerIibiuU8bqeEOroiAc2QSuXDcCUt5sHu+SeFNoKLFUO
+         Acy/DeX/GXAFnG3JbyFTFrIljl1wt+y7UUc8T879KEGnfuSHqd/sFoQhMUqRKrTntxR4
+         5/dY6UMJjO1Yl6lum5pjFC9r/+R7qjuZdqfmvGt1G4DNNYMdXVr/+l0aFZF8VHQUyJa+
+         ryJa6KSbGbzahlrkzaYvTgYr0YRfInNsqYDJtFrN1oi6rxYGQ6l5lIggQ2ctRmxTYMLg
+         s+Cx85SgrvWUaXgpr72wHP64xUqA5Jb8L+W1ZU6ne7tGx0MWQurkadY4dCRZk4cPZ3He
+         PZ+Q==
+X-Forwarded-Encrypted: i=1; AKwUvBx9p5rqXZUi4XJeHREq0eGkdGckj1+fBGcZ5NyuMlidhWtHiOx+6UCGtctBDPS6BOdes0Fjz40=@vger.kernel.org
+X-Gm-Message-State: AFuF++mwYm6heSsTn9cRJJNGuMUbIFCpBlwRa2QIwBusAPm5F4itoUs5
+	HWZ68Ud+m/+8xb8h0CKYH6XI2JRZWZgduGtt4V+HF4ie0lN+ZyVCEg/O
+X-Gm-Gg: AYBFou0MtWGF2wZKjuKsXi25KLLDuG6V3ieUXYYml5wYZPy7fImaO/yXD+cOBzjXEGo
+	XHE3Zp6lGxxQpiLVXYUtWyJ67DXudZf6r4ZdfNl4lcq4MKVRJa+j0eva/sjAVfeht8ysrY1wFLI
+	OQTVu4wOr8FKKGPqSRh7gv1mv6LdjjZrQWRNEzilQ+qI0cU0SlHXnMrCI0fxZ949bdeNjEint3s
+	6X+e8tRFLeeX9ZekIV3GADzw9Ofl5yanAhShvvEvaj/Sj1QeARYLhwoqNEBrXcPGNGZepMss39d
+	g7uqJYO7QGBJ0kf2ffvljM1A3J68RTySiOybWv9rQtpN5/yCjQM4pvoZKIA+ZvTywJNS3K1uQaJ
+	Y4gETYR7jYa3DNi97YmtcmfdKkZd7puU82CeAhac1XPX79jpNxc3/UHogbFeA2uNEx62Xoisdsz
+	32kANpP26qed2dFvx2BrtXwoIIHFtsaDabeq1z12zBTHlOq9XlsWiBR9CM3OzRumfCBRdRskiH6
+	jyaVKC45cLAXMNVTknyk6aN
+X-Received: by 2002:a17:903:8c6:b0:2df:42de:f71 with SMTP id d9443c01a7336-2df42de1624mr79060165ad.19.1790046953165;
+        Mon, 21 Sep 2026 20:15:53 -0700 (PDT)
+Received: from localhost.localdomain ([43.224.245.233])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df5cf84221sm1893045ad.10.2026.09.21.20.15.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 20:15:52 -0700 (PDT)
+From: Dongliang Qin <cccccccccccc777777@gmail.com>
+To: netdev@vger.kernel.org
+Cc: achender@kernel.org,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	linux-rdma@vger.kernel.org,
+	rds-devel@oss.oracle.com,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Dongliang Qin <cccccccccccc777777@gmail.com>
+Subject: [PATCH net v2] rds: ib: Clear the sg list when mapping an MR fails
+Date: Tue, 22 Sep 2026 11:15:45 +0800
+Message-ID: <20260922031546.3874605-1-cccccccccccc777777@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <179004685258.2819794.12514099294540319299.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-The following commit has been merged into the x86/urgent branch of tip:
+rds_ib_map_frmr() stores the caller's scatterlist in the MR before DMA
+mapping and registration can fail. On failure, __rds_rdma_map() unpins
+the pages and frees the scatterlist, but rds_ib_free_frmr() can still
+return the MR to the pool with the stale pointer set.
 
-Commit-ID:     6c43c72748fffd29dec15cd1f31e9a32949bc437
-Gitweb:        https://git.kernel.org/tip/6c43c72748fffd29dec15cd1f31e9a32949=
-bc437
-Author:        Melody Wang <huibo.wang@amd.com>
-AuthorDate:    Mon, 14 Sep 2026 00:57:17=20
-Committer:     Borislav Petkov (AMD) <bp@alien8.de>
-CommitterDate: Mon, 21 Sep 2026 19:59:25 -07:00
+This leaves the pool with a dangling scatterlist and can lead to local
+privilege escalation. KASAN detects the resulting use-after-free when the
+MR is later torn down:
 
-x86/sev: Make vTPM SVSM calls preemption-safe
+BUG: KASAN: slab-use-after-free in __rds_ib_teardown_mr
+Read of size 8
 
-Two functions in the SVSM vTPM guest implementation do not disable
-preemption when fetching the SVSM Calling Area Address (CAA).
+Call Trace:
+ __rds_ib_teardown_mr
+ rds_ib_unreg_frmr
+ rds_ib_flush_mr_pool
+ rds_ib_flush_mrs
+ rds_free_mr
+ rds_setsockopt
 
-The SVSM CAA is a per-CPU structure. When a thread is preempted and migrated
-to a different CPU after fetching the per-CPU CAA, the SVSM call will execute
-on the new CPU with the original CPU's CAA. Which is wrong.
+Store the scatterlist in the MR only after DMA mapping succeeds. If DMA
+mapping fails, return directly while the MR fields remain clear; the caller
+keeps ownership of the scatterlist and its pinned pages. If a later
+registration step fails, unmap the scatterlist and clear the MR fields
+before returning.
 
-Move the CAA fetching operation inside svsm_perform_call_protocol() which
-disables interrupts around the SVSM call and thus runs preemption-safe.
-
-Fixes: 770de678bc28 ("x86/sev: Add SVSM vTPM probe/send_command functions")
-Signed-off-by: Melody Wang <huibo.wang@amd.com>
-Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Reviewed-by: Stefano Garzarella <sgarzare@redhat.com>
+Fixes: 1659185fb4d0 ("RDS: IB: Support Fastreg MR (FRMR) memory registration mode")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/a5bc0d4a2c462a0089109e145c21626b244b2ff0.17893=
-45277.git.huibo.wang@amd.com
+Signed-off-by: Dongliang Qin <cccccccccccc777777@gmail.com>
 ---
- arch/x86/coco/sev/svsm.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+Changes in v2:
+- Store the scatterlist in the MR only after DMA mapping succeeds.
+- Return directly if DMA mapping fails, leaving the MR fields clear.
+- Link to v1: https://lore.kernel.org/netdev/20260920063449.1594203-1-cccccccccccc777777@gmail.com/
 
-diff --git a/arch/x86/coco/sev/svsm.c b/arch/x86/coco/sev/svsm.c
-index 916d62c..2d493d5 100644
---- a/arch/x86/coco/sev/svsm.c
-+++ b/arch/x86/coco/sev/svsm.c
-@@ -74,6 +74,14 @@ int svsm_perform_call_protocol(struct svsm_call *call)
-=20
- 	flags =3D native_local_irq_save();
-=20
-+	/*
-+	 * 'caa' is a per-CPU variable. To avoid using a stale or incorrect
-+	 * 'caa' if the task is preempted or migrated to another CPU after it
-+	 * is fetched, always fetch 'caa' and then issue the SVSM call with
-+	 * interrupts disabled. This ensures the correct 'caa' is used.
-+	 */
-+	call->caa =3D svsm_get_caa();
-+
- 	ghcb =3D __sev_get_ghcb(&state);
-=20
- 	do {
-@@ -321,7 +329,6 @@ int snp_svsm_vtpm_send_command(u8 *buffer)
- {
- 	struct svsm_call call =3D {};
-=20
--	call.caa =3D svsm_get_caa();
- 	call.rax =3D SVSM_VTPM_CALL(SVSM_VTPM_CMD);
- 	call.rcx =3D __pa(buffer);
-=20
-@@ -345,7 +352,6 @@ bool snp_svsm_vtpm_probe(void)
- 	if (!snp_vmpl)
- 		return false;
-=20
--	call.caa =3D svsm_get_caa();
- 	call.rax =3D SVSM_VTPM_CALL(SVSM_VTPM_QUERY);
-=20
- 	if (svsm_perform_call_protocol(&call))
+net/rds/ib_frmr.c | 11 +++++------
+1 file changed, 5 insertions(+), 6 deletions(-)
+
+diff --git a/net/rds/ib_frmr.c b/net/rds/ib_frmr.c
+index bd8611911..8397aa4a1 100644
+--- a/net/rds/ib_frmr.c
++++ b/net/rds/ib_frmr.c
+@@ -204,19 +204,16 @@ static int rds_ib_map_frmr(struct rds_ib_device *rds_ibdev,
+ 	 */
+ 	rds_ib_teardown_mr(ibmr);
+ 
+-	ibmr->sg = sg;
+-	ibmr->sg_len = sg_len;
+-	ibmr->sg_dma_len = 0;
+ 	frmr->sg_byte_len = 0;
+-	WARN_ON(ibmr->sg_dma_len);
+-	ibmr->sg_dma_len = ib_dma_map_sg(dev, ibmr->sg, ibmr->sg_len,
++	ibmr->sg_dma_len = ib_dma_map_sg(dev, sg, sg_len,
+ 					 DMA_BIDIRECTIONAL);
+ 	if (unlikely(!ibmr->sg_dma_len)) {
+ 		pr_warn("RDS/IB: %s failed!\n", __func__);
+ 		return -EBUSY;
+ 	}
+ 
+-	frmr->sg_byte_len = 0;
++	ibmr->sg = sg;
++	ibmr->sg_len = sg_len;
+ 	frmr->dma_npages = 0;
+ 	len = 0;
+ 
+@@ -264,6 +261,8 @@ static int rds_ib_map_frmr(struct rds_ib_device *rds_ibdev,
+ 	ib_dma_unmap_sg(rds_ibdev->dev, ibmr->sg, ibmr->sg_len,
+ 			DMA_BIDIRECTIONAL);
+ 	ibmr->sg_dma_len = 0;
++	ibmr->sg = NULL;
++	ibmr->sg_len = 0;
+ 	return ret;
+ }
+ 
+-- 
+2.43.0
