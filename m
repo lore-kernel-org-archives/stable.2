@@ -1,45 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 988CF3845D8;
-	Tue, 22 Sep 2026 06:45:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43C0A5187FE;
+	Tue, 22 Sep 2026 06:53:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790059523; cv=none; b=pkWo9jGnwDZR2WYIIZ5hWc5rn1IJiRDqe9xG73/36EUF+XNmDP6iOy5Qk5jZ8F4iKXRuDTg5Uh6PLQaLFPr3cxNf6SVWuuXAORoxH5Ste9ZJCOGAt/bzNgDYAjSJ91BcBED7XvgzU70E4pkpNXQHl7obbcx7obhbJ5mwEOgIw6s=
+	t=1790059987; cv=none; b=FopcPcey94PNme5f7Gddi555ToUS3Ejw0Hc4d9YyRWVdhcAc/0y2N1eJgNNks4y8awK0NdwAqRsLps35TB8M8MPVmHRC/loUmSUR8JB7fwdO4SReuhqLMdHq2Hw1xAtZ+IB9snKzvzKNjtbf+VfRcBU8/eKAW66WNM9S7aVb3rE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790059523; c=relaxed/simple;
-	bh=Bic2HmDnu/3YfGTM3rft6/HYkuEdDJkgfkcSRjpKiCg=;
+	s=arc-20240116; t=1790059987; c=relaxed/simple;
+	bh=+StIT6EmGrgPOrAtmIXXZDr9d13WH9BJM/SnlK5qcrQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=o/o+dL3qR1YR3gqcalwWD85JYlunPTETfRmaYYfQ7U0yUCZ/MriBIO1W/6+pW2BXHu7eI5eTSV+qCQAXoVsLKhQuMaU0RDmuHMVOWP6JTdfzOYXImaucm2etqxNKeqbwrwQbJfCVORlmPv07tH878EG10BWt+XFEdgLkXLG47Wo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UmGJvweB; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Nch2/L3TlhFyhCJJ046T5TfWOOhTZbybS7BcPRENwZu6V5hXaWqbEMhzbqswoK2a35I94/Gil6/EOwRGYVrbR8V52Je96k1484CISKhZsdxpo8KMo4XO3OQ0qgX/W556TGuJI+XH2yLwALKKBwLhpWbAtDpMob6WHPjpgvjjloA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c1PfaDTj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UmGJvweB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D4A61F000FF;
-	Tue, 22 Sep 2026 06:45:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c1PfaDTj"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 1E8171F000FF;
+	Tue, 22 Sep 2026 06:53:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790059520;
-	bh=hoPyg2SIrsoK+SSMxG1vwxO63HiOF3XndXbQAp8ZbRQ=;
+	s=k20260515; t=1790059986;
+	bh=ZLptsZejgtdfGTR8FErIULNWvg92OFalqesM1cag7fg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UmGJvweBVxOynT7j+Gqjjm2LzYYprQN0fcyy6PM9Jb1M08HBX8oMVvM6eHS45dDk3
-	 YjiexvypK1R1hGq/kuQSDFAG4oeJgoFBGJtrXuYY/NWABpZApQbkYA1ZbbC1Fp2T7P
-	 Q59fw5+po2bmBQe6TXHUj338flIIT+uy6m8J1XRKZO2gnHmfybPWWHmlh+3/div+SU
-	 KLaKZlxuuiZPzRp0TA8rNzI3KYp6G79u6WQgWyCgrE2TtlKTxOvNAmclkO2AuPTKdH
-	 aEU+6Mf1PMJk+q7/hsNEgmBB+MXoZTBzNy8T3Pniths2Z0BM2B8wXHGfNsgKv0SE23
-	 76fF0DV6A8x2w==
-Date: Tue, 22 Sep 2026 09:45:12 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Cc: akpm@linux-foundation.org, peterx@redhat.com, surenb@google.com,
-	aarcange@redhat.com, david@kernel.org, ljs@kernel.org,
-	liam@infradead.org, vbabka@kernel.org, mhocko@suse.com,
-	shuah@kernel.org, linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v1 1/2] userfaultfd: clear the inherited uffd bit in
- move_swap_pte()
-Message-ID: <arIj-DZ3BtxMEzLB@kernel.org>
-References: <20260919004630.1159895-1-donggeunyoo.kernel@gmail.com>
- <20260919004630.1159895-2-donggeunyoo.kernel@gmail.com>
+	b=c1PfaDTjCMOZoQY30xMWav7XcyB9vxRovQHy9AQhYJK0L4qU0rWia+RUk32pvlk80
+	 She3GUMc/9h8qNkTa0CEMyANhSSOLismqRDapZUCTsX2bMdHXhbspqZhGi0W3lNs4J
+	 HwpXBZ/hRtaHVudmq8+AeU/VwcfDFUNOxxPYli9BEsnAN9nsAqfIXhGCUUeoYf0EPQ
+	 +wYnFjAAexezaoTl7Jlz1SLt9ouLvobPsc4IZnDYddsKwRtDIw7F4pkUQBZDAChnB5
+	 JwX63Xgn1Lvk1oiDeLvrHf73cozffgTiQllAuloGJeCZjsvM2q0PC2n1JVahgIsBlT
+	 O11ZyyibbNfyg==
+Date: Mon, 21 Sep 2026 23:53:05 -0700
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: Christoph Hellwig <hch@infradead.org>
+Cc: cem@kernel.org, stable@vger.kernel.org, linux-xfs@vger.kernel.org
+Subject: Re: [PATCH 08/14] xfs: fix maximum atomic cow length computation
+Message-ID: <20260922065305.GT6283@frogsfrogsfrogs>
+References: <178996120463.181988.9152653965555322220.stgit@frogsfrogsfrogs>
+ <178996120721.181988.7950955477687457877.stgit@frogsfrogsfrogs>
+ <arIQUbrLZNVv10Mo@infradead.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,63 +43,19 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260919004630.1159895-2-donggeunyoo.kernel@gmail.com>
+In-Reply-To: <arIQUbrLZNVv10Mo@infradead.org>
 
-Hi,
-
-On Sat, Sep 19, 2026 at 09:46:29AM +0900, Donggeun Yoo wrote:
-> UFFDIO_MOVE on a swapped-out page installs the source PTE at the
-> destination unchanged, so a uffd bit set on the source lands in a
-> destination VMA that was never registered for write protection.  It is
-> then permanent: the bit is dropped only by change_protection() under
-> MM_CP_UFFD_{WP,RWP}_RESOLVE, which uffd_wp_range(), mrwprotect_range()
-> and userfaultfd_clear_vma() issue only for a VMA registered in that
-> mode.  pagemap reports the page as uffd-tracked, and MADV_COLLAPSE
-> refuses the range while the bit is set, because collapse_scan_pmd() is
-> strict about uffd on swap entries.
+On Mon, Sep 21, 2026 at 10:21:21PM -0700, Christoph Hellwig wrote:
+> On Sun, Sep 20, 2026 at 11:17:04PM -0700, Darrick J. Wong wrote:
+> > From: Darrick J. Wong <djwong@kernel.org>
+> > 
+> > LOLLM says rounddown_pow_of_two acts funny if you pass it 0, so we need
+> > to catch this possibility because maybe the filesystem doesn't support
+> > software atomic writes at all.
 > 
-> move_present_ptes() and move_zeropage_pte() build the destination PTE
-> from dst_vma->vm_page_prot and arm RWP only when dst_vma asks for it, so
-> the destination's own registration decides the result.  move_swap_pte()
-> copies the source PTE instead and only ever sets the bit, never clears
-> it, so one UFFDIO_MOVE behaves differently depending on whether the page
-> happened to be resident.
-> 
-> Clear the uffd bit on the moved swap entry unless the destination is
-> RWP-registered, as copy_nonpresent_pte() does where it installs a PTE
-> into a destination that may not be armed.  A WP-registered destination
-> stops inheriting the bit as well, which is already what it gets when the
-> moved page is resident.
+> Can this happen?  Shouldn't the xfs_can_sw_atomic_write() above guard
+> against this?
 
-This is a hard-to-read wall of text :(
+Hmm.  Yes it can.  I think I'll drop this one.
 
-Tell your LLM to better split it into paragraph, not to list every involved
-function and in general make it more to the point.
- 
-> Fixes: adef440691ba ("userfaultfd: UFFDIO_MOVE uABI")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-> ---
->  mm/userfaultfd.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-> index 74f04c323c50..6495666c596b 100644
-> --- a/mm/userfaultfd.c
-> +++ b/mm/userfaultfd.c
-> @@ -1452,6 +1452,8 @@ static int move_swap_pte(struct mm_struct *mm, struct vm_area_struct *dst_vma,
->  	/* Re-arm RWP on the moved swap entry if dst_vma is RWP-registered. */
->  	if (userfaultfd_rwp(dst_vma))
->  		orig_src_pte = pte_swp_mkuffd(orig_src_pte);
-> +	else
-> +		orig_src_pte = pte_swp_clear_uffd(orig_src_pte);
->  	set_pte_at(mm, dst_addr, dst_pte, orig_src_pte);
->  	double_pt_unlock(dst_ptl, src_ptl);
->  
-> -- 
-> 2.53.0
-> 
-
--- 
-Sincerely yours,
-Mike.
+--D
