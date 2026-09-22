@@ -1,103 +1,100 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6181648B37E
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 18:21:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 275FA475357
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 18:21:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790101280; cv=none; b=Ngf+E8TlLWTvKT3pv3fxWRlFNF3ZSAn/D1bQN2O+mTjyZMCIne3Ol8XH4qVRDFAtK2slZkJ3iC+YbZxRMgI+kffphFxTCh+ZKuLoECUKJMHU8/Fq8fyu9a8oEURkHaZBuFp8AfhazlNOZt1/x5g381GgoEce+qNenSwRHwksklg=
+	t=1790101284; cv=none; b=J2kk2ZeceuDAbGg2NO4Qji+G64WyTwM6ZRwKK07VIsiOvmaXDrlXDBH3S2p4s2I8pBYxT5J5ytwluAiu2jn1Kipo2ZmQib3JQyIoRnQbhN461DswvLNIjY2chFEaRcwg1Lt/AruL+Zqc6gi+xcjCe7y6pC60Ks2AaUNRyxzvkrc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790101280; c=relaxed/simple;
-	bh=q08bMm6TKEscGDYXEC/TAix9da9PxlKDkHBqxe0uSEg=;
+	s=arc-20240116; t=1790101284; c=relaxed/simple;
+	bh=cnco4Qk+LIRfwYU79QZd4fT60rPbGeyGVk88V5STTYE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=uINQEtVBJLvfInl7BOGVEDqL92WDowr7fkGwq1ihEJ33qv3Dw8jogr4XAxsA6JYiqWKYpa75x72gIBE4XDm0361EVxYJ4pe2pIfIsgifhXIR/6LMKLitXT5NFAiZnnQ3TDiX3bKCeZ+Bq9aLhBXw74xMujFi/nEZUSDXHcfh4Jk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PkpO5+e2; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=hN0kcYPANFLTOl98LQq2F7WKoAZRSOO/RTuKNC5x0GKlp3dcBRwdf4LtowsSQnC4RIp77+0l7PgLld+W6ESchK1Vv1R+kpPajF/CscC2C9GDk/2ZWwuppD5f3S4wZjh4kIdBro0Q1egJUv0dOWgVYKA8YPeEhhdsxixJ1uX7HwM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j49irmj1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PkpO5+e2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 824791F000FF;
-	Tue, 22 Sep 2026 18:21:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j49irmj1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63EA91F000FF;
+	Tue, 22 Sep 2026 18:21:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790101279;
-	bh=OT1MHMkc+zNCW5lT7wfagicsSw2C47Qozr7XQC74Rnw=;
+	s=k20260515; t=1790101282;
+	bh=bsIxyO7MC2faxqV0XPETA0SQl9CVAqiIpkhscXAhvCQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PkpO5+e2LDuakPTSskJ//YuW6cOs7NkdO0SMFSCFP1qS3x2+varxLqYW7ZrfkfsfQ
-	 OzeKM6W6kfpT3qYrSo6cFPvN0GTfFfF2IvxMH3JKPwzsnryNPMVv9Dxx/MAxTC5bSn
-	 HVEPS4DWwcu/mSSFRtP3lgcBdFeZfCQRourJNnTLSy2Oonqb7NcEHtjY62+55vAqNL
-	 6382HNayx/vU4ijgNudJ1V4PjlFDYCOaLkWqT/TJ/BaHIQen5K4hTd2OB6Ilkiqa6m
-	 BiNSFOLPACcTwJFA/0GUPehMd4V2dni4QpwVf9dCEGElHXTk7LH/3Qwei7n1yp9XyP
-	 q5+qOi5vQHjBw==
+	b=j49irmj11DUHnTSFsfo/o/OBDPOJ3D7B2cSh3TQt/iPDDRQCohpCi+CzSnPiXbVWY
+	 IkXJzNvprOLwAOEmf2LQSkfiacr0xzXLVm2ds8XJ674Ly1IK0mDSZkIezXX3q3GQAu
+	 L+1PmYHIt65GhYNIQSey9O0iwnsQauY2XJdlGOylfbvy4qDnvNi1l65yann+0Hz3K2
+	 n8uRHVoSgpyz008+ay4sE3LGGcSow2FJuMTM2ZLCgmcSNZFZWyxhFErfcX8gbkID0q
+	 +pwOzfyNbwuK6EMQhsIg0Ld7IKw1Jw03Ya4GuQO/I5k/rf6kKK5LhKO7ut7G9Yg8KB
+	 EDbKsPmpfWwNQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Guenter Roeck <linux@roeck-us.net>,
+Cc: Eric Biggers <ebiggers@kernel.org>,
+	Johannes Berg <johannes.berg@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] hwmon: (pmbus/core) increase number of phases and add new mask
+Subject: [PATCH 6.18.y 1/4] wifi: ipw2x00: Rename michael_mic() to libipw_michael_mic()
 Date: Tue, 22 Sep 2026 14:21:17 -0400
-Message-ID: <20260922182117.3569426-1-sashal@kernel.org>
+Message-ID: <20260922182120.3570035-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092214-quotation-winter-5dc8@gregkh>
-References: <2026092214-quotation-winter-5dc8@gregkh>
+In-Reply-To: <2026092231-good-mahogany-cb59@gregkh>
+References: <2026092231-good-mahogany-cb59@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Nuno Sá <nuno.sa@analog.com>
+From: Eric Biggers <ebiggers@kernel.org>
 
-[ Upstream commit 06bd6794b5fd2163880ac3bfe973d4cc61f359f3 ]
+[ Upstream commit ea06baf59bd4b83c2cb13698411909e5e6be001e ]
 
-Increase the number of phases to 16 as a new upcoming device supports
-such a number.
+Rename the driver-local michael_mic() function to libipw_michael_mic()
+to prevent a name conflict with the common michael_mic() function.
 
-While at it, add a new mask for controlling the source of the output
-voltage.
+Note that this code will be superseded later when libipw starts using
+the common michael_mic().  This commit just prevents a bisection hazard.
 
-Note (groeck):
-
-This patch was meant to prepare for support of MAX20826 and compatible
-devices, which support more than 10 phases per page. However, Sashiko
-reports that the mp2975 driver already supports up to 14 phases, and the
-mp2856 driver supports up to 12 phases. This already has the potential for
-out-of-bounds writes when probing the affected chips, making this patch a
-bug fix.
-
-Fixes: 2c6fcbb21149 ("hwmon: (pmbus) Add support for MPS Multi-phase mp2975 controller")
-Fixes: f9e5f289b686 ("hwmon: (pmbus) Add support for MPS Multi-phase mp2856/mp2857 controller")
-Signed-off-by: Nuno Sá <nuno.sa@analog.com>
-Link: https://patch.msgid.link/20260911-hwmon-max20826-support-v2-1-5e30cbd97d84@analog.com
-Cc: stable@vger.kernel.org
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-[ Adjusted the PMBUS_PHASES hunk for the branch’s existing value of 8 instead of upstream’s 10. ]
+Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+Link: https://patch.msgid.link/20260408030651.80336-2-ebiggers@kernel.org
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+Stable-dep-of: 06f42accaf3c ("wifi: libipw: reject TKIP frames without a full MIC")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hwmon/pmbus/pmbus.h | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/net/wireless/intel/ipw2x00/libipw_crypto_tkip.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/hwmon/pmbus/pmbus.h b/drivers/hwmon/pmbus/pmbus.h
-index a46c479962b05..b4bc3e4d94d03 100644
---- a/drivers/hwmon/pmbus/pmbus.h
-+++ b/drivers/hwmon/pmbus/pmbus.h
-@@ -241,6 +241,7 @@ enum pmbus_regs {
- /*
-  * OPERATION
-  */
-+#define PB_OPERATION_CONTROL_V_SRC	GENMASK(5, 4)
- #define PB_OPERATION_CONTROL_ON		BIT(7)
+diff --git a/drivers/net/wireless/intel/ipw2x00/libipw_crypto_tkip.c b/drivers/net/wireless/intel/ipw2x00/libipw_crypto_tkip.c
+index 32288697da4f5..c91218d457e0f 100644
+--- a/drivers/net/wireless/intel/ipw2x00/libipw_crypto_tkip.c
++++ b/drivers/net/wireless/intel/ipw2x00/libipw_crypto_tkip.c
+@@ -464,7 +464,7 @@ static int libipw_tkip_decrypt(struct sk_buff *skb, int hdr_len, void *priv)
+ 	return keyidx;
+ }
  
- /*
-@@ -376,7 +377,7 @@ enum pmbus_sensor_classes {
- };
+-static int michael_mic(struct crypto_shash *tfm_michael, u8 *key, u8 *hdr,
++static int libipw_michael_mic(struct crypto_shash *tfm_michael, u8 *key, u8 *hdr,
+ 		       u8 *data, size_t data_len, u8 *mic)
+ {
+ 	SHASH_DESC_ON_STACK(desc, tfm_michael);
+@@ -546,7 +546,7 @@ static int libipw_michael_mic_add(struct sk_buff *skb, int hdr_len,
  
- #define PMBUS_PAGES	32	/* Per PMBus specification */
--#define PMBUS_PHASES	8	/* Maximum number of phases per page */
-+#define PMBUS_PHASES	16	/* Maximum number of phases per page */
+ 	michael_mic_hdr(skb, tkey->tx_hdr);
+ 	pos = skb_put(skb, 8);
+-	if (michael_mic(tkey->tx_tfm_michael, &tkey->key[16], tkey->tx_hdr,
++	if (libipw_michael_mic(tkey->tx_tfm_michael, &tkey->key[16], tkey->tx_hdr,
+ 			skb->data + hdr_len, skb->len - 8 - hdr_len, pos))
+ 		return -1;
  
- /* Functionality bit mask */
- #define PMBUS_HAVE_VIN		BIT(0)
+@@ -584,7 +584,7 @@ static int libipw_michael_mic_verify(struct sk_buff *skb, int keyidx,
+ 		return -1;
+ 
+ 	michael_mic_hdr(skb, tkey->rx_hdr);
+-	if (michael_mic(tkey->rx_tfm_michael, &tkey->key[24], tkey->rx_hdr,
++	if (libipw_michael_mic(tkey->rx_tfm_michael, &tkey->key[24], tkey->rx_hdr,
+ 			skb->data + hdr_len, skb->len - 8 - hdr_len, mic))
+ 		return -1;
+ 	if (memcmp(mic, skb->data + skb->len - 8, 8) != 0) {
 -- 
 2.53.0
 
