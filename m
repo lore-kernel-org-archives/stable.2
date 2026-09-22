@@ -1,115 +1,103 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC21948E0C1
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 18:21:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6181648B37E
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 18:21:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790101277; cv=none; b=fkbqMBi9ah/Yh6LXeUGcOCdC4u06zfzBN4ibT6mXxuJAJLJfuTNhxF7N0yj/ZeovlcHUYC1EYkMR9iQ4Qu1XNAXNd02OluR85oKTyPuulKMtJN4vYDAQdenSlhWg1Xp3e5B9DuqaTrVF+3suiR/OPLvzbKEuHLv3QQUfsUumgTY=
+	t=1790101280; cv=none; b=Ngf+E8TlLWTvKT3pv3fxWRlFNF3ZSAn/D1bQN2O+mTjyZMCIne3Ol8XH4qVRDFAtK2slZkJ3iC+YbZxRMgI+kffphFxTCh+ZKuLoECUKJMHU8/Fq8fyu9a8oEURkHaZBuFp8AfhazlNOZt1/x5g381GgoEce+qNenSwRHwksklg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790101277; c=relaxed/simple;
-	bh=30FON/ydJ6oUS3B9vlPnBIx363eOH3WPlJzyqM1zND0=;
+	s=arc-20240116; t=1790101280; c=relaxed/simple;
+	bh=q08bMm6TKEscGDYXEC/TAix9da9PxlKDkHBqxe0uSEg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OLzX5YG5hTPgIfCpIlJyWbHpXyvTTeAONc4Gm0MzuTaYobSSAZfyIfSpwC7Io47VO2SU/A0PspulXHoMZDCqlX5UW1Jf566OIYLI4S07vNreRMzHSOgUg4z5WZ/XvjYR6iI/oq1sz7JErJuj3ByBVbc4316dmBJGekCshLI5CxY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ba7Erx55; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=uINQEtVBJLvfInl7BOGVEDqL92WDowr7fkGwq1ihEJ33qv3Dw8jogr4XAxsA6JYiqWKYpa75x72gIBE4XDm0361EVxYJ4pe2pIfIsgifhXIR/6LMKLitXT5NFAiZnnQ3TDiX3bKCeZ+Bq9aLhBXw74xMujFi/nEZUSDXHcfh4Jk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PkpO5+e2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ba7Erx55"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3BDA1F000FF;
-	Tue, 22 Sep 2026 18:21:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PkpO5+e2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 824791F000FF;
+	Tue, 22 Sep 2026 18:21:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790101275;
-	bh=OpJKSarrKBrDBb7r6I5pDw+E/OnUMF+9drQeXlp6sOc=;
+	s=k20260515; t=1790101279;
+	bh=OT1MHMkc+zNCW5lT7wfagicsSw2C47Qozr7XQC74Rnw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Ba7Erx55IOCyyXgiUWfMFUvK1IaZI19fv/6SYrREiMxhudeEEiPfE0CzdnK0Y7l41
-	 jpyGNXRkabwd6CDT5MaZijdnVDWSZvlFLLttW5EEYIgqjvPpFRYxFDuepJhpJ5xSox
-	 ERMpFFg0NATFz6n5otfqyQBws5AnTFYZ6wOS0ahh+r2AchgOPRkwNjjrSPi3zVcLSE
-	 9dCn6PZVl0Qg5aYUZcswuwWcDvBUY3YsPsIryNlw78RneilIN8eUffsW6KUKw+SasU
-	 JB9zsNNUHVMFOmCpDBXA2IXPDxXPqKTz2kStctUKObP0MLo6XINSaI8TqVMnVOQX47
-	 hSzbefBNYKv0g==
+	b=PkpO5+e2LDuakPTSskJ//YuW6cOs7NkdO0SMFSCFP1qS3x2+varxLqYW7ZrfkfsfQ
+	 OzeKM6W6kfpT3qYrSo6cFPvN0GTfFfF2IvxMH3JKPwzsnryNPMVv9Dxx/MAxTC5bSn
+	 HVEPS4DWwcu/mSSFRtP3lgcBdFeZfCQRourJNnTLSy2Oonqb7NcEHtjY62+55vAqNL
+	 6382HNayx/vU4ijgNudJ1V4PjlFDYCOaLkWqT/TJ/BaHIQen5K4hTd2OB6Ilkiqa6m
+	 BiNSFOLPACcTwJFA/0GUPehMd4V2dni4QpwVf9dCEGElHXTk7LH/3Qwei7n1yp9XyP
+	 q5+qOi5vQHjBw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+Cc: =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
 	Guenter Roeck <linux@roeck-us.net>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 1/2] watchdog: rtd119x: Use devm_clk_get_enabled() helper
-Date: Tue, 22 Sep 2026 14:21:12 -0400
-Message-ID: <20260922182113.3568867-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] hwmon: (pmbus/core) increase number of phases and add new mask
+Date: Tue, 22 Sep 2026 14:21:17 -0400
+Message-ID: <20260922182117.3569426-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092230-thriving-ungraded-3c65@gregkh>
-References: <2026092230-thriving-ungraded-3c65@gregkh>
+In-Reply-To: <2026092214-quotation-winter-5dc8@gregkh>
+References: <2026092214-quotation-winter-5dc8@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+From: Nuno Sá <nuno.sa@analog.com>
 
-[ Upstream commit 6cc0768ba6f5293a4435612164a2cfbf2edbd025 ]
+[ Upstream commit 06bd6794b5fd2163880ac3bfe973d4cc61f359f3 ]
 
-The devm_clk_get_enabled() helper:
-   - calls devm_clk_get()
-   - calls clk_prepare_enable() and registers what is needed in order to
-     call clk_disable_unprepare() when needed, as a managed resource.
+Increase the number of phases to 16 as a new upcoming device supports
+such a number.
 
-This simplifies the code and avoids the need of a dedicated function used
-with devm_add_action_or_reset().
+While at it, add a new mask for controlling the source of the output
+voltage.
 
-Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Reviewed-by: Guenter Roeck <linux@roeck-us.net>
-Link: https://lore.kernel.org/r/14b521b821279bc5111dc80b55d0936c5767c737.1672418470.git.christophe.jaillet@wanadoo.fr
+Note (groeck):
+
+This patch was meant to prepare for support of MAX20826 and compatible
+devices, which support more than 10 phases per page. However, Sashiko
+reports that the mp2975 driver already supports up to 14 phases, and the
+mp2856 driver supports up to 12 phases. This already has the potential for
+out-of-bounds writes when probing the affected chips, making this patch a
+bug fix.
+
+Fixes: 2c6fcbb21149 ("hwmon: (pmbus) Add support for MPS Multi-phase mp2975 controller")
+Fixes: f9e5f289b686 ("hwmon: (pmbus) Add support for MPS Multi-phase mp2856/mp2857 controller")
+Signed-off-by: Nuno Sá <nuno.sa@analog.com>
+Link: https://patch.msgid.link/20260911-hwmon-max20826-support-v2-1-5e30cbd97d84@analog.com
+Cc: stable@vger.kernel.org
 Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-Signed-off-by: Wim Van Sebroeck <wim@linux-watchdog.org>
-Stable-dep-of: 5af7d2cbd20f ("watchdog: rtd119x: Avoid division by zero")
+[ Adjusted the PMBUS_PHASES hunk for the branch’s existing value of 8 instead of upstream’s 10. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/watchdog/rtd119x_wdt.c | 16 +---------------
- 1 file changed, 1 insertion(+), 15 deletions(-)
+ drivers/hwmon/pmbus/pmbus.h | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/watchdog/rtd119x_wdt.c b/drivers/watchdog/rtd119x_wdt.c
-index 834b94ff3f903..95c8d7abce42e 100644
---- a/drivers/watchdog/rtd119x_wdt.c
-+++ b/drivers/watchdog/rtd119x_wdt.c
-@@ -94,16 +94,10 @@ static const struct of_device_id rtd119x_wdt_dt_ids[] = {
- 	 { }
+diff --git a/drivers/hwmon/pmbus/pmbus.h b/drivers/hwmon/pmbus/pmbus.h
+index a46c479962b05..b4bc3e4d94d03 100644
+--- a/drivers/hwmon/pmbus/pmbus.h
++++ b/drivers/hwmon/pmbus/pmbus.h
+@@ -241,6 +241,7 @@ enum pmbus_regs {
+ /*
+  * OPERATION
+  */
++#define PB_OPERATION_CONTROL_V_SRC	GENMASK(5, 4)
+ #define PB_OPERATION_CONTROL_ON		BIT(7)
+ 
+ /*
+@@ -376,7 +377,7 @@ enum pmbus_sensor_classes {
  };
  
--static void rtd119x_clk_disable_unprepare(void *data)
--{
--	clk_disable_unprepare(data);
--}
--
- static int rtd119x_wdt_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
- 	struct rtd119x_watchdog_device *data;
--	int ret;
+ #define PMBUS_PAGES	32	/* Per PMBus specification */
+-#define PMBUS_PHASES	8	/* Maximum number of phases per page */
++#define PMBUS_PHASES	16	/* Maximum number of phases per page */
  
- 	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
- 	if (!data)
-@@ -113,18 +107,10 @@ static int rtd119x_wdt_probe(struct platform_device *pdev)
- 	if (IS_ERR(data->base))
- 		return PTR_ERR(data->base);
- 
--	data->clk = devm_clk_get(dev, NULL);
-+	data->clk = devm_clk_get_enabled(dev, NULL);
- 	if (IS_ERR(data->clk))
- 		return PTR_ERR(data->clk);
- 
--	ret = clk_prepare_enable(data->clk);
--	if (ret)
--		return ret;
--	ret = devm_add_action_or_reset(dev, rtd119x_clk_disable_unprepare,
--				       data->clk);
--	if (ret)
--		return ret;
--
- 	data->wdt_dev.info = &rtd119x_wdt_info;
- 	data->wdt_dev.ops = &rtd119x_wdt_ops;
- 	data->wdt_dev.timeout = 120;
+ /* Functionality bit mask */
+ #define PMBUS_HAVE_VIN		BIT(0)
 -- 
 2.53.0
 
