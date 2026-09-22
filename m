@@ -1,197 +1,174 @@
-Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97F295326A8
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 10:18:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.99
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790072302; cv=pass; b=WvkEIy0SVwOjPfjz3b/HA72lHko955o9ObKYQC82QXQvn1y8op2sO0JrBy8yPtAcPbvOkGbe4iqu6PVEHuGFmgV2m+zZ7qAgcEDGJfi3Z1M+VjVM8jLKWl7JcwWVN3qlXsWaY5tukOFXXIkzrTAD2SeRJmuQcE76eG2JWM8FC4k=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790072302; c=relaxed/simple;
-	bh=7msoXiz8ZhQY0jm8uy/r22rhQVLWIg6ZBrWtGTnCYpA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OyjEY2j3H+dIGhttL47Q0DEBHPlyQSBgK8l4aWKncWKUF4ZTkt0+HXxbp9yF/ueCtx/cB1o8C/Of3xaMf8qC4Yx4JTsJtTC95E8inEdYGvFC045REUz9YTYTCWDxdxiosRB0Y6QeRy8UI13C6UKtKhaVWxWDqezadeXNWa1OJKc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qJtTJCHi; arc=pass smtp.client-ip=74.125.228.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5FFE5326C7;
+	Tue, 22 Sep 2026 10:19:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790072371; cv=none; b=SDl1PBh5bCd9gK4voXseYsnyoQJRvNJbZyaGLWh8OU7m7LR6Yi+Oci+PyayH6rChJBdSV6813hXEyooZg/uKc6/SglTpUHLyPDHApUjIppaEPpfsXCdPtDoKuB/yhLbopLrn9MaeAsHGLcJukFx1IXLH1lmlVd5IWcFcI33s3nk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790072371; c=relaxed/simple;
+	bh=9VYlEBBzHvNgnKHjD/sB6aGAHCr33aE4j4uXIeG5GlY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=CECxONyzayVsZdItInpRKiKD7PuOYoDpF+AIu5pD/q3SBmIxYY1gUaU5Vna7gckUMD4uwo8nUx/+u1Fne+Xm4DxOf0Dm1IQiZvVQgsXU68uBPr6pJ14HBrivceTTn+JhF+S1LoL47LGqRCMcC/YwO6g76S96JywIhyLklvzyI4I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=qATCCJuR; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qJtTJCHi"
-Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6a9ab2a135dso5366434a12.1
-        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 03:18:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790072299; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gnaWdHiXIhCR3MWd763l+s+MxYCWrzjUzjQsKxzA1VvpbWgbiQyQF3KqDxnerrKOSQ
-         aNvooaKHb6rOS7wN1eY9Ws1lRGKBe1VPXxaZWXR3S/8OKc77xnCwNUU7QYRbcTc6z++Q
-         ThgwaCGFJz7j4gdDkWycF7CzYVAuCnIOOWyk1uHmJ+72T8iZzLnruj3R4RGsVpH6z+R8
-         d+ZJ+MnkZPuC+zUsQZZBJComqABBUoSFzL75JJ7OxhqjGh8JIY1p4d4Z0ue/fElPGVwI
-         XmQXPwxEa/FgDVXR3I5evipDRSIO2612Rqmi7pQwBQ7iMsZng8UJVCl7EiGQo2IHBQrp
-         l0pA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=R3Amu3+PQPJ43Ed9YGF8q4KOUPYdD7wbwNF4u+yNpeI=;
-        fh=/tTVCi2SPMfj2GrNoY2kd+q4y1MTfCj4TCF4VtiuY6A=;
-        b=PQeSwFSQHKEm9UV3q1guVkbJ8kn9bAXnYJLExgyjl6WgY1iCOdNaw/ZIVnl2oluKqX
-         /+ue0QdAPCIx/CN1ltigr2ImQR4pnmG0p6wUyQnrXqWk47CvuXs1yz8yLaxz5wCVio44
-         9kKNvzQgTYIDxC5u9/0QRRQK6vldlU1o0muElfoRV2oEafnC9F9pZbLyP7gsNxmE3xcg
-         2BHkD0KDztBQxSXF12AsCYHKnDYhvOy+H2JnQqeKUsS4CKGFGKSM0W0Feg8dv2/UzByC
-         hxALJKmvW1r8GiqiVDEfpeu9SIcZlflxqLOT8zH3mVPyxXUhBpjz/HtaLiJH3KmRPjAF
-         ryOA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790072299; x=1790677099; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=R3Amu3+PQPJ43Ed9YGF8q4KOUPYdD7wbwNF4u+yNpeI=;
-        b=qJtTJCHi0n3CABWwVvkR5DxsiQ5eboPpLWh4j2/p8u43FK4V0EWXwKGGnLBTo99OHZ
-         vSv0kpfj0oocy4OQHgtDncEezFK8suTHiODwbeadgxS5XWQUAjjLnW0i+zIN/H2bSyI8
-         oiM56QMolhasWF5c0wAJv3aB7YOBQMZagcza+pwFbSmt7nJpSD+0Zx9l8x4T2V/OE95v
-         JtqwzA++Ya/vQRvWXIDY/0whJBUFuVtAnCcH7sd+9+YRp6Da+8ib96VM5tsKTIyckNLU
-         mH2MijYxH0rUOqniJ6yU1DAQP0YkDvc+FtDgO2Nlx0sdjQlPyOmUEURMxDZTYcsde6Rx
-         9kTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790072299; x=1790677099;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=R3Amu3+PQPJ43Ed9YGF8q4KOUPYdD7wbwNF4u+yNpeI=;
-        b=Z/eGsKaExHXwNy1lODxIQq0Ca4rtKUfjcTwHf61EedW6zzHVQSeXzOQ5tFP40OlJtU
-         yDwcnv4dS2mWyA6fTAN9KNh7gBHXn5kvf4o4NB9xbohC6GKLWvMGBoQIeunwCl8LyWnf
-         3JRvJ9KdLEs7ExWl7OUEYipOIbPTgjxz7Xa8aDMvY8FiQ6/LwdV7fS1ucSBgDPDG09Mm
-         Elnpz/kbpS24C4rJmbDAvuWiij3/odRfHj3xbmpzVGos+jUQYShwkYJW5ParXz1/3DrQ
-         DZVA+TiCql24751kFs1G//KIAB548N1AiYfmCdbRhMOQ5e7oV45hXW1fj3AhfNWA773C
-         qVTg==
-X-Forwarded-Encrypted: i=1; AKwUvBy+UU1Z0O9hHDlEyR3wIIBMuQL+A3k++B/ZY1+P8zJzi50PE9SBKZZv3hxjcGtPQxi7tIVawbc=@vger.kernel.org
-X-Gm-Message-State: AFuF++m6KLeLDvjL1bAVafjFwZnr2jdpGf17X77Cy2yV2wvWA6FEAL7v
-	NU1o+ilcU+PU5Ubcuk06rtsZGM73FQkObCisjtblPZJdZTECfc4k1TkVaY876hRuhhRzI2VmCEb
-	yD1CXAHmcQ2DaN+5eEZ/IhyzduaCjXUs=
-X-Gm-Gg: AYBFou0W2z/eVWIyxRWwRmfnoinv6JbzC1hTUddrwZ0KQA++yW6iWx0ObNSEDSln3yl
-	7eebFrzjT0kHLhFYlzxZ6D+fJnub8uBWJPcjJAqqfrC018lMNQ2Wps27N/k7uupUDXJwvuQXGw4
-	WE2xvsKmJB3vqmCb2kVb3OfzVpR9PLmYPPQOBoWY7mOr3GQ+vI7PIb2WER7kH3J4J/jmKjtGnES
-	ALeKm5lYYQMFOwE8hgcLxHX8VCjsWqstxLERc7JyS23+v7UkbWPDYCU08JEOVREU4jUVxk1L4iF
-	kyKral18MxmaZweXpQbB4SAikjWkeTuxKzaiBQopl0ESqC0PhoZp2FUI
-X-Received: by 2002:a17:907:7244:b0:c29:4490:50d6 with SMTP id
- a640c23a62f3a-c2a15cc7b3dmr1214184366b.47.1790072298525; Tue, 22 Sep 2026
- 03:18:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="qATCCJuR"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68M05Uct1075347;
+	Tue, 22 Sep 2026 10:19:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=NNIbTOTUOhN+guE6W
+	aKUWJifDAzgIR8Qvw1UneT4K/U=; b=qATCCJuRW3xWRhjg1PLeFgDteb8BOUL3v
+	1RTLy99KTFay0ToKqBafd3U1deYsXjbdGlhozujxKiPdhYTgTNiDmj8i/l/KJ5oQ
+	X4rgNz4PLRupQu5jpe/7KmUHvHANTg6FQr+nIaacLKrp+pbK1stoCb2sQ8MJSaKC
+	i/V8bW2SWPNBn/RNwOw3okg7atLl47+76xhHGolztSqO2C6CM1ZrAhf58qZ16P2+
+	tQ8N2erWnXiiBxJp1YYwyKNOiJgSFNaiJbRoL3o/BrbbnicSpxaJEENNXcgNEJd3
+	jaPHeL5qF2R5ujCMZ1QcKf/ACXafdl6ZeLYnb84kalEq+qTsGal+Q==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gske1n626-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 22 Sep 2026 10:19:22 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68MA7wjT2045776;
+	Tue, 22 Sep 2026 10:19:21 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gt67gs9t5-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 22 Sep 2026 10:19:21 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68MAJHit28377420
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 22 Sep 2026 10:19:17 GMT
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 5BCD020043;
+	Tue, 22 Sep 2026 10:19:17 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 12C2E20040;
+	Tue, 22 Sep 2026 10:19:17 +0000 (GMT)
+Received: from t83lp71.lnxne.boe (unknown [9.87.84.240])
+	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 22 Sep 2026 10:19:17 +0000 (GMT)
+From: Nagamani PV <nagamani@linux.ibm.com>
+To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+        kuba@kernel.org, pabeni@redhat.com
+Cc: wintera@linux.ibm.com, aswin@linux.ibm.com, hca@linux.ibm.com,
+        gor@linux.ibm.com, agordeev@linux.ibm.com, borntraeger@linux.ibm.com,
+        svens@linux.ibm.com, kees@kernel.org, linux-s390@vger.kernel.org,
+        netdev@vger.kernel.org, Nagamani PV <nagamani@linux.ibm.com>,
+        stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH net v3 1/2] s390/ctcm: Fix timer corruption in fsm_addtimer()
+Date: Tue, 22 Sep 2026 12:19:12 +0200
+Message-ID: <20260922101913.239103-2-nagamani@linux.ibm.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260922101913.239103-1-nagamani@linux.ibm.com>
+References: <20260922101913.239103-1-nagamani@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921125805.224979-1-horms@kernel.org> <20260922080750.35929-1-ndaugoing@gmail.com>
- <049e03e2-3648-4a8a-8959-d88a56545f4d@ixit.cz>
-In-Reply-To: <049e03e2-3648-4a8a-8959-d88a56545f4d@ixit.cz>
-From: Yuchao Zhang <ndaugoing@gmail.com>
-Date: Tue, 22 Sep 2026 18:18:06 +0800
-X-Gm-Features: AcwNN1U4xZeDysD8F_-uIUOnyy4axDXfoxw1BjtNX_Q8SmqiH5PTE1y2i5vEhBo
-Message-ID: <CAC2BP3+s=vGTxUrTALO3Fq+kUJODCpCdbujwkFK5txL9GFk2uw@mail.gmail.com>
-Subject: Re: [PATCH v2] nfc: nci: ignore unexpected CORE_RESET_NTF and CORE_RESET_RSP
-To: David Heidelberg <david@ixit.cz>
-Cc: Simon Horman <horms@kernel.org>, davem@davemloft.net, edumazet@google.com, 
-	kuba@kernel.org, pabeni@redhat.com, oe-linux-nfc@lists.linux.dev, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: BGE3YdTzp6QTy7G87RG5h6b5x-hjI4dI
+X-Authority-Analysis: v=2.4 cv=EOCTQFZC c=1 sm=1 tr=0 ts=6ab2562a cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=uAbxVGIbfxUO_5tXvNgY:22 a=c92rfblmAAAA:8 a=VnNF1IyMAAAA:8 a=VwQbUJbxAAAA:8
+ a=T_NMYt6YcsbJOU4cA00A:9 a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDE0NSBTYWx0ZWRfX7PX5YQuOCP+G
+ TI53nyn6ypXr9ZVIawoSZKS/p61bs1fEDNXsIz3GMbyyfkvHSH3efVvjDJsRqEgH9Zsn7HyzDAr
+ MEWuNH7xZRCUFrJsxgE3YJOXy6XIIOU=
+X-Proofpoint-GUID: aPAs5Lz1YvfUZYgOlw0JET3kzGtT0vHN
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDE0NSBTYWx0ZWRfXxEJomm5BbdzM
+ apMAz1YGfjZDg+Q6AHSOW+5Tihgbw4odor8wd0589mda8pBu9fNxAwSorOqvhTpKHmXmivRoLfP
+ azcopKrJm0IpvuJ/koHTfog7Eb25rM1Xu4Z1ZMG8kk3tYzwI74ezqDAGoqiMRgYB99sLTvcg/w+
+ WDpSpdyPbbyg3RtxOEyVByFbNDVa5LArSDZCue0G1Hn9cj7nEky3r3s4V0he+9qzDybcHEOJyap
+ 87yAa+LMuUkum8oa6w9UpDUCTxZ4XbtrJ6I07oW/PuVJCLmMXTKYREGBZUXWlc4z4lcd48nnRNr
+ OP+nz8J5gp2oS7ujLGqhzu2zh+zwlV9YMVRg9NiM6k1jG6mRtDwCQVAPKYlXMozihn5HFchLxlZ
+ MN5443NxI4vUC62S+MXLH85/cBvuNglWJCpRSYjC0dDJciiIsQNliT91TNtl0bfx9WRUnfcu2F+
+ s8gtfQfOxtRnGQfpbnQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_07,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 phishscore=0 priorityscore=1501 clxscore=1015 spamscore=0
+ adultscore=0 impostorscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220145
 
-Hi David,
+fsm_addtimer() calls timer_setup() unconditionally before add_timer().
+If called on an already-pending timer, timer_setup() re-initializes
+the timer's list_head fields while the timer is still enqueued in the
+wheel, corrupting the timer list.
 
-Thanks a lot for the pointer and explanation! I apologize for the
-threading confusion =E2=80=94 I mistakenly chained the v2 patch under the
-previous review message using --in-reply-to.
+The timer is already initialized once by fsm_settimer() which calls
+timer_setup() correctly. Multiple callsites invoke fsm_addtimer()
+without a preceding fsm_deltimer(), including ctcm_main.c
+ctcmpc_send_sweep_req() and ctcm_mpc.c mpc_action_side_xid(), making the
+redundant timer_setup() in fsm_addtimer() a real corruption risk.
 
-I'll re-send the v2 patch as a clean, standalone thread right away so
-that patchwork can track it properly, and I'll definitely adopt b4 for
-future submissions.
+Remove the redundant timer_setup() calls from fsm_addtimer() and
+fsm_modtimer(), and replace add_timer() with mod_timer() which safely
+handles both pending and non-pending timers atomically without
+corrupting the timer wheel.
 
-Thanks again for keeping me on the right track!
+Fixes: e99e88a9d2b0 ("treewide: setup_timer() -> timer_setup()")
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://sashiko.dev/#/patchset/20260803182736.2356374-1-nagamani@linux.ibm.com?part=1
+Reviewed-by: Aswin Karuvally <aswin@linux.ibm.com>
+Tested-by: Aswin Karuvally <aswin@linux.ibm.com>
+Signed-off-by: Nagamani PV <nagamani@linux.ibm.com>
+---
+Changes in v3:
+- No changes to this patch.
 
-Best regards,
-Yuchao
+Changes in v2:
+- fix function name ctcm_send_sweep() -> ctcmpc_send_sweep_req()
+  in the commit message (Sashiko netdev-bot)
+- call mod_timer() then return 0 explicitly, preserving the
+  "Always returns 0" contract documented in fsm.h (Sashiko netdev-bot)
+---
+ drivers/s390/net/fsm.c | 9 ++-------
+ 1 file changed, 2 insertions(+), 7 deletions(-)
 
-David Heidelberg <david@ixit.cz> =E4=BA=8E2026=E5=B9=B49=E6=9C=8822=E6=97=
-=A5=E5=91=A8=E4=BA=8C 18:05=E5=86=99=E9=81=93=EF=BC=9A
->
-> On 22/09/2026 10:07, Yuchao Zhang wrote:
-> > Commit bcd684aace34 ("net/nfc/nci: Support NCI 2.x initial sequence")
-> > added handling of CORE_RESET_NTF in nci_core_reset_ntf_packet(). When
-> > received, it updates ndev->nci_ver, ndev->manufact_id, and
-> > ndev->manufact_specific_info, and calls nci_req_complete(ndev,
-> > NCI_STATUS_OK) to finish the pending reset request.
-> >
-> > However, unlike other notification handlers in ntf.c (which validate
-> > ndev->state before completing requests), nci_core_reset_ntf_packet()
-> > does not check whether a core reset request is actually pending.
-> > If an unsolicited or delayed CORE_RESET_NTF arrives (e.g. after a reset
-> > command times out or from a misbehaving NFCC), it unconditionally:
-> > 1. Completes whatever request is currently in-flight (such as CORE_INIT=
-,
-> >     RF_DISCOVER, or CONN_CREATE) with NCI_STATUS_OK, leading to kernel
-> >     state desynchronization.
-> > 2. Overwrites ndev->nci_ver and manufacturer info. Because
-> >     ndev->nci_ver is used as a selector for subsequent packet formats
-> >     and parsers (e.g., in nci_open_device() and nci_core_init_rsp_packe=
-t()),
-> >     unexpectedly modifying it can cause protocol format confusion.
-> >
-> > A similar issue exists in nci_core_reset_rsp_packet(): an unexpected or
-> > delayed response packet can prematurely complete an unrelated in-flight
-> > request.
-> >
-> > Fix this by ensuring CORE_RESET_NTF and CORE_RESET_RSP are only process=
-ed
-> > by the core layer when a reset command is actively awaiting them:
-> > - Set NCI_RESET_PENDING in nci_reset_req() when sending CORE_RESET_CMD.
-> > - In nci_core_reset_rsp_packet(), ignore the response if NCI_RESET_PEND=
-ING
-> >    is not set. If set, clear the flag and complete the request on failu=
-re
-> >    or for NCI 1.x (checking skb->len >=3D sizeof(*rsp)).
-> > - In __nci_request(), ensure NCI_RESET_PENDING is cleared upon request
-> >    completion, cancellation, or timeout.
-> > - In nci_core_reset_ntf_packet(), skip power-on notifications (trigger
-> >    0x01, identical in NCI 1.0 and 2.0), then check and clear
-> >    NCI_RESET_PENDING before updating device fields and completing the
-> >    request. The CORE_RESET_CMD trigger value is revision-dependent
-> >    (0x00 in NCI 1.0, 0x02 in NCI 2.0), so both are accepted and gated
-> >    on NCI_RESET_PENDING alone. If unexpected, log a warning and return
-> >    0 so driver-specific handlers (such as fdp firmware patch handling)
-> >    still receive the notification.
-> >
-> > Fixes: bcd684aace34 ("net/nfc/nci: Support NCI 2.x initial sequence")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Yuchao Zhang <ndaugoing@gmail.com>
-> > ---
-> > v2:
-> >   - Do not abort the notification pipeline on unexpected CORE_RESET_NTF=
- (return 0
-> >     instead of -EINVAL), preserving driver-level hooks (e.g. fdp firmwa=
-re
-> >     patching) per Simon Horman.
-> >   - Skip power-on notifications (trigger 0x01, identical in NCI 1.0 and=
- 2.0)
-> >     while gating both NCI 1.0 (0x00) and NCI 2.0 (0x02) command-trigger=
-ed resets
-> >     on NCI_RESET_PENDING alone.
-> >   - Check NCI_RESET_PENDING in nci_core_reset_rsp_packet() to avoid com=
-pleting
-> >     unrelated requests on unexpected responses.
-> >   - Explicitly check skb->len >=3D sizeof(*rsp) in nci_core_reset_rsp_p=
-acket()
-> >     for NCI 1.x handling.
-> Hello Yuchao,
->
-> please never send follow-ups as part of the thread. Always send them as a
-> separate message (otherwise they may get lost and we already have patchwo=
-rk wich
-> can track the submissions.
->
-> Even better, try to use tools such as b4 to submit patches (easier for yo=
-u, sent
-> in expected format for us).
->
-> Thanks
-> David
+diff --git a/drivers/s390/net/fsm.c b/drivers/s390/net/fsm.c
+index 9b8622aef807..936ed0bc8401 100644
+--- a/drivers/s390/net/fsm.c
++++ b/drivers/s390/net/fsm.c
+@@ -171,11 +171,9 @@ fsm_addtimer(fsm_timer *this, int millisec, int event, void *arg)
+ 	       this->fi->name, this, millisec);
+ #endif
+ 
+-	timer_setup(&this->tl, fsm_expire_timer, 0);
+ 	this->expire_event = event;
+ 	this->event_arg = arg;
+-	this->tl.expires = jiffies + (millisec * HZ) / 1000;
+-	add_timer(&this->tl);
++	mod_timer(&this->tl, jiffies + msecs_to_jiffies(millisec));
+ 	return 0;
+ }
+ 
+@@ -189,12 +187,9 @@ fsm_modtimer(fsm_timer *this, int millisec, int event, void *arg)
+ 		this->fi->name, this, millisec);
+ #endif
+ 
+-	timer_delete(&this->tl);
+-	timer_setup(&this->tl, fsm_expire_timer, 0);
+ 	this->expire_event = event;
+ 	this->event_arg = arg;
+-	this->tl.expires = jiffies + (millisec * HZ) / 1000;
+-	add_timer(&this->tl);
++	mod_timer(&this->tl, jiffies + msecs_to_jiffies(millisec));
+ }
+ 
+ EXPORT_SYMBOL(init_fsm);
+-- 
+2.53.0
+
