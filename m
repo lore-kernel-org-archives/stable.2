@@ -1,184 +1,275 @@
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A6C0483BC5
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 07:59:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.141
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790063999; cv=pass; b=T0c1L+42pcQlJ/hPtJSaN/ZKq0Pf+tWp9XAE+joc2JeWR5tlyJqHox6K2Pnux3KnGw+1NUQlihxiqc2BNlL5PbQvOInZaqJZm18B4funAl1AfvC3oUUPcG4qH0tKXb30PGLDoJrPfCCtZlP3pz9H1DNe4cdSyzII4+O/QdrwqNI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790063999; c=relaxed/simple;
-	bh=LV/LVjKM3hxN9GZjkxURfw1FVzLRvHD743trx/7Cv6I=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qz57Mps3XZlPv9k6pmFM2yASDZenhCAQavmnfNgkx/PXokm3pDMpaEXrqkHHatTScv4bQgS4cUsPniaZxFXVDCQ4wwpR2DDFfDX5dulz7eEkJF0yF0b5kNcIJEEmd58poEmIYu2U1qRCD6KIhl7X2yU1UrXlguo5jF0DnwiJuYY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SZkY8H6j; arc=pass smtp.client-ip=74.125.224.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8192E3955F9;
+	Tue, 22 Sep 2026 08:00:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790064035; cv=none; b=pxRAeZxJeg0ogEZt32wrkzXRZZLsP0FAsFCAVXhkstDifjXqLRxGMonZo4Fix1qnWvF4KUbImNLwbjL1D5HNvQSsFFvVS5XmtOGG/XWRN07VfxBZdC7Iaj9nAqELVLSUcUE/Bpftxale2fuTI77lP6znhU0pSg9SUnjLxEC2AOs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790064035; c=relaxed/simple;
+	bh=TnjqiNDXYtqup4Pnr5urnY3VPyThkRbI60h0HDM1LUs=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=QiZvCuR4rBuh4utdns7nzChGogNatVQjA2YP1rhoqyXJQHD6OTRXWXcK7Vs7AqPWh2dGCTrmzYlmCvKjeDE7MTjnFLKdIeuEBInHJ6LTLrKZ+xFkGermGFAnI9yL/sapW9YeHtSAlzWJxtaIbRMkJ8QJQG04pggbgijMeX4ol34=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NoMOZvj/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SZkY8H6j"
-Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e4ab1ef11so3378072d50.0
-        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 00:59:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790063987; cv=none;
-        d=google.com; s=arc-20260327;
-        b=OaojteuJ4hEZ8fpH9FMOFiSsMbLCcm7ndITD+gEz+bI2TXy9p4IHSHrFcEcNHJLGFT
-         iMo9WDB+mRJiu9aAQV97Dd4UodE+gBW6rncAWF6sTcCm26db+lgelAdlAReXZuTSFGXO
-         fP0HnZgSmz0Mdcj88ZzkayShcZ/5dsC4wo9pjJ0ioebSM5VhkLnvibehmm4voGdmbH1h
-         j5MxyS4Ae3ZLT4t9dRX4sKeDtMEdeZ5+WvtsJhTgs12PHyOfBaahtM9tI2ZsXcB5Hjfv
-         BUNZ4tF3ei4GbCUykYGqhcguvgnpNL2+LV67+v1PhmgTpXJUlMUzDpnFQtIRqLTJ6469
-         jE5Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=dP1zCMCErPeK9F1TnlfMVGvOu9U8paGR+gGJEZKdb/E=;
-        fh=wwfeMJGXhlh7zOoh77vkPy6Ao7LCSY9cTkx/ggPVq3Y=;
-        b=fesIV427qHprSk5/MICvWCWkHSOO3/jpsd86zYvvynG4g3ob4S3NK5H8O4FfEWjtvu
-         MYecMFTXWBVXtSaAMn/RUH2Otqj2Y7ZsJCXWKgGbEpXVcmzezIcYWN+70zumv+bpG+qC
-         l3LSVfg/q40D5Y57JP+Oygjy3n2JLTYK8YAGiN9SH6QGwM6VR94Zfy3dJQw3ztLQl2Fi
-         41zPClK+/YMCDKiO9v4lfetF9vEZxRf4iw9Cd9nvTi11Um6zbNvPK5fDWrMOBLQABYqN
-         Viaif3dm+GsNzxxT+dsRCbi00IaGuV/HZQKQWVAf6JZCGqwGazznHUybEQ3OaRFGcWoQ
-         82Gw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790063987; x=1790668787; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dP1zCMCErPeK9F1TnlfMVGvOu9U8paGR+gGJEZKdb/E=;
-        b=SZkY8H6jCSOKxUld1lPUqCarseFPTbpgFZFptxqmOhXs4o+ZGI27H01tFdDrPYNCnn
-         6j8WrNge4AFgRFH+TdEz4ms1+d+x/OHrXTjGPtQSDVT24CwGkjqBaTJEgfR090QWtjkJ
-         CFc618ixfQ/nqOU/5tcXncV3lZqe2e7qgVAceYybwGj7kkrJzR54F+mQyUTcdDUIxlUx
-         Dg73EUcmssPrraZm/MXWqmvxnGKuXNMKmOFH55fuciNuIpwc1ftd/gldPokebCViJjBZ
-         zYzam0eiXw8sIa1mQ4jKEJnLJafKd4vUiy6xd/D+0grobkMbTo/ycsGzeIS2vJzluAMf
-         pX4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790063987; x=1790668787;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=dP1zCMCErPeK9F1TnlfMVGvOu9U8paGR+gGJEZKdb/E=;
-        b=bucIG7NLIDyNYWxvLBHFTsMbf6DsiZnTFPLMmMMI7RmiqnRuRIPn7oSNmj2Epuuz0c
-         ompz1KtgpWpurxZfe1I6/mkzM57SIFTKaEFm9HA2SjXJv62COuOjPbtpw8apoijmku3t
-         WU2fpx6HLDgVe6KIR+j01m58QmJWqrGoUDqBjP9GXL3pALp6h+XUeZjITVNoQqfZuyr2
-         1ZwrARCuTQpZyFEiFiXomsno/8WMFu4MrGJLpnXoRG0zSwD8w7fl3nhbTtGlWEVrRiAU
-         u9adkwcDk3CeOgtEpHiydlTFqOmajFvG4PMHsElioMQTaGg/c5j5shdTkcOqzXPFs2qM
-         xMiw==
-X-Forwarded-Encrypted: i=1; AKwUvBx+zAgDGDHFAUitfdqJYHnKry+u66dR80xou6ASHPh7GSgD8V6kFSV1HfXZKeTQNNxlayy20fA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lUFRMrmYct9l1Na2isXwenSbUP1/Rv3DL0DMlvYLBlWTBgwyZ8
-	dhVNLV66/XiM34/mTsmvosaxTeMr9DmXZV8daUgZhOSLdgGk1bNK4xVQyBnIaz3dJ4SO2hXaWyV
-	tZ+cN3UL+e6ZEvLiOV5qG2mk9YKD4iCw=
-X-Gm-Gg: AYBFou07mauqcHjsgs5kGx5E/BovwYTGE6kBn1U/UQDXq35AAqwiJY+h0w2FEuFaqqM
-	Zh23Ohomz6TICWLfpKgnKQMcCk5co0pSvf40K5VrWsSUyU/Ng9L6lg6hhr8za1Bbk75iZ2tYJNc
-	VagThVx404YKMWfBzOCLZQTe9yaj2DOWwq9nIPrirlr85H5afiQDP7DRjZtFeRAnKboc5eK0WN+
-	o/SmTTkqvmpm5ToaVcyTNMD1dOnct4WL90orBduwL8F6/kF+bLFrMMJvZ56GphtoNs84H9TVE4K
-	gu6r6D0BDW5tEx5wgQcgHMyIp9ZL4hkDwcGdnYlRAElOSekLJkNf4REeJw==
-X-Received: by 2002:a05:690e:4105:b0:66f:c2c7:3a4f with SMTP id
- 956f58d0204a3-6717fca0d13mr4306035d50.19.1790063987418; Tue, 22 Sep 2026
- 00:59:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NoMOZvj/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AAEF1F000FF;
+	Tue, 22 Sep 2026 08:00:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790064017;
+	bh=EMpVZZM5mC5bVjvCbhkmvo7doDXZJI1s6X0JLg7H8fY=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=NoMOZvj/oQcw4O8ehRCuxfMzUk5zWdTOXEEPLjKbcNHJQaOL7YaRwkvbwY3m/Isv1
+	 8nnQcW8R7RynLj7PNT1MZExpIQ932pIyVKiL5NfUOcPAiZFnFNIiz0bZZQMz9Ly6Dl
+	 FaSVUUyLwtHq3t7PISIEPsg1xoVSNYdqGtolzuM8vOtHdpgf1Au/3irEvsASSeNOt3
+	 FLAGkZUZiTm6nSSN9cPLdr/GCJSzpVGyFgTjfM0MPUkDY1mBgeN5z99n/GajHrwSLc
+	 fZadecHeoUdYjQUiAV6zZFVKydcPALRR/nwR9asOZ9aaNJFGuPMJ3qT1JdbK38PsqR
+	 fbvGr0kEVjjKg==
+Subject:
+ Re: [PATCH net] net: macb: take bp->lock around NCR read-modify-writes
+From: netdev-bot+sashiko@kernel.org
+To: theo.lebrun@bootlin.com
+Cc: conor.dooley@microchip.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ nicolas.ferre@microchip.com, sean.anderson@linux.dev, atenart@kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, nb@tipi-net.de,
+ vladimir.kondratiev@mobileye.com, gregory.clement@bootlin.com,
+ tawfik.bayouk@mobileye.com, thomas.petazzoni@bootlin.com,
+ stable@vger.kernel.org
+Date: Tue, 22 Sep 2026 08:00:15 +0000
+Message-ID: <179006401584.2160803.17052380807773862185@kernel.org>
+In-Reply-To: <20260918-macb-ncr-rmw-v1-1-30c3494f93cd@bootlin.com>
+References: <20260918-macb-ncr-rmw-v1-1-30c3494f93cd@bootlin.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921104058.353748-1-lgs201920130244@gmail.com> <20260921110512.GS106095@black.igk.intel.com>
-In-Reply-To: <20260921110512.GS106095@black.igk.intel.com>
-From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Tue, 22 Sep 2026 15:59:32 +0800
-X-Gm-Features: AcwNN1XxyQQU5x2vBD_1jw2pjdvTRbzVQZFCGqidJ6ftnuC_3eRhT9BLr4HUSn0
-Message-ID: <CANUHTR9gA-mKn8Y496Pty4_Fhu3BSSyhXWrmiod1WvuVdQjkag@mail.gmail.com>
-Subject: Re: [PATCH] mfd: intel-lpss: fix iDMA device leak on probe failure
-To: Mika Westerberg <mika.westerberg@linux.intel.com>
-Cc: Lee Jones <lee@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	mfd@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 
-Hi Mika,
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Thanks for the suggestion.
+Critical: 0 · High: 1 (1) · Medium: 0 (1) · Low: 0
 
-On Mon, 21 Sept 2026 at 19:05, Mika Westerberg
-<mika.westerberg@linux.intel.com> wrote:
->
-> Hi,
->
-> On Mon, Sep 21, 2026 at 06:40:58PM +0800, Guangshuo Li wrote:
-> > intel_lpss_probe() may register an iDMA MFD child before registering
-> > the main controller cell. If the iDMA child is registered successfully
-> > but the subsequent mfd_add_devices() call for the main cell fails, the
-> > probe error path returns without removing the already registered iDMA
-> > device.
-> >
-> > Since the normal remove callback is not called after a failed probe,
-> > the iDMA platform device remains registered and is never released.
-> >
-> > Call mfd_remove_devices() on the probe error path to remove any MFD
-> > children that were successfully registered before the main cell
-> > registration failed.
->
-> I think this could use devm_mfd_add_devices() instead.
->
-> > The issue was identified by a static analysis tool I developed and
-> > confirmed by manual review.
-> >
-> > Fixes: 4b45efe85263 ("mfd: Add support for Intel Sunrisepoint LPSS devices")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> > ---
-> >  drivers/mfd/intel-lpss.c | 1 +
-> >  1 file changed, 1 insertion(+)
-> >
-> > diff --git a/drivers/mfd/intel-lpss.c b/drivers/mfd/intel-lpss.c
-> > index 63d6694f7145..657b1e3fb896 100644
-> > --- a/drivers/mfd/intel-lpss.c
-> > +++ b/drivers/mfd/intel-lpss.c
-> > @@ -455,6 +455,7 @@ int intel_lpss_probe(struct device *dev,
-> >       return 0;
-> >
-> >  err_remove_ltr:
-> > +     mfd_remove_devices(dev);
-> >       intel_lpss_debugfs_remove(lpss);
-> >       intel_lpss_ltr_hide(lpss);
-> >       intel_lpss_unregister_clock(lpss);
-> > --
-> > 2.43.0
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Do you mean converting both MFD registrations to devm_mfd_add_devices()
-and dropping the explicit mfd_remove_devices() from the remove path, like
-this?
+- [High] Incomplete NCR read-modify-write serialization: the patch takes
+  bp->lock around the NCR RMW in macb_mac_link_down(),…
 
-        if (intel_lpss_has_idma(lpss)) {
--               ret = mfd_add_devices(dev, lpss->devid, &intel_lpss_idma64_cell,
--                                     1, info->mem, info->irq, NULL);
-+               ret = devm_mfd_add_devices(dev, lpss->devid,
-+                                          &intel_lpss_idma64_cell, 1,
-+                                          info->mem, info->irq, NULL);
-                if (ret)
-                        dev_warn(dev, "Failed to add %s, fallback to PIO\n",
-                                 LPSS_IDMA64_DRIVER_NAME);
-        }
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the work item
+  it modifies (bp->hresp_err_bh_work / macb_hresp_error_task) is queued…
+- [Medium] macb_hresp_error_task() performs a multi-step RE/TE state
+  transition that per-RMW locking cannot protect: it clears NCR.RE|TE…
 
--       ret = mfd_add_devices(dev, lpss->devid, lpss->cell,
--                             1, info->mem, info->irq, NULL);
-+       ret = devm_mfd_add_devices(dev, lpss->devid, lpss->cell,
-+                                  1, info->mem, info->irq, NULL);
-        if (ret)
-                goto err_remove_ltr;
+--
 
-...
+net: macb: take bp->lock around NCR read-modify-writes
 
- void intel_lpss_remove(struct device *dev)
- {
-        struct intel_lpss *lpss = dev_get_drvdata(dev);
+The patch wraps the NCR read-modify-write sequences in
+macb_mac_link_down(), macb_mac_link_up() and macb_hresp_error_task() with
+spin_lock_irqsave(&bp->lock)/spin_unlock_irqrestore(), so that they no
+longer race with the TSTART and RE writers that already hold bp->lock.
+It is described as a theoretical fix that only aims at consistent NCR
+read-modify-write operations.
 
--       mfd_remove_devices(dev);
-        intel_lpss_debugfs_remove(lpss);
-        intel_lpss_ltr_hide(lpss);
-        intel_lpss_unregister_clock(lpss);
-        ida_free(&intel_lpss_devid_ida, lpss->devid);
- }
+> diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
+> index b8234ac4b602..b58d3f01f2cc 100644
+> --- a/drivers/net/ethernet/cadence/macb_main.c
+> +++ b/drivers/net/ethernet/cadence/macb_main.c
 
-Would this be the preferred change?
+[ ... ]
 
-Thanks,
-Guangshuo
+> @@ -786,8 +787,10 @@ static void macb_mac_link_down(struct phylink_config *config, unsigned int mode,
+>  				     bp->rx_intr_mask | MACB_TX_INT_FLAGS | MACB_BIT(HRESP));
+>  
+>  	/* Disable Rx and Tx */
+> +	spin_lock_irqsave(&bp->lock, flags);
+>  	ctrl = macb_readl(bp, NCR) & ~(MACB_BIT(RE) | MACB_BIT(TE));
+>  	macb_writel(bp, NCR, ctrl);
+> +	spin_unlock_irqrestore(&bp->lock, flags);
+>  
+>  	netif_tx_stop_all_queues(netdev);
+>  }
+
+[Severity: High]
+
+The commit message enumerates the NCR read-modify-write sites, but a few
+more exist that still do not take bp->lock.  Should they be converted
+too, or the changelog mention that they are knowingly left out?
+
+In macb_ptp.c, gem_ptp_set_one_step_sync() does:
+
+	reg_val = macb_readl(bp, NCR);
+
+	if (enable)
+		macb_writel(bp, NCR, reg_val | MACB_BIT(OSSMODE));
+	else
+		macb_writel(bp, NCR, reg_val & ~MACB_BIT(OSSMODE));
+
+and gem_set_hwtst() does:
+
+	regval = macb_readl(bp, NCR);
+	macb_writel(bp, NCR, (regval | MACB_BIT(SRTSM)));
+
+Both are reached from ndo_hwtstamp_set -> macb_hwtstamp_set(), which
+returns -EINVAL unless netif_running(), so they only run while the
+interface is up, concurrently with the newly locked phylink callbacks and
+with the bp->lock-holding macb_start_xmit()/macb_interrupt() writers.
+
+Can that lose an update in either direction?  If the hwtstamp path samples
+NCR, macb_mac_link_up() then sets RE|TE(|PTPUNI) under bp->lock, and the
+hwtstamp path writes back its stale image, RE/TE end up clear while the
+driver has already woken the queues; in the mirror case SRTSM/OSSMODE is
+dropped and hardware timestamping is not armed.
+
+The at91ether paths have the same shape.  at91ether_interrupt() does an
+NCR read-modify-write from hard IRQ with no lock at all:
+
+	/* Work-around for EMAC Errata section 41.3.1 */
+	if (intstatus & MACB_BIT(RXUBR)) {
+		ctl = macb_readl(bp, NCR);
+		macb_writel(bp, NCR, ctl & ~MACB_BIT(RE));
+		wmb();
+		macb_writel(bp, NCR, ctl | MACB_BIT(RE));
+	}
+
+Since the driver registers a single phylink instance with
+macb_phylink_ops, EMAC parts use exactly the macb_mac_link_up() /
+macb_mac_link_down() callbacks being locked here, while nothing on the
+at91ether side takes bp->lock.  Can this handler re-arm RE right after
+macb_mac_link_down() cleared it, or right after at91ether_stop() cleared
+RE|TE and went on to at91ether_free_coherent()?  at91ether_start(),
+at91ether_stop() and at91ether_open() also do unlocked NCR
+read-modify-writes.
+
+Finally, macb_reset_hw() performs the same RE|TE clear plus CLRSTAT
+read-modify-write and is reached both with bp->lock held (macb_close(),
+macb_suspend()) and without it (macb_init_hw() from macb_open() and
+macb_resume()), so the locking rule for NCR is not uniform after this
+patch.  Would funnelling all NCR read-modify-writes through one locked
+helper be preferable?
+
+[ ... ]
+
+> @@ -940,11 +943,13 @@ static void macb_mac_link_up(struct phylink_config *config,
+>  	}
+>  
+>  	/* Enable Rx and Tx; Enable PTP unicast */
+> +	spin_lock_irqsave(&bp->lock, flags);
+>  	ctrl = macb_readl(bp, NCR);
+>  	if (gem_has_ptp(bp))
+>  		ctrl |= MACB_BIT(PTPUNI);
+>  
+>  	macb_writel(bp, NCR, ctrl | MACB_BIT(RE) | MACB_BIT(TE));
+> +	spin_unlock_irqrestore(&bp->lock, flags);
+>  
+>  	netif_tx_wake_all_queues(netdev);
+>  }
+
+[ ... ]
+
+> @@ -2003,9 +2009,11 @@ static void macb_hresp_error_task(struct work_struct *work)
+>  					 MACB_TX_INT_FLAGS |
+>  					 MACB_BIT(HRESP));
+>  	}
+> +	spin_lock_irqsave(&bp->lock, flags);
+>  	ctrl = macb_readl(bp, NCR);
+>  	ctrl &= ~(MACB_BIT(RE) | MACB_BIT(TE));
+>  	macb_writel(bp, NCR, ctrl);
+> +	spin_unlock_irqrestore(&bp->lock, flags);
+>  
+>  	netif_tx_stop_all_queues(netdev);
+>  	netif_carrier_off(netdev);
+
+[Severity: High]
+
+This isn't a bug introduced by this patch, but while looking at the work
+item being modified here: bp->hresp_err_bh_work is queued from hard IRQ in
+macb_interrupt():
+
+	if (status & MACB_BIT(HRESP)) {
+		queue_work(system_bh_wq, &bp->hresp_err_bh_work);
+
+and it is never cancelled on the close path.  macb_close() only does
+cancel_delayed_work_sync(&bp->tx_lpi_work) before macb_reset_hw() and
+macb_free(bp); the single cancel_work_sync(&bp->hresp_err_bh_work) in the
+driver lives in macb_remove().
+
+macb_free() dma_free_coherent()s the descriptor rings and then does:
+
+	queue->tx_ring = NULL;
+	queue->rx_ring = NULL;
+
+If an HRESP interrupt arrives just before dev_close() clears
+__LINK_STATE_START, so macb_interrupt()'s !netif_running() bail does not
+fire, can the work still run after macb_free()?  macb_hresp_error_task()
+has no netif_running() check and calls:
+
+	bp->macbgem_ops.mog_init_rings(bp);
+
+	/* Initialize TX and RX buffers */
+	macb_init_buffers(bp);
+
+which dereference queue->tx_ring / queue->rx_ring and reprogram
+queue->RBQP/TBQP with the freed DMA addresses, then re-enable RE|TE and
+call netif_carrier_on() / netif_tx_start_all_queues() on a closed netdev.
+Would a cancel_work_sync(&bp->hresp_err_bh_work) in macb_close() (or a
+state check in the worker) be appropriate?
+
+> @@ -2022,8 +2030,10 @@ static void macb_hresp_error_task(struct work_struct *work)
+>  			     MACB_TX_INT_FLAGS |
+>  			     MACB_BIT(HRESP));
+>  
+> -	ctrl |= MACB_BIT(RE) | MACB_BIT(TE);
+> -	macb_writel(bp, NCR, ctrl);
+> +	spin_lock_irqsave(&bp->lock, flags);
+> +	ctrl = MACB_BIT(RE) | MACB_BIT(TE);
+> +	macb_writel(bp, NCR, macb_readl(bp, NCR) | ctrl);
+> +	spin_unlock_irqrestore(&bp->lock, flags);
+>  
+>  	netif_carrier_on(netdev);
+>  	netif_tx_start_all_queues(netdev);
+
+[Severity: Medium]
+
+This is a pre-existing property rather than something introduced here, and
+the changelog does say the lock is not taken "hoping to protect against
+full races inbetween BH scheduling concurrently", so this is mostly a note
+on what the new critical sections do and do not cover.
+
+macb_hresp_error_task() is a multi-step transition: it clears RE|TE under
+bp->lock, drops the lock, rebuilds hardware-visible state outside it
+(mog_init_rings() and macb_init_buffers() rewrite descriptor fields and
+queue->RBQP/TBQP), and only re-takes the lock for the final unconditional
+RE|TE set above.
+
+During that unlocked window macb_mac_link_up() can take bp->lock and set
+RE|TE, and an in-flight macb_interrupt() that already sampled RXUBR runs:
+
+	ctrl = macb_readl(bp, NCR);
+	macb_writel(bp, NCR, ctrl & ~MACB_BIT(RE));
+	wmb();
+	macb_writel(bp, NCR, ctrl | MACB_BIT(RE));
+
+which restores RE regardless of the worker having deliberately cleared it.
+Can the engines then fetch descriptors while the rings are still being
+rewritten?
+
+The reverse direction is also visible: if macb_mac_link_down() clears
+RE|TE and stops the queues while recovery is in progress, the final hunk
+sets RE|TE and calls netif_carrier_on() / netif_tx_start_all_queues()
+anyway, undoing the link-down transition.  Would it be worth stating in
+the changelog that these multi-step sequences remain uncoordinated?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260918-macb-ncr-rmw-v1-1-30c3494f93cd%40bootlin.com
