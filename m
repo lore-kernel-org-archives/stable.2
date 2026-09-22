@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F349E4D9F7E
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 09:43:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75A0A4BF92B
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 09:44:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790070239; cv=none; b=FxigB4WIusOlCUnnupX03De9dQsKNDh3X/u20Bz5DvMXKQc2kKhZUMSjh5vXj0TenIxIn5PMWbv1jjXTBZ9whXZSQkKbvBNUGJq2aLYiLHfdMXrBn6/3FNfxoF8q/vWf9emzrFqpFommjG9vmG+DNVwmV/QfWmThY49WV9/VyV8=
+	t=1790070242; cv=none; b=TUXDBAeWRt0vrhRiIFtbbFl3XuD1PKeksYqHs2iMhXkd8TOoBJdU3UDnxsqC5QHshiefWpiQf1enHj6tUsr5ilYumfA+cKRLhfoOHvp/7x10EAoK6XfCBrm8YLqiebUhCWrBbaTLp8wB6bjjAGS1d+VOIiJ6IUa77AVabnNsW1c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790070239; c=relaxed/simple;
-	bh=UKNnhFYxD6RZY2bmfCclm+3zAZBm+pU1LJrsh91swlU=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=PfOqd+/N5Yc5qbwUAi7JJq0oy6VgMmddtbLmalbUCzjW2HNz16KgqCUZtv7VbMqG+8wskSMc95lar0HT7c4LClE+TFzEsjBd9rAy+zLDSMvUvkB1cwUqAgTS63mW6I9xRLVhcLRiEobhdgGxh8IeniGFbrRplqDLAjIskrqKps8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=YduUjm8e; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790070242; c=relaxed/simple;
+	bh=A5uohzEHg7vjoL8xTHqGqowui7dXQ+rFQGCap1GAzOc=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=l3GFKbdP8CTNZAUMdUcvPLh7lSYTwXP+iFzPpJFwqLdpFoN2xq9J84CDUjAoi953mgGgTJFhqBp0x3m0JMu4uvrG/9bJZbASE4qx69B94p9fSjRCtMCvqyFxbwgr2kkzkEm6EaJg2/7tYUhwvUbWkUP6e5TIlqi11QjJUpIgzMQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=MVxxRZQR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="YduUjm8e"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F28571F00893;
-	Tue, 22 Sep 2026 09:43:55 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="MVxxRZQR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A8791F000FF;
+	Tue, 22 Sep 2026 09:43:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790070236;
-	bh=C9jySrZD7Nv691kkfDc7w+wy/ZF44JEaNvuNlW4N5CQ=;
+	s=korg; t=1790070240;
+	bh=21DxTs/NNGjIDZ8zbS4qnXrfrYWuOpV4nleie0L8GM4=;
 	h=Subject:To:Cc:From:Date;
-	b=YduUjm8eWZ+VGfGghsygvo1fsJmRPKXWPc+bHNHwab+RGK/QgQWRgfSb8PJYmlntL
-	 DSbkwFxDVuZqwIvrW3VPHbaXtzYQKsZFvGGc0S44ATBG9AwinHcplljyNf8z7O9vc4
-	 t0kdAVGXQCZfzQEiz5aBXxiXy0EEYGr8hAMrNOKA=
-Subject: FAILED: patch "[PATCH] i2c: imx: disable autosuspend on remove" failed to apply to 5.10-stable tree
-To: lgs201920130244@gmail.com,Frank.Li@nxp.com,andi.shyti@kernel.org,stable@vger.kernel.org
+	b=MVxxRZQRSfPvaQkhMgm2usd+bMjQJ6GelZ7ZILdAXYxCB2unD4Obk3r5LPLaasxJ6
+	 MCPiBB17iUio6H6GOp8T5fC0u0HG78gdgCiKyoP48hHKBmtoeb0F+aqYxVXJZWUwJm
+	 uX4Zb74f1LdNtj4sywcnV5QtEC5uG/krmT32CmRU=
+Subject: FAILED: patch "[PATCH] IB/hfi1: Resolve the credit-return buffer through the send" failed to apply to 5.15-stable tree
+To: jyohuku.alterego@gmail.com,leon@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 22 Sep 2026 11:39:39 +0200
-Message-ID: <2026092239-arguable-reunion-62af@gregkh>
+Date: Tue, 22 Sep 2026 11:40:06 +0200
+Message-ID: <2026092206-enjoyably-shrapnel-5c31@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x e0c3e9d76adbe522dd420a766ce42d03ce887c29
+git cherry-pick -x 975396b9e5a4028e649f4b9a6a5ca5dfb76a824b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092239-arguable-reunion-62af@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092206-enjoyably-shrapnel-5c31@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,44 +62,53 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From e0c3e9d76adbe522dd420a766ce42d03ce887c29 Mon Sep 17 00:00:00 2001
-From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Mon, 14 Sep 2026 17:15:44 +0800
-Subject: [PATCH] i2c: imx: disable autosuspend on remove
+From 975396b9e5a4028e649f4b9a6a5ca5dfb76a824b Mon Sep 17 00:00:00 2001
+From: Shuhei Takeshita <jyohuku.alterego@gmail.com>
+Date: Sun, 9 Aug 2026 12:27:42 +0900
+Subject: [PATCH] IB/hfi1: Resolve the credit-return buffer through the send
+ context's node
 
-i2c_imx_probe() enables runtime PM autosuspend with
-pm_runtime_use_autosuspend(). The probe error path correctly undoes
-this setting with pm_runtime_dont_use_autosuspend(), but the normal
-remove path only disables runtime PM.
+hfi1_file_mmap()'s PIO_CRED case derives this context's credit-return
+page offset, and the DMA handle for it, from dd->cr_base[uctxt->numa_id].
+uctxt->numa_id is the node of whichever CPU the process happened to be
+running on, but the entry itself lives in the credit-return allocation of
+the send context's own node:
 
-The runtime PM API requires pm_runtime_use_autosuspend() to be undone
-with pm_runtime_dont_use_autosuspend() at driver exit unless runtime PM
-was enabled with devm_pm_runtime_enable(). Leaving the autosuspend flag
-set therefore leaves the runtime PM state incompletely cleaned up after
-the driver is unbound.
+	sc->hw_free = &sc->dd->cr_base[sc->node].va[gc].cr[index];
 
-Add the missing pm_runtime_dont_use_autosuspend() call to the remove
-path.
+and user send contexts are allocated with sc_alloc(dd, SC_USER, ...,
+dd->node), the HFI-local node.  On a multi-socket host with the process
+running off that node the two allocations differ, so the subtraction
+produces an offset into an unrelated buffer and the DMA handle belongs to
+the wrong allocation.
 
-This issue was found by manual code inspection.
+Use the send context's own node for all three references.  The
+continuation lines are reindented at the same time; they mixed spaces and
+tabs.
 
-Fixes: 588eb93ea49f ("i2c: imx: add runtime pm support to improve the performance")
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: <stable@vger.kernel.org> # v4.5+
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
-Link: https://patch.msgid.link/20260914091544.1667137-1-lgs201920130244@gmail.com
+Fixes: 7724105686e7 ("IB/hfi1: add driver files")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shuhei Takeshita <jyohuku.alterego@gmail.com>
+Link: https://patch.msgid.link/20260809032743.2671579-2-jyohuku.alterego@gmail.com
+Signed-off-by: Leon Romanovsky <leon@kernel.org>
 
-diff --git a/drivers/i2c/busses/i2c-imx.c b/drivers/i2c/busses/i2c-imx.c
-index 19ec056b00af..4dc3df6a41a4 100644
---- a/drivers/i2c/busses/i2c-imx.c
-+++ b/drivers/i2c/busses/i2c-imx.c
-@@ -1920,6 +1920,7 @@ static void i2c_imx_remove(struct platform_device *pdev)
- 
- 	pm_runtime_put_noidle(&pdev->dev);
- 	pm_runtime_disable(&pdev->dev);
-+	pm_runtime_dont_use_autosuspend(&pdev->dev);
- }
- 
- static int i2c_imx_runtime_suspend(struct device *dev)
+diff --git a/drivers/infiniband/hw/hfi1/file_ops.c b/drivers/infiniband/hw/hfi1/file_ops.c
+index dc548e6802e2..72c21d7455fd 100644
+--- a/drivers/infiniband/hw/hfi1/file_ops.c
++++ b/drivers/infiniband/hw/hfi1/file_ops.c
+@@ -382,10 +382,10 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
+ 		 * of enabled contexts > 64 and 128 respectively).
+ 		 */
+ 		cr_page_offset = ((u64)uctxt->sc->hw_free -
+-			  	     (u64)dd->cr_base[uctxt->numa_id].va) &
+-				   PAGE_MASK;
+-		memvirt = dd->cr_base[uctxt->numa_id].va + cr_page_offset;
+-		memdma = dd->cr_base[uctxt->numa_id].dma + cr_page_offset;
++				  (u64)dd->cr_base[uctxt->sc->node].va) &
++				 PAGE_MASK;
++		memvirt = dd->cr_base[uctxt->sc->node].va + cr_page_offset;
++		memdma = dd->cr_base[uctxt->sc->node].dma + cr_page_offset;
+ 		memlen = PAGE_SIZE;
+ 		flags &= ~VM_MAYWRITE;
+ 		flags |= VM_DONTCOPY | VM_DONTEXPAND;
 
