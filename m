@@ -1,103 +1,246 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EFED569F34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6017456B84D
 	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 16:42:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790095346; cv=none; b=qI/SWQMkNMTP6Rjs19bahKOQWnnu0kCLICllrpQkHfeFTT9E6OIDjIFyguF6/3spwd20Png+4QqPU85r7FtnUka8UFTs1DCdN5GD8csP/nZv50ltLB1Oy8ZW8AX+uzK9zIu2opqkRx5qVrZ5eyCzjGh2UQlhh5INP3IEO14kgxU=
+	t=1790095346; cv=none; b=n8DhfLG26/fJmcE2YyBj6EJ5wtZBBpwRP7SDZDoUuDziJIQ+kR8qSHssi7PQJ6WDtk76L05hgvNeRltaiQniIgz5bqajztm2rIVSR+ycjjHHOf6REKnY2SsuTBgSsPX3Xm2HYCKRKuQgRDtWSL8tYftaOej0eXXGoY1al5xcMho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790095346; c=relaxed/simple;
-	bh=6AGBEG8zrHS5CtRBbqIdMFCnF06sZWLAYweu0dzexYM=;
+	bh=NWXoNNuAG1ikPeiQJXWmnlFnQS5JeEAS5mr8RP8KcR4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=M1GWNWlM59J7yJ1MwDRd7gWsBsp3r5wPc9JYVzvte3dYKR0mWj5nkr6Lf4EbnwOHovx71gB74615tZUZmEn4LEg0GeUnJEDIuJDkZDmbbtv2waqNzx2z1n4gnPuZdSJYXvVgTcLSpIlA36mW24QHVal/wqL9q+yyEyRrNIF/TvM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sm6j6oR0; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=V6RQDN5Nn09TNN1iOv6wNTOPB7fVIrud9xbMwKc/K2OcxyfrU4ntfYS+/DVxCoNHab11RVCTboiw7PCybdbdey0GwvxtlruN0Edx5oXJ7B5+GryOWAE2uAjOL3uPz4FlUk9MgluG6DaEYZfUe/IJjL4uTdFo4+bPtwaGuNDUvWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cEkUWgX3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sm6j6oR0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E28A1F0089A;
-	Tue, 22 Sep 2026 16:42:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cEkUWgX3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B4081F00899;
+	Tue, 22 Sep 2026 16:42:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1790095343;
-	bh=4LCApEcdP+ZOIK39e1vDpfsQWRg6nrMYaZ30K3PvMtc=;
+	bh=QQk44zb7NxfKXJFdmvbGYL/+Hw+80pOFluuc/gvbC9g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Sm6j6oR0bNZS4Hiyt4fbgbIp8ci9Yb6H1L9xgxDhuqSnVqGr/+FKwEPbKnSz/11FA
-	 K4FADAb1KR4vJwVoC5qQQUEtqW154XRuKs7ip/gjnjm3xY8P6+F1FfogeAIeC/v94A
-	 cHXNmJT2m8zjWPaBPIjVdRwYiw2LdlvIPa++yG0ighY6dC/J+fYY1B+kAlchxjsa5e
-	 F/953QBtiQmOx5/KwEM3LOqMHHYTJoC/QHcL1K0vKu4+xqDCNsQn/3Ipw07h1u04SJ
-	 UbRBvwIE/KzgdQoGPG22DXJo2fmjqAm8id/IzmhH9EcVq7O/Kbp2f1dbncv+gknWM3
-	 kGKtd8h/cD0vA==
+	b=cEkUWgX352/AQ+1G455vLAhkgmvAmEp8hmQ8V3r0ubp/HYQAAUvZxOYADeQxLtRgq
+	 VI1dobMoTh45DnMYIYMaMUv56k3BhF+gne2G1SqBXJ4zlWWYxdMtDPCGBGydCTUUkO
+	 fKxW/yLSOOo9SmvycYnWfeVvvtJHY+ZzRna5njn+/1gWieJS/IjKQkVVTmfeyz/yYG
+	 ndV8spl6GPb2+9s+tlzIujuI07tV7jhr/AvUV1iSXgp3u7BxsBjkniiZO9xjdiffbe
+	 HMo8hsnmO2z1bT/UVD/D2iXGXLYoH7M+AxL5lZta8Jc5YBVuaug4WQGx6vS1rzWgKs
+	 uu4f2RdQhX0Kw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
-	Abaci Robot <abaci@linux.alibaba.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Andi Shyti <andi.shyti@kernel.org>,
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Zi Yan <ziy@nvidia.com>,
+	Cedric Le Goater <clg@redhat.com>,
+	Saravanan D <saravanand@crusoe.ai>,
+	Lance Yang <lance.yang@linux.dev>,
+	SJ Park <sj@kernel.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Barry Song <baohua@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Dev Jain <dev.jain@arm.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Peter Xu <peterx@redhat.com>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/3] i2c: qcom-cci: Remove the unused variable cci_clk_rate
-Date: Tue, 22 Sep 2026 12:42:19 -0400
-Message-ID: <20260922164220.3108746-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] mm/huge_memory: bypass THP tuneables for huge pfnmap mappings
+Date: Tue, 22 Sep 2026 12:42:17 -0400
+Message-ID: <20260922164218.3108158-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260922164220.3108746-1-sashal@kernel.org>
-References: <2026092211-crept-ether-35ce@gregkh>
- <20260922164220.3108746-1-sashal@kernel.org>
+In-Reply-To: <20260922164218.3108158-1-sashal@kernel.org>
+References: <2026092210-parabola-undercut-a08b@gregkh>
+ <20260922164218.3108158-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 
-[ Upstream commit b88c79699d72caa947ecaae85839b3563662ccce ]
+[ Upstream commit e384abeb559d10d6505aec053ede9368d81d4c71 ]
 
-Variable cci_clk_rate is not effectively used, so delete it.
+The sysfs THP tuneables at /sys/kernel/mm/transparent_huge_pages/ rather
+confusingly only control the behaviour of THP in some instances.
 
-drivers/i2c/busses/i2c-qcom-cci.c:526:16: warning: variable ‘cci_clk_rate’ set but not used.
+They are not applicable to MADV_COLLAPSE operations, nor to DAX mappings.
 
-Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=11532
-Fixes: 8284750a1829 ("i2c: qcom-cci: Stop complaining about DT set clock rate")
-Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
-Stable-dep-of: 7362a1553eb0 ("i2c: qcom-cci: fix device_node refcount leak in cci_probe()/cci_remove()")
+Long-term, THP is predicated upon compaction being able to obtain large
+folios to populate THP ranges.
+
+However, vm_normal_folio() returns NULL for PFN map mappings, thus their
+reference count is maintained by the driver, not core mm.
+
+As a consequence, the folios are not subject to reclaim nor compaction, so
+are not truly part of the THP mechanism at all.
+
+However, since commit 5dd40721f147 ("mm: allow THP orders for PFNMAPs")
+introduced the ability to establish huge PFN maps, they have been subject
+to THP tuneables.
+
+This is incorrect - if a huge PFN map is available (defined by
+vma->vm_ops->huge_fault being non-NULL for a VMA_PFNMAP_BIT VMA), then it
+should be mapped huge upon fault-in.
+
+Correct this by explicitly checking for this while ensuring that smaps
+continues to accurately report THPeligible statistics.
+
+While here, abstract the entire file-backed THP check in
+vma_can_map_huge_file(), with sensible separation of logic into helper
+functions.
+
+Note that drm_gem_shmem_mmap() and panthor_gem_mmap() establish huge PFN
+maps of shmem folios, however they are marked unevictable in
+drm_gem_get_pages(), and in any case would fail the reference check in
+__remove_mapping() even if they weren't.
+
+Failing to map huge PFN maps has resulted in significant real-world
+performance degradation, see links for details.
+
+[ziy@nvidia.com: rename some functions]
+  Link: https://lore.kernel.org/DL1HIHWYJ7TB.1CY76SJS0V03L@nvidia.com
+Link: https://lore.kernel.org/20260827-hugepfn-allowable-orders-v1-1-94819c8807c8@kernel.org
+Fixes: 5dd40721f147 ("mm: allow THP orders for PFNMAPs")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: Zi Yan <ziy@nvidia.com>
+Reported-by: Cedric Le Goater <clg@redhat.com>
+Closes: https://lore.kernel.org/linux-mm/20260805055544.1568534-1-clg@redhat.com/
+Reported-by: Saravanan D <saravanand@crusoe.ai>
+Closes: https://lore.kernel.org/linux-mm/20260821070520.25759-1-saravanand@crusoe.ai/
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Tested-by: Saravanan D <saravanand@crusoe.ai>
+Tested-by: Lance Yang <lance.yang@linux.dev>
+Reviewed-by: SJ Park <sj@kernel.org>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Barry Song <baohua@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+[ replaced vma_test(vma, VMA_PFNMAP_BIT) with (vma->vm_flags & VM_PFNMAP) ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/i2c/busses/i2c-qcom-cci.c | 9 ---------
- 1 file changed, 9 deletions(-)
+ mm/huge_memory.c | 86 +++++++++++++++++++++++++++++++++++-------------
+ 1 file changed, 64 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/i2c/busses/i2c-qcom-cci.c b/drivers/i2c/busses/i2c-qcom-cci.c
-index 4c525bcbad431..0939f09f1c8cf 100644
---- a/drivers/i2c/busses/i2c-qcom-cci.c
-+++ b/drivers/i2c/busses/i2c-qcom-cci.c
-@@ -523,7 +523,6 @@ static const struct dev_pm_ops qcom_cci_pm = {
- static int cci_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
--	unsigned long cci_clk_rate = 0;
- 	struct device_node *child;
- 	struct resource *r;
- 	struct cci *cci;
-@@ -595,14 +594,6 @@ static int cci_probe(struct platform_device *pdev)
- 	}
- 	cci->nclocks = ret;
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index bedd9ba223fbb..e0c7b7efd38a2 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -84,7 +84,7 @@ unsigned long huge_anon_orders_madvise __read_mostly;
+ unsigned long huge_anon_orders_inherit __read_mostly;
+ static bool anon_orders_configured __initdata;
  
--	/* Retrieve CCI clock rate */
--	for (i = 0; i < cci->nclocks; i++) {
--		if (!strcmp(cci->clocks[i].id, "cci")) {
--			cci_clk_rate = clk_get_rate(cci->clocks[i].clk);
--			break;
--		}
--	}
+-static inline bool file_thp_enabled(struct vm_area_struct *vma)
++static inline bool file_thp_enabled(const struct vm_area_struct *vma)
+ {
+ 	struct inode *inode;
+ 
+@@ -102,6 +102,67 @@ static inline bool file_thp_enabled(struct vm_area_struct *vma)
+ 	return !inode_is_open_for_write(inode) && S_ISREG(inode->i_mode);
+ }
+ 
++static bool vma_file_bypass_thp_tuneables(const struct vm_area_struct *vma,
++		enum tva_type type)
++{
++	const bool has_huge_fault = vma->vm_ops->huge_fault;
++
++	/* MADV_COLLAPSE ignores tuneables. */
++	if (type == TVA_FORCED_COLLAPSE)
++		return true;
++	/* Huge PFN mappings are uncompactable so the policy doesn't apply. */
++	if ((vma->vm_flags & VM_PFNMAP) && has_huge_fault)
++		return true;
++	return false;
++}
++
++static bool vma_file_allow_thp_tuneables(vm_flags_t vm_flags)
++{
++	/* THP=always? */
++	if (hugepage_global_always())
++		return true;
++	/* THP=madvise and marked MADV_HUGEPAGE? */
++	if (hugepage_global_enabled() && (vm_flags & VM_HUGEPAGE))
++		return true;
++	return false;
++}
++
++static bool vma_file_check_thp_tuneables(const struct vm_area_struct *vma,
++		vm_flags_t vm_flags, enum tva_type type)
++{
++	return vma_file_bypass_thp_tuneables(vma, type) ||
++		vma_file_allow_thp_tuneables(vm_flags);
++}
++
++static bool vma_can_map_huge_file(const struct vm_area_struct *vma,
++		vm_flags_t vm_flags, enum tva_type type)
++{
++	const bool has_huge_fault = vma->vm_ops->huge_fault;
++
++	/*
++	 * Enforce THP collapse requirements as necessary. Anonymous vmas
++	 * were already handled in thp_vma_allowable_orders().
++	 */
++	if (!vma_file_check_thp_tuneables(vma, vm_flags, type))
++		return false;
++
++	switch (type) {
++	case TVA_PAGEFAULT:
++		/*
++		 * Trust that ->huge_fault() handlers know what they are doing
++		 * in fault path.
++		 */
++		return has_huge_fault;
++	case TVA_SMAPS:
++		if (has_huge_fault)
++			return true;
++		fallthrough;
++	default:
++		/* Only regular file is valid in collapse path. */
++		return file_thp_enabled(vma);
++	}
++}
++
+ unsigned long __thp_vma_allowable_orders(struct vm_area_struct *vma,
+ 					 vm_flags_t vm_flags,
+ 					 enum tva_type type,
+@@ -174,27 +235,8 @@ unsigned long __thp_vma_allowable_orders(struct vm_area_struct *vma,
+ 						   vma, vma->vm_pgoff, 0,
+ 						   forced_collapse);
+ 
+-	if (!vma_is_anonymous(vma)) {
+-		/*
+-		 * Enforce THP collapse requirements as necessary. Anonymous vmas
+-		 * were already handled in thp_vma_allowable_orders().
+-		 */
+-		if (!forced_collapse &&
+-		    (!hugepage_global_enabled() || (!(vm_flags & VM_HUGEPAGE) &&
+-						    !hugepage_global_always())))
+-			return 0;
 -
- 	ret = cci_enable_clocks(cci);
- 	if (ret < 0)
- 		return ret;
+-		/*
+-		 * Trust that ->huge_fault() handlers know what they are doing
+-		 * in fault path.
+-		 */
+-		if (((in_pf || smaps)) && vma->vm_ops->huge_fault)
+-			return orders;
+-		/* Only regular file is valid in collapse path */
+-		if (((!in_pf || smaps)) && file_thp_enabled(vma))
+-			return orders;
+-		return 0;
+-	}
++	if (!vma_is_anonymous(vma))
++		return vma_can_map_huge_file(vma, vm_flags, type) ? orders : 0;
+ 
+ 	if (vma_is_temporary_stack(vma))
+ 		return 0;
 -- 
 2.53.0
 
