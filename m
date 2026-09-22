@@ -1,141 +1,115 @@
-Received: from 4.mo560.mail-out.ovh.net (4.mo560.mail-out.ovh.net [87.98.172.75])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17CD0526ABA
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 08:57:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=87.98.172.75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BFCF52759A
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 09:03:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790067430; cv=none; b=C2jmbTCtBPRg2KJ0ZwGQB2nKG/e1gs6mx16tr0CydvX/DUq1bIdXqywuEX93S+6Nvw3z+42yi3PUSBVooqZsFUQcg5tWZRyzOJRPHPtWDTKb4dOY4j1FbeLOdIdEsXoUoAUhF8d3pamob6HG09vDgLvBjpwCuX2lNejxm5uZHzE=
+	t=1790067796; cv=none; b=KldHajs8/3uKoVSbQR5W2oJfmgce0Hai4syRmHhGxMHjd8XxXKMgHGa56fV9I7cAvzSTNa54cj2JaUyOsy2LPAJmGZrNY33FcE2pRSU3niJvjhfyxaxNHdzRSC7I+EgPyD6/rkhEHCi9HViiCojONS0KdY+6Mx4QKL7DGFYkzdM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790067430; c=relaxed/simple;
-	bh=vozS4Tn8G6O6ng5sDEwLGPHZJL36uoe21Z6znm0P5kI=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=q6JT6S+yLv2VYi+/kH91y2qm9fbkUSM4UT7c2RDNJyYwdA2xC3EHJS9nTvz6TlM8vBT4KjqCQCg1eTMmp4ODyHSQ6v5qB54jbwa8i/PGKLvuOk4dv/GNA4HRpBnV0dDyQXIa1sq5IycFdtc+TBw0id1JExzrj5AVeHVK+d3LrjY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quelquesmots.fr; spf=pass smtp.mailfrom=quelquesmots.fr; dkim=pass (2048-bit key) header.d=quelquesmots.fr header.i=@quelquesmots.fr header.b=E7JH3Jry; arc=none smtp.client-ip=87.98.172.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quelquesmots.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=quelquesmots.fr
+	s=arc-20240116; t=1790067796; c=relaxed/simple;
+	bh=3T+/5+/qt9/zQc/iBOuhbw3f+5o3VdTK6NF4SEakQPA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WuSX7SLfVbE/ECAmEss0Lrw5NBg37LW75O/nVg9HnTFCsHrvFmapZUXvDRUf6c5he/v445LqrhGBQ9VB0rkZYHcUSTvt99tsF7+ygtDABNleY3CI50AJtztEIQQEuEWGZ1X1UtaOMo12JJEvHIJKGsnSF1TuPUFqt6YIIFdC6No=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kcVYwDEl; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=quelquesmots.fr header.i=@quelquesmots.fr header.b="E7JH3Jry"
-Received: from director2.ghost.mail-out.ovh.net (unknown [10.110.43.183])
-	by mo560.mail-out.ovh.net (Postfix) with ESMTP id 4hpv2M5tlczBKTy
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 08:50:51 +0000 (UTC)
-Received: from ghost-submission-c7b579475-9ghvt (unknown [10.108.54.199])
-	by director2.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 8661CC04C9;
-	Tue, 22 Sep 2026 08:50:49 +0000 (UTC)
-Received: from quelquesmots.fr ([37.59.142.102])
-	by ghost-submission-c7b579475-9ghvt with ESMTPSA
-	id ko1GFWlBsmqwRQQA5nG6ng
-	(envelope-from <l.wandrebeck@quelquesmots.fr>); Tue, 22 Sep 2026 08:50:49 +0000
-Authentication-Results:garm.ovh; auth=pass (GARM-102R00457fffa61-1c32-48c3-8fd4-5f58ed46588f,
-                    635681CF4E92E4A6CAC13A4CB71CF26F70416E4A) smtp.auth=l.wandrebeck@quelquesmots.fr
-X-OVh-ClientIp:109.190.254.62
-From: Laurent Wandrebeck <l.wandrebeck@quelquesmots.fr>
-To: Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org
-Cc: "H. Peter Anvin" <hpa@zytor.com>,
-	Oscar Salvador <osalvador@suse.de>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Dave Hansen <dave.hansen@intel.com>
-Subject: [PATCH v2] x86/mm: don't apply va_align to hugetlb mappings on AMD F15h
-Date: Tue, 22 Sep 2026 10:50:32 +0200
-Message-Id: <20260922085032.46144-1-l.wandrebeck@quelquesmots.fr>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260828135747.724789-1-l.wandrebeck@quelquesmots.fr>
-References: <20260828135747.724789-1-l.wandrebeck@quelquesmots.fr>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kcVYwDEl"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccff31419so32849515e9.3
+        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 02:03:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790067793; x=1790672593; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tXgGr2qFh/euRpkCia3YpYMa0+avEGxCjpNyfGxf7Ek=;
+        b=kcVYwDElJJO0Bo4n0d8AYkFG33WJshJCLsbDGXkLKxMQhuBNiSG51dXQ7ZND3m6V42
+         qQFhYG4CEfG7rkPsBUWynJc4jeS82xjWywOyjwpYwGoNCUudbluxf7DDPB7wdjjOjFUX
+         FqHelefKELTePbP0z/hyJpYo701LO71NmEDxdjb2Pt3q7oMd1FGkDad9fVfL32HFlPCJ
+         Y02YsPvg68CLxaFYMHT/8ZiP/mOJFvKhCkwr+B7j90ILpRmQUugG3ewo18sCzobxJlXC
+         4Am8OC6JGfrQdJh8EnRBHatHAhUEAqE/de8NwdZM/TvvKgsZOc6BGe4BmC4R1mLQi/x3
+         u4yQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790067793; x=1790672593;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tXgGr2qFh/euRpkCia3YpYMa0+avEGxCjpNyfGxf7Ek=;
+        b=gA4JtcNDhBi+4AhZF8ORw7beEHzDp/ALz1qixSHxW4d5hglo+GsP+9QgBJrlQUDTFS
+         LTg73KhfVblc7kvNCW63tTk1LHSTDtyrOorJiZIGDJE3+txA6xtEkC772/j+yOSlPnfe
+         lCZH4va9RHV3sDDmIJRvBTgGXoGJyW2dY3Vwuy39leXR6WFDLduMu0pdu02hkTlafsqQ
+         gGbb3mvC/9RgJ8tp7gcSsfKEETZX1oMen4vMm38DDUoWlJ39Aml1Hw+pTO65HqnfYAlx
+         Yjr8Z41dCeMtsMFWZsFzdr+kzWyRR6+WpUXN39jZvu9Rveg+E6nzHbFbvhFFmG/FiXEs
+         nnpw==
+X-Forwarded-Encrypted: i=1; AKwUvBy9EdideyKdroCsDXpu0GEfJvPtn0ETSSo2TgmI/mWnyp78oRJJ+dMP5W2Mlvan5b9GKs5HXyw=@vger.kernel.org
+X-Gm-Message-State: AFuF++nVRE3M+GPvo/LyStvmorPussvXHzY2CrilfxIyLRg/lYkCsGJR
+	Gjkyk2ESb/DE/4a8S8TyqNhRllMeOZLhMFPUwEa6qBhqzpGzr+QgxTxm
+X-Gm-Gg: AYBFou2lPnbQHaU151D3YA5i6Q8+aQV/gziCJh8x6iFXEZP6+ArSxZji5KL75OkLav1
+	vM418enOpIIc9IrnMwjElpMfCNRVI7sURvQhJKYoKQdscWYptPcnuNqeNWNiUIeVWyWjHhVDcOR
+	kVkWx40/imkxkPfPMnsQRiInjMbqJvcADc53J0zR9pbfxYrgr0DrWrobFNMeLuaLnfzbOHDO7IK
+	MuAkFg6tld/mSdgwm0ewTlpmRssTcZ3g/PbWzSecnBRC3Lvc72LomwiSm7REaZ/Kxsg68tIuixr
+	OTjDsJ70PwHvwbmtibtp/4UfJBk6trxQTaqFlQo1dh5eC8lbBPNSXpKPUbWR+wtOUQXv9wjouvV
+	rrhTCAjIDHVt8dhcUre69nxzuwO/W6rnat8ETfihTUni4l/djXJpk8gjIOERv9X4UirfafzHaus
+	STmGzY4u/Rax6tDDX/xCqaKFEbDRKGqYWpmiwC1c7QEp7Hr7U/9TdgpsF5lGALqyEP259zw/G4X
+	ida29Aw5/UXSMMFYL/NNwjw4PEJSwnxJtfF/8PLRw0L5mLJX4yh3+TuvEvcvYUOekp5YNMELseR
+	aDLP
+X-Received: by 2002:a05:600c:1385:b0:49c:edd2:855 with SMTP id 5b1f17b1804b1-49fc5673264mr182704015e9.6.1790067793380;
+        Tue, 22 Sep 2026 02:03:13 -0700 (PDT)
+Received: from andreayoga.localdomain (93-42-14-189.ip84.fastwebnet.it. [93.42.14.189])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdace7941sm42684265e9.2.2026.09.22.02.03.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 02:03:12 -0700 (PDT)
+Date: Tue, 22 Sep 2026 11:03:09 +0200
+From: Andrea Parri <parri.andrea@gmail.com>
+To: Christoph Hellwig <hch@infradead.org>
+Cc: Christian Brauner <brauner@kernel.org>,
+	"Darrick J . Wong" <djwong@kernel.org>,
+	Joanne Koong <joannelkoong@gmail.com>,
+	Brian Foster <bfoster@redhat.com>,
+	Damien Le Moal <dlemoal@kernel.org>, Hannes Reinecke <hare@suse.de>,
+	Daniel Gomez <da.gomez@samsung.com>,
+	Pankaj Raghav <p.raghav@samsung.com>,
+	Dave Chinner <dchinner@redhat.com>, linux-xfs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/3] iomap: don't resubmit an ioend after
+ ->writeback_submit() failed
+Message-ID: <arJETViXYZbX8ckp@andreayoga.localdomain>
+References: <20260921083133.2960-1-parri.andrea@gmail.com>
+ <20260921083133.2960-2-parri.andrea@gmail.com>
+ <arITIy2upsoN-DlW@infradead.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-x-ovh-tracer-id: 4713861437617077698
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTGubFdNA5Mq04fBGK3gC9kqCB9FIck7QMQA+k7zsgkXFpQR6t03Yg6ArBdu2SLNHNSGg7Gp75cH+yqP1FxecSY0Z2atvMw97uOSYR21lGq+8FfOVS2tfEZH/tOdy1HKrEh0kcT4iwUdHWw2gGOQIpms4D3Loc/lrJKp9bcImETjs4ZXylOFjG0jV8OmMOoRhGyuzcFK0EDN2HewpJEdOUWuTA9li5UxHN1K9ye8Gb4k68i0joFn1hAmNYK6COPknkNquwiPR9HpfGJNyBEZ/K/YHzjNNMkaQNbcijFwXMMWpiQoQEHgJkjS24hIYFI1MYzIWHfP4xWDroyu4WkTVv9NuI9+/61rLp4ZnR5S0grpCGvg8swQirh5V1bPjnnKLiVsOOp6x/UdrNPiOxWx853FVL8IJiCNoauczf+VxnoWnKffBaMXYvprjyFtnDIsMQQlZsToEE7TO7wR8uXxLv4KjmHbMIpF6uJuS3r/Z9kTyX3BspAQReaduQbmcDU6mt3sw1snkWdcm+s9wvaNnpvRh7SljzDLSi5Ewia4TqWHFcXYHIbtRsqKa4s8wJnthF2wREZoNy4kAKx6OXrwNmIKY4cUwCC+5ZZpFqrqsQRg4oSdGDBr0ui2xqU3sLAIl35QiwzSkhwNYd8h1t9gfXmQ6NGOIWcSYK7DqYLSBwqJUQ
-DKIM-Signature: a=rsa-sha256; bh=w7/Bt3TycCT1K1u24fOFFkzDbe41NlkwbsLDq3UP4wk=;
- c=relaxed/relaxed; d=quelquesmots.fr; h=From; s=ovhmo4049951-selector1;
- t=1790067051; v=1;
- b=E7JH3JryapxuyaFq5Ln44rkYkxGQdMMuSEdB8GxzzENa2NSD43RPdPGf36ANfoWfogTKMDLy
- r4fewj4/17TVT53s2XVBKl2jzbXH1VWWM5+ziPwZ5bj1PKXuQNDsIcKFEQ+bA/eZ8/LOZl9EVYv
- IIqIoRT9wRtNPm785B441TmX7yoRijcVzYhKbLcplKyZBXfRAyJxKm+6fwrXk5AVibjo3YrCTjh
- VXCmFx3WjkQVWfRS1l/9JpcVb60p52HRrXAJkifLyvcn+Jha/T4Kq5GuET8bVQVH0eCWiselvod
- 3p8Ul/KV5zlV0Xuu4ACwH4pg/AZ0kPdLMyQeZXo4xtgfw==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <arITIy2upsoN-DlW@infradead.org>
 
-get_align_mask() returns huge_page_mask_align() for hugetlbfs, but
-get_align_bits() adds va_align.bits regardless, so vm_unmapped_area()
-returns an address off the huge page boundary and
-__unmap_hugepage_range() hits BUG_ON(start & ~huge_page_mask(h)) at
-teardown.
+> Do you have a reproducer for this using some kind of error injection?
 
-Pass the file to get_align_bits() and skip the randomisation for
-hugetlbfs. Reproduced on Carrizo and FX-8370E, both hstates.
+Yes.  xfs_reflink_convert_cow() is the only in-tree way
+xfs_writeback_submit() can fail, so I added a boot param that forces
+it to return -EIO, reflinked a file, dirtied several widely
+separated CoW regions so writeback has to submit more than one
+ioend, and let background writeback run under the fault injector.
 
-Fixes: 1317a5e7f7b1 ("arch/x86: teach arch_get_unmapped_area_vmflags to handle hugetlb mappings")
-Cc: stable@vger.kernel.org # 6.13+
-Suggested-by: Dave Hansen <dave.hansen@intel.com>
-Signed-off-by: Laurent Wandrebeck <l.wandrebeck@quelquesmots.fr>
----
-v2: put the hugetlb case in get_align_bits() instead of guarding both call
-    sites, per Dave's suggestion to pass filp through. Masking rather than
-    returning early cannot clear the bits: va_align.mask is an L1I way
-    size, so it is a subset of huge_page_mask_align().
+On the unfixed kernel this reliably hits "list_add double add" in
+__list_add_valid_or_report(), from the stale ioend's second
+bio_endio() landing in xfs_end_bio() and relinking it into
+ip->i_ioend_list. With the fix applied, writeback just fails cleanly
+and there's no corruption.  Happy to describe the harness in more
+detail if useful, it's throwaway boot-param/script scaffolding, not
+something I'd want to send as-is.
 
-    Re-tested on Carrizo, both hstates.
 
-    Link: https://lore.kernel.org/all/20260828135747.724789-1-l.wandrebeck@quelquesmots.fr/
- arch/x86/kernel/sys_x86_64.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
+> Overly long line here.
 
-diff --git a/arch/x86/kernel/sys_x86_64.c b/arch/x86/kernel/sys_x86_64.c
-index 776ae6fa7f2d..4c078827f26a 100644
---- a/arch/x86/kernel/sys_x86_64.c
-+++ b/arch/x86/kernel/sys_x86_64.c
-@@ -50,9 +50,16 @@ static unsigned long get_align_mask(struct file *filp)
-  * value before calling vm_unmapped_area() or ORed directly to the
-  * address.
-  */
--static unsigned long get_align_bits(void)
-+static unsigned long get_align_bits(struct file *filp)
- {
--	return va_align.bits & get_align_mask(NULL);
-+	/*
-+	 * va_align.bits is smaller than the huge page size and will
-+	 * lead to misaligned huge pages. Ignore it for huge mappings.
-+	 */
-+	if (is_file_hugepages(filp))
-+		return 0;
-+
-+	return va_align.bits & get_align_mask(filp);
- }
- 
- static int __init control_va_addr_alignment(char *str)
-@@ -157,7 +164,7 @@ arch_get_unmapped_area(struct file *filp, unsigned long addr, unsigned long len,
- 	}
- 	if (filp) {
- 		info.align_mask = get_align_mask(filp);
--		info.align_offset += get_align_bits();
-+		info.align_offset += get_align_bits(filp);
- 	}
- 
- 	return vm_unmapped_area(&info);
-@@ -222,7 +229,7 @@ arch_get_unmapped_area_topdown(struct file *filp, unsigned long addr0,
- 
- 	if (filp) {
- 		info.align_mask = get_align_mask(filp);
--		info.align_offset += get_align_bits();
-+		info.align_offset += get_align_bits(filp);
- 	}
- 	addr = vm_unmapped_area(&info);
- 	if (!(addr & ~PAGE_MASK))
+Fixed, will rewrap that comment for v2.
 
-base-commit: 93f51579e7df248780214094418f205253383cc5
--- 
-2.34.1
-
+Thanks!
+  Andrea
