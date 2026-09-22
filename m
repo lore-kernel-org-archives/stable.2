@@ -1,45 +1,57 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD73655D897
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 15:39:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5650A5505C1;
+	Tue, 22 Sep 2026 15:39:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790091544; cv=none; b=F9uOAIZtg2tap4mweCXJhHOIZvf+MchwJNeORiGg9nsycnD/SwcnIFw3s+qwqi7cp6NUKTjqd6R0SdmWx1u4M4haL3HoAA2t8Q12G85wGCmK3TYomymHLnALp8KVVj0WPnIGMCgGqWtDKrzKfT1wZ9PdZhhFTzz0qFXMj/vqKaA=
+	t=1790091547; cv=none; b=ANgbvd52s2gybtOVlngZuuImfKL7U8v8bXjhv2MqJkvGXwKcD6P7FMKyDA0R9ZemVx3D7amO5OqW86DRdhhT0+/qDiMpxC0+chVMeiCmnmT9nYWBnFBfbSU/TlYv0oC0RwZwj0PL57CvtnfRvOy1y2/prsAMefIpmLZ9UkAgobM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790091544; c=relaxed/simple;
-	bh=KWTZxSe3jNf1DG1Dv8H4CK/gODfRCeAfnjXIQirw7u0=;
+	s=arc-20240116; t=1790091547; c=relaxed/simple;
+	bh=e9064dmLtXPIpbPgq0vdAhBqiEsQjb5F3krx6zq2ao0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=K2tcwqM75waTN/KQ+W7KTgLAomPPUgOJmGqV2NcQ5jEB2P29X5M4aENs6fEmKaj25kr4e/pFz4AvCFzLI/D/ocsdqieURfrVwNTp/r8gi31kXUOUnwXt5o+kElFilqyq6ZO0gngA5FYiJUyp7VWd506c8gNFJv5mQV8JEhduC9U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MYMGDHRa; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ZOznx8EqNnJf6uOBVrY2aWDBO40IeIH7V6jPzABMpAwYOXf262UF5uziPl9v6A61Zj3NaGmAKrTfKJhL4xw/gYqRD+XtG+UGpUPRup2AS+5KpXhViRr9tuQcTmyjndX+QA9CMZfHA2wyW0LVFtpaFAoW17sGF4S5F2JoSE6FyD8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SkVHTBEQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MYMGDHRa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 012A41F00898;
-	Tue, 22 Sep 2026 15:39:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SkVHTBEQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 117121F0089B;
+	Tue, 22 Sep 2026 15:39:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790091543;
-	bh=H+ivCIsNDT72uSFZt13rK2C9WJ9C0ULuVDmM21xOhAQ=;
+	s=k20260515; t=1790091545;
+	bh=jJ2dYp/XvskeEdM3P1iMUDkwcj/bYfhcJRRNYEn6Lus=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MYMGDHRatIfV8x1M9jXDWfjfJYpLbOCmfkeefudQ0ukZE8OneinCIBoHBantyXToe
-	 o/VSFx1W1PPXm9fGso8ylpJn7dkfXhnyYaHxH3QVImSewB1no7J4EthA4UePzG1c5t
-	 m68KE5X9Aj73V1ZiBaQZk54h/jAEqIVG7xVNC4mnQF0/QbtoE4HG9Nms3HH8auQQ6c
-	 xfUb9whgFvNZ9DQNjFBtk5Jbe16EbLdh+h7T9o4nvFJqPwXgPzrkiiXtRPMrVpGGuq
-	 R12B+27+7vBkwsh2ea61TxsPTPOlA0q2vBDOrqA6/iz5QYgcxcjTSi8HheqNqdSuQz
-	 kYbSFD0dNioAg==
+	b=SkVHTBEQaV4x4VLWjobsyTzLYeXPqxZCtoxW7HSaNThPHfWNrYWehqZXkAcxiiTjx
+	 mKmLpAEoA37n/6R53/8F/7yjaXCF5eUDeO+2Knu6LKdsC5sJTyzr7DtSotc/3WF9VK
+	 5E4+8se4hj8kY39Vxh/hAgvWzHgtrySgfOw1x+hlg05cJMmUk86nSZbKuNr4BFlPpm
+	 rkbpipdpUjs1+xDFHJ0s+NQKtqwEhKq16xnUjPCvta7JoEj/W0x6wN38lJn7vkDsIx
+	 jOV2MqGoQUU+lTtbfVPi3dbFX2bWVLHU2ohUP+wa11r7JgEbMpmDr6Hk4+VoOSG3Qc
+	 eXRfAPcTrsXCQ==
 From: Sasha Levin <sashal@kernel.org>
-To: Francesco Dolcini <francesco@dolcini.it>
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	stable@vger.kernel.org,
+	Artem Dinaburg <artem@trailofbits.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>
-Subject: Re: [linux-6.6.y] 6.6.158-rc1: stale ASSERT_RTNL() in __ipv6_dev_mc_dec() WARNs on IPV6_LEAVE_GROUP
-Date: Tue, 22 Sep 2026 11:38:54 -0400
-Message-ID: <2026-09-22-daily-reply-0001-re-ipv6-mcast-assert-rtnl-6-6@kernel.org>
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	sound-open-firmware@alsa-project.org,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+	Dan Carpenter <error27@gmail.com>
+Subject: Re: [PATCH 6.1.y 0/2] ASoC: SOF: backport CVE-2023-54233 to 6.1.y
+Date: Tue, 22 Sep 2026 11:38:55 -0400
+Message-ID: <2026-09-22-daily-reply-0002-re-asoc-sof-cve-2023-54233-6-1@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260921074753.GC13965@francesco-nb>
-References: <20260921074348.GB13965@francesco-nb> <20260921074753.GC13965@francesco-nb>
+In-Reply-To: <20260921193750.82134-1-artem@trailofbits.com>
+References: <20260921193750.82134-1-artem@trailofbits.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,18 +60,14 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Could 98363feee39760011bd2225558c0fef9487c449f be applied to linux-6.6.y?
-> Or the problematic commit should be dropped
+> The stable tag on patch 1 says 6.2+, but the same unsafe dereference is in
+> 6.1.y. I kept the pair together and did not bring in the later topology
+> refactors.
+>
+> Could you please queue this series for 6.1.y?
 
-That hex is not a commit, but the rest of your analysis is right. The
-commit that removes the stale ASSERT_RTNL() from __ipv6_dev_mc_dec() is
-e01b193e0b50 ("ipv6: mcast: Use in6_dev_get() in ipv6_dev_mc_dec()."),
-five patches earlier in the same series.
-
-The RTNL conversion had already been dropped from the 6.6 queue on
-September 19, so nothing with this problem shipped in a released 6.6.
-The full ordered set is now queued for 6.6, thanks, and 6.6.158-rc1 is
-the only place the half-converted state existed.
+Queued the series for 6.1, thanks. Keeping the pair together was the
+right call.
 
 -- 
 Thanks,
