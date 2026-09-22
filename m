@@ -1,138 +1,132 @@
-Received: from mail-yx2-f43.google.com (mail-yx2-f43.google.com [74.125.224.171])
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99D762BD022
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 02:47:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49F7439A806
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 02:48:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790045260; cv=pass; b=q6uN1i9uwSJPndK4poVoOfQWFBeM1gW0EQFJ6iDZjAazF/HyNeAekAtt/vf0i9iIywldRB6cVzsz2ZydHzcpMvGuvQ5OStDbNNidbYWac5KkUpZ9MlPAQSzTNVn3bUCrlukFjJwXI0adDF5MDCulIE0FJRPoRXXfPlUvluc0IEM=
+	t=1790045324; cv=pass; b=Kl1oXkF9vEtNdCCrQAzycRas1HxnjSRbRRCZcqLC3vDNO/f5yoHqARMNk9LKcnr3Ga3s0ijzTbf9dPTsu1UoMTk4/itsJE1Wp+tAHZzBCbUJHWLwQJNnHEQ3/epHc0GGDrBRol5ysMVBQj8Yv1mRITnyq+D9nN/bH8et+IBn/l4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790045260; c=relaxed/simple;
-	bh=/bF+2i7J9tw/SU9Y8Ch+X0ErYTFXTPP1J7KPqLHGa9U=;
+	s=arc-20240116; t=1790045324; c=relaxed/simple;
+	bh=BTNod3yCiVITqkGUTzHOAxx2QYkllbtfz8BL73slXFE=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IxEzut2qLjiAzCMhLuYKV7hIgARoWyWj7URELILI70Xq+qulZCNnqxzmrlYsFcDKiuqDid4wUXOBQqNVQWsYN+GgRss3t2AY0ipvWKSObgoBj3Xv8gGTU3WWlzyRAC4Lq3UrdxBXW/PtYHWLewa5csUmf8er708ttWYxp4k157E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AuLhNOa0; arc=pass smtp.client-ip=74.125.224.171
+	 To:Cc:Content-Type; b=hufUdjSfFh4p5M3ME3W7WxeCV7J10QjobKE04mYl9dr7kV8P70ZrqkOHPa7NUZ0nN5umdWasTdWnjflxfTdOoqa6qjMeESGjlIqjhQG9J50zyiDjjEUFxN5b8lD7s7SY0CbLuo5U5NvM9X0+XuuXMAC+WmMvjQ6XnTN8Xp4z/NM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OCP3YP06; arc=pass smtp.client-ip=74.125.224.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AuLhNOa0"
-Received: by mail-yx2-f43.google.com with SMTP id 956f58d0204a3-671563fb8beso3460694d50.3
-        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 19:47:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790045257; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OCP3YP06"
+Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66e4ab20f4bso3795266d50.0
+        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 19:48:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790045321; cv=none;
         d=google.com; s=arc-20260327;
-        b=SEFLLHIq3YMhiqphOUASXKiBip+Rgq/b3RuJ29QvvCX1dEZDtd8CHlA6Y8vdR5e8Go
-         10ithey3cl+TK3ca2tUkDFWhxOLM5wDmHV56Mtj27abt7wupNcaZ/TTe0CoAZt+yi7Z/
-         r6tvPd2wo91N5vMSpwE3u9QkDWHJNM3o/eNwXUflbVbhx8XWF8a6U/1Th+wlRhyJ1ZUF
-         tZGt02aYffHb5O+71KafohEiqq7qI/Tf2YU2Exg0nt4UiH9120x7CaeRvKEElut4ZdFJ
-         DZPIJmWYT/3lrky0xBP61L0SNIirlY5Yj3zldLSRdep2R4TelHLwL3axm/AeUCMdezwy
-         2GfA==
+        b=r6kVXjTagHa/L2KeAP3xEW0S9xOPMrQoqd4dH9kKc6B/JYDoXYH2YtkcgM/kO6t7Ax
+         OVKD4iZpi0cq6CBAvvCpQi4QAlYbP1ulAXnhwFOT4DB5xEYYJMj0mWfKU6shNNX+rpV6
+         sDGYm/85yG4gPV4938g5NyhjG19TyOBbZb1bzHFw/Gbwr4OGdx4j0+AhFuYkRUNb9i4C
+         8LGxZy4K+UvF9JYh3vvuctiWfIfznIdcjUKvu3WuRoC20siKex4Tn2kHoh4oLhvzTXzS
+         kqsGTBuEL6S37X4DmbVhWPZFQQZ6e1nkpioLv1Xk59dYKG7XqSlyH0Td9tCtJZRGEMoa
+         Ttww==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:dkim-signature;
-        bh=K/Pzgg7o0qrlVK5qFQbvKisrC2SDvw/OqmX88foRwCs=;
-        fh=q9OYfvPigGnLLqy+6A7VI2RsQLslntXkAglJzMq+fiY=;
-        b=MnNq5xK8jEapFgo3v6WM27y+91P7RVVCnm22PV6qFazavN+aAhFBwbiBtmio+KRuKK
-         9KsR8oehrDP+UERFWH2cBCcfnBHvLaclPz5F9fNfP0OkbSntP6+s1UV1Qo0nanPeopCg
-         9BYeg9veYpMZRrxla6H6fSlq12k6xvEgW7v9GQ2u5eH5WabgIJl2quxiFdc0CDc5fH09
-         G4PW8bTgwE1DdnsVuSU1FYtRRPOTt0MhF/2onn2Hmxf8HhDQwjw6Qs2c0ompc/RqSYsk
-         lNGDz+eAEkCkZyQXDdyUKSgL5GdFMKaYqmFexZ8ksBoeDZDonepgya0099+PPpZcTzON
-         N65Q==;
+        bh=EwWA3LgMjt74XDEZ31Q/wUl2bcv/dp/523dBsTBjRfg=;
+        fh=sYE1cK5iPf95Fmh+fc9xFbykbfsbt/zfE14fYWrEJz4=;
+        b=s0eP3v0HHshpQLYGO+CXa7EY5Ofqsd7OqQZVGxtG7qXxtPA7b+GjOkZ2T5qa5XAVqs
+         TYn6hUJlKMl/xrVdw1LAwDf1hNlh2moEvqd7Hj7xm096mJTP+SzcFLonukJQK/aU/t9r
+         ZrctpVjQ72yrSV2ZvhDdLIJRL2O61Up2Q7yM42O3cUeqiNLb2Wgup4/v18eboDZKcvRs
+         C1bSfL1vQPzNZwFz3l/vYc0YzZ75WtvA9DsBXuFOTz+55X1HG88QBhIFXdPWqmQTJrOj
+         rohQ7hsclzMxAlAMH2ZAyfiqg9bSndo/FYhAGpsrDsy9DQbwHgq/MT307L2j8bMeZuvh
+         gwuQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790045257; x=1790650057; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790045321; x=1790650121; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=K/Pzgg7o0qrlVK5qFQbvKisrC2SDvw/OqmX88foRwCs=;
-        b=AuLhNOa0yPL9n4hIKdsmoKbEnxfAuuK/HKtO7P3kdusbH5x7hG67dS6slg21oqqMbg
-         cDyWlzyF2x/28pOi5Fl8T/RIaFd6Rjo0MQYcMzadjD+4UENR1PxRRxs87oR+B6Qws690
-         feROsiscLY5pVaXM4pP46S1YHdsoShHCTC+QhpmUTCOl30+ifYBaiosiNwHH3VuHfZAB
-         nVYqcFnrEttaaf9UVTCXUDWVCgw2bfgmwhMJ31UPwTk2vBwjXgjrmYdrBC08YVpw4F69
-         SURYQi6jSnhJWWINrDZnJWp1Y3YNntdOtAhJJYRmUFg6jndk4CwP9X94B6w73xvr6l14
-         zZNg==
+        bh=EwWA3LgMjt74XDEZ31Q/wUl2bcv/dp/523dBsTBjRfg=;
+        b=OCP3YP06F13D0Is8mrxp+Hl2BJDVBihPjBs3Uo8vxgDg4/VbCZqmai7HtFnRpmbvC1
+         xpqWRj2NgtjDsOsJLggDYqTnSf78B+LKs3nDWjbOICMMFG8j00pxUWywGYejUmfuAX91
+         0iVt5FXof6FSLCS4Ior4GDPhmBmrCwQVPhKtMM46pUgfRuJZMw5Q2SEng1H4hdGmjXPx
+         PX4PY+oL/SekL6FZC8n0Ji000zsDy0cs7sM+xU3BzJkPodvULhQh940ci63re/rWO98D
+         2bbVmlJDg6X7pOQRqpjlHGaUNELq7OXtun8yUWfwsjDN5p3oROK477OPz2psy7O6Eavp
+         CX7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790045257; x=1790650057;
+        d=1e100.net; s=20260707; t=1790045321; x=1790650121;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=K/Pzgg7o0qrlVK5qFQbvKisrC2SDvw/OqmX88foRwCs=;
-        b=Dl0H3Nn0ADtrPaNJcpxMnL7Bg/gNsZG1XK44dt9k5ZiGHc1lG6Z1+KpXT08YPG7zU7
-         DJwuUhf5pRBgN1oASAmAYVdyvDBrkb12FDk44ma41GBC9TINlkk/DAqqTv/8qO45M8TJ
-         V3HeybIK0SWD3Qx/6MPStxYB/5h6OFmelAdkpm1ASInUISiGPzeMJzN/oDKe+gQaNdJZ
-         ZRvtPHp/9hh3lv5r+2Waj6QjOzRvCwbih9mqumz0HFH61jUF5JXTAZE9jiIj9wLs3AYs
-         QapZKGcQfDqgHAp+az0St0tqK7YNWdO5Yi1VYerO5rxMsE+A74XoUfKs+gp4nNKxeKJP
-         dYEw==
-X-Forwarded-Encrypted: i=1; AKwUvBwYdBQnKyxt0RT6LOhSZ9sCytVJLugRLUazBC1g54M498PY1/sDh8mFe77J7ASpq8/9CtjXRLY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nzqx+eSEUiHOI4SdpaETxnStuIEPrBYYsxCRfaJyLA4LQvnr1L
-	0aD+qvFqGr0/bcGRHMBR1XhFwrSVGmwvaNhEU/nFdycoWUEAvSU8JNbjr1d3krLKuWsopcja8E4
-	GuyWd7IM0M1DlWGB5CL/cP4Qn93cdeSE=
-X-Gm-Gg: AYBFou3vE+Kr9VsGCMyrS3E8+zO+0liis/IwzLVsrhY5qro0B6q09VUke3hG4LuO/Hg
-	hg9ujKSnC3fqTBEHJqlNtbYhz4RpQEBKNveUqbu5OiKK8pctN+AUD+3j40S7wg7G+MFoXyHJCwD
-	t1pagUhNN0NgeBRhn+89b/mc5TQ7iZn8TXlI79d/44XXl6wSyd+BEK8ddQCaqujSYE5ZVh0UHNS
-	UfrZJGk8LytEq47kWmMSQSB/Bd0Dy9b9od+JxvhelZ+3Y1lziHVMq+ilgqCA5yFWc+xiIuw77/5
-	XpU0xntryE/AeAK3JtUJ+0tjoY5Fj5KNcGLpPG0s5pIhILZ7EQgoxrPEtto=
-X-Received: by 2002:a05:690e:441b:b0:66f:c1be:84e1 with SMTP id
- 956f58d0204a3-672c54b6fb5mr245756d50.79.1790045257564; Mon, 21 Sep 2026
- 19:47:37 -0700 (PDT)
+        bh=EwWA3LgMjt74XDEZ31Q/wUl2bcv/dp/523dBsTBjRfg=;
+        b=2ahFnsvjn/jjiz8SeMNXzEohtbqIvVxF/0nTqwIXTSMKxAjaLkdpmZk6n2IAgzwHWv
+         Hdu0cT/ZSCXUhJPNfCPr/e4ndWTcLuyUYg2qkpSyHCbMeiiiXQHmKQ4q8Cr31BrYsTMa
+         45eMQiTbYGGFpP4PJXBQHfobQ4BAGfAodzJIuV5+0/olp9RIb6TFK31NGhGq9eJs7hbQ
+         vU8E+2E6P3CSvRFJlvHT7kHQxc7kzyxa/dhoXNM+bxaqTQ4yH9F+q5l/MaFmRwJYDFoS
+         aH/3DT1zRlxZRlUc7g+GVh8M1BSUcUOLHy37xh6ylEeplRCcImjflp6dhXYANZQRGOUX
+         mK0Q==
+X-Gm-Message-State: AFuF++ln3yVfZqiM4syHHe/mgYhu8e0ylodhPnKdly9sn2zCMLWUumPj
+	AtYM8RyEmTp27fXr5jPdSP9V38d6rLja7vAkPmxrti4okRKozu6dl3T5B4UAwe5FRiXvRpOkGTA
+	j2uSTyoKwc1Hy3zOR/gYyOUNMP7EGrtI=
+X-Gm-Gg: AYBFou2mJaRGgVXcT97OijA3A6TSbJpOYA4lblq5xKCv9VN/y+8tSG51g/fPoFSQ6DU
+	cqCU0fZUPevjPuByjXm9Ty5Z9PlI01XV6rC4+VUJHTofePR5FyCdgjel9fR6PQKleU7xyr+nAWM
+	jdOPThoayGZ6GxDtZ/RsZVncebl3/8lhym2SPME+gcRyPYE6VxPLIaMTPphyr9UqXC+SfgZo5NK
+	0PxP3ATkxSExRl4MVbuTlsQfcnrn09QlSOMQ/EOoadJHJ6RCKJsJowTeq6FTor7vJk/lPZ8Lx4/
+	oVZ4TXipKq5mgnD2g34leo9pLK43wJZ2HlS2ajmMYQ4ksxJ5mzu/R+ij8Q==
+X-Received: by 2002:a05:690e:4419:b0:668:9230:e266 with SMTP id
+ 956f58d0204a3-6717fdb20a6mr2869967d50.46.1790045321076; Mon, 21 Sep 2026
+ 19:48:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921073847.63505-1-lgs201920130244@gmail.com> <arFH7F944RO7TUqN@quoll>
-In-Reply-To: <arFH7F944RO7TUqN@quoll>
+References: <20260919175925.3739806-1-lgs201920130244@gmail.com> <arFJeRFJdL-fwRmk@quoll>
+In-Reply-To: <arFJeRFJdL-fwRmk@quoll>
 From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Tue, 22 Sep 2026 10:47:24 +0800
-X-Gm-Features: AcwNN1VMKLPliQEBYI3cwmxMjQMSd7JsGwSa33n2dtOWCSkj81z1Dp0OO7Y38vg
-Message-ID: <CANUHTR-KMdRmJwjpqqk5tsfnQkrwRBroCqkYOr6f9o=6yVewJw@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: Intel: SST: fix platform device leak on probe failure
+Date: Tue, 22 Sep 2026 10:48:28 +0800
+X-Gm-Features: AcwNN1VhjH0umtEATXdXl4Fw6zfObXCRNks60FtGl0HS8f4Ga7r0Rf1ihREbjxQ
+Message-ID: <CANUHTR8we6L7TXR7_HR-xZK1kYWnqpoUY2sGcrjeFOHn=Hxf_w@mail.gmail.com>
+Subject: Re: [PATCH] dca: fix provider device memory leak on domain allocation failure
 To: krzk@kernel.org
-Cc: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, linux-sound@vger.kernel.org, 
-	stable@vger.kernel.org, Jaroslav Kysela <perex@perex.cz>, 
-	Thorsten Blum <thorsten.blum@linux.dev>, 
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, Mark Brown <broonie@kernel.org>, 
-	Takashi Iwai <tiwai@suse.com>, Cezary Rojewski <cezary.rojewski@intel.com>, 
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
-	Liam Girdwood <liam.r.girdwood@linux.intel.com>, 
-	Bard Liao <yung-chuan.liao@linux.intel.com>, linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org, Maciej Sosnowski <maciej.sosnowski@intel.com>, 
+	Dan Williams <djbw@kernel.org>, Kees Cook <kees@kernel.org>, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
 Hi Krzysztof,
 
 Thank you for your feedback.
 
-On Mon, 21 Sept 2026 at 23:06, <krzk@kernel.org> wrote:
+On Mon, 21 Sept 2026 at 23:13, <krzk@kernel.org> wrote:
 >
 >
-> On Mon, 21 Sep 2026 15:38:47 +0800, Guangshuo Li wrote:
-> > sst_acpi_probe() registers platform devices for the SST platform and
-> > machine drivers using platform_device_register_data(), but does not
-> > unregister them when later probe steps fail.
+> On Sun, 20 Sep 2026 01:59:24 +0800, Guangshuo Li wrote:
+> > register_dca_provider() calls dca_sysfs_add_provider() before looking up
+> > or allocating the DCA domain. A successful dca_sysfs_add_provider()
+> > allocates an IDR entry and creates the dca%d class device.
 > >
-> > If machine device registration fails, the already registered SST platform
-> > device is left registered. The same leak happens when
-> > sst_platform_get_resources() or sst_context_init() fails after both
-> > platform devices have been successfully registered.
+> > If no domain exists and dca_allocate_domain() fails, the function
+> > returns -ENODEV without calling dca_sysfs_remove_provider(). The class
+> > device therefore remains registered and the IDR entry remains
+> > allocated. The caller may subsequently free the dca_provider, leaving
+> > the IDR entry pointing to freed memory.
 > >
-> > A registered platform device owns resources allocated by the platform
-> > device core and must be released with platform_device_unregister() so
-> > that the device reference is dropped and platform_device_release() can
-> > free the backing platform_object.
+> > Since the class device is never unregistered, its device reference is
+> > not dropped and device_create_release() is never reached, leaking the
+> > struct device allocation.
 > >
-> > Unregister the created platform devices on all failure paths to restore
-> > the missing cleanup.
+> > Call dca_sysfs_remove_provider() before returning when domain allocation
+> > fails. This unregisters the class device and removes the corresponding
+> > IDR entry.
 > >
 > > The issue was identified by a static analysis tool I developed and
 > > confirmed by manual review.
 > >
-> > Fixes: caf94ed8629a ("ASoC: Intel: bytcr_rt5640: fixup DAI codec_name with HID")
+> > Fixes: 1a5aeeecd550 ("dca: registering requesters in multiple dca domains")
 > > Cc: stable@vger.kernel.org
 > > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 > > ---
-> >  sound/soc/intel/atom/sst/sst_acpi.c | 13 ++++++++++---
-> >  1 file changed, 10 insertions(+), 3 deletions(-)
+> >  drivers/dca/dca-core.c | 5 ++++-
+> >  1 file changed, 4 insertions(+), 1 deletion(-)
 > >
 >
 >
@@ -164,6 +158,7 @@ On Mon, 21 Sept 2026 at 23:06, <krzk@kernel.org> wrote:
 >
 >
 >
+
 I would like to clarify that these patches were manually reviewed and
 audited by us; they were not simply generated and submitted by an LLM.
 However, I understand why the recent submission pattern may have given
