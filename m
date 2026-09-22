@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFAE340DB20
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 17:51:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FFE13E4C6B
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 17:51:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790099463; cv=none; b=VPnCsFTqec3Lv2pGM9c6gchKyoqUm0oO2LKeGNzwasHrzznAbOlgab36Gx8BhaXzTXP5+duEQJ+/EyaJ0u/dKQv6dxZk/JGGk62pQsGF0Uyr5drmv7q9hmx8WdKE7Ml+ZOZW/HWPGtjvRIsllSg8gMvLtIPktwH1g/Z5XpLQjGU=
+	t=1790099470; cv=none; b=HDpnKPE4n9yrfMZaeZZlWTEawuIv7QjphILR1NP30Rr9maO/NwogGMNpxVvdsi0xFJTDzjM1+HPFJIjV4uV2wYPm/cEWxiEyZJ08pfpE2XfExQCXpxWSOIV+ENThJD+hPqq4uJcSvEiXrBhkTyEzLebDcqaZttOuWOL6+Ztjxlc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790099463; c=relaxed/simple;
-	bh=VR5tFn3rSX7//VD301sT6UCne+8HG8+J1jyY2RsKEIQ=;
+	s=arc-20240116; t=1790099470; c=relaxed/simple;
+	bh=TojcQQD7rcJaXqBEP6/EqfwihK5s9PQjWIo3Bhs06Ng=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=M9bIdgsHqTB8jmGeCQFNKA0nP4hPSe+Xt1ASg5YsqoI5yYGr8SbFZRZgVBA/FkaqViVThSObCt4H4NYmZgCgaRZDbgoDdRlVBuPVgGCisrFWipiwVAO4nXDVKtFxrKGQiEcY438qYtPwvadivDmSjpAHd/hXCam2FkbZMZRIuQ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iWeJLqe5; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Acem0HWSXoxKg8zC6aoa0sjZTVdSiGqe1nxqnGyocHr1Hvm9FcHx5HAsgyPfrLhh+/WgxXg71F+Gs6aneg65SLgxBTS2FAux6tbeyQ8VAamyp3w5mSVi3qXXJOraJMi87M7umhPBruh/Kvj4iPI9pzz7gku/1NkQYDP63exFCNU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jol8x+yV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iWeJLqe5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 331681F000FF;
-	Tue, 22 Sep 2026 17:51:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jol8x+yV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AC2A1F00893;
+	Tue, 22 Sep 2026 17:51:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790099461;
-	bh=S9oBD45P8SyruGvgdh+CRPLKdbAtvZSrzWc/XbEhpqU=;
+	s=k20260515; t=1790099468;
+	bh=zgZ6TG5dP/ij+Zkw/WdTyIHWYmPNpG5l5AUtQ7wLR1o=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iWeJLqe57bdHXznEPl0rUMDWVvemJuB28rbDU5G4DYUZtwQxD23AKEbjtqFxj7V0T
-	 f6BQqXcDUYbSEeyIXsCYO45TtdjD+DNxV3JKS9hfkettKhhVjrLlcmagSLTsWRZaDn
-	 PG8X2QfETFpPXPSSr2nSrFmRzbLbnV16R+0kwWFP8Z1BPwcHJ6r5JosBuD017mVqqz
-	 ZdwhvE+lcfJNDVk5orRWrBMcWF89dMA8e5b9cLPNKjsRq5kYui/8pXEo4KRCNs6Hr2
-	 wO/duAvErPnUne/o1u5bKom1IOp0QtEppvOelX/h4LTD6G7N5/WGEdJlhDpJLzu0Od
-	 Ptf89AWpieERg==
+	b=jol8x+yVoxEzNs88XAG286Eu4RGu9RazY2ne0tPCqqDnE7HFgpksWYTptHahHt4Pg
+	 0KPB2vbX9mpt6Jf5JsN2126FcOpTL+aFjyScZIG0ITXzdPhkvONSR84j1E/8kF0F9Z
+	 AUH2Lr8+0Zvfv3ae6yyU0f+i0TzLN55YhCfX9yl+1gyLuikZUyYe1GQsyGWMIzJyAT
+	 +TiXdqcXC6VLQqz8tDf1M6xWGjgkkqZPnnamH63FHghfe/Pbx/1oVYIXpNTwbMJqWg
+	 VrqIKbMy55QPZgO0Mk4Epse8/hinDenK5ea7ZqcnSB2H7EHWO54lf6iglOBfBlnkBG
+	 4MX4khEGrK57Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Zhiling Zou <zhilinz@nebusec.ai>,
-	Vega <vega@nebusec.ai>,
-	Steffen Klassert <steffen.klassert@secunet.com>,
+Cc: Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+	Rob Herring <robh@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] xfrm: save input state data before secpath resets
-Date: Tue, 22 Sep 2026 13:50:59 -0400
-Message-ID: <20260922175059.3307828-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/4] of: Introduce for_each_*_child_of_node_scoped() to automate of_node_put() handling
+Date: Tue, 22 Sep 2026 13:51:03 -0400
+Message-ID: <20260922175106.3308111-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092227-quarry-haggler-ba0c@gregkh>
-References: <2026092227-quarry-haggler-ba0c@gregkh>
+In-Reply-To: <2026092212-fruit-deploy-01d6@gregkh>
+References: <2026092212-fruit-deploy-01d6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,104 +45,62 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zhiling Zou <zhilinz@nebusec.ai>
+From: Jonathan Cameron <Jonathan.Cameron@huawei.com>
 
-[ Upstream commit 3cf5cdecd99c9c186a5ea518d93bbf3045b6e3aa ]
+[ Upstream commit 34af4554fb0ce164e2c4876683619eb1e23848d4 ]
 
-xfrm_input() stores the current xfrm_state in the skb secpath while it
-continues receive-side processing. Some input paths can reset that secpath
-before xfrm_input() has finished dereferencing the state.
+To avoid issues with out of order cleanup, or ambiguity about when the
+auto freed data is first instantiated, do it within the for loop definition.
 
-Receive callback users such as VTI and XFRM interfaces can reset the
-secpath. The VTI receive path does so before checking whether the packet
-crosses network namespaces, while the XFRM interface path does so only for
-cross-network-namespace packets. The XFRM_MAX_DEPTH error path can also
-reset the secpath before the final drop callback reports the current
-state's protocol.
+The disadvantage is that the struct device_node *child variable creation
+is not immediately obvious where this is used.
+However, in many cases, if there is another definition of
+struct device_node *child; the compiler / static analysers will notify us
+that it is unused, or uninitialized.
 
-If secpath_reset() drops the last state reference while the state is
-concurrently deleted, xfrm_input() can still dereference the freed state
-when selecting transport_finish() or reporting the drop callback protocol.
+Note that, in the vast majority of cases, the _available_ form should be
+used and as code is converted to these scoped handers, we should confirm
+that any cases that do not check for available have a good reason not
+to.
 
-Save the state protocol on the stack while the state is still valid,
-and use the already saved address family for transport_finish(). A larval
-XFRM_STATE_ACQ state has no type, so retain nexthdr as its protocol. This
-preserves the existing drop-path fallback while avoiding the post-reset
-state dereferences without adding an extra state reference to every
-received packet.
-
-Fixes: df3893c176e9 ("vti: Update the ipv4 side to use it's own receive hook.")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
-Signed-off-by: Steffen Klassert <steffen.klassert@secunet.com>
-[ omitted the protocol fallback assignment for the state-direction rejection branch absent in 6.6. ]
+Signed-off-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
+Reviewed-by: Rob Herring <robh@kernel.org>
+Link: https://lore.kernel.org/r/20240225142714.286440-3-jic23@kernel.org
+Signed-off-by: Rob Herring <robh@kernel.org>
+Stable-dep-of: 7362a1553eb0 ("i2c: qcom-cci: fix device_node refcount leak in cci_probe()/cci_remove()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/xfrm/xfrm_input.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ include/linux/of.h | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/net/xfrm/xfrm_input.c b/net/xfrm/xfrm_input.c
-index 1483770f84564..26f2fd7e01da9 100644
---- a/net/xfrm/xfrm_input.c
-+++ b/net/xfrm/xfrm_input.c
-@@ -462,6 +462,7 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
- 	struct xfrm_state *x = NULL;
- 	xfrm_address_t *daddr;
- 	u32 mark = skb->mark;
-+	u8 xfrm_proto = nexthdr;
- 	unsigned int family = AF_UNSPEC;
- 	int decaps = 0;
- 	int async = 0;
-@@ -472,6 +473,7 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
+diff --git a/include/linux/of.h b/include/linux/of.h
+index 3c840c4879956..97352f3afed50 100644
+--- a/include/linux/of.h
++++ b/include/linux/of.h
+@@ -1291,10 +1291,23 @@ static inline int of_property_read_s32(const struct device_node *np,
+ #define for_each_child_of_node(parent, child) \
+ 	for (child = of_get_next_child(parent, NULL); child != NULL; \
+ 	     child = of_get_next_child(parent, child))
++
++#define for_each_child_of_node_scoped(parent, child) \
++	for (struct device_node *child __free(device_node) =		\
++	     of_get_next_child(parent, NULL);				\
++	     child != NULL;						\
++	     child = of_get_next_child(parent, child))
++
+ #define for_each_available_child_of_node(parent, child) \
+ 	for (child = of_get_next_available_child(parent, NULL); child != NULL; \
+ 	     child = of_get_next_available_child(parent, child))
  
- 	if (encap_type < 0 || (xo && (xo->flags & XFRM_GRO || encap_type == 0))) {
- 		x = xfrm_input_state(skb);
-+		xfrm_proto = x->type ? x->type->proto : nexthdr;
- 
- 		if (unlikely(x->km.state != XFRM_STATE_VALID)) {
- 			if (x->km.state == XFRM_STATE_ACQ)
-@@ -572,11 +574,13 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
- 
- 		x = xfrm_state_lookup(net, mark, daddr, spi, nexthdr, family);
- 		if (x == NULL) {
-+			xfrm_proto = nexthdr;
- 			secpath_reset(skb);
- 			XFRM_INC_STATS(net, LINUX_MIB_XFRMINNOSTATES);
- 			xfrm_audit_state_notfound(skb, family, spi, seq);
- 			goto drop;
- 		}
-+		xfrm_proto = x->type ? x->type->proto : nexthdr;
- 
- 		skb->mark = xfrm_smark_get(skb->mark, x);
- 
-@@ -693,7 +697,7 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
- 		crypto_done = false;
- 	} while (!err);
- 
--	err = xfrm_rcv_cb(skb, family, x->type->proto, 0);
-+	err = xfrm_rcv_cb(skb, family, xfrm_proto, 0);
- 	if (err)
- 		goto drop;
- 
-@@ -714,7 +718,7 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
- 
- 		err = -EAFNOSUPPORT;
- 		rcu_read_lock();
--		afinfo = xfrm_state_afinfo_get_rcu(x->props.family);
-+		afinfo = xfrm_state_afinfo_get_rcu(family);
- 		if (likely(afinfo))
- 			err = afinfo->transport_finish(skb, xfrm_gro || async);
- 		rcu_read_unlock();
-@@ -734,7 +738,7 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
- drop_unlock:
- 	spin_unlock(&x->lock);
- drop:
--	xfrm_rcv_cb(skb, family, x && x->type ? x->type->proto : nexthdr, -1);
-+	xfrm_rcv_cb(skb, family, xfrm_proto, -1);
- 	kfree_skb(skb);
- 	return 0;
- }
++#define for_each_available_child_of_node_scoped(parent, child) \
++	for (struct device_node *child __free(device_node) =		\
++	     of_get_next_available_child(parent, NULL);			\
++	     child != NULL;						\
++	     child = of_get_next_available_child(parent, child))
++
+ #define for_each_of_cpu_node(cpu) \
+ 	for (cpu = of_get_next_cpu_node(NULL); cpu != NULL; \
+ 	     cpu = of_get_next_cpu_node(cpu))
 -- 
 2.53.0
 
