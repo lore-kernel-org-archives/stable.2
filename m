@@ -1,175 +1,100 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63D553F65E0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAF2047F2FA
 	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 18:51:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790103076; cv=none; b=QdEKz4lA3jOgdD5gQ977mO20s5mdscyAbz2TEUl+UhNAgjW0zeTc7brkJ9ShhvxrLl5vL8CVfIjEG3blx2lU7g1+LwRenmyyg9RjHCM8wSswwjVuaS/p+QlhTbjyyDNbIFBTjew1qge4OB9priPt8Jj6cqXWtKNeGT35qQZfxDQ=
+	t=1790103077; cv=none; b=uzLEK5l2H5uxDltZANAjEBVhuMKOtFm5iXScQQ+zXO19g7Jnf93UzSaESrTWDPjsa2NOab68S6aOMftzWdUZHOWSy3TjR0oz8BeffjC1l84+eJH4gBxBwOPhTCumHGczCkYaKzVMjB1Klr9njVvdLtTnmGqeASiuD/DpBUIURD4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790103076; c=relaxed/simple;
-	bh=RxIZJIuOH7S6E9dEfS5nnZ73/RkMS3mC7LCWG4nlnCI=;
+	s=arc-20240116; t=1790103077; c=relaxed/simple;
+	bh=rZSABKGKRQY+ttCNpmJ5xu7pDZVqPkyHfjh4h2+F9CI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gtSjDFIsOx7HtlQ60tDNiXG3tfyPNfjBjNEr2KZzthU4UGcXSHAinjeSTh2z34mKp8PUQgRd7vHiUlyTZZ/QJgtyh5G5w6SJdxDIkDakbTeMwIKEkzALq4LybaYJqbv+Whgw8C8xEdZugLGE9De3EHmjNpE1jt9JfdtGD5BTrcM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WH23yVzr; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=SOjokvOFX8jPWP0nv1JwGBZaNxz9cLDem9gbscnxqRNC1nUXRJ8FqBuEQNKlmcIo/ye53fME4mBOfDD2n0LOqRpew4B8AX4GNUmhBwDEOF+mO71GiJn/VWDWZHeX20CdPEdaWO15TcnymjX6iLEXC5xj31L3T+g8RoVhtqyZYmo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n+PfvSSE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WH23yVzr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BFBE1F00893;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n+PfvSSE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDCA81F00898;
 	Tue, 22 Sep 2026 18:51:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1790103075;
-	bh=rV8QmnV0rEBfrjcpbc8X+B00WWqViHE4LAAI3WpTU2s=;
+	bh=wAnTzVdhLbzWb07n6ZQaJVXUOJvVSfqMqPZZJNYCALs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WH23yVzrvNXMmP0Bh7QisxhXY73RJFwUMVzw05zZgA/E+PM25K8IPHyEJDAWoi7x6
-	 9hJyX/R0uMeyx2OQC+9xupi65gfGKnhxDATmx5NbGD38JtxgMcKM8ZcpH5mDo0tN5z
-	 Qcdk9RR5aEGhcNlYPD4TH+GRE5lef7mxnjGtQLlrzS+FgZupnq4XSuHruytYmUmCC7
-	 vIShTAD9M/CCwq39h1uc3EByni6tJUsDzIBX2GC829No9mz+XjRrS3e3me1xBgUIWU
-	 sB0f5Gh2UZJsN6+cudh6b6ATTG3WKVO1UEQSOFY2aHCN1NOv6psomliR1zh2WuWlJj
-	 E1kuYFbQ/sKWA==
+	b=n+PfvSSEs9JI2wkTV0MiNyKoCNK/3mwFoIvhzF6lgkU9Rp1HGYfCfqHyU5J4k6BqU
+	 nlH89ouusPKlO4FGeValdSvSmN0P1R5FAN4MnPOkssVWriCSk96F+ChmOiPnMRI5Hu
+	 rh4sPzdzB4FlFnsYPOuIkrUNNOMa7HOo2Ji8h1KAMxS7l2VqyJCybXEGbNZPcCYrRJ
+	 RfrG+QE3vzU3v18BegzH7QKBXvhb63lOjuiBfpbTi4lVuQrGdw0TXbJv8l2mLgERL9
+	 oT7VdfhOohjpGdpQqX0mBLJqEw3N/tkj9gi2svFLVXWFdNdfLSKhdFk0aUIimEgdWg
+	 OOt3MEPkpVd6A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Mike Lothian <mike@fireburn.co.uk>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: Fan Wu <fanwu01@zju.edu.cn>,
+	Song Li <songl@zju.edu.cn>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] drm/amdgpu: hold a runtime PM reference for P2P dma-buf attachments
-Date: Tue, 22 Sep 2026 14:51:12 -0400
-Message-ID: <20260922185112.3837468-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y] wifi: wcn36xx: Fix potential use-after-free in TX ack timer teardown
+Date: Tue, 22 Sep 2026 14:51:13 -0400
+Message-ID: <20260922185113.3837747-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260922185112.3837468-1-sashal@kernel.org>
-References: <2026092254-cactus-employee-2903@gregkh>
- <20260922185112.3837468-1-sashal@kernel.org>
+In-Reply-To: <2026092259-deface-ethics-a18f@gregkh>
+References: <2026092259-deface-ethics-a18f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Mike Lothian <mike@fireburn.co.uk>
+From: Fan Wu <fanwu01@zju.edu.cn>
 
-[ Upstream commit 636139603b99d2e3a18a46cf3f8d39313ce8042e ]
+[ Upstream commit d9be5e75530772fc31637070d51e5717d6aeaa2a ]
 
-amdgpu_dma_buf_map() adds VRAM to the allowed domains for a peer2peer
-attachment.  GTT is only a fallback placement when VRAM is preferred, so
-ttm_bo_validate() migrates the buffer from GTT into VRAM.  While the
-exporting device is runtime suspended its SDMA rings are down and the
-move fails:
+wcn36xx_dxe_deinit() tears down the TX ack timer with timer_delete(),
+which only dequeues the timer and does not wait for a callback that is
+already executing; the preceding free_irq() calls synchronize the
+interrupt handlers only. The callback, wcn36xx_dxe_tx_timer(), can
+therefore be running past the teardown and use the wcn freed along
+with the ieee80211_hw in wcn36xx_remove(): it takes wcn->dxe_lock,
+reads wcn->tx_ack_skb and passes wcn->hw to
+ieee80211_tx_status_irqsafe().
 
-  amdgpu: Move buffer fallback to memcpy unavailable
+Fix this by using timer_shutdown_sync(), which waits for a running
+callback and also prevents the timer from being rearmed again. The
+timer is set up again by wcn36xx_dxe_init() on the next start, so the
+start/stop cycle is unaffected.
 
-An importer on a second GPU reaches this holding no runtime PM
-reference on the exporter, e.g. a compositor on the APU submitting a
-frame that references a buffer exported by an idle dGPU:
+This issue was found by an in-house static analysis tool.
 
-  amdgpu_cs_ioctl -> amdgpu_cs_parser_bos -> amdgpu_cs_bo_validate
-    -> ttm_bo_validate -> amdgpu_bo_move -> dma_buf_map_attachment
-      -> amdgpu_dma_buf_map -> ttm_bo_validate -> amdgpu_bo_move
-
-Pinning a dma-buf into VRAM has the same requirement, which
-commit 030631e97b20 ("drm/amdgpu: revert "take runtime pm reference
-when we attach a buffer" v2") called out as the one case that would
-need the reference back.
-
-Take it in attach and drop it in detach.  pm_runtime_get_if_active()
-never resumes the device, so it cannot deadlock against the reservation
-taken during resume, which is why the old pm_runtime_get_sync() had to
-go.  If the device is not active, clear peer2peer instead: the buffer
-then stays in GTT, which remains accessible while the GPU is powered
-down.  If runtime PM is disabled, take a plain reference so the put in
-detach stays balanced.
-
-Fixes: 030631e97b20 ("drm/amdgpu: revert "take runtime pm reference when we attach a buffer" v2")
-Suggested-by: Christian König <christian.koenig@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
-Assisted-by: Claude:Opus-5 [Claude Code]
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 062ff15e30a48d14fb7d7558eba84f8dc97197f0)
+Fixes: fdf21cc37149 ("wcn36xx: Add TX ack support")
 Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Link: https://patch.msgid.link/20260910020907.3353-1-fanwu01@zju.edu.cn
+Signed-off-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+[ Adapted the patch to replace del_timer() instead of timer_delete(). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 43 ++++++++++++++++++++-
- 1 file changed, 42 insertions(+), 1 deletion(-)
+ drivers/net/wireless/ath/wcn36xx/dxe.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-index 83fed04436ad7..efa6214eee315 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-@@ -42,6 +42,7 @@
- #include <linux/dma-buf.h>
- #include <linux/dma-fence-array.h>
- #include <linux/pci-p2pdma.h>
-+#include <linux/pm_runtime.h>
+diff --git a/drivers/net/wireless/ath/wcn36xx/dxe.c b/drivers/net/wireless/ath/wcn36xx/dxe.c
+index e1a35c2eadb6c..f3d850edbdbc7 100644
+--- a/drivers/net/wireless/ath/wcn36xx/dxe.c
++++ b/drivers/net/wireless/ath/wcn36xx/dxe.c
+@@ -1007,7 +1007,7 @@ void wcn36xx_dxe_deinit(struct wcn36xx *wcn)
  
- static const struct dma_buf_attach_ops amdgpu_dma_buf_attach_ops;
+ 	free_irq(wcn->tx_irq, wcn);
+ 	free_irq(wcn->rx_irq, wcn);
+-	del_timer(&wcn->tx_ack_timer);
++	timer_shutdown_sync(&wcn->tx_ack_timer);
  
-@@ -99,15 +100,54 @@ static int amdgpu_dma_buf_attach(struct dma_buf *dmabuf,
- 	    pci_p2pdma_distance(adev->pdev, attach->dev, false) < 0)
- 		attach->peer2peer = false;
- 
-+	/*
-+	 * Only allow P2P while the exporter is active, and keep it active
-+	 * until detach.  With runtime PM disabled take a plain reference so
-+	 * the put in detach stays balanced.
-+	 */
-+	if (attach->peer2peer) {
-+		struct device *dev = adev_to_drm(adev)->dev;
-+		int ret = pm_runtime_get_if_active(dev);
-+
-+		if (!ret)
-+			attach->peer2peer = false;
-+		else if (ret < 0)
-+			pm_runtime_get_noresume(dev);
-+	}
-+
- 	r = dma_resv_lock(bo->tbo.base.resv, NULL);
- 	if (r)
--		return r;
-+		goto err_pm_put;
- 
- 	amdgpu_vm_bo_update_shared(bo);
- 
- 	dma_resv_unlock(bo->tbo.base.resv);
- 
- 	return 0;
-+
-+err_pm_put:
-+	if (attach->peer2peer)
-+		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
-+	return r;
-+}
-+
-+/**
-+ * amdgpu_dma_buf_detach - &dma_buf_ops.detach implementation
-+ *
-+ * @dmabuf: DMA-buf where we remove the attachment from
-+ * @attach: the attachment to remove
-+ *
-+ * Drop the runtime PM reference taken in amdgpu_dma_buf_attach().
-+ */
-+static void amdgpu_dma_buf_detach(struct dma_buf *dmabuf,
-+				  struct dma_buf_attachment *attach)
-+{
-+	struct drm_gem_object *obj = dmabuf->priv;
-+	struct amdgpu_bo *bo = gem_to_amdgpu_bo(obj);
-+	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
-+
-+	if (attach->peer2peer)
-+		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
- }
- 
- /**
-@@ -336,6 +376,7 @@ static void amdgpu_dma_buf_vunmap(struct dma_buf *dma_buf, struct iosys_map *map
- 
- const struct dma_buf_ops amdgpu_dmabuf_ops = {
- 	.attach = amdgpu_dma_buf_attach,
-+	.detach = amdgpu_dma_buf_detach,
- 	.pin = amdgpu_dma_buf_pin,
- 	.unpin = amdgpu_dma_buf_unpin,
- 	.map_dma_buf = amdgpu_dma_buf_map,
+ 	if (wcn->tx_ack_skb) {
+ 		ieee80211_tx_status_irqsafe(wcn->hw, wcn->tx_ack_skb);
 -- 
 2.53.0
 
