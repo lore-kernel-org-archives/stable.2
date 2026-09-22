@@ -1,76 +1,42 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDC64306776
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 14:53:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C46639183A
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 14:55:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790088826; cv=none; b=WXMt8+fpuldei6srbUW45wHqcjXmEPwul5ecJU2vdfMNUUEkW2/Hqk356OQ406zgzX9UU6UXo7t7RRe41JzSwX7WTpHPNWUlVTiiTBNFUCx+zOmqimocS/gRUuW2GNkaPFuYIFVWfFhAG2y3z/tajdEMA7wUsksxQ8tveTk0CLk=
+	t=1790088943; cv=none; b=u09/CbzHKbVewKQoHYWyUM0xWYQjuQs0qEGXkxtc+4lKOO3ufVoquLzdKE12ZjSE14lqId+yda+e2UW+vfHMkoSmCPW3FtZJ6j3/3l/1uoPRCqkcw1A68aygqlkqpSJb62ulGTq4XwIfExTp5/WuKWnxYP2NUDc21gyNWzZU2CQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790088826; c=relaxed/simple;
-	bh=hghF98NYK78YNHXX1dgieJtN7r6JRJ6pzIa0JQe6vbc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NfcgHZfsQgaJFsU5omxbTa1tOGSaQ5I1ByUUvcmsqVbAJ0LND985ulAhQm/jNcVNG203ptfgRXcLSFb7bVBWvT0gm0xDW41Hn7NAoCsL/0i9tY0u+Wcb7gpPNqaXKifVHBwvkbR0Bu8acQwkL2sNWAI9li7dMv7pHtavjllv51M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=CwKohdlU; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	s=arc-20240116; t=1790088943; c=relaxed/simple;
+	bh=UUQMgiq8HVp9/lLlTJQsjmUWC+U0KM4wl9IYc3ZpcPE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=kj6fZY0m7YUYr7/AZJ3u7Lbj83noZzCpH+IKaDycz5ScTnHvyG46q9IlLbzT3n01e4bzg8Xu6g+MQdMP+DFKi3xkbrmRb+wehHPvSnElHM4BVEOx0kvhKTCUwUC0tgc3d+QVz9zfq8A3ai1xpaioe6KywwLF8Trrw5xcUiCoPTc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z/w3pWZI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="CwKohdlU"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cd38e0f79so24168705e9.3
-        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 07:53:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1790088821; x=1790693621; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZdXUXs+Kfd08foCbufXmHwGq0BzwF/4pD5Iu/UeB7bk=;
-        b=CwKohdlUD17rHg35WuwS78r95cJg4lU9oAXAGfUbvlyRzxxSbpq/dyvXNaGan62JtZ
-         PT3/EuzzPEGnsEVmBc/bECCNU7e1qVB3BAMPEd6dA+jBiEcrX7dP8X4Jd6+quw8RiSb8
-         J4VoQuVGZENc75ggYvnoqeB2+HeVHf3E/YUiSvgd+Vbl2sPhR5Qnj+g/4IMgzKIat0FJ
-         FJ8LyJsulV8C8FllKniX5P41gwSR94e6tal4mIc51LeGZvsBMEtELIenNMzUDmsO5tMU
-         ylgtRoMZwS2cSBw61whJA8/ZRdbE8i2OtmpIJa9FzvOtOHpciXqN5vLrVaQ9T7ulDVpQ
-         8Gxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790088821; x=1790693621;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZdXUXs+Kfd08foCbufXmHwGq0BzwF/4pD5Iu/UeB7bk=;
-        b=QAl1da+hKgnx0VXruyvxnQjOMPKXKuO3sSXm48uhVkDfwOeoBG4dyqFb+Kb6wUJaMy
-         LBPewTQZ8rgDp85RL3t0RPISKUxqieVcIizB9nUDFPP10r7Lc6HD+gOckt6VKyEh7JhU
-         jj98kPwZ94pnE5GNgZsDjR8zjJ/1aA6c/4gxiJt5Q1H3hL/ol2xzz2DWpaUAEwde+L7C
-         bMcCDRhJPriAvuDxCXpKxSbG7DihA19yzOvrMrdiPiVGJrKPTW+gK6vy/Pid8JDHo9e6
-         hSnP/X5gp7izJ4qD0HvRveQNf+LEdkZt7hTjQ5Julv4+m1iXPnK5LZmJUIl5+G3ZvAlo
-         lEsA==
-X-Forwarded-Encrypted: i=1; AKwUvByn8WtDy5KPxKU40/nKd786X+DEnzZF3VsQcEiwD4K9yHuEyl6y8qd3izxh1wbSBEjRr29K5Gw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kvD/KaNt8sHehAB32vyDso6jmBPCqxJIEpnvdfnOLZeZPHP6Ii
-	7PGsxvXtChWPLF++BlwAy1iKc/Qbgi+SmKtcRDOeVIlyAmG56+o6LzFh+FF27TGVNWk=
-X-Gm-Gg: AYBFou3Ltv1SEUorKik/IwJWG2xpfTZu5ebgo/pOU8BDtjqeOsIaoy3hORAF1ZKJyph
-	HcO2EF9G/6yFKNqADnUKDfIXUZm31jBKcSizEnNK5tJbTb9ktl4uqCJWh46R+1FhZav0wyv7Ks9
-	Nn0RClXqZ6axBMGUc4C2qFcCqrHpxPYqmQwYliekh/de1gZAzTMMm2pxYRQOUbB4I1gGiYsztJr
-	lrK9K/htuFvSsSq6PAm4qGU4Odycag2l78LaCK7x/j85JreLmnzTBtu9jPwduwrnpCJl73SHYef
-	6gp/uGQXIDw9bzwrg2URahF7C/fWjXa/jnr3yUcy3BnoXhYzimmm8a2S6KrYKR0Wq9ZboJ4BRxH
-	vkAPO67sCMm5tdLiXEc7pjL1xW6LJc9JSuRXGMhAicNdHYQFPO1FLlcKUAsSsxbswSJi779UWhr
-	fmqwyrzcPuxr0zyXQnGEChN1cJEtXqQxWvdyc/bD70/QiZwTrCT2jZwK4LgAcSYLQq/zrB/HsdX
-	PdCOWlx
-X-Received: by 2002:a05:600c:a415:b0:49f:ddc0:6e8f with SMTP id 5b1f17b1804b1-49fddc06f09mr4681645e9.5.1790088820973;
-        Tue, 22 Sep 2026 07:53:40 -0700 (PDT)
-Received: from localhost ([2a02:168:9d56:1:84ba:d001:a11c:487b])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-4886279298asm4771587f8f.34.2026.09.22.07.53.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 22 Sep 2026 07:53:40 -0700 (PDT)
-From: Bruno Produit <bruno.produit@trailofbits.com>
-To: Steffen Klassert <steffen.klassert@secunet.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S . Miller" <davem@davemloft.net>
-Cc: netdev@vger.kernel.org,
-	Kyle Zeng <kylebot@openai.com>,
-	linux-kernel@vger.kernel.org,
-	Dominik Czarnota <dominik.czarnota@trailofbits.com>,
-	stable@vger.kernel.org,
-	Bruno Produit <bruno.produit@trailofbits.com>
-Subject: [PATCH] xfrm: espintcp: build sk_msg locally before publishing
-Date: Tue, 22 Sep 2026 16:53:35 +0200
-Message-ID: <20260922145335.2016559-1-bruno.produit@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z/w3pWZI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 870981F000FF;
+	Tue, 22 Sep 2026 14:55:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790088941;
+	bh=z7n9NiFKDCCZn3KaM8vSTb8SkuwwruK0HsNNFH+LA+E=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Z/w3pWZIWRDGmWNdEwDYWJS600s936QL6FBx+P65iV3uNB0JD6hTP4zNUGP+RgijT
+	 WAv8YvuO8FhX8gbeooCKPylboN/3So9q7eyZW5TyO+yLw6Hr2j1QIrTzAOX+JM/uCs
+	 awgsy0SZR+gCHSjRGunhcQ4ZMf81zroD5Saeg3KJtPwUH5+0r6HY7XxdVk8+9SplNO
+	 6RBvQgCdYLY+4zONoO1GKY1jUVMhC2+Ogqpr7JyOrMl3x2ec7wFQi2vY5vs2UQLPQ6
+	 lHDRszcsU4gKNMMCzRiXyNe975rAT6VC68wB3DEaY8afkqWFv0MjTG03605JqOBnKn
+	 WEgzJOwXyEiVA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Jinjian Song <jinjian.song@fibocom.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] net: wwan: t7xx: Fix napi rx poll issue
+Date: Tue, 22 Sep 2026 10:55:37 -0400
+Message-ID: <20260922145538.2711877-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026092215-sincere-shack-66e6@gregkh>
+References: <2026092215-sincere-shack-66e6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -79,121 +45,121 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Kyle Zeng <kylebot@openai.com>
+From: Jinjian Song <jinjian.song@fibocom.com>
 
-espintcp_sendmsg() builds a new message directly in ctx->partial. If
-allocation fails, sk_stream_wait_memory() drops the socket lock while
-the shared sk_msg remains unpublished with emsg->len equal to zero. A
-concurrent sender can then reuse the same slot. If the first sender is
-interrupted, its failure path frees state now owned by the second sender
-while TCP may still be consuming it, causing a use-after-free.
+[ Upstream commit 905fe0845bb27e4eed2ca27ea06e6c4847f1b2b1 ]
 
-Construct the message in a call-local sk_msg instead. After allocation
-and any lock-dropping wait, recheck that the shared partial slot is still
-free, then transfer the completed message into it. Failure cleanup
-consequently releases only state owned by the current call. The recheck
-also covers packets submitted through the common IPv4 and IPv6
-espintcp_push_skb() path.
+When driver handles the napi rx polling requests, the netdev might
+have been released by the dellink logic triggered by the disconnect
+operation on user plane. However, in the logic of processing skb in
+polling, an invalid netdev is still being used, which causes a panic.
 
-Fixes: e27cca96cd68 ("xfrm: add espintcp (RFC 8229)")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6-sol
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
-Signed-off-by: Bruno Produit <bruno.produit@trailofbits.com>
+BUG: kernel NULL pointer dereference, address: 00000000000000f1
+Oops: 0000 [#1] PREEMPT SMP NOPTI
+RIP: 0010:dev_gro_receive+0x3a/0x620
+[...]
+Call Trace:
+ <IRQ>
+ ? __die_body+0x68/0xb0
+ ? page_fault_oops+0x379/0x3e0
+ ? exc_page_fault+0x4f/0xa0
+ ? asm_exc_page_fault+0x22/0x30
+ ? __pfx_t7xx_ccmni_recv_skb+0x10/0x10 [mtk_t7xx (HASH:1400 7)]
+ ? dev_gro_receive+0x3a/0x620
+ napi_gro_receive+0xad/0x170
+ t7xx_ccmni_recv_skb+0x48/0x70 [mtk_t7xx (HASH:1400 7)]
+ t7xx_dpmaif_napi_rx_poll+0x590/0x800 [mtk_t7xx (HASH:1400 7)]
+ net_rx_action+0x103/0x470
+ irq_exit_rcu+0x13a/0x310
+ sysvec_apic_timer_interrupt+0x56/0x90
+ </IRQ>
+
+Fixes: 5545b7b9f294 ("net: wwan: t7xx: Add NAPI support")
+Signed-off-by: Jinjian Song <jinjian.song@fibocom.com>
+Link: https://patch.msgid.link/20250530031648.5592-1-jinjian.song@fibocom.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+
+Backport to 6.1: the receive callback still takes struct t7xx_pci_dev
+and delivers packets through netif_rx(), without the upstream NAPI
+conversion. Keep that callback interface and add a local ccmni_ctlb
+pointer so the READ_ONCE() lookup uses the upstream expression. Retain
+the other pointer publication, removal, and notification changes.
+
+This also preserves the receive-side context needed to apply
+c7ead9704249 ("net: wwan: t7xx: validate the netif index in
+t7xx_ccmni_recv_skb()") unchanged. No new functions are introduced.
+
+Stable-dep-of: c7ead9704249 ("net: wwan: t7xx: validate the netif index in t7xx_ccmni_recv_skb()")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/xfrm/espintcp.c | 29 ++++++++++++++++++++---------
- 1 file changed, 20 insertions(+), 9 deletions(-)
+ drivers/net/wwan/t7xx/t7xx_netdev.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
-diff --git a/net/xfrm/espintcp.c b/net/xfrm/espintcp.c
-index 674aedc..1642b34 100644
---- a/net/xfrm/espintcp.c
-+++ b/net/xfrm/espintcp.c
-@@ -311,6 +311,7 @@ static int espintcp_sendmsg(struct sock *sk, struct msghdr *msg, size_t size)
- 	struct espintcp_msg *emsg = &ctx->partial;
- 	struct iov_iter pfx_iter;
- 	struct kvec pfx_iov = {};
-+	struct sk_msg *skmsg;
- 	size_t msglen = size + 2;
- 	char buf[2] = {0};
- 	int err, end;
-@@ -324,6 +325,11 @@ static int espintcp_sendmsg(struct sock *sk, struct msghdr *msg, size_t size)
- 	if (msg->msg_controllen)
- 		return -EOPNOTSUPP;
+diff --git a/drivers/net/wwan/t7xx/t7xx_netdev.c b/drivers/net/wwan/t7xx/t7xx_netdev.c
+index f71d3bc3b237c..c5d974a935903 100644
+--- a/drivers/net/wwan/t7xx/t7xx_netdev.c
++++ b/drivers/net/wwan/t7xx/t7xx_netdev.c
+@@ -205,7 +205,7 @@ static int t7xx_ccmni_wwan_newlink(void *ctxt, struct net_device *dev, u32 if_id
+ 	ccmni->ctlb = ctlb;
+ 	ccmni->dev = dev;
+ 	atomic_set(&ccmni->usage, 0);
+-	ctlb->ccmni_inst[if_id] = ccmni;
++	WRITE_ONCE(ctlb->ccmni_inst[if_id], ccmni);
  
-+	skmsg = kmalloc_obj(*skmsg);
-+	if (!skmsg)
-+		return -ENOMEM;
-+	sk_msg_init(skmsg);
-+
- 	lock_sock(sk);
+ 	ret = register_netdevice(dev);
+ 	if (ret)
+@@ -227,6 +227,7 @@ static void t7xx_ccmni_wwan_dellink(void *ctxt, struct net_device *dev, struct l
+ 	if (WARN_ON(ctlb->ccmni_inst[if_id] != ccmni))
+ 		return;
  
- 	err = espintcp_push_msgs(sk, msg->msg_flags & MSG_DONTWAIT);
-@@ -337,10 +343,9 @@ static int espintcp_sendmsg(struct sock *sk, struct msghdr *msg, size_t size)
- 		goto unlock;
- 	}
- 
--	sk_msg_init(&emsg->skmsg);
- 	while (1) {
- 		/* only -ENOMEM is possible since we don't coalesce */
--		err = sk_msg_alloc(sk, &emsg->skmsg, msglen, 0);
-+		err = sk_msg_alloc(sk, skmsg, msglen, 0);
- 		if (!err)
- 			break;
- 
-@@ -348,25 +353,30 @@ static int espintcp_sendmsg(struct sock *sk, struct msghdr *msg, size_t size)
- 		if (err)
- 			goto fail;
- 	}
-+	if (emsg->len) {
-+		err = -ENOBUFS;
-+		goto fail;
-+	}
- 
- 	*((__be16 *)buf) = cpu_to_be16(msglen);
- 	pfx_iov.iov_base = buf;
- 	pfx_iov.iov_len = sizeof(buf);
- 	iov_iter_kvec(&pfx_iter, ITER_SOURCE, &pfx_iov, 1, pfx_iov.iov_len);
- 
--	err = sk_msg_memcopy_from_iter(sk, &pfx_iter, &emsg->skmsg,
-+	err = sk_msg_memcopy_from_iter(sk, &pfx_iter, skmsg,
- 				       pfx_iov.iov_len);
- 	if (err < 0)
- 		goto fail;
- 
--	err = sk_msg_memcopy_from_iter(sk, &msg->msg_iter, &emsg->skmsg, size);
-+	err = sk_msg_memcopy_from_iter(sk, &msg->msg_iter, skmsg, size);
- 	if (err < 0)
- 		goto fail;
- 
--	end = emsg->skmsg.sg.end;
--	emsg->len = size;
-+	end = skmsg->sg.end;
- 	sk_msg_iter_var_prev(end);
--	sg_mark_end(sk_msg_elem(&emsg->skmsg, end));
-+	sg_mark_end(sk_msg_elem(skmsg, end));
-+	sk_msg_xfer_full(&emsg->skmsg, skmsg);
-+	emsg->len = size;
- 
- 	tcp_rate_check_app_limited(sk);
- 
-@@ -374,14 +384,15 @@ static int espintcp_sendmsg(struct sock *sk, struct msghdr *msg, size_t size)
- 	/* this message could be partially sent, keep it */
- 
- 	release_sock(sk);
-+	kfree(skmsg);
- 
- 	return size;
- 
- fail:
--	sk_msg_free(sk, &emsg->skmsg);
--	memset(emsg, 0, sizeof(*emsg));
-+	sk_msg_free(sk, skmsg);
- unlock:
- 	release_sock(sk);
-+	kfree(skmsg);
- 	return err;
++	WRITE_ONCE(ctlb->ccmni_inst[if_id], NULL);
+ 	unregister_netdevice(dev);
  }
  
+@@ -313,6 +314,7 @@ static void init_md_status_notifier(struct t7xx_pci_dev *t7xx_dev)
+ 
+ static void t7xx_ccmni_recv_skb(struct t7xx_pci_dev *t7xx_dev, struct sk_buff *skb)
+ {
++	struct t7xx_ccmni_ctrl *ccmni_ctlb = t7xx_dev->ccmni_ctlb;
+ 	struct t7xx_skb_cb *skb_cb;
+ 	struct net_device *net_dev;
+ 	struct t7xx_ccmni *ccmni;
+@@ -321,7 +323,7 @@ static void t7xx_ccmni_recv_skb(struct t7xx_pci_dev *t7xx_dev, struct sk_buff *s
+ 
+ 	skb_cb = T7XX_SKB_CB(skb);
+ 	netif_id = skb_cb->netif_idx;
+-	ccmni = t7xx_dev->ccmni_ctlb->ccmni_inst[netif_id];
++	ccmni = READ_ONCE(ccmni_ctlb->ccmni_inst[netif_id]);
+ 	if (!ccmni) {
+ 		dev_kfree_skb(skb);
+ 		return;
+@@ -344,7 +346,7 @@ static void t7xx_ccmni_recv_skb(struct t7xx_pci_dev *t7xx_dev, struct sk_buff *s
+ 
+ static void t7xx_ccmni_queue_tx_irq_notify(struct t7xx_ccmni_ctrl *ctlb, int qno)
+ {
+-	struct t7xx_ccmni *ccmni = ctlb->ccmni_inst[0];
++	struct t7xx_ccmni *ccmni = READ_ONCE(ctlb->ccmni_inst[0]);
+ 	struct netdev_queue *net_queue;
+ 
+ 	if (netif_running(ccmni->dev) && atomic_read(&ccmni->usage) > 0) {
+@@ -356,7 +358,7 @@ static void t7xx_ccmni_queue_tx_irq_notify(struct t7xx_ccmni_ctrl *ctlb, int qno
+ 
+ static void t7xx_ccmni_queue_tx_full_notify(struct t7xx_ccmni_ctrl *ctlb, int qno)
+ {
+-	struct t7xx_ccmni *ccmni = ctlb->ccmni_inst[0];
++	struct t7xx_ccmni *ccmni = READ_ONCE(ctlb->ccmni_inst[0]);
+ 	struct netdev_queue *net_queue;
+ 
+ 	if (atomic_read(&ccmni->usage) > 0) {
+@@ -374,7 +376,7 @@ static void t7xx_ccmni_queue_state_notify(struct t7xx_pci_dev *t7xx_dev,
+ 	if (ctlb->md_sta != MD_STATE_READY)
+ 		return;
+ 
+-	if (!ctlb->ccmni_inst[0]) {
++	if (!READ_ONCE(ctlb->ccmni_inst[0])) {
+ 		dev_warn(&t7xx_dev->pdev->dev, "No netdev registered yet\n");
+ 		return;
+ 	}
 -- 
 2.53.0
 
