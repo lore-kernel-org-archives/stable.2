@@ -1,48 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A6CE364EBF;
-	Tue, 22 Sep 2026 02:23:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57209381EAF;
+	Tue, 22 Sep 2026 02:23:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790043830; cv=none; b=H672JcLwYcLPo83OHEDoCHPsKeCTL7cT8rY58Oy7IbgjD2uXS1bGXHMJDfGPMjFtxSTVXXCTs0I2x9F9oMYiDeFM/2UUNA3aDyCLeakVu96M2oxtjiOsDmMwGUFXijYShCvYqEZY6vF3W6GB7JIwRUypeK0o4t/eLTpg0vNC5SY=
+	t=1790043832; cv=none; b=XdtkMXTXr1Eb0A84W+aySVMHTGZrqNO50PTaaYpuxI49+4AlO7LIPZ9u0pYPR7PfhBhVLX0+ImAQujdws3ZU0IsGjJV1VT0S6v2XTKZUf3poRqSd3hkLQ3VdAtS9okRoibgiuPn+ORts80nq939i55NadQfWVvIRjn73xPOCjq8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790043830; c=relaxed/simple;
-	bh=nHTAfk6up/ZYAY+CtnjjHsvqW4nyG3UPuK9IbK8/oM4=;
+	s=arc-20240116; t=1790043832; c=relaxed/simple;
+	bh=TjVsCdoMOgxC4qmub43FU8vqX/COiNe8A2cDmY4oc/Y=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oz+qvMmkUeUhF18njabsJ7xT2toR5+pNVY3TVJakwX9aTykidsrYlIH0ng0++bICbbjqzx4FdM4DTHnhIv+05P6nn4rJptcgnxZo5tz7j5hqfKKqQfeFEXG+kfiavGK5XChtsirsieLwH4NJ2RHZrL59RehOW3hyACBBh2X+0a0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hKKB/1C3; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=NowN4q91xOLNVeyM7DorfEtuWWmEkSDkwmUXB8TzZGqmW316HvUWB5fWUvZbkUiEPidJKw5gyVeaEjtAldPNBv4yokyhV9fxUUxephAgviuRfGAoZeCcYPCFi79k2hmAYJaQZvDK13/Lr+eNo9iAVgeNvjQTG94BgIF814z4HvM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JMB6bSuf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hKKB/1C3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E6B21F000FF;
-	Tue, 22 Sep 2026 02:23:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JMB6bSuf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E1B61F00899;
+	Tue, 22 Sep 2026 02:23:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790043829;
-	bh=aT3WSQsjijWvUk3bgetXyUamJ9XvWlHmx7vZ7os7un8=;
+	s=k20260515; t=1790043831;
+	bh=DvpHe9goWKptvXpvHaZISQed/cSncJ9KwzC6BY4n1Lc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hKKB/1C3uOnDztTuRZBpSndHcV/CYFBsxhOq0o8XdkWY3qE1c7b98xtaVX+vAYANG
-	 zcCzllxjA2umT2xCRjwRacv+3UDVqE09H2wtsS2wNf6U4j/2tBNyNHGlFY702LKojn
-	 F90c7qQt3DUlbjupiinYJlyNser2hzkwVl48m9q3VOrKDqMb8R6dqU0rdtPBfXS3G3
-	 ojMs1TJyIpAEH6JNn7XOkj55Np/Lo9yyGHNcKlLXkGJmtUOXd4MTXM153gguPjgHcE
-	 VZn8auKZa1V58AYvMNL5q+RGqlrLSbzNo4KnouZj0TuNLC14b639ZGpy/a/CzIG1e1
-	 M/yGCgcWPhMcw==
+	b=JMB6bSuffAh1cD/6qgVMYEsniGAlIS1GzO/8ghMqgZ3ZBPsCkoswLuwKmX84RVLBH
+	 d8HgifVHOOncBv7e8Ygaw2F6wtd+4VAs1RXjEEb5MMGLWje7zg0HCLv42kw49JzanL
+	 C5qpQc42hhDz/87CXIPziZm5k44BNeY8x4trwwJWkIC4brt9lBKhCaEoTPaW49kJkM
+	 CSdMPZTPR+nkUq5wrdGGG6jnbp+FaBYCp9lLjmHDA2UHewkb4O1NTRQNNY0I36CVYe
+	 YX+t3kUxgF4mzBdJ3krv79cWctah7W/aH7XqL9jBaGUH8IPaQLcXauBcBGSDY/nyjU
+	 +vPAqvsOBSeyw==
 From: Sasha Levin <sashal@kernel.org>
-To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+To: Zi Yan <ziy@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	regressions <regressions@lists.linux.dev>,
-	linux-acpi <linux-acpi@vger.kernel.org>,
-	linux-pm <linux-pm@vger.kernel.org>,
-	xen-devel <xen-devel@lists.xenproject.org>,
-	linux-kernel <linux-kernel@vger.kernel.org>,
-	Stable <stable@vger.kernel.org>,
-	Support TRINITY <support@trinity-net.com>
-Subject: Re: [REGRESSION] ACPI processor/cpuidle change in 6.18.52 breaks bare-metal Xen dom0 boot
-Date: Mon, 21 Sep 2026 22:23:38 -0400
-Message-ID: <2026-09-21-daily-reply-0001-re-acpi-cpuidle-xen-dom0-6-18@kernel.org>
+	patches@lists.linux.dev,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Barry Song <baohua@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Dev Jain <dev.jain@arm.com>,
+	Lance Yang <lance.yang@linux.dev>,
+	Vegard Nossum <vegard.nossum@oracle.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+Subject: Re: [PATCH 6.12 0472/1102] mm/huge_memory: use folios memcg inside __folio_split()
+Date: Mon, 21 Sep 2026 22:23:39 -0400
+Message-ID: <2026-09-21-daily-reply-0002-re-folio-split-memcg-requeue@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <1909296988.289641012.1790015372050.JavaMail.zimbra@trinity-net.com>
-References: <1909296988.289641012.1790015372050.JavaMail.zimbra@trinity-net.com>
+In-Reply-To: <9200dfdc-009a-4998-8d2f-b106d362e6ad@oracle.com>
+References: <9200dfdc-009a-4998-8d2f-b106d362e6ad@oracle.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,13 +59,13 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> I will try testing 6.18.52 with commit 0089ce1c056a ("ACPI: processor:
-> Update cpuidle driver check in __acpi_processor_start()") applied,
-> instead of using my lifecycle revert.
+> Looks like a very similar report was clarified by Johannes and Zi. Sorry 
+> for the noise.
+> 
+> Sasha: Will it be possible for you to re-queue this ?
 
-Queued for 6.18, thanks.
-
-Please still post the result of that test once you have it.
+Re-queued for 6.12 and 6.6, thanks. No noise at all, it is easier to put a
+patch back than to ship a broken one.
 
 -- 
 Thanks,
