@@ -1,43 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 614334A4F1F
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 19:33:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 080014A4F1F
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 19:33:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790105631; cv=none; b=JIW/JotzQpMXQpIvVnlYQ4TnC/B/aKi0SE6Shji2mM0MEfMCIKtE9fLf2MbytM0Hs6wvmTViUw6ehj0zQ5tS9lH94F/ecSiz4fklGPS42f3Y3pq/qgPsMj7m2odrPO29T5yTrZVc35+s2vRjOuXVRHl3or/us4fVgESDAGxvCGQ=
+	t=1790105633; cv=none; b=WoPZlW4epMMWHm+T8x+X6jr5CNA1ueMQgnEAsPdCXpkiLwaq80D3LwlJF9SBVwmiwAzMVfr4+w/d3vDNkXRr3UVRKwog/QuL5QCGU49KDh4uL3eht9ZlYpGRwBUU+scVYKz3moxR0zlDE0xEbm9z4RYrunxGD36qoEHzKVrHAcw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790105631; c=relaxed/simple;
-	bh=Yhe6c+BFdprl/QHBmq8qhxDnnJhzdIO53Ck87vaOA1g=;
+	s=arc-20240116; t=1790105633; c=relaxed/simple;
+	bh=9Fe7IeNRyBhBNKzOuYAjydyV/zm9cyjffLTK8uGq7xM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tuQFRUeLXz59HTqSA9b389QCuEWStax/Q4vKNecjX83SYnQzW6jmHc/Wdx/omwbgOT5C30boGjuDHX3A895O++Hjhk60ZHKUYxcy167bCTMKbBKHp/N2YyzYDlyfXewut6oDef+hD7ow4X8hmcm/tP8jlU2mk4D6cynWJutDV+U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WoMYueuB; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=sjzPtee5+lmWfcNfb6rpaElctBBFbJqGWQe1JYLncFLvPDXqwXUvZ7OOa4Jf3M/R2RsXdalNZkmLX2rjxQlznXnVX4VSRbf80PQldyChC9awFqEN/3+Tk8AQgjmzjpaMnfthmiPqlbdIDS3x69W4u4bg8ZfV5HYENLRBTf+23Ns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D8ir3MJW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WoMYueuB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A93481F00898;
-	Tue, 22 Sep 2026 19:33:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D8ir3MJW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B67FA1F00893;
+	Tue, 22 Sep 2026 19:33:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790105630;
-	bh=GLyZXbxvsf6hmhwB80vHn7BoVvamKRrUT80Vb6KbM40=;
+	s=k20260515; t=1790105631;
+	bh=054IRsch3YkogJmDcwn5bxJXuTD3XDemuXzlsi5l6aQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WoMYueuBTc42oa+HXIKoOHtsiUrdBxG1vGN9Er9FtwZWzC61KRCURcoB2t9YwSOx1
-	 mcdlzDr2olm/iWagDNejQR1Wmc2T2dHL7p1OQ/zGzWFVJleC3fItcBMhuKT8Kg8WMl
-	 U7ifKSkvMsdsbFA+zoUDOIo4NyQ/eQcy/b2ypkwHniMtqYsQr3hPctsShTHO7CX7EL
-	 p1h1BUSOOI9Cz52birO8oODDYKt72bx+uOxZHJVmeVXWEjsnhsh0feh8O5QuWmYlY5
-	 PX74FcGL1rY//ULZ98bj/JRFJFpcYAQ90AaHIoZV4XDB1vl1gSoS0YOOQty2gp1O17
-	 8TlsphjkR7mzA==
+	b=D8ir3MJWpWsssorR2JyzWeWm6rVpESJAB7TrKEAY/XW9yn0MSl9cD6c2uzBwMAgdB
+	 ekzrws2hO1Ir1wS/6BoSLyqXTQaZWIqRVrlxipwbdYeG+786QR7yf+zEyxFrnE8cWu
+	 THz2bjhLjhfTb98ftinAIqn1TCerfaXeCQYjRM3MXhZSFw3C8/twrdtdiUJlE5Sn4/
+	 T7nxvY818JRHp7PlDmvx9F/lRihvcu1OoPHUoLAmRbcJvfWBbMGyPFmSDubzer1YY7
+	 9QlyeF44Q2aaOG9/VfMinP24LmCEnoHQhfPZh5rYVrQrENE3qUyQ6iVNxNpi671uoM
+	 KRZfl6SxCK5ng==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Devin Wittmayer <lucid_duck@justthetip.ca>,
-	Johannes Berg <johannes.berg@intel.com>,
+Cc: Paulo Alcantara <pc@manguebit.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Tom Talpey <tom@talpey.com>,
+	Stefan Metzmacher <metze@samba.org>,
+	Shyam Prasad N <sprasad@microsoft.com>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Bharath SM <bharathsm@microsoft.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] wifi: mac80211: refuse to make a monitor active when it has no queue
-Date: Tue, 22 Sep 2026 15:33:47 -0400
-Message-ID: <20260922193347.4153826-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y] smb: client: fix smbd_connection leak on cifs_get_tcp_session() error
+Date: Tue, 22 Sep 2026 15:33:49 -0400
+Message-ID: <20260922193349.4154041-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260922193347.4153826-1-sashal@kernel.org>
-References: <2026092221-mashed-snippet-eb34@gregkh>
- <20260922193347.4153826-1-sashal@kernel.org>
+In-Reply-To: <2026092221-chive-engaged-cc27@gregkh>
+References: <2026092221-chive-engaged-cc27@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,50 +50,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Devin Wittmayer <lucid_duck@justthetip.ca>
+From: Paulo Alcantara <pc@manguebit.org>
 
-[ Upstream commit 2b04d6556964ae9f89819b86a0a7801e39c3aae5 ]
+[ Upstream commit e75c96157d45e498970158c8f7373d90102e33b9 ]
 
-A monitor interface only gets a TXQ if it's created active, and one can't
-be added later. Setting the flag on a down interface is still allowed, so
-the driver is handed a monitor with no queue. ath9k dereferences it:
+When an RDMA connection is successfully established via
+smbd_get_connection() but cifs_get_tcp_session() later fails (e.g.
+kthread_create() returns an error), the error path frees tcp_ses
+without first destroying the smbd_connection.
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000066
-  RIP: 0010:ath_tx_node_init+0x49/0x170 [ath9k]
-   ath9k_add_interface+0x10c/0x140 [ath9k]
-   drv_add_interface+0x54/0x250 [mac80211]
-   ieee80211_do_open+0x32f/0x800 [mac80211]
+Fix this by calling smbd_destroy() in the out_err cleanup path before
+kfree(tcp_ses).  smbd_destroy() safely handles the case where
+smbd_conn is NULL, so it can be called unconditionally.
 
-Reached with CAP_NET_ADMIN by "iw dev X set monitor active" followed by
-"ip link set X up". RTNL is held, so netlink operations block behind it.
-
-Refuse the flag when there is no queue to give.
-
-Fixes: 79af1f866193 ("mac80211: avoid allocating TXQs that won't be used")
+Closes: https://sashiko.dev/#/patchset/20260912165503.521597-1-pc%40manguebit.org
+Fixes: 2f8946464b11 ("CIFS: SMBD: Upper layer connects to SMBDirect session")
+Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+Cc: Tom Talpey <tom@talpey.com>
+Cc: Stefan Metzmacher <metze@samba.org>
+Cc: Shyam Prasad N <sprasad@microsoft.com>
+Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
+Cc: Bharath SM <bharathsm@microsoft.com>
+Cc: Namjae Jeon <linkinjeon@kernel.org>
 Cc: stable@vger.kernel.org
-Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
-Link: https://patch.msgid.link/20260904200338.10829-1-lucid_duck@justthetip.ca
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/mac80211/cfg.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ fs/cifs/connect.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/net/mac80211/cfg.c b/net/mac80211/cfg.c
-index 02552b7ce01db..d29a517a41849 100644
---- a/net/mac80211/cfg.c
-+++ b/net/mac80211/cfg.c
-@@ -116,6 +116,10 @@ static int ieee80211_set_mon_options(struct ieee80211_sub_if_data *sdata,
- 			return -EBUSY;
+diff --git a/fs/cifs/connect.c b/fs/cifs/connect.c
+index d35474b836007..a91d3f6ae5be6 100644
+--- a/fs/cifs/connect.c
++++ b/fs/cifs/connect.c
+@@ -1574,6 +1574,7 @@ cifs_get_tcp_session(struct smb3_fs_context *ctx)
+ 		kfree(tcp_ses->hostname);
+ 		if (tcp_ses->ssocket)
+ 			sock_release(tcp_ses->ssocket);
++		smbd_destroy(tcp_ses);
+ 		kfree(tcp_ses);
  	}
- 
-+	/* TXQs are reserved in ieee80211_if_add() and cannot be added later */
-+	if ((params->flags & MONITOR_FLAG_ACTIVE) && !sdata->vif.txq)
-+		return -EOPNOTSUPP;
-+
- 	/* validate whether MU-MIMO can be configured */
- 	if (!ieee80211_hw_check(&local->hw, WANT_MONITOR_VIF) &&
- 	    (params->vht_mumimo_groups || params->vht_mumimo_follow_addr))
+ 	return ERR_PTR(rc);
 -- 
 2.53.0
 
