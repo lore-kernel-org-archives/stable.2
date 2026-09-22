@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEA754779BE
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 18:45:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5391497B9B
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 18:45:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790102757; cv=none; b=C5Ex7yBF7vy2zzbHhyYDZbONKfIecyOy4fUxLujURu1PTelQOBuwa/cYpAVVisBIsXnW+17f4MTGu93cVSQBFJJ5I6ZXlDJkuNIkV563fMUtJsY6/HxZv+1nQaP82lv2DYo3IgyMfbsgzBIQlBNXJgG5ItmDyBaSEeqt39NFh2k=
+	t=1790102768; cv=none; b=a+9aD01gCgMDYXi72u71CgRsGs9VPdQuVnxopaoZ4fH6UGxg0OgHL1sQYWziLoLLsRYRXmS10LURQWnCG04doPq9u8n/fbpBKQiG3IfrGuYCTtVyx2RkeIWV6QbQs8An5IvGdjTORrsVnvbxJpWlh3y5Xvbx5LrW8Lc6pWtHaaU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790102757; c=relaxed/simple;
-	bh=I6fK01foZ/fDARB0DMDHN0arhOzUrC5j/V/NCoh7MX0=;
+	s=arc-20240116; t=1790102768; c=relaxed/simple;
+	bh=bv45vaYuAfxT2R3yggfg5ajVwMhVFouvBnm4WJjlmmM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fQM/D0WCqrp8JH19vonfLh6tiL4/6EzA9dLhcb9TD59NS7V9AJE++hEYX30Du2VA+s9q6yaEST4QOaC9+e8UcSn7cdmc3vReTte1Nhnf76q3NFkbGKgD7fr/cmMTLANinblVRO1siVkUwsq/ntCciJs6MhSD2xUmuMzS52DUE9M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CvG8EgVY; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=D3jfaTWFq6MFA2fsDhfUF1bZu3ZhoBE651pEoHORo3zjNTN6zDaHIe4i29ECvAV6hXOXMbwddu68d/XPm5RzXIDSHz1p0mluDe5MepiZVVoro2A+Z8AqjsJS4RjqqUNTPX+Jf4QEAXtR6K3q14ER9fa6qmUoF4946L/sTvESqao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OWT1s/Oj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CvG8EgVY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F07B1F00893;
-	Tue, 22 Sep 2026 18:45:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OWT1s/Oj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FAF91F00899;
+	Tue, 22 Sep 2026 18:45:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790102750;
-	bh=LnpIrI5j9O+mv14fC4H8dbCUYPaWvWzBPJZOyPnRhU0=;
+	s=k20260515; t=1790102753;
+	bh=7UpNvoFkTlNNnekXzF1wUqq7iFlW64wMg1J6ytMrI0Y=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CvG8EgVYz7nGcOIbns53g2jb2AZASvinDjebSqjkHig5gyMe8kZEo6EZs2Hitzfon
-	 iyxsBpLL6u2tDX9a+Hi4mIA63zThmzCxJqxRkFfWAtBdxaGn8dlFxIeGJQr2iZjVbc
-	 p7BV7rlCnf6HrTrBDhuAWKI9wtm+wYRk0H3S3ee+zqztPFhsl0Q5h3eDFVPZ3+yPM+
-	 Ynvki9g1kU4JRXxD0wDVwF0oowQRz4ZdVQzMkB3eQbZxYDrQx9CxAMKqSU0LH9EAXV
-	 cFH4gW3JM2Shh/gALZNexZxm40xI8E5nL31GGYbyu2LlnJ4FjO9rQqqcsIKm9zBGr5
-	 kMq0kV8gTsKVA==
+	b=OWT1s/OjQ73BmWzejD5toxQfdwWqDyfJemIvOdLpVqiusdEjIFFml9bh4drGmTzTu
+	 zgaoPXidXnvUfEJfnEYpfIHYm6a/hLiO2a87BGSOSaCRmML/vK8yUghfnKcZgwaJiW
+	 JocLaEepgsBXQiuKlrR3CsycSqZKGZExggRK8T8M/kS9cqAY+XGyRB8EE8w6jsfjRp
+	 UAGvSD584p/XgD8VwDzrD5FKRg2gulsvdaafSTUSxKv4p/Kumm2aXASfFb+HnVKbhq
+	 r1H0jpDMRO5gd65z2VxG7AKo6IjlRzlZTxb9Hr+X736Yqa1OYnuFWgL8nS/OG14O/Q
+	 rOrbyZaEpOy1g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Cen Zhang <cenzhang@linux.microsoft.com>,
-	Francis Perron <francis@akrites.dev>,
-	Jarkko Sakkinen <jarkko@kernel.org>,
-	R Nageswara Sastry <rnsastry@linux.ibm.com>,
+Cc: Fan Wu <fanwu01@zju.edu.cn>,
+	Song Li <songl@zju.edu.cn>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] KEYS: encrypted: fix integer overflow of datablob_len
-Date: Tue, 22 Sep 2026 14:45:48 -0400
-Message-ID: <20260922184548.3790526-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] wifi: wcn36xx: Fix potential use-after-free in TX ack timer teardown
+Date: Tue, 22 Sep 2026 14:45:50 -0400
+Message-ID: <20260922184550.3791121-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092202-sapling-foster-2f79@gregkh>
-References: <2026092202-sapling-foster-2f79@gregkh>
+In-Reply-To: <2026092258-patriot-carless-32a6@gregkh>
+References: <2026092258-patriot-carless-32a6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,84 +47,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Cen Zhang <cenzhang@linux.microsoft.com>
+From: Fan Wu <fanwu01@zju.edu.cn>
 
-[ Upstream commit 8697c431e297eb0d0ab13dda6bc172b48a34f05c ]
+[ Upstream commit d9be5e75530772fc31637070d51e5717d6aeaa2a ]
 
-encrypted_key_alloc() stores datablob_len in a u16. It is computed from
-multiple string and payload lengths. If the result exceeds U16_MAX, the
-assignment truncates the allocation size. KASAN reports a 32760-byte
-slab-out-of-bounds write when __ekey_init() copies the master key
-description into the undersized buffer.
+wcn36xx_dxe_deinit() tears down the TX ack timer with timer_delete(),
+which only dequeues the timer and does not wait for a callback that is
+already executing; the preceding free_irq() calls synchronize the
+interrupt handlers only. The callback, wcn36xx_dxe_tx_timer(), can
+therefore be running past the teardown and use the wcn freed along
+with the ieee80211_hw in wcn36xx_remove(): it takes wcn->dxe_lock,
+reads wcn->tx_ack_skb and passes wcn->hw to
+ieee80211_tx_status_irqsafe().
 
-The total payload length stored in key->datalen is also a u16. Use
-check_add_overflow() to reject values that do not fit either destination,
-and use kzalloc_flex() for the flexible-array allocation.
+Fix this by using timer_shutdown_sync(), which waits for a running
+callback and also prevents the timer from being rearmed again. The
+timer is set up again by wcn36xx_dxe_init() on the next start, so the
+start/stop cycle is unaffected.
 
-Fixes: 7e70cb497850 ("keys: add new key-type encrypted")
+This issue was found by an in-house static analysis tool.
+
+Fixes: fdf21cc37149 ("wcn36xx: Add TX ack support")
 Cc: stable@vger.kernel.org
-Assisted-by: GitHub-Copilot:claude-opus-4.6
-Signed-off-by: Cen Zhang <cenzhang@linux.microsoft.com>
-Signed-off-by: Francis Perron <francis@akrites.dev>
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
-Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
-Link: https://lore.kernel.org/r/20260909153433.83117-1-cenzhang@linux.microsoft.com
-Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
-[ replaced unavailable kzalloc_flex() with kzalloc(struct_size(...)) ]
+Assisted-by: LLM
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Link: https://patch.msgid.link/20260910020907.3353-1-fanwu01@zju.edu.cn
+Signed-off-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+[ Adapted the patch to replace del_timer() instead of timer_delete(). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- security/keys/encrypted-keys/encrypted.c | 20 ++++++++++++++------
- 1 file changed, 14 insertions(+), 6 deletions(-)
+ drivers/net/wireless/ath/wcn36xx/dxe.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/security/keys/encrypted-keys/encrypted.c b/security/keys/encrypted-keys/encrypted.c
-index 192e531c146f5..358bcb41ab23e 100644
---- a/security/keys/encrypted-keys/encrypted.c
-+++ b/security/keys/encrypted-keys/encrypted.c
-@@ -18,6 +18,7 @@
- #include <linux/parser.h>
- #include <linux/string.h>
- #include <linux/err.h>
-+#include <linux/overflow.h>
- #include <keys/user-type.h>
- #include <keys/trusted-type.h>
- #include <keys/encrypted-type.h>
-@@ -599,6 +600,7 @@ static struct encrypted_key_payload *encrypted_key_alloc(struct key *key,
- {
- 	struct encrypted_key_payload *epayload = NULL;
- 	unsigned short datablob_len;
-+	unsigned short payload_totallen;
- 	unsigned short decrypted_datalen;
- 	unsigned short payload_datalen;
- 	unsigned int encrypted_datalen;
-@@ -633,16 +635,22 @@ static struct encrypted_key_payload *encrypted_key_alloc(struct key *key,
+diff --git a/drivers/net/wireless/ath/wcn36xx/dxe.c b/drivers/net/wireless/ath/wcn36xx/dxe.c
+index 4e9e13941c8f4..b168db800e07e 100644
+--- a/drivers/net/wireless/ath/wcn36xx/dxe.c
++++ b/drivers/net/wireless/ath/wcn36xx/dxe.c
+@@ -1054,7 +1054,7 @@ void wcn36xx_dxe_deinit(struct wcn36xx *wcn)
  
- 	encrypted_datalen = roundup(decrypted_datalen, blksize);
+ 	free_irq(wcn->tx_irq, wcn);
+ 	free_irq(wcn->rx_irq, wcn);
+-	del_timer(&wcn->tx_ack_timer);
++	timer_shutdown_sync(&wcn->tx_ack_timer);
  
--	datablob_len = format_len + 1 + strlen(master_desc) + 1
--	    + strlen(datalen) + 1 + ivsize + 1 + encrypted_datalen;
-+	if (check_add_overflow(format_len + 1 + strlen(master_desc) + 1
-+			       + strlen(datalen) + 1 + ivsize + 1,
-+			       encrypted_datalen, &datablob_len))
-+		return ERR_PTR(-EINVAL);
-+
-+	if (check_add_overflow(datablob_len,
-+			       payload_datalen + HASH_SIZE + 1,
-+			       &payload_totallen))
-+		return ERR_PTR(-EINVAL);
- 
--	ret = key_payload_reserve(key, payload_datalen + datablob_len
--				  + HASH_SIZE + 1);
-+	ret = key_payload_reserve(key, payload_totallen);
- 	if (ret < 0)
- 		return ERR_PTR(ret);
- 
--	epayload = kzalloc(sizeof(*epayload) + payload_datalen +
--			   datablob_len + HASH_SIZE + 1, GFP_KERNEL);
-+	epayload = kzalloc(struct_size(epayload, payload_data, payload_totallen),
-+			   GFP_KERNEL);
- 	if (!epayload)
- 		return ERR_PTR(-ENOMEM);
- 
+ 	if (wcn->tx_ack_skb) {
+ 		ieee80211_tx_status_irqsafe(wcn->hw, wcn->tx_ack_skb);
 -- 
 2.53.0
 
