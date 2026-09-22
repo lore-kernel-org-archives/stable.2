@@ -1,160 +1,121 @@
-Received: from mail-pj2-f31.google.com (mail-pj2-f31.google.com [74.125.227.159])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DFA7299920
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 03:15:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.159
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0070A35A3BF;
+	Tue, 22 Sep 2026 03:19:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790046955; cv=none; b=qc+y7LcTuuOkD6c+fsjLG7LSzBfghgqBnXYXd679YcSBOVQhTDdWUzTzKfw6p0KXT0eMpsDA6GkML2EwocjgqWUOiXYgwtVE9vKly/wfjnJHVkRV4rEhLrz0uuZMf/HOr5+Qv6T01fVbgbMuEkWxX4gld3D/GI1VWCEryZVdDz4=
+	t=1790047180; cv=none; b=BdO0s/d7ylEtjR/ukaSG08FI//RtT4Popzf1NOQMGlirogDzRIPnIEmPKCXIo1FOsRnyV1SOn8QJvPXIVGVSX+qQJ0199MhHM4s3JqKg70XstCr/bOyBXfEKX6u85ftaNFfR2mnyfjemMy4/eXPAgE1fzcFC0wDw5txGuQrd3Qo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790046955; c=relaxed/simple;
-	bh=iSmmkgyOikY+CwgD/N7u04Ao1UfAh/QWnDwyIjtT3rQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OrEvfYUg+80B/myL6azq5uXVHlDbyrYPTNyC27mzttBKv5Vg3f6DRcriDdgALgRZZqLDNXEP4xjbweuZvnWMKWU+GPdBsrMFC5+25MQhW0gHlH5ZQ8/2sWa2+0nEGT2nezQtSd4Cu7mlPp/uSFdMGG60UuBTRTv+ue5AL9/B2W4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BoytIRsp; arc=none smtp.client-ip=74.125.227.159
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790047180; c=relaxed/simple;
+	bh=vtAZyZjpVfZdbhtr061cXTJsunQLhQ4LarQfbB0r4I4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sotshRnK+hcvIVjdX5wc5OVM61kAh5SZ/2oMN0DuCbAG5h6kkv5dCAmRH434lWVTavKmGBKLasWdMLfq85oMFfyFtbkiwnz2eWLVYazdu0SvExt8C6sGYfHrwrBGC0vYMDHkR39p6me9tNmwyNbwiDBBAk7dwWdYTsIlRVQCWEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=NROCxi8f; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BoytIRsp"
-Received: by mail-pj2-f31.google.com with SMTP id d9443c01a7336-2dd53691be5so34125275ad.1
-        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 20:15:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790046953; x=1790651753; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Uvk79jd+WkOqoSsKYqTDa1SfAv/OPPokbPe5GWlulBo=;
-        b=BoytIRspLzHOGgFvPKbFZ8AuNmWz6hbkuY/d//8pfnmUlFz787w1Lr8tHMMRDE7PVh
-         kO+k06SdRarVJ94t/06HYAc0kTNCtZIbXupY5aPxE2OrLjgYKuyxurZ2n8VC4jxG6TXS
-         TAZiL9509jCUbNsdHunNSR7KXh5mE7q29p8IT4i91djM62Owt2grIbNzxlzU/1zn0eIE
-         Laoz+ndT2e780Qm19WlzIIK28GzclL0ZyJ2o3ZywUjNC9oTAtx7Ca7AR1p5SJlfNfVTm
-         +zfn+WFxlfuXTZuS52UbyIokIElZiU2igCCZrMR6UnnHOqyFXDRc/wZr2a8YPgM7syhn
-         CwfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790046953; x=1790651753;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Uvk79jd+WkOqoSsKYqTDa1SfAv/OPPokbPe5GWlulBo=;
-        b=Dk0cogrGVnSYVi8Q8p3jBBerIibiuU8bqeEOroiAc2QSuXDcCUt5sHu+SeFNoKLFUO
-         Acy/DeX/GXAFnG3JbyFTFrIljl1wt+y7UUc8T879KEGnfuSHqd/sFoQhMUqRKrTntxR4
-         5/dY6UMJjO1Yl6lum5pjFC9r/+R7qjuZdqfmvGt1G4DNNYMdXVr/+l0aFZF8VHQUyJa+
-         ryJa6KSbGbzahlrkzaYvTgYr0YRfInNsqYDJtFrN1oi6rxYGQ6l5lIggQ2ctRmxTYMLg
-         s+Cx85SgrvWUaXgpr72wHP64xUqA5Jb8L+W1ZU6ne7tGx0MWQurkadY4dCRZk4cPZ3He
-         PZ+Q==
-X-Forwarded-Encrypted: i=1; AKwUvBx9p5rqXZUi4XJeHREq0eGkdGckj1+fBGcZ5NyuMlidhWtHiOx+6UCGtctBDPS6BOdes0Fjz40=@vger.kernel.org
-X-Gm-Message-State: AFuF++mwYm6heSsTn9cRJJNGuMUbIFCpBlwRa2QIwBusAPm5F4itoUs5
-	HWZ68Ud+m/+8xb8h0CKYH6XI2JRZWZgduGtt4V+HF4ie0lN+ZyVCEg/O
-X-Gm-Gg: AYBFou0MtWGF2wZKjuKsXi25KLLDuG6V3ieUXYYml5wYZPy7fImaO/yXD+cOBzjXEGo
-	XHE3Zp6lGxxQpiLVXYUtWyJ67DXudZf6r4ZdfNl4lcq4MKVRJa+j0eva/sjAVfeht8ysrY1wFLI
-	OQTVu4wOr8FKKGPqSRh7gv1mv6LdjjZrQWRNEzilQ+qI0cU0SlHXnMrCI0fxZ949bdeNjEint3s
-	6X+e8tRFLeeX9ZekIV3GADzw9Ofl5yanAhShvvEvaj/Sj1QeARYLhwoqNEBrXcPGNGZepMss39d
-	g7uqJYO7QGBJ0kf2ffvljM1A3J68RTySiOybWv9rQtpN5/yCjQM4pvoZKIA+ZvTywJNS3K1uQaJ
-	Y4gETYR7jYa3DNi97YmtcmfdKkZd7puU82CeAhac1XPX79jpNxc3/UHogbFeA2uNEx62Xoisdsz
-	32kANpP26qed2dFvx2BrtXwoIIHFtsaDabeq1z12zBTHlOq9XlsWiBR9CM3OzRumfCBRdRskiH6
-	jyaVKC45cLAXMNVTknyk6aN
-X-Received: by 2002:a17:903:8c6:b0:2df:42de:f71 with SMTP id d9443c01a7336-2df42de1624mr79060165ad.19.1790046953165;
-        Mon, 21 Sep 2026 20:15:53 -0700 (PDT)
-Received: from localhost.localdomain ([43.224.245.233])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df5cf84221sm1893045ad.10.2026.09.21.20.15.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 20:15:52 -0700 (PDT)
-From: Dongliang Qin <cccccccccccc777777@gmail.com>
-To: netdev@vger.kernel.org
-Cc: achender@kernel.org,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	linux-rdma@vger.kernel.org,
-	rds-devel@oss.oracle.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Dongliang Qin <cccccccccccc777777@gmail.com>
-Subject: [PATCH net v2] rds: ib: Clear the sg list when mapping an MR fails
-Date: Tue, 22 Sep 2026 11:15:45 +0800
-Message-ID: <20260922031546.3874605-1-cccccccccccc777777@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="NROCxi8f"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 954BF40E015B;
+	Tue, 22 Sep 2026 03:19:36 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id i5h7Is0JHuso; Tue, 22 Sep 2026 03:19:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1790047165; bh=+MKL1A4R3bj6tzU6UGWcVJABH4EcohmMeq3pEKdS+EU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=NROCxi8fKsSU5IFC5pckp3DPHy9lgrZwR6J26wTEgFH/HwUnuPD3FNMhS92LThXNG
+	 HskeP4nn7sNjj9GYR8pv3Esnu1UNHdBo3dxhO71FQcEletNh1Rgy1rebPJWnfLByBw
+	 VEEsepMpRLcKdFy3+kZid9tjgwOIX2o1cPNqoPHxmA2NjWzZag+H5/bOLESWmoxXW+
+	 iSiJ0FWPQ5HtN9XRgOlwt/fSgEd/BFsTIbJdTdNlwPLjWjJXA8zNMcUMaJ+rsJYJIw
+	 D/2vpEENdbpqZMymCObP+AzuiXozkVhyu8N95wbT7EjxK6/OeoJDXzUGJRs7J6SvWO
+	 K5PbDwNkWAKcRoRLqFRQJ2+iAbalbbn0azBTZZR37yVkl71V28Bz5ds80C73DbDVVk
+	 nsrJPlvyNVIWTcaqe+k5e36AtCVWXl5zn9diINp8pM8SEKUGyFJ5jrxJtSj+blqbwv
+	 z2CCJChpG+oOiJcWHpXUTgKzImbuOf2zlsf+63pPv7Pu4lT6YuvWjjus70JN4L8skN
+	 CyjsI787KZhSthXEwrfuascYjcq1R9b1XNkMJxNYp+u4G4lvGjCw286RwMNpSzHWGh
+	 2/x0kGdCxOeLIv/BM5W6b5vylt/DgfRh4KuoDNc3kMgiG2AwaHyEAk4yNGs94xV/sw
+	 ro3pa+y+mHLTMUL7ogGaZyw8=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::e])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id DF31F40E00E5;
+	Tue, 22 Sep 2026 03:19:08 +0000 (UTC)
+Date: Mon, 21 Sep 2026 20:19:05 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Ryan Chen <ryan_chen@aspeedtech.com>
+Cc: Stefan Schaeckeler <sschaeck@cisco.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Tony Luck <tony.luck@intel.com>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+	"linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
+	Borislav Petkov <bp@suse.de>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: Re: [PATCH v3 0/9] Add Aspeed AST2700 SDRAM EDAC support
+Message-ID: <20260922031905.GEarHzqf56ypqALDHi@fat_crate.local>
+References: <20260916-edac-v3-0-23e9ed2fbdf9@aspeedtech.com>
+ <TY2PPF5CB9A1BE6D0247845980A7BD60E60F2832@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <TY2PPF5CB9A1BE6D0247845980A7BD60E60F2832@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
 
-rds_ib_map_frmr() stores the caller's scatterlist in the MR before DMA
-mapping and registration can fail. On failure, __rds_rdma_map() unpins
-the pages and frees the scatterlist, but rds_ib_free_frmr() can still
-return the MR to the pool with the stale pointer set.
+Hi Ryan,
 
-This leaves the pool with a dangling scatterlist and can lead to local
-privilege escalation. KASAN detects the resulting use-after-free when the
-MR is later torn down:
+On Tue, Sep 22, 2026 at 02:53:27AM +0000, Ryan Chen wrote:
+> Stefan has resigned from the EDAC entry:
+> 
+>   https://lkml.org/lkml/2026/9/20/1295
 
-BUG: KASAN: slab-use-after-free in __rds_ib_teardown_mr
-Read of size 8
+Please do not use rando pages from search engines for pointing to patches, we
+have lore.kernel.org for that.
 
-Call Trace:
- __rds_ib_teardown_mr
- rds_ib_unreg_frmr
- rds_ib_flush_mr_pool
- rds_ib_flush_mrs
- rds_free_mr
- rds_setsockopt
+Also, please do not top-post on public MLs but put your text under the text
+you're replying to.
 
-Store the scatterlist in the MR only after DMA mapping succeeds. If DMA
-mapping fails, return directly while the MR fields remain clear; the caller
-keeps ownership of the scatterlist and its pinned pages. If a later
-registration step fails, unmap the scatterlist and clear the MR fields
-before returning.
+We have the whole development process explained here, please take some time to
+read the most important points:
 
-Fixes: 1659185fb4d0 ("RDS: IB: Support Fastreg MR (FRMR) memory registration mode")
-Cc: stable@vger.kernel.org
-Signed-off-by: Dongliang Qin <cccccccccccc777777@gmail.com>
----
-Changes in v2:
-- Store the scatterlist in the MR only after DMA mapping succeeds.
-- Return directly if DMA mapping fails, leaving the MR fields clear.
-- Link to v1: https://lore.kernel.org/netdev/20260920063449.1594203-1-cccccccccccc777777@gmail.com/
+https://www.kernel.org/doc/html/latest/process/development-process.html
 
-net/rds/ib_frmr.c | 11 +++++------
-1 file changed, 5 insertions(+), 6 deletions(-)
+> That leaves his patch and 9/9 of this series touching the same lines,
+> and the entry ending up with a reviewer and no maintainer.
+> 
+> You suggested a reviewer entry first, and I understood the reasoning.
+> But with Stefan gone the choice is now between orphaning the driver and
+> someone taking it, so I'd rather ask again: I'm happy to take the M:
+> line. I work on these SoCs at ASPEED and have the hardware and the
+> documentation for all four variants.
 
-diff --git a/net/rds/ib_frmr.c b/net/rds/ib_frmr.c
-index bd8611911..8397aa4a1 100644
---- a/net/rds/ib_frmr.c
-+++ b/net/rds/ib_frmr.c
-@@ -204,19 +204,16 @@ static int rds_ib_map_frmr(struct rds_ib_device *rds_ibdev,
- 	 */
- 	rds_ib_teardown_mr(ibmr);
- 
--	ibmr->sg = sg;
--	ibmr->sg_len = sg_len;
--	ibmr->sg_dma_len = 0;
- 	frmr->sg_byte_len = 0;
--	WARN_ON(ibmr->sg_dma_len);
--	ibmr->sg_dma_len = ib_dma_map_sg(dev, ibmr->sg, ibmr->sg_len,
-+	ibmr->sg_dma_len = ib_dma_map_sg(dev, sg, sg_len,
- 					 DMA_BIDIRECTIONAL);
- 	if (unlikely(!ibmr->sg_dma_len)) {
- 		pr_warn("RDS/IB: %s failed!\n", __func__);
- 		return -EBUSY;
- 	}
- 
--	frmr->sg_byte_len = 0;
-+	ibmr->sg = sg;
-+	ibmr->sg_len = sg_len;
- 	frmr->dma_npages = 0;
- 	len = 0;
- 
-@@ -264,6 +261,8 @@ static int rds_ib_map_frmr(struct rds_ib_device *rds_ibdev,
- 	ib_dma_unmap_sg(rds_ibdev->dev, ibmr->sg, ibmr->sg_len,
- 			DMA_BIDIRECTIONAL);
- 	ibmr->sg_dma_len = 0;
-+	ibmr->sg = NULL;
-+	ibmr->sg_len = 0;
- 	return ret;
- }
- 
+That's much appreciated but you don't have to worry - the driver won't be
+orphaned and you'll be the reviewer and tester of patches for it. And I'll
+simply add Stefan's patch at the end and amend the hunk marking the driver as
+orphan and instead add your hunk which is making you a reviewer.
+
+> If you'd still rather not, that's fine - tell me and I'll respin 9/9 so
+> the entry reflects reality instead.
+
+Let's see how we work together this way first.
+
+Thx.
+
 -- 
-2.43.0
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
