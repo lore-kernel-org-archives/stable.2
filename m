@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E73AC5158A5
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 15:10:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B47343FD18
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 15:10:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790089841; cv=none; b=NxWbBaxABJ92b+3igyOLynfqKjZPiwVefcoz/EogSfPkD7TL50JCys0p0OdNMbnMVhuOFjLMwg5COdwvbcmGWCS4rFUd9l/BXWYcmZviCWikOIia/A8dP2JVUSU/bAHPCheKxAaJ0ep+3mlGj6u9tu5ou9htKAWYCZYrTGUl2Yg=
+	t=1790089845; cv=none; b=RtfJ56Ncc84a4DtJGD23go3+UG9oq5LFHsvSoPncdJR7WQL9sZMf9z+j30mG65UX1ud65ZOSDVrD06Y07ytP0Amznk6awofs+KE7a2dtVRiRehAJ57rDaPn3btx0KMDSQ00U1k91Gy33vhUS3eAgnSkHiuqb1zZJSisrnuFlok8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790089841; c=relaxed/simple;
-	bh=E62SYDYqg5U+tTAwPZMru3hm366C8jT8/W7XMGy9GnA=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=XhXYs4yKsHe1dm+9qHAZi888O/IVDLdP11cbObsI5YWi7WGQz4NvIZhPNwXxAES5BsN/P5QVcuUDMneGTAWTTjJR5qi5K1ktIHTZgv1aapGTBGr78+BCGbH6CbsZmg/PTL1FYo+ylatTPYHZZt8t9DrrJrpt9oobbP1w8MBWUlk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=MVKoDogr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790089845; c=relaxed/simple;
+	bh=hMWG9rrbzA4R741LVl4hd3tEdaTDvGNd3epeIYDKYAo=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=NYfN+i3gV/qgCOMEUOWgV9mXinGkzcLXvRVqsKKdfnP+MRmRUg3UNAIwjHOjliX9gBkl0o1SPSIBScvgqVphmWX4n/453Apy21+3IgNmRzjN9hMwK75wNfN2Q+1cPczHpC5pUY54UFMtshmCBLg/niVBFtvDKEkKTjO0f0SVOUw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=YtN9Qi+h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="MVKoDogr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC2171F000FF;
-	Tue, 22 Sep 2026 15:10:38 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="YtN9Qi+h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3603D1F000FF;
+	Tue, 22 Sep 2026 15:10:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790089839;
-	bh=9hgwWNxQmBRQdZ6GiO29WSfkQc5DA8v5QLnSbw2+3Bg=;
+	s=korg; t=1790089844;
+	bh=RZrZxRYtqOd+WRn4BZLXtWK9cjx/kxkfhoQdWleWe3I=;
 	h=Subject:To:Cc:From:Date;
-	b=MVKoDogrD8UeAfUpHbESucgjjrjsLpHf2ijSoeSjBvKQfaoPyp1Z2NYNeVuODzF42
-	 BGbrVRaN0wwEs45YfG8w7ojgGnvs1TOaj5nbIclhqJE6l4HIMiyfwK6Pm/ST96lrsS
-	 Q64rPdH3jFxoHaILBHJBtZPaYUniey84uXdV7UhM=
-Subject: FAILED: patch "[PATCH] Input: hp_sdc - shut down kicker timer on module exit" failed to apply to 5.10-stable tree
-To: runyu.xiao@seu.edu.cn,deller@gmx.de,dmitry.torokhov@gmail.com
+	b=YtN9Qi+haLAxobvMHjGE4ZSlfY4mH+fnwxi/4InP72eJ97unfn26lrmZN1RutIT62
+	 p3PZxuYy6iy2/Eve2Kmudlzoa7Z0/SKR/IPAXUUiRUZx3KgiEZJ2/5yKTWGmTGLm2v
+	 z+swl7H7d5QMNni2GgtxlGAVGA1+9UooJzeLOrZ0=
+Subject: FAILED: patch "[PATCH] hwmon: (pmbus/core) increase number of phases and add new" failed to apply to 5.10-stable tree
+To: nuno.sa@analog.com,linux@roeck-us.net
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 22 Sep 2026 16:53:16 +0200
-Message-ID: <2026092216-pager-pacifism-6b92@gregkh>
+Date: Tue, 22 Sep 2026 16:55:14 +0200
+Message-ID: <2026092214-quotation-winter-5dc8@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 309731e95917125bbd13626a7a5600490a5bf44f
+git cherry-pick -x 06bd6794b5fd2163880ac3bfe973d4cc61f359f3
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092216-pager-pacifism-6b92@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092214-quotation-winter-5dc8@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,40 +62,56 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 309731e95917125bbd13626a7a5600490a5bf44f Mon Sep 17 00:00:00 2001
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Date: Wed, 2 Sep 2026 23:40:04 +0800
-Subject: [PATCH] Input: hp_sdc - shut down kicker timer on module exit
+From 06bd6794b5fd2163880ac3bfe973d4cc61f359f3 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>
+Date: Fri, 11 Sep 2026 14:53:37 +0100
+Subject: [PATCH] hwmon: (pmbus/core) increase number of phases and add new
+ mask
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-hp_sdc_kicker() rearms hp_sdc.kicker with mod_timer() after scheduling the
-tasklet.  The module exit path uses timer_delete_sync().  That waits for a
-callback already running but can still leave the timer rearmed.
+Increase the number of phases to 16 as a new upcoming device supports
+such a number.
 
-A callback can therefore leave the timer pending while hp_sdc_exit() tears
-down the driver, allowing timer activity to access dismantled driver state.
+While at it, add a new mask for controlling the source of the output
+voltage.
 
-Use timer_shutdown_sync() for final teardown.  It waits for a running
-callback and prevents rearming after module exit begins.
+Note (groeck):
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+This patch was meant to prepare for support of MAX20826 and compatible
+devices, which support more than 10 phases per page. However, Sashiko
+reports that the mp2975 driver already supports up to 14 phases, and the
+mp2856 driver supports up to 12 phases. This already has the potential for
+out-of-bounds writes when probing the affected chips, making this patch a
+bug fix.
+
+Fixes: 2c6fcbb21149 ("hwmon: (pmbus) Add support for MPS Multi-phase mp2975 controller")
+Fixes: f9e5f289b686 ("hwmon: (pmbus) Add support for MPS Multi-phase mp2856/mp2857 controller")
+Signed-off-by: Nuno Sá <nuno.sa@analog.com>
+Link: https://patch.msgid.link/20260911-hwmon-max20826-support-v2-1-5e30cbd97d84@analog.com
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:GPT-5
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Acked-by: Helge Deller <deller@gmx.de>
-Link: https://patch.msgid.link/20260902154004.3595416-1-runyu.xiao@seu.edu.cn
-Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
 
-diff --git a/drivers/input/serio/hp_sdc.c b/drivers/input/serio/hp_sdc.c
-index 1461ef319f92..ecf5347b63ab 100644
---- a/drivers/input/serio/hp_sdc.c
-+++ b/drivers/input/serio/hp_sdc.c
-@@ -981,7 +981,7 @@ static void hp_sdc_exit(void)
- 	free_irq(hp_sdc.irq, &hp_sdc);
- 	write_unlock_irq(&hp_sdc.lock);
+diff --git a/drivers/hwmon/pmbus/pmbus.h b/drivers/hwmon/pmbus/pmbus.h
+index 2cd3216b3cd9..920c1102ab6d 100644
+--- a/drivers/hwmon/pmbus/pmbus.h
++++ b/drivers/hwmon/pmbus/pmbus.h
+@@ -242,6 +242,7 @@ enum pmbus_regs {
+ /*
+  * OPERATION
+  */
++#define PB_OPERATION_CONTROL_V_SRC	GENMASK(5, 4)
+ #define PB_OPERATION_CONTROL_ON		BIT(7)
  
--	timer_delete_sync(&hp_sdc.kicker);
-+	timer_shutdown_sync(&hp_sdc.kicker);
+ /*
+@@ -386,7 +387,7 @@ enum pmbus_sensor_classes {
+ };
  
- 	tasklet_kill(&hp_sdc.task);
+ #define PMBUS_PAGES	32	/* Per PMBus specification */
+-#define PMBUS_PHASES	10	/* Maximum number of phases per page */
++#define PMBUS_PHASES	16	/* Maximum number of phases per page */
  
+ /* Functionality bit mask */
+ #define PMBUS_HAVE_VIN		BIT(0)
 
