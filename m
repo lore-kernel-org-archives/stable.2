@@ -1,45 +1,57 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E695563FCA
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 16:36:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD72256B855
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 16:42:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790095028; cv=none; b=FAM7bDYXqd5temN6C4iHhwLentIuJM1u/ge7jq3XUUJmHpCjovuicLYjIdaknzDIh70C/iREV04PCPdownSRkt0gt6qnJ5B7VbRv+2h6SJGODfWgU+/47warhABNcvChM0UaE4xPfVLUTHoB3tz+87CJK3kB3ydQ34wDcnvUPkM=
+	t=1790095343; cv=none; b=PXT+1PH9jiAXzcVCI7lKco/KR1quRhhwBL72f1BSlVjCub6Oe35/Pfb2Fx62c/Km3KVGybh32Ri1YON/ykX0pjqLttqeXGke3WD/410kAyfEf5SakSzXqcFfIYFvmxUNyXHDhu85KJyLEpYutfrJTOr8eV5A5+alJ05E8cIT4lo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790095028; c=relaxed/simple;
-	bh=SIoWBTjZeP+48zqUjEEm3VLLwg8I8h6f5ol13J+qkiQ=;
+	s=arc-20240116; t=1790095343; c=relaxed/simple;
+	bh=C5UyZCRIOirhZrxo5A9GDkxh5QM0gMc3FH8Vfho3Z70=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ph8VAsHkHmsVBcS3ivnd1WRgo13rA4xrM4dCCXbDAxbq4hSFncvBL9N6RSE+rUXMawpgmj9mE0YZsba0+GaIqYNWj4EjihlUfZZrS92KS1Lp4XesqYHMkpIS/b6Vl/EDfP46SGzIp+LcUIrQ2xMLnc5bAARKOqHBhVbTz17GMbo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kV2IuxHV; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Z5Q2gqJRMcklGCejzANaBZG9tt2HDvp/CHiX4ECYxLV+YJovJf5poyf27V3hLdFw+nwZOEBD5z2eGLIsHTLNdZMdNNJfSASfj5sBPJluLNdP3/AnUIn0zZ4fclCw92cjpliAN23fNuqr2a73bi32zPg0Ld9injFWTS+EJumDLHQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g/ZnVzPL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kV2IuxHV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 485791F00898;
-	Tue, 22 Sep 2026 16:36:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g/ZnVzPL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 726BD1F00893;
+	Tue, 22 Sep 2026 16:42:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790095016;
-	bh=SyV2wueMb0pT7jSlibdnGZLneAZ0EYXI/WhKLc3QyBw=;
+	s=k20260515; t=1790095341;
+	bh=dehDZ0X5VTPDT0cvVEwUy9UimSjJT189oYDDJNqff5M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kV2IuxHVVTTu2Q+IyqDO2VOpu1YuILYn7V6dKYx/b3Zl8wQtJVn57L96jTw2j3bW1
-	 N5RrvyzUvZ+B38gAZnFvcTw4NCQO1S6IMRH7B1GA3raxHBdHDKSnXL24DZ0mGLjW2c
-	 y/mKNjkWETVKRlMPGNRw3+e6QX1jHy1t7ICgwskDZqPHyR5r8+K4AiUZMG6451hhCy
-	 CELuqiGOxg2AHiYXkawc/9VrbbhIxmVkIIoviuiPGwN0hzEZ3B1RMgJ14la8ehzzeU
-	 mmgfKvZmy4h8AXlwjFEzUM38HiTgrs8ap+M4e7vADp2ObHU6e+tEnjoHBWpMJYOng0
-	 ocfKC1aE3kMEg==
+	b=g/ZnVzPL4l5ncqBkUxdjh1zUjNfi9ISBu8PonletDJv96KLNGqjN0l/ansGGlG0Xi
+	 Sp6XwyA8sUKvEGsBxiQoTI4g0h4GBYZTvQrwbJvrq2Xu3Rs7vqeq3XFR93vxolx/qR
+	 S84swrqexgg/trNVVl9oMTfJ/WqJXJ8Fmtc6j76rXLApa5FBHE9dNXB9gNrpDxJ1Be
+	 s2zID1vy/xJ2eQRG16eVN34Q82s1IEMa0fvxde/m3GQ1XJ5eBdzTlkNpZDYHnPqtOm
+	 8n79SyeQQQnvWw7o3L+r+G4prcnfjIiI6kcwXY3yFi0uBj+e/wcyMoOi5IkW2TQXt9
+	 v7ynvnRk59IHg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Liu Zhenlong <dragonliu2018@gmail.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Andi Shyti <andi.shyti@kernel.org>,
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
+	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>,
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	Dan Williams <dan.j.williams@intel.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	Liam Howlett <liam.howlett@oracle.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Michal Hocko <mhocko@suse.com>,
+	Muchun Song <muchun.song@linux.dev>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Oscar Salvador <osalvador@suse.de>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/3] i2c: qcom-cci: fix device_node refcount leak in cci_probe()/cci_remove()
-Date: Tue, 22 Sep 2026 12:36:52 -0400
-Message-ID: <20260922163652.3066989-3-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] mm: move vma_kernel_pagesize() from hugetlb to mm.h
+Date: Tue, 22 Sep 2026 12:42:16 -0400
+Message-ID: <20260922164218.3108158-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260922163652.3066989-1-sashal@kernel.org>
-References: <2026092210-vacation-hangnail-e82f@gregkh>
- <20260922163652.3066989-1-sashal@kernel.org>
+In-Reply-To: <2026092210-parabola-undercut-a08b@gregkh>
+References: <2026092210-parabola-undercut-a08b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,106 +60,164 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Liu Zhenlong <dragonliu2018@gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 
-[ Upstream commit 7362a1553eb09a8cdf8be7e509bd5309a8342486 ]
+[ Upstream commit 341ffe82a7a3a1e0756b58999405b6df0c2b3e8d ]
 
-The of_node_put() matching of_node_get() runs after i2c_del_adapter(),
-whose trailing memset() zeroes adap->dev and thus adap->dev.of_node,
-making the put a no-op and leaking the node on every adapter removal
-and error cleanup.
+Patch series "mm: move vma_(kernel|mmu)_pagesize() out of hugetlb.c", v2.
 
-Use a devm action: the pointer is captured at registration, out of
-reach of that memset(), and devres runs the put once on probe failure
-and detach, replacing the three manual of_node_put() calls.  The
-setup loop uses the scoped iterator form so the child node is released
-automatically if devm_add_action_or_reset() fails mid-loop.
+Looking into vma_(kernel|mmu)_pagesize(), I realized that there is one
+scenario where DAX would not do the right thing when the kernel is not
+compiled with hugetlb support.
 
-Suggested-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Fixes: 02a4a69667a2 ("i2c: qcom-cci: don't put a device tree node before i2c_add_adapter()")
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Liu Zhenlong <dragonliu2018@gmail.com>
-Cc: <stable@vger.kernel.org> # v5.17+
-Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
-Link: https://patch.msgid.link/20260818175750.4205-1-dragonliu2018@gmail.com
+Without hugetlb support, vma_(kernel|mmu)_pagesize() will always return
+PAGE_SIZE instead of using the ->pagesize() result provided by dax-device
+code.
+
+Fix that by moving vma_kernel_pagesize() to core MM code, where it
+belongs.  I don't think this is stable material, but am not 100% sure.
+
+Also, move vma_mmu_pagesize() while at it.  Remove the unnecessary
+hugetlb.h inclusion from KVM code.
+
+This patch (of 4):
+
+In the past, only hugetlb had special "vma_kernel_pagesize()"
+requirements, so it provided its own implementation.
+
+In commit 05ea88608d4e ("mm, hugetlbfs: introduce ->pagesize() to
+vm_operations_struct") we generalized that approach by providing a
+vm_ops->pagesize() callback to be used by device-dax.
+
+Once device-dax started using that callback in commit c1d53b92b95c
+("device-dax: implement ->pagesize() for smaps to report MMUPageSize") it
+was missed that CONFIG_DEV_DAX does not depend on hugetlb support.
+
+So building a kernel with CONFIG_DEV_DAX but without CONFIG_HUGETLBFS
+would not pick up that value.
+
+Fix it by moving vma_kernel_pagesize() to mm.h, providing only a single
+implementation.  While at it, improve the kerneldoc a bit.
+
+Ideally, we'd move vma_mmu_pagesize() as well to the header.  However, its
+__weak symbol might be overwritten by a PPC variant in hugetlb code.  So
+let's leave it in there for now, as it really only matters for some
+hugetlb oddities.
+
+This was found by code inspection.
+
+Link: https://lkml.kernel.org/r/20260309151901.123947-1-david@kernel.org
+Link: https://lkml.kernel.org/r/20260309151901.123947-2-david@kernel.org
+Fixes: c1d53b92b95c ("device-dax: implement ->pagesize() for smaps to report MMUPageSize")
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Lorenzo Stoakes (Oracle) <ljs@kernel.org>
+Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Cc: Dan Williams <dan.j.williams@intel.com>
+Cc: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Liam Howlett <liam.howlett@oracle.com>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>
+Cc: Michael Ellerman <mpe@ellerman.id.au>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Nicholas Piggin <npiggin@gmail.com>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Paolo Bonzini <pbonzini@redhat.com>
+Cc: Pedro Falcato <pfalcato@suse.de>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Stable-dep-of: e384abeb559d ("mm/huge_memory: bypass THP tuneables for huge pfnmap mappings")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/i2c/busses/i2c-qcom-cci.c | 20 +++++++++++---------
- 1 file changed, 11 insertions(+), 9 deletions(-)
+ include/linux/hugetlb.h |  7 -------
+ include/linux/mm.h      | 20 ++++++++++++++++++++
+ mm/hugetlb.c            | 17 -----------------
+ 3 files changed, 20 insertions(+), 24 deletions(-)
 
-diff --git a/drivers/i2c/busses/i2c-qcom-cci.c b/drivers/i2c/busses/i2c-qcom-cci.c
-index 87a4c2d0ee9cd..c0309bf61595b 100644
---- a/drivers/i2c/busses/i2c-qcom-cci.c
-+++ b/drivers/i2c/busses/i2c-qcom-cci.c
-@@ -520,10 +520,14 @@ static const struct dev_pm_ops qcom_cci_pm = {
- 	SET_RUNTIME_PM_OPS(cci_suspend_runtime, cci_resume_runtime, NULL)
- };
+diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
+index ca6d6eb817118..228433226da5a 100644
+--- a/include/linux/hugetlb.h
++++ b/include/linux/hugetlb.h
+@@ -767,8 +767,6 @@ static inline unsigned long huge_page_size(const struct hstate *h)
+ 	return (unsigned long)PAGE_SIZE << h->order;
+ }
  
-+static void cci_put_of_node(void *data)
+-extern unsigned long vma_kernel_pagesize(struct vm_area_struct *vma);
+-
+ extern unsigned long vma_mmu_pagesize(struct vm_area_struct *vma);
+ 
+ static inline unsigned long huge_page_mask(struct hstate *h)
+@@ -1184,11 +1182,6 @@ static inline unsigned long huge_page_mask(struct hstate *h)
+ 	return PAGE_MASK;
+ }
+ 
+-static inline unsigned long vma_kernel_pagesize(struct vm_area_struct *vma)
+-{
+-	return PAGE_SIZE;
+-}
+-
+ static inline unsigned long vma_mmu_pagesize(struct vm_area_struct *vma)
+ {
+ 	return PAGE_SIZE;
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index 50710a5d4a05f..68db847e85bd3 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -1020,6 +1020,26 @@ static inline bool vma_is_shared_maywrite(const struct vm_area_struct *vma)
+ 	return is_shared_maywrite(vma->vm_flags);
+ }
+ 
++/**
++ * vma_kernel_pagesize - Default page size granularity for this VMA.
++ * @vma: The user mapping.
++ *
++ * The kernel page size specifies in which granularity VMA modifications
++ * can be performed. Folios in this VMA will be aligned to, and at least
++ * the size of the number of bytes returned by this function.
++ *
++ * The default kernel page size is not affected by Transparent Huge Pages
++ * being in effect.
++ *
++ * Return: The default page size granularity for this VMA.
++ */
++static inline unsigned long vma_kernel_pagesize(struct vm_area_struct *vma)
 +{
-+	of_node_put(data);
++	if (unlikely(vma->vm_ops && vma->vm_ops->pagesize))
++		return vma->vm_ops->pagesize(vma);
++	return PAGE_SIZE;
 +}
 +
- static int cci_probe(struct platform_device *pdev)
+ static inline
+ struct vm_area_struct *vma_find(struct vma_iterator *vmi, unsigned long max)
  {
- 	struct device *dev = &pdev->dev;
--	struct device_node *child;
- 	struct resource *r;
- 	struct cci *cci;
- 	int ret, i;
-@@ -539,7 +543,7 @@ static int cci_probe(struct platform_device *pdev)
- 	if (!cci->data)
- 		return -ENOENT;
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index d969c9ed91b16..c67bfd13d9a8f 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -1027,23 +1027,6 @@ static pgoff_t vma_hugecache_offset(struct hstate *h,
+ 			(vma->vm_pgoff >> huge_page_order(h));
+ }
  
--	for_each_available_child_of_node(dev->of_node, child) {
-+	for_each_available_child_of_node_scoped(dev->of_node, child) {
- 		struct cci_master *master;
- 		u32 idx;
- 
-@@ -560,6 +564,9 @@ static int cci_probe(struct platform_device *pdev)
- 		master->adap.algo = &cci_algo;
- 		master->adap.dev.parent = dev;
- 		master->adap.dev.of_node = of_node_get(child);
-+		ret = devm_add_action_or_reset(dev, cci_put_of_node, child);
-+		if (ret)
-+			return ret;
- 		master->master = idx;
- 		master->cci = cci;
- 
-@@ -631,10 +638,8 @@ static int cci_probe(struct platform_device *pdev)
- 			continue;
- 
- 		ret = i2c_add_adapter(&cci->master[i].adap);
--		if (ret < 0) {
--			of_node_put(cci->master[i].adap.dev.of_node);
-+		if (ret < 0)
- 			goto error_i2c;
--		}
- 	}
- 
- 	return 0;
-@@ -644,10 +649,8 @@ static int cci_probe(struct platform_device *pdev)
- 	pm_runtime_dont_use_autosuspend(dev);
- 
- 	for (--i ; i >= 0; i--) {
--		if (cci->master[i].cci) {
-+		if (cci->master[i].cci)
- 			i2c_del_adapter(&cci->master[i].adap);
--			of_node_put(cci->master[i].adap.dev.of_node);
--		}
- 	}
- error:
- 	disable_irq(cci->irq);
-@@ -665,7 +668,6 @@ static void cci_remove(struct platform_device *pdev)
- 	for (i = 0; i < cci->data->num_masters; i++) {
- 		if (cci->master[i].cci) {
- 			i2c_del_adapter(&cci->master[i].adap);
--			of_node_put(cci->master[i].adap.dev.of_node);
- 			cci_halt(cci, i);
- 		}
- 	}
+-/**
+- * vma_kernel_pagesize - Page size granularity for this VMA.
+- * @vma: The user mapping.
+- *
+- * Folios in this VMA will be aligned to, and at least the size of the
+- * number of bytes returned by this function.
+- *
+- * Return: The default size of the folios allocated when backing a VMA.
+- */
+-unsigned long vma_kernel_pagesize(struct vm_area_struct *vma)
+-{
+-	if (vma->vm_ops && vma->vm_ops->pagesize)
+-		return vma->vm_ops->pagesize(vma);
+-	return PAGE_SIZE;
+-}
+-EXPORT_SYMBOL_GPL(vma_kernel_pagesize);
+-
+ /*
+  * Return the page size being used by the MMU to back a VMA. In the majority
+  * of cases, the page size used by the kernel matches the MMU size. On
 -- 
 2.53.0
 
