@@ -1,141 +1,79 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E755545D8C
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 14:00:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F667544D5B;
+	Tue, 22 Sep 2026 14:01:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790085621; cv=none; b=epbRW8o9y0qRqYpXTKzweNQPTCxK37TiH1vpkx9wvKusv3Cl3SX3q99dQk+OYoASOBhrAZLqOt1V9hdfMKWnbY+hCg4/hhjMb2IG62+V1dNJss/luDA2yXxP76dJd08rC+/QQIg2g7uAqHmeGDML9QjOsJgZkS/lyJJIKZHn/ds=
+	t=1790085676; cv=none; b=O+RN8VT5MDcYTu9OuU+gj8TnYnUbXSR4hvhx6FxWJf+ZBxtuBxvr+vBc//607U1zYwb8CawYc0pQhB36DGjXT5YSBtzjLg2gr7pltDeezl02bo2QfTAVPjrERh8w1kKiwenl24vPGnuSAnNBqE6swpEH18faGTmXpPYu4s2sy7M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790085621; c=relaxed/simple;
-	bh=Ysf9kNQ+33PxVdJ0LMg2niyZFgqOnLKjhyylnUl8qTk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aEcBbr9tH6Pr1sSBSRVqi8x2yOhSoc+p6XxZWI1OhvAsf3Quayz1O5F0sJZNSAKFvC+zE2gX0BpAeDDJmZvJJ6CkO3075zgEWqwUjTHgn/aNzlXYc4tSokU+uqcfjPgZ0Wm9wyzN0hu6l/wxjDQTsUe6PfFNgRuhSaTxja98PNo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=cj7O5gEk; arc=none smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	s=arc-20240116; t=1790085676; c=relaxed/simple;
+	bh=+xT3lhOevF9cEOl9WZISiKH7vf8j4vxQuX8dCDiLEVU=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=lABwgc9RmoqriAy9SHV8ZjKa+90/895FetzxFGWDqxFmDmDY3dAm7beBTDGqw9lbzoCKrjcJNbJoCIfom8FFfHnZ7k5hLyy67N7wZb0QKJd0grarq+34WVp9KVFUGh0XYuYJ9wtKm1hjyOdHP61WUWtXB+q0ek4HWsINTqlD0BY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kts70Emy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="cj7O5gEk"
-Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93910cc46c4so401758985a.2
-        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 07:00:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1790085618; x=1790690418; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=yVPAItgeW/MMs80EWUUxpddBeukv+Oab4KQ44WwQXwc=;
-        b=cj7O5gEkRJ4IMPNvVXC4spsO4XZqIreKj/4TIEka7a2Tg2X69W3ijpeXyd1yJJfa6Y
-         /EDSrpGD54UCGGnzQtNRkoGJADXwaJ9xhx0B9hkHKLwf91mL4RrjJQuvAnCr6GWQrgZy
-         jRj2Rc+yKC+DSwBJAdjR0lGH3+22cHex3hSjhFeje8vbtTp7nQyLYGVbqJ6TcMP1KDW5
-         LFSZS4sarD0yf6habVL5nm1pizHGRPz/i+fFLJT2HyKvhX6OP64PVbmjaZ4oCE8KPFwc
-         gv8uzwp2v9IamQ0RQQNSkAsvc20TKsvLH4zskQXRm6ZWKb/wx3PxhWLp6AUDYu7llg62
-         +MlA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790085618; x=1790690418;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yVPAItgeW/MMs80EWUUxpddBeukv+Oab4KQ44WwQXwc=;
-        b=Iykqa72Cf7tEbu5PFYytYef+PIoekeaPhUtDEHB+rBwTtBQM/nXRb82PfHFcbYhSYt
-         Wmf/KkIBSFkFaAP9c4XS2WfGyTZtxoION20TCHPaFVSf0FF/8Gy4Vyv/EL9tPX9TZw57
-         pguKn13Q5dY6P8f+g+ye/LLwZGsyAS3HoKtWfmgIgv2ktx2BSDeOHtDeUQ4VHBMBgutr
-         V8WuW2AVRx/Wm110eWos5++vK1eX0jIRiOBmBHW13xf41HjNUPZdGVamR3sOdxqjtVwW
-         iqfojfHblKF13V7N25IdbKsSH011xSPbxO+48srsEA+Bs+AgAznMU9cyQZYsrd/c8+F9
-         pfvA==
-X-Forwarded-Encrypted: i=1; AKwUvBxvu1DAI8uxlUM39rnbmJF466SsI7VSPKxGKCu6ndnNX4oCQMdxhWe+cLqYo1DtXBolKz98XI4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kJibD6cpvn6bblYOxd2xrqOH3VXPhvADb1+SmgRVnBhZesNXG5
-	4i3pL8GBDMOfift1gP+OSFyERIpTchOFcs0NQbi9Nb/Cga61AgFrjNxwyJY4hPFsQKY=
-X-Gm-Gg: AYBFou1mdfrEqrspGEQTtSTPDwsbM7AzET0OvQz6FrDzdSpGUlp5Q7SzlzzOeJcZUtK
-	rAxod4/68J4ByWYRJj07J3rLPC3gwLSyRjB4Hks1kEro6bI4gNO/rCrxYqVZ9jWgBQ65eV2Y35n
-	vuWweYDmxyQ+porfOEu1XzWdzK9PKCUniFNwioB51K7uTFvdEgSp+kUtCdKU/KtF2u/f38Hy7oh
-	HYVxxTz+j4BUNakTU9c+NTmxM6FxGokx9l9pUO3xeEHqBKoYQ6lLOqy9njB/0uNelYXquh+pV1L
-	atX38tbcKfCLvnAI6g7TapnznEi264uEe+grN4tccvOgutqzONPecCYEDF8+XFZ0FQgwthbaGUQ
-	IhO3JF4o3OWi+FK5SawEQc2JxBPTqTjpMQ1pkt0D3pTBrz9DlEFKigtgo4plCKj21c/65ZxsGeP
-	IdQ1KTqese1qRok4f1x7Mapcm0JovrFsrbBZ+i9N2D1XvLSbIYRizXcJ/PSKvANd9TNeji
-X-Received: by 2002:a05:620a:298a:b0:93b:d7a0:d9f0 with SMTP id af79cd13be357-93c19a9ab32mr348786585a.74.1790085617903;
-        Tue, 22 Sep 2026 07:00:17 -0700 (PDT)
-Received: from localhost ([2603:7001:f100:500:365a:60ff:fe62:ff29])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c1d23e22esm152156485a.40.2026.09.22.07.00.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 07:00:17 -0700 (PDT)
-Date: Tue, 22 Sep 2026 10:00:16 -0400
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Cc: Matt Fleming <matt@readmodwrite.com>,
-	Salvatore Dipietro <dipiets@amazon.it>, akpm@linux-foundation.org,
-	abuehaze@amazon.com, alisaidi@amazon.com, blakgeof@amazon.com,
-	brauner@kernel.org, brendan.jackman@linux.dev, david@redhat.com,
-	dgc@kernel.org, dipietro.salvatore@gmail.com, djwong@kernel.org,
-	hch@infradead.org, hch@lst.de, linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	linux-xfs@vger.kernel.org, mhocko@suse.com, ritesh.list@gmail.com,
-	rvvandan@amazon.com, stable@vger.kernel.org, surenb@google.com,
-	willy@infradead.org, ziy@nvidia.com
-Subject: Re: [PATCH 2/2] mm: page_alloc: remove ALLOC_NON_BLOCK from
- ALLOC_RESERVES
-Message-ID: <arKJ8BXOXknpmiu4@cmpxchg.org>
-References: <20260905174239.99e31515fabe220aa7d8e6fa@linux-foundation.org>
- <20260910114602.926944-1-dipiets@amazon.it>
- <aqQlUr-1h07G8JWM@cmpxchg.org>
- <8d6a8a63-4adc-458a-b548-a47bf5ff8eb7@kernel.org>
- <aqq8pWI0u1IZNWHT@cmpxchg.org>
- <9f415dc7-adad-4161-b20d-7c3173f50ff3@kernel.org>
- <arFBJdYaRx_iJNDA@cmpxchg.org>
- <arFBr22V60BMmVpl@cmpxchg.org>
- <72674485-6ec2-4cb4-a854-b937333cbf97@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kts70Emy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08F4A1F000FF;
+	Tue, 22 Sep 2026 14:01:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790085674;
+	bh=1Ess7UL1IoK9tUC3cvBKwGTxvOb5UlfUK/tcef+tFdk=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=kts70EmyYpMUaKoBIgrTmmimVEk8VqBvrO8X9GJ/lGezN/wrsQNQSqo3focx4AsVE
+	 7DA+RKgFjm9hbsabLj+bGUwWKhXOoD92YPGOORphEH1nLozttsWdTLzMIp37xbCl+D
+	 k71QSnpYL3zD2guL5blAX8EUQ7o3vb1SGz4XrZgcZGaJanr1HcwSUuIrHV77KNaPZh
+	 roYiQydJ0V/MLtYkE366the5xrt8ErLfP/o7IS7QKx/KqpxJk6SrOWhczEPsRb7SNC
+	 XHsumt6AactL6cFTLn6Ibxzf5iwF91zbqOleESDILnCc/V/XehhMGBGkXD0iRN2oiR
+	 7mat9+0owX3aA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 567C738119F8;
+	Tue, 22 Sep 2026 14:00:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <72674485-6ec2-4cb4-a854-b937333cbf97@kernel.org>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH] net: usb: lan78xx: Fix URB reference leak in
+ lan78xx_submit_deferred_urbs()
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179008560489.4097520.9027717710600492085.git-patchwork-notify@kernel.org>
+Date: Tue, 22 Sep 2026 14:00:04 +0000
+References: <20260917115811.2150119-1-vulab@iscas.ac.cn>
+In-Reply-To: <20260917115811.2150119-1-vulab@iscas.ac.cn>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: Rengarajan.S@microchip.com, Thangaraj.S@microchip.com,
+ UNGLinuxDriver@microchip.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, john.efstathiades@pebblebay.com, kuba@kernel.org,
+ linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+ netdev@vger.kernel.org, pabeni@redhat.com, stable@vger.kernel.org
 
-On Tue, Sep 22, 2026 at 02:06:34PM +0200, Vlastimil Babka (SUSE) wrote:
-> On 9/21/26 4:39 PM, Johannes Weiner wrote:
-> > 1ebbb21811b7 ("mm/page_alloc: explicitly define how __GFP_HIGH
-> > non-blocking allocations accesses reserves") stopped handing out
-> > reserve access for ALLOC_NON_BLOCK on its own: the extra 25% below the
-> > min watermark is now only granted on top of ALLOC_MIN_RESERVE. But the
-> > flag was left in ALLOC_RESERVES, which produces something odd:
-> > 
-> > With the ALLOC_RESERVES match, __zone_watermark_unusable_free() doesn't
-> > subtract the free highatomic pages for them. So in the slowpath, they
-> > get to consume regular blocks below the min watermark by the number of
-> > free highatomic pages. The highatomic reserve is capped at 1% of the
-> > zone, which on any decently sized machine is a multiple of the min
-> > watermark: GFP_NOWAIT can drain regular memory to zero.
-> > 
-> > The user-visible result is brutal hiccups during bursts of GFP_NOWAIT
-> > allocations under memory pressure. On a 32G box with an anonymous
-> > working set, swap, and a filled 290M highatomic reserve, a GFP_NOWAIT
-> > burst drove regular free memory in the 28G Normal zone (min=60M) to
-> > 28M, 0.8M and 0.6M in three runs. Swapout failed to allocate its swap
-> > table, reclaim scanned 13M pages to reclaim 200k, page faults stalled
-> > for tens to hundreds of milliseconds. The machine survives it, but not
-> > by design: direct reclaimers eventually fail and start unreserving
-> > highatomic blocks, until the allocation succeeds or the reserve is
-> > gone and the OOM killer runs. That reserve exists for high-order
-> > atomic allocations; here it is destroyed to bail out a GFP_NOWAIT
-> > consumer that was never entitled to the memory.
+Hello:
+
+This patch was applied to netdev/net.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
+
+On Thu, 17 Sep 2026 11:58:11 +0000 you wrote:
+> usb_get_from_anchor() hands over a reference to the URB, which the caller
+> must release. lan78xx_submit_deferred_urbs() never does, so every deferred
+> Tx URB keeps an extra reference: the counter grows on each suspend/resume
+> cycle and the URBs are never freed when the buffers are released. Drop
+> the reference after submitting, and on the path that drops the packet
+> instead of submitting it.
 > 
-> This suggests to me that a LLM review of 1/2 spotted this issue and also
-> (or you) constructed a test doing the GFP_NOWAIT bursts to confirm the
-> impact, but it has not been observed in production? But if it was, can
-> we make it clear?
+> [...]
 
-Yes, and yes. The test is manufactured, I just pushed it to stick to a
-realistic sequence of events. But it wasn't observed in the wild.
+Here is the summary with links:
+  - net: usb: lan78xx: Fix URB reference leak in lan78xx_submit_deferred_urbs()
+    https://git.kernel.org/netdev/net/c/17741334d00b
 
-> The change itself is fine and we don't need ALLOC_NON_BLOCK in
-> ALLOC_RESERVES. But I wonder if we should also make the
-> __zone_watermark_unusable_free() check more precise, by using
-> may_access_highatomic_reserves() there instead of ALLOC_RESERVES?
-> Which would mean that the function should however also evaluate
-> ALLOC_HIGHATOMIC, and restrict the other checks to order=0, to be usable
-> from both callers.
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-I responded to this in 1/2 because it had more context.
+
