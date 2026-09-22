@@ -1,42 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85CD6541453
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F317433F59A
 	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 12:34:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790080485; cv=none; b=od5nkGzm1YbIn2My3rx+kOEvV1gNwjyMuBe9sOchuA5GQ3DPjnDv9Y9JrlkC8RQia5MWguX5iAI2lLyXkpjQooi1Pj95oD5r22QoAWin/svNHebWhpjdbv6FtMXM6e7MTjJQ0PlhwDpKl2Qn8jbg/Io6EeiFLfM2G/o3PBLDdfg=
+	t=1790080486; cv=none; b=XmzPneDdPB5fkocLCnGyBsk0PK4Y45qmGS+zQfkbGgwwdaLdZok3EB71nRlcD6/sgYrgw4ZTEPTqD9gNS4eMTC+pYvr1oeyzssQQ/euqdjqBKaiCpjq8HGkcdTh1UAzC2Co4yVq+6kiZ1anylWissg14PQMB8OkzElFoS7+JIeQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790080485; c=relaxed/simple;
-	bh=dBg1rvPQz0WA683QxAOoMgPuXEN/iu167f/jrjEy3rE=;
+	s=arc-20240116; t=1790080486; c=relaxed/simple;
+	bh=Ijl7Y/rIyY41yI08xTz90zNQIx1T4gJuJcqGIkK8qsQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DxJEPvClyhSsgleDv6YKc+fG0zM5ap5EFy9tbkX5c0J3D0Xl/ZLoQoRD5i0JVzEutwrcoYTiMChw1o4OQif+b8Ygikfb6jDlwOkULfAQ1ww/kB+EfkAlEci3al+eFmIduJRKbaxr+eDf3Vk7hUjnWjHm+A9E8CcS3rhvXLjuUV8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EvJkheKe; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=UOgGppkCPvBUDpAntMIbcldSGgLWNmaMEjV6sUc49kyYg93aL0cn1g8iuhGAiUt153PBJx+t5cjqvmhBdu3gnTo9IdkO/6lgVk6Ux+A105V9wNB6oh+xgCgsn5wXXXZEDQA2GXFa3YwrzzDAAOZem6g7iQNDslrgRh+BgEbQK28=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=COEEpChV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EvJkheKe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 801011F00898;
-	Tue, 22 Sep 2026 12:34:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="COEEpChV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42DCD1F000FF;
+	Tue, 22 Sep 2026 12:34:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1790080484;
-	bh=rJclwSE6MP6QcUQr+trUt24c//8t/uJ7wyHNqbdwFzA=;
+	bh=dxQjsSFS/9OJbt5iat0mqBF5Ht6PKOg2lkT19M71wrY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EvJkheKeuUGujonInY+/MasknyNnVM5YVDvum7iDMz/Ylcl0S/vfec60jA0DyXwg+
-	 aPkyI8w2NHjvTxAecn2EKi5WP/MWT8hV0h1AT8fIkUQgX5E0ahdbu73GLjE1Ytaf9o
-	 FJ/jwm0RyOQa0Qugi1D7/Hd1fecfezX+BkjhF7RClgjhmJm3G6e94FsQoU6kM+iF9S
-	 9N1r/JQH+RYYW9N20YXt5743FZ0KCJuenbtIq6hhP5aVSBhOuyeJv5OoaTe1/SnQ6b
-	 E/hUyscm1uq2tWKPFn4WqkluCNPLj5h17MLko2nqwG86846CIz5cUIWZvzV2xq9VDC
-	 bk5tfuI4xtEGg==
+	b=COEEpChVNC2O3I267UYjHtQ2c+MzDCPj98B7pfyUwyGEGHR0VIHx4i2dB30UirXph
+	 jfbh77ZzN7OVqvit+kY6ByLpp3wBzrXF8oB5cQmV8DBtpw3pJFMOx6H7kgsH1wQzHX
+	 uaRKT7XOM2M24k8x1J8qu6cnnatgg5Ay1DW94MZpeDGdZ7U3QZGW2Kj2BMVzVQDe8c
+	 ES/h7X45ZOAYhUVHGnlppDX8a68FJjAE1xI1eBBkrMHkKPO4EeIUs+gBKV8VNAELZq
+	 jbzhEwl+4MaJOPVnGDsZCETQOuu/A844v5PIkU2DyU0Lq+WNa1ND5xG64Sw/EhSEcT
+	 2C+sUaM6mO/dw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Zhang Zekun <zhangzekun11@huawei.com>,
+Cc: Wentao Liang <vulab@iscas.ac.cn>,
+	Damien Le Moal <dlemoal@kernel.org>,
 	Niklas Cassel <cassel@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 1/2] ata: libahci_platform: Simplify code with for_each_child_of_node_scoped()
-Date: Tue, 22 Sep 2026 08:34:41 -0400
-Message-ID: <20260922123442.2257247-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 2/2] ata: libahci_platform: Fix device reference leak in ahci_platform_get_resources()
+Date: Tue, 22 Sep 2026 08:34:42 -0400
+Message-ID: <20260922123442.2257247-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092255-disaster-skittle-8855@gregkh>
+In-Reply-To: <20260922123442.2257247-1-sashal@kernel.org>
 References: <2026092255-disaster-skittle-8855@gregkh>
+ <20260922123442.2257247-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,98 +47,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zhang Zekun <zhangzekun11@huawei.com>
+From: Wentao Liang <vulab@iscas.ac.cn>
 
-[ Upstream commit aa3ca1faf3222af7aaa194a910995820135fc54e ]
+[ Upstream commit 0d1cb83337f13af082afb68b28d3fdfe29cde7fb ]
 
-for_each_child_of_node_scoped() can put the device_node automatically.
-So let's use it to make the code simpler by avoiding the need to
-explicitly call of_node_put().
+of_find_device_by_node() takes a reference on the port platform device,
+which is only used to look up its port regulator and is never released,
+neither on success nor on the error paths. Drop the reference with
+put_device() once the regulator has been obtained, which covers both the
+success and error paths.
 
-Signed-off-by: Zhang Zekun <zhangzekun11@huawei.com>
-Link: https://lore.kernel.org/r/20240810023426.110624-1-zhangzekun11@huawei.com
+Fixes: c7d7ddee7e24 ("ata: libahci: Allow using multiple regulators")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Link: https://lore.kernel.org/r/20260915065933.1733061-1-vulab@iscas.ac.cn
+Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
 Signed-off-by: Niklas Cassel <cassel@kernel.org>
-Stable-dep-of: 0d1cb83337f1 ("ata: libahci_platform: Fix device reference leak in ahci_platform_get_resources()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/ata/libahci_platform.c | 19 +++++--------------
- 1 file changed, 5 insertions(+), 14 deletions(-)
+ drivers/ata/libahci_platform.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/ata/libahci_platform.c b/drivers/ata/libahci_platform.c
-index d4fccc0625800..50aaa82d4971a 100644
+index 50aaa82d4971a..6ed700a02df43 100644
 --- a/drivers/ata/libahci_platform.c
 +++ b/drivers/ata/libahci_platform.c
-@@ -418,7 +418,6 @@ static int ahci_platform_get_regulator(struct ahci_host_priv *hpriv, u32 port,
- static int ahci_platform_get_firmware(struct ahci_host_priv *hpriv,
- 				      struct device *dev)
- {
--	struct device_node *child;
- 	u32 port;
+@@ -622,10 +622,10 @@ struct ahci_host_priv *ahci_platform_get_resources(struct platform_device *pdev,
+ 			of_platform_device_create(child, NULL, NULL);
  
- 	if (!of_property_read_u32(dev->of_node, "hba-cap", &hpriv->saved_cap))
-@@ -427,14 +426,12 @@ static int ahci_platform_get_firmware(struct ahci_host_priv *hpriv,
- 	of_property_read_u32(dev->of_node,
- 			     "ports-implemented", &hpriv->saved_port_map);
- 
--	for_each_child_of_node(dev->of_node, child) {
-+	for_each_child_of_node_scoped(dev->of_node, child) {
- 		if (!of_device_is_available(child))
- 			continue;
- 
--		if (of_property_read_u32(child, "reg", &port)) {
--			of_node_put(child);
-+		if (of_property_read_u32(child, "reg", &port))
- 			return -EINVAL;
--		}
- 
- 		if (!of_property_read_u32(child, "hba-port-cap", &hpriv->saved_port_cap[port]))
- 			hpriv->saved_port_cap[port] &= PORT_CMD_CAP;
-@@ -482,7 +479,6 @@ struct ahci_host_priv *ahci_platform_get_resources(struct platform_device *pdev,
- 	int child_nodes, rc = -ENOMEM, enabled_ports = 0;
- 	struct device *dev = &pdev->dev;
- 	struct ahci_host_priv *hpriv;
--	struct device_node *child;
- 	u32 mask_port_map = 0;
- 	u32 max_port;
- 
-@@ -604,7 +600,7 @@ struct ahci_host_priv *ahci_platform_get_resources(struct platform_device *pdev,
- 	}
- 
- 	if (child_nodes) {
--		for_each_child_of_node(dev->of_node, child) {
-+		for_each_child_of_node_scoped(dev->of_node, child) {
- 			u32 port;
- 			struct platform_device *port_dev __maybe_unused;
- 
-@@ -613,7 +609,6 @@ struct ahci_host_priv *ahci_platform_get_resources(struct platform_device *pdev,
- 
- 			if (of_property_read_u32(child, "reg", &port)) {
- 				rc = -EINVAL;
--				of_node_put(child);
- 				goto err_out;
- 			}
- 
-@@ -631,18 +626,14 @@ struct ahci_host_priv *ahci_platform_get_resources(struct platform_device *pdev,
+ 			port_dev = of_find_device_by_node(child);
+-
  			if (port_dev) {
  				rc = ahci_platform_get_regulator(hpriv, port,
  								&port_dev->dev);
--				if (rc == -EPROBE_DEFER) {
--					of_node_put(child);
-+				if (rc == -EPROBE_DEFER)
++				put_device(&port_dev->dev);
+ 				if (rc == -EPROBE_DEFER)
  					goto err_out;
--				}
  			}
- #endif
- 
- 			rc = ahci_platform_get_phy(hpriv, port, dev, child);
--			if (rc) {
--				of_node_put(child);
-+			if (rc)
- 				goto err_out;
--			}
- 
- 			enabled_ports++;
- 		}
 -- 
 2.53.0
 
