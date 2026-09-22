@@ -1,131 +1,119 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1DD7549384
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 15:44:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4CE554EEA4
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 15:46:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790091889; cv=none; b=HQXylIVBdQeg1DkFg0WTt7U1aKiUXvGLtbh9X/Ik/B3fgFLgWQ3elRuoWzVio0ljB/h3AqJ4/mX0el2eIDki08V5WiB1Ik3hthPEx1Bz+StOKuBTYDOUH8DXwegTOprU/i6UdTfO4tiJ1NtsEtc3Kc1mXLxo0k5NKClsIdgUaVw=
+	t=1790092006; cv=none; b=qMmtjHUfEBZQ5QqDe4G/VvH4CvR2dZIlI9pcXetSD1WH3H1ZrkEMZhUb+q4Z/R7O0gqh28/B5TvEwM53rEpRk7TeN1DatqFGv5RNPdCn8E70xDyYSDX/yS0/9EwnApGVhjuQzhxyXKasvKOl/xEOyGckrVEyR2AoWHLntbkBD84=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790091889; c=relaxed/simple;
-	bh=vPi0kK3q34yEBUQ23IrFLjnsFYhRDd5xnsAgeZA3PSw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=io3ahD/pDA6lr64U3eompOB3diI7jjUoIHl/j71KyyFW0PlvItLEb0kHToFp4FleVQ1+7epUaJokr/+/ZK5E4QKC6gwlx4tIb2dmLx4c7djqLx3fIVwxZVaaMF27R8Wyv120Igw+LKCms6l2deJrc9lOPCuXVJwIQnF3VnOVnSU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ZqPiRGAc; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790092006; c=relaxed/simple;
+	bh=lt5I/s3NxLa17cygjIQxuRJf7O5HrrrkkvZz6rMen9U=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YPCAV0PAkDbT0rImhcidc7dbGgWGCkG4FfcetNFutXtKwJqunJD4is6GLdOAZSwsjGWZ6cl05Si8giZ/iIgk2978nRExsVkNsMpmxNtk0Riwz4LtVCj1n0QXRaYebbja00uShAiturWdjiOgYw26OikfkZ/YVFxXrtp4FKro2D0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I9ngK6cU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ZqPiRGAc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790091886;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AJ/Vay7c5Bgi2O0k7N6fj3+pS1q8z/hYlkVBsoFvrJ4=;
-	b=ZqPiRGAciYiDWRspmByLMTFb/335pp/IE86P/Weemzx+n4C2mOcl4QcYfzdJAlpJQlVyqJ
-	bXled12aAjs8loWCqTsMHPEetrpMzt9wIm49cVbQSpDbH2kQbRUcFb85E/CoC4/O3JBwwP
-	I/xEXZkXDKuZ3u3FCjmndz0uKPdmN64=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-694-vpvdV80zMSaYR1xaPkxmyw-1; Tue,
- 22 Sep 2026 11:44:43 -0400
-X-MC-Unique: vpvdV80zMSaYR1xaPkxmyw-1
-X-Mimecast-MFC-AGG-ID: vpvdV80zMSaYR1xaPkxmyw_1790091881
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 9F7B018011E1;
-	Tue, 22 Sep 2026 15:44:41 +0000 (UTC)
-Received: from localhost (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id DD973180056E;
-	Tue, 22 Sep 2026 15:44:40 +0000 (UTC)
-Date: Thu, 17 Sep 2026 12:06:45 -0400
-From: Stefan Hajnoczi <stefanha@redhat.com>
-To: Cong Zhang <cong.zhang@oss.qualcomm.com>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Paolo Bonzini <pbonzini@redhat.com>, Jens Axboe <axboe@kernel.dk>,
-	linux-arm-msm@vger.kernel.org,
-	virtualization@lists.linux.dev, linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] virtio_blk: use synchronous quiesce in
- virtblk_freeze_priv()
-Message-ID: <20260917160645.GA323825@fedora>
-References: <20260912-virtblk_sync_quiesce-v2-1-09a001549b72@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I9ngK6cU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25EE81F000FF;
+	Tue, 22 Sep 2026 15:46:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790091996;
+	bh=FMWsImppUjn4tRCH0vdetChmq89WlKRkniOqWr32kac=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=I9ngK6cUDcZrAL7ziVAt7+P4aLRObyQos7qdmoGhxtUZYrmRMWNFtlraJ1Uj/GXBR
+	 gRNEW1fris72ICc42Xt8/pFP/NWFK+VFadPcH38VpU51QDGhf9Xx1NO366ECGuI8UO
+	 ZAE/gEApKUloVN2xfUDQr1gEOLxmZvmqxfEiaglAIo5Lpkd8yO/6S9XegF7QJcpufg
+	 qssnDeEDotg3S5g59o6Y2MpvnfEPUbeTuzMpFfxseUSu0WMmGVxhDkvOLbvN5ZCiPy
+	 odWqJuupw11kBJxiXKDIFP7XBv720GS+J/Cdqj1bAfW09eE/E4p8uFSel3amOwsYCD
+	 HL1A9+h1otLLg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Will Deacon <will@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] arm64: Use load LSE atomics for the non-return per-CPU atomic operations
+Date: Tue, 22 Sep 2026 11:46:33 -0400
+Message-ID: <20260922154634.2900251-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026092225-croon-perplexed-115a@gregkh>
+References: <2026092225-croon-perplexed-115a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="dy8Z7Idm8RuWqAdu"
-Content-Disposition: inline
-In-Reply-To: <20260912-virtblk_sync_quiesce-v2-1-09a001549b72@oss.qualcomm.com>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+Content-Transfer-Encoding: 8bit
 
---dy8Z7Idm8RuWqAdu
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+From: Catalin Marinas <catalin.marinas@arm.com>
 
-On Sat, Sep 12, 2026 at 04:52:44PM +0800, Cong Zhang wrote:
-> Replace blk_mq_quiesce_queue_nowait() with blk_mq_quiesce_queue() in
-> virtblk_freeze_priv().
->=20
-> Keep the existing freeze and unfreeze order. The synchronous call waits
-> for dispatch code that was already running. The queue remains quiesced
-> until virtblk_restore_priv() calls blk_mq_unquiesce_queue().
->=20
-> Fixes: 7678abee0867 ("virtio-blk: don't keep queue frozen during system s=
-uspend")
->=20
-> Signed-off-by: Cong Zhang <cong.zhang@oss.qualcomm.com>
-> ---
-> blk_mq_run_work_fn() can call blk_mq_sched_dispatch_requests() through
-> blk_mq_run_dispatch_ops(). The dispatcher checks QUEUE_FLAG_QUIESCED
-> while the flag is clear. It can then be preempted before it gets a
-> request. At that time, it has no queue usage reference, so
-> blk_mq_freeze_queue() does not wait for it.
->=20
-> virtblk_freeze_priv() then calls blk_mq_quiesce_queue_nowait() and
-> blk_mq_unfreeze_queue(). A new request can enter the queue. The old
-> dispatcher can run again, use its old flag check, get the new request,
-> and call virtio_queue_rq(). At the same time, virtblk_freeze_priv() can
-> reset the device, delete the virtqueues, and free vblk->vqs. The old
-> dispatcher can then use a deleted virtqueue or a NULL vblk->vqs, and the
-> kernel can crash.
-> ---
-> Changes in v2:
-> - Cc stable@vger.kernel.org.
-> - Link to v1: https://lore.kernel.org/20260911-virtblk_sync_quiesce-v1-1-=
-a883f8f31258@oss.qualcomm.com
-> ---
->  drivers/block/virtio_blk.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+[ Upstream commit 535fdfc5a228524552ee8810c9175e877e127c27 ]
 
-Modulo Michael's comments about the commit message:
+The non-return per-CPU this_cpu_*() atomic operations are implemented as
+STADD/STCLR/STSET when FEAT_LSE is available. On many microarchitecture
+implementations, these instructions tend to be executed "far" in the
+interconnect or memory subsystem (unless the data is already in the L1
+cache). This is in general more efficient when there is contention as it
+avoids bouncing cache lines between CPUs. The load atomics (e.g. LDADD
+without XZR as destination), OTOH, tend to be executed "near" with the
+data loaded into the L1 cache.
 
-Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
+STADD executed back to back as in srcu_read_{lock,unlock}*() incur an
+additional overhead due to the default posting behaviour on several CPU
+implementations. Since the per-CPU atomics are unlikely to be used
+concurrently on the same memory location, encourage the hardware to to
+execute them "near" by issuing load atomics - LDADD/LDCLR/LDSET - with
+the destination register unused (but not XZR).
 
---dy8Z7Idm8RuWqAdu
-Content-Type: application/pgp-signature; name=signature.asc
+Signed-off-by: Catalin Marinas <catalin.marinas@arm.com>
+Link: https://lore.kernel.org/r/e7d539ed-ced0-4b96-8ecd-048a5b803b85@paulmck-laptop
+Reported-by: Paul E. McKenney <paulmck@kernel.org>
+Tested-by: Paul E. McKenney <paulmck@kernel.org>
+Cc: Will Deacon <will@kernel.org>
+Reviewed-by: Palmer Dabbelt <palmer@dabbelt.com>
+[will: Add comment and link to the discussion thread]
+Signed-off-by: Will Deacon <will@kernel.org>
+Stable-dep-of: 8cf2093f5372 ("arm64: percpu: Fix LSE operations on {8,16}-bit types")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ arch/arm64/include/asm/percpu.h | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCgAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmqsEBUACgkQnKSrs4Gr
-c8jtiQf+NiukvAMH5bpSidfRu2qrf4zKvGkbv2VSKit/fEDilUft7I8qpykjAPGS
-BlbLHO+oPNWA/fSA/7B5dNjUbfrTM28UcZvwdwMJufhE3QBB4Yz7cO1L8B/6Y+wn
-DFfYmokCTJOFqZJGwEYoZDatSYMcd4tfMuOH+bCZ1t5gvFl5H1BOlEtOKj/dnmes
-l8ofbMgmdhKGff+y6lwV4W3VQo3lFjUsbI6FxnLjQNkixQQspyuA7GIVwroPCrOE
-FKBC8DXgWrDevRRgn+Fwj2b8ZIg0ngtiQditXDqK14UTfnyyckC2gNszvanVbwhm
-/olV3bkhIcdgL8bKvgqJ3ZSYtut3cQ==
-=TD0g
------END PGP SIGNATURE-----
-
---dy8Z7Idm8RuWqAdu--
+diff --git a/arch/arm64/include/asm/percpu.h b/arch/arm64/include/asm/percpu.h
+index 8f1661603b788..dd6c482bc1fb9 100644
+--- a/arch/arm64/include/asm/percpu.h
++++ b/arch/arm64/include/asm/percpu.h
+@@ -76,7 +76,7 @@ __percpu_##name##_case_##sz(void *ptr, unsigned long val)		\
+ 	"	stxr" #sfx "\t%w[loop], %" #w "[tmp], %[ptr]\n"		\
+ 	"	cbnz	%w[loop], 1b",					\
+ 	/* LSE atomics */						\
+-		#op_lse "\t%" #w "[val], %[ptr]\n"			\
++		#op_lse "\t%" #w "[val], %" #w "[tmp], %[ptr]\n"	\
+ 		__nops(3))						\
+ 	: [loop] "=&r" (loop), [tmp] "=&r" (tmp),			\
+ 	  [ptr] "+Q"(*(u##sz *)ptr)					\
+@@ -123,9 +123,16 @@ PERCPU_RW_OPS(8)
+ PERCPU_RW_OPS(16)
+ PERCPU_RW_OPS(32)
+ PERCPU_RW_OPS(64)
+-PERCPU_OP(add, add, stadd)
+-PERCPU_OP(andnot, bic, stclr)
+-PERCPU_OP(or, orr, stset)
++
++/*
++ * Use value-returning atomics for CPU-local ops as they are more likely
++ * to execute "near" to the CPU (e.g. in L1$).
++ *
++ * https://lore.kernel.org/r/e7d539ed-ced0-4b96-8ecd-048a5b803b85@paulmck-laptop
++ */
++PERCPU_OP(add, add, ldadd)
++PERCPU_OP(andnot, bic, ldclr)
++PERCPU_OP(or, orr, ldset)
+ PERCPU_RET_OP(add, add, ldadd)
+ 
+ #undef PERCPU_RW_OPS
+-- 
+2.53.0
 
