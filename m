@@ -1,56 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57209381EAF;
-	Tue, 22 Sep 2026 02:23:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0259438DC59
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 02:23:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790043832; cv=none; b=XdtkMXTXr1Eb0A84W+aySVMHTGZrqNO50PTaaYpuxI49+4AlO7LIPZ9u0pYPR7PfhBhVLX0+ImAQujdws3ZU0IsGjJV1VT0S6v2XTKZUf3poRqSd3hkLQ3VdAtS9okRoibgiuPn+ORts80nq939i55NadQfWVvIRjn73xPOCjq8=
+	t=1790043833; cv=none; b=CJpjG+qNkUyRyQGy7xDYnmsFJVg8TmQ9AyJnmn7YgknOR1K7bBWN5KAvyopsjsRL0Lp5StEaF75ihJDW3qkqQiaKkgIM7UbPHhSkMehxGnagAbVXHDewgS2BwOr/AafcmjfkIx/VNlyV7stNPMFdBV/xlx+QH5faLF7bz+J4ey0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790043832; c=relaxed/simple;
-	bh=TjVsCdoMOgxC4qmub43FU8vqX/COiNe8A2cDmY4oc/Y=;
+	s=arc-20240116; t=1790043833; c=relaxed/simple;
+	bh=7a/Y2u3p2Db7poPTc/p3tjfnA/ugo7700wm9AqcpBYc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NowN4q91xOLNVeyM7DorfEtuWWmEkSDkwmUXB8TzZGqmW316HvUWB5fWUvZbkUiEPidJKw5gyVeaEjtAldPNBv4yokyhV9fxUUxephAgviuRfGAoZeCcYPCFi79k2hmAYJaQZvDK13/Lr+eNo9iAVgeNvjQTG94BgIF814z4HvM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JMB6bSuf; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=tL/yijtHZ/ZqSVyRDjnD6joOAL3wNfTpwAkbAsyOkqYA8mLPEMsxei+/T1KUJzaGEsLl/o57T723GmiqGZ3DjGDowRLeHTABr1JYLYEuA63qFWb3E4GgHzmPqxd87GDjHCXpc+ctM9Z011+JVVM0ZwxMjzD/jqYGUhC1LXoLLJY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E1XJcSZe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JMB6bSuf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E1B61F00899;
-	Tue, 22 Sep 2026 02:23:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E1XJcSZe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47F601F0089B;
+	Tue, 22 Sep 2026 02:23:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1790043831;
-	bh=DvpHe9goWKptvXpvHaZISQed/cSncJ9KwzC6BY4n1Lc=;
+	bh=NFRDGYqlC7QTdKbYevOBIU3p0MZ8CN8UgKkbQNDYDYk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JMB6bSuffAh1cD/6qgVMYEsniGAlIS1GzO/8ghMqgZ3ZBPsCkoswLuwKmX84RVLBH
-	 d8HgifVHOOncBv7e8Ygaw2F6wtd+4VAs1RXjEEb5MMGLWje7zg0HCLv42kw49JzanL
-	 C5qpQc42hhDz/87CXIPziZm5k44BNeY8x4trwwJWkIC4brt9lBKhCaEoTPaW49kJkM
-	 CSdMPZTPR+nkUq5wrdGGG6jnbp+FaBYCp9lLjmHDA2UHewkb4O1NTRQNNY0I36CVYe
-	 YX+t3kUxgF4mzBdJ3krv79cWctah7W/aH7XqL9jBaGUH8IPaQLcXauBcBGSDY/nyjU
-	 +vPAqvsOBSeyw==
+	b=E1XJcSZeUwhkadWTWXLzyQ/9W4bdf2Ftom9Ojj7lPxRtSJks6RPygqvNtmaXaMKGf
+	 Jjo93a6ZorfhmdhAhPUSdLNr5HRNfRrJqBwcyWkwv1oVOV/qMbsdydVMQ6yL5QmKh0
+	 8KkHBAbIwnYFvt25NpcYp020F9LwTOxOJ2ShGzGDqOazOFoMNiljs+vgnUpor9gkg+
+	 j54CKItGiwqnFcH0JWvGkypdlTQNkm06vSDVkKiDuA4kWENmenU7tEmVCLj0FSsLJQ
+	 LdUwUJqd59cTMwTOzJ8Q2DEHHn5yTkULJANQ17Ei0D7DcDJE6I4t1ioZKRktF9TE9n
+	 CKseYaWRXJXoQ==
 From: Sasha Levin <sashal@kernel.org>
-To: Zi Yan <ziy@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	stable@vger.kernel.org
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: Sasha Levin <sashal@kernel.org>,
-	patches@lists.linux.dev,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Barry Song <baohua@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	Dev Jain <dev.jain@arm.com>,
-	Lance Yang <lance.yang@linux.dev>,
-	Vegard Nossum <vegard.nossum@oracle.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Subject: Re: [PATCH 6.12 0472/1102] mm/huge_memory: use folios memcg inside __folio_split()
-Date: Mon, 21 Sep 2026 22:23:39 -0400
-Message-ID: <2026-09-21-daily-reply-0002-re-folio-split-memcg-requeue@kernel.org>
+	Francesco Dolcini <francesco@dolcini.it>
+Subject: Re: [linux-6.1.y] 6.1.189-rc1 build failure: implicit declaration of 'is_core_idle' when CONFIG_NUMA_BALANCING=n
+Date: Mon, 21 Sep 2026 22:23:40 -0400
+Message-ID: <2026-09-21-daily-reply-0003-re-sched-fair-is-core-idle-6-1@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <9200dfdc-009a-4998-8d2f-b106d362e6ad@oracle.com>
-References: <9200dfdc-009a-4998-8d2f-b106d362e6ad@oracle.com>
+In-Reply-To: <20260921060758.GA13965@francesco-nb>
+References: <20260921060758.GA13965@francesco-nb>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -59,13 +45,19 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Looks like a very similar report was clarified by Johannes and Zi. Sorry 
-> for the noise.
-> 
-> Sasha: Will it be possible for you to re-queue this ?
+>   kernel/sched/fair.c: In function 'update_sd_lb_stats':
+>   kernel/sched/fair.c:9912:53: error: implicit declaration of function 'is_core_idle'
+>   [-Werror=implicit-function-declaration]
+>           env->dst_core_idle = !sched_smt_active() || is_core_idle(env->dst_cpu);
 
-Re-queued for 6.12 and 6.6, thanks. No noise at all, it is easier to put a
-patch back than to ship a broken one.
+Confirmed, and 6.1 is the only tree that needs a prerequisite here.
+is_core_idle() still lives inside the #ifdef CONFIG_NUMA_BALANCING block there,
+while update_sd_lb_stats() calls it unconditionally. 6.6 and newer already
+carry 8b36d07f1d63 ("sched/fair: Move is_core_idle() out of CONFIG_NUMA") in
+their base release, which is why only 6.1 breaks.
+
+I have queued that move ahead of bf6aa722198d ("sched/fair: Reject misfit pulls
+onto busy SMT siblings on asym-capacity") for 6.1, in that order.
 
 -- 
 Thanks,
