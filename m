@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6870855295D
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 15:10:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 041CE5505D0
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 15:10:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790089814; cv=none; b=NnMpzqSPD8ykqoVBp2cKVkfW7PfzXlupOCUFhBPKwz9AtLAGtXR/KFlJJIZrVtBOXbIJ1H2uEoyl9jyupvq4iBXLsT3GYCHnNBE/rxoIW05nsZ0d5vbVNCYCFbh+ejzo/Gun7tMlHNi6sUEyBC2hSRCs2JHLrYzmckrKQ801XrY=
+	t=1790089818; cv=none; b=fJTfLdkm0q08qB5dKas6oo9Av2cO7OL2h9OxB3i8ZXbVzYhNS6D8zl73d12HkSEgFaHXEXHkebq6QOgkBOtkxumZl6vsHtaDCE2hRCKb1vrQWFHEh/3oYsusWj7L+I5RxyIKQWGRr/W11ENHxBhHHIdfciPJrl8VO65Nn/Jlvfw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790089814; c=relaxed/simple;
-	bh=pRfzcQMoz7DeFeG+g4PZ0TTkOX49senVP9iY5NTKPtA=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=fvp3CLgPbOVRWA5IKWqaW0Cii3lbq1QNvgfbwHhznKEInL5rC9BOP2kO3BbPNqgfjUG8WyvMaznlancUcbN/BCy1Sf9ObpkA7NjdPGV60+iumfD8E6Rg9uAohIZJSHnr8NiAaTbKJOIOl6+GZO/1KOqyP6xwi4ezLujl323wMA0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=N0nHVK4u; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790089818; c=relaxed/simple;
+	bh=cfkPw0SmVGVetKUOHPwOxtdD7eS1C4Skw1hytNCraaQ=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=SUS4h+czE7B+FxmoPS1gRPGJYsR4FuL2Mw6LO8RwTIFrFcxFkysX7WYi/ohElr5vez9MwXOeHzMiwakAGpBPHQVGp/iVLzM8t0d9pkzdrRAbhJX3HBZcrrvffj3xvor+/lJQZIuw6kP+XhdJkPWtqDLLWqX42ysozEP5QSJL30I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=TzOSY3fX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="N0nHVK4u"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F0611F000FF;
-	Tue, 22 Sep 2026 15:10:11 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="TzOSY3fX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9AD41F000FF;
+	Tue, 22 Sep 2026 15:10:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790089812;
-	bh=9oN1POk+VZHrGugdYPLw1F1NgZNy7A1GVxwUiLT1q6g=;
+	s=korg; t=1790089816;
+	bh=ciLO4btoPnnAOQuStwgRrOnfH8GeAxW6HjXVsQmgC5A=;
 	h=Subject:To:Cc:From:Date;
-	b=N0nHVK4uCWNGGDlMqwZ63ZTUKx8u2Zanqih70Mw7qKTPyZFwp57bjKtbDz89Dzhko
-	 d91nN+wTTYWENl+KblPSuRH1cVtPuSKYmCTFehH8GYOVg3kJjeQJL4i2S7qSqIuOxC
-	 FpnlddUwvVTnHWlvRTnfd8Rdjkax4GBY3Ul6ZNcg=
-Subject: FAILED: patch "[PATCH] mmc: sdhci_am654: Move tuning_loop to local variable" failed to apply to 5.15-stable tree
-To: diogo.ivo@bootlin.com,adrian.hunter@intel.com,jm@ti.com,ulfh@kernel.org
+	b=TzOSY3fXd5AFxSBuWewaFnKDMIyViAQvFhZWTHbnZyCEsuryxLgEkLNJTYnVrwXKu
+	 BTAtvVWsnzOEiV2duug36HElG2xYoNel0XkOBq1q89/ZvTSm86U5kEg29drF0Cp+0S
+	 vjTYEnVZ9WjbsUmfGF05m19bCcR2Nx6qZqLOoKDU=
+Subject: FAILED: patch "[PATCH] Input: adp5588-keys - cache GPIO state before registering the" failed to apply to 5.10-stable tree
+To: alvin.sipraga@analog.com,dmitry.torokhov@gmail.com,nuno.sa@analog.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 22 Sep 2026 16:51:38 +0200
-Message-ID: <2026092238-recoil-reprocess-7960@gregkh>
+Date: Tue, 22 Sep 2026 16:52:32 +0200
+Message-ID: <2026092232-wanting-charbroil-6f57@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x ff894dced1a7ad7523f9c65dbdb53d02474cca0f
+git cherry-pick -x 21efadc62272cabee9bec27777ae75d84a9ca8a8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092238-recoil-reprocess-7960@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092232-wanting-charbroil-6f57@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,61 +62,63 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From ff894dced1a7ad7523f9c65dbdb53d02474cca0f Mon Sep 17 00:00:00 2001
-From: "Diogo Ivo (Schneider Electric)" <diogo.ivo@bootlin.com>
-Date: Fri, 7 Aug 2026 13:06:57 +0200
-Subject: [PATCH] mmc: sdhci_am654: Move tuning_loop to local variable
+From 21efadc62272cabee9bec27777ae75d84a9ca8a8 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Alvin=20=C5=A0ipraga?= <alvin.sipraga@analog.com>
+Date: Tue, 18 Aug 2026 18:00:02 +0200
+Subject: [PATCH] Input: adp5588-keys - cache GPIO state before registering the
+ gpiochip
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The tuning_loop field in struct sdhci_am654_data is only used within
-sdhci_am654_platform_execute_tuning() as a loop counter that is
-initialized to 0 in sdhci_am654_init(). Since it shouldn't persist across
-function calls, otherwise every failure expends its "budget", move it to a
-local variable and remove the struct field along with the now-unnecessary
-initialization.
+So as not to clobber any pre-programmed GPIO state in the execution
+of its gpiochip ops, the driver caches things during probe time.
+However, since those ops can be called both during and immediately after
+the call to devm_gpiochip_add_data(), it is imperative that things are
+cached before that. That's not the case right now, so reorder the two
+steps to prevent any clobbering.
 
-Signed-off-by: Diogo Ivo (Schneider Electric) <diogo.ivo@bootlin.com>
-Reviewed-by: Judith Mendez <jm@ti.com>
-Acked-by: Adrian Hunter <adrian.hunter@intel.com>
-Fixes: de31f6ab68a3 ("mmc: sdhci_am654: Reset Command and Data line after tuning")
+In the concrete example which motivated this change, a bootloader was
+preconfiguring an important GPIO output to HIGH before booting the
+kernel. Linux would then inadvertently set that output to LOW while
+configuring a GPIO hog on a discrete GPIO line within the same 8-bit
+bank (because the cached value was 0=LOW).
+
+Fixes: ba9f507a1bea ("Input: adp5588-keys - export unused GPIO pins")
+Signed-off-by: Alvin Šipraga <alvin.sipraga@analog.com>
+Reviewed-by: Nuno Sá <nuno.sa@analog.com>
+Link: https://patch.msgid.link/20260818-adp5588-gpio-cache-v1-1-650a2674fc0d@analog.com
 Cc: stable@vger.kernel.org
-Signed-off-by: Ulf Hansson <ulfh@kernel.org>
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 
-diff --git a/drivers/mmc/host/sdhci_am654.c b/drivers/mmc/host/sdhci_am654.c
-index 2a27db2f558b..4b74a4115509 100644
---- a/drivers/mmc/host/sdhci_am654.c
-+++ b/drivers/mmc/host/sdhci_am654.c
-@@ -151,7 +151,6 @@ struct sdhci_am654_data {
- 	u32 flags;
- 	u32 quirks;
- 	bool dll_enable;
--	u32 tuning_loop;
+diff --git a/drivers/input/keyboard/adp5588-keys.c b/drivers/input/keyboard/adp5588-keys.c
+index 40371f5bd9ba..4f0ddff5baba 100644
+--- a/drivers/input/keyboard/adp5588-keys.c
++++ b/drivers/input/keyboard/adp5588-keys.c
+@@ -446,12 +446,6 @@ static int adp5588_gpio_add(struct adp5588_kpad *kpad)
  
- #define SDHCI_AM654_QUIRK_FORCE_CDTEST BIT(0)
- #define SDHCI_AM654_QUIRK_SUPPRESS_V1P8_ENA BIT(1)
-@@ -576,13 +575,14 @@ static int sdhci_am654_platform_execute_tuning(struct sdhci_host *host,
- 	struct sdhci_am654_data *sdhci_am654 = sdhci_pltfm_priv(pltfm_host);
- 	unsigned char timing = host->mmc->ios.timing;
- 	struct device *dev = mmc_dev(host->mmc);
-+	unsigned int tuning_loop = 0;
- 	int itapdly;
+ 	mutex_init(&kpad->gpio_lock);
  
- 	do {
- 		itapdly = sdhci_am654_do_tuning(host, opcode);
- 		if (itapdly >= 0)
- 			break;
--	} while (++sdhci_am654->tuning_loop < RETRY_TUNING_MAX);
-+	} while (++tuning_loop < RETRY_TUNING_MAX);
- 
- 	if (itapdly < 0) {
- 		dev_err(dev, "Failed to find itapdly, fail tuning\n");
-@@ -806,9 +806,6 @@ static int sdhci_am654_init(struct sdhci_host *host)
- 	regmap_update_bits(sdhci_am654->base, CTL_CFG_3, TUNINGFORSDR50_MASK,
- 			   TUNINGFORSDR50_MASK);
- 
--	/* Use to re-execute tuning */
--	sdhci_am654->tuning_loop = 0;
+-	error = devm_gpiochip_add_data(dev, &kpad->gc, kpad);
+-	if (error) {
+-		dev_err(dev, "gpiochip_add failed: %d\n", error);
+-		return error;
+-	}
 -
- 	ret = sdhci_setup_host(host);
- 	if (ret)
- 		return ret;
+ 	for (i = 0; i <= ADP5588_BANK(ADP5588_MAXGPIO); i++) {
+ 		kpad->dat_out[i] = adp5588_read(kpad->client,
+ 						GPIO_DAT_OUT1 + i);
+@@ -459,6 +453,12 @@ static int adp5588_gpio_add(struct adp5588_kpad *kpad)
+ 		kpad->pull_dis[i] = adp5588_read(kpad->client, GPIO_PULL1 + i);
+ 	}
+ 
++	error = devm_gpiochip_add_data(dev, &kpad->gc, kpad);
++	if (error) {
++		dev_err(dev, "gpiochip_add failed: %d\n", error);
++		return error;
++	}
++
+ 	return 0;
+ }
+ 
 
