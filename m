@@ -1,43 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D817554092
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06B1D51DDF4
 	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 16:20:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790094018; cv=none; b=Idi7V9Be2gJRhbvlGSZwmQzYrIENMmoEnmCbAcJJLx4QgknEde2EOFitnp/8yJ44Qu5FK2f84hpKLxiRwKQ1WOivOPt1AP5+e7gPQ2Y7pElMD3Wbrb+fKDvR+0Dgh9CRI6p8+vQ8dytnqL3CvA8vkeiEEEgho0rZ9O4hau6WN10=
+	t=1790094019; cv=none; b=d8DmumnXdDg3XK1GX7P7YeXKOmK4s67y/G3RqKKYyD32F0wfeYf6adpLmyKp5Gj4eDNrwgFP54g3GvkWKILnhlD1VQ3CXd2ACCYninnvwKEUQWNkav7xS3vKQ+7C45AFipcrsC1nsEqGbBJYkI1RX4tki0dneVTAizvkc6JBdjU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790094018; c=relaxed/simple;
-	bh=tx7eVXxqQjnhBIaZgjrfIdXPlv+UzNR6bVIXx8R5GCE=;
+	s=arc-20240116; t=1790094019; c=relaxed/simple;
+	bh=SIoWBTjZeP+48zqUjEEm3VLLwg8I8h6f5ol13J+qkiQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=p72OnCxbVpDAXTMTl+KC+ERlih8O8Kg3LhPspAYG1uT/L0E40qolZJe46QlgZQ+lj0clwscANxZHZkX9mc1DerZHRq0nXAw3pUs2MM8atmzzk3J1Dvfk6krV6dBVGEzaeTbBCda7Q5E4UXeO4ZwCwHwAcuQTqXrPpnZLyYLWibY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f4zKYDt2; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=VpSCcW6qD8aOBmNk4jsHSEBeD2dMxdsOJi2imNcoulgRnSA3BykGZTEF+bbZ4+HtZYn4p5DQ0XLvY/uJi2gAA+cBtM1Ys2HmCF96myUADafZA6Zh9kp2a/AmqdGbKTPwomEvznTGp8nH3JJaYgv1joENjjmiSWhGsUG6ePuZcjI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o1Z+JQnR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f4zKYDt2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 990B61F00893;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o1Z+JQnR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A8931F00899;
 	Tue, 22 Sep 2026 16:20:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1790094017;
-	bh=H8xiixY0s8Ged0vQTZi252UN3FJFJlUM+jKmJYBItaw=;
+	bh=SyV2wueMb0pT7jSlibdnGZLneAZ0EYXI/WhKLc3QyBw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=f4zKYDt2JaFiGvMSzL6vP4apml+2FUrCkLmzPyKSkSsSNS6QhfA0SRhbGQovb/zsB
-	 /aHANxsBJIhRy6pUm4tQDJlkoZFsJaw4WiiRqmODXTUPpXhqBzHHWARoGNGU3Vq7UR
-	 BX2RCAYaqJGYl71eP02626zjByP7ZhiXxSm5+2MJX2nJnd2HJNapxyiNuZ0+kRHihg
-	 NAURCNxiwChhHy8WBpMvikMhl17VbkWb1fCCZLLDZzSddm6V5KSXztboIvHQHEhNU7
-	 p3F1hZg4xq+LigYrSgwmZwjKTtZBLthWcyCDw9QtA5APxzGvLNzfBChdiWvm7WflF7
-	 v7ErbVk/3arcQ==
+	b=o1Z+JQnRiP9O7cu9rqupaHM5IJ7nPUNMbt5gPprwwl4jQO2RJ6bL1F0inWJY6c1J8
+	 nXvIlnA3840mJH64tHVOws7/koSdvRCItF9etQ7Ls2z2HqEDwC5MgrMxQ2sLN7nQTO
+	 LyHWBhpQRh5CjwWyAbuq39Ykny/mAB3Wolq6GO2Xw90xNGL05ZK7+C1YbxtBKupvHx
+	 Vr8yYbPpzSLPcKH7Hv5tof1XYMY5ICdqazGZOglpyJu5b854GucqfsC8Dh0tlac2FP
+	 F9MG5Fpir8Hdsh8qlN48Wy7S41hBww+zj5arvRd+lsR13rJjNmC9FoCtl7DZBU2xxV
+	 yEhD9PVMCZr0w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Dean Luick <dean.luick@cornelisnetworks.com>,
-	Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
-	Leon Romanovsky <leon@kernel.org>,
+Cc: Liu Zhenlong <dragonliu2018@gmail.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Andi Shyti <andi.shyti@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 1/2] IB/hfi1: Use dma_mmap_coherent for matching buffers
-Date: Tue, 22 Sep 2026 12:20:14 -0400
-Message-ID: <20260922162015.3008344-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 3/3] i2c: qcom-cci: fix device_node refcount leak in cci_probe()/cci_remove()
+Date: Tue, 22 Sep 2026 12:20:13 -0400
+Message-ID: <20260922162013.3007836-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092207-spotless-rambling-6fce@gregkh>
-References: <2026092207-spotless-rambling-6fce@gregkh>
+In-Reply-To: <20260922162013.3007836-1-sashal@kernel.org>
+References: <2026092210-spookily-spirited-3697@gregkh>
+ <20260922162013.3007836-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,186 +48,106 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Dean Luick <dean.luick@cornelisnetworks.com>
+From: Liu Zhenlong <dragonliu2018@gmail.com>
 
-[ Upstream commit 1ec82317a1daac78c04b0c15af89018ccf9fa2b7 ]
+[ Upstream commit 7362a1553eb09a8cdf8be7e509bd5309a8342486 ]
 
-For memory allocated with dma_alloc_coherent(), use
-dma_mmap_coherent() to mmap it into user space.
+The of_node_put() matching of_node_get() runs after i2c_del_adapter(),
+whose trailing memset() zeroes adap->dev and thus adap->dev.of_node,
+making the put a no-op and leaking the node on every adapter removal
+and error cleanup.
 
-Signed-off-by: Dean Luick <dean.luick@cornelisnetworks.com>
-Signed-off-by: Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>
-Link: https://lore.kernel.org/r/167329107460.1472990.9090255834533222032.stgit@awfm-02.cornelisnetworks.com
-Signed-off-by: Leon Romanovsky <leon@kernel.org>
-Stable-dep-of: 975396b9e5a4 ("IB/hfi1: Resolve the credit-return buffer through the send context's node")
+Use a devm action: the pointer is captured at registration, out of
+reach of that memset(), and devres runs the put once on probe failure
+and detach, replacing the three manual of_node_put() calls.  The
+setup loop uses the scoped iterator form so the child node is released
+automatically if devm_add_action_or_reset() fails mid-loop.
+
+Suggested-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Fixes: 02a4a69667a2 ("i2c: qcom-cci: don't put a device tree node before i2c_add_adapter()")
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Liu Zhenlong <dragonliu2018@gmail.com>
+Cc: <stable@vger.kernel.org> # v5.17+
+Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
+Link: https://patch.msgid.link/20260818175750.4205-1-dragonliu2018@gmail.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/infiniband/hw/hfi1/file_ops.c | 81 +++++++++++++++++++--------
- 1 file changed, 57 insertions(+), 24 deletions(-)
+ drivers/i2c/busses/i2c-qcom-cci.c | 20 +++++++++++---------
+ 1 file changed, 11 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/infiniband/hw/hfi1/file_ops.c b/drivers/infiniband/hw/hfi1/file_ops.c
-index 7828fb5931203..322060f7d289a 100644
---- a/drivers/infiniband/hw/hfi1/file_ops.c
-+++ b/drivers/infiniband/hw/hfi1/file_ops.c
-@@ -347,6 +347,17 @@ static ssize_t hfi1_write_iter(struct kiocb *kiocb, struct iov_iter *from)
- 	return reqs;
- }
+diff --git a/drivers/i2c/busses/i2c-qcom-cci.c b/drivers/i2c/busses/i2c-qcom-cci.c
+index 87a4c2d0ee9cd..c0309bf61595b 100644
+--- a/drivers/i2c/busses/i2c-qcom-cci.c
++++ b/drivers/i2c/busses/i2c-qcom-cci.c
+@@ -520,10 +520,14 @@ static const struct dev_pm_ops qcom_cci_pm = {
+ 	SET_RUNTIME_PM_OPS(cci_suspend_runtime, cci_resume_runtime, NULL)
+ };
  
-+static inline void mmap_cdbg(u16 ctxt, u8 subctxt, u8 type, u8 mapio, u8 vmf,
-+			     u64 memaddr, void *memvirt, dma_addr_t memdma,
-+			     ssize_t memlen, struct vm_area_struct *vma)
++static void cci_put_of_node(void *data)
 +{
-+	hfi1_cdbg(PROC,
-+		  "%u:%u type:%u io/vf/dma:%d/%d/%d, addr:0x%llx, len:%lu(%lu), flags:0x%lx",
-+		  ctxt, subctxt, type, mapio, vmf, !!memdma,
-+		  memaddr ?: (u64)memvirt, memlen,
-+		  vma->vm_end - vma->vm_start, vma->vm_flags);
++	of_node_put(data);
 +}
 +
- static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
+ static int cci_probe(struct platform_device *pdev)
  {
- 	struct hfi1_filedata *fd = fp->private_data;
-@@ -356,6 +367,7 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
- 	u64 token = vma->vm_pgoff << PAGE_SHIFT,
- 		memaddr = 0;
- 	void *memvirt = NULL;
-+	dma_addr_t memdma = 0;
- 	u8 subctxt, mapio = 0, vmf = 0, type;
- 	ssize_t memlen = 0;
- 	int ret = 0;
-@@ -375,6 +387,11 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
- 		goto done;
+ 	struct device *dev = &pdev->dev;
+-	struct device_node *child;
+ 	struct resource *r;
+ 	struct cci *cci;
+ 	int ret, i;
+@@ -539,7 +543,7 @@ static int cci_probe(struct platform_device *pdev)
+ 	if (!cci->data)
+ 		return -ENOENT;
+ 
+-	for_each_available_child_of_node(dev->of_node, child) {
++	for_each_available_child_of_node_scoped(dev->of_node, child) {
+ 		struct cci_master *master;
+ 		u32 idx;
+ 
+@@ -560,6 +564,9 @@ static int cci_probe(struct platform_device *pdev)
+ 		master->adap.algo = &cci_algo;
+ 		master->adap.dev.parent = dev;
+ 		master->adap.dev.of_node = of_node_get(child);
++		ret = devm_add_action_or_reset(dev, cci_put_of_node, child);
++		if (ret)
++			return ret;
+ 		master->master = idx;
+ 		master->cci = cci;
+ 
+@@ -631,10 +638,8 @@ static int cci_probe(struct platform_device *pdev)
+ 			continue;
+ 
+ 		ret = i2c_add_adapter(&cci->master[i].adap);
+-		if (ret < 0) {
+-			of_node_put(cci->master[i].adap.dev.of_node);
++		if (ret < 0)
+ 			goto error_i2c;
+-		}
  	}
  
-+	/*
-+	 * vm_pgoff is used as a buffer selector cookie.  Always mmap from
-+	 * the beginning.
-+	 */ 
-+	vma->vm_pgoff = 0;
- 	flags = vma->vm_flags;
+ 	return 0;
+@@ -644,10 +649,8 @@ static int cci_probe(struct platform_device *pdev)
+ 	pm_runtime_dont_use_autosuspend(dev);
  
- 	switch (type) {
-@@ -396,7 +413,8 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
- 		vma->vm_page_prot = pgprot_writecombine(vma->vm_page_prot);
- 		mapio = 1;
- 		break;
--	case PIO_CRED:
-+	case PIO_CRED: {
-+		u64 cr_page_offset;
- 		if (flags & VM_WRITE) {
- 			ret = -EPERM;
- 			goto done;
-@@ -406,10 +424,11 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
- 		 * second or third page allocated for credit returns (if number
- 		 * of enabled contexts > 64 and 128 respectively).
- 		 */
--		memvirt = dd->cr_base[uctxt->numa_id].va;
--		memaddr = virt_to_phys(memvirt) +
--			(((u64)uctxt->sc->hw_free -
--			  (u64)dd->cr_base[uctxt->numa_id].va) & PAGE_MASK);
-+		cr_page_offset = ((u64)uctxt->sc->hw_free -
-+			  	     (u64)dd->cr_base[uctxt->numa_id].va) &
-+				   PAGE_MASK;
-+		memvirt = dd->cr_base[uctxt->numa_id].va + cr_page_offset;
-+		memdma = dd->cr_base[uctxt->numa_id].dma + cr_page_offset;
- 		memlen = PAGE_SIZE;
- 		flags &= ~VM_MAYWRITE;
- 		flags |= VM_DONTCOPY | VM_DONTEXPAND;
-@@ -419,14 +438,16 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
- 		 * memory been flagged as non-cached?
- 		 */
- 		/* vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot); */
--		mapio = 1;
- 		break;
-+	}
- 	case RCV_HDRQ:
- 		memlen = rcvhdrq_size(uctxt);
- 		memvirt = uctxt->rcvhdrq;
-+		memdma = uctxt->rcvhdrq_dma;
- 		break;
- 	case RCV_EGRBUF: {
--		unsigned long addr;
-+		unsigned long vm_start_save;
-+		unsigned long vm_end_save;
- 		int i;
- 		/*
- 		 * The RcvEgr buffer need to be handled differently
-@@ -445,24 +466,34 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
- 			goto done;
- 		}
- 		vma->vm_flags &= ~VM_MAYWRITE;
--		addr = vma->vm_start;
-+		/*
-+		 * Mmap multiple separate allocations into a single vma.  From
-+		 * here, dma_mmap_coherent() calls dma_direct_mmap(), which
-+		 * requires the mmap to exactly fill the vma starting at
-+		 * vma_start.  Adjust the vma start and end for each eager
-+		 * buffer segment mapped.  Restore the originals when done.
-+		 */
-+		vm_start_save = vma->vm_start;
-+		vm_end_save = vma->vm_end;
-+		vma->vm_end = vma->vm_start;
- 		for (i = 0 ; i < uctxt->egrbufs.numbufs; i++) {
- 			memlen = uctxt->egrbufs.buffers[i].len;
- 			memvirt = uctxt->egrbufs.buffers[i].addr;
--			ret = remap_pfn_range(
--				vma, addr,
--				/*
--				 * virt_to_pfn() does the same, but
--				 * it's not available on x86_64
--				 * when CONFIG_MMU is enabled.
--				 */
--				PFN_DOWN(__pa(memvirt)),
--				memlen,
--				vma->vm_page_prot);
--			if (ret < 0)
-+			memdma = uctxt->egrbufs.buffers[i].dma;
-+			vma->vm_end += memlen;
-+			mmap_cdbg(ctxt, subctxt, type, mapio, vmf, memaddr,
-+				  memvirt, memdma, memlen, vma);
-+			ret = dma_mmap_coherent(&dd->pcidev->dev, vma,
-+						memvirt, memdma, memlen);
-+			if (ret < 0) {
-+				vma->vm_start = vm_start_save;
-+				vma->vm_end = vm_end_save;
- 				goto done;
--			addr += memlen;
-+			}
-+			vma->vm_start += memlen;
- 		}
-+		vma->vm_start = vm_start_save;
-+		vma->vm_end = vm_end_save;
- 		ret = 0;
- 		goto done;
+ 	for (--i ; i >= 0; i--) {
+-		if (cci->master[i].cci) {
++		if (cci->master[i].cci)
+ 			i2c_del_adapter(&cci->master[i].adap);
+-			of_node_put(cci->master[i].adap.dev.of_node);
+-		}
  	}
-@@ -522,6 +553,7 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
+ error:
+ 	disable_irq(cci->irq);
+@@ -665,7 +668,6 @@ static void cci_remove(struct platform_device *pdev)
+ 	for (i = 0; i < cci->data->num_masters; i++) {
+ 		if (cci->master[i].cci) {
+ 			i2c_del_adapter(&cci->master[i].adap);
+-			of_node_put(cci->master[i].adap.dev.of_node);
+ 			cci_halt(cci, i);
  		}
- 		memlen = PAGE_SIZE;
- 		memvirt = (void *)hfi1_rcvhdrtail_kvaddr(uctxt);
-+		memdma = uctxt->rcvhdrqtailaddr_dma;
- 		flags &= ~VM_MAYWRITE;
- 		break;
- 	case SUBCTXT_UREGS:
-@@ -570,14 +602,15 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
  	}
- 
- 	vma->vm_flags = flags;
--	hfi1_cdbg(PROC,
--		  "%u:%u type:%u io/vf:%d/%d, addr:0x%llx, len:%lu(%lu), flags:0x%lx\n",
--		    ctxt, subctxt, type, mapio, vmf, memaddr, memlen,
--		    vma->vm_end - vma->vm_start, vma->vm_flags);
-+	mmap_cdbg(ctxt, subctxt, type, mapio, vmf, memaddr, memvirt, memdma, 
-+		  memlen, vma);
- 	if (vmf) {
- 		vma->vm_pgoff = PFN_DOWN(memaddr);
- 		vma->vm_ops = &vm_ops;
- 		ret = 0;
-+	} else if (memdma) {
-+		ret = dma_mmap_coherent(&dd->pcidev->dev, vma,
-+					memvirt, memdma, memlen);
- 	} else if (mapio) {
- 		ret = io_remap_pfn_range(vma, vma->vm_start,
- 					 PFN_DOWN(memaddr),
 -- 
 2.53.0
 
