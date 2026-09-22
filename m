@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA3F043231D
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 08:30:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D59AF42A154
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 08:30:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790065840; cv=none; b=aG3Bj8RNL++kgTxvN9orSPUOGp+mBut9LnsRA4ZUKxiLcjau4pMV44bH89KB8WcmzQVCJPUoS/joavC0ft0JtGnVAA43ubNPFMlZfsUj6T1dozv1B5KOzV3JuXJqu08ghj4KAjwvNId7BA+yUP4z30Krzd9eRojeAyWZg+aKkZA=
+	t=1790065841; cv=none; b=n42LsAbdY7VvKjThzSuG144W9oY8Qo/aDwe1vS3WtMnre/cHr7zUUAZIuVeyG8G831Cz7/v7Dam564Adh0EsQMV1Pwi2fx3Unt+GefVpUadLVedBTZDCLCuFCMkc+NOh6ht6UJwLZ2X7aTNIaemmo5A/TrJXHn1VhJl4nFuZDxI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790065840; c=relaxed/simple;
-	bh=EqbZGtAgSuSfPgpfVbeKgWeMVM1qsbSTJ3LVdWzU4rU=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=GFOLfWSDzc6cAt4drDtOzyfo/gO42kYQ42+KwgZYWuTw8AOEWlLcR2rLFh0kJUlvVtSnB+DTCWSFw6bFFFu4YZ7aK1uQb2c83Y37EomTnSxyYGixqeT6s5qL3AcszTa3gwJ2nLed8YSTb0X2qMKaKE5/j+pS46SHI+HWI49FIAQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=pSmyx3WT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790065841; c=relaxed/simple;
+	bh=edf87Gc2WNqb2hVci/45OrWp13hNmHaLxL1gYI6DkTY=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=YwdhgJHvYxG0c1tmppcTR7g69fmVTMN2u0N8TamTejpF9L1NlY76FAbxd38jriJF0jRRSien0JdF+j8gutvSwM1aUNuqPqQ6FpDksePoZbSXpJx1+I/2CmLiO5QSoVWBaLhcjj262uN3X+kzvjdaNsAugP1HSGR5hWe3/LYDQDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=b33hnBSs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="pSmyx3WT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 044F01F00893;
-	Tue, 22 Sep 2026 08:30:33 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="b33hnBSs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 886DE1F000FF;
+	Tue, 22 Sep 2026 08:30:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790065834;
-	bh=N0tOUsTt6FLUcBWrQgFmRmbf7jriIDs9xRlYpB1FhDE=;
+	s=korg; t=1790065838;
+	bh=B+Hf8Nczwr+aHMWuPgAQQzOIWUc0AP1bUZxKqWAetQo=;
 	h=Subject:To:Cc:From:Date;
-	b=pSmyx3WTAZZDe6VhexGcXqebmddPIf1MjXe32J8Fgp1CDglOZ3u797sKf/QCRVU61
-	 Snc2Letn6n40Jsy3OcJyvgFVSk/OHifeXVvi+6o6r3OdiMv0+La8tbsdmeQZlknpm5
-	 f5t514PO8akc+wdnWb/6H9BBefujN2C48HiC6BtI=
-Subject: FAILED: patch "[PATCH] spi: spi-zynqmp-gqspi: stop the controller on shutdown" failed to apply to 6.1-stable tree
+	b=b33hnBSszI6JHK6ZPnAhRlWhPTbMzFVTJ/ec+C/qSkn/dQZKXYXpB0DmKRUS0Eio/
+	 0nXiMRKBsaNMRYqVOU5mVURnLyhx6cVO+1WOfxq25cAF0VmXQrtlpW7NTQ2hD156ff
+	 cVdQFfcY+eGkoTIMSKCmFwGO6vk+k6hdkinH0cpI=
+Subject: FAILED: patch "[PATCH] spi: spi-zynqmp-gqspi: stop the controller on shutdown" failed to apply to 5.15-stable tree
 To: itai.handler@gmail.com,broonie@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 22 Sep 2026 10:30:25 +0200
-Message-ID: <2026092225-whimsical-recopy-1b4b@gregkh>
+Date: Tue, 22 Sep 2026 10:30:26 +0200
+Message-ID: <2026092226-spiffy-drainage-530a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x e922bad8b2d5028c51a096d083fea41cd0987154
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092225-whimsical-recopy-1b4b@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092226-spiffy-drainage-530a@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
