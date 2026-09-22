@@ -1,153 +1,190 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E8B937DEB6;
-	Tue, 22 Sep 2026 07:32:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DA57377ED7
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 07:34:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790062378; cv=none; b=So4nj7dBSusWYW1URX4+5HzhARceGY6VyKiPm+1JrKrS8PqUFKxPVcBv4v8JfPXnZGVOz1R8ro7B716Bty4VEQPX50yHQS/9Tq8fx6Wm51Y4T0MVTJ7+pzY8YIWzrO5U+WZ293RHDHkMGfw96WUT7Kcu4DZoX9pMuOmlQyNaC0w=
+	t=1790062501; cv=none; b=AccekSdaGEtJsFYCHJRzYujEsYAa5N+C5+iBugzMUlhvm2kJuhDHlbVB9PxVaLdy9jkYHwUyjP0B8EXvFhAiLiyFAC6uY8Y5cnh9W5EtpXS/Xv4J9lLArKb++qo4MIIQNNjwV0N2DGjp37peGUNj62swUse/I3UBnAzlJmNeoIg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790062378; c=relaxed/simple;
-	bh=SBHYVWMF+PE4N/MoLDrNahH+o40iDuilrQ0sVL9XNEs=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=doyEdWf/QxhlITuwaMDn2/abMi1tQfo26yDOw/YB63xv7GD2MAU3doQjaiFs1+2EPITcERqB7ww/i4gN9tLXRBhlW6XaMQoBCJySqj8JCxJSSGR3e6FZ1iqYBcFxrjp2Fc7yJvNo6lxlsXgkG9jC0a99C2XNwvW/flW9zgfiKSE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: cbb139f2b65711f19a56ed5b684f684d-20260922
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:4f356aa1-fe19-4bbb-993d-b1cb8caa0823,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:-5
-X-CID-META: VersionHash:7db8b62,CLOUDID:a248d159bfc200344787337ea783c297,BulkI
-	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50|99,EDM:
-	-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,O
-	SA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: cbb139f2b65711f19a56ed5b684f684d-20260922
-X-User: zenghongling@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zenghongling@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 306819291; Tue, 22 Sep 2026 15:32:42 +0800
-From: Hongling Zeng <zenghongling@kylinos.cn>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	zhongling0719@126.com,
-	Hongling Zeng <zenghongling@kylinos.cn>,
-	stable@vger.kernel.org,
-	Baolin Liu <liubaolin@kylinos.cn>
-Subject: [PATCH v7] ntfs: mount hibernated volumes read-only regardless of  errors=
-Date: Tue, 22 Sep 2026 15:32:36 +0800
-Message-Id: <20260922073236.2066735-1-zenghongling@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1790062501; c=relaxed/simple;
+	bh=ScYuWtPXF2fnvLspbMecGJNGtKANeNNCzpWG2nb8vjA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=KjJDKqMI/Pmg9atzoi6fFCf0m9wKDT7ZxM+dc70CAJh26oNI8dJbQuht5dnQo2dgYCDf6hljnEi1xWt/f9ZeJK6Tft7MUAhpSBvj1syMpJwKGJUZcbzzE/GHY0bYF97qpKnAkMcqsDIyvpYQJEtqlWtGXax3vBGCG4qxKlmcoKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=mpVf3d6s; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="mpVf3d6s"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=kE55ttdNodJ5Ejl7NpD1hyTOjVbCZT8pzaMy+lf8i90=;
+	b=mpVf3d6s3I+U5DfljluQjr4GQ9G3B8yB6/c4QUTYbrpowwe7VRTlTHjZougDG9
+	H3/3q0GnDh3fcoraCm6rZKGmKDs3ye5qJd/fqCwHrgOjIOGSujVgva0PctXyoeV9
+	6r08odRomHN+pzl+ARcU8HtpWqSoqSP/9czqEfSV1zus4=
+Received: from [IPV6:2409:8900:1ee3:222c:420f:a5a2:eb51:8645] (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wDnv+V_L7JqH6dMAA--.22501S2;
+	Tue, 22 Sep 2026 15:34:25 +0800 (CST)
+Message-ID: <333a1499-f678-4905-9b97-08defe5805a4@163.com>
+Date: Tue, 22 Sep 2026 15:34:22 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ntfs: validate attribute-list sizes before allocation
+To: Hyunchul Lee <hyc.lee@gmail.com>, Namjae Jeon <linkinjeon@kernel.org>
+Cc: ntfs@lists.linux.dev, stable@vger.kernel.org, Robert Morris <rtm@mit.edu>
+References: <20260922-fix-attrlist-size-limit-v1-1-c7e10b6c5656@gmail.com>
+Content-Language: en-US
+From: liubaolin <liubaolin12138@163.com>
+In-Reply-To: <20260922-fix-attrlist-size-limit-v1-1-c7e10b6c5656@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDnv+V_L7JqH6dMAA--.22501S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3Gw13Xw17tF1UKw43Wry8Xwb_yoW7Xw1DpF
+	9xCFyfKr4jqFyxCan7tanxWa48uw1UWF129ry3uw1IyFs8Jwn7KFy7K3yxu3s2yr98Xw10
+	qryDWrZ7JrW5XrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U2-erUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6gEz-WqyL4HSJwAA3m
 
-The hibernation check in load_system_files() only converts the
-superblock to read-only under errors=remount-ro.  With the default
-errors=continue (and with errors=panic), a hibernated volume is
-mounted read-write and the mount-time $LogFile emptying writes to it,
-although a hibernated volume must not be written to at all.
 
-Drop the on_errors term so that a hibernated volume, or a volume whose
-hibernation state cannot be determined, always mounts read-only.
-NVolErrors() is still recorded, so ntfs_reconfigure() keeps refusing
-remounts to read-write, and the $LogFile emptying is skipped by its
-!sb_rdonly() check.
 
-The check itself must not apply the errors= policy either: it runs
-before SB_RDONLY is set, and ntfs_lookup_inode_by_name() and ntfs_iget()
-call ntfs_error() internally on corruption or I/O errors, which under
-errors=panic would panic the machine before the read-only fallback has
-made its decision.  Temporarily substitute errors=remount-ro for
-errors=panic around the check: nested ntfs_error() calls then fall
-back to read-only, and any read-only transition they trigger is
-preserved even when the error is not propagated to the check's return
-value or recorded in NVolErrors().  This is safe during initial mount,
-before the super block is published.
+在 2026/9/22 14:18, Hyunchul Lee 写道:
+> The NULL point dereference could occur when an on-disk
+> $ATTRIBUTE_LIST size was truncated before it was validated and allocated.
+> 
+> To fix this issue and prevent excessive memory allocation, limit the
+> $ATTRIBUTE_LIST size to 256 KiB.
+> 
+> The following existing implementation and Windows test provide evidence
+> for this 256 KiB compatibility limit:
+> 
+> NTFS already treats 256 KiB as the $ATTRIBUTE_LIST limit in its
+> attribute-size checks and $MFT attribute list repack/expand paths.
+> 
+> For additional Windows testing, when $MFT's attribute-list data_size was
+> above 256 KiB, Windows attached the disk partition but did not mount a NTFS
+> volume and target access failed.
+> 
+> Fixes: af0db57d4293 ("ntfs: update inode operations")
+> Link: https://lore.kernel.org/ntfs/88468.1790006025@30-10-12.wireless.csail.mit.edu/T/#u
+> Cc: stable@vger.kernel.org
+> Cc: Robert Morris <rtm@mit.edu>
+> Signed-off-by: Hyunchul Lee <hyc.lee@gmail.com>
+> ---
+>   fs/ntfs/attrib.c   |  2 +-
+>   fs/ntfs/attrlist.c |  2 --
+>   fs/ntfs/inode.c    | 21 +++++++++++++++------
+>   fs/ntfs/ntfs.h     |  2 ++
+>   4 files changed, 18 insertions(+), 9 deletions(-)
+> 
+> diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
+> index d8dd40526c3b..333b3371acb4 100644
+> --- a/fs/ntfs/attrib.c
+> +++ b/fs/ntfs/attrib.c
+> @@ -1775,7 +1775,7 @@ int ntfs_attr_size_bounds_check(const struct ntfs_volume *vol, const __le32 type
+>   	 * $ATTRIBUTE_LIST has a maximum size of 256kiB, but this is not
+>   	 * listed in $AttrDef.
+>   	 */
+> -	if (unlikely(type == AT_ATTRIBUTE_LIST && size > 256 * 1024))
+> +	if (unlikely(type == AT_ATTRIBUTE_LIST && size > NTFS_MAX_ATTR_LIST_SIZE))
+>   		return -ERANGE;
+>   	/* Get the $AttrDef entry for the attribute @type. */
+>   	ad = ntfs_attr_find_in_attrdef(vol, type);
+> diff --git a/fs/ntfs/attrlist.c b/fs/ntfs/attrlist.c
+> index 7c09d02fd941..1bbd2bc62c58 100644
+> --- a/fs/ntfs/attrlist.c
+> +++ b/fs/ntfs/attrlist.c
+> @@ -14,8 +14,6 @@
+>   #include "attrlist.h"
+>   #include "lcnalloc.h"
+>   
+> -#define NTFS_MAX_ATTR_LIST_SIZE	(256 * 1024)
+> -
+>   /*
+>    * ntfs_attrlist_need - check whether inode need attribute list
+>    * @ni:	opened ntfs inode for which perform check
+> diff --git a/fs/ntfs/inode.c b/fs/ntfs/inode.c
+> index cadf623d54d4..99232a94cac0 100644
+> --- a/fs/ntfs/inode.c
+> +++ b/fs/ntfs/inode.c
+> @@ -805,6 +805,8 @@ static int ntfs_read_locked_inode(struct inode *vi)
+>   			goto unm_err_out;
+>   		}
+>   	} else {
+> +		s64 attr_list_size;
+> +
+>   		if (vi->i_ino == FILE_MFT)
+>   			goto skip_attr_list_load;
+>   		ntfs_debug("Attribute list found in inode 0x%llx.", ni->mft_no);
+> @@ -827,11 +829,14 @@ static int ntfs_read_locked_inode(struct inode *vi)
+>   				ni->mft_no);
+>   		}
+>   		/* Now allocate memory for the attribute list. */
+> -		ni->attr_list_size = (u32)ntfs_attr_size(a);
+> -		if (!ni->attr_list_size) {
+> -			ntfs_error(vi->i_sb, "Attr_list_size is zero");
+> +		attr_list_size = ntfs_attr_size(a);
+> +		if (attr_list_size <= 0 ||
+> +		    attr_list_size > NTFS_MAX_ATTR_LIST_SIZE) {
+> +			ntfs_error(vi->i_sb, "Invalid attribute list size %lld (mft_no 0x%llx).",
+> +				   (long long)attr_list_size, ni->mft_no);
+>   			goto unm_err_out;
+>   		}
+> +		ni->attr_list_size = (u32)attr_list_size;
+>   		ni->attr_list = kvzalloc(ni->attr_list_size, GFP_NOFS);
+>   		if (!ni->attr_list) {
+>   			ntfs_error(vi->i_sb,
+> @@ -1955,6 +1960,7 @@ int ntfs_read_inode_mount(struct inode *vi)
+>   	} else /* if (!err) */ {
+>   		struct attr_list_entry *al_entry, *next_al_entry;
+>   		u8 *al_end;
+> +		s64 attr_list_size;
+>   		static const char *es = "  Not allowed.  $MFT is corrupt.  You should run chkdsk.";
+>   
+>   		ntfs_debug("Attribute list attribute found in $MFT.");
+> @@ -1978,11 +1984,14 @@ int ntfs_read_inode_mount(struct inode *vi)
+>   				"Resident attribute list attribute in $MFT system file is marked encrypted/sparse which is not true.  However, Windows allows this and chkdsk does not detect or correct it so we will just ignore the invalid flags and pretend they are not set.");
+>   		}
+>   		/* Now allocate memory for the attribute list. */
+> -		ni->attr_list_size = (u32)ntfs_attr_size(a);
+> -		if (!ni->attr_list_size) {
+> -			ntfs_error(sb, "Attr_list_size is zero");
+> +		attr_list_size = ntfs_attr_size(a);
+> +		if (attr_list_size <= 0 ||
+> +		    attr_list_size > NTFS_MAX_ATTR_LIST_SIZE) {
+> +			ntfs_error(sb, "Invalid attribute list size %lld (mft_no 0x%llx).%s",
+> +				   (long long)attr_list_size, ni->mft_no, es);
+>   			goto put_err_out;
+>   		}
+> +		ni->attr_list_size = (u32)attr_list_size;
+>   		ni->attr_list = kvzalloc(round_up(ni->attr_list_size, SECTOR_SIZE),
+>   					 GFP_NOFS);
+>   		if (!ni->attr_list) {
+> diff --git a/fs/ntfs/ntfs.h b/fs/ntfs/ntfs.h
+> index dd56894762a9..9557a5c36b81 100644
+> --- a/fs/ntfs/ntfs.h
+> +++ b/fs/ntfs/ntfs.h
+> @@ -80,6 +80,8 @@ enum {
+>   	NTFS_MAX_LABEL_LEN	= 128,
+>   };
+>   
+> +#define NTFS_MAX_ATTR_LIST_SIZE	(256 * 1024)
+> +
+>   enum {
+>   	CASE_SENSITIVE = 0,
+>   	IGNORE_CASE = 1,
+> 
+> ---
+> base-commit: 444c7dc82415a353b57e43189f276124cc5fd785
+> change-id: 20260922-fix-attrlist-size-limit-a2a6a02feebb
+> 
+> Best regards,
 
-If the check reports hibernation or fails, set SB_RDONLY and record
-NVolErrors() unconditionally: hibernation safety takes precedence over
-the errors= policy.  A volume with errors recorded during the check or
-earlier in the mount, e.g. when loading the LogFile, also stays
-read-only, matching what ntfs_reconfigure() enforces for remounts.
+Looks good to me.
 
-Fixes: 6251f0b0de7d ("ntfs: update super block operations")
-Cc: stable@vger.kernel.org
-Suggested-by: Baolin Liu <liubaolin@kylinos.cn>
 Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
-Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
-Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
----
-Change in v7:
- -Resolve merge conflicts.
----
- fs/ntfs/super.c | 25 ++++++++++++++++++++-----
- 1 file changed, 20 insertions(+), 5 deletions(-)
-
-diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-index 82b5bf28b6ab..877a9e1f4e32 100644
---- a/fs/ntfs/super.c
-+++ b/fs/ntfs/super.c
-@@ -1503,6 +1503,7 @@ static bool load_system_files(struct ntfs_volume *vol)
- 	struct ntfs_attr_search_ctx *ctx;
- 	struct restart_page_header *rp;
- 	int err;
-+	u8 saved_on_errors;
- 
- 	ntfs_debug("Entering.");
- 	/* Get mft mirror inode compare the contents of $MFT and $MFTMirr. */
-@@ -1677,8 +1678,19 @@ static bool load_system_files(struct ntfs_volume *vol)
- 	 * NVolErrors() without setting the dirty volume flag and mount
- 	 * read-only.  This will prevent read-write remounting and it will also
- 	 * prevent all writes.
-+	 *
-+	 * Nested lookup and inode-loading errors must not panic before the
-+	 * read-only fallback has run.  Temporarily use errors=remount-ro
-+	 * instead of errors=panic, preserving any read-only transition even
-+	 * if an error is not propagated to the check's return value or
-+	 * recorded in NVolErrors().  This is safe during initial mount,
-+	 * before the super block is published.
- 	 */
-+	saved_on_errors = vol->on_errors;
-+	if (saved_on_errors == ON_ERRORS_PANIC)
-+		vol->on_errors = ON_ERRORS_REMOUNT_RO;
- 	err = check_windows_hibernation_status(vol);
-+	vol->on_errors = saved_on_errors;
- 	if (unlikely(err)) {
- 		static const char *es1a = "Failed to determine if Windows is hibernated";
- 		static const char *es1b = "Windows is hibernated";
-@@ -1686,12 +1698,15 @@ static bool load_system_files(struct ntfs_volume *vol)
- 		const char *es1;
- 
- 		es1 = err < 0 ? es1a : es1b;
--		/* If a read-write mount, convert it to a read-only mount. */
--		if (!sb_rdonly(sb) && vol->on_errors == ON_ERRORS_REMOUNT_RO) {
--			sb->s_flags |= SB_RDONLY;
--			ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
--		}
-+		/* Hibernation safety takes precedence over the errors= policy. */
-+		sb->s_flags |= SB_RDONLY;
- 		NVolSetErrors(vol);
-+		ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
-+	} else if (!sb_rdonly(sb) && NVolErrors(vol)) {
-+		/* Match the read-write remount restriction for recorded errors. */
-+		sb->s_flags |= SB_RDONLY;
-+		ntfs_error(sb,
-+			"Errors were recorded during mount.  Mounting read-only.  Run chkdsk.");
- 		/*
- 		 * Remember it for the lifetime of the mount: see
- 		 * ntfs_sync_volume_dirty_state().
--- 
-2.25.1
 
