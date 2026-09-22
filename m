@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A34224CEE71;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C3A84AB1DC;
 	Tue, 22 Sep 2026 20:37:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790109437; cv=none; b=CMBa/cMdvKogdR6mZLfMdHPwFrGXUJnkfj/AfjPy419D90///AjS84vR6eUvPgpn/CMCAckCvxKBCm8xj/ed8qgrNX2BxPSgZt+0h/wAnC9ihym8CQUbvT+bLxtpsJkN2RUwBySbPh1YvzoUdDBj6cdtdpC8XsW2v1VNwWjOYvw=
+	t=1790109438; cv=none; b=rC6kxVXRTrhGVwqRnXo7KT27ABqeOhLsPDaFx0AuLJdAyl1uirqhxJMmu9xUGmJZcSc/CD7uWKoy0KyCZgbp9LO2OTV2rFklSPzzOuF0FovnyYUX2rWT1PnUd0rC3WjyR3ldEazZJVTbcOhO4M2fxZNUFVpRV/x8VFqCWdKmBo4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790109437; c=relaxed/simple;
-	bh=2YnWH9cax97AUtQ38BU1f+kCyda35lBFk7PhQuymp04=;
+	s=arc-20240116; t=1790109438; c=relaxed/simple;
+	bh=d3csPslYIziOC0R7LhjPuYgG7RxPE7Qu4TLRopm6vTY=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ESvNnUTRwgZ91KaZvTuSuyKjWzEZgcdrrw5TXM15jm9KzWBOlm+ZnRWFOnDuXVcXPHnNOneYYw4RZjADdVc7e87DpRggldyyHlBxfTeNr0wYYhkFZq2I7KxvLJVDzSGK36ZJDYaAgCuf4vIhGLoDJMVCIlCbv15774WeynFz/98=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gYk8xtcm; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=gLUjNIzSARVzhBZXnNCNjVaJGjc3nTxpFB1nO+UcbllkR7YWIf7R8utlDdDD6lyz69vMOYZuITsPyIwcR8hmx77sHKfZCY5tdbETbkiXirAQPN31/N8nQvNw4juYL3gYEQjER6G7dkfmBfgbDEx1DmsxhXpFrQcA0ue1OG9sSQg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DDDiwjoJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gYk8xtcm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 769DC1F0089B;
-	Tue, 22 Sep 2026 20:37:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DDDiwjoJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C6F91F00898;
+	Tue, 22 Sep 2026 20:37:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790109421;
-	bh=rCabQF8E/QYx6N0UAExqR+EIo5OJEHmS/2vGxtXACq0=;
+	s=k20260515; t=1790109423;
+	bh=W39bp12GNfWIwx2ln5PK2AHicqGywbx2D2WipXSsH9U=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=gYk8xtcmurToLaTNHIBtPQhf2s7wwOG6ycpklK6JAxglcZ8IznaETWmhvakfOLBsk
-	 /BA9bkkwZAGZmJWUmc2/ZkniarUd7y3MuGVZRfd1xIfTA+8LqhWSwXqB11sY1pRfc3
-	 NPX8OPVOZbdJWukaSZP/Qbdh0D7vbvFj8F5V9sRaqd8PkIVWg9bJTLWl+eDeQHeRm+
-	 o39XaHAfeDx5gU1yPumLl6566YTcwM2tRtRuum7HuWG8fM6/d/fPq1lEc1izfzvTYU
-	 Fj3bLcprBZ6KNFhlTEyKtXSZ3suX4aSd5VarjpXdT7lvrQRaJsd4ZxZQEU3BnG3nTf
-	 KXWmyIC4j4Aaw==
-Subject: Re: [PATCH net 1/3] net: macb: never give hardware a NULL RX buffer
+	b=DDDiwjoJF+t5AKURCuKoLR72enjuGjMRZoHVPY1cQv7TNTaroRi1c9HILFBDJl4OW
+	 vqwpu+r1tTiiUwcD0hULS1VCJzCYJOQ8k6nU31udtE2XlHcgk9ko51ziteobk7UZHw
+	 ppr4TRlysZWL/JG+XupbrOMQ8bIPYGTGuk0K08kKF65vnfzwn02h0sfxn5OaXiL9ky
+	 b3STbK7FewZiyULb1CMfdia9V3YzlICQNta3xd9QerW1PxoZ/Hw5crzO855V5v5Rhz
+	 zvQOnK5223MDjJoq2/AK5Fe18Suxi8LAcmTSSDDMuVZLrVOF9f5eTrHa0YxBZ42qE9
+	 fRcC7vlnoIZsQ==
+Subject: Re: [PATCH net 2/3] net: macb: propagate RX ring refill errors
 From: netdev-bot+sashiko@kernel.org
 To: theo.lebrun@bootlin.com
 Cc: conor.dooley@microchip.com, andrew+netdev@lunn.ch, davem@davemloft.net,
@@ -36,10 +36,10 @@ Cc: conor.dooley@microchip.com, andrew+netdev@lunn.ch, davem@davemloft.net,
  nb@tipi-net.de, vladimir.kondratiev@mobileye.com, gregory.clement@bootlin.com,
  tawfik.bayouk@mobileye.com, thomas.petazzoni@bootlin.com,
  maxime.chevallier@bootlin.com, stable@vger.kernel.org
-Date: Tue, 22 Sep 2026 20:37:00 +0000
-Message-ID: <179010942002.2160803.8691011751847108495@kernel.org>
-In-Reply-To: <20260918-macb-close-v1-1-05e32ce98813@bootlin.com>
-References: <20260918-macb-close-v1-1-05e32ce98813@bootlin.com>
+Date: Tue, 22 Sep 2026 20:37:01 +0000
+Message-ID: <179010942168.2160803.12593263624100762709@kernel.org>
+In-Reply-To: <20260918-macb-close-v1-2-05e32ce98813@bootlin.com>
+References: <20260918-macb-close-v1-2-05e32ce98813@bootlin.com>
 X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -53,7 +53,7 @@ MIME-Version: 1.0
 Thank you for your contribution! Sashiko AI review found 2 potential
 issue(s) to consider.
 
-Critical: 0 · High: 2 · Medium: 0 · Low: 0
+Critical: 0 · High: 2 (1) · Medium: 0 · Low: 0
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -61,150 +61,261 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] gem_init_rx_ring()
-  (drivers/net/ethernet/cadence/macb_main.c:2793) now sets…
-- [High] gem_init_rx_ring() now publishes MACB_BIT(RX_USED) on every RX
-  descriptor of a queue, resets queue->rx_tail/rx_prepared_head and then…
+- [High] Incomplete fix: the new errno from
+  gem_rx_refill()/gem_init_rx_ring()/mog_init_rings() is discarded by…
+- [High] macb_set_ringparam()
+  (drivers/net/ethernet/cadence/macb_main.c:3737-3749) closes and…
+
+Pre-existing issues:
+- [High] macb_hresp_error_task() (macb_main.c:1998-2035, BH-workqueue
+  context) calls bp->macbgem_ops.mog_init_rings(bp) -> gem_init_rings()…
 
 --
 
-net: macb: never give hardware a NULL RX buffer
+net: macb: propagate RX ring refill errors
 
-This makes gem_init_rx_ring() set the RX_USED bit on every RX descriptor
-before calling gem_rx_refill(), so that a refill that fails part way
-through does not leave descriptors owned by hardware while their skb
-pointers are still NULL.  The change affects macb_open(), macb_resume(),
-the HRESP error recovery path and set_ringparam().
+This changes gem_rx_refill(), gem_init_rx_ring(), gem_init_rings(),
+macb_init_rings() and the macbgem_ops.mog_init_rings function pointer to
+return errno-style ints, so that macb_open() fails when RX skb allocation
+or DMA mapping fails. The other refill callers (resume, HRESP error task,
+NAPI) keep their best-effort behaviour.
 
+> diff --git a/drivers/net/ethernet/cadence/macb.h b/drivers/net/ethernet/cadence/macb.h
+> index d6931c41f39d..cfaa0ca49f1a 100644
+> --- a/drivers/net/ethernet/cadence/macb.h
+> +++ b/drivers/net/ethernet/cadence/macb.h
+> @@ -1197,7 +1197,7 @@ struct macb_queue;
+>  struct macb_or_gem_ops {
+>  	int	(*mog_alloc_rx_buffers)(struct macb *bp);
+>  	void	(*mog_free_rx_buffers)(struct macb *bp);
+> -	void	(*mog_init_rings)(struct macb *bp);
+> +	int	(*mog_init_rings)(struct macb *bp);
+>  	int	(*mog_rx)(struct macb_queue *queue, struct napi_struct *napi,
+>  			  int budget);
+>  };
 > diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-> index b8234ac4b602..751fa9e68099 100644
+> index 751fa9e68099..c418f859cc34 100644
 > --- a/drivers/net/ethernet/cadence/macb_main.c
 > +++ b/drivers/net/ethernet/cadence/macb_main.c
-> @@ -2785,9 +2785,14 @@ static int macb_alloc(struct macb *bp)
+> @@ -1486,13 +1486,14 @@ static int macb_tx_complete(struct macb_queue *queue, int budget)
+>  	return packets;
+>  }
 >  
->  static void gem_init_rx_ring(struct macb_queue *queue)
+> -static void gem_rx_refill(struct macb_queue *queue)
+> +static int gem_rx_refill(struct macb_queue *queue)
 >  {
-> +	unsigned int i;
-> +
->  	queue->rx_tail = 0;
->  	queue->rx_prepared_head = 0;
+>  	struct macb *bp = queue->bp;
+>  	struct macb_dma_desc *desc;
+>  	struct sk_buff *skb;
+>  	unsigned int entry;
+>  	dma_addr_t paddr;
+> +	int err = 0;
 >  
-> +	for (i = 0; i < queue->bp->rx_ring_size; i++)
-> +		macb_rx_desc(queue, i)->addr |= MACB_BIT(RX_USED);
+>  	while (CIRC_SPACE(queue->rx_prepared_head, queue->rx_tail,
+>  			bp->rx_ring_size) > 0) {
+> @@ -1509,6 +1510,7 @@ static void gem_rx_refill(struct macb_queue *queue)
+>  			if (unlikely(!skb)) {
+>  				netdev_err(bp->netdev,
+>  					   "Unable to allocate sk_buff\n");
+> +				err = -ENOMEM;
+>  				break;
+>  			}
+>  
+> @@ -1518,6 +1520,7 @@ static void gem_rx_refill(struct macb_queue *queue)
+>  					       DMA_FROM_DEVICE);
+>  			if (dma_mapping_error(&bp->pdev->dev, paddr)) {
+>  				dev_kfree_skb(skb);
+> +				err = -ENOMEM;
+>  				break;
+>  			}
+>  
+> @@ -1558,6 +1561,8 @@ static void gem_rx_refill(struct macb_queue *queue)
+>  
+>  	netdev_vdbg(bp->netdev, "rx ring: queue: %p, prepared head %d, tail %d\n",
+>  		    queue, queue->rx_prepared_head, queue->rx_tail);
 > +
+> +	return err;
+>  }
 
 [Severity: High]
+The commit message says:
 
-Does RX_USED now carry two different meanings that the RX consume path
-cannot tell apart?
+    Note that other callers of refill (resume, HRESP error task, NAPI)
+    cannot do anything useful with that error and keep their best-effort
+    refill, hoping it will improve.
 
-gem_rx() uses RX_USED at queue->rx_tail as the only indication that
-hardware delivered a frame, and it has no bound against
-queue->rx_prepared_head:
+Is the "hoping it will improve" part true for those callers, given the
+same analysis used to justify the open() fix?
 
-drivers/net/ethernet/cadence/macb_main.c:gem_rx() {
-	rxused = (desc->addr & MACB_BIT(RX_USED)) ? true : false;
-	addr = macb_get_addr(bp, desc);
+gem_init_rx_ring() first marks every descriptor as software owned and
+resets both cursors:
 
-	if (!rxused)
-		break;
+	queue->rx_tail = 0;
+	queue->rx_prepared_head = 0;
+
+	for (i = 0; i < queue->bp->rx_ring_size; i++)
+		macb_rx_desc(queue, i)->addr |= MACB_BIT(RX_USED);
+
+	return gem_rx_refill(queue);
+
+gem_rx_refill() then breaks out on the first netdev_alloc_skb() or
+dma_mapping_error() failure, so it can return with zero descriptors handed
+to the hardware.
+
+With no hardware-owned descriptor, can the controller ever complete a
+receive and raise RCOMP?  bp->rx_intr_mask is only MACB_RX_INT_FLAGS
+(RCOMP | ISR_ROVR) unless the part has MACB_CAPS_NEEDS_RSTONUBR:
+
+	bp->rx_intr_mask = MACB_RX_INT_FLAGS;
+	if (bp->caps & MACB_CAPS_NEEDS_RSTONUBR)
+		bp->rx_intr_mask |= MACB_BIT(RXUBR);
+
+and even on those parts macb_interrupt_misc() only toggles NCR.RE without
+refilling.  The single remaining refill trigger, gem_rx(), is only reached
+through napi_schedule on RCOMP/ROVR.
+
+The callers that discard the new return value re-arm the receiver anyway:
+
+macb_resume():
+
+	if (macb_is_gem(bp))
+		gem_init_rx_ring(queue);
 	...
-	queue->rx_tail++;
-	count++;
+	macb_init_hw(bp);
 
-	if (!(ctrl & MACB_BIT(RX_SOF) && ctrl & MACB_BIT(RX_EOF))) {
-		netdev_err(bp->netdev,
-			   "not whole frame pointed by descriptor\n");
-		bp->netdev->stats.rx_dropped++;
-		queue->stats.rx_dropped++;
-		break;
-	}
-	skb = queue->rx_skbuff[entry];
-	if (unlikely(!skb)) {
-		netdev_err(bp->netdev,
-			   "inconsistent Rx descriptor chain\n");
-		...
-}
-
-So for a slot that gem_rx_refill() never got to prepare (the exact
-memory-pressure case in the commit message, where it breaks out of the
-loop on netdev_alloc_skb() or dma_map_single() failure), gem_rx() no
-longer stops at "if (!rxused) break;".  It advances rx_tail, counts the
-slot as work, hits the SOF/EOF test with ctrl == 0 on a fresh ring, emits
-a non-ratelimited netdev_err() and bumps rx_dropped.
-
-Then does the poll reschedule itself forever?  macb_rx_poll() consults
-macb_rx_pending(), which also looks only at RX_USED at rx_tail:
-
-drivers/net/ethernet/cadence/macb_main.c:macb_rx_pending() {
-	entry = macb_rx_ring_wrap(bp, queue->rx_tail);
-	desc = macb_rx_desc(queue, entry);
-	rmb();
-	return (desc->addr & MACB_BIT(RX_USED)) != 0;
-}
-
-The next slot is also software-marked RX_USED, so macb_rx_poll() calls
-napi_schedule() again.  Since gem_rx_refill() only fills up to
-CIRC_SPACE(rx_prepared_head, rx_tail, rx_ring_size), the slot at rx_tail
-is never the one refilled, so while allocations keep failing nothing
-clears RX_USED ahead of rx_tail.  Can this turn into a self-sustaining
-NAPI/softirq loop with two unratelimited error lines and one bogus
-rx_dropped per iteration, and once allocations recover, a full ring
-traversal (rx_ring_size, 512 by default) of phantom completions that
-walks rx_tail past slots hardware never wrote?
-
-Before this patch gem_rx() stopped at those same slots on
-"if (!rxused) break;".
-
-Reachable at least via macb_resume() and macb_hresp_error_task(), which
-both ignore the refill result and re-enable RX and NAPI afterwards.
-
-[Severity: High]
-
-Is any exclusion against a running RX poll needed here now that the whole
-ring is published as RX_USED?
-
-macb_hresp_error_task() runs from system_bh_wq, masks queue interrupts,
-clears RE/TE, and then calls mog_init_rings() with no napi_disable(), no
-napi_synchronize() and no lock:
-
-drivers/net/ethernet/cadence/macb_main.c:macb_hresp_error_task() {
-	netif_tx_stop_all_queues(netdev);
-	netif_carrier_off(netdev);
+macb_hresp_error_task():
 
 	bp->macbgem_ops.mog_init_rings(bp);
 	...
-}
+	ctrl |= MACB_BIT(RE) | MACB_BIT(TE);
+	macb_writel(bp, NCR, ctrl);
 
-Masking interrupts does not stop a poll that is already scheduled or
-running on another CPU (per-queue IRQs can be affinitized, and NAPI can
-be threaded).  Previously such a concurrent gem_rx() would stop at the
-first hardware-owned descriptor; with every descriptor marked RX_USED,
-does it now walk the entire ring reading stale desc->ctrl (the new loop
-does not clear ctrl), setting queue->rx_skbuff[entry] = NULL,
-dma_unmap_single()ing and napi_gro_receive()ing the buffers?
+gem_rx():
 
-Meanwhile gem_rx_refill() called from gem_init_rx_ring() walks the same
-entries, and for any entry whose rx_skbuff it still sees as non-NULL it
-takes the else branch:
+	gem_rx_refill(queue);
 
-drivers/net/ethernet/cadence/macb_main.c:gem_rx_refill() {
+	return count;
+
+So can a queue still end up permanently RX-dead after resume, after HRESP
+recovery, or at runtime when a poll drains every armed descriptor and the
+following refill fails on its first allocation, with recovery only through
+an administrative down/up?  Would it make sense for those paths to retry
+(NAPI reschedule or delayed work), or to keep the receiver disabled for
+the affected queue, rather than only propagating the error at open()?
+
+>  
+>  /* Mark DMA descriptors from begin up to and not including end as unused */
+
+[ ... ]
+
+> @@ -2793,14 +2798,16 @@ static int macb_alloc(struct macb *bp)
+>  	for (i = 0; i < queue->bp->rx_ring_size; i++)
+>  		macb_rx_desc(queue, i)->addr |= MACB_BIT(RX_USED);
+>  
+> -	gem_rx_refill(queue);
+> +	return gem_rx_refill(queue);
+>  }
+
+[Severity: High]
+This isn't a bug introduced by this patch, but it sits on the call chain
+being changed here, so it may be worth a look: is the HRESP path allowed to
+re-run gem_init_rx_ring()/gem_rx_refill() while an RX poll is in flight?
+
+macb_hresp_error_task() runs in BH workqueue context and only masks the
+device interrupt sources:
+
+	for (q = 0, queue = bp->queues; q < bp->num_queues; ++q, ++queue) {
+		queue_writel(queue, IDR, bp->rx_intr_mask |
+					 MACB_TX_INT_FLAGS |
+					 MACB_BIT(HRESP));
+	}
+	...
+	bp->macbgem_ops.mog_init_rings(bp);
+
+There is no napi_disable() or napi_synchronize(), and neither side takes
+bp->lock around queue->rx_tail, queue->rx_prepared_head, queue->rx_skbuff[]
+or the descriptors.  Can this sequence happen?
+
+CPU0, gem_rx() poll at entry E (hardware has completed that descriptor)
+
+CPU1, HRESP worker, gem_rx_refill() sees rx_skbuff[E] still non-NULL:
 	} else {
 		desc->ctrl = 0;
 		dma_wmb();
 		desc->addr &= ~MACB_BIT(RX_USED);
 	}
+
+CPU0 then continues in gem_rx():
+	queue->rx_skbuff[entry] = NULL;
+	...
+	dma_unmap_single(&bp->pdev->dev, addr,
+			 bp->rx_buffer_size, DMA_FROM_DEVICE);
+
+and passes the skb up.  Once macb_hresp_error_task() rewrites NCR with
+RE|TE, does the DMA engine then write the next frame into a buffer that is
+already unmapped and owned by the stack?  The unsynchronised resets of
+rx_tail and rx_prepared_head to 0 against gem_rx()/gem_rx_refill()'s own
+updates of the same counters also look like they could arm a descriptor
+twice or leak an skb.
+
+[ ... ]
+
+> @@ -3162,7 +3175,9 @@ static int macb_open(struct net_device *netdev)
+>  		goto pm_exit;
+>  	}
+>  
+> -	bp->macbgem_ops.mog_init_rings(bp);
+> +	err = bp->macbgem_ops.mog_init_rings(bp);
+> +	if (err)
+> +		goto free_rings;
+
+[Severity: High]
+This adds a new, fairly easy to hit macb_open() failure path that returns
+before the napi_enable() loop.  Does macb_set_ringparam() need updating for
+it?  It closes and reopens the interface and discards the result:
+
+	if (netif_running(bp->netdev)) {
+		reset = 1;
+		macb_close(bp->netdev);
+	}
+
+	bp->rx_ring_size = new_rx_size;
+	bp->tx_ring_size = new_tx_size;
+
+	if (reset)
+		macb_open(bp->netdev);
+
+	return 0;
+
+Because the ops are called directly rather than through __dev_open(), the
+netdev stays marked running while the rings are freed and both NAPI
+instances are left disabled.  The next close then calls napi_disable() on
+instances that were never re-enabled, and napi_disable_locked() spins:
+
+net/core/dev.c:napi_disable_locked() {
+	...
+	while (val & (NAPIF_STATE_SCHED | NAPIF_STATE_NPSVC)) {
+		usleep_range(20, 200);
+		val = READ_ONCE(n->state);
+	}
+	...
 }
 
-which re-arms hardware with the address of a buffer the concurrent poll
-may have just unmapped and handed to the stack.  Can the device then DMA
-into stack-owned memory?  The two contexts also both write
-queue->rx_tail / rx_prepared_head and can both allocate for the same
-entry, leaking an skb and its DMA mapping.
+Nothing clears those bits without an intervening napi_enable(), so can an
+"ethtool -G" resize that fails allocation under memory pressure leave the
+next "ip link set dev down" looping forever with rtnl_lock held?
 
->  	gem_rx_refill(queue);
->  }
->
+>  	macb_init_buffers(bp);
+>  
+>  	for (q = 0, queue = bp->queues; q < bp->num_queues; ++q, ++queue) {
+> @@ -3200,6 +3215,7 @@ static int macb_open(struct net_device *netdev)
+>  		napi_disable(&queue->napi_rx);
+>  		napi_disable(&queue->napi_tx);
+>  	}
+> +free_rings:
+>  	macb_free(bp);
+>  pm_exit:
+>  	pm_runtime_put_sync(&bp->pdev->dev);
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260918-macb-close-v1-0-05e32ce98813%40bootlin.com
