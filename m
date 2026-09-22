@@ -1,73 +1,73 @@
 Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAC7C367F21
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 14:03:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE79633F589
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 14:03:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790085801; cv=none; b=HsdQW+8SKnS7ERyrjqK1bWlA9yflOkIvv3mkE0P0kp5WmwKwIGa2iSCUumal0V62eaAD1TGLwSInddOjs9Drc1LYRidLN6aAKSwSSgJxiXSZNm7DfN0m0sqS0f6ltCiqabaDui45Z8j3VMljvWLlmhcUcqh40WohXmeCM0MHa9s=
+	t=1790085821; cv=none; b=UJvc74C/dR/hxSGNOIoLPtWwSK3aHehJvo3ck9p5c/sX5xyxVGN9RSgnvrgAsguhpVIkzH6crHkPwwWyyLWIVl9CJG3dfQHtLbNSCvKSnvgHE9z0Zgo06QWxmxgeW224vFwN3wL6EWIO9PmrHwOOS2yRzTwDeEFajIZ04XELVok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790085801; c=relaxed/simple;
-	bh=SP/tglKUY4Xx1E0o5WSy/fI13AXXBdAA4aok4BUrzgM=;
+	s=arc-20240116; t=1790085821; c=relaxed/simple;
+	bh=rIemxOOxWeIyMf5vvkr5XaHULz7xopIMSpU9mw6kJkU=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=KQ4roSkHrWCe04HCA47dJioLHhlqlnDSNJsC7ktdJltmrN9cdSlNfkh2q2vIcNGO3okQhDNjk0kWir7roGxeYyqSEa7kC2YilvLjhvmaZEXZBN+i3fuWtHsGtDFROvY2dtIZB2NPKVCoV9bvrIUto+5KBZ+/06EgeJZP1usNXJE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s+v8ZFqh; arc=none smtp.client-ip=74.125.225.141
+	 MIME-Version; b=RsaDqzvSeI/Z1ib2fiUQf5eR7uZFgR3RG3zy9U/jQ2dzdnxDLdd+yCcHuuyAQbIpfJqg7N92jPHQBcsRXPmtV9NoVzHit8tjTKklC9EtRYQivxPNhwwfKI8urXP24iPy9B7nP+uui+UHQstdgSrgxGXhH97DsP0quA49LdAlfGc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oS8vGcfh; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s+v8ZFqh"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49d0726cdbcso2334485e9.0
-        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 07:03:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oS8vGcfh"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e82ea30faso2627055e9.1
+        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 07:03:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790085798; x=1790690598; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790085818; x=1790690618; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=8ED+I63/uxCiASGWW3fDtg1yGBgw7cOwlr2JNK9CfDI=;
-        b=s+v8ZFqhHXuoMI4LKONLsfOLxWpZXhSg+0vEoWS2smeWx1wGxUdgSitAa4ULK5a+XL
-         0d7ZrH6iNgnn3g/wEKmp8IfdrXkrl3nACVw1E9ztr94ymxN8V0RsHtlIy7AVMo28GZCH
-         oOxKi5go0vMJK7odUTwcBQLDJ40Wkoh0zy5h4tWJRWUkY7CtaEZu7ewXUQbewiddqpHk
-         1ay0fE77ZsUtEUBWR2g6cO0r5qJ0GnHs689WlZOZ3PLFnpWRVq/7hHJps+rK4W/2YRA+
-         lBfROnHGyWExikWG63YR7Zpoz1ZSQa0LrmiOOiYQ0rgELHmUMG8mJBzSprQwerVQzr4X
-         V+Kw==
+        bh=gaBw9cHd2AoEde7RLnFiRt5/QcOMY27gfbbceHB6xOM=;
+        b=oS8vGcfhYKiJ6IAL5Sm5gmB5GJS/hIlbHwLTyNn6EccAFw0yDhENjKoNlwy1mJM7fd
+         ZT/I6hyNqlCqvOLcKw2rL0GtQH5UYJyh8BpGurAHjM33I/Uhw1nT3lPBeUEsw4XsibkC
+         alobwi7E0sVNVgTXEME9RanfNqRvMiN4a5h+NG5cr5HP+NHRxRu5M0MsQAVoeEaLnDDZ
+         BlS0ibYjC1MWUPaheDTHG8wVbYTbkMHVct79ZFK8QiXbVQ62NFI4bqj7m5x9wZjf779V
+         1ji89ervBUaoE6FFiirQfrkJuUfjeA4NepwlUt2hLSO/o3M+KMIhqJAic5JaYwVg/SKg
+         iNGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790085798; x=1790690598;
+        d=1e100.net; s=20260707; t=1790085818; x=1790690618;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8ED+I63/uxCiASGWW3fDtg1yGBgw7cOwlr2JNK9CfDI=;
-        b=L0JUQIoyNMIGYxefRx/bklJs1A48bELV0i+Zte0FcqNWZQBSwqd1bK0G9wX+tQi3eK
-         Jq7FlCG0XNRpu0i8TbCj1pvHqKrrbnw/WXoAjMjp6U4NlY0AOZEDTGrw+zHhbXX/pfai
-         1bjjRrQVv/waaZWuwhMNISWzHyRQQOryTe/cL3PMAEpKC7mGwvBhYd1umJd5LecN/OND
-         mUqtqLpCA/BydEnWsMntqvAzJY94DfIHG3Wz3TM+QH36i691Z8OVypr/uisafTmR8SDJ
-         D/bztfPSFHKRj4FWQlfDy3PNCeZJpahH3aGEiA2TW9zaMYXSjTF1+dZbO5SzdKSLr37P
-         qLzg==
-X-Gm-Message-State: AFuF++leVVJ9L+GLA6c865X5HEnRVP9+FQ1/95LCh7SRWVI8H+Nqa/+K
-	61n9vvWZM8/r57tB8x2GIpx9IZjGXuMTPMb/k7QYaSebzpyZyvOHMJyAxd4+5A==
-X-Gm-Gg: AYBFou1Q6NfEsCeuWaXmT1HaAULM/rW/3xr0rNqAHwhMF2kv/yu8lptPL8YC+5ntOMW
-	iqCB8+ELnM/kCrO3XvGhq2IfhGxQ/J4IaPhpoDBWmADE+S/OP5tMA5bksqf2+VGTllNFKh4tUzg
-	NtOcoWEUyJiKl1xg4Dd7XljmWvL42a4XgS/DB5ToUXt+cfieiGunt2hifWpKjASCd34Czx9YGiN
-	wv2K+9z+m3mAC8FZrpceDeCCHJJ/cAY6Yr1+E7ka02/Z4HMlUUjXs+J2sYNycmwbmvV1F+YLO0S
-	qizvgyGGVz0OjgpdoTVout+yRVuUMs9nwaXAIfycBZAHklRwcepy1v8LDlKU32uwNgSTQv8PMfV
-	rTEaowdNHcOhy8kaswi8XStHHzy4cRHa2HdfRQvXxAPMKUUkaeUOiHKpkDZ/zGZE2wEKydKnMGi
-	mbKvo/E4bLtnb1MdVx5dp2S8FvFribEWDqvfjVO2WSpwlxCd2nH0PKp0vj11o7Mflky7iR7sCFs
-	iKcvPB6/uybIvgaX0I=
-X-Received: by 2002:a05:600c:1c13:b0:49e:7186:f36e with SMTP id 5b1f17b1804b1-49fc7dc1e75mr227118065e9.1.1790085798039;
-        Tue, 22 Sep 2026 07:03:18 -0700 (PDT)
+        bh=gaBw9cHd2AoEde7RLnFiRt5/QcOMY27gfbbceHB6xOM=;
+        b=sGB1e3ZaBPovDJIBaU08apXTbxg2MkthKdNNmE9CZ3zbpJ1EvRQXk1N7k/ksI3VQc3
+         57RSVzh6bc967R0Bkp9M/qZrtqRrkfif0z43EXISscDu3YGkX6pu/bZhlp5mVGbkXriW
+         68bTN6Lrk51uSM8CFfnEQATV0Dj9cB29/wu+MOEJFQeEjOIN7k8+743aP+MoD4YnqQrm
+         s6f69lHKKS5NGbOblo0RXey3337pe5f/pc0XuZiqCKn8wIhxQQ0JMp2qVXjzvrQhNYRo
+         UQH8mVqUF4w6H7OR2/4aOdz7gti1TOJsPdLrf/CiRTE1gKY0GdS9fa7HJdghW+1YfGsG
+         DJGg==
+X-Gm-Message-State: AFuF++nOY2XqZkyqrj/v/ucp+TKHGIq0JaO2Oi+GvgZXDLoYB2G6/eRP
+	vbVpWlwUEnmKdY/mH/bFV7NQSYM9X6ndX7qE7SYUi88tQH7qyoNQdc2gwvaXZg==
+X-Gm-Gg: AYBFou010KIXoVkRH0bJL0t4kfZtvmBm+qB6TF9dpCOsTT0RxJyYIPN99iz2/eTkESo
+	JEojvORgDseqqEdZXsfzx5P7d8ARxwNjhdRV5KKkqaXZr8TDFMUZuFxYp5yvL3kmQ2ih7T2erKj
+	vQKB2G+QttvsH7T23wEpg0DGKgDFuKnue1g119Cfxfoq0CwKSjd5twy0Qs7Pank3azCfcjGwYtk
+	vOQLmQcz/7kyMKADcy8MZJK2gsDGJgCbTdjUbTuQa3bLswcANQ2DsnL2+waeAQ+/kh5UV2MadR4
+	Uj37hxCqXclUuhbDFImJHsFO2tcCn28x7Laz3n/xC+IpBiNGBnIolmAEpgKKOLcbDFiGkhEqGsO
+	cjOQ+9j9HxpfCUU8fCHLup99Ru7lYq0oGZX2/bTF8Hd9BHAKzcPHrp43HwZgbtFLYkEH3tcwtLW
+	9T7UDXllVohXAnnpYUjvTqIw1V4lURD0I1wPn09F7ci9EzAVkEA6zTMb+U2+Gkan6GxOBZh6Kjk
+	c1shfKrdFRzcjc3teb3Co1vVDce8Q==
+X-Received: by 2002:a05:600c:a15:b0:49e:7c8b:fdef with SMTP id 5b1f17b1804b1-49fc7f27299mr178118715e9.2.1790085817581;
+        Tue, 22 Sep 2026 07:03:37 -0700 (PDT)
 Received: from L-P-ITAIH2-L-RF.rf.local ([193.169.70.108])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fd8cc061fsm75957275e9.4.2026.09.22.07.03.17
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdaaec8ebsm50745105e9.2.2026.09.22.07.03.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 07:03:17 -0700 (PDT)
+        Tue, 22 Sep 2026 07:03:37 -0700 (PDT)
 From: Itai Handler <itai.handler@gmail.com>
 To: stable@vger.kernel.org
 Cc: Itai Handler <itai.handler@gmail.com>,
 	Mark Brown <broonie@kernel.org>
-Subject: [PATCH 5.15.y] spi: spi-zynqmp-gqspi: stop the controller on shutdown
-Date: Tue, 22 Sep 2026 17:02:57 +0300
-Message-Id: <20260922140257.668414-1-itai.handler@gmail.com>
+Subject: [PATCH 5.10.y] spi: spi-zynqmp-gqspi: stop the controller on shutdown
+Date: Tue, 22 Sep 2026 17:03:18 +0300
+Message-Id: <20260922140318.668429-1-itai.handler@gmail.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <2026092226-spiffy-drainage-530a@gregkh>
-References: <2026092226-spiffy-drainage-530a@gregkh>
+In-Reply-To: <2026092228-clasp-turmoil-85b0@gregkh>
+References: <2026092228-clasp-turmoil-85b0@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -123,12 +123,9 @@ Cc: stable@vger.kernel.org
 Signed-off-by: Itai Handler <itai.handler@gmail.com>
 Link: https://patch.msgid.link/20260910174832.873352-1-itai.handler@gmail.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
-[ itai: context only - two differences from mainline here: the
-  platform_driver callback is still spelled .remove_new, renamed back to
-  .remove upstream by commit 494c3dc46776 ("spi: Switch back to struct
-  platform_driver::remove()"); and zynqmp_qspi_of_match[] still sits
-  between zynqmp_qspi_remove() and MODULE_DEVICE_TABLE(), hoisted to the
-  top of the file upstream by commit 29f4d95b97bc ("spi:
+[ itai: context only - zynqmp_qspi_of_match[] still sits between
+  zynqmp_qspi_remove() and MODULE_DEVICE_TABLE() in this tree, hoisted to
+  the top of the file upstream by commit 29f4d95b97bc ("spi:
   spi-zynqmp-gqspi: Add tap delay support for GQSPI controller on Versal
   platform"), so zynqmp_qspi_shutdown() is placed above it ]
 Signed-off-by: Itai Handler <itai.handler@gmail.com>
@@ -137,11 +134,11 @@ Signed-off-by: Itai Handler <itai.handler@gmail.com>
  1 file changed, 34 insertions(+)
 
 diff --git a/drivers/spi/spi-zynqmp-gqspi.c b/drivers/spi/spi-zynqmp-gqspi.c
-index 90060e5a314c..590ecd79cb50 100644
+index bbc918815634..13f3abef4349 100644
 --- a/drivers/spi/spi-zynqmp-gqspi.c
 +++ b/drivers/spi/spi-zynqmp-gqspi.c
-@@ -1236,6 +1236,39 @@ static void zynqmp_qspi_remove(struct platform_device *pdev)
- 	clk_disable_unprepare(xqspi->pclk);
+@@ -1220,6 +1220,39 @@ static int zynqmp_qspi_remove(struct platform_device *pdev)
+ 	return 0;
  }
  
 +static void zynqmp_qspi_shutdown(struct platform_device *pdev)
@@ -180,10 +177,10 @@ index 90060e5a314c..590ecd79cb50 100644
  static const struct of_device_id zynqmp_qspi_of_match[] = {
  	{ .compatible = "xlnx,zynqmp-qspi-1.0", },
  	{ /* End of table */ }
-@@ -1246,6 +1279,7 @@ MODULE_DEVICE_TABLE(of, zynqmp_qspi_of_match);
+@@ -1230,6 +1263,7 @@ MODULE_DEVICE_TABLE(of, zynqmp_qspi_of_match);
  static struct platform_driver zynqmp_qspi_driver = {
  	.probe = zynqmp_qspi_probe,
- 	.remove_new = zynqmp_qspi_remove,
+ 	.remove = zynqmp_qspi_remove,
 +	.shutdown = zynqmp_qspi_shutdown,
  	.driver = {
  		.name = "zynqmp-qspi",
