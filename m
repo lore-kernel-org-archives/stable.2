@@ -1,73 +1,73 @@
 Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 587805372D5
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 11:04:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43AA14FC8C3
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 11:04:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790075065; cv=none; b=ayKUKB4oBJaeGppYvUtD0HNDYFJen+2TQi94JeB1YiPT34w9jlwJ7LeoDLa74FunJZ5hwExGDhUpIVF/250kR/n12nZ7dkdbkw+c9aZ62ieo6uX5eaEab8MjmVenlE8t8tatlLXZeiUzri7SMhXWyJPzFW/6weC3AWN6dap/DK8=
+	t=1790075068; cv=none; b=mhBwPlj3U61OsIQRc7u+Tt1GvGFFBDb/HgpyPifbMDJRC/6Og0a/DvKYUj5uNnFLNredQUqBGHlQl939QtIf2XpPlKgbuoPrlnq5oIZtpA0hLaKIp91UnbVcyY1cYY4jxQUcV26MIO0E8Q0HY84RsEvKVN6XCiQXvYTGq402FGs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790075065; c=relaxed/simple;
-	bh=vg6esyL80BRHTOn2RKdQsEP5Z0qqw6yJiAj33+RboZM=;
+	s=arc-20240116; t=1790075068; c=relaxed/simple;
+	bh=9LeG/POK6782l8D8zDak7cgCU08OUHoQU+yEMWAKPa0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FjaYGirmjPGn8z8RGBgVxwC5KA1RsOXIGCG+LAizPGsDYV/BEvf9ve9LjyIIvLpF5qlcqsFpmMYBT7MBy827QPadyYL9ljbvexb17Jy8MnG51bpwIQqyNXBuR8yIrIunggJyZwnUnga3vKu1b2PZeEhDYDyjvblgJuybCakpxRQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OdBG/v8T; arc=none smtp.client-ip=74.125.225.140
+	 MIME-Version; b=WDnHLad6+bHX2VX/OG+9ZEkG6luliMj/2jRnurDU6IC2FUHrLlAqmIcF1mMxPTKdsh+CABR5j6leMs3oEg3hzdTcl8lvoq5vjHRuSWYRgohIsU0z8v1vJipBhIKYjfv3gOdlCgWsQ2XqLDAG3oM/f7xKSZEvJui3TnuDt21oEog=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cX2hJX9r; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OdBG/v8T"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd5462b69so21578865e9.1
-        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 04:04:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cX2hJX9r"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccfd61ecaso34945085e9.3
+        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 04:04:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790075062; x=1790679862; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790075066; x=1790679866; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=i6DLB7gv/Gz4t7rzT9Q+d1mEFmHJd1oumPcFNrvZcJI=;
-        b=OdBG/v8T4O/EUiDg4M8hgo7pQ2IkrxrGKJV8E9zST4Hc0RgJfRESlNpA30SYCtQXOW
-         NQAKhyICopV7U2VB2tmrdoIua81avgdSsaFFR7A4xWjtkMLY0OL82vZeTaX3af2Jn8oc
-         KqMt7cKEUkGYzrtU+rgRDnlmaLgUFGl3L/ova7HyYo/n+VIP+ykXjjr6r+1AleZPRkV8
-         nvszJ8rnTF/0TId/ljIkcFkffXdOV9DDUZ8waq1cY7eTNKzu7Hy0HzFq8XULOj4LXyas
-         rU+j68c+FFLu16Hs6sVy5UWZ6zubhakjjBlxvcUeUs+Mlg10qxcr3b+CMla8Odm2XCCj
-         PqBw==
+        bh=YD2iteSGKYJtyP/EE+BDAK9nGq/ymOW6rse9Kf3cQW8=;
+        b=cX2hJX9r+rh5XA2KMcdzGng8zlXFnAJ6DfkpvoNsJhKY0HaiFlvr2fvj6jhn6Pf0Jx
+         3nwJzGaM1WCpcMnwTHLCZnKMT0gvNp91NVjH5pQVh++uNHk4nVsSsW4WfUlB12piuusN
+         EJyS7ue1L0CCVnID/tI34WG5y+lw4asXtgnN4rUgCYgMAV+ps1MTN0d1fngoUOy7aHB8
+         BXOkSsyQpNzyWFogDiULdoQxONzyLi2q5tHHI2YpE/0q5UYrIFkAao5KP1f8HfYwmirE
+         lP3FhEidc4mM0hgQVLJvI5a4PNMg3/SHkDjlEFmeY4Cqw9swqSmhSpyeT3lSUxS8dUVE
+         z0BA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790075062; x=1790679862;
+        d=1e100.net; s=20260707; t=1790075066; x=1790679866;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=i6DLB7gv/Gz4t7rzT9Q+d1mEFmHJd1oumPcFNrvZcJI=;
-        b=LvxLIrpbNshIODVzZH4JaQbmXLHOAy2muvLeUzrNOkRVTlKje643mZn9jp3ARpIcLI
-         OZQ0elZuPS78Y+KdJRzBsEkIXQs5gL6lo26lpJP7c7xyB80FA9gm6Uwe53eLQyZm2hwh
-         kXvTscKHa6CYfqXDOTqXNYZ8HZFOGbu1N/J6Pn5opW6dZMEVO2YH8wfqT8dzoJWK2SO1
-         y/7omYJyABOBTkaPb3PhsD6s5nd1PUMFvHiR898RZ2DbAKkk93q7mVAvyNRjgwF0J/uI
-         W+2xTBlQ1Sz5kEjvnIqxO7ftdr40EZERnRDfEgKSbOfBIZ20UDEPbNmy+Hsf2CW6A9FE
-         NDJA==
-X-Forwarded-Encrypted: i=1; AKwUvBxq8i7Cq9P7e7xfz6W/7FHGrrD0lCPrlNegHh/ub1GMFpgBjX5P2QlIWSC8ZAp2R/RJ6ings48=@vger.kernel.org
-X-Gm-Message-State: AFuF++naWFFVMCkqzl4TAtY/bFqQvijgDMOYIkMK/fXcq4RJrbzbbsnQ
-	Gc0YnJxUHUHs+L4Y3FrcNpfX7G22jTRpWx3a+ljZrGKjVc3oWt+zrNvG
-X-Gm-Gg: AYBFou3N7BvL903vKXBrstvNgSJJGL6rbR41J5o49nnIQMoBEpTegZuSCQnbJhFYWJT
-	Au/e+jH1f3UbOHWYCyB07ZW7sdsNnout/v3vsuEFkY3yq5wlGPa1vgh4BCWQvidXmpUF52iNVrQ
-	Goo6kVOtlzA0sUnQ5qdErKGHSowL0vwvjAPob5EVsk5o1E6WFTVdYa+eCFCllqOwgJ2MFZWOJME
-	lDQN11Er6uoVT8HleqQIukF7r0EZkLZhzHq2EwzMVKBGbJi4Qers/lANQXZpAffUb2zwG1RwV+C
-	b3pntLBr3IxiNx8vw6nB94yRdEgCYbBObZDCLtvbTClToAjEuS35SE8jIVDd4bR2ELCYPj23bLF
-	L7/dFsb5iH5cujnFPu8Jndl72wnuU49mUHaVQEPa0ZNwFgFF0K4olENtVBktEpe+qlfebGiJWSy
-	3W5ijHpz1zGqJx2swgNga6oycb/xJ8PdtNnaXOdOeGYmb8SnfX9LlpCkz/XJe5046tsa/hURJP6
-	jR4MeqOz699UZT6g/aoOuym2jPALNL5
-X-Received: by 2002:a05:600c:34c4:b0:49f:ce78:3564 with SMTP id 5b1f17b1804b1-49fce783626mr138458715e9.21.1790075062179;
-        Tue, 22 Sep 2026 04:04:22 -0700 (PDT)
+        bh=YD2iteSGKYJtyP/EE+BDAK9nGq/ymOW6rse9Kf3cQW8=;
+        b=XQ+aSUnUMeOgKGr/wzWzI5nFrdr3Q8s3IPEXxGjn/GfN817druWSqWkvTVktKCaFzH
+         7DmyImpZi4arao4scg85ky/ySFU8+kZ4G+ILggRgIS8VKNsswA48/IfaFq3VKk2giWfu
+         aKttcTV2WuQPrw7KPs998jffqz41Je/FoEEAxXBeVvCvh64eCflcFbdm7BIf+fpOPhTW
+         Tr2O43zjf8EXGzf1A4LtX+BbfFZmATPSI/+cCmdqyRaRVd7tZkNjEfluQDMXKRDWmtZB
+         qa6o9v4iV9Z6sopsnKZN+5fXklywk47rEdmUijb7cOFpQG2SkB0Zq8RgGcdq4Nr04nzE
+         +Sew==
+X-Forwarded-Encrypted: i=1; AKwUvBxhld+CD3IQeKQhoNblqP6yyzjYwtO7rHDTf9OKjD8ThzeNi8rv9st+0Mfhf/6XjbT2u8jfzM8=@vger.kernel.org
+X-Gm-Message-State: AFuF++n2PNM7FwxFSSwNW8LNlZT1szEYDYRxmWM8OLvw8bb3Akd416H6
+	VidslGGr9rv1qa+C9laaD50I56umhUaaYpKqtHcvb7+q2Ty83m2X/PJX
+X-Gm-Gg: AYBFou1nKb64lr2b80VnlY+BJZ/KZ+USh0XB1fS/4TjgqA8a35Evln3AwhtXpmpqF3S
+	gqfRs6Rf+DzBMUhN7CJKwURZ8rx6FvGAVhlbN/2gEORUyCw1eVZdbkutSAwIgfW3HEzCBHSqoql
+	6KVgudEyGErLbyxUg1Ma5Gj20wkWOZcD/DLjq1swVn8aMi5nl98zFITfnvzMHTFF95ASkaaDz/d
+	dG153B05hFeCqmouNmzov6NFMwyyIJycw3FLUFsmj9qW5ScPFdmZRMUrYPsif5wbbYsA9bFcyG4
+	jFaZm09ExRTUeHqXvIhzCeas3HLNwVQlOjNNA2+b/VuxdoL1cvPoeq5CYfXCtUbl9a6bSBtSTuq
+	4z6S70HUWezRiuTUmb5XYXrZSDfKd5BNTNEWWG8ZNBUeXRVHc0MrYWu3a0e9hk+k8KKvtuPgJYY
+	QelxZYI4sLm690HFyBNT6ksIDC4ssrlZbBKp3iD+ch5Q2JfDmm1n3Q/wka7fFFTAM+RxvOCHxUZ
+	znqtQCKTowVqkNoAcKqfA==
+X-Received: by 2002:a05:600c:3547:b0:49c:fa21:e73c with SMTP id 5b1f17b1804b1-49fc574121dmr159480735e9.18.1790075065473;
+        Tue, 22 Sep 2026 04:04:25 -0700 (PDT)
 Received: from localhost.localdomain ([194.9.6.210])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fd8ccd185sm74611795e9.8.2026.09.22.04.04.20
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fd8ccd185sm74611795e9.8.2026.09.22.04.04.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 04:04:21 -0700 (PDT)
+        Tue, 22 Sep 2026 04:04:25 -0700 (PDT)
 From: Eduard Zateev <hackerowskiy@gmail.com>
 To: hackerowskiy@gmail.com
 Cc: "Darrick J. Wong" <djwong@kernel.org>,
 	stable@vger.kernel.org,
 	Christoph Hellwig <hch@lst.de>,
 	Carlos Maiolino <cem@kernel.org>
-Subject: [PATCH 09/26] xfs: use the correct reservations for rtrmap/refcount recovery
-Date: Tue, 22 Sep 2026 13:02:04 +0200
-Message-ID: <20260922110221.1431-9-hackerowskiy@gmail.com>
+Subject: [PATCH 11/26] xfs: only flag zero padding for dir3 data blocks, not dir3 block blocks
+Date: Tue, 22 Sep 2026 13:02:06 +0200
+Message-ID: <20260922110221.1431-11-hackerowskiy@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260922110221.1431-1-hackerowskiy@gmail.com>
 References: <20260922110221.1431-1-hackerowskiy@gmail.com>
@@ -81,72 +81,37 @@ Content-Transfer-Encoding: 8bit
 
 From: "Darrick J. Wong" <djwong@kernel.org>
 
-LOLLM noticed that we might reserve the wrong number of blocks for
-recovering rtrmap and rtrefcount updates after a crash.  Fix that.
+LOLLM complains that xchk_directory_data_bestfree can be passed a
+directory block that is either in "block" or "data" format, but the
+check here unconditionally treats the dir3_block and dir3_data blocks as
+if they have the same header format (they don't).  Consequently, we can
+incorrectly set the preen state on dir3_block blocks, which of course
+we can't preen away because dir3_block blocks do not have a padding
+field.  Fix this.
 
-Cc: stable@vger.kernel.org # v6.14
-Fixes: 5e0679d1c62f25 ("xfs: support recovering rmap intent items targetting realtime extents")
+Cc: stable@vger.kernel.org # v7.1-rc4
+Fixes: 939919ccddfcc3 ("xfs: check directory data block header padding in scrub")
 Signed-off-by: Darrick J. Wong <djwong@kernel.org>
 Assisted-by: LOLLM # finding obvious bugs
 Reviewed-by: Christoph Hellwig <hch@lst.de>
 Signed-off-by: Carlos Maiolino <cem@kernel.org>
 ---
- fs/xfs/xfs_refcount_item.c | 8 ++++++--
- fs/xfs/xfs_rmap_item.c     | 8 ++++++--
- 2 files changed, 12 insertions(+), 4 deletions(-)
+ fs/xfs/scrub/dir.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/xfs/xfs_refcount_item.c b/fs/xfs/xfs_refcount_item.c
-index 8bccf89a7766..682c6e1b45e3 100644
---- a/fs/xfs/xfs_refcount_item.c
-+++ b/fs/xfs/xfs_refcount_item.c
-@@ -508,6 +508,7 @@ xfs_refcount_recover_work(
- 	struct xfs_cui_log_item		*cuip = CUI_ITEM(lip);
- 	struct xfs_trans		*tp;
- 	struct xfs_mount		*mp = lip->li_log->l_mp;
-+	unsigned int			dblocks;
- 	bool				isrt = xfs_cui_item_isrt(lip);
- 	int				i;
- 	int				error = 0;
-@@ -543,8 +544,11 @@ xfs_refcount_recover_work(
- 	 * full btree split on either end of the refcount range.
- 	 */
- 	resv = xlog_recover_resv(&M_RES(mp)->tr_itruncate);
--	error = xfs_trans_alloc(mp, &resv, mp->m_refc_maxlevels * 2, 0,
--			XFS_TRANS_RESERVE, &tp);
-+	if (isrt)
-+		dblocks = mp->m_rtrefc_maxlevels * 2;
-+	else
-+		dblocks = mp->m_refc_maxlevels * 2;
-+	error = xfs_trans_alloc(mp, &resv, dblocks, 0, XFS_TRANS_RESERVE, &tp);
- 	if (error)
- 		return error;
+diff --git a/fs/xfs/scrub/dir.c b/fs/xfs/scrub/dir.c
+index 2a037aae904d..19d974c7e2b7 100644
+--- a/fs/xfs/scrub/dir.c
++++ b/fs/xfs/scrub/dir.c
+@@ -492,7 +492,7 @@ xchk_directory_data_bestfree(
+ 		goto out;
+ 	xchk_buffer_recheck(sc, bp);
  
-diff --git a/fs/xfs/xfs_rmap_item.c b/fs/xfs/xfs_rmap_item.c
-index 2a3a73a8566d..000cff1ce324 100644
---- a/fs/xfs/xfs_rmap_item.c
-+++ b/fs/xfs/xfs_rmap_item.c
-@@ -573,6 +573,7 @@ xfs_rmap_recover_work(
- 	struct xfs_rui_log_item		*ruip = RUI_ITEM(lip);
- 	struct xfs_trans		*tp;
- 	struct xfs_mount		*mp = lip->li_log->l_mp;
-+	unsigned int			dblocks;
- 	bool				isrt = xfs_rui_item_isrt(lip);
- 	int				i;
- 	int				error = 0;
-@@ -596,8 +597,11 @@ xfs_rmap_recover_work(
- 	}
+-	if (xfs_has_crc(sc->mp)) {
++	if (!is_block && xfs_has_crc(sc->mp)) {
+ 		struct xfs_dir3_data_hdr    *hdr3 = bp->b_addr;
  
- 	resv = xlog_recover_resv(&M_RES(mp)->tr_itruncate);
--	error = xfs_trans_alloc(mp, &resv, mp->m_rmap_maxlevels, 0,
--			XFS_TRANS_RESERVE, &tp);
-+	if (isrt)
-+		dblocks = mp->m_rtrmap_maxlevels;
-+	else
-+		dblocks = mp->m_rmap_maxlevels;
-+	error = xfs_trans_alloc(mp, &resv, dblocks, 0, XFS_TRANS_RESERVE, &tp);
- 	if (error)
- 		return error;
- 
+ 		if (hdr3->pad)
 -- 
 2.55.0
 
