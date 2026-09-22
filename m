@@ -1,44 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 399EB4A4F1F
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 19:40:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4808B4A689D
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 19:40:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790106047; cv=none; b=h6fmePqFGOrU+uVPnCmjpkTelo7wd0vSGeiqziok/5tc5cnkyJJdx/J5t++xLM3SxFVUV/fqAaKh8f6A4IDsMbWhCmsY3rIoe9iHE5NvQWPyRYADIuaTTRev5uW6al+fVL62aNv+/EKLDUwh3GReGnu8P2+j/7ape/AIHa1M9D4=
+	t=1790106047; cv=none; b=QpgQEN0p8w76cF+oJq0UD+VWZj0ZVAc25vWg/lkyrR+yBfDuxWJHkZ3pZwFNghSHnwFeY8KWsegY6kNJZhhklPQsbOz+t2FPBm+kXc9LFZqWLnZTbDRV7SrmwGk5AXxGHd+MGgyCJ684dJNbzOiMHim7TG1ZtN68U1t13OIGqwg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790106047; c=relaxed/simple;
-	bh=lrOaP5calsLY6vjjB3blNSAzvIhSlVFZJGSSHI0hTzg=;
+	bh=et2jN+++Omxsk+CLG3DsOW56BP70mqB7g39YoC5HQFw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iwDsqRUxPe/9m1p4081hU6/+riUrpHT5xtTJFNsk0O+aWNJZepTJ4ZoFCYNBPvBDsBir9DHFav7/o3EAONwvGP/q8GB1WqWyVeTnMW8lO6i4VFIek0pSQ+H7mu9KouU+zwiz8+Jz9/sx1URCt5gTG2tJWY+aH5Odap1PhoL+kPU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dPxwGfTg; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=DG2i0iTqtYaixUHyxn+FjCd8Er+gO5irzlWbthPfkF66bj/HToYXfI3aWdpzecgNhFkWB689Fy4eyBsJrvL94T8ek/oVTX4Lt5nDkMWoR1Wj4sXU/CQYUI2r8CDLthOPkCmzNhv3l8UR8j5ObNCInPL77pwCcUslxUTx7idm8s8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AcvAV7zS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dPxwGfTg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 633151F00899;
-	Tue, 22 Sep 2026 19:40:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AcvAV7zS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 421911F0089A;
+	Tue, 22 Sep 2026 19:40:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790106045;
-	bh=zWz+RD8wzCEv5BLuIyVXXf6XRTUWx8tNNDj+Vg6bpEA=;
+	s=k20260515; t=1790106046;
+	bh=RzFWDLqukI7+amTjWanNlaVX40EdTN79ISq1+Qx7C2k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dPxwGfTgx2G8XjerglT+6GPaJW+7VFeKT0uvJb42LzfXjS5V46r/T3CHbzkmS4SlH
-	 87eopuE3IDMBZCIgY0QdtBYE20DCW//3uCwdpNLxiWbsBAPvBc7hfK3Z6nfDQ+YdHa
-	 9UgGdP/zMcn0OENkOFLGNfOmFLUxnip2nZZyiWfgTvskf10P+71hOnj9F8s2dCF+WE
-	 CIK8rT5ZK6GSreZgi1q4rXLmwIqk0dYySRzYk2jz0CC/OeU8+dZqUJlP3i7YkBaKQ/
-	 eMDBydZlmlto7Ix6QmEWyMmvZve1yXSN7qGC3uTgLTL4+OeqfuJ7qEp+UAClnqzEYy
-	 G5CeFvJL8CM1g==
+	b=AcvAV7zSI4KHLKsHWPZksSQnUsk4q1FxvrtiNWbtoAc5HCnZQILjyqy7SirOkVK5L
+	 i7O/fqsfHdSYLpz0ANuHO7CA1NhCC4KNmmVHfSifyr+NEZ7DsYcLu+ZhDLCl946Ya+
+	 QoLZtM76BYo2nlIUMQ8nVxFO6dNLWKrEbyNHN2zpaV5CcPCBYoVn0pipsHFGFdAQno
+	 obBxh/yMdJg5tYkW+3s/J4JGrQFpS8Cf0IhleAzQb1DdGo3F+5GgzVTnXqWGYTXJN4
+	 RfusTNp1K9m5h4UM842syxh91TMv9wUNijBbVh7E5rSJSG7aNKlUtIlEXQ/e5VUSby
+	 cd2hgmqVTYJ+Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Joseph Qi <joseph.qi@linux.alibaba.com>,
+Cc: Paulo Alcantara <pc@manguebit.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Tom Talpey <tom@talpey.com>,
+	Stefan Metzmacher <metze@samba.org>,
 	Shyam Prasad N <sprasad@microsoft.com>,
-	Paulo Alcantara <pc@manguebit.org>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Bharath SM <bharathsm@microsoft.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] smb: client: fix use-after-free of iface in cifs_try_adding_channels()
-Date: Tue, 22 Sep 2026 15:40:42 -0400
-Message-ID: <20260922194042.23351-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y] smb: client: fix smbd_connection leak on cifs_get_tcp_session() error
+Date: Tue, 22 Sep 2026 15:40:43 -0400
+Message-ID: <20260922194043.23710-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260922194042.23351-1-sashal@kernel.org>
-References: <2026092254-playoff-luxurious-1cdf@gregkh>
- <20260922194042.23351-1-sashal@kernel.org>
+In-Reply-To: <2026092222-drool-acetone-c3a8@gregkh>
+References: <2026092222-drool-acetone-c3a8@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,192 +50,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
+From: Paulo Alcantara <pc@manguebit.org>
 
-[ Upstream commit d034e836eefd7ce75e588f7031cffbeec594f5ac ]
+[ Upstream commit e75c96157d45e498970158c8f7373d90102e33b9 ]
 
-cifs_try_adding_channels() iterates ses->iface_list with
-list_for_each_entry_safe_from(), which captures the next entry
-(niface) under iface_lock.  The loop body then drops iface_lock for
-the whole duration of cifs_ses_add_channel().
+When an RDMA connection is successfully established via
+smbd_get_connection() but cifs_get_tcp_session() later fails (e.g.
+kthread_create() returns an error), the error path frees tcp_ses
+without first destroying the smbd_connection.
 
-A concurrent interface refresh (SMB3_request_interfaces() ->
-parse_server_interfaces()) marks all ifaces inactive and removes and
-frees any that are not re-advertised via list_del() + kref_put(),
-where release_iface() is a bare kfree().  Since niface typically has
-no channel holding a reference, the list reference is its last and it
-can be freed inside the unlocked window.  On continue, the iterator
-advance step then dereferences niface->iface_head.next, and the loop
-body reads iface->rdma_capable/is_active, both on freed memory.
+Fix this by calling smbd_destroy() in the out_err cleanup path before
+kfree(tcp_ses).  smbd_destroy() safely handles the case where
+smbd_conn is NULL, so it can be called unconditionally.
 
-Fix this by never keeping an unreferenced list pointer across the
-unlocked window.  Each channel attempt now re-scans the list from the
-head under iface_lock, takes a kref on the selected candidate, and
-passes only that referenced candidate to cifs_ses_add_channel().
-weight_fulfilled still tracks selection progress, so restarting the
-scan preserves the original weighted distribution and the
-weight_fulfilled-before-kref_put ordering on the failure path.
-
-Add a per-pass attempts cap so a flapping interface refresh cannot
-keep the inner loop spinning within a single tries increment.
-
-Fixes: aa45dadd34e4 ("cifs: change iface_list from array to sorted linked list")
-Cc: stable@vger.kernel.org
-Assisted-by: Qoder:Qwen3.8-Max
-Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Acked-by: Shyam Prasad N <sprasad@microsoft.com>
+Closes: https://sashiko.dev/#/patchset/20260912165503.521597-1-pc%40manguebit.org
+Fixes: 2f8946464b11 ("CIFS: SMBD: Upper layer connects to SMBDirect session")
+Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
 Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+Cc: Tom Talpey <tom@talpey.com>
+Cc: Stefan Metzmacher <metze@samba.org>
+Cc: Shyam Prasad N <sprasad@microsoft.com>
+Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
+Cc: Bharath SM <bharathsm@microsoft.com>
+Cc: Namjae Jeon <linkinjeon@kernel.org>
+Cc: stable@vger.kernel.org
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/client/sess.c | 106 ++++++++++++++++++++++++++-----------------
- 1 file changed, 64 insertions(+), 42 deletions(-)
+ fs/cifs/connect.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/fs/smb/client/sess.c b/fs/smb/client/sess.c
-index d3619c8ab142b..35d94589013b7 100644
---- a/fs/smb/client/sess.c
-+++ b/fs/smb/client/sess.c
-@@ -187,9 +187,9 @@ int cifs_try_adding_channels(struct cifs_ses *ses)
- 	int old_chan_count, new_chan_count;
- 	int left;
- 	int rc = 0;
--	int tries = 0;
-+	int tries = 0, attempts;
- 	size_t iface_weight = 0, iface_min_speed = 0;
--	struct cifs_server_iface *iface = NULL, *niface = NULL;
-+	struct cifs_server_iface *iface = NULL, *candidate = NULL;
- 	struct cifs_server_iface *last_iface = NULL;
- 
- 	spin_lock(&ses->chan_lock);
-@@ -235,67 +235,89 @@ int cifs_try_adding_channels(struct cifs_ses *ses)
- 			break;
- 		}
- 
--		if (!iface)
--			iface = list_first_entry(&ses->iface_list, struct cifs_server_iface,
--						 iface_head);
- 		last_iface = list_last_entry(&ses->iface_list, struct cifs_server_iface,
- 					     iface_head);
- 		iface_min_speed = last_iface->speed;
-+		spin_unlock(&ses->iface_lock);
- 
--		list_for_each_entry_safe_from(iface, niface, &ses->iface_list,
--				    iface_head) {
--			/* do not mix rdma and non-rdma interfaces */
--			if (iface->rdma_capable != ses->server->rdma)
--				continue;
--
--			/* skip ifaces that are unusable */
--			if (!iface->is_active ||
--			    (is_ses_using_iface(ses, iface) &&
--			     !iface->rss_capable))
--				continue;
-+		attempts = 0;
-+		while (left > 0) {
-+			spin_lock(&ses->iface_lock);
- 
--			/* check if we already allocated enough channels */
--			iface_weight = iface->speed / iface_min_speed;
-+			/*
-+			 * iface_lock must be dropped while opening a channel,
-+			 * and a concurrent interface refresh may remove and
-+			 * free entries during that window, so no list entry
-+			 * may be kept across it without a reference.  Scan
-+			 * the list from the beginning each time and only pass
-+			 * a referenced candidate to cifs_ses_add_channel();
-+			 * weight_fulfilled tracks the progress so that no
-+			 * iface is selected beyond its weight.
-+			 */
-+			candidate = NULL;
-+			list_for_each_entry(iface, &ses->iface_list, iface_head) {
-+				/* do not mix rdma and non-rdma interfaces */
-+				if (iface->rdma_capable != ses->server->rdma)
-+					continue;
-+
-+				/* skip ifaces that are unusable */
-+				if (!iface->is_active ||
-+				    (is_ses_using_iface(ses, iface) &&
-+				     !iface->rss_capable))
-+					continue;
-+
-+				/* check if we already allocated enough channels */
-+				iface_weight = iface->speed / iface_min_speed;
-+
-+				if (iface->weight_fulfilled >= iface_weight)
-+					continue;
-+
-+				/* take ref before unlock */
-+				kref_get(&iface->refcount);
-+				candidate = iface;
-+				break;
-+			}
- 
--			if (iface->weight_fulfilled >= iface_weight)
--				continue;
-+			if (!candidate) {
-+				/* no usable iface. reset weight_fulfilled and start over */
-+				list_for_each_entry(iface, &ses->iface_list, iface_head)
-+					iface->weight_fulfilled = 0;
-+				spin_unlock(&ses->iface_lock);
-+				break;
-+			}
- 
--			/* take ref before unlock */
--			kref_get(&iface->refcount);
-+			attempts++;
-+			if (attempts > 3 * ses->chan_max) {
-+				kref_put(&candidate->refcount, release_iface);
-+				spin_unlock(&ses->iface_lock);
-+				break;
-+			}
- 
- 			spin_unlock(&ses->iface_lock);
--			rc = cifs_ses_add_channel(ses, iface);
-+			rc = cifs_ses_add_channel(ses, candidate);
- 			spin_lock(&ses->iface_lock);
- 
- 			if (rc) {
- 				cifs_dbg(VFS, "failed to open extra channel on iface:%pIS rc=%d\n",
--					 &iface->sockaddr,
-+					 &candidate->sockaddr,
- 					 rc);
- 				/* failure to add chan should increase weight */
--				iface->weight_fulfilled++;
--				kref_put(&iface->refcount, release_iface);
-+				candidate->weight_fulfilled++;
-+				kref_put(&candidate->refcount, release_iface);
-+				spin_unlock(&ses->iface_lock);
- 				continue;
- 			}
- 
--			iface->num_channels++;
--			iface->weight_fulfilled++;
-+			candidate->num_channels++;
-+			candidate->weight_fulfilled++;
- 			cifs_info("successfully opened new channel on iface:%pIS\n",
--				 &iface->sockaddr);
--			break;
--		}
--
--		/* reached end of list. reset weight_fulfilled and start over */
--		if (list_entry_is_head(iface, &ses->iface_list, iface_head)) {
--			list_for_each_entry(iface, &ses->iface_list, iface_head)
--				iface->weight_fulfilled = 0;
-+				 &candidate->sockaddr);
- 			spin_unlock(&ses->iface_lock);
--			iface = NULL;
--			continue;
--		}
--		spin_unlock(&ses->iface_lock);
- 
--		left--;
--		new_chan_count++;
-+			left--;
-+			new_chan_count++;
-+			break;
-+		}
+diff --git a/fs/cifs/connect.c b/fs/cifs/connect.c
+index a95b9d2318fa2..db54cbbe8cc5e 100644
+--- a/fs/cifs/connect.c
++++ b/fs/cifs/connect.c
+@@ -2676,6 +2676,7 @@ cifs_get_tcp_session(struct smb_vol *volume_info)
+ 			kfree(tcp_ses->hostname);
+ 		if (tcp_ses->ssocket)
+ 			sock_release(tcp_ses->ssocket);
++		smbd_destroy(tcp_ses);
+ 		kfree(tcp_ses);
  	}
- 
- 	return new_chan_count - old_chan_count;
+ 	return ERR_PTR(rc);
 -- 
 2.53.0
 
