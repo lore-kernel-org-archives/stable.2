@@ -1,111 +1,136 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36C2E43C07C
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 17:51:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D548B41D110;
+	Tue, 22 Sep 2026 17:53:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790099489; cv=none; b=vFTuLuFlkPg6jH2RJHYfJwNePnlENaPx6cDdujW7yrCZSSp1BF1VYhflVNB2LQ0xuunM2hjnAXVyUkcVFaET1nXiQni3HVjOHWBMJ7tabiqH7nXDXzSEF1mnpUmCcL8O3wzhzPU/Vt4eX0VoIbuXKXuuDv7Us+74w7w2F5J9mE8=
+	t=1790099595; cv=none; b=SGQphsDXvOKlzW0UdpPcnC2TQsEyvF400vqvmNoGlrLP91eO8MGDhnPxH/C1ObItwkq6uk2xawZprpFDEZnjsZwoGRM77Ua9WGalFeZLxsP3ew0174ZWqpcUXr+KYBBeqveGbxzUoTskCKgYFmBVxCBUPiCfhKdwaJ5uLoqlZ5M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790099489; c=relaxed/simple;
-	bh=5kqRD95EA1h69MgHeEQ/GefzavkQdRkju+WCgwrtEB8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ldlYNZegJw0eTXjddzo1/fsQLFybjP6a4af1ClZq9TEnbUlJbRf+YRwnmwqFNnNwmKEDdfuep+5xw0OPB7vatyLVxk4lF+5uLSYX5jGEnrpHR8eGP6YeYoWUD8lrC8UYyNgiX6cUaPLC0mFsuOu9sWxhSu1zaUFo0utCEaX6TeM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zfg3IlFO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790099595; c=relaxed/simple;
+	bh=N1s1xykM9udH9D1Q7vI6ohgS3hen/bOXe2eF5Lo6LNI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=doB+kvbxWoDrdI0ADqsAgYORSDzLuCRCqmbJfZlGlSl3QCjkuMrv52TVJmyfh/41oji42RLtzS3SDY62rCZxp/oCZRpy21hYFpLwFL9oarSNcQSdrnHwq02vqXUXAXUeVOBm/fElv/sfAXw8n5vibXyyqEKjXyLTub5Z/PzfxO8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cW3kT+Tt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zfg3IlFO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B7EB1F00893;
-	Tue, 22 Sep 2026 17:51:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cW3kT+Tt"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 5E19D1F000FF;
+	Tue, 22 Sep 2026 17:53:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790099487;
-	bh=vmHim/L39nFIrdThFB4U9h4lrbfxde3Qn0qjc1NfTbk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Zfg3IlFODfi7fjoQIcYmsJU/IlzYZpVEleZbR8CjC7zc/yBIYt82ffeIYlX6SP+qv
-	 tnmeU+Vgf4ToruoChKGGSTc+Rx7YjZfy/1qjuOEXvHYfu2SXUI0tjNcmAUIwr7Ahti
-	 R7nD+//qHBISErYuecrXtCdDrMBE3bsIGc1Dy5Yp2pfd9gL0f8ksvBZIRO55lc5ncv
-	 KzJs7GC3bMRzXeoTP203OZPgRtGR/Dkfp/avxnKTBeTE0igz7NB2rZSfzMh1CA9coC
-	 v1ukF8Pp1PM0fV+9oDFVMNu/qwlA74O44x3Ey//0kwEk6KkbPn/LZmORGOLrTciYrv
-	 XW1KGbpQhLR0A==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
-	Michael Kelley <mhklinux@outlook.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] swiotlb: use the adjusted address for the highmem page lookup
-Date: Tue, 22 Sep 2026 13:51:25 -0400
-Message-ID: <20260922175125.3309960-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260922175125.3309960-1-sashal@kernel.org>
-References: <2026092252-playlist-affected-d683@gregkh>
- <20260922175125.3309960-1-sashal@kernel.org>
+	s=k20260515; t=1790099594;
+	bh=AOUvqYrzkVQeE0zJHncPX0TuL47fg1J7H0yhLQP1Guw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cW3kT+TtGAAwLmTLQA6fbGqZiryG5hmYP96PeQjKGRO0/r7h6XlK7LLYgoA6H6o8h
+	 bGjencKVEjH2qZzHFKaTjVT7YT9LlQt2jWgE/sAQQctznzhxt7bssGFDfjbGuzM+Pq
+	 fL+WA0dMg0qiksoCGgL0yl6g9lB6pnoxuhRkN5TdGWvuiR9VQtKKK8CdRbfZ0S3mfu
+	 kJ1CkZjodx27S44Lb+cdDE16VTohUE4UcuAZXjCEK6d0sRJ54Yr9/GpmKyRPhlwmEA
+	 zxghUsQNzfsp90nWevEeMRleDwG1SeqbukMxINs8qQ19uVxppjbXWrdScoh/7/SYwI
+	 0PmyHBBWkZtkw==
+Date: Tue, 22 Sep 2026 10:53:13 -0700
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: Christoph Hellwig <hch@infradead.org>
+Cc: cem@kernel.org, stable@vger.kernel.org, linux-xfs@vger.kernel.org
+Subject: Re: [PATCH 10/14] xfarray: don't crash when sorting if array element
+ crosses a folio
+Message-ID: <20260922175313.GW2705364@frogsfrogsfrogs>
+References: <178996120463.181988.9152653965555322220.stgit@frogsfrogsfrogs>
+ <178996120763.181988.2563798655569721557.stgit@frogsfrogsfrogs>
+ <arIQntfRrNKGHyoF@infradead.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <arIQntfRrNKGHyoF@infradead.org>
 
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+On Mon, Sep 21, 2026 at 10:22:38PM -0700, Christoph Hellwig wrote:
+> On Sun, Sep 20, 2026 at 11:17:35PM -0700, Darrick J. Wong wrote:
+> > From: Darrick J. Wong <djwong@kernel.org>
+> > 
+> > LOLLM points out that if an array element crosses a folio boundary,
+> > xfile_get_folio returns a NULL folio pointer.  If this happens,
+> > si->folio is also set to NULL, and calling folio_pos/folio_address will
+> > just crash the kernel.  Teach this function to handle this condition by
+> > falling back to reading the array element into scratchpad memory.
+> > 
+> > Cc: <stable@vger.kernel.org> # v6.6
+> > Fixes: cf36f4f64c2d4e ("xfs: cache pages used for xfarray quicksort convergence")
+> > Signed-off-by: "Darrick J. Wong" <djwong@kernel.org>
+> > Assisted-by: LOLLM # finding obvious bugs
+> > ---
+> >  fs/xfs/scrub/xfarray.c |   18 ++++++++++--------
+> >  1 file changed, 10 insertions(+), 8 deletions(-)
+> > 
+> > 
+> > diff --git a/fs/xfs/scrub/xfarray.c b/fs/xfs/scrub/xfarray.c
+> > index 2ce24bfe4c0fab..30a58e9d4378e4 100644
+> > --- a/fs/xfs/scrub/xfarray.c
+> > +++ b/fs/xfs/scrub/xfarray.c
+> > @@ -830,22 +830,24 @@ xfarray_sort_scan(
+> >  			return PTR_ERR(folio);
+> >  		si->folio = folio;
+> >  
+> > -		si->first_folio_idx = xfarray_idx(si->array,
+> > -				folio_pos(si->folio) + si->array->obj_size - 1);
+> > +		if (si->folio) {
+> > +			si->first_folio_idx = xfarray_idx(si->array,
+> > +					folio_pos(si->folio) + si->array->obj_size - 1);
+> 
+> Overly long line.
+> 
+> > +			if (xfarray_pos(si->array, si->last_folio_idx + 1) > next_pos)
+> 
+> Another one.
+> 
+> > +	if (!si->folio || idx < si->first_folio_idx || idx > si->last_folio_idx) {
+> 
+> And one more.
 
-[ Upstream commit b7d7914a9ae3097e63d113007e4fb44d33d515b1 ]
+On second glance, I think a cleaner way to fix this is to move the logic
+that loads the folio, computes the new {first,last}_folio_idx, and
+validates them into a new helper:
 
-swiotlb_bounce() reads the page frame number from the slot's recorded
-orig_addr, then advances orig_addr by tlb_offset to reach the address
-the caller asked about. The highmem branch mixes the two: the offset
-within the page comes from the adjusted address, the page from the value
-before it.
+static int
+xfarray_sort_load_folio(
+	struct xfarray_sortinfo	*si,
+	xfarray_idx_t		idx,
+	loff_t			idx_pos)
+{
+	struct folio		*folio;
+	loff_t			next_pos;
 
-Once the adjustment crosses a page boundary the pair no longer describes
-one location, and the whole copy lands one page below the intended one
-for a positive tlb_offset, one above for a negative one. DMA_FROM_DEVICE
-writes the device data over the wrong page and leaves the intended one
-stale, DMA_TO_DEVICE feeds the device from a page the mapping may not
-cover. Partial syncs through dma_sync_single_range_for_*() are what make
-tlb_offset non-zero.
+	folio = xfile_get_folio(si->array->xfile, idx_pos, si->array->obj_size,
+			XFILE_ALLOC);
+	if (IS_ERR(folio))
+		return PTR_ERR(folio);
+	si->folio = folio;
 
-The branch test is picked the same way, so a slot recorded in lowmem can
-be adjusted into highmem and the lowmem path then hands a highmem
-address to phys_to_virt().
+	/* No folio?  Get the caller to read into the scratchpad. */
+	if (!si->folio)
+		return 0;
 
-Take both from orig_addr once it is final and keep pfn in the branch
-that uses it. PhysHighMem() asks the question straight from the address,
-as dma-debug already does.
+	si->first_folio_idx = xfarray_idx(si->array,
+			folio_pos(si->folio) + si->array->obj_size - 1);
 
-Fixes: 5f89468e2f06 ("swiotlb: manipulate orig_addr when tlb_addr has offset")
-Cc: stable@vger.kernel.org
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Reviewed-by: Michael Kelley <mhklinux@outlook.com>
-Link: https://lore.kernel.org/r/20260905084210.148255-1-donggeunyoo.kernel@gmail.com
-Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- kernel/dma/swiotlb.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+	next_pos = folio_next_pos(si->folio);
+	si->last_folio_idx = xfarray_idx(si->array, next_pos - 1);
+	if (xfarray_pos(si->array, si->last_folio_idx + 1) > next_pos)
+		si->last_folio_idx--;
 
-diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
-index 87e1e092c58a3..51f18ce8564a9 100644
---- a/kernel/dma/swiotlb.c
-+++ b/kernel/dma/swiotlb.c
-@@ -371,7 +371,6 @@ static void swiotlb_bounce(struct device *dev, phys_addr_t tlb_addr, size_t size
- 	int index = (tlb_addr - mem->start) >> IO_TLB_SHIFT;
- 	phys_addr_t orig_addr = mem->slots[index].orig_addr;
- 	size_t alloc_size = mem->slots[index].alloc_size;
--	unsigned long pfn = PFN_DOWN(orig_addr);
- 	unsigned char *vaddr = mem->vaddr + tlb_addr - mem->start;
- 	unsigned int tlb_offset, orig_addr_offset;
- 
-@@ -405,7 +404,8 @@ static void swiotlb_bounce(struct device *dev, phys_addr_t tlb_addr, size_t size
- 		size = alloc_size;
- 	}
- 
--	if (PageHighMem(pfn_to_page(pfn))) {
-+	if (PhysHighMem(orig_addr)) {
-+		unsigned long pfn = PFN_DOWN(orig_addr);
- 		unsigned int offset = orig_addr & ~PAGE_MASK;
- 		char *buffer;
- 		unsigned int sz = 0;
--- 
-2.53.0
+	/*
+	 * If this folio still doesn't cover the desired element, it must cross
+	 * a folio boundary.  Get the caller to read into the scratchpad.
+	 */
+	if (idx < si->first_folio_idx || idx > si->last_folio_idx) {
+		xfarray_sort_scan_done(si);
+		return 0;
+	}
 
+	trace_xfarray_sort_scan(si, idx);
+	return 0;
+}
+
+--D
