@@ -1,159 +1,106 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA86F37F015;
-	Tue, 22 Sep 2026 18:02:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B565B472077
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 18:06:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790100153; cv=none; b=dBZd+2rK5HAESE12aFVU2UbX+6+5lUMjW69dReR7VRFcEg/7b4R/ERaYpF+X9LY9woC1gflenO3/OJ3/fA4k3fW3doudbqDA+vTwO2nA5AdmI1KNg0KwCF9le0wvKy0QPhQYsSll3EBYN0Y6ZAALOoVelq5eKNn5U18aN82TLSA=
+	t=1790100368; cv=none; b=Xqb0jJo5f6SxPvO5RVi0FCWRxJX7fiPIqUQ1nEyz0+zkwbqoiraaEBs+iAP94165QPjSSwi3Kpi31u0exIhJoPj8LjX0X90ZKa9MLgNj7dpaCVE2aZjQtGgJZ2W7HCsdw1LZaKqpqBWzujZ+2ol2awckdP+zVRdbLRjycUZGO5U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790100153; c=relaxed/simple;
-	bh=BcHBn2UZtUK7aNlCdO+R/2PD6ujgJGUXD8/c94ZM4Go=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qfjt/H10AhcO+kJzM+wjjsHgRLv6OW8iDkxn7W8WMYEM+m73HX/UzKgO4iDP/X2CmhbhfD2MjVZh/mEKcHF1DQEz21/D+7TsiaTFWzv9CR4KSLnCUmugmSOgUlzz6CL0ZwdNVcSgJRYCwSXwEsKUHjhE+jBmi7z1r0M2pabS3Y8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ma5VY+M4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790100368; c=relaxed/simple;
+	bh=aHhCyhi31T7sRvPmZ/vTo4R8QUjr9FJ8uPAqSl+kXHs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KFUzQrtrooy0JBPCVjDbZy3Uwk2MHJC/hStEfCcgj3ydhHTTaGAJ5IY6cZlK0wksLCthqcCwpKwNcK6ICmU+jXcB7vjQLWc9fXPAbDbHonXNHVuEnI23NxVj3+Bb76DzzAT3PpPMP066HtsclahX7bSbzL6fJuBjhwNw8shPQzo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K4vYPuSP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ma5VY+M4"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id A31731F000FF;
-	Tue, 22 Sep 2026 18:02:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K4vYPuSP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B36841F00898;
+	Tue, 22 Sep 2026 18:06:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790100151;
-	bh=H6j3A0y/Tme7E56rKeVsNuePB6a3BtF46Purg/cD7vE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ma5VY+M4GxwSzam50epjE1EDS+OqK5wBITylo8jWZB/eUMHJJR8FKWFFTtEVgkyZt
-	 egBk3TK6PfSxQxeuTMZXrqnwhEVk/mkqfCWzgEJPUle78WrDDQLkzYNjv/yHVsQsEu
-	 lupaoGDnMjy4dAezOlHNt5dnC2VxGp9vcaE5Lk3B48PJIo42cz73uNWiMYZdR955io
-	 lwiifaUzLgT40z1vHr83mKr4e2B3bJ+XkPmLVE+hDll0dzoiKlp7MUgUzrlGaxJ2Tj
-	 ZiHFaUHQIu/Txio26pOBHMzgXQAvaQWafqnaKrNyR6eG6SHnxE40R4EPQQ4t1wHDwM
-	 Ap45iel3Yh1hw==
-Date: Tue, 22 Sep 2026 11:02:31 -0700
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: cem@kernel.org
-Cc: stable@vger.kernel.org, linux-xfs@vger.kernel.org
-Subject: Re: [PATCH 02/14] xfs: online quotacheck must dirty dquot if
- enforcement adjustments needed
-Message-ID: <20260922180231.GX2705364@frogsfrogsfrogs>
-References: <178996120463.181988.9152653965555322220.stgit@frogsfrogsfrogs>
- <178996120594.181988.17443723006471773386.stgit@frogsfrogsfrogs>
+	s=k20260515; t=1790100367;
+	bh=uZ+DBjLol2gS2YZbPbP/JGJ3joxYBt5ptN8cutmQg2E=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=K4vYPuSPZd+Dtabf8YCya6RZL+nNBaNLMEQ+zmf0STU7adUuFCYiRV4l8S+2WM6Ch
+	 xqbzv7eL0e9GX9GDD3uqcabwWWQ3pvf2ZpgofR9po1PB0IV4QR1qYOKYA5S/BbOw+Y
+	 FoM62T/eB62Y4NrYxBPTj1utofmCShUyqBrdLGAo/JzrCkb+IUhjs7ZLswjiWBdbwU
+	 KjY5AZGk57STlGqee1UvfrtiO+hCoiWjKR0s/K478Zzfecff3bxmNx7ZPOekzHmQZY
+	 QPJnt9D2aGmiPZd2eFg0BXYKItR/vFwQKBI85uK5RVRU/qW2xo94WNFMKyo3Uv7o+Z
+	 j50qd3d7hBIVg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] mm/vma: correctly unaccount on mmap_prepare() failure
+Date: Tue, 22 Sep 2026 14:06:05 -0400
+Message-ID: <20260922180605.3399750-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026092235-visor-glance-dc8e@gregkh>
+References: <2026092235-visor-glance-dc8e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <178996120594.181988.17443723006471773386.stgit@frogsfrogsfrogs>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Sep 20, 2026 at 11:15:30PM -0700, Darrick J. Wong wrote:
-> From: Darrick J. Wong <djwong@kernel.org>
-> 
-> LOLLM noticed that we have no way to force xchk_commit_dquot to call
-> xfs_qm_adjust_dqenforcement if nothing else is wrong with the dquot.
-> Therefore, add a new predicate to force the dirty flag if the dquot has
-> zero limits and there are default limits; or if the grace period timer
-> needs adjusting.
-> 
-> Cc: <stable@vger.kernel.org> # v6.9
-> Fixes: 96ed2ae4a9b06b ("xfs: repair dquots based on live quotacheck results")
-> Signed-off-by: "Darrick J. Wong" <djwong@kernel.org>
-> Assisted-by: LOLLM # finding obvious bugs
-> ---
->  fs/xfs/scrub/quotacheck_repair.c |   51 ++++++++++++++++++++++++++++++++++++++
->  1 file changed, 51 insertions(+)
-> 
-> 
-> diff --git a/fs/xfs/scrub/quotacheck_repair.c b/fs/xfs/scrub/quotacheck_repair.c
-> index 48ee08df302a42..e2208510939f08 100644
-> --- a/fs/xfs/scrub/quotacheck_repair.c
-> +++ b/fs/xfs/scrub/quotacheck_repair.c
-> @@ -39,6 +39,54 @@
->   * dquot is locked.
->   */
->  
-> +static bool
-> +xqcheck_dqres_force_dirty(
-> +	const struct xfs_dquot_res	*res,
-> +	const struct xfs_quota_limits	*qlim)
-> +{
-> +	/* zero limits mean that we should set the default limits */
-> +	if (res->softlimit == 0 && qlim->soft != 0)
-> +		return true;
-> +	if (res->hardlimit == 0 && qlim->hard != 0)
-> +		return true;
-> +
-> +	/* do we need to adjust the timer setting? */
-> +	if ((res->softlimit && res->count > res->softlimit) ||
-> +	    (res->hardlimit && res->count > res->hardlimit)) {
-> +		if (res->timer == 0 && qlim->time != 0)
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 
-Shashiko says:
+[ Upstream commit 6cc27d82196385fe06853319f74312a7d8019726 ]
 
-"Does this skip repairing missing grace period timers when the default grace
-period is configured to 0?
-If a quota usage exceeds its limit but has a missing or corrupt timer
-(res->timer == 0) and the default grace period (qlim->time) is 0, this
-condition evaluates to false. This causes the repair code to skip dirtying
-the dquot, bypassing xfs_qm_adjust_dqenforcement().
-When the unfixed dquot is subsequently flushed (e.g., via background
-writeback or a log force), xfs_qm_dqflush_check() will find count > softlimit
-but timer == 0. This is treated as a fatal inconsistency and triggers
-SHUTDOWN_CORRUPT_INCORE, effectively turning a reparable condition into a
-denial of service."
+__mmap_setup() accounts memory for relevant mappings via:
 
-Yes, that should just be "if (!res->timer) return true;" since we want
-to force xfs_qm_adjust_dqtimers to reset it.  I forgot that !qlim->time
-just means "expires immediately", not "expires never".
+security_vm_enough_memory_mm()
+  -> __vm_enough_memory()
+    -> vm_acct_memory()
 
-Will fix in next revision.
+If __mmap_setup() fails, this indicates that this accounting did not take
+place, and thus it's appropriate for __mmap_region() to jump to
+abort_munmap.
 
---D
+However if call_mmap_prepare() fails, it also jumps there and any accounted
+memory is not correctly unaccounted.
 
-> +			return true;
-> +	} else {
-> +		if (res->timer)
-> +			return true;
-> +	}
-> +
-> +	return false;
-> +}
-> +
-> +/* Decide if we need to adjust the dquot limits or timers */
-> +static bool
-> +xqcheck_dquot_force_dirty(
-> +	const struct xfs_dquot	*dq)
-> +{
-> +	struct xfs_quotainfo	*qi = dq->q_mount->m_quotainfo;
-> +	struct xfs_def_quota	*defq;
-> +
-> +	/* root dquot does not enforce limits */
-> +	if (dq->q_id == 0)
-> +		return false;
-> +
-> +	defq = xfs_get_defquota(qi, xfs_dquot_type(dq));
-> +
-> +	if (xqcheck_dqres_force_dirty(&dq->q_blk, &defq->blk))
-> +		return true;
-> +	if (xqcheck_dqres_force_dirty(&dq->q_ino, &defq->ino))
-> +		return true;
-> +	if (xqcheck_dqres_force_dirty(&dq->q_rtb, &defq->rtb))
-> +		return true;
-> +
-> +	return false;
-> +}
-> +
->  /* Commit new counters to a dquot. */
->  static int
->  xqcheck_commit_dquot(
-> @@ -91,6 +139,9 @@ xqcheck_commit_dquot(
->  		dirty = true;
->  	}
->  
-> +	if (!dirty && xqcheck_dquot_force_dirty(dq))
-> +		dirty = true;
-> +
->  	xcdq.flags |= (XQCHECK_DQUOT_REPAIR_SCANNED | XQCHECK_DQUOT_WRITTEN);
->  	error = xfarray_store(counts, dq->q_id, &xcdq);
->  	if (error == -EFBIG) {
-> 
-> 
+Fix this by handling each error separately.
+
+Link: https://lore.kernel.org/20260902-fix-unaccount-mmap_prepare-v1-1-ea070189fdfb@kernel.org
+Fixes: c84bf6dd2b83 ("mm: introduce new .mmap_prepare() file callback")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Pedro Falcato <pfalcato@suse.de>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ mm/vma.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/mm/vma.c b/mm/vma.c
+index 30148e6af7751..dcaa2d8998bfb 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -2693,10 +2693,12 @@ static unsigned long __mmap_region(struct file *file, unsigned long addr,
+ 	map.check_ksm_early = can_set_ksm_flags_early(&map);
+ 
+ 	error = __mmap_prepare(&map, uf);
+-	if (!error && have_mmap_prepare)
+-		error = call_mmap_prepare(&map);
+ 	if (error)
+ 		goto abort_munmap;
++	if (have_mmap_prepare)
++		error = call_mmap_prepare(&map);
++	if (error)
++		goto unacct_error;
+ 
+ 	if (map.check_ksm_early)
+ 		update_ksm_flags(&map);
+-- 
+2.53.0
+
