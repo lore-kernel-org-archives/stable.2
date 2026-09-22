@@ -1,278 +1,225 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEB032EEE85;
-	Tue, 22 Sep 2026 03:49:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C07E62BEC3F;
+	Tue, 22 Sep 2026 03:49:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790048968; cv=none; b=u+FaVPueSgl+g0LG/fZz6u/VkJh69auQGKSHq2Bv2YnSVWRdfbA8WROT5butTQBeo/Fc0nkEczFk4W9pmCeM0STzivZOYL+LwN3BNZapoczZAWgc8rhzIYxvQe2LlUk/61IW1jMp66dBRifM0IhXYbxZYzWBHOMJFyyGZGKUJLg=
+	t=1790048997; cv=none; b=c/tZ6CrWflarjf+evKxJlJCrwHJJry8hivKCkw7Jsh87Yq4EIhD30sbSr82zEKBYm15WT6vQv6BFN9cBBprk7p1WcHRD5JcJsd8ms7YQb1H3jiIul9BaV4g7rW8Hd8hsnXi20575GmEP4Vcvf/xAmuIbyPOgjwID7tpV9LV6U+c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790048968; c=relaxed/simple;
-	bh=04fweWYgP4tzb9dihvvNf6pAuAit0WBMaqTDHKcUBrE=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Z3Kq/St8kwsMa8jXjDMQbLNkRN5Uv3UyHlkuFPY8k8/vtIIMcfWjcOsROeYR1Bc+9nP85ojxCJZgA5eQQ5PTeYwN+AxWVZma+KVyOLR9T7Pz6eK+koHXePKVwJrnl9GEwo2YsDvQhFpDjOHEW7AmFMb6K1kkp/vffZjOgdsQjKQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b3B7As6B; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790048997; c=relaxed/simple;
+	bh=WQkK+bYYEAtp2l3LuoPW9+BgNpiaFeJ7XqIl60ajtQs=;
+	h=Date:To:From:Subject:Message-Id; b=XhDuPG0z5QWwY9afNbyyn9ISKcUu5mKxUaDL1FSslFyXWE6DdixyaSLoknnCbem65tO0gQ7oB9AOTVGl8+Uo01mFk9FcTK/leu5jUizwhwEuaKchpEF0hAcxd9Db1oZrqJyPxKAjGmRS5txtmtABR5c/oMuf7rv8LJ3leMgMOgY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=wS25B2+i; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b3B7As6B"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B55711F00893;
-	Tue, 22 Sep 2026 03:49:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790048966;
-	bh=8Di8dG2HzKR6XKcHMzmhu4LwQUFVMCXRw5bLUr91F7U=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=b3B7As6B0gBqa8si6+TyyJkp98RNSG8aVT4tWZOlVep74AjowSXOWFnnyeI1F0OBp
-	 bTzCLRW6eFSMNS5aIU39NBwyhR3+nXNfxzBnMEqGCfAU5yqM4JjzSe+7peb9r8fEkr
-	 UCr/Ej3IdBdYyQRKPD9K1di305p8Tg3SW4lBVP3EEwq154RcdFJndCRdNB1kSHyqCG
-	 WEA5osYgiOmlI6HtmoTT2ds+72HAhsjHgZFT8YEPzfnHQ9aOyWn49dXaaBkKx6wpho
-	 2F8b7zGB8KxKpcUAvoVg6S8+RDVGk/Jz4PqMj8nbxFwjt7s5JJIfVpGkHZkKdGfxW5
-	 M6MtTqkB0QPYw==
-Subject:
- Re: [PATCH net v2 2/2] packet: use ubuf_info completion for TX_RING packets
-From: netdev-bot+sashiko@kernel.org
-To: willemdebruijn.kernel@gmail.com
-Cc: netdev@vger.kernel.org, davem@davemloft.net, kuba@kernel.org,
- edumazet@google.com, pabeni@redhat.com, horms@kernel.org,
- andrew+netdev@lunn.ch, willemb@google.com, kleaver@janestreet.com,
- doebel@amazon.de, stable@vger.kernel.org
-Date: Tue, 22 Sep 2026 03:49:25 +0000
-Message-ID: <179004896529.2160803.14644876688990648036@kernel.org>
-In-Reply-To: <20260919004748.1463985-3-willemdebruijn.kernel@gmail.com>
-References: <20260919004748.1463985-3-willemdebruijn.kernel@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="wS25B2+i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54BBC1F000FF;
+	Tue, 22 Sep 2026 03:49:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1790048995;
+	bh=BqtZ4JOMa3zYF3VegAgM17tKfLffr5NP2o/5iu1Up5A=;
+	h=Date:To:From:Subject;
+	b=wS25B2+ig/WXm6X0GtPbsY8PpGwpyG76PNhrTzmlLZKgwCX/zfJq3/yxxScj2hnfZ
+	 r9l9OSaDgv6hWiUKjwSHGRRKdwGnmaMFod1uXyenCVWTkZBKD3PBAaLQZmCvJ25Spk
+	 3kaV2azTLUPkvMZrFRYXsTFchrRARM5S9raBlGHs=
+Date: Mon, 21 Sep 2026 20:49:54 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,shakeel.butt@linux.dev,roman.gushchin@linux.dev,osalvador@suse.de,nphamcs@gmail.com,muchun.song@linux.dev,mhocko@suse.com,mhocko@kernel.org,joshua.hahnjy@gmail.com,hannes@cmpxchg.org,david@kernel.org,chris@chrisdown.name,lihongfu@kylinos.cn,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-hugetlb-account-migration-target-folio-in-per-node-nr_hugetlb-vmstat.patch added to mm-new branch
+Message-Id: <20260922034955.54BBC1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 1
+The patch titled
+     Subject: mm/hugetlb: account migration target folio in per-node NR_HUGETLB vmstat
+has been added to the -mm mm-new branch.  Its filename is
+     mm-hugetlb-account-migration-target-folio-in-per-node-nr_hugetlb-vmstat.patch
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-hugetlb-account-migration-target-folio-in-per-node-nr_hugetlb-vmstat.patch
 
-- [Medium] The new per-packet `sk_wmem_alloc` charge taken in
-  tpacket_snd() (`refcount_inc(&po->sk.sk_wmem_alloc)` at…
-- [Medium] Documentation/networking/packet_mmap.rst still describes the
-  old TX_RING contract that this patch changes.
-- [Low] tpacket_snd() still carries the comments `/* skb was destructed
-  already */` (net/packet/af_packet.c:2949) and `/* skb was dropped but…
+This patch will later appear in the mm-new branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
---
+Note, mm-new is a provisional staging ground for work-in-progress
+patches, and acceptance into mm-new is a notification for others take
+notice and to finish up reviews.  Please do not hesitate to respond to
+review feedback and post updated versions to replace or incrementally
+fixup patches in mm-new.
 
-packet: use ubuf_info completion for TX_RING packets
+The mm-new branch of mm.git is not included in linux-next
 
-This converts tpacket_snd() from a custom skb->destructor
-(tpacket_destruct_skb) to standard zerocopy completion, so a TX_RING slot
-is only released once all references to the payload are gone or copied.
-The uarg is allocated per packet and holds an sk_wmem_alloc reference, and
-the now unused skb_zcopy_*_nouarg helpers are removed.
+If a few days of testing in mm-new is successful, the patch will me moved
+into mm.git's mm-unstable branch, which is included in linux-next
 
-Closes: https://lore.kernel.org/netdev/20260909085542.3370986-1-doebel@amazon.de/
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
-> diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
-> index 50cae32ae269..64b501db660a 100644
-> --- a/net/packet/af_packet.c
-> +++ b/net/packet/af_packet.c
-> @@ -2530,26 +2530,6 @@ static int tpacket_rcv(struct sk_buff *skb, struct net_device *dev,
->  	goto drop_n_restore;
->  }
->  
-> -static void tpacket_destruct_skb(struct sk_buff *skb)
-> -{
-> -	struct packet_sock *po = pkt_sk(skb->sk);
-> -
-> -	if (likely(po->tx_ring.pg_vec)) {
-> -		void *ph;
-> -		__u32 ts;
-> -
-> -		ph = skb_zcopy_get_nouarg(skb);
-> -
-> -		ts = __packet_set_timestamp(po, ph, skb);
-> -		__packet_set_status(po, ph, TP_STATUS_AVAILABLE | ts);
-> -
-> -		packet_dec_pending(&po->tx_ring);
-> -		complete(&po->skb_completion);
-> -	}
-> -
-> -	sock_wfree(skb);
-> -}
-> -
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
 
-[ ... ]
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
 
-> @@ -2589,27 +2569,56 @@ static int packet_snd_vnet_parse(struct msghdr *msg, size_t *len,
->  	return 0;
->  }
->  
-> +struct tpacket_uarg {
-> +	struct ubuf_info	ubuf;
-> +	struct packet_sock	*po;
-> +	void			*ph;
-> +};
-> +
-> +static void tpacket_ubuf_complete(struct sk_buff *skb, struct ubuf_info *uarg,
-> +				  bool success)
-> +{
-> +	struct tpacket_uarg *tu = container_of(uarg, struct tpacket_uarg, ubuf);
-> +	struct packet_sock *po = tu->po;
-> +	void *ph = tu->ph;
-> +	__u32 ts;
-> +
-> +	DEBUG_NET_WARN_ON_ONCE(!skb);
-> +
-> +	if (!refcount_dec_and_test(&uarg->refcnt))
-> +		return;
-> +
-> +	ts = __packet_set_timestamp(po, ph, skb);
-> +	__packet_set_status(po, ph, TP_STATUS_AVAILABLE | ts);
+------------------------------------------------------
+From: Hongfu Li <lihongfu@kylinos.cn>
+Subject: mm/hugetlb: account migration target folio in per-node NR_HUGETLB vmstat
+Date: Mon, 21 Sep 2026 17:12:34 +0800
 
-[Severity: Medium]
-Should Documentation/networking/packet_mmap.rst be updated along with this
-change?  The "Transmission process" section still says:
+Patch series "mm: fix hugetlb NR_HUGETLB accounting on folio migration".
 
-  The kernel updates each status of sent frames with TP_STATUS_SENDING
-  until the end of transfer.
+The hugeTLB counters added by 05d4532b60e3 ("memcg/hugetlb: add hugeTLB
+counters to memcg") are maintained in two per-node places:
+  - the per-node vmstat counter NR_HUGETLB, exposed as nr_hugetlb in
+    /proc/vmstat;
+  - the per-node memcg lruvec stat, exposed via memory.numa_stat.
 
-  At the end of each transfer, buffer status returns to
-  TP_STATUS_AVAILABLE.
+Both are accounted against the folio's node, and both drift when a hugetlb
+folio is migrated, though in different ways.
 
-With slot release moved into tpacket_ubuf_complete(), TP_STATUS_AVAILABLE
-now means "the kernel no longer references the payload", which the commit
-message says can happen before transmission:
+A migration target folio is allocated by alloc_hugetlb_folio_nodemask()
+and inherits the old folio's state without ever being accounted, while the
+old folio is freed right after and its free is accounted.  That alone
+loses vmstat accounting: the target node has no matching increment for the
+decrement on the old node, so /proc/vmstat's nr_hugetlb shrinks by
+nr_pages per migration.  Patch 1 accounts the folio where it is obtained,
+so the increment pairs with the free in free_huge_folio() on the
+successful as well as the failed migration path.  The memfd page cache
+preallocation helper has the same asymmetry and is fixed in the same
+patch.
 
-  net/core/dev.c:deliver_skb()
-    skb_orphan_frags_rx()
-      skb_copy_ubufs()
-        skb_zcopy_clear()
-          tpacket_ubuf_complete()
+The per-node lruvec stat breaks differently.  mem_cgroup_migrate() moves
+the charge to the new folio and drops the old folio's memcg data, so the
+old folio's free right after migration skips the memcg per-node decrement;
+the count stays attributed to the old node for the rest of the charge's
+life, and the target folio never gets an increment on its new node.  Patch
+2 moves that per-node accounting alongside the charge in
+mem_cgroup_migrate().
 
-The timestamp section also documents a specific recipe:
 
-  Getting timestamps for the TX_RING works as follows: i) fill the ring
-  frames, ii) call sendto() e.g. in blocking mode, iii) wait for status of
-  relevant frames to be updated resp. the frame handed over to the
-  application, iv) walk through the frames to pick up the individual hw/sw
-  timestamps.
+This patch (of 2):
 
-When the copy happens before skb_tx_timestamp(),
-__packet_set_timestamp() returns 0, so the frame is handed back as
-TP_STATUS_AVAILABLE with no TP_STATUS_TS_* bit and stale tp_sec/tp_nsec,
-even though timestamping was requested.  Can that documented procedure
-still be followed, or should the text describe the new semantics?
+The NR_HUGETLB vmstat counter is maintained per folio's node: incremented
+when a huge page is handed to a user via hugetlb_alloc_folio() and
+decremented when it is returned to the pool via free_huge_folio().
 
-> +
-> +	packet_dec_pending(&po->tx_ring);
-> +	complete(&po->skb_completion);
-> +
-> +	kfree(tu);
-> +	sk_free(&po->sk);
-> +}
+A folio obtained by alloc_hugetlb_folio_nodemask() never goes through
+hugetlb_alloc_folio(), so it is never accounted, while its free always is.
+For a migration target this means the target node gets no matching
+increment for the decrement on the old node, so the global nr_hugetlb in
+/proc/vmstat drops by nr_pages for each migration.  The same asymmetry
+affects the failed migration path, which frees the target again right
+away, and the temporary folio hugetlb_mfill_atomic_pte() takes from the
+same helper.
 
-[Severity: Medium]
-Does releasing the wmem charge through sk_free() here miss a write space
-notification?
+alloc_hugetlb_folio_reserve(), used to preallocate the memfd page cache
+folios, has the same asymmetry: the folio is handed to a user without
+being accounted, while its free is accounted through free_huge_folio().
 
-sk_free() only does the decrement:
+Account the folio where it is obtained, in alloc_hugetlb_folio_nodemask()
+and alloc_hugetlb_folio_reserve(), so that the increment pairs with the
+decrement in free_huge_folio(): a successful migration hands the folio to
+a user, a failed one frees it again.
 
-net/core/sock.c:sk_free() {
-	if (refcount_dec_and_test(&sk->sk_wmem_alloc))
-		__sk_free(sk);
-}
+Link: https://lore.kernel.org/20260921-for-hugetlb_state-v1-0-8a6eec92661f@kylinos.cn
+Link: https://lore.kernel.org/20260921-for-hugetlb_state-v1-1-8a6eec92661f@kylinos.cn
+Fixes: 05d4532b60e3 ("memcg/hugetlb: add hugeTLB counters to memcg")
+Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Acked-by: Muchun Song <muchun.song@linux.dev>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>
+Cc: Nhat Pham <nphamcs@gmail.com>
+Cc: Chris Down <chris@chrisdown.name>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Michal Hocko <mhocko@kernel.org>
+Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: <stable@vger.kernel.org>
+---
 
-whereas the skb charge release path notifies first:
+ mm/hugetlb.c |   35 +++++++++++++++++++++++------------
+ 1 file changed, 23 insertions(+), 12 deletions(-)
 
-net/core/sock.c:sock_wfree() {
-	...
-		WARN_ON(refcount_sub_and_test(len - 1, &sk->sk_wmem_alloc));
-		sk_write_space(sk);
-		len = 1;
-	...
-}
+--- a/mm/hugetlb.c~mm-hugetlb-account-migration-target-folio-in-per-node-nr_hugetlb-vmstat
++++ a/mm/hugetlb.c
+@@ -2206,6 +2206,11 @@ struct folio *alloc_hugetlb_folio_reserv
+ 	}
+ 
+ 	spin_unlock_irq(&hugetlb_lock);
++
++	if (folio)
++		lruvec_stat_mod_folio(folio, NR_HUGETLB,
++				      folio_nr_pages(folio));
++
+ 	return folio;
+ }
+ 
+@@ -2213,24 +2218,30 @@ struct folio *alloc_hugetlb_folio_reserv
+ struct folio *alloc_hugetlb_folio_nodemask(struct hstate *h, int preferred_nid,
+ 		nodemask_t *nmask, gfp_t gfp_mask, bool allow_alloc_fallback)
+ {
+-	spin_lock_irq(&hugetlb_lock);
+-	if (available_huge_pages(h)) {
+-		struct folio *folio;
++	struct folio *folio = NULL;
+ 
++	spin_lock_irq(&hugetlb_lock);
++	if (available_huge_pages(h))
+ 		folio = dequeue_hugetlb_folio_nodemask(h, gfp_mask,
+ 						preferred_nid, nmask);
+-		if (folio) {
+-			spin_unlock_irq(&hugetlb_lock);
+-			return folio;
+-		}
+-	}
+ 	spin_unlock_irq(&hugetlb_lock);
+ 
+-	/* We cannot fallback to other nodes, as we could break the per-node pool. */
+-	if (!allow_alloc_fallback)
+-		gfp_mask |= __GFP_THISNODE;
++	if (!folio) {
++		/*
++		 * We cannot fallback to other nodes, as we could break the
++		 * per-node pool.
++		 */
++		if (!allow_alloc_fallback)
++			gfp_mask |= __GFP_THISNODE;
+ 
+-	return alloc_migrate_hugetlb_folio(h, gfp_mask, preferred_nid, nmask);
++		folio = alloc_migrate_hugetlb_folio(h, gfp_mask, preferred_nid,
++						    nmask);
++	}
++
++	if (folio)
++		lruvec_stat_mod_folio(folio, NR_HUGETLB, folio_nr_pages(folio));
++
++	return folio;
+ }
+ 
+ static nodemask_t *policy_mbind_nodemask(gfp_t gfp)
+_
 
-A blocking TX_RING sender reaches sock_wait_for_wmem() via
-tpacket_snd()->sock_alloc_send_skb()->sock_alloc_send_pskb(), and its only
-wake condition for send space is sk->sk_write_space():
+Patches currently in -mm which might be from lihongfu@kylinos.cn are
 
-net/core/sock.c:sock_wait_for_wmem() {
-	...
-		if (refcount_read(&sk->sk_wmem_alloc) < READ_ONCE(sk->sk_sndbuf))
-			break;
-		...
-		timeo = schedule_timeout(timeo);
-	...
-}
+mm-use-a-folio-in-the-softleaf_is_device_private-path.patch
+mm-hugetlb-fix-resv_huge_pages-double-decrement-in-memfd-error-path.patch
+mm-memcontrol-remove-unused-memcg-parameter-in-calculate_high_delay.patch
+selftests-mm-khugepaged-consolidate-error-exits-via-kselftest-helpers.patch
+mm-page_owner-preserve-original-free_pid-free_tgid-during-folio-migration.patch
+mm-memfd-fix-hugetlb-reservation-accounting-in-error-paths.patch
+selftests-mm-fix-ptrace-peekdata-check-in-memfd_secret-test.patch
+mm-hugetlb_cgroup-move-per-node-usage-on-cross-node-migration.patch
+mm-hugetlb_cgroup-move-per-node-usage-on-cgroup-reparenting.patch
+mm-hugetlb-account-migration-target-folio-in-per-node-nr_hugetlb-vmstat.patch
+mm-memcg-migrate-per-node-hugetlb-lruvec-stat-together-with-hugetlb-folio.patch
 
-With the default sk_sndtimeo that schedule_timeout() is
-MAX_SCHEDULE_TIMEOUT.  If the drop below sk_sndbuf is performed by the new
-uarg charges only, is anything left to wake the sleeper?  A path where the
-skb charge is gone while the uarg charge is still outstanding is
-loopback_xmit(), which calls skb_orphan(skb) (running sock_wfree) without
-skb_orphan_frags(), so the ubuf_info survives in the backlog.
-
-[ ... ]
-
-> @@ -2908,7 +2918,24 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
->  			virtio_net_hdr_set_proto(skb, &vnet_hdr);
->  		}
->  
-> -		skb->destructor = tpacket_destruct_skb;
-> +		uarg = kmalloc(sizeof(*uarg), GFP_KERNEL);
-> +		if (unlikely(!uarg)) {
-> +			if (likely(len_sum > 0))
-> +				err = len_sum;
-> +			else
-> +				err = -ENOMEM;
-> +			goto out_status;
-> +		}
-> +		uarg->po = po;
-> +		uarg->ph = ph;
-> +		uarg->ubuf.ops = &tpacket_ubuf_ops;
-> +		uarg->ubuf.flags = SKBFL_ZEROCOPY_FRAG;
-> +		refcount_set(&uarg->ubuf.refcnt, 1);
-> +
-> +		/* Hold a sk_wmem_alloc reference until completion */
-> +		refcount_inc(&po->sk.sk_wmem_alloc);
-> +		skb_zcopy_init(skb, &uarg->ubuf);
-> +
->  		__packet_set_status(po, ph, TP_STATUS_SENDING);
->  		packet_inc_pending(&po->tx_ring);
->  
-
-[Severity: Low]
-Just below this, the packet_xmit() error handling in tpacket_snd() still
-refers to the destructor that this patch removes:
-
-net/packet/af_packet.c:tpacket_snd() {
-	...
-			if (err && __packet_get_status(po, ph) ==
-				   TP_STATUS_AVAILABLE) {
-				/* skb was destructed already */
-				skb = NULL;
-				goto out_status;
-			}
-			/*
-			 * skb was dropped but not destructed yet;
-			 * let's treat it like congestion or err < 0
-			 */
-	...
-}
-
-With skb->destructor back to sock_wfree and slot release moved to
-tpacket_ubuf_complete(), does the slot status still imply anything about
-the skb?  TP_STATUS_AVAILABLE can now be observed while the skb is alive
-(the uarg completed early through skb_copy_ubufs()), and the slot can
-still read TP_STATUS_SENDING after the skb was freed if a clone or segment
-holds an extra uarg reference.  Should these comments be reworded for the
-new completion scheme?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260919004748.1463985-1-willemdebruijn.kernel%40gmail.com
