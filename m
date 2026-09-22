@@ -1,136 +1,110 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FB6E3E4C6B;
-	Tue, 22 Sep 2026 04:40:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E42CB3B42FB
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 04:46:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790052057; cv=none; b=tBvoClD8+F5pDsxvGuCezOJSWaKEsidu5pKjmcQOFxW899C7doATY3EYXzTzeTfJYZI5aB7rsN55/j8SLf+cb65MXnWHxlkLjxnYg7G1q61pzXi+/hq/pM/Z53PAFP5W1jgYKhtD8SJOTKjSq7LMmi+1+Tyk4Kwl11oNZ21dGlM=
+	t=1790052369; cv=none; b=chqbjeE+EMKsij95X04reA/WrmyqjfWCIs1tNQBwJ1MWvR4Khn/OeCBhiEwFLywpwt4XmUyJetX7rIiibVtO4XQgFoFydEenurF7L5zb8+pCG6NbbSKMf7rWDhdI5OXQjy8lbC20xmw7X6syaoyc+EMj9je4uC+O6v1ngiJM8sA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790052057; c=relaxed/simple;
-	bh=PHkc647ZpDIBHOJ+Vf+AfN3X2Il8lQBNow/8wvVNXdI=;
+	s=arc-20240116; t=1790052369; c=relaxed/simple;
+	bh=4oGFoAucb3tbHa8WwuUU9mOHcdoEIPXf4i9GftWnm6A=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=j1x3hRbVWgZP+2xhz2heOy5SgI/KHy+pRsh1FLohS2nPGk4nhXaUt7+k4mcQhod5Obu8ePOaU5iPZBpvCn/tZ0cylR3AANDohEzCWnUnLncBLmeA9mNhyBQFEtTy5aeidTgK7IJSTj3o78w6P+PW9FBNbEgDNBGSOGh/8hw0KAY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: c79e001ab63f11f19a56ed5b684f684d-20260922
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:99fb1a02-cb72-41ec-a2b8-5ae9963baf8a,IP:0,U
-	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:25
-X-CID-META: VersionHash:7db8b62,CLOUDID:f9727c3a18b6fcdb0b306d270e58f5f1,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|102|136|865|898,TC:nil,Content:0|15|50|99,ED
-	M:5|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,
-	OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: c79e001ab63f11f19a56ed5b684f684d-20260922
-X-User: liupeng01@kylinos.cn
-Received: from t14 [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <liupeng01@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 109217882; Tue, 22 Sep 2026 12:40:47 +0800
-From: liupeng <liupeng01@kylinos.cn>
-To: lyude@redhat.com,
-	dakr@kernel.org
-Cc: maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	linux@roeck-us.net,
-	nouveau@karolherbst.de,
-	bskeggs@redhat.com,
-	dri-devel@lists.freedesktop.org,
-	nouveau@lists.freedesktop.org,
+	 MIME-Version:Content-Type; b=CJuEka82VQZD7r2HjzJt7xEMwnH88pLtp+qQb3++TNHkAZOYQvZF50LaaZUs/fGCtlre5jgq0g6/6kkI9SwFNrZEiecSS14ToJ956tBznsyNJkwpyZRdgppRvYcR7KM5OkYSeQCLaOwaFyrQiYFLuV3F+jW8T5CwOvmC96WsPlE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SHzVPJKW; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SHzVPJKW"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-398cb5615deso4330930a91.3
+        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 21:46:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790052366; x=1790657166; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yu4lnjkEeLhSQSw/zgoMmATHDwmlodTsiLJw7uhCZBw=;
+        b=SHzVPJKWqjwc0jLYJ18n5wY9h512UWGP+cdiFuI/SLohhsFQXeucSGra8pSmfXZ1Rg
+         FiJgC/Mlf2fMkuMRvNrW6/wSr0LI1Unzr9r34f8fU2TbneKJSLRm3Kc4QPcn3ErOAE9d
+         951+z2ZP1fpYJoiEHyepmM7FyUsderF4hUWASi/ib35+mStKX6UOMgLEzHU29gpvWV94
+         LrPqiUh8CtxjB08EUA5rXERQt59rO2ilcQQGDXQmo6HpLXRG+uV/w4jXKhljheM4JN5S
+         r42jd3MpE0zxW9L8nAtKARI4BX0zifC/x6hfts1XCET424rYNPbDf5LK4Ciqa3ZUBbfh
+         i74A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790052366; x=1790657166;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yu4lnjkEeLhSQSw/zgoMmATHDwmlodTsiLJw7uhCZBw=;
+        b=nI88t4azrbQuv96l5gV4bxOfiSG0OK8zIkxg9bv8xaCHTrtNherSCSvlNNBBiZrrcg
+         kSfirvRZ5N6j3n/A1l/qrEL5QUdzWQyf5z7EE2NubPF3TGLiWIBbsUYAZ7aZDx4F//Yt
+         7te3JyqOY3Hub25+ibvbkjk6SPvxcEe2+hXEEE/P/x+TfOIQ6WrD7vHB523fg1yrWJX7
+         R3zeTT1PGzpQovlrxe+DR4KZ70eL3MejG7Cy0lgv986/0NZ1KlwRp5hSZjxwfQv0Ekmz
+         J+snjN6LwKbribnm4PASaOXzHCpfzS50kVE7glYX1nmYAlkGR6loj9lEh8m/CcZYc0Tl
+         ONzw==
+X-Forwarded-Encrypted: i=1; AKwUvBxov6eASNyhOsi4riozDFnuN7SfP3hRj8/5p4VNSzU1Vo+RJ7zEH+ViFVfcNBmUPXDkUNACAA4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kM4mn2AksIVXXx3WvmpKZxxuu/RQRL62B8W1VCFKPiuSiSiXgC
+	K9RZsmHhWr00UhcFSIS6gRIAGBT8d2UmOgUlrPU06wV2UGcxrZ0knEiZ
+X-Gm-Gg: AYBFou1gYHhZbqKD1c2cAKuu1Ngkg7LOhjs2OOcgrMe2iAM3jw/YUIkNlyiPWq3juSb
+	GW5Y1h5pTeATPRNMQamVwQhR8DebSm8FS0DPJWCTzOEidt2WQXDqTLzWVXL4nzYToUX54M8qZiI
+	2Lmoz84ErrDMQ15OVcIwteFTjQtU/iLYJDSFICwfc9WJzTwDZjq9fgkoVsAD7Ze6M4reggeUwCw
+	ZGVA0aNbQJimS/EkP5rMQB6+MpYfZlNr9xe/SDjQ/NcZ3fq4CTYWizlHkrRdDpYLzgks8DJariQ
+	safXrFSbnD8Cc/1OaKZfQD0dQA9vssat9scGjcRSaO8vGebbBLV8L01crUCJBKwx8STMlAjZL95
+	K5vzgI+LbHnXR1kjctED0utFjlwISPP3ZKWu7p/dLz/ihiH+pm6e6LJRQ/Svh4sXOqYmJEPqAE7
+	PRkdwoVz+tN+mSajLFX4/2e+EGOzT0kjh7zbeERdN8QUJpKzOy0lX05B3Hl/5a+7w2JQZEP26OU
+	MjadSR8/r9nmLaeg12sdnRhVPllvqRD4AYT7zI=
+X-Received: by 2002:a17:90b:2f47:b0:39e:2f57:67c7 with SMTP id 98e67ed59e1d1-39e54cc6240mr18299564a91.3.1790052366112;
+        Mon, 21 Sep 2026 21:46:06 -0700 (PDT)
+Received: from localhost.localdomain ([2409:8a1e:2e81:7320:3443:b4ea:307f:cc4a])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a06e26e70asm1152325a91.1.2026.09.21.21.46.02
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 21 Sep 2026 21:46:04 -0700 (PDT)
+From: Yuchao Zhang <ndaugoing@gmail.com>
+To: Yu Kuai <yukuai@fygo.io>,
+	Song Liu <song@kernel.org>
+Cc: Xiao Ni <xni@redhat.com>,
+	NeilBrown <neilb@suse.de>,
+	linux-raid@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-hwmon@vger.kernel.org,
 	stable@vger.kernel.org,
-	liupeng <liupeng01@kylinos.cn>
-Subject: [PATCH v2] drm/nouveau: Fix memory leaks in debugfs and hwmon init error paths
-Date: Tue, 22 Sep 2026 12:40:44 +0800
-Message-ID: <20260922044044.21442-1-liupeng01@kylinos.cn>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <ff3015a1c4b08088b0638b00670e86d612a27978.camel@redhat.com>
-References: <ff3015a1c4b08088b0638b00670e86d612a27978.camel@redhat.com>
+	Yuchao Zhang <ndaugoing@gmail.com>
+Subject: Re: [PATCH 1/2] md: fix bblog_size-driven OOB read in super_1_load() and super_1_sync()
+Date: Tue, 22 Sep 2026 12:45:56 +0800
+Message-ID: <20260922044556.30746-1-ndaugoing@gmail.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <fad92649-e362-443a-93ea-205b11247e6d@fygo.io>
+References: <fad92649-e362-443a-93ea-205b11247e6d@fygo.io>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-In nouveau_debugfs_init(), if nvif_object_ctor() fails, the previously
-allocated drm->debugfs is leaked because the function returns the
-error code directly.
+Hi Kuai,
 
-In nouveau_hwmon_init(), if hwmon_device_register_with_info() fails,
-the allocated hwmon structure is leaked because the function returns
-the error code directly.
+Thanks for the review.
 
-Fix both by freeing the allocated memory and clearing the pointer on
-the error paths.
+The 'else if (sb->bblog_offset != 0)' branch handles the valid on-disk
+state where bblog space was reserved at array creation but no bad blocks
+have been recorded yet (MD_FEATURE_BAD_BLOCKS clear).  A corrupted or
+forged superblock - hardware fault, fuzzing, or a malicious shared disk -
+can carry an oversized bblog_size (e.g. 0xFFFF) in that state, bypassing
+the existing validation in the MD_FEATURE_BAD_BLOCKS branch.
 
-Fixes: b126a200e9db ("drm/nouveau/debugfs: we need a ctrl object for debugfs")
-Fixes: b9ed919f1c8f ("drm/nouveau/drm/pm: remove everything except the hwmon interfaces to THERM")
-Cc: stable@vger.kernel.org
-Signed-off-by: liupeng <liupeng01@kylinos.cn>
----
-Changes in v2:
-- Add Fixes: tags for the commits that introduced the leaks
-- Add Cc: stable@vger.kernel.org for stable backporting
+When the first bad block is later recorded, super_1_sync() copies
+sb->bblog_size into bb->size, and md_write_metadata() then builds a bio
+larger than the backing rdev->bb_page, reading past it and leaking kernel
+memory contents to disk.
 
- drivers/gpu/drm/nouveau/nouveau_debugfs.c | 15 ++++++++++++---
- drivers/gpu/drm/nouveau/nouveau_hwmon.c   |  2 ++
- 2 files changed, 14 insertions(+), 3 deletions(-)
+You are right that fixing super_1_load() alone is sufficient: the kernel
+never modifies sb->bblog_size between load and sync, and with the -EINVAL
+check the device never enters the array, so super_1_sync() is never
+reached with an oversized value.  v2 keeps only the super_1_load()
+validation.
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_debugfs.c b/drivers/gpu/drm/nouveau/nouveau_debugfs.c
-index 47d5579c568d..88223931f382 100644
---- a/drivers/gpu/drm/nouveau/nouveau_debugfs.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_debugfs.c
-@@ -295,13 +295,22 @@ nouveau_drm_debugfs_init(struct drm_minor *minor)
- int
- nouveau_debugfs_init(struct nouveau_drm *drm)
- {
-+	int ret;
-+
- 	drm->debugfs = kzalloc_obj(*drm->debugfs);
- 	if (!drm->debugfs)
- 		return -ENOMEM;
- 
--	return nvif_object_ctor(&drm->client.device.object, "debugfsCtrl", 0,
--				NVIF_CLASS_CONTROL, NULL, 0,
--				&drm->debugfs->ctrl);
-+	ret = nvif_object_ctor(&drm->client.device.object, "debugfsCtrl", 0,
-+			       NVIF_CLASS_CONTROL, NULL, 0,
-+			       &drm->debugfs->ctrl);
-+	if (ret) {
-+		kfree(drm->debugfs);
-+		drm->debugfs = NULL;
-+		return ret;
-+	}
-+
-+	return 0;
- }
- 
- void
-diff --git a/drivers/gpu/drm/nouveau/nouveau_hwmon.c b/drivers/gpu/drm/nouveau/nouveau_hwmon.c
-index 726397ab035d..ffbe7f542ab0 100644
---- a/drivers/gpu/drm/nouveau/nouveau_hwmon.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_hwmon.c
-@@ -697,6 +697,8 @@ nouveau_hwmon_init(struct drm_device *dev)
- 	if (IS_ERR(hwmon_dev)) {
- 		ret = PTR_ERR(hwmon_dev);
- 		NV_ERROR(drm, "Unable to register hwmon device: %d\n", ret);
-+		drm->hwmon = NULL;
-+		kfree(hwmon);
- 		return ret;
- 	}
- 
--- 
-2.53.0
-
+Thanks,
+Yuchao
