@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D2413C342F
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 09:43:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 532194BB27C
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 09:43:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790070200; cv=none; b=YYF/EN1iwPweBifjtAy01slGfs6ONq+6bAMgvxjvhsJs+kiunWvPsnWv666It/9EQcxy4J6T3AIJZSy/5S4brL9P+phfpOqLnjkVKCxVtFLAQnkq46De4B1MMhb+GE0zHQCDlIViwQk/GlCMs++6AaI11XYvDiQdkZ+uLMhkL2E=
+	t=1790070204; cv=none; b=oSrUN5BUTMcPVgft1sxMcLo6ihTeTwcW0KoQduS1rN9heitNzk8s1HqwyoVhg1zX5KyKwiWZuJuQ5gh5Z9qY2/lc41Ik9BenHp/DiA7UbVthgjvYeKQaj0YHP9u0t5xPyUO7WHyYr/unyhMlvL7O0vMDL5SEB+kcpjNxSkMev/o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790070200; c=relaxed/simple;
-	bh=Q9YfVsD3sYqyNp+XwEIeGl92jO5971DFWxOib/Cy+eI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=XDMx3wTYBHl8TugLsFhR/S9ThFYzZx+IH0pEFnMh8t4pZ+ziUDj6VNHB2U26w1cm6Zz7kbT96L38fZJbcTkwQzAZf+BxWFwGL/0ADeu73dvrqSzkZURqBferqDfvqpGCAXx8i0N9NNMQdWfzKwEJtjFUnr+awGg5F7lzRQ9NljQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ScMfmGcT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790070204; c=relaxed/simple;
+	bh=foR0oHt1h6VLPXj45fAOqfKqYK9czsmExrfdgq7yTNQ=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=H79ihih794j34FDIizEZh9HVL47Ekasj5QUiabUGSP9TLxJF9Kp6d1xhp3TlkKLfrA5QUDyYvUD9W83Zerh2b7tyzvFH12I/u4OeMOZvanSwqACATFE80K6Shbdgqyo/DIbOb/GVwoVCfoggB6845EcdE9Zg12H0VDRMoyOmthc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=beGFPt5D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ScMfmGcT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1810E1F000FF;
-	Tue, 22 Sep 2026 09:43:17 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="beGFPt5D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9812B1F000FF;
+	Tue, 22 Sep 2026 09:43:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790070198;
-	bh=6IT0/JTIVNPktOvltY3Pt6PW7EXd8ktvktUjGdrq9Ac=;
+	s=korg; t=1790070202;
+	bh=ApQ0XyainZTjtLyRAGzbNoeUT+848n2OF9M9gGz50tQ=;
 	h=Subject:To:Cc:From:Date;
-	b=ScMfmGcTfROmidS3rNDcfhigK8yIoCzUk5UaS+xG+UKbivc+VbhhEId1a1gBnNiHR
-	 iS5+flKIa5AbbOv1t8KfgJHHPQcFYksuVChEasH3n55/NpMqR95qcKcVjC6AM9o+zO
-	 YWGZ5wSzPkFwBeq9p+XC06SnHj0po/wzhFohHfMY=
-Subject: FAILED: patch "[PATCH] memstick: ms_block: destroy io_queue workqueue on removal" failed to apply to 5.10-stable tree
-To: gyf161023@gmail.com,ulfh@kernel.org
+	b=beGFPt5DCvooO0P38mtkcoN7ymMJCmPyzEpCj2mB8hD9LX27bnZOGmyyRWjGLu+S+
+	 D5Scg1mViY5l6mOCAfP0PMwdbGMuW90Wm2PU/hr8Pija5d1Da/SRG2QtFJFGUQBdKi
+	 sMrvULSi2CrgMBD18iMn+srgfubNPzw6Q9NsruRs=
+Subject: FAILED: patch "[PATCH] mm/huge_memory: bypass THP tuneables for huge pfnmap mappings" failed to apply to 6.12-stable tree
+To: ljs@kernel.org,akpm@linux-foundation.org,baohua@kernel.org,baolin.wang@linux.alibaba.com,clg@redhat.com,david@kernel.org,dev.jain@arm.com,jgg@ziepe.ca,lance.yang@linux.dev,liam@infradead.org,peterx@redhat.com,ryan.roberts@arm.com,saravanand@crusoe.ai,sj@kernel.org,stable@vger.kernel.org,ziy@nvidia.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 22 Sep 2026 11:36:40 +0200
-Message-ID: <2026092240-eel-composure-463d@gregkh>
+Date: Tue, 22 Sep 2026 11:37:00 +0200
+Message-ID: <2026092200-parchment-pursuable-481f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 90af7fde083e1b22c349c3a8b1626728e44e474c
+git cherry-pick -x e384abeb559d10d6505aec053ede9368d81d4c71
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092240-eel-composure-463d@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092200-parchment-pursuable-481f@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,38 +62,182 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 90af7fde083e1b22c349c3a8b1626728e44e474c Mon Sep 17 00:00:00 2001
-From: Yifei Gao <gyf161023@gmail.com>
-Date: Tue, 4 Aug 2026 21:34:56 +0000
-Subject: [PATCH] memstick: ms_block: destroy io_queue workqueue on removal
+From e384abeb559d10d6505aec053ede9368d81d4c71 Mon Sep 17 00:00:00 2001
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Thu, 27 Aug 2026 20:55:57 +0100
+Subject: [PATCH] mm/huge_memory: bypass THP tuneables for huge pfnmap mappings
 
-msb_init_disk() creates the per-card ordered workqueue msb->io_queue with
-alloc_ordered_workqueue(). It is torn down with destroy_workqueue() only
-on the init error path; msb_remove() never destroys it. msb_stop() merely
-flushes the queue, and neither msb_data_clear() nor put_disk() free it. As
-a result every card insert/remove cycle leaks the workqueue and its
-kworker, exhausting kernel memory over repeated cycles.
+The sysfs THP tuneables at /sys/kernel/mm/transparent_huge_pages/ rather
+confusingly only control the behaviour of THP in some instances.
 
-Destroy the workqueue in msb_remove() after the disk has been removed and
-the queue drained.
+They are not applicable to MADV_COLLAPSE operations, nor to DAX mappings.
 
-Fixes: 0ab30494bc4f ("memstick: add support for legacy memorysticks")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Yifei Gao <gyf161023@gmail.com>
-Signed-off-by: Ulf Hansson <ulfh@kernel.org>
+Long-term, THP is predicated upon compaction being able to obtain large
+folios to populate THP ranges.
 
-diff --git a/drivers/memstick/core/ms_block.c b/drivers/memstick/core/ms_block.c
-index ce33907bfc24..65154e569a9e 100644
---- a/drivers/memstick/core/ms_block.c
-+++ b/drivers/memstick/core/ms_block.c
-@@ -2204,6 +2204,8 @@ static void msb_remove(struct memstick_dev *card)
- 	msb_data_clear(msb);
- 	mutex_unlock(&msb_disk_lock);
+However, vm_normal_folio() returns NULL for PFN map mappings, thus their
+reference count is maintained by the driver, not core mm.
+
+As a consequence, the folios are not subject to reclaim nor compaction, so
+are not truly part of the THP mechanism at all.
+
+However, since commit 5dd40721f147 ("mm: allow THP orders for PFNMAPs")
+introduced the ability to establish huge PFN maps, they have been subject
+to THP tuneables.
+
+This is incorrect - if a huge PFN map is available (defined by
+vma->vm_ops->huge_fault being non-NULL for a VMA_PFNMAP_BIT VMA), then it
+should be mapped huge upon fault-in.
+
+Correct this by explicitly checking for this while ensuring that smaps
+continues to accurately report THPeligible statistics.
+
+While here, abstract the entire file-backed THP check in
+vma_can_map_huge_file(), with sensible separation of logic into helper
+functions.
+
+Note that drm_gem_shmem_mmap() and panthor_gem_mmap() establish huge PFN
+maps of shmem folios, however they are marked unevictable in
+drm_gem_get_pages(), and in any case would fail the reference check in
+__remove_mapping() even if they weren't.
+
+Failing to map huge PFN maps has resulted in significant real-world
+performance degradation, see links for details.
+
+[ziy@nvidia.com: rename some functions]
+  Link: https://lore.kernel.org/DL1HIHWYJ7TB.1CY76SJS0V03L@nvidia.com
+Link: https://lore.kernel.org/20260827-hugepfn-allowable-orders-v1-1-94819c8807c8@kernel.org
+Fixes: 5dd40721f147 ("mm: allow THP orders for PFNMAPs")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: Zi Yan <ziy@nvidia.com>
+Reported-by: Cedric Le Goater <clg@redhat.com>
+Closes: https://lore.kernel.org/linux-mm/20260805055544.1568534-1-clg@redhat.com/
+Reported-by: Saravanan D <saravanand@crusoe.ai>
+Closes: https://lore.kernel.org/linux-mm/20260821070520.25759-1-saravanand@crusoe.ai/
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Tested-by: Saravanan D <saravanand@crusoe.ai>
+Tested-by: Lance Yang <lance.yang@linux.dev>
+Reviewed-by: SJ Park <sj@kernel.org>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Barry Song <baohua@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index afbb5974bd22..1e5d68acf62a 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -92,7 +92,7 @@ unsigned long huge_anon_orders_madvise __read_mostly;
+ unsigned long huge_anon_orders_inherit __read_mostly;
+ static bool anon_orders_configured __initdata;
  
-+	destroy_workqueue(msb->io_queue);
-+
- 	put_disk(msb->disk);
- 	memstick_set_drvdata(card, NULL);
+-static inline bool file_thp_enabled(struct vm_area_struct *vma)
++static inline bool file_thp_enabled(const struct vm_area_struct *vma)
+ {
+ 	struct inode *inode;
+ 
+@@ -118,6 +118,67 @@ static bool vma_is_special_huge(const struct vm_area_struct *vma)
+ 	return vma_test_any(vma, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT);
  }
+ 
++static bool vma_file_bypass_thp_tuneables(const struct vm_area_struct *vma,
++		enum tva_type type)
++{
++	const bool has_huge_fault = vma->vm_ops->huge_fault;
++
++	/* MADV_COLLAPSE ignores tuneables. */
++	if (type == TVA_FORCED_COLLAPSE)
++		return true;
++	/* Huge PFN mappings are uncompactable so the policy doesn't apply. */
++	if (vma_test(vma, VMA_PFNMAP_BIT) && has_huge_fault)
++		return true;
++	return false;
++}
++
++static bool vma_file_allow_thp_tuneables(vm_flags_t vm_flags)
++{
++	/* THP=always? */
++	if (hugepage_global_always())
++		return true;
++	/* THP=madvise and marked MADV_HUGEPAGE? */
++	if (hugepage_global_enabled() && (vm_flags & VM_HUGEPAGE))
++		return true;
++	return false;
++}
++
++static bool vma_file_check_thp_tuneables(const struct vm_area_struct *vma,
++		vm_flags_t vm_flags, enum tva_type type)
++{
++	return vma_file_bypass_thp_tuneables(vma, type) ||
++		vma_file_allow_thp_tuneables(vm_flags);
++}
++
++static bool vma_can_map_huge_file(const struct vm_area_struct *vma,
++		vm_flags_t vm_flags, enum tva_type type)
++{
++	const bool has_huge_fault = vma->vm_ops->huge_fault;
++
++	/*
++	 * Enforce THP collapse requirements as necessary. Anonymous vmas
++	 * were already handled in thp_vma_allowable_orders().
++	 */
++	if (!vma_file_check_thp_tuneables(vma, vm_flags, type))
++		return false;
++
++	switch (type) {
++	case TVA_PAGEFAULT:
++		/*
++		 * Trust that ->huge_fault() handlers know what they are doing
++		 * in fault path.
++		 */
++		return has_huge_fault;
++	case TVA_SMAPS:
++		if (has_huge_fault)
++			return true;
++		fallthrough;
++	default:
++		/* Only regular file is valid in collapse path. */
++		return file_thp_enabled(vma);
++	}
++}
++
+ unsigned long __thp_vma_allowable_orders(struct vm_area_struct *vma,
+ 					 vm_flags_t vm_flags,
+ 					 enum tva_type type,
+@@ -190,27 +251,8 @@ unsigned long __thp_vma_allowable_orders(struct vm_area_struct *vma,
+ 						   vma, vma_start_pgoff(vma), 0,
+ 						   forced_collapse);
+ 
+-	if (!vma_is_anonymous(vma)) {
+-		/*
+-		 * Enforce THP collapse requirements as necessary. Anonymous vmas
+-		 * were already handled in thp_vma_allowable_orders().
+-		 */
+-		if (!forced_collapse &&
+-		    (!hugepage_global_enabled() || (!(vm_flags & VM_HUGEPAGE) &&
+-						    !hugepage_global_always())))
+-			return 0;
+-
+-		/*
+-		 * Trust that ->huge_fault() handlers know what they are doing
+-		 * in fault path.
+-		 */
+-		if (((in_pf || smaps)) && vma->vm_ops->huge_fault)
+-			return orders;
+-		/* Only regular file is valid in collapse path */
+-		if (((!in_pf || smaps)) && file_thp_enabled(vma))
+-			return orders;
+-		return 0;
+-	}
++	if (!vma_is_anonymous(vma))
++		return vma_can_map_huge_file(vma, vm_flags, type) ? orders : 0;
+ 
+ 	if (vma_is_temporary_stack(vma))
+ 		return 0;
 
