@@ -1,164 +1,208 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CD9A4D2EE0;
-	Tue, 22 Sep 2026 10:00:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71EFF4EB872
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 10:02:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790071228; cv=none; b=Tnjoksc2pRbdlkNEE4M5BQ5Lz7G2wPiS8gCorq9JqGsh9X3tirzA0YrkHIbsRSG++1chn4SoxqANeSAPyo30gaAoVJtOTb/hs69NwTFc40cFjqTWicXKAcDlPbF+mSA5HVe9e2Gd6w0BVbk8OiraSL2hXvIp8wOVqboL/jIpLLA=
+	t=1790071323; cv=none; b=eWXqsAIQIOxdE7Lf5DThRXJC17+B3L1J8agfb5E9TlAySEihjTvcStvkPfW0/kE/BOru7ho+QYjQTEewBudTw1Oo5WovSqgiPgXQyuhunHyq/fBvtAT0GJe4Ek2wwy1hQekqTQOkOjST1uY6c/kBdBDg6X1EXiFpcAZQZgUEp9o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790071228; c=relaxed/simple;
-	bh=Ycpv2bOivDeW/2Kk61K1JlU9KPo/cytaxYgK6fO3Kuk=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=R1b+2tzeRhBN6m4418npZgjMTFluH/UTDV/vYX8BA3v1GVNX81h1fUg62hM3sD71/Un/4Ursr5Losl7+5NSOMUoPMrkf2hSnVgrZSDDhQYZfyG+H5z5lVHFGkKqIiQH79IHDOUPgQkfYiOPtYYCpqTOAG59brcAVxowBDCuk5qk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 69a0ae86b66c11f19a56ed5b684f684d-20260922
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:d7e4e3d0-6cb3-4b0c-a9de-08f21298f03b,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:-5
-X-CID-META: VersionHash:7db8b62,CLOUDID:a842b0a05358cccc4fcd3b6ffd05ac44,BulkI
-	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50|99,EDM:
-	-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,O
-	SA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 69a0ae86b66c11f19a56ed5b684f684d-20260922
-X-User: zenghongling@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zenghongling@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1983275394; Tue, 22 Sep 2026 18:00:17 +0800
-From: Hongling Zeng <zenghongling@kylinos.cn>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	zhongling0719@126.com,
-	Hongling Zeng <zenghongling@kylinos.cn>,
-	stable@vger.kernel.org,
-	Baolin Liu <liubaolin@kylinos.cn>
-Subject: [PATCH v8] ntfs: mount hibernated volumes read-only regardless of  errors=
-Date: Tue, 22 Sep 2026 18:00:12 +0800
-Message-Id: <20260922100012.2134955-1-zenghongling@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1790071323; c=relaxed/simple;
+	bh=207cRhtOF6NzUqdPBujl5zqVEED8VL4pXa16JxsEym4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LuNx/cH0wQcoF9NXUvY34/jIlbYxv8VFpcsTxQ2tkNED8+CpaHxbU3ec/axWaKYszDl3F6W1DSjlI4ihFTRwLVZZmeftZO7vtXYVxjbHr0XResgC/DKS2OcEWcUrwYesQscLZwiwQxRvryMi3622ilSgW2FeMX5zI+Y0ufpn5xQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=RZVn7zS0; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=izfsOyU0; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="RZVn7zS0";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="izfsOyU0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790071321;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XPYZNeIyiYj7gOq6QRXPEwzFCOAwM8Zc2zjq+jeGRJc=;
+	b=RZVn7zS0I9XQtr+Xc+Ca01c/z2lF+HxgqikV2XA+24ZccRFBMGXw4Cx2l6nvXS0Jpe1pBS
+	w+BQUxRB5SrR4R6z+gJ5XURushvvWpnOnxbl4pHdimlPgp5/g7i7wGEFR9VIByaCNMjxQy
+	snJCDpNBeWDTJYOIglFAnHmLp5KqC9g=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-261-vc3jwhHbMl-ByMtZuSGuCQ-1; Tue, 22 Sep 2026 06:02:00 -0400
+X-MC-Unique: vc3jwhHbMl-ByMtZuSGuCQ-1
+X-Mimecast-MFC-AGG-ID: vc3jwhHbMl-ByMtZuSGuCQ_1790071319
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-487041c4c82so1209392f8f.2
+        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 03:01:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1790071319; x=1790676119; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XPYZNeIyiYj7gOq6QRXPEwzFCOAwM8Zc2zjq+jeGRJc=;
+        b=izfsOyU0WFguVFQcG+kXD6kF4mRthWdF8+qSKJ0u563lMWVRRBVaBcZN+VOVdsnAB3
+         VWiiWrJBnF8Lq7BPr6RuilBlTq+Lwv8mCzgEU9T2095KpBXbTzL4Dz1yszUBpZfXv70W
+         lim2kjl/J4jQS0+HMmlrfDOzhaVRAFj7zkkFhEKULm30vEvgj7NfV27MdwF0EzXDQA2E
+         oIHW+2PhuPtuIDJXxVAFL5fHK23vOT0qhm5C84N5KyCixi0tADb21THNZtE/QOafsoHO
+         pmwWdrN5t7GeLWyMCYaY4YRR8SLAmPjvM4p/X3UbORfLDellbQwO+Sm647YUETs73Zud
+         iXcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790071319; x=1790676119;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XPYZNeIyiYj7gOq6QRXPEwzFCOAwM8Zc2zjq+jeGRJc=;
+        b=UbGcW2GIoDqM73T2h1kgjN2JrZB828QVW217YMNH7tDi4mpXaa/cACY9liB2bFC9rX
+         qrYQHwhWxNr49qIup5HqimAYjiB6iRcCIlAljVhKIpR1mz3PzSn/uWqHsMkMl0FcIlVO
+         tUxHrTcvPsaX4nnfIe1B1W+UrsOkyiI55qRJvyrAt2Iosf8jAIMIlCotM87NbGRn9vAU
+         r9UOtNXs/pci2qGAvV8xAJp1u09/vAH2sIRqjISl53j0ME2Y3zJMbUjdKE7OBDI+WifC
+         BZYvNXMI4dGQuIG2Uwe8cCLaFa9C19/XgwT6WAHVShcvSO+V+pqfCtsF/SweM4iV7ZuJ
+         DOfg==
+X-Forwarded-Encrypted: i=1; AKwUvBwGxNB4biZmxIB3/fs19Fh+Ij4UHxC3v3yLCANo2kU/M/MgCTfkIU+mkvHnB7b8jZJzaBfKwls=@vger.kernel.org
+X-Gm-Message-State: AFuF++kdPAp2aBJlFNKRyOfxAtq3eMZIIYkmEpH2sgdasSsyC1Hyb5s4
+	UdFGQYV5TAKBzmdWa3elMaUi/KOPSgIYd1EbvaYO2ya5BnIQuMWVqZZ/32tBE73mcpHe0M7GXp6
+	NGNxwf+uxORKlMJvLQmh8t3u+cIdrscwD9674RNEjL1dcqfpkdcAro5EqlQ==
+X-Gm-Gg: AYBFou3aS42iC/xAbTwtJHrTcvE1lNu33taCvEhJ/fv02DB3tpLdglQHf8iPmtRu+AY
+	cPyOY8S7/x10slXMBq239UliHPVuhHTW0LUk68K9kvvhhCFa65BEdjhmIBgRsYWQMqs2skeWYIL
+	sSEEZjuG41tB3HcKrlNn44Ux59eRJP2OnIw17KogSijW5ZSuI2GyXT6S6YneWLxoU1FAMQTf3e2
+	unHZCRffU4XZgvz2jhjBvkRdTRpb+LKJjDP9w5rDVBCjVlWeNjkWQGxHB2NIEmeH2Qpsff32OK3
+	zH8vB5qJd4wMPI6tXOUJa1WhC+7wbRkPEbMBf7FVyRj01y5Ph40D+UsIdDnXg37hJ2ZQfhSG/sl
+	O6PBdfGiQgT0DMU7orQGF/Pd6+jPwQrWWCeU48Pcpu1ragiPNF6eAHDO/6lvPGS1h/36o7ZlG+w
+	==
+X-Received: by 2002:a05:6000:38a:b0:487:36b:1816 with SMTP id ffacd0b85a97d-4871e244bd2mr18225744f8f.7.1790071318695;
+        Tue, 22 Sep 2026 03:01:58 -0700 (PDT)
+X-Received: by 2002:a05:6000:38a:b0:487:36b:1816 with SMTP id ffacd0b85a97d-4871e244bd2mr18225706f8f.7.1790071318182;
+        Tue, 22 Sep 2026 03:01:58 -0700 (PDT)
+Received: from [192.168.188.234] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48862795232sm3867019f8f.32.2026.09.22.03.01.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 22 Sep 2026 03:01:57 -0700 (PDT)
+Message-ID: <99bcc883-1cbb-46f9-9283-cd03e5efafe7@redhat.com>
+Date: Tue, 22 Sep 2026 12:01:56 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v2] net: dsa: microchip: save the periodic output
+ request
+To: Bastien Curutchet <bastien.curutchet@bootlin.com>,
+ netdev-bot+sashiko@kernel.org
+Cc: woojung.huh@microchip.com, UNGLinuxDriver@microchip.com, andrew@lunn.ch,
+ olteanv@gmail.com, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, richardcochran@gmail.com, ceggers@arri.de,
+ arun.ramadoss@microchip.com, pascal.eberhard@se.com,
+ miquel.raynal@bootlin.com, thomas.petazzoni@bootlin.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260917-fix-perout-v2-1-d8acf3eea6f7@bootlin.com>
+ <178998077822.2160803.3867886756893254872@kernel.org>
+ <635cfefd-c588-4b3f-bbc4-1cf11ef0a2c5@bootlin.com>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <635cfefd-c588-4b3f-bbc4-1cf11ef0a2c5@bootlin.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-The hibernation check in load_system_files() only converts the
-superblock to read-only under errors=remount-ro.  With the default
-errors=continue (and with errors=panic), a hibernated volume is
-mounted read-write and the mount-time $LogFile emptying writes to it,
-although a hibernated volume must not be written to at all.
+On 9/22/26 08:32, Bastien Curutchet wrote:
+> On 9/21/26 10:52 AM, netdev-bot+sashiko@kernel.org wrote:
+>> Thank you for your contribution! Sashiko AI review found 2 potential
+>> issue(s) to consider.
+>>
+>> Critical: 0 · High: 1 (2) · Medium: 1 (2) · Low: 0 (1)
+>>
+>> If you believe none of the issues are legitimate, please reply to each
+>> issue of Medium severity or higher and explain why the AI is wrong.
+>> If any of them are legitimate and you plan to respin, please let patchwork
+>> know by including "pw-bot: cr" as a separate line at the end of your reply
+>> (one such reply per series is enough).
+>>
+>> - [High] ksz_ptp_enable_perout()
+>>    (drivers/net/dsa/microchip/ksz_ptp.c:226) commits the caller-supplied…
+>> - [Medium] The commit message states that 'if a flag was set in the
+>>    request that triggered the periodic output, it is lost when the output…
+>>
+>> Pre-existing issues:
+>> - [High] A non-canonical but ABI-accepted period whose timespec64
+>>    conversion is zero (e.g. period.sec = -1, period.nsec = 1000000000;…
+>> - [High] In ksz_ptp_restart_perout()
+>>    (drivers/net/dsa/microchip/ksz_ptp.c) the elapsed-period quotient is…
+>> - [Medium] The device exposes three trigger output units (caps.n_per_out
+>>    = 3 at drivers/net/dsa/microchip/ksz_ptp.c:1056, PTP_TOU_INDEX =…
+>> - [Medium] ksz_ptp_enable_perout() resolves the output pin with
+>>    ptp_find_pin() (drivers/net/dsa/microchip/ksz_ptp.c:206).
+>> - [Low] ksz_ptp_tou_reset() (drivers/net/dsa/microchip/ksz_ptp.c:66-86)
+>>    assigns the result of the TRIG_RESET read-modify-write to 'ret' at…
+>>
+>> -- 
+>>
+>> net: dsa: microchip: save the periodic output request
+>>
+>> The patch replaces the two stored timespec64 values (perout_target_time_first
+>> and perout_period) in struct ksz_ptp_data with a copy of the full
+>> ptp_perout_request, so that the index and flags survive a perout restart.
+>> ksz_ptp_restart_perout() now replays the saved request with only the start
+>> time recomputed.
+>>
+>> A few questions below.
+>>
+>>>      When a periodic output is initialized, only the start and the period are
+>>>      stored, not the flags nor the pin index. So when the periodic output is
+>>>      restarted, the request flags and index are always set to 0. So if a pin
+>>>      other than the first one was used, or if a flag was set in the request
+>>>      that triggered the periodic output, it is lost when the output is
+>>>      restarted.
+>>
+>> [Severity: Medium]
+>> Can request->flags ever be non-zero in this driver?
+>>
+>> ksz_ptp_clock_register() sets caps.n_pins, caps.n_per_out and the callbacks,
+>> but never sets caps.supported_perout_flags, and caps lives in the zeroed
+>> struct ksz_device, so the mask stays 0. The core rejects any flag that is not
+>> advertised before it calls the driver:
+>>
+>> drivers/ptp/ptp_chardev.c:ptp_perout_request() {
+>>     ...
+>>     if (perout->flags & ~ops->supported_perout_flags)
+>>         return -EOPNOTSUPP;
+>>     ...
+>>     return ops->enable(ops, &req, perout->period.sec || perout->period.nsec);
+>> }
+>>
+> 
+> This check is 'fairly' recent, it was added by d9f3e9ecc456 ("net: ptp: introduce .supported_perout_flags to ptp_clock_info") (v6.15). I experienced the reset issue on a v6.12 kernel.
+> 
+> Even if it can't happen right now, as soon as this driver registers any new flag, the bug will come back.
+> 
+> 
+> 
+> All others comments are already existing issues that can be fixed independently from this patch so I don't plan to address them right now.
+This one:
 
-Drop the on_errors term so that a hibernated volume, or a volume whose
-hibernation state cannot be determined, always mounts read-only.
-NVolErrors() is still recorded, so ntfs_reconfigure() keeps refusing
-remounts to read-write, and the $LogFile emptying is skipped by its
-!sb_rdonly() check.
+"""
+Should the request be committed to ptp_data->perout_request only after it has
+been validated and the hardware has actually been programmed?
+[...]
 
-The check itself must not apply the errors= policy either: it runs
-before SB_RDONLY is set, and ntfs_lookup_inode_by_name() and ntfs_iget()
-call ntfs_error() internally on corruption or I/O errors, which under
-errors=panic would panic the machine before the read-only fallback has
-made its decision.  Temporarily substitute errors=remount-ro for
-errors=panic around the check: nested ntfs_error() calls then fall
-back to read-only, and any read-only transition they trigger is
-preserved even when the error is not propagated to the check's return
-value or recorded in NVolErrors().  This is safe during initial mount,
-before the super block is published.
+There is also a period that this check rejects but the memcpy has already
+stored: period.sec = 4, period.nsec = 294967296 gives 0x100000000 ns, and
+TRIG_CYCLE_WIDTH_M is GENMASK(31, 0), so the request returns -EINVAL. On the
+next clock step, ksz_ptp_restart_perout() feeds that value to
+div_u64(now_ns - first_ns, period_ns), whose divisor parameter is u32, so the
+divisor truncates to 0. Is that a divide error in process context with
+ptp_data->lock held?
+"""
 
-If the check reports hibernation or fails, set SB_RDONLY and record
-NVolErrors() unconditionally: hibernation safety takes precedence over
-the errors= policy.  A volume with errors recorded during the check or
-earlier in the mount, e.g. when loading the LogFile, also stays
-read-only, matching what ntfs_reconfigure() enforces for remounts.
+Looks new to me, and bad.
 
-Fixes: 6251f0b0de7d ("ntfs: update super block operations")
-Cc: stable@vger.kernel.org
-Suggested-by: Baolin Liu <liubaolin@kylinos.cn>
-Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
-Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
-Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
----
-Change in v8:
- -Resolve merge conflicts.
----
- fs/ntfs/super.c | 36 ++++++++++++++++++++++++++----------
- 1 file changed, 26 insertions(+), 10 deletions(-)
+Also if the issue you are observing on an older kernel is already fixed in
+the vanilla tree, I suggest instead sending to stable the relevant change.
 
-diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-index 82b5bf28b6ab..2a5694a5f098 100644
---- a/fs/ntfs/super.c
-+++ b/fs/ntfs/super.c
-@@ -1503,6 +1503,7 @@ static bool load_system_files(struct ntfs_volume *vol)
- 	struct ntfs_attr_search_ctx *ctx;
- 	struct restart_page_header *rp;
- 	int err;
-+	u8 saved_on_errors;
- 
- 	ntfs_debug("Entering.");
- 	/* Get mft mirror inode compare the contents of $MFT and $MFTMirr. */
-@@ -1677,8 +1678,19 @@ static bool load_system_files(struct ntfs_volume *vol)
- 	 * NVolErrors() without setting the dirty volume flag and mount
- 	 * read-only.  This will prevent read-write remounting and it will also
- 	 * prevent all writes.
-+	 *
-+	 * Nested lookup and inode-loading errors must not panic before the
-+	 * read-only fallback has run.  Temporarily use errors=remount-ro
-+	 * instead of errors=panic, preserving any read-only transition even
-+	 * if an error is not propagated to the check's return value or
-+	 * recorded in NVolErrors().  This is safe during initial mount,
-+	 * before the super block is published.
- 	 */
-+	saved_on_errors = vol->on_errors;
-+	if (saved_on_errors == ON_ERRORS_PANIC)
-+		vol->on_errors = ON_ERRORS_REMOUNT_RO;
- 	err = check_windows_hibernation_status(vol);
-+	vol->on_errors = saved_on_errors;
- 	if (unlikely(err)) {
- 		static const char *es1a = "Failed to determine if Windows is hibernated";
- 		static const char *es1b = "Windows is hibernated";
-@@ -1686,17 +1698,21 @@ static bool load_system_files(struct ntfs_volume *vol)
- 		const char *es1;
- 
- 		es1 = err < 0 ? es1a : es1b;
--		/* If a read-write mount, convert it to a read-only mount. */
--		if (!sb_rdonly(sb) && vol->on_errors == ON_ERRORS_REMOUNT_RO) {
--			sb->s_flags |= SB_RDONLY;
--			ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
--		}
-+		/* Hibernation safety takes precedence over the errors= policy. */
-+		sb->s_flags |= SB_RDONLY;
- 		NVolSetErrors(vol);
--		/*
--		 * Remember it for the lifetime of the mount: see
--		 * ntfs_sync_volume_dirty_state().
--		 */
--		NVolSetHibernated(vol);
-+		ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
-+
-+                /*
-+                 * Remember it for the lifetime of the mount: see
-+                 * ntfs_sync_volume_dirty_state().
-+                 */
-+                NVolSetHibernated(vol);
-+	} else if (!sb_rdonly(sb) && NVolErrors(vol)) {
-+		/* Match the read-write remount restriction for recorded errors. */
-+		sb->s_flags |= SB_RDONLY;
-+		ntfs_error(sb,
-+			"Errors were recorded during mount.  Mounting read-only.  Run chkdsk.");
- 	}
- 
- 	/* If (still) a read-write mount, empty the logfile. */
--- 
-2.25.1
+Thanks,
+
+Paolo
 
