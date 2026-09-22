@@ -1,42 +1,71 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3AC14A260D
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 19:51:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 325524AA00D;
+	Tue, 22 Sep 2026 19:52:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790106702; cv=none; b=M4Bl0WB2+BDn0E/sipXd1cDfda3v1FP1X17XNAWzPWb8l2yuWL89o19sdQ71Vbm+WiBZS9eE14mLgAm4CZsdGm9lSf3p5YSDxqeSruQdq6R6n9bn7yyjbnc2aSqXr7Ss9VBmv9YrBYy46ysS2HjiNa3fnhEdHXrjdmPHVQN55F8=
+	t=1790106729; cv=none; b=NvkENXeC/yHpXNfyWTRYUCW79VpcrmFKmWv4/rQa/IXpim7DSZqtB0K1uBk0VeQiOtRwOCtdhdFvJOA2xD4bnK2duUNbOJbbT6Baw60eyZ9diDZjxFesBI8Gtd0+RPuiuSvQhVs9PEa/8CmyMEt1ftr8pGsoPNen40uYUj+Qg9M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790106702; c=relaxed/simple;
-	bh=jmStMownDywTtPfK2T9UvkrRsWowO9tPJ6GmyjpOCxI=;
+	s=arc-20240116; t=1790106729; c=relaxed/simple;
+	bh=Pp7DmVHziTjsngerGzAzS9ggZnFeUelWoLtKn7VLkkA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=S+KfKUy/PNl0ksyJA0HJz983pUcdCoDxCgIKcfJl4BE+OvNbSTJRBzJ2ysicA8pBsBhpynfmMJZpAg3KpTFTKTt3+/T8tCR5Fabzgz6Qwhqg8+XnuFcX1yFzBBcatWy7aGZjldYGc6B+l/GTiQNJTlWyl2ILI0FVNAOtpZg3pPI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=afJk7EYz; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=fDaAWJR1c0NIRjnt0qSTDrWxGjVnw6ImmFwVHdjV0KqRpv1FYLobQ6M3d9L2q8BuYX5UfVNgIjW1yM1hxrChjURDZrVYsXVCrBBK1RxIjPHMKZVr8qBE2eDUgcyNDVmsBjLQ87ynmNnpj6ye6pVEVtIK1wIia+WjOIuOGn2axlo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=e4n/7rka; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="afJk7EYz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6E941F000FF;
-	Tue, 22 Sep 2026 19:51:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790106701;
-	bh=B+e31BHdASYrlF737LnX3YLc9g1i+bwRrN5/fBVdVFU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=afJk7EYz9UgqF39/iyrAnLawJoPFYAHP039/2uy0/7LSNMT8lz1YgarkWs9UBNIWl
-	 b8Vr7f9YROYpyxZJ01QfaDgQfz4uCpgVQVJRxAoULI71e3bz5PGK2PT8cOJ2KXHcBV
-	 4n2eJPY9BviRUxgG/tO6ZVdl1t341Vu6VH5+kU2FD57kCugj8w7Onq9PQyz5eFSikf
-	 OKNMMniz4rSSMKTVIz1GP+zpDr9ZHb2n5f9260ymvPs6RuGw54ckoh0N2Ad/1DaO7r
-	 cyt9DeUu/lUMqyINzjTHogpG7IicC0NgG8LYOjg3ztnuizj8CGLoQvlvd4+FLiokoS
-	 0PqvI6HK/tZxQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Daehyeon Ko <4ncienth@gmail.com>,
-	Johannes Berg <johannes.berg@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] wifi: libipw: reject TKIP frames without a full MIC
-Date: Tue, 22 Sep 2026 15:51:39 -0400
-Message-ID: <20260922195139.110479-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092234-durably-dose-a2ea@gregkh>
-References: <2026092234-durably-dose-a2ea@gregkh>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="e4n/7rka"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68MI7YaV1129430;
+	Tue, 22 Sep 2026 19:52:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=l0eLohf0bZd7cQUOX
+	391fnN0GQ8lLsDWvhUe+M+IiXM=; b=e4n/7rkapL8p9VU6Kw2FRsZ/PMQNbFEjH
+	0RW3lMTumo2Qp8HBh2mKGboiu2sqQDzGdAWC3HgPVmnhJ2WRsHhN+CSCWvy8N6QO
+	loNdmL2fMWH6R7BmrUbSEZn0ctOpfYsCgNtI9YTel8vUJ7dZO8NpvmiDjBpJsFZ8
+	u4YEAEHZvqFl7t8r2p3SxjrY2AUCxKx592rRuOELj8RVFe2fL0ld/FHa75wsVrqk
+	KA8o/0OmnSoD+2SZiiHN1eZAjz1gQ6wVU4DrJl2SmxLOx8HtZpJ3CWKVEwQtru/V
+	6jyV7KyJie/FrnL22GvVA5c5uXMuXIdn6VsGu6sRvTWj54sC3pEwA==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskgs7pr7-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 22 Sep 2026 19:52:04 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68MIHXBq4187956;
+	Tue, 22 Sep 2026 19:52:04 GMT
+Received: from smtprelay07.wdc07v.mail.ibm.com ([172.16.1.74])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gt7dyb171-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 22 Sep 2026 19:52:04 +0000 (GMT)
+Received: from smtpav04.wdc07v.mail.ibm.com (smtpav04.wdc07v.mail.ibm.com [10.39.53.231])
+	by smtprelay07.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68MJq0hR22413912
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 22 Sep 2026 19:52:00 GMT
+Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 8F02058052;
+	Tue, 22 Sep 2026 19:52:00 +0000 (GMT)
+Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id A2BD358045;
+	Tue, 22 Sep 2026 19:51:58 +0000 (GMT)
+Received: from Mac.ibm.com (unknown [9.61.246.118])
+	by smtpav04.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 22 Sep 2026 19:51:58 +0000 (GMT)
+From: Omar Elghoul <oelghoul@linux.ibm.com>
+To: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
+        kvm@vger.kernel.org
+Cc: oelghoul@linux.ibm.com, hca@linux.ibm.com, gor@linux.ibm.com,
+        agordeev@linux.ibm.com, borntraeger@linux.ibm.com, svens@linux.ibm.com,
+        schnelle@linux.ibm.com, mjrosato@linux.ibm.com, alifm@linux.ibm.com,
+        farman@linux.ibm.com, gbayer@linux.ibm.com, pasic@linux.ibm.com,
+        alex@shazbot.org, stable@vger.kernel.org
+Subject: [PATCH v7 1/4] s390/pci: Hold fmb_lock when enabling or disabling PCI devices
+Date: Tue, 22 Sep 2026 15:51:38 -0400
+Message-ID: <20260922195141.94548-2-oelghoul@linux.ibm.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260922195141.94548-1-oelghoul@linux.ibm.com>
+References: <20260922195141.94548-1-oelghoul@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,74 +73,92 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=V/XoQuni c=1 sm=1 tr=0 ts=6ab2dc64 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=5NbLduwtq9nBFWGw9KEA:9
+X-Proofpoint-ORIG-GUID: pUtK9MOx1B4o5gEc8rvbYhz92H4Cw3-P
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDI4NyBTYWx0ZWRfX4ZauGVkn30ac
+ D95qT4W89GF7FnruTibbSf5jpIUJV8BBmIWN45UM5BmMCw0D+ClfELeBuVMyXcJZqJPqlRBFB5b
+ APEyW/wbt0ZZWV2oLlV8RzK3Hus9SXgCTxBqbdY/88yqEuetEnOLxj6Cba4UrMLZnq4VuNOngdr
+ T7hoXaPFTHiONI14BVOGmMSitzJOEFMywLxPWkpLharq7H/E3uEzwCCJpz0WqwX58tXdR0+zWYC
+ g5whu9lH5q6HTFgdLoZtU2j7QjEzaR84Xz188GS1sW0jtOAufTt5nrl+OkviEWgXNLJdtNL1/ZY
+ /C091gVmi+g7ZrNw3ywQytPRPEJ//JJI8FnCluhzjeiNKUh6SlkUahhDX2BQOD2OQeqonJ6bDxe
+ Y0rW+VikJxpvA1qw9+RmZsUjFDfUH5Ui2cjbcOt4s+DS14Wnzu/gGnQo8jE3XMsLfqzs5DkgyvD
+ /UgiFTlFS9wLA9W8lrw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDI4NyBTYWx0ZWRfXz59whd5j98cF
+ K8zBC8muAK69RJPrApNF5nTlI+UNJTcJ/L8CcEoMGDwm0jBTrfAwcJNJ8ORooTZQw6jksXFrBvK
+ FkkWRojsoMYfEeza9ARtnThQJ92Ww2s=
+X-Proofpoint-GUID: pUtK9MOx1B4o5gEc8rvbYhz92H4Cw3-P
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-22_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 spamscore=0 malwarescore=0 clxscore=1015 phishscore=0
+ bulkscore=0 adultscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220287
 
-From: Daehyeon Ko <4ncienth@gmail.com>
+Ensure that fmb_lock is held by pcibios_enable_device() and
+pcibios_disable_device() when calling zpci_fmb_enable_device() or
+zpci_fmb_disable_device(), respectively. Additionally, assert that the
+fmb_lock is held within the latter two functions to prevent future race
+conditions regarding new callers.
 
-[ Upstream commit 06f42accaf3c6aecab1dcc57f68dde6c06c8b380 ]
-
-libipw_michael_mic_verify() assumes that an skb contains an eight-byte
-Michael MIC. A short TKIP frame makes the unsigned payload length wrap,
-causing michael_mic() to read past the skb.
-
-Check that the MIC is present before verifying it, and use the existing
-MICHAEL_MIC_LEN constant for all MIC lengths in the verifier.
-
-Fixes: b453872c35cf ("[NET] ieee80211 subsystem")
+Fixes: af0a8a8453f7 ("s390/pci: implement pcibios_add_device")
+Fixes: 944239c59e93 ("s390/pci: implement pcibios_release_device")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
-Link: https://patch.msgid.link/20260909061124.3802517-1-4ncienth@gmail.com
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
-[ adapted libipw changes to the older lib80211 implementation and Michael MIC helper interface. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Omar Elghoul <oelghoul@linux.ibm.com>
+Reviewed-by: Niklas Schnelle <schnelle@linux.ibm.com>
+Reviewed-by: Matthew Rosato <mjrosato@linux.ibm.com>
 ---
- net/wireless/lib80211_crypt_tkip.c | 13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
+ arch/s390/pci/pci.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/net/wireless/lib80211_crypt_tkip.c b/net/wireless/lib80211_crypt_tkip.c
-index 1b4d6c87a5c5d..823274728711a 100644
---- a/net/wireless/lib80211_crypt_tkip.c
-+++ b/net/wireless/lib80211_crypt_tkip.c
-@@ -38,6 +38,7 @@ MODULE_DESCRIPTION("lib80211 crypt: TKIP");
- MODULE_LICENSE("GPL");
+diff --git a/arch/s390/pci/pci.c b/arch/s390/pci/pci.c
+index d64c544b32b0..c055a9ad0972 100644
+--- a/arch/s390/pci/pci.c
++++ b/arch/s390/pci/pci.c
+@@ -173,6 +173,8 @@ int zpci_fmb_enable_device(struct zpci_dev *zdev)
+ 	unsigned long flags;
+ 	u8 cc, status;
  
- #define TKIP_HDR_LEN 8
-+#define MICHAEL_MIC_LEN 8
++	lockdep_assert_held(&zdev->fmb_lock);
++
+ 	if (zdev->fmb || sizeof(*zdev->fmb) < zdev->fmb_length)
+ 		return -EINVAL;
  
- struct lib80211_tkip_data {
- #define TKIP_KEY_LEN 32
-@@ -585,16 +586,18 @@ static int lib80211_michael_mic_verify(struct sk_buff *skb, int keyidx,
- 					int hdr_len, void *priv)
- {
- 	struct lib80211_tkip_data *tkey = priv;
--	u8 mic[8];
-+	u8 mic[MICHAEL_MIC_LEN];
+@@ -211,6 +213,8 @@ int zpci_fmb_disable_device(struct zpci_dev *zdev)
+ 	struct zpci_fib fib = {0};
+ 	u8 cc, status;
  
--	if (!tkey->key_set)
-+	if (!tkey->key_set || skb->len < hdr_len + MICHAEL_MIC_LEN)
- 		return -1;
++	lockdep_assert_held(&zdev->fmb_lock);
++
+ 	if (!zdev->fmb)
+ 		return -EINVAL;
  
- 	michael_mic_hdr(skb, tkey->rx_hdr);
- 	if (michael_mic(tkey->rx_tfm_michael, &tkey->key[24], tkey->rx_hdr,
--			skb->data + hdr_len, skb->len - 8 - hdr_len, mic))
-+			skb->data + hdr_len,
-+			skb->len - MICHAEL_MIC_LEN - hdr_len, mic))
- 		return -1;
--	if (memcmp(mic, skb->data + skb->len - 8, 8) != 0) {
-+	if (memcmp(mic, skb->data + skb->len - MICHAEL_MIC_LEN,
-+		   MICHAEL_MIC_LEN) != 0) {
- 		struct ieee80211_hdr *hdr;
- 		hdr = (struct ieee80211_hdr *)skb->data;
- 		printk(KERN_DEBUG "%s: Michael MIC verification failed for "
-@@ -612,7 +615,7 @@ static int lib80211_michael_mic_verify(struct sk_buff *skb, int keyidx,
- 	tkey->rx_iv32 = tkey->rx_iv32_new;
- 	tkey->rx_iv16 = tkey->rx_iv16_new;
+@@ -639,7 +643,9 @@ int pcibios_enable_device(struct pci_dev *pdev, int mask)
+ 	struct zpci_dev *zdev = to_zpci(pdev);
  
--	skb_trim(skb, skb->len - 8);
-+	skb_trim(skb, skb->len - MICHAEL_MIC_LEN);
+ 	zpci_debug_init_device(zdev, dev_name(&pdev->dev));
++	mutex_lock(&zdev->fmb_lock);
+ 	zpci_fmb_enable_device(zdev);
++	mutex_unlock(&zdev->fmb_lock);
  
- 	return 0;
+ 	return pci_enable_resources(pdev, mask);
  }
+@@ -648,7 +654,9 @@ void pcibios_disable_device(struct pci_dev *pdev)
+ {
+ 	struct zpci_dev *zdev = to_zpci(pdev);
+ 
++	mutex_lock(&zdev->fmb_lock);
+ 	zpci_fmb_disable_device(zdev);
++	mutex_unlock(&zdev->fmb_lock);
+ 	zpci_debug_exit_device(zdev);
+ }
+ 
 -- 
-2.53.0
+2.55.0
 
