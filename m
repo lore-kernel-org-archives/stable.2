@@ -1,73 +1,73 @@
 Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB149423786
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 11:04:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06520539764
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 11:04:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790075094; cv=none; b=d8hZd3ozekFA8QADOI2ZoXfYzISypVqIiHbKgod/WlUXtIj6oLSL3rzohmibD/YBKaHFs1Cl6bFea/BrrnUhiuxQ1zlYhX6SDJLv/4Ta6/1MfwzZARTs4lFRHn/V2pItwxFpAy8tLgEpwBFoBis+ZtVxQXJ+asqLfuu7O4Kukfs=
+	t=1790075096; cv=none; b=hMj8q5Ar2NHGpM5vjzOIWY6c26qd0/8LtX5fmHaUg4PhilClJogGKDme/xzv1aFoklJoa6L9E7W0Wmb7P4Ce0pYMKhhseK7mQqYyDQTyKEVvUWjlvlfA97LpYExEaK2mlTWGiJal71NrrbMiXzZp1A5I08UU96Jo0ruDJa3KRCE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790075094; c=relaxed/simple;
-	bh=oHJhqZKjusj+lQb30WTpZrX0EwtZKLelruVb3djpsao=;
+	s=arc-20240116; t=1790075096; c=relaxed/simple;
+	bh=t/flOyC9ZDRH8HC2rg7pu8TkwW7GxH9aj1ctyalgCJs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iosA/ZfXTpNSmfhGg5SpZRtgAGtzSwMrd0OJB3iJItCC05cnWo9KmXp1qDxSv9vFceuACi7+x3xqIaN4jppdjuzCwQdatnI5KBtmfuEJaI4L8chpouYNu2n/KMgmk7nxBIcanwJdP3YBFyYFAYmM4JV92coj0e9d6ad0QqaRLiA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qSB0UmJK; arc=none smtp.client-ip=74.125.225.140
+	 MIME-Version; b=jnCVrJJqFouCVAKKMoEOloZWPzqFh0sgCvEQuRm5JjaYeCd6lRyBxVZG6c1vNBGYaw0xc3cEagk97LuZPYW6uMfLRvX9Q8BvMFGGhgA4/Au86TNWGni9pdIUx9g+qeT10AA9UqGwcvGCjBZyDCGnIm3wDD/lnLOmUkc7F7pM4i0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WouYVhny; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qSB0UmJK"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd4ba9f68so53646395e9.1
-        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 04:04:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WouYVhny"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d822dso27777475e9.2
+        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 04:04:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790075091; x=1790679891; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790075093; x=1790679893; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Jzz0K8zNN7ZLPek6o/Yler3vVjJkWVf8pnM2oEZ8RVE=;
-        b=qSB0UmJKM/gOcDOOF/1HRkUynKYzr4nqHnCmQiqOse9kNNpYFI2g086zWMo1M3q4VK
-         xERxRwAYI/XlfzAbhNhebi9GDyveDCf9b1zhEuIsP2EGe1vvD+n79bMaRg7oaExhTaLg
-         MgnXh+/7znnFluYSwN+08ZUa1l2YSSeSqdRiTBDQwdPHN9dd/grh8m8IFW2E8iVAEFl2
-         rAnd5uX37JxHVKJdKbUuLRagzqDFYYzvHOX9QpHlqtauGhm5qezlS0DlrowHkmRChvGY
-         C+g8it7gXOKPh8svolanPXgH9bMY+ALoQnlxjjeQyznsb5GZ6syR3SyTd/3Q+85ot2EC
-         8SlA==
+        bh=IQ9ZzfSNp3bC4JkXTrbkqSx/tvC+Auttjq3SDzXrp04=;
+        b=WouYVhnyLYD4vuvD+P3tRH1Nv1Ix42wAeGV6Ht2fw5kFcJiAnL9nXYTGQdrAJp99tf
+         xBc78BnUuDqtlHBgEQecnOjo1V6Fuv2A6wzhqN9e3b6pZxvsAfa9wwZCFQIckI6/fD0S
+         JPeT8k0hqYEVYHV37wYhgMKCfUNSFf1XugwxDy94JGQ0rUvDj197g8yeSqHdMxfkzPpN
+         tCr4QnmgTjg9HO5UPDQ17r/po6Zlbwfx/8ng2/Lc42UoaqBjG2PGq0jfgpFbD0gQMG++
+         1bm6iwESW9JyP6o6+6f6sPM2ANFpHyND2PSuuFD1EirIQMoOYA3nVmogVOjqNBsByW8/
+         BeIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790075091; x=1790679891;
+        d=1e100.net; s=20260707; t=1790075093; x=1790679893;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Jzz0K8zNN7ZLPek6o/Yler3vVjJkWVf8pnM2oEZ8RVE=;
-        b=VBdnuKQEHVWb3SRAPhOUsxsYWXs5SOTRhDSTMzo1xT5BpYUB/NWcXb9k8duGserJ1y
-         4O9yXyQ04kwdkv7QHiQOvB4uPFPQwS6J9voWRsqx37L3I65o0VTFmIodLzJhYISBeioU
-         kxGzJlHz8//vRd/W+RXiIK2MKwi4MVXLkmcwn05eGssTg2qrDIghMoPCHGPfNzB9DA/m
-         VXf6apYeD0wv/XwPrxhavsyD+fJM1y2SzjGqTf6QfAaaHoigaQcE2ZZXB7j/zxDXkWjf
-         SE2jf8uW2lZb6gSMZ575eD9Tt3+VECGzZY5L+qKCWLGVGGOecAP1vvfobWYxChY+ROGr
-         ug7w==
-X-Forwarded-Encrypted: i=1; AKwUvBw8yP1GyjSMXKF+v8TTbNhJvFVr8YVPiPDlB53bmFHouxzuKuTEqCcpLM8ft0AzuGTD2Wg8lnQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mXhmudG1glTWpeB1LtRhTr8cuKpX2KcBDgHr4r4RbuVkdWxhh2
-	jADvAJNYZyg5jmbITO5Fxz8F2EY8yNwrZ/nojisKmDsKCPdoJWTi1XpI/LUmPW0f3sw=
-X-Gm-Gg: AYBFou1DGDTiiV9h61wS1ojrY+Q6uy3/JTN2MmVPM8lB4wcjd1uyTjKDMYpAE4Vt2Cf
-	dEwJZjC8O2VMk9kBPYXGSZbQDoo9Ww/mqBKZJ4Egcy8xzPRjhx6FWEawTCmelF7Yr0ZCutB3Qp/
-	dLbKMrTVq21Th4LMRul8G9S1JTUFb64TMeaPgdt/SGQBZiHGEREL+B8WE7IlwesG4PSJ9Sao5rZ
-	swJX3/vDSHL8r+w+YSdw3+FyCSN8Qb75ucI4EOMKOFHE9jdMBhkLQraFnuerxqme/Fn4jjqP5FN
-	cdNNfP8HIWTRyIrFXje7MrLOR3lWJcSk3Lj4k2iOicL8uY9nvId7xJ8uLYYcTvtCJd2pZEWMYTB
-	o4hMkrngiB40g+6JvQ5RHGC5GlkgHXKwSoQOBi+Uk5VTKlZ969Oa6eUuik5rjRrZ+OldA0zdALz
-	2G9/4R/VA2npEekqV/I9g0kmPO0kbCXwAVmn0jjvnkfrcMeK7GHT2tQ7DPxnsUiGg/ZTfKJzst1
-	STHmeh5b7kNCzSwbAm46w==
-X-Received: by 2002:a05:600c:6214:b0:49b:9202:6f80 with SMTP id 5b1f17b1804b1-49fc568129emr185563965e9.6.1790075091041;
-        Tue, 22 Sep 2026 04:04:51 -0700 (PDT)
+        bh=IQ9ZzfSNp3bC4JkXTrbkqSx/tvC+Auttjq3SDzXrp04=;
+        b=JNqcGROxQGyOcLOGNwCgc7TU8DuqfUghIS3LOeqMieh7v3/jRawvmewq00UqXoYoIT
+         yiAj0dYpfj4Tu09D80V+auyK0ALjhp7tqZNSAPOPKm9bjuf0pj5D8Dkw/tPbc9fohLkt
+         xEiofRIQsG5zgudhHE3SqNgjOBBZgfnPCqltGSBkBomfTKQ8z5TCgtCFFlZ9NiMudaQa
+         orWUOHFBYP0YaSA4y0VY8sRpHK/425SQSPcB1s0dhUvOMtp1+dTHXFsb1GV6//PbpksX
+         etgsfKh+/dNeT2qJ4iGOxg1twlPU/fo0chiLV+y0ZadRaeV+url9/7jq49baYdtgvfYF
+         0xRg==
+X-Forwarded-Encrypted: i=1; AKwUvBwz9DoiFQ9u7oYbJV97T+bC4RRgkJAKeoOl72XKorNWq0mM44Vg+PDQIjlseWZy62LotyovItw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lWj0LFU3wSQZzPD6BWkfiNHQMY/0H5+kNaOVgbR+tWI3OEWxcd
+	KFdAkS1aRlY2ZoR7mCGApYHf6bgKex74LvV5VwMWR2L3sz5yVqnZ7Kyk
+X-Gm-Gg: AYBFou2SM2AN5Cl6G6pWKNcWhnYerLBV0d36eJo7c1JB/kLIePxCv8jemZuu/WO4Zhc
+	Py2nawhBJEe4j6k+C/1ScgYhMfmbIVIk50EInVMvpmmBPyant1hDj7h0piahVayy65331JW+sNm
+	rNaxKwKLOsTUJXX2czgx8W0N74Yx2yleFnrRod2BqDov6vArQ6NMWiRkM+dXP1puzDivel4NU8B
+	YMVUFr5PmGXMADoMHN9San7OVYU9cDLDuDIR28jkCX10r+iyTC8oUBbYjWbm80xOQ13hzNwPJ35
+	/Wrp9yUPtLusFTdPZwgqYuHfV3lXvs8QW7S4DpWH2rl8/0H3ZpDlskIkJ+JlLlHY9iHL+vOp3cO
+	NITl4mXll1ovLaFHD3vs9c+yuupMzpzPxwu5T2c0fV9hcrhBp6IcIAO3LWT34+GbtK5hgMa2Yx5
+	4B8dCLtb8axQ62SpSc3Nj8ZLipndp/h2+j+vpWCuxYWjsJzhk3sGZO0fzYl3Kogw300aE/CWG+6
+	4NzXab3eus=
+X-Received: by 2002:a05:600d:6443:20b0:49f:ce73:4b with SMTP id 5b1f17b1804b1-49fce730095mr94272395e9.35.1790075093063;
+        Tue, 22 Sep 2026 04:04:53 -0700 (PDT)
 Received: from localhost.localdomain ([194.9.6.210])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fd8ccd185sm74611795e9.8.2026.09.22.04.04.49
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fd8ccd185sm74611795e9.8.2026.09.22.04.04.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 04:04:50 -0700 (PDT)
+        Tue, 22 Sep 2026 04:04:52 -0700 (PDT)
 From: Eduard Zateev <hackerowskiy@gmail.com>
 To: hackerowskiy@gmail.com
 Cc: "Darrick J. Wong" <djwong@kernel.org>,
 	stable@vger.kernel.org,
 	Christoph Hellwig <hch@lst.de>,
 	Carlos Maiolino <cem@kernel.org>
-Subject: [PATCH 22/26] xfs: fix blockgc group quota scanning when usrquota isn't enforced
-Date: Tue, 22 Sep 2026 13:02:17 +0200
-Message-ID: <20260922110221.1431-22-hackerowskiy@gmail.com>
+Subject: [PATCH 23/26] xfs: fix cursor and pointer handling when recovering iunlink buckets
+Date: Tue, 22 Sep 2026 13:02:18 +0200
+Message-ID: <20260922110221.1431-23-hackerowskiy@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260922110221.1431-1-hackerowskiy@gmail.com>
 References: <20260922110221.1431-1-hackerowskiy@gmail.com>
@@ -81,34 +81,93 @@ Content-Transfer-Encoding: 8bit
 
 From: "Darrick J. Wong" <djwong@kernel.org>
 
-LOLLM noticed the copy-paste error here -- if user quotas aren't
-enforced but we're near the group quota limit, we fail to set FLAG_GID
-and hence we might not actually free any preallocations, causing
-unnecessary EDQUOT.  Fix that.
+LOLLM pointed out a bug in xlog_recover_iunlink_bucket:
 
-Cc: stable@vger.kernel.org # v5.12
-Fixes: c237dd7c709432 ("xfs: flush eof/cowblocks if we can't reserve quota for inode creation")
+1. We don't null out prev_ip after releasing it, which can lead to UAF
+   problems if the inodegc flush call in the loop fails.
+
+at which point I noticed even more bugs:
+
+2. If the inodegc flush inside the loop fails, we also leak @ip.
+
+3. We set prev_agino to agino having already advanced agino, which
+   results in inodes with i_prev_unlinked set to itself.
+
+4. If we exit the bottom of the loop with prev_ip set, then prev_ip
+   aliases ip and we also set its i_prev_unlinked to itself.
+
+Bugs 3 and 4 introduce loops into the unlinked list, though these loops
+don't surface because we immediately flush each unlinked inode after
+loading it.
+
+Fix all of these issues.
+
+Cc: stable@vger.kernel.org # v6.0
+Fixes: 04755d2e5821b3 ("xfs: refactor xlog_recover_process_iunlinks()")
 Signed-off-by: Darrick J. Wong <djwong@kernel.org>
 Assisted-by: LOLLM # finding obvious bugs
 Reviewed-by: Christoph Hellwig <hch@lst.de>
 Signed-off-by: Carlos Maiolino <cem@kernel.org>
 ---
- fs/xfs/xfs_icache.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/xfs/xfs_log_recover.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
-diff --git a/fs/xfs/xfs_icache.c b/fs/xfs/xfs_icache.c
-index 82dac88e3c4c..de8be344e987 100644
---- a/fs/xfs/xfs_icache.c
-+++ b/fs/xfs/xfs_icache.c
-@@ -1653,7 +1653,7 @@ xfs_blockgc_free_dquots(
- 		do_work = true;
+diff --git a/fs/xfs/xfs_log_recover.c b/fs/xfs/xfs_log_recover.c
+index e7e49529658b..cf0d610265fe 100644
+--- a/fs/xfs/xfs_log_recover.c
++++ b/fs/xfs/xfs_log_recover.c
+@@ -2736,12 +2736,13 @@ xlog_recover_iunlink_bucket(
+ {
+ 	struct xfs_mount	*mp = pag_mount(pag);
+ 	struct xfs_inode	*prev_ip = NULL;
+-	struct xfs_inode	*ip;
+ 	xfs_agino_t		prev_agino, agino;
+ 	int			error = 0;
+ 
+ 	agino = be32_to_cpu(agi->agi_unlinked[bucket]);
+ 	while (agino != NULLAGINO) {
++		struct xfs_inode	*ip;
++
+ 		error = xfs_iget(mp, NULL, xfs_agino_to_ino(pag, agino), 0, 0,
+ 				&ip);
+ 		if (error)
+@@ -2750,11 +2751,11 @@ xlog_recover_iunlink_bucket(
+ 		ASSERT(VFS_I(ip)->i_nlink == 0);
+ 		ASSERT(VFS_I(ip)->i_mode != 0);
+ 		xfs_iflags_clear(ip, XFS_IRECOVERY);
+-		agino = ip->i_next_unlinked;
+ 
+ 		if (prev_ip) {
+ 			ip->i_prev_unlinked = prev_agino;
+ 			xfs_irele(prev_ip);
++			prev_ip = NULL;
+ 
+ 			/*
+ 			 * Ensure the inode is removed from the unlinked list
+@@ -2766,18 +2767,20 @@ xlog_recover_iunlink_bucket(
+ 			 * complete.
+ 			 */
+ 			error = xfs_inodegc_flush(mp);
+-			if (error)
+-				break;
++			if (error) {
++				xfs_irele(ip);
++				return error;
++			}
+ 		}
+ 
+ 		prev_agino = agino;
++		agino = ip->i_next_unlinked;
+ 		prev_ip = ip;
  	}
  
--	if (XFS_IS_UQUOTA_ENFORCED(mp) && gdqp && xfs_dquot_lowsp(gdqp)) {
-+	if (XFS_IS_GQUOTA_ENFORCED(mp) && gdqp && xfs_dquot_lowsp(gdqp)) {
- 		icw.icw_gid = make_kgid(mp->m_super->s_user_ns, gdqp->q_id);
- 		icw.icw_flags |= XFS_ICWALK_FLAG_GID;
- 		do_work = true;
+ 	if (prev_ip) {
+ 		int	error2;
+ 
+-		ip->i_prev_unlinked = prev_agino;
+ 		xfs_irele(prev_ip);
+ 
+ 		error2 = xfs_inodegc_flush(mp);
 -- 
 2.55.0
 
