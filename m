@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 413234B1B5E
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 09:43:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 432EB478859
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 09:43:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790070186; cv=none; b=QIe4+Wc6NmV7I3nEKUabyrSDrMEqDkHYGXvCVzp2SsEb3Ynke64TvWstihkxte4Fo4y+QZaGs4wTWOL+BgitI/p7cFh27t91IOw09bwNIKAdWjg0PC3wtmLx00St4NjT8bOXohJ+wXR0C29nbEgS4RO6istD8Psx6UmgO+jutes=
+	t=1790070190; cv=none; b=r2oNqFpMDrcAZt3qa2Tp86NHE127hgqAmhCZLjWiyt26QwVKectvZVhMnUZN/QTakYzm8OxFHejt3tTktLi8v9ABzuZPZEST3mmR9Mec2UEzSSoz/XAE/B9N0EbO5MNzK5VWNNngj29yyhx3oXtcBaghH2KgsojTYTkdHHble7s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790070186; c=relaxed/simple;
-	bh=VnHKD8GJVlm+Wp89ieJawyVuZYOVAFIoeBHbpcBsZb0=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=grxAK95EanRhDBaVeW6pAOB/lsh6t1xdRorxTi3U8ddDZrqHEyDtFRqmODIAdVv7yAIZqeTHGk2JbQZtVqMNeg/rHxEWtyAfVXFZwgftkTBlOtlhVQk4kQBS5GFtzxbcccRMqDJr7TKIjIqvA+gZNngTzMIpcT+ss/LYiRPEsVI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=u7/Ajh04; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790070190; c=relaxed/simple;
+	bh=Gbf0m2joT8amEIM6WgG8EixKEBxjOW5Rsr8WZ798vjI=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=UJxOcN5yWrWZu88ISeEDcCNqzukP74JGIU/xvlGvV9NOwdoVeqmNUjCizA5JFE4uVhm12lzmjwdSSiSm47ARgAGrreaiSKFzb/oIy2CAW42I0/w3720q4Zl3w1KqWGidcR6po9g+bambQLQvFbjTkg0czes8ZP3HOh4sRYk5ctc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=UfycI6d5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="u7/Ajh04"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EAB71F00898;
-	Tue, 22 Sep 2026 09:43:04 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="UfycI6d5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 307DE1F000FF;
+	Tue, 22 Sep 2026 09:43:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790070185;
-	bh=i6gof7AMv3XLSwPEOQrYdg5tTiSw3jLiXjA/rmtdhfs=;
+	s=korg; t=1790070188;
+	bh=c/3HdHcOzuEnhyjHGUhkflfGkMWsLkQ45/R0muAMHKU=;
 	h=Subject:To:Cc:From:Date;
-	b=u7/Ajh04S/KEkQzgWXOS0gvogrjjwm4SnyLtc9pTNRS8XDx2cr0E8Vpapz6FCYbLX
-	 j0dVQOTJ5ENevxw1rvgnmWIlepLNLalgS1Wwf2h/QuKqfVpYOSs+QilxD8eMw3UWGx
-	 u32uM6VMPf4pZHPLM5a/HrCXJzYeYzMBX1sK5j9k=
-Subject: FAILED: patch "[PATCH] xfrm: save input state data before secpath resets" failed to apply to 5.10-stable tree
-To: zhilinz@nebusec.ai,steffen.klassert@secunet.com,vega@nebusec.ai
+	b=UfycI6d5EuhtRFb650PQtnLwUg3lLeZGI+W5fhGYuYWwg7q5hu9Ax6TBCBPbDsbZt
+	 OfNq2F0+iISR055M7YS/T0X2pJdw0YH/K45rbvjqftLIaeT1Zjuyn13J8cd66MMlqq
+	 7LLcr+n2774YX5nTYic8vuVhHwjOOAaFAsezp2jA=
+Subject: FAILED: patch "[PATCH] mips: select CONFIG_WEAK_REORDERING_BEYOND_LLSC from" failed to apply to 6.18-stable tree
+To: theo.lebrun@bootlin.com,jiaxun.yang@flygoat.com,tsbogend@alpha.franken.de
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 22 Sep 2026 11:35:29 +0200
-Message-ID: <2026092229-tuition-manmade-0086@gregkh>
+Date: Tue, 22 Sep 2026 11:36:05 +0200
+Message-ID: <2026092205-ipod-uncloak-9772@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 3cf5cdecd99c9c186a5ea518d93bbf3045b6e3aa
+git cherry-pick -x bbc448c541ed90d52f9ec22f17394304e3bf170e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092229-tuition-manmade-0086@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092205-ipod-uncloak-9772@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,106 +62,152 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 3cf5cdecd99c9c186a5ea518d93bbf3045b6e3aa Mon Sep 17 00:00:00 2001
-From: Zhiling Zou <zhilinz@nebusec.ai>
-Date: Sat, 29 Aug 2026 17:24:24 +0800
-Subject: [PATCH] xfrm: save input state data before secpath resets
+From bbc448c541ed90d52f9ec22f17394304e3bf170e Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Th=C3=A9o=20Lebrun?= <theo.lebrun@bootlin.com>
+Date: Fri, 28 Aug 2026 16:07:33 +0200
+Subject: [PATCH] mips: select CONFIG_WEAK_REORDERING_BEYOND_LLSC from
+ CONFIG_EYEQ
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-xfrm_input() stores the current xfrm_state in the skb secpath while it
-continues receive-side processing. Some input paths can reset that secpath
-before xfrm_input() has finished dereferencing the state.
+On I6500 CPU cores, lld and scd give no ordering guarantees (same as all
+other instructions). To respect the assumption that arch_cmpxchg() is
+fully ordered, we must inject sync instructions above and below our
+lld/scd loops using the already in place WEAK_REORDERING_BEYOND_LLSC
+infrastructure.
 
-Receive callback users such as VTI and XFRM interfaces can reset the
-secpath. The VTI receive path does so before checking whether the packet
-crosses network namespaces, while the XFRM interface path does so only for
-cross-network-namespace packets. The XFRM_MAX_DEPTH error path can also
-reset the secpath before the final drop callback reports the current
-state's protocol.
+Otherwise, bad things can happen:
 
-If secpath_reset() drops the last state reference while the state is
-concurrently deleted, xfrm_input() can still dereference the freed state
-when selecting transport_finish() or reporting the drop callback protocol.
+[   34.054496] CPU 3 Unable to handle kernel paging request at virtual address 0000000000000000, epc == a80000080838e01c, ra == a80000080838dfc4
+[   34.054559] Oops[#1]:
+[   34.069561] CPU: 3 UID: 0 PID: 170 Comm: pipe_race Not tainted 7.2.0-rc6-01553-gb73c35220968-dirty #103 VOLUNTARY
+[   34.079932] Hardware name: Mobile EyeQ5 MP5 Evaluation board
+[   34.085592] $ 0   : 0000000000000000 0000000000000001 0000000000000000 0000000000000000
+[   34.093616] $ 4   : a800000808ee2618 000000000b7a879d 0000000000001000 0000000000000000
+[   34.101638] $ 8   : 0000000000e3f2c9 0000000000000000 a800000808a2a9f8 0000000000000000
+[   34.109660] $12   : a8000008139ffcd8 ffffffff84080018 a80000080837fae0 7878787878787878
+[   34.117682] $16   : a800000807e82940 0000000000001000 0000000000000000 0000000000000000
+[   34.125704] $20   : a800000802920e00 a8000008139ffdf8 a800000802649400 0000000000e3f2c9
+[   34.133726] $24   : 0000000000000006 00000001200406e0
+[   34.141783] $28   : a8000008139fc000 a8000008139ffd10 0000000000e3f2c8 a80000080838dfc4
+[   34.149837] epc   : a80000080838e01c anon_pipe_read+0xd4/0x428
+[   34.155697] ra    : a80000080838dfc4 anon_pipe_read+0x7c/0x428
+[   34.161549] Status: 140000e3  KX SX UX KERNEL EXL IE
+[   34.166551] Cause : 40800408 (ExcCode 02)
+[   34.170574] BadVA : 0000000000000000
+[   34.174161] PrId  : 0001b028 (MIPS I6500)
+[   34.178183] Process pipe_race (pid: 170, threadinfo=000000005ca35720, task=00000000e1013890, tls=000000014ebbb780)
+[   34.188568] Stack : a800000802649400 0000000000000000 0000000000000000 a8000008139ffdd0
+[   34.196623]	 0000000000000fba a800000808ee0000 0000000000000001 a8000008130c3e80
+[   34.204676]	 a8000008080d1280 a8000008139ffd58 a8000008139ffd58 1dbd2b22ea1dd500
+[   34.212729]	 a800000802649400 a800000808ee0000 ffffffffffffffea 0000000000000001
+[   34.220783]	 0000000000001000 0000000000000000 00000001200ae518 ffffffffffffffff
+[   34.228836]	 000000fffbe0e530 a80000080837edf4 000000fffbe0e530 0000000000000000
+[   34.236890]	 0000000000000000 0000000000000000 000000014ebb55a0 0000000000001000
+[   34.244943]	 0000000000000001 a800000802649400 0000000000000000 0000000000000000
+[   34.252996]	 0000000000000000 0000400400000000 0000000000000000 1dbd2b22ea1dd500
+[   34.261049]	 00000000140000e3 a800000802649400 a800000802649400 a800000808ee0000
+[   34.269103]	 ...
+[   34.271568] Call Trace:
+[   34.274026] [<a80000080838e01c>] anon_pipe_read+0xd4/0x428
+[   34.279533] [<a80000080837edf4>] vfs_read+0x25c/0x318
+[   34.284607] [<a80000080837faac>] ksys_read+0x104/0x138
+[   34.289763] [<a80000080802b9cc>] syscall_common+0x44/0x68
+[   34.295187]
+[   34.296689] Code: f84000cf  02209825  de020010 <dc420000> d8400004  02002825  0040f809  02802025  f84000c3
+[   34.306504]
+[   34.308099] ---[ end trace 0000000000000000 ]---
 
-Save the state protocol on the stack while the state is still valid,
-and use the already saved address family for transport_finish(). A larval
-XFRM_STATE_ACQ state has no type, so retain nexthdr as its protocol. This
-preserves the existing drop-path fallback while avoiding the post-reset
-state dereferences without adding an extra state reference to every
-received packet.
+My initial reproducer was the xdp-tools test suite. A standalone
+reproducer would be an lld/scd loop that, when the read is reordered by
+the CPU, triggers a fault. We can achieve this from userspace by
+stressing an anonymous pipe, which uses a mutex. Program used:
 
-Fixes: df3893c176e9 ("vti: Update the ipv4 side to use it's own receive hook.")
+	// SPDX-License-Identifier: GPL-2.0
+	// pipe_race.c - reproducer for MIPS LL/SC reordering vs fs/pipe.c
+	//
+	// Two userspace processes on an anonymous pipe:
+	//   parent  = writer: tight write() loop
+	//   child   = reader: tight read() loop
+
+	#define _GNU_SOURCE
+	#include <assert.h>
+	#include <errno.h>
+	#include <sched.h>
+	#include <signal.h>
+	#include <stdio.h>
+	#include <stdlib.h>
+	#include <string.h>
+	#include <sys/types.h>
+	#include <sys/wait.h>
+	#include <time.h>
+	#include <unistd.h>
+
+	int main(void)
+	{
+		long wrsize = 70;	// bytes per write()
+		long rdsize = 4096;	// bytes per read()
+		int pfd[2];
+		char *buf;
+		pid_t pid;
+		int ret;
+
+		ret = pipe(pfd);
+		assert(!ret);
+
+		pid = fork();
+		assert(pid >= 0);
+
+		if (pid == 0) {			/* reader */
+			close(pfd[1]);
+			buf = malloc(rdsize);
+			assert(buf);
+			for (;;) {
+				ssize_t n = read(pfd[0], buf, rdsize);
+
+				if (n < 0 && errno == EINTR)
+					continue;
+				if (n <= 0)
+					_exit(n < 0 ? 1 : 0);
+			}
+		}
+
+		close(pfd[0]);			/* writer */
+		buf = malloc(wrsize);
+		assert(buf);
+		memset(buf, 'x', wrsize);
+
+		for (;;) {
+			ssize_t n = write(pfd[1], buf, wrsize);
+
+			if (n < 0 && errno == EINTR)
+				continue;
+			if (n != wrsize)
+				break;
+		}
+
+		kill(pid, SIGKILL);
+		wait(NULL);
+		return 0;
+	}
+
+Fixes: fbe0fae601b7 ("MIPS: mobileye: Add EyeQ6H support")
 Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
-Signed-off-by: Steffen Klassert <steffen.klassert@secunet.com>
+Signed-off-by: Théo Lebrun <theo.lebrun@bootlin.com>
+Reviewed-by: Jiaxun Yang <jiaxun.yang@flygoat.com>
+Signed-off-by: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
 
-diff --git a/net/xfrm/xfrm_input.c b/net/xfrm/xfrm_input.c
-index 8f6109eada7e..5ed87d51392a 100644
---- a/net/xfrm/xfrm_input.c
-+++ b/net/xfrm/xfrm_input.c
-@@ -474,6 +474,7 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
- 	struct xfrm_state *x = NULL;
- 	xfrm_address_t *daddr;
- 	u32 mark = skb->mark;
-+	u8 xfrm_proto = nexthdr;
- 	unsigned int family = AF_UNSPEC;
- 	int decaps = 0;
- 	int async = 0;
-@@ -485,6 +486,7 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
- 	if (encap_type < 0 || (xo && (xo->flags & XFRM_GRO || encap_type == 0 ||
- 				      encap_type == UDP_ENCAP_ESPINUDP))) {
- 		x = xfrm_input_state(skb);
-+		xfrm_proto = x->type ? x->type->proto : nexthdr;
+diff --git a/arch/mips/Kconfig b/arch/mips/Kconfig
+index c3f69def2008..d7c67cebe065 100644
+--- a/arch/mips/Kconfig
++++ b/arch/mips/Kconfig
+@@ -658,6 +658,7 @@ config EYEQ
+ 	select USB_UHCI_BIG_ENDIAN_MMIO if CPU_BIG_ENDIAN
+ 	select USE_OF
+ 	select HOTPLUG_PARALLEL if HOTPLUG_CPU
++	select WEAK_REORDERING_BEYOND_LLSC
+ 	help
+ 	  Select this to build a kernel supporting EyeQ SoC from Mobileye.
  
- 		if (unlikely(x->km.state != XFRM_STATE_VALID)) {
- 			if (x->km.state == XFRM_STATE_ACQ)
-@@ -592,11 +594,13 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
- 
- 		x = xfrm_input_state_lookup(net, mark, daddr, spi, nexthdr, family);
- 		if (x == NULL) {
-+			xfrm_proto = nexthdr;
- 			secpath_reset(skb);
- 			XFRM_INC_STATS(net, LINUX_MIB_XFRMINNOSTATES);
- 			xfrm_audit_state_notfound(skb, family, spi, seq);
- 			goto drop;
- 		}
-+		xfrm_proto = x->type ? x->type->proto : nexthdr;
- 
- 		if (unlikely(x->dir && x->dir != XFRM_SA_DIR_IN)) {
- 			secpath_reset(skb);
-@@ -604,6 +608,7 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
- 			xfrm_audit_state_notfound(skb, family, spi, seq);
- 			xfrm_state_put(x);
- 			x = NULL;
-+			xfrm_proto = nexthdr;
- 			goto drop;
- 		}
- 
-@@ -728,7 +733,7 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
- 	} while (!err);
- 
- 	rcu_read_lock();
--	err = xfrm_rcv_cb(skb, family, x->type->proto, 0);
-+	err = xfrm_rcv_cb(skb, family, xfrm_proto, 0);
- 	if (err) {
- 		rcu_read_unlock();
- 		goto drop;
-@@ -753,7 +758,7 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
- 			xfrm_gro = xo->flags & XFRM_GRO;
- 
- 		err = -EAFNOSUPPORT;
--		afinfo = xfrm_state_afinfo_get_rcu(x->props.family);
-+		afinfo = xfrm_state_afinfo_get_rcu(family);
- 		if (likely(afinfo))
- 			err = afinfo->transport_finish(skb, xfrm_gro || async);
- 		if (xfrm_gro) {
-@@ -776,7 +781,7 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
- drop:
- 	if (async)
- 		dev_put(dev);
--	xfrm_rcv_cb(skb, family, x && x->type ? x->type->proto : nexthdr, -1);
-+	xfrm_rcv_cb(skb, family, xfrm_proto, -1);
- 	kfree_skb(skb);
- 	return 0;
- }
 
