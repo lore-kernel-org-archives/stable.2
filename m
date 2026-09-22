@@ -1,35 +1,73 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F667544D5B;
-	Tue, 22 Sep 2026 14:01:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 108C3355049
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 14:02:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790085676; cv=none; b=O+RN8VT5MDcYTu9OuU+gj8TnYnUbXSR4hvhx6FxWJf+ZBxtuBxvr+vBc//607U1zYwb8CawYc0pQhB36DGjXT5YSBtzjLg2gr7pltDeezl02bo2QfTAVPjrERh8w1kKiwenl24vPGnuSAnNBqE6swpEH18faGTmXpPYu4s2sy7M=
+	t=1790085738; cv=none; b=a5/UU9wYJIcke8acPk0K01HRO+Usqbe1Gb4gkmcITHm+OAexpX1DXj7fTOMnQhme1Y99U+xtpfmxy5iwGIFWpayQPwuCi/Ch69HF+/uexWaiVWFYOHDTPNCDjP5iM7TdvSzeufFbvafIoSdzBiHBsM5LVftorxVpzlVgKNow7rs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790085676; c=relaxed/simple;
-	bh=+xT3lhOevF9cEOl9WZISiKH7vf8j4vxQuX8dCDiLEVU=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=lABwgc9RmoqriAy9SHV8ZjKa+90/895FetzxFGWDqxFmDmDY3dAm7beBTDGqw9lbzoCKrjcJNbJoCIfom8FFfHnZ7k5hLyy67N7wZb0QKJd0grarq+34WVp9KVFUGh0XYuYJ9wtKm1hjyOdHP61WUWtXB+q0ek4HWsINTqlD0BY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kts70Emy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790085738; c=relaxed/simple;
+	bh=KZpeAX7+HHLoyyX9IFV3bYdVXybz+KMbEfHZhfxnlYc=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=LjPxrf1CHW1H2Dh/ELNLIbRGZcYhvPw0JaH+w9ndRKrn4QEpF20lMTzygtwVpoj/E/TtTwJ0tTFfEGkBUo2lJ+fh8lcRuMNx4AllFz9otfvpfAqXfmjSQZqzJ7gBU0JVN5bnj+/CZycal98S5y0zkpGK9fTMbXBNLPlfjzFJiz0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j6yvKtTw; arc=none smtp.client-ip=74.125.225.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kts70Emy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08F4A1F000FF;
-	Tue, 22 Sep 2026 14:01:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790085674;
-	bh=1Ess7UL1IoK9tUC3cvBKwGTxvOb5UlfUK/tcef+tFdk=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=kts70EmyYpMUaKoBIgrTmmimVEk8VqBvrO8X9GJ/lGezN/wrsQNQSqo3focx4AsVE
-	 7DA+RKgFjm9hbsabLj+bGUwWKhXOoD92YPGOORphEH1nLozttsWdTLzMIp37xbCl+D
-	 k71QSnpYL3zD2guL5blAX8EUQ7o3vb1SGz4XrZgcZGaJanr1HcwSUuIrHV77KNaPZh
-	 roYiQydJ0V/MLtYkE366the5xrt8ErLfP/o7IS7QKx/KqpxJk6SrOWhczEPsRb7SNC
-	 XHsumt6AactL6cFTLn6Ibxzf5iwF91zbqOleESDILnCc/V/XehhMGBGkXD0iRN2oiR
-	 7mat9+0owX3aA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 567C738119F8;
-	Tue, 22 Sep 2026 14:00:06 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j6yvKtTw"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48436686a40so396174f8f.3
+        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 07:02:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790085735; x=1790690535; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hPt7u/kzmzLewVflkCz6AMZQnNp8JD4lhbayHx15AWw=;
+        b=j6yvKtTwWboto6FplbwlZkbSSIaYOFlQ7RH1dUaaSCwmmzfv5qngoYnJ/fHv5NOK5+
+         YGjbjLTjdOnBeSiJSpyYbbxFa9qzF5iBMt/ZbfO+Rt50G8tWeDItK+4Q4YgOMz3Pi8Lj
+         UDnwPw9e2IzugMvhB5qOQT9XwsXGpd6CmOMNhMSG+BjKyDIIgEONyv2HQnIFP4gEDy4y
+         sfmE3wZZuhwvBGddRoFM5fz8S9dmEj8tEd5iQ5OjoJboDOVaSn+97MUFexEZGc43Oo/I
+         QgQLUJWDKiNRM+TIEFkxnQDYkviYL165xSl5SGy8DkH0IcqLudDBxXI2Vvv4xVfQh7Gb
+         1QnA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790085735; x=1790690535;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hPt7u/kzmzLewVflkCz6AMZQnNp8JD4lhbayHx15AWw=;
+        b=QvzOHPfXVXi61OO/voZmJ4wGEv3ThZOadJEvrJgs7vFNca+rJCs7OhSvZXcp78XrZ6
+         WJ/mnx5lh1TIXjM4U5BGfKVst/0JYpMb6IjBr2lcnu2r2g1rKVRJM3nZiogg9iqv+Ebi
+         EUv/gvapkMP5zUpyYFl0ivXMvMO4mahc5QBf8ou2TCkNhksfdmgGj7ldluipGfxrIJDe
+         5Usl0esErJeAx/PXZc9xOmEtru79wvSYo+NMvixsMHf/A/smLFkRvWzNUYYm7DOmQOlx
+         JHebzBRzkdeUYmnmP+C5eLaXCjMNFkILuj8XsOwY50JCGmSfxmaXo5BPd0zwPFHDBPix
+         IIsQ==
+X-Gm-Message-State: AFuF++k2eZxt/W1hCwetcJYcUO+rzqdNtetLCkA2QZu3HGzlIxnB9/Xb
+	rq9iYPkXsr9PLVFHGwbV2yD4bd7khaVQ6feKOdWPkM00V9OOC9+v7sEWVBcKtQ==
+X-Gm-Gg: AYBFou27FTrAOATHUsm8dlcUcE66szTE1a8D379m/aG90oy6dH1sIFrovF7TlvHoWqo
+	N6ySjC76Tr4Mjqia8E3JnDXh7/jCv5my7HwHziKpLjw54k8s2hBlIEjmxffRbRb8w30hVnrfCpo
+	9ImLpS1BvJazsRsdOOlo2tsf6enP9O/GiNzVfB1jxjheZ9Nbesh2gaI92nx8IxZupbWSf6dqr9c
+	xqZ/u4qHhKnoMH7GXEj4BM+XHEUyPE9ugnls0Sz5E54JLWRFcZ9XWnea5bh0PpJJSB+mqrhoOUj
+	fkSJfPoP75uEi/RUlXi1rTmzwUrPJ+gNjA50CJGP/MzH8CfMSScN69cd5MSKlLhcTBhAPQUVmHH
+	zPAMnM+H02tKj1/suIvkwNHP6T1jZNDm/e6reZJ/cgA43poK+ye4EMHt1kFNkGnZuVtOQrF/cGb
+	wWE12+5+u7C0r8AIk+3MkIhDlHjKmy7rrXlDfD3HMiH8PuSJgMCAn04MdeBJVxKL9HcTHDKr19w
+	P1Mj9HbAJPbSiI30jQFUPrunwxLmQ==
+X-Received: by 2002:a05:6000:1a8c:b0:487:803:ba34 with SMTP id ffacd0b85a97d-4871faa2329mr18887207f8f.6.1790085735023;
+        Tue, 22 Sep 2026 07:02:15 -0700 (PDT)
+Received: from L-P-ITAIH2-L-RF.rf.local ([193.169.70.108])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48862789080sm5575094f8f.28.2026.09.22.07.02.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 07:02:14 -0700 (PDT)
+From: Itai Handler <itai.handler@gmail.com>
+To: stable@vger.kernel.org
+Cc: Itai Handler <itai.handler@gmail.com>,
+	Mark Brown <broonie@kernel.org>
+Subject: [PATCH 6.12.y] spi: spi-zynqmp-gqspi: stop the controller on shutdown
+Date: Tue, 22 Sep 2026 17:01:44 +0300
+Message-Id: <20260922140144.668363-1-itai.handler@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <2026092222-marital-chasing-0267@gregkh>
+References: <2026092222-marital-chasing-0267@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,43 +75,112 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH] net: usb: lan78xx: Fix URB reference leak in
- lan78xx_submit_deferred_urbs()
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179008560489.4097520.9027717710600492085.git-patchwork-notify@kernel.org>
-Date: Tue, 22 Sep 2026 14:00:04 +0000
-References: <20260917115811.2150119-1-vulab@iscas.ac.cn>
-In-Reply-To: <20260917115811.2150119-1-vulab@iscas.ac.cn>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: Rengarajan.S@microchip.com, Thangaraj.S@microchip.com,
- UNGLinuxDriver@microchip.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, john.efstathiades@pebblebay.com, kuba@kernel.org,
- linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
- netdev@vger.kernel.org, pabeni@redhat.com, stable@vger.kernel.org
 
-Hello:
+commit e922bad8b2d5028c51a096d083fea41cd0987154 upstream.
 
-This patch was applied to netdev/net.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
+The driver has no ->shutdown, and platform_drv_shutdown() has no
+fallback of its own.  Unlike pci_device_shutdown(), which clears bus
+mastering when kexec_in_progress, nothing on the platform bus disarms a
+device that can still write to memory.  The normal kexec path never
+calls ->suspend either, so the quiesce in zynqmp_qspi_suspend() is not
+reached.
 
-On Thu, 17 Sep 2026 11:58:11 +0000 you wrote:
-> usb_get_from_anchor() hands over a reference to the URB, which the caller
-> must release. lan78xx_submit_deferred_urbs() never does, so every deferred
-> Tx URB keeps an extra reference: the counter grows on each suspend/resume
-> cycle and the URBs are never freed when the buffers are released. Drop
-> the reference after submitting, and on the path that drops the packet
-> instead of submitting it.
-> 
-> [...]
+A controller that is still executing a DMA read may therefore keep
+writing to memory across a kexec.  QSPIDMA_DST_ADDR still points at
+memory owned by the kernel that called kexec, DST_SIZE is non-zero and
+the flash is still clocked, so data can keep landing in RAM while the
+new kernel is being relocated, and after it has started executing.
 
-Here is the summary with links:
-  - net: usb: lan78xx: Fix URB reference leak in lan78xx_submit_deferred_urbs()
-    https://git.kernel.org/netdev/net/c/17741334d00b
+That destination is a physical address which means nothing to the new
+kernel, so the writes can corrupt whatever now occupies it: kernel text
+or data, page tables, or the initrd.  Nothing reports an error and the
+resulting behaviour is undefined.
 
-You are awesome, thank you!
+This can be observed by reading GQSPI_EN (offset 0x114) and
+QSPIDMA_DST_ADDR/SIZE/STS/CTRL (offsets 0x800 to 0x80c) early in the new
+kernel, before the driver probes: without this patch GQSPI_EN reads 1
+and QSPIDMA_DST_ADDR still points into the previous kernel's memory.
+
+Add a ->shutdown that stops the controller the way zynqmp_qspi_suspend()
+already does.  spi_controller_suspend() stops the queue, waits for a
+message that is already executing and makes any later transfer fail with
+-ESHUTDOWN, so nothing can be cut short by the register write that
+follows.  It may sleep, which is fine here: device_shutdown() runs in
+process context.  Unlike ->suspend this cannot abort on error, because a
+controller left mastering the bus is worse than a truncated transfer, so
+a failure to drain is only logged.
+
+GQSPI_EN_OFST is then cleared, as zynqmp_qspi_remove() and
+zynqmp_qspi_suspend() already do.  Skip that write only when
+pm_runtime_get_if_in_use() returns 0, i.e. runtime suspended: the clocks
+are gated, so the registers are unreachable and the controller cannot be
+mastering the bus.  A negative return is not the same thing - it is what
+the CONFIG_PM=n stub always returns, and there probe() has enabled pclk
+and refclk for good, so the controller is running and must be stopped.
+
+Fixes: dfe11a11d523 ("spi: Add support for Zynq Ultrascale+ MPSoC GQSPI controller")
+Cc: stable@vger.kernel.org
+Signed-off-by: Itai Handler <itai.handler@gmail.com>
+Link: https://patch.msgid.link/20260910174832.873352-1-itai.handler@gmail.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+[ itai: context only - the platform_driver callback is still spelled
+  .remove_new in this tree, renamed back to .remove upstream by commit
+  494c3dc46776 ("spi: Switch back to struct platform_driver::remove()") ]
+Signed-off-by: Itai Handler <itai.handler@gmail.com>
+---
+ drivers/spi/spi-zynqmp-gqspi.c | 34 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
+
+diff --git a/drivers/spi/spi-zynqmp-gqspi.c b/drivers/spi/spi-zynqmp-gqspi.c
+index 143c572b263e..4fa68b11709b 100644
+--- a/drivers/spi/spi-zynqmp-gqspi.c
++++ b/drivers/spi/spi-zynqmp-gqspi.c
+@@ -1385,11 +1385,45 @@ static void zynqmp_qspi_remove(struct platform_device *pdev)
+ 	clk_disable_unprepare(xqspi->pclk);
+ }
+ 
++static void zynqmp_qspi_shutdown(struct platform_device *pdev)
++{
++	struct zynqmp_qspi *xqspi = platform_get_drvdata(pdev);
++	int ret;
++
++	/*
++	 * Stop the queue and reject any later transfer first, so the write
++	 * below cannot cut into a message that is still being executed.
++	 * Unlike ->suspend this cannot abort on error: a controller left
++	 * mastering the bus is worse than a truncated transfer.
++	 */
++	ret = spi_controller_suspend(xqspi->ctlr);
++	if (ret)
++		dev_warn(&pdev->dev, "could not stop the queue: %d\n", ret);
++
++	/*
++	 * Only a runtime suspended controller can be left alone: its clocks
++	 * are gated, so it cannot be mastering the bus, and its registers
++	 * must not be accessed either.  Any other answer means it may be
++	 * running and has to be stopped.  In particular, on a kernel built
++	 * without runtime PM this returns -EINVAL, and there the clocks
++	 * enabled in probe() are never gated at all.
++	 */
++	ret = pm_runtime_get_if_in_use(&pdev->dev);
++	if (!ret)
++		return;
++
++	zynqmp_gqspi_write(xqspi, GQSPI_EN_OFST, 0x0);
++
++	if (ret > 0)
++		pm_runtime_put_noidle(&pdev->dev);
++}
++
+ MODULE_DEVICE_TABLE(of, zynqmp_qspi_of_match);
+ 
+ static struct platform_driver zynqmp_qspi_driver = {
+ 	.probe = zynqmp_qspi_probe,
+ 	.remove_new = zynqmp_qspi_remove,
++	.shutdown = zynqmp_qspi_shutdown,
+ 	.driver = {
+ 		.name = "zynqmp-qspi",
+ 		.of_match_table = zynqmp_qspi_of_match,
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.34.1
 
