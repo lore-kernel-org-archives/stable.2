@@ -1,127 +1,159 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-159.mta0.migadu.com [91.218.175.159])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 436E74B1260
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 09:33:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 164E24BB27C
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 09:39:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.159
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790069620; cv=none; b=f8PBT1AbPH0tG0tT1n+H79aMw3IRKXRzoIzuuI1SmJd1Q++mG9fALtSlgWMvb27xp9T8QSWxZhL9sy+/YL1lTbmfdPOKeBkYREcQTIPLUFrffxk5AG+pMxVcsOYl+UUKR9aiYn186XpKjiqgD5LRdcyTcJXJdD9yD9KgQMR68Gw=
+	t=1790069944; cv=none; b=QTXBw3L+iFb0Pq5/dVhn9uwfzsNLb8OFb05UMKDNZ3Lhqn3H01PrpU+XAdAQ1v+757O5qQhRx4yB/lpxdvDbcpVQqpux42Dhw2zr9aUZGRPC/sPeh7fCa3UxfjHLZnAmNs3Vytew5V9YDbUU6VvQapPOninPQ64fcZc4juqcJ7c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790069620; c=relaxed/simple;
-	bh=Ydb8A5IsSmXFv8QsCXm2Zg3ISAVzToCc4PjSnCMZxDY=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=UlDQbilHu+K+IRAGDe5qhJ/23WqgtIpePOjfRIFekIgD5mDbhYtK955+/CzwnexrQBJimNdqn0BAYzenQr8vhHBzsCN511dVFxwFUVW26paR9qaIwsD0wo9zQEs6gJ0Sy5seeUALu3ktaxbYPgF0ZPEhnzKIZKq/7VaJVlNnNt8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cdrZ9XjI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790069944; c=relaxed/simple;
+	bh=hi1vDGEifONMUPQI29D6K7Rz4VLkNWGHmR08F4W6XWs=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=qQOOgfS0flGk0ayCMGn1lJff9RA6YTbBi4puEg9cnF95Rgq71XKHDL+PsvnflnUK2yN6vaViKRDqw3n7bHskBWfwZe7uGk/ugR5UeYA51vHIbqe3DLhgUo5YimVmyn3Oz73sz34jQLWdUFp/6gcb7Dy/jfwqWJrtQToz1kvGQ2k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=cASNak4y; arc=none smtp.client-ip=91.218.175.159
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cdrZ9XjI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F00C81F000FF
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 09:33:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790069619;
-	bh=069+GQ/DIF+/n6F/rVAvVoNM7EVQnIJJNnVPO8L6lWU=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=cdrZ9XjIRkpQIxdl0l0Y+Jl9JSLQgRL7EE8hm/8hwWobiOGtRN1xti+y2R36t3vM3
-	 PgrgnSlhugjy9OdzTSAfLw0T6pOagpps8Kg5gVmsmGefUfyxgvGDBc6LXfENuI7KOf
-	 LzcQHIYS3iF7e5RCYjZwWJE2IXptY+UhR/2LL4QvHpgRN86QFkf3Hd6ieKZntHJyKs
-	 CcbnjwXg7ZLXkLRn4bAGUGB1w4eIYbuULh37WWo6mdKaCbFPGrNNDaGKfA8vh68CTo
-	 Ijb+B/Oe/jNu1sP1b7/3piCHmYJpqjY4IT2rMs9rdr9LKKrBgDPwedBX7H1DO4Pi78
-	 PH5kULd5VW9fg==
-Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-3a49a40209dso4365211fa.0
-        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 02:33:38 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzga+d5xNB/xJ5+x8vLbHjwfYbwMzCQjG6QtSxFghV7E0saJS41ckNzPxFApweZWUIIdvBv4Xg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kaoeIcAAp74AGYTkWNJPwe21jiBQ5bO7+c+95FxWdyNkbGqrAE
-	q8R9bMdQrCQ2aVi/Ceh24IRzkc5BYDlZkXSwomM5z+n9BYVjiJfKiElbuF+YJQz1vipq40LGpw5
-	YFjlm+DynTKpu6gIhYMlETtbjF5niPkXxin7xK4JRwQ==
-X-Received: by 2002:a05:651c:a189:b0:3a5:eacf:9811 with SMTP id
- 38308e7fff4ca-3a624d70958mr4810711fa.14.1790069617628; Tue, 22 Sep 2026
- 02:33:37 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 22 Sep 2026 02:33:35 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 22 Sep 2026 02:33:35 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260922090955.GA35938@rigel>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="cASNak4y"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=hi1vDGEifONMUPQI29D6K7Rz4VLkNWGHmR08F4W6XWs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790069939; v=1; x=1790674739;
+ b=cASNak4ysuWjNi33n5bSDcBdcWis2zVS9qvdGrVjHVup11L/H4Fy2JLJIERrGeYANXz8CszW
+ oLautxEeyd2Gjpi4VrSY37vqwZe2ZMcT5H+QQ91vdpC6IbVWed6Etmxj5X9apohdoXYrE+Gj8TE
+ q0+yoU3mYLQ4aBgDeLCnyNpw=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 9d2428c7de0bd619;
+	Tue, 22 Sep 2026 09:38:59 +0000
+X-Mizu-Trace-ID: 9d2428c7de0bd619
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <d9c97d83-f29b-440c-9385-47d13afc38f3@linux.dev>
+Date: Tue, 22 Sep 2026 17:38:51 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260922-gpio-cdev-stack-leak-fixes-v3-1-7a0c7a4299d5@oss.qualcomm.com>
- <20260922090955.GA35938@rigel>
-Date: Tue, 22 Sep 2026 02:33:35 -0700
-X-Gmail-Original-Message-ID: <CAMRc=MfT-T0pQTvB3a_1BeOhPHztPh5pGs1Br225GVm1pFN_Yw@mail.gmail.com>
-X-Gm-Features: AcwNN1XpWe_ilycObMRbYUBy0psjXERCXkaGG5VxtWxmcE7WWxLhXalMicOFPN0
-Message-ID: <CAMRc=MfT-T0pQTvB3a_1BeOhPHztPh5pGs1Br225GVm1pFN_Yw@mail.gmail.com>
-Subject: Re: [PATCH v3] gpio: cdev: fix kernel stack leak to user-space in
- error path
-To: Kent Gibson <warthog618@gmail.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Sashiko <sashiko-bot@kernel.org>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Cc: hongfu.li@linux.dev, Oscar Salvador <osalvador@suse.de>,
+ David Hildenbrand <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Michal Hocko <mhocko@suse.com>,
+ Roman Gushchin <roman.gushchin@linux.dev>, Nhat Pham <nphamcs@gmail.com>,
+ Chris Down <chris@chrisdown.name>, Johannes Weiner <hannes@cmpxchg.org>,
+ Michal Hocko <mhocko@kernel.org>, Joshua Hahn <joshua.hahnjy@gmail.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, cgroups@vger.kernel.org,
+ Hongfu Li <lihongfu@kylinos.cn>, stable@vger.kernel.org
+Subject: Re: [PATCH 2/2] mm/memcg: migrate per-node hugetlb lruvec stat
+ together with hugetlb folio
+To: Muchun Song <muchun.song@linux.dev>
+References: <20260921-for-hugetlb_state-v1-0-8a6eec92661f@kylinos.cn>
+ <20260921-for-hugetlb_state-v1-2-8a6eec92661f@kylinos.cn>
+ <B710AD66-B826-4138-B1D4-2DB3E00FDC1D@linux.dev>
+From: Hongfu Li <hongfu.li@linux.dev>
+In-Reply-To: <B710AD66-B826-4138-B1D4-2DB3E00FDC1D@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Tue, 22 Sep 2026 11:09:55 +0200, Kent Gibson <warthog618@gmail.com> said:
-> On Tue, Sep 22, 2026 at 10:52:28AM +0200, Bartosz Golaszewski wrote:
->> If we fail to acquire the GPIO chip guard in gpio_desc_to_lineinfo(), we
->> return immediately before zeroing the info struct we'll end up passing
->> to the user-space later in lineinfo_get_v1(). This may leak the kernel
->> stack contents. Make gpio_desc_to_lineinfo() return int so that the
->> -ENODEV returned on failure to acquire the guard can be propagated to
->> the callers.
+
+On 9/22/26 2:18 PM, Muchun Song wrote:
+>
+>> On Sep 21, 2026, at 17:12, Hongfu Li <hongfu.li@linux.dev> wrote:
 >>
->> While not strictly necessary: move the memset() before trying to acquire
->> the SRCU read lock too for good measure.
+>> From: Hongfu Li <lihongfu@kylinos.cn>
 >>
->> Fixes: d83cee3d2bb1 ("gpio: protect the pointer to gpio_chip in gpio_device with SRCU")
+>> memory.numa_stat exposes per-node hugetlb counters from per-node lruvec
+>> stats. These stats are accounted against folio_nid(): incremented on
+>> the folio's node when handed to a user, decremented when the folio is
+>> returned to the pool.
+>>
+>> During hugetlb folio migration, mem_cgroup_migrate() moves the charge
+>> to the new folio and drops the memcg data of the old one, so the free
+>> of the old folio right after the migration skips the memcg per-node
+>> lruvec decrement. The hugetlb count stays attributed to the old node
+>> for the rest of the life of the charge, while the target folio gets no
+>> increment on the new node; its later free decrements a counter that
+>> was never incremented.
+>>
+>> Migrate the per-node lruvec accounting alongside migration. Global
+>> memcg totals remain balanced because they track resource consumption,
+>> not node placement.
+>>
+>> Fixes: 05d4532b60e3 ("memcg/hugetlb: add hugeTLB counters to memcg")
 >> Cc: stable@vger.kernel.org
->> Reported-by: Sashiko <sashiko-bot@kernel.org>
->> Closes: https://sashiko.dev/#/patchset/20260912123529.7951-1-tzungbi%40kernel.org?part=3
->> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+>> Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
 >> ---
->> Changes in v3:
->> - Don't emit an error log message from the line info notifier if we fail
->>   to acquire the chip guard
->> - Link to v2: https://patch.msgid.link/20260921-gpio-cdev-stack-leak-fixes-v2-1-3307c4320352@oss.qualcomm.com
+>> mm/memcontrol.c | 31 +++++++++++++++++++++++++++++++
+>> 1 file changed, 31 insertions(+)
 >>
->> Changes in v2:
->> - Make gpio_desc_to_lineinfo() return an integer return value so that
->>   the error code returned in case of a failure to acquire the guard can
->>   be propagated down the stack
->> - Link to v1: https://patch.msgid.link/20260917-gpio-cdev-stack-leak-fixes-v1-1-2bb52879e49c@oss.qualcomm.com
->> ---
->>  drivers/gpio/gpiolib-cdev.c | 32 +++++++++++++++++++++++++-------
->>  1 file changed, 25 insertions(+), 7 deletions(-)
+>> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+>> index 1460cba53588..9c96ebd5436f 100644
+>> --- a/mm/memcontrol.c
+>> +++ b/mm/memcontrol.c
+>> @@ -5598,6 +5598,34 @@ void mem_cgroup_replace_folio(struct folio *old, struct folio *new)
+>> rcu_read_unlock();
+>> }
 >>
+>> +#ifdef CONFIG_HUGETLB_PAGE
+>> +static void move_hugetlb_lruvec_stat(struct obj_cgroup *objcg,
+> Actually, we don't need this objcg parameter since we could get it from folio.
+> And I'd like to move this function to hugetlb.c.
 >
->> @@ -2491,6 +2502,7 @@ static int lineinfo_changed_notify(struct notifier_block *nb,
->>  	struct lineinfo_changed_ctx *ctx;
->>  	struct gpio_desc *desc = data;
->>  	struct file *fp;
->> +	int ret;
->>
->>  	if (!test_bit(gpiod_hwgpio(desc), cdev->watched_lines))
->>  		return NOTIFY_DONE;
->> @@ -2521,7 +2533,13 @@ static int lineinfo_changed_notify(struct notifier_block *nb,
->>
->>  	ctx->chg.event_type = action;
->>  	ctx->chg.timestamp_ns = ktime_get_ns();
->> -	gpio_desc_to_lineinfo(desc, &ctx->chg.info, true);
+>> +     				struct folio *old, struct folio *new)
+>> +{
+>> + 	long nr_pages = folio_nr_pages(old);
+>> + 	struct mem_cgroup *memcg;
+>> + 	int old_nid = folio_nid(old);
+>> + 	int new_nid = folio_nid(new);
 >> +
->> +	ret = gpio_desc_to_lineinfo(desc, &ctx->chg.info, true);
->> +	if (ret) {
->> +		fput(fp);
->> +		return NOTIFY_DONE;
->> +	}
+>> + 	if (old_nid == new_nid)
+>> + 		return;
 >> +
->
-> Drop the ret and just test the return directly?
->
-> Sorry - should've picked that up in the previous version.
->
+>> + 	rcu_read_lock();
+> Please use guard(rcu)() to simplify the code a little.
 
-I actually prefer the assignment, I find it more readable.
+Hi Muchun,
 
-Bartosz
+Thanks a lot for your suggestions. I will drop the objcg parameter of
+move_hugetlb_lruvec_stat(), move the function to mm/hugetlb.c, and use
+guard(rcu)() in it.  I will post a v2 for review shortly.
+
+>> + 	memcg = obj_cgroup_memcg(objcg);
+>> + 	mod_memcg_lruvec_state(mem_cgroup_lruvec(memcg, NODE_DATA(old_nid)),
+>> +       		NR_HUGETLB, -nr_pages);
+>> + 	mod_memcg_lruvec_state(mem_cgroup_lruvec(memcg, NODE_DATA(new_nid)),
+>> +       		NR_HUGETLB, nr_pages);
+>> + 	rcu_read_unlock();
+>> +}
+>> +#else /* CONFIG_HUGETLB_PAGE */
+>> +static inline void move_hugetlb_lruvec_stat(struct obj_cgroup *objcg,
+>> +    					struct folio *old,
+>> +    					struct folio *new)
+>> +{
+>> +}
+>> +#endif /* CONFIG_HUGETLB_PAGE */
+>> +
+>> /**
+>>   * mem_cgroup_migrate - Transfer the memcg data from the old to the new folio.
+>>   * @old: Currently circulating folio.
+>> @@ -5635,6 +5663,9 @@ void mem_cgroup_migrate(struct folio *old, struct folio *new)
+>>
+>> 	new_objcg = get_migration_objcg(old, new);
+>>
+>> + 	if (folio_test_hugetlb(old))
+>> + 		move_hugetlb_lruvec_stat(new_objcg, old, new);
+>> +
+>> /*
+>> * @old was charged through a non-root objcg, so its charge is in the
+>> * page counters. If the re-derivation walked up to the root objcg -
+>>
+>> -- 
+>> 2.54.0
+>>
+-- 
+Best regards,
+Hongfu
+
