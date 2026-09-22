@@ -1,130 +1,94 @@
-Received: from mta1.migadu.com (out-96.mta1.migadu.com [95.215.58.96])
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4316364EBF
-	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 03:34:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.96
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6317B2D949C
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 03:36:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790048075; cv=none; b=WIfGn+I20HaOtpEUdeKR+HgcKwl6/Xfb5ZKVIFG3nOvs47LNnirgFkNU5cUqzXLLnZNd66KaLYn75S/QcP3og8L7CuDc27B7ZB1K2qNlWGQNtg5HIi1XSu6h6YKakZvP7/9hBrpDXnPOT1imFlvcbJex7FLVVg81qSEAtEuGXEM=
+	t=1790048192; cv=none; b=bC1eSyDQL82ZjKEDws9nbBlrgSVnYI2LMg7snwrFFCpfgqFIZ/KdMrNQcstN/3JzqScUcZPCjdnPTfWsB0PI1fLRuAPC1sNkqJHXD7+3IoSs3zg5N2RhEKwv70kyJ6/9ehUB0zpsA09x+4DfRECDahB2A1SlpwK/pr7YZIxPidk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790048075; c=relaxed/simple;
-	bh=CjIp01xrNtfOBxRn61B9UTZFA1lm/a/pyrDp80PRKmc=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=Ty2zPfDNTXi2W29g+QmRNFfMWYMvbLOoZ03REcc97u71QHwsNzKXgZ39PSK2dBdySPlTGrBVRJ/t6ebPqf5VkGNiBks6kJisa/PKKsleenbMwg+VWSWdtUCtXoOcX53eS7edKN84s/l4l6aPWe695G4CO8sg9wuCb013jxpl9Sg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=MfoHUeli; arc=none smtp.client-ip=95.215.58.96
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790048192; c=relaxed/simple;
+	bh=RzFOag5CHicLMswhXD5eT0XX0xDFqASebsK3QgKd6QM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=L94a2cy6WrQGvV1KmP26fVKFJaPzj1kuCnoajhungDX3Ol+A9I+voAnLJG22dY9oFJkSDRw7UvngBVdd0QM49PPEjbdSpAHqBx61oXGaxc6K3JtNDbgECIAwI5m9uNIcyMk2dlS6LMn9yU49izvj/aLx6QVh+hWk7nXWRo0IhMs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jpR0kmd6; arc=none smtp.client-ip=209.85.215.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="MfoHUeli"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=CjIp01xrNtfOBxRn61B9UTZFA1lm/a/pyrDp80PRKmc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790048064; v=1; x=1790652864;
- b=MfoHUelik4u6D6Wo2HiRbVtk/8AH0OSVn5inWpfUPNnLkZZALD96JKRcNngp52DWgZco/1gH
- NLFS14P++YmNAnXz/2NbabIVzsxQLCUlZnDJGVJ7HGOQPj0SX32bURLTEAvbRRflWnvSvu8Grq7
- NK0Ee0xrfReA8nKLtT5XvQrg=
-X-Envelope-To: stable@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id cd004a5251b8e779;
-	Tue, 22 Sep 2026 03:34:24 +0000
-X-Mizu-Trace-ID: cd004a5251b8e779
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jpR0kmd6"
+Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cc147d86bebso546208a12.0
+        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 20:36:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790048191; x=1790652991; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RzFOag5CHicLMswhXD5eT0XX0xDFqASebsK3QgKd6QM=;
+        b=jpR0kmd6hBsXzt5kU2cIRrMTCQ0mf1ox/8z8ElW0OttJvGEoTd7mvYKGsLCKg81/pV
+         JgtxOtrS9/ZmfhE12DjVfiJxbI13Ezzv+AqqrOaYdq1rh2sESudCuY5bQzDczlcnj16R
+         kjPNxWNAixPgrsXKsbWUFr33xYZf2S7/2KFMQxlkZ/+jQAKRaLexsB+4Palc/4ghI6aV
+         1Sjl+vKmuIeIuWCukbnhfiFzV9US0pKdNv9edWIQRkL53smo+yJhaIKqtIau55tFzbuS
+         v4MaVY2IINus4RO9I7CePirdZy55vCJHujX5D4E4FZi8o/j5h27EGB7af/Gd24qzpcil
+         AH9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790048191; x=1790652991;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RzFOag5CHicLMswhXD5eT0XX0xDFqASebsK3QgKd6QM=;
+        b=yOMXUjZ70a6d4dk2fIkv+PeWo3r8i6Pf8lpHGpWa2uNYHh7d1U/Z5xT2umzf091QfQ
+         h5kxbdOXjii9OYpTBGcltsMujI+OTsH8cpLxvtvVWrbdgY1NyXIQqJmkl4zYd8bmvMDO
+         YRCrqfjz/+RJvRSvpdBChPobPhmRYb0YFhabLkfdXQv5SpzeAtbVhvijiGQaNPMc9uS5
+         mq4IoLdGw3cMofDhGX8YHxMBhk+6AiAv19KIwppz7LzpjWsH5h67VpJAVBCFuda1wAQM
+         gtY4kSIEDbThcX/KPQuNYB/djb87CbwdPkoN0v9PMGtUur6Ei7j1vZikvZ6dQGnl9WLN
+         midA==
+X-Forwarded-Encrypted: i=1; AKwUvBzQNR6bpEdTZzlCFlOb4JM9D0B4os75QOmCsfm8qhqwgM30vjOhtSdP8BOFlHvT0Nvj81yiIPI=@vger.kernel.org
+X-Gm-Message-State: AFuF++k9zGuUY/sHJ9pq7F6u373ke9j5BVBjYlUge/BwFGfH+its87ZK
+	bwBT5rbxL2+ZfAE2mjGyWspu/TtY7IRZ1aaDWOynPNV7TZF8WM0r0VnJLj32jAtx6bvzpw==
+X-Gm-Gg: AYBFou0cSb22FBxjPpbbgIe+A13yqZcM9SIUnyaLauNrEwR6XUY4I63p3i+V7+H/ylh
+	qtYf6MNaMmaFEK+ueqDEuOSTDF/ohI9XX3nmRWvEVC0FtYndVqiZen7ybVJaYQlBv1i6pwadu/1
+	Q2w+70GCqRhRLzIJiFh5FvUC7vsAOECbdgByx2OcehGnw+xtLb58ZhQ3Wy8hK4MjQMubPIfdgcJ
+	RE9vlrVS8IVwYrqYat4HVdf7TD0mC5q7QlawE9WA7aX8dNhbcEDdIiQDPjK1ESnjCpHzYYPjEHe
+	1TyQGiroJ4bzxUFTmpSTw+6iJAd1FVMKVLhmngVBklEFvREX5h+/YWvpZ2E4oWVBGyIFaW1zMz4
+	XflJ5Y/l24rjf0sQ7q1Bfrq8tYFh07F/UnWzED3d/9ud41S0w/xTkYkmIOzdPgVo/HFlpk7jqjm
+	QK+vu3sfGvyKyJQJhLH2HUukf6G1JcTQLuER4q+e5m9mAbc9GsmTGLqboP3/rb5HCXCKMP
+X-Received: by 2002:a05:6a20:72a9:b0:3db:752:f89f with SMTP id adf61e73a8af0-3dde0111e01mr1467764637.2.1790048190604;
+        Mon, 21 Sep 2026 20:36:30 -0700 (PDT)
+Received: from localhost ([180.184.77.6])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc756b48cfbsm150925a12.24.2026.09.21.20.36.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 20:36:30 -0700 (PDT)
+From: Dairui Zhang <zhangdairui@gmail.com>
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Cc: netdev@vger.kernel.org,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	stable@vger.kernel.org,
+	Dairui Zhang <zhangdairui@gmail.com>
+Subject: Re: [PATCH net] af_packet: fix integer overflow in prb_calc_retire_blk_tmo()
+Date: Tue, 22 Sep 2026 11:36:27 +0800
+Message-ID: <20260922033627.1443968-1-zhangdairui@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <willemdebruijn.kernel.1b65de0a75434@gmail.com>
+References: <willemdebruijn.kernel.1b65de0a75434@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.1\))
-Subject: Re: [PATCH 1/2] mm/hugetlb: account migration target folio in
- per-node NR_HUGETLB vmstat
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20260921223544.2401052-1-joshua.hahnjy@gmail.com>
-Date: Tue, 22 Sep 2026 11:34:06 +0800
-Cc: Hongfu Li <hongfu.li@linux.dev>,
- Oscar Salvador <osalvador@suse.de>,
- David Hildenbrand <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Michal Hocko <mhocko@suse.com>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Nhat Pham <nphamcs@gmail.com>,
- Chris Down <chris@chrisdown.name>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Michal Hocko <mhocko@kernel.org>,
- linux-mm@kvack.org,
- linux-kernel@vger.kernel.org,
- cgroups@vger.kernel.org,
- Hongfu Li <lihongfu@kylinos.cn>,
- stable@vger.kernel.org
-Content-Transfer-Encoding: 7bit
-Message-Id: <5FE0FD2F-4F8D-4EF9-BD78-2AB97E10B687@linux.dev>
-References: <20260921223544.2401052-1-joshua.hahnjy@gmail.com>
-To: Joshua Hahn <joshua.hahnjy@gmail.com>
-X-Mailer: Apple Mail (2.3864.700.51.1.1)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+Willem de Bruijn wrote:
+> Code Looks good to me. Thanks.
+>
+> As Fixes tag do prefer original commit f6fb8f100b80 ("af-packet:
+> TPACKET_V3 flexible buffer implementation.")
 
+Thanks for the quick review, and for the history correction - the
+unsigned short truncation detail is exactly the kind of thing I
+couldn't have known without your pointer. I'll respin as v2 with
+Fixes: pointing at f6fb8f100b80 and the pre-hrtimer effect
+described as you outlined, after the 24h wait.
 
-> On Sep 22, 2026, at 06:35, Joshua Hahn <joshua.hahnjy@gmail.com> wrote:
-> 
-> On Mon, 21 Sep 2026 17:12:34 +0800 Hongfu Li <hongfu.li@linux.dev> wrote:
-> 
-> Hi Hongfu,
-> 
-> Thanks for this fix. From the cover letter I was frowning because I was
-> thinking to myself "surely there's no way hugetlb accounting is this
-> broken..." but it seems like indeed it is. 
-> 
->> From: Hongfu Li <lihongfu@kylinos.cn>
->> 
->> The NR_HUGETLB vmstat counter is maintained per folio's node: incremented
->> when a huge page is handed to a user via hugetlb_alloc_folio() and
->> decremented when it is returned to the pool via free_huge_folio().
->> 
->> A folio obtained by alloc_hugetlb_folio_nodemask() never goes through
->> hugetlb_alloc_folio(), so it is never accounted, while its free always
->> is.
-> 
-> That's pretty scary! Glad that you caught it here.
-> 
->> For a migration target this means the target node gets no matching
->> increment for the decrement on the old node, so the global nr_hugetlb in
->> /proc/vmstat drops by nr_pages for each migration. The same asymmetry
->> affects the failed migration path, which frees the target again right
->> away, and the temporary folio hugetlb_mfill_atomic_pte() takes from the
->> same helper.
->> 
->> alloc_hugetlb_folio_reserve(), used to preallocate the memfd page cache
->> folios, has the same asymmetry: the folio is handed to a user without
->> being accounted, while its free is accounted through free_huge_folio().
->> 
->> Account the folio where it is obtained, in alloc_hugetlb_folio_nodemask()
->> and alloc_hugetlb_folio_reserve(), so that the increment pairs with the
->> decrement in free_huge_folio(): a successful migration hands the folio
->> to a user, a failed one frees it again.
-> 
-> The changes look good to me, and I was able to reproduce the issue on
-> my host and confirm that after this change, the missing charge is
-> fully accounted for.
-> Tested-by: Joshua Hahn <joshua.hahnjy@gmail.com>
-> Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
-> 
-> Again, I'm super surprised that a problem this big has gone unnoticed
-> for so long. Thanks again for working on this fix!
-
-I think a migration for HugeTLB is very rare. That's probably why it
-took us so long to find this issue.
-
-Thanks.
-
-> 
-> I hope you have a great day : -)
-> Joshua
-> 
->> Fixes: 05d4532b60e3 ("memcg/hugetlb: add hugeTLB counters to memcg")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
->> ---
-
-
+Thanks,
+Dairui Zhang
