@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99306541E5E;
-	Tue, 22 Sep 2026 12:19:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 897EC541E75
+	for <stable@vger.kernel.org>; Tue, 22 Sep 2026 12:19:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790079552; cv=none; b=fFkXf/u31uJ366Y0hPXDMhSnn5kMzzT+v0vuiaVwqr6X5fhwmnHRNxVZo4yiheSC2v5FfPV+A8nrW+l2Dbgb2zKJgoQI0X9KyY/SjLdeEz04jj0rYbcSYKfNZqWJRu+Gfz32aQ4j7g550n/2tjaO+TdAIgichGHGmu1BYuasuNM=
+	t=1790079553; cv=none; b=BoqCxKt8M9P7QzNeZDLfSMu94lTuizpxwtRd05pVbvHHrFvJNCZzvMM2xMhfUfRMikErOvQgg/Vu4RJkWsLpDDRTihp/AEG0KBdJaIUs2oT/m9zQ4R8NMrADUv2w8UPpYUNAx73p6EAq50T/OZK4ZnKajiccAxu/1FPdCqsBQrM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790079552; c=relaxed/simple;
-	bh=vrNSAD0zEYyjfJk03+WsZR8WvK/X5v4FTCoyjX/HhHc=;
+	s=arc-20240116; t=1790079553; c=relaxed/simple;
+	bh=hy5cywyBrX35BSrBugIuTatJyEVhOuALUCSqgqRuOA4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lk0jRIjp1wmOsXssRgMNpW+VKLhz7EFbWnfLy7s6vddU9/dfrBdjG0DbDabghW1ERwbXEV8bhb2xmWWxgZ4mqAJiTf+Bsh4AIxwvghLj0z12yVhOhgeexgdCJro4APv89tTylZ0j3xYyrMabsfaa/Tiit9i9OppdBYagVrAlEsc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U+fTsZuY; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=B+IwhwRkpbr6SJnp8A5iysNd1JiZTxp/ymDkbvh2MgyLU+ou2RQbtBUPqFfwU/5iwn6i6vuzY6lEoEapxiKc6qQjV6h14a71DJdhlXJ4zZJKmwZ7CyZiBwjIJi+EF2ic21f63kYq5Moerkc461hG9tgMZ1t5fd0cBshf8Vtl/t8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lE1m5Vg4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U+fTsZuY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF0C81F0089F;
-	Tue, 22 Sep 2026 12:19:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lE1m5Vg4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8FAC1F000FF;
+	Tue, 22 Sep 2026 12:19:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790079551;
-	bh=sqSNUoFYVQFnhYlC2sjuNpB8Pn6nj7ytmhctuSitdjw=;
+	s=k20260515; t=1790079552;
+	bh=x7gbyzhyHekExF/wXMz8tyTFNXf7bkVWg490tH0i7Es=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=U+fTsZuY84AhcM5D68JC/QR6LwxnY9jSNUH+S+Xig/In/YtmlYSN/Sro3PUZp5w+B
-	 VW3toJj9yuK1JsaZlCzoVI7IgCTbr6A33q33RC8Y2rX8Ji4YMJFS9DtrXFb5gAOxvs
-	 zNhf46kYB3tGEahcGb3+5G3Vzjh9JPX7TJuFImxIrtTbAEs8Rebjf6jgioWjAUFtHU
-	 dYr3Jrh85xijGr1QGNXOlKzWdv9P1LJa0RkZrfHy/dvUFA2zSaOur8xb+U3XjTUef6
-	 zFH5MmWEjMq+yDCdUfDf2fdDeBSPLkvIoQK6Ri0WFQDyLyJa8IushCcBOMLYu6TJ3I
-	 M9qwvJQe1Hftg==
+	b=lE1m5Vg4IZXOW/rr5go+hB7PdM8Ae1/iZ9ZIxQr+xBIkgGvxyJXiq11gTAHipYL8z
+	 UCwr/8WQsdk4OzOgdb3EgnNT1i0qo068x/klji/h+lMAU7hIzBu5+7sIlbouS1CM13
+	 GKJzLvH7KqNEhMzaXZuNsgfRxeAlCFqTSUdKCbB/H/SJCJBdHPieU8mWH8A1AL45mX
+	 y/fAQGXg3fRY2LSvQMKhBtna/zd5njS8rXtfyWnLLzBdxMjOl0aWvwmTD/gIUtZSYd
+	 GZuOiPzmXknfzsC2OtWZT978H/gsTCIHp+hJv3AkbnGg+uw0gPYja4Uo+/7868WxNG
+	 1MF2g5nqkA29Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: David Howells <dhowells@redhat.com>,
-	"Paulo Alcantara (Red Hat)" <pc@manguebit.org>,
-	linux-cifs@vger.kernel.org,
-	Steve French <stfrench@microsoft.com>,
+	Michael Mulqueen <mike@method-b.uk>,
+	Dominique Martinet <asmadeus@codewreck.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] cifs: Fix specification of function pointers
-Date: Tue, 22 Sep 2026 08:19:06 -0400
-Message-ID: <20260922121907.2213071-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/2] 9p: Fix v9fs_issue_write() to update i_size and remote_i_size
+Date: Tue, 22 Sep 2026 08:19:07 -0400
+Message-ID: <20260922121907.2213071-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092222-rubbing-overplay-5a22@gregkh>
+In-Reply-To: <20260922121907.2213071-1-sashal@kernel.org>
 References: <2026092222-rubbing-overplay-5a22@gregkh>
+ <20260922121907.2213071-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,99 +49,54 @@ Content-Transfer-Encoding: 8bit
 
 From: David Howells <dhowells@redhat.com>
 
-[ Upstream commit 6a86a4cc281a5cfceda7af60ea6fa506b3db7430 ]
+[ Upstream commit c60ae98c5aa64021751b38ab1313b19d620bf640 ]
 
-Change the mid_receive_t, mid_callback_t and mid_handle_t function pointers
-to have the pointer marker in the typedef.
+Fix v9fs_issue_write() to update i_size and remote_i_size to the new size
+of the server file if we made it larger, using the start fpos and the count
+returned by p9_client_write() to calculate the new minimum file size.
 
+This assumes that if the 9P server makes a short write (say it hits
+ENOSPC), a reduced count is returned.
+
+Fixes: 5fb70e7275a6 ("netfs, 9p: Implement helpers for new write code")
+Reported-by: Michael Mulqueen <mike@method-b.uk>
+Closes: https://lore.kernel.org/r/fbb9e395-1e07-4212-8f70-23f3cd498074@method-b.uk/
+Cc: stable@vger.kernel.org
 Signed-off-by: David Howells <dhowells@redhat.com>
-Reviewed-by: Paulo Alcantara (Red Hat) <pc@manguebit.org>
-cc: linux-cifs@vger.kernel.org
-Signed-off-by: Steve French <stfrench@microsoft.com>
-Stable-dep-of: c60ae98c5aa6 ("9p: Fix v9fs_issue_write() to update i_size and remote_i_size")
+Message-ID: <2226525.1789118704@warthog.procyon.org.uk>
+Signed-off-by: Dominique Martinet <asmadeus@codewreck.org>
+[ replaced unavailable netfs_write_sizes() with i_size_write() and direct remote_i_size updates under inode->i_lock. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/client/cifsglob.h  | 12 ++++++------
- fs/smb/client/cifsproto.h |  8 ++++----
- fs/smb/client/transport.c |  4 ++--
- 3 files changed, 12 insertions(+), 12 deletions(-)
+ fs/9p/vfs_addr.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/fs/smb/client/cifsglob.h b/fs/smb/client/cifsglob.h
-index 3f9c03828cd4f..1734ae9bf318e 100644
---- a/fs/smb/client/cifsglob.h
-+++ b/fs/smb/client/cifsglob.h
-@@ -1619,7 +1619,7 @@ static inline void cifs_stats_bytes_read(struct cifs_tcon *tcon,
-  * Returns zero on a successful receive, or an error. The receive state in
-  * the TCP_Server_Info will also be updated.
-  */
--typedef int (mid_receive_t)(struct TCP_Server_Info *server,
-+typedef int (*mid_receive_t)(struct TCP_Server_Info *server,
- 			    struct mid_q_entry *mid);
- 
- /*
-@@ -1630,13 +1630,13 @@ typedef int (mid_receive_t)(struct TCP_Server_Info *server,
-  * - it will be called by cifsd, with no locks held
-  * - the mid will be removed from any lists
-  */
--typedef void (mid_callback_t)(struct mid_q_entry *mid);
-+typedef void (*mid_callback_t)(struct mid_q_entry *mid);
- 
- /*
-  * This is the protopyte for mid handle function. This is called once the mid
-  * has been recognized after decryption of the message.
-  */
--typedef int (mid_handle_t)(struct TCP_Server_Info *server,
-+typedef int (*mid_handle_t)(struct TCP_Server_Info *server,
- 			    struct mid_q_entry *mid);
- 
- /* one of these for every pending CIFS request to the server */
-@@ -1654,9 +1654,9 @@ struct mid_q_entry {
- 	unsigned long when_sent; /* time when smb send finished */
- 	unsigned long when_received; /* when demux complete (taken off wire) */
- #endif
--	mid_receive_t *receive; /* call receive callback */
--	mid_callback_t *callback; /* call completion callback */
--	mid_handle_t *handle; /* call handle mid callback */
-+	mid_receive_t receive;	/* call receive callback */
-+	mid_callback_t callback; /* call completion callback */
-+	mid_handle_t handle;	/* call handle mid callback */
- 	void *callback_data;	  /* general purpose pointer for callback */
- 	struct task_struct *creator;
- 	void *resp_buf;		/* pointer to received SMB header */
-diff --git a/fs/smb/client/cifsproto.h b/fs/smb/client/cifsproto.h
-index d2d004764a708..e2a7d55a2502d 100644
---- a/fs/smb/client/cifsproto.h
-+++ b/fs/smb/client/cifsproto.h
-@@ -96,10 +96,10 @@ extern int cifs_ipaddr_cmp(struct sockaddr *srcaddr, struct sockaddr *rhs);
- extern bool cifs_match_ipaddr(struct sockaddr *srcaddr, struct sockaddr *rhs);
- extern int cifs_discard_remaining_data(struct TCP_Server_Info *server);
- extern int cifs_call_async(struct TCP_Server_Info *server,
--			struct smb_rqst *rqst,
--			mid_receive_t *receive, mid_callback_t *callback,
--			mid_handle_t *handle, void *cbdata, const int flags,
--			const struct cifs_credits *exist_credits);
-+			   struct smb_rqst *rqst,
-+			   mid_receive_t receive, mid_callback_t callback,
-+			   mid_handle_t handle, void *cbdata, const int flags,
-+			   const struct cifs_credits *exist_credits);
- extern struct TCP_Server_Info *cifs_pick_channel(struct cifs_ses *ses);
- extern int cifs_send_recv(const unsigned int xid, struct cifs_ses *ses,
- 			  struct TCP_Server_Info *server,
-diff --git a/fs/smb/client/transport.c b/fs/smb/client/transport.c
-index c3940d3ecd5f3..14dacf2967146 100644
---- a/fs/smb/client/transport.c
-+++ b/fs/smb/client/transport.c
-@@ -792,8 +792,8 @@ cifs_setup_async_request(struct TCP_Server_Info *server, struct smb_rqst *rqst)
-  */
- int
- cifs_call_async(struct TCP_Server_Info *server, struct smb_rqst *rqst,
--		mid_receive_t *receive, mid_callback_t *callback,
--		mid_handle_t *handle, void *cbdata, const int flags,
-+		mid_receive_t receive, mid_callback_t callback,
-+		mid_handle_t handle, void *cbdata, const int flags,
- 		const struct cifs_credits *exist_credits)
+diff --git a/fs/9p/vfs_addr.c b/fs/9p/vfs_addr.c
+index d6107ac50e882..5bf1e5caaa623 100644
+--- a/fs/9p/vfs_addr.c
++++ b/fs/9p/vfs_addr.c
+@@ -54,9 +54,21 @@ static void v9fs_begin_writeback(struct netfs_io_request *wreq)
+ static void v9fs_issue_write(struct netfs_io_subrequest *subreq)
  {
- 	int rc;
+ 	struct p9_fid *fid = subreq->rreq->netfs_priv;
++	struct inode *inode = subreq->rreq->inode;
++	struct netfs_inode *ictx = netfs_inode(inode);
+ 	int err, len;
+ 
+ 	len = p9_client_write(fid, subreq->start, &subreq->io_iter, &err);
++	if (len > 0) {
++		unsigned long long end = subreq->start + len;
++
++		spin_lock(&inode->i_lock);
++		if (end > i_size_read(inode))
++			i_size_write(inode, end);
++		if (end > ictx->remote_i_size)
++			ictx->remote_i_size = end;
++		spin_unlock(&inode->i_lock);
++	}
+ 	netfs_write_subrequest_terminated(subreq, len ?: err, false);
+ }
+ 
 -- 
 2.53.0
 
