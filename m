@@ -1,460 +1,413 @@
-Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012015.outbound.protection.outlook.com [52.101.66.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCE5A233149
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 02:57:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BBAD35E549;
+	Wed, 23 Sep 2026 03:01:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.15
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790132222; cv=pass; b=pkrDs6DWyZ6hmwHYA3e3E2k1xSSxOpMxf4yvSUHwGfPDnHvy9rSD2PH5FqsSl/plfju+X00Oiq98Kv9KrcdxQe9zmDGYVtvAoQAQM5koLFzEuxyLhIXcNxH5C8DYWrepFbgmUe732Bbrrl+zucdpZ5/YxwVRcd4S2JfgOCJ7NgQ=
+	t=1790132477; cv=fail; b=gxNUjtzB8IL+ZJfHoXKHR6eyS4TRI+DRgxMbeivuqwfAecv1oH7Fj9ppCqWjOMxrvZxwYjk5XMYndEGX0PSSNVOapkFM6ulae8pX6M4fNpj8FNU/ksEx4q1GTdZANtoiS8tS5oVwFHUxy8nW0W9hESBHk0JrWnPz1Y1ABjmYkEY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790132222; c=relaxed/simple;
-	bh=8UDl0UsNZXOhetgbFCY+EYL1CkOSiSWB+iFE1wcb9D0=;
-	h=In-Reply-To:References:MIME-Version:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QRcLsfeHe18d4Srykqh3KfbkRnkxm8meDQqhdv+Z11IqmRXlhqz9OkfTSEDte14H5G9xXViu8JotkkI5gDVYsKXlITfGDJfZn4al3DlfEMVXA9ru93eX1Fx53chba71JsihFbzUM0EBcyGpdh8FGrNjMosToF1bQt8IU6uoKuTM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cGo313f3; arc=pass smtp.client-ip=74.125.229.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790132477; c=relaxed/simple;
+	bh=lGoQZkSOhObBSGBmOQqUl4CKDyZTv754S8QyLTisCic=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=QWFcMgaSGR5X3AFkHWsDhGKw0tQ2VqVVvJ9Imkca53LqhNXUUv2kmmOMIsZwlMqSnFRAgaB2SVg1EAHdGTRcsdP4zqr7857iWU2Ht51u8+g/iGXDlT5bAKJqoHfU2dhA+AZb2zl9ZdVS169EkBqCVh+/7oT1VQj7KfPO/1xeT/k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=est.tech; spf=pass smtp.mailfrom=est.tech; dkim=pass (2048-bit key) header.d=est.tech header.i=@est.tech header.b=LQTWcbrH; arc=fail smtp.client-ip=52.101.66.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=est.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=est.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cGo313f3"
-Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-3396cec93b6so498791eec.3
-        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 19:57:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790132220; cv=none;
-        d=google.com; s=arc-20260327;
-        b=sr0Sxi58Kq1HtPkhC9YkhPXautJ9tzlfs76JMS/ZMaq5BSTvT+j3/dkHn6PLoPFj36
-         zVGLW9mpyMTvLJ0a3fhRcqzmhKUr8zbeguh+4AE3ZT8A1O2D9k3Lnw9r06q4GNc2h9I+
-         1YYcagDSJ9ilxTPNJ/02zf1AM68kJhrxOAeV0C/baaMzjOV9eWT/rOo0/t6+R+7Xt7vf
-         JTTMeysksKEqn8XmhsoTMPFtPtYqem4hTHtYu3vJjBD8C/8JJHe/eCuDB37MvrbZtTZB
-         6B+k+1z2HI5reQtubGoOmxHrVfaKS/qGm9Rs+NOSAGxQkAC8/zuw3kcmw3RRgh2Msp9j
-         4PTw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :mime-version:references:in-reply-to:dkim-signature;
-        bh=8UDl0UsNZXOhetgbFCY+EYL1CkOSiSWB+iFE1wcb9D0=;
-        fh=RikvGLUabmp63ZtfvDEraaAg/UoIpcKx8JEU9Y3n0p0=;
-        b=WwjfAlgROVnz8GwZn5Ka5mbvdIWUjcFoNLdtbt7HdnIJLgN5rXH2uaJDpwAqgSfd1G
-         AGvuRsvLbNSnjb3lbZCNRPouiXwnQWZMtpANdkMlzLqhPAnHYr38DJ4o8MKTKafrSSI4
-         NMVSVEaxkqE+dFynjVc9olgcsJItHFIHq9IsNLO40AW+JLtWkZc55A6Ns7DAibZW3usg
-         MYeSBXQ3Y99dWmidveVA60OcP7QIq6+RPUrdXTGBGka2NiziVUyWj0p5miCZ5MpoK7c2
-         EV5qSwadsew4gLznsQ50giaP+BSmNcHekJfhSeeX3JpcBDRO0QegccU82fAJxNoQNxDz
-         Gp2w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790132220; x=1790737020; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:mime-version:references:in-reply-to:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8UDl0UsNZXOhetgbFCY+EYL1CkOSiSWB+iFE1wcb9D0=;
-        b=cGo313f39wjW8l8JqWpFvfifnbViY0341h/pKGO18cl2hVYaDqVJxSjTZ1aAVCqT2G
-         yek2nuu2peYhZiRmcgcTPLM9sN5OYkVu8d8JFBu6+q3LoAeht3AXrpCNkN9qfgh4jpXd
-         4AlpleXrZChXRSREZ2Kxt8cfrFZLGKUEobjRxGGJNVK+HIiIjBgmJ1lBs/tEu0omx5q6
-         hc5lvGy2x3kf0vEYWhiuKwWLyllcl+1Wz6wJdB7uHQAA3t10EXu7EOmiel/vbOdTvRjU
-         SEBf6kZ4JEMJAFZqZ2EQVUcBb1gyFRTjoP5NGcI2uU8lycRR6NijSWofKKgzqvJLeLsH
-         923w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790132220; x=1790737020;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:mime-version:references:in-reply-to:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8UDl0UsNZXOhetgbFCY+EYL1CkOSiSWB+iFE1wcb9D0=;
-        b=PPPWY2Jsui7VfP1djk71YCqSdR1Hof7+Pc8LqRkZGBATVUwbU2gFbghwHDFaqtyYwt
-         rk1vSl4Nf+U+GwPJyjgv2O8tr10YVjUVpwQSb70tkZjoSYxUSrN4lOtRQVzmxFJQfkM1
-         aCP33Jwcm+aGdcKzMImTuKDyzR8+TUCp5guHfg/FwlrOjbtMs2NrFNSuXk/tG4IFftue
-         fu8jOzrRF/j+qvR4aVop3dMgZTnOpO7DT/BgCgHVFlLOzOtH8xCtADuSTvnkkxXPYV1Z
-         QyZeWki8c27TNweUGOvVTXiLPUN6JO+ydYg6REZHamnV/U6oBpm7VylG8srT1enR3tI5
-         cxOw==
-X-Forwarded-Encrypted: i=1; AKwUvBwTOOYlqE1f0Qe1W+nQi4vdQIbOWidmD/E3UllMKaRbW3+khgtiyUlGXMfK2tI1u/eLlIDW+wM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nrG4inAP0oBCOEFD08pU78px9KuruElTyiKx3Zr8V+px1gBUwN
-	EzIct4RRv8D6lsqxWvlFax7EdlCaj/60G3AuS3jxx0rIgv7upyGam7FQszXwQz/hhX1oUuq8Ewd
-	2/x9Q5Hd2mboom0ymGvL3UDNAoeMRTHOGkg+/
-X-Gm-Gg: AYBFou0EDF9zeqonbYdwX5YCgkQ8AF17halal5JJnoA7GVsQ4DpsCa9iDNLt1Hm4PXE
-	dv7/bTiqvWgB+n1Ii5GBZRwjFqTkpEIFt9lndWfA+7Zh5glhQ7XfzHXFRyY7e8k6Wl9py091/qG
-	CA/CfD4Iv5QJSvENO5lUg25PSaduD92SQfjf99PD7j6cEdk6HWfNApy+gLRW37781juJR091x9j
-	tyG2P7UB5OsoJgwIqDBoAF/YfOL5WewGG49PH+bAnKHPPwBgLyFbKb3QoCTwhuEEZxj3WHOn/38
-	UfZZvUriXzy0fxLqe8DvEWSJxIzVcRjUd4FvaXjCHh9wGC3jeInS8Q==
-X-Received: by 2002:a05:7301:71a8:b0:33b:ea8c:811b with SMTP id
- 5a478bee46e88-33e8b88d912mr1165068eec.5.1790132219742; Tue, 22 Sep 2026
- 19:56:59 -0700 (PDT)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Tue, 22 Sep 2026 19:56:58 -0700
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Tue, 22 Sep 2026 19:56:58 -0700
-In-Reply-To: <ap6mHnPJKKJFapsO@black.igk.intel.com>
-References: <20260903030356.58597-1-ivanrwcm25@gmail.com> <20260903232121.271776-1-ivanrwcm25@gmail.com>
- <ap6mHnPJKKJFapsO@black.igk.intel.com>
+	dkim=pass (2048-bit key) header.d=est.tech header.i=@est.tech header.b="LQTWcbrH"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nOt4N/PL54G/yTrnSiK/pgLw7BT4vphwJFxlAXsoYkNjJ6Xkjj8yJtXFThQfsxHjkpeOmrAdnCY+qwvr9Oo5ve16WSt5i0BAEDaojmGF0TBdHaMnzX84H7zDTgxC2xKjOOxAe4qZovCbeJ9740h8FDK/dgR2vUV6xZDDQMVFow+pSx5iougbFcN/IYrr0TurwaJ9SWeaIqKV1+jEmUilKGW2phMU/bjfqw1ZEnUGD3KDQvbEiclVlqkmn20nBtghBTLKTQsEVbADf+t45DR/6r8YtXZBpFJD3y/kuHxeR6WuHGZigsZSKEvBbfx2bWMxeiDflLgxicJf6f2bBqpUjA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6u4G0gTo/T+5ncq3T33u9kke1zq4WytrvZWuIbDkJu0=;
+ b=vcNs/L4oxnEWDpvxdgnvITWXhmzLlxQ/ndiEZZCZ6T3d300fZ3af+hKq7sGNFrc26iWgZ1poxaZp3B4/tTzmFcPVD/SUYvzdLhUXVHjbsDu0/fIkfhsEb3UwJgzpPTefLXgST8EJJ7ud7uSzqvKT7B+AlP10BMK72NTsBvH8YGR5SiKnDPCTrZyf5OsRjPQ95TJEkoZv/We4lMVErpVJd4Ybd3lCe8ag+LavlXSHv9N1muSTeEa9NyKvNOtLoEeo1ESR7Kfv03IHuGIl0XWogvY6g8Le39T6yuDki1WWnNKn3SPMEOFYUcuh4+FDzXcbk7mWyCf1y4icjBU5cSex9w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=est.tech; dmarc=pass action=none header.from=est.tech;
+ dkim=pass header.d=est.tech; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=est.tech; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6u4G0gTo/T+5ncq3T33u9kke1zq4WytrvZWuIbDkJu0=;
+ b=LQTWcbrHMraAzQEjfC0YYlhZdOh4xgG93AuBw5ybI7uJiZy+39tMDxR0iAT3FjjvuXHjyu3YjV9kzSSecPeqhpHxMDCZwCNSV7udew5Sr98ot6wydffA+FZRerDCFJBfYgbMSxjlb23qDsqQzdT7ASQ5QodMmG8ydj6Fj9NdTnund+juAHGGHxtG0+lizjgVHTcwrnUru+V0nNEGb+GQkQcZEwfToQy7WFWD3o+Bp4rr+o1Dn6egiSv+PJtiqQrCEBU7wUVYnx4ZyM67JgqUix0aoM8oMjGXmNfq1fX2fqc/CJZBNWCd9F+DsAKTpUOZpJ1w5ldAh92aZChwsC4tlA==
+Received: from DU4P189MB3750.EURP189.PROD.OUTLOOK.COM (2603:10a6:10:617::19)
+ by AS8P189MB2509.EURP189.PROD.OUTLOOK.COM (2603:10a6:20b:637::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.13; Wed, 23 Sep
+ 2026 03:01:11 +0000
+Received: from DU4P189MB3750.EURP189.PROD.OUTLOOK.COM
+ ([fe80::d422:dd3a:7c1e:f4f3]) by DU4P189MB3750.EURP189.PROD.OUTLOOK.COM
+ ([fe80::d422:dd3a:7c1e:f4f3%3]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
+ 03:01:11 +0000
+From: Tung Quang Nguyen <tung.quang.nguyen@est.tech>
+To: Yuqi Xu <xuyuqiabc@gmail.com>
+CC: "netdev@vger.kernel.org" <netdev@vger.kernel.org>, Jon Maloy
+	<jmaloy@redhat.com>, "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+	<edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>, Vega <vega@nebusec.ai>,
+	Ren Wei <weir@nebusec.ai>, "xuyq21@lenovo.com" <xuyq21@lenovo.com>
+Subject: Re: [PATCH net v2 1/2] tipc: stop the listener before draining
+ connections
+Thread-Topic: [PATCH net v2 1/2] tipc: stop the listener before draining
+ connections
+Thread-Index: AQHdSa1jDH3bmNtQLkei7BrjveTFc7bbb+Zg
+Date: Wed, 23 Sep 2026 03:01:11 +0000
+Message-ID:
+ <DU4P189MB3750BEF36FF7EEBA03E152FFC6822@DU4P189MB3750.EURP189.PROD.OUTLOOK.COM>
+References: <cover.1789960909.git.xuyuqiabc@gmail.com>
+ <d16573ddc2464277a04274fc12630daf00b8f149.1789960909.git.xuyuqiabc@gmail.com>
+In-Reply-To:
+ <d16573ddc2464277a04274fc12630daf00b8f149.1789960909.git.xuyuqiabc@gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=est.tech;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DU4P189MB3750:EE_|AS8P189MB2509:EE_
+x-ms-office365-filtering-correlation-id: c4d50bdc-dadf-4194-a8c2-08df191eec39
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|7416014|376014|10070799003|1800799024|23010399003|366016|56012099006|11063799006|4143699003|10067099003|22082099003|18002099003|38070700021;
+x-microsoft-antispam-message-info:
+ 9vRJ8FJdXellp7ljRlXP/02GCJgWePNfeCNTiLVVgMSl/bDt6+MLBKA+lxIEgqHtP+/XivM/FG7xQKoAaRjNWk/SWOog1jIQzekzQ6sgN+K1H64T092LRYugPKMrKSTM42GuTbwSFAYhd+Y4X1GYOlILDdEvuD7iFsoafisNGspPZhPPz6gPF+aUrCqgv1Baqfz0GTSpvr3Mu1Akr7qHtgyWhls/0D0W79aV312ZyvLwHoAdUDvDdoar8ukrrEy2xZYrXYp/ENZuyrXuRzbRHdm0tzFJKQwny1wX/822P3HOuR8y1lUZYsV3tWyV8T1hXrCWjij0oiqwbQadFF8xtRehl14StIkjG4Wuy8+s89kx7V68Rs6myg4utc8l9iZGabMo7T7dcBazhbPmWsYhPN0ctLg8kooaiaYga/Y0aHfHp/5CPlO9JTMFMLeUo55lPzr1a8Tjd86dz+7OhIRZBkAhF1jD4YWLWYMiSw10pL/tP0MzZhOVh0gAQ3SAfjMz3FlM/pRFv14OGxrJvZlm/6DrFlKvDPzaqUejnMAyV6Vcuj8OQiWAB0ouZ6JqfAmJMsLX8bGwPQ1O0PmS9qmtIsfEjvTTEMU0WRRd8bOytH5Ii2kvL6FV5t3o0lng4r0b6rsFFfpBRb3szR7I/hl/rHmEsgqsM2HS1Bkgs8rawwWXtlwUs4hhY4yWQPfWuYC80wLJQiMvMNK6JKGN2CcOPhY5lCDDwPaUUt/85yLpq0Q=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU4P189MB3750.EURP189.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(10070799003)(1800799024)(23010399003)(366016)(56012099006)(11063799006)(4143699003)(10067099003)(22082099003)(18002099003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 2
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?GGeOpyc2cXJGpFvx+XATbpWA9N8VtuZIh4zEuj0fbvt2IltBe91twY/nJM?=
+ =?iso-8859-1?Q?pyukFqYLqJxG/lhsWx8G93A36jiho8xy5SUxdxS126nZY7JeMMyPYZoLZC?=
+ =?iso-8859-1?Q?WFlK2gwGTSOV4deicZViy1FmdoBTEFKRafaRheNNzhK5nsJaMT/1gNnzOJ?=
+ =?iso-8859-1?Q?eSBeRByYfmCT047xJiYC5pu3i6L7S8FCgb2LNBA/EPxw+l4R9fJK2DhJOa?=
+ =?iso-8859-1?Q?ih+ZDUg0jbWy6XjQuDiK3A7WEmRBfkgPe1vU0rFwJMPfoDxyRI40GlGOsk?=
+ =?iso-8859-1?Q?AZhCP+cYRWp/qEg1cIlbobirY3dF3+nFE0tvyjte9bYWAJ/Ookbj1VRSmB?=
+ =?iso-8859-1?Q?DjXI8AvjNKST6IO/DwNsbdCLePV0hIsPddA9Z2Z1I+Y1uIq5a7ddFr76aO?=
+ =?iso-8859-1?Q?LQzZQ/WjzWa/NravXhTGzeewqlbZJeA3ZP6mkkdg+BpdDf1kW88oi0Xfb6?=
+ =?iso-8859-1?Q?FPah1yi4t2mY5Nc9WiFHBNvA1+Ut75UHTpkcBa7w0/XGR9PmEl3lh7ccrB?=
+ =?iso-8859-1?Q?n0Gd5adTVwkW1zFmCeP8uTkqpwRGTap7I5MfKMe1YKS34xCc1z/wiHWYUX?=
+ =?iso-8859-1?Q?0CUH9tMtQojEyh/yuwVHDMyy4N0DlfP3AaQWJG+xdXSxayYiq5mxKrTkht?=
+ =?iso-8859-1?Q?8fG2SxEoN18jKBX+W441K2CnknXFA0Xl1ECzHGV5fxw8RZdTaR6Bx8e+M6?=
+ =?iso-8859-1?Q?gQY4OUpUnD2oq2wu9/MraVjQGA2eEC5pqxPH9hM0qoQQA8xXIPkF/wxgHc?=
+ =?iso-8859-1?Q?kyOobySVvcCu+wLLytG8Y1+LyPD7DtIaKepKIkaYdih6gfOHeRtUDBlbac?=
+ =?iso-8859-1?Q?ey/Vgd7Y6Ce/ukJkbLuT+ELyOGxmsy2j9Jw4JhQ6GWctempyZf1cnP2cwq?=
+ =?iso-8859-1?Q?/oflQzVNodJAmPh5YSYx1FlGpswcbncT5s4oEJ9bSxv7fiu9AgN/JAUBEq?=
+ =?iso-8859-1?Q?AIiZl6zCS3pWdtIPmmWaAUB4jHCTqgiz69y1C8H90nDtY7zS/enBlUiFer?=
+ =?iso-8859-1?Q?5q+PnQhAZ+GdKhjn4V6AZTrsbXc//TNIUCXopoal6oNO45CNedAA2CDXXw?=
+ =?iso-8859-1?Q?eDOESUusJq7/tadqBB9gMn3Kd2gLATWg7WDqkscJnV75A2ZhrQIYCy6ciN?=
+ =?iso-8859-1?Q?K3MuqxyfP0/0+QeD9pQXf+HqgdZKXXBlVUVydDIEFMnrBL7RX+rNfmTCQ4?=
+ =?iso-8859-1?Q?kYBcNmJxNXvAEsK8IDEschpAVbedhqMs6z587t3Ut9BWmpCe2ykeZ9JvoK?=
+ =?iso-8859-1?Q?yn5HpxDJAX1nhMcSNFQuTb0uywZlCFtwseLMHpirpVVPWYOSWpPjOVqxFQ?=
+ =?iso-8859-1?Q?Ih1dpRypJO1S+myqHxeGIPrMfLT61XZiGgtBUvzaq+DFXWsSucDTDYAPXA?=
+ =?iso-8859-1?Q?rn79GL7PesQT8KtkppcfoQwzpNePFnUTFFUKppvCakmAWaXVMSc14uSyRQ?=
+ =?iso-8859-1?Q?zYL6ZBv2nfZCBsCz0JFloTonrfKSwX4DqsdMspO9NkbwJWF84+T/Yrh+pA?=
+ =?iso-8859-1?Q?AIMBZjvPaFZmq8IyCGZazeDgKzfDd/bp2Td2j23d5NalAyyfJd0xr37O3S?=
+ =?iso-8859-1?Q?6KJzLklHaCDj+VEtW084i/RYRhNVGnwg77ACpmkJy+6nyBPq9XsE4DMRf/?=
+ =?iso-8859-1?Q?Nl1PZI22l6T8lF1AUqhs2Pcq9MlliXim24sVrBuBu9f137QmyEujE3T+Ts?=
+ =?iso-8859-1?Q?WYW7YYpnLj3SE7iFHTxpGPxc8GdScRb0adLKURG/63YNLOmb6Usy7of+eX?=
+ =?iso-8859-1?Q?pPR6Z3K1+8qBniOMq6J0/Q7l16kHa8fOMkSHrdFTuWKxyiA9nCam3HUd5L?=
+ =?iso-8859-1?Q?JEC8dvdTdsGgpNfumhFdYbCcbYl38WXfHoqMOQvcTRYRX372KZQnRMYlef?=
+ =?iso-8859-1?Q?Cd?=
+x-ms-exchange-antispam-messagedata-1: 2goXVgkxHbgG2Q==
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: =?UTF-8?Q?Iv=C3=A1n_Rodriguez?= <ivanrwcm25@gmail.com>
-Date: Tue, 22 Sep 2026 19:56:58 -0700
-X-Gm-Features: AclHuK9gOEvYhNFnYgsJAMnp-CmaWTD9ecsuEllOd8FEpYc9E0hTm7bR2mR3W0s
-Message-ID: <CAO4EdiSv-hqc4WMoTa9F-ODs+TCzDG8ZEmAvx0z55wGhLdFJCA@mail.gmail.com>
-Subject: Re: [PATCH v2] usb: typec: ucsi: acpi: fix use-after-free on driver removal
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Fan Wu <fanwu01@zju.edu.cn>, Wei Huang <huangwei@kylinos.cn>, linux-usb@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: est.tech
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DU4P189MB3750.EURP189.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: c4d50bdc-dadf-4194-a8c2-08df191eec39
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Sep 2026 03:01:11.1848
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: d2585e63-66b9-44b6-a76e-4f4b217d97fd
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: uBnP2iX5/rCw1EaCIHsMeCeG65ENfwcA+CRaG1DjVliyr1SPfPW6ZRdAlcBks2THwCcatSiUCCvxx31OY1fb7lAG8sL4334IsALhbUSLTJw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8P189MB2509
 
-Hi,
-
-Little ping on this patch. It has received RB tags from Wei Huang and
-Heikki Krogerus, and I don't believe there are any outstanding
-comments.
-
-Please let me know if anything else is needed from my side.
-
-Thanks,
-
-Iv=C3=A1n
-
-On Mon, 7 Sep 2026 13:55:10 +0200, Heikki Krogerus
-<heikki.krogerus@linux.intel.com> wrote:
-> On Thu, Sep 03, 2026 at 08:21:21PM -0300, Iv=C3=A1n Ezequiel Rodriguez wr=
-ote:
-> > ucsi_acpi_remove() destroys the UCSI instance before removing the ACPI
-> > notify handler:
-> >
-> > ucsi_unregister(ua->ucsi);
-> > ucsi_destroy(ua->ucsi);
-> >
-> > acpi_remove_notify_handler(...);
-> >
-> > ucsi_acpi_notify() dereferences ua->ucsi, so a notify arriving after
-> > ucsi_destroy() uses freed memory:
-> >
-> > CPU0 CPU1
-> > ---- ----
-> > ucsi_acpi_remove()
-> > ucsi_unregister()
-> > ucsi_destroy()
-> > kfree(ucsi)
-> > ucsi_acpi_notify()
-> > ua->ucsi->ops->read_cci() <-- UAF
-> >
-> > Simply removing the handler before ucsi_unregister() is not correct
-> > either. ucsi_unregister() drains work that needs the notify path to mak=
-e
-> > progress: ucsi_handle_connector_change() issues GET_CONNECTOR_STATUS an=
-d
-> > ucsi_unregister_port() drains and destroys con->wq, and those commands
-> > block in wait_for_completion_timeout() on ucsi->complete for up to
-> > UCSI_TIMEOUT_MS. That completion is signalled only from
-> > ucsi_notify_common(), i.e. from the notify handler. Tearing the handler
-> > down first would leave cancel_work_sync() and destroy_workqueue()
-> > waiting the full timeout for a completion that can no longer arrive.
-> >
-> > Moving the removal between ucsi_unregister() and ucsi_destroy() is not
-> > sufficient on its own: at that point the connector array has already
-> > been freed, so a late notify reaching ucsi_connector_change() would
-> > queue work on a freed connector.
-> >
-> > Teardown therefore needs two properties at the same time: no new
-> > connector changes once connectors start going away, but the notify path
-> > still available for command and acknowledge completions until that work
-> > has been drained. Whether the PPM actually produces those completions i=
-s
-> > a firmware matter; what changes here is that the path able to deliver
-> > them is no longer torn down first.
-> >
-> > Introduce a quiescing state, local to the ACPI backend, that provides
-> > both. ucsi_acpi_remove() sets ua->quiescing under ua->notify_lock befor=
-e
-> > calling ucsi_unregister(); ucsi_acpi_notify() takes the same lock and,
-> > when quiescing, reduces the CCI to the bits that ucsi_notify_common()
-> > consumes for completions. ucsi_notify_common() looks at exactly
-> > UCSI_CCI_BUSY, the connector number, UCSI_CCI_ACK_COMPLETE and
-> > UCSI_CCI_COMMAND_COMPLETE; keeping the first and the last two preserves
-> > the completion and bogus-data behaviour unchanged, while clearing the
-> > connector number makes ucsi_connector_change() unreachable. The CCI tha=
-t
-> > the command path inspects is unaffected, because
-> > ucsi_sync_control_common() re-reads it from the interface after the
-> > completion.
-> >
-> > The resulting order is:
-> >
-> > mutex_lock(&ua->notify_lock);
-> > ua->quiescing =3D true; -- no new connector work
-> > mutex_unlock(&ua->notify_lock);
-> >
-> > ucsi_unregister(); -- drains work, notify path still
-> > available for completions
-> >
-> > acpi_remove_notify_handler(); -- unlinks, then flushes
-> > kacpi_notify_wq
-> >
-> > ucsi_destroy(); -- no notify can be in flight
-> >
-> > which gives the following happens-before chain:
-> >
-> > - A notify that acquires notify_lock before ucsi_acpi_remove() runs to
-> > completion while remove() waits on the lock, so any schedule_work() it
-> > performs happens before ucsi_unregister() starts cancelling.
-> > - A notify that acquires notify_lock after remove() released it observe=
-s
-> > quiescing =3D=3D true, so it cannot reach ucsi_connector_change() and
-> > cannot touch ucsi->connector.
-> > - acpi_remove_notify_handler() unlinks the handler and then calls
-> > acpi_os_wait_events_complete(), which flushes kacpi_notify_wq, so a
-> > notify already dispatched on another CPU has returned before
-> > ucsi_destroy() frees the instance.
-> >
-> > notify_lock is never held across ucsi_unregister() or
-> > acpi_remove_notify_handler(); holding it there would deadlock against
-> > the notify work those calls wait for. It is only ever taken as a leaf:
-> > ucsi_notify_common() and ucsi_connector_change() take no locks, so it
-> > cannot invert against ucsi->ppm_lock or con->lock, which the drained
-> > work holds while waiting for the completion. The handler runs from
-> > kacpi_notify_wq via acpi_os_execute(OSL_NOTIFY_HANDLER, ...), i.e. in
-> > process context, so sleeping on the mutex is allowed.
-> >
-> > The probe error path already removes the handler before ucsi_destroy()
-> > and is left unchanged.
-> >
-> > Fixes: f56de278e8ec ("usb: typec: ucsi: acpi: Move to the new API")
-> > Cc: stable@vger.kernel.org
-> > Reported-by: Fan Wu <fanwu01@zju.edu.cn>
-> > Link: https://lore.kernel.org/all/20260718021142.3146566-1-fanwu01@zju.=
-edu.cn/
-> > Signed-off-by: Iv=C3=A1n Ezequiel Rodriguez <ivanrwcm25@gmail.com>
->
-> You could have used guard(mutex) in ucsi_acpi_notify(), but that's
-> not a huge problem.
->
-> Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
->
-> > ---
-> >
-> > Notes:
-> > Hi Heikki, Greg,
-> >
-> > v2 is a rewrite rather than an incremental fixup. v1 moved
-> > acpi_remove_notify_handler() ahead of the teardown, and that ordering i=
-s
-> > wrong for the reason Fan Wu had already documented in [1]: the work tha=
-t
-> > ucsi_unregister() drains can be waiting for a completion that only the
-> > notify path delivers. This version keeps the handler installed across
-> > ucsi_unregister() and adds an ACPI-local quiescing state instead.
-> >
-> > Wei Huang asked on v1 whether acpi_remove_notify_handler() waits for a
-> > callback that already entered on another CPU. It does: for
-> > ACPI_DEVICE_NOTIFY it calls acpi_os_wait_events_complete() after
-> > unlinking the handler (drivers/acpi/acpica/evxface.c), that flushes
-> > kacpi_notify_wq (drivers/acpi/osl.c), and device-notify dispatch runs o=
-n
-> > that same workqueue through acpi_os_execute(OSL_NOTIFY_HANDLER, ...).
-> > So the raw call is already the barrier, and acpi_dev_remove_notify_hand=
-ler()
-> > would only add a second flush. Chasing that question is what surfaced t=
-he
-> > harder half of the problem, which is what this version is about.
-> >
-> > On [1]: that patch kept the handler installed across ucsi_unregister()
-> > for exactly the right reason, and this version preserves that property.
-> > What it did not cover is the window you described in that thread, where=
- a
-> > notify arriving after ucsi_unregister() has freed the connectors still
-> > reaches ucsi_connector_change(). You also asked to keep the solution
-> > inside ucsi_acpi.c rather than redesigning the core, which is what this
-> > does.
-> >
-> > Changes since v1:
-> > - Do not remove the notify handler before ucsi_unregister().
-> > - Add the quiescing state, so connector changes stop while the notify
-> > path stays available for completions.
-> > - Drop the ucsi.c changes from v1 (ntfy =3D 0, connector =3D NULL, cap =
-=3D 0).
-> > I could not show they were needed for the other backends, and they do
-> > not belong in the same patch as the ACPI lifetime fix.
-> > - Correct the Fixes: tag. v1 pointed at 8243edf44152, which added the
-> > driver; the current ordering came from f56de278e8ec.
-> > - Credit Fan Wu, who reported the underlying use-after-free first.
-> > - Use mutex_init() rather than devm_mutex_init(), which only appeared i=
-n
-> > 4cd47222e435 (2024) and would be a needlessly modern dependency for a
-> > fix tagged for stable from a 2019 commit.
-> >
-> > Testing
-> >
-> > I have no machine that exercises the UCSI ACPI path, so this was tested
-> > with a software PPM backend that drives the real UCSI core
-> > (ucsi_create/ucsi_register/ucsi_unregister/ucsi_destroy/
-> > ucsi_notify_common) and reproduces the ACPI notify protocol, including
-> > the deferral to a percpu workqueue. All three candidate teardown
-> > orderings were run against it: the one from v1, the one from [1] and th=
-e
-> > one in this patch. v7.3-rc2, KASAN + lockdep + PROVE_LOCKING +
-> > DEBUG_MUTEXES, QEMU, oops=3Dpanic.
-> >
-> > Each case below parks a connector work in wait_for_completion_timeout()
-> > before teardown starts, and asserts that precondition rather than
-> > assuming it.
-> >
-> > teardown ordering result
-> > ------------------------------------ ----------------------------
-> > quiesce, unregister, unlink (this) 148 ms, clean, with a late
-> > connector notify fired after
-> > ucsi_unregister() returned
-> > unlink, unregister (v1) 10595 ms stall
-> > unregister, unlink (as in [1]), a KASAN slab-use-after-free in
-> > connector notify landing in the queue_work_on(), then a GP
-> > window fault in the kworker that
-> > picked up the freed work
-> > nothing in flight (this) 146 ms, clean
-> >
-> > Repeated with the teardown starting while ucsi_init_work() is still
-> > running, so that cancel_delayed_work_sync(&ucsi->work) has to drain an
-> > init command parked on the completion: this patch takes 2299 ms and
-> > completes cleanly, of which 1500 ms is the injected command delay, whil=
-e
-> > the v1 ordering stalls for 10089 ms and the init gives up with
-> > -ETIMEDOUT.
-> >
-> > Two deterministic checks of the properties the patch claims:
-> >
-> > - CCI mask. A single CCI carrying both connector 1 and COMMAND_COMPLETE
-> > (0x80000002) is delivered while quiescing: the completion is signalled
-> > and EVENT_PENDING stays clear, i.e. ucsi_connector_change() is not
-> > reached. The same CCI with quiescing off sets EVENT_PENDING, so the
-> > check is sensitive to the path it claims to block.
-> >
-> > - notify_lock as a barrier. A notify that has entered the handler is
-> > held inside it for 1200 ms; the store of quiescing in the teardown
-> > path blocks for 1215 ms behind it. This is what makes "a notify that
-> > started before teardown finishes its schedule_work() before
-> > ucsi_unregister() begins cancelling" an ordering guarantee rather
-> > than a likelihood.
-> >
-> > Soak: 1000 teardown cycles with four threads hammering the notify path
-> > concurrently with the quiesce sequence, repeated at 1, 2, 4 and 8 vCPUs=
-,
-> > so 4000 teardowns in total. No stall, no KASAN report and no lockdep
-> > splat in any configuration. A separate KCSAN build ran 200 of those
-> > cycles at 4 vCPUs with no data race reported in any UCSI path.
-> >
-> > What this does not cover: no real ACPI hardware, so the ACPICA drain
-> > described above is established by reading evxface.c and osl.c rather
-> > than by execution; and the LG gram quirk path is untouched and
-> > unexercised.
-> >
-> > The harness is not part of this patch. I can post it separately if it
-> > is useful.
-> >
-> > [1] https://lore.kernel.org/all/20260718021142.3146566-1-fanwu01@zju.ed=
-u.cn/
-> >
-> > drivers/usb/typec/ucsi/ucsi_acpi.c | 53 ++++++++++++++++++++++++++++--
-> > 1 file changed, 51 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/usb/typec/ucsi/ucsi_acpi.c b/drivers/usb/typec/ucs=
-i/ucsi_acpi.c
-> > index 18286d3e9cc5..61bba7625d17 100644
-> > --- a/drivers/usb/typec/ucsi/ucsi_acpi.c
-> > +++ b/drivers/usb/typec/ucsi/ucsi_acpi.c
-> > @@ -24,6 +24,15 @@ struct ucsi_acpi {
-> > bool check_bogus_event;
-> > guid_t guid;
-> > u64 cmd;
-> > + /*
-> > + * notify_lock serialises ucsi_acpi_notify() against the start of
-> > + * teardown, so that @quiescing is observed by every notify that has
-> > + * not yet run. It must not be held across ucsi_unregister(), whose
-> > + * drained work may depend on the notify path, nor across
-> > + * acpi_remove_notify_handler(), which flushes notify work.
-> > + */
-> > + struct mutex notify_lock;
-> > + bool quiescing;
-> > };
-> >
-> > static int ucsi_acpi_dsm(struct ucsi_acpi *ua, int func)
-> > @@ -179,11 +188,31 @@ static void ucsi_acpi_notify(acpi_handle handle, =
-u32 event, void *data)
-> > u32 cci;
-> > int ret;
-> >
-> > + mutex_lock(&ua->notify_lock);
-> > +
-> > ret =3D ua->ucsi->ops->read_cci(ua->ucsi, &cci);
-> > if (ret)
-> > - return;
-> > + goto out_unlock;
-> > +
-> > + /*
-> > + * Once teardown has started the connectors are being unregistered and
-> > + * freed, so a connector change must not be reported any more. Command
-> > + * and acknowledge completions must still be able to reach the core:
-> > + * ucsi_unregister() drains connector and partner work that can be
-> > + * blocked in wait_for_completion_timeout() on ucsi->complete, and tha=
-t
-> > + * completion is only signalled from here. Keep exactly the bits that
-> > + * ucsi_notify_common() needs for that, which drops the connector
-> > + * number and with it the path to ucsi_connector_change(). The busy
-> > + * indicator is kept so that bogus CCI data is still ignored.
-> > + */
-> > + if (ua->quiescing)
-> > + cci &=3D UCSI_CCI_BUSY | UCSI_CCI_ACK_COMPLETE |
-> > + UCSI_CCI_COMMAND_COMPLETE;
-> >
-> > ucsi_notify_common(ua->ucsi, cci);
-> > +
-> > +out_unlock:
-> > + mutex_unlock(&ua->notify_lock);
-> > }
-> >
-> > static int ucsi_acpi_probe(struct platform_device *pdev)
-> > @@ -219,6 +248,8 @@ static int ucsi_acpi_probe(struct platform_device *=
-pdev)
-> >
-> > ua->dev =3D &pdev->dev;
-> >
-> > + mutex_init(&ua->notify_lock);
-> > +
-> > id =3D dmi_first_match(ucsi_acpi_quirks);
-> > if (id)
-> > ops =3D id->driver_data;
-> > @@ -256,11 +287,29 @@ static void ucsi_acpi_remove(struct platform_devi=
-ce *pdev)
-> > {
-> > struct ucsi_acpi *ua =3D platform_get_drvdata(pdev);
-> >
-> > + /*
-> > + * Stop reporting connector changes, but keep the notify handler
-> > + * installed so that the work ucsi_unregister() drains can still be
-> > + * reached by the command completions it may be waiting for. Any notif=
-y
-> > + * that already passed this point runs to completion first, so no
-> > + * connector work can be queued once ucsi_unregister() starts.
-> > + */
-> > + mutex_lock(&ua->notify_lock);
-> > + ua->quiescing =3D true;
-> > + mutex_unlock(&ua->notify_lock);
-> > +
-> > ucsi_unregister(ua->ucsi);
-> > - ucsi_destroy(ua->ucsi);
-> >
-> > + /*
-> > + * Now that no work is left to serve, drop the handler. This unlinks i=
-t
-> > + * and then calls acpi_os_wait_events_complete(), which flushes
-> > + * kacpi_notify_wq, so a notify running on another CPU has returned
-> > + * before ucsi_destroy() frees the instance that it dereferences.
-> > + */
-> > acpi_remove_notify_handler(ACPI_HANDLE(&pdev->dev), ACPI_DEVICE_NOTIFY,
-> > ucsi_acpi_notify);
-> > +
-> > + ucsi_destroy(ua->ucsi);
-> > }
-> >
-> > static int ucsi_acpi_suspend(struct device *dev)
-> > --
-> > 2.43.0
->
-> --
-> heikki
+> Subject: [PATCH net v2 1/2] tipc: stop the listener before draining conne=
+ctions=0A=
+=0A=
+> tipc_topsrv_stop() destroyed the receive workqueue while the listener=0A=
+> socket still had its data-ready callback and sk_user_data installed.=0A=
+> An incoming connection request could then queue srv->awork on the freed=
+=0A=
+> workqueue from tipc_topsrv_listener_data_ready().=0A=
+=0A=
+> Reject new accepts, clear sk_user_data under sk_callback_lock and cancel=
+=0A=
+> pending accept work before the workqueues are torn down.=0A=
+=0A=
+This is not enough. Thus, this patch does not fix the original cause of sev=
+eral issues (use after free, counter leak, NULL pointer dereference etc).=
+=0A=
+I use your reproducer with this setup:  ./poc -i 6000 -t 4 -r 5000 (and ./p=
+oc -i 6000 -t 4 -r 20000)=0A=
+And the same stack trace is observed BEFORE and AFTER applying your patch (=
+kernel 7.3.0-rc3):=0A=
+"=0A=
+iter=3D0 ns_failures=3D0=0A=
+iter=3D200 ns_failures=3D0=0A=
+iter=3D400 ns_failures=3D0=0A=
+iter=3D600 ns_failures=3D0=0A=
+[  271.777365] ------------[ cut here ]------------=0A=
+[  271.777368] refcount_t: addition on 0; use-after-free.=0A=
+[  271.777369] WARNING: lib/refcount.c:25 at refcount_warn_saturate+0x6a/0x=
+90, CPU#1: kworker/u8:4/929=0A=
+...=0A=
+[  271.791358] CPU: 1 UID: 0 PID: 929 Comm: kworker/u8:4 Not tainted 7.3.0-=
+rc3-default+ #31 PREEMPT(full)=0A=
+...=0A=
+[  271.794423] Workqueue: netns cleanup_net=0A=
+[  271.795096] RIP: 0010:refcount_warn_saturate+0x6a/0x90=0A=
+[  271.795951] Code: cc 48 8d 3d 88 d0 48 01 67 48 0f b9 3a c3 cc cc cc cc =
+48 8d 3d 87 d0 48 01 67 48 0f b9 3a e9 0d 97 72 00 48 8d 3d 86 d0 48 01 <67=
+> 48 0f b9 3a e9 fc 96 72 00 48 8d 3d 85 d0 48 01 67 48 0f b9 3a=0A=
+...=0A=
+[  271.809733] Call Trace:=0A=
+[  271.810177]  <TASK>=0A=
+[  271.810559]  tipc_topsrv_exit_net+0x1b4/0x1e0 [tipc]=0A=
+[  271.811439]  ops_undo_list+0xd5/0x230=0A=
+[  271.812056]  cleanup_net+0x1ec/0x320=0A=
+[  271.812666]  process_one_work+0x1a5/0x3b0=0A=
+[  271.813343]  worker_thread+0x1be/0x330=0A=
+[  271.813989]  ? _raw_spin_unlock_irqrestore+0x12/0x40=0A=
+[  271.814814]  ? __pfx_worker_thread+0x10/0x10=0A=
+[  271.815551]  kthread+0xf6/0x140=0A=
+[  271.816090]  ? __pfx_kthread+0x10/0x10=0A=
+[  271.816738]  ret_from_fork+0x288/0x330=0A=
+[  271.817377]  ? __pfx_kthread+0x10/0x10=0A=
+[  271.818017]  ret_from_fork_asm+0x1a/0x30=0A=
+[  271.818681]  </TASK>=0A=
+[  271.819067] ---[ end trace 0000000000000000 ]---=0A=
+[  271.846984] BUG: unable to handle page fault for address: 00000001000002=
+cf=0A=
+[  271.848215] #PF: supervisor read access in kernel mode=0A=
+[  271.849079] #PF: error_code(0x0000) - not-present page=0A=
+[  271.849945] PGD 0 P4D 0=0A=
+[  271.850420] Oops: Oops: 0000 [#1] SMP NOPTI=0A=
+[  271.851145] CPU: 1 UID: 0 PID: 929 Comm: kworker/u8:4 Tainted: G        =
+W           7.3.0-rc3-default+ #31 PREEMPT(full)=0A=
+[  271.852937] Tainted: [W]=3DWARN=0A=
+...=0A=
+[  271.855014] Workqueue: netns cleanup_net=0A=
+[  271.855702] RIP: 0010:do_raw_write_lock+0xa/0xb0=0A=
+[  271.856486] Code: 00 48 8b 3c 24 85 c0 0f 85 5e a3 e9 ff eb d7 90 90 90 =
+90 90 90 90 90 90 90 90 90 90 90 90 90 90 0f 1f 40 d6 0f 1f 44 00 00 53 <81=
+> 7f 08 ed 1e af de 48 89 fb 75 45 48 8b 43 10 65 48 3b 05 96 55=0A=
+...=0A=
+[  271.870488] Call Trace:=0A=
+[  271.870932]  <TASK>=0A=
+[  271.871331]  tipc_conn_close+0x24/0xa0 [tipc]=0A=
+[  271.872088]  tipc_topsrv_exit_net+0x108/0x1e0 [tipc]=0A=
+[  271.872938]  ops_undo_list+0xd5/0x230=0A=
+[  271.873588]  cleanup_net+0x1ec/0x320=0A=
+[  271.874211]  process_one_work+0x1a5/0x3b0=0A=
+[  271.874891]  worker_thread+0x1be/0x330=0A=
+[  271.875536]  ? _raw_spin_unlock_irqrestore+0x12/0x40=0A=
+[  271.876376]  ? __pfx_worker_thread+0x10/0x10=0A=
+[  271.877119]  kthread+0xf6/0x140=0A=
+[  271.877686]  ? __pfx_kthread+0x10/0x10=0A=
+[  271.878335]  ret_from_fork+0x288/0x330=0A=
+[  271.878980]  ? __pfx_kthread+0x10/0x10=0A=
+[  271.879641]  ret_from_fork_asm+0x1a/0x30=0A=
+[  271.880314]  </TASK>=0A=
+"=0A=
+=0A=
+So, your patch does not fix the original root cause: not deleting topology =
+server's send/receive work queues before closing connections.=0A=
+Please help test this patch to see if it completely fixes all observed kern=
+el stack traces:=0A=
+=0A=
+Signed-off-by: Tung Nguyen <tung.quang.nguyen@est.tech>=0A=
+---=0A=
+ net/tipc/topsrv.c | 73 +++++++++++++++++++++++++++++++++++++----------=0A=
+ 1 file changed, 58 insertions(+), 15 deletions(-)=0A=
+=0A=
+diff --git a/net/tipc/topsrv.c b/net/tipc/topsrv.c=0A=
+index af530c9ed840..2fc10bf593b0 100644=0A=
+--- a/net/tipc/topsrv.c=0A=
++++ b/net/tipc/topsrv.c=0A=
+@@ -55,7 +55,7 @@=0A=
+ /**=0A=
+  * struct tipc_topsrv - TIPC server structure=0A=
+  * @conn_idr: identifier set of connection=0A=
+- * @idr_lock: protect the connection identifier set=0A=
++ * @idr_lock: protect the connection identifier set and listener=0A=
+  * @idr_in_use: amount of allocated identifier entry=0A=
+  * @net: network namespace instance=0A=
+  * @awork: accept work item=0A=
+@@ -301,10 +301,20 @@ static void tipc_conn_send_to_sock(struct tipc_conn *=
+con)=0A=
+ static void tipc_conn_send_work(struct work_struct *work)=0A=
+ {=0A=
+ 	struct tipc_conn *con =3D container_of(work, struct tipc_conn, swork);=0A=
++	struct tipc_topsrv *srv;=0A=
++=0A=
++	srv =3D con->server;=0A=
++	spin_lock_bh(&srv->idr_lock);=0A=
++	if (!srv->listener) {=0A=
++		spin_unlock_bh(&srv->idr_lock);=0A=
++		goto out;=0A=
++	}=0A=
++	spin_unlock_bh(&srv->idr_lock);=0A=
+ =0A=
+ 	if (connected(con))=0A=
+ 		tipc_conn_send_to_sock(con);=0A=
+ =0A=
++out:=0A=
+ 	conn_put(con);=0A=
+ }=0A=
+ =0A=
+@@ -334,8 +344,14 @@ void tipc_topsrv_queue_evt(struct net *net, int conid,=
+=0A=
+ 	list_add_tail(&e->list, &con->outqueue);=0A=
+ 	spin_unlock_bh(&con->outqueue_lock);=0A=
+ =0A=
+-	if (queue_work(srv->send_wq, &con->swork))=0A=
+-		return;=0A=
++	spin_lock_bh(&srv->idr_lock);=0A=
++	if (srv->listener) {=0A=
++		if (queue_work(srv->send_wq, &con->swork)) {=0A=
++			spin_unlock_bh(&srv->idr_lock);=0A=
++			return;=0A=
++		}=0A=
++	}=0A=
++	spin_unlock_bh(&srv->idr_lock);=0A=
+ err:=0A=
+ 	conn_put(con);=0A=
+ }=0A=
+@@ -346,14 +362,20 @@ void tipc_topsrv_queue_evt(struct net *net, int conid=
+,=0A=
+  */=0A=
+ static void tipc_conn_write_space(struct sock *sk)=0A=
+ {=0A=
++	struct tipc_topsrv *srv;=0A=
+ 	struct tipc_conn *con;=0A=
+ =0A=
+ 	read_lock_bh(&sk->sk_callback_lock);=0A=
+ 	con =3D sk->sk_user_data;=0A=
+ 	if (connected(con)) {=0A=
+-		conn_get(con);=0A=
+-		if (!queue_work(con->server->send_wq, &con->swork))=0A=
+-			conn_put(con);=0A=
++		srv =3D con->server;=0A=
++		spin_lock_bh(&srv->idr_lock);=0A=
++		if (srv->listener) {=0A=
++			conn_get(con);=0A=
++			if (!queue_work(srv->send_wq, &con->swork))=0A=
++				conn_put(con);=0A=
++		}=0A=
++		spin_unlock_bh(&srv->idr_lock);=0A=
+ 	}=0A=
+ 	read_unlock_bh(&sk->sk_callback_lock);=0A=
+ }=0A=
+@@ -418,8 +440,17 @@ static int tipc_conn_rcv_from_sock(struct tipc_conn *c=
+on)=0A=
+ static void tipc_conn_recv_work(struct work_struct *work)=0A=
+ {=0A=
+ 	struct tipc_conn *con =3D container_of(work, struct tipc_conn, rwork);=0A=
++	struct tipc_topsrv *srv;=0A=
+ 	int count =3D 0;=0A=
+ =0A=
++	srv =3D con->server;=0A=
++	spin_lock_bh(&srv->idr_lock);=0A=
++	if (!srv->listener) {=0A=
++		spin_unlock_bh(&srv->idr_lock);=0A=
++		goto out;=0A=
++	}=0A=
++	spin_unlock_bh(&srv->idr_lock);=0A=
++=0A=
+ 	while (connected(con)) {=0A=
+ 		if (tipc_conn_rcv_from_sock(con))=0A=
+ 			break;=0A=
+@@ -430,6 +461,7 @@ static void tipc_conn_recv_work(struct work_struct *wor=
+k)=0A=
+ 			count =3D 0;=0A=
+ 		}=0A=
+ 	}=0A=
++out:=0A=
+ 	conn_put(con);=0A=
+ }=0A=
+ =0A=
+@@ -438,6 +470,7 @@ static void tipc_conn_recv_work(struct work_struct *wor=
+k)=0A=
+  */=0A=
+ static void tipc_conn_data_ready(struct sock *sk)=0A=
+ {=0A=
++	struct tipc_topsrv *srv;=0A=
+ 	struct tipc_conn *con;=0A=
+ =0A=
+ 	trace_sk_data_ready(sk);=0A=
+@@ -445,9 +478,14 @@ static void tipc_conn_data_ready(struct sock *sk)=0A=
+ 	read_lock_bh(&sk->sk_callback_lock);=0A=
+ 	con =3D sk->sk_user_data;=0A=
+ 	if (connected(con)) {=0A=
+-		conn_get(con);=0A=
+-		if (!queue_work(con->server->rcv_wq, &con->rwork))=0A=
+-			conn_put(con);=0A=
++		srv =3D con->server;=0A=
++		spin_lock_bh(&srv->idr_lock);=0A=
++		if (srv->listener) {=0A=
++			conn_get(con);=0A=
++			if (!queue_work(srv->rcv_wq, &con->rwork))=0A=
++				conn_put(con);=0A=
++		}=0A=
++		spin_unlock_bh(&srv->idr_lock);=0A=
+ 	}=0A=
+ 	read_unlock_bh(&sk->sk_callback_lock);=0A=
+ }=0A=
+@@ -503,8 +541,12 @@ static void tipc_topsrv_listener_data_ready(struct soc=
+k *sk)=0A=
+ =0A=
+ 	read_lock_bh(&sk->sk_callback_lock);=0A=
+ 	srv =3D sk->sk_user_data;=0A=
+-	if (srv)=0A=
+-		queue_work(srv->rcv_wq, &srv->awork);=0A=
++	if (srv) {=0A=
++		spin_lock_bh(&srv->idr_lock);=0A=
++		if (srv->listener)=0A=
++			queue_work(srv->rcv_wq, &srv->awork);=0A=
++		spin_unlock_bh(&srv->idr_lock);=0A=
++	}=0A=
+ 	read_unlock_bh(&sk->sk_callback_lock);=0A=
+ }=0A=
+ =0A=
+@@ -700,23 +742,24 @@ static void tipc_topsrv_stop(struct net *net)=0A=
+ 	struct tipc_conn *con;=0A=
+ 	int id;=0A=
+ =0A=
++	spin_lock_bh(&srv->idr_lock);=0A=
++	srv->listener =3D NULL;=0A=
++	spin_unlock_bh(&srv->idr_lock);=0A=
++	tipc_topsrv_work_stop(srv);=0A=
++=0A=
+ 	spin_lock_bh(&srv->idr_lock);=0A=
+ 	for (id =3D 0; srv->idr_in_use; id++) {=0A=
+ 		con =3D idr_find(&srv->conn_idr, id);=0A=
+ 		if (con) {=0A=
+-			conn_get(con);=0A=
+ 			spin_unlock_bh(&srv->idr_lock);=0A=
+ 			tipc_conn_close(con);=0A=
+-			conn_put(con);=0A=
+ 			spin_lock_bh(&srv->idr_lock);=0A=
+ 		}=0A=
+ 	}=0A=
+ 	__module_get(lsock->ops->owner);=0A=
+ 	__module_get(lsock->sk->sk_prot_creator->owner);=0A=
+-	srv->listener =3D NULL;=0A=
+ 	spin_unlock_bh(&srv->idr_lock);=0A=
+ =0A=
+-	tipc_topsrv_work_stop(srv);=0A=
+ 	sock_release(lsock);=0A=
+ 	idr_destroy(&srv->conn_idr);=0A=
+ 	kfree(srv);=0A=
+-- =0A=
+2.43.0=
