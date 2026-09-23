@@ -1,203 +1,288 @@
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010010.outbound.protection.outlook.com [52.101.61.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-73.mta0.migadu.com [91.218.175.73])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE1DE2EDD53
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 07:54:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.10
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790150043; cv=fail; b=H4aifYtKyOm0EJbUPEntrL0vCosG74BbK7fmGH8oXxvysCrZaUUv5wYqGaKsCwgYT2Eiv/S14mF8OF7dewe68GL1md94qi/8JjYYFLT/V40CV5REMh4Ttb+YAGBAZ/YYsuAz0AKRjHtXrNX9UlM/KtAkn5c3lnerG54pttPkmvI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790150043; c=relaxed/simple;
-	bh=N95GnPUfBH9b3vZYjOPTplwEQ2XHc0hKYcXZsCOCydo=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=DIWO5Ep8bGX6mhkCAq5WgPSVqmNEcewNm/kDIYbELk+s2du9zOR0Avk9JNNg/KjQ47Xyp75iiPVPSe8Q9Jwa9uqNt9hziGxoVQM2kCqVAQwUxTkR1OxpAAzDi1bnnic/98EEVcEMz/HKWOKlH3LKFTfobQN95cqvJbsOrBjRxx4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=DdGb269V; arc=fail smtp.client-ip=52.101.61.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9591F456DF3
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 07:56:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.73
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790150210; cv=none; b=SzIIwtci2Y10Eq2W+7nwh8Xsq1VcN7NuaaK8cZC8mvw3eRBjHl/p/JPwBuYkt0+yLo8Zyuzic32Wl5NjeJ1tMyLxoDipPz2MG11Z6ly++PTkwKEIzK6UZbr4U+NM3fOtz4tDayQogwwaVG8jmppXax1sxI4P1GhcwBuGM1ZzLss=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790150210; c=relaxed/simple;
+	bh=rE8fsKG8zQi5YMIob2vPd3riVn9pbnpmVF9Jdzvonhw=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=EnrqO2i4g//9Fikon/7SLh3ztfOhQ0EW8v833ESZs870ui9497z1ytnVR653H8vhksM7u8aUVPX0B+L7Xwmi4Of6JhHKPFo7Y8XGa9XolWNLpYFlGHoC21PcA4ZfXKFYYZ7iS1FoYiYiCQWVLsfievNevWfuNk0lTENhC2DstLE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=LqIUaMWM; arc=none smtp.client-ip=91.218.175.73
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="DdGb269V"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=S5+OeD9Q8mZEq2n1x0doyyHzhEm6X397kULuJvRXNS8afEOEeIMzBYkXsU0I1PRD+dG6U6CdKx5O3F6TuKLl9pCWQUA45pJn8caByqJrvCVChQI/7fiCKmOnTPgDAzbIi4TPBXljiMs0Dbfa6BJkHNfvCj14FgjXYu+Oq+o1tJXCCy3c2wWHAV39+KfUpXkMXXvv4QtNIV+K1tJmqXEDHeso9h3P/fU4h8vO5mmwsWInS7IqeeVyiKlRxx/+dlrAbRjthVCFlaUYfVyf4RwHV9Ir+Dmi3Y2kFd1cgkOIFIlJIZ5suQhIjTzHqkY3bt3cI737roDactEXqgQGhe8OJg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pmC3k+DGxwd0erPZ6Jg3rRzZ6icRHpZm7zlCJj+SK9g=;
- b=kKmAxaeIzhPl9hQbfeS4JBbztBcZJ+XhdJAZWM81lDneUDeqhH7sdsjHDnNQlr2fbUX320UbetqNEh4H3xSVPJ8chIc5JuGrMDv5k9YbpZeRoWDr36yDPnQWUu4UOzhBkHHSthq0wWx3Sk89oeeS/eAJajGnmVQp8N9hnB+RoAX7y0khv5ZeU/wJW6t9UYcsFJ/8wBBYId4+QgvKfE8sZt3m03cBlrQw+9Xeo31i4tTsIDnI/pr8UzTMsYJM4HaFV8wuRQX+k3O/L2wnqiRNRZUlNloxw/JmYdSMAtF2cz9ku9vYeckBz031EZdpIXlOpgimiSKh1YX2rnj27nBTWg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pmC3k+DGxwd0erPZ6Jg3rRzZ6icRHpZm7zlCJj+SK9g=;
- b=DdGb269Ve7nXRRFyNb8J3fg/n+BPA1QhhmxdSHYaZdZO9V0bzf2sbQinlZFX7Z+1Lw+V5bF09vqfW6LkwHKBuEHpRmr7OapnMBNhpJOKnXk62S/69PgwsPlIUgx1fndaq8vTWpjGGxgfAJ55qj0CfTUdIVVFVuYfRmV9AissGJc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CY8PR12MB7683.namprd12.prod.outlook.com (2603:10b6:930:86::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
- 2026 07:53:58 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
- 07:53:58 +0000
-Message-ID: <32446a55-070d-4739-bd3a-d56c4b628e29@amd.com>
-Date: Wed, 23 Sep 2026 09:53:54 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.2.y] drm/ttm: fix swapped-out resources never leaving
- their bulk_move range
-To: Greg KH <gregkh@linuxfoundation.org>,
- Vadim Nikitushkin <bub4z0r@gmail.com>
-Cc: stable@vger.kernel.org, thomas.hellstrom@linux.intel.com,
- dri-devel@lists.freedesktop.org, skainsworth@gmail.com
-References: <2026092253-dimness-unethical-2515@gregkh>
- <20260922153334.136648-1-bub4z0r@gmail.com>
- <2026092320-reentry-lyricist-330b@gregkh>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <2026092320-reentry-lyricist-330b@gregkh>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0103.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:cb::19) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="LqIUaMWM"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=rE8fsKG8zQi5YMIob2vPd3riVn9pbnpmVF9Jdzvonhw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790150206; v=1; x=1790755006;
+ b=LqIUaMWMIBxqHNwZjPpHZNtm3U03pv/W5f6cBJYWp3ax1agxjZk7IeUoAnlUNWvjLVx5LC04
+ fIfgCm+O0t5TNUrPtOY3nbPZlone5IxLiGE2nbJc0U9C/SJCynVZ+HwzpY9tg1MW9YHRXZqlAX1
+ B0ClXtH+EkUfS0M1b2HueFCE=
+X-Envelope-To: stable@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 505b1a229be1cec5;
+	Wed, 23 Sep 2026 07:56:45 +0000
+X-Mizu-Trace-ID: 505b1a229be1cec5
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY8PR12MB7683:EE_
-X-MS-Office365-Filtering-Correlation-Id: 53cf2b0b-4e44-4680-88bb-08df1947d2fb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|10067099003|11063799006|4143699003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	pjrSsFHg0eO38Lvl3m87t+EYh0AUtkBJaooCDlcLLjkrj786k7lGJNm97/yKeyBo+C603OSoBnwKF4g7Y9NgpHJoHMhSg8Ojl6yovVYMPNkUd3ikP6Ojrd2HqZGTPRgW+Qi16YPqBa9JeVxQ9xKAxnGQMaZg6J4onGzotN4/8Rk3ppUHSWfnVcTMwKhyKWRvUwn/xgZO0NS3qInGqoQevhwN4Hh/GLMzmuxDHnmeaxPGrjqZPruPRuQQC0G2sv7exriMsOXdVDHmWXKZpgpkqBhJV7kZsDyNWC9ZoAqW/TOtS4C7yQZLmKPOJanZ71yoPrsf06lYs0hoE15IavvugL9yER6wYOTKUYyRUAmXVIH7+4mDHm7iGeMkWakbrF3q3pM18ZB74L5vHNJovLfGuNkmoMnTxIqCe7N+R0tWlMWXsRLxnoeH5Mv7Du3RrhF/xECdMs3nsVZBKm1LaRpn/5kRWAz9K6NOhsQIcNHHpYMFrpEKA1vTJxBhh7cF6G65E+a/9Fu43rlUNfFr9KqrgFw5uq3hMZEAsyCmKNRQfgad6ZuZT3HDReF08xpxJsw47wVAwqpLlQgwNdHu1jfes4gihnDSbHnw+wxn384dNUqo/yM0ZW9ubxcw1ihaEqLC
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(10067099003)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?U2IyVWtTRWlja3NEMWp4dGNZenVXRERIcjlZWlVoN29sc2tiZE1waWV3RXpI?=
- =?utf-8?B?ejB4TkNPUWVTZG5wK2llM2I1RmhwUThqTFF5TjYwM2JpSGlLM253YThaMUZv?=
- =?utf-8?B?d2RRTnRDQm9Cd3dPSGJWNmE3U0hzcXZMencxeTA2anVFMUlSQVY5QnQvZkFO?=
- =?utf-8?B?azkzUk8yNFViVUpmZzdITTQwMTltdjRjd1owL045K2FYVThPa3dTZmxoUTVs?=
- =?utf-8?B?dG16OS85dVdJK3ZiV0xBTFFHSW9hVzJjVXlLQk5vY1BnbzlqaGNqWnJMY1Ru?=
- =?utf-8?B?WUt2SkpsZGlKQ2RIWHRhNzFWbUFmVUllZFVxVHBoakZJelI0RG9aYUhLV29t?=
- =?utf-8?B?SjBTbDBMcUlWQzZIa1gwbkM4a1Fab05oT3JXdWFVTFovQm5UNXdPTTMzcUtn?=
- =?utf-8?B?MnVBZkhLa2hCbHNFenM0NDZ6L3ZJUmx2TzFHZHI0UzdHaWVIc0xNY2JhWkpK?=
- =?utf-8?B?NnFIOCtQUFBxRDFvc0VtNTMvV0tTTUhXQWJWUmNDVFZ3RmwxZDUvV0M5QTdH?=
- =?utf-8?B?cXBBcHREYmprU2ViOUpPcGhFaVAyY1F0b0JRb2UwczlRSWVOdnR1SUg3Rkc0?=
- =?utf-8?B?NTVudUdtV3lHOEJTTVQ5ZHFqSlNDdWlMdUlneEtkYWJIMk1qQy9mcExSMFpX?=
- =?utf-8?B?eFRlUVFua0VSQ09DRlZVOXlRUlp5NlRrSlFPK0hmU3VQRmNGaXNSYldkR05y?=
- =?utf-8?B?RGZwRFJsZm1tTDRDUXpxWmdLN05aUEZOU1M3NEs3eG1OM2czUXpSV21mUng1?=
- =?utf-8?B?ZTFJRDl0ZW1OTjhVQnBEZEtvdWVyclptTEJwNzBYaE1rR0I5MUxFajNZVWxx?=
- =?utf-8?B?OGRNT2lGbzFXMjVMSGVtRnpaY3pOeE5wT2lhMzhiSjR5MzVzZ1hheC9KWGJZ?=
- =?utf-8?B?YUN6eWgyMW5zTkRYK3dqRENRQ3NqU1dWdlpJbU54Yk8vL3Ria3IrRWlja0t2?=
- =?utf-8?B?YWF1UHN5VlpndVZVWjc4K1VkL0toUjJPVkx1N2VueWRWcm1Ya3hKMjFBaWdF?=
- =?utf-8?B?bmxmMHp6dGZZN0FnT29qZ3ZSVWM1cWovUnRzRzJHVlJ0azVHaU5DaDVlcUFO?=
- =?utf-8?B?V3FMSnp3ZFlVeXFickZMa3FZUmtOUGVwL3NGcGR3WFQyU2l2N1pXV1dwZ2pl?=
- =?utf-8?B?YW9VS2NZait2bUxRQkdlektQOGE5cTl0VkgrSGVVM1orMmFTdUt4VmFUQ0Zr?=
- =?utf-8?B?cm94VGpQQWVPUnRibVo1OGZXZUNCYm5jQ3BFaTNZVS90a0xIc2tOcXhXWERW?=
- =?utf-8?B?WUpnaStGeVZtQWc4a01tRTg4cFVLczB3RitKTVZ5U1NLaExIYzNwVm5LMVJF?=
- =?utf-8?B?M0NQbVJLNGVzVDdqempIWEt3S1Q4RlN1enRLbGJ2THAyU0JMVnpqOFNVNmh6?=
- =?utf-8?B?cVR4WlJjaG5idkx3R1poU0JGV0ZJNU5WNXRkV0lQcW45K2hPeWo0Mkk1ZEdJ?=
- =?utf-8?B?M0lZYm94Vi84T2lTbEVJaXBFQ1BJTUpMNk9WSWdrVHV2aDZldVV5SENKeTdK?=
- =?utf-8?B?Sks0Y2RDU2lHeFo3eTN5dGNnOXpDTnIvaVdFUzhXT29Ud1JhODh4Y0czS2RE?=
- =?utf-8?B?TnJMbDdaWTJITUpkczFCWWV4N0crVGFwT21BUy9DYlc5WE1INTR5V2RhRlJp?=
- =?utf-8?B?Zms2TC9JZkNQVEEwYnRpT2FWL0xBV2dsUlp6eGtYQjBXc3FNK3lUaG0wa1I4?=
- =?utf-8?B?cFZUZTVqOTFzN0Q2OXNuRnFYNWlFV3M0MmlYcSsxKzgxMm16U1RocGloeFFU?=
- =?utf-8?B?OUFJWWJHSDYrL1dacnZhV2IrZjdlZWlWVElLd2s1aUlTS0pTN3RVb0svMDkv?=
- =?utf-8?B?TElqcHpIK2ZIRWREbkgrWGNmVUxkSkhnYWJ0VldKaUtqZ1VnOFZ6eHlEZW5C?=
- =?utf-8?B?MklIbjlsUDVkTUdzWjBjOEZ3ODVIU011OEZ0dXAvTmFWNktDNGgyNlh1ekZ1?=
- =?utf-8?B?R3NBaWJYVWZvZnRDNW5VSzFrUCtqTjlBZ0ljQUF4MjNheDJqVVFtclpHT0V1?=
- =?utf-8?B?SU9ISXZmcEszYkxsNW9TSHIvK2R5akc5ZHJhWG9sK2ord011THdqb3JjT0ww?=
- =?utf-8?B?VXIrUG5reW9tRWsvbUpDWVBKb1VxSUc3M0RhOTUwa2NQcXJKM3RPZDZQQWs3?=
- =?utf-8?B?SDNna1FpODVuLzZtUFQ2R0h3cDdnbFJkWTBrNkJzS2JVSVpZUmIyWkJzQlQx?=
- =?utf-8?B?emhQUEFWbklnR1grQVFkSE53bldmTjd2dTR3dGxwb2hmVlhDQ0cxOGNiZzk1?=
- =?utf-8?B?ME9EOUdGVFNrZ3YyRTlzWnNRM1lwTVpWSllKRkNBVm1lLzI4cEYzSVBhdUJD?=
- =?utf-8?Q?jVI1yYct9V02vXKKxp?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 53cf2b0b-4e44-4680-88bb-08df1947d2fb
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 07:53:58.4271
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xPfab2I/3I1OqIpz1zSWWFUDWStPl5UnBJwlmusUWwzb5uMOIUBr0omCkNSa2gC7
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7683
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.1\))
+Subject: Re: [PATCH v2 2/2] mm/memcg: migrate per-node hugetlb lruvec stat
+ together with hugetlb folio
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <1835413c-e2de-41b0-8225-161afa50676a@linux.dev>
+Date: Wed, 23 Sep 2026 15:56:23 +0800
+Cc: Hongfu Li <lihongfu@kylinos.cn>,
+ Chris Down <chris@chrisdown.name>,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org,
+ cgroups@vger.kernel.org,
+ stable@vger.kernel.org,
+ Oscar Salvador <osalvador@suse.de>,
+ David Hildenbrand <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Michal Hocko <mhocko@suse.com>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Nhat Pham <nphamcs@gmail.com>,
+ Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <10149B0C-4108-4DB6-84B7-A301E8158CA4@linux.dev>
+References: <20260923-for-hugetlb_state3-v2-0-e8a36245bfab@kylinos.cn>
+ <20260923-for-hugetlb_state3-v2-2-e8a36245bfab@kylinos.cn>
+ <15ac7069-d687-4985-90bd-25bc900b4bdd@linux.dev>
+ <1835413c-e2de-41b0-8225-161afa50676a@linux.dev>
+To: Hongfu Li <hongfu.li@linux.dev>
+X-Mailer: Apple Mail (2.3864.700.51.1.1)
 
-Hi Greg,
 
-On 9/23/26 09:41, Greg KH wrote:
-> On Tue, Sep 22, 2026 at 06:33:34PM +0300, Vadim Nikitushkin wrote:
->> commit 3db7d7d583419f7b1f2e141e36418802dbb25cf8 upstream.
->>
->> ttm_tt_swapout() returns the number of pages swapped out on success and
->> a negative error code on failure; for a populated ttm it never returns
->> zero. Commit b2ed01e7ad3d ("drm/ttm: Fix ttm_bo_swapout() infinite LRU
->> walk on swapout failure") moved the bulk_move bookkeeping in
->> ttm_bo_swapout_cb() under "if (!ret)", so the
->> ttm_resource_del_bulk_move_unevictable() / ttm_resource_move_to_lru_tail()
->> pair is now skipped on every successful swapout. The equivalent change
->> for the shrinker in commit 1d59f36e95f7 ("drm/ttm: Fix ttm_bo_shrink()
->> infinite LRU walk on backup failure") tests "lret > 0", which is what
->> was intended here as well.
->>
->> Before b2ed01e7ad3d the resource was taken off the bulk_move before the
->> swapout; since then a swapped-out resource stays inside its BO's
->> bulk_move range (and on the manager LRU) although it is unevictable.
->> When it is later freed or the BO leaves the bulk_move
->> (ttm_resource_free(), ttm_bo_set_bulk_move() via amdgpu_vm_bo_del()),
->> ttm_resource_del_bulk_move() skips it because of its
->> !ttm_resource_unevictable() guard, so a range endpoint in pos->first /
->> pos->last is left pointing at freed memory. The next
->> ttm_lru_bulk_move_tail() or ttm_resource_add_bulk_move() on that cursor
->> is a use-after-free, seen as the resv WARN in ttm_lru_bulk_move_add(),
->> "list_del corruption" in ttm_resource_move_to_lru_tail() or a NULL
->> dereference in ttm_resource_manager_next() -- minutes to hours after a
->> hibernation, or at process exit / reboot following one. Samuel
->> Ainsworth's analysis of drm/amd issue 5387 (see Link) identified the
->> dangling cursor; the missing removal at swapout time is the reason it
->> dangles.
->>
->> Testing the condition for success restores the removal. On an AMD
->> Phoenix APU (ASUS UM3406GA, gfx1103) running suspend-then-hibernate on
->> a 7.0.y stable kernel carrying the backport (Ubuntu 7.0.0-31) the bug
->> crashed 5 of 18 hibernation cycles; a function profile of one
->> hibernation showed 336 ttm_tt_swapout() calls and zero
->> ttm_resource_del_bulk_move_unevictable() calls. With this change the
->> removal happens for every swapped-out resource and 12 further cycles
->> were clean.
->>
->> Fixes: b2ed01e7ad3d ("drm/ttm: Fix ttm_bo_swapout() infinite LRU walk on swapout failure")
->> Cc: stable@vger.kernel.org # v7.1+
->> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5387
->> Link: https://lore.kernel.org/dri-devel/CAHYiNPa6aVacJoLOje-qZ1GyYx-9p0tN4NuP8D_eSL+UJeevXw@mail.gmail.com/
->> Signed-off-by: Vadim Nikitushkin <bub4z0r@gmail.com>
->> Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
->> Reviewed-by: Christian König <christian.koenig@amd.com>
->> Signed-off-by: Christian König <christian.koenig@amd.com>
->> Link: https://lore.kernel.org/r/20260909205028.13799-1-bub4z0r@gmail.com
->> [ Squashed with commit fcfe64715b425262af1b36f498f9197f3537ceed
-> 
-> Do not squash, send a patch series instead please.
 
-in this particular case that squashing is the correct approach.
+> On Sep 23, 2026, at 11:40, Hongfu Li <hongfu.li@linux.dev> wrote:
+>=20
+>=20
+> On 9/23/26 10:40 AM, Muchun Song wrote:
+>>=20
+>>=20
+>> On 2026/9/23 10:05, Hongfu Li wrote:
+>>> From: Hongfu Li <lihongfu@kylinos.cn>
+>>>=20
+>>> memory.numa_stat exposes per-node hugetlb counters from per-node =
+lruvec
+>>> stats. These stats are accounted against folio_nid(): incremented on
+>>> the folio's node when handed to a user, decremented when the folio =
+is
+>>> returned to the pool.
+>>>=20
+>>> During hugetlb folio migration, mem_cgroup_migrate() moves the =
+charge
+>>> to the new folio and drops the memcg data of the old one, so the =
+free
+>>> of the old folio right after the migration skips the memcg per-node
+>>> lruvec decrement. The hugetlb count stays attributed to the old node
+>>> for the rest of the life of the charge, while the target folio gets =
+no
+>>> increment on the new node; its later free decrements a counter that
+>>> was never incremented.
+>>>=20
+>>> Migrate the per-node lruvec accounting alongside migration. Global
+>>> memcg totals remain balanced because they track resource =
+consumption,
+>>> not node placement.
+>>>=20
+>>> Fixes: 05d4532b60e3 ("memcg/hugetlb: add hugeTLB counters to memcg")
+>>> Cc: stable@vger.kernel.org
+>>> Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
+>>> Tested-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+>>> Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+>>> Reviewed-by: Oscar Salvador <osalvador@suse.de>
+>>> ---
+>>>   include/linux/memcontrol.h |  8 ++++++++
+>>>   mm/hugetlb.c               | 25 +++++++++++++++++++++++++
+>>>   mm/memcontrol.c            |  5 ++---
+>>>   3 files changed, 35 insertions(+), 3 deletions(-)
+>>>=20
+>>> diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
+>>> index a8358f297b65..74110a324f9e 100644
+>>> --- a/include/linux/memcontrol.h
+>>> +++ b/include/linux/memcontrol.h
+>>> @@ -984,6 +984,9 @@ unsigned long lruvec_page_state_monotonic(const =
+struct lruvec *lruvec,
+>>>   unsigned long lruvec_page_state_local(const struct lruvec *lruvec,
+>>>                         enum node_stat_item idx);
+>>>   +void mod_memcg_lruvec_state(struct lruvec *lruvec,
+>>> +                enum node_stat_item idx, int val);
+>>> +
+>>>   void mem_cgroup_flush_stats(struct mem_cgroup *memcg);
+>>>   void mem_cgroup_flush_stats_ratelimited(struct mem_cgroup *memcg);
+>>>   @@ -1452,6 +1455,11 @@ static inline unsigned long =
+lruvec_page_state_local(const struct lruvec *lruvec,
+>>>       return node_page_state(lruvec_pgdat(lruvec), idx);
+>>>   }
+>>>   +static inline void mod_memcg_lruvec_state(struct lruvec *lruvec,
+>>> +                      enum node_stat_item idx, int val)
+>>> +{
+>>> +}
+>>> +
+>>>   static inline void mem_cgroup_flush_stats(struct mem_cgroup =
+*memcg)
+>>>   {
+>>>   }
+>>> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+>>> index 519c30b338a8..76d019594b39 100644
+>>> --- a/mm/hugetlb.c
+>>> +++ b/mm/hugetlb.c
+>>> @@ -23,6 +23,7 @@
+>>>   #include <linux/mmdebug.h>
+>>>   #include <linux/sched/signal.h>
+>>>   #include <linux/rmap.h>
+>>> +#include <linux/rcupdate.h>
+>>>   #include <linux/string_choices.h>
+>>>   #include <linux/string_helpers.h>
+>>>   #include <linux/swap.h>
+>>> @@ -7378,12 +7379,36 @@ void folio_putback_hugetlb(struct folio =
+*folio)
+>>>       folio_put(folio);
+>>>   }
+>>>   +static void move_hugetlb_lruvec_stat(struct folio *old_folio,
+>>> +                     struct folio *new_folio)
+>>> +{
+>>> +    struct mem_cgroup *memcg;
+>>> +    long nr_pages =3D folio_nr_pages(old_folio);
+>>> +    int old_nid =3D folio_nid(old_folio);
+>>> +    int new_nid =3D folio_nid(new_folio);
+>>> +
+>>> +    if (old_nid =3D=3D new_nid)
+>>> +        return;
+>>> +
+>>> +    guard(rcu)();
+>>> +
+>>> +    memcg =3D folio_memcg(new_folio);
+>>> +    if (!memcg)
+>>> +        return;
+>>> +
+>>> +    mod_memcg_lruvec_state(mem_cgroup_lruvec(memcg, =
+NODE_DATA(old_nid)),
+>>> +                   NR_HUGETLB, -nr_pages);
+>>=20
+>> Why not use mod_lruvec_state? mod_memcg_lruvec_state is an internal
+>> API for memcg, I don't want it to be exported.
+>=20
+> Thank you for the review.
+>=20
+> mod_lruvec_state() would update the node counter a second time.  It =
+calls
+> mod_node_page_state() as well, and the target's node counter is =
+already
+> updated in alloc_hugetlb_folio_nodemask() (patch 1/2):
+>=20
+>     lruvec_stat_mod_folio(folio, NR_HUGETLB, folio_nr_pages(folio));
+>=20
+> For an uncharged folio lruvec_stat_mod_folio() only updates the node
+> counter.  The target folio is not charged to any memcg at that point; =
+its
+> charge only appears later in mem_cgroup_migrate().  So the node side =
+is
+> already covered and only the per-memcg attribution has to follow the
+> charge here.
 
-AMDs mail servers mangled the initial patch so badly that I had trouble applying it and ended up pushing a broken patch upstream. The squash is basically fixing that up.
+Looking at the first patch again, I do not think the
+overall accounting is incorrect. My concern is where NR_HUGETLB
+accounting is performed.
 
-Back-porting each patch individually doesn't make much sense, you would just end up with a broken tree in between.
+The low-level allocation helpers only take a folio from the
+hugetlb pool. They do not have enough context to decide how
+the folio should be accounted. That decision should be left
+to their callers, once the folio enters the relevant usage
+lifecycle.
 
-Sorry for that,
-Christian.
+hugetlb_alloc_folio() is a good example. It first obtains a
+folio, then calls mem_cgroup_charge_hugetlb(), and only
+afterwards calls lruvec_stat_mod_folio(). At that point,
+the folio has the correct memcg and lruvec, so all relevant
+counters can be updated together.
 
-> 
-> thanks,
-> 
-> greg k-h
+After this series, alloc_hugetlb_folio_reserve() and
+alloc_hugetlb_folio_nodemask() account NR_HUGETLB before
+returning the folio. This makes them unsuitable for callers
+that need to charge the folio afterwards. Before the charge,
+lruvec_stat_mod_folio() can update only the node counter.
+The later charge does not associate that earlier update with
+the new memcg.
+
+If a caller accounts again after charging, the node counter is
+updated twice. If it does not, the memcg and per-node lruvec
+counters remain missing. The caller then needs a memcg-only
+correction, creating a special accounting protocol between
+the helper and its callers.
+
+Migration exposes the same issue. The target gets node
+accounting before it inherits the source memcg. The second patch
+must update the lruvec state and then cancel its node changes,
+because the target allocation already updated the node counter.
+This works, but makes the accounting lifecycle harder to follow.
+
+Would it be cleaner to keep these helpers focused on allocation
+and let each caller account at the correct lifecycle point?
+Normal allocation can account after a successful memcg charge.
+Migration can move the complete lruvec state after it succeeds.
+An uncharged path can explicitly update only the node counter
+if global accounting is still required.
+
+This would keep policy out of the low-level allocator and make
+the accounting lifecycle easier to follow.
+
+Thanks.
+
+>=20
+>>=20
+>> Thanks.
+>>=20
+>>> + mod_memcg_lruvec_state(mem_cgroup_lruvec(memcg, =
+NODE_DATA(new_nid)),
+>>> +                   NR_HUGETLB, nr_pages);
+>>> +}
+>>> +
+>>>   void move_hugetlb_state(struct folio *old_folio, struct folio =
+*new_folio,
+>>>               enum migrate_reason reason)
+>>>   {
+>>>       struct hstate *h =3D folio_hstate(old_folio);
+>>>         hugetlb_cgroup_migrate(old_folio, new_folio);
+>>> +    move_hugetlb_lruvec_stat(old_folio, new_folio);
+>>>       folio_set_owner_migrate_reason(new_folio, reason);
+>>>         /*
+>>> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+>>> index 88824f783571..a5335da5d425 100644
+>>> --- a/mm/memcontrol.c
+>>> +++ b/mm/memcontrol.c
+>>> @@ -1015,9 +1015,8 @@ static void __mod_memcg_lruvec_state(struct =
+mem_cgroup_per_node *pn,
+>>>       put_cpu();
+>>>   }
+>>>   -static void mod_memcg_lruvec_state(struct lruvec *lruvec,
+>>> -                     enum node_stat_item idx,
+>>> -                     int val)
+>>> +void mod_memcg_lruvec_state(struct lruvec *lruvec,
+>>> +                enum node_stat_item idx, int val)
+>>>   {
+>>>       struct pglist_data *pgdat =3D lruvec_pgdat(lruvec);
+>>>       struct mem_cgroup_per_node *pn;
+>>>=20
+>>=20
+> --=20
+> Best regards,
+> Hongfu
+
 
