@@ -1,35 +1,76 @@
-Received: from zg8tndyumtaxlji0oc4xnzya.icoremail.net (zg8tndyumtaxlji0oc4xnzya.icoremail.net [46.101.248.176])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 15E69282F09;
-	Wed, 23 Sep 2026 03:27:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.101.248.176
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBFC93A7839
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 03:29:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790134061; cv=none; b=IMAjJoWxCru0nWd6XeLXmZRZdyOf+8p78LPdo+WvgW91ldIhaboOAZDmFTgBIetowcDSW0Ysx+bUUHqG0ROyfAJBmOsmhst53ZnOq9/TKdX2Gm3SeodIyUDax1WS47M50g0bS2WoDtqBkIQPOJvWfAawlUiIrfPeiMoYZ99NASc=
+	t=1790134153; cv=none; b=mIsMCsof7BejoHGR25tKzF4XjmaiSEF7i/X/TyxfnG8IGHShbmBkpMP4rVScA5c6NmBCuO17aVsim10X14tMRVToMC730Vig5MElaNMxqOjmrEXOEd08bCxBZbMJ9mr3GMccaZS1w63Key6V1rlmmA/ePmkQBNznhqz1iX2HuYc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790134061; c=relaxed/simple;
-	bh=Q0OJgEKLglJOc3TiSmI+X51rKO9cdO4eRuRAsGUSFGE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=qIkNK8imRQj9NjHpHrS8WoeXxm840M47W503qqA62UGqjwA6kV7DsqvIKZ21zwP8Nexrh7ZOHJkJ1n+lhZBAJHCCDZA2umpqMHGemc3q3Bua2te7xNECJaO4s3YKa/SkajGsAV+pwdUo1iUFmLDVvRo5ljnHq+VZUmUB46z6bJs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=46.101.248.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wA3EX4hR7NqqS0wAQ--.4488S3;
-	Wed, 23 Sep 2026 11:27:30 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app4 (Coremail) with SMTP id zi_KCgBXOzQhR7NqwgvOAw--.50357S2;
-	Wed, 23 Sep 2026 11:27:29 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: Roderick Colenbrander <roderick.colenbrander@sony.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+	s=arc-20240116; t=1790134153; c=relaxed/simple;
+	bh=D5Pj8S6OjuUPUjxDjkR3bZ8oxZf9vtAcRUH1S8TiNyU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PK2But/TFECf1lCsjAKEdRBO3E5XTOSprXWbYNt31VZX4gsk5GnUgmogbFxgCRU3dd/yzoVKyGqwrzaum+Op3U7DkrIumvEl/ry4NX6FimNQNfDnd9q6E1hhu1eWuD8/m9v9nXkxEWtFqNlwHzCX9RkTVTurc9vem/NOWo3OROA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=inM/8v68; arc=none smtp.client-ip=74.125.228.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="inM/8v68"
+Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc4e4979c47so24486a12.2
+        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 20:29:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790134149; x=1790738949; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jcik2WgO+A5TDX3gT8NploWgNnf4BlOc/QIMTcS6Ry8=;
+        b=inM/8v68/sHlCGG5EbwKbNGyaBzXFODBcMGW+p9/iBM4TgU3GbAJn4g5alc6Tsk70T
+         PHhvI9+WoC/BuMF19acwzL1u8GmT5hktZgmhE86FX4dXblBRmGVtlG1Nh0Mkw6Z+INqA
+         Q6vkxjqzXcR1jp7/ZvNF2cLez4ksbZJW0sbCUjKxT5ogH8sxHe8MJb6MfvJhqglSjRpS
+         68LJwyOdG/7Um9YlAECuIyijZxocmj+C4axtv7pJ7LJE3y2kYZ/KwlDzXQV8u7x9mSh7
+         ZwXxguaiRT4dFbez/zJb/HkZN2g1oteaN5+nW3Wi4jSwByKqWm+e9wKZPEa/CvM20O9M
+         WDLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790134149; x=1790738949;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jcik2WgO+A5TDX3gT8NploWgNnf4BlOc/QIMTcS6Ry8=;
+        b=UrmVLA7apFFN3a6yd+JSJxwqwX7N+8S2wwUcBq3kT13iGjazkF6jbQBIODqw+N14Lw
+         LW6KeyjkMrFLwajltC4JOPrFjlcGp0JVqnUdmKnb4CT1VKt2YELO3QuuP1X0hi3Q7yJI
+         NUGmaJQJFw3DH9vzrGkgY4qygWlL+bMjGQXuNepfi/JLbxNgcp9kCuLlzJ/OnSjpaHCU
+         EvJ74/S6Sk10uFvvG3SjQET1b5YhbPa+qrXmgkib9YujBAlXFEGqIZ40AIgzcJitDGJz
+         k/Niii7J30xDOlbjztI7qPFR6F9VhO+Z+qyH9Gtplvx0xm2CrEZjRkzWdo0WFJ9g77dm
+         gvLw==
+X-Forwarded-Encrypted: i=1; AKwUvBxktexSyo1tPjeU1tOtSLO0I2hyF8y2dhF28hHkmxWFzhskW2sP8A71fNxHHI2lmXc6PlgMaPA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kWliR71pB9MHJL14nIIp3KVdFbZWKlUFU1XtfMHeyMPvNkF1NX
+	6+9c812ah/aTQHkEvzWSbrSRctcatgQaacPlh5WSLcxoLw1yxzHdQBFQ
+X-Gm-Gg: AYBFou1oePxf5ypAZtWfV5Xlaunf8nriY2HSLD/PaY1QGXbHakhlRz/R8r/hfbMnG9r
+	BQWDYkNeuJAeRZen0kfoOIY8Sscv1ANyo3T+XbgpHQpKPPacUpwVKi8INIvVcyEBzDwYQED2eEg
+	i3qDF9Nh7Ucp0wqEn7eTJhYtwoeYzymQ+hStGxaXAruUlJHN7XPIunGl+B92ev5tHG9glXJRRv9
+	6oIWRBJEaJH678t2xULReI2Y5KVJr5/AJICMhzs1G2s1lhuLVWyYW902mgkFbnzuOIOxlEopyV7
+	KWXrwKcCxWLi1Hh0G/BYttYZN7YATqCXOlUVSa/QuoQlFm1YhVpf0ppo1UzbUH8Q72mpeBDWLuW
+	/NIzdS52OpK+S1ncWBSdX4FfP6J5MoJisV3Np6Zcg8cnpuJMpryuSIFweMAA32dCJU9UOyTrXwm
+	eRIl4J4I6vHf0d4NCNDl7UMUV/8uF9Ou2FswOsQpTw920nflqnKLT9jCluB07PzyuaYaIanC5V9
+	nuap+NhzZotd3qY4U8h5JG3UiOmY1KPMuuP77YsEYt19tNtBkYLcMuvKZfcYVo=
+X-Received: by 2002:a05:6a00:4709:b0:864:59e2:2968 with SMTP id d2e1a72fcca58-87d165ce4ccmr1464616b3a.0.1790134149301;
+        Tue, 22 Sep 2026 20:29:09 -0700 (PDT)
+Received: from localhost.localdomain ([139.159.170.91])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87d1cfbfd11sm579384b3a.11.2026.09.22.20.29.05
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 22 Sep 2026 20:29:08 -0700 (PDT)
+From: Qihang <q.h.hack.winter@gmail.com>
+To: Herbert Xu <herbert@gondor.apana.org.au>
+Cc: netdev@vger.kernel.org,
+	steffen.klassert@secunet.com,
 	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>,
-	Song Li <songl@zju.edu.cn>
-Subject: [PATCH] HID: playstation: Fix DualShock4 dongle hotplug work use-after-free
-Date: Wed, 23 Sep 2026 03:26:34 +0000
-Message-Id: <20260923032634.417433-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	kuba@kernel.org
+Subject: Re: [PATCH net v2] xfrm: validate ihl in xfrm4_transport_output()
+Date: Wed, 23 Sep 2026 11:28:40 +0800
+Message-ID: <20260923032840.46294-1-q.h.hack.winter@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <arM4SS7k7aswJAOL@gondor.apana.org.au>
+References: <20260917072226.80788-1-q.h.hack.winter@gmail.com> <20260923021640.38855-1-q.h.hack.winter@gmail.com> <arM4SS7k7aswJAOL@gondor.apana.org.au>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,161 +78,23 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zi_KCgBXOzQhR7NqwgvOAw--.50357S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?XRzutQXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnXz+g1OQfMo27QHy5TwQyZzbrCNppSCAO8fXC4wAAxyLsocjHv9/8dsiiIVZ9jJt33FK
-	A80kuYWeQhzwoy+xcQGp9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoW3GrWrJFykCr15KryftF4fZwc_yoW7ZF15pF
-	Z5tasxX3yDCayFv3sYv3yrCF1Ykw1vq3y7AFWfGw12gwn5Ar1Yya4rAFn0va15XFZ5ZFs8
-	Aa1qkrWYkrsrXrcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
-	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU85l1PUUUUU==
 
-dualshock4_remove() cancels ds4->dongle_hotplug_worker while input
-reports can still arrive: hid_hw_close() and hid_hw_stop() only run
-later in ps_remove(), so a dongle connect report in that window makes
-dualshock4_dongle_parse_report() schedule the just-cancelled work
-again. ds4 is devm-managed and freed once ps_remove() returns, so
-dualshock4_dongle_calibration_work() then runs on freed memory.
+On Wed, Sep 23, 2026 at 12:24:09PM +1000, Herbert Xu wrote:
+> As I said when this first came up, our entire IPv4 stack
+> assumes that this is validated upon entry into the IP stack.
+>
+> So taking a whack-a-mole approach inside the IPv4 stack is the
+> wrong thing to do.
+>
+> Please fix those entry points into the stack instead by ensuring
+> that the IP header is valid.
 
-The dualshock4_create() error path has the same exposure. Reports are
-already flowing when it runs, because ps_probe() starts and opens the
-device before creating it, so the connect branch of the dongle report
-handler can also queue ds4->output_worker through its lightbar update.
-Neither work is cancelled when creation fails, and ds4 is freed once
-the failed probe unwinds its devm allocations.
+Understood, thanks.  v3 (posted as a new thread) drops the
+xfrm4_transport_output() change and validates the header at the
+xfrmi_xmit() entry instead, mirroring the pskb_inet_may_pull() call
+that vti_tunnel_xmit() already has:
 
-Fix this by clearing a new dongle_hotplug_worker_initialized flag under
-ps_dev->lock before cancelling the worker and checking it under the same
-lock before scheduling, mirroring how this driver already guards
-ds4->output_worker. Also drain both workers on every error path of
-dualshock4_create(): cancel dongle_hotplug_worker on the early MAC-read
-and device-list failures that currently return directly, and clear
-output_worker_initialized and cancel ds4->output_worker as
-dualshock4_remove() already does. The output-report buffer allocation
-failure returns through the same cleanup.
+    <20260923032456.45814-1-q.h.hack.winter@gmail.com>
 
-The locked check closes the schedule-vs-clear race, and neither work
-re-schedules itself, so the cancels leave nothing pending.
-
-This issue was found by an in-house static analysis tool.
-
-Fixes: c64ed0cd9324 ("HID: playstation: add DualShock4 dongle support.")
-Cc: stable@vger.kernel.org
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
- drivers/hid/hid-playstation.c | 36 ++++++++++++++++++++++++++++-------
- 1 file changed, 29 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/hid/hid-playstation.c b/drivers/hid/hid-playstation.c
-index f9dc937..1b7a18f 100644
---- a/drivers/hid/hid-playstation.c
-+++ b/drivers/hid/hid-playstation.c
-@@ -421,6 +421,7 @@ struct dualshock4 {
- 	enum dualshock4_dongle_state dongle_state;
- 	/* Used during calibration. */
- 	struct work_struct dongle_hotplug_worker;
-+	bool dongle_hotplug_worker_initialized;
- 
- 	/* Timestamp for sensor data */
- 	bool sensor_timestamp_initialized;
-@@ -2618,10 +2619,12 @@ static int dualshock4_dongle_parse_report(struct ps_device *ps_dev, struct hid_r
- 
- 			dualshock4_set_default_lightbar_colors(ds4);
- 
--			scoped_guard(spinlock_irqsave, &ps_dev->lock)
-+			scoped_guard(spinlock_irqsave, &ps_dev->lock) {
- 				ds4->dongle_state = DONGLE_CALIBRATING;
- 
--			schedule_work(&ds4->dongle_hotplug_worker);
-+				if (ds4->dongle_hotplug_worker_initialized)
-+					schedule_work(&ds4->dongle_hotplug_worker);
-+			}
- 
- 			/* Don't process the report since we don't have
- 			 * calibration data, but let hidraw have it anyway.
-@@ -2677,8 +2680,12 @@ static void dualshock4_remove(struct ps_device *ps_dev)
- 
- 	cancel_work_sync(&ds4->output_worker);
- 
--	if (ps_dev->hdev->product == USB_DEVICE_ID_SONY_PS4_CONTROLLER_DONGLE)
-+	if (ps_dev->hdev->product == USB_DEVICE_ID_SONY_PS4_CONTROLLER_DONGLE) {
-+		scoped_guard(spinlock_irqsave, &ds4->base.lock)
-+			ds4->dongle_hotplug_worker_initialized = false;
-+
- 		cancel_work_sync(&ds4->dongle_hotplug_worker);
-+	}
- }
- 
- static inline void dualshock4_schedule_work(struct dualshock4 *ds4)
-@@ -2770,12 +2777,15 @@ static struct ps_device *dualshock4_create(struct hid_device *hdev)
- 
- 	max_output_report_size = sizeof(struct dualshock4_output_report_bt);
- 	ds4->output_report_dmabuf = devm_kzalloc(&hdev->dev, max_output_report_size, GFP_KERNEL);
--	if (!ds4->output_report_dmabuf)
--		return ERR_PTR(-ENOMEM);
-+	if (!ds4->output_report_dmabuf) {
-+		ret = -ENOMEM;
-+		goto err_cancel;
-+	}
- 
- 	if (hdev->product == USB_DEVICE_ID_SONY_PS4_CONTROLLER_DONGLE) {
- 		ds4->dongle_state = DONGLE_DISCONNECTED;
- 		INIT_WORK(&ds4->dongle_hotplug_worker, dualshock4_dongle_calibration_work);
-+		ds4->dongle_hotplug_worker_initialized = true;
- 
- 		/* Override parse report for dongle specific hotplug handling. */
- 		ps_dev->parse_report = dualshock4_dongle_parse_report;
-@@ -2784,7 +2794,7 @@ static struct ps_device *dualshock4_create(struct hid_device *hdev)
- 	ret = dualshock4_get_mac_address(ds4);
- 	if (ret) {
- 		hid_err(hdev, "Failed to get MAC address from DualShock4\n");
--		return ERR_PTR(ret);
-+		goto err_cancel;
- 	}
- 	snprintf(hdev->uniq, sizeof(hdev->uniq), "%pMR", ds4->base.mac_address);
- 
-@@ -2796,7 +2806,7 @@ static struct ps_device *dualshock4_create(struct hid_device *hdev)
- 
- 	ret = ps_devices_list_add(ps_dev);
- 	if (ret)
--		return ERR_PTR(ret);
-+		goto err_cancel;
- 
- 	ret = dualshock4_get_calibration_data(ds4);
- 	if (ret) {
-@@ -2858,6 +2868,18 @@ static struct ps_device *dualshock4_create(struct hid_device *hdev)
- 
- err:
- 	ps_devices_list_remove(ps_dev);
-+err_cancel:
-+	scoped_guard(spinlock_irqsave, &ps_dev->lock)
-+		ds4->output_worker_initialized = false;
-+
-+	cancel_work_sync(&ds4->output_worker);
-+
-+	if (ds4->dongle_hotplug_worker_initialized) {
-+		scoped_guard(spinlock_irqsave, &ps_dev->lock)
-+			ds4->dongle_hotplug_worker_initialized = false;
-+
-+		cancel_work_sync(&ds4->dongle_hotplug_worker);
-+	}
- 	return ERR_PTR(ret);
- }
- 
-
+Thanks,
+Qihang
