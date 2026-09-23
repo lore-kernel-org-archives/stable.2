@@ -1,36 +1,36 @@
-Received: from mta0.migadu.com (out-77.mta0.migadu.com [91.218.175.77])
+Received: from mta0.migadu.com (out-88.mta0.migadu.com [91.218.175.88])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F51C4349AA
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 22:49:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E87FB471269
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 22:50:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.88
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790203765; cv=none; b=X+cA7pI5qnBE2eXJ5esEayWOroudL8CxpmPZa4RoQPaYOQ74nGEvoujYVZzhkVwKB2q+UKBsu2BJ1rxnO8BLRG6/vmpXrief4pFvgxWqszWDkC8zZuSrOHs5UUllf+1UXhqA2b+qInDV/EfiZuWDwyPAI1nKnTtR31+oMylFmI0=
+	t=1790203827; cv=none; b=b6u4BlxfEWE+S8Sk7Xh+bXflnURY9SIT/rx2evrW3COIy2tAo5cSJNQlXqHND0TacbrtnYO9Bv5uZfexT0ewyDv61BwbPu6j6M0aF2KtuZOd8EyonPv+h6XS4klo0HEEcRd+Az/VTBjOcXzbdwUpjwDwQmYsxLBCfK1xcp/e1Qs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790203765; c=relaxed/simple;
-	bh=N6DEIJwXs89OYvuIP58cOGr26F4IcXTzYNn+vfOg1xc=;
+	s=arc-20240116; t=1790203827; c=relaxed/simple;
+	bh=cAHW9pR8nlR6sk+Upl/hizK55XCqRvMPrhN2PbL0DKc=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DCP7kndmkDaINiFOHllqbxnvj9iEAQJXemueNBmSQZkSOy5pO8BtyekxEK46Z1GkEL4MU7RoZwDgAuh2+u3y8fKYFwfrH2ly5vEq25k5vaE8pWq5R5r+Cf5RsNOwjIWIl7F/rxZ7v6muf/w1meZv2Qahba5npYlvJcJM9ybP8AE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=C/lmrSDW; arc=none smtp.client-ip=91.218.175.77
+	 In-Reply-To:Content-Type; b=gktKwKUvQIpJZlu+WVvN1jW8DB+pOQdazyoD6fMD5jY+jyytsGglXLqcDhu7nBi1kWa2SAHglUsEWgMVReR33tPir8ZGoyBRhKw3VZcZwuBPpEDCq+p1eggZn/Lsxk7C9LgwBq2XYFwnpt2NXTa7lq+JU5SRVEH66cXwTDuFwWg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Et25QBmL; arc=none smtp.client-ip=91.218.175.88
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="C/lmrSDW"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Et25QBmL"
 X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=N6DEIJwXs89OYvuIP58cOGr26F4IcXTzYNn+vfOg1xc=;
+DKIM-Signature: a=rsa-sha256; bh=cAHW9pR8nlR6sk+Upl/hizK55XCqRvMPrhN2PbL0DKc=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790203759; v=1; x=1790808559;
- b=C/lmrSDWYZnosGT3v6xXmQ5eOc+DwhsAPKuqw2s3hmA4IDF4A9altCq74VkGf/t4FEyzWC5X
- zGukvWBisfj9A8svbBW/vU0QLH2s9qsanucI7LTixNjKCrbaYLtmKZuhBe1y9Bz8YcXDseFDvmW
- mfaYga+tycHG0YdgCK5hxPqI=
+ t=1790203821; v=1; x=1790808621;
+ b=Et25QBmLSzqTYSkcLMCSSFS4TkXc1IC11nlXWMkLNUYS9yB3+2J2S7FGkzaSBlq7UGOe2M5R
+ uynUrDnCuUchmjmfSGBuU1hFB92gtMijghJZrenS7Eq0h3ug+Fk2+jbec0DR7DAhGWzjz2Xcyhj
+ /GKcu5Hthb4mO+K9IDmZePcs=
 X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ee3f85351b71f6f8;
-	Wed, 23 Sep 2026 22:49:09 +0000
-X-Mizu-Trace-ID: ee3f85351b71f6f8
+Received: by smtp.migadu.com with ESMTPS id 81f228547fa01915;
+	Wed, 23 Sep 2026 22:50:21 +0000
+X-Mizu-Trace-ID: 81f228547fa01915
 X-Migadu-Flow: FLOW_OUT
-Message-ID: <7aef51f0-b28f-4d8a-b938-aea8b3dcfd87@linux.dev>
-Date: Wed, 23 Sep 2026 15:49:03 -0700
+Message-ID: <a126a34f-3d47-48d3-842c-14cb9e4b943a@linux.dev>
+Date: Wed, 23 Sep 2026 15:50:14 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,93 +38,89 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] RDMA/rxe: Reject IB_ACCESS_ON_DEMAND changes after
- MR creation
+Subject: Re: [PATCH v3 2/2] RDMA/rxe: Reject prefetch of a non-ODP MR
 To: norbert@doyensec.com, Zhu Yanjun <zyjzyj2000@gmail.com>,
  Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Bob Pearson <rpearsonhpe@gmail.com>, Daisuke Matsuda <dskmtsd@gmail.com>,
- "yanjun.zhu@linux.dev" <yanjun.zhu@linux.dev>
+ Bob Pearson <rpearsonhpe@gmail.com>, Daisuke Matsuda <dskmtsd@gmail.com>
 Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
  stable@vger.kernel.org
 References: <20260923-rxe-advise-mr-v3-v3-0-95e1a4077e4d@doyensec.com>
- <20260923-rxe-advise-mr-v3-v3-1-95e1a4077e4d@doyensec.com>
+ <20260923-rxe-advise-mr-v3-v3-2-95e1a4077e4d@doyensec.com>
 From: Zhu Yanjun <yanjun.zhu@linux.dev>
-In-Reply-To: <20260923-rxe-advise-mr-v3-v3-1-95e1a4077e4d@doyensec.com>
+In-Reply-To: <20260923-rxe-advise-mr-v3-v3-2-95e1a4077e4d@doyensec.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
 在 2026/9/23 7:40, Norbert Szetei via B4 Relay 写道:
 > From: Norbert Szetei <norbert@doyensec.com>
 > 
-> Whether an MR is an ODP MR is decided once, at registration time:
-> rxe_reg_user_mr() picks rxe_odp_mr_init_user() over rxe_mr_init_user()
-> based on IB_ACCESS_ON_DEMAND, and only the former builds an ib_umem_odp
-> via ib_umem_odp_get(). The umem cannot change type afterwards, and
-> is_odp_mr() reads mr->umem->is_odp.
+> rxe_ib_advise_mr_prefetch() and rxe_ib_prefetch_sg_list() look up the MR
+> by lkey and hand it to rxe_odp_do_pagefault_and_lock() without checking
+> that it is an ODP MR. That path runs to_ib_umem_odp() on mr->umem, and
+> for a non-ODP MR mr->umem is a plain struct ib_umem from ib_umem_get(),
+> so the container_of() in to_ib_umem_odp() lands past the end of the
+> object and ib_umem_odp_map_dma_and_lock() reads its ib_umem_odp fields
+> out of bounds.
 > 
-> Two paths assign mr->access after that point and can leave it
-> describing an MR type the umem does not have:
+> lookup_mr() validates the lkey, PD, access and state but not the MR
+> type, and IB_UVERBS_ADVISE_MR_ADVICE_PREFETCH is accepted for any MR.
 > 
-> rxe_rereg_user_mr() with IB_MR_REREG_ACCESS overwrites mr->access with
-> the caller's value, and IB_ACCESS_ON_DEMAND is part of
-> RXE_ACCESS_SUPPORTED_MR, so userspace can set the flag on a plain MR or
-> clear it on an ODP MR while the umem stays what it was.
+>   BUG: KASAN: slab-out-of-bounds in ib_umem_odp_map_dma_and_lock+0x884/0x8a0
+>   Read of size 8 at addr ffff88810a3ebcf0 by task advi/921
+>    ib_umem_odp_map_dma_and_lock+0x884/0x8a0
+>    rxe_ib_advise_mr+0x543/0xad0
+>    ib_uverbs_handler_UVERBS_METHOD_ADVISE_MR+0x446/0x530
+>    ib_uverbs_cmd_verbs+0x2b3c/0x3b20
+>    ib_uverbs_ioctl+0x1e3/0x310
+>   Allocated by task 921:
+>    __ib_umem_get_va+0x13e/0xae0
+>    rxe_mr_init_user+0x2ae/0xb00
+>    rxe_reg_user_mr+0x337/0x510
+>   The buggy address belongs to the object at ffff88810a3ebc80
+>    which belongs to the cache kmalloc-96 of size 96
 > 
-> rxe_reg_fast_mr() takes mr->access from the REG_MR work request
-> unmasked and moves the MR to RXE_MR_STATE_VALID, on an MR that
-> rxe_mr_init_fast() left with a NULL umem.
+> Ask lookup_mr() for IB_ACCESS_ON_DEMAND in both the synchronous and
+> the asynchronous prefetch arm. mr->access carries that flag only for
+> an MR registered as ODP, so the existing
+> (access & mr->access) != access test rejects a plain MR and the
+> prefetch fails with -EINVAL.
 > 
-> Reject IB_ACCESS_ON_DEMAND in both, so mr->access carries the flag only
-> for an MR that has an ODP umem and the flag can be used to identify one.
-> 
-> Fixes: 544c7f62cf32 ("RDMA/rxe: Implement rereg_user_mr")
+> Fixes: 3576b0df1588 ("RDMA/rxe: Implement synchronous prefetch for ODP MRs")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Norbert Szetei <norbert@doyensec.com>
 
-I have already reviewed this commit. I am fine with this commit.
-So
+Thanks a lot.
+It is fine with me.
+
 Reviewed-by: Zhu Yanjun <yanjun.zhu@linux.dev>
 
 Zhu Yanjun
 
 > ---
->   drivers/infiniband/sw/rxe/rxe_mr.c    | 6 ++++++
->   drivers/infiniband/sw/rxe/rxe_verbs.c | 6 ++++++
->   2 files changed, 12 insertions(+)
+>   drivers/infiniband/sw/rxe/rxe_odp.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/infiniband/sw/rxe/rxe_mr.c b/drivers/infiniband/sw/rxe/rxe_mr.c
-> index 875eceb55fdf..2afda5154dfb 100644
-> --- a/drivers/infiniband/sw/rxe/rxe_mr.c
-> +++ b/drivers/infiniband/sw/rxe/rxe_mr.c
-> @@ -795,6 +795,12 @@ int rxe_reg_fast_mr(struct rxe_qp *qp, struct rxe_send_wqe *wqe)
->   		return -EINVAL;
->   	}
+> diff --git a/drivers/infiniband/sw/rxe/rxe_odp.c b/drivers/infiniband/sw/rxe/rxe_odp.c
+> index e870efa7a0a3..f8ffd6a3219a 100644
+> --- a/drivers/infiniband/sw/rxe/rxe_odp.c
+> +++ b/drivers/infiniband/sw/rxe/rxe_odp.c
+> @@ -463,7 +463,7 @@ static int rxe_ib_prefetch_sg_list(struct ib_pd *ibpd,
+>   		struct rxe_mr *mr;
+>   		struct ib_umem_odp *umem_odp;
 >   
-> +	/* an MR with no umem is never an ODP MR */
-> +	if (unlikely(access & IB_ACCESS_ON_DEMAND)) {
-> +		rxe_dbg_mr(mr, "access = 0x%x requests ODP\n", access);
-> +		return -EINVAL;
-> +	}
-> +
->   	mr->access = access;
->   	mr->lkey = key;
->   	mr->rkey = key;
-> diff --git a/drivers/infiniband/sw/rxe/rxe_verbs.c b/drivers/infiniband/sw/rxe/rxe_verbs.c
-> index 96c7716057fe..21855274f63a 100644
-> --- a/drivers/infiniband/sw/rxe/rxe_verbs.c
-> +++ b/drivers/infiniband/sw/rxe/rxe_verbs.c
-> @@ -1331,6 +1331,12 @@ static struct ib_mr *rxe_rereg_user_mr(struct ib_mr *ibmr, int flags,
->   	if (err)
->   		return ERR_PTR(err);
+> -		mr = lookup_mr(pd, IB_ACCESS_LOCAL_WRITE,
+> +		mr = lookup_mr(pd, IB_ACCESS_LOCAL_WRITE | IB_ACCESS_ON_DEMAND,
+>   			       sg_list[i].lkey, RXE_LOOKUP_LOCAL);
 >   
-> +	if ((flags & IB_MR_REREG_ACCESS) &&
-> +	    ((access ^ mr->access) & IB_ACCESS_ON_DEMAND)) {
-> +		rxe_err_mr(mr, "cannot change IB_ACCESS_ON_DEMAND\n");
-> +		return ERR_PTR(-EOPNOTSUPP);
-> +	}
-> +
->   	if (flags & IB_MR_REREG_PD) {
->   		rxe_put(old_pd);
->   		rxe_get(pd);
+>   		if (!mr) {
+> @@ -529,7 +529,7 @@ static int rxe_ib_advise_mr_prefetch(struct ib_pd *ibpd,
+>   
+>   	for (i = 0; i < num_sge; ++i) {
+>   		/* Takes a reference, which will be released in the queued work */
+> -		mr = lookup_mr(pd, IB_ACCESS_LOCAL_WRITE,
+> +		mr = lookup_mr(pd, IB_ACCESS_LOCAL_WRITE | IB_ACCESS_ON_DEMAND,
+>   			       sg_list[i].lkey, RXE_LOOKUP_LOCAL);
+>   		if (!mr) {
+>   			mr = ERR_PTR(-EINVAL);
 > 
 
