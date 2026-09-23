@@ -1,236 +1,119 @@
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from garuda.barc.gov.in (garuda.barc.gov.in [59.185.236.21])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CC1E3B8BD1
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 03:52:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 937FE3B6C1E
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 04:10:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=59.185.236.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790135555; cv=none; b=az4qj43mQIxI3qOcuGQp+YSDzxW/Enel/iTV1K2wu8WMnwOR3C3gt1JvAn8lq/ZjzhX1vb3l9kOjo+Ate9HtNqxmo/Y5sOGqaRV/YvSuBnf3o+eQa0uxcmJlPjZF+Y9IbL+DQi9+XBGuOz45Kpep0QIFpL0/Shwk6tIj0bTKDkg=
+	t=1790136608; cv=none; b=oE/WV2rp71fg3VF9FI7E/0sGFGxq5Yh/eyIADz22osEW/RJ20SSyD868HxolWW6z8IL+WmSuTDTP4Vv+etcr4Or7G99dBkOLeIFk7z3TH1ssHyODvtYFLxP0wBBgN99D5QfPe0Rrd9ewCuzjNzUgfE3WXJcAL+NiiXKqIkVQ46w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790135555; c=relaxed/simple;
-	bh=Dl/7sLT48SGnsqc02ginEt6412z6YI6qpdUrXPg08q0=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=KV20e+IL7x451l+cy0EJiR5C8WzyANfpGeXz1s1g6pW6imOGryyHPl6ve0NZOd80FSR2IyK17BMtTyBVp/BjY8nX58SKW+o5U5z9JrOLkZIztxjKIFbRejjRtSg977y/zJ7o2zJXR+UywjR4ct1mUxw3fntp1SzT4Ryl/QEvVRU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--edumazet.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=f63gSroa; arc=none smtp.client-ip=209.85.219.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--edumazet.bounces.google.com
+	s=arc-20240116; t=1790136608; c=relaxed/simple;
+	bh=VFkRoVgzQxm0wy32IHoejXrq1NgVwPRBe9clRBLGrL8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=OpkIYE+7yFYoyjODEgcFbnf1KOrXh8j1DXA3huw/m1YF2k37kmyfO0rSMtkL5bbvEjSx4P9CbiGbxM5/yN3R2UHWV+f3IAxcM0H88a+jdlC/2ZI/wPVqE5+xsAkOusIf9FYClBZHoQxGDczxeDsXfsvqohoSHKQ6s/wq84XgXTY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=barc.gov.in; spf=pass smtp.mailfrom=barc.gov.in; dkim=pass (2048-bit key) header.d=barc.gov.in header.i=@barc.gov.in header.b=iYozbQFt; arc=none smtp.client-ip=59.185.236.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=barc.gov.in
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=barc.gov.in
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="f63gSroa"
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-90e8135d7eeso9079506d6.1
-        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 20:52:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790135552; x=1790740352; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7dGWsyugkeBiAvstwI3BqXWrM8JznyumSObXzLvLvUU=;
-        b=f63gSroac+Q00agYD3WqF+XZZcwBEve/LtPKzN8O9xYfwuvs7uNYudh1w3vGj0+JBD
-         mdp6ZvCVqq7hChrOGCQK7xY0MVh1iBxDYSKZymsOJEa5jvPe/ucfXTqYVhvV6id1ttak
-         rjdHvkNU8K0SOUHC3Wf0Ze7l/KbeFNWUOMJvNZPj+NLHr0tINq3t3rvotF04PKyD2WQr
-         xI/Wh1PIcMD6kkrz82rOTPBou4iUBFCv0z3b5jgLYLSIcP3mfyWLBnRq6MPXFsl3fjyx
-         uhNeg/IRW5pleOlXRi/w+7/buiDDrzo8xotvPROoPwdGj5SYWloZn9YkflU+JW5S9Hdm
-         sg7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790135552; x=1790740352;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7dGWsyugkeBiAvstwI3BqXWrM8JznyumSObXzLvLvUU=;
-        b=n9tD7g0mOopfZI/FBKtPht2Wwr6jK5TLkRigmUK/JjuBR850t3rlZATx27gdGrMeZ7
-         3/zhStRIZIax8chJSE85peckFM9nwcEnkz5lBN8u/wbEzjOhnkv1DlrsuE4rJr/O6qVr
-         GyZAseGmFAdHSYUwVFv/jGqTCqjdb7ooK3crbTsfCn/+QDU4/JIXaRUw6UmqbLAqk2lb
-         R3SAIUq16/rrPil2FBQVEKHlsPem4mLmQyVvEAstKqtkSYNfruGXNRmkUzJWD4JVpvbx
-         z0WG+EgPrn+NEc7O90D40GMFHMo9ouxWcVnoAnmo6GYntj1yr1Wv76XQe5vQOmx3mQi1
-         YMLA==
-X-Forwarded-Encrypted: i=1; AKwUvBzKl5Z7RlJ4QelWbn5YXLrTj4vZ+12nR3vgDz7gb2066hEA3V/wts/9SjBXNp0tn8Ry3Pk18ts=@vger.kernel.org
-X-Gm-Message-State: AFuF++kIfJhCaOqzlfTGJFm+IMwP3UZccr4myjfk8sMqPDFbg1m38wPW
-	kveZ6aDu2eCQckHxCDKi55VUeOqeucTfcEgcRKw3ISyBIxfXo2PFeJj0ydUunDch0MlQ3Y26Huf
-	IEtfmYa6IElDnEA==
-X-Received: from qvc3.prod.google.com ([2002:a05:6214:8103:b0:912:53a1:3e84])
- (user=edumazet job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6214:3197:b0:912:4653:9a80 with SMTP id 6a1803df08f44-9140c41f94emr21645756d6.24.1790135552070;
- Tue, 22 Sep 2026 20:52:32 -0700 (PDT)
-Date: Wed, 23 Sep 2026 03:52:17 +0000
-In-Reply-To: <20260923035217.179102-1-edumazet@google.com>
+	dkim=pass (2048-bit key) header.d=barc.gov.in header.i=@barc.gov.in header.b="iYozbQFt"
+Received: by garuda.barc.gov.in (Postfix, from userid 1002)
+	id 1BCACEAE0B; Wed, 23 Sep 2026 09:33:21 +0530 (IST)
+X-SenderInBARCdomain: spam
+From: Subham Pal <subhampal@barc.gov.in>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=barc.gov.in;
+	s=barct062026; t=1790136201;
+	bh=aJ3QBkDc8ObTMrcVimEpWl3cLGjtOWOqrHIZLPwWDA8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=iYozbQFtL73+lpa0TAcQJ02O8/4XfYn+ZPUjNHZnOv7FHwy45zfceMH8ntqOICyzb
+	 SPNcT42/iahJNP4KfC8B1RBpBSMCxUIBjnsFTlzbw4tK1Bx3HkB3qrd4qFOGoEh3+w
+	 E18KQhfhkz2/dobMpdGySGbkvtixAL5rB2sFobcaB4Xrj2IG+EGFGeLYR+MKBxwfPO
+	 CavTgXRGvOMO3JTmzYYUzWEDiVnkDRdyT96nJ2lsJsPg/gMzeZSnDmCen31EmO/HWI
+	 RlVe6ohMJIPnZmLjL1iIUQIdsW4x+Kgd+t6w/Rs53XOG42bYCKUL3cHbzTl06BPmhW
+	 0XZ/lI5lk8FNw==
+To: subhampal@barc.gov.in
+Cc: Subham Pal <subhampal789@gmail.com>, stable@vger.kernel.org
+Subject: [PATCH net 2/2] netfilter: nf_conntrack_h323: check extension bitmap before decoding components
+Date: Wed, 23 Sep 2026 09:33:13 +0530
+Message-ID: <20260923040313.5921-3-subhampal@barc.gov.in>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260923040313.5921-1-subhampal@barc.gov.in>
+References: <20260923040313.5921-1-subhampal@barc.gov.in>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260923035217.179102-1-edumazet@google.com>
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260923035217.179102-6-edumazet@google.com>
-Subject: [PATCH net v3 5/5] gre: do not read inner frame as erspan metadata in
- collect_md mode
-From: Eric Dumazet <edumazet@google.com>
-To: "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Simon Horman <horms@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>, netdev@vger.kernel.org, 
-	eric.dumazet@gmail.com, William Tu <u9012063@gmail.com>, 
-	Eric Dumazet <edumazet@google.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 2.79
+X-BARC-MailScanner-Information: Please contact the ISP for more information
+X-MailScanner-ID: 68N43F3u017364
+X-BARC-MailScanner: Found to be clean
+X-BARC-MailScanner-SpamCheck: not spam (whitelisted),
+	SpamAssassin (score=-99.01, required 6, BODY_RULE_1 1.00,
+	USER_IN_WELCOMELIST -0.01, USER_IN_WHITELIST -100.00)
+X-BARC-MailScanner-From: subhampal@barc.gov.in
 
-erspan_rcv() and ip6erspan_rcv() copy the ERSPAN metadata out of the
-packet for collect_md tunnels:
+From: Subham Pal <subhampal789@gmail.com>
 
-        pkt_md = (struct erspan_metadata *)(gh + gre_hdr_len +
-                                            sizeof(*ershdr));
+In decode_seq(), the extension components loop iterates through bmp2_len
+bits. However, it evaluates whether the component index exceeds the known
+upper bound (`i >= f->ub`) and whether it contains a STOP attribute before
+checking if the field is actually present in `bmp2`:
+
+    if (i >= f->ub) {
         ...
-        memcpy(md2, pkt_md, ver == 1 ? ERSPAN_V1_MDSIZE :
-                                       ERSPAN_V2_MDSIZE);
+        len = get_len(bs);
+        ...
+    }
+    if (son->attr & STOP)
+        return H323_ERROR_STOP;
 
-Both read 8 bytes at 12 bytes from the start of the GRE header, assuming
-an ERSPAN version 1 or 2 header was pulled. Because
-__iptunnel_pull_header() with ETH_P_TEB linearizes an extra ETH_HLEN (14)
-bytes beyond @len, this does not read past skb->tail, but when
-erspan_hdr_len(ver) is 0 it copies bytes from the inner Ethernet frame
-into md->u.md2. Two ways to get there:
+    if (!((0x80000000 >> opt) & bmp2))
+        continue;
 
-- An ERSPAN type I packet has a 4-byte ETH_P_ERSPAN GRE header and no
-  ERSPAN header at all, so erspan_rcv() sets ver = 0 and only pulls the
-  GRE header. It still falls back to a collect_md tunnel through
-  itn->collect_md_tun, and there the ternary above picks ERSPAN_V2_MDSIZE
-  and reads 8 bytes of the inner Ethernet header as ERSPAN v2 metadata.
-  Also check tpi->proto == htons(ETH_P_ERSPAN) in is_erspan_type1() to
-  match gre_parse_header() so a 4-byte ETH_P_ERSPAN2 frame is not treated
-  as Type I.
+If an unknown extension is marked absent in the bitmap (`bit == 0`), the
+parser erroneously attempts to read a non-existent open type length from
+the bitstream and advances `bs->cur` by garbage bytes. Furthermore, if a
+known field has the STOP attribute but is absent from the transmission,
+decoding aborts prematurely.
 
-- A packet with an 8-byte GRE header (or IPv6 ERSPAN) and ershdr->ver == 0
-  is malformed, yet neither erspan_rcv() nor ip6erspan_rcv() validates the
-  version before using it, so erspan_hdr_len(0) pulls 0 bytes (leaving the
-  4-byte ERSPAN base header inside the inner frame) and copies inner frame
-  bytes into md->u.md2. A version above 2 also stores a version that the
-  transmit side (erspan_fb_xmit(), ip6erspan_tunnel_xmit()) rejects.
+Move the presence bitmap check to the beginning of the loop body so absent
+extensions are skipped immediately before attempting to decode or inspect
+attributes. Also append a 'U' suffix to 0x80000000 to prevent signed shift
+overflow.
 
-Reject a base header whose version is neither 1 nor 2, and skip the
-metadata extraction for type I, which has none: ip_tun_rx_dst() hands
-out a zeroed option area, so md->version = 0 alone describes it.
-
-Fixes: f989d546a2d5 ("erspan: Add type I version 0 support.")
+Fixes: f587de0e2feb ("[NETFILTER]: nf_conntrack/nf_nat: add H.323 helper port")
 Cc: stable@vger.kernel.org
-Signed-off-by: Eric Dumazet <edumazet@google.com>
+Signed-off-by: Subham Pal <subhampal789@gmail.com>
 ---
- net/ipv4/ip_gre.c  | 43 +++++++++++++++++++++++++++----------------
- net/ipv6/ip6_gre.c |  2 ++
- 2 files changed, 29 insertions(+), 16 deletions(-)
+ net/netfilter/nf_conntrack_h323_asn1.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/net/ipv4/ip_gre.c b/net/ipv4/ip_gre.c
-index 7385d66a94bf49c84bc674ded51ed3f9f5352e28..a00df7bda0012b03aed50fd569cfd0611a67ce9f 100644
---- a/net/ipv4/ip_gre.c
-+++ b/net/ipv4/ip_gre.c
-@@ -255,13 +255,13 @@ static void gre_err(struct sk_buff *skb, u32 info)
- 	ipgre_err(skb, info, &tpi);
- }
+diff --git a/net/netfilter/nf_conntrack_h323_asn1.c b/net/netfilter/nf_conntrack_h323_asn1.c
+index 6830c9da3507..57317a28212b 100644
+--- a/net/netfilter/nf_conntrack_h323_asn1.c
++++ b/net/netfilter/nf_conntrack_h323_asn1.c
+@@ -596,6 +596,9 @@ static int decode_seq(struct bitstr *bs, const struct field_t *f,
  
--static bool is_erspan_type1(int gre_hdr_len)
-+static bool is_erspan_type1(int gre_hdr_len, __be16 proto)
- {
- 	/* Both ERSPAN type I (version 0) and type II (version 1) use
- 	 * protocol 0x88BE, but the type I has only 4-byte GRE header,
- 	 * while type II has 8-byte.
- 	 */
--	return gre_hdr_len == 4;
-+	return proto == htons(ETH_P_ERSPAN) && gre_hdr_len == 4;
- }
- 
- static int erspan_rcv(struct sk_buff *skb, struct tnl_ptk_info *tpi,
-@@ -274,7 +274,6 @@ static int erspan_rcv(struct sk_buff *skb, struct tnl_ptk_info *tpi,
- 	struct ip_tunnel_net *itn;
- 	struct ip_tunnel *tunnel;
- 	const struct iphdr *iph;
--	struct erspan_md2 *md2;
- 	int ver;
- 	int len;
- 
-@@ -282,7 +281,7 @@ static int erspan_rcv(struct sk_buff *skb, struct tnl_ptk_info *tpi,
- 
- 	itn = net_generic(net, erspan_net_id);
- 	iph = ip_hdr(skb);
--	if (is_erspan_type1(gre_hdr_len)) {
-+	if (is_erspan_type1(gre_hdr_len, tpi->proto)) {
- 		ver = 0;
- 		__set_bit(IP_TUNNEL_NO_KEY_BIT, flags);
- 		tunnel = ip_tunnel_lookup(itn, skb->dev->ifindex, flags,
-@@ -294,6 +293,9 @@ static int erspan_rcv(struct sk_buff *skb, struct tnl_ptk_info *tpi,
- 
- 		ershdr = (struct erspan_base_hdr *)(skb->data + gre_hdr_len);
- 		ver = ershdr->ver;
-+		if (unlikely(ver != 1 && ver != 2))
-+			return PACKET_REJECT;
+ 	/* Decode the extension components */
+ 	for (opt = 0; opt < bmp2_len; opt++, i++, son++) {
++		if (!((0x80000000U >> opt) & bmp2))	/* Not present */
++			continue;
 +
- 		iph = ip_hdr(skb);
- 		__set_bit(IP_TUNNEL_KEY_BIT, flags);
- 		tunnel = ip_tunnel_lookup(itn, skb->dev->ifindex, flags,
-@@ -301,7 +303,7 @@ static int erspan_rcv(struct sk_buff *skb, struct tnl_ptk_info *tpi,
- 	}
+ 		/* Check Range */
+ 		if (i >= f->ub) {	/* Newer Version? */
+ 			if (nf_h323_error_boundary(bs, 2, 0))
+@@ -613,9 +616,6 @@ static int decode_seq(struct bitstr *bs, const struct field_t *f,
+ 			return H323_ERROR_STOP;
+ 		}
  
- 	if (tunnel) {
--		if (is_erspan_type1(gre_hdr_len))
-+		if (is_erspan_type1(gre_hdr_len, tpi->proto))
- 			len = gre_hdr_len;
- 		else
- 			len = gre_hdr_len + erspan_hdr_len(ver);
-@@ -318,6 +320,7 @@ static int erspan_rcv(struct sk_buff *skb, struct tnl_ptk_info *tpi,
- 		if (tunnel->collect_md) {
- 			struct erspan_metadata *pkt_md, *md;
- 			struct ip_tunnel_info *info;
-+			struct erspan_md2 *md2;
- 			unsigned char *gh;
- 			__be64 tun_id;
- 
-@@ -334,19 +337,27 @@ static int erspan_rcv(struct sk_buff *skb, struct tnl_ptk_info *tpi,
- 			info = &tun_dst->u.tun_info;
- 			info->options_len = sizeof(*md);
- 
--			/* skb can be uncloned in __iptunnel_pull_header, so
--			 * old pkt_md is no longer valid and we need to reset
--			 * it
--			 */
--			gh = skb_network_header(skb) +
--			     skb_network_header_len(skb);
--			pkt_md = (struct erspan_metadata *)(gh + gre_hdr_len +
--							    sizeof(*ershdr));
- 			md = ip_tunnel_info_opts(&tun_dst->u.tun_info);
- 			md->version = ver;
--			md2 = &md->u.md2;
--			memcpy(md2, pkt_md, ver == 1 ? ERSPAN_V1_MDSIZE :
--						       ERSPAN_V2_MDSIZE);
-+
-+			/* Type I has no ERSPAN header, thus no metadata to
-+			 * extract: pkt_md would point into the inner Ethernet
-+			 * frame just pulled by __iptunnel_pull_header().
-+			 * ip_tun_rx_dst() zeroed @md for us.
-+			 */
-+			if (!is_erspan_type1(gre_hdr_len, tpi->proto)) {
-+				/* skb can be uncloned in __iptunnel_pull_header, so
-+				 * old pkt_md is no longer valid and we need to reset
-+				 * it
-+				 */
-+				gh = skb_network_header(skb) +
-+				     skb_network_header_len(skb);
-+				pkt_md = (struct erspan_metadata *)(gh + gre_hdr_len +
-+								    sizeof(*ershdr));
-+				md2 = &md->u.md2;
-+				memcpy(md2, pkt_md, ver == 1 ? ERSPAN_V1_MDSIZE :
-+							       ERSPAN_V2_MDSIZE);
-+			}
- 
- 			__set_bit(IP_TUNNEL_ERSPAN_OPT_BIT,
- 				  info->key.tun_flags);
-diff --git a/net/ipv6/ip6_gre.c b/net/ipv6/ip6_gre.c
-index e61cb10b50dc96295c14aa6da4c9c0fe47151335..774975955747ec4d822b66b8aaaee824c8d331df 100644
---- a/net/ipv6/ip6_gre.c
-+++ b/net/ipv6/ip6_gre.c
-@@ -503,6 +503,8 @@ static int ip6erspan_rcv(struct sk_buff *skb,
- 	ipv6h = ipv6_hdr(skb);
- 	ershdr = (struct erspan_base_hdr *)skb->data;
- 	ver = ershdr->ver;
-+	if (unlikely(ver != 1 && ver != 2))
-+		return PACKET_REJECT;
- 
- 	tunnel = ip6gre_tunnel_lookup(skb->dev,
- 				      &ipv6h->saddr, &ipv6h->daddr, tpi->key,
+-		if (!((0x80000000 >> opt) & bmp2))	/* Not present */
+-			continue;
+-
+ 		if (nf_h323_error_boundary(bs, 2, 0))
+ 			return H323_ERROR_BOUND;
+ 		len = get_len(bs);
 -- 
-2.55.0.1082.g2b9226bbc0-goog
+2.43.0
 
