@@ -1,35 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C5CD35E1BD;
-	Wed, 23 Sep 2026 01:41:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65A19326939
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 01:46:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790127676; cv=none; b=kZLHZ6lCam73FSG7RXEyt9lQyyiB68xcyzQ/apHmX0IZTLiimHhkXwgVWOuNWib2xM9E4gmYuNZT2mwHp/B6iLHbrxZi9JwvmvAwXyGEtsxUWKMalncNxIKmoIEhhgzS/foUc3nfxsHUORrBqquS//xC1/BgBloFp7nRb5smJuM=
+	t=1790127966; cv=none; b=qsQk8ucLO2r7KDMxebgURCADsB/A1+K2FWRxfI0hEwFwKmFjpmdFH1Wlc+ynJs1X71H0hCpJH5mDGKnahyJxSnroY9CavDlyvGqVRQJXFnl0MlunSAqUk1yTy/IP1d6fjvtYlNuJys5u6MwOA/XD+gdiSap0uafvKkHN4n9+rCY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790127676; c=relaxed/simple;
-	bh=KiXmkd04zIsbMohMQpIZyFcCWd7UAaRQyljY9qo6oAs=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=BWffjGrtm41LAca+5VXUi3uLzEBwPGvdP/1cEKotGFaRxP7kj4WcaRo6eMaG5vD+MO4Wy/bkJTVoBBBzeAKWESsSymo6meoxj9mTWAq3j+2vW5cNlz5v9KX1bqMMHL9iFntWJ2fbE/2a2qSZyYi4CuTW4Dy3M8kqxjQUDVHCFY0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gbriLNn/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790127966; c=relaxed/simple;
+	bh=zU0J5rykkUNp6Im64MkhM3B16ai1ErMbfxE5esnlz+M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=UJ3qjJzPaFoPiooQs643wqS0L3RZVZENkHyRsSmhlMYxu2e6usUeT/LfiXVgtMXgLaCBPMpju1AAK0bTrSEqkDOQiYJWQ/Eiqo4/pVlppFZBbd974JWovrRoc4houFRj3Ccba0SQtYfnIMIKAxJpxEcIJK1n4O2x/OTSRqn3N7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gm16ub43; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gbriLNn/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 416E91F000FF;
-	Wed, 23 Sep 2026 01:41:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gm16ub43"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69FEA1F000FF;
+	Wed, 23 Sep 2026 01:46:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790127675;
-	bh=+XC7UpNvlub8+g4abzd7fnYUdwJ3E9mvV38izxIKMkA=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=gbriLNn/sq+e3woya4HtM35a7AVJY/xvngCZ5/vnTUdH58kpSfLA2lSNRKoQUWFtE
-	 pVv0isND8ELRNiTZmcXkvROi8qOn84bqOW6DTPQgyNQ+vLH3n7bd5zAhljPoRYr3gH
-	 YRjNE/We7LFhopUjdNuriv7GShEF+uJ5VLyNW2gtdc+9yTY44r9sjdl21ZnftKEC2d
-	 aHq3FnUzIl8I9lew7vNWtz+lY2/2UI3Lnyg5obzpN1oJ1+JbOckeXAzj5GlJc2wt+U
-	 j8hB4gem7qL1LzzrQV0ln12gX21FHxOz/lgSoKaoU/1DLjvKG1CUgsxRR0tJA7kbha
-	 AdclFz/NDbbhw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 19A313924463;
-	Wed, 23 Sep 2026 01:40:07 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1790127965;
+	bh=zeGpT9D01Jd7hZzY4hbEtc3onjxbAgGHMlCGRcs5ClU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=gm16ub43/p1WkG6yCf3SyKEshlV2B+fECMdmB9LAWyek2ziKQPoMRMYeTSx7OHBmu
+	 7pSM5QIpbsow+TMMzXTa0N4BpXBm9jEayPO4H3njLXq4Mf1SR/QPMqW/eCT+6UAJmD
+	 82sFSQmvyoyq8G2mSADiAGssGw8NKLyvZkFkWmnsSD1KLlbINjziJ0TlqiJUsAq+zr
+	 yyZikxu0BDatgTE0FGj+/SLYot5uO/nkCYQ0zyJF7XHFmkS72V5arOop8H6zTKvMFb
+	 eYv4K6pvup3kin/wNEFcm9YssQ+HhKbgclWNml4A88aQ8qPVZuK+Jq60s9TBtwSFqd
+	 2J35hLTIbuMqQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Frank Sorenson <sorenson@redhat.com>,
+	David Howells <dhowells@redhat.com>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] smb: client: fix OOB struct field reads in move_smb2_ea_to_cifs()
+Date: Tue, 22 Sep 2026 21:46:02 -0400
+Message-ID: <20260923014602.886678-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026092224-mold-map-ab6b@gregkh>
+References: <2026092224-mold-map-ab6b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,47 +45,83 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v2] sctp: discard the rest of the packet on a
- stale-cookie
- error
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179012760572.167190.1940324637591255242.git-patchwork-notify@kernel.org>
-Date: Wed, 23 Sep 2026 01:40:05 +0000
-References: <20260921093707.1432184-1-ljp1205831794@gmail.com>
-In-Reply-To: <20260921093707.1432184-1-ljp1205831794@gmail.com>
-To: Aohan Mei <ljp1205831794@gmail.com>
-Cc: netdev@vger.kernel.org, linux-sctp@vger.kernel.org,
- marcelo.leitner@gmail.com, lucien.xin@gmail.com, imv4bel@gmail.com,
- henrymei@tencent.com, corvus@tencent.com, stable@vger.kernel.org
 
-Hello:
+From: Frank Sorenson <sorenson@redhat.com>
 
-This patch was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+[ Upstream commit eeb5ef6083e1cefa2ef75041b5597ff228b8d7bb ]
 
-On Mon, 21 Sep 2026 17:37:04 +0800 you wrote:
-> From: Aohan Mei <henrymei@tencent.com>
-> 
-> When an association is in COOKIE-ECHOED state and the peer sends a
-> bundled [ERROR(Stale Cookie)][DATA] packet from one of its non-primary
-> addresses, processing the ERROR chunk takes the non-fatal stale-cookie
-> retry path sctp_sf_do_5_2_6_stale(), which queues
-> SCTP_CMD_DEL_NON_PRIMARY while keeping the association alive.
-> sctp_cmd_del_non_primary() removes every non-primary transport -
-> including the very transport this packet arrived on, which is still
-> referenced by the receive lookup and shared by all chunks of the
-> packet via chunk->transport.
-> 
-> [...]
+In move_smb2_ea_to_cifs(), the while (src_size > 0) loop condition is
+insufficient. It allows iteration to continue even if the remaining
+src_size is too small to contain a complete smb2_ea_info structure.
+Consequently, reads of ea_name_length and ea_value_length can occur
+out-of-bounds.
 
-Here is the summary with links:
-  - [net,v2] sctp: discard the rest of the packet on a stale-cookie error
-    https://git.kernel.org/netdev/net/c/4498467a8af0
+Fix this by ensuring src_size >= sizeof(*src) before attempting to read
+any structure fields. Additionally, reject any next_entry_offset that is
+smaller than sizeof(*src) or that would advance the pointer beyond the
+available buffer.
 
-You are awesome, thank you!
+Note that for calls where the server returns a malformed EA list, the
+error returned to userspace changes from -ENODATA (getxattr) or
+-ERANGE (listxattr) to -EIO. This correctly signals a server protocol
+error rather than misleadingly indicating "attribute not present" or
+"output buffer too small".
+
+Fixes: 95907fea4fd8 ("cifs: Add support for reading attributes on SMB2+")
+Cc: stable@vger.kernel.org
+Signed-off-by: Frank Sorenson <sorenson@redhat.com>
+Reviewed-by: David Howells <dhowells@redhat.com>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+[ Replaced unavailable smb_EIO2() tracing calls with -EIO. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/smb/client/smb2ops.c | 24 ++++++++++++++++--------
+ 1 file changed, 16 insertions(+), 8 deletions(-)
+
+diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
+index 2b38e8e7efd4e..6776d3b9e75ee 100644
+--- a/fs/smb/client/smb2ops.c
++++ b/fs/smb/client/smb2ops.c
+@@ -1005,8 +1005,9 @@ move_smb2_ea_to_cifs(char *dst, size_t dst_size,
+ 	char *name, *value;
+ 	size_t buf_size = dst_size;
+ 	size_t name_len, value_len, user_name_len;
++	u32 next_off;
+ 
+-	while (src_size > 0) {
++	while (src_size >= sizeof(*src)) {
+ 		name_len = (size_t)src->ea_name_length;
+ 		value_len = (size_t)le16_to_cpu(src->ea_value_length);
+ 
+@@ -1061,14 +1062,21 @@ move_smb2_ea_to_cifs(char *dst, size_t dst_size,
+ 		if (!src->next_entry_offset)
+ 			break;
+ 
+-		if (src_size < le32_to_cpu(src->next_entry_offset)) {
+-			/* stop before overrun buffer */
+-			rc = -ERANGE;
+-			break;
++		next_off = le32_to_cpu(src->next_entry_offset);
++		if (next_off < sizeof(*src) || src_size < next_off) {
++			cifs_dbg(FYI, "EA next_entry_offset %u out of range [%zu, %zu]\n",
++				 next_off, sizeof(*src), src_size);
++			rc = -EIO;
++			goto out;
++		}
++		src_size -= next_off;
++		src = (void *)((char *)src + next_off);
++		if (src_size > 0 && src_size < sizeof(*src)) {
++			cifs_dbg(FYI, "EA next_entry_offset %u left truncated entry (%zu bytes)\n",
++				 next_off, src_size);
++			rc = -EIO;
++			goto out;
+ 		}
+-		src_size -= le32_to_cpu(src->next_entry_offset);
+-		src = (void *)((char *)src +
+-			       le32_to_cpu(src->next_entry_offset));
+ 	}
+ 
+ 	/* didn't find the named attribute */
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.53.0
 
