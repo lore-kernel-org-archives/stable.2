@@ -1,106 +1,137 @@
-Received: from fraori-sdnproxy-3.icoremail.net (fraori-sdnproxy-3.icoremail.net [132.226.202.154])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 29A7B41737C;
-	Wed, 23 Sep 2026 09:27:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=132.226.202.154
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D444F451071
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 09:30:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790155668; cv=none; b=Zmx+78Z6SCX/4jgfq5+5hZLwBlo+s7KSg3umBgrpjdJwuafY2JsSZcpT9MoLEvaUugLoJK0uGQK9CYrS2TCWrrGrcEH5ifaWTeact1JJti/lXepIcha1NMhpgoiia9oWV0VaJZbHWuVuadr9leaZmaiPu6nR/3tx83zBO3HF+g8=
+	t=1790155805; cv=none; b=KwHFn0LQ1d+fCMzxLwmR2A7aQRmVNLrqib8i+1LiUYH65/16zkaN1gjXcOZLXRjHbrNtzjiZzJotEKoiJNsjvo+U94TG6pQz5URTybNqn7aOvI6le0YTrlwPO9O4VTMY1YNH7SbkJxbefqWFK5DQQnUWN/fBItfbO2VorZsn9cg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790155668; c=relaxed/simple;
-	bh=SKXZvELSgzm1NgdhcAWNDInqrqia7MJiwhHAvfh/KPc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=qpwGlljbuPaN0HChCKy+yIrIEaNvkSzn22Ap+grh0t413BF8GU4CnJyX+Md0U9D72V2DTCS0X9VOoOPVR/LOIqXzk4Yb+RDksMsJ865BrDrGPE8UKPPCSoL/aQssb2L9YzNFqyMiwR0bdXAWiCXlPnW3I390R+43YotCObUK71E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=132.226.202.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wD3kyyHm7NqSUMxAQ--.7042S3;
-	Wed, 23 Sep 2026 17:27:36 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app3 (Coremail) with SMTP id zS_KCgDHcHOHm7Nq7V5ZBQ--.10433S2;
-	Wed, 23 Sep 2026 17:27:35 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org
-Cc: alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Vijendar.Mukunda@amd.com,
-	Syed.SabaKareem@amd.com,
-	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>,
-	Song Li <songl@zju.edu.cn>
-Subject: [PATCH] ASoC: amd: ps: fix snd_acp63_remove() teardown ordering
-Date: Wed, 23 Sep 2026 09:26:40 +0000
-Message-Id: <20260923092640.502145-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1790155805; c=relaxed/simple;
+	bh=eWLeqpbbXtrRAv+whCfpPs+DG5cjmoOBUDqsuCtZP2E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=InZFa7vWdnGVMo9LUREigmRdG4OBheeWwv23NS+NyQOk8vzXgWKsgVUJXyffNiKWCErGkBIqT8+vwj3XONmDiXA4F9Tyd6uc+noUH+adpzGTsUx1g9rTvkmQoqZYuzrs00klZDkoe0K+Q9mE9UFafHlcCsxdJ06Ln2srTMplqyQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=HPhhJM5n; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="HPhhJM5n"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccfd61ecaso5172005e9.3
+        for <stable@vger.kernel.org>; Wed, 23 Sep 2026 02:30:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google; t=1790155800; x=1790760600; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=j85Q0Due/RmRnLWXRpqKRsR1ZBPGAvBYI24rxRoo9rM=;
+        b=HPhhJM5nppNeWupr6AHkaQ50W/Wibrdr+jAxhN7jmUjHfF79MJHIa6Z3PE9uOE7Xo0
+         V/A+2GrPRwc6TA/1zmHtfqHZGK6k9gfebPxmIULJH+HUUdUGV+57CyQYCxj0BDEvyVg2
+         V0Pn6QXRCNC4mIk77IPAYQsoOHaN14k3IUAz8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790155800; x=1790760600;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=j85Q0Due/RmRnLWXRpqKRsR1ZBPGAvBYI24rxRoo9rM=;
+        b=eJkjLsSvMgGwyaydSBNNG5/OXjaVmnG3j3EwkknpMXBCVfO+aMwtGiKIyiL2fOlJGG
+         QKOr36BCRcqgF+VwuqpKjTmQd5gwGyKiLYFADeGgxr/5GVn1xp1wq5sbkrR3yDo0TpTl
+         0AI6bnWsIwpzcJTCi3Xs+xUqux8TamIkqoxoSgix9BJCuM5PK/1706Z1ii7Xc8pr1Dl4
+         XZ1OjQqKKimngzQMe2X1SurPsvplREUZKr3kXiuNUvTcYEAQZgQdqYHN8NnpubjcMlRu
+         FpYwfxLG1LrBvnSdHbqm/VWFIbsXSEDZ1idZVjTKb5TxmaL90cDN8jTO+gHqm/RtyxX7
+         OV1Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwQDDrOz/aeW1Kd33wlC6Y9cu53Wo9wW4XlocVl25rvC/FTfzL7V17cSfzPSr35hkN/LiD/sMM=@vger.kernel.org
+X-Gm-Message-State: AFuF++njDYrg8lulgNDXF8Pi6OBIPqHUeOv+xTjJ6/8QiMEZfhU+Yksy
+	aQN/cYu1tX4sxguapO1RSQsdSVAoP6Xe71WIy+sF/Q5VPl4OvZ7Mn0dujOawtPDacg0=
+X-Gm-Gg: AYBFou2Hk8R9bALtFVb1WdYTLRMUGMS6PExbd6TaRwJZa8Qa0A3g6nBpwr3PRdqonjk
+	5KMux/b/nST2VcUdHGtJ+ZMMQmYML7PaD8L3r7VK6z2Ck0EyoFpzjpqmmdU8+KaHlUH+xQn5QdW
+	8XFGKQ3SjusKUT4y0j6ibqCeeQnhS+A60MFV0mSkvG3hhBPK5t+tHRIeHntpLSLMKCWyk9jXEJh
+	G3gCLGCifXaxPMfCUV+d3oQ76U2OcaCwGiAjDBRCrI/NBIHu8dAxqKZSu+Q+9U7Wp++rf6wpMP7
+	z8hAIybQf4WikatwkC5BkfEVmSZpoN3RDnbk4pHqWJDgpZbLGE583yS/w/dqOvHQypweDp0QwNO
+	xuqsofeGfp7cSvZhkquKbktSK9APxFPIAYwOwdQYO/I6KbO30XQpftxdwHpiOEDha/R3ewneiXP
+	QxtvrNejRPahH5tub4phdRg52bUqQcMjLa4XcOnPjRCJXRgUYcQHNi8S7u6o+GcimERnUeYcl+H
+	mXbU2a+rfUtIqdLgQ==
+X-Received: by 2002:a05:600c:1553:b0:49e:81a7:9fbc with SMTP id 5b1f17b1804b1-49fdf13a117mr21651785e9.24.1790155800017;
+        Wed, 23 Sep 2026 02:30:00 -0700 (PDT)
+Received: from [10.214.128.75] ([149.7.5.83])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde197466sm58177785e9.7.2026.09.23.02.29.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 23 Sep 2026 02:29:59 -0700 (PDT)
+Message-ID: <c80ca0bc-1398-4f6f-bfcc-c49089a51082@linuxfoundation.org>
+Date: Wed, 23 Sep 2026 03:29:50 -0600
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zS_KCgDHcHOHm7Nq7V5ZBQ--.10433S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?ee7CXQXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnZPoDCNGYdHSfuFmYJL54WOJv/C88MNEzSiSpndfKYR2FTTyGypo2l/i3sVkfjsSLcEe
-	bUepNW8khWwfHADVnD+p9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoW7Kr1xZrWDKFW7AryrJF13GFX_yoW8CF1Dpr
-	Z8GFZxtrWkJw4jyw4UXayjvFn8CrZ3uF45C39akw1xJFn5GrWvkrWSkFy0vFZ5CrWvya12
-	qrW5Ja4YkrZ8AabCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Cb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_
-	Cr1UYxBIdaVFxhVjvjDU0xZFpf9x07jeAp5UUUUU=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] usbip: stub: keep URB array state consistent on errors
+To: Weiming Shi <bestswngs@gmail.com>,
+ Valentina Manea <valentina.manea.m@gmail.com>, Shuah Khan
+ <shuah@kernel.org>, Hongren Zheng <i@zenithal.me>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Suwan Kim <suwan.kim027@gmail.com>, co+66c3f58096d0bde8@bugs.sh,
+ Xiang Mei <xmei5@asu.edu>, stable@vger.kernel.org,
+ Shuah Khan <skhan@linuxfoundation.org>
+References: <20260912083925.587987-2-bestswngs@gmail.com>
+Content-Language: en-US
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <20260912083925.587987-2-bestswngs@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The ACP threaded interrupt handler dereferences the SoundWire and PDM
-child platform devices, but snd_acp63_remove() unregisters them while
-the interrupt is still registered: devm_request_threaded_irq() ties its
-release to devres cleanup, which runs only after the remove callback
-returns. A completion in this window is a use-after-free.
+On 9/12/26 02:39, Weiming Shi wrote:
+> stub_priv_alloc() links a zeroed stub_priv to priv_init before the URB
+> array is allocated.  The error handler may therefore consume the object
+> after stub_recv_cmd_submit() reports SDEV_EVENT_ERROR_MALLOC.
+> 
+> Do not publish num_urbs until the array exists.  If a later URB allocation
+> fails, clear the freed array pointer and count before the event handler can
+> walk them.  This prevents a NULL dereference on array-allocation failure
+> and freed-array reads that can lead to invalid URB use or a double free on
+> later failures.
 
-Fix this by masking the ACP interrupt sources and calling devm_free_irq()
-before the first child device is unregistered. The interrupt line is
-shared, and acp_hw_deinit() clears the sources only after the children
-are gone, which would leave the line raised with no handler left to
-ack it. The window predates the tagged refactor, which only reshaped
-the dereferences.
+How is this problem reproduced? Why is this a problem in this code path?
 
-This issue was found by an in-house static analysis tool.
+> 
+> Fixes: ea44d190764b ("usbip: Implement SG support to vhci-hcd and stub driver")
+> Cc: stable@vger.kernel.org # 5.4+
+> Reported-by: co+66c3f58096d0bde8@bugs.sh
+> Closes: https://lore.kernel.org/all/J3vQPnNHSkQ6YUiFvu1bk8ai3Q8aZ7a9J1Y7%40bugs.sh/
+> Assisted-by: Codex:gpt-5
+> Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+> ---
+>   drivers/usb/usbip/stub_rx.c | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/usb/usbip/stub_rx.c b/drivers/usb/usbip/stub_rx.c
+> index 1e9ae578810d9..33058fb05b2f4 100644
+> --- a/drivers/usb/usbip/stub_rx.c
+> +++ b/drivers/usb/usbip/stub_rx.c
+> @@ -534,10 +534,10 @@ static void stub_recv_cmd_submit(struct stub_device *sdev,
+>   	}
+>   
+>   	/* allocate urb array */
+> -	priv->num_urbs = num_urbs;
+>   	priv->urbs = kmalloc_objs(*priv->urbs, num_urbs);
+>   	if (!priv->urbs)
+>   		goto err_urbs;
+> +	priv->num_urbs = num_urbs;
+>   
+>   	/* setup a urb */
+>   	if (support_sg) {
+> @@ -641,6 +641,8 @@ static void stub_recv_cmd_submit(struct stub_device *sdev,
+>   
+>   err_urb:
+>   	kfree(priv->urbs);
+> +	priv->urbs = NULL;
+> +	priv->num_urbs = 0;
+>   err_urbs:
+>   	kfree(buffer);
+>   	sgl_free(sgl);
 
-Fixes: eaf825037d6d ("ASoC: amd: ps: refactor acp child platform device creation code")
-Cc: stable@vger.kernel.org
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
- sound/soc/amd/ps/pci-ps.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/sound/soc/amd/ps/pci-ps.c b/sound/soc/amd/ps/pci-ps.c
-index 729f9aa..01ee697 100644
---- a/sound/soc/amd/ps/pci-ps.c
-+++ b/sound/soc/amd/ps/pci-ps.c
-@@ -738,6 +738,12 @@ static void snd_acp63_remove(struct pci_dev *pci)
- 	int ret;
- 
- 	adata = pci_get_drvdata(pci);
-+	/* Mask the interrupt sources before freeing the shared IRQ. */
-+	writel(ACP_EXT_INTR_STAT_CLEAR_MASK,
-+	       adata->acp63_base + ACP_EXTERNAL_INTR_STAT);
-+	writel(0, adata->acp63_base + ACP_EXTERNAL_INTR_CNTL);
-+	writel(0, adata->acp63_base + ACP_EXTERNAL_INTR_ENB);
-+	devm_free_irq(&pci->dev, pci->irq, adata);
- 	if (adata->sdw) {
- 		amd_sdw_exit(adata);
- 		platform_device_unregister(adata->sdw_dma_dev);
-
+thanks,
+-- Shuah
