@@ -1,81 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-77.mta0.migadu.com [91.218.175.77])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 518B3410D13;
-	Wed, 23 Sep 2026 22:20:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F51C4349AA
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 22:49:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790202012; cv=none; b=SdOn7rV6oaRzc2UI0cHqBSwPPeuaRurwdpx+EfGPs4oMelRVF/PkJCsPecWaCYRVItV0660etzYhNsWKQAeU0J41KSGAo6Z+1sWyvZf09jG9vaO3kgTEviRSohVfuhVQ9/W5PFuQ4fZ+mjLa/K9Wq8pLJa4tYp3rbTlY7KiVD+Y=
+	t=1790203765; cv=none; b=X+cA7pI5qnBE2eXJ5esEayWOroudL8CxpmPZa4RoQPaYOQ74nGEvoujYVZzhkVwKB2q+UKBsu2BJ1rxnO8BLRG6/vmpXrief4pFvgxWqszWDkC8zZuSrOHs5UUllf+1UXhqA2b+qInDV/EfiZuWDwyPAI1nKnTtR31+oMylFmI0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790202012; c=relaxed/simple;
-	bh=Aix1h5GVe02BNFD/evtsPrkI6c8ciBplqAPLCPOKo4o=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Zk6QcIzhJ5OcuEe1bPpfE8v0LaZQNGBGBVbZKZ1ErBmjHx+OPaYR45XICGODkWFkkZ1XspakVYLNTy0a2zHa8Va5E9Y391LB0x/8Fgx4O4IclYsXjBNkRIjVnOBWcRiRow9hLH7hSWZxNY8aaO1mKxM1JCmb8jCmpEiSS30ZzV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xg0xYVh1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790203765; c=relaxed/simple;
+	bh=N6DEIJwXs89OYvuIP58cOGr26F4IcXTzYNn+vfOg1xc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DCP7kndmkDaINiFOHllqbxnvj9iEAQJXemueNBmSQZkSOy5pO8BtyekxEK46Z1GkEL4MU7RoZwDgAuh2+u3y8fKYFwfrH2ly5vEq25k5vaE8pWq5R5r+Cf5RsNOwjIWIl7F/rxZ7v6muf/w1meZv2Qahba5npYlvJcJM9ybP8AE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=C/lmrSDW; arc=none smtp.client-ip=91.218.175.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xg0xYVh1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E71001F000FF;
-	Wed, 23 Sep 2026 22:20:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790202011;
-	bh=UFurUP/7tBcWJ6BuQKkhtfaUDQI2vVJIWiX2LolacdE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Xg0xYVh1teFvZx6juHlGy6gbfgCJl0L1w6pxTplm/DWiqvWp7MZU0Wy+8jwYMHFdV
-	 1sHA0BsVEnNvx2fNJOD1gE9r+mhuEHlQN+1Zqml6dCZ79utC8zrUi+VFnvtzOMedeV
-	 OEt7iyRVN0ICln06y5aknpAUflzhqFpqvVucVEvTJHyRc0vqIhMibvzRYMmIhVzjKV
-	 u8vIMIL2m/9OBBzTvV7ibmVVr6CLainZbxwipC8EvLYqwUBcz5rvSBznQQX/g4NMRb
-	 EsVyOwJ9L3q4nTrOXJsHABcs9DNkoufQkEFdouEyvee9OrZyC3jytlq+4tkHPqT+m6
-	 HAl8ard7SXWtw==
-From: Bjorn Andersson <andersson@kernel.org>
-To: Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>,
-	Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
-	Gokul Sriram Palanisamy <quic_gokulsri@quicinc.com>,
-	Sricharan Ramabadhran <quic_srichara@quicinc.com>,
-	Gabor Juhos <j4g8y7@gmail.com>
-Cc: Stanislaw Pal <kuncy7@gmail.com>,
-	Mieczyslaw Nalewaj <namiltd@yahoo.com>,
-	Jie Luo <jie.luo@oss.qualcomm.com>,
-	Georg Seema <georgseema@gmail.com>,
-	linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] clk: qcom: gcc-ipq5018: mark 'gpll0_main' clock as critical
-Date: Wed, 23 Sep 2026 17:19:58 -0500
-Message-ID: <179020199807.520949.653061101070414631.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260918-ipq5018-mark-gpll0_main-critical-v1-1-fbe8f27a0106@gmail.com>
-References: <20260918-ipq5018-mark-gpll0_main-critical-v1-1-fbe8f27a0106@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="C/lmrSDW"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=N6DEIJwXs89OYvuIP58cOGr26F4IcXTzYNn+vfOg1xc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790203759; v=1; x=1790808559;
+ b=C/lmrSDWYZnosGT3v6xXmQ5eOc+DwhsAPKuqw2s3hmA4IDF4A9altCq74VkGf/t4FEyzWC5X
+ zGukvWBisfj9A8svbBW/vU0QLH2s9qsanucI7LTixNjKCrbaYLtmKZuhBe1y9Bz8YcXDseFDvmW
+ mfaYga+tycHG0YdgCK5hxPqI=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ee3f85351b71f6f8;
+	Wed, 23 Sep 2026 22:49:09 +0000
+X-Mizu-Trace-ID: ee3f85351b71f6f8
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <7aef51f0-b28f-4d8a-b938-aea8b3dcfd87@linux.dev>
+Date: Wed, 23 Sep 2026 15:49:03 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] RDMA/rxe: Reject IB_ACCESS_ON_DEMAND changes after
+ MR creation
+To: norbert@doyensec.com, Zhu Yanjun <zyjzyj2000@gmail.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Bob Pearson <rpearsonhpe@gmail.com>, Daisuke Matsuda <dskmtsd@gmail.com>,
+ "yanjun.zhu@linux.dev" <yanjun.zhu@linux.dev>
+Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260923-rxe-advise-mr-v3-v3-0-95e1a4077e4d@doyensec.com>
+ <20260923-rxe-advise-mr-v3-v3-1-95e1a4077e4d@doyensec.com>
+From: Zhu Yanjun <yanjun.zhu@linux.dev>
+In-Reply-To: <20260923-rxe-advise-mr-v3-v3-1-95e1a4077e4d@doyensec.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-
-On Fri, 18 Sep 2026 11:27:49 +0200, Gabor Juhos wrote:
-> On IPQ5018, the APCS core clock feeds the CPUs. It can use
-> different clocks as its parent, but during system boot it
-> utilizes GPLL0.
+在 2026/9/23 7:40, Norbert Szetei via B4 Relay 写道:
+> From: Norbert Szetei <norbert@doyensec.com>
 > 
-> Under some cicumstances, the 'gpll0_main' clock is getting
-> disabled during kernel start which results in a system hang
-> then the hardware watchdog restarts the board after a while.
+> Whether an MR is an ODP MR is decided once, at registration time:
+> rxe_reg_user_mr() picks rxe_odp_mr_init_user() over rxe_mr_init_user()
+> based on IB_ACCESS_ON_DEMAND, and only the former builds an ib_umem_odp
+> via ib_umem_odp_get(). The umem cannot change type afterwards, and
+> is_odp_mr() reads mr->umem->is_odp.
 > 
-> [...]
+> Two paths assign mr->access after that point and can leave it
+> describing an MR type the umem does not have:
+> 
+> rxe_rereg_user_mr() with IB_MR_REREG_ACCESS overwrites mr->access with
+> the caller's value, and IB_ACCESS_ON_DEMAND is part of
+> RXE_ACCESS_SUPPORTED_MR, so userspace can set the flag on a plain MR or
+> clear it on an ODP MR while the umem stays what it was.
+> 
+> rxe_reg_fast_mr() takes mr->access from the REG_MR work request
+> unmasked and moves the MR to RXE_MR_STATE_VALID, on an MR that
+> rxe_mr_init_fast() left with a NULL umem.
+> 
+> Reject IB_ACCESS_ON_DEMAND in both, so mr->access carries the flag only
+> for an MR that has an ODP umem and the flag can be used to identify one.
+> 
+> Fixes: 544c7f62cf32 ("RDMA/rxe: Implement rereg_user_mr")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Norbert Szetei <norbert@doyensec.com>
 
-Applied, thanks!
+I have already reviewed this commit. I am fine with this commit.
+So
+Reviewed-by: Zhu Yanjun <yanjun.zhu@linux.dev>
 
-[1/1] clk: qcom: gcc-ipq5018: mark 'gpll0_main' clock as critical
-      commit: 00c90797607cf10f23ec5cf5aa4d2ef74366a2f2
+Zhu Yanjun
 
-Best regards,
--- 
-Bjorn Andersson <andersson@kernel.org>
+> ---
+>   drivers/infiniband/sw/rxe/rxe_mr.c    | 6 ++++++
+>   drivers/infiniband/sw/rxe/rxe_verbs.c | 6 ++++++
+>   2 files changed, 12 insertions(+)
+> 
+> diff --git a/drivers/infiniband/sw/rxe/rxe_mr.c b/drivers/infiniband/sw/rxe/rxe_mr.c
+> index 875eceb55fdf..2afda5154dfb 100644
+> --- a/drivers/infiniband/sw/rxe/rxe_mr.c
+> +++ b/drivers/infiniband/sw/rxe/rxe_mr.c
+> @@ -795,6 +795,12 @@ int rxe_reg_fast_mr(struct rxe_qp *qp, struct rxe_send_wqe *wqe)
+>   		return -EINVAL;
+>   	}
+>   
+> +	/* an MR with no umem is never an ODP MR */
+> +	if (unlikely(access & IB_ACCESS_ON_DEMAND)) {
+> +		rxe_dbg_mr(mr, "access = 0x%x requests ODP\n", access);
+> +		return -EINVAL;
+> +	}
+> +
+>   	mr->access = access;
+>   	mr->lkey = key;
+>   	mr->rkey = key;
+> diff --git a/drivers/infiniband/sw/rxe/rxe_verbs.c b/drivers/infiniband/sw/rxe/rxe_verbs.c
+> index 96c7716057fe..21855274f63a 100644
+> --- a/drivers/infiniband/sw/rxe/rxe_verbs.c
+> +++ b/drivers/infiniband/sw/rxe/rxe_verbs.c
+> @@ -1331,6 +1331,12 @@ static struct ib_mr *rxe_rereg_user_mr(struct ib_mr *ibmr, int flags,
+>   	if (err)
+>   		return ERR_PTR(err);
+>   
+> +	if ((flags & IB_MR_REREG_ACCESS) &&
+> +	    ((access ^ mr->access) & IB_ACCESS_ON_DEMAND)) {
+> +		rxe_err_mr(mr, "cannot change IB_ACCESS_ON_DEMAND\n");
+> +		return ERR_PTR(-EOPNOTSUPP);
+> +	}
+> +
+>   	if (flags & IB_MR_REREG_PD) {
+>   		rxe_put(old_pd);
+>   		rxe_get(pd);
+> 
+
