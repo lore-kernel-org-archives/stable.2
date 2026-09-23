@@ -1,227 +1,291 @@
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com [67.231.149.25])
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013015.outbound.protection.outlook.com [40.107.159.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A216340926E;
-	Wed, 23 Sep 2026 09:33:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.149.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7019F386443;
+	Wed, 23 Sep 2026 09:44:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.15
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790156011; cv=fail; b=Z0HrIZf1gaoCVw7AC1W9pUim/qfX0lJgVJwR9u3c7zVlL4mgOCWXqQ6BUlMYqGepdRwWAPOOLY/1vVk6Qr7cvYdvrgo0kRzLsu+dPnINLObmgFucCKa8MU9VneTnCz1sbYRUZV7vsV5PR/LZG0LMbto0bDfCf0+gIbaKJp1BrRA=
+	t=1790156663; cv=fail; b=FaAXzaxzDaDn7lWvnVTKl+zINPvcTcVsRA8jJaIcK/sUeP+YmnUBHRqGEKf8F4GlBKz9LVfFnlC7H0nq/x6xk5NRVkKGJjG4vS0L5aNmIWHaVtR/tquIQSWnynHsB0N+B8JDJUtin0uUl+ZHwtDDziKxpAnyBOl18DkBtsVia3E=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790156011; c=relaxed/simple;
-	bh=acSnS3bWF/RwhEVn/xyR2Wl696Ia1wRJ3SnPtD5zizI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H2f0AXoc2tpeizCscghTvnsOs/7rsTqXsUlBGJYwPgJD+1LIlKz83Sji7ntw9636n247ccsavWpwwWZY95TA/S7QWjrh3AWgNaI7rYqdlGfwM9WjuJlqJvs8KQYscwxovLRxIUacn10IDDTHpKM5YpPb2Qf7/5ti/Pqmjbz5kiw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com; spf=pass smtp.mailfrom=opensource.cirrus.com; dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b=HtQPZCIJ; dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b=Uwb4hBNE; arc=fail smtp.client-ip=67.231.149.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
+	s=arc-20240116; t=1790156663; c=relaxed/simple;
+	bh=iDoih5O/sDOLr4HjGDnBmhaM89ouN/x4O3Sh4NO1rzs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=ZXGh2eWKVifGkB/9w2l5kPvEB2TO7nTdt5J91f+8nLed8N6kAYgBR9BlYTgorw4aak+gmGR4/ikjotB557CyOLafitaEm/s8PakwGE8GgzfeKTyd/UIPDUJVBFSdWpZTGR94yD9wAKuTTTzsoxYZLabn34zRyoP+AhtC3Z4cMak=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=jxglQVm/; arc=fail smtp.client-ip=40.107.159.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b="HtQPZCIJ";
-	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b="Uwb4hBNE"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68N63OhR3764922;
-	Wed, 23 Sep 2026 04:33:19 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=PODMain02222019; bh=bXlUuERUOqidt72mvm
-	TndTAoYS1M4jBWxdh46Uc/MJ4=; b=HtQPZCIJih1FO+LIc43ORPUCuxMLBujz7q
-	k9baIBvavO6baqyfFDNT4RIklELw+lDI8v5IaA852gkwS4fd0Q/xML44Sxi0LzJk
-	dRhUi0btSgJdDiFO3RJFarE2TAmkm6nbmSclAMsj3CRdsHV8vqe5GTztQ3NayFR+
-	GxCN6PEzhjbn+QMLc7gQRV9+DsXFKyJPMLMcracWCzglo4tn+JrJqtRurcX3zrJs
-	Kj9veMd/1cpuBbtLL6ZjWzs7Q6KoBISJwe6BmZxZfgKBIma9gO8xHPGmMG0RSbyt
-	4qYRpppjxCpMpgvG+SoBjfBwwksOtukjg6zFTPVCVouFDJQlPttg==
-Received: from bn8pr05cu002.outbound.protection.outlook.com (mail-eastus2azon11021125.outbound.protection.outlook.com [52.101.57.125])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 4gsqt0dbp9-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 23 Sep 2026 04:33:19 -0500 (CDT)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="jxglQVm/"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=j/xy20VAyyJ5dXR+Rq2QCIKo5Bw7rzbq4rhEbSlAgevGEvqIF1jJAwPRmKYtaxizKEUjduRB9+RxfIDBym+g+aMA2+asXngE3IbQ/WjC/+9eCqjBIUmEroekMNHVkjHSg3glJTZ5jkwQuK1g9LFq+AtC34b8sYHLrzqoiKBwDXtQUkzy/9GSv2Cpt/noAqBberJEuT9TuV8pauwQjdkVjEaCWh9YZhSk/ZPcFax3n59wGGF9pv41BnCzJeeBKaYiXMv4ZIcTvzAM/kb9qO3CCuKnfENJS9GSDrXcl5Evh41ILbkcgmyDxJkZ2bMDTI6FPGnXtJMZ+GA1XfXPlOngxg==
+ b=J0/yiTQkKnxyeKTo5P4zQx2Lajpsi88zDsU7VJfvzEDKITlCqWP/6SgNJxJaFoSyFLHRuSDxwYIhD7bICpk+I4bhNX1DGL+lRRFRybU2lVyUm4U8gqzrdrnkTLoJotrlmsn49qPt7/Mn+QpSQPGcrnSIxHtjs/PYymGu+P0foOJKQrnnzAPhISbi0L6A8XDv9GvJnzsiCimX/UC0SUuhpyRhqiwdLNdbO75uPq/W6buw+ugFdZeeMeY1/LT/bm9tAtnoUG6Tsgo+ZysGwJKpJHh6UBA0iWr6i9FlvEFzi3ZgntsiBbpbDft7w0zITJRy6m4uaaAQlohaLmXxwW7QVQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bXlUuERUOqidt72mvmTndTAoYS1M4jBWxdh46Uc/MJ4=;
- b=s8JU5tqpBfRXOBckD/2sXs8D8l9yElxeCYuKg3mV5r8xrzhv+CIRyPl8ZXGAgCAhyOi7hwkfMH79tKDYYKJpjJilpcuufzNTNjQtpgIlZxInLfWBQfynjhoKlYun+aW9C3zWYeQraClrcTpeJeC2ALcMwU/nqXV6SoU010XvCGm8IJlZDFMljzdOompEhb7cHHIelSbDwEXo7rW6MqP5lVbJEVphQGIiwkvv9udMzNNZX8cZaondLaUrZ49ghTQlWGjIbkVLl594YOcI5xiA5ZKUc/6aHykxUkO39F5cRD0Q5cu/05ArlGvPjJRUUl3f+UsBgke1wF2V5J8xKVFoDw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 84.19.233.75) smtp.rcpttodomain=cirrus.com
- smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
- action=oreject header.from=opensource.cirrus.com; dkim=none (message not
- signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
+ bh=H8x/gPxDNTcA5keJMihtiS4o8vLC2DFNl4AZGUpHfGw=;
+ b=d8U6NJSM+dhlmvje8nvl6iahjC9cSk5ZfTOToC75Vcd7ablx+gRrLvgxY3fwd791LaS9xmAK6KWaXh7tIHJYWjcsLVQSutLpDyw2DDuSy0lMxQrdUF/rlspUnWKMVC+MsGh8EtILcJYJMt3FXe706fFYXOcTfbtGnuWGzrSYhyhzFQHdkfjeWL2CeCQfcNXS5EaQtY9DwgyEpwbEUdg9hcxJpi2WzFa4dASNOoLpJbZBayr7Ks2zQvUyLpsfKdouy9K8UEA3Hdgp+gQnz3SpM91ogxdREhnCfsiPHVejpHsFyh5YiRzLQdBgP7jUacHkUUjYVHMMSc9I3s/t2+v5zg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bXlUuERUOqidt72mvmTndTAoYS1M4jBWxdh46Uc/MJ4=;
- b=Uwb4hBNEdAj7LA834wv8q/rjuxpDg85YvB5AI4/WKtaDoQYO376UtkiDniLjPvMR13YWpNN1V1xf5Nl15IZDxuXtY7CnSI+yl1aiHMeNQMu1iUaho8wUqcphXbX+NMH5JVlrXHfNGiy737sycVTtXC/9r4hiSYiJbJKxGqILvm0=
-Received: from CH0PR04CA0006.namprd04.prod.outlook.com (2603:10b6:610:76::11)
- by CY8PR19MB7201.namprd19.prod.outlook.com (2603:10b6:930:94::6) with
+ bh=H8x/gPxDNTcA5keJMihtiS4o8vLC2DFNl4AZGUpHfGw=;
+ b=jxglQVm/FYX9iMitb+gSiKxWenU5BSz5FjG1rg21rETQDpWlJj5s4o6FUb5mD+pGReKJNt43lk/9bv8Inj/ZDOjFYeqUlof/ewcjd6SfyYmc2fTTF8mCrQfnd+BBxCurWRTIaHBbU/eMyDbSl0nQg4yBjPhCHOSwrhu+uRnH+JmGKZt0GdvOE+hZiUfQdekw3JGDbKsDGumE7oY2xet+8rL7O7VCLFP9LSyzNdsaLEKAOq7RUdomKCbDaQlvOy2WfbNU6krdNXBx7ODdM1pJlTz1Wp+gqQmPlwF/la0pMxz1m+d3Ux2FvyyUWXoz4WoFOvVebdWDQq1HkBOKTJUY0g==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from DB7PR04MB4698.eurprd04.prod.outlook.com (2603:10a6:10:1c::21)
+ by BR0PR04MB649822.eurprd04.prod.outlook.com (2603:10a6:2c8:61::16) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
- 2026 09:33:15 +0000
-Received: from CH2PEPF00000146.namprd02.prod.outlook.com
- (2603:10b6:610:76:cafe::5f) by CH0PR04CA0006.outlook.office365.com
- (2603:10b6:610:76::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.16 via Frontend Transport; Wed,
- 23 Sep 2026 09:33:15 +0000
-X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is 84.19.233.75)
- smtp.mailfrom=opensource.cirrus.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=oreject header.from=opensource.cirrus.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
-Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
- CH2PEPF00000146.mail.protection.outlook.com (10.167.244.103) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.8
- via Frontend Transport; Wed, 23 Sep 2026 09:33:14 +0000
-Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id CA68C406540;
-	Wed, 23 Sep 2026 09:33:13 +0000 (UTC)
-Received: from opensource.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id A9AA5820247;
-	Wed, 23 Sep 2026 09:33:13 +0000 (UTC)
-Date: Wed, 23 Sep 2026 10:33:12 +0100
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
+ 2026 09:44:16 +0000
+Received: from DB7PR04MB4698.eurprd04.prod.outlook.com
+ ([fe80::c571:bdf2:afe7:c03c]) by DB7PR04MB4698.eurprd04.prod.outlook.com
+ ([fe80::c571:bdf2:afe7:c03c%4]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
+ 09:44:16 +0000
+Date: Wed, 23 Sep 2026 18:44:07 +0900
+From: "Ming Qian(OSS)" <ming.qian@oss.nxp.com>
 To: Myeonghun Pak <mhun512@gmail.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-        patches@opensource.cirrus.com, linux-sound@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-        Ijae Kim <ae878000@gmail.com>
-Subject: Re: [PATCH v2] ASoC: wm8962: Stop IRQ from requeuing mic_work on
- remove
-Message-ID: <arOc2HZm3JCf5tjJ@opensource.cirrus.com>
-References: <20260923030641.992569-1-mhun512@gmail.com>
+Cc: Ming Qian <ming.qian@nxp.com>, Zhou Peng <eagle.zhou@nxp.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
+Subject: Re: [PATCH] media: amphion: Stop mailbox RX before freeing the
+ message buffer
+Message-ID: <arOb_IrqoVq9FAw3@lsvm11u0000189.swis.ap-northeast-2.aws.nxp.com>
+References: <20260923051950.89403-1-mhun512@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923051950.89403-1-mhun512@gmail.com>
+X-ClientProxiedBy: SI2P153CA0002.APCP153.PROD.OUTLOOK.COM
+ (2603:1096:4:140::16) To DB7PR04MB4698.eurprd04.prod.outlook.com
+ (2603:10a6:10:1c::21)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923030641.992569-1-mhun512@gmail.com>
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF00000146:EE_|CY8PR19MB7201:EE_
-X-MS-Office365-Filtering-Correlation-Id: 035c1831-03b8-45ce-915c-08df1955b170
+X-MS-TrafficTypeDiagnostic: DB7PR04MB4698:EE_|BR0PR04MB649822:EE_
+X-MS-Office365-Filtering-Correlation-Id: 63b6a5a4-7d97-455f-6c9a-08df19573b87
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|61400799027|23010399003|376014|82310400026|36860700016|10067099003|56012099006|11063799006|18002099003|22082099003|16102099003;
+	BCL:0;ARA:13230040|376014|366016|1800799024|19092799006|23010399003|10067099003|11063799006|56012099006|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	bVkLl99OjSk7fJ7eGy5cZmEiznBJc8ufIZT4iKfL2HDH+h//Au0uEXj+hBL2nafPvXxCzbux4/Io8fq8QQa5rNiX1bNwj2M475hA7K/QS9815A7IrSpf/rqW4IK/9i3mI8lXAA8UZy9i47yQuvkvsHQsO3FQZA8O1i2kjJSfrX4b24tfdmYxQzOD5knH9tHzoxvmazpDSi/KsbwAbQMZZp24WZ0/la/ylSK90grR7s6BoBQCe36feeWN+2CMO7firY5dbUOKhN0BB8N7WzVibR7zJ4OBKlLJPgfnx28LqetKYSnPmD18vR8OW5+PYN4GdFj2knyjtCS+b9LfWuLHCFnGkLsBESyS+UrYmW0RynaWtMgmx7CbzKntDl6CE/+94+OUpYg12alBzwQ4IVgQJ0X+XFlKPhew1LdOoi+VkpVgdpf9op6fSDpkHOewvQmbILQlzwMH7yJtrSYA+FKlC/XaktrmSWGdyti633qg16SqS7dGyaWNPRZqcAxgGf9HtiJzhnxC8xMNMlUbu7eeNqHrP7o6qp5lzKItJ922DXnOZ1vYeX019Bq9+vbJp9M+Us0n7GYjxKl4ZBoyB0tuXzcgCImF39D0MZCD2RjF44V+rILh1dnB6y2gbeQ8cIVeOnK74qvHq0XwLzIKL8u9ql7JchRKBSijTB2OBG1WJFZ9WzpMw9ybq96HJ/67bp0teYvp0bivxLcKOP1oIZD1Gg==
+	d1Rz/tseVzwSvhrrJMJW6DKKk/EL/Mldona43ihPZ2l5oNqs/aCTjcCLog7L17mCahPmEKSShl6lyWTFpq1KlzWt33AEU1Xt+Vsf4dzYK7XqvwDFeAQtgh7d/0leDU2A/ILNGkWWYZXn7wZWDr1P32IgtJxWsdXFr29UgshoQtqNDfoc8EZmtMnanyvRwLDYM4YQgWd0bmgF8z9VFCgbr8uS2e14bMVTv7+42Oy+IlYOK35Bn4TtIVHtrSubWUulJ0dOvOm2cxyUODaMzqBProKHc8w2DpW1HEOoVUTCZ9a68qWFDVteoXMRRwwQzI8PPQId+me6S8lB434Y6ElNbZAoRX3T4CWA76IVpPpLZs8yZcE9cuyFN1c1hdB75qo+o+W5TbLEmbzPmy15wCBcxbKF2NlWzHe1LZ6LOSsYwpxxs3KEddHGR658h7g49atTV7uubSPIi1RRjW7L+GRkF3DXlvo9O7XGNx7+Y39ypOfVuteG9DkQ+ZmLN8fsLyNDsuuCiWpK/N1tg2vyuLnYW2qZ/rivzjKVIQjU6f/m+/gRhHcJCFr/pF1m+J7mqsERlKy+yfDLcVRSIbLvKUmoM5VQiTQtSvLsMAbTIDF6zKAvPxVD+6sa88B/Xq1KAaL2J7AypKTT8wkmrp7ir6UHXnKcieUxNEDG14t7qLiTtfc=
 X-Forefront-Antispam-Report:
-	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(61400799027)(23010399003)(376014)(82310400026)(36860700016)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003)(16102099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB7PR04MB4698.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(19092799006)(23010399003)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	4mGSqD9m+9cyqQsV/JOdE8uW/HEzuCPanFmKNJWhs3iIWSwhko8/pCAwSvLz+JegxFTKzPxFg0hn3wsTa5gEXv4bMfqreOwhIqDMsGdm7igRWAxvlWwd+kcGojrQfp4q3GTbJXaGABNXco2S2dOXc4cCLKJ4bonq8d67gde+csxqDQbAHuKsRbVhwQljQu2V/L3s1N0LA7veeC5Tmnn2R4nH/DEg6vfu+Hmjbs80wwwdN4VhU4cEdqaiJKkwGmmY30CgVnC1K5OkdffQ/t11YFizeX8QWAQ++O2HPOxllTssiairL4D5cDRH96sPPrs9karLcvOi9OKvB3DdGHqfNCJhYSdXAIzdZqZuNIrlCndlPPVHgCsBKNy6SMAHLHA4msfGwHQydsEljeqJbVm4HsmlqB2yDKKl6IMIUeCOYjZ27Cvz5pdFLihBuQ/n3te0
-X-Exchange-RoutingPolicyChecked:
-	nPPezBJOWgYIkK+qVPBHb0OSbMtw1VPx01qYN2D3jtlREsQukN8nO8yZKT5y0U14Dwx5yVo7xyJ2FIIAqqPTgpq/cY2xKnRy9F2WCOsz2XZ7HJ25mVEVUPtOgO4QIUs9X738zKALdFpQUsYk0ULf8wO84MvIq/GGjARYdJWT+Csm9MXHtvMxYxx5rUJhsL0I8oPguW3bCldIzNxxGcshNsVlHOiuQabiNvDQCSWtMl6nGTpyEj9PLZPqmF539YNPn3/mDVV49sv7hUUJB94eYH9ZOTgKkcncsYfjvlFUe4lu6H+fxwpztrD9LvBX2fgpK7G44m3vz7dnSeEqVpHS7g==
-X-OriginatorOrg: opensource.cirrus.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 09:33:14.7384
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 035c1831-03b8-45ce-915c-08df1955b170
-X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
+	=?us-ascii?Q?/JEANT5yJPkekobKRg+We6bqlO6jnQ1b77NzwYNo/l9WZQiBDa27z87H9lO+?=
+ =?us-ascii?Q?nu+XZMdbieQtc0ifTU5M9HUJU66pHZhN/LufQ/sTxJWs8OzZXJIBbUVoYG/L?=
+ =?us-ascii?Q?qEdO+gxOjJPu0QuMPrkNVrj6RZp/9XkXWTcYux89iY4yIQOl5y9X7jfweSpn?=
+ =?us-ascii?Q?SeLUxyh37kFJDlnVVF/s5N2s/d4LZTAeFQATJzcAAIPG1KD4Jld+c++CoRw+?=
+ =?us-ascii?Q?G1PcVloLEdXuB8rQxE+EhS4TmOKmGl/15PP6lhMu0HaSK0qyiPpvXr1fZX2r?=
+ =?us-ascii?Q?y6LE05Mwd7jKUX6zWPygZ/ksF2FGd7Pj0iY+O9yUveXq2mWYpN8/HPBu3M1A?=
+ =?us-ascii?Q?/3rPnkUyKs31c9x0lVFPGXtKV2mWXq0CvNiUXq4enM072jVf44ayNpTtL0Mr?=
+ =?us-ascii?Q?KkgpUjgh31NgQFoA2Ryi/pJp7uVjlF6ZkDeMUHutHgCAxyRP31Qoz6sJVlqr?=
+ =?us-ascii?Q?5pGX6pN6hgVwDCuHLW/Sd7Keyp7eKfz+bOAljI/X1XVncEbqYYBpqbPLSS7Z?=
+ =?us-ascii?Q?uzQ7sX8QsUmKu+U+C1fEMltnryhR3ZwHZdyYjz6NdDh0O0X+5qcvlC74ek8o?=
+ =?us-ascii?Q?j+z0eYoNrD43ricAdOh25hYhZDgbTiWlV5wv5PY+vSxS/Z5yVH98q9US51Lz?=
+ =?us-ascii?Q?Fm7E5d96xD9gbTHLQfxOnVWsdn/nJwhLyylFgTQuGFcjurywiXDqmXoZxUlO?=
+ =?us-ascii?Q?CrEsaYDTSBHDzyci3FJFsdEBTyBwarega8w7RUNWaolh76T54v0/DbBNiEGs?=
+ =?us-ascii?Q?D8Cc3ZveLqPAZWxVeeq20yttKKFKUe6jxfHRMqUuF+hZUZCAS1Tk0xSjQFIp?=
+ =?us-ascii?Q?iB2b1/An3F9sK0eN/ZI4ubqPKHjbQ3j/ig0yVEXMrkF8Ih+RG8mDvVz9CYHt?=
+ =?us-ascii?Q?7WEse20YJNhB3V36ptoKVnh/A/6uGLyn34D5/TF/i6tgE/GvSUkAnGzsNdio?=
+ =?us-ascii?Q?6blOpihCNp+LQ2nH9qKAH+scedfUlkeSxBlmxcZ4KYrcvdBEuj+B2ijREilq?=
+ =?us-ascii?Q?wYTNa5177nioJJVIonRgFa2bc+XMl2hhmwHiFjSSQS1Qum3RqJxsV3/5b0yU?=
+ =?us-ascii?Q?2j/eTDY/Nvt0BWM8Y8kirVwR8bPu37plbCHuTj80CVZULdLcyGbMZR+Gd+nz?=
+ =?us-ascii?Q?2PJ0aJo+zNwhXLbyvZZgiZ/7Obcs8ueg0712BmECxEtzam9M69a9RQm56w0d?=
+ =?us-ascii?Q?8iEVCjt1NgMTk33I+YHuHIAtXwyjOEwVQOCigg/ah7z9kuch2C7WeYVoUiG0?=
+ =?us-ascii?Q?GQ58jLcPhMAe0yjnoZfgFt/4aK4/fjI/wjHRpzTuK3S5g6bnX4AnGKTegvkt?=
+ =?us-ascii?Q?YD+4rJ9c+/TuOAptCLdPlZLNFwA5MHdHRV/kSvq5UNUlQ5J7lfeA9rarkB34?=
+ =?us-ascii?Q?hV0hTqK67vu7WVlOeloFHPaBgMlzRlXvbV6ZCX0rT2HxJPLwFRYZmTU3UncK?=
+ =?us-ascii?Q?JjpPP6c6TUdp/OMp5qwbYi2FZz+VMRxlWcKwKVbRfsk9kBh+raya3b3J7vqL?=
+ =?us-ascii?Q?7HO1/TEtSErbXkUFJX2NNEzI+pq2O1zOWQANC8coksoF0Z50ai8y2y3Zf4lM?=
+ =?us-ascii?Q?OnbymW9lRSQSHkTPj7o+nuiHUihQyTgp7+0QnAOs9RJolUzpEmCKcdmAvxo0?=
+ =?us-ascii?Q?dk61QvHhXWtrA9/g9VoNb4EihvjUwmiLVZvafs45pfIolps9lQ+KsGyFcDhY?=
+ =?us-ascii?Q?l8+T3bYpwaitOvY9eYKfT64APgbxTED89t7euzASi1TvT9GlcLX4ErGtl4Vc?=
+ =?us-ascii?Q?tzk9G0aPxPNFf2/vfZ1ymvmfc9jLHwbmhCl5ZaQxaWth7uxVAJ0V?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 63b6a5a4-7d97-455f-6c9a-08df19573b87
+X-MS-Exchange-CrossTenant-AuthSource: DB7PR04MB4698.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-CH2PEPF00000146.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR19MB7201
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDAzNyBTYWx0ZWRfX/DRNicDonrTM
- S9TlpTR7kViwa54/odfj8+Nw3s/7tFPw3MdL/E2rOx+zNujbgL23VMnX8yG9vag9MJs7j11FVEg
- QUpLH//gwSP4XH7mmWIy+EGeiv/is29sxa92jtZi/XO4bzHiHDk7PjYxYssQswakmHeLbCDFU2W
- K/S3HItqf2OSzDEpmQggIDRHOp+lAmYHXY5aexGiJQFP6EtbiBq87wtqCT0zOiIBC7Jsk3L4fRq
- HRlDKAefLq8MaiSVnalQsqncAbHc7EgiMb1WgN3WK4HPTbBVykRN6MbGLsovQbYiPOfVHg3F1c5
- SQ/DM4ZJhBMaWziXLhD6CZixw32GL3op0uSJ1y9SnrTOPiiu7MxPqxJOscKwG5xgePRPOV57VIF
- +2qT/fu84Cu53Nrhkw/NLI2vmj42taTYKfo/hWJRABh/1ADTuLVDSifDmZRqTU+dCgR/z3jKcjF
- 7LfzDbqqFUE/6csZ0Zg==
-X-Authority-Analysis: v=2.4 cv=TPTQ2Fla c=1 sm=1 tr=0 ts=6ab39cdf cx=c_pps
- a=D7/jkJElyu5J9GVQDo57QA==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=Dj2-6B8FqX4mGL0U3gbX:22
- a=oIgDJqyV6jQ77BMZMCwA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-ORIG-GUID: Ye9f5Q6QSi1K6ITOgMlbvp3Nx7AeBYri
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDAzNyBTYWx0ZWRfX7U39HF8rFZ9o
- XIgDRDhbXTQYg1rYF/NN/1NJwjGrnw5nPKiZtsWKw8BM3pnxCp0EsojETHxHO6sLuJ6GWA/55qS
- RoqqOrJZT/OQCqxmfJi21ROJ6mUajOg=
-X-Proofpoint-GUID: Ye9f5Q6QSi1K6ITOgMlbvp3Nx7AeBYri
-X-Proofpoint-Spam-Reason: safe
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 09:44:16.3343
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: QK2Tzjkf7n8H/8920plvkOBbiXO6w5A8WsIZmJZBOLRhDpuJnX4Wqks679nZkSFT0aUzsnA0IwdWkfYzG4I9Hgiv69InPEVu3K0Ws5XvidazWLjscM7jv+ZXh1eoyrHF
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BR0PR04MB649822
 
-On Tue, Sep 22, 2026 at 11:06:41PM -0400, Myeonghun Pak wrote:
-> --- a/sound/soc/codecs/wm8962.c
-> +++ b/sound/soc/codecs/wm8962.c
-> @@ -3115,7 +3115,7 @@ static void wm8962_mic_work(struct work_struct *work)
->  
->  	wm8962->mic_status = status;
->  
-> -	snd_soc_jack_report(wm8962->jack, status,
-> +	snd_soc_jack_report(READ_ONCE(wm8962->jack), status,
->  			    SND_JACK_MICROPHONE | SND_JACK_BTN_0);
->  
->  	snd_soc_component_update_bits(component, WM8962_MICINT_SOURCE_POL,
-> @@ -3203,9 +3203,14 @@ static irqreturn_t wm8962_irq(int irq, void *data)
->  
->  		pm_wakeup_event(dev, 300);
->  
-> -		queue_delayed_work(system_power_efficient_wq,
-> -				   &wm8962->mic_work,
-> -				   msecs_to_jiffies(250));
-> +		/*
-> +		 * mic_work reports this jack.  Removal clears it before
-> +		 * synchronize_irq(), so do not queue once it is gone.
-> +		 */
-> +		if (READ_ONCE(wm8962->jack))
+Hi Myeonghun, Ijae,
 
-This feels a bit like its duplicating the mask check above, I
-think it would be nicer to ensure that works as intended than
-adding a second layer of filtering.
+Thanks for the patch.
 
-> +			queue_delayed_work(system_power_efficient_wq,
-> +					   &wm8962->mic_work,
-> +					   msecs_to_jiffies(250));
+On Wed, Sep 23, 2026 at 01:19:50AM -0400, Myeonghun Pak wrote:
+> vpu_core_unregister() frees core->msg_buffer and clears core->vpu
+> before cancelling the message workers.  The fifo keeps its own pointer
+> to that buffer.  The core workers read it and queue inst->msg_work,
+> which uses core->vpu and may send on TX.
+> 
+> vpu_isr() fills the fifo from the mailbox RX callback.  i.MX MU
+> free_irq() waits for that callback, not for the queued work.  An open
+> instance holds a runtime-PM reference, so remove can skip runtime
+> suspend and leave RX active.
+> 
+> Stop RX, then drain the core workers and the instance workers they
+> queued with vpu_core_cancel_work(), while core->vpu and TX are still
+> valid.  Free the buffer and clear core->vpu after that drain.  Drop
+> the runtime reference only then: runtime suspend frees every channel.
+> 
+> Fixes: 9f599f351e86 ("media: amphion: add vpu core driver")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> ---
+>  drivers/media/platform/amphion/vpu_core.c | 28 +++++++++++++++++++---------
+>  drivers/media/platform/amphion/vpu_mbox.c |  9 +++++++--
+>  drivers/media/platform/amphion/vpu_mbox.h |  1 +
+>  3 files changed, 27 insertions(+), 11 deletions(-)
+> 
+> diff --git a/drivers/media/platform/amphion/vpu_core.c b/drivers/media/platform/amphion/vpu_core.c
+> index 85cc4a14f8ed..000000000000 100644
+> --- a/drivers/media/platform/amphion/vpu_core.c
+> +++ b/drivers/media/platform/amphion/vpu_core.c
+> @@ -299,21 +299,23 @@ static void vpu_core_put_vpu(struct vpu_core *core)
+>  	core->vpu->put_vpu(core->vpu);
+>  }
+>  
+> +static void vpu_core_cancel_work(struct vpu_core *core);
+> +
+>  static int vpu_core_unregister(struct device *dev, struct vpu_core *core)
+>  {
+>  	list_del_init(&core->list);
+>  
+>  	vpu_core_put_vpu(core);
+> -	core->vpu = NULL;
+> -	kfree(core->msg_buffer);
+> -	core->msg_buffer = NULL;
+>  
+>  	if (core->workqueue) {
+> -		cancel_work_sync(&core->msg_work);
+> -		cancel_delayed_work_sync(&core->msg_delayed_work);
+> +		vpu_core_cancel_work(core);
+>  		destroy_workqueue(core->workqueue);
+>  		core->workqueue = NULL;
 >  	}
 >  
->  	pm_runtime_put(dev);
-> @@ -3232,7 +3237,7 @@ int wm8962_mic_detect(struct snd_soc_component *component, struct snd_soc_jack *
->  	struct snd_soc_dapm_context *dapm = snd_soc_component_to_dapm(component);
->  	int irq_mask, enable;
+> +	kfree(core->msg_buffer);
+> +	core->msg_buffer = NULL;
+> +	core->vpu = NULL;
+> +
+
+This looks correct to me. One suggestion: please move vpu_core_put_vpu() below
+the drain as well, so that the whole release sequence sits after
+vpu_core_cancel_work(). That would also match vpu_core_suspend().
+
+
+>  	return 0;
+>  }
+> @@ -700,10 +702,18 @@ static void vpu_core_remove(struct platform_device *pdev)
+>  	WARN_ON(ret < 0);
 >  
-> -	wm8962->jack = jack;
-> +	WRITE_ONCE(wm8962->jack, jack);
->  	if (jack) {
->  		irq_mask = 0;
->  		enable = WM8962_MICDET_ENA;
-> @@ -3247,7 +3252,7 @@ int wm8962_mic_detect(struct snd_soc_component *component, struct snd_soc_jack *
->  			    WM8962_MICDET_ENA, enable);
->  
->  	/* Send an initial empty report */
-> -	snd_soc_jack_report(wm8962->jack, 0,
-> +	snd_soc_jack_report(jack, 0,
->  			    SND_JACK_MICROPHONE | SND_JACK_BTN_0);
->  
->  	snd_soc_dapm_mutex_lock(dapm);
-> @@ -3594,6 +3599,15 @@ static void wm8962_remove(struct snd_soc_component *component)
->  {
->  	struct wm8962_priv *wm8962 = snd_soc_component_get_drvdata(component);
->  
+>  	vpu_core_shutdown(core);
+> -	pm_runtime_put_sync(dev);
+> -	pm_runtime_disable(dev);
+> -
+> -	vpu_core_unregister(core->parent, core);
 > +	/*
-> +	 * The IRQ stays registered for the I2C device, including across
-> +	 * card unbind.  It is the only producer of mic_work.  Clear the
-> +	 * jack first so a new handler does not queue, wait out a handler
-> +	 * that already loaded the old pointer, then drain the work.
+> +	 * Runtime suspend frees every mailbox channel, including TX,
+> +	 * and is skipped while another runtime-PM reference remains.
+> +	 * Stop RX first.  vpu_core_unregister() then drains the core
+> +	 * workers and the instance workers they queue, which may still
+> +	 * send on TX, before the fifo buffer and core->vpu are released.
 > +	 */
-> +	WRITE_ONCE(wm8962->jack, NULL);
+> +	vpu_mbox_free_rx(core);
+> +	vpu_core_unregister(core->parent, core);
+> +	pm_runtime_put_sync(dev);
+> +	pm_runtime_disable(dev);
+> +	vpu_mbox_free(core);
 
-So probably calling wm8962_mic_detect() here. Although
-granted that probably needs some small fixups as there are a
-couple races, probably also makes sense to move the mic_work
-sync in there too.
+This part, though, I don't think we need.
 
-> +	if (wm8962->irq)
-> +		synchronize_irq(wm8962->irq);
->  	cancel_delayed_work_sync(&wm8962->mic_work);
+The driver assumes that all instances are already closed by the time remove()
+runs. struct vpu_core is devm_kzalloc()'d on the core platform device, and
+inst->core is just a plain pointer taken in vpu_inst_register(). So if an
+instance is still open when the core device goes away, inst->core is left
+dangling, and the next ioctl - or close() -> vpu_inst_unregister() ->
+mutex_lock(&core->lock) - will panic. get_device(core->dev) doesn't help here;
+it pins the struct device, not the driver data.
+
+As long as that assumption holds, the existing order is fine: the runtime-PM
+reference is dropped before vpu_core_unregister(), so
+vpu_core_runtime_suspend() -> vpu_mbox_free() has already released RX along with
+its irq, and vpu_isr() can no longer fill the fifo. So I'd drop this part, along
+with vpu_mbox_free_rx() and the vpu_mbox.h change. That also keeps the fix small,
+which is nicer for stable.
+
+That said, the hole you're pointing at is real: remove() can be reached today
+with an instance still open. I just don't think the right answer is to harden
+this path. rmmod is already safe, because vdec_fops/venc_fops set
+.owner = THIS_MODULE and an open /dev/videoX holds the module reference. sysfs
+unbind isn't. So how about closing that instead, as a separate patch:
+
+  - .suppress_bind_attrs = true on amphion_vpu_core_driver, and on
+    amphion_vpu_driver too - otherwise unbinding the parent ends up in the same
+    place.
+
+  - WARN_ON(!list_empty(&core->instances)) at the beginning of
+    vpu_core_remove(), so the assumption is stated in the code rather
+    than implied.
+
+Regards,
+Ming
+
+>  	memunmap(core->fw.virt);
+>  	memunmap(core->rpc.virt);
+>  	mutex_destroy(&core->lock);
+> diff --git a/drivers/media/platform/amphion/vpu_mbox.c b/drivers/media/platform/amphion/vpu_mbox.c
+> index b2ac8de6a2d9..521fd47f1d90 100644
+> --- a/drivers/media/platform/amphion/vpu_mbox.c
+> +++ b/drivers/media/platform/amphion/vpu_mbox.c
+> @@ -88,14 +88,19 @@ error:
+>  	return ret;
+>  }
 >  
->  	wm8962_free_gpio(component);
+> +void vpu_mbox_free_rx(struct vpu_core *core)
+> +{
+> +	mbox_free_channel(core->rx.ch);
+> +	core->rx.ch = NULL;
+> +}
+> +
+>  void vpu_mbox_free(struct vpu_core *core)
+>  {
+>  	mbox_free_channel(core->tx_type.ch);
+>  	mbox_free_channel(core->tx_data.ch);
+> -	mbox_free_channel(core->rx.ch);
+>  	core->tx_type.ch = NULL;
+>  	core->tx_data.ch = NULL;
+> -	core->rx.ch = NULL;
+> +	vpu_mbox_free_rx(core);
+>  	dev_dbg(core->dev, "%s free mbox\n", vpu_core_type_desc(core->type));
+>  }
+>  
+> diff --git a/drivers/media/platform/amphion/vpu_mbox.h b/drivers/media/platform/amphion/vpu_mbox.h
+> index 8b7aea4f606c..a934fe61b294 100644
+> --- a/drivers/media/platform/amphion/vpu_mbox.h
+> +++ b/drivers/media/platform/amphion/vpu_mbox.h
+> @@ -8,6 +8,7 @@
+>  
+>  int vpu_mbox_init(struct vpu_core *core);
+>  int vpu_mbox_request(struct vpu_core *core);
+> +void vpu_mbox_free_rx(struct vpu_core *core);
+>  void vpu_mbox_free(struct vpu_core *core);
+>  void vpu_mbox_send_msg(struct vpu_core *core, u32 type, u32 data);
+>  void vpu_mbox_send_type(struct vpu_core *core, u32 type);
 > base-commit: 238650ef6c7c7cca08e032527329424c9fbd70e5
 > -- 
-> 2.53.0
-
-Thanks,
-Charles
+> 2.47.1
