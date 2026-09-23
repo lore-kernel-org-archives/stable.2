@@ -1,178 +1,491 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012044.outbound.protection.outlook.com [52.101.66.44])
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010023.outbound.protection.outlook.com [52.101.46.23])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE03E551997;
-	Wed, 23 Sep 2026 16:42:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2CB65476EF
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 16:43:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.23
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790181762; cv=fail; b=QVIn8Bl/uJ+N4NBglAkLwLtwerxYloIGffbU0DlbA6tG+cii8H6KxwpxV/EPjnodxqkZ1N88doPclPC/UWRY2yQ1036EFmnIpjALiV/KdpNASwdSjL3QOXHfO/3cFwCldEm51EV+DtrUuq0kDVW5MFF6nqhBZ7eGDmUmV7KH6g4=
+	t=1790181830; cv=fail; b=GTnFdu5wVrtcfvit5Aq95DaVTWEIBFDOauAnva/i26zUGupm4/aI4yGR+2xV73kiZAo+45ir2JL9GI7GXIQ6AvUZkrZ2ZTNpp+pXQO9POtZQhSxKqMub4O/cVCQPg6aiAv6asIaClcW8JGJwgmjaueleCrJ2keRS7Lxt+2h7fUk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790181762; c=relaxed/simple;
-	bh=KyH/FSX7Kp0Wqpc4tLPos+9ytbW/YHKlHODQPfIwMts=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=c05ywptUs//OcubFLY5Twt/18OHPpdC6STVSDGzB7WsAUYsMNftxRH8QvVxd68M8SaAUs0eOJ0+IentnM9LoPzbL9zxqxpWvNN/P686ShcZfpG8OD2H9x96I+gYiD/CR+o0s5wef0KIhSIbZHGEAniIFVzcsE+NajT9Jv1iyR04=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=I4ErPXr3; arc=fail smtp.client-ip=52.101.66.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1790181830; c=relaxed/simple;
+	bh=oomCUKd22jPjVNiQkfNf3su2UtmI1iJpZmu6gL+Yf1s=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=FeN2gQCm5KYU/7+tJOp/BQKo1LLrJjtjACAZkKq0qzZvqbytb7uMs+UHUbtC/lvFySHhi6whTPXeaEakyi2IoUSpqdY41whmQFGF/uYk/d2qtrCGPrpC1wL3UjjbHFkveUGk62iEnVqUtVxQCAjjE/UtVY2YcNVZSvhe0j2Hxtg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=ktQBh98+; arc=fail smtp.client-ip=52.101.46.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="I4ErPXr3"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="ktQBh98+"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Iuz/25FFFNi157sPzofzJ0cJBUhQWBT3gj70xRqwiP7PNQaxCFn/fYbTCkRDtEUGeeUpZNKXaaj9LnacRyzq+Ca8f8tEEjnBR7DHbW5fnxntuuegHmuPlt9WovFQFoW6x8gW5de5AFU9u6RPo79Q2rfafYqRvY1k9KzLN3fdGtOCnkYny7Fq1PnrpdbwbfmNFSMV7iU+Q/94cuFct/p6m3RFY1YpRsVFwEyJT/BS29jrZNHqByTyCcN4exDGdblAMrk3Let4MgcewL2b19MbnnX/spMkEQmyKA587b91gWgaTDA/7yg1lMLkaoGq/I55M+c683/7Rojtc7Jf8aW+jQ==
+ b=Z7HHDGeby27BD5MvuByMrwBR6TsyLl6zZi8tmtpmQ6/OVPnB/DbuV6+4v2E0CiuUQGxxqzoVFy4oiGKB5+Ou/liuEMdjxr2oz3KqZE6p6WjulSJk4NJSGOrFruK4UFjyaF6A72ycqiaXBFhyTFA2qOEFm/3EUKq9rzK1Kb4GXFXnOPL/AsN0BZUz372ezFVAngh140yS+QCZz8hnvKRjpSWtCibiwczhmT33dW0LNKuzX0ehj7g9dnDh08oxO0AiPkFh0zbNsILjEZ2HJSBsxuu0kW2pKMIv9o1vWa+ZRgXlN8AeaSMZHOfVtpjmkM6lcNfITsMtfIlvtDCVe2T9ow==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Oejb5g3w0UauPVXc6oXtRUgH1LbqQe6DbajlZMBoyvg=;
- b=H8xuo27OGm/yc1F9NX4QAEa0GvAILXhmeVfO6Q41lsG5sVllS1gNttVW+NLiN+eu6Lkl7kN6vIpO24R12vzDJokNCPTvB2oehlcgq7RudUVvtGmIAF2Jr56Tb8Bi45l5JS2fob4kSv7y40qqCg78ZQ/fKUuQi3DtMizxR93p82ZQT6ZbXWnxV5DlCUkAaLz8e5xAf5VkE0XVpj5H2ixEMAaMluRvLsSWtMFf5Hn9M5hX1wqqwToF4HoytCXTWjGU9EuccPoAKbLn15FGqAGB2zzXzfZ0Do1QKpcFcRqchtN7UkTfNt3pFnYFTXnEqcjh+hbE1Ys1UuwFSowzIblBsQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
+ bh=DnjNNwmdlRkZH00dXJSf8089gqhpxjkZAyo+q5qFZik=;
+ b=nu2F+RUW/Dl0XZvVO6RbRfF8eySoxdCTbUQOpUzMlEwtoXVPvFeayT+IRUcBdkfFN1TvCY3D2e6icM2AQyUAAGrcNcfG3DSZaERLXkDFTRBW5vVryNlkOq+h/lzt3FNt8Vg+8xVW/QtPKHAvO4JeKHDMFGHMmtyjEuBHFGi4OodeVCjXXlHPtyB8ozivGkoqa9if+2Br3Vzrq+p7cbLX7NunHx4JiK2/+0wuW88MnPHVb7qyHlJny9RknYIKnb2df1j/flsoY9SAj2M7hjkB3cbG3Moz91vwdhSGyRtMtaP9DT4mbhwAMuPzvshKjWCAxl0XcmgWtIPEF8TYHthL/A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Oejb5g3w0UauPVXc6oXtRUgH1LbqQe6DbajlZMBoyvg=;
- b=I4ErPXr3cZYkvevhNhtIHxChhAypqmEsxwjHkukJcOaAtDrevXP3zQ22lbsZydWI9VwMuUvxDIS5uZfenKuxVaO1VVwszb1QB1wE6b7McMJYID3OqytgRC3pjEAOB1FJ+tyqee4e4OyGn1X2d0q7+nrFPgeUsFLlyJZ5/q/DpJtFZtnEPJVWCQjwmygT71Nu5fEKS3uCQJrazb4pWbMlQ3JV9D5SC7/Gyt1bw+QslV098+mLGBlbMZ6FJpFKzzwjz8tYKIO1R6/HMbt3Q+9Hz1wsyix3TfY6j4kg319SnUZjil+391jmsxgANpIQlvXvuhwwvry8RLMtIofQ9mpjfQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AM9PR04MB7506.eurprd04.prod.outlook.com (2603:10a6:20b:281::14) with
+ bh=DnjNNwmdlRkZH00dXJSf8089gqhpxjkZAyo+q5qFZik=;
+ b=ktQBh98+fXaH3DQrs4bHAkSOWQCb2BT9M9Jlf40U4N64cUWXOxbOhWQdLgE6njCW/lntgMF7zGMpF8GRcCA09CjnMpb63CzcC/EHneu4n9iZ7B62o3m4UU09i82vP2Ck8V9s7LV4+mhVcL0JBnS2NBWIgSO7eMMINiDQTmcBJ2w=
+Received: from DS7PR03CA0193.namprd03.prod.outlook.com (2603:10b6:5:3b6::18)
+ by DSVPR12MB999193.namprd12.prod.outlook.com (2603:10b6:8:496::6) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.17; Wed, 23 Sep
- 2026 16:42:22 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0428.015; Wed, 23 Sep 2026
- 16:42:22 +0000
-Date: Wed, 23 Sep 2026 12:42:15 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Fan Wu <fanwu01@zju.edu.cn>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>, linux-i3c@lists.infradead.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Song Li <songl@zju.edu.cn>
-Subject: Re: [PATCH] i3c: master: adi: free the IRQ before unregistering the
- master
-Message-ID: <arQBZ93iYSiaVueC@lizhi-Precision-Tower-5810>
-References: <20260923085340.490776-1-fanwu01@zju.edu.cn>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923085340.490776-1-fanwu01@zju.edu.cn>
-X-ClientProxiedBy: CY5PR10CA0004.namprd10.prod.outlook.com
- (2603:10b6:930:1c::19) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.13; Wed, 23 Sep
+ 2026 16:43:37 +0000
+Received: from DS3PEPF0000C381.namprd04.prod.outlook.com
+ (2603:10b6:5:3b6:cafe::4f) by DS7PR03CA0193.outlook.office365.com
+ (2603:10b6:5:3b6::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.14 via Frontend Transport; Wed,
+ 23 Sep 2026 16:43:37 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DS3PEPF0000C381.mail.protection.outlook.com (10.167.23.11) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Wed, 23 Sep 2026 16:43:37 +0000
+Received: from aus0006770c4n-lx01.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 23 Sep 2026 11:43:36 -0500
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: <stable@vger.kernel.org>
+CC: Leo Li <sunpeng.li@amd.com>, Mario Limonciello
+	<mario.limonciello@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>, "Daniel
+ Wheeler" <daniel.wheeler@amd.com>, Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH 7.2.y] drm/amd/display: Atomize IRQ register read/modify/write ops
+Date: Wed, 23 Sep 2026 11:43:30 -0500
+Message-ID: <20260923164330.3658735-1-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <2026092220-morale-drizzle-4aa3@gregkh>
+References: <2026092220-morale-drizzle-4aa3@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM9PR04MB7506:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7fd32460-2ff8-40f4-6ffe-08df1991a3fe
+X-MS-TrafficTypeDiagnostic: DS3PEPF0000C381:EE_|DSVPR12MB999193:EE_
+X-MS-Office365-Filtering-Correlation-Id: 00f1e497-fe37-4bec-b8da-08df1991d0ec
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|19092799006|18002099003|22082099003|11063799006|56012099006|10067099003;
+	BCL:0;ARA:13230040|376014|23010399003|82310400026|36860700016|1800799024|13003099007|6133799003|10067099003|11063799006|56012099006|18002099003|22082099003|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	mUPxTx05AegQA/Or5xqeE+yN64A5MBrQflfDb0JWcHWC3feIz3xfpreOnVBHEP05kPXxLzlNijrJnHC9Mk05T/RzIi9gMgZ4FnhZAg1tobnG8PBT22QYMHyHgGzanUh2WLyZFddFGDooVnNZQ0CKAE1/xf44SMOmxRiCIUCSJPueNLPdF/Z9QRmtChsHpqrQkO0dxzVi9f8sz8knexIklvW4ncniB+cbOthSz2bCK0haY6e7up9h81AcklI6Kr52zEwYVMn5Oox2roDjklBQCqSyf72yH6Lynk177suOxs4DIWkK5CjirYgEe5uWDkWmygM/IoJpEtRPEU+6yfGF89FkMk2bwSKha7xAWib7SQz3MxFOehMVobzS5Dj1xp+fthPn6iQy89i7WkLKgZ8YpWmW7yifIa6+QVkptUMAiH6MpAJHQkK83/LQVe22Ze4CySxmaf8MqUcprDs+snVH4hZnAZSUzE5oee2sl0g9znxSE+yPmQAEKpZ3MPp0n3+UYd5dvoFuRWMVB7LPVSneyfQRdmi27yQonwscGhoeNauHp4EMNQOWGEy/huZjDjG3FwiOF61D7frXWu+JEVbZBKknl2NhdgXq5C6iyR6B9D6U4oG6l5hTjDGzlLqLyotcVj03Bd27IW9SoWwk7SN+Ho55q+1o4g7JFOC0ZjGKF5A=
+	0wpHmagnktlMyZAuuQwz7w7dpTUN2UrUF7jKszg5NcpDHJAqQJsRW2fAq2g4Ze/+TW3QMx7QB0S9ffHitP8wR34bUYkOpL65iMK5bVlqG/rG1iKojWodQETJRo8M/FR/phgyheQ381xNh8DQi21RiymEeSY0P+VHivGBBEAgfB3DiPKsnfHsrwXKSXjU6hagknZq2cwy1A/d/ar8yfMaY0+sjpRNLK/JOTpCsduZy0Fd7d5tAlslzPcg4fnBo054qgcS7aiiHUtUSdugRRe+1yh08XMTQrcN4el8z/UWYOEMcJJKSvYA9oCQZ7yXEpnPlhWGt5tmUD19Ua+v+4GhQFsZZtDOl3z/YViKp7xrh+XIs69p2PWadyMfX/iBr2//zN6nZuzptqyQ+o5p0bziodZlbPgFBQCf8KClcizYmIB4WKyefJ++rjN9OXyuZ/52V68vb2FLPzYuM8JddKBcnE/dc0kPGW6AgxGuqhUtVww2fgDdNSCGj/bUI41G7GN0EzYfe4lM/YLq4ZqKgLt+YJ2+K8imjybrrcSNym1X5+4PeFkKtvC/cUwDcZWOGE89oJT1IGMjoSLSHOD894R3jMYcAJryhqWk8Z2lgVwDa+N7YiYooGWD6PPY6FlZXyUemRepN5mR6vA+q1GgXFw32w==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(19092799006)(18002099003)(22082099003)(11063799006)(56012099006)(10067099003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(82310400026)(36860700016)(1800799024)(13003099007)(6133799003)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?YP+P3qt9gQNgKw81jUiUi7aTyJRsuE7oNiN0bYSp5zm9uuWp7vAnD5ve25ya?=
- =?us-ascii?Q?cxwu8vvQajpIEdLMrPjek2ZlZONVk6p7vKe4BmDn9X2gu/JycckOrJG5WeZU?=
- =?us-ascii?Q?EQye2FGfZp7v5ub2PFJ/RqF05xa43kKfDBKP1jqyn03PYPkQ4iGU0VuZqr83?=
- =?us-ascii?Q?RXacpg0fQQkk3OlrNxR9NLfaiT4/pQBw2+B5UEVP7gw8rRTS+ptXMGL3NGJJ?=
- =?us-ascii?Q?8JJMT5KdkU2mrCqeYjhGdcHlsvgyOhD3Q3DaAPQMtT+R3lSyk+WuG2cX7mU5?=
- =?us-ascii?Q?ujaQ/MN5rcK4TzREnufMp4f8HJUmIgTLqWdncxzEcpKkyTTQB4fZw0oaIiWk?=
- =?us-ascii?Q?GlxrbHIFA9WPG8LtuWlulFxXQ85D3ZBTDy/B7Q2NGqtEyEO98ojgtUw536+2?=
- =?us-ascii?Q?iVeAbQkzDbDn2mVMy+njgU9yKv3f2VYNfurPxFY5vkjfmZanxb0/F4FlNlJV?=
- =?us-ascii?Q?iSpvb4QMWu47sMce+z0pCnho8//3U8QJJqfwZZN+Y+JEsKbOx290bYbT6HT9?=
- =?us-ascii?Q?et91EW5oHBXFVi83rpPSAr3jyv9de0DQa3hPunRTiulGRmKxOIlynxXDA9Tn?=
- =?us-ascii?Q?70Wa/Bu9AGPW+oRwLJBxiQ7ADgeXU+ECl4VBVgfkBRPDkkpY5Tq6OLiDcqSJ?=
- =?us-ascii?Q?2UPgMCbBe9Apa24AUG/DVVWHGIM2LQTow1dgXm03I6dOvtK3CZ0UAPbNHRIw?=
- =?us-ascii?Q?dozBbUs7Th2qXRyZE6ilsT84XiPEaQs4YtQ6XxKlKu080Gfx/VUJDiBAFFPG?=
- =?us-ascii?Q?M1UZ0Hl0Nr8u7DA5HjJMIIZEqQ3BGuV8kfbfwrPca+ctX/R+ibTTXps5mQqy?=
- =?us-ascii?Q?/2IX839zy3FwCMINPWv7zSORQXuLVkH1LMhZpzuTKME7yxG4aaz7jm3oaNkS?=
- =?us-ascii?Q?z6jdD8HMawUJV9ABpWVjU2uXQNFof5KsYpZI78x4XKC2lwm+bDbub+p2Lwlx?=
- =?us-ascii?Q?zCZar+xUVqwupcF1HlNS4lHhgwxvu0gUDGTeEQIaZfjjnn1sxhGOygBFA8Hu?=
- =?us-ascii?Q?isk4+Cri5zGrulRsVd7FTlG7WzsCkq4BVeB4u+6TihZ2X83TkIS3daD6wGhU?=
- =?us-ascii?Q?dlmsJ6Pv4u24dLTBDMqV52dL0nBKTKk9xNBhXoOVDu68BQzcXvfzLa5PU7a7?=
- =?us-ascii?Q?miJUI/Eu/8vx8Y4W0IeduIE4pPS7Q7GuFgvDSb0/4JShap58571D7rGN6QWf?=
- =?us-ascii?Q?UhOJ+9oZE41eGKURpzxC3yH0XMxgCStgM+EWs3ZTWrY6RxicdKsGDT/nAkwT?=
- =?us-ascii?Q?8bLAwrnQefYqdtTJjC/CWZvnJaBpdV6Bw5/s67MkmCgYzgrwg2jOobzQxAxO?=
- =?us-ascii?Q?druHiocO0n/X4GUDwwUny8vltzoL+q+C3kpZRQ0erRpbBL3lsrMmszpZEYLI?=
- =?us-ascii?Q?4T+wj6tSYD0ymTFAv+P0EUKyiyQLcIvQVJG+QNafhbQm36WjiJbtJ6dB6YWR?=
- =?us-ascii?Q?qPUyVph1ZlETVcUcoRaisWuQFC1TKSd3PXrd4rNvafhq8UseX6aOEXiHGCnr?=
- =?us-ascii?Q?qJBeXbYwttlG1HK0FxA6FruApBr372R8O0+tnV5NsT0pyiyPisEmy0x1A/wm?=
- =?us-ascii?Q?3YIh6lYaZhN+m+Ddzv7edK0aUu6ICJuzauIWKKj/xyc0DbcGwYJRd9kYiLuS?=
- =?us-ascii?Q?mLBI90nYkMqGzxLM4Gcb6uvlx6Lo50g97ELYF06Sq8OgDcr0ViVbMPtLaBLB?=
- =?us-ascii?Q?igY+hnFhGqgqa2cnypV2/kB9IKsWboc7b0eMGFTe1rojV3RW1uizACE0ib9c?=
- =?us-ascii?Q?JZb1rQtlMBjMXN8yfaDur0hOg2BEFszNh+gF8KkdHNsulUn6nMhW?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7fd32460-2ff8-40f4-6ffe-08df1991a3fe
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 16:42:22.4370
+	DLVT5HYwr3hM8TDOT3L9d5Gp6kYmZacwHumLkUhRdb4b4yZ6gwi20xLMZXbxo9fQL2i3VeBQtKdi7v8Ix/vOVYjJICEMny82pNXRFD3sIaUALiWDSjwicROxDCL9xtxeCqkg5EpYwwSUU0ORruOacJznoFXlLwH3+cNhUo6KhDH5pcmNIqzh1glEpxt5X/L7pYljcYtveez+KzzkTGloVkCFbwh9piUpw205F6gIKu/u3dFGg1BK4iKutoaPwAKAyEYUhoKRQfB3lxbw98FNUO72KxptyRx5mdiJo5RwPaLxLJzPpS/Fq6ONvbuE51jV5UDSK9XPUzrYvf3SJzai6UkREDL2ZbMM4PqdaVrbNv29XqdOLN5BfZsBZVxveEfd6qBW1cRWYE8ExJVchVbkvNEgBM28z18ULfqs+DBXnIGEbjdpRHhWIddrppmXEt9t
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 16:43:37.5223
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bVKVcysOPUSmvKivShYY0H131m/plOaGSr3KESGs6OMUKr97YER8W6ZXLfKKQ4X9wr+wn5K+SzbNygdQRQ8nBZuBmyUIrE3288OxaNQBdLqXXoQp2ux7ueX30rSraGl5
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB7506
+X-MS-Exchange-CrossTenant-Network-Message-Id: 00f1e497-fe37-4bec-b8da-08df1991d0ec
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS3PEPF0000C381.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR12MB999193
 
-On Wed, Sep 23, 2026 at 08:53:40AM +0000, Fan Wu wrote:
-> adi_i3c_master_irq() is requested with devm_request_irq(), so it stays
-> registered when adi_i3c_master_remove() runs, and the writes masking the
-> controller IRQ sources do not synchronize with a handler that is already
-> running on another CPU. i3c_master_unregister() then frees the
-> struct i3c_dev_desc objects that master->ibi.slots[] still point to, so
-> the IBI path in adi_i3c_master_handle_ibi() can dereference freed memory.
->
-> Fix this by storing the IRQ number in the private structure and calling
-> devm_free_irq() after the IRQ sources are masked, so a running handler
-> is finished before the master is torn down.
->
-> This issue was found by an in-house static analysis tool.
->
-> Fixes: a79ac2cdc91d ("i3c: master: Add driver for Analog Devices I3C Controller IP")
-> Cc: stable@vger.kernel.org
-> Co-developed-by: Song Li <songl@zju.edu.cn>
-> Signed-off-by: Song Li <songl@zju.edu.cn>
-> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-> ---
+From: Leo Li <sunpeng.li@amd.com>
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+[Why]
 
->  drivers/i3c/master/adi-i3c-master.c | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/drivers/i3c/master/adi-i3c-master.c b/drivers/i3c/master/adi-i3c-master.c
-> index 6380a38..9b0ee4e 100644
-> --- a/drivers/i3c/master/adi-i3c-master.c
-> +++ b/drivers/i3c/master/adi-i3c-master.c
-> @@ -115,6 +115,7 @@ struct adi_i3c_master {
->  		spinlock_t lock; /* Protect transfer */
->  	} xferqueue;
->  	void __iomem *regs;
-> +	int irq;
->  	struct clk *clk;
->  	unsigned long i3c_scl_lim;
->  	struct {
-> @@ -954,6 +955,7 @@ static int adi_i3c_master_probe(struct platform_device *pdev)
->  	irq = platform_get_irq(pdev, 0);
->  	if (irq < 0)
->  		return irq;
-> +	master->irq = irq;
->
->  	version = readl(master->regs + ADI_AXI_REG_VERSION);
->  	if (ADI_AXI_PCORE_VER_MAJOR(version) != 1)
-> @@ -999,6 +1001,8 @@ static void adi_i3c_master_remove(struct platform_device *pdev)
->  	writel(0x00, master->regs + REG_IRQ_MASK);
->  	writel(0x01, master->regs + REG_ENABLE);
->
-> +	devm_free_irq(&pdev->dev, master->irq, master);
-> +
->  	i3c_master_unregister(&master->base);
->  }
->
->
+The OTG_GLOBAL_SYNC_STATUS register controls various HW IRQ sources for
+the output timing generator (OTG). VUPDATE_NO_LOCK is one of them.
+
+To enable the IRQ, driver sets the VUPDATE_NO_LOCK_EN bit in the
+GLOBAL_SYNC_STATUS register.
+
+To ack the IRQ after it fires, the driver sets the VUPDATE_NO_LOCK_CLEAR
+bit in the same GLOBAL_SYNC_STATUS register.
+
+The bit sets are done through read/modify/write operations, which are
+not atomic. Thus, the following race is possible:
+
+    Thread A:                       IRQ handler:
+                                    *HW IRQ fires*
+    # IRQ disable
+    val = read(GLOBAL_SYNC_STATUS)
+    unset(val, VUPDATE_NO_LOCK_EN)
+    write(val, GLOBAL_SYNC_STATUS)
+                                    # ACK reads VUPDATE_NO_LOCK_EN unset
+                                    val1 = read(GLOBAL_SYNC_STATUS)
+                                    set(val1, VUPDATE_NO_LOCK_CLEAR)
+    # IRQ enable
+    val = read(GLOBAL_SYNC_STATUS)
+    set(val, VUPDATE_NO_LOCK_EN)
+    write(val, GLOBAL_SYNC_STATUS)
+                                    # BAD! clears VUPDATE_NO_LOCK_EN
+                                    write(val1, GLOBAL_SYNC_STATUS)
+
+Regarding the tagged Fixes: change, it appears the change made this race
+more likely to occur. Since VUPDATE_NO_LOCK is now the sole IRQ source
+for vblank handling, a single race on high refresh panels can lead to a
+time out.
+
+[How]
+
+The GLOBAL_SYNC_STATUS register is only one example, other IRQ control
+registers also share the same scheme. On top of GLOBAL_SYNC_STATUS,
+let's clean up those as well.
+
+To keep things simple, Let's atomize the IRQ rmw ops via a single
+driver-wide spinlock. Due to the small scope of this lock, it is
+unlikely to cause noticeable overhead on top of all the existing locking
+within the IRQ set/handle paths.
+
+Since DM is responsible for locking, wrap dc_interrupt_set/ack with the
+spinlock in the new amdgpu_dm_irq_set/ack functions. Migrate/drop all
+references in DM to dc_interrupt_set/ack to use amdgpu_dm_irq_set/ack
+instead.
+
+Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5616
+Fixes: c87e6635d2db ("drm/amd/display: consolidate DCN vblank/flip handling onto vupdate_no_lock")
+Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
+Signed-off-by: Leo Li <sunpeng.li@amd.com>
+Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 70de0a0216583a53c946155f8c8adedfdca6b4e7)
+Cc: stable@vger.kernel.org
+(cherry picked from commit 63e19ef3ddab806c472748c825f4dc88dcd994e8)
+Modified for unit tests not present in 7.2.y
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  4 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 12 ++++
+ .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |  3 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  3 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c | 62 +++++++++++--------
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_irq.h | 28 +++++++++
+ 6 files changed, 82 insertions(+), 30 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 9320e49e44289..0c57a419f07d1 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -3332,7 +3332,7 @@ static void dm_gpureset_toggle_interrupts(struct amdgpu_device *adev,
+ 		if (acrtc && state->stream_status[i].plane_count != 0 &&
+ 		    amdgpu_ip_version(adev, DCE_HWIP, 0) == 0) {
+ 			irq_source = IRQ_TYPE_PFLIP + acrtc->otg_inst;
+-			rc = dc_interrupt_set(adev->dm.dc, irq_source, enable) ? 0 : -EBUSY;
++			rc = amdgpu_dm_irq_set(adev, irq_source, enable) ? 0 : -EBUSY;
+ 			if (rc)
+ 				drm_warn(adev_to_drm(adev), "Failed to %s pflip interrupts\n",
+ 					 enable ? "enable" : "disable");
+@@ -3356,7 +3356,7 @@ static void dm_gpureset_toggle_interrupts(struct amdgpu_device *adev,
+ 			/* During gpu-reset we disable and then enable vblank irq, so
+ 			 * don't use amdgpu_irq_get/put() to avoid refcount change.
+ 			 */
+-			if (!dc_interrupt_set(adev->dm.dc, irq_source, enable))
++			if (!amdgpu_dm_irq_set(adev, irq_source, enable))
+ 				drm_warn(adev_to_drm(adev), "Failed to %sable vblank interrupt\n", enable ? "en" : "dis");
+ 
+ 		} else if (acrtc && state->stream_status[i].plane_count != 0) {
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index dd199e0b79226..043ca49367132 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -550,6 +550,18 @@ struct amdgpu_display_manager {
+ 	struct common_irq_params
+ 	vupdate_params[DC_IRQ_SOURCE_VUPDATE6 - DC_IRQ_SOURCE_VUPDATE1 + 1];
+ 
++	/**
++	 * @irq_reg_lock:
++	 *
++	 * Serializes the read-modify-writes of the HW interrupt control
++	 * registers. Several interrupt sources share one register - e.g. the
++	 * enable and clear bits of both VSTARTUP (vblank) and VUPDATE_NO_LOCK
++	 * live in OTG_GLOBAL_SYNC_STATUS. Therefore, enabling one source must
++	 * not race with acking another. Held only across amdgpu_dm_irq_set()
++	 * and amdgpu_dm_irq_ack().
++	 */
++	spinlock_t irq_reg_lock;
++
+ 	/**
+ 	 * @dmub_trace_params:
+ 	 *
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+index 56bf907f1f6cc..e236ea1dcd65a 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+@@ -31,6 +31,7 @@
+ #include "amdgpu_dm_psr.h"
+ #include "amdgpu_dm_replay.h"
+ #include "amdgpu_dm_crtc.h"
++#include "amdgpu_dm_irq.h"
+ #include "amdgpu_dm_plane.h"
+ #include "amdgpu_dm_trace.h"
+ #include "amdgpu_dm_debugfs.h"
+@@ -87,7 +88,7 @@ int amdgpu_dm_crtc_set_vupdate_irq(struct drm_crtc *crtc, bool enable)
+ 
+ 	irq_source = IRQ_TYPE_VUPDATE + acrtc->otg_inst;
+ 
+-	rc = dc_interrupt_set(adev->dm.dc, irq_source, enable) ? 0 : -EBUSY;
++	rc = amdgpu_dm_irq_set(adev, irq_source, enable) ? 0 : -EBUSY;
+ 
+ 	DRM_DEBUG_VBL("crtc %d - vupdate irq %sabling: r=%d\n",
+ 		      acrtc->crtc_id, enable ? "en" : "dis", rc);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index 41aa8f9bb152b..903038ba4cf9f 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -1377,12 +1377,13 @@ void dm_helpers_free_gpu_mem(
+ 
+ bool dm_helpers_dmub_outbox_interrupt_control(struct dc_context *ctx, bool enable)
+ {
++	struct amdgpu_device *adev = ctx->driver_context;
+ 	enum dc_irq_source irq_source;
+ 	bool ret;
+ 
+ 	irq_source = DC_IRQ_SOURCE_DMCUB_OUTBOX;
+ 
+-	ret = dc_interrupt_set(ctx->dc, irq_source, enable);
++	ret = amdgpu_dm_irq_set(adev, irq_source, enable);
+ 
+ 	DRM_DEBUG_DRIVER("Dmub trace irq %sabling: r=%d\n",
+ 			 enable ? "en" : "dis", ret);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+index e49803a90edad..d59434e01dfdb 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+@@ -424,6 +424,7 @@ int amdgpu_dm_irq_init(struct amdgpu_device *adev)
+ 	DRM_DEBUG_KMS("DM_IRQ\n");
+ 
+ 	spin_lock_init(&adev->dm.irq_handler_list_table_lock);
++	spin_lock_init(&adev->dm.irq_reg_lock);
+ 
+ 	for (src = 0; src < DAL_IRQ_SOURCES_NUMBER; src++) {
+ 		/* low context handler list init */
+@@ -496,7 +497,7 @@ void amdgpu_dm_irq_suspend(struct amdgpu_device *adev)
+ 		hnd_list_l = &adev->dm.irq_handler_list_low_tab[src];
+ 		hnd_list_h = &adev->dm.irq_handler_list_high_tab[src];
+ 		if (!list_empty(hnd_list_l) || !list_empty(hnd_list_h))
+-			dc_interrupt_set(adev->dm.dc, src, false);
++			amdgpu_dm_irq_set(adev, src, false);
+ 
+ 		DM_IRQ_TABLE_UNLOCK(adev, irq_table_flags);
+ 
+@@ -533,7 +534,7 @@ void amdgpu_dm_irq_resume_early(struct amdgpu_device *adev)
+ 		hnd_list_l = &adev->dm.irq_handler_list_low_tab[src];
+ 		hnd_list_h = &adev->dm.irq_handler_list_high_tab[src];
+ 		if (!list_empty(hnd_list_l) || !list_empty(hnd_list_h))
+-			dc_interrupt_set(adev->dm.dc, src, true);
++			amdgpu_dm_irq_set(adev, src, true);
+ 	}
+ 
+ 	DM_IRQ_TABLE_UNLOCK(adev, irq_table_flags);
+@@ -558,7 +559,7 @@ void amdgpu_dm_irq_resume_late(struct amdgpu_device *adev)
+ 		hnd_list_l = &adev->dm.irq_handler_list_low_tab[src];
+ 		hnd_list_h = &adev->dm.irq_handler_list_high_tab[src];
+ 		if (!list_empty(hnd_list_l) || !list_empty(hnd_list_h))
+-			dc_interrupt_set(adev->dm.dc, src, true);
++			amdgpu_dm_irq_set(adev, src, true);
+ 	}
+ 
+ 	DM_IRQ_TABLE_UNLOCK(adev, irq_table_flags);
+@@ -645,6 +646,21 @@ static void amdgpu_dm_irq_immediate_work(struct amdgpu_device *adev,
+ 	DM_IRQ_TABLE_UNLOCK(adev, irq_table_flags);
+ }
+ 
++bool amdgpu_dm_irq_set(struct amdgpu_device *adev, enum dc_irq_source src,
++		       bool enable)
++{
++	guard(spinlock_irqsave)(&adev->dm.irq_reg_lock);
++
++	return dc_interrupt_set(adev->dm.dc, src, enable);
++}
++
++void amdgpu_dm_irq_ack(struct amdgpu_device *adev, enum dc_irq_source src)
++{
++	guard(spinlock_irqsave)(&adev->dm.irq_reg_lock);
++
++	dc_interrupt_ack(adev->dm.dc, src);
++}
++
+ /**
+  * amdgpu_dm_irq_handler - Generic DM IRQ handler
+  * @adev: amdgpu base driver device containing the DM device
+@@ -665,7 +681,7 @@ static int amdgpu_dm_irq_handler(struct amdgpu_device *adev,
+ 			entry->src_id,
+ 			entry->src_data[0]);
+ 
+-	dc_interrupt_ack(adev->dm.dc, src);
++	amdgpu_dm_irq_ack(adev, src);
+ 
+ 	/* Call high irq work immediately */
+ 	amdgpu_dm_irq_immediate_work(adev, src);
+@@ -703,7 +719,7 @@ static int amdgpu_dm_set_hpd_irq_state(struct amdgpu_device *adev,
+ 	enum dc_irq_source src = amdgpu_dm_hpd_to_dal_irq_source(type);
+ 	bool st = (state == AMDGPU_IRQ_STATE_ENABLE);
+ 
+-	dc_interrupt_set(adev->dm.dc, src, st);
++	amdgpu_dm_irq_set(adev, src, st);
+ 	return 0;
+ }
+ 
+@@ -737,7 +753,7 @@ static inline int dm_irq_state(struct amdgpu_device *adev,
+ 	if (dc && dc->caps.ips_support && dc->idle_optimizations_allowed)
+ 		dc_allow_idle_optimizations(dc, false);
+ 
+-	dc_interrupt_set(adev->dm.dc, irq_source, st);
++	amdgpu_dm_irq_set(adev, irq_source, st);
+ 	return 0;
+ }
+ 
+@@ -791,7 +807,7 @@ static int amdgpu_dm_set_dmub_outbox_irq_state(struct amdgpu_device *adev,
+ 	enum dc_irq_source irq_source = DC_IRQ_SOURCE_DMCUB_OUTBOX;
+ 	bool st = (state == AMDGPU_IRQ_STATE_ENABLE);
+ 
+-	dc_interrupt_set(adev->dm.dc, irq_source, st);
++	amdgpu_dm_irq_set(adev, irq_source, st);
+ 	return 0;
+ }
+ 
+@@ -817,7 +833,7 @@ static int amdgpu_dm_set_dmub_trace_irq_state(struct amdgpu_device *adev,
+ 	enum dc_irq_source irq_source = DC_IRQ_SOURCE_DMCUB_OUTBOX0;
+ 	bool st = (state == AMDGPU_IRQ_STATE_ENABLE);
+ 
+-	dc_interrupt_set(adev->dm.dc, irq_source, st);
++	amdgpu_dm_irq_set(adev, irq_source, st);
+ 	return 0;
+ }
+ 
+@@ -881,9 +897,7 @@ void amdgpu_dm_set_irq_funcs(struct amdgpu_device *adev)
+ }
+ void amdgpu_dm_outbox_init(struct amdgpu_device *adev)
+ {
+-	dc_interrupt_set(adev->dm.dc,
+-		DC_IRQ_SOURCE_DMCUB_OUTBOX,
+-		true);
++	amdgpu_dm_irq_set(adev, DC_IRQ_SOURCE_DMCUB_OUTBOX, true);
+ }
+ 
+ /**
+@@ -905,7 +919,7 @@ void amdgpu_dm_hpd_init(struct amdgpu_device *adev)
+ 
+ 	/* First, clear all hpd and hpdrx interrupts */
+ 	for (i = DC_IRQ_SOURCE_HPD1; i <= DC_IRQ_SOURCE_HPD6RX; i++) {
+-		if (!dc_interrupt_set(adev->dm.dc, i, false))
++		if (!amdgpu_dm_irq_set(adev, i, false))
+ 			drm_err(dev, "Failed to clear hpd(rx) source=%d on init\n",
+ 				i);
+ 	}
+@@ -934,7 +948,7 @@ void amdgpu_dm_hpd_init(struct amdgpu_device *adev)
+ 		 * of dm. Note that only hpd interrupt types are registered with
+ 		 * base driver; hpd_rx types aren't. IOW, amdgpu_irq_get/put on
+ 		 * hpd_rx isn't available. DM currently controls hpd_rx
+-		 * explicitly with dc_interrupt_set()
++		 * explicitly with amdgpu_dm_irq_set()
+ 		 */
+ 		if (dc_link->irq_source_hpd != DC_IRQ_SOURCE_INVALID) {
+ 			irq_type = dc_link->irq_source_hpd - DC_IRQ_SOURCE_HPD1;
+@@ -943,23 +957,21 @@ void amdgpu_dm_hpd_init(struct amdgpu_device *adev)
+ 			 * and what bios reports as the # of connectors with hpd
+ 			 * sources. Since the # of hpd source types registered
+ 			 * with base driver == mode_info.num_hpd, we have to
+-			 * fallback to dc_interrupt_set for the remaining types.
++			 * fallback to amdgpu_dm_irq_set for the remaining types.
+ 			 */
+ 			if (irq_type < adev->mode_info.num_hpd) {
+ 				if (amdgpu_irq_get(adev, &adev->hpd_irq, irq_type))
+ 					drm_err(dev, "DM_IRQ: Failed get HPD for source=%d)!\n",
+ 						dc_link->irq_source_hpd);
+ 			} else {
+-				dc_interrupt_set(adev->dm.dc,
+-						 dc_link->irq_source_hpd,
+-						 true);
++				amdgpu_dm_irq_set(adev, dc_link->irq_source_hpd,
++						  true);
+ 			}
+ 		}
+ 
+ 		if (dc_link->irq_source_hpd_rx != DC_IRQ_SOURCE_INVALID) {
+-			dc_interrupt_set(adev->dm.dc,
+-					dc_link->irq_source_hpd_rx,
+-					true);
++			amdgpu_dm_irq_set(adev, dc_link->irq_source_hpd_rx,
++					  true);
+ 		}
+ 	}
+ 	drm_connector_list_iter_end(&iter);
+@@ -1003,16 +1015,14 @@ void amdgpu_dm_hpd_fini(struct amdgpu_device *adev)
+ 					drm_err(dev, "DM_IRQ: Failed put HPD for source=%d!\n",
+ 						dc_link->irq_source_hpd);
+ 			} else {
+-				dc_interrupt_set(adev->dm.dc,
+-						 dc_link->irq_source_hpd,
+-						 false);
++				amdgpu_dm_irq_set(adev, dc_link->irq_source_hpd,
++						  false);
+ 			}
+ 		}
+ 
+ 		if (dc_link->irq_source_hpd_rx != DC_IRQ_SOURCE_INVALID) {
+-			dc_interrupt_set(adev->dm.dc,
+-					dc_link->irq_source_hpd_rx,
+-					false);
++			amdgpu_dm_irq_set(adev, dc_link->irq_source_hpd_rx,
++					  false);
+ 		}
+ 	}
+ 	drm_connector_list_iter_end(&iter);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.h
+index 4f6b58f4f90d7..f0a4577848f35 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.h
+@@ -81,6 +81,34 @@ void amdgpu_dm_irq_unregister_interrupt(struct amdgpu_device *adev,
+ 					enum dc_irq_source irq_source,
+ 					void *ih_index);
+ 
++/**
++ * amdgpu_dm_irq_set - enable or disable a DC interrupt source.
++ *
++ * @adev: AMD DRM device
++ * @src: DC interrupt source to toggle
++ * @enable: true to enable the source, false to disable it
++ *
++ * DM-wide replacement for dc_interrupt_set(). As locking is DM's
++ * responsibility, this is a thin wrapper serializes the underlying
++ * read-modify-write against the other interrupt sources sharing HW control
++ * registers with @src, so DM must never call dc_interrupt_set() directly.
++ *
++ * Returns: true if the source was toggled.
++ */
++bool amdgpu_dm_irq_set(struct amdgpu_device *adev, enum dc_irq_source src,
++		       bool enable);
++
++/**
++ * amdgpu_dm_irq_ack - acknowledge a DC interrupt source.
++ *
++ * @adev: AMD DRM device
++ * @src: DC interrupt source to acknowledge
++ *
++ * DM-wide replacement for dc_interrupt_ack(), serialized the same way as
++ * amdgpu_dm_irq_set().
++ */
++void amdgpu_dm_irq_ack(struct amdgpu_device *adev, enum dc_irq_source src);
++
+ void amdgpu_dm_set_irq_funcs(struct amdgpu_device *adev);
+ 
+ void amdgpu_dm_outbox_init(struct amdgpu_device *adev);
+-- 
+2.43.0
+
