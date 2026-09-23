@@ -1,116 +1,138 @@
-Received: from zg8tndyumtaxlji0oc4xnzya.icoremail.net (zg8tndyumtaxlji0oc4xnzya.icoremail.net [46.101.248.176])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 721A0443AB9;
-	Wed, 23 Sep 2026 07:04:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.101.248.176
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 146C043CECB;
+	Wed, 23 Sep 2026 07:05:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790147100; cv=none; b=Rgy4GAbDovo8j/c5cxaESLqrzijC8jyr8/2xiI5XiQ5NljkhdCXzJpZ9BBNMVmHqgR3+sq9flVQpb4LlOdtJlaPkPWE6vdKpQDN+UDnQblrIvOArHv5COjFQrS8ophdWThtOvkRj4/wI58FAqApYBSoNXLnXS+jjFpkXhSW8DlY=
+	t=1790147140; cv=none; b=FRFPgdxaswwr4rKa81kZnbidfVgmxl6epUkp72XdJn7QWTCvIropYGu+2eUK/ii7ZLLrRmb6Bm/cet/ikSfcyVfMowzm/nsSA8rcR+DTlr8zK9wGovD2Zyo3UUO54EYKsPoqO9d3BicXFuj9Lm7IEWdbSWimRcFzwrHrf5/WgxI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790147100; c=relaxed/simple;
-	bh=r8a+4eNBHeysQqTYoRMI9KPT5zoninvrg+/ruGE+Y7A=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Z456Hc1AHMyDFDfsfhathyneIGUSvk0ISanE1HsyUOM7pcTF5Neo9zep0pfzKhyUKESJDtNy0T1h5byEDnEMd9glMAiw+vw2d6xFzitFB1n9pSnOVoVCyjRbmXR/pcdZbzJXzg+2PRe+c4zsEH6oNJjgbqMWxpZtlrJUaxVxwlY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=46.101.248.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wBniigQerNqssgwAQ--.6034S3;
-	Wed, 23 Sep 2026 15:04:49 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app2 (Coremail) with SMTP id zC_KCgBn2c4QerNqgwuWBA--.49072S2;
-	Wed, 23 Sep 2026 15:04:48 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: Marc Kleine-Budde <mkl@pengutronix.de>,
-	Vincent Mailhol <mailhol@kernel.org>
-Cc: linux-can@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>,
-	stable@vger.kernel.org,
-	Song Li <songl@zju.edu.cn>
-Subject: [PATCH] can: gs_usb: kill RX URBs before destroying the netdevs
-Date: Wed, 23 Sep 2026 07:03:52 +0000
-Message-Id: <20260923070352.487595-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1790147140; c=relaxed/simple;
+	bh=27vpwdgl3OeoImEKbFkRdIhTD1sNRxWgus+Es2lrpjo=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Jgdxrg+3JC62p/AENCy5K+Zo7vUXbL9okYuvQuPZWqt8M6bPk4YqJi/YMfSF5mDBmV5KN6EozQK58nCtbao7NK9s/4tkSI4vJia4klNp+3LtKIlRhDD1flOmLGeqlatcpmwpZUIoAVxLzp0Sa2S46Zke7qpAdvHSYWlOIFIna4A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JMBM3EcN; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JMBM3EcN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5DBB1F00893;
+	Wed, 23 Sep 2026 07:05:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790147137;
+	bh=/sxulSnyvVD18U479eSRV3tTjaQVahI5tsiyX6mHLpI=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=JMBM3EcNDs+asutoja1zN4cCHn217CPpcLlK2Yt+FMC6gwRr1H2GN4XOfpCrB/yla
+	 PAHL3h/vV/mREpbGSLzM/tNAnrvrGEsUiM/o+D3DOggYbUq0PwcVh7ISJu4jmlOg/M
+	 8UJT4NqbfG1UeXsziqlgKWCPg0CCRbkuuuNh/uFg9SlBlWxYEtLhkssJO5zARSYW0g
+	 wTTq9KiVTUQgLu1Z2xRXcaq6jiEkKStozswU6+5A/a3tXv9GThFHpfJ806bSyDQjf7
+	 jSZ2E8WT0mZMzMu10byomk/nqyOXD9FjZ7Xd+TLGtCioQBn8x0HLW94RnJ0BSpNuJ4
+	 1TFNBLWMzKZcA==
+Message-ID: <fc0e0a9deffa162ac4599ee8ef94323d3d1ec2c4.camel@kernel.org>
+Subject: Re: [PATCH net v2] rds: ib: Clear the sg list when mapping an MR
+ fails
+From: Allison Henderson <achender@kernel.org>
+To: Dongliang Qin <cccccccccccc777777@gmail.com>, netdev@vger.kernel.org
+Cc: "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>,  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ linux-rdma@vger.kernel.org, rds-devel@oss.oracle.com, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Wed, 23 Sep 2026 00:05:36 -0700
+In-Reply-To: <20260922031546.3874605-1-cccccccccccc777777@gmail.com>
+References: <20260922031546.3874605-1-cccccccccccc777777@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3-0ubuntu1.1 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zC_KCgBn2c4QerNqgwuWBA--.49072S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?nWDCAQXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfncGSG+szpQCInt5Y8rbJUI2v+ZK8a/WB5UEqM6w+2CI+Ofbkec6KJ6j+2OqMEVpE9r+W
-	Dfxwh6G2teOWOqFrYmmp9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoW7Zw47CFy5ZrW7uw4xKrWxuFX_yoW8uFW8pF
-	srKay5tFWUXF1fAw1DJa1DuF1rAa97Aa47ua4Y9an5Zr9xA3W8JF1Fqa4j9rsrCFW2vFy0
-	vr43t3y7JF13WrXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
-	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU86c_DUUUUU==
 
-gs_usb_disconnect() destroys the channels one by one via
-gs_destroy_candev()/free_candev(). gs_can_close() disposes the RX bulk
-URBs on the shared parent->rx_submitted anchor only when the last
-active channel is closed. With two or more channels up, the earlier
-channels are freed while their RX URBs are still submitted, and a
-completion in gs_usb_receive_bulk_callback() accesses the freed struct
-gs_can and struct net_device.
+On Tue, 2026-09-22 at 11:15 +0800, Dongliang Qin wrote:
+> rds_ib_map_frmr() stores the caller's scatterlist in the MR before DMA
+> mapping and registration can fail. On failure, __rds_rdma_map() unpins
+> the pages and frees the scatterlist, but rds_ib_free_frmr() can still
+> return the MR to the pool with the stale pointer set.
+>=20
+> This leaves the pool with a dangling scatterlist and can lead to local
+> privilege escalation. KASAN detects the resulting use-after-free when the
+> MR is later torn down:
+>=20
+> BUG: KASAN: slab-use-after-free in __rds_ib_teardown_mr
+> Read of size 8
+>=20
+> Call Trace:
+>  __rds_ib_teardown_mr
+>  rds_ib_unreg_frmr
+>  rds_ib_flush_mr_pool
+>  rds_ib_flush_mrs
+>  rds_free_mr
+>  rds_setsockopt
+>=20
+> Store the scatterlist in the MR only after DMA mapping succeeds. If DMA
+> mapping fails, return directly while the MR fields remain clear; the call=
+er
+> keeps ownership of the scatterlist and its pinned pages. If a later
+> registration step fails, unmap the scatterlist and clear the MR fields
+> before returning.
+>=20
+> Fixes: 1659185fb4d0 ("RDS: IB: Support Fastreg MR (FRMR) memory registrat=
+ion mode")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Dongliang Qin <cccccccccccc777777@gmail.com>
 
-Fix this by killing the anchored RX URBs in gs_usb_disconnect() before
-the first netdev is destroyed, and in the error path of gs_usb_probe()
-before the previously created netdevs are destroyed.
+New v2 looks good to me.  Thanks!
 
-usb_kill_anchored_urbs() waits for running completions and a killed URB
-completes with -ENOENT, so the completion handler returns without
-resubmitting the URB. The kill in gs_can_close() of the last active
-channel then operates on an already empty anchor.
+Reviewed-by: Allison Henderson <achender@kernel.org>
+Allison
 
-This issue was found by an in-house static analysis tool.
-
-Fixes: d08e973a77d1 ("can: gs_usb: Added support for the GS_USB CAN devices")
-Cc: stable@vger.kernel.org
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
- drivers/net/can/usb/gs_usb.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_usb.c
-index ec9a7cb..663746d 100644
---- a/drivers/net/can/usb/gs_usb.c
-+++ b/drivers/net/can/usb/gs_usb.c
-@@ -1595,10 +1595,10 @@ static int gs_usb_probe(struct usb_interface *intf,
- 
- 			/* on failure destroy previously created candevs */
- 			icount = i;
-+			usb_kill_anchored_urbs(&parent->rx_submitted);
- 			for (i = 0; i < icount; i++)
- 				gs_destroy_candev(parent->canch[i]);
- 
--			usb_kill_anchored_urbs(&parent->rx_submitted);
- 			kfree(parent);
- 			return rc;
- 		}
-@@ -1636,6 +1636,8 @@ static void gs_usb_disconnect(struct usb_interface *intf)
- 		return;
- 	}
- 
-+	usb_kill_anchored_urbs(&parent->rx_submitted);
-+
- 	for (i = 0; i < parent->channel_cnt; i++)
- 		if (parent->canch[i])
- 			gs_destroy_candev(parent->canch[i]);
+> ---
+> Changes in v2:
+> - Store the scatterlist in the MR only after DMA mapping succeeds.
+> - Return directly if DMA mapping fails, leaving the MR fields clear.
+> - Link to v1: https://lore.kernel.org/netdev/20260920063449.1594203-1-ccc=
+ccccccccc777777@gmail.com/
+>=20
+> net/rds/ib_frmr.c | 11 +++++------
+> 1 file changed, 5 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/net/rds/ib_frmr.c b/net/rds/ib_frmr.c
+> index bd8611911..8397aa4a1 100644
+> --- a/net/rds/ib_frmr.c
+> +++ b/net/rds/ib_frmr.c
+> @@ -204,19 +204,16 @@ static int rds_ib_map_frmr(struct rds_ib_device *rd=
+s_ibdev,
+>  	 */
+>  	rds_ib_teardown_mr(ibmr);
+> =20
+> -	ibmr->sg =3D sg;
+> -	ibmr->sg_len =3D sg_len;
+> -	ibmr->sg_dma_len =3D 0;
+>  	frmr->sg_byte_len =3D 0;
+> -	WARN_ON(ibmr->sg_dma_len);
+> -	ibmr->sg_dma_len =3D ib_dma_map_sg(dev, ibmr->sg, ibmr->sg_len,
+> +	ibmr->sg_dma_len =3D ib_dma_map_sg(dev, sg, sg_len,
+>  					 DMA_BIDIRECTIONAL);
+>  	if (unlikely(!ibmr->sg_dma_len)) {
+>  		pr_warn("RDS/IB: %s failed!\n", __func__);
+>  		return -EBUSY;
+>  	}
+> =20
+> -	frmr->sg_byte_len =3D 0;
+> +	ibmr->sg =3D sg;
+> +	ibmr->sg_len =3D sg_len;
+>  	frmr->dma_npages =3D 0;
+>  	len =3D 0;
+> =20
+> @@ -264,6 +261,8 @@ static int rds_ib_map_frmr(struct rds_ib_device *rds_=
+ibdev,
+>  	ib_dma_unmap_sg(rds_ibdev->dev, ibmr->sg, ibmr->sg_len,
+>  			DMA_BIDIRECTIONAL);
+>  	ibmr->sg_dma_len =3D 0;
+> +	ibmr->sg =3D NULL;
+> +	ibmr->sg_len =3D 0;
+>  	return ret;
+>  }
+> =20
 
