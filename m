@@ -1,42 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA990345750
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 01:40:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 887FD35DA6E
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 01:40:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790127622; cv=none; b=jt4xANifHDw8X2vAxVaoYOPBU4+amH2MtKrPz1oYh4TryL3GB0fQLZxsGsn7reC51/lnSLNQcZ8AQvQ2zCbsaXu2J7qvLJ2GunMJnwpsciRifvPGV/gBrE98SpJ2+1tFU2LW6DuDrHR2QR7/da32TyzeUeNKy6QVw7lKxJTOe48=
+	t=1790127623; cv=none; b=DIV/HdhD3Roaebg+zzaDQkf3FXhTDgPleshS6N4h/j8d17KXm9i8jkGlQQFHELVTLZcuq8AKPrxeutuQgOAEplbbLVIbb1ACv+W5dZoVB+Vog00afl088dkO2r34lsZXDAC2f2kkOOmzjPBFAWVWZenHMJ2SXoiH1X7PK3lVSLo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790127622; c=relaxed/simple;
-	bh=dGBht1LB6t09O9U3kT5sMJ12e9zHqbBGWDtv6DAt3so=;
+	s=arc-20240116; t=1790127623; c=relaxed/simple;
+	bh=VW1Hiwp2ILKHWnJEmqpnNyO/disSdziOQKQ43tEoiwU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mUiP05L50/IY28UwVZCibwa/Qquh2kyTzcCxwlq6IR8cUYwf1eoSKMBwOmvUK4cR8exPK+zr92MG6vjqUrsu25VpbQzIN3vPtEgjAnFTjUFwQZzREU8CQp/9z/QbTA7K9EXoiBU1o/5cjLMXLysIeNFzRiKL5FJAIXpAGlUB15A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ORWdWu9X; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=o0u1nWee689z4nstmvZrDOEDBvGngEefYdri63pNfXd9a3EDdYAAyCEkkFWbG9WYghbznOtI7iStmAX+zoUndicMfIPb5q4/UpeqU+mIi/tBu5nUJzkrfGFDN4L22GyrpGzB8QghPQMTrK1vnA9qwNPHHHlci2F/9ofxXH0QRec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LbRiAn13; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ORWdWu9X"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED9551F000FF;
-	Wed, 23 Sep 2026 01:40:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LbRiAn13"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC9231F00898;
+	Wed, 23 Sep 2026 01:40:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790127621;
-	bh=m7uf9D3KhpCprGKbthyvDnA5CAINALoo4mG+34OVSMM=;
+	s=k20260515; t=1790127622;
+	bh=83zIyWJUxHzATQIzUHRMSVie/cH0tnz3rHwLlpsjd5U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ORWdWu9X6IXwK9mN7oY7U0sHD/zYQfAUezgonjajN/zWel3GjKgt67wknb7Cudc2+
-	 dC9DWPmTAZbXbx+WJFpHfUxSqb0dODdeOSRr6rDyddLNVIG+ihdkF4ZJ4z5pPzplgc
-	 /6hH7rV7U3Xo7Tbs3AHEBlnBJoRJyHidTSzTqUEIgpUyhBf2Tp+omg0bBtbeNsb7kt
-	 5gSNzaCNuqfYxwvMZbl1LcT4MUpr8ENTkqIzwL6CNaGlz04/f4NUcRjY9hx97ism7e
-	 iDlr8NnjdmIgeeGhNIs7eh/y9Ze9qqcGKp+aka72u013czWdM433RIzB/wdUrk0Zhh
-	 E4c1ZlFXf6Wfg==
+	b=LbRiAn131aOxKKbIqz5w5MnRgAKAKeruzQ3R/CERQ7Nvz+X83Mod/oz3d7pRoV/Qs
+	 Ls0NtEmLMkd0vyHBXAMI/FlhFVKgVK0AK2U/PfxbQ/Y+EsewQX8cYRwt72vTWqkAZJ
+	 BpuVOZT78Cj8hFTMq1/KyYR1wrJxCgOGY3393xU2v/sZFrqRF/KUi6Jn3GqFLCI9b+
+	 oSj6HfakOMZgYjOJE8xvHt4AeW3ZFLOqchqNkrDx3RtRmhxD3cbIpB57Bfsvz8RRaA
+	 sJ4imhi7rX8PfQcPaig4UfWU1HKM4d7m1Ym4T935OdhClJVlO+CpfxIvkS4ZVIq54n
+	 ig8P9GjR9nCkA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	Steve French <stfrench@microsoft.com>,
+Cc: Frank Sorenson <sorenson@redhat.com>,
+	David Howells <dhowells@redhat.com>,
+	Paulo Alcantara <pc@manguebit.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 1/2] cifs: validate DFS referral string offsets
-Date: Tue, 22 Sep 2026 21:40:18 -0400
-Message-ID: <20260923014019.880289-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/2] smb: client: fix missing lower-bound check on DFS referral string offsets
+Date: Tue, 22 Sep 2026 21:40:19 -0400
+Message-ID: <20260923014019.880289-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092229-hypertext-grunge-945c@gregkh>
+In-Reply-To: <20260923014019.880289-1-sashal@kernel.org>
 References: <2026092229-hypertext-grunge-945c@gregkh>
+ <20260923014019.880289-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,69 +47,62 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Guangshuo Li <lgs201920130244@gmail.com>
+From: Frank Sorenson <sorenson@redhat.com>
 
-[ Upstream commit 027a84ac6b50c12ef767c15abfc58aa865820e9e ]
+[ Upstream commit e83330c55edc0c3ac08aa6c95e49e4694c65523b ]
 
-parse_dfs_referrals() validates that the response header and referral
-array fit in the received buffer, but each referral also contains string
-offsets supplied by the server.
+parse_dfs_referrals() checks that DfsPathOffset and NetworkAddressOffset
+do not exceed the buffer end, but fails to check that they don't point
+inside the referral header itself.
 
-Those offsets are used to compute the DfsPath and NetworkAddress string
-pointers without checking whether they still point inside the response
-buffer. A malformed referral can therefore make the computed pointer
-exceed the end of the buffer. The resulting negative max_len is then
-passed to cifs_strndup_from_utf16(), and the non-Unicode path forwards it
-to kstrndup() as a size_t, allowing strnlen() to read out of bounds.
+If a server provides an offset smaller than
+sizeof(struct dfs_referral_level_3), the derived string pointer overlaps
+with the struct fields, causing cifs_strndup_from_utf16() to interpret
+header data as UTF-16 strings.
 
-Validate each string offset before deriving the string pointer.
+Fix this by enforcing that string offsets are at least sizeof(*ref).
 
 Fixes: 4ecce920e13a ("CIFS: move DFS response parsing out of SMB1 code")
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-Signed-off-by: Steve French <stfrench@microsoft.com>
-
-[5.15 backport: Apply both offset checks to fs/cifs/misc.c, where
-parse_dfs_referrals() lives in this tree. Preserve the existing parser
-and error cleanup; no new functions are introduced.]
-
-[ sashal: Reduced backport -- upstream 027a84ac6b50c touches 1 file(s), this
-  backport carries 1. Not backported here:
-  fs/smb/client/misc.c
-  This note is generated from the file lists only; see the resolution record
-  for the reasoning. ]
-
-Stable-dep-of: e83330c55edc ("smb: client: fix missing lower-bound check on DFS referral string offsets")
+Cc: stable@vger.kernel.org
+Signed-off-by: Frank Sorenson <sorenson@redhat.com>
+Reviewed-by: David Howells <dhowells@redhat.com>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+[ Redirected the patch from fs/smb/client/misc.c to fs/cifs/misc.c. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/cifs/misc.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ fs/cifs/misc.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
 diff --git a/fs/cifs/misc.c b/fs/cifs/misc.c
-index cb7fb2c4ea71f..729624ae9d876 100644
+index 729624ae9d876..a477bffdd3e80 100644
 --- a/fs/cifs/misc.c
 +++ b/fs/cifs/misc.c
-@@ -920,6 +920,10 @@ parse_dfs_referrals(struct get_dfs_referral_rsp *rsp, u32 rsp_size,
+@@ -920,7 +920,11 @@ parse_dfs_referrals(struct get_dfs_referral_rsp *rsp, u32 rsp_size,
  		node->ref_flag = le16_to_cpu(ref->ReferralEntryFlags);
  
  		/* copy DfsPath */
-+		if (le16_to_cpu(ref->DfsPathOffset) > data_end - (char *)ref) {
-+			rc = -EINVAL;
-+			goto parse_DFS_referrals_exit;
-+		}
- 		temp = (char *)ref + le16_to_cpu(ref->DfsPathOffset);
- 		max_len = data_end - temp;
- 		node->path_name = cifs_strndup_from_utf16(temp, max_len,
-@@ -930,6 +934,10 @@ parse_dfs_referrals(struct get_dfs_referral_rsp *rsp, u32 rsp_size,
+-		if (le16_to_cpu(ref->DfsPathOffset) > data_end - (char *)ref) {
++		if (le16_to_cpu(ref->DfsPathOffset) < sizeof(*ref) ||
++		    le16_to_cpu(ref->DfsPathOffset) > data_end - (char *)ref) {
++			cifs_dbg(VFS, "%s: DfsPathOffset %u out of range [%zu, %td]\n",
++				 __func__, le16_to_cpu(ref->DfsPathOffset),
++				 sizeof(*ref), data_end - (char *)ref);
+ 			rc = -EINVAL;
+ 			goto parse_DFS_referrals_exit;
+ 		}
+@@ -934,7 +938,11 @@ parse_dfs_referrals(struct get_dfs_referral_rsp *rsp, u32 rsp_size,
  		}
  
  		/* copy link target UNC */
-+		if (le16_to_cpu(ref->NetworkAddressOffset) > data_end - (char *)ref) {
-+			rc = -EINVAL;
-+			goto parse_DFS_referrals_exit;
-+		}
- 		temp = (char *)ref + le16_to_cpu(ref->NetworkAddressOffset);
- 		max_len = data_end - temp;
- 		node->node_name = cifs_strndup_from_utf16(temp, max_len,
+-		if (le16_to_cpu(ref->NetworkAddressOffset) > data_end - (char *)ref) {
++		if (le16_to_cpu(ref->NetworkAddressOffset) < sizeof(*ref) ||
++		    le16_to_cpu(ref->NetworkAddressOffset) > data_end - (char *)ref) {
++			cifs_dbg(VFS, "%s: NetworkAddressOffset %u out of range [%zu, %td]\n",
++				 __func__, le16_to_cpu(ref->NetworkAddressOffset),
++				 sizeof(*ref), data_end - (char *)ref);
+ 			rc = -EINVAL;
+ 			goto parse_DFS_referrals_exit;
+ 		}
 -- 
 2.53.0
 
