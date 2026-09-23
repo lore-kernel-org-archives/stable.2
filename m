@@ -1,278 +1,173 @@
-Received: from mta1.migadu.com (out-5.mta1.migadu.com [95.215.58.5])
+Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B44E47DD78
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 09:55:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790157358; cv=none; b=pXAJlAca+GrjY1Iix2rtNcIuBgViBcfX84zJela2uO8Sss679llnK0iXKN1ldu+kgcvfhV7+lLcuBiJr8ZfQmIogosSRh6iRbbHGGkwt3oa5m8LH/pmEIz8Kc6oOOl0/giCQVBsuhQ1ls2LUR/nIeHVTTX3KBqQXlLR5MKD0BXA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790157358; c=relaxed/simple;
-	bh=uJ1O5s9VLtgzemkGDdrkmpPu2/dB4/tV80lAnRg6dCo=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=BlWppKVZHIuPwIZq5mflRU8OwQjXxCIsrXsqgnDj87jLoIT+SuOSl45GUPPLMwVyZ5gYNnVaKzwnOMPUJO6ArAeP1hWeGSaXb5zHwOM+iu16IGsnhJSG8u1MwjmM1uE2MgBvAmMyGAlfRQpKBkGiIfN2oezqvZdcww7ez0HivOQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ciGN5Y9+; arc=none smtp.client-ip=95.215.58.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03A8E47D94F
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 09:56:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.40
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790157404; cv=pass; b=NJuIbrfvsT+Uy22TaZLPpg1k+xMgJboYLtxL+ZQ9DJhZUEgwDnmsE48s8HpkoPioHg3Ntpaddo4MiAvMSmKqohwcg956Gc/t9B+iaxiJPjNU61bnyU8rdrStG0cD7HD5J2cXvYuddMg6/MGWTaDqGU4gHoAJnYtHKeiMUT5G218=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790157404; c=relaxed/simple;
+	bh=gepP1A9ysh0N6NHB47FJTCQrzM4iGML9jXyRBN95fA4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WqJ+uFxRCJQPSFzLjF6uSCH34Z/N2eeX452NyJfVXqSedhz8U9NLU6ObhsFhfk3DKN+IvZwShT5fQIpZJKq+lU8+QDAuqKLeo8pQrqFMSYH1IH9HD9524JBZPWj1nzZzA+lQy0j5lOJMQqBJXa3EkGCKDeBhp63iBjd8VVWKyBQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=alkira.net; spf=pass smtp.mailfrom=alkira.net; dkim=pass (2048-bit key) header.d=alkira.net header.i=@alkira.net header.b=NPk+ydVG; arc=pass smtp.client-ip=74.125.228.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=alkira.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alkira.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ciGN5Y9+"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=uJ1O5s9VLtgzemkGDdrkmpPu2/dB4/tV80lAnRg6dCo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790157354; v=1; x=1790762154;
- b=ciGN5Y9+jbEgWZ9u8vHalcYYozkWFW1c/WZqxX2fT+rzwkcLDPt7eYeNx10QhY2bYTzJnxXw
- Q5Veq2rz0dYfteX26KvuXueXNAVqlEdAD2FeqH9ESbeRzMhFt/L8VCVMzGf6OGMH8KmSAu4vcl/
- Yv3ki7MqFPJGH++DtehsSp/Q=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 2fd1ec4fc6184996;
-	Wed, 23 Sep 2026 09:55:54 +0000
-X-Mizu-Trace-ID: 2fd1ec4fc6184996
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <2f01bd33-6b51-4978-a19b-cd1fd0bd013c@linux.dev>
-Date: Wed, 23 Sep 2026 17:55:49 +0800
+	dkim=pass (2048-bit key) header.d=alkira.net header.i=@alkira.net header.b="NPk+ydVG"
+Received: by mail-pz2-f40.google.com with SMTP id d2e1a72fcca58-87c90648f99so587634b3a.0
+        for <stable@vger.kernel.org>; Wed, 23 Sep 2026 02:56:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790157402; cv=none;
+        d=google.com; s=arc-20260327;
+        b=CrZ6tW8RQfLXsO4WvpEUzHfAyjkDE3Iatow+cNxlaIAu2OqTWYOPZt99RLfqIX9yVM
+         hr31hXg1QfQUwdw7zsYiPVTZTx0Ntg/vLzk6KB92S9y5AOlR+G/cuRkSpMRC6T11jXSl
+         VdZRA9FD0PPDiq+RA4g0b0AUaJq2RPs+ezk0CqKZbLLUmZYLwfCv7Cv93l/kCsnZlKnT
+         rWsmsMokdn3dRdu06vPu32vZ3zpKOTBfY6fWgbtESINcrA+jICV+PCd7fbWF3Ie565qx
+         tpS7YmPmSQpw2cg1R8I4wCq8uOBu18zrkqY7Uba0TN0Y6bK7wA1iFDAYcNta8rYTz3da
+         h04A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=cpgKIz/nl9xM6UgCUL7AH6mkw+l4ifqbDGv3fT/fFSE=;
+        fh=IwR8SHcUmr2b6K7b7dyJBOf7lBUF3zaaNr9mQlJ5uBU=;
+        b=ogAiCDWGHVIh6IUlzNzN8RwH65xZIAL8qO1cVT5vgK8B3ShK4OCEH0ZPsqK8Kssjny
+         le6nb+aKJHR8e8QeW1MJ+Be29oEpJxG67JlgkjVzvKG0vZiz7+ep7kF5VlxqqZ+p+ude
+         uNDM1GvQDcKCR2RsLUgxw+MgNWYDf1xXMNgYCihC9BVoa5OLjtguXH2vLA5BqsGnFvbp
+         wmJJHuY5M6CPXPSxBCf5qGp7X62YLp6ZZfMdbibVigrXx+P4Vr2tNVbXlnt5J6l8JMDY
+         pn0eXoalF1kVvi6Z0M+ESgB/IfWjBHzxyk4mfrIac2GsEKDVs07Fx7DiQddASAJ4uQmR
+         Q1QA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=alkira.net; s=alkiranet; t=1790157402; x=1790762202; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cpgKIz/nl9xM6UgCUL7AH6mkw+l4ifqbDGv3fT/fFSE=;
+        b=NPk+ydVGBcqG37jr3+4H/Wbr5Ko3cBO6T6DsA7KQdjHHvJ57IYYwYY7g4FluV0I4LA
+         lKJxUqUtOqakKD9KjFMSPrZ7ZI6OFLYqqUUKxOtxsppeOxKsT3BB9OyaCSV/erfYlsPm
+         YSYBl+GnPdBmfRrbe8srYyhakmmKtha7IC6yoIT2WQMX9lE5K2WhPH5u1XvkdYASs0aT
+         /OI0jrZUEdyMTRqkUhgZsF6/I4SiJVA8FRKarCJ2TE2oM3PWS+R4NiyPmP30AT9s3eY9
+         qWeSnmvRz2pfQwAkzMFizI/bw9f2KizImUWuYXO7s+G/+jdwFkZdfmdJn2/Dhoa150Gj
+         l5mQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790157402; x=1790762202;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cpgKIz/nl9xM6UgCUL7AH6mkw+l4ifqbDGv3fT/fFSE=;
+        b=y2NL89IoDP4kBN7bD82eUpFKOAKg7Hx2gI2U5MgF8sXGGmpgz6eSxbiOqTaQZBG8mC
+         sX6p2kU2X2H28h+TICzHoshrX+zKn/QyYfvUVrIkNoVPKiqQHdpDMOCUJxqrUr4PTVfn
+         8FoGTYK/gOk3Tnb+qKZDxXaI4jceenkdIkAlUWV/S1gJkrotz3Nxu4On8FtqMDrlLzjZ
+         10cud3zBGWNcSxMbQWs6Be1QMCJ/JpGyl9+S0VXRCY59TrWwmXa+lSlN4LAjbbQqM++a
+         +xHU4RIx7jrVwo4dlHkcgUy//u/MOnvcsd9lAEqZnTcjJC+9JS/GJBiGbxLW4CVyuqfB
+         K0mg==
+X-Gm-Message-State: AFuF++kE6GP3jijb4J07f+WCSFuDSqs2Mr69otXXqT3OYSWQl6yYxdoy
+	wu56UV3NidGcoxvJWryTsq1dPgpT9aVSzTMgTN8t3KxutKpbDhhQCTbYmvajHd65SfHPSv/nnnV
+	apKk88LSfiVRLcOJF8DlD1NohnA3N61ZDJWvYZuQDSw==
+X-Gm-Gg: AYBFou1UvbUiDxTCrHafXf8lSkgK53NkoJTcMUghDe1NvrO+s3ieX7IL+MihsZl7PBX
+	BfUPod50bavdRb49e1g3wH7VzdCcQqChJR1WvjqQqmsUu6SOi9VZrhSEvT5SxkM9kGq7FG/1ec0
+	tnOALVH+gCMt4xd7sQ6ONt1Zpd22uMUoPJ3UYoKn5u7FOogpV0EBLI+eQKhz2EjVWF1YlsIGfzt
+	MDZ3v2KmtuCRb1Xwqe3FI1fQjtQ+6PaohEKk+07KZETy6bOxjRrTqZQ1QGb8WgM0qSE3xpi+9c0
+	vRTCzOqvSaXjp3rXwtJaAyvOPXitFcsrGqrGS+7XyU1q01p/GsOBdAI4v7cKbB/ruQ==
+X-Received: by 2002:a05:6a00:8005:b0:87c:d962:72cb with SMTP id
+ d2e1a72fcca58-87d1d4b9b3fmr1845440b3a.40.1790157402155; Wed, 23 Sep 2026
+ 02:56:42 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: hongfu.li@linux.dev, Hongfu Li <lihongfu@kylinos.cn>,
- Chris Down <chris@chrisdown.name>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, cgroups@vger.kernel.org,
- stable@vger.kernel.org, Oscar Salvador <osalvador@suse.de>,
- David Hildenbrand <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Shakeel Butt <shakeel.butt@linux.dev>, Michal Hocko <mhocko@suse.com>,
- Johannes Weiner <hannes@cmpxchg.org>, Joshua Hahn <joshua.hahnjy@gmail.com>,
- Nhat Pham <nphamcs@gmail.com>, Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>
-Subject: Re: [PATCH v2 2/2] mm/memcg: migrate per-node hugetlb lruvec stat
- together with hugetlb folio
-To: Muchun Song <muchun.song@linux.dev>
-References: <20260923-for-hugetlb_state3-v2-0-e8a36245bfab@kylinos.cn>
- <20260923-for-hugetlb_state3-v2-2-e8a36245bfab@kylinos.cn>
- <15ac7069-d687-4985-90bd-25bc900b4bdd@linux.dev>
- <1835413c-e2de-41b0-8225-161afa50676a@linux.dev>
- <10149B0C-4108-4DB6-84B7-A301E8158CA4@linux.dev>
-From: Hongfu Li <hongfu.li@linux.dev>
-In-Reply-To: <10149B0C-4108-4DB6-84B7-A301E8158CA4@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <CAMcJb7NLooAw=6Vyzbq-7JnE9L=gfTbLL0Y=L1pTFMTg3Vf76A@mail.gmail.com>
+ <2026092316-mouse-scallion-6eb2@gregkh>
+In-Reply-To: <2026092316-mouse-scallion-6eb2@gregkh>
+From: Kusuma DS <kusuma.ds@alkira.net>
+Date: Wed, 23 Sep 2026 15:26:31 +0530
+X-Gm-Features: AclHuK8wU4Sksj2iVp3kwEncGRLBwmdao0VGz_A6m0crpM3c4XTeRAUiXv8rTnA
+Message-ID: <CAMcJb7OPfN3jSmaqW14CqBESDv=m7Lc+CQ9hms6kVKMWoeHfCw@mail.gmail.com>
+Subject: Re: [6.12.y] Please backport 8045c0df98d4 ("xfrm: Fix dev
+ use-after-free in xfrm async resumption")
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, netdev@vger.kernel.org, 
+	Chakradhar Kar <chakradhar.kar@alkira.net>, Ramakanth Gunuganti <ramakanth@alkira.net>, 
+	Sripathy Ramaswamy <sripathy@alkira.net>, steffen.klassert@secunet.com, sashal@kernel.org, 
+	dongchenchen2@huawei.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Greg,
+
+Thanks for replying.
+
+You're right - I had not checked whether it applies cleanly, I only saw the
+change was small. My mistake.
+
+Is anything planned for bringing this into 6.12.y, or does it need a tested
+backport first?
+
+Thanks,
+Kusuma D S
+Alkira Networks
 
 
-On 9/23/26 3:56 PM, Muchun Song wrote:
->
->> On Sep 23, 2026, at 11:40, Hongfu Li <hongfu.li@linux.dev> wrote:
->>
->>
->> On 9/23/26 10:40 AM, Muchun Song wrote:
->>>
->>> On 2026/9/23 10:05, Hongfu Li wrote:
->>>> From: Hongfu Li <lihongfu@kylinos.cn>
->>>>
->>>> memory.numa_stat exposes per-node hugetlb counters from per-node lruvec
->>>> stats. These stats are accounted against folio_nid(): incremented on
->>>> the folio's node when handed to a user, decremented when the folio is
->>>> returned to the pool.
->>>>
->>>> During hugetlb folio migration, mem_cgroup_migrate() moves the charge
->>>> to the new folio and drops the memcg data of the old one, so the free
->>>> of the old folio right after the migration skips the memcg per-node
->>>> lruvec decrement. The hugetlb count stays attributed to the old node
->>>> for the rest of the life of the charge, while the target folio gets no
->>>> increment on the new node; its later free decrements a counter that
->>>> was never incremented.
->>>>
->>>> Migrate the per-node lruvec accounting alongside migration. Global
->>>> memcg totals remain balanced because they track resource consumption,
->>>> not node placement.
->>>>
->>>> Fixes: 05d4532b60e3 ("memcg/hugetlb: add hugeTLB counters to memcg")
->>>> Cc: stable@vger.kernel.org
->>>> Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
->>>> Tested-by: Joshua Hahn <joshua.hahnjy@gmail.com>
->>>> Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
->>>> Reviewed-by: Oscar Salvador <osalvador@suse.de>
->>>> ---
->>>>    include/linux/memcontrol.h |  8 ++++++++
->>>>    mm/hugetlb.c               | 25 +++++++++++++++++++++++++
->>>>    mm/memcontrol.c            |  5 ++---
->>>>    3 files changed, 35 insertions(+), 3 deletions(-)
->>>>
->>>> diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
->>>> index a8358f297b65..74110a324f9e 100644
->>>> --- a/include/linux/memcontrol.h
->>>> +++ b/include/linux/memcontrol.h
->>>> @@ -984,6 +984,9 @@ unsigned long lruvec_page_state_monotonic(const struct lruvec *lruvec,
->>>>    unsigned long lruvec_page_state_local(const struct lruvec *lruvec,
->>>>                          enum node_stat_item idx);
->>>>    +void mod_memcg_lruvec_state(struct lruvec *lruvec,
->>>> +                enum node_stat_item idx, int val);
->>>> +
->>>>    void mem_cgroup_flush_stats(struct mem_cgroup *memcg);
->>>>    void mem_cgroup_flush_stats_ratelimited(struct mem_cgroup *memcg);
->>>>    @@ -1452,6 +1455,11 @@ static inline unsigned long lruvec_page_state_local(const struct lruvec *lruvec,
->>>>        return node_page_state(lruvec_pgdat(lruvec), idx);
->>>>    }
->>>>    +static inline void mod_memcg_lruvec_state(struct lruvec *lruvec,
->>>> +                      enum node_stat_item idx, int val)
->>>> +{
->>>> +}
->>>> +
->>>>    static inline void mem_cgroup_flush_stats(struct mem_cgroup *memcg)
->>>>    {
->>>>    }
->>>> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
->>>> index 519c30b338a8..76d019594b39 100644
->>>> --- a/mm/hugetlb.c
->>>> +++ b/mm/hugetlb.c
->>>> @@ -23,6 +23,7 @@
->>>>    #include <linux/mmdebug.h>
->>>>    #include <linux/sched/signal.h>
->>>>    #include <linux/rmap.h>
->>>> +#include <linux/rcupdate.h>
->>>>    #include <linux/string_choices.h>
->>>>    #include <linux/string_helpers.h>
->>>>    #include <linux/swap.h>
->>>> @@ -7378,12 +7379,36 @@ void folio_putback_hugetlb(struct folio *folio)
->>>>        folio_put(folio);
->>>>    }
->>>>    +static void move_hugetlb_lruvec_stat(struct folio *old_folio,
->>>> +                     struct folio *new_folio)
->>>> +{
->>>> +    struct mem_cgroup *memcg;
->>>> +    long nr_pages = folio_nr_pages(old_folio);
->>>> +    int old_nid = folio_nid(old_folio);
->>>> +    int new_nid = folio_nid(new_folio);
->>>> +
->>>> +    if (old_nid == new_nid)
->>>> +        return;
->>>> +
->>>> +    guard(rcu)();
->>>> +
->>>> +    memcg = folio_memcg(new_folio);
->>>> +    if (!memcg)
->>>> +        return;
->>>> +
->>>> +    mod_memcg_lruvec_state(mem_cgroup_lruvec(memcg, NODE_DATA(old_nid)),
->>>> +                   NR_HUGETLB, -nr_pages);
->>> Why not use mod_lruvec_state? mod_memcg_lruvec_state is an internal
->>> API for memcg, I don't want it to be exported.
->> Thank you for the review.
->>
->> mod_lruvec_state() would update the node counter a second time.  It calls
->> mod_node_page_state() as well, and the target's node counter is already
->> updated in alloc_hugetlb_folio_nodemask() (patch 1/2):
->>
->>      lruvec_stat_mod_folio(folio, NR_HUGETLB, folio_nr_pages(folio));
->>
->> For an uncharged folio lruvec_stat_mod_folio() only updates the node
->> counter.  The target folio is not charged to any memcg at that point; its
->> charge only appears later in mem_cgroup_migrate().  So the node side is
->> already covered and only the per-memcg attribution has to follow the
->> charge here.
-> Looking at the first patch again, I do not think the
-> overall accounting is incorrect. My concern is where NR_HUGETLB
-> accounting is performed.
->
-> The low-level allocation helpers only take a folio from the
-> hugetlb pool. They do not have enough context to decide how
-> the folio should be accounted. That decision should be left
-> to their callers, once the folio enters the relevant usage
-> lifecycle.
->
-> hugetlb_alloc_folio() is a good example. It first obtains a
-> folio, then calls mem_cgroup_charge_hugetlb(), and only
-> afterwards calls lruvec_stat_mod_folio(). At that point,
-> the folio has the correct memcg and lruvec, so all relevant
-> counters can be updated together.
->
-> After this series, alloc_hugetlb_folio_reserve() and
-> alloc_hugetlb_folio_nodemask() account NR_HUGETLB before
-> returning the folio. This makes them unsuitable for callers
-> that need to charge the folio afterwards. Before the charge,
-> lruvec_stat_mod_folio() can update only the node counter.
-> The later charge does not associate that earlier update with
-> the new memcg.
->
-> If a caller accounts again after charging, the node counter is
-> updated twice. If it does not, the memcg and per-node lruvec
-> counters remain missing. The caller then needs a memcg-only
-> correction, creating a special accounting protocol between
-> the helper and its callers.
->
-> Migration exposes the same issue. The target gets node
-> accounting before it inherits the source memcg. The second patch
-> must update the lruvec state and then cancel its node changes,
-> because the target allocation already updated the node counter.
-> This works, but makes the accounting lifecycle harder to follow.
->
-> Would it be cleaner to keep these helpers focused on allocation
-> and let each caller account at the correct lifecycle point?
-> Normal allocation can account after a successful memcg charge.
-> Migration can move the complete lruvec state after it succeeds.
 
-Hi Muchun,
-
-Thanks a lot for the detailed explanation.
-
-One thing keeps the target accounting in alloc_hugetlb_folio_nodemask(): the
-node counter is paired with the folio's free, and a failed migration 
-frees its
-target right away (put_new_folio()/folio_put() -> free_huge_folio(), which
-always decrements the node counter). If the target were accounted only 
-after a
-successful migration, every failed migration would decrement a node counter
-that was never incremented.
-
-Unless there is a way to let free_huge_folio() tell that the folio comes
-from a failed migration, and skip the decrement for it.
-
-> An uncharged path can explicitly update only the node counter
-> if global accounting is still required.
+On Wed, Sep 23, 2026 at 3:02=E2=80=AFPM Greg KH <gregkh@linuxfoundation.org=
+> wrote:
 >
-> This would keep policy out of the low-level allocator and make
-> the accounting lifecycle easier to follow.
+> On Wed, Sep 23, 2026 at 01:23:01PM +0530, Kusuma DS wrote:
+> > Hi,
+> >
+> > 6.12.y picked up a bug without its fix. Details below; the request is t=
+o queue
+> > 8045c0df98d4 for linux-6.12.y.
+> >
+> > The issue: on every packet whose ESP decrypt goes async, dev_hold() is =
+taken on
+> > the ingress device but dev_put() lands on the VTI, because vti_rcv_cb r=
+eassigns
+> > skb->dev without taking a reference. The VTI refcount is driven negativ=
+e during
+> > normal traffic, and a later `ip tunnel del` then hangs forever in
+> > netdev_wait_allrefs_any(). The process is stuck in D state, unkillable,=
+ and the
+> > netdev is pinned for the rest of the boot.
+> >
+> > Introduced in 6.12.y by:
+> >
+> >     4236c30b437b ("xfrm: hold dev ref until after transport_finish NF_H=
+OOK")
+> >     =3D mainline 1c428b038400, backported 2026-06-19, first in v6.12.94=
+,
+> >     together with its dependency af4b8c5e9d6d
+> >
+> > Fixed upstream by:
+> >
+> >     8045c0df98d4 ("xfrm: Fix dev use-after-free in xfrm async resumptio=
+n")
+> >     Fixes: 1c428b038400
+> >     mainline v7.2-rc1; in 7.1.y as 63a300151999
+> >
+> > The fix was not queued alongside the commit it fixes, and is still abse=
+nt from
+> > 6.12.y as of v6.12.111. So every 6.12.94+ kernel carries the bug.
+> >
+> > Confirmed on 6.12.96+deb13-cloud-amd64 with a strongSwan tunnel-mode IP=
+sec VTI
+> > under inbound load; kernels up to 6.12.93 do not contain the code and a=
+re
+> > unaffected.
+> >
+> > The fix touches only net/xfrm/xfrm_input.c, net/ipv4/xfrm4_input.c and
+> > net/ipv6/xfrm6_input.c, against code 6.12.y already has, so it should a=
+pply
+> > cleanly. I can test a 6.12.y-rc against the reproducer if useful.
 >
-> Thanks.
+> It does not apply cleanly.  Please send a working and tested version if
+> you wish to have this applied.
 >
->>> Thanks.
->>>
->>>> + mod_memcg_lruvec_state(mem_cgroup_lruvec(memcg, NODE_DATA(new_nid)),
->>>> +                   NR_HUGETLB, nr_pages);
->>>> +}
->>>> +
->>>>    void move_hugetlb_state(struct folio *old_folio, struct folio *new_folio,
->>>>                enum migrate_reason reason)
->>>>    {
->>>>        struct hstate *h = folio_hstate(old_folio);
->>>>          hugetlb_cgroup_migrate(old_folio, new_folio);
->>>> +    move_hugetlb_lruvec_stat(old_folio, new_folio);
->>>>        folio_set_owner_migrate_reason(new_folio, reason);
->>>>          /*
->>>> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
->>>> index 88824f783571..a5335da5d425 100644
->>>> --- a/mm/memcontrol.c
->>>> +++ b/mm/memcontrol.c
->>>> @@ -1015,9 +1015,8 @@ static void __mod_memcg_lruvec_state(struct mem_cgroup_per_node *pn,
->>>>        put_cpu();
->>>>    }
->>>>    -static void mod_memcg_lruvec_state(struct lruvec *lruvec,
->>>> -                     enum node_stat_item idx,
->>>> -                     int val)
->>>> +void mod_memcg_lruvec_state(struct lruvec *lruvec,
->>>> +                enum node_stat_item idx, int val)
->>>>    {
->>>>        struct pglist_data *pgdat = lruvec_pgdat(lruvec);
->>>>        struct mem_cgroup_per_node *pn;
->>>>
->> -- 
->> Best regards,
->> Hongfu
-
--- 
-Best regards,
-Hongfu
-
+> thanks,
+>
+> greg k-h
