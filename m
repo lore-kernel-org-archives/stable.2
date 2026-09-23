@@ -1,260 +1,159 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from fout-b4-smtp.messagingengine.com (fout-b4-smtp.messagingengine.com [202.12.124.147])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A415F47AF6E;
-	Wed, 23 Sep 2026 09:13:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790154829; cv=pass; b=ouN/DkUyIKw55+LN4p3SSLdbfffbKPMdlbnbgGW/1eQnTFAooP9WPVPX+MaSvtyk5Fkn1SMYLtawqChzngZ9K/R261nldbtQGp3R05TsN5aCU87+jb89KPzqnqjoNPcOx1e+hTooO1Q45F4tJJzc9r/zf2omt/C24QNKKlNevmY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790154829; c=relaxed/simple;
-	bh=GiooBeXJIZ7JYhRqnUsjUFaZvZgkNBbOsUgFgLdwNjA=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=aso7oR4UmVgn1KFY4Q6/VRvs2V9ttuntquqK4mTa4zZXoyEIrZANoMxtU0aTLulvvJ2x+lhtyXTTeRsM8GMaVpr1jOeKPJpmIPjrYlA6TqCGeYSxiorM8bCk1berUoMHznBOL4oXN+vbX7lXPFjCSYLpX1t5ZiTKeS7OvC2uC/8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=EWEvmagg; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0007A450409
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 09:14:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.147
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790154882; cv=none; b=k5q2pbY7I8wFxhftOcm8PSb00NasufJ/gWDBFwzGtRl29EHP3adIpkgyEVHH1GNToYBi4Of+KQ0+kVMPLkTMP4gXlJzOL/y/p8gNa/DJFenxG2zLG4ATfKfpIAgXXmWVi/eb4eA2M7bObcjp6sTaUQAkppF9wpvM4ONCf3bfQ1g=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790154882; c=relaxed/simple;
+	bh=yBkBQV7B/1BCN5qJwQ1nqQL6d3IVjqWVlCE17QpM3kg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AnTEQWBBPcYcQt0TSu7MCX9DJY7Lz8S2X54aT4pYtswIxM7QE5dchhqmoI8pyIAk8z4Bpo54Q51qcS1gJuE6yVLY1l53ePuQRf2yvNb0hWvtiAUzb/cA6Pdam283H/ROG/6KydTOrcSmTJnxMmyscVVkyHLPMejddaw7NbXVq8U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=kvAfeGRX; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=PABxA+rx; arc=none smtp.client-ip=202.12.124.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="EWEvmagg"
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 4F2D6201CEF;
-	Wed, 23 Sep 2026 11:13:43 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790154823;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PS2sI9UkmHC+157QJRhoi9K5j3T9szzKe4hMK9xu6V8=;
-	b=EWEvmaggRytp4w+VexO1vp7Ii4h01iDFSl6Rk1FY5bMIZ6OYOWnYzWTiYBBqpdlfSE9Tyi
-	MpOivle8AT1X6zZNgGxLUNfhZ6GhhYNz3QQ6BfhIzE3Gar/7fRDGfVeWQ7SkWFqDminL2r
-	1tR7e2FlNc9thj7YZ8MMP0cCAU6mGcS/deWUHK/XwP8oVNvxRBhq6dFeHxoYzCPpfVE0zY
-	tXNHtnB54KiYKDApQlajLDpYN4acGXDNp3qmwp54ESJ298Rg03Vq7VZxLPzAW7REEFg22K
-	ssTPmM17FCB7gpZtn+IyjZcOfEG8hRDV/l4fdo7rhUExltqwHs2TQ+YDwiA3rg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790154823;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PS2sI9UkmHC+157QJRhoi9K5j3T9szzKe4hMK9xu6V8=;
-	b=P0+33uyLO+y4AEiD1puLoXrZvB1E2pq4deNWdg+mg1GS1/RzafdZUPUt+D4iqVnkc84bSa
-	wWi5lcUSWK0ePQ7hzdKTjiQgtzG1AAoH+lbXJjfeSsmGi5FT39dvmoouSbd52bkzO7Rewp
-	z9R6+8PP1/rkvysn6AAOkhVNfp6nYdbHsfB09068sG1x12UQkGYXwJVZe3IAUA8CVkrKbw
-	WMIp8RoogzKhwwgsM9xHtVpNH9N03KZHBABfHWJp20JvaJwFowjaH1w/MxBp8LX7B4f4X8
-	PTqU2LSAnB6JrEd6oF9M8Hxa/eLboliL7bRbDwtRzHv8i2FbhvcH2DT6ip25Pw==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790154823; a=rsa-sha256;
-	cv=none;
-	b=TBoRXXLaPGSPk37AIej7rZWoVLc1YZ7gBNbRSiY4iiqASKB/PcCm6LJ+Vriwsoo/7uzkeA
-	ukDKQDzdfVjR5x+J2JJbFhAwRFgves8lI94/jThopcAm/8ptXfc1f3gzZxzP4RUPuu9zdq
-	ZDeZHuYAo5ZTtVwiqVVC1+d/498O4Xr2BBhe5MzaYeyiXRyK9wzBGc1skc8mE68m8O90jN
-	tcE1Ie57BDFz9vpZlx5dFe0gDo9wbL+w9ZkEmcNYzdKSheJjKFZiq2IseONvfFQ/0QrBJ9
-	rj4EBK8a3OccAXYYbumtTD635TzzCrYsDzWIqXxcv79nob2XA8ZMoRWJjGluuw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-Message-ID: <7bfea0211710cc1cdab9ac7235c4f283f2c6d8ad.camel@pengutronix.de>
-Subject: Re: [PATCH v2 2/3] usb: dwc3: xilinx: re-assert resets on ZynqMP
- init error paths
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>, 
-	Thinh.Nguyen@synopsys.com, gregkh@linuxfoundation.org, michal.simek@amd.com
-Cc: linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Wed, 23 Sep 2026 11:13:43 +0200
-In-Reply-To: <20260922182125.11067-3-radhey.shyam.pandey@amd.com>
-References: <20260922182125.11067-1-radhey.shyam.pandey@amd.com>
-	 <20260922182125.11067-3-radhey.shyam.pandey@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="kvAfeGRX";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="PABxA+rx"
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfout.stl.internal (Postfix) with ESMTP id D76161D000A8;
+	Wed, 23 Sep 2026 05:14:39 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-03.internal (MEProxy); Wed, 23 Sep 2026 05:14:40 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm1; t=1790154879; x=1790241279; bh=GedQwnSZyq
+	szjaseA0LcniV58A79JVlaaoVeHOy86FI=; b=kvAfeGRXQZh0FcxJ0aQuvA2pI0
+	xKIcTFuCB3xI/9mz6LwnS0xLEQ7S5jb2O9poW0QlCYC5ypSPngEoyNObyGdFBLCu
+	MnmTcBTLa5PoXFiCKsip7NOR9DpBqkO71SkQzjpBVBsF5ed7JKbDCRjbg0O8OY7r
+	QRoN3hPP9t+q+sBatdsFMWmdcs1+iJB3Gz5h/UULdoYr0nBJewTIXhSLgHG5BE25
+	6zqfk6sJGzMvDwV6lX07SAzZVAB4bOOdVYA1QFqCWpAbPvvWZ6k8o3jfZMdh8NUr
+	dCGkIXJq0RJNo+fhHTJGuBuI5eRQixyc+acHOaL+rzvqgTqHdDIrnPVxCXyQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1790154879; x=1790241279; bh=GedQwnSZyqszjaseA0LcniV58A79JVlaaoV
+	eHOy86FI=; b=PABxA+rxhZhx+vGikpT4ZSCTOsQ/YvaSsegTB9vzZgrpP+XD6wP
+	g3bNX89Q9bpEC9S5IkNu+doJwNZMHHZMkaNWDNySV4f2D6jMEES4QfybNCamK6cj
+	/4lpMXP2skWjL/XUgjuEDC8afpn7JtKvQvcq89NQ6E4pfjFav6YdrX30wHjonJ3a
+	mHI8WEvHpvt4RcKcF2+7ZbdKB80h6I0s6kUclL5nAixG/SCOgn666tco4k6NrPPy
+	0Okz7M4c/DBOnmShrJ65IZ9WzpTyMfZhpNN0MPwp/P3aK/j6o+fVc0LpxWy2/cKb
+	6T1Ta/+shy5x1tgmKHWT8Pk8EJyxAkALHeA==
+X-ME-Sender: <xms:f5izat_x39dOwe4K-N8iG5jGdwyVuPLpkLb1WsC3hMjynxSvzcu0vw>
+    <xme:f5izakxXsananotMbGAvU9_jWstNcq7AhxZF_DP4W5KIZqzYIzpiiujjMeZfZvkzh
+    FuxFcYJYIzoNvZ5VS4RomjY4-WAdtgKHwh7sjySkrkjl-FOGJg>
+X-ME-Received: <xmr:f5izalpLHlMJ7bRmHQu7pj6mPRVQM7ap_F8WBG55lGMRrj98UV9zH6KmwlAh>
+X-ME-Proxy-Cause: dmFkZTG0Fr2gtcoi53eSnX332zTyx8nes1qWZ3sTNrrRLbN8FTTztiNdKL6qrf3exGtA7Q
+    Am6NuXztUFP3N9p+XAEjXX+L9ItyLwIqh9co1s5d4PGy0LaT8cauiWFT745zOL7y/ybcYL
+    KikADraFJDEjtBF2dihjUMsS6DF955EZrk+NB/zq2o2Gx6IgVSnPWNYuY1av+uhcT7UiH1
+    9sUlQfDrMFncttKjXKtCBopYs3Ya93tW4sMSMMErrOCgLFxg5t8ugcIanFfruU5hx9p8gi
+    qM0XcnEQXb66wS1kWQl0hX0ZLbHWeRHGdrfX1rxW5CpllR8QekMMWJ/OL+Wo4MFtOHYMCT
+    5knhUvHJSEr6s1D438lKaViAcG7RHhnwFmY1kslV3dOKGCaJQqRu8PwVx6kNqbtxYjftgE
+    kTgsz5a24E5JVu9errKNvFzSzGZsdiU9czannbET4H+NlrqTmjInFNmE7NTtC9lX2z3R38
+    RzTK8Y8E/2SpRN3E8saIrf//XcSqQeqLGjtknEgNWLSrrkb2hlII+FedDX+0g5Ze/5u1Lz
+    HxISuva1woTkLUhcTJorHoq25bpGTtzGZEvrRwQl49ZY7vVQhEO8EdEbeNHyQ8Yx8i8IXW
+    6awc+79f+q2seB/0oQqZf59oXfqwth/488dQ9h/O2N05mtyrjwL+g/X+Kydw
+X-ME-Proxy: <xmx:f5izatpok_crY8fsF4FTfSUz1uwfFLBE-ExjOW-Y9EW3bXcnAKbAcQ>
+    <xmx:f5izatDpryINYKoLdYG5_V-esKp_pzqEdLqTtzu4t-yTfniqM5zEEw>
+    <xmx:f5izajt-KX8PKH4fLKZ7Bjs8fGOXQcEBYuTzucJ2FF7hnKlmFRHnhg>
+    <xmx:f5izakKD8n1jwZKHNgVLwOf8Y-ZxH6Nrp2G_C8C6ekBDLBsQKpg_AA>
+    <xmx:f5izajMe5ge7Zkl-yExjeoiHkjulXzT2TcLS4EpInHxoD07V2iQ7tRk_>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 23 Sep 2026 05:14:38 -0400 (EDT)
+Date: Wed, 23 Sep 2026 10:02:19 +0200
+From: Greg KH <greg@kroah.com>
+To: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org, Long Li <leo.lilong@huawei.com>,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	Carlos Maiolino <cem@kernel.org>
+Subject: Re: [PATCH 6.18.y 1/9] xfs: factor out xfs_attr3_leaf_init
+Message-ID: <2026092314-paparazzi-lethargic-486c@gregkh>
+References: <2026091651-freedom-anger-bd4d@gregkh>
+ <20260917151724.693663-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917151724.693663-1-sashal@kernel.org>
 
-On Di, 2026-09-22 at 23:51 +0530, Radhey Shyam Pandey wrote:
-> If reset deassert or PHY setup fails partway through
-> dwc3_xlnx_init_zynqmp(), re-assert any resets that were already
-> released before unwinding the PHY. Use fall-through error labels so
-> unwind matches how far init progressed, for both USB2 and USB3 paths.
->=20
-> Save the ZynqMP reset handles in driver private data so later probe
-> teardown can re-assert released resets.
->=20
-> Fixes: 84770f028fab ("usb: dwc3: Add driver for Xilinx platforms")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+On Thu, Sep 17, 2026 at 11:17:15AM -0400, Sasha Levin wrote:
+> From: Long Li <leo.lilong@huawei.com>
+> 
+> [ Upstream commit e65bb55d7f8c2041c8fdb73cd29b0b4cad4ed847 ]
+> 
+> Factor out wrapper xfs_attr3_leaf_init function, which exported for
+> external use.
+> 
+> Reviewed-by: Darrick J. Wong <djwong@kernel.org>
+> Signed-off-by: Long Li <leo.lilong@huawei.com>
+> Signed-off-by: Carlos Maiolino <cem@kernel.org>
+> Stable-dep-of: 865b751e7503 ("xfs: don't stash removename operations with unknown ftype")
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
 > ---
-> Changes in v2:
-> - Split out of the combined five patch series; see patch 1.
-> - Reordered ahead of the platform-data cleanups.
-> - Added Cc: stable.
-> - No functional change to the patch itself.
->=20
->  drivers/usb/dwc3/dwc3-xilinx.c | 49 +++++++++++++++++++++-------------
->  1 file changed, 30 insertions(+), 19 deletions(-)
->=20
-> diff --git a/drivers/usb/dwc3/dwc3-xilinx.c b/drivers/usb/dwc3/dwc3-xilin=
-x.c
-> index 8c63e02575f1..d18d3e364381 100644
-> --- a/drivers/usb/dwc3/dwc3-xilinx.c
-> +++ b/drivers/usb/dwc3/dwc3-xilinx.c
-> @@ -48,6 +48,10 @@ struct dwc3_xlnx {
->  	void __iomem			*regs;
->  	int				(*pltfm_init)(struct dwc3_xlnx *data);
->  	struct phy			*usb3_phy;
-> +	struct reset_control		*usb_crst;
-> +	struct reset_control		*usb_hibrst;
-> +	struct reset_control		*usb_apbrst;
-> +	bool				usb_resets_released;
->  };
-> =20
->  static void dwc3_xlnx_mask_phy_rst(struct dwc3_xlnx *priv_data, bool mas=
-k)
-> @@ -112,7 +116,6 @@ static int dwc3_xlnx_init_versal(struct dwc3_xlnx *pr=
-iv_data)
->  static int dwc3_xlnx_init_zynqmp(struct dwc3_xlnx *priv_data)
->  {
->  	struct device		*dev =3D priv_data->dev;
-> -	struct reset_control	*crst, *hibrst, *apbrst;
->  	struct gpio_desc	*reset_gpio;
->  	int			ret =3D 0;
-> =20
-> @@ -124,25 +127,25 @@ static int dwc3_xlnx_init_zynqmp(struct dwc3_xlnx *=
-priv_data)
->  		goto err;
->  	}
-> =20
-> -	crst =3D devm_reset_control_get_exclusive(dev, "usb_crst");
-> -	if (IS_ERR(crst)) {
-> -		ret =3D PTR_ERR(crst);
-> +	priv_data->usb_crst =3D devm_reset_control_get_exclusive(dev, "usb_crst=
-");
-> +	if (IS_ERR(priv_data->usb_crst)) {
-> +		ret =3D PTR_ERR(priv_data->usb_crst);
->  		dev_err_probe(dev, ret,
->  			      "failed to get core reset signal\n");
->  		goto err;
->  	}
-> =20
-> -	hibrst =3D devm_reset_control_get_exclusive(dev, "usb_hibrst");
-> -	if (IS_ERR(hibrst)) {
-> -		ret =3D PTR_ERR(hibrst);
-> +	priv_data->usb_hibrst =3D devm_reset_control_get_exclusive(dev, "usb_hi=
-brst");
-> +	if (IS_ERR(priv_data->usb_hibrst)) {
-> +		ret =3D PTR_ERR(priv_data->usb_hibrst);
->  		dev_err_probe(dev, ret,
->  			      "failed to get hibernation reset signal\n");
->  		goto err;
->  	}
-> =20
-> -	apbrst =3D devm_reset_control_get_exclusive(dev, "usb_apbrst");
-> -	if (IS_ERR(apbrst)) {
-> -		ret =3D PTR_ERR(apbrst);
-> +	priv_data->usb_apbrst =3D devm_reset_control_get_exclusive(dev, "usb_ap=
-brst");
-> +	if (IS_ERR(priv_data->usb_apbrst)) {
-> +		ret =3D PTR_ERR(priv_data->usb_apbrst);
->  		dev_err_probe(dev, ret,
->  			      "failed to get APB reset signal\n");
->  		goto err;
-> @@ -156,19 +159,19 @@ static int dwc3_xlnx_init_zynqmp(struct dwc3_xlnx *=
-priv_data)
->  	 * absent.
->  	 */
->  	if (priv_data->usb3_phy) {
-> -		ret =3D reset_control_assert(crst);
-> +		ret =3D reset_control_assert(priv_data->usb_crst);
->  		if (ret < 0) {
->  			dev_err(dev, "Failed to assert core reset\n");
->  			goto err;
->  		}
-> =20
-> -		ret =3D reset_control_assert(hibrst);
-> +		ret =3D reset_control_assert(priv_data->usb_hibrst);
->  		if (ret < 0) {
->  			dev_err(dev, "Failed to assert hibernation reset\n");
->  			goto err;
->  		}
-> =20
-> -		ret =3D reset_control_assert(apbrst);
-> +		ret =3D reset_control_assert(priv_data->usb_apbrst);
->  		if (ret < 0) {
->  			dev_err(dev, "Failed to assert APB reset\n");
->  			goto err;
-> @@ -179,7 +182,7 @@ static int dwc3_xlnx_init_zynqmp(struct dwc3_xlnx *pr=
-iv_data)
->  	if (ret < 0)
->  		goto err;
-> =20
-> -	ret =3D reset_control_deassert(apbrst);
-> +	ret =3D reset_control_deassert(priv_data->usb_apbrst);
->  	if (ret < 0) {
->  		dev_err(dev, "Failed to release APB reset\n");
->  		goto err_phy_exit;
-> @@ -195,21 +198,21 @@ static int dwc3_xlnx_init_zynqmp(struct dwc3_xlnx *=
-priv_data)
->  		writel(PIPE_CLK_DESELECT, priv_data->regs + XLNX_USB_FPD_PIPE_CLK);
->  	}
-> =20
-> -	ret =3D reset_control_deassert(crst);
-> +	ret =3D reset_control_deassert(priv_data->usb_crst);
->  	if (ret < 0) {
->  		dev_err(dev, "Failed to release core reset\n");
-> -		goto err_phy_exit;
-> +		goto err_apbrst_assert;
->  	}
-> =20
-> -	ret =3D reset_control_deassert(hibrst);
-> +	ret =3D reset_control_deassert(priv_data->usb_hibrst);
->  	if (ret < 0) {
->  		dev_err(dev, "Failed to release hibernation reset\n");
-> -		goto err_phy_exit;
-> +		goto err_crst_assert;
->  	}
-> =20
->  	ret =3D phy_power_on(priv_data->usb3_phy);
->  	if (ret < 0)
-> -		goto err_phy_exit;
-> +		goto err_hibrst_assert;
-> =20
->  	/* ulpi reset via gpio-modepin or gpio-framework driver */
->  	reset_gpio =3D devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HIGH);
-
-Are the resets asserted if this fails?
-
-Same question about if probe fails after pltfm_init() succeeded.
-
-> @@ -226,10 +229,18 @@ static int dwc3_xlnx_init_zynqmp(struct dwc3_xlnx *=
-priv_data)
-> =20
->  	dwc3_xlnx_set_coherency(priv_data, XLNX_USB_TRAFFIC_ROUTE_CONFIG);
-> =20
-> +	priv_data->usb_resets_released =3D true;
-> +
+>  fs/xfs/libxfs/xfs_attr_leaf.c | 22 ++++++++++++++++++++++
+>  fs/xfs/libxfs/xfs_attr_leaf.h |  3 +++
+>  2 files changed, 25 insertions(+)
+> 
+> diff --git a/fs/xfs/libxfs/xfs_attr_leaf.c b/fs/xfs/libxfs/xfs_attr_leaf.c
+> index 14dddee4f8fa6..dd3923fdcb205 100644
+> --- a/fs/xfs/libxfs/xfs_attr_leaf.c
+> +++ b/fs/xfs/libxfs/xfs_attr_leaf.c
+> @@ -1330,6 +1330,28 @@ xfs_attr3_leaf_create(
 >  	return 0;
-> =20
->  err_phy_power_off:
->  	phy_power_off(priv_data->usb3_phy);
-> +err_hibrst_assert:
-> +	reset_control_assert(priv_data->usb_hibrst);
-> +err_crst_assert:
-> +	reset_control_assert(priv_data->usb_crst);
-> +err_apbrst_assert:
-> +	reset_control_assert(priv_data->usb_apbrst);
->  err_phy_exit:
->  	phy_exit(priv_data->usb3_phy);
->  err:
+>  }
+>  
+> +/*
+> + * Reinitialize an existing attr fork block as an empty leaf, and attach
+> + * the buffer to tp.
+> + */
+> +int
+> +xfs_attr3_leaf_init(
+> +	struct xfs_trans	*tp,
+> +	struct xfs_inode	*dp,
+> +	xfs_dablk_t		blkno)
+> +{
+> +	struct xfs_buf		*bp = NULL;
+> +	struct xfs_da_args	args = {
+> +		.trans		= tp,
+> +		.dp		= dp,
+> +		.owner		= dp->i_ino,
+> +		.geo		= dp->i_mount->m_attr_geo,
+> +	};
+> +
+> +	ASSERT(tp != NULL);
+> +
+> +	return xfs_attr3_leaf_create(&args, blkno, &bp);
+> +}
+>  /*
+>   * Split the leaf node, rebalance, then add the new entry.
+>   *
+> diff --git a/fs/xfs/libxfs/xfs_attr_leaf.h b/fs/xfs/libxfs/xfs_attr_leaf.h
+> index 589f810eedc0d..deb62b544ac54 100644
+> --- a/fs/xfs/libxfs/xfs_attr_leaf.h
+> +++ b/fs/xfs/libxfs/xfs_attr_leaf.h
+> @@ -86,6 +86,9 @@ int	xfs_attr3_leaf_list_int(struct xfs_buf *bp,
+>  /*
+>   * Routines used for shrinking the Btree.
+>   */
+> +
+> +int	xfs_attr3_leaf_init(struct xfs_trans *tp, struct xfs_inode *dp,
+> +				xfs_dablk_t blkno);
+>  int	xfs_attr3_leaf_toosmall(struct xfs_da_state *state, int *retval);
+>  void	xfs_attr3_leaf_unbalance(struct xfs_da_state *state,
+>  				       struct xfs_da_state_blk *drop_blk,
+> -- 
+> 2.53.0
+> 
+> 
 
-Rather than storing usb_resets_released state, and then having
-conditional teardown in the next patch, this could be handled via
-devm_add_action_or_reset.
-
-regards
-Philipp
+Series does not apply :(
