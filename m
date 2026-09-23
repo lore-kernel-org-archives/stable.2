@@ -1,29 +1,29 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1063C4AC176
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 11:56:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 501A44499BC
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 11:57:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790164604; cv=none; b=g0RC1ta3+u2vwbz+s48+AP9C+9iHg48vQhYNCOnfvm140oUs+P6QN+1rw8GS0VSO4Ng+4f4l8NtHRhxYTgh/bbMi783Q5mvUTClAHFUF+6T7RUwy8DGCYVeFQu0QD+AjReDVtgV072V8ZtfHyl6Gzf/+JUdVy8tjOv8mgTDgWA0=
+	t=1790164628; cv=none; b=uxjb7gMYlajxYt4g0bNJm4aDOE2y3cnDI9pZMAN9hV3G6GRZNl6h+Wq95l7zGGiCsWAEOsb7xEmBEzj4FdEZavXGmUBjGkZgHpzq0aSUHJmQhJGxB3/TAbEKtfFE8HvD4H2v8Zrxv/W+cYynMrdl9sWbXSKOS13Rt5tWLxQ8GPo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790164604; c=relaxed/simple;
+	s=arc-20240116; t=1790164628; c=relaxed/simple;
 	bh=6FrYDa6J32wsgDlPS6ylEJxtDXrpniTgOn5DI/OgdDE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gTuaP7w3h5RBD1KlizxswRvqrRN9f9Beu+29QI7HRJTd/pCR8FKyTFmpUrPZ6a2q/CgRvwwBISic3FzDKXoFkQ6llhMIzqyACyG2rrOnus5bCUgqjPs1LRgYGhuk2uc/phOsiKsKDmUP2/5Ydj4+Dy12DGETUjMtpRs+6Ga5UtY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Wc6z9R8B; arc=none smtp.client-ip=117.135.210.5
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qmmCweJDg5mOonDhlFzlOtPguaojpRZGZnzJkV3z9NsIARu2wBE4IJWNxd4dhhPoZ/SiIOTWEPqTDu0KOHVCKSUl1n/2tYUHJ1h/7EdqQAyoUWlOh8uS3cIAtSpH3YlOsu1QjRGuFYk0f2N1Nb1DsKZ6gVu+L37T3Z21jN6E2eg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=GtbBBWx8; arc=none smtp.client-ip=117.135.210.3
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Wc6z9R8B"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="GtbBBWx8"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
 	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Ri
-	8FyuOCQtYkwZzSZfiHKNrXOAfY81g/ycbm8C3SdHw=; b=Wc6z9R8BKqaPvZZA/1
-	aldbg3Ij4JcCF8O1u3fmSlRdQxPJcXodLaf2/JhR64PYDjrb/Yk7RsrsnokUJaeB
-	TH/selq0BbBkK+eVte2dK75nJM/9kKAvZw43LX9jT7Qvl6Tl/5cz5dpyCXPE2YEx
-	D5fP+kk22EqP2bs8bZ39tjwV8=
+	8FyuOCQtYkwZzSZfiHKNrXOAfY81g/ycbm8C3SdHw=; b=GtbBBWx8o3bPyAJuvu
+	mZ5CAfp92OTbH0OiXcS8saYWkl9/TxX7eVhvvhP7MlGjO/faZ2acic7M0pyfapc2
+	B2P9ZOXJsDO3iHShLjk0XkKn6MiUjPoQPR3ifh38jke1LDDBsahgRoQoX2XTMU9d
+	bAVVA5lD/FcdY/07NHjY25IV8=
 Received: from fedora (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3fxJcvrNq3ctJAQ--.47372S2;
-	Wed, 23 Sep 2026 19:56:12 +0800 (CST)
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD3X_VzvrNqsRlYAQ--.35554S2;
+	Wed, 23 Sep 2026 19:56:36 +0800 (CST)
 From: Xizhe Tang <xizheTang2005@163.com>
 To: Jani Nikula <jani.nikula@linux.intel.com>,
 	Rodrigo Vivi <rodrigo.vivi@intel.com>,
@@ -35,8 +35,8 @@ Cc: Xizhe Tang <xizheTang2005@163.com>,
 	dri-devel@lists.freedesktop.org,
 	stable@vger.kernel.org
 Subject: [PATCH v2] drm/i915/dp: Only send AS SDP when VRR/CMRR is enabled or PR !async
-Date: Thu, 24 Sep 2026 03:51:49 +0800
-Message-ID: <20260923195149.21329-1-xizheTang2005@163.com>
+Date: Thu, 24 Sep 2026 03:51:59 +0800
+Message-ID: <20260923195200.21362-1-xizheTang2005@163.com>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -45,12 +45,12 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3fxJcvrNq3ctJAQ--.47372S2
+X-CM-TRANSID:_____wD3X_VzvrNqsRlYAQ--.35554S2
 X-Coremail-Antispam: 1Uf129KBjvJXoWxGw4xAw4kAFy5ur45AF1DJrb_yoWrJF18pw
 	47WryFyr4fXFyIqFWxXFn2vFy5WwsrJ34rGF98G3y8Z3Wqk343trZavayj9a4Dur4xXF1F
 	yrZ5JFWqka10vrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
 	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pKLvuiUUUUU=
-X-CM-SenderInfo: x0l2xvpwdqwjqqqvqiywtou0bp/xtbCwR1OpWqzvl0lWwAA3z
+X-CM-SenderInfo: x0l2xvpwdqwjqqqvqiywtou0bp/xtbC6hRUq2qzvnR+ggAA3u
 
 A Panther Lake eDP panel that advertises VRR in EDID but runs at a fixed
 refresh rate has received an Adaptive-Sync SDP since commit 6a1712052859
