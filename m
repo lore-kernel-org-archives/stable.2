@@ -1,45 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f12.google.com (mail-oi2-f12.google.com [74.125.231.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C5CF53B352;
-	Wed, 23 Sep 2026 14:54:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69EA753B358
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 14:54:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790175267; cv=none; b=aPmtpETPBQR6U1BMTOdVpMzise4TBOHFh5/VpxmFH+F/v6DuhfBbkI+luEfpYYhxuHpXZLWtImlVHrQxOAivdaVqM3mAG8ib1geAQ9KNnCDVgoxx2SXsLkUlrmdovtJWWqZOLQD0ZjnqN+NRpyDT4n/9RuCMfpYYh4ltGfZAq2M=
+	t=1790175271; cv=none; b=RQ+R5JiuUYUgmoomgb86YucciVMFYqy/2AhpRrEUlL+fVyDwspRlX2FgRUxdiYqGo9O/X/V2ACm2yGN9EcN7ftsmOaIRs2uZSfSIY2ayoDJrz2/Ssbxh0jGZ0dF0ShwDWK64nnww+82rRh9g7UU03dLC7NVAnz8jr8BH59EV7pg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790175267; c=relaxed/simple;
-	bh=KaTYgao4ZZpHieFvveLgqaL9Gsf3pwH0QDsdCIJHo+0=;
+	s=arc-20240116; t=1790175271; c=relaxed/simple;
+	bh=BQ3AIo9FaExG3aW1u0QXqsgAz+u3CyxtPn+zj7VYhc4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=f+LM7iy6TgSRvJ/WZW67kPXovYAWEek+56nBzGAr8bEHjatUTRN5O8mJbxDMGmVLX5MJM5d7QcH9PwSj4nNqWRJQ8UzolKbrTBnfzkLQQB63K6vRGbHiWMgbuqnymfaKfQFjTZmUXqgIdJ1SKgv5BjrWOA3MWuWs1acRmWfMtq8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=JVGjYrNM; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=tisWQ64buE7phBlrPAFP/1N19C5XOecy5WOCr+sYVcX8haqcDHf/xm1lxS2KeUhFnQe26zDu+f00DtnKaYK6PHBpGZfZADkjZ1G3Swo1JZtKuGJ8UmG0hNN6bZin8P//V6BBXCsh8CVD+VbcA89DJSpL6tYIpSbfO7q6U/Ajb4s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YCFSrIC0; arc=none smtp.client-ip=74.125.231.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JVGjYrNM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CDD31F00898;
-	Wed, 23 Sep 2026 14:54:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790175265;
-	bh=6FXymT+/d3OfNWhkUaoDLm0IM7HFAPJzhTQHZHDglEE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JVGjYrNMdl3QOjOiRtbGimuLnezlEYUhcTHrKDoULiTYae/314crlwp/yJWSgK9Ka
-	 MQOoXj7H1eZcMuR7RdTmo8qet4GSIuFJLQ1JtptZU8nDgj3LZOlmHBiTeDCtYLimMW
-	 coTRPBahc5VgUxwC6KSzEtkXoVPHMhn5Dt86l5G8=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Benjamin Berg <benjamin.berg@intel.com>,
-	Johannes Berg <johannes.berg@intel.com>,
-	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 373/398] wifi: mac80211: track MU-MIMO configuration on disabled interfaces
-Date: Wed, 23 Sep 2026 16:07:27 +0200
-Message-ID: <20260923140653.116725677@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YCFSrIC0"
+Received: by mail-oi2-f12.google.com with SMTP id 5614622812f47-4b37a2ffee6so467830b6e.2
+        for <stable@vger.kernel.org>; Wed, 23 Sep 2026 07:54:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790175268; x=1790780068; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8imZswOXgJq9Cx5JQERORsPUChw1RLSPP9EHDsUeryo=;
+        b=YCFSrIC0lwqobzyWufIQdV+GBzHpF+Ee2UQ6PKXA4ZgCLCa7gB5Jz2XhCrot7XSWHz
+         G2QmyzOtR8zr5vIXqYv1vEPXJP2+4+HNbP3nUdWcjpGD0JVWP+vUefUe1HjtNWT/drAK
+         du5NHAcJ9ssvnENlG7L0+pdUJo6HpKdO7FLb5fpPBLDFxSLVI/T55x2ic2ssthOEIQLn
+         7oTrle9afXPxeRPfcqoURZRVqPJhpUfjILLJ+qA+Nx3U5Y9hDImkoElfAK6b6Gdtyuom
+         7y5jRKpmuL54MnNrysbt0YjJ62Wj0f3UvDhJyU+1RtnE2zkJ0C4lsUJT8zmC9+I9vGDy
+         RQBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790175268; x=1790780068;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8imZswOXgJq9Cx5JQERORsPUChw1RLSPP9EHDsUeryo=;
+        b=wYNINlxiHoNy7Ye4ITi+LqDfHb2/g/67kSTh2pbM6GngQwm2EXxzOXPZYPOqiLaZGU
+         +Celeeo2cDnsfVvUWN0ZgKQyGGJlAWNUCGoogfhRhlfBGouJig1vNZx1lzfgWioH8Y3d
+         s4bdTtTqGMpNGCBTAXtMMiEE//YAJAvJN4fDeqr+qrQ94PP7pCWj1Vda8/xp7CcMbAu5
+         YSNpEfE+yA3fVpjFkrzp+KUTIJRO8/8O8w+/YnKiIENNteyDnifalFnFseIF5OXnWTLo
+         4GNtW7ldp2xWeNEhl0xxID8oSkcyNi0OzryI0QjUS7GsLvx0gLRI5V7RtehFdYUxiA2r
+         foRQ==
+X-Forwarded-Encrypted: i=1; AKwUvByLkULYAybZDxdmIufvc7FD5jqOR1Px/0zAK++s8WnDjRQyxyG8NJWHZrrjMKkDrceynQ8TtHA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kA+TvGE4pjBjbkSp9R5zzIdcMXLqkRQMLyO/gN837Cke1bR4nx
+	MhEEjjKkOsI/bzHt+FIeGasP21K19QqbrX7ma54IvjB7KC8XI4n/8iJH
+X-Gm-Gg: AYBFou2OYrkAuI+KTg+nkNjBnZwJ0pADhOVZh+bLy4Md4CfV4Ao0NTsoKbSasO0bUF3
+	143ZX308mfxO1hT3nlBwfWm05uO2pgd0fkErONQKadp7yuBvbCnhsfw2/GLt2Iux+Hj2zbj0G1x
+	xoWuk8jabvwmSQN/aXlMOEqUr3ilHVvgnU8t3Q6ilU+sTYLyTpxuORnriyPIFBEY31zPLpgSqXc
+	+q+/mXzkWmdiXB/atlXJGEMnwSRUQPuDxIrHSqrTyJuGgFmgA3FVWBt32kYLS+3vvxGVe4P7Z9s
+	AnZuV5/EccAh63j3kMTP1yfeIW69tdzxop9LF92+vand2apHDPRloXahBkP+4284M6Tbs3vKahJ
+	i26b02TZYj+S0/M4M5sEBivffmlYFvH03l/G+w+UBp/JHPlkHw9NfLFwnahikisOWDyz5hQxSIq
+	5HfH7TmirQ9R5ewZ6j7WSOiZLAx6R+A4DHJ86hCaAfSO8KoyR+XSbpB3NwGE4ktZSKaZgFow==
+X-Received: by 2002:a05:6808:4f60:b0:4d6:9283:1bdd with SMTP id 5614622812f47-4d69283317bmr1082080b6e.58.1790175268279;
+        Wed, 23 Sep 2026 07:54:28 -0700 (PDT)
+Received: from archlinux.lan ([136.34.156.120])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4d5c4bf8e14sm2290752b6e.14.2026.09.23.07.54.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 07:54:27 -0700 (PDT)
+From: Danish Khateeb <danishkhateeb03@gmail.com>
+To: "David S. Miller" <davem@davemloft.net>,
+	Andreas Larsson <andreas@gaisler.com>
+Cc: Masami Hiramatsu <mhiramat@kernel.org>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Allen Pais <allen.lkml@gmail.com>,
+	sparclinux@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Danish Khateeb <danishkhateeb03@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 2/2] sparc64: uprobes: fix relbranch_fixup() for BPr, FBfcc and FBPfcc
+Date: Wed, 23 Sep 2026 09:54:26 -0500
+Message-ID: <20260923145426.421639-1-danishkhateeb03@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260923140643.441954610@linuxfoundation.org>
-References: <20260923140643.441954610@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+In-Reply-To: <20260923144909.414968-1-danishkhateeb03@gmail.com>
+References: <20260923144909.414968-1-danishkhateeb03@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,247 +84,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+uprobes single-step a copy of the probed instruction in an XOL slot.
+When the copy is a taken PC-relative branch, its target is relative to
+the slot, and relbranch_fixup() moves it back to the probed code. Like
+its kprobes counterpart, it only recognizes call, BPcc and Bicc. After a
+taken BPr (brz, brnz, ...), FBfcc or FBPfcc, the task continues at the
+slot's address plus the branch displacement, inside the XOL page, and
+dies with SIGILL.
 
-------------------
+GCC often emits a BPr as a function's first instruction, so a plain
+function-entry uprobe can kill the probed program. In QEMU sun4u, with a
+uprobe on a "brz,pn %o0, 1f", the first call with %o0 == 0 ends with
 
-From: Benjamin Berg <benjamin.berg@intel.com>
+  init: potentially unexpected fatal signal 4.
+  TSTATE: 0000000082000203 TPC: fffffffbffffe01c TNPC: fffffffbffffe020
 
-[ Upstream commit a5aa46f1ac4f53e03b9b75cbf55634131f2f8cac ]
+where the task's [uprobes] mapping is fffffffbffffe000-fffffffc00000000.
+FBfcc and FBPfcc behave the same.
 
-For monitoring, userspace will try to configure the VIF sdata, while the
-driver may see the monitor_sdata that is created when only monitor
-interfaces are up. This causes the odd situation that it may not be
-possible to store the MU-MIMO configuration on monitor_sdata.
+Add the missing branch formats, as for kprobes.
 
-Fix this by storing that information on the VIF sdata and updating the
-monitor_sdata when available and the interface is up. Also, adjust the
-code that adds monitor_sdata so that it will configure MU-MIMO based on
-the newly added interface or one of the existing ones.
-
-This should give a mostly consistent behaviour when configuring MU-MIMO
-on sniffer interfaces. Should the user configure MU-MIMO on multiple
-sniffer interfaces, then mac80211 will simply select one of the
-configurations. This behaviour should be good enough and avoids breaking
-user expectations in the common scenarios.
-
-Signed-off-by: Benjamin Berg <benjamin.berg@intel.com>
-Reviewed-by: Johannes Berg <johannes.berg@intel.com>
-Signed-off-by: Miri Korenblit <miriam.rachel.korenblit@intel.com>
-Link: https://patch.msgid.link/20251110141514.677915f8f6bb.If4e04a57052f9ca763562a67248b06fd80d0c2c1@changeid
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
-Stable-dep-of: 2b04d6556964 ("wifi: mac80211: refuse to make a monitor active when it has no queue")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Fixes: e8f4aa6087fa ("sparc64:Support User Probes for sparc")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
 ---
- net/mac80211/cfg.c         |   47 ++++++++++++++++++++++++++++++---------------
- net/mac80211/ieee80211_i.h |    3 +-
- net/mac80211/iface.c       |   46 ++++++++++++++++++++++++++++++++++++++------
- net/mac80211/util.c        |    3 +-
- 4 files changed, 76 insertions(+), 23 deletions(-)
+ arch/sparc/kernel/uprobes.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
---- a/net/mac80211/cfg.c
-+++ b/net/mac80211/cfg.c
-@@ -63,12 +63,14 @@ static void ieee80211_set_mu_mimo_follow
- 		memcpy(sdata->vif.bss_conf.mu_group.position,
- 		       params->vht_mumimo_groups + WLAN_MEMBERSHIP_LEN,
- 		       WLAN_USER_POSITION_LEN);
--		ieee80211_link_info_change_notify(sdata, &sdata->deflink,
--						  BSS_CHANGED_MU_GROUPS);
-+
- 		/* don't care about endianness - just check for 0 */
- 		memcpy(&membership, params->vht_mumimo_groups,
- 		       WLAN_MEMBERSHIP_LEN);
- 		mu_mimo_groups = membership != 0;
-+
-+		/* Unset following if configured explicitly */
-+		eth_broadcast_addr(sdata->u.mntr.mu_follow_addr);
- 	}
+diff --git a/arch/sparc/kernel/uprobes.c b/arch/sparc/kernel/uprobes.c
+index c8cac64e9988..c8ba033427ba 100644
+--- a/arch/sparc/kernel/uprobes.c
++++ b/arch/sparc/kernel/uprobes.c
+@@ -97,12 +97,15 @@ static unsigned long relbranch_fixup(u32 insn, struct uprobe_task *utask,
+ 	if (regs->tnpc == regs->tpc + 0x4UL)
+ 		return utask->autask.saved_tnpc + 0x4UL;
  
- 	if (params->vht_mumimo_follow_addr) {
-@@ -76,16 +78,26 @@ static void ieee80211_set_mu_mimo_follow
- 			is_valid_ether_addr(params->vht_mumimo_follow_addr);
- 		ether_addr_copy(sdata->u.mntr.mu_follow_addr,
- 				params->vht_mumimo_follow_addr);
-+
-+		/* Unset current membership until a management frame is RXed */
-+		memset(sdata->vif.bss_conf.mu_group.membership, 0,
-+		       WLAN_MEMBERSHIP_LEN);
- 	}
+-	/* The three cases are call, branch w/prediction,
+-	 * and traditional branch.
++	/* The cases are call and the branches with a PC-relative
++	 * displacement.
+ 	 */
+-	if ((insn & 0xc0000000) == 0x40000000 ||
+-	    (insn & 0xc1c00000) == 0x00400000 ||
+-	    (insn & 0xc1c00000) == 0x00800000) {
++	if ((insn & 0xc0000000) == 0x40000000 ||	/* call */
++	    (insn & 0xc1c00000) == 0x00400000 ||	/* BPcc */
++	    (insn & 0xc1c00000) == 0x00800000 ||	/* Bicc */
++	    (insn & 0xd1c00000) == 0x00c00000 ||	/* BPr */
++	    (insn & 0xc1c00000) == 0x01400000 ||	/* FBPfcc */
++	    (insn & 0xc1c00000) == 0x01800000) {	/* FBfcc */
+ 		unsigned long real_pc = (unsigned long) utask->vaddr;
+ 		unsigned long ixol_addr = utask->xol_vaddr;
  
- 	sdata->vif.bss_conf.mu_mimo_owner = mu_mimo_groups || mu_mimo_follow;
-+
-+	/* Notify only after setting mu_mimo_owner */
-+	if (sdata->vif.bss_conf.mu_mimo_owner &&
-+	    sdata->flags & IEEE80211_SDATA_IN_DRIVER)
-+		ieee80211_link_info_change_notify(sdata, &sdata->deflink,
-+						  BSS_CHANGED_MU_GROUPS);
- }
- 
- static int ieee80211_set_mon_options(struct ieee80211_sub_if_data *sdata,
- 				     struct vif_params *params)
- {
- 	struct ieee80211_local *local = sdata->local;
--	struct ieee80211_sub_if_data *monitor_sdata;
-+	struct ieee80211_sub_if_data *monitor_sdata = NULL;
- 
- 	/* check flags first */
- 	if (params->flags && ieee80211_sdata_running(sdata)) {
-@@ -103,23 +115,28 @@ static int ieee80211_set_mon_options(str
- 			return -EBUSY;
- 	}
- 
--	/* also validate MU-MIMO change */
--	if (ieee80211_hw_check(&local->hw, NO_VIRTUAL_MONITOR))
--		monitor_sdata = sdata;
--	else
--		monitor_sdata = wiphy_dereference(local->hw.wiphy,
--						  local->monitor_sdata);
--
--	if (!monitor_sdata &&
-+	/* validate whether MU-MIMO can be configured */
-+	if (!ieee80211_hw_check(&local->hw, WANT_MONITOR_VIF) &&
-+	    !ieee80211_hw_check(&local->hw, NO_VIRTUAL_MONITOR) &&
- 	    (params->vht_mumimo_groups || params->vht_mumimo_follow_addr))
- 		return -EOPNOTSUPP;
- 
-+	/* Also update dependent monitor_sdata if required */
-+	if (test_bit(SDATA_STATE_RUNNING, &sdata->state) &&
-+	    !ieee80211_hw_check(&local->hw, NO_VIRTUAL_MONITOR))
-+		monitor_sdata = wiphy_dereference(local->hw.wiphy,
-+						  local->monitor_sdata);
-+
- 	/* apply all changes now - no failures allowed */
- 
--	if (monitor_sdata &&
--		(ieee80211_hw_check(&local->hw, WANT_MONITOR_VIF) ||
--		 ieee80211_hw_check(&local->hw, NO_VIRTUAL_MONITOR)))
--		ieee80211_set_mu_mimo_follow(monitor_sdata, params);
-+	if (ieee80211_hw_check(&local->hw, WANT_MONITOR_VIF) ||
-+	    ieee80211_hw_check(&local->hw, NO_VIRTUAL_MONITOR)) {
-+		/* This is copied in when the VIF is activated */
-+		ieee80211_set_mu_mimo_follow(sdata, params);
-+
-+		if (monitor_sdata)
-+			ieee80211_set_mu_mimo_follow(monitor_sdata, params);
-+	}
- 
- 	if (params->flags) {
- 		if (ieee80211_sdata_running(sdata)) {
---- a/net/mac80211/ieee80211_i.h
-+++ b/net/mac80211/ieee80211_i.h
-@@ -2114,7 +2114,8 @@ void ieee80211_adjust_monitor_flags(stru
- 				    const int offset);
- int ieee80211_do_open(struct wireless_dev *wdev, bool coming_up);
- void ieee80211_sdata_stop(struct ieee80211_sub_if_data *sdata);
--int ieee80211_add_virtual_monitor(struct ieee80211_local *local);
-+int ieee80211_add_virtual_monitor(struct ieee80211_local *local,
-+				  struct ieee80211_sub_if_data *creator_sdata);
- void ieee80211_del_virtual_monitor(struct ieee80211_local *local);
- 
- bool __ieee80211_recalc_txpower(struct ieee80211_link_data *link);
---- a/net/mac80211/iface.c
-+++ b/net/mac80211/iface.c
-@@ -753,8 +753,9 @@ static void ieee80211_do_stop(struct iee
- 	ieee80211_configure_filter(local);
- 	ieee80211_hw_config(local, -1, hw_reconf_flags);
- 
-+	/* Passing NULL means an interface is picked for configuration */
- 	if (local->virt_monitors == local->open_count)
--		ieee80211_add_virtual_monitor(local);
-+		ieee80211_add_virtual_monitor(local, NULL);
- }
- 
- void ieee80211_stop_mbssid(struct ieee80211_sub_if_data *sdata)
-@@ -1215,7 +1216,8 @@ static void ieee80211_sdata_init(struct
- 	ieee80211_link_init(sdata, -1, &sdata->deflink, &sdata->vif.bss_conf);
- }
- 
--int ieee80211_add_virtual_monitor(struct ieee80211_local *local)
-+int ieee80211_add_virtual_monitor(struct ieee80211_local *local,
-+				  struct ieee80211_sub_if_data *creator_sdata)
- {
- 	struct ieee80211_sub_if_data *sdata;
- 	int ret;
-@@ -1223,10 +1225,14 @@ int ieee80211_add_virtual_monitor(struct
- 	ASSERT_RTNL();
- 	lockdep_assert_wiphy(local->hw.wiphy);
- 
--	if (local->monitor_sdata ||
--	    ieee80211_hw_check(&local->hw, NO_VIRTUAL_MONITOR))
-+	if (ieee80211_hw_check(&local->hw, NO_VIRTUAL_MONITOR))
- 		return 0;
- 
-+	/* Already have a monitor set up, configure it */
-+	sdata = wiphy_dereference(local->hw.wiphy, local->monitor_sdata);
-+	if (sdata)
-+		goto configure_monitor;
-+
- 	sdata = kzalloc(sizeof(*sdata) + local->hw.vif_data_size, GFP_KERNEL);
- 	if (!sdata)
- 		return -ENOMEM;
-@@ -1279,6 +1285,32 @@ int ieee80211_add_virtual_monitor(struct
- 	skb_queue_head_init(&sdata->status_queue);
- 	wiphy_work_init(&sdata->work, ieee80211_iface_work);
- 
-+configure_monitor:
-+	/* Copy in the MU-MIMO configuration if set */
-+	if (!creator_sdata) {
-+		struct ieee80211_sub_if_data *other;
-+
-+		list_for_each_entry(other, &local->mon_list, list) {
-+			if (!other->vif.bss_conf.mu_mimo_owner)
-+				continue;
-+
-+			creator_sdata = other;
-+			break;
-+		}
-+	}
-+
-+	if (creator_sdata && creator_sdata->vif.bss_conf.mu_mimo_owner) {
-+		sdata->vif.bss_conf.mu_mimo_owner = true;
-+		memcpy(&sdata->vif.bss_conf.mu_group,
-+		       &creator_sdata->vif.bss_conf.mu_group,
-+		       sizeof(sdata->vif.bss_conf.mu_group));
-+		memcpy(&sdata->u.mntr.mu_follow_addr,
-+		       creator_sdata->u.mntr.mu_follow_addr, ETH_ALEN);
-+
-+		ieee80211_link_info_change_notify(sdata, &sdata->deflink,
-+						  BSS_CHANGED_MU_GROUPS);
-+	}
-+
- 	return 0;
- }
- 
-@@ -1435,11 +1467,13 @@ int ieee80211_do_open(struct wireless_de
- 			if (res)
- 				goto err_stop;
- 		} else {
--			if (local->virt_monitors == 0 && local->open_count == 0) {
--				res = ieee80211_add_virtual_monitor(local);
-+			/* add/configure if there is no non-monitor interface */
-+			if (local->virt_monitors == local->open_count) {
-+				res = ieee80211_add_virtual_monitor(local, sdata);
- 				if (res)
- 					goto err_stop;
- 			}
-+
- 			local->virt_monitors++;
- 
- 			/* must be before the call to ieee80211_configure_filter */
---- a/net/mac80211/util.c
-+++ b/net/mac80211/util.c
-@@ -2202,9 +2202,10 @@ int ieee80211_reconfig(struct ieee80211_
- 		}
- 	}
- 
-+	/* Passing NULL means an interface is picked for configuration */
- 	if (local->virt_monitors > 0 &&
- 	    local->virt_monitors == local->open_count)
--		ieee80211_add_virtual_monitor(local);
-+		ieee80211_add_virtual_monitor(local, NULL);
- 
- 	if (!suspended)
- 		return 0;
-
+-- 
+2.55.0
 
