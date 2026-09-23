@@ -1,290 +1,173 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C827516160;
-	Wed, 23 Sep 2026 12:28:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9028F3E51F5
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 12:35:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790166506; cv=none; b=oE7TEDzpF9hBKPK8hgb9j6w/v5m/bYmluN3P5B17Fbv9GwNkJmRT6y72D4n3HNMCGGdagYrYehu64seGmz4n4x6bDgK0VgfI/E/XAIpnyNC1WczRBgYP1SVKiaaFySBWymSSKoxZ+XKVcBXQuLgTDXqgQ/MiMWeVGumTCPfoqTg=
+	t=1790166922; cv=none; b=dUF60zTHpuU30JHIZWdDTaAw9T9r9ge50AUTG+SpdWkdbZIVXyh8/cTu6DPIvgGUEJxyh0KsAaIhNAeazGnLtZG0m3y8EI88vkmZywJGx2UiI3fYeonWi9nP2zRIvJXxODraV71wFnjzDPLoUyQP7vBw6H+abtfD0lZ6jIUoFwI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790166506; c=relaxed/simple;
-	bh=KRI8omNOMCiI6IgA1rLIMiWlRU5g0GVvzt4XXgMRDW4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=bytOxyVRaUHVCY8im3QBsJfQ3D5dhCfgpYA7ygxWn28QG267Sgv1BdCFNlP2p8EJon3eV3DqKCN9+xzM+lk4enyQsYjcUqf3ElubOKUCn2Be+xcOOGzGeeX4ruzbbM3rnCDVH0UZtWMHHBnkBho8XAS2A8kYKL8+fZwx4CbF1eY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HNpnU9Zd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790166922; c=relaxed/simple;
+	bh=NUst59Nj86ONo8O+t+3UCjdvz8gS3JO/OxFem3r1dlM=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=HA7w39mscmxXPjj3X9PdQ9cl7fBhn9+B11Fb8m9zTw6hHZdxytLGK0JiPI5h5teKlyYswXFKyttPyUwQq74unfTjYnXzWrB2JTL2GiphoXoQmzLmzkC33URPZ0XzBr3c5Eg6wtB4O/RcAU0wJcvtP1k+04ShY9SWjXmiyys8OZw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fkjzzac9; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HNpnU9Zd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F4A41F00893;
-	Wed, 23 Sep 2026 12:28:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790166504;
-	bh=HmZI40rnH0E1cwCoxsUDuC4zgJUjo+2gHOoQq3EJ9QE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=HNpnU9Zd8DAeSZfKxuFtGDo+jGSfd/6XQIg9f1Oi8Z/2SJVJSlv9rPzmNf5ddu5VW
-	 i/RPIIcXoxaW5wFWl5QkW8L381w0f7ttuX5k2j6QqEoyadTK74le59fowAsoLJLBT2
-	 bOZzFKTkziyL2cEa0f84Ynss5f0ZDyXAhB9ebYNoklPjQFQtr+aedpIedK/YGjec+q
-	 Ivv/jh+8iMWa56zS9yxzf866WRcjTXf6dVQCZ7ntDMrTaVbtmhvmyRB8oAKXJvwbZ4
-	 +YkQT/RAP1JGogqIS5+Ft4vukOJygTWrQUcv1U92qrPaXibBzx5bLVWHt/WoYpH5Ue
-	 p/lGSkaWDft9g==
-From: Christian Brauner <brauner@kernel.org>
-Date: Wed, 23 Sep 2026 14:27:57 +0200
-Subject: [PATCH 5/8] fs: don't silently unmount busy mounts
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fkjzzac9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790166920; x=1821702920;
+  h=from:to:cc:subject:in-reply-to:references:date:
+   message-id:mime-version;
+  bh=NUst59Nj86ONo8O+t+3UCjdvz8gS3JO/OxFem3r1dlM=;
+  b=fkjzzac9OFCkv9Gn6un84J7accr/AdjbGJ+KQjujllHPZc0fOltqEMvL
+   PxntBVy6xznu2NwgUxs63EL6eQKsNiKNERytp0JKBJiSDDWKHMwumAv2l
+   ZIn5V0awpuqHjZRR2TfsMKYPvBOqUTZ7EyZM9B9Rfnki3zucvNgL9UU8/
+   Pe4JJxjOq6AbpaUK1Mj28fToLSnKYCFa5ckt+/XipnIlM4WymUY7p1KC7
+   JTpGGebHPgVUenJ/rW3X8iD7mmHZg9qTpuleO3rbT2gA3zXtC5z7xHu6W
+   GQU1jrVxfnRXAMkzrqb7EtHNfJ4/tMp3AdF3+iveH0tjkra3dZjPt6k+1
+   w==;
+X-CSE-ConnectionGUID: utWj7qZXTbuSbgK6zOFnpw==
+X-CSE-MsgGUID: hTuHADiTRn+d60/7s9QKLQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="101444992"
+X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
+   d="scan'208";a="101444992"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 05:35:05 -0700
+X-CSE-ConnectionGUID: mUSEFwBUQyGvdI447caV8A==
+X-CSE-MsgGUID: QaEsu21YSmSrACMamdgJEQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
+   d="scan'208";a="4855983"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.253])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 05:35:02 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Xizhe Tang <xizheTang2005@163.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Cc: Xizhe Tang <xizheTang2005@163.com>, Ville =?utf-8?B?U3lyasOkbMOk?=
+ <ville.syrjala@linux.intel.com>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH v2] drm/i915/dp: Only send AS SDP when VRR/CMRR is
+ enabled or PR !async
+In-Reply-To: <20260923195200.21362-1-xizheTang2005@163.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260923195200.21362-1-xizheTang2005@163.com>
+Date: Wed, 23 Sep 2026 15:34:59 +0300
+Message-ID: <45cd4f2b396b208b976bd946ae0efe45a1c0c09c@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-work-mount-fixes-v1-5-f424cf8d3242@kernel.org>
-References: <20260923-work-mount-fixes-v1-0-f424cf8d3242@kernel.org>
-In-Reply-To: <20260923-work-mount-fixes-v1-0-f424cf8d3242@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
-X-Mailer: b4 0.17-dev-db0b7
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8497; i=brauner@kernel.org;
- h=from:subject:message-id; bh=KRI8omNOMCiI6IgA1rLIMiWlRU5g0GVvzt4XXgMRDW4=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRtPnpnyt616w8dr51wwb3Gc6pATEawhM4Wv47V01W84
- u/e7Plv3lHKwiDGxSArpsji0G4SLrecp2KzUaYGzBxWJpAhDFycAjCRzGxGhn/c3sntt/i3TFzf
- pez4+YvJM0OT1kMBtQ+mc4Q9KznkyMfIsHj+naMryjaFvLqctPBvAMvcx7HzJ8Y2RvY6PpqYwr0
- 8nQEA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Type: text/plain
 
-The propagate_mount_busy() helper exists to decide whether a synchronous
-can suceed. It does that by looking at the copies of the victims in the
-mounts its parent propagates to. One of those functions from propagation
-hell.
+On Thu, 24 Sep 2026, Xizhe Tang <xizheTang2005@163.com> wrote:
+> A Panther Lake eDP panel that advertises VRR in EDID but runs at a fixed
+> refresh rate has received an Adaptive-Sync SDP since commit 6a1712052859
+> ("drm/i915/dp: Enable AS SDP whenever VRR is possible or PR !async").
+> On this panel the first modeset at boot is vertically streaked.
+>
+> intel_vrr_possible() is only crtc_state->vrr.flipline != 0. Fixed-refresh
+> timings program flipline too:
+>
+> 	intel_vrr_compute_fixed_rr_timings():
+> 		/* For fixed rr,  vmin = vmax = flipline */
+> 		crtc_state->vrr.flipline = crtc_state->vrr.vmin;
+>
+> intel_vrr_compute_config() takes that path when VRR is not actually
+> enabled (uapi.vrr_enabled is false, or vmin == vmax). Then
+> intel_dp_needs_as_sdp() is true with `vrr: no, fixed rr: yes`, and
+> intel_dp_compute_as_sdp() programs DP_AS_SDP_AVT_FIXED_VTOTAL.
+>
+> Gate the terminal condition on the states that consume the SDP:
+> crtc_state->vrr.enable (VRR) or crtc_state->cmrr.enable (CMRR / FAVT).
+> Leave the Panel Replay aux-less-ALPM early-return from the same commit
+> unchanged.
+>
+> CMRR is still hard-disabled (is_cmrr_frac_required() has "|| true"), so
+> cmrr.enable stays false today and the OR is a no-op versus v1 at fixed
+> refresh. intel_vrr_compute_cmrr_timings() sets cmrr.enable without
+> vrr.enable; the OR keeps the FAVT branch reachable when CMRR is re-enabled.
+>
+> This is a no-op while VRR is actually active. It does not fix Adaptive
+> Sync = Always corruption, nor the non-atomic SDP update named by the
+> #FIXME above intel_dp_compute_as_sdp(). Trailer is Link:, not Closes:.
+>
+> Tested on LENOVO 21VG (PTL eDP, 8086:b080), v7.2.6-200.fc44.x86_64,
+> rebuilding only xe.ko with this hunk:
+>
+>   Adaptive Sync = Never (Tested-by): vrr: no, fixed rr: yes,
+>   infoframes enabled: 0x6 (no BIT(3)), zero Adaptive-Sync SDP, panel
+>   clean. This boot: six s2idle suspend/resume cycles, all clean.
+>
+>   Adaptive Sync = Always (not Tested-by): vrr: yes, vmin 2016 / vmax 8064,
+>   infoframes enabled: 0xe, Adaptive-Sync SDP still sent. Panel
+>   appearance on Always is not claimed.
+>
+>   CMRR / FAVT: not tested.
+>
+> On the same panel, Adaptive Sync = Never, first modeset, drm.debug=0xe:
+>
+>   7.1.13 (clean):     infoframes enabled: 0x4  (VSC only)
+>   7.2.4  (streaked):  infoframes enabled: 0xc  (VSC + AS SDP,
+>                       operation mode 1 = DP_AS_SDP_AVT_FIXED_VTOTAL)
+>
+>   Later dumps of those boots are 0x6 vs 0xe; each non-zero bad mask is
+>   good | BIT(3).
+>
+> Changes in v2:
+> - OR crtc_state->cmrr.enable so CMRR still gets AS SDP (v1 review).
+>   At fixed refresh v2 matches v1.
+>   v1: https://lore.kernel.org/r/20260923052937.22817-1-xizheTang2005@163.com
 
-It skips a copy that has child mounts except for the case of a single
-child mount covering the copy's root. That algorithm used to be exact.
-It isn't anymore.
+I've received a bug report, patch v1, and four (!) copies of patch v2
+within just hours.
 
-Originally only childless copies were unmounted during propagation.
-And 1064f874abc0 ("mnt: Tuck mounts under others instead of creating
-shadow/side mounts.") ended up adding covered mounts to both sides in
-one go.
+Please have more patience.
 
-Along came 99b19d16471e ("mnt: In propgate_umount handle visiting mounts
-in any order") and that started to unmount more than before:
+The commit message appears to be a long-winded description of *what* the
+code does, which is mostly uninteresting and frankly difficult to
+understand, and lacks proper rationale of *why* the change is being made
+and why it might help with the issue.
 
-[1]: A copy of a mount is unmounted when each of its children is either
-     its overmount or a copy of the victim itself. In the former case
-     the overmount gets reparented. In the latter case the copy of the
-     victim will end up being unmounted.
 
-So propagate_umount() ended up being rewritten without adjusting
-propagate_mount_busy(). And currently propagate_mount_busy() doesn't
-look at copies of the victim that have two or more children nor a single
-child that is not the overmount.
+BR,
+Jani.
 
-So any such copy in [1] is not checked for
-references. The result is that a synchronous unmount succeeds, pulling
-out a mount that is still in use.
 
-A container can run into this with its own mounts. The host shares a
-tree with the container and the host has a mount in that tree:
 
-  mount -t tmpfs none /mnt
-  mount --make-shared /mnt
-  mount -t tmpfs none /mnt/a
-
-The container's /mnt is a slave copy of the host mount. The container
-now takes a detached copy of the tree and mounts that copy beneath its
-propagated copy of /mnt/a and keeps the file descriptor to the tree
-open:
-
-  unshare -m --propagation unchanged
-  mount --make-rslave /
-  fd = open_tree(AT_FDCWD, "/mnt", OPEN_TREE_CLONE | AT_RECURSIVE)
-  move_mount(fd, "", AT_FDCWD, "/mnt/a", MOVE_MOUNT_BENEATH)
-
-  grep /mnt /proc/self/mountinfo
-  775 355 ... /mnt ...     master:646
-  777 775 ... /mnt/a ...   master:646
-  776 777 ... /mnt/a ...   master:647
-  778 777 ... /mnt/a/a ... master:647
-
-The now attached tree (777) is now mounted beneath the container's copy
-of /mnt/a. That's also where the host mount sits (as seen from the host
-mount namespace). So the propagated copy (776) of the host's mount is on
-top of its root and the copy of that (778) is inside it. Now the host
-runs:
-
-  umount /mnt/a
-
-and it succeeds. The moved tree tree and the copy inside of it are gone
-from the container. Now only the propagated copy is left and it got
-reparented to where it was before:
-
-  grep /mnt /proc/self/mountinfo
-  775 355 ... /mnt ... master:646
-  776 775 ... /mnt/a ...
-
-But the file descriptor still refers to the moved tree. So a synchronous
-umount detached a mount that is still in use.
-
-Teach propagate_mount_busy() the same checks that propagate_umount()
-does. It now checks for a single victim mount without children
-for which it can assume that MNT_LOCKED is cleared on every copy like
-propagate_umount() does. The copies form chains. IOW, when a copy itself
-receives propagation from the victim's parent then the mount at the same
-mountpoint inside that copy is a copy as well. Whether a mount receives
-propagation from the victim's can simply be checked by walking its
-masters. Walk each chain once from its top so we are sure that nested
-copies stay linear. Check every reference once of every copy that gets
-unmounted.
-
-Fixes: 99b19d16471e ("mnt: In propgate_umount handle visiting mounts in any order")
-Cc: stable@vger.kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- fs/pnode.c | 108 ++++++++++++++++++++++++++++++++++++++++++++++++++-----------
- 1 file changed, 90 insertions(+), 18 deletions(-)
-
-diff --git a/fs/pnode.c b/fs/pnode.c
-index 5d91c3e58d2a..2cd667958efe 100644
---- a/fs/pnode.c
-+++ b/fs/pnode.c
-@@ -410,19 +410,99 @@ bool propagation_would_overmount(const struct mount *from,
- 	return false;
- }
- 
-+/* Does @m receive propagation from @parent? */
-+static bool receives_from(struct mount *m, struct mount *parent)
-+{
-+	if (m == parent)
-+		return false;
-+	for (; m; m = m->mnt_master)
-+		if (m == parent || peers(m, parent))
-+			return true;
-+	return false;
-+}
-+
-+/*
-+ * Does @m receive propagation from the victim's parent as well? If so, then
-+ * the mount at the victim's mountpoint inside of @m is a umount candidate as
-+ * well. So it's the next candidate in the chain. Otherwise the chain ends at
-+ * @m.
-+ */
-+static struct mount *next_candidate(struct mount *m, struct mount *victim)
-+{
-+	if (!receives_from(m, victim->mnt_parent))
-+		return NULL;
-+	return __lookup_mnt(&m->mnt, victim->mnt_mountpoint);
-+}
-+
-+/*
-+ * Would propagate_umount() pull out a mount of the chain of candidates that
-+ * starts at @c, and does that mount have references beyond its own?
-+ *
-+ * This mirrors how trim_one(), trim_ancestors() and handle_locked() handle a
-+ * synchronous umount:
-+ *
-+ * - single victim
-+ * - without children
-+ * - with MNT_LOCKED already cleared on every candidate by propagate_mount_unlock()
-+ *
-+ * A copy of the victim gets unmounted when each of its children is
-+ * the next candidate in the chain or its overmount, unless the next
-+ * unmount candidate is not its overmount and some unmount candidate further
-+ * down has a child outside the chain.  Keep this in sync with
-+ * Documentation/filesystems/propagate_umount.txt.
-+ */
-+static bool chain_busy(struct mount *c, struct mount *victim)
-+{
-+	struct mount *m, *n, *next, *deepest = NULL;
-+	bool above;
-+
-+	/* the deepest candidate with a child outside the chain */
-+	for (m = c; m; m = next) {
-+		next = next_candidate(m, victim);
-+		list_for_each_entry(n, &m->mnt_mounts, mnt_child) {
-+			if (n != next && n != victim) {
-+				deepest = m;
-+				break;
-+			}
-+		}
-+	}
-+
-+	above = deepest != NULL;	/* @deepest is at or below @m */
-+	for (m = c; m; m = next) {
-+		bool goes = true;
-+
-+		next = next_candidate(m, victim);
-+		list_for_each_entry(n, &m->mnt_mounts, mnt_child) {
-+			if (n != next && n != m->overmount && n != victim) {
-+				goes = false;
-+				break;
-+			}
-+		}
-+		if (goes && next && next != m->overmount && above && m != deepest)
-+			goes = false;
-+		if (m == deepest)
-+			above = false;
-+		if (goes && do_refcount_check(m, 1))
-+			return true;
-+	}
-+	return false;
-+}
-+
- /*
-  * check if the mount 'mnt' can be unmounted successfully.
-  * @mnt: the mount to be checked for unmount
-  * NOTE: unmounting 'mnt' would naturally propagate to all
-  * other mounts its parent propagates to.
-- * Check if any of these mounts that **do not have submounts**
-- * have more references than 'refcnt'. If so return busy.
-+ * Check if any of the mounts that propagate_umount() would pull out
-+ * along with it have more references than their own. If so return busy.
-  *
-  * vfsmount lock must be held for write
-  */
- int propagate_mount_busy(struct mount *mnt, int refcnt)
- {
- 	struct mount *parent = mnt->mnt_parent;
-+	struct dentry *mp = mnt->mnt_mountpoint;
-+	struct mount *m;
- 
- 	/*
- 	 * quickly check if the current mount can be unmounted.
-@@ -435,24 +515,16 @@ int propagate_mount_busy(struct mount *mnt, int refcnt)
- 	if (mnt == parent)
- 		return 0;
- 
--	for (struct mount *m = propagation_next(parent, parent); m;
--	     		m = propagation_next(m, parent)) {
--		struct list_head *head;
--		struct mount *child = __lookup_mnt(&m->mnt, mnt->mnt_mountpoint);
-+	/* the candidates are the mounts at @mp below the receivers */
-+	for (m = propagation_next(parent, parent); m;
-+	     m = propagation_next(m, parent)) {
-+		struct mount *c = __lookup_mnt(&m->mnt, mp);
- 
--		if (!child)
-+		/* each chain once, from its top: skip receivers that are candidates */
-+		if (!c || (mnt_has_parent(m) && m->mnt_mountpoint == mp &&
-+			   receives_from(m->mnt_parent, parent)))
- 			continue;
--
--		head = &child->mnt_mounts;
--		if (!list_empty(head)) {
--			/*
--			 * a mount that covers child completely wouldn't prevent
--			 * it being pulled out; any other would.
--			 */
--			if (!list_is_singular(head) || !child->overmount)
--				continue;
--		}
--		if (do_refcount_check(child, 1))
-+		if (chain_busy(c, mnt))
- 			return 1;
- 	}
- 	return 0;
+>
+> Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9252
+> Fixes: 6a1712052859 ("drm/i915/dp: Enable AS SDP whenever VRR is possible or PR !async")
+> Cc: stable@vger.kernel.org # 7.2.x
+> Signed-off-by: Xizhe Tang <xizheTang2005@163.com>
+> Tested-by: Xizhe Tang <xizheTang2005@163.com> # v7.2.6, PTL eDP, Adaptive Sync=Never
+> ---
+>  drivers/gpu/drm/i915/display/intel_dp.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -3115,8 +3115,9 @@ static bool intel_dp_needs_as_sdp(struct intel_dp *intel_dp,
+>  	if (intel_psr_needs_alpm_aux_less(intel_dp, crtc_state) &&
+>  	    !intel_psr_pr_async_video_timing_supported(intel_dp))
+>  		return true;
+>  
+> -	return intel_vrr_possible(crtc_state);
+> +	return crtc_state->vrr.enable ||
+> +	       crtc_state->cmrr.enable;
+>  }
+>  
+>  static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
+> --
+> 2.47.0
+>
 
 -- 
-2.53.0
-
+Jani Nikula, Intel
