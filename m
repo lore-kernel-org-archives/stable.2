@@ -1,144 +1,141 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0771C51C043;
-	Wed, 23 Sep 2026 12:50:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56F5C4DD3B4
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 13:04:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790167859; cv=none; b=fOBh5BdMGi1XXnf0AMoR9xDaGoQrChP3AbviRuFuNnqrpj4luclMoq6Qh9bNnVWFCkKsdg1UYpJeXVjmw99jGbqyjTM4RMJrZqPmb2Xlkh8TBvAfidP1Epw3aTqitwkGwILiK1Y9hOY4mG3Zj1A7IBkGfgPtekSX7aO2K9NUR2A=
+	t=1790168692; cv=none; b=Ou9WoAgQOAbb6tcpx2e/WMguPs8+G4r2VIHWsF5q29FXerNhxMWliikiaQVBt8HaAzb2kFMpn6Cd/BITT0zG5UEmeEXsGJ2MUBLPtYPBC3iagf359L0D0gA0MEw+emwuMH0q3ip7uIABz9LTX/LPu+EHPOYTeUcsEXELzZEspxc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790167859; c=relaxed/simple;
-	bh=J7h6ePkszFZDTXHscMpcl3yqnC2BI7k1qn467oolrMw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=l6btkw1N3agcPiy+ivuqlP+qY9Ei3eCanlU7kgWr5qb8ggnTNFRMwHwxmmNPS8340N3SM2KaZWf54SNYuxbdHAYNJj85+yVDTPvI8Q9KKrDXO1QToHErt59l180IjwoFYuzPUtJej8AxofgSaODSjgeU04oCX2WQ/6lr1Tk9Uew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=q/ArLNaK; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1790168692; c=relaxed/simple;
+	bh=vlMB+ZxLjKnvMWVwz9d1zc0Jkcx9iDI7/XVH+SdqVDU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=fhPlu7Ldimbq4OAuPkhi0VWqdNT7+kxaeaRjHZS7lYJlwrFw7Xd8lpmWBO4+dMBLoIDdyxOpL2jY/w8AWuCdTMwhzE1hlbTF1tI5fGksBJsYQDMfAuVae3Q8y8qQVCS2/M1+oyb2rM5w1rrK8jb4Hk8v8nPHGefRoU+FZC6dhx8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CDvx5XV3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="q/ArLNaK"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68N8ZopM2742362;
-	Wed, 23 Sep 2026 12:50:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=sD0MUDyrNbqecS3bMd8lwV/g0Gkcar
-	9iVZtrMhjni1A=; b=q/ArLNaKPF1plLDeqNPN1SFiCKlejR9Aa4ffHsLtKxk7yo
-	+p1YWrWARHF7cF2M6wnJYf0wv95z9op5adeKB57d+9JBZnTtnl5J1kqbgSqQ4HsO
-	qbsWxNuqpQG45qgbtNbrNh49cAwBdVMimnRJpnNuSQMLdasvNa2ZcuqXtjc0/3Gi
-	JvZCcZqAN1ZwzumkFsPoDGxNvC0cXefVLiKv3fSlu0goJQZSfPvRNWHum6pCKuLf
-	PcalwBKGqPARiEYGdq+CEtP8adTVblhR7Bg/YlbHLeUeVIu7ugLVTS496h6HYdZJ
-	OM5pnUdEcf99GvT9jlQIKHiG6OZRwn9iB5hsrieA==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gske1jw51-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 23 Sep 2026 12:50:31 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68N93E1m007936;
-	Wed, 23 Sep 2026 12:50:30 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gvbt2ruyx-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 23 Sep 2026 12:50:30 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68NCoQYd38863156
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 23 Sep 2026 12:50:26 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 8448A20043;
-	Wed, 23 Sep 2026 12:50:26 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 3C80A20040;
-	Wed, 23 Sep 2026 12:50:23 +0000 (GMT)
-Received: from li-fbf77acc-29ba-11b2-a85c-e8e934f50a46.ibm.com (unknown [9.39.20.50])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Wed, 23 Sep 2026 12:50:23 +0000 (GMT)
-Date: Wed, 23 Sep 2026 18:20:20 +0530
-From: Gautam Menghani <gautam@linux.ibm.com>
-To: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
-Cc: maddy@linux.ibm.com, npiggin@gmail.com, mpe@ellerman.id.au,
-        chleroy@kernel.org, ritesh.list@gmail.com, sshegde@linux.ibm.com,
-        nnmlinux@linux.ibm.com, amachhiw@linux.ibm.com,
-        linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-        Timothy Pearson <tpearson@raptorengineering.com>
-Subject: Re: [PATCH v3] KVM: PPC: Book3S HV: Avoid spurious interrupts caused
- by LPCR_MER bit
-Message-ID: <arPKuqUghZ91RW0B@li-fbf77acc-29ba-11b2-a85c-e8e934f50a46.ibm.com>
-References: <20260921111043.49825-1-gautam@linux.ibm.com>
- <arN5AY73k0fRh9VQ@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CDvx5XV3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BF731F000FF;
+	Wed, 23 Sep 2026 13:04:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790168690;
+	bh=9yX7pSYcChvRvVXlNCWMsgBOwTdHbZvVdkFY38ohYcA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=CDvx5XV36QFmRbH+znUP2/mVc8o15D7pf9rDrDVoPJJnFZ2FrAzRexjYrs79l01HH
+	 QF+vu1Ez0B0gT5SSQRCGRgCTnKCxwDYGXIc9eqW9LMXRMkyxJenma1dS8kjHwbJoIb
+	 DtpNXAuWUYmU/M6bBn2V11Ll2LrJvQ/Ptl1QDtS4gc45vgFYnPlS1Dyple/Mk6WdXU
+	 rtGhxzv5k6s4xPy5WsF2/IfPglM1H75RzkMhvsrJIXhwIlbUZ9zmC7HSzP03Ds5IC1
+	 cPGHagpA6QzMmRF9Zd9mdZIPBtvQOYUSEofHrOkZvL1w0I/8zeYgBmnAT11FtjncIf
+	 DEo/v7cUVlDJw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: April Cardenas <april.cardenas@canonical.com>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Bharath S M <bharathsm@microsoft.com>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] smb/client: send lease break ACKs thru correct session for multiuser mounts
+Date: Wed, 23 Sep 2026 09:04:48 -0400
+Message-ID: <20260923130448.1728068-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026092352-cascade-punch-044a@gregkh>
+References: <2026092352-cascade-punch-044a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arN5AY73k0fRh9VQ@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: LhMlBdeaMYchxhb55wNyWpf_iBFgo1yP
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA1MCBTYWx0ZWRfX3AVpWMoiRHmz
- 4QvTg2Lma5IDtpDSRoEmCtPTBO7shOS/cyznUwHLg4eslux5WikrQxnWm79QOqhpV7VhimydG0R
- nhggfMweRpoB04bLquN+L6oIUOKitaAQAyCEtXcBZDbuAPNjfWKYFAx2TlaSuTPNweJ92EcVSpJ
- S8/RdKODqiu7Y0cOG2vKwxZvYCVs1ddzVOQOSVLcOcx7EyYOeUZGi5B+jzPhCyFWRL190jo7npa
- wZowy1h+jGRCtDdAR0LSBmEk1PTNYcOanNdFTnozum7h7Z2sRXrBDJXLK/zuQhkJYv4Q/iBEYIt
- O/kiJCcslUKraZqgzf1sPnM3EWdSD4GkNbQ5Ic1FKGydefho0fPeWJIuwHdmlExowcBA9UJyWn/
- yBXBRLz/ZJ4GhHQn8f2S4uahUeTUJWbo1cUvDHmXgeO1XfMTrfrNIXnoM8CcRePRau2YTcJ1j1o
- uKF6xjMTfJ5Q5ban3fA==
-X-Authority-Analysis: v=2.4 cv=O/KsLx9W c=1 sm=1 tr=0 ts=6ab3cb17 cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=198k1PuwjGhzIpgOSn4A:9
- a=CjuIK1q_8ugA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA1MCBTYWx0ZWRfX75VlxbIfQOmv
- 41g0bl041JF2/Z8Hw93Rs950+qometRzCL/R40yILZEkz2wcK/uk5uO2EVHB2Cro1rmoxqkW20u
- HzGv2Hql/gj+qNcCzu1a4E7y5c9FD2E=
-X-Proofpoint-GUID: ElCc1_Sb-Z1OWvJsFysyEsox4F3LOJuk
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 phishscore=0 impostorscore=0 suspectscore=0
- bulkscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230050
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 23, 2026 at 12:31:05PM +0530, Mukesh Kumar Chaurasiya wrote:
-> On Mon, Sep 21, 2026 at 04:40:42PM +0530, Gautam Menghani wrote:
-> > A huge number of spurious interrupts can be seen immediately after a KVM
-> > on PowerNV guest boots up in XIVE mode.
-> > 
-> > $ cat /proc/interrupts  | grep SPU
-> > SPU:     223705     192439     273526     147623   Spurious interrupts
-> > 
-> > This bug was introduced by commit ecd10702baae5 ("KVM: PPC: Book3S HV:
-> > Handle pending exceptions on guest entry with MSR_EE"). The root cause
-> > is that once LPCR_MER bit is set, it is supposed to be reset by
-> > software. But when a vCPU starts running with LPCR_MER set, the vCPU does
-> > not exit back to the host until the decrementer expires or there is an
-> > hcall, etc. This is because KVM on PowerNV guests have support for
-> > native XIVE, so they are not dependent on host for interrupt emulation.
-> > Due to this behaviour, a huge number of spurious interrupts are seen
-> > since LPCR_MER continues to be set and LPCR_MER cannot be reset until the
-> > vCPU exits to the host.
-> > 
-> > Fix this behaviour by not using the LPCR_MER bit whenever native XIVE is
-> > available (currently in case of KVM on PowerNV only), as the XIVE hardware
-> > can present interrupts to the KVM guest vCPU directly. So the LPCR_MER
-> > functionality is not required. This reduces the number of spurious
-> > interrupts drastically.
-> Hey Gautam,
-> 
-> Thanks for this. Can you also share the numbers after the change.
-> 
+From: April Cardenas <april.cardenas@canonical.com>
 
-Sure, here are the numbers seen immediately on boot with this patch
-applied:
+[ Upstream commit ebc5660132ddd244b57f03ed324922013a3d7363 ]
 
-$ cat /proc/interrupts | grep SPU
-SPU:        123        139         99        144   Spurious interrupts
+Currently, when cifs_oplock_break handles a break request from the server
+it searches for the appropriate tlink to handle the request
+but incorrectly uses the current fsuid as the search key, eventually
+causing read errors for users with multiuser mounts on NetApp.
+Fix this by using the tlink from the cfile struct instead to respond
+through the correct session.
 
-> Regards,
-> Mukesh
-> [...]
+As breaks are handled in a worker thread, the current fsuid
+isn't guaranteed to match the session that the break is intended for.
+This means that cifs_sb_tlink may search the rbtree using the wrong fsuid,
+and return a tlink with an incorrect session than
+the lease break was intended for. As a result, the breaks
+may be ACKed through an incorrect session.
+
+While it seems that Samba/Windows Servers 2016-2025 ignore this as long as
+the lease key is correct, we ran into a case where if you're using
+NetApp ONTAP or Azure NetApp Files they will reject the ACK
+and return `STATUS_LOCK_NOT_GRANTED` errors on any future read requests
+a user may initiate through their still held open file handle,
+and the server will eventually close the file.
+
+In the dmesg logs, the user may see errors like these:
+
+CIFS: Status code returned 0xc0000128 STATUS_FILE_CLOSED
+CIFS: VFS: Send error in read = -9
+
+With a multiuser mount using NetApp, this issue is really easy
+for users to hit on a wide variety of kernel versions
+by attempting to copy a file from the share
+to the local machine through GNOME Files/Nautilus.
+This copy will always result in Nautilus throwing
+a `Bad File Descriptor` error to the user and fail.
+With this fix, you can copy files through Nautilus without issue.
+
+>From looking at the traces, it seems that glib will
+open the file first, and call listxattr before actually attempting
+to copy the file data. The listxattr call always triggers a break,
+causing the copy to fail.
+
+The proposed fix returns to the way the client grabbed the tlink before
+commit e8f5f849ffce2 ("cifs: fix potential oops in cifs_oplock_break").
+
+The bulk of that commit (checking for list empty) remains untouched, and
+I think the change to using cifs_sb_tlink was intended to avoid a
+NULL/ERR deference on the tlink as well as update the reference count.
+
+I believe this fix should preserve those safety properties, but of course
+I'd appreciate any corrections here.
+
+Fixes: e8f5f849ffce2 ("cifs: fix potential oops in cifs_oplock_break")
+Cc: stable@vger.kernel.org
+Signed-off-by: April Cardenas <april.cardenas@canonical.com>
+Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
+Reviewed-by: Bharath S M <bharathsm@microsoft.com>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+[ Removed now-unused sb and cifs_sb declarations from cifs_oplock_break(). ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/smb/client/file.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/fs/smb/client/file.c b/fs/smb/client/file.c
+index 339346a82ecff..997a84042c1f0 100644
+--- a/fs/smb/client/file.c
++++ b/fs/smb/client/file.c
+@@ -3062,8 +3062,6 @@ void cifs_oplock_break(struct work_struct *work)
+ 	struct cifsFileInfo *cfile = container_of(work, struct cifsFileInfo,
+ 						  oplock_break);
+ 	struct inode *inode = d_inode(cfile->dentry);
+-	struct super_block *sb = inode->i_sb;
+-	struct cifs_sb_info *cifs_sb = CIFS_SB(sb);
+ 	struct cifsInodeInfo *cinode = CIFS_I(inode);
+ 	struct cifs_tcon *tcon;
+ 	struct TCP_Server_Info *server;
+@@ -3076,8 +3074,8 @@ void cifs_oplock_break(struct work_struct *work)
+ 	wait_on_bit(&cinode->flags, CIFS_INODE_PENDING_WRITERS,
+ 			TASK_UNINTERRUPTIBLE);
+ 
+-	tlink = cifs_sb_tlink(cifs_sb);
+-	if (IS_ERR(tlink)) {
++	tlink = cifs_get_tlink(cfile->tlink);
++	if (IS_ERR_OR_NULL(tlink)) {
+ 		/* drop the reference taken when the break was queued */
+ 		_cifsFileInfo_put(cfile, false /* do not wait for ourself */, false);
+ 		goto out;
+-- 
+2.53.0
+
