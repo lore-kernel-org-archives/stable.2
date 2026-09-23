@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65A19326939
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 01:46:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFE28326939
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 01:46:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790127966; cv=none; b=qsQk8ucLO2r7KDMxebgURCADsB/A1+K2FWRxfI0hEwFwKmFjpmdFH1Wlc+ynJs1X71H0hCpJH5mDGKnahyJxSnroY9CavDlyvGqVRQJXFnl0MlunSAqUk1yTy/IP1d6fjvtYlNuJys5u6MwOA/XD+gdiSap0uafvKkHN4n9+rCY=
+	t=1790127968; cv=none; b=QuqyYOKkobdY+mBBcXX3bNCiPgSCpgEgerSedf1OQQGfslMwu4ukiNdk1X8UJQ26okmC1kvwRgiYykD44dtN0R1z+g4CaFO2LYEpHG2uW6PmwJGM0t3ayiTSfGMHIpPdcDchqWQP8NVOP6/YXoUhyrP9Bq+sbPYnuad8t3v7Sdg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790127966; c=relaxed/simple;
-	bh=zU0J5rykkUNp6Im64MkhM3B16ai1ErMbfxE5esnlz+M=;
+	s=arc-20240116; t=1790127968; c=relaxed/simple;
+	bh=3BfG+YVsiz1iHqM5VkuenAxwdgjeRnU31dSKNEZniDI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UJ3qjJzPaFoPiooQs643wqS0L3RZVZENkHyRsSmhlMYxu2e6usUeT/LfiXVgtMXgLaCBPMpju1AAK0bTrSEqkDOQiYJWQ/Eiqo4/pVlppFZBbd974JWovrRoc4houFRj3Ccba0SQtYfnIMIKAxJpxEcIJK1n4O2x/OTSRqn3N7c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gm16ub43; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=JwZqdUpQnA3Fnqs1IR/CzSWAEKd+JBVeQLc4AO+0OLb1PKfuS8Lefd0cCJXE/nLCE2VzynM5vk03KJN8V/RfIYKlFfAbAqpU2e0QRMB8VPrMa+JBmTPJMCIna59TbYksA9c6e8xh3wLeap2Ld9cHSKTO1xg4WU3dhoVs4BVKgO8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B73XS9wN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gm16ub43"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69FEA1F000FF;
-	Wed, 23 Sep 2026 01:46:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B73XS9wN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A57E1F00893;
+	Wed, 23 Sep 2026 01:46:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790127965;
-	bh=zeGpT9D01Jd7hZzY4hbEtc3onjxbAgGHMlCGRcs5ClU=;
+	s=k20260515; t=1790127966;
+	bh=W4sSIotsI2hotZtdjnB0qGoWAFpndvIBtVzEzIAQqpI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gm16ub43/p1WkG6yCf3SyKEshlV2B+fECMdmB9LAWyek2ziKQPoMRMYeTSx7OHBmu
-	 7pSM5QIpbsow+TMMzXTa0N4BpXBm9jEayPO4H3njLXq4Mf1SR/QPMqW/eCT+6UAJmD
-	 82sFSQmvyoyq8G2mSADiAGssGw8NKLyvZkFkWmnsSD1KLlbINjziJ0TlqiJUsAq+zr
-	 yyZikxu0BDatgTE0FGj+/SLYot5uO/nkCYQ0zyJF7XHFmkS72V5arOop8H6zTKvMFb
-	 eYv4K6pvup3kin/wNEFcm9YssQ+HhKbgclWNml4A88aQ8qPVZuK+Jq60s9TBtwSFqd
-	 2J35hLTIbuMqQ==
+	b=B73XS9wN0KxplGAARgM+jiONx/y5sQZTphTznJTHPGaSpBCSGJY9Y2LiRnsjGHQ6s
+	 qFvazQGDTbdaMibE6SVRx+LoBpoxeH2pRtuKUZdPZ1/ykwgkugmgMhiQpuR801BnXQ
+	 GzebcqzT3+Tpj9JokG09H+r0Ye2ImdbjSpiVbDWcrPS6swrK3SZGY665LCFL/z6RNF
+	 zF6QUrQ3iV5tInRekgMKnB7aaW7RacSVbWhOIn60bbP5BEImA/dmtrYUCqCltL8lE+
+	 wxlQqQIofZH21mCgM/iF050L7LLQ79MwW3jda2XCb2pCI+Fvv5eTyqiq+xdbGqWBDj
+	 GqmWEyPI+g4Fg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Frank Sorenson <sorenson@redhat.com>,
 	David Howells <dhowells@redhat.com>,
 	Paulo Alcantara <pc@manguebit.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] smb: client: fix OOB struct field reads in move_smb2_ea_to_cifs()
-Date: Tue, 22 Sep 2026 21:46:02 -0400
-Message-ID: <20260923014602.886678-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] smb: client: fix reparse buffer bounds in cifs_query_reparse_point()
+Date: Tue, 22 Sep 2026 21:46:04 -0400
+Message-ID: <20260923014604.886716-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092224-mold-map-ab6b@gregkh>
-References: <2026092224-mold-map-ab6b@gregkh>
+In-Reply-To: <2026092200-counting-versus-1e52@gregkh>
+References: <2026092200-counting-versus-1e52@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,80 +48,44 @@ Content-Transfer-Encoding: 8bit
 
 From: Frank Sorenson <sorenson@redhat.com>
 
-[ Upstream commit eeb5ef6083e1cefa2ef75041b5597ff228b8d7bb ]
+[ Upstream commit 5f0306e731e2f46e91419eae57eee3a241c055e0 ]
 
-In move_smb2_ea_to_cifs(), the while (src_size > 0) loop condition is
-insufficient. It allows iteration to continue even if the remaining
-src_size is too small to contain a complete smb2_ea_info structure.
-Consequently, reads of ea_name_length and ea_value_length can occur
-out-of-bounds.
+In cifs_query_reparse_point(), the start >= end check before casting to
+struct reparse_data_buffer * only ensures the start pointer is within the
+response. It fails to verify that there is enough space remaining for the
+fixed 8-byte header of the structure.
 
-Fix this by ensuring src_size >= sizeof(*src) before attempting to read
-any structure fields. Additionally, reject any next_entry_offset that is
-smaller than sizeof(*src) or that would advance the pointer beyond the
-available buffer.
+If a server provides a DataOffset that leaves less than 8 bytes remaining,
+the check passes, but subsequent reads of ReparseTag and ReparseDataLength
+will occur out-of-bounds.
 
-Note that for calls where the server returns a malformed EA list, the
-error returned to userspace changes from -ENODATA (getxattr) or
--ERANGE (listxattr) to -EIO. This correctly signals a server protocol
-error rather than misleadingly indicating "attribute not present" or
-"output buffer too small".
+Fix this by ensuring the remaining space is at least the size of the
+reparse_data_buffer structure before accessing its fields.
 
-Fixes: 95907fea4fd8 ("cifs: Add support for reading attributes on SMB2+")
+Fixes: 56e84c64fc25 ("cifs: Fix validation of SMB1 query reparse point response")
 Cc: stable@vger.kernel.org
 Signed-off-by: Frank Sorenson <sorenson@redhat.com>
 Reviewed-by: David Howells <dhowells@redhat.com>
 Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-[ Replaced unavailable smb_EIO2() tracing calls with -EIO. ]
+[ Adjusted context to retain existing `rc = -EIO` error handling instead of upstream `smb_EIO2()`. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/client/smb2ops.c | 24 ++++++++++++++++--------
- 1 file changed, 16 insertions(+), 8 deletions(-)
+ fs/smb/client/cifssmb.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
-index 2b38e8e7efd4e..6776d3b9e75ee 100644
---- a/fs/smb/client/smb2ops.c
-+++ b/fs/smb/client/smb2ops.c
-@@ -1005,8 +1005,9 @@ move_smb2_ea_to_cifs(char *dst, size_t dst_size,
- 	char *name, *value;
- 	size_t buf_size = dst_size;
- 	size_t name_len, value_len, user_name_len;
-+	u32 next_off;
+diff --git a/fs/smb/client/cifssmb.c b/fs/smb/client/cifssmb.c
+index e7df15011ae33..3ba39c375077f 100644
+--- a/fs/smb/client/cifssmb.c
++++ b/fs/smb/client/cifssmb.c
+@@ -2793,7 +2793,7 @@ int cifs_query_reparse_point(const unsigned int xid,
  
--	while (src_size > 0) {
-+	while (src_size >= sizeof(*src)) {
- 		name_len = (size_t)src->ea_name_length;
- 		value_len = (size_t)le16_to_cpu(src->ea_value_length);
- 
-@@ -1061,14 +1062,21 @@ move_smb2_ea_to_cifs(char *dst, size_t dst_size,
- 		if (!src->next_entry_offset)
- 			break;
- 
--		if (src_size < le32_to_cpu(src->next_entry_offset)) {
--			/* stop before overrun buffer */
--			rc = -ERANGE;
--			break;
-+		next_off = le32_to_cpu(src->next_entry_offset);
-+		if (next_off < sizeof(*src) || src_size < next_off) {
-+			cifs_dbg(FYI, "EA next_entry_offset %u out of range [%zu, %zu]\n",
-+				 next_off, sizeof(*src), src_size);
-+			rc = -EIO;
-+			goto out;
-+		}
-+		src_size -= next_off;
-+		src = (void *)((char *)src + next_off);
-+		if (src_size > 0 && src_size < sizeof(*src)) {
-+			cifs_dbg(FYI, "EA next_entry_offset %u left truncated entry (%zu bytes)\n",
-+				 next_off, src_size);
-+			rc = -EIO;
-+			goto out;
- 		}
--		src_size -= le32_to_cpu(src->next_entry_offset);
--		src = (void *)((char *)src +
--			       le32_to_cpu(src->next_entry_offset));
+ 	end = 2 + get_bcc(&io_rsp->hdr) + (__u8 *)&io_rsp->ByteCount;
+ 	start = (__u8 *)&io_rsp->hdr.Protocol + data_offset;
+-	if (start >= end) {
++	if (start >= end || (size_t)(end - start) < sizeof(*buf)) {
+ 		rc = -EIO;
+ 		goto error;
  	}
- 
- 	/* didn't find the named attribute */
 -- 
 2.53.0
 
