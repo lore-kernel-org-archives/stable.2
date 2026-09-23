@@ -1,41 +1,75 @@
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C6252D0C75;
-	Wed, 23 Sep 2026 03:17:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF97235B12B
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 03:25:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790133428; cv=none; b=U/98Wum1JJQqW95xSY6ctE9z9dzIekDgXnxjRk9j0/lVcan8Svyz92vJp8bj+LYab8xbbhAtVVHwM1K4WEbIOS900Q0dZ7arujGeXVIwrvgajh84Oi2wlemrPDjC7m4qyYsfxCdqlst5rpGGg8Dgk04vLa2sgiWdvc67B5q9yy4=
+	t=1790133929; cv=none; b=Te5Sny98rzlGTbGPfYj/fppu2hr0c5SXK8DBk3U0UX0pY7eDw6IXoPx9GGPbM4ZJK75rL1fv7Thhq3KjiJPjCYx/DtLIOTAd60Kgu6auXN0yr2lHg71lAs/67rXRAgJ6abdvG0FMQjX6IINBhzkXtJ+u1jGJZL/3xbQ5gYOSTz0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790133428; c=relaxed/simple;
-	bh=wJQ9VpR5jQT42IcUxYFA1LXOKyQ0nuH0HzQQGQzeHxQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=AdOwDHVmVHR7zkkzrkfkL7uitqmTaIbC2VPs3R3IklYnnTLz1iAtS78z4uSPvHrMNBmFbt1IbXwrksOSMiTnhNDcaQP+XDIFo/gUFnQa52epUpyEpaku1IjZJKMqWsq85DQdMxcGURDsNf32Dn4FRNN1hLZ3AshER1WRaOGFkTU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=VWUOSqVU; arc=none smtp.client-ip=45.254.49.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1790133929; c=relaxed/simple;
+	bh=Zt8mLoDNZWawgRiHx8R/i9/D8eeGe9UUEreQiE7BP2Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XhEjH1uvSbSmq9Q8Ezk9OWt9tWG9h3U3/urxIk6tzbqgFPbOw9MwlajHUwIdVWtD5a9hw2YjrEYv0gln0wNt4DB7g+S99EF84a5j9MKMXn70U+ctCY0ekmXUMXXD3mwUgb6NeTmyAhRFCDlW+5rg8D6qWmr0pSe9lnJ/8Ne4Zc0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Oq3kkF5/; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="VWUOSqVU"
-Received: from PC-202605011814.localdomain (unknown [221.228.238.82])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4eceabcf4;
-	Wed, 23 Sep 2026 11:16:58 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Christoph Hellwig <hch@lst.de>
-Cc: Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Breno Leitao <leitao@debian.org>,
-	linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH v5 1/3] fs: configfs: add helpers for opening non-configfs paths
-Date: Wed, 23 Sep 2026 11:16:39 +0800
-Message-Id: <20260923031641.2016406-2-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260923031641.2016406-1-runyu.xiao@seu.edu.cn>
-References: <20260923031641.2016406-1-runyu.xiao@seu.edu.cn>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Oq3kkF5/"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39dec5de01eso93922a91.1
+        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 20:25:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790133928; x=1790738728; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dCfOYO2NRyZaR3nhyn2Vwjg5Pm9GGu3IlToVcEbkF0E=;
+        b=Oq3kkF5/uwk6wiyADKE59Kvk8FU30j/j66HV5eZpUxgaPMAnFJQkWl/znxhqymFQdy
+         7pT0d7Ad4+hhpE9jXSNcmfDiUHdOFTkVDEnjAIuTk+mNiMDv1BJoL3fmLxmOwkTEX31B
+         yBtTpQ61bM73YxRg4Md/StkhNQg0WpkNRsu/BNJhsfcSz7l54MMmY04Y7V2M4j24d/tQ
+         2riXqebu6ePUIuh9SQbYk7LRmm4TPMKeSU9pu8vxdiUxqM0hnm3z8BUSpcQV6zzqiFBa
+         1z0WlzmQyYsYGNzQ0JtYsIRDlhunNHOdwaZ61wOmFCjSqIXeAu8zg288c+32J6YxQIuc
+         MP9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790133928; x=1790738728;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dCfOYO2NRyZaR3nhyn2Vwjg5Pm9GGu3IlToVcEbkF0E=;
+        b=xJl/wZzfL6X33Buft2qGZZzOjUVecLQ1ZtpstVBR2yfUygiS0KqVe3SpzoBEhHjJPn
+         wqD0kXPllPR4JCeT+UpDDxgt8pOPvYcVJx8DzkFmhdAFnMTXNnrszq4h0pT9EM5OpKy3
+         svNTdS0fNuZk2z3vyGc6sHDffxYQLAcQj77ABYnr0KZlE2BxrYt5qJUICaF+gcYnOHAB
+         50ms4CMW52VvBfzBbiyg8Jdkje9I3l72gbsOL8ISwFKkoNb7VAzPBqLj6XHxRLI8H7l8
+         Zv6S//8Lp0gmQ7TayD/iQpm6FJ5z85hgeUOMpjz6SFlp5xPpgFAZXrIEO3WNLkC5db8V
+         gpaw==
+X-Forwarded-Encrypted: i=1; AKwUvByWYZ62Oz/ilyobc/UcaNV6dE3zrgZAjeQ6XCjXizoaB/ylp3qTMM4qVEQhTgdic5PnmbD91pc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mHhtkcR8Ysy4cCEm3kJXNuNWO9WrZyAa6sfqPkgmJjL1Utg8XV
+	rSwfT1VWo8NkMTrLnQXUzxAh/+8HnkShoFaBKn/0ucGiQ706JQuPfDo3
+X-Gm-Gg: AYBFou3mdLD9kv28910C5yyAbNrN9/TdOTnPrqDpsEmEvTlGASuxG1sSHnmpCSokzxo
+	bepv7z55NikW5w8yMZNUnZ1QxwCRr+SHqq97Co6S+rZe60/t1yH2nl7gRUdV+Rtq12AUN27fDBp
+	hATG5aXEBK22WQep0fGwmFV0oESKFhMh4opPygviZMSwezJ2H4UGIgUQuB25d+PBqY9bwa6lsnH
+	ArplPl8v2SNXWqIw9t6KA4A1M8dGLx/m8I86qAu/rhI8ZHQ0qkJ1Nzl+4T7/bbYBnvY5wOiArg7
+	PlZT95e6K69BKZNIcmsNhA7WSFvf+7pxN4MpkzWHy4mkbowaVT2M1419tQYA/Uhz0bXBb/M4dF1
+	BnqyRodZLbShzijOCHaHrf+uewJHcs2+A5pEmlZ3N2qZ2z68js8STXx5X2c2RL2Vc1rd8MU+YT4
+	YW+bJTmVEfYPzYSwaumECxyqmJE37+5l5So2WSsETZs8KyRIkaEoZCN1g1DP40jAVGNGjLJ60xe
+	O1RKoo3+YReZIFzgopA4vKw1fmS2hWAakbHmsk/+Qyf2S+RnKIgPIf3D92nxHpiXxmjHl6k
+X-Received: by 2002:a17:90b:4fca:b0:398:bad2:c10 with SMTP id 98e67ed59e1d1-3a07e773d26mr1868461a91.6.1790133927959;
+        Tue, 22 Sep 2026 20:25:27 -0700 (PDT)
+Received: from localhost.localdomain ([139.159.170.91])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07dc32086sm2261602a91.13.2026.09.22.20.25.22
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 22 Sep 2026 20:25:27 -0700 (PDT)
+From: Qihang <q.h.hack.winter@gmail.com>
+To: netdev@vger.kernel.org
+Cc: steffen.klassert@secunet.com,
+	herbert@gondor.apana.org.au,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	stable@vger.kernel.org
+Subject: [PATCH net v3] xfrm: interface: validate the IP header on xmit
+Date: Wed, 23 Sep 2026 11:24:56 +0800
+Message-ID: <20260923032456.45814-1-q.h.hack.winter@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -43,145 +77,50 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0cc443ab103a1kunmae5dc6a4b63c6
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZHRhIVkkaQk5LHxlDSk8dS1YeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUpVSUlDVUlIQ1VDSVlXWRYaDxIVHRRZQVlPS0hVSktISk
-	9ITFVKS0tVSkJLS1kG
-DKIM-Signature: a=rsa-sha256;
-	b=VWUOSqVUWJn7AS7X0KU29H8wj6nfxmD/w/bBSRlxMQqrqUkqdyx/pYCO2hqPwX7PYq66NWKa7J7w3EXcVnkir1vi8bCabZuGf9S062mmEivUE6WQrIp2ZkeL+pDHQvOVPKjHmQhWcby5lSgLctlLlpnSIgg4/WxxMmd64sPrejU=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=7ROA95LQ2XhQVA9V66ILPKJS6dG9LjRpy8RZm4OVovw=;
-	h=date:mime-version:subject:message-id:from;
 
-Configfs store callbacks run with the fragment semaphore of the item they
-belong to held for reading.  A callback that opens a configfs path can
-re-enter __configfs_open_file(), which takes that same semaphore again on
-a non-recursive rwsem, and deadlock the task.
+Packets injected into an xfrm interface (e.g. AF_PACKET on an xfrmi
+device) reach the xfrm output path without IP header validation, but
+xfrm4_transport_output() uses iph->ihl for __skb_pull() and memmove()
+and expects the header to be valid.
 
-Add a pair of helpers for such callbacks.  configfs_file_open() resolves a
-configured pathname, rejects it if it resolves to configfs, and opens it.
-configfs_open_root() rejects a configfs root and opens relative to an
-already-resolved root, so a caller can validate a root once and keep
-opening files below it.  The helpers compare the actual filesystem type
-and use file_open_root(), so the normal open-time permission and security
-checks still apply.
+vti_tunnel_xmit() already calls pskb_inet_may_pull() before handing
+packets to the xfrm output path.  Do the same in xfrmi_xmit() and also
+reject malformed IPv4 header lengths.
 
-Assisted-by: LLM Codex
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Fixes: f203b76d7809 ("xfrm: Add virtual xfrm interfaces")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Qihang <q.h.hack.winter@gmail.com>
 ---
- fs/configfs/mount.c      | 68 ++++++++++++++++++++++++++++++++++++++++
- include/linux/configfs.h |  5 +++
- 2 files changed, 73 insertions(+)
+Changes since v2: validate at the xfrmi_xmit() entry point instead of
+inside xfrm4_transport_output().
 
-diff --git a/fs/configfs/mount.c b/fs/configfs/mount.c
-index d8cac1cbf3bd5..b2c14cf6a4053 100644
---- a/fs/configfs/mount.c
-+++ b/fs/configfs/mount.c
-@@ -13,6 +13,7 @@
- #include <linux/module.h>
- #include <linux/mount.h>
- #include <linux/fs_context.h>
-+#include <linux/namei.h>
- #include <linux/pagemap.h>
- #include <linux/init.h>
- #include <linux/slab.h>
-@@ -118,6 +119,73 @@ static struct file_system_type configfs_fs_type = {
- };
- MODULE_ALIAS_FS("configfs");
+ net/xfrm/xfrm_interface_core.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/net/xfrm/xfrm_interface_core.c b/net/xfrm/xfrm_interface_core.c
+index 688306b..5cc906a 100644
+--- a/net/xfrm/xfrm_interface_core.c
++++ b/net/xfrm/xfrm_interface_core.c
+@@ -531,6 +531,9 @@ static netdev_tx_t xfrmi_xmit(struct sk_buff *skb, struct net_device *dev)
  
-+/**
-+ * configfs_open_root - open a path relative to an already-resolved root
-+ * @root: resolved root, which must not be on configfs
-+ * @name: path to open relative to @root, or "" to open @root itself
-+ * @flags: open flags as per the open(2) second argument
-+ * @mode: mode argument passed to file_open_root()
-+ *
-+ * Open @name relative to @root, refusing a @root on configfs.
-+ *
-+ * Configfs store callbacks are called with the fragment semaphore of the
-+ * item they belong to held for reading.  Opening a configfs path from
-+ * such a callback can re-enter __configfs_open_file() and take that same
-+ * semaphore again, which is not recursive and deadlocks.  Callers that
-+ * open a user-configured path from a configfs store callback must
-+ * therefore use this helper instead of filp_open() or a bare
-+ * file_open_root().
-+ *
-+ * Resolving @name relative to @root also lets a caller pin and validate a
-+ * root once and keep opening files below it, rather than re-resolving a
-+ * pathname that can be retargeted in the meantime.  The normal open-time
-+ * permission and security checks still apply to the file being opened.
-+ *
-+ * Return: the opened file, or an ERR_PTR() value.  -EINVAL is returned if
-+ * @root is on configfs.
-+ */
-+struct file *configfs_open_root(const struct path *root, const char *name,
-+				int flags, umode_t mode)
-+{
-+	if (root->dentry->d_sb->s_type == &configfs_fs_type)
-+		return ERR_PTR(-EINVAL);
-+
-+	return file_open_root(root, name, flags, mode);
-+}
-+EXPORT_SYMBOL_GPL(configfs_open_root);
-+
-+/**
-+ * configfs_file_open - open a pathname that must not resolve to configfs
-+ * @filename: existing pathname to resolve and open
-+ * @flags: open flags as per the open(2) second argument
-+ * @mode: mode argument passed to file_open_root()
-+ *
-+ * Resolve @filename and open the resulting file, refusing to open it if it
-+ * resolves to configfs.  @filename must already exist; this helper cannot
-+ * create a missing path.  Use this from configfs store callbacks that open
-+ * a path configured by the user, in place of filp_open().  See
-+ * configfs_open_root() for why opening configfs again from such a callback
-+ * deadlocks.
-+ *
-+ * Return: the opened file, or an ERR_PTR() value.  -EINVAL is returned if
-+ * @filename resolves to configfs.
-+ */
-+struct file *configfs_file_open(const char *filename, int flags, umode_t mode)
-+{
-+	struct file *file;
-+	struct path path;
-+	int ret;
-+
-+	ret = kern_path(filename, LOOKUP_FOLLOW, &path);
-+	if (ret)
-+		return ERR_PTR(ret);
-+
-+	file = configfs_open_root(&path, "", flags, mode);
-+	path_put(&path);
-+	return file;
-+}
-+EXPORT_SYMBOL_GPL(configfs_file_open);
-+
- struct dentry *configfs_pin_fs(void)
- {
- 	int err = simple_pin_fs(&configfs_fs_type, &configfs_mount,
-diff --git a/include/linux/configfs.h b/include/linux/configfs.h
-index ef65c75beeaad..2a803bb836b4d 100644
---- a/include/linux/configfs.h
-+++ b/include/linux/configfs.h
-@@ -34,6 +34,8 @@ struct configfs_group_operations;
- struct configfs_attribute;
- struct configfs_bin_attribute;
- struct configfs_subsystem;
-+struct file;
-+struct path;
+ 	memset(&fl, 0, sizeof(fl));
  
- struct config_item {
- 	char			*ci_name;
-@@ -243,6 +245,9 @@ void configfs_unregister_subsystem(struct configfs_subsystem *subsys);
- int configfs_register_group(struct config_group *parent_group,
- 			    struct config_group *group);
- void configfs_unregister_group(struct config_group *group);
-+struct file *configfs_open_root(const struct path *root, const char *name,
-+				int flags, umode_t mode);
-+struct file *configfs_file_open(const char *filename, int flags, umode_t mode);
- 
- void configfs_remove_default_groups(struct config_group *group);
- 
++	if (!pskb_inet_may_pull(skb))
++		goto tx_err;
++
+ 	switch (skb->protocol) {
+ 	case htons(ETH_P_IPV6):
+ 		memset(IP6CB(skb), 0, sizeof(*IP6CB(skb)));
+@@ -548,6 +551,9 @@ static netdev_tx_t xfrmi_xmit(struct sk_buff *skb, struct net_device *dev)
+ 		}
+ 		break;
+ 	case htons(ETH_P_IP):
++		if (ip_hdr(skb)->ihl < 5 ||
++		    !pskb_network_may_pull(skb, ip_hdr(skb)->ihl * 4))
++			goto tx_err;
+ 		memset(IPCB(skb), 0, sizeof(*IPCB(skb)));
+ 		xfrm_decode_session(dev_net(dev), skb, &fl, AF_INET);
+ 		if (!dst) {
 -- 
-2.34.1
+2.46.0
