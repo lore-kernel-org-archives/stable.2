@@ -1,35 +1,38 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out28-221.mail.aliyun.com (out28-221.mail.aliyun.com [115.124.28.221])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6FBC54788;
-	Wed, 23 Sep 2026 02:21:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 301E8379C4E
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 02:22:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.221
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790130075; cv=none; b=nfIDYr0e9nh14o8pjcKHGQlrFS1ew6XAzrUxw3El92tpB07kgV5WIQaC2Qwlk9l0R0S3dSqpnYFB2/H30dDmz13k7Kzn/8I/Sfo2tGotPFgNvYWZy75U0/n56vZ62v7vGN03dSuSE4mJmbDryOnKvaNjD+GUvTb7dmmAEUiEdMI=
+	t=1790130132; cv=none; b=rjK5Ww5lbqDrWhwu0Sm2Cym+68kmscF4j27ODVPcPdGpZqLZ16RH91BTotf0g5HtMI60gnla0dl7IwVUurC7EJ3/S/NZ/eabWEvwtU58k7g3iRDowzHUYmXl4SGQCml8KvkTx6tv7cZgCZEezPSZVh3OdFJ9BZqs7H1FnFQV/4A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790130075; c=relaxed/simple;
-	bh=JlcDx+90faiWzvsk2tJ/fkffK2A+Mb/XOMT4rI9UbBM=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=h7MW7xmHT3DP1T9p2rpa5nlh126EXvaejsybJ4DnZSTVJwZiLVYRPxV5/ieW+ugGNny4SVXiFX9kdNeyEoW79DDoIpbA6gCE4Izz7pH2W/nfLEJdTlT+MjsnazPrjbEgYtjzBbXyc9yGfaGV+NFLnBdBRD55FFqTNQumdTI17Po=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PEIIkXDR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790130132; c=relaxed/simple;
+	bh=uVW4kBynmbM6zEfPOT/1TJN/PIvZOPM8WnaGrwnA2lE=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=B6pyTNY3BUrHpmO1+OgpCX9WgG9AmTSrXQPQp42y+8d/T1Wu+YxuiQApaMyvIc8coIRO5Kwnw58S2+rS829jhksCVfUKErpbt8ChIXMHqvjjzxtWrc4bclMocKG0fnSzijNESi1+m12E2KyKx3PSE/Umdgr+s2gyImQZ4RUmnrE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=DjGrvCQC; arc=none smtp.client-ip=115.124.28.221
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PEIIkXDR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49B701F000FF;
-	Wed, 23 Sep 2026 02:21:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790130074;
-	bh=Ji7+MiaFmb72MV99NdoFp+cfoihFAO/nWtWdpd1qMPY=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=PEIIkXDRA41qx3Xx4Wy3TusrbvPMfFSRc/kqhesaMP3RWx2reHeirUxgc0jix3mmg
-	 dXOQdDa0/G3vIGbXPpYFxVxg5fe86aTJDA5ztJbUcG788ojFLBcrVjnOUjGsanCUsg
-	 cHlJ7HxXOya8lLs2mmn6jonTVZbE/T4qwFSJhpYQ5n5gPtdznVkEHdiYFSlHD9R/1Z
-	 QJbuTZXEBqJpbfMMZWpdsEnrv8Kzd+Ha5cupV0hajAH/sHm7IUPbeSsICkyPS0WTd9
-	 k7U4grJO1NHrBn0b528j9GcqAJoT0o3wi0jEwR84qu6PdpXHDFTWWNlvcyPtnYUtkt
-	 vmPdyv/vI7S7g==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 19A983924472;
-	Wed, 23 Sep 2026 02:20:06 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="DjGrvCQC"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1790130121; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=XnyjMdq1Z0++wMYQBvwqUuG2H3miydBJlNSKcdTfRQ8=;
+	b=DjGrvCQCYHkQcdnPYCWBiB8iJPf2TbjCIUOKkqCS+P/JOy4uoWlEOw3z/pSRcoTWBiqtTcCSYuEN8KWSzG6JObsMOOxYs0NaRaVGMVshKazCcfgJm8uWerRtyrnQSivWtaEcG/8WeXszjnLCFw1+O7W7oBeHVvWavR6pAs+eZjc=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.4873709|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00374037-0.000828409-0.995431;FP=12635978007448961552|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033032023038;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=1;RT=1;SR=0;TI=SMTPD_---.jKYLXDm_1790130120;
+Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.jKYLXDm_1790130120 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Wed, 23 Sep 2026 10:22:01 +0800
+From: Guanglei Zhu <zhugl3@xiaopeng.com>
+To: stable@vger.kernel.org
+Subject: [PATCH 6.1.y] net: wwan: t7xx: validate the netif index in t7xx_ccmni_recv_skb()
+Date: Wed, 23 Sep 2026 10:21:59 +0800
+Message-ID: <20260923022159.16308-1-zhugl3@xiaopeng.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <2026092215-sincere-shack-66e6@gregkh>
+References: <2026092215-sincere-shack-66e6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,52 +40,41 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH bpf v2 RESEND 1/2] bpf: reject dev-bound-only programs on
- other devices
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179013000490.180033.16817680789297827753.git-patchwork-notify@kernel.org>
-Date: Wed, 23 Sep 2026 02:20:04 +0000
-References: <20260920132303.4109240-3-bestswngs@gmail.com>
-In-Reply-To: <20260920132303.4109240-3-bestswngs@gmail.com>
-To: Weiming Shi <bestswngs@gmail.com>
-Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org,
- eddyz87@gmail.com, memxor@gmail.com, martin.lau@linux.dev, song@kernel.org,
- yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com,
- ihor.solodrai@linux.dev, davem@davemloft.net, kuba@kernel.org,
- hawk@kernel.org, john.fastabend@gmail.com, sdf@fomichev.me,
- edumazet@google.com, pabeni@redhat.com, horms@kernel.org, shuah@kernel.org,
- bpf@vger.kernel.org, netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org, co+ac0a8c41de69121d@bugs.sh, xmei5@asu.edu,
- stable@vger.kernel.org
 
-Hello:
+commit c7ead9704249d57d4693a04697e3bbd285138fa9 upstream.
 
-This series was applied to bpf/bpf.git (master)
-by Alexei Starovoitov <ast@kernel.org>:
+The netif index carried in the DPMAIF PIT header is five bits wide,
+but ccmni_inst[] only has room for NIC_DEV_MAX (21) entries.
+t7xx_ccmni_recv_skb() indexes the array without a bounds check, so
+indexes 21 to 31 read past it.  The out-of-bounds value lands in the
+callback table that follows the array, which is never NULL, so the
+existing !ccmni check does not catch it and the driver dereferences
+whatever sits there as a struct t7xx_ccmni.
 
-On Sun, 20 Sep 2026 21:23:04 +0800 you wrote:
-> __bpf_offload_dev_match() falls back to comparing offdev pointers after an
-> exact netdev mismatch. Bound-only programs normally have NULL offdevs, so
-> unrelated netdevs compare equal. A bound-only program on an
-> offload-registered netdev can instead inherit a real offdev and match a
-> sibling port. With CAP_BPF and CAP_NET_ADMIN, a caller can use
-> bpf(BPF_LINK_CREATE) with a different target ifindex to run metadata kfuncs
-> specialized for the bound driver on the target driver's xdp_buff. Running a
-> veth-bound program on tun reads beyond tun's bare stack xdp_buff as a
-> veth_xdp_buff.
-> 
-> [...]
+Drop the skb when the index is out of range.
 
-Here is the summary with links:
-  - [bpf,v2,RESEND,1/2] bpf: reject dev-bound-only programs on other devices
-    https://git.kernel.org/bpf/bpf/c/6db1ce73e985
-  - [bpf,v2,RESEND,2/2] selftests: net: test cross-device XDP dev-bound attachment
-    (no matching commit)
+Fixes: 05d19bf500f8 ("net: wwan: t7xx: Add WWAN network interface")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+---
+ drivers/net/wwan/t7xx/t7xx_netdev.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-You are awesome, thank you!
+diff --git a/drivers/net/wwan/t7xx/t7xx_netdev.c b/drivers/net/wwan/t7xx/t7xx_netdev.c
+index f71d3bc3b..2eea9997b 100644
+--- a/drivers/net/wwan/t7xx/t7xx_netdev.c
++++ b/drivers/net/wwan/t7xx/t7xx_netdev.c
+@@ -321,6 +321,10 @@ static void t7xx_ccmni_recv_skb(struct t7xx_pci_dev *t7xx_dev, struct sk_buff *s
+ 
+ 	skb_cb = T7XX_SKB_CB(skb);
+ 	netif_id = skb_cb->netif_idx;
++	if (netif_id >= NIC_DEV_MAX) {
++		dev_kfree_skb(skb);
++		return;
++	}
+ 	ccmni = t7xx_dev->ccmni_ctlb->ccmni_inst[netif_id];
+ 	if (!ccmni) {
+ 		dev_kfree_skb(skb);
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.43.0
 
