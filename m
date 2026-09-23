@@ -1,46 +1,73 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f38.google.com (mail-pz2-f38.google.com [74.125.228.38])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BD8E379981;
-	Wed, 23 Sep 2026 14:41:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C77633ADBA
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 14:41:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790174490; cv=none; b=no1w5QdgXNdgS0JQ4jDYj55CZITLsDbAIMeakXVx3pCsWjgnlILWxfw2ui3cJypQy8lCUKeKErA8SA+j64tgcJggtmbpI5uVNeoeHQ8BzX43Tkj5oVbgV0CMVtspQFVxEKBTH6/nUjTiPEatwZJH4GYYpZkLALOPHr4UOSaCHz8=
+	t=1790174491; cv=none; b=Xn7Sopp4AnZnyb4ALrA6h5Pdw/H3bMMPqZYRWmsMSmgHgrMTnMinh8T/bD6UcJDd/EkYTG+xL5xEGzcyKng9R5RnO8CXbWemGjpANqjiWCYwMQw+X5B7d/cnYcDew9GWvgd0g3uVlhRVicTGgi4JXvCVXbcH8vAwTAX+TI1qK4s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790174490; c=relaxed/simple;
-	bh=HSJ+YU0lf5OIk9rav7byW8vH745vUoapGeV0WMyNUTc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LZuhgmdsSJU3X2q4p3fDOPGc5XUJEEIN0ryQ8+bSwJ6tX5qem9CI5XJsIlurhOIuopFGJuB6yCUbb4ai1qIseXRf7OFSZdaAL/+WzENuu5YDUEHPIxR2WP1k5GGf6qfLl05JWgzXPgOKUJXLsPZpeqwMnUX6d+sMPKIJuHEtUzo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=bN7OpSyA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790174491; c=relaxed/simple;
+	bh=+otIrsLnvG63x+JWVf3rTo9vMNO9yRb6KUn2LVEtsEg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=W6LLtrQULG09OD3KLpZmpYYybB5eAl4xqP/5Q3m/9rAuw3/jLSMS+tzyuBRpJanIxjTwXF1XkpqundFm3Rb+JGeptDRpfeHyu9U1hM+9cLR8k4j8+XS/ARYOCzI5mQUr90IDy1sj1jEyBLp0IatiAUIKYzIcbIU8mXilLv4Buyc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N1lxs8yU; arc=none smtp.client-ip=74.125.228.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="bN7OpSyA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9BB11F000FF;
-	Wed, 23 Sep 2026 14:41:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790174489;
-	bh=1/ofZ28G+qaCdGdOBk20REo0y27Px+LPIB5b2EWybmc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bN7OpSyA5tNH2MWmgMnynXyIQcujIa0RGEUzwyTrAX6bDFiaEixB+4nr8MwIvRPyx
-	 gUvaydtpfDNuQeDzeuf5KvwFLV2sDBBb3lCgjJ6jWc5V3inUBzfPfuLY0v506+THo6
-	 rOOvLl1/q39Z4wLRFk5P4sMQkGwevSAjB02oE7Y4=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Nicolai Buchwitz <nb@tipi-net.de>,
-	Justin Chen <justin.chen@broadcom.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 130/398] net: bcmgenet: restore the hardware filters on open
-Date: Wed, 23 Sep 2026 16:03:24 +0200
-Message-ID: <20260923140646.807860628@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260923140643.441954610@linuxfoundation.org>
-References: <20260923140643.441954610@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N1lxs8yU"
+Received: by mail-pz2-f38.google.com with SMTP id 41be03b00d2f7-cc1cea4c7a0so630329a12.1
+        for <stable@vger.kernel.org>; Wed, 23 Sep 2026 07:41:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790174488; x=1790779288; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6VbNCrUtC6XhrJdqpuUyW50kKcrIjN7yFV7NZTjlcAE=;
+        b=N1lxs8yUK/BdDMTD0oKKt7ODrXJQMzvHFjYT2V1V1PJX3DdRWS/2KuYChvyMQPVxH5
+         CKaNUgdaRlOYfDg/f7CszEPI9cphIzPEqmJ5UbT6B8Abd/c3mQv22x6djCrcD22uYYPd
+         UEDD1sjcufD5HLr+yR02T4LcqfM7z3U9FkB1ZXMChyAcqGvuQkzAN0i7+SjFsfZNwqTn
+         IWp/ssNYjM0WSLs/kLvgyC30OSfDIil4+df8ou5oI7L4F3MFrOug7U/IanrGff9nYMy6
+         H+5/cFdiD0fH5e/xs68W+IT8wKw88uDvy6881Mfb5eTCZyVn7Ivfee4uE55Df/OeK6DE
+         pmIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790174488; x=1790779288;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6VbNCrUtC6XhrJdqpuUyW50kKcrIjN7yFV7NZTjlcAE=;
+        b=M0rzAA0Hhp3hbr0lcYFCcscJfIH2YIuLg5LOw/NPz8vDfbV4Zu17TvmXLmmda4DTJJ
+         oAxQoh+2xFhJu6zm38p4dDz8FMFE0aDum5qsOvkoBZokFhwvfEgYIjfWScQevv8t5i9n
+         Cz+oHIaGW9xp3SdlJVp+6vXP+EohTRWlZYODWvxoI/VAkqqNCvuaWLEXiY5j6gpNaYfB
+         DbrOxbUAFu+jlPIJaZ2vyA3ab0dQqgQ6CxYAnLJII1gU+a81Sd2aC0CvBYh8JKcDSziA
+         mrQf9LzI90jZcibRlo9JFHf9umA5tx0ipBhTijAYi8bM8fhakjHgeQwBJtd5sQKOgSzk
+         /hlQ==
+X-Forwarded-Encrypted: i=1; AKwUvByEoyhEzihMOm8i7aQhC9gc+6ZWkkGRNNb3aWClrldgiTBGHkoBPNquwTuwGLdw/pCea61UXrw=@vger.kernel.org
+X-Gm-Message-State: AFuF++liX2MS2rvoxa7SPF1D3JBlxssx8FwF5ll6vot3W7ujr3r9h7aP
+	2pdbDMaafRSwQMdCF8kKoZnZV68a3idcLxWR0FWqZZPqEKJXZT7hFDiyif2LUQ==
+X-Gm-Gg: AYBFou1YKB0pX9EcUlxT3E0Kkj/fyWwwLmRSWvHPyUqlaymLsz5fb7ELk0MqzN6/NPa
+	pz6eJKdiiVyhxM5s+2IeQg0UElY249t0VtyNo/Hp+ZIq7P+0pPPgmhBNzDvYEA1w4NNf/OhqSz/
+	S5ymiU04r926KjnGrthQkkB0xMyBrnheS1knceUXrLaTBlNeacQSzvS5mllzs8No/+2idmAUbEh
+	nMkamfD2fuOv7zbsMxCkb9UtGHrjAoeX7m+2Uzqvbi8z50gDe3jpm5JcCDEyYuWEtoypW0PUMt0
+	03u5re7F2Kf4nquU6ztKifdKTafMwytYuhVnH5y5os9HAvAq0H/INxKXD2nMXnUxsum2QmyadIU
+	kf94YG9wnQaxXWvW/8U0peGy9vzhhDpGZ3eLb1hC5MSbK9hWc1Xp7VyZooee3i+5fQq4lZ349WR
+	77aM11lLqtuWIBDcgJwbEpKHknDzsfz7U/osvKRp0105luoQyHOMTBg+JtwCwKiLhKL4lc6H39v
+	xLdVK6WcwjHv6Bmld0TOfc2fm8=
+X-Received: by 2002:a05:6300:6bcf:10b0:3d1:39e9:b267 with SMTP id adf61e73a8af0-3ddf7cca4dcmr1648693637.3.1790174488224;
+        Wed, 23 Sep 2026 07:41:28 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2405:4802:1d4a:e90:f072:2258:ced5:5d8c])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc75f406238sm1239936a12.26.2026.09.23.07.41.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 07:41:27 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: shaggy@kernel.org
+Cc: jfs-discussion@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	ngocthang2710.1999@gmail.com,
+	syzbot+5570e0eb2edddd308514@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH] jfs: fix self-deadlock on discarded metapage in __get_metapage()
+Date: Wed, 23 Sep 2026 21:41:22 +0700
+Message-ID: <20260923144122.25792-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,95 +76,86 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+__get_metapage() holds the folio lock when it finds a cached metapage
+flagged META_discard on a non-new lookup.  It reports the corruption
+and calls discard_metapage(), which goes through release_metapage() and
+tries to take the same folio lock again:
 
-------------------
+  release_metapage+0x103/0xab0 fs/jfs/jfs_metapage.c:868
+  __get_metapage+0x9a0/0xde0 fs/jfs/jfs_metapage.c:751
+  jfs_readdir+0x1e01/0x3ae0 fs/jfs/jfs_dtree.c:3041
 
-From: Nicolai Buchwitz <nb@tipi-net.de>
+The task then sleeps forever in D state with i_rwsem held, which
+syzbot reports as a hung task.
 
-[ Upstream commit 23ca4ddc4fce2c233a49e9fd34d4b5b02bd7324e ]
+Split release_metapage() into a locked variant and use it here.  The
+locked variant also unlocks and puts the folio, so return NULL directly
+instead of going through the unlock label.
 
-bcmgenet_hfb_init() runs INIT_LIST_HEAD() on priv->rxnfc_list, which drops
-every rule off the list, and bcmgenet_open() calls it on each ifup. Every
-rule the user configured is silently lost:
-
-  # ethtool -N eth0 flow-type ether dst $MAC action 0
-  Added rule with ID 0
-  # ethtool -n eth0 | grep -c Filter:
-  1
-  # ip link set eth0 down && ip link set eth0 up
-  # ethtool -n eth0 | grep -c Filter:
-  0
-
-Initialise the lists once at probe and restore the rules on open, as
-bcmgenet_resume() already does.
-
-Fixes: 3e370952287c ("net: bcmgenet: add support for ethtool rxnfc flows")
-Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
-Reviewed-by: Justin Chen <justin.chen@broadcom.com>
-Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
-Link: https://patch.msgid.link/20260913190052.939955-1-nb@tipi-net.de
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Reported-by: syzbot+5570e0eb2edddd308514@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=5570e0eb2edddd308514
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
 ---
- .../net/ethernet/broadcom/genet/bcmgenet.c    | 19 +++++++++++++------
- 1 file changed, 13 insertions(+), 6 deletions(-)
+ fs/jfs/jfs_metapage.c | 20 +++++++++++++++-----
+ 1 file changed, 15 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-index 7f9d43a75f3bd..41539f9f8061c 100644
---- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-+++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-@@ -750,8 +750,17 @@ static void bcmgenet_hfb_init(struct bcmgenet_priv *priv)
- 		INIT_LIST_HEAD(&priv->rxnfc_rules[i].list);
- 		priv->rxnfc_rules[i].state = BCMGENET_RXNFC_STATE_UNUSED;
- 	}
-+}
-+
-+static void bcmgenet_hfb_restore(struct bcmgenet_priv *priv)
-+{
-+	struct bcmgenet_rxnfc_rule *rule;
+diff --git a/fs/jfs/jfs_metapage.c b/fs/jfs/jfs_metapage.c
+index 41fe12e641ce..b3585df259cd 100644
+--- a/fs/jfs/jfs_metapage.c
++++ b/fs/jfs/jfs_metapage.c
+@@ -681,6 +681,8 @@ const struct address_space_operations jfs_metapage_aops = {
+ 	.migrate_folio	= metapage_migrate_folio,
+ };
  
- 	bcmgenet_hfb_clear(priv);
++static void release_metapage_locked(struct metapage *mp);
 +
-+	list_for_each_entry(rule, &priv->rxnfc_list, list)
-+		if (rule->state != BCMGENET_RXNFC_STATE_UNUSED)
-+			bcmgenet_hfb_create_rxnfc_filter(priv, rule);
+ struct metapage *__get_metapage(struct inode *inode, unsigned long lblock,
+ 				unsigned int size, int absolute,
+ 				unsigned long new)
+@@ -751,8 +753,9 @@ struct metapage *__get_metapage(struct inode *inode, unsigned long lblock,
+ 			if (!new) {
+ 				jfs_error(inode->i_sb,
+ 					  "using a discarded metapage\n");
+-				discard_metapage(mp);
+-				goto unlock;
++				clear_bit(META_dirty, &mp->flag);
++				release_metapage_locked(mp);
++				return NULL;
+ 			}
+ 			clear_bit(META_discard, &mp->flag);
+ 		}
+@@ -863,12 +866,11 @@ void put_metapage(struct metapage *mp)
+ 	release_metapage(mp);
  }
  
- static int bcmgenet_begin(struct net_device *dev)
-@@ -3374,8 +3383,8 @@ static int bcmgenet_open(struct net_device *dev)
+-void release_metapage(struct metapage * mp)
++/* Caller holds the folio lock; it is dropped along with the folio ref. */
++static void release_metapage_locked(struct metapage *mp)
+ {
+ 	struct folio *folio = mp->folio;
+-	jfs_info("release_metapage: mp = 0x%p, flag = 0x%lx", mp, mp->flag);
  
- 	bcmgenet_set_hw_addr(priv, dev->dev_addr);
+-	folio_lock(folio);
+ 	unlock_metapage(mp);
  
--	/* HFB init */
--	bcmgenet_hfb_init(priv);
-+	/* Restore the filters, the MAC was reset above */
-+	bcmgenet_hfb_restore(priv);
+ 	assert(mp->count);
+@@ -896,6 +898,14 @@ void release_metapage(struct metapage * mp)
+ 	folio_put(folio);
+ }
  
- 	/* Reinitialize TDMA and RDMA and SW housekeeping */
- 	ret = bcmgenet_init_dma(priv, true);
-@@ -4077,6 +4086,7 @@ static int bcmgenet_probe(struct platform_device *pdev)
- 
- 	/* Mii wait queue */
- 	init_waitqueue_head(&priv->wq);
-+	bcmgenet_hfb_init(priv);
- 	INIT_WORK(&priv->bcmgenet_irq_work, bcmgenet_irq_task);
- 
- 	priv->clk_wol = devm_clk_get_optional(&priv->pdev->dev, "enet-wol");
-@@ -4277,10 +4287,7 @@ static int bcmgenet_resume(struct device *d)
- 	bcmgenet_set_hw_addr(priv, dev->dev_addr);
- 
- 	/* Restore hardware filters */
--	bcmgenet_hfb_clear(priv);
--	list_for_each_entry(rule, &priv->rxnfc_list, list)
--		if (rule->state != BCMGENET_RXNFC_STATE_UNUSED)
--			bcmgenet_hfb_create_rxnfc_filter(priv, rule);
-+	bcmgenet_hfb_restore(priv);
- 
- 	/* Reinitialize TDMA and RDMA and SW housekeeping */
- 	ret = bcmgenet_init_dma(priv, false);
++void release_metapage(struct metapage *mp)
++{
++	jfs_info("release_metapage: mp = 0x%p, flag = 0x%lx", mp, mp->flag);
++
++	folio_lock(mp->folio);
++	release_metapage_locked(mp);
++}
++
+ void __invalidate_metapages(struct inode *ip, s64 addr, int len)
+ {
+ 	sector_t lblock;
 -- 
-2.53.0
-
-
+2.43.0
 
