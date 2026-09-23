@@ -1,90 +1,78 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 605F446D551;
-	Wed, 23 Sep 2026 08:40:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71D513D903E;
+	Wed, 23 Sep 2026 08:46:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.190.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790152837; cv=none; b=J2gS+0ItFwMA7navSVuYDj5KFoA11Swyg+UPJZOm9iSMc39Y5jB6YiACP18MRIMHVUXYYk5ewweYqT05GhBpV9feGsR0C+NWGjZOfr+ViTDRt5Mh7g6u3JxV/yW3phjQB2fr3TNc/rXC70i+Yaqnue/Jz5gl4vrDHghVPbHQrT8=
+	t=1790153177; cv=none; b=n8SrRA24De2LgLywUxFSsDOsDEKO0UCJ0S1TbBwWcB+oZwTXYYEsk+v+i0ubRqwpNzD5r8fwio16ESLC4eJPgT4tysN+5cQb1qTwHyMgd84MJGU7kOYNfqyM/fY/lfSjjRjqy0C+RXWi2j1fWmLXDmts7JfMHp3g02tPwrpfTAs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790152837; c=relaxed/simple;
-	bh=K38GKIhYygo40OSAIx5jp4HreWHfMJpznywxecd+EBM=;
+	s=arc-20240116; t=1790153177; c=relaxed/simple;
+	bh=wSVnXaqSFIhkKcAJGfcVPGFYiIzsQhyG5P2eUKmnujI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pNiL8fOAqY6fu4sWctVl7G5uBQxKBvQq94KwK/X9vluZDBZI322/UhWI3epsxMHOZRtm33wlGLH7qNlflAt8p8/DYWlATqGQdfp7vclbduAdftZWXj/ULKzB74c5YiU/iNadqYYta5yleaeJ2hADnPvfAO6Tcu+CZt9HzjdbJaE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l2ZLm6b/; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=EL20YiWbGMXDnch9NfmvzHbE0Ayk/+UCNAFMvQ26gceUdeCT0a6eWgLgOVEMe20/zHDLukggRoZ54EBV+Iox0sVq5Pl6oVE8P4oa9FvpJ7lRbGtR6+K5bMfEvkF/rEJf/nZc6mZhBw+TdiEaLM3MOXKtA5lVExSkjllgmoWkuq8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org; spf=pass smtp.mailfrom=netfilter.org; dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b=aeNCMCeZ; arc=none smtp.client-ip=217.70.190.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l2ZLm6b/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9EE11F00893;
-	Wed, 23 Sep 2026 08:40:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790152820;
-	bh=4/p/6NzABfZh2W4lA/ZfbZiaJjOtmu4YBNzB36CjHBE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=l2ZLm6b/EI4CvUZmROWPI/SqMxY/QSpl89lkgz9wNf8GnG+Lsb+gfl67mDRt6sJ05
-	 hPFcyQt/foxrR8cGAC4pebexm6WxaKdxSZh/Uk9spJU3ozviD8Fe4t35fJ6bpm3jin
-	 syumUjlGgCmtBj7664n0qqiFOV3IJAS3Qmte+FtoLqLNm6CmiUJAzl/suH0h1wGrJ0
-	 d+U63KGBO7kj/J76vkYGjE1R7LfIHUdLy/HnHSYY2mcybF2If5wgK4NJmFhp1D34pk
-	 sKPHhyNfLnYHDofP8lqDqKV8tl53T0hrMDv5YWGRmEo5AxIdA76nO6nkT4nsi9qw9L
-	 34xO6HYm4eStg==
-Date: Wed, 23 Sep 2026 09:40:16 +0100
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: dakr@kernel.org, driver-core@lists.linux.dev,
-	Sudeep Holla <sudeep.holla@kernel.org>, gregkh@linuxfoundation.org,
-	linux-kernel@vger.kernel.org, rafael@kernel.org,
-	rob.herring@calxeda.com, lkml@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 5/6] driver core: cpu: Fix OF node reference leak in
- register_cpu() error path
-Message-ID: <20260923-uncovered-worthy-capuchin-a75edc@sudeepholla>
-References: <20260915043523.1725991-1-vulab@iscas.ac.cn>
+	dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b="aeNCMCeZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
+	s=2025; t=1790153164;
+	bh=JKSw0elemDZeIAkFmZGXuEl3qArMvKWn8KHaNnpVc8U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=aeNCMCeZwu5W4DHiEYXkd3kwMAvCTylphp5+hgYq+OUrniEsluP99tTeQ8euNxbX3
+	 GE1ZjBK2La04QyNtCNLMpmAhNG8QXB7YhjYbwbGMV21no6Glp+Yj1fHKwCuHbwLCRS
+	 IYu9jjwL2+9cd5FftCaZZCV3Y6uMbU5Qco1659rNSmTWFHPXAPR2/UackXtO4O6For
+	 IAKqXrUSaJCv0u+5g3doH80ynnysM9A1Iimw5pPiUDN1BlrFHlxbvXNJIyQHJ2L86K
+	 KUd3i5O0BAlz1ecNu9Efrp8LG1VlnxtwPp4+THLE2HZLIdJQkCSLucudpegoc8YOyv
+	 ZX+FUtJmky3kQ==
+Received: from netfilter.org (mail-agni [217.70.190.124])
+	by mail.netfilter.org (Postfix) with UTF8SMTPSA id 0287660056;
+	Wed, 23 Sep 2026 10:46:03 +0200 (CEST)
+Date: Wed, 23 Sep 2026 10:46:01 +0200
+From: Pablo Neira Ayuso <pablo@netfilter.org>
+To: Subham Pal <subhampal789@gmail.com>
+Cc: fw@strlen.de, phil@nwl.cc, kaber@trash.net, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+	horms@kernel.org, netfilter-devel@vger.kernel.org,
+	netdev@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net 0/2] netfilter: nf_conntrack_h323: fixes for NAT
+ bypass and ASN.1 decode
+Message-ID: <arORyXjxvZUoEAIw@chamomile>
+References: <CAHeizqHDqx3ue1=0QL92ef+6C63Ur+v1Z=d93smgdD5zTj_-Pw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260915043523.1725991-1-vulab@iscas.ac.cn>
+In-Reply-To: <CAHeizqHDqx3ue1=0QL92ef+6C63Ur+v1Z=d93smgdD5zTj_-Pw@mail.gmail.com>
 
-On Tue, Sep 15, 2026 at 04:35:23AM +0000, Wentao Liang wrote:
-> register_cpu() assigns the device node returned by of_get_cpu_node(),
-> which comes with a reference, to cpu->dev.of_node.  If device_register()
-> fails, the error path calls put_device() and returns, but nothing ever
-> drops the OF node reference: cpu_device_release() is empty and the
-> driver core does not put dev->of_node on the failure path, so each
-> failed registration leaks a reference on the device node.
+Hi,
+
+On Wed, Sep 23, 2026 at 09:50:22AM +0530, Subham Pal wrote:
+> This series resolves two separate issues in the Netfilter H.323 helper:
 > 
-> Release the OF node with of_node_put() on the error path.  It is safe
-> to access cpu->dev.of_node after put_device(), since the statically
-> allocated struct cpu is never freed by cpu_device_release().
+> 1. Overly restrictive tuple comparisons across expectation helpers
+>    (expect_h245, expect_rtp_rtcp, expect_t120, expect_callforwarding)
+>    that bypass NAT payload mangling under DNAT, hairpin routing, and
+>    reverse/reply traffic directions.
+> 2. An ASN.1 PER decoding bug in decode_seq() where absent extension fields
+>    are processed before verifying their presence in the extension bitmap,
+>    leading to packet bitstream desynchronization or premature aborts.
+
+I understand these are correctness fixes.
+
+Do you have a reproducer/PoC? Do you tests for this?
+
+> Subham Pal (2):
+>   netfilter: nf_conntrack_h323: do not bypass NAT helpers when tuple
+>     source matches reply destination
+>   netfilter: nf_conntrack_h323: check extension bitmap before decoding
+>     components
 > 
-
-If this is part of a series, I can't find 5 other patches or the cover
-letter anywhere.
-
-> Fixes: f86e4718f24b ("driver/core: cpu: initialize of_node in cpu's device struture")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  drivers/base/cpu.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/base/cpu.c b/drivers/base/cpu.c
-> index 875abdc9942e..bc96725c8d4c 100644
-> --- a/drivers/base/cpu.c
-> +++ b/drivers/base/cpu.c
-> @@ -431,6 +431,7 @@ int register_cpu(struct cpu *cpu, int num)
->  	error = device_register(&cpu->dev);
->  	if (error) {
->  		put_device(&cpu->dev);
-> +		of_node_put(cpu->dev.of_node);
-
-I would also set the of_node to NULL as I see some archs like PPC is
-making some decisions based on non-NULL pointer. I want to prevent any
-further OF reference operations on that pointer.
-
--- 
-Regards,
-Sudeep
+>  net/netfilter/nf_conntrack_h323_asn1.c |  6 +++---
+>  net/netfilter/nf_conntrack_h323_main.c | 24 ++++++------------------
+>  2 files changed, 9 insertions(+), 21 deletions(-)
