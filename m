@@ -1,120 +1,130 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 607A045C70F
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 07:49:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47EC63C1F
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 07:53:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.43
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790149786; cv=pass; b=LRerAeME5AwPTaIHQLT5YkKGYQx0cujSLOVoV2GTDpb1pJcRm8Uq9uY/j9rNqAT2qYFuphmrt0OBPsZhmKaPGHHJQKFdK1klo4Dhg5a6SdZe8rWSyG5qsDSeyH+VQ29oMOgvYyKSejJ/RBZPbHJZvXCzyCP7VxM+VeemOP5yXhc=
+	t=1790149995; cv=pass; b=Ym0wJlmoydkCU6a0LWIHFTR5ayIyoX+m5j+lH5LCIlebcQ25074iAiLcbDJ5e+qoB81AvQsqWeJE4vW/bLRYjunKsBtRq45NKuf4bRRN5LNjBGC0G+tRlDGcWAncBWRrjl/I1gvH87fA1NVyN1mLMcIMho00n99ln5wumf7/jrk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790149786; c=relaxed/simple;
-	bh=a5qiSmOjocnn+sDqyBmDHtNspXpe+m+DapVB6S7w/58=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=AQ24lmBjLB+ViD+BoCpcvNGPvqVuWfU10vUb8Kl1HAE8kTjkprUxym4bDepchu6SP2Bous1IpHNcmYG4dqRqSeVod3vUZJz+EbTXNVj/g3yZE2bQ3r+mGSVUgP2A98dr5C52n2Nk++Vhnh9ACddigZrKuHzXLhElkbftAp6DbpU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=H1gk+bPF; arc=pass smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1790149995; c=relaxed/simple;
+	bh=C2cOOuI7fokFnvWV4gMQQKjXRE4B0fo66EYnxXaiu20=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=hQsa2I2T4R2SmqKpRPrBZlSR4M3XyCIO9V0rqClRlKPqbGEFNz4jn0lR2ycUpZughssTQ9SlSXfOMFSy7oHK6IGtCn+jDY/baMzrYggVr6xMiQIGiUjoG+60kP7ATyQJGhcowOU0tqXM20vS6JKx/L9yZcRF6ieEVyyKg3pvgk8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=alkira.net; spf=pass smtp.mailfrom=alkira.net; dkim=pass (2048-bit key) header.d=alkira.net header.i=@alkira.net header.b=NxhMpI96; arc=pass smtp.client-ip=74.125.228.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=alkira.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alkira.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="H1gk+bPF"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ccead2aecso2547715e9.0
-        for <stable@vger.kernel.org>; Wed, 23 Sep 2026 00:49:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790149782; cv=none;
+	dkim=pass (2048-bit key) header.d=alkira.net header.i=@alkira.net header.b="NxhMpI96"
+Received: by mail-pz2-f43.google.com with SMTP id 41be03b00d2f7-cc4c08393dfso474430a12.3
+        for <stable@vger.kernel.org>; Wed, 23 Sep 2026 00:53:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790149992; cv=none;
         d=google.com; s=arc-20260327;
-        b=Hy04uoZ+qu57UMaM13ltcFkXXCy7JHk34QNm/IgBtIBOuZNAP+6/OvFReHbIgzAhqd
-         92dTbd1dLdwFb1xUALpFHF3GF569OxhcrAO6R+2IYjtzxq6zkA0T/ffPSnZPh7zwNieO
-         UmE2gYZAqdFA3blwTle78wdy8J6LRu+LsxaHeV7ToLRK68kjA1JQxsw7yg9Xtdo7Lk9J
-         TOd3m2jfvRNhqCD8UT1d1f3aTwJex+amiBuLnHV9C2RcH1dTBwn6v6mfhb6915ex9AMF
-         d+v6R+Jh3PsdYZI5xJqJjpzQJB1jTG0oayX27OkfNJNeWOIg7nSo0GyAva9kGYnUqSU8
-         vMaw==
+        b=Vqv3GC2vINwANohrzw7rl9gJ5ZegtcOnxVn9jaI8MsS3ghuBbyZiDsleMypwo40iaj
+         NdWK/Dn1ICzzp03+JtINysbRFxxdxr4wXK2LXsd5AbqXQ9MTfF15cg/OQDsVxVVEElC2
+         uQ5Lb2pM6FuJAsRHaY94S7RfI/ofYhuAd88jNLa38kNFvqbMJYWmYk1J0TSTEhTIC+gU
+         lEXsXOqxt51B719tmHVpxZe4s1DeD2u2YkvC/VL7UF2IpKBVn7CWGI7+56hRbGxYRDA/
+         P8V2d931eADXCsoXGn3Y96O7K3ZfYs1ahZUDmHpMzMncXEpu1LiGdDXHxlxFw5StKyxV
+         aHGg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=dtR7efeps0npha21Xq8cylYx7rCwpCT5/pR+0N1hrII=;
-        fh=2mP+pJggPNCdSHANLJ91cUFqhCjso7LAPKRkrBNbUSI=;
-        b=cypuJVM8x4bJdUv4b7wXZa5877lRUNibUqbnQZdYl3Po7v0fxg2/y0Af+Knho3RShZ
-         +0NtNE/bmBrMh+2woSSgCEgA8Lb3rPwp++RiqStDYGwgwbG/y+cCG5w9Ia993i/pY+s/
-         aTGh4qAEBcXqg3jan/4QAwM4w+1dZsl064eu8sp5gG6rIdD5CLnsQZHpINaA2rnCPqhN
-         G5tZJQveBl2MHeN97oDi0dHhSyMt5b+jl9/Tv7ZXyrF0+TRsDvNE+7CnWjr+6RUmjWs8
-         +dKf/3Vm9penJBf5VkPivvu5mD/WeXLJh3+C1Yt9/YkfVZG36URR25sViw9LcVy98I7F
-         0+6g==;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=/4zbsOJYMMKrOgOuYFJZifKVCeo7J1nWx9sorNtlsmQ=;
+        fh=8MCWDVBoyfe0JbkKmWafBb+U5YLV6ejSASgvhoDnjgo=;
+        b=CMx71zUSyAD81FZVzjLvsaNfGYPk1YgSFJR0F4anbexDy5+yXMpeaCJ+pQKiOO9UE5
+         Pv7qeHani+KLTeabY8FwBz0aNw9WjAgj19cSpycXLP5tYlDkMpPRiftNi8Vq/iGznrDP
+         futBu0n7Q9sgmyxulSTdtuEXElcNQ81h8gNV54UPHqHK6TSQ0Bd5em9boHWuXqxnC3D9
+         gA5yM/jXu0x4V6XV9zxL+1Zz2Kei5jpWUI4PJa5n7a4MuzEKuKCBeZ+QE5FSsPWHIhaA
+         LQNjAXJCDGwoe650ivChf2mwukhF0UY5tGgchPsAkCi6N3eqf99a4KEUpVTNdONAzAx6
+         iXZA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790149782; x=1790754582; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dtR7efeps0npha21Xq8cylYx7rCwpCT5/pR+0N1hrII=;
-        b=H1gk+bPF44wAFVBBtIZ179iwIMQFcnENuYrlmkkddAYX+t4Z4ppKLxxoosG425QuvI
-         rZNRSb+wWjnjYw/CvKEXWJrCMgvCA/hEXNXwHpfsiDKqxZOOErgSd7QpA5qTd5MLTOhS
-         yLOuWUECktK+vlY8nGxzCxEPdO6uheTBLFbX5YP963M9KytN4fURPtqbRPVw6Iv/ShZU
-         ie1XTBJ1PpOfowPUmpZRgwTTQe6/k7VFCROvE9HjZmU+L7h4f+4Up4RJ7bh3qZZgjBHl
-         jLpPiDYNNtuQAY5MctOJhydbFCB3H/tWPQbJJHK0+D7oSehK/zM8Kw8KoGJ3TK5npS97
-         ibWw==
+        d=alkira.net; s=alkiranet; t=1790149992; x=1790754792; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/4zbsOJYMMKrOgOuYFJZifKVCeo7J1nWx9sorNtlsmQ=;
+        b=NxhMpI96JLbozaWmIp8jnas6hQ0iFN08HjM4vj5pnnClGunTCSqMVLbzPDDK9WPRPh
+         v/1w2aYAbMnsPMQTd1XF9VnH0HC8+Yd8NuE9J7Rnq+MPAxnt2Xqqo6VkCf7cdNwNgJi0
+         YpnsE9ACUfy/ue/mBJjRpGud07MXGaCIUkE1c34JntXbKIawherRN9w9COLuu/+xgeuR
+         D14a4i8IGkb0C1hVtgiYZengMgdVfmqtHpZ4pYgvEINpXGuVnsN3wEia6NTo5rNvqT7l
+         XZYf6fnlECuOUaj5MBapt3+ejL2yStVVp2PdhiBpMZjAAqjxIUPON7Rjyx43QcSFyftE
+         X55Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790149782; x=1790754582;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dtR7efeps0npha21Xq8cylYx7rCwpCT5/pR+0N1hrII=;
-        b=vmGcMEPAMwt6CovNw7oWMQ6ed8jSWzCLuTtvix1DuPP5CT3+vxdw43SjmDKVQnRjal
-         UfdI6dqoSae1OOU/nnBft3+VU0/gWBdEl8mz2HIYzbjlUCGob6vbbVrmaeKUisoh1ZOi
-         +tCgvctIWc2Jga/qSbSlLmjjPjENjKrMmWUvhjkhF99vnhq/KTx/rmOiGNQwIjOAFuqf
-         0QBun2Okd0MtL+L4SaZPCCaOV6Lq1B55FLFZ9CDjjplpRdEl3LkeqjieIQzBNhp5yeF1
-         abaaGIQKVu4NWqHeyPgI456kSXjjE09bcG8tyfGwQ1I0FzrJYe9YQ6Oi327bmaIDAqvM
-         Yr+Q==
-X-Gm-Message-State: AFuF++k/mBlqml6DhWN6nPUZgD/G8qrV8yoD+NTGnDDGUeyKd0AuWAcA
-	rXjVyZIIbXksYeLACJ2is3pyGtyDxKt8y1G6LOecPXCRGVmXX/eU7FyIFwxmfKfN//Pj9f5GZ77
-	moMBvwP/Mjj1Q/fIe9jtt0Oo9Dz7B+W5/P4UDQ5sB
-X-Gm-Gg: AYBFou0FdJw8UBR1R3Whp53zy/QpnJ2XK/Bibfe/gGUWn7QltDpky3civVmNWCwq2b7
-	5ACXIVebC299dCKQB1YZxwecJeRtLvZrfX+brwW642Wgau+FrKsteeqzRgsvCZ1EjDPIN9Hq2zO
-	FNKQBYt7OJLMoVrV29PPBpq4Np4+YkinUermi0R4bDuKI1wt/ap7zn1tH3NUtEK+31RejO5Y6On
-	zMsn5DTUgaMa+pRqrFcyIYL36kQYjBcvZXnmNvHEH4WuD3gf85W8NLOFIBAeN3NtjYJqW+SNtfY
-	+o5/wscGp3EsdNuA2Lbh7Af1Q8PsdSUGvrF6BDokCpTeMw76YAhPeYwotz3VhoHWCTcbSxlO+KS
-	0sm8oaqmyBA6FX+NWlAFU5YXW3d4g4GqH
-X-Received: by 2002:a05:600c:a45:b0:49c:fc6c:bdfc with SMTP id
- 5b1f17b1804b1-49fdf135915mr19518175e9.19.1790149781738; Wed, 23 Sep 2026
- 00:49:41 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790149992; x=1790754792;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=/4zbsOJYMMKrOgOuYFJZifKVCeo7J1nWx9sorNtlsmQ=;
+        b=wUjSXprY6a6fSthf4OK/XhvfOBL9aPV7stc/sRq8XbJ+80xAcy/gVXRZzUL+5NeLkr
+         w/FNWj1wZXlOtPdmDt9GsaO3SofodGnfrZC+DO7z1kMRgu/Lp4vU6QBi995qLnnqYE9M
+         8SUDHKEgtES7e+oGQKpwTPVODBzOfwaFuemXBY7mkEq/RfFnudZmhUVKcWzTEFOyWwDF
+         F8zntTpZD/HQGLDAqIQnJ/EBaE0fHMSM5ifYrOory8wj9OuLIikTQYkdbxYL5c3wEtDu
+         zh/i9TCJkcBxXxtpNataJTFEUQNuLmh5SBTrNAYtgP+fmnB1UTIDcPnP5/hnNQfChRc9
+         C4pQ==
+X-Gm-Message-State: AFuF++mdpAOchcxzKV7xEoDsmg52NcNxYM7WbKitavjbvnwD/4UBuoxn
+	V9udDP++YSu7YhQzatFu2BB31CpR2w17XXmbjzx1ItERyxtqYLfTY2bOyfe//RU2VFdWT1RBFVh
+	H2DBjCca0YT4h3xV5chToqXZUYBSARHLkEqjyATyuioK/VnWQUEiWUjzRYw==
+X-Gm-Gg: AYBFou1JHSsZMEnrlXzBFSlsAox/+rDtaA4eM88vw/SZ7xaq/RCNdUTt32nfNZoYOmg
+	86WuvyNYgfamOUV74nD9xSQ7ZnB0OktyQhC1ubfmrMGwmet3skN7Hk+e5Y3ltz1Uz6e2E8/1rWS
+	NgKBqENDmIZvHzm5TwuoIiEsfcoTriU5jtSMAmPyhNu3pwfwBDcmeWZDxES27u80cMK9Q4rm7jC
+	GjOcz578wNb/dt56PSZEBO2LlH2qeoHlWaUVcfHA9/jJdkLAJx2qpKIQexAQdh9flCBZ7ZSfhpT
+	FSamYiMdCLWLI5Q1XxoIZ9Rjobb3Am18ThcAXFOPCbULBOjDQN6in2s=
+X-Received: by 2002:a05:6a20:3d08:b0:3dd:7a92:77bf with SMTP id
+ adf61e73a8af0-3ddf79f1a9dmr2134734637.0.1790149992414; Wed, 23 Sep 2026
+ 00:53:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAH5fLggWya+4rz8LWjaCqYQ8eBfds2-yim9NFZ7nZpz6ABdG+Q@mail.gmail.com>
- <2026092330-humorous-unnerve-a325@gregkh>
-In-Reply-To: <2026092330-humorous-unnerve-a325@gregkh>
-From: Alice Ryhl <aliceryhl@google.com>
-Date: Wed, 23 Sep 2026 09:49:28 +0200
-X-Gm-Features: AclHuK_AuowFRdZa3Yw4MYohDWyGhwuShhOJclOMm3C5bCDpSjswI1Cp1sONUBY
-Message-ID: <CAH5fLggJVV07nNnaeLBaC4qe1bDPw4AySGHQR9X9HoUbU69-Mg@mail.gmail.com>
-Subject: Re: [stable 6.18.y] Backport request: two ntsync fixes
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org
+From: Kusuma DS <kusuma.ds@alkira.net>
+Date: Wed, 23 Sep 2026 13:23:01 +0530
+X-Gm-Features: AclHuK-K1F3kafhhFFVTAFUrnrPzX0Mgbz13X2jkHtNw218CJPf0ogJhVhczpNk
+Message-ID: <CAMcJb7NLooAw=6Vyzbq-7JnE9L=gfTbLL0Y=L1pTFMTg3Vf76A@mail.gmail.com>
+Subject: [6.12.y] Please backport 8045c0df98d4 ("xfrm: Fix dev use-after-free
+ in xfrm async resumption")
+To: stable@vger.kernel.org
+Cc: netdev@vger.kernel.org, Chakradhar Kar <chakradhar.kar@alkira.net>, 
+	Ramakanth Gunuganti <ramakanth@alkira.net>, Sripathy Ramaswamy <sripathy@alkira.net>, steffen.klassert@secunet.com, 
+	sashal@kernel.org, dongchenchen2@huawei.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 23, 2026 at 9:47=E2=80=AFAM Greg KH <gregkh@linuxfoundation.org=
-> wrote:
->
-> On Tue, Sep 22, 2026 at 09:22:15PM +0200, Alice Ryhl wrote:
-> > Hi stable team,
-> >
-> > Could you please queue the following two upstream commits for the
-> > 6.18.y stable tree? Both apply cleanly to linux-6.18.y:
-> >
-> >   180a232ea78003d1dc869b217b4e49106fd58e8f ("ntsync: Honour caller's
-> > time namespace for absolute MONOTONIC timeouts")
-> >   61611481f7b599e0526a3782c626b1a9deeb48bd ("ntsync: reject wait
-> > ioctls with zero owner")
-> >
-> > The first is needed for correct operation of the driver, and the
-> > second prevents wait ioctls with owner =3D=3D 0 from leaving an unowned
-> > mutex in a corrupted state (count > 0 with owner =3D=3D 0).
-> >
-> > Not sure why Fixes tags were not included for one of them.
->
-> The second one also is needed in 7.2.y, so I included it there.
+Hi,
 
-Thanks!
+6.12.y picked up a bug without its fix. Details below; the request is to queue
+8045c0df98d4 for linux-6.12.y.
+
+The issue: on every packet whose ESP decrypt goes async, dev_hold() is taken on
+the ingress device but dev_put() lands on the VTI, because vti_rcv_cb reassigns
+skb->dev without taking a reference. The VTI refcount is driven negative during
+normal traffic, and a later `ip tunnel del` then hangs forever in
+netdev_wait_allrefs_any(). The process is stuck in D state, unkillable, and the
+netdev is pinned for the rest of the boot.
+
+Introduced in 6.12.y by:
+
+    4236c30b437b ("xfrm: hold dev ref until after transport_finish NF_HOOK")
+    = mainline 1c428b038400, backported 2026-06-19, first in v6.12.94,
+    together with its dependency af4b8c5e9d6d
+
+Fixed upstream by:
+
+    8045c0df98d4 ("xfrm: Fix dev use-after-free in xfrm async resumption")
+    Fixes: 1c428b038400
+    mainline v7.2-rc1; in 7.1.y as 63a300151999
+
+The fix was not queued alongside the commit it fixes, and is still absent from
+6.12.y as of v6.12.111. So every 6.12.94+ kernel carries the bug.
+
+Confirmed on 6.12.96+deb13-cloud-amd64 with a strongSwan tunnel-mode IPsec VTI
+under inbound load; kernels up to 6.12.93 do not contain the code and are
+unaffected.
+
+The fix touches only net/xfrm/xfrm_input.c, net/ipv4/xfrm4_input.c and
+net/ipv6/xfrm6_input.c, against code 6.12.y already has, so it should apply
+cleanly. I can test a 6.12.y-rc against the reproducer if useful.
+
+
+Thanks,
+Kusuma DS
+Alkira Networks
