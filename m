@@ -1,137 +1,113 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D444F451071
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 09:30:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E095419FB2
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 09:32:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790155805; cv=none; b=KwHFn0LQ1d+fCMzxLwmR2A7aQRmVNLrqib8i+1LiUYH65/16zkaN1gjXcOZLXRjHbrNtzjiZzJotEKoiJNsjvo+U94TG6pQz5URTybNqn7aOvI6le0YTrlwPO9O4VTMY1YNH7SbkJxbefqWFK5DQQnUWN/fBItfbO2VorZsn9cg=
+	t=1790155948; cv=none; b=o479fSvICEvXJJ9PrHBQlf9/5/oc+QyDeWEaSYE05Gah5D/kmrBADR1B3mnkhCun5cYV83vvRb3chFOwe8dkWozI/vG4TvpfoOGoJGwMCVyi/fqD+hYmBR4/9FyydtHK48wzqaRI/kb0V1nBPEwGqPS2X5hc976FcdsEqkRzWsM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790155805; c=relaxed/simple;
-	bh=eWLeqpbbXtrRAv+whCfpPs+DG5cjmoOBUDqsuCtZP2E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=InZFa7vWdnGVMo9LUREigmRdG4OBheeWwv23NS+NyQOk8vzXgWKsgVUJXyffNiKWCErGkBIqT8+vwj3XONmDiXA4F9Tyd6uc+noUH+adpzGTsUx1g9rTvkmQoqZYuzrs00klZDkoe0K+Q9mE9UFafHlcCsxdJ06Ln2srTMplqyQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=HPhhJM5n; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	s=arc-20240116; t=1790155948; c=relaxed/simple;
+	bh=4SLbsEvXK/2eDU7ikjl9Vt2n1bUQCQ4IN6sPwmLgUQ0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=C8HK/9X8TEgRhfWft+KGy6OSDHzVkYlMag5GcB6GYMBaYgoyNgVijyFx6vkHMiIzuK8h050qpMiwvfn6CV/U0HtxywMAyKFJqKUAu3k2QL8euzkXanbwyKhtGj9U5Ix0kibaqt5/6NVdyl87k1aDO9pNnlkE56cVu+Fy45/FmHw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=o3ItPzoD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="HPhhJM5n"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccfd61ecaso5172005e9.3
-        for <stable@vger.kernel.org>; Wed, 23 Sep 2026 02:30:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1790155800; x=1790760600; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=j85Q0Due/RmRnLWXRpqKRsR1ZBPGAvBYI24rxRoo9rM=;
-        b=HPhhJM5nppNeWupr6AHkaQ50W/Wibrdr+jAxhN7jmUjHfF79MJHIa6Z3PE9uOE7Xo0
-         V/A+2GrPRwc6TA/1zmHtfqHZGK6k9gfebPxmIULJH+HUUdUGV+57CyQYCxj0BDEvyVg2
-         V0Pn6QXRCNC4mIk77IPAYQsoOHaN14k3IUAz8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790155800; x=1790760600;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=j85Q0Due/RmRnLWXRpqKRsR1ZBPGAvBYI24rxRoo9rM=;
-        b=eJkjLsSvMgGwyaydSBNNG5/OXjaVmnG3j3EwkknpMXBCVfO+aMwtGiKIyiL2fOlJGG
-         QKOr36BCRcqgF+VwuqpKjTmQd5gwGyKiLYFADeGgxr/5GVn1xp1wq5sbkrR3yDo0TpTl
-         0AI6bnWsIwpzcJTCi3Xs+xUqux8TamIkqoxoSgix9BJCuM5PK/1706Z1ii7Xc8pr1Dl4
-         XZ1OjQqKKimngzQMe2X1SurPsvplREUZKr3kXiuNUvTcYEAQZgQdqYHN8NnpubjcMlRu
-         FpYwfxLG1LrBvnSdHbqm/VWFIbsXSEDZ1idZVjTKb5TxmaL90cDN8jTO+gHqm/RtyxX7
-         OV1Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwQDDrOz/aeW1Kd33wlC6Y9cu53Wo9wW4XlocVl25rvC/FTfzL7V17cSfzPSr35hkN/LiD/sMM=@vger.kernel.org
-X-Gm-Message-State: AFuF++njDYrg8lulgNDXF8Pi6OBIPqHUeOv+xTjJ6/8QiMEZfhU+Yksy
-	aQN/cYu1tX4sxguapO1RSQsdSVAoP6Xe71WIy+sF/Q5VPl4OvZ7Mn0dujOawtPDacg0=
-X-Gm-Gg: AYBFou2Hk8R9bALtFVb1WdYTLRMUGMS6PExbd6TaRwJZa8Qa0A3g6nBpwr3PRdqonjk
-	5KMux/b/nST2VcUdHGtJ+ZMMQmYML7PaD8L3r7VK6z2Ck0EyoFpzjpqmmdU8+KaHlUH+xQn5QdW
-	8XFGKQ3SjusKUT4y0j6ibqCeeQnhS+A60MFV0mSkvG3hhBPK5t+tHRIeHntpLSLMKCWyk9jXEJh
-	G3gCLGCifXaxPMfCUV+d3oQ76U2OcaCwGiAjDBRCrI/NBIHu8dAxqKZSu+Q+9U7Wp++rf6wpMP7
-	z8hAIybQf4WikatwkC5BkfEVmSZpoN3RDnbk4pHqWJDgpZbLGE583yS/w/dqOvHQypweDp0QwNO
-	xuqsofeGfp7cSvZhkquKbktSK9APxFPIAYwOwdQYO/I6KbO30XQpftxdwHpiOEDha/R3ewneiXP
-	QxtvrNejRPahH5tub4phdRg52bUqQcMjLa4XcOnPjRCJXRgUYcQHNi8S7u6o+GcimERnUeYcl+H
-	mXbU2a+rfUtIqdLgQ==
-X-Received: by 2002:a05:600c:1553:b0:49e:81a7:9fbc with SMTP id 5b1f17b1804b1-49fdf13a117mr21651785e9.24.1790155800017;
-        Wed, 23 Sep 2026 02:30:00 -0700 (PDT)
-Received: from [10.214.128.75] ([149.7.5.83])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde197466sm58177785e9.7.2026.09.23.02.29.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 23 Sep 2026 02:29:59 -0700 (PDT)
-Message-ID: <c80ca0bc-1398-4f6f-bfcc-c49089a51082@linuxfoundation.org>
-Date: Wed, 23 Sep 2026 03:29:50 -0600
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="o3ItPzoD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3958D1F000FF;
+	Wed, 23 Sep 2026 09:32:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790155947;
+	bh=xZKxB2g5t6s7oWutVd+poNFKF/UMocorFf6Xj4/w8CU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=o3ItPzoD4pV1kSOXLSL6yYbb+mr75bWhtePcrmj/UE5e8i+xV5cIKM1/52OuRox4T
+	 iBlT2qhep7nJOfPjwpwcGvDqMNYNpIiNMR5D/TKC5crFZ7tUwThdZ1rxcgqZVJty8u
+	 zxkNijfG2Lbp697wNRneLY0I26V5QdUYdIsuRHts=
+Date: Wed, 23 Sep 2026 11:29:44 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Vadim Nikitushkin <bub4z0r@gmail.com>, stable@vger.kernel.org,
+	thomas.hellstrom@linux.intel.com, dri-devel@lists.freedesktop.org,
+	skainsworth@gmail.com
+Subject: Re: [PATCH 7.2.y] drm/ttm: fix swapped-out resources never leaving
+ their bulk_move range
+Message-ID: <2026092332-alkaline-overthrow-494f@gregkh>
+References: <2026092253-dimness-unethical-2515@gregkh>
+ <20260922153334.136648-1-bub4z0r@gmail.com>
+ <2026092320-reentry-lyricist-330b@gregkh>
+ <32446a55-070d-4739-bd3a-d56c4b628e29@amd.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] usbip: stub: keep URB array state consistent on errors
-To: Weiming Shi <bestswngs@gmail.com>,
- Valentina Manea <valentina.manea.m@gmail.com>, Shuah Khan
- <shuah@kernel.org>, Hongren Zheng <i@zenithal.me>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- Suwan Kim <suwan.kim027@gmail.com>, co+66c3f58096d0bde8@bugs.sh,
- Xiang Mei <xmei5@asu.edu>, stable@vger.kernel.org,
- Shuah Khan <skhan@linuxfoundation.org>
-References: <20260912083925.587987-2-bestswngs@gmail.com>
-Content-Language: en-US
-From: Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <20260912083925.587987-2-bestswngs@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <32446a55-070d-4739-bd3a-d56c4b628e29@amd.com>
 
-On 9/12/26 02:39, Weiming Shi wrote:
-> stub_priv_alloc() links a zeroed stub_priv to priv_init before the URB
-> array is allocated.  The error handler may therefore consume the object
-> after stub_recv_cmd_submit() reports SDEV_EVENT_ERROR_MALLOC.
+On Wed, Sep 23, 2026 at 09:53:54AM +0200, Christian König wrote:
+> Hi Greg,
 > 
-> Do not publish num_urbs until the array exists.  If a later URB allocation
-> fails, clear the freed array pointer and count before the event handler can
-> walk them.  This prevents a NULL dereference on array-allocation failure
-> and freed-array reads that can lead to invalid URB use or a double free on
-> later failures.
-
-How is this problem reproduced? Why is this a problem in this code path?
-
+> On 9/23/26 09:41, Greg KH wrote:
+> > On Tue, Sep 22, 2026 at 06:33:34PM +0300, Vadim Nikitushkin wrote:
+> >> commit 3db7d7d583419f7b1f2e141e36418802dbb25cf8 upstream.
+> >>
+> >> ttm_tt_swapout() returns the number of pages swapped out on success and
+> >> a negative error code on failure; for a populated ttm it never returns
+> >> zero. Commit b2ed01e7ad3d ("drm/ttm: Fix ttm_bo_swapout() infinite LRU
+> >> walk on swapout failure") moved the bulk_move bookkeeping in
+> >> ttm_bo_swapout_cb() under "if (!ret)", so the
+> >> ttm_resource_del_bulk_move_unevictable() / ttm_resource_move_to_lru_tail()
+> >> pair is now skipped on every successful swapout. The equivalent change
+> >> for the shrinker in commit 1d59f36e95f7 ("drm/ttm: Fix ttm_bo_shrink()
+> >> infinite LRU walk on backup failure") tests "lret > 0", which is what
+> >> was intended here as well.
+> >>
+> >> Before b2ed01e7ad3d the resource was taken off the bulk_move before the
+> >> swapout; since then a swapped-out resource stays inside its BO's
+> >> bulk_move range (and on the manager LRU) although it is unevictable.
+> >> When it is later freed or the BO leaves the bulk_move
+> >> (ttm_resource_free(), ttm_bo_set_bulk_move() via amdgpu_vm_bo_del()),
+> >> ttm_resource_del_bulk_move() skips it because of its
+> >> !ttm_resource_unevictable() guard, so a range endpoint in pos->first /
+> >> pos->last is left pointing at freed memory. The next
+> >> ttm_lru_bulk_move_tail() or ttm_resource_add_bulk_move() on that cursor
+> >> is a use-after-free, seen as the resv WARN in ttm_lru_bulk_move_add(),
+> >> "list_del corruption" in ttm_resource_move_to_lru_tail() or a NULL
+> >> dereference in ttm_resource_manager_next() -- minutes to hours after a
+> >> hibernation, or at process exit / reboot following one. Samuel
+> >> Ainsworth's analysis of drm/amd issue 5387 (see Link) identified the
+> >> dangling cursor; the missing removal at swapout time is the reason it
+> >> dangles.
+> >>
+> >> Testing the condition for success restores the removal. On an AMD
+> >> Phoenix APU (ASUS UM3406GA, gfx1103) running suspend-then-hibernate on
+> >> a 7.0.y stable kernel carrying the backport (Ubuntu 7.0.0-31) the bug
+> >> crashed 5 of 18 hibernation cycles; a function profile of one
+> >> hibernation showed 336 ttm_tt_swapout() calls and zero
+> >> ttm_resource_del_bulk_move_unevictable() calls. With this change the
+> >> removal happens for every swapped-out resource and 12 further cycles
+> >> were clean.
+> >>
+> >> Fixes: b2ed01e7ad3d ("drm/ttm: Fix ttm_bo_swapout() infinite LRU walk on swapout failure")
+> >> Cc: stable@vger.kernel.org # v7.1+
+> >> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5387
+> >> Link: https://lore.kernel.org/dri-devel/CAHYiNPa6aVacJoLOje-qZ1GyYx-9p0tN4NuP8D_eSL+UJeevXw@mail.gmail.com/
+> >> Signed-off-by: Vadim Nikitushkin <bub4z0r@gmail.com>
+> >> Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> >> Reviewed-by: Christian König <christian.koenig@amd.com>
+> >> Signed-off-by: Christian König <christian.koenig@amd.com>
+> >> Link: https://lore.kernel.org/r/20260909205028.13799-1-bub4z0r@gmail.com
+> >> [ Squashed with commit fcfe64715b425262af1b36f498f9197f3537ceed
+> > 
+> > Do not squash, send a patch series instead please.
 > 
-> Fixes: ea44d190764b ("usbip: Implement SG support to vhci-hcd and stub driver")
-> Cc: stable@vger.kernel.org # 5.4+
-> Reported-by: co+66c3f58096d0bde8@bugs.sh
-> Closes: https://lore.kernel.org/all/J3vQPnNHSkQ6YUiFvu1bk8ai3Q8aZ7a9J1Y7%40bugs.sh/
-> Assisted-by: Codex:gpt-5
-> Signed-off-by: Weiming Shi <bestswngs@gmail.com>
-> ---
->   drivers/usb/usbip/stub_rx.c | 4 +++-
->   1 file changed, 3 insertions(+), 1 deletion(-)
+> in this particular case that squashing is the correct approach.
 > 
-> diff --git a/drivers/usb/usbip/stub_rx.c b/drivers/usb/usbip/stub_rx.c
-> index 1e9ae578810d9..33058fb05b2f4 100644
-> --- a/drivers/usb/usbip/stub_rx.c
-> +++ b/drivers/usb/usbip/stub_rx.c
-> @@ -534,10 +534,10 @@ static void stub_recv_cmd_submit(struct stub_device *sdev,
->   	}
->   
->   	/* allocate urb array */
-> -	priv->num_urbs = num_urbs;
->   	priv->urbs = kmalloc_objs(*priv->urbs, num_urbs);
->   	if (!priv->urbs)
->   		goto err_urbs;
-> +	priv->num_urbs = num_urbs;
->   
->   	/* setup a urb */
->   	if (support_sg) {
-> @@ -641,6 +641,8 @@ static void stub_recv_cmd_submit(struct stub_device *sdev,
->   
->   err_urb:
->   	kfree(priv->urbs);
-> +	priv->urbs = NULL;
-> +	priv->num_urbs = 0;
->   err_urbs:
->   	kfree(buffer);
->   	sgl_free(sgl);
+> AMDs mail servers mangled the initial patch so badly that I had trouble applying it and ended up pushing a broken patch upstream. The squash is basically fixing that up.
 
-thanks,
--- Shuah
+Ok, I'll take this then, thanks for the response.
+
+greg k-h
