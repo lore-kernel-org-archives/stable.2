@@ -1,41 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 785DE38838B;
-	Wed, 23 Sep 2026 10:17:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C72A447ACD3;
+	Wed, 23 Sep 2026 10:18:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790158675; cv=none; b=Kwcl3Z7lS8UkXncXxDcKj5r/8JfamdAjpV2xmvAw5Jnx/8s6QN/SjhUZUdY2+fGd9MZvgTS6rnb1u4EVglCiDCUh7mtA4b1l5cDaKLQl87Qce+1YWO6KetpFhc21VoW64wqbLONZMp2V8uEpK/fEoyH7eCVL0tCABw9YLacV09E=
+	t=1790158737; cv=none; b=lXPcFAayxWzo2umWft0sQz3oDFvYJkQPH+gcgcblgFAJQNj2vZoN3oOSeDz2XnXXzsNxk6rQ5GVDOL60VpUkfUh3t7dUVgjywpIwlqZx94O12RJOaA4Eixlzk9g7w/LwKR7no2cQ04R2T2V/cx3QCG9cTcP18LzPmGG9sdDl7TA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790158675; c=relaxed/simple;
-	bh=3+k97AKVX0+WvPsLrnSRRBQCDkxzMLRGCBSgfnCFNr8=;
+	s=arc-20240116; t=1790158737; c=relaxed/simple;
+	bh=V4Q2d9SWFRSulhmeW7JCxPpkN62U7tLTlpAffBZcLe8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Bkt8Net4rmvVPkE1fngv9sHfewiv+ELWSwjqtpn110nwz8G+C/4DaCTLWURKgrWLThD+kKlH1IS8EEuRDlLMY4MA4ECHmiS+4+hglYqaBGWr9L0OeotEhbX/ZtzPbC+VGBjrNu2AE6soASc1wAfDWzWNa535FoeYxIVq2upBqws=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=r1iBhGpB; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=CS1982lTs+VDGtPhemyBLfEDyD6Iq2HenNp87dNtF/rg7+tHQz1L734fP7H6uu6blRsd/rRctrtTDhWHlYInGk82FigJHmOtLzbE5fAllWEjYIFEDwCDyoa4J3LNdpsDfxbMCma5uOrRYw0V0A5LuivoLjk7eFGZuMNvug218Tk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=k85fmGbF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="r1iBhGpB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F0671F00893;
-	Wed, 23 Sep 2026 10:17:43 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="k85fmGbF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A4001F000FF;
+	Wed, 23 Sep 2026 10:18:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790158664;
-	bh=W1/bjYm7A6ATDBDiHkAvKKXTQPf4WTEwcOm8tVT2vXI=;
+	s=korg; t=1790158732;
+	bh=LBU0qSMwIeK+091WkCTVnhQHPJJhzuQXB+5jtMYIaEM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=r1iBhGpBecKlPSCySHLyLjJpU7CntPKJtM8VsybbGMZ24QDUu4afJPQ2Az8OT2f7v
-	 DzYH5Yl6WnRCFebdNIMH+0dSZborKcYhcQxqeWB2nAPK9Ru8YZfAi9vp7bMYJD9c0I
-	 gMU+owblHjscDxFcgb2Um6PQPFg+8AfJ3cxELD70=
-Date: Wed, 23 Sep 2026 12:17:41 +0200
+	b=k85fmGbFLLC4zSYE+ACyEAOp6EpqyHRfyvSEq2YEjH69ogl2HSePyb7gJjbcWGVUN
+	 Jhr1fnBXGfKBF/bkwTz2LgLvxGvx0VieZvqYs48UQbB0L3N2/EU/jU3jAEc2GsnoSY
+	 sNxBCPUHWkI+1PzEQtvhsqzLxPVuE5xAsHv7ebCw=
+Date: Wed, 23 Sep 2026 12:18:48 +0200
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Fan Wu <fanwu01@zju.edu.cn>
-Cc: Jiri Slaby <jirislaby@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, linux-serial@vger.kernel.org,
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org
-Subject: Re: [PATCH] serial: imx: cancel RS485 trigger hrtimers in shutdown
- and remove
-Message-ID: <2026092332-limes-washhouse-44a5@gregkh>
-References: <20260819021916.442827-1-fanwu01@zju.edu.cn>
+To: Myeonghun Pak <mhun512@gmail.com>
+Cc: Jiri Slaby <jirislaby@kernel.org>, linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] serial: icom: Disable the PCI device on final adapter
+ release
+Message-ID: <2026092304-splendid-lego-7601@gregkh>
+References: <20260915010000.52974-1-mhun512@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,35 +40,42 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260819021916.442827-1-fanwu01@zju.edu.cn>
+In-Reply-To: <20260915010000.52974-1-mhun512@gmail.com>
 
-On Wed, Aug 19, 2026 at 02:19:16AM +0000, Fan Wu wrote:
-> The rs485 delay hrtimers trigger_start_tx and trigger_stop_tx are
-> embedded in the devm allocated struct imx_port, and their callbacks
-> reach the port through container_of() and touch registers under the
-> port lock.  Nothing cancels them synchronously: the tx paths only
-> call hrtimer_try_to_cancel(), which does not wait for a running
-> callback, and the bounded wait in imx_uart_shutdown() can give up,
-> force tx_state to OFF, and leave a timer armed.  After
-> imx_uart_remove() returns, devm frees the port and a late callback
-> dereferences freed memory.
+On Mon, Sep 14, 2026 at 08:59:59PM -0400, Myeonghun Pak wrote:
+> icom_probe() enables the PCI device, but the final adapter release
+> never disables it. Balance the enable after releasing the IRQ, mapping
+> and PCI regions, while the adapter's PCI device pointer is still valid.
 > 
-> Cancel both timers at the end of imx_uart_shutdown(), after the port
-> lock is dropped and before the clocks are disabled, and again in
-> imx_uart_remove() before the devm free: serial core does not call the
-> driver shutdown on every path that reaches remove().
+> The imbalance is already present in the initial Git import.
 > 
-> This issue was found by an in-house static analysis tool.
+> This issue was identified during our ongoing static-analysis research
+> while reviewing kernel code.
 > 
-> Fixes: bd78ecd6056d ("serial: imx: use hrtimers for rs485 delays")
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 > Cc: stable@vger.kernel.org
-> Assisted-by: Codex:gpt-5.6
-> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+> Assisted-by: LLM
+> Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 > ---
->  drivers/tty/serial/imx.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
+>  drivers/tty/serial/icom.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/tty/serial/icom.c b/drivers/tty/serial/icom.c
+> --- a/drivers/tty/serial/icom.c
+> +++ b/drivers/tty/serial/icom.c
+> @@ -1691,6 +1691,7 @@ static void icom_kref_release(struct kref *kref)
+>  	free_irq(icom_adapter->pci_dev->irq, (void *) icom_adapter);
+>  	iounmap(icom_adapter->base_addr);
+>  	pci_release_regions(icom_adapter->pci_dev);
+> +	pci_disable_device(icom_adapter->pci_dev);
 
-How was this tested?
+Are you sure this is correct?  Lots of time disabling the device is not
+what you want to do as it can cause hardware problems.
+
+Have you tested this on the hardware?  If not, I can't take it for
+obvious reasons.
 
 thanks,
 
