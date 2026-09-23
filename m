@@ -1,45 +1,82 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f41.google.com (mail-oo2-f41.google.com [74.125.231.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E311A332EC5;
-	Wed, 23 Sep 2026 14:49:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0811F53B354
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 14:49:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790174951; cv=none; b=j0sNWoAHgwOxnDtc3imsEl4w42IhYWVQuCpWvmFLPhXo6y8w+oc+YINGQ9SKpPgVO4Vz0Bx+gwgnlGfbsEFrLLmRkTYlIfgqIInN3FGMinLrZBZvSroOY2smICDinfYCZtU1XKpQaOOdOv/2yAibGfOza/MUXpo/kR4XPlebnBk=
+	t=1790174955; cv=none; b=SVkUuYjra13h52Uo+w8ooAo36jS3lLnE2kTcSs2aiS/6pXwMad8ldTlZWUhzIlliixvx8rGxF8ECJXGB4zt81FP1IkR7hx3yjK+v1XZ29fpoKkuG3HTmwnaYlhZHrqnmZc4+fIe582HMSx3vQmZ6BorDwVQ71j7elfR521ZAW9Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790174951; c=relaxed/simple;
-	bh=it9MM6ryw0tgxafhLu8OxjRqGiHniSnZRLENmfF7MOE=;
+	s=arc-20240116; t=1790174955; c=relaxed/simple;
+	bh=wvFQBz25XEKcRJNL0SSe015v57XgY3JcbH7bg42CNMo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OOIm5b105fDSMil1skXcRQ/CLZwrXuE1zUG2TPHmgNk0rANMc6jwC5LmHxZYuAJ6xXx60gGFvkB58wiOQdToRM3fDb8aZTo38x716RfYgBW6xcD3NpjvULc6UzTQzEqqXUJAOvNW6MiZ3TwWj9PQ+mPclpBsB8tkoK/GBlHxDjs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ZbzMhtiF; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=V0fCCZS7Iz3W+veEfkdzg6r4KJa8qCSQFyxce2okmJiIF0nvTv9m10h2JhsWt400vdix8u0xo0ynsztUH6zwfSH/yZNOhqX+besHkukCNHmtSZ8ETgJJefd14X4Y/N2NTH7sPbnLQlkXJl9h9dEDkysw5mZe+TuIHgVMNnjmDEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pj8Hj02T; arc=none smtp.client-ip=74.125.231.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ZbzMhtiF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 389691F000FF;
-	Wed, 23 Sep 2026 14:49:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790174949;
-	bh=Bwrjn17mdANF82Q1nFIc2SDBGEqDJMxxzkTLJrLWXIk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZbzMhtiFATwCUqpXBw+u7aMgO+qXnC1QxWqLfFWwd9Xlj6LkEYjr4bMlziB5xIdjR
-	 mZRn92/J8I7xBIgesK/aULMMnSgqfW5MqBEe8fCd+e8eLK3qpS7rqakRPxOvupI6cW
-	 O6G92GLLEm8R2+To7dmgAfb0Evoj2gA/1mN1NSGU=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Karl Mehltretter <kmehltretter@gmail.com>,
-	Amir Goldstein <amir73il@gmail.com>,
-	Stephen Smalley <stephen.smalley.work@gmail.com>,
-	Paul Moore <paul@paul-moore.com>
-Subject: [PATCH 6.18 274/398] selinux: preserve user SID across nested backing files
-Date: Wed, 23 Sep 2026 16:05:48 +0200
-Message-ID: <20260923140650.519232495@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pj8Hj02T"
+Received: by mail-oo2-f41.google.com with SMTP id 006d021491bc7-6b390bcab0cso526421eaf.2
+        for <stable@vger.kernel.org>; Wed, 23 Sep 2026 07:49:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790174953; x=1790779753; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Z1JAcPQg636JNOKXQW2C4J8TQkuklMU5EX+3CopghKI=;
+        b=pj8Hj02T5RrCa13vH2T6dW5BamMMzzI9RLcsJ7/rd3hZna05HBKy3gEoymkTskyEdd
+         AWTg8e1upkbBxE3C8AEP4mONO3KZkM4GRiK+qwyvHuNytIROskMd6L7B6L68AA1zr+Zu
+         ShiN+5esV0D1R7f9caPkTg16alL85axdwwaH3z4WUKPGoh5vNIkdV0U/FIxyVTRyLRbT
+         p0yYq0B7XhG52UZBgrYsqyxWTbVV/dhGoNQxF/tjfTr/KL270pjj4LndKFMZKdVCYWFD
+         l2SiHZiZWQM5xjwKHn5Udbw26F3Fz/AcGX5SmYxfObQ0H6GEFSBM7vFQfq5WbUpd9x8v
+         0rnA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790174953; x=1790779753;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Z1JAcPQg636JNOKXQW2C4J8TQkuklMU5EX+3CopghKI=;
+        b=FY+VZFfUeE9N3oXYnBQVHzyfcBH0YwTCN010M/ZDKXIQEXucJOKuZvKSnDlqpUneYe
+         vibeq0T5ajx2yWVj6YJICg0vitrP2T8wdW5T3jZCTQmzoeYqJp+LMvkuwUu0aPkcGa/E
+         0eChNJIDrgVEciE1pWtBz21IDu2i3RFNfvfe8i6ovlYxUSFtnRzcPcYkUoN8cz9+iHmb
+         4+u5RX1K8xkh0D91O7cw8UZKr5MvnuXhAU4NCksiNssI2hQzCUCqxoGLQdiU5P+IhAyz
+         2YDlLGQlW4w1D0C5FIcbNH9d2rT0ybGndyrLTPwWGfPXVPUZTTIKra/bCvb+W3OycvAL
+         nmJA==
+X-Forwarded-Encrypted: i=1; AKwUvByy+7XZhCA7p6xMbPVLdmodPGvLIBepz8yxURLgf9DQHVIaWWRURLdAow0u4L0+v1tl4ZnBoxo=@vger.kernel.org
+X-Gm-Message-State: AFuF++nhYFWsKtszpFhR7lkJYqrsaVqGcOvnYKrEZ3zImPTF61kcUEXy
+	OZBfN8AFq5lPnVFKAAsIYdog4B15XbQDqULMgfrFl5AoBbOEcLVS8tbb
+X-Gm-Gg: AYBFou0+bSjpajjKRcEYS+q4ilVMliGX+Dx48dwhy833GV60l2/62+6EG6jJZ2eZYRQ
+	utowaL/17Hi4bnADCwZRZa3DxiLlasyA7gJNCUUESk1w+bcCiRRhTZQEDuqsO1TRbr1oftiNrOX
+	/oWZwjN5EUmyFpiu3El0/DHhnBprinZiDu3jdwtRPLMVN9aJBLEzvc9CoTKSJBUXvWbaez5C61F
+	QUqnni4BG7DfcRLzecuHd88J/+1U4WKMABfzFBjx11I+MUjAknOUjQKr4t9DHW9y8cJk510hn2/
+	HWrbHFoKsdKmRWNofgO/QNnXezAk/wYgBJgmoSGhQZwzpW/TLDHbkM+cWhN+2VlhHacDz/0oO3W
+	5JRkqVyE+hBCEFnMJ6MQICo/ZS3K96BRRU+ncYJoh5dxGmjMToXnyM6W0vI/AuOcAVfoe0T60Iu
+	VnQmrFiEP0l7whaind417TT+LKpzHVOyEepZq+JmCcqaIGaWWFdAUm7nA7FtLqxHNMla2XOy36J
+	x+EpBOlfq0zYMENYrqP071Ey9ac+J5FkqMPLayJ
+X-Received: by 2002:a05:6820:4cc4:b0:6b1:3552:3195 with SMTP id 006d021491bc7-6d2cfd50098mr2368712eaf.11.1790174952926;
+        Wed, 23 Sep 2026 07:49:12 -0700 (PDT)
+Received: from archlinux.lan ([136.34.156.120])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6d2c92c2619sm2788537eaf.0.2026.09.23.07.49.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 07:49:12 -0700 (PDT)
+From: Danish Khateeb <danishkhateeb03@gmail.com>
+To: "David S. Miller" <davem@davemloft.net>,
+	Andreas Larsson <andreas@gaisler.com>
+Cc: Masami Hiramatsu <mhiramat@kernel.org>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Allen Pais <allen.lkml@gmail.com>,
+	sparclinux@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Danish Khateeb <danishkhateeb03@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] sparc64: kprobes: fix relbranch_fixup() for BPr, FBfcc and FBPfcc
+Date: Wed, 23 Sep 2026 09:49:07 -0500
+Message-ID: <20260923144909.414968-2-danishkhateeb03@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260923140643.441954610@linuxfoundation.org>
-References: <20260923140643.441954610@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+In-Reply-To: <20260923144909.414968-1-danishkhateeb03@gmail.com>
+References: <20260923144909.414968-1-danishkhateeb03@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,82 +85,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+A kprobe single-steps a copy of the probed instruction in
+p->ainsn.insn[]. When the copy is a taken PC-relative branch, its target
+is relative to the copy, and relbranch_fixup() moves it back to the
+probed code. It only recognizes call, BPcc and Bicc, though. For a taken
+BPr (brz, brnz, ...), FBfcc or FBPfcc it keeps the target as is, and the
+kernel continues at the copy's address plus the branch displacement.
 
-------------------
+GCC often starts a function with a BPr on an argument. For example,
+__se_sys_getcpu() begins with "brz,pn %o0". With a kprobe on it
+("p:kprobes/kgetcpu __se_sys_getcpu" in kprobe_events), the first
+getcpu(NULL, NULL, NULL) crashes the kernel in QEMU sun4u:
 
-From: Karl Mehltretter <kmehltretter@gmail.com>
+  init(1): Kernel illegal instruction [#1]
+  TSTATE: 0000004411001603 TPC: fffff800048d63c0 TNPC: fffff8000492631c
+  Kernel panic - not syncing: Fatal exception
 
-commit 8c0c602202b9a4909b00bc3354e3c0355bc69e65 upstream.
+Add the missing branch formats. BPr is matched with bit 28 clear. The
+CBcond instructions of newer CPUs share its op2 value, but they have no
+delay slot, so a taken one never reaches the single-step breakpoint and
+this function.
 
-SELinux saves the user file SID in a backing-file security blob so it
-remains available after mmap() replaces vma->vm_file with a backing file.
-
-For nested backing files (overlayfs over overlayfs, or FUSE passthrough
-backed by overlayfs), user_file may itself be a backing file.  Its
-fsec->sid is the SID of the mounter that opened it, rather than the user
-that opened the top-level file.  mprotect() then checks fd { use } against
-the mounter SID.  This can incorrectly deny access without a domain
-transition, or check the wrong target SID after one.
-
-Copy the saved user SID when user_file is a backing file.  Keep using the
-regular file SID for the first backing layer.
-
-With two nested overlayfs mounts and SELinux enforcing,
-mprotect(PROT_READ) returns EACCES with an fd { use } denial against the
-mounter SID.  With this change, mprotect() succeeds.
-
-Tested on arm64 QEMU with a small BusyBox initramfs and a purpose-built
-SELinux policy.  The original test was also repeated with Fedora Cloud
-Base 44 userspace and gave the same result.
-
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Fixes: 82544d36b172 ("selinux: fix overlayfs mmap() and mprotect() access checks")
 Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-Reviewed-by: Amir Goldstein <amir73il@gmail.com>
-Reviewed-by: Stephen Smalley <stephen.smalley.work@gmail.com>
-Signed-off-by: Paul Moore <paul@paul-moore.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
 ---
- security/selinux/hooks.c          |    9 ++++++++-
- security/selinux/include/objsec.h |    2 +-
- 2 files changed, 9 insertions(+), 2 deletions(-)
+ arch/sparc/kernel/kprobes.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
---- a/security/selinux/hooks.c
-+++ b/security/selinux/hooks.c
-@@ -3822,13 +3822,20 @@ static int selinux_file_alloc_security(s
- 	return 0;
- }
+diff --git a/arch/sparc/kernel/kprobes.c b/arch/sparc/kernel/kprobes.c
+index 191bbaca9921..9a26c57c8d33 100644
+--- a/arch/sparc/kernel/kprobes.c
++++ b/arch/sparc/kernel/kprobes.c
+@@ -207,12 +207,15 @@ static unsigned long __kprobes relbranch_fixup(u32 insn, struct kprobe *p,
+ 	if (regs->tnpc == regs->tpc + 0x4UL)
+ 		return real_pc + 0x8UL;
  
-+static inline u32 selinux_file_user_sid(const struct file *file)
-+{
-+	if (unlikely(file->f_mode & FMODE_BACKING))
-+		return selinux_backing_file(file)->uf_sid;
-+	return selinux_file(file)->sid;
-+}
-+
- static int selinux_backing_file_alloc(struct file *backing_file,
- 				      const struct file *user_file)
- {
- 	struct backing_file_security_struct *bfsec;
+-	/* The three cases are call, branch w/prediction,
+-	 * and traditional branch.
++	/* The cases are call and the branches with a PC-relative
++	 * displacement.
+ 	 */
+-	if ((insn & 0xc0000000) == 0x40000000 ||
+-	    (insn & 0xc1c00000) == 0x00400000 ||
+-	    (insn & 0xc1c00000) == 0x00800000) {
++	if ((insn & 0xc0000000) == 0x40000000 ||	/* call */
++	    (insn & 0xc1c00000) == 0x00400000 ||	/* BPcc */
++	    (insn & 0xc1c00000) == 0x00800000 ||	/* Bicc */
++	    (insn & 0xd1c00000) == 0x00c00000 ||	/* BPr */
++	    (insn & 0xc1c00000) == 0x01400000 ||	/* FBPfcc */
++	    (insn & 0xc1c00000) == 0x01800000) {	/* FBfcc */
+ 		unsigned long ainsn_addr;
  
- 	bfsec = selinux_backing_file(backing_file);
--	bfsec->uf_sid = selinux_file(user_file)->sid;
-+	bfsec->uf_sid = selinux_file_user_sid(user_file);
- 
- 	return 0;
- }
---- a/security/selinux/include/objsec.h
-+++ b/security/selinux/include/objsec.h
-@@ -87,7 +87,7 @@ struct file_security_struct {
- };
- 
- struct backing_file_security_struct {
--	u32 uf_sid; /* associated user file fsec->sid */
-+	u32 uf_sid; /* top-level user file fsec->sid */
- };
- 
- struct superblock_security_struct {
-
+ 		ainsn_addr = (unsigned long) &p->ainsn.insn[0];
+-- 
+2.55.0
 
