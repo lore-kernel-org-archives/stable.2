@@ -1,47 +1,47 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 430825304C8
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 13:38:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBC5E5326BB
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 13:38:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790170696; cv=none; b=jdqT2NOoB/LA6VRvCA8ptG5EWabGHK+d6tZoBMnI5lmVj7Om4VKX247Ay/ekDNVu9cHCtNQQ71K4yBqYo4i7sRJRoke7GQz1gtshOmTcTjdhwnrQ+GUikptAr8B2jllOsjwf6IuRHZ/VKHYQFwGe6/e5QUf4CtA7US4f8ydrPBM=
+	t=1790170713; cv=none; b=jLuBKCVCjGJU1hCUCjsbDiRfANGbpdQFvF6nX7dzAqLy8MnQ46/UauwHSUiNK+n+RymVGvRLv8OZKulQcXtIFwtY3UbLxLlKyq4I/vtWBG+13SOZnUAtFslaQjn5e7HsVA6Th6xApwllZlTRM1/8AQr17DnmQj//kQkFqBWsMZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790170696; c=relaxed/simple;
-	bh=qz07hn8lQ4THyuIIoFyqLIU4DrrAhB80BdiWn82oR14=;
+	s=arc-20240116; t=1790170713; c=relaxed/simple;
+	bh=qaXzYrNiiWjeqfWelf3EWiGvOJxOMon5SO68ipwd1Fc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TJJaNJZo2CgSzaTKmLWkt2jOcha6wIbSXcnWzH01SBZdtxtgXW3LFRKNmlpSpAH6lwfAcReP3byVigWku6B9YxiMBFLiVduO+VSp2aCeLJY32xNRU0CQv4FwS4lqVCsqs10UDxnfYEIAxhYxyS2h2o6KjNanl2IjjSyuujJU15g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Hkzwaxg+; arc=none smtp.client-ip=170.10.133.124
+	 MIME-Version; b=Vmdn686SUeoox8HnBt7e5AWEqO2St9IJV93sMVUNPVq6vsdLbGOeNJ1TaqclpgONCV2wCAEZBkQlTTwY+yrg7lXgjFwop/5iaHLBNbCiNdexuZKbdmEqw0mlPzVoGgtwIl7+MEw99KVMGmm2xvoo79rfaWU8mZOXhJgrBvvua/w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=RjcTp9zQ; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Hkzwaxg+"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="RjcTp9zQ"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790170694;
+	s=mimecast20190719; t=1790170710;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=X/q/mU7BulScXkOh99fPoWpNQXaPupXrst3HyJERiYw=;
-	b=Hkzwaxg+Zjf2ZTtc7dNaS8dYEJHxZLKeGgmTlmrjftt80FPpW5cdhUksWWNN0GwJs1wXfS
-	K/nFb8d53dWnshM9ZoUs7Yac+zEZnkkBkUKTSdjereF9QoduNxTkI8FJxJnAnDzz3gLluA
-	EA5jKSqwzOlh3E8ZKWLYpjUJ1Yl1Sjw=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+	bh=jGs0yeHtAEv/IqKQ632s8QFE8oaBGxldKeQIsDwv57c=;
+	b=RjcTp9zQWGfPI073BDSTjfHk6dDD0tEkf+fhFg/SKXf/PP2PhdlH5BI7wZSNi6Zc8O/TKy
+	mP1afatZTyXjRpNNlnxLePe1eA4lZgamItTsXbxXfErtBrcQLEj/t/TZ1lj4lZFgfdGwFc
+	BS0pJ2lHPhO8k9Q4QAS6k8mTSRyz8OQ=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-166-koHRPuZSNOCilL-ykx51jQ-1; Wed,
- 23 Sep 2026 09:38:10 -0400
-X-MC-Unique: koHRPuZSNOCilL-ykx51jQ-1
-X-Mimecast-MFC-AGG-ID: koHRPuZSNOCilL-ykx51jQ_1790170688
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-637-RSZROErGMlG2L-gMamK5GA-1; Wed,
+ 23 Sep 2026 09:38:25 -0400
+X-MC-Unique: RSZROErGMlG2L-gMamK5GA-1
+X-Mimecast-MFC-AGG-ID: RSZROErGMlG2L-gMamK5GA_1790170703
 Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 935E41800679;
-	Wed, 23 Sep 2026 13:38:08 +0000 (UTC)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id ADA511800668;
+	Wed, 23 Sep 2026 13:38:23 +0000 (UTC)
 Received: from warthog.com (unknown [10.44.32.54])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 452A41956042;
-	Wed, 23 Sep 2026 13:38:05 +0000 (UTC)
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id D062A1956042;
+	Wed, 23 Sep 2026 13:38:19 +0000 (UTC)
 From: David Howells <dhowells@redhat.com>
 To: netdev@vger.kernel.org
 Cc: David Howells <dhowells@redhat.com>,
@@ -53,11 +53,10 @@ Cc: David Howells <dhowells@redhat.com>,
 	Simon Horman <horms@kernel.org>,
 	linux-afs@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Jeffrey Altman <jaltman@auristor.com>,
 	stable@vger.kernel.org
-Subject: [PATCH net v11 10/17] rxrpc: Fix return in rxrpc_recvmsg_data() for service calls
-Date: Wed, 23 Sep 2026 14:36:57 +0100
-Message-ID: <20260923133706.1496540-11-dhowells@redhat.com>
+Subject: [PATCH net v11 13/17] rxrpc: Fix RxGK key parser to check enctype is supported
+Date: Wed, 23 Sep 2026 14:37:00 +0100
+Message-ID: <20260923133706.1496540-14-dhowells@redhat.com>
 In-Reply-To: <20260923133706.1496540-1-dhowells@redhat.com>
 References: <20260923133706.1496540-1-dhowells@redhat.com>
 Precedence: bulk
@@ -69,16 +68,17 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-When rxrpc_recvmsg_data() gets called on a service call that has received
-all of the request, RXRPC_CALL_RECVMSG_READ_ALL has been set, and this
-causes rxrpc_recvmsg_data() to jump straight out, indicating the end of the
-call (ie. rxrpc_kernel_recv_data() returns 1) without waiting for the call
-to be processed or the reply to be transmitted.
+Fix the parser of RxGK keys supplied by userspace to check that the
+specified encryption type is supported and check the key length.  Further,
+since the checking function isn't necessarily available in CONFIG_RXGK=n,
+make the RxGK key wrangling bits conditional.
 
-Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260914151340.3227501-1-dhowells%40redhat.com
+Also only account the a token to the key's quota if that token is used.
+
+Fixes: 0ca100ff4df6 ("rxrpc: Add YFS RxGK (GSSAPI) security class")
+Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260824091645.415423-1-dhowells%40redhat.com
 Signed-off-by: David Howells <dhowells@redhat.com>
 cc: Marc Dionne <marc.dionne@auristor.com>
-cc: Jeffrey Altman <jaltman@auristor.com>
 cc: Eric Dumazet <edumazet@google.com>
 cc: "David S. Miller" <davem@davemloft.net>
 cc: Jakub Kicinski <kuba@kernel.org>
@@ -87,84 +87,180 @@ cc: Simon Horman <horms@kernel.org>
 cc: linux-afs@lists.infradead.org
 cc: stable@vger.kernel.org
 ---
- fs/afs/rxrpc.c      |  4 ++--
- net/rxrpc/recvmsg.c | 13 ++++++++++---
- net/rxrpc/rxperf.c  |  4 ++--
- 3 files changed, 14 insertions(+), 7 deletions(-)
+ net/rxrpc/key.c | 41 +++++++++++++++++++++++++++++++----------
+ 1 file changed, 31 insertions(+), 10 deletions(-)
 
-diff --git a/fs/afs/rxrpc.c b/fs/afs/rxrpc.c
-index 0b9027549580..8e7a83a95ac9 100644
---- a/fs/afs/rxrpc.c
-+++ b/fs/afs/rxrpc.c
-@@ -542,7 +542,7 @@ void afs_deliver_to_call(struct afs_call *call)
- 						     &call->service_id);
- 			trace_afs_receive_data(call, &call->def_iter, false, ret);
+diff --git a/net/rxrpc/key.c b/net/rxrpc/key.c
+index cbd26da44951..904da3fe7e47 100644
+--- a/net/rxrpc/key.c
++++ b/net/rxrpc/key.c
+@@ -71,14 +71,11 @@ static int rxrpc_preparse_xdr_rxkad(struct key_preparsed_payload *prep,
+ 	if (toklen < 8 * 4 + tktlen)
+ 		return -EKEYREJECTED;
  
--			if (ret == -EINPROGRESS || ret == -EAGAIN)
-+			if (ret == -EAGAIN || ret == 2)
- 				return;
- 			if (ret < 0 || ret == 1) {
- 				if (ret == 1)
-@@ -932,7 +932,7 @@ int afs_extract_data(struct afs_call *call, bool want_more)
- 		return ret;
+-	plen = sizeof(*token) + sizeof(*token->kad) + tktlen;
+-	prep->quotalen += datalen + plen;
+-
+-	plen -= sizeof(*token);
+ 	token = kzalloc_obj(*token);
+ 	if (!token)
+ 		return -ENOMEM;
  
- 	state = READ_ONCE(call->state);
--	if (ret == 1) {
-+	if (ret == 1 || ret == 2) {
- 		switch (state) {
- 		case AFS_CALL_CL_AWAIT_REPLY:
- 			afs_set_call_state(call, state, AFS_CALL_CL_PROC_REPLY);
-diff --git a/net/rxrpc/recvmsg.c b/net/rxrpc/recvmsg.c
-index efcba4b2e74f..716f7f47d7e4 100644
---- a/net/rxrpc/recvmsg.c
-+++ b/net/rxrpc/recvmsg.c
-@@ -637,9 +637,11 @@ int rxrpc_recvmsg(struct socket *sock, struct msghdr *msg, size_t len,
-  * Note that we may return %-EAGAIN to drain empty packets at the end
-  * of the data, even if we've already copied over the requested data.
-  *
-- * Return: %0 if got what was asked for and there's more available, %1
-- * if we got what was asked for and we're at the end of the data and
-- * %-EAGAIN if we need more data.
-+ * Return: %0 if got what was asked for and there's more available, %1 if we
-+ * got what was asked for and we're at the end of the call, %2 if a service
-+ * call received all of the request but is still in progress and %-EAGAIN if we
-+ * need more data.  A variety of other errors can be returned if the call
-+ * completed with failure.
-  */
- int rxrpc_kernel_recv_data(struct socket *sock, struct rxrpc_call *call,
- 			   struct iov_iter *iter, size_t *_len,
-@@ -678,6 +680,11 @@ int rxrpc_kernel_recv_data(struct socket *sock, struct rxrpc_call *call,
++	plen = sizeof(*token->kad) + tktlen;
+ 	token->kad = kzalloc(plen, GFP_KERNEL);
+ 	if (!token->kad) {
+ 		kfree(token);
+@@ -112,6 +109,8 @@ static int rxrpc_preparse_xdr_rxkad(struct key_preparsed_payload *prep,
+ 		       token->kad->ticket[4], token->kad->ticket[5],
+ 		       token->kad->ticket[6], token->kad->ticket[7]);
  
- read_phase_complete:
- 	ret = 1;
-+	if (rxrpc_is_service_call(call)) {
-+		if (rxrpc_call_is_complete(call))
-+			goto call_failed;
-+		ret = 2;
++	prep->quotalen += sizeof(*token) + datalen + plen;
++
+ 	/* count the number of tokens attached */
+ 	prep->payload.data[1] = (void *)((unsigned long)prep->payload.data[1] + 1);
+ 
+@@ -129,6 +128,7 @@ static int rxrpc_preparse_xdr_rxkad(struct key_preparsed_payload *prep,
+ 	return 0;
+ }
+ 
++#ifdef CONFIG_RXGK
+ static u64 xdr_dec64(const __be32 *xdr)
+ {
+ 	return (u64)ntohl(xdr[0]) << 32 | (u64)ntohl(xdr[1]);
+@@ -166,12 +166,13 @@ static int rxrpc_preparse_xdr_yfs_rxgk(struct key_preparsed_payload *prep,
+ 				       size_t datalen,
+ 				       const __be32 *xdr, unsigned int toklen)
+ {
++	const struct krb5_enctype *enc;
+ 	struct rxrpc_key_token *token, **pptoken;
+ 	time64_t expiry;
+-	size_t plen;
+ 	const __be32 *ticket, *key;
+ 	s64 tmp;
+ 	size_t raw_keylen, raw_tktlen, keylen, tktlen;
++	int ret = -EKEYREJECTED;
+ 
+ 	_enter(",{%x,%x,%x,%x},%x",
+ 	       ntohl(xdr[0]), ntohl(xdr[1]), ntohl(xdr[2]), ntohl(xdr[3]),
+@@ -202,10 +203,6 @@ static int rxrpc_preparse_xdr_yfs_rxgk(struct key_preparsed_payload *prep,
+ 		goto reject;
+ 	}
+ 
+-	plen = sizeof(*token) + sizeof(*token->rxgk) + tktlen + keylen;
+-	prep->quotalen += datalen + plen;
+-
+-	plen -= sizeof(*token);
+ 	token = kzalloc_obj(*token);
+ 	if (!token)
+ 		goto nomem;
+@@ -229,6 +226,17 @@ static int rxrpc_preparse_xdr_yfs_rxgk(struct key_preparsed_payload *prep,
+ 	token->rxgk->key.data	= token->rxgk->_key;
+ 	token->rxgk->ticket.len = raw_tktlen;
+ 
++	/* Check the enctype is supported. */
++	enc = crypto_krb5_find_enctype(token->rxgk->enctype);
++	if (!enc) {
++		ret = -ENOPKG;
++		goto reject_token;
 +	}
- out:
- 	if (_service)
- 		*_service = call->dest_srx.srx_service;
-diff --git a/net/rxrpc/rxperf.c b/net/rxrpc/rxperf.c
-index 5042e8bfca55..6ccfd40b5388 100644
---- a/net/rxrpc/rxperf.c
-+++ b/net/rxrpc/rxperf.c
-@@ -300,7 +300,7 @@ static void rxperf_deliver_to_call(struct work_struct *work)
- 						     &len, false, &remote_abort,
- 						     &call->service_id);
++	if (raw_keylen != enc->key_len) {
++		ret = -EKEYREJECTED;
++		goto reject_token;
++	}
++
+ 	if (token->rxgk->endtime != 0) {
+ 		expiry = rxrpc_s64_to_time64(token->rxgk->endtime);
+ 		if (expiry < 0)
+@@ -257,6 +265,8 @@ static int rxrpc_preparse_xdr_yfs_rxgk(struct key_preparsed_payload *prep,
+ 	_debug("TICK: %*phN",
+ 	       min_t(u32, token->rxgk->ticket.len, 32), token->rxgk->ticket.data);
  
--			if (ret == -EINPROGRESS || ret == -EAGAIN)
-+			if (ret == -EAGAIN || ret == 2)
- 				return;
- 			if (ret < 0 || ret == 1) {
- 				if (ret == 1)
-@@ -379,7 +379,7 @@ static int rxperf_extract_data(struct rxperf_call *call, bool want_more)
- 	if (ret == 0 || ret == -EAGAIN)
- 		return ret;
++	prep->quotalen += sizeof(*token) + datalen + tktlen + keylen;
++
+ 	/* count the number of tokens attached */
+ 	prep->payload.data[1] = (void *)((unsigned long)prep->payload.data[1] + 1);
  
--	if (ret == 1) {
-+	if (ret == 1 || ret == 2) {
- 		switch (call->state) {
- 		case RXPERF_CALL_SV_AWAIT_REQUEST:
- 			rxperf_set_call_state(call, RXPERF_CALL_SV_REPLYING);
+@@ -280,12 +290,13 @@ static int rxrpc_preparse_xdr_yfs_rxgk(struct key_preparsed_payload *prep,
+ 	kfree(token->rxgk);
+ 	kfree(token);
+ reject:
+-	return -EKEYREJECTED;
++	return ret;
+ expired:
+ 	kfree(token->rxgk);
+ 	kfree(token);
+ 	return -EKEYEXPIRED;
+ }
++#endif /* CONFIG_RXGK */
+ 
+ /*
+  * attempt to parse the data as the XDR format
+@@ -386,9 +397,11 @@ static int rxrpc_preparse_xdr(struct key_preparsed_payload *prep)
+ 		case RXRPC_SECURITY_RXKAD:
+ 			ret2 = rxrpc_preparse_xdr_rxkad(prep, datalen, token, toklen);
+ 			break;
++#ifdef CONFIG_RXGK
+ 		case RXRPC_SECURITY_YFS_RXGK:
+ 			ret2 = rxrpc_preparse_xdr_yfs_rxgk(prep, datalen, token, toklen);
+ 			break;
++#endif
+ 		default:
+ 			ret2 = -EPROTONOSUPPORT;
+ 			break;
+@@ -556,10 +569,12 @@ static void rxrpc_free_token_list(struct rxrpc_key_token *token)
+ 		case RXRPC_SECURITY_RXKAD:
+ 			kfree(token->kad);
+ 			break;
++#ifdef CONFIG_RXGK
+ 		case RXRPC_SECURITY_YFS_RXGK:
+ 			kfree(token->rxgk->ticket.data);
+ 			kfree(token->rxgk);
+ 			break;
++#endif
+ 		default:
+ 			pr_err("Unknown token type %x on rxrpc key\n",
+ 			       token->security_index);
+@@ -603,9 +618,11 @@ static void rxrpc_describe(const struct key *key, struct seq_file *m)
+ 		case RXRPC_SECURITY_RXKAD:
+ 			seq_puts(m, "ka");
+ 			break;
++#ifdef CONFIG_RXGK
+ 		case RXRPC_SECURITY_YFS_RXGK:
+ 			seq_puts(m, "ygk");
+ 			break;
++#endif
+ 		default: /* we have a ticket we can't encode */
+ 			seq_printf(m, "%u", token->security_index);
+ 			break;
+@@ -770,12 +787,14 @@ static long rxrpc_read(const struct key *key,
+ 				toksize += RND(token->kad->ticket_len);
+ 			break;
+ 
++#ifdef CONFIG_RXGK
+ 		case RXRPC_SECURITY_YFS_RXGK:
+ 			toksize += 6 * 8 + 2 * 4;
+ 			if (!token->no_leak_key)
+ 				toksize += RND(token->rxgk->key.len);
+ 			toksize += RND(token->rxgk->ticket.len);
+ 			break;
++#endif
+ 
+ 		default: /* we have a ticket we can't encode */
+ 			pr_err("Unsupported key token type (%u)\n",
+@@ -856,6 +875,7 @@ static long rxrpc_read(const struct key *key,
+ 				ENCODE_DATA(token->kad->ticket_len, token->kad->ticket);
+ 			break;
+ 
++#ifdef CONFIG_RXGK
+ 		case RXRPC_SECURITY_YFS_RXGK:
+ 			ENCODE64(token->rxgk->begintime);
+ 			ENCODE64(token->rxgk->endtime);
+@@ -869,6 +889,7 @@ static long rxrpc_read(const struct key *key,
+ 				ENCODE_DATA(token->rxgk->key.len, token->rxgk->key.data);
+ 			ENCODE_DATA(token->rxgk->ticket.len, token->rxgk->ticket.data);
+ 			break;
++#endif
+ 
+ 		default:
+ 			pr_err("Unsupported key token type (%u)\n",
 
