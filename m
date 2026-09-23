@@ -1,81 +1,84 @@
 Received: from fout-b4-smtp.messagingengine.com (fout-b4-smtp.messagingengine.com [202.12.124.147])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0007A450409
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 09:14:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 294B5475351
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 09:14:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790154882; cv=none; b=k5q2pbY7I8wFxhftOcm8PSb00NasufJ/gWDBFwzGtRl29EHP3adIpkgyEVHH1GNToYBi4Of+KQ0+kVMPLkTMP4gXlJzOL/y/p8gNa/DJFenxG2zLG4ATfKfpIAgXXmWVi/eb4eA2M7bObcjp6sTaUQAkppF9wpvM4ONCf3bfQ1g=
+	t=1790154886; cv=none; b=UIB4ClZsTf0mdl2jP5jxQSyM44OVV6h34h97ugGH3tu9OUN4qEyxOU+xdFDvzOPMdUqwdeDQy+fMI1lruAe7QkX3ZxWFz7SynYmC/WE6az+ET9e3Nu2QXHQ1zYFwZ85GfX8SKDVljQ4AvOU5LQkaPKI3WS7NgVj+SzPsUemijho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790154882; c=relaxed/simple;
-	bh=yBkBQV7B/1BCN5qJwQ1nqQL6d3IVjqWVlCE17QpM3kg=;
+	s=arc-20240116; t=1790154886; c=relaxed/simple;
+	bh=+/xqVXjvzWOHGSOuXp+sLWOT1M8dhFYIKDDTCG107sI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AnTEQWBBPcYcQt0TSu7MCX9DJY7Lz8S2X54aT4pYtswIxM7QE5dchhqmoI8pyIAk8z4Bpo54Q51qcS1gJuE6yVLY1l53ePuQRf2yvNb0hWvtiAUzb/cA6Pdam283H/ROG/6KydTOrcSmTJnxMmyscVVkyHLPMejddaw7NbXVq8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=kvAfeGRX; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=PABxA+rx; arc=none smtp.client-ip=202.12.124.147
+	 Content-Type:Content-Disposition:In-Reply-To; b=bKoPKI6nrjtyABiDU+/hE/CHPgxHptokih2xQ+1powhep0muk2TzNZrY4+nrwokhybOnMBa2KMb5IH7Fw2IczCYFEBmYT3IRbyTE3AoC/cQ47sIkbA4d0ITZRjhQ0tui7Khy36oBn6TOq+IvJSzN92Bmy2rorrma62w0wMv5xUk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=NwQ54iec; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=azn4f5Xe; arc=none smtp.client-ip=202.12.124.147
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="kvAfeGRX";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="PABxA+rx"
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfout.stl.internal (Postfix) with ESMTP id D76161D000A8;
-	Wed, 23 Sep 2026 05:14:39 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Wed, 23 Sep 2026 05:14:40 -0400
+	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="NwQ54iec";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="azn4f5Xe"
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfout.stl.internal (Postfix) with ESMTP id DDA2B1D00033;
+	Wed, 23 Sep 2026 05:14:42 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-06.internal (MEProxy); Wed, 23 Sep 2026 05:14:43 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
 	:cc:content-type:content-type:date:date:from:from:in-reply-to
 	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1790154879; x=1790241279; bh=GedQwnSZyq
-	szjaseA0LcniV58A79JVlaaoVeHOy86FI=; b=kvAfeGRXQZh0FcxJ0aQuvA2pI0
-	xKIcTFuCB3xI/9mz6LwnS0xLEQ7S5jb2O9poW0QlCYC5ypSPngEoyNObyGdFBLCu
-	MnmTcBTLa5PoXFiCKsip7NOR9DpBqkO71SkQzjpBVBsF5ed7JKbDCRjbg0O8OY7r
-	QRoN3hPP9t+q+sBatdsFMWmdcs1+iJB3Gz5h/UULdoYr0nBJewTIXhSLgHG5BE25
-	6zqfk6sJGzMvDwV6lX07SAzZVAB4bOOdVYA1QFqCWpAbPvvWZ6k8o3jfZMdh8NUr
-	dCGkIXJq0RJNo+fhHTJGuBuI5eRQixyc+acHOaL+rzvqgTqHdDIrnPVxCXyQ==
+	:subject:to:to; s=fm1; t=1790154882; x=1790241282; bh=9GHGA2mlWu
+	/ss5NDOtOyoX3F/VZkrqWmW5sfbpPYHmE=; b=NwQ54iecOieV5FxJtLIZdALiOp
+	DyjA71dlrzkSTg5/9GMGk83f2RgRq0aTmClPdBKksNarj3gOEFIgldYxYxTsvekQ
+	uL/+ud9JEpFdN1k6AXM2MzCsFu21QDzYjaKxOsavrXwrxM0SPTgNTqAyuTlh0J8U
+	Cnax+Ua2X3eGF9iFTffw0Vu5jvyLegTacUonKvPd4wANavE7aY8bepT5bIvbijmO
+	gTu5xTd3B1loVrhBEnQkgBRyoKqR+rVLgFwbpdbaMuuY7Nv2ceYmaSCpw/QzN2D5
+	L7zI7XZWIPa+sMg+qwXlsUOMvzOCXHEiY9lrR+EuuVLAToBE4imtsWLGxSzg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-type:content-type:date:date
 	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
 	:message-id:mime-version:references:reply-to:subject:subject:to
 	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1790154879; x=1790241279; bh=GedQwnSZyqszjaseA0LcniV58A79JVlaaoV
-	eHOy86FI=; b=PABxA+rxhZhx+vGikpT4ZSCTOsQ/YvaSsegTB9vzZgrpP+XD6wP
-	g3bNX89Q9bpEC9S5IkNu+doJwNZMHHZMkaNWDNySV4f2D6jMEES4QfybNCamK6cj
-	/4lpMXP2skWjL/XUgjuEDC8afpn7JtKvQvcq89NQ6E4pfjFav6YdrX30wHjonJ3a
-	mHI8WEvHpvt4RcKcF2+7ZbdKB80h6I0s6kUclL5nAixG/SCOgn666tco4k6NrPPy
-	0Okz7M4c/DBOnmShrJ65IZ9WzpTyMfZhpNN0MPwp/P3aK/j6o+fVc0LpxWy2/cKb
-	6T1Ta/+shy5x1tgmKHWT8Pk8EJyxAkALHeA==
-X-ME-Sender: <xms:f5izat_x39dOwe4K-N8iG5jGdwyVuPLpkLb1WsC3hMjynxSvzcu0vw>
-    <xme:f5izakxXsananotMbGAvU9_jWstNcq7AhxZF_DP4W5KIZqzYIzpiiujjMeZfZvkzh
-    FuxFcYJYIzoNvZ5VS4RomjY4-WAdtgKHwh7sjySkrkjl-FOGJg>
-X-ME-Received: <xmr:f5izalpLHlMJ7bRmHQu7pj6mPRVQM7ap_F8WBG55lGMRrj98UV9zH6KmwlAh>
-X-ME-Proxy-Cause: dmFkZTG0Fr2gtcoi53eSnX332zTyx8nes1qWZ3sTNrrRLbN8FTTztiNdKL6qrf3exGtA7Q
-    Am6NuXztUFP3N9p+XAEjXX+L9ItyLwIqh9co1s5d4PGy0LaT8cauiWFT745zOL7y/ybcYL
-    KikADraFJDEjtBF2dihjUMsS6DF955EZrk+NB/zq2o2Gx6IgVSnPWNYuY1av+uhcT7UiH1
-    9sUlQfDrMFncttKjXKtCBopYs3Ya93tW4sMSMMErrOCgLFxg5t8ugcIanFfruU5hx9p8gi
-    qM0XcnEQXb66wS1kWQl0hX0ZLbHWeRHGdrfX1rxW5CpllR8QekMMWJ/OL+Wo4MFtOHYMCT
-    5knhUvHJSEr6s1D438lKaViAcG7RHhnwFmY1kslV3dOKGCaJQqRu8PwVx6kNqbtxYjftgE
-    kTgsz5a24E5JVu9errKNvFzSzGZsdiU9czannbET4H+NlrqTmjInFNmE7NTtC9lX2z3R38
-    RzTK8Y8E/2SpRN3E8saIrf//XcSqQeqLGjtknEgNWLSrrkb2hlII+FedDX+0g5Ze/5u1Lz
-    HxISuva1woTkLUhcTJorHoq25bpGTtzGZEvrRwQl49ZY7vVQhEO8EdEbeNHyQ8Yx8i8IXW
-    6awc+79f+q2seB/0oQqZf59oXfqwth/488dQ9h/O2N05mtyrjwL+g/X+Kydw
-X-ME-Proxy: <xmx:f5izatpok_crY8fsF4FTfSUz1uwfFLBE-ExjOW-Y9EW3bXcnAKbAcQ>
-    <xmx:f5izatDpryINYKoLdYG5_V-esKp_pzqEdLqTtzu4t-yTfniqM5zEEw>
-    <xmx:f5izajt-KX8PKH4fLKZ7Bjs8fGOXQcEBYuTzucJ2FF7hnKlmFRHnhg>
-    <xmx:f5izakKD8n1jwZKHNgVLwOf8Y-ZxH6Nrp2G_C8C6ekBDLBsQKpg_AA>
-    <xmx:f5izajMe5ge7Zkl-yExjeoiHkjulXzT2TcLS4EpInHxoD07V2iQ7tRk_>
+	1790154882; x=1790241282; bh=9GHGA2mlWu/ss5NDOtOyoX3F/VZkrqWmW5s
+	fbpPYHmE=; b=azn4f5Xer6bvNutacD2FdN6fcErMTGGJfw5/4VAeCZlACl8+rwZ
+	R+xKNPkYrCUGbPYRtaIbAJGW1Nyzss+6BwX6gmnGc8aQOyuaqBebSodzWohtUd9e
+	22frlgaVq8vE1d3xu9TpNX1tDOk6Qr/PZ0ESEi3KwsBT7FEeLrYzMfNi9aDT/C7t
+	5AoHrSOYgqocfP1AvokPssT0m2ugTBcO2hDbum2Ft7JJYl+izW3boWA7bog+7NvO
+	k/9BTlLjAgBSd53xPK3kaOwKXNvRKqGgtLp1qQULMRYlDEGK5Wrki+toCybqEDWv
+	mrCc1AWJL/7gdSfbKNM57+pZiTmcY2mFdig==
+X-ME-Sender: <xms:gpizao8X7a6asa7viPR7umdyhdv58HfnMEqUkfg1s5T7bH4zEwJNRw>
+    <xme:gpizaoRRg45z2UfBrRC0D7IqDD2bNf7ofAZKAAxBrW0OLTfHDWlxN0fey0LjrBr0r
+    oYLnAb5UdwCPgpojhXr8p6rWGxoOxN05DBZzfTH69QqKTcUduU>
+X-ME-Received: <xmr:gpizatpXgWHH5lqYYLqZznvQQsBBpGO64bb8Q_LPHcSBeITpfCD4ZAmsp0ct>
+X-ME-Proxy-Cause: dmFkZTGAXO2hJdhEAbO+WYAMqYSLoa7ezBSaXKUoVFy1XYubHY0dwkXQZJoVEX5kQ+jtv4
+    9IEm6Ifk+WxYpzVA9XI3fvyVEdF3DlcPwmLX2K7ELLz5SIjhaE7YhPpslW+JH8AvAsjo06
+    0iWA/97CcqgK2+3FswUNtDkXun4JWzBgGr9bji34PYh5GiRpfRypSDXQRN958txXHDelnF
+    j8grY+6U6ZNRzK6/jWANR9f7OU3KPBFWN497uuWxRQi3BBYfsiOX10EA7xFYHkVM4xNHhd
+    qdAau7sTpWP8JEOXIrz0cX1IlnvTEWLK8vjjUzENxRColNosVX6WqFXBsSmSvQ3y68xpgo
+    mZL9C2LNbdbDodMlE04jAWJggemRTjI+X2et/x0oDHBsn7yre9cYJ42K2Uh6BIYWDJer//
+    oBUjvzn2/o2xgehgc53/Yw1egs5SIoweqw81X92hQd19+LHXoW5qXN+bx649gUS3tFX2nn
+    mBHCHJHHlVuSCWr6n9Be+ePf6A5txqsNByPbMa9mB6YTxcF1QPXVjmCAooj2oLaB0rBTRb
+    fU2d74GDspJij6qWjhL/qV6JZaW0Iv7LQ8k4n6kWys0TuFnau50hY3TEAvgt+Q/por60Jj
+    yf8vYR66g1xkdjWPCcvAPMwZPTLxvG4Wm9eBD2xp2th6Ja2gr0X7kVE1A1/g
+X-ME-Proxy: <xmx:gpizalOjq3UgGK0Xk61yW92FKP82Sg8WWubgH_jTKSwQPFPPmr5ZPw>
+    <xmx:gpizajykpu0sqqto_sqayxGdZzT0uZCcyBVFUEUBRIwNtb6EPatAqQ>
+    <xmx:gpizapwTWDaLlxJ_cISreF7DOr892C7i45sboqqmco5gYKDvNb7whw>
+    <xmx:gpizakKd6hZODEEZ-YmeMAy3q9hCGwcytwU7c-HjaV0EVJtFq7bipg>
+    <xmx:gpizasz2sqq5HJRsFooPTpF8lIvsTeRASqST9eTLHHvCQK3sJqRNWJXi>
 Feedback-ID: i787e41f1:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 23 Sep 2026 05:14:38 -0400 (EDT)
-Date: Wed, 23 Sep 2026 10:02:19 +0200
+ 23 Sep 2026 05:14:41 -0400 (EDT)
+Date: Wed, 23 Sep 2026 10:03:20 +0200
 From: Greg KH <greg@kroah.com>
 To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org, Long Li <leo.lilong@huawei.com>,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	Carlos Maiolino <cem@kernel.org>
-Subject: Re: [PATCH 6.18.y 1/9] xfs: factor out xfs_attr3_leaf_init
-Message-ID: <2026092314-paparazzi-lethargic-486c@gregkh>
-References: <2026091651-freedom-anger-bd4d@gregkh>
- <20260917151724.693663-1-sashal@kernel.org>
+Cc: stable@vger.kernel.org, Paulo Alcantara <pc@manguebit.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>,
+	Bharath SM <bharathsm@microsoft.com>
+Subject: Re: [PATCH 6.18.y 1/3] smb: client: fix WSL reparse point uid/gid
+ override
+Message-ID: <2026092315-dayroom-catty-be31@gregkh>
+References: <2026092249-multitude-amigo-b729@gregkh>
+ <20260922194812.85938-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -84,76 +87,100 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260917151724.693663-1-sashal@kernel.org>
+In-Reply-To: <20260922194812.85938-1-sashal@kernel.org>
 
-On Thu, Sep 17, 2026 at 11:17:15AM -0400, Sasha Levin wrote:
-> From: Long Li <leo.lilong@huawei.com>
+On Tue, Sep 22, 2026 at 03:48:10PM -0400, Sasha Levin wrote:
+> From: Paulo Alcantara <pc@manguebit.org>
 > 
-> [ Upstream commit e65bb55d7f8c2041c8fdb73cd29b0b4cad4ed847 ]
+> [ Upstream commit cd2b2b57921d4caa7875e83198bb2aa71254328b ]
 > 
-> Factor out wrapper xfs_attr3_leaf_init function, which exported for
-> external use.
+> wsl_to_fattr() unconditionally overwrites cf_uid/cf_gid with values
+> from WSL extended attributes ($LXUID/$LXGID), ignoring the forceuid
+> and forcegid mount options.
 > 
-> Reviewed-by: Darrick J. Wong <djwong@kernel.org>
-> Signed-off-by: Long Li <leo.lilong@huawei.com>
-> Signed-off-by: Carlos Maiolino <cem@kernel.org>
-> Stable-dep-of: 865b751e7503 ("xfs: don't stash removename operations with unknown ftype")
+> Fix this by initializing cf_uid/cf_gid to the mount defaults and
+> gating the $LXUID/$LXGID EA parsing on forceuid/forcegid.
+> 
+> Closes: https://sashiko.dev/#/patchset/20260906190803.667489-1-pc%40manguebit.org
+> Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
+> Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+> Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
+> Cc: Shyam Prasad N <sprasad@microsoft.com>
+> Cc: Tom Talpey <tom@talpey.com>
+> Cc: Bharath SM <bharathsm@microsoft.com>
+> Cc: stable@vger.kernel.org
+> 
+> Backport adaptation for Linux 6.18:
+> Keep the existing S_IFMT clearing from 99daf7535445 when adding the
+> mount-default UID/GID initialization.  The stable branch already has
+> that file-type fix, which followed this dependency upstream.
+> 
+> Also include the two wsl_to_fattr() mode-read conversions from
+> e1aeaf79dea5 and include linux/unaligned.h directly.  These are the
+> remaining context changes needed for e1253a82bb4c to apply unchanged;
+> the other helper conversions are outside this target's context.
+> 
+> Stable-dep-of: e1253a82bb4c ("smb: client: fix fattr leaking on wsl_to_fattr() failure")
 > Signed-off-by: Sasha Levin <sashal@kernel.org>
 > ---
->  fs/xfs/libxfs/xfs_attr_leaf.c | 22 ++++++++++++++++++++++
->  fs/xfs/libxfs/xfs_attr_leaf.h |  3 +++
->  2 files changed, 25 insertions(+)
+>  fs/smb/client/reparse.c | 21 ++++++++++++++-------
+>  1 file changed, 14 insertions(+), 7 deletions(-)
 > 
-> diff --git a/fs/xfs/libxfs/xfs_attr_leaf.c b/fs/xfs/libxfs/xfs_attr_leaf.c
-> index 14dddee4f8fa6..dd3923fdcb205 100644
-> --- a/fs/xfs/libxfs/xfs_attr_leaf.c
-> +++ b/fs/xfs/libxfs/xfs_attr_leaf.c
-> @@ -1330,6 +1330,28 @@ xfs_attr3_leaf_create(
->  	return 0;
->  }
+> diff --git a/fs/smb/client/reparse.c b/fs/smb/client/reparse.c
+> index 6ec6b8c46ba22..c87b282da1ce9 100644
+> --- a/fs/smb/client/reparse.c
+> +++ b/fs/smb/client/reparse.c
+> @@ -6,6 +6,7 @@
+>  #include <linux/fs.h>
+>  #include <linux/stat.h>
+>  #include <linux/slab.h>
+> +#include <linux/unaligned.h>
+>  #include "cifsglob.h"
+>  #include "smb2proto.h"
+>  #include "cifsproto.h"
+> @@ -1109,10 +1110,14 @@ static bool wsl_to_fattr(struct cifs_open_info_data *data,
+>  			 struct cifs_sb_info *cifs_sb,
+>  			 u32 tag, struct cifs_fattr *fattr)
+>  {
+> +	unsigned int sbflags = cifs_sb_flags(cifs_sb);
+>  	struct smb2_file_full_ea_info *ea;
+>  	bool have_xattr_dev = false;
+>  	u32 next = 0;
 >  
-> +/*
-> + * Reinitialize an existing attr fork block as an empty leaf, and attach
-> + * the buffer to tp.
-> + */
-> +int
-> +xfs_attr3_leaf_init(
-> +	struct xfs_trans	*tp,
-> +	struct xfs_inode	*dp,
-> +	xfs_dablk_t		blkno)
-> +{
-> +	struct xfs_buf		*bp = NULL;
-> +	struct xfs_da_args	args = {
-> +		.trans		= tp,
-> +		.dp		= dp,
-> +		.owner		= dp->i_ino,
-> +		.geo		= dp->i_mount->m_attr_geo,
-> +	};
+> +	fattr->cf_uid = cifs_sb->ctx->linux_uid;
+> +	fattr->cf_gid = cifs_sb->ctx->linux_gid;
 > +
-> +	ASSERT(tp != NULL);
-> +
-> +	return xfs_attr3_leaf_create(&args, blkno, &bp);
-> +}
->  /*
->   * Split the leaf node, rebalance, then add the new entry.
->   *
-> diff --git a/fs/xfs/libxfs/xfs_attr_leaf.h b/fs/xfs/libxfs/xfs_attr_leaf.h
-> index 589f810eedc0d..deb62b544ac54 100644
-> --- a/fs/xfs/libxfs/xfs_attr_leaf.h
-> +++ b/fs/xfs/libxfs/xfs_attr_leaf.h
-> @@ -86,6 +86,9 @@ int	xfs_attr3_leaf_list_int(struct xfs_buf *bp,
->  /*
->   * Routines used for shrinking the Btree.
->   */
-> +
-> +int	xfs_attr3_leaf_init(struct xfs_trans *tp, struct xfs_inode *dp,
-> +				xfs_dablk_t blkno);
->  int	xfs_attr3_leaf_toosmall(struct xfs_da_state *state, int *retval);
->  void	xfs_attr3_leaf_unbalance(struct xfs_da_state *state,
->  				       struct xfs_da_state_blk *drop_blk,
+>  	fattr->cf_mode &= ~S_IFMT;
+>  	switch (tag) {
+>  	case IO_REPARSE_TAG_LX_SYMLINK:
+> @@ -1150,15 +1155,17 @@ static bool wsl_to_fattr(struct cifs_open_info_data *data,
+>  		nlen = ea->ea_name_length;
+>  		v = (void *)((u8 *)ea->ea_data + ea->ea_name_length + 1);
+>  
+> -		if (!strncmp(name, SMB2_WSL_XATTR_UID, nlen))
+> -			fattr->cf_uid = wsl_make_kuid(cifs_sb, v);
+> -		else if (!strncmp(name, SMB2_WSL_XATTR_GID, nlen))
+> -			fattr->cf_gid = wsl_make_kgid(cifs_sb, v);
+> -		else if (!strncmp(name, SMB2_WSL_XATTR_MODE, nlen)) {
+> +		if (!strncmp(name, SMB2_WSL_XATTR_UID, nlen)) {
+> +			if (!(sbflags & CIFS_MOUNT_OVERR_UID))
+> +				fattr->cf_uid = wsl_make_kuid(cifs_sb, v);
+> +		} else if (!strncmp(name, SMB2_WSL_XATTR_GID, nlen)) {
+> +			if (!(sbflags & CIFS_MOUNT_OVERR_GID))
+> +				fattr->cf_gid = wsl_make_kgid(cifs_sb, v);
+> +		} else if (!strncmp(name, SMB2_WSL_XATTR_MODE, nlen)) {
+>  			/* File type in reparse point tag and in xattr mode must match. */
+> -			if (S_DT(fattr->cf_mode) != S_DT(le32_to_cpu(*(__le32 *)v)))
+> +			if (S_DT(fattr->cf_mode) != S_DT(get_unaligned_le32(v)))
+>  				return false;
+> -			fattr->cf_mode = (umode_t)le32_to_cpu(*(__le32 *)v);
+> +			fattr->cf_mode = (umode_t)get_unaligned_le32(v);
+>  		} else if (!strncmp(name, SMB2_WSL_XATTR_DEV, nlen)) {
+>  			fattr->cf_rdev = reparse_mkdev(v);
+>  			have_xattr_dev = true;
 > -- 
 > 2.53.0
 > 
 > 
 
-Series does not apply :(
+Does not apply :(
