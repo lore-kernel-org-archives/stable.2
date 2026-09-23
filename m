@@ -1,119 +1,120 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.75.44.102])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 33D3C3C0635;
-	Wed, 23 Sep 2026 07:49:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.75.44.102
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790149782; cv=none; b=uXJwQQ7goSkviT/8YcAoUJW8tWfxrTkkp4ax4MwDaotZxKAvb/O6ICii1/HlUaUf4h1lgm3Xoxm0QTVebhs4a/0azxDD8glwLRsReUdowDxPXf474593b3uSIH6CurxtnNGTVtqb0qYH9eBwNlkDdamuwY4N2IQz2X/kwKsT5dg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790149782; c=relaxed/simple;
-	bh=m/cEceOzCnDodbXJi1kYlQoLj5ukhZwRLEOl76ErlNE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=EcXF0clRBrxvDlz+kT44y14wUHFQNukFVeDHJO33G/jqREtGEgEsZ7WMlNiOeXPOYLZpzJadtHnZCZPX6L6lMBJg3T7F2YJCiqm63VUqAxgwHvVh4knBntb0GeGa6RW+tMvj0X7N561dSAROTERhHJa9qAYXBzz1MdaiaSqSa4I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=13.75.44.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wAHAYWEhLNq6vwwAQ--.6303S3;
-	Wed, 23 Sep 2026 15:49:25 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app4 (Coremail) with SMTP id zi_KCgAnezODhLNq65_OAw--.39044S2;
-	Wed, 23 Sep 2026 15:49:23 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Cc: linux-usb@vger.kernel.org,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>,
-	stable@vger.kernel.org,
-	Song Li <songl@zju.edu.cn>
-Subject: [PATCH] usb: typec: ucsi: yoga-c630: unregister EC notifier before UCSI teardown
-Date: Wed, 23 Sep 2026 07:48:28 +0000
-Message-Id: <20260923074828.489562-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 607A045C70F
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 07:49:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.141
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790149786; cv=pass; b=LRerAeME5AwPTaIHQLT5YkKGYQx0cujSLOVoV2GTDpb1pJcRm8Uq9uY/j9rNqAT2qYFuphmrt0OBPsZhmKaPGHHJQKFdK1klo4Dhg5a6SdZe8rWSyG5qsDSeyH+VQ29oMOgvYyKSejJ/RBZPbHJZvXCzyCP7VxM+VeemOP5yXhc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790149786; c=relaxed/simple;
+	bh=a5qiSmOjocnn+sDqyBmDHtNspXpe+m+DapVB6S7w/58=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=AQ24lmBjLB+ViD+BoCpcvNGPvqVuWfU10vUb8Kl1HAE8kTjkprUxym4bDepchu6SP2Bous1IpHNcmYG4dqRqSeVod3vUZJz+EbTXNVj/g3yZE2bQ3r+mGSVUgP2A98dr5C52n2Nk++Vhnh9ACddigZrKuHzXLhElkbftAp6DbpU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=H1gk+bPF; arc=pass smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="H1gk+bPF"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ccead2aecso2547715e9.0
+        for <stable@vger.kernel.org>; Wed, 23 Sep 2026 00:49:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790149782; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Hy04uoZ+qu57UMaM13ltcFkXXCy7JHk34QNm/IgBtIBOuZNAP+6/OvFReHbIgzAhqd
+         92dTbd1dLdwFb1xUALpFHF3GF569OxhcrAO6R+2IYjtzxq6zkA0T/ffPSnZPh7zwNieO
+         UmE2gYZAqdFA3blwTle78wdy8J6LRu+LsxaHeV7ToLRK68kjA1JQxsw7yg9Xtdo7Lk9J
+         TOd3m2jfvRNhqCD8UT1d1f3aTwJex+amiBuLnHV9C2RcH1dTBwn6v6mfhb6915ex9AMF
+         d+v6R+Jh3PsdYZI5xJqJjpzQJB1jTG0oayX27OkfNJNeWOIg7nSo0GyAva9kGYnUqSU8
+         vMaw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=dtR7efeps0npha21Xq8cylYx7rCwpCT5/pR+0N1hrII=;
+        fh=2mP+pJggPNCdSHANLJ91cUFqhCjso7LAPKRkrBNbUSI=;
+        b=cypuJVM8x4bJdUv4b7wXZa5877lRUNibUqbnQZdYl3Po7v0fxg2/y0Af+Knho3RShZ
+         +0NtNE/bmBrMh+2woSSgCEgA8Lb3rPwp++RiqStDYGwgwbG/y+cCG5w9Ia993i/pY+s/
+         aTGh4qAEBcXqg3jan/4QAwM4w+1dZsl064eu8sp5gG6rIdD5CLnsQZHpINaA2rnCPqhN
+         G5tZJQveBl2MHeN97oDi0dHhSyMt5b+jl9/Tv7ZXyrF0+TRsDvNE+7CnWjr+6RUmjWs8
+         +dKf/3Vm9penJBf5VkPivvu5mD/WeXLJh3+C1Yt9/YkfVZG36URR25sViw9LcVy98I7F
+         0+6g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790149782; x=1790754582; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dtR7efeps0npha21Xq8cylYx7rCwpCT5/pR+0N1hrII=;
+        b=H1gk+bPF44wAFVBBtIZ179iwIMQFcnENuYrlmkkddAYX+t4Z4ppKLxxoosG425QuvI
+         rZNRSb+wWjnjYw/CvKEXWJrCMgvCA/hEXNXwHpfsiDKqxZOOErgSd7QpA5qTd5MLTOhS
+         yLOuWUECktK+vlY8nGxzCxEPdO6uheTBLFbX5YP963M9KytN4fURPtqbRPVw6Iv/ShZU
+         ie1XTBJ1PpOfowPUmpZRgwTTQe6/k7VFCROvE9HjZmU+L7h4f+4Up4RJ7bh3qZZgjBHl
+         jLpPiDYNNtuQAY5MctOJhydbFCB3H/tWPQbJJHK0+D7oSehK/zM8Kw8KoGJ3TK5npS97
+         ibWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790149782; x=1790754582;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dtR7efeps0npha21Xq8cylYx7rCwpCT5/pR+0N1hrII=;
+        b=vmGcMEPAMwt6CovNw7oWMQ6ed8jSWzCLuTtvix1DuPP5CT3+vxdw43SjmDKVQnRjal
+         UfdI6dqoSae1OOU/nnBft3+VU0/gWBdEl8mz2HIYzbjlUCGob6vbbVrmaeKUisoh1ZOi
+         +tCgvctIWc2Jga/qSbSlLmjjPjENjKrMmWUvhjkhF99vnhq/KTx/rmOiGNQwIjOAFuqf
+         0QBun2Okd0MtL+L4SaZPCCaOV6Lq1B55FLFZ9CDjjplpRdEl3LkeqjieIQzBNhp5yeF1
+         abaaGIQKVu4NWqHeyPgI456kSXjjE09bcG8tyfGwQ1I0FzrJYe9YQ6Oi327bmaIDAqvM
+         Yr+Q==
+X-Gm-Message-State: AFuF++k/mBlqml6DhWN6nPUZgD/G8qrV8yoD+NTGnDDGUeyKd0AuWAcA
+	rXjVyZIIbXksYeLACJ2is3pyGtyDxKt8y1G6LOecPXCRGVmXX/eU7FyIFwxmfKfN//Pj9f5GZ77
+	moMBvwP/Mjj1Q/fIe9jtt0Oo9Dz7B+W5/P4UDQ5sB
+X-Gm-Gg: AYBFou0FdJw8UBR1R3Whp53zy/QpnJ2XK/Bibfe/gGUWn7QltDpky3civVmNWCwq2b7
+	5ACXIVebC299dCKQB1YZxwecJeRtLvZrfX+brwW642Wgau+FrKsteeqzRgsvCZ1EjDPIN9Hq2zO
+	FNKQBYt7OJLMoVrV29PPBpq4Np4+YkinUermi0R4bDuKI1wt/ap7zn1tH3NUtEK+31RejO5Y6On
+	zMsn5DTUgaMa+pRqrFcyIYL36kQYjBcvZXnmNvHEH4WuD3gf85W8NLOFIBAeN3NtjYJqW+SNtfY
+	+o5/wscGp3EsdNuA2Lbh7Af1Q8PsdSUGvrF6BDokCpTeMw76YAhPeYwotz3VhoHWCTcbSxlO+KS
+	0sm8oaqmyBA6FX+NWlAFU5YXW3d4g4GqH
+X-Received: by 2002:a05:600c:a45:b0:49c:fc6c:bdfc with SMTP id
+ 5b1f17b1804b1-49fdf135915mr19518175e9.19.1790149781738; Wed, 23 Sep 2026
+ 00:49:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zi_KCgAnezODhLNq65_OAw--.39044S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?7bhr7wXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnXz+g1OQfMo27QHy5TwQyZwE/vSQZ160CDmmYAs9ddiCPQNmRWzJkHDvskmO3z+yVcoJ
-	pDGAI6upKb0vpIyZY2Op9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoW7tw45XF1rtrWUCw1DXry5Awc_yoW5JF4Dpr
-	nIkaykGrW0qF45Ww45u3W5JFy5AF97JFWUZ347W348Krs8Jas7ua97AFy5ZFy5Ar1DCF47
-	tw45K3y5Z398A3gCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
-	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU86c_DUUUUU==
-
-Both yoga_c630_ucsi_remove() and the probe error path call
-ucsi_unregister() while the EC notifier is still registered.
-ucsi_unregister() frees the connector array, so an EC event (USB, HPD or
-UCSI) arriving before yoga_c630_ec_unregister_notify() makes
-yoga_c630_ucsi_notify() run on freed memory: typec_set_orientation() on the
-freed port and ucsi_connector_change() queuing work in the freed connector
-array. USB and HPD events do not depend on the UCSI notification-enable
-state, so the disable command ucsi_unregister() sends to the EC does not
-close this window.
-
-Fix this by unregistering the EC notifier before ucsi_unregister() in both
-paths, restoring the teardown ordering from before the error and remove
-paths were reworked. blocking_notifier_chain_unregister() waits for a
-running callback, so once it returns the EC interrupt thread can no longer
-reach the UCSI instance and ucsi_unregister() can tear the connectors down
-undisturbed.
-
-The callback is also the only external source that requeues the connector
-work, so the cancel_work_sync() calls in ucsi_unregister() can no longer
-race with a new connector-change event.
-
-This issue was found by an in-house static analysis tool.
-
-Fixes: 168c3896f32e ("usb: typec: ucsi: yoga-c630: fix error and remove paths")
+References: <CAH5fLggWya+4rz8LWjaCqYQ8eBfds2-yim9NFZ7nZpz6ABdG+Q@mail.gmail.com>
+ <2026092330-humorous-unnerve-a325@gregkh>
+In-Reply-To: <2026092330-humorous-unnerve-a325@gregkh>
+From: Alice Ryhl <aliceryhl@google.com>
+Date: Wed, 23 Sep 2026 09:49:28 +0200
+X-Gm-Features: AclHuK_AuowFRdZa3Yw4MYohDWyGhwuShhOJclOMm3C5bCDpSjswI1Cp1sONUBY
+Message-ID: <CAH5fLggJVV07nNnaeLBaC4qe1bDPw4AySGHQR9X9HoUbU69-Mg@mail.gmail.com>
+Subject: Re: [stable 6.18.y] Backport request: two ntsync fixes
+To: Greg KH <gregkh@linuxfoundation.org>
 Cc: stable@vger.kernel.org
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
- drivers/usb/typec/ucsi/ucsi_yoga_c630.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/drivers/usb/typec/ucsi/ucsi_yoga_c630.c b/drivers/usb/typec/ucsi/ucsi_yoga_c630.c
-index 1be18d1..59738dc 100644
---- a/drivers/usb/typec/ucsi/ucsi_yoga_c630.c
-+++ b/drivers/usb/typec/ucsi/ucsi_yoga_c630.c
-@@ -296,7 +296,9 @@ static int yoga_c630_ucsi_probe(struct auxiliary_device *adev,
- 	return 0;
- 
- err_ucsi_unregister:
-+	yoga_c630_ec_unregister_notify(uec->ec, &uec->nb);
- 	ucsi_unregister(uec->ucsi);
-+	goto err_destroy;
- 
- err_unregister:
- 	yoga_c630_ec_unregister_notify(uec->ec, &uec->nb);
-@@ -311,8 +313,8 @@ static void yoga_c630_ucsi_remove(struct auxiliary_device *adev)
- {
- 	struct yoga_c630_ucsi *uec = auxiliary_get_drvdata(adev);
- 
--	ucsi_unregister(uec->ucsi);
- 	yoga_c630_ec_unregister_notify(uec->ec, &uec->nb);
-+	ucsi_unregister(uec->ucsi);
- 	ucsi_destroy(uec->ucsi);
- }
- 
+On Wed, Sep 23, 2026 at 9:47=E2=80=AFAM Greg KH <gregkh@linuxfoundation.org=
+> wrote:
+>
+> On Tue, Sep 22, 2026 at 09:22:15PM +0200, Alice Ryhl wrote:
+> > Hi stable team,
+> >
+> > Could you please queue the following two upstream commits for the
+> > 6.18.y stable tree? Both apply cleanly to linux-6.18.y:
+> >
+> >   180a232ea78003d1dc869b217b4e49106fd58e8f ("ntsync: Honour caller's
+> > time namespace for absolute MONOTONIC timeouts")
+> >   61611481f7b599e0526a3782c626b1a9deeb48bd ("ntsync: reject wait
+> > ioctls with zero owner")
+> >
+> > The first is needed for correct operation of the driver, and the
+> > second prevents wait ioctls with owner =3D=3D 0 from leaving an unowned
+> > mutex in a corrupted state (count > 0 with owner =3D=3D 0).
+> >
+> > Not sure why Fixes tags were not included for one of them.
+>
+> The second one also is needed in 7.2.y, so I included it there.
 
+Thanks!
