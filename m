@@ -1,40 +1,43 @@
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF4CF3624C8;
-	Wed, 23 Sep 2026 01:50:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3177EDF59
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 01:56:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790128255; cv=none; b=Bsa6E36iL2SJDGJG21O+js9IaZ0ZhtMpAytMEpK+Iqm95TOTVvEXmfF+H0uAP2Z7Ts0QwT8LjJ9QKO2gw5XsXsI0/mADxCZdNXxMiLADlhORqx2qrMO2xzowd9EOp+276HSgnWIQtdsBRqoEO0IiCkrL1TFvLPoc39bmUQPAxK4=
+	t=1790128571; cv=none; b=aHE2qEtv7wioyPWdqEApyMSqUfiCUpkFOAO2I0lCBF1lMZvP4zYtGpJGxJLvMGcw9B+8k6QFel3fQR3CcTtfVuhJmrdjGcuUP52zsI1CMxXgpH96IssIGI/5qug7GzXkJeBul4XI+5hwaaEca4s5NL+OUPucVZA1b77vzZNJQr4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790128255; c=relaxed/simple;
-	bh=OwBa6xGvfl7idKdaXvc7TVtZKDhmNSCK1vcoHvvXPP4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=W18uab6Lk+2LaHRtJmyJL94HqnG4K5EXx7hXhyX/4TwNjeXkLZweJBO3iZnhA+chEIrfFMfqaz7qckpvYkuj3f+vQHLwcgMGVJcZJu0ozyrRx+t9c+1g+2oGsI4AiaKDx676+p2B+RvHl98T7aB5sCtOqciBPqLNojTRzsGiXyY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=LTXAls5C; arc=none smtp.client-ip=45.254.49.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1790128571; c=relaxed/simple;
+	bh=15vx4n4NZOlkO9HRBScjac+uyl775yDPCdQCXKANVk8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dth28LOXsePakLTg+s990GlpefQ23VDfgBVhtk3PsgbQAZf5FWqel3yEB2PCFEIya/d3r3nKRiAQBbgycg3N21p4xBoc9iEtoHBAvithvxOhee1lGVfF3jpoH9Sescxjf1I/OBH2U4fmbfilA1Gv/Nuk3tOVFf2+YY979tmDBaI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WTrPHJTe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="LTXAls5C"
-Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4ecb22f1b;
-	Wed, 23 Sep 2026 09:50:45 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: David Woodhouse <dwmw2@infradead.org>,
-	Lu Baolu <baolu.lu@linux.intel.com>,
-	Joerg Roedel <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>
-Cc: Jiang Liu <jiang.liu@linux.intel.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH] iommu/vt-d: release IRQ vector after request failure
-Date: Wed, 23 Sep 2026 09:50:39 +0800
-Message-Id: <20260923015039.1884067-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WTrPHJTe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83A251F000FF;
+	Wed, 23 Sep 2026 01:56:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790128570;
+	bh=JcGQ1KfzyM+xwIBzqdZepZR6pttdd/Mq76RRSNICr9A=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=WTrPHJTeMJLhSCJ2pIGXMFt6q7WpKEr3mRF34KxjiVtkBBFQq3U8J9LYIUTM1YR+z
+	 J1WtLHIRmI45EbW47L0lXecS3acyAI+HDJA0gFgPLfwlak7txHwb9aZe3YhjfNEbrV
+	 YAaZy3DfcSqhTxff3T6kpeAftbt42gYSqVzJ21/6+eCxOA/FU6ofgK3/bRGN5eNHeA
+	 WJtUJV8xDFdNxtFj/T7vAQz3PaBRAXxmh7FqWiRMwdv/ZJtCVybz8EwbTpoP+sR4MG
+	 xwttjUirugLIbDFrh/Lx/AHZaydLy+gn5R4C56UVPOd2rlVTcrfozovtmhMpwzZKqn
+	 kNQ7iIzu8Dtxg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Frank Sorenson <sorenson@redhat.com>,
+	David Howells <dhowells@redhat.com>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] smb: client: fix OOB struct field reads in move_smb2_ea_to_cifs()
+Date: Tue, 22 Sep 2026 21:56:07 -0400
+Message-ID: <20260923015607.891503-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026092225-saint-twisting-29cc@gregkh>
+References: <2026092225-saint-twisting-29cc@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -42,58 +45,83 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0cbf54aa503a1kunm70634b72b0f7f
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCTE4YVhofGEkYTk5DSEsaGFYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=LTXAls5CjRoUF8hxynE36n2EnX0gN/EfGNgeISNKl9aOK/UX4GElttYBikzqqqt/N8eOBx9SrESA+0ojgwe4GoCS6YGg94e20fH9/ao7TZtGqyXI63M5XMUmWd6EGAHjhdJLgsMuJ6oWamcuWhHEPVyfhxpQgKlc2x4hTdrYR3E=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=UjfQwllVPeSsMmKu1Wr1AVRaxMNq/L5K8NDTvYarh+Y=;
-	h=date:mime-version:subject:message-id:from;
 
-When request_irq() fails, iommu->irq remains set, so later teardown
-attempts to free an IRQ that was never registered.
+From: Frank Sorenson <sorenson@redhat.com>
 
-Release the reserved vector and clear iommu->irq on the failure path.
+[ Upstream commit eeb5ef6083e1cefa2ef75041b5597ff228b8d7bb ]
 
-The failure path was reproduced with an x86_64 kernel under QEMU using a
-q35 machine and an Intel IOMMU with interrupt remapping enabled. A
-test-only failure injection makes request_irq() return -EBUSY after
-dmar_alloc_hwirq() assigns a vector, then attempts to allocate the same
-vector again.
+In move_smb2_ea_to_cifs(), the while (src_size > 0) loop condition is
+insufficient. It allows iteration to continue even if the remaining
+src_size is too small to contain a complete smb2_ea_info structure.
+Consequently, reads of ea_name_length and ea_value_length can occur
+out-of-bounds.
 
-On the unfixed kernel, the failed request leaves iommu->irq set and the
-second allocation returns -EEXIST. With this change, iommu->irq is cleared
-and the second allocation reuses the vector. The failure is deliberately
-injected to exercise this error path and is not expected during normal
-QEMU operation.
+Fix this by ensuring src_size >= sizeof(*src) before attempting to read
+any structure fields. Additionally, reject any next_entry_offset that is
+smaller than sizeof(*src) or that would advance the pointer beyond the
+available buffer.
 
-Fixes: 34742db8eaf9 ("iommu/vt-d: Refine the interfaces to create IRQ for DMAR unit")
+Note that for calls where the server returns a malformed EA list, the
+error returned to userspace changes from -ENODATA (getxattr) or
+-ERANGE (listxattr) to -EIO. This correctly signals a server protocol
+error rather than misleadingly indicating "attribute not present" or
+"output buffer too small".
+
+Fixes: 95907fea4fd8 ("cifs: Add support for reading attributes on SMB2+")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Signed-off-by: Frank Sorenson <sorenson@redhat.com>
+Reviewed-by: David Howells <dhowells@redhat.com>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+[ Replaced unavailable smb_EIO2() tracing calls with -EIO. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iommu/intel/dmar.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ fs/cifs/smb2ops.c | 24 ++++++++++++++++--------
+ 1 file changed, 16 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/iommu/intel/dmar.c b/drivers/iommu/intel/dmar.c
-index ba675b08c..d479e70c5 100644
---- a/drivers/iommu/intel/dmar.c
-+++ b/drivers/iommu/intel/dmar.c
-@@ -2098,8 +2098,11 @@ int dmar_set_interrupt(struct intel_iommu *iommu)
+diff --git a/fs/cifs/smb2ops.c b/fs/cifs/smb2ops.c
+index 3aaa45375d8ba..3123f644a1585 100644
+--- a/fs/cifs/smb2ops.c
++++ b/fs/cifs/smb2ops.c
+@@ -1115,8 +1115,9 @@ move_smb2_ea_to_cifs(char *dst, size_t dst_size,
+ 	char *name, *value;
+ 	size_t buf_size = dst_size;
+ 	size_t name_len, value_len, user_name_len;
++	u32 next_off;
+ 
+-	while (src_size > 0) {
++	while (src_size >= sizeof(*src)) {
+ 		name_len = (size_t)src->ea_name_length;
+ 		value_len = (size_t)le16_to_cpu(src->ea_value_length);
+ 
+@@ -1171,14 +1172,21 @@ move_smb2_ea_to_cifs(char *dst, size_t dst_size,
+ 		if (!src->next_entry_offset)
+ 			break;
+ 
+-		if (src_size < le32_to_cpu(src->next_entry_offset)) {
+-			/* stop before overrun buffer */
+-			rc = -ERANGE;
+-			break;
++		next_off = le32_to_cpu(src->next_entry_offset);
++		if (next_off < sizeof(*src) || src_size < next_off) {
++			cifs_dbg(FYI, "EA next_entry_offset %u out of range [%zu, %zu]\n",
++				 next_off, sizeof(*src), src_size);
++			rc = -EIO;
++			goto out;
++		}
++		src_size -= next_off;
++		src = (void *)((char *)src + next_off);
++		if (src_size > 0 && src_size < sizeof(*src)) {
++			cifs_dbg(FYI, "EA next_entry_offset %u left truncated entry (%zu bytes)\n",
++				 next_off, src_size);
++			rc = -EIO;
++			goto out;
+ 		}
+-		src_size -= le32_to_cpu(src->next_entry_offset);
+-		src = (void *)((char *)src +
+-			       le32_to_cpu(src->next_entry_offset));
  	}
  
- 	ret = request_irq(irq, dmar_fault, IRQF_NO_THREAD, iommu->name, iommu);
--	if (ret)
-+	if (ret) {
- 		pr_err("Can't request irq\n");
-+		dmar_free_hwirq(iommu->irq);
-+		iommu->irq = 0;
-+	}
- 	return ret;
- }
- 
+ 	/* didn't find the named attribute */
 -- 
-2.34.1
+2.53.0
+
