@@ -1,157 +1,205 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010061.outbound.protection.outlook.com [52.101.69.61])
+Received: from pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.83.148.184])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97A7B579828;
-	Wed, 23 Sep 2026 20:06:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.61
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790193997; cv=fail; b=WhJSWGf11lCPbPuGfM3CSbBbDXBXA1g5mXwhGMilCK4xyC+1H+AsxJrOtYtaY565Ln4LSQ+tvm8OTUVOwF7Ve2DVEgAbG1S5URYL4aqINzfhfYriCFCg3AD/1Mg0xVC82MeAjrL578a+nJiXNIebATcWFj5GQSW31XcXEcfANgw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790193997; c=relaxed/simple;
-	bh=8n2VBazTXVXH3xIGZ+G+y6ptoM24/16SAuBGvfi2Hh0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=c8f1nftdQaI2sO9R3c4D95m9fnLfk1c8ocmH7LRNYhASLA8xJIXDa+bbHjcsR0Tfy3md3Ae9lMknX4sY+QW3wI1GG5PnTMDQGvqSJTcyD8LfIViIbzlF4+zjflmM01QGkMmp9XpEj7bRZT6fJzI/XLQQfWhwF3zuUgi85BxHBMo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=T42ODCfP; arc=fail smtp.client-ip=52.101.69.61
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A572857F72F;
+	Wed, 23 Sep 2026 20:14:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.83.148.184
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790194484; cv=none; b=bKkDhxKNOGpgwbfb+Ioub7INBqeYJo0FpI4WYdnPuMd4zt/J0IJNU6fUj0AllEBzs5T3/H6vXo2Lumg/+TtlGRJWL84zMJXglz8DZze+nAXD3XWgk0P/g6jc/igj69YRV6yj1L+8ihDDqOJGHNvdSiuBYtnQG1fMHCE2B6BqogY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790194484; c=relaxed/simple;
+	bh=+S/Wc0yXzz8W9wCKS2L++ti3L6KNlbHouXDNHIr9vjU=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=YqNDGKk8sDzrMqbixMHGspLnNJAWQgDc6BYSodJVi6Cr1QU0ukG+S9o917XDZ3z9EMTMEvJV9ivyG+JpwKMPXZPdOFnepOTsXH6zSY/3HSCy2V1KhUYtk0kGqgu9TuyjTjS4AASCtb0SNb8YpkZUKZIkyh0O2diZmlrXuHTqlAw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=hYIsLxU/; arc=none smtp.client-ip=35.83.148.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="T42ODCfP"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=n1W/13/ek3bPyJw/3Riv3lWpPFjL1wgukvVxtgykHiOQiNwJKZxOlH+w2sHK1XULUPg2sXdCRut+8BjdtZFS+UYUsl7tmXcRpBcLvwIzNnHzEz3j49LercsWDXgsyb3vnCF5WW3+yCVKSmMdlS7oM7xBiHbvuNYh8P681wPKCkRN4OBbPFtd6pheiIs0qm3B+64tXwTYlMwVv/oAVBkCP01oGPA/vcPg2t6h9LQ+DReRyCzgcphxB3+YG4MIVeCQix8csrKP8b6X8qfIFeKeJYEZ87ZdOiydXN4blswpZcdUoIHnDVyU5MKZJQOp9lvy+YaHtp9/X0aq5gf0n9guTQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2eZDrdAGxFxQ/Gbi5B6A4H47ftvNX3N4alF51KxrXKg=;
- b=dlk+Y5KsFpxSfl7kgCVBn0iGsJBmdHmF/8adVl1HQN1+Ns+8Ng2Rih/dK8jN3QBdLMNO0ArhtekNkbfBZARGsdmcKspqZL1YMHMpNYcQbb7i1hZFIT5wmNr/BqZzRuK1WoBeK0hDDc33xbPyhs2pUA+9HgalTAv4hP7rfQHfj0vIHGFkTuQqVuM2mJMHyxLfFi7xHz1oIPQmAsZEuADWyde3oeAGlfVQBzapGQPDCH8VizzdN7Q5vBca/9NKflHwSAJ1EN/W2TJkeXZV2WdJ+qPK2bhacYtr8pKKaFz2vg958DBzQpXvf+t/tzsxZwEzgmcusH4TcSFsqHmHaX/WWA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2eZDrdAGxFxQ/Gbi5B6A4H47ftvNX3N4alF51KxrXKg=;
- b=T42ODCfPXroFHrxI8O4BgATFykQ8OZUIqa8obQVZlZaIBEH3I2znU1Mf1SqX/wwQA5KGViYsk/yHEQGvj2ohoQmztXcgIJo4YFNXu7HEJFfbUUbqOhXVvmgkho/bE+MmZphA0pB19AJaeaGxt/9ldBVSWMG3eQRjjDlYJl29dqrubyWW+SI9QrVomFXQG3mJCdauL31GY9onntga3OsVkTHQCcpXEHvTrY8ZZq/AqSQjkUrE4bI5ThloJor3CGH2sFildelI4jG5+cvzK9+OwE2u9gBS56n1alVct42/yEv1z0crCjYFUiFeyN8lWnQlNBRioVft61BsxFOwNZgDjQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by DU7PR04MB11089.eurprd04.prod.outlook.com (2603:10a6:10:5b1::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.17; Wed, 23 Sep
- 2026 20:06:31 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0428.015; Wed, 23 Sep 2026
- 20:06:31 +0000
-From: Frank.Li@oss.nxp.com
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Francesco Dolcini <francesco@dolcini.it>
-Cc: Frank Li <Frank.Li@nxp.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v1] arm64: dts: freescale: imx95-toradex-smarc: enable Wi-Fi SD interface
-Date: Wed, 23 Sep 2026 16:06:22 -0400
-Message-ID: <179019397478.3738924.8779081389570740062.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260914175027.9097-1-francesco@dolcini.it>
-References: <20260914175027.9097-1-francesco@dolcini.it>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PH1PEPF000132F9.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:518:1::2a) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="hYIsLxU/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
+  t=1790194476; x=1821730476;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=ze4gHmgKx05i3sSwVzV05lhzTvt568JlRyE3XDEGIBE=;
+  b=hYIsLxU/xgTQB8ngrZAEtKPMI/cdiuoFaDzvVxZlJmJYQHGmQImRYdXf
+   PkW/o1PZV4GwKTfixhJ2X5Px248f84g00JXNfBiPjNryyK6PzdT8wAdzF
+   D6MUGlFXdMeBmQuGXd0jsfCKF3/exh9vxC4ujjYbkjjOZrlrvUWr56voa
+   4+XU0FnK5A4MaqNyI7FqOq+x/abqpHCbecAwGupzfCNcrXHAChLH7slsK
+   6YCE0F6pNI9aBmYJxJr6V5Ehtyq6DOAuPGhsGMu9bjrIolTZcrw745GHc
+   zJa0OkEOc1mHhYhUi5xX6pT9Ubnb1CwlvRYGWt+SMarJjdwcBgDSq9i9M
+   A==;
+X-CSE-ConnectionGUID: p+Lkz8WTQLug8XRnF7we4g==
+X-CSE-MsgGUID: TpxDwrnWRq6jk/XfZCoDaQ==
+X-IronPort-AV: E=Sophos;i="6.27,119,1787011200"; 
+   d="scan'208";a="29266322"
+Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
+  by internal-pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 20:14:27 +0000
+Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.48:27656]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.53.187:2525] with esmtp (Farcaster)
+ id 62e1523c-c3bd-4a19-9995-206e9f80ad6a; Wed, 23 Sep 2026 20:14:27 +0000 (UTC)
+X-Farcaster-Flow-ID: 62e1523c-c3bd-4a19-9995-206e9f80ad6a
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Wed, 23 Sep 2026 20:14:27 +0000
+Received: from dev-dsk-doebel-1a-7b355d76.us-east-1.amazon.com (10.169.119.5)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Wed, 23 Sep 2026 20:14:25 +0000
+From: Bjoern Doebel <doebel@amazon.de>
+To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+	<x86@kernel.org>
+CC: Peter Zijlstra <peterz@infradead.org>, "H . Peter Anvin" <hpa@zytor.com>,
+	Shuah Khan <shuah@kernel.org>, Andy Lutomirski <luto@kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
+	<doebel@amazon.de>, <stable@vger.kernel.org>
+Subject: [PATCH] selftests/x86: Skip fsgsbase segment setup when int $0x80 is unavailable
+Date: Wed, 23 Sep 2026 20:14:09 +0000
+Message-ID: <20260923201409.2187200-1-doebel@amazon.de>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DU7PR04MB11089:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5cc485e3-aa29-494f-e48d-08df19ae28e0
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|23010399003|366016|19092799006|1800799024|10067099003|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	KvQYsAeXhIWyweFljZmHizyhl2EF4yz9mpZrRQpuEN60NzGU5aJBua94P9b9N/mvB0KYPLP/yKTiD/z5pq/gVjpnnMLJbdmr26pAvRGdBwWAebkuhNrAf9TcmBOBua7uaILtx+fOqtSzOjbPWe/qiEgUr6wkbxMFiMvyvN+k8y8nVyCHzp93UBq3yqCPBsivN6tlIR1urTuXRTaCu356pe4UKCP/0tQGfwGfdKe/t8C0VMaPOaYrsjRTmePNF5H8YXuCm03SkocEOAjOICXW6xmuaGpC+C5PCiUOUyNw+JJNJdnFVVOlIFtRfAg5cjxteW7VNZvmSjPYNBRxLK8V4QeltoisPgL9Q+3g32T2Hj1zMrWGiXb6yvCXXuvsUHg9bPEr6kmpORWqzLr3bJxNbdC1iDzh5Haa3lnW8kQqulPbJAKP0YluRpxOj3OTiT+64ZuLd1XS3JIARduckzg+BZiEa/xZOw9OUKpMmoKxnSArwF3MkDkIKBuXF9/ATAa2lGdzDXl98rYQH79rmvQtjCOutEOCOjrtQnIENOPLjN3om4zi4CAcX+bFj98dMQNs3TvZ6O/39f2lhmoMIhMYIcBrglphTQgKuD6i8YvdLaZndjf85c68obYNUBO5RgK82ud3qhsJlzF+LmmCImjc4DVl8CuNXvSoGujC3DNvrIQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(366016)(19092799006)(1800799024)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?U212Sno0SDIyOGt6c3NyK3pZTW5XekNRNjRzNk1oRTBSSjFCNEVxSllJby93?=
- =?utf-8?B?Y2pqMjUySWRWMkYxZjcxZVpjbFpxNGUvbUM5MDQ5bUJvY3hyRVcrZVhQLzlm?=
- =?utf-8?B?U3h3aWtVTTVDQ1JUUit4dVJGVnY3ajNDZG4vVG5zcWt2dFBsd2F6cHh2MjZJ?=
- =?utf-8?B?T1J4UUNoM3JHTUQzZjJJWm54VEVmQ3RzOXRpWFU2dlF3RlYwVk1QY1pwd0ho?=
- =?utf-8?B?a2pZNkpCMEhWd01RalNjbHQ3TlM4YUVMaWJ3QUlJQXVYMVNOWG05T3laOGV5?=
- =?utf-8?B?bndGQkpwRFg3bk41MjRadFBIeE9DdGpkSjV0S01RVVV1S3B1djRmWklvZHNC?=
- =?utf-8?B?WnpYajJTc3h4ckk3Sy9KSFN3dlgxUmx5cU1TczN0a2hhZWY0TWVVUmlIRmNQ?=
- =?utf-8?B?NVZtRFBWc0NrU3dQSlhSR1FQRzRBWDNITVA4UnA2Zm5iazErTkFpVHhBTmto?=
- =?utf-8?B?dmxCdjJETzJxVVhVWmRCTzlLZHZhTDk1NitUWXhrZzhESVJKb0wySnhIM0ll?=
- =?utf-8?B?VWR4R25zTFd6Q1c2K1FSaVJzS2xiUzA4cXFTUjZDaXQxc2xyMUc1eG5JV1Jy?=
- =?utf-8?B?dHRyUXYzSVZnWXhCZExZSlp4Nk1Ba1FqNTBEVzlUc1FEOXhLSklwTHhJUFRq?=
- =?utf-8?B?M0NjR0tkcmdIN2FTTE9WeTdkaEVhMWhqcFpTYmxxaHNkYUlHcTdKaDJLMms0?=
- =?utf-8?B?SFdUUkZEcjE5MkQ4VWExa0lJU2dWSDhUNHZIUFFxQjk1akhnV0psOGYyQitT?=
- =?utf-8?B?VVMyMUJvZWhIK2dBbVdEZm1sM2F5V1lNR3h4YzRoUU1LeXF5Q0RlYmloempM?=
- =?utf-8?B?dHYwMm1XVGJxR2JTQWtUUDBkSWlmbGxBajNnYUdIZFVCdXdhTmVUaDFXR2Qz?=
- =?utf-8?B?R2RkdVViMlFNc3JPbUYvNmQwZlp1SnVrZHR5a1ZVV2kvWWZpZVhiT3NSdTVy?=
- =?utf-8?B?dWNXUmEvY1dKeVNQcWNSU2FvcVJCclFtY3BHNjJlTXZ4bWVuSCtMdmtPVGxu?=
- =?utf-8?B?RkxzbEEyeG5mWVdOYnRDMExSRXE4Z0RmZmJEZ2xkb3d2ZFZRa0RvSG4zZFpr?=
- =?utf-8?B?K1Q0T2UxWEh4WWRHd1FmSWFEc21GdEp2cW04ZHd1dkNJV1hQbnZZZmdvelZi?=
- =?utf-8?B?aVhnL2QrVEJUa2hNOHdDdzZlR3dzWnNDSVNvSytLdFVUMG5wMEJ3cnVXcWI4?=
- =?utf-8?B?b2NjMmdHNGV3MWNrd0VZSnFSUzcvMXhOQnpCUXRNVGI3SXdEOEVndWVwYzZj?=
- =?utf-8?B?TVdQNURGMmk2cDNsZElyenZpNkpIMUpqdUNmK1haUkJMdTdQNmhCMmowZlBD?=
- =?utf-8?B?N1JMR05vSmpNY1czbVgrVGQzRkI5U3B1QUZ0UnluZG9jK2w2QzVPUHZsbzZm?=
- =?utf-8?B?eGFyQ1B6QUpudFRza0o5THNCRGpXTEZNVDFMUjJqcWk1QnRXRXR1NXFXakha?=
- =?utf-8?B?WEdaRG9QekRiTXdCMUJjdGtEUUxRRGcyMFViYUZPRE81QVpjSjRaSy9UOWRI?=
- =?utf-8?B?NHB4UFpoc3pXcWhNKzZlUzRqaHdMYk1yTmhtV1JCVEkveFFnY0hpZTdIRnY3?=
- =?utf-8?B?cmVhMTRQR1owT0VRYjZhMUZXL2xNUzBCcFAwbk1TVzNiM2lPNXdnQWdnT3lw?=
- =?utf-8?B?eXhKVi9IejNFd2pLanBlWkEzUkdOOVVFR2lsQWpoT2t0UUNPVEJqcmRNaFY0?=
- =?utf-8?B?a0JsdDVvYWg3ZzBrd2N0V1hGd2hiS1djZUZSaE5xMzYwR0FsTWg3bTZkN0Qr?=
- =?utf-8?B?QUFsMUEzZmdPeXJkeGJ1Q09pSmt6azRFdi84dmVOSzdKczRUTk5rUm9GZUFM?=
- =?utf-8?B?MTh6ZEpFMFNqNzBzdlhFTFA5SHVIQTBzWXR1TlBNNDYrMDZWQW5mZ2c1Mnlu?=
- =?utf-8?B?b3JpWWQxcGJUYmgwazhPWktkWXV1MGdPbDk1ckpwSmd2YWR6TmZIK0ZKS255?=
- =?utf-8?B?TzVuMy9iQVhaY0tLMmVLTTB0WG5BWkJCK3I3MjRCYlVxS2ZieFk3UFFlalJW?=
- =?utf-8?B?RnkrcFQvVWVnNXNDNks5bXBVbk9oKzNGR2poTDhBd1E4dGdhYVJldXBmU29u?=
- =?utf-8?B?clNBNTN0WWsxR1lOZzlCT05OZHAwcjFmZmRtL044M3gzajVacjJ1NEFza0Qw?=
- =?utf-8?B?UGFpQjBLSzBBbmk1dHk0SHhTSlRXM3M5bWFZUHJJQjgvYUxTNi9PS3luQitI?=
- =?utf-8?B?WHZVZ2FLWDFublR5YXNpZFBjTlNmWjBsR2orM2tLSFh0WGNyWXM1UXBESVkz?=
- =?utf-8?B?Vk1Oeit6enJoRVFBcHNoTTk4TDZNSTJIZUhKQjZ0TnZrbWJScGU2MXdkcEEx?=
- =?utf-8?B?OVRCc09FVS9BQ1hnYVREK3Q0TEEybEhoVS9qRzFQeDA2aGV0a3luSXh3a3RO?=
- =?utf-8?Q?sycB1UxKnWZwBZE8R+FSPfyhFmGdyQqBaBg96?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5cc485e3-aa29-494f-e48d-08df19ae28e0
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 20:06:31.2431
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Sl/NT8w+y/ag2SC09mree2em3q97c0OYvyUDJ7sqSTj4z5CVQk/PbyRIIyqNPp0DmTjurule19eFt9IyKZcLlpN0DA6+UFrdeDOj0Um7lOn3hIW10WVdLOiZg3SHNPjT
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU7PR04MB11089
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D040UWA001.ant.amazon.com (10.13.139.22) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-From: Frank Li <Frank.Li@nxp.com>
+The fsgsbase test's load_gs() helper needs a nonzero-based FS/GS
+segment, i.e. a selector whose hidden base differs from the kernel's
+saved thread base, to exercise the selector/base state tracking.
+64-bit userspace can only create such a segment via modify_ldt() or,
+failing that, via the 32-bit set_thread_area syscall over int $0x80.
 
+On kernels built with CONFIG_MODIFY_LDT_SYSCALL=n, modify_ldt() fails
+and the test falls back to int $0x80. If the kernel is also built
+with CONFIG_IA32_EMULATION=n, no IDT gate is installed for vector
+0x80, so executing int $0x80 raises a #GP fault and the test dies
+with SIGSEGV instead of reporting results:
 
-On Mon, 14 Sep 2026 19:50:26 +0200, Francesco Dolcini wrote:
-> Enable usdhc3, used for the on-module u-blox MAYA-W260 Wi-Fi/BT module,
-> it was left disabled by mistake in the initial commit.
+  traps: fsgsbase_64[5460] general protection fault ip:4012a1
+  sp:7f38eb124de0 error:402 in fsgsbase_64[12a1,400000+2000]
 
-Applied, thanks!
+With both options disabled, pure 64-bit userspace cannot install a
+nonzero-based FS/GS segment at all, so this scenario is untestable.
+Probe for a working int $0x80 at startup and skip the affected
+subtests when neither mechanism is available instead of crashing.
 
-[1/1] arm64: dts: freescale: imx95-toradex-smarc: enable Wi-Fi SD interface
-      commit: b91cb164517d6cfbccd8bedad11827d8ea3bcb97
+While at it, replace the magic syscall numbers in the int $0x80
+inline asm with named __NR_ia32_getpid / __NR_ia32_set_thread_area
+constants. These deliberately use the ia32 syscall table numbering,
+which differs from the x86-64 numbering exported by <sys/syscall.h>
+on 64-bit builds.
 
-Best regards,
+Fixes: 0051202f6ad5f ("selftests/x86: Test the FSBASE/GSBASE API and context switching")
+Signed-off-by: Bjoern Doebel <doebel@amazon.de>
+Assisted-by: opencode:kimi-k3
+Cc: stable@vger.kernel.org
+---
+ tools/testing/selftests/x86/fsgsbase.c | 51 +++++++++++++++++++++++++-
+ 1 file changed, 49 insertions(+), 2 deletions(-)
+
+diff --git a/tools/testing/selftests/x86/fsgsbase.c b/tools/testing/selftests/x86/fsgsbase.c
+index 0a75252d31b6a..8538ceb6c5785 100644
+--- a/tools/testing/selftests/x86/fsgsbase.c
++++ b/tools/testing/selftests/x86/fsgsbase.c
+@@ -218,6 +218,40 @@ static void do_remote_base()
+ 
+ static __thread int set_thread_area_entry_number = -1;
+ 
++/*
++ * int $0x80 dispatches through the ia32 syscall table, whose numbers
++ * differ from the x86-64 table exposed by <sys/syscall.h> on an
++ * x86_64 build. Define the ia32 numbers we need explicitly.
++ */
++#define __NR_ia32_getpid		20
++#define __NR_ia32_set_thread_area	243
++
++static bool have_int80;
++
++static void sigsegv_int80(int sig, siginfo_t *si, void *ctx_void)
++{
++	siglongjmp(jmpbuf, 1);
++}
++
++static bool probe_int80(void)
++{
++	/*
++	 * Check whether int $0x80 is available.  Kernels built without
++	 * CONFIG_IA32_EMULATION do not install an IDT entry for vector
++	 * 0x80, so executing int $0x80 causes a #GP fault.
++	 */
++	sethandler(SIGSEGV, sigsegv_int80, 0);
++	if (sigsetjmp(jmpbuf, 1) == 0) {
++		long ret;
++		/* getpid -- harmless if it works */
++		asm volatile ("int $0x80" : "=a" (ret) : "a" (__NR_ia32_getpid));
++		clearhandler(SIGSEGV);
++		return true;
++	}
++	clearhandler(SIGSEGV);
++	return false;
++}
++
+ static unsigned short load_gs(void)
+ {
+ 	/*
+@@ -245,7 +279,7 @@ static unsigned short load_gs(void)
+ 		printf("\tusing LDT slot 0\n");
+ 		asm volatile ("mov %0, %%gs" : : "rm" ((unsigned short)0x7));
+ 		return 0x7;
+-	} else {
++	} else if (have_int80) {
+ 		/* No modify_ldt for us (configured out, perhaps) */
+ 
+ 		struct user_desc *low_desc = mmap(
+@@ -260,7 +294,7 @@ static unsigned short load_gs(void)
+ 		long ret;
+ 		asm volatile ("int $0x80"
+ 			      : "=a" (ret), "+m" (*low_desc)
+-			      : "a" (243), "b" (low_desc)
++			      : "a" (__NR_ia32_set_thread_area), "b" (low_desc)
+ 			      : "r8", "r9", "r10", "r11");
+ 		memcpy(&desc, low_desc, sizeof(desc));
+ 		munmap(low_desc, sizeof(desc));
+@@ -275,6 +309,9 @@ static unsigned short load_gs(void)
+ 		unsigned short gs = (unsigned short)((desc.entry_number << 3) | 0x3);
+ 		asm volatile ("mov %0, %%gs" : : "rm" (gs));
+ 		return gs;
++	} else {
++		printf("[NOTE]\tno way to create a nonzero-based segment\n");
++		return 0;
+ 	}
+ }
+ 
+@@ -516,6 +553,11 @@ static void test_ptrace_write_gsbase(void)
+ 
+ 		gs = ptrace(PTRACE_PEEKUSER, child, gs_offset, NULL);
+ 
++		if (*shared_scratch == 0) {
++			printf("[SKIP]\tCould not create a nonzero GS selector\n");
++			goto END;
++		}
++
+ 		if (gs != *shared_scratch) {
+ 			nerrs++;
+ 			printf("[FAIL]\tGS is not prepared with nonzero\n");
+@@ -587,6 +629,11 @@ int main()
+ 	}
+ 	clearhandler(SIGILL);
+ 
++	/* Probe int $0x80 (32-bit syscall entry) */
++	have_int80 = probe_int80();
++	if (!have_int80)
++		printf("\tint $0x80 is unavailable (CONFIG_IA32_EMULATION=n?)\n");
++
+ 	sethandler(SIGSEGV, sigsegv, 0);
+ 
+ 	check_gs_value(0);
 -- 
-Frank Li <Frank.Li@nxp.com>
+2.50.1
+
