@@ -1,126 +1,305 @@
-Received: from mail-dl2-f42.google.com (mail-dl2-f42.google.com [74.125.229.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp-42af.mail.infomaniak.ch (smtp-42af.mail.infomaniak.ch [84.16.66.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 838B3544D45
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 16:13:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A6DE496D4E;
+	Wed, 23 Sep 2026 16:14:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.16.66.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790179990; cv=none; b=r2e6rtUh+sbG7AYpTsXAWajT/aFgVGI/9SFmio266B80QvbpXGTJP53noUyI2PRQKvKhpmA3XFERIY7RJ0pSMQ4qupe1CAFUb1ur2aXKxqW1nrZ7fzwkQCccqrOWnvec7azxTwJADR062ra8w2UR/EC1wKk43n5no/EZreXQero=
+	t=1790180078; cv=none; b=ZnKgvTOCliVs+/05kXLmcRFk+8kGPn5rBrz5zIKNfm7cMgms6XmNnyrBAwmq4sKy6dJQwlAgHCGcchLQZDp2DEDYVWVemSVF9y8f6tqst5fsh9o67ntGs1hTj1ClCB9FeYTnFcU4uM9YARS4/JZPLFJ6H3ie3soatfXT3xuBvfU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790179990; c=relaxed/simple;
-	bh=1g0BHNHVwJMI7+P5OfhufmxEK7GftIxxvTr1NNSUwak=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bliGw1w/pM1P2+OI6JBH69pN8ymSKhRaCj7SAieMmOwXqlMx9OkMfk8gYV12GZoM71E8dfnOjMgik+8ZtQajZ+ofiWkhTXwDjyzMTgavS1qu1pCgqdwTTCAaLonc4xvbGGMm93LztmDyJrM9wrRquMh5WUdHqrPm5dKrEDy/Pm8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EkAANFO/; arc=none smtp.client-ip=74.125.229.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790180078; c=relaxed/simple;
+	bh=o+lnkeQINKOx1FMGfJoPJvIdUjvWx2rDpqbnJIYqQB0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=krf5MRyfV7dDR1F94O3gvzKamMBu8lsOwm9KHLVDJnoasuh2Yd9dArEjJwsY0wTmDZ0VIGk6rG7D5oEN7RWqf277HNV7z9AKhr9KFxOW4heIPjzPOfPyBxPWdZ3OYFKIo67WCbT7uf8Udno9gP14hpYo8iBEUwFgV/EHAPx5FW4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=G7uQOJwh; arc=none smtp.client-ip=84.16.66.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EkAANFO/"
-Received: by mail-dl2-f42.google.com with SMTP id a92af1059eb24-144ecebb6cbso490662c88.3
-        for <stable@vger.kernel.org>; Wed, 23 Sep 2026 09:13:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790179987; x=1790784787; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sUIXWjLbTey+d3P92W9cG28EMxJiRiFjR+QNnEvmF1I=;
-        b=EkAANFO/6XSeDq3iLh8+j/G7YMFsD6YjxMq+ek/ncBvPEOlyfOcXwPvSx81Xqj/86J
-         Ts4PEVq6+48b7iuCdltQ0DKfQRt8uW7TlKgnt/0mIVCes6wjT9XJqay0w65vopGCZ3e/
-         0L4g62UUh5/mSJt3lXdnkCjIZ2n/lh8G6lZLzscTTp7NyDCPUaI+zFjrXMVx6/g85kwK
-         g8R4CUgX/GUOEhz5hgtvDBmXJVBESTo+wGRYJfnZ9ZxDstsWIy8axc7TFXDh+3edbzzz
-         j+mpFicJEg/fddTlgSl99enlJjFSu90ZSLop1rGyyiDCDjCsywRVP1hlKrVL/phJs+OX
-         ejtA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790179987; x=1790784787;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sUIXWjLbTey+d3P92W9cG28EMxJiRiFjR+QNnEvmF1I=;
-        b=vtXiH52TYob8nM4a6nfPGlttzjm9CC96QIs2i/+xmONto/V3D7p9NHtBrfCTJKBbde
-         4DPBD+pUxTy68S9atEBZL6eC4U1v/C16fBW8k3+MILGoIGHsfACO7vY8Ql2u7KkEFz18
-         Ae5NArbhyz1s+sq99k+MuHrEYk54nwlM5RqF6zYehRXVN3Ro9l3o6W0ixT223JhLrmt3
-         BLM6Vmbf9JzOjf9RcexSA517lqiUxubJiA0kjzkR7WKksR0rjjBLvzREiNcW6ZKijttW
-         1PlD7osZ12prf2+BQ7IBNoh9N+hkyQ7ijHjE7a7R4RWYO1bHxnLrWNXs3VTuCaPILV9y
-         Cauw==
-X-Forwarded-Encrypted: i=1; AKwUvBzhfRGKxIPIdIa8O2ukg7e1qPnNqPSb7ux/8iXkCz1xVHhHHOEjJ0LU7Md9KFMkSaxTmIx0URQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nTSd68lZ1k/Cr8S0SrLyLhzktmpYbiEbw+Kns1vr2du7/v8+ad
-	dHdD3zOZHX8M5YcCICff9SiHzaPiFeYMHdRfzIzDM2UrzmdZ5+1Go2Ug
-X-Gm-Gg: AYBFou0Mc0rUIigB9pZjf47MbIfpYXPIyI4LyD82PjO9CfdJ8+r5S9VJW1xYXZzSwRK
-	2Mo0it0tCQMPR+xo52BE4K6BNwYRuTt0dBcRrkdGM4oJDhX/ekrgQLAMHCWUW0O+cz7xUacPTeE
-	4xuaP2Vq8lpgV3dD9u6mij59bu8xe1L4grz78JcUfcGHcnUhI3EMRuAlKCE/hVZqCLzTiTuBr4m
-	pR19DlNXaG4wTbNY7Ny6ILfTQzI9RfaBhfMt5yP44fUk3t5Br3aYI8/ky7//APNvlmwEvJ6NNSZ
-	Rt4qgVWsE5AdbT9AcvH2zCYRp+uaTim8wmBN+gqttajnyHPdVu5rGVSY5G/vhSB2XyNiLeEwZfQ
-	fG7CrguvatFtBknt1BtXGDZn2f7vwm1oi/7VbcsAljoneoaAhQQ3GlVsycMR6+e86ZpxZODP36v
-	sx385KcYVdP8bl/FoccI03H4C3jpfzz7b6ghMyDzCjNjKiiLrSPBRf9+jRdkuoyQovp8bJi4qDB
-	A==
-X-Received: by 2002:a05:701b:20de:20b0:145:152:b54c with SMTP id a92af1059eb24-1450152b7ecmr819023c88.23.1790179987346;
-        Wed, 23 Sep 2026 09:13:07 -0700 (PDT)
-Received: from beelink.. ([187.13.30.172])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14501794269sm992777c88.8.2026.09.23.09.13.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 09:13:06 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com
-Cc: amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
+	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="G7uQOJwh"
+Received: from smtp-4-0001.mail.infomaniak.ch (smtp-4-0001.mail.infomaniak.ch [10.7.10.108])
+	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hqhqm0h4nzF7w;
+	Wed, 23 Sep 2026 18:14:28 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
+	s=20191114; t=1790180067;
+	bh=Zz5S3FJbOhv3TWXlUV7w7svivks5vbTStg1jsi/EPOU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=G7uQOJwh9oPRJ7cyksfAHd88TFlDoSMK2UYPt0/hoAcdOf+Ltsqp3+fCHOFblC7Fi
+	 P4wxSMx209og0ySqX0P+92Ek0cv4wVLxcUiweDJvFG2exAso1pY6j8PHLrGNGb05y7
+	 V14k57CNGURWq6/WsBBKLohR4712Q7mCXTRTbJLM=
+Received: from unknown by smtp-4-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4hqhqh0w3pzl4W;
+	Wed, 23 Sep 2026 18:14:24 +0200 (CEST)
+From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
+To: stable@vger.kernel.org
+Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>,
+	=?utf-8?q?G=C3=BCnther_Noack?= <gnoack@google.com>,
+	Christian Brauner <brauner@kernel.org>,
+	John Johansen <john.johansen@canonical.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	Kentaro Takeda <takedakn@nttdata.co.jp>,
+	Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH] drm/amdgpu: fix ATOM parameter space index bounds check
-Date: Wed, 23 Sep 2026 13:12:52 -0300
-Message-ID: <20260923161252.1363895-1-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	linux-security-module@vger.kernel.org,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Jann Horn <jannh@google.com>,
+	Kees Cook <keescook@chromium.org>,
+	Konstantin Meskhidze <konstantin.meskhidze@huawei.com>,
+	Paul Moore <paul@paul-moore.com>,
+	Shuah Khan <shuah@kernel.org>,
+	linux-doc@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org
+Subject: [PATCH 5.15.y v2] selftests/landlock: Add tests for whiteout object creation
+Date: Wed, 23 Sep 2026 18:14:15 +0200
+Message-ID: <aee05236ad5600be7fc35c089b345eadf6bcaba8.1790169454.git.mic@digikod.net>
+In-Reply-To: <2026-09-18-daily-reply-0003-re-landlock-whiteout-5-15@kernel.org>
+References: <2026-09-18-daily-reply-0003-re-landlock-whiteout-5-15@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Infomaniak-Routing: alpha
 
-atom_get_src_int() and atom_put_dst() use idx as a dword index into
-the uint32_t *ps array (ctx->ps[idx]), but compare it against
-ctx->ps_size which is in bytes. A malformed ATOM table operand with
-idx between ps_size/4 and ps_size-1 passes the bounds check but
-accesses up to 3 dwords (12 bytes) beyond the stack-allocated
-parameter buffer.
+From: Günther Noack <gnoack@google.com>
 
-For example with ps_size = 16 bytes (4 dwords), idx = 5 passes
-the check (5 < 16) but ctx->ps[5] reads/writes the 6th dword at
-byte offset 20, 4 bytes past the allocation.
+[ Upstream commit ee890889b30b22f9a21636061def7a04e4f89380 ]
 
-Divide ps_size by 4 in both comparisons to match the dword indexing.
+Add tests to check that whiteout object creation is guarded by
+LANDLOCK_ACCESS_FS_MAKE_REG, in the cases where these are created from
+userspace:
 
-Fixes: d38ceaf99ed0 ("drm/amdgpu: add coordinate ATOMBIOS table support")
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260923163157.1354872-1-qwe.aldo@gmail.com?part=1
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+* Conventional creation with mknod()
+* Linking or renaming an existing whiteout object
+* renameat2() with RENAME_WHITEOUT,
+  which creates a new whiteout object in the source location
+* renameat2() with RENAME_EXCHANGE,
+  with one of the renamed objects being a whiteout object
+
+Signed-off-by: Günther Noack <gnoack@google.com>
+Link: https://patch.msgid.link/20260813093157.1436894-4-gnoack@google.com
+[mic: Update commit message as requested]
+Signed-off-by: Mickaël Salaün <mic@digikod.net>
+[mic: Backport: add enforce_fs() and the missing s3 fixture paths, and
+adapt tests to ABI 1 without REFER]
+Signed-off-by: Mickaël Salaün <mic@digikod.net>
 ---
- drivers/gpu/drm/amd/amdgpu/atom.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu/atom.c
-index e0e585f..d0a45f6 100644
---- a/drivers/gpu/drm/amd/amdgpu/atom.c
-+++ b/drivers/gpu/drm/amd/amdgpu/atom.c
-@@ -232,7 +232,7 @@ static uint32_t atom_get_src_int(atom_exec_context *ctx, uint8_t attr,
- 		(*ptr)++;
- 		/* get_unaligned_le32 avoids unaligned accesses from atombios
- 		 * tables, noticed on a DEC Alpha. */
--		if (idx < ctx->ps_size)
-+		if (idx < ctx->ps_size / 4)
- 			val = get_unaligned_le32((u32 *)&ctx->ps[idx]);
- 		else
- 			pr_info("PS index out of range: %i > %i\n", idx, ctx->ps_size);
-@@ -510,7 +510,7 @@ static void atom_put_dst(atom_exec_context *ctx, int arg, uint8_t attr,
- 		idx = U8(*ptr);
- 		(*ptr)++;
- 		DEBUG("PS[0x%02X]", idx);
--		if (idx >= ctx->ps_size) {
-+		if (idx >= ctx->ps_size / 4) {
- 			pr_info("PS index out of range: %i > %i\n", idx, ctx->ps_size);
- 			return;
- 		}
--- 
-2.43.0
+Changes since v1:
+https://patch.msgid.link/88432dfe86f2aaa9ae499587fd7acff9d34a338b.1789655723.git.mic@digikod.net
+- Add a guarded RENAME_WHITEOUT fallback for glibc versions before 2.28.
+---
+ tools/testing/selftests/landlock/fs_test.c | 154 +++++++++++++++++++++
+ 1 file changed, 154 insertions(+)
+
+diff --git a/tools/testing/selftests/landlock/fs_test.c b/tools/testing/selftests/landlock/fs_test.c
+index 47fc4392f412..c33f00c499d3 100644
+--- a/tools/testing/selftests/landlock/fs_test.c
++++ b/tools/testing/selftests/landlock/fs_test.c
+@@ -36,6 +36,10 @@ int renameat2(int olddirfd, const char *oldpath, int newdirfd,
+ #define RENAME_EXCHANGE (1 << 1)
+ #endif
+ 
++#ifndef RENAME_WHITEOUT
++#define RENAME_WHITEOUT (1 << 2)
++#endif
++
+ #define TMP_DIR "tmp"
+ #define BINARY_PATH "./true"
+ 
+@@ -62,6 +66,8 @@ static const char dir_s3d1[] = TMP_DIR "/s3d1";
+ /* dir_s3d2 is a mount point. */
+ static const char dir_s3d2[] = TMP_DIR "/s3d1/s3d2";
+ static const char dir_s3d3[] = TMP_DIR "/s3d1/s3d2/s3d3";
++static const char file1_s3d3[] = TMP_DIR "/s3d1/s3d2/s3d3/f1";
++static const char file2_s3d3[] = TMP_DIR "/s3d1/s3d2/s3d3/f2";
+ 
+ /*
+  * layout1 hierarchy:
+@@ -249,6 +255,7 @@ static void create_layout1(struct __test_metadata *const _metadata)
+ 	clear_cap(_metadata, CAP_SYS_ADMIN);
+ 
+ 	ASSERT_EQ(0, mkdir(dir_s3d3, 0700));
++	create_file(_metadata, file1_s3d3);
+ }
+ 
+ static void remove_layout1(struct __test_metadata *const _metadata)
+@@ -265,6 +272,8 @@ static void remove_layout1(struct __test_metadata *const _metadata)
+ 	EXPECT_EQ(0, remove_path(file1_s2d2));
+ 	EXPECT_EQ(0, remove_path(file1_s2d1));
+ 
++	EXPECT_EQ(0, remove_path(file2_s3d3));
++	EXPECT_EQ(0, remove_path(file1_s3d3));
+ 	EXPECT_EQ(0, remove_path(dir_s3d3));
+ 	set_cap(_metadata, CAP_SYS_ADMIN);
+ 	umount(dir_s3d2);
+@@ -595,6 +604,27 @@ static void enforce_ruleset(struct __test_metadata *const _metadata,
+ 	}
+ }
+ 
++static void enforce_fs(struct __test_metadata *const _metadata,
++		       const __u64 access_fs, const struct rule rules[])
++{
++	int ruleset_fd;
++
++	if (rules) {
++		ruleset_fd = create_ruleset(_metadata, access_fs, rules);
++	} else {
++		const struct landlock_ruleset_attr ruleset_attr = {
++			.handled_access_fs = access_fs,
++		};
++
++		ruleset_fd = landlock_create_ruleset(&ruleset_attr,
++						     sizeof(ruleset_attr), 0);
++		ASSERT_LE(0, ruleset_fd);
++	}
++
++	enforce_ruleset(_metadata, ruleset_fd);
++	EXPECT_EQ(0, close(ruleset_fd));
++}
++
+ TEST_F_FORK(layout1, proc_nsfs)
+ {
+ 	const struct rule rules[] = {
+@@ -1941,6 +1971,118 @@ TEST_F_FORK(layout1, rename_file)
+ 			       RENAME_EXCHANGE));
+ }
+ 
++TEST_F_FORK(layout1, rename_whiteout_denied)
++{
++	/* The affected file is a FIFO. */
++	ASSERT_EQ(0, unlink(file1_s3d3));
++	ASSERT_EQ(0, mknod(file1_s3d3, S_IFIFO | 0600, 0));
++
++	/* Deny MAKE_REG, but allow MAKE_FIFO. */
++	enforce_fs(_metadata, LANDLOCK_ACCESS_FS_MAKE_REG, NULL);
++
++	/*
++	 * Try to rename a file with RENAME_WHITEOUT.
++	 * file1_s3d3 is in dir_s3d2 (tmpfs), so it supports RENAME_WHITEOUT.
++	 * Denied, because whiteout creation is guarded with MAKE_REG.
++	 */
++	EXPECT_EQ(-1, renameat2(AT_FDCWD, file1_s3d3, AT_FDCWD, file2_s3d3,
++				RENAME_WHITEOUT));
++	EXPECT_EQ(EACCES, errno);
++}
++
++static bool is_whiteout(const char *const path)
++{
++	struct stat st;
++
++	if (stat(path, &st) == -1)
++		return false;
++
++	return S_ISCHR(st.st_mode) && st.st_rdev == makedev(0, 0);
++}
++
++static bool is_fifo(const char *const path)
++{
++	struct stat st;
++
++	return stat(path, &st) == 0 && S_ISFIFO(st.st_mode);
++}
++
++TEST_F_FORK(layout1, rename_whiteout_allowed)
++{
++	const struct rule rules[] = {
++		{
++			.path = dir_s3d3,
++			.access = LANDLOCK_ACCESS_FS_MAKE_REG,
++		},
++		{},
++	};
++
++	/* The affected file is a FIFO. */
++	ASSERT_EQ(0, unlink(file1_s3d3));
++	ASSERT_EQ(0, mknod(file1_s3d3, S_IFIFO | 0600, 0));
++
++	/* Allow MAKE_REG below dir_s3d3. */
++	enforce_fs(_metadata, LANDLOCK_ACCESS_FS_MAKE_REG, rules);
++
++	/*
++	 * Rename a file with RENAME_WHITEOUT within the same directory.
++	 * Allowed, because MAKE_REG is granted for the whiteout object which
++	 * gets created in the source location.
++	 */
++	EXPECT_EQ(0, renameat2(AT_FDCWD, file1_s3d3, AT_FDCWD, file2_s3d3,
++			       RENAME_WHITEOUT));
++
++	/* A whiteout object took the place of the moved FIFO. */
++	EXPECT_TRUE(is_whiteout(file1_s3d3));
++	EXPECT_TRUE(is_fifo(file2_s3d3));
++}
++
++TEST_F_FORK(layout1, rename_whiteout_exchange_denied)
++{
++	const char *const whiteout_s3d3 = file2_s3d3;
++
++	/* The exchanged files are a FIFO and an existing whiteout object. */
++	ASSERT_EQ(0, unlink(file1_s3d3));
++	ASSERT_EQ(0, mknod(file1_s3d3, S_IFIFO | 0600, 0));
++	ASSERT_EQ(0, mknod(whiteout_s3d3, S_IFCHR | 0600, makedev(0, 0)));
++
++	/* Deny MAKE_REG, but allow MAKE_FIFO. */
++	enforce_fs(_metadata, LANDLOCK_ACCESS_FS_MAKE_REG, NULL);
++
++	/* Exchanging the whiteout object is denied without MAKE_REG. */
++	EXPECT_EQ(-1, renameat2(AT_FDCWD, file1_s3d3, AT_FDCWD, whiteout_s3d3,
++				RENAME_EXCHANGE));
++	EXPECT_EQ(EACCES, errno);
++}
++
++TEST_F_FORK(layout1, rename_whiteout_exchange_allowed)
++{
++	const char *const whiteout_s3d3 = file2_s3d3;
++	const struct rule rules[] = {
++		{
++			.path = dir_s3d3,
++			.access = LANDLOCK_ACCESS_FS_MAKE_REG,
++		},
++		{},
++	};
++
++	/* The exchanged files are a FIFO and an existing whiteout object. */
++	ASSERT_EQ(0, unlink(file1_s3d3));
++	ASSERT_EQ(0, mknod(file1_s3d3, S_IFIFO | 0600, 0));
++	ASSERT_EQ(0, mknod(whiteout_s3d3, S_IFCHR | 0600, makedev(0, 0)));
++
++	/* Allow MAKE_REG below dir_s3d3. */
++	enforce_fs(_metadata, LANDLOCK_ACCESS_FS_MAKE_REG, rules);
++
++	/* Exchanging the whiteout object is allowed with MAKE_REG. */
++	EXPECT_EQ(0, renameat2(AT_FDCWD, file1_s3d3, AT_FDCWD, whiteout_s3d3,
++			       RENAME_EXCHANGE));
++
++	/* The FIFO and the whiteout object swapped places. */
++	EXPECT_TRUE(is_whiteout(file1_s3d3));
++	EXPECT_TRUE(is_fifo(whiteout_s3d3));
++}
++
+ TEST_F_FORK(layout1, rename_dir)
+ {
+ 	const struct rule rules[] = {
+@@ -2128,6 +2270,18 @@ TEST_F_FORK(layout1, make_char)
+ 		       makedev(1, 3));
+ }
+ 
++TEST_F_FORK(layout1, make_whiteout)
++{
++	/*
++	 * Creates a whiteout object (creation guarded by MAKE_REG).
++	 *
++	 * Contrary to the other character devices, this does not require
++	 * CAP_MKNOD, cf. vfs_mknod().
++	 */
++	test_make_file(_metadata, LANDLOCK_ACCESS_FS_MAKE_REG, S_IFCHR,
++		       makedev(0, 0));
++}
++
+ TEST_F_FORK(layout1, make_block)
+ {
+ 	/* Creates a /dev/loop0 device. */
