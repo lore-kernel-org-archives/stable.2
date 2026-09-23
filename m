@@ -1,69 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp-bc0a.mail.infomaniak.ch (smtp-bc0a.mail.infomaniak.ch [45.157.188.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3E3652843B;
-	Wed, 23 Sep 2026 13:16:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCAC453161B
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 13:23:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.157.188.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790169391; cv=none; b=UUTJmEw9jKqxhjc4iXWL24HBRDUAKZ0/kd+J1ehrWESSFWtJgC3BP5LvXf3rdR8e/IzC56rcz7I57/nllNxykZqnzARKGz3+xf3WcGRp7yvcUVQzHEuwas37wtb7ttDESpCvmK74mG0e56LY3KdXAC44PCEf3HAzwpcfTTDpf+Y=
+	t=1790169785; cv=none; b=X1a/8q9oVk4WuSa2dGofBvwBFMLRg+vC3Mpf9KY+UB11Y9K5sXkF/NUKwMmc17DMZcaop+CX0ziaT/R+GKIG/jGbd58ZloubHtbthWbF2t/1cb83nYLIm33TSIrxIVEO87R8BEICXNDY3H2OJZKA/M9UcO8t9uq0kRAkcoyY6iM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790169391; c=relaxed/simple;
-	bh=laxu0XICh0FruO323Ek2WNmSS/DIqBoqqxhMOOAFBXo=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=h1n9Pm7mTPyc6FgUNfLVtdht7njC8MXVXPebo55j/m9EM0VHL+4l+qmcfHNWMmUnvjTgW3WUHIVQHKEwWjKUfcP/JUal10JJT/aATfYxDkOIKlzriOOBOncV8enf+zSu8bmj4tsfKBL4FH26Wf+Dt0TW1y3E9ChCrK0IW8umONw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HmI1yRxZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790169785; c=relaxed/simple;
+	bh=KajFQ6bNnrzVT+GGG6ogiF7BxZ1yFlJ2+J1uNpOtQ9Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=tu9DYQ3EQKoJQvAhLVUNGlxDl7pGhuAmW9h+FVXCrLNLPGVgXJmUIKZUV7NMghBeA8Tavy9eBD8/blHqosd5IdfwauVf3D6h7xZImuef6Smz0DmL4/+BLliUa8CL/JlZfSn7DvpjjSHNncM/3pbSUgU6OdpZ5JnQk3UvrqWPB0Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=Vjn12mSL; arc=none smtp.client-ip=45.157.188.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HmI1yRxZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3B511F000FF;
-	Wed, 23 Sep 2026 13:16:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790169390;
-	bh=6jN5u0qLZBqMIXt3hA1bh2BMnMKSc2M/6jWHcuYXZGk=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=HmI1yRxZKmi85+6oMHzF9A4ofU0qNLPphC0VCIIP1rzB5RqlW/21lGYu+mKKgbHvD
-	 TLOH+mrz/xzldFgQb1qGZfogT6xVlkryMSIVhQOAmcPq7UhxYAmW1kJxMfKompgfam
-	 jGXtVNwagGBphAYLJFf0vWBJNuebmlANrSZI3fWeUEzcvwnb/kTsM/yDTqoWDbx+NI
-	 2wxtjIBNvcD+4AxPiEqKmXpjSS7PCTjZurqWYKJydh+Ze3joq8FZVal5BYzrXNYoK+
-	 y3rrds1xJJkYVFAhWuj53LZuICHu7u74SulWWLtQB5Qf/zpStj9MNizsysOvOLpaC6
-	 KKUrN+Lkng7qQ==
-From: Benjamin Tissoires <bentiss@kernel.org>
-To: Jiri Kosina <jikos@kernel.org>, 
- Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Sashiko AI review <sashiko-bot@kernel.org>
-In-Reply-To: <20260923115847.3396019-1-qwe.aldo@gmail.com>
-References: <20260923115847.3396019-1-qwe.aldo@gmail.com>
-Subject: Re: [PATCH RESEND] HID: multitouch: stop the release timer from
- being rearmed on remove
-Message-Id: <179016938872.57615.1191765081689806784.b4-ty@b4>
-Date: Wed, 23 Sep 2026 15:16:28 +0200
+	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="Vjn12mSL"
+Received: from smtp-3-0001.mail.infomaniak.ch (smtp-3-0001.mail.infomaniak.ch [10.4.36.108])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hqd1t3JXrz2bY;
+	Wed, 23 Sep 2026 15:22:58 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
+	s=20191114; t=1790169778;
+	bh=o+zVbE+z96g4lFxeA6U9DUhc8OZEw9Pw2KkAdPN9Lgs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=Vjn12mSLeuZAujhcMnkrbQLhzkEdV9gJ2BoIdqt1IbCzfi9hr0B1D5j0TGa1JfeX2
+	 wD2ogdwnUUkLYwlo+iuturieeNeDNOtETDZzjhutLlrBSlsPsmgyMQQiqqvkq7FkHd
+	 LfPZxjA2vNQmfJnWksuCwEVzpO3U6CsW3zuXlL30=
+Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4hqd1s28gDzGJj;
+	Wed, 23 Sep 2026 15:22:57 +0200 (CEST)
+From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
+To: stable@vger.kernel.org
+Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	=?utf-8?q?G=C3=BCnther_Noack?= <gnoack@google.com>,
+	Paul Moore <paul@paul-moore.com>,
+	syzbot+bf4903dc7e12b18ebc87@syzkaller.appspotmail.com,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y v2] selftests/landlock: Add layout1.refer_mount_root
+Date: Wed, 23 Sep 2026 15:22:47 +0200
+Message-ID: <6d6d7bd89976cbca94e4797cd60d4b155eb96393.1790169454.git.mic@digikod.net>
+In-Reply-To: <2026-09-17-daily-reply-0018-landlock-refer-mount-root-v2@kernel.org>
+References: <2026-09-17-daily-reply-0018-landlock-refer-mount-root-v2@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Infomaniak-Routing: alpha
 
-On Wed, 23 Sep 2026 08:58:47 -0300, Aldo Ariel Panzardo wrote:
-> mt_remove() quiesces the sticky-finger timer before stopping the
-> hardware:
-> 
->     timer_delete_sync(&td->release_timer);
-> 
->     sysfs_remove_group(&hdev->dev.kobj, &mt_attribute_group);
->     hid_hw_stop(hdev);
-> 
-> [...]
+[ Upstream commit 0055f53aac80fd938bf7cdfad7ad414ca6c0e198 ]
 
-Applied to https://git.kernel.org/pub/scm/linux/kernel/git/hid/hid.git (for-7.3/upstream-fixes), thanks!
+Add tests to check error codes when linking or renaming a mount root
+directory.  This previously triggered a kernel warning, but it is fixed
+with the previous commit.
 
-[1/1] HID: multitouch: stop the release timer from being rearmed on remove
-      https://git.kernel.org/hid/hid/c/5acb2dace582
+Cc: Günther Noack <gnoack@google.com>
+Cc: Paul Moore <paul@paul-moore.com>
+Link: https://lore.kernel.org/r/20240516181935.1645983-3-mic@digikod.net
+Signed-off-by: Mickaël Salaün <mic@digikod.net>
+[mic: Backport: adapt to the older selftest header layout]
+Signed-off-by: Mickaël Salaün <mic@digikod.net>
+---
 
-Cheers,
--- 
-Benjamin Tissoires <bentiss@kernel.org>
+Changes since v1:
+https://patch.msgid.link/661e8a7821258da80d7ab0e2c2d7e19b07ccfae0.1789655724.git.mic@digikod.net
+- Move <linux/mount.h> below <unistd.h> and restore the upstream
+  header-conflict comment (requested by Sasha Levin).
+---
+ tools/testing/selftests/landlock/fs_test.c | 50 ++++++++++++++++++++++
+ 1 file changed, 50 insertions(+)
 
+diff --git a/tools/testing/selftests/landlock/fs_test.c b/tools/testing/selftests/landlock/fs_test.c
+index 864309ebb0b4..0cb8e28e853a 100644
+--- a/tools/testing/selftests/landlock/fs_test.c
++++ b/tools/testing/selftests/landlock/fs_test.c
+@@ -21,6 +21,12 @@
+ #include <sys/sysmacros.h>
+ #include <unistd.h>
+ 
++/*
++ * Intentionally included last to work around header conflict.
++ * See https://sourceware.org/glibc/wiki/Synchronizing_Headers.
++ */
++#include <linux/mount.h>
++
+ #include "common.h"
+ 
+ #ifndef renameat2
+@@ -32,6 +38,13 @@ int renameat2(int olddirfd, const char *oldpath, int newdirfd,
+ }
+ #endif
+ 
++#ifndef open_tree
++int open_tree(int dfd, const char *filename, unsigned int flags)
++{
++	return syscall(__NR_open_tree, dfd, filename, flags);
++}
++#endif
++
+ #ifndef RENAME_EXCHANGE
+ #define RENAME_EXCHANGE (1 << 1)
+ #endif
+@@ -2178,6 +2191,43 @@ TEST_F_FORK(layout1, refer_denied_by_default4)
+ 				layer_dir_s1d1_refer);
+ }
+ 
++/*
++ * Tests walking through a denied root mount.
++ */
++TEST_F_FORK(layout1, refer_mount_root_deny)
++{
++	const struct landlock_ruleset_attr ruleset_attr = {
++		.handled_access_fs = LANDLOCK_ACCESS_FS_MAKE_DIR,
++	};
++	int root_fd, ruleset_fd;
++
++	/* Creates a mount object from a non-mount point. */
++	set_cap(_metadata, CAP_SYS_ADMIN);
++	root_fd =
++		open_tree(AT_FDCWD, dir_s1d1,
++			  AT_EMPTY_PATH | OPEN_TREE_CLONE | OPEN_TREE_CLOEXEC);
++	clear_cap(_metadata, CAP_SYS_ADMIN);
++	ASSERT_LE(0, root_fd);
++
++	ruleset_fd =
++		landlock_create_ruleset(&ruleset_attr, sizeof(ruleset_attr), 0);
++	ASSERT_LE(0, ruleset_fd);
++
++	ASSERT_EQ(0, prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0));
++	ASSERT_EQ(0, landlock_restrict_self(ruleset_fd, 0));
++	EXPECT_EQ(0, close(ruleset_fd));
++
++	/* Link denied by Landlock: EACCES. */
++	EXPECT_EQ(-1, linkat(root_fd, ".", root_fd, "does_not_exist", 0));
++	EXPECT_EQ(EACCES, errno);
++
++	/* renameat2() always returns EBUSY. */
++	EXPECT_EQ(-1, renameat2(root_fd, ".", root_fd, "does_not_exist", 0));
++	EXPECT_EQ(EBUSY, errno);
++
++	EXPECT_EQ(0, close(root_fd));
++}
++
+ TEST_F_FORK(layout1, reparent_link)
+ {
+ 	const struct rule layer1[] = {
