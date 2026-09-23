@@ -1,191 +1,291 @@
-Received: from mta0.migadu.com (out-22.mta0.migadu.com [91.218.175.22])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C317736C9C5
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 02:06:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30EB337BE98
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 02:16:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790129176; cv=none; b=RdTVEqQPAJby8CGl0QNdpw9qatRwA0CPaMOC1rupX7UrKIuyCDGpc+HFd8LnUo91nXf9Wk9oBeU3qUT3aIADMjIICjKFWi5lMvRNsZq0p0fUpVZgIL6gDpd2CZn4YQ2TLfUJJtVvkSYlRHmhExDlPFR63ky7/M7SIY6Oe07EJE4=
+	t=1790129797; cv=none; b=hRl1abZ1qtzaxHcMLQmx8xxV8aqGVUbDUjweyQP8gpELeyMOHOtvRtMWp19W+gBKONYJ0SC28zJe9FGp9MJSknA7syXX5wNjMtgXJsbSFHlTfbTDh3mC2LJPPOVsc07+L2IdbIbutLwnt01LP8G7J7Ucd9PpQsOgG9bpZrc/j9k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790129176; c=relaxed/simple;
-	bh=0ISTjzArDvrHCvzOuzvqWLDvbJceHC6JZIVo8RNRwPU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=sip5U0r+o1Id2KxbCmXHuJpA6GepJKsN0VSyMBCny6EEs9PYTM0aY/BaY7h1z38QWFpx1hIUacxyBuLl7AS/QcD5REOjDBbzbC0gfQR8U+R8KanN1bNLtOTz7H9yRNxZspeaHaRwoxjLqM9pyFqHg3EE6zxZlQcR714YX7csqPI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=RWrtAuV1; arc=none smtp.client-ip=91.218.175.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790129797; c=relaxed/simple;
+	bh=bpCK04TjI+Ng9cfjBfI4Byjw8m4Y9ZMIC4NUQPR/tDw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=e6QZummfLpv3LpKKhAPmjxoZNdVjIvF6Sn4z59hyJKQh/UKdQRxzNXdlFFSVCvobw8yPIGYignuVnmHEAlmfzk6+wGbOOrk/b6DKIunfhKuWUkhsBT8DwPlGFEMMEKsFs3CF/zPL1hFyOH7SP8Ma2m/O71NXM78RhZlqpze3+qo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PHS9aEb8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="RWrtAuV1"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=0ISTjzArDvrHCvzOuzvqWLDvbJceHC6JZIVo8RNRwPU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790129169; v=1; x=1790733969;
- b=RWrtAuV1Yq/ALp5TKkxvoyTdBdAUXQKZ7gZieqVa98LZP1Er1GfeXlwRyrYasXm4o6gp3RTc
- vqrwlIcyTxHjw+9m6gk9WT+kIf0ZYDqKDIV0Pdbz/pYwap1+VA1FWJZdRweK0PQrF/p/svHp+0q
- PRv5qUmO91Ks1lUoAAQuO6EI=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id cf62ea15ecec1017;
-	Wed, 23 Sep 2026 02:06:09 +0000
-X-Mizu-Trace-ID: cf62ea15ecec1017
-X-Migadu-Flow: FLOW_OUT
-From: Hongfu Li <hongfu.li@linux.dev>
-Date: Wed, 23 Sep 2026 10:05:16 +0800
-Subject: [PATCH v2 2/2] mm/memcg: migrate per-node hugetlb lruvec stat
- together with hugetlb folio
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PHS9aEb8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D9B71F000FF;
+	Wed, 23 Sep 2026 02:16:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790129796;
+	bh=IzN3UeOGR3Qr3BUc1krz/LAgB3OkmAY8N/DFR5aIXZQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=PHS9aEb8d7hV+WsVGEDP9r0ET42CxC1LHwterJphzyhZATSNrK5nKP45Iq1w/cVpH
+	 X5e2T/ytqOQpFb4yrLDH7v9zoHDX6yVhbmBlfIHRiYk+W9IkohM7AaHf81v2CUVAcM
+	 bZr8bHamtbEBfDSRgmyra3inv8ZZpR02BhhswXVN9Pn3kzLx0g2Q1kMp0UO2+h/+ci
+	 0vKI3avKb8d2tRUZds7Ky0+depL7/xdxwp1npRuNMq8S+bdGWsig6qzswUm0hnuNsz
+	 OYomCnqJ+bobr/n+EK+HNT7rbMO3W55BGn5hBGRsKm0MQFR4j6E+EjZkbEp1LYBJxW
+	 ClwxwSlfl/R8w==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Benjamin Berg <benjamin.berg@intel.com>,
+	Johannes Berg <johannes.berg@intel.com>,
+	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] wifi: mac80211: track MU-MIMO configuration on disabled interfaces
+Date: Tue, 22 Sep 2026 22:16:32 -0400
+Message-ID: <20260923021633.902921-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026092224-dawdler-equator-70f2@gregkh>
+References: <2026092224-dawdler-equator-70f2@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-for-hugetlb_state3-v2-2-e8a36245bfab@kylinos.cn>
-References: <20260923-for-hugetlb_state3-v2-0-e8a36245bfab@kylinos.cn>
-In-Reply-To: <20260923-for-hugetlb_state3-v2-0-e8a36245bfab@kylinos.cn>
-To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- David Hildenbrand <david@kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Michal Hocko <mhocko@suse.com>, 
- Johannes Weiner <hannes@cmpxchg.org>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
- Nhat Pham <nphamcs@gmail.com>, Michal Hocko <mhocko@kernel.org>, 
- Roman Gushchin <roman.gushchin@linux.dev>
-Cc: hongfu.li@linux.dev, Chris Down <chris@chrisdown.name>, 
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, cgroups@vger.kernel.org, 
- Hongfu Li <lihongfu@kylinos.cn>, stable@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790129144; l=4285;
- i=lihongfu@kylinos.cn; s=20260915; h=from:subject:message-id;
- bh=XnpfUOE9XDiYB80tcgMo2fYCgw4drhX0D7pb8CGUdW8=;
- b=3j/63EyE0toWk7b1TPsklFCt/sTcSFe0N88Cd87hN9fQfmC8YUb/PLi2xqQKzcvACybh2WHJ7
- nawKxPtGfCeCKpIYgzJOc1by+YN3IJQOY/015YPf/IycUp7DinKYc3o
-X-Developer-Key: i=lihongfu@kylinos.cn; a=ed25519;
- pk=rUpDSpB3neoNZRlGG6dHlFb3RepiJakcev+ucyqaZzw=
+Content-Transfer-Encoding: 8bit
 
-From: Hongfu Li <lihongfu@kylinos.cn>
+From: Benjamin Berg <benjamin.berg@intel.com>
 
-memory.numa_stat exposes per-node hugetlb counters from per-node lruvec
-stats. These stats are accounted against folio_nid(): incremented on
-the folio's node when handed to a user, decremented when the folio is
-returned to the pool.
+[ Upstream commit a5aa46f1ac4f53e03b9b75cbf55634131f2f8cac ]
 
-During hugetlb folio migration, mem_cgroup_migrate() moves the charge
-to the new folio and drops the memcg data of the old one, so the free
-of the old folio right after the migration skips the memcg per-node
-lruvec decrement. The hugetlb count stays attributed to the old node
-for the rest of the life of the charge, while the target folio gets no
-increment on the new node; its later free decrements a counter that
-was never incremented.
+For monitoring, userspace will try to configure the VIF sdata, while the
+driver may see the monitor_sdata that is created when only monitor
+interfaces are up. This causes the odd situation that it may not be
+possible to store the MU-MIMO configuration on monitor_sdata.
 
-Migrate the per-node lruvec accounting alongside migration. Global
-memcg totals remain balanced because they track resource consumption,
-not node placement.
+Fix this by storing that information on the VIF sdata and updating the
+monitor_sdata when available and the interface is up. Also, adjust the
+code that adds monitor_sdata so that it will configure MU-MIMO based on
+the newly added interface or one of the existing ones.
 
-Fixes: 05d4532b60e3 ("memcg/hugetlb: add hugeTLB counters to memcg")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
-Tested-by: Joshua Hahn <joshua.hahnjy@gmail.com>
-Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
-Reviewed-by: Oscar Salvador <osalvador@suse.de>
+This should give a mostly consistent behaviour when configuring MU-MIMO
+on sniffer interfaces. Should the user configure MU-MIMO on multiple
+sniffer interfaces, then mac80211 will simply select one of the
+configurations. This behaviour should be good enough and avoids breaking
+user expectations in the common scenarios.
+
+Signed-off-by: Benjamin Berg <benjamin.berg@intel.com>
+Reviewed-by: Johannes Berg <johannes.berg@intel.com>
+Signed-off-by: Miri Korenblit <miriam.rachel.korenblit@intel.com>
+Link: https://patch.msgid.link/20251110141514.677915f8f6bb.If4e04a57052f9ca763562a67248b06fd80d0c2c1@changeid
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+
+Backport adaptation for 5.15, as a dependency of 2b04d6556964
+("wifi: mac80211: refuse to make a monitor active when it has no queue"):
+
+Use vif.mu_mimo_owner and ieee80211_bss_info_change_notify() instead of
+the newer link-specific state and notification API. Gate MU-MIMO support
+on WANT_MONITOR_VIF; this tree has no NO_VIRTUAL_MONITOR mode. Preserve
+its cooked-monitor checks and existing monitor accounting.
+
+Use u.mntr.list to walk this tree's monitor list. Pass the creator when
+opening a monitor, and select an existing configuration when stopping an
+interface or reconfiguring hardware. Update the existing wake_up call in
+ieee80211_reconfig() instead of adding the newer, relocated call site.
+No new functions are introduced.
+
+Stable-dep-of: 2b04d6556964 ("wifi: mac80211: refuse to make a monitor active when it has no queue")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/memcontrol.h |  8 ++++++++
- mm/hugetlb.c               | 25 +++++++++++++++++++++++++
- mm/memcontrol.c            |  5 ++---
- 3 files changed, 35 insertions(+), 3 deletions(-)
+ net/mac80211/cfg.c         | 37 +++++++++++++++++++++++++--------
+ net/mac80211/ieee80211_i.h |  3 ++-
+ net/mac80211/iface.c       | 42 ++++++++++++++++++++++++++++++++------
+ net/mac80211/util.c        |  3 ++-
+ 4 files changed, 68 insertions(+), 17 deletions(-)
 
-diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
-index a8358f297b65..74110a324f9e 100644
---- a/include/linux/memcontrol.h
-+++ b/include/linux/memcontrol.h
-@@ -984,6 +984,9 @@ unsigned long lruvec_page_state_monotonic(const struct lruvec *lruvec,
- unsigned long lruvec_page_state_local(const struct lruvec *lruvec,
- 				      enum node_stat_item idx);
- 
-+void mod_memcg_lruvec_state(struct lruvec *lruvec,
-+			    enum node_stat_item idx, int val);
+diff --git a/net/mac80211/cfg.c b/net/mac80211/cfg.c
+index 706ff67f4254a..c019dd9af6866 100644
+--- a/net/mac80211/cfg.c
++++ b/net/mac80211/cfg.c
+@@ -39,11 +39,14 @@ static void ieee80211_set_mu_mimo_follow(struct ieee80211_sub_if_data *sdata,
+ 		memcpy(sdata->vif.bss_conf.mu_group.position,
+ 		       params->vht_mumimo_groups + WLAN_MEMBERSHIP_LEN,
+ 		       WLAN_USER_POSITION_LEN);
+-		ieee80211_bss_info_change_notify(sdata, BSS_CHANGED_MU_GROUPS);
 +
- void mem_cgroup_flush_stats(struct mem_cgroup *memcg);
- void mem_cgroup_flush_stats_ratelimited(struct mem_cgroup *memcg);
+ 		/* don't care about endianness - just check for 0 */
+ 		memcpy(&membership, params->vht_mumimo_groups,
+ 		       WLAN_MEMBERSHIP_LEN);
+ 		mu_mimo_groups = membership != 0;
++
++		/* Unset following if configured explicitly */
++		eth_broadcast_addr(sdata->u.mntr.mu_follow_addr);
+ 	}
  
-@@ -1452,6 +1455,11 @@ static inline unsigned long lruvec_page_state_local(const struct lruvec *lruvec,
- 	return node_page_state(lruvec_pgdat(lruvec), idx);
+ 	if (params->vht_mumimo_follow_addr) {
+@@ -51,16 +54,25 @@ static void ieee80211_set_mu_mimo_follow(struct ieee80211_sub_if_data *sdata,
+ 			is_valid_ether_addr(params->vht_mumimo_follow_addr);
+ 		ether_addr_copy(sdata->u.mntr.mu_follow_addr,
+ 				params->vht_mumimo_follow_addr);
++
++		/* Unset current membership until a management frame is RXed */
++		memset(sdata->vif.bss_conf.mu_group.membership, 0,
++		       WLAN_MEMBERSHIP_LEN);
+ 	}
+ 
+ 	sdata->vif.mu_mimo_owner = mu_mimo_groups || mu_mimo_follow;
++
++	/* Notify only after setting mu_mimo_owner */
++	if (sdata->vif.mu_mimo_owner &&
++	    sdata->flags & IEEE80211_SDATA_IN_DRIVER)
++		ieee80211_bss_info_change_notify(sdata, BSS_CHANGED_MU_GROUPS);
  }
  
-+static inline void mod_memcg_lruvec_state(struct lruvec *lruvec,
-+					  enum node_stat_item idx, int val)
-+{
-+}
-+
- static inline void mem_cgroup_flush_stats(struct mem_cgroup *memcg)
+ static int ieee80211_set_mon_options(struct ieee80211_sub_if_data *sdata,
+ 				     struct vif_params *params)
  {
- }
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 519c30b338a8..76d019594b39 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -23,6 +23,7 @@
- #include <linux/mmdebug.h>
- #include <linux/sched/signal.h>
- #include <linux/rmap.h>
-+#include <linux/rcupdate.h>
- #include <linux/string_choices.h>
- #include <linux/string_helpers.h>
- #include <linux/swap.h>
-@@ -7378,12 +7379,36 @@ void folio_putback_hugetlb(struct folio *folio)
- 	folio_put(folio);
+ 	struct ieee80211_local *local = sdata->local;
+-	struct ieee80211_sub_if_data *monitor_sdata;
++	struct ieee80211_sub_if_data *monitor_sdata = NULL;
+ 
+ 	/* check flags first */
+ 	if (params->flags && ieee80211_sdata_running(sdata)) {
+@@ -79,18 +91,25 @@ static int ieee80211_set_mon_options(struct ieee80211_sub_if_data *sdata,
+ 			return -EBUSY;
+ 	}
+ 
+-	/* also validate MU-MIMO change */
+-	monitor_sdata = wiphy_dereference(local->hw.wiphy,
+-					  local->monitor_sdata);
+-
+-	if (!monitor_sdata &&
++	/* validate whether MU-MIMO can be configured */
++	if (!ieee80211_hw_check(&local->hw, WANT_MONITOR_VIF) &&
+ 	    (params->vht_mumimo_groups || params->vht_mumimo_follow_addr))
+ 		return -EOPNOTSUPP;
+ 
++	/* Also update dependent monitor_sdata if required */
++	if (test_bit(SDATA_STATE_RUNNING, &sdata->state))
++		monitor_sdata = wiphy_dereference(local->hw.wiphy,
++						  local->monitor_sdata);
++
+ 	/* apply all changes now - no failures allowed */
+ 
+-	if (monitor_sdata)
+-		ieee80211_set_mu_mimo_follow(monitor_sdata, params);
++	if (ieee80211_hw_check(&local->hw, WANT_MONITOR_VIF)) {
++		/* This is copied in when the VIF is activated */
++		ieee80211_set_mu_mimo_follow(sdata, params);
++
++		if (monitor_sdata)
++			ieee80211_set_mu_mimo_follow(monitor_sdata, params);
++	}
+ 
+ 	if (params->flags) {
+ 		if (ieee80211_sdata_running(sdata)) {
+diff --git a/net/mac80211/ieee80211_i.h b/net/mac80211/ieee80211_i.h
+index 306359d435717..a168e52d63c9c 100644
+--- a/net/mac80211/ieee80211_i.h
++++ b/net/mac80211/ieee80211_i.h
+@@ -1963,7 +1963,8 @@ void ieee80211_adjust_monitor_flags(struct ieee80211_sub_if_data *sdata,
+ 				    const int offset);
+ int ieee80211_do_open(struct wireless_dev *wdev, bool coming_up);
+ void ieee80211_sdata_stop(struct ieee80211_sub_if_data *sdata);
+-int ieee80211_add_virtual_monitor(struct ieee80211_local *local);
++int ieee80211_add_virtual_monitor(struct ieee80211_local *local,
++				  struct ieee80211_sub_if_data *creator_sdata);
+ void ieee80211_del_virtual_monitor(struct ieee80211_local *local);
+ 
+ bool __ieee80211_recalc_txpower(struct ieee80211_sub_if_data *sdata);
+diff --git a/net/mac80211/iface.c b/net/mac80211/iface.c
+index 3b2d51df5d947..01791a9866a72 100644
+--- a/net/mac80211/iface.c
++++ b/net/mac80211/iface.c
+@@ -652,8 +652,9 @@ static void ieee80211_do_stop(struct ieee80211_sub_if_data *sdata, bool going_do
+ 	ieee80211_configure_filter(local);
+ 	ieee80211_hw_config(local, hw_reconf_flags);
+ 
++	/* Passing NULL means an interface is picked for configuration */
+ 	if (local->monitors == local->open_count)
+-		ieee80211_add_virtual_monitor(local);
++		ieee80211_add_virtual_monitor(local, NULL);
  }
  
-+static void move_hugetlb_lruvec_stat(struct folio *old_folio,
-+				     struct folio *new_folio)
-+{
-+	struct mem_cgroup *memcg;
-+	long nr_pages = folio_nr_pages(old_folio);
-+	int old_nid = folio_nid(old_folio);
-+	int new_nid = folio_nid(new_folio);
-+
-+	if (old_nid == new_nid)
-+		return;
-+
-+	guard(rcu)();
-+
-+	memcg = folio_memcg(new_folio);
-+	if (!memcg)
-+		return;
-+
-+	mod_memcg_lruvec_state(mem_cgroup_lruvec(memcg, NODE_DATA(old_nid)),
-+			       NR_HUGETLB, -nr_pages);
-+	mod_memcg_lruvec_state(mem_cgroup_lruvec(memcg, NODE_DATA(new_nid)),
-+			       NR_HUGETLB, nr_pages);
-+}
-+
- void move_hugetlb_state(struct folio *old_folio, struct folio *new_folio,
- 			enum migrate_reason reason)
+ static int ieee80211_stop(struct net_device *dev)
+@@ -947,7 +948,8 @@ static void ieee80211_set_default_queues(struct ieee80211_sub_if_data *sdata)
+ 	sdata->vif.cab_queue = IEEE80211_INVAL_HW_QUEUE;
+ }
+ 
+-int ieee80211_add_virtual_monitor(struct ieee80211_local *local)
++int ieee80211_add_virtual_monitor(struct ieee80211_local *local,
++				  struct ieee80211_sub_if_data *creator_sdata)
  {
- 	struct hstate *h = folio_hstate(old_folio);
+ 	struct ieee80211_sub_if_data *sdata;
+ 	int ret;
+@@ -958,8 +960,10 @@ int ieee80211_add_virtual_monitor(struct ieee80211_local *local)
+ 	ASSERT_RTNL();
+ 	lockdep_assert_wiphy(local->hw.wiphy);
  
- 	hugetlb_cgroup_migrate(old_folio, new_folio);
-+	move_hugetlb_lruvec_stat(old_folio, new_folio);
- 	folio_set_owner_migrate_reason(new_folio, reason);
+-	if (local->monitor_sdata)
+-		return 0;
++	/* Already have a monitor set up, configure it */
++	sdata = wiphy_dereference(local->hw.wiphy, local->monitor_sdata);
++	if (sdata)
++		goto configure_monitor;
+ 
+ 	sdata = kzalloc(sizeof(*sdata) + local->hw.vif_data_size, GFP_KERNEL);
+ 	if (!sdata)
+@@ -1013,6 +1017,31 @@ int ieee80211_add_virtual_monitor(struct ieee80211_local *local)
+ 	skb_queue_head_init(&sdata->status_queue);
+ 	wiphy_work_init(&sdata->work, ieee80211_iface_work);
+ 
++configure_monitor:
++	/* Copy in the MU-MIMO configuration if set */
++	if (!creator_sdata) {
++		struct ieee80211_sub_if_data *other;
++
++		list_for_each_entry(other, &local->mon_list, u.mntr.list) {
++			if (!other->vif.mu_mimo_owner)
++				continue;
++
++			creator_sdata = other;
++			break;
++		}
++	}
++
++	if (creator_sdata && creator_sdata->vif.mu_mimo_owner) {
++		sdata->vif.mu_mimo_owner = true;
++		memcpy(&sdata->vif.bss_conf.mu_group,
++		       &creator_sdata->vif.bss_conf.mu_group,
++		       sizeof(sdata->vif.bss_conf.mu_group));
++		memcpy(&sdata->u.mntr.mu_follow_addr,
++		       creator_sdata->u.mntr.mu_follow_addr, ETH_ALEN);
++
++		ieee80211_bss_info_change_notify(sdata, BSS_CHANGED_MU_GROUPS);
++	}
++
+ 	return 0;
+ }
+ 
+@@ -1166,8 +1195,9 @@ int ieee80211_do_open(struct wireless_dev *wdev, bool coming_up)
+ 			res = drv_add_interface(local, sdata);
+ 			if (res)
+ 				goto err_stop;
+-		} else if (local->monitors == 0 && local->open_count == 0) {
+-			res = ieee80211_add_virtual_monitor(local);
++		} else if (local->monitors == local->open_count) {
++			/* add/configure if there is no non-monitor interface */
++			res = ieee80211_add_virtual_monitor(local, sdata);
+ 			if (res)
+ 				goto err_stop;
+ 		}
+diff --git a/net/mac80211/util.c b/net/mac80211/util.c
+index 5b1799dfa6757..6ea8a14fbf6c2 100644
+--- a/net/mac80211/util.c
++++ b/net/mac80211/util.c
+@@ -2634,8 +2634,9 @@ int ieee80211_reconfig(struct ieee80211_local *local)
+ 
+  wake_up:
+ 
++	/* Passing NULL means an interface is picked for configuration */
+ 	if (local->monitors == local->open_count && local->monitors > 0)
+-		ieee80211_add_virtual_monitor(local);
++		ieee80211_add_virtual_monitor(local, NULL);
  
  	/*
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index 88824f783571..a5335da5d425 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -1015,9 +1015,8 @@ static void __mod_memcg_lruvec_state(struct mem_cgroup_per_node *pn,
- 	put_cpu();
- }
- 
--static void mod_memcg_lruvec_state(struct lruvec *lruvec,
--				     enum node_stat_item idx,
--				     int val)
-+void mod_memcg_lruvec_state(struct lruvec *lruvec,
-+			    enum node_stat_item idx, int val)
- {
- 	struct pglist_data *pgdat = lruvec_pgdat(lruvec);
- 	struct mem_cgroup_per_node *pn;
-
+ 	 * Clear the WLAN_STA_BLOCK_BA flag so new aggregation
 -- 
-2.54.0
+2.53.0
 
