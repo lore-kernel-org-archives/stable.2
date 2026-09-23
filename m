@@ -1,102 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 502D633D6D6;
-	Wed, 23 Sep 2026 08:49:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42775419FDA;
+	Wed, 23 Sep 2026 08:49:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790153353; cv=none; b=o53pXy3qnua/38nGTKvH+PAARe/np9AR0kMfJ2YX6dEWQA7ZkTS0AYnM4hFa6acD/UepYn6iDPfQLaoJv0jPwO2F7SrqPpf58qBklS4sNrU4k9v7nUCHPthYACP4IlqY6sQPKFMGJu2vDdhFjgO5UUamwzAYfj3spiZuMhbDpd0=
+	t=1790153364; cv=none; b=A+11bw+MVlPYv3GQBp9GkotYlMLlaOyMrq6A0WJ3snd07KDwMi4xxv2QSqoNewd4iFqhhsKLmtx2WHAqf9F9T8zZKAvA9pvrZ6+VbRHwE+3i5J2N7Fkb+vNeRZ1et94yTJNk3N9qMbHDOQYnitUuZu2sat7MwpgFFGUzpi0ReMM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790153353; c=relaxed/simple;
-	bh=WMInSkDiedkFkgVU+MIhWpHri5pvptYn/yFijzsi0n0=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=fQwQMwPaKffsAikZiYnS1QoJtF05sFKDrGzxJEXXhSURll6mWExWabAm3/UEhrmANH1UwBoV0LRrv0ybfw6UivsFB0E84Vw0DEPoT08Ib+3MRbBepbRLlP5U0Yr+TTD/kLx6cMQuA8BHEP0VjjNs1txecoHCr4dnbbYpsNFjYgo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OHuSWKpv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790153364; c=relaxed/simple;
+	bh=D1g91ZjWmHkh7Ktrud+n9+yw3chYZxh3hH2ykynfykI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Aa7lU/tQRFApJNX1+lpECoqe6kV63vijhf8lVOF8ucgJAvJEchMAszj/lRogH/Vf8x5olo1mH+LLp+8EHtDHOhNMdnqePM4GI/Wgu7PNkn1qiYpgobUBVkfWwVz8S5w6C0XfuKKsap1gNaNK8A6y9TztKPvUbVyhjLlxLAV3TOM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=aQ9M6abU; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OHuSWKpv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C0B01F00899;
-	Wed, 23 Sep 2026 08:49:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790153351;
-	bh=HAzAbRseFHRfPkM/W12gGZK0ib8Fu7rDz5eSEN1NGzI=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=OHuSWKpvJUN0xD1KZKdsjpZpG9E35wmc0zS05zrTmSQQhD9ZPFuHOvKHAmwS0hCN5
-	 oa5a6EuS0zMjFDXzYGGiVjLFYRKiSWo9GhChRNq8CYOuD63NNKVb3JHmzQJkcBpSId
-	 mzdsoo3zgiYer5rc2ZmvpT4/KqVYSgqW5eRqQQMVgKATfI/Zm/em20pMK8sfDHJi82
-	 YoMxNP2LiVgNfn4PsOiwlZcOdOxIKRaruIPPO0lerDvBnbNwgnMGAG0V2Csbv4vZ1v
-	 /T9Iue+c+hSlb3CW5MrglwmjU61mVpE7aVq1NliW82u1vQdAYOUucehHJ0t/64KgzZ
-	 wIfzKeo7C6/2A==
-Message-ID: <c03262f2-419d-45c8-9b29-f3bfe6680744@kernel.org>
-Date: Wed, 23 Sep 2026 10:49:09 +0200
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="aQ9M6abU"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=+zcspmb0hquHO5ANgjZOz1PbyctOi3LbJHzh5KTF0lQ=; 
+	b=aQ9M6abUGkcUdIjIgE7/KAqKFg5EalYVj5q5C77oG0GH2DD2TB1KVsTsns3InR4cZZryZdHK1bG
+	8lazk64Oqy2rSMaSEgiVLkRxjTGL9pN2+F+jsaNC4Bh5XloYo21BtLQDLKXdYPiTc1PNSi57rB4/Y
+	uRelxQ/hTwv0VWIKPpHf1s8DH8Er7etor61tyQtnw8wFB+yzJdRQxsgBEwlC7hS8+4QUEh+MjIUPK
+	p/ERQgp+B7jOFX3kiFrLc+DBwIDBd6O7nUbIA9jsBRpjvuhndh7VVc4x3Z1K46U4TYetkICypoPwa
+	sAUdadzU5cbpmd6Dl1v0uu4w6FdePM2GGvoQ==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1x9IfE-0000000GyCK-0CiQ;
+	Wed, 23 Sep 2026 16:49:17 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Wed, 23 Sep 2026 18:49:16 +1000
+Date: Wed, 23 Sep 2026 18:49:16 +1000
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Suman Kumar Chakraborty <suman.kumar.chakraborty@intel.com>
+Cc: linux-crypto@vger.kernel.org, qat-linux@intel.com,
+	stable@vger.kernel.org,
+	Giovanni Cabiddu <giovanni.cabiddu@intel.com>,
+	Ahsan Atta <ahsan.atta@intel.com>
+Subject: Re: [PATCH] crypto: qat - fix error source for QAT GEN6 transmit
+ interface faults
+Message-ID: <arOSjKbX-VIucSUI@gondor.apana.org.au>
+References: <20260916075536.1361895-1-suman.kumar.chakraborty@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [PATCH] media: rtl28xxu: fix SDR platform device leak
-To: Guangshuo Li <lgs201920130244@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Antti Palosaari <crope@iki.fi>,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-References: <20260921081542.210151-1-lgs201920130244@gmail.com>
-Content-Language: en-US, nl
-In-Reply-To: <20260921081542.210151-1-lgs201920130244@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916075536.1361895-1-suman.kumar.chakraborty@intel.com>
 
-On 21/09/2026 10:15, Guangshuo Li wrote:
-> rtl2832u_tuner_attach() registers an rtl2832_sdr platform device, but
-> if registration succeeds without a bound driver, it breaks out without
-> unregistering the device.
+On Wed, Sep 16, 2026 at 07:55:36AM +0000, Suman Kumar Chakraborty wrote:
+> TI_CD_PAR_STS faults were being decoded under ERRSOU1, which is
+> incorrect for QAT GEN6 devices. They are actually raised on ERRSOU3.
 > 
-> dev->platform_device_sdr is assigned only after a driver is bound, so
-> rtl28xxu_tuner_detach() cannot unregister the unbound device later.
-> This leaves the registered platform device and its associated resources
-> allocated.
+> Move the handling of TI_CD_PAR_STS faults as part of the ERRSOU3 logic
+> and split the status bits by their actual source:
 > 
-> Split the registration failure and driver binding checks. Unregister
-> the successfully registered platform device when no driver is bound
-> before leaving the switch.
+>  - Bits 0-18 (TI_INT_ERR_DEVHALT) handled when a DEVHALT is signalled
+>    and are counted once as ADF_RAS_FATAL.
+>  - Bit 19 (TIMISCSTS) handled separately and counted as ADF_RAS_UNCORR.
 > 
-> The issue was identified by a static analysis tool I developed and
-> confirmed by manual review.
+> Previously, a TI_INT_ERR_DEVHALT fault also incremented ADF_RAS_UNCORR
+> in addition to ADF_RAS_FATAL. Since a DEVHALT is already fatal, remove
+> the redundant increment.
 > 
-> Fixes: a2f7f220df5e ("[media] rtl28xxu: switch SDR module to platform driver")
+> Bits 20-25 of TI_CD_PAR_STS are unused/reserved on QAT GEN6. Remove them
+> from the mask.
+> 
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> Fixes: 7f3401d0a506 ("crypto: qat - enable RAS support for GEN6 devices")
+> Signed-off-by: Suman Kumar Chakraborty <suman.kumar.chakraborty@intel.com>
+> Reviewed-by: Giovanni Cabiddu <giovanni.cabiddu@intel.com>
+> Reviewed-by: Ahsan Atta <ahsan.atta@intel.com>
 > ---
->  drivers/media/usb/dvb-usb-v2/rtl28xxu.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/media/usb/dvb-usb-v2/rtl28xxu.c b/drivers/media/usb/dvb-usb-v2/rtl28xxu.c
-> index 487c6ab784ab..3603d0cf638b 100644
-> --- a/drivers/media/usb/dvb-usb-v2/rtl28xxu.c
-> +++ b/drivers/media/usb/dvb-usb-v2/rtl28xxu.c
-> @@ -1391,8 +1391,12 @@ static int rtl2832u_tuner_attach(struct dvb_usb_adapter *adap)
->  						     "rtl2832_sdr",
->  						     PLATFORM_DEVID_AUTO,
->  						     &pdata, sizeof(pdata));
-> -		if (IS_ERR(pdev) || pdev->dev.driver == NULL)
-> +		if (IS_ERR(pdev))
->  			break;
-> +		if (!pdev->dev.driver) {
-> +			platform_device_unregister(pdev);
-> +			break;
-> +		}
+>  .../intel/qat/qat_common/adf_gen6_ras.c       | 20 +++++++++++++---
+>  .../intel/qat/qat_common/adf_gen6_ras.h       | 24 ++++++++++---------
+>  2 files changed, 30 insertions(+), 14 deletions(-)
 
-Looking at other drivers, I think this is incomplete.
-
-drivers/media/usb/dvb-usb-v2/zd1301.c, line 142, does it correct. Note the
-try_module_get() call that is missing in rtl28xxu.c.
-
-Regards,
-
-	Hans
-
->  		dev->platform_device_sdr = pdev;
->  		break;
->  	default:
-
+Patch applied.  Thanks.
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
