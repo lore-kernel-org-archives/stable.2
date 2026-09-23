@@ -1,43 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9278E35FF5B
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 01:40:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C5CD35E1BD;
+	Wed, 23 Sep 2026 01:41:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790127625; cv=none; b=hBU4NdeiTVSG4KXan6GfYjlGEghpWblkNKu7cS6HBxAdBdmPugNauJdm6RpmSB/kjExu4HLPFdcy8vnd+dQ81+6skcwTJMbnIZJevNmPV8FfkK18+MnJs2U6WjBNVOFm67sDb53PxYJrX5gZ97pJAtszV9yvMUu/rCGfP1MpOPI=
+	t=1790127676; cv=none; b=kZLHZ6lCam73FSG7RXEyt9lQyyiB68xcyzQ/apHmX0IZTLiimHhkXwgVWOuNWib2xM9E4gmYuNZT2mwHp/B6iLHbrxZi9JwvmvAwXyGEtsxUWKMalncNxIKmoIEhhgzS/foUc3nfxsHUORrBqquS//xC1/BgBloFp7nRb5smJuM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790127625; c=relaxed/simple;
-	bh=PxEBiu8phtJwI8vLKHLwbtiP3fFI9eC3wGz6sr5JWRU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oJWY0vQMaUbSqTdaj5JVkjexTQ5eOnX9RlNJwtaJo1vOnS3Hn8Od0Y9LVMJ+lWjZQ9M87ujGogTGWCr7JhSOIM56Ith1q2tudgJO7aMQclO9LRqeEH2DPkG6ralNB8WRbk/ustnCZ57APL3phIiZLMT/XFliMUDyAw3onAOzyEU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wfmy7tno; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790127676; c=relaxed/simple;
+	bh=KiXmkd04zIsbMohMQpIZyFcCWd7UAaRQyljY9qo6oAs=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=BWffjGrtm41LAca+5VXUi3uLzEBwPGvdP/1cEKotGFaRxP7kj4WcaRo6eMaG5vD+MO4Wy/bkJTVoBBBzeAKWESsSymo6meoxj9mTWAq3j+2vW5cNlz5v9KX1bqMMHL9iFntWJ2fbE/2a2qSZyYi4CuTW4Dy3M8kqxjQUDVHCFY0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gbriLNn/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wfmy7tno"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFC5E1F000FF;
-	Wed, 23 Sep 2026 01:40:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gbriLNn/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 416E91F000FF;
+	Wed, 23 Sep 2026 01:41:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790127624;
-	bh=bLVU7M9n749VT0uSJElHXdzt7ml83/5MVOCeE0vx2Wk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Wfmy7tno2dnamYj9/DAPDL6V5SKmyTuQQ7mP93U+X0gcU+XnYhZeSRkD/kte6K/xK
-	 gNdVeypRMJwB7zAT69w7NQREX1DI7cY0bSr2/uWkVyRVynGdpkjX42xb3ZE3dLrP8H
-	 Js8o08yisaB+wB3s5XrHzzK1n4fBZhGDPf9YphldL+DMk4Joh2DlGvYdVzTKdFExQG
-	 Vc5N9Ro9ye+3g1kijgdbU95ELh091m1I23LK3buscvkRa2MyK1uN+PZNg/HdU6macl
-	 JwmSlccV9cO7GAW6NlQmPant2p+IBnyCVmqttnx8LBdsrmx7AoTyYbfdNUSiZjiz5W
-	 y8/Upl8ZsW9KA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Frank Sorenson <sorenson@redhat.com>,
-	David Howells <dhowells@redhat.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] smb: client: fix server->total_read for compound encrypted PDUs
-Date: Tue, 22 Sep 2026 21:40:22 -0400
-Message-ID: <20260923014022.880433-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092214-passage-deviant-ba7a@gregkh>
-References: <2026092214-passage-deviant-ba7a@gregkh>
+	s=k20260515; t=1790127675;
+	bh=+XC7UpNvlub8+g4abzd7fnYUdwJ3E9mvV38izxIKMkA=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=gbriLNn/sq+e3woya4HtM35a7AVJY/xvngCZ5/vnTUdH58kpSfLA2lSNRKoQUWFtE
+	 pVv0isND8ELRNiTZmcXkvROi8qOn84bqOW6DTPQgyNQ+vLH3n7bd5zAhljPoRYr3gH
+	 YRjNE/We7LFhopUjdNuriv7GShEF+uJ5VLyNW2gtdc+9yTY44r9sjdl21ZnftKEC2d
+	 aHq3FnUzIl8I9lew7vNWtz+lY2/2UI3Lnyg5obzpN1oJ1+JbOckeXAzj5GlJc2wt+U
+	 j8hB4gem7qL1LzzrQV0ln12gX21FHxOz/lgSoKaoU/1DLjvKG1CUgsxRR0tJA7kbha
+	 AdclFz/NDbbhw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 19A313924463;
+	Wed, 23 Sep 2026 01:40:07 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,46 +37,47 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v2] sctp: discard the rest of the packet on a
+ stale-cookie
+ error
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179012760572.167190.1940324637591255242.git-patchwork-notify@kernel.org>
+Date: Wed, 23 Sep 2026 01:40:05 +0000
+References: <20260921093707.1432184-1-ljp1205831794@gmail.com>
+In-Reply-To: <20260921093707.1432184-1-ljp1205831794@gmail.com>
+To: Aohan Mei <ljp1205831794@gmail.com>
+Cc: netdev@vger.kernel.org, linux-sctp@vger.kernel.org,
+ marcelo.leitner@gmail.com, lucien.xin@gmail.com, imv4bel@gmail.com,
+ henrymei@tencent.com, corvus@tencent.com, stable@vger.kernel.org
 
-From: Frank Sorenson <sorenson@redhat.com>
+Hello:
 
-[ Upstream commit f73726b83e4756fdaa099e1bc1143293bd57ad79 ]
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-In receive_encrypted_standard(), server->total_read is left at the
-full decrypted frame size when walking sub-PDUs of a compound encrypted
-frame. As a result, cifs_handle_standard() passes this full size
-to smb2_check_message(), causing the PDU length guards to incorrectly
-validate the entire compound frame instead of the current sub-PDU.
+On Mon, 21 Sep 2026 17:37:04 +0800 you wrote:
+> From: Aohan Mei <henrymei@tencent.com>
+> 
+> When an association is in COOKIE-ECHOED state and the peer sends a
+> bundled [ERROR(Stale Cookie)][DATA] packet from one of its non-primary
+> addresses, processing the ERROR chunk takes the non-fatal stale-cookie
+> retry path sctp_sf_do_5_2_6_stale(), which queues
+> SCTP_CMD_DEL_NON_PRIMARY while keeping the association alive.
+> sctp_cmd_del_non_primary() removes every non-primary transport -
+> including the very transport this packet arrived on, which is still
+> referenced by the receive lookup and shared by all chunks of the
+> packet via chunk->transport.
+> 
+> [...]
 
-This allows truncated non-last sub-PDUs to bypass length validation,
-leading to out-of-bounds reads in smb2_get_data_area_len().
+Here is the summary with links:
+  - [net,v2] sctp: discard the rest of the packet on a stale-cookie error
+    https://git.kernel.org/netdev/net/c/4498467a8af0
 
-Fix this by setting server->total_read to the true length of the
-current sub-PDU: next_cmd for non-last sub-PDUs, and the remaining
-pdu_length for the last one.
-
-Fixes: b24df3e30cbf ("cifs: update receive_encrypted_standard to handle compounded responses")
-Cc: stable@vger.kernel.org
-Signed-off-by: Frank Sorenson <sorenson@redhat.com>
-Reviewed-by: David Howells <dhowells@redhat.com>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/cifs/smb2ops.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/fs/cifs/smb2ops.c b/fs/cifs/smb2ops.c
-index 51f8ea0c89065..c9866251b5912 100644
---- a/fs/cifs/smb2ops.c
-+++ b/fs/cifs/smb2ops.c
-@@ -4972,6 +4972,7 @@ receive_encrypted_standard(struct TCP_Server_Info *server,
- one_more:
- 	shdr = (struct smb2_hdr *)buf;
- 	next_cmd = le32_to_cpu(shdr->NextCommand);
-+	server->total_read = next_cmd ? next_cmd : pdu_length;
- 
- 	if (*num_mids >= MAX_COMPOUND) {
- 		cifs_server_dbg(VFS, "too many PDUs in compound\n");
+You are awesome, thank you!
 -- 
-2.53.0
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
