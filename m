@@ -1,134 +1,140 @@
-Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
+Received: from mail-vs2-f40.google.com (mail-vs2-f40.google.com [74.125.227.40])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B6A15616D5
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 15:29:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F3CE51DB1E
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 15:44:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.40
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790177401; cv=none; b=Pt+Os+ekNqxCa2XMXljphyFz9ffd03DkQ4LxIigy2tA6tXSZ7cUqqrKZeivkLizghPopaJNvgZ/K0mAEP2gRDdXhsr1WPehf1qhd415uzZlLMfgZ34eDyk96rdB7gr7jE3d3LEIcSUQS0PvGwB7DHubZSP+TuLlpeLDyf9h4n2k=
+	t=1790178252; cv=none; b=IKhAb15P9PqnUSSYgjfCzqeX+h0bQs/5ZOHRwoML98pPe1OX+SKYrMEKX4bGpzdf4uuJujusfiS421AkEWCtTIteFOSvuHvNuLThY98vvuVPHMgRipc2IZ5WhZLQ6YydpUODFGrTYrvIvlI0Lew1mZweC620IbftC7ngL+QmgS8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790177401; c=relaxed/simple;
-	bh=H4k5SAbBBJbY1C36iAKTOOR5kopY6N9+yLJh32pB/mQ=;
+	s=arc-20240116; t=1790178252; c=relaxed/simple;
+	bh=dEsuichCM0C4hCd03bd1KgU+6bKSG+a5n+EmuwGO5YA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QTfjWXpt4lUflwk8zPORPEbouYXYyAKYkLPaZVG07s940qfQ1sDp6eubZEpQWgNmQpAe+a3hy7uwkiTS9DvywslRmPTIQIH1cOn2WyChe/qweOfWr0BDGJvtqenmBgbtHxuAMOrD1MCEbM+vIxry1Z/qlF3mho6JqdrhGGQc5B8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EG5H5rz/; arc=none smtp.client-ip=74.125.229.12
+	 MIME-Version; b=T+IANsgoXURzaSfHGru0nfR/O2PjBJruY5LBukSOL1eMpOO1xDtLZcDz+BR/cW3I0mYn+CWyTv7DCK6y/CFfvwC4FX83iy6e7NT5MFs2fGL+Xqsh7eYYnc4sDxmEMG8+SEMCWdCRVJvtT1YSeGf63ecHET652A8hpw3iQJdmulg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K0ACg9Gb; arc=none smtp.client-ip=74.125.227.40
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EG5H5rz/"
-Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-328664c2da6so654404eec.1
-        for <stable@vger.kernel.org>; Wed, 23 Sep 2026 08:29:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K0ACg9Gb"
+Received: by mail-vs2-f40.google.com with SMTP id 71dfb90a1353d-5c9a1536864so762762e0c.2
+        for <stable@vger.kernel.org>; Wed, 23 Sep 2026 08:44:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790177394; x=1790782194; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PN2f2r94Ra//aycP2t8ADfFvH0BcKZKW2u5vtKT3Aco=;
-        b=EG5H5rz/i5Yv0G1nMpJQzotsTIlJNRfLHYNnO4nEbIKWYPh8ZGPIL7iN/4E3asb0el
-         u/OorD2qMuIRkZisfL1B8tQUSFLSVLx+quYkcRodnyM9bh3EVHEC2/gJt/Vkb6Jt6xi0
-         JTTI6gDj8BWHCBFNIofaOnDBkBsevEDlQ6pSP/UOQHyX1RJ5I2NQkOxSmFg+S4n2yRyz
-         vdXEbpnU4qDFV4FgZFPWTzmBwlUgpfiEwNb2IOgJXb/FcryyuzoA9lQtIe6tQzqcorNi
-         ++DKrMigoeYXNFXMJqs0+Zlbu23RWF/jb5SW4rHSFRpL0EHHamtIHDn4v9r3fKYoXZOb
-         gi6A==
+        d=gmail.com; s=20251104; t=1790178250; x=1790783050; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9HtKgKYLrxm3x6UJBU1QmDCl4UFfcngUzG8by9J5Mp4=;
+        b=K0ACg9GbRkf2d2CqOgjxb6McIJi3fYYkRKp4+otdQ49rbixq16AjG5B02Kpmy1ba/S
+         VxxTRZ/7GNuBl3KKRYMA8fKKxNKwzFZW/T18y9bEQOxj94YuKgrYHIcpwxG6vo0COwyX
+         2Vo/3pMZN9GH1ixwaFXBFjMJA5fLf/+VM0mbHsSImNwwyXYZfwqaqWQIR8DvMLtQi2W0
+         q1LEfXCpP5q40xcog22v2Hu26pqWG24XI7c41HEVcVd73+j6mI3BqsxwKwsFTPrdGn6b
+         IeaO2VnMOWdj7v9N83GxPRpflVADb6Na8cjhNrBcNB2jaC2Z30lVHwFXhU26pL1RGjEQ
+         xJCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790177394; x=1790782194;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PN2f2r94Ra//aycP2t8ADfFvH0BcKZKW2u5vtKT3Aco=;
-        b=SiJIXetbQC2SLo/NACWo4vcz5Id6pLUNi+GopTa5ydCZo2Q7J1Hv1WDy27wgdt3d1X
-         v2dC9onWd6NgWHbEtE0yrcn5v83GHdpbeAZVk05insoLQOz8eqiDfamd9jxYAJa4G5c1
-         iQlC0JgVvG3+Z2WhLAWN0dDtORcMAX7aZmV6UE4uXaDbM+t7jU7e8PN6IBC2bsxSplRu
-         nfLyie76lru3H45a4cB/MAMFuIsQCs57xUNkIpF4wCLW5lRQav5dE91yPwz6MmXqAnrD
-         WgwGorW1lhh2oe07s2zVX+6cKEJT/G0RDxUgnt7/kU6kYL/prO5DP9JpPnSAiA0q5HNo
-         6Cbw==
-X-Forwarded-Encrypted: i=1; AKwUvBz0gYfb5YRLQFUtLk3cn0vjhSDNOHUhEAgfNdRebv5H0903CF7AADajUp5nC+A9/BFcJscTDsY=@vger.kernel.org
-X-Gm-Message-State: AFuF++k+jdOBHCOWWJCadv2cx6lLCerk6Fo6kineJJRfINuPvLGisH1q
-	8W58kNJH/MXinojYH3bcdW0j0TfbG/dJ9O7hwo5ZXgwc8AgJ1H7cSbr3
-X-Gm-Gg: AYBFou2KxoHucJ3BUmSYPcoCaZOPVFEHA+M6zITgRlS7nlxh+nbBSaxGNcrMlgSqOCM
-	QSq796dk8wz3c2yApOwgOkTwoKep2Oc9sj3xz4aA9btW02i3P/CPhiOEdBATojygVx68SciRfKY
-	2jsp6t0P05DUFRAtswoGOdcUeQKVtECZRrOpTCduUSGfBLAlIIkB0d0Po+yj2ELRx7iybc9sTsG
-	wLhYkS+4aKpZktldc7KkhTATXYEad6JMkEzgvl4M3WsYW11+lv5peKgKn+UvkbiIIrX2RWcfnwa
-	P9d53PKA3no4efYVPzw9aUqtCi+ZVihNaShRTuh2dgjFFzdjmpyyIzS2HhQh63vLu2jOoihOWrU
-	fpxi3QQsyheikYXYjHZwfmYzemXqr9e+t90IzJnv6f57JT1TUsniJ8FZwaHy3MYPDUxztn5X/+I
-	qpcyJEFC3Aubx11LfZ8iH1QgJ/V2RletiLdTukynlawaHmnQANGZM9/IafZzmFXA0=
-X-Received: by 2002:a05:7301:6187:10b0:33e:c164:b5d7 with SMTP id 5a478bee46e88-33ec164b694mr2165164eec.3.1790177393626;
-        Wed, 23 Sep 2026 08:29:53 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790178250; x=1790783050;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9HtKgKYLrxm3x6UJBU1QmDCl4UFfcngUzG8by9J5Mp4=;
+        b=G/LVMDQ31h2IUwBS9Fg21DKi7j6LfuBH337qngqPTlw3NNaOSxqE9mkB4UTAtDnCqS
+         5o2Y1nQqQKpwH+Wt2fj3Pr9vsHZKtsrRJZg/jYl7KVQ/hk2P2VhITX8lutgZbMqR6Lcx
+         JqhqAvOTia9cJRinMsMjZhtb0J/sR8atq3NwHw9hdU+cx6/tiuOrtVmOs9Tn1VSN1wMm
+         xV7BVSRFwNQPNA10LneAMSU+s3h07gLEbI/Z1OOjBZao3sTjLdYuD88oBtiQdLDeiaKW
+         rKxgxaSLZJ9aJaTMRhw5bqf2DOYGzahlJGuG6zBiHxJCwZKeGvXcNgIZuOYPeOD+O5pL
+         NPBg==
+X-Forwarded-Encrypted: i=1; AKwUvBxeEcHSXdxF+CkfVZ8Y860k0aqVcl8QkIWERtCA/KFP9oqvHCB71xUO+hkVMJQGjNbeQVOMU9o=@vger.kernel.org
+X-Gm-Message-State: AFuF++kW5xV78I+20JPYpNQWK7tbXtVy/GVYHAiHyLYgAWNsM1VW812g
+	TrbW9MCtAkLg9MTwgoRk2BSSJSWT9G7nP/vByRz5Zont5gfrHGJDAyDe0SoksGsI
+X-Gm-Gg: AYBFou0uvv4dmuW7kXIQCrqOBhlihJtSY+NiMBGf70xQTGyoVEhOa63DcbF8HrIGiil
+	693GmZ4nhiCKQJ3xrCP3CdsnLLcLdUfwRPO6WNcSzlySx0DM8OttteFyceGObBUCIMDZK/g1hH+
+	SD4a8mQ7xWscBZ14hoIrLD6KdI4U83jZWuJbXTAp/NiRCBY9B8lFQ/eTILPa8Bb6/7k8MruQboZ
+	N0HkjKP0AqQSjJJGrxQByO//BI9pMSirmAJ0TC48+QIE9+H8OGsdRZfZCgZF1EpLMrImtRIH3CC
+	i/A6RQtUSLdy9WvMgE2ed8r45QJxaslL6WEK+IzIa9S0WAZrSYgnxVFHjzuJSHn/HaY3buQ7kHi
+	54fuJ5ejOoFKPrnLSpEyXxBeLN0coybQs2Q1NlbyQyWzqeHjcfqo34TJfyHM4uWzGZRlGOx5zi2
+	42ize7MkpRG/+db4Y9ZerQDWfBzdqheNn4jpbchUIi3skDH6Yb6STFjHzcJPXQSYKPSU89dFmCI
+	WQAV7/H4Qsj
+X-Received: by 2002:a05:6122:400c:b0:5c9:a60c:273f with SMTP id 71dfb90a1353d-5c9f16b901cmr3577780e0c.23.1790178249808;
+        Wed, 23 Sep 2026 08:44:09 -0700 (PDT)
 Received: from beelink.. ([187.13.30.172])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e96d46f48sm14049750eec.23.2026.09.23.08.29.50
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c9f04f02bfsm3437129e0c.7.2026.09.23.08.44.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 08:29:53 -0700 (PDT)
+        Wed, 23 Sep 2026 08:44:09 -0700 (PDT)
 From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: airlied@redhat.com,
-	kraxel@redhat.com
-Cc: dri-devel@lists.freedesktop.org,
+To: alexander.deucher@amd.com,
+	christian.koenig@amd.com
+Cc: amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
 	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v2] drm/qxl: use correct offset when stamping drawable mm_time
-Date: Wed, 23 Sep 2026 12:29:37 -0300
-Message-ID: <20260923152941.1297199-1-qwe.aldo@gmail.com>
+Subject: [PATCH v3] drm/amdgpu: prevent parameter-space underflow in nested ATOM table calls
+Date: Wed, 23 Sep 2026 12:43:57 -0300
+Message-ID: <20260923154357.1319689-1-qwe.aldo@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260923145018.1244740-1-qwe.aldo@gmail.com>
-References: <20260923145018.1244740-1-qwe.aldo@gmail.com>
+In-Reply-To: <20260923152912.1296884-1-qwe.aldo@gmail.com>
+References: <20260923152912.1296884-1-qwe.aldo@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-qxl_process_single_command() maps the page containing the current
-release slot and copies the userspace command into it at the
-release_offset within the page:
+atom_op_calltable() invokes a child ATOM table, forwarding the
+parent's parameter space with an offset:
 
-    fb_cmd = qxl_bo_kmap_atomic_page(qdev, cmd_bo,
-                (release->release_offset & PAGE_MASK));
-    copy_from_user(..., fb_cmd + sizeof(union qxl_release_info) +
-                   (release->release_offset & ~PAGE_MASK), ...);
+    amdgpu_atom_execute_table_locked(ctx->ctx, idx,
+        ctx->ps + ctx->ps_shift,
+        ctx->ps_size - ctx->ps_shift);
 
-However, the subsequent mm_time stamp casts the page-start pointer
-directly:
+ctx->ps_shift is in dwords (set to ps / 4 in
+amdgpu_atom_execute_table_locked()), while ctx->ps_size is the
+remaining capacity in bytes. The subtraction therefore mixes units:
+a child table requesting 60 bytes (ps_shift = 15 dwords) with only
+16 bytes remaining would compute 16 - 15 = 1 instead of the correct
+16 - 60 = underflow.
 
-    struct qxl_drawable *draw = fb_cmd;
+Convert ps_shift to bytes (ps_shift * 4) in both the guard and the
+subtraction so the units are consistent. Abort the interpreter when
+the request exceeds the available space so the parent table does not
+continue with stale or uninitialized data.
 
-This writes mm_time at the page start rather than into the drawable
-that was just copied. The drawable begins at the page-relative
-release_offset (struct qxl_drawable embeds the release_info header
-as its first member, so no additional sizeof skip is needed for the
-struct pointer).
-
-Apply the page-relative offset so mm_time lands in the right place.
-
-Fixes: f64122c1f6ad ("drm: add new QXL driver. (v1.4)")
+Fixes: d38ceaf99ed0 ("drm/amdgpu: add coordinate ATOMBIOS table support")
 Cc: stable@vger.kernel.org
 Reported-by: Sashiko <sashiko-bot@kernel.org>
 Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 ---
-v2: drop the sizeof(union qxl_release_info) term — qxl_drawable
-    embeds release_info as its first member, so the struct pointer
-    only needs the page-relative offset (found by Sashiko AI review).
+v3: abort the interpreter (ctx->abort = true + return) when the
+    child table's parameter space exceeds the parent's remaining
+    capacity, instead of silently skipping execution (found by
+    Sashiko AI review on v2).
+v2: convert ps_shift to bytes (ps_shift * 4) before comparing with
+    ps_size, fixing the unit mismatch (found by Sashiko AI review).
 
- drivers/gpu/drm/qxl/qxl_ioctl.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/atom.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/qxl/qxl_ioctl.c b/drivers/gpu/drm/qxl/qxl_ioctl.c
-index 591b026..65e9bfd 100644
---- a/drivers/gpu/drm/qxl/qxl_ioctl.c
-+++ b/drivers/gpu/drm/qxl/qxl_ioctl.c
-@@ -188,7 +188,8 @@ static int qxl_process_single_command(struct qxl_device *qdev,
- 		 u64_to_user_ptr(cmd->command), cmd->command_size);
- 
- 	{
--		struct qxl_drawable *draw = fb_cmd;
-+		struct qxl_drawable *draw = (void *)fb_cmd +
-+			(release->release_offset & ~PAGE_MASK);
- 
- 		draw->mm_time = qdev->rom->mm_clock;
+diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu/atom.c
+index e0e585f..af283cd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/atom.c
++++ b/drivers/gpu/drm/amd/amdgpu/atom.c
+@@ -646,8 +646,13 @@ static void atom_op_calltable(atom_exec_context *ctx, int *ptr, int arg)
+ 		SDEBUG("   table: %d (%s)\n", idx, atom_table_names[idx]);
+ 	else
+ 		SDEBUG("   table: %d\n", idx);
+-	if (U16(ctx->ctx->cmd_table + 4 + 2 * idx))
+-		r = amdgpu_atom_execute_table_locked(ctx->ctx, idx, ctx->ps + ctx->ps_shift, ctx->ps_size - ctx->ps_shift);
++	if (U16(ctx->ctx->cmd_table + 4 + 2 * idx)) {
++		if (ctx->ps_shift * 4 > ctx->ps_size) {
++			ctx->abort = true;
++			return;
++		}
++		r = amdgpu_atom_execute_table_locked(ctx->ctx, idx, ctx->ps + ctx->ps_shift, ctx->ps_size - ctx->ps_shift * 4);
++	}
+ 	if (r) {
+ 		ctx->abort = true;
  	}
 -- 
 2.43.0
