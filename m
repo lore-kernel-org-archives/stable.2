@@ -1,43 +1,76 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55FBE23AB9D
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 02:16:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3758D361DA7
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 02:16:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790129798; cv=none; b=c15q57JrXF6lFZnRDivqPOHvi5b+exSzX2IXf3bnkT+imuWc638POoCmHEoolwcNogxzJBKyd4InlQUrLHyD95sQrnQoCS9UYz/c0jVk4RiZslJD8EHjheqUal4l0id9idmgdtBL1SWt6Gu9egHEQ22tCaEeqHnIdPB9J3P1oBQ=
+	t=1790129802; cv=none; b=KliynzoaFEVakz70Aevp69PR2B7WIZFJY54ayET7Msj1Ip0W+pZzE/BOgcP6Wvk9kZJLqPQmOvW/R8xjCdTO46FU3U6Pb4gDXbimrJcc4yHhxhkG5T5D257/uToUTIWhbig6BmF7e1WVrZO38oknr/wga9EeAQcIj/cj1Y1CvJk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790129798; c=relaxed/simple;
-	bh=WNyQAPHcMtxkI5xnOSY5+lak8E+zjNjXoO144Q6r3yU=;
+	s=arc-20240116; t=1790129802; c=relaxed/simple;
+	bh=IZhPed1q7L2TyBW5i0KD0pzxC32rkwkAl8KJQklJJ5k=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=n+dHwcvyCSO9oLq0K3dizXX6hvCBM3z+JrGR5HVKw86nlIGBZ3qEmBoLHNpmibLR2Yr2OCuT9bePOe5zbPrEWwfnA2KubA+YdSHJ34bzkcH/jgKBkEa6AKRx/UlvMgatXeUlQTZCCpW5sc4hIr2H96L6KJZvTUbFIvBYFtxZsWY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kqaNpQqo; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=L/bYTNwuByEWkS5ak442211vll8qfd182Vv7Giuqr2C01NjKE38XLTpoyzWM5iqbuagzQ/Ti0vuQjeLpw6btXStLU/DTd7oWoj3FU3mIsIRO1T6QBk9fksAPlzdrSRLXEgFy9iotYX4S9JXVLWjwFNzZtv/cQl6EbLpbKJhWnMY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hC/D3cJH; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kqaNpQqo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A1481F00898;
-	Wed, 23 Sep 2026 02:16:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790129796;
-	bh=flq5a9Q0ycFtbQvak424Sbnll0r71hjAbtmXksRjPeM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kqaNpQqoa3mWJdRQh2hZSd5XcQqxT50DpARM5ZBRg1ROfthZCYBzPKCZAVxDy5z3p
-	 8G5XbfkWEKORX317+i4DcIkNn0hMPp7I/j3yujCFWYXlFt4RSN+w4lX10y6mQhJ/7G
-	 rsRVq6EgU66qCZCNyMS1+hkLLeKHnhfb6Gj3B8j8msTGDiRcfxYYKweXLPwixcL94S
-	 XqrgndYfH04ITvOyJecFU25l06rIZtbh/AkEElQbk1dzT+D0z5aCqRqQWpDY1lta0m
-	 K0A6A0+uqlofMK4kySfT59YAJRpF3hUkogoNco47sJfII7izE+juSwptER9PYcc7Ek
-	 nr01ZWPmEKRHQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Devin Wittmayer <lucid_duck@justthetip.ca>,
-	Johannes Berg <johannes.berg@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] wifi: mac80211: refuse to make a monitor active when it has no queue
-Date: Tue, 22 Sep 2026 22:16:33 -0400
-Message-ID: <20260923021633.902921-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260923021633.902921-1-sashal@kernel.org>
-References: <2026092224-dawdler-equator-70f2@gregkh>
- <20260923021633.902921-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hC/D3cJH"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39b2ad861b1so62416a91.1
+        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 19:16:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790129800; x=1790734600; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CuCyJ6IFEOSdv2FxshupIdK+MabP7+2VqvPHZvAqqKw=;
+        b=hC/D3cJHwNt15RYIPEzh4LMM1DrcPIZCcK2D3HsL9H54Cl95/8kSgXjcQ1MHD/9rp2
+         56PWWnM1LEGlluit/IzhsAf7lvEXZt11yiGaozTFF3mtxaofjtz1QvwnDCjKs0bCAcba
+         IAP7DSNy3B3OMpwI7bdgNFAtdHceDoumQ9c2tYJnewAMt7BeNv3VGEFchjbgFZyGewlI
+         Wc2IlClojlhtW5ZVR3mV/UKpEnPtzYw+oLrt2FwbfLZreQo907VRW19vZtdmFPJj87Td
+         BRAt58XM/Umpr2l8ppa9aiFZGdlIxf0pkpr2W08SlFgMwiEO8qGXQ1GwwObc6tWriEjh
+         EGgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790129800; x=1790734600;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CuCyJ6IFEOSdv2FxshupIdK+MabP7+2VqvPHZvAqqKw=;
+        b=qS6RvBQvljedi1RWJv2o6i07+vL8Ct6UE2ypd5uhGetMpjvnuZIn6RHHdgtOklr89Q
+         vgMARzhMN/5XgmlKT/HnBcqciXr7hY81pC+wDMrwH0gNtzvpiR7ElzWx7z69PYbm8U0G
+         snDEqQvEgpx6s8LIiGR05rj0TqnQOk9okJ3gdKV/atbLu6WOff0gQ3iSLPvB64HXG/VF
+         wQnO9A4E5AaK3dx6u+DSNCQfFu8+RpwHTyq3+ZrXOWZIJC0XDRd2IO4Wt7IpOrX/Ws9v
+         oFOUjdb6D+FaZ1yVQEW1pgqjg7jrxm3SadVFVRpIQUXhnvdP5FrjuvbI3WiUhLB3eKCt
+         i4Zw==
+X-Forwarded-Encrypted: i=1; AKwUvBzXA3BnednrF+HY9y8VHjc40lnsd/uKJIrHQ65z7fOIU6d9t3ic+CFxmgz82aB805BcDsmSnPw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mpZj2z/gq++XRLWJOONhuRYTcSeNcfXo47aJYOOVDccxtOSHrJ
+	qzaaQRYJJ29pNuC6OmgUGVn2hDovHqFpBSpPkK9JQOlYFuUCO4RbQd5l
+X-Gm-Gg: AYBFou1PLceLqFEDW0NoLj7WRbpDgGXvgF7MtmhaX5N/qYbrilbZaiS3CTvmCcemSiz
+	U6m1LLXz34lJEyW8HmLMYRZMU/v0RS6EEi2FnwJZ59SA+1aPV/gW2Fla0fBX4WqcqPdDyC0KI5d
+	TUdZMrrwWW6hG+tQ1b9iCKbPahoHQGsdKw/uZV7u8b4O2NspbdAwWY59H+2PZMO9jXhIafDJ/Qn
+	+lQfguaMxD1CqTpCbu4G0D+BYTfRsZHdoVQ9kZaGOFmBgUyvpMuoI4HsGwfyQlK1djhWGw9tR09
+	/cmdMat9ouAz9XDGm8yQohbVkKs+X46QqqDuylLWdQErRzBuMqgB7ZZaF105u0hiXrsAYZgRG8j
+	Z8OWgatENvwObl0oZM7wXPvrDrZwWO5NiVvm9SQj82TDTYxgHi855jJJsNECsZaqLcXI/3JjipZ
+	iya7Y7l1isVqnf1Fu5LIHgzqbwCxocoMYz1NRC2FfzMWfYAeDLuEdql8Myo6ExAXeaLMNyq0mjO
+	UNFWFSnf1CRFaagUWQvUDudSxao8PN7NgReERERJ2+tm5Zdg0rDTqVO43bzvrE5Uig/i+Yw+g==
+X-Received: by 2002:a17:90b:2e0d:b0:3a0:242e:7397 with SMTP id 98e67ed59e1d1-3a07e6b6766mr1767943a91.4.1790129800347;
+        Tue, 22 Sep 2026 19:16:40 -0700 (PDT)
+Received: from localhost.localdomain ([139.159.170.91])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc75f3b7240sm311865a12.7.2026.09.22.19.16.38
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 22 Sep 2026 19:16:40 -0700 (PDT)
+From: Qihang <q.h.hack.winter@gmail.com>
+To: netdev@vger.kernel.org
+Cc: steffen.klassert@secunet.com,
+	herbert@gondor.apana.org.au,
+	stable@vger.kernel.org,
+	kuba@kernel.org
+Subject: Re: [PATCH] xfrm: validate ihl in xfrm4_transport_output()
+Date: Wed, 23 Sep 2026 10:16:35 +0800
+Message-ID: <20260923021635.38837-1-q.h.hack.winter@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <178997713210.2160803.14018605703606783403@kernel.org>
+References: <20260917072226.80788-1-q.h.hack.winter@gmail.com> <178997713210.2160803.14018605703606783403@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,50 +79,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Devin Wittmayer <lucid_duck@justthetip.ca>
+Hi Sashiko,
 
-[ Upstream commit 2b04d6556964ae9f89819b86a0a7801e39c3aae5 ]
+Thanks for the review.  Both points are valid; I will send a v2.
 
-A monitor interface only gets a TXQ if it's created active, and one can't
-be added later. Setting the flag on a down interface is still allowed, so
-the driver is handed a monitor with no queue. ath9k dereferences it:
+[High] pskb_may_pull() instead of skb->len
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000066
-  RIP: 0010:ath_tx_node_init+0x49/0x170 [ath9k]
-   ath9k_add_interface+0x10c/0x140 [ath9k]
-   drv_add_interface+0x54/0x250 [mac80211]
-   ieee80211_do_open+0x32f/0x800 [mac80211]
+You are right that skb->len is too loose.  __skb_pull() only needs the
+header to be in the linear area: it BUG()s when the pull drives skb->len
+below skb->data_len, i.e. when ihl > skb_headlen(skb).  skb->len counts
+the paged fragments too, so an AF_PACKET packet with a virtio net header
+and hdr_len = 1 leaves skb_headlen() == 1 while skb->len can be large;
+ihl values up to skb->len then pass the ihl > skb->len check and still
+reach the BUG() (and the memmove() source runs past skb->tail).  v2 uses
+pskb_may_pull(skb, ihl): it linearizes the header, which both satisfies
+__skb_pull()'s precondition and keeps the memmove() source in bounds,
+and it rejects ihl > skb->len.  ip_hdr() is re-read afterwards because
+pskb_may_pull() may reallocate the skb head.
 
-Reached with CAP_NET_ADMIN by "iw dev X set monitor active" followed by
-"ip link set X up". RTNL is held, so netlink operations block behind it.
+[Medium] lower bound on ihl
 
-Refuse the flag when there is no queue to give.
+Agreed, thanks.  v2 also rejects ihl < 5, matching ip_rcv_core() and the
+implicit assumption in xfrm4_extract_header() and the IPv4 BEET paths.
+This keeps the mac_header protocol byte initialized before esp_output()
+reads it, so the uninitialized-headroom path you described is closed as
+well.
 
-Fixes: 79af1f866193 ("mac80211: avoid allocating TXQs that won't be used")
-Cc: stable@vger.kernel.org
-Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
-Link: https://patch.msgid.link/20260904200338.10829-1-lucid_duck@justthetip.ca
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/mac80211/cfg.c | 4 ++++
- 1 file changed, 4 insertions(+)
+The check is now:
 
-diff --git a/net/mac80211/cfg.c b/net/mac80211/cfg.c
-index c019dd9af6866..514ac12414aed 100644
---- a/net/mac80211/cfg.c
-+++ b/net/mac80211/cfg.c
-@@ -91,6 +91,10 @@ static int ieee80211_set_mon_options(struct ieee80211_sub_if_data *sdata,
- 			return -EBUSY;
- 	}
- 
-+	/* TXQs are reserved in ieee80211_if_add() and cannot be added later */
-+	if ((params->flags & MONITOR_FLAG_ACTIVE) && !sdata->vif.txq)
-+		return -EOPNOTSUPP;
-+
- 	/* validate whether MU-MIMO can be configured */
- 	if (!ieee80211_hw_check(&local->hw, WANT_MONITOR_VIF) &&
- 	    (params->vht_mumimo_groups || params->vht_mumimo_follow_addr))
--- 
-2.53.0
+	if (iph->ihl < 5 || !pskb_may_pull(skb, ihl))
+		return -EINVAL;
 
+	iph = ip_hdr(skb);
+
+v2 sent separately as [PATCH v2].
+
+pw-bot: cr
