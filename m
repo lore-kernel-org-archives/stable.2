@@ -1,131 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0CED53C3C9;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1A7E53C3D5;
 	Wed, 23 Sep 2026 14:44:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790174659; cv=none; b=aqSXzvrlpucPrTvgTixJTSYEv7JF+b0o0EPdXHVdzgMEVdTOUoZPsmBSlibLsN4AFmRZyDfHy/4xBSh81MyTYT9BiB7eSWjy3sz+6JikXrbOPmYipYkBVxpPa2Xq0DOlf1nYckur47olblb6teCZY/voXZEPl7Abvs176c5aZKY=
+	t=1790174662; cv=none; b=MAL395ID6v7Tjge+yhBa8Q9eJ18stnvmTg1HT6Pz/Yxqynf0mRq80ZqWSKbgkGhj97aaXJtA6kiXyaSPxr8DyajqQoeRrltCYbe/vLH8JMi/Hz3JUrxvJrK/WsYV1QwkeGfwZXvqrjtf9LExGTm1i2JdlnC7I5ul6jpga0aZ1IA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790174659; c=relaxed/simple;
-	bh=EB63EaSZMCNY5nE3KWUV4Qnkrt4NrdgytM88dOQtn3c=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=kFJ4HbUtmCdxp0l7++FceN3bHOCFObWPgSi/aOEjrPD1RjXy4LzCzq+BeeawpzEW6rWgnsvI7q64Ev13ZOR4staf1+ZxB6ffBIotXOLLu+M7VXfrc3hJzgcyo42RAN8OBSlBgMAu4lMNaXgLgnHiN7zbcJl7Z3Zd5/YjJrPt4uA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PSw8iiaB; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790174662; c=relaxed/simple;
+	bh=+1MUSx9yMH/dnILwV/MC4uurMBHA3FrQLGcsBaHzkrU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=LCvBjRrs2KUIyeQk/7Ulw3vyhMuFJbaQxXOkR/FmIqs9JnYaEc1epqiRUvDibg8Em7WZYT0bR3zBBSuFN/YzdI50YcQ0k922F4ZXfGSXinQhUwzVbFA/5qImpw6Qz4NnJbVDt4cQY71TIEtABoeLWkpBbUS7CZJdS3tjVRDB3Z0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=yfK6XYyM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PSw8iiaB"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 2EE04C2BCF7;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="yfK6XYyM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 378F01F000FF;
 	Wed, 23 Sep 2026 14:44:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790174659;
-	bh=EB63EaSZMCNY5nE3KWUV4Qnkrt4NrdgytM88dOQtn3c=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=PSw8iiaBjfiVoJDzbpGdW/D5xNAYBUugrGq1bj+IjUbwi/l30xG6YUTHosmtjWB9/
-	 MOuvImdiu4JwhUgZTJ+dzODyMm6+qJmykV6GLQaK0wHlrCBVLmLHUBIChUOmqLVuCs
-	 XPryM9Nw50wZVZFyu+hc5nhmol61qWtlNxN57jI/lieo9IhNEGyrwR4disUZHeHPJz
-	 NKW2RZBQCszUn9YZqlxtB3iZGH96cQGa5UQzKZiGK3I15OP93soOFEv05xF1wRIjSb
-	 kdSz3VjexsUcJs6S7VO3uvnPB/VH48ySKbEedu30pX1QC+/ITEjK0P1SbvZzk1uIeQ
-	 KN4xXCI9Kxzag==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 09061C9830E;
-	Wed, 23 Sep 2026 14:44:19 +0000 (UTC)
-From: Norbert Szetei via B4 Relay <devnull+norbert.doyensec.com@kernel.org>
-Date: Wed, 23 Sep 2026 16:40:50 +0200
-Subject: [PATCH v3 2/2] RDMA/rxe: Reject prefetch of a non-ODP MR
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790174659;
+	bh=K8I1tslP5NFiJFR2BgAxR0suN6cT67i/fcp64yGnLNM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=yfK6XYyMjxdlvjECr3Ewj9FFH4UrJvowPNpvhFgXzC7deuQADk9p9rCMG/KbY+Bnv
+	 g8d/misHAksWi1xCh0pJOcNFljQrAGvgGAg6QRo+2h7hPJ1tsqYlv4ppzNoiybjwiW
+	 0b53gseJksF+KqalOXcr848Hbu9klHl9I79K0IXw=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Tao Zhou <tao.zhou1@amd.com>,
+	Dmitriy Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 186/398] drm/amdgpu: check ras and obj before dereference
+Date: Wed, 23 Sep 2026 16:04:20 +0200
+Message-ID: <20260923140648.252419943@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260923140643.441954610@linuxfoundation.org>
+References: <20260923140643.441954610@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-rxe-advise-mr-v3-v3-2-95e1a4077e4d@doyensec.com>
-References: <20260923-rxe-advise-mr-v3-v3-0-95e1a4077e4d@doyensec.com>
-In-Reply-To: <20260923-rxe-advise-mr-v3-v3-0-95e1a4077e4d@doyensec.com>
-To: Zhu Yanjun <zyjzyj2000@gmail.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
- Leon Romanovsky <leon@kernel.org>, Bob Pearson <rpearsonhpe@gmail.com>, 
- Daisuke Matsuda <dskmtsd@gmail.com>
-Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Zhu Yanjun <yanjun.zhu@linux.dev>, stable@vger.kernel.org, 
- Norbert Szetei <norbert@doyensec.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790174657; l=2646;
- i=norbert@doyensec.com; s=20260913; h=from:subject:message-id;
- bh=cfYNjNX25gHhCbVjC9M+4NI38O7i/5dxSGK9KDS3KKw=;
- b=0RklZrJRnMkEocD5BNy4CQohSSJnFN+1Xpy84302tD7CFu9c+DFUdofFA+2o4VuzZQk8ipS3v
- ftUDGOQBWa9DDfRDWApGP3CxkTcye1f7BkC8JIGAj7CGxcN2zNWNfxh
-X-Developer-Key: i=norbert@doyensec.com; a=ed25519;
- pk=c6ZqJ+mhvi5FloJOiMJUcIPPjT7tczbglx5gruwpVi8=
-X-Endpoint-Received: by B4 Relay for norbert@doyensec.com/20260913 with
- auth_id=1029
-X-Original-From: Norbert Szetei <norbert@doyensec.com>
-Reply-To: norbert@doyensec.com
+Content-Transfer-Encoding: 8bit
 
-From: Norbert Szetei <norbert@doyensec.com>
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-rxe_ib_advise_mr_prefetch() and rxe_ib_prefetch_sg_list() look up the MR
-by lkey and hand it to rxe_odp_do_pagefault_and_lock() without checking
-that it is an ODP MR. That path runs to_ib_umem_odp() on mr->umem, and
-for a non-ODP MR mr->umem is a plain struct ib_umem from ib_umem_get(),
-so the container_of() in to_ib_umem_odp() lands past the end of the
-object and ib_umem_odp_map_dma_and_lock() reads its ib_umem_odp fields
-out of bounds.
+------------------
 
-lookup_mr() validates the lkey, PD, access and state but not the MR
-type, and IB_UVERBS_ADVISE_MR_ADVICE_PREFETCH is accepted for any MR.
+From: Dmitriy Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>
 
- BUG: KASAN: slab-out-of-bounds in ib_umem_odp_map_dma_and_lock+0x884/0x8a0
- Read of size 8 at addr ffff88810a3ebcf0 by task advi/921
-  ib_umem_odp_map_dma_and_lock+0x884/0x8a0
-  rxe_ib_advise_mr+0x543/0xad0
-  ib_uverbs_handler_UVERBS_METHOD_ADVISE_MR+0x446/0x530
-  ib_uverbs_cmd_verbs+0x2b3c/0x3b20
-  ib_uverbs_ioctl+0x1e3/0x310
- Allocated by task 921:
-  __ib_umem_get_va+0x13e/0xae0
-  rxe_mr_init_user+0x2ae/0xb00
-  rxe_reg_user_mr+0x337/0x510
- The buggy address belongs to the object at ffff88810a3ebc80
-  which belongs to the cache kmalloc-96 of size 96
+[ Upstream commit 723d4dc628d764b19cf9efca14b82cca5ff020c9 ]
 
-Ask lookup_mr() for IB_ACCESS_ON_DEMAND in both the synchronous and
-the asynchronous prefetch arm. mr->access carries that flag only for
-an MR registered as ODP, so the existing
-(access & mr->access) != access test rejects a plain MR and the
-prefetch fails with -EINVAL.
+nbio_v7_9_handle_ras_controller_intr_no_bifring() dereferences ras and obj
+without checking either for NULL. Both amdgpu_ras_get_context() and
+amdgpu_ras_find_obj() can return NULL, e.g. during the window between
+adev->nbio.ras being set (early in amdgpu_ras_init(), by design, to
+enable the fatal-error interrupt as soon as possible) and the PCIE_BIF
+ras object actually being created in RAS late_init. Any interrupt in that
+window crashes in hard-IRQ context.
 
-Fixes: 3576b0df1588 ("RDMA/rxe: Implement synchronous prefetch for ODP MRs")
-Cc: stable@vger.kernel.org
-Signed-off-by: Norbert Szetei <norbert@doyensec.com>
+This is analogous to commit d190b459b2a4 ("drm/amdgpu: the warning
+dereferencing obj for nbio_v7_4"), which fixed the same issue in the
+nbio_v7_4 handler.
+
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
+
+Fixes: 7692e1ee2446 ("drm/amdgpu: add RAS fatal error handler for NBIO v7.9")
+Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
+Signed-off-by: Dmitriy Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit c7071767a50a32ed727cf800ac84372429e3b4b3)
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/infiniband/sw/rxe/rxe_odp.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/infiniband/sw/rxe/rxe_odp.c b/drivers/infiniband/sw/rxe/rxe_odp.c
-index e870efa7a0a3..f8ffd6a3219a 100644
---- a/drivers/infiniband/sw/rxe/rxe_odp.c
-+++ b/drivers/infiniband/sw/rxe/rxe_odp.c
-@@ -463,7 +463,7 @@ static int rxe_ib_prefetch_sg_list(struct ib_pd *ibpd,
- 		struct rxe_mr *mr;
- 		struct ib_umem_odp *umem_odp;
+diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
+index 1c22bc11c1f85..a71ad237972ce 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
++++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
+@@ -533,7 +533,7 @@ static void nbio_v7_9_handle_ras_controller_intr_no_bifring(struct amdgpu_device
+ 						RAS_CNTLR_INTERRUPT_CLEAR, 1);
+ 		WREG32_SOC15(NBIO, 0, regBIF_BX0_BIF_DOORBELL_INT_CNTL, bif_doorbell_intr_cntl);
  
--		mr = lookup_mr(pd, IB_ACCESS_LOCAL_WRITE,
-+		mr = lookup_mr(pd, IB_ACCESS_LOCAL_WRITE | IB_ACCESS_ON_DEMAND,
- 			       sg_list[i].lkey, RXE_LOOKUP_LOCAL);
- 
- 		if (!mr) {
-@@ -529,7 +529,7 @@ static int rxe_ib_advise_mr_prefetch(struct ib_pd *ibpd,
- 
- 	for (i = 0; i < num_sge; ++i) {
- 		/* Takes a reference, which will be released in the queued work */
--		mr = lookup_mr(pd, IB_ACCESS_LOCAL_WRITE,
-+		mr = lookup_mr(pd, IB_ACCESS_LOCAL_WRITE | IB_ACCESS_ON_DEMAND,
- 			       sg_list[i].lkey, RXE_LOOKUP_LOCAL);
- 		if (!mr) {
- 			mr = ERR_PTR(-EINVAL);
-
+-		if (!ras->disable_ras_err_cnt_harvest) {
++		if (ras && !ras->disable_ras_err_cnt_harvest && obj) {
+ 			/*
+ 			 * clear error status after ras_controller_intr
+ 			 * according to hw team and count ue number
 -- 
-2.55.0
+2.53.0
+
 
 
