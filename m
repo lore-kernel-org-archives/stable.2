@@ -1,189 +1,175 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 706E33DB980;
-	Wed, 23 Sep 2026 04:58:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2675A413D69
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 05:01:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790139501; cv=none; b=OnJIeEWLYTGmJQLH0dC/L7oNEprcY5z/L5dkK1Dzjm2hYTnx1kgZ2jafPXE/UBd03dVijyXiwftVIDzWKj47GQ66B+oElKknONzqaeDKZezLgHIGpgPn+TPcnNxiCHkzjlqMAcOvc6fpsjr5wvRFIqMsyD5AHnh/cQrtiReVRO4=
+	t=1790139669; cv=none; b=Xvih0Py4GjS+tT5CIvYC4DdGQcBrD7OQfg5k2vFaPtF6AFZ4jecAQCOKXZayivkZzREFWvvKyUQIMjleD/9tSwkylqYzMsTKNB3fvspYAeHU+7SAlCcBfv4T5AmrbZPlPmM9oqCHpHrKuoeseWjJ7PMKZH81m20/PxeMQthijdg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790139501; c=relaxed/simple;
-	bh=0O7Qbn9ypfQ9zZWlgHOXElAWzkeKpFIF5/TQcUE/Dgo=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Qh3REugT4OSqBGqYIyJdme2ySO7F5PH5Y10GEPC9Y6mko5opZqbasJkAq2jXwgmh5kwbyv6n7z6c5jZQD8aeIsqRpmCdG/pIa/DIidPwBgWxP0Tu82ZqcwG38aRiZ9wLDADfW0sV6PRjZyOa1IGvruNm/35y8Mo8IeoNHYns0RE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CvUZBnEg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790139669; c=relaxed/simple;
+	bh=3Wt4vaXgpJ07BzG3GRaYPsiQ1wSvJQGkF4Kt5Eb0wZ0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qIjcqCQLOJzZJfv5YFMLuc7yBMfpGfMi4c8gSv6qQh407m2mPKBjPn6oKGHhK5uGmRFeIuqIVVORsDjpkyGNdkUDC4RT/wV0DmQfz6KCWDkhPRDrR44YA0GB8dW58oYuNdkJxvb7Uy25efkNdbXu9hmvZkQYMaA7i5kQ7vuUisc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UYCLwUpQ; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CvUZBnEg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B57B1F0089E;
-	Wed, 23 Sep 2026 04:58:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790139485;
-	bh=1dORtqh9tfuV7OLMSLjdAMnWKy3PkAytnsZmL2OHJl4=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=CvUZBnEg5EP5DUYtilhOLkycsGUBlM693L6TcGCrD3NafaX6FCt7sksUHeCKMp9nG
-	 ONI3cGIyM6DqsXf6VH1o4EXH7Xog6rTW4aJkqgQ1Xrt+ZzoTaOoOVGpl4BYhfAIIlY
-	 LVnB315+V7to/qANZ55TFOj4axoV/WUqHqFy2m9JjZHLEc6i+P9AJlXhW9xOnmqNLB
-	 FhWHl/pymrT221hc5t/cjPFZCfW29iK1/a7ypoMmeaoZo3cWAcx8WRI4kvugbmPPwp
-	 JBRNkaRlWLbtyfkpLIuLjM5OG0bAnlgFl2eWLT43g3uSacXaWl9S1+S2VpsshJqgbQ
-	 22LnPV86bEv3A==
-Subject: Re: [PATCH net v3 2/2] net: stmmac: fix a divide by zero in
- stmmac_xdp_xmit_xdpf()
-From: netdev-bot+sashiko@kernel.org
-To: xiaolinkui@126.com
-Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- xiaolinkui@kylinos.cn, stable@vger.kernel.org
-Date: Wed, 23 Sep 2026 04:58:03 +0000
-Message-ID: <179013948372.2160803.7295436112506257329@kernel.org>
-In-Reply-To: <20260921135716.218420-2-xiaolinkui@126.com>
-References: <20260921135716.218420-2-xiaolinkui@126.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UYCLwUpQ"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396cccbba92so402315a91.0
+        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 22:01:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790139666; x=1790744466; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=48k6v6NifxtRfKJd71IZC0IPKrpSgd0Jky0oMiBW2kw=;
+        b=UYCLwUpQx6iLZytjKf9/7qvUxk3+qdM3y+QUfTIGMa/SQRg2Pow2xQHF3plxm11tsG
+         c66+VHI6I7JF8HuZMQ/mXzOWOFsO432GeIHC0K8SQEYiksCSdcOr/kc+nm1GAco9j8UE
+         /SmAjewC3kKeFr1y8o4IMyESPF30VADCU/4Szr8mM09AqR1il4m6ekeO/lErFqMwyonj
+         9qlrbUafANqvpBIZKNA++/6r/N2FOskjO/6sWEz+djM/sgiNqcpSYaO9j0F61ph5oCUH
+         0Erj95p3fhQUgKHf/+toWKGfF/EiCQo5yVUQbS7+9LxeNFSS6SKjSai9+vAokCBN4slD
+         nBNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790139666; x=1790744466;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=48k6v6NifxtRfKJd71IZC0IPKrpSgd0Jky0oMiBW2kw=;
+        b=KqIOtV7mROjR/82qlAv0956HlzO+KD4qxyQzVDjWs20vIudaYbRNnODBdl2w2wxYn6
+         ad1jzKXTKz6mYfmszwHwqm5cBu52tUanSg0gpLNUUOW1LOwkurOfdcitbAjGvua/ohuB
+         RYkuzqI5YyjQSkx4E0BW+mplsDAz6NXStExKfCXki5JRnw8iKLJLM7tQV7BDwoSncjwj
+         1eSYJHLTpgQ+FgOXq5xbEb1HDcYy8Wpgx1GfmQ2YAjkVWX61XWnzNOw8nqursHaGWDkC
+         aXldIu7WWvxmidQk5lvhrVCLliP8/4+0Elm9y3EXVb1QK5bdBUhhp/AXYgWJ/gZUfG2o
+         mhzQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxHylRD/7wUvHtLRcJPkMZ10O+O/n/lSh8bfD28VQQWFxoiwkZS1obEHMGM5BUhNLyHAlulRXs=@vger.kernel.org
+X-Gm-Message-State: AFuF++lM93chnKVre8yD4nFgp20cnnZNit1WsRFF/SI6nnhBxOf6bc4B
+	6h1O4cWa4qLcmJ0051ZXkeYa/pMiDPeWMZ9aXZVaqoahsHZyh47CujAy
+X-Gm-Gg: AYBFou1PRDEzuzubQW+/m3PN0lhMrakBINJYP7bgcJqmNvod6ytNc7EGhbNzjg6q9Ih
+	MIpw916Ev5f/05vo5/faPuPAqMqNVDEd0WA8nhaZgv0O/krKZaxrU+lN9JPmCCAiWuZKL5UVsVU
+	qVtV3U/8JxHiw79dAVGvJwLJW5jeZnVhMQiUd6u87ZxayR6gYoP2rWbKr3FhCv6miKRe1QFHmtc
+	ZydCOmdtJ28wYxGhGPsjMlBuDeXq1J4BECIwZ5NGlY7FIUV14phx+sdPjO9FO1UobR1A6WXhWS7
+	aCJt/VViXZYJXBbw0Xhk3gwhs1A64sp8U8fVekkhQAriPVEYMpPNBcaZNCKsWDvY/dBCFjvLfQG
+	2URWn/XzLJbP+/ahcIv0kR6ZDDGiDSqAuHHj0xrlHyKVbAgbQQ0nqKUMKZcybfMxcPnlZYU4MAR
+	56nKJ3DfXmh6DhziI2BatIdzxrrOaWr2mop0w8f50LJ8T8FhAIequFAbZSnHW0utLzE/5RMig=
+X-Received: by 2002:a17:90b:50ce:b0:39d:ecb6:8d40 with SMTP id 98e67ed59e1d1-3a07e4e41e3mr1192709a91.4.1790139666021;
+        Tue, 22 Sep 2026 22:01:06 -0700 (PDT)
+Received: from localhost ([180.184.92.195])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07dc74977sm2767429a91.17.2026.09.22.22.01.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 22:01:05 -0700 (PDT)
+From: Dairui Zhang <zhangdairui@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Dairui Zhang <zhangdairui@gmail.com>,
+	Willem de Bruijn <willemb@google.com>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	stable@vger.kernel.org
+Subject: [PATCH net v2] af_packet: fix integer overflow in prb_calc_retire_blk_tmo()
+Date: Wed, 23 Sep 2026 13:01:01 +0800
+Message-ID: <20260923050101.1510064-1-zhangdairui@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+prb_calc_retire_blk_tmo() computes in 32-bit int arithmetic:
 
-Critical: 0 · High: 0 · Medium: 1 (1) · Low: 0
+        mbits = (blk_size_in_bytes * 8) / (1024 * 1024);
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+If I'm reading the validation right, tp_block_size is user
+controlled and packet_set_ring() only rejects values that are <= 0
+as int or not page aligned, so a 256MiB block goes right through
+(and alloc_one_pg_vec_page() even has a vzalloc fallback for it).
+0x10000000 * 8 wraps to INT_MIN, and on a NIC reporting 1 Gbps
+(div == 1) the function ends up returning -2047.
 
-- [Medium] The zero guard added to stmmac_xdp_xmit_xdpf() performs two
-  separate, unsynchronized plain loads of priv->tx_coal_frames[queue]:…
+The condition is actually (8 * size) mod 2^32 >= 2^31 && div == 1,
+so the trigger set is [256,512), [768,1024), [1280,1536) and
+[1792,2048) MiB. Other sizes wrap to non-negative values and faster
+links divide the unsigned value back below 2^31, which is why this
+doesn't blow up for everyone.
 
-Pre-existing issues:
-- [Medium] With `ethtool -C ... tx-frames 0`, the new branch in
-  stmmac_xdp_xmit_xdpf()…
+What makes it fatal is what happens next in init_prb_bdqc():
 
---
+        p1->interval_ktime = ms_to_ktime(prb_calc_retire_blk_tmo(...));
+        hrtimer_start(&p1->retire_blk_timer, p1->interval_ktime,
+                      HRTIMER_MODE_REL_SOFT);
 
-net: stmmac: fix a divide by zero in stmmac_xdp_xmit_xdpf()
+A negative relative timeout expires immediately. The callback
+unconditionally returns HRTIMER_RESTART, and hrtimer_forward() turns
+the negative interval into hrtimer_resolution:
 
-This adds the missing zero test on priv->tx_coal_frames[queue] before the
-modulo in stmmac_xdp_xmit_xdpf(), so that "ethtool -C eth0 tx-usecs 10
-tx-frames 0" followed by an XDP_TX or ndo_xdp_xmit frame no longer divides
-by zero. The other transmit paths already have this test.
+        if (interval < hrtimer_resolution)
+                interval = hrtimer_resolution;
 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index 1fb5f804ea234..f9846250458a4 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -5253,7 +5253,9 @@ static int stmmac_xdp_xmit_xdpf(struct stmmac_priv *priv, int queue,
->  
->  	tx_q->tx_count_frames++;
->  
-> -	if (tx_q->tx_count_frames % priv->tx_coal_frames[queue] == 0)
-> +	if (!priv->tx_coal_frames[queue])
-> +		set_ic = false;
-> +	else if (tx_q->tx_count_frames % priv->tx_coal_frames[queue] == 0)
->  		set_ic = true;
->  	else
->  		set_ic = false;
+So the SOFT timer re-fires at the maximum rate forever, holding
+sk_receive_queue.lock each pass. One CPU spins in softirq until the
+socket is closed. Repeat with more rings and the machine is gone.
 
-[Severity: Medium]
-Is one sample of priv->tx_coal_frames[queue] needed here instead of two?
+The overflow itself is ancient - it was introduced together with
+TPACKET_V3 in f6fb8f100b80 ("af-packet: TPACKET_V3 flexible buffer
+implementation."). Its effect prior to f7460d2989fa ("net:
+af_packet: Use hrtimer to do the retire operation", v6.18) was not
+as clear-cut, though: the return value was stored into an unsigned
+short retire_blk_tov, so a negative result was truncated, and a
+0-jiffy delay loop could be programmed as well. Neither is nearly
+as detrimental as the immediate maximum-rate spin the hrtimer
+conversion turned it into.
 
-The guard and the divisor are two separate plain loads of the same
-concurrently written field, with no barrier or lock between them, so the
-compiler is free to reload it for the modulo.
+(Unrelated to CVE-2019-20812 - that one was the ethtool failure path
+returning 0, which now returns DEFAULT_PRB_RETIRE_TOV.)
 
-The writer side in __stmmac_set_coalesce() (stmmac_ethtool.c) stores it with
-plain stores from process context, with no driver lock, no queue stop and no
-NAPI quiescing:
+Reproducer, needs CAP_NET_RAW (a --network host container has it by
+default) and a 1 Gbps NIC (QEMU e1000 works):
 
-	if (all_queues) {
-		int i;
+        int fd = socket(AF_PACKET, SOCK_RAW, htons(ETH_P_ALL));
+        bind(fd, ...);
+        int v = TPACKET_V3;
+        setsockopt(fd, SOL_PACKET, PACKET_VERSION, &v, sizeof(v));
+        struct tpacket_req3 req = {
+                .tp_block_size = 0x10000000,
+                .tp_block_nr = 1,
+                .tp_frame_size = 2048,
+                .tp_frame_nr = 0x10000000 / 2048,
+                .tp_retire_blk_tov = 0,
+        };
+        setsockopt(fd, SOL_PACKET, PACKET_RX_RING, &req, sizeof(req));
 
-		for (i = 0; i < tx_cnt; i++) {
-			priv->tx_coal_frames[i] =
-				ec->tx_max_coalesced_frames;
-			priv->tx_coal_timer[i] =
-				ec->tx_coalesce_usecs;
-		}
-	} else if (has_tx) {
-		priv->tx_coal_frames[queue] =
-			ec->tx_max_coalesced_frames;
+Compute in 64 bits instead. The operands are already bounded by the
+existing validation, so nothing else changes. If you'd prefer a
+different fix, just say so and I'll respin.
 
-The reader in stmmac_xdp_xmit_xdpf() runs in softirq, reached from
-stmmac_rx()/stmmac_rx_zc() via stmmac_xdp_xmit_back(), or from
-stmmac_xdp_xmit(). If the guard load observes the old non-zero value and the
-divisor load observes the freshly stored 0, the modulo still divides by zero
-in softirq, which is the failure this commit is closing.
+Fixes: f6fb8f100b80 ("af-packet: TPACKET_V3 flexible buffer implementation.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Dairui Zhang <zhangdairui@gmail.com>
+---
+v1 -> v2:
+- Fixes: now points to f6fb8f100b80, the original TPACKET_V3
+  commit, per Willem's review;
+- pre-hrtimer effect description corrected (unsigned short
+  truncation / 0-jiffy loop, not "timer effectively never fired").
+- v1: https://lore.kernel.org/netdev/20260921192608.1420047-1-zhangdairui@gmail.com/
 
-Would something like this be more robust?
+First patch to netdev, and compile-tested only - I don't have a
+1 Gbps setup to trigger it live. If I've misread the code, got the
+Fixes: tag wrong, or picked the wrong fix, please say so and I'll
+respin.
 
-	u32 coal = READ_ONCE(priv->tx_coal_frames[queue]);
+ net/packet/af_packet.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-	set_ic = coal && (tx_q->tx_count_frames % coal == 0);
-
-The same double-read shape exists in stmmac_xmit(), stmmac_tso_xmit() and
-stmmac_xdp_xmit_zc(), so a READ_ONCE() there too would keep the paths
-consistent.
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but the commit message states
-that with tx-frames 0 "the coalescing timer armed by stmmac_tx_timer_arm()
-keeps reclaiming the descriptors". Does that hold for the AF_XDP zero-copy
-XDP_TX path?
-
-stmmac_finalize_xdp_rx() is the only arming attempt on that path:
-
-	if (xdp_status & STMMAC_XDP_TX)
-		stmmac_tx_timer_arm(priv, queue);
-
-and stmmac_tx_timer_arm() picks the rxtx NAPI for an xsk_pool-backed queue,
-which is the instance currently polling:
-
-	napi = tx_q->xsk_pool ? &ch->rxtx_napi : &ch->tx_napi;
-	...
-	if (unlikely(!napi_is_scheduled(napi))) {
-		...hrtimer_start(...)
-	} else {
-		hrtimer_try_to_cancel(&tx_q->txtimer);
-	}
-
-so napi_is_scheduled() is true and the timer is cancelled rather than armed.
-
-The end-of-poll fallback in stmmac_napi_poll_rxtx() does not cover it
-either, since tx_pending_packets is sampled before the XDP_TX descriptors
-are produced:
-
-	tx_done = stmmac_tx_clean(priv, budget, chan, &tx_pending_packets);
-	tx_done = min(tx_done, budget);
-
-	rx_done = stmmac_rx_zc(priv, budget, chan);
-	...
-	if (tx_pending_packets)
-		stmmac_tx_timer_arm(priv, chan);
-
-With tx-frames 0 no descriptor carries the interrupt-on-completion bit
-either, so tx_q->dirty_tx stays behind tx_q->cur_tx and the dma_map_single()
-mappings and xdp_frames of the last batch are held until unrelated traffic
-causes another poll on that channel.
-
-This window is reachable today with the defaults, since stmmac_init_coalesce()
-sets
-
-		priv->tx_coal_frames[chan] = STMMAC_TX_FRAMES;
-
-and a zero-copy XDP_TX burst shorter than 25 frames likewise leaves set_ic
-false while the timer is cancelled, so the patch only widens an existing
-gap rather than creating one. Would it be worth dropping or softening the
-claim that the timer always keeps reclaiming, or arming the timer after
-stmmac_rx_zc() in stmmac_napi_poll_rxtx()?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260921135716.218420-1-xiaolinkui%40126.com
+diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+index b22cda3..24cf2d2 100644
+--- a/net/packet/af_packet.c
++++ b/net/packet/af_packet.c
+@@ -617,7 +617,7 @@ static int prb_calc_retire_blk_tmo(struct packet_sock *po,
+ 		return DEFAULT_PRB_RETIRE_TOV;
+ 
+ 	div = ecmd.base.speed / 1000;
+-	mbits = (blk_size_in_bytes * 8) / (1024 * 1024);
++	mbits = (u64)blk_size_in_bytes * 8 / (1024 * 1024);
+ 
+ 	if (div)
+ 		mbits /= div;
