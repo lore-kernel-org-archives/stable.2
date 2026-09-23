@@ -1,173 +1,185 @@
-Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-a7-smtp.messagingengine.com (fout-a7-smtp.messagingengine.com [103.168.172.150])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03A8E47D94F
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 09:56:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.40
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790157404; cv=pass; b=NJuIbrfvsT+Uy22TaZLPpg1k+xMgJboYLtxL+ZQ9DJhZUEgwDnmsE48s8HpkoPioHg3Ntpaddo4MiAvMSmKqohwcg956Gc/t9B+iaxiJPjNU61bnyU8rdrStG0cD7HD5J2cXvYuddMg6/MGWTaDqGU4gHoAJnYtHKeiMUT5G218=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790157404; c=relaxed/simple;
-	bh=gepP1A9ysh0N6NHB47FJTCQrzM4iGML9jXyRBN95fA4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=WqJ+uFxRCJQPSFzLjF6uSCH34Z/N2eeX452NyJfVXqSedhz8U9NLU6ObhsFhfk3DKN+IvZwShT5fQIpZJKq+lU8+QDAuqKLeo8pQrqFMSYH1IH9HD9524JBZPWj1nzZzA+lQy0j5lOJMQqBJXa3EkGCKDeBhp63iBjd8VVWKyBQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=alkira.net; spf=pass smtp.mailfrom=alkira.net; dkim=pass (2048-bit key) header.d=alkira.net header.i=@alkira.net header.b=NPk+ydVG; arc=pass smtp.client-ip=74.125.228.40
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=alkira.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alkira.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D1C5418359;
+	Wed, 23 Sep 2026 10:02:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.150
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790157730; cv=none; b=Bz8nStkmpRpoQLWJm2BoOPSnlGiIsQoFDLk2yN/r75PqegKzNbxD1jsE9LfbXVeVq8GBkiU/7TIwZbKNdgqRM7Rfew0kBZszYWwA/0plsd0btgj75wSL7sEIa+BWVvqCIMdD5w2vrL7m4VTDEPFs+kjxwWegRaXS5H+bvYJbIzM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790157730; c=relaxed/simple;
+	bh=tzxNDo5WXeyFlkwCcrqIZsB7nM08Rjkb98kddmjCJIc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rXQ4jzBb98JRGby9iel9uJr8/AL0OWDAH3QqcoQr/QLYe+oRSxrSsC485I4tQfo6WWeaBVHWfadBuSyp0ypoIfQPsnYhMP5R6csedDZDvOT58sBjUh/QZ09M5xwhQLdLzyvFMAoZXObq3wMn1XUbM1Tn1tEsK96Ml9EsCrc4Y30=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net; spf=pass smtp.mailfrom=queasysnail.net; dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b=JYBK0Vz1; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=U4Aq31uQ; arc=none smtp.client-ip=103.168.172.150
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=queasysnail.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=alkira.net header.i=@alkira.net header.b="NPk+ydVG"
-Received: by mail-pz2-f40.google.com with SMTP id d2e1a72fcca58-87c90648f99so587634b3a.0
-        for <stable@vger.kernel.org>; Wed, 23 Sep 2026 02:56:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790157402; cv=none;
-        d=google.com; s=arc-20260327;
-        b=CrZ6tW8RQfLXsO4WvpEUzHfAyjkDE3Iatow+cNxlaIAu2OqTWYOPZt99RLfqIX9yVM
-         hr31hXg1QfQUwdw7zsYiPVTZTx0Ntg/vLzk6KB92S9y5AOlR+G/cuRkSpMRC6T11jXSl
-         VdZRA9FD0PPDiq+RA4g0b0AUaJq2RPs+ezk0CqKZbLLUmZYLwfCv7Cv93l/kCsnZlKnT
-         rWsmsMokdn3dRdu06vPu32vZ3zpKOTBfY6fWgbtESINcrA+jICV+PCd7fbWF3Ie565qx
-         tpS7YmPmSQpw2cg1R8I4wCq8uOBu18zrkqY7Uba0TN0Y6bK7wA1iFDAYcNta8rYTz3da
-         h04A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=cpgKIz/nl9xM6UgCUL7AH6mkw+l4ifqbDGv3fT/fFSE=;
-        fh=IwR8SHcUmr2b6K7b7dyJBOf7lBUF3zaaNr9mQlJ5uBU=;
-        b=ogAiCDWGHVIh6IUlzNzN8RwH65xZIAL8qO1cVT5vgK8B3ShK4OCEH0ZPsqK8Kssjny
-         le6nb+aKJHR8e8QeW1MJ+Be29oEpJxG67JlgkjVzvKG0vZiz7+ep7kF5VlxqqZ+p+ude
-         uNDM1GvQDcKCR2RsLUgxw+MgNWYDf1xXMNgYCihC9BVoa5OLjtguXH2vLA5BqsGnFvbp
-         wmJJHuY5M6CPXPSxBCf5qGp7X62YLp6ZZfMdbibVigrXx+P4Vr2tNVbXlnt5J6l8JMDY
-         pn0eXoalF1kVvi6Z0M+ESgB/IfWjBHzxyk4mfrIac2GsEKDVs07Fx7DiQddASAJ4uQmR
-         Q1QA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=alkira.net; s=alkiranet; t=1790157402; x=1790762202; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=cpgKIz/nl9xM6UgCUL7AH6mkw+l4ifqbDGv3fT/fFSE=;
-        b=NPk+ydVGBcqG37jr3+4H/Wbr5Ko3cBO6T6DsA7KQdjHHvJ57IYYwYY7g4FluV0I4LA
-         lKJxUqUtOqakKD9KjFMSPrZ7ZI6OFLYqqUUKxOtxsppeOxKsT3BB9OyaCSV/erfYlsPm
-         YSYBl+GnPdBmfRrbe8srYyhakmmKtha7IC6yoIT2WQMX9lE5K2WhPH5u1XvkdYASs0aT
-         /OI0jrZUEdyMTRqkUhgZsF6/I4SiJVA8FRKarCJ2TE2oM3PWS+R4NiyPmP30AT9s3eY9
-         qWeSnmvRz2pfQwAkzMFizI/bw9f2KizImUWuYXO7s+G/+jdwFkZdfmdJn2/Dhoa150Gj
-         l5mQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790157402; x=1790762202;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cpgKIz/nl9xM6UgCUL7AH6mkw+l4ifqbDGv3fT/fFSE=;
-        b=y2NL89IoDP4kBN7bD82eUpFKOAKg7Hx2gI2U5MgF8sXGGmpgz6eSxbiOqTaQZBG8mC
-         sX6p2kU2X2H28h+TICzHoshrX+zKn/QyYfvUVrIkNoVPKiqQHdpDMOCUJxqrUr4PTVfn
-         8FoGTYK/gOk3Tnb+qKZDxXaI4jceenkdIkAlUWV/S1gJkrotz3Nxu4On8FtqMDrlLzjZ
-         10cud3zBGWNcSxMbQWs6Be1QMCJ/JpGyl9+S0VXRCY59TrWwmXa+lSlN4LAjbbQqM++a
-         +xHU4RIx7jrVwo4dlHkcgUy//u/MOnvcsd9lAEqZnTcjJC+9JS/GJBiGbxLW4CVyuqfB
-         K0mg==
-X-Gm-Message-State: AFuF++kE6GP3jijb4J07f+WCSFuDSqs2Mr69otXXqT3OYSWQl6yYxdoy
-	wu56UV3NidGcoxvJWryTsq1dPgpT9aVSzTMgTN8t3KxutKpbDhhQCTbYmvajHd65SfHPSv/nnnV
-	apKk88LSfiVRLcOJF8DlD1NohnA3N61ZDJWvYZuQDSw==
-X-Gm-Gg: AYBFou1UvbUiDxTCrHafXf8lSkgK53NkoJTcMUghDe1NvrO+s3ieX7IL+MihsZl7PBX
-	BfUPod50bavdRb49e1g3wH7VzdCcQqChJR1WvjqQqmsUu6SOi9VZrhSEvT5SxkM9kGq7FG/1ec0
-	tnOALVH+gCMt4xd7sQ6ONt1Zpd22uMUoPJ3UYoKn5u7FOogpV0EBLI+eQKhz2EjVWF1YlsIGfzt
-	MDZ3v2KmtuCRb1Xwqe3FI1fQjtQ+6PaohEKk+07KZETy6bOxjRrTqZQ1QGb8WgM0qSE3xpi+9c0
-	vRTCzOqvSaXjp3rXwtJaAyvOPXitFcsrGqrGS+7XyU1q01p/GsOBdAI4v7cKbB/ruQ==
-X-Received: by 2002:a05:6a00:8005:b0:87c:d962:72cb with SMTP id
- d2e1a72fcca58-87d1d4b9b3fmr1845440b3a.40.1790157402155; Wed, 23 Sep 2026
- 02:56:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b="JYBK0Vz1";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="U4Aq31uQ"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.phl.internal (Postfix) with ESMTP id AA808EC009E;
+	Wed, 23 Sep 2026 06:02:04 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-04.internal (MEProxy); Wed, 23 Sep 2026 06:02:04 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=queasysnail.net;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm2; t=1790157724; x=
+	1790244124; bh=H80tOJHy4q1eeGSRenOM710KaE3KyyTLuy/1fN88C/Q=; b=J
+	YBK0Vz1sQwuDMhq6mjDMOphWcg2yR1pZ8tlOfEJer/eDnUmC0uubt0VqlA4gJE8x
+	Zzutv/6zXyKwOSkKXElT4sM9lw7E5gVlk824j8wZS19RbJnH/eLMBRDCKQ+eqoev
+	t6fULelANX8Ht1qGdlQcuV05PanAHWKxUMmhGYe9xsJkQ5/7nnn2A6Kzpw/Hx5Ex
+	3lAfFWeLjloP9dV0BM6HDbwt7yu5GfNt7NyRKmT0O8LWInyp89885f5B0o3aMxNT
+	KgQ+sFQsM6GQirdJw2E+OzjRodGXE/o/nb9G+b5DeLzrLoQPLG7DlIhjANc4kAyM
+	8VMwxioWiSDT54aIFPhRA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1790157724; x=1790244124; bh=H80tOJHy4q1eeGSRenOM710KaE3KyyTLuy/
+	1fN88C/Q=; b=U4Aq31uQLExV51+j0mwPxGAKqIXZbS4p/wfu5vPyqwb2ccA2LYQ
+	ECf3Hz+feTDAV9WDHLUf814hs/QkMrxYdw3irN0OgQlj5UEicfjRqwh8iWUz+9z9
+	5WtierrCSnXcBC7xYMdvGMwG4XdWKJiLFwRPtUR0QDP5DeLCFQFtsT/0XcMVDkS/
+	wvz9d4qc+uHltGqk+WgNOE2/PpUDR9S0/QdyexefzI0hFZXfG85S8c1C4uvGpnMl
+	jihyMDe9NRBpICaDjoJ5jexhIc5JJjniQZXAOPbTFQlqMDdxZ4JK8+ME0jtQm3Le
+	nZIv4FrNAAc+1u9iqMyPwiX5w2wIdRepsgg==
+X-ME-Sender: <xms:m6Ozap00IpgOP_xADoB1B29NbCLRBEUenaA8F99MgZQAjKjonbTjLg>
+    <xme:m6OzatdMr4Qce08WbjsDUsxtA6URbNvHeFbD_D2-Zc_s1ibBG2kEoRNpSCjnTfYvK
+    GfxQVof_zibGnFZhP_qe7FEnzDo-zOKW9s9WitbjdbQcn_zZO1reJ9a>
+X-ME-Received: <xmr:m6OzahNZ4x5OxmWYYiAEt0H_7xd4YH3H7vo0nIZ8CWQhbt_o7dujx644UYL_>
+X-ME-Proxy-Cause: dmFkZTFiHfcEiDDCQlKtF8UR98//XytAmN53V5AmNTFQjW+/2EjtueZdX89+sGhx5GnqbZ
+    ajG7KOseg8FLGDnKaf6vbmYtCra8UO1CovbJRw1meTkrZo47OExRcjVvQRfhgNhYr29+Ix
+    GH/o2nX/rU1BBsApo650C/1R1HrcLjfOPHKqLoDwnjsRmKapN+p61ztEKxEbMqd8bSy3rI
+    YIV7Xuf9MsitY/pRpLRUcaBB8avvNUGWMiZlaq4wxt63eOEMBWJYJyESWTd6VUC/N//zQD
+    ZKN8NMv+O4T+NC4C9BY4bYKdOYbW7DR38azwAVMzIQj7BJShYpaaCBlPe44sLKlcxI0YLp
+    gH4MC695JD6U13aRMwCFv84F9qndxXuyiascGEKx2LgFXA+DpgtyogesCdCX/xFUXtpfNY
+    WPdNVW06dcYEPfKyYQ93KnD7dZDMpzD0+/OfzLMkD8qhFeZ4JXVOkbrCf/CkTYb0ue64SZ
+    u/eeRSoA0OGa27q5+K8u3FIfR9OOCa93NgjZ+Q6/el0WoYT4rrWViv7E8B6mNHoBj+SW1j
+    90G4yL7soEGjH/rlclltyKZnmnkdkwcJHm3H7NeLg/qW5dbElu7ONall3qFulKa6gHaj71
+    RSrsnDhMJ96zfufV836VUQX/4exoRckzBZlyJfBud48ftSOUNfITH8e4H2ng
+X-ME-Proxy: <xmx:nKOzahVoGJQbDd1T9utcu-X8MNimL_vrfNTfQ1JQTYsI9jBOBnCF1w>
+    <xmx:nKOzapw_teePWsVSluKsM_UYnybxjnfISntPEwfGxnjOREjV4vmyxA>
+    <xmx:nKOzao__nPRM1H1j0BP5lRMiEj1Sb7RnSq7w6pXAdNpvd2KIHlgQ_g>
+    <xmx:nKOzau_PvzCd0dwya9qvzvJEukufCvj-wZ0rkKP74RYsOos-ZAIhEw>
+    <xmx:nKOzah1Hr54MCWNExRAR64oNNXfFxIfm71pIHMqxFU4hQuziDpWqDwW6>
+Feedback-ID: i934648bf:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 23 Sep 2026 06:02:03 -0400 (EDT)
+Date: Wed, 23 Sep 2026 12:02:01 +0200
+From: Sabrina Dubroca <sd@queasysnail.net>
+To: Bruno Produit <bruno.produit@trailofbits.com>
+Cc: Steffen Klassert <steffen.klassert@secunet.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S . Miller" <davem@davemloft.net>, netdev@vger.kernel.org,
+	Kyle Zeng <kylebot@openai.com>, linux-kernel@vger.kernel.org,
+	Dominik Czarnota <dominik.czarnota@trailofbits.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] xfrm: espintcp: build sk_msg locally before publishing
+Message-ID: <arOjmbAt_ctmnB9S@krikkit>
+References: <20260922145335.2016559-1-bruno.produit@trailofbits.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAMcJb7NLooAw=6Vyzbq-7JnE9L=gfTbLL0Y=L1pTFMTg3Vf76A@mail.gmail.com>
- <2026092316-mouse-scallion-6eb2@gregkh>
-In-Reply-To: <2026092316-mouse-scallion-6eb2@gregkh>
-From: Kusuma DS <kusuma.ds@alkira.net>
-Date: Wed, 23 Sep 2026 15:26:31 +0530
-X-Gm-Features: AclHuK8wU4Sksj2iVp3kwEncGRLBwmdao0VGz_A6m0crpM3c4XTeRAUiXv8rTnA
-Message-ID: <CAMcJb7OPfN3jSmaqW14CqBESDv=m7Lc+CQ9hms6kVKMWoeHfCw@mail.gmail.com>
-Subject: Re: [6.12.y] Please backport 8045c0df98d4 ("xfrm: Fix dev
- use-after-free in xfrm async resumption")
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, netdev@vger.kernel.org, 
-	Chakradhar Kar <chakradhar.kar@alkira.net>, Ramakanth Gunuganti <ramakanth@alkira.net>, 
-	Sripathy Ramaswamy <sripathy@alkira.net>, steffen.klassert@secunet.com, sashal@kernel.org, 
-	dongchenchen2@huawei.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260922145335.2016559-1-bruno.produit@trailofbits.com>
 
-Hi Greg,
+2026-09-22, 16:53:35 +0200, Bruno Produit wrote:
+> From: Kyle Zeng <kylebot@openai.com>
+> 
+> espintcp_sendmsg() builds a new message directly in ctx->partial. If
+> allocation fails, sk_stream_wait_memory() drops the socket lock while
+> the shared sk_msg remains unpublished with emsg->len equal to zero. A
+> concurrent sender can then reuse the same slot. If the first sender is
 
-Thanks for replying.
+Could we add an ->owned flag to emsg to make the other sender
+wait/abort when the flag is set (whether the emsg has been fully set
+up or not)?
 
-You're right - I had not checked whether it applies cleanly, I only saw the
-change was small. My mistake.
+If not, comments below.
 
-Is anything planned for bringing this into 6.12.y, or does it need a tested
-backport first?
-
-Thanks,
-Kusuma D S
-Alkira Networks
+> interrupted, its failure path frees state now owned by the second sender
+> while TCP may still be consuming it, causing a use-after-free.
+> 
+> Construct the message in a call-local sk_msg instead.
 
 
+> After allocation
+> and any lock-dropping wait, recheck that the shared partial slot is still
+> free, then transfer the completed message into it. Failure cleanup
+> consequently releases only state owned by the current call.
 
-On Wed, Sep 23, 2026 at 3:02=E2=80=AFPM Greg KH <gregkh@linuxfoundation.org=
-> wrote:
->
-> On Wed, Sep 23, 2026 at 01:23:01PM +0530, Kusuma DS wrote:
-> > Hi,
-> >
-> > 6.12.y picked up a bug without its fix. Details below; the request is t=
-o queue
-> > 8045c0df98d4 for linux-6.12.y.
-> >
-> > The issue: on every packet whose ESP decrypt goes async, dev_hold() is =
-taken on
-> > the ingress device but dev_put() lands on the VTI, because vti_rcv_cb r=
-eassigns
-> > skb->dev without taking a reference. The VTI refcount is driven negativ=
-e during
-> > normal traffic, and a later `ip tunnel del` then hangs forever in
-> > netdev_wait_allrefs_any(). The process is stuck in D state, unkillable,=
- and the
-> > netdev is pinned for the rest of the boot.
-> >
-> > Introduced in 6.12.y by:
-> >
-> >     4236c30b437b ("xfrm: hold dev ref until after transport_finish NF_H=
-OOK")
-> >     =3D mainline 1c428b038400, backported 2026-06-19, first in v6.12.94=
-,
-> >     together with its dependency af4b8c5e9d6d
-> >
-> > Fixed upstream by:
-> >
-> >     8045c0df98d4 ("xfrm: Fix dev use-after-free in xfrm async resumptio=
-n")
-> >     Fixes: 1c428b038400
-> >     mainline v7.2-rc1; in 7.1.y as 63a300151999
-> >
-> > The fix was not queued alongside the commit it fixes, and is still abse=
-nt from
-> > 6.12.y as of v6.12.111. So every 6.12.94+ kernel carries the bug.
-> >
-> > Confirmed on 6.12.96+deb13-cloud-amd64 with a strongSwan tunnel-mode IP=
-sec VTI
-> > under inbound load; kernels up to 6.12.93 do not contain the code and a=
-re
-> > unaffected.
-> >
-> > The fix touches only net/xfrm/xfrm_input.c, net/ipv4/xfrm4_input.c and
-> > net/ipv6/xfrm6_input.c, against code 6.12.y already has, so it should a=
-pply
-> > cleanly. I can test a 6.12.y-rc against the reproducer if useful.
->
-> It does not apply cleanly.  Please send a working and tested version if
-> you wish to have this applied.
->
-> thanks,
->
-> greg k-h
+Please don't describe what the patch does. We can read the code.
+
+> The recheck
+> also covers packets submitted through the common IPv4 and IPv6
+> espintcp_push_skb() path.
+
+I have no idea what this means.
+
+
+> diff --git a/net/xfrm/espintcp.c b/net/xfrm/espintcp.c
+> index 674aedc..1642b34 100644
+> --- a/net/xfrm/espintcp.c
+> +++ b/net/xfrm/espintcp.c
+> @@ -311,6 +311,7 @@ static int espintcp_sendmsg(struct sock *sk, struct msghdr *msg, size_t size)
+>  	struct espintcp_msg *emsg = &ctx->partial;
+>  	struct iov_iter pfx_iter;
+>  	struct kvec pfx_iov = {};
+> +	struct sk_msg *skmsg;
+
+nit: reverse xmas tree ordering
+
+>  	size_t msglen = size + 2;
+>  	char buf[2] = {0};
+>  	int err, end;
+> @@ -324,6 +325,11 @@ static int espintcp_sendmsg(struct sock *sk, struct msghdr *msg, size_t size)
+>  	if (msg->msg_controllen)
+>  		return -EOPNOTSUPP;
+>  
+> +	skmsg = kmalloc_obj(*skmsg);
+> +	if (!skmsg)
+> +		return -ENOMEM;
+> +	sk_msg_init(skmsg);
+
+Why do that before trying (and possibly failing) to push the pending
+message?
+
+>  	lock_sock(sk);
+>  
+>  	err = espintcp_push_msgs(sk, msg->msg_flags & MSG_DONTWAIT);
+> @@ -337,10 +343,9 @@ static int espintcp_sendmsg(struct sock *sk, struct msghdr *msg, size_t size)
+>  		goto unlock;
+>  	}
+>  
+> -	sk_msg_init(&emsg->skmsg);
+>  	while (1) {
+>  		/* only -ENOMEM is possible since we don't coalesce */
+> -		err = sk_msg_alloc(sk, &emsg->skmsg, msglen, 0);
+> +		err = sk_msg_alloc(sk, skmsg, msglen, 0);
+>  		if (!err)
+>  			break;
+>  
+> @@ -348,25 +353,30 @@ static int espintcp_sendmsg(struct sock *sk, struct msghdr *msg, size_t size)
+>  		if (err)
+>  			goto fail;
+>  	}
+> +	if (emsg->len) {
+> +		err = -ENOBUFS;
+> +		goto fail;
+> +	}
+
+Do another espintcp_push_msgs before giving up?
+
+And there should be a comment here to explain why we need to recheck
+emsg->len even though we already did at the top (something like "we
+may have dropped the lock in sk_stream_wait_memory, check if someone
+else used the emsg").
+
+-- 
+Sabrina
