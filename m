@@ -1,116 +1,62 @@
-Received: from mail-pj2-f28.google.com (mail-pj2-f28.google.com [74.125.227.156])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ADC540DFA7
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 19:00:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.156
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF52840F758;
+	Wed, 23 Sep 2026 19:03:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790190013; cv=none; b=W8EI2B8SLGh0WKkG2OoE0JlGqOQWUrRgTJ44hBsdgRbPFaKQqZ2WoBmLqgbv0Wea1MNt8l6keqNquFH7NdCEuhkyGn7zP+CtfSfOrwTRrVlD/Xm4FEUV21jD0ZWCJimorWEH8BhmK66SEu+yv5phJifAl6MaR1gXHsU0tbLFweA=
+	t=1790190218; cv=none; b=GB0/RJITQoYAzXBDHssclXGz6hhCAD9WLm+OcFAkh8n2crBP8ajfvyJsCZDrpWyP/5wDeiUjxtDiz9CLVQ5962i8sR4xQ67fuwsJkjsohebEzTE4zGqRQ8FPYjD25Vw6/1gd+5xXKjcjaxIiDaXp4RTUmcNSS9J/SoPFj0zqCyc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790190013; c=relaxed/simple;
-	bh=dIYxx7dcorRCck/K56ttjlPJHl0ldcGdQEDj9lKWAHM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=epzRj1PTiTpXzbnnfoZNP3dUNXhCONl1vOkAyhMRvTliPEpHQneOzv917WZHNxEarI09mC3pcggvRmJYB/tWjCibTUDMlIgKfH1j87H3L6i9ykUkS4dMGU4u6RJ6JgRByx8zfU/sv3k6SaOMFWKRDoJyTfkzKIdypmnwSJEC4FQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h5eKUJUj; arc=none smtp.client-ip=74.125.227.156
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790190218; c=relaxed/simple;
+	bh=phz2r2oh1piWVyznzyMjW0hNmh7fQ7fQSNRSSPf+d+c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HfQB1dJWxiHThcFJRjaNqTM23Iwzq7Y87joi3RCw59F3BLbzQzT34jxoCxrEmeB0Jg2pkOah9HJKbR8Uh8rs4JYDsZD6AKIjZiXGvq8uEA4WYx8Pv8NIpN+EmGV4Z+1QHfUV+TkK06XPYM3T97HCdNptzC9Qk2dmM6dNy9zXqEU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=MM+PRk6N; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h5eKUJUj"
-Received: by mail-pj2-f28.google.com with SMTP id d9443c01a7336-2d91c22d27dso5314325ad.1
-        for <stable@vger.kernel.org>; Wed, 23 Sep 2026 12:00:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790190011; x=1790794811; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ih7vExqheyZRzWcSD/M9fF0f5NUhzIJn0g8tstyB/pc=;
-        b=h5eKUJUjHhOD9CL2T44KpeSMf8hR7EIk0ZYU97GJQt5runCc35KzHjggngZcKEka78
-         TzKQW81ZeiTON2ySyDKxA55swBl+bMVIulIGEg2SKAWMlXfopmf+Vc9Q1nGnXMcvMaJO
-         sHK+1w8Cxi+xTJvQS0qgZYeWv7hAfImAztXnWdYwGi8tddxYjX+YPqM5buTg17b0Xusr
-         JpGwvPVnQzVmUdOdGJLhmhc7k+bXNPOgXIOYi9cVC4dQR2QrJn8TJPoP6bF+ItMQWuWH
-         GDJV5qwVoa/mTxUyOWmTYwucjXwPOxiigvgwOxDzjJaB4VEWDOkX0LjMopiNTW/PxdCE
-         fKkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790190011; x=1790794811;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ih7vExqheyZRzWcSD/M9fF0f5NUhzIJn0g8tstyB/pc=;
-        b=uoPVgbF5iqb0RPh6ARnDyt8PW++6ScgUFSv9fwKxqhCye5Ts1+vgkXJBZRuu+jkfTJ
-         Vk0vmwKejdLcGxf+4xkJoTjIV0Ycb6pT636ZlYhsK1nbfnxMoaJxeaDEdQuBFZzV9Q71
-         w/DsTXYTHwMXKXsDruYHsvEeoQpIP0sYtPBrNElH5BNvzfMqCluSW+jmvSJHqpE93MXM
-         GK1ztvQQcHubXZZzAjBTAUt7auYNGMcGIGgzImUYNKrEhZGuVlDkgyy/4Fc5aSt5999o
-         FuxRCP3dNyRdzg+jeGoRbrtvLetR2efgMzc1ogfvcbY+mTkw0ALfMoXBO6ZW0WQOOWse
-         gzMQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxhDHWgMH9V9yoWJJKjaE8AX3MyZMHW7ZYNFQY/x0fola2MnqtfzHA04rK02hdyAqP8ww+U414=@vger.kernel.org
-X-Gm-Message-State: AFuF++n/bEDcTgLP1iP7YZ46C8T5C2JjWZqiUpJ7hUedqqapz7az5CkO
-	sU1sSzAzAKHl1yiqG7CTNjswZtDfQcWzqcJkww9YQtSFtlenlPr1PkA3
-X-Gm-Gg: AYBFou3Yu6RjLs0TfRKc5/UHoxGHbyDi4iiJ7gv2iwz/mJcRvzls+TGSG6aSScst6cq
-	OnztZGUIL0UFufkJmd3WwKLfVMYr1gZNa0PDmr8/vMrIectodDdTzcUucN9FMpQxTMGFUeJ/Fsf
-	DtNnELWAi3HNu8qOoNgXkhDDggEhowRYTYU+glOYlBjC0ew90vevRJkpG9M45rE71z57m2e7UFP
-	HW+4ze6vGFCuEySe63rNJgTV0a7HPLQNInZ43qpJ1dq9t49k0o98QcDGReHMSEXk5QC915o2TvL
-	4c7NLicr02MUkvms4nNiGQirRKzD8mDJ88l0q1O+pDseoQ6wWiMruXFGBtA3Td+QyIucAppCjEW
-	BwiIVkjgL+ZBQDYo+/oywkuEngwW/noziBCkCit/3VV3SgQbsMbEwCysBV3FaNY6eXUiS0c1tPx
-	/lJMkGiVUod1jrdv39gzWLCBXScFqDnk+fl5ehlabWL9OXXb2ANopqxkn7FbuKOP2lTDBkrLAsK
-	/v4/spSLZ8I8HaIey0ELi8=
-X-Received: by 2002:a17:903:907:b0:2dd:c053:d740 with SMTP id d9443c01a7336-2df7dc387e7mr822995ad.39.1790190011161;
-        Wed, 23 Sep 2026 12:00:11 -0700 (PDT)
-Received: from [10.14.5.0] ([192.19.161.248])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a5d7a48sm15827145ad.48.2026.09.23.12.00.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 23 Sep 2026 12:00:09 -0700 (PDT)
-Message-ID: <e0e7baf9-185a-4608-8dab-ddaa693d26bc@gmail.com>
-Date: Wed, 23 Sep 2026 12:00:10 -0700
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="MM+PRk6N"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=yjBNPZD8sb6ZwcrF2mIEaZbulZ+dibSRNcNsLQ+pVH4=; b=MM+PRk6NtNsRAXHgSYpUXoeU1m
+	SznkdEco5irabuPxhBBy/gylVgtBnU2ANZauRCJkSqP7S1jtbzCSlFoHaAG35QDlMnDVGvcBrRtuE
+	Mz7nDAjYhYU1Khwkqxo/ZROWy72wqM4QRgkdyEHEIpESRM4jnz8wxFnZncA6gKw7s68c=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x9SFg-006rZo-Ux; Wed, 23 Sep 2026 21:03:32 +0200
+Date: Wed, 23 Sep 2026 21:03:32 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Cc: maxime.chevallier@bootlin.com, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	sashiko-bot@kernel.org
+Subject: Re: [PATCH] net: stmmac: guard FCS stripping against runt frames
+Message-ID: <e0515b50-8a7a-4c4d-91da-9b62c2f663bc@lunn.ch>
+References: <20260923162339.1375698-1-qwe.aldo@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 000/398] 6.18.54-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260923140643.441954610@linuxfoundation.org>
-Content-Language: en-US
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20260923140643.441954610@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923162339.1375698-1-qwe.aldo@gmail.com>
 
+> Neither path checks that the buffer actually contains at least
+> ETH_FCS_LEN bytes.
 
+Please could you include a link to the freescale documentation that
+says such runt frames are actually delivered.
 
-On 9/23/2026 7:01 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.54 release.
-> There are 398 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Fri, 25 Sep 2026 14:05:48 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.54-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+Or maybe turn this around, add a comment that the freescale
+documentation says packets less than 64 bytes are dropped by the
+hardware, and remove all these unneeded length checks.
 
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
-BMIPS_GENERIC:
+    Andrew
 
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
--- 
-Florian
-
+---
+pw-bot: cr
