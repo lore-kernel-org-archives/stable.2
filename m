@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79DE041B8CA;
-	Wed, 23 Sep 2026 12:28:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3013E49DBB3;
+	Wed, 23 Sep 2026 12:28:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790166497; cv=none; b=icm3jZMpS5ZDp94RIJ867wCXZXb8XfQ3cp7bpKcEoxOsgwurRpeGuhmgimX7BtegOmUOnslA1stXdtfkqz3c/w7UEoMKfgJ2maOGe7izbHN6ur8fchiXyjN7av20vIz9zIDFdsWT+zLfwyW1ZclUfVBhPCqu4oXSjcTvozg87xQ=
+	t=1790166499; cv=none; b=FjSOsveAsBX74s8v9Fg20x9Nwt69LXjwrw/qtDciWmGHXYtfVZYYO2/2uecF6kkabSssSuhn49po8GrNNewHlPBKsrokMXuYRqtGo5O1l7FrT4h0UIT8RxYQb8VW5Mspm8pqfyXpF6Nf1A7eZYVV87B/u6V/Oo3rNeCsYyv0pKU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790166497; c=relaxed/simple;
-	bh=0Hd3XZaFVuSejGdy0w11S2DgNKwVgyhUOfn6Q2MxHEY=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=PaGc9ugUrPt+1TFTMXmGnbkX5och0vhqx894O6oEYo45lqfF+n3AkenSdGiv9dzIIumFxji00ohaPPoHoOmVF0RUJlIj19mVzEZ3Nv7jENWBHYpwwd8yy0PgOrIXx6LZqb9CbGGKvMXspNjKX7Ta+5wpbSoR3XG71mwTDkfNQyg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MexNZgLc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790166499; c=relaxed/simple;
+	bh=x9hD7kM2i0bK9AH0c7wGE8PLIlQnY7AZ3iJjOG+ricQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=cU/rOfWeW9j88BiX9i3dYDMlcRgLXoZMX2Lp7kGbPzPyK6DEJZTJV+9zr4dT9Tq+aLOCaR6ab6M8LYSmAyPCZE+LlRy2VuGNrUE0hXCxgOvjTQC/FoXi7ss8gNs1YzeIinu86DThqwgd5GVdLztFMrsaGe+hvYz3lj/pS3+sEAg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hQ7l2aIt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MexNZgLc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE8791F000FF;
-	Wed, 23 Sep 2026 12:28:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hQ7l2aIt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1A491F00893;
+	Wed, 23 Sep 2026 12:28:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790166496;
-	bh=/3d/hQi7NRIqT8f/OXN6KqZziYFPXJtZSIg/QdPyn0Y=;
-	h=From:Subject:Date:To:Cc;
-	b=MexNZgLcC9jTipp2qUqYqnbYBujAMMmUgCPBU0bAaWxwahmZ+rL4ZCc66yW1N3t8/
-	 3on8OYPZc71eJqlc0tIA0lfsYhI5DMm+Fh6HlxX3utyCxEToSSUnToWpwSH1eJlRXZ
-	 MNoKrVhek3HKr1z8LA4jdfRLY0YuoOWFb0fOGoOwpWEmlSMihaHPeLntdy26TWoZgR
-	 Y9Yb7gLZiiocX/iCvszwV8FIG60VjsrvRdgzMXBb+mNlx1ky+0C9gbXWrQZ9/bndpd
-	 xFLpzdzCekcmCK0gdMO3pNFeNpRkPmzrvoYyzhRATqOI22IMG+g6qawnPnxmd5UGFt
-	 atUpokjKL2crA==
+	s=k20260515; t=1790166498;
+	bh=xa0iihi21cS2sTIlimicqhQYTLmU7luc8l/boaaezg4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=hQ7l2aItTkekVHnvNtnJLefRLfG1kTGAfgMNt6pbmE/BytfKvOAMFHwiZrjVJpcIn
+	 HxW1qJ9kxIIkyl5lQyWhmU2W2vedRbO9xq/fg7r1HFYvzUwJ6w6TF+i+vYNiQ1vZUq
+	 ilpsryVo7t4MRxuAAsYwoFObuxUv++WFlQkyu0lycBQen2gsOJm9p/GqYguBCpdMcP
+	 g6ipkK/CIFt8RefJqmDB0krXRKSMhpb5jcFYuwwsqyviEHZKeYw/5wwOyS5Lb4D2dm
+	 g1kjhICy3b0I89MgGiy98Hn12gdMM7wf99h65MWZT54Yxy8JTxIDbvCkxwYyR6Ts2H
+	 HMHpTlwcJCsJg==
 From: Christian Brauner <brauner@kernel.org>
-Subject: [PATCH 0/8] mount: a few gnarly fixes
-Date: Wed, 23 Sep 2026 14:27:52 +0200
-Message-Id: <20260923-work-mount-fixes-v1-0-f424cf8d3242@kernel.org>
+Date: Wed, 23 Sep 2026 14:27:53 +0200
+Subject: [PATCH 1/8] mount: keep a copied mount unbindable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,71 +37,80 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWM0Q7CIAxFf2XpsyUbLkb8FeMDxeLQCIZuarLs3
- wV8PL09ZwXhHFjg1K2Q+R0kpFhg2HXgJhtvjOFaGHSvD73Re/yk/MBnWuKMPnxZ0Bk/GE/jcWS
- Cor0yt6FY58ufZaE7u7l26gdZYaRso5vqqRZVK6omqrrDtv0A+/SYT5wAAAA=
-X-Change-ID: 20260923-work-mount-fixes-c9f19fb484eb
+Message-Id: <20260923-work-mount-fixes-v1-1-f424cf8d3242@kernel.org>
+References: <20260923-work-mount-fixes-v1-0-f424cf8d3242@kernel.org>
+In-Reply-To: <20260923-work-mount-fixes-v1-0-f424cf8d3242@kernel.org>
 To: linux-fsdevel@vger.kernel.org
 Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
  Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
  "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
 X-Mailer: b4 0.17-dev-db0b7
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2554; i=brauner@kernel.org;
- h=from:subject:message-id; bh=0Hd3XZaFVuSejGdy0w11S2DgNKwVgyhUOfn6Q2MxHEY=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRtPnrnFlep2n67H9mran751h0tKT4cqBX6h/+N5jqzA
- geJzrulHaUsDGJcDLJiiiwO7Sbhcst5KjYbZWrAzGFlAhnCwMUpABP5Hs7IcPde0afomdbmh6Qm
- tymf2+4v9feawUaGRa9KbpifLrx90JPhN1vGG/bT7p1qzGpuk57bJTsnLFvL57I0QONJGNvcsMW
- tDAA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2380; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=x9hD7kM2i0bK9AH0c7wGE8PLIlQnY7AZ3iJjOG+ricQ=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRtPnrn+D8fkZoKvtAj0w4fZs6/e9hejLmrWthmYfgtj
+ rwu7rfVHaUsDGJcDLJiiiwO7Sbhcst5KjYbZWrAzGFlAhnCwMUpABNZ/ILhf1zap6TSWz8e9mh+
+ X1rsX5OZ7m0pd+Ch2/ZVC3TF9I405zAyHJexc4rOt0zwciiuar9wbT737nmHuTo2xV5feK7/aHg
+ pHwA=
 X-Developer-Key: i=brauner@kernel.org; a=openpgp;
  fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-Hey,
+It's groundhog day.
 
-A short while ago I received a bug report about problematic behavior in
-the mount code and that let me to review and model a few corner cases
-including reference counting. The result is the following set of fixes:
+MNT_UNBINDABLE used to be set in in mnt->mnt.mnt_flags and was not part
+of MNT_INTERNAL_FLAGS. clone_mnt() copied it with all the other flags to
+the new mount. This guaranteed that the copy of an unbindable mount
+became unbindable as well. Unbindable copies that ended up as shared
+lost the unbindable property.
 
-- Ensure that copies of unbindable mounts remain unbindable
-- Ensure that MOVE_MOUNT_SET_GROUP doesn't operate on unbindable mounts
-  so we don't create an undefined state where a mount is both unbindable
-  and a slave mount.
-- Ensure that we don't silently unmount busy mounts. This is nasty
-  because it's an old bug from v4.13 where calculation of whether a
-  synchronous (non-MNT_DETACH) umount would succeed drifted apart from
-  the actual codepath that did the unmount.
-- Ensure that we don't silently unmount busy mounts. Same class,
-  different mechanism. There's a race between the reference count check
-  in propagate_mount_busy() (summing up per-cpu counters) and mntget().
+But then commit 406fea799925 ("mount: separate the flags accessed only
+under namespace_sem") moved MNT_UNBINDABLE from mnt->mnt.mnt_flags into
+mnt->mnt_t_flags as T_UNBINDABLE.
 
-Fixes and test for all. No test for the mntget() race because that needs
-aritifical delays.
+clone_mnt() doesn't copy from mnt_t_flags and specifically doesn't copy
+T_UNBINDABLE. The only place a mount gets marked unbindable is in
+change_mnt_propagation() for MS_UNBINDABLE.
 
-And fwiw, I think I another vomitorious series in the pipes.
+This reintroduced an earlier bug we had already fixed. It resurfaces in
+copy_mnt_ns() which clones unbindable mounts via CL_COPY_UNBINDABLE. So
+since v6.17 a mount namespace created via clone(CLONE_NEWNS) or
+unshare(CLONE_NEWNS) contain private and bindable copies of every
+unbindable mount. The following snippet:
 
+  mount --make-unbindable /mnt
+  unshare -m --propagation unchanged
+  mount --bind /mnt /tmp/x
+
+succeeds. This used to fail with EINVAL. This also applies to
+recursively binding a tree that contains an unbindable the mount. Such
+subtrees used to be pruned when they were moved onto a shared mount.
+
+And Documentation/filesystems/sharedsubtree.rst still says that the copy
+of an unbindable mount is unbindable.
+
+So once again let's fix this. Copy T_UNBINDABLE in clone_mnt(). Let
+set_mnt_shared() mask it off whenever a mount is made shared.
+This restores what the old MNT_INTERNAL_FLAGS mask did.
+
+Fixes: 406fea799925 ("mount: separate the flags accessed only under namespace_sem")
+Cc: stable@vger.kernel.org # v6.17+
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
-Christian Brauner (8):
-      mount: keep a copied mount unbindable
-      selftests/filesystems: check that a copied mount namespace keeps unbindable
-      mount: refuse MOVE_MOUNT_SET_GROUP on an unbindable mount
-      selftests/move_mount_set_group: check that an unbindable target is refused
-      fs: don't silently unmount busy mounts
-      selftests/filesystems: check that a busy propagated copy blocks a synchronous umount
-      fs: don't let a migrating task hide its reference from do_umount()
-      docs: update the unmount propagation rule
+ fs/namespace.c | 1 +
+ 1 file changed, 1 insertion(+)
 
- Documentation/filesystems/sharedsubtree.rst        |  20 +-
- fs/mount.h                                         |   3 +-
- fs/namespace.c                                     |  51 +++--
- fs/pnode.c                                         | 108 ++++++++--
- tools/testing/selftests/Makefile                   |   2 +
- .../filesystems/mntns_unbindable/Makefile          |   6 +
- .../mntns_unbindable/mntns_unbindable_test.c       | 227 +++++++++++++++++++++
- .../filesystems/umount_propagation/Makefile        |   6 +
- .../umount_propagation/umount_propagation_test.c   | 226 ++++++++++++++++++++
- .../move_mount_set_group_test.c                    |  74 ++++++-
- 10 files changed, 673 insertions(+), 50 deletions(-)
----
-base-commit: 2d2a2d7aa98741b58f54cacc99b52024e4d865f9
-change-id: 20260923-work-mount-fixes-c9f19fb484eb
+diff --git a/fs/namespace.c b/fs/namespace.c
+index 580877e46b1a..a052f847c5df 100644
+--- a/fs/namespace.c
++++ b/fs/namespace.c
+@@ -1254,6 +1254,7 @@ static struct mount *clone_mnt(struct mount *old, struct dentry *root,
+ 
+ 	mnt->mnt.mnt_flags = READ_ONCE(old->mnt.mnt_flags) &
+ 			     ~MNT_INTERNAL_FLAGS;
++	mnt->mnt_t_flags = old->mnt_t_flags & T_UNBINDABLE;
+ 
+ 	if (flag & (CL_SLAVE | CL_PRIVATE))
+ 		mnt->mnt_group_id = 0; /* not a peer of original */
+
+-- 
+2.53.0
 
