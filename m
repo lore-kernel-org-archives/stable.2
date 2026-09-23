@@ -1,101 +1,77 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E99303E1CE5
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 20:42:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AC1437DEBF;
+	Wed, 23 Sep 2026 20:53:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790196130; cv=none; b=rOOqfCeb6BRf6uY7eleLh+iLNH2xMCeGh2o9eToprEEQqDZ0A/am+fSQ25eGcNy25PaDRQu4rtVIQ6DajYfyEPhzrYJsJ6G3e7cAIi3eAZ0rhY+eLFKXWxWsF2ri/jB5TPGaiy1gXwQuAD+IDizhj7fEHcU59oa1eZ0lRjp0udc=
+	t=1790196835; cv=none; b=PJL8ppGy/0pTs2r5WLJwpmV0vUc4bJeR2Gl8vsKZT7pH5n7TDg+geurl6hSRjsnZfpzRckNH1NMX7o37y49ZrbjtzNMAscfDbAZPSKxgj6vD6ZK2+1OpcqT6A8Irt46oopFtXIl5xEcwZeLTRmBbxEWw9CUPGs5W6nIRIo2yUhc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790196130; c=relaxed/simple;
-	bh=X7R9IrSos6cqCrnKYU8/u9DylC5NgZsXQ/kcQyXen2w=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=iV6ytMHB020wLrrQrYw63NZsrkcc9u8DF+hNWNByuR8LNFQyBjFmdXb+z8DDdkA/ct6A03Cl5gTl7RUNOzcXct+0Pkok6IozgDXDRaduJMn8QcmRgOz5yKG9c4bT9QZAryB7axCq+4fZ4Oy4qRxcpqT5CPHa+tUokD+fbfiJlqI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZdnHsKRQ; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790196835; c=relaxed/simple;
+	bh=OSl9JnLClbDp1DMXBH9DEyy7hb7yn2V4q9dQerSym54=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YRyBc/3N8YkOCON/StAcT5PAx0lB4g4Ijovnq//BMt6zVs3c0knUu/WR2EATvYxbGlFOaSSebciWzRTnQb/5JOxH35VL9c6OaK9eEvLk6wzmP5TlO6to+1sBGTQ7u7gPoyp4Pl5whRk6ho+s4mnQf1oD0ZgGz4JmqsyXXcapyr4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=aiL8W9St; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZdnHsKRQ"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d3931so10393975e9.3
-        for <stable@vger.kernel.org>; Wed, 23 Sep 2026 13:42:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790196127; x=1790800927; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=X7R9IrSos6cqCrnKYU8/u9DylC5NgZsXQ/kcQyXen2w=;
-        b=ZdnHsKRQFIJhj1AEGpYszi7k8Uf4lld0bDL74qTtUKdhx55BqgK+frQ03JYYQ2oAdb
-         ULKyY50Y7ipZWcYZdV6RxZ7Hb6D0wTSHS/Vpnffx389NSaUl5zHJZIP0NXnHT24It/yQ
-         7I01qMv71mIKe/Nb5637G5oSaSGL55XT0UKo8WLOggPgqPDxYxgkdFVKz16vZPfaheCx
-         nTahfC7V5IpJAwHyKNAmk4nNOnzSRzuF9CT2o9MwmkETQo+UVWjJU/Yq02RwraR3IxO/
-         jTkGw6YQlNxc7kDIxACLFG/t0yOxBz/SMzFWY1vg+PWBkx17EbFe9yQAV4g3zLNbix3b
-         9vDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790196127; x=1790800927;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=X7R9IrSos6cqCrnKYU8/u9DylC5NgZsXQ/kcQyXen2w=;
-        b=QaVdsxvj3kmuD+hfRbhrl/uyIfNJdYe+QTo6jWUIYt2Z96JETrVVV0LkYd5+JX/eeE
-         V23l+ennoq1wQRBx4tC3/yoFCteLHBjb8Lx9ZYifGM/T3f3SwjxHSMqNndsma0NknaAa
-         SxtGM/kqKkOl38+mGevgHud05p8FlJFevgY+5OHHT2c2n2wBnCo4LGZ/wqrKbbdACqsq
-         CxLc/kmNect8mT2ThTJieiHL3hA2DIVokMggPtRKhq4hBQM5GeSX/xbnpfMlaalSlU/g
-         PJVZ+ltF04vZuhPZk3bh8+Oen2zuby8L5iy0RO6HXwt/sUJuzOPxwtrvBiI6v86l33UI
-         BHCg==
-X-Forwarded-Encrypted: i=1; AKwUvByl+gFexSOxCf6aysb7MYxartNSdD1ydCHrn6vKHMg+eD6hN6No4UiCo7U6a4PMdaqeZ/Y37JE=@vger.kernel.org
-X-Gm-Message-State: AFuF++k7QWN8qHczR3/EawLaElmJSaPP8ynZBQetxW1WDjBJY9eEi6FX
-	x7DknAud6a2prybFEzvNhK7Z9ekkKu9KK0e+nW9GkCvV2h7Tv1ly0yUT
-X-Gm-Gg: AYBFou29zs24shVFsHis2bPiQeMUjk3i8vFw/Q3wBzUzZ3YXaixFV/26AR+QlrWnCXc
-	e5KJblEUOS1wnMcG/cm/B1y0xov5z5wEbgOAWKokMKzeKWXoXzLemI5/OSk531uZlQ2NaV56ny1
-	2gyXFMUrlltRzjl4fWr8JnWufnb3tEq5j3BuEqC82eAm9M+ohGkfbpuMcYcv2DjUtFSb4rXyLRl
-	YDbfZxrj9JfWRt1OYnofkmbP+aCDacnGu5sRDFp+DHkHOPmzBBG7sssWfNqcaps1eMyj6R0M48s
-	jyJqGtryINg1RTUzCtsQqv55Fl3jNdAe1QDL6vm3RRtvfyJ5aJu4vo8Tzwc+OBWHQi/eIRI1U25
-	UcdZmCI6syM48OaCX37Rje3vj3XkBjiusFdGlgDcuC3TAVJK/UM0RQV2ZyJBU/BMDS86Gr49wHq
-	NUGkvxc88o4ue74x8Ll/nZE/Jj0LX/le8T7Q2JK1kfLGHxtf4GSj0gBjqczUcXRRNG2SQiIVjGu
-	ikH2/1NaDZH1NWRX6xC9/4SCr8fyMjihFAclmY5JOK7KA1qCH0H0aGEW9xd2DUXeloJkmNZ2VNX
-	Duu3s1IMwjc34Ate/Esk5Rc3G2YOt+mdEIpz4HwX7Qn93+yzos4CLWqEVqYarLoVvTL8jrSdOzl
-	0nsBzj012RWBs
-X-Received: by 2002:a05:600c:6207:b0:49c:fc6c:be13 with SMTP id 5b1f17b1804b1-49fe66ff146mr5620535e9.25.1790196126952;
-        Wed, 23 Sep 2026 13:42:06 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-a4a2-9601-c082-2dcb-3f3b-92b8.310.pool.telefonica.de. [2a02:3100:a4a2:9601:c082:2dcb:3f3b:92b8])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe0c4b51bsm67169645e9.4.2026.09.23.13.42.06
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 23 Sep 2026 13:42:06 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	stable@vger.kernel.org,
-	patches@lists.linux.dev,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Sasha Levin <sashal@kernel.org>,
-	Jianfeng Liu <liujianfeng1994@gmail.com>,
-	Rob Clark <robin.clark@oss.qualcomm.com>
-Subject: Re: [PATCH 7.2 104/438] dma-buf: Make DMABUF_DEBUG default to y on DEBUG_KERNEL kernels
-Date: Wed, 23 Sep 2026 22:41:46 +0200
-Message-Id: <20260923204146.6699-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20260923140647.476063815@linuxfoundation.org>
-References: <20260923140644.756254324@linuxfoundation.org> <20260923140647.476063815@linuxfoundation.org>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="aiL8W9St"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=5Bm/+0EcngfKdWcwDY8qFA8uhs2WaYFdYwsqhTp+Yn8=; b=aiL8W9StXpw1/JGwyp+ROWxuGj
+	QHXJkCcsa6bml8CqCI//HrKmSOu6o7lOg2HYHi52nNJ1Bj3foBebCrmcaMXvO7EqeffA3Wk829q4g
+	90Wt4ui0qOXFjgT3P1I7FKZQOJ/XNq8kRRKTS1tGTFOgk7q3rtB5hw8VElHqKb+m0oiU=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x9TyQ-006sHl-9P; Wed, 23 Sep 2026 22:53:50 +0200
+Date: Wed, 23 Sep 2026 22:53:50 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Cc: maxime.chevallier@bootlin.com, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] net: stmmac: guard FCS stripping against runt frames
+Message-ID: <54796d52-7656-43f6-9ca9-7bdd10db0a76@lunn.ch>
+References: <e0515b50-8a7a-4c4d-91da-9b62c2f663bc@lunn.ch>
+ <20260923193354.1537557-1-qwe.aldo@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923193354.1537557-1-qwe.aldo@gmail.com>
 
-I object to including this patch in 7.2.8. I authored the upstream
-patch, but did not tag it for stable. It corrects a Kconfig default
-and thereby enables the DMA-BUF importer checks in configurations
-that take the DEBUG_KERNEL default.
+On Wed, Sep 23, 2026 at 04:33:54PM -0300, Aldo Ariel Panzardo wrote:
+> Hi Andrew,
+> 
+> You're right that the relevant question is not merely whether the MAC can
+> forward frames shorter than 64 bytes, but whether a descriptor with a
+> reported length smaller than ETH_FCS_LEN can reach this path.
+> 
+> I found a closer NXP/Freescale reference: the i.MX RT1170 ENET_QOS
+> documentation (IMXRT1170RM, Chapter 61), which describes the Synopsys
+> DWC EQoS receive descriptors used by this driver:
+> 
+>   https://www.nxp.com/webapp/Download?colCode=IMXRT1170RM
+> 
+> The MTL receive configuration explicitly supports forwarding error packets
+> and undersized good packets (FEP/FUP), and RDES3.PL is documented as
+> the number of bytes transferred to system memory, including CRC. I don't
+> see a documented lower bound on PL.
 
-Jianfeng has now reported a drm/msm hardware video decode regression
-from the upstream change:
+Will, a frame which is smaller than the FCS cannot pass the FCS
+check. So you don't need to worry about undersized good packets
+hitting this condition.
 
-https://lore.kernel.org/r/20260923074256.9357-1-liujianfeng1994@gmail.com/
+Given that an ethernet header is 14 octets the FCS is 4 octets, any
+frame smaller than 18 octets should be dropped by the network
+stack. So why not do one test at the beginning for ETH_HLEN +
+ETH_FCS_LEN?
 
-The impact of enabling this by default for stable needs further
-discussion.
+	Andrew
 
-Thanks,
-Karl
