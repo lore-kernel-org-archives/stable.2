@@ -1,59 +1,45 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EB58953FD28;
-	Wed, 23 Sep 2026 14:47:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B441053FD5E;
+	Wed, 23 Sep 2026 14:47:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790174828; cv=none; b=MIhJShlqwpmTfMBJlaZSJgC3yRHFfTq0e9pCP6v2gMsIlaIgA6MM+uWy3llDdEyjWl4/C2fMtfK/GWPcUhqIdzdfXGHvIxIqS3A9/rv8D2wOSGIcGe+pea8YOnBUk+X0+UKQAAHqgHEtFwKaArXFrYTwsUos3qfGTyZsjSd5fvA=
+	t=1790174829; cv=none; b=G8d65UJwyVMMRfRlLZzUXctjDInXDxa8Kq5hujG+bLO7tUTI3FndniSA0doRS/aiOEqZNPhdAAKtQFJXrinMJQ/W7wM8BOYcMQTAc7xvmc57g1PK1O18fAwdaytbU3lEhm25Sj2RErsPtjsqnic8xJQ/KMYcyLUAGeJgh5gqjwY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790174828; c=relaxed/simple;
-	bh=awIi2SW1S6jVTOUpTt7BOwVz9y44FEJZkTwgeTESkVU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kPpWK1+J09LnkCCfP8VtJAb9oIs4ecQs94/uZ3YRN/Sjh/VeWMplGiFHTm6OOS83Y0Hy06a0Ic2FHxZd+2+MYuiO72EtigHmOMhgTQ4hsY/o1n0E7A+CrhQxp9/smNqc30lo/X6fgNPgrIK/rP7Ffu+8cYSkHOmZ7RXPL9dIEe8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=qJj1PIbs; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1790174829; c=relaxed/simple;
+	bh=JiahXcPY5LKWxYq+EWTDCkKVK2FeMKhV7buCWfVAKKI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=NQsjXORrgyDvE5WyHUoFtM30koMgFp2Yw3073yor0LttP+tKNIO+5jYbu6gQ1iX5SN805qHfzRNDQU7KnHMZtR3aoImy4M/L06exl+7EFREKpcdH92w2OJx5V/tNxBQ++bX7uDiJj2sWF03XBVoG1M+2EcHQto4GqqUyqwYD5GI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=rsVG7Z1L; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="qJj1PIbs"
-Received: by linux.microsoft.com (Postfix, from userid 1216)
-	id 4FFE920B7168; Wed, 23 Sep 2026 07:46:18 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 4FFE920B7168
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1790174778;
-	bh=BdWvUD6PhTXpEULgXqv9ItmnLeR+T+Ojwl0P/kKONhM=;
-	h=From:To:Cc:Subject:Date:From;
-	b=qJj1PIbsphfBdS88Mg9ne0uT2rNOI9Ri0PRvbSfoJouMyvGIEhHvgJnf7VnMqvGcY
-	 j3iS5g3Rr77YUyTNpzF+qQxVAiTiQnZEQA1FE4VLjj7/oIS5VTfQulR+sE1Q9LCpJr
-	 deFM/Qr2D2NsGbeh1ukNnVgjhmzkiB/FB+tGRclU=
-From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-To: netdev@vger.kernel.org
-Cc: "K. Y. Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	Dexuan Cui <decui@microsoft.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Simon Horman <horms@kernel.org>,
-	Erni Sri Satya Vennela <ernis@linux.microsoft.com>,
-	Dipayaan Roy <dipayanroy@linux.microsoft.com>,
-	Aditya Garg <gargaditya@linux.microsoft.com>,
-	Jacob Keller <jacob.e.keller@intel.com>,
-	Saurabh Sengar <ssengar@linux.microsoft.com>,
-	linux-hyperv@vger.kernel.org,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net] net: mana: reserve RX buffer headroom to fix forwarding performance
-Date: Wed, 23 Sep 2026 10:45:00 -0400
-Message-ID: <20260923144500.4073380-1-hamzamahfooz@linux.microsoft.com>
-X-Mailer: git-send-email 2.43.7
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="rsVG7Z1L"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 068161F000FF;
+	Wed, 23 Sep 2026 14:47:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790174828;
+	bh=mZDyRGoOD/XEXXvgL6diuDpEw6wj1RmgU7VdLbs571g=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=rsVG7Z1Lhm8+78SO5PXAqWB4vUQrJMWKHtmJH92lyYX1N5Og67Qz43qtHnOUngsRv
+	 kR5IiiHnEQeNOnwE0J/5pUwotTRsGzcRUee7K8f5cw8sWL62NDowFsFuNyaPpNWDoh
+	 K7CMAbSlFpeAO4U1Sp4U4vDD10EL7oF7isGgvmSQ=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Boris Burkov <boris@bur.io>,
+	Qu Wenruo <wqu@suse.com>,
+	Guanghui Yang <3497809730@qq.com>,
+	David Sterba <dsterba@suse.com>
+Subject: [PATCH 6.18 238/398] btrfs: clear free space tree creation state on rebuild failure
+Date: Wed, 23 Sep 2026 16:05:12 +0200
+Message-ID: <20260923140649.586046614@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260923140643.441954610@linuxfoundation.org>
+References: <20260923140643.441954610@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -62,157 +48,78 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Commit 730ff06d3f5c ("net: mana: Use page pool fragments for RX buffers
-instead of full pages to improve memory efficiency.") started handing
-out RX buffers with zero headroom so that two buffers fit into one page
-at the default MTU.
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-The MANA TX path, however, stores the per scatter-gather entry DMA
-mappings in `struct mana_skb_head` at skb->head, and mana_start_xmit()
-therefore calls skb_cow_head(skb, MANA_HEADROOM). The port advertises
-this requirement as ndev->needed_headroom = MANA_HEADROOM.
+------------------
 
-As a result every packet that is received and then forwarded out of a
-MANA port fails the skb_cow() in ip_forward() and gets reallocated and
-copied by pskb_expand_head(). This is invisible to a plain RX or TX
-workload, but it puts a full skb reallocation plus memcpy on the hot
-path of every single forwarded packet, which is exactly what a
-router/NVA workload does.
+From: Guanghui Yang <3497809730@qq.com>
 
-Restore the headroom. Note that reserving MANA_HEADROOM (232) is not
-enough: ip_forward() asks for LL_RESERVED_SPACE(dev), which rounds
-hard_header_len + needed_headroom up to HH_DATA_MOD and is 256 bytes on
-ethernet. Use LL_RESERVED_SPACE() directly so the value keeps tracking
-both constants.
+commit 3565893cc72cdf6b795cf6a33e7ff9605322334d upstream.
 
-At the default MTU on a 4K page this means a buffer no longer fits twice
-into a page (SKB_DATA_ALIGN(1500 + MANA_RXBUF_PAD + 256) = 2112), so the
-frag-vs-single decision is now made by computing the real buffer size
-instead of comparing the MTU against PAGE_SIZE / 2. The page_pool
-fragment path is still used wherever at least two buffers genuinely fit,
-e.g. on 16K and 64K page sizes.
+btrfs_rebuild_free_space_tree() sets BTRFS_FS_CREATING_FREE_SPACE_TREE
+before rebuilding the free space tree.  Several error paths return
+without clearing this flag.
 
-Measured on an Azure VM with a MANA NIC acting as a forwarding NVA (UDP,
-1400 byte payload, 4 streams, 8 Gbps offered, only the forwarding
-node's kernel differs), 8 runs each, median:
+The transaction restart failure path can leave the flag set on a live
+filesystem, causing delayed reference processing to be skipped. Clear it
+on all free space tree rebuild failure paths. Keep
+BTRFS_FS_FREE_SPACE_TREE_UNTRUSTED set, since a failed rebuild leaves
+the free space tree untrusted. Callers must fall back to extent-tree
+caching.
 
-                  forwarded pps    throughput
-  before              272,830       3.06 Gbps
-  after               390,560       4.37 Gbps   (+43%)
-
-perf on the forwarding node, same workload:
-
-                  memset_orig   __pi_memcpy   pskb_expand_head
-  before             10.07%         3.96%         present
-  after               0.94%         0.64%         gone
-
-Cc: stable@vger.kernel.org
-Fixes: 730ff06d3f5c ("net: mana: Use page pool fragments for RX buffers instead of full pages to improve memory efficiency.")
-Signed-off-by: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+Fixes: 882af9f13e83 ("btrfs: handle free space tree rebuild in multiple transactions")
+CC: stable@vger.kernel.org # 6.14+
+Assisted-by: LLM
+Reviewed-by: Boris Burkov <boris@bur.io>
+Reviewed-by: Qu Wenruo <wqu@suse.com>
+Signed-off-by: Guanghui Yang <3497809730@qq.com>
+Signed-off-by: David Sterba <dsterba@suse.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/net/ethernet/microsoft/mana/mana_en.c | 58 ++++++++++++++-----
- 1 file changed, 44 insertions(+), 14 deletions(-)
+ fs/btrfs/free-space-tree.c |   14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
-index 591fb4191d90d..e3f3b33ba9062 100644
---- a/drivers/net/ethernet/microsoft/mana/mana_en.c
-+++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
-@@ -758,6 +758,36 @@ static void *mana_get_rxbuf_pre(struct mana_rxq *rxq, dma_addr_t *da)
- 	return va;
- }
- 
-+/* RX buffers must be allocated with enough headroom for the TX path:
-+ * mana_start_xmit() stores the SGE DMA mappings in struct mana_skb_head at
-+ * skb->head, which is why the port advertises ndev->needed_headroom =
-+ * MANA_HEADROOM.
-+ *
-+ * An skb that is forwarded out of a MANA port has to satisfy
-+ * skb_cow(skb, LL_RESERVED_SPACE(dev) + ...) in ip_forward(), so reserve
-+ * LL_RESERVED_SPACE() here rather than just MANA_HEADROOM - it rounds
-+ * hard_header_len + needed_headroom up to HH_DATA_MOD and is therefore
-+ * larger. Reserving less makes every forwarded packet get reallocated and
-+ * copied by pskb_expand_head().
-+ */
-+static u32 mana_get_rxbuf_headroom(struct mana_port_context *apc)
-+{
-+	u32 headroom = LL_RESERVED_SPACE(apc->ndev);
-+
-+	if (mana_xdp_get(apc))
-+		return max_t(u32, headroom, XDP_PACKET_HEADROOM);
-+
-+	return headroom;
-+}
-+
-+static u32 mana_get_rxbuf_size(struct mana_port_context *apc, u32 mtu)
-+{
-+	u32 len = SKB_DATA_ALIGN(mtu + MANA_RXBUF_PAD +
-+				 mana_get_rxbuf_headroom(apc));
-+
-+	return ALIGN(len, MANA_RX_FRAG_ALIGNMENT);
-+}
-+
- static bool
- mana_use_single_rxbuf_per_page(struct mana_port_context *apc, u32 mtu)
- {
-@@ -770,11 +800,16 @@ mana_use_single_rxbuf_per_page(struct mana_port_context *apc, u32 mtu)
- 	if (apc->priv_flags & BIT(MANA_PRIV_FLAG_USE_FULL_PAGE_RXBUF))
- 		return true;
- 
--	/* For xdp and jumbo frames make sure only one packet fits per page. */
--	if (mtu + MANA_RXBUF_PAD > PAGE_SIZE / 2 || mana_xdp_get(apc))
-+	/* For xdp make sure only one packet fits per page. */
-+	if (mana_xdp_get(apc))
- 		return true;
- 
--	return false;
-+	/* Only use the page_pool fragment path when at least two buffers,
-+	 * including the headroom each of them has to reserve, actually fit
-+	 * into one page. Otherwise the fragment path degenerates into one
-+	 * buffer per page while still paying the fragment accounting cost.
-+	 */
-+	return PAGE_SIZE / mana_get_rxbuf_size(apc, mtu) < 2;
- }
- 
- /* Get RX buffer's data size, alloc size, XDP headroom based on MTU */
-@@ -782,20 +817,19 @@ static void mana_get_rxbuf_cfg(struct mana_port_context *apc,
- 			       int mtu, u32 *datasize, u32 *alloc_size,
- 			       u32 *headroom, u32 *frag_count)
- {
--	u32 len, buf_size;
-+	u32 buf_size;
- 
- 	/* Calculate datasize first (consistent across all cases) */
- 	*datasize = mtu + ETH_HLEN;
- 
-+	*headroom = mana_get_rxbuf_headroom(apc);
-+
- 	if (mana_use_single_rxbuf_per_page(apc, mtu)) {
--		if (mana_xdp_get(apc)) {
--			*headroom = XDP_PACKET_HEADROOM;
-+		if (mana_xdp_get(apc))
- 			*alloc_size = PAGE_SIZE;
--		} else {
--			*headroom = 0; /* no support for XDP */
-+		else
- 			*alloc_size = SKB_DATA_ALIGN(mtu + MANA_RXBUF_PAD +
- 						     *headroom);
--		}
- 
- 		*frag_count = 1;
- 
-@@ -809,11 +843,7 @@ static void mana_get_rxbuf_cfg(struct mana_port_context *apc,
+--- a/fs/btrfs/free-space-tree.c
++++ b/fs/btrfs/free-space-tree.c
+@@ -1346,7 +1346,7 @@ int btrfs_rebuild_free_space_tree(struct
+ 	if (unlikely(ret)) {
+ 		btrfs_abort_transaction(trans, ret);
+ 		btrfs_end_transaction(trans);
+-		return ret;
++		goto out_clear;
  	}
  
- 	/* Standard MTU case - optimize for multiple packets per page */
--	*headroom = 0;
--
--	/* Calculate base buffer size needed */
--	len = SKB_DATA_ALIGN(mtu + MANA_RXBUF_PAD + *headroom);
--	buf_size = ALIGN(len, MANA_RX_FRAG_ALIGNMENT);
-+	buf_size = mana_get_rxbuf_size(apc, mtu);
+ 	node = rb_first_cached(&fs_info->block_group_cache_tree);
+@@ -1364,14 +1364,16 @@ int btrfs_rebuild_free_space_tree(struct
+ 		if (unlikely(ret)) {
+ 			btrfs_abort_transaction(trans, ret);
+ 			btrfs_end_transaction(trans);
+-			return ret;
++			goto out_clear;
+ 		}
+ next:
+ 		if (btrfs_should_end_transaction(trans)) {
+ 			btrfs_end_transaction(trans);
+ 			trans = btrfs_start_transaction(free_space_root, 1);
+-			if (IS_ERR(trans))
+-				return PTR_ERR(trans);
++			if (IS_ERR(trans)) {
++				ret = PTR_ERR(trans);
++				goto out_clear;
++			}
+ 		}
+ 		node = rb_next(node);
+ 	}
+@@ -1383,6 +1385,10 @@ next:
+ 	ret = btrfs_commit_transaction(trans);
+ 	clear_bit(BTRFS_FS_FREE_SPACE_TREE_UNTRUSTED, &fs_info->flags);
+ 	return ret;
++
++out_clear:
++	clear_bit(BTRFS_FS_CREATING_FREE_SPACE_TREE, &fs_info->flags);
++	return ret;
+ }
  
- 	/* Calculate how many packets can fit in a page */
- 	*frag_count = PAGE_SIZE / buf_size;
--- 
-2.55.0
+ static int __add_block_group_free_space(struct btrfs_trans_handle *trans,
+
 
