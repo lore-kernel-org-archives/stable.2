@@ -1,155 +1,161 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.187.6.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EB0484756C3;
-	Wed, 23 Sep 2026 09:49:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.187.6.220
+Received: from mail.fhannenheim.net (mail.fhannenheim.net [188.245.251.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF7FE477E37;
+	Wed, 23 Sep 2026 09:50:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.245.251.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790156954; cv=none; b=Qq6fuuuZjsK1AQtsw/ZhTx7HH46a2//g+aVvLU1IToIY9v9V0ZixsavJV0by3oaCAuNwSxmWyGZd1GojmR3Xx3TxtXbh6y0XtBXOOJHS5dySfbEOCDWbak6Z7UIr+9u42oa+k72UDHyzLEARE8Ofk7Lx8WBS6mAq2XSKhW3ndhM=
+	t=1790157053; cv=none; b=GH4kW7eU4+tK8t2hZai5vX2kuIxwS02ehKeervBZaJfJn2hNaixH0Nn37qSGBi+KwfILZZhtLjxsOPUu9o/jCIEevmxMWam8QnD40DuEe57INaqKr8KyuVmNkjhPbnV3oonSHrqY+j/OJ8tHgkt0DCmOezWK4TFQYAm1Xi/XAUU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790156954; c=relaxed/simple;
-	bh=onO0Jdhy+n/YPKxtxMu+68vh5d+rvCqvu72aSYGTGzw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=s32/xHsW5TA+HtLW+ti2TSiweH8gUr2VnJNs/eWRN5wJUBKrLybsZGp9RSzyMme2rzMeG4OBenn8U0l8O+o+3BiTYHSIzcf9U/Ygw4ZfelEX4cTg2FwKxtdzaxwMSBYBjEuo0ylh4qb0a0gRWZzemT8X/EsarWoDi7bDQ4YC4Js=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=52.187.6.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wCnkH6PoLNqJVExAQ--.7129S3;
-	Wed, 23 Sep 2026 17:49:04 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app2 (Coremail) with SMTP id zC_KCgDHFMmOoLNqwoWWBA--.41472S2;
-	Wed, 23 Sep 2026 17:49:02 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>
-Cc: linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Song Li <songl@zju.edu.cn>,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH] iio: adc: ad_sigma_delta: fix use-after-free on unbind
-Date: Wed, 23 Sep 2026 09:48:07 +0000
-Message-Id: <20260923094807.503690-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1790157053; c=relaxed/simple;
+	bh=3gJrRsmKPB7eJUuw+VZSGY+71yBpCrpZY9rWwKjvMXk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MScpGiQ+xXAaAp75Ajs9A871qQGhwH0DwV0rSVC1CzIUuI0fZu0i6YQyTcyqyKTgWLxP/8dxLMZBbMcXdu0XanryxFzVUstZ8hqlyya5C3IeNum3rlItFZ1C1xmdrzZQESU4f1+QDpBZaMWlFxnky3CpuJ4m9mSO2f8Afad1iZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fhannenheim.net; spf=pass smtp.mailfrom=fhannenheim.net; dkim=pass (1024-bit key) header.d=fhannenheim.net header.i=@fhannenheim.net header.b=QypCSh9u; arc=none smtp.client-ip=188.245.251.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fhannenheim.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fhannenheim.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=fhannenheim.net header.i=@fhannenheim.net header.b="QypCSh9u"
+Message-ID: <52bbd4c5-795f-4901-8b32-a1700d33b66d@fhannenheim.net>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fhannenheim.net;
+	s=mail; t=1790156674;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hvN63iinQqNBNDu13VGaPnwDGRiYSsSs4VK48OPwTW4=;
+	b=QypCSh9u20oVgMy/CkvVdYqwcgh9FDUV87U/8vaj/KsHSvMmS6nhPT8EILKbOs6dS94Bg/
+	GTOxpRmIVpkjOZrc3FpuPCpJv7hyVe33RqaeN2LVfuUoKbloPTMeuCGmTYx0LtcSZ9hUTS
+	wKwaRrOEMaP1JEDJTxv8MAj6dimkG9U=
+Date: Wed, 23 Sep 2026 11:44:32 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zC_KCgDHFMmOoLNqwoWWBA--.41472S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?ahvVegXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfncGSG+szpQCInt5Y8rbJUI1PLYSSMdIkt6yCgFAlM7AW1+TnRYI0sOKfrB+5X2+zr7oF
-	RbxLB0yqqPXBTpWut0Gp9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoWxXrWfKry8ArWDAF1DKF4Utrc_yoWrGryUpF
-	Z3Kr1xCrWUXF1fXF1jvasY9Fy5twsrWr4UKF4av34I9wn8Zr9YgFyj9ryftFWrAr92yrsr
-	tws5Jw4UWF1xtFXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Cb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_
-	Cr1UYxBIdaVFxhVjvjDU0xZFpf9x07jeAp5UUUUU=
+Subject: Re: [PATCH] misc: fastrpc: Don't fail probe when the SDSP memory
+ assign fails
+To: david@ixit.cz, Srinivas Kandagatla <srini@kernel.org>,
+ Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Xingjing Deng <micro6947@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260923-fastrpc-fail-slow-v1-1-f3f6fabba6e3@ixit.cz>
+Content-Language: en-US
+From: Frieder Hannenheim <git@fhannenheim.net>
+In-Reply-To: <20260923-fastrpc-fail-slow-v1-1-f3f6fabba6e3@ixit.cz>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-ad_sd_buffer_postenable() allocates sigma_delta->samples_buf with
-devm_krealloc() at runtime, so its devres entry sits after all
-probe-time entries of the driver. devm resources are released in
-reverse allocation order, which means unbind frees samples_buf before
-iio_device_unregister() disables the buffers and detaches the trigger
-pollfunc. The data ready IRQ is still enabled at that point, so
-ad_sd_trigger_handler() can still run and memcpy() incoming samples
-into the freed samples_buf.
 
-Fix this by preallocating the buffer in
-devm_ad_sd_setup_buffer_and_trigger(), before the triggered buffer and
-the IRQ are set up, so it is freed only after iio_device_unregister()
-has drained the trigger handler via free_irq(). Size it for the worst
-case of all sequencer slots being active; ad_sd_validate_scan_mask()
-already caps the number of active channels at num_slots.
 
-This issue was found by an in-house static analysis tool.
+On 23.09.26 00:38, David Heidelberg via B4 Relay wrote:
+> From: David Heidelberg <david@ixit.cz>
+> 
+> A failed qcom_scm_assign_mem() aborts fastrpc_rpmsg_probe(). On SDM845 this
+> turns every SLPI subsystem restart into an endless probe failure loop:
+> 
+>   remoteproc3: crash detected in slpi: type fatal error
+>   remoteproc3: remote processor slpi is now up
+>   qcom_scm firmware:scm: Assign memory protection call failed -22
+>   qcom,fastrpc 5c00000.remoteproc:glink-edge.fastrpcglink-apps-dsp.-1.-1: probe with driver qcom,fastrpc failed with error -22
+>   qcom,fastrpc 5c00000.remoteproc:glink-edge.fastrpcglink-apps-dsp.-1.-1: rpmsg_dev_probe: failed: -22
+> 
+> The first assign succeeds and hands the reserved region to the VMIDs
+> described in qcom,vmids. qcom_scm_assign_mem() reports the resulting
+> owner set back through @srcvm, but the driver discards it, and nothing
+> reverses the assignment in fastrpc_rpmsg_remove(). When the glink
+> channel is re-announced after a subsystem restart, probe passes
+> src_perms = BIT(QCOM_SCM_VMID_HLOS) again, which no longer describes the
+> region, and the firmware rejects the call with -EINVAL.
+> 
+> At that point the region is already assigned, and HLOS is part of the
+> destination VMID list, so both the host and the DSP keep access. Failing
+> the probe only removes /dev/fastrpc-sdsp and makes the remote reopen the
+> channel, repeating the cycle indefinitely. Warn and continue instead
+> 
+> Assisted-by: LLM
+> Cc: stable@vger.kernel.org
+> Fixes: 6a502776f4a4 ("misc: fastrpc: check qcom_scm_assign_mem() return in rpmsg_probe")
+> Signed-off-by: David Heidelberg <david@ixit.cz>
+> ---
+> Tracking the current owner set so the re-assign is issued with the
+> correct source VMIDs is a separate fix, but I assume it would make sense
+> to keep that to someone with more knowledge of fastrpc.
+> 
+> I aim here to reverting into usable state again which can be also
+> backported.
+> 
+> Tested on Pixel 3 and 3 XL.
+> ---
+>   drivers/misc/fastrpc.c | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+> index 90fd669636ec1..41943a3d496af 100644
+> --- a/drivers/misc/fastrpc.c
+> +++ b/drivers/misc/fastrpc.c
+> @@ -2590,17 +2590,19 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+>   
+>   		err = of_reserved_mem_region_to_resource(rdev->of_node, 0, &res);
+>   		if (!err) {
+>   			src_perms = BIT(QCOM_SCM_VMID_HLOS);
+>   
+>   			err = qcom_scm_assign_mem(res.start, resource_size(&res), &src_perms,
+>   				    data->vmperms, data->vmcount);
+>   			if (err)
+> -				goto err_free_data;
+> +				dev_warn(rdev,
+> +					 "assign memory to SDSP failed: %d\n",
+> +					 err);
+>   		}
+>   
+>   	}
+>   
+>   	secure_dsp = !(of_property_read_bool(rdev->of_node, "qcom,non-secure-domain"));
+>   	data->secure = secure_dsp;
+>   	data->soc_data = soc_data;
+>   	data->poll_mode_supported = soc_data->poll_mode_supported ||
+> 
+> ---
+> base-commit: 7079a12d7506b07fb53b54a664bfad5fa9b16d70
+> change-id: 20260923-fastrpc-fail-slow-4dc839c1685c
+> 
+> Best regards,
+> --
+> David Heidelberg <david@ixit.cz>
 
-Fixes: 8bea9af887de ("iio: adc: ad_sigma_delta: Add sequencer support")
-Cc: stable@vger.kernel.org
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
- drivers/iio/adc/ad_sigma_delta.c | 32 +++++++++++++++++++-------------
- 1 file changed, 19 insertions(+), 13 deletions(-)
+I've had a similar issue on sm8250. There the downstream devicetree 
+mapped fastrpc-mem over the whole memory but only used a small part of 
+it as defined in qcom,iommu-dma-addr-pool. Redefining fastrpc_mem to 
+only use that range fixed the problem.
 
-diff --git a/drivers/iio/adc/ad_sigma_delta.c b/drivers/iio/adc/ad_sigma_delta.c
-index 1b41029..4f982c6 100644
---- a/drivers/iio/adc/ad_sigma_delta.c
-+++ b/drivers/iio/adc/ad_sigma_delta.c
-@@ -498,7 +498,6 @@ static int ad_sd_buffer_postenable(struct iio_dev *indio_dev)
- 	const struct iio_scan_type *scan_type = &indio_dev->channels[0].scan_type;
- 	struct spi_transfer *xfer = sigma_delta->sample_xfer;
- 	unsigned int i, slot, channel;
--	u8 *samples_buf;
- 	int ret;
- 
- 	if (sigma_delta->num_slots == 1) {
-@@ -530,7 +529,7 @@ static int ad_sd_buffer_postenable(struct iio_dev *indio_dev)
- 		xfer[1].bits_per_word = scan_type->realbits;
- 		xfer[1].len = spi_bpw_to_bytes(scan_type->realbits);
- 	} else {
--		unsigned int samples_buf_size, scan_size;
-+		unsigned int scan_size;
- 
- 		if (sigma_delta->active_slots > 1) {
- 			ret = ad_sigma_delta_append_status(sigma_delta, true);
-@@ -538,17 +537,6 @@ static int ad_sd_buffer_postenable(struct iio_dev *indio_dev)
- 				return ret;
- 		}
- 
--		samples_buf_size =
--			ALIGN(slot * BITS_TO_BYTES(scan_type->storagebits),
--			      sizeof(s64));
--		samples_buf_size += sizeof(s64);
--		samples_buf = devm_krealloc(&sigma_delta->spi->dev,
--					    sigma_delta->samples_buf,
--					    samples_buf_size, GFP_KERNEL);
--		if (!samples_buf)
--			return -ENOMEM;
--
--		sigma_delta->samples_buf = samples_buf;
- 		scan_size = BITS_TO_BYTES(scan_type->realbits + scan_type->shift);
- 		/* For 24-bit data, there is an extra byte of padding. */
- 		xfer[1].rx_buf = &sigma_delta->rx_buf[scan_size == 3 ? 1 : 0];
-@@ -855,6 +843,24 @@ int devm_ad_sd_setup_buffer_and_trigger(struct device *dev, struct iio_dev *indi
- 
- 		indio_dev->setup_ops = &ad_sd_buffer_setup_ops;
- 	} else {
-+		const struct iio_scan_type *scan_type =
-+			&indio_dev->channels[0].scan_type;
-+		unsigned int samples_buf_size;
-+
-+		/*
-+		 * Worst-case size: all sequencer slots can be active, capped
-+		 * at num_slots by ad_sd_validate_scan_mask().
-+		 */
-+		samples_buf_size =
-+			ALIGN(sigma_delta->num_slots *
-+			      BITS_TO_BYTES(scan_type->storagebits),
-+			      sizeof(s64));
-+		samples_buf_size += sizeof(s64);
-+		sigma_delta->samples_buf =
-+			devm_kzalloc(dev, samples_buf_size, GFP_KERNEL);
-+		if (!sigma_delta->samples_buf)
-+			return -ENOMEM;
-+
- 		ret = devm_iio_triggered_buffer_setup(dev, indio_dev,
- 						      &iio_pollfunc_store_time,
- 						      &ad_sd_trigger_handler,
+commit 946f65f7f3300741a2c0b6eb0248ccd19eca1925
+Author: Frieder Hannenheim <git@fhannenheim.net>
+Date:   Thu Aug 6 20:04:08 2026 +0200
 
+     sm8250.dtsi: correct fastrpc_mem
+
+     - fixes spli bringup
+
+diff --git a/arch/arm64/boot/dts/qcom/sm8250.dtsi 
+b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+index c490815ee3a2..f3ac307ed1db 100644
+--- a/arch/arm64/boot/dts/qcom/sm8250.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+@@ -866,9 +866,8 @@ cdsp_secure_heap: memory@8bf00000 {
+
+  		fastrpc_mem: fastrpc {
+  			compatible = "shared-dma-pool";
+-			alloc-ranges = <0x0 0x00000000 0x0 0xffffffff>;
+-			alignment = <0x0 0x400000>;
+-			size = <0x0 0x2000000>;
++			alloc-ranges = <0x80000000 0x78000000>;
++			alignment = <0x400000>;
+  			reusable;
+  		};
+  	};
