@@ -1,345 +1,162 @@
-Received: from smtp-190a.mail.infomaniak.ch (smtp-190a.mail.infomaniak.ch [185.125.25.10])
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE20053C3A7
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 16:14:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.25.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D1D23A380F;
+	Wed, 23 Sep 2026 16:16:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790180101; cv=none; b=Rl19p+gDYyxJilBgqnksiEn+oI8qCfJw1TmTDDwVsWQYSylI8BRXipAqJIxlKyQ/BMEXED90HEXnSwO6FzXR2Q80jE41OkfZydXo7oKLT6OGZkrdTx2ZdfMV1y2FeXL/FJqJQkn6bc2FXKLj1Jolx7KAgrJ+p6hIJAji5zNKF94=
+	t=1790180183; cv=none; b=iwnsrVA7VZHpVaFcjmxaSdd3mMAvZtVA4gEq+REab3VPUhBZbYYL9X3ILIgi3rkS/IbReoo9dFU/xE1g1X3uKQf42XwzfG1OlslmzJFRiscxqBzUb6sHZxbfoJnaYZ72jpfSN1sn+3aWtytdL+VOgL2OYsZefVv5uu3Vhy/F+Tc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790180101; c=relaxed/simple;
-	bh=tZlgPMTsWyjDV+yPiNmeD/Uybu7SHg2jpYQaF+QEYcg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lljHAwc4m4tsHY2W2iIOUaiPYTefSOMpZ64ohA9yWf/Jtfuwl3OjBxRjIK80w0HqoQ6IFb4eaRdEPifRGbAAiMhPF56FqPKx9igObMZI+UBDl5hdZMZA9NWHNx8avW/QM8bSkqHq+M+57n91B9fttxwTyDPlLvHGoo0Cf2d64Ks=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=1YoE0CSg; arc=none smtp.client-ip=185.125.25.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
+	s=arc-20240116; t=1790180183; c=relaxed/simple;
+	bh=SSebE+ST6hsckt7BsoZWaCrfWED87E2Ve65oZGO3YSg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ugboqGcKGximPaCMVu6rQzYA21VPCAEdyYBG496tMQYp/jd8Tc3Few8+9qeE1J7mnRPDrAnl/lOmJXF+z9TWbF9l3DwVgZm+7Ytzf3uHBG3GiRZpmf+Gj6P1lnCMMXQu0uqa6Mc0YN14fdILEy8r/G2Zl/cu1xO7EGPjvOo3fc4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=rwarsow@gmx.de header.b=LY0XQQfm; arc=none smtp.client-ip=212.227.15.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="1YoE0CSg"
-Received: from smtp-4-0000.mail.infomaniak.ch (smtp-4-0000.mail.infomaniak.ch [10.7.10.107])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hqhrJ5LnPzBZP;
-	Wed, 23 Sep 2026 18:14:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
-	s=20191114; t=1790180096;
-	bh=iH99+F/Kim/eCsjzuz1uISsuFiOq0KtO88rjFbzLpGk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=1YoE0CSg3HUrYljVyZJdpAuq6tqa8mFUS/sDNk5SuqcbIHKbm8u8kpMtbpo/709nB
-	 gecFHkYqFcjv9DnM976iTaoOrwXNEDgp7xOE2wM++/IkLtASJFxJPqfnwYrBp220Q4
-	 jpNZcQn4G74hy9iNaAfg61TYrtVrndRSDCbY/PpE=
-Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4hqhrJ121BzqRM;
-	Wed, 23 Sep 2026 18:14:56 +0200 (CEST)
-From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
-To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
-	Sasha Levin <sashal@kernel.org>,
-	=?utf-8?q?G=C3=BCnther_Noack?= <gnoack3000@gmail.com>,
-	Christian Brauner <brauner@kernel.org>,
-	=?utf-8?q?G=C3=BCnther_Noack?= <gnoack@google.com>
-Subject: [PATCH 6.6.y v2] selftests/landlock: Add tests for whiteout object creation
-Date: Wed, 23 Sep 2026 18:14:53 +0200
-Message-ID: <5c94ca5f91cdf1f61f9fef4d1ee9c31e61383853.1790169454.git.mic@digikod.net>
-In-Reply-To: <2026-09-18-daily-reply-0006-re-landlock-whiteout-6-6@kernel.org>
-References: <2026-09-18-daily-reply-0006-re-landlock-whiteout-6-6@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=rwarsow@gmx.de header.b="LY0XQQfm"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1790180146; x=1790784946; i=rwarsow@gmx.de;
+	bh=SSebE+ST6hsckt7BsoZWaCrfWED87E2Ve65oZGO3YSg=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=LY0XQQfmkwaOyeS74s0KIF3+MVa4blDD+LBD++xxUkuS/drKX5qdMH9/pnK1P985
+	 59TLTPb2F9VFdImrFiEDNZJA0QkwGHMRTxkcSODrf2LxQAtWSd+AnPDJNTBE6T4hj
+	 yJMo83/qbvkPmVrNX/YKo9o0usJ9TO/Z5Djuw69UqJBYe/gJW/rKiuum8JX8a+Uzj
+	 z2on4KZiTcsYFRv44XMDTOhYKmdGhk/vX46yWl4JqIFTLaC5LB4F521OsYbUFWleQ
+	 XFsLnhcHdvPx7Qcb3t9mACQqR0325+oafwdYisBFBYSGZwQo5cEoSEeqnORZFkHWq
+	 nQTKJRd9X/axBm2Cdg==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1M59GA-1xAW621Nye-003Oq4; Wed, 23
+ Sep 2026 18:15:46 +0200
+Message-ID: <0e6bb59e-9c4d-4bdb-af7a-5af627e82220@gmx.de>
+Date: Wed, 23 Sep 2026 18:15:44 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Infomaniak-Routing: alpha
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.2 000/438] 7.2.8-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20260923140644.756254324@linuxfoundation.org>
+From: Ronald Warsow <rwarsow@gmx.de>
+Content-Language: de-DE, en-US
+In-Reply-To: <20260923140644.756254324@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Provags-ID: V03:K1:m1OQPgehz+9AFHT2XE9OtCBY+ClKoJYyXbRtOdTg0ZPpyjfwiTa
+ KEVKTkv2KyuyKKhtGJRjFCOWqYcpd4MespgNHeO9XfSezDERKCTQ0YzPvOQV8Cq0rzuQ/6H
+ DKOwECiIt7TljKj33vUUuGEnUUsZXXcuZS3xz4K7OfdQHV1ur3cVNSS6zabnCHcOd5UHE3K
+ fO53MPgV9zPhbk6p3spKw==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:jbPlqXlw/PM=;1Hf1At+G1rJhfGnaT9oqp6Yp/Yu
+ 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
 
-From: Günther Noack <gnoack@google.com>
+Hi
 
-[ Upstream commit ee890889b30b22f9a21636061def7a04e4f89380 ]
+kernel build / boot test on x86_64 (Intel).
 
-Add tests to check that whiteout object creation is guarded by
-LANDLOCK_ACCESS_FS_MAKE_REG, in the cases where these are created from
-userspace:
+No regressions here.
 
-* Conventional creation with mknod()
-* Linking or renaming an existing whiteout object
-* renameat2() with RENAME_WHITEOUT,
-  which creates a new whiteout object in the source location
-* renameat2() with RENAME_EXCHANGE,
-  with one of the renamed objects being a whiteout object
+Thanks
 
-Signed-off-by: Günther Noack <gnoack@google.com>
-Link: https://patch.msgid.link/20260813093157.1436894-4-gnoack@google.com
-[mic: Update commit message as requested]
-Signed-off-by: Mickaël Salaün <mic@digikod.net>
-[mic: Backport: adapt the tests to the older filesystem fixture and
-ruleset helper]
-Signed-off-by: Mickaël Salaün <mic@digikod.net>
----
-
-Changes since v1:
-https://patch.msgid.link/520a1a9a0c6f14c19f1b962ea33adcf672bf6fdb.1789655724.git.mic@digikod.net
-- Define RENAME_WHITEOUT when it is unavailable from libc headers.
----
- tools/testing/selftests/landlock/fs_test.c | 209 ++++++++++++++++++++-
- 1 file changed, 207 insertions(+), 2 deletions(-)
-
-diff --git a/tools/testing/selftests/landlock/fs_test.c b/tools/testing/selftests/landlock/fs_test.c
-index a085dd88fd11..ffb5af406b86 100644
---- a/tools/testing/selftests/landlock/fs_test.c
-+++ b/tools/testing/selftests/landlock/fs_test.c
-@@ -51,6 +51,10 @@ int open_tree(int dfd, const char *filename, unsigned int flags)
- #define RENAME_EXCHANGE (1 << 1)
- #endif
- 
-+#ifndef RENAME_WHITEOUT
-+#define RENAME_WHITEOUT (1 << 2)
-+#endif
-+
- #define TMP_DIR "tmp"
- #define BINARY_PATH "./true"
- 
-@@ -78,6 +82,8 @@ static const char file1_s3d1[] = TMP_DIR "/s3d1/f1";
- /* dir_s3d2 is a mount point. */
- static const char dir_s3d2[] = TMP_DIR "/s3d1/s3d2";
- static const char dir_s3d3[] = TMP_DIR "/s3d1/s3d2/s3d3";
-+static const char file1_s3d3[] = TMP_DIR "/s3d1/s3d2/s3d3/f1";
-+static const char file1_s3d4[] = TMP_DIR "/s3d1/s3d2/s3d4/f1";
- 
- /*
-  * layout1 hierarchy:
-@@ -353,7 +359,8 @@ static void create_layout1(struct __test_metadata *const _metadata)
- 	ASSERT_EQ(0, mount_opt(&mnt_tmp, dir_s3d2));
- 	clear_cap(_metadata, CAP_SYS_ADMIN);
- 
--	ASSERT_EQ(0, mkdir(dir_s3d3, 0700));
-+	create_file(_metadata, file1_s3d3);
-+	create_file(_metadata, file1_s3d4);
- }
- 
- static void remove_layout1(struct __test_metadata *const _metadata)
-@@ -373,7 +380,8 @@ static void remove_layout1(struct __test_metadata *const _metadata)
- 	EXPECT_EQ(0, remove_path(dir_s2d2));
- 
- 	EXPECT_EQ(0, remove_path(file1_s3d1));
--	EXPECT_EQ(0, remove_path(dir_s3d3));
-+	EXPECT_EQ(0, remove_path(file1_s3d3));
-+	EXPECT_EQ(0, remove_path(file1_s3d4));
- 	set_cap(_metadata, CAP_SYS_ADMIN);
- 	umount(dir_s3d2);
- 	clear_cap(_metadata, CAP_SYS_ADMIN);
-@@ -715,6 +723,27 @@ static void enforce_ruleset(struct __test_metadata *const _metadata,
- 	}
- }
- 
-+static void enforce_fs(struct __test_metadata *const _metadata,
-+		       const __u64 access_fs, const struct rule rules[])
-+{
-+	int ruleset_fd;
-+
-+	if (rules) {
-+		ruleset_fd = create_ruleset(_metadata, access_fs, rules);
-+	} else {
-+		const struct landlock_ruleset_attr ruleset_attr = {
-+			.handled_access_fs = access_fs,
-+		};
-+
-+		ruleset_fd = landlock_create_ruleset(&ruleset_attr,
-+						     sizeof(ruleset_attr), 0);
-+		ASSERT_LE(0, ruleset_fd);
-+	}
-+
-+	enforce_ruleset(_metadata, ruleset_fd);
-+	EXPECT_EQ(0, close(ruleset_fd));
-+}
-+
- TEST_F_FORK(layout0, proc_nsfs)
- {
- 	const struct rule rules[] = {
-@@ -2091,6 +2120,170 @@ TEST_F_FORK(layout1, rename_file)
- 			       RENAME_EXCHANGE));
- }
- 
-+TEST_F_FORK(layout1, rename_whiteout_denied)
-+{
-+	/* The affected file is a FIFO. */
-+	ASSERT_EQ(0, unlink(file1_s3d3));
-+	ASSERT_EQ(0, mknod(file1_s3d3, S_IFIFO | 0600, 0));
-+
-+	/* Deny MAKE_REG, but allow MAKE_FIFO. */
-+	enforce_fs(_metadata, LANDLOCK_ACCESS_FS_MAKE_REG, NULL);
-+
-+	/*
-+	 * Try to rename a file with RENAME_WHITEOUT.
-+	 * file1_s3d3 is in dir_s3d2 (tmpfs), so it supports RENAME_WHITEOUT.
-+	 * Denied, because whiteout creation is guarded with MAKE_REG.
-+	 */
-+	EXPECT_EQ(-1, renameat2(AT_FDCWD, file1_s3d3, AT_FDCWD,
-+				TMP_DIR "/s3d1/s3d2/s3d3/f2", RENAME_WHITEOUT));
-+	EXPECT_EQ(EACCES, errno);
-+}
-+
-+static bool is_whiteout(const char *const path)
-+{
-+	struct stat st;
-+
-+	if (stat(path, &st) == -1)
-+		return false;
-+
-+	return S_ISCHR(st.st_mode) && st.st_rdev == makedev(0, 0);
-+}
-+
-+static bool is_fifo(const char *const path)
-+{
-+	struct stat st;
-+
-+	return stat(path, &st) == 0 && S_ISFIFO(st.st_mode);
-+}
-+
-+TEST_F_FORK(layout1, rename_whiteout_allowed)
-+{
-+	const struct rule rules[] = {
-+		{
-+			.path = dir_s3d3,
-+			.access = LANDLOCK_ACCESS_FS_MAKE_REG,
-+		},
-+		{},
-+	};
-+
-+	/* The affected file is a FIFO. */
-+	ASSERT_EQ(0, unlink(file1_s3d3));
-+	ASSERT_EQ(0, mknod(file1_s3d3, S_IFIFO | 0600, 0));
-+
-+	/* Allow MAKE_REG below dir_s3d3. */
-+	enforce_fs(_metadata, LANDLOCK_ACCESS_FS_MAKE_REG, rules);
-+
-+	/*
-+	 * Rename a file with RENAME_WHITEOUT within the same directory.
-+	 * Allowed, because MAKE_REG is granted for the whiteout object which
-+	 * gets created in the source location.
-+	 */
-+	EXPECT_EQ(0, renameat2(AT_FDCWD, file1_s3d3, AT_FDCWD,
-+			       TMP_DIR "/s3d1/s3d2/s3d3/f2", RENAME_WHITEOUT));
-+
-+	/* A whiteout object took the place of the moved FIFO. */
-+	EXPECT_TRUE(is_whiteout(file1_s3d3));
-+	EXPECT_TRUE(is_fifo(TMP_DIR "/s3d1/s3d2/s3d3/f2"));
-+}
-+
-+TEST_F_FORK(layout1, rename_whiteout_reparenting)
-+{
-+	const struct rule rules[] = {
-+		{
-+			.path = dir_s3d2,
-+			.access = LANDLOCK_ACCESS_FS_REFER,
-+		},
-+		{
-+			.path = dir_s3d3,
-+			.access = LANDLOCK_ACCESS_FS_MAKE_REG,
-+		},
-+		{},
-+	};
-+
-+	/* The moved files are FIFOs. */
-+	ASSERT_EQ(0, unlink(file1_s3d3));
-+	ASSERT_EQ(0, mknod(file1_s3d3, S_IFIFO | 0600, 0));
-+	ASSERT_EQ(0, unlink(file1_s3d4));
-+	ASSERT_EQ(0, mknod(file1_s3d4, S_IFIFO | 0600, 0));
-+
-+	/* Allow REFER below dir_s3d2, but MAKE_REG only below dir_s3d3. */
-+	enforce_fs(_metadata,
-+		   LANDLOCK_ACCESS_FS_MAKE_REG | LANDLOCK_ACCESS_FS_REFER,
-+		   rules);
-+
-+	/*
-+	 * The whiteout object is created in the source directory: Moving the
-+	 * FIFO out of dir_s3d4 is denied because MAKE_REG is not granted
-+	 * there, even though it is granted in the destination directory
-+	 * dir_s3d3.
-+	 */
-+	EXPECT_EQ(-1, renameat2(AT_FDCWD, file1_s3d4, AT_FDCWD,
-+				TMP_DIR "/s3d1/s3d2/s3d3/f2", RENAME_WHITEOUT));
-+	EXPECT_EQ(EACCES, errno);
-+
-+	/*
-+	 * Moving the FIFO out of dir_s3d3 is allowed, because MAKE_REG is
-+	 * granted there for the created whiteout object.
-+	 */
-+	EXPECT_EQ(0, renameat2(AT_FDCWD, file1_s3d3, AT_FDCWD,
-+			       TMP_DIR "/s3d1/s3d2/s3d4/f2", RENAME_WHITEOUT));
-+
-+	/* A whiteout object took the place of the moved FIFO. */
-+	EXPECT_TRUE(is_whiteout(file1_s3d3));
-+	EXPECT_TRUE(is_fifo(TMP_DIR "/s3d1/s3d2/s3d4/f2"));
-+}
-+
-+TEST_F_FORK(layout1, rename_whiteout_exchange)
-+{
-+	const char *const whiteout_s3d3 = TMP_DIR "/s3d1/s3d2/s3d3/f2";
-+	const struct rule rules[] = {
-+		{
-+			.path = dir_s3d2,
-+			.access = LANDLOCK_ACCESS_FS_REFER,
-+		},
-+		{
-+			.path = dir_s3d3,
-+			.access = LANDLOCK_ACCESS_FS_MAKE_REG,
-+		},
-+		{},
-+	};
-+
-+	/* The exchanged files are FIFOs and an existing whiteout object. */
-+	ASSERT_EQ(0, unlink(file1_s3d3));
-+	ASSERT_EQ(0, mknod(file1_s3d3, S_IFIFO | 0600, 0));
-+	ASSERT_EQ(0, mknod(whiteout_s3d3, S_IFCHR | 0600, makedev(0, 0)));
-+	ASSERT_EQ(0, unlink(file1_s3d4));
-+	ASSERT_EQ(0, mknod(file1_s3d4, S_IFIFO | 0600, 0));
-+
-+	/* Allow REFER below dir_s3d2, but MAKE_REG only below dir_s3d3. */
-+	enforce_fs(_metadata,
-+		   LANDLOCK_ACCESS_FS_MAKE_REG | LANDLOCK_ACCESS_FS_REFER,
-+		   rules);
-+
-+	/*
-+	 * With RENAME_EXCHANGE, the whiteout object moves into the source
-+	 * directory of the rename: Exchanging the FIFO in dir_s3d4 with the
-+	 * whiteout object is denied because MAKE_REG is not granted in
-+	 * dir_s3d4, even though it is granted in the whiteout object's own
-+	 * directory dir_s3d3.
-+	 */
-+	EXPECT_EQ(-1, renameat2(AT_FDCWD, file1_s3d4, AT_FDCWD, whiteout_s3d3,
-+				RENAME_EXCHANGE));
-+	EXPECT_EQ(EACCES, errno);
-+
-+	/*
-+	 * Exchanging the FIFO in dir_s3d3 with the whiteout object is
-+	 * allowed, because MAKE_REG is granted in the directory into which
-+	 * the whiteout object moves.
-+	 */
-+	EXPECT_EQ(0, renameat2(AT_FDCWD, file1_s3d3, AT_FDCWD, whiteout_s3d3,
-+			       RENAME_EXCHANGE));
-+
-+	/* The FIFO and the whiteout object swapped places. */
-+	EXPECT_TRUE(is_whiteout(file1_s3d3));
-+	EXPECT_TRUE(is_fifo(whiteout_s3d3));
-+}
-+
- TEST_F_FORK(layout1, rename_dir)
- {
- 	const struct rule rules[] = {
-@@ -3144,6 +3337,18 @@ TEST_F_FORK(layout1, make_char)
- 		       makedev(1, 3));
- }
- 
-+TEST_F_FORK(layout1, make_whiteout)
-+{
-+	/*
-+	 * Creates a whiteout object (creation guarded by MAKE_REG).
-+	 *
-+	 * Contrary to the other character devices, this does not require
-+	 * CAP_MKNOD, cf. vfs_mknod().
-+	 */
-+	test_make_file(_metadata, LANDLOCK_ACCESS_FS_MAKE_REG, S_IFCHR,
-+		       makedev(0, 0));
-+}
-+
- TEST_F_FORK(layout1, make_block)
- {
- 	/* Creates a /dev/loop0 device. */
+Tested-by: Ronald Warsow <rwarsow@gmx.de>
