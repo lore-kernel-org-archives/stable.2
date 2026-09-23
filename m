@@ -1,168 +1,123 @@
-Received: from mail-yx2-f43.google.com (mail-yx2-f43.google.com [74.125.224.171])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2AA24F7CA0
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 15:03:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790175792; cv=pass; b=VQgyVhkiw6alX0pwvTswSQJrBrGqwlaLUo9GV57e0OucwtyYePt2e96IYZ9OUH+X+eA/HeJlSYd9dsO6qNFBY2UyTpBfJFKzblY9dex5yhXAqF1mASkXLW/HqQQGByV/68ccb+Oy3RjtUejg3AHmtuvd0t+dTnCxwpJIqxcZHWE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790175792; c=relaxed/simple;
-	bh=VFFiy6i7m4Wf/VzuM6iynbm/hGQ5/lbbEMnpZ0Pnm8w=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=b+mETwYOlOcVVE1WxBXD34C0iw7GRMCy+UfLGlmgFkvOm6YJ/fgNtCdlyoop4Bw8vwo8BFgTupGIKRKtobRGvo9oJJeOnJzAZIGaXzd7/bGDNnZsSQpcRH5Jkjdo1b+q/NdRwbRDRBspaSzCg3pUIcBbhTYduj5MPLL7wRlGba0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gxAAcclj; arc=pass smtp.client-ip=74.125.224.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32C483E51F5
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 15:03:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790175802; cv=none; b=Bdh6r0/qqO9B8BTsIVwzqA2YaIpH91i7W4hWtWprvG00WxyLtMREapXmPD4QcN3suaL6pmb40p8O905EFaabRYyCx+1lrshdx1nLTPK0oh03GrJWXwTcwDMHJkVDyyHLcGXiwn6d9m59ASDXn1NNvBRDgx5jWk3e/7tc0dfK4q8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790175802; c=relaxed/simple;
+	bh=uLhhVUN6ngd8j2x1y2bu0WRlPkyjSAYqqJNC1LceToc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Emvlaw/mYquJs/82CVpReMwQ8VBc0Yqirnt71tc+Ua0rxc8zuE5kD+8YKMmemx9imt8uj8hn0PkOTcCkJEjrOQSbCxl9PLcIED/B/xJcS+9z5ZsJMVwkyGIirCkNxiWuFGf1LbL4sN+8L7tglXY7kYxG+h3epQ3MxO2pLJBr9qM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NN+XrPso; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gxAAcclj"
-Received: by mail-yx2-f43.google.com with SMTP id 00721157ae682-85d4ddd179eso13847557b3.3
-        for <stable@vger.kernel.org>; Wed, 23 Sep 2026 08:03:09 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790175788; cv=none;
-        d=google.com; s=arc-20260327;
-        b=f4IhJ6+qYeK1LXjXDzJDhUNCxp1Fdy+RFwkKDDJm/XZtWMmdtLAz9z3jTRjFk3jrwg
-         Y3a1TbJDxX/uSG1wPHWCtfs1x3MDL+McP25yMBZAzA5VywEB+MNnOmdK1XtAoTS+62lT
-         EXttWLnLUBpZg/dEkjyfoG0IlYc07P4tQuyLZmw5JNG3Jf5nnr0N0jNAXVpU9CijE2pQ
-         XTl1D6x1qgQWJwVPJmdim7spOxbyI3JYCZPmTuaa5AELO4fCWdE3yzD6WWczku51Au7p
-         yT/Cl77oXIzna7Qm9oGkPnGGiWDOm893WYwVyI8h6Y/oKxt17NsiM7dZ7s7iwQ/3JDpl
-         9GBQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=CqJL8NRcEhCu62ajFpIWbPm1dT9gXwOhcdUPy9nZD7Q=;
-        fh=NCMU51xlDEeR1CiRrvtnq6t7fmzzNSl+EhiJc6YQr6s=;
-        b=d0Rw3vHjKVFGZz4QVI57JaZrbhgQhqJd4l/Pw1hakWrzSGyM2VQ7csr+PtnZFXgQvo
-         gfz09+JFfmb1WXi3MJtiWfIHTSHnXY5Rd6dUDbPMA2nqyiPt768/3oF3CM6BIQJmi/Ph
-         J3/k0bpUkBLzx+26rW+It9XIhUZWrUbnZ6o8zRGxpBTjn7acYZFQZI4QI6AcwRZGOiA1
-         exRDVS36Z+b2waF5dMZhysCR2U6V7u4ZWWScCFJvVvDoDI4/et8IO5bh2224agnBhKPD
-         QKwCZCdbFwuvN6fj6A7eotya/2UFsuNJlvVdHl4FCe1mFoZLB7AFFTTt21xneQrD892R
-         5XEw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NN+XrPso"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485933b2522so868072f8f.0
+        for <stable@vger.kernel.org>; Wed, 23 Sep 2026 08:03:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790175788; x=1790780588; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CqJL8NRcEhCu62ajFpIWbPm1dT9gXwOhcdUPy9nZD7Q=;
-        b=gxAAccljm/dzygN8M5Tz2lkdDl8h0J+Rwx5bOM6KXAUbSmFEsgpuoyz0QXiGAyih97
-         OtDaxqDm5Rxc9/PULh/3CXQ+fTe+ONV80wpj3x01Zt+jQu4U3yMNEVKh/5oJS9bdLWxN
-         LkZSknXdGVbpQ4ht0zjxlH/+ZNIIdUBJNs89j5QCroXr/EkY4305FCcVK4/OCwg/QxpF
-         qlTqGQjSn31vjG37ncbwQec0nFCqSYOGItBreutZiiOXss99WyymvDxlevgsui+/7ko2
-         tkhKSSJfd63INMVZAYRO9Sv0MRCTqOMjyyiI4oXkaEL7hsyh7sAXlfe2diOk9pLBNk9G
-         9MKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790175788; x=1790780588;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1790175796; x=1790780596; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=CqJL8NRcEhCu62ajFpIWbPm1dT9gXwOhcdUPy9nZD7Q=;
-        b=1LFm1UEfyD27qfWzJ08F5/JIf1zml7GX9nT6Oxov5jUqIdJ4oMhOaDgAwgVPbT+nEO
-         8J7SFF+7NIJil01PP2yh2YCKhotmMopfYEqy1B5lZDru+N1yaV5fjHW2I2iChhO/fJgi
-         I4OlxdeBPq9UWXfRKir7EC+RREJruec/YLfCw9NYtvuEqrsss6oQBIgdq54uQc0c8Ktf
-         F/KyYyHcpp323SGWxxw+ZAsavuo9gkMrzB75JQpYFJNX2N95wyDnbRsEwE45+5bdhDED
-         8jphDDLdRcHTrXUQNAT2PTvOw2guLS1oMlOVX8eRD/978I8dVBk+G9jt0UDfior8oEqt
-         TB9Q==
-X-Forwarded-Encrypted: i=1; AKwUvByS9Rr6uvZBVHewwWoE2Xt08R8OyXlIoix74JDeoL7XLm6TISmIaviFkjW/eCR49zDuWBgkLX0=@vger.kernel.org
-X-Gm-Message-State: AFuF++l3sS1nL6EB7icuEoocZlK9wg6NcEeZTgyYqQg/egBfVBCvV6pJ
-	uOV1J0x87XQcYMT375/msnF2QNts15sYLEKYZs+76Hj6+dq9QDdBKMshgvsoGpSFQo3zYfYkjOS
-	SCRzgMJ7I36fKcE55oNtugjGeB7ljSKY=
-X-Gm-Gg: AYBFou0/pGup7+MPmI4Ya3qST0vY9jr2o1XLIkF/w0FHpy5G6YCC9hKfpPA/83Kdnvk
-	Swy4GVlMNuapjfpIui6fYqJKupV/lojtIedyQdGdTe01tJLy/LibDmC4QWXEB8bAGWY/J+c+OW3
-	NIZZIn3PoXdMZmC5Ful/TDbTPD+ROg6AvVzLXxvdj6ZXyJc+d2EIl3Zr4Wm3gk3fLt9N5EkK2zn
-	CA6aj43NB66Ji3myCrqIq5g5g6jdddSheGf+YEVIQnKJg3W+eQpnPafwnUaL+bHGK/pYuGqhGhH
-	e9QR2Ue+hyQ2TJ8dfEdaliXYRX/ye6m/UZcfQnSjE/jFZWKusJdqT6P7
-X-Received: by 2002:a05:690c:6d81:b0:89a:63da:cbe6 with SMTP id
- 00721157ae682-8a45bc845c2mr20714107b3.44.1790175787877; Wed, 23 Sep 2026
- 08:03:07 -0700 (PDT)
+        bh=FplGfmQH7NVN/0KzB9B8C7XnxdnkI3i8bSndgLklG+k=;
+        b=NN+XrPsosLDe0xzoOtpb9qBCvoQN042ei2OAuf42x99eBS6Z0BTd8Xd+LVOseczEB8
+         EbVg8qBayhEpnE7Mlu+6g82eYPBdx2LARGGY35wADMfMA24meVReq/NkqkLbrj18pxRH
+         kf6qA2PLoeWs04e66QxsH5MLOQkr/ry+Z9SdvjHthJUrFJgNQjTtlLnJn0Ge9Q3IEAIK
+         aPsz6C9sasD5oa8BQicEzwbi1gUralMmPlJam1+X/D45hECATuvSM6tRgNDQHJfnWhUj
+         vlpfCnAStzJAc/tM6Zw87t6pdEVbCUCXnzrWSsqG8Pz9LPC82AE7LEwT/RehFnld28W6
+         C9Yw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790175796; x=1790780596;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FplGfmQH7NVN/0KzB9B8C7XnxdnkI3i8bSndgLklG+k=;
+        b=TDrxu4Qc+VaEU7PdfXTELCfJVFPDL+Dq+UEozxmzoqUYC11c1ST/7ucVvGgb0wzaDk
+         LCaRQWAOtTWiFClOnYIy8vVwzZpNikY7Y2TnSH3DaSq7Qk99NV9VfQVNJiEC/DOgMEBn
+         BraU6BWphPbByNYplaTHPisvsVNUbVaGDHm37/d7SuN4g0e/CAruWtIagKFWTVHE856w
+         YhmJcBIQCAaKnFyQmk8jeDgO2IKpjwOgry8Qni7NvRYLOCOPDhk95rafLoc44x9wNqiF
+         mcF8IIhMK36w5uSJBF4TXSeaHLXmofjR1AU9eFisXXrrvrNpi3y5EVi6u/dbOrOdnIjd
+         No3Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwgeGrH6jL8ir0ppYijD75QqhT/fO2xgPjVZCmGcb1dgLxYF5WrXlp2Su1e3BTc/HK6I+1Bqsw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kTNUuDae+erAnwaK+UzEJsgSOwK9K09SRc0LqwBrIKtoRR4oUv
+	hZkj5gDORhvDobF3COda9IENUOThIvA22V5YRRII19EMbPwHbQmBZIfz
+X-Gm-Gg: AYBFou2QTjU2S2rMysg+pcxEg6XuGvPucILpy91p8kL3/QOacabEKl3w4Gz4tdRB1tV
+	SUXsxwnxqPSQJkQdvsYLHPXLDVjruxqmbienUFRbZx1fTiwL56bcol69cYs2FCDZYtnCbHEt5cS
+	nMxlES2Dc3rUf41XmJNvhOAMeE23oRDsmcKpaZ66q2ar6SDI9Of8CddO2GUVWNkKWPtQ75RyO3U
+	Klh96Y7FHPcC/dOo0QVFlKPeFs2KsK2K2C4v74DTRE2U2GyKdkN94ZPZvZf2+EvTJH1WqNDc+f7
+	alwThwEwvJdUm3JjqssMX5TkircU99R4Q9bSdTWAtZw4A/eI1Cop9NzC/YsiNQvtkMKmblYtL4P
+	V+38P2HoipccSifHoXG+FMaxkUAcbmsfnZTVKN/Q39CaiIR1yphIL/nTx/wNVOeEkmWZz06+oRJ
+	lBbp37IaaBrNvfSSOPItUChg2BFQD4IbA/TQGi6E0DhLWmBka45mNnEeHsc4/sOGssUTcOmlrm7
+	Kw4SQ==
+X-Received: by 2002:a05:6000:1447:b0:487:27f9:83e with SMTP id ffacd0b85a97d-4886709d6d8mr5046351f8f.51.1790175796488;
+        Wed, 23 Sep 2026 08:03:16 -0700 (PDT)
+Received: from [192.168.1.50] ([81.196.40.70])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-488688893a0sm7826780f8f.32.2026.09.23.08.03.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 23 Sep 2026 08:03:15 -0700 (PDT)
+Message-ID: <96f122e7-2004-43d6-917d-a07027f568a4@gmail.com>
+Date: Wed, 23 Sep 2026 18:03:13 +0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260920055519.3778269-1-lgs201920130244@gmail.com>
-In-Reply-To: <20260920055519.3778269-1-lgs201920130244@gmail.com>
-From: Shubhrajyoti Datta <shubhrajyoti.datta@gmail.com>
-Date: Wed, 23 Sep 2026 20:32:56 +0530
-X-Gm-Features: AcwNN1XS281TkGjU9vWolr0hcpYOQfQwJrTGBAS6vDHuzDaOItqT-Qc8-tIEa4I
-Message-ID: <CAKfKVtGZH8OaXp0WtJSD7AAQb8BSWg=xo+x9jj1sbjSxjEanGg@mail.gmail.com>
-Subject: Re: [PATCH] EDAC/versalnet: fix memory leak on device registration failure
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>, Borislav Petkov <bp@alien8.de>, 
-	Tony Luck <tony.luck@intel.com>, linux-edac@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH rtw-next] wifi: rtw88: extend the TX report timeout to
+ RTL8822BU
+To: Ping-Ke Shih <pkshih@realtek.com>,
+ Josef Schlehofer <pepe.schlehofer@gmail.com>
+Cc: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>
+References: <20260921165343.8131-1-pepe.schlehofer@gmail.com>
+ <4c000f11b23c4920b052e8513ad28345@realtek.com>
+Content-Language: en-US
+From: Bitterblue Smith <rtl8821cerfe2@gmail.com>
+In-Reply-To: <4c000f11b23c4920b052e8513ad28345@realtek.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sun, Sep 20, 2026 at 11:25=E2=80=AFAM Guangshuo Li <lgs201920130244@gmai=
-l.com> wrote:
->
-> init_one_mc() allocates dev with kzalloc() and registers it with
-> device_register(). If device_register() fails, the device has already
-> been initialized and holds its initial device reference.
->
-> The current error path eventually frees dev directly with kfree().
-> This bypasses the device release path and can leak driver-core
-> resources associated with the initialized device. The existing
-> versal_edac_release() callback is responsible for freeing dev once the
-> device reference reaches zero.
->
-> Call put_device() when device_register() fails so the initialized
-> device reference is dropped and versal_edac_release() performs the
-> proper cleanup. Return after freeing mci to avoid falling through to
-> the direct kfree() path, which remains necessary for failures that
-> occur before device_register() is called.
->
-> The issue was identified by a static analysis tool I developed and
-> confirmed by manual review.
->
-> Fixes: d5fe2fec6c40 ("EDAC: Add a driver for the AMD Versal NET DDR contr=
-oller")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> ---
->  drivers/edac/versalnet_edac.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/edac/versalnet_edac.c b/drivers/edac/versalnet_edac.=
-c
-> index 3a06b41c1d84..db3bf5a1345b 100644
-> --- a/drivers/edac/versalnet_edac.c
-> +++ b/drivers/edac/versalnet_edac.c
-> @@ -829,8 +829,10 @@ static int init_one_mc(struct mc_priv *priv, struct =
-platform_device *pdev, int i
->         dev->release =3D versal_edac_release;
->
->         rc =3D device_register(dev);
-> -       if (rc)
-> +       if (rc) {
-> +               put_device(dev);
->                 goto err_mc_free;
-> +       }
+On 22/09/2026 05:03, Ping-Ke Shih wrote:
+> Josef Schlehofer <pepe.schlehofer@gmail.com> wrote:
+>> diff --git a/drivers/net/wireless/realtek/rtw88/tx.c b/drivers/net/wireless/realtek/rtw88/tx.c
+>> index 4e110a457..55d7923e1 100644
+>> --- a/drivers/net/wireless/realtek/rtw88/tx.c
+>> +++ b/drivers/net/wireless/realtek/rtw88/tx.c
+>> @@ -208,7 +208,8 @@ void rtw_tx_report_enqueue(struct rtw_dev *rtwdev, struct sk_buff *skb, u8 sn)
+>>         __skb_queue_tail(&tx_report->queue, skb);
+>>         spin_unlock_irqrestore(&tx_report->q_lock, flags);
+>>
+>> -       if ((rtwdev->chip->id == RTW_CHIP_TYPE_8723D &&
+>> +       if (((rtwdev->chip->id == RTW_CHIP_TYPE_8723D ||
+>> +             rtwdev->chip->id == RTW_CHIP_TYPE_8822B) &&
+>>              rtwdev->hci.type == RTW_HCI_TYPE_USB) ||
+> 
+> Hi Bitterblue,
+> 
+> It seems like more and more USB chips need this, let's enlarge timeout time
+> for all USB devices. Do you have any concern? Need your input.
+> 
 
-There was a comment earlier from sashiko
- failure path calls put_device() with dev->init_name still pointing at a st=
-ack
-buffer before device_add() copies it. That's unsafe in
-principle (dev_name() would follow init_name)
->
->         mci->pdev =3D dev;
->         mc_init(mci, dev);
-> @@ -852,9 +854,9 @@ static int init_one_mc(struct mc_priv *priv, struct p=
-latform_device *pdev, int i
->         device_unregister(mci->pdev);
->  err_mc_free:
->         edac_mc_free(mci);
-> +       return rc;
->  err_dev_free:
->         kfree(dev);
-> -
->         return rc;
->  }
->
-> --
-> 2.43.0
->
->
+It seems fine to me.
+
+>>             rtw_is_8723bs(rtwdev))
+> 
+> Also, considering SDIO chips, should we keep original timeout for PCI only?
+> 
+
+This too.
+
+>>                 timeout = msecs_to_jiffies(2500);
+>>
+>> base-commit: 73e3b1c94c7d5b4a113e7cbb42665dc2fe3b9d78
+>> --
+>> 2.54.0 (Apple Git-157)
+> 
+
