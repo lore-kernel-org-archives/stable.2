@@ -1,110 +1,169 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9071F490BEC
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 18:21:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA6494A0EED;
+	Wed, 23 Sep 2026 18:29:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790187665; cv=none; b=f2yXip/X4YEeD/FwHEH3WV4yNlMZfIMgFdZZ8eiAvY1LkIU5PadcViGMQnMJVpT3VKAWMfVq60TaGZtRQnEw3qZvTeH9P7Icl9vvxNw7YiJQ0i+atzYhBQ/3K2QP5UuvBuB4O5VjrGf07XE/XsmLe6aSQ+O0hynfnkN9UydWYQs=
+	t=1790188153; cv=none; b=XVGPzu742EKWznTiEtTq039AnAzjkK6/2prNxuXMfC47CBOnlFKpb6b3BD2tyJM5cqelyAZxupiV8wIXWvLIo6fgYBWq5SpvGj9jU4U19RKxLvgQ4r5wKmF2OiBbrZUGO2AmtPr+EhvXfmnsbtNegn9T2fWdEyChoJcVtObat1U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790187665; c=relaxed/simple;
-	bh=v/4/l6++ZGNHEEzPofsFGmPRWxoaWfhxiTez96lpTYw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lKhcUwHRkY68+fGDXeAYdx6uLnSNWV/+6MSiI975Qoj2CtmVLHfFzUTRBvxY5rcDDkAXgcxs2tkCvkFFLwRPP7zEGThs7EcpUTH1M4+lEvOSOdR+sarkk6y2LQuk+r0+MpaFNyEwrlBwyNGG0mO5R9k0Y9x1SNQdGUzbOxx4e2c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=DzEuGEPs; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	s=arc-20240116; t=1790188153; c=relaxed/simple;
+	bh=egPyPSMytQkU/uhH8h/JTmuFUeEtv2s+PSJRuV7Xdg4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=UDmbHqAnhbjwD3vmuy+k5M+V3y59KL6iU4skToVd7qWLZ9TOOMH+3KwpITO+sh0U1M/ZpSsuqeUQTlTZLbQpELSy/qlchKCcQ8I3NL9C4wmykng20QyoCZGnMhAk2yYYYlCGSOrNDoyFL1iqq8LTW2dsL/jTCdia7jRsLkf6lYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=bz+XIa5S; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="DzEuGEPs"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e79a408deso7226715e9.2
-        for <stable@vger.kernel.org>; Wed, 23 Sep 2026 11:21:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20251104; t=1790187659; x=1790792459; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YWjiKP/XBNIAbPzze1+HuDh+T/9ARwHn/3w9sXqhD7o=;
-        b=DzEuGEPstwPJIU4KV+w6eUojFRniFFMarOnc3PtuA6RjlQtEH2meEiX9ywE7PTadPb
-         K819+/y8k0237l74vgEflJhZ7NGLrKxA7Oh/nbKyiM08Auy5JgZ4mS9I5RTTHbvUuglf
-         1cCt2SCzEkHc2sf5ZDqIZYQPvvgDqJI7sdZgNARXBM1VJ4OHwwk5xYpF1KNFannF54C2
-         FzoHD/nvMlbsDyYINIIm1o4dVkLB2eIJ5JwechdJjFpwqUL+eyi4y6LfUGTlOuSED+fc
-         NKBymkru0mX+ECbtVqLUbFFkRb92l251l3OgMiZbx+txTf76U3+LbsajzwPDbIiROjKQ
-         MUyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790187659; x=1790792459;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YWjiKP/XBNIAbPzze1+HuDh+T/9ARwHn/3w9sXqhD7o=;
-        b=cPxUBH+W9/fzkAYJIzBuH8txZ3GuVpBY0L7GqXExuTuPRJoGz1/oqPqlT24KocL9Ho
-         y0CXvdaMGFsQqYZMsA63h6ohVYaIRSc6PJpU2sgGsBMfdl6C9yKYaIJg4zYLKoanzl66
-         OFX6kviH+wXZ4h0FTVZwARsbnNsan+mI5qKHhsdOIkjqMD4XKsNrWeX5hHImaphhUvyh
-         0PC6HhTCrdkhTBSLK9HOmksqDM6OW2XZbC0Ng4QKnSHgLZqYeXsN5H6p9voSfA3zQ0Fo
-         4YPNaBG5zW/yZChtJZOCdR5vNu2T8RazvzAIQcskpQ1MrrBRbO0NcmnLJKmYX2nxQWQX
-         HiNA==
-X-Forwarded-Encrypted: i=1; AKwUvBxX9Gex34Hk5NfQqLIKg+zy4JOtuNfVIYN1lz7aHU1zjH+5aJ29Ntcev+bJOHw7Td84AQcMgkI=@vger.kernel.org
-X-Gm-Message-State: AFuF++l9jV0FuRNK3ETyWu1oh2TTZlj7eUCUFz9qd/WDl4BiytPLgsWp
-	/bk8xQwpj9T8s+2ZmTKkjwAyKE6qM0A7c7++g+GSI8RyOxvUKcP5Is8=
-X-Gm-Gg: AYBFou265AhvrJwxYppbV5vUTBmU1t/Q14YkyrZ38Paf098rk7aYSU6MVpInwytOeJ3
-	/5EYY2JgYkjOWvZ6rAqTXS4Ml77zu3EXIus4mm8dKGZuEh59RKPK3OGaoih2exrW4vuB3lgvm5c
-	Sd/hCIzSy267PkziCq2l4vWlCbZx35JHhCzr7ScYixioXhesMnlt/XI2T82jVUUWMPWQGKIJFHy
-	/B0bH8W2/oN7atV22DeMB0CkcWzkWAghCr2hUGOeutL4epe7m7zjSuhdwI4xAblw1J0MATvO7Or
-	CfTGei/Ud4BfPMyQcYVlZTcYeBtNgr+YABavyokyh0TVOruW7Szz7tM134LTMUd3H1djRMkFmpU
-	Fc2K5uffSaFQkUHK1tDUL8ZqhhE0e5SObwCZbqEF+VJE/LKlVv+d56IY0Kjwx4BqknsVAlUH6xV
-	BIKFCfaq5XAEWfpR65HYyioULBvzhEDsTk9vpb529ShRaaxrLAMQbEGGu5bUYpPugAMXcDzHJH6
-	uATYFkq4lTjA9TpL7xpVRXBTk+3prHRcT/y71Wy+2QokXIJ
-X-Received: by 2002:a05:600c:4e93:b0:49d:243a:e4f9 with SMTP id 5b1f17b1804b1-49fe66d0727mr1180475e9.10.1790187658768;
-        Wed, 23 Sep 2026 11:20:58 -0700 (PDT)
-Received: from [192.168.1.3] (p5b2b415d.dip0.t-ipconnect.de. [91.43.65.93])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5dfa6a7sm5734535e9.12.2026.09.23.11.20.57
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 23 Sep 2026 11:20:58 -0700 (PDT)
-Message-ID: <cfc18ad7-dffc-4386-a7b7-a152ce1d8a8d@googlemail.com>
-Date: Wed, 23 Sep 2026 20:20:57 +0200
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="bz+XIa5S"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68NGZOLP2048265;
+	Wed, 23 Sep 2026 18:28:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=gO7WMLMxLCLeKAuVc
+	bRabWl9GxDrv3S61aRQovTiWdY=; b=bz+XIa5SVYh9bAfpzQFz9s3p2ufZ+HuVf
+	7oItWKcmq+qBfN6L+vn3ED9xlmkfC3uAIVOB5MezBUwdtNtdf/FXvG58PKbf/Z6E
+	iM1Hx/ItVKYpEkq+CaesG7a0hUaIkfENTal1jzB9ic0s3euAMB2vcLMLyOUvJXAN
+	iHmYLqzSXuZu//qTlme7e+QBDzXLs8IBxW39SpbLDAz7ns1JkHFAfphbThiYVxg3
+	CMCQ1i6CGXQI2uBQpGnNMz38kHYZnuxZoY0yDGLc7r9fIeGrgDfSCG/75htscL8V
+	ePCJyaF91sw2VEV5D77RTjq8I4GqVvILbBe7jLXMuK7CTZVZat9ng==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gske1vy2y-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 23 Sep 2026 18:28:58 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68NGWtuP664875;
+	Wed, 23 Sep 2026 18:28:57 GMT
+Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gvbe1t99x-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 23 Sep 2026 18:28:57 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68NISrVV33489280
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 23 Sep 2026 18:28:53 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 86F7320043;
+	Wed, 23 Sep 2026 18:28:53 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 6D71320040;
+	Wed, 23 Sep 2026 18:28:48 +0000 (GMT)
+Received: from li-fc74f8cc-3279-11b2-a85c-ef5828687581.ibm.com (unknown [9.67.83.254])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Wed, 23 Sep 2026 18:28:48 +0000 (GMT)
+From: Srish Srinivasan <ssrish@linux.ibm.com>
+To: linuxppc-dev@lists.ozlabs.org
+Cc: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
+        christophe.leroy@csgroup.eu, nayna@linux.ibm.com, gjoyce@linux.ibm.com,
+        ritesh.list@gmail.com, sshegde@linux.ibm.com,
+        linux-kernel@vger.kernel.org, rnsastry@linux.ibm.com,
+        ssrish@linux.ibm.com, stable@vger.kernel.org
+Subject: [PATCH 01/12] pseries/plpks: fix error handling in plpks_read_var()
+Date: Wed, 23 Sep 2026 23:58:05 +0530
+Message-ID: <20260923182816.151451-2-ssrish@linux.ibm.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260923182816.151451-1-ssrish@linux.ibm.com>
+References: <20260923182816.151451-1-ssrish@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH 7.2 000/438] 7.2.8-rc1 review
-Content-Language: de-DE
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260923140644.756254324@linuxfoundation.org>
-From: Peter Schneider <pschneider1968@googlemail.com>
-In-Reply-To: <20260923140644.756254324@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: dDqJ8daWDB0lJWgwI9pe4Ip3naXO74It
+X-Authority-Analysis: v=2.4 cv=EOCTQFZC c=1 sm=1 tr=0 ts=6ab41a6b cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=gFDXozieBbrukydjEA0A:9
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA3MiBTYWx0ZWRfX1QAHR6kOrAaP
+ xKXN29oAKKj/BNWp1PSp8wcYEMrzBDVZBu1p+/047bmj41n/s2C5PrP64fLKMNUmEOCOEUJ3cKo
+ XPtudeqj4qbE29UPHKIaqozE6lHDzNY=
+X-Proofpoint-GUID: A7C0g6-MtWkuF4Iy1IulKj_L6ifq3Z3i
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA3MiBTYWx0ZWRfXzfwtsxil7Ggt
+ xqsFb78EdMGmsW6GbWuiLkm9neEsKQf/kEzhw8V6n3/+qZ/riDEhxVIMkEV0zXF9lCY2qf/4r2I
+ z/F9ir02vpiNGwBkHk4whHSS5pAF7C9luto7aU9SGa/c45KRw1tL9iY9+3h+IivQB0ppEDagVwr
+ 6f8DR1rbj4KydLJSrysc/5Cb4SBY7Yi8Mvo9ABL8RZUs6oAH0mXDu4v/3RjoZo/2tcTCBJGLryA
+ 4OAHR7e68df9wdXm+kPsaAZE/r6vmfkdTjbKGED6xr7i/yGzwSXDsqOW+S6DvJHAingYa35cI3z
+ XPM/sScSJ/AtlqjwXUcCtwIOIoSRHhj+tiUj9cH4oxLjxEqI1qmhgzJjVlwQxSE8HEyAlloB6Vs
+ JQJW462SllRO3u0wWNVjHagsKuDN5CCFeaWzcBRbZrsRCzxgBRV871LViLfwLnBFr30wUjr3d9F
+ DBRk1HuCGY3X63tvTUg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-23_06,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 phishscore=0 priorityscore=1501 clxscore=1015 spamscore=0
+ adultscore=0 impostorscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230072
 
-Am 23.09.2026 um 16:00 schrieb Greg Kroah-Hartman:
-> This is the start of the stable review cycle for the 7.2.8 release.
-> There are 438 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+When a PLPKS variable is initialized without a policy and used to read an
+object with the PLPKS_WRAPPINGKEY policy set, the hypervisor returns
+H_AUTHORITY along with the object's policy. However, plpks_read_var()
+currently treats this the same as any other H_AUTHORITY failure and returns
+an error without propagating the policy information to the caller.
 
-Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697v2 server. No dmesg oddities or regressions found.
+Distinguish this case from other H_AUTHORITY failures and propagate the
+returned policy to the caller while preserving the authorization error.
+Remove the explicit assignment of zero to rc on H_SUCCESS, as it is
+redundant.
 
-Tested-by: Peter Schneider <pschneider1968@googlemail.com>
+Also validate the PLPKS variable pointer before dereferencing it.
 
+Fixes: 2454a7af0f2a ("powerpc/pseries: define driver for Platform KeyStore")
+Cc: stable@vger.kernel.org # 6.0
+Signed-off-by: Srish Srinivasan <ssrish@linux.ibm.com>
+Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
+---
+ arch/powerpc/platforms/pseries/plpks.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
-Beste Grüße,
-Peter Schneider
-
+diff --git a/arch/powerpc/platforms/pseries/plpks.c b/arch/powerpc/platforms/pseries/plpks.c
+index 23e4e2a922fc..7e56b3dcacbc 100644
+--- a/arch/powerpc/platforms/pseries/plpks.c
++++ b/arch/powerpc/platforms/pseries/plpks.c
+@@ -822,6 +822,9 @@ static int plpks_read_var(u8 consumer, struct plpks_var *var)
+ 	u8 *output;
+ 	int rc;
+ 
++	if (!var)
++		return -EINVAL;
++
+ 	if (var->namelen > PLPKS_MAX_NAME_SIZE)
+ 		return -EINVAL;
+ 
+@@ -856,22 +859,21 @@ static int plpks_read_var(u8 consumer, struct plpks_var *var)
+ 				 virt_to_phys(var->name), var->namelen, virt_to_phys(output),
+ 				 maxobjsize);
+ 
+-
+ 	if (rc != H_SUCCESS) {
+ 		rc = pseries_status_to_err(rc);
+-		goto out_free_output;
++		if (rc != -EPERM || !retbuf[1])
++			goto out_free_output;
++		goto out_copy_policy;
+ 	}
+ 
+ 	if (!var->data || var->datalen > retbuf[0])
+ 		var->datalen = retbuf[0];
+ 
+-	var->policy = retbuf[1];
+-
+ 	if (var->data)
+ 		memcpy(var->data, output, var->datalen);
+ 
+-	rc = 0;
+-
++out_copy_policy:
++	var->policy = retbuf[1];
+ out_free_output:
+ 	kfree(output);
+ out_free_label:
 -- 
-Climb the mountain not to plant your flag, but to embrace the challenge,
-enjoy the air and behold the view. Climb it so you can see the world,
-not so the world can see you.                    -- David McCullough Jr.
+2.52.0
 
-OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
-Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
