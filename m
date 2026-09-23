@@ -1,45 +1,44 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B455126BE1;
-	Wed, 23 Sep 2026 05:15:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74E6E39182A;
+	Wed, 23 Sep 2026 05:16:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790140524; cv=none; b=XwSel4EMZkUQ3TcwTJaanP+QhKCwYQJC/fI+q66FhhMk+7NS1bjfQyxSQ/pz0EdHswvi1mhonVDyz0JKZ7x9kAgkSsZsh9TOgawzymWhLrfB271BdIkh4GmIRElOA80uojLIhHq1daHiheVXJTC1bbOmL7qIhXAXLI6G/CXGcHA=
+	t=1790140596; cv=none; b=bOmchpKLZ5s4/Kzei7NchcOgCljAsOEPag1Is12Db282y/ApT19bijgkLF5D2Fl69w9CdqD5ypvlB/thGKN5mrPvMd3StpRlcUFThZz2HaQhrQcjUxfuy+opsnRTax3zA96gZYNjWh2UGU5RjStH2V6bs3oodpuc0/Qyw3kVcrA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790140524; c=relaxed/simple;
-	bh=Kd8RKb6dMAaYXPOLBDZ00Vt78qVvgPM9mS7FWopWxpo=;
+	s=arc-20240116; t=1790140596; c=relaxed/simple;
+	bh=py8Y7hDEb7pKJtcphdi5bTKw33iqAlAcl29p45Jf1bE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oUEdFaXyxSs5ARcRFatcOJ/Xs8ZBLwWiGUiyUPpE3LJGEkqzhw/doIaj+6e8gENcUcdCPxdBPpYCKKKZ6PXfNQfFd96pwTnHXozksMsEoJ3NBJx2yC0jAkUAc5jHxeteHzdYxfhxSVH/vBvnWv+1dRAI/OewVbOPazqxGe11d9M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=gkWEdNm+; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	 Content-Type:Content-Disposition:In-Reply-To; b=Dd0sl1x8lneeywJL3cdyXBzIWtrYW0s1KSDeFV0PmL9xhg0AZ2w4vh1Nfm9cgyeUFVbqH0okVUI1VyBkYcp7sczQdkWL+mZWn0B7PFdIs94nZ5kHxm9WdrMSXH/8jSSRsEqV5HCOfM5Xyq+20jwXCgaU9cF/EYlU/cT5GSSUW3U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IbjzkM/a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="gkWEdNm+"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=5j5SdMSQ+pEkika3L3VDn3qQtVQCoT7r9CoixaQ9M9A=; 
-	b=gkWEdNm+7vRR9iy8yNuZANV6lnVHQr2LmFR+kYF239dX8vb/hfPsa04MpgmMDVacvLLnjUhDvgj
-	ulpp2ZVSnzhbgBNTu6P0c6b1cSY4qKsII2dy52JYmbFmVBphbtpoDU3BHDYz2p/Sw+sbxHanpKwme
-	tMYBujCW1zA0r3fCodU599g4rDjmjyxp8zvEAsAizke2te1Vm9A9C4nXbsYs+8D02H9beeFLrGY8y
-	9wtUE90wNXKwscbdOjnaue9Q0QBGCV/HVGe3xIRLOltLiUvRUdTzw2iXAN4AukgXWyt8uCvGf8GD0
-	ZVaBeWdH/lHg7ljQevUf3xcNJwGGGHGHUGlg==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1x9FK6-0000000GuPg-3l9W;
-	Wed, 23 Sep 2026 13:15:15 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Wed, 23 Sep 2026 15:15:14 +1000
-Date: Wed, 23 Sep 2026 15:15:14 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: jenny.zhang@starfivetech.com, jiajie.ho@starfivetech.com,
-	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
-	olivia@selenic.com, lkml@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 3/4] hwrng: starfive - Fix runtime PM leak in
- starfive_trng_read()
-Message-ID: <arNgYk8hFDdlJqD9@gondor.apana.org.au>
-References: <20260915035448.1724327-1-vulab@iscas.ac.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IbjzkM/a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D88031F000FF;
+	Wed, 23 Sep 2026 05:16:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790140595;
+	bh=hhq8M0bpMaERJEmL5HHJ4uUb6lbtrmHobr4GrUUBw6Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IbjzkM/ajcnT1FwT6w33gdufHf1q3sl3qNUxReQNvImCjgoUQN/HuiQj/Q5aCcYBL
+	 LWQjmSjBYQ4APRFTek0I4ncl0Hax3aqVu25b1TNnsYmrSmFrOzZkRYgN8/Uh08/G4E
+	 lifY02K7QQIHgl4aMsQZedquCFjiNHQvg9MCx/kRUzRKnobTJNZFOqVvFXHQ1v5sH8
+	 ePlcz/XBGnE0SbjEsEwKxoebT1On28FxGNF1NxPZ0qClR3ei1ouJOBvlhISoKKajh/
+	 GDTG48rU+aEJr4raac2V9uU+AJXV4PzU2zqx0PQ/w3jgE3cIEKBE/CVW70EXXw7gMb
+	 eV/kA/K0G6lEg==
+Date: Tue, 22 Sep 2026 22:16:33 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: Siddharth Vadapalli <s-vadapalli@ti.com>
+Cc: Herbert Xu <herbert@gondor.apana.org.au>, davem@davemloft.net,
+	stable@vger.kernel.org, linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	srk@ti.com
+Subject: Re: [PATCH v2] crypto: sa2ul - Fix stack overflow in
+ sa_prepare_iopads
+Message-ID: <20260923051633.GF42709@sol>
+References: <20260831055141.1632832-1-s-vadapalli@ti.com>
+ <aqpawGagrSvRkpTi@gondor.apana.org.au>
+ <beba08cf-3e1d-4510-9498-d126482cdaa2@ti.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,35 +47,42 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260915035448.1724327-1-vulab@iscas.ac.cn>
+In-Reply-To: <beba08cf-3e1d-4510-9498-d126482cdaa2@ti.com>
 
-On Tue, Sep 15, 2026 at 03:54:48AM +0000, Wentao Liang wrote:
-> starfive_trng_read() takes a runtime PM reference with
-> pm_runtime_get_sync(trng->dev), which leaves the device's usage
-> count incremented even when it fails, and balances it with
-> pm_runtime_put_sync_autosuspend() on the success path only.  If
-> starfive_trng_wait_idle() times out or starfive_trng_cmd() fails,
-> the function returns early without dropping the reference, leaking
-> it on every failed read.
+On Tue, Sep 22, 2026 at 06:33:51PM +0530, Siddharth Vadapalli wrote:
+> On 9/16/26 2:30 PM, Herbert Xu wrote:
+> > On Mon, Aug 31, 2026 at 11:21:38AM +0530, Siddharth Vadapalli wrote:
+> > > 
+> > > Since crypto_shash_export() writes 105 bytes into this 104-byte union, it
+> > > overflows by one byte into the adjacent stack frame.
+> > 
+> > This should be converted to crypto_shash_export_core which exports
+> > just the hash state without the partial block buffer.
+> > > Changes since v1:
+> > > - Propagated error from sa_prepare_iopads throughout the call chain.
+> > > - Added missing check for authentication key size being within limits.
+> > > Above changes are based on Sashiko review of the v1 patch at:
+> > > https://sashiko.dev/#/patchset/20260819142357.3950463-1-s-vadapalli%40ti.com
+> > 
+> > Looks like Sashiko is still not happy:
+> > 
+> > https://sashiko.dev/#/patchset/20260831055141.1632832-1-s-vadapalli%40ti.com
+> > 
+> > Let's split this up.  Just do a one-liner to switch shash_export
+> > to shash_export_core, that should fix the stack overrun.  Then
+> > fix the long key issue in a separate patch.
+> > 
+> > I think you should support long keys properly by hashing them as
+> > crypto/hmac.c does.
 > 
-> Convert the pm_runtime_get_sync() call to
-> pm_runtime_resume_and_get(), which drops the reference again on
-> failure, and release the reference with
-> pm_runtime_put_sync_autosuspend() before the two early returns.
+> Thank you for reviewing the patch and providing your valuable feedback.
 > 
-> Fixes: c388f458bc34 ("hwrng: starfive - Add TRNG driver for StarFive SoC")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  drivers/char/hw_random/jh7110-trng.c | 12 +++++++++---
->  1 file changed, 9 insertions(+), 3 deletions(-)
+> I will split the patch as you have suggested with the one-line fix patch
+> posted first followed by an independent patch posted later for handling long
+> keys.
 
-Your patch series is incomplete and cannot be reviewed:
+https://lore.kernel.org/linux-crypto/20260923051116.92741-1-ebiggers@kernel.org
+fixes both bugs properly by using the crypto library instead.  There's
+really no need to even consider workarounds using crypto_shash here.
 
-https://sashiko.dev/#/patchset/74190
-
-Cheers,
--- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+- Eric
