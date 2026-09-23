@@ -1,43 +1,34 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3E6137267E
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 03:04:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.75.44.102])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2915B39A07C;
+	Wed, 23 Sep 2026 03:06:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.75.44.102
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790132667; cv=none; b=Qi5Xrf8gYN4eHSk2cUssJ27pXlzLw90HPEvXK4z5GKnah84FRRRHLgfKTugBnUAsXAxjnbCGfku0MmTyVUkw7+ahl+jG6oxPH1KaAIy9l1854PFU3Qf8tZW72Csy1LBVuRMlCEbjdPgCKLcYPPXTvTc0ZqlXErPT9kWwXsBN+E4=
+	t=1790132790; cv=none; b=RO+cwRMr1OD04wM8w4sLPc30jeQvR+MEDsGGfcDmNIDgDpmo+vnaUkEIDlsbPv64w+vmhFnvzEEms4lb1brKStWSMVSwjWg01DBW7P/QkmNnDBMzXbrEl4KrqzPDWoaHV3SwH2QyME3M1jcMF2IcUONRUSODfEU73VVgC3ffXms=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790132667; c=relaxed/simple;
-	bh=2l3Kgjx1jJi2TQ68E98utMz1YmaM0+O3afCGjVWkMgk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iqj7KW/5qDYdzhQQogaQp9VMHnYQVcLUN7S1+V5cVFcUtPVBXqmxM+uGv8ov6YRA35WCQ//jLQHnLj6a1/ItwCJYy7/8oBXBgjGar8RVDPkd7EbTeQVdJ6rKudqHhWUkZq1iZkOCt+N3098S8M4FxhyfW6vDe1IPHT6jCVnFZGM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RxXmp8qy; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RxXmp8qy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58CC71F00893;
-	Wed, 23 Sep 2026 03:04:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790132665;
-	bh=POJVs3lt8lsien3Tn8SoiwxNm37Gwv/x77SneAfYGUg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RxXmp8qyXEUtu/zCsDJaE78OqhQ3/y1ArNkxTEAST5lLoKsDR24hADlQQsNyViv2S
-	 71l4hfe71JE/YgVHD7Z+jt4dtFkh27unQ4lAlFvNWNC1O/qzHcHtnff1FcM55vAJvw
-	 g3++HlGq2LfP+dr/mmpZwvtzyNHhm9TQNz/a2kjDwZOuV40+z4yZYC2dbcu8kaJzrY
-	 QSqhXjgJy4qVw97K53lHkV1JgceIt8xnVJSnK7bD85rqEk+w7xjca7b8H/EnlFM8Y1
-	 uWSeMpYP5nj0QZBCnsNAme1vfTLL+p1P79i/Yjt8DJv/dNAV3FcvGTFQuISA1iFi0a
-	 MFg//LvejpY2w==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Devin Wittmayer <lucid_duck@justthetip.ca>,
-	Johannes Berg <johannes.berg@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] wifi: mac80211: refuse to make a monitor active when it has no queue
-Date: Tue, 22 Sep 2026 23:04:22 -0400
-Message-ID: <20260923030422.1050587-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260923030422.1050587-1-sashal@kernel.org>
-References: <2026092224-stonework-unpicked-99d1@gregkh>
- <20260923030422.1050587-1-sashal@kernel.org>
+	s=arc-20240116; t=1790132790; c=relaxed/simple;
+	bh=3EwO0EYw+mTOrYwxnMMWjIll/hMQ4/gaQ+s4Bdl4ogs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=TiZ+hT4/xXd2S8CihYaP3ND2iCdQimEa20DqUH0ed4XuzKCulYMa3Zf1UIOAUZjSgL5W/zCdC4NYor9J3V+J7XdTwKnsSo4JRjW//rQ5pxjDLkSJTlOLIfI/S0CCqGc7anGXJACSViirq6555MAZ+wH1zn4yj/HyHN6EK5dsk0Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=13.75.44.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wCXrnwpQrNqTyEwAQ--.4422S3;
+	Wed, 23 Sep 2026 11:06:18 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app2 (Coremail) with SMTP id zC_KCgBn+tApQrNq+G6VBA--.59138S2;
+	Wed, 23 Sep 2026 11:06:17 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: Marc Kleine-Budde <mkl@pengutronix.de>,
+	Vincent Mailhol <mailhol@kernel.org>
+Cc: linux-can@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>,
+	stable@vger.kernel.org,
+	Song Li <songl@zju.edu.cn>
+Subject: [PATCH] can: ems_usb: use usb_kill_urb() to stop the intr URB
+Date: Wed, 23 Sep 2026 03:05:22 +0000
+Message-Id: <20260923030522.409344-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,51 +36,70 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zC_KCgBn+tApQrNq+G6VBA--.59138S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?CXGSCgXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfncGSG+szpQCInt5Y8rbJUI2UqrLr6gmX1sihfTAW2cmoodJqjuNKbeRhRo4tkDIW+azR
+	+UQ4jbHZXGTvhIGllkx/fhSXRnQnisA2hkqkTVk6
+X-Coremail-Antispam: 1Uk129KBj93XoW7uw18GF1kKw48ZryxXFWrWFX_yoW8Aw43pr
+	Z29Fn0yFyDWr4YvanrJrsrZF18AanrAry5CryI93yruwn8X3Z8Gr1UK3ya9ayDZrnxAFyj
+	vrZ8Jw4Uua98G3cCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Cr1j6rxdM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6x
+	kI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v2
+	6r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2
+	Ij64vIr41lF7xvr2IYc2Ij64vIr40E4x8a64kEw24l42xK82IYc2Ij64vIr41l4I8I3I0E
+	4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGV
+	WUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_
+	Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rV
+	WUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4U
+	JbIYCTnIWIevJa73UjIFyTuYvjxU2LIDUUUUU
 
-From: Devin Wittmayer <lucid_duck@justthetip.ca>
+The intr URB submitted in ems_usb_start() is not anchored, and its
+completion handler ems_usb_read_interrupt_callback() resubmits it, so
+it stays in flight as long as the interface is up. But unlink_all_urbs()
+stops this URB with usb_unlink_urb(), which only initiates an
+asynchronous unlink and returns without waiting for the handler.
 
-[ Upstream commit 2b04d6556964ae9f89819b86a0a7801e39c3aae5 ]
+The handler can therefore still be running while ems_usb_disconnect()
+frees its data: it reads the transfer buffer dev->intr_in_buffer, which
+is kfree()d there, and dereferences the private context, which is
+released via free_candev() together with the network device.
 
-A monitor interface only gets a TXQ if it's created active, and one can't
-be added later. Setting the flag on a down interface is still allowed, so
-the driver is handed a monitor with no queue. ath9k dereferences it:
+Fix this by stopping the intr URB with usb_kill_urb(), which waits
+until the handler has returned, so the frees in ems_usb_disconnect()
+happen strictly after the last callback.
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000066
-  RIP: 0010:ath_tx_node_init+0x49/0x170 [ath9k]
-   ath9k_add_interface+0x10c/0x140 [ath9k]
-   drv_add_interface+0x54/0x250 [mac80211]
-   ieee80211_do_open+0x32f/0x800 [mac80211]
+The handler treats the -ENOENT completion of a killed URB as terminal and
+does not take RTNL or any sleeping lock, so the resubmit loop is cut and
+no RTNL deadlock occurs.
 
-Reached with CAP_NET_ADMIN by "iw dev X set monitor active" followed by
-"ip link set X up". RTNL is held, so netlink operations block behind it.
+This issue was found by an in-house static analysis tool.
 
-Refuse the flag when there is no queue to give.
-
-Fixes: 79af1f866193 ("mac80211: avoid allocating TXQs that won't be used")
+Fixes: 702171adeed3 ("ems_usb: Added support for EMS CPC-USB/ARM7 CAN/USB interface")
 Cc: stable@vger.kernel.org
-Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
-Link: https://patch.msgid.link/20260904200338.10829-1-lucid_duck@justthetip.ca
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 ---
- net/mac80211/cfg.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/net/can/usb/ems_usb.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/net/mac80211/cfg.c b/net/mac80211/cfg.c
-index 88a49bbcad36c..07712a241a30e 100644
---- a/net/mac80211/cfg.c
-+++ b/net/mac80211/cfg.c
-@@ -91,6 +91,10 @@ static int ieee80211_set_mon_options(struct ieee80211_sub_if_data *sdata,
- 			return -EBUSY;
- 	}
+diff --git a/drivers/net/can/usb/ems_usb.c b/drivers/net/can/usb/ems_usb.c
+index 9b25dda..9ffb195 100644
+--- a/drivers/net/can/usb/ems_usb.c
++++ b/drivers/net/can/usb/ems_usb.c
+@@ -705,7 +705,7 @@ static void unlink_all_urbs(struct ems_usb *dev)
+ {
+ 	int i;
  
-+	/* TXQs are reserved in ieee80211_if_add() and cannot be added later */
-+	if ((params->flags & MONITOR_FLAG_ACTIVE) && !sdata->vif.txq)
-+		return -EOPNOTSUPP;
-+
- 	/* validate whether MU-MIMO can be configured */
- 	if (!ieee80211_hw_check(&local->hw, WANT_MONITOR_VIF) &&
- 	    (params->vht_mumimo_groups || params->vht_mumimo_follow_addr))
--- 
-2.53.0
+-	usb_unlink_urb(dev->intr_urb);
++	usb_kill_urb(dev->intr_urb);
+ 
+ 	usb_kill_anchored_urbs(&dev->rx_submitted);
+ 
 
