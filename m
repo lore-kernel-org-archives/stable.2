@@ -1,232 +1,85 @@
-Received: from mta1.migadu.com (out-69.mta1.migadu.com [95.215.58.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 803CA443C3F
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 06:54:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.69
+Received: from fraori-sdnproxy-3.icoremail.net (fraori-sdnproxy-3.icoremail.net [132.226.202.154])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2EE2F448B97;
+	Wed, 23 Sep 2026 06:58:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=132.226.202.154
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790146460; cv=none; b=BpSeWmF1oTmSl3SudE5FGi2AYLoEDsDrN3+k1KlMi76RyACb1YwODeSEtldGx+8T/HfNGnNZMf9AqjLixbuBDTaE2KiutpvxJ+3L2ShK7IUIdG+R+TJlqXaxbMxGMbU9ueKDaKMh2er4dp52ymQOgkm+L3WtS4g9T03LhfHcs6k=
+	t=1790146729; cv=none; b=scOhPJ59i/AVjTvOoH8Xr1UQw2oOS6Rz1zOtNfv4CDNeOVhlPawy3Z7r91UPCl61ztWek8rBVWziJmxWys/7qWCgam4g86vocc9PwSxE/reXnbMw/wXg6c+/LqGJrYe6OuJdC5lepalHpcq+gAOnwdUkfwxz5kecgjdlEiDYVi0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790146460; c=relaxed/simple;
-	bh=43+l31JigLayJwEUrA9Gq86evXfBT+ruBR6R0luZO0g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aJbflswwQ31nd1aBk4VTrc69nrE+7aih0aOmh3aFCNulljRuu5q38bcr9lolXZRrRAOnstIQVZnH4qkSjUHyOZqiO86ycmzhNsUDnnsKRy+EfG2zzJ5eI6J8afHcNC3CSyh93fc6FaMeMcukA4T0T5Xtlzh4XaEjdE6+9DV+j6Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=d8hMiuq5; arc=none smtp.client-ip=95.215.58.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="d8hMiuq5"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=43+l31JigLayJwEUrA9Gq86evXfBT+ruBR6R0luZO0g=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790146453; v=1; x=1790751253;
- b=d8hMiuq5ZjoAP39rjF9CjPb5ZvoA8/CoUbLRX3xs70pxd/Z/kJIyj19y+t1oVJ3WibdSCqbk
- 63bRMuj9arOSSjIl71j5N+Z5boy2AzrQMjJOlV7eipxf0dV8Y28uB+4j9ljNRokzNze0OCj1JFe
- kaeOHa9r1rfcQ+sH18rYxBsQ=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 3514f7bca8d9eeb1;
-	Wed, 23 Sep 2026 06:54:11 +0000
-X-Mizu-Trace-ID: 3514f7bca8d9eeb1
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <31772847-fd8b-4c3c-b2e5-a169193fcfd4@linux.dev>
-Date: Wed, 23 Sep 2026 14:55:08 +0800
+	s=arc-20240116; t=1790146729; c=relaxed/simple;
+	bh=pF9SxQQ9Z1XbgSAlSmM8GywSeHdVQviKAgrAU6XpWCs=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=nmE2jhbDdctfbsrg8dJIHV22IKSZZn2PbPgkenKTpqZSlTqh3bdFNuulhGRP8KiDD1fRKztnqsEP0iNA9S2EVnDt6W9GZwgplXyo985/DUX3IlbhZV+w1LTJa5jr4nsCmggjU6R+6seLlXRr+hwUgCyNLFjPvmiQQ8DOKJMoG1Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=132.226.202.154
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.190.161.236])
+	by mtasvr (Coremail) with SMTP id _____wCnRwiWeLNqVMIwAQ--.6120S3;
+	Wed, 23 Sep 2026 14:58:31 +0800 (CST)
+Received: from smtpclient.apple (unknown [10.190.161.236])
+	by mail-app1 (Coremail) with SMTP id yy_KCgBXyKGWeLNq85qfBA--.49361S2;
+	Wed, 23 Sep 2026 14:58:30 +0800 (CST)
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 6/6] alloc_tag: Defer /proc/allocinfo removal to a
- workqueue
-To: Suren Baghdasaryan <surenb@google.com>
-Cc: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
- Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
- Aaron Tomlin <atomlin@atomlin.com>,
- Kent Overstreet <kent.overstreet@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>, linux-modules@vger.kernel.org,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-References: <20260915070001.113559-1-hao.ge@linux.dev>
- <20260915070001.113559-7-hao.ge@linux.dev>
- <CAJuCfpGMQqjHsAvW=XUA1Q3AyaVJKM2bKYVja_fgn0wa1tk7DA@mail.gmail.com>
- <d7327cdd-43df-46f8-92d4-c25dda7ae684@linux.dev>
- <CAJuCfpHMdZzJNSRgysbS7vOBmTwEPSYfPYUvt_5+uZ-Ydvw+hw@mail.gmail.com>
-Content-Language: en-US
-From: Hao Ge <hao.ge@linux.dev>
-In-Reply-To: <CAJuCfpHMdZzJNSRgysbS7vOBmTwEPSYfPYUvt_5+uZ-Ydvw+hw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3774.600.62\))
+Subject: Re: [PATCH] HID: playstation: Fix DualShock4 dongle hotplug work
+ use-after-free
+From: Fan Wu <fanwu01@zju.edu.cn>
+In-Reply-To: <20260923032634.417433-1-fanwu01@zju.edu.cn>
+Date: Wed, 23 Sep 2026 14:58:20 +0800
+Cc: linux-input@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org,
+ Song Li <songl@zju.edu.cn>
+Content-Transfer-Encoding: 7bit
+Message-Id: <81BEA2CA-2D05-4A0B-95C5-C67E017FBCC5@zju.edu.cn>
+References: <20260923032634.417433-1-fanwu01@zju.edu.cn>
+To: Roderick Colenbrander <roderick.colenbrander@sony.com>,
+ Jiri Kosina <jikos@kernel.org>,
+ Benjamin Tissoires <bentiss@kernel.org>
+X-Mailer: Apple Mail (2.3774.600.62)
+X-CM-TRANSID:yy_KCgBXyKGWeLNq85qfBA--.49361S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?NDI/4AXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnVCjTgEH9dVomQuWcozCBBFdsbiNRDgxIZy1BXBkJ/NUlPxEn5ZVZgKIbGTuX8n9gcE+
+	7FR/EfKaheMfmSlzV2Wp9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj9xXoW7JFWrKrW7Wr4kKw13Zw48Zrc_yoWxKwb_u3
+	45Zry0gw1vgF47KFn8KF4fArnxta9rtry5Xw4rZr9av347ur98Wa9IvwnIgryxWw4DCasx
+	Kr1j9rW7Cw1jkosvyTuYvTs0mTUanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUj1kv1TuYvT
+	s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
+	cSsGvfJTRUUUbT8YFVCjjxCrM7AC8VAFwI0_Gr0_Xr1l1xkIjI8I6I8E6xAIw20EY4v20x
+	vaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
+	w2x7M28EF7xvwVC0I7IYx2IY67AKxVWDJVCq3wA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
+	W8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6x
+	kI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v2
+	6r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2
+	Ij64vIr41lF7xvr2IYc2Ij64vIr40E4x8a64kEw24l42xK82IYc2Ij64vIr41l4I8I3I0E
+	4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGV
+	WUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_
+	Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rV
+	WUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4U
+	JbIYCTnIWIevJa73UjIFyTuYvjxU7gAwDUUUU
 
-Hi Suren
+Please drop this patch.
 
-On 2026/9/23 10:41, Suren Baghdasaryan wrote:
-> On Thu, Sep 17, 2026 at 6:38 PM Hao Ge <hao.ge@linux.dev> wrote:
->>
->> Hi Suren
->>
->>
->> On 2026/9/18 09:09, Suren Baghdasaryan wrote:
->>> On Mon, Sep 14, 2026 at 11:59 PM Hao Ge <hao.ge@linux.dev> wrote:
->>>>
->>>> shutdown_mem_profiling() calls remove_proc_entry() from
->>>> reserve_module_tags(), which runs under mod_lock held for write.
->>>> remove_proc_entry() waits for readers, and a reader takes mod_lock for
->>>> read in allocinfo_start():
->>>>
->>>>   CPU0 (insmod)                      CPU1 (read /proc/allocinfo)
->>>>   ----------------                   ----------------------------
->>>>   reserve_module_tags()
->>>>     down_write(&mod_lock)  [held]
->>>>                                      use_pde()            [in_use++]
->>>>                                      allocinfo_start()
->>>>                                        down_read(&mod_lock)  <- blocks
->>>>     shutdown_mem_profiling()
->>>>       remove_proc_entry()
->>>>         wait for in_use == 0         <- blocks
->>>>
->>>> Move remove_proc_entry() to a workqueue.
->>>>
->>>> The file creation is moved to the end of alloc_tag_init() as well.
->>>> If alloc_tag_init() fails with alloc_tag_cttype still NULL or an
->>>> error pointer, a concurrent reader of the leftover file would
->>>> dereference it in allocinfo_start() and panic.
->>>>
->>>> Reported-by: Sashiko <sashiko-bot@kernel.org>
->>>> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
->>>> Cc: stable@vger.kernel.org
->>>> Signed-off-by: Hao Ge <hao.ge@linux.dev>
->>>> ---
->>>>  mm/alloc_tag.c | 26 +++++++++++++++++---------
->>>>  1 file changed, 17 insertions(+), 9 deletions(-)
->>>>
->>>> diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
->>>> index 1ca0409b492b..cfa0fc84b68f 100644
->>>> --- a/mm/alloc_tag.c
->>>> +++ b/mm/alloc_tag.c
->>>> @@ -15,6 +15,7 @@
->>>>  #include <linux/seq_file.h>
->>>>  #include <linux/string_choices.h>
->>>>  #include <linux/vmalloc.h>
->>>> +#include <linux/workqueue.h>
->>>>  #include <linux/kmemleak.h>
->>>>  #include <uapi/linux/alloc_tag.h>
->>>>
->>>> @@ -591,6 +592,13 @@ void pgalloc_tag_swap(struct folio *new, struct folio *old)
->>>>         put_page_tag_ref(handle_new);
->>>>  }
->>>>
->>>> +static void remove_allocinfo_file(struct work_struct *work)
->>>> +{
->>>> +       remove_proc_entry(ALLOCINFO_FILE_NAME, NULL);
->>>> +}
->>>> +
->>>> +static DECLARE_WORK(remove_allocinfo_work, remove_allocinfo_file);
->>>> +
->>>>  static void shutdown_mem_profiling(bool remove_file)
->>>>  {
->>>>         if (mem_alloc_profiling_enabled())
->>>> @@ -600,7 +608,7 @@ static void shutdown_mem_profiling(bool remove_file)
->>>>                 return;
->>>>
->>>>         if (remove_file)
->>>> -               remove_proc_entry(ALLOCINFO_FILE_NAME, NULL);
->>>> +               schedule_work(&remove_allocinfo_work);
->>>>         mem_profiling_support = false;
->>>>  }
->>>>
->>>> @@ -1358,16 +1366,10 @@ static int __init alloc_tag_init(void)
->>>>                 return 0;
->>>>         }
->>>>
->>>> -       if (!proc_create(ALLOCINFO_FILE_NAME, 0400, NULL, &allocinfo_proc_ops)) {
->>>> -               pr_err("Failed to create %s file\n", ALLOCINFO_FILE_NAME);
->>>> -               shutdown_mem_profiling(false);
->>>> -               return -ENOMEM;
->>>> -       }
->>>> -
->>>>         res = alloc_mod_tags_mem();
->>>>         if (res) {
->>>>                 pr_err("Failed to reserve address space for module tags, errno = %d\n", res);
->>>> -               shutdown_mem_profiling(true);
->>>> +               shutdown_mem_profiling(false);
->>>>                 return res;
->>>>         }
->>>>
->>>> @@ -1375,10 +1377,16 @@ static int __init alloc_tag_init(void)
->>>>         if (IS_ERR(alloc_tag_cttype)) {
->>>>                 pr_err("Allocation tags registration failed, errno = %pe\n", alloc_tag_cttype);
->>>>                 free_mod_tags_mem();
->>>> -               shutdown_mem_profiling(true);
->>>> +               shutdown_mem_profiling(false);
->>>>                 return PTR_ERR(alloc_tag_cttype);
->>>>         }
->>>>
->>>> +       if (!proc_create(ALLOCINFO_FILE_NAME, 0400, NULL, &allocinfo_proc_ops)) {
->>>> +               pr_err("Failed to create %s file\n", ALLOCINFO_FILE_NAME);
->>>> +               shutdown_mem_profiling(false);
->>>
->>> You need free_mod_tags_mem() here.
->>>
->>
->> Right. Another problem is exposed here: moving proc_create() to the end
->> implies successful return from codetag_register_type(),
->> so alloc_tag is already added into codetag_types.
->> That looks a bit odd to me. Because all places inside codetag that access this
->> linked list will access this incompletely‑initialized codetag_type.
->> There is currently no matching unregister interface to tear it down.
->> So I drafted one previously:
->> void codetag_unregister_type(struct codetag_type *cttype)
->> {
->>         struct codetag_module *cmod;
->>         unsigned long id, tmp;
->>
->>         mutex_lock(&codetag_lock);
->>         list_del(&cttype->link);
->>         mutex_unlock(&codetag_lock);
->>
->>         codetag_lock_module_list(cttype);
->>         idr_for_each_entry_ul(&cttype->mod_idr, cmod, tmp, id)
->>                 kfree(cmod);
->>         idr_destroy(&cttype->mod_idr);
->>         codetag_unlock_module_list(cttype);
->>
->>         kfree(cttype);
->> }
->>
->> But looking back, do we really need to do this? I'm not so sure.
-> 
-> I think having codetag_unregister_type() would be a good idea. For now
-> it's used only in this failure case, so we can make it an __init
-> function and not waste any memory at all.
->
-Thank you for the valuable suggestion, I will take this approach.
-I've found there could be a race condition with alloc_tag_top_users.
-I'll analyze it.
+__hid_input_report() returns -EBUSY when it cannot take
+hdev->driver_input_lock, and hid_device_probe() and hid_device_remove()
+hold that lock across the driver's ->probe() and ->remove() callbacks.
+hid-playstation never calls hid_device_io_start(), so input reports
+cannot reach dualshock4_dongle_parse_report() while
+dualshock4_create() or dualshock4_remove() run. The window this patch
+tried to guard does not exist, and the cancel_work_sync() calls that
+were already there are sufficient.
 
-Thanks
-Best Regards
-Hao
+The issue came from our static analysis tooling, which missed that
+the HID core serializes the report path against probe and remove.
 
->> I previously thought the issue reported by Sashiko was a false positive,
->> and I laid out my thoughts back then:
->> https://lore.kernel.org/all/afa606df-3d5b-47c2-9972-f3e0c2e13c12@linux.dev/
->> and I thought the change would be straightforward, and defensive programming
->> felt acceptable to me, but it turns out to be a little more complex than I expected.
->>
->> Suren, could you help me analyze this? Thank you very much for your valuable feedback
->>
->> Thanks
->> Best Regards
->> Hao
->>
->>>> +               return -ENOMEM;
->>>> +       }
->>>> +
->>>>         return 0;
->>>>  }
->>>>  module_init(alloc_tag_init);
->>>> --
->>>> 2.25.1
->>>>
+Sorry for the noise.
+
+Fan Wu
+
