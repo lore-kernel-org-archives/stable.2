@@ -1,121 +1,92 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86760305687;
-	Wed, 23 Sep 2026 14:50:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2689A5383F5;
+	Wed, 23 Sep 2026 14:50:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790175057; cv=none; b=QZmWxOtSI8oD7m19eSHv8FYeza7eRk5wv5WijM8d9ySvkCSYnGg8m621usd69wYWpOeTPlkTBDBOvwzj6Snq0sJaH+WsAt2ZEE036z4EtO8JAUkIX71Rzaw6nNXraq9myjRO3kmKl4inpjV8dykZXZoERSNaSgxrlulzlf8bnR8=
+	t=1790175060; cv=none; b=MfXMCK8LUMIyyCYYFhNCRNrMlJ+OjI2R9/gAvB1ZK8d1yyOxovYAY7y19+G/T3Kby79poFAnxCE1ptunXSzpBpCCnfAWmTGm+BLCWInoCO1YW58/fzMRqsSpfJrIuVGtMC9oqMqWlwvQbnw8Uakqafq21fqRLG3G2bWxOXNh4q8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790175057; c=relaxed/simple;
-	bh=BTFZEyaGHn0aSDPwc1oAYgsNJ5iFRLhGT0U1Rv2NCdo=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=GdSxWwpgonW7j5u95C7khxKmNu54smfhWAryjQpdJ2G+NOW0XlkwnAPgWTUAjxR6QuyT8agw3YIhgIiprZ7OeJXzGHjSZVeli/XgtRJeXk4iz7PW3/m/2+JNhrWjTRKIdbftvfZjSu8uN7RQN/ckp9gbhzMUvJRrk03a0C9HN7U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=dOHvdPSN; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=qk24tv6g; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1790175060; c=relaxed/simple;
+	bh=g6ORgO+4T0OEevOuApZJzdB0Dh2nymeQdE62kb81hz8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=OF6+XVbCSSnqZHwMNiYKDmEd3mR1G3fHD1SY4473UOn0So9ZX5fhRkdXZJr3AGBEPBMYh/uGkU6OVSgY54Fw8kheR3y4lGG8im7G5YC0/1m3SDWENxn7BPQb0zZ4SdWdCa/Ep9oxVqjxjh8kgBlTzve398+jZhDXxqHEaHZ4FaQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=qtCc3tfq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="dOHvdPSN";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="qk24tv6g"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790174918; bh=AeN6n7kFukf8ndloeNqVY+2
-	cC3ng9FodT+JQv/3mwq0=; b=dOHvdPSNjS3aHiq8DD0T6zVPQ1k7QjFk7QKi/qUCSMdv0E3lde
-	bgSqPLQ/7Ul83S2oofOP4gzb5Q5dYQa/LS+yzu7Y1/4CYGSnNudfq4Ukgqt3jmU0C37awJAyDZ/
-	wt8gsOPvKANlRprpjFp/Am3BtE1w+2RT0iWVZqeba0PoPLqXSO7ie+/SzMkDC8Enek3oqhjejzZ
-	0SccZGU/u80cIocvPiMjrxRbT9JHt37CCO7IXMqRD4nWsfbTvAAVz+Fxq9qkegh2dD6sCh+FdPk
-	AQcHIuQ+df+LUp/Jmk0pYuukt5lVe4kqd2m6pgU5+3/PhhrPW0nOrJMBUHqtzdcQASQ==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790174918; bh=AeN6n7kFukf8ndloeNqVY+2
-	cC3ng9FodT+JQv/3mwq0=; b=qk24tv6gYWQ9cGJXwczDAhe1f3m5JpDj+pjKfrV6elk+jLJtjd
-	sG+Uh6HlBxwP/x8allHaBCgsvT7gVLVxV7Dg==;
-Date: Wed, 23 Sep 2026 15:48:38 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: Joel Granados <joel.granados@kernel.org>
-CC: zhanxusheng1024@gmail.com, kees@kernel.org, kuniyu@google.com,
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, zhanxusheng@xiaomi.com
-Subject: Re: [PATCH 1/2] sysctl: Negate before converting in the int read path
-In-Reply-To: <j55ziuijejg3kefuhi2du37d7qechruzchgigp3c55stuhtkh2@fddifpg5kxzq>
-References: <20260922031229.2300283-2-zhanxusheng@xiaomi.com> <867A30A7-5460-4988-A078-09D0B4BCD44C@mainlining.org> <j55ziuijejg3kefuhi2du37d7qechruzchgigp3c55stuhtkh2@fddifpg5kxzq>
-Message-ID: <84187B07-C732-44A2-9DDD-CA95FEE7E8D5@mainlining.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="qtCc3tfq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CA4F1F0089A;
+	Wed, 23 Sep 2026 14:50:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790175059;
+	bh=5hT0vmB/Dl/FRLBAzPQAIvwq3BWYwsZIICfzSEMCAS0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=qtCc3tfqWqdIW/OWvPGOBZWF7s51rqWeMl/xzUPnSfXA9awEZtuos1S374sf2FwhR
+	 TVW0bT6+LXmGrrV8JiuRyM7/OdUpJ8c3dpTDdNZ/4dYDsRK8D1c7jP2TiXMoyTUpub
+	 2E5vDxvoXX1t+CvaqDgfWI4oPB12ovQDm3kQr3IE=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Sanman Pradhan <psanman@juniper.net>,
+	Guenter Roeck <linux@roeck-us.net>
+Subject: [PATCH 6.18 308/398] hwmon: (pmbus/tps53679) Fix TPS53676 phase page decoding
+Date: Wed, 23 Sep 2026 16:06:22 +0200
+Message-ID: <20260923140651.404598816@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260923140643.441954610@linuxfoundation.org>
+References: <20260923140643.441954610@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-On 23 September 2026 14:07:11 BST, Joel Granados <joel.granados@kernel.org>
-wrote:
->On Tue, Sep 22, 2026 at 07:37:57AM +0100, Bradley Morgan wrote:
->> On 22 September 2026 04:12:27 BST, Zhan Xusheng
-><zhanxusheng1024@gmail.com>
->> wrote:
->> >proc_int_k2u_conv_kop() reports the sign through *negp and the
->magnitude
->> >through *u_ptr, but for a negative value it hands the sign-extended int
->to
->> >the converter and negates the result:
->> >
->> >	*u_ptr = k_ptr_op ? -k_ptr_op((ulong)val) : -(ulong)val;
->> >
->> >With div_hz() and HZ=1000 a stored -1000 becomes
->> >(ulong)-1000 / 1000 == 18446744073709550, and negating that wraps:
->> >
->> >	# echo -1 > /proc/sys/net/ipv4/tcp_fin_timeout
->> >	# cat /proc/sys/net/ipv4/tcp_fin_timeout
->> >	-18428297329635842066
->> >
->> >Take the magnitude first and convert that, which is what the open-coded
->> >version did before commit 2dc164a48e6f ("sysctl: Create converter
->> >functions with two new macros") folded it into a macro.  The
->> >k_ptr_op == NULL branch was already correct.
->> >
->> >proc_dointvec_jiffies() and proc_dointvec_ms_jiffies() are affected.
->> >
->> >Fixes: 2dc164a48e6f ("sysctl: Create converter functions with two new
->macros")
->> >Cc: stable@vger.kernel.org
->> >Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
->> >---
->> > kernel/sysctl.c | 2 +-
->> > 1 file changed, 1 insertion(+), 1 deletion(-)
->> >
->> >diff --git a/kernel/sysctl.c b/kernel/sysctl.c
->> >index f7b75985d542..38597f26b34c 100644
->> >--- a/kernel/sysctl.c
->> >+++ b/kernel/sysctl.c
->> >@@ -483,7 +483,7 @@ int proc_int_k2u_conv_kop(ulong *u_ptr, const int
->*k_ptr, bool *negp,
->> > 
->> > 	if (val < 0) {
->> > 		*negp = true;
->> >-		*u_ptr = k_ptr_op ? -k_ptr_op((ulong)val) : -(ulong)val;
->> >+		*u_ptr = k_ptr_op ? k_ptr_op(-(ulong)val) : -(ulong)val;
->> > 	} else {
->> > 		*negp = false;
->> > 		*u_ptr = k_ptr_op ? k_ptr_op((ulong)val) : (ulong) val;
->> >
->> I didn't do much crazy review here, but I think this LGTM! :)
->
->If you didn't do much, please don't send the mail.
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-I said "crazy review" which means I scrolled through it, looked at the
-code a bit, and thought it LGTM, I suggested doing acked bys for
-situationslike this but maintainers hated that so I just say what I did? 
+------------------
 
-I usually commentate it all if I did crazy review.
+From: Sanman Pradhan <psanman@juniper.net>
 
->
->> 
->> Reviewed-by: Bradley Morgan <brads@mainlining.org>
->> 
->> --- Thanks!
->> "I'm not a very positive person" - Linus torvalds
->
+commit 1d12fb94ac0975566545871dda100df34df5f845 upstream.
 
---- Thanks!
-"I'm not a very positive person" - Linus torvalds
+tps53676_identify() reads the USER_DATA_03 phase configuration to count
+the phases assigned to each channel and derive the number of PMBus pages.
+In each 16-bit phase descriptor the channel (PAGE) is encoded in bit 4 and
+the firing order in bits 3:0, but the code tested bit 3 (0x08), which is
+part of the firing-order field.
+
+TPS53676 supports up to seven phases, so firing-order bit 3 is never set.
+As a result the existing test classifies every enabled phase as channel A.
+On a dual-channel configuration the phases assigned to channel B are
+therefore miscounted as channel A and page 1 is not exposed.
+
+Test the PAGE field (bit 4) instead.
+
+Fixes: cb3d37b59012 ("hwmon: (pmbus/tps53679) Add support for TI TPS53676")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sanman Pradhan <psanman@juniper.net>
+Link: https://patch.msgid.link/20260915164823.160977-2-sanman.pradhan@hpe.com
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/hwmon/pmbus/tps53679.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- a/drivers/hwmon/pmbus/tps53679.c
++++ b/drivers/hwmon/pmbus/tps53679.c
+@@ -187,7 +187,7 @@ static int tps53676_identify(struct i2c_
+ 		return -EIO;
+ 	for (i = 0; i < 2 * TPS53676_MAX_PHASES; i += 2) {
+ 		if (buf[i + 1] & 0x80) {
+-			if (buf[i] & 0x08)
++			if (buf[i] & BIT(4))
+ 				phases_b++;
+ 			else
+ 				phases_a++;
+
+
