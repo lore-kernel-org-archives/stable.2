@@ -1,61 +1,64 @@
-Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com [74.125.226.204])
+Received: from mail-ua2-f43.google.com (mail-ua2-f43.google.com [74.125.226.235])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACF894A92FA
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 11:58:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E075D4BB5DE
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 11:58:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.235
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790164710; cv=none; b=oN3rejh90x3yr5jPLfO36qC7P6yEILlucHp001jBWSCJ8Pt7IUdw7xQc9cLnqpNxEHrDmVYB4U2jvzUWsz5SmPOGDFr1VGKnYGC7FOXOREePcS9X1oVRoBrDwdSdWkFDjXLTcY6PQWzOA79MWfpu7Ll1t9rHcTlpnwByT2BQhnM=
+	t=1790164721; cv=none; b=YrnvAN1DEVaMVLuxr6GAs2TF/bLg96mW+FiACM713mKnwr97H0sSXO9PQdlA9M89Q5KREewrJg0JJ4+Zr+fMW6uSlIEJwXlAjo1Pin7eUqX81Wzb6g4PbwprVzUmKlAJgxGg7k9kfOHlppfpe4BvQoMMXSMydskfylNMSGsRhi4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790164710; c=relaxed/simple;
-	bh=ifTmuhdYEfA8S+Ti9vBnBv8jVJkTFG9fKTW/c6hx1FQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DPaNIYQqDWmfvMHsqjZmj0jdxQEDV7dh44owvN3spm574Xp/n3915lA0mNrLetV9k9zxN48DO0TLj8AexKQ5wYOCWNmRCt/WWKk0C5nI22ds5A/O0KDzuH0TZZx6M9Cl2AFMeqyhld5A2+82N3ltdP1JGfLgvzdq9UHCrVeHSQE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i/nsXj3H; arc=none smtp.client-ip=74.125.226.204
+	s=arc-20240116; t=1790164721; c=relaxed/simple;
+	bh=J3Qov41MlfghPvhRovLY0AKfP5UMN0aeIFvDOXPBh5w=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=rqhi0NZWZwEZTf224m3stxXeO/II7wdWfG04MuB4P2czUR1vP1hy47H6GE6zrlvyY7WfYgJaYFwysPvhap9naDogd4yEyMEsI2M0GrEurGUmOewdIZQhtkybGbEOPjcsAJZLX7S8RhTEDBWBsy+/Mcx3AH6tilb5FnxcanIumkM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ac/lmtWx; arc=none smtp.client-ip=74.125.226.235
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i/nsXj3H"
-Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-97eaa1155fdso257612241.2
-        for <stable@vger.kernel.org>; Wed, 23 Sep 2026 04:58:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ac/lmtWx"
+Received: by mail-ua2-f43.google.com with SMTP id a1e0cc1a2514c-9832c759198so404940241.3
+        for <stable@vger.kernel.org>; Wed, 23 Sep 2026 04:58:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790164703; x=1790769503; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ibl0MHrnxFzM837MpKxLVego5yHxJdHEFJ+77R4ZX9E=;
-        b=i/nsXj3HBjJwaFiK/WvcUoe4E0BCWdtNaiOYTgdmylvpOiqzO5zCoWqYW9DZOBvZzQ
-         /TgnxS2Ii2BE9zExDNiwpW4bhRvMf7q+bP5kiZ7nEtX7xZWe3kTqlqFA1ZRcEPUp5I2u
-         uX6J7M0+7HHmpe7+rJJnzqz41PoSVqeFdbmctI9Q2uUgwoQ7ZaCWcbgkf1hcktGz2Z0o
-         lMKXA5E8u7xMW4SHvc87aORe4hSZVyZNTn2G8byfOqcY3uvcFaJtxNAiN+EHNvpBD09m
-         eNzorVOgqBsSGo5JfTLE/NOs0HDpssXfelWQs3G4RGzv+7tx8nqDQLBLIIQOkxjRBMnT
-         UbaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790164703; x=1790769503;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790164715; x=1790769515; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ibl0MHrnxFzM837MpKxLVego5yHxJdHEFJ+77R4ZX9E=;
-        b=Iuqsfw3ShOgV7Ii/5mWVmcX/Y8BAHuvTleoRz67Ve9eGQlOMQbSV9WMmAZ/zJ87BSt
-         21D6UOz37j6yK98Fg0XWvOJn/RZyF0KRS7bKo3ZGCJVa5uwGoh05GIUqqdh3DEM062CU
-         CiMZN+ZdM5xJRhl05xhVoZY2FhtBgeUZo3wR0scwwrjcy6QVAv3LxPD2I2PO56Oo0ew3
-         WPQohJY2vYOzt41yhaw13d27U6LGZsHisWJ/MdtbVP6nK/5cucRbYXGiAwfeu06X9De4
-         Z52lmEYxdC5MGA+rhDJW2n3Z06V3QjnG+gMOhZheclTFq0AfobIZE4L3nddFq9LuifuB
-         4m0w==
-X-Forwarded-Encrypted: i=1; AKwUvBy1YzlM3kDT4tKusgbqKdORmZ7823MKaGsmLK2TGoWhTZxja2Vp3az2w7l4VkEfqBiD9EltnFU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kgyV+iquvC8dKZ2JJ6TNGsWhCq0HhyBrAGA/oUMGXW3AawnL/7
-	Pl1FdgatilDKQAdokbYMaYhyzE825gvkbdXGaUJg+TfwIY7j0C1ZrazvF2qEOA==
-X-Gm-Gg: AYBFou0FdJv8Tnrzq8Gsv9Hw7pcsLu/Z01M7Aa/L3Vu/bES9DL5d1he89SCupOHMrBy
-	gdQ0XO/AAl7wVfrLoZ1DqJuP6as6gDg9229bzgSlTr5IvurekHr0UqFBRu9k7mD9Dl7+UzEci+h
-	wHObl2O4cUpyeSRndpDk+SDrQO9XvKBOcoJIBq/CcLb04GZyacs3PT36nGF5njdAv81A+Zm++Dc
-	h4GGOF5TQ4uox93YUkBDhCbfZVGUN3auX6XXnnHM1BQ7WSygwqSS+Zz1P6RRwJbvZeHEkR176IG
-	rtsdWVjbAUurhiMxhhXZX5d6CqAP6f7mcZcKOfNfd2ywy5nXS3nh1WbiDMKK8kMVGEHBFGOKwNM
-	bd7ujJolzGLucQgLvQXhMCnarjHFSiJSNIF+b6T7m0CYnKItAsokym02aqdN0ovCNxlKEPmeTgc
-	pRsZC7NixsB23wump2l3O9dtiOJjzI78XrpiOAm6EKibXIvWkdQ/fOi01Jl7gSsjc=
-X-Received: by 2002:a05:6102:f12:b0:79f:45dc:118e with SMTP id ada2fe7eead31-7ac1acd5debmr2043519137.5.1790164702882;
-        Wed, 23 Sep 2026 04:58:22 -0700 (PDT)
+        bh=nj94AZGep7yfFM2zqSs8rxQVirPiCBiLnqyMKAGPXrw=;
+        b=Ac/lmtWxeuFne/DEBAHBEUJovI9UngNj9PvkWkJIdNRleLj8YDzroi0KyMhRtuiD9d
+         Tb0WrEBNKZ+m3IDnQTBxaLBzav0v1JCkxPqejU/pC6Hnoyx1VJdYbnlEL17AlC6XnEn8
+         efOgV48kduZBZldvxCGzr3T7hQQTM5QKA1ywUddEP8owodwqY3kZ6m0gVLiO8t+Gm6xz
+         Jf6YD6XJK0SZYrTiZPkqi6Ff9IG3frsWDzemKSV7xZ0igAwjz9lV+u6WajMdWY04Oi1Y
+         BT2cxrUqogWBBLuAjnBxS925N+GkvL/Hi1SnBqHv1sqkjKaKTlAck+ocQll0s0OQzB+a
+         tq0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790164715; x=1790769515;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nj94AZGep7yfFM2zqSs8rxQVirPiCBiLnqyMKAGPXrw=;
+        b=D9kPWmXjRXfch5N056uDtYYCj4whHqDskDgQHijw/SgqzKGPezPH9TdJVN7+AJmPZR
+         3MeVbqVgMi9PTaEsswNgmpZk3iokydEadZa7074tWmEiPEXP8FgCwEpNNGC6UbBHN5Qq
+         JLHTk74zvFmEpBXDWMTv1h+pFRqQ6B172StRzDCUb0Lw9T/7S7Hv9h+hoict0fNlvFfN
+         mVQwcOAHELUfQdFckUzaeR8PKRplEMWJCfm8Z40D1ZsrU2yw6mADqJMZu8QrMpGbhhB+
+         Nm487rAk2KHehpGGmhkY8bwGKKI8ZgqRIVyKdTISHlezL9h5hJY8S2Am9hBq3u+osu3X
+         Ateg==
+X-Forwarded-Encrypted: i=1; AKwUvBx5GqTDOqXlfbX/5L5xCcxpxDTDu4RXtmdJOfmq2ElyjLXXCIr5ojg+O+49UQR6tfQ+jEVAtTY=@vger.kernel.org
+X-Gm-Message-State: AFuF++ksA96WUmf8SiZRxb+CNiifWuThUO3va8SANz8VjWPaR359ta77
+	4usdrl90ot/5HS+DSuXE6Pn61kN5az75tVJPCwYImJwDqyTTCxhcn0JE
+X-Gm-Gg: AYBFou1+gF0aisSAR5Z2JKyjLI++J1Elnvmvluoz+RrAEpxPafI7veIraxx1X8V9j4M
+	kUI/LAKuagi0g9mglY3pA4e/60cgyNYJynCwYSmy0M6ziQefAOut6YJn2YoDEh0tf5RZx+UyiE5
+	aDjudFd0xfLkXfF+ye++REvfmjcyF4nOlPwYIC9mjX/1h1XWtZiDhGFX5gYFQMfhwD26+bqwNWC
+	tQ7qAk9p8SuN7jyOCMQPNwxluRCFUPe6V4JiGVjHZVYsll7bsuqD8Q50dFHS/ICEAQYXFX7D5Ov
+	c40GY/KsjkCBx6X1lxqdSpP6XVjVEhZk+6kNKOIJnTI0yGowePzdaQjlQ++06w0FZCLdPYtauAY
+	AB+6kN4xh+x2kjCHKtsJNCo6N4wBTJ9DihPOWDoD2KRWMcqA0kdkyrqZkdNRLxlIUadQenEPY/j
+	d6jZnCxi0RWT3ID/rNZioa9/eXzuQMJ3mJ+HXhMwqPA6b3MYsnmMJnQ1RHV+H5EuyzSpvBpfoR9
+	w==
+X-Received: by 2002:a05:6102:a158:b0:7ae:c2ca:906 with SMTP id ada2fe7eead31-7aec2ca1672mr19473137.13.1790164715537;
+        Wed, 23 Sep 2026 04:58:35 -0700 (PDT)
 Received: from beelink.. ([187.13.30.172])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ca2876229dsm1091399e0c.3.2026.09.23.04.58.20
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-985167e6fcfsm3257250241.0.2026.09.23.04.58.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 04:58:22 -0700 (PDT)
+        Wed, 23 Sep 2026 04:58:35 -0700 (PDT)
 From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 To: linux-xfs@vger.kernel.org,
 	Carlos Maiolino <cem@kernel.org>
@@ -63,10 +66,12 @@ Cc: "Darrick J . Wong" <djwong@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v2 RESEND] xfs: bound da-node entry count against the correct geometry
-Date: Wed, 23 Sep 2026 08:57:54 -0300
-Message-ID: <20260923115754.3196232-1-qwe.aldo@gmail.com>
+Subject: [PATCH v2 RESEND 1/2] xfs: reject out-of-range attribute value lengths in xfs_attr_copy_value
+Date: Wed, 23 Sep 2026 08:58:22 -0300
+Message-ID: <20260923115823.3305596-2-qwe.aldo@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260923115823.3305596-1-qwe.aldo@gmail.com>
+References: <20260923115823.3305596-1-qwe.aldo@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -75,63 +80,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-xfs_da3_node_verify() bounds the node entry count against the larger of
-the directory and attribute geometries because, as a buffer verifier, it
-cannot tell whether the block belongs to the directory or the attribute
-tree. When the directory block size exceeds the fs block size (e.g.
-mkfs.xfs -n size=64k -b size=4k), an attribute node buffer is a single fs
-block that holds only m_attr_geo->node_ents entries, yet a crafted attr
-node may claim a count up to m_dir_geo->node_ents and still pass the
-verifier.
+xfs_attr_copy_value() takes the value length as a signed int and, for a
+remote xattr, is handed args->rmtvaluelen.  That field is filled from the
+on-disk __be32 xfs_attr_leaf_name_remote.valuelen in
+xfs_attr3_leaf_getvalue(), so a crafted length such as 0x80000000 is
+stored into the signed rmtvaluelen as a negative number.
 
-xfs_da3_node_lookup_int() then indexes btree[] up to that count during
-its binary search -- an out-of-bounds read via getxattr/listxattr on a
-mounted crafted image.
+The "buffer too small" guard in xfs_attr_copy_value() is a signed
+comparison:
 
-The buffer verifier is the wrong place to tighten this: it has no fork
-context, and the transaction-less read path used by getxattr does not run
-xfs_da3_node_set_type() either. xfs_da3_node_lookup_int(), on the other
-hand, always runs on that path and holds args->geo, the geometry of the
-fork actually being searched. Bound the entry count against
-args->geo->node_ents there, before walking the entries.
+	if (args->valuelen < valuelen)
+		return -ERANGE;
 
-Fixes: 7ab610f9e0f1 ("xfs: move node entry counts to xfs_da_geometry")
+A negative valuelen therefore compares as smaller than the caller's
+buffer size, skips the -ERANGE path, and is then used as a copy length,
+leading to an out-of-bounds copy of a full remote block into a small
+getxattr(2) buffer on a mounted crafted image.
+
+Reject a value length that is negative or larger than the maximum xattr
+size before it is used, so a bogus on-disk length can no longer slip
+through the value copier.
+
+Fixes: 9df243a1a9e6 ("xfs: consolidate attribute value copying")
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 ---
-v2: reworked per Darrick's review.  Do not infer dir-vs-attr from the
-    buffer size in the verifier; instead bound the entry count in
-    xfs_da3_node_lookup_int() against args->geo->node_ents, the
-    geometry of the fork being searched.  cc stable.
+v2: new patch (see the 0/2 cover letter).  Fixes the signed value-length
+    check in the consumer, xfs_attr_copy_value(), which is the root
+    cause Darrick pointed at in his review of the v1 verifier patch.
 
- fs/xfs/libxfs/xfs_da_btree.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ fs/xfs/libxfs/xfs_attr_leaf.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/fs/xfs/libxfs/xfs_da_btree.c b/fs/xfs/libxfs/xfs_da_btree.c
-index 9debb95d86fa..95ea3737eb33 100644
---- a/fs/xfs/libxfs/xfs_da_btree.c
-+++ b/fs/xfs/libxfs/xfs_da_btree.c
-@@ -1787,6 +1787,20 @@ xfs_da3_node_lookup_int(
- 		} else
- 			expected_level--;
- 
-+		/*
-+		 * The node verifier cannot tell whether this block belongs to
-+		 * the directory or the attribute tree, so it only bounds the
-+		 * entry count against the larger of the two geometries.  Here
-+		 * args->geo is the geometry of the fork we are actually
-+		 * searching, so reject a count that would walk btree[] off the
-+		 * end of this node buffer.
-+		 */
-+		if (nodehdr.count > args->geo->node_ents) {
-+			xfs_buf_mark_corrupt(blk->bp);
-+			xfs_da_mark_sick(args);
-+			return -EFSCORRUPTED;
-+		}
+diff --git a/fs/xfs/libxfs/xfs_attr_leaf.c b/fs/xfs/libxfs/xfs_attr_leaf.c
+index 86c5c09a5db4..d0f7753659c9 100644
+--- a/fs/xfs/libxfs/xfs_attr_leaf.c
++++ b/fs/xfs/libxfs/xfs_attr_leaf.c
+@@ -628,6 +628,17 @@ xfs_attr_copy_value(
+ 	unsigned char		*value,
+ 	int			valuelen)
+ {
++	/*
++	 * A value length that is negative or larger than the maximum xattr
++	 * size is on-disk corruption.  The remote value length is an on-disk
++	 * __be32 stored into the signed args->rmtvaluelen, so a crafted value
++	 * such as 0x80000000 becomes negative and would slip past the
++	 * "args->valuelen < valuelen" check below and be used as a copy
++	 * length.  Reject it before that can happen.
++	 */
++	if (valuelen < 0 || valuelen > XFS_XATTR_SIZE_MAX)
++		return -EFSCORRUPTED;
 +
- 		max = nodehdr.count;
- 		blk->hashval = be32_to_cpu(btree[max - 1].hashval);
- 
+ 	/*
+ 	 * Parent pointer lookups require the caller to specify the name and
+ 	 * value, so don't copy anything.
 -- 
 2.53.0
 
