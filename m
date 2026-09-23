@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D13535E1D9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49F133612E2
 	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 01:39:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790127600; cv=none; b=SXAzvrhQneONy1wXMC2Rjef2cjllnlKoQj8tn2Q0sbm4zFpkW85LuEOye1PEF15Q98sqdLyYFiO2mUzLHpnQ/OHwIwBsRPhVhfl/qRx3K/BAiD15tMRmA8oGdzrfrAYaIPXTcuxKCHCOGV6klYcWhjXoUGOp5fK29LZ9xIUZ0F4=
+	t=1790127600; cv=none; b=Qc+L2rYw9NtKVAbZMY5FBY000oUGpl3xXU7X2xvqf8xyfr5jUZOfgqh4o+WDocPgU2YVgJTwiztrK8tIRH/7Pk4Olm5yR0J08YwVgIBUyxQEhVJ62sqKCRtp3Bz5qAihtRLwpveDKUG1CU+SvivCjXtlAFFy5P7gkQ3RvEl5XA4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790127600; c=relaxed/simple;
-	bh=7eSJ4+xYqWJJSLSku13YS1y+N/gaYOxCCZMHnyokxSc=;
+	bh=HR7GgsYIgZ/Rb/4lNt1pz0ZDoGfXHL3vQBycl9FtuhQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mQUcgxKKy6VHKDcwmoJDJfjssAVHIsqevtM0aRVOXL4CoQtHRRnAcwmLkaltJir/zHEh+j/ciq0OQsZhmteLVcMiyhWfOmBRL0fd42nCYarBPNCSIPXl5JOvq2EQehDpPu03DV2mh5dlUZ4PAqAxtMeC/kkY6k32u2clP0y0UsU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M2dclX35; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=O9Jo5hLgAhSAPXv8U4ljD9pjNNSCw4v7Yif+Awsfuq+7P7S8IAgAi0PX+t0SxiVmhyPpeaJia/G4EZ7httAVlG8oWTKr3TBwMnAohyA4IdFMoeGy4tDf0A/rluFKYFUmNXlOOdKl5EsF4MfJ8T18oSGWVEwZ+8+m+mIaaza2+AM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CPdFtJ3B; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M2dclX35"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91C9F1F00893;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CPdFtJ3B"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 919F51F000FF;
 	Wed, 23 Sep 2026 01:39:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1790127599;
-	bh=3jtfeWUl3AWpdIMezgwpLDjqF2ReuVhZaNh/dqg9Cw0=;
+	bh=bLUsQXNtHC3E+6OOMG6MvDKTwjuQvxrFYM6sO2de8zA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=M2dclX35HPnCEsDi4pCcBi3DaMw+dlLvqs/liBaznCDPJFO7MkvRlgVtH9IzIJsab
-	 4KeTeD8PN/tEeqxSIhLNjxj7Vy2BaBPXJILeMNkNcZzLj2z+v/Qea7DWeKcBqMlejC
-	 HJhIDgIFk9GSmoxY4LMIf8rjdbN+g3Wf/5vnTzM+IrCU2lK0PjmDoy+djsADGeOQo3
-	 YyC/GDe4H0m/N9nWsRuibNf1f8eMaubJT8Om26TIPCn5BJVHrqpRRcO5F4SgTGs0aO
-	 Pbqr6X+BQydJeQxfJszxle9htL4TggbSnkThrlOfFdmbiw4J9LPIWARiZEyn01OJr9
-	 NOb2t+qzYcMoA==
+	b=CPdFtJ3BsDIjQ7kXYaJOUsYGHrWxHgiaP9qNAuwvCNm9GfogR4cAOuC/Je8rWRrxH
+	 ynRgPnbme040Hi5YpR5n0U3Zyf20uasdUUoBvjgI2R/0vXEDa3Umj2C+3czMSBK8G0
+	 MIbvdpBRXgMmei0mzYHvlbtI0joAg9U2mgNHpXC5cQkzfuwckDQWngU3lXfOQVeS8c
+	 7ji5iq2EhRbAqHdPtZHnYz5NX1oZzqAoz39OvbvrUxpUB9yHZvVvjQup3WCe1CcQg8
+	 A2ZbBlkv6c3hedhgxLfm9l/faK/OKJj37pHvVOQoxoNw3YfxIOLMtiu6uN0bJrLYbU
+	 TNjevXAxPcgRw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Devin Wittmayer <lucid_duck@justthetip.ca>,
-	Johannes Berg <johannes.berg@intel.com>,
+Cc: Frank Sorenson <sorenson@redhat.com>,
+	David Howells <dhowells@redhat.com>,
+	Paulo Alcantara <pc@manguebit.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 3/3] wifi: mac80211: refuse to make a monitor active when it has no queue
-Date: Tue, 22 Sep 2026 21:39:55 -0400
-Message-ID: <20260923013955.878331-3-sashal@kernel.org>
+Subject: [PATCH 6.12.y] smb: client: fix reparse buffer bounds in cifs_query_reparse_point()
+Date: Tue, 22 Sep 2026 21:39:56 -0400
+Message-ID: <20260923013956.878372-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260923013955.878331-1-sashal@kernel.org>
-References: <2026092223-support-ladylike-66dd@gregkh>
- <20260923013955.878331-1-sashal@kernel.org>
+In-Reply-To: <2026092258-electable-undoing-fab9@gregkh>
+References: <2026092258-electable-undoing-fab9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,50 +46,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Devin Wittmayer <lucid_duck@justthetip.ca>
+From: Frank Sorenson <sorenson@redhat.com>
 
-[ Upstream commit 2b04d6556964ae9f89819b86a0a7801e39c3aae5 ]
+[ Upstream commit 5f0306e731e2f46e91419eae57eee3a241c055e0 ]
 
-A monitor interface only gets a TXQ if it's created active, and one can't
-be added later. Setting the flag on a down interface is still allowed, so
-the driver is handed a monitor with no queue. ath9k dereferences it:
+In cifs_query_reparse_point(), the start >= end check before casting to
+struct reparse_data_buffer * only ensures the start pointer is within the
+response. It fails to verify that there is enough space remaining for the
+fixed 8-byte header of the structure.
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000066
-  RIP: 0010:ath_tx_node_init+0x49/0x170 [ath9k]
-   ath9k_add_interface+0x10c/0x140 [ath9k]
-   drv_add_interface+0x54/0x250 [mac80211]
-   ieee80211_do_open+0x32f/0x800 [mac80211]
+If a server provides a DataOffset that leaves less than 8 bytes remaining,
+the check passes, but subsequent reads of ReparseTag and ReparseDataLength
+will occur out-of-bounds.
 
-Reached with CAP_NET_ADMIN by "iw dev X set monitor active" followed by
-"ip link set X up". RTNL is held, so netlink operations block behind it.
+Fix this by ensuring the remaining space is at least the size of the
+reparse_data_buffer structure before accessing its fields.
 
-Refuse the flag when there is no queue to give.
-
-Fixes: 79af1f866193 ("mac80211: avoid allocating TXQs that won't be used")
+Fixes: 56e84c64fc25 ("cifs: Fix validation of SMB1 query reparse point response")
 Cc: stable@vger.kernel.org
-Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
-Link: https://patch.msgid.link/20260904200338.10829-1-lucid_duck@justthetip.ca
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+Signed-off-by: Frank Sorenson <sorenson@redhat.com>
+Reviewed-by: David Howells <dhowells@redhat.com>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+[ Adjusted context to retain existing `rc = -EIO` error handling instead of upstream `smb_EIO2()`. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/mac80211/cfg.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ fs/smb/client/cifssmb.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/net/mac80211/cfg.c b/net/mac80211/cfg.c
-index aa03cebbcf931..a1f7827bdaa92 100644
---- a/net/mac80211/cfg.c
-+++ b/net/mac80211/cfg.c
-@@ -116,6 +116,10 @@ static int ieee80211_set_mon_options(struct ieee80211_sub_if_data *sdata,
- 			return -EBUSY;
- 	}
+diff --git a/fs/smb/client/cifssmb.c b/fs/smb/client/cifssmb.c
+index 01c78d9e7ec0e..df02e2d9204ab 100644
+--- a/fs/smb/client/cifssmb.c
++++ b/fs/smb/client/cifssmb.c
+@@ -2829,7 +2829,7 @@ int cifs_query_reparse_point(const unsigned int xid,
  
-+	/* TXQs are reserved in ieee80211_if_add() and cannot be added later */
-+	if ((params->flags & MONITOR_FLAG_ACTIVE) && !sdata->vif.txq)
-+		return -EOPNOTSUPP;
-+
- 	/* validate whether MU-MIMO can be configured */
- 	if (!ieee80211_hw_check(&local->hw, WANT_MONITOR_VIF) &&
- 	    (params->vht_mumimo_groups || params->vht_mumimo_follow_addr))
+ 	end = 2 + get_bcc(&io_rsp->hdr) + (__u8 *)&io_rsp->ByteCount;
+ 	start = (__u8 *)&io_rsp->hdr.Protocol + data_offset;
+-	if (start >= end) {
++	if (start >= end || (size_t)(end - start) < sizeof(*buf)) {
+ 		rc = -EIO;
+ 		goto error;
+ 	}
 -- 
 2.53.0
 
