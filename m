@@ -1,142 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85442522F09
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 13:25:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D63A4D0CC5;
+	Wed, 23 Sep 2026 13:27:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790169921; cv=none; b=GFLxWK45blORCJxa+lLKlFMUiG7/gkYZQyffxYHh1q4gixIYV9rM9vk8RTpb6FTf605TXcvAIKwiwXis8Fmz6ZIp/TN3s0HSka18IRwVGiHhkOtvB6R7xvmNkzT5fXHPyFE/MqSkCJEnXFlUT9wtHv8hciuxHwEQiTuIm6AaiFs=
+	t=1790170034; cv=none; b=DOWhzu7D5r28wefLmJmv04ww9prM83P1iwMsdnzi3WxJtrh69SU41m7RBow8E24dom9imIwKybI74FO1qEQlwH1YraS4g9gD4eRfGaUZi9SQMeMcwC2Og8zwMTC0Ut5V2dZqChLaPkVVbMdWQCcV4x1xk5InANeZGwgOZS8PXsU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790169921; c=relaxed/simple;
-	bh=jjtkjBkmZOxmZ+2ubZ0aCSc96nLWLdGoRJdFCb+87A0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=htnKhJ2CUaEbcS/fPqLZvkgbFacmQLUWd7Hm56h9UxLkvHOl7fUzrq/c5x9R2Zc4hxlixswiy/VOzid3FGcvwYw1JdaPpmEe9ywnH9yfENGTFZPA/nBnnE6NHdZhKvIBYYQPJ5i0aAgjKnAZ41O1XX/9MFqsMcwjx4lG/0GL6Jk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kaOZAh6L; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790170034; c=relaxed/simple;
+	bh=meZnHWE/QGGm9bz8zvbWkbtvbXXuQS3tM18f+1xcjr0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=sqGtgM8Ut9+Pe8ZFiC6k9AEQlsY2ffh9/aJCbkSRfETSJrdjrD3UnPasz8Mu3/oALmB0nHs7NCJllpN2NYpxQ69lfy60fcSOEUQwp4cs3BfKaAbRF43dcWAjzW9M1XTf3rKrTCbGUfxD0UX/aFKFYZ4MtEp+95TC48hnBZQdMeg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IEKCg3An; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kaOZAh6L"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65D881F00899;
-	Wed, 23 Sep 2026 13:25:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790169920;
-	bh=zYqD7K988qnfVUuGfCDVxCi/5zPCl9sFhM21LEdfXLI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kaOZAh6LMIU9MUwAE17c84tAX90v9hVOXBfZtwyq0d+TUCEB7kV+hztMfeYbot8/N
-	 pU/Q0ttW4U+Akd3BAFSkwYcRnGxMas6eMUTZrs8RFye7/amqx5QKVH9pYKR88pgjuR
-	 TGe00VBArFQam3mgC+e2KCySJq5B6bCb4zFnip9FAAGU+nVY8MvQbC1DHO+MvvfTDv
-	 sn24m7u3hzEwRuYMMh9BmNC6Nw5FDLzCy2n2UpZ8TJQUR4vTKbxP5PsIuELvnSz8pB
-	 nWI51jwQPioaYNk6rhSx762bZbZZbMOyRrkCzAwHQa+Fzb6iaAJnMnZ/Pu1STmS1X8
-	 kR9aDhGpU97pw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: April Cardenas <april.cardenas@canonical.com>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Bharath S M <bharathsm@microsoft.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] smb/client: send lease break ACKs thru correct session for multiuser mounts
-Date: Wed, 23 Sep 2026 09:25:16 -0400
-Message-ID: <20260923132516.1891163-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260923132516.1891163-1-sashal@kernel.org>
-References: <2026092353-snowstorm-carnage-f809@gregkh>
- <20260923132516.1891163-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IEKCg3An"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D718AC2BCB8;
+	Wed, 23 Sep 2026 13:27:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790170033;
+	bh=meZnHWE/QGGm9bz8zvbWkbtvbXXuQS3tM18f+1xcjr0=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=IEKCg3AniuO3VNlUVCvrLoKH2FEW9oDCO6ceRlc+ovcuO1A7kysPJ/URg3U4ULGFN
+	 iLe4pfLzmluTsqMW5H2rBJqjoELSSYNFZ8MgiUnX8vdGCidvSTrqVu19zGc6vUA9Im
+	 P4J+Ph2gHIqbZxUwkqAjZY8cXBj0Xnvk0IlzxRJ1TRUZ5OztUXrSCZmPnp1GnlXphy
+	 Za+BtxKhpR2BkAKXbbrh1qy3+jRUoxzP5U2c8nrAUzDn+us6R/zEPzuq2Cz0LN61LT
+	 iHaAQitR4infwMdtT899ENAOm60jvTW6ifTO4th3tkX7JbNszGTKUcePOm3ufC4BN+
+	 IPV6tt2owm+5g==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B3491C9830D;
+	Wed, 23 Sep 2026 13:27:13 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Wed, 23 Sep 2026 15:27:06 +0200
+Subject: [PATCH] Input: s6sy761 - fix resume ordering and restore sensing
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260923-s6sy761-suspend-v1-1-6fff96e71cb0@ixit.cz>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMMQ6DMAxA0asgz7UUAiRtr4IYEjDUHVIUE9QKc
+ XdSGN/w/wZCkUngWWwQaWXhT8gobwX0LxcmQh6yQStt1ENXKEZ+1pQoSWYKA+ra2Nqre2O9g1z
+ NkUb+nse2uyzJv6lf/hvY9wO+yPrUcwAAAA==
+X-Change-ID: 20260923-s6sy761-suspend-24674b0857ba
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+ Andi Shyti <andi@etezian.org>, Rob Herring <robh@kernel.org>, 
+ Marco Mattiolo <marco.mattiolo@hotmail.it>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, stable@vger.kernel.org, 
+ David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2316; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=2egtGbKgJE5/CltCrUVj0shGecXcgN246NO7tAqGS1k=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqs9Ow6ZfUciwK2ClUZoSOMbs50o34eBjqLyVD7
+ WuYjzDPwGiJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCarPTsAAKCRBgAj/E00kg
+ cjhpEADH0aV6ANCnG1fYUyzT3YX4F719uv6Tvu5H7tMkmRZH/LKsGd+UJSCT0L/PacXI8spI2Hd
+ cSC42TiaY+zI+Moe59onVyFQdLX3B644Kaa7AEGcVdPJXxTeW38Gj4vpMEW+7+frU945hy4F026
+ TwzuCAzTPaqEho9df7Ujzm6hU01b2r5Jw1FghGVMI7YgOzs/Tf7xzVxQI2kHINS6uZr9hZQKl25
+ /wONlvTHeKyLHX/t1mB5GNylYGBouHnF0OxjnAsvTwWhYLwM+QQmX5P/MBzBeLIPWt72TpX7qJB
+ R+3oYYUT+rPXgYG+MaIYcA3wqkFZ2Ni+VVzAN9brsQvJJWvUffwstKHhExHGf7qg6hgIMi3uyn6
+ MKhOONSxcv1Zp/BBKITmwdn5tEEfe7wbsFIpgqssDeAf3Fzi/mgu/DXbMUQDf+uvdgQjthEV1To
+ AR6XbmtikA5xaoRjkhZb8SB5FOwA+5DbD531FePRV8tHeItUlsKq3naOqZqLDA6+3l6LFCd7QvE
+ u0z3NT1Zy5t9N9dZzDYFHLMsOeNvAZIoGKQZ1zzEWs8jtpZGu8619nt2Ukre2iYqkz9yzpXNJpv
+ /3FhSMlJEqCqA+KVHrKjkXgqujLf4P6e9dvGbwhkxiwEfRCHGSJi9lRlXF5DewDINWk34Pzx2os
+ a29tmGOUrQexMxg==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-From: April Cardenas <april.cardenas@canonical.com>
+From: David Heidelberg <david@ixit.cz>
 
-[ Upstream commit ebc5660132ddd244b57f03ed324922013a3d7363 ]
+System suspend powers the controller off and resume powers it back on,
+but the resume path enables the interrupt before s6sy761_power_on()
+checks the boot. The firmware raises its boot-complete event on the
+interrupt line, the threaded handler consumes it, s6sy761_power_on()
+then reads an empty event and resume fails with -ENODEV, skipping the
+touch function setup:
 
-Currently, when cifs_oplock_break handles a break request from the server
-it searches for the appropriate tlink to handle the request
-but incorrectly uses the current fsuid as the search key, eventually
-causing read errors for users with multiuser mounts on NetApp.
-Fix this by using the tlink from the cfile struct instead to respond
-through the correct session.
+  s6sy761 2-0048: PM: dpm_run_callback(): s6sy761_resume [s6sy761] returns -19
 
-As breaks are handled in a worker thread, the current fsuid
-isn't guaranteed to match the session that the break is intended for.
-This means that cifs_sb_tlink may search the rbtree using the wrong fsuid,
-and return a tlink with an incorrect session than
-the lease break was intended for. As a result, the breaks
-may be ACKed through an incorrect session.
+Power the chip on first and only then unmask the interrupt. Once resume
+completes the boot handshake the chip comes back with sensing off, as
+at probe where input_open() turns it on, so the touchscreen stays dead
+after resume. Send SENSE_ON again when the input device is open.
 
-While it seems that Samba/Windows Servers 2016-2025 ignore this as long as
-the lease key is correct, we ran into a case where if you're using
-NetApp ONTAP or Azure NetApp Files they will reject the ACK
-and return `STATUS_LOCK_NOT_GRANTED` errors on any future read requests
-a user may initiate through their still held open file handle,
-and the server will eventually close the file.
+Tested on a Pixel 3 XL over several s2idle cycles: resume succeeds and
+the touch function and sense status match the pre-suspend state.
 
-In the dmesg logs, the user may see errors like these:
-
-CIFS: Status code returned 0xc0000128 STATUS_FILE_CLOSED
-CIFS: VFS: Send error in read = -9
-
-With a multiuser mount using NetApp, this issue is really easy
-for users to hit on a wide variety of kernel versions
-by attempting to copy a file from the share
-to the local machine through GNOME Files/Nautilus.
-This copy will always result in Nautilus throwing
-a `Bad File Descriptor` error to the user and fail.
-With this fix, you can copy files through Nautilus without issue.
-
->From looking at the traces, it seems that glib will
-open the file first, and call listxattr before actually attempting
-to copy the file data. The listxattr call always triggers a break,
-causing the copy to fail.
-
-The proposed fix returns to the way the client grabbed the tlink before
-commit e8f5f849ffce2 ("cifs: fix potential oops in cifs_oplock_break").
-
-The bulk of that commit (checking for list empty) remains untouched, and
-I think the change to using cifs_sb_tlink was intended to avoid a
-NULL/ERR deference on the tlink as well as update the reference count.
-
-I believe this fix should preserve those safety properties, but of course
-I'd appreciate any corrections here.
-
-Fixes: e8f5f849ffce2 ("cifs: fix potential oops in cifs_oplock_break")
+Assisted-by: LLM
 Cc: stable@vger.kernel.org
-Signed-off-by: April Cardenas <april.cardenas@canonical.com>
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
-Reviewed-by: Bharath S M <bharathsm@microsoft.com>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-[ Removed unused cifs_sb and sb declarations because this branch lacks their remaining upstream use. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 0145a7141e59 ("Input: add support for the Samsung S6SY761 touchscreen")
+Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- fs/smb/client/file.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ drivers/input/touchscreen/s6sy761.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/fs/smb/client/file.c b/fs/smb/client/file.c
-index a6be7903a67cb..ad2b335d81f31 100644
---- a/fs/smb/client/file.c
-+++ b/fs/smb/client/file.c
-@@ -5139,8 +5139,6 @@ void cifs_oplock_break(struct work_struct *work)
- 	struct cifsFileInfo *cfile = container_of(work, struct cifsFileInfo,
- 						  oplock_break);
- 	struct inode *inode = d_inode(cfile->dentry);
--	struct super_block *sb = inode->i_sb;
--	struct cifs_sb_info *cifs_sb = CIFS_SB(sb);
- 	struct cifsInodeInfo *cinode = CIFS_I(inode);
- 	struct cifs_tcon *tcon;
- 	struct TCP_Server_Info *server;
-@@ -5153,8 +5151,8 @@ void cifs_oplock_break(struct work_struct *work)
- 	wait_on_bit(&cinode->flags, CIFS_INODE_PENDING_WRITERS,
- 			TASK_UNINTERRUPTIBLE);
+diff --git a/drivers/input/touchscreen/s6sy761.c b/drivers/input/touchscreen/s6sy761.c
+index 0f24a9b730635..c52c45a7d1029 100644
+--- a/drivers/input/touchscreen/s6sy761.c
++++ b/drivers/input/touchscreen/s6sy761.c
+@@ -495,20 +495,29 @@ static int s6sy761_suspend(struct device *dev)
+ 	s6sy761_power_off(sdata);
  
--	tlink = cifs_sb_tlink(cifs_sb);
--	if (IS_ERR(tlink)) {
-+	tlink = cifs_get_tlink(cfile->tlink);
-+	if (IS_ERR_OR_NULL(tlink)) {
- 		/* drop the reference taken when the break was queued */
- 		_cifsFileInfo_put(cfile, false /* do not wait for ourself */, false);
- 		goto out;
--- 
-2.53.0
+ 	return 0;
+ }
+ 
+ static int s6sy761_resume(struct device *dev)
+ {
+ 	struct s6sy761_data *sdata = dev_get_drvdata(dev);
++	int err;
+ 
++	err = s6sy761_power_on(sdata);
+ 	enable_irq(sdata->client->irq);
++	if (err)
++		return err;
+ 
+-	return s6sy761_power_on(sdata);
++	guard(mutex)(&sdata->input->mutex);
++
++	if (!input_device_enabled(sdata->input))
++		return 0;
++
++	return i2c_smbus_write_byte(sdata->client, S6SY761_SENSE_ON);
+ }
+ 
+ static const struct dev_pm_ops s6sy761_pm_ops = {
+ 	SYSTEM_SLEEP_PM_OPS(s6sy761_suspend, s6sy761_resume)
+ 	RUNTIME_PM_OPS(s6sy761_runtime_suspend, s6sy761_runtime_resume, NULL)
+ };
+ 
+ #ifdef CONFIG_OF
+
+---
+base-commit: 7079a12d7506b07fb53b54a664bfad5fa9b16d70
+change-id: 20260923-s6sy761-suspend-24674b0857ba
+
+Best regards,
+--  
+David Heidelberg <david@ixit.cz>
+
 
