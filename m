@@ -1,40 +1,36 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-69.mta1.migadu.com [95.215.58.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9FF83D75AD;
-	Wed, 23 Sep 2026 06:51:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 803CA443C3F
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 06:54:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790146295; cv=none; b=Khtzxv+/9rBk40f4pxevh5oVxGuA6lmGhVBkIDi/5K5nB7UMiIcnMyKvr0CVOPF9WbXovARAN5VrXzN2qXfsDmJkn0SFq298gODObfoRyAwAHcACAVhuiB3yvS+Jx//rtIdtKizUavOUn1YnDm4n/wP74DVNIjyYWWWCoHLOHvI=
+	t=1790146460; cv=none; b=BpSeWmF1oTmSl3SudE5FGi2AYLoEDsDrN3+k1KlMi76RyACb1YwODeSEtldGx+8T/HfNGnNZMf9AqjLixbuBDTaE2KiutpvxJ+3L2ShK7IUIdG+R+TJlqXaxbMxGMbU9ueKDaKMh2er4dp52ymQOgkm+L3WtS4g9T03LhfHcs6k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790146295; c=relaxed/simple;
-	bh=sY4kqUXjV43Z3lxOaoU7+ZK8mTamB5s+/oHuwIJGLg0=;
+	s=arc-20240116; t=1790146460; c=relaxed/simple;
+	bh=43+l31JigLayJwEUrA9Gq86evXfBT+ruBR6R0luZO0g=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RDl6c4rtPGeAnq/wEtmBU5IkgJLAcXO2ZbCcKe4iykpSQGLCSeXb88csVw2GaVLcDzKREHqCKPZKsYKoS2BsFRMGdGElvMteh9dZoYZPDomlm5aet2YUI3Ebii6En43OXQaD/JEa8JBRWSzk4+STOVJUKNEtUYnuoYN7dM9UY+c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=qXMkOKo7; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	 In-Reply-To:Content-Type; b=aJbflswwQ31nd1aBk4VTrc69nrE+7aih0aOmh3aFCNulljRuu5q38bcr9lolXZRrRAOnstIQVZnH4qkSjUHyOZqiO86ycmzhNsUDnnsKRy+EfG2zzJ5eI6J8afHcNC3CSyh93fc6FaMeMcukA4T0T5Xtlzh4XaEjdE6+9DV+j6Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=d8hMiuq5; arc=none smtp.client-ip=95.215.58.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="qXMkOKo7"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id CBE864E41043;
-	Wed, 23 Sep 2026 06:51:26 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 9502260580;
-	Wed, 23 Sep 2026 06:51:26 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C05F510329298;
-	Wed, 23 Sep 2026 08:51:20 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790146285; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=pUaLIn+oOf0tZ8toMwBTWM8tTKttxaPOWSyDwEVvWuQ=;
-	b=qXMkOKo7SEpYgYtiAU6qu2AmvSM8wBSZsGKhG4UVi9nkUai6K5QQK7ndEU93BPtPIPMrML
-	2h0rJpQQPj2aIb3goOnTanHedJ9AorqcB0bcq9a52xVcHa2YDwveIaNXlV4la7zf5LzcqC
-	q+kjqDEt4sUNAQlRW0EXunL+m/Q+eOVjGp2VhsGPhkhxL0LY3XCbGd9lHnlxhUM28DY6Jj
-	2bmuX6T5tKlmVyhT8Fj4ffGt7+A8905rsuaFTw/vw0Tgrv1nKoTYA7ur1bJDHaYlfYX2ms
-	HJqXYm/Kc1WLy7F2gkld5xwYeVLi83l5rkSRdJOMoO/Oll3VeIW3vpaKOgbCdQ==
-Message-ID: <c1cde6b7-5883-4dbc-87e9-d7b86f727ba7@bootlin.com>
-Date: Wed, 23 Sep 2026 08:51:19 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="d8hMiuq5"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=43+l31JigLayJwEUrA9Gq86evXfBT+ruBR6R0luZO0g=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790146453; v=1; x=1790751253;
+ b=d8hMiuq5ZjoAP39rjF9CjPb5ZvoA8/CoUbLRX3xs70pxd/Z/kJIyj19y+t1oVJ3WibdSCqbk
+ 63bRMuj9arOSSjIl71j5N+Z5boy2AzrQMjJOlV7eipxf0dV8Y28uB+4j9ljNRokzNze0OCj1JFe
+ kaeOHa9r1rfcQ+sH18rYxBsQ=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 3514f7bca8d9eeb1;
+	Wed, 23 Sep 2026 06:54:11 +0000
+X-Mizu-Trace-ID: 3514f7bca8d9eeb1
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <31772847-fd8b-4c3c-b2e5-a169193fcfd4@linux.dev>
+Date: Wed, 23 Sep 2026 14:55:08 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -42,158 +38,195 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2] net: dsa: microchip: save the periodic output
- request
-To: Paolo Abeni <pabeni@redhat.com>, netdev-bot+sashiko@kernel.org
-Cc: woojung.huh@microchip.com, UNGLinuxDriver@microchip.com, andrew@lunn.ch,
- olteanv@gmail.com, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, richardcochran@gmail.com, ceggers@arri.de,
- arun.ramadoss@microchip.com, pascal.eberhard@se.com,
- miquel.raynal@bootlin.com, thomas.petazzoni@bootlin.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260917-fix-perout-v2-1-d8acf3eea6f7@bootlin.com>
- <178998077822.2160803.3867886756893254872@kernel.org>
- <635cfefd-c588-4b3f-bbc4-1cf11ef0a2c5@bootlin.com>
- <99bcc883-1cbb-46f9-9283-cd03e5efafe7@redhat.com>
+Subject: Re: [PATCH v10 6/6] alloc_tag: Defer /proc/allocinfo removal to a
+ workqueue
+To: Suren Baghdasaryan <surenb@google.com>
+Cc: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
+ Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
+ Aaron Tomlin <atomlin@atomlin.com>,
+ Kent Overstreet <kent.overstreet@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-modules@vger.kernel.org,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+References: <20260915070001.113559-1-hao.ge@linux.dev>
+ <20260915070001.113559-7-hao.ge@linux.dev>
+ <CAJuCfpGMQqjHsAvW=XUA1Q3AyaVJKM2bKYVja_fgn0wa1tk7DA@mail.gmail.com>
+ <d7327cdd-43df-46f8-92d4-c25dda7ae684@linux.dev>
+ <CAJuCfpHMdZzJNSRgysbS7vOBmTwEPSYfPYUvt_5+uZ-Ydvw+hw@mail.gmail.com>
 Content-Language: en-US
-From: Bastien Curutchet <bastien.curutchet@bootlin.com>
-In-Reply-To: <99bcc883-1cbb-46f9-9283-cd03e5efafe7@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Hao Ge <hao.ge@linux.dev>
+In-Reply-To: <CAJuCfpHMdZzJNSRgysbS7vOBmTwEPSYfPYUvt_5+uZ-Ydvw+hw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Paolo,
+Hi Suren
 
-On 9/22/26 12:01 PM, Paolo Abeni wrote:
-> On 9/22/26 08:32, Bastien Curutchet wrote:
->> On 9/21/26 10:52 AM, netdev-bot+sashiko@kernel.org wrote:
->>> Thank you for your contribution! Sashiko AI review found 2 potential
->>> issue(s) to consider.
->>>
->>> Critical: 0 · High: 1 (2) · Medium: 1 (2) · Low: 0 (1)
->>>
->>> If you believe none of the issues are legitimate, please reply to each
->>> issue of Medium severity or higher and explain why the AI is wrong.
->>> If any of them are legitimate and you plan to respin, please let 
->>> patchwork
->>> know by including "pw-bot: cr" as a separate line at the end of your 
->>> reply
->>> (one such reply per series is enough).
->>>
->>> - [High] ksz_ptp_enable_perout()
->>>    (drivers/net/dsa/microchip/ksz_ptp.c:226) commits the caller- 
->>> supplied…
->>> - [Medium] The commit message states that 'if a flag was set in the
->>>    request that triggered the periodic output, it is lost when the 
->>> output…
->>>
->>> Pre-existing issues:
->>> - [High] A non-canonical but ABI-accepted period whose timespec64
->>>    conversion is zero (e.g. period.sec = -1, period.nsec = 1000000000;…
->>> - [High] In ksz_ptp_restart_perout()
->>>    (drivers/net/dsa/microchip/ksz_ptp.c) the elapsed-period quotient is…
->>> - [Medium] The device exposes three trigger output units (caps.n_per_out
->>>    = 3 at drivers/net/dsa/microchip/ksz_ptp.c:1056, PTP_TOU_INDEX =…
->>> - [Medium] ksz_ptp_enable_perout() resolves the output pin with
->>>    ptp_find_pin() (drivers/net/dsa/microchip/ksz_ptp.c:206).
->>> - [Low] ksz_ptp_tou_reset() (drivers/net/dsa/microchip/ksz_ptp.c:66-86)
->>>    assigns the result of the TRIG_RESET read-modify-write to 'ret' at…
->>>
->>> -- 
->>>
->>> net: dsa: microchip: save the periodic output request
->>>
->>> The patch replaces the two stored timespec64 values 
->>> (perout_target_time_first
->>> and perout_period) in struct ksz_ptp_data with a copy of the full
->>> ptp_perout_request, so that the index and flags survive a perout 
->>> restart.
->>> ksz_ptp_restart_perout() now replays the saved request with only the 
->>> start
->>> time recomputed.
->>>
->>> A few questions below.
->>>
->>>>      When a periodic output is initialized, only the start and the 
->>>> period are
->>>>      stored, not the flags nor the pin index. So when the periodic 
->>>> output is
->>>>      restarted, the request flags and index are always set to 0. So 
->>>> if a pin
->>>>      other than the first one was used, or if a flag was set in the 
->>>> request
->>>>      that triggered the periodic output, it is lost when the output is
->>>>      restarted.
->>>
->>> [Severity: Medium]
->>> Can request->flags ever be non-zero in this driver?
->>>
->>> ksz_ptp_clock_register() sets caps.n_pins, caps.n_per_out and the 
->>> callbacks,
->>> but never sets caps.supported_perout_flags, and caps lives in the zeroed
->>> struct ksz_device, so the mask stays 0. The core rejects any flag 
->>> that is not
->>> advertised before it calls the driver:
->>>
->>> drivers/ptp/ptp_chardev.c:ptp_perout_request() {
->>>     ...
->>>     if (perout->flags & ~ops->supported_perout_flags)
->>>         return -EOPNOTSUPP;
->>>     ...
->>>     return ops->enable(ops, &req, perout->period.sec || perout- 
->>> >period.nsec);
->>> }
->>>
+On 2026/9/23 10:41, Suren Baghdasaryan wrote:
+> On Thu, Sep 17, 2026 at 6:38 PM Hao Ge <hao.ge@linux.dev> wrote:
 >>
->> This check is 'fairly' recent, it was added by d9f3e9ecc456 ("net: 
->> ptp: introduce .supported_perout_flags to ptp_clock_info") (v6.15). I 
->> experienced the reset issue on a v6.12 kernel.
->>
->> Even if it can't happen right now, as soon as this driver registers 
->> any new flag, the bug will come back.
+>> Hi Suren
 >>
 >>
+>> On 2026/9/18 09:09, Suren Baghdasaryan wrote:
+>>> On Mon, Sep 14, 2026 at 11:59 PM Hao Ge <hao.ge@linux.dev> wrote:
+>>>>
+>>>> shutdown_mem_profiling() calls remove_proc_entry() from
+>>>> reserve_module_tags(), which runs under mod_lock held for write.
+>>>> remove_proc_entry() waits for readers, and a reader takes mod_lock for
+>>>> read in allocinfo_start():
+>>>>
+>>>>   CPU0 (insmod)                      CPU1 (read /proc/allocinfo)
+>>>>   ----------------                   ----------------------------
+>>>>   reserve_module_tags()
+>>>>     down_write(&mod_lock)  [held]
+>>>>                                      use_pde()            [in_use++]
+>>>>                                      allocinfo_start()
+>>>>                                        down_read(&mod_lock)  <- blocks
+>>>>     shutdown_mem_profiling()
+>>>>       remove_proc_entry()
+>>>>         wait for in_use == 0         <- blocks
+>>>>
+>>>> Move remove_proc_entry() to a workqueue.
+>>>>
+>>>> The file creation is moved to the end of alloc_tag_init() as well.
+>>>> If alloc_tag_init() fails with alloc_tag_cttype still NULL or an
+>>>> error pointer, a concurrent reader of the leftover file would
+>>>> dereference it in allocinfo_start() and panic.
+>>>>
+>>>> Reported-by: Sashiko <sashiko-bot@kernel.org>
+>>>> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
+>>>> Cc: stable@vger.kernel.org
+>>>> Signed-off-by: Hao Ge <hao.ge@linux.dev>
+>>>> ---
+>>>>  mm/alloc_tag.c | 26 +++++++++++++++++---------
+>>>>  1 file changed, 17 insertions(+), 9 deletions(-)
+>>>>
+>>>> diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
+>>>> index 1ca0409b492b..cfa0fc84b68f 100644
+>>>> --- a/mm/alloc_tag.c
+>>>> +++ b/mm/alloc_tag.c
+>>>> @@ -15,6 +15,7 @@
+>>>>  #include <linux/seq_file.h>
+>>>>  #include <linux/string_choices.h>
+>>>>  #include <linux/vmalloc.h>
+>>>> +#include <linux/workqueue.h>
+>>>>  #include <linux/kmemleak.h>
+>>>>  #include <uapi/linux/alloc_tag.h>
+>>>>
+>>>> @@ -591,6 +592,13 @@ void pgalloc_tag_swap(struct folio *new, struct folio *old)
+>>>>         put_page_tag_ref(handle_new);
+>>>>  }
+>>>>
+>>>> +static void remove_allocinfo_file(struct work_struct *work)
+>>>> +{
+>>>> +       remove_proc_entry(ALLOCINFO_FILE_NAME, NULL);
+>>>> +}
+>>>> +
+>>>> +static DECLARE_WORK(remove_allocinfo_work, remove_allocinfo_file);
+>>>> +
+>>>>  static void shutdown_mem_profiling(bool remove_file)
+>>>>  {
+>>>>         if (mem_alloc_profiling_enabled())
+>>>> @@ -600,7 +608,7 @@ static void shutdown_mem_profiling(bool remove_file)
+>>>>                 return;
+>>>>
+>>>>         if (remove_file)
+>>>> -               remove_proc_entry(ALLOCINFO_FILE_NAME, NULL);
+>>>> +               schedule_work(&remove_allocinfo_work);
+>>>>         mem_profiling_support = false;
+>>>>  }
+>>>>
+>>>> @@ -1358,16 +1366,10 @@ static int __init alloc_tag_init(void)
+>>>>                 return 0;
+>>>>         }
+>>>>
+>>>> -       if (!proc_create(ALLOCINFO_FILE_NAME, 0400, NULL, &allocinfo_proc_ops)) {
+>>>> -               pr_err("Failed to create %s file\n", ALLOCINFO_FILE_NAME);
+>>>> -               shutdown_mem_profiling(false);
+>>>> -               return -ENOMEM;
+>>>> -       }
+>>>> -
+>>>>         res = alloc_mod_tags_mem();
+>>>>         if (res) {
+>>>>                 pr_err("Failed to reserve address space for module tags, errno = %d\n", res);
+>>>> -               shutdown_mem_profiling(true);
+>>>> +               shutdown_mem_profiling(false);
+>>>>                 return res;
+>>>>         }
+>>>>
+>>>> @@ -1375,10 +1377,16 @@ static int __init alloc_tag_init(void)
+>>>>         if (IS_ERR(alloc_tag_cttype)) {
+>>>>                 pr_err("Allocation tags registration failed, errno = %pe\n", alloc_tag_cttype);
+>>>>                 free_mod_tags_mem();
+>>>> -               shutdown_mem_profiling(true);
+>>>> +               shutdown_mem_profiling(false);
+>>>>                 return PTR_ERR(alloc_tag_cttype);
+>>>>         }
+>>>>
+>>>> +       if (!proc_create(ALLOCINFO_FILE_NAME, 0400, NULL, &allocinfo_proc_ops)) {
+>>>> +               pr_err("Failed to create %s file\n", ALLOCINFO_FILE_NAME);
+>>>> +               shutdown_mem_profiling(false);
+>>>
+>>> You need free_mod_tags_mem() here.
+>>>
 >>
->> All others comments are already existing issues that can be fixed 
->> independently from this patch so I don't plan to address them right now.
-> This one:
+>> Right. Another problem is exposed here: moving proc_create() to the end
+>> implies successful return from codetag_register_type(),
+>> so alloc_tag is already added into codetag_types.
+>> That looks a bit odd to me. Because all places inside codetag that access this
+>> linked list will access this incompletely‑initialized codetag_type.
+>> There is currently no matching unregister interface to tear it down.
+>> So I drafted one previously:
+>> void codetag_unregister_type(struct codetag_type *cttype)
+>> {
+>>         struct codetag_module *cmod;
+>>         unsigned long id, tmp;
+>>
+>>         mutex_lock(&codetag_lock);
+>>         list_del(&cttype->link);
+>>         mutex_unlock(&codetag_lock);
+>>
+>>         codetag_lock_module_list(cttype);
+>>         idr_for_each_entry_ul(&cttype->mod_idr, cmod, tmp, id)
+>>                 kfree(cmod);
+>>         idr_destroy(&cttype->mod_idr);
+>>         codetag_unlock_module_list(cttype);
+>>
+>>         kfree(cttype);
+>> }
+>>
+>> But looking back, do we really need to do this? I'm not so sure.
 > 
-> """
-> Should the request be committed to ptp_data->perout_request only after 
-> it has
-> been validated and the hardware has actually been programmed?
-> [...]
-> 
-> There is also a period that this check rejects but the memcpy has already
-> stored: period.sec = 4, period.nsec = 294967296 gives 0x100000000 ns, and
-> TRIG_CYCLE_WIDTH_M is GENMASK(31, 0), so the request returns -EINVAL. On 
-> the
-> next clock step, ksz_ptp_restart_perout() feeds that value to
-> div_u64(now_ns - first_ns, period_ns), whose divisor parameter is u32, 
-> so the
-> divisor truncates to 0. Is that a divide error in process context with
-> ptp_data->lock held?
-> """
-> 
-> Looks new to me, and bad.
-> 
+> I think having codetag_unregister_type() would be a good idea. For now
+> it's used only in this failure case, so we can make it an __init
+> function and not waste any memory at all.
+>
+Thank you for the valuable suggestion, I will take this approach.
+I've found there could be a race condition with alloc_tag_top_users.
+I'll analyze it.
 
-I agree it is bad but it's not new IMO. In the current behavior, the 
-period and target time are already stored before the request being 
-validated. This patch only stores the rest of the request with them.
+Thanks
+Best Regards
+Hao
 
-I'll still send a v3 storing the request at the end of the 
-perout_enable() so both issues get fixed at once.
-
-> Also if the issue you are observing on an older kernel is already fixed in
-> the vanilla tree, I suggest instead sending to stable the relevant change.
-> 
-The issue isn't fixed in the vanilla tree, it's only hidden by the fact 
-that the driver doesn't register the flags it supports in 
-.supported_perout_flags.
-And only the flag issue is hidden, the index still gets wrongly set to 0 
-on restart.
-
-
-Best regards,
-Bastien
+>> I previously thought the issue reported by Sashiko was a false positive,
+>> and I laid out my thoughts back then:
+>> https://lore.kernel.org/all/afa606df-3d5b-47c2-9972-f3e0c2e13c12@linux.dev/
+>> and I thought the change would be straightforward, and defensive programming
+>> felt acceptable to me, but it turns out to be a little more complex than I expected.
+>>
+>> Suren, could you help me analyze this? Thank you very much for your valuable feedback
+>>
+>> Thanks
+>> Best Regards
+>> Hao
+>>
+>>>> +               return -ENOMEM;
+>>>> +       }
+>>>> +
+>>>>         return 0;
+>>>>  }
+>>>>  module_init(alloc_tag_init);
+>>>> --
+>>>> 2.25.1
+>>>>
