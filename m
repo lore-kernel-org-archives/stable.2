@@ -1,89 +1,115 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f41.google.com (mail-vs2-f41.google.com [74.125.227.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5961A5650F6
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 19:20:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB64356B85B
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 19:34:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790191219; cv=none; b=atEQruvYEg/WpE1Zc5JXOMLlmx7VManlOlPXYkrbzGA+kB8YjS6//oG98HVgIyfjpGgoX1zl5wNqWJ1XmUFTktrPjuwEqvM0Z7qeXNNkk3iAlJotN28PhMcfWfA0NDD1DtdiTKDMQfnb+3C7mbEVLeRoZXf6jODcaYYG7+djUUc=
+	t=1790192058; cv=none; b=Loq+T/X07GiMmi0gxGdVrXOPxWilM61c8ZEfGGk3t5FczAtAhFm+VGpq/7vVjQvfscwaRQlkjGBGEa7GU1aIdGuc9+5oVFCd3uCxAvNbofmsBiVPJgQKcTucon1Km3y6piauvgxlhx4QwyIEK54mWvjLJppeJQZ7Q3w1dNX4L40=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790191219; c=relaxed/simple;
-	bh=UxllgZKkHgfU3vYCxpIVx6Rydy/6I+5aR0X81ISSt/4=;
-	h=From:In-Reply-To:References:To:Cc:Subject:MIME-Version:
-	 Content-Type:Date:Message-ID; b=FPyn1quJaYAfxnJb+PM5avgvvfmOJAbGnNnaCL1SknjoKdGEU6TmPMdvs8sIpvIN4Kyo9ttg5wWLD3xQM9mIpfDdjwDGbNi3GS/joyM/iHrvPfRP8XUZVzdIkOE4YWqZzroqfkQ3P05GUaKXyBRZ/oPNTlqLowY5RBMDkbZZi7o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Dvfm7fr9; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790192058; c=relaxed/simple;
+	bh=VgdVHZfb9ZqoIhcdj+YWq79Pk6RvOJZCncaSg3smx40=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=m52u7xkFZYEpE7zPRySSP2H6geP43jwrlovs/37B0OidPx80HUObqawfqIUR1YkXjbvZ3BhZ+29kjdJoMlzNSHJJo+BYNuZpTmvwsPaUi7usKqwwxtyhGQYFX3VRvnJalOUNH3k7aUiOUtQ7vE0MBQIdIpW9gwnkWiz9x0P+UJM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MWTceuvq; arc=none smtp.client-ip=74.125.227.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Dvfm7fr9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790191217;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Mwyl63S+xi38os/NnkcbHt6FcrFd5rLnkUiEfosX8mI=;
-	b=Dvfm7fr9lEE9UlD8ec0rq5YGrbG7UMynKKi4i0KKQuum4/8HzZ1qWe+q8Ju0K2XADTl93r
-	nU3AWHenIEsuBBRj1ti7ikSq04gNeKkpkfRmtTjnsJ7Jd+D0XHYRVETBnYmsApCWq+WABq
-	+nlCFKWRCdRr+BjPWxwuZ7D3TnvXxnc=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-527-WomQRXq2MxOaulsagakdEQ-1; Wed,
- 23 Sep 2026 15:20:12 -0400
-X-MC-Unique: WomQRXq2MxOaulsagakdEQ-1
-X-Mimecast-MFC-AGG-ID: WomQRXq2MxOaulsagakdEQ_1790191210
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 36FB5195DE5A;
-	Wed, 23 Sep 2026 19:20:10 +0000 (UTC)
-Received: from warthog.procyon.org.uk (unknown [10.44.32.54])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id ABCCF18005B8;
-	Wed, 23 Sep 2026 19:20:06 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
-	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
-	Kingdom.
-	Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-In-Reply-To: <arHVJ0ihdqmNETMw@casper.infradead.org>
-References: <arHVJ0ihdqmNETMw@casper.infradead.org> <20260921230755.1133425-1-pc@manguebit.org>
-To: Matthew Wilcox <willy@infradead.org>
-Cc: dhowells@redhat.com, Paulo Alcantara <pc@manguebit.org>,
-    linux-cifs@vger.kernel.org, netfs@lists.linux.dev,
-    Christian Brauner <brauner@kernel.org>,
-    Namjae Jeon <linkinjeon@kernel.org>,
-    Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-    Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>,
-    Bharath SM <bharathsm@microsoft.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/5] netfs: clear post-EOF pagecache when extending a file via write
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MWTceuvq"
+Received: by mail-vs2-f41.google.com with SMTP id ada2fe7eead31-78569cf871bso795513137.2
+        for <stable@vger.kernel.org>; Wed, 23 Sep 2026 12:34:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790192054; x=1790796854; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UA6HnleFaKMNeHtZg5wP2wOLqxj3WJzI/h2c9pM/vFo=;
+        b=MWTceuvqqQ+kXTvt/QG4T18lnWdOWddLBlrIELOuND81U80lyDWjhhcbqUDRXeA3Cb
+         mbsy2gXMLoA7iaWm0oZ531QAZncNP0sXCtdDeBr63wQPNlRhZVov9/UF3R1W5m6iGZeD
+         fxIO2Ur9oS15z5IblCjqhzpEJhA6UmPSs2h1mi3K0LSafV6NOTQ8jl7Z62iAS6HCPbLP
+         kRzBRT8hi0dCAI/6N1TyyScXw/6EJo6mwUe6onlDSVsZ7t3GXKjvBId7SLggBcZs8Bh3
+         Am4WEHbfDvD0VN5uYTddOhb1BinmnMKQ++ksgwkQsJjy5f05kn9rx25MDzLE63qyXi4M
+         AzPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790192054; x=1790796854;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UA6HnleFaKMNeHtZg5wP2wOLqxj3WJzI/h2c9pM/vFo=;
+        b=rKSt6/OSRbZtr4Tz6sH06vxMVZ5D4lxmqW2u0iuB3aaftkKjy4yOVuC2ymi0+vzVoh
+         j9RPIuTcNgwuIKA+yccrxAWQmzxpP+xP4NV1PQg78x+UFFOsslVo4NFcebb18dgJgpVX
+         f2lfktZOEF3OsPuWGS30Z4H+eTvrk6/RHiNoS8Sk/d5IFLgKQQa6BEAgr52Esq+6YAn7
+         22IJLgJfD8sxsvE+3IT8q3WfXA9I0K2fUQ7Edk+HnavxG3JA5v1tJduOflQ5C78mNGSw
+         JlEYHcZjYjfabBf8r04sJucTpM2YcLZE/eqFQyliYfSELsQD2o8cG1ifYdAnF88mduj3
+         ybLw==
+X-Forwarded-Encrypted: i=1; AKwUvBwmGCXi9FdNBhs/MsUN9oJcvLGMT3NsSm5divSjA2YanB1nrcp8Guk64LrgPpD6MT/Ygp0Eqow=@vger.kernel.org
+X-Gm-Message-State: AFuF++mU66bKXOpLMqdRKFyiatyPaW6rinRjEq3voFYjulmjpoX0trnU
+	a3dFiLjUS+HryH1DFa+xNnIMXhGuI2Iy/wot9o4ZkBuQV9ub8STvxe3t
+X-Gm-Gg: AYBFou3URcyFpxOkoywY8Eu55e/72nx7Ao5o6KH/opux9CfHQxpvayVAxxTxg5Hy4WT
+	z77P/KHuYhH9qKdP5delqM2T6KLB2smID2Ym5O/NXOt5ququ246jDdjkdQA6Mycy1r7HDqDKlj2
+	kvyhzxztqtx0KRFpoX1Gr/MBij/Rp1M90QrpFqHsDs/CxJLcyusnSS4vxc+0N40xd/xdN2DCI1m
+	q5FVv/aLrhYS2saOrm3RgaYDFWeldRABzbW6BMBzxQojJFbiKTPq31YcZEIii6WNbgqf81M1F6L
+	DomWAq2Hvv+KWGTDfR8xxrVGcFSRODEC4mZBLvefI0ag9awv6MafpXP4c9/zFrXQ3ExnlIUNuIO
+	jaN38/3GybaowR7VFvPYZTZLumDyii0vqypWY/3QuypV20Tn9TxsorgS/f21FqYgHO1BBaAR+lU
+	DF7ydiiF5+gPkWT0LZPJLSct7tn/sqs5T9ngnVztCOvJ74C2g/2Xkxj1VzeYb7RMQ=
+X-Received: by 2002:a05:6102:3f87:b0:7a2:6b90:3d7b with SMTP id ada2fe7eead31-7af1c691fddmr271537137.8.1790192054343;
+        Wed, 23 Sep 2026 12:34:14 -0700 (PDT)
+Received: from beelink.. ([187.13.30.172])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-98527fd0592sm110188241.1.2026.09.23.12.34.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 12:34:13 -0700 (PDT)
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+To: andrew@lunn.ch
+Cc: maxime.chevallier@bootlin.com,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Subject: Re: [PATCH] net: stmmac: guard FCS stripping against runt frames
+Date: Wed, 23 Sep 2026 16:33:54 -0300
+Message-ID: <20260923193354.1537557-1-qwe.aldo@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <e0515b50-8a7a-4c4d-91da-9b62c2f663bc@lunn.ch>
+References: <e0515b50-8a7a-4c4d-91da-9b62c2f663bc@lunn.ch>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <1519833.1790191205.1@warthog.procyon.org.uk>
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 23 Sep 2026 20:20:05 +0100
-Message-ID: <1519834.1790191205@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+Content-Transfer-Encoding: 8bit
 
-Matthew Wilcox <willy@infradead.org> wrote:
+Hi Andrew,
 
-> > +	int netfs_clear_stale_post_eof(struct inode *inode, unsigned long lo=
-ng from,
-> > +				       unsigned long long to, bool nowait);
-> =
+You're right that the relevant question is not merely whether the MAC can
+forward frames shorter than 64 bytes, but whether a descriptor with a
+reported length smaller than ETH_FCS_LEN can reach this path.
 
-> Should this be uoff_t?  Or even loff_t?
+I found a closer NXP/Freescale reference: the i.MX RT1170 ENET_QOS
+documentation (IMXRT1170RM, Chapter 61), which describes the Synopsys
+DWC EQoS receive descriptors used by this driver:
 
-uoff_t please.  There's no reason to have a signed value there.  Also, I h=
-ave
-a patch queued with Christian for next to convert netfs generally to use
-uoff_t where it can.  It's a lot shorter than unsigned long long.
+  https://www.nxp.com/webapp/Download?colCode=IMXRT1170RM
 
-David
+The MTL receive configuration explicitly supports forwarding error packets
+and undersized good packets (FEP/FUP), and RDES3.PL is documented as
+the number of bytes transferred to system memory, including CRC. I don't
+see a documented lower bound on PL.
 
+However, I also noticed that dwmac4_wrback_get_rx_status() returns
+discard_frame when RDES3_ERROR_SUMMARY is set, including CRC and
+receive errors. So an ordinary CRC-error runt would be discarded before
+reaching the FCS subtraction.
+
+I therefore don't claim the documentation alone proves that a good-status
+descriptor with PL < 4 can occur. I'll verify whether such a descriptor
+can actually be produced by the hardware before claiming that as the
+trigger.
+
+The length check may still be useful as defensive validation of the
+hardware-supplied descriptor length, but that is a different justification
+from the runt-frame scenario in the current changelog. Happy to respin
+with that framing if you prefer.
+
+Thanks,
+Aldo
