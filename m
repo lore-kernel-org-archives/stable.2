@@ -1,52 +1,43 @@
-Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38BBB48422A;
-	Wed, 23 Sep 2026 10:16:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5D243484230;
+	Wed, 23 Sep 2026 10:16:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790158570; cv=none; b=kNoUhPyuZRg0uTdsAW87WT2gKZ78WKK30nMItDI9BZ2O7t6dslj5sZA7h0HgF5frF//nsFMfuCrnnjk3UXzgmeWoAEa2z2TgFDVf00XivC+yPVqaLlgnQOa/g21UeE9H4YONUuGtQQsXYFTFovUu5ASlUD53JmdzPG1B0S9/MmA=
+	t=1790158596; cv=none; b=Brzh4f0IGWePf4raU5ix36uyHYQlPsCjpSZZWJhL6iB8N2eZ+rGdFWdjNtCceeQLKm4aoNjogIwxSl6kIjSUjzbrpiEVGtld2e8vugLaX2szlBgJw/mdwwj800YmocDSkJY/dvX5NdrG+rBWajwf1uMFe+ED+7dN6dFlqDkVlSA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790158570; c=relaxed/simple;
-	bh=MaJskP6/diGjUwoycuIsFSR1MNaAh22N0ogA4RMv3v0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Z7pv/fwWkt5xckliYPFy7vY1C2P32Xsi2lM7Bf62wvvowAv4BVj+tVhKfwLncJlmUI8+0as8YIlT6EZIOuCuibZWYA94awUSoFgDVudjBIb+xdTMTxn1oCbDsiJdluMXTf3jYaWhRUVcgkXOe/FaFSf+r45/h6q1NiAOxLKol0M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=TDEJlpGl; arc=none smtp.client-ip=54.206.34.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1790158596; c=relaxed/simple;
+	bh=3ITgkxFPz1IColri678g5nG57QVgrj5EYIaEu5PHiRE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=bZhKRjsyjJI+iVo7o7h3dockYFqAI79Tzb3tYEBt3ML5ijUrYckRfyNso6ScCu6QC+2cZsqaLDmZFeHs59aOCpB3OVpsqs6oXCeY2qsm4eCwTeJD/78grwGjmC31fyQn7TuWA+pHOUQhlQwe8Io3LcwZj+mVHNVnuZRIqEdP28I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=plMephOs reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="TDEJlpGl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1790158529;
-	bh=phlHMmByFQPe2QHmU6CchxcAyR99WoDvlE01J3a4vwI=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=TDEJlpGlgFQ0DmddEgpzYrFiLjgTceREkkUb9wN+zgUE9pbJ/bOzy8L53eniNdq1M
-	 jzxVGwU7HURyCxGA5zt5RYK2k6WzEcJbZQ8iqxiRn93/6d3GxX6XPW5cjeoMd4uQF9
-	 hp1QXs+A/5jg1LVLnOFcMhtB6PPNHwxDt+Rf7eWk=
-X-QQ-mid: esmtpgz13t1790158510t9137bab9
-X-QQ-Originating-IP: 35IqI3CFwEkggQc9glO3TZdHFRGHYFK/fheLZhaLhqw=
-Received: from PEN002676 ( [124.126.19.250])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 23 Sep 2026 18:15:01 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 13859201302944247303
-EX-QQ-RecipientCnt: 11
-From: ZhaoJinming <zhaojinming@uniontech.com>
-To: =?UTF-8?q?Horia=20Geant=C4=83?= <horia.geanta@nxp.com>,
-	Pankaj Gupta <pankaj.gupta@nxp.com>,
-	Gaurav Jain <gaurav.jain@nxp.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S . Miller" <davem@davemloft.net>
-Cc: Tudor Ambarus <tudor-dan.ambarus@nxp.com>,
-	Radu Alexe <radu.alexe@nxp.com>,
-	linux-crypto@vger.kernel.org,
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="plMephOs"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=/RGotnimWk1mwS1lBuqb5bmaY1r+PDJ+z7
+	W0m0eAKts=; b=plMephOsclFVeraR7brG44wxeahInO/X1VpQLA+SzhstBTBcRb
+	eMioT3x2gz/1mRHa+LsaFfRljyqFKA66ul53Tt7NVsCuJVIl8fqJ+apc6qf6X5z4
+	i4Pdw/3vL2OrCzrXTJaFX3msN06OEPVIqIfh2/FuHS/Q8eMybui2uggLc=
+Received: from localhost.localdomain (unknown [113.200.174.5])
+	by hzbj-edu-front-3.icoremail.net (Coremail) with SMTP id BbQMCkBWPDvXprNqKg0vAA--.3139S3;
+	Wed, 23 Sep 2026 18:15:57 +0800 (CST)
+From: Yuanzhe Liu <25031212351@stu.xidian.edu.cn>
+To: perex@perex.cz,
+	tiwai@suse.com
+Cc: linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	ZhaoJinming <zhaojinming@uniontech.com>
-Subject: [PATCH] crypto: caam - fix double-free in caam_rsa_set_priv_key_form()
-Date: Wed, 23 Sep 2026 18:14:57 +0800
-Message-ID: <FF2F0DC4D3930E6A+20260923101457.204629-1-zhaojinming@uniontech.com>
-X-Mailer: git-send-email 2.51.0
+	dev@kicherer.org,
+	Yuanzhe Liu <25031212351@stu.xidian.edu.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/1] ALSA: bcd2000: fix use-after-free of MIDI URBs on file close after disconnect
+Date: Wed, 23 Sep 2026 18:15:32 +0800
+Message-ID: <20260923101533.423-2-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.45.1.windows.1
+In-Reply-To: <20260923101533.423-1-25031212351@stu.xidian.edu.cn>
+References: <20260923101533.423-1-25031212351@stu.xidian.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -54,76 +45,148 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: N/bTtgZmY0ZebqJYj/R0e8ecSzVZCEFinVvecEZQ1w5f+HS8J6sNZ3Sy
-	0Bbao7F9S636y1zCeTdqkcjE8qX+GcmIW3wmjfIKpX3H4vrIflMxNfq3fCWsOot/SwV9zuz
-	sOTlDo8Q0g1a2getCGVjrj/OQ8I3EgAXUBXgc7jU2HicZdfLdA0vStzJN84TGerbyXQODmn
-	5cmc2rgrk6/maVCf0pHMGVXRnGe8mxQLcFgzMQrpKe5ZR2/kgP+WYUM4FFxEoUKoHljvBke
-	pfd201p+9BUe5E9i3c754wTG92hwI+USGHvvWqsDss4fOClxikSdkrUrqdPyqn8+ZfkuVp8
-	iC/TUOQmG5MbLBHoqAk2uQ4FzPkUPKmekjfgnPz7PQYvS11sRoke+ro8Rzi7tD4hzPtAqmH
-	hYF7lwj8CiHH7KRLkmrtAY7kVl1HXzOaNpnDIU94hevtQ7km3aHJFQrlwMoJyUXy4rvdtai
-	uzYkb92iWEQBNjbOwdzx/rYSsJE643JOBRd/7LrJjMb6otgLeB1Wf35C30E6eX6Lq3GVf1Z
-	6y5IprknrjUknhVh/bUHFuNJTr9vCELf06JvqIAHgpTAcqJ00VYM+RytPx4p3x3LtyXklOQ
-	EbuUQTC0Q/sYgPklAOablQbFAZvBq2rOKSx2+/KQSKzrqV+rPssDiG5zPRNT3uSGy19QtxG
-	FFiQD7ntjxaLhIC8H9wP9mo4GugC6uE3gefdFCTOAwG6wLqSxXCSOkAZr/0HG+Il9iPbZO8
-	N34folbkJSAHFrld7ZNEw3bgMJp+s6g6jdz7or0l7Jcp1XmJNpz7nxDy93+Qr+5HcjGH1Wc
-	e03yFzqefFXlhIIKEFLWE+36GWmddOPOmFeihI7x7A41tCCyXBac32rVnC5DhWedFCQsMpu
-	J5ecsMu/6LM/7LYLI3pK5N8YP1P78i3BHVPUPYH7RvQyajoLLtSo1zxWNDMPEEs6QNPkio4
-	XKzY4y1lbKQUlvmZauWsoJ6WO6WkhL+ul1iZUgEQLm5hwRv7M5ARw7/T1utjN8w57fYLVky
-	GhUMe/Bhda4ou7+1UUlEwbSL4Zb1o=
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-QQ-RECHKSPAM: 0
+X-CM-TRANSID:BbQMCkBWPDvXprNqKg0vAA--.3139S3
+X-Coremail-Antispam: 1UD129KBjvJXoWxKFyUtr1xtw47JryUJry3twb_yoW7Xr1Dpa
+	y8JF4UtF4DXrnI9F4SyF1kWF1Fy3Z7AayYkryrW34Yvry5Xr13Ja18tF9IvrsxCa4kG345
+	ZF1qgayfWF4DCaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUmG14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jr4l82xGYIkIc2
+	x26xkF7I0E14v26r1I6r4UM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
+	Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1l84
+	ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AKxVWxJr0_GcWl
+	nxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4
+	CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvj
+	eVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I
+	1lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6r4DMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
+	JrUvcSsGvfC2KfnxnUUI43ZEXa7VUjX18JUUUUU==
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUFD2qyxZuazQAAsc
 
-caam_rsa_set_priv_key_form() frees the partially allocated key
-components (p, q, tmp1, tmp2, dp, dq) with kfree_sensitive() on its
-error path, but does not set those pointers to NULL afterward.
+Closing a rawmidi fd of the BCD2000 after its USB interface has been
+unbound crashes with a slab-use-after-free in usb_kill_urb():
 
-When the function returns an error, caam_rsa_set_priv_key() jumps to
-its err label and calls caam_rsa_free_key(), which frees all of those
-same pointers again, resulting in a double-free.
+  BUG: KASAN: slab-use-after-free in usb_kill_urb+0x74/0x80
+  Read of size 8 at addr ffff8880078e7d40 by task amidi/30287
+   usb_kill_urb+0x74/0x80 drivers/usb/core/urb.c:706
+   bcd2000_midi_output_close+0xd4/0x140 sound/usb/bcd2000/bcd2000.c:182
+   close_substream.part.0+0x15f/0x8d0 sound/core/rawmidi.c:560
+   rawmidi_release_priv+0x21d/0x290 sound/core/rawmidi.c:580
+   snd_rawmidi_release+0x4e/0xa0 sound/core/rawmidi.c:610
+   __fput+0x3a6/0xac0 fs/file_table.c:510
 
-This is reachable when the allocation of q, tmp1, tmp2, dp, dq or qinv
-fails, e.g. under memory pressure, or for a malformed key whose CRT
-members decode to zero length and make caam_read_rsa_crt() return NULL.
+  Allocated by: usb_alloc_urb <- bcd2000_init_midi <- bcd2000_probe
+  Freed by:     usb_free_urb <- bcd2000_free_usb_related_resources
+                <- bcd2000_disconnect <- usb_driver_release_interface
+                <- usbdev_ioctl (USBDEVFS_DISCONNECT)
 
-Set each pointer to NULL right after freeing it so that the subsequent
-caam_rsa_free_key() call becomes a no-op for the already-freed fields.
+Root cause: bcd2000_disconnect() calls snd_card_disconnect(), which only
+blocks *new* opens, and then immediately kills and frees midi_out_urb and
+midi_in_urb. Already-open rawmidi fds, however, keep working: their
+->close() callback bcd2000_midi_output_close() unconditionally calls
+usb_kill_urb(bcd2k->midi_out_urb) when midi_out_active is set (which it
+is, since the completion handler re-submits the out URB), and the URB
+completion callbacks re-submit the URBs via bcd2k->midi_{in,out}_urb.
+Both dereference pointers that were freed in disconnect -- a UAF. No
+physical unplug is needed; USBDEVFS_DISCONNECT on the usbfs node triggers
+the same path.
 
-Fixes: 52e26d77b8b3 ("crypto: caam - add support for RSA key form 2")
+Fix the lifetime mismatch in two parts:
+
+- Wait for the users that are already there: use
+  snd_card_disconnect_sync() instead of snd_card_disconnect() so that
+  disconnect blocks until all open card files are released. The rawmidi
+  close callbacks then run (and call usb_kill_urb()) while the URBs are
+  still valid, and no userspace-triggered callback can run afterwards.
+  devices_mutex held by bcd2000_disconnect() is not taken by the rawmidi
+  close path, so the wait cannot deadlock.
+
+- Mark the device shut down before freeing: add an atomic shutdown flag,
+  set first in bcd2000_disconnect(), and check it in bcd2000_midi_send()
+  and in both URB completion handlers so no new URB submission can be
+  queued while disconnect frees the old ones.  Also NULL the URB
+  pointers after usb_free_urb() so any stray access becomes an
+  immediate, diagnosable NULL dereference instead of a silent UAF.
+
 Cc: stable@vger.kernel.org
-Signed-off-by: ZhaoJinming <zhaojinming@uniontech.com>
+Signed-off-by: Yuanzhe Liu <25031212351@stu.xidian.edu.cn>
 ---
- drivers/crypto/caam/caampkc.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ sound/usb/bcd2000/bcd2000.c | 25 ++++++++++++++++++++-----
+ 1 file changed, 20 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/crypto/caam/caampkc.c b/drivers/crypto/caam/caampkc.c
-index cb001aa1de66..ac515ed8c575 100644
---- a/drivers/crypto/caam/caampkc.c
-+++ b/drivers/crypto/caam/caampkc.c
-@@ -1033,16 +1033,22 @@ static int caam_rsa_set_priv_key_form(struct caam_rsa_ctx *ctx,
+diff --git a/sound/usb/bcd2000/bcd2000.c b/sound/usb/bcd2000/bcd2000.c
+index bebb48c..cbf6d39 100644
+--- a/sound/usb/bcd2000/bcd2000.c
++++ b/sound/usb/bcd2000/bcd2000.c
+@@ -55,6 +55,7 @@ struct bcd2000 {
+ 	struct urb *midi_in_urb;
  
- free_dq:
- 	kfree_sensitive(rsa_key->dq);
-+	rsa_key->dq = NULL;
- free_dp:
- 	kfree_sensitive(rsa_key->dp);
-+	rsa_key->dp = NULL;
- free_tmp2:
- 	kfree_sensitive(rsa_key->tmp2);
-+	rsa_key->tmp2 = NULL;
- free_tmp1:
- 	kfree_sensitive(rsa_key->tmp1);
-+	rsa_key->tmp1 = NULL;
- free_q:
- 	kfree_sensitive(rsa_key->q);
-+	rsa_key->q = NULL;
- free_p:
- 	kfree_sensitive(rsa_key->p);
-+	rsa_key->p = NULL;
- 	return -ENOMEM;
- }
+ 	struct usb_anchor anchor;
++	atomic_t shutdown;
+ };
+ 
+ static int index[SNDRV_CARDS] = SNDRV_DEFAULT_IDX;
+@@ -131,7 +132,7 @@ static void bcd2000_midi_send(struct bcd2000 *bcd2k)
+ 	BUILD_BUG_ON(sizeof(device_cmd_prefix) >= BUFSIZE);
+ 
+ 	midi_out_substream = READ_ONCE(bcd2k->midi_out_substream);
+-	if (!midi_out_substream)
++	if (!midi_out_substream || atomic_read(&bcd2k->shutdown))
+ 		return;
+ 
+ 	/* copy command prefix bytes */
+@@ -212,7 +213,7 @@ static void bcd2000_output_complete(struct urb *urb)
+ 		dev_warn(&urb->dev->dev,
+ 			PREFIX "output urb->status: %d\n", urb->status);
+ 
+-	if (urb->status == -ESHUTDOWN)
++	if (urb->status == -ESHUTDOWN || atomic_read(&bcd2k->shutdown))
+ 		return;
+ 
+ 	/* check if there is more data userspace wants to send */
+@@ -228,7 +229,8 @@ static void bcd2000_input_complete(struct urb *urb)
+ 		dev_warn(&urb->dev->dev,
+ 			PREFIX "input urb->status: %i\n", urb->status);
+ 
+-	if (!bcd2k || urb->status == -ESHUTDOWN)
++	if (!bcd2k || urb->status == -ESHUTDOWN ||
++	    atomic_read(&bcd2k->shutdown))
+ 		return;
+ 
+ 	if (urb->actual_length > 0)
+@@ -353,6 +355,8 @@ static void bcd2000_free_usb_related_resources(struct bcd2000 *bcd2k,
+ 
+ 	usb_free_urb(bcd2k->midi_out_urb);
+ 	usb_free_urb(bcd2k->midi_in_urb);
++	bcd2k->midi_out_urb = NULL;
++	bcd2k->midi_in_urb = NULL;
+ 
+ 	if (bcd2k->intf) {
+ 		usb_set_intfdata(bcd2k->intf, NULL);
+@@ -427,8 +431,19 @@ static void bcd2000_disconnect(struct usb_interface *interface)
+ 
+ 	guard(mutex)(&devices_mutex);
+ 
+-	/* make sure that userspace cannot create new requests */
+-	snd_card_disconnect(bcd2k->card);
++	/*
++	 * Make sure that the URB completion handlers and the rawmidi ops
++	 * don't touch the USB device or the URBs any longer.
++	 */
++	atomic_set(&bcd2k->shutdown, 1);
++
++	/*
++	 * Make sure that userspace cannot create new requests, and wait
++	 * until all already-open files are closed so that the rawmidi
++	 * close callbacks (which may kill the out URB) run while the
++	 * URBs are still valid.
++	 */
++	snd_card_disconnect_sync(bcd2k->card);
+ 
+ 	bcd2000_free_usb_related_resources(bcd2k, interface);
  
 -- 
-2.51.0
+2.45.1.windows.1
 
