@@ -1,114 +1,116 @@
-Received: from mail-dl2-f42.google.com (mail-dl2-f42.google.com [74.125.229.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E33B9415F3E
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 07:01:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.170
+Received: from zg8tndyumtaxlji0oc4xnzya.icoremail.net (zg8tndyumtaxlji0oc4xnzya.icoremail.net [46.101.248.176])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 721A0443AB9;
+	Wed, 23 Sep 2026 07:04:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.101.248.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790146876; cv=none; b=Wma5DuF+U/g+0y1TYdu6S7fg8C7nAujcsoFsHx1wXr0cmDotkkRyEHKPeksmrBfn8xRxU/8NOmhjwXeoKRqS2opA5Qp42XZpyX4dFf+W70R/qWAdGx5VrcI3iChr0jd75qCRcrDlvMgNxzQ4EZfS6z6OCUikfQinnuvx9RnVbe4=
+	t=1790147100; cv=none; b=Rgy4GAbDovo8j/c5cxaESLqrzijC8jyr8/2xiI5XiQ5NljkhdCXzJpZ9BBNMVmHqgR3+sq9flVQpb4LlOdtJlaPkPWE6vdKpQDN+UDnQblrIvOArHv5COjFQrS8ophdWThtOvkRj4/wI58FAqApYBSoNXLnXS+jjFpkXhSW8DlY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790146876; c=relaxed/simple;
-	bh=BFeM2Z0uvJWReEb4TmxjLVTHw6ANNaWo9dqQG/8wOZA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ty28KxcadbFyHfCmSkKIijWRIUlSNlsjmOWNaDu/NdpsDwOJZ9DKouOg/5iApj1C3U3f71SCXidxPUOr7ZQkY/uBVanlHOCuDwypyRnx4pzVDJjMksNAWc8L3vMftI5+6Hw1tMC9LdS63xjh6C8L86KFRHdh/ruNP0OG7pPL8+8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K3wiTz36; arc=none smtp.client-ip=74.125.229.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K3wiTz36"
-Received: by mail-dl2-f42.google.com with SMTP id a92af1059eb24-144ee9debe9so537306c88.0
-        for <stable@vger.kernel.org>; Wed, 23 Sep 2026 00:01:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790146874; x=1790751674; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=I70/VAGdGqE8d4iO1uNSWkA0vYBN0PWe+5KOdFzj+lU=;
-        b=K3wiTz36/owfLmOD4LjzxL6d3zcgQCL/nbwFpWKpS/QZsqbOw49nRPHVGnqkVth4EK
-         kOGxyJzVY+1uxyCOC470GLoOn+5eMhwzzYYvBf/6iIVtKvY/lSYzmlQ3fGqX80SUcMx4
-         gd6vC3yZxLhbhdrYRwAXiSOIO7Gm/FxxEfAra6W7V5px/YhbQVTc+/I294Sl/bG4v/0e
-         wdZ+pWfIuhGFgjircJjZ/QDwwOZhUI0aybHkdKPnKglvwd0t8Bs85xrT9FCkbiox5+fq
-         0tanHSuYikD+Um610Bvqq0WGeb3y0kJpvpTGV8ywsMenHFTSMAsnCQa/vdpfcPV4gkp1
-         x8/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790146874; x=1790751674;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=I70/VAGdGqE8d4iO1uNSWkA0vYBN0PWe+5KOdFzj+lU=;
-        b=utfQhWlaXCAr+kaMK+C/weIKkD8Vv4ys1UnSY+DI4meUcpfdtYre+vfzy2enRm/bca
-         r294CqLWS2Rg0uYGO3+5lLkyngfzQx21H/4ive4ZI84BrgBm2I5AkFdd1y+9jW2nkYbk
-         NOA7OR0Q9VKOqvRmpXQh6gGOQfuw/8AkUaAZE3XvjkuiW4QHoPLCL1Qh2oGgajy7LV0d
-         /JTH6mH4ELCNmDdxmWom2xDQEYCm12Wi8ImcHSr90w6pjXezYOawV1UA0YwZi16OcpfS
-         A94HvL1K1uJ38/dw/jj8PtVMBFiN3gRzJz3I/2Zo2QdE9up5N0uEYV/i5/yO5aAsoHcS
-         QLOg==
-X-Forwarded-Encrypted: i=1; AKwUvBwWAY8izqN4JWdX67gmy/pCEqW1VFLz0UFfqMtyEZ6E+R493PVVhYrbP4NLRmylRlaYORlvhwM=@vger.kernel.org
-X-Gm-Message-State: AFuF++k5iP1qiR24Gg9mLxb76pSOnc+kwFnhcqokmGRoGw5i4lRhhhlR
-	oTgGCKpMgoHN5gfFr2a2/2jxT7ppzP2AjEfOl21qmM45qjkNja7cWCfk
-X-Gm-Gg: AYBFou3Pwim9R8BmmPZ2bogyqAkpU4EA26tmCCz9Eot78TjLVWcla+IC+I6OCUsroVg
-	Dbsqvyz0Rnv1FKkUOc8/ZRH35+vl/4SbQZGWEKbajxbyIAnPel8V7t4ckSNLZo4g2QRS2IWRVOg
-	WsDfDBqN/zU5fZAHvB3SLK0CtaLRtTI7BKaoQOvVRmfhjPY/SYHUiMWrjo5m9pamUTIMe8FCL8O
-	J5EtXnUlkFzfIqYrj86+Jsw7g0oxNAcR5XjOBKyt7GbVBCFEJAkHe8uvmwgAlRd3/mZ86whcpYR
-	IbRNjSyL57eO9GaKvqyXi4QmY5uKeyUyCInJ2NeFxLtyvRMmBIfZ1UjoCijam6+ckd62Pc+3sKV
-	9R1fHjMrOV/zFBtRdrR/tq1lEqtGYoPbEgKBwiPrezp1CjegKYwJju9/scvH8X0RkkHGO1kFrPB
-	z8MRtr/BCFCP8+xDClytxks93Q0PCPc/AWqAKa9n/eFUwur0cZtF9py0O0Wax7t8+PCdU4Qa8hO
-	yj87l7GLCPEqVOIJnulpSAByxQg+I2BT0EC9WO+93s=
-X-Received: by 2002:a05:7022:7e81:b0:144:ddf7:256e with SMTP id a92af1059eb24-144f9179543mr2364369c88.29.1790146873779;
-        Wed, 23 Sep 2026 00:01:13 -0700 (PDT)
-Received: from li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com ([129.41.58.4])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f98209ffsm3646819c88.4.2026.09.23.00.01.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 00:01:13 -0700 (PDT)
-Date: Wed, 23 Sep 2026 12:31:05 +0530
-From: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
-To: Gautam Menghani <gautam@linux.ibm.com>
-Cc: maddy@linux.ibm.com, npiggin@gmail.com, mpe@ellerman.id.au, 
-	chleroy@kernel.org, ritesh.list@gmail.com, sshegde@linux.ibm.com, 
-	nnmlinux@linux.ibm.com, amachhiw@linux.ibm.com, linuxppc-dev@lists.ozlabs.org, 
-	kvm@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Timothy Pearson <tpearson@raptorengineering.com>
-Subject: Re: [PATCH v3] KVM: PPC: Book3S HV: Avoid spurious interrupts caused
- by LPCR_MER bit
-Message-ID: <arN5AY73k0fRh9VQ@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
-References: <20260921111043.49825-1-gautam@linux.ibm.com>
+	s=arc-20240116; t=1790147100; c=relaxed/simple;
+	bh=r8a+4eNBHeysQqTYoRMI9KPT5zoninvrg+/ruGE+Y7A=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Z456Hc1AHMyDFDfsfhathyneIGUSvk0ISanE1HsyUOM7pcTF5Neo9zep0pfzKhyUKESJDtNy0T1h5byEDnEMd9glMAiw+vw2d6xFzitFB1n9pSnOVoVCyjRbmXR/pcdZbzJXzg+2PRe+c4zsEH6oNJjgbqMWxpZtlrJUaxVxwlY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=46.101.248.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wBniigQerNqssgwAQ--.6034S3;
+	Wed, 23 Sep 2026 15:04:49 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app2 (Coremail) with SMTP id zC_KCgBn2c4QerNqgwuWBA--.49072S2;
+	Wed, 23 Sep 2026 15:04:48 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: Marc Kleine-Budde <mkl@pengutronix.de>,
+	Vincent Mailhol <mailhol@kernel.org>
+Cc: linux-can@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>,
+	stable@vger.kernel.org,
+	Song Li <songl@zju.edu.cn>
+Subject: [PATCH] can: gs_usb: kill RX URBs before destroying the netdevs
+Date: Wed, 23 Sep 2026 07:03:52 +0000
+Message-Id: <20260923070352.487595-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260921111043.49825-1-gautam@linux.ibm.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zC_KCgBn2c4QerNqgwuWBA--.49072S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?nWDCAQXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfncGSG+szpQCInt5Y8rbJUI2v+ZK8a/WB5UEqM6w+2CI+Ofbkec6KJ6j+2OqMEVpE9r+W
+	Dfxwh6G2teOWOqFrYmmp9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoW7Zw47CFy5ZrW7uw4xKrWxuFX_yoW8uFW8pF
+	srKay5tFWUXF1fAw1DJa1DuF1rAa97Aa47ua4Y9an5Zr9xA3W8JF1Fqa4j9rsrCFW2vFy0
+	vr43t3y7JF13WrXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
+	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU86c_DUUUUU==
 
-On Mon, Sep 21, 2026 at 04:40:42PM +0530, Gautam Menghani wrote:
-> A huge number of spurious interrupts can be seen immediately after a KVM
-> on PowerNV guest boots up in XIVE mode.
-> 
-> $ cat /proc/interrupts  | grep SPU
-> SPU:     223705     192439     273526     147623   Spurious interrupts
-> 
-> This bug was introduced by commit ecd10702baae5 ("KVM: PPC: Book3S HV:
-> Handle pending exceptions on guest entry with MSR_EE"). The root cause
-> is that once LPCR_MER bit is set, it is supposed to be reset by
-> software. But when a vCPU starts running with LPCR_MER set, the vCPU does
-> not exit back to the host until the decrementer expires or there is an
-> hcall, etc. This is because KVM on PowerNV guests have support for
-> native XIVE, so they are not dependent on host for interrupt emulation.
-> Due to this behaviour, a huge number of spurious interrupts are seen
-> since LPCR_MER continues to be set and LPCR_MER cannot be reset until the
-> vCPU exits to the host.
-> 
-> Fix this behaviour by not using the LPCR_MER bit whenever native XIVE is
-> available (currently in case of KVM on PowerNV only), as the XIVE hardware
-> can present interrupts to the KVM guest vCPU directly. So the LPCR_MER
-> functionality is not required. This reduces the number of spurious
-> interrupts drastically.
-Hey Gautam,
+gs_usb_disconnect() destroys the channels one by one via
+gs_destroy_candev()/free_candev(). gs_can_close() disposes the RX bulk
+URBs on the shared parent->rx_submitted anchor only when the last
+active channel is closed. With two or more channels up, the earlier
+channels are freed while their RX URBs are still submitted, and a
+completion in gs_usb_receive_bulk_callback() accesses the freed struct
+gs_can and struct net_device.
 
-Thanks for this. Can you also share the numbers after the change.
+Fix this by killing the anchored RX URBs in gs_usb_disconnect() before
+the first netdev is destroyed, and in the error path of gs_usb_probe()
+before the previously created netdevs are destroyed.
 
-Regards,
-Mukesh
-[...]
+usb_kill_anchored_urbs() waits for running completions and a killed URB
+completes with -ENOENT, so the completion handler returns without
+resubmitting the URB. The kill in gs_can_close() of the last active
+channel then operates on an already empty anchor.
+
+This issue was found by an in-house static analysis tool.
+
+Fixes: d08e973a77d1 ("can: gs_usb: Added support for the GS_USB CAN devices")
+Cc: stable@vger.kernel.org
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+---
+ drivers/net/can/usb/gs_usb.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_usb.c
+index ec9a7cb..663746d 100644
+--- a/drivers/net/can/usb/gs_usb.c
++++ b/drivers/net/can/usb/gs_usb.c
+@@ -1595,10 +1595,10 @@ static int gs_usb_probe(struct usb_interface *intf,
+ 
+ 			/* on failure destroy previously created candevs */
+ 			icount = i;
++			usb_kill_anchored_urbs(&parent->rx_submitted);
+ 			for (i = 0; i < icount; i++)
+ 				gs_destroy_candev(parent->canch[i]);
+ 
+-			usb_kill_anchored_urbs(&parent->rx_submitted);
+ 			kfree(parent);
+ 			return rc;
+ 		}
+@@ -1636,6 +1636,8 @@ static void gs_usb_disconnect(struct usb_interface *intf)
+ 		return;
+ 	}
+ 
++	usb_kill_anchored_urbs(&parent->rx_submitted);
++
+ 	for (i = 0; i < parent->channel_cnt; i++)
+ 		if (parent->canch[i])
+ 			gs_destroy_candev(parent->canch[i]);
+
