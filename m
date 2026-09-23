@@ -1,104 +1,178 @@
-Received: from fhigh-a4-smtp.messagingengine.com (fhigh-a4-smtp.messagingengine.com [103.168.172.155])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1872419FD4
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 08:51:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.155
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790153504; cv=none; b=hE51B+Zn4OD0GfJDg3OsG2yJQJKxVLZ+Kdd4w9o/NxBEQhyg10AwfgGx3DnKBDc0X06hlF4MDoB0IFyRqr5Gfax/XSbUM9S9pulmMrj0L/iGm39PbyZksVlEADg8eNrO0q8yGh/11Map0+54nIdqC4QJq5sI7boVPkKsfpx4dkk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790153504; c=relaxed/simple;
-	bh=8xFdmkERDNMYT9GJs1YpZbjEatl0XPmGU4xouAxZON4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=efygbgU8BDh4TPbyXtHhHqrpuU2EePFt2zQYnLbgrUsrGS+habmHDVKr1A85Of/UhQa2JMTLpez8VpA8sthQUcqR/dYL9m69S9n9UyeJJXhy+fZ7HG4HwI2r7KnIB0MFAARA6X3MBULpdZ7Bov4TC7A8/tEe1siQfPC4YlgwL/s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net; spf=pass smtp.mailfrom=queasysnail.net; dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b=J3f5XQ+M; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=LA/qgHSd; arc=none smtp.client-ip=103.168.172.155
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=queasysnail.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F0AF4772A5
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 08:53:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790153601; cv=pass; b=rIskHxFnRMFVZreqsLyziWBxkM1qXW8u/PzCkY1Jjzt944GwCl8kDXDz7sMb/fH9FwCO7ZlM8/sERf9FNWHRRPft4Ynml1crSbH5J/UGGC4K+anDrDFpJSVD/pZl45stXtpI9SeeFDlKlK9fIAuDNPlNax+EV///uYfUFQD5sVU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790153601; c=relaxed/simple;
+	bh=sd73B+0fv4kFWg1/BIpMIx0XVt6pOSOqH8NxgJdLnhs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=OK3vSmEwRxBHk6fuKnitLK4Hmjem4sqWgZaGqNHfnlKbRuI5kBSFamwAhiyygIUrZd7mKMqlkXDIiJ6aOGkIe6SxWbIIK9yOYbu3etSL3ZIquT6kpheX7I2QTvP874UK26LXNPe6zKe58H2VSura6M6caKTWY5ANgDmQmfSAbMs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MesPcnv+; arc=pass smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b="J3f5XQ+M";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="LA/qgHSd"
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 796EA1400056;
-	Wed, 23 Sep 2026 04:51:39 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-10.internal (MEProxy); Wed, 23 Sep 2026 04:51:39 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=queasysnail.net;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1790153499; x=
-	1790239899; bh=D3eh+PmAK1IoXX9JCxrv29DY1YVk9gtKxSHNcOJDJKY=; b=J
-	3f5XQ+MdF6AzC3YQBNodjrriAgrsdJHwjKpl0VWvQQhtl0Q7rh3k4eISIQTR59VD
-	X7dwk4h2Fau5/mEHoP5rMxKnEInmpTCxWFU8UEaXRAHaExWj1xCY490npoH7HZkK
-	Z6US+DBivEt6IsIwLgdrS0GGjsjOwANtV1uDIgGumhaenE32r4hwPTENmkQXMVKS
-	M4U1tDm5NJfuckVN4nZ4YQ0joxeu12tug9nFcrckM39HwBrYHRj8YyywIjTw/kdt
-	mZW6Ank856zFipDdbHq2sapMzmlvbp9huYW39te//Cz1eazcU6+8hkwYkZb8UXD7
-	l0OG7IUp2b2t/HoLLNH/g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1790153499; x=1790239899; bh=D3eh+PmAK1IoXX9JCxrv29DY1YVk9gtKxSH
-	NcOJDJKY=; b=LA/qgHSdQ5EjPhF7VZnIelvCDFiCHCO7jGqvxlDFD2szW4rkHv7
-	PFSwc6n0BuFAbYedDlEaBDrUsIm+QrpKXsJto6/oLViKQJTDgWgYZfODVRoR0a0F
-	SuUwidPlNwi06dldYPyHsyFRYwCvOgfT1wT09VoiEDJkbb8Yk7hxmkZ6p9kpZ6ZO
-	eda4gBhBktPs5j8JfbmzGDz0bcArm72+U5XNYYNPDmiqC3UJ3PSumbHyF/x9+S5w
-	26jRBg6MB3Po8OhkhfwSHa0uhiA5Fb+YWN+BZB37tQgRT7rr3W6BB+eQboL79ewK
-	3odTeVclDuOTnF28or1+5ryNc3IMM3RZqRA==
-X-ME-Sender: <xms:G5Ozai1QxtktwCRIdtm-1MSYZggXA8AlHl7E3VIUDPeXOHbaLoig-w>
-    <xme:G5OzarEwiK0aInjlA0ivfACwArU3YNgqpzGgi4K2tbcyCNB03VVKFZJxgMy28z_Rg
-    6qbk-r2f1whruTxnX5Jv8D-iJa6SamjZFehshHqUM3uEiyKgck4lx8i>
-X-ME-Received: <xmr:G5Ozaoi3MNQI3QjFzVa_sfOqDU1uop4dsplwYNU7hjc6bvoDignreqHJKU6c>
-X-ME-Proxy-Cause: dmFkZTFUSbpx0TGPAZzpjSv66mNYNAzOMKxp/VEjwS4i7TjlCYXIKLblme5IkqziLb8XMY
-    uIHctklO38TLIow5Ei7MWcvdtPVE3chKeKkEvyLIK42Ac590P8nqAMqyiDJsOF7PXwcQBT
-    pnc1CafNytaroy+AE3sYb+xEAhLasXb0Au1NWkazi0ieOjXqhpwkmnUUOAKY7J+chG9iP5
-    s+XqdsAOgOnvvu2qaL78tDoXqG4xtTJmAFz2Uo5nvoqib537HYb/PoACastiYb3VzQUjVN
-    PQZSIMdWI5lL1Bc1D0yUB3ZjxDZFPbsX1P1gX/NDlD0hwPyPLHAAsZJuBuo2xZUMqlrzSG
-    pT+02UiicR4Aixm29BLTkMEj4MhF97U+F+pDBpQBITq7IdOwDTGK00YqQYvr0ZyyzsPK2I
-    lFItpV4nuV5XnzfOYhkB8qyfW5DGLblLJ8nh9q3BNXwgNguWVBuQC19NN661vTd8gXWVB2
-    dnDo9vrPaIgpZ2cU40JnzDbyCh2uWu+MKLhJBSxxmwefInJBdfW+wBfolLDVZXbI+6jJX3
-    jQXN0FTXwGPpWVVJV/GKQfEgpVjPFv3+2f1NlcdaiRjUXIsbJZUrmvQ2GbnU1daPuIKMp1
-    GBlQrirZE9Z4TuVauroR0ndb4h3egrfjFdk+WOuoqCWvHyDu2Dbo22S9UlcA
-X-ME-Proxy: <xmx:G5Ozau-d3GZGkIhcwwJ4rwarfrO6x71LbefpVqqzbgo3P1Tn51Pw1Q>
-    <xmx:G5Ozanp27sXr-_EQ45vUJDUF4lPLtgSV1o6uiQ0QxoqaZjWEHxOA-g>
-    <xmx:G5Ozal_5CSdvRIeifH9EKBeLqeQIY6QfTGGh75WibzY-ZRPn7Tq7Xg>
-    <xmx:G5OzajU6c7YQDPUORQt_unQe9MJ4toxSO5cCteUAByWRqw0CpUYW5Q>
-    <xmx:G5OzatLlqsdyMgOPjh_4S2GoV2Zl0iZ9it3Lk1JyWxdUVXnsFC_X0qI4>
-Feedback-ID: i934648bf:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 23 Sep 2026 04:51:38 -0400 (EDT)
-Date: Wed, 23 Sep 2026 10:51:36 +0200
-From: Sabrina Dubroca <sd@queasysnail.net>
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org
-Subject: Re: Patch "xfrm: propagate extack to all netlink doit handlers" has
- been added to the 5.10-stable tree
-Message-ID: <arOTGAw0cDSexlez@krikkit>
-References: <arIzFfvyTnZnz-XZ@krikkit>
- <2026-09-22-daily-reply-0007-re-xfrm-extack-dep-chain@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MesPcnv+"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c29703cb470so96226866b.0
+        for <stable@vger.kernel.org>; Wed, 23 Sep 2026 01:53:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790153592; cv=none;
+        d=google.com; s=arc-20260327;
+        b=lwhJSW05w2VHLOmP+4oJhnS3u4WdEcfV9fhw0kcuIcQUM1vLhdwPFFal1LWMZnI2Wc
+         WM4tFJRZdj922X4DTc4IET/TGfYvI2ABzmP2Yre+HB85FIz16zFmK8D+SYtm/Ei/nX/0
+         95kUE8YHkwJm4uSCggXEx+BmTch9UBIjyATQl5Hj82q/Wq0Sknc0TSr88/nGBEpuMZMw
+         U8IlpzSuxBjYbL/zjvdymaawFKeRR1z898VZEvGmclEtsTJFpKc95kA2qn+BcNRv74jZ
+         fTQkgOlyxcG/ENpdUI3GG3zMGnUCoNUO7JNkGQGHSxl3ZLlLg/RriRWuKmbFpFXnwUC/
+         4AXA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=3FLZn3X7YL11DIAVkQWpw7vFctgltGOcmiwV6tG+5Ks=;
+        fh=gXnYdF3lXB3FMjZEEFYRKpjHaxF9n6n2Z6x7JYpvwT8=;
+        b=eciUZfXydlK/gDPKImoNS0tsX/bOzTq6Y055QPUeLW70wFi1Lq2yciMYoPx/tmdx5p
+         Qv58dgyb6Qvf7F6DvG0bjhvo50WXAuCLWdVpo3YGsqoG+6ZpCpiidjtt568EE+lcX33m
+         tEq8Xa80ZTdT6y+PMyFm/D7II1EJinEG/prU78LgqOIrZc8BgOwH7YF6WM3h08qv8wsX
+         U2egjVzM7eh8gR+7z8PxBLC+ZclHL+ZjNQoAYRVwzO9tcUdrJpprZEm5ggkiGvVFTBY6
+         WSe7UC9SmIRqktIzPohAVBGzOYJmvaWqq4Da89jrMg/3VjdhMtOFc2jEwdA08F6kr0C+
+         Hs4A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790153592; x=1790758392; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3FLZn3X7YL11DIAVkQWpw7vFctgltGOcmiwV6tG+5Ks=;
+        b=MesPcnv+Gj0HST6wUepYrtVQ5V4Hcj+RKx783JSHfmhvNmhigGefBfytwDZ4SSH4pl
+         neb9bZcSGdYsWqrIOuOmI/9+U153HF6RXp/QJEKPtK8uM3x/fL43PRx+5cRrqgju5fjA
+         cMJY7Vy9YdqldLljYwKj1EecmIZL0XLRiMsoL+wj+VYPM4PI51nOOu8ERG9YOs6qBvwq
+         myuaC0myKfaBPQm9iLkYjY9XrKAJGSu4Z2q1AOpjLNTswm39CaXZ4/tcScubYNYLq7/D
+         fsMGw0eK8kBXxF3FcA69rs6NN3IhAbdKpQxe1wDoTrY5EUi4Vy2iR4nPA1fwIKTDoLXQ
+         RE7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790153592; x=1790758392;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3FLZn3X7YL11DIAVkQWpw7vFctgltGOcmiwV6tG+5Ks=;
+        b=yxPOjZCPXmB7U8QCSpm9gLF2l8FGuUmbJGlYtix/O2eajz6BU9Hll2VC+CXWqJP7QE
+         e9ZD3hdxVpMyTZanloSPyMQ4G133czBbSTDmTkMjRrmgXOYcpTWb0mKLj4J3RrT5YtcQ
+         pSAyFfg8/hIpBbbCVjAe9zgmI1/w3pY7QD4/J5Qc0bEEdfyHq+PK+XooERMeuGlJ4+WO
+         opzfu+IVNlPf5aRt/yirYAiB1jPbKWtKA/VTMEEnNof5PJugnJnEEEN0ZX9s+ZRVwSN/
+         ULu4d1vGVCYlJZ9OCS7N831l/l8Om9vPijCPh/eTuReJXoPxivED+klXX/Ohf4Vjyhgw
+         53hQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw+BozcvV/DG1oCpNiANdFys8e33nJ2MKCJ0/OFQJXg9r7GE2s3HEPyLhVGiUnaM5vFdQMu620=@vger.kernel.org
+X-Gm-Message-State: AFuF++n/kBShmidVGwsjUJj+45Dab/MvadVsntO2WjewmJMDeCum2wMo
+	0ZivqRxgiSNB2kJXX0Nl+Fo/dGdLKa8H1iUhwZg9pk45LtN91O2SPPlDt1gCr9CvlpIbyfnE0Os
+	A3Xb/hdbZJgVDTTHb6eyoNs21eVcXads=
+X-Gm-Gg: AYBFou08cilbj8XmwbfDXFVRvhTD+m7PEdm4aQsBJy2VLLMGJmPHi8nrlUtJJyycWxf
+	W227YPyFaa6Z2P2PxSNPOCkVT4bXoIcBsPMZkVCmGrUMqSfG4leuMFuEeXXAdHI6DmgSGPzwS36
+	I25bMpPaRQdDd7tpRudMUuOJawvHwh0dhZoaJzTrADI/FoZvsmxJIYZparUdV+W6k9MRjf2Mxw6
+	DOBS9ZvKwBHSSH6R4tSVb7cSp7s+xuU9eIaPhPLJyYcqsSHlWMi39fbYgc8GsTm5qUOSDVU5cv4
+	zBpZHq9wjgo5n4sZ7nNUt4e8EpP5NS2HrOVQ3MY2+nm1sECSgssGqX8BfvmOXt9Xys5w
+X-Received: by 2002:a17:907:972a:b0:c29:f5d8:9c7b with SMTP id
+ a640c23a62f3a-c2aadcc89c2mr161328266b.42.1790153591027; Wed, 23 Sep 2026
+ 01:53:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <2026-09-22-daily-reply-0007-re-xfrm-extack-dep-chain@kernel.org>
+References: <CANypQFZzxTAH=4QRRDoqH6VAw1daAq88NDWiQKoM7QTOnP40sg@mail.gmail.com>
+ <20260916084723.877552-1-r772577952@gmail.com>
+In-Reply-To: <20260916084723.877552-1-r772577952@gmail.com>
+From: Jiaming Zhang <r772577952@gmail.com>
+Date: Wed, 23 Sep 2026 16:52:32 +0800
+X-Gm-Features: AcwNN1UMfSu8IzUIQZOKw71fWeU3uvzM62Ysf-NXrGIr3kl704yBCqU3vyMQB5A
+Message-ID: <CANypQFaFf4mGrr_pLRyPgKCTDX-0vCd0nnwHenwn1xxQSa5X0w@mail.gmail.com>
+Subject: Re: [PATCH] ext4: clear in-inode xattr space before adding the first xattr
+To: linux-ext4@vger.kernel.org, tytso@mit.edu
+Cc: adilger.kernel@dilger.ca, jack@suse.cz, libaokun@linux.alibaba.com, 
+	linux-kernel@vger.kernel.org, ojaswin@linux.ibm.com, ritesh.list@gmail.com, 
+	syzkaller@googlegroups.com, yi.zhang@huawei.com, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-2026-09-22, 11:39:00 -0400, Sasha Levin wrote:
-> > You're backporting all this stuff to avoid a completely trivial
-> > conflict on the nlmsg_unicast call in the context for d1ebd9081879? :/
-> 
-> Yes, and you are right that the conflict is trivial. The deps went in so that
-> d1ebd9081879 ("xfrm: fix compat ALLOCSPI request use-after-free") stays a
-> mechanical cherry-pick on every tree instead of a hand-resolved one.
-> 
-> This makes it much easier for us to maintain the trees for longer, as there are
-> less conflicts we will need to resolve in the future.
+Jiaming Zhang <r772577952@gmail.com> =E4=BA=8E2026=E5=B9=B49=E6=9C=8816=E6=
+=97=A5=E5=91=A8=E4=B8=89 16:47=E5=86=99=E9=81=93=EF=BC=9A
+>
+> An inode can hold extended attributes in the space that follows its extra
+> fields, whose size is given by i_extra_isize.  When ext4 loads an inode,
+> ext4_iget_extra_inode() validates that space only if it starts with the
+> xattr magic, and only then sets EXT4_STATE_XATTR.  Without the magic, the
+> space is treated as empty and is not checked.
+>
+> ext4_xattr_ibody_set() passes the space to ext4_xattr_set_entry() whether
+> or not EXT4_STATE_XATTR is set.  ext4_xattr_set_entry() walks the entries
+> there to find min_offs, the lowest value offset.  That offset decides
+> whether the new value fits and where the value is copied:
+>
+>         free =3D min_offs - ((void *)last - s->base) - sizeof(__u32);
+>         ...
+>         void *val =3D s->base + min_offs - new_size;
+>
+> A crafted image can leave non-zero bytes in that space without the magic
+> where ext4 looks for it, for example by shrinking i_extra_isize.  Those
+> bytes are parsed as entries, and an entry that claims an in-inode value a=
+t
+> offset 0 sets min_offs to 0.  Because free is a size_t, the subtraction
+> then wraps around to a huge value, and the free space check passes althou=
+gh
+> the value does not fit.  The value is copied new_size bytes before the
+> start of the space, over the inode's own fields and, for a large value, t=
+he
+> memory in front of the inode.
+>
+> On a kernel without KASAN, the copy corrupts memory: it overwrites the
+> inode's own fields and, for a large value, also the memory in front of th=
+e
+> inode.  The bytes and their length are decided by the setxattr() caller.
+> Nothing is freed and reused here, so the use-after-free in the report onl=
+y
+> reflects where the write happened to land.
+>
+> Triggering this issue requires mounting a crafted image, which needs
+> CAP_SYS_ADMIN or automounting of removable media; after that, any
+> setxattr() on the file reaches this path.  The issue was found by fuzzing
+> and has not been seen in production; a reproducer is available in the
+> linked report.
+>
+> Clear the space in ext4_xattr_ibody_set() before calling
+> ext4_xattr_set_entry() when EXT4_STATE_XATTR is not set, so that the walk
+> starts from the empty entry list.
+>
+> Fixes: ac27a0ec112a ("[PATCH] ext4: initial copy of files from ext3")
+> Closes: https://lore.kernel.org/lkml/CANypQFZzxTAH=3D4QRRDoqH6VAw1daAq88N=
+DWiQKoM7QTOnP40sg@mail.gmail.com/
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude Code:claude-opus-5
+> Signed-off-by: Jiaming Zhang <r772577952@gmail.com>
+> ---
+>  fs/ext4/xattr.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+>
+> diff --git a/fs/ext4/xattr.c b/fs/ext4/xattr.c
+> index 5c310747b965..2e5f39b710bd 100644
+> --- a/fs/ext4/xattr.c
+> +++ b/fs/ext4/xattr.c
+> @@ -2274,6 +2274,10 @@ int ext4_xattr_ibody_set(handle_t *handle, struct =
+inode *inode,
+>                 if (IS_ERR(ea_inode))
+>                         return PTR_ERR(ea_inode);
+>         }
+> +
+> +       if (!ext4_test_inode_state(inode, EXT4_STATE_XATTR))
+> +               memset(s->first, 0, s->end - (void *)s->first);
+> +
+>         error =3D ext4_xattr_set_entry(i, s, handle, inode, ea_inode,
+>                                      false /* is_block */);
+>         if (error) {
+> --
+> 2.43.0
+>
 
-I'm quite familiar with that problem. Oh well, I guess those other
-patches are correct enough when applied on top of this old stuff.
-
--- 
-Sabrina
+Friendly ping, please tell me if any further change is needed.
