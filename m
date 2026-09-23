@@ -1,39 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFFAF43A7F5;
-	Wed, 23 Sep 2026 05:59:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C793538E8AC;
+	Wed, 23 Sep 2026 05:59:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790143153; cv=none; b=TZveW7PJspebptbu8auuad84BOvN89fhmbYAgvA65zEgiD/zEHucTZo97DzZOTHsUTCmPsNqG6x1Jkcb11APmvMUM4jWZM+IAcRM3jEkKELe4IiewQG+kkP/b1keGSEM8ehG1jcgCY48ObTpgDzgviFK8JaicaIfepIVlMXz9m0=
+	t=1790143183; cv=none; b=hw+lSHsZWn3SPo3LZdmd0JWPOgCy4haH/6cBDi3c1Zzw+oXZCiFWTG2uU90QnGSkzlcJOmiEx8MHicnqesP3849oRwM4r77cKqNawd6DzvgiydsJnQJ8zgkwnYfkLFKVV0C0YtYaDjBOr6Gt7OTpzbcnzLtoCRuivW3OF3EVyjE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790143153; c=relaxed/simple;
-	bh=DIsYpoisZIuSRrQ7vdhk/RxzbPKaMQY1RyccvFUfXlY=;
+	s=arc-20240116; t=1790143183; c=relaxed/simple;
+	bh=zLn3E7QCqvRqszOavEBlzkL5lcbMo3yk2xBaENiGQWE=;
 	h=Date:Subject:From:To:Cc:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=saWaLW/FQihu/+l/JCVUhKMvOrZRRiWhfsESTa0QDvWJdkRoLVysFYJ3+wsRxrM/zb3mRoVxg8TXXKoOogPVuHakO6s97EsTjysex/Ecqln1sRxmjrZMBhW7TJ3KQzKTadpBRkooTlVEGu8EcHcipSb1Iz60Fzct7WQL5sMtOTw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=otnh6pFm; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Zvp7xv1o787IBSzb8GZEvYtsSbn9uHqfHUkzVlWGRdNMs4XQ5svgqRRQOXhKG77isy0sLfRGVLXY625c1R+uY1InXWcrWvdzmtFCyLxDiGsGRJyX/y+oE8lvolXJBH0AnpyO1jjpw4vnvjGxyObIZoBiFcs2Q4vJnkRMSjDQrwQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i9hspl5e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="otnh6pFm"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 653F51F000FF;
-	Wed, 23 Sep 2026 05:59:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i9hspl5e"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 9F3881F00893;
+	Wed, 23 Sep 2026 05:59:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790143151;
-	bh=RHa9dgw3FWJ3HDw5tq3vuAt4ZNkUWSG4pV5oL/BC0BE=;
+	s=k20260515; t=1790143182;
+	bh=ov4YgtKC61AYAV2nRrvDo3sRbS6rTkeecSTKBxWW9eA=;
 	h=Date:Subject:From:To:Cc:In-Reply-To:References;
-	b=otnh6pFmSMAzickBbbs2FvZLwc4wUgjd+Yk6RwrwBXpxl89KywJcV4vt0hg1C/R65
-	 /XOCLGxxOjLQPes3lu7rpM+LAzOCVFWYZ7pWV5kN87J57Dx5ZGikQZNsNDbgnsVAcM
-	 OoHleUUDzcE2exWlQc2PMtXx/n4j/HTTw04IZKkYL5lYYRPK+Bt1uUFR89afnQKJ7W
-	 MglFTlIzXZ2pz/T7JYiM6oYH+kqYaenRdUlJlUYQLqXl5819YNM9ycjmw76HCZjrI5
-	 OGOQsDD9dHxUPB1bVvR05gHFMMcEZUicW8O5W2YASuZjaUMPGtNnQT0lybJVUnXMe7
-	 S0IiYsjRAaMQw==
-Date: Tue, 22 Sep 2026 22:59:11 -0700
-Subject: [PATCH 07/13] xfs: fix ondisk symlink target validation in
- xrep_dinode_check_dfork
+	b=i9hspl5eGnsHGQqHrgyCIfXzWqijld1XiqlEvvan0UAUhdW5uAhviHOilIagb7eJR
+	 R3UpevL20WsQ07WrJa4QhmtxUi8QY5gTTLUFDPnVM8Q7eoA7CkHAhQIrSznS/dAlby
+	 EeeFIDFOBMBmv+BHQxRb179q4TCbVspUk3Mzwwf5zmFxcZTBIntg6dPtCk1IWEYDBc
+	 WYndh8HqrcsZzwU2y3t2qkH96TDafK/gIejvNI5H/KRgtE2C50pWCSiNkJAEw+kawk
+	 zuUKHpAQHkDM6Y2TTR3i4X/dm5mCDDlcK5WjeCrgjnEl3XtBG4VcAxED4MKBOojBrG
+	 Y/Mq2puh/90fg==
+Date: Tue, 22 Sep 2026 22:59:42 -0700
+Subject: [PATCH 09/13] xfarray: don't crash when sorting if array element
+ crosses a folio
 From: "Darrick J. Wong" <djwong@kernel.org>
 To: cem@kernel.org, djwong@kernel.org
-Cc: dgc@kernel.org, hch@lst.de, stable@vger.kernel.org,
- linux-xfs@vger.kernel.org
-Message-ID: <179014159076.1874904.11745428983081091628.stgit@frogsfrogsfrogs>
+Cc: stable@vger.kernel.org, linux-xfs@vger.kernel.org
+Message-ID: <179014159120.1874904.10223064447351373669.stgit@frogsfrogsfrogs>
 In-Reply-To: <179014158847.1874904.13591868745136552281.stgit@frogsfrogsfrogs>
 References: <179014158847.1874904.13591868745136552281.stgit@frogsfrogsfrogs>
 Precedence: bulk
@@ -47,120 +46,111 @@ Content-Transfer-Encoding: 7bit
 
 From: Darrick J. Wong <djwong@kernel.org>
 
-LOLLM noticed that online repair of a broken symlink file could fail
-unnecessarily if a local-format symlink target isn't null terminated.
-The ondisk target isn't required to be null terminated, but repair
-enforces that anyway because it uses the validator for the incore
-symlink target.  (The incore buffer is always null-terminated).  Fix
-this by reverting the changes to xfs_symlink_shortform_verify and adding
-an ondisk-specific helper in inode_repair.c.
+LOLLM points out that if an array element crosses a folio boundary,
+xfile_get_folio returns a NULL folio pointer.  If this happens,
+si->folio is also set to NULL, and calling folio_pos/folio_address will
+just crash the kernel.  Teach this function to handle this condition by
+falling back to reading the array element into scratchpad memory.
 
-Cc: <stable@vger.kernel.org> # v6.8
-Fixes: e744cef2060559 ("xfs: zap broken inode forks")
+Cc: <stable@vger.kernel.org> # v6.6
+Fixes: cf36f4f64c2d4e ("xfs: cache pages used for xfarray quicksort convergence")
 Signed-off-by: "Darrick J. Wong" <djwong@kernel.org>
 Assisted-by: LOLLM # finding obvious bugs
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Dave Chinner <dgc@kernel.org>
 ---
- fs/xfs/libxfs/xfs_symlink_remote.h |    2 +-
- fs/xfs/libxfs/xfs_inode_fork.c     |    4 +---
- fs/xfs/libxfs/xfs_symlink_remote.c |    8 ++++++--
- fs/xfs/scrub/inode_repair.c        |   26 +++++++++++++++++++++++++-
- 4 files changed, 33 insertions(+), 7 deletions(-)
+ fs/xfs/scrub/xfarray.c |   69 +++++++++++++++++++++++++++++++++---------------
+ 1 file changed, 47 insertions(+), 22 deletions(-)
 
 
-diff --git a/fs/xfs/libxfs/xfs_symlink_remote.h b/fs/xfs/libxfs/xfs_symlink_remote.h
-index c1672fe1f17bb2..3f6590602473d0 100644
---- a/fs/xfs/libxfs/xfs_symlink_remote.h
-+++ b/fs/xfs/libxfs/xfs_symlink_remote.h
-@@ -18,7 +18,7 @@ bool xfs_symlink_hdr_ok(xfs_ino_t ino, uint32_t offset,
- void xfs_symlink_local_to_remote(struct xfs_trans *tp, struct xfs_buf *bp,
- 				 struct xfs_inode *ip, struct xfs_ifork *ifp,
- 				 void *priv);
--xfs_failaddr_t xfs_symlink_shortform_verify(void *sfp, int64_t size);
-+xfs_failaddr_t xfs_symlink_shortform_verify(struct xfs_inode *ip);
- int xfs_symlink_remote_read(struct xfs_inode *ip, char *link);
- int xfs_symlink_write_target(struct xfs_trans *tp, struct xfs_inode *ip,
- 		xfs_ino_t owner, const char *target_path, int pathlen,
-diff --git a/fs/xfs/libxfs/xfs_inode_fork.c b/fs/xfs/libxfs/xfs_inode_fork.c
-index 606a36526ce245..486fe7ab8b6110 100644
---- a/fs/xfs/libxfs/xfs_inode_fork.c
-+++ b/fs/xfs/libxfs/xfs_inode_fork.c
-@@ -683,9 +683,7 @@ xfs_ifork_verify_local_data(
- 		break;
- 	}
- 	case S_IFLNK: {
--		struct xfs_ifork	*ifp = xfs_ifork_ptr(ip, XFS_DATA_FORK);
--
--		fa = xfs_symlink_shortform_verify(ifp->if_data, ifp->if_bytes);
-+		fa = xfs_symlink_shortform_verify(ip);
- 		break;
- 	}
- 	default:
-diff --git a/fs/xfs/libxfs/xfs_symlink_remote.c b/fs/xfs/libxfs/xfs_symlink_remote.c
-index b0dc3888bf1b40..0201a3d59b1a24 100644
---- a/fs/xfs/libxfs/xfs_symlink_remote.c
-+++ b/fs/xfs/libxfs/xfs_symlink_remote.c
-@@ -208,11 +208,15 @@ xfs_symlink_local_to_remote(
-  */
- xfs_failaddr_t
- xfs_symlink_shortform_verify(
--	void			*sfp,
--	int64_t			size)
-+	struct xfs_inode	*ip)
- {
-+	struct xfs_ifork	*ifp = xfs_ifork_ptr(ip, XFS_DATA_FORK);
-+	char			*sfp = (char *)ifp->if_data;
-+	int			size = ifp->if_bytes;
- 	char			*endp = sfp + size;
- 
-+	ASSERT(ifp->if_format == XFS_DINODE_FMT_LOCAL);
-+
- 	/*
- 	 * Zero length symlinks should never occur in memory as they are
- 	 * never allowed to exist on disk.
-diff --git a/fs/xfs/scrub/inode_repair.c b/fs/xfs/scrub/inode_repair.c
-index b87c2214623383..fab4015f6a9506 100644
---- a/fs/xfs/scrub/inode_repair.c
-+++ b/fs/xfs/scrub/inode_repair.c
-@@ -1024,6 +1024,30 @@ xrep_dinode_bad_metabt_fork(
- 	return false;
+diff --git a/fs/xfs/scrub/xfarray.c b/fs/xfs/scrub/xfarray.c
+index 2ce24bfe4c0fab..5ea3ce4bf8d846 100644
+--- a/fs/xfs/scrub/xfarray.c
++++ b/fs/xfs/scrub/xfarray.c
+@@ -794,6 +794,46 @@ xfarray_sort_scan_done(
+ 	si->folio = NULL;
  }
  
-+static xfs_failaddr_t
-+xrep_symlink_shortform_verify(
-+	void			*sfp,
-+	int64_t			size)
++static int
++xfarray_sort_load_folio(
++	struct xfarray_sortinfo	*si,
++	xfarray_idx_t		idx,
++	loff_t			idx_pos)
 +{
++	struct folio		*folio;
++	loff_t			next_pos;
++
++	folio = xfile_get_folio(si->array->xfile, idx_pos, si->array->obj_size,
++			XFILE_ALLOC);
++	if (IS_ERR(folio))
++		return PTR_ERR(folio);
++	si->folio = folio;
++
++	/* No folio?  Get the caller to read into the scratchpad. */
++	if (!si->folio)
++		return 0;
++
++	si->first_folio_idx = xfarray_idx(si->array,
++			folio_pos(si->folio) + si->array->obj_size - 1);
++
++	next_pos = folio_next_pos(si->folio);
++	si->last_folio_idx = xfarray_idx(si->array, next_pos - 1);
++	if (xfarray_pos(si->array, si->last_folio_idx + 1) > next_pos)
++		si->last_folio_idx--;
++
 +	/*
-+	 * Zero length symlinks should never occur in memory as they are
-+	 * never allowed to exist on disk.
++	 * If this folio still doesn't cover the desired element, it must cross
++	 * a folio boundary.  Get the caller to read into the scratchpad.
 +	 */
-+	if (!size)
-+		return __this_address;
++	if (idx < si->first_folio_idx || idx > si->last_folio_idx) {
++		xfarray_sort_scan_done(si);
++		return 0;
++	}
 +
-+	/* No negative sizes or overly long symlink targets. */
-+	if (size < 0 || size > XFS_SYMLINK_MAXLEN)
-+		return __this_address;
-+
-+	/* No NULLs in the target either. */
-+	if (memchr(sfp, 0, size))
-+		return __this_address;
-+
-+	/* ondisk symlink target isn't null terminated, unlike incore */
-+	return NULL;
++	trace_xfarray_sort_scan(si, idx);
++	return 0;
 +}
 +
  /*
-  * Check the data fork for things that will fail the ifork verifiers or the
-  * ifork formatters.
-@@ -1099,7 +1123,7 @@ xrep_dinode_check_dfork(
- 			return true;
- 		/* symlink structure must pass verification. */
- 		if (S_ISLNK(mode) &&
--		    xfs_symlink_shortform_verify(dfork_ptr, data_size) != NULL)
-+		    xrep_symlink_shortform_verify(dfork_ptr, data_size) != NULL)
- 			return true;
- 		break;
- 	case XFS_DINODE_FMT_EXTENTS:
+  * Cache the folio backing the start of the given array element.  If the array
+  * element is contained entirely within the folio, return a pointer to the
+@@ -819,33 +859,18 @@ xfarray_sort_scan(
+ 	    (idx < si->first_folio_idx || idx > si->last_folio_idx))
+ 		xfarray_sort_scan_done(si);
+ 
+-	/* Grab the first folio that backs this array element. */
++	/* Grab the folio that backs this array element. */
+ 	if (!si->folio) {
+-		struct folio	*folio;
+-		loff_t		next_pos;
+-
+-		folio = xfile_get_folio(si->array->xfile, idx_pos,
+-				si->array->obj_size, XFILE_ALLOC);
+-		if (IS_ERR(folio))
+-			return PTR_ERR(folio);
+-		si->folio = folio;
+-
+-		si->first_folio_idx = xfarray_idx(si->array,
+-				folio_pos(si->folio) + si->array->obj_size - 1);
+-
+-		next_pos = folio_next_pos(si->folio);
+-		si->last_folio_idx = xfarray_idx(si->array, next_pos - 1);
+-		if (xfarray_pos(si->array, si->last_folio_idx + 1) > next_pos)
+-			si->last_folio_idx--;
+-
+-		trace_xfarray_sort_scan(si, idx);
++		error = xfarray_sort_load_folio(si, idx, idx_pos);
++		if (error)
++			return error;
+ 	}
+ 
+ 	/*
+-	 * If this folio still doesn't cover the desired element, it must cross
+-	 * a folio boundary.  Read into the scratchpad and we're done.
++	 * If we don't have a folio mapping the entire array element, read into
++	 * the scratchpad and we're done.
+ 	 */
+-	if (idx < si->first_folio_idx || idx > si->last_folio_idx) {
++	if (!si->folio) {
+ 		void		*temp = xfarray_scratch(si->array);
+ 
+ 		error = xfile_load(si->array->xfile, temp, si->array->obj_size,
 
