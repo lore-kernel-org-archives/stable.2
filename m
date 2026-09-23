@@ -1,175 +1,278 @@
-Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
+Received: from mta1.migadu.com (out-5.mta1.migadu.com [95.215.58.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C29BA418359
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 09:54:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B44E47DD78
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 09:55:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790157292; cv=none; b=HJYRc7Ke61S6g4Ck7cJCh5Uzmquxm7TYnsexkW/HWJHqu2jVZoSdKaUtcpUiAwiAgmur3mADmhPxiOXhzwqXX9S6eTQ0Oxml6Ejb+3PLm8t5bnKENro5N5iRUyIUcMbXXvlrHQ7t0n+LL9QYyE9ckCgSMzMUYuGc+UDlPIIo08c=
+	t=1790157358; cv=none; b=pXAJlAca+GrjY1Iix2rtNcIuBgViBcfX84zJela2uO8Sss679llnK0iXKN1ldu+kgcvfhV7+lLcuBiJr8ZfQmIogosSRh6iRbbHGGkwt3oa5m8LH/pmEIz8Kc6oOOl0/giCQVBsuhQ1ls2LUR/nIeHVTTX3KBqQXlLR5MKD0BXA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790157292; c=relaxed/simple;
-	bh=IUticTq4foak3yxsGQl2vQDiakNmvntsdMGpOFGsCD8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=glHwU7GgnnvUZ4x1EuGizLDMfpC4n3/eMirBqIEcncIK17eyPgEFPLljptZL7XYlaKzld89qYbvtsnMmhfEQ6YbyAv41EZ42C9jFG3WxgUmueuOPL9L1Fkv28FjT+rW7gjSkcAG4WCVVxEndbpT/dR+JUOY6lWs+GfGZ7lDE0sg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=iisnueaK; arc=none smtp.client-ip=74.125.227.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+	s=arc-20240116; t=1790157358; c=relaxed/simple;
+	bh=uJ1O5s9VLtgzemkGDdrkmpPu2/dB4/tV80lAnRg6dCo=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=BlWppKVZHIuPwIZq5mflRU8OwQjXxCIsrXsqgnDj87jLoIT+SuOSl45GUPPLMwVyZ5gYNnVaKzwnOMPUJO6ArAeP1hWeGSaXb5zHwOM+iu16IGsnhJSG8u1MwjmM1uE2MgBvAmMyGAlfRQpKBkGiIfN2oezqvZdcww7ez0HivOQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ciGN5Y9+; arc=none smtp.client-ip=95.215.58.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="iisnueaK"
-Received: by mail-pj2-f42.google.com with SMTP id d9443c01a7336-2df4aa80a73so4376855ad.3
-        for <stable@vger.kernel.org>; Wed, 23 Sep 2026 02:54:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1790157288; x=1790762088; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aQDxycOIV80BPgrqxrzM7NANBApnebD30BToWezPxAI=;
-        b=iisnueaKSaCz7CXaV8b7t8il/3RUHIYzy6lPx6TVpmG9za1rfF1/0Je4dT+5Ut8icn
-         MDCQDiJ3nd2CFnN3rea8FYDjR42/I00+ZXLB+I0amPG2W87scf2m96JZ9n1w5+nFzJ0b
-         toCVyg4+DOWleDkqmhccJAFWDdnsdfz1Lwl+eCsdJcFDzyLOoMDOeuuczfH/WNdxmsif
-         j1PjijPDrKyO1I6DvULKYCDjVQF8BEhsvhXikiIkTqyGKxKYIdb1FaxQUZNBe3cahPGd
-         N6n0b+rajCoH3tcNnrdxv4+9hju/Tz760jp7p/gGY1E++LswVcYcsYZEcIVyL4cIgvwY
-         Myag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790157288; x=1790762088;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aQDxycOIV80BPgrqxrzM7NANBApnebD30BToWezPxAI=;
-        b=W2j+ny0vHVgGDCcMpwYDZ8enTYK0S5ZiWdOh/DLIvTFTc6BPUQvKfOHYfMf2s+cqdd
-         o9oySZvkQ87m5mcRUnYZvcZziqBW7zrx/15r6LZ5kxnjKc51fV9xuEwo3S1LvugB0Kca
-         0xHPYCXFtKOzUkJwbR836c0Po1nlyez0R++lRN2NQZ/VH109b4Cohf6+RAjIxTuYwFqm
-         yaeovAD15fYkLhW0jdS+d5fKCNlnC1Fez9IDtz5HFkeAgrOuKNs8bPQpJrm1irh3YqOx
-         wweOkiyVFSEARJ6JE2D6J9F4cIJhHiTuTXKEuKuqyYSGyQPByJKG/03wKB55aLTpVhPd
-         4BiA==
-X-Forwarded-Encrypted: i=1; AKwUvByYT0UGiSoJoDdREl4b+tKaeATKkA59JEzbeeHOt+9F2NvwWVP+X2/gGH6BfMmgZardPiXveqQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lqHp7RQ6n0xQxoY5gKFJPGC5k/W30clyO2M4dglVhr9eNn2cvU
-	7cRn3GpQjAzeSGxwcYc0mcj414uvjZLl21zlTdgZZ0F66k0WwRV6VPQlm7YyUkWOn7j0
-X-Gm-Gg: AYBFou3MQOsem8UKwTBO7lEAd7JYwr59LbsBGr2oSvEmq13MWJzyBLEJP7n4uP0JLqJ
-	VbwRucY9NKL+U3x61cQPT+gO+vxrQrbPQXaTbOF0UnkOB6OqhCJ8nanRwSWRDL1wzI5iADxl2YB
-	l4YxzLrrwBKQEaJ3fVEKl/WfnB8DrcXsszXyT6pk8j1gNO76SxHNkZ3UmuJpOHFr4ombxe8EYDr
-	sW0rY8tYRbeCtLwDc5ezdxgKy8D/97UHe9q5nW6yCSue5i6bNoHECz3+JWVYnV4KT1wT1EkoSv6
-	oGf7dLvgaio/BKwVuwbQCTdEM8+8fAcfScVG1za/BoeIrkFWdlEw+ZOOmTX7IFqPbfCI+ktd0t0
-	x538jHe1zQ0uYxsv0NEUoi4xI//3SKEXoB4p5Q8q+JK7dW1vgp8NLiAdIxhJEtR8gEw58E7gQkS
-	ZWo9nUWqgQiX2wA/9ZEnZ8aOiUaT5w5dZy++iRB2BLvMRb2P86qkQWpg0BUdiUNnO5HNW7wTsIj
-	osWEz8kj9qOK699tzKzCZWPL0eEIQ==
-X-Received: by 2002:a17:903:234e:b0:2dd:ad73:c983 with SMTP id d9443c01a7336-2df69d595f0mr17906435ad.27.1790157287897;
-        Wed, 23 Sep 2026 02:54:47 -0700 (PDT)
-Received: from 954df21a5119.. ([122.51.212.64])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07dc5f3d7sm4793862a91.16.2026.09.23.02.54.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 02:54:47 -0700 (PDT)
-From: Zihan Xi <zihanx@nebusec.ai>
-To: netfilter-devel@vger.kernel.org
-Cc: netdev@vger.kernel.org,
-	lvs-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	linux-kernel@vger.kernel.org,
-	horms@verge.net.au,
-	ja@ssi.bg,
-	zihanx@nebusec.ai,
-	pablo@netfilter.org,
-	fw@strlen.de,
-	phil@nwl.cc,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	stable@vger.kernel.org,
-	Vega <vega@nebusec.ai>,
-	Luxing Yin <root@tr0jan.top>
-Subject: [PATCH nf v4 3/3] ipvs: reject FTP control ports as data ports
-Date: Wed, 23 Sep 2026 09:54:15 +0000
-Message-ID: <b5c5a01607eabe55a6a5a27a9ed40a0ac8ec65fe.1790146910.git.zihanx@nebusec.ai>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1790146910.git.zihanx@nebusec.ai>
-References: <cover.1790146910.git.zihanx@nebusec.ai>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ciGN5Y9+"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=uJ1O5s9VLtgzemkGDdrkmpPu2/dB4/tV80lAnRg6dCo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790157354; v=1; x=1790762154;
+ b=ciGN5Y9+jbEgWZ9u8vHalcYYozkWFW1c/WZqxX2fT+rzwkcLDPt7eYeNx10QhY2bYTzJnxXw
+ Q5Veq2rz0dYfteX26KvuXueXNAVqlEdAD2FeqH9ESbeRzMhFt/L8VCVMzGf6OGMH8KmSAu4vcl/
+ Yv3ki7MqFPJGH++DtehsSp/Q=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 2fd1ec4fc6184996;
+	Wed, 23 Sep 2026 09:55:54 +0000
+X-Mizu-Trace-ID: 2fd1ec4fc6184996
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <2f01bd33-6b51-4978-a19b-cd1fd0bd013c@linux.dev>
+Date: Wed, 23 Sep 2026 17:55:49 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Cc: hongfu.li@linux.dev, Hongfu Li <lihongfu@kylinos.cn>,
+ Chris Down <chris@chrisdown.name>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, cgroups@vger.kernel.org,
+ stable@vger.kernel.org, Oscar Salvador <osalvador@suse.de>,
+ David Hildenbrand <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Michal Hocko <mhocko@suse.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Nhat Pham <nphamcs@gmail.com>, Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>
+Subject: Re: [PATCH v2 2/2] mm/memcg: migrate per-node hugetlb lruvec stat
+ together with hugetlb folio
+To: Muchun Song <muchun.song@linux.dev>
+References: <20260923-for-hugetlb_state3-v2-0-e8a36245bfab@kylinos.cn>
+ <20260923-for-hugetlb_state3-v2-2-e8a36245bfab@kylinos.cn>
+ <15ac7069-d687-4985-90bd-25bc900b4bdd@linux.dev>
+ <1835413c-e2de-41b0-8225-161afa50676a@linux.dev>
+ <10149B0C-4108-4DB6-84B7-A301E8158CA4@linux.dev>
+From: Hongfu Li <hongfu.li@linux.dev>
+In-Reply-To: <10149B0C-4108-4DB6-84B7-A301E8158CA4@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-ip_vs_ftp_out() creates a wildcard data connection from the
-server-advertised passive port. If that port is one of the configured FTP
-control ports, ip_vs_conn_new() binds the FTP helper to the new connection
-again. A subsequent wildcard lookup can then extend a controlled-connection
-chain.
 
-Reject zero and configured control ports before creating passive
-connections. For active mode, reject a zero client port and a data port
-derived from a configured control port.
+On 9/23/26 3:56 PM, Muchun Song wrote:
+>
+>> On Sep 23, 2026, at 11:40, Hongfu Li <hongfu.li@linux.dev> wrote:
+>>
+>>
+>> On 9/23/26 10:40 AM, Muchun Song wrote:
+>>>
+>>> On 2026/9/23 10:05, Hongfu Li wrote:
+>>>> From: Hongfu Li <lihongfu@kylinos.cn>
+>>>>
+>>>> memory.numa_stat exposes per-node hugetlb counters from per-node lruvec
+>>>> stats. These stats are accounted against folio_nid(): incremented on
+>>>> the folio's node when handed to a user, decremented when the folio is
+>>>> returned to the pool.
+>>>>
+>>>> During hugetlb folio migration, mem_cgroup_migrate() moves the charge
+>>>> to the new folio and drops the memcg data of the old one, so the free
+>>>> of the old folio right after the migration skips the memcg per-node
+>>>> lruvec decrement. The hugetlb count stays attributed to the old node
+>>>> for the rest of the life of the charge, while the target folio gets no
+>>>> increment on the new node; its later free decrements a counter that
+>>>> was never incremented.
+>>>>
+>>>> Migrate the per-node lruvec accounting alongside migration. Global
+>>>> memcg totals remain balanced because they track resource consumption,
+>>>> not node placement.
+>>>>
+>>>> Fixes: 05d4532b60e3 ("memcg/hugetlb: add hugeTLB counters to memcg")
+>>>> Cc: stable@vger.kernel.org
+>>>> Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
+>>>> Tested-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+>>>> Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+>>>> Reviewed-by: Oscar Salvador <osalvador@suse.de>
+>>>> ---
+>>>>    include/linux/memcontrol.h |  8 ++++++++
+>>>>    mm/hugetlb.c               | 25 +++++++++++++++++++++++++
+>>>>    mm/memcontrol.c            |  5 ++---
+>>>>    3 files changed, 35 insertions(+), 3 deletions(-)
+>>>>
+>>>> diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
+>>>> index a8358f297b65..74110a324f9e 100644
+>>>> --- a/include/linux/memcontrol.h
+>>>> +++ b/include/linux/memcontrol.h
+>>>> @@ -984,6 +984,9 @@ unsigned long lruvec_page_state_monotonic(const struct lruvec *lruvec,
+>>>>    unsigned long lruvec_page_state_local(const struct lruvec *lruvec,
+>>>>                          enum node_stat_item idx);
+>>>>    +void mod_memcg_lruvec_state(struct lruvec *lruvec,
+>>>> +                enum node_stat_item idx, int val);
+>>>> +
+>>>>    void mem_cgroup_flush_stats(struct mem_cgroup *memcg);
+>>>>    void mem_cgroup_flush_stats_ratelimited(struct mem_cgroup *memcg);
+>>>>    @@ -1452,6 +1455,11 @@ static inline unsigned long lruvec_page_state_local(const struct lruvec *lruvec,
+>>>>        return node_page_state(lruvec_pgdat(lruvec), idx);
+>>>>    }
+>>>>    +static inline void mod_memcg_lruvec_state(struct lruvec *lruvec,
+>>>> +                      enum node_stat_item idx, int val)
+>>>> +{
+>>>> +}
+>>>> +
+>>>>    static inline void mem_cgroup_flush_stats(struct mem_cgroup *memcg)
+>>>>    {
+>>>>    }
+>>>> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+>>>> index 519c30b338a8..76d019594b39 100644
+>>>> --- a/mm/hugetlb.c
+>>>> +++ b/mm/hugetlb.c
+>>>> @@ -23,6 +23,7 @@
+>>>>    #include <linux/mmdebug.h>
+>>>>    #include <linux/sched/signal.h>
+>>>>    #include <linux/rmap.h>
+>>>> +#include <linux/rcupdate.h>
+>>>>    #include <linux/string_choices.h>
+>>>>    #include <linux/string_helpers.h>
+>>>>    #include <linux/swap.h>
+>>>> @@ -7378,12 +7379,36 @@ void folio_putback_hugetlb(struct folio *folio)
+>>>>        folio_put(folio);
+>>>>    }
+>>>>    +static void move_hugetlb_lruvec_stat(struct folio *old_folio,
+>>>> +                     struct folio *new_folio)
+>>>> +{
+>>>> +    struct mem_cgroup *memcg;
+>>>> +    long nr_pages = folio_nr_pages(old_folio);
+>>>> +    int old_nid = folio_nid(old_folio);
+>>>> +    int new_nid = folio_nid(new_folio);
+>>>> +
+>>>> +    if (old_nid == new_nid)
+>>>> +        return;
+>>>> +
+>>>> +    guard(rcu)();
+>>>> +
+>>>> +    memcg = folio_memcg(new_folio);
+>>>> +    if (!memcg)
+>>>> +        return;
+>>>> +
+>>>> +    mod_memcg_lruvec_state(mem_cgroup_lruvec(memcg, NODE_DATA(old_nid)),
+>>>> +                   NR_HUGETLB, -nr_pages);
+>>> Why not use mod_lruvec_state? mod_memcg_lruvec_state is an internal
+>>> API for memcg, I don't want it to be exported.
+>> Thank you for the review.
+>>
+>> mod_lruvec_state() would update the node counter a second time.  It calls
+>> mod_node_page_state() as well, and the target's node counter is already
+>> updated in alloc_hugetlb_folio_nodemask() (patch 1/2):
+>>
+>>      lruvec_stat_mod_folio(folio, NR_HUGETLB, folio_nr_pages(folio));
+>>
+>> For an uncharged folio lruvec_stat_mod_folio() only updates the node
+>> counter.  The target folio is not charged to any memcg at that point; its
+>> charge only appears later in mem_cgroup_migrate().  So the node side is
+>> already covered and only the per-memcg attribution has to follow the
+>> charge here.
+> Looking at the first patch again, I do not think the
+> overall accounting is incorrect. My concern is where NR_HUGETLB
+> accounting is performed.
+>
+> The low-level allocation helpers only take a folio from the
+> hugetlb pool. They do not have enough context to decide how
+> the folio should be accounted. That decision should be left
+> to their callers, once the folio enters the relevant usage
+> lifecycle.
+>
+> hugetlb_alloc_folio() is a good example. It first obtains a
+> folio, then calls mem_cgroup_charge_hugetlb(), and only
+> afterwards calls lruvec_stat_mod_folio(). At that point,
+> the folio has the correct memcg and lruvec, so all relevant
+> counters can be updated together.
+>
+> After this series, alloc_hugetlb_folio_reserve() and
+> alloc_hugetlb_folio_nodemask() account NR_HUGETLB before
+> returning the folio. This makes them unsuitable for callers
+> that need to charge the folio afterwards. Before the charge,
+> lruvec_stat_mod_folio() can update only the node counter.
+> The later charge does not associate that earlier update with
+> the new memcg.
+>
+> If a caller accounts again after charging, the node counter is
+> updated twice. If it does not, the memcg and per-node lruvec
+> counters remain missing. The caller then needs a memcg-only
+> correction, creating a special accounting protocol between
+> the helper and its callers.
+>
+> Migration exposes the same issue. The target gets node
+> accounting before it inherits the source memcg. The second patch
+> must update the lruvec state and then cancel its node changes,
+> because the target allocation already updated the node counter.
+> This works, but makes the accounting lifecycle harder to follow.
+>
+> Would it be cleaner to keep these helpers focused on allocation
+> and let each caller account at the correct lifecycle point?
+> Normal allocation can account after a successful memcg charge.
+> Migration can move the complete lruvec state after it succeeds.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: LLM
-Co-developed-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
----
-changes in v4:
-  - Resend the FTP helper fix as patch 3/3 with the generic cleanup fixes.
-  - v3 Link:
-    https://lore.kernel.org/all/cover.1789877273.git.zihanx@nebusec.ai/
-changes in v3:
-  - Keep the active-mode guard for configured FTP control ports.
-  - v2 Link:
-    https://lore.kernel.org/all/cover.1789435989.git.zihanx@nebusec.ai/
-changes in v2:
-  - Add the active-mode check for a data port derived from a configured
-    control port.
-  - v1 Link:
-    https://lore.kernel.org/all/cover.1789110326.git.zihanx@nebusec.ai/
+Hi Muchun,
 
- net/netfilter/ipvs/ip_vs_ftp.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+Thanks a lot for the detailed explanation.
 
-diff --git a/net/netfilter/ipvs/ip_vs_ftp.c b/net/netfilter/ipvs/ip_vs_ftp.c
-index 9e3e005a82635..4822a1a75212d 100644
---- a/net/netfilter/ipvs/ip_vs_ftp.c
-+++ b/net/netfilter/ipvs/ip_vs_ftp.c
-@@ -62,6 +62,17 @@ static unsigned short ports[IP_VS_APP_MAX_PORTS] = {21, 0};
- module_param_array(ports, ushort, &ports_count, 0444);
- MODULE_PARM_DESC(ports, "Ports to monitor for FTP control commands");
- 
-+static bool is_control_port(u16 port)
-+{
-+	unsigned int i;
-+
-+	for (i = 0; i < ports_count; i++) {
-+		if (ports[i] == port)
-+			return true;
-+	}
-+	return false;
-+}
-+
- 
- static char *ip_vs_ftp_data_ptr(struct sk_buff *skb, struct ip_vs_iphdr *ipvsh)
- {
-@@ -319,6 +330,10 @@ static int ip_vs_ftp_out(struct ip_vs_app *app, struct ip_vs_conn *cp,
- 		return 1;
- 	}
- 
-+	/* Do not redirect data to control ports */
-+	if (!port || is_control_port(ntohs(port)))
-+		return 0;
-+
- 	/* Now update or create a connection entry for it */
- 	{
- 		struct ip_vs_conn_param p;
-@@ -529,6 +544,9 @@ static int ip_vs_ftp_in(struct ip_vs_app *app, struct ip_vs_conn *cp,
- 		return 1;
- 	}
- 
-+	if (!port || is_control_port(ntohs(cp->vport) - 1))
-+		return 0;
-+
- 	/* Passive mode off */
- 	cp->app_data = (void *) IP_VS_FTP_ACTIVE;
- 
+One thing keeps the target accounting in alloc_hugetlb_folio_nodemask(): the
+node counter is paired with the folio's free, and a failed migration 
+frees its
+target right away (put_new_folio()/folio_put() -> free_huge_folio(), which
+always decrements the node counter). If the target were accounted only 
+after a
+successful migration, every failed migration would decrement a node counter
+that was never incremented.
+
+Unless there is a way to let free_huge_folio() tell that the folio comes
+from a failed migration, and skip the decrement for it.
+
+> An uncharged path can explicitly update only the node counter
+> if global accounting is still required.
+>
+> This would keep policy out of the low-level allocator and make
+> the accounting lifecycle easier to follow.
+>
+> Thanks.
+>
+>>> Thanks.
+>>>
+>>>> + mod_memcg_lruvec_state(mem_cgroup_lruvec(memcg, NODE_DATA(new_nid)),
+>>>> +                   NR_HUGETLB, nr_pages);
+>>>> +}
+>>>> +
+>>>>    void move_hugetlb_state(struct folio *old_folio, struct folio *new_folio,
+>>>>                enum migrate_reason reason)
+>>>>    {
+>>>>        struct hstate *h = folio_hstate(old_folio);
+>>>>          hugetlb_cgroup_migrate(old_folio, new_folio);
+>>>> +    move_hugetlb_lruvec_stat(old_folio, new_folio);
+>>>>        folio_set_owner_migrate_reason(new_folio, reason);
+>>>>          /*
+>>>> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+>>>> index 88824f783571..a5335da5d425 100644
+>>>> --- a/mm/memcontrol.c
+>>>> +++ b/mm/memcontrol.c
+>>>> @@ -1015,9 +1015,8 @@ static void __mod_memcg_lruvec_state(struct mem_cgroup_per_node *pn,
+>>>>        put_cpu();
+>>>>    }
+>>>>    -static void mod_memcg_lruvec_state(struct lruvec *lruvec,
+>>>> -                     enum node_stat_item idx,
+>>>> -                     int val)
+>>>> +void mod_memcg_lruvec_state(struct lruvec *lruvec,
+>>>> +                enum node_stat_item idx, int val)
+>>>>    {
+>>>>        struct pglist_data *pgdat = lruvec_pgdat(lruvec);
+>>>>        struct mem_cgroup_per_node *pn;
+>>>>
+>> -- 
+>> Best regards,
+>> Hongfu
+
 -- 
-2.43.0
+Best regards,
+Hongfu
 
