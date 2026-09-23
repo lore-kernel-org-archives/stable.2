@@ -1,108 +1,197 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A30635E1BD
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 01:46:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AF75361DBC;
+	Wed, 23 Sep 2026 01:49:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790127970; cv=none; b=lVQtGfmZoteXScJFK64wYG756gligMZ6lZP0UcRO8jH5ykdAILf/4i35BG2v52AO8P98peGNOaQsB5yo++KXYWfUNpm3vYpAn3Ondxj3RVroNQhgW7WyAgNcBIM0U+YrWi9CL1I0IVbMJG+Sg6b0dUQp4iF0GqhYLvjaJ3y2dC8=
+	t=1790128177; cv=none; b=sV+ipQk/zs7ixhQxf7hvNhNrEE1mgosob5lRoifB/N0fQfAjf9UKljMppUKorcLIzD/QByiNgJioQiDmXyezbGnAKKCm/8MirtxSUpOWKVM+pX/fxoUCFAzeNQfa2Nn4PpQrWik0IzFKUh4Rjh3W84cAFC8Q8JBma9p9SaOfkR0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790127970; c=relaxed/simple;
-	bh=c9WTH2fAx4O26my8A0H3dUrE/uN/VcmZtjFma6CQvh4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LxafvcOLjF0jH9Eh+HshJMX+ex219iRJBqT3G2rHP1CMZHmvJ7wkUmfEq2TOzrpFZnyp6TyEhIBccr8aF6nvZb6+0m2OrCYarCyNiGv9MTxJqXt78ub/vNTkzH8sM/n8F1qD8n3Dl2sPAC+Cz3CraNIOJ4Cv2K4IgTD+k3Z4gTo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=naKkHeRd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790128177; c=relaxed/simple;
+	bh=6WacAMhJhN33lkmIwdjT9IIIZcvTMGPTv52TgFOvHoc=;
+	h=Date:To:From:Subject:Message-Id; b=dK0IxEWcZNekem00gajFuNVxZAD6grfVeFsl/QecZZ2o6PYuZECE/+Vd6OaLg9MEJQlxG5qK7FoV1LAvVemJMg8j6dsVX1UWDORYhcjNt8ikeURm5DbKNuVabDIvDs34SuVox50cSMZhefE9goubbGK4fnIL0Zaze+tPos05hyM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=xpHHw/tC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="naKkHeRd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80E5E1F00893;
-	Wed, 23 Sep 2026 01:46:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790127969;
-	bh=gMiy2SkcrbONAYOAdWjBa/jr2TBMWR0vrrDfu0fBq68=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=naKkHeRdiW+AOCWclaGDwB+1m6P7+WETiNo8PX7VuyAl+ipJBSq1nf31QsvbT1SxQ
-	 Up2tls8jwgQGRGzUPz4+VRWBrqhM+Bg3P74oqyoOD8nTdv/0R5Hvs9TlaLfsUEgVKz
-	 4//bXhBJK6cQiyfugvZFwYKswM0TIHufRG5NUHObfsVG6dar95fm5DFMumDzo0fgDz
-	 jA7/HmKOucerh2q1+B3jHgHsWc4DPVMVKUju3Yhl3UrRCTTUwl+CdfO6e9/f6Ee84A
-	 B7ZsKqcq82x/6FWSfjW0HjBdoGgwJhbBPUUVFdBF741zzhxeYsS8ieOzGp5okxGA3G
-	 dlRP4tCu4QZqg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Frank Sorenson <sorenson@redhat.com>,
-	David Howells <dhowells@redhat.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] smb: client: fix missing lower-bound check on DFS referral string offsets
-Date: Tue, 22 Sep 2026 21:46:06 -0400
-Message-ID: <20260923014606.886810-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260923014606.886810-1-sashal@kernel.org>
-References: <2026092230-mobilize-android-8f08@gregkh>
- <20260923014606.886810-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="xpHHw/tC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03CEC1F000FF;
+	Wed, 23 Sep 2026 01:49:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1790128175;
+	bh=A7dlEp33m0/q3TPHSQSRus3ieAEuDKbx5WKHIEUJBg0=;
+	h=Date:To:From:Subject;
+	b=xpHHw/tCMWcMa7Y8FjfThoRZLGDQHbIVdt9uc1nLorM+VY/OMLsxq5m9SYrmbFVac
+	 N70CXBrfmsiR88U9M+NxWodv7/JNO6G+PYUZhTIuoRAlKpQgahgXcMqtT0oNQ4+1sw
+	 U2wuUjGnnpvg5LfhEOy06pWzZrLgRVMiEH0jJnSU=
+Date: Tue, 22 Sep 2026 18:49:34 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,shakeel.butt@linux.dev,roman.gushchin@linux.dev,osalvador@suse.de,nphamcs@gmail.com,muchun.song@linux.dev,mhocko@suse.com,mhocko@kernel.org,joshua.hahnjy@gmail.com,hannes@cmpxchg.org,david@kernel.org,chris@chrisdown.name,lihongfu@kylinos.cn,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: [to-be-updated] mm-hugetlb-account-migration-target-folio-in-per-node-nr_hugetlb-vmstat.patch removed from -mm tree
+Message-Id: <20260923014935.03CEC1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Frank Sorenson <sorenson@redhat.com>
 
-[ Upstream commit e83330c55edc0c3ac08aa6c95e49e4694c65523b ]
+The quilt patch titled
+     Subject: mm/hugetlb: account migration target folio in per-node NR_HUGETLB vmstat
+has been removed from the -mm tree.  Its filename was
+     mm-hugetlb-account-migration-target-folio-in-per-node-nr_hugetlb-vmstat.patch
 
-parse_dfs_referrals() checks that DfsPathOffset and NetworkAddressOffset
-do not exceed the buffer end, but fails to check that they don't point
-inside the referral header itself.
+This patch was dropped because an updated version will be issued
 
-If a server provides an offset smaller than
-sizeof(struct dfs_referral_level_3), the derived string pointer overlaps
-with the struct fields, causing cifs_strndup_from_utf16() to interpret
-header data as UTF-16 strings.
+------------------------------------------------------
+From: Hongfu Li <lihongfu@kylinos.cn>
+Subject: mm/hugetlb: account migration target folio in per-node NR_HUGETLB vmstat
+Date: Mon, 21 Sep 2026 17:12:34 +0800
 
-Fix this by enforcing that string offsets are at least sizeof(*ref).
+Patch series "mm: fix hugetlb NR_HUGETLB accounting on folio migration".
 
-Fixes: 4ecce920e13a ("CIFS: move DFS response parsing out of SMB1 code")
-Cc: stable@vger.kernel.org
-Signed-off-by: Frank Sorenson <sorenson@redhat.com>
-Reviewed-by: David Howells <dhowells@redhat.com>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-[ Redirected the patch from fs/smb/client/misc.c to fs/cifs/misc.c. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+The hugeTLB counters added by 05d4532b60e3 ("memcg/hugetlb: add hugeTLB
+counters to memcg") are maintained in two per-node places:
+  - the per-node vmstat counter NR_HUGETLB, exposed as nr_hugetlb in
+    /proc/vmstat;
+  - the per-node memcg lruvec stat, exposed via memory.numa_stat.
+
+Both are accounted against the folio's node, and both drift when a hugetlb
+folio is migrated, though in different ways.
+
+A migration target folio is allocated by alloc_hugetlb_folio_nodemask()
+and inherits the old folio's state without ever being accounted, while the
+old folio is freed right after and its free is accounted.  That alone
+loses vmstat accounting: the target node has no matching increment for the
+decrement on the old node, so /proc/vmstat's nr_hugetlb shrinks by
+nr_pages per migration.  Patch 1 accounts the folio where it is obtained,
+so the increment pairs with the free in free_huge_folio() on the
+successful as well as the failed migration path.  The memfd page cache
+preallocation helper has the same asymmetry and is fixed in the same
+patch.
+
+The per-node lruvec stat breaks differently.  mem_cgroup_migrate() moves
+the charge to the new folio and drops the old folio's memcg data, so the
+old folio's free right after migration skips the memcg per-node decrement;
+the count stays attributed to the old node for the rest of the charge's
+life, and the target folio never gets an increment on its new node.  Patch
+2 moves that per-node accounting alongside the charge in
+mem_cgroup_migrate().
+
+
+This patch (of 2):
+
+The NR_HUGETLB vmstat counter is maintained per folio's node: incremented
+when a huge page is handed to a user via hugetlb_alloc_folio() and
+decremented when it is returned to the pool via free_huge_folio().
+
+A folio obtained by alloc_hugetlb_folio_nodemask() never goes through
+hugetlb_alloc_folio(), so it is never accounted, while its free always is.
+For a migration target this means the target node gets no matching
+increment for the decrement on the old node, so the global nr_hugetlb in
+/proc/vmstat drops by nr_pages for each migration.  The same asymmetry
+affects the failed migration path, which frees the target again right
+away, and the temporary folio hugetlb_mfill_atomic_pte() takes from the
+same helper.
+
+alloc_hugetlb_folio_reserve(), used to preallocate the memfd page cache
+folios, has the same asymmetry: the folio is handed to a user without
+being accounted, while its free is accounted through free_huge_folio().
+
+Account the folio where it is obtained, in alloc_hugetlb_folio_nodemask()
+and alloc_hugetlb_folio_reserve(), so that the increment pairs with the
+decrement in free_huge_folio(): a successful migration hands the folio to
+a user, a failed one frees it again.
+
+Link: https://lore.kernel.org/20260921-for-hugetlb_state-v1-0-8a6eec92661f@kylinos.cn
+Link: https://lore.kernel.org/20260921-for-hugetlb_state-v1-1-8a6eec92661f@kylinos.cn
+Fixes: 05d4532b60e3 ("memcg/hugetlb: add hugeTLB counters to memcg")
+Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Acked-by: Muchun Song <muchun.song@linux.dev>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>
+Cc: Nhat Pham <nphamcs@gmail.com>
+Cc: Chris Down <chris@chrisdown.name>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Michal Hocko <mhocko@kernel.org>
+Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: <stable@vger.kernel.org>
 ---
- fs/cifs/misc.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/fs/cifs/misc.c b/fs/cifs/misc.c
-index 32b04a461f13b..0d4751a568e1e 100644
---- a/fs/cifs/misc.c
-+++ b/fs/cifs/misc.c
-@@ -757,7 +757,11 @@ parse_dfs_referrals(struct get_dfs_referral_rsp *rsp, u32 rsp_size,
- 		node->ref_flag = le16_to_cpu(ref->ReferralEntryFlags);
+ mm/hugetlb.c |   35 +++++++++++++++++++++++------------
+ 1 file changed, 23 insertions(+), 12 deletions(-)
+
+--- a/mm/hugetlb.c~mm-hugetlb-account-migration-target-folio-in-per-node-nr_hugetlb-vmstat
++++ a/mm/hugetlb.c
+@@ -2206,6 +2206,11 @@ struct folio *alloc_hugetlb_folio_reserv
+ 	}
  
- 		/* copy DfsPath */
--		if (le16_to_cpu(ref->DfsPathOffset) > data_end - (char *)ref) {
-+		if (le16_to_cpu(ref->DfsPathOffset) < sizeof(*ref) ||
-+		    le16_to_cpu(ref->DfsPathOffset) > data_end - (char *)ref) {
-+			cifs_dbg(VFS, "%s: DfsPathOffset %u out of range [%zu, %td]\n",
-+				 __func__, le16_to_cpu(ref->DfsPathOffset),
-+				 sizeof(*ref), data_end - (char *)ref);
- 			rc = -EINVAL;
- 			goto parse_DFS_referrals_exit;
- 		}
-@@ -771,7 +775,11 @@ parse_dfs_referrals(struct get_dfs_referral_rsp *rsp, u32 rsp_size,
- 		}
+ 	spin_unlock_irq(&hugetlb_lock);
++
++	if (folio)
++		lruvec_stat_mod_folio(folio, NR_HUGETLB,
++				      folio_nr_pages(folio));
++
+ 	return folio;
+ }
  
- 		/* copy link target UNC */
--		if (le16_to_cpu(ref->NetworkAddressOffset) > data_end - (char *)ref) {
-+		if (le16_to_cpu(ref->NetworkAddressOffset) < sizeof(*ref) ||
-+		    le16_to_cpu(ref->NetworkAddressOffset) > data_end - (char *)ref) {
-+			cifs_dbg(VFS, "%s: NetworkAddressOffset %u out of range [%zu, %td]\n",
-+				 __func__, le16_to_cpu(ref->NetworkAddressOffset),
-+				 sizeof(*ref), data_end - (char *)ref);
- 			rc = -EINVAL;
- 			goto parse_DFS_referrals_exit;
- 		}
--- 
-2.53.0
+@@ -2213,24 +2218,30 @@ struct folio *alloc_hugetlb_folio_reserv
+ struct folio *alloc_hugetlb_folio_nodemask(struct hstate *h, int preferred_nid,
+ 		nodemask_t *nmask, gfp_t gfp_mask, bool allow_alloc_fallback)
+ {
+-	spin_lock_irq(&hugetlb_lock);
+-	if (available_huge_pages(h)) {
+-		struct folio *folio;
++	struct folio *folio = NULL;
+ 
++	spin_lock_irq(&hugetlb_lock);
++	if (available_huge_pages(h))
+ 		folio = dequeue_hugetlb_folio_nodemask(h, gfp_mask,
+ 						preferred_nid, nmask);
+-		if (folio) {
+-			spin_unlock_irq(&hugetlb_lock);
+-			return folio;
+-		}
+-	}
+ 	spin_unlock_irq(&hugetlb_lock);
+ 
+-	/* We cannot fallback to other nodes, as we could break the per-node pool. */
+-	if (!allow_alloc_fallback)
+-		gfp_mask |= __GFP_THISNODE;
++	if (!folio) {
++		/*
++		 * We cannot fallback to other nodes, as we could break the
++		 * per-node pool.
++		 */
++		if (!allow_alloc_fallback)
++			gfp_mask |= __GFP_THISNODE;
+ 
+-	return alloc_migrate_hugetlb_folio(h, gfp_mask, preferred_nid, nmask);
++		folio = alloc_migrate_hugetlb_folio(h, gfp_mask, preferred_nid,
++						    nmask);
++	}
++
++	if (folio)
++		lruvec_stat_mod_folio(folio, NR_HUGETLB, folio_nr_pages(folio));
++
++	return folio;
+ }
+ 
+ static nodemask_t *policy_mbind_nodemask(gfp_t gfp)
+_
+
+Patches currently in -mm which might be from lihongfu@kylinos.cn are
+
+mm-use-a-folio-in-the-softleaf_is_device_private-path.patch
+mm-hugetlb-fix-resv_huge_pages-double-decrement-in-memfd-error-path.patch
+mm-memcontrol-remove-unused-memcg-parameter-in-calculate_high_delay.patch
+selftests-mm-khugepaged-consolidate-error-exits-via-kselftest-helpers.patch
+mm-page_owner-preserve-original-free_pid-free_tgid-during-folio-migration.patch
+mm-memfd-fix-hugetlb-reservation-accounting-in-error-paths.patch
+selftests-mm-fix-ptrace-peekdata-check-in-memfd_secret-test.patch
+mm-hugetlb_cgroup-move-per-node-usage-on-cross-node-migration.patch
+mm-hugetlb_cgroup-move-per-node-usage-on-cgroup-reparenting.patch
+mm-memcg-migrate-per-node-hugetlb-lruvec-stat-together-with-hugetlb-folio.patch
 
