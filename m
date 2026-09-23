@@ -1,79 +1,78 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDECC24A047
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 00:14:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EE512E736D
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 00:26:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790122489; cv=none; b=jnWXwRrVlzAayU7WOO8xeyl9TGErGLMrXygdZPTjF/1tGrVe/cFOPmzuQdRWCTwddI6VPZt9XNttZj4aV2UtCcGDp7CfFhUkDd+NoDSBCyI9aq4lXYpFD908CsOkeruwTNR+McoE/gDPQ3PK5TNTSWegUzWGXNxn8K2x2fexV7M=
+	t=1790123170; cv=none; b=JUbD/8hyIZ92xMnrUkXE4rOMC4iusdT1j/3wP2NBKN5+ICJeoweJf+UILwsCoFm1BSv76qoKMn9BcRYYFeLiBwfNVztd0DQ5zJFW4PYhv4esJsP1PwCf//jgGF8hzBpU8DTTy/iwOfsBrMfSreZwftgZ+exAij6tbEQ5+AQ8qmo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790122489; c=relaxed/simple;
-	bh=cbGo4TQAahnvid5BzTcvwPcvLNuaLGXSG1MBAuo5OY4=;
+	s=arc-20240116; t=1790123170; c=relaxed/simple;
+	bh=VmXTMa/Bup21S8yFkEfL/80LZh3xNrLztMxxvOe2+R8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hGR2HAXDezocJTKaHFL/I2sihn2c/bzZ4ljuI7R4oZXIQQB+qH//Rpz4+H1P8KQsiwfgvuxycFatYCmuqcZIkfWMl3tfWW+KgBCOCdlNgMCwqPUlD7EX1qPz6qa3OdvE+XGNUmg5xMY+75IzgYtLfowenH2aL8uZifShtvOuh/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CysKucRj; arc=none smtp.client-ip=74.125.225.140
+	 MIME-Version; b=J3pJ67hCkbe7cK1OGWLbq7XNeBTdeVpfb9KxEbbVfLetVT4JGjTUpZYPPL4Il25ihIpesEc1FUqUbrL7Q3v1LIajQ40nT9VFBkKfBQJo7nwiieYxcSpv4Oq4G1j88UJluDexVnD0OrZiA3UqnMOZBcAKS6KiiTyiVCOpS+5Bh44=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y8u35ch2; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CysKucRj"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccead2aecso1416365e9.0
-        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 17:14:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y8u35ch2"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2db1ca069c8so1872325ad.3
+        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 17:26:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790122484; x=1790727284; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790123168; x=1790727968; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=k9P3MjJHm5LPq6fNgfWUG9o64JUvZTiy872DYV+9qyA=;
-        b=CysKucRjAeHbUCuu1hB8404+eSBj109byUFUwmhFgg4L6sF5S6GeXDOPDlsORn1+8T
-         6DrC4GKo+nudfefJU5qot6RNuLEsmccusGn6Z+INVHw8vfjscnZwPyjaJjjlIo0ez1dm
-         K/0eSpxxAkzNrrizfR3s4RKnxwKrRSCNZO9Ngcw6XAsLzUTKIv8AYySR7Qbbt6XG+QsC
-         xBjh1c9kg6hY2t/MhC92GeIJGIU4exBrx5ff0pDMg4pyIQtI0kE7JZsdBTaiEkO1Now0
-         vYP0fPmAR4sxRCwLc3PLgZ+OXMPWdg5ApzPmtIY8LQMqg+tp/1XvIzUp2+GreNnfuba9
-         IqDw==
+        bh=EuB5HZ83DEiTy12L1l/fqfuPkHFmU6lDMt8lQEtLu4c=;
+        b=Y8u35ch2se5OWcIVWju5xiBVVmEAujR3KsdSWkcw3VEHDoBO/cZqbiBWFkFkGcOhl/
+         RgtrnDObeuQDYsjzQkRHur7Q/eSa8qjM2Nu5mBpTf+R1SCzhNgv7qeRR8+dPDpeMmbjW
+         P0hSUKAZcMsTWST5qHTfIdV/oIhcLNhC8depf5b47aemhSYS/FGKYHnEiZbylzHWvNry
+         zzWU5Jnia6tRC84kdhBUDZUNg1ocqRRq26eZnXgF5W3pCHThyG8n0GOKY0aEIWX8JhQT
+         7no3/uDQ9SzvdWqct8DhY+TH7Ll7tMgXTxR3cHxlMHpFBeDGZe5Kw11SxCPEVIIvN7HW
+         Q+Jg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790122484; x=1790727284;
+        d=1e100.net; s=20260707; t=1790123168; x=1790727968;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=k9P3MjJHm5LPq6fNgfWUG9o64JUvZTiy872DYV+9qyA=;
-        b=NES44stnk4oT1eVGh0p/83sx2p0sY/oCdLL2LpGssMr9X/j5R+GoZ6eNl9MNYJzcF1
-         d4hTG0SSamPSBtVNXFREKBgQPBd7yrF6csz6VQ6qgYM2K/jTFbmzGfY9seWERl6cCIq5
-         NrNzUPPQdL1pyqOPd+9ZkK4XLIRV/gU1tsYW+xAL6tJ30NM8iM8LsT/WVOjcMg6ElZP9
-         VvQrOfPia4l6lzfSgjcz6nRXcrwIOx8BSEunyYt9vgqUf5PgmmEEolAC9aLVbSE5HUyL
-         AKbd4Oa3vHyo8PMVFkc1uEGHSNHAG6PSErNyzvz4FJFQWREL5MBJNIcoIpv1L2Zr7ZTd
-         6jpQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy+AOJHCRRauB5aGddP2xlOB7yyGu1xyFHgaDPOCDXCRirJSBB92Ba4qUlpyOSdENa+CNJnUq8=@vger.kernel.org
-X-Gm-Message-State: AFuF++msZf7YXvOD78NwhWEH2rJlcleMHlfyqhfTiyF484cZesdemNgs
-	+mOtGInFePW3HseBlQLeaUWsGdxpayONXUmWIHw8JnMiw51252oDZb6zZG2Dw1JOCFo=
-X-Gm-Gg: AYBFou05TPaKCKd2Fdqdu6RsvcthFsSiHcMwQUulR7dcM8odfy24OQGAKIznlluNuIr
-	aRPlHVezOUfAxuKMbUDAIZpJv1KluDJ/iNtHJrkCpnUrZdxYyjGQCCxAaewxuFOBUDwGdOn4P03
-	/01QxUJBBMf7jMW0xs0g4mTJJecOMnj4/ZajMGxUxiBDSgyJFsi0gwrcJBnVLLPWdtIKTVWpn3t
-	GFtJD/ZcJPFCqO0dJoPEEwSV4FAtoc2dOmhSviLEeEI27sKueTArGIJ/0SjncZtBV88jgDWe1tl
-	kkLtL15LNTaiDFPyA9JAuknZt4/dxn/urNBmypG/Xt/xbGniVtoR8BsmtrUzcg+4qD7AHpnLYDM
-	phO27I/PdvGkdgBsm5sUjgceQ1LznD778tTPJzKGNt1ZlPidn5TDPG/PO/AHKdcyOCGF7fkPx42
-	syxrfwt7ap8cAPw+fF7/taS50XoXg8k2gz4pS0II6D5N5pB83ZzjBDFaryGHu/NvsiDSk1xonPe
-	jev9DdzIMZjgscCtdjSuevl9+rns6JiSbCLsu7ll0d4vRLfnUpqe5H4aLDHBB3/k7xy29/rmJCx
-	K54EZyo/xlugLbXHqwzwf5odgnyfTGA5HaKFgM2Rq0ll8N9VXhqrZcdzvjaEZwESX5d1hQtHga2
-	qxPw5jGd24UqhoXan/0AG+g==
-X-Received: by 2002:a05:600c:8b83:b0:49c:fea3:8633 with SMTP id 5b1f17b1804b1-49fdf14578dmr9080065e9.24.1790122484156;
-        Tue, 22 Sep 2026 17:14:44 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a00-1028-c000-0ddf-8c68-4a09-6ad6-6324.ipv6.o2.cz. [2a00:1028:c000:ddf:8c68:4a09:6ad6:6324])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde180a39sm34612165e9.1.2026.09.22.17.14.42
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 22 Sep 2026 17:14:42 -0700 (PDT)
-From: Josef Schlehofer <pepe.schlehofer@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
+        bh=EuB5HZ83DEiTy12L1l/fqfuPkHFmU6lDMt8lQEtLu4c=;
+        b=vPwZeV2+ORySXmrJ5mASGFs34thJKFuMck4pIJFjvoXkiG6Bz6W13y9sA2LTMI9hm+
+         DVT1i+bYc48TK75HnX1eQj4i8Scn7PZcQOd7Pgo3LqVw4k1dcJ7JcjSdrlo7o6zulfQR
+         9B0tujrxTby0ITlBrYH9tYAbinziWwAGodXt9IDxskI//Fk7F/PXaFqZlk1Cd2xR+yGS
+         AHodIrtTsvBOSeuLy/NxkLZNlL+4S8IATD2jJClV8OI4ePI5uwek/tBvoXFQfRsm30Un
+         uhrbxKgl2dma/7RWYSJRBVHlwebAbC+FwoIRN07wqBzqD7+K4W7B6RKhc/lTjoQvf/EO
+         GZTA==
+X-Forwarded-Encrypted: i=1; AKwUvBwJbv1adFKo8TKMNU7Y10sesNJP2rdJpH8rsyd/noTL+QtukGjOONpxKfvtwaBpWE6PmmUHTkI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mF9OlGs2wJ1EyJbHCYodeCL/9UJvj46LsOm9cMUjD4Eff+Xk0K
+	TijPs8T3hSnPgrfCnd77c7v8cX9DVRqt2n45HjPlVGM4ioIC69oRXyw=
+X-Gm-Gg: AYBFou1UVperr8GWEq82Uzx1RdN/aEPbces6UfDdC/lKtQ9zGZoYlAmjCHGyj7iApR6
+	BIz5GI0gJc0/6sZcZFw8PV0QtrfuJKDBsDHNAMumUd6Uqq41HMKddshT8OIwegB4rNJUntGuJmr
+	7HTFdRKrxlf3qt0rn4rcU1Jk1Q7pvFDt0mKyu//8gvzQLWnXr7FY35KdchES1YxCO9IFkWRZ5PG
+	Ebi5asVDrtuk9Pl2bU+O95/yX/MecoQPNoYyycXiXDMkF8v+8FD0doT3g7tPHZSKD4iOT+VTrhe
+	dM/HXXjbC4Cz5kcL5/5YFi7QYrgW4uOBpDCxt9Z9CFj1IjyWXChSTpuggJ+0unAeEGTCbLlgmcH
+	2NrgTPj5sZw7umBsaWJLX2iZSnSExbURK8jEaA6XbLKE4bXgKwx1yOmIJo3w3m2M3QWG13PSjwb
+	gqt8qkNOxbG8aILgKtm5JU4ISh+Fk910WmucwQzo4Sxf3/NSz5m3LZvFHMhOY2gjr5Hz7P1t2j+
+	9VY+reMbO4U/vNxqqxltVg7e14=
+X-Received: by 2002:a17:903:950:b0:2dd:c053:c20d with SMTP id d9443c01a7336-2df69e00ec3mr7931245ad.41.1790123168457;
+        Tue, 22 Sep 2026 17:26:08 -0700 (PDT)
+Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:7f00:8c85:2466:805a:e198:cde8])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a5a7b76sm2176595ad.20.2026.09.22.17.26.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 17:26:08 -0700 (PDT)
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+To: sj@kernel.org,
+	akpm@linux-foundation.org
+Cc: damon@lists.linux.dev,
+	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
-	Hyunwoo Kim <v4bel@theori.io>,
-	Josef Schlehofer <pepe.schlehofer@gmail.com>,
+	donggeunyoo.kernel@gmail.com,
 	stable@vger.kernel.org
-Subject: [PATCH 6/6] media: dvb-core: wake up CA users on release
-Date: Wed, 23 Sep 2026 02:14:10 +0200
-Message-ID: <20260923001410.30297-7-pepe.schlehofer@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260923001410.30297-1-pepe.schlehofer@gmail.com>
-References: <20260923001410.30297-1-pepe.schlehofer@gmail.com>
+Subject: [PATCH v4 1/2] mm/damon/core: prevent size quota overflow in the temporal goal tuner
+Date: Wed, 23 Sep 2026 09:25:58 +0900
+Message-ID: <20260923002600.1825448-2-donggeunyoo.kernel@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260923002600.1825448-1-donggeunyoo.kernel@gmail.com>
+References: <20260923002600.1825448-1-donggeunyoo.kernel@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -82,96 +81,68 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-dvb_ca_en50221_release() sets ca->exit and waits for open users to close
-the CA device, but read, write, poll and ioctl can continue and blocked
-readers and pollers are not woken.
+damos_goal_tune_esz_bp_temporal() converts the scheme's size quota
+into basis points with "quota->esz_bp = quota->sz * 10000", both
+unsigned long, and damos_set_effective_quota() divides the result
+back by 10000.  quotas/bytes is unbounded; bytes_store() hands it to
+kstrtoul() as is.
 
-Return -ENODEV from CA read, write and ioctl operations and EPOLLERR
-from poll after ca->exit is set, and wake the corresponding wait queues.
-Keep the release wait so the existing lifetime protection remains in
-place.
+On 32-bit the product wraps for any size quota above ULONG_MAX /
+10000, that is 429496 bytes.  A wrapped product below 10000 divides
+to a zero effective quota: 429497 gives 0.  damos_quota_is_full() is
+then true on the first test of every charge window.  Other wrapped
+values are wrong without being zero: 500000 gives 70503.
 
-tvheadend keeps the CA device open and waits for it with epoll, so it
-needs to observe the disconnect before it can close the device.
+Triggering this needs a scheme with a quota goal, the temporal goal
+tuner, and a size quota above ULONG_MAX / 10000 -- 429496 bytes on
+32-bit, 1844674407370955 on 64-bit.  The scheme then makes no
+progress for as long as the goal is unachieved, which is easy to
+notice, and writing a smaller size quota restores it.  Nothing is
+corrupted and nothing leaks.  This is unlikely to be hit on a tested
+setup.
 
-Fixes: 280a8ab81733 ("media: dvb-core: Fix use-after-free due to race condition at dvb_ca_en50221")
-Cc: stable@vger.kernel.org
-Signed-off-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
+addr_unit does not cover this.  It only scales the numbers a paddr
+context writes to quotas/bytes, so a large enough scaled value wraps
+just the same, and vaddr and fvaddr contexts take raw byte values.
+
+Bound the multiply.
+
+Fixes: af738a6a00c1 ("mm/damon/core: introduce DAMOS_QUOTA_GOAL_TUNER_TEMPORAL")
+Cc: <stable@vger.kernel.org> # 7.1.x
+Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 ---
- drivers/media/dvb-core/dvb_ca_en50221.c | 24 +++++++++++++++++++++++-
- 1 file changed, 23 insertions(+), 1 deletion(-)
+Measured on i386 under QEMU: one paddr context with a stat scheme, the
+temporal goal tuner, and one unachieved user_input goal.  Each size is
+written to quotas/bytes and quotas/effective_bytes is read back after
+update_schemes_effective_quotas.
 
-diff --git a/drivers/media/dvb-core/dvb_ca_en50221.c b/drivers/media/dvb-core/dvb_ca_en50221.c
-index 1b91ebb8f667..d478f995d5a9 100644
---- a/drivers/media/dvb-core/dvb_ca_en50221.c
-+++ b/drivers/media/dvb-core/dvb_ca_en50221.c
-@@ -1353,6 +1353,9 @@ static int dvb_ca_en50221_io_do_ioctl(struct file *file,
+  quotas/bytes    effective_bytes    effective_bytes
+                  before             after
+  4096            4096               4096
+  429496          429496             429496
+  429497          0                  429496
+  268435456       0                  429496
+  1073741824      0                  429496
+  500000          70503              429496
+  4294967295      429495             429496
+  0               429496             429496
+
+ mm/damon/core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index 4687b909d42c9..4716693ec0dc5 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -3275,7 +3275,7 @@ static void damos_goal_tune_esz_bp_temporal(struct damon_ctx *c,
  
- 	dprintk("%s\n", __func__);
- 
-+	if (ca->exit)
-+		return -ENODEV;
-+
- 	if (mutex_lock_interruptible(&ca->ioctl_mutex))
- 		return -ERESTARTSYS;
- 
-@@ -1460,6 +1463,9 @@ static ssize_t dvb_ca_en50221_io_write(struct file *file,
- 
- 	dprintk("%s\n", __func__);
- 
-+	if (ca->exit)
-+		return -ENODEV;
-+
- 	/*
- 	 * Incoming packet has a 2 byte header.
- 	 * hdr[0] = slot_id, hdr[1] = connection_id
-@@ -1618,6 +1624,9 @@ static ssize_t dvb_ca_en50221_io_read(struct file *file, char __user *buf,
- 
- 	dprintk("%s\n", __func__);
- 
-+	if (ca->exit)
-+		return -ENODEV;
-+
- 	/*
- 	 * Outgoing packet has a 2 byte header.
- 	 * hdr[0] = slot_id, hdr[1] = connection_id
-@@ -1635,8 +1644,11 @@ static ssize_t dvb_ca_en50221_io_read(struct file *file, char __user *buf,
- 		/* wait for some data */
- 		status = wait_event_interruptible(ca->wait_queue,
- 						  dvb_ca_en50221_io_read_condition
--						  (ca, &result, &slot));
-+						  (ca, &result, &slot) ||
-+						  ca->exit);
- 	}
-+	if (ca->exit)
-+		return -ENODEV;
- 	if ((status < 0) || (result < 0)) {
- 		if (result)
- 			return result;
-@@ -1819,6 +1831,9 @@ static __poll_t dvb_ca_en50221_io_poll(struct file *file, poll_table *wait)
- 
- 	poll_wait(file, &ca->wait_queue, wait);
- 
-+	if (ca->exit)
-+		return EPOLLERR;
-+
- 	if (dvb_ca_en50221_io_read_condition(ca, &result, &slot) == 1)
- 		mask |= EPOLLIN;
- 
-@@ -1965,6 +1980,13 @@ void dvb_ca_en50221_release(struct dvb_ca_en50221 *pubca)
- 	ca->exit = 1;
- 	mutex_unlock(&ca->remove_mutex);
- 
-+	/*
-+	 * Wake up everyone blocked in read() or poll() on the CA device, so
-+	 * that they see the error and close it. The wait below cannot finish
-+	 * before the last user has closed the device.
-+	 */
-+	wake_up_interruptible_all(&ca->wait_queue);
-+
- 	if (ca->dvbdev->users < 1)
- 		wait_event(ca->dvbdev->wait_queue,
- 				ca->dvbdev->users == 1);
+ 	if (score >= 10000)
+ 		quota->esz_bp = 0;
+-	else if (quota->sz)
++	else if (quota->sz && quota->sz <= ULONG_MAX / 10000)
+ 		quota->esz_bp = quota->sz * 10000;
+ 	else
+ 		quota->esz_bp = ULONG_MAX;
 -- 
-2.54.0 (Apple Git-157)
+2.53.0
 
