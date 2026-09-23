@@ -1,108 +1,105 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E24D41F37F
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 13:25:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7607E3537FE
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 13:25:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790169907; cv=none; b=ODqV8NuTl48ha+LoRAvxt39tFkGHgkLkL4VSFiNek5e13/VQ4yA0WQ4hXAFNQ+UIkF9uDRTK7pA1z6EKHGdl0spuZwPFbnG0m2lUmNEmzTgpXEy2STQ93dKsPqPqvKiyLOernQlJPK9VbH/bBJQGbRbJLik2JrrT5dtzQNnciTc=
+	t=1790169920; cv=none; b=V8gwaYMnbo/hraAFsVg5/EFaYdZNT402AADL2/7pRL9+gZxKuxqxsoXEDyfzaM801jE3ZkAqRRJ4LYiE5mOjPgREEtAsX6WKsh2L6tNKUDGlHt45YJHHL6SZokxMoDZOdy4DziIbavsc2fGs0IQThnaO99ZC9r6y5sRLxY7qw4Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790169907; c=relaxed/simple;
-	bh=Y6g7Ihwu/R+MviYtMgBIOT3MosgJUNhgxIrcfY9YjLc=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=jkdAAMByHeesOwurSqpIpHs28AmN28SOPBNpdZwPZh/7Bot9eNpeWBS3okGvQZVV8e4B4QR9jo6RbULsji2r+99j3e2sAlbodm0lpCLPhP+bo/O3seuMaNSCqhXRJirI6boP3lM74kcdotk6vrYtRF2EQvxrRE4TD3TRNENwclk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=OhW7+MOt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790169920; c=relaxed/simple;
+	bh=V823P2M8RpBA1LBlFE7TdmDYm3PSnAVuwY8gc0bnvv0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=r3uI4xI+uyy17uCq2UjuN1+3JHV8pHXhF48sYKmkHhJvPoamgp17M+VJf1zDRNMzwcUE8KBbLWCGEiwIqRIDsN7u+cmPFBvhwQBoS/N89BNqFmHlGtrXOjYl7w4X2DFSlJK0dkibU80jVAsKkxYl57F4ssCYWIXdlL7Hle4Qo8I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mNV2zgQM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="OhW7+MOt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDBC31F00898;
-	Wed, 23 Sep 2026 13:25:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790169904;
-	bh=ppbbx+AZyuJAOKqobVH4awa+ZM77M8mgYeYTo34T/Oc=;
-	h=Subject:To:Cc:From:Date;
-	b=OhW7+MOt0ChQ0Y67TkoSSAGxbfMgc1B0gkHGoMKL7rtIZ6F9mkLUpPosi6ZGlPYRZ
-	 Rg8nrCnEfuPC9OLDYvflehWsx/l6kvdlPBgxRL3+O0QpJVJd4nHOgSJFJHpEvRQtzc
-	 iIXB+IUdLZJfdq/hBAxJga7WPqrLcTt4uObqM18o=
-Subject: FAILED: patch "[PATCH] ksmbd: fix partial normalized name responses" failed to apply to 5.15-stable tree
-To: linkinjeon@kernel.org,chenxiaosong@kylinos.cn,mobin@mobintestserver.ir
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 23 Sep 2026 15:24:52 +0200
-Message-ID: <2026092352-axis-issue-076e@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mNV2zgQM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DACF1F000FF;
+	Wed, 23 Sep 2026 13:25:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790169919;
+	bh=SwEmRd7IvoOmcwEsP4Neodn0zXGQhiCmwLMJ4nD1Oys=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=mNV2zgQMmXj9bZDbMnCdXoANGSR1biFo6/L/RJZBSUp6Nv6A4/SwXWYkG2dl1xswd
+	 22fO7DNd8nTLACEgaw9AZqJujS3/ZnWogpamYfhRT6EYL3ozE21g+ar64iZS+x25Tq
+	 dUmsl8SNmNouHq96kUdwwA9fA1t08xpCtPvr3J4XR1XMoTHfEIAVw/0Mmz2gzgSkbQ
+	 zUGcTxYjdlX22HonQXv79eALvhjcXX+ePc/kc4bP0udUua7a49rvz4xv4w3/AHAqbL
+	 j2pKuwQsnYmEs/pATMfrrrKos2iOeBszgEkbkpEYFoIW3QS1mQxvRaW5THJI9tlu/J
+	 KKp8UYTSHZ41g==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Bjoern Doebel <doebel@amazon.de>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] smb: client: avoid leaking refcount when cifs_sb_tlink() fails
+Date: Wed, 23 Sep 2026 09:25:15 -0400
+Message-ID: <20260923132516.1891163-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026092353-snowstorm-carnage-f809@gregkh>
+References: <2026092353-snowstorm-carnage-f809@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+From: Bjoern Doebel <doebel@amazon.de>
 
-The patch below does not apply to the 5.15-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+[ Upstream commit 23b26f4408ac3f35a482d2e5cf6fc865d4201b71 ]
 
-To reproduce the conflict and resubmit, you may use the following commands:
+cifs_oplock_break() takes over the reference that
+cifs_queue_oplock_break() acquired when it queued the work, and drops it
+with _cifsFileInfo_put() once the break has been processed.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
-git checkout FETCH_HEAD
-git cherry-pick -x f4fafaf02174c32bce2f9bb4196fadf13f1fd96e
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092352-axis-issue-076e@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+Only in setups with "-o multiuser", cifs_sb_tlink() may fail, at which
+point cifs_oplock_break() returns without putting the file reference,
+mirroring the reference leak we already fixed in the companion patch to
+cifs_queue_oplock_break().
 
-Possible dependencies:
+This would trigger a crash due to busy inodes on the next unmount:
 
+  BUG: Dentry ... still in use (1) [unmount of cifs cifs]
+  VFS: Busy inodes after unmount of cifs (cifs)
 
+Drop the reference on that path as well. Doing so before the out label
+mirrors the normal path, which also puts the reference before
+cifs_done_oplock_break().
 
-thanks,
+Found by Sashiko code review. The failure path was not exercised at
+runtime.
 
-greg k-h
+Fixes: e8f5f849ffce2 ("cifs: fix potential oops in cifs_oplock_break")
+Cc: stable@vger.kernel.org
+Assisted-by: Kiro:claude-opus-5
+Signed-off-by: Bjoern Doebel <doebel@amazon.de>
+Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+Stable-dep-of: ebc5660132dd ("smb/client: send lease break ACKs thru correct session for multiuser mounts")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/smb/client/file.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
------------------- original commit in Linus's tree ------------------
-
-From f4fafaf02174c32bce2f9bb4196fadf13f1fd96e Mon Sep 17 00:00:00 2001
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Wed, 9 Sep 2026 09:58:22 +0900
-Subject: [PATCH] ksmbd: fix partial normalized name responses
-
-Windows may request FILE_NORMALIZED_NAME_INFORMATION with an output
-buffer that only fits the fixed portion of the variable-length response.
-Treat the fixed portion as FILE_NORMALIZED_NAME_INFORMATION_SIZE so ksmbd
-returns STATUS_BUFFER_OVERFLOW instead of STATUS_INFO_LENGTH_MISMATCH.
-
-This avoids rejecting valid partial normalized-name responses.
-
-Fixes: 6b8b79226bc3 ("ksmbd: fix partial file information responses")
-Reported-by: Mobin Aydinfar <mobin@mobintestserver.ir>
-Reviewed-by: ChenXiaoSong <chenxiaosong@kylinos.cn>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index 8acc5174530b..0436b7c898b1 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -7312,6 +7312,9 @@ static int smb2_get_info_file(struct ksmbd_work *work,
- 		case FILE_ALTERNATE_NAME_INFORMATION:
- 			fixed_len = FILE_ALTERNATE_NAME_INFORMATION_SIZE;
- 			break;
-+		case FILE_NORMALIZED_NAME_INFORMATION:
-+			fixed_len = FILE_NORMALIZED_NAME_INFORMATION_SIZE;
-+			break;
- 		case FILE_STREAM_INFORMATION:
- 			fixed_len = FILE_STREAM_INFORMATION_SIZE;
- 			break;
-diff --git a/fs/smb/server/smb2pdu.h b/fs/smb/server/smb2pdu.h
-index a6200d8630e2..ca8e27f7b712 100644
---- a/fs/smb/server/smb2pdu.h
-+++ b/fs/smb/server/smb2pdu.h
-@@ -212,6 +212,7 @@ struct file_sparse {
- #define FILE_ALLOCATION_INFORMATION_SIZE      19
- #define FILE_END_OF_FILE_INFORMATION_SIZE     20
- #define FILE_ALTERNATE_NAME_INFORMATION_SIZE  8
-+#define FILE_NORMALIZED_NAME_INFORMATION_SIZE 8
- #define FILE_STREAM_INFORMATION_SIZE          32
- #define FILE_PIPE_INFORMATION_SIZE            23
- #define FILE_PIPE_LOCAL_INFORMATION_SIZE      24
+diff --git a/fs/smb/client/file.c b/fs/smb/client/file.c
+index 94c8b173a8d63..a6be7903a67cb 100644
+--- a/fs/smb/client/file.c
++++ b/fs/smb/client/file.c
+@@ -5154,8 +5154,11 @@ void cifs_oplock_break(struct work_struct *work)
+ 			TASK_UNINTERRUPTIBLE);
+ 
+ 	tlink = cifs_sb_tlink(cifs_sb);
+-	if (IS_ERR(tlink))
++	if (IS_ERR(tlink)) {
++		/* drop the reference taken when the break was queued */
++		_cifsFileInfo_put(cfile, false /* do not wait for ourself */, false);
+ 		goto out;
++	}
+ 	tcon = tlink_tcon(tlink);
+ 	server = tcon->ses->server;
+ 
+-- 
+2.53.0
 
