@@ -1,81 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out30-100.freemail.mail.aliyun.com (out30-100.freemail.mail.aliyun.com [115.124.30.100])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 943AE3321C2;
-	Wed, 23 Sep 2026 01:21:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AE5534C134;
+	Wed, 23 Sep 2026 01:27:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.100
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790126491; cv=none; b=lUCSS2lyFQEUjpUSFBWfdk4r3DVmDgx2yqY7HGOo6HoHHRWNbVEKNM+nUwTEcXN8NvTHRIkNWREj7R0CYdemUD414AfwAD13uMRblg826JIuQEItz+dF2+yZeXW0UMkVayLWtpf0m9Fnx87cl0FA9TeSsK3+AYm5zosGVSD3Xxs=
+	t=1790126878; cv=none; b=tS/+6AYUsn1TrJLGz219eolNHU/VeybcKro5rIj7mFJKzkoXPcbGSQf+uMp0YOYbUfVhBzSvPcP6gARvOogOAKQjvX32sjdLFS/Uq63wnZIEytc3lGFPDHHNO1U0LUDlSa6CzDzdhIyODm8HgYGGbAfrtN2CNkZbClbG6/zSJv0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790126491; c=relaxed/simple;
-	bh=ZBbowwj9g4LiCppnvLOwcyj9BEF/cyQCdfeHzHQMhjw=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=nDW9uvCByj8BeMrNq+JMXtN4L5t2+QS6I/3u94nc0SvnrbmjR3HyLHY+3Z8ieLUc88QSH41hjxnSibZLivONlXUwFLOM+xqnhjy1wbtYREgJYDp0HU3Ku4gMOOz4yck0kj3oBHCPJZk19t3Hbkwjur3f/vbv85cRJcJEtEw0KxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W5mLL55H; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790126878; c=relaxed/simple;
+	bh=mW3Vkfkxjp+H+5FmxGrHaec7y+NgR5m7QC1Xm8DDNl0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YuWZv/3EivE0FeqYkeqgKCnUpgEaSnvc6tGljq2NrKfrVu8EKeXlACBrVaeOHRgCinsigW9E49ncFCoddKvX3X+giXC//RiyHwCEZksPAQDQz8FeGIcSNYu8r7hpXRaRpGKaTEObZ8ZbHSebr+G7sBR6C6oJqXSA+iWt/TH0+Mk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=MenRviod; arc=none smtp.client-ip=115.124.30.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W5mLL55H"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E50F1F000FF;
-	Wed, 23 Sep 2026 01:21:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790126490;
-	bh=hvLyBIZlI4M3HZZ+3BYKdeiiZqGAKGp8Army6XuZzek=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=W5mLL55HqMCrTCHIpEiCkhYCq+pc2qDxZgkmMraGm1rlu2JN5zMdk3ZdVbM9acUis
-	 guRN8a/qFL70GVWyGX1Z2hRTvkoMa7CsvqkBNBHIWedU53zeSVgqUqgQoOxjrQ2kbh
-	 /oULwbr3WJcxBcdNthKPRBrdhYzAMI/DYsyFAm1DWaaAzeFGpeXKHo1qbA3mPDcT5Q
-	 zXCqvkVyWXdsA7l29nfkv8J/hmfToD39g24ljBLPi/jEazTvRpd7G5JIWtWpFKM9WH
-	 r8lpfDweAtRonw03bXWvGu/rjVyYyHwvitwCJM6O1wPSNhf9nBj1YbaalOwcTgCtoG
-	 +yh9+3CA4Gd1w==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 19A8B3924463;
-	Wed, 23 Sep 2026 01:20:22 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="MenRviod"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1790126872; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=cD1YZ/WyUkw2qCPI2vFSMU0Kjpp4BrTGZOfKp+4KDFA=;
+	b=MenRviodAWpyhOyywxWe8gbb1EHKmmTfKjmXOyTxfs6GqaYywmHvMmrEOsVgYw0pYzdjtYO0Q+jgm6Cs40RFWIAyNKGN31sGrlPFhfRonOaT/dmuMCR53egmpjHmRhtBt2AD2HIM3LJceiYwSdu4A4WA++t/nOKq++iswDlcnU0=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R171e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=8;SR=0;TI=SMTPD_---0XBVIAlL_1790126871;
+Received: from 30.170.56.46(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XBVIAlL_1790126871 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 23 Sep 2026 09:27:52 +0800
+Message-ID: <c83f90ca-6712-4c84-8417-451cef65567e@linux.alibaba.com>
+Date: Wed, 23 Sep 2026 09:27:51 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH] net: stmmac: dwmac-sun8i: Fix EPHY clock leak in
- get_ephy_nodes()
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179012642070.161587.7205232345665822833.git-patchwork-notify@kernel.org>
-Date: Wed, 23 Sep 2026 01:20:20 +0000
-References: <20260917113654.2149268-1-vulab@iscas.ac.cn>
-In-Reply-To: <20260917113654.2149268-1-vulab@iscas.ac.cn>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: alexandre.torgue@foss.st.com, andrew+netdev@lunn.ch,
- clabbe.montjoie@gmail.com, davem@davemloft.net, edumazet@google.com,
- jernej.skrabec@gmail.com, kuba@kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev,
- mcoquelin.stm32@gmail.com, netdev@vger.kernel.org, pabeni@redhat.com,
- samuel@sholland.org, wens@kernel.org, stable@vger.kernel.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ocfs2: fix array out of bound access in
+ __ocfs2_find_path()
+To: Giorgi Kobakhia <gkobakhi@asu.edu>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>,
+ ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Xiang Mei <xmei5@asu.edu>, stable@vger.kernel.org
+References: <20260922202159.2421642-1-gkobakhi@asu.edu>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <20260922202159.2421642-1-gkobakhi@asu.edu>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hello:
 
-This patch was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
 
-On Thu, 17 Sep 2026 11:36:54 +0000 you wrote:
-> get_ephy_nodes() stores the clock returned by of_clk_get() directly in
-> gmac->ephy_clk before the reset control is obtained. When the reset
-> lookup fails, the loop continues or returns without releasing that
-> clock, and sun8i_dwmac_probe() then jumps to dwmac_remove, which does
-> not call clk_put(). Keep the clock in a local variable and release it
-> on the error paths.
+On 9/23/26 4:21 AM, Giorgi Kobakhia wrote:
+> __ocfs2_find_path() walks down the extent tree and records path by calling
+> find_path_ins(), which appends entry to path->p_node[]. It only has 5
+> spots.
 > 
-> [...]
+> A corrupted ocfs2 image whose extent block is pointing to itself causes
+> __ocfs2_find_path() descent endlessly, writing past the end of
+> path->p_node[] array.
+> 
+>  UBSAN: array-index-out-of-bounds in fs/ocfs2/alloc.c:677:14
+>  index 5 is out of range for type 'ocfs2_path_item [5]'
+>  Call Trace:
+>   <TASK>
+>   find_path_ins (fs/ocfs2/alloc.c:677 fs/ocfs2/alloc.c:1914)
+>   __ocfs2_find_path.constprop.0 (fs/ocfs2/alloc.c:1882)
+>   ocfs2_commit_truncate (fs/ocfs2/alloc.c:1924 fs/ocfs2/alloc.c:7286)
+>   ocfs2_truncate_file (fs/ocfs2/file.c:515)
+>   ocfs2_setattr (fs/ocfs2/file.c:1224)
+>   notify_change (fs/attr.c:556)
+>   do_truncate (fs/open.c:68)
+>   do_ftruncate (fs/open.c:194 (discriminator 1))
+>   ksys_ftruncate (fs/open.c:206)
+>   __x64_sys_ftruncate (fs/open.c:211 fs/open.c:209 fs/open.c:209)
+> 
+> Commit a406aff8c051 ("ocfs2: validate l_tree_depth to avoid
+> out-of-bounds access") already restricts el->l_tree_depth to be less than
+> OCFS2_MAX_PATH_DEPTH, which is equal to 5. However, does not handle the
+> infinite descent case.
+> 
+> Check if the el->l_tree_depth decreases on each descent. Maximum
+> descents are restricted to 4 and the path->p_node[] array does not
+> overflow.
+> 
+> Fixes: dcd0538ff4e8 ("ocfs2: sparse b-tree support")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Tested-by: Xiang Mei <xmei5@asu.edu>
+> Signed-off-by: Giorgi Kobakhia <gkobakhi@asu.edu>
 
-Here is the summary with links:
-  - net: stmmac: dwmac-sun8i: Fix EPHY clock leak in get_ephy_nodes()
-    https://git.kernel.org/netdev/net-next/c/d9750b3c4c27
+Looks fine.
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+> ---
+>  fs/ocfs2/alloc.c | 9 ++++++---
+>  1 file changed, 6 insertions(+), 3 deletions(-)
+> 
+> diff --git a/fs/ocfs2/alloc.c b/fs/ocfs2/alloc.c
+> index be09e766ac1f..c85a472965d5 100644
+> --- a/fs/ocfs2/alloc.c
+> +++ b/fs/ocfs2/alloc.c
+> @@ -1817,6 +1817,7 @@ static int __ocfs2_find_path(struct ocfs2_caching_info *ci,
+>  	int i, ret = 0;
+>  	u32 range;
+>  	u64 blkno;
+> +	u32 prev_depth = OCFS2_MAX_PATH_DEPTH;
+>  	struct buffer_head *bh = NULL;
+>  	struct ocfs2_extent_block *eb;
+>  	struct ocfs2_extent_list *el;
+> @@ -1824,14 +1825,16 @@ static int __ocfs2_find_path(struct ocfs2_caching_info *ci,
+>  
+>  	el = root_el;
+>  	while (el->l_tree_depth) {
+> -		if (unlikely(le16_to_cpu(el->l_tree_depth) >= OCFS2_MAX_PATH_DEPTH)) {
+> +		if (unlikely(le16_to_cpu(el->l_tree_depth) >= prev_depth)) {
+>  			ocfs2_error(ocfs2_metadata_cache_get_super(ci),
+> -				    "Owner %llu has invalid tree depth %u in extent list\n",
+> +				    "Owner %llu has invalid tree depth %u in extent list (max %u)\n",
+>  				    (unsigned long long)ocfs2_metadata_cache_owner(ci),
+> -				    le16_to_cpu(el->l_tree_depth));
+> +				    le16_to_cpu(el->l_tree_depth), prev_depth - 1);
+>  			ret = -EROFS;
+>  			goto out;
+>  		}
+> +		prev_depth = le16_to_cpu(el->l_tree_depth);
+> +
+>  		if (!el->l_next_free_rec || !el->l_count) {
+>  			ocfs2_error(ocfs2_metadata_cache_get_super(ci),
+>  				    "Owner %llu has empty extent list at depth %u\n"
 
