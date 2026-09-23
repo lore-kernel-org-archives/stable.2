@@ -1,61 +1,63 @@
-Received: from mail-lr2-f10.google.com (mail-lr2-f10.google.com [74.125.230.74])
+Received: from mail-lr2-f8.google.com (mail-lr2-f8.google.com [74.125.230.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A903400DE2
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 14:56:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18A8B53E305
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 14:56:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790175392; cv=none; b=I76phTa17WI04qiS1EFPdbGFpWKXUs0i9e2KuTnB28c2zEXXTqFpn58EA1fPcZbPryG1C3Q27Et35vFGmm0tU5iauhAaNFs9Zxf6jXDj12lPaLFciX3zxIZZBlItR9F/tIxBiiikwYhDGtuKaNQa7TX724JzbUu4qW81cPyc+p8=
+	t=1790175397; cv=none; b=GmfnuV6b903NaZ1fSMZNqOR9qji4c5riNSkdNVJY9LrBoI3zZhzkRC4wjtFQNOfNBE6H6m6OTONtm5dfDaJeaumqJef7NkyXW/3B2jBUJRJ0+9CGwKoMQVUQMZKqC/lDfOv64LxyEGvwSc3tPlO+P7V3e9Nk3yBD8i5GDWrZA24=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790175392; c=relaxed/simple;
-	bh=KLL1CoeBe+d6zkr4xAjE59UTUGfIF4KDbTLJ/l6GE10=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QAH96d+i5iiw6B7X9VZa9tUfMOFEim+tuMDgEndYoptg96fLBPCm/E0iWTg1unEUqvCx9J5G1SFgpgE6kAfkjLhU9ymb60HxQcJbFu/eHuwPvDF5JrIJxtJ1spUjPlqmQAWi2bwn76zxBOIqOjC5m0MHEjrae9F25LE1ozKRZIc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ddnGgU1Q; arc=none smtp.client-ip=74.125.230.74
+	s=arc-20240116; t=1790175397; c=relaxed/simple;
+	bh=Irzn3KoZz2CPFbn4S9qLAfiWXivutTrsLSXE8ABhv5Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qjGxgxxiUYmIUQdZRCvPuXKDf2TBXoq0lNgBH0LNjM+/HM1bMMa3YUxj0ffFce0JmhrezjilxXT72XauApKf+xwhqtBfFwZDOvPzY2HSVyaygpZFFYQPUxa+UL8RARixsgXjSAj19tX5GyBINSuXYP+ms/7X8hPcWDUXkU0zBA8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d+0urAzz; arc=none smtp.client-ip=74.125.230.72
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ddnGgU1Q"
-Received: by mail-lr2-f10.google.com with SMTP id 38308e7fff4ca-3a3552563d7so6219191fa.1
-        for <stable@vger.kernel.org>; Wed, 23 Sep 2026 07:56:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d+0urAzz"
+Received: by mail-lr2-f8.google.com with SMTP id 38308e7fff4ca-3a59dae8ce5so6597561fa.0
+        for <stable@vger.kernel.org>; Wed, 23 Sep 2026 07:56:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790175388; x=1790780188; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EQsvAgfzLtsJnXkdBUm8r2goP4FuulbfN7zU4oyNzHQ=;
-        b=ddnGgU1QF9WjftCwQ9P/AsIJhSTebWI3RHjDGdLb5r6c7ugad/G6fyCJDNrTB6AGxd
-         mTftwM5gCvW9hgVEkJ81jzh2P5apTevcSh7kh9nLbjY8Yxmy8T1wwQnRKdQ1yztB/Zsv
-         ff8fQnHCmMgg4ragjTuV2+rdcC6X4WVpejXKsGVYmJx7yEGyrAjYV02s9/70k0/QNNNp
-         ksOfqnu3YsOHOXvjHTlI+jMI7ILkJv1uRyipPFzGwroRXrzdFXEq1/x7U9hbHLAEJ57S
-         A1RuYNgFOyke4f6Zy7lqypU/kAvna2B4LmWA538S1fGvqhl4sUb9GuvC0zRM3+hnThcf
-         62HQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790175388; x=1790780188;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790175394; x=1790780194; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=EQsvAgfzLtsJnXkdBUm8r2goP4FuulbfN7zU4oyNzHQ=;
-        b=BkVkXRN9A7PS/kKi2Y2HUIufPNu7CFO2uYmBPoR6HrAu8sdM8WpW/+E1s9X2H5q/EG
-         hCuQlaRjS8Q/mZkq2VwUIOn1AtJGcldKS4WcbH5HSfluwkJsCKjbxeHecU7w+F40Ze8/
-         8IpkdcyqZrw9eA9TroPu9criXH5nvkkUaO3Ybh/I3hg7RxWzuuW9zP7xqaf2Oku1tAmD
-         22WuWQrAc/n1Gcoa0y07SA+ifWVk88OSfJwvjLkWI70/95M0PvseFK1sS/4+m5p4CvHN
-         M91tmZ7wrA3ETDIutm3GV+tPXxxz1aECViVW/eu1CveXbPTFpVCXADMRUrRSmNWBEoXO
-         0/Tw==
-X-Gm-Message-State: AFuF++ntB930hK/MoXKv4i6LKTQnO6XnPRdzc20Yc3zCXdDGsv+plc22
-	o04ciFjF0YL2rZW7pqMfpdSxE97SJCzXPDNfdtRavOu0oJ1uYJGHE9P3zWUYrTDPzRQ=
-X-Gm-Gg: AYBFou0rrHXJVT/JedLwO+AEvBnroNmQVdaFKeupNvx6xhTf5xhdjXiGmqig+prZgE3
-	s6bYUvO/m2uPjRqO/qmFK9aM9s+vo6D1GVf5sXmOBv3zn+5Mp6WQXGLhj0FlxP1gUxxp6bGr6Sk
-	L8lOPYHWmLt1qCNYmgP8Nkr9TOvxKIfehqZ0nP3ME9ozmq+Q+4g1aFGEyKLnINpZ5Ju4uFST8mn
-	nLdWzGl/r6PD1YPsmUF6ElL9P0Zsho8Wj3IvDRiZOyhCJsRjf//oCgOOWGM+52GCirprC8mexBN
-	DnTK0/66RZWPpwnbxVPBVsw2JjPkyJ8QIVu9GVrZF7PjBZdh0fV8mYrDfLzP80Blbwe+607lqa0
-	06lOdkJnHHFr/13kM92uh1Ism/nV9iBOCozI4bz0dtR/0VlrrtqaGwsiDMHnjweW4GZymv5r2Qt
-	OsN7ux4u23ZJ1Gr9e4dq/tmYviHUXQ7bhe2SRo/u2LKjOQq6QtfylKIfRhsGXV3mKcPIx6q7tfe
-	XZ30JwoiuczdhkR
-X-Received: by 2002:a05:651c:a205:20b0:3a2:72c:cde9 with SMTP id 38308e7fff4ca-3a6305ca196mr5197841fa.4.1790175387706;
-        Wed, 23 Sep 2026 07:56:27 -0700 (PDT)
+        bh=IYj8DR6tUMAlSBOX53pzMRuQvG2jVj6PU8CNMEIk8m4=;
+        b=d+0urAzzbMjIOM0mSI1IJlYf0kfC9V1rm9ThGmLqQJmNTfd94/c+94w+UhBv0ecFO8
+         9YVLRQmsfLjEbRlEwdhv8fqEbgLNRVWcD/4zqVz2cWI9BNqd4Nc4TIEyKiA/BJZnzAcl
+         PwQM6nixf12HFWox/Uncipe4UcYkPWmV68CfpBIW0DK3DSlHgx0irmdPoMsfQMd0ONm8
+         mY4QaFgS5jjBGkniWJAg2hczkHCBX5xdjV7xn1nCvjbsg0Htz0YZoZPc+KBw8YeriuXh
+         /GHT2Yr7a6BnRVoaGMHolE/KBMHerH49cAKpiAa6mB122MI4s7IKIMzv9yKr3Yv96GDy
+         m7SA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790175394; x=1790780194;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IYj8DR6tUMAlSBOX53pzMRuQvG2jVj6PU8CNMEIk8m4=;
+        b=iWC7nspk1jVPgK7KQwbgyRzokJ8zx4hwdy6TpCLV+zWhC2ZSWEdsa9XPGtO/z0vNua
+         JGAqJ3WYPHpvWlV9yyJ1y7WgzlLeUohog7MQXFdlRxXcCk6tfg/9+ykyQ1bv+ZZOisom
+         AQOcFgLpD78mwcz4BPEU80oOocpKC14N3SKIoQmWxgkY62aH/GfvmzGeBXT/5wNztoHx
+         uMwgWT4dGnnbe8eloRvwhnhDMv7Tq31vFX6VcLGoWdhxeNFIZIIY+7Ubp+BWgJcL5ywl
+         ALSp5YsHtIRBPSu7+qlg7JEEuECXsuxZmafSU37KVwCwrEly80cHZNybPu46mu4Fi/eM
+         JilQ==
+X-Gm-Message-State: AFuF++naNxcBAuvW4RxBWlfP8KpNjHt9xTN7ARXDNJF5Ssa+vh2B7RMG
+	QH9kiAdD3k/Oj0jjlhGpfXs5vm5dbTMjmzKzOAmngpFcVJPtDK0z3xygbT98x2LVEj8=
+X-Gm-Gg: AYBFou0/QNrUW4sduNHsjYIsdygKZ+c+I6VPNXT966IaCzYS3LoJ1dA25mXJcxsx+6e
+	rG3Y5NrI4S0Ln90RUaRGgG6VlWMiWKD4zZQKSZwFfNU2oIWEwMKBzsww25Hm78XlRus+YoP3KON
+	aRUb6bpJ8TVe8SBbN7uXe7gPjX3Io0VnGcXWV/8S7psJ7l8l8CKreKNMjowfuKoYu3mxM5kOZtr
+	oBOULcNPJVTnkzMxJQVLinyt8KfrtGYZ0H/VL2GkzZNDXKQ7CMz8WWZRQDD0iJxkU57Q8jJWt8b
+	ohx7biA/URHti3vVMTelCnxwNIcmLXCPHxB49+OCIoBscjaFDYhTnLC982pfRVqMoUbJZPai+kW
+	rH0EGQYgoxnAz7cQBpz3Sd5Rh/715YDkYkqN1lgs2l37wt6RZusKBy5Dix8YcB5tyo7hn8/C4Vv
+	1vqfZKA5V7uNaoFG0ACnDlKYzmVwDIdqkTAj9CrtnL8cL1Q+RU83jmYzTLe+CezTMM6zuQNuiQp
+	FKC0ZPO+X9vCaXj
+X-Received: by 2002:a05:651c:a201:20b0:3a5:bb28:3324 with SMTP id 38308e7fff4ca-3a63067b2ffmr5677661fa.28.1790175393880;
+        Wed, 23 Sep 2026 07:56:33 -0700 (PDT)
 Received: from localhost.localdomain ([78.40.184.2])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a62f53b4efsm7512171fa.39.2026.09.23.07.56.26
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a62f53b4efsm7512171fa.39.2026.09.23.07.56.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 07:56:27 -0700 (PDT)
+        Wed, 23 Sep 2026 07:56:33 -0700 (PDT)
 From: Roman Demidov <roman.demidov.nn@gmail.com>
 To: stable@vger.kernel.org,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
@@ -72,15 +74,14 @@ Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
 	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
 	lvc-project@linuxtesting.org,
-	David Airlie <airlied@redhat.com>,
-	Philipp Stanner <pstanner@redhat.com>,
-	Andy Shevchenko <andy.shevchenko@gmail.com>,
-	Kees Cook <keescook@chromium.org>,
-	Zack Rusin <zackr@vmware.com>
-Subject: [PATCH 5.10 1/3] string.h: add array-wrappers for (v)memdup_user()
-Date: Wed, 23 Sep 2026 17:56:18 +0300
-Message-ID: <20260923145622.76242-1-roman.demidov.nn@gmail.com>
+	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+	Fang Wang <32840572@qq.com>
+Subject: [PATCH 5.10 2/3] drm/amdgpu: Use vmemdup_array_user in amdgpu_bo_create_list_entry_array
+Date: Wed, 23 Sep 2026 17:56:19 +0300
+Message-ID: <20260923145622.76242-2-roman.demidov.nn@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260923145622.76242-1-roman.demidov.nn@gmail.com>
+References: <20260923145622.76242-1-roman.demidov.nn@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -89,94 +90,93 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Philipp Stanner <pstanner@redhat.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
-commit 313ebe47d75558511aa1237b6e35c663b5c0ec6f upstream.
+commit c4ac100e9ae252b09986766ad23b1f83ca3a369d upstream.
 
-Currently, user array duplications are sometimes done without an
-overflow check. Sometimes the checks are done manually; sometimes the
-array size is calculated with array_size() and sometimes by calculating
-n * size directly in code.
+Replace kvmalloc_array() + copy_from_user() with vmemdup_array_user() on
+the fast path.
 
-Introduce wrappers for arrays for memdup_user() and vmemdup_user() to
-provide a standardized and safe way for duplicating user arrays.
+This shrinks the source code and improves separation between the kernel
+and userspace slabs.
 
-This is both for new code as well as replacing usage of (v)memdup_user()
-in existing code that uses, e.g., n * size to calculate array sizes.
-
-Suggested-by: David Airlie <airlied@redhat.com>
-Signed-off-by: Philipp Stanner <pstanner@redhat.com>
-Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
-Reviewed-by: Kees Cook <keescook@chromium.org>
-Reviewed-by: Zack Rusin <zackr@vmware.com>
-Signed-off-by: Dave Airlie <airlied@redhat.com>
-Link: https://patchwork.freedesktop.org/patch/msgid/20230920123612.16914-3-pstanner@redhat.com
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Fang Wang <32840572@qq.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 Stable-dep-of: c833d6c7199c ("drm/amdgpu: Limit BO list entry count to prevent resource exhaustion")
 Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
 ---
 Backport fix for CVE-2026-23468
 
- include/linux/string.h | 40 ++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 40 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c | 41 +++++++++------------
+ 1 file changed, 17 insertions(+), 24 deletions(-)
 
-diff --git a/include/linux/string.h b/include/linux/string.h
-index 98b053d9c700..85efd2b738ea 100644
---- a/include/linux/string.h
-+++ b/include/linux/string.h
-@@ -5,6 +5,8 @@
- #include <linux/compiler.h>	/* for inline */
- #include <linux/types.h>	/* for size_t */
- #include <linux/stddef.h>	/* for NULL */
-+#include <linux/err.h>		/* for ERR_PTR() */
-+#include <linux/overflow.h>	/* for check_mul_overflow() */
- #include <stdarg.h>
- #include <uapi/linux/string.h>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
+index 9fb8012007e2..22d7b7c504db 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
+@@ -224,43 +224,36 @@ void amdgpu_bo_list_put(struct amdgpu_bo_list *list)
+ int amdgpu_bo_create_list_entry_array(struct drm_amdgpu_bo_list_in *in,
+ 				      struct drm_amdgpu_bo_list_entry **info_param)
+ {
+-	const void __user *uptr = u64_to_user_ptr(in->bo_info_ptr);
+ 	const uint32_t info_size = sizeof(struct drm_amdgpu_bo_list_entry);
++	const void __user *uptr = u64_to_user_ptr(in->bo_info_ptr);
++	const uint32_t bo_info_size = in->bo_info_size;
++	const uint32_t bo_number = in->bo_number;
+ 	struct drm_amdgpu_bo_list_entry *info;
+-	int r;
+-
+-	info = kvmalloc_array(in->bo_number, info_size, GFP_KERNEL);
+-	if (!info)
+-		return -ENOMEM;
  
-@@ -13,6 +15,44 @@ extern void *memdup_user(const void __user *, size_t);
- extern void *vmemdup_user(const void __user *, size_t);
- extern void *memdup_user_nul(const void __user *, size_t);
+ 	/* copy the handle array from userspace to a kernel buffer */
+-	r = -EFAULT;
+-	if (likely(info_size == in->bo_info_size)) {
+-		unsigned long bytes = in->bo_number *
+-			in->bo_info_size;
+-
+-		if (copy_from_user(info, uptr, bytes))
+-			goto error_free;
+-
++	if (likely(info_size == bo_info_size)) {
++		info = vmemdup_array_user(uptr, bo_number, info_size);
++		if (IS_ERR(info))
++			return PTR_ERR(info);
+ 	} else {
+-		unsigned long bytes = min(in->bo_info_size, info_size);
++		const uint32_t bytes = min(bo_info_size, info_size);
+ 		unsigned i;
  
-+/**
-+ * memdup_array_user - duplicate array from user space
-+ * @src: source address in user space
-+ * @n: number of array members to copy
-+ * @size: size of one array member
-+ *
-+ * Return: an ERR_PTR() on failure. Result is physically
-+ * contiguous, to be freed by kfree().
-+ */
-+static inline void *memdup_array_user(const void __user *src, size_t n, size_t size)
-+{
-+	size_t nbytes;
-+
-+	if (check_mul_overflow(n, size, &nbytes))
-+		return ERR_PTR(-EOVERFLOW);
-+
-+	return memdup_user(src, nbytes);
-+}
-+
-+/**
-+ * vmemdup_array_user - duplicate array from user space
-+ * @src: source address in user space
-+ * @n: number of array members to copy
-+ * @size: size of one array member
-+ *
-+ * Return: an ERR_PTR() on failure. Result may be not
-+ * physically contiguous. Use kvfree() to free.
-+ */
-+static inline void *vmemdup_array_user(const void __user *src, size_t n, size_t size)
-+{
-+	size_t nbytes;
-+
-+	if (check_mul_overflow(n, size, &nbytes))
-+		return ERR_PTR(-EOVERFLOW);
-+
-+	return vmemdup_user(src, nbytes);
-+}
-+
- /*
-  * Include machine specific inline routines
-  */
+-		memset(info, 0, in->bo_number * info_size);
+-		for (i = 0; i < in->bo_number; ++i) {
+-			if (copy_from_user(&info[i], uptr, bytes))
+-				goto error_free;
++		info = kvmalloc_array(bo_number, info_size, GFP_KERNEL);
++		if (!info)
++			return -ENOMEM;
+ 
+-			uptr += in->bo_info_size;
++		memset(info, 0, bo_number * info_size);
++		for (i = 0; i < bo_number; ++i, uptr += bo_info_size) {
++			if (copy_from_user(&info[i], uptr, bytes)) {
++				kvfree(info);
++				return -EFAULT;
++			}
+ 		}
+ 	}
+ 
+ 	*info_param = info;
+ 	return 0;
+-
+-error_free:
+-	kvfree(info);
+-	return r;
+ }
+ 
+ int amdgpu_bo_list_ioctl(struct drm_device *dev, void *data,
 -- 
 2.53.0
 
