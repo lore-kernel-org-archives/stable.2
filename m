@@ -1,212 +1,135 @@
-Received: from mta1.migadu.com (out-9.mta1.migadu.com [95.215.58.9])
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67A30265620
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 03:41:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB1FB3B14D2
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 03:52:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790134867; cv=none; b=fh40B4rh3Xu09Ug+jSRZRmtSo7++wUidsjKQvpfkhUvyhF+1wFZHC+7McFtcbvX3ggf+toHZARX2PvySbqL3iuHItbKailJkVtDa1U8MuNfw/7ygROeo/wu2Fvm8q92Yrudks0/u3Aa356x3vS6LW2LyfNGTaBEqSVjMFgH1ybI=
+	t=1790135548; cv=none; b=lQCuB9OmSrjPWzISMhV39IR2JeweCPerZR7kj2XFmUT6svR6JC/aULIhQWFFo+jFeUFxaunLbAzPLAMXEZTMTJT/tkYWGJRuwO5PTBB1yBgQ/fXC9AviOkP8QMs3WH/AvPCdkeP+WOOw7ODL+HkrN0i2PxxogdnoUzvlG3UcBHw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790134867; c=relaxed/simple;
-	bh=g0/Z5c9aDwytCwk3EVHISBOUhMOmw+UqfCuabJU23Po=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=Bkeccyju12vZaDySompl4ak0NdWxlB1naNFE16Tdxe0nkaKCNAoukGHkoS0+n95r5AsZV1zC3mXIEC3hZ2RVxfxTpSikGj478eEmucosHIZTaSqOS0Uq4hsswniC+JTLqD9S4yjp/iSbsRjEIz9w916KHfW646HoHz8/M9h/vFc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=t5KzfUbR; arc=none smtp.client-ip=95.215.58.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790135548; c=relaxed/simple;
+	bh=1wDBcUfY5O8WxlKGalJMzzi3n8vTPv4IUdTBwkjU3rQ=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=UiYnzdISNnJnrCq/0xcUDXdMOhhlAPjkGazsg4a9A0Ee6wHtBWgVV2s80AnyOZUyJ5HJR/u3FHgB6gM0jjBiwJNlezx5K0x44OYjFBPA0PQv3TJe2iGzS0GvL7ODtq/soXNElcWBsr/vZ5wMaaxdXm0ag3ypedW35DOo1x6dLdA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--edumazet.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=QpVA371+; arc=none smtp.client-ip=209.85.222.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--edumazet.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="t5KzfUbR"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=g0/Z5c9aDwytCwk3EVHISBOUhMOmw+UqfCuabJU23Po=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790134863; v=1; x=1790739663;
- b=t5KzfUbRPgwv6bU849Gk4sjU/WqthHJxWnYgZ9CznQ3o4Ck0wIbxT85pCzznXxrcJtwcMKwQ
- DMe4S/Mui0Td3ETfzxqRd45JJF1Q+PDHNHQjSK/l7mYjRq3dJxcyFjZq6B5/J6f/2Xg9tiZtcQL
- 33KAUZsseBYKCQ+GFiDjP/p4=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 6f051fd9b05117c8;
-	Wed, 23 Sep 2026 03:41:03 +0000
-X-Mizu-Trace-ID: 6f051fd9b05117c8
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <1835413c-e2de-41b0-8225-161afa50676a@linux.dev>
-Date: Wed, 23 Sep 2026 11:40:55 +0800
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="QpVA371+"
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93a0b66ecd9so71556185a.2
+        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 20:52:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790135546; x=1790740346; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hal8/RIom79DBDvcZhlDOMdnBBdeqQ0s89KAip8787Q=;
+        b=QpVA371+AbTQeJZXVk1QSmRx2M57CNg11vqna7g/0XPGbi/y9753MvsrqMpnpnQX1t
+         i6D11P7uXTdKlcenNem1KX24q7BSX72qe+9qgkIQ4ZmuFb3zVrc7C0oRz813g3ikAcM/
+         3piueX4uHNHP9Y7gM4PNHmROj7LapG/6tK9xQ2yLoCqMHBTBPKeCFI8nsgkxqAXEVNMG
+         qE3PBT3p4OTGbYniOytdkBTj1y2ON6eVCSd6fOO1i+Vxdz1YQgYKrxRHjY1cCVSKNjIY
+         T87IhkToucXa49EXUD6eJc01yz5L+9sNZZT4gl8s2ezzP8ok3LP8Jdt47shOjAF8qUoR
+         4L5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790135546; x=1790740346;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hal8/RIom79DBDvcZhlDOMdnBBdeqQ0s89KAip8787Q=;
+        b=e/T2ZhwY0RNTpecb75jlnjwl4639kfkr2AuIJf5ieYTcRqc+x6Eg1wuzYnd+z/H5p/
+         mq0uhsHcXiHMDm8NRDdZwvx7wxjNas78BujwJMfRcV3QKX8QFI8HeWQx3UOOdOpCcvlS
+         miRGaAKXeomleqGO4alIGFcThfbwaM0BlbSQ4/+b/h/j501/4XIBnFyk9HAPyCMWlkvX
+         FJtS1XqRfs4pGGflyQjt0k7HQCk3v4q+wz32iiMc/PeXLAhKtFEVgrUzewEIXgHFD8xE
+         RNhy22W8UwQSf6k3dlLKWOVAdcxNgaVukPmQZ2HP6UUcL2mLKPUE9mtVl0Bp6DXUFmlf
+         0PIA==
+X-Forwarded-Encrypted: i=1; AKwUvBxVRiCqF56AsPcWW97hqg6MH/tQ/AnXnfvNfvCAwYFQMCsgzHvrO3Oha2SZ1izni4q1fsNeJF8=@vger.kernel.org
+X-Gm-Message-State: AFuF++n0kCYxf7jZqK1Kb82p7d7Dz1rWAe7T4GO6r4kUGttZXkHWZFK3
+	GgkjZJ+3GCNUSCxOapQaeWxC/EpPaZZmsYkPeQWoChBYQ1plEX59IQk2CuBEk7cOsIyJWoDknxS
+	cZuqb5TSbticDiw==
+X-Received: from qkox7.prod.google.com ([2002:a05:620a:2587:b0:93a:f45:2374])
+ (user=edumazet job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:620a:4891:b0:93c:16ee:ea03 with SMTP id af79cd13be357-93c251b2225mr222293885a.38.1790135545665;
+ Tue, 22 Sep 2026 20:52:25 -0700 (PDT)
+Date: Wed, 23 Sep 2026 03:52:13 +0000
+In-Reply-To: <20260923035217.179102-1-edumazet@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: hongfu.li@linux.dev, Chris Down <chris@chrisdown.name>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, cgroups@vger.kernel.org,
- stable@vger.kernel.org, Oscar Salvador <osalvador@suse.de>,
- David Hildenbrand <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Shakeel Butt <shakeel.butt@linux.dev>, Michal Hocko <mhocko@suse.com>,
- Johannes Weiner <hannes@cmpxchg.org>, Joshua Hahn <joshua.hahnjy@gmail.com>,
- Nhat Pham <nphamcs@gmail.com>, Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>
-Subject: Re: [PATCH v2 2/2] mm/memcg: migrate per-node hugetlb lruvec stat
- together with hugetlb folio
-To: Muchun Song <muchun.song@linux.dev>, Hongfu Li <lihongfu@kylinos.cn>
-References: <20260923-for-hugetlb_state3-v2-0-e8a36245bfab@kylinos.cn>
- <20260923-for-hugetlb_state3-v2-2-e8a36245bfab@kylinos.cn>
- <15ac7069-d687-4985-90bd-25bc900b4bdd@linux.dev>
-From: Hongfu Li <hongfu.li@linux.dev>
-In-Reply-To: <15ac7069-d687-4985-90bd-25bc900b4bdd@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20260923035217.179102-1-edumazet@google.com>
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+Message-ID: <20260923035217.179102-2-edumazet@google.com>
+Subject: [PATCH net v3 1/5] ip_tunnel: do not clear the active encap before
+ validating the new one
+From: Eric Dumazet <edumazet@google.com>
+To: "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>, netdev@vger.kernel.org, 
+	eric.dumazet@gmail.com, William Tu <u9012063@gmail.com>, 
+	Eric Dumazet <edumazet@google.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+ip_tunnel_encap_setup() and ip6_tnl_encap_setup() zero out t->encap with
+memset() before calling ip_encap_hlen() / ip6_encap_hlen() to validate
+the requested encapsulation type and module availability.
 
-On 9/23/26 10:40 AM, Muchun Song wrote:
->
->
-> On 2026/9/23 10:05, Hongfu Li wrote:
->> From: Hongfu Li <lihongfu@kylinos.cn>
->>
->> memory.numa_stat exposes per-node hugetlb counters from per-node lruvec
->> stats. These stats are accounted against folio_nid(): incremented on
->> the folio's node when handed to a user, decremented when the folio is
->> returned to the pool.
->>
->> During hugetlb folio migration, mem_cgroup_migrate() moves the charge
->> to the new folio and drops the memcg data of the old one, so the free
->> of the old folio right after the migration skips the memcg per-node
->> lruvec decrement. The hugetlb count stays attributed to the old node
->> for the rest of the life of the charge, while the target folio gets no
->> increment on the new node; its later free decrements a counter that
->> was never incremented.
->>
->> Migrate the per-node lruvec accounting alongside migration. Global
->> memcg totals remain balanced because they track resource consumption,
->> not node placement.
->>
->> Fixes: 05d4532b60e3 ("memcg/hugetlb: add hugeTLB counters to memcg")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
->> Tested-by: Joshua Hahn <joshua.hahnjy@gmail.com>
->> Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
->> Reviewed-by: Oscar Salvador <osalvador@suse.de>
->> ---
->>   include/linux/memcontrol.h |  8 ++++++++
->>   mm/hugetlb.c               | 25 +++++++++++++++++++++++++
->>   mm/memcontrol.c            |  5 ++---
->>   3 files changed, 35 insertions(+), 3 deletions(-)
->>
->> diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
->> index a8358f297b65..74110a324f9e 100644
->> --- a/include/linux/memcontrol.h
->> +++ b/include/linux/memcontrol.h
->> @@ -984,6 +984,9 @@ unsigned long lruvec_page_state_monotonic(const 
->> struct lruvec *lruvec,
->>   unsigned long lruvec_page_state_local(const struct lruvec *lruvec,
->>                         enum node_stat_item idx);
->>   +void mod_memcg_lruvec_state(struct lruvec *lruvec,
->> +                enum node_stat_item idx, int val);
->> +
->>   void mem_cgroup_flush_stats(struct mem_cgroup *memcg);
->>   void mem_cgroup_flush_stats_ratelimited(struct mem_cgroup *memcg);
->>   @@ -1452,6 +1455,11 @@ static inline unsigned long 
->> lruvec_page_state_local(const struct lruvec *lruvec,
->>       return node_page_state(lruvec_pgdat(lruvec), idx);
->>   }
->>   +static inline void mod_memcg_lruvec_state(struct lruvec *lruvec,
->> +                      enum node_stat_item idx, int val)
->> +{
->> +}
->> +
->>   static inline void mem_cgroup_flush_stats(struct mem_cgroup *memcg)
->>   {
->>   }
->> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
->> index 519c30b338a8..76d019594b39 100644
->> --- a/mm/hugetlb.c
->> +++ b/mm/hugetlb.c
->> @@ -23,6 +23,7 @@
->>   #include <linux/mmdebug.h>
->>   #include <linux/sched/signal.h>
->>   #include <linux/rmap.h>
->> +#include <linux/rcupdate.h>
->>   #include <linux/string_choices.h>
->>   #include <linux/string_helpers.h>
->>   #include <linux/swap.h>
->> @@ -7378,12 +7379,36 @@ void folio_putback_hugetlb(struct folio *folio)
->>       folio_put(folio);
->>   }
->>   +static void move_hugetlb_lruvec_stat(struct folio *old_folio,
->> +                     struct folio *new_folio)
->> +{
->> +    struct mem_cgroup *memcg;
->> +    long nr_pages = folio_nr_pages(old_folio);
->> +    int old_nid = folio_nid(old_folio);
->> +    int new_nid = folio_nid(new_folio);
->> +
->> +    if (old_nid == new_nid)
->> +        return;
->> +
->> +    guard(rcu)();
->> +
->> +    memcg = folio_memcg(new_folio);
->> +    if (!memcg)
->> +        return;
->> +
->> +    mod_memcg_lruvec_state(mem_cgroup_lruvec(memcg, 
->> NODE_DATA(old_nid)),
->> +                   NR_HUGETLB, -nr_pages);
->
-> Why not use mod_lruvec_state? mod_memcg_lruvec_state is an internal
-> API for memcg, I don't want it to be exported.
+When a changelink request supplies an invalid encapsulation type or an
+encapsulation whose module is not loaded, ip[6]_encap_hlen() returns
+-EINVAL after t->encap has already been cleared to TUNNEL_ENCAP_NONE,
+while t->encap_hlen and t->hlen remain at their previous values. A
+rejected netlink request thus permanently disables FOU/GUE on a working
+tunnel while keeping its reduced MTU and extra headroom.
 
-Thank you for the review.
+The memset() is redundant: struct ip_tunnel_encap has exactly four
+fields, and all of them are assigned unconditionally once the length
+check has passed. A tunnel being created starts from the zeroed private
+area of alloc_netdev(). Simply remove it, so that a failed
+ip_tunnel_encap_setup() or ip6_tnl_encap_setup() leaves the active
+encapsulation untouched. (Callers still invoke ip[6]_tunnel_encap_setup()
+before validating the rest of a changelink request.)
 
-mod_lruvec_state() would update the node counter a second time.  It calls
-mod_node_page_state() as well, and the target's node counter is already
-updated in alloc_hugetlb_folio_nodemask() (patch 1/2):
+net-next already does this for the IPv4 side in commit 88b84cae6b94
+("ip_tunnel: use WRITE_ONCE in ip_tunnel_encap_setup"), which is not in
+net. Removing the same lines here keeps the merge trivial, and extends
+the fix to IPv6, which that commit did not touch.
 
-     lruvec_stat_mod_folio(folio, NR_HUGETLB, folio_nr_pages(folio));
+Fixes: 56328486539d ("net: Changes to ip_tunnel to support foo-over-udp encapsulation")
+Fixes: 058214a4d1df ("ip6_tun: Add infrastructure for doing encapsulation")
+Cc: stable@vger.kernel.org
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+---
+ net/ipv4/ip_tunnel.c  | 2 --
+ net/ipv6/ip6_tunnel.c | 2 --
+ 2 files changed, 4 deletions(-)
 
-For an uncharged folio lruvec_stat_mod_folio() only updates the node
-counter.  The target folio is not charged to any memcg at that point; its
-charge only appears later in mem_cgroup_migrate().  So the node side is
-already covered and only the per-memcg attribution has to follow the
-charge here.
-
->
-> Thanks.
->
->> + mod_memcg_lruvec_state(mem_cgroup_lruvec(memcg, NODE_DATA(new_nid)),
->> +                   NR_HUGETLB, nr_pages);
->> +}
->> +
->>   void move_hugetlb_state(struct folio *old_folio, struct folio 
->> *new_folio,
->>               enum migrate_reason reason)
->>   {
->>       struct hstate *h = folio_hstate(old_folio);
->>         hugetlb_cgroup_migrate(old_folio, new_folio);
->> +    move_hugetlb_lruvec_stat(old_folio, new_folio);
->>       folio_set_owner_migrate_reason(new_folio, reason);
->>         /*
->> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
->> index 88824f783571..a5335da5d425 100644
->> --- a/mm/memcontrol.c
->> +++ b/mm/memcontrol.c
->> @@ -1015,9 +1015,8 @@ static void __mod_memcg_lruvec_state(struct 
->> mem_cgroup_per_node *pn,
->>       put_cpu();
->>   }
->>   -static void mod_memcg_lruvec_state(struct lruvec *lruvec,
->> -                     enum node_stat_item idx,
->> -                     int val)
->> +void mod_memcg_lruvec_state(struct lruvec *lruvec,
->> +                enum node_stat_item idx, int val)
->>   {
->>       struct pglist_data *pgdat = lruvec_pgdat(lruvec);
->>       struct mem_cgroup_per_node *pn;
->>
->
+diff --git a/net/ipv4/ip_tunnel.c b/net/ipv4/ip_tunnel.c
+index e6bcf01411d0bcd12cc9a88e449d9283c4a83c64..2a313b18134e2f0bafd52d59d8e173fa1a084f03 100644
+--- a/net/ipv4/ip_tunnel.c
++++ b/net/ipv4/ip_tunnel.c
+@@ -491,8 +491,6 @@ int ip_tunnel_encap_setup(struct ip_tunnel *t,
+ {
+ 	int hlen;
+ 
+-	memset(&t->encap, 0, sizeof(t->encap));
+-
+ 	hlen = ip_encap_hlen(ipencap);
+ 	if (hlen < 0)
+ 		return hlen;
+diff --git a/net/ipv6/ip6_tunnel.c b/net/ipv6/ip6_tunnel.c
+index d5ff50a2ac01760acd1cb176c952f7113f733288..c918c2b0ad81b0161a2a98e4bd861436497c551c 100644
+--- a/net/ipv6/ip6_tunnel.c
++++ b/net/ipv6/ip6_tunnel.c
+@@ -1818,8 +1818,6 @@ int ip6_tnl_encap_setup(struct ip6_tnl *t,
+ {
+ 	int hlen;
+ 
+-	memset(&t->encap, 0, sizeof(t->encap));
+-
+ 	hlen = ip6_encap_hlen(ipencap);
+ 	if (hlen < 0)
+ 		return hlen;
 -- 
-Best regards,
-Hongfu
+2.55.0.1082.g2b9226bbc0-goog
 
