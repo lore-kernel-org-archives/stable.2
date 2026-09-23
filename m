@@ -1,47 +1,45 @@
-Received: from smtp-8faf.mail.infomaniak.ch (smtp-8faf.mail.infomaniak.ch [83.166.143.175])
+Received: from smtp-190a.mail.infomaniak.ch (smtp-190a.mail.infomaniak.ch [185.125.25.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DECCA53C3AA
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 16:14:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.166.143.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE20053C3A7
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 16:14:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.25.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790180094; cv=none; b=ID0v06RXPUjd0uyTcbJym2EyZV+aalg1zAFH0/XSkFm1eN8y/XaIpJcIIZWwWDGVTnBRYFssbnQ7Zu3HjdrL6T+fnciy5uQ5EToAP+kfiOOyTU6BTo7k2of/qdEyaLoGFDE6gYd+noplaFLs/zG6X/3xIAdmoPJSQ7JcygaG8g8=
+	t=1790180101; cv=none; b=Rl19p+gDYyxJilBgqnksiEn+oI8qCfJw1TmTDDwVsWQYSylI8BRXipAqJIxlKyQ/BMEXED90HEXnSwO6FzXR2Q80jE41OkfZydXo7oKLT6OGZkrdTx2ZdfMV1y2FeXL/FJqJQkn6bc2FXKLj1Jolx7KAgrJ+p6hIJAji5zNKF94=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790180094; c=relaxed/simple;
-	bh=cmBbWr+Pd82aCtan6QNEGNUis95UUXhprUwDT08AweE=;
+	s=arc-20240116; t=1790180101; c=relaxed/simple;
+	bh=tZlgPMTsWyjDV+yPiNmeD/Uybu7SHg2jpYQaF+QEYcg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=HnIg2vhieDmxSbHfeWlvvtdeJmkABFmUkMcaQr9FjTwgID6LaCfG5LOOUoyNjPqmLM2FBvpKnPTOE0r5hIPyK69we3eEIPK1dTiPnWVROq19W6E+21EoHF4pcxnXajJtpRul2Mabh+JlBBzNjUpzvYJhZb+22ZaTu4easn4ujDg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=plUaMgBG; arc=none smtp.client-ip=83.166.143.175
+	 MIME-Version:Content-Type; b=lljHAwc4m4tsHY2W2iIOUaiPYTefSOMpZ64ohA9yWf/Jtfuwl3OjBxRjIK80w0HqoQ6IFb4eaRdEPifRGbAAiMhPF56FqPKx9igObMZI+UBDl5hdZMZA9NWHNx8avW/QM8bSkqHq+M+57n91B9fttxwTyDPlLvHGoo0Cf2d64Ks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=1YoE0CSg; arc=none smtp.client-ip=185.125.25.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="plUaMgBG"
-Received: from smtp-3-0001.mail.infomaniak.ch (smtp-3-0001.mail.infomaniak.ch [10.4.36.108])
-	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hqhr25n2zzDYf;
-	Wed, 23 Sep 2026 18:14:42 +0200 (CEST)
+	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="1YoE0CSg"
+Received: from smtp-4-0000.mail.infomaniak.ch (smtp-4-0000.mail.infomaniak.ch [10.7.10.107])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hqhrJ5LnPzBZP;
+	Wed, 23 Sep 2026 18:14:56 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
-	s=20191114; t=1790180082;
-	bh=APKjj7i0uc9qWnPBz4QfLHVdQ/mZ0OGmcxgt0x3Wg8E=;
+	s=20191114; t=1790180096;
+	bh=iH99+F/Kim/eCsjzuz1uISsuFiOq0KtO88rjFbzLpGk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=plUaMgBGpx05VmHaB+PIMlYZidc1xIeKi19AH3aLC1QN4kWVYISGmDVQr1bBXFNb6
-	 Pn+oFdssTnEQjpo7B1mo5oDOIiqm5/jKSmmBiwU3D5YPXqPTD91jL1p6FpkT5KhIho
-	 XG0wrQgcW1xaEz/QXIIwrxWBL7VoVYExbqm7F7xo=
-Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4hqhr20WnZzxbK;
-	Wed, 23 Sep 2026 18:14:42 +0200 (CEST)
+	b=1YoE0CSg3HUrYljVyZJdpAuq6tqa8mFUS/sDNk5SuqcbIHKbm8u8kpMtbpo/709nB
+	 gecFHkYqFcjv9DnM976iTaoOrwXNEDgp7xOE2wM++/IkLtASJFxJPqfnwYrBp220Q4
+	 jpNZcQn4G74hy9iNaAfg61TYrtVrndRSDCbY/PpE=
+Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4hqhrJ121BzqRM;
+	Wed, 23 Sep 2026 18:14:56 +0200 (CEST)
 From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
 To: stable@vger.kernel.org
 Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
 	Sasha Levin <sashal@kernel.org>,
 	=?utf-8?q?G=C3=BCnther_Noack?= <gnoack3000@gmail.com>,
 	Christian Brauner <brauner@kernel.org>,
-	=?utf-8?q?G=C3=BCnther_Noack?= <gnoack@google.com>,
-	Song Liu <song@kernel.org>,
-	Tingmao Wang <m@maowtm.org>
-Subject: [PATCH 6.1.y v2] selftests/landlock: Add tests for whiteout object creation
-Date: Wed, 23 Sep 2026 18:14:37 +0200
-Message-ID: <a657d4a9cd9f0445a700de9472a9f69d901e3f3d.1790169454.git.mic@digikod.net>
-In-Reply-To: <2026-09-18-daily-reply-0004-re-landlock-whiteout-6-1@kernel.org>
-References: <2026-09-18-daily-reply-0004-re-landlock-whiteout-6-1@kernel.org>
+	=?utf-8?q?G=C3=BCnther_Noack?= <gnoack@google.com>
+Subject: [PATCH 6.6.y v2] selftests/landlock: Add tests for whiteout object creation
+Date: Wed, 23 Sep 2026 18:14:53 +0200
+Message-ID: <5c94ca5f91cdf1f61f9fef4d1ee9c31e61383853.1790169454.git.mic@digikod.net>
+In-Reply-To: <2026-09-18-daily-reply-0006-re-landlock-whiteout-6-6@kernel.org>
+References: <2026-09-18-daily-reply-0006-re-landlock-whiteout-6-6@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -77,17 +75,17 @@ Signed-off-by: Mickaël Salaün <mic@digikod.net>
 ---
 
 Changes since v1:
-https://patch.msgid.link/1b6b0763e8d42e60d4d86489dab9972e554b94bc.1789655724.git.mic@digikod.net
-- Define RENAME_WHITEOUT when libc headers do not provide it.
+https://patch.msgid.link/520a1a9a0c6f14c19f1b962ea33adcf672bf6fdb.1789655724.git.mic@digikod.net
+- Define RENAME_WHITEOUT when it is unavailable from libc headers.
 ---
  tools/testing/selftests/landlock/fs_test.c | 209 ++++++++++++++++++++-
  1 file changed, 207 insertions(+), 2 deletions(-)
 
 diff --git a/tools/testing/selftests/landlock/fs_test.c b/tools/testing/selftests/landlock/fs_test.c
-index 38c1003fb2f4..c585734cb83e 100644
+index a085dd88fd11..ffb5af406b86 100644
 --- a/tools/testing/selftests/landlock/fs_test.c
 +++ b/tools/testing/selftests/landlock/fs_test.c
-@@ -49,6 +49,10 @@ int open_tree(int dfd, const char *filename, unsigned int flags)
+@@ -51,6 +51,10 @@ int open_tree(int dfd, const char *filename, unsigned int flags)
  #define RENAME_EXCHANGE (1 << 1)
  #endif
  
@@ -98,7 +96,7 @@ index 38c1003fb2f4..c585734cb83e 100644
  #define TMP_DIR "tmp"
  #define BINARY_PATH "./true"
  
-@@ -75,6 +79,8 @@ static const char dir_s3d1[] = TMP_DIR "/s3d1";
+@@ -78,6 +82,8 @@ static const char file1_s3d1[] = TMP_DIR "/s3d1/f1";
  /* dir_s3d2 is a mount point. */
  static const char dir_s3d2[] = TMP_DIR "/s3d1/s3d2";
  static const char dir_s3d3[] = TMP_DIR "/s3d1/s3d2/s3d3";
@@ -107,8 +105,8 @@ index 38c1003fb2f4..c585734cb83e 100644
  
  /*
   * layout1 hierarchy:
-@@ -271,7 +277,8 @@ static void create_layout1(struct __test_metadata *const _metadata)
- 	ASSERT_EQ(0, mount("tmp", dir_s3d2, "tmpfs", 0, "size=4m,mode=700"));
+@@ -353,7 +359,8 @@ static void create_layout1(struct __test_metadata *const _metadata)
+ 	ASSERT_EQ(0, mount_opt(&mnt_tmp, dir_s3d2));
  	clear_cap(_metadata, CAP_SYS_ADMIN);
  
 -	ASSERT_EQ(0, mkdir(dir_s3d3, 0700));
@@ -117,17 +115,17 @@ index 38c1003fb2f4..c585734cb83e 100644
  }
  
  static void remove_layout1(struct __test_metadata *const _metadata)
-@@ -288,7 +295,8 @@ static void remove_layout1(struct __test_metadata *const _metadata)
- 	EXPECT_EQ(0, remove_path(file1_s2d2));
- 	EXPECT_EQ(0, remove_path(file1_s2d1));
+@@ -373,7 +380,8 @@ static void remove_layout1(struct __test_metadata *const _metadata)
+ 	EXPECT_EQ(0, remove_path(dir_s2d2));
  
+ 	EXPECT_EQ(0, remove_path(file1_s3d1));
 -	EXPECT_EQ(0, remove_path(dir_s3d3));
 +	EXPECT_EQ(0, remove_path(file1_s3d3));
 +	EXPECT_EQ(0, remove_path(file1_s3d4));
  	set_cap(_metadata, CAP_SYS_ADMIN);
  	umount(dir_s3d2);
  	clear_cap(_metadata, CAP_SYS_ADMIN);
-@@ -629,6 +637,27 @@ static void enforce_ruleset(struct __test_metadata *const _metadata,
+@@ -715,6 +723,27 @@ static void enforce_ruleset(struct __test_metadata *const _metadata,
  	}
  }
  
@@ -152,10 +150,10 @@ index 38c1003fb2f4..c585734cb83e 100644
 +	EXPECT_EQ(0, close(ruleset_fd));
 +}
 +
- TEST_F_FORK(layout1, proc_nsfs)
+ TEST_F_FORK(layout0, proc_nsfs)
  {
  	const struct rule rules[] = {
-@@ -2005,6 +2034,170 @@ TEST_F_FORK(layout1, rename_file)
+@@ -2091,6 +2120,170 @@ TEST_F_FORK(layout1, rename_file)
  			       RENAME_EXCHANGE));
  }
  
@@ -326,7 +324,7 @@ index 38c1003fb2f4..c585734cb83e 100644
  TEST_F_FORK(layout1, rename_dir)
  {
  	const struct rule rules[] = {
-@@ -3058,6 +3251,18 @@ TEST_F_FORK(layout1, make_char)
+@@ -3144,6 +3337,18 @@ TEST_F_FORK(layout1, make_char)
  		       makedev(1, 3));
  }
  
