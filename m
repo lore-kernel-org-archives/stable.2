@@ -1,194 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E23453B61F;
-	Wed, 23 Sep 2026 14:44:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FD5453B354;
+	Wed, 23 Sep 2026 14:44:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790174658; cv=none; b=lmiTWhZXygdxFrIUNUBcX/sDduXADbO/3OyPqR2NwBrUeqC7Z9OEZimhISVSq+XQ2tzhTTZmkHjksfomSkDU5Z//Iokn0EsTVZnxm0m0swIFNz77zuqeZw/nSEjdXBhfLdL0HVr0WMhucfYZTXsqSQV9MZX0sYNQF5NhcNE5OrU=
+	t=1790174659; cv=none; b=ObpMaVK3ZGwtvWgin4UOcpvoDh77AfvFC6vAiXXUgho9NdzFPJrZWuktC7S8DUT+EHVoDOFXr0FSG98bl8Sa/cvMpJk9P6rZT0JDgkLSde3kM3ncW5v3U5Cc9ZbwMfsY026JAFi/LF1xx6UldVdNhiKaIJZ5EWqRtoMiEE1dNsg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790174658; c=relaxed/simple;
-	bh=rjEFo491a/6uNWF7qdOVaZTH2JrI6ECUXBF5bJXJDKQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iR9ned3QbbtGAfzCK0GOrpNBJ8URCM4NRs1cjgV5/7JJW7llHBnchL0AMDwBU6LbCoYQ7NkMX+I4BEaf9dOjIw9KeeDW07zx4s8EMDDfoAxPZ0HzNhkl0NC8ymDW6Tq1xPqOhw89d6EP3s8y/53sxg/8hyALvJnZUz5F42/lmYg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=TBtw85bh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790174659; c=relaxed/simple;
+	bh=mikozMaNBzqjOG66MSgnLM0I8SxLEQRRfu0yIks795g=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=R8CMV+g6cRrlpwYM/hGpkVgNvRtM1r1zbuq5rlTiLEFmZKd/rSXkzJMFNmOKS/mITH6nBq2HTWoPvNfR9xhlkjslmg/l1BS16RLs8ysO4S+DrrNzhPiPepxQPWGS3RtA+pcM8rVkcy46YTc/GpYYw+mwYxY1kHfHfSZZymyErlg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k/M4a09H; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="TBtw85bh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DCB21F000FF;
-	Wed, 23 Sep 2026 14:44:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790174656;
-	bh=apo86avu5GTeARfgPJOirHxDEmG3BQXhgUMSPXgu+bU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TBtw85bhq93xP+5fRgTOUF7qIa5nvl+aItpAil7uuE7/v0NypX8ujjQy3J7RB3SD9
-	 xNeC+9uh1nXhsOV5EImCEMkUqr2PjpXzkM73RPKGLED8GH0B9QilS3QX33NVJIiY2P
-	 WdfCVR5Ljl3EBubhE6spyVaElsCDsXF+FNKb81AA=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	syzbot+586af68eb819833c2d91@syzkaller.appspotmail.com,
-	Xuanqiang Luo <xuanqiang.luo@linux.dev>,
-	Allison Henderson <achender@kernel.org>,
-	rds-devel@oss.oracle.com,
-	Eric Dumazet <edumazet@google.com>,
-	Xuanqiang Luo <luoxuanqiang@kylinos.cn>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 185/398] net: skbuff: do not leave stale header offsets after pskb_carve()
-Date: Wed, 23 Sep 2026 16:04:19 +0200
-Message-ID: <20260923140648.226834175@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260923140643.441954610@linuxfoundation.org>
-References: <20260923140643.441954610@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k/M4a09H"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 086C3C2BCC7;
+	Wed, 23 Sep 2026 14:44:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790174659;
+	bh=mikozMaNBzqjOG66MSgnLM0I8SxLEQRRfu0yIks795g=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=k/M4a09HSvOjqYPBOrQAk7OsF355p32YEVYTExFKVg6TXf+zywG8HBEJ2fxsYYd+h
+	 h+VNwvUQJBaPWBSZBEejcElXPIbHQyWKor4PN8jqMcbxTOjeaW4D84QH2r2/SkyPXo
+	 Rn7U8Utx59w3H3Lrr/lmov5SYZqfmrVaoLokqlWetoxvf/dDeaL/BOYX8Ia5SgIkGG
+	 q3hn4SJw5NChVzAQIUTUlmM363AnOPrHprexFjToQVoSBgJnH9BPrKXhn3n7iRte13
+	 aCo6O0eOQUIgMmyuaI29yj1IhI4KvOMK5kJd3TRGFavPuMdxXRMEfdmAgsHpZjrzzv
+	 MGm/REqn1Lp+w==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D7D9DC98302;
+	Wed, 23 Sep 2026 14:44:18 +0000 (UTC)
+From: Norbert Szetei via B4 Relay <devnull+norbert.doyensec.com@kernel.org>
+Subject: [PATCH v3 0/2] RDMA/rxe: fix ADVISE_MR prefetch on non-ODP MRs
+Date: Wed, 23 Sep 2026 16:40:48 +0200
+Message-Id: <20260923-rxe-advise-mr-v3-v3-0-95e1a4077e4d@doyensec.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMUQrCMBCE4auUfXYhJkSiVyk+xGaqK9iWjZZCy
+ d1N28cPZv6VMlSQ6daspJglyzhUuFND3SsOT7CkarLGXszVOtYFHFMdgj/Ks2PnfQwmIPhzT/U
+ 2KXpZ9mR7P5x/jze679ahUv62/cTIdAAAAA==
+X-Change-ID: 20260923-rxe-advise-mr-v3-355a808e851f
+To: Zhu Yanjun <zyjzyj2000@gmail.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Leon Romanovsky <leon@kernel.org>, Bob Pearson <rpearsonhpe@gmail.com>, 
+ Daisuke Matsuda <dskmtsd@gmail.com>
+Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Zhu Yanjun <yanjun.zhu@linux.dev>, stable@vger.kernel.org, 
+ Norbert Szetei <norbert@doyensec.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790174657; l=1582;
+ i=norbert@doyensec.com; s=20260913; h=from:subject:message-id;
+ bh=mikozMaNBzqjOG66MSgnLM0I8SxLEQRRfu0yIks795g=;
+ b=kCBAAm0NwJRgHGHCrOi500SN2mG6f8WxujQo3QKTKGfYEdueaEXnP7xf403Y3kAvcYVK740kG
+ VQZX4OVn8C6C1oUQ+h8Td+5ebdwNPdKm8t3kZWNtjraESP8d5ILVHbI
+X-Developer-Key: i=norbert@doyensec.com; a=ed25519;
+ pk=c6ZqJ+mhvi5FloJOiMJUcIPPjT7tczbglx5gruwpVi8=
+X-Endpoint-Received: by B4 Relay for norbert@doyensec.com/20260913 with
+ auth_id=1029
+X-Original-From: Norbert Szetei <norbert@doyensec.com>
+Reply-To: norbert@doyensec.com
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+ADVISE_MR prefetch on a plain MR runs to_ib_umem_odp() on a struct
+ib_umem, giving a KASAN slab-out-of-bounds read in
+ib_umem_odp_map_dma_and_lock() (splat in patch 2).
 
-------------------
+v1 checked is_odp_mr() after lookup_mr(). Leon asked for lookup_mr() to
+do the check itself, off mr->access. That only holds once mr->access
+cannot disagree with the umem, so patch 1 stops the two paths that
+assign mr->access after registration from touching IB_ACCESS_ON_DEMAND,
+and patch 2 passes the flag to lookup_mr() in both prefetch arms.
 
-From: Eric Dumazet <edumazet@google.com>
+Based on for-next. In rxe_rereg_user_mr() the new check rejects the
+access flags before the mr->ibmr.pd swap, where for-rc's ae36a5b609ae
+("RDMA/rxe: validate access flags before swapping the MR's PD") also
+moved the existing validation.
 
-[ Upstream commit a5117e1eccac6ee3bd4aed7cacf8ebcb6b3eb309 ]
+v2 -> v3:
+ - rebased on for-next, no functional change
+v2: https://lore.kernel.org/all/20260913-rxe-advise-mr-v2-v2-0-b806c789871c@doyensec.com/
+v1: https://lore.kernel.org/all/521D5E74-89E3-43C0-81C7-AC0BE52591E7@doyensec.com/
 
-pskb_carve_inside_header() and pskb_carve_inside_nonlinear() remove
-the first bytes of a packet and reallocate skb->head.
-
-All the headers that were present before the operation are gone,
-but both functions call skb_headers_offset_update(skb, 0), which
-is a no-op : skb->mac_header, skb->network_header,
-skb->transport_header and skb->csum_start keep their old values and
-now describe bytes which are no longer there.
-
-Both helpers size the new head from the old skb_end_offset(), so the
-stale offsets still land inside the new allocation. They point past
-skb_tail_pointer() though, to bytes that were never initialized.
-
-pskb_carve_inside_nonlinear() is the worst case, because it leaves a
-zombie skb with an empty linear part (skb->data ==
-skb_tail_pointer(skb), skb_headlen(skb) == 0), while
-skb_mac_header_was_set() is still true and skb->mac_header is way
-ahead of skb->data.
-
-The only user of pskb_extract() is rds_tcp_data_recv(), and the
-carved skb is queued on tinc->ti_skb_list. When the RDS incoming
-message is released, rds_tcp_inc_free() calls skb_queue_purge(),
-which frees the skbs with SKB_DROP_REASON_QUEUE_PURGE. This is
-visible from drop_monitor, which then tries to pull back to the
-(bogus) mac header :
-
-skbuff: __skb_pull(len=234)
-skb len=6968 data_len=6968 headroom=0 headlen=0 tailroom=0
-end-tail=384 mac=(234,14) mac_len=14 net=(248,40) trans=288
-shinfo(txflags=0 nr_frags=1 gso(size=1428 type=16 segs=5))
-csum(0x100120 start=288 offset=16 ip_summed=3 complete_sw=0 valid=1 level=0)
-hash(0x7b446c6c sw=0 l4=1) proto=0x86dd pkttype=0 iif=60
-kernel BUG at ./include/linux/skbuff.h:2847!
-
-Add skb_carve_reset_headers() to mark the mac and transport headers
-as not set, reset the network header, clear skb->mac_len, and drop
-a now meaningless CHECKSUM_PARTIAL (csum_start no longer describes
-anything).
-
-Invalidate the inner offsets as well. Unlike mac_header and
-transport_header they have no "unset" sentinel, so a leftover
-non-zero value still looks like a real header. Zero
-skb->inner_mac_header, skb->inner_network_header,
-skb->inner_transport_header, skb->inner_protocol and
-skb->encapsulation, so that all the header state is invalidated in
-one place.
-
-v2: fixed an inaccurate changelog. The stale offsets stay inside the
-    new skb->head, which is never smaller than the old one, they
-    simply point past skb_tail_pointer() to bytes that are gone.
-    Thanks to Xuanqiang Luo for insisting on this.
-    Also invalidate the inner header state, as suggested by the
-    netdev AI review :
-    https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260911114922.621937-1-edumazet%40google.com
-
-Fixes: 6fa01ccd8830 ("skbuff: Add pskb_extract() helper function")
-Reported-by: syzbot+586af68eb819833c2d91@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/netdev/6aa3e9d3.f2639fcc.29487d.0028.GAE@google.com/
-Cc: Xuanqiang Luo <xuanqiang.luo@linux.dev>
-Cc: Allison Henderson <achender@kernel.org>
-Cc: rds-devel@oss.oracle.com
-Signed-off-by: Eric Dumazet <edumazet@google.com>
-Reviewed-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
-Link: https://patch.msgid.link/20260915130423.3956471-1-edumazet@google.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Norbert Szetei <norbert@doyensec.com>
 ---
- net/core/skbuff.c | 32 ++++++++++++++++++++++++++++++--
- 1 file changed, 30 insertions(+), 2 deletions(-)
+Norbert Szetei (2):
+      RDMA/rxe: Reject IB_ACCESS_ON_DEMAND changes after MR creation
+      RDMA/rxe: Reject prefetch of a non-ODP MR
 
-diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-index 0324292309921..594764eab40dc 100644
---- a/net/core/skbuff.c
-+++ b/net/core/skbuff.c
-@@ -6766,6 +6766,34 @@ struct sk_buff *alloc_skb_with_frags(unsigned long header_len,
- }
- EXPORT_SYMBOL(alloc_skb_with_frags);
- 
-+/* pskb_carve_inside_header() and pskb_carve_inside_nonlinear()
-+ * remove the first bytes of a packet and reallocate skb->head.
-+ *
-+ * Whatever headers were present before the operation are gone,
-+ * we must not leave stale offsets, otherwise users of this skb
-+ * (skb_dump(), drop_monitor, taps, ...) would read or pull garbage.
-+ */
-+static void skb_carve_reset_headers(struct sk_buff *skb)
-+{
-+	skb_unset_mac_header(skb);
-+	skb_unset_transport_header(skb);
-+	skb_reset_network_header(skb);
-+	skb->mac_len = 0;
-+
-+	/* Inner offsets have no "unset" marker, zero them so that
-+	 * skb_inner_network_header_was_set() becomes false and no
-+	 * consumer mistakes them for a real (and long gone) header.
-+	 */
-+	skb->inner_mac_header = 0;
-+	skb->inner_network_header = 0;
-+	skb->inner_transport_header = 0;
-+	skb->inner_protocol = 0;
-+	skb->encapsulation = 0;
-+
-+	if (skb->ip_summed == CHECKSUM_PARTIAL)
-+		skb->ip_summed = CHECKSUM_NONE;
-+}
-+
- /* carve out the first off bytes from skb when off < headlen */
- static int pskb_carve_inside_header(struct sk_buff *skb, const u32 off,
- 				    const int headlen, gfp_t gfp_mask)
-@@ -6821,7 +6849,7 @@ static int pskb_carve_inside_header(struct sk_buff *skb, const u32 off,
- 	skb->head_frag = 0;
- 	skb_set_end_offset(skb, size);
- 	skb_set_tail_pointer(skb, skb_headlen(skb));
--	skb_headers_offset_update(skb, 0);
-+	skb_carve_reset_headers(skb);
- 	skb->cloned = 0;
- 	skb->hdr_len = 0;
- 	skb->nohdr = 0;
-@@ -6961,7 +6989,7 @@ static int pskb_carve_inside_nonlinear(struct sk_buff *skb, const u32 off,
- 	skb->data = data;
- 	skb_set_end_offset(skb, size);
- 	skb_reset_tail_pointer(skb);
--	skb_headers_offset_update(skb, 0);
-+	skb_carve_reset_headers(skb);
- 	skb->cloned   = 0;
- 	skb->hdr_len  = 0;
- 	skb->nohdr    = 0;
--- 
-2.53.0
+ drivers/infiniband/sw/rxe/rxe_mr.c    | 6 ++++++
+ drivers/infiniband/sw/rxe/rxe_odp.c   | 4 ++--
+ drivers/infiniband/sw/rxe/rxe_verbs.c | 6 ++++++
+ 3 files changed, 14 insertions(+), 2 deletions(-)
+---
+base-commit: 9dcacdc41083cccff74292851bf9fde999e0731a
+change-id: 20260923-rxe-advise-mr-v3-355a808e851f
 
+Best regards,
+--  
+Norbert Szetei <norbert@doyensec.com>
 
 
