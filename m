@@ -1,96 +1,66 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FF313EDAB3
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 08:15:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BFA838E5EF;
+	Wed, 23 Sep 2026 08:33:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790151345; cv=none; b=Y1gQRt+UdH0qjHo7jYZE+Ua9WlIbssT0gkbqJDoKGVIGWDd+7+zBpI5sgNVBquv060YRbdp8zdcycEy6YgEHnmyVGD5rJg17b+6UczgXT9OaqbWriAej1XxjF56gRfy2xUQB18g145bPgbMTDotNDziZrjgY9nfHdLXGz4/6OSI=
+	t=1790152382; cv=none; b=IFkuXFPemATS5igkpilEp/R5wrpF2mspGWVnFa76zvvvKAbKGdCwDCm5xHuNqIUI63S6363z0aC8zXf9WmaKfAE+bsk6WYPefwKZLHVSRFEzKzi4Rp3K+i494LicVahJG8R4bXX4VYUknp59O/KMb2muZ6oX2xG2bXasidDBjk4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790151345; c=relaxed/simple;
-	bh=Aw8qwOlJ9sFdhYrmecSvR+HuKipW2F5+ZK3LCKAb9GA=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=H95zSYwmUHqlH3l9RdWuHyN/jCmOSCxb0VLDOdB7J1ZUdWlJuIX+nKEIticLC+dt+mP1gQvMDLO8YI841/9NwMc5dwxKUBEc/QnGTvlK61L4qFvduIhju230xwBr3crhSIBqSFOOp8NRMxFx4mxsO1jAAttWmlXhKl3LaKhDoQo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O76SOVu5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790152382; c=relaxed/simple;
+	bh=pXwR0LARPvXUNmDW1xtJBvb5PUaMj1aERqFVze2EoDI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=O50CQPcKijfVhYYCh4tEfH4Hh1nEE3Tmj6zH9QtlYN/iORAcoRRzRrsaoxe6UdfbzVdmCbFAVm8vWQyH3p/XRh4Uh2ahCovpDDN027OVOggolEEd7Skbcb00y9d70fIX842IJJlbnIaDhCgDfdeIVseEzmvbb/wKUdLe9m82g3A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=as+t+uBd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O76SOVu5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 062BB1F0089B
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 08:15:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="as+t+uBd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B28D1F000FF;
+	Wed, 23 Sep 2026 08:32:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790151342;
-	bh=Aw8qwOlJ9sFdhYrmecSvR+HuKipW2F5+ZK3LCKAb9GA=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=O76SOVu576WVT3Xse2dxpHNsXzDbSJ8JfDG426CQvxK822pjlgcrcMuxQp1lahbmB
-	 DhsOnoFt3qk/ln8zGg8jJL/qzeKA0lQAXdAea8rbHfAeCSdMBiDsBb226mAPsux+uO
-	 BkIA2SJoVLgpp0453ALpHthPaN5JAJ9gTX7nS1VwOZhmBZvwe8u2lTSmUpm/aRfNjw
-	 +5HbNVrXPR0kmutwnUQdvBSzkPkmTfMZRcCYMBSljh8VmMqRGDyr0ayT6hpNcWsFo2
-	 Sqaer8pSdPoYuFgNeNSRVcQYUvtHblqonB1DSDE3pkusQY1vT7dPc0hhGpixDVvKHe
-	 Qm/1IJsVZFoYA==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f1801fso571079e87.2
-        for <stable@vger.kernel.org>; Wed, 23 Sep 2026 01:15:41 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwTjKR5ImWRP/IksHKkTSlOaxnNU69Y0kT4BCkPu7HJ0aQf/ovlGJFMNElwJNagcjhtHk9m0Qg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lAZRV7DNiFUJRxEg4o6RDXjMzgwdjTPEmw72U4XM/LPIr/01my
-	FGd9gIaqdW4aeN+WcvqUyBLUX1tKrqCW3ljTlEPevcezZV4+8WEYLSmFCDVK5d94niv9wm2Ifln
-	S9mZgfb55s/JNasiTbFr31Z34QbWIUVWrqc5Omr7a4A==
-X-Received: by 2002:a2e:be1c:0:b0:3a1:8558:56a2 with SMTP id
- 38308e7fff4ca-3a6305c95d8mr4593041fa.6.1790151340521; Wed, 23 Sep 2026
- 01:15:40 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 23 Sep 2026 01:15:38 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 23 Sep 2026 01:15:38 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260923030855.410109-1-fanwu01@zju.edu.cn>
+	s=k20260515; t=1790152380;
+	bh=CgUhTaaxn3U0Lt1WL8BFQpEGdIbTobyUrE2TJ71SNjo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=as+t+uBdFKSw9wxXfIP7L8LSpX04VY1UHIC0L8Q5Rw0vs0LFpXqlVpm3k3yash/Mv
+	 x12tmwdsnEOzQT1rmxOIlMMtKL1bTBbgPuFxXPsQiNDvPfofYpDET1Yz393bkVQQcU
+	 B6cTyWsmHUv6PXhAsUf8/wOyAu5kPa/qu2BRm30bJD+7GMTR87a3s3nH05SFW749rS
+	 5LPGf5E3UlvwGv1ffal7jjeNOw/PiGfVsL4LrAsuuW522TFOwn+4LxGlsGSJpUDY7d
+	 bSy5AoqER6l66wLsUvvjYTuGeuMgetcMLiTv7lycEV4LibR03qCbGv6TihjmqADzHu
+	 jhi5wMprGfITA==
+Date: Wed, 23 Sep 2026 11:32:56 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: dsahern@kernel.org, jgg@ziepe.ca, linux-kernel@vger.kernel.org,
+	linux-rdma@vger.kernel.org, yanjun.zhu@linux.dev,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] RDMA/nldev: Fix ib_device reference leak in
+ nldev_dellink()
+Message-ID: <20260923083256.GM563127@unreal>
+References: <20260916183101.2092246-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260923030855.410109-1-fanwu01@zju.edu.cn>
-Date: Wed, 23 Sep 2026 01:15:38 -0700
-X-Gmail-Original-Message-ID: <CAMRc=MfHeDs5FndscwsM1Ycogq9Z8gqp4=XjY4__g_2yKTqNYg@mail.gmail.com>
-X-Gm-Features: AclHuK8uJ4XauR2LfLHmw4IroN5X4QmWH5FoLCLBzcg1D2bp5WkW97t70p99m4g
-Message-ID: <CAMRc=MfHeDs5FndscwsM1Ycogq9Z8gqp4=XjY4__g_2yKTqNYg@mail.gmail.com>
-Subject: Re: [PATCH] gpio: mpsse: fix race when arming the IRQ poll worker
-To: Fan Wu <fanwu01@zju.edu.cn>
-Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Song Li <songl@zju.edu.cn>, 
-	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916183101.2092246-1-vulab@iscas.ac.cn>
 
-On Wed, 23 Sep 2026 05:08:55 +0200, Fan Wu <fanwu01@zju.edu.cn> said:
-> gpio_mpsse_irq_enable() arms the poll worker before publishing it:
-> schedule_work() runs before the worker is added to priv->workers. If
-> gpio_mpsse_disconnect() walks the list in that window it misses the
-> worker, and once disconnect returns, the USB core frees mpsse_priv
-> while the orphaned gpio_mpsse_poll() work keeps accessing it, causing
-> a use-after-free.
->
-> Fix this by publishing and arming the worker in one irq_spin
-> critical section. Teardown walks the same list under irq_spin, so a
-> worker found on the list is guaranteed to be armed, and
-> cancel_work_sync() handles it whether it is queued or running.
->
-> A worker armed after the disconnect walk would still be missed, so
-> also set a new priv->dying flag under irq_spin before the teardown
-> walk, and check it in the same critical section, freeing the worker
-> instead when the device is going away. schedule_work() is safe to
-> call with irq_spin held, and the next probe gets a fresh mpsse_priv,
-> so the flag never needs to be cleared.
->
-> This issue was found by an in-house static analysis tool.
->
-> Fixes: 179ef1127d7a ("gpio: mpsse: ensure worker is torn down")
+On Wed, Sep 16, 2026 at 06:31:01PM +0000, Wentao Liang wrote:
+> nldev_dellink() takes a reference on the ib_device with
+> ib_device_get_by_index().  When the driver's dellink callback fails,
+> the function returns the error directly without dropping that
+> reference, leaking it.  Call ib_device_put() on the dellink error
+> path before returning, matching the handling of the other error
+> exits in this function.
+> 
+> Fixes: a60e3f3d6fba ("RDMA/nldev: Add dellink function pointer")
 > Cc: stable@vger.kernel.org
-> Co-developed-by: Song Li <songl@zju.edu.cn>
-> Signed-off-by: Song Li <songl@zju.edu.cn>
-> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
+>  drivers/infiniband/core/nldev.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
 
-I probably wouldn't have noticed but Sashiko found an issue on PREEMPT_RT
-kernels[1].
+It was already fixed, https://patch.msgid.link/20260903082550.2257-1-lirongqing@baidu.com
 
-Bart
-
-[1] https://sashiko.dev/#/patchset/20260923030855.410109-1-fanwu01%40zju.edu.cn?part=1
+Thanks
