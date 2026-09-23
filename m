@@ -1,66 +1,66 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0137F23392D
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 00:14:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDECC24A047
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 00:14:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790122488; cv=none; b=eriwzG1SyFS71ZAKMbEoSBI/Voevyp9b27UkXplfGaF5n2P6s96MDlxM64xgUZrq2L4Tw4xs+9CdnT4CVFRdIDi3KY2A7DKRWJQ7hbNQk8BgWfn2Fc5zdLhLHtFOhMtPAs/ULvkuc08VLob1s4lrHuCSxJPrxxjp4ZcRNaMfEkY=
+	t=1790122489; cv=none; b=jnWXwRrVlzAayU7WOO8xeyl9TGErGLMrXygdZPTjF/1tGrVe/cFOPmzuQdRWCTwddI6VPZt9XNttZj4aV2UtCcGDp7CfFhUkDd+NoDSBCyI9aq4lXYpFD908CsOkeruwTNR+McoE/gDPQ3PK5TNTSWegUzWGXNxn8K2x2fexV7M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790122488; c=relaxed/simple;
-	bh=aeNMuhZLVd8auv5KzMsrPSW1MpK+eJ8bpu5C3Os+nhQ=;
+	s=arc-20240116; t=1790122489; c=relaxed/simple;
+	bh=cbGo4TQAahnvid5BzTcvwPcvLNuaLGXSG1MBAuo5OY4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hQudHDOEgdyL0qclwRzAT9eHOT8Adc5+xfF+hhq9hDsc8DNNW44u3w8Hp11/xmlaponHRKkU/LyaxshgcsPW8xrkj/BzDc3XAS92KwiLBADoA5VnBJsDKVPcPQahWF45kcwysGP7Ad4QxkBTLd6H977tIZOkqf6TmG6hFqdg2b4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=anN9cKE3; arc=none smtp.client-ip=74.125.225.76
+	 MIME-Version; b=hGR2HAXDezocJTKaHFL/I2sihn2c/bzZ4ljuI7R4oZXIQQB+qH//Rpz4+H1P8KQsiwfgvuxycFatYCmuqcZIkfWMl3tfWW+KgBCOCdlNgMCwqPUlD7EX1qPz6qa3OdvE+XGNUmg5xMY+75IzgYtLfowenH2aL8uZifShtvOuh/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CysKucRj; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="anN9cKE3"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6356256so143717f8f.1
-        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 17:14:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CysKucRj"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccead2aecso1416365e9.0
+        for <stable@vger.kernel.org>; Tue, 22 Sep 2026 17:14:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790122482; x=1790727282; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790122484; x=1790727284; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=LMLRsg30TTBsYgaLuhHOpTrYOv4xBwe4rnv3RttCS9s=;
-        b=anN9cKE32WSzpwxUvaLWx9EkH/FZrakZ29xdlcif4GYW/hk5ij/REmvUxK69LaD9mH
-         kS6mSclXnjFgPtCQ8vGZZSbM90av8ubZKvoL9NP6KcLXx5ClIZmMt4QMMLv04rUfGR0a
-         eh2IogPt3qcb6/uOAyCmcmaTaP69/90DJTPLTZ4Bzu+bHatAU4ZJ9Yy4zX327YBRynzh
-         PvxhDJT1N9qmJHXIKrQ5MzJWAenA8Qa60bt9aCF2IC08qpHC7E6je14swG4cLKtMjE68
-         W1hIWRtM9cCyOw2Sb16ZMNsEtmEtHyZ7biuyQKosyo9Calm0YVKGahARYms70ed/VGdn
-         HKKg==
+        bh=k9P3MjJHm5LPq6fNgfWUG9o64JUvZTiy872DYV+9qyA=;
+        b=CysKucRjAeHbUCuu1hB8404+eSBj109byUFUwmhFgg4L6sF5S6GeXDOPDlsORn1+8T
+         6DrC4GKo+nudfefJU5qot6RNuLEsmccusGn6Z+INVHw8vfjscnZwPyjaJjjlIo0ez1dm
+         K/0eSpxxAkzNrrizfR3s4RKnxwKrRSCNZO9Ngcw6XAsLzUTKIv8AYySR7Qbbt6XG+QsC
+         xBjh1c9kg6hY2t/MhC92GeIJGIU4exBrx5ff0pDMg4pyIQtI0kE7JZsdBTaiEkO1Now0
+         vYP0fPmAR4sxRCwLc3PLgZ+OXMPWdg5ApzPmtIY8LQMqg+tp/1XvIzUp2+GreNnfuba9
+         IqDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790122482; x=1790727282;
+        d=1e100.net; s=20260707; t=1790122484; x=1790727284;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LMLRsg30TTBsYgaLuhHOpTrYOv4xBwe4rnv3RttCS9s=;
-        b=e13/LMEh8GFuw7xBsmWgf3y5laZPb7MZQiCq1ClC5JYz89UnPJzhXjNrFvopvd0Rz0
-         CxNhjoO0vIMl5wh37XH5cExHNmR301g+0HEePmxAODX5zf/cBA7nOzvPoTCigs16dEs3
-         fTinoTn2agUWAhqFr12hH5p7g7YUrnoxD51MAdeTxc8HpEooxOfU6HKt6zmpzIzpw+Hx
-         m0D3zKZEEa+Al4VBiCcZ6StbNQwNCpDfuYeMOv/PIvhshOYqlvjX+G/YtnVV4RDZZcvh
-         aRnQxOs/y/PPZfE3fTVy4EJZ3AcR1zfjZXHBz5daWtVEop69N2Ac1r6+P8xM9BtyRH40
-         Ju9w==
-X-Forwarded-Encrypted: i=1; AKwUvBzzHJ8H8ZXiy0/Vn9zj3a8yaW7uL95xMBznV1AKWDn9SsB+xGWwv9DvEpkuP1L9wNlpLPOLJLw=@vger.kernel.org
-X-Gm-Message-State: AFuF++my/vtkJFeYS3xXL0D/+LKohMABWRbiY0fQRXIjjd9DLcJmUyZD
-	I4FORJM3wa5PxCSzzO0wvWueG94zD8wRObBAZmn/MzzT8abQzPWqfCee
-X-Gm-Gg: AYBFou346WD38X8U5Wq9OKHkXKqhJd7omhY/3HdxONlP8Yx0kMuQx9WqYnX7PLps1JK
-	35rLYW8/5MbN6ePBA1Eg6xMpiUAnwryFTyUIh+a2BakroK9nQ4PG6H/C06E/hNQaGXqZtNFSO0j
-	U2lvnLW09E3oFurUmSL7Tmng6sL/oHvMty06sDzSIG6WQ9VCYzUjRmF/q15I4aKGZuyn3OWKXEu
-	Fgl1BAcLFWQVFS0UGtwzbLttycXBy5nJi+lTugRJ69HkxmTUC62VfVKQaI9QIfcYH36Jd1Q/a2d
-	UGjde/gmilpQQO62AztTEKSg72ftsGtzyd83KptL/PIzz/XIMHpILaS+BoigODGyPDURUyjJ/nY
-	i4boBdNzBBKkRDmblLFO9CTCjzeagHpxhO7GKBRES1AH4aqsOJzxUDh8r/fZOyoJGCSGuK7F7Kr
-	bt6BRtHRNDrL32hj5YhsKZx1fnNsDlznwdk3e4hCfl8qCY8Tv7xKHol0kQNEgs740Tg2MJ/0V4e
-	2kCmdsow3VDiCqnbUcKWpehv+2vhAQolNw0nwbM2fBXINe/MdurY6d17UYt9d6BvQEZmyYxlAR/
-	HG68t8jsvJiso5FzR/lrxnlLd6PS7uk7CpJxDSrbOGCGty9SzFJkXmAzRDo3YNXH6G7s/1QJxeY
-	psv9TOgzi1N75kPPP6aYDQQ==
-X-Received: by 2002:a05:600c:8a09:10b0:49e:65f2:db64 with SMTP id 5b1f17b1804b1-49fde36ffc6mr8931375e9.5.1790122482178;
-        Tue, 22 Sep 2026 17:14:42 -0700 (PDT)
+        bh=k9P3MjJHm5LPq6fNgfWUG9o64JUvZTiy872DYV+9qyA=;
+        b=NES44stnk4oT1eVGh0p/83sx2p0sY/oCdLL2LpGssMr9X/j5R+GoZ6eNl9MNYJzcF1
+         d4hTG0SSamPSBtVNXFREKBgQPBd7yrF6csz6VQ6qgYM2K/jTFbmzGfY9seWERl6cCIq5
+         NrNzUPPQdL1pyqOPd+9ZkK4XLIRV/gU1tsYW+xAL6tJ30NM8iM8LsT/WVOjcMg6ElZP9
+         VvQrOfPia4l6lzfSgjcz6nRXcrwIOx8BSEunyYt9vgqUf5PgmmEEolAC9aLVbSE5HUyL
+         AKbd4Oa3vHyo8PMVFkc1uEGHSNHAG6PSErNyzvz4FJFQWREL5MBJNIcoIpv1L2Zr7ZTd
+         6jpQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy+AOJHCRRauB5aGddP2xlOB7yyGu1xyFHgaDPOCDXCRirJSBB92Ba4qUlpyOSdENa+CNJnUq8=@vger.kernel.org
+X-Gm-Message-State: AFuF++msZf7YXvOD78NwhWEH2rJlcleMHlfyqhfTiyF484cZesdemNgs
+	+mOtGInFePW3HseBlQLeaUWsGdxpayONXUmWIHw8JnMiw51252oDZb6zZG2Dw1JOCFo=
+X-Gm-Gg: AYBFou05TPaKCKd2Fdqdu6RsvcthFsSiHcMwQUulR7dcM8odfy24OQGAKIznlluNuIr
+	aRPlHVezOUfAxuKMbUDAIZpJv1KluDJ/iNtHJrkCpnUrZdxYyjGQCCxAaewxuFOBUDwGdOn4P03
+	/01QxUJBBMf7jMW0xs0g4mTJJecOMnj4/ZajMGxUxiBDSgyJFsi0gwrcJBnVLLPWdtIKTVWpn3t
+	GFtJD/ZcJPFCqO0dJoPEEwSV4FAtoc2dOmhSviLEeEI27sKueTArGIJ/0SjncZtBV88jgDWe1tl
+	kkLtL15LNTaiDFPyA9JAuknZt4/dxn/urNBmypG/Xt/xbGniVtoR8BsmtrUzcg+4qD7AHpnLYDM
+	phO27I/PdvGkdgBsm5sUjgceQ1LznD778tTPJzKGNt1ZlPidn5TDPG/PO/AHKdcyOCGF7fkPx42
+	syxrfwt7ap8cAPw+fF7/taS50XoXg8k2gz4pS0II6D5N5pB83ZzjBDFaryGHu/NvsiDSk1xonPe
+	jev9DdzIMZjgscCtdjSuevl9+rns6JiSbCLsu7ll0d4vRLfnUpqe5H4aLDHBB3/k7xy29/rmJCx
+	K54EZyo/xlugLbXHqwzwf5odgnyfTGA5HaKFgM2Rq0ll8N9VXhqrZcdzvjaEZwESX5d1hQtHga2
+	qxPw5jGd24UqhoXan/0AG+g==
+X-Received: by 2002:a05:600c:8b83:b0:49c:fea3:8633 with SMTP id 5b1f17b1804b1-49fdf14578dmr9080065e9.24.1790122484156;
+        Tue, 22 Sep 2026 17:14:44 -0700 (PDT)
 Received: from localhost.localdomain (dynamic-2a00-1028-c000-0ddf-8c68-4a09-6ad6-6324.ipv6.o2.cz. [2a00:1028:c000:ddf:8c68:4a09:6ad6:6324])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde180a39sm34612165e9.1.2026.09.22.17.14.39
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde180a39sm34612165e9.1.2026.09.22.17.14.42
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 22 Sep 2026 17:14:40 -0700 (PDT)
+        Tue, 22 Sep 2026 17:14:42 -0700 (PDT)
 From: Josef Schlehofer <pepe.schlehofer@gmail.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: linux-media@vger.kernel.org,
@@ -68,9 +68,9 @@ Cc: linux-media@vger.kernel.org,
 	Hyunwoo Kim <v4bel@theori.io>,
 	Josef Schlehofer <pepe.schlehofer@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH 5/6] media: dvb-core: dmxdev: wake up readers on release
-Date: Wed, 23 Sep 2026 02:14:09 +0200
-Message-ID: <20260923001410.30297-6-pepe.schlehofer@gmail.com>
+Subject: [PATCH 6/6] media: dvb-core: wake up CA users on release
+Date: Wed, 23 Sep 2026 02:14:10 +0200
+Message-ID: <20260923001410.30297-7-pepe.schlehofer@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260923001410.30297-1-pepe.schlehofer@gmail.com>
 References: <20260923001410.30297-1-pepe.schlehofer@gmail.com>
@@ -82,90 +82,96 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-dvb_dmxdev_release() sets dmxdev->exit and waits for open demux and DVR
-files to close, but readers blocked in dvb_dmxdev_buffer_read() wait
-only for data or buffer->error. Setting exit therefore does not wake a
-blocked read or epoll wait. The release, for example on a USB
-disconnect, then waits forever.
+dvb_ca_en50221_release() sets ca->exit and waits for open users to close
+the CA device, but read, write, poll and ioctl can continue and blocked
+readers and pollers are not woken.
 
-Set -ENODEV on the DVR buffer and open filter buffers, wake their wait
-queues, and return -ENODEV from dvb_demux_read() once exit is set. Do
-not flush buffers when consuming -ENODEV so all readers see the error.
+Return -ENODEV from CA read, write and ioctl operations and EPOLLERR
+from poll after ca->exit is set, and wake the corresponding wait queues.
+Keep the release wait so the existing lifetime protection remains in
+place.
 
-Blocking DMX_DQBUF waiters are not covered.
+tvheadend keeps the CA device open and waits for it with epoll, so it
+needs to observe the disconnect before it can close the device.
 
-Fixes: 57861b432bda ("V4L/DVB (5511): Fix 2/3 for bug 7819: demux and dvr")
+Fixes: 280a8ab81733 ("media: dvb-core: Fix use-after-free due to race condition at dvb_ca_en50221")
 Cc: stable@vger.kernel.org
 Signed-off-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
 ---
- drivers/media/dvb-core/dmxdev.c | 31 +++++++++++++++++++++++++++++--
- 1 file changed, 29 insertions(+), 2 deletions(-)
+ drivers/media/dvb-core/dvb_ca_en50221.c | 24 +++++++++++++++++++++++-
+ 1 file changed, 23 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/dvb-core/dmxdev.c b/drivers/media/dvb-core/dmxdev.c
-index 6a825d9bae43..5f872bc89345 100644
---- a/drivers/media/dvb-core/dmxdev.c
-+++ b/drivers/media/dvb-core/dmxdev.c
-@@ -63,7 +63,9 @@ static ssize_t dvb_dmxdev_buffer_read(struct dvb_ringbuffer *src,
+diff --git a/drivers/media/dvb-core/dvb_ca_en50221.c b/drivers/media/dvb-core/dvb_ca_en50221.c
+index 1b91ebb8f667..d478f995d5a9 100644
+--- a/drivers/media/dvb-core/dvb_ca_en50221.c
++++ b/drivers/media/dvb-core/dvb_ca_en50221.c
+@@ -1353,6 +1353,9 @@ static int dvb_ca_en50221_io_do_ioctl(struct file *file,
  
- 	if (src->error) {
- 		ret = src->error;
--		dvb_ringbuffer_flush(src);
-+		/* -ENODEV: the demux is gone for good, keep it for all readers */
-+		if (ret != -ENODEV)
-+			dvb_ringbuffer_flush(src);
- 		return ret;
- 	}
+ 	dprintk("%s\n", __func__);
  
-@@ -81,7 +83,8 @@ static ssize_t dvb_dmxdev_buffer_read(struct dvb_ringbuffer *src,
- 
- 		if (src->error) {
- 			ret = src->error;
--			dvb_ringbuffer_flush(src);
-+			if (ret != -ENODEV)
-+				dvb_ringbuffer_flush(src);
- 			break;
- 		}
- 
-@@ -1035,6 +1038,9 @@ dvb_demux_read(struct file *file, char __user *buf, size_t count,
- 	struct dmxdev_filter *dmxdevfilter = file->private_data;
- 	int ret;
- 
-+	if (dmxdevfilter->dev->exit)
++	if (ca->exit)
 +		return -ENODEV;
 +
- 	if (mutex_lock_interruptible(&dmxdevfilter->mutex))
+ 	if (mutex_lock_interruptible(&ca->ioctl_mutex))
  		return -ERESTARTSYS;
  
-@@ -1457,8 +1463,29 @@ EXPORT_SYMBOL(dvb_dmxdev_init);
+@@ -1460,6 +1463,9 @@ static ssize_t dvb_ca_en50221_io_write(struct file *file,
  
- void dvb_dmxdev_release(struct dmxdev *dmxdev)
- {
-+	int i;
+ 	dprintk("%s\n", __func__);
+ 
++	if (ca->exit)
++		return -ENODEV;
 +
- 	mutex_lock(&dmxdev->mutex);
- 	dmxdev->exit = 1;
+ 	/*
+ 	 * Incoming packet has a 2 byte header.
+ 	 * hdr[0] = slot_id, hdr[1] = connection_id
+@@ -1618,6 +1624,9 @@ static ssize_t dvb_ca_en50221_io_read(struct file *file, char __user *buf,
+ 
+ 	dprintk("%s\n", __func__);
+ 
++	if (ca->exit)
++		return -ENODEV;
 +
+ 	/*
+ 	 * Outgoing packet has a 2 byte header.
+ 	 * hdr[0] = slot_id, hdr[1] = connection_id
+@@ -1635,8 +1644,11 @@ static ssize_t dvb_ca_en50221_io_read(struct file *file, char __user *buf,
+ 		/* wait for some data */
+ 		status = wait_event_interruptible(ca->wait_queue,
+ 						  dvb_ca_en50221_io_read_condition
+-						  (ca, &result, &slot));
++						  (ca, &result, &slot) ||
++						  ca->exit);
+ 	}
++	if (ca->exit)
++		return -ENODEV;
+ 	if ((status < 0) || (result < 0)) {
+ 		if (result)
+ 			return result;
+@@ -1819,6 +1831,9 @@ static __poll_t dvb_ca_en50221_io_poll(struct file *file, poll_table *wait)
+ 
+ 	poll_wait(file, &ca->wait_queue, wait);
+ 
++	if (ca->exit)
++		return EPOLLERR;
++
+ 	if (dvb_ca_en50221_io_read_condition(ca, &result, &slot) == 1)
+ 		mask |= EPOLLIN;
+ 
+@@ -1965,6 +1980,13 @@ void dvb_ca_en50221_release(struct dvb_ca_en50221 *pubca)
+ 	ca->exit = 1;
+ 	mutex_unlock(&ca->remove_mutex);
+ 
 +	/*
-+	 * Wake up everyone blocked in read() or poll() on the demux and dvr
-+	 * devices, so that they see the error, close their file handles and
-+	 * let the waits below finish.
++	 * Wake up everyone blocked in read() or poll() on the CA device, so
++	 * that they see the error and close it. The wait below cannot finish
++	 * before the last user has closed the device.
 +	 */
-+	spin_lock_irq(&dmxdev->lock);
-+	dmxdev->dvr_buffer.error = -ENODEV;
-+	for (i = 0; i < dmxdev->filternum; i++) {
-+		if (dmxdev->filter[i].state >= DMXDEV_STATE_ALLOCATED)
-+			dmxdev->filter[i].buffer.error = -ENODEV;
-+	}
-+	spin_unlock_irq(&dmxdev->lock);
++	wake_up_interruptible_all(&ca->wait_queue);
 +
-+	wake_up_all(&dmxdev->dvr_buffer.queue);
-+	for (i = 0; i < dmxdev->filternum; i++) {
-+		if (dmxdev->filter[i].state >= DMXDEV_STATE_ALLOCATED)
-+			wake_up_all(&dmxdev->filter[i].buffer.queue);
-+	}
- 	mutex_unlock(&dmxdev->mutex);
- 
- 	if (dmxdev->dvbdev->users > 1) {
+ 	if (ca->dvbdev->users < 1)
+ 		wait_event(ca->dvbdev->wait_queue,
+ 				ca->dvbdev->users == 1);
 -- 
 2.54.0 (Apple Git-157)
 
