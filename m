@@ -1,37 +1,79 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.187.6.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EC41844A41B;
-	Wed, 23 Sep 2026 07:28:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.187.6.220
+Received: from mail-lr2-f8.google.com (mail-lr2-f8.google.com [74.125.230.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97D4732B10B
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 07:39:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790148520; cv=none; b=upmoLEr1QhqK5r1qPDloHjRT9aSN5+2Y07XQNm2t25uaebcskK0SurtsOFHMFtTBD3tbUy5mLSXM4a5y3xpWjd0lK7FezS70I/XYcLIq4Y2rjiHSPydCFoPFRCAz8E970YFiN4FXQSDKd57uDmYOdcrp+Bf6gtgEaxHeos/aCCk=
+	t=1790149174; cv=none; b=bcteJcLRPBWddjNyoscmIKM0JcjCLkxfkIemdE9e7dgPVGztARs/vewZdIN2fTY29IHcNUnfdDiOnZNUhrl92vtxouO5366gMqdjErf7G+hc7xO5BoUiQseNAIo/pF1MezEneeHSNcUDC60LDsMPsPJkVtSqe+LBIkP7D23pSKo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790148520; c=relaxed/simple;
-	bh=VlHrzSk0Qsa1Y3DMDPyOcIYSNZZ6W1iECCRqeFSmRI0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=qcrH1h3plW54oPRUD6AhLRPE4gmp0g/qTh2LobkwYCbFiQpAwCjNaM4CV0o7+dEuMqC+Bg407jBA+x35jIC+psV0574bFoTVskUBfvJKwo4OEIf5LD7ly5eSk/xUBDJs4v8pf9aB2upFar5EG/+dkTrng37TV6jUV6HVbFJl+SM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=52.187.6.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wCXcT6af7NqC+YwAQ--.6071S3;
-	Wed, 23 Sep 2026 15:28:27 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app1 (Coremail) with SMTP id yy_KCgBHS6WZf7Nqb7SfBA--.29256S2;
-	Wed, 23 Sep 2026 15:28:25 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: "Rafael J . Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@linaro.org>,
-	Zhang Rui <rui.zhang@intel.com>,
-	Lukasz Luba <lukasz.luba@arm.com>
-Cc: linux-pm@vger.kernel.org,
+	s=arc-20240116; t=1790149174; c=relaxed/simple;
+	bh=Lmqd+koWddn+ibQQDLmnYPRN5lrKZdaYwps4HHvieTY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nHivwbcaHAKsJ33aCYFbNZ4JsKshwKKi98ZMMQ6cxJ+Uh5CiWUH45tDb4dDuZSJfH8tK5yLvWYdlO5Kxy6Sh7Ssv+Cbp0LEbSE2ITRNZqgdujt5Shwm5CYWnBeM2jHzem6Bpoe3ZoxL8WZUTf8w5inCSgpAEYgcjDOeUHqITeok=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lVpcvsgj; arc=none smtp.client-ip=74.125.230.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lVpcvsgj"
+Received: by mail-lr2-f8.google.com with SMTP id 38308e7fff4ca-3a59dae8ce5so3835051fa.0
+        for <stable@vger.kernel.org>; Wed, 23 Sep 2026 00:39:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790149170; x=1790753970; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IzZ+cNf2z4J5z3qvFn6/NJ8ACjL3I/i0NM3vzaSh4n4=;
+        b=lVpcvsgjfGwqQDvCugOFWspvi+f/yzUhaaqli6iYdMAI9ZIqzexzt0XhOp2KX77kWR
+         4WDd5FQpiiTXMwc67L5MBJ5Fe3f0Qni15rad9pSap6zSBRlYMn8h/OKA474fkD7eEuWs
+         zYbznFqPZvEocfrxJMGW/4wyqvnkUoSQ6c3LVemanheDOc6d4Nv/Gb3Y7mWroDez87Oz
+         T6oIehHzCcr47wSzArZdI9xenDLxb6ENV0VRmHNGcE+nLN5sOLdDWEoWjjb0D+dDUQ6Q
+         3bdBWhqFA27u8j8/U7h2iJerDel/w668V1ukn0IJ9IhB5QEa3z1Ppvzc+DTCuYb0p4Bm
+         0tow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790149170; x=1790753970;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IzZ+cNf2z4J5z3qvFn6/NJ8ACjL3I/i0NM3vzaSh4n4=;
+        b=U956cx7Cmlf5t5sqgXdEreEXNATI0wP5jGbhow8wEerYO113UyuMFPm957y39xsulV
+         PViVvfNfi6+lojdRLhTw71gKUrxPv2gk6xOae6+0tsIC1S4tE13+9f1CAM+ZdFGjpdWy
+         rCE5+gMqL8FMzms5oZZuxQAuwvgsuhj61v9GtTNgkfScUqheZXn4W+k/1xs+j4DQwaVe
+         voM4Y/mfOkfJEeKDnZENRXuDGZ/hiFTjg5kRVszruIWvxMN21W10qP4a0h6+eBd7/bIo
+         yMsrEBHKTPFXAkMJqjepuclcAIVp0h7ReRVaHniKW8gWlPlZSifMfz07Ta853BH4aqD4
+         pBgA==
+X-Gm-Message-State: AFuF++meaSe0Hn44YXJjX7rVaenYztPy0pqjrnBWMjMg1MKw7/VZOuzc
+	Irq+nRC76fGew7T7mDwqx0nERLhTuU4svHCdLBJ736LwDDg4xEjKOHg5nMaLQ7D2Jas=
+X-Gm-Gg: AYBFou22co0b0cBAgFY3+fGpRGHkGmQWD+8R3YzyoTAPtrm6g1t/83i/nI0GToTc9sd
+	+tVU7xOe7m8ORxtC+8hoTRPSVjmhb9xHLrU7JYRSo8PWPveBUWga+1poxnCIHDLgVcm3YYTIocY
+	dRda3hBpC4S04/UjjjhM2tN58rB7YbuRdkUYQ6YY2uJMjbH56s86KJZZkkNeW/1N4OksBvH8419
+	Ir4iVJyniEJ66aQ57WQFe/BPbZUzJ1ZC9lom48LDh4tyNj+NjxDXXlvyfJ47GDS61WDVMzL96tk
+	OhGv7ygjdKoH9GEomjPqU5vLqdPkRJvmcISvj23VHMOIGYRyUJ1YK838nexnSVx4kurD1xFrTNa
+	GolfehJ4JAUJjSDHBgzVNQZW9gz1E8QqYjf3AVYkGavXyA2wRcPvjtb8DhldittPPfcyBhe9oE2
+	1fYCvHkSMU2k2QQso3JLXqmohC7i9gk2jTytfSm5Myw8psNxUWntcO2N44lWOIPtDsxpKgfr3ZS
+	7pEMIat0UYkHYPR
+X-Received: by 2002:a05:6512:3996:b0:5b6:1a7c:59e8 with SMTP id 2adb3069b0e04-5b8d8ac9b9fmr472193e87.66.1790149170031;
+        Wed, 23 Sep 2026 00:39:30 -0700 (PDT)
+Received: from localhost.localdomain ([78.40.184.2])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8d8580568sm395754e87.34.2026.09.23.00.39.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 00:39:29 -0700 (PDT)
+From: Roman Demidov <roman.demidov.nn@gmail.com>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	"Pan, Xinhui" <Xinhui.Pan@amd.com>,
+	David Airlie <airlied@linux.ie>,
+	Daniel Vetter <daniel@ffwll.ch>,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	Fan Wu <fanwu01@zju.edu.cn>,
-	stable@vger.kernel.org,
-	Song Li <songl@zju.edu.cn>
-Subject: [PATCH] thermal: intel: int340x: Fix use-after-free in proc_thermal_pci
-Date: Wed, 23 Sep 2026 07:27:30 +0000
-Message-Id: <20260923072730.487900-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	lvc-project@linuxtesting.org,
+	Guangshuo Li <lgs201920130244@gmail.com>
+Subject: [PATCH 5.10/5.15/6.1/6.6] drm/amdgpu/atom: Check kcalloc() for WS buffer in amdgpu_atom_execute_table_locked()
+Date: Wed, 23 Sep 2026 10:39:12 +0300
+Message-ID: <20260923073913.39211-1-roman.demidov.nn@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -39,90 +81,50 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:yy_KCgBHS6WZf7Nqb7SfBA--.29256S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?6z8Z2gXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnVCjTgEH9dVomQuWcozCBBH+87qL5fRToeAOg89PGCcN6vfkQDGs8fMcgG9o1ygcca8w
-	xv9KW99gtQbXPCh4M3rN5RPxYw6l01w8CbPzC/8w
-X-Coremail-Antispam: 1Uk129KBj93XoWxur1kZry3CrykKFy7Jw13trc_yoW5Cry5pa
-	98WF9xArWkWFWrW3yDZa1xZFs5tr4kK3yfWrn3G34fKr45AFySqryrKFyUArW8CFZ3AF12
-	yr15trs7ZF98GFXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUXVWUAwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
-	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8aQ6JUUUUU==
 
-proc_thermal_pci_remove() cancels pci_info->work before disabling the
-interrupt sources that schedule it. A threshold IRQ which arrives after
-the cancel but before the THRES_0 and INT_ENABLE_0 MMIO mask makes
-proc_thermal_irq_handler() reschedule the work, so
-proc_thermal_threshold_work_fn() runs after devm cleanup has freed
-pci_info and dereferences pci_info->tzone and proc_priv->mmio_base. The
-shared IRQ is never freed in remove(), which widens the window, and the
-probe error paths never cancel the work either.
+From: Guangshuo Li <lgs201920130244@gmail.com>
 
-Fix this by cutting off the producers before draining: mask the THRES_0
-and INT_ENABLE_0 registers, free the MSI interrupts or the shared IRQ,
-and only then cancel the delayed work. The probe error paths cancel the
-work before the thermal zone is unregistered.
+commit cc9a8e238e42c1f43b98c097995137d644b69245 upstream.
 
-The work function re-enables the INT_ENABLE_0 bit, but the IRQs are
-already freed when it is cancelled and THRES_0 stays cleared, so nothing
-can schedule the work again.
+kcalloc() may fail. When WS is non-zero and allocation fails, ectx.ws
+remains NULL while ectx.ws_size is set, leading to a potential NULL
+pointer dereference in atom_get_src_int() when accessing WS entries.
 
-This issue was found by an in-house static analysis tool.
+Return -ENOMEM on allocation failure to avoid the NULL dereference.
 
-Fixes: acd65d5d1cf4 ("thermal/drivers/int340x/processor_thermal: Add PCI MMIO based thermal driver")
-Cc: stable@vger.kernel.org
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+[ Roman: added parentheses to the 'if' statement, matching the upstream
+commit. ]
+Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
 ---
- .../processor_thermal_device_pci.c                | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+Backport fix for CVE-2025-68190
 
-diff --git a/drivers/thermal/intel/int340x_thermal/processor_thermal_device_pci.c b/drivers/thermal/intel/int340x_thermal/processor_thermal_device_pci.c
-index c693d93..1856e76 100644
---- a/drivers/thermal/intel/int340x_thermal/processor_thermal_device_pci.c
-+++ b/drivers/thermal/intel/int340x_thermal/processor_thermal_device_pci.c
-@@ -409,7 +409,10 @@ static int proc_thermal_pci_probe(struct pci_dev *pdev, const struct pci_device_
- err_free_vectors:
- 	if (msi_irq)
- 		proc_thermal_free_msi(pdev, pci_info);
-+	else
-+		devm_free_irq(&pdev->dev, pdev->irq, pci_info);
- err_ret_tzone:
-+	cancel_delayed_work_sync(&pci_info->work);
- 	thermal_zone_device_unregister(pci_info->tzone);
- err_del_legacy:
- 	if (!pci_info->no_legacy)
-@@ -424,13 +427,16 @@ static void proc_thermal_pci_remove(struct pci_dev *pdev)
- 	struct proc_thermal_device *proc_priv = pci_get_drvdata(pdev);
- 	struct proc_thermal_pci *pci_info = proc_priv->priv_data;
+ drivers/gpu/drm/amd/amdgpu/atom.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu/atom.c
+index cb6eb47aab65..0a7666be1dea 100644
+--- a/drivers/gpu/drm/amd/amdgpu/atom.c
++++ b/drivers/gpu/drm/amd/amdgpu/atom.c
+@@ -1228,10 +1228,15 @@ static int amdgpu_atom_execute_table_locked(struct atom_context *ctx, int index,
+ 	ectx.ps = params;
+ 	ectx.abort = false;
+ 	ectx.last_jump = 0;
+-	if (ws)
++	if (ws) {
+ 		ectx.ws = kcalloc(4, ws, GFP_KERNEL);
+-	else
++		if (!ectx.ws) {
++			ret = -ENOMEM;
++			goto free;
++		}
++	} else {
+ 		ectx.ws = NULL;
++	}
  
--	cancel_delayed_work_sync(&pci_info->work);
--
- 	proc_thermal_mmio_write(pci_info, PROC_THERMAL_MMIO_THRES_0, 0);
- 	proc_thermal_mmio_write(pci_info, PROC_THERMAL_MMIO_INT_ENABLE_0, 0);
- 
- 	if (msi_irq)
- 		proc_thermal_free_msi(pdev, pci_info);
-+	else
-+		devm_free_irq(&pdev->dev, pdev->irq, pci_info);
-+
-+	/* Cancel after the IRQs are freed, or the handler may reschedule it. */
-+	cancel_delayed_work_sync(&pci_info->work);
- 
- 	thermal_zone_device_unregister(pci_info->tzone);
- 	proc_thermal_mmio_remove(pdev, pci_info->proc_priv);
+ 	debug_depth++;
+ 	while (1) {
+-- 
+2.53.0
 
