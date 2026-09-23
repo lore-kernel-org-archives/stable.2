@@ -1,73 +1,46 @@
-Received: from mail-pz2-f38.google.com (mail-pz2-f38.google.com [74.125.228.38])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C77633ADBA
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 14:41:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.38
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43A0F33ADBA;
+	Wed, 23 Sep 2026 14:41:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790174491; cv=none; b=Xn7Sopp4AnZnyb4ALrA6h5Pdw/H3bMMPqZYRWmsMSmgHgrMTnMinh8T/bD6UcJDd/EkYTG+xL5xEGzcyKng9R5RnO8CXbWemGjpANqjiWCYwMQw+X5B7d/cnYcDew9GWvgd0g3uVlhRVicTGgi4JXvCVXbcH8vAwTAX+TI1qK4s=
+	t=1790174493; cv=none; b=uvfYJXISQ1Ki1ZHRlgirlsPS5dKoHP9rJpsiLLTV/1IeKHMeBskc9P9hPwqUoqUMQZFIDkdSOnpEebaCBkwD615RZpkM97prOJh64zTW1xIc+3WOnjD3dM1Vgck2HkyvHF9XSuSdtu7qsq6gWoog3XuqmTi7x935V4Grl29U+XY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790174491; c=relaxed/simple;
-	bh=+otIrsLnvG63x+JWVf3rTo9vMNO9yRb6KUn2LVEtsEg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=W6LLtrQULG09OD3KLpZmpYYybB5eAl4xqP/5Q3m/9rAuw3/jLSMS+tzyuBRpJanIxjTwXF1XkpqundFm3Rb+JGeptDRpfeHyu9U1hM+9cLR8k4j8+XS/ARYOCzI5mQUr90IDy1sj1jEyBLp0IatiAUIKYzIcbIU8mXilLv4Buyc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N1lxs8yU; arc=none smtp.client-ip=74.125.228.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790174493; c=relaxed/simple;
+	bh=QyMedtRiLxQZskiACh0/wsoShVnrTTBkl/4eaUs/SWY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=uZ5lYCYNZeCjTcx9Bh/DjgJxMHsl8nenb6mGp50zd9m3tQ7kPbNhtPNS3XdVeIeeJjOnFlomzcOGNJlMSvkvQSal35NKnAlJ5NnZeHN6mOjqYxBf0vFwAHn9YgkU30tOt2o9UR7xia8KTyT/7vqI0woZegFfdrSLgZVp4R7+kRU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=J0ZsqtRR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N1lxs8yU"
-Received: by mail-pz2-f38.google.com with SMTP id 41be03b00d2f7-cc1cea4c7a0so630329a12.1
-        for <stable@vger.kernel.org>; Wed, 23 Sep 2026 07:41:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790174488; x=1790779288; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6VbNCrUtC6XhrJdqpuUyW50kKcrIjN7yFV7NZTjlcAE=;
-        b=N1lxs8yUK/BdDMTD0oKKt7ODrXJQMzvHFjYT2V1V1PJX3DdRWS/2KuYChvyMQPVxH5
-         CKaNUgdaRlOYfDg/f7CszEPI9cphIzPEqmJ5UbT6B8Abd/c3mQv22x6djCrcD22uYYPd
-         UEDD1sjcufD5HLr+yR02T4LcqfM7z3U9FkB1ZXMChyAcqGvuQkzAN0i7+SjFsfZNwqTn
-         IWp/ssNYjM0WSLs/kLvgyC30OSfDIil4+df8ou5oI7L4F3MFrOug7U/IanrGff9nYMy6
-         H+5/cFdiD0fH5e/xs68W+IT8wKw88uDvy6881Mfb5eTCZyVn7Ivfee4uE55Df/OeK6DE
-         pmIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790174488; x=1790779288;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6VbNCrUtC6XhrJdqpuUyW50kKcrIjN7yFV7NZTjlcAE=;
-        b=M0rzAA0Hhp3hbr0lcYFCcscJfIH2YIuLg5LOw/NPz8vDfbV4Zu17TvmXLmmda4DTJJ
-         oAxQoh+2xFhJu6zm38p4dDz8FMFE0aDum5qsOvkoBZokFhwvfEgYIjfWScQevv8t5i9n
-         Cz+oHIaGW9xp3SdlJVp+6vXP+EohTRWlZYODWvxoI/VAkqqNCvuaWLEXiY5j6gpNaYfB
-         DbrOxbUAFu+jlPIJaZ2vyA3ab0dQqgQ6CxYAnLJII1gU+a81Sd2aC0CvBYh8JKcDSziA
-         mrQf9LzI90jZcibRlo9JFHf9umA5tx0ipBhTijAYi8bM8fhakjHgeQwBJtd5sQKOgSzk
-         /hlQ==
-X-Forwarded-Encrypted: i=1; AKwUvByEoyhEzihMOm8i7aQhC9gc+6ZWkkGRNNb3aWClrldgiTBGHkoBPNquwTuwGLdw/pCea61UXrw=@vger.kernel.org
-X-Gm-Message-State: AFuF++liX2MS2rvoxa7SPF1D3JBlxssx8FwF5ll6vot3W7ujr3r9h7aP
-	2pdbDMaafRSwQMdCF8kKoZnZV68a3idcLxWR0FWqZZPqEKJXZT7hFDiyif2LUQ==
-X-Gm-Gg: AYBFou1YKB0pX9EcUlxT3E0Kkj/fyWwwLmRSWvHPyUqlaymLsz5fb7ELk0MqzN6/NPa
-	pz6eJKdiiVyhxM5s+2IeQg0UElY249t0VtyNo/Hp+ZIq7P+0pPPgmhBNzDvYEA1w4NNf/OhqSz/
-	S5ymiU04r926KjnGrthQkkB0xMyBrnheS1knceUXrLaTBlNeacQSzvS5mllzs8No/+2idmAUbEh
-	nMkamfD2fuOv7zbsMxCkb9UtGHrjAoeX7m+2Uzqvbi8z50gDe3jpm5JcCDEyYuWEtoypW0PUMt0
-	03u5re7F2Kf4nquU6ztKifdKTafMwytYuhVnH5y5os9HAvAq0H/INxKXD2nMXnUxsum2QmyadIU
-	kf94YG9wnQaxXWvW/8U0peGy9vzhhDpGZ3eLb1hC5MSbK9hWc1Xp7VyZooee3i+5fQq4lZ349WR
-	77aM11lLqtuWIBDcgJwbEpKHknDzsfz7U/osvKRp0105luoQyHOMTBg+JtwCwKiLhKL4lc6H39v
-	xLdVK6WcwjHv6Bmld0TOfc2fm8=
-X-Received: by 2002:a05:6300:6bcf:10b0:3d1:39e9:b267 with SMTP id adf61e73a8af0-3ddf7cca4dcmr1648693637.3.1790174488224;
-        Wed, 23 Sep 2026 07:41:28 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2405:4802:1d4a:e90:f072:2258:ced5:5d8c])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc75f406238sm1239936a12.26.2026.09.23.07.41.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 07:41:27 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: shaggy@kernel.org
-Cc: jfs-discussion@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	ngocthang2710.1999@gmail.com,
-	syzbot+5570e0eb2edddd308514@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH] jfs: fix self-deadlock on discarded metapage in __get_metapage()
-Date: Wed, 23 Sep 2026 21:41:22 +0700
-Message-ID: <20260923144122.25792-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="J0ZsqtRR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99D791F000FF;
+	Wed, 23 Sep 2026 14:41:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790174492;
+	bh=xKdlFVbOyEMmc3pCngxNkAoJZPKJFevahePYhv9+Td4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=J0ZsqtRRyB2sF4VfaDWPsTzzq6ucJxRePdM6KhfcEu8fPni0KwIYSiC0onCL7hVMD
+	 3rOIMwo7jEnCJlCCiKUTbpD8EimlOjofC2my1W9ufonunrmkyU+B+RPPQpjYYTHxze
+	 47DxyJT7swGU5Tch73qnwSwg9gnfnl5dP6LAwEr8=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Ido Schimmel <idosch@nvidia.com>,
+	Jiayuan Chen <jiayuan.chen@linux.dev>,
+	Dong Chenchen <dongchenchen2@huawei.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 131/398] ipv4: icmp: reject RTN_UNREACHABLE input routes in icmp_route_lookup
+Date: Wed, 23 Sep 2026 16:03:25 +0200
+Message-ID: <20260923140646.832785023@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260923140643.441954610@linuxfoundation.org>
+References: <20260923140643.441954610@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -76,86 +49,88 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-__get_metapage() holds the folio lock when it finds a cached metapage
-flagged META_discard on a non-new lookup.  It reports the corruption
-and calls discard_metapage(), which goes through release_metapage() and
-tries to take the same folio lock again:
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-  release_metapage+0x103/0xab0 fs/jfs/jfs_metapage.c:868
-  __get_metapage+0x9a0/0xde0 fs/jfs/jfs_metapage.c:751
-  jfs_readdir+0x1e01/0x3ae0 fs/jfs/jfs_dtree.c:3041
+------------------
 
-The task then sleeps forever in D state with i_rwsem held, which
-syzbot reports as a hung task.
+From: Dong Chenchen <dongchenchen2@huawei.com>
 
-Split release_metapage() into a locked variant and use it here.  The
-locked variant also unlocks and puts the folio, so return NULL directly
-instead of going through the unlock label.
+[ Upstream commit 2998147b59c9df0a51477c7a6b3d1f0ba3127dd4 ]
 
-Reported-by: syzbot+5570e0eb2edddd308514@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=5570e0eb2edddd308514
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+When the forward output route cannot be used in icmp_route_lookup(),
+it enters the "reverse path" and calls ip_route_input() on fl4_dec.daddr,
+the original packet's source address.
+
+ip_route_input() only returns an error for truly invalid packets. For
+unreachable addresses it will succeed and return an input route whose
+dst.output is set to ip_rt_bug(). The existing check only rejects
+RTN_LOCAL routes, so the RTN_UNREACHABLE route types can still be returned
+and later used for output, syzkaller triggering a WARN_ON_ONCE()
+in ip_rt_bug() as bellow:
+
+ ------------[ cut here ]------------
+ WARNING: net/ipv4/route.c:1273 at ip_rt_bug+0x14/0x20
+ RIP: 0010:ip_rt_bug+0x14/0x20
+ Call Trace:
+  ip_push_pending_frames+0xfa/0x100
+  __icmp_send+0x905/0xf10
+  ip_options_compile+0xc0/0xd0
+  ip_rcv_finish_core+0x321/0xae0
+  ip_rcv+0x1de/0x260
+  __netif_receive_skb_one_core+0x11a/0x130
+  netif_receive_skb+0x7b/0x260
+  tun_get_user+0x11bf/0x1c10
+ ------------[ cut here ]------------
+
+Reject input route that is RTN_UNREACHABLE to fix it. The net warning
+is only printed for RTN_LOCAL, as RTN_UNREACHABLE is not the result of
+a race condition.
+
+Fixes: 8b7817f3a959 ("[IPSEC]: Add ICMP host relookup support")
+Suggested-by: Ido Schimmel <idosch@nvidia.com>
+Reviewed-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+Signed-off-by: Dong Chenchen <dongchenchen2@huawei.com>
+Link: https://patch.msgid.link/20260910140042.1880242-1-dongchenchen2@huawei.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/jfs/jfs_metapage.c | 20 +++++++++++++++-----
- 1 file changed, 15 insertions(+), 5 deletions(-)
+ net/ipv4/icmp.c | 17 ++++++++++-------
+ 1 file changed, 10 insertions(+), 7 deletions(-)
 
-diff --git a/fs/jfs/jfs_metapage.c b/fs/jfs/jfs_metapage.c
-index 41fe12e641ce..b3585df259cd 100644
---- a/fs/jfs/jfs_metapage.c
-+++ b/fs/jfs/jfs_metapage.c
-@@ -681,6 +681,8 @@ const struct address_space_operations jfs_metapage_aops = {
- 	.migrate_folio	= metapage_migrate_folio,
- };
+diff --git a/net/ipv4/icmp.c b/net/ipv4/icmp.c
+index a66e1a7175e90..c59a32160ee6a 100644
+--- a/net/ipv4/icmp.c
++++ b/net/ipv4/icmp.c
+@@ -572,16 +572,19 @@ static struct rtable *icmp_route_lookup(struct net *net, struct flowi4 *fl4,
+ 		skb_dstref_restore(skb_in, orefdst);
  
-+static void release_metapage_locked(struct metapage *mp);
-+
- struct metapage *__get_metapage(struct inode *inode, unsigned long lblock,
- 				unsigned int size, int absolute,
- 				unsigned long new)
-@@ -751,8 +753,9 @@ struct metapage *__get_metapage(struct inode *inode, unsigned long lblock,
- 			if (!new) {
- 				jfs_error(inode->i_sb,
- 					  "using a discarded metapage\n");
--				discard_metapage(mp);
--				goto unlock;
-+				clear_bit(META_dirty, &mp->flag);
-+				release_metapage_locked(mp);
-+				return NULL;
- 			}
- 			clear_bit(META_discard, &mp->flag);
+ 		/*
+-		 * At this point, fl4_dec.daddr should NOT be local (we
+-		 * checked fl4_dec.saddr above). However, a race condition
+-		 * may occur if the address is added to the interface
+-		 * concurrently. In that case, ip_route_input() returns a
+-		 * LOCAL route with dst.output=ip_rt_bug, which must not
+-		 * be used for output.
++		 * fl4_dec.daddr is not expected to be local here, but it can be
++		 * added to an interface concurrently, in which case
++		 * ip_route_input() returns a LOCAL route. It can also fail to
++		 * build a forwarding route towards fl4_dec.daddr, for example,
++		 * when forwarding is disabled, and return an UNREACHABLE route.
++		 * Both cases will result in a route with dst.output=ip_rt_bug,
++		 * which must not be used for output.
+ 		 */
+-		if (!err && rt2 && rt2->rt_type == RTN_LOCAL) {
++		if (!err && rt2 && rt2->rt_type == RTN_LOCAL)
+ 			net_warn_ratelimited("detected local route for %pI4 during ICMP sending, src %pI4\n",
+ 					     &fl4_dec.daddr, &fl4_dec.saddr);
++		if (!err && rt2 &&
++		    (rt2->rt_type == RTN_LOCAL || rt2->rt_type == RTN_UNREACHABLE)) {
+ 			dst_release(&rt2->dst);
+ 			err = -EINVAL;
  		}
-@@ -863,12 +866,11 @@ void put_metapage(struct metapage *mp)
- 	release_metapage(mp);
- }
- 
--void release_metapage(struct metapage * mp)
-+/* Caller holds the folio lock; it is dropped along with the folio ref. */
-+static void release_metapage_locked(struct metapage *mp)
- {
- 	struct folio *folio = mp->folio;
--	jfs_info("release_metapage: mp = 0x%p, flag = 0x%lx", mp, mp->flag);
- 
--	folio_lock(folio);
- 	unlock_metapage(mp);
- 
- 	assert(mp->count);
-@@ -896,6 +898,14 @@ void release_metapage(struct metapage * mp)
- 	folio_put(folio);
- }
- 
-+void release_metapage(struct metapage *mp)
-+{
-+	jfs_info("release_metapage: mp = 0x%p, flag = 0x%lx", mp, mp->flag);
-+
-+	folio_lock(mp->folio);
-+	release_metapage_locked(mp);
-+}
-+
- void __invalidate_metapages(struct inode *ip, s64 addr, int len)
- {
- 	sector_t lblock;
 -- 
-2.43.0
+2.53.0
+
+
 
