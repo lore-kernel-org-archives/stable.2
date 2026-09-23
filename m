@@ -1,43 +1,72 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 501A44499BC
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 11:57:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4BB84ED188
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 11:57:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790164628; cv=none; b=uxjb7gMYlajxYt4g0bNJm4aDOE2y3cnDI9pZMAN9hV3G6GRZNl6h+Wq95l7zGGiCsWAEOsb7xEmBEzj4FdEZavXGmUBjGkZgHpzq0aSUHJmQhJGxB3/TAbEKtfFE8HvD4H2v8Zrxv/W+cYynMrdl9sWbXSKOS13Rt5tWLxQ8GPo=
+	t=1790164682; cv=none; b=Xeg1SkxM3OD1q+BbH6yw0yBaZAACihgQP5fCAg9Wa3dm2PRQ70kBEKF1M+Ic9dc08ESyj621j5iZwO44fszQ/nP/5BGC/CJZDCoxoUx02mxXy2Vqf6NQxaikgNij7rXaJldoKHtgcU9aoV1txFOEPdjorLmW+ixXRsVHNXP9YV4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790164628; c=relaxed/simple;
-	bh=6FrYDa6J32wsgDlPS6ylEJxtDXrpniTgOn5DI/OgdDE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qmmCweJDg5mOonDhlFzlOtPguaojpRZGZnzJkV3z9NsIARu2wBE4IJWNxd4dhhPoZ/SiIOTWEPqTDu0KOHVCKSUl1n/2tYUHJ1h/7EdqQAyoUWlOh8uS3cIAtSpH3YlOsu1QjRGuFYk0f2N1Nb1DsKZ6gVu+L37T3Z21jN6E2eg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=GtbBBWx8; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790164682; c=relaxed/simple;
+	bh=QYUa20pIZh2wxiF+T5Z9fR8QFbYCIIP9R0h4qS+mLH4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oL3flIz9KmE2pcfNcLammJya/JTrSWAQDQ/Xe0J23zKrgxlLNMKJxBM1Hy0CiZ8/9Wiq6uqBr1j3d4x4/qep9vcztDZ2DhP2LN8rQSHA3HBA+NQu0VpHfnz/V6EfLs1TouVkQYNTmnR/BVdJ7oGCbUFai9BNaL8nNdk8QUTQT+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pwanlu1Y; arc=none smtp.client-ip=74.125.227.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="GtbBBWx8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Ri
-	8FyuOCQtYkwZzSZfiHKNrXOAfY81g/ycbm8C3SdHw=; b=GtbBBWx8o3bPyAJuvu
-	mZ5CAfp92OTbH0OiXcS8saYWkl9/TxX7eVhvvhP7MlGjO/faZ2acic7M0pyfapc2
-	B2P9ZOXJsDO3iHShLjk0XkKn6MiUjPoQPR3ifh38jke1LDDBsahgRoQoX2XTMU9d
-	bAVVA5lD/FcdY/07NHjY25IV8=
-Received: from fedora (unknown [])
-	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD3X_VzvrNqsRlYAQ--.35554S2;
-	Wed, 23 Sep 2026 19:56:36 +0800 (CST)
-From: Xizhe Tang <xizheTang2005@163.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Cc: Xizhe Tang <xizheTang2005@163.com>,
-	=?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
-	intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pwanlu1Y"
+Received: by mail-vs2-f12.google.com with SMTP id ada2fe7eead31-78a4c5c582eso316453137.3
+        for <stable@vger.kernel.org>; Wed, 23 Sep 2026 04:57:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790164673; x=1790769473; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fcqVoGIOsqHneznya0CjxdKSZ/9QYnIEWsldQdbwafY=;
+        b=pwanlu1Y5uhorzXbF2bYqznbUDl3U0lbePyU4DsYEOzt7gbYpuQAXPEbmOlcrlOQeV
+         T51ojFvBOg9XNqn1OnZsl3pRZxFuQH/VH0Pxu2jYO9l/XmtgVwnJf69nsbOCEdLLY6y5
+         uhsp6xqnMq10JKr4l3vK40tppAC4GCYi3Lt+sEGSEuwDIwTSBmZD1kELJNpPwvRwUY9f
+         yeRnZQSV0bCR+g8gH1IkurGBZ8HV7URwCXp6u3HaoAMnsHIYk0uvGP/XdwCh5ZffGnos
+         FYchKWwXe96WJtPbCmnpRExCu2vLxgxqP+vk6NPHjFFqXOsBNKeFZjoyM0DO0njHf1ZY
+         HHbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790164673; x=1790769473;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fcqVoGIOsqHneznya0CjxdKSZ/9QYnIEWsldQdbwafY=;
+        b=n+khQYbwCoQODZYJEAkzFR/19cqSrwV9n727eBroNIS5lFQMvd4+EfYW1nnRcHkYZy
+         l/xe9GVWz2vzxMiU9raffUHjmNmXp2lNo+0ppU6zMNAf+mGIZ6YoTHu2THObMLyq20Hm
+         u3oQvIB9HJx7fPT3gIztO54ztm+9RWlsVT1C3KrWMwT89HjCMVSZITW2WPH1dunmy+q2
+         9CdnzVfwNUAT5i1MOvZ/sSUAtS08QdRC+YtGvst2KaT4IojdP9mzJ/UbQUCrEvZxv9oG
+         op3pPiTzxa8YJtxHlkmsUpaFcXjo6jPGIXYWHmui5TnkENjjYivLyuSXcBxONjzbB9Me
+         AHbw==
+X-Forwarded-Encrypted: i=1; AKwUvBy3w0L+o7JpW4/wAIqPAgCe4IjeprazixPM9yJniijYhzmDJkSh/KdXCHrzZgIxrK+ef0Xl0dY=@vger.kernel.org
+X-Gm-Message-State: AFuF++lwvJ9CyNEKdYf9PNoqQJYY4zLS9pVjc548otD6KwApd4dc1U4z
+	t5io/pM5/k3+DZsrAB8y016+7JdaOGZlLRK+JruoksmNnBgM6VSpSrS1
+X-Gm-Gg: AYBFou1yarGz8NzAmK1KBtdLwIVUxHpKqBnCvmd1w8GREgWHhxJmMr5pXPOvOpCU7HN
+	tPBhWCmKHCzzQmp5Qq9Q7iU/yksGYYpqg8hDnsBM6qZWH1YtzPqBsoqAz/X5gAaMIRS3zH1JhLG
+	VyU9L8g3dlTYMEQMq/7TKKyLaC5B9yAjMgfD7/w5ngUHe8vF+Acj8JmxS7CHKF5+332SsfYeyJI
+	mp9uoWT+B+Ugkpk6uEutWbok50+gGxWdG9pTsAaEqip9qnGXBJQx/vPkaxqz3LsqbkwOv2mg5f3
+	aLW8kgBhN+CTk5DGCUc6ctGS2Wl3EDOxrvbs9QL3cryvZDWysD69ElcovCRLRMhudjPM2supCGp
+	9tGghvsqq4zYtTU+LSXZ4wq+i+TTlBvoEcpBgxcc1M+KJG82cb9StDJZx/E2/pzQDy3/oJMImfD
+	ytKjmyCLS5B1Fu2fx12r4MXPaFSGsM14r108AKEqI0YN6vAwgw97SKaXASGgNP+ZvO
+X-Received: by 2002:a05:6102:689b:b0:7a1:f7d2:e831 with SMTP id ada2fe7eead31-7ac1d4f3614mr1859344137.17.1790164673544;
+        Wed, 23 Sep 2026 04:57:53 -0700 (PDT)
+Received: from beelink.. ([187.13.30.172])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-98517a8ecaesm2629757241.12.2026.09.23.04.57.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 04:57:53 -0700 (PDT)
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+To: linux-xfs@vger.kernel.org,
+	Carlos Maiolino <cem@kernel.org>
+Cc: "Darrick J . Wong" <djwong@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v2] drm/i915/dp: Only send AS SDP when VRR/CMRR is enabled or PR !async
-Date: Thu, 24 Sep 2026 03:51:59 +0800
-Message-ID: <20260923195200.21362-1-xizheTang2005@163.com>
-X-Mailer: git-send-email 2.55.0
+Subject: [PATCH v2 RESEND] xfs: bound inode fork length against the fork size during log recovery
+Date: Wed, 23 Sep 2026 08:57:44 -0300
+Message-ID: <20260923115744.3160635-1-qwe.aldo@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,94 +74,76 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3X_VzvrNqsRlYAQ--.35554S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxGw4xAw4kAFy5ur45AF1DJrb_yoWrJF18pw
-	47WryFyr4fXFyIqFWxXFn2vFy5WwsrJ34rGF98G3y8Z3Wqk343trZavayj9a4Dur4xXF1F
-	yrZ5JFWqka10vrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pKLvuiUUUUU=
-X-CM-SenderInfo: x0l2xvpwdqwjqqqvqiywtou0bp/xtbC6hRUq2qzvnR+ggAA3u
 
-A Panther Lake eDP panel that advertises VRR in EDID but runs at a fixed
-refresh rate has received an Adaptive-Sync SDP since commit 6a1712052859
-("drm/i915/dp: Enable AS SDP whenever VRR is possible or PR !async").
-On this panel the first modeset at boot is vertically streaked.
+xlog_recover_inode_commit_pass2() copies an inode log item's data/attr
+fork region into the inode buffer using the on-log region length without
+bounding it against the fork capacity, e.g.:
 
-intel_vrr_possible() is only crtc_state->vrr.flipline != 0. Fixed-refresh
-timings program flipline too:
+	len = item->ri_buf[2].iov_len;
+	memcpy(XFS_DFORK_DPTR(dip), src, len);
 
-	intel_vrr_compute_fixed_rr_timings():
-		/* For fixed rr,  vmin = vmax = flipline */
-		crtc_state->vrr.flipline = crtc_state->vrr.vmin;
+The only guard is an ASSERT, which is a no-op on production kernels
+(CONFIG_XFS_DEBUG off), and xfs_dinode_verify() runs only after the copy.
+A crafted image with a dirty log can therefore drive a heap out-of-bounds
+write at mount time. The XFS_ILOG_DBROOT sibling already passes
+XFS_DFORK_DSIZE as a bound; the DDATA/DEXT and ADATA/AEXT memcpy paths
+did not.
 
-intel_vrr_compute_config() takes that path when VRR is not actually
-enabled (uapi.vrr_enabled is false, or vmin == vmax). Then
-intel_dp_needs_as_sdp() is true with `vrr: no, fixed rr: yes`, and
-intel_dp_compute_as_sdp() programs DP_AS_SDP_AVT_FIXED_VTOTAL.
+Bound each logged fork region against the destination fork size before
+copying it, and reject the log item with -EFSCORRUPTED when it does not
+fit. Because the recovered inode is only verified after the fork data has
+been copied in, the checks are done up front, before any memcpy into the
+on-disk inode.
 
-Gate the terminal condition on the states that consume the SDP:
-crtc_state->vrr.enable (VRR) or crtc_state->cmrr.enable (CMRR / FAVT).
-Leave the Panel Replay aux-less-ALPM early-return from the same commit
-unchanged.
-
-CMRR is still hard-disabled (is_cmrr_frac_required() has "|| true"), so
-cmrr.enable stays false today and the OR is a no-op versus v1 at fixed
-refresh. intel_vrr_compute_cmrr_timings() sets cmrr.enable without
-vrr.enable; the OR keeps the FAVT branch reachable when CMRR is re-enabled.
-
-This is a no-op while VRR is actually active. It does not fix Adaptive
-Sync = Always corruption, nor the non-atomic SDP update named by the
-#FIXME above intel_dp_compute_as_sdp(). Trailer is Link:, not Closes:.
-
-Tested on LENOVO 21VG (PTL eDP, 8086:b080), v7.2.6-200.fc44.x86_64,
-rebuilding only xe.ko with this hunk:
-
-  Adaptive Sync = Never (Tested-by): vrr: no, fixed rr: yes,
-  infoframes enabled: 0x6 (no BIT(3)), zero Adaptive-Sync SDP, panel
-  clean. This boot: six s2idle suspend/resume cycles, all clean.
-
-  Adaptive Sync = Always (not Tested-by): vrr: yes, vmin 2016 / vmax 8064,
-  infoframes enabled: 0xe, Adaptive-Sync SDP still sent. Panel
-  appearance on Always is not claimed.
-
-  CMRR / FAVT: not tested.
-
-On the same panel, Adaptive Sync = Never, first modeset, drm.debug=0xe:
-
-  7.1.13 (clean):     infoframes enabled: 0x4  (VSC only)
-  7.2.4  (streaked):  infoframes enabled: 0xc  (VSC + AS SDP,
-                      operation mode 1 = DP_AS_SDP_AVT_FIXED_VTOTAL)
-
-  Later dumps of those boots are 0x6 vs 0xe; each non-zero bad mask is
-  good | BIT(3).
-
-Changes in v2:
-- OR crtc_state->cmrr.enable so CMRR still gets AS SDP (v1 review).
-  At fixed refresh v2 matches v1.
-  v1: https://lore.kernel.org/r/20260923052937.22817-1-xizheTang2005@163.com
-
-Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9252
-Fixes: 6a1712052859 ("drm/i915/dp: Enable AS SDP whenever VRR is possible or PR !async")
-Cc: stable@vger.kernel.org # 7.2.x
-Signed-off-by: Xizhe Tang <xizheTang2005@163.com>
-Tested-by: Xizhe Tang <xizheTang2005@163.com> # v7.2.6, PTL eDP, Adaptive Sync=Never
+Fixes: 658fa68b6f34 ("xfs: refactor log recovery inode item dispatch for pass2 commit functions")
+Cc: <stable@vger.kernel.org> # v5.8
+Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+v2: cc stable # v5.8 (per Darrick).  Move both fork-length checks to the
+    top of the fork-copy block, before any memcpy into the on-disk
+    inode, and drop the now-redundant ASSERT.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -3115,8 +3115,9 @@ static bool intel_dp_needs_as_sdp(struct intel_dp *intel_dp,
- 	if (intel_psr_needs_alpm_aux_less(intel_dp, crtc_state) &&
- 	    !intel_psr_pr_async_video_timing_supported(intel_dp))
- 		return true;
+ fs/xfs/xfs_inode_item_recover.c | 20 +++++++++++++++++++-
+ 1 file changed, 19 insertions(+), 1 deletion(-)
+
+diff --git a/fs/xfs/xfs_inode_item_recover.c b/fs/xfs/xfs_inode_item_recover.c
+index 169a8fe3bf0a..6c7dd7dd7032 100644
+--- a/fs/xfs/xfs_inode_item_recover.c
++++ b/fs/xfs/xfs_inode_item_recover.c
+@@ -507,6 +507,25 @@ xlog_recover_inode_commit_pass2(
+ 	ASSERT(!(fields & XFS_ILOG_DFORK) ||
+ 	       (len == xlog_calc_iovec_len(in_f->ilf_dsize)));
  
--	return intel_vrr_possible(crtc_state);
-+	return crtc_state->vrr.enable ||
-+	       crtc_state->cmrr.enable;
- }
++	/*
++	 * The recovered inode is verified only after the fork data has been
++	 * copied into it, so bound each logged fork region against the size of
++	 * its fork now, before the memcpy below can overrun the on-disk inode.
++	 * The DBROOT/ABROOT cases already bound their copies against the fork
++	 * size.
++	 */
++	if ((fields & (XFS_ILOG_DDATA | XFS_ILOG_DEXT)) &&
++	    item->ri_buf[2].iov_len > XFS_DFORK_DSIZE(dip, mp)) {
++		error = -EFSCORRUPTED;
++		goto out_release;
++	}
++	if ((fields & (XFS_ILOG_ADATA | XFS_ILOG_AEXT)) &&
++	    item->ri_buf[(fields & XFS_ILOG_DFORK) ? 3 : 2].iov_len >
++	    XFS_DFORK_ASIZE(dip, mp)) {
++		error = -EFSCORRUPTED;
++		goto out_release;
++	}
++
+ 	switch (fields & XFS_ILOG_DFORK) {
+ 	case XFS_ILOG_DDATA:
+ 	case XFS_ILOG_DEXT:
+@@ -546,7 +565,6 @@ xlog_recover_inode_commit_pass2(
+ 		case XFS_ILOG_ADATA:
+ 		case XFS_ILOG_AEXT:
+ 			dest = XFS_DFORK_APTR(dip);
+-			ASSERT(len <= XFS_DFORK_ASIZE(dip, mp));
+ 			memcpy(dest, src, len);
+ 			break;
  
- static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
---
-2.47.0
+-- 
+2.53.0
 
