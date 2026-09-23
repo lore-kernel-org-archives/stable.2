@@ -1,90 +1,112 @@
-Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17788572675
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 22:05:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7936B57D224
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 22:09:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790201151; cv=none; b=etDhWzYHu2lryuR7mjL+8JskCmYxlH8VFl0PE2h8FwZZVbAzlb7fz0Ayx9iDbhiprMt6z91FBr5YhVo7+Wg5tPE3V7hoGG/gWcy939g+/UC59pHBnXprR721fxdBrG+BfWuDEAxTZu4tDWuGRIF5nc+fJN6mP6lt1CrKlAfVB/w=
+	t=1790201367; cv=none; b=EgzVwRnvvL5It3ZaD4Z5lAR+dQTgom/1yCt5ActCwTwvRD+rLGz17OVYEyBfFXtpIcm5edy8LVZwQmcBGf/JCdFvWtTs8BROMLOKDjExjZyRijWu0KkRsuUqVC0Gfw+gyWOSyYiwkvNyZefB48LL/Fe9NmlSKne1ZsbykvoUudM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790201151; c=relaxed/simple;
-	bh=K2axbYRQNW+6vDySUPFdJODepbCos+4GY8IGWK9+sB4=;
+	s=arc-20240116; t=1790201367; c=relaxed/simple;
+	bh=b0TAtr57yWE+QSO16pjO+nrOxPN+Pz6dGmFJGAl5jPA=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=uCpfadldOP1SxBkna/C/6PSsjJwzkwuU3vFoXRS+bE21HMzhAmuzDc/EgwJnDeOmfktoiJESTRMLy7Ef8PZ0dV+LVw8k+T4LMzUJytkLGOBtMlITzYGv+kfDMU5UpsLZxj4xX1tCZI24bXUnNAGOih2SVKESpJEEh62IjApAFMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uci.edu; spf=pass smtp.mailfrom=uci.edu; dkim=pass (2048-bit key) header.d=uci.edu header.i=@uci.edu header.b=PWohvULh; arc=none smtp.client-ip=74.125.229.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uci.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uci.edu
+	 MIME-Version; b=RGBQp+QyUq72qPxXYqzk3Hq67RCXoBhIu9OZlCS6mO/DvPM7ZQioWbiEZwZXweyEVF72mj0VJEXxPDJE1q4lGci+SdF9WJuTZhMrWN3F/bFrxlibyPGgJY4oHf1lU7gM1cFerZ0lRjUZSVhh1u4AQdS1qcnObkUkmy4kyXtGmWA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h9QTMXJt; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=uci.edu header.i=@uci.edu header.b="PWohvULh"
-Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-328664d340aso914992eec.0
-        for <stable@vger.kernel.org>; Wed, 23 Sep 2026 15:05:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h9QTMXJt"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e83a388f8so8730355e9.1
+        for <stable@vger.kernel.org>; Wed, 23 Sep 2026 15:09:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=uci.edu; s=google; t=1790201148; x=1790805948; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790201363; x=1790806163; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Q/nnxvPu+Ie5/oYJqt1aHS/OFcFQN5Rkx07F17u0JBU=;
-        b=PWohvULhtq2cuD9UNRoKn05JKrY7f5Q5fbpkJ047o9ms5IdsRkxyk4+fEPLuXYsxCF
-         KMaZYptWRuPKMBz85zizxXHOSYsE6xVh71JartJd3a3CrYbPaWPN328nH7lzCBBkC07T
-         OoeRAs3x+48ysJ8s5rNy46vvUWIlVfoc5NbwSyU/5VEweUocLkpXTIgzR9ZQIWPXdFu5
-         n57ThrGOvJVgfaRi74aDNblWeRG0pCo98EsCh6SRZ2CcNZh7NxERflkthmIfF8/fAExQ
-         nK7lSnv2NhMdTQcVzKvAoPzuHkRSw6rTBsK6lfAVEhfGCbDMGXSSYYLUK5EtnzPwV4y0
-         s5lQ==
+        bh=0vfvvH4VnMd4dK0iJViHA204XuBKefpDpGV2LA9qE58=;
+        b=h9QTMXJt529P+ivT8K/Igvt4pVV+HjCL8HpXctF5Xppnzu6yZUzU87JlYfLnAjmPKp
+         4ENpM7djj5W8zteOLNX6DzL2Sf8rHdI6HM1m8kLLCm/4902HLvNV9Os3uzsqZcSoVgW8
+         UCP/kt0+sDBJHU7ic5ULupFxXI4S9FntJo1S18I+jpd8qUst0xwfDa0H9XE9EwtegU83
+         n1avfsM3xkNVK83Tm4wSltvsu6se1od/aBsWsaLOrBmCZHaDuu88eBnKBBptXKkL6zg5
+         oMntgPNUTUKgGqZnChWdL5fNPa1WE0iDhg+s+CmidVUwuXgbB739GCHDY7HrlVoVxeIS
+         rakA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790201148; x=1790805948;
+        d=1e100.net; s=20260707; t=1790201363; x=1790806163;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Q/nnxvPu+Ie5/oYJqt1aHS/OFcFQN5Rkx07F17u0JBU=;
-        b=AeqtUGBChRoCaVK0KSVzfLYlwuCub9QMhzOzkxz1u08uBuGdwcbrpHvjLbtcv18Nzo
-         wnXLT1y/4vDa73FLPuwK+gWzRCqKEjZCNPAtoL8A6en9TZxItA6vmyy8bCJDSI9q5vLL
-         gVXekyKrhppLc4eTYpoWfl0w6/P2RFNvUnJATwREEYKAYpLaKI9PzaHyv0c5rnpM8suO
-         SAHMI4Hev82P0fG8ZTfu4JakuL+NTaFRelDfZv7CqbO8iCUedSH4jMK9Q9HNQu6SpWXz
-         YQBfgJy6thLS8U/RZhDphHveDzIcRWBVaaMZC0d0mMwVUEQ49Z3XjR/rcP5OvkSbA9Rb
-         zF4A==
-X-Forwarded-Encrypted: i=1; AKwUvBz0N57RJioE+lFUsj7Yvji4uh+nWWKOINUeohqQqrCTLy+16IH3gPaIRdY8i0QGnvSL0QsfQ6g=@vger.kernel.org
-X-Gm-Message-State: AFuF++mMkMUKksxLesFZjUJShhHRaXLJISRv/pXGrNazflqHMon7+YKr
-	77wIoje01TggPvk7xiaRSoBIl55uYOOUJwJj5XB19zpOWnVVkVN0B9F+f9BTsRK6XXY=
-X-Gm-Gg: AYBFou26EFZ9Awz7UWxEfgTRJtv2fBkNu0FRvbK+da51BFagQVskw3li3TKRsL8uOSs
-	Tg4eVsxlDEavyIXqIcH2x1R4fnPgaz+iOEmIjdQOwkpX+DJavD9V0pfihPMlmR4b8HuHBVs6bWa
-	LZYnKLegs/s9Ye1F8P1j6ceFnWYiWR7Vvogc+tgRnJDkXVIdIQ6koP1ydIYXpVYv+eND2MYtD/R
-	vG0v/7TSTjW/hasmGR+Vd0MXzsTViWSxZ7O1wBJE6QLDS6hTBZ2YP7uyzMR07iYo17vFLvzkLop
-	pR0sULDebIDkEqoA1UycNO4dAU9QWsgMeKMwmEAT49zuiQ4pbTmFCuUfg168aY8gpJr4t/uAvss
-	GAXVAcw+q/+av0IIw77x4NBfSr5Pgst925QuVZonQNhhvN2USAnKyflVrzIzhi71Y0NuOtXBBS6
-	GVKXn57Yat+W3YwN6NQtAks0EMPeuxB0TWiduvVnWZn1OBgrHhmUrtxVtt6M4rIdUXXMYkPq/Qp
-	Gm76kQLGdxFO8GPtXPwloRHYMVand+pl/HijKuFlBYh+g==
-X-Received: by 2002:a05:7301:7bc9:b0:33c:e91:271b with SMTP id 5a478bee46e88-34001220f83mr451635eec.36.1790201147964;
-        Wed, 23 Sep 2026 15:05:47 -0700 (PDT)
-Received: from guest1.. (charm.ics.uci.edu. [128.195.4.118])
-        by smtp.googlemail.com with ESMTPSA id 5a478bee46e88-33e96946d0csm9038456eec.21.2026.09.23.15.05.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 15:05:47 -0700 (PDT)
-From: Priya Bala Govindasamy <pgovind2@uci.edu>
-To: a.hindborg@kernel.org,
-	ojeda@kernel.org
-Cc: boqun@kernel.org,
-	gary@garyguo.net,
-	bjorn3_gh@protonmail.com,
-	lossin@kernel.org,
-	aliceryhl@google.com,
-	tmgross@umich.edu,
-	dakr@kernel.org,
-	daniel.almeida@collabora.com,
-	tamird@kernel.org,
-	acourbot@nvidia.com,
-	work@onurozkan.dev,
-	rust-for-linux@vger.kernel.org,
-	stable@vger.kernel.org,
-	ardalan@uci.edu,
-	zhiyunq@cs.ucr.edu,
-	dzueck@uci.edu,
-	pgovind2@uci.edu
-Subject: [PATCH 1/1] rust: configfs: Fix incorrect subsystem root check in `get_group_data`
-Date: Wed, 23 Sep 2026 22:05:45 +0000
-Message-Id: <809b66930e6b7a47535c87366b193695f420d2df.1789770689.git.pgovind2@uci.edu>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1789770689.git.pgovind2@uci.edu>
-References: <cover.1789770689.git.pgovind2@uci.edu>
+        bh=0vfvvH4VnMd4dK0iJViHA204XuBKefpDpGV2LA9qE58=;
+        b=BWmascEwJcVY0Vbgjn1eyduCnblt3d4nSIt0cKAhVQG3wI3AYTlig9+u3w2EteBhVY
+         LKTJNgSsneb1z0vH76u5iq7G+nRUjr4x38uA4Lnev0GGzml1PCfLNkS7hapPbIG/omj2
+         HWE4na0utqSsE1+y6gsSKYrewshsqowqOiHRZOdyHSzJUJ+aZk0n5nsiZmef0cl/aJ7y
+         1EdLKov5v3Oq2wHvEHml1gS8j997cnGE6XcyDgNbJOYxLIUDaJpbSwMVqR5r7xVU4MJg
+         stZeWsjh/BaQ1sSuqyZe2yiEVwiS2t0jw8Uv5mFLKR9HcS+guz7TVaoq1X8XfoCVTIga
+         JI4A==
+X-Forwarded-Encrypted: i=1; AKwUvBwUtmafCKm6gNGXtSs2Ea/rB6KSYotu4CB/Cen7c5e+CJunI3upiaLNxfkU9wjJjnARpwLPQhY=@vger.kernel.org
+X-Gm-Message-State: AFuF++n/JeuO7SYRH0zij72OZF051SNkcdXXgIfIJaDklsBggAfErxF9
+	UossTGZoj4PrZc9Xxu2NSn2PsqxYURxUFw5ex4M2KqmIl6QPcj7ehEie
+X-Gm-Gg: AYBFou3w7pAVy5JQs7Ogg51V9bRAaxcXjWva9MZhv0Y9qhSJXclbYkk67qR5xR2vY6D
+	Iv92P0Wy6qsMlu5GIRIf9oStLuovaaj1ro2Hzul0w85anSUOzXR5o7DBzfqnAE4JJnfd05BTXtB
+	pRhtqhj4ix9g8Z5JYv0JnOAxR7e5iXFKHJdb3ddr6OgJDGTUaUMDrvsjRMJFN7gN7cRe3Zb86JF
+	r6zGKtPsXUB35tgnNsUvqRX2m7uaR7H7AQW8sS0GntDYdYaZ/Dyc/xywi+KkoEZXxELP8CaRCnQ
+	298bObLdf62TzS6mAF2CE/fvJoKTHJZ+v+i3d7KU4D2b1cVzOa3pkM4tcUpuI2Eb60wyPkIdRaQ
+	Os/E/pYTUl5edkj3s6Rx5UUctdk9D0KeCEDGE2vg0lLn67bj2v4a7yftN6cqPcDGGREWFaPBzbV
+	wkXPrd5FQV1m8DtSbve3ZRDnoAcwrmZQ1iGZ2apwLoVTbQkgJsQy6eAhNZqNYcE5n12QcrQbqZy
+	bPSXOkMwqMsp6OR8roXfbdwOY8as8CgEY/AGtJd/5FjqWJHbLkIRqVI5ceX/JgB9viwg+9BcNlu
+	KS5aP1XnDi03FKzVovpILghZcI6sKxmpYYHc8zj3Tr9x/6HBa4Ni9YlG/aAbcA0utUYlvXO47Ph
+	Vk26lOkiOIslm
+X-Received: by 2002:a05:600c:138f:b0:49e:602a:b4ec with SMTP id 5b1f17b1804b1-49fe66d2700mr8501195e9.8.1790201363197;
+        Wed, 23 Sep 2026 15:09:23 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-a4a2-9601-c082-2dcb-3f3b-92b8.310.pool.telefonica.de. [2a02:3100:a4a2:9601:c082:2dcb:3f3b:92b8])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdf3541aesm57899075e9.0.2026.09.23.15.09.21
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 23 Sep 2026 15:09:22 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Ackerley Tng <ackerleytng@google.com>,
+	Zhao Li <enderaoelyther@gmail.com>,
+	Jinmeng Zhou <zhoujinmeng@bytedance.com>,
+	Alex Shi <alexs@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Dongliang Mu <dzm91@hust.edu.cn>,
+	Hongxiang Lou <louhongxiang@huawei.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Miaohe Lin <linmiaohe@huawei.com>,
+	Michal Hocko <mhocko@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Oscar Salvador <osalvador@suse.de>,
+	Peter Xu <peterx@redhat.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Usama Arif <usama.arif@linux.dev>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Wupeng Ma <mawupeng1@huawei.com>,
+	Yanteng Si <si.yanteng@linux.dev>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	fvdl@google.com,
+	jthoughton@google.com,
+	rientjes@google.com,
+	vannapurve@google.com,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3 0/4] Fix HugeTLB subpool used_hpages tracking
+Date: Thu, 24 Sep 2026 00:09:12 +0200
+Message-Id: <20260923220912.46905-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <20260916201307.5618114cbac4af52d98aecfa@linux-foundation.org>
+References: <20260916-hugetlb-subpool-always-track-used-v3-0-38aae9b5ccdd@google.com> <20260916201307.5618114cbac4af52d98aecfa@linux-foundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -93,64 +115,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In `get_group_data` to determine whether `this` is 
-subsystem root, the following check is performed:
-`(*this).cg_subsys.is_null()
-`get_group_data` then tries to read the `data` field of either
-`Group` or `Subsystem` structs depending on the result of the check.
+On Wed, 16 Sep 2026 20:13:07 -0700 Andrew Morton <akpm@linux-foundation.org> wrote:
+> So if downstream people (-stable maintainers, others) follow our
+> recommendations, some kernels will get two of these patches, other
+> kernel versions will get three and some lucky kernels might get all
+> four.  Are you confident that the patches can be split apart in this
+> fashion and still produce a good result?
 
-But the check always evaluates to false in `get_group_data`, since
-`link_group` in C always populates group->cg_subsys with a valid, 
-non-null pointer.
-Thus, if `this` points to a group representing the subsytem root,
-the incorrect branch in `get_group_data` may be taken, 
-leading to attempting to access `Subsystem.data` as `Group.data`.
-This is type confusion that can lead to data corruption.
+Two things I noticed while testing this series on v7.3-rc3 (x86_64
+QEMU, one CPU):
 
-Fix this by comparing the group's address with its subsystem's su_group
-and updating the safety contract of `get_group_data`.
+1. It overlaps with two fixes already queued in mm.git, so I've added
+   their authors to Cc:
 
-Fixes: 446cafc295bf ("rust: configfs: introduce rust support for configfs")
-Cc: stable@vger.kernel.org
-Reported-by: Dylan Zueck <dzueck@uci.edu>
-Assisted-by: LLM
-Signed-off-by: Priya Bala Govindasamy <pgovind2@uci.edu>
----
- rust/kernel/configfs.rs | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
+   - 3/4 rewrites the same out_subpool_put: block as Zhao Li's
+     "mm/hugetlb: fix max-only subpool accounting on
+     alloc_hugetlb_folio failure" (mm-hotfixes-unstable), and has the
+     same Fixes: tag.
+   - 2/4 rewrites the same out_put_pages: block as Jinmeng Zhou's
+     "mm/hugetlb: fix subpool minimum reservation rollback"
+     (mm-unstable).
 
-diff --git a/rust/kernel/configfs.rs b/rust/kernel/configfs.rs
-index cd082b83e9e7..c5fdafde0107 100644
---- a/rust/kernel/configfs.rs
-+++ b/rust/kernel/configfs.rs
-@@ -295,7 +295,8 @@ unsafe fn container_of(group: *const bindings::config_group) -> *const Self {
- 
- /// # Safety
- ///
--/// `this` must be a valid pointer.
-+/// `this` must be a valid pointer to a group linked into a registered configfs
-+/// subsystem. Its `cg_subsys` must be non-null and valid.
- ///
- /// If `this` does not represent the root group of a configfs subsystem,
- /// `this` must be a pointer to a `bindings::config_group` embedded in a
-@@ -304,9 +305,15 @@ unsafe fn container_of(group: *const bindings::config_group) -> *const Self {
- /// Otherwise, `this` must be a pointer to a `bindings::config_group` that
- /// is embedded in a `bindings::configfs_subsystem` that is embedded in a
- /// `Subsystem<Parent>`.
-+///
-+/// The containing `Group<Parent>` or `Subsystem<Parent>` and its initialized
-+/// `data` must remain valid for shared access for `'a`.
- unsafe fn get_group_data<'a, Parent>(this: *mut bindings::config_group) -> &'a Parent {
--    // SAFETY: `this` is a valid pointer.
--    let is_root = unsafe { (*this).cg_subsys.is_null() };
-+    // SAFETY: `this` and its `cg_subsys` are valid by the function's safety requirements.
-+    let is_root = unsafe {
-+        let subsys = (*this).cg_subsys;
-+        core::ptr::eq(this, &raw const (*subsys).su_group)
-+    };
- 
-     if !is_root {
-         // SAFETY: By C API contact,`this` was returned from a call to
--- 
-2.34.1
+   3/4 doesn't apply to mm-hotfixes-unstable, and 2/4-4/4 don't apply
+   to mm-unstable. If I read them right, the queued fixes only handle
+   mounts with size=, while 2/4 and 3/4 also cover min_size mounts, so
+   they would probably replace them.
 
+2. On splitting: 1/4 applies cleanly on top of both queued fixes, but
+   in my tests it made min_size-only mounts worse on its own. As far
+   as I can tell, that's because it starts tracking used_hpages on
+   those mounts, while the two error paths only release it after 2/4
+   and 3/4.
+
+   HugePages_Rsvd, expected value in parentheses. Q = the two queued
+   fixes, wrap = 18446744073709551615:
+
+                                   rc3   +Q  +1/4  +Q+1/4  +1/4..4/4
+   min_size=4M only:
+     SIGBUS faults [1], no files (2)  2    2     0      0      2
+   min_size=8M only:
+     failed mmap [2], umounted (0)    0    0     3      3      0
+   size=8M,min_size=4M:
+     SIGBUS faults [1], no files (2)  0    0     0      0      2
+   size=10M,min_size=8M:
+     failed mmap [2], umounted (0)  wrap   0  wrap      0      0
+
+   With 1/4 alone, the min_size-only mount loses its reservation, and
+   in the failed-mmap case three huge pages stay reserved after umount,
+   presumably because the subpool is never freed.
+
+So it looks to me like 1/4 shouldn't go anywhere without 2/4 and 3/4.
+I haven't tested older stable trees. With all four patches applied,
+all the cases above give the expected values, and so does the
+partial-truncate case from the 1/4 changelog (Rsvd drops to 0 after
+the truncate instead of staying at 1).
+
+I'm happy to rerun these tests on a rebased v4.
+
+[1] https://lore.kernel.org/r/20260923065714.20781-1-kmehltretter@gmail.com/
+[2] the scenario from Jinmeng's changelog:
+    https://lore.kernel.org/20260907132055.26696-1-zhoujinmeng@bytedance.com
+
+Thanks,
+Karl
