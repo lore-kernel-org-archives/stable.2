@@ -1,63 +1,96 @@
-Received: from pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.83.148.184])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A572857F72F;
-	Wed, 23 Sep 2026 20:14:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.83.148.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 790223F8243
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 20:31:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790194484; cv=none; b=bKkDhxKNOGpgwbfb+Ioub7INBqeYJo0FpI4WYdnPuMd4zt/J0IJNU6fUj0AllEBzs5T3/H6vXo2Lumg/+TtlGRJWL84zMJXglz8DZze+nAXD3XWgk0P/g6jc/igj69YRV6yj1L+8ihDDqOJGHNvdSiuBYtnQG1fMHCE2B6BqogY=
+	t=1790195522; cv=none; b=pHKmKThFk5FadFDsYdosA/CecJQE2cu7cN9l8EZjy8bhFZTZerNg2eyTmOf//en6es7pH9ru4HgmqUOLLyXYHmXpTBYQMUZJA4zUaqS0FrRlYK9+MPwlyjGs5hQy+ZOWx3wGhACdybzvdkqbPLuvRNK0FII7iI5Ie7G8qQYuYiA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790194484; c=relaxed/simple;
-	bh=+S/Wc0yXzz8W9wCKS2L++ti3L6KNlbHouXDNHIr9vjU=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=YqNDGKk8sDzrMqbixMHGspLnNJAWQgDc6BYSodJVi6Cr1QU0ukG+S9o917XDZ3z9EMTMEvJV9ivyG+JpwKMPXZPdOFnepOTsXH6zSY/3HSCy2V1KhUYtk0kGqgu9TuyjTjS4AASCtb0SNb8YpkZUKZIkyh0O2diZmlrXuHTqlAw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=hYIsLxU/; arc=none smtp.client-ip=35.83.148.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	s=arc-20240116; t=1790195522; c=relaxed/simple;
+	bh=lsgiFQR0W1RaDSUCFb03bBzHp12jvBbMgfMT0EHXOU0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=dXryBWDtnVULdpiG5qCGImKqdB8sbJsgzVyuWqfjhrYDY+BSsP7AWWHl3iMnjmLH0iHASYfLzSsrSeaVsfuJYTuvoZa3pZU5VRu9A1DM/GfnQG9r5Z/SqNDOJVd0D97uiDAnqEAw36p9azhozXJJrm7vPnlFR+rKx6aU80p5PVk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uci.edu; spf=pass smtp.mailfrom=uci.edu; dkim=pass (2048-bit key) header.d=uci.edu header.i=@uci.edu header.b=oz5pMRSA; arc=none smtp.client-ip=74.125.229.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uci.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uci.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="hYIsLxU/"
+	dkim=pass (2048-bit key) header.d=uci.edu header.i=@uci.edu header.b="oz5pMRSA"
+Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-328664b7582so813680eec.3
+        for <stable@vger.kernel.org>; Wed, 23 Sep 2026 13:31:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1790194476; x=1821730476;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=ze4gHmgKx05i3sSwVzV05lhzTvt568JlRyE3XDEGIBE=;
-  b=hYIsLxU/xgTQB8ngrZAEtKPMI/cdiuoFaDzvVxZlJmJYQHGmQImRYdXf
-   PkW/o1PZV4GwKTfixhJ2X5Px248f84g00JXNfBiPjNryyK6PzdT8wAdzF
-   D6MUGlFXdMeBmQuGXd0jsfCKF3/exh9vxC4ujjYbkjjOZrlrvUWr56voa
-   4+XU0FnK5A4MaqNyI7FqOq+x/abqpHCbecAwGupzfCNcrXHAChLH7slsK
-   6YCE0F6pNI9aBmYJxJr6V5Ehtyq6DOAuPGhsGMu9bjrIolTZcrw745GHc
-   zJa0OkEOc1mHhYhUi5xX6pT9Ubnb1CwlvRYGWt+SMarJjdwcBgDSq9i9M
-   A==;
-X-CSE-ConnectionGUID: p+Lkz8WTQLug8XRnF7we4g==
-X-CSE-MsgGUID: TpxDwrnWRq6jk/XfZCoDaQ==
-X-IronPort-AV: E=Sophos;i="6.27,119,1787011200"; 
-   d="scan'208";a="29266322"
-Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
-  by internal-pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 20:14:27 +0000
-Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.48:27656]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.53.187:2525] with esmtp (Farcaster)
- id 62e1523c-c3bd-4a19-9995-206e9f80ad6a; Wed, 23 Sep 2026 20:14:27 +0000 (UTC)
-X-Farcaster-Flow-ID: 62e1523c-c3bd-4a19-9995-206e9f80ad6a
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Wed, 23 Sep 2026 20:14:27 +0000
-Received: from dev-dsk-doebel-1a-7b355d76.us-east-1.amazon.com (10.169.119.5)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Wed, 23 Sep 2026 20:14:25 +0000
-From: Bjoern Doebel <doebel@amazon.de>
-To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
-	<x86@kernel.org>
-CC: Peter Zijlstra <peterz@infradead.org>, "H . Peter Anvin" <hpa@zytor.com>,
-	Shuah Khan <shuah@kernel.org>, Andy Lutomirski <luto@kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
-	<doebel@amazon.de>, <stable@vger.kernel.org>
-Subject: [PATCH] selftests/x86: Skip fsgsbase segment setup when int $0x80 is unavailable
-Date: Wed, 23 Sep 2026 20:14:09 +0000
-Message-ID: <20260923201409.2187200-1-doebel@amazon.de>
-X-Mailer: git-send-email 2.50.1
+        d=uci.edu; s=google; t=1790195509; x=1790800309; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rVIQWAnKN98ur25hclWfvj2q8SoQe7T1V/QGgzzXRDE=;
+        b=oz5pMRSANSD2rT04xi0Ga0fDwbcW+o4DGgCerIZ1x+V2qDeEgLh7X1WcwerHDrzKAs
+         lGiTMo1+LF2JnsQvPwOJQoJtvfPvY8c6Ti8NBCOIkcqEmn4FEvjDq0UeYcD2dLnVJPDY
+         DjYopDDfneU50g+c5MG+4PHyophV53eksTZoNUtHxPNjjy38Rf7P5yKhhR9AS7ErBU/b
+         5mLc6cVAHXcL4/Oq93FiQuL8Ywg2SrAXKxbQFd3+IVw1PUThjxyquri1ATku3bFJaxbg
+         0rXpZgkSkHZg1siqA34lopbbD5ip4QlyFpLrO1LDARpBnIOCDdKMw/bRg4KjeHiz1hK8
+         duCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790195509; x=1790800309;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rVIQWAnKN98ur25hclWfvj2q8SoQe7T1V/QGgzzXRDE=;
+        b=pSUphRV5xWDzoAqfJ/N0LF+vVco2Fgjs6EWg/HUzPcYvGRpyIYxMgFpZ59tXZksu1E
+         dCYtc57oSBnYTDaYHBLOChI37lJ947OmLQsZcltjrn1hiYkQbL/9qEBT2cVG2O68aiiz
+         VozIskGKQHdSNgkHIUtgYRhpDPBTfzBJx3mUy8wucWQyoGYxQxaa+MTQQXBMGDryDDUC
+         bg1c5dV3tQAQkSMSzbbk+NOtboVNIdXpnzv0f7wHh8r3P+gVYt2iqa6C0ktbhGClEUrg
+         Q/ju1K4yyZZGr/hgsjeab91zhDj9uuvr1aMHb0NjmkiD16OecSENlAxtPjy9qgq4gZMa
+         kXzQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwUa7GlMkYMjLdlr1Q0SMfk5KcnBvdvwNjZFEacMH7M6BMDjlrQ9K8DDyecsT0JbWj2AD13yBU=@vger.kernel.org
+X-Gm-Message-State: AFuF++l+bjv+BaiDm9twO+r8eI/p3SljzlxLpSOoWJJ4kgo2CiBlpdA2
+	yT7omOqv6V+NK6KQdEsYdVOKNS6ao/baVE09rLcESU7UhLTqEflPGSjOLR1tCr74W3w=
+X-Gm-Gg: AYBFou2nwWWNeWUcr8xzvyh55dq2hPbFo7Kjk6RlOi5tVc8L6vxBcYzRuCNhYwIJKTL
+	1GV8OdDvUcRNITwLfq/wtL/4A+nufYvjP7m07xs4m0roSNrwcr7bWBq3NLKDYoHM7Z/fM1oQu6F
+	T8JY2L9CJkksrik0pf5lFx056M/BjHZikrTR8iM7lI4QDzadBOUd2DkbJDBCKQZ2jw/nyx1jO5W
+	ybQCJZ7fe5fODWY0tC2k1sdmh+gNWXqE10F/cf0Peg1zPEJh4v3ZANB7hFK6ZT1L+yXh4B05HGE
+	jOgVsMHe4eANGT/izlNtPab0qbe/ZcQHV57GJPEZkqPZWndkBZJiz3UzftQvlPJMBnm6J/YLMtJ
+	EiiXIZ6kxAVzaxuKk6zdR3QSC+k2xe7q/1ZZNDhGyFXR51qGk1nUwSrLqHUUHws8cnLJSriDPxD
+	ya1IAORhbRYVeFUrTFpvzGnVwScwPfcd5+M1W9nT/ZFas8wBKGYIA3BSCVUAd7LL6N3KazSq8/S
+	tpe1BPcBwn8p8Q31AJpWC3PnKOQ0bs2CfaJ1aKpaFYpow==
+X-Received: by 2002:a05:701b:4512:20b0:143:297d:21f5 with SMTP id a92af1059eb24-14503fc5fedmr228574c88.34.1790195508236;
+        Wed, 23 Sep 2026 13:31:48 -0700 (PDT)
+Received: from guest1.. (charm.ics.uci.edu. [128.195.4.118])
+        by smtp.googlemail.com with ESMTPSA id a92af1059eb24-144f983c5a1sm13276486c88.7.2026.09.23.13.31.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 13:31:47 -0700 (PDT)
+From: Priya Bala Govindasamy <pgovind2@uci.edu>
+To: mcgrof@kernel.org,
+	petr.pavlu@suse.com,
+	da.gomez@kernel.org,
+	samitolvanen@google.com,
+	ojeda@kernel.org
+Cc: atomlin@atomlin.com,
+	boqun@kernel.org,
+	gary@garyguo.net,
+	bjorn3_gh@protonmail.com,
+	lossin@kernel.org,
+	a.hindborg@kernel.org,
+	aliceryhl@google.com,
+	tmgross@umich.edu,
+	dakr@kernel.org,
+	daniel.almeida@collabora.com,
+	tamird@kernel.org,
+	acourbot@nvidia.com,
+	work@onurozkan.dev,
+	linux-modules@vger.kernel.org,
+	rust-for-linux@vger.kernel.org,
+	stable@vger.kernel.org,
+	ardalan@uci.edu,
+	zhiyunq@cs.ucr.edu,
+	dzueck@uci.edu,
+	pgovind2@uci.edu
+Subject: [PATCH v2] rust: module_param: Fix potentially incorrect access of `SetOnce<T>`
+Date: Wed, 23 Sep 2026 20:31:45 +0000
+Message-Id: <20260923203145.18714-1-pgovind2@uci.edu>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <cover.1789426258.git.pgovind2@uci.edu>
+References: <cover.1789426258.git.pgovind2@uci.edu>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -65,141 +98,54 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D040UWA001.ant.amazon.com (10.13.139.22) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-The fsgsbase test's load_gs() helper needs a nonzero-based FS/GS
-segment, i.e. a selector whose hidden base differs from the kernel's
-saved thread base, to exercise the selector/base state tracking.
-64-bit userspace can only create such a segment via modify_ldt() or,
-failing that, via the 32-bit set_thread_area syscall over int $0x80.
+The `set_param` function casts `kernel_param.arg` to `*const SetOnce<T>`
+But the Rust module macro in rust/macros/module.rs initializes `arg` with
+`#param_name.as_void_ptr()`, and `#param_name` is a `ModuleParamAccess<T>`,
+not a `SetOnce<T>`.
 
-On kernels built with CONFIG_MODIFY_LDT_SYSCALL=n, modify_ldt() fails
-and the test falls back to int $0x80. If the kernel is also built
-with CONFIG_IA32_EMULATION=n, no IDT gate is installed for vector
-0x80, so executing int $0x80 raises a #GP fault and the test dies
-with SIGSEGV instead of reporting results:
+ModuleParamAccess<T> has default Rust layout but `set_param` accesses its
+first field SetOnce<T> assuming it to be at offset 0. This is not
+guaranteed by Rust and could cause type confusion leading to data
+corruption.
 
-  traps: fsgsbase_64[5460] general protection fault ip:4012a1
-  sp:7f38eb124de0 error:402 in fsgsbase_64[12a1,400000+2000]
+Fix this by casting `kernel_param.arg` to `ModuleParamAccess<T>` and
+then accessing the `value: SetOnce<T>` field.
 
-With both options disabled, pure 64-bit userspace cannot install a
-nonzero-based FS/GS segment at all, so this scenario is untestable.
-Probe for a working int $0x80 at startup and skip the affected
-subtests when neither mechanism is available instead of crashing.
-
-While at it, replace the magic syscall numbers in the int $0x80
-inline asm with named __NR_ia32_getpid / __NR_ia32_set_thread_area
-constants. These deliberately use the ia32 syscall table numbering,
-which differs from the x86-64 numbering exported by <sys/syscall.h>
-on 64-bit builds.
-
-Fixes: 0051202f6ad5f ("selftests/x86: Test the FSBASE/GSBASE API and context switching")
-Signed-off-by: Bjoern Doebel <doebel@amazon.de>
-Assisted-by: opencode:kimi-k3
+Fixes: 0b08fc292842 ("rust: introduce module_param module")
 Cc: stable@vger.kernel.org
+Reported-by: Dylan Zueck <dzueck@uci.edu>
+Assisted-by: LLM
+Suggested-by: Andreas Hindborg <a.hindborg@kernel.org>
+Signed-off-by: Priya Bala Govindasamy <pgovind2@uci.edu>
 ---
- tools/testing/selftests/x86/fsgsbase.c | 51 +++++++++++++++++++++++++-
- 1 file changed, 49 insertions(+), 2 deletions(-)
+Changes in v2:
+ - Split unsafe block into two separate unsafe operations
+ - Add safety comments explaining the unsafe operations
 
-diff --git a/tools/testing/selftests/x86/fsgsbase.c b/tools/testing/selftests/x86/fsgsbase.c
-index 0a75252d31b6a..8538ceb6c5785 100644
---- a/tools/testing/selftests/x86/fsgsbase.c
-+++ b/tools/testing/selftests/x86/fsgsbase.c
-@@ -218,6 +218,40 @@ static void do_remote_base()
+ rust/kernel/module_param.rs | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/rust/kernel/module_param.rs b/rust/kernel/module_param.rs
+index f9a14765a926..1a2fcbf4a5b3 100644
+--- a/rust/kernel/module_param.rs
++++ b/rust/kernel/module_param.rs
+@@ -74,8 +74,13 @@ pub trait ModuleParam: Sized + Copy {
+     crate::error::from_result(|| {
+         let new_value = T::try_from_param_arg(arg)?;
  
- static __thread int set_thread_area_entry_number = -1;
+-        // SAFETY: By function safety requirements, this access is safe.
+-        let container = unsafe { &*((*param).__bindgen_anon_1.arg.cast::<SetOnce<T>>()) };
++        // SAFETY: By function safety requirements, `param` is valid for read.
++        let arg = unsafe { (*param).__bindgen_anon_1.arg };
++        let param_access_ptr = arg.cast::<ModuleParamAccess<T>>();
++        // SAFETY: The `arg` field is initialized with a pointer to a `static ModuleAccessParam` by
++        // the rust module macro. Thus, the pointer is valid for use as a reference.
++        let param_access = unsafe { &*(param_access_ptr) };
++        let container = &param_access.value;
  
-+/*
-+ * int $0x80 dispatches through the ia32 syscall table, whose numbers
-+ * differ from the x86-64 table exposed by <sys/syscall.h> on an
-+ * x86_64 build. Define the ia32 numbers we need explicitly.
-+ */
-+#define __NR_ia32_getpid		20
-+#define __NR_ia32_set_thread_area	243
-+
-+static bool have_int80;
-+
-+static void sigsegv_int80(int sig, siginfo_t *si, void *ctx_void)
-+{
-+	siglongjmp(jmpbuf, 1);
-+}
-+
-+static bool probe_int80(void)
-+{
-+	/*
-+	 * Check whether int $0x80 is available.  Kernels built without
-+	 * CONFIG_IA32_EMULATION do not install an IDT entry for vector
-+	 * 0x80, so executing int $0x80 causes a #GP fault.
-+	 */
-+	sethandler(SIGSEGV, sigsegv_int80, 0);
-+	if (sigsetjmp(jmpbuf, 1) == 0) {
-+		long ret;
-+		/* getpid -- harmless if it works */
-+		asm volatile ("int $0x80" : "=a" (ret) : "a" (__NR_ia32_getpid));
-+		clearhandler(SIGSEGV);
-+		return true;
-+	}
-+	clearhandler(SIGSEGV);
-+	return false;
-+}
-+
- static unsigned short load_gs(void)
- {
- 	/*
-@@ -245,7 +279,7 @@ static unsigned short load_gs(void)
- 		printf("\tusing LDT slot 0\n");
- 		asm volatile ("mov %0, %%gs" : : "rm" ((unsigned short)0x7));
- 		return 0x7;
--	} else {
-+	} else if (have_int80) {
- 		/* No modify_ldt for us (configured out, perhaps) */
- 
- 		struct user_desc *low_desc = mmap(
-@@ -260,7 +294,7 @@ static unsigned short load_gs(void)
- 		long ret;
- 		asm volatile ("int $0x80"
- 			      : "=a" (ret), "+m" (*low_desc)
--			      : "a" (243), "b" (low_desc)
-+			      : "a" (__NR_ia32_set_thread_area), "b" (low_desc)
- 			      : "r8", "r9", "r10", "r11");
- 		memcpy(&desc, low_desc, sizeof(desc));
- 		munmap(low_desc, sizeof(desc));
-@@ -275,6 +309,9 @@ static unsigned short load_gs(void)
- 		unsigned short gs = (unsigned short)((desc.entry_number << 3) | 0x3);
- 		asm volatile ("mov %0, %%gs" : : "rm" (gs));
- 		return gs;
-+	} else {
-+		printf("[NOTE]\tno way to create a nonzero-based segment\n");
-+		return 0;
- 	}
- }
- 
-@@ -516,6 +553,11 @@ static void test_ptrace_write_gsbase(void)
- 
- 		gs = ptrace(PTRACE_PEEKUSER, child, gs_offset, NULL);
- 
-+		if (*shared_scratch == 0) {
-+			printf("[SKIP]\tCould not create a nonzero GS selector\n");
-+			goto END;
-+		}
-+
- 		if (gs != *shared_scratch) {
- 			nerrs++;
- 			printf("[FAIL]\tGS is not prepared with nonzero\n");
-@@ -587,6 +629,11 @@ int main()
- 	}
- 	clearhandler(SIGILL);
- 
-+	/* Probe int $0x80 (32-bit syscall entry) */
-+	have_int80 = probe_int80();
-+	if (!have_int80)
-+		printf("\tint $0x80 is unavailable (CONFIG_IA32_EMULATION=n?)\n");
-+
- 	sethandler(SIGSEGV, sigsegv, 0);
- 
- 	check_gs_value(0);
+         container
+             .populate(new_value)
 -- 
-2.50.1
+2.34.1
 
