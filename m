@@ -1,188 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp-bc0b.mail.infomaniak.ch (smtp-bc0b.mail.infomaniak.ch [45.157.188.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C100470456
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 13:24:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B8AE52E07A
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 13:24:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.157.188.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790169870; cv=none; b=aRZF2u7LKFFSnus4IElzVzO4iUDWNsx00R/xD4Swc+tzgjIcXtsvp2TDy5cFT2t+1nQRAxVbHeWa08GRdDrQ/zG9fG44ZfuVsuksQiejMtOMQpZ6fbx6uQCkJVKAzHiJENbnax3AVxmLuj4ul70h9jumr+g8R6lxan1YTlpG6YY=
+	t=1790169880; cv=none; b=jNb2+U/sz1DpnVrWpl5XSuZBM4W9whZ28r7M+6X5BWNu/5uxBz2biIP92iwocv3JdQaxkbNkXdpR57PejaqwW0EnvRSCmYFhwPyAOZdhXLgSyVkW5VkYSewgzPFxjJjyy06YT1NO70kcuYsBZIFfECYiwiAyPh4Wpmr8KH5VwDA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790169870; c=relaxed/simple;
-	bh=LOfa3XQC5xyfXVCKdXuQJtP0yscDoRgzSbgW961VFIo=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=qqQG41QESIDqB9d4dwOZSUU36ZMXFMB+3xO4fmKNxYCgEnN69c3HvkD12M11B2NW3Br9arelu3Ca2gIJyh3gt4ENS1NQR+bKgyPQvphlH6Fx+TMI0HC11lFzkg07cI5cOWC7C5e+3nTIryCUxDzTxzNGbPybPFfQQc2CEjVjw1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=W6Vekwnu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790169880; c=relaxed/simple;
+	bh=OWL6TNbODPYoQAv70YKpZ56vGDuCcLZtjoR+kDieLP8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Praho3fvIm4ILE37g9x4jU1MI80gzYlyrEXxJPgxhYifibIPVDhhUwuSOy1NSXocJDswEjrDLjAj2C3uY0732+xg53GE/1pSrgnKDf42QJlSa66nmmvdO1Q85wiN6pWfFcZUIhvWLlY3Ly9E13BdmHmEt15g/J+iHuTUETWvdzQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=zN45yrEm; arc=none smtp.client-ip=45.157.188.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="W6Vekwnu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF7D21F000FF;
-	Wed, 23 Sep 2026 13:24:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790169859;
-	bh=Hu192gElUVlOFaP9H/cB55DFSvqCT2PavUVah2WNSFk=;
-	h=Subject:To:Cc:From:Date;
-	b=W6VekwnujvP6iLQeD1Sd7dsvFjXlXEcR///TFROQzPFDBF8ZBFYnwfGSsifnqQJcH
-	 kDVjC57m4yTLg3RSaIt8PQK/p0IlQAVQnwA3bywy+UbSGH4/yP/x025SZY+cXEiGtQ
-	 2Ae084pjFsg4L4nQls6vL06KfSTCbqxwbSFjkbfU=
-Subject: FAILED: patch "[PATCH] fs: push nr_cached_objects memcg gating into individual" failed to apply to 7.2-stable tree
-To: usama.arif@linux.dev,baolin.wang@linux.alibaba.com,brauner@kernel.org,dsterba@suse.com,jack@suse.cz,qi.zheng@linux.dev,shakeel.butt@linux.dev
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 23 Sep 2026 15:24:15 +0200
-Message-ID: <2026092315-overtone-rename-4864@gregkh>
+	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="zN45yrEm"
+Received: from smtp-3-0001.mail.infomaniak.ch (smtp-3-0001.mail.infomaniak.ch [10.4.36.108])
+	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hqd3N4hl0z3Hm;
+	Wed, 23 Sep 2026 15:24:16 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
+	s=20191114; t=1790169856;
+	bh=YLNQB1jqVWB0jblNz4ezwYLazSTiVGWekOBIPu2pTTw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=zN45yrEm4gttmse6mqeLHhdWwks1P3w//Bk1wMi39jl3EAmoqKui91+7eSf9HjY04
+	 r52S2+YAoNdkld12iXmCae0hu2OFNA9nEJqJWKk4CgfATKAbWAn5pDhL4+t8j/L7UN
+	 eL1gXdrMD4ObPIZz97NmR83f2mdFVVwae73hyZMc=
+Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4hqd3M6MG4zFRV;
+	Wed, 23 Sep 2026 15:24:15 +0200 (CEST)
+From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
+To: stable@vger.kernel.org
+Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
+	Sasha Levin <sashal@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	=?utf-8?q?G=C3=BCnther_Noack?= <gnoack@google.com>,
+	Paul Moore <paul@paul-moore.com>,
+	syzbot+bf4903dc7e12b18ebc87@syzkaller.appspotmail.com
+Subject: [PATCH 6.6.y v2] selftests/landlock: Add layout1.refer_mount_root
+Date: Wed, 23 Sep 2026 15:24:11 +0200
+Message-ID: <6bc11809968399ed4d29493d5666d9af5db14bb1.1790169454.git.mic@digikod.net>
+In-Reply-To: <2026-09-17-daily-reply-0018-landlock-refer-mount-root-v2@kernel.org>
+References: <2026-09-17-daily-reply-0018-landlock-refer-mount-root-v2@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Infomaniak-Routing: alpha
 
+[ Upstream commit 0055f53aac80fd938bf7cdfad7ad414ca6c0e198 ]
 
-The patch below does not apply to the 7.2-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Add tests to check error codes when linking or renaming a mount root
+directory.  This previously triggered a kernel warning, but it is fixed
+with the previous commit.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Cc: Günther Noack <gnoack@google.com>
+Cc: Paul Moore <paul@paul-moore.com>
+Link: https://lore.kernel.org/r/20240516181935.1645983-3-mic@digikod.net
+Signed-off-by: Mickaël Salaün <mic@digikod.net>
+[mic: Backport: adapt to the older selftest header layout]
+Signed-off-by: Mickaël Salaün <mic@digikod.net>
+---
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
-git checkout FETCH_HEAD
-git cherry-pick -x 0ef8faff490be6aa1a1e5dfcb0c8492689e91c0f
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092315-overtone-rename-4864@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
+Changes since v1:
+https://patch.msgid.link/761a7c88d1ed83c222b845fb767d4a271dcaed70.1789655724.git.mic@digikod.net
+- Move <linux/mount.h> below <unistd.h> with the upstream conflict
+  comment to support older libc versions (requested by Sasha Levin).
+---
+ tools/testing/selftests/landlock/fs_test.c | 50 ++++++++++++++++++++++
+ 1 file changed, 50 insertions(+)
 
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 0ef8faff490be6aa1a1e5dfcb0c8492689e91c0f Mon Sep 17 00:00:00 2001
-From: Usama Arif <usama.arif@linux.dev>
-Date: Wed, 15 Jul 2026 03:35:16 -0700
-Subject: [PATCH] fs: push nr_cached_objects memcg gating into individual
- filesystems
-
-Commit 0baad6f9b997 ("fs/super: skip non-memcg-aware nr_cached_objects
-in memcg slab shrink") added a check in fs/super.c that skipped every
-->nr_cached_objects() hook whenever the shrinker was invoked for a
-non-root memcg, on the assumption that none of them honour sc->memcg.
-
-That assumption is wrong for XFS, whose inode-reclaim hook is
-intentionally driven from per-memcg contexts to free memcg-charged
-slab. Encoding a blanket "never memcg-aware" policy in fs/super.c
-short-circuits that path.
-
-Push the check down into the callbacks whose counters really are
-irrelevant to per-memcg reclaim - btrfs_nr_cached_objects() and
-shmem_unused_huge_count() - and drop the fs/super.c gate. Each
-filesystem can now lift the restriction independently if its counter
-later grows memcg awareness, without touching fs/super.c.
-
-Introduce mem_cgroup_shrink_is_root() in <linux/memcontrol.h> so the
-callbacks don't open-code "sc->memcg is NULL or root".
-
-Fixes: 0baad6f9b997 ("fs/super: skip non-memcg-aware nr_cached_objects in memcg slab shrink")
-Acked-by: Qi Zheng <qi.zheng@linux.dev>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Reviewed-by: Shakeel Butt <shakeel.butt@linux.dev>
-Signed-off-by: Usama Arif <usama.arif@linux.dev>
-Link: https://patch.msgid.link/20260715103516.2410175-1-usama.arif@linux.dev
-Acked-by: David Sterba <dsterba@suse.com>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-
-diff --git a/fs/btrfs/super.c b/fs/btrfs/super.c
-index a7d804219bec..cc4537435399 100644
---- a/fs/btrfs/super.c
-+++ b/fs/btrfs/super.c
-@@ -22,6 +22,7 @@
- #include <linux/namei.h>
- #include <linux/miscdevice.h>
- #include <linux/magic.h>
-+#include <linux/memcontrol.h>
- #include <linux/slab.h>
- #include <linux/ratelimit.h>
- #include <linux/crc32c.h>
-@@ -2434,6 +2435,15 @@ static long btrfs_nr_cached_objects(struct super_block *sb, struct shrink_contro
- 	struct btrfs_fs_info *fs_info = btrfs_sb(sb);
- 	const s64 nr = percpu_counter_read_positive(&fs_info->evictable_extent_maps);
+diff --git a/tools/testing/selftests/landlock/fs_test.c b/tools/testing/selftests/landlock/fs_test.c
+index c239838c796a..8d1df6ddcbc7 100644
+--- a/tools/testing/selftests/landlock/fs_test.c
++++ b/tools/testing/selftests/landlock/fs_test.c
+@@ -23,6 +23,12 @@
+ #include <sys/vfs.h>
+ #include <unistd.h>
  
-+	/*
-+	 * The evictable extent map counter is filesystem-global and does not
-+	 * honour sc->memcg, so it is only meaningful on the global (kswapd or
-+	 * root direct reclaim) shrink path. Skip the per-memcg iterations of
-+	 * shrink_slab_memcg() to avoid queueing duplicate global work.
-+	 */
-+	if (!mem_cgroup_shrink_is_root(sc))
-+		return 0;
-+
- 	trace_btrfs_extent_map_shrinker_count(fs_info, nr);
- 
- 	return nr;
-diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
-index e1f46a0016fc..5407e4200460 100644
---- a/include/linux/memcontrol.h
-+++ b/include/linux/memcontrol.h
-@@ -520,6 +520,22 @@ static inline bool mem_cgroup_is_root(struct mem_cgroup *memcg)
- 	return (memcg == root_mem_cgroup);
- }
- 
-+/**
-+ * mem_cgroup_shrink_is_root - is this a global or root-memcg shrink invocation?
-+ * @sc: shrink_control describing the current shrinker call
-+ *
-+ * Returns true when @sc represents a global reclaim shrink (sc->memcg == NULL)
-+ * or a root-memcg shrink, i.e. not a per-memcg iteration of
-+ * shrink_slab_memcg(). Filesystems whose ->nr_cached_objects()/
-+ * ->free_cached_objects() implementations operate on filesystem-global state
-+ * and do not honour sc->memcg can use this to early-return 0 in per-memcg
-+ * contexts.
++/*
++ * Intentionally included last to work around header conflict.
++ * See https://sourceware.org/glibc/wiki/Synchronizing_Headers.
 + */
-+static inline bool mem_cgroup_shrink_is_root(struct shrink_control *sc)
-+{
-+	return !sc->memcg || mem_cgroup_is_root(sc->memcg);
-+}
++#include <linux/mount.h>
 +
- static inline bool obj_cgroup_is_root(const struct obj_cgroup *objcg)
- {
- 	return objcg->is_root;
-@@ -1071,6 +1087,11 @@ static inline bool mem_cgroup_is_root(struct mem_cgroup *memcg)
- 	return true;
+ #include "common.h"
+ 
+ #ifndef renameat2
+@@ -34,6 +40,13 @@ int renameat2(int olddirfd, const char *oldpath, int newdirfd,
+ }
+ #endif
+ 
++#ifndef open_tree
++int open_tree(int dfd, const char *filename, unsigned int flags)
++{
++	return syscall(__NR_open_tree, dfd, filename, flags);
++}
++#endif
++
+ #ifndef RENAME_EXCHANGE
+ #define RENAME_EXCHANGE (1 << 1)
+ #endif
+@@ -2264,6 +2277,43 @@ TEST_F_FORK(layout1, refer_denied_by_default4)
+ 				layer_dir_s1d1_refer);
  }
  
-+static inline bool mem_cgroup_shrink_is_root(struct shrink_control *sc)
++/*
++ * Tests walking through a denied root mount.
++ */
++TEST_F_FORK(layout1, refer_mount_root_deny)
 +{
-+	return true;
++	const struct landlock_ruleset_attr ruleset_attr = {
++		.handled_access_fs = LANDLOCK_ACCESS_FS_MAKE_DIR,
++	};
++	int root_fd, ruleset_fd;
++
++	/* Creates a mount object from a non-mount point. */
++	set_cap(_metadata, CAP_SYS_ADMIN);
++	root_fd =
++		open_tree(AT_FDCWD, dir_s1d1,
++			  AT_EMPTY_PATH | OPEN_TREE_CLONE | OPEN_TREE_CLOEXEC);
++	clear_cap(_metadata, CAP_SYS_ADMIN);
++	ASSERT_LE(0, root_fd);
++
++	ruleset_fd =
++		landlock_create_ruleset(&ruleset_attr, sizeof(ruleset_attr), 0);
++	ASSERT_LE(0, ruleset_fd);
++
++	ASSERT_EQ(0, prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0));
++	ASSERT_EQ(0, landlock_restrict_self(ruleset_fd, 0));
++	EXPECT_EQ(0, close(ruleset_fd));
++
++	/* Link denied by Landlock: EACCES. */
++	EXPECT_EQ(-1, linkat(root_fd, ".", root_fd, "does_not_exist", 0));
++	EXPECT_EQ(EACCES, errno);
++
++	/* renameat2() always returns EBUSY. */
++	EXPECT_EQ(-1, renameat2(root_fd, ".", root_fd, "does_not_exist", 0));
++	EXPECT_EQ(EBUSY, errno);
++
++	EXPECT_EQ(0, close(root_fd));
 +}
 +
- static inline bool obj_cgroup_is_root(const struct obj_cgroup *objcg)
+ TEST_F_FORK(layout1, reparent_link)
  {
- 	return true;
-diff --git a/mm/shmem.c b/mm/shmem.c
-index b51f83c970bb..9001aaf3b7b9 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -846,6 +846,16 @@ static long shmem_unused_huge_count(struct super_block *sb,
- 		struct shrink_control *sc)
- {
- 	struct shmem_sb_info *sbinfo = SHMEM_SB(sb);
-+
-+	/*
-+	 * The per-superblock shrinklist is filesystem-global and does not
-+	 * honour sc->memcg, so it is only meaningful on the global (kswapd or
-+	 * root direct reclaim) shrink path. Skip the per-memcg iterations of
-+	 * shrink_slab_memcg() to avoid queueing duplicate global work.
-+	 */
-+	if (!mem_cgroup_shrink_is_root(sc))
-+		return 0;
-+
- 	return READ_ONCE(sbinfo->shrinklist_len);
- }
- #else /* !CONFIG_TRANSPARENT_HUGEPAGE */
-
+ 	const struct rule layer1[] = {
