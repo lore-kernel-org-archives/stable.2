@@ -1,60 +1,36 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-9.mta1.migadu.com [95.215.58.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B113137F339;
-	Wed, 23 Sep 2026 03:39:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67A30265620
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 03:41:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790134777; cv=none; b=clBEYECqKE7pSx28BuwOpl32x4RrByOuoO2iq5ha2N5z2KXL+bPwEggs288ppdFHfHw/9xSBvadiFBknWQbrjKpScwNoidpsmBY7vB4ZgUQgbI60WGC9Ga5ihWLaOBNm/pRQZDNYsJalURKjnr0ZYhTEIYFrDkaThHB5/5fAG/w=
+	t=1790134867; cv=none; b=fh40B4rh3Xu09Ug+jSRZRmtSo7++wUidsjKQvpfkhUvyhF+1wFZHC+7McFtcbvX3ggf+toHZARX2PvySbqL3iuHItbKailJkVtDa1U8MuNfw/7ygROeo/wu2Fvm8q92Yrudks0/u3Aa356x3vS6LW2LyfNGTaBEqSVjMFgH1ybI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790134777; c=relaxed/simple;
-	bh=gm4fyReuiWxeqJWFOIFuvDAEIaopYi+tVz5GKuVnZFQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lopCwCIOBiI1BtogmYl7MFDM6kRiLl17H5Lib77jBwHxEWBHhJXihrqXyqLJ/CB2iF5izGMPabT/Vp9p+PdriqCY3rWjFVMNZu7fGUwGNrOHWVjgHEfr3QXLFbn8XgeOw+hCvDxXTmggcjiORpUQA68rKN6CHgdehDgkqqfsU5Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=iaafy6ou; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1790134867; c=relaxed/simple;
+	bh=g0/Z5c9aDwytCwk3EVHISBOUhMOmw+UqfCuabJU23Po=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=Bkeccyju12vZaDySompl4ak0NdWxlB1naNFE16Tdxe0nkaKCNAoukGHkoS0+n95r5AsZV1zC3mXIEC3hZ2RVxfxTpSikGj478eEmucosHIZTaSqOS0Uq4hsswniC+JTLqD9S4yjp/iSbsRjEIz9w916KHfW646HoHz8/M9h/vFc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=t5KzfUbR; arc=none smtp.client-ip=95.215.58.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="iaafy6ou"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68N3a6HY2317248;
-	Wed, 23 Sep 2026 03:39:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=7NoF1/
-	Lp4e2fruKgAZwH9CbISe4iP63v0zB28htVbAU=; b=iaafy6oukNdFx0gFRpn+cN
-	0JMjQLFwECcH1R23b/D91JnMUG1s4VSedp5Qa1/6L8C5ORpDBObzr6mgE/HBoV6f
-	B5jj6Z7SwOkHB3EHdiIUJaxMrHiuAO3PmVpEOch394JkiHwAKep2z0Sosm0zC5en
-	+iVqnZjgFnmy0lvh7wy0Jhlm0x3Nzspps6YB5w/inga1+vW9ku0xSUmUffIf8Gj6
-	T4p+z17RGr2Hre1p+lllB8OeDX9NEqlUD3qiXGu9SuYQMRFTuc3uIGTAOyyOM/pR
-	9FGebxJ+Pq0rVIMpeVTTUmsSgbBietvONRJtrMRLrCosgX7gVJ5VnkfhKab/Vm7g
-	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskdv8ny5-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 23 Sep 2026 03:39:06 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68N3WXbV2578232;
-	Wed, 23 Sep 2026 03:39:05 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gu5bkf44w-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 23 Sep 2026 03:39:05 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
-	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68N3d1Ax45416746
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 23 Sep 2026 03:39:01 GMT
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 90AF62004E;
-	Wed, 23 Sep 2026 03:39:01 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id A720620043;
-	Wed, 23 Sep 2026 03:38:58 +0000 (GMT)
-Received: from [9.124.211.2] (unknown [9.124.211.2])
-	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 23 Sep 2026 03:38:58 +0000 (GMT)
-Message-ID: <ed756a12-182f-4933-8788-8b54a4e8912a@linux.ibm.com>
-Date: Wed, 23 Sep 2026 09:08:57 +0530
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="t5KzfUbR"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=g0/Z5c9aDwytCwk3EVHISBOUhMOmw+UqfCuabJU23Po=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790134863; v=1; x=1790739663;
+ b=t5KzfUbRPgwv6bU849Gk4sjU/WqthHJxWnYgZ9CznQ3o4Ck0wIbxT85pCzznXxrcJtwcMKwQ
+ DMe4S/Mui0Td3ETfzxqRd45JJF1Q+PDHNHQjSK/l7mYjRq3dJxcyFjZq6B5/J6f/2Xg9tiZtcQL
+ 33KAUZsseBYKCQ+GFiDjP/p4=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 6f051fd9b05117c8;
+	Wed, 23 Sep 2026 03:41:03 +0000
+X-Mizu-Trace-ID: 6f051fd9b05117c8
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <1835413c-e2de-41b0-8225-161afa50676a@linux.dev>
+Date: Wed, 23 Sep 2026 11:40:55 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -62,166 +38,175 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] KVM: PPC: Book3S HV: Avoid spurious interrupts caused
- by LPCR_MER bit
-To: Gautam Menghani <gautam@linux.ibm.com>, maddy@linux.ibm.com,
-        npiggin@gmail.com, mpe@ellerman.id.au, chleroy@kernel.org,
-        ritesh.list@gmail.com, sshegde@linux.ibm.com, amachhiw@linux.ibm.com
-Cc: linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-        Timothy Pearson <tpearson@raptorengineering.com>
-References: <20260921111043.49825-1-gautam@linux.ibm.com>
-Content-Language: en-US
-From: Narayana Murty N <nnmlinux@linux.ibm.com>
-In-Reply-To: <20260921111043.49825-1-gautam@linux.ibm.com>
+Cc: hongfu.li@linux.dev, Chris Down <chris@chrisdown.name>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, cgroups@vger.kernel.org,
+ stable@vger.kernel.org, Oscar Salvador <osalvador@suse.de>,
+ David Hildenbrand <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Michal Hocko <mhocko@suse.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Nhat Pham <nphamcs@gmail.com>, Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>
+Subject: Re: [PATCH v2 2/2] mm/memcg: migrate per-node hugetlb lruvec stat
+ together with hugetlb folio
+To: Muchun Song <muchun.song@linux.dev>, Hongfu Li <lihongfu@kylinos.cn>
+References: <20260923-for-hugetlb_state3-v2-0-e8a36245bfab@kylinos.cn>
+ <20260923-for-hugetlb_state3-v2-2-e8a36245bfab@kylinos.cn>
+ <15ac7069-d687-4985-90bd-25bc900b4bdd@linux.dev>
+From: Hongfu Li <hongfu.li@linux.dev>
+In-Reply-To: <15ac7069-d687-4985-90bd-25bc900b4bdd@linux.dev>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: FMJDrbwTvLAlZxxf_Y3B4db8Us1VDxTr
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDAxNCBTYWx0ZWRfX55My7ytjw32Y
- j/rT5Wo3X1Y+yKUjGLNS8xCVQRQokiwSfrrunJeJuCXQjXDpb4UWKNECklQvD9kBekaayDoKdbX
- fyCpPOpXxtY6NhpIFoNTeEHKRKxAG2I=
-X-Authority-Analysis: v=2.4 cv=FLiOVOos c=1 sm=1 tr=0 ts=6ab349da cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
- a=yKAn6K1XAAAA:8 a=_AprYWD3AAAA:8 a=VnNF1IyMAAAA:8 a=EThlqOoKbmT7VKALfbcA:9
- a=QEXdDO2ut3YA:10 a=6M1ixcW_PCWoKiWyFx5v:22 a=fKH2wJO7VO9AkD4yHysb:22
-X-Proofpoint-GUID: aBLqlTnfUXMt09OXVH3CAj-ky44OsTcu
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDAxNCBTYWx0ZWRfX7MZHIOxzupFX
- s2rmtiQTZoZ3K1t0+VzhupmUzM2avyqsQxYbzGz8cUtenXcje0+M1b4XB0VC84QqYRWb0t0Wi6V
- JDVOSInbh57kEGikhttOu2Jylz+jvrr7idp3h1C0n0ddRLggOl88uPn5BDMnCS08ss78GGIV9vz
- CKCH383vaEaeP1ZRo4qfw1bvSgzxl9j8Au1X2Qp5heym7y1Yjw78bcO1Ut7YYDMorM8c2HtZYrT
- pRPz+M8DP2y0Psc0Xmmb1K2RSBowMZVZu1iGeSwciqwaQyNrDsaIxiFF/CKcUhzyWoSNt4IGth6
- 5DvRp439sxMzFLNwZvNe4Y7O04pN2GXQcVn2thjpIuMWrdt8UCl9YWRdjmbiTrskdzx+ZqUajt8
- ElDJeH7gwb/MkPl8zE8TtS+ceeGjSKua8uMK2iJOkWAv7td+8RgObpTE+2mB8oRD1HTwmQ1PE9+
- 7SF4cu0PuCoSPeam1EQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-23_01,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 impostorscore=0 phishscore=0 spamscore=0 clxscore=1015
- suspectscore=0 bulkscore=0 lowpriorityscore=0 priorityscore=1501
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609230014
+Content-Transfer-Encoding: 8bit
 
-Hi Gautam,
 
-On 21/09/26 4:40 PM, Gautam Menghani wrote:
-> A huge number of spurious interrupts can be seen immediately after a KVM
-> on PowerNV guest boots up in XIVE mode.
-> 
-> $ cat /proc/interrupts  | grep SPU
-> SPU:     223705     192439     273526     147623   Spurious interrupts
-> 
-> This bug was introduced by commit ecd10702baae5 ("KVM: PPC: Book3S HV:
-> Handle pending exceptions on guest entry with MSR_EE"). The root cause
-> is that once LPCR_MER bit is set, it is supposed to be reset by
-> software. But when a vCPU starts running with LPCR_MER set, the vCPU does
-> not exit back to the host until the decrementer expires or there is an
-> hcall, etc. This is because KVM on PowerNV guests have support for
-> native XIVE, so they are not dependent on host for interrupt emulation.
-> Due to this behaviour, a huge number of spurious interrupts are seen
-> since LPCR_MER continues to be set and LPCR_MER cannot be reset until the
-> vCPU exits to the host.
-> 
-> Fix this behaviour by not using the LPCR_MER bit whenever native XIVE is
-> available (currently in case of KVM on PowerNV only), as the XIVE hardware
-> can present interrupts to the KVM guest vCPU directly. So the LPCR_MER
-> functionality is not required. This reduces the number of spurious
-> interrupts drastically.
-> 
-> Fixes: ecd10702baae5 ("KVM: PPC: Book3S HV: Handle pending exceptions on guest entry with MSR_EE")
-> Cc: stable@vger.kernel.org # 6.8+
-> Reported-by: Timothy Pearson <tpearson@raptorengineering.com>
-> Closes: https://lore.kernel.org/linuxppc-dev/582904882.11159.1786719390349.JavaMail.zimbra@raptorengineeringinc.com
-> Signed-off-by: Gautam Menghani <gautam@linux.ibm.com>
-> ---
-> v3:
-> 1. Continue the use of LPCR_MER when kernel-irqchip=off (Sashiko)
-> 
-> v2:
-> 1. Handle the case where xive_interrupt_pending() is true and also the
-> external exception bit is set. (Narayana)
-> 
->   arch/powerpc/include/asm/kvm_ppc.h | 7 +++++++
->   arch/powerpc/kvm/book3s_hv.c       | 2 +-
->   2 files changed, 8 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/powerpc/include/asm/kvm_ppc.h b/arch/powerpc/include/asm/kvm_ppc.h
-> index 169ea6a7fbad..580ad2548c2b 100644
-> --- a/arch/powerpc/include/asm/kvm_ppc.h
-> +++ b/arch/powerpc/include/asm/kvm_ppc.h
-> @@ -747,6 +747,11 @@ static inline int kvmppc_xive_enabled(struct kvm_vcpu *vcpu)
->   	return vcpu->arch.irq_type == KVMPPC_IRQ_XIVE;
->   }
->   
-> +static inline bool kvmppc_xive_native_enabled(struct kvm *kvm)
-> +{
-> +	return kvm->arch.xive_devices.native;
-> +}
-Also, should 'kvmppc_xive_native_enabled()' check the active XIVE
-device rather than just whether a native device has been created?
+On 9/23/26 10:40 AM, Muchun Song wrote:
+>
+>
+> On 2026/9/23 10:05, Hongfu Li wrote:
+>> From: Hongfu Li <lihongfu@kylinos.cn>
+>>
+>> memory.numa_stat exposes per-node hugetlb counters from per-node lruvec
+>> stats. These stats are accounted against folio_nid(): incremented on
+>> the folio's node when handed to a user, decremented when the folio is
+>> returned to the pool.
+>>
+>> During hugetlb folio migration, mem_cgroup_migrate() moves the charge
+>> to the new folio and drops the memcg data of the old one, so the free
+>> of the old folio right after the migration skips the memcg per-node
+>> lruvec decrement. The hugetlb count stays attributed to the old node
+>> for the rest of the life of the charge, while the target folio gets no
+>> increment on the new node; its later free decrements a counter that
+>> was never incremented.
+>>
+>> Migrate the per-node lruvec accounting alongside migration. Global
+>> memcg totals remain balanced because they track resource consumption,
+>> not node placement.
+>>
+>> Fixes: 05d4532b60e3 ("memcg/hugetlb: add hugeTLB counters to memcg")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
+>> Tested-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+>> Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+>> Reviewed-by: Oscar Salvador <osalvador@suse.de>
+>> ---
+>>   include/linux/memcontrol.h |  8 ++++++++
+>>   mm/hugetlb.c               | 25 +++++++++++++++++++++++++
+>>   mm/memcontrol.c            |  5 ++---
+>>   3 files changed, 35 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
+>> index a8358f297b65..74110a324f9e 100644
+>> --- a/include/linux/memcontrol.h
+>> +++ b/include/linux/memcontrol.h
+>> @@ -984,6 +984,9 @@ unsigned long lruvec_page_state_monotonic(const 
+>> struct lruvec *lruvec,
+>>   unsigned long lruvec_page_state_local(const struct lruvec *lruvec,
+>>                         enum node_stat_item idx);
+>>   +void mod_memcg_lruvec_state(struct lruvec *lruvec,
+>> +                enum node_stat_item idx, int val);
+>> +
+>>   void mem_cgroup_flush_stats(struct mem_cgroup *memcg);
+>>   void mem_cgroup_flush_stats_ratelimited(struct mem_cgroup *memcg);
+>>   @@ -1452,6 +1455,11 @@ static inline unsigned long 
+>> lruvec_page_state_local(const struct lruvec *lruvec,
+>>       return node_page_state(lruvec_pgdat(lruvec), idx);
+>>   }
+>>   +static inline void mod_memcg_lruvec_state(struct lruvec *lruvec,
+>> +                      enum node_stat_item idx, int val)
+>> +{
+>> +}
+>> +
+>>   static inline void mem_cgroup_flush_stats(struct mem_cgroup *memcg)
+>>   {
+>>   }
+>> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+>> index 519c30b338a8..76d019594b39 100644
+>> --- a/mm/hugetlb.c
+>> +++ b/mm/hugetlb.c
+>> @@ -23,6 +23,7 @@
+>>   #include <linux/mmdebug.h>
+>>   #include <linux/sched/signal.h>
+>>   #include <linux/rmap.h>
+>> +#include <linux/rcupdate.h>
+>>   #include <linux/string_choices.h>
+>>   #include <linux/string_helpers.h>
+>>   #include <linux/swap.h>
+>> @@ -7378,12 +7379,36 @@ void folio_putback_hugetlb(struct folio *folio)
+>>       folio_put(folio);
+>>   }
+>>   +static void move_hugetlb_lruvec_stat(struct folio *old_folio,
+>> +                     struct folio *new_folio)
+>> +{
+>> +    struct mem_cgroup *memcg;
+>> +    long nr_pages = folio_nr_pages(old_folio);
+>> +    int old_nid = folio_nid(old_folio);
+>> +    int new_nid = folio_nid(new_folio);
+>> +
+>> +    if (old_nid == new_nid)
+>> +        return;
+>> +
+>> +    guard(rcu)();
+>> +
+>> +    memcg = folio_memcg(new_folio);
+>> +    if (!memcg)
+>> +        return;
+>> +
+>> +    mod_memcg_lruvec_state(mem_cgroup_lruvec(memcg, 
+>> NODE_DATA(old_nid)),
+>> +                   NR_HUGETLB, -nr_pages);
+>
+> Why not use mod_lruvec_state? mod_memcg_lruvec_state is an internal
+> API for memcg, I don't want it to be exported.
 
-'kvmppc_xive_native_release()' clears 'kvm->arch.xive', but explicitly
-keeps the 'kvmppc_xive' pointer under 'xive_devices' for reuse. The
-comment in 'book3s_xive.c' also says that when switching between XICS
-and native XIVE, the previous KVM device is released before the new one
-is created.
+Thank you for the review.
 
-So 'xive_devices.native != NULL' seems to mean that a native XIVE
-device has been allocated/cached, rather than that it is currently
-active.
+mod_lruvec_state() would update the node counter a second time.  It calls
+mod_node_page_state() as well, and the target's node counter is already
+updated in alloc_hugetlb_folio_nodemask() (patch 1/2):
 
-Would this be more appropriate?
+     lruvec_stat_mod_folio(folio, NR_HUGETLB, folio_nr_pages(folio));
 
-return kvm->arch.xive_devices.native &&
-        kvm->arch.xive == kvm->arch.xive_devices.native;
+For an uncharged folio lruvec_stat_mod_folio() only updates the node
+counter.  The target folio is not charged to any memcg at that point; its
+charge only appears later in mem_cgroup_migrate().  So the node side is
+already covered and only the per-memcg attribution has to follow the
+charge here.
 
-> +
->   extern int kvmppc_xive_native_connect_vcpu(struct kvm_device *dev,
->   					   struct kvm_vcpu *vcpu, u32 cpu);
->   extern void kvmppc_xive_native_cleanup_vcpu(struct kvm_vcpu *vcpu);
-> @@ -782,6 +787,8 @@ static inline bool kvmppc_xive_rearm_escalation(struct kvm_vcpu *vcpu) { return
->   
->   static inline int kvmppc_xive_enabled(struct kvm_vcpu *vcpu)
->   	{ return 0; }
-> +static inline bool kvmppc_xive_native_enabled(struct kvm *kvm) { return false; }
-> +
->   static inline int kvmppc_xive_native_connect_vcpu(struct kvm_device *dev,
->   			  struct kvm_vcpu *vcpu, u32 cpu) { return -EBUSY; }
->   static inline void kvmppc_xive_native_cleanup_vcpu(struct kvm_vcpu *vcpu) { }
-> diff --git a/arch/powerpc/kvm/book3s_hv.c b/arch/powerpc/kvm/book3s_hv.c
-> index dbac3573b2c8..cb2bb29451a7 100644
-> --- a/arch/powerpc/kvm/book3s_hv.c
-> +++ b/arch/powerpc/kvm/book3s_hv.c
-> @@ -4980,7 +4980,7 @@ int kvmhv_run_single_vcpu(struct kvm_vcpu *vcpu, u64 time_limit,
->   			if (!kvmhv_on_pseries() && (__kvmppc_get_msr_hv(vcpu) & MSR_EE))
->   				kvmppc_inject_interrupt_hv(vcpu,
->   							   BOOK3S_INTERRUPT_EXTERNAL, 0);
-> -			else
-> +			else if (!kvmppc_xive_native_enabled(vcpu->kvm))
->   				lpcr |= LPCR_MER;
-Is the intent here to suppress LPCR_MER only for interrupts that
-native XIVE can deliver directly?
-
-BOOK3S_IRQPRIO_EXTERNAL is a separate software-pending exception. If
-MSR_EE is clear it remains pending, so it seems this path should still
-set MER even when native XIVE is active.
-
-IOW, should the behavior be:
-
-else if (!kvmppc_xive_native_enabled(vcpu->kvm) ||
-	 test_bit(BOOK3S_IRQPRIO_EXTERNAL,
-		  &vcpu->arch.pending_exceptions))
-	lpcr |= LPCR_MER;
-
-so that only the native-XIVE-pending case suppresses MER?
-
-Thanks,
-narayana Murty N
->   		} else {
->   			/*
+>
+> Thanks.
+>
+>> + mod_memcg_lruvec_state(mem_cgroup_lruvec(memcg, NODE_DATA(new_nid)),
+>> +                   NR_HUGETLB, nr_pages);
+>> +}
+>> +
+>>   void move_hugetlb_state(struct folio *old_folio, struct folio 
+>> *new_folio,
+>>               enum migrate_reason reason)
+>>   {
+>>       struct hstate *h = folio_hstate(old_folio);
+>>         hugetlb_cgroup_migrate(old_folio, new_folio);
+>> +    move_hugetlb_lruvec_stat(old_folio, new_folio);
+>>       folio_set_owner_migrate_reason(new_folio, reason);
+>>         /*
+>> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+>> index 88824f783571..a5335da5d425 100644
+>> --- a/mm/memcontrol.c
+>> +++ b/mm/memcontrol.c
+>> @@ -1015,9 +1015,8 @@ static void __mod_memcg_lruvec_state(struct 
+>> mem_cgroup_per_node *pn,
+>>       put_cpu();
+>>   }
+>>   -static void mod_memcg_lruvec_state(struct lruvec *lruvec,
+>> -                     enum node_stat_item idx,
+>> -                     int val)
+>> +void mod_memcg_lruvec_state(struct lruvec *lruvec,
+>> +                enum node_stat_item idx, int val)
+>>   {
+>>       struct pglist_data *pgdat = lruvec_pgdat(lruvec);
+>>       struct mem_cgroup_per_node *pn;
+>>
+>
+-- 
+Best regards,
+Hongfu
 
