@@ -1,104 +1,193 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-6.mta0.migadu.com [91.218.175.6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7757309EE2;
-	Wed, 23 Sep 2026 02:39:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02E17381E94
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 02:40:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790131181; cv=none; b=TIO8XYZzBdcxBAxRovf/8DlPI0aQYHsFKSIYkLMjWzNyDThDP5rgnl/KuMkkld6v7i+Rv/0igirMv8L4au/miMsrMiMAcjOwJRd+TZWxdzNl/dPEg1IuL1FENfx8PcdUbod3mzFQc4yEAD3lVhcVP4Oc/FySF4C/YWzyr2BtpAQ=
+	t=1790131247; cv=none; b=Q3jmQJf0yfpSmOVVdRsQuZOkxnfOQHQiMctdQaln9buNbDcMm84FPvA8sXcPe+33ZBeDAaNbak5PPwxtGbIh3yoQr2iRFpi30s/mQVK/XjNcfcsZZHBJo8DNGmbpvA8HPidEGSxjSv+0ym3Riv/qC8EkJI3K22OFNTvkf+kyO3Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790131181; c=relaxed/simple;
-	bh=RFSSKBGexI9N0SBDFZEj51ee1rSETVvs9ntWuxfZ5DY=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=CNyokn18UyQwGPD1+0WVuP+r/5+xqLFi17r6xWT8jCOF51q5LZtlqbDSbIPafVMixzLzelyygIlsL72z08nP2RR2kkWBoFPuHPnyaMVbIXa+vosu2yadpxfQaQbAuO5kx/YKLaqNfF9zMIyp8jlpugt3qMngVgZjgSuC2MuMXNI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=Uos8wgfW; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1790131247; c=relaxed/simple;
+	bh=j+Y4V2mMNGYI+hceNSPMN7m7nsV8dKsfzNn4H+9807E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fgeQf4938URQ5/PqqsGdRFrm2MYXIFEAS68NofGX4hNjEs5ZvYiOGnQ+/JOFBe/FwyNhvA1UnKrHYgWsXVhk4Wrk4Vh6kCIbC28ysiin86PcQjcpqJBF6IK+H90Jx5YubuZQ+s0BO0d3mtkYvB2HnsB0QrdQ2MuWyiEwGX63n8E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=groA7/Xw; arc=none smtp.client-ip=91.218.175.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="Uos8wgfW"
-Received: from PC-202605011814.localdomain (unknown [223.112.146.162])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4ecd1d1b9;
-	Wed, 23 Sep 2026 10:39:29 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Christoph Hellwig <hch@lst.de>
-Cc: Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Breno Leitao <leitao@debian.org>,
-	linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: Re: [PATCH v4 1/3] fs: configfs: add helpers for opening non-configfs paths
-Date: Wed, 23 Sep 2026 10:39:23 +0800
-Message-Id: <20260923023923.2002144-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260922132903.GA31642@lst.de>
-References: <20260921090559.41364-1-runyu.xiao@seu.edu.cn> <20260921090559.41364-2-runyu.xiao@seu.edu.cn> <20260922132903.GA31642@lst.de>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="groA7/Xw"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=j+Y4V2mMNGYI+hceNSPMN7m7nsV8dKsfzNn4H+9807E=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790131240; v=1; x=1790736040;
+ b=groA7/Xw21Yg3DojosInp8NEEn4VUFtndz+C+hQO004/BJ3FULhrnTRpxrrdXXTXw9Df2pkR
+ DL4FG0KL2612CNqeU6QHcFjUDuYgyjGbFEk4VnZ4TwTzsH0+CyuokAnQt26OxXb6bHKCJalkiqS
+ prPchwFdkCM/5VXTn+blFyEE=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 41c7d1fbf26606a1;
+	Wed, 23 Sep 2026 02:40:30 +0000
+X-Mizu-Trace-ID: 41c7d1fbf26606a1
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <15ac7069-d687-4985-90bd-25bc900b4bdd@linux.dev>
+Date: Wed, 23 Sep 2026 10:40:22 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0cc21e9fb03a1kunm6371805db4002
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCSE9CVkhJT01CTxofTU9OGlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVSkpJVUpPTVVKTUlZV1kWGg8SFR0UWUFZT0tIVUJCSU
-	5LVUpLS1VKQktCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=Uos8wgfWuvg97hGTXQCimpeDGL/KxfneoDrqQgzr79MbLXoTX6xxbEolj66AVIcvQQYC1fciY+/eyLfjWaya06i/eLR8by5hihZKBF3c2DvX8w5+Rc+p25g6Sp/dJXdhd/oINhxC/K7oQLtkVB4znv8WiRlgFEL4NVQmkTuBE3I=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=QhgHqZwIqPh5M6LZoA1GVbbob+NtuP/+uxfc51TgGmQ=;
-	h=date:mime-version:subject:message-id:from;
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] mm/memcg: migrate per-node hugetlb lruvec stat
+ together with hugetlb folio
+To: Hongfu Li <lihongfu@kylinos.cn>
+Cc: Chris Down <chris@chrisdown.name>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, cgroups@vger.kernel.org,
+ stable@vger.kernel.org, Hongfu Li <hongfu.li@linux.dev>,
+ Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Michal Hocko <mhocko@suse.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Nhat Pham <nphamcs@gmail.com>, Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>
+References: <20260923-for-hugetlb_state3-v2-0-e8a36245bfab@kylinos.cn>
+ <20260923-for-hugetlb_state3-v2-2-e8a36245bfab@kylinos.cn>
+Content-Language: en-US
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20260923-for-hugetlb_state3-v2-2-e8a36245bfab@kylinos.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thanks for the reviews.
 
-> > +bool configfs_path_is_configfs(const struct path *path)
-> > +{
-> > +	return path->dentry->d_sb->s_type == &configfs_fs_type;
-> > +}
-> > +EXPORT_SYMBOL_GPL(configfs_path_is_configfs);
-> > +
-> > +struct file *configfs_open_root(const struct path *root, const char *name,
-> > +			int flags, umode_t mode)
-> > +{
-> > +	if (configfs_path_is_configfs(root))
-> > +		return ERR_PTR(-EINVAL);
-> > +
-> > +	return file_open_root(root, name, flags, mode);
-> > +}
-> > +EXPORT_SYMBOL_GPL(configfs_open_root);
+
+On 2026/9/23 10:05, Hongfu Li wrote:
+> From: Hongfu Li <lihongfu@kylinos.cn>
 >
-> These two aren't used outside this file, so they could be static,
-> or in case of configfs_path_is_configfs even be folded into the
-> only caller.  Or do you plan to have other users?
-
-I folded the filesystem-type check into configfs_open_root() and dropped
-the predicate entirely.  configfs_file_open() is for callers that have a
-pathname, while configfs_open_root() is for callers that keep a resolved
-root and open files below it.
-
-> > +struct file *configfs_file_open(const char *filename, int flags, umode_t mode)
+> memory.numa_stat exposes per-node hugetlb counters from per-node lruvec
+> stats. These stats are accounted against folio_nid(): incremented on
+> the folio's node when handed to a user, decremented when the folio is
+> returned to the pool.
 >
-> Can you add a kerneldoc comment explaining how/why this should be used?
+> During hugetlb folio migration, mem_cgroup_migrate() moves the charge
+> to the new folio and drops the memcg data of the old one, so the free
+> of the old folio right after the migration skips the memcg per-node
+> lruvec decrement. The hugetlb count stays attributed to the old node
+> for the rest of the life of the charge, while the target folio gets no
+> increment on the new node; its later free decrements a counter that
+> was never incremented.
+>
+> Migrate the per-node lruvec accounting alongside migration. Global
+> memcg totals remain balanced because they track resource consumption,
+> not node placement.
+>
+> Fixes: 05d4532b60e3 ("memcg/hugetlb: add hugeTLB counters to memcg")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
+> Tested-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+> Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+> Reviewed-by: Oscar Salvador <osalvador@suse.de>
+> ---
+>   include/linux/memcontrol.h |  8 ++++++++
+>   mm/hugetlb.c               | 25 +++++++++++++++++++++++++
+>   mm/memcontrol.c            |  5 ++---
+>   3 files changed, 35 insertions(+), 3 deletions(-)
+>
+> diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
+> index a8358f297b65..74110a324f9e 100644
+> --- a/include/linux/memcontrol.h
+> +++ b/include/linux/memcontrol.h
+> @@ -984,6 +984,9 @@ unsigned long lruvec_page_state_monotonic(const struct lruvec *lruvec,
+>   unsigned long lruvec_page_state_local(const struct lruvec *lruvec,
+>   				      enum node_stat_item idx);
+>   
+> +void mod_memcg_lruvec_state(struct lruvec *lruvec,
+> +			    enum node_stat_item idx, int val);
+> +
+>   void mem_cgroup_flush_stats(struct mem_cgroup *memcg);
+>   void mem_cgroup_flush_stats_ratelimited(struct mem_cgroup *memcg);
+>   
+> @@ -1452,6 +1455,11 @@ static inline unsigned long lruvec_page_state_local(const struct lruvec *lruvec,
+>   	return node_page_state(lruvec_pgdat(lruvec), idx);
+>   }
+>   
+> +static inline void mod_memcg_lruvec_state(struct lruvec *lruvec,
+> +					  enum node_stat_item idx, int val)
+> +{
+> +}
+> +
+>   static inline void mem_cgroup_flush_stats(struct mem_cgroup *memcg)
+>   {
+>   }
+> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+> index 519c30b338a8..76d019594b39 100644
+> --- a/mm/hugetlb.c
+> +++ b/mm/hugetlb.c
+> @@ -23,6 +23,7 @@
+>   #include <linux/mmdebug.h>
+>   #include <linux/sched/signal.h>
+>   #include <linux/rmap.h>
+> +#include <linux/rcupdate.h>
+>   #include <linux/string_choices.h>
+>   #include <linux/string_helpers.h>
+>   #include <linux/swap.h>
+> @@ -7378,12 +7379,36 @@ void folio_putback_hugetlb(struct folio *folio)
+>   	folio_put(folio);
+>   }
+>   
+> +static void move_hugetlb_lruvec_stat(struct folio *old_folio,
+> +				     struct folio *new_folio)
+> +{
+> +	struct mem_cgroup *memcg;
+> +	long nr_pages = folio_nr_pages(old_folio);
+> +	int old_nid = folio_nid(old_folio);
+> +	int new_nid = folio_nid(new_folio);
+> +
+> +	if (old_nid == new_nid)
+> +		return;
+> +
+> +	guard(rcu)();
+> +
+> +	memcg = folio_memcg(new_folio);
+> +	if (!memcg)
+> +		return;
+> +
+> +	mod_memcg_lruvec_state(mem_cgroup_lruvec(memcg, NODE_DATA(old_nid)),
+> +			       NR_HUGETLB, -nr_pages);
 
-I will add kerneldoc comments for both helpers in v5.
+Why not use mod_lruvec_state? mod_memcg_lruvec_state is an internal
+API for memcg, I don't want it to be exported.
 
-> Didn't you also have patches for drivers/target/ that should use
-> the new helper?
+Thanks.
 
-Yes.  The target-core patch titled "scsi: target: pin db_root for metadata
-writes" is another consumer of configfs_open_root().  I will rebase that
-patch on this series and drop its duplicate configfs changes.
+> +	mod_memcg_lruvec_state(mem_cgroup_lruvec(memcg, NODE_DATA(new_nid)),
+> +			       NR_HUGETLB, nr_pages);
+> +}
+> +
+>   void move_hugetlb_state(struct folio *old_folio, struct folio *new_folio,
+>   			enum migrate_reason reason)
+>   {
+>   	struct hstate *h = folio_hstate(old_folio);
+>   
+>   	hugetlb_cgroup_migrate(old_folio, new_folio);
+> +	move_hugetlb_lruvec_stat(old_folio, new_folio);
+>   	folio_set_owner_migrate_reason(new_folio, reason);
+>   
+>   	/*
+> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+> index 88824f783571..a5335da5d425 100644
+> --- a/mm/memcontrol.c
+> +++ b/mm/memcontrol.c
+> @@ -1015,9 +1015,8 @@ static void __mod_memcg_lruvec_state(struct mem_cgroup_per_node *pn,
+>   	put_cpu();
+>   }
+>   
+> -static void mod_memcg_lruvec_state(struct lruvec *lruvec,
+> -				     enum node_stat_item idx,
+> -				     int val)
+> +void mod_memcg_lruvec_state(struct lruvec *lruvec,
+> +			    enum node_stat_item idx, int val)
+>   {
+>   	struct pglist_data *pgdat = lruvec_pgdat(lruvec);
+>   	struct mem_cgroup_per_node *pn;
+>
 
-The separate patch titled "scsi: target: file: avoid recursive configfs open
-in fd_init_prot()" will use configfs_file_open(), not configfs_open_root().
-
-I will send v5 as a new thread.  Patches 2/3 and 3/3 are unchanged and
-retain your Reviewed-by.
-
-Thanks,
-Runyu
