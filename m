@@ -1,95 +1,132 @@
-Received: from fhigh-b7-smtp.messagingengine.com (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C68A4DD3B4
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 13:05:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25F9D328B4B;
+	Wed, 23 Sep 2026 13:07:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790168743; cv=none; b=DELSJXqdHPHOc/a6jBBvh0fHMJ+d2SsW6wtVCPAFC5KgMIdasRH22KsFACXP2S5XFDc8KXkRsBq/AhZ81vPYctZjSmEwzv0GSLU46Mq15mz9++Ltr938K9971sfei0iE7BQa8CeBc0JkRVv/u+XpWeHcSyvNrqjxLXTmHRkg49I=
+	t=1790168838; cv=none; b=s8a/LXL8FthNaXY84O1ivP1AII4JwifzhvIEzCR4j6ytFbsJ8QJy8LamFcLcw85ha411bN/zaD3OciRk2XVSpPTtqBdjP3U6nKOGtdukdRggEgktynUkXl62hnG8Vwxcu9T0VzCJUo8VFlotWlGvr5iVAiwSwrlDb5Ia1fbS/nY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790168743; c=relaxed/simple;
-	bh=EmwwAXEipiNfYhbfqADwjVeALPrEjGJ8Heaicb0+RCk=;
+	s=arc-20240116; t=1790168838; c=relaxed/simple;
+	bh=AUXX0lLET+vhI6Ykx8+X33/sdAZKJETzskzKzmf6SPk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LMwZ0xHL7OrJSebv5EpktlfwVcwyRCcSsxzme7vRTyjhliw7bT8gmXUYBepC4RUzDSW5t4Or6Ns2udRS8dtRRcatGDoo1CefZ1fCBfFS0azjbuLdtF8AFE/nA7NAdbbXkU3M3EdfDv5n2+VCREQyR7utcVbf9uVgnNOk1+1DOZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=VmaUg7Pm; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Px2TqF/c; arc=none smtp.client-ip=202.12.124.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=iEE4UPQJryAvgGUTKzBbU6wVzX3uVQiVK1gfD+4MVULpUL+FPypGuw/P6tyfTFI9JSE2kMOiKxq6rdFGcXvf4ZCiXLnQzt0OFHoynQK2ywuLAxxijEFKIXJJ5kUndkqpJrmcQHbATyMfYX+SGoSof3Yuk1LL0/Lxyz5JVtP6JTg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PoA6KOtM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="VmaUg7Pm";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Px2TqF/c"
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id BB0B87A00A5;
-	Wed, 23 Sep 2026 09:05:41 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-01.internal (MEProxy); Wed, 23 Sep 2026 09:05:41 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1790168741; x=1790255141; bh=QkaqSStXQT
-	WWkXW2QqWcC1CBYRuYJPDe12Q8vuYF63Q=; b=VmaUg7PmO1XUWdedk/wtcZhB/m
-	iwEoPg2LPuVYaUz05/wlH3bEzMtJCq/CElx3zktaEmQpzDyUFMLOEsGHYB15VZFt
-	ddoU6APVg2z1UXiqiCmu2D1bCC1+9QFbLUJwOedS/8mGe60JVFOAgwbKjE4wMJQ7
-	4ydzI2q79DGhUnVBVQOuIwQDt98LU9+Wmns85fl33Md9Zp+GD+6Ucwziggw3n0wQ
-	8LUdJEtzQgUy+ojkNdAqLfTz6wdQq2ShM43tumbviBbdhTELqJqTO/cdqGfuyBU2
-	+jX3S8N6AISKf1zCYdLiK8l1CtbqfWHlBrkXopMc/sabmw3g9wnY9Z1J/QNQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1790168741; x=1790255141; bh=QkaqSStXQTWWkXW2QqWcC1CBYRuYJPDe12Q
-	8vuYF63Q=; b=Px2TqF/cH126w1jxHfJWEQ7CE3dQd7x5uicAAuk4ihfjXyIVNG/
-	1y2MElE5A4UBVRHS2avom+VQAFLSvnsQXEknPOXw/ElsoPf0T/lvi2EJpalU8vQt
-	vr6uCrSZiMbYKKytPPOs8m0c15mTKk5p+kM/bSIpwI0t5WGLWIo3RQD0JcP50ILk
-	DJlnk/YQGGUQZ38wmEgvFuBzz96vYNw6iwkYJ5WWev9Cs579yW3VlIqsQkIL6U0E
-	zsGcKc0/kD6E3/ktqjB/1TKrAqgW0RK1WvvegH+Oz2xsmKa478R9bS0iW+/lhNG7
-	YakLFqKssjyIF72Y4ejBb9YizXVN9WMaN7w==
-X-ME-Sender: <xms:pc6zalSNGquFOv6nHS0NsAo_h4JnVDNXRpvMgl7HZDypYx0kc5ULWw>
-    <xme:pc6zahCphdW3YDKkijXSsbZbrQ6quU7qNKVz_fqtZf_sXB6wWF-FBKov9t37hsN-y
-    XXa7UEXx2FhCPtl8dgdZlPo0O4tqygcI8qzBAkLnvklEA5qhY0>
-X-ME-Received: <xmr:pc6zatE30aVzxHf3IjRcwVfbT1UiSOkTHk_3wjAqhJ5VVBevP4JRjvPXqkFy>
-X-ME-Proxy-Cause: dmFkZTF9JPtCBl77XF3AIysiAb7nIthj4TASURBktHQsSkKeDMz+rs9DiCRuMzorwMz59q
-    8cfXSu9KHw9OoztlrjaTDrrG5ed440SMjUSFjnQ9OGuw1M/IQ8rJ7Z5z0wmwIre3k+IqlW
-    87azPEyCt6kvc9i2HRDBQZ3sMFO1YqsmmaQNDX2eWE5rQBS5OiFRPin9U0MHyBppUaRFqb
-    QROFZMmwgwCxKSNz0P9CGHS83mRpsKJaRgLZHUxA0828HQTlBwYP+2TL6p3Ii6lyT2BkGA
-    TdcVNOs3EOOEPpriscvSwX4EPkNnQa8mGgNb3sUruPUkerP0qR8lLQ7aVlM7bI92mRYAeQ
-    cBWkF5Y1vbbskMeqGrwNdRsYclvyHaarpzB9HSvI7DdpoP2eU9hKIq7WkC4VJcB5sIr3S4
-    R2i+7yJ+WD2KPAhxKOzkKjv2Ax+kZy2r3uKm8W8kvZRuutBEnn9y5RefBRsrEpC6ZVBGEz
-    eVshzt3wDjaEMuy8K1k8GjTu0Fs8nFAKb5f/JaILfV7T6P6yYopXO3iUKukHNQskqDFEEo
-    SSUGz8ingdBZglO4qgFkgA5IBDjuUCHMtvTrMN79sITsKn7GPnT0wdoWkFOpYREi5rgaqt
-    CCpaUBRXXhIHpIZ4bJ91cVKzW5cvjXSTcrd+Njsu2U/Pvoz/GOVNFi3PLi1A
-X-ME-Proxy: <xmx:pc6zajD4ldPFvSpF06h8Iz05R3LxllrHeIpemXSrwfKuNvs16ciRKg>
-    <xmx:pc6zatWgyodTDcpFDOkvjGT-6AtOoSqF8sjS1FcTKFDAAv4BO_Zu0g>
-    <xmx:pc6zano4byphuXErdTtbu_08MMvyzD8eb9HwnPeaaWhp5d4tFpGSww>
-    <xmx:pc6zapQDa0661gmpR1OfRJ2rpbMM1GOZ406ZN5nY9PTrySSjf7u1Dg>
-    <xmx:pc6zajqp7gWtXd3zGvFesCiIW2GwwYjY2wuiCg588FmZ700jEej5JzfT>
-Feedback-ID: i787e41f1:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 23 Sep 2026 09:05:40 -0400 (EDT)
-Date: Wed, 23 Sep 2026 15:05:38 +0200
-From: Greg KH <greg@kroah.com>
-To: kernelci@lists.linux.dev
-Cc: kernelci-results@groups.io, stable@vger.kernel.org
-Subject: Re: [REGRESSION] stable-rc/linux-6.18.y:
- (build)"do_timens_ktime_to_host" [drivers/misc/ntsync.ko] undefined!
- "init...
-Message-ID: <2026092332-census-hertz-e67c@gregkh>
-References: <179016114636.454291.10412763598292369896@kernelci.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PoA6KOtM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 210F31F00893;
+	Wed, 23 Sep 2026 13:07:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790168836;
+	bh=V8j3QTNFK1gOVjs7UmpTiFVyMmeLvCeDqRqufg2zvtU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PoA6KOtMm5ehTm1iX//8yFUmxRmpVHuInQ+U6/jlOBljmXgRxBa4Heiaxoc1FHwj7
+	 K8Pfno5NbSknUPxIFQQsWYvgeUS6EmqOsSk1+rBifl6M2cELWo8KxVhAtdIws0Q1Y2
+	 91IOWz5gk0/3BrMLhLideayf2y/+hNgAORdQ2TIrL80FQaIPVRcGdtZaQvWym0hrGZ
+	 7mDscITsdhrlBDzdOZxyVHzret0gz7jj8JDAeLaeJYK6vE25juu2uNpbH9n98t3AWc
+	 LKTk+Ny3EOhFKshDNooiYDB9IzzWoP5iP5C2CgBus4Zl7592bYPn1pFGpk7b6uvz6X
+	 ws7V57DdbcCeA==
+Date: Wed, 23 Sep 2026 15:07:11 +0200
+From: Joel Granados <joel.granados@kernel.org>
+To: Bradley Morgan <brads@mainlining.org>
+Cc: zhanxusheng1024@gmail.com, kees@kernel.org, kuniyu@google.com, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	zhanxusheng@xiaomi.com
+Subject: Re: [PATCH 1/2] sysctl: Negate before converting in the int read path
+Message-ID: <j55ziuijejg3kefuhi2du37d7qechruzchgigp3c55stuhtkh2@fddifpg5kxzq>
+References: <20260922031229.2300283-2-zhanxusheng@xiaomi.com>
+ <867A30A7-5460-4988-A078-09D0B4BCD44C@mainlining.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="eppq62ztiji2q7bc"
+Content-Disposition: inline
+In-Reply-To: <867A30A7-5460-4988-A078-09D0B4BCD44C@mainlining.org>
+
+
+--eppq62ztiji2q7bc
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <179016114636.454291.10412763598292369896@kernelci.org>
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 23, 2026 at 10:59:06AM -0000, KernelCI bot wrote:
-> New build issue found on stable-rc/linux-6.18.y:
-> 
-> ---
-> "do_timens_ktime_to_host" [drivers/misc/ntsync.ko] undefined! "init_time_ns" [drivers/misc/ntsync.ko] undefined! in Module.symvers (/tmp/kci/linux/scripts/Makefile.modpost:147) [logspec:kbuild,kbuild.modpost]
-> ---
+On Tue, Sep 22, 2026 at 07:37:57AM +0100, Bradley Morgan wrote:
+> On 22 September 2026 04:12:27 BST, Zhan Xusheng <zhanxusheng1024@gmail.co=
+m>
+> wrote:
+> >proc_int_k2u_conv_kop() reports the sign through *negp and the magnitude
+> >through *u_ptr, but for a negative value it hands the sign-extended int =
+to
+> >the converter and negates the result:
+> >
+> >	*u_ptr =3D k_ptr_op ? -k_ptr_op((ulong)val) : -(ulong)val;
+> >
+> >With div_hz() and HZ=3D1000 a stored -1000 becomes
+> >(ulong)-1000 / 1000 =3D=3D 18446744073709550, and negating that wraps:
+> >
+> >	# echo -1 > /proc/sys/net/ipv4/tcp_fin_timeout
+> >	# cat /proc/sys/net/ipv4/tcp_fin_timeout
+> >	-18428297329635842066
+> >
+> >Take the magnitude first and convert that, which is what the open-coded
+> >version did before commit 2dc164a48e6f ("sysctl: Create converter
+> >functions with two new macros") folded it into a macro.  The
+> >k_ptr_op =3D=3D NULL branch was already correct.
+> >
+> >proc_dointvec_jiffies() and proc_dointvec_ms_jiffies() are affected.
+> >
+> >Fixes: 2dc164a48e6f ("sysctl: Create converter functions with two new ma=
+cros")
+> >Cc: stable@vger.kernel.org
+> >Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+> >---
+> > kernel/sysctl.c | 2 +-
+> > 1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> >diff --git a/kernel/sysctl.c b/kernel/sysctl.c
+> >index f7b75985d542..38597f26b34c 100644
+> >--- a/kernel/sysctl.c
+> >+++ b/kernel/sysctl.c
+> >@@ -483,7 +483,7 @@ int proc_int_k2u_conv_kop(ulong *u_ptr, const int *k=
+_ptr, bool *negp,
+> >=20
+> > 	if (val < 0) {
+> > 		*negp =3D true;
+> >-		*u_ptr =3D k_ptr_op ? -k_ptr_op((ulong)val) : -(ulong)val;
+> >+		*u_ptr =3D k_ptr_op ? k_ptr_op(-(ulong)val) : -(ulong)val;
+> > 	} else {
+> > 		*negp =3D false;
+> > 		*u_ptr =3D k_ptr_op ? k_ptr_op((ulong)val) : (ulong) val;
+> >
+> I didn't do much crazy review here, but I think this LGTM! :)
 
-Now fixed, thanks!
+If you didn't do much, please don't send the mail.
+
+>=20
+> Reviewed-by: Bradley Morgan <brads@mainlining.org>
+>=20
+> --- Thanks!
+> "I'm not a very positive person" - Linus torvalds
+
+--eppq62ztiji2q7bc
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQGzBAABCgAdFiEErkcJVyXmMSXOyyeQupfNUreWQU8FAmqzzv4ACgkQupfNUreW
+QU+69AwAmHrA2+jE3WrC5me63jtEy+bAn63/JvtpLn5pHMQnYIFmUXWCzvVCPnI9
+vjSghr4AmzTDe3sehrQnaZXoGDd40AC8TJAlr/AXruKnJRSsbpLFcT/CrORAM8bE
+BWAKtie3Mvw2iUj2y3Ykp0hmYtLPzjKZHHLy1kpLnkgpWNNOwkc7PX1Qc0VWwxTu
+pOIIZFZAsW0ilmfudoOe/YAmFWQmRvSGsrdm+3Cjs0tSGIxep+H/EjB1znJdQymG
+AiwdKgnB7qCC7IbzZxmiJDTKCR2imYBAkgyOJ8UDXtbAFKHAknMNU2a1B7xkU6K+
+4Xc2aMzp3zXXX3pkqV4gb6Z7d11DPzC2ZOJSnrFH6JEAiwOrxAcxeq/YbpdJFwkD
+bVn86vh5z8xUBcK3lmD2yzxa4S8/fP74iZ9NkcyS8r1HBLEFhjgazMj182GutX4t
+2KKogl1vdemXsOKWC+k3/Q4ZJnq4c+2Zd9L1mtMiRgXokMAzKn0S1TW4sQU07IX5
+IsE0eW1i
+=zFn0
+-----END PGP SIGNATURE-----
+
+--eppq62ztiji2q7bc--
