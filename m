@@ -1,65 +1,79 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98E7F538D92
-	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 13:38:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDF0F5226A3
+	for <stable@vger.kernel.org>; Wed, 23 Sep 2026 13:42:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790170730; cv=none; b=THYcMZeW0TsUh1I9aOmQqJvpTqle1zs4mli4LQF6eo3N71xOuF/4WnJWkmnOtJltXB+jiaQgxFykHejrhE6w+Qydiazz8Qd5n/DIOlgKk6m5nudzMxNKop8HdXUFLPcIAp2xmEJw3bmE3h6L83BIiBt6OdgLt1JTsgwygpGQHf0=
+	t=1790170965; cv=none; b=UbV4S7xoN5tqqrtfJXricTur/PTkREjU+GRtkmNnIqjiIbcQIZAnVZU7Tg5GvTxSz3SnRv9ut43QoR4Z5i78y9pbWhSdN0n5bbAe9S4dAYWLPXhLzHkyffh+pfAfn6bQ1pB1NpuiaNKS/k5XwZZQjsazn9/fBcoO13g3LLUjZVE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790170730; c=relaxed/simple;
-	bh=hNd6bIyFAvlFxc6hjuFcDqVwVqg86Zvx1YHzqvt4tLo=;
+	s=arc-20240116; t=1790170965; c=relaxed/simple;
+	bh=LJV30kQ3AhVA19Qy4NIYzlbllUic9lnXc34rf+8lBzY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=V0DAii6Gc5l0JLAehHZAchO72eSGmneY0WH3S5GxZzTKZuuN2D6Kh1C4fu3zNLHRJP/MNnswp00sQoLbdegqJEjvVdnzLp4wDwMr60PvvenR5H3X4V8Gjju71cDLUv8S3fYGIuf3L5cUO2qp1k25PtDmaP3psoie5ooJkNm0Pxg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=L9LbwEUb; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 MIME-Version; b=qKA+7Kp+lQXuk5UC96rSMFBKWtgBZnq1DPdoQsdgwuZbCXop5lUDYicIWDH/CJjLbG72hhnPhWKOcLyKrlgmGVBYIQwXURdZgNknmjoEEAa5UkHGi84r2g7+f2vYR+Fu75VTAHxIo6g0/xbQQUTAPfGlvXsLXhcxg8TC90b2+qw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YJYoXcNO; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="L9LbwEUb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790170727;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HHCKmh+GTex17viqHU7+p3b1kZPrhM46bDIsKbGkEho=;
-	b=L9LbwEUbAmksUyyalm+nKkE2aR3B9i1gqPmSpvMx2B4aOmcATlmXvrLRBNN+ofkwbroeQd
-	ysdpExb6CTz52k517n2gAiGV8CZ3f3pQSWSV5V3XZg3ACcL3OziSZ5bYPMhu8EXOf9ftzy
-	qsLWps4sIQm7UUB2W9zSCXdMHEnyLdg=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-342-JkCCGU2pMfud3ac-UALFuQ-1; Wed,
- 23 Sep 2026 09:38:46 -0400
-X-MC-Unique: JkCCGU2pMfud3ac-UALFuQ-1
-X-Mimecast-MFC-AGG-ID: JkCCGU2pMfud3ac-UALFuQ_1790170724
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 28299195FD12;
-	Wed, 23 Sep 2026 13:38:44 +0000 (UTC)
-Received: from warthog.com (unknown [10.44.32.54])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 28704427;
-	Wed, 23 Sep 2026 13:38:39 +0000 (UTC)
-From: David Howells <dhowells@redhat.com>
-To: netdev@vger.kernel.org
-Cc: David Howells <dhowells@redhat.com>,
-	Marc Dionne <marc.dionne@auristor.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	linux-afs@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YJYoXcNO"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396cccbba92so673876a91.0
+        for <stable@vger.kernel.org>; Wed, 23 Sep 2026 06:42:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790170963; x=1790775763; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iW9r7iNqfIgerNjHvG5s0sL/lw15LFmmpUDkujs3h4w=;
+        b=YJYoXcNO9tam3m+wEIriMKQpqKt5QN1zYYQm3yl0F49YbafC7pU+Lc8A+IzBTeIrBP
+         kyPPzyB9Xt73wY0pxyOCZukMd5P02+1c2xhvp9P7/KyUEXLLs60FL1sBMjvJW88RzUSU
+         /JOqyE+qrIoSk13zl8NCbIpsPSMKfAvuabgiNQ/EGvoWyRLmLgYFJAy0oiXEqKj4vFHO
+         3XmdcV4+CT/FS8NjwugQOsf5cK9rTbVCRmSa7+xZslmWMvJvynzKP3+j8Ff49ZvMU87r
+         vxOgHhw6s74CG3jZt9pEZI0cKWiEiHIdX1pPCrQ09w7L5o8komj3mBkem0MIao+KlvlB
+         xbIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790170963; x=1790775763;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iW9r7iNqfIgerNjHvG5s0sL/lw15LFmmpUDkujs3h4w=;
+        b=rw0uWInlgLaCPTHd5i42pKq0BJhMFwO94Xu8weKvAeuadpicShF0j6qzO589xOFOiG
+         8JTDE2mCTloDlI6wyu2QI98eWqTNwjuzsldozMTWtEULyDJC3cjYopBXLhramUR2ttUe
+         +v7nCha+7GEBr7ZtiCUEtG7+n8itdrEPc+PiBsPo1TEq/Y8GW57ANT5eG8B/52bHnNzT
+         grAtBhdTC+8mqS4JxTyvkZdabANqvnOYo6M1jgi7f1l7q8TTY0j71VW0czOKSVvdf2lv
+         xQg/p26ptXpEj1adx2jt9wdD7gHT33h7U7xus3Z70SPdZnQmObRdFlNu75GIO9tNZhCn
+         4CBg==
+X-Forwarded-Encrypted: i=1; AKwUvBwThMvzrQS6UERMLfmcI3Y5Si71tyvXGtlz6v/yN5KIdG36wsrFHo/clnxkXYvqyxnj7iVbtU0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mnUOEl/CK0DEV7OcNukGYc/YUPT56nOdYkHDxT+F/dTZ17L1qo
+	SPmQ7hFsWyQo2FUqiETM2Vrapxo61UJ4hPtd8Wt1Qm1A9y81c32ZaB58
+X-Gm-Gg: AYBFou112cu4Xl7dr4vlDOWu/DocEb/fftphN5708K1uYDEAWwMnxQxjy9g3mxirHyZ
+	Os2EgpNMf/e2GR4+/a/bmLFqL/nrk1MX480mpKQ94SLMswGxfM9ee8AzEUt+V5IS+UQj79O+c+N
+	JmjmSgEu7XClmisLUW9X/joQeSQZKF1J3dyKBXVxNSEV5JnUp3+fNamW2Usrg86CJX40fiUmFU2
+	iqLKDPj9FfRMeM197zfidNPlnc6m5sNgTn2OjKEngF/oQ1gQK9Bebc5rnapJGgnHE7BFw94xcz9
+	deXyki9JcNowK3RcXR4X2IiSzn/V525HzruDajuPxKyrZZkefI1e7WE3pFBJ+CY2ofh3uRpIU+B
+	AjnHV6G3XjnROThyJQRolV/3XgK8PLKLZnKkDlcinmQD/218/fCb2aU2Q6R/J6PEtK+LQCTsQZ1
+	3yz8NiCp0G369qTZSda/G3czpdZlvI3UURg7J6gwS/aNGZGOHEI4kzOAW7FcRdrJ45EEHQ7WZ5l
+	lJdOsAI2rA=
+X-Received: by 2002:a17:90b:3d8e:b0:39e:194b:fb2b with SMTP id 98e67ed59e1d1-3a07e51d0f1mr2640854a91.22.1790170962777;
+        Wed, 23 Sep 2026 06:42:42 -0700 (PDT)
+Received: from osman.mioffice.cn ([43.224.245.178])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a089197169sm2966570a91.8.2026.09.23.06.42.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 06:42:42 -0700 (PDT)
+From: Zhan Xusheng <zhanxusheng1024@gmail.com>
+X-Google-Original-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+To: Joel Granados <joel.granados@kernel.org>
+Cc: Zhan Xusheng <zhanxusheng@xiaomi.com>,
+	kees@kernel.org,
+	kuniyu@google.com,
 	linux-kernel@vger.kernel.org,
-	Seungwon Bae <qotmddnjs@ajou.ac.kr>,
+	linux-fsdevel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH net v11 17/17] rxrpc: fix use-after-free in rxrpc_poke_conn()
-Date: Wed, 23 Sep 2026 14:37:04 +0100
-Message-ID: <20260923133706.1496540-18-dhowells@redhat.com>
-In-Reply-To: <20260923133706.1496540-1-dhowells@redhat.com>
-References: <20260923133706.1496540-1-dhowells@redhat.com>
+Subject: Re: [PATCH 2/2] time/jiffies: Saturate in mult_hz() instead of wrapping
+Date: Wed, 23 Sep 2026 21:42:36 +0800
+Message-ID: <20260923134237.3628505-1-zhanxusheng@xiaomi.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <pu5kcrhze4f2wz5fk2miocxx5edgmj4tp2zwcv3bpeo46vo47f@siezjqbxiuk2>
+References: <20260922031229.2300283-3-zhanxusheng@xiaomi.com> <pu5kcrhze4f2wz5fk2miocxx5edgmj4tp2zwcv3bpeo46vo47f@siezjqbxiuk2>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,64 +81,59 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-From: Seungwon Bae <qotmddnjs@ajou.ac.kr>
+On Wed, Sep 23, 2026 at 02:27:56PM +0200, Joel Granados wrote:
+> Not sure what the difference is but this is the result on my test
+> system.
+>
+>   #  echo 18446744073709552 > /proc/sys/net/ipv4/tcp_keepalive_time
+>   -bash: echo: write error: Invalid argument
+>   # cat /proc/sys/net/ipv4/tcp_keepalive_time
+>   7200
+>
+> I tested v7.3-rc4. What is your base and did you modify any other sysctl
+> before you ran this?
 
-rxrpc_poke_conn() takes a reference on the connection with no liveness
-check, unlike its sibling rxrpc_queue_conn() which gates on
-atomic_read(&conn->active) >= 0.  The per-connection timer is armed with
-no reference held for it, and rxrpc_put_connection() cancels it with a
-non-synchronous timer_delete() only after the refcount reaches 0.
-refcount_t saturates rather than resurrecting, so the connection can be
-kfree()d while still linked in local->conn_attend_q (nothing in teardown
-unlinks attend_link).  The rxrpc I/O thread then performs a UAF write
-(list_del_init) plus UAF reads and indirect calls through conn->security.
+CONFIG_HZ.  My changelog gave a bare number without saying that, sorry.
 
-Reproduced on a KASAN + PREEMPT kernel: 56 "refcount_t: addition on 0"
-saturations at load, escalating to
+The value has to exceed ULONG_MAX / HZ for the product to wrap, so it is
+HZ specific.  I tested with CONFIG_HZ=1000, where the first wrapping
+input is 18446744073709552.  At any lower HZ that same value does not
+wrap, the real product exceeds INT_MAX, and proc_int_u2k_conv_uop()
+rejects it - which is the EINVAL you saw.  No other sysctl was touched.
 
-  BUG: KASAN: slab-use-after-free in rxrpc_io_thread   Write of size 8
+	HZ    ULONG_MAX / HZ         first wrapping input   wraps to
+	100   184467440737095516     184467440737095517     84
+	250   73786976294838206      73786976294838207      134
+	300   61489146912365172      61489146912365173      284
+	1000  18446744073709551      18446744073709552      384
 
-AF_RXRPC socket creation (rxrpc_create) has no capability check, so this
-is reachable by an unprivileged user.
+Measured on v7.3-rc4 with CONFIG_HZ=250, unpatched:
 
-Guard rxrpc_poke_conn() with the same liveness/refcount check the sibling
-rxrpc_queue_conn() uses before taking the poke reference, so a connection
-past its last-active point is not poked/requeued after teardown began.
+  # cat /proc/sys/net/ipv4/tcp_keepalive_time
+  7200
+  # echo 73786976294838206 > /proc/sys/net/ipv4/tcp_keepalive_time
+  sh: write error: Invalid argument
+  # cat /proc/sys/net/ipv4/tcp_keepalive_time
+  7200
+  # echo 73786976294838207 > /proc/sys/net/ipv4/tcp_keepalive_time
+  # cat /proc/sys/net/ipv4/tcp_keepalive_time
+  0
 
-Verified before/after on KASAN+PREEMPT at equal timer volume: 56
-saturations + 15 KASAN reports unpatched vs 0 and 0 patched.
+One below the threshold is rejected, the one at it is stored as 134
+jiffies.  With the patch, same build:
 
-Fixes: f2cce89a074e ("rxrpc: Implement a mechanism to send an event notification to a connection")
-Signed-off-by: Seungwon Bae <qotmddnjs@ajou.ac.kr>
-Signed-off-by: David Howells <dhowells@redhat.com>
-cc: Marc Dionne <marc.dionne@auristor.com>
-cc: Eric Dumazet <edumazet@google.com>
-cc: "David S. Miller" <davem@davemloft.net>
-cc: Jakub Kicinski <kuba@kernel.org>
-cc: Paolo Abeni <pabeni@redhat.com>
-cc: Simon Horman <horms@kernel.org>
-cc: linux-afs@lists.infradead.org
-cc: stable@vger.kernel.org
----
- net/rxrpc/conn_object.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+  # cat /proc/sys/net/ipv4/tcp_keepalive_time
+  7200
+  # echo 73786976294838206 > /proc/sys/net/ipv4/tcp_keepalive_time
+  sh: write error: Invalid argument
+  # echo 73786976294838207 > /proc/sys/net/ipv4/tcp_keepalive_time
+  sh: write error: Invalid argument
+  # cat /proc/sys/net/ipv4/tcp_keepalive_time
+  7200
 
-diff --git a/net/rxrpc/conn_object.c b/net/rxrpc/conn_object.c
-index 0ece717db0f8..1be50e0c9cee 100644
---- a/net/rxrpc/conn_object.c
-+++ b/net/rxrpc/conn_object.c
-@@ -34,7 +34,10 @@ void rxrpc_poke_conn(struct rxrpc_connection *conn, enum rxrpc_conn_trace why)
- 	spin_lock_irq(&local->lock);
- 	busy = !list_empty(&conn->attend_link);
- 	if (!busy) {
--		rxrpc_get_connection(conn, why);
-+		if (!rxrpc_get_connection_maybe(conn, why)) {
-+			spin_unlock_irq(&local->lock);
-+			return;
-+		}
- 		list_add_tail(&conn->attend_link, &local->conn_attend_q);
- 	}
- 	spin_unlock_irq(&local->lock);
+tcp_fin_timeout behaves the same.  Legitimate values are unaffected:
+7200 reads back as 7200 either way.
 
+I will respin with the threshold written as ULONG_MAX / HZ and the
+example labelled with its HZ.
