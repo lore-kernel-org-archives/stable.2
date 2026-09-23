@@ -1,122 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EFBD485924;
-	Wed, 23 Sep 2026 12:04:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64BBB4A9D5B;
+	Wed, 23 Sep 2026 12:17:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790165051; cv=none; b=NMgJUKC2GyyGnQzzMjH7d26oyRZq8lBdTy6DK266Ovn4/8uCZg60TmxDiY0dsnEY8ks5kKr5hwJhgY9BpRA1uhGrgzwXVm4FM3NztER8g4a35TEByfaMai9/Z2AScCIZesdwCJH1+suKHX8ZiYmD8NXVUdki9cnwoyPzR0ElWWU=
+	t=1790165839; cv=none; b=QQUcx7+ZJqpMih5kaWdhkBdP8nATuL3iF6bS6wQa4AFHDc0abKmg9MG5qkbbAX5E0IUVLZDj4Wsn/la1y6Ooo/30jOcz9XKDjXBd75qVj/Zr6LHbVsyXRorqjCwdM5rzutL9UJLHZgBNOHo9W+492je5wNc5PuelUh5e+lZt6zg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790165051; c=relaxed/simple;
-	bh=O1byl75nyXgk1Xj7AS/Sdyk1a4bPSXL278xPHButlNc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IYjmpNNvDR+RsiVvDAicBZVlK+2OEzrDcJJNzdIbw2wBoI9GatR/TUcFtYrFXAgsITIB5QWBNfGC5tUQqiN3TIvsabxZNWxkPd2pJ24EzCNl/bxgZXxGIlwp7bJvRbfQlQg/mKA6Vau83qbR+pC+nx5imcMM/EijxenKtDOZ3FM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E9611F000FF;
-	Wed, 23 Sep 2026 12:04:05 +0000 (UTC)
-Message-ID: <e135863e-3057-42ab-9019-bb397ef320e6@linux-m68k.org>
-Date: Wed, 23 Sep 2026 22:04:06 +1000
+	s=arc-20240116; t=1790165839; c=relaxed/simple;
+	bh=I850guTHv9ywbIJlgUV+AXYkJLzJ9So4+Fs6bkitukM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ElxdUnou0kfsYUdfDg3AnFiQleHqGqwk9NXA+f6D5RONwJxNQEElOLunzZlYAFNjGxldKuJtGFBiWJlRGDOk4yBlpM+aFuY1VSaRmraMNEKcmGj/2X/1ySv3c9wNIgrgMqf8ToolB36Na3mQbzz2267Z9opW4y2oTV36Ce+m0Nk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: ac26e04ab74811f19a56ed5b684f684d-20260923
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:10f5ed81-2320-41cc-9a39-c12452002edd,IP:0,U
+	RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
+	ON:release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:09f6a7cfbc632e97a3e830ca77d6aa1f,BulkI
+	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50|99,EDM:5,IP
+	:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV
+	:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: ac26e04ab74811f19a56ed5b684f684d-20260923
+X-User: zhangheng@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zhangheng@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 516464414; Wed, 23 Sep 2026 20:16:57 +0800
+From: Zhang Heng <zhangheng@kylinos.cn>
+To: perex@perex.cz,
+	tiwai@suse.com
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Zhang Heng <zhangheng@kylinos.cn>,
+	stable@vger.kernel.org,
+	Baojun Xu <baojun.xu@ti.com>,
+	Antheas Kapenekakis <lkml@antheas.dev>,
+	Aleksei Arsenev <alesharik4@gmail.com>
+Subject: [PATCH] ALSA: hda/realtek: Fix square wave output on ASUS Strix G615LR
+Date: Wed, 23 Sep 2026 20:16:40 +0800
+Message-Id: <20260923121640.272509-1-zhangheng@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] m68k: Fix seccomp filtering on ColdFire and 68000
-To: Christopher Lusk <clusk@northecho.dev>,
- Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Kees Cook <kees@kernel.org>, Andy Lutomirski <luto@kernel.org>,
- Will Drewry <wad@chromium.org>, Michael Schmitz <schmitzmic@gmail.com>,
- Andreas Schwab <schwab@linux-m68k.org>, linux-m68k@lists.linux-m68k.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260912230651.461269-1-clusk@northecho.dev>
- <20260913131753.605893-1-clusk@northecho.dev>
-Content-Language: en-US
-From: Greg Ungerer <gerg@linux-m68k.org>
-In-Reply-To: <20260913131753.605893-1-clusk@northecho.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Christopher,
+ASUS ROG Strix G16 G615LR (PCI SSID 1043:3f20) outputs a loud
+full-scale square wave from internal speakers since the TAS2781
+amplifier driver started loading. The quirk was using
+ALC287_FIXUP_TXNW2781_I2C which chains to the ThinkPad headset
+jack fixup, but this is an ASUS device that should use
+ALC287_FIXUP_TXNW2781_I2C_ASUS which chains to ALC294_FIXUP_ASUS_SPK
+for proper EAPD and pin configuration.
 
-On 13/9/26 23:17, Christopher Lusk wrote:
-> m68k selects HAVE_ARCH_SECCOMP_FILTER for all configurations, but the
-> ColdFire and 68000 syscall entry paths only branch to
-> syscall_trace_enter() for TIF_SYSCALL_TRACE. TIF_SECCOMP alone falls
-> through to syscall dispatch, leaving installed filters ineffective.
-> 
-> Test the combined TIF_SYSCALL_TRACE and TIF_SECCOMP mask in both paths
-> and route either flag through the existing slow path. Leave the classic
-> MMU syscall entry implementation unchanged.
-> 
-> Validated the combined test under QEMU mcf5208evb (ColdFire): filters
-> denying getpid, openat, unlinkat, and reboot each returned -EPERM. A
-> classic-MMU control (q800) denied the filtered getpid syscall both before
-> and after this change. The 68000 path shares the same source-level
-> omission and receives the identical masked test but was not separately
-> emulated. Compile-tested W=1 with CONFIG_SECCOMP_FILTER=y on both
-> m5208evb_defconfig and a custom no-MMU UCSIMM configuration; the latter
-> built arch/m68k/68000/entry.o and vmlinux.
-> 
-> Fixes: 6baaade15594 ("m68k: Add kernel seccomp support")
-> Cc: stable@vger.kernel.org # v6.3+
-> Suggested-by: Andreas Schwab <schwab@linux-m68k.org>
-> Assisted-by: Claude:claude-opus-4-8
-> Assisted-by: Codex:gpt-5.6-sol
-> Signed-off-by: Christopher Lusk <clusk@northecho.dev>
+Fixes: f7cede182c96 ("ALSA: hda/realtek: Add Asus quirk for TAS amplifiers")
+Cc: stable@vger.kernel.org
+Cc: Baojun Xu <baojun.xu@ti.com>
+Cc: Antheas Kapenekakis <lkml@antheas.dev>
+Reported-by: Aleksei Arsenev <alesharik4@gmail.com>
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=222045
+Signed-off-by: Zhang Heng <zhangheng@kylinos.cn>
+---
+Baojun, Antheas: several other ASUS Strix Gxx5 entries (0x3ee0, 0x3ef0,
+0x3f00, 0x3f10, 0x3f30) are still using ALC287_FIXUP_TXNW2781_I2C (the
+non-ASUS variant that chains to the ThinkPad fixup). Could you check
+whether they also need to be changed to ALC287_FIXUP_TXNW2781_I2C_ASUS?
+Ideally with testing on the affected hardware if possible.
+---
+ sound/hda/codecs/realtek/alc269.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Looks good, thanks for the v2. I will push this into the m68knommu git tree,
-for-next branch.
-
-Regards
-Greg
-
-
-
-> ---
-> 
-> Notes:
->     Changes in v2:
->     - Combine the TRACE/SECCOMP tests into a single masked branch per Andreas
->       Schwab; scoped to the ColdFire/68000 paths, classic MMU unchanged.
->     
->     No in-tree m68k defconfig selects the pure-68000/DragonBall path.
->     Compile-tested W=1 with a custom no-MMU UCSIMM configuration and
->     CONFIG_SECCOMP_FILTER=y; arch/m68k/68000/entry.o and vmlinux both built
->     successfully. The combined gate uses the same flags byte as the classic-MMU
->     entry path.
-> 
->  arch/m68k/68000/entry.S    | 3 ++-
->  arch/m68k/coldfire/entry.S | 3 ++-
->  2 files changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/m68k/68000/entry.S b/arch/m68k/68000/entry.S
-> index c257cc415..0d3cbeded 100644
-> --- a/arch/m68k/68000/entry.S
-> +++ b/arch/m68k/68000/entry.S
-> @@ -79,7 +79,8 @@ ENTRY(system_call)
->  
->  	/* Doing a trace ? */
->  	getthreadinfo
-> -	btst	#(TIF_SYSCALL_TRACE%8),%a2@(TINFO_FLAGS+(31-TIF_SYSCALL_TRACE)/8)
-> +	moveb	%a2@(TINFO_FLAGS+2),%d1
-> +	andl	#((_TIF_SYSCALL_TRACE + _TIF_SECCOMP) >> 8),%d1
->  	jne	do_trace
->  	cmpl	#NR_syscalls,%d0
->  	jcc	badsys
-> diff --git a/arch/m68k/coldfire/entry.S b/arch/m68k/coldfire/entry.S
-> index 4ea08336e..d658abdc5 100644
-> --- a/arch/m68k/coldfire/entry.S
-> +++ b/arch/m68k/coldfire/entry.S
-> @@ -72,7 +72,8 @@ ENTRY(system_call)
->  	movel	%d2,%a0
->  	movel	%a0@,%a1		/* save top of frame */
->  	movel	%sp,%a1@(TASK_THREAD+THREAD_ESP0)
-> -	btst	#(TIF_SYSCALL_TRACE%8),%a0@(TINFO_FLAGS+(31-TIF_SYSCALL_TRACE)/8)
-> +	moveb	%a0@(TINFO_FLAGS+2),%d2
-> +	andl	#((_TIF_SYSCALL_TRACE + _TIF_SECCOMP) >> 8),%d2
->  	bnes	1f
->  
->  	movel	%d3,%a0
+diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
+index 39dbd876bc1a..d70e03061c91 100644
+--- a/sound/hda/codecs/realtek/alc269.c
++++ b/sound/hda/codecs/realtek/alc269.c
+@@ -7964,7 +7964,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1043, 0x3ef0, "ASUS Strix G635LR_LW_LX", ALC287_FIXUP_TXNW2781_I2C),
+ 	SND_PCI_QUIRK(0x1043, 0x3f00, "ASUS Strix G815LH_LM_LP", ALC287_FIXUP_TXNW2781_I2C),
+ 	SND_PCI_QUIRK(0x1043, 0x3f10, "ASUS Strix G835LR_LW_LX", ALC287_FIXUP_TXNW2781_I2C),
+-	SND_PCI_QUIRK(0x1043, 0x3f20, "ASUS Strix G615LR_LW", ALC287_FIXUP_TXNW2781_I2C),
++	SND_PCI_QUIRK(0x1043, 0x3f20, "ASUS Strix G615LR_LW", ALC287_FIXUP_TXNW2781_I2C_ASUS),
+ 	SND_PCI_QUIRK(0x1043, 0x3f30, "ASUS Strix G815LR_LW", ALC287_FIXUP_TXNW2781_I2C),
+ 	SND_PCI_QUIRK(0x1043, 0x3fd0, "ASUS B3605CVA", ALC245_FIXUP_CS35L41_SPI_2),
+ 	SND_PCI_QUIRK(0x1043, 0x3ff0, "ASUS B5405CVA", ALC245_FIXUP_CS35L41_SPI_2),
+-- 
+2.25.1
 
