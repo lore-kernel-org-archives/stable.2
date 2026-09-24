@@ -1,92 +1,104 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx.prosyst.ru (m2.prosoftsystems.ru [46.48.77.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E595A21ABB1;
-	Thu, 24 Sep 2026 10:36:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1039C472079;
+	Thu, 24 Sep 2026 10:44:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.48.77.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790246193; cv=none; b=TPX3oy5FT0jQwDJqKYbq51O1sN5kG24ovDyKF2zWalwyCeo89BNteyB4T5Q2iay6iInuV4Fveb+SoNdYio91aZ10EUg7bwvcBsgq/gVGgxN56DOCVLNNpgdWjeudrDS53PTmobDpUy4J8vnfZ5jQ990dJPxAlxGx2RvTequiOaU=
+	t=1790246675; cv=none; b=s7oJh8jxtKxlEfNzyi+Mn9yXlUmrI2puaC9qKqs86DChBpNUpuNPfzPOlv37Yc3wTBWJtuk5BNb5r9Izhq6ENI+t7umCIh+WcWhbjjdkgs4yuNKLl2rIa5nbc10LKyU8YnK3ylN9/61C/CU1NabbeUdGQXgJ4f6KCF/YXePoYyQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790246193; c=relaxed/simple;
-	bh=NTeYQLsuf98Ic3vI+zEEghNcv6SNhi342hDMhrvnO4g=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=DwIwNXD2ptynStcp7y7eePreahauXAmaP3jeObnlo/MsZd6aLpNCS6fi5ESQSK4IBPaSvaj7WLMpO0FVaKbDsf1Zcoy45qraePp/HiSrYE4YRdzQu2DOkriS+bTnMCneftX0MdvfDy4X/o+iJfw0iFV6RjEMru7BdCs82tWngzs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=scddT6GJ; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1790246675; c=relaxed/simple;
+	bh=BQlb7rtZ1vFV1wT41RWEMd03KvMz0llx1nSE7npSHwU=;
+	h=Content-Type:From:To:CC:Subject:Date:Message-ID:MIME-Version; b=CCkbFaaKItBWzcnzpuxkomgGLJqdWyuIeT7RhKIRvGc0EsHbcyMGGBhxY1VROwbF8n7UqgF/3wvH60D1KYHCENhA7BTedafMPk6yjPTsjH9iXYemUEbfEZEG3eRo2PU8TZlTDnhQm1EAO/Aioi2hGdewYYXk+boXARAdtiU0IyQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=prosoftsystems.ru; spf=pass smtp.mailfrom=prosoftsystems.ru; dkim=pass (2048-bit key) header.d=prosoftsystems.ru header.i=@prosoftsystems.ru header.b=Dfcs9p1W; arc=none smtp.client-ip=46.48.77.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=prosoftsystems.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=prosoftsystems.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="scddT6GJ"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8604FA4AAD;
-	Thu, 24 Sep 2026 12:36:23 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1790246184; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=2ZlSsKFn6BuIGCgoF7TU+8VkNgBvyDMHIwsMO9aG6gQ=;
-	b=scddT6GJVjBZAIf1mFOosImNGjmP9+wbEFrmrr6jbmNa9ySQIFJGUGvYDbJ8qePY14mpKp
-	nrCzUgAM2PzceqQfu/wYHumgg1gxFWWvbrVAgVpCQ8F/Eg1+PzBynIrkmFGQbuRWIYNqHR
-	npIwtTdepB56Jl/RGmidi8mq24xPY8B1aeUQPMg0kd6WUEJ6psLclDpOeD2QlQ4b0mTf1E
-	/rYDIZ6//9RT3e2+hCHVY7iy+NDIPPbDhGo7Ba9o75o7LAkCftqzpf5VHaDJOsLLX5ycg7
-	AoBG9OkfZqBSw0/pJr7iXCad1vqAA4427DfKvYhuDLZBBL7qtBVKhRd6xU6aIw==
+	dkim=pass (2048-bit key) header.d=prosoftsystems.ru header.i=@prosoftsystems.ru header.b="Dfcs9p1W"
+Content-Language: ru-RU
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+DKIM-Signature: v=1; a=rsa-sha256; d=prosoftsystems.ru; s=ps;
+	c=relaxed/relaxed; t=1790246663; h=from:to:date:message-id:subject;
+	bh=BQlb7rtZ1vFV1wT41RWEMd03KvMz0llx1nSE7npSHwU=;
+	b=Dfcs9p1WhZRSowCMPKrCwbWUs4Mil6bJIR0kWh0l/Z5v4q0Guq8XyFtWx6SE/i3y2sG/kJ2SRGq
+	jxHZzqvVANL5A0QSg6jGdr9FezcRMyVnuw259MIsjTRYUxs6dDfwOpR1YyE3cKSibeIMXNaPg8d4n
+	qv07izkmDoBzCCHN6C081o5JjhzXpJKFSPuZsyUJkQ0MO9HCEi7wmZPhcRs8EPNHuxpikJse3HPrB
+	Ldrqi+pKVzZXO+qOgBeo+RApenlQdoS1FsE4N8MUzdg/pt11Lg7nAyu7l1+FelnodFZmXhpI3gl9Q
+	S65aFM5V34+IM2bGl70AZxCrIOVdVbXq5xQw==
+Received: from ECHO-3.prosoft.ural.ru (172.25.100.229) by mx.prosoftsystems.ru
+ (172.21.240.33) with Microsoft SMTP Server (TLS) id 15.1.396.30; Thu, 24 Sep
+ 2026 15:44:23 +0500
+Received: from echo-2.prosoft.ural.ru (172.21.245.22) by
+ ECHO-3.prosoft.ural.ru (172.25.100.229) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.39; Thu, 24 Sep 2026 15:44:21 +0500
+Received: from echo-2.prosoft.ural.ru ([::1]) by echo-2.prosoft.ural.ru
+ ([fe80::c1a2:90f7:8820:c669%17]) with mapi id 15.02.1748.039; Thu, 24 Sep
+ 2026 15:44:21 +0500
+From: =?utf-8?B?0JbQsNC80LHQsNC60LjQtdCyINCg0LDQtNC40Lkg0KDQuNC60LDRgNC00Lg=?=
+ =?utf-8?B?0L3QvtCy0LjRhw==?= <r.zhambakiev@prosoftsystems.ru>
+To: Andrew Lunn <andrew+netdev@lunn.ch>
+CC: =?utf-8?B?0JbQsNC80LHQsNC60LjQtdCyINCg0LDQtNC40Lkg0KDQuNC60LDRgNC00Lg=?=
+ =?utf-8?B?0L3QvtCy0LjRhw==?= <r.zhambakiev@prosoftsystems.ru>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, "Jakub
+ Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Denis Benato
+	<benato.denis96@gmail.com>, Jacob Keller <jacob.e.keller@intel.com>, "Petr
+ Machata" <petrm@nvidia.com>,
+	=?utf-8?B?VXdlIEtsZWluZS1Lw7ZuaWcgKFRoZSBDYXBhYmxlIEh1Yik=?=
+	<u.kleine-koenig@baylibre.com>, "netdev@vger.kernel.org"
+	<netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "lvc-project@linuxtesting.org"
+	<lvc-project@linuxtesting.org>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>
+Subject: [PATCH net 1/3] net: fealnx: fix teardown order in remove
+Thread-Topic: [PATCH net 1/3] net: fealnx: fix teardown order in remove
+Thread-Index: AQHdTBGoaPRFHxtaVUSWHKvuDP/4nw==
+Date: Thu, 24 Sep 2026 10:44:21 +0000
+Message-ID: <20260924104231.110576-1-r.zhambakiev@prosoftsystems.ru>
+Accept-Language: ru-RU, en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 24 Sep 2026 12:36:23 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>, stable@vger.kernel.org,
- patches@lists.linux.dev, Justin Chen <justin.chen@broadcom.com>, Doug Berger
- <opendmb@gmail.com>, Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, netdev@vger.kernel.org, Jakub
- Kicinski <kuba@kernel.org>, Sasha Levin <sashal@kernel.org>
-Subject: Re: [PATCH 6.18 129/398] net: bcmgenet: convert RX path to page_pool
-In-Reply-To: <2026092430-contently-pungent-f0cc@gregkh>
-References: <20260923140643.441954610@linuxfoundation.org>
- <20260923140646.783275824@linuxfoundation.org>
- <20260924065839.56793-1-kmehltretter@gmail.com>
- <2026092430-contently-pungent-f0cc@gregkh>
-Message-ID: <222228376db00a8aa7a4bcab1b5659bc@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Greg, hi Karl
-
-On 24.9.2026 09:28, Greg Kroah-Hartman wrote:
-> On Thu, Sep 24, 2026 at 08:58:39AM +0200, Karl Mehltretter wrote:
-
-> [...]
-
->> I would appreciate the BCMGENET maintainers' view on whether this 
->> page-pool
->> conversion is appropriate for 6.18.y.
-
-I would rather have the page_pool conversion in 6.18.y. More fixes will
-land on top of it, and carrying it is less work than adapting each of
-them. The fix for the regression applies on top of it unchanged.
-
->> Please consider omitting patch 129 from 6.18.y and applying that 
->> adapted
->> version of patch 130 directly.
-> 
-> But when you update to a newer release, that memory increase will
-> happen, right?  So why not fix the root problem upstream first?
-
-The fix is on netdev, "net: bcmgenet: allocate RX buffers as page
-fragments", with a Fixes tag for 7bc054c2d4ed:
-
-   https://lore.kernel.org/netdev/20260924101922.2675127-1-nb@tipi-net.de
-
-I was able to reproduce Karl's numbers on a CM4 with a 64 KiB page 
-kernel
-and fortunately the fix was straightforward.
-
-> [...]
-
-Regards
-Nicolai
+RnJvbTogUmFkaXkgWmhhbWJha2lldiA8ci56aGFtYmFraWV2QHByb3NvZnRzeXN0ZW1zLnJ1Pg0K
+DQpmZWFsbnhfcmVtb3ZlX29uZSgpIGZyZWVzIHRoZSBETUEgcmluZ3MgYmVmb3JlIHVucmVnaXN0
+ZXJpbmcgdGhlDQpuZXRkZXYsIHdoaWxlIHRoZSBpbnRlcmZhY2UgbWF5IHN0aWxsIGJlIHVwLCB3
+aGljaCBsZWF2ZXMgYQ0Kd2luZG93IHdoZXJlIGZyZWVkIG1lbW9yeSBjYW4gYmUgYWNjZXNzZWQu
+DQoNCkNhbGwgdW5yZWdpc3Rlcl9uZXRkZXYoKSBmaXJzdCBzbyBkZXZfY2xvc2UoKSBzdG9wcyB0
+aGUgVHgvUngNCmVuZ2luZXMsIGRlbGV0ZXMgdGhlIHRpbWVycywgYW5kIGZyZWVzIHRoZSBJUlEg
+YmVmb3JlIHRoZSByaW5ncyBhcmUNCmZyZWVkLiBXaGlsZSBhdCBpdCB1c2UgZGV2X2VycigpIGlu
+c3RlYWQgb2YgcHJpbnRrKCkgZm9yIHRoZSANCnVua25vd24tZGV2aWNlIGNhc2UuDQoNCkZvdW5k
+IGJ5IExpbnV4IFZlcmlmaWNhdGlvbiBDZW50ZXIgKGxpbnV4dGVzdGluZy5vcmcpDQoNCkZpeGVz
+OiAxZGExNzdlNGMzZjQgKCJMaW51eC0yLjYuMTItcmMyIikNCkNjOiBzdGFibGVAdmdlci5rZXJu
+ZWwub3JnDQpTaWduZWQtb2ZmLWJ5OiBSYWRpeSBaaGFtYmFraWV2IDxyLnpoYW1iYWtpZXZAcHJv
+c29mdHN5c3RlbXMucnU+DQotLS0NCiBkcml2ZXJzL25ldC9ldGhlcm5ldC9mZWFsbnguYyB8IDI5
+ICsrKysrKysrKysrKysrKystLS0tLS0tLS0tLS0tDQogMSBmaWxlIGNoYW5nZWQsIDE2IGluc2Vy
+dGlvbnMoKyksIDEzIGRlbGV0aW9ucygtKQ0KDQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9uZXQvZXRo
+ZXJuZXQvZmVhbG54LmMgYi9kcml2ZXJzL25ldC9ldGhlcm5ldC9mZWFsbnguYw0KaW5kZXggYmRj
+MzhhYWM1ODUwLi5kN2NkMTY0NGEzNzUgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL25ldC9ldGhlcm5l
+dC9mZWFsbnguYw0KKysrIGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvZmVhbG54LmMNCkBAIC02Nzgs
+MjAgKzY3OCwyMyBAQCBzdGF0aWMgaW50IGZlYWxueF9pbml0X29uZShzdHJ1Y3QgcGNpX2RldiAq
+cGRldiwNCiBzdGF0aWMgdm9pZCBmZWFsbnhfcmVtb3ZlX29uZShzdHJ1Y3QgcGNpX2RldiAqcGRl
+dikNCiB7DQogCXN0cnVjdCBuZXRfZGV2aWNlICpkZXYgPSBwY2lfZ2V0X2RydmRhdGEocGRldik7
+DQorCXN0cnVjdCBuZXRkZXZfcHJpdmF0ZSAqbnA7DQorDQorCWlmICghZGV2KSB7DQorCQlkZXZf
+ZXJyKCZwZGV2LT5kZXYsICJyZW1vdmUgZm9yIHVua25vd24gZGV2aWNlXG4iKTsNCisJCXJldHVy
+bjsNCisJfQ0KKw0KKwlucCA9IG5ldGRldl9wcml2KGRldik7DQogDQotCWlmIChkZXYpIHsNCi0J
+CXN0cnVjdCBuZXRkZXZfcHJpdmF0ZSAqbnAgPSBuZXRkZXZfcHJpdihkZXYpOw0KLQ0KLQkJZG1h
+X2ZyZWVfY29oZXJlbnQoJnBkZXYtPmRldiwgVFhfVE9UQUxfU0laRSwgbnAtPnR4X3JpbmcsDQot
+CQkJCSAgbnAtPnR4X3JpbmdfZG1hKTsNCi0JCWRtYV9mcmVlX2NvaGVyZW50KCZwZGV2LT5kZXYs
+IFJYX1RPVEFMX1NJWkUsIG5wLT5yeF9yaW5nLA0KLQkJCQkgIG5wLT5yeF9yaW5nX2RtYSk7DQot
+CQl1bnJlZ2lzdGVyX25ldGRldihkZXYpOw0KLQkJcGNpX2lvdW5tYXAocGRldiwgbnAtPm1lbSk7
+DQotCQlmcmVlX25ldGRldihkZXYpOw0KLQkJcGNpX3JlbGVhc2VfcmVnaW9ucyhwZGV2KTsNCi0J
+fSBlbHNlDQotCQlwcmludGsoS0VSTl9FUlIgImZlYWxueDogcmVtb3ZlIGZvciB1bmtub3duIGRl
+dmljZVxuIik7DQorCXVucmVnaXN0ZXJfbmV0ZGV2KGRldik7DQorCWRtYV9mcmVlX2NvaGVyZW50
+KCZwZGV2LT5kZXYsIFRYX1RPVEFMX1NJWkUsIG5wLT50eF9yaW5nLA0KKwkJCSAgbnAtPnR4X3Jp
+bmdfZG1hKTsNCisJZG1hX2ZyZWVfY29oZXJlbnQoJnBkZXYtPmRldiwgUlhfVE9UQUxfU0laRSwg
+bnAtPnJ4X3JpbmcsDQorCQkJICBucC0+cnhfcmluZ19kbWEpOw0KKwlwY2lfaW91bm1hcChwZGV2
+LCBucC0+bWVtKTsNCisJcGNpX3JlbGVhc2VfcmVnaW9ucyhwZGV2KTsNCisJZnJlZV9uZXRkZXYo
+ZGV2KTsNCiB9DQogDQogDQotLSANCjIuNTMuMA0K
