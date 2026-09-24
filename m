@@ -1,134 +1,151 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012026.outbound.protection.outlook.com [52.101.48.26])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E1F54322FA
-	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 07:30:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790235016; cv=none; b=vEpTvwExj/r/kXJX4vL//v9KL80kMDj528uRNWPDbdVtZQOTKG9W4SSljS9la6EVTtlwP8n0UgQYd2P+cbt9sizUsuXoe/jBSZbWK4EuEbnHE/ZD9RuNyDfWd19oZEgqFYw9Tmbdv8anqfzMsMmtbQAybzViDsXDfk88+CDFCfw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790235016; c=relaxed/simple;
-	bh=H/09Awy0Wow8he0iuUjbYNtLCcgE1/04W5EuWcTgx88=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nJSqxH2QuukEPetI2h0xZ/GIi7uVc3a+g/IAZ/uMIS7fKKJrUfcSegsZvZYaRDl4iIL3p6+a4lAGhfbwzEEvdp1X3dt8qb9dq6jz14CVnAsqFxQoEiD7hH5uctuYiBWO+YpZPpoJTCokloQZ3dOiZoT5iHu1eG1bZH4vmYTmhnk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Qz3yf/vj; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EFD3227EBC
+	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 07:33:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.26
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790235224; cv=fail; b=SE1wXZpkWDlQCsVifvrWB2nwlFv1kzT5QdtLZHA8Tn/pwxB/RtvvO7o4CdWHeevNbNW5tdHgWuHHblv+4t5xOP0sUNR83HLHD1/3RsPo2bkgSmyyk6qCFDzw27x4oSVpRjx9lCunAyGDQWhkpAqiLljgsZDmK0aO12DCw4qF/TU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790235224; c=relaxed/simple;
+	bh=XfClV/pDP3Synub+6RvFk1tZHj8cW5i4xWwX6Y6GK3s=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=KWW9QLTx5eiLDD0Ec5lsPC71UaiwHKsmdFQklkJLsLsspclKARhnB3D58c0J7whRTlfUIY40WUIUg5V0ASFNExO/WWuWINVFr4iddiUDljKxsp+vWK94AzEgwRhwyTWQzq64Y9IKsk5rxiGGjANEuZl3MBfYVEqJmOIb7iTFOO0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=r29lsFAE; arc=fail smtp.client-ip=52.101.48.26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qz3yf/vj"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39b2ad83dc6so1218344a91.0
-        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 00:30:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790235015; x=1790839815; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6F8IvUZIEGfXb52LcJZy68sW3q/eTCjBvXuldSNAIWg=;
-        b=Qz3yf/vj2mxSLDysJ6S3tMjKG5yx0TjGYFrH0PBqJfxa4+BL5WuyiKKu/gsvMzrl3x
-         ABfpThb97VGkYmgUyvZnu/P36EQYJCAVGIOIV8QKbWdwH8LHLp3x0OqtopxZ6/bpGnkP
-         Vqo0SfI130sGvzlX6Dzk3X4I3ECOqwghNWdXfw2D3APlNPX7lOn9QKwOcB6dAfAX1s/D
-         NEeTByo7QrUeBBE17pfK8HJH2MXMxPIYrLJ8KMWg936hMV0XNbdLF/aGb5Y0Xzsvzeq2
-         blBrtAJ+2UnzWw0axl3HHw2nzgx3Vyut917pdIsg5W39JZZ3vDQuqDJV1OpB5Tw08oVi
-         T2Ig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790235015; x=1790839815;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6F8IvUZIEGfXb52LcJZy68sW3q/eTCjBvXuldSNAIWg=;
-        b=nXELHmZyAwUW3JeHX51PWTz3tJB1waOkC3UOTurWvDeg2Gf6fQmICgC/5Ay4nnnC6E
-         qK+U8y05+rWt2YVnMVEckwTezZ7GwJrhe0+MlhNfd6OVhIG+vynJRn0cOUSq2aXxT4rB
-         cX9FSWjq4l0vCIY8Wiy03XsF5OhFDFwF2SVl47VNYp2VyNfreDswiDvz0M7M+1YXvOf/
-         TiVomk4qtGNYmwe5Sn1sDGenjiBT9oDyyT+8XItP0LTwayYp7xcGMJLlgJWFZYITbq4e
-         V93jLSobC+ZfAPW7e0eQ9j7dbrHisWMJ7oAR4kE74POBi68E9JQKsk8CVFymZKdES/eB
-         LqlA==
-X-Forwarded-Encrypted: i=1; AKwUvBxgFBbWSDq+j3Mz4c+/9diP8nWXMIvX72hmEg55xaK4BDi80Vxt4bpiihQuNpXOIWj5lmTCc9U=@vger.kernel.org
-X-Gm-Message-State: AFuF++kMnYRiWF48SK3mamPXJZF7DnifFriAfHzYV++0JDy60AZBEave
-	Vzb8g57Cn9KKQhTUgc67UKHrbYs/It9HsXzhHWyqt1ZPN90BArJvEWzh
-X-Gm-Gg: AYBFou0ulSNfpQk0WSt+NVGJb6bRUhlepZqEJyf90YryIE4ncpcvBZ3CkHGcksTkNuZ
-	yX+xLF2bgKOXCYrQw9OrfztHCBPAWWLvyensrjKwvVjJXaLoUN7N4y5u06T09Dvi2fu25yC9ecm
-	8kvne+fApq5OxLMgK5UkL+N3hbUNQRGW7v8MyKjxelUNmSs1UJFeZreZ9L6HGz2rwN9sKBEbraZ
-	tx3GgJsG3Vr39w+DFCGt5jSU1NttLDB04ko6wirMR8jO6anrY2CaqOKAAyODhfXkf9hDKkRaTWl
-	w6AapR725uymF6bNc9IgsBDmTuf4kXDqV6HDf+pwXf6/CwYCxNZB9C5+11TzI8ybiSKkUYLBKLa
-	/eAZayOl8XioP/T9hanfMmBpOTJLd1BfGuVJwpycio8Rpt480Gp00Y2SRhc4pCx+j+PHxnHfxq3
-	zLKKJ9ZJQQmj5KStXTPGnMDX51PVBTqKv/a5FVOLWgzrLR+tkFtg7TNK1JBzkSU8Na9lNSYJ5DA
-	ms39JiiIawW8vHl6+lteRGbsef6on6Ce2Wtn0HuYos2oGvgPe4j+KWSuV9fQKxBbjXYmLS3Plev
-	PY8YRNMnjQ==
-X-Received: by 2002:a17:90a:ec88:b0:398:bacb:1137 with SMTP id 98e67ed59e1d1-3a098b4b35cmr1393507a91.19.1790235014790;
-        Thu, 24 Sep 2026 00:30:14 -0700 (PDT)
-Received: from phui-2.c.googlers.com.com (67.51.127.34.bc.googleusercontent.com. [34.127.51.67])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0972efa0bsm3184726a91.8.2026.09.24.00.30.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 00:30:14 -0700 (PDT)
-From: Hui Peng <benquike@gmail.com>
-To: jani.nikula@linux.intel.com,
-	tzimmermann@suse.de,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	airlied@gmail.com,
-	simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hui Peng <benquike@gmail.com>
-Subject: [PATCH v3 2/2] drm/udl: clean up USB resources if drm_dev_register() fails
-Date: Thu, 24 Sep 2026 07:30:11 +0000
-Message-ID: <20260924073012.2742968-3-benquike@gmail.com>
-X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
-In-Reply-To: <20260924064434.2541959-3-benquike@gmail.com>
-References: <20260924064434.2541959-1-benquike@gmail.com> <20260924064434.2541959-3-benquike@gmail.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="r29lsFAE"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wD0DP7lu6yqmxuKLFS/hg5aA3fBhU1N01g5Ht6LeYHRshkhByNYGYb0qhWtImUFnBBFIAt1SGo/ACCJpO7aEJKmTDmiqqJ4n9xIBMtio6ur0XMkMMWx487u01+2eLyj2ePuj4OtVatatLn0j5EXUyNHf2HP3UwGg6hRCkXYTX44w9STSZAjWBWYZXKmZScqijAUt7QRO/Uz+qiMn99hygzDnxmUpJx/MpEBMRExYi2fUSXNhfvE3EZ85sXJFAOWPoO07Qs+YnArXVId1JVaKhGfRr5acmTI6ms1zCa7T/Z6VeveM/t3ZseODICnZ33DzMYQ+hoDobJGx8ztr4/39oQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GZJtJLDA0bfS6GDfaWlsZv/nL10yPG10qBEFTNb6pbw=;
+ b=qauiQ+6FD78ZXQI0KV2gXW6AzyDoZ1oPUckT+hbFh3awWfDar/Zzz8R8xfo5iTGHWUo/KsIlHjdyaVrWx6i+ystN+n0T3qrs1MCNhz6pzqhLbHXUqi0xotEVn5hbs+AURXNQk7Dd4yc6IYSdOdJcpqKARGPmbJkOpYTiDpOq5mXJghcUqJfNHwGdPPO1QF5t/Ah1nctb3+XS3KTzU5tCfof1TJetwphRtSqV06ATyxHqHsmMMj1LEh119K1n7XUmZnprouHUv9rl2kY9EP2PFHzNwJeSlcJ0W03Q3XayFeTS3RKmvR7CRU2ap4BfDF12VNritR1PFE7e7i59eakJUA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GZJtJLDA0bfS6GDfaWlsZv/nL10yPG10qBEFTNb6pbw=;
+ b=r29lsFAEq4N+d/TM1QQfoY0mVKcdU7mqJ/XhvzZU0CMmsG7c+LHAJa5PnEsvmlX6RWUYQrlHMTVjGUZciwMRc3DsSiUO76l6FQT7oND/Ppxne8ThFtzn2D2QFh0RHqfv8GtYmDNMmEohk3ho7B33n6Ex0Qm8in+1gjVADTBGAqc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CY5PR12MB6623.namprd12.prod.outlook.com (2603:10b6:930:41::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.13; Thu, 24 Sep
+ 2026 07:33:38 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
+ 07:33:38 +0000
+Message-ID: <294b94da-a6e2-4d1f-8b93-31e45f0b8562@amd.com>
+Date: Thu, 24 Sep 2026 09:33:32 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.2 104/438] dma-buf: Make DMABUF_DEBUG default to y on
+ DEBUG_KERNEL kernels
+To: Sasha Levin <sashal@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>, stable@vger.kernel.org,
+ patches@lists.linux.dev, Jianfeng Liu <liujianfeng1994@gmail.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>
+References: <20260923140644.756254324@linuxfoundation.org>
+ <20260923140647.476063815@linuxfoundation.org>
+ <20260923204146.6699-1-kmehltretter@gmail.com>
+ <20260924010940-6fdce3544586@kernel.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260924010940-6fdce3544586@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0120.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9d::13) To SJ0PR12MB5673.namprd12.prod.outlook.com
+ (2603:10b6:a03:42b::13)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY5PR12MB6623:EE_
+X-MS-Office365-Filtering-Correlation-Id: 240345ed-b1a6-41b7-0034-08df1a0e25b0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|6133799003|18002099003|22082099003|11063799006|10067099003|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	fjV626ZRjOpkB6mi6NF6ZWr9BNJPPmJlyvi4kJq88xqDDpAAmncloQO0GW/Kv1iU9c7bLIErw8zxw4oJD7Y6KXhPLY7/uAWt4oOv3yq3RSPXzCBEu9eUPJIPJmmTmmG6Zu6yY/SxuqzhNk72u6gTb+mBbHaUQ2RxEvWyPO7uU8aM/WTvvZ4rOIQxoWhk2O3/fwLoNmTwnePyeii1MT8qC+6rKFjkY5GL9iObHsONFcYk3oSHPTPvNapYxoFlZ1pEiAFUxSeDcOaq0+BRGtf7qnkQgC3hFIT+a/NnXQbW6BpJcG/7TEo2qI/uVebYCYg1SCTYgMc5Mn9UbbrQ6S7JDXFPh4jd5A4nXt2qbtCMbVrJ4eCW0q50ErEI1WeJTfgv2E+fSFb240sTvj6AxEgazGbqWPYYx+qJLa/zBoNzWmRDraAqWkFqTTEGnQ6ri5m00FtOEL5R1Z7fNnqPv1OEbmQso7sCk8ST7ap5AYbjuor+5UzSr8hksVgpG/Jv4OhcLJY93c5c7Qyp4dpSuaklL8lI0S2lS/BFO7d+eijaAFvfYyHzbxQympSN6C6PP/zi3T/wDSzwTDLZQ8aY1RFRPRrB07lSqtqi9qZk3VNRfNfKspyjczn9UZx5TAXtHm8NYBUERRyrR1CAbv5A3JJl39R8qaR8ZxkGdPHXQ2Q+XfM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(6133799003)(18002099003)(22082099003)(11063799006)(10067099003)(4143699003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Rk9xQUsxcjdtcU40WlR3VWp5Nmx3WkZWVW9DNHl2eTdQNEVOVTlkSlBYSkxn?=
+ =?utf-8?B?ZS94b081ZVZUTEY4ayttY0RsbG14d09PamN0QVFYK0dmWkJtcUVOZzI5R2JT?=
+ =?utf-8?B?bHlFcXB1cVowc255UzY3MzQ4RHozMnpQN1NrMTNCSFppOHprZ3JhUHdxTlkx?=
+ =?utf-8?B?MXZKTjRwQmlZclY4WFROd1NuVXVMRWJhZ0hGYm84NzRQM1pZdzg4OWhKcTJ3?=
+ =?utf-8?B?cGZRL3hPMll0bEc0ZkhLTDE2ZGxRc3ZNSHFhUkx6b3N3eHF1WHFkSlROZzBq?=
+ =?utf-8?B?UU1nR2NVWTQvK3lOdVVpcS9RMSs5UjNPdmowM0thQ2FpWFVNY2NCTnptdkVk?=
+ =?utf-8?B?RXFuYzg2NjhHYXhYVzg3SnBnaEN4YzRFbHA5UkJxZHJ1SXZ3aEpjTnNHZ2hY?=
+ =?utf-8?B?NE5hdFZVYktQQTFacFlFYmVOZUpNMzFhYUtyc09vUUtZYTBEbVB5L3dxalVR?=
+ =?utf-8?B?am1PZlc3ayt4TXJXU3pBOTVjSjF2RFE1dzlWeXJub09UaTBvRTZ0aUFWUTlC?=
+ =?utf-8?B?UGMzbXR0cFhra3BRYnhnTWVDYThOZW9rNEhDaVZKWEVsN2ZBTjZLTUV0ZHl2?=
+ =?utf-8?B?eUlveWNnTW1QWU9JMHo5T3BneDVJL0pGWWgxMWJCcUIyazVLQy9kb1ZmUUF0?=
+ =?utf-8?B?aTVNK2JYMmRCM0ZjYTdZcDdhT2toU0N0QThuRmhsSmxkZEkrcDdBMVdDdEJ5?=
+ =?utf-8?B?L3djNGtNQkZTYklVdXI1RE5pMCtCcTV1bjdDTUY5VFRKWEY0NzltSkRBRFo5?=
+ =?utf-8?B?OGRyYkRzaDB0eitQTlZWNFRUMzEzRmlyLzlDTkZMTks1RWZrZ2RtNlE1OUhM?=
+ =?utf-8?B?ajE0bFFDNlQ3WTRUL0lnNTBDclF5aGJBN1dUSUttL1ZEYmRTQWliZFA4N1V5?=
+ =?utf-8?B?c2hnNWlML2xZVVA1ckV3SG5BTkxIQVhUWVJaanFmWjdhRmdzN3l2ZXFhZm14?=
+ =?utf-8?B?UzhiTDgrMFYzQzJaYkdKbXIwT2ZsdmljV2NEV3BnWG5tdFFrUUozZ2l6V1Bn?=
+ =?utf-8?B?R1loNmJGaXA0Rk5KZXJ0d0VISjR2aWVpQjFnUUsyek55MDZ1S2xDd0M4NWhC?=
+ =?utf-8?B?cmdxcFJnUm9zRlFISGFza05sMG4yNHNGc0V3VDdwUms3dWZyS3RPa3hFVGhC?=
+ =?utf-8?B?d0MrYXhvMTlPYml3WTJWeXhvWUQzS1JMNEdDTEVVWkY3ZXpsd2ZHZGRqeC9C?=
+ =?utf-8?B?ajUvdmtNUWpzQkFFcGFIelljT3VJS1ZWYWErMk5WcFUrTVFhc2hudW1LMVN0?=
+ =?utf-8?B?NTlxZmNZRUUzODhkVnRXZUsrRzBZc3l0ZHVkblZYN2wwbkpISkNUKzZzcllJ?=
+ =?utf-8?B?QStnV1lyTlBCakpKTEdzTzdCcjVzVEhjSzJyaWFRT0RRc0dDSmc2WkUraGVC?=
+ =?utf-8?B?bGxIYmluQmk3SmwxTHFjaFNwSDJocjh2a2g3akxZTmdYSEZOd3VtL1ROYjJp?=
+ =?utf-8?B?bDVnVUpXcUtiZ2RVRnNiNXpLRWNCVlI5YmV5alZRZWhKUXp1Q1QwRTVvYWZq?=
+ =?utf-8?B?SkdERVQwd0g0c0EvMEk1cGxjeWZOQUNqWmxXZFZkVTduSzg2LyszeGRleDNi?=
+ =?utf-8?B?UjJJMUpnM2RCV2dzcFNMd2VvaDA4WjN6Uk9BbFQ2UTM3VzBEeHB4bElSUzNy?=
+ =?utf-8?B?RytzZ0tlMXlmRjN1UEFuenA3Z3phKzQ1TTF1dnNLMFE4dmNYZFowSW03cVdR?=
+ =?utf-8?B?TWlxaFN2UUp0S0FOelgvM2xiL3RGTFVYUWkzL0QrZFZkMGtkenF4QVliNXly?=
+ =?utf-8?B?aUV6bmY3c0ZYN1I3ZjFrUU1HQmZpRTZQSFE3T2xtNkpWakdnc2dUa1RWczRK?=
+ =?utf-8?B?c1kwYVZZK1RCVS9MTFZpRUVDS21EcU9paEZxcGJES1FOdS81aHZmRHRtTTBU?=
+ =?utf-8?B?Zjlub0xEMWxrcHpRcG56RHlGUVFOWFd2NnU1MVJDMU5lWUZTOUxNQkFoVzFX?=
+ =?utf-8?B?ZEk5Vk1ZV0NpbmZ3eXJpbDA4SitFSWwvTE9QWmpjQnowUUhZQjIrcHAxQWJU?=
+ =?utf-8?B?MDlXYlkzTTZlOFFPUDY2NURsNHVRRFYwUlFmN1IvZTE1N1EwVXV4Z1BXWFZF?=
+ =?utf-8?B?aVhac1ZXVCtYbzRxOVJ1TjR6UzJPYzJGS3VWWDg0Tm1jNWIxRHU3VWF5M2lG?=
+ =?utf-8?B?VUJ6bHRhcDhzOFhCakZ0RTJvZENVZWk0QWQrczkvdGZmRlFMWURhL29xS2kx?=
+ =?utf-8?B?ZTFlTUdHTmozd1MrS0hPSktlWVlkRURQNjdNWjVqdGkrczZKS3ZSK2hZRlJV?=
+ =?utf-8?B?SUkzbHJFbjRUVWtwQVI5NWJVTC9VL2U2ZnJibnlQdklVTmlXZFRFS0w5WnZh?=
+ =?utf-8?Q?o16In4vWSnDCBEFWqq?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 240345ed-b1a6-41b7-0034-08df1a0e25b0
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5673.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 07:33:38.1650
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: dtALfcFl7+rjM5ZJZOTLEIu9qA+aZoGChq0AjpANDgEen+yvTG5pMyuX3Rb7Ng1Y
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6623
 
-In udl_usb_probe(), udl_driver_create() calls udl_init(udl), which
-allocates USB URBs and DMA buffers via udl_alloc_urb_list() that are
-normally freed by udl_drop_usb() in udl_usb_disconnect(). If
-drm_dev_register() fails in udl_usb_probe(), udl_usb_probe() returns
-without calling udl_drop_usb(udl), leaking the allocated URB list and DMA
-buffers because udl_usb_disconnect() is not called when probe fails.
+On 9/24/26 03:15, Sasha Levin wrote:
+> On Wed, Sep 23, 2026 at 10:41:46PM +0200, Karl Mehltretter wrote:
+>> I object to including this patch in 7.2.8. I authored the upstream
+>> patch, but did not tag it for stable. It corrects a Kconfig default
+>> and thereby enables the DMA-BUF importer checks in configurations
+>> that take the DEBUG_KERNEL default.
+> 
+> Dropped from the 7.2 queue, so it won't be in 7.2.8.
+> 
 
-Call udl_drop_usb(udl) when drm_dev_register() fails in udl_usb_probe().
+Thanks for catching this Karl and I agree completely.
 
-Tested in QEMU against Linux 7.3.0-rc3 using dummy_hcd by simulating
-a registration error in drm_dev_register(): on the unfixed kernel,
-udl_usb_probe() returned an error without calling udl_drop_usb(udl),
-leaking 8 allocated URBs and DMA buffers; whereas with this fix applied,
-udl_drop_usb(udl) is called on error, freeing all URB and DMA
-allocations.
+That config option is for phasing out a broken approach in some DRM drivers, but not meant to be added to any stable kernel.
 
-Fixes: 5320918b9a87 ("drm/udl: initial UDL driver (v4)")
-Cc: stable@vger.kernel.org
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-Assisted-by: LLM
-Signed-off-by: Hui Peng <benquike@gmail.com>
----
-Changes in v3:
-- Add Reviewed-by tag from Thomas Zimmermann.
-
-Changes in v2:
-- Split out as patch 2/2 as requested by Jani Nikula.
-- Added testing details in QEMU on drm_dev_register() failure cleanup.
-
- drivers/gpu/drm/udl/udl_drv.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/udl/udl_drv.c b/drivers/gpu/drm/udl/udl_drv.c
-index 1922988625eb..239a6983f49f 100644
---- a/drivers/gpu/drm/udl/udl_drv.c
-+++ b/drivers/gpu/drm/udl/udl_drv.c
-@@ -97,8 +97,10 @@ static int udl_usb_probe(struct usb_interface *interface,
- 		return PTR_ERR(udl);
- 
- 	r = drm_dev_register(&udl->drm, 0);
--	if (r)
-+	if (r) {
-+		udl_drop_usb(udl);
- 		return r;
-+	}
- 
- 	DRM_INFO("Initialized udl on minor %d\n", udl->drm.primary->index);
+Regards,
+Christian.
