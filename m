@@ -1,135 +1,169 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C80B536604B
-	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 13:55:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 563402673AA;
+	Thu, 24 Sep 2026 13:59:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790258123; cv=none; b=TpOBPeL2SqSSu2hsG4TKX/vB6AAXImjIJoJDG54ezx2Srl6m7hVfitwvnXsVA8zkcnBQer5eu8ElKUGmLI5WdPwiRdwYmUH+qNJci2z8STll5FtTP+5FzlDuN5otsIilZL8ssKqYCZJBo75Ye/y2tFPMxKT4vSoL3ueLaKglfBQ=
+	t=1790258359; cv=none; b=QfysT13vs5PVGfVfGxQ1KUIsvqDNLWMOQ4ktTRGr0EnYun6Rfni0si7QN5N998/KJQbgsxl0Vb6RE3rZAZrZ04l6UQYHIEUK91ilAjHJ9t0ih8FAZvj4xN7q/VeDD9TFN/FYXNDW2szrPuceUYkHHt3oAw12xMu7tqEB5aQ2RyM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790258123; c=relaxed/simple;
-	bh=s6cINfwztF9EqCNc4OvkEGGx75tkWC5jloCuZo0HzQ8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bABOjymkAqzSq1D9tJSg4uJIOVQ4ss4HnR8qWa8PtOPuSGz+wak7cGhdNMAL0QafhbvRec1DUoyBxwAS2PKaqRXXSiN6Is1l9+0oEUD43NvZxWHemoi5qbP8WqA3l29nZK1zckdET681+jr7mXqFrJkrBNe2OBCfZ+oPWbUnvpQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QS1m1dKH; arc=none smtp.client-ip=74.125.228.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790258359; c=relaxed/simple;
+	bh=8KMJp4l5scS6ux5Pa9OBYN91E878i428O2BdSDBLFVI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GSpcm/yWsbd+e+elUNTJiwTA4m4mfSeMmbPgZccPlOnvHtc9MRlQrnWBS5i8wzkbrBlDbmyhJXddOVCSbtiNW3Vdbwq7z02cM+uxI9QRoq3wEqc7r2XsLtMjpXHqsuK7gp9bWR0luVaMUsjhcplilwfJF2yy3DX+4ZkLarNaho0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=lMt+eMLs; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QS1m1dKH"
-Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85469a34907so1707872b3a.1
-        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 06:55:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790258121; x=1790862921; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ap/7M2cse4mK1asKMRK4GIwJ7czLUQIQNBlufYytSs0=;
-        b=QS1m1dKHIeMBKxwEMktYMNSiN1xFoHsOLmRpARS9ZEjDXg80+rHprXL+Y3apGVYgcx
-         ZgzHZcxPdfVBMMzjY/poO1uBzo8Fpw7RpqrN0sMdRRKtZHERbNGKkABOkgwdysT4NAmU
-         QjkUZnDG63kvEUk7HX865v3uwF54WfvkTj+e8/5B9wpUNmToaF1rwJqeRoy3h9PeAq5O
-         m80wNVn+zrnn7cgwXQ3BB6K+8UmZah0hajWmrBTmNf5adiziWm0ARLiKlpB1iKyquCvn
-         Eiig3fR4T+8z98fJdadNp6X8WM3pWZ9bYd/Eri4DpcghFlJPvpTUddukGugIHL965mwh
-         uhJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790258121; x=1790862921;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ap/7M2cse4mK1asKMRK4GIwJ7czLUQIQNBlufYytSs0=;
-        b=PWPEpKVdC4VdkZTCa7bT2ENaY149UKYMqkI7TCASPsLY+v/TM6S4ro5LeFR3KS5pYE
-         bULWjYOZ8GwpUHumEANFTUM+rpiBud/MgADY33ch8Ea/AAN+SzWAkoi/4G46QN+0Fgod
-         J3cObt44UwfFcMXmBzUC4l4ZQ5L7PB8g4BV9Vll6gFNA+PD6oBaXLUmQvHe9RLtkRGbx
-         XROuWYTJe2humMj/Jg/DBCbWnJAY9WublgNdgxyIYIYPnLIjTqc4C0PJ8falprpk5a3o
-         a/+dM3TtsdI9/EyNV6l65X234u+Ab4JPGCFgUqkXa9lzfjIkXKtd/DauUg2wnSpgHCEg
-         ac0Q==
-X-Gm-Message-State: AFuF++nH9XF5xNj/NB0uAfIVVfZW7tMiuwujeH5Yesx4MaQkOwlOptgl
-	VRA/snLiraZvT7UKRESGta3pBM72ZXO0huV8y93psJnoV/PyVvnUtRJl
-X-Gm-Gg: AYBFou1CEW4wjKVyn98VxpCM3quWlajSGGAzlES8EaLSZD+oe+DgPngFmVSAuVUdwkP
-	aSAbd28NgsF0Z+tauaSLaFyjAPadANkZV0jI3ScVkXqC8A/3lwhvCIN2P3vOWd+9aXibJ2n37HW
-	zL2SqqwLBhEPGCtoYnCIlxVMP3oNP1UUCj56ifGMgSTLqjM+0rvUCsm4du3wSz7MduLEUbRxA7j
-	fFTEO30I6NkL1HWqmB7VAjCAd3TjTZUnRxN2tYMsh/cv9PwnRNse8DTMR7laltPDovzEDCL+U1i
-	MA14pz0+ftutAjpNdRcYdLEZ4f1ENCOcpbVWz3G1d9Rjf5NMaFgP43+pp1IOZlCYRGzkfoEjz/D
-	+3vSEI8XXllezDiWZTYTd6MwQ5gn2hinGxF6yLRMXWfuUE9m4CmeaW929QwZN9y5LvHdeB6Lbv5
-	oFqev9hm3IiCP9NSe7kWVltJHI/coyk5c2f0nkg8RdmrQNFXqYB1kH4Q==
-X-Received: by 2002:a05:6a20:e211:b0:3dd:85a9:55a7 with SMTP id adf61e73a8af0-3de0e8b0694mr2789651637.32.1790258121006;
-        Thu, 24 Sep 2026 06:55:21 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc75f3f5e79sm2684937a12.25.2026.09.24.06.55.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 06:55:20 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Guangshuo Li <lgs201920130244@gmail.com>,
-	Antti Palosaari <crope@iki.fi>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH v2] media: rtl28xxu: fix SDR platform device leak
-Date: Thu, 24 Sep 2026 21:55:14 +0800
-Message-ID: <20260924135514.1591658-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="lMt+eMLs"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id AE6CFC23;
+	Thu, 24 Sep 2026 15:57:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790258247;
+	bh=8KMJp4l5scS6ux5Pa9OBYN91E878i428O2BdSDBLFVI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=lMt+eMLs1r5yHIJANFw4QjdwgZK1CFv+1yYIrzAAcAu+9sy4ct2q5mY04rWFSODDH
+	 wv9jcKWEoYQpWLqgeidOe3mIZ2CbNqkkp+a7uSR6BZOc+9jYiO/jW6IXxupb9CHIVq
+	 dr6NutuwWyTvNNcu3n6TUg1OrFiMMI9U6/T448I0=
+Date: Thu, 24 Sep 2026 16:59:13 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Hongbing Hu <huhb04@gmail.com>
+Cc: hansg@kernel.org, mchehab@kernel.org, kieran.bingham@ideasonboard.com,
+	ribalda@chromium.org, linux-media@vger.kernel.org,
+	linux5-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3] media: uvcvideo: defer cancelled buffer completion
+ until copies finish
+Message-ID: <20260924135913.GB135998@killaraus.ideasonboard.com>
+References: <20260903131141.6368-1-huhb1@xiaopeng.com>
+ <20260917144630.16923-1-huhb04@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260917144630.16923-1-huhb04@gmail.com>
 
-rtl2832u_tuner_attach() registers an rtl2832_sdr platform device, but
-does not unregister it if no driver is bound. It also does not take a
-reference on the bound driver module.
+On Thu, Sep 17, 2026 at 10:46:30PM +0800, Hongbing Hu wrote:
+> uvc_queue_cancel() returns queued buffers to videobuf2 directly via
+> vb2_buffer_done(). This is unsafe because asynchronous memcpy workers may
+> still hold a reference on the same uvc_buffer. Once vb2_buffer_done() has
+> run, userspace can dequeue and requeue the buffer while the old worker is
+> still running, leading to the same list_head being inserted into irqqueue
+> twice and corrupting the list.
+> 
+> The crash manifests in two ways depending on the drop-corrupted-frames
+> module parameter:
+> 
+> 1. With the default (drop corrupted frames enabled), the old worker's
+>    final kref_put reaches uvc_queue_buffer_complete(), sees buf->error set,
 
-Unregister the platform device when no driver is bound or the module
-reference cannot be acquired. Drop the module reference in
-rtl28xxu_tuner_detach() before unregistering the device.
+What sets buf->error in that case ?
 
-The issue was identified by a static analysis tool I developed and
-confirmed by manual review.
+>    and calls uvc_queue_buffer_requeue(). This performs list_add_tail() on
+>    buf->queue even though userspace has already QBUF'd the same buffer and
+>    added it to irqqueue.
+> 
+> 2. With nodrop=1, uvc_queue_buffer_complete() calls vb2_buffer_done() a
+>    second time. If userspace has already dequeued and requeued the buffer,
+>    the second completion exposes it to userspace again, and the next
+>    DQBUF/QBUF inserts the still-linked list_head into irqqueue a second
+>    time.
+> 
+> Both cases produce the kind of list_del corruption seen here:
+> 
+>     list_del corruption. next->prev should be ..., but was ...
+>     kernel BUG at lib/list_debug.c:64!
+> 
+> Fix the cancel path to remove buffers from irqqueue and drop the queue's
+> reference through uvc_queue_buffer_release() (i.e. kref_put()). The final
+> VB2 completion then only happens from uvc_queue_buffer_complete() once the
+> last async reference is released, so userspace cannot reuse the buffer
+> while an old worker still accesses it.
+> 
+> Introduce a dedicated bool cancelled flag in struct uvc_buffer,this keeps
+> the cancellation semantics explicit regardless of any later state updates
+> from the packet decoder.
+> Cancelled buffers are forced to complete as errors; normal malformed frames
+> continue to be requeued or dropped as before.
+> 
+> Fixes: 01e90464e42e ("media: uvcvideo: queue: Support asynchronous buffer handling")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hongbing Hu <huhb04@gmail.com>
+> ---
+> v3:
+> - invoke uvc_queue_buffer_release() while holding the spinlock to keep it simple
+> - Set/clear the new cancelled flag in uvc_queue_cancel() and
+>   uvc_buffer_prepare() instead of overloading buf->state. 
+> - Force cancelled buffers to complete as errors,
+>   so the returned buff->state is UVC_BUF_STATE_ERROR.
+> 
+>  drivers/media/usb/uvc/uvc_queue.c | 17 +++++++++++++++--
+>  drivers/media/usb/uvc/uvcvideo.h  |  1 +
+>  2 files changed, 16 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/media/usb/uvc/uvc_queue.c b/drivers/media/usb/uvc/uvc_queue.c
+> index 3c002c8f44..1026d7def3 100644
+> --- a/drivers/media/usb/uvc/uvc_queue.c
+> +++ b/drivers/media/usb/uvc/uvc_queue.c
+> @@ -122,6 +122,7 @@ static int uvc_buffer_prepare(struct vb2_buffer *vb)
+>  
+>  	buf->state = UVC_BUF_STATE_QUEUED;
+>  	buf->error = 0;
+> +	buf->cancelled = false;
+>  	buf->mem = vb2_plane_vaddr(vb, 0);
+>  	buf->length = vb2_plane_size(vb, 0);
+>  	if (vb->type != V4L2_BUF_TYPE_VIDEO_OUTPUT)
+> @@ -289,10 +290,17 @@ int uvc_queue_init(struct uvc_streaming *stream, struct uvc_video_queue *queue,
+>   */
+>  void uvc_queue_cancel(struct uvc_video_queue *queue, int disconnect)
+>  {
+> +	struct uvc_buffer *buf;
+>  	unsigned long flags;
+>  
+>  	spin_lock_irqsave(&queue->irqlock, flags);
+> -	__uvc_queue_return_buffers(queue, UVC_BUF_STATE_ERROR);
+> +	while (!list_empty(&queue->irqqueue)) {
+> +		buf = list_first_entry(&queue->irqqueue, struct uvc_buffer, queue);
+> +		list_del(&buf->queue);
+> +		buf->error = 1;
+> +		buf->cancelled = true;
+> +		uvc_queue_buffer_release(buf);
+> +	}
+>  	/*
+>  	 * This must be protected by the irqlock spinlock to avoid race
+>  	 * conditions between uvc_buffer_queue and the disconnection event that
+> @@ -356,7 +364,12 @@ static void uvc_queue_buffer_complete(struct kref *ref)
+>  	struct vb2_buffer *vb = &buf->buf.vb2_buf;
+>  	struct uvc_video_queue *queue = vb2_get_drv_priv(vb->vb2_queue);
+>  
+> -	if (buf->error && !uvc_no_drop_param) {
+> +	/*
+> +	 * Buffers cancelled from uvc_queue_cancel() are forced to complete as
+> +	 * errors. They must not be requeued by the corrupted-frame policy even
+> +	 * when buf->error is set.
+> +	 */
+> +	if (!buf->cancelled && buf->error && !uvc_no_drop_param) {
+>  		uvc_queue_buffer_requeue(queue, buf);
+>  		return;
+>  	}
+> diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
+> index b6bcee4a22..1b611715fa 100644
+> --- a/drivers/media/usb/uvc/uvcvideo.h
+> +++ b/drivers/media/usb/uvc/uvcvideo.h
+> @@ -317,6 +317,7 @@ struct uvc_buffer {
+>  
+>  	enum uvc_buffer_state state;
+>  	unsigned int error;
+> +	bool cancelled;
+>  
+>  	void *mem;
+>  	unsigned int length;
 
-Fixes: a2f7f220df5e ("[media] rtl28xxu: switch SDR module to platform driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
-v2:
-  - Add the missing try_module_get()/module_put() pair for the SDR driver
-    module, as suggested by Hans Verkuil.
-
- drivers/media/usb/dvb-usb-v2/rtl28xxu.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/media/usb/dvb-usb-v2/rtl28xxu.c b/drivers/media/usb/dvb-usb-v2/rtl28xxu.c
-index 487c6ab784ab..d2957e4bf017 100644
---- a/drivers/media/usb/dvb-usb-v2/rtl28xxu.c
-+++ b/drivers/media/usb/dvb-usb-v2/rtl28xxu.c
-@@ -1391,8 +1391,16 @@ static int rtl2832u_tuner_attach(struct dvb_usb_adapter *adap)
- 						     "rtl2832_sdr",
- 						     PLATFORM_DEVID_AUTO,
- 						     &pdata, sizeof(pdata));
--		if (IS_ERR(pdev) || pdev->dev.driver == NULL)
-+		if (IS_ERR(pdev))
- 			break;
-+		if (!pdev->dev.driver) {
-+			platform_device_unregister(pdev);
-+			break;
-+		}
-+		if (!try_module_get(pdev->dev.driver->owner)) {
-+			platform_device_unregister(pdev);
-+			break;
-+		}
- 		dev->platform_device_sdr = pdev;
- 		break;
- 	default:
-@@ -1426,8 +1434,10 @@ static int rtl28xxu_tuner_detach(struct dvb_usb_adapter *adap)
- 
- 	/* remove platform SDR */
- 	pdev = dev->platform_device_sdr;
--	if (pdev)
-+	if (pdev) {
-+		module_put(pdev->dev.driver->owner);
- 		platform_device_unregister(pdev);
-+	}
- 
- 	/* remove I2C tuner */
- 	client = dev->i2c_client_tuner;
 -- 
-2.43.0
+Regards,
 
+Laurent Pinchart
