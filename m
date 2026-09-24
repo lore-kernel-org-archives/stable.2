@@ -1,112 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70EA740F742;
-	Thu, 24 Sep 2026 06:51:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A551442901E
+	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 06:55:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790232711; cv=none; b=iutI1UKxIQrsB2Zp4aiPNxCi/Hq9umzn5oxejSmJtttqdvTEKbtFuArfw1I19e+V0Rcitemuy1TAdnLNvROrD9yoIybaOzuvIHAelT/IZiw2p7Lc3N3xgiIhv4jb54OGL2n3xq3avI77FD7Nvu0LvwvmFND/OTsr8SMA0b7CRCU=
+	t=1790232919; cv=none; b=mly4vEkLVfbqgz079qNIFuop3PcruOnlWl206HyBh5vEDObyI3SGP79cZnYaiP9EYkrhN/3srOgvNPNAya4/HEucP83I4B2qOt8wbG1g3PwWB9nxjyD060WEdtHairoOkWZRtkZ3eS8TGLy7Ix8yYFPeaFMUauXJEFn9Yx/Nb80=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790232711; c=relaxed/simple;
-	bh=NNYJfOklgLg4HcXtzAkf+8kbKBgKnm+T0XOt3Eu95N4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZiVGw/bmUa5PRTNOFiuVbhO4ZYGGOVsH+VSEPb4gw0jSFu1P3fQ7QQfqOy/Fo/t9xp7AvOqqCOnsZq9UmBtPQmP3zY41N0J/e8uUHVl/DbiqFUsMK8sGTdpX/t+Rsr3gxT8IxlxeJLaYPK7WUR7xZZQnKmmmc6UOT1qsRTMqR70=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jPHU3qf8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790232919; c=relaxed/simple;
+	bh=S1ifroC1rn1KTqaVlaVfiVWIPiuDCmVpTK19OnYuAgU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=sYmySbWTOo698UPsOwKXbjX5uBSwx7Xua/kLn+DsORymyJp5mGmidVcf5F9km9zSvosPpJSaHKZJF9JmgSO6+427dOBp6tQXqeS6Jl7gPfnxcA0ULzmc5qObyhUSGKOOto2pZTqS7hMfEhmrmaNYVBTXWfebF/BQZE4pUwDvLrM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aWUC+DTC; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jPHU3qf8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D26C1F000FF;
-	Thu, 24 Sep 2026 06:51:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790232701;
-	bh=eVWhuifn1b9/tjoPeosSiYv+YAEGVvC6qZC5/k9mJBI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jPHU3qf8i1CZxYwYMZlNsyrwpeEMN+F28Q9J7QTa5gBLxGsL08eOypk3d/BZ3ewlt
-	 G/0+VavRCP+5GZ9p1ABFqVaSfpf6TSuk6YrgGiLL9R3uOzlxI8ztpXCh5rdwgUqP3k
-	 4sGzgfw7oh1f8kYLTIgGBgWqzKlaMXYwqQXW1wKqsbYUExN084lKUyJTkMeOcaEhJF
-	 goajg4ERZGp8YPNRxKtqsGJ8HazryvNM0vCh5prKZB2Bw71hpJascu+cBn00nYyQq1
-	 AmIxlab+pKEAMasTEZQtU91epfAMO3SWKtHdtxWQaLOeuJUJefhBHbekzIIQm1Rmqt
-	 wJzM4lRvuhjAg==
-Date: Thu, 24 Sep 2026 07:51:37 +0100
-From: Lee Jones <lee@kernel.org>
-To: Ping Cheng <pinglinux@gmail.com>
-Cc: jikos@kernel.org, bentiss@kernel.org, linux-input@vger.kernel.org,
-	stable@vger.kernel.org, Ping Cheng <ping.cheng@wacom.com>
-Subject: Re: [PATCH 2/2] Setup touch switch for different order of input
- registration
-Message-ID: <20260924065137.GM3864833@google.com>
-References: <20260923214928.18760-1-ping.cheng@wacom.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aWUC+DTC"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccdaea76so761611a91.0
+        for <stable@vger.kernel.org>; Wed, 23 Sep 2026 23:55:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790232913; x=1790837713; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=PIMJm+VCyEzSCDqSRZoYpvVJ5wMLjOdy3cRjV6Xlh64=;
+        b=aWUC+DTCBNMvly2U1S3s0LXaor/YZTPC7zwq++FYl9N1YfvDd+edg2AbbFHA7cVccc
+         w5Hq4nzO7pgDM/nEpkeoua0JBIhhJ4yXgDVOaE4I6nOF04Dqo78SxNa2eH1ovnKbKlsm
+         JDOa+1YADyv+XlFUriHhX6rBqSwwCH0mtkgnkQ4NMY70R3oPVmWa3ivqXV/1zyBam3p0
+         y6g6ZGb0pzTj/Xk23so8fl7rLmP1q+41veRhde9MenqxtwXTejJI/M1d1J+st3QCGLCv
+         R1pCK+C6uiH/iEuv+wLF67U6zszukchwnKHaQsghlKFS/woNrzClZyoeASRqkbiwigXy
+         GDvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790232913; x=1790837713;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PIMJm+VCyEzSCDqSRZoYpvVJ5wMLjOdy3cRjV6Xlh64=;
+        b=LJ/gotUvevBWfxfUaew+00KaIzhZgIH4a4NwNJSR3YgoGje9hdeYFlY2V+GtTJrog0
+         a/KIthZOO0Aod1/9N1eTaJ5WPlsnOOXF0fVUPqvLymqj5vp2wZWDp2y1Tec7YJamwvN9
+         i+zCP4+FVyonxSXT76BMV53T8z19WiCEJyzsCQSUw+yES7QqYAqlOXhEwYSg4ft3YHqQ
+         +L7CcXMorhRcKpJzBhufHNoRhZu25f0RNsIa68GBtT776eidub3+VMIo03fxVi1/lU12
+         SAc1PCSfHx6YcRF1DUnGSh6HCnnllQ/v7JNSUnLfmW/Y56da9oVKzoe8BdMFP6/uQVpR
+         La8g==
+X-Forwarded-Encrypted: i=1; AKwUvBwIAHCsKs2LB8J/PEQLR1+InCOt26HtS5RcOtsg1oPhtB5vfzTCtlr27QbtG/zQJNgBPsqdUNc=@vger.kernel.org
+X-Gm-Message-State: AFuF++n1D3CtL135nFyec5DNbz7crHgxWO/aVhlGRsDqwmDeCm+gspG7
+	hg0ZaIuoS/u9iapZpKo3XTrgF5gvL3IWHHAaTIH8exKOgNvIdpbffKMd
+X-Gm-Gg: AYBFou3OW7b0BKwybDLgyu6gtTpMWhzwrGRF5WbGInbiotsQZM3yc4/Ye+CYjIsfVkn
+	kA0WVQQtDdJw0yOP5w4l4TFjqrdhKDm0MeA9KbjY2XSbQTNpuF+/5f9btsrDGpocpUziPzJ3MRk
+	bip9VPAG12Q6TVanUIPrp9Dz1+wyRpaX8nCFb4DEYamGWnAjFZ9B8kndTwa4695xV+F7XQbVDZe
+	bdMKkvYWZTKwv/86TbNiASAiHxAqUdPExbLR3Zm8VLGVcst7gxWawceYl9TY2xMxRUfXNfxNhxN
+	UrcU0eWdRi28E56Y9LetZqKlLqIMWY4pik4BK32E8gcb0TLZ4hZU6OmxjwiORcYTbtWwZRNg3eO
+	zQ8s06na1TUqcXd8vi5zaVqS48HS/kCCJLOfZqimO92dtY4dU06rGQqQMXwpOBa9awX9vAHKbfy
+	ulC8mDIFqgd7F9fDCg4V32rAX4xeyzEV9neF+oRfeWl9X7wqdncwhMf9yNGcwJFPzu9ynoxIy/B
+	kO5v/rXOFy3CF6P0DSpLk8TwE1gMITioagsOv/L7qrsckKbdFzYjCQyKCH53i8v0Ay1Au/oCcFq
+	ye7k/MW6Lw==
+X-Received: by 2002:a17:90b:564d:b0:39e:6c66:cbdd with SMTP id 98e67ed59e1d1-3a098acb900mr899575a91.21.1790232912472;
+        Wed, 23 Sep 2026 23:55:12 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com (67.51.127.34.bc.googleusercontent.com. [34.127.51.67])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a096a61d9bsm3218143a91.0.2026.09.23.23.55.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 23:55:12 -0700 (PDT)
+From: Hui Peng <benquike@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: jirislaby@kernel.org,
+	ilpo.jarvinen@linux.intel.com,
+	linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hui Peng <benquike@gmail.com>
+Subject: [PATCH v4 3/3] serial: core: reject baud_base values that overflow port->uartclk in uart_set_info()
+Date: Thu, 24 Sep 2026 06:54:42 +0000
+Message-ID: <20260924065510.2587569-1-benquike@gmail.com>
+X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
+In-Reply-To: <2026092417-seducing-stank-af6d@gregkh>
+References: <20260924060511.2364717-1-benquike@gmail.com> <2026092417-seducing-stank-af6d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923214928.18760-1-ping.cheng@wacom.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, 23 Sep 2026, Ping Cheng wrote:
+In uart_set_info(), new_info->baud_base is multiplied by 16 and stored in
+uport->uartclk (an unsigned int):
 
-> The refactored SW_MUTE_DEVICE code assumed that stylus will be the
-> first regiestered input. In reality, touch can be registered
-> before stylus, such as the Wacom Cintiq 13 and 16.
-> 
-> This patch covers both touch-first and stylus-first cases.
-> 
-> Signed-off-by: Ping Cheng <ping.cheng@wacom.com>
-> ---
->  drivers/hid/wacom_wac.c | 22 +++++++++++++++++++---
->  1 file changed, 19 insertions(+), 3 deletions(-)
+  uport->uartclk = new_info->baud_base * 16;
 
-Thanks for dropping my Reviewed-by.
+While uart_set_info() checks if (uartclk == 0) and
+if (new_info->baud_base < 9600), when new_info->baud_base exceeds
+UINT_MAX / 16 with low bits set (for example, 0x10000001), multiplying
+by 16 wraps around in 32-bit unsigned arithmetic to a small non-zero value
+(16), bypassing both uartclk == 0 and new_info->baud_base < 9600 and
+setting uport->uartclk = 16 (baud_base = 1, well below the required
+minimum of 9600 * 16).
 
-This still seems to have the same issues as the last submission?
+Reject new_info->baud_base > UINT_MAX / 16 before multiplying by 16 in
+uart_set_info().
 
-> diff --git a/drivers/hid/wacom_wac.c b/drivers/hid/wacom_wac.c
-> index c4cd87b781c4..9520296cb349 100644
-> --- a/drivers/hid/wacom_wac.c
-> +++ b/drivers/hid/wacom_wac.c
-> @@ -3977,10 +3977,12 @@ int wacom_setup_touch_input_capabilities(struct input_dev *input_dev,
->  
->  	if (features->type == HID_GENERIC) {
->  		hid_dbg(hdev, "generic touch setup\n");
-> -		if (wacom_wac->has_mute_touch_switch ||
-> -		    (wacom_wac->shared && READ_ONCE(wacom_wac->shared->has_mute_touch_switch))) {
-> +
-> +		/* setup touch switch for those devices that report pen interface first
-> +		 * can only be done here since we only call this routine once
-> +		 */
-> +		if (wacom_wac->shared && READ_ONCE(wacom_wac->shared->has_mute_touch_switch)) {
->  			input_set_capability(input_dev, EV_SW, SW_MUTE_DEVICE);
-> -			wacom_wac->has_mute_touch_switch = true;
->  		}
->  		/* setup has already been done */
->  		return 0;
-> @@ -4403,7 +4405,21 @@ int wacom_setup_pad_input_capabilities(struct input_dev *input_dev,
->  		break;
->  
->  	case INTUOSHT3_BT:
-> +		break;
-> +
->  	case HID_GENERIC:
-> +		if (wacom_wac->shared) {
-> +			/*
-> +			 * setup touch switch capability can only be done here
-> +			 * for those devices that have touch input registered
-> +			 * before stylus and pad inputs.
-> +			 */
-> +			if (wacom_wac->has_mute_touch_switch &&
-> +			    wacom_wac->shared->touch_input) {
-> +				input_set_capability(wacom_wac->shared->touch_input,
-> +				    EV_SW, SW_MUTE_DEVICE);
-> +			}
-> +		}
->  		break;
->  
->  	default:
-> -- 
-> 2.55.0
-> 
+Tested in QEMU against Linux 7.3.0-rc3 by calling ioctl(fd, TIOCSSERIAL,
+&ss) with ss.baud_base = 0x10000001 on /dev/ttyS1: on the unfixed kernel
+TIOCSSERIAL succeeds (ret = 0) and wraps uport->uartclk to 16
+(TIOCGSERIAL reports baud_base = 1), whereas with the fix applied
+TIOCSSERIAL returns -EINVAL and preserves the existing uport->uartclk.
 
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: 6eabce6608d6 ("serial: core: check uartclk for zero to avoid divide by zero")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Hui Peng <benquike@gmail.com>
+---
+Changes in v4:
+- Check new_info->baud_base > UINT_MAX / 16 before multiplying by 16,
+  as suggested by Ilpo Järvinen.
+
+Changes in v3:
+- Add missing #include <linux/limits.h> for UINT_MAX and move the
+  new_info->baud_base > UINT_MAX / 16 check to the uartclk == 0 check, as
+  suggested by Ilpo Järvinen.
+
+ drivers/tty/serial/serial_core.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
+index 95774b0f1484..75bb1eaa27e7 100644
+--- a/drivers/tty/serial/serial_core.c
++++ b/drivers/tty/serial/serial_core.c
+@@ -16,6 +16,7 @@
+ #include <linux/console.h>
+ #include <linux/gpio/consumer.h>
+ #include <linux/kernel.h>
++#include <linux/limits.h>
+ #include <linux/of.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/proc_fs.h>
+@@ -931,8 +932,13 @@ static int uart_set_info(struct tty_struct *tty, struct tty_port *port,
+ 	old_custom_divisor = uport->custom_divisor;
+ 
+ 	if (!(uport->flags & UPF_FIXED_PORT)) {
+-		unsigned int uartclk = new_info->baud_base * 16;
++		unsigned int uartclk;
++
+ 		/* check needs to be done here before other settings made */
++		if (new_info->baud_base > UINT_MAX / 16)
++			return -EINVAL;
++
++		uartclk = new_info->baud_base * 16;
+ 		if (uartclk == 0)
+ 			return -EINVAL;
+ 	}
 -- 
-Lee Jones
+2.55.0.1082.g2b9226bbc0-goog
