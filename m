@@ -1,41 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E349412BEF
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5EFA415F07
 	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 17:13:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790270020; cv=none; b=iTC+BvrQEyR5Rc+KKAyXQvMjOq24bFwYpUj9yjOlhVLNp0tuvim/+wdEJVwMXp0xuul3xniLFiC0XZzNL8TobEiF27ngiKg/DS6/3/6Yrjsc1Po8ZYVzJLuOHfEA5aQZ4tS7+eLFyhXIJ/SIuYi6l2Cy5ghsMGSILyT1Z77oFPc=
+	t=1790270020; cv=none; b=BeXB6LIgQOQhfsjgb2HAb+z3uffy6wZ4KxEQHNMlP7kr/IYsSJcNmzEP2/oUgcbCCQLE4mQ/KLIzL9JbMHZxPLAUcNLvzwiXRdIv/VRMVsTrv67HL5htPke+wLqHbWv7nR1eqgvvnOC74UCRPes4pSqz0R4S1PgfOLez875L0Ck=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790270020; c=relaxed/simple;
-	bh=zN2rA+uDNErOim/pO5wodMDlp+2ekudogtsv+w58fkc=;
+	bh=qgUJNbuCgdFDgW6CLiRGap1qIMadzxE8PQs8JheBUiY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kQ6z741h+SydgDJQqfA6ljWb0PvpMzriYq4OOZfrVPS1IoPQXIVXk9WMlonmDVrY/geH+EaQQM39JXerotod3cnoQnDZNe7ASiSgm1/WXTo2DQ7e7vd1yfWP104CiCrEjnWJm2kPzQbH2qZjDT75vO6f+dj6uXNbiwFQfU1PzHs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eCgPqaOF; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=lVdhx8W8csLYHuLLYP7nVZLxjqha3MB1etgkS7tIePzyg5zmE5CdqolXnqlwdlUGfY6DES9hD7TEC/81Iq2VXUQ2gcZDQTcJhu8kGt5gYBfPCM5C2l4OTwvXu3ul7emfwts56+i8QF1nD3TxzcluobtpOqHglIHmHgz9Jiuip1k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZLY6EU80; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eCgPqaOF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 757DE1F00893;
-	Thu, 24 Sep 2026 17:13:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZLY6EU80"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2544B1F000FF;
+	Thu, 24 Sep 2026 17:13:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790270018;
-	bh=rwTcumBNBm1LlMn57BiYjcZv4TFGBDo6vCs4nV38ZEI=;
+	s=k20260515; t=1790270019;
+	bh=tBfVkav/wtnNrPdyCNeuW6kdSW1mXwIuGWR/whtp+GY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eCgPqaOFvevv+t7a9mKU2wwwaaaeAYzgzyjhV84uLn36gngmmdN5kPuirTXbfxdxG
-	 YVzLNeK5nsRU3vAYr8AM39ZtGuTUtZWim5FJxkOHDKX06d5sIQVclnRzhh30F1cxxJ
-	 Di2Q29VdT7Tz2jPvnnMlky7RZVi2Vdgp21+PS3bljDRNxnkp8Y6D6VWsBAHdOarf2n
-	 4hNZ2ktEL2fHWgTWJnrLbKXKLkJofNU25dm+nSWLdkK8zNj51+5qzXFoxkY8+vtiSx
-	 MBTUIMx+RY1hsBy44Z3vtI1DgTZoLk6UA1pnaQEWZ+ijQ909iXYE0RF8nNY59RnImG
-	 2YfAIPXxSMz4Q==
+	b=ZLY6EU80YSsAybJmin9WxvrC2RSG+L4A32UcuvtKiwBp21M23sO0TsnruPkJd9fqZ
+	 zvnJPJdnmRt5Y1SpvFuIgm+JVGbbks5xQD+JE0Mh/lCr7RwWnQ4jfVF9XQq8GadEEU
+	 Q2sIr5Cwr0zhdrcaM5ElmE7rSg1MBRIE9UVbH6lZYCWTyLbro9zHGLr7U0qKE8tUbe
+	 GTWefnGyMEJpcA9vqtJS0qGB5lpjs/0hg70QfWNTGacgHZ2EH7gp5jvPICdKa74O1v
+	 BwWo2/RolLySOhe0S6a/93PJ73QZfiM2VDzr56NHRXQ1uZUNRAng6Y1aY7RRYfpBKO
+	 cu8E0omuqXKLQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Guanglei Zhu <zhugl3@xiaopeng.com>
-Subject: Re: [PATCH 6.1.y] net: wwan: t7xx: validate the netif index in t7xx_ccmni_recv_skb()
-Date: Thu, 24 Sep 2026 13:13:24 -0400
-Message-ID: <2026-09-24-daily-reply-0005-re-t7xx-netif-index-6-1-bounce@kernel.org>
+	Sean Rhodes <sean@starlabs.systems>
+Subject: Re: Backport Request - ALSA: hda/realtek: Add StarFighter HDA SSID
+Date: Thu, 24 Sep 2026 13:13:25 -0400
+Message-ID: <2026-09-24-daily-reply-0006-re-starfighter-hda-ssid@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260923022159.16308-1-zhugl3@xiaopeng.com>
-References: <2026092215-sincere-shack-66e6@gregkh> <20260923022159.16308-1-zhugl3@xiaopeng.com>
+In-Reply-To: <CABtds-0tUXgbbabA=eTj0NAkRx6oN7LHk34MMmT-GsJYuwddng@mail.gmail.com>
+References: <CABtds-0tUXgbbabA=eTj0NAkRx6oN7LHk34MMmT-GsJYuwddng@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,16 +44,12 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Fixes: 05d19bf500f8 ("net: wwan: t7xx: Add WWAN network interface")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+> Can I please request that cd401c70df472d3eddd0b6b055726a03c212181a
+> ("ALSA: hda/realtek: Add StarFighter HDA SSID") is backported?
 
-This is missing the last two trailers of the upstream commit:
-
-  Link: https://patch.msgid.link/20260911021734.1396599-3-zhugl3@xiaopeng.com
-  Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-
-Could you resend with the full upstream trailer block?
+Queued for 7.2, 6.18 and 6.12, thanks. It needs 186d4adbb401 ("ALSA:
+hda/realtek: Limit Star Labs internal mic boost") to build, so that one is
+queued too. Older trees have no StarFighter support.
 
 -- 
 Thanks,
