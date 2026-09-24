@@ -1,78 +1,45 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E98A248095A
-	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 14:44:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A64E63CC303;
+	Thu, 24 Sep 2026 14:44:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790261045; cv=none; b=otyOprQhGfIFQjKPD6dsBx6A8ihtD199Oz2ZfSkVj1WT49NC+xZiUAfK8QiReu4lsstIk8bMMmt7tOrSL0bLwc8z05CdRzSSQCtszk0xYCFVfqOPB8R2mP5PNuj6L5/deKk4nJyJt8mgMCO6wORbmUV6+6JtFexeBIF2aJqL7EA=
+	t=1790261086; cv=none; b=QoD00Pq8KIM5O3p6rlEm/IOJOSSBlPR4MwMby3g0dOmg928ka+bjzOthdknl82JNgpJnwOC3Uv/YNJGUepnB1y7/UgdheuW29l0nTD8J6CSTgMqdiJp6y9j8U5gEurcDtaZo5NLR/UO0ThYD46BDt+LmQoImFAshl0v2RWmq3Dc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790261045; c=relaxed/simple;
-	bh=sLJrYImmpj7cDJOuqV/tBWAPnB7FJaQ0Atb+mCiWXi0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VvoL0Mh8FBpH8rkUXg4KTI1pkDkPo0cCpUYOsW20BKcbCD1cOhs/Jlue41zGefJtjP10uC5Wv2jbtTIA/omViP12WQxFXQJWnrIw72VtKJx2NO6fPfL2yeSnZQiq/whtucU2Yn2xNtT0I0S3Yp53uax/rB5k060iYXN7cQc9Aq8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WRTmxSRw; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790261086; c=relaxed/simple;
+	bh=I0x4pLD4nLQwGeVJ220ZLW09C9oN4AYcKS5nDS8BcW0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=hEBX+kVYezxczu8xnON92ky2w+7PPi+dy3tgsRKtiA3CXCL+Z2WlRUtewcdGAd3XWGtUOgTNJj+f08N8N4f+qJd8MR27xrA39I5odPygiuclT42QwqCUNURy8AEs00lTYRkW7ij4bePkx3UfFhKBliAbX35qsLByVANvausreUA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=fLltML4s; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WRTmxSRw"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4aa0f1a94so950492a12.2
-        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 07:44:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790261043; x=1790865843; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BDZWmJgca/oRmUPYb8QTvKV4Z0J2CBYz2565yw2xf3w=;
-        b=WRTmxSRwis/UanTHeTpTr3J+xKDuEswXPLqM85GQUpLA/nrg53JCYR29/+Rq85XDsh
-         GfeQlM4/pYrOn8QYFuDdi3iu0UTvYYr89E+ZAOo0fX1HEs82+VZrRcEyBNU1wnnz15K+
-         0NC/hz5ICDbY1phbxfEyx/1K2pSUiI3prBXr/+y56ywh82o3hYrtMznrSol+vFdjpyLs
-         Cmc4GUgBeTxJ24sT1H5cqdiLfQ0/VA1UHy+rXbSLJfFuQ/+rQXjnOETlrIF7Z+pmkSIs
-         q3B2bfKa0BajiMbDL10nb4jaHYXFJMM3uZu1qBDBD30JEy4Z+i1d7vHwUP1t4B+vyNw4
-         ZQjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790261043; x=1790865843;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BDZWmJgca/oRmUPYb8QTvKV4Z0J2CBYz2565yw2xf3w=;
-        b=oJO3HUG0Lm1RlC0g/ZzF/N9smwYI/vGE8noAjkSa6m/eZ0djgiuiI9qJDQY6XgtIVa
-         SBawN45WDICJ1mg9sBsQrAH3LlMvhnVryKyjwhOCnBeRE12B3u1hLwNaFD0f7s4RB1qm
-         wrZsVdVXLXT+9JvohgevgDNPxOxRff6rJzI/CbOj4fABCX8FAwiun+/cwh8peO77dnGB
-         enKixTlTmQ8NEOHHZKmuOAx5ia9h1SV37x1YtkOB9xUezIbB1mwH2Z9vsPK2SaHnQsdE
-         3oLo6BSgFvkNu1Y1s8MeGJxk5ezq9a8mi1t/qUuX0KLw8tYfQLHxaEADCXXpRuSX8xOM
-         6SBQ==
-X-Forwarded-Encrypted: i=1; AKwUvByiw+E6qiSSMxFhHrjgUxbGI2ID41pmo7ShDxeIFPqEa50nlD0rqDZ1kVVAkyLNPgqfO0srf34=@vger.kernel.org
-X-Gm-Message-State: AFuF++nqcrsTSGDLAsnt1aFgwlGjkQhc0wKAOnYb3R1/rW9/fwY0U0qn
-	iD5DtQH6clNm91WY6VoNd+PxzHxchgq2r4xVE1BYyPmfalFB9CwPBE3FH8Vn586e9hsF1A==
-X-Gm-Gg: AYBFou2dYN6sALlf/sCvDo4CqwtiC4RsMe0WN/1DOhZV6ONTGtxtqP15A95SePrZSvN
-	xYK8beLNKglvEJprTqzqKEf34WZACM3ku68y7rsqfUxez+h8wZxKKGIUQ8ijGyoNgdMYqzz0trw
-	6m2vRof/XiOAH7llE+Z9uOHUpEpNTQ6ukZTXO4EkbAiC2X97quwHemK+DzXJCJqmbUweOUXJo+w
-	OX/QUMlCUmWmV3+Kis36J3ho2vBQd1d1vfrzdi4+qSoApOb5QU1qPLIalDeOfMGXEoh51c5MLAF
-	Eit4M92265csw6e7maneWi/nvNWbhs964bTK9Hq9RPvuJda7YHb2bsKC0wETK6HyetWYOP+gzXe
-	WEDlfbyAZq4HkdDJVc9i5fLI7B9RQns2Va58QnyRnOI66NdedAs4f8O/gCLIIov4vve9Q0yn/J+
-	Z4VQjhe9mGT6/5f3BzyCL9lewH4BDpxGDqqmhDAvMZCpV04c9yMN6nXUd31YLQzw==
-X-Received: by 2002:a05:6a20:9149:b0:3d3:ae40:51e7 with SMTP id adf61e73a8af0-3de0e762e07mr2709521637.27.1790261043213;
-        Thu, 24 Sep 2026 07:44:03 -0700 (PDT)
-Received: from lgs.. ([47.82.103.134])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc75f3f2d0esm2982721a12.22.2026.09.24.07.43.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 07:44:02 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Linus Walleij <linusw@kernel.org>,
-	Lee Jones <lee@kernel.org>,
-	Mattias Wallin <mattias.wallin@stericsson.com>,
-	Ludovic Barre <ludovic.barre@stericsson.com>,
-	Samuel Ortiz <sameo@linux.intel.com>,
-	Julien Delacou <julien.delacou@stericsson.com>,
-	Alexandre Torgue <alexandre.torgue@st.com>,
-	linux-arm-kernel@lists.infradead.org,
-	mfd@lists.linux.dev,
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="fLltML4s"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=7e
+	zqlRLaB/m82usWg35QC8fvDRKkXCvResgkSMj6v4E=; b=fLltML4sm5NFTax8s8
+	ORfI8rRW6bh3YxosViHrBCNLheLyJnd70aZwBjabi2AWOLOFa0nkfBSLwh4kPl4P
+	PR7uK8F9QlRlcZNMKwNgzsFl7J08k/53sBAvOSm+pDZAY8+7G38ZtKCVbeI5YpmK
+	85OfGaWXMxR2mGhWZrzW3QO8o=
+Received: from pc.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wD330ZHN7VqyTtKAg--.25624S9;
+	Thu, 24 Sep 2026 22:44:33 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Rishi Gupta <gupt21@gmail.com>,
+	Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	linux-i2c@vger.kernel.org,
+	linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+Cc: Jiale Yao <yaojiale02@163.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v2] mfd: ab8500: fix child device leaks on probe failure
-Date: Thu, 24 Sep 2026 22:43:55 +0800
-Message-ID: <20260924144355.1604369-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Subject: [PATCH 07/10] HID: mcp2221: validate response report length
+Date: Thu, 24 Sep 2026 22:44:10 +0800
+Message-Id: <20260924144414.1192037-8-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260924144414.1192037-1-yaojiale02@163.com>
+References: <20260924144414.1192037-1-yaojiale02@163.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -80,97 +47,46 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD330ZHN7VqyTtKAg--.25624S9
+X-Coremail-Antispam: 1Uf129KBjvJXoW7tFW5tr4kAw4rXFyxWr4rXwb_yoW8GF43pF
+	Z0q39YyrW5Jr4I934DCr1kG34fG3Z7G3y7uFW3W3WrX3s8Gw1YyF1j9asYgrWrXFWvgFn3
+	Jws5KrsxGa4j93DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pMnmiXUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzhHpJGq1N1FNCAAA3u
 
-ab8500_probe() registers MFD child devices before completing the
-remaining device initialization. If a later MFD registration or sysfs
-group creation fails, previously registered child devices are not
-removed.
+MCP2221 responses are 64-byte reports, but mcp2221_raw_event() currently
+accepts any report of at least four bytes.  Several response handlers read
+far beyond that minimum.  In particular, the I2C status response reads
+offset 20 and copies ADC samples starting at offset 50.  Other GPIO, SRAM,
+and flash response handlers also access fixed offsets beyond byte three.
 
-Use devm_mfd_add_devices() so registered MFD child devices are removed
-when probe fails.
+The HID core invokes raw_event callbacks before validating the report
+length, so a truncated response can cause an out-of-bounds read.  Require a
+complete protocol report before dispatching any response handler.
 
-The issue was identified by a static analysis tool I developed and
-confirmed by manual review.
+Commit 47669bec44fe ("HID: asus: refactor the two workqueues and init
+sequence") added the same kind of raw_event length validation to hid-asus.
 
-Fixes: cca69b67b3ba ("mfd: Export ab8500 chip id to sysfs")
-Fixes: 9c717cf3fa16 ("mfd: ab8500-core: Add device for new RTC version for AB8540 cut2")
+Fixes: 67a95c21463d ("HID: mcp2221: add usb to i2c-smbus host bridge")
 Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
-v2:
-  - Use devm_mfd_add_devices() for all MFD child registrations, as
-    suggested by Lee Jones.
+ drivers/hid/hid-mcp2221.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- drivers/mfd/ab8500-core.c | 44 ++++++++++++++++++++-------------------
- 1 file changed, 23 insertions(+), 21 deletions(-)
-
-diff --git a/drivers/mfd/ab8500-core.c b/drivers/mfd/ab8500-core.c
-index f0bc0b5a6f4a..55dd9ad285ae 100644
---- a/drivers/mfd/ab8500-core.c
-+++ b/drivers/mfd/ab8500-core.c
-@@ -1194,39 +1194,41 @@ static int ab8500_probe(struct platform_device *pdev)
- 		return ret;
+diff --git a/drivers/hid/hid-mcp2221.c b/drivers/hid/hid-mcp2221.c
+index d52ce3531ab7..db0b15622c39 100644
+--- a/drivers/hid/hid-mcp2221.c
++++ b/drivers/hid/hid-mcp2221.c
+@@ -865,7 +865,7 @@ static int mcp2221_raw_event(struct hid_device *hdev,
+ 	u8 *buf;
+ 	struct mcp2221 *mcp = hid_get_drvdata(hdev);
  
- 	if (is_ab9540(ab8500))
--		ret = mfd_add_devices(ab8500->dev, 0, ab9540_devs,
--				ARRAY_SIZE(ab9540_devs), NULL,
--				0, ab8500->domain);
-+		ret = devm_mfd_add_devices(ab8500->dev, 0, ab9540_devs,
-+					   ARRAY_SIZE(ab9540_devs), NULL,
-+					   0, ab8500->domain);
- 	else if (is_ab8540(ab8500)) {
--		ret = mfd_add_devices(ab8500->dev, 0, ab8540_devs,
--			      ARRAY_SIZE(ab8540_devs), NULL,
--			      0, ab8500->domain);
-+		ret = devm_mfd_add_devices(ab8500->dev, 0, ab8540_devs,
-+					   ARRAY_SIZE(ab8540_devs), NULL,
-+					   0, ab8500->domain);
- 		if (ret)
- 			return ret;
+-	if (size < 4)
++	if (size < sizeof(mcp->txbuf))
+ 		return 0;
  
- 		if (is_ab8540_1p2_or_earlier(ab8500))
--			ret = mfd_add_devices(ab8500->dev, 0, ab8540_cut1_devs,
--			      ARRAY_SIZE(ab8540_cut1_devs), NULL,
--			      0, ab8500->domain);
-+			ret = devm_mfd_add_devices(ab8500->dev, 0,
-+						   ab8540_cut1_devs,
-+						   ARRAY_SIZE(ab8540_cut1_devs),
-+						   NULL, 0, ab8500->domain);
- 		else /* ab8540 >= cut2 */
--			ret = mfd_add_devices(ab8500->dev, 0, ab8540_cut2_devs,
--			      ARRAY_SIZE(ab8540_cut2_devs), NULL,
--			      0, ab8500->domain);
-+			ret = devm_mfd_add_devices(ab8500->dev, 0,
-+						   ab8540_cut2_devs,
-+						   ARRAY_SIZE(ab8540_cut2_devs),
-+						   NULL, 0, ab8500->domain);
- 	} else if (is_ab8505(ab8500))
--		ret = mfd_add_devices(ab8500->dev, 0, ab8505_devs,
--			      ARRAY_SIZE(ab8505_devs), NULL,
--			      0, ab8500->domain);
-+		ret = devm_mfd_add_devices(ab8500->dev, 0, ab8505_devs,
-+					   ARRAY_SIZE(ab8505_devs), NULL,
-+					   0, ab8500->domain);
- 	else
--		ret = mfd_add_devices(ab8500->dev, 0, ab8500_devs,
--				ARRAY_SIZE(ab8500_devs), NULL,
--				0, ab8500->domain);
-+		ret = devm_mfd_add_devices(ab8500->dev, 0, ab8500_devs,
-+					   ARRAY_SIZE(ab8500_devs), NULL,
-+					   0, ab8500->domain);
- 	if (ret)
- 		return ret;
- 
- 	/* Add battery management devices */
--	ret = mfd_add_devices(ab8500->dev, 0, ab8500_bm_devs,
--			      ARRAY_SIZE(ab8500_bm_devs), NULL,
--			      0, ab8500->domain);
-+	ret = devm_mfd_add_devices(ab8500->dev, 0, ab8500_bm_devs,
-+				   ARRAY_SIZE(ab8500_bm_devs), NULL,
-+				   0, ab8500->domain);
- 	if (ret)
- 		dev_err(ab8500->dev, "error adding bm devices\n");
- 
+ 	switch (data[0]) {
 -- 
-2.43.0
+2.34.1
 
