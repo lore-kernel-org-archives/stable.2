@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 259DD37D124;
-	Thu, 24 Sep 2026 14:01:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11E8E37BE86;
+	Thu, 24 Sep 2026 14:01:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790258496; cv=none; b=hQZLpX3rQluc6rqUT+cmjIpygfXoJPQFxsxQ6v9ll5m2rvRUrv4XtEeOeL2UnftBITV/1K1exOcMklFfFE6yDNTQ1+kLB1mWL713I1p2uAqzu+E2hfSI3E+JyvhvELkgIJtoEtb4Ava1a+GVjOrz2o8k7xMhG5nZDrwzRhIUbIw=
+	t=1790258496; cv=none; b=jOYuJpYB4moykLoNzNBNl1/fvGUNWDEfwru3yz27457zXiFh0BXRqTASnOuUDsPsBdutgYC22PUDlBtP6XDc/Q0TgkpzPhRZIj0MtfTcYnCAQBzzQgt3ZFHfbNoKZ+m4evTKrrXB1LFyGqAASgtH+7jmSRgwMO/3Uj7CcRAD/QQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790258496; c=relaxed/simple;
-	bh=HQO6s5NSPIkZ8lJjSMxREoTe6x3ksQXgpWt1Xk24wJ4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=SQSp8WHkFoCeIDFQjMTziwc0V/7WeiV4HdgGowdQEYnIbPvg6XlJJaEQ64z0Mu5cV/rljCcIzKRvY/gNwfkLvng2VJ1imqlsJ/JBvgdkCXKCbVRh1Z4fXnl9YP29X6m+0wE+jjVN94wbs6MbTVkiUOALlp4pqQOUb8ptqAJ7l44=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e2xx/w1M; arc=none smtp.client-ip=10.30.226.201
+	bh=6JGHabwRWmpDCBWI59Z99X50itb/iYbgKpJnZE32Ln0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=W7zPAOvPfZj05ht/5XxT4ONpJLi7OLMdJJgXYG+bRvjd4gJqOyMfJED/tvy9JdUDmC9z4JAlMa6vD6bfp2rGaIDaoWik2Ro0/evYPKrNQfwkzXJv+/gr1wPydtUCgHtDEMBEPbp0xBGeIsR4BXYUyy2ZSvrzQasy88tWmegGw14=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kIW0kLP/; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e2xx/w1M"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C1B92C2BD00;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kIW0kLP/"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 8B356C2BCB3;
 	Thu, 24 Sep 2026 14:01:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1790258495;
-	bh=HQO6s5NSPIkZ8lJjSMxREoTe6x3ksQXgpWt1Xk24wJ4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=e2xx/w1MON657rJKlDZfCW7LHRDXJsaIY5BuMVkEesy7eKoB/ElTNt2K7k4uIVxVT
-	 bjEh2NJ1dwoRFKLzXCTHTpPMw7yELf+a5Q3KoSk1PHy2b3AKg+cwDTDDzGR3VQli/m
-	 8DveYG9n4u4cDTts83uQ6mnTifg2tzFJLxwBWdeNOLv8BUnmOomxRQp/ioNF/cz1JP
-	 fbz9TBlok05ln0pB3qn1R4F6nyGlaQtho+9JEx30EqCB6m/lG0kzokEV6/ErUnF/kK
-	 xDvoZziZX+DI5numLHPxCq6t1E887M0MT/r31JX64v4LCEkowmHsFimrHluADHVK+p
-	 xQgcyQ2i1ofMA==
+	bh=6JGHabwRWmpDCBWI59Z99X50itb/iYbgKpJnZE32Ln0=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=kIW0kLP/5mtTw1DHR0DzSRw6j5wuwduiGycKnDjmwyBTu950qxjFZJu/U1nwBFfoH
+	 qfaCyGO0WLa9z1bksbWkLtuKiCayPtA7LtZ+BSOOb338sECbiNmuMOMDJk/mCmbeFL
+	 5QoVuu/2Jz59C/npUVwRfGkXs2JxS8LVy/y8quX3KczZ+qm0mjBakcdITfuxjf6jOY
+	 9he+8vE3YgQLgdLs6fKg0sKfARTvcAF/Fnwcu8+bwN5f20KEzgqCPpIWl53h2ebKs1
+	 DFiBnWmP/7OQiV42vc+Q78JF1sFvHHNmhfx16PtrbdI5u5RE/LZM0s6J+Xd5tFpq4w
+	 PMgufql8o56rg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AC2D4C98317;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 73C3FC9831E;
 	Thu, 24 Sep 2026 14:01:35 +0000 (UTC)
 From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Thu, 24 Sep 2026 16:01:31 +0200
-Subject: [PATCH v2 03/11] drm/panel: s6e3ha8: Really assert reset on the
- failure
+Subject: [PATCH v2 00/11] Pixel 3 XL display panel support
+Date: Thu, 24 Sep 2026 16:01:28 +0200
+Message-Id: <20260924-crosshatch-panel-v2-0-08d5c7bf72fc@ixit.cz>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -41,9 +40,11 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-crosshatch-panel-v2-3-08d5c7bf72fc@ixit.cz>
-References: <20260924-crosshatch-panel-v2-0-08d5c7bf72fc@ixit.cz>
-In-Reply-To: <20260924-crosshatch-panel-v2-0-08d5c7bf72fc@ixit.cz>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2WNyw6CMBBFf4XM2pq2iZW68j8Ii9IOdowB0qkEJ
+ fy7PJYuT3LuuTMwJkKGWzFDwpGY+m4FfSrAR9c9UFBYGbTURpZSCZ965uiyj2JwHb6ENB5LZ2z
+ bXFtYZ0PClqY9WdUH87t5os9bZzMice7TZ/8c1eYdeavlf35UQoqABu1F6eCsudNE+ey/UC/L8
+ gOjaRtowAAAAA==
+X-Change-ID: 20260801-crosshatch-panel-06ce8a69fb7f
 To: Dzmitry Sankouski <dsankouski@gmail.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>, 
  Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
@@ -58,69 +59,69 @@ Cc: Petr Vorel <petr.vorel@gmail.com>, dri-devel@lists.freedesktop.org,
  linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org, 
  David Heidelberg <david@ixit.cz>, stable@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1446; i=david@ixit.cz;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1970; i=david@ixit.cz;
  h=from:subject:message-id;
- bh=sUy0BR5Bzr/Y22ddFb/f+LRIKy5v8DuL6NuaUod5V1U=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqtS08wHR9zYSx/3A2hmDQ05c0FOMS965h5V6ML
- hEg8/cxi+CJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCarUtPAAKCRBgAj/E00kg
- cq8JD/4wsfSqoqairaLYwA3fSUe7IyhRf9Us7/9/0O2w6U4oV58WwpwXYz1aF/oR2Ld+37tSCrp
- 9f8AZsVIKqLL8ykHh45L9s6XcAFc1SoXhVes5WdbyQq+HweLzf0McOYZIG/sKup4nQJovUTuQft
- O2S4j5tQzrlA/rJr5TQmYYb4oCioOuahLb4Lzp0ezRsBBnXo17UieJnKvp6dZD5vSbq2ZnBpHG0
- v/AbASTfUczXTkMMQzZL4N+62ZdpLd4BZ396DWNNHQs2AayCWC4lt3ZWHOYtHS+ZqtuMR37KUVl
- kPRZmdcyK5wrZny7vW3aqgBcUo4dHDdlLKQaQM6Bp0UiITCP1nc9mREDTt4zjNFpXZ3ECVcQXCe
- Xrb0YH7Jx8liPGpFyU1J0zJTiWUBTpg3f0QH+kN5WIxKTcvM8TBEkFF/SeoS5NldFDntmA3i/l2
- 8OInuoHyvsuIGht01GzUACKMnXs/YBwcCZqhHimQE6w8GOg4OD9w3fV546/yEaexNDHAXSUYgfj
- zYaX8qVMhz+Gh/YGxF4rgo5ndFrNPYZq7WL6VkJvFlXznIpJaO/Mu9+35hYxkOKcubVrXqWldo8
- nTwVqvux6WJjac/UKMLn30L4acxcxHNArJVUibYYTMSmG+2kUUadYdullZU3DooMhnOXDwIHbSj
- OTZavnrCWCIaX4Q==
+ bh=6JGHabwRWmpDCBWI59Z99X50itb/iYbgKpJnZE32Ln0=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqtS08Dk8l2uXKE36uyRLVWoZjZkieSzDdrqR9I
+ dCdfi2WxOWJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCarUtPAAKCRBgAj/E00kg
+ cuyAD/9osXGW+rWDY7F1S0MsR2H7g77JFd+exO2DFA+ZAx91qW6Xp2her/gV3xXiSEuPezjMNTv
+ H1bLed5aS3whJwxlsKSciLtJmGyplhv+b1Qk2+F7Qsv1Xz5ov06UmUciBgD7jtzn8scUvY0Lh0u
+ 1Dd2a+/551xTYi5ux16P5ib9GjgZnUn7IXMtH/05Y0ENdoQXwdSb7Bi4Dfbdz8k1YHKc8HOuYUg
+ IbPoyCCQfP8XSP3OCKff4p8//ym3pufbmuKHEKpYBwP6LKpCUYVTNHSg+2UZ9GTdcJHdjtzqwIh
+ TAkkM7/z/YEZebQXpuuHMAP79+u1PCyEpLLiv10LlTrGsN3n8Hz1JJezr8p9LwNfhJfRC+uKDlr
+ ZpaLY+X0CpIQ0FnFqgrIYMyLlm//P+w3hVJJveFnn9AOb6ylWiJxNoREeKr16sWgTassOPv7ngT
+ 4CY2n/559U6BTW5G7iSbDlWohGWVo0EE+5ffuu2GZSr7JQr6m3FaruD9gOefIA0k89UHyg1dw7f
+ zLLzJeYKVjvFhi76gwK/Ek+JFzV7/Nw6G+77iOTgtCk2YuV79iKFXwpn0RQUzFk3hUTI6aeXcuI
+ CXNS77L2XgwCAXFmt5MGq0n1pgILXLCaoGKcKGoW4NtnagpeXPl1RETZu0q0WhIZaBPSQnJjY9p
+ LDFbM71z6ruTaOw==
 X-Developer-Key: i=david@ixit.cz; a=openpgp;
  fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
 X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
 X-Original-From: David Heidelberg <david@ixit.cz>
 Reply-To: david@ixit.cz
 
-From: David Heidelberg <david@ixit.cz>
+Introduce Samsung AMB630QY01 (Google Pixel 3 XL) panel.
 
-Due to incorrect implementation 0 == asserted, thus when driver fails it
-needs to assert reset.
+Includes refactoring and improvements to the S6E3HA8 DDIC which is also
+used by Samsung S9 (Korea version).
 
-Minimal fix for stable; the polarity convention is corrected properly
-later in this series.
+Patches 9 and 11 switch to the new compatibles, so they must not reach
+the qcom tree before the driver patches land.
 
-Fixes: 779679d3c1640 ("drm/panel: Add support for S6E3HA8 panel driver")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Changes in v2:
+- Rebase on top of next-20260923.
+- Cosmetic fix s/Cosmtetic/Cosmetic/ fix in the commit msg. (Neil)
+- Link to v1: https://patch.msgid.link/20260920-crosshatch-panel-v1-0-de6e9512da96@ixit.cz
 
-diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
-index 078523df48860..835121b322f4a 100644
---- a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
-+++ b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
-@@ -179,17 +179,17 @@ static int s6e3ha8_amb577px01_wqhd_prepare(struct drm_panel *panel)
- 	ret = regulator_bulk_enable(ARRAY_SIZE(s6e3ha8_supplies), priv->supplies);
- 	if (ret < 0)
- 		return ret;
- 	mipi_dsi_msleep(&ctx, 120);
- 	s6e3ha8_amb577px01_wqhd_reset(priv);
- 
- 	ret = s6e3ha8_amb577px01_wqhd_on(priv);
- 	if (ret < 0) {
--		gpiod_set_value_cansleep(priv->reset_gpio, 1);
-+		gpiod_set_value_cansleep(priv->reset_gpio, 0);
- 		goto err;
- 	}
- 
- 	drm_dsc_pps_payload_pack(&pps, &priv->dsc);
- 
- 	samsung_dsi_test_key_on_lvl1(&ctx);
- 	mipi_dsi_picture_parameter_set_multi(&ctx, &pps);
- 	samsung_dsi_test_key_off_lvl1(&ctx);
+---
+David Heidelberg (11):
+      dt-bindings: display: panel: s6e3ha8: Adjust to reflect the DDIC and panel used
+      dt-bindings: display: panel: samsung,s6e3ha8: Add AMB630QY01 panel
+      drm/panel: s6e3ha8: Really assert reset on the failure
+      drm/panel: s6e3ha8: Introduce AMB577PX01 panel compatible
+      drm/panel: s6e3ha8: Prepare for supporting multiple panels
+      drm/panel: s6e3ha8: Correct the polarity logic within
+      drm/panel: s6e3ha8: Assert reset GPIO in unprepare
+      drm/panel: s6e3ha8: add Samsung AMB630QY01 (Google Pixel 3 XL) panel
+      arm64: dts: qcom: sdm845-samsung-starqltechn: Update panel compatible
+      arm64: dts: qcom: sdm845-google: Move panel pins into common
+      arm64: dts: qcom: sdm845-google-crosshatch: Add display panel
 
--- 
-2.55.0
+ .../bindings/display/panel/samsung,s6e3ha8.yaml    |  46 +++-
+ .../arm64/boot/dts/qcom/sdm845-google-blueline.dts |  18 --
+ arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi |  16 ++
+ .../boot/dts/qcom/sdm845-google-crosshatch.dts     |  60 +++-
+ .../boot/dts/qcom/sdm845-samsung-starqltechn.dts   |   4 +-
+ drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c      | 304 +++++++++++++++++----
+ 6 files changed, 367 insertions(+), 81 deletions(-)
+---
+base-commit: 3d7783543c2646af69ad65825e810060494bea21
+change-id: 20260801-crosshatch-panel-06ce8a69fb7f
+
+Best regards,
+--  
+David Heidelberg <david@ixit.cz>
 
 
