@@ -1,128 +1,157 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2C9340DB59
-	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 19:35:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CCB43E44F6
+	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 19:55:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790278547; cv=none; b=gGjdMuOsUs+E9EpuYzPayaFMgxcwc5tmPF9Pjram8ys9Gs5xzPDsZ3H100/FnWH3U0l/3Cgvf3QkrDRbTHQkNxHCb/whgS4sANX4WtN8UR9VPfLIgSxRzRo5S7aC5QKYs8R1t/lXNW8v02ypKXu9yFN79p82GMSTKKREEooPLrc=
+	t=1790279741; cv=none; b=MJvxosTS33JC+SoyL4MZ01voUQ7RPFNuRMBgKMaY7ylQIKkDoDoGoe9KNrFWpuEnVpTRhFbpw3WQn5jjYJBv2Ae2KzsOAQmMlfeLwxoNC3nx6J121IohPCVAA0oMl5qRXyL/+IR15sX9qh/jR6H5iRXBGVykXvAQ8sMI66bmJtY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790278547; c=relaxed/simple;
-	bh=Q9V/OyxnzpEXhb1+HiEXe9l33vd3hEia2l4gk0QcaEc=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=OYDuEQzeHo+0GCL1y3fGcesqiCLN6IDRa+c/BMo5ybGFq+9S0AVByTuhskFBtGO0Zkl0AvBbCswAtpGIlEdHT7TdOzmNWb8X+Nlwp2KjuuwE3M/n8nKyjNF6SyFv2/RppDc8Z3wOzAPw68876gI+Sxqt+LdwfVSVP31/QWwRfa4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=GyxDHMEw; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=VyRZePYn; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790279741; c=relaxed/simple;
+	bh=D7keJcwSqQOp0NdseY0wgS/ZtqGq5arWxyNwX4kPY/4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=pyf9azLTcCerCnHA1kncw1OsnxO5I5IMdmsAafwphbVlcy9MKZ3Uk4O3wQ2pn9EmRmZ5QIZk/G8+KrGxCrnLtRSAMcPAvm3+ppBnnlAcsbw40HTAjNhlWKhehN+WxUmK81XMErfXOoVooDPYKAxCFsNzEiBOwzP+UJjGSrALrqs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T2ffVWZT; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="GyxDHMEw";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="VyRZePYn"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790278541;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=faoj1Myu+9icVQdUpGQqIdpGYG/tK6O2kdZEgu4Y+4w=;
-	b=GyxDHMEw9Ice88SdB3avp+QzveJ3pGOAyczCrL8fZYS1/Dq97t5ivMapi+8TW3nZRq6VyW
-	5FNLy9PT+NNFpH2cTpWvUYxvaSYgpbBfzMIVjCF6cb7AsQIJxMd5W2fXLSvPAO7jJFj13X
-	6/DHU7iyl5eSj33XW/vXNRP2Ik+cPpI=
-Received: from mail-yw1-f197.google.com (mail-yw1-f197.google.com
- [209.85.128.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-88-YHLLZVziPEy2aN-Vb0osrQ-1; Thu, 24 Sep 2026 15:35:39 -0400
-X-MC-Unique: YHLLZVziPEy2aN-Vb0osrQ-1
-X-Mimecast-MFC-AGG-ID: YHLLZVziPEy2aN-Vb0osrQ_1790278539
-Received: by mail-yw1-f197.google.com with SMTP id 00721157ae682-836caf085e0so2995267b3.1
-        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 12:35:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T2ffVWZT"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d3920so1509935e9.1
+        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 12:55:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790278539; x=1790883339; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790279735; x=1790884535; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=faoj1Myu+9icVQdUpGQqIdpGYG/tK6O2kdZEgu4Y+4w=;
-        b=VyRZePYn25jjRwexYbALRmCNDrC9GHE35CcaCAgLOlZW+7zLrq5pMTg0fQFqnnwV6o
-         S1Ib5l/u42gL3DK5W3YHUOQcElC844LABzbEdVekhyGlLt79G0WluxQH2KKtCQYqbAbU
-         4ljI7FOoVkUAD15VgkXbRHTDh4erudX4Xu9uaP7mHJ4EIQW9zjIkmLn/+sY4koA0quPB
-         pSeNpXH29yJjioN+Jllzk42XP9/axysho0IbQ0xjk/IFnYekoMuS7hrO/AdjNZg7o1lP
-         f+K8qM6wT//g6iK89IR/LRpDLHrK8C9a5nkFu3YB28R7t2dA17516KYFUHJLjdgmhhgP
-         XPiA==
+        bh=enCFhbXwk6dv8V+Qy1/Wb32GY2e39ckcjINn4OP9c1c=;
+        b=T2ffVWZTjlXPmKdN31mN2kxJ4x/5mXymv4ikfd6E22R1vjZeaF1eLaUr96Io7vQp4j
+         4K4CtDcMiiHlQ60CgKcSwXFH8vpTH4j/EDOzPH3Hyun+ZhdgN0IBm9Iv54ust0QaI4tj
+         Wn6QN2zc/O2eDpDtlYeLZPR07XM7oUX/rW42MVVYVvGDce6tGTGXX7OuMYnHrCg4UaGH
+         wVjku4mUnKRKg/9W/8I0x3BbKBFEoCIhQGkopqw4AFaEqKtXy+l398U+No5UqSvMG8G6
+         +HEr2VOP+MJKeM/lWjs2nAc4lw6ZJzpwR8eLScMFs4vH7hOQwhXPBESnUnMemNH7yeWF
+         13KA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790278539; x=1790883339;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=faoj1Myu+9icVQdUpGQqIdpGYG/tK6O2kdZEgu4Y+4w=;
-        b=RJ+qRBUNSuMsBDOMZT0EGSIEw/PB3EHCukZkFZmyvm7s+onP/6LjRm29OsoWq4QpJr
-         vzQmTS3OzQjJnb9Se2qbt3ACOh9UbtbyNxmUb/5c5Ql+oxn+vElVMLRLKbaQVxGGRbue
-         DKz1wC8h31sV8AW2NgeBmFJ0dhaloHYZrOcdZ+SgjOABW4Gi5lat+HdkdoYS0YlmCAOG
-         myFsDrU1LVq5z4yyIOFl4KGILnlOcetD5AJQeI7KPpoYCGY3sETN9jxa1jAKDVrj9qMq
-         csqoP2F6Es6pG8DCqRgXscMCcCgOgHD/rgHXE0kuSyvGfdwiBfn9yLRmgqstr235vF2P
-         XKAQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzcLQ+CgBqOv7+YF6uHz0XNu3AMJGNp5KgcnNio+0/A3Lyh0EsJgw2QX6/f3X4fpsr2PR1bFAI=@vger.kernel.org
-X-Gm-Message-State: AFuF++ly4INdOb5QEriBVxAU23LWeYbCIO+OSIm26NmAmsKhFfaabVzf
-	h/OxNF5fyrg24s7g347fDGwkVQtDeN2CsmIS17LbkWU2MG/+BoSy6Kb2wf9hGIqeXhP8+HtwDJJ
-	tntl+9S+6ZK6Q7RrGXoAfefYfVx862az3UmRenwoRJE5c+dl7sAN8nkeQyA==
-X-Gm-Gg: AYBFou351eUIOho5/F9Akohk0V+AtJgPHcLfwQdJk9LEFiT7JacB7pznoRSFlzsx75r
-	Bz7mo1kawL4D8uLYfcnn23dlYCuk9ZcOuNj6zcaTiO/Rqkc/7X7ntmrHjMJ20HqUloAOnV3mT28
-	9TQh0KR0dcYR72iTP2tTn5qgQ1+QBJ6/xPCJuNwXV6KxCG240xcyt56dWGj7LFCJBrmftEw+Hn/
-	DJ+kQ2ZhSv72FBzt8OK6yZIXkFcUxqXnmund/Tz+uxCvuCgs2MEqsuN6QVREgIOiKESfjr/XWXT
-	5OAV9jjjzEbRMSRRSduC1K8BAFDI7VbffiIvyNrx/SQ82x0MvAHxkDp8OMI+36i7BGMxWBq+uYz
-	z75CjJHE=
-X-Received: by 2002:a05:690c:e21a:10b0:89b:689d:3a73 with SMTP id 00721157ae682-8a64968736bmr19121817b3.42.1790278539148;
-        Thu, 24 Sep 2026 12:35:39 -0700 (PDT)
-X-Received: by 2002:a05:690c:e21a:10b0:89b:689d:3a73 with SMTP id 00721157ae682-8a64968736bmr19121737b3.42.1790278538479;
-        Thu, 24 Sep 2026 12:35:38 -0700 (PDT)
-Received: from [192.168.134.224] ([2600:382:8501:4f43:e566:7498:c7c8:a7ec])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a860fbcb2csm997117b3.25.2026.09.24.12.35.36
+        d=1e100.net; s=20260707; t=1790279735; x=1790884535;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=enCFhbXwk6dv8V+Qy1/Wb32GY2e39ckcjINn4OP9c1c=;
+        b=H6DgKG5JW15rd8wZ3MN7dPgfTZnPsstLlSQAaU0i0TyKkIVnaLfmC1du1JWlaAuURc
+         arFw2m8Yte9NomqQS9qiRZFo1Wg03xBj05G30DRTm/yLB8ynXAK8wQQTf3g7/o4V9xoS
+         jKaSKTrsEeQsitzAFvvklMfqHc9T8miWqnwk5GDm3fh8nC1qTQyy+wpV1FYPLhlN0ns/
+         lseEQfmo83k8zutkhOAmlf2PO3cQivfvq6bYIaPN/H8iV70xZlPvZuNfGQFptiURfRnG
+         QaNCfnVesBvFhzfwY4jRs/lL3MA41MFc97vS6WEwzUySOhcD9Do/OTwCkqWSyhbBNsLj
+         LzZA==
+X-Forwarded-Encrypted: i=1; AKwUvBz1xZVMwKFVEQONsORDZILZpo5fPqidzjuFzezd4lDXnO4mNTewXmCf4di+Rtc9wHgDMn3CLtA=@vger.kernel.org
+X-Gm-Message-State: AFuF++l1wjWBufYM+pQ8wY+W/66AN0yO0hLkSMFC3XfBJd+0xKkLjDYc
+	UIjXM2HKvXsFZ7JYIl7PVg6inSZ2MaHxebqMqWd9vWat45Uvc9eEyDjm
+X-Gm-Gg: AYBFou3DCT/vJP19RC18kEpxjKlmFnnnM2gJ+mqUlhsyUOey/I010AzfVOx8nPlmaT6
+	Ya9Ojdlb2/kEXPYYkrxUVO5aWhpDZJgLcutKQHJzvOsUk0nmopgAWXyZ5OY4OdKrLBC/NYrAfPz
+	yqrnNIf8+9fXzUrJ480NkzdbjmTUIwEKWpNCHX0FDYKUR2geml+KoyNthqxbXpgTQ4iikpzghH4
+	cnn0ZOJt+XozSiiIyT0KJPdaJ9lk/AEaabqcToN2MkQ4O2bfiu5PgvwWosFADqlt45NQOzU12hc
+	NfjTJQWQFUfB4q+bs1tCw9qCNq9ePuk77nwgTPXQekOZ5aeYzkhF907gqigALGYEHmPJyzc1jDJ
+	eeF79bvsToU89PvQ4sV2yymLLf0eb0lH+1Ldx2ZOYucjp/i6PBno8ba6n8ngP8YMR8wcRZx0jQV
+	B5XK/pH+Oz+fnvICFaO9IdyhFMMTicNhci89C67J5DQhIvP9cw3WNeV/UMgAJVZ/wbuoQ2A5FuO
+	jdoRquQv5JqGsHntrdiQ8GmQjg6uFaxaDil93LFTD012X7leFNQ
+X-Received: by 2002:a05:600c:6290:b0:49e:799a:8969 with SMTP id 5b1f17b1804b1-49fe6707bb7mr68120475e9.30.1790279735177;
+        Thu, 24 Sep 2026 12:55:35 -0700 (PDT)
+Received: from fedora ([202.47.63.86])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff06cbd2dsm1277235e9.12.2026.09.24.12.55.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 12:35:37 -0700 (PDT)
-From: Brian Masney <bmasney@redhat.com>
-To: Gregory Clement <gregory.clement@bootlin.com>, 
- Andrew Lunn <andrew@lunn.ch>, 
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, 
- Aamir Ahmed <elb12345@hotmail.co.uk>
-Cc: linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Kees Cook <kees@kernel.org>, 
- linux-hardening@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <AS8P251MB000199E5C86A0447B3FC48EDC8B42@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
-References: <AS8P251MB000199E5C86A0447B3FC48EDC8B42@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
-Subject: Re: [PATCH] clk: mvebu: ap-cpu-clk: Assign .num before accessing
- .hws
-Message-Id: <179027850326.211017.6896107198657392154.b4-ty@b4>
-Date: Thu, 24 Sep 2026 15:35:03 -0400
+        Thu, 24 Sep 2026 12:55:34 -0700 (PDT)
+From: Muhammad Bilal <meatuni001@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Jessica Zhang <jesszhan0024@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Sam Ravnborg <sam@ravnborg.org>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Muhammad Bilal <meatuni001@gmail.com>
+Subject: [PATCH v2] drm/panel: tdo-tl070wsh30: Remove panel on attach failure
+Date: Fri, 25 Sep 2026 00:55:12 +0500
+Message-ID: <20260924195512.336690-1-meatuni001@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <message-id-of-your-v1-email>
+References: <message-id-of-your-v1-email>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=317; i=bmasney@redhat.com;
- s=20250903; h=from:subject:message-id;
- bh=90S9+JQ9kh2224ZVg9ldJrz1f/1vkihNmKSNrXDf66s=;
- b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLK2Vrf4iC9aYqXVz71kbdH+Ov1saU+nCVp74zj/zdWyX
- mEz/UV/RykLgxgXg6yYIsuSXKOCiNRVtvfuaLLAzGFlAhnCwMUpABO5x8HwP+Xe94k/F3Qz7le/
- aWa/fb275ucvfCwNMmdm2e078PxT8TyG//k/v/++Pquid3fu0QMaWlpS1TdcLl8o4LMx/e64uC9
- zATMA
-X-Developer-Key: i=bmasney@redhat.com; a=openpgp;
- fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
+Content-Transfer-Encoding: 8bit
 
+tdo_tl070wsh30_panel_add() calls drm_panel_add() to link the panel
+into the global panel_list before tdo_tl070wsh30_panel_probe() calls
+mipi_dsi_attach(). The panel object itself is allocated with
+devm_drm_panel_alloc(), which only arranges for an automatic
+drm_panel_put() (via devm_add_action_or_reset()) when the DSI device
+is torn down; unlike devm_drm_panel_add(), it does not call
+drm_panel_remove() for you.
 
-On Sat, 05 Sep 2026 21:48:07 +0100, Aamir Ahmed wrote:
-> clk: mvebu: ap-cpu-clk: Assign .num before accessing .hws
+If mipi_dsi_attach() fails, probe() returns the error directly:
 
-Applied, thanks!
+        return mipi_dsi_attach(dsi);
 
-[1/1] clk: mvebu: ap-cpu-clk: Assign .num before accessing .hws
-      commit: b4243850393f2f24e21b9f4b2c56233e60c904b4
+Once probe() returns an error, the driver core releases devres
+resources for the device, which drops the allocation's own
+reference. But drm_panel_add() had already taken its own reference
+and linked panel->list into the global panel_list, and nothing
+undoes that. The panel is left registered in panel_list pointing at
+a device that failed to bind, where it can still be found and
+dereferenced by later lookups/iterations such as
+of_drm_find_panel() or find_panel_by_fwnode().
 
-Best regards,
--- 
-Brian Masney <bmasney@redhat.com>
+Switch to devm_mipi_dsi_attach() so mipi_dsi_detach() is handled
+automatically on unbind and tdo_tl070wsh30_panel_remove() no longer
+needs the manual call. It still returns directly on failure without
+touching panel_list, so drm_panel_remove() stays on that path.
 
+Fixes: cf40c6600592 ("drm: panel: add TDO tl070wsh30 panel driver")
+Cc: stable@vger.kernel.org
+Suggested-by: Neil Armstrong <neil.armstrong@linaro.org>
+Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+---
+Changes in v2:
+- Switch to devm_mipi_dsi_attach(), as suggested by Neil. Drop the
+  now-redundant mipi_dsi_detach() call from remove().
+- Keep drm_panel_remove() on the attach failure path, since
+  devm_mipi_dsi_attach() doesn't touch panel_list on its own.
+
+ drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c | 11 +++++------
+ 1 file changed, 5 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c b/drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c
+index fa961abdd2d7..ea59d4993ff5 100644
+--- a/drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c
++++ b/drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c
+@@ -179,17 +179,16 @@ static int tdo_tl070wsh30_panel_probe(struct mipi_dsi_device *dsi)
+ 	if (err < 0)
+ 		return err;
+ 
+-	return mipi_dsi_attach(dsi);
++	err = devm_mipi_dsi_attach(&dsi->dev, dsi);
++	if (err < 0)
++		drm_panel_remove(&tdo_tl070wsh30->base);
++
++	return err;
+ }
+ 
+ static void tdo_tl070wsh30_panel_remove(struct mipi_dsi_device *dsi)
+ {
+ 	struct tdo_tl070wsh30_panel *tdo_tl070wsh30 = mipi_dsi_get_drvdata(dsi);
+-	int err;
+-
+-	err = mipi_dsi_detach(dsi);
+-	if (err < 0)
+-		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n", err);
+ 
+ 	drm_panel_remove(&tdo_tl070wsh30->base);
+ }
+--
+2.55.0
