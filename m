@@ -1,122 +1,90 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DC3B4C224E;
-	Fri, 25 Sep 2026 15:16:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DB6D37C0F5;
+	Fri, 25 Sep 2026 15:19:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790349422; cv=none; b=rbB+/lDW7jfitlbo163WBdenfa1NPf2dBDYemLcw9lFE4Hk6D1ePNHxQ+SddzdUp9cJ6mAozrv7nNTEt8b64Ht8rX9KUk/BjMOVCNEWjevPO0l2/MXidPG/oh5yKrPQ33HqzA8/Q1Zy0gKAceubcjFl95tOMMPE6uGJWQX55azI=
+	t=1790349557; cv=none; b=CtLN7x9+Wh94PzDyMCdnNHVjbN029lKzMpGepF8MwRybswat5xy3lDa4MIX8NNlHrYt7ygtIk06HsA+D+mc+oq3qyvhNW/V2uwZgNiBg7xm3KAxhPNtULLtD3TSfvVjbd+PvGplJnvqtw6eX4GgXES1N9Au/cZDwFW5TYC3ulXE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790349422; c=relaxed/simple;
-	bh=hsmDrcqcGoLBbnD4/iajFZ0f2RVfLNsSqZHH9SodEGg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ne9Qooczt/IOVvZiizPsCl8YSKxbQmHwL5S45kdT8mhJI+loKW3nhph5XSqN+2vpGAvfutqoP0ys3FD4ye6/Y0a2dDI7V7u6BlBt0iHeq7g9cmVFGdpTLMZvGu/Dlg02lpe7Tj5U0xRHCH2RYlFjyZpmWV+LbL+XG3LubIgugP8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=FYdShQnk; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1790349557; c=relaxed/simple;
+	bh=TpSqpNqKyuSoyeWtU1IVlmeYJTWYXguelTZlF/N9oM8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=iEhspaAcv/Rnce5QripUv8U+z4uL5zUj7L8jrPGWZhmsVzyGwAtHFfm4TIeyUOjst7pbP43JHA5qgznPAKWDu98MggKoV9i/nQ1MA1vGciu3P0RzpR2r/nPVW9+RfSeU9Ga2sWsghMN8DJuF4lvW+0vvhcFfI5VGdTNzCJbHBz8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gQMRXT2S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="FYdShQnk"
-Received: from [IPV6:2001:1aef:17c:c89a:bc5a:ffa6:6d36:3fe4] (2001-1aef-17c-c89a-bc5a-ffa6-6d36-3fe4.ip6.tmcz.cz [IPv6:2001:1aef:17c:c89a:bc5a:ffa6:6d36:3fe4])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 3606A53401DE;
-	Fri, 25 Sep 2026 17:16:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1790349409;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=kGuuv0z/tHb25VQiTnRfTY6Toy9a9VIcqsfNc1WxIGw=;
-	b=FYdShQnkQ7IPYxOfb8kU8rG5p88uPQWNyrhYGSXSzk7B6PdHQsdrvLIypijOgjgu+Jpvx2
-	ASpDSILJ5deK61IWQiWL4xYufRtIX9CeK9MXaKs8nVBTQou8FwvX3P9WVQE40Oamrc8It6
-	JM1LvJNaQVUcnM7/goGJznNgq32+7fc=
-Message-ID: <aaf33c3c-7a52-4afe-82bb-930b553a4b39@ixit.cz>
-Date: Fri, 25 Sep 2026 17:16:48 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gQMRXT2S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D90E1F00893;
+	Fri, 25 Sep 2026 15:19:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790349553;
+	bh=Y6/QROIQGqleWmHbIv1YDGIron6nQb66ooTgjR8V0ag=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=gQMRXT2SAcebjcduC+LVDKul05frsCc2GYK30kgkoyHfetIipmEVvAgYP+8DO5pbD
+	 DsFmzcVQZJ1I3wDSRhiva53JdpA9U+xIj4JBYFlzIjmcTz8RFUqVWcCvjFjJyT4gQG
+	 1CIccSkH/Fm6Ei986b5sB4Lu5GgLMdmc0c1try3mwww1nEaaiogo07EfMuCohar1gX
+	 s7BDBekKSkM4B3dT/sISOyBkvjcOEChb3nXTtLMjXulhNM5T4kVTWo4kBhtK5e8dC9
+	 lwwPH93ocQNyh6mpoeXdcghgsCvYoKMMhPrkETL7c74BBkiIU5joyj1YYgTtmTzPzV
+	 uTIKtdfw+j8YA==
+From: Mark Brown <broonie@kernel.org>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: lgirdwood@gmail.com, linux-kernel@vger.kernel.org, m.purski@samsung.com, 
+ stable@vger.kernel.org
+In-Reply-To: <20260917143052.2156903-1-vulab@iscas.ac.cn>
+References: <20260917143052.2156903-1-vulab@iscas.ac.cn>
+Subject: Re: [PATCH] regulator: core: Fix coupled regulators reference leak
+ on removal
+Message-Id: <179029222340.149798.2335376229223099439.b4-ty@b4>
+Date: Fri, 25 Sep 2026 00:23:43 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] nfc: llcp: check socket state after locking in
- nfc_llcp_recv_dm()
-To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com
-Cc: horms@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-References: <20260923133339.2518641-1-qwe.aldo@gmail.com>
- <20260925023509.3060096-1-qwe.aldo@gmail.com>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <20260925023509.3060096-1-qwe.aldo@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1156; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=TpSqpNqKyuSoyeWtU1IVlmeYJTWYXguelTZlF/N9oM8=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqtpDtMwqQIkfu8fXvPS0kSS0bQktXCF72rSfHJ
+ FrE8dJaPqKJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaraQ7QAKCRAk1otyXVSH
+ 0EecB/4puWlU11SYpfUFj5+k7Rr4SdaS08noMASqXMiD0gr8toI4184/lgEKrEs1GEZj+TChJDu
+ 8BQ0tOxrr4DM4n00mMQPaR+X/MdQqLXjj7vOZ52vPieLZP3LUU2ox3Ge4pGftGCYO7IE56vsmnl
+ 3/ElbbibB533/A7HEiZJbtZ0cqN8kAuFP4G6SjN+/MfDqPmoCdzR3gdAegzJFyc1MaXXGgys1d8
+ X5zAX04gm1MJodJ0e3zGRL6j8ptu70jdf7Vqj4VXtWP0vI5YfcT7m8CdrqJhfhPfvOzEeNWytHk
+ Cva6RvbG0WiFmFmoPJc/WYQSLv7BJUQdRu/EymVSlA2dUxy5
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On 25/09/2026 04:35, Aldo Ariel Panzardo wrote:
-> Between nfc_llcp_connecting_sock_get() and lock_sock(), another
-> thread can move the socket from connecting_sockets to sockets via
-> a failed connect + re-bind. After lock_sock(), the socket may no
-> longer be in LLCP_CONNECTING state, so unconditionally unlinking
-> from connecting_sockets corrupts the wrong list.
-> 
-> Add a state check after acquiring the socket lock: only unlink
-> from connecting_sockets if the socket is still LLCP_CONNECTING.
-> 
-> Fixes: bf1460acdf8c ("nfc: llcp: Fix list corruption / refcount desync in nfc_llcp_recv_dm()")
-> Cc: stable@vger.kernel.org
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-> ---
-Thank you for your patch, but please never send new version OR another patches 
-as follow up to existing thread.
+On Thu, 17 Sep 2026 14:30:52 +0000, Wentao Liang wrote:
+> regulator: core: Fix coupled regulators reference leak on removal
 
-Please read: https://docs.kernel.org/process/submitting-patches.html
+Applied to
 
-Thank you
-David
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.4
+
+Thanks!
+
+[1/1] regulator: core: Fix coupled regulators reference leak on removal
+      https://git.kernel.org/broonie/regulator/c/b9205f0837ca
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
