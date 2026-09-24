@@ -1,81 +1,82 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD1133C13EE
-	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 10:00:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A4184071E2
+	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 10:00:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790244046; cv=none; b=lmj2ZHoXC4BjLE854Qcodw2SYdNZd/hcc5WmwAiJj6dSYXHdOKltuB7wc+uYeSSW0bbUuVIRA2LoVj9rvd/da/FSnlgbXWP4QjiSBU1Mw3cTuXqe53dHISLc0O4S+K2mclkxoBd5NqGq7diBbbmQSoEn40LpT6pSoFHRZqR8FCg=
+	t=1790244051; cv=none; b=eMgjW01N3hzAqv8RmeN9UpI1ooVnv/45pVtSTmx6RJlC/KtPJfZggUinsKN2CCXVo8cB1dtB/QfaZxkibcqbXjnPT2ZpFc2aEZADNr3PY0gI/qgzGysYulT+p/+jT7IOnYLmXlYC19IpcDwAZ0TARfl6wMv/1ZEMqFdjx5UrW10=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790244046; c=relaxed/simple;
-	bh=nwaYkLbsXfKCJjGkeRjXJQ6s3GI3fNcy0etbBPov7F4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=M+y2xTqz4SnD/K7SuyBEzpB6nz7JtLDIPx4FDdjTbQVtks6fo1kmx6X+6eCk+qzVJxDctExB/3WJ+idj9fHlePl7wY2uZaolhWtt9dTI2iBKN4OZFvVmAnUnC7RDThaatrmPebV+FmdveFDIrmvJcQY0O4Ss9tP66h+JDU9sDOQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nnV06heG; arc=none smtp.client-ip=74.125.228.140
+	s=arc-20240116; t=1790244051; c=relaxed/simple;
+	bh=dszis8Niv47E42Xdhjmyu9YfEidDCYxTVb5wGh2KKns=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ROMXPu8uN/0UmdvAae5r1Q9rfELkDZdVLyenhje5nIAyGb1B2r61iMXKcsVWrsbGiOow3UcIqLqYnHC0D4tYxDodgv/tWpVctLUi2q8GlOi+93+hLcCS+Bv6sXsg5Y9BfcXueUiCHbivj1vrE+GldLH96yWLQK9tPmr2c5LYVy8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n8/nNUg6; arc=none smtp.client-ip=209.85.214.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nnV06heG"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f9f0b20so285511766b.3
-        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 03:00:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n8/nNUg6"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2dd1dcdcf95so3585605ad.1
+        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 03:00:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790244029; x=1790848829; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=U6oEIghWvcJ4GRb1a00MSWjde3NQ7RviSDO9ePyO6Z0=;
-        b=nnV06heG/ot2k7wc4CyHxJ9gviveiXqs9gQ/UUcL4UdxKHteC2ZMTmLuCeyW+M1Vkw
-         5S+uVnCykbcKSUB+z26n6+gyh6w/cbnAYcAS+Qu1Tj0IHIlMZfzBbsGP/KZbim97QLBR
-         ts7kxzl1hOJF8fqOP3q8mTpJ76qhIUUPWir754aSU5q22a/ozyAtFWhbiU0SDnhc44I3
-         NMVqcJjQH59KKVGiKKf0IhAm4eu1HSk774hnvWKhE0S2mSAUxprBiypADVZ661BpD6xb
-         UKyqH8tXRmpFh29iailXQbcUExrCpNxe83iXyN7gitmHtIRXUfw98gnx+dBYo3XkiCVP
-         FoYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790244029; x=1790848829;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790244023; x=1790848823; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=U6oEIghWvcJ4GRb1a00MSWjde3NQ7RviSDO9ePyO6Z0=;
-        b=D5Ox4DM71P74ix4Ga+vU3oZedEaOg6weo7Qkvu+ZNKzPTsK9st9UscA2lqhV1GzSQL
-         cO10W9TktGUvctDd0s+RGt8wO43EaVWyBQk8FdbDz79Cka43tA424G2HpvCgGnHi22Yz
-         84wbTP1o5JkGq6YWDgpc9IWKjM8EmpXMbN3uzJjF7jnmw4viZjmY17qNkdK09+rssne6
-         jxk86IwTO+MkcumeWeEUZ+UrqlQAG68MYP6j8gB9BcDhiUbJ+QGaeok1ZqMwpu1U1fz/
-         TTEUz/PW+Di51HFfIrwDO+3V4R20tF7bZvxOOeQ91PnjmM5vdyF4nO5xjr8BiE+eU8Ff
-         Heqw==
-X-Forwarded-Encrypted: i=1; AKwUvBzcTduWgvS4SoUhwYbJjo6BWy96AqelsFjzQe9K4UG6C9OG9/NDz5pCtkTKU3XsQzxBKkCQDr0=@vger.kernel.org
-X-Gm-Message-State: AFuF++l4Mc8+agYu0ThNIAjlLQCp1WzHAgsdROuT54PKosSdpqy6qDhP
-	1B+QOlBqnIM6/MP4G0O/xmzfIvJgC1psYf4xWlxPAoP631I1P2x7CZ5E
-X-Gm-Gg: AYBFou3bDRm0RsTucaUBKAv9yw0lAcI+LV9wCCF95kHeY26FovltcCigTUoD05OPfEJ
-	B9ile+8OHnZ4doCdx+Z+9A47iSBBr84oDw9bULlgKvBh3EMPhIMy9bPRe6BXpPrVeWkdS17Euov
-	Ij2f44H79GpBx+CtAdvkSw6/U1NkIY4qJvMnIrv/Xtz2cchz7bQAjO17ppdk0TRByIY8G3PXQUE
-	jblXeqjYzI6UsTyq+47SolY5lnutGxV5h+cUZp+G2YpSffydNhcrBQbMmfg3lFczd1DWg7QPGbq
-	KGAJAXREOg5sews2Jv/pG2sz9umRFf+x60bkM1PTqb5G6RF25oXLRVRa3L2VP9xfGWeSgPNpHWA
-	uyDfumtrMGNQNwvR5EvYlJRNZ9WfH7oSp5+YXtv7Rqg0kJq5ItvfGsacI/XhpGtygQwekmZDCDb
-	YURMwWOIoWAZkLPb2YpSQhHCwN5wTag+9zY+XR0xEzb1gRDutudxAMph6qr53O5+ANejZ9Ni0/6
-	GH0kTk/GU9z2R5M
-X-Received: by 2002:a17:907:9407:b0:c29:f0ec:1c15 with SMTP id a640c23a62f3a-c2ac20ab89cmr165652766b.6.1790244029398;
-        Thu, 24 Sep 2026 03:00:29 -0700 (PDT)
-Received: from localhost.localdomain ([94.240.182.136])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aae6682d3sm260123766b.40.2026.09.24.03.00.27
+        bh=bDu5V8VFjj7o7vcgGcrsEHmG2L9tByu/suT9MpcaWQ8=;
+        b=n8/nNUg6XPe6Nc69cIIizAbF9mdxa4Aso/uQUJpn383E0KwExDIa9qM7ZUjRsmWJPZ
+         px4jr3pGQZRuBi/ICZTpFSTGnO8JoPe2qH/jqfTBte+hRKWjfZFu0eG0Pkig6rvXkVYM
+         GVL3JVvnBGIekV9jSEzORi+nIlRBxtyw06yAz3s8KMy5L4cYkdPSA3VutElaFu4hv8dv
+         oSOo49J4TggNGgWy3PkOjOD/s1Pb3MdrqUpdcxaggYum5y7Alb+m5vaOVp70uzhGpXmU
+         sAEi4nJDSOHv/x+JB+gHWfU/aFNA+CvBdVdgYmKLFTbVhAM1QsZ+1Sp+NpLO9dJMLs6k
+         0EtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790244023; x=1790848823;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bDu5V8VFjj7o7vcgGcrsEHmG2L9tByu/suT9MpcaWQ8=;
+        b=L+G2A63m+3GupxCojLVgwAJzm4WCtpP9K2rry+Tgc8fDMq5WQH6YGJw5CtmxXd/QNe
+         JbXGXNVZDn4H2v6vmQeuqglEuzKHID21w+Co9fppEydxMHJD4rASE3x3FAI7j66K4w6u
+         86XyMQ+ozC30hRzFzHSW7WqmWFnj9ZstUqbaJVZunGxR+uAepqir6CkOFIpKF33N7yxx
+         6TGaweHRHWZDFDagH3UbFl+iA1xNyrmPd/fHz+2cw2VFF9LlxlMBdYVaNyIe6pVjdxwo
+         SvBMleJ8K/b4U8oYSQrZjzPMYP2pWD7jGsNU+bxgW+giVOMUCXYjdAfukQdZcZ1B0/q6
+         Gjkw==
+X-Forwarded-Encrypted: i=1; AKwUvByG7ms09bJziE42qbXuhxZU6Oyq4VALAycYNztEeiEByGRmsINUV3ZK3O7qIAcW4n2BS/DsSps=@vger.kernel.org
+X-Gm-Message-State: AFuF++mtIRfPX4VHjaYy6tVErJAD0lNAe+nCcB9pQn30R4txvjWpCz3S
+	RqcWtbrpT0bu2i/7Ln8rESnMeYxVKcN79L2b56m9BprCkmaJ14pCKaUA
+X-Gm-Gg: AYBFou3pKAY0or6+OW/MWliChNGPP26oXSQ7QarGRnbr6T6rTP3rUBKdjx77HlF2HxA
+	PFJAg4UiTKJcMQquwqopiFfgSwFqb8y6RCNrKUsXuXHCSD+MMTPBzrQiuC15GdY2jMKVMZitT1I
+	mMPQazvnMjAFnU/ua5fXUa33z02gmFLdqOdH3Gm6tN5H/8p8exX3+35meC9E1+PYcTeYC0Qr5pG
+	j4wsFSDG70o0+L+3GBNSp1WyPL1US68ZtHc5k2pG3qKfDPN9u9uSOomx8drvRsQMJIj7cgONV5a
+	SDh3VeEn85hosqh4ZBdF7DekffkcdZV4wFF8ajK9zLIk0uGcTWo2qNlZRyBauyM2wQgnQowGBhG
+	SU5sv4QQs01jLLimEnTbdyjaPG4In05tXoiodXlEzSyToSCb7rXOC6Zd0hjvx+s+JXrI1xGfJv/
+	Phe3xjyG4ycjIuL/zMCzpYn0E/ElhR868Cndo8z9J/zuteqJ22EWl+vhr/2U+GkAiMRPU6viaXP
+	Gim57Bnub0G6i2Tqqx4TkGrBusUpUwpQWza/3Pg/gMF+N7V2IjLgvYOiQHmFXB/qnzNUcHBtKQD
+	5P1LNYiZ2A==
+X-Received: by 2002:a17:903:17c7:b0:2d8:d4d2:d138 with SMTP id d9443c01a7336-2df7e251f68mr11229755ad.20.1790244022862;
+        Thu, 24 Sep 2026 03:00:22 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com (67.51.127.34.bc.googleusercontent.com. [34.127.51.67])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a516d58sm24409255ad.11.2026.09.24.03.00.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 03:00:28 -0700 (PDT)
-From: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
-To: anthony.l.nguyen@intel.com,
-	przemyslaw.kitszel@intel.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: intel-wired-lan@lists.osuosl.org,
-	netdev@vger.kernel.org,
+        Thu, 24 Sep 2026 03:00:22 -0700 (PDT)
+From: Hui Peng <benquike@gmail.com>
+To: gregkh@linuxfoundation.org,
+	arve@android.com,
+	tkjos@android.com,
+	maco@android.com,
+	brauner@kernel.org,
+	cmllamas@google.com
+Cc: maco@google.com,
 	linux-kernel@vger.kernel.org,
-	Svyatoslav Nikolenko <nsvatoslav515@gmail.com>,
-	syzbot+ca1ef9e2e234b8d3599b@syzkaller.appspotmail.com,
 	stable@vger.kernel.org,
-	Aleksandr Loktionov <aleksandr.loktionov@intel.com>
-Subject: [PATCH net v4] net: e1000: fix warning in iounmap on probe failure
-Date: Thu, 24 Sep 2026 12:59:55 +0300
-Message-ID: <20260924095955.3471-1-nsvatoslav515@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	Hui Peng <benquike@gmail.com>
+Subject: [PATCH v2 2/2] binder: free transaction buffer via binder_free_buf() on read -EFAULT
+Date: Thu, 24 Sep 2026 10:00:19 +0000
+Message-ID: <20260924100019.3389555-3-benquike@gmail.com>
+X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
+In-Reply-To: <20260919213650.3316812-1-benquike@gmail.com>
+References: <20260919213650.3316812-1-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -84,52 +85,74 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When e1000_probe() fails, the shared error handling ladder attempts to
-iounmap() the hw->ce4100_gbe_mdio_base_virt pointer. If the hardware is
-not a CE4100, this pointer remains uninitialized (NULL). On architectures
-like x86, passing a NULL pointer to iounmap() triggers a WARN_ON_ONCE,
-which is fatal under panic_on_warn.
+In binder_thread_read(), if put_user() or copy_to_user() returns -EFAULT,
+the failure paths call binder_cleanup_transaction() without setting
+t->buffer->transaction = NULL or calling binder_free_buf(proc, thread,
+buffer, true).
 
-Fix this by conditionally unmapping the CE4100 MDIO base only if the
-mac_type is e1000_ce4100, matching the exact logic used in e1000_remove().
-The hw->hw_addr iounmap() remains unconditional since it is guaranteed to
-be valid for all error paths reaching the err_sw_init label.
+Because allow_user_free remains 0, the binder_buffer and all translated
+binder_node / binder_ref references inside it are permanently leaked. For
+oneway transactions (TF_ONE_WAY), node->has_async_transaction remains true
+forever, wedging all subsequent async transactions to that node.
 
-Reported-by: syzbot+ca1ef9e2e234b8d3599b@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=ca1ef9e2e234b8d3599b
-Fixes: 13acde8fffc0af ("e1000: Fix the CE4100 bus type for the MDIO/PHY registers")
+Fix this by setting buffer->transaction = NULL and calling
+binder_free_buf(proc, thread, buffer, true) on put_user() / copy_to_user()
+-EFAULT errors in binder_thread_read().
+
+Tested in QEMU against Linux 7.3.0-rc3 using a multi-process C reproducer:
+triggering copy_to_user() failure on a one-way transaction: on the unfixed
+kernel, binder_cleanup_transaction() leaked the transaction buffer and
+left node->has_async_transaction set to true (wedging subsequent async
+transactions); whereas with this fix applied, binder_free_buf() is called
+on -EFAULT, clearing buffer->transaction and freeing the allocation cleanly.
+
+Fixes: 44d8047f1d87 ("binder: use standard functions to allocate fds")
 Cc: stable@vger.kernel.org
-Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
-Signed-off-by: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
+Reviewed-by: Carlos Llamas <cmllamas@google.com>
+Assisted-by: LLM
+Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
-v4:
-  - Actually include the code changes (v3 was sent un-staged by mistake)
-v3:
-  - Switched from pointer null-checks to checking hw->mac_type == e1000_ce4100
-  - Removed redundant check for hw->hw_addr since it cannot be NULL here
-  - Added missing Cc: stable tag and Closes tag
-v2:
-  - Expanded commit message to answer reviewer questions (reproduction details)
-  - Added appropriate Fixes tags
-  - Added Reviewed-by tag from Aleksandr Loktionov
+Changes in v2:
+- Split out as patch 2/2 as requested by Greg Kroah-Hartman and Carlos
+  Llamas.
+- Added QEMU test procedure details in commit message body.
+- Added Reviewed-by tag from Carlos Llamas.
 
- drivers/net/ethernet/intel/e1000/e1000_main.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/android/binder.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/net/ethernet/intel/e1000/e1000_main.c b/drivers/net/ethernet/intel/e1000/e1000_main.c
-index d7f5c6f16142..d7e279b739b8 100644
---- a/drivers/net/ethernet/intel/e1000/e1000_main.c
-+++ b/drivers/net/ethernet/intel/e1000/e1000_main.c
-@@ -1227,7 +1227,8 @@ static int e1000_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 	kfree(adapter->rx_ring);
- err_dma:
- err_sw_init:
--	iounmap(hw->ce4100_gbe_mdio_base_virt);
-+	if (hw->ce4100_gbe_mdio_base_virt)
-+		iounmap(hw->ce4100_gbe_mdio_base_virt);
- 	iounmap(hw->hw_addr);
- err_ioremap:
- 	disable_dev = !test_and_set_bit(__E1000_DISABLED, &adapter->flags);
--- 
-2.47.3
-
+diff --git a/drivers/android/binder.c b/drivers/android/binder.c
+index ee01e6a06631..efff59853752 100644
+--- a/drivers/android/binder.c
++++ b/drivers/android/binder.c
+@@ -5127,24 +5128,32 @@ static int binder_thread_read(struct binder_proc *proc,
+ 			trsize = sizeof(tr);
+ 		}
+ 		if (put_user(cmd, (uint32_t __user *)ptr)) {
++			struct binder_buffer *buffer = t->buffer;
++
+ 			if (t_from)
+ 				binder_thread_dec_tmpref(t_from);
+ 
++			buffer->transaction = NULL;
+ 			binder_cleanup_transaction(t, "put_user failed",
+ 						   BR_FAILED_REPLY);
++			binder_free_buf(proc, thread, buffer, true);
+ 
+ 			return -EFAULT;
+ 		}
+ 		ptr += sizeof(uint32_t);
+ 		if (copy_to_user(ptr, &tr, trsize)) {
++			struct binder_buffer *buffer = t->buffer;
++
+ 			if (t_from)
+ 				binder_thread_dec_tmpref(t_from);
+ 
++			buffer->transaction = NULL;
+ 			binder_cleanup_transaction(t, "copy_to_user failed",
+ 						   BR_FAILED_REPLY);
++			binder_free_buf(proc, thread, buffer, true);
+ 
+ 			return -EFAULT;
+ 		}
+ 		ptr += trsize;
