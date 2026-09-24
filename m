@@ -1,136 +1,164 @@
-Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011054.outbound.protection.outlook.com [52.101.70.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 184474503E1
-	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 09:52:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.99
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790243567; cv=none; b=tbI8QE01fZVBr4WoDbZeaMnkRoX1V5WAZFo8Vib7JlU7CQHDsqYndODs1PHnrDJK5QxZkBhzcbdTpPjqfK1BnCzz+FZRTggkm5i7Rjn+Zce90f8RvGR7L2iBKY0Glmthcx8+Jk+D3Qb8V8hNowc/s/1GnSJgb1q6gAQYXbpS29k=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790243567; c=relaxed/simple;
-	bh=rTAeLUGzo8r0TuAfsid4fA9EZfYaJkVHTjAke4swyEQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=e5sV0bkGfPlvzuiBhOZhpCSWPT0WbNqfgQikRux/ltbq9pXCsDgTk+aD9JqWgLpOkghcWob70fgbIJsBqJvxQhx1Ctv5FTDxsI2Ht2nn414u1xMDMK6a2sSxSWbcdjW0q36qfRIK64jSE4rU7eamMhBO2cENqOgniwXx1Br+2bQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LjG0On4e; arc=none smtp.client-ip=74.125.228.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 255783F7AB7;
+	Thu, 24 Sep 2026 09:54:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790243663; cv=fail; b=qYrU5ug/EGVON6DpCM85+i3txbyTVUUf1CxEmg4TdE4IrcN0q+cXOLRc0VjAd8it3wty8Qe7gd8A3NVsJsY2rcdz+9DO4gOkrRPU2ixAaNmleOCApOdAnAsiK64R8QMqSSQNty9D2PVfb5uRmp6ZXDVuCYJIOcg4xQNNhR/iHhc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790243663; c=relaxed/simple;
+	bh=8R90wT7ahDUUt+0T5Sy5U4G56zpeRI6rEskBlAu/WAg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:To:CC; b=NMELiAxFnsvXyn7X+dOEi5/u5FT7AGDewAvoyMidi0RV3Auh6RcHMUh+Yty24SAPS8IThjb19YfD76+4u9ESKBM+RhK4w4IsBA+qjl7osT3YXLaGEuAGtrESre7jol8hb2f+rkRnsmKT4e/VZGYPfD6CgHeD0aCJ9qPf13u5R8Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=agiSLOHG; arc=fail smtp.client-ip=52.101.70.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LjG0On4e"
-Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6a64c7cdb46so3052126a12.3
-        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 02:52:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790243552; x=1790848352; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=r0he6qsbBj/Yqg6MIys9ZBccNQWdxa3bYyKVfyOnXUw=;
-        b=LjG0On4emcLI8kw9inSbg0s8NyiyFsncnR4iGuF+yi1U7P/IKMhYtIfs6I/O1soFzR
-         TzxDPQF5W3ah2tDM9ARi+4UOnEZjsfo5qsSCtwrXIwgySnv50IS6FH7PPkotIWyKA8Mw
-         jrKVbjwPFzJkfIVLJWv7tNS0P0VW4U6YF/gyvzfAGUhx9SfTOjLH3DWABEUtbV/WQucW
-         SBF74PTvOk0gfEf8Gx1bNvkGdC+Sqao0FC+DfdN6fLr/w/rmTvEMHaGj2ka4t5hILssO
-         uSD6WXlh0ENeMgked2Grc5oPm9TKukVSn0gZD0A/IBtAExu32YREh8UDDDnmBuv3G28H
-         S4rA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790243552; x=1790848352;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=r0he6qsbBj/Yqg6MIys9ZBccNQWdxa3bYyKVfyOnXUw=;
-        b=Qad1ZqHYIszyQXkklb+c35fMClezqh7DN9yttPpFk/4yeLrQNooV6InbpdwBMsWiV1
-         x/UDq6TALsBDooyiTiYfHi7PMSG8lc6jDF+j9rRwDWxOOWd+fQ1JFO/YhJWQMYNVnq6I
-         EsW1WlX/4bTYwPFgGHvmU14xzAcczAMnLVxwm58TwAUmBM6YRCq6R6/YAHdbCPvlW8VK
-         PkGka+X28feTHUfl3LkrnoEwyaX01BG805mgmUIpbw2uQRRPJ2AjRMznqFefH5Rx6lkp
-         nBTvaS6VREB+DUZwmT6Ir3daNVG4MpEXppytSMWHu+rwUxr4h02YxNjHsnCShGhhgGE5
-         cv9w==
-X-Forwarded-Encrypted: i=1; AKwUvBwJnAm2StCSBFuSIiIgNQ8HQYJlghJn4cSxRz+TfA89kaaRnp2sUn6OL3duijUuH3HuSC8fwYs=@vger.kernel.org
-X-Gm-Message-State: AFuF++lTWNPTX9ssB8ZelFvX8cTZFqiOJc6f+c9KerkmNr7uCtNzaYfr
-	XYEn+e68d6mh0v+TeW01IOpr0WhLOeMLfFaTT6hfAObZvt94k6qGfPNR
-X-Gm-Gg: AYBFou3yKoOS7k7uGfwIdS+Puxzx/+AA3f0jQ9LP/z681FXBuYLy3VaDGT8q1Gjxh6W
-	/sW6Ys2MPBZEiOXT5WJtOMlCwd4S/5IMAAgwofcvZnca9HCvAPqGjS+9/RSJ0U9rgxA2B9hpTmP
-	NGIeAjGwUqDoMpX+m2SpSyEmaCWvvYxu3vmMMB2iIbPTYbw8naqwyG+xvzJ7AURinu25mlf6vpY
-	VgA28PNkt6aA4dZVP8DFs6jrK8YHirPeGiIPl3mtixG49HS5hHDEmQ7ml60YYvfTxyFxUBg0Iyf
-	vM1GknAQUxCBvhMyZQFLdjZ5CyFJog1yGb5Khr1YVsJdFesfWHki/HhFF6bh69IG5I/9nFWBnKs
-	bsovveGydxIszsXNtydXD8KdP/v9GN3c8RKO1Vmjp6bNrWrMBtcFnAsk0pm0gw/0TWsghXmUu9K
-	f1soPlaLr+cbd9y21dR28MYuT2XUY+IYqV1KsMNQXz0afZyjAuj53E7qWmSguk4eRKlF/Ys4u9O
-	ILSQ1CEP2m6+zws
-X-Received: by 2002:a05:6402:4502:b0:6aa:1c28:81b6 with SMTP id 4fb4d7f45d1cf-6aac8f546fdmr1573268a12.17.1790243551492;
-        Thu, 24 Sep 2026 02:52:31 -0700 (PDT)
-Received: from localhost.localdomain ([94.240.182.136])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aab386e5b9sm3506813a12.8.2026.09.24.02.52.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 02:52:30 -0700 (PDT)
-From: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
-To: anthony.l.nguyen@intel.com,
-	przemyslaw.kitszel@intel.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: intel-wired-lan@lists.osuosl.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Svyatoslav Nikolenko <nsvatoslav515@gmail.com>,
-	syzbot+ca1ef9e2e234b8d3599b@syzkaller.appspotmail.com,
-	Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net v3] net: e1000: fix warning in iounmap on probe failure
-Date: Thu, 24 Sep 2026 12:51:52 +0300
-Message-ID: <20260924095152.3069-1-nsvatoslav515@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="agiSLOHG"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=q8/V+9/kcY65dU9nvDRo3go52XccJ/7wHtQMCGbXYYZloOXlrh2IG8wNn8PiETIHgWu2iKofRoCsKQQsvBTIScswQAthki+dQ+jBDvcJvZODiuzVdW8HZLFnj+BR3DxLZteTbIjBreQWBtxFLlgqb2SnbYlNBGzWuGG/FBfN6DolyNkytn/2GlgfEtC7F/UErukycEWZS+JQE/BzSJkxU1WaNh5BaDNAgbIlKG1rA4yEsLU3AZfLCmvrprGEEHUX12EOXnyz9DDOsQ4IeLLb2cCzsDOEK0UZC05/LI8HEQVo6DcrxaECwgqf24loGFv/1VEMhVgbGza+lfhFnW1cLA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mqmBlO9+j+BpSs7zQi5+5I9CbI8UN4f/J7FNmwaMTbA=;
+ b=ZNmbIQPJIWfdSbHXPzDDOHDbXFYfXy2ao9mfWuUdWcz6WqB+Xt0EgWk2zb7lo51dZPoFFBZRiwVhoxOeT6eT1EVnGq5BZ9/Jpk8Gg7BEJtOwTmLuXw11E1mKt+BjC72mWygQuTwzi3cs7dhNOAnIMoLfzp2og+UMJ+PeXeU3bok9FBtfAtKHE13ZoXKM/qTuluS/o1URdbagC9dLsrwlOQVKoGOA90ofoxTMO9nnJQQE6JnK5WpXlJHx3vGioWqGtie/Vmit5TAWIqnNXST+oxmzmauXhaZEqS8X2pxPYGBlPLbkqT6m0aiY/2qNp+ieFsxvZrS27ufPdWzRQuGSRQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.60) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mqmBlO9+j+BpSs7zQi5+5I9CbI8UN4f/J7FNmwaMTbA=;
+ b=agiSLOHGQw/BHMZInOZN8a3CzRvpJflKtA0t/RPJGVVgQ4UOf55nI6KHgJvhyDmB8PJplZoJgBYzpzVvf8k2lVKHHiz1+hz1rQjBwz/GJhQP8RF7E5DTQ2QR8cY/IJiukVaYdXLVGouQLExVg2h5XTBjO2bTOjJw8KUTRyT2j1n4/JCFZtHusV6c6fng1XgOxbNM+8yo8XYHxeOwX2cN7+jnwJiLcnWBlx87OdN2U7lhW/exOzH2D0l/74UUiKkF8ZIGNmniiVd9CAQedgF4zstYI+nv+2ApCZYP5xioMA6rxYMpvfgEdTKDimlgL9gRRRNBW+kgzOYX7PwpmBYdDA==
+Received: from GV3PEPF0001DBC5.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:158:401::6b6) by PA2PR10MB8751.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:102:420::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.17; Thu, 24 Sep
+ 2026 09:54:05 +0000
+Received: from CPH1EPF0000052D.eurprd05.prod.outlook.com (2603:10a6:388::188)
+ by GV3PEPF0001DBC5.outlook.office365.com (2603:10a6:158:401::6b6) with
+ Microsoft SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id
+ 15.21.382.12 via Frontend Transport; Thu, 24 Sep 2026 09:54:05 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ CPH1EPF0000052D.mail.protection.outlook.com (10.167.241.168) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Thu, 24 Sep 2026 09:54:04 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Thu, 24 Sep
+ 2026 11:59:54 +0200
+Received: from localhost (10.48.86.251) by STKDAG1NODE2.st.com (10.75.128.133)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Thu, 24 Sep
+ 2026 11:54:03 +0200
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Date: Thu, 24 Sep 2026 11:53:56 +0200
+Subject: [PATCH] iio: adc: stm32: fix minimum sampling time values
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260924-adc-fix-sampling-v1-1-13814954d8d7@foss.st.com>
+X-B4-Tracking: v=1; b=H4sIADPztGoC/yXMQQqDMBCF4avIrDsQBw3Vq5QuYpzolDaVjC2Ce
+ HejLj8e719BOQkrtMUKif+i8o0Z5a0AP7o4MEqfDWTImoYqdL3HIAuq+0xviQPWZIMJZO/UdJB
+ vU+K8n8nH87L+uhf7+ejAtu0XGMImdAAAAA==
+X-Change-ID: 20260924-adc-fix-sampling-526f0f26829b
+To: Jonathan Cameron <jic23@kernel.org>, David Lechner
+	<dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy
+ Shevchenko" <andy@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, Olivier Moysan
+	<olivier.moysan@foss.st.com>
+CC: <linux-iio@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>, Cheick Traore
+	<cheick.traore-ext@st.com>, <stable@vger.kernel.org>, Fabrice Gasnier
+	<fabrice.gasnier@foss.st.com>
+X-Mailer: b4 0.16.0
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CPH1EPF0000052D:EE_|PA2PR10MB8751:EE_
+X-MS-Office365-Filtering-Correlation-Id: 04bc4608-af7b-4de0-14b2-08df1a21c4dc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|23010399003|376014|36860700016|82310400026|1800799024|10067099003|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	gWyDCwmET2vvI4tuvzdwHo9JGFdgHcJtZQRmBjXjt1tYhj4RGOjGQpiJ7Zlq8LxjodVjM6e10Ed4OkUfnJloxs1MUUjvY2Z1ZFIHuppcUQ/iXSU7RPcKbU1rRnReRBidzt3ROuRbQtRY9Dc1OVVSEqwPGttBBI1tdrbPsUpg1pJU63H1ImtdLhMy8CrAY+tsfJZcHF2oEokVvnzJCgUYa0YhQX7OJ2teK2TG701OzBmPKGPw8EUnqHtw+AcooJm82aHCWegpQbB/cfLk5ZhBnmQtTdVeWfiHQa61qn2pPzABse8DwRURfzMrz0todyauDQgoUsw5BIOEcHAoI8jX6DaqNTddenrLqdWscPShQ94HxGmGR4EBvz2if/dCOo3gcUk68pup9Cbnw+/TGiz/0EIexuUP7x557rnsOD+eeabrVgsIeZux5qbSsRrtKsfXFh4YUsZ0JU+KpXQ3rQ5tVC10vYIAf6IFQ+qeJNccYwr2YqRjtmYRj2z03T9MRLG7ODZtINiPia2C8AX5tx3lO1xqOOuh0GeH0WQ8cYlXtXIrG7gp+C2YcfIs/nPgyoIeAkIPCQsFLx43tZipa0r/wRnq2SYCxiW/TtzdiF+j+qXYBnraEEUm7HkUJU71BLovHAcK6eN6k7gjdd1MxLXXTzKFYxDjk0ewhQf0+Y+G6v+FNfuGke0kY1obYdHXMAQJRwX0T6aa2fHqYDh16c0zxw==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(376014)(36860700016)(82310400026)(1800799024)(10067099003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	SJ4Z4VW7IjoSGIW0kRsaw5jWgmQh48mrKZwcoZHOI+5wnRTEj6Yi20jNwoDoziy/CZKIShDT6eICn8ezF5gXKxj7YDwu0o9IMf31KU56NE7pQFwMS/P7fecAVl6+Vv3qJB6xlPCFUuSiE590VmT/E2Mn2tnBZ65dXNzUEPA2ZnQhzN8V0Vue7wdLvJkG/2wTJJCVkJONk9XmaGhVquqGunO5VQWESgNoeOJ9BdEQRO9+p1/8wK6/v9lxKzhiW/UebcpMeXj/HFj/wLxr8BZOgMYLeRd9EIa7e/IN7GpBgPxwbWRfYathcLtURgVj7pBqKxYaEg/sjQgA/FraFxI1UBGkMKI3u1fdaBXvHkfoK480nNMrI0jofxC61EkjCJa1dCbIO6p5O+ncN+t2+Ab5vSW12CqISYyP+mNSP9u1XdjSiS719SqGXvLsGUN4aLGB
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 09:54:04.8007
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 04bc4608-af7b-4de0-14b2-08df1a21c4dc
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CPH1EPF0000052D.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA2PR10MB8751
 
-When e1000_probe() fails, the shared error handling ladder attempts to
-iounmap() the hw->ce4100_gbe_mdio_base_virt pointer. If the hardware is
-not a CE4100, this pointer remains uninitialized (NULL). On architectures
-like x86, passing a NULL pointer to iounmap() triggers a WARN_ON_ONCE,
-which is fatal under panic_on_warn.
+From: Cheick Traore <cheick.traore-ext@st.com>
 
-Fix this by conditionally unmapping the CE4100 MDIO base only if the
-mac_type is e1000_ce4100, matching the exact logic used in e1000_remove().
-The hw->hw_addr iounmap() remains unconditional since it is guaranteed to
-be valid for all error paths reaching the err_sw_init label.
+- On stm32mp15: vddcpu and vddq_ddr are not connected to internal
+channel, so their sampling time shouldn't be set.
 
-Reported-by: syzbot+ca1ef9e2e234b8d3599b@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=ca1ef9e2e234b8d3599b
-Fixes: 13acde8fffc0af ("e1000: Fix the CE4100 bus type for the MDIO/PHY registers")
-Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
+- On stm32mp13: vddcpu and vddq_ddr are connected to internal channels
+and the value for vddcore was not correct. Values from the datasheet
+are 1us (e.g. 1000ns) for ts_vddcore, ts_vddcpu and ts_vddq_ddr.
+
+Fixes: 7cb2303dd024 ("iio: adc: stm32: manage min sampling time on all internal channels")
 Cc: stable@vger.kernel.org
-Signed-off-by: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
+Signed-off-by: Cheick Traore <cheick.traore-ext@st.com>
+Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 ---
-v3:
-  - Switched from pointer null-checks to checking hw->mac_type == e1000_ce4100
-  - Removed redundant check for hw->hw_addr since it cannot be NULL here
-  - Added missing Cc: stable tag and Closes tag
-v2: 
-  - Expanded commit message to answer reviewer questions (reproduction details)
-  - Added appropriate Fixes tags
-  - Added Reviewed-by tag from Aleksandr Loktionov
+ drivers/iio/adc/stm32-adc.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
- drivers/net/ethernet/intel/e1000/e1000_main.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
+index 90f0e257e6d1..b024326775ae 100644
+--- a/drivers/iio/adc/stm32-adc.c
++++ b/drivers/iio/adc/stm32-adc.c
+@@ -2734,7 +2734,7 @@ static const struct stm32_adc_cfg stm32h7_adc_cfg = {
+ 	.set_ovs = stm32h7_adc_set_ovs,
+ };
+ 
+-static const unsigned int stm32_adc_min_ts_mp1[] = { 100, 100, 100, 4300, 9800 };
++static const unsigned int stm32_adc_min_ts_mp1[] = { 100, 0, 0, 4300, 9800 };
+ static_assert(ARRAY_SIZE(stm32_adc_min_ts_mp1) == STM32_ADC_INT_CH_NB);
+ 
+ static const struct stm32_adc_cfg stm32mp1_adc_cfg = {
+@@ -2756,7 +2756,7 @@ static const struct stm32_adc_cfg stm32mp1_adc_cfg = {
+ 	.set_ovs = stm32h7_adc_set_ovs,
+ };
+ 
+-static const unsigned int stm32_adc_min_ts_mp13[] = { 100, 0, 0, 4300, 9800 };
++static const unsigned int stm32_adc_min_ts_mp13[] = { 1000, 1000, 1000, 4300, 9800 };
+ static_assert(ARRAY_SIZE(stm32_adc_min_ts_mp13) == STM32_ADC_INT_CH_NB);
+ 
+ static const struct stm32_adc_cfg stm32mp13_adc_cfg = {
 
-diff --git a/drivers/net/ethernet/intel/e1000/e1000_main.c b/drivers/net/ethernet/intel/e1000/e1000_main.c
-index d7f5c6f16142..156903089fa6 100644
---- a/drivers/net/ethernet/intel/e1000/e1000_main.c
-+++ b/drivers/net/ethernet/intel/e1000/e1000_main.c
-@@ -1227,8 +1227,10 @@ static int e1000_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 	kfree(adapter->rx_ring);
- err_dma:
- err_sw_init:
--	iounmap(hw->ce4100_gbe_mdio_base_virt);
--	iounmap(hw->hw_addr);
-+	if (hw->ce4100_gbe_mdio_base_virt)
-+		iounmap(hw->ce4100_gbe_mdio_base_virt);
-+	if (hw->hw_addr)
-+		iounmap(hw->hw_addr);
- err_ioremap:
- 	disable_dev = !test_and_set_bit(__E1000_DISABLED, &adapter->flags);
- 	free_netdev(netdev);
--- 
-2.47.3
+---
+base-commit: 182c47735554925da9605dc9dd90a8c15a1bbae5
+change-id: 20260924-adc-fix-sampling-526f0f26829b
+
+Best regards,
+--  
+Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 
