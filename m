@@ -1,187 +1,195 @@
 Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F2223BB67F
-	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 21:49:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28CAB48382E
+	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 21:51:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790286578; cv=pass; b=qBM+ErFjH3xnlJRI0OlpJAtvrBUIhyWXs5NRQSBFXfY2H0hw/0gIpND/o59mFWhoG54RQa2bjptP52CxeL5MQq6SeEhUvR1xLWNOfMYuGzsuXV3tBwtITx50jImFHbe4zjQXN7BdwSjv5uBVPBG8yKyQQxk/iJ6g0BV4LCx0TvA=
+	t=1790286710; cv=pass; b=YQwV0++yZAhd5EprEZVaHlwobfj0PdhKX4Zok6RnPe2mLZMy0S1VKVnidkKcYtYeUdAMKsWO3hoMpNKaYirlEScFmBnadv/92nNMpGY0eA6IOKMrwvwJFUpt0Ry6IrmbB4RFidtVXW73q392toYJfRXMsZSa4sakwjaKk7mg3mw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790286578; c=relaxed/simple;
-	bh=EYwriSULvYePD3iJ2T4Pa8I2fYA+Ygahe3VBHSaLFG8=;
-	h=MIME-Version:In-Reply-To:References:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oljpYxNTtupjVMiQPwXg6w6KBCyH/LuZPzxIsFaEve4eFvSIRf6kaTyj26s37mtkM4t8F/l4DwPEwGcCStXxrH29rA+kC3RfVZkB2bdshI1/fNjuDEnNC3FaIs0HkD3zb3qNdMoEgCRAE55oWpe9Alqtt1rFWOOCiXJ+lCd34OY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r4R9qFfc; arc=pass smtp.client-ip=74.125.228.140
+	s=arc-20240116; t=1790286710; c=relaxed/simple;
+	bh=vwIL4Z9WhDilYVKgXK6Lo2kf/q7i4XxX4sVI/yy9z8o=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=LcJKAOfHrHxCXaoXPHI1meZNiKIxPpV0YyZZQLafQZ7TmYXnP4aP9ywfoVeYObLqKsBMzEeDPnDR+pA3pKRw/ldft+6J8lLtCgadUtk8294cHRBkI371PiOfQ4GU/AbohBegMatJ1DbXCIvBiNIZf0Ur5S8d0CkmRRD4L4AVq1s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m0Ib9wJV; arc=pass smtp.client-ip=74.125.228.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r4R9qFfc"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f55eff0so34269566b.0
-        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 14:49:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790286575; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m0Ib9wJV"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f9f0b1eso39840366b.1
+        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 14:51:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790286705; cv=none;
         d=google.com; s=arc-20260327;
-        b=oyNbS0s5yGvNA/sgx27vXRpgB+gOjCg2yvLWH/v3aHvnIQboPjOi2MmacnQctpIkQj
-         FB5aVwXD19Q9I1wPNmF1KAhUVUeToweL8WSS0fnHbSpM1whKU+DEnJT1+q/Mlcmc2WyU
-         pExhi20ZC8fs+X2ojRuV3hMMMjFP9UZvl4n68HwDOKov5+QHmozwL+mp+rCEUmUN6zF6
-         kJ84vttZXDgTqFYUqL7UcyzS4fOFmSgBvsNn99Art6B5IGYVTKo0uPB98m4UlPGdpp74
-         +SYZpb9oKT1xqxFMsqBXVN3nTQNtVFHdH8GiZ3M4D1aepLmaCpR51YjnLjV4ZtpNrQqT
-         lWaA==
+        b=fX2Sxdsvp8OBw/LJbFZRBlNtWPfRySygBbdoVBiof8hO/SgxwRchjFWdEhJGrbMpXz
+         Jcx8WhiZdbGzWWFw1uLCV8yCv+b0RiH3qynWuBz7lBeLt5ftQmuzdt4lk0m30hi8GEtd
+         HzQ4ua4qLVBhcEW7GeEPzC9FpxejKH3S0XZoy7jmeXj1ojhco6T21MRhSwEYgJVBUPAc
+         GRMfJHksZ8iLxPl6rjazySXyaT1D2tFuJfwvXrIp/mCmAdg5NysuZJ1ySuPMEPD8RpaI
+         PtqB7VZqTkxr/itxqRxVQKmmA4i9PlJl/qsxVsCVTez5xTHKF9yfnVSsl9vc2pYXj6dg
+         gLLA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:references:in-reply-to
-         :mime-version:dkim-signature;
-        bh=IlXhqmO4UQN1t5S6AwF3HMJwBfhvJfo1PV6ZXzxULoI=;
-        fh=zCGt7UhBGh51in7YAqPI56v3QXI0ljSwgypqLlZCZBg=;
-        b=iAE8i+CyciDiapb7/Emot7sRMJ9AkbpidZHoEnmahAOJQxazc5YZaVFEMQiFfvCuBK
-         k1XZXT2jM4R4w7vp5Y40bYXPMLVllRKU9wye6Y7wMSKdYaArNJ5+HkC3VPhGh5y/QN0X
-         mtHxKVEdqmWf7RogdviLTfhVBEmqzWylPOO1vX9XwHJikt03SzX1J54O94KvlwJRMK3Y
-         pnYUAFxW21+hrsNFA0NZLsD4OHSJG/5ccaBST1axlLHZIGDOABPVdYYgmEJn/DwsrKux
-         yKm8zxZnRddpdNQAQ8u/olMu9YtXzmkbJTd5j9dC6URaveHJQR+4WfNFUNIKgPluDVRn
-         FI5Q==;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=2wsrM4rfWmZ2YkyAaS9ur4eVUQUqD0HI+yn9LbwtrMI=;
+        fh=FwkHGIbI3AimFu1GWd3CX/7BChpOZE9oZLRB5LmZpa4=;
+        b=lqqRtFZWat3DTnOIqxmWv8Y3DtiwHm3r2vuFW9hX+BS9x02K6f0m9VpOWBDsCZl3of
+         HPEwQ602wtLPCL8n7iXblcmhZYW65my9AKvWAXUYU5YeJfRqHZVNcgyTEtBoOTAQmi5S
+         oSEhCvEtwp5SLfr2lKWApqsG+Gai1Br1GWcZ6pAcHCTCiGhOF1MzXFrT1sK4HFiRsg0k
+         +0wsmYWkHuCMUrMoGQZib1RWrYfaSIJvQ5Nxk8iRmDi0U5AWbAG/vCajc5lVUTun/gb2
+         +mPuuIoCqPSQutYUT8O2wo3HytkcojmHJ/Ed/w7aQVl62HE+FqEEXVat2g1z7TmtfPL3
+         Wkxg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790286575; x=1790891375; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:references
-         :in-reply-to:mime-version:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=IlXhqmO4UQN1t5S6AwF3HMJwBfhvJfo1PV6ZXzxULoI=;
-        b=r4R9qFfcwXWDXMw2frbD61TNqnMSExox+VkYBMY40DJCxA2qh2sWTgzymsK/XOdeaQ
-         phYCiyj43hC4NKG3ve6x0xM9aH1D4JRZAtzuSYn9cQpXvgKluPSsG34mtzLym1rN+o6S
-         VkiTKdSD0JvuFZZotChNO9Fi/VAJBBQKJm3dL0s2IyApn3mkwGzsmW3kVGA0AfIgAarO
-         oJRBC1XFaEgt8pvC7yxQnvmthYx9yDQIEq70EubAAGkl95832m/aJPDQNje+qPw4ms1/
-         1yR4PU7Ga0g5woa614Uren5Gny10kHM+atrUzS7NyDVUjgvjOcjFmLmSI3+JfAFpegvD
-         3CaQ==
+        d=gmail.com; s=20251104; t=1790286705; x=1790891505; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2wsrM4rfWmZ2YkyAaS9ur4eVUQUqD0HI+yn9LbwtrMI=;
+        b=m0Ib9wJVOpgOXhNz+/LWE73H9/n9f32eS3bTHMzTlICqb13RX7e3pT9/W8BtTNtrBD
+         XysOwGhuQXdUSyHcsO+ZC6Pi9ZFyMgQpY+ZstwoWn9qdo5P8/8JPMM4cZ5RKpI6cR+vc
+         gdJjMaEtfXcSTTsxE/eAe9DE/sG7I32kNX5dm/OzaDJwpIFKeTF5wgiLoKzZeH7MqsU+
+         8L9r8ckypusVwRgzHtUJV042Cb+ysoFg//jxypA2n845fhOQj+Q7fGjb2c4Sqk+EJRqf
+         hPauHJJxSWCQECGCLmGk2nMv7OAX9AFJUIXV5a7m8xJrkWt9cMePzCmRh4Ja5OAXFtbj
+         ij9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790286575; x=1790891375;
-        h=content-type:cc:to:subject:message-id:date:from:references
-         :in-reply-to:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=IlXhqmO4UQN1t5S6AwF3HMJwBfhvJfo1PV6ZXzxULoI=;
-        b=M3O6xKJxKA9OC2Wi0WbQqufq/LKN6E83d7cqbskDtysKlJf8F62/5O8YgXlfNfCJT9
-         wp1j1A8qKiAU+rX0VlWfvBVKdOJ5DYG0lPW6Cg1oQfEn6PuVsoFrKdaDeU+tVN5EMHrQ
-         a8mIC+pzelHR3EE6rlMJfRSIzV95uVNhORo2MWAMUI1JKep7NegIMgpa3vm66+By59q7
-         dv1jmGdgAK2YOHM4K5RNtyrkB4f5baM1YZtnCt+4hB3Pd/M+NXqsg3zEUu9RsFrJfbBV
-         2ru3OPOHmdIfME7ySwswdLBYY+Kua9VhHM88DxnBks3LhgbzsbFCN2cK4aCb/JgIoaK+
-         fhyA==
-X-Forwarded-Encrypted: i=1; AKwUvByv4D6SpAKUhdKJvLkhdMDunY90zBFWhk7l8f4vE7O+U7MxsH7NXCnpazjHK88OmvgznENDJy0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kyZHyPvwPBSyVxcWR5xTo/Btdzlq+txXlVphPHkhRauxT3clef
-	YzyjSt5AkK4SLGFXQYa7Zz9nUr+A6S4QAq1IDzSTIataHFOvfLbvQWUwrQueLw7H3DPENJoR4GW
-	6yHUvw7DmEkY8ARP1ZntkJ32itXqpug==
-X-Gm-Gg: AYBFou1OUiGZaj260XyNNAAR3Prd6NUd0s7iZclP9zTfdMmd6PSF8jD6L3sBFA7H+93
-	kseH12+uyEERRB6VtgdpuVGhpVeXsiW/ee/ZGIRgVEjCYnqI/o4Pg8ZL0e2CY0GJh0KDJk7re9s
-	HD2VRar2tLngoqIh6hzskFC/JDFGYZu4ey2hZu6ZWd48zdYX2WjyResCpDt+rWH8mfleG9Et6yR
-	FSQPvbpBtTRalL3676dv8yduL98InJAMkHM0ewUB4sUzyrXfkfK6K6MkmqUClxes221VJqU/rJa
-	TUxH9LM2xdCXXdKge+eLO7H4NplDMNqYPLvOsx7Wmgrx/oKs9DDG3sok43DaBOpXs1NGUcRSpbs
-	mycNy2WXtbwIlZiACVO5OU9sA5VQZ10q/0hN9L3xXOSXGNjxEwHuMMiUhS/t0rLah
-X-Received: by 2002:a17:907:c71b:b0:c26:1691:b371 with SMTP id
- a640c23a62f3a-c2ac2538398mr364279966b.42.1790286574820; Thu, 24 Sep 2026
- 14:49:34 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790286705; x=1790891505;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=2wsrM4rfWmZ2YkyAaS9ur4eVUQUqD0HI+yn9LbwtrMI=;
+        b=qRHxd6sgjd+uyT0aJA6QbAtGA8/6jT8r4ta/fQAe2Vd+QuzZu8ENZgQrNV6UfsviSo
+         sAeGiXhmhHlkp+KJZQebNwSgXhF4YtuRsnZHCjx1kVcmsiim6yGH/yGq1s7ZiEOOcbw6
+         NO8en2FU0rPt2CzGcP9X76dyD4sxVJFsnYYdC8q9K9qh3fvnnAjFmoqXYY93qNDynjgj
+         pyuouKY11YIsur71LUSXbe3tr/vUAcGQhpi7W6y7lQRsXaY7esF9Rgm7/mPTMWkEuTo9
+         0J69BgZt1HGlYwLc5/yoKmiAD5N9C/QY4td+WSgZBIgwG75C5yADn5eUXAcVYMzKBgTH
+         TFYg==
+X-Forwarded-Encrypted: i=1; AKwUvBxoUCDfWXgo46gb66ms2Y8U78xZlWu86435IRmirjii+i077OSvEB2uAgVobuwp2faYLxrnvoI=@vger.kernel.org
+X-Gm-Message-State: AFuF++n38toBTynj3CaHuztI5RosAeclwebsZdZjlheFenMBUGvD3jaH
+	HYU/7gmjL4+APkTlVUh0Le3PKSKMhKxTKrtHcE2AKYmzZT35pYlsDI75FhbHHoM0fb6+jBI1+dP
+	Gru2cQoD0b2KBY5eryxB18lpT9Vxgog==
+X-Gm-Gg: AYBFou3QFyri+5otq1FTJXldVsRqDOShZR05O+ZpFtJ2z+rF5e8gFet7X4SSlYb2Iub
+	tPHmMxZunKmiFqVsaGnjXow/EQMCc/n8POr2bBIhsbc62B5l4c+25oSThrCcJ+xYoCxaVzrPQNA
+	JrCuDSTPLAMBXNA55WUtNdnIgGRdknFNfvDGeBKEZ0in37Sg312t/8+M3mVe6hp+K+mp9QTvG7A
+	QePrKc4nkjiPYzdTMV0DxntmtVwx5MDgdFH2nfuHxqlcTJCDbWH88cwclDlnPVMHRDSzteF+MZt
+	6B+E4o2C+W77/2ct1V4ICAi0mGteimLAk90qC3VB0xyk06fUYnIVfOTq5PhxD9S8FTDbBas6rqr
+	fPiXZA7/OJhXZ06xm7uy+ETVM3f0UZ/OeF23ctbnjoeIUDj6/nETuFME7ERjnDaAQ
+X-Received: by 2002:a17:907:868c:b0:c29:4490:50c8 with SMTP id
+ a640c23a62f3a-c2ac20ab6f6mr335227266b.8.1790286705286; Thu, 24 Sep 2026
+ 14:51:45 -0700 (PDT)
 Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Thu, 24 Sep 2026 16:49:33 -0500
+ Thu, 24 Sep 2026 21:51:44 +0000
 Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Thu, 24 Sep 2026 16:49:33 -0500
+ Thu, 24 Sep 2026 21:51:44 +0000
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <CAGEsz8HmUoQq7XLr5ZN7diWt-sWYoUwYd400vpq5jYEDEB7_vQ@mail.gmail.com>
-References: <CAGEsz8HmUoQq7XLr5ZN7diWt-sWYoUwYd400vpq5jYEDEB7_vQ@mail.gmail.com>
-From: Myeonghun Pak <mhun512@gmail.com>
-Date: Thu, 24 Sep 2026 16:49:33 -0500
-X-Gm-Features: AclHuK8YiU9a_Ru4QSeqUTrJVzzT1FhyKaFMooPwpYN9sMpvSeDBkg2s-WQ3MVQ
-Message-ID: <CAGEsz8GqYcGK8zaos_PTeto0de4+9nkyqo_815gjac3CNSOo_g@mail.gmail.com>
-Subject: [PATCH v2 2/2] media: amphion: prevent unbind while video instances
- are open
-To: Ming Qian <ming.qian@nxp.com>, Ming Qian <ming.qian@oss.nxp.com>, 
-	Zhou Peng <eagle.zhou@nxp.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Myeonghun Pak <mhun512@gmail.com>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Ijae Kim <ae878000@gmail.com>
+From: mhun512@gmail.com
+Date: Thu, 24 Sep 2026 21:51:44 +0000
+X-Gm-Features: AclHuK9j7u3HNrpkxbPfkJEXXgXPzlWkFF26AnQbZD5u6GM81J290RQpiIihOgA
+Message-ID: <CAGEsz8Gwh=Y31EuTJLUp_jq3HhiizHxt7_ivOuytyZZH06mycA@mail.gmail.com>
+Subject: [PATCH v3] usbip: vudc: Prevent transfer timer rearm during teardown
+To: valentina.manea.m@gmail.com, shuah@kernel.org, skhan@linuxfoundation.org, 
+	i@zenithal.me, gregkh@linuxfoundation.org
+Cc: ae878000@gmail.com, michael.bommarito@gmail.com, linux-usb@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-An open video instance holds a plain pointer to its devm-allocated core.
-Unbinding the core or its parent through sysfs can release that memory
-while the instance remains open. A later ioctl or close then uses the
-stale pointer.
+Commit d96209626a29 ("usbip: vudc: Fix use after free bug in
+vudc_remove due to race condition") deletes the timer before
+usb_del_gadget_udc() stops the receive thread.  v_kick_timer() can rearm
+it even in VUDC_TR_STOPPED, leaving v_timer() to use freed vudc.
 
-The video file operations pin the module, but sysfs unbind bypasses that
-protection. Suppress manual bind and unbind for both platform drivers,
-and warn if core removal ever encounters a live instance.
+Use timer_shutdown_sync() to reject later rearms.  Replace the
+inaccurate blanket lock comment with __must_hold(&udc->lock) on
+v_start_timer() and v_kick_timer(); v_init_timer() and v_stop_timer() run
+unlocked.
 
-Fixes: 9f599f351e86 ("media: amphion: add vpu core driver")
+A KASAN/DEBUG_OBJECTS_TIMERS x86_64 QEMU harness binds g_zero to
+usbip-vudc.0, sends CMD_SUBMIT to usbip_sockfd via a socketpair, and
+repeatedly unbinds/rebinds vudc.  The unpatched kernel reported a
+free-active timer and a use-after-free in v_timer(); the patched kernel
+ran 4000 iterations without either report.  No physical device or
+remote client was tested.
+
+Fixes: d96209626a29 ("usbip: vudc: Fix use after free bug in
+vudc_remove due to race condition")
+Link: https://lore.kernel.org/all/20230316180940.1601515-1-zyytlz.wz@163.com/
 Cc: stable@vger.kernel.org
+Assisted-by: LLM
 Co-developed-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 ---
- drivers/media/platform/amphion/vpu_core.c | 3 +++
- drivers/media/platform/amphion/vpu_drv.c  | 1 +
- 2 files changed, 4 insertions(+)
+Changes in v3:
+- Describe the harness, test scope and lock annotations (Shuah Khan).
 
-diff --git a/drivers/media/platform/amphion/vpu_core.c
-b/drivers/media/platform/amphion/vpu_core.c
-index a0c58ec97a42..2e8e08e05de7 100644
---- a/drivers/media/platform/amphion/vpu_core.c
-+++ b/drivers/media/platform/amphion/vpu_core.c
-@@ -696,6 +696,8 @@ static void vpu_core_remove(struct platform_device *pdev)
- 	struct vpu_core *core = platform_get_drvdata(pdev);
- 	int ret;
+Changes in v2:
+- Drop the lock-held comment and mark v_start_timer() and
+  v_kick_timer() with __must_hold(&udc->lock), on the prototypes and
+  the definitions (Greg Kroah-Hartman).
 
-+	WARN_ON(!list_empty(&core->instances));
-+
- 	vpu_core_remove_dbgfs_file(core);
- 	ret = pm_runtime_resume_and_get(dev);
- 	WARN_ON(ret < 0);
-@@ -846,6 +848,7 @@ static struct platform_driver amphion_vpu_core_driver = {
- 	.remove = vpu_core_remove,
- 	.driver = {
- 		.name = "amphion-vpu-core",
-+		.suppress_bind_attrs = true,
- 		.of_match_table = vpu_core_dt_match,
- 		.pm = &vpu_core_pm_ops,
- 	},
-diff --git a/drivers/media/platform/amphion/vpu_drv.c
-b/drivers/media/platform/amphion/vpu_drv.c
-index 2cca61f41bea..9c6f32c5eae9 100644
---- a/drivers/media/platform/amphion/vpu_drv.c
-+++ b/drivers/media/platform/amphion/vpu_drv.c
-@@ -205,6 +205,7 @@ static struct platform_driver amphion_vpu_driver = {
- 	.remove = vpu_remove,
- 	.driver = {
- 		.name = "amphion-vpu",
-+		.suppress_bind_attrs = true,
- 		.of_match_table = vpu_dt_match,
- 	},
- };
+ drivers/usb/usbip/vudc.h          | 6 ++++--
+ drivers/usb/usbip/vudc_transfer.c | 8 +++-----
+ 2 files changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/usb/usbip/vudc.h b/drivers/usb/usbip/vudc.h
+index 5ef0e7d9b23a..c129f4c56e8a 100644
+--- a/drivers/usb/usbip/vudc.h
++++ b/drivers/usb/usbip/vudc.h
+@@ -157,8 +157,10 @@ int v_rx_loop(void *data);
+ /* vudc_transfer.c */
+
+ void v_init_timer(struct vudc *udc);
+-void v_start_timer(struct vudc *udc);
+-void v_kick_timer(struct vudc *udc, unsigned long time);
++void v_start_timer(struct vudc *udc)
++	__must_hold(&udc->lock);
++void v_kick_timer(struct vudc *udc, unsigned long time)
++	__must_hold(&udc->lock);
+ void v_stop_timer(struct vudc *udc);
+
+ /* vudc_dev.c */
+diff --git a/drivers/usb/usbip/vudc_transfer.c
+b/drivers/usb/usbip/vudc_transfer.c
+index d4ce85c4c6a2..ba625622975e 100644
+--- a/drivers/usb/usbip/vudc_transfer.c
++++ b/drivers/usb/usbip/vudc_transfer.c
+@@ -441,8 +441,6 @@ static void v_timer(struct timer_list *t)
+ 	spin_unlock_irqrestore(&udc->lock, flags);
+ }
+
+-/* All timer functions are run with udc->lock held */
+-
+ void v_init_timer(struct vudc *udc)
+ {
+ 	struct transfer_timer *t = &udc->tr_timer;
+@@ -452,6 +450,7 @@ void v_init_timer(struct vudc *udc)
+ }
+
+ void v_start_timer(struct vudc *udc)
++	__must_hold(&udc->lock)
+ {
+ 	struct transfer_timer *t = &udc->tr_timer;
+
+@@ -470,6 +469,7 @@ void v_start_timer(struct vudc *udc)
+ }
+
+ void v_kick_timer(struct vudc *udc, unsigned long time)
++	__must_hold(&udc->lock)
+ {
+ 	struct transfer_timer *t = &udc->tr_timer;
+
+@@ -490,8 +490,6 @@ void v_stop_timer(struct vudc *udc)
+ {
+ 	struct transfer_timer *t = &udc->tr_timer;
+
+-	/* Delete the timer synchronously before teardown frees udc. */
+ 	dev_dbg(&udc->pdev->dev, "timer stop");
+-	timer_delete_sync(&t->timer);
+-	t->state = VUDC_TR_STOPPED;
++	timer_shutdown_sync(&t->timer);
+ }
+
+base-commit: 238650ef6c7c7cca08e032527329424c9fbd70e5
 -- 
 2.53.0
-
-
-
-On Thu, 24 Sep 2026 14:49:08 -0700, Myeonghun Pak <mhun512@gmail.com> wrote:
-> vpu_core_unregister() releases the message FIFO buffer and VPU reference
-> before draining queued message work. An open video instance can also keep
-> a pointer to devm-allocated core state while sysfs unbind removes the core
-> or its parent.
->
-> The first patch drains message work before releasing core state. The
-> second prevents manual unbind on both platform drivers and warns if core
-> removal encounters a live instance.
->
-> Changes in v2:
-> - Move vpu_core_put_vpu() after the work drain.
-> - Keep runtime PM and mailbox teardown unchanged.
-> - Address sysfs unbind in a separate patch.
->
-> Myeonghun Pak (2):
->   media: amphion: drain message work before releasing core state
->   media: amphion: prevent unbind while video instances are open
->
->  drivers/media/platform/amphion/vpu_core.c | 18 +++++++++++-------
->  drivers/media/platform/amphion/vpu_drv.c  |  1 +
->  2 files changed, 12 insertions(+), 7 deletions(-)
->
-> --
-> 2.53.0
