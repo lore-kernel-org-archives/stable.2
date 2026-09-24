@@ -1,155 +1,170 @@
-Received: from mail-yx2-f42.google.com (mail-yx2-f42.google.com [74.125.224.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF3C94A3F09
-	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 15:44:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A32304A4824
+	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 15:56:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790264676; cv=none; b=CEBoKS7l4apd2/fxtH/4lF/WKIRZ91SnaG2qsgbijdc5ikKYNYIWrMGoD2dPKIBlZy4FRMB7LtJk7gPv/IFIfY1UM6EDxF9Pc6hlWQTcbVMeHD7gVfsU8TD5KzXa0uPIW7EftZKxwz/YaaHen1yYcpJgO9IF3j+j10H34yhPjbs=
+	t=1790265389; cv=none; b=WbGLYo30EMQcrc5LnjbqPjFTBEiXM62g7XSd06fdTzwTd1QNhHhCDvVPCeYC25auYh8VLRVt3+FC6GFBZnjYHrBH8eccMoS5bfhY+d42ZYeW7pzHVZ11ZKyMYpEPXTQayt+6FioeDDhFaoG0Q/qXAHryaxjiwWvsArg4/r8Ei0E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790264676; c=relaxed/simple;
-	bh=F722r79Bmh7PI6YVKi85BrdG6Xr35DU1IZmnFgeTke4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DTqv99QH/clDO23Ie2CQbVRZJBG1Ml3DUvlvrBjM1f+7gtNSNXxtw4J/CQG0qnHgwcmgjMfZv8x3JG1/vhYhtLSDxfmV4183Z8wutwbwFxzmVJo+/lbRLkT9cCUCVF5J343VNT3Oxs3Zjd5aSvLkUPXMKQefv4GpEuXz8BMrDv4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H82M+4IP; arc=none smtp.client-ip=74.125.224.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790265389; c=relaxed/simple;
+	bh=SzpsF1R44Ubodi/lWdByRj3ussGr5imnuwlywY4gVK4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mpV3i1Nxc1S1nN9duFwgDeH/CRyOu5cQWD94KDXIyPH9XJc08s0UECPX+oXr7vx+gig5EBnr3sa9d9Yg2LNSxVArRqO68KVF9FU7OVMqyzpm49WDbkqTP77za/h2NskhI4uYzHFeGMssMmeVc3ZYs6yp6OCCkDD82slmTTuuBek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=FUBoAsq6; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=UshE4h47; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H82M+4IP"
-Received: by mail-yx2-f42.google.com with SMTP id 956f58d0204a3-672f4b7091dso39259d50.0
-        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 08:44:34 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="FUBoAsq6";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="UshE4h47"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790265386;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BsIicbnwmHZxyMI07vJAKZ5x+YHru/pqorNr3bVuoUs=;
+	b=FUBoAsq6gRxq3IqRfTzLK1igZqfsUWybo1WnUgvo0llcwx2WQ8l+Mpt40ppz2SPiTaerdc
+	Fgs7EIMJrgzGaYT1NoI5iCjqKaqRt3/siFY4ONpec4UlPc35oD1I+CKPJ4sEeLjSKY6GJF
+	+1dMOQL3I+lU5QB11gwfK7comqeQEQY=
+Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
+ [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-612-P4gHeZFaNGWmnsk5pxUWBA-1; Thu, 24 Sep 2026 11:56:23 -0400
+X-MC-Unique: P4gHeZFaNGWmnsk5pxUWBA-1
+X-Mimecast-MFC-AGG-ID: P4gHeZFaNGWmnsk5pxUWBA_1790265382
+Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-c29452ecadeso234112566b.3
+        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 08:56:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790264674; x=1790869474; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CU0D2cxA3xiiAsXwNtIVwxMqp3c9ZGhfeXIr6+SStxE=;
-        b=H82M+4IPvy+kYqBXwP4Umf2uK+bmolKK5KLVrqkxClIdAU7Wucr5CLWSWc+NC99t3O
-         yNtiTeJWfgmIsZBq53hyQES5oiCXmuxfadEqfMkxtcJFQPLWu7OlEzjyj8Hjcvz3V6Fy
-         WM9k71eILllPAiE3GkVxbZaO226HUg6EafFJjE7d+RJf7GDA3hRrzHN9zZpg52n31p27
-         6K0QNB67VtZoqNZC7ar1x1lRW2RlkVnaFiNsBUokQ0FLODC0SJx6cQwu9QbSz4jURVyK
-         BouQ66mm8ehnKrQWJgLXRxFaMIuR1pd+yZfFhFYVBPNGpheK13yZIUMhABbEAl2mvYhU
-         t6ow==
+        d=redhat.com; s=google; t=1790265382; x=1790870182; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BsIicbnwmHZxyMI07vJAKZ5x+YHru/pqorNr3bVuoUs=;
+        b=UshE4h47sI9NtWfWCugd+LddLlvaa7IXNIR2zXv1pn0UWX77z2W8IiMbg3cFLOsP4c
+         EIfrab0R59uhfBMlpROLHM1hi3E8xcuLbc2PTsXbr4EiDqoIYIpt4wwdW/ZURcMPJT6Z
+         xAvGt0sOKqJ9/XZwO9mok/dS+QGyeH/gipNoU7BZ1ZB0MTrYZYL/Nx/uI/qSS6F9QvNY
+         LVVjMWvROYKaBIZtrp5gwl6BmGgHNKAwdbUyrmWPPI4Sma3Y+ob/KHB7fdeNCytrpa47
+         QvC4d8x+dx3CnY0LPBu3h/7hBQuj5oJoUxk82MAVnG4JzKYHfTXluh39a9SfPFUyAEZN
+         RazQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790264674; x=1790869474;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CU0D2cxA3xiiAsXwNtIVwxMqp3c9ZGhfeXIr6+SStxE=;
-        b=T+FckSRrXJbwkrZ/vWJaEpVHO0OnbgHA4TdkDnExVbk/HcT0tcDX5ATybgqFZxnHfH
-         biEJFbZ/cYhTG3cgBQ1BGz5DFJNpMyda/meelNFABD/a1keyEi5vFUtASlTaBdOS93FX
-         ovjoxb75bjeosbcBk52r7yPDHEv+sK/YQKto0lYkqrVf5W/Z89a/lgoMZSFR4LUD1EoG
-         qU3iIv9Zm+FMeGx+9THwGZN/jpLANpgSxCCT4i6cbmQtu7i/oytwdWSVwVRGpqNRqK0f
-         DZurzGLrE1GHk5nIyNfOK4aSi/HGoTNsqIIvYxwcTmqrdoJuW5fV+KK4FTPTAjW+AeZU
-         D9aA==
-X-Forwarded-Encrypted: i=1; AKwUvBzgqjSZ6/Jdl7fpmrTVIDxOeBG9XRUd8RNpeicYsuCJ77aI1ho66FfVJE8s2UBB7IikmkuH4Tk=@vger.kernel.org
-X-Gm-Message-State: AFuF++l98qSE6l+vd0PsIbWAiHNzwktoeoBea+WanemoqH6fb0hgKQpN
-	pby/W4HOAdx9vcZiV5wNVHX20VH/3GC8nzLrdEjIJieQypgByi+MhrtQ
-X-Gm-Gg: AYBFou3aANbiKu4y13n1Ap5cCNiRrBn4RIA2KZT4GPCws76SksZDSU+jxu7c80/vaeW
-	LcmIct/d1IoTu+8dz9/TXVw5ZSjAyPSHVln72nUJ/u3ubD78x1d+NypNR7Dsx97bPa78zYhHVa8
-	hNWvqcz5vO9MiT+Yx6oTMwxdcJDdBDo2guY12bvmbMC9g/u/uqK3nDb7yGvP+WVvLfAaL9BhB0i
-	kjc5Rn/voo9aqRZmBlAKw75imtHwAC0k5YmAnKeD5Tjxjq5Z2//8oDED4O7qLSeppIwKZjDp4mC
-	GICK+O75NPtCxj0/R7GIeepsCL4dyaCI0DcbSmKh1yK3db33vB3KLdR/rInsZ4M2nizga2O7beU
-	IVfYY6Uduw7/GN1pSFcL5iGOu+Bqv8Tt4V7tCHoxtBphgwbm8EUXTdVdDCkVNTdOfZ80SezlqHh
-	kYMq4C9+7KNbYOyET4ih7DijHuh3p90Hc96eVSVYF41N03eyoVy5jKQ66Ye4IHVFm2q8KV9cMPo
-	464EC0nI275NekGAiSvIwaiD3LxaFvRblvZNxM4BSCPvOAL989u/LDrJTm5kUkoA0FvsbgArj//
-	XkdJS+9B1Q==
-X-Received: by 2002:a05:690e:4081:b0:66f:bfd2:6b80 with SMTP id 956f58d0204a3-672ed243db0mr1795049d50.4.1790264673706;
-        Thu, 24 Sep 2026 08:44:33 -0700 (PDT)
-Received: from willemb.c.googlers.com.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-672d8052bc5sm2172549d50.4.2026.09.24.08.44.32
+        d=1e100.net; s=20260707; t=1790265382; x=1790870182;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BsIicbnwmHZxyMI07vJAKZ5x+YHru/pqorNr3bVuoUs=;
+        b=g/L7dw2HYT2mziGN0x7SqcaePk1fW9HBl5h5DedE6+yvW2rvYJpRqf31rIqhLGFZd8
+         AT+JWs5G7JeEixaG6NfLhVahVm3hAvbnUBlf1XyKMz88uXvTDAqK4rqNpHrNQAqEK88u
+         n/MuEmQDS/pIg2XH/sUbhK+uTyjxnK0fmZJjirCXSqsgsFFBQTRlKakxZq0Z1Mwl6tCf
+         zHo+y0wA3NeOGBkRJFYRla9Y1bq3Fu+dE4a1U0twoJVN7EJekWCXDZf8vOhMfoWoFbE9
+         fct79FX478Jm2sfODdLI79zCroRsFVyhol0vNQTdF2e9yrxs6d4G7vdaJOTox8J/sAR4
+         F/1g==
+X-Forwarded-Encrypted: i=1; AKwUvBzdGO1nxGCUSNTteOluxM67dVpDsV7f9TYi/KJPWOHwkVRzZ2whKt5doqZBW+yKtMIv1Kc/cXs=@vger.kernel.org
+X-Gm-Message-State: AFuF++kM/yQ752q68GkDsdpoTZMdXPWnINjuL+fuOGnjfluh4dDuA4EZ
+	tlyfdrZxjfeFf8zCd9n6VrYE9VJfT9YnijFhS9OBzrJp7BbBwLr7wRWNPDFmUNDxWf3dSzASxtr
+	EdK98yFP13wtXEqaQkNr85X/LuxUi9mIYWY/ej7h/kmfmLwa4akAxArrPLA==
+X-Gm-Gg: AYBFou2FLSq4UxMx+p6bqFQ1JBt6GSPGCtZfVF7cTVurUirKCYSn84hQ938o7LBukKs
+	/Wo+8OGrBhBC7aPK/JCTjS6h2FLV1MluiDpj073SevOh0GI7U2Ag8b4m5TEtrXIbSpQ4She7ph3
+	/KZGRyoYORPvfmqwCfdqb5UMFXNBLWs2Fvz3X7SamAwakjmh+ZtuWQnQ5/clHjQRoHWqwgJ4ujF
+	nQxNroBYRf2+4e0G+Z2BQW+VUcpbIrYCOSi5gzLsU8KDL8YBB0HJ59iNOr07aMUadmQd/e+woWz
+	fXXeAXe/24mqHks0LnwR+ljMniypAtLYvu32NhFW8O3e8Q5tO6H7ySBnIqFjMX4XaGOlVrrWVhW
+	JqTeZAMKkpogN3p8XHhJK1/YAVw/JkRMJ/2CY2ymt1r2fQE6ju9h2p/RRTOJ+IFwbHg==
+X-Received: by 2002:a17:907:968b:b0:c26:1648:a072 with SMTP id a640c23a62f3a-c2ac2594bcdmr230040966b.45.1790265382169;
+        Thu, 24 Sep 2026 08:56:22 -0700 (PDT)
+X-Received: by 2002:a17:907:968b:b0:c26:1648:a072 with SMTP id a640c23a62f3a-c2ac2594bcdmr230038666b.45.1790265381573;
+        Thu, 24 Sep 2026 08:56:21 -0700 (PDT)
+Received: from redhat.com (2a02-ab04-0158-f000-2548-f3bd-8b42-b18f.dynamic.v6.chello.sk. [2a02:ab04:158:f000:2548:f3bd:8b42:b18f])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aae33e046sm312897966b.8.2026.09.24.08.56.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 08:44:32 -0700 (PDT)
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: netdev@vger.kernel.org
-Cc: davem@davemloft.net,
-	kuba@kernel.org,
-	edumazet@google.com,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	andrew+netdev@lunn.ch,
-	dzahka@meta.com,
-	john.fastabend@gmail.com,
-	sd@queasysnail.net,
-	Willem de Bruijn <willemb@google.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net] tcp: prevent collapsing skbs across boundary in rtx queue
-Date: Thu, 24 Sep 2026 11:44:12 -0400
-Message-ID: <20260924154427.953800-1-willemdebruijn.kernel@gmail.com>
-X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
+        Thu, 24 Sep 2026 08:56:21 -0700 (PDT)
+Date: Thu, 24 Sep 2026 11:56:19 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Fang Xieyan <fangxy@xiaopeng.com>
+Cc: Jason Wang <jasowangio@gmail.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	Rusty Russell <rusty@rustcorp.com.au>, stable@vger.kernel.org,
+	virtualization@lists.linux.dev, kvm@vger.kernel.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] vringh: reject empty / undersized indirect descriptor
+ tables
+Message-ID: <20260924114316-mutt-send-email-mst@kernel.org>
+References: <20260924030627.13287-1-fangxy@xiaopeng.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924030627.13287-1-fangxy@xiaopeng.com>
 
-From: Willem de Bruijn <willemb@google.com>
+On Thu, Sep 24, 2026 at 11:06:27AM +0800, Fang Xieyan wrote:
+> move_to_indirect() rejects an indirect descriptor table only when its
+> length is not an exact multiple of sizeof(struct vring_desc).  A guest
+> descriptor with VRING_DESC_F_INDIRECT and len == 0 passes that check, so
+> *desc_max becomes 0, yet __vringh_iov() keeps walking the (empty) table
+> and aborts with -ELOOP only after reading one full descriptor past its
+> end -- leaking 16 bytes of memory adjacent to the table into a kernel
+> stack variable.
+> 
+> Reject any len smaller than one descriptor, before the existing stride
+> check, so no descriptor is ever fetched from an empty table.
+> 
+> Fixes: f87d0fbb5798 ("vringh: host-side implementation of virtio rings.")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Hawkeye:GLM-5.3-flash
+> Assisted-by: Qoder:Qwen3.8-Max
+> Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
+> ---
+>  drivers/vhost/vringh.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> Leak path: once move_to_indirect() sets *desc_max = 0 and points *descs
+> at the (empty) table, the next __vringh_iov() iteration first runs
+> 
+> 	err = copy(vrh, &desc, &descs[i], sizeof(desc));
+> 
+> i.e. a 16-byte read from descs[0] -- one full struct vring_desc past the
+> end of the table -- *before* the "indirect_count > desc_max" test fires.
+> When the guest page backing the table sits just before a sensitive host
+> page, those 16 bytes are attacker-influenced adjacent memory.
 
-tcp_write_collapse_fence() sets TCP_SKB_CB(skb)->eor = 1 on
-tcp_write_queue_tail(sk) to prevent skbs queued after a switch to
-device encryption from being collapsed into earlier skbs.
 
-The fence is a no-op if all earlier data has already been transmitted
-when the switch happens: sk->sk_write_queue is empty. The not yet
-acknowledged earlier skbs wait in sk->tcp_rtx_queue with eor 0.
+> The multiple-of-16 stride check is kept for defense in depth.
+> 
+> Userspace reproducer (move_to_indirect()/__vringh_iov() extracted verbatim,
+> 2048-byte region followed by a guarded red zone):
+> 
+>     [VULNERABLE] return=-62 (-ELOOP)  OOB-read=YES  bytes-past-region=16
+>     [PATCHED   ] return=-22 (-EINVAL) OOB-read=no   bytes-past-region=0
 
-On a subsequent retransmit or SACK shift, tcp_retrans_try_collapse() or
-tcp_shift_skb_data() can then merge an skb queued after the switch into
-one queued before it.
+it seems nicer not to fail with EINVAL not with ELOOP as we currently
+do, so the patch is fine. but the commit log if weird, looks like
+an ai hallucination.
 
-Both users of the fence are affected:
 
-- psp: devices only encrypt skbs with skb->decrypted set. The merged skb
-  keeps decrypted = 0 from the earlier skb, so merged data sent after
-  psp_sock_assoc_set_tx() is retransmitted in cleartext.
+"an attacker" "vulnerable" and "leak" - is there an implication that this is a
+security problem somehow? Because I do not see how this data gets
+anywhere.
 
-- tls device offload: the merged skb straddles the start marker set in
-  tls_set_device_offload(). The software fallback (fill_sg_in() returns
-  -EINVAL) and the mlx5, nfp and funeth drivers cannot handle such an
-  skb and drop it. Every retransmit rebuilds the same skb, so the
-  connection stalls.
-
-Fix this in two places, for defense in depth:
-
-1. Fall back to tcp_rtx_queue_tail(sk) in tcp_write_collapse_fence()
-   when tcp_write_queue_tail(sk) is NULL.
-
-2. Check !skb_cmp_decrypted(to, from) in tcp_skb_can_collapse(), as
-   tcp_skb_can_collapse_rx() does on receive. skb_shift(), which both
-   collapse paths call, already has a DEBUG_NET_WARN_ON_ONCE() for this
-   condition.
-
-Fixes: e8f69799810c ("net/tls: Add generic NIC offload infrastructure")
-Cc: stable@vger.kernel.org
-Signed-off-by: Willem de Bruijn <willemb@google.com>
----
- include/net/tcp.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/include/net/tcp.h b/include/net/tcp.h
-index 436495ff2271..4416cdf9bf30 100644
---- a/include/net/tcp.h
-+++ b/include/net/tcp.h
-@@ -1232,9 +1232,9 @@ static inline bool tcp_skb_can_collapse_to(const struct sk_buff *skb)
- static inline bool tcp_skb_can_collapse(const struct sk_buff *to,
- 					const struct sk_buff *from)
- {
--	/* skb_cmp_decrypted() not needed, use tcp_write_collapse_fence() */
- 	return likely(tcp_skb_can_collapse_to(to) &&
- 		      mptcp_skb_can_collapse(to, from) &&
-+		      !skb_cmp_decrypted(to, from) &&
- 		      skb_pure_zcopy_same(to, from) &&
- 		      skb_frags_readable(to) == skb_frags_readable(from));
- }
-@@ -2327,7 +2327,7 @@ static inline void tcp_rtx_queue_unlink_and_free(struct sk_buff *skb, struct soc
- 
- static inline void tcp_write_collapse_fence(struct sock *sk)
- {
--	struct sk_buff *skb = tcp_write_queue_tail(sk);
-+	struct sk_buff *skb = tcp_write_queue_tail(sk) ?: tcp_rtx_queue_tail(sk);
- 
- 	if (skb)
- 		TCP_SKB_CB(skb)->eor = 1;
--- 
-2.56.0.rc1.310.g51773c2048-goog
+> 
+> diff --git a/drivers/vhost/vringh.c b/drivers/vhost/vringh.c
+> index 9066f9f..0767748 100644
+> --- a/drivers/vhost/vringh.c
+> +++ b/drivers/vhost/vringh.c
+> @@ -197,8 +197,9 @@ static int move_to_indirect(const struct vringh *vrh,
+>  	}
+>  
+>  	len = vringh32_to_cpu(vrh, desc->len);
+> -	if (unlikely(len % sizeof(struct vring_desc))) {
+> -		vringh_bad("Strange indirect len %u", desc->len);
+> +	if (unlikely(len < sizeof(struct vring_desc) ||
+> +		     len % sizeof(struct vring_desc))) {
+> +		vringh_bad("Invalid indirect len %u", desc->len);
+>  		return -EINVAL;
+>  	}
+>  
+> -- 
+> 2.50.1
 
