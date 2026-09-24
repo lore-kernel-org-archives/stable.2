@@ -1,105 +1,119 @@
-Received: from out28-195.mail.aliyun.com (out28-195.mail.aliyun.com [115.124.28.195])
+Received: from fhigh-b8-smtp.messagingengine.com (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B74361FB1;
-	Thu, 24 Sep 2026 03:06:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B31B3D566E;
+	Thu, 24 Sep 2026 03:26:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.159
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790219201; cv=none; b=kXWrysJVo5PEPfFVF0mtS+DmEsewIwlk+fNAPmHp6GnMfRjVzZbisikbzlSW02+dRxZH+J93jn5oVNTfok/z2pyb5x/Jxdzqt2AAVuoz+dx69GXDn+yPjRzNlOlgRC9LpA4DnCAa3KfgUHvSa/BeyfNY0f31gpW7i2N6WKSNAP8=
+	t=1790220404; cv=none; b=U2Jq0rA+v5wzvHL+akE0w3qSz7xbzCcRD5buM6UZuckd2SUwz/BnS1SVpdktMzEYkwhtbltyQ3hGUDdGO25tMX47hSzWNJLw3To/pCUHvEdK0rKxwsLi3JGD+qV1pq3qk7kIHjyB5Zhr2GD37Ua5uDPcvmHvk0VAMKvfl3mXj/c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790219201; c=relaxed/simple;
-	bh=bkhYpMcrAiICTVt+GNfTLJqStsMAKAtfAZSF0zLbZgg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aPGyLCUs+qZR4D2sBbgRzh9t6av90B5Il4+v4xTw4CHxnTmeQJTWKuyp6ms+ZaUQj37dkfu5DC/dXiSmsntxye1jWzhC091vUFFI0mPXfujPauTvjpJTsGUl9JNGezkerToLm/W8d4kir6xExJhKQZJP7v0oIBMyAcGfgFljj5E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=Bq5v7cXg; arc=none smtp.client-ip=115.124.28.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	s=arc-20240116; t=1790220404; c=relaxed/simple;
+	bh=Tb7mG1uj0rHwkAcYMsqrfW6BC/IWdMqZJqFjms4KMJM=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=c3jEYWQQsQDLjXBGEepxJriWEZKO9n0zhWsvWOHogzwchVf2o9cHphWL72ZxunH/czAeeqqR5SP0cVvYzJaP4rKGkew8iLlsZpY2INf9TYQP9NsC2GeYZtDQOEdI/f9DuOk+HUQlDsW+Av8exZX8+1+3+HfymE/ANi8a+uEtg/o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=NTxMAAUP; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=bE/iocc6; arc=none smtp.client-ip=202.12.124.159
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="Bq5v7cXg"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1790219189; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=e9NnjNC3yj4jUQFmf6bV/aw5OleziQIh8AoZok0FKXA=;
-	b=Bq5v7cXgwdgX4oR0qAbupunS0svDIt2/N6HZ7KlaDYZJ7G0TasO/X19h0zS2wt08ggyyC34XfSB2Ls4WZ8xVEKsO5CW0wV+eiH5cmxI9YF0wqy5jnvtNmE6HssICPz8gTVm7GXm3rp7dEN9Dd1/+/MitJ/9vFN3i1rur9ZwTkJ0=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.04495044|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.0204653-0.000953312-0.978581;FP=12604583687347453685|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033032062159;MF=fangxy@xiaopeng.com;NM=1;PH=DS;RN=9;RT=9;SR=0;TI=SMTPD_---.jLi.gVo_1790219188;
-Received: from localhost.localdomain(mailfrom:fangxy@xiaopeng.com fp:SMTPD_---.jLi.gVo_1790219188 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Thu, 24 Sep 2026 11:06:29 +0800
-From: Fang Xieyan <fangxy@xiaopeng.com>
-To: "Michael S . Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>
-Cc: Rusty Russell <rusty@rustcorp.com.au>,
-	stable@vger.kernel.org,
-	virtualization@lists.linux.dev,
-	kvm@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] vringh: reject empty / undersized indirect descriptor tables
-Date: Thu, 24 Sep 2026 11:06:27 +0800
-Message-ID: <20260924030627.13287-1-fangxy@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="NTxMAAUP";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="bE/iocc6"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 6B1897A00E7;
+	Wed, 23 Sep 2026 23:26:40 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-04.internal (MEProxy); Wed, 23 Sep 2026 23:26:40 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to; s=fm1; t=1790220400; x=1790306800; bh=WZti31B3yyBQQjCPw+8OB
+	Addfmrx0EwcJfktDxOnydk=; b=NTxMAAUPbF1QMnTuPRf8GoWfytWLaDWnHaA8a
+	jSrHtYf5aqB1RPWZ4PGWW+zboxXU0fb8Q6cQMo0w4hfUN1c5FGzYZuz7xEeJzzDU
+	LW4a5LNVnYeJFQWGFE31PBrXnzUi3jCHyLmIxSuhONOiLmBt1q04/0HBHIwSEix2
+	PDFnj1Qs+7t05B68+38/ghqGLjEqt4BC1MuBsWJKapYKbb/RsdKyYTZaXmOAiDKX
+	LO0hSse8FBHPqIDb6qRAIwctRBv05ghPQOb7GHY8uE8GFHArWOC7bZCBU0Fpi/Vh
+	uZxMBIc74h8ZMVZ7SFlrmnz46RVe4EYX5U99UPHqw2TiyRBDg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:message-id
+	:mime-version:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790220400; x=
+	1790306800; bh=WZti31B3yyBQQjCPw+8OBAddfmrx0EwcJfktDxOnydk=; b=b
+	E/iocc69KmrvqNROMwDYYQlwY40waP4NpQWiZAKHrMeeDXg6TkFbzL8FGUZDXhzR
+	4QYTm71VJy/hMZZB40HJW5m5++5VzUl1kmxJUMp8RslaxVvGyTlV+XRbEoWJLjDh
+	KzJjeohX5qzQp/Muy90DVkxkKAdbNygfHnwIemQyOYcxaA3zifKAiPy44cV0D/g2
+	gIz0roBz5QYVc4CmxNo1bYwsiPIOev0pUHqkvP9/sydFY+ppCxPwAb1ssikqoQxw
+	xEjREFIdTOVFQqCY77DYLq07MFurwfgjdumzkKlYuonQEKm1QDmx25DkQk/jBlu+
+	ioIaBnzHuiQHLD2DezarQ==
+X-ME-Sender: <xms:b5i0asalkm2UtrgiEULfDiYGXmEkPOd3j-FKGD-tZ5Pumdr_-Xt9-w>
+    <xme:b5i0ai3Hfj13LHaIYQmie2LwkUQOnSiMX3Ot3u35LTU6-cwQXBXMIUcQIvPXvqDt6
+    85Z_OILu7ibczSEaV1PfcjCfZ41nZEtlSwbZ2bHsYSlI6HmcmK95yA>
+X-ME-Received: <xmr:b5i0aqdPVEFPnJkfKnqAwwCmvpiW2makPvJkmMuiA9XzLN9RMU860vtoYy0mbib9w3jZY2tqjZd755uyQqX4_EEREsg4AA>
+X-ME-Proxy-Cause: dmFkZTFpnYrNUG1h59Sbd/xt0EIrLt+m/uemFkLE3oMxWyJZ99VvRNlPkoFItnUnb5V5CQ
+    PVmPQd1NCLCEUkoditggYCtXT9VfyD5GRoFYlLOi2sd2L/VnWaGYe+xQ9AWjEYe99436qw
+    jxai+8PBTpbI5DrSijaXHSNskzLkb2Mip+dnZgHzJzArGXx0u1lQm+hoyL2UUXDXZnyaej
+    /L0cEYKqAkmipG1Y3VX4vvg9XCdrDtB7XlNYQc6SLtTcgy9eaCPsYrXn2+LqTCmy7iKens
+    TFROExPCUAls6YJ7bamZTAjKKXHXL8KZ5rbgB41l8fDO5vMXzOWIZIugcpc74KZcJd2UpO
+    AhGpa80OuM6oo3ojDyjmIL03pVt9/fz7Rik1WudvlapP4Q3y9cO6Sifdulx0Ter9D2mk2m
+    8RetZyVH5v5/+kPHxZghc8h3By9DGo4buKu2AF/BZ0Zubl/uFrfZyACcAWk0bD4wkZB8Kz
+    XwHkzdloXrzCPz6CU+TqBAdBrGlkm7HOACj4qV0+ZZJDS0chiEAZAb+2oDpsH3g/dNb3IN
+    eQjFdR4uYP6sUQfQUTIFjyI0FMxdHs3iIQBDAXHU5NbNqTCQFoqsNR49Tb970S3Y7ERqS5
+    HLq3f1OL78AftBMy8CeLiMfvIZvVcusWXhpanPuDh6CIcacKNLLv/oLv6SnQ
+X-ME-Proxy: <xmx:b5i0arHalus7nddIKw-XoFJDD8mwjRs4FvgshtsSYksVsxjlv3kJHQ>
+    <xmx:b5i0aj229JPHDpV9wINLcIc5EmUTLZEB19SKuEJxfIPjLZ6MYymxkw>
+    <xmx:b5i0ajmQyUZHI54xdtO3SdwqVFvdrDx4q_HtbMNAJj8KsCXi-ghulg>
+    <xmx:b5i0aj9bB9OedIpXNRCkPy3lfq5fWRD2e7eEDf5WX-x47bTatcEeKA>
+    <xmx:cJi0auWWgiVETo9jMcRun_nrelPUHhSyT2DDrxzN0RCzotX8BHTp6SCR>
+Feedback-ID: ie8e14432:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 23 Sep 2026 23:26:38 -0400 (EDT)
+Date: Thu, 24 Sep 2026 12:26:36 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: torvalds@linux-foundation.org
+Cc: linux-kernel@vger.kernel.org, linux1394-devel@lists.sourceforge.net,
+	stable@vger.kernel.org
+Subject: [GIT PULL] firewire fixes for v7.3-rc5
+Message-ID: <20260924032636.GA314300@sakamocchi.jp>
+Mail-Followup-To: torvalds@linux-foundation.org,
+	linux-kernel@vger.kernel.org, linux1394-devel@lists.sourceforge.net,
+	stable@vger.kernel.org
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-move_to_indirect() rejects an indirect descriptor table only when its
-length is not an exact multiple of sizeof(struct vring_desc).  A guest
-descriptor with VRING_DESC_F_INDIRECT and len == 0 passes that check, so
-*desc_max becomes 0, yet __vringh_iov() keeps walking the (empty) table
-and aborts with -ELOOP only after reading one full descriptor past its
-end -- leaking 16 bytes of memory adjacent to the table into a kernel
-stack variable.
+Hi Linus,
 
-Reject any len smaller than one descriptor, before the existing stride
-check, so no descriptor is ever fetched from an empty table.
+Please pull a single patch for firewire subsystem to your tree.
 
-Fixes: f87d0fbb5798 ("vringh: host-side implementation of virtio rings.")
-Cc: stable@vger.kernel.org
-Assisted-by: Hawkeye:GLM-5.3-flash
-Assisted-by: Qoder:Qwen3.8-Max
-Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
----
- drivers/vhost/vringh.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
 
-Leak path: once move_to_indirect() sets *desc_max = 0 and points *descs
-at the (empty) table, the next __vringh_iov() iteration first runs
+The following changes since commit 93f51579e7df248780214094418f205253383cc5:
 
-	err = copy(vrh, &desc, &descs[i], sizeof(desc));
+  Linux 7.3-rc4 (2026-09-20 13:48:15 -0700)
 
-i.e. a 16-byte read from descs[0] -- one full struct vring_desc past the
-end of the table -- *before* the "indirect_count > desc_max" test fires.
-When the guest page backing the table sits just before a sensitive host
-page, those 16 bytes are attacker-influenced adjacent memory.
+are available in the Git repository at:
 
-The multiple-of-16 stride check is kept for defense in depth.
+  git://git.kernel.org/pub/scm/linux/kernel/git/ieee1394/linux1394.git tags/firewire-fixes-7.3-rc5
 
-Userspace reproducer (move_to_indirect()/__vringh_iov() extracted verbatim,
-2048-byte region followed by a guarded red zone):
+for you to fetch changes up to c6b51091cafff9ce6c03c1416aa13864d17ab97c:
 
-    [VULNERABLE] return=-62 (-ELOOP)  OOB-read=YES  bytes-past-region=16
-    [PATCHED   ] return=-22 (-EINVAL) OOB-read=no   bytes-past-region=0
+  firewire: cdev: fix back-transition for iso_resource_auto client resource (2026-09-23 09:20:17 +0900)
 
-diff --git a/drivers/vhost/vringh.c b/drivers/vhost/vringh.c
-index 9066f9f..0767748 100644
---- a/drivers/vhost/vringh.c
-+++ b/drivers/vhost/vringh.c
-@@ -197,8 +197,9 @@ static int move_to_indirect(const struct vringh *vrh,
- 	}
- 
- 	len = vringh32_to_cpu(vrh, desc->len);
--	if (unlikely(len % sizeof(struct vring_desc))) {
--		vringh_bad("Strange indirect len %u", desc->len);
-+	if (unlikely(len < sizeof(struct vring_desc) ||
-+		     len % sizeof(struct vring_desc))) {
-+		vringh_bad("Invalid indirect len %u", desc->len);
- 		return -EINVAL;
- 	}
- 
--- 
-2.50.1
+----------------------------------------------------------------
+firewire fixes for 7.3-rc5
 
+Fix a race in the cdev layer that can cause a fw_iso_resource_auto object
+to transition back to a previous state. This can happen when a file
+descriptor is closed while the work item for the object is running. The
+race can leak several memory objects, including client object itself.
+This fix should be applied to 7.2 kernel or later.
+
+----------------------------------------------------------------
+Takashi Sakamoto (1):
+      firewire: cdev: fix back-transition for iso_resource_auto client resource
+
+ drivers/firewire/core-cdev.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
