@@ -1,346 +1,155 @@
-Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80858336883
-	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 11:35:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.40
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790249715; cv=pass; b=Z0NPsPPxdYT9Qpm5Q8P85KxczrHCGnFOQ7ISJvm791prWzMFaSOHVc2zAYanaZ49TFTsKUJ2UZL8LNlnQk7IPHShU2wd1ntIV96vlD0Uae1fkYVzlq/iDHcfexPrFOZc3UQVuV6EqJUJycCj7KCwSCq/sjn7vZU+cDQ6O2n6bwI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790249715; c=relaxed/simple;
-	bh=4awJtKKDvPw2gOyvaadrQ+P4QGynoRlmFCCWKym08cE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NoNp0X+wXAMej075WeHPOGu6eNsEyNIcDj5e7PLQTBkRHFT24tza1Fbgybry08Gy7ql9nlTn6R60K5naqbXNkCArRpRYfcyjP3cQd1DfcAvOsLlpZfoQQb2RlhaMjOZNNg7jxtamE2tMUfVRZvVAKNUMGBatuCimkjSolQnhx+o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=gOZXBG3N; arc=pass smtp.client-ip=74.125.228.40
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 450A73ADB98;
+	Thu, 24 Sep 2026 11:40:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790250044; cv=none; b=H/RG16kTxPHoyvt3ATuogpF1DPyqMBqXbfrMYdaPu9p4mRkk3HVdLRST8816Uav9NlpfiR8FaKXxbegFOwEEnqxz+G04R/6uJyrShybC1+yG1e6OI6jRV9q0qs6x+ua1m2+pCYVMCqzGnT6YW6z8F7T9VYHTKUEQ0qK9a1CBoQo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790250044; c=relaxed/simple;
+	bh=LI65mtCnBcAAZ+mIIBZkm54ZhyyssX97Tme+Lzrpx88=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=EKZLYOx4+uc33IVWqW3DLWSZ1mk/7SacLLQegCsaqROVCwx68GM+4r9fDLXGXeKZxM93EZ5WODq45DqAccu5PIKtAWTHxa2ItOG2iAg/FdZdQ29+VQ5uGTK1o9i2KC+vgvEIczq5DZbpyKkrK+U90B/uWVb73ShsDy7/EAMTKYA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ECWpVYQu; arc=none smtp.client-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="gOZXBG3N"
-Received: by mail-pz2-f40.google.com with SMTP id d2e1a72fcca58-87c90648f99so1447340b3a.0
-        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 04:35:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790249709; cv=none;
-        d=google.com; s=arc-20260327;
-        b=K7AzfDD/lThF3MFZHIPdlwXx3Tg/eF3xMGrFLK34SWhwUQS1A0YMaoNRe9X4iQQC+8
-         mLQkXoXHai1TmOVBqSTLIhqpG/H+GobIqq+QEQSAse3hRazWZD/n/vHE81hGft8G/9oJ
-         NNS9z82sCY2Waf4NyyD9+GTl10Lfy7hWwyEPI3jpWfort0f46NPOmDlTdLNv0D/5n32u
-         AbrpnYlId6nELUZgu0bIdA9q29iDzzMUVGaaLgIL7+UNXKeFEov7QPcsTKHyleFjPTd9
-         4d0tdK07Oug0kAaitTSY+eYW9N46HPqjofPSrhPG8fil3aGDIez59wMU4S14UXYdD0i4
-         D+sw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=mDZnrGdEXceSo8wKMQm6VdoJFC1vELp0xmTxaa3Jb98=;
-        fh=1IK8yk1Y624RT/1FcvpB+exCWiEKTVR/jwzyvzvd5Vc=;
-        b=iehsYrBlzqWO7i33b1ClV7xJPSb8bndNTIhw9d7sIVTKoLgCT4P8KoUUt0p/sEsxrO
-         B2IrGXQtJ4rzoakA/VVZmClFK19oM2f0jHr/HJ7STnpxJEP0hd+G3bxLmGPREruMg8aw
-         RU1YLNlVkavNI8HP8TcgUX0+a4m03R7vkt2Cxugn0D3h6ZCQBB8MlCns/fQwi7z/WBM2
-         xklDQ6YfrscgPXAlGpG5DkjAvINGIJNjTuVLplq0t/+7LX9Jm6dzmzWDbWuiAQxl4gf1
-         8iBFLASNyrDmsTf2M3ci3CfEyoJfYX3n0y9gRiCIBg9qobDRr8QRYm9NTWBkh1CWrNRi
-         57bQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1790249709; x=1790854509; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mDZnrGdEXceSo8wKMQm6VdoJFC1vELp0xmTxaa3Jb98=;
-        b=gOZXBG3NZqteJ58Mrt9FzAXS9mrCoUoMizjU99e18+P26N2nfHThiL2jenPCkkUD8z
-         fL2HMDg+jBAQ+ko9ZrmUk7IWd7FaHse10kYpPBAQH7g1J7NE+vKu7aIpKwRVMftiAFHM
-         MbNotHhkW1QFEC1t1t8g+VUZax0kPE2BOeA4o=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790249709; x=1790854509;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mDZnrGdEXceSo8wKMQm6VdoJFC1vELp0xmTxaa3Jb98=;
-        b=jPYQfBOSWRCNhx/++DykmyF1PVhL6aFvLMpl3JVlMNizUegFyBF0brxh9tm/LKA4Sd
-         +BphDaSfccZzg42HUzAWafghFzx0EtnMBrBM4tVB5CZ70fI+mW+f8QAZvTrhUjQo+tDj
-         lsMmY3yi7vO3amUe1h6eocSvyz3NYpgCnTRkGzO8WJXzhIa80e2t1VIngEP7q89u67ue
-         kirEQSxyl8QuOa6dtdcll3kLA3ZTaLNAa+0kkHj5Mm5ZSTaPx1BRPNpOZlCyJdr4lTW1
-         SlHcjQCwDUTAZMuQOb4J8ifN3rux9l8GzRnWpVOQEEPUcV8yQR6SJnTP019jKFZFl+/u
-         rdXA==
-X-Forwarded-Encrypted: i=1; AKwUvByjWhMm9AfYFMYNmcQn0VWOlYtmFllw5yIxMmszfFfLUEc5HpXnzwb/UgWr5kJXRtqwXQB6EqM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nO5FnL1T49GNqYlf9ItiDzkHJidCRFocGshEPYObQ7/97RB2FQ
-	rXoiCThoI0JRsGsmcK7MD0/Scvb71OD/ry+0EKonIc9M69io8Abo8jmIRZqr0xbWsF8lBHgJpj+
-	JvEeGQ7bDGsmQ7c7sFrwuVvbTpl1+X8o7qICIvFCv
-X-Gm-Gg: AYBFou29uds/aQdBDOKsBcxK0rMzt541pmsd0NpBPl/7GvaVUb66ohjMvuxhActsTqE
-	LWlTwkAgf1P2FkfYuWjXnIEWSiXLtyfauLCrBOdnosYO3R2nQd1S/EARRU6NkCitw/v4JaKT1CZ
-	HztlXcilSn4ilILWCLldHG7ULha7tbcTKP9LpeOu/vd8jYMbexZ1+9f+79jQk5+sC139lQRe3XI
-	eD0TiKHSyW4WsFQJtTmkf6PESfTCYMF/qLz+9gTv+5d5FZgmTKbnx04XCFJLBxS8eCXzgGvg0Pv
-	/LpS+O73w1oQ286HJ7TR1U2CUWuFO9Q3H9pHErtfyudp5FTaIQbhvrCPrfe1821mgA8Jue9eRgz
-	O162WqZI0htlG3lvxOVRwXxzsNGBIyn3T+A==
-X-Received: by 2002:a05:6a00:f04:b0:857:726d:2707 with SMTP id
- d2e1a72fcca58-87e9cb21961mr1973182b3a.19.1790249708663; Thu, 24 Sep 2026
- 04:35:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ECWpVYQu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790250042; x=1821786042;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=LI65mtCnBcAAZ+mIIBZkm54ZhyyssX97Tme+Lzrpx88=;
+  b=ECWpVYQu6WbMY4Z7eR0Kqs9GAPdRd2PEghS9VBvHxRaHpwdc3lrPEio+
+   3PdL4I00uk8KYbv+M3UG29hp69RHNm/1PsNB9sts68TOvWuGxG3MVxr6z
+   J7sjOiA0CdBTMQAc2HP9JR68YyLdpHH5eCRkPyF3j+RIr9I3FrOLaisGz
+   +01WbjSDAyxku7Dh0XJnOh87uVBj5u9mDbcW/BDHDNhK4Czqhct0Sw+VO
+   HRBs9QLWwDLxWCDn9dfOZoDciMDOLKyuScfkV+Ypn2qV7YaH1bVyiTomI
+   5D+jYLZtg/+gUoAz0FxUE6hWP2nTWv4VKqVD8UdjHGEQeh4S5xvT9YyuA
+   A==;
+X-CSE-ConnectionGUID: P7B1x5BxT2qPBuwBgzL3ew==
+X-CSE-MsgGUID: IGviOJjPSiidT9lOZx7V7Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="90243367"
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
+   d="scan'208";a="90243367"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 04:40:36 -0700
+X-CSE-ConnectionGUID: YnsHjVvZS/ONfe4m/RJdJw==
+X-CSE-MsgGUID: suiSdnqSSr+9FqtUjJtuXw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
+   d="scan'208";a="277158463"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.183])
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 04:40:32 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Thu, 24 Sep 2026 14:40:29 +0300 (EEST)
+To: Hui Peng <benquike@gmail.com>
+cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+    Jiri Slaby <jirislaby@kernel.org>, 
+    linux-serial <linux-serial@vger.kernel.org>, 
+    LKML <linux-kernel@vger.kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH v4 3/3] serial: core: reject baud_base values that overflow
+ port->uartclk in uart_set_info()
+In-Reply-To: <20260924065510.2587569-1-benquike@gmail.com>
+Message-ID: <5e819651-e077-d7a1-d950-752e3320a436@linux.intel.com>
+References: <20260924060511.2364717-1-benquike@gmail.com> <2026092417-seducing-stank-af6d@gregkh> <20260924065510.2587569-1-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <QDISC-4CSL.v1.20260917072652@mojatatu.com> <179003833955.2160803.1077681716391858800@kernel.org>
-In-Reply-To: <179003833955.2160803.1077681716391858800@kernel.org>
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-Date: Thu, 24 Sep 2026 07:34:57 -0400
-X-Gm-Features: AclHuK_6hO2d1IslsqohBLTvdJzUbB13oddooNwCQPyP57DT_TBbN_ZSJdVy95o
-Message-ID: <CAM0EoM=t8g27Z4ouLYUjWGSHvERNJk8rNkm3MXyk8Og9BMaxpg@mail.gmail.com>
-Subject: Re: [PATCH net] net/sched: cls_flower: exact-match ERSPAN key when no
- mask supplied
-To: netdev-bot+sashiko@kernel.org
-Cc: netdev@vger.kernel.org, jiri@resnulli.us, davem@davemloft.net, 
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
-	lucien.xin@gmail.com, stable@vger.kernel.org, sashiko-bot@kernel.org, 
-	victor@mojatatu.com, hybris@mojatatu.ai
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/mixed; boundary="8323328-1169037781-1790250029=:1187"
 
-On Mon, Sep 21, 2026 at 8:52=E2=80=AFPM <netdev-bot+sashiko@kernel.org> wro=
-te:
->
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider.
->
-> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 2 =C2=B7 Low: 0 (2)
->
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->
-> - [Medium] Undisclosed behaviour change on the *with-mask* ERSPAN parse
->   path.
-> - [Medium] The patch threads the key's ERSPAN version into the mask parse
->   as a *default* only and never validates it, so a mask nest may still=E2=
-=80=A6
->
-> Pre-existing issues:
-> - [Low] The selftest match_erspan_opts_test() in
->   tools/testing/selftests/net/forwarding/tc_flower.sh (lines 679-726)=E2=
-=80=A6
-> - [Low] The flower ERSPAN index attribute is consumed as big-endian but
->   declared as a host-endian u32 in both of its declarations.
->
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-pw-bot: cr
+--8323328-1169037781-1790250029=:1187
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-cheers,
-jamal
-> --
->
-> net/sched: cls_flower: exact-match ERSPAN key when no mask supplied
->
-> This patch makes fl_set_erspan_opt() fill in per-version exact-match mask
-> defaults when userspace supplies TCA_FLOWER_KEY_ENC_OPTS without
-> TCA_FLOWER_KEY_ENC_OPTS_MASK, instead of leaving the mask blob zeroed.
-> To do so it threads the key blob's ERSPAN version into the mask parse pas=
-s
-> via a new key_ver argument.
->
-> Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/2026082602512=
-3.62758-1-ljp1205831794@gmail.com
-> Link: https://lore.kernel.org/netdev/20260826025123.62758-1-ljp1205831794=
-@gmail.com/
->
-> A few questions below.
->
-> > diff --git a/net/sched/cls_flower.c b/net/sched/cls_flower.c
-> > index 1cefea571efd..f5acdeb0e2a6 100644
-> > --- a/net/sched/cls_flower.c
-> > +++ b/net/sched/cls_flower.c
-> > @@ -1358,17 +1358,29 @@ static int fl_set_vxlan_opt(const struct nlattr=
- *nla, struct fl_flow_key *key,
-> >
-> >  static int fl_set_erspan_opt(const struct nlattr *nla, struct fl_flow_=
-key *key,
-> >                            int depth, int option_len,
-> > -                          struct netlink_ext_ack *extack)
-> > +                          struct netlink_ext_ack *extack, u8 key_ver)
-> >  {
-> >       struct nlattr *tb[TCA_FLOWER_KEY_ENC_OPT_ERSPAN_MAX + 1];
-> >       struct erspan_metadata *md;
-> >       int err;
-> >
-> >       md =3D (struct erspan_metadata *)&key->enc_opts.data[key->enc_opt=
-s.len];
-> > -     md->version =3D 1;
-> > +     md->version =3D key_ver;
->
-> [Severity: Medium]
-> Is the with-mask path also meant to change here?  The assignment sits
-> above the if (!depth) block, so it runs on the mask pass too, not only
-> on the no-mask path the changelog and the new comment describe.
->
-> On the mask pass option_len is the non-zero value returned by the key
-> pass (sizeof(struct erspan_metadata)), so in fl_set_erspan_opt() this
-> guard never fires:
->
->         if (!option_len && !tb[TCA_FLOWER_KEY_ENC_OPT_ERSPAN_VER]) {
->                 NL_SET_ERR_MSG(extack, "Missing tunnel key erspan option =
-ver");
->                 return -EINVAL;
->         }
->
-> A mask nest that omits TCA_FLOWER_KEY_ENC_OPT_ERSPAN_VER is therefore
-> accepted.  Before this patch such a mask always defaulted to version 1
-> and took the v1 branch (index bytes memset to 0xff, dir/hwid left
-> wildcarded, mask blob version 1).  With a v2 key it now defaults to 2
-> and takes the v2 branch instead (md2.dir =3D 1, set_hwid(0xff), index
-> bytes left at 0).
->
-> That changes which packets match, what fl_dump_key_erspan_opt() emits
-> for TCA_FLOWER_KEY_ENC_OPTS_MASK (it selects the union member from the
-> mask blob's own md->version), and the mask handed to hardware offload,
-> for requests that installed fine before.
->
-> Would it make sense to restrict the new default to the !depth path, or
-> alternatively to describe this second affected path in the changelog and
-> move the comment so its scope matches the code?
->
-> > -     if (!depth)
-> > +     if (!depth) {
-> > +             /* No mask attribute supplied: exact-match every field th=
+On Thu, 24 Sep 2026, Hui Peng wrote:
+
+> In uart_set_info(), new_info->baud_base is multiplied by 16 and stored in
+> uport->uartclk (an unsigned int):
+>=20
+>   uport->uartclk =3D new_info->baud_base * 16;
+>=20
+> While uart_set_info() checks if (uartclk =3D=3D 0) and
+> if (new_info->baud_base < 9600), when new_info->baud_base exceeds
+> UINT_MAX / 16 with low bits set (for example, 0x10000001), multiplying
+> by 16 wraps around in 32-bit unsigned arithmetic to a small non-zero valu=
 e
-> > +              * key set, keyed off the key's own version so the v2 dir=
-/hwid
-> > +              * bytes are masked without touching the overlapping
-> > +              * timestamp/sgt bytes of the union (see 292207809486).
-> > +              */
-> > +             if (md->version =3D=3D 1) {
-> > +                     memset(&md->u.index, 0xff, sizeof(md->u.index));
-> > +             } else if (md->version =3D=3D 2) {
-> > +                     md->u.md2.dir =3D 1;
-> > +                     set_hwid(&md->u.md2, 0xff);
-> > +             }
-> >               return sizeof(*md);
-> > +     }
-> >
-> >       if (nla_type(nla) !=3D TCA_FLOWER_KEY_ENC_OPTS_ERSPAN) {
-> >               NL_SET_ERR_MSG(extack, "Non-erspan option type for mask")=
-;
->
-> [ ... ]
->
-> > @@ -1607,9 +1620,11 @@ static int fl_set_enc_opt(struct nlattr **tb, st=
-ruct fl_flow_key *key,
-> >                       key->enc_opts.dst_opt_type =3D IP_TUNNEL_ERSPAN_O=
-PT_BIT;
-> >                       option_len =3D fl_set_erspan_opt(nla_opt_key, key=
-,
-> >                                                      key_depth, option_=
-len,
-> > -                                                    extack);
-> > +                                                    extack, 1);
-> >                       if (option_len < 0)
-> >                               return option_len;
-> > +                     key_ver =3D ((struct erspan_metadata *)
-> > +                               &key->enc_opts.data[key->enc_opts.len])=
-->version;
-> >
-> >                       key->enc_opts.len +=3D option_len;
-> >                       /* At the same time we need to parse through the =
-mask
-> > @@ -1618,7 +1633,7 @@ static int fl_set_enc_opt(struct nlattr **tb, str=
-uct fl_flow_key *key,
-> >                       mask->enc_opts.dst_opt_type =3D IP_TUNNEL_ERSPAN_=
-OPT_BIT;
-> >                       option_len =3D fl_set_erspan_opt(nla_opt_msk, mas=
-k,
-> >                                                      msk_depth, option_=
-len,
-> > -                                                    extack);
-> > +                                                    extack, key_ver);
-> >                       if (option_len < 0)
-> >                               return option_len;
->
-> [Severity: Medium]
-> Now that key_ver is available at the call site, should a mask nest that
-> declares a different version than the key be rejected?
->
-> key_ver only supplies the default; a few lines further down in
-> fl_set_erspan_opt() it is overwritten with no comparison against the
-> key's version:
->
->         if (tb[TCA_FLOWER_KEY_ENC_OPT_ERSPAN_VER])
->                 md->version =3D nla_get_u8(tb[TCA_FLOWER_KEY_ENC_OPT_ERSP=
-AN_VER]);
->
-> The only cross-check in fl_set_enc_opt() is the length one, and both
-> version branches return sizeof(*md):
->
->         mask->enc_opts.len +=3D option_len;
->         if (key->enc_opts.len !=3D mask->enc_opts.len) {
->
-> So key nest {VER=3D1, INDEX=3D0x64} with mask nest {VER=3D2} is accepted.=
-  On
-> the mask pass option_len is non-zero, so the "Missing tunnel key erspan
-> option dir or hwid" guard is skipped, and the v2 branch writes only
-> md2.dir and the hwid bitfields, leaving the union bytes holding the
-> key's index at 0.  cls_flower compares (packet_key & mask) against
-> (filter_key & mask), so doesn't that filter then match every ERSPAN
-> packet regardless of index, which is the wildcard behaviour this patch
-> sets out to remove?
->
-> The mirror case, key VER=3D2 with dir/hwid plus mask VER=3D1, memsets the
-> union bytes that alias md2.timestamp to 0xff while dir/hwid stay
-> wildcarded, so the filter would never match packets carrying a non-zero
-> ERSPAN timestamp.
->
-> The pair is also not round-trippable, since fl_dump_key_erspan_opt()
-> picks the union member from each blob's own md->version: the key dumps
-> as VER=3D1 plus INDEX while the mask dumps as VER=3D2 plus DIR/HWID.
->
-> Two remaining observations that are not about this diff:
->
-> [Severity: Low]
-> This isn't a bug introduced by this patch, but match_erspan_opts_test()
-> in tools/testing/selftests/net/forwarding/tc_flower.sh does not appear
-> to verify that the ERSPAN option values take part in matching, so it
-> passes with or without the wildcard mask this patch fixes.
->
-> The Type II filter (handle 101) is installed with enc_key_id 1001 plus
-> erspan_opts 1:6789:0:0, and the Type III filter (handle 102) with
-> enc_key_id 1002 plus erspan_opts 2:0:1:63.  The distinct tunnel key IDs
-> already select the respective filter, and only one matching packet is
-> sent through each tunnel:
->
->         $MZ erspan1 -c 1 -p 64 -a $ep1mac -b $h2mac -t ip -q
->         tc_check_packets "dev ep-ex ingress" 101 1
->         check_err $? "ERSPAN Type II"
->
-> Both assertions still hold when the ERSPAN index/dir/hwid mask bytes are
-> zero.  Could a negative packet with the same enc_key_id but different
-> ERSPAN metadata be added, so the new no-mask defaults in
-> fl_set_erspan_opt() are covered?
->
-> [Severity: Low]
-> This is a pre-existing issue, but the ERSPAN index attribute is
-> consumed as big-endian while both of its declarations call it a
-> host-endian u32.
->
-> include/uapi/linux/pkt_cls.h documents
-> TCA_FLOWER_KEY_ENC_OPT_ERSPAN_INDEX as be32,
-> fl_set_erspan_opt() reads it with nla_get_be32() into the __be32 union
-> member and fl_dump_key_erspan_opt() emits it with nla_put_be32().  But
-> erspan_opt_policy has:
->
->         [TCA_FLOWER_KEY_ENC_OPT_ERSPAN_INDEX]      =3D { .type =3D NLA_U3=
-2 },
->
-> and the flower-key-enc-opt-erspan-attrs entry in
-> Documentation/netlink/specs/tc.yaml has:
->
->       -
->         name: index
->         type: u32
->
-> with no byte-order: big-endian.  Should the policy use NLA_BE32 and the
-> spec entry declare big-endian byte order so both match the ABI?
->
-> --
-> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
-set/QDISC-4CSL.v1.20260917072652%40mojatatu.com
+> (16), bypassing both uartclk =3D=3D 0 and new_info->baud_base < 9600 and
+> setting uport->uartclk =3D 16 (baud_base =3D 1, well below the required
+> minimum of 9600 * 16).
+>=20
+> Reject new_info->baud_base > UINT_MAX / 16 before multiplying by 16 in
+> uart_set_info().
+>=20
+> Tested in QEMU against Linux 7.3.0-rc3 by calling ioctl(fd, TIOCSSERIAL,
+> &ss) with ss.baud_base =3D 0x10000001 on /dev/ttyS1: on the unfixed kerne=
+l
+> TIOCSSERIAL succeeds (ret =3D 0) and wraps uport->uartclk to 16
+> (TIOCGSERIAL reports baud_base =3D 1), whereas with the fix applied
+> TIOCSSERIAL returns -EINVAL and preserves the existing uport->uartclk.
+>=20
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Fixes: 6eabce6608d6 ("serial: core: check uartclk for zero to avoid divid=
+e by zero")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Hui Peng <benquike@gmail.com>
+> ---
+> Changes in v4:
+> - Check new_info->baud_base > UINT_MAX / 16 before multiplying by 16,
+>   as suggested by Ilpo J=C3=A4rvinen.
+>=20
+> Changes in v3:
+> - Add missing #include <linux/limits.h> for UINT_MAX and move the
+>   new_info->baud_base > UINT_MAX / 16 check to the uartclk =3D=3D 0 check=
+, as
+>   suggested by Ilpo J=C3=A4rvinen.
+>=20
+>  drivers/tty/serial/serial_core.c | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial=
+_core.c
+> index 95774b0f1484..75bb1eaa27e7 100644
+> --- a/drivers/tty/serial/serial_core.c
+> +++ b/drivers/tty/serial/serial_core.c
+> @@ -16,6 +16,7 @@
+>  #include <linux/console.h>
+>  #include <linux/gpio/consumer.h>
+>  #include <linux/kernel.h>
+> +#include <linux/limits.h>
+>  #include <linux/of.h>
+>  #include <linux/pm_runtime.h>
+>  #include <linux/proc_fs.h>
+> @@ -931,8 +932,13 @@ static int uart_set_info(struct tty_struct *tty, str=
+uct tty_port *port,
+>  =09old_custom_divisor =3D uport->custom_divisor;
+> =20
+>  =09if (!(uport->flags & UPF_FIXED_PORT)) {
+> -=09=09unsigned int uartclk =3D new_info->baud_base * 16;
+> +=09=09unsigned int uartclk;
+> +
+>  =09=09/* check needs to be done here before other settings made */
+> +=09=09if (new_info->baud_base > UINT_MAX / 16)
+> +=09=09=09return -EINVAL;
+> +
+> +=09=09uartclk =3D new_info->baud_base * 16;
+>  =09=09if (uartclk =3D=3D 0)
+>  =09=09=09return -EINVAL;
+>  =09}
+>=20
+
+Reviewed-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
+
+--=20
+ i.
+
+--8323328-1169037781-1790250029=:1187--
