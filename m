@@ -1,57 +1,67 @@
-Received: from mail-ed2-f26.google.com (mail-ed2-f26.google.com [74.125.228.90])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A9C7473C64
-	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 11:28:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.90
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D073D477E58;
+	Thu, 24 Sep 2026 11:29:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790249336; cv=none; b=ZN7PgzGYcndtxKXF3phJjCUcdZCCJu6AVoWVHn9zoCozAxew9s/NTCiv3ZXyLSpAEP7UD/mODvQ2CGbamK43uWNrkxlmbTo35VqflYE8pDplNfR6gNh2tWLfJZRCcs+aueBTEsjs9TMqLKlSs1oOmOmxy/t+6K+zZG1ued8wQd4=
+	t=1790249376; cv=none; b=NqIlXsxeT38cTDH4eIv7hXXuiejRNyxtSfuDvAv5HM18c1xSxPMqtxkYf42gA/2KH5HEZG/aWLhAdly3SVxVzQ4gaIxjYqof25HqgLmqf9/S9mZOQnMmdWqUiFJkzBQoncNDHutsK0UAg2l/70z+kEcZSi+fEoYYMDwOM9NGwtk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790249336; c=relaxed/simple;
-	bh=9q+9njbl5fGDnCjt+CP+V3k7O4J5TEC5Hn04Vn4F3FU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZHXNu49ccGIGtM6tFsMHieMjMeRIZUVjym192iRO5D3zf5XnpBxuJUcUIscME2Z+/6gLfu3McVdJa1ZwR7BB2bMvua4Z3IIBDDQxBTHjM8rjGQFA1EPpUtNdpkNxVOZ0I5NOUeKn/Q/YjZ2b+ux9DcHE+FcZnHVxd9WPtrR6U8Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.228.90
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ed2-f26.google.com with SMTP id 4fb4d7f45d1cf-6aa13e194easo3046747a12.1
-        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 04:28:51 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790249329; x=1790854129;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zuSFDBweOP7pWzPIqUP/KjNZXgPolc/RJ9LLzLh1/A8=;
-        b=QigDOEfBB1SPLyXO38LWpN9eJ/tflWb8w+59dA1v+8rzh+tYYDvsfj7zRnKPeMAMi9
-         LM7oN4ZDrUZTZOnSa2Jvb0bSQnuiBBCEz5W8mQ/g3cKiS12G/+0jUcnneVBxVdJIlzlW
-         /gxIXJNq/a5mfYdJy6+XI4bk08TnW9WrDYwTDOpCDnPou2/b/AKleYRogtLNWlAw9UtV
-         1PCXxutkKZatu8CTLJtX0XUDpoywsVVM8D7KhUFlZOc1aIQDNXkAKFviZdyCV6y8eNpQ
-         SsdZNGoJhkEYNHxoDJevdBn5XxdjziM1STPxCxeLGmHJc7iCaZ+RmugUyqx8RDjoNbkk
-         07zg==
-X-Forwarded-Encrypted: i=1; AKwUvBx8/kaDSsEzvuwLZamcFLGPqQSIh9/sf1nfGvwMVGAv01tuA/Mc5KupGAPOBbuHf1IhbS/P0i0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mQ38Ep854VkvkSgzX3Ipmboes12neCuAdFAqVuG3Z7NKjaCp9p
-	WXZnGS6lWbENQnfz4j+in8hTYiGp+yaLb/EvJboh4Qsxqa6OS3Yv70Je
-X-Gm-Gg: AYBFou2PZl77YmYgZGq7zJmkxWmB6Lob9JbwJ97lSAZF0cFivKJVUmybU00lIX1tmpT
-	VwaFrbI5hBUZgLijWfnFeqRx7i3HZ1mfvwJ3p95QZvOHxSZYmER8DSy0kSh5+Qycio4nNHhcWlw
-	uWjMyrSjHH7PiE7Cqek+/z7GKHu+wFiwm89rZe0vGBM4rBRYWOIJmTgtjzYZBEEXOLuWwi3lgVd
-	FUMY8gDiPCUk5QcWuWDNIm9Tjs9QxaXCb9njSkPYh2atydDTax5ZtqY0R21ZB2OCPyIINn1xgvf
-	UgQOvTws8jgEB9OwGPAKj1Ipg5Rojgh984yKgu6ufZ6AxZFmIz4ZtlpAWmgNk/NND8VGSzAE6//
-	zqMzxhitLDIg2cYjgWbbIXp1TrQF38wVaf6bjlTZ2qEYjCuEsGnBLPWwXAnl1xZDNVlremxui17
-	as19trbmQ8V/OZ1MGhDmgw3oxm0nebnOAFpB6e1H8WQYyhVH0vQNs09yS9x2rMa1Y6pskI/g==
-X-Received: by 2002:a17:906:f597:b0:c29:448b:f5d0 with SMTP id a640c23a62f3a-c2ac25d513emr197041766b.33.1790249328602;
-        Thu, 24 Sep 2026 04:28:48 -0700 (PDT)
-Received: from white ([5.194.185.161])
-        by smtp.googlemail.com with ESMTPSA id a640c23a62f3a-c2aae5c6022sm284374166b.14.2026.09.24.04.28.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 04:28:48 -0700 (PDT)
-From: "Denis Efremov (Oracle)" <efremov@linux.com>
-To: linux-block@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	"Denis Efremov (Oracle)" <efremov@linux.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] floppy: return the drive state flags from the 32-bit FDGETDRVSTAT
-Date: Thu, 24 Sep 2026 15:28:25 +0400
-Message-ID: <20260924112825.3525931-1-efremov@linux.com>
-X-Mailer: git-send-email 2.55.0
+	s=arc-20240116; t=1790249376; c=relaxed/simple;
+	bh=OSNij3Gy/PEwEHuor3pQr5cnCpHEyAlF6oBQ+m1a6R4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Fevy3avzL5NKdxEjSGrpyctcty+bxOUkhYEx5PMfOlotyaPw5E4JAuA6xfJQZr1ZWr1VFphu8SuHbGDpAUVztetT50XK/acIWpEuZUC7en3yRCkT2bp0Axqex5POCq5b0uRJaYVe+NXF7hGJOz+3b1dqMUq0E7T049G94GBAFEU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=YaXb2q0+; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="YaXb2q0+"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O5bYU8160023;
+	Thu, 24 Sep 2026 11:29:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=bj6fJz3vv0i9EgBQBXlFwvRjDk3TaxctBdtEAChV6
+	Yw=; b=YaXb2q0+oayiIrOAYXBjvdFpYfmyiF5Hc9QVrhmQPYBSI9ixWR5NGow43
+	Mm65f6x+7B1B2KUNRkp2PUy45gzsxcsLACS5/uHBGtFHig7y4s04UXxerM+3/uxZ
+	KUxkaQk/Zu4Fei3s/KCCiD8aVWTdqOjhG8VoSbvpu/SO3Q+6NKWjrOpWXNYDgxP6
+	nqkQzjWqpiT3akzQbTUazl24Rzj4ZhvW5VyVenNVsuW1zIilXyQCcLzZQPE5M0VX
+	n9Pap4RE1UvXoOsqEe/5mJDvzS86PDJ3JKOrBuvWps3UFa5cK1Ie3ULiLfdPPwMn
+	08O6pgkUW9eHUeEnm1W/0Bw3zSG8g==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskgqqvrs-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 24 Sep 2026 11:29:09 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68OAIQ1t1554955;
+	Thu, 24 Sep 2026 11:29:08 GMT
+Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gvb8jwetm-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 24 Sep 2026 11:29:08 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68OBT6J839256358
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 24 Sep 2026 11:29:06 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 9C3002004D;
+	Thu, 24 Sep 2026 11:29:06 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 6DE2520043;
+	Thu, 24 Sep 2026 11:29:04 +0000 (GMT)
+Received: from macbookpro.bl1-in.ibm.com (unknown [9.123.4.160])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Thu, 24 Sep 2026 11:29:04 +0000 (GMT)
+From: Disha Goel <disgoel@linux.ibm.com>
+To: miklos@szeredi.hu, amir73il@gmail.com
+Cc: brauner@kernel.org, viro@zeniv.linux.org.uk, jack@suse.cz,
+        shuah@kernel.org, linux-unionfs@vger.kernel.org,
+        linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Disha Goel <disgoel@linux.ibm.com>,
+        stable@vger.kernel.org
+Subject: [PATCH 1/2] ovl: fix mount setup failing when override_creds drops CAP_SYS_ADMIN
+Date: Thu, 24 Sep 2026 16:58:57 +0530
+Message-ID: <20260924112858.51392-1-disgoel@linux.ibm.com>
+X-Mailer: git-send-email 2.45.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -59,51 +69,76 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=G+OJgNk5 c=1 sm=1 tr=0 ts=6ab50985 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=l8F_COdeiNbdnb7lkW0A:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA0NiBTYWx0ZWRfX+Xxvkqi+jHkD
+ sTnMTwhReEKR9ZjUad9j1/24ewOlpy6+voDWnlbB7fv8OXE8/E78sYM6TNSMrbeewuVXm+F0wsA
+ P9SrVVLdhJq1XwngKOL7BInf4Q9vzvs3waNwdZGW02V5Q9vIxcV/nYF+rxNP65T0x/1GarGWE01
+ hieEoFtVUpWfhS5OvVWI2HulDNpqPIQjVPWTzsZlHkyKf2z406vFYWPWVyFwOFwHr55ZSKJ7+ce
+ YZM1jxFjXHm81HhR6EIkCnWg7Lcdy9etdHZY5wmssdX68h7DdCECtXhXrzlo1Ar2I2ARRQ/Qv7S
+ w4ORaq4ZKr+mlYp8JQAoUoAo8hMJQeLphtjoEYIXGgPmdD6gGWvfrhIb3+pbSDwPTUstG0HvBIk
+ ZnnjTS4Hjln/uDuL6+3F/Ks5KE5ahZwinaisAL1BeDCspI6slx7UCzfz+js18uoaWHcBEoEdl2U
+ UY6R++LYlOL+aojhj5w==
+X-Proofpoint-ORIG-GUID: OyqnHgROl3cA-RcydddRci9G5R2lKxWB
+X-Proofpoint-GUID: 8dTP5fY38y81V1fHLVpC5WXJUaInBj0V
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA0NiBTYWx0ZWRfXx+DM1i/56qsd
+ cyWl4B9ZBfHwz5mfSdzoQfxoGTpj3bit4okt1gfUEAv9g/GtfkWhV9Kd7F4+QPiBV0VwsCViDvm
+ pWJHbF0LDo1C8+Q2238HVzs1ljbBra4=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-24_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 phishscore=0 lowpriorityscore=0 impostorscore=0
+ bulkscore=0 priorityscore=1501 clxscore=1011 spamscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240046
 
-compat_getdrvstat() copies every field of the drive state to a 32-bit
-caller except ->flags, which stays zero. 32-bit FDGETDRVSTAT and
-FDPOLLDRVSTAT therefore never report FD_DISK_WRITABLE, FD_DISK_CHANGED
-or FD_VERIFY: i386 fdutils (floppycontrol -P, fdmount), and other
-32-bit users see every disk as write-protected and never see a disk
-change. The compat code in block/compat_ioctl.c copied the field;
-it was lost when that code moved into floppy.c
+When a process drops CAP_SYS_ADMIN and calls fsconfig(FSCONFIG_SET_FLAG,
+"override_creds"), overlayfs saves those restricted credentials in
+ofs->creator_cred.  ovl_fill_super() then wrapped the entire mount setup
+in with_ovl_creds(), switching to those restricted credentials for the
+duration.
 
-Also declare the field as compat_ulong_t: the 32-bit struct
-floppy_drive_struct starts with an unsigned long, and a signed char at
-offset 0 only lines up with its low byte on little-endian machines. The
-size and offsets of the compat structure, and so FDGETDRVSTAT32, do not
-change.
+Mount setup calls clone_private_mount(), which checks CAP_SYS_ADMIN
+against current credentials.  With restricted credentials active, this
+check fails with -EPERM and the mount fails even though the calling
+process is fully privileged.
 
+Mount setup is a one-time privileged operation and must run under the
+caller's credentials.  with_ovl_creds() belongs only in post-mount I/O
+paths.  Remove it from ovl_fill_super().
+
+Fixes: 539a0879de47 ("ovl: allow to specify override credentials")
 Cc: stable@vger.kernel.org
-Fixes: 229b53c9bf4e ("take floppy compat ioctls to sodding floppy.c")
-Signed-off-by: Denis Efremov (Oracle) <efremov@linux.com>
+Signed-off-by: Disha Goel <disgoel@linux.ibm.com>
 ---
- drivers/block/floppy.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ fs/overlayfs/super.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/block/floppy.c b/drivers/block/floppy.c
-index f04397b8e381..569e8823dd3f 100644
---- a/drivers/block/floppy.c
-+++ b/drivers/block/floppy.c
-@@ -3601,7 +3601,7 @@ struct compat_floppy_drive_params {
- };
- 
- struct compat_floppy_drive_struct {
--	signed char	flags;
-+	compat_ulong_t	flags;
- 	compat_ulong_t	spinup_date;
- 	compat_ulong_t	select_date;
- 	compat_ulong_t	first_read_date;
-@@ -3785,6 +3785,7 @@ static int compat_getdrvstat(int drive, bool poll,
- 			goto Eintr;
- 		process_fd_request();
+diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
+index bd0a3f9039d2..29f9489b8242 100644
+--- a/fs/overlayfs/super.c
++++ b/fs/overlayfs/super.c
+@@ -1557,8 +1557,12 @@ int ovl_fill_super(struct super_block *sb, struct fs_context *fc)
+ 			goto out_err;
  	}
-+	v.flags = drive_state[drive].flags;
- 	v.spinup_date = drive_state[drive].spinup_date;
- 	v.select_date = drive_state[drive].select_date;
- 	v.first_read_date = drive_state[drive].first_read_date;
-
-base-commit: 62f4c998b297cf233997a2b4cd6fc2d2df0319c9
+ 
+-	with_ovl_creds(sb)
+-		err = ovl_fill_super_creds(fc, sb);
++	/*
++	 * Mount setup must run under the caller's credentials, not
++	 * creator_cred: clone_private_mount() requires CAP_SYS_ADMIN,
++	 * which override_creds may have dropped.
++	 */
++	err = ovl_fill_super_creds(fc, sb);
+ 
+ out_err:
+ 	if (err) {
 -- 
-2.55.0
+2.45.1
 
