@@ -1,127 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11E8E37BE86;
-	Thu, 24 Sep 2026 14:01:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BD11372045
+	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 14:07:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790258496; cv=none; b=jOYuJpYB4moykLoNzNBNl1/fvGUNWDEfwru3yz27457zXiFh0BXRqTASnOuUDsPsBdutgYC22PUDlBtP6XDc/Q0TgkpzPhRZIj0MtfTcYnCAQBzzQgt3ZFHfbNoKZ+m4evTKrrXB1LFyGqAASgtH+7jmSRgwMO/3Uj7CcRAD/QQ=
+	t=1790258830; cv=none; b=Ts6py70GthMHs86AYLPLlzav+ex02vivOEgX95rU1pwqcaI8c6t9ie4wl+wWiWzdI7plcZK9zhdnrVVYf/ijsJuSeeu6IwBZzii106Nmy542t2uJLfc9JLLHOAggYq34fEdUihbIboGwlXq5nLCV+hVap4m2AURzlx9Z/qWCesc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790258496; c=relaxed/simple;
-	bh=6JGHabwRWmpDCBWI59Z99X50itb/iYbgKpJnZE32Ln0=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=W7zPAOvPfZj05ht/5XxT4ONpJLi7OLMdJJgXYG+bRvjd4gJqOyMfJED/tvy9JdUDmC9z4JAlMa6vD6bfp2rGaIDaoWik2Ro0/evYPKrNQfwkzXJv+/gr1wPydtUCgHtDEMBEPbp0xBGeIsR4BXYUyy2ZSvrzQasy88tWmegGw14=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kIW0kLP/; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790258830; c=relaxed/simple;
+	bh=8tYi0WAgjaIJKipC9deR0xFZyoQuyzFMvHZ4foYg+RY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lc+HxoTXsaJMcHKuzqLJDfNBlm3/4DAp3DzylLbULuPrE30Ukynfp/8EXc010/Wi5yJmoAOgiRgl7hmQAluBFywKkZI/3KOT1URlNIh4BsbkgwK9pXBB2/rRdH62WjnVe/GmDsOQ9r2pnQB/atyBlTLCvMKJJFVhbDymUrAXy9c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=dcimGur3; arc=none smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kIW0kLP/"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 8B356C2BCB3;
-	Thu, 24 Sep 2026 14:01:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790258495;
-	bh=6JGHabwRWmpDCBWI59Z99X50itb/iYbgKpJnZE32Ln0=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=kIW0kLP/5mtTw1DHR0DzSRw6j5wuwduiGycKnDjmwyBTu950qxjFZJu/U1nwBFfoH
-	 qfaCyGO0WLa9z1bksbWkLtuKiCayPtA7LtZ+BSOOb338sECbiNmuMOMDJk/mCmbeFL
-	 5QoVuu/2Jz59C/npUVwRfGkXs2JxS8LVy/y8quX3KczZ+qm0mjBakcdITfuxjf6jOY
-	 9he+8vE3YgQLgdLs6fKg0sKfARTvcAF/Fnwcu8+bwN5f20KEzgqCPpIWl53h2ebKs1
-	 DFiBnWmP/7OQiV42vc+Q78JF1sFvHHNmhfx16PtrbdI5u5RE/LZM0s6J+Xd5tFpq4w
-	 PMgufql8o56rg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 73C3FC9831E;
-	Thu, 24 Sep 2026 14:01:35 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Subject: [PATCH v2 00/11] Pixel 3 XL display panel support
-Date: Thu, 24 Sep 2026 16:01:28 +0200
-Message-Id: <20260924-crosshatch-panel-v2-0-08d5c7bf72fc@ixit.cz>
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="dcimGur3"
+Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-530d0d5ae11so20496621cf.0
+        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 07:07:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1790258828; x=1790863628; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/ztBx4OPk6JOhZIQ7ImRBBL50CNHJh8elF9MxANZMVE=;
+        b=dcimGur3kPV9EKM93rmL3TDcB5EE3EPswfpDMtbdZfH/MJnWsv7KWDImHpNRV1IF1C
+         MTO5Cxdmxz8kw0VfY35H23Ca6QrzCWq/g5iBRE1DpOgIiRoFlONvQqppJcc+WCuNZcJZ
+         ZtER8+1tUg+FY3Hbb0SfX59ElhBp1WRBguMmZYx5oDM83S8iuDGSJAwyao4VuoVjdEXC
+         l06IZQyua43U5iABwOmcOnIHHG/v2RFll0PSgaKT+0hYQ3TWJWkfyCFtnwQjliSDo7zd
+         OgY7LmaJ48q+Hj5Z22OGyVRCVNI7Z7zdxKJjObVfd/4NnasrJ7CLKuAhuKr9ZP6zIBnt
+         Flhw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790258828; x=1790863628;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/ztBx4OPk6JOhZIQ7ImRBBL50CNHJh8elF9MxANZMVE=;
+        b=tRw9v1q07I2s1xHT8tPKwBGe+fNXifjqJXoqd+5MLhKQPo2DAYQhtbrckn+xlHR9/F
+         uWG+xmX+EKXH4PuZKc1EEoob2LLVmFINn1RJXDS5Xq4I+o51zMDKWvQeU/1qTJHV598i
+         aIcV99g1f4S9qjADO4lqTt6k/gH6Clnxd5sXbuo25cviYhX6oE5vPk5U4RCy0mf/bLw2
+         luholiWixKC6qfpP5zOL2eqTaj7KARfoGKKWlFJZW5mCSFY3Su8cF7LEC3/RTwPCyzpV
+         w2iUChSu8xwpTjFq9G9emRd+aIHFBw3KcxmFuAoAoJ09sa9I55m5D0kUwm3aGu59VICD
+         sIqw==
+X-Forwarded-Encrypted: i=1; AKwUvBwigX7Jzb4i/h9WFs8DqDj9RvCq4kHpCW1z1gl5/tKDaWSo5RMLJOdoC7Mi4eW8IRXH0y3J4u0=@vger.kernel.org
+X-Gm-Message-State: AFuF++m3CHt+mxRAVcoTapaP3MYfSdXLxBewav9koXjadalfHwL2cXvk
+	eliWlPA4CyXgoxoMKT75mW27jlcNy0vSxqJx86xKGNVYdLHZz4f51wEj4cTnvAdkEpA=
+X-Gm-Gg: AYBFou0icca2yZwQMmXyWqyzI4I13McGLjwUfEq52ESzbt/B+3QKXfNcJDyUtXnZtgo
+	8JoiMz9Aby+MngXayVB/75jhjjpzIR0hCce8J33nMG9okOyy+2gXlXrKuO4jCiu6Z5oBsiS4k+9
+	aiYLN+POGVK4WUMA1qnX63RB7s3vLpbB1qvpEXpmCa9eqECi06cO+L73zjOAf11n3cE3OWl4n18
+	JhkXw2I2pn/5d1JmS2v3vFNeu90P0b9mpsk+EJQBvyXFCj0TQlY3ghDLjSLYTZ5ekoET8dNHWhh
+	cRgsPNkvbKNloE9NeXkpY5b252buaZg1PdVWrPb1mE3QAcb6bQuAEQdOGw9PRyby8uDQwDNF7fg
+	U+d6KP3OG7vpynlqtUmUMZBJ1YY4pY9fJxHMV/L7CjpMR7kLt4QFo6LHiIi+JTNwymEWfkKDvZT
+	0kbY5ko3vwYQtQPLdgZ4W+EY2bQSnYMeBVzhaMY77C2oSYgVHeKFniuTJqP9QvpMEHVeXrKOpEt
+	EytsgyK2GsnC7GfXZM+h515FzWyvKGhmRMVb3Bs/Snqp1vLIjA4tew=
+X-Received: by 2002:a05:622a:1f8f:b0:532:bda6:a48b with SMTP id d75a77b69052e-532fea0a65cmr25291591cf.12.1790258828027;
+        Thu, 24 Sep 2026 07:07:08 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-532eaec185esm43147051cf.3.2026.09.24.07.07.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 07:07:07 -0700 (PDT)
+Date: Thu, 24 Sep 2026 10:07:05 -0400
+From: Gregory Price <gourry@gourry.net>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+	akpm@linux-foundation.org, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, 
+	rppt@kernel.org, surenb@google.com, mhocko@suse.com, mingo@redhat.com, 
+	peterz@infradead.org, juri.lelli@redhat.com, vincent.guittot@linaro.org, 
+	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de, 
+	vschneid@redhat.com, kprateek.nayak@amd.com, ziy@nvidia.com, 
+	baolin.wang@linux.alibaba.com, nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com, 
+	baohua@kernel.org, lance.yang@linux.dev, usama.arif@linux.dev, kas@kernel.org, 
+	matthew.brost@intel.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com, byungchul@sk.com, 
+	ying.huang@linux.alibaba.com, apopple@nvidia.com, jannh@google.com, pfalcato@suse.de, 
+	hannes@cmpxchg.org, shy828301@gmail.com, raghavendra.kt@amd.com, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3 2/7] mm: allow shared folios to be promoted to a fast
+ tier
+Message-ID: <arUtcPIw_FaUSPv4@gourry-fedora-PF4VCD3F>
+References: <20260922182928.2199090-1-gourry@gourry.net>
+ <20260922182928.2199090-3-gourry@gourry.net>
+ <f0cd5c54-deca-42e7-bc85-1838dfa917f3@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2WNyw6CMBBFf4XM2pq2iZW68j8Ii9IOdowB0qkEJ
- fy7PJYuT3LuuTMwJkKGWzFDwpGY+m4FfSrAR9c9UFBYGbTURpZSCZ965uiyj2JwHb6ENB5LZ2z
- bXFtYZ0PClqY9WdUH87t5os9bZzMice7TZ/8c1eYdeavlf35UQoqABu1F6eCsudNE+ey/UC/L8
- gOjaRtowAAAAA==
-X-Change-ID: 20260801-crosshatch-panel-06ce8a69fb7f
-To: Dzmitry Sankouski <dsankouski@gmail.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: Petr Vorel <petr.vorel@gmail.com>, dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>, stable@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1970; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=6JGHabwRWmpDCBWI59Z99X50itb/iYbgKpJnZE32Ln0=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqtS08Dk8l2uXKE36uyRLVWoZjZkieSzDdrqR9I
- dCdfi2WxOWJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCarUtPAAKCRBgAj/E00kg
- cuyAD/9osXGW+rWDY7F1S0MsR2H7g77JFd+exO2DFA+ZAx91qW6Xp2her/gV3xXiSEuPezjMNTv
- H1bLed5aS3whJwxlsKSciLtJmGyplhv+b1Qk2+F7Qsv1Xz5ov06UmUciBgD7jtzn8scUvY0Lh0u
- 1Dd2a+/551xTYi5ux16P5ib9GjgZnUn7IXMtH/05Y0ENdoQXwdSb7Bi4Dfbdz8k1YHKc8HOuYUg
- IbPoyCCQfP8XSP3OCKff4p8//ym3pufbmuKHEKpYBwP6LKpCUYVTNHSg+2UZ9GTdcJHdjtzqwIh
- TAkkM7/z/YEZebQXpuuHMAP79+u1PCyEpLLiv10LlTrGsN3n8Hz1JJezr8p9LwNfhJfRC+uKDlr
- ZpaLY+X0CpIQ0FnFqgrIYMyLlm//P+w3hVJJveFnn9AOb6ylWiJxNoREeKr16sWgTassOPv7ngT
- 4CY2n/559U6BTW5G7iSbDlWohGWVo0EE+5ffuu2GZSr7JQr6m3FaruD9gOefIA0k89UHyg1dw7f
- zLLzJeYKVjvFhi76gwK/Ek+JFzV7/Nw6G+77iOTgtCk2YuV79iKFXwpn0RQUzFk3hUTI6aeXcuI
- CXNS77L2XgwCAXFmt5MGq0n1pgILXLCaoGKcKGoW4NtnagpeXPl1RETZu0q0WhIZaBPSQnJjY9p
- LDFbM71z6ruTaOw==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f0cd5c54-deca-42e7-bc85-1838dfa917f3@kernel.org>
 
-Introduce Samsung AMB630QY01 (Google Pixel 3 XL) panel.
+On Thu, Sep 24, 2026 at 01:59:15PM +0200, David Hildenbrand (Arm) wrote:
+> I wonder if a better name would just make the comment above (about memory
+> tiering) implicit and make more sense of the sysctl_numa_balancing_mode &
+> NUMA_BALANCING_MEMORY_TIERING) check.
+> 
+> 	folio_promotable()
+> 
+> 	folio_is_promotable()
+> 
+> 	folio_numa_promotable()
+>
+> etc.
+> 
+> because that seems to be what we really test with both things combined.
+>
 
-Includes refactoring and improvements to the S6E3HA8 DDIC which is also
-used by Samsung S9 (Korea version).
+maybe:  folio_numab_promotable() ?
 
-Patches 9 and 11 switch to the new compatibles, so they must not reach
-the qcom tree before the driver patches land.
+> > -		if ((vma->vm_flags & VM_EXEC) && folio_maybe_mapped_shared(folio))
+> > +		if ((vma->vm_flags & VM_EXEC) &&
+> > +		    folio_maybe_mapped_shared(folio) &&
+> > +		    (!folio_in_lowtier(folio) || !node_is_toptier(node)))
+> >  			return -EACCES;
+> >  
+> >  		/*
+> 
+> Sashiko has some comment about anonymous shared COW folios. I think it has a
+> point, but didn't look too closely.
+>
 
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
-Changes in v2:
-- Rebase on top of next-20260923.
-- Cosmetic fix s/Cosmtetic/Cosmetic/ fix in the commit msg. (Neil)
-- Link to v1: https://patch.msgid.link/20260920-crosshatch-panel-v1-0-de6e9512da96@ixit.cz
+its tl;dr:
 
----
-David Heidelberg (11):
-      dt-bindings: display: panel: s6e3ha8: Adjust to reflect the DDIC and panel used
-      dt-bindings: display: panel: samsung,s6e3ha8: Add AMB630QY01 panel
-      drm/panel: s6e3ha8: Really assert reset on the failure
-      drm/panel: s6e3ha8: Introduce AMB577PX01 panel compatible
-      drm/panel: s6e3ha8: Prepare for supporting multiple panels
-      drm/panel: s6e3ha8: Correct the polarity logic within
-      drm/panel: s6e3ha8: Assert reset GPIO in unprepare
-      drm/panel: s6e3ha8: add Samsung AMB630QY01 (Google Pixel 3 XL) panel
-      arm64: dts: qcom: sdm845-samsung-starqltechn: Update panel compatible
-      arm64: dts: qcom: sdm845-google: Move panel pins into common
-      arm64: dts: qcom: sdm845-google-crosshatch: Add display panel
+`skipping this check means those folios could end up freely migrating east-west
+ between slow tiers`
 
- .../bindings/display/panel/samsung,s6e3ha8.yaml    |  46 +++-
- .../arm64/boot/dts/qcom/sdm845-google-blueline.dts |  18 --
- arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi |  16 ++
- .../boot/dts/qcom/sdm845-google-crosshatch.dts     |  60 +++-
- .../boot/dts/qcom/sdm845-samsung-starqltechn.dts   |   4 +-
- drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c      | 304 +++++++++++++++++----
- 6 files changed, 367 insertions(+), 81 deletions(-)
----
-base-commit: 3d7783543c2646af69ad65825e810060494bea21
-change-id: 20260801-crosshatch-panel-06ce8a69fb7f
+Which cannot happen (we only migrate to top tier, numab will never
+migrate *to* a slow tier).
 
-Best regards,
---  
-David Heidelberg <david@ixit.cz>
+basically false-positive
 
-
+~Gregory
