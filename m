@@ -1,224 +1,155 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f42.google.com (mail-yx2-f42.google.com [74.125.224.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA99F4A2A41;
-	Thu, 24 Sep 2026 15:44:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF3C94A3F09
+	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 15:44:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790264655; cv=none; b=M6cRkPvWB4x0JRl30FXh9KlmIKm/YvHwS9HThWMwxYaqcAPG1na1oFQV4rrIrX2xL8n9OSvxprDBiyvxqTdODiLFrBjtt7LxzLw1oAcKuxXZxoSs0sFYuEaCAH9yAcDAzw/ewnUxtUDCqX1i5cLJrKn4A+HYeMBFVQB+iSD8yak=
+	t=1790264676; cv=none; b=CEBoKS7l4apd2/fxtH/4lF/WKIRZ91SnaG2qsgbijdc5ikKYNYIWrMGoD2dPKIBlZy4FRMB7LtJk7gPv/IFIfY1UM6EDxF9Pc6hlWQTcbVMeHD7gVfsU8TD5KzXa0uPIW7EftZKxwz/YaaHen1yYcpJgO9IF3j+j10H34yhPjbs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790264655; c=relaxed/simple;
-	bh=6+PpXr9we17NiHs9bfur1AcFceo7Prw6yWY+x/mBO1s=;
-	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
-	 Content-Type; b=oalDxchJ7y5DUqIa6/Ewc43Ek0U9NLrPIEH8X4hP/miNhihNk/uVrTKd9UXRAR/TjiSWKmZBicof+VRPdKNRC3kmTC4yeCiGTYLjn+CBbkuwAVptFk8Ql+MaA2Juxm4OWO99WZpdvpFuw6RN0/fIIa7iL2xb6GGidOIVuSAQoqk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=TLnU+Qhs; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=vq7Hpc2U; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1790264676; c=relaxed/simple;
+	bh=F722r79Bmh7PI6YVKi85BrdG6Xr35DU1IZmnFgeTke4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DTqv99QH/clDO23Ie2CQbVRZJBG1Ml3DUvlvrBjM1f+7gtNSNXxtw4J/CQG0qnHgwcmgjMfZv8x3JG1/vhYhtLSDxfmV4183Z8wutwbwFxzmVJo+/lbRLkT9cCUCVF5J343VNT3Oxs3Zjd5aSvLkUPXMKQefv4GpEuXz8BMrDv4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H82M+4IP; arc=none smtp.client-ip=74.125.224.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="TLnU+Qhs";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="vq7Hpc2U"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790264650; bh=i2iaEK+NM6sskxsNF3Qx6tK
-	fZhZ0WROgaR2aVfzDl2E=; b=TLnU+QhsFfP2m1PRm/z9eS5x8rViKPLMRHiobywvA6to/oHsy8
-	JvrVzrWbY6+FRfowiludcCzemr8oWdacmwTf5kg8ixk3o8XeZYP2KvPHlhaDp4iing0OS5XVieh
-	YSLTYMB5LQXJwoH9BBaV1nehBlKFaHWkpvwA51JJs7VkYc8KLwq5kU8bywE0GbflG0QT1tU1uc/
-	2O+AOIWAd1QoHyMNWsQFVJGqUwvz/Bf72/S2N8BOfXpL51s9gAHZhXtXL7I0n78BwhgUzezZrTH
-	nL9gnMlsj9FtjEFv+c8Adlny3uFxZyNdG6d23mUKoPhUtiqDLJIjQRCcuJ08dyQXx8w==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790264650; bh=i2iaEK+NM6sskxsNF3Qx6tK
-	fZhZ0WROgaR2aVfzDl2E=; b=vq7Hpc2UbOhktvTPwoiLvwTmIUiMuk/lFcXbpPOxdBtJesn+lS
-	ik+qivB/AfCVFRYdrghhf/2PTOnz8wnHbuAQ==;
-Date: Thu, 24 Sep 2026 16:44:12 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: parri.andrea@gmail.com
-CC: davem@davemloft.net, josef@toxicpanda.com, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, mhiramat@kernel.org, naveen@kernel.org,
- rostedt@goodmis.org, stable@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_kprobes=3A_Fix_permanent_ha?=
- =?US-ASCII?Q?ng_when_flushing_the_kprobe_optimizer?=
-In-Reply-To: <20260924092142.199198-1-parri.andrea@gmail.com>
-Message-ID: <B46E3026-C65B-4D01-9A6C-7DACB6D6552A@mainlining.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H82M+4IP"
+Received: by mail-yx2-f42.google.com with SMTP id 956f58d0204a3-672f4b7091dso39259d50.0
+        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 08:44:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790264674; x=1790869474; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CU0D2cxA3xiiAsXwNtIVwxMqp3c9ZGhfeXIr6+SStxE=;
+        b=H82M+4IPvy+kYqBXwP4Umf2uK+bmolKK5KLVrqkxClIdAU7Wucr5CLWSWc+NC99t3O
+         yNtiTeJWfgmIsZBq53hyQES5oiCXmuxfadEqfMkxtcJFQPLWu7OlEzjyj8Hjcvz3V6Fy
+         WM9k71eILllPAiE3GkVxbZaO226HUg6EafFJjE7d+RJf7GDA3hRrzHN9zZpg52n31p27
+         6K0QNB67VtZoqNZC7ar1x1lRW2RlkVnaFiNsBUokQ0FLODC0SJx6cQwu9QbSz4jURVyK
+         BouQ66mm8ehnKrQWJgLXRxFaMIuR1pd+yZfFhFYVBPNGpheK13yZIUMhABbEAl2mvYhU
+         t6ow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790264674; x=1790869474;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CU0D2cxA3xiiAsXwNtIVwxMqp3c9ZGhfeXIr6+SStxE=;
+        b=T+FckSRrXJbwkrZ/vWJaEpVHO0OnbgHA4TdkDnExVbk/HcT0tcDX5ATybgqFZxnHfH
+         biEJFbZ/cYhTG3cgBQ1BGz5DFJNpMyda/meelNFABD/a1keyEi5vFUtASlTaBdOS93FX
+         ovjoxb75bjeosbcBk52r7yPDHEv+sK/YQKto0lYkqrVf5W/Z89a/lgoMZSFR4LUD1EoG
+         qU3iIv9Zm+FMeGx+9THwGZN/jpLANpgSxCCT4i6cbmQtu7i/oytwdWSVwVRGpqNRqK0f
+         DZurzGLrE1GHk5nIyNfOK4aSi/HGoTNsqIIvYxwcTmqrdoJuW5fV+KK4FTPTAjW+AeZU
+         D9aA==
+X-Forwarded-Encrypted: i=1; AKwUvBzgqjSZ6/Jdl7fpmrTVIDxOeBG9XRUd8RNpeicYsuCJ77aI1ho66FfVJE8s2UBB7IikmkuH4Tk=@vger.kernel.org
+X-Gm-Message-State: AFuF++l98qSE6l+vd0PsIbWAiHNzwktoeoBea+WanemoqH6fb0hgKQpN
+	pby/W4HOAdx9vcZiV5wNVHX20VH/3GC8nzLrdEjIJieQypgByi+MhrtQ
+X-Gm-Gg: AYBFou3aANbiKu4y13n1Ap5cCNiRrBn4RIA2KZT4GPCws76SksZDSU+jxu7c80/vaeW
+	LcmIct/d1IoTu+8dz9/TXVw5ZSjAyPSHVln72nUJ/u3ubD78x1d+NypNR7Dsx97bPa78zYhHVa8
+	hNWvqcz5vO9MiT+Yx6oTMwxdcJDdBDo2guY12bvmbMC9g/u/uqK3nDb7yGvP+WVvLfAaL9BhB0i
+	kjc5Rn/voo9aqRZmBlAKw75imtHwAC0k5YmAnKeD5Tjxjq5Z2//8oDED4O7qLSeppIwKZjDp4mC
+	GICK+O75NPtCxj0/R7GIeepsCL4dyaCI0DcbSmKh1yK3db33vB3KLdR/rInsZ4M2nizga2O7beU
+	IVfYY6Uduw7/GN1pSFcL5iGOu+Bqv8Tt4V7tCHoxtBphgwbm8EUXTdVdDCkVNTdOfZ80SezlqHh
+	kYMq4C9+7KNbYOyET4ih7DijHuh3p90Hc96eVSVYF41N03eyoVy5jKQ66Ye4IHVFm2q8KV9cMPo
+	464EC0nI275NekGAiSvIwaiD3LxaFvRblvZNxM4BSCPvOAL989u/LDrJTm5kUkoA0FvsbgArj//
+	XkdJS+9B1Q==
+X-Received: by 2002:a05:690e:4081:b0:66f:bfd2:6b80 with SMTP id 956f58d0204a3-672ed243db0mr1795049d50.4.1790264673706;
+        Thu, 24 Sep 2026 08:44:33 -0700 (PDT)
+Received: from willemb.c.googlers.com.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-672d8052bc5sm2172549d50.4.2026.09.24.08.44.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 08:44:32 -0700 (PDT)
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: netdev@vger.kernel.org
+Cc: davem@davemloft.net,
+	kuba@kernel.org,
+	edumazet@google.com,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	andrew+netdev@lunn.ch,
+	dzahka@meta.com,
+	john.fastabend@gmail.com,
+	sd@queasysnail.net,
+	Willem de Bruijn <willemb@google.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net] tcp: prevent collapsing skbs across boundary in rtx queue
+Date: Thu, 24 Sep 2026 11:44:12 -0400
+Message-ID: <20260924154427.953800-1-willemdebruijn.kernel@gmail.com>
+X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-On 24 September 2026 10:21:39 BST, Andrea Parri <parri.andrea@gmail.com>
-wrote:
->Writing 0 to /proc/sys/debug/kprobes-optimization while a kprobe is
->jump-optimized never returns. The writer sleeps in D state forever with
->kprobe_sysctl_mutex held, so any later read or write of that sysctl
->hangs as well. For example, with vfs_read+9 as an optimizable address
->in this build:
->
->  # cd /sys/kernel/tracing
->  # echo 'p:myprobe vfs_read+9' >> kprobe_events
->  # echo 1 > events/kprobes/myprobe/enable
->  # # wait until /sys/kernel/debug/kprobes/list shows [OPTIMIZED]
->  # echo 0 > /proc/sys/debug/kprobes-optimization
+From: Willem de Bruijn <willemb@google.com>
 
-Couldn't reproduce this on PowerPC, because PowerPC won't work for this
-bug unfortunately...
+tcp_write_collapse_fence() sets TCP_SKB_CB(skb)->eor = 1 on
+tcp_write_queue_tail(sk) to prevent skbs queued after a switch to
+device encryption from being collapsed into earlier skbs.
 
-But this is a real bug in some cases:
+The fence is a no-op if all earlier data has already been transmitted
+when the switch happens: sk->sk_write_queue is empty. The not yet
+acknowledged earlier skbs wait in sk->tcp_rtx_queue with eor 0.
 
+On a subsequent retransmit or SACK shift, tcp_retrans_try_collapse() or
+tcp_shift_skb_data() can then merge an skb queued after the switch into
+one queued before it.
 
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
+Both users of the fence are affected:
 
+- psp: devices only encrypt skbs with skb->decrypted set. The merged skb
+  keeps decrypted = 0 from the earlier skb, so merged data sent after
+  psp_sock_assoc_set_tx() is retransmitted in cleartext.
 
->
->  INFO: task sh:246 blocked for more than 10 seconds.
->  Call Trace:
->   <TASK>
->   __schedule+0x1176/0x4f70
->   schedule+0xdc/0x2c0
->   schedule_timeout+0x17b/0x260
->   wait_for_completion+0x173/0x3c0
->   wait_for_kprobe_optimizer_locked+0xbc/0x130
->   proc_kprobes_optimization_handler+0x156/0x1b0
->   proc_sys_call_handler+0x324/0x490
->   vfs_write+0x52d/0xfe0
->   ksys_write+0xff/0x200
->   do_syscall_64+0x106/0x630
->   entry_SYSCALL_64_after_hwframe+0x77/0x7f
->   </TASK>
->  ...
->  INFO: task cat:265 is blocked on a mutex likely owned by task sh:246.
->
->wait_for_kprobe_optimizer_locked() reinitializes optimizer_completion,
->asks the optimizer thread to flush and sleeps in wait_for_completion().
->The thread drains the (un)optimizing lists, but calls complete() only
->if completion_done() is true, i.e. if the completion is already done,
->which never happens while someone waits. disarm_all_kprobes() and
->kprobe_trace_self_tests_init() wait the same way.
->
->Calling complete() unconditionally would not be enough: the waiter
->drops kprobe_mutex while it sleeps, and nothing else serializes the
->sysctl handler against the debugfs "enabled" file. A second flusher
->that still finds the lists non-empty, e.g. because a disabled probe is
->queued for unoptimizing, reinitializes the completion under the first:
->
->  sysctl write                      debugfs "enabled" write
->  unoptimize_all_kprobes()
->    wait_for_kprobe_optimizer_locked()
->      init_completion(c)
->      mutex_unlock(&kprobe_mutex)
->      wait_for_completion(c)
->                                    disarm_all_kprobes()
->                                      wait_for_kprobe_optimizer_locked()
->                                        init_completion(c)
->                                          // c->wait is reset, the first
->                                          // waiter is off the queue
->                                        mutex_unlock(&kprobe_mutex)
->                                        wait_for_completion(c)
->  kprobe_optimizer()
->    complete(c)
->      // wakes the debugfs writer only
->
->where c is &optimizer_completion. Lining up the two writes during an
->optimizer pass loses the sysctl writer this way.
->
->Replace the completion with a counter of optimizer passes, bumped at the
->end of each pass and signalled with wake_up_var_locked(), both under
->kprobe_mutex. A flusher samples the count and waits with
->wait_var_event_mutex(), which drops kprobe_mutex only while sleeping, so
->a new count means a whole pass ran in the meantime. Nothing is
->reinitialized, so several flushers can sleep in the wait at once.
->
->Fixes: 73c12f209462 ("kprobes: Use dedicated kthread for kprobe optimizer")
->Cc: stable@vger.kernel.org
->Assisted-by: LLM
->Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
->---
->This overlaps with two patches under discussion in the "rcu-tasks: build
->Tasks RCU on Tasks Trace readers in trampolines" thread:
->
-> - Masami's RFC "kprobes: Make optprobe optimizer multi-generational and
->   asynchronous" [1] rewrites the same code.  It drops the
->   completion_done() check, which fixes the hang reported here, but it
->   keeps init_completion() in wait_for_kprobe_optimizer_locked(), so the
->   concurrent-flusher case described above remains.  The two patches
->   conflict textually.
->
-> - Josef's "kprobes: Expose the optprobe jump window to Tasks RCU" [2]
->   changes kprobe_optimizer() around synchronize_rcu_tasks(); its
->   kernel/kprobes.c hunks still apply on top of this patch.
->
->[1]
->https://lore.kernel.org/all/179017148080.466588.9116221556625712980.stgit@devnote2/
->[2]
->https://lore.kernel.org/all/20260922-b4-rcu-tasks-preempt-qs-v5-3-410f57770bad@toxicpanda.com/
->
-> kernel/kprobes.c | 22 ++++++++++++++--------
-> 1 file changed, 14 insertions(+), 8 deletions(-)
->
->diff --git a/kernel/kprobes.c b/kernel/kprobes.c
->index 6337da5cab9e7..4edd8ca5c6578 100644
->--- a/kernel/kprobes.c
->+++ b/kernel/kprobes.c
->@@ -42,6 +42,7 @@
-> #include <linux/execmem.h>
-> #include <linux/cleanup.h>
-> #include <linux/wait.h>
->+#include <linux/wait_bit.h>
-> 
-> #include <asm/sections.h>
-> #include <asm/cacheflush.h>
->@@ -526,7 +527,8 @@ enum {
-> 	OPTIMIZER_ST_FLUSHING = 2,
-> };
-> 
->-static DECLARE_COMPLETION(optimizer_completion);
->+/* Bumped at the end of each kprobe_optimizer() pass, under 'kprobe_mutex' */
->+static unsigned long optimizer_passes;
-> 
-> #define OPTIMIZE_DELAY 5
-> 
->@@ -654,9 +656,9 @@ static void kprobe_optimizer(void)
-> 		do_free_cleaned_kprobes();
-> 	}
-> 
->-	/* Step 5: Kick optimizer again if needed. But if there is a flush requested, */
->-	if (completion_done(&optimizer_completion))
->-		complete(&optimizer_completion);
->+	/* Step 5: Wake up flushers, and kick optimizer again if needed. */
->+	optimizer_passes++;
->+	wake_up_var_locked(&optimizer_passes, &kprobe_mutex);
-> 
-> 	if (!list_empty(&optimizing_list) || !list_empty(&unoptimizing_list))
-> 		kick_kprobe_optimizer();	/*normal kick*/
->@@ -708,7 +710,8 @@ static void wait_for_kprobe_optimizer_locked(void)
-> 	lockdep_assert_held(&kprobe_mutex);
-> 
-> 	while (!list_empty(&optimizing_list) || !list_empty(&unoptimizing_list)) {
->-		init_completion(&optimizer_completion);
->+		unsigned long passes = optimizer_passes;
->+
-> 		/*
-> 		 * Set state to OPTIMIZER_ST_FLUSHING and wake up the thread if it's
-> 		 * idle. If it's already kicked, it will see the state change.
->@@ -717,9 +720,12 @@ static void wait_for_kprobe_optimizer_locked(void)
-> 			OPTIMIZER_ST_FLUSHING) != OPTIMIZER_ST_FLUSHING)
-> 			wake_up(&kprobe_optimizer_wait);
-> 
->-		mutex_unlock(&kprobe_mutex);
->-		wait_for_completion(&optimizer_completion);
->-		mutex_lock(&kprobe_mutex);
->+		/*
->+		 * kprobe_optimizer() holds 'kprobe_mutex' for a whole pass, which
->+		 * this drops while sleeping, so a new count means a full pass ran.
->+		 */
->+		wait_var_event_mutex(&optimizer_passes,
->+				     optimizer_passes != passes, &kprobe_mutex);
-> 	}
-> }
-> 
->
+- tls device offload: the merged skb straddles the start marker set in
+  tls_set_device_offload(). The software fallback (fill_sg_in() returns
+  -EINVAL) and the mlx5, nfp and funeth drivers cannot handle such an
+  skb and drop it. Every retransmit rebuilds the same skb, so the
+  connection stalls.
 
---- Thanks!
-"I'm not a very positive person" - Linus torvalds
+Fix this in two places, for defense in depth:
+
+1. Fall back to tcp_rtx_queue_tail(sk) in tcp_write_collapse_fence()
+   when tcp_write_queue_tail(sk) is NULL.
+
+2. Check !skb_cmp_decrypted(to, from) in tcp_skb_can_collapse(), as
+   tcp_skb_can_collapse_rx() does on receive. skb_shift(), which both
+   collapse paths call, already has a DEBUG_NET_WARN_ON_ONCE() for this
+   condition.
+
+Fixes: e8f69799810c ("net/tls: Add generic NIC offload infrastructure")
+Cc: stable@vger.kernel.org
+Signed-off-by: Willem de Bruijn <willemb@google.com>
+---
+ include/net/tcp.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/include/net/tcp.h b/include/net/tcp.h
+index 436495ff2271..4416cdf9bf30 100644
+--- a/include/net/tcp.h
++++ b/include/net/tcp.h
+@@ -1232,9 +1232,9 @@ static inline bool tcp_skb_can_collapse_to(const struct sk_buff *skb)
+ static inline bool tcp_skb_can_collapse(const struct sk_buff *to,
+ 					const struct sk_buff *from)
+ {
+-	/* skb_cmp_decrypted() not needed, use tcp_write_collapse_fence() */
+ 	return likely(tcp_skb_can_collapse_to(to) &&
+ 		      mptcp_skb_can_collapse(to, from) &&
++		      !skb_cmp_decrypted(to, from) &&
+ 		      skb_pure_zcopy_same(to, from) &&
+ 		      skb_frags_readable(to) == skb_frags_readable(from));
+ }
+@@ -2327,7 +2327,7 @@ static inline void tcp_rtx_queue_unlink_and_free(struct sk_buff *skb, struct soc
+ 
+ static inline void tcp_write_collapse_fence(struct sock *sk)
+ {
+-	struct sk_buff *skb = tcp_write_queue_tail(sk);
++	struct sk_buff *skb = tcp_write_queue_tail(sk) ?: tcp_rtx_queue_tail(sk);
+ 
+ 	if (skb)
+ 		TCP_SKB_CB(skb)->eor = 1;
+-- 
+2.56.0.rc1.310.g51773c2048-goog
+
