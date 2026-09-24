@@ -1,30 +1,30 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B44934D389;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7417B46C833;
 	Thu, 24 Sep 2026 13:20:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790256057; cv=none; b=BAJHhbBHX79FFQcAUidp5gJo5Fb1sgtkVKx1tQ0nm47kXrjVWb2w47PUVnz8K+X7APcfsul5/Y0knIoIsQ8/c/ptKljyRkoFRIS1Hk/0WECbbQZ93vM963Pd6WWQfzN/EnHoWC9b0vqnJEpHVhoAsRIckcp+VxFDv/jh4Kn0ybc=
+	t=1790256057; cv=none; b=it8TU/oxVlDFm2alF+a5XCrLIE4kMl6WVJrkKar9UfsrX3Dq6owC+CK2fueRcBYOm3ykG2QYJ6i2dhRKNFy0nNh1cRKyyrrLwgfapDPdooa6ptNvyikCToBSFePZp8f+Z5+HYbd19+k/u3dhuvULOjkCO3DpesReJFP2k45/QFE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790256057; c=relaxed/simple;
-	bh=/n5a+nOn9rC3CW57MZuoHNtmK8uyZkfzVEHrkL16BSQ=;
+	bh=FSnqtKcDg8w5pPHPJybQRNTxbIRGTAm59dUPQ6CDzPw=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Me6/QVRiuLcLWWBiBrbQtScJ5GFyqE74d1+yshhf+TBWg+D1SjqUNkoabzBBkK4kbKh/76r+QbR3t5DHyd3Dc4d2MhRXFxbz0JwGYyA0il/ytuSfYkS7vGQlqumHit2tt4SAgptj80CnA9MEnDPTzjF8cnKHrBkv8McI0KQWn40=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=M/mnBXT4; arc=none smtp.client-ip=117.135.210.2
+	 MIME-Version; b=VzbA0tAXeiRrc2eR46+lSxLcq3CMCjniDhtsYpEo3Pee1XQ6a1KJUWNNC79C3dlLlNHUt6aLuT5TL3hgKHe4JrFST9maqrgQ9bxNAlxBM6++YNHHkqJ0AdYXu9vdds+WLJt1oTxZa3RO0dR7HXFRw/5OeSGMhEvk3EH/HF8EVCU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=S66dTXwE; arc=none smtp.client-ip=220.197.31.2
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="M/mnBXT4"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="S66dTXwE"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Ov
-	hWLiAmSVeUcRiZOSiSzgt8c6ktpzexIIkYN0GRrD0=; b=M/mnBXT4aCvmAaUIDT
-	f0rxoPud8wmEs3aWtmVNG7nfnjOLQgCuOwW6gANFWhsetTR54p0hBASfqy61/Ui+
-	ze7XHG0PaYYRUAAMXjIb3ZC0bPQpdzPLtp+wD+LhUS6UrVkt91NRSYzepH5q3MSl
-	ArAsj11ukCtPWMVYkinh/5x2g=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=li
+	hAyBuquZIbZWcutVuY8mTNAbIEE8ErIPZuIuxaZb8=; b=S66dTXwEVaN3E3z5N9
+	g2Ng2Ff579FLzDegik66tF9xbnXdRIA1LqBAYQsN6o/HaNgcYdBIzvxqsKthyyHX
+	efGHixF4Z3m6CAYq2xv4J94y2gc3IT2+uwNHCoAs9FwW3X7cTijrgjbPTvExF3sW
+	GSts7VtDkXzh4uJ2Dn+ZO6QKk=
 Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wD3d5ROI7Vqq0FrAg--.32720S4;
-	Thu, 24 Sep 2026 21:19:26 +0800 (CST)
+	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wD3d5ROI7Vqq0FrAg--.32720S3;
+	Thu, 24 Sep 2026 21:19:19 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
 To: Felix Fietkau <nbd@nbd.name>,
 	Lorenzo Bianconi <lorenzo@kernel.org>,
@@ -38,25 +38,23 @@ To: Felix Fietkau <nbd@nbd.name>,
 	Javier Tia <floss@jetm.me>,
 	Leon Yen <leon.yen@mediatek.com>,
 	Eason Lai <Eason.Lai@mediatek.com>,
-	Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>,
-	Ville Nummela <ville.nummela@kempower.com>,
 	Marek Vasut <marex@nabladev.com>,
-	Rong Yan <rong.yan@mediatek.com>,
-	Deren Wu <deren.wu@mediatek.com>,
+	Ville Nummela <ville.nummela@kempower.com>,
+	Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>,
+	Quan Zhou <quan.zhou@mediatek.com>,
 	Hao Zhang <hao.zhang@mediatek.com>,
-	Nelson Yu <nelson.yu@mediatek.com>,
+	Kalle Valo <kvalo@kernel.org>,
 	Prameela Rani Garnepudi <prameela.j04cs@gmail.com>,
 	Amitkumar Karwar <amit.karwar@redpinesignals.com>,
-	Kalle Valo <kvalo@kernel.org>,
 	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-mediatek@lists.infradead.org
 Cc: Jiale Yao <yaojiale02@163.com>,
 	stable@vger.kernel.org
-Subject: [PATCH 2/4] wifi: mt76: mt7925: unwind link BSS add failures
-Date: Thu, 24 Sep 2026 21:19:02 +0800
-Message-Id: <20260924131908.950229-3-yaojiale02@163.com>
+Subject: [PATCH 1/4] wifi: mt76: mt7615: unwind add_interface failures
+Date: Thu, 24 Sep 2026 21:19:01 +0800
+Message-Id: <20260924131908.950229-2-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260924131908.950229-1-yaojiale02@163.com>
 References: <20260924131908.950229-1-yaojiale02@163.com>
@@ -67,51 +65,75 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3d5ROI7Vqq0FrAg--.32720S4
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Kr47trWfAr1kAFyxZryrJFb_yoW8Ary7pr
-	ZFgFWjkryDGa1DKw4UCw18ZFW0van5Kr1j9ryruw1rZws3Ar1fArWjva4UZry0kayvka1U
-	Xr4DtrnxuFZ8uaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEl1v7UUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzR7nImq1I141qwAA3q
+X-CM-TRANSID:_____wD3d5ROI7Vqq0FrAg--.32720S3
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Kr47trWfAr1kAFyxZryrJFb_yoW8Kr4rpr
+	4UKFZ0kr1kJr15ta1fC3W7ZFyrWw4fKry3Cr17uwn5uwn5AryIvF4Yya42vF9YyrW0kF1j
+	vr42yan8WF95uaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pi_M3tUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7xflIGq1I1dJuAAA3n
 
 mac80211 does not call remove_interface() after add_interface() fails, so
 the driver must undo any state it published before returning an error.
 
-mt7925_mac_link_bss_add() reserves vif and OMAC bits and publishes the
-station WCID before asking the firmware to add the device.  If that command
-fails, the function currently returns with those resources still installed.
-The WCID pointer then refers into vif private data that mac80211 can free,
-and the mask bits remain permanently allocated.
+mt7615_add_interface() records a monitor vif before resource allocation,
+and later reserves vif and OMAC bits and publishes the station WCID.  An
+allocation or firmware failure leaves some or all of that state behind.
+The stale monitor_vif can then be used by the testmode transmit path after
+mac80211 frees the vif, while the leaked mask bits permanently consume
+interface resources.
 
-Use the existing link BSS removal helper to undo the published WCID, mask
-bits, and WCID resources when the firmware add command fails.
+Unpublish the WCID and release its resources when adding device information
+fails, clear the reserved mask bits after failures that occur after their
+allocation, and clear monitor_vif on every failed add.
 
 Commit 2fb6480c52f6 ("wifi: mt76: mt7915: unwind state on add_interface
 failure") fixed the same failure-unwind issue in mt7915.
 
-Fixes: c948b5da6bbe ("wifi: mt76: mt7925: add Mediatek Wi-Fi7 driver for mt7925 chips")
+Fixes: 4f0bce1c8888 ("mt76: mt7615: implement testmode support")
 Cc: stable@vger.kernel.org
 Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- drivers/net/wireless/mediatek/mt76/mt7925/main.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ .../net/wireless/mediatek/mt76/mt7615/main.c  | 19 ++++++++++++++++++-
+ 1 file changed, 18 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/wireless/mediatek/mt76/mt7925/main.c b/drivers/net/wireless/mediatek/mt76/mt7925/main.c
-index 5993b31e1aae..25ad3bbdcd2c 100644
---- a/drivers/net/wireless/mediatek/mt76/mt7925/main.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt7925/main.c
-@@ -439,8 +439,10 @@ static int mt7925_mac_link_bss_add(struct mt792x_dev *dev,
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7615/main.c b/drivers/net/wireless/mediatek/mt76/mt7615/main.c
+index 67f56e428d9a..d20b109666dc 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7615/main.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7615/main.c
+@@ -219,7 +219,7 @@ static int mt7615_add_interface(struct ieee80211_hw *hw,
  
- 	ret = mt76_connac_mcu_uni_add_dev(&dev->mphy, link_conf, &mconf->mt76,
- 					  &mlink->wcid, true);
--	if (ret)
-+	if (ret) {
-+		mt792x_mac_link_bss_remove(dev, mconf, mlink);
- 		goto out;
-+	}
+ 	ret = mt7615_mcu_set_dbdc(dev);
+ 	if (ret)
+-		goto out;
++		goto err_mask;
  
- 	if (vif->txq) {
- 		mtxq = (struct mt76_txq *)vif->txq->drv_priv;
+ 	idx = MT7615_WTBL_RESERVED - mvif->mt76.idx;
+ 
+@@ -237,7 +237,24 @@ static int mt7615_add_interface(struct ieee80211_hw *hw,
+ 	}
+ 
+ 	ret = mt7615_mcu_add_dev_info(phy, vif, true);
++	if (ret)
++		goto err_wcid;
++
++	mt7615_mutex_release(dev);
++
++	return 0;
++
++err_wcid:
++	rcu_assign_pointer(dev->mt76.wcid[idx], NULL);
++	mt76_wcid_cleanup(&dev->mt76, &mvif->sta.wcid);
++err_mask:
++	dev->mt76.vif_mask &= ~BIT_ULL(mvif->mt76.idx);
++	dev->omac_mask &= ~BIT_ULL(mvif->mt76.omac_idx);
++	phy->omac_mask &= ~BIT_ULL(mvif->mt76.omac_idx);
+ out:
++	if (phy->monitor_vif == vif)
++		phy->monitor_vif = NULL;
++
+ 	mt7615_mutex_release(dev);
+ 
+ 	return ret;
 -- 
 2.34.1
 
