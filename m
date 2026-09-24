@@ -1,86 +1,79 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-oi1-f225.google.com (mail-oi1-f225.google.com [209.85.167.225])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F100A423783
-	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 20:30:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31F954CDA3B
+	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 20:35:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.225
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790281855; cv=none; b=G1NakqQ0u+RdkcNQgTdPb4LQpsHS92Avvs+n8DV+gN+rx8xWwVzQ+FZa7GIjPws/gb1tkrCByl2KJp6vqcDd0ih3Lb6+rtmpanSddA/mW8nTv97ThCrVtkUDdVqZBJETrThQC8dYd+7QhxosLzP7LLyYOYypuUoUoH9oSvkHNgU=
+	t=1790282122; cv=none; b=njTkLMSxJoWAhr6ajJDi9CL4okOUzvDCgiwpicmN/wzJ3QlOWdb/ybXnG9Lp+zeFCIzBt64B1g7zUZ8wmtG73VSsMeM+qi9Z+y6bCFSMPpAtW3GnzhxmsVZkHloOvvWgaBHjjKkaPxbWrnJlDTD4yNDQa5nAgq/s4t6Dhvzssjg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790281855; c=relaxed/simple;
-	bh=P5Ft9dr+LBOSEEDPSbCudgRMxke72Gt5Qr6Xn7/TvZ8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qrJOrDb2Tk185klNFsPOXt4Qwh1BLXHGwntde9ml2JkCga4hacK/v4MJeeTt4KIb4ejvGSKmonGFc5ogXpjTdbX6y9t/pST4F+B2B2QEfquoL7Z6kM76ygBTu4cISas9nzseeSsT0fkYSUA8XnhBlmEKMYyOcta+/a5gccZ/dvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RTSIFR2l; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790282122; c=relaxed/simple;
+	bh=he8h19blVEKXmFgd5AjOMguu+c4odRF3eMcDKFO8pqQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=XqRXvGeINWPGhP5HNqQvGZLyhJrNMj1Nzik6Pzx7CAW8jpUZlhIpaWoeRGWxRXBtTVOwDGKiZ2tKppC5LAYBacggur3cObLU/r2IzWapmad0KJuRVVl90TYhmclVN7nrkVwtWUaGlgrcncLJ+kKzki3jfc0zADKWCHOGmsQSO9E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com; spf=pass smtp.mailfrom=everpuredata.com; dkim=pass (2048-bit key) header.d=everpuredata.com header.i=@everpuredata.com header.b=PdSfBD2T; arc=none smtp.client-ip=209.85.167.225
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=everpuredata.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RTSIFR2l"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e69b9e16aso2440325e9.1
-        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 13:30:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=everpuredata.com header.i=@everpuredata.com header.b="PdSfBD2T"
+Received: by mail-oi1-f225.google.com with SMTP id 5614622812f47-4af7283bf83so43552b6e.3
+        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 13:35:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790281846; x=1790886646; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=b3c90xok/6YjBzo9H+uGtCHNhEBukv6txB+RoRb7X78=;
-        b=RTSIFR2lvUk3esGyEIqohsSLFAIJ0oyPvX/MvoTKst+zc/GxI6DmO6yxeiHiCpx6kO
-         HiUFqFxo9SwNMEvw+4TNeQ0mTlXzEAIDT3LGSMBD//O7UCtWuazV+Z9fvirtePVnD1Zv
-         fI1Mxq33mcwq5e5KjvNDuJkAUXHPUevXIpKLVmaMET4VoTWuenvoi872Z9Vl+h7dy96q
-         VYeOhz6w1cIINBnCeAQq8SjedoI/oNApn73oTR/Yc7XD1Artk+VtomAH3dcwSUuGIxlY
-         sF3zvAWRkwJ7GgtkZ844JjR0hl23A60zTuGfCHT6h1gbyDsEyfZzC9o2kGAWoAyayjyn
-         AVIA==
+        d=everpuredata.com; s=google; t=1790282111; x=1790886911; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MjyFqQ40ZwRfzwYJsmnvVXLveHQtD8lJFjX8AzpEmB8=;
+        b=PdSfBD2T2XXPxw0vtp8PdyhzeMepR36GlC6ejNY2+81nzoiMXNq/pRUotOHgEWHkbf
+         NGkuHU90bBFCJTv0AHHv9f57pF9fEKyTlbmjmDQSYhMiTOBFEOz9KIdLJ+2n9zlYsv+v
+         qaxMt7KpR5PpeqTEj/4uD/IVpnQhuZZx0RfAszN8gyId8+C+hqtnHcRULcm6z7clmRkh
+         De4gBWyru98P56KSRGdrOP+6k4FkhyLfJfD35MNoB9Tu6ENu7ifcXmPjxcluVrgZSwI8
+         FKVMp1J6AK2QDypJxUgT1sCONd8j4yYDbKLMBr2WNuJwWUv9Ggy0j1kUyZ/dhYzvvfl4
+         X/5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790281846; x=1790886646;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=b3c90xok/6YjBzo9H+uGtCHNhEBukv6txB+RoRb7X78=;
-        b=uEwBZBFM43mLJtBt6XBxoqqde+4PrgoQimZU9beRBTpzulVLasnU3ywrFZkImuoaj+
-         7g1WpJkXpW3AID6LxrbXdaCU0BrYKqQrKeUh1XzNXW38aQ8wMHNasChYk3BeQoQcWATA
-         U7f+YLWS+Na7cac0edVJhq2DLOK0caZrAUJimRNt7sCZ472BoqMIc1ajJAqmCfGJ58p/
-         P/8GNL2xhZwaWHHVdGmMva4nmcN5QhJsBbZf1KMDausW8O5vAuqHj3WcPUew/zwVabNp
-         cCY91F5KL1OtPfZlNsLwdqF5QmDp6mtOeLDyjYAMPo+ZXn0yynlo4b/AFk1eSnZQvUpA
-         n3fA==
-X-Forwarded-Encrypted: i=1; AKwUvBzh7ncL215WZOdwSgfT1vRmzHDv8n63m5Yo89e41S5Rp9ybt7T3QniC2IZ0/E7TBHcvnaqAh7E=@vger.kernel.org
-X-Gm-Message-State: AFuF++n2RmOPZwdAXlfR47dlLo2sGuNSynFphQmrbDzdOavPjpjixkB2
-	N2VbdnW7LbUqvaSClSmVRhp3wUYCNVU8HW/ar1a+RfoM01jjjy7abwH6
-X-Gm-Gg: AYBFou2ehEoQTzXnBINp1fxTWecUP4if8s67jE4j4QXAjw3PNXW4g1JFcttbK/mQQMB
-	yled18dSp+hi3xX1Qgq+vHOYMBk20W+0+lcehsclwxavybToZCZkqx0SOM7MVlUGDKuxl4hsNaI
-	MzbIuLkiV8wFEK07JHuTt7j6PD9wUqn2FbxZLS0HK3blNSbnQGbA/LZ5fEP7h0CqFX5oQtQiDEq
-	LX21DkD+J/5PRB58asgNNJcNMX0pHjiiQYWucCLXMXyPNXke5ubx57LnENwM587dxyo0cwo/0we
-	fNmmdvWdBmEPuxTGm6oCfxc2tPKp1nNoWFC6UjZIIIUp33vUlBlr2vEQ8c4Z7GSfb0IdEIm8pQS
-	64Tzb5WFDmp25UJ/fn2qdL7AJ9oKrevsH4W3d4AyyxQwmgUhRZKsySky50qKs2OtgzMhrC60FYl
-	XHvOJ7dP6P8+hooZZ/u/Q0Gem2Uxz5/OtvdpRG4fIf0TZ1P38c0mqp9JWk1ee5C/o+7GbL9wK/U
-	ECJGt3X/fV4McYhEmP5yLcWIYx+ndc9nOFh132uPrvB
-X-Received: by 2002:a05:600c:8718:b0:49c:fa21:1c84 with SMTP id 5b1f17b1804b1-49fe7bba7e7mr53535645e9.25.1790281846574;
-        Thu, 24 Sep 2026 13:30:46 -0700 (PDT)
-Received: from andreayoga.wind3.hub ([31.189.116.68])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a30c43asm1720776f8f.3.2026.09.24.13.30.45
+        d=1e100.net; s=20260707; t=1790282111; x=1790886911;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MjyFqQ40ZwRfzwYJsmnvVXLveHQtD8lJFjX8AzpEmB8=;
+        b=hGAUiugDQvrcWzwYazER72SdmpVEzvyogCNlB74yRJP9sypxIiTS4eV7osNGvC1/MI
+         6IWVPWJzZS5Ju8b4xdSvO9CJJ3DsT81p2KsNU9d1VX6B//WWrT2vljUL0QV25lwzF8eX
+         zPpg3hgOKYNiZ7Dvq2p7fsWCPCqJjWZmbnuqlzowTh3QWtnRNABbZoFz3zJAAQgFYL+m
+         looM0qMzp77ufDHIBAWl3GmUjtoUhvZRu+tvKz/IbpP32KPOZ5zzFVcATos9B1MEyeXH
+         LpzLL2IqnC8ME3AufWAkxlLLlNJs5W2irDepAxU4DLVX951l/5leUq2IAQwdjcRabI02
+         zBuw==
+X-Forwarded-Encrypted: i=1; AKwUvByPJes8Y7Xkm3Yio9w7Yup9iPJUBgeORpkO7rMY+1u/lebef7tXe97vg2mDTivmXjARPNPBDWY=@vger.kernel.org
+X-Gm-Message-State: AFuF++lxnuj2ShmVSeYtAAbb/8PCDPrnUNr1MwmQQnx8fyxOhPVhcNP6
+	68NcchhQ5GNiC4J+T2WU/qXL7RHFxLZy2pya9M++BVMNEMG4KsjijzG8UarA7Xcr7mEVP22exjk
+	o8OpTrRqGiHJgaUR57L6LFfgeeyQrkNGAJwOK
+X-Gm-Gg: AYBFou1DPMtSRA9ueZu8PsqUQcFFW74xXmNLkDQ0hyLEzlm3ULyMdiLne8aqqVa4mG2
+	PDH+8qn5rGFwM9jHXeHZc/78I/8ADP8JBfTZoaZGOsb9sHYKCLmLM5dcuu7aK+Qqg751/OoId/9
+	TmS8aEXZ6BY4S1xndX+3vk0j0IL965ZK0epTKkfUcgM+JIgXQ4EtDE+OC2iMYrMiGZrLbh6NHAc
+	ybmldPvirJnjZzVX9p0RXHzO6uqiFnmQ/BJm9GXrPrECizFHXBA6Oqe0+g9tNoR/is1Cai3xnQd
+	HGVfNfaRdIU8X7gFANh/ZRKDMVz0NBdPeU3S0qbXP0pjoLJe1dAjNgK0YCTxI4n8CjvboDuEa0t
+	VCE6BRrgWzQXUavhnW37zrhnciedNuMbvU7M/Tzw=
+X-Received: by 2002:a05:6808:178a:b0:4b9:e5fa:8a17 with SMTP id 5614622812f47-4d72912226dmr4663704b6e.28.1790282111383;
+        Thu, 24 Sep 2026 13:35:11 -0700 (PDT)
+Received: from c14-smtp-2023.dev.purestorage.com ([208.88.158.129])
+        by smtp-relay.gmail.com with ESMTPS id 586e51a60fabf-493331e4187sm49196fac.2.2026.09.24.13.35.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 13:30:46 -0700 (PDT)
-From: Andrea Parri <parri.andrea@gmail.com>
-To: "Darrick J. Wong" <djwong@kernel.org>
-Cc: Christian Brauner <brauner@kernel.org>,
-	Carlos Maiolino <cem@kernel.org>,
-	Joanne Koong <joannelkoong@gmail.com>,
-	Brian Foster <bfoster@redhat.com>,
-	Christoph Hellwig <hch@infradead.org>,
-	Damien Le Moal <dlemoal@kernel.org>,
-	Hannes Reinecke <hare@suse.de>,
-	Daniel Gomez <da.gomez@samsung.com>,
-	Pankaj Raghav <p.raghav@samsung.com>,
-	Dave Chinner <dchinner@redhat.com>,
-	linux-xfs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+        Thu, 24 Sep 2026 13:35:11 -0700 (PDT)
+X-Relaying-Domain: everpuredata.com
+Received: from irdv-tmenninger.dev.purestorage.com (irdv-tmenninger.dev.purestorage.com [10.32.149.15])
+	by c14-smtp-2023.dev.purestorage.com (Postfix) with ESMTPS id 6E12C3403DA;
+	Thu, 24 Sep 2026 13:34:40 -0700 (PDT)
+From: Tim Menninger <tmenninger@everpuredata.com>
+To: Chuck Lever <cel@kernel.org>,
+	Trond Myklebust <trondmy@kernel.org>,
+	Anna Schumaker <anna@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>
+Cc: linux-nfs@vger.kernel.org,
+	Eric Badger <ebadger@everpuredata.com>,
+	Jon Curley <jcurley@everpuredata.com>,
+	Shiva Lingappa <slingappa@everpuredata.com>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH v2 4/4] iomap: don't lose a failed direct I/O bio's error when zeroing the tail
-Date: Thu, 24 Sep 2026 22:30:08 +0200
-Message-ID: <20260924203013.9967-2-parri.andrea@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260924185317.GK2705364@frogsfrogsfrogs>
-References: <20260924091203.198225-1-parri.andrea@gmail.com> <20260924091203.198225-5-parri.andrea@gmail.com> <20260924185317.GK2705364@frogsfrogsfrogs>
+Subject: [PATCH] xprtrdma: prevent disconnect feedback during endpoint teardown
+Date: Thu, 24 Sep 2026 20:34:40 +0000
+Message-Id: <20260924203440.3374889-1-tmenninger@everpuredata.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -89,45 +82,84 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 24, 2026 at 11:53:17AM -0700, Darrick J. Wong wrote:
-> > Cc: stable@vger.kernel.org
-> 
-> Cc: <stable@vger.kernel.org> # v6.12
+xprt_autoclose() clears XPRT_CLOSE_WAIT before invoking the transport's
+->close() operation. For RPC/RDMA, ->close() calls
+rpcrdma_xprt_disconnect(), which disconnects the RDMA CM endpoint and
+drains its QP.
 
-Fixed for v3.
+Since commit 31e62d25b5b8 ("xprtrdma: Simplify RPC wake-ups on
+connect"), RDMA_CM_EVENT_DISCONNECTED requests a SUNRPC transport
+disconnect. Today that path, along with failed completion handling,
+reaches xprt_force_disconnect() through rpcrdma_force_disconnect().
 
-> > @@ -582,8 +578,7 @@ static int iomap_dio_bio_iter(struct iomap_iter *iter, struct iomap_dio *dio)
-> >  		/* zero out from the end of the write to the end of the block */
-> >  		pad = pos & (fs_block_size - 1);
-> >  		if (pad)
-> > -			ret = iomap_dio_zero(iter, dio, pos,
-> > -					     fs_block_size - pad);
-> > +			iomap_dio_zero(iter, dio, pos, fs_block_size - pad);
-> 
-> I think this is the original cause of the bug, right?  We might have
-> already had a nonzero ret, and the assignment here blows that away.
-> Right?
+Commit c487eb7d8e41 ("xprtrdma: Clean up disconnect") later added
+re_force_disconnect to ensure that multiple failure indications request
+only one SUNRPC disconnect. However, the gate remains open when SUNRPC
+itself begins endpoint teardown.
 
-Right.  When iomap_dio_bio_iter_one() fails we break out of the loop
-with ret < 0 and fall through to the tail zeroing, and this assignment
-replaced that error with iomap_dio_zero()'s 0.
+If re_force_disconnect is still clear, either a CM disconnect event or a
+completion error can set XPRT_CLOSE_WAIT again while the current close
+is in progress. When the transport send lock is subsequently released,
+xprt_clear_locked() observes XPRT_CLOSE_WAIT and queues another
+autoclose.
 
-> If the answer to that is yes, then
-> Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+Requesting a disconnect this way is necessary when a connection is lost
+unexpectedly, but not when the event was generated by
+rpcrdma_xprt_disconnect() itself. In that case SUNRPC is already
+committed to closing the transport.
 
-Thanks, picked up for v3.
+Mark re_force_disconnect before initiating local endpoint teardown so
+that CM events and completion errors caused by that teardown cannot
+request another close. An unexpected error that wins the race before
+local endpoint teardown begins can still request a disconnect normally.
 
-> (I should probably whine about how changing the function signature of
-> iomap_dio_zero should be a separate patch to make it more obvious what's
-> the actual fix...)
+Use a fully ordered exchange so that the gate is globally closed before
+rdma_disconnect() can transition the QP to error and generate the
+callbacks that the gate suppresses.
 
-Fair point.  FWIW, before 10553a91652d iomap_dio_zero() returned void
-and neither call site touched ret; that commit made it return int and
-added both "ret = iomap_dio_zero(...)" assignments.  So the signature
-change here is really undoing the part of 10553a91652d that introduced
-the bug, and keeping it in one patch makes the stable backport
-self-contained.  If you'd still prefer a one-line fix followed by the
-void conversion, I'm happy to split it.
+In 30-second traces of a sustained recovery loop, without this change
+there were 7,693 xprt_force_disconnect() calls, 6,267 SUNRPC autocloses,
+and 172,892 receive-side IB_WC_WR_FLUSH_ERR completions. With this
+change, the same tracepoints recorded 3,512 xprt_force_disconnect()
+calls, 3,212 autocloses, and 131,287 receive-side flush completions.
+Thus QP teardown continues to produce flushed completions, but closing
+the disconnect gate before teardown substantially reduces their
+feedback into the SUNRPC close path.
 
-Thanks!
-  Andrea
+Fixes: 31e62d25b5b8 ("xprtrdma: Simplify RPC wake-ups on connect")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tim Menninger <tmenninger@everpuredata.com>
+---
+ net/sunrpc/xprtrdma/verbs.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/net/sunrpc/xprtrdma/verbs.c b/net/sunrpc/xprtrdma/verbs.c
+index be335eed329d..54957295a631 100644
+--- a/net/sunrpc/xprtrdma/verbs.c
++++ b/net/sunrpc/xprtrdma/verbs.c
+@@ -114,9 +114,9 @@ static void rpcrdma_xprt_drain(struct rpcrdma_xprt *r_xprt)
+ 	rpcrdma_ep_put(ep);
+ }
+ 
+-/* Ensure xprt_force_disconnect() is invoked exactly once when a
+- * connection is closed or lost. (The important thing is it needs
+- * to be invoked "at least" once).
++/* Ensure xprt_force_disconnect() is invoked at most once for an
++ * unexpected endpoint failure. Local endpoint teardown closes this
++ * gate before it can generate CM events and flushed completions.
+  */
+ void rpcrdma_force_disconnect(struct rpcrdma_ep *ep)
+ {
+@@ -587,6 +587,9 @@ void rpcrdma_xprt_disconnect(struct rpcrdma_xprt *r_xprt)
+ 	if (!ep)
+ 		return;
+ 
++	/* Prevent teardown-generated events from requesting another close. */
++	atomic_xchg(&ep->re_force_disconnect, 1);
++
+ 	id = ep->re_id;
+ 	rc = rdma_disconnect(id);
+ 	trace_xprtrdma_disconnect(r_xprt, rc);
+-- 
+2.34.1
+
