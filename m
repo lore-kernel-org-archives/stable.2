@@ -1,58 +1,56 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81CA741169B
-	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 09:49:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A38A445198E;
+	Thu, 24 Sep 2026 09:50:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790243389; cv=none; b=peGM1dHoaEO5ypUcjUoApSSWiOWT88/7+fjMf/4Q7c6bFZTc1sBGeG4q5Xtd51IJdwEfauBThb/yWt+aQFanHp5KuRyrukZz2qPcUrmvGx1OrPJtlLH4yYJnhP/mPcd4rLBRC2OB1wf26r+YB7mg6Torg8R3O5ap+0i/BSAT72w=
+	t=1790243445; cv=none; b=u0MZUgArPM6hzfpQ50GNM5bjx4J3ymYFA54l4OPEGVe8PoLkL5PlkiQGmOoWK7KYlo0+2bRCLi8XnLwWDnNwOPaLrUs0NkEcpWRfk5hfBQA6PKr/sVvnAznfG8Ta4Ap9zNxTEwpqW0kSR8tiTHpPIPYouPNnE8oq7Wo7CwWC0cA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790243389; c=relaxed/simple;
-	bh=6AxHVVl+gZTn8j7aNuoJz+d9M/a0mR4Yz8N6BMkLiwM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Y9FZ5NkHFjW7bSklis3Dxdv8obiJX1rhmJc7vFoLCw8WE8OKh4XH7ooUxdDNJpKMfa6RE7NWu5cUBpjP4osKRhvJfXDxzjJtA5J4hSyk11dWQVzEOZujCu27GIt8XGIxy6uGaHSG5EV0cC82oE2BFM0FLkme2a//WLpb5NEnVwA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350f89so1298518f8f.3
-        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 02:49:20 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790243358; x=1790848158;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wBClDNoiMcfukXqTKxUO0O44/6vZOeXszispr41Gs0A=;
-        b=0K9f4LU2Sk864LjRUWeWmqNCeXf3fbQ7yVnhNO63yysylRJllsEZPAYb+8SqiXnUpT
-         gVCd1jzGQ6dtwWSSebBvOhyJkSJY5WqWuE0VQhfPba7+mCxpizGVGx7s3fcGQlyz8HRF
-         vCqbHQP083F+xFMFsV9TQC8EznzDErO6/hy1lybMWuA4XAaw4MKSyUb5qX9+k0hvpg7i
-         fYlJdP431IT/xlIfFVAJrzipUzEm22BXT2vdNFTRXO9cRvGCsiR+pFbxMbM9tRI/nvTd
-         bvsjCz92mOn9pznxm8mTpkwH4P7fG7NCOjs4q3oWgtKZ+2IX4NVX3qdDdpheValv/VXh
-         hD8Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzk49AO1yatAZlYBLvQzy887FxMIhsQOSt3I1Aw1ifTkvRWVK5HNWIsG1Dd0TJnU/wdgFpXEJ4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kb6/0ZJCRd6nEq5fCqde65vrde7Pcg5JvwPXomTIVEsE2GxxiB
-	jkW+mzV+v4MyZgnSvUy/9d10Eht2j0968+MsBgXfbSpOLR3eAqhFvAfo
-X-Gm-Gg: AYBFou3QoNk1cELwyp2axNnlA8yW2JaoE+qR5+BzZLNIsstBRLrjHAyOgN5Hlc6q0HV
-	PNXjKKSX26bcE/coOh0DxOdcCXjD03wp5sh8zOZpAH82CoviiSPpIqVuvHGb9Q84gPs9uw6k909
-	uk/rs1cLzt3es2jAkEFzyzjZhgjpBPCslGwS4pGPnZnthTycVzKJ+MNsQsf9bHj9TsxJb2l32k2
-	vZAyWl/4NUPQFqH0ZukeYoJgPhLQGN23Z5P44G7AibfJTFdj+MSz1BNgQsFgrZSO4qv72dod/3Q
-	7vczg43L6xKcp5zI+kKlpo14b8FmiS62Hee1/vPSZR3ksV0P0wLwYnnV2uhKL3acJW/jHXfOCs1
-	bWKohGdJ+aul9MYDA2UtTicyWQo61uWU8Ryf3LR6j6GgiTfDzaYxrdRUuaciSU+4fb8V59Q/zVA
-	zGBw4RvwjbntnuF6UaGNRMWWqGNV/HexfWfCEf6obyOVaVnlgop4qzEsOX2u0=
-X-Received: by 2002:a05:6000:2584:b0:487:8ec:1fc with SMTP id ffacd0b85a97d-4887170d3f8mr3448462f8f.12.1790243358351;
-        Thu, 24 Sep 2026 02:49:18 -0700 (PDT)
-Received: from white ([5.194.185.161])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4886876c027sm14791908f8f.17.2026.09.24.02.49.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 02:49:17 -0700 (PDT)
-From: "Denis Efremov (Oracle)" <efremov@linux.com>
-To: linux-block@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	"Denis Efremov (Oracle)" <efremov@linux.com>,
-	stable@vger.kernel.org,
-	syzbot+874c2707f97fac24b090@syzkaller.appspotmail.com
-Subject: [PATCH] floppy: don't store a stack buffer in timeout_message
-Date: Thu, 24 Sep 2026 13:48:39 +0400
-Message-ID: <20260924094839.3239569-1-efremov@linux.com>
-X-Mailer: git-send-email 2.55.0
+	s=arc-20240116; t=1790243445; c=relaxed/simple;
+	bh=h9DMwVgMyVEjJSxHYcFdf/Z7LbKxPqp5s1bmB8n+ZkY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=hqW6odUZfghjoNFP329WAkxB0dg2mr+ZoIMi8tiuWWjE6sZ0/l10f3R1opPwW1xo3LPLYd5QX19r8c9FX6xyRqVkDC4Ym2jRm7yH84kdqtkbMf/7fc/ScAkxtYZIaIi0VYrkjakgCASfXlteVgCtcFyD8iD9QviesK9IbqaDfb8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=aPpBKxmC; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="aPpBKxmC"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6CD7F1570;
+	Thu, 24 Sep 2026 02:50:32 -0700 (PDT)
+Received: from workstation-e142269.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6DE2E3F86F;
+	Thu, 24 Sep 2026 02:50:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790243435; bh=h9DMwVgMyVEjJSxHYcFdf/Z7LbKxPqp5s1bmB8n+ZkY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=aPpBKxmC4c2mX2VdSPyWSo+YvaCILFmA6WNUEmp8NUKnxktFdaHGmjtzRm0V8W2v7
+	 dHXx89OAbduLpmmSIJS2CCwsSaVriA66W8VJNHXJF1WG8FvhNEcXrUbwZoMPvitdXh
+	 VeJGk0m2ob7Nja6v9PJ/E/RgMUzGKz8TtkYFBPI0=
+From: Wei-Lin Chang <weilin.chang@arm.com>
+To: linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Cc: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Sebastian Ene <sebastianene@google.com>,
+	Vincent Donnefort <vdonnefort@google.com>,
+	Itaru Kitayama <itaru.kitayama@fujitsu.com>,
+	Wei-Lin Chang <weilin.chang@arm.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v4 2/2] KVM: arm64: ptdump: Fix shadow ptdump sleep-in-atomic-context problem
+Date: Thu, 24 Sep 2026 10:49:51 +0100
+Message-ID: <20260924094951.727352-3-weilin.chang@arm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260924094951.727352-1-weilin.chang@arm.com>
+References: <20260924094951.727352-1-weilin.chang@arm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -61,53 +59,162 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-request_done() formats "request done %d" into a buffer on its stack and
-passes it to reschedule_timeout(), which keeps the pointer in
-timeout_message. show_floppy() prints timeout_message long after
-request_done() has returned, e.g. from result() in the interrupt
-handler, and reads a dead stack frame:
+Previously we exposed shadow page tables by creating a debugfs ptdump
+file whenever a nested mmu instance gets bound to a new context, and
+deleting the debugfs file whose context was getting unbound.
 
-  BUG: KASAN: stack-out-of-bounds in string+0x39c/0x3d0 lib/vsprintf.c:720
-  Read of size 1 at addr ffffc900003cfc70 by task swapper/3/0
-  Call Trace:
-   <IRQ>
-   ...
-   show_floppy+0xb1/0x45f drivers/block/floppy.c:1838
-   result.cold+0x2b/0x30 drivers/block/floppy.c:1183
-   floppy_interrupt+0x191/0x340 drivers/block/floppy.c:1755
-   floppy_hardint+0x1a7/0x200 arch/x86/include/asm/floppy.h:66
+This turned out to be buggy, as the instance<->context binding process
+is done with the mmu_lock held, and debugfs creation/deletion can sleep.
 
-uptodate is either 0 or 1, so pass one of two string literals instead.
+Change the approach and create a shadow ptdump file for each nested mmu
+instead during kvm_vcpu_init_nested(), in a sleepable context. The files
+will be named nested_mmu<index>, and reading it will return the nested
+context's VTTBR, VTCR, and s2 enabled or not before dumping the shadow
+page tables, given the nested mmu is valid.
 
+Fixes: 19e15dc73f0f ("KVM: arm64: nv: Expose shadow page tables in debugfs")
+Reported-by: Itaru Kitayama <itaru.kitayama@fujitsu.com>
+Closes: https://lore.kernel.org/kvmarm/aiuF0KSvvv-ZozI1@sm-arm-grace07/
+Tested-by: Itaru Kitayama <itaru.kitayama@fujitsu.com>
+Signed-off-by: Wei-Lin Chang <weilin.chang@arm.com>
 Cc: stable@vger.kernel.org
-Fixes: 73507e6cd8dc ("drivers/block/floppy.c: remove unnecessary argument from [__]reschedule_timeout")
-Reported-by: syzbot+874c2707f97fac24b090@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=874c2707f97fac24b090
-Signed-off-by: Denis Efremov (Oracle) <efremov@linux.com>
 ---
- drivers/block/floppy.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ arch/arm64/include/asm/kvm_host.h |  4 ----
+ arch/arm64/include/asm/kvm_mmu.h  |  6 ++----
+ arch/arm64/kvm/nested.c           |  9 ++++-----
+ arch/arm64/kvm/ptdump.c           | 32 +++++++++++++++----------------
+ 4 files changed, 21 insertions(+), 30 deletions(-)
 
-diff --git a/drivers/block/floppy.c b/drivers/block/floppy.c
-index f04397b8e381..02a34de69102 100644
---- a/drivers/block/floppy.c
-+++ b/drivers/block/floppy.c
-@@ -2276,11 +2276,10 @@ static void request_done(int uptodate)
+diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+index cd9b9d2462f9..db177af9149f 100644
+--- a/arch/arm64/include/asm/kvm_host.h
++++ b/arch/arm64/include/asm/kvm_host.h
+@@ -217,10 +217,6 @@ struct kvm_s2_mmu {
+ 	 */
+ 	bool	nested_stage2_enabled;
+ 
+-#ifdef CONFIG_PTDUMP_STAGE2_DEBUGFS
+-	struct dentry *shadow_pt_debugfs_dentry;
+-#endif
+-
+ 	/*
+ 	 * true when this MMU needs to be unmapped before being used for a new
+ 	 * purpose.
+diff --git a/arch/arm64/include/asm/kvm_mmu.h b/arch/arm64/include/asm/kvm_mmu.h
+index 6eae7e7e2a68..ac2b0637692a 100644
+--- a/arch/arm64/include/asm/kvm_mmu.h
++++ b/arch/arm64/include/asm/kvm_mmu.h
+@@ -392,12 +392,10 @@ static inline bool kvm_supports_cacheable_pfnmap(void)
+ 
+ #ifdef CONFIG_PTDUMP_STAGE2_DEBUGFS
+ void kvm_s2_ptdump_create_debugfs(struct kvm *kvm);
+-void kvm_nested_s2_ptdump_create_debugfs(struct kvm_s2_mmu *mmu);
+-void kvm_nested_s2_ptdump_remove_debugfs(struct kvm_s2_mmu *mmu);
++void kvm_nested_s2_ptdump_create_debugfs(struct kvm_s2_mmu *mmu, int idx);
+ #else
+ static inline void kvm_s2_ptdump_create_debugfs(struct kvm *kvm) {}
+-static inline void kvm_nested_s2_ptdump_create_debugfs(struct kvm_s2_mmu *mmu) {}
+-static inline void kvm_nested_s2_ptdump_remove_debugfs(struct kvm_s2_mmu *mmu) {}
++static inline void kvm_nested_s2_ptdump_create_debugfs(struct kvm_s2_mmu *mmu, int idx) {}
+ #endif /* CONFIG_PTDUMP_STAGE2_DEBUGFS */
+ 
+ #endif /* __ASSEMBLER__ */
+diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
+index b191365d97cc..41253fe45941 100644
+--- a/arch/arm64/kvm/nested.c
++++ b/arch/arm64/kvm/nested.c
+@@ -124,6 +124,9 @@ int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu)
+ 			return ret;
+ 		}
+ 
++		for (i = 0; i < S2_MMU_PER_VCPU; i++)
++			kvm_nested_s2_ptdump_create_debugfs(&tmp[i], i + kvm->arch.nested_mmus_size);
++
+ 		guard(write_lock)(&kvm->mmu_lock);
+ 
+ 		for (i = 0; i < S2_MMU_PER_VCPU; i++)
+@@ -837,10 +840,8 @@ static struct kvm_s2_mmu *get_s2_mmu_nested(struct kvm_vcpu *vcpu)
+ 	kvm->arch.nested_mmus_next = (i + 1) % kvm->arch.nested_mmus_size;
+ 
+ 	/* Make sure we don't forget to do the laundry */
+-	if (kvm_s2_mmu_valid(s2_mmu)) {
+-		kvm_nested_s2_ptdump_remove_debugfs(s2_mmu);
++	if (kvm_s2_mmu_valid(s2_mmu))
+ 		s2_mmu->pending_unmap = true;
+-	}
+ 
+ 	/*
+ 	 * The virtual VMID (modulo CnP) will be used as a key when matching
+@@ -854,8 +855,6 @@ static struct kvm_s2_mmu *get_s2_mmu_nested(struct kvm_vcpu *vcpu)
+ 	s2_mmu->tlb_vtcr = vcpu_read_sys_reg(vcpu, VTCR_EL2);
+ 	s2_mmu->nested_stage2_enabled = vcpu_read_sys_reg(vcpu, HCR_EL2) & HCR_VM;
+ 
+-	kvm_nested_s2_ptdump_create_debugfs(s2_mmu);
+-
+ out:
+ 	atomic_inc(&s2_mmu->refcnt);
+ 
+diff --git a/arch/arm64/kvm/ptdump.c b/arch/arm64/kvm/ptdump.c
+index b5a0584260e8..7829fe376385 100644
+--- a/arch/arm64/kvm/ptdump.c
++++ b/arch/arm64/kvm/ptdump.c
+@@ -17,7 +17,7 @@
+ 
+ #define MARKERS_LEN		2
+ #define KVM_PGTABLE_MAX_LEVELS	(KVM_PGTABLE_LAST_LEVEL + 1)
+-#define S2FNAMESZ		sizeof("0x0123456789abcdef-0x0123456789abcdef-s2-disabled")
++#define S2FNAMESZ		sizeof("nested_mmu0000")
+ 
+ struct kvm_ptdump_guest_state {
+ 	struct kvm_s2_mmu	*mmu;
+@@ -173,6 +173,15 @@ static int kvm_ptdump_guest_show(struct seq_file *m, void *unused)
+ 		.seq		= m,
+ 	};
+ 
++	if (kvm_is_nested_s2_mmu(kvm, mmu)) {
++		if (kvm_s2_mmu_valid(mmu))
++			seq_printf(m, "VTCR: 0x%016llx VTTBR: 0x%016llx s2: %s\n",
++				   mmu->tlb_vtcr, mmu->tlb_vttbr,
++				   mmu->nested_stage2_enabled ? "enabled" : "disabled");
++		else
++			return 0;
++	}
++
+ 	ret = kvm_pgtable_walk(mmu->pgt, 0, BIT(mmu->pgt->ia_bits), &walker);
+ 	if (ret)
+ 		return ret;
+@@ -299,26 +308,15 @@ static const struct file_operations kvm_pgtable_levels_fops = {
+ 	.release	= kvm_pgtable_debugfs_close,
+ };
+ 
+-void kvm_nested_s2_ptdump_create_debugfs(struct kvm_s2_mmu *mmu)
++void kvm_nested_s2_ptdump_create_debugfs(struct kvm_s2_mmu *mmu, int idx)
  {
- 	struct request *req = current_req;
- 	int block;
--	char msg[sizeof("request done ") + sizeof(int) * 3];
+-	struct dentry *dent;
+ 	char file_name[S2FNAMESZ];
  
- 	probing = 0;
--	snprintf(msg, sizeof(msg), "request done %d", uptodate);
--	reschedule_timeout(MAXTIMEOUT, msg);
-+	reschedule_timeout(MAXTIMEOUT,
-+			   uptodate ? "request done 1" : "request done 0");
+-	snprintf(file_name, sizeof(file_name), "0x%016llx-0x%016llx-s2-%sabled",
+-		 mmu->tlb_vttbr,
+-		 mmu->tlb_vtcr,
+-		 mmu->nested_stage2_enabled ? "en" : "dis");
+-
+-	dent = debugfs_create_file(file_name, 0400,
+-				   mmu->arch->debugfs_nv_dentry, mmu,
+-				   &kvm_ptdump_guest_fops);
++	snprintf(file_name, sizeof(file_name), "nested_mmu%d", idx);
  
- 	if (!req) {
- 		pr_info("floppy.c: no request in request_done\n");
-
-base-commit: 62f4c998b297cf233997a2b4cd6fc2d2df0319c9
+-	mmu->shadow_pt_debugfs_dentry = dent;
+-}
+-
+-void kvm_nested_s2_ptdump_remove_debugfs(struct kvm_s2_mmu *mmu)
+-{
+-	debugfs_remove(mmu->shadow_pt_debugfs_dentry);
++	debugfs_create_file(file_name, 0400,
++			    mmu->arch->debugfs_nv_dentry, mmu,
++			    &kvm_ptdump_guest_fops);
+ }
+ 
+ void kvm_s2_ptdump_create_debugfs(struct kvm *kvm)
 -- 
-2.55.0
+2.43.0
 
