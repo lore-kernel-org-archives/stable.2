@@ -1,83 +1,81 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B98363D1CA8;
-	Thu, 24 Sep 2026 02:11:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8F653B9933;
+	Thu, 24 Sep 2026 02:13:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790215880; cv=none; b=mOalbgbL/+RS37JlB77t17UoG9phzKwmcZn1VVh8lukujlnldqVIeRil3ohU/N9xtG/Ot78C+cPEgdYoR14A1rBay24Fz4DXdF80Ye2Hc/LZd1ZJXr09Xyq6WtB5hmn+iDXF/Doep4E2aZ/gbBfPmU8IewtMMzHY+caAxrXxU2A=
+	t=1790216005; cv=none; b=eo+324GudgHB0wjrWQXIXBCk8AzSARf44ogut0QeOWp96cV0wdJ1NzcgzAx7zVc+8AaCSoJXqvXBvtT7ot3q8k+O89XEEi1yb18LYSmrh1CXc+x2tuRfzsb5kB1ohvagk+8RmGOP3P9HO1Z+ddSJMFDOSrsIRnVncm8WCKWRPdY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790215880; c=relaxed/simple;
-	bh=mBu0WSQ/AwjUAODewwxl5iIYor0biSbLUUWCAZyhWuA=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=lAh85UrFjPtolCUYc8tauSFmjaKF9Cg1Nx5O4uGTALk1Wept+Aj1Isj2Wr2X76WJN9q7vSjOb3bGZeenoTlr5OKLMvNK0nd9O0TPKQeLj9jpkvVXNcF9RL+KI8GNRfo0Lq6bpVHVQ8TexPqySgDHUjV2H0gepIsiUrNjZC83+LA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lfvQFj5u; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790216005; c=relaxed/simple;
+	bh=Tq5R6L/RBZDT+AdIssqLNCvUx5CpiAJs4sgCdQ0If2s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=m7zoHq2G36y6csDMX/f9kd0DDn7isiR1dP1Q8b2b+DQJBlBMV6IIoyhQ1ReZKCKLJN78TCJa6p+p41wXts/O8W06NW3XWCuyVXMA4vYlQoP21/e4R714IJp9n4VY2epLWZ/T1/+ctdYfbkDdHfFG06d1mSiBNLKfdYegtEMnA+k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xgb8nMOL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lfvQFj5u"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BE8A1F000FF;
-	Thu, 24 Sep 2026 02:11:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xgb8nMOL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4737D1F000FF;
+	Thu, 24 Sep 2026 02:13:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790215879;
-	bh=18HjCD9A8+DuIyl1hezJHD5Af2V3TogDRTGby2Iruic=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=lfvQFj5u7aGWmNbUI5l+4BUDiN5L4A/brjtLZToiPhjJ6/HFMYyxUNG1AzIi9ShT9
-	 ttQgnH0bQULp6GJjkx0W9tAoCsEapMDSkthYeyVGBNsd1pXJ7pkIgYjj0tLMqGWRvr
-	 iO3B9PUbA+4ry72Tg4Spfi+QGSqs8296/yyA8pwBvvnj+RTmEgCIttFCFRsDneku5w
-	 eBucFsR6v/++tR1kjU9VgKKzQ1WsEPpjhcrRRLhB6EX/Z2KzJb3pmmhZzmIosn3x43
-	 UMdoR5b9wi08MuGpVLjw9Uj0fgvF0hTWMaRXbyZwbXAJcm6ZcaQobo5dYFs/+0I8Tx
-	 h/ObqkFDbiJmA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 1990039E9611;
-	Thu, 24 Sep 2026 02:10:10 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1790216004;
+	bh=FYlZeJoBP8nu9jdhbNtZm6ZtdlrHib8ZSDD/RuVVTow=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Xgb8nMOL7TxPeS+MjK8lWxnuZQF/r5a0/cysyuwwSFeDctLvI2GyAsotvrsX20KCt
+	 4XiOqqBQiTsN/CsP2+2eK1GbosWMszT3J5na8iwNOurOa/fhQ2on9FPnMID+Km/C1p
+	 zMeeNR5JTfOtwntdY7VEdH1LG6WS5PbEERvqYXKXeB+r6aFM06pPCpjqKO07ep3tBd
+	 xkZLBGmkQ9oKwEIaJ7d33zeZrsbsGQrTFlTPUIKOxJIdPaqnF6lI8IEDaovICgqrGV
+	 ziHZhJTst87KPRDvzdbkCwW/i2sQrHs1TMb1PfA8UZVUqUicO98QEqkIPOFrqLLju8
+	 okwazLpRWR41g==
+Date: Wed, 23 Sep 2026 19:13:22 -0700
+From: Drew Fustini <fustini@kernel.org>
+To: Aamir Ahmed <elb12345@hotmail.co.uk>
+Cc: "Gustavo A. R. Silva" <gustavo@embeddedor.com>,
+	Drew Fustini <dfustini@oss.tenstorrent.com>,
+	Joel Stanley <jms@oss.tenstorrent.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
+	Kees Cook <kees@kernel.org>, linux-riscv@lists.infradead.org,
+	linux-clk@vger.kernel.org, linux-hardening@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] clk: tenstorrent: Assign .num before accessing .hws
+Message-ID: <arSHQglLv0FfAmiw@x1>
+References: <AS8P251MB00013BD9A093C06D2D60E10EC8B42@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+ <ce401b42-9dfb-4c8e-9051-7ba08c107382@embeddedor.com>
+ <AS8P251MB000160067A8B595BB9D743E8C8BF2@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v2] fou: reject omitted FOU_ATTR_IPPROTO on
- FOU_ENCAP_DIRECT
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179021580864.1277764.3665747130369583062.git-patchwork-notify@kernel.org>
-Date: Thu, 24 Sep 2026 02:10:08 +0000
-References: <20260921045920.1613098-1-benquike@gmail.com>
-In-Reply-To: <20260921045920.1613098-1-benquike@gmail.com>
-To: Hui Peng <benquike@gmail.com>
-Cc: kuniyu@google.com, hangbin.liu@linux.dev, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- willemb@google.com, therbert@google.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <AS8P251MB000160067A8B595BB9D743E8C8BF2@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
 
-Hello:
-
-This patch was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Mon, 21 Sep 2026 04:59:20 +0000 you wrote:
-> Commit 7a9bc9e3f423 ("fou: Don't allow 0 for FOU_ATTR_IPPROTO.") added
-> NLA_POLICY_MIN(NLA_U8, 1) to fou_nl_policy[FOU_ATTR_IPPROTO], which
-> rejects an explicitly supplied FOU_ATTR_IPPROTO == 0 attribute with
-> -ERANGE.
+On Thu, Sep 10, 2026 at 01:47:31AM +0100, Aamir Ahmed wrote:
+> On Tue, Sep 08, 2026 at 11:56:12AM +0200, Gustavo A. R. Silva wrote:
+> > Looks like variable num_clks can be removed entirely, and just do:
+> >
+> > clk_data->num = data->num;
 > 
-> However, FOU_ATTR_IPPROTO is an optional netlink attribute. When a user
-> sends FOU_CMD_ADD with FOU_ATTR_TYPE set to FOU_ENCAP_DIRECT and omits
-> FOU_ATTR_IPPROTO entirely, nla_policy validation succeeds and
-> parse_nl_config() leaves cfg->protocol as 0 (from memset(cfg, 0,
-> sizeof(*cfg))). fou_create() then creates a FOU_ENCAP_DIRECT socket with
-> fou->protocol == 0.
+> Yes - it is only read once and data is const.
 > 
-> [...]
+> Thanks for reviewing, and thanks Anirudh for testing. For the redundant
+> variable, since this has a stable Cc, perhaps we can keep the diff
+> minimal here and I can send the cleanup as a follow-up once it lands?
+> 
+> Kind Regards
+> 
+> Aamir A.
 
-Here is the summary with links:
-  - [net,v2] fou: reject omitted FOU_ATTR_IPPROTO on FOU_ENCAP_DIRECT
-    https://git.kernel.org/netdev/net/c/d22609f3d13f
+Thanks for sending the patch.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+I would prefer a v2 with this change in order to avoid a trivial patch
+later. We are still in the process of upstreaming support for the
+Atlantis platform, so there are no users yet that would be affected by
+this issue.
 
-
+Thanks,
+Drew
