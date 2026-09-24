@@ -1,100 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013001.outbound.protection.outlook.com [40.93.196.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69DB3424D65;
-	Thu, 24 Sep 2026 20:09:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790280578; cv=none; b=tmWgDKdzTU6a4avns1ivCtZzoKfGGeehRJY6HZewOT+brNZUoY9/UZ68YNb2T8raveO4NDgLPcrewt2TVKfEUTlkuWaEeICpibT/6S0K2k/DhHbXXgLw7gJ1lqFdrxM0ollGf0wFsEJEIrkE/5y8MoroO6uSFLRt83tvUBleoQA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790280578; c=relaxed/simple;
-	bh=xiwGboSaFFzAzwAYu4wjGf/cNiXgL4uwgNxcO2eZUeU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=p3ekyZWgxrssmmX085z1SzWba6WzKe9g6FRYFeBbHiQsAUS5Ta5K/jmP43kM22+k0R9dcYMbHTQbnI+tviK1vLaP68xpTviclOuuLB6ltcjNoXR2IFOFrMEEzdfCT0H7FMeY9W0HgVFv9QXh9/qPfpcBYl30lPUDZWK2odF3CWs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=THlq8f9H; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07EC44C4F6C
+	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 20:09:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.1
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790280590; cv=fail; b=h+rL3Ue1l6wLGo3VA/1lDxcmxBspHkTVqKbykrCKFj6b43u8ylQkClK85N5iBE3TUD46J2uLFQxoTSqtdkcnZfKQQcMevZnNNpNHkDgcoTxgBoGwHOaMBW6Myff9RI0xk91ZJzbZr3g/ZmZ3PFFEP1f2vBs4WTi1rLRVW5vsTUw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790280590; c=relaxed/simple;
+	bh=Tu5FOv/+xYcdxaBCoCKjZljpn/fUjgKX4AqbIoiLU5A=;
+	h=Message-ID:Date:To:From:Subject:Content-Type:MIME-Version; b=HK5utVsvpok1Yzwe0evoViQPojS/pzD7eh4VXxro/B5LuhyuaNDOrJU9av7ykvltcqMP33Hdo/u7bRBICrqRx1dyLJeJMpfSmO4fnTVO7A4344K6rlPIDU1p5erWsckJcyfdswpummWtwMfaVchUmF6URYZ3YXSSiPkstvXbE3Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=PAsZiDMZ; arc=fail smtp.client-ip=40.93.196.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="THlq8f9H"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C0CB1F000FF;
-	Thu, 24 Sep 2026 20:09:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790280566;
-	bh=Hs0BCzAcMdmg/2IuD/yqkyZ4uXNT7Lvbg77vbPufmLA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=THlq8f9Hl62x4ls2dnUjMGhrSNes8l8s0YvvCZd69ctiIPvfrl84s8BWLONgNX3Om
-	 Y41uD0ZJup5HtZVPKuEDfPPu16HveN65LgndtH65a4N4x9/EOZ1Kf5lgI0wpV3I13L
-	 YUeKarcmAO4vivCopo0vV7/kwtcC8YVwax3AtlZFgL9vbnOuYpf/kVujCdXf4lWWQJ
-	 VC3YYrUN6B8YbxWlIo4ZQCm2iM0DbKmp0/QE+djN2MPei5KkNPvF0XxRr4/9yZw1Wx
-	 cEjg4pJ2zeS2rxkUFCo/TzENjw9LOf5PuuOuWc/DB6GyJGA0qu2UzmZM+YvSAMRy4B
-	 NLwNNMuZei1vA==
-Date: Thu, 24 Sep 2026 22:09:22 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Cc: Michal Simek <michal.simek@amd.com>, 
-	Wolfram Sang <wsa+renesas@sang-engineering.com>, Raviteja Narayanam <raviteja.narayanam@xilinx.com>, 
-	Wolfram Sang <wsa@kernel.org>, Manikanta Guntupalli <manikanta.guntupalli@amd.com>, 
-	Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>, linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v6 1/3] i2c: xiic: preserve PEC byte length in SMBus
- block read setup
-Message-ID: <arWC6PFh3YVgU1Pd@zenone.zhora.eu>
-References: <20260923-i2c-xiic-v6-0-3a15b6397f5a@nexthop.ai>
- <20260923-i2c-xiic-v6-1-3a15b6397f5a@nexthop.ai>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="PAsZiDMZ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MFoQYLckOfv+CmxtNQPW+l//vv00jBtsNzOTvVFQaxmI97oa7r1cVnUuNp0dHB4715BwasAE3E9/tEUGZVlTV7L+QTrL+BAVEGy3kzpf58Y46884aBR1WmmnTgNLRKAUJ8XCk7k2yd+6pJVwXauAN8i1SxKwKSdn8W24K3UPAu3ss3dE1ct6NbIW9WLypZJPHn0tLDRGbjEWtVtyVLG5SE64cIuB5Co3rE2sHDyHa3VKbLTMA4yojUWWuldLYdLldRmsrnnbiCwYtWGIywheqSjXoH7u+4lcNzAV7evjBqhNS3nlbnePg68IfdlZeI6HrVipZLZ3Yex9C8N79vKKJg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zK5OJJUtDmm0/hSZuTgYIBBcoIVNA82+OxbAzEfJoB0=;
+ b=Rc6uc1DfEdCjFuJll/0HLJxXoVxO2yMpp+kPAdxs9t3iPcS2J7AhgxnDL9R+/oazrnfhfg0I21uWC/81WtMJbKLnnaI8G/9+BFcMJz/WyWZydZoX94bQwVbUPUqBOsODcEAGe7svaC7S6Z1w4D/PtZjDXLC7gJxuBohl5U28eBgGq7z4QS8pN8wR7PCkDJyAoRaFTda6+tF7uJe+50cdm+JrIYkeWYQsuAecu7W0QcrApeVHDS+VyZDSR8oa6wmKEQmgzhl3ZO/gra6cEtsqG25oE5VEyc739olH7bym4xJ+9+TGztalj11y3lKM6hJzOaUkPDV7AHhEyLfjHwb07A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zK5OJJUtDmm0/hSZuTgYIBBcoIVNA82+OxbAzEfJoB0=;
+ b=PAsZiDMZAmieh2amt8anocTibTUFWwjKisQKDyDE6Ckc9YK209ti7POWvbxLpwByJJFLeGMvLCFMNBGeCbq0Rgc9vPcjS57fmfyEg2PAD+NLeQ1iRhSYpPOLVQDvYqjX5qEf9f9c9XL8httA/WUksmqjQhba6l5w1zLbIAwxCYY=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
+ by SN7PR12MB7809.namprd12.prod.outlook.com (2603:10b6:806:34e::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
+ 2026 20:09:33 +0000
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000%7]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
+ 20:09:33 +0000
+Message-ID: <cf67c71d-b34f-4b28-bdfc-6a1742e5c756@amd.com>
+Date: Thu, 24 Sep 2026 15:09:31 -0500
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: "stable@vger.kernel.org" <stable@vger.kernel.org>
+From: Mario Limonciello <mario.limonciello@amd.com>
+Subject: [7.2.y] NULL ptr deref during DPMS
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: CH0PR03CA0304.namprd03.prod.outlook.com
+ (2603:10b6:610:118::28) To PH8PR12MB6914.namprd12.prod.outlook.com
+ (2603:10b6:510:1cb::21)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923-i2c-xiic-v6-1-3a15b6397f5a@nexthop.ai>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|SN7PR12MB7809:EE_
+X-MS-Office365-Filtering-Correlation-Id: bf17e586-7945-419b-687b-08df1a77bfad
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|11063799006|56012099006|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	wi1xVWLoq2WhIjReXDgj0Cq5JMk74U8cDZNOGZRyhx7gkswXkvTQSc6SMLcdavKDzGAQdPmgB9vDdMTp+QTKPrdAID3y80CG64YryE0NwL5TzC+dnQb7TpgP7wn5TrKChfXz7Wj2dl/dZvst23MK2YMk1NDeHx0j9QylHM+AoPkitK7dl6JCQpHvsse87qS/XzPn8z12gVEbnL8fZu8ny2M0OXcZYBV4G7yx/oGCrRP2Qp/ic4hPfWDllIPFL4tRfhLGE0O4BeFfaddIsfKQ3K84AcCfZ9sJc3ae2fZDFNtGq/HLZrnoWWjt6OmGv35L7hFCcNU26Dt6m61DZJdhPChfrC6/4Dd2Z/E6FlEfu4Y1NI3R4sLQlf8eX+ueCOXT4DAC8R8OQyM84TrSGX1BAN516HQtcNoiwmLEsaRd86hGhybYuTmGLRJbMSkY1KTrQw/boyKGcE8ClGTKfkE/wjfRPdYy6LDBAZYMo8tvyX2Ukb5JUbA2yD/oOTs+VkFmgpl/y3vhMJUFXU4wwhV8qYoYsd4lCg2PjC++ycrUsUQNk8/2yF7gINjtiYVCNWC6KhhCF7OK2qb8HM1jQpA0QDe2qWUu0hgQVnWeTKcVBa19hJO4N/RctWzid6v06qyz
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB6914.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(11063799006)(56012099006)(10067099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Y1V4SVNYOW1DTThsZWZmWWdkOVR2NmNQcElKUHpYOEQ0bHhZbXdiVm9qMkRx?=
+ =?utf-8?B?cm9kSkxMUlQ4bU84dWNyNHhVRFdFL0N0dmxZU1J3RGNlT0MxY284clNSckZw?=
+ =?utf-8?B?dHFQakxTcExnL0lobllhb1Q4Y3ZkMHJ5YjloWWVpK2cwR2kyalpiRGY4a2VZ?=
+ =?utf-8?B?akRGWEk3YnZoWWdaQmVZVlZsUHUvTUVOZlc2aHBySmlFOUl1cGlSMUNXRDV1?=
+ =?utf-8?B?SUp4azlqMXlDdzdab3dJb3NTTktHS0VhSytJdytKRG1OQ1Zud20zTUdlNW44?=
+ =?utf-8?B?Zk1lR1dIL0g4Y2gvQkYxUTQ1VXVtMGF4SjNmeWNtZnloaktoTjZNU3h6ZnZv?=
+ =?utf-8?B?RjJqRGwxK2R2M3NCeXkzSVNVYkNDM3JPamhtdzFsYW5Gb1R6MW5GcjZQZGRy?=
+ =?utf-8?B?MjBOUFo3bVphbCtCZEovaXJvQkZmTHVsN3ZCN2FuOXNObGR4ejltS3liVnow?=
+ =?utf-8?B?RngzUzNiOU9kdjJTYWhQSGM2b0g5WHplcHdCc3FkTjU0eEEyTy9SU1RVRVZ4?=
+ =?utf-8?B?U2VYYXZWYjdSai9zWjM3YzRmLzBBcm1QT1FnbkJUREJMdGgrZGtVTmFnUU5Y?=
+ =?utf-8?B?YWFLL2l0UjNHUXRPU0hZcE5sbnJ4czlDTDdEUUFCdXR5OFZuaExGMVRzV24x?=
+ =?utf-8?B?YkVHRUpRamFJRFEycFZQMzFnOTB6aDBmaThad0RHUXJRa2ZpT2I5TWk0Z0xC?=
+ =?utf-8?B?b0tZcVpRcEpNRGsvYWJBb1QzWTlrYUdLL2FXcTBkOTVMajVQRHlSY05JeWpO?=
+ =?utf-8?B?bUplRzZUcy9tNDNFdHFIa2ZidVJVNDgyWUlZVDlJWlFJb09qalBOM0daVk5k?=
+ =?utf-8?B?dXVqSnducHRCcU4wWFU4dkFmd1dJT3pVRk5UK09zbmtmSFViRHhJYTMvTVdQ?=
+ =?utf-8?B?VGVhUGRLM0N6QWh5M2NXNmcvM3lxTW80Ukh1Vi9oT0F4UWNoRkIzYzQ1NDdh?=
+ =?utf-8?B?T243Q2N3d3UvL2FVVU9ZOFBjSXcxVXdLUjg5TGlucE96c1pjc2hFQnFaZnhX?=
+ =?utf-8?B?S0ZiMjlTUUdkOHhVYkJSMUpJM0lIa0l5VE0vbW1JcmNtWG5zQ2xMLzlrRTRo?=
+ =?utf-8?B?YlNWRFo0SlA1VGQ2ckJrSE8yOGQwNjJEbDZxWkhmLzlqcmVuektsa0dSYVVV?=
+ =?utf-8?B?QXlHL0QwMlNJUm85a3RFNEdjYmxyNzdhWkV6dXJUak9rTGwvR200WXJ6Rk1v?=
+ =?utf-8?B?Q2tMUkcwMThQYVhZbDVrMjM1b3pJOG5XRUZlQTFpL29zbFU5VUpTNjhSNDky?=
+ =?utf-8?B?TEwzZlFSNG9lT3NCS2FGeW5NTFErQis0TDkySEIrbzhBcEQ1ZUR3cUp6b3NY?=
+ =?utf-8?B?bDdMRFRFUTVQdVNqWmorNnlHT1B2VUcxcnFFbkxHR2FRWDU2WHNTQmpoSERw?=
+ =?utf-8?B?Z0YxQ1JoN25IRTdibHd1Qlh1ODdncE9iODE0KzFaSEE5V3pranduN2hkZ294?=
+ =?utf-8?B?WjFHb3ZoUjQ5WnB1WGtZMHY2TzgvdGwvL0JKTm5lN1NCMWpjb3VoU2MwZDYz?=
+ =?utf-8?B?YlVJQmN3TUJjS3lvdFVxTERzMW5tZUdnZ3hncmdOcUVVcnVISXl2VUNXcmdJ?=
+ =?utf-8?B?THNON2hTV3F2MHRsUm52VWEwaWFlNmkyNVJUK0Urd0M5ai90YXk0SXBEQmpT?=
+ =?utf-8?B?WjlHQWZhNWFvWThuYW8xVHZuMjZPMkR3VW1RRmpqT2ZKMm9sTjhFT3NoVkp4?=
+ =?utf-8?B?RVJKREVwZ2ZubzVwRlhSVVFIOCtQWXBna00wemYyMnhLcERIYkk2emp6UWVN?=
+ =?utf-8?B?THdHc2xDRGQxOHNMbkJtVHp3Q3F4L0xJdy9aTHd4dlVFZEs5ZW5WNWJrbWZU?=
+ =?utf-8?B?Z1QzaUJ0M3VOTERwT3Bad3hSQjVCTm9Rc3kvMGU1bnJLd3lSS0c1Q0pyQldz?=
+ =?utf-8?B?R1lqbXQvdDR5STcvbHNZS0svblo3TjN1M2tXYitSWk84WFpFeDRodzZ1by9l?=
+ =?utf-8?B?VDhsOHY0eUkvNXF0NGNOMU5QYXM3UUdLandvZHoxTk9aNXBJc2xoYlBPY3V1?=
+ =?utf-8?B?bFo3N28vS3FHM2llS09EeUJuYnVCTDNqcHJaZWRUeVlqTEt1OTVQZ1ZmNEpV?=
+ =?utf-8?B?RTZySnFaVkZBUVJHZllHQ3gxdEpjNE1FZUhmY0dkL2lBV1YvbUNqaERjZFFQ?=
+ =?utf-8?B?UkRRUDBpd3RmbTlmamk3TzFZaGtJZDhYak0xQUtrbDJKL3daU0I4NHVtUG05?=
+ =?utf-8?B?d1BmWGlHeTBtdERJQlBkU25jYVJxeGRDQkxROGVnUEhuZHpnY2gxVXVRSFZ0?=
+ =?utf-8?B?ay8rbUhJUVF3N1RGYzdGdzI2K2JNMDBwcCt2TDBNZm82MEJRWVNoTFhCWEdP?=
+ =?utf-8?Q?twK46mMvYhX5IDvDYS?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bf17e586-7945-419b-687b-08df1a77bfad
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 20:09:33.2120
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kh5IMnS1bejPUZbGOPHS6rgl6DDxN6/aX5c2TvzKg+KGo0LN6EIwY6agdOfbcEYMTmdqZGtM6C+wtKlyWEhVuA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7809
 
-Hi Abdurraham,
+There is a report of a NULL pointer deref during DPMS at 
+https://gitlab.freedesktop.org/drm/amd/-/work_items/5875
 
-there is still another issue here.
+It was identified that commit 8fa813b7fd1ec ("drm/amd/display: Remove 
+sink usage from DPMS") should help it.
 
-...
+Can we please backport to 7.2.y?
 
-> @@ -546,23 +552,26 @@ static void xiic_smbus_block_read_setup(struct xiic_i2c *i2c)
->  			 * Receive fifo depth should set to Rx fifo capacity minus 1
->  			 */
->  			rfd_set = IIC_RX_FIFO_DEPTH - 1;
-> -			i2c->rx_msg->len = rxmsg_len + 1;
-> -		} else if ((rxmsg_len == 1) ||
-> -			(rxmsg_len == 0)) {
-> +			i2c->rx_msg->len = rxmsg_len + 1 + pec_len;
-> +		} else if (1 + rxmsg_len + pec_len < SMBUS_BLOCK_READ_MIN_LEN) {
->  			/*
-> -			 * Minimum of 3 bytes required to exit cleanly. 1 byte
-> -			 * already received, Second byte is being received. Have
-> -			 * to set NACK in read_rx before receiving the last byte
-> +			 * The HW needs SMBUS_BLOCK_READ_MIN_LEN bytes on the
-> +			 * bus to exit cleanly: by the time the ISR reads the
-> +			 * length byte the second byte is already being clocked
-> +			 * in, too late to NACK. Pad the drain target and record
-> +			 * the real length, trimmed back on completion so the
-> +			 * PEC check sees the right byte.
->  			 */
->  			rfd_set = 0;
->  			i2c->rx_msg->len = SMBUS_BLOCK_READ_MIN_LEN;
-> +			i2c->smbus_actual_len = 1 + rxmsg_len + pec_len;
->  		} else {
->  			/*
->  			 * When Rx msg len less than Rx fifo capacity
->  			 * Receive fifo depth should set to Rx msg len minus 2
->  			 */
->  			rfd_set = rxmsg_len - 2;
-
-what if rxmsg is 1? Before this could never happen because we
-were checking for rxmsg_len == 0 or 1 and we were ending up here
-for values greater than 1.
-
-In patch 2 you fix things, but we don't want to have dependencies
-between patches.
-
-Andi
-
-> -			i2c->rx_msg->len = rxmsg_len + 1;
-> +			i2c->rx_msg->len = rxmsg_len + 1 + pec_len;
->  		}
->  		xiic_setreg8(i2c, XIIC_RFD_REG_OFFSET, rfd_set);
+Thanks!
