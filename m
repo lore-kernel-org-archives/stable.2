@@ -1,165 +1,110 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 460B7370AC6
-	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 13:24:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28094486E58;
+	Thu, 24 Sep 2026 13:25:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790256293; cv=none; b=M1LRV/e9bJXZYkb+YKPH08vhU/thC+W8yw9JoWefYGft8VXR47ncKwU/sioQE0pIbgkLeSBab6y4YTpVzlFvFVfC5SGeiOI38UpckYSZvPWDs7w0O4gPJQxGxjhGQLxKrrqXaLUAcrvKYFwrQ9dfmpVWgnNsjDqi593FYAN3Eyg=
+	t=1790256323; cv=none; b=OD5SEdVDuFmHlWjfcYSczkkWcnZeuEdCOcL1hp6GToXdfhMqwF8pDm1nI9isNKpk088Jgiq1UlZrFEF9HhODFd8j4f8LYzvM6/EeSHSFknjQ689xqlod8qVBltViFLRjXOBmx07pn34X/H5nO1lNw42/p7oFk/tkhldbjTNn5QE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790256293; c=relaxed/simple;
-	bh=muoWNoHX3fssJg0zq0lI4V174aDyR3uc8zoA3RzoEdQ=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=mumxEFbjxbUtuJWgtyB5AbxlnjDTjfV7rcz614Qihb6o1YhLomNGk8n5eormcFp8UAg/79cQZ+S4twxCtc+jpZ9NxRQmUKlAbAUwT32DAyvHb3D4u6fAowMGP2sBHOnRFrAtjpLYtTLiVWbteF7FZMa0umPKIQukR5020z+NtlI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=V71OM+4k; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1790256323; c=relaxed/simple;
+	bh=+y/DElqnV4FcOVioDOH9GwNtbU9D/d/nfuapYBuGs1Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=C1nrJ44wNwEOZRDt8rNiqzqoqvCx0fMx5DSB75SQbDDb2coOFnr3I1uG88Tb9Gtoz0G8cP9R562AnLKFM4nHHBGecGRhAFShx8B+8rlmeFxdyIlxqwU7PLcmlPI9pDcZt+fQX6X3M1kk5XYuHlnimR+ESutb8BZ8umHcfgPCE+U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SLQSDDVN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="V71OM+4k"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e4ad9so11948405e9.2
-        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 06:24:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790256287; x=1790861087; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LpEBMkeydz8CmhOZ6U5BSNu3mfpAMZA4ZhmbrftMEAM=;
-        b=V71OM+4ktZNnwKRr9HvfJNfn2rLNnrkSpVFE39yoraTRjGgPx5R09VChLUzyFJqinW
-         y4OUk2QkBpG7ViQ0O4n67kXLpdTuPRT/T73FVhvWB4/J31P8uWeGwezd6DzN651CJX+f
-         /OwAv6JsUV4BLToq3QW5FUzOhMjl0AJ4BlqYZ3zNLq2acj+r3vcQKHrvTOVLFtN0DAq0
-         1qs5opU3LzG8r8qeFGni26KGTCcBGOltf0Uag1Nc8whWP7HJ/9pd5pXnz2yLYOqdoCoe
-         LBh+z5lcEJ1N06Wa2OlNTZIGUecR83kkSmC94eE7OaZuKGjT+vvW8NY8L9DoEcXEhfpk
-         U+dg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790256287; x=1790861087;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LpEBMkeydz8CmhOZ6U5BSNu3mfpAMZA4ZhmbrftMEAM=;
-        b=GH7PT22NoCypzBQ+/NwKq696QVxa/qE/q9igZLXrOOX00dbU8+1uRMh0LZNI2EwQKi
-         PSyPw9/KkWK8mxDCMJneXOw0dk9Q1WsH0rR5/fDXuI3p5u+UruxGSZrZZSaIj9aSZgi4
-         neSCwhzrpUndS2dv1LGfsk3IcPeDaSKR00Ex/mN6r3eUEL9HDW690hfpF80dab1i7Zv1
-         7U2nqe2GphNYiGnyjMeBlDlM6BOWxK/D1VKoeiJWhP+C6ezNXKZLgkohsce4HvmwfW8K
-         NdgVPV3vJzZFtWz//v0J6cciM4v3Q7eOGhtq7QFqRipUxGZJgmon/VQHfs6romM9HfEY
-         zEuA==
-X-Forwarded-Encrypted: i=1; AKwUvBza5JeOlT/RPT2jZm7wbEf6q1bzq3S6UDAiy/mB65TFgPF4XPkEVOI+vgt2tMNCIgwtuEUvv4k=@vger.kernel.org
-X-Gm-Message-State: AFuF++kuQ+f9K7wMu9rwVeKmsgP2ho5Urih3WNncIyrfb8JY6VwdMx8X
-	XY/dVIIckKeeD1YgTLB1efF4GS1dhM6aHTIKGhhJ64GZheCqaVmVKVmqpbFZNQYBGs0=
-X-Gm-Gg: AYBFou0TCShQngVT7cesXW9hgJsn+CBrKsdfV+i6VQvZCD7d2SpW1RH7T/v3V1LKD6s
-	0ehjwpZi4Mpi6BTsuAufliqq8E0WWkN/aMgwarmZWLHmmcpBoyfJzuZ/p0lf4gx8ZmnDVWvAq9I
-	y2vYmTwC/hGaRgPVgkczgDUIgQJXn5KQLWkLD0qDFn3k8CJd/wF3dI58L8O24h0UufaFV0dHp81
-	fM+x7KHTmjzbjkV48UCYGitMx0WCJ2cBCRxFshoDXFc/GzKwI9MYJrbB6X/BDauzsjUe5kYcc4o
-	2EGTF6dje7Swk0VWfjU7SLoPQ6n8lAZ2yRbb62AWM5LTaR6hJXnCMSeVXP9JVZBR6x1wlJ5YY5x
-	PBrXcXo9bzLJQarcIjl2rS1CsHcWfgZ3RU8z92aeupHsM5Vtg9EJUP9iW6ctyCLY0BjeAWuMSzF
-	hO+LChzrqkWxqxddfUSgMxevA1hrkyrwTbnEUd47xJqjK3nkPfeEOsHaOsUQJ6kWKJNv7uKfd45
-	13FNbaUYgt6+ta1luwrZAliyRiBVnRe1dlnvUdk5mykoRHIGe5Q+MktS9cbZiwI
-X-Received: by 2002:a05:600c:8b74:b0:49c:fc6e:a3d7 with SMTP id 5b1f17b1804b1-49fe66e87damr41701145e9.22.1790256287127;
-        Thu, 24 Sep 2026 06:24:47 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:336e:a1a0:8f96:9f7a? ([2a01:e0a:106d:1080:336e:a1a0:8f96:9f7a])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5b47da1sm72841405e9.0.2026.09.24.06.24.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Sep 2026 06:24:46 -0700 (PDT)
-Message-ID: <2f3d939e-8de6-45f2-92ff-4aeae4d9af54@linaro.org>
-Date: Thu, 24 Sep 2026 15:24:45 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SLQSDDVN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA6F51F000FF;
+	Thu, 24 Sep 2026 13:25:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790256319;
+	bh=qopmzz9GVmwF6XpkNn02wcUDHn7ZmytbGUwAr4xiQnc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SLQSDDVNxICZUaXXbNRWvOV1h63/jmQAeZXJU7MrZolrgoLlCIh/YQzGaEGVsjMNy
+	 s8BJ4WC/jPCIgJtntPqSBsvYE4nD8sF7Xt3VhThpqxI7AwTKWzGcJTZ2xEAOaPDh7H
+	 fxbqWAXRQT1F86G66DlCpBNwbVebuixeqDyZdMGHHRPCU9rLke5jU8BUNtsSwwMzfW
+	 AIVFfYQ64XIdZhoSl0K8hxkGvLSO5s36X/FdGIdm6r8djVuAl/fv2YBKzVv7d///V0
+	 OMidMqfIY3bNJE/lqJe0hDjvrk1FKjQuqbHcT3js6YlRKL8wYDNKM9qjIZWVGH9tB5
+	 XaEytynbHtGAQ==
+Date: Thu, 24 Sep 2026 15:25:16 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: Jacky Huang <ychuang3@nuvoton.com>, 
+	Shan-Chun Hung <schung@nuvoton.com>, Michael Turquette <mturquette@baylibre.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
+	Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Steam Lin <STLin2@winbond.com>, 
+	linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, Jacky Huang <ychuang570808@gmail.com>, stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] clk: nuvoton: ma35d1: Add missing WDT/WWDT parent
+ clocks
+Message-ID: <20260924-bald-awesome-griffin-7d1d5b@quoll>
+References: <20260921-perso-ma35d1-upstream-clk-v2-0-209fd32a8b00@bootlin.com>
+ <20260921-perso-ma35d1-upstream-clk-v2-1-209fd32a8b00@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 03/11] drm/panel: s6e3ha8: Really assert reset on the
- failure
-To: david@ixit.cz, Dzmitry Sankouski <dsankouski@gmail.com>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- phone-devel@vger.kernel.org, stable@vger.kernel.org
-References: <20260920-crosshatch-panel-v1-0-de6e9512da96@ixit.cz>
- <20260920-crosshatch-panel-v1-3-de6e9512da96@ixit.cz>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260920-crosshatch-panel-v1-3-de6e9512da96@ixit.cz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260921-perso-ma35d1-upstream-clk-v2-1-209fd32a8b00@bootlin.com>
 
-On 9/20/26 13:05, David Heidelberg via B4 Relay wrote:
-> From: David Heidelberg <david@ixit.cz>
+On Mon, Sep 21, 2026 at 08:44:45AM +0200, Miquel Raynal wrote:
+> The WDT and WWDT muxes list PCLK3/4096 and PCLK4/4096 among their
+> possible parents, but the driver never registers the corresponding
+> clocks, so these parents could never be used.
 > 
-> Due to incorrect implementation 0 == asserted, thus when driver fails it
-> needs to assert reset.
+> Add pclk3_div4096 and pclk4_div4096 as fixed factor children of pclk3
+> and pclk4 and expose them through the clock provider.
 > 
-> Minimal fix for stable; the polarity convention is corrected properly
-> later in this series.
-> 
-> Fixes: 779679d3c1640 ("drm/panel: Add support for S6E3HA8 panel driver")
+> Reported-by: Jacky Huang <ychuang570808@gmail.com>
+> Closes: https://lore.kernel.org/linux-clk/b8a8a65b-e302-4747-bc90-4920fc48795a@gmail.com/
+> Suggested-by: Jacky Huang <ychuang570808@gmail.com>
+> Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock controller")
 > Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: David Heidelberg <david@ixit.cz>
+> Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 > ---
->   drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
-> index 078523df48860..835121b322f4a 100644
-> --- a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
-> +++ b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
-> @@ -179,17 +179,17 @@ static int s6e3ha8_amb577px01_wqhd_prepare(struct drm_panel *panel)
->   	ret = regulator_bulk_enable(ARRAY_SIZE(s6e3ha8_supplies), priv->supplies);
->   	if (ret < 0)
->   		return ret;
->   	mipi_dsi_msleep(&ctx, 120);
->   	s6e3ha8_amb577px01_wqhd_reset(priv);
->   
->   	ret = s6e3ha8_amb577px01_wqhd_on(priv);
->   	if (ret < 0) {
-> -		gpiod_set_value_cansleep(priv->reset_gpio, 1);
-> +		gpiod_set_value_cansleep(priv->reset_gpio, 0);
->   		goto err;
->   	}
->   
->   	drm_dsc_pps_payload_pack(&pps, &priv->dsc);
->   
->   	samsung_dsi_test_key_on_lvl1(&ctx);
->   	mipi_dsi_picture_parameter_set_multi(&ctx, &pps);
->   	samsung_dsi_test_key_off_lvl1(&ctx);
-> 
+>  drivers/clk/nuvoton/clk-ma35d1.c               | 2 ++
+>  include/dt-bindings/clock/nuvoton,ma35d1-clk.h | 4 +++-
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Please do not combine patches.
 
-Thanks,
-Neil
+>  2 files changed, 5 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-ma35d1.c
+> index 9f65d0623517..9d57de6a1e56 100644
+> --- a/drivers/clk/nuvoton/clk-ma35d1.c
+> +++ b/drivers/clk/nuvoton/clk-ma35d1.c
+> @@ -543,6 +543,8 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
+>  	hws[HCLK3] = ma35d1_clk_fixed_factor(dev, "hclk3", "sysclk1_mux", 1, 2);
+>  	hws[PCLK3] = ma35d1_clk_fixed_factor(dev, "pclk3", "sysclk1_mux", 1, 2);
+>  	hws[PCLK4] = ma35d1_clk_fixed_factor(dev, "pclk4", "sysclk1_mux", 1, 2);
+> +	hws[PCLK3_DIV4096] = ma35d1_clk_fixed_factor(dev, "pclk3_div4096", "pclk3", 1, 4096);
+> +	hws[PCLK4_DIV4096] = ma35d1_clk_fixed_factor(dev, "pclk4_div4096", "pclk4", 1, 4096);
+>  
+>  	hws[USBPHY0] = ma35d1_clk_fixed("usbphy0", 480000000);
+>  	hws[USBPHY1] = ma35d1_clk_fixed("usbphy1", 480000000);
+> diff --git a/include/dt-bindings/clock/nuvoton,ma35d1-clk.h b/include/dt-bindings/clock/nuvoton,ma35d1-clk.h
+> index ba2d70f776a6..d3fd8251c806 100644
+> --- a/include/dt-bindings/clock/nuvoton,ma35d1-clk.h
+> +++ b/include/dt-bindings/clock/nuvoton,ma35d1-clk.h
+> @@ -248,6 +248,8 @@
+>  #define ADC_GATE	233
+>  #define EADC_DIV	234
+>  #define EADC_GATE	235
+> -#define	CLK_MAX_IDX	236
+> +#define PCLK3_DIV4096	236
+> +#define PCLK4_DIV4096	237
+> +#define	CLK_MAX_IDX	238
+
+This cannot be updated. If it has to, then not a binding and should be
+first dropped from the bindings like we did for most of the platforms
+having similar issue.
+
+Best regards,
+Krzysztof
+
