@@ -1,50 +1,68 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE171340A6F;
-	Thu, 24 Sep 2026 14:17:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68060376BC1
+	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 14:19:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790259480; cv=none; b=qtIJWVHOeUiU2TyE6UT8ENkipMYwFsd75ab787hOcBKCw8o65K2WX/ugkklmLY4QXIyE7yHuOMBchsfZambIoJLxcs+tQCW3agwx9HtVy/8q7Cf7lrsIXrs3Pi1YyrXfmiRresIMFlexx5Z1IW4VizYSbf4qe+b3+oLVrSolKI0=
+	t=1790259571; cv=none; b=j2Itw3tlUQak5/ufowBq5S31oOXagfLQ2rvK95Z3pBiFAWp5zi/GbJAXSq+ibDAtt8lVfUs4fIycOfbJ/za/lBoJYUItIWFWB2NtdSl8IKsIF1cFfX7/HV5TOifYSeYvCep8YtpYIsSthvK/qpQIQv6ySsC2C9MLx/WUJlR03BI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790259480; c=relaxed/simple;
-	bh=/lTWMClLlWUDvF9AS83RY53KcuOhgNuj2fCFO++D+cs=;
+	s=arc-20240116; t=1790259571; c=relaxed/simple;
+	bh=TWdASb3MyAf7mGzhM1GabLO0eutszFmZKdYoyrSrb/g=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=C+NWQbe2+EEKYWBUVXuanSTrZ07c7MQkLggZUz5dFHv1IPxi3q931+Nz+dUehxl4pm+R7vmPDQIvuXPocOW5TpOB5tdHSJAyd+89dXTprqQYW1RQXjJdsMs6YaEQJgIvqqXEThAdnZjE85oXs4MDG/GFfH9+3iiyuZjRD3WYFWw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Yz63Rlyt; arc=none smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 In-Reply-To:Content-Type; b=gHVd0Sd6eOlSWpzDk/jtPi2kie1RgdtrBVLitZM23qlJUuw8vNmYaheCsEaRTOq4nAGhEx1t4uPzCpAlg7vJfzNJZewLFefpJeavlpfZ8ViNw6zGBSzFUbG5KSliN40+I46fp70eoeIQwTV/baZBJupkVV8Nrk90vZGtmC21cdY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=xUsYOoK3; arc=none smtp.client-ip=74.125.229.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Yz63Rlyt"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790259479; x=1821795479;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=/lTWMClLlWUDvF9AS83RY53KcuOhgNuj2fCFO++D+cs=;
-  b=Yz63RlytNKt1LL4k282KhoOn29hLSsjWS0BsMkWU+uctM+n1Hn/J//tB
-   6y0rAP803RK6F+tqB3d/IqQ0SDjbyypefCLYB1/M/WMm9y9G3Hx8G88qg
-   CFhjRJZnzUjO1KAgvkNcHm4NolRt/opdekPwFj6Ug3MqG7iqU5Kdkbi5H
-   ImUJTGIUgJJFHCdPnpL9OyKvXA3MviGj9dp82LrJ936d8SxfCmtwBuxqK
-   NzO4bQAD2+XMS27i5h0w9jLxe6kDzk6kgQS2n+2D8PpJrvOk4ZhP/KaRW
-   wnQ4VbwjXsAIXliuVeQNxl7sbPolpG5UK14k7osvhGHYynH6gKeBa9jYC
-   g==;
-X-CSE-ConnectionGUID: WUmJnqNcSk+PfmbU6YJJwg==
-X-CSE-MsgGUID: Z5W7ubtGTpW8T6Iqfvz2Mg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="101204359"
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
-   d="scan'208";a="101204359"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 07:17:58 -0700
-X-CSE-ConnectionGUID: LkDUeKIKSjK/lr1ZHcJ49A==
-X-CSE-MsgGUID: /pGwi7efQKm1fn7ZVlevBQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
-   d="scan'208";a="278782506"
-Received: from dwoodwor-mobl2.amr.corp.intel.com (HELO [10.125.110.186]) ([10.125.110.186])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 07:17:57 -0700
-Message-ID: <bbca9c13-c0d6-4d86-8e55-bf9d1074c599@intel.com>
-Date: Thu, 24 Sep 2026 07:17:55 -0700
+	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="xUsYOoK3"
+Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-328664e051fso2373633eec.1
+        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 07:19:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1790259565; x=1790864365; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=l5t+RkrxBW/tPG0f8s8vACvjj/UzJW53i35clI9VtqY=;
+        b=xUsYOoK3GAHlCcY3Apa/Z4b/UYuwhAOdAh4pYHuimBtUMwFObIHfZeSd8GtmaKBqyh
+         VNScnMR2fSPIqEpCCsYjigBiLXBr3g1EaT0YYmCUJ4KugsX006BE9dQJ47nv65UnYuGd
+         9sjuAXkibl6VRbaC70Z9QvL9h5eTrdkmTQvuNMfN5fYSNJgMJHRE93sGNB2ht3MowNpV
+         Suq0BxBNGDyVxFPwsC7EovxYj9CmxjJds6rXnn123huZXZcJItEZV6HJZgxfykBJaFFQ
+         kSUADyZ8D5ee3nUtzdtxg/8ktkfurjEmH0H0PaUUuonLrNto10o8WGMyGdjPXsR2ITdv
+         cHVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790259565; x=1790864365;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=l5t+RkrxBW/tPG0f8s8vACvjj/UzJW53i35clI9VtqY=;
+        b=LmVZN1fgoltTApedKRCgt3HW7KGJqjNi3KGpgrmH9UDRUn8FzBudFT/Qcpv0bNk1HW
+         Ybr14CGiv3Jf3mZBd5weIunx/XdGy/vPPqQHbL+ybjxhKb5xPggBq5lB+UFIYp5LwLBB
+         RiKtjo6r4ddP3Lv+phQYQw+i6DPdzEUOEDqhx+/S8TJFaa5maHgDZ+yjjr/jROxhvMWk
+         74nOubi4UEaALNqTFLDeOSSZIfXyDPsLoXPycwSK50m7kX26PscvAy8/VULnQqhtUHlg
+         xibYQOSs+IUhIIyjp7AVF2vQ1IJQOJNiXIrwLuD+iflK7aU1QjXd9rLTKZlU5xO2Ma4o
+         75jg==
+X-Forwarded-Encrypted: i=1; AKwUvBxtq9A9EBIy1vWKf/e/lSNC2zjamAFSgaH/QDKr+DxGYucHGHoWDANauAuB2J6y9q4Zssynoh4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lZU+tOa6Jf04IxKXtLu3RilNJkmMZPGFHJJ8hMavNokskhsKDg
+	A4J9r/ONaaTnmN/qLvAk/8z1bXCE+PJNRgEJqD1Bv0YboO//svJI7VPUT6cC2Xko+PY=
+X-Gm-Gg: AYBFou3dr9OObwjq8Lrdx0kGoErdd2lw+ZJj8xBgCrDSu7P++XEk0GBYp3aoMshBCNz
+	FvUiQSGjJj3cAxVQbvMlezqns2Rhc+zCl3jMgagyicoJWsyoaVUYEjTA5xG485h4Gmxz+mXC/8c
+	JjB8JBh/DI13xWYt2zO1i/JusVUX++9ieR7qaSdqI4yDSG9w8J6cVGyc9OQylO6Ko3Xf2tr7q8v
+	mb2nSMOl44pDuJneZ4E5utUvf1JAMS0HbUSYRX/kvUshZPMDd4iQWdUnHxBXisnyzYpAYkuqe1q
+	iT9IES7JLDUavPjK4K1xpqbjHl+h6dCRQjfUmZ1CLU78b1kDGwd1A+pDQpJqBJk6UCEb2A7X0cH
+	Earm1/viN3kU0aSekCT9GYx4f51cNEk/eN1n0k2dhnWAqTtiRYQ0PFll++BDTRX3xE5tx/JD5K6
+	T3SA20/qmWAj67FfNB4/9yEPQZFbMyZi4fcRv+cydwmL30ywvUarpFWR8CKzvaOzyG0Xr+m6j1C
+	Jb+RZBFaUuFtKupuzSYAGOGLoakCcS+ns+kHT/qrFSWnmIhYHL91Vkpaw==
+X-Received: by 2002:a05:693c:87c7:20b0:33b:f566:eca9 with SMTP id 5a478bee46e88-34001c1401fmr2175061eec.11.1790259563746;
+        Thu, 24 Sep 2026 07:19:23 -0700 (PDT)
+Received: from [192.168.1.125] ([198.8.77.157])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e9684ed70sm12529265eec.19.2026.09.24.07.19.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 24 Sep 2026 07:19:23 -0700 (PDT)
+Message-ID: <e1fb70aa-cc4c-4ed5-809a-e8babd52dacf@kernel.dk>
+Date: Thu, 24 Sep 2026 08:19:22 -0600
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -52,71 +70,44 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] cxl/acpi: Check ACPI companion before use
-To: Jiale Yao <yaojiale02@163.com>, Davidlohr Bueso <dave@stgolabs.net>,
- Jonathan Cameron <jic23@kernel.org>,
- Alison Schofield <alison.schofield@intel.com>,
- Vishal Verma <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>,
- Ira Weiny <iweiny@kernel.org>, Li Ming <ming.li@zohomail.com>,
- linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-References: <20260924125404.923551-1-yaojiale02@163.com>
-From: Dave Jiang <dave.jiang@intel.com>
+Subject: Re: [PATCH v3 12/17] exec: cancel io_uring requests before
+ de_thread()
+To: Christian Brauner <brauner@kernel.org>, Oleg Nesterov <oleg@redhat.com>,
+ Chris Mason <mason@kernel.org>, linux-fsdevel@vger.kernel.org
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
+ NeilBrown <neil@brown.name>, Ingo Molnar <mingo@redhat.com>,
+ Peter Zijlstra <peterz@infradead.org>, linux-mm@kvack.org,
+ io-uring@vger.kernel.org, stable@vger.kernel.org
+References: <20260921-work-coredump-fixes-v3-0-8e4adb1619e6@kernel.org>
+ <20260921-work-coredump-fixes-v3-12-8e4adb1619e6@kernel.org>
 Content-Language: en-US
-In-Reply-To: <20260924125404.923551-1-yaojiale02@163.com>
+From: Jens Axboe <axboe@kernel.dk>
+In-Reply-To: <20260921-work-coredump-fixes-v3-12-8e4adb1619e6@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-
-
-On 9/24/26 5:54 AM, Jiale Yao wrote:
-> Platform drivers can be forced to match devices outside their ID tables
-> through driver_override.  cxl_acpi_probe() assumes that every bound device
-> has an ACPI companion and dereferences adev->dev.bus without checking the
-> result of ACPI_COMPANION().  Force-binding cxl_acpi to a platform device
-> without a companion therefore causes a NULL pointer dereference.
+On 9/21/26 7:45 AM, Christian Brauner wrote:
+> begin_new_exec() cancels the exec'ing thread's io_uring requests after
+> de_thread() made it the only thread in the thread-group. Now
+> io_uring_task_cancel() runs task work after. If it runs a
+> create_worker_cb() item then a io-wq queued on the thread before the
+> exec creates a new io-wq worker thread.
 > 
-> This was reproduced by setting the driver override for the pcspkr platform
-> device to cxl_acpi and binding it through sysfs:
+> Said thread joins the thread-group which de_thread() just took down. The
+> io-iwq sticks around until it notices that its workqueue is dying. But
+> code after de_thread() relies on being single-threaded.
 > 
->   BUG: kernel NULL pointer dereference, address: 0000000000000280
->   #PF: supervisor read access in kernel mode
->   RIP: cxl_acpi_probe+0xf4/0x220
->   Call Trace:
->    platform_probe+0x4d/0x80
->    really_probe+0x106/0x370
->    device_driver_attach+0x4c/0xa0
->    bind_store+0xd0/0x100
+> Move io_uring_task_cancel() before de_thread() but behind the point of
+> no return. Any worker created during task work run from
+> io_uring_task_cancel() is just a sibling thread that de_thread() will
+> take down and reap.
 > 
-> Commit 2b3a5dabe89e ("platform/surface: acpi-notify: Check ACPI
-> companion before use") fixed the same force-binding issue in another
-> platform driver.  Check the companion before setting up the CXL root and
-> return -ENODEV when it is absent.
-> 
-> Fixes: 7d4b5ca2e2cb ("cxl/acpi: Add downstream port data to cxl_port instances")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jiale Yao <yaojiale02@163.com>
-> ---
->  drivers/cxl/acpi.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/cxl/acpi.c b/drivers/cxl/acpi.c
-> index 3b818adbd38b..2b67138013a9 100644
-> --- a/drivers/cxl/acpi.c
-> +++ b/drivers/cxl/acpi.c
-> @@ -893,6 +893,9 @@ static int cxl_acpi_probe(struct platform_device *pdev)
->  	struct acpi_device *adev = ACPI_COMPANION(host);
+> Once io_uring_task_cancel() returned the thread has neither a task
+> context nor a workqueue left so nothing can add a thread behind
+> de_thread()'s back anymore.
 
-Can you move the assignment down to just before it checks the pointer? Please make sure to adjust the variable declaration to conform to reverse christmas tree layout when you do. thanks
+Reviewed-by: Jens Axboe <axboe@kernel.dk>
 
-DJ
-
->  	struct cxl_cfmws_context ctx;
->  
-> +	if (!adev)
-> +		return -ENODEV;
-> +
->  	device_lock_set_class(&pdev->dev, &cxl_root_key);
->  	rc = devm_add_action_or_reset(&pdev->dev, cxl_acpi_lock_reset_class,
->  				      &pdev->dev);
+-- 
+Jens Axboe
 
