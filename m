@@ -1,236 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0FE947CA85;
-	Thu, 24 Sep 2026 11:59:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790251172; cv=none; b=QsDWxDH9ePZokzg6AYcPuIG7W3PA3Y+6rfrWHWthxI2fZlEWSVfXWMy+gqvUKmCaGCvRNUWNOmRgxG2bdiUMtPUwfCscDNxIigK+fsuKW5c3bWlelFKvkDbfmzFFJVoG1oRUfnYnhtNKsZ+qAkcVEZqq7qjtjb+bq3/kBFMUguo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790251172; c=relaxed/simple;
-	bh=pSVKHinBHCh6H5dX/pme0nQpAgeyXt9bAOQJp/fUXXo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=C3l4pXQ4OxvXyA3zdnpbPjPMBhNW1t4At3TWVqOG5Xzsg2T0dXNkV2XNDk/MXF+lWDB78kY7GCxsxcVBfhW5vHEQNzYkat9H5fGZjKczZnEOyBSGXXXbCXwMRRBUjBWHZp6+cr3r9Ad8ZGjdmF7BgAX9Y7J6Ek8tv8VkDW/bMOU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b553tbGm; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A93E947D440
+	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 12:00:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.141
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790251245; cv=pass; b=G+X/zAcYhgMAR8CFEpl7KIJCWLYGzaGp6B7Yv8AsDSk5lpXcBzIiJbRxAumCkXoqqkLiVtgMIXIdU+XH57ZdsAOOQnxuNhOf7P+FlceIceKM+5+QHt21yOLTsO4txbKQO8Dp3uXJJxqekyuOdLiFj17Fgt8QxMjBdfT7n/omqkQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790251245; c=relaxed/simple;
+	bh=V4eu6A97YuNjzUNXoyTJh0xukmvbj4affVPwK+58STs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cQJAQg8e0+yauqPcry1ZURPO7I6FGg3AlO1wdjFLvMpDYnZpGVWNnneXPa6gtn78Ub/vQjLmXS64V+lJFlJ/2pBcXre0csCLUZaUx9WSbMhd55GFNAnJ9ctAENEcNzM4U8CedfmFVZOARZa2dkKuHEYsGQ+JaE21r2PAgUD6rs4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JdVWudRr; arc=pass smtp.client-ip=74.125.224.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b553tbGm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95E131F00893;
-	Thu, 24 Sep 2026 11:59:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790251169;
-	bh=eYbZw+ir6uobcOE1VSF37VlhISIRM2YlLsW83AoBJJo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=b553tbGmDz2Jw9XkJ0OT+1EdcJLLd1xe2ZQrvmCnRAvkOHHqa1VPRKhSphRq9kKgT
-	 sh3Bmb0sRbHxO+iKdVUxoxhV5lkVt7Vg31zid1sKVYWKsNrD1B6G8/jcPJtQ3jA7rb
-	 jVVJF/xQTvoePM0y8Zm1lu5Ja+UFQYpSD9b4LfB0VwUwkrSbAU8vvVMacZKthNTQ1v
-	 VWIU1SdvduxYqXTwnA5G4k+dze/zEz6Tcc6mUIk5DZrQLZ111ViHyIDG/DaPYQGOFc
-	 CiNf8Ho3CO8Vj2IA0ceBvvbr1WXx5hOlAE6xesG8PGgpjD0NdcpkHu/YN0d0hdT+3k
-	 zo2sIkJZsfltg==
-Message-ID: <f0cd5c54-deca-42e7-bc85-1838dfa917f3@kernel.org>
-Date: Thu, 24 Sep 2026 13:59:15 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JdVWudRr"
+Received: by mail-yx2-f13.google.com with SMTP id 00721157ae682-85d43db0c17so29273047b3.3
+        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 05:00:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790251240; cv=none;
+        d=google.com; s=arc-20260327;
+        b=LZ4Xqu2fQzrauocNYVpv7oDUWKvC0YQGpQbAGm3KnL4y31xNWbd1FL1eq/k73G0eG5
+         NyybXJ6qvP98A/Z30TAqhd1dngtBGcFFwh4L7IepLhqR+3j2eoXr4+bAqlAhfXm1bDhd
+         Nv2dPZ5DHbicE2Fj8NGH0Ev7PZLE2S4VYYoCw+CBZI0LR9WKSGTzRPLoNWkKrv+p+e9Z
+         2NNrHDoKhdwDWuXyy02kTAcaz+He3+sc0/7rAPd4NJlqNRzdr9sf917c06UC7XrVVwWM
+         KjzakVgjH+o8ylcGr7xwPpPokIsbBKdtuF72WRR4At5g4G28N1w537Kp3l+gjmvBsLZw
+         EVtw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=V4eu6A97YuNjzUNXoyTJh0xukmvbj4affVPwK+58STs=;
+        fh=i4pxQ5MWsf8JRCI8Uc0Qgoxghy/nDF48/CB/XDItJSM=;
+        b=LVVeByj3seou+z40oWOfuiHMSfp7cvv+RacClkGKMGITBRRy+yzKxXbXpy5zc0wqd+
+         eW7/Z6gwVABfFz/I9IODEzNCaj9S+o/K3tfkBMQL9k4M6aJtMQbJV1dJ6LJkzi8i6Evc
+         UGgcFqqewNDyjwekdHR5g1/M1xpgmZK6U4KiJMiBUXHtwlWA4deoigaDg7fktRdQ9qhU
+         XWnccCFatU/o7UhoBd3LH/ZV7PdNliLBbRzBUIfoSB1bf5Alerrvs91Ch6EwYv2az/Hd
+         bTe4ckbQV6EvHb0psBBuNyaFA+27X5r2KlBJ3ehCbQ94G4dBr4pVaNZO2Mc5t1JZsbBd
+         dXiQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790251240; x=1790856040; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=V4eu6A97YuNjzUNXoyTJh0xukmvbj4affVPwK+58STs=;
+        b=JdVWudRrI3FiJXAk84gED11cP06wPOP4bn8sz3yLOTnjFy+NL+YGTWLdT7k1EuZpwN
+         /2B/ZVI+G+P/+P8+Yx/5rtP2r9fyRKdIS1oZSYI1OQfB7WQadgNH3um1vbhViybI48Dl
+         rprFZGxI8OUzJ5NocUYfmftLftP+I1rnUJS2kkHascv+eDrf282C8sMkQDLQwHMkcICJ
+         F/E2HT4o3LydGNkzlZ1SVUrDuVUMGPz2MctzQft+lmtBihkefOnAkRj5YsY50+QsnT4S
+         jH46oDYc1LphzuXOyBQOPLowvfRkSK2WrkIlxuEYTygwTPnyZjV/GFKgoouWdXngmbVT
+         3cmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790251240; x=1790856040;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=V4eu6A97YuNjzUNXoyTJh0xukmvbj4affVPwK+58STs=;
+        b=V+7YNSs6iDSNs7uT8fRWGpXiha484/0zgPAWNbxIDAIIsEXfMW0CKx7weyhuQ1MtJ3
+         w/UEkM3sWBgMnT/LBpds9B5qJA9AzI6HefKbAuztYT7YCnFdkw0BBpCyMB95FBsDsXZs
+         05NI8kUT9pZPSe6XnSdlSrdA72KhY14McCAm3x2sPLsSxqDId07hoklnRqoZTQSpcwTn
+         wGWYoGdl7B/JLuritTvcKvY2og+ffpQmw3SUtra/fUm01aElG5EKfcNHNq6K7YT4nI4/
+         G4SPGikP0Hd9R+4N4kih0ck0IiESxVgCB0wop4BMT4lOAZY30j8DkqkYT8LQiz1EMjXR
+         27Vg==
+X-Forwarded-Encrypted: i=1; AKwUvBz7wKRVfUBDxMscvp3EXG215KdCI+mxS+u5oEADTg+MWHR6t5Zb4uBgC6jrk1X9O4voNZa5A5A=@vger.kernel.org
+X-Gm-Message-State: AFuF++kNZHl0cawasyam9VKoWpcrlELY1pLGvB25S+z17NKHo0chWfGu
+	g2m5MPKuEAshL94GXdbsAKhPIBFWj48xSlhZiq5EqvcgA8vgi4e3ZwD555i9bYnzd7fIC2iK0g/
+	aH6r2OMdyMQQQqznJ8GqJcIlaZUt6u3I=
+X-Gm-Gg: AYBFou0ilOCbichVPFPKzkkUzUSEtkLgvnV2hEa6HzS7fLYBokxYNbPqA5ErS45J1tI
+	G0onghRAcGBAbDUrF5tjCP95a8rflEX6r13weSAzKd2yc4uxoq+AZKlFsku33OJrz3pnDTxGmDL
+	1Bie4Tf1k+HXLRIMK0mkPIZiMpxDzKmxTE+Jh/6pJ82ifBkRbNlkcEXLec11+7p/uuDcPimtyqz
+	mvzfwQvJ6YQy/+XNnObN0yawRsG17BDtCrVTs8+3Mz8QX6FqNbszhCjwkXMEpHV7Q+bQyaZecbt
+	XHlDsJ1Weqlkvi5xMAR9s6sM24SXm5r2x418xm7kn2GRgdpXu8gskpU/ew==
+X-Received: by 2002:a05:690e:c46:b0:673:938f:684 with SMTP id
+ 956f58d0204a3-673938f08d6mr168889d50.56.1790251239884; Thu, 24 Sep 2026
+ 05:00:39 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/7] mm: allow shared folios to be promoted to a fast
- tier
-To: Gregory Price <gourry@gourry.net>, linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com,
- akpm@linux-foundation.org, ljs@kernel.org, liam@infradead.org,
- vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com,
- mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com,
- vincent.guittot@linaro.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
- bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
- kprateek.nayak@amd.com, ziy@nvidia.com, baolin.wang@linux.alibaba.com,
- nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com,
- baohua@kernel.org, lance.yang@linux.dev, usama.arif@linux.dev,
- kas@kernel.org, matthew.brost@intel.com, joshua.hahnjy@gmail.com,
- rakie.kim@sk.com, byungchul@sk.com, ying.huang@linux.alibaba.com,
- apopple@nvidia.com, jannh@google.com, pfalcato@suse.de, hannes@cmpxchg.org,
- shy828301@gmail.com, raghavendra.kt@amd.com, stable@vger.kernel.org
-References: <20260922182928.2199090-1-gourry@gourry.net>
- <20260922182928.2199090-3-gourry@gourry.net>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260922182928.2199090-3-gourry@gourry.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260921104058.353748-1-lgs201920130244@gmail.com>
+ <20260921110512.GS106095@black.igk.intel.com> <CANUHTR9gA-mKn8Y496Pty4_Fhu3BSSyhXWrmiod1WvuVdQjkag@mail.gmail.com>
+ <arJ0pDlXpdlsF0sT@ashevche-desk.local> <20260922123315.GF106095@black.igk.intel.com>
+In-Reply-To: <20260922123315.GF106095@black.igk.intel.com>
+From: Guangshuo Li <lgs201920130244@gmail.com>
+Date: Thu, 24 Sep 2026 20:00:29 +0800
+X-Gm-Features: AclHuK8ajLz_1mV9OsX5cTlVyofvFYTK8P24xEanxXIUMhPnGnhiLT98a2I6OJ0
+Message-ID: <CANUHTR_Su1KxOeB2fJDwzVeyW4WpnWuzTYm=6Yz4z12Pr6GugQ@mail.gmail.com>
+Subject: Re: [PATCH] mfd: intel-lpss: fix iDMA device leak on probe failure
+To: Mika Westerberg <mika.westerberg@linux.intel.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Lee Jones <lee@kernel.org>, 
+	mfd@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/22/26 20:29, Gregory Price wrote:
-> From: "Gregory Price (Meta)" <gourry@gourry.net>
-> 
-> NUMA balancing rejects shared copy-on-write folios and executable
-> file folios mapped by multiple processes to avoid east-west
-> migration bouncing. These checks break promotion from slow memory.
+Thanks Andy and Mika.
 
-Makes sense. So in general we're happy to promote if there is no chance of
-bouncing (as would happen with ordinary numa migration).
+On Tue, 22 Sept 2026 at 20:33, Mika Westerberg
+<mika.westerberg@linux.intel.com> wrote:
+>
+> On Tue, Sep 22, 2026 at 03:29:24PM +0300, Andy Shevchenko wrote:
+> > On Tue, Sep 22, 2026 at 03:59:32PM +0800, Guangshuo Li wrote:
+> > > On Mon, 21 Sept 2026 at 19:05, Mika Westerberg
+> > > <mika.westerberg@linux.intel.com> wrote:
+> > > > On Mon, Sep 21, 2026 at 06:40:58PM +0800, Guangshuo Li wrote:
+> >
+> > > > I think this could use devm_mfd_add_devices() instead.
+> > > >
+> > > > > The issue was identified by a static analysis tool I developed and
+> > > > > confirmed by manual review.
+> >
+> > > Do you mean converting both MFD registrations to devm_mfd_add_devices()
+> > > and dropping the explicit mfd_remove_devices() from the remove path, like
+> > > this?
+> >
+> > Won't work properly. The rule of thumb, it should be no 'goto' after devm_*() call.
+>
+> hmm, isn't the unwind done in driver core and has nothing to do with goto?
+> Maybe things have changed since I last time looked? ;-)
 
-> 
-> Allow such folios to participate when the folio being migrated is
-> a low-tier folio and the destination is top-tier (south->north).
-> This allows promotion, but prevents east-west or north->south
-> migrations (north->south is handled by reclaim demotion).
-> 
-> Keep the existing restrictions for ordinary placement and for
-> migrations that are not slow-to-top-tier promotions.
-> 
-> Rename folio_use_access_time() to folio_in_lowtier() so the source-tier
-> condition is more obvious (timing is the mechanism, not the condition).
-> The helper retains its existing behavior.
-> 
-> Fixes: c574bbe91703 ("NUMA balancing: optimize page placement for memory tiering system")
-> Cc: stable@vger.kernel.org
-> Suggested-by: Zi Yan <ziy@nvidia.com>
-> Link: https://lore.kernel.org/r/DLHS4KFPQ86I.1J4LN3352RI71@nvidia.com
-> Assisted-by: LLM
-> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-> ---
+devm_mfd_add_devices() would remove the children when the parent
+device's devres is released after probe returns an error. However, the
+current error path tears down the debugfs, LTR, clock, and IDA state
+before returning, while intel_lpss_remove() removes the MFD children
+before those resources.
 
-[...]
+Given that ordering, would keeping mfd_add_devices() and adding
+mfd_remove_devices() at err_remove_ltr, as in the original patch, be
+preferable here?
 
-> --- a/mm/memory-tiers.c
-> +++ b/mm/memory-tiers.c
-> @@ -53,16 +53,19 @@ static const struct bus_type memory_tier_subsys = {
->  
->  #ifdef CONFIG_NUMA_BALANCING
->  /**
-> - * folio_use_access_time - check if a folio reuses cpupid for page access time
-> + * folio_in_lowtier - check if a folio is in a tiering-managed lower tier
->   * @folio: folio to check
->   *
->   * folio's _last_cpupid field is repurposed by memory tiering. In memory
->   * tiering mode, cpupid of slow memory folio (not toptier memory) is used to
->   * record page access time.
->   *
-> - * Return: the folio _last_cpupid is used to record page access time
-> + * If memory tiering is disabled, then lowtier has no appreciable meaning,
-> + * so we return false (the folio should not be migrated on this distinction).
-> + *
-> + * Return: true if memory tiering can promote the folio.
-
-I wonder if a better name would just make the comment above (about memory
-tiering) implicit and make more sense of the sysctl_numa_balancing_mode &
-NUMA_BALANCING_MEMORY_TIERING) check.
-
-	folio_promotable()
-
-	folio_is_promotable()
-
-	folio_numa_promotable()
-
-etc.
-
-because that seems to be what we really test with both things combined.
-
-> +++ b/mm/mempolicy.c
-> @@ -864,8 +864,13 @@ bool folio_can_map_prot_numa(struct folio *folio, struct vm_area_struct *vma,
->  	if (!folio || folio_is_zone_device(folio) || folio_test_ksm(folio))
->  		return false;
->  
-> -	/* Also skip shared copy-on-write folios */
-> -	if (vma_is_cow_mapping(vma) && folio_maybe_mapped_shared(folio))
-> +	/*
-> +	 * Shared copy-on-write folios are poor east-west placement candidates.
-> +	 * When tiering is enabled, folio_in_lowtier() identifies a promotable
-> +	 * folio on a low tier, which needs a hint fault for promotion.
-> +	 */
-> +	if (vma_is_cow_mapping(vma) && folio_maybe_mapped_shared(folio) &&
-> +	    !folio_in_lowtier(folio))
->  		return false;
->  
->  	/* Folios are pinned and can't be migrated */
-> @@ -891,7 +896,8 @@ bool folio_can_map_prot_numa(struct folio *folio, struct vm_area_struct *vma,
->  	 */
->  	if (vma_is_single_threaded_private(vma) && nid == numa_node_id())
->  		return false;
-> -	if (folio_use_access_time(folio))
-> +
-> +	if (folio_in_lowtier(folio))
->  		folio_xchg_access_time(folio, jiffies_to_msecs(jiffies));
->  
->  	return true;
-> diff --git a/mm/migrate.c b/mm/migrate.c
-> index 7bdcdb57652f8..6a08690cfe219 100644
-> --- a/mm/migrate.c
-> +++ b/mm/migrate.c
-> @@ -2694,14 +2694,20 @@ int migrate_misplaced_folio_prepare(struct folio *folio,
->  
->  	if (folio_is_file_lru(folio)) {
->  		/*
-> -		 * Do not migrate file folios that are mapped in multiple
-> -		 * processes with execute permissions as they are probably
-> -		 * shared libraries.
-> +		 * Limit east-east migration of file folios mapped in
-> +		 * multiple processes with execute permissions as they
-> +		 * are probably shared libraries (limits bouncing).
-> +		 *
-> +		 * If this is a low-tier folio, only migrate if the target
-> +		 * node is toptier (this allows south->north migration while
-> +		 * disallowing east-west migration between slow tiers).
->  		 *
->  		 * See folio_maybe_mapped_shared() on possible imprecision
->  		 * when we cannot easily detect if a folio is shared.
->  		 */
-> -		if ((vma->vm_flags & VM_EXEC) && folio_maybe_mapped_shared(folio))
-> +		if ((vma->vm_flags & VM_EXEC) &&
-> +		    folio_maybe_mapped_shared(folio) &&
-> +		    (!folio_in_lowtier(folio) || !node_is_toptier(node)))
->  			return -EACCES;
->  
->  		/*
-
-Sashiko has some comment about anonymous shared COW folios. I think it has a
-point, but didn't look too closely.
-
--- 
-Cheers,
-
-David
+Thanks,
+Guangshuo
