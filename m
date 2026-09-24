@@ -1,33 +1,67 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30FBF2D8DBB;
-	Thu, 24 Sep 2026 09:36:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 014C73A8758
+	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 09:37:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790242586; cv=none; b=lIVwrLmf6BIqahlrtEVTj1h0MN35q5qXdlV8RX0Em17wKgW+/4WtqPRqShHzKTjohgZFidTqBRBHgnvG0DQbzJhLOXBruYfcKKKdfPyGh9M7t7JE/laCU72rEhJCHFkIdYQkDe+PW6qMDpZo+2kI6PSO1kfYm8LV4uBjHMov0Y4=
+	t=1790242639; cv=none; b=PUJrhCXzpftDyZj2gHVPi02ohKj1KteAoYff42cu73LaxXiw3zbtmZ/ZUkJTQnae57/cmEpCmnkH2aUJqWNBl9B15/iVC6Fl4K9Tuy8HJPS29PQJuN+ib/efNdJDJIiUhlsFtdQRPt0yNpEUNBkpA/7g+S/Pt6OzqUZGvCTHDxY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790242586; c=relaxed/simple;
-	bh=i3pt1H9qNRC/nyv8uVo4NsVAFMXIpMQd9zhfUIBZLK8=;
+	s=arc-20240116; t=1790242639; c=relaxed/simple;
+	bh=70TFsAFRbI1TuzaqNIADo3Zfc7ofFfEiP7yn9cQoyzM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ssksYsnKST1BZE5mjMvolPGt1kUADDs4UN7Wht0uGhvdvwr3/3YjfP0f6XubOnJICBDtEB5DeDygERe9vYBX1neYj5er6juHQtyPGcQteLIFs4GQr1+yM/fh8vxkZul3l3nnqey9wOLIlqH0ctPXweM9VJbIEnMC6n2jKBc2B4Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i62KZs0V; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=CiOavgTkqhEAIbgOeKayO1Hv/DN4fUGrnVsQt79FCW6xwqZZLYTgPdW9BkvST/NeQ0gPaqIUILItsd0braLZ8nSBdmeCfhcuM7/lR5R4jXa6JEeTXXa1drcSnefbrzZQQbhw5cvk0DOj861WiLU9vz/cvPNTBecire83kznCUf8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AmN19kJ8; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i62KZs0V"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50C551F000FF;
-	Thu, 24 Sep 2026 09:36:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790242584;
-	bh=ZiYfP3OJ/9LAMpeByACJ22Dt1rNk0pU/miAnrdFKvlc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=i62KZs0VBwe+7WBncDD2NIaGeytnxoCGW4Vafmq0m9+p38DyxbtEY9F5+z7w8RKUI
-	 at2jPMAUdLGsOUedUT/Qs/GhkYLvX5xwWmLR4E093NhOY2B5AsPmLMTIYd0n1b3eLE
-	 jhIHPNz/x+Rp64R6tyhnplcsec22FnQ4SrGhtQLsrwH0+Cm/NeU3z9pg0VBt9ToLhj
-	 Q7Zrc9xaStAscYiuWDpsqw2oUJ1Li0YUXbw7+rGS3g7rIksABijDxpbfG4K9ZwVYCC
-	 Z7i6jmG/FLBm6CXdF95+gRQYlDQL6tw6t5Wz5xcqudIbdlZZ1BYUfP78+H/98o7l4l
-	 QLY5FdGww5brQ==
-Message-ID: <0d798541-6486-44ff-ae57-f631d1465688@kernel.org>
-Date: Thu, 24 Sep 2026 11:36:19 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AmN19kJ8"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d91ede8035so16779845ad.3
+        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 02:37:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790242637; x=1790847437; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=FHoeQiU6kNP6O34S62q6U8XbBumTsi34UKnTIzqpmJA=;
+        b=AmN19kJ8BsJ0X1DljsyziIWCsc6ZQRbMF7/wBuPlYkavSBK3IPgRFebvJhf80wLL+F
+         OyGPRgX6AozROkkIveCZtmOp/j9Iq1FflgyO/mGv/tpSAm5AbhYmiQUQv20SKjBESdXn
+         iySZrvkw4PjISx+SRvyblr4H+JyHQ0Yxtf9NosmK5PjHS91fL0g/sNQAEesf7n5AQ7DZ
+         s8HMYRPg5mLE1OdBLwiqURYRAFsN8k/fGsYXQGGcXUzp6ea0qRNsNJLKKZaeNqsf/TgB
+         SGlrbDb0I/0qjATkqgdBpaDAZupNm+fkTJ9W029gJB704vLlFWSqR5lpOxo5iqpSocbd
+         lv9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790242637; x=1790847437;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FHoeQiU6kNP6O34S62q6U8XbBumTsi34UKnTIzqpmJA=;
+        b=GpXfS8p34rEsvN/fYvm6eWPehm9DW/PitfjyJt/dyxk+XMn89CPBWK5bOKN8E17I0N
+         bsdlmO/sStbJtY7sz+3o39Un19xCLCUmwYB7n2Cw1A8Pesk24MURNTT+ou+9IPAZ7vjX
+         VkWzyiU0NbqZCM3JwyknUvpCgAZx/W8TIJgxDe7pwnX87Ve39Ui/iiTNIX2jSS+gaD0y
+         k3dGLdSgBTvWSsoMEffNJPVdqsqjAxlEzwYJCjDI7dtkQnbfzBQXmiaIFnxnyBFtvu3c
+         Gjw9Z/uodwKNf4yxX09UlI2L3gLES3mR2HcUqmFazHzXbMKqmFjbREwdPh31CvO1pW6I
+         G21g==
+X-Forwarded-Encrypted: i=1; AKwUvBzcBEH8tyG2mbDJDI00PHSk1k+PIkjSrykfdq2D2Iq7Q4G4efdF9ruezaGckIF+vQrR19rnfTw=@vger.kernel.org
+X-Gm-Message-State: AFuF++nK4nY4T/RJGuKvDd1i69nGcy+2vo/WlywDDbxlBjAiVOJv6ES6
+	9NXlrPxJKGFC12iYYBb/QrDCN7kvX0JDLu6Dd6fbAitf+3/oUfk3LqW6
+X-Gm-Gg: AYBFou2Zw6ugSFHqPpzIDFJ48/efjyccjyP7Z97B4lVscYnP3+5R+/NDg5PWOxHdUz5
+	3hBE+v2uj6IHo0coR2RpM8xUmWo5TgS6p1JScd2v2tUnEjiBI0VSzlpwH9nmZOy8Up1hZDNWMxy
+	L6hJxd92rkIDnBahUvTGjLrtvPZJzOk1uxt/gWILrrnSIwOhJ6V6mFdjxo1ZmJ/JjRPM+iYRlxb
+	bNesoYhjSK1U+WOiX64eJbX62oMOfHdWeLSj9LFBgC6CB3P9mew+IwpfQGEleUNVvQnIODGUsca
+	xfann+KEyQTk3fQJVTi4bvS2P8+5izjCt7vPG0NHLD5zKeJl2pA5fxNsAUnZgU9LC97uNQhuG+3
+	iK8Bw5zjP7HLpMUxDs2zgSGHB461+IdcV4bOzw2tYlKTR/ccN78tpgDpT8Ef2UuIpV7tyYCO3JX
+	Yx/U+Pxo0GDS7O7pNs+meAbM1DQSwQZArXq2TxUkg77qFWrClCJfNVtlUmujbCLs4oA6v3xYAkM
+	bm0zGUy+atE9PWUPxkuLQ==
+X-Received: by 2002:a17:903:3c67:b0:2ca:e19c:97b with SMTP id d9443c01a7336-2df7e24f3a5mr16150895ad.5.1790242637239;
+        Thu, 24 Sep 2026 02:37:17 -0700 (PDT)
+Received: from [10.192.33.43] ([43.224.245.245])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a5169absm24501695ad.8.2026.09.24.02.37.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 24 Sep 2026 02:37:16 -0700 (PDT)
+Message-ID: <9a542b7e-bbb0-4c14-8760-f3aceaab39e2@gmail.com>
+Date: Thu, 24 Sep 2026 17:37:08 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,182 +69,108 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] netfs: Fix missing alloc tagging of direct mempool
- allocations
-Content-Language: en-US
-To: Hao Ge <hao.ge@linux.dev>, David Howells <dhowells@redhat.com>,
- Paulo Alcantara <pc@manguebit.org>, Harry Yoo <harry@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>,
- Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- "Christian Brauner (Amutable)" <brauner@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Christoph Hellwig <hch@infradead.org>
-Cc: netfs@lists.linux.dev, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- Erhard Furtner <erhard_f@mailbox.org>, stable@vger.kernel.org
-References: <20260923063759.34667-1-hao.ge@linux.dev>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- xsFNBFZdmxYBEADsw/SiUSjB0dM+vSh95UkgcHjzEVBlby/Fg+g42O7LAEkCYXi/vvq31JTB
- KxRWDHX0R2tgpFDXHnzZcQywawu8eSq0LxzxFNYMvtB7sV1pxYwej2qx9B75qW2plBs+7+YB
- 87tMFA+u+L4Z5xAzIimfLD5EKC56kJ1CsXlM8S/LHcmdD9Ctkn3trYDNnat0eoAcfPIP2OZ+
- 9oe9IF/R28zmh0ifLXyJQQz5ofdj4bPf8ecEW0rhcqHfTD8k4yK0xxt3xW+6Exqp9n9bydiy
- tcSAw/TahjW6yrA+6JhSBv1v2tIm+itQc073zjSX8OFL51qQVzRFr7H2UQG33lw2QrvHRXqD
- Ot7ViKam7v0Ho9wEWiQOOZlHItOOXFphWb2yq3nzrKe45oWoSgkxKb97MVsQ+q2SYjJRBBH4
- 8qKhphADYxkIP6yut/eaj9ImvRUZZRi0DTc8xfnvHGTjKbJzC2xpFcY0DQbZzuwsIZ8OPJCc
- LM4S7mT25NE5kUTG/TKQCk922vRdGVMoLA7dIQrgXnRXtyT61sg8PG4wcfOnuWf8577aXP1x
- 6mzw3/jh3F+oSBHb/GcLC7mvWreJifUL2gEdssGfXhGWBo6zLS3qhgtwjay0Jl+kza1lo+Cv
- BB2T79D4WGdDuVa4eOrQ02TxqGN7G0Biz5ZLRSFzQSQwLn8fbwARAQABzSNWbGFzdGltaWwg
- QmFia2EgPHZiYWJrYUBrZXJuZWwub3JnPsLBsAQTAQoAWhYhBKlA1DSZLC6OmRA9UCJPp+fM
- gqZkBQJqFFy6GxSAAAAAAAQADm1hbnUyLDIuNSsxLjEyLDIsMgIbAwUJGtCBUAULCQgHAwUV
- CgkICwUWAgMBAAIeBQIXgAAKCRAiT6fnzIKmZJIUEADFx/tREzUImHrEwVHeSvDFmA7tJysI
- UVrlvrM09E7GIuzphzv7jYmo8n3ANpCczLEVr4G0syYQdTigaZgv3+FQDIIzhKih1IHhu1Ei
- XHlywNWKnQxxQEUNi5Mwx43wQz5XVw9F1A7gtKBKNtfogO511hAbrzagrYajyQacEJ/+sfhZ
- 9Da8ltHIXD8pcYaHUfQgEusCgmEd9+KrUwrTbckFKmYq5chuE6yJ4J0EmWknL096jIE6CnzF
- FRslQ3B1UKDjxVsm1ZHfir5NeWszLkTvGFsddFaWTgh8UycESG6VQzKXjjewXu2pG7YQYRpj
- QKm1W5X2TkwWkXRBZTmfmbhxIUMh3+zf5wQ463rSmDN/8v81tdqBtAW6rH/kzg1GvkaTHXn0
- 507yEHFzBksk2viAuIxxr7km8+/KARYLIdGtx30EG8cKzAUZOK6WqxtNCsXUJNrVE8CWrCaD
- icoNu7Fs1c5hmPHdSTnU48ce67449DdnO4neLSNhRiGlMHJgfJUmgrxu/hcYeOZ3haWmEQ2w
- uW1Mh01OHi8QZHCEyAbABrPs9GUgccc/4eYXX9hIgxfSkYzn8f+8NuIFPWl/0uTvjgqU29FQ
- SbzOLxHq9439Ox40G5mS5eZXRGxITYR+6TXvRGI6P/264jvflnr/pDGUttaikU+0W+1uxgKH
- cmYbEc7ATQRbGTU1AQgAn0H6UrFiWcovkh6EXVcl+SeqyO6JHOPm+e9Wu0Vw+VIUvXZVUVVQ
- La1PQDUi6j00ChlcR66g9/V0sPIcSutacPKfdKYOBvzd4rlhL8rfrdEsQw5ApZxrA8kYZVMh
- FmBRKAa6wos25moTlMKpCWzTH84+WO5+ziCTsTUZASAToz3RdunTD+vQcHj0GqNTPAHK63sf
- bAB2I0BslZkXkY1RLb/YhuA6E7JyEd2pilZOrIuBGl/5q2qSakgnAVFWFBR/DO27JuAksYnq
- +aH8vI0xGvwn75KqSk4UzAkDzWSmO4ZHuahKtQgZNsMYV+PGayRBX9b9zbldzopoLBdqHc4n
- jQARAQABwsF8BBgBCgAmAhsMFiEEqUDUNJksLo6ZED1QIk+n58yCpmQFAmfIHFQFCRYU6J8A
- CgkQIk+n58yCpmS2PA//bqN1LfcotmArgElsa+0EGZSQlYgK48pm8WAeTXTngudP9IJ4SuKY
- HR5RNjHcBeqN+Me0zxRqYzRb8nGanHEkDyf4Im8DQM8d6vbyU+FcPmG4skud4kgS1zMHnlVd
- SXfSIwKC/hKgdHG8aBV7545Lz9X6Iohea+94wneD0aw/hqF+QWewGZhWJriWAZtvEkzNjQOi
- 4U9F/trLten/x7bpphDSnDMKJtITbtzATT1Dq7o7VpIUK1nCTQALMuMjKCdi8OdU/+V+R3O4
- 0PXWvX8qrvqYapVbZ+9KqT74FsuB0Ya9uXwgBF2Q6cRuETZk5vqaqKxzqoQZCO8AOz/58j6O
- 2RHNy/mZEN+7tJ5Tsq42zVJ4jxsT8b9YplavCMsnBgDeRWhcbYhCyttoL7nYISyWg4kQYZ/P
- wIV3OuNv2f8iKYsxNsRuClOAF82+gvqOy1/1pprFjy8uo2pkoOrb63aOP3vO5VHnRKgra6dq
- NcaZ+c6J4H+nEJGi2SkHAUJz5oBzuThvPudLvPA/SK8sKoM01IRxSihev/S/5WLazXB1PGem
- OCbvzC1IjWJJraxiDJ5IygokapUa2RP7+WBR22skQ3SSl6G107QgWKSyTOGWEaRmV53vxQLV
- jXuCmzSSasTL60zq5yGrT4/DYQVSNEUiUbG4pYekxJujNeEDkUlky0Y=
-In-Reply-To: <20260923063759.34667-1-hao.ge@linux.dev>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH] ext4: fix race between inline dir conversion and folio
+ read
+To: Sandeep Dhavale <dhavale@google.com>, Theodore Ts'o <tytso@mit.edu>
+Cc: kernel-team@android.com, stable@vger.kernel.org,
+ Andreas Dilger <adilger.kernel@dilger.ca>,
+ Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>,
+ Ojaswin Mujoo <ojaswin@linux.ibm.com>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ Zhang Yi <yi.zhang@huawei.com>, linux-ext4@vger.kernel.org,
+ linux-kernel@vger.kernel.org, liuderong@xiaomi.com
+References: <20260918025416.604297-1-dhavale@google.com>
+From: liuderong <liuderong2022@gmail.com>
+In-Reply-To: <20260918025416.604297-1-dhavale@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-+Cc Christoph
 
-On 9/23/26 08:37, Hao Ge wrote:
-> Commit 1d78d56c43ef ("netfs: Fix folio_queue ENOMEM in writeback by
-> adding a mempool") added a mempool for the folio_queues and made the
-> request, subrequest and folio_queue allocations distinguish between
-> writeback and everything else.  Writeback is part of memory reclaim
-> and must not fail due to ENOMEM, so it allocates under GFP_NOFS
-> through mempool_alloc(), which may dip into the pool's reserve and,
-> if that runs empty, wait for elements to be returned.  The
-> GFP_KERNEL paths, which can return -ENOMEM to their callers, invoke
-> the pool's ->alloc() callback directly instead.
-> 
-> The direct call, however, skips the alloc_hooks() wrapper that the
-> mempool_alloc() macro provides.  The pool callbacks, mempool_alloc_slab()
-> and mempool_kmalloc(), call kmem_cache_alloc_noprof() and kmalloc_noprof()
-> and rely on current->alloc_tag having been set by the caller.  With
-> CONFIG_MEM_ALLOC_PROFILING_DEBUG=y this leads to
-> 
->     current->alloc_tag not set
->     WARNING: ./include/linux/alloc_tag.h:161 at __alloc_tagging_slab_alloc_hook
->     alloc_tag was not set
->     WARNING: ./include/linux/alloc_tag.h:166 at __alloc_tagging_slab_free_hook
-> 
-> at allocation and free time respectively, as reported when reading
-> files on a CIFS mount.  The allocations are also missing from
-> /proc/allocinfo.
-> 
-> Wrap the direct ->alloc() invocations in alloc_hooks() with a new
-> mempool_alloc_noreserve() helper in include/linux/mempool.h, next to
-> the other alloc_hooks()-wrapped macros such as mempool_alloc().  The
-> GFP_KERNEL paths keep their failable allocation semantics, they just
-> get tagged now.
-> 
-> Fixes: 1d78d56c43ef ("netfs: Fix folio_queue ENOMEM in writeback by adding a mempool")
-> Reported-by: Erhard Furtner <erhard_f@mailbox.org>
-> Closes: https://lore.kernel.org/all/0b004319-9ef7-437c-a4dd-174d6a9a83db@mailbox.org/
-> Tested-by: Erhard Furtner <erhard_f@mailbox.org>
-> Suggested-by: Suren Baghdasaryan <surenb@google.com>
+On 9/18/2026 10:54 AM, Sandeep Dhavale wrote:
+> Commit 90f097b1403f ("ext4: refactor the inline directory conversion and
+> new directory codepaths") moved directory block initialization in
+> ext4_convert_inline_data_nolock() into ext4_init_dirblock(), unlocking
+> data_bh before setting BH_Uptodate.
+>
+> When block size is smaller than PAGE_SIZE, multiple buffer heads share a
+> single block device folio. If a concurrent read on that folio runs via
+> block_read_full_folio() while data_bh is unlocked and not uptodate, it
+> locks data_bh and submits a disk read for the uninitialized block.
+>
+> Because ext4_init_dirblock() initializes bh->b_data without holding the
+> buffer lock, the disk read races with and overwrites the initialized
+> directory entries and checksum tail, corrupting the directory block:
+>
+>    EXT4-fs warning: ext4_dirblock_csum_verify:375: inode #...:
+>      No space for directory leaf checksum. Please run e2fsck -D.
+>    EXT4-fs error: __ext4_find_entry:1626: inode #...:
+>      checksumming directory block 0
+>
+> To fix this, mark data_bh uptodate before unlocking it in
+> ext4_convert_inline_data_nolock(), just like the regular file path
+> does. Additionally, hold lock_buffer(bh) in ext4_init_dirblock() while
+> populating the directory entries and checksum tail so any buffer
+> modifications are properly serialized.
+>
+> Fixes: 90f097b1403f ("ext4: refactor the inline directory conversion and new directory codepaths")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Hao Ge <hao.ge@linux.dev>
-
-Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-
-Seems ok enough as a hotfix. The naming perhaps isn't ideal, we have
-mempool_alloc_preallocated() already for the opposite case. Maybe
-mempool_alloc_no_preallocated() to complement it? Rather long though.
-
-I guess long-term it would be neater to have a mempool_alloc() variant with
-extra parameter that says if preallocated pool is allowed or not. The "gfp
-== GFP_KERNEL" check is probably not an universal one. mempool_alloc() is
-actually rather aggressive in getting objects from the pool before even
-attempting reclaim. Makes sense for I/O usecases but maybe not for this one?
-
+> Assisted-by: Antigravity:gemini-3.8-flash
+> Signed-off-by: Sandeep Dhavale <dhavale@google.com>
 > ---
-> Changes in v2:
-> - Move the alloc_hooks() wrapper from fs/netfs/internal.h into
->   include/linux/mempool.h as mempool_alloc_noreserve(), per Suren's
->   suggestion, so it is not netfs-specific.
-> 
-> v1 Link: https://lore.kernel.org/all/20260922023541.51532-1-hao.ge@linux.dev/
-> ---
->  fs/netfs/objects.c        | 4 ++--
->  fs/netfs/rolling_buffer.c | 2 +-
->  include/linux/mempool.h   | 7 +++++++
->  3 files changed, 10 insertions(+), 3 deletions(-)
-> 
-> diff --git a/fs/netfs/objects.c b/fs/netfs/objects.c
-> index 7f6a3e912602..ad549daa9c79 100644
-> --- a/fs/netfs/objects.c
-> +++ b/fs/netfs/objects.c
-> @@ -34,7 +34,7 @@ struct netfs_io_request *netfs_alloc_request(struct address_space *mapping,
->  
->  		rreq = mempool_alloc(mempool, gfp);
->  	} else {
-> -		rreq = mempool->alloc(gfp, mempool->pool_data);
-> +		rreq = mempool_alloc_noreserve(mempool, gfp);
->  		if (!rreq)
->  			return ERR_PTR(-ENOMEM);
->  	}
-> @@ -214,7 +214,7 @@ struct netfs_io_subrequest *netfs_alloc_subrequest(struct netfs_io_request *rreq
->  	struct kmem_cache *cache = mempool->pool_data;
->  
->  	if (rreq->gfp == GFP_KERNEL)
-> -		subreq = mempool->alloc(rreq->gfp, mempool->pool_data);
-> +		subreq = mempool_alloc_noreserve(mempool, rreq->gfp);
->  	else
->  		subreq = mempool_alloc(mempool, rreq->gfp);
->  	if (!subreq)
-> diff --git a/fs/netfs/rolling_buffer.c b/fs/netfs/rolling_buffer.c
-> index 424e77a9a109..d30d5ef6d86e 100644
-> --- a/fs/netfs/rolling_buffer.c
-> +++ b/fs/netfs/rolling_buffer.c
-> @@ -29,7 +29,7 @@ struct folio_queue *netfs_folioq_alloc(unsigned int rreq_id, gfp_t gfp,
->  	struct folio_queue *fq;
->  
->  	if (gfp == GFP_KERNEL)
-> -		fq = netfs_folioq_pool.alloc(gfp, netfs_folioq_pool.pool_data);
-> +		fq = mempool_alloc_noreserve(&netfs_folioq_pool, gfp);
->  	else
->  		fq = mempool_alloc(&netfs_folioq_pool, gfp);
->  	if (fq) {
-> diff --git a/include/linux/mempool.h b/include/linux/mempool.h
-> index a0fa6d43e0dc..6da502aef2f7 100644
-> --- a/include/linux/mempool.h
-> +++ b/include/linux/mempool.h
-> @@ -70,6 +70,13 @@ int mempool_alloc_bulk_noprof(struct mempool *pool, void **elem,
->  #define mempool_alloc_bulk(...)						\
->  	alloc_hooks(mempool_alloc_bulk_noprof(__VA_ARGS__))
->  
-> +/*
-> + * Allocate a new element without dipping into the pool's reserves or
-> + * waiting.  Returns NULL on failure.
-> + */
-> +#define mempool_alloc_noreserve(_pool, _gfp)				\
-> +	alloc_hooks((_pool)->alloc(_gfp, (_pool)->pool_data))
-> +
->  void *mempool_alloc_preallocated(struct mempool *pool) __malloc;
->  void mempool_free(void *element, struct mempool *pool);
->  unsigned int mempool_free_bulk(struct mempool *pool, void **elem,
+> Note:
+> This issue was reported by an Android partner encountering kernel panics
+> in ext4_dirblock_csum_verify() ("No space for directory leaf checksum")
+> on 16KB page size kernels mounting a 4KB block size ext4 filesystem.
+>
+> We verified with a standalone reproducer that the race reproduces
+> deterministically on Iteration 0 (< 1s) on both ARM64 (16KB page size,
+> 4KB ext4 blocks) and upstream ext4-tree/dev on x86_64 (4KB page size,
+> 1KB ext4 blocks), and confirmed that this patch resolves the issue.
+I verified this patch on an MTK platform running Android 17 (kernel 
+6.18) with 16KB page size and 4KB ext4 block size: the script can 
+reliably reproduce the issue. After applying the patch, the issue no 
+longer reproduces.
+Reproduction log snippet:
+EXT4-fs warning (device loop54): ext4_dirblock_csum_verify:375: inode 
+#15: comm repro_issue2: No space for directory leaf checksum. Please run 
+e2fsck -D.
+EXT4-fs error (device loop54): __ext4_find_entry:1626: inode #15: comm 
+repro_issue2: checksumming directory block 0
 
+Tested-by: liuderong <liuderong@xiaomi.com>
+>   fs/ext4/inline.c | 1 +
+>   fs/ext4/namei.c  | 2 ++
+>   2 files changed, 3 insertions(+)
+>
+> diff --git a/fs/ext4/inline.c b/fs/ext4/inline.c
+> index ceee69a66482..0aa14cee3310 100644
+> --- a/fs/ext4/inline.c
+> +++ b/fs/ext4/inline.c
+> @@ -1167,6 +1167,7 @@ static int ext4_convert_inline_data_nolock(handle_t *handle,
+>   		error = ext4_handle_dirty_metadata(handle,
+>   						   inode, data_bh);
+>   	} else {
+> +		set_buffer_uptodate(data_bh);
+>   		unlock_buffer(data_bh);
+>   		inode->i_size = inode->i_sb->s_blocksize;
+>   		i_size_write(inode, inode->i_sb->s_blocksize);
+> diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
+> index 3b9740c1c16d..6550102fb56b 100644
+> --- a/fs/ext4/namei.c
+> +++ b/fs/ext4/namei.c
+> @@ -2933,6 +2933,7 @@ int ext4_init_dirblock(handle_t *handle, struct inode *inode,
+>   	if (ext4_has_feature_metadata_csum(inode->i_sb))
+>   		csum_size = sizeof(struct ext4_dir_entry_tail);
+>   
+> +	lock_buffer(bh);
+>   	de->inode = cpu_to_le32(inode->i_ino);
+>   	de->name_len = 1;
+>   	de->rec_len = ext4_rec_len_to_disk(ext4_dir_rec_len(de->name_len, NULL),
+> @@ -2965,6 +2966,7 @@ int ext4_init_dirblock(handle_t *handle, struct inode *inode,
+>   	BUFFER_TRACE(dir_block, "call ext4_handle_dirty_metadata");
+>   	set_buffer_uptodate(bh);
+>   	set_buffer_verified(bh);
+> +	unlock_buffer(bh);
+>   	return ext4_handle_dirty_dirblock(handle, inode, bh);
+>   }
+>   
