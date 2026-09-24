@@ -1,166 +1,342 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11023119.outbound.protection.outlook.com [40.107.159.119])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B40649B5AD;
-	Thu, 24 Sep 2026 16:02:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.119
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790265735; cv=fail; b=fnt6QhZDaFoYekxh8r8/nU4HEUYmt8zug6a9J4mt1WC/o0BMhqly6QIsI0ahVpUeP+owx3VLaORuY6ZY3LRvWHR9TaUnydwo1ocHoj5ptb6JUNtk8mPG3lYZXytqFzZnMArdCezCpQ0NM7GTy3MUmmiz/Dainzmc+QlepTzv+Tc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790265735; c=relaxed/simple;
-	bh=RO9lTtr5YhFn3MTRuIiUE/Trz7Ze96ujVTx6GMotq5c=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=A2OaE0M4OU+fgBAgzKm/PYCX2w8fN9scvwBmVsGOboGJ9KW2PxSezcTAkYIrzGejIiy+VzBLdqPFX2qEbZfkTDEGeyOlcg7GJDLlSb/unP3p4e8sQZiLn0e6CfIfxqBClz6sKadZblkdoAAaX+PxGAq6c174ZQextlDGqHwE+mA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziehl-abegg.de; spf=pass smtp.mailfrom=ziehl-abegg.de; dkim=pass (1024-bit key) header.d=ziehl-abegg.de header.i=@ziehl-abegg.de header.b=bTS+ibnE; arc=fail smtp.client-ip=40.107.159.119
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziehl-abegg.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziehl-abegg.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AB304A840C
+	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 16:03:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790265785; cv=none; b=Uln/aLpKFUZNRgSauDtmCH5CSwMmdXvY0eBAzYG2lUFjupRITbVF++1rxADRB+dokdJ6nIyGZEkuO6Lai8d2WrFGLQWRNHGkMx6jjhUkraDkZlL5gUbagTr9lWgKDRntn9OiOLOV+kDcFt4g3UfGERH6K0YwWpW8GNKn/02nAzw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790265785; c=relaxed/simple;
+	bh=PI9WxX6Hs5eY3/prLxsCB7uv//MkTGW3D6wACjsV1kY=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:Subject:Cc:To:
+	 References:In-Reply-To; b=rEA77gQK7kLoWRisbCjtaba/pDckrKMEKRxg0Bl8ADXY75uGh7Yq2LqED9lrqmSdFVDJxRU0aEB7ay4q8wGaWWH+K6gjzCDooKWS+Pg56/sa41oErW4ZIRftAlDnG//nEBZI4NOZitNjBWj54Rw051vex3+tjXWXRiaa/2jtQU8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=SuLCfYj/; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ziehl-abegg.de header.i=@ziehl-abegg.de header.b="bTS+ibnE"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gNXwxUKyR/6gCf15j/DIwUlDExvq6nVVdCpuScVUSJaWe5tUavOA/MMuhUJ3XS+JidEh2YdxJGhZCWLj66UwRndv8T5RCmvloykWhJKTPD2Z4Zw2YcZMboWmi4E/9XvN4jyfxe3NZ2xek7lX40iQOkZAN34tmdOpxSZslyoGk8gU3eZp2q4T/ml4j0xNk1SbKe2FQRtplwNgp4H9cDZ1X9gae9zpv9RqusX5WxtAvF7A/UrpxcMS/8A2+WDLJ3m5YxIASMC5XE4u82cGgUunRZUpkbCaGVLpJFIHagt1E4aLkStsNP0XqRThvjJBv7aqgj2RCptVRhk8H2ttTuwkYw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RO9lTtr5YhFn3MTRuIiUE/Trz7Ze96ujVTx6GMotq5c=;
- b=u6dEwI1KayfNlmjnXmWRRNpeplHPOrthyMQtSYGSOFy36BPOfjTNvF8sx9uBwbUB85fRbZefDfQz/e5akacJ4OUQKaL0wnKNwoW8Sbpv1oaNdrmLtauTFDLTcrGytHF8otw24qvjPieS9tfiZ9rB9tWYBXZYgvnpUuzWmxG6RwtF6oVaERIayXnI4c2AnM/mDv3mH3XnBmHgWF5AJY84LspB1IV0YmmoA0OoFnWqRtNN7lB1miLIJpl6J8TBEUvux3f06zMZM6cFljG8FSKqwdmnmvBWHXHhbvuwTMX6W7ePIaEEh14j3GBceteC0V7P3cZO3qlE05wgxlCyhzcJig==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 13.74.137.176) smtp.rcpttodomain=vger.kernel.org
- smtp.mailfrom=ziehl-abegg.de; dmarc=pass (p=quarantine sp=quarantine pct=100)
- action=none header.from=ziehl-abegg.de; dkim=none (message not signed);
- arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ziehl-abegg.de;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RO9lTtr5YhFn3MTRuIiUE/Trz7Ze96ujVTx6GMotq5c=;
- b=bTS+ibnElufm54q/NOow9mtv2YDpp7B5VGnkJ8ZJ9r2qMIb/UxkiT4zwvguBZ71juL0ygc9zXfGicYvW+upwpsyO51HNpNPnwQZrOcd8zXvlel2YxAUt3rlr5B8hcXR4bVI1nW4qzLr0ypQATvH/COxe2IKAjWaI01IC8YJuP3I=
-Received: from AS4PR10CA0005.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:5dc::13)
- by GV2PR02MB11276.eurprd02.prod.outlook.com (2603:10a6:150:2a8::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
- 2026 16:02:07 +0000
-Received: from DU6PEPF0000A7E4.eurprd02.prod.outlook.com
- (2603:10a6:20b:5dc:cafe::85) by AS4PR10CA0005.outlook.office365.com
- (2603:10a6:20b:5dc::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.18 via Frontend Transport; Thu,
- 24 Sep 2026 16:02:07 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 13.74.137.176) smtp.mailfrom=ziehl-abegg.de; dkim=none (message not
- signed) header.d=none;dmarc=pass action=none header.from=ziehl-abegg.de;
-Received-SPF: Pass (protection.outlook.com: domain of ziehl-abegg.de
- designates 13.74.137.176 as permitted sender)
- receiver=protection.outlook.com; client-ip=13.74.137.176;
- helo=eu21-emailsignatures-cloud.codetwo.com; pr=C
-Received: from eu21-emailsignatures-cloud.codetwo.com (13.74.137.176) by
- DU6PEPF0000A7E4.mail.protection.outlook.com (10.167.8.43) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Thu, 24 Sep 2026 16:02:06 +0000
-Received: from DUZPR08CU001.outbound.protection.outlook.com (40.93.64.69) by eu21-emailsignatures-cloud.codetwo.com with CodeTwo SMTP Server (TLS12) via SMTP; Thu, 24 Sep 2026 16:02:05 +0000
-Received: from ZR0P278CA0156.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:41::6) by
- AS8PR02MB6598.eurprd02.prod.outlook.com (2603:10a6:20b:257::5) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.18; Thu, 24 Sep 2026 16:02:04 +0000
-Received: from MI3PEPF0000849A.eurprd03.prod.outlook.com
- (2603:10a6:910:41:cafe::3e) by ZR0P278CA0156.outlook.office365.com
- (2603:10a6:910:41::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.18 via Frontend Transport; Thu,
- 24 Sep 2026 16:02:03 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 178.15.18.66) smtp.mailfrom=ziehl-abegg.de; dkim=none (message not signed)
- header.d=none;dmarc=fail action=quarantine header.from=ziehl-abegg.de;
-Received-SPF: Fail (protection.outlook.com: domain of ziehl-abegg.de does not
- designate 178.15.18.66 as permitted sender) receiver=protection.outlook.com;
- client-ip=178.15.18.66; helo=mail.za.ziehl-abegg.de;
-Received: from mail.za.ziehl-abegg.de (178.15.18.66) by
- MI3PEPF0000849A.mail.protection.outlook.com (10.167.240.185) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.21.451.8 via Frontend Transport; Thu, 24 Sep 2026 16:02:03 +0000
-Received: from localhost (10.1.201.87) by vEX02.za.ziehl-abegg.de
- (10.1.201.106) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.61; Thu, 24 Sep
- 2026 18:02:02 +0200
-From: Paul Mbewe <paultyson.mbewe@ziehl-abegg.de>
-To: <hugo@hugovil.com>
-CC: <linux-serial@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<gregkh@linuxfoundation.org>, <jirislaby@kernel.org>,
-	<hvilleneuve@dimonoff.com>, <stable@vger.kernel.org>,
-	<tobias.gannert@ziehl-abegg.de>, <joachim.knorr@ziehl-abegg.de>
-Subject: Re: [PATCH 1/2] serial: sc16is7xx: fix TX gap caused by kfifo circular buffer wrap-around
-Date: Thu, 24 Sep 2026 18:01:55 +0200
-Message-ID: <20260924160156.1770103-1-paultyson.mbewe@ziehl-abegg.de>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260924095320.3038105d452dcfbe44cabc60@hugovil.com>
-References: <20260924095320.3038105d452dcfbe44cabc60@hugovil.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="SuLCfYj/"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 75C091A1002;
+	Thu, 24 Sep 2026 16:03:00 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 3D98460738;
+	Thu, 24 Sep 2026 16:03:00 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id CF6FF10329450;
+	Thu, 24 Sep 2026 18:02:48 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790265774; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=31Pz2WasmTyS3PmhBsofr0EqPzewlEwdRxWXsLlXZes=;
+	b=SuLCfYj/neF5rxoOvPNano4rwpDWS6duqjGHsPBzLtp81Fz9eqg+oFdX0UgpyNJB4OE21S
+	gbto5FmCL5NVm5xQQ3hueTQs0RWwXdt2T9zUK/I/jKM148CL2VU1+dME4ivRrJPHrjQgLx
+	id4jL61W+fde7/wUFBZn+wUE4C2Pob7SnojogOTmSRudI5hbP7NWYXFLn3FunM8rZ9ygsK
+	kSPh+Pb4aRdHsgcArr5O+C+ABfx2XQgJ44gk7EGszW+oTZJknJoCEgs0el6Cgh8WEps+4X
+	sIp1+NfX24FY+bMHTOJbpAh0FnpxJTgwo4ke7Gp/EJ9NKDYLctDwUGTyGdaGQw==
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain
-X-ClientProxiedBy: vEX02.za.ziehl-abegg.de (10.1.201.106) To
- vEX02.za.ziehl-abegg.de (10.1.201.106)
-X-TM-AS-Product-Ver: SMEX-14.0.0.3239-9.1.2019-30216.007
-X-TM-AS-Result: No-10--4.333300-8.000000
-X-TMASE-MatchedRID: wQVy7q402w0rKmlbgU92WGyJrxBqx5NCQahV9NsL7Q9ffiFFvXJUvpmg
-	kd7c0mklq1OKGmdZqMHck2GkR6TlRRmmC6fFx8ruGqxL/yNoD8pcCdOe5Y5LZlaL9DHCw6UK7gb
-	7lp3Fk2FaOxpgjiWHddvIAMT/07Oi9VRkPJa+sq6LADIP+HEIvG1CdFlcEYhnSBiYOLSG2rZCO9
-	M3Dn5+lVDz9Vf6OkwjnEA+10Hs8LuCEq3ZCBanrjuGNnVAYS/wUwWE+0Rl6FsSQBCR9Dbh0/WgJ
-	21rFsx3
-X-TM-AS-User-Approved-Sender: No
-X-TM-AS-User-Blocked-Sender: No
-X-TMASE-Result: 10--4.333300-8.000000
-X-TMASE-Version: SMEX-14.0.0.3239-9.1.2019-30216.007
-X-TM-SNTS-SMTP: D5FFB790C2631E1278B357551DF7464B138805DACC8AAA0A3F6CA1388CB7A1212000:8
-X-EOPAttributedMessage: 1
-X-MS-TrafficTypeDiagnostic:
-	MI3PEPF0000849A:EE_|AS8PR02MB6598:EE_|DU6PEPF0000A7E4:EE_|GV2PR02MB11276:EE_
-X-MS-Office365-Filtering-Correlation-Id: a53fedba-b918-4493-ffca-08df1a552ea8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|82310400026|36860700016|1800799024|376014|23010399003|10067099003|56012099006|18002099003|22082099003|11063799006;
-X-Microsoft-Antispam-Message-Info-Original:
- Yhhg1F1mD5kynin5FATVd6ei9DELgwy2iE7FKUFc6wJCJ+PmY1UQQhKOIcdYhpU1mDjATqLkUq1Zkb3HV1NgYv6DKjaJhxkQniWowAXxfz91uABnSCvDDX7EIiMHHlqWqAAI4ZB9Yasx1SmD/kD8JX+ztYcm0nadHWEp1POt4LYOl+2/L/rm4Ax9n1CsKoG7dsKYpaXTzjabF00osDtRQaLLhZDoI37Hq8pvAJ4XM09twUXhKet9okzloxBy2omPn6ideJYUFfRtoP7gszbIfYt4yIatWModJd/FSdyb5NptjIvIVFWpGT3nH3T5T8M/bmOV+fS3JForeILp2LlpRNB9uCd3akY90FKFFK8u4x0W4au3+opentVr8ZFt6ePILQr90UrL37qwNnKLoi6ey3ua43NEqIZFcpS+MmXk2MeDMUOo5dcyIewdlL6KYuRpFmhA78Dk6TW+uetPE0oGc/YU78Mzlsmu7ivN0huUcxGWlaJopSQ25Z0d9Wl8kNKzSPbph1nryJZEVrsl3InNuFlI/qyl2JsqOEDjtGIuFja0m9xzGoCnZdIULgTy4jsioygV6mdVLXOc83de5RQdaoT7N4/ToW5jFW+d5fZaDJeZIYJ9x54+79nI9Lf2M6NPUZZ7SoSWpbY8nWbj0OrxYj2/NIwQgjuogWfGIxZ10mep0/+WkaR97gHPO+6a4cMO
-X-Forefront-Antispam-Report-Untrusted:
- CIP:178.15.18.66;CTRY:DE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.za.ziehl-abegg.de;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(376014)(23010399003)(10067099003)(56012099006)(18002099003)(22082099003)(11063799006);DIR:OUT;SFP:1102;
-X-Exchange-RoutingPolicyChecked: 2JEq0NtCcaP/Uf3l1jDcGdVW4Smo3awx9Zm80dktqko8AkGaM+MuC9ZXqOMsCob8o23+6OEXveIKHWGLjSea0bTZo2QkBZr0H+/AyyVeuA/dY6i6tT+G3bD5aY211Ni4lBhRIZASdZX+4pp7PsesSR8Zf0ZWdAU1+RfZpUlPnJMlSpSPj4bNPccdBvAhDPU0wz41RDeKi13jL3L8+EzAwLRH8dCHoMlFw7gC8Sap3LBXQgnPCS4S66RgcyDhpFWHEKYTXpyvG08m3xFDNltiAZ7EGTeS5tvl5re47/TN7UQc5PAvDBsoBxsZYcCWhRz+AwCW2mr3vylZHwo1os0D5w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR02MB6598
-X-CodeTwo-MessageID: 16fc2827-15af-40ee-b0e5-8e8218c2f894.20260924160205@eu21-emailsignatures-cloud.codetwo.com
-X-CodeTwoProcessed: true
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DU6PEPF0000A7E4.eurprd02.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	1edf7c91-3057-4f5f-db81-08df1a552cc1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|23010399003|36860700016|35042699022|376014|14060799003|10067099003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	DYxvkFXUt0WyLvIrUZg7lbpN832uIk+9WCH/yC58wPNb0CB7r31gR94HUAarYJdiLaIYThkbdWihX+TRisDauvgnLknHFFOUE7Y+5rFX7YR01eIhRu/xCKDbZNNRWQnJBLhX02Rsh4UrsA+RUFSYog61XY63hIHxwasb9ilwEzE3rNAZ+boca1DNqtMRgNrTFCeIxgWrk4lLm/CkyQRd5F/uNf8rU5HZHBRys8C6S+FCxnRgtSrJaNl/Rg6mxGKBGJEdkhdtwTOJOJCglaQSOADjIrUdu6vgL0vQ1Q9FrijykttgOYbjf79s4vrdoxJOb0b5gcrN/j41k+2PI6QqHoBvzLa5/81bXa596VIu7n5MTBppQ19C6jGyGA16UOmXoyPQ3lBMYGeI437DWbRXTzx0tI+H50DVyycFK5hMXItLvXmhM7T9VUiFB5qUvGLPtuELhtZPdfnvaraZTVCGPhMu2JJxtzZ66qHBtWd4SsbbgA8iArEIev9Q9Xz+vJhjUUQRCB2Lgp1DOWk20O8v/sOjMqDqM7p1RqEWULPjiAD10fV0dpiLyWm1XVwZ/ww3h6y4ECtXoLicXkMS99apiS28i9482n2UhoSInnTecf9sH2VHU6VXy7Lf4dGLOe2aR+JGdNEZ+5kbIhlqxA5cAfN5KgFuVoIAuioGr3GjlPV49pZ4Ne0KvDtjPnPF7rDJ
-X-Forefront-Antispam-Report:
-	CIP:13.74.137.176;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:eu21-emailsignatures-cloud.codetwo.com;PTR:eu21-emailsignatures-cloud.codetwo.com;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(23010399003)(36860700016)(35042699022)(376014)(14060799003)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	qy72YUoduKphLfYCn6jQu4kELLYueMwHW9656t7MlZyFxkcqkg6vib9btvXamWtGjpOCACyNmlCyZu3BDOmndmp2IAaWo8nqnfJ3Zx5q9+DzCtYSfGVma6WoBHJzPbEYRiv1UkKHVAVMF1+7qrXRbS+EAforkKTeghr052jErFs821VVApiW0778tBx3EaoFDcQyeMp60TVN+RHgIAXoP6CPKX67pmyq/ymWtE3rWXyxqkIsHOz/PR86m6G3xCUjva8bHuNLMAAeW15TBuS15Q/lZvEeXOIyan2eSDlzd70F9tdy4q/GpfY7kKFF6GAJDglpeOMytriP7dX0rLcsHGgfWV03BstQoOh74JUyNcGyA4yjFSFOJkLTItQtHbmovvJsBKnW7DXMKiUsSgUhjX6Ba2EVFGfkzrAAkTSf0IDN3V0VoBa3qlDorCdrXyXN
-X-OriginatorOrg: ziehl-abegg.de
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 16:02:06.7168
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a53fedba-b918-4493-ffca-08df1a552ea8
-X-MS-Exchange-CrossTenant-Id: 11a5c065-3ef5-41f0-92f9-a77cbf208c03
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=11a5c065-3ef5-41f0-92f9-a77cbf208c03;Ip=[13.74.137.176];Helo=[eu21-emailsignatures-cloud.codetwo.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DU6PEPF0000A7E4.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR02MB11276
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 24 Sep 2026 18:02:48 +0200
+Message-Id: <DLNO9025LKHA.YJ9XCMRCRF52@bootlin.com>
+From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
+Subject: Re: [PATCH net 3/3] net: macb: quiesce IRQs and drain BH on
+ interface close
+Cc: <conor.dooley@microchip.com>, <andrew+netdev@lunn.ch>,
+ <davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
+ <pabeni@redhat.com>, <horms@kernel.org>, <nicolas.ferre@microchip.com>,
+ <sean.anderson@linux.dev>, <atenart@kernel.org>, <linux@armlinux.org.uk>,
+ <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>, <nb@tipi-net.de>,
+ <vladimir.kondratiev@mobileye.com>, <gregory.clement@bootlin.com>,
+ <tawfik.bayouk@mobileye.com>, <thomas.petazzoni@bootlin.com>,
+ <maxime.chevallier@bootlin.com>, <stable@vger.kernel.org>
+To: <netdev-bot+sashiko@kernel.org>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260918-macb-close-v1-3-05e32ce98813@bootlin.com>
+ <179010942347.2160803.5970158668197373074@kernel.org>
+In-Reply-To: <179010942347.2160803.5970158668197373074@kernel.org>
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Hugo,
+Hello netdev-bot+sashiko,
 
-Yes, I am preparing a resubmission with your suggestions incorporated. I
-will send this fix as a standalone v2 patch and resubmit the remaining TX
-refill changes as a separate v2 series that depends on it.
+On Tue Sep 22, 2026 at 10:37 PM CEST,  wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider.
+>
+> Critical: 0 =C2=B7 High: 0 (2) =C2=B7 Medium: 1 (1) =C2=B7 Low: 0
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>
+> - [Medium] macb_close() now calls macb_quiesce_start() (synchronize_irq()
+>   on every queue IRQ, cancel_work_sync(&bp->hresp_err_bh_work),=E2=80=A6
+>
+> Pre-existing issues:
+> - [High] macb_suspend()/macb_resume() still open-code the per-queue
+>   napi_disable()/napi_enable() loops without setting/clearing=E2=80=A6
+> - [High] macb_set_ringparam() calls macb_close() and then macb_open()
+>   while discarding macb_open()'s return value and always returning 0.
+> - [Medium] bp->hresp_err_bh_work and bp->tx_lpi_work are initialized by
+>   INIT_WORK()/INIT_DELAYED_WORK() only *after* register_netdev() in=E2=80=
+=A6
+>
+> --
+>
+> net: macb: quiesce IRQs and drain BH on interface close
+>
+> This adds macb_quiesce_start()/macb_quiesce_end() helpers plus a new
+> bp->irq_quiesced flag so that macb_interrupt() self-disarms while the
+> interface is down, and reorders macb_close() to drain IRQs, the two work
+> items, NAPI and the LPI delayed work in a defined order. macb_open() uses
+> the same helpers on its success and error paths.
+>
+> A few questions below.
+>
+>> diff --git a/drivers/net/ethernet/cadence/macb.h b/drivers/net/ethernet/=
+cadence/macb.h
+>> index cfaa0ca49f1a..1cb2778fe49e 100644
+>> --- a/drivers/net/ethernet/cadence/macb.h
+>> +++ b/drivers/net/ethernet/cadence/macb.h
+>> @@ -1382,6 +1382,11 @@ struct macb {
+>>  	struct delayed_work	tx_lpi_work;
+>>  	u32			tx_lpi_timer;
+>> =20
+>> +	/* ISR must not drive NAPI & BH mechanisms. True when the interface
+>> +	 * is closed. Protected by bp->lock.
+>> +	 */
+>> +	bool			irq_quiesced;
+>> +
+>>  	int	rx_bd_rd_prefetch;
+>>  	int	tx_bd_rd_prefetch;
+>> =20
+>> diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethe=
+rnet/cadence/macb_main.c
+>> index c418f859cc34..75bbde81d62c 100644
+>> --- a/drivers/net/ethernet/cadence/macb_main.c
+>> +++ b/drivers/net/ethernet/cadence/macb_main.c
+>> @@ -1995,6 +1995,53 @@ static int macb_tx_poll(struct napi_struct *napi,=
+ int budget)
+>>  	return work_done;
+>>  }
+>> =20
+>> +static void macb_quiesce_start(struct macb *bp)
+>> +{
+>> +	struct macb_queue *queue;
+>> +	unsigned long flags;
+>> +	unsigned int q;
+>> +
+>> +	spin_lock_irqsave(&bp->lock, flags);
+>> +	bp->irq_quiesced =3D true;
+>> +	spin_unlock_irqrestore(&bp->lock, flags);
+>> +
+>> +	for (q =3D 0, queue =3D bp->queues; q < bp->num_queues; ++q, ++queue)
+>> +		synchronize_irq(queue->irq);
+>> +
+>> +	cancel_work_sync(&bp->hresp_err_bh_work);
+>
+> [Severity: Medium]
+> This isn't a bug introduced by this patch, but can this cancel_work_sync(=
+)
+> run on a work_struct that has not been initialized yet?
+>
+> In macb_probe(), register_netdev() happens before the two work items are
+> set up:
+>
+> 	err =3D register_netdev(netdev);
+> 	if (err) {
+> 		dev_err(&pdev->dev, "Cannot register net device, aborting.\n");
+> 		goto err_out_free_tieoff;
+> 	}
+>
+> 	INIT_WORK(&bp->hresp_err_bh_work, macb_hresp_error_task);
+> 	INIT_DELAYED_WORK(&bp->tx_lpi_work, macb_tx_lpi_work_fn);
+>
+> The queue IRQ handlers were already installed earlier by
+> macb_init_dflt()'s devm_request_irq(..., macb_interrupt, ...), and
+> register_netdev() publishes the device, so an 'ip link set up' racing wit=
+h
+> the tail of probe can reach macb_open() -> macb_quiesce_end(), which clea=
+rs
+> bp->irq_quiesced. From there an HRESP interrupt would let
+> macb_interrupt_misc() do queue_work(system_bh_wq, &bp->hresp_err_bh_work)
+> on a zeroed work_struct whose ->func is NULL, and macb_close() or the
+> macb_open() error path would call cancel_work_sync() /
+> cancel_delayed_work_sync() on the same uninitialized objects.
+>
+> The pre-existing macb_close() already had the cancel_delayed_work_sync() =
+on
+> bp->tx_lpi_work, so this only widens an existing window. Would moving bot=
+h
+> INIT_WORK()/INIT_DELAYED_WORK() calls ahead of macb_init()/register_netde=
+v()
+> be reasonable?
 
-Thanks for following up and for the review.
+This race is out of this world, but does technically exist.
+Let's fix it anyway.
 
-Regards
-Paul
+>> +
+>> +	for (q =3D 0, queue =3D bp->queues; q < bp->num_queues; ++q, ++queue) =
+{
+>> +		/* Must be done before NAPI is disabled: the task ends with a
+>> +		 * napi_enable() call.
+>> +		 */
+>> +		cancel_work_sync(&queue->tx_error_task);
+>> +
+>> +		napi_disable(&queue->napi_rx);
+>> +		napi_disable(&queue->napi_tx);
+>> +	}
+>> +
+>> +	/* Must be done after napi_tx is disabled: its completion re-arms
+>> +	 * the LPI timer.
+>> +	 */
+>> +	cancel_delayed_work_sync(&bp->tx_lpi_work);
+>> +}
+>> +
+>> +static void macb_quiesce_end(struct macb *bp)
+>> +{
+>> +	struct macb_queue *queue;
+>> +	unsigned long flags;
+>> +	unsigned int q;
+>> +
+>> +	for (q =3D 0, queue =3D bp->queues; q < bp->num_queues; ++q, ++queue) =
+{
+>> +		napi_enable(&queue->napi_rx);
+>> +		napi_enable(&queue->napi_tx);
+>> +	}
+>> +
+>> +	spin_lock_irqsave(&bp->lock, flags);
+>> +	bp->irq_quiesced =3D false;
+>> +	spin_unlock_irqrestore(&bp->lock, flags);
+>> +}
+>> +
+>>  static void macb_hresp_error_task(struct work_struct *work)
+>>  {
+>>  	struct macb *bp =3D from_work(bp, work, hresp_err_bh_work);
+>> @@ -2137,8 +2184,8 @@ static irqreturn_t macb_interrupt(int irq, void *d=
+ev_id)
+>>  	spin_lock(&bp->lock);
+>> =20
+>>  	while (status) {
+>> -		/* close possible race with dev_close */
+>> -		if (unlikely(!netif_running(netdev))) {
+>> +		/* self-disarm while the netdev is closed */
+>> +		if (unlikely(bp->irq_quiesced)) {
+>>  			queue_writel(queue, IDR, -1);
+>>  			macb_queue_isr_clear(bp, queue, -1);
+>>  			break;
+>
+> [Severity: High]
+> This is a pre-existing issue, but does the new gating condition need a
+> companion change in macb_suspend()/macb_resume()?
+
+Pre-existing. Similarly to HRESP task, the infra will be put in place
+and reusable to fix the suspend path which needs to shutdown all BH
+features, even in WOL case.
+
+[...]
+
+>> @@ -3155,8 +3202,6 @@ static int macb_open(struct net_device *netdev)
+>>  {
+>>  	size_t bufsz =3D netdev->mtu + ETH_HLEN + ETH_FCS_LEN + NET_IP_ALIGN;
+>>  	struct macb *bp =3D netdev_priv(netdev);
+>> -	struct macb_queue *queue;
+>> -	unsigned int q;
+>>  	int err;
+>> =20
+>>  	netdev_dbg(bp->netdev, "open\n");
+>> @@ -3180,10 +3225,7 @@ static int macb_open(struct net_device *netdev)
+>>  		goto free_rings;
+>>  	macb_init_buffers(bp);
+>> =20
+>> -	for (q =3D 0, queue =3D bp->queues; q < bp->num_queues; ++q, ++queue) =
+{
+>> -		napi_enable(&queue->napi_rx);
+>> -		napi_enable(&queue->napi_tx);
+>> -	}
+>> +	macb_quiesce_end(bp);
+>> =20
+>>  	macb_init_hw(bp);
+>> =20
+>> @@ -3210,11 +3252,10 @@ static int macb_open(struct net_device *netdev)
+>>  	phy_power_off(bp->phy);
+>> =20
+>>  reset_hw:
+>> +	/* The netdev stays down: quiesce and drain, as macb_close() does. */
+>> +	macb_quiesce_start(bp);
+>> +
+>>  	macb_reset_hw(bp);
+>> -	for (q =3D 0, queue =3D bp->queues; q < bp->num_queues; ++q, ++queue) =
+{
+>> -		napi_disable(&queue->napi_rx);
+>> -		napi_disable(&queue->napi_tx);
+>> -	}
+>>  free_rings:
+>>  	macb_free(bp);
+>>  pm_exit:
+>
+> [Severity: High]
+> This is a pre-existing issue, but does the new reset_hw path make the
+> macb_set_ringparam() failure case worse?
+
+We ignore macb_set_ringparam() close/open when netif_running() because
+we know what the right solution is (context swapping) and it's coming.
+One step at a time.
+
+[...]
+
+>
+>> @@ -3225,19 +3266,17 @@ static int macb_open(struct net_device *netdev)
+>>  static int macb_close(struct net_device *netdev)
+>>  {
+>>  	struct macb *bp =3D netdev_priv(netdev);
+>> -	struct macb_queue *queue;
+>>  	unsigned long flags;
+>>  	unsigned int q;
+>> =20
+>> -	netif_tx_stop_all_queues(netdev);
+>> +	macb_quiesce_start(bp);
+>> =20
+>> -	for (q =3D 0, queue =3D bp->queues; q < bp->num_queues; ++q, ++queue) =
+{
+>> -		napi_disable(&queue->napi_rx);
+>> -		napi_disable(&queue->napi_tx);
+>> +	/* Drain the BH contexts before stopping the queues: NAPI completion
+>> +	 * and tx_error_task wake them up.
+>> +	 */
+>> +	netif_tx_stop_all_queues(netdev);
+>> +	for (q =3D 0; q < bp->num_queues; ++q)
+>>  		netdev_tx_reset_queue(netdev_get_tx_queue(netdev, q));
+>> -	}
+>> -
+>> -	cancel_delayed_work_sync(&bp->tx_lpi_work);
+>
+> [Severity: Medium]
+> Moving netif_tx_stop_all_queues() after the whole quiesce sequence looks
+> fine for the ndo_stop path, where the core already ran
+> dev_deactivate_many() so no xmit can happen. Is it also safe for the dire=
+ct
+> caller?
+
+Again, context swapping is the solution. Sashiko complains the
+close/open dance in set_ringparam is unsafe, but anyway before this
+series macb_close() is super race sensitive and we fix it here. One
+step at a time.
+
+[...]
+
+Thanks,
+
+--
+Th=C3=A9o Lebrun, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
