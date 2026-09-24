@@ -1,79 +1,66 @@
-Received: from mail-oi1-f225.google.com (mail-oi1-f225.google.com [209.85.167.225])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.83.148.184])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31F954CDA3B
-	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 20:35:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.225
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC3A54CE673;
+	Thu, 24 Sep 2026 20:39:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.83.148.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790282122; cv=none; b=njTkLMSxJoWAhr6ajJDi9CL4okOUzvDCgiwpicmN/wzJ3QlOWdb/ybXnG9Lp+zeFCIzBt64B1g7zUZ8wmtG73VSsMeM+qi9Z+y6bCFSMPpAtW3GnzhxmsVZkHloOvvWgaBHjjKkaPxbWrnJlDTD4yNDQa5nAgq/s4t6Dhvzssjg=
+	t=1790282367; cv=none; b=iLKJStC44exuAM0MBnCiCeeqb+BasIB2gJRB42o/97BjmEx9m8uJwQ35666bH7mK9CdhxpkB4Spip6o6KSfZqvLhcbu/ecBW+ZghYLIftxoDfKGmPYwoRlqrwqS12hnt3paMvkeRwQpE8kK3yv2DD+fpL9NBnnz40NsJHX9+J30=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790282122; c=relaxed/simple;
-	bh=he8h19blVEKXmFgd5AjOMguu+c4odRF3eMcDKFO8pqQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=XqRXvGeINWPGhP5HNqQvGZLyhJrNMj1Nzik6Pzx7CAW8jpUZlhIpaWoeRGWxRXBtTVOwDGKiZ2tKppC5LAYBacggur3cObLU/r2IzWapmad0KJuRVVl90TYhmclVN7nrkVwtWUaGlgrcncLJ+kKzki3jfc0zADKWCHOGmsQSO9E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com; spf=pass smtp.mailfrom=everpuredata.com; dkim=pass (2048-bit key) header.d=everpuredata.com header.i=@everpuredata.com header.b=PdSfBD2T; arc=none smtp.client-ip=209.85.167.225
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=everpuredata.com
+	s=arc-20240116; t=1790282367; c=relaxed/simple;
+	bh=3jVrqWHVmL2RraT3Mi3b21L1yYxL47Uc+1gWwEb2hek=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=NefUoHXJw6tlbIIo/nJlsGbOmLqL7WLgxbedpeNr+6iZVU2DKd9gch0brOUBd0AFo8U9aFP8wj5rbfNK7sCQIeC9SmxSuLkN3EIWtASDBJ8f+ZMXRrjA4TGwCYG7nD55vcxA3QtVLwKIOAp1ZFJO6RTnZvkHfprCfNadP1XzJEE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=eIw7o1X6; arc=none smtp.client-ip=35.83.148.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=everpuredata.com header.i=@everpuredata.com header.b="PdSfBD2T"
-Received: by mail-oi1-f225.google.com with SMTP id 5614622812f47-4af7283bf83so43552b6e.3
-        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 13:35:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="eIw7o1X6"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=everpuredata.com; s=google; t=1790282111; x=1790886911; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MjyFqQ40ZwRfzwYJsmnvVXLveHQtD8lJFjX8AzpEmB8=;
-        b=PdSfBD2T2XXPxw0vtp8PdyhzeMepR36GlC6ejNY2+81nzoiMXNq/pRUotOHgEWHkbf
-         NGkuHU90bBFCJTv0AHHv9f57pF9fEKyTlbmjmDQSYhMiTOBFEOz9KIdLJ+2n9zlYsv+v
-         qaxMt7KpR5PpeqTEj/4uD/IVpnQhuZZx0RfAszN8gyId8+C+hqtnHcRULcm6z7clmRkh
-         De4gBWyru98P56KSRGdrOP+6k4FkhyLfJfD35MNoB9Tu6ENu7ifcXmPjxcluVrgZSwI8
-         FKVMp1J6AK2QDypJxUgT1sCONd8j4yYDbKLMBr2WNuJwWUv9Ggy0j1kUyZ/dhYzvvfl4
-         X/5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790282111; x=1790886911;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MjyFqQ40ZwRfzwYJsmnvVXLveHQtD8lJFjX8AzpEmB8=;
-        b=hGAUiugDQvrcWzwYazER72SdmpVEzvyogCNlB74yRJP9sypxIiTS4eV7osNGvC1/MI
-         6IWVPWJzZS5Ju8b4xdSvO9CJJ3DsT81p2KsNU9d1VX6B//WWrT2vljUL0QV25lwzF8eX
-         zPpg3hgOKYNiZ7Dvq2p7fsWCPCqJjWZmbnuqlzowTh3QWtnRNABbZoFz3zJAAQgFYL+m
-         looM0qMzp77ufDHIBAWl3GmUjtoUhvZRu+tvKz/IbpP32KPOZ5zzFVcATos9B1MEyeXH
-         LpzLL2IqnC8ME3AufWAkxlLLlNJs5W2irDepAxU4DLVX951l/5leUq2IAQwdjcRabI02
-         zBuw==
-X-Forwarded-Encrypted: i=1; AKwUvByPJes8Y7Xkm3Yio9w7Yup9iPJUBgeORpkO7rMY+1u/lebef7tXe97vg2mDTivmXjARPNPBDWY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lxnuj2ShmVSeYtAAbb/8PCDPrnUNr1MwmQQnx8fyxOhPVhcNP6
-	68NcchhQ5GNiC4J+T2WU/qXL7RHFxLZy2pya9M++BVMNEMG4KsjijzG8UarA7Xcr7mEVP22exjk
-	o8OpTrRqGiHJgaUR57L6LFfgeeyQrkNGAJwOK
-X-Gm-Gg: AYBFou1DPMtSRA9ueZu8PsqUQcFFW74xXmNLkDQ0hyLEzlm3ULyMdiLne8aqqVa4mG2
-	PDH+8qn5rGFwM9jHXeHZc/78I/8ADP8JBfTZoaZGOsb9sHYKCLmLM5dcuu7aK+Qqg751/OoId/9
-	TmS8aEXZ6BY4S1xndX+3vk0j0IL965ZK0epTKkfUcgM+JIgXQ4EtDE+OC2iMYrMiGZrLbh6NHAc
-	ybmldPvirJnjZzVX9p0RXHzO6uqiFnmQ/BJm9GXrPrECizFHXBA6Oqe0+g9tNoR/is1Cai3xnQd
-	HGVfNfaRdIU8X7gFANh/ZRKDMVz0NBdPeU3S0qbXP0pjoLJe1dAjNgK0YCTxI4n8CjvboDuEa0t
-	VCE6BRrgWzQXUavhnW37zrhnciedNuMbvU7M/Tzw=
-X-Received: by 2002:a05:6808:178a:b0:4b9:e5fa:8a17 with SMTP id 5614622812f47-4d72912226dmr4663704b6e.28.1790282111383;
-        Thu, 24 Sep 2026 13:35:11 -0700 (PDT)
-Received: from c14-smtp-2023.dev.purestorage.com ([208.88.158.129])
-        by smtp-relay.gmail.com with ESMTPS id 586e51a60fabf-493331e4187sm49196fac.2.2026.09.24.13.35.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 13:35:11 -0700 (PDT)
-X-Relaying-Domain: everpuredata.com
-Received: from irdv-tmenninger.dev.purestorage.com (irdv-tmenninger.dev.purestorage.com [10.32.149.15])
-	by c14-smtp-2023.dev.purestorage.com (Postfix) with ESMTPS id 6E12C3403DA;
-	Thu, 24 Sep 2026 13:34:40 -0700 (PDT)
-From: Tim Menninger <tmenninger@everpuredata.com>
-To: Chuck Lever <cel@kernel.org>,
-	Trond Myklebust <trondmy@kernel.org>,
-	Anna Schumaker <anna@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>
-Cc: linux-nfs@vger.kernel.org,
-	Eric Badger <ebadger@everpuredata.com>,
-	Jon Curley <jcurley@everpuredata.com>,
-	Shiva Lingappa <slingappa@everpuredata.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] xprtrdma: prevent disconnect feedback during endpoint teardown
-Date: Thu, 24 Sep 2026 20:34:40 +0000
-Message-Id: <20260924203440.3374889-1-tmenninger@everpuredata.com>
-X-Mailer: git-send-email 2.34.1
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1790282365; x=1821818365;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=kBejIS3XTPtv+8rSCICSRV8LuykKs33Sp+7QIDwXSd8=;
+  b=eIw7o1X6qni55ZJJmy4MM+aD4BR5LZWYrPoxdqqEOIXm3mDFqBdtNLRd
+   hV/vd+zxa2Tpw/jSkfKpthqTJCh6w6gadPFcjpGlkm8bPVX7S5gklCRQn
+   rOlfGZwQhMswKMH/9mqWHYVTg7yjxRLvzaaAxwL0GDwvnd3arKHaGW385
+   ZiUmLNLMuMCDNVk5IedTkA6QYjTbAYKE6GrBrIAGtdTx6c0CLkff9+Xwx
+   UBfwiUZWpjjWIiVv7eJFEte7fYGN8L2PEj0chyd2kViG17NFpEm4+Gx2T
+   CqPk2k9p06/KD+jRlmRjc7rOKtTd1vy5S8Rhvz5VRDZhxO8p1XpTGV2sv
+   Q==;
+X-CSE-ConnectionGUID: hxBSeCFRTyGM15gG+jc36g==
+X-CSE-MsgGUID: 4f6jy1ZcSkSQwh4gAX8SiA==
+X-IronPort-AV: E=Sophos;i="6.27,121,1787011200"; 
+   d="scan'208";a="29367262"
+Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
+  by internal-pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 20:39:25 +0000
+Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.111:29520]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.33.144:2525] with esmtp (Farcaster)
+ id adf95163-f066-4943-bfe1-5ee58d62e57f; Thu, 24 Sep 2026 20:39:25 +0000 (UTC)
+X-Farcaster-Flow-ID: adf95163-f066-4943-bfe1-5ee58d62e57f
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Thu, 24 Sep 2026 20:39:24 +0000
+Received: from dev-dsk-surajjs-2c-afd24e6d.us-west-2.amazon.com
+ (10.189.247.117) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49; Thu, 24 Sep 2026
+ 20:39:24 +0000
+From: Suraj Jitindar Singh <surajjs@amazon.com>
+To: <stable@vger.kernel.org>
+CC: Vitaly Kuznetsov <vkuznets@redhat.com>, Michael Kelley
+	<mhklinux@outlook.com>, "K . Y . Srinivasan" <kys@microsoft.com>, "Haiyang
+ Zhang" <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, Dexuan Cui
+	<decui@microsoft.com>, Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires
+	<benjamin.tissoires@redhat.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	<linux-hyperv@vger.kernel.org>, <linux-input@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, Saurabh Sengar <ssengar@linux.microsoft.com>,
+	Jiri Kosina <jkosina@suse.com>
+Subject: [PATCH 6.1.y] HID: hyperv: streamline driver probe to avoid devres issues
+Date: Thu, 24 Sep 2026 20:39:21 +0000
+Message-ID: <20260924203921.21711-1-surajjs@amazon.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -81,85 +68,181 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWC003.ant.amazon.com (10.13.139.252) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-xprt_autoclose() clears XPRT_CLOSE_WAIT before invoking the transport's
-->close() operation. For RPC/RDMA, ->close() calls
-rpcrdma_xprt_disconnect(), which disconnects the RDMA CM endpoint and
-drains its QP.
+From: Vitaly Kuznetsov <vkuznets@redhat.com>
 
-Since commit 31e62d25b5b8 ("xprtrdma: Simplify RPC wake-ups on
-connect"), RDMA_CM_EVENT_DISCONNECTED requests a SUNRPC transport
-disconnect. Today that path, along with failed completion handling,
-reaches xprt_force_disconnect() through rpcrdma_force_disconnect().
+commit 66ef47faa90d838cda131fe1f7776456cc3b59f2 upstream
 
-Commit c487eb7d8e41 ("xprtrdma: Clean up disconnect") later added
-re_force_disconnect to ensure that multiple failure indications request
-only one SUNRPC disconnect. However, the gate remains open when SUNRPC
-itself begins endpoint teardown.
+It was found that unloading 'hid_hyperv' module results in a devres
+complaint:
 
-If re_force_disconnect is still clear, either a CM disconnect event or a
-completion error can set XPRT_CLOSE_WAIT again while the current close
-is in progress. When the transport send lock is subsequently released,
-xprt_clear_locked() observes XPRT_CLOSE_WAIT and queues another
-autoclose.
+ ...
+ hv_vmbus: unregistering driver hid_hyperv
+ ------------[ cut here ]------------
+ WARNING: CPU: 2 PID: 3983 at drivers/base/devres.c:691 devres_release_group+0x1f2/0x2c0
+ ...
+ Call Trace:
+  <TASK>
+  ? devres_release_group+0x1f2/0x2c0
+  ? __warn+0xd1/0x1c0
+  ? devres_release_group+0x1f2/0x2c0
+  ? report_bug+0x32a/0x3c0
+  ? handle_bug+0x53/0xa0
+  ? exc_invalid_op+0x18/0x50
+  ? asm_exc_invalid_op+0x1a/0x20
+  ? devres_release_group+0x1f2/0x2c0
+  ? devres_release_group+0x90/0x2c0
+  ? rcu_is_watching+0x15/0xb0
+  ? __pfx_devres_release_group+0x10/0x10
+  hid_device_remove+0xf5/0x220
+  device_release_driver_internal+0x371/0x540
+  ? klist_put+0xf3/0x170
+  bus_remove_device+0x1f1/0x3f0
+  device_del+0x33f/0x8c0
+  ? __pfx_device_del+0x10/0x10
+  ? cleanup_srcu_struct+0x337/0x500
+  hid_destroy_device+0xc8/0x130
+  mousevsc_remove+0xd2/0x1d0 [hid_hyperv]
+  device_release_driver_internal+0x371/0x540
+  driver_detach+0xc5/0x180
+  bus_remove_driver+0x11e/0x2a0
+  ? __mutex_unlock_slowpath+0x160/0x5e0
+  vmbus_driver_unregister+0x62/0x2b0 [hv_vmbus]
+  ...
 
-Requesting a disconnect this way is necessary when a connection is lost
-unexpectedly, but not when the event was generated by
-rpcrdma_xprt_disconnect() itself. In that case SUNRPC is already
-committed to closing the transport.
+And the issue seems to be that the corresponding devres group is not
+allocated. Normally, devres_open_group() is called from
+__hid_device_probe() but Hyper-V HID driver overrides 'hid_dev->driver'
+with 'mousevsc_hid_driver' stub and basically re-implements
+__hid_device_probe() by calling hid_parse() and hid_hw_start() but not
+devres_open_group(). hid_device_probe() does not call __hid_device_probe()
+for it. Later, when the driver is removed, hid_device_remove() calls
+devres_release_group() as it doesn't check whether hdev->driver was
+initially overridden or not.
 
-Mark re_force_disconnect before initiating local endpoint teardown so
-that CM events and completion errors caused by that teardown cannot
-request another close. An unexpected error that wins the race before
-local endpoint teardown begins can still request a disconnect normally.
+The issue seems to be related to the commit 62c68e7cee33 ("HID: ensure
+timely release of driver-allocated resources") but the commit itself seems
+to be correct.
 
-Use a fully ordered exchange so that the gate is globally closed before
-rdma_disconnect() can transition the QP to error and generate the
-callbacks that the gate suppresses.
+Fix the issue by dropping the 'hid_dev->driver' override and using
+hid_register_driver()/hid_unregister_driver() instead. Alternatively, it
+would have been possible to rely on the default handling but
+HID_CONNECT_DEFAULT implies HID_CONNECT_HIDRAW and it doesn't seem to work
+for mousevsc as-is.
 
-In 30-second traces of a sustained recovery loop, without this change
-there were 7,693 xprt_force_disconnect() calls, 6,267 SUNRPC autocloses,
-and 172,892 receive-side IB_WC_WR_FLUSH_ERR completions. With this
-change, the same tracepoints recorded 3,512 xprt_force_disconnect()
-calls, 3,212 autocloses, and 131,287 receive-side flush completions.
-Thus QP teardown continues to produce flushed completions, but closing
-the disconnect gate before teardown substantially reduces their
-feedback into the SUNRPC close path.
+Fixes: 62c68e7cee33 ("HID: ensure timely release of driver-allocated resources")
+Suggested-by: Michael Kelley <mhklinux@outlook.com>
+Signed-off-by: Vitaly Kuznetsov <vkuznets@redhat.com>
+Reviewed-by: Michael Kelley <mhklinux@outlook.com>
+Tested-by: Saurabh Sengar <ssengar@linux.microsoft.com>
+Signed-off-by: Jiri Kosina <jkosina@suse.com>
+[ 6.1: context adjusted only - mousevsc_ll_driver is non-const in 6.1
+  because the hid_ll_driver constification (for-6.12/constify-rdesc,
+  e.g. 054e0bd34577) is not present; the applied diff is identical to
+  the upstream commit, no functional change ]
+Signed-off-by: Suraj Jitindar Singh <surajjs@amazon.com>
 
-Fixes: 31e62d25b5b8 ("xprtrdma: Simplify RPC wake-ups on connect")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tim Menninger <tmenninger@everpuredata.com>
----
- net/sunrpc/xprtrdma/verbs.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
-
-diff --git a/net/sunrpc/xprtrdma/verbs.c b/net/sunrpc/xprtrdma/verbs.c
-index be335eed329d..54957295a631 100644
---- a/net/sunrpc/xprtrdma/verbs.c
-+++ b/net/sunrpc/xprtrdma/verbs.c
-@@ -114,9 +114,9 @@ static void rpcrdma_xprt_drain(struct rpcrdma_xprt *r_xprt)
- 	rpcrdma_ep_put(ep);
+diff --git a/drivers/hid/hid-hyperv.c b/drivers/hid/hid-hyperv.c
+--- a/drivers/hid/hid-hyperv.c
++++ b/drivers/hid/hid-hyperv.c
+@@ -456,6 +456,25 @@ static int mousevsc_hid_raw_request(struct hid_device *hid,
+ 	return 0;
  }
  
--/* Ensure xprt_force_disconnect() is invoked exactly once when a
-- * connection is closed or lost. (The important thing is it needs
-- * to be invoked "at least" once).
-+/* Ensure xprt_force_disconnect() is invoked at most once for an
-+ * unexpected endpoint failure. Local endpoint teardown closes this
-+ * gate before it can generate CM events and flushed completions.
-  */
- void rpcrdma_force_disconnect(struct rpcrdma_ep *ep)
- {
-@@ -587,6 +587,9 @@ void rpcrdma_xprt_disconnect(struct rpcrdma_xprt *r_xprt)
- 	if (!ep)
- 		return;
- 
-+	/* Prevent teardown-generated events from requesting another close. */
-+	atomic_xchg(&ep->re_force_disconnect, 1);
++static int mousevsc_hid_probe(struct hid_device *hid_dev, const struct hid_device_id *id)
++{
++	int ret;
 +
- 	id = ep->re_id;
- 	rc = rdma_disconnect(id);
- 	trace_xprtrdma_disconnect(r_xprt, rc);
--- 
-2.34.1
-
++	ret = hid_parse(hid_dev);
++	if (ret) {
++		hid_err(hid_dev, "parse failed\n");
++		return ret;
++	}
++
++	ret = hid_hw_start(hid_dev, HID_CONNECT_HIDINPUT | HID_CONNECT_HIDDEV);
++	if (ret) {
++		hid_err(hid_dev, "hw start failed\n");
++		return ret;
++	}
++
++	return 0;
++}
++
+ static struct hid_ll_driver mousevsc_ll_driver = {
+ 	.parse = mousevsc_hid_parse,
+ 	.open = mousevsc_hid_open,
+@@ -465,7 +484,16 @@ static struct hid_ll_driver mousevsc_ll_driver = {
+ 	.raw_request = mousevsc_hid_raw_request,
+ };
+ 
+-static struct hid_driver mousevsc_hid_driver;
++static const struct hid_device_id mousevsc_devices[] = {
++	{ HID_DEVICE(BUS_VIRTUAL, HID_GROUP_ANY, 0x045E, 0x0621) },
++	{ }
++};
++
++static struct hid_driver mousevsc_hid_driver = {
++	.name = "hid-hyperv",
++	.id_table = mousevsc_devices,
++	.probe = mousevsc_hid_probe,
++};
+ 
+ static int mousevsc_probe(struct hv_device *device,
+ 			const struct hv_vmbus_device_id *dev_id)
+@@ -507,7 +535,6 @@ static int mousevsc_probe(struct hv_device *device,
+ 	}
+ 
+ 	hid_dev->ll_driver = &mousevsc_ll_driver;
+-	hid_dev->driver = &mousevsc_hid_driver;
+ 	hid_dev->bus = BUS_VIRTUAL;
+ 	hid_dev->vendor = input_dev->hid_dev_info.vendor;
+ 	hid_dev->product = input_dev->hid_dev_info.product;
+@@ -522,20 +549,6 @@ static int mousevsc_probe(struct hv_device *device,
+ 	if (ret)
+ 		goto probe_err2;
+ 
+-
+-	ret = hid_parse(hid_dev);
+-	if (ret) {
+-		hid_err(hid_dev, "parse failed\n");
+-		goto probe_err2;
+-	}
+-
+-	ret = hid_hw_start(hid_dev, HID_CONNECT_HIDINPUT | HID_CONNECT_HIDDEV);
+-
+-	if (ret) {
+-		hid_err(hid_dev, "hw start failed\n");
+-		goto probe_err2;
+-	}
+-
+ 	device_init_wakeup(&device->device, true);
+ 
+ 	input_dev->connected = true;
+@@ -615,12 +628,23 @@ static struct  hv_driver mousevsc_drv = {
+ 
+ static int __init mousevsc_init(void)
+ {
+-	return vmbus_driver_register(&mousevsc_drv);
++	int ret;
++
++	ret = hid_register_driver(&mousevsc_hid_driver);
++	if (ret)
++		return ret;
++
++	ret = vmbus_driver_register(&mousevsc_drv);
++	if (ret)
++		hid_unregister_driver(&mousevsc_hid_driver);
++
++	return ret;
+ }
+ 
+ static void __exit mousevsc_exit(void)
+ {
+ 	vmbus_driver_unregister(&mousevsc_drv);
++	hid_unregister_driver(&mousevsc_hid_driver);
+ }
+ 
+ MODULE_LICENSE("GPL");
