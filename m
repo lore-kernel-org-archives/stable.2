@@ -1,30 +1,30 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2BE5384CC3;
-	Thu, 24 Sep 2026 14:13:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 288DD391E6D;
+	Thu, 24 Sep 2026 14:13:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790259233; cv=none; b=CBklRIWrOTLheRL7FEXTznAb2RtnyWkxXpKa1GHJHJsRUECrUozfHqnWVd2hZhmk1FhjULwKci1JqE1ocmEA97Ku6WuRn4bpyEJY4JF8yGZJPGtYt90i70UNd1FP6Co57ncxoZWx8YYuDCMux3wbEHnTJUpD0fK0fg4IiEHr9es=
+	t=1790259234; cv=none; b=YHb4l03Jqr6loJjMHF4Or7XNxYtszrO0u1wRL5JaYwb0vPsuNjqAhmiigcve5NWqJTCiyo0j5Y/+eiakSVrJGZ+2+MSGDF81tMollytoeVQQ/IwsaVJu84tcYqZ0ktrjqLL07qhPFxY8l4SqSVM1K/xRXEKQtxy/B4Zh0BicFaE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790259233; c=relaxed/simple;
-	bh=8GJVh8zyxnT5u0h4IreF5rD+qZqANbXKz98OmJ810PA=;
+	s=arc-20240116; t=1790259234; c=relaxed/simple;
+	bh=HXm1yorfvdGtaMEBU6GpbVck/uABmJb16a14ZL/lNTY=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=ZzkB8C9+f9f9L+YwtFzED7Fds9IYGYn2YWAYSHF18dscD5MJA8PKCh1kNKJPFKUriqaVsOjlczX7kdt0PMXRrJ12uWF3NLZB8r2pKuwHCPwqPFESBclcurrJIo/wMuEBQPTdCkKT81cgA7P0dDUQg0W2adkWLeh96pzE6fQoVWs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=eNIQyNPD; arc=none smtp.client-ip=117.135.210.4
+	 MIME-Version; b=ugSrU1nvQgDImAUdh5jTb529/UMir00uoSaplBKxL03gq9ebJIHmozMa+18aqE0JIcQnT67pKismOgcszV4FNvjd/lmtKzFAorxEV9VmjMDhgOksz7y57OZxxrIecaQwVDC1uwurJpAY4sgLEEadJs1b14WO9t4vnn+sT4kV3es=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=az25/qV9; arc=none smtp.client-ip=220.197.31.2
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="eNIQyNPD"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="az25/qV9"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=X3
-	B0WsYGwWxeNRan1ARn3/d6wJOVWNtlnr5O1j4FW5A=; b=eNIQyNPD0HMNVzG/tN
-	ep7iBe8kPsil12NByxOEAIfidff8xSbulnv1tdyAL9Bm+4haik8zoR1JuCCch4Rk
-	vIOD3mCVP6dEgfoLGDMlB0sWTe3BeHzdvfkq07ajBR90P4ytsiHuBnKT/jViWd2p
-	xkUy/3qGdrHWpPqyQAXJ6/8GU=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=yJ
+	vO0Bk4vmm7stk9qO/JlCSbCGgN6pBCu9S63MWOT60=; b=az25/qV9tGKhS/hov8
+	mDMk7ahA8XYIYHpPZysrlLmVpROlVsGR/7qwkau5PWopRNYMfr2iLW+SAP1MEqyj
+	HMNDvin+gYCLE85xgNnqJgK8GWWA0BPvZh6T3QPKasm2o3odZKNUIKSyk3qx004v
+	oplBmeLIsX+J3rnCMC0e82XHI=
 Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wDXN8sIMLVqBMA4Ag--.5098S4;
-	Thu, 24 Sep 2026 22:13:32 +0800 (CST)
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wDXN8sIMLVqBMA4Ag--.5098S3;
+	Thu, 24 Sep 2026 22:13:31 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
 To: Jiri Kosina <jikos@kernel.org>,
 	Benjamin Tissoires <bentiss@kernel.org>,
@@ -35,9 +35,9 @@ To: Jiri Kosina <jikos@kernel.org>,
 	linux-kernel@vger.kernel.org
 Cc: Jiale Yao <yaojiale02@163.com>,
 	stable@vger.kernel.org
-Subject: [PATCH 02/10] HID: cougar: reject short special-key reports
-Date: Thu, 24 Sep 2026 22:13:17 +0800
-Message-Id: <20260924141326.1154421-3-yaojiale02@163.com>
+Subject: [PATCH 01/10] HID: alps: reject short input reports
+Date: Thu, 24 Sep 2026 22:13:16 +0800
+Message-Id: <20260924141326.1154421-2-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260924141326.1154421-1-yaojiale02@163.com>
 References: <20260924141326.1154421-1-yaojiale02@163.com>
@@ -48,46 +48,68 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDXN8sIMLVqBMA4Ag--.5098S4
-X-Coremail-Antispam: 1Uf129KBjvJXoW7WFy3GFWxXFWxCrWxWrW7Arb_yoW8GF4UpF
-	s8tr90krZrtrWfuw1rGw1UCFyFvwn5JrW29FyrGw1Fvwn09FnIgay093sFqFW5Zw40qr9F
-	kwsrtrs5uFyDuaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pR1q2tUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7wwXUWq1MAxX5wAA32
+X-CM-TRANSID:_____wDXN8sIMLVqBMA4Ag--.5098S3
+X-Coremail-Antispam: 1Uf129KBjvJXoW7uFykJF47CF1UAr1fKryxuFg_yoW8ur1DpF
+	Z5Gr95trW5tr1fZFWjqrn8Ca4ayryxXryxXFy7K34I9w15X34UuF109ryFvr4a9r48Krsx
+	Kr4q9FnYk3WDZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0ztNt3sUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzgsWUGq1MAvEpwAA3E
 
-The HID core invokes raw_event callbacks before validating the report
-length.  cougar_raw_event() reads the key code and action from offsets one
-and two without checking that those bytes are present.  A short report on
-the special interface can therefore cause an out-of-bounds read.
+The HID core invokes a driver's raw_event callback before validating the
+report length.  Both ALPS input parsers therefore need to validate size
+before accessing their fixed-format reports.
 
-Consume reports that do not contain the action field before accessing the
-fixed offsets, consistent with the callback's handling of other reports on
-the special interface.
+t4_raw_event() casts the buffer to struct t4_input_report and reads its
+contacts and button.  u1_raw_event() reads five bytes per configured finger
+starting at offset three, or six bytes for a stick report.  A short report
+can make either parser read beyond the valid data.
+
+Reject reports that do not contain all fields used by the selected parser.
 
 Commit 47669bec44fe ("HID: asus: refactor the two workqueues and init
 sequence") added the same kind of raw_event length validation to hid-asus.
 
-Fixes: b8e759b8f6da ("HID: cougar: Add support for the Cougar 500k Gaming Keyboard")
+Fixes: 2562756dde55 ("HID: add Alps I2C HID Touchpad-Stick support")
+Fixes: 73196ebe134d ("HID: alps: add support for Alps T4 Touchpad device")
 Cc: stable@vger.kernel.org
 Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- drivers/hid/hid-cougar.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/hid/hid-alps.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/hid/hid-cougar.c b/drivers/hid/hid-cougar.c
-index ad027c45f162..7156658166f5 100644
---- a/drivers/hid/hid-cougar.c
-+++ b/drivers/hid/hid-cougar.c
-@@ -270,6 +270,9 @@ static int cougar_raw_event(struct hid_device *hdev, struct hid_report *report,
- 	if (!shared->enabled || !shared->input)
- 		return -EPERM;
+diff --git a/drivers/hid/hid-alps.c b/drivers/hid/hid-alps.c
+index 67179e3fe39b..b1950aff6ad4 100644
+--- a/drivers/hid/hid-alps.c
++++ b/drivers/hid/hid-alps.c
+@@ -322,7 +322,7 @@ static int t4_raw_event(struct alps_dev *hdata, u8 *data, int size)
+ 	int i;
+ 	struct t4_input_report *p_report = (struct t4_input_report *)data;
  
-+	if (size <= COUGAR_FIELD_ACTION)
-+		return -EPERM;
+-	if (!data)
++	if (size < sizeof(*p_report))
+ 		return 0;
+ 	for (i = 0; i < hdata->max_fingers; i++) {
+ 		x = p_report->contact[i].x_hi << 8 | p_report->contact[i].x_lo;
+@@ -370,6 +370,9 @@ static int u1_raw_event(struct alps_dev *hdata, u8 *data, int size)
+ 		break;
+ 	case U1_ABSOLUTE_REPORT_ID:
+ 	case U1_ABSOLUTE_REPORT_ID_SECD:
++		if (size < 3 + hdata->max_fingers * 5)
++			return 0;
 +
- 	code = data[COUGAR_FIELD_CODE];
- 	action = data[COUGAR_FIELD_ACTION];
- 	for (i = 0; cougar_mapping[i][0]; i++) {
+ 		for (i = 0; i < hdata->max_fingers; i++) {
+ 			u8 *contact = &data[i * 5];
+ 
+@@ -407,6 +410,9 @@ static int u1_raw_event(struct alps_dev *hdata, u8 *data, int size)
+ 		return 1;
+ 
+ 	case U1_SP_ABSOLUTE_REPORT_ID:
++		if (size < 6)
++			return 0;
++
+ 		sp_x = get_unaligned_le16(data+2);
+ 		sp_y = get_unaligned_le16(data+4);
+ 
 -- 
 2.34.1
 
