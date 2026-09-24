@@ -1,235 +1,136 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30F5E47AF43;
-	Thu, 24 Sep 2026 11:46:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 407CF284B4F
+	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 11:49:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790250374; cv=none; b=V85U+/hMGclZYC57JcFRteKEYAjRYrPC93oV25xzsMji2f+6ZbLDAbRyr/C7VClXdEYyEmrnHSm7kz1SWv1jFTc7MsiuM8kXE3x5n8NVLQxAi05rv0EeLu2FV3wjoPKlCZTJA6HA9zFF+5maetEHM9NqO2pQOmnW02f3IbGoOsY=
+	t=1790250550; cv=none; b=ilkHI4jel8Vc6w5RGe0xbQywLPjwcArgP97SP9iIt7c3S9SDW3Wh3fYHYhhd/FLLLf1Clq2kE4Fx2z4qOAMojN8EzwJ8fZN5NpDAKrLOC8MS30Ud3HtS/ivDAKgFArJeglpkwHP6lqqIujGELTyKkFrVSsfwqKCg0Q+m4pHi/9U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790250374; c=relaxed/simple;
-	bh=AFnevkNG9mbXzu530+ZrB1iBf6/P7l2062ql6ElxH88=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VA+CHJNUOPr+TwALbjJtkLtPZhHEBaxiBg1nKI9OmDcrPMOeURclUKRAdczdJJBlhjTKt7qvKhIA1hhlokE6VTNNNOXGKW3F985xEEe8uIjJ/sZxCW/x9YgJlLQk/DcR/ZDU/NLIExY7Wr7ZQ7Zo9HQX5aBnNGrtzuo9y0NTOe4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YnKuvbEV; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790250550; c=relaxed/simple;
+	bh=OcsDKXTJZfmq0qIGGKf9E+bKmE4xgkEDDiDzEYV2m/k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nFLYZHB+KYUQ8q6f5CCz1lj+2itgi6M2h75ce8ASxnGrSl4XxofDTnSUibkm5mwoPeqtbwM9oadlhumw+1yhQxv02fw1m9F97o+3azy7EdnotGya4Ph/f4MfcCBSf2RIgItBhV6UnLuYHSBkzeIwQ71eDlCK73FR59gWGGsl5kc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iuCCpQ5E; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YnKuvbEV"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790250371; x=1821786371;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=AFnevkNG9mbXzu530+ZrB1iBf6/P7l2062ql6ElxH88=;
-  b=YnKuvbEVwfCOjmZm7tVCMRR7Psv1K4kijDOCkDHyMyYm8TjQ9+GWbSeJ
-   tQS+6txTaSCNQBdwy+BWCaT6ycKcz6/BuPcFut1jY7nbzMAzYXkfGA1OP
-   ZRpbRHQryLJ+xaC/YhmYLCcs4E198JtOH+Ktb5vx292fxT4KWvLA9E9zY
-   F6y3wX0Md+0DA165DifSZpPcQSRMOmFAcdsxVSDPzI7nISig5vsBoESKC
-   gdffMPZIIXF7O8R5tiJoatqlfld8IaJvLlbxfa1m0ByI/OVcNCC+0Q1Bl
-   jUZqPIF/OU+6iehbeSC4iOxl6vEJnmgfUyGzvmCFNDRO+FqA9LJQ/4xTN
-   w==;
-X-CSE-ConnectionGUID: V9GOE2wXS6KEg3shXbibmA==
-X-CSE-MsgGUID: ymswVtkZRuSxZR3uVffpBw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="116542326"
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
-   d="scan'208";a="116542326"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 04:46:09 -0700
-X-CSE-ConnectionGUID: QDRMh5+oT4yoIdceSNE53g==
-X-CSE-MsgGUID: lMnLbZVBQziVwhQyZOmzhA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
-   d="scan'208";a="272145249"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.155])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 04:46:07 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id CF7CF11F9B7;
-	Thu, 24 Sep 2026 14:46:05 +0300 (EEST)
-Date: Thu, 24 Sep 2026 14:46:05 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Felipe Calliari <calliarifelipe@gmail.com>
-Cc: linux-media@vger.kernel.org,
-	Antti Laakso <antti.laakso@linux.intel.com>,
-	"Sapre, Sarang" <sarang.sapre@intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Tomas Moro <tmorolias@gmail.com>, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] media: ipu6: Clear the isys ISR hooks when the isys
- driver goes away
-Message-ID: <arUNfeaaokjYgP0z@kekkonen.localdomain>
-References: <20260923234224.325504-1-calliarifelipe@gmail.com>
- <20260923234224.325504-2-calliarifelipe@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iuCCpQ5E"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-398a147688bso1398297a91.1
+        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 04:49:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790250549; x=1790855349; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6lZ3igjwc2yFqwfsFsDo7+TnGLNfpdbFLRcAS++D8X0=;
+        b=iuCCpQ5EaEfmLzEFZQ0XLujL966DSVoElM03JhzA3klvxReFwBWDu5+sr6HKFayk2g
+         qInomg5FDKbFoJmnCn7sbMxYlyqWIw+zbg3f9FZEjmvWwDUxcjCRKyh+2faEQbOWq4bS
+         AaG9t8KJkJ65FuRkgb/+8F6UixUWF8BOfE1w135tPqq2PrtmX2htnmET41f6C4QoDUJ0
+         RdMIdoyzHVEkIA31XEJ3KZvpFysOjiyxJqpkFaN14kt4v0LaXk3ol/M6NRMiDipk/rgP
+         MQyTt3hOJOI0ej8IO2oVPQk/fIkpwNaCu/rLrzG2+IMVXXe3CLiCEkQeqiRm1gtThwme
+         /E5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790250549; x=1790855349;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6lZ3igjwc2yFqwfsFsDo7+TnGLNfpdbFLRcAS++D8X0=;
+        b=kvYz1V/izHJfPJTSPzBwc+98L04E2EG+2Ec8AnK9T2iVAMWU1ANXVrqplx5umyApMM
+         CHf262SjUK8MLUIr/9NubBGiB00C2R094C/3ij1Q3Q2t8Uxcq56UIG6i4iNxk9XcW+np
+         2I4WroT1LFa/7OHRyBwqScg2OtHagL6C0O8/dd5DJE1PP/sSjCnMlFyjZiF+RMhkMcg5
+         S0VJMvu5tX80HUqYtenIqx3YIwIaq+iGlaQ+j4YAfxtXYL2B/eO0Tw0aprDTghH8XJTR
+         NfHdQAo3cfoH0Al2uo32pyvU1VZlNuEB93boO8y2ghvOhCs8gBeK3QF1Hh5B3SA2htbS
+         2nuQ==
+X-Gm-Message-State: AFuF++ndR0WTkiApnbKOsWPI6R02v/s1a9dI4klTa5a8eKr5a7M/17I9
+	fcatpVXwbJ2gMPeJnu+QbLpINuBdw9XzXU764hbQPL15wLaoVeMuNBtN
+X-Gm-Gg: AYBFou3M8v0Suqwky/NpYC+ntXkUdg6BixdVrNXsDsmCtwED0QWo5gd8U7ll7oYpVYD
+	lpjw4zqkOAnE0ZZlIPIfVKs0jllYxZeVwEHbNaALwcS8mHfbndFn7e+PVuY8Dt7IdU5BiJu9KHa
+	mUKVUD4gIWsos3jc1uEZOZD+8nG9UIwOWYAWAZHjfhnub/BkSs5xSZSKd95w/tXWnychzgUjokL
+	BndL4DChCfYFfarlvoNeWYggkYrQPGLbj495AbDwZ5BwfGLRPy2kcaFHarEuUlj7smQYYM1BvTY
+	wX0ddMdlHawNO31MzduKY1Y6SqzE0gwTRVPr6eb1g5r+Jpgv3OvyKqV36ODvvVVghE7VUHXnTPF
+	iKw5yRXogf5hKP+0PbdRM1eAAQ8jfX4QBvM/Z1ERNbvy4kzQPPRmHD3jU7Wch4+6EWwgRptimzE
+	A6Oo5rwDjvaRQjyI2ivlyM3Msyzxtf7ESFRMYnuHnGw24iigtP24aHrA==
+X-Received: by 2002:a17:90b:4acb:b0:398:b1eb:136c with SMTP id 98e67ed59e1d1-3a098d43e23mr1937592a91.9.1790250548551;
+        Thu, 24 Sep 2026 04:49:08 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a096b8753csm4771097a91.0.2026.09.24.04.49.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 04:49:08 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Guangshuo Li <lgs201920130244@gmail.com>,
+	Kees Cook <kees@kernel.org>,
+	Dan Williams <djbw@kernel.org>,
+	Maciej Sosnowski <maciej.sosnowski@intel.com>,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH v2] dca: fix provider device memory leak on domain allocation failure
+Date: Thu, 24 Sep 2026 19:49:02 +0800
+Message-ID: <20260924114902.1577261-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923234224.325504-2-calliarifelipe@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Felipe,
+register_dca_provider() calls dca_sysfs_add_provider() before looking up
+or allocating a DCA domain. If dca_allocate_domain() fails, it returns
+-ENODEV without the matching dca_sysfs_remove_provider(), leaving the
+dca%d class device registered and the corresponding IDR entry present.
 
-On Wed, Sep 23, 2026 at 08:42:23PM -0300, Felipe Calliari wrote:
-> isys_probe() points adev->auxdrv and adev->auxdrv_data at data in the
-> isys module, and the buttress interrupt handler calls the isys ISR
-> through them. Neither isys_remove() nor the probe error path clears
-> them. Once intel_ipu6_isys is unloaded, any buttress interrupt
-> dereferences memory of the unloaded module.
-> 
-> One way to hit this: the IRQ is shared, so with CONFIG_DEBUG_SHIRQ
-> free_irq() runs the handler once more. If a buttress interrupt status
-> bit is pending at that point, "rmmod intel_ipu6" after
-> "rmmod intel_ipu6_isys" oopses:
-> 
->   BUG: unable to handle page fault for address: ffffffffc8a00560
->   RIP: 0010:ipu6_buttress_isr+0x19b/0x370 [intel_ipu6]
->   Call Trace:
->    free_irq+0x16b/0x360
->    devres_release+0x37/0x80
->    devm_free_irq+0x42/0x70
->    ipu6_pci_remove+0x52/0xd0 [intel_ipu6]
-> 
-> This happened on a Samsung Galaxy Book3 Ultra. A module notifier added
-> for testing confirmed that after "rmmod intel_ipu6_isys" the hook still
-> points into the unloaded module, and that it is NULL with this change.
-> 
-> Set the hooks only after the last early return of isys_probe(). Clear
-> them on the probe error path and at the end of isys_remove(), then
-> synchronize_irq(). In the buttress handlers, read auxdrv_data once, so
-> that a hook cleared concurrently is seen as NULL rather than
-> dereferenced.
-> 
-> Fixes: f50c4ca0a820 ("media: intel/ipu6: add the main input system driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Felipe Calliari <calliarifelipe@gmail.com>
-> ---
->  drivers/media/pci/intel/ipu6/ipu6-buttress.c | 15 ++++++++-----
->  drivers/media/pci/intel/ipu6/ipu6-isys.c     | 23 +++++++++++++++++---
->  2 files changed, 30 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/media/pci/intel/ipu6/ipu6-buttress.c b/drivers/media/pci/intel/ipu6/ipu6-buttress.c
-> index 105de1744..63197f746 100644
-> --- a/drivers/media/pci/intel/ipu6/ipu6-buttress.c
-> +++ b/drivers/media/pci/intel/ipu6/ipu6-buttress.c
-> @@ -315,15 +315,20 @@ ipu6_buttress_ipc_send(struct ipu6_device *isp,
->  
->  static irqreturn_t ipu6_buttress_call_isr(struct ipu6_bus_device *adev)
->  {
-> +	const struct ipu6_auxdrv_data *drv_data;
->  	irqreturn_t ret = IRQ_WAKE_THREAD;
->  
-> -	if (!adev || !adev->auxdrv || !adev->auxdrv_data)
-> +	if (!adev || !READ_ONCE(adev->auxdrv))
->  		return IRQ_NONE;
->  
-> -	if (adev->auxdrv_data->isr)
-> -		ret = adev->auxdrv_data->isr(adev);
-> +	drv_data = READ_ONCE(adev->auxdrv_data);
-> +	if (!drv_data)
-> +		return IRQ_NONE;
+Route the dca_allocate_domain() failure through a common
+err_remove_provider path that calls dca_sysfs_remove_provider(), and
+reuse it for the existing dca_providers_blocked cleanup.
 
-This patch looks very much LLM-generated. Are the tags in
-Documentation/process/coding-assistants.rst relevant for this?
+The issue was identified by a static analysis tool and confirmed by
+manual code inspection.
 
-I believe you need something more elaborate to guard against unbinding the
-driver. Do note that we currently can't safely remove the ISYS driver if
-the userspace isn't guaranteed to have no file handles open to the device
-nodes related to the Media device and the related sub-device and video
-device nodes.
+Fixes: 1a5aeeecd550 ("dca: registering requesters in multiple dca domains")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+v2:
+  - Use a common error path for dca_sysfs_remove_provider() cleanup, as
+    suggested by Markus Elfring.
 
-> +
-> +	if (drv_data->isr)
-> +		ret = drv_data->isr(adev);
->  
-> -	if (ret == IRQ_WAKE_THREAD && !adev->auxdrv_data->isr_threaded)
-> +	if (ret == IRQ_WAKE_THREAD && !drv_data->isr_threaded)
->  		ret = IRQ_NONE;
->  
->  	return ret;
-> @@ -436,7 +441,7 @@ irqreturn_t ipu6_buttress_isr_threaded(int irq, void *isp_ptr)
->  	unsigned int i;
->  
->  	for (i = 0; i < ARRAY_SIZE(adev) && adev[i]; i++) {
-> -		drv_data = adev[i]->auxdrv_data;
-> +		drv_data = READ_ONCE(adev[i]->auxdrv_data);
->  		if (!drv_data)
->  			continue;
->  
-> diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys.c b/drivers/media/pci/intel/ipu6/ipu6-isys.c
-> index 08f29b678..15254e3e3 100644
-> --- a/drivers/media/pci/intel/ipu6/ipu6-isys.c
-> +++ b/drivers/media/pci/intel/ipu6/ipu6-isys.c
-> @@ -13,6 +13,7 @@
->  #include <linux/dma-mapping.h>
->  #include <linux/err.h>
->  #include <linux/firmware.h>
-> +#include <linux/interrupt.h>
->  #include <linux/io.h>
->  #include <linux/irqreturn.h>
->  #include <linux/list.h>
-> @@ -989,6 +990,18 @@ void ipu6_put_fw_msg_buf(struct ipu6_isys *isys, struct isys_fw_msgs *msg)
->  static const struct ipu6_auxdrv_data ipu6_isys_auxdrv_data;
->  static const struct ipu6_auxdrv_data ipu7_isys_auxdrv_data;
->  
-> +/*
-> + * The buttress interrupt handler calls into this driver through
-> + * adev->auxdrv_data, which points into this module. Clear it once the
-> + * device is torn down, and wait for a running handler to finish.
-> + */
-> +static void isys_unset_auxdrv(struct ipu6_bus_device *adev)
-> +{
-> +	WRITE_ONCE(adev->auxdrv, NULL);
-> +	WRITE_ONCE(adev->auxdrv_data, NULL);
-> +	synchronize_irq(adev->isp->pdev->irq);
-> +}
-> +
->  static int isys_probe(struct auxiliary_device *auxdev,
->  		      const struct auxiliary_device_id *auxdev_id)
->  {
-> @@ -1006,9 +1019,6 @@ static int isys_probe(struct auxiliary_device *auxdev,
->  	if (!isys)
->  		return -ENOMEM;
->  
-> -	adev->auxdrv_data = IS_IPU7(isp) ? &ipu7_isys_auxdrv_data :
-> -					   &ipu6_isys_auxdrv_data;
-> -	adev->auxdrv = to_auxiliary_drv(auxdev->dev.driver);
->  	isys->adev = adev;
->  	isys->pdata = adev->pdata;
->  	csi2_pdata = &isys->pdata->ipdata->csi2;
-> @@ -1037,6 +1047,10 @@ static int isys_probe(struct auxiliary_device *auxdev,
->  
->  	dev_set_drvdata(&auxdev->dev, isys);
->  
-> +	adev->auxdrv_data = IS_IPU7(isp) ? &ipu7_isys_auxdrv_data :
-> +					   &ipu6_isys_auxdrv_data;
-> +	adev->auxdrv = to_auxiliary_drv(auxdev->dev.driver);
-> +
->  	isys_stream_init(isys);
->  
->  	cpu_latency_qos_add_request(&isys->pm_qos, PM_QOS_DEFAULT_VALUE);
-> @@ -1065,6 +1079,7 @@ static int isys_probe(struct auxiliary_device *auxdev,
->  free_fw_msg_bufs:
->  	free_fw_msg_bufs(isys);
->  out_remove_pkg_dir_shared_buffer:
-> +	isys_unset_auxdrv(adev);
->  	cpu_latency_qos_remove_request(&isys->pm_qos);
->  
->  	for (i = 0; i < IPU6_ISYS_MAX_STREAMS; i++)
-> @@ -1094,6 +1109,8 @@ static void isys_remove(struct auxiliary_device *auxdev)
->  	isys_iwake_watermark_cleanup(isys);
->  	mutex_destroy(&isys->stream_mutex);
->  	mutex_destroy(&isys->mutex);
-> +
-> +	isys_unset_auxdrv(auxdev_to_adev(auxdev));
->  }
->  
->  static const struct ipu6_auxdrv_data ipu6_isys_auxdrv_data = {
+ drivers/dca/dca-core.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/dca/dca-core.c b/drivers/dca/dca-core.c
+index 583510850fad..1acfae12d689 100644
+--- a/drivers/dca/dca-core.c
++++ b/drivers/dca/dca-core.c
+@@ -360,16 +360,15 @@ int register_dca_provider(struct dca_provider *dca, struct device *dev)
+ 
+ 		if (dca_providers_blocked) {
+ 			raw_spin_unlock_irqrestore(&dca_lock, flags);
+-			dca_sysfs_remove_provider(dca);
+ 			unregister_dca_providers();
+-			return -ENODEV;
++			goto err_remove_provider;
+ 		}
+ 
+ 		raw_spin_unlock_irqrestore(&dca_lock, flags);
+ 		rc = dca_pci_rc_from_dev(dev);
+ 		newdomain = dca_allocate_domain(rc);
+ 		if (!newdomain)
+-			return -ENODEV;
++			goto err_remove_provider;
+ 		raw_spin_lock_irqsave(&dca_lock, flags);
+ 		/* Recheck, we might have raced after dropping the lock */
+ 		domain = dca_get_domain(dev);
+@@ -386,6 +385,10 @@ int register_dca_provider(struct dca_provider *dca, struct device *dev)
+ 				     DCA_PROVIDER_ADD, NULL);
+ 	kfree(newdomain);
+ 	return 0;
++
++err_remove_provider:
++	dca_sysfs_remove_provider(dca);
++	return -ENODEV;
+ }
+ EXPORT_SYMBOL_GPL(register_dca_provider);
+ 
 -- 
-Regards,
+2.43.0
 
-Sakari Ailus
