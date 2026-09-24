@@ -1,115 +1,66 @@
-Received: from omta036.useast.a.cloudfilter.net (omta036.useast.a.cloudfilter.net [44.202.169.35])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 516243DF003
-	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 03:50:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.202.169.35
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9312A41835E;
+	Thu, 24 Sep 2026 04:16:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790221815; cv=none; b=PyLS82CK8ABfm8wbpVlhTxJuuJeo2WWe2AvNhsAyy2m2Xux3aaUmpSg74r2Fv5Lc8KyERCQ11OJig5e4hJculGyCupr3M0Prd7BoUT5ACIZASs7gn7ehrkJiZhcFemShokPEWmDVslm+FCcKX7GAdHm3D2uwhg4ZDAgiSk+LIbo=
+	t=1790223397; cv=none; b=uaWQIIbGGsfI99pYTL5FwBmwQCtcL5G6ACDvtxGEEtHl86MWGTTeruGYHLO+pY6xHcLPEnBw3P9A9mt5QifwbkI6YxIvTV88txi2DUGX4x2Icq7jwsT3ZeTEalaszkceLf9JEkqyfrd0LzEWAEf2liLGP3MlyT4KyS51Ba+bwxc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790221815; c=relaxed/simple;
-	bh=SZ7GsHT8co1hYBRQ1MxrFpOyPv3QmJNstrzyBqgK8C0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=awbty5c0+3fNPlBmfC2dBS4fv34et3Mr55QQvuXe70pk8uDGThOgx6LXgcQcBdSp5ItExyD7hTuaepPI9b2I2iysFRlBD7v7csWRM9HcvpYiohmruItgluobuERO7eDD/PGD+kUCm+HvF5bjPWJ5i/hutPHQbhP9nncM/vpgZxQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=4oQvTJFW; arc=none smtp.client-ip=44.202.169.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
+	s=arc-20240116; t=1790223397; c=relaxed/simple;
+	bh=KLvrM2S4IuFKMwL77r7Q3gG8E8NpdkUdV8oEveYYUdE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dNMnSIyAd0eVbDH0hQmeemznU8mCo92Un8VSI3Re/rSSQLAUOehrMvxVX4nf4PWnLYETVWmEPgvlpB7MdZlQDT44hE+5A5f6o0/4z7BhaTiGG64ydijL4JbNv9i79yqgQ83TQrxssUs/xP9wQxtz5Cy2NFLOZ3FNE8/537fhPmo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=W5E7P50V; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="4oQvTJFW"
-Received: from eig-obgw-5001b.ext.cloudfilter.net ([10.0.29.181])
-	by cmsmtp with ESMTPS
-	id 9XEmxuRKxLvgb9aTNxXEbV; Thu, 24 Sep 2026 03:50:13 +0000
-Received: from box5620.bluehost.com ([162.241.219.59])
-	by cmsmtp with ESMTPS
-	id 9aTMxqgR8P7wg9aTNxbecL; Thu, 24 Sep 2026 03:50:13 +0000
-X-Authority-Analysis: v=2.4 cv=NMzV+16g c=1 sm=1 tr=0 ts=6ab49df5
- a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
- a=HaFmDPmJAAAA:8 a=49j0FZ7RFL9ueZfULrUA:9 a=QEXdDO2ut3YA:10
- a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=sZU3/E8VcenRe+jpr4Zrh8hcTwdKL/4W/UpzOO1JkY8=; b=4oQvTJFWuPPxR2gEjhg6N60MvD
-	1oxGQ+1CKC/AKUgI8XUcFHklZLl8NiQdcNXGQnHFxiC0FxBB5ZIUClmWgVrVk4QmZfgphIqrmT5aS
-	TsPSnJYx1VnTqlChg/t/MetfMa+PTojj/at/9135RNuJWUlaQuMNG/Epy3c8UDQLiwozM+RKYy19y
-	9LBUTfdLrFNgDxZe3zrdSiFAwEva3MNavUzeep2HnFwLvjYIxnPPIovTp9QquE9UGdXVh7+QlRhGv
-	D+xNrRZVneSuVzesF0SLa8vtPCu+dEb+HKu6xlPTzrV+6pejKa59TCxVCk/D7p3ESYfcuOiZBsC94
-	w33V3fWw==;
-Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:37000 helo=[10.0.1.180])
-	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.100)
-	(envelope-from <re@w6rz.net>)
-	id 1x9aTM-00000003pxf-0Wt2;
-	Wed, 23 Sep 2026 21:50:12 -0600
-Message-ID: <007efcf5-f2ed-447d-a6de-5bf8daca3076@w6rz.net>
-Date: Wed, 23 Sep 2026 20:50:10 -0700
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="W5E7P50V"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=BdSlsMfkuxhxiJlWuwe1IxzXZwAYvmEuJHQZQQIcCpI=; b=W5E7P50Vm4uHDnzOxK0iApubfC
+	lNy7VxKIQOmzGCGTSO87MXxZQskkqcu4kRGLUmBZ52YI3RoW5NoKgupICmRL8nkI0ryo2Mvourbbw
+	5nt3pwOpa9T6uiD7avodFkwucJs919MYfo5ezCfZJCJ04s197w1NtheE/uNY5G60jHH1d+07iuDos
+	BlGg1I8235Eos8krQ/mG/H/MV1obOmJwo3zcpRL7cqERmXHSdxL5+jWsgDw3kZnPWN9ET5GJ2g9du
+	Gq0TCtZnmfzVT+kJ+xQSIUQuHfLGoHvH5zxO2bk8GQdenNxTK2RG1KWLh2cJALQjDHtXkPNVOWxm1
+	YMZzGHaQ==;
+Received: from willy by casper.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x9asl-0000000FNJt-1Vrq;
+	Thu, 24 Sep 2026 04:16:27 +0000
+Date: Thu, 24 Sep 2026 05:16:27 +0100
+From: Matthew Wilcox <willy@infradead.org>
+To: Paulo Alcantara <pc@manguebit.org>
+Cc: linux-cifs@vger.kernel.org, netfs@lists.linux.dev,
+	David Howells <dhowells@redhat.com>,
+	Christian Brauner <brauner@kernel.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>,
+	Bharath SM <bharathsm@microsoft.com>, stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/5] netfs: clear post-EOF pagecache when extending a
+ file via write
+Message-ID: <arSkGzqebr4ogCZs@casper.infradead.org>
+References: <20260921230755.1133425-1-pc@manguebit.org>
+ <arHVJ0ihdqmNETMw@casper.infradead.org>
+ <b5a645319f7b2475f65306c3445953db@manguebit.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 000/398] 6.18.54-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260923140643.441954610@linuxfoundation.org>
-Content-Language: en-US
-From: Ron Economos <re@w6rz.net>
-In-Reply-To: <20260923140643.441954610@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box5620.bluehost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - w6rz.net
-X-BWhitelist: no
-X-Source-IP: 73.162.206.103
-X-Source-L: No
-X-Exim-ID: 1x9aTM-00000003pxf-0Wt2
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:37000
-X-Source-Auth: re@w6rz.net
-X-Email-Count: 39
-X-Org: HG=bhshared;ORG=bluehost;
-X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfHMHjz0w3/zRp6XDhtZT2DApPzcXV+JkF1S0jb7PLlVsizH091jEbo4i00kQ9nHmF9Z7W5cJ7c2znjWzpnUnjFuftZC3v3+kzl/bfJ7WP0wTQJYooje9
- /n6KwraHFJcHkALGMkpMJIIRyeH1af+AaAlfjyQntshs8JCsNztZ2SeKiSJQJC2FG3kLLvXERuIwpw==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b5a645319f7b2475f65306c3445953db@manguebit.org>
 
-On 9/23/26 07:01, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.54 release.
-> There are 398 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Fri, 25 Sep 2026 14:05:48 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.54-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
+On Wed, Sep 23, 2026 at 08:46:35PM -0300, Paulo Alcantara wrote:
+> - netfslib needs to honour NOWAIT, which pagecache_isize_extended()
+>   can't do due to filemap_lock_folio() and folio_mkclean().  Besides, we
+>   would also need to return -EAGAIN in case the folio is mapped or under
+>   writeback.
 
-Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
-
-Tested-by: Ron Economos <re@w6rz.net>
-
+btw, if IOCB_NOWAIT is important to you, you need to be calling
+kiocb_modified() instead of file_remove_privs() and file_update_time()
+in netfs_buffered_write_iter_locked().
