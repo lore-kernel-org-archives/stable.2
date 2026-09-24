@@ -1,110 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28094486E58;
-	Thu, 24 Sep 2026 13:25:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1CCF480335
+	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 13:34:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790256323; cv=none; b=OD5SEdVDuFmHlWjfcYSczkkWcnZeuEdCOcL1hp6GToXdfhMqwF8pDm1nI9isNKpk088Jgiq1UlZrFEF9HhODFd8j4f8LYzvM6/EeSHSFknjQ689xqlod8qVBltViFLRjXOBmx07pn34X/H5nO1lNw42/p7oFk/tkhldbjTNn5QE=
+	t=1790256896; cv=none; b=ARKsAW8GnC/wNSEMCObQqQn2VEBuV02o8ZshpkM9J97x9kJO0Iqpi57Gkk0lShEXl8G2wukUW1hh1BpFJtkExO+xoC9OBZJjPd+QAtz1KwKJO8HcGgoIr0t2EmVbkb6X17iJPm0GKXiHLusUD+xW06bQHncpMSyUrWf6z3o4S7Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790256323; c=relaxed/simple;
-	bh=+y/DElqnV4FcOVioDOH9GwNtbU9D/d/nfuapYBuGs1Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C1nrJ44wNwEOZRDt8rNiqzqoqvCx0fMx5DSB75SQbDDb2coOFnr3I1uG88Tb9Gtoz0G8cP9R562AnLKFM4nHHBGecGRhAFShx8B+8rlmeFxdyIlxqwU7PLcmlPI9pDcZt+fQX6X3M1kk5XYuHlnimR+ESutb8BZ8umHcfgPCE+U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SLQSDDVN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790256896; c=relaxed/simple;
+	bh=Zw0pIP5eSJI28ZqgOlOYqy4ScF2vOQAnlGs6UoZ0oSM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EKeQdKs+U9OymXQKTwQ9qrWb3ls0yjxI586WHXIeC9nXXQ8QKMdt20afsgYbFC4Z4kpWdJTfa9py8DjwU9LI09zmsS0v/7myXOC35DwrG7C5YW8zUq0+OCJrOm2wqxyPomKsBm+AbM9rPoWiTbmpXYs+3IZzUCGnCkzwoI2DZ/8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZB4v8vx9; arc=none smtp.client-ip=74.125.228.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SLQSDDVN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA6F51F000FF;
-	Thu, 24 Sep 2026 13:25:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790256319;
-	bh=qopmzz9GVmwF6XpkNn02wcUDHn7ZmytbGUwAr4xiQnc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SLQSDDVNxICZUaXXbNRWvOV1h63/jmQAeZXJU7MrZolrgoLlCIh/YQzGaEGVsjMNy
-	 s8BJ4WC/jPCIgJtntPqSBsvYE4nD8sF7Xt3VhThpqxI7AwTKWzGcJTZ2xEAOaPDh7H
-	 fxbqWAXRQT1F86G66DlCpBNwbVebuixeqDyZdMGHHRPCU9rLke5jU8BUNtsSwwMzfW
-	 AIVFfYQ64XIdZhoSl0K8hxkGvLSO5s36X/FdGIdm6r8djVuAl/fv2YBKzVv7d///V0
-	 OMidMqfIY3bNJE/lqJe0hDjvrk1FKjQuqbHcT3js6YlRKL8wYDNKM9qjIZWVGH9tB5
-	 XaEytynbHtGAQ==
-Date: Thu, 24 Sep 2026 15:25:16 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Jacky Huang <ychuang3@nuvoton.com>, 
-	Shan-Chun Hung <schung@nuvoton.com>, Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
-	Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Steam Lin <STLin2@winbond.com>, 
-	linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, Jacky Huang <ychuang570808@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] clk: nuvoton: ma35d1: Add missing WDT/WWDT parent
- clocks
-Message-ID: <20260924-bald-awesome-griffin-7d1d5b@quoll>
-References: <20260921-perso-ma35d1-upstream-clk-v2-0-209fd32a8b00@bootlin.com>
- <20260921-perso-ma35d1-upstream-clk-v2-1-209fd32a8b00@bootlin.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZB4v8vx9"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-8631d0023daso1099342b3a.2
+        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 06:34:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790256879; x=1790861679; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wOCGbQf6XP96p7s0OjDQYdkOZWkG2NUg2kYXrHgNtio=;
+        b=ZB4v8vx9T5Ii0v14xNQJRScTrcNU9LVmZ0nw6SPPjOVeoti7wLSSwUAVTTzlE+Ds0j
+         W1B6bPIpTw9gwbXk5IXO1TYW7FkufQpfMeeugX5AXc+lvJnMadq0Jp1LoRqmoXhUkkMh
+         CguJyjIb86z6F5SpgL1+OHdcYXAYNQSNunHeStRoNZFoiwqXCON+/u9acwcOSfTFQA2T
+         ik8wgcoDHGEjUixaY6aGHTXzUVryzdnD/gtQM+YgCkeN0GicqMnxzYVVl36tUE0SFuME
+         TNh36Hu+C6tvjFVQh15p5EsJcCXw8Fwxnt8R+rUq4EBHAf3ZoHD+HHogoL9txBITgep+
+         KMgw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790256879; x=1790861679;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wOCGbQf6XP96p7s0OjDQYdkOZWkG2NUg2kYXrHgNtio=;
+        b=L2ZmUX3inJ81Do871idTPfmw7LaK3UiAQlZaPAzpKFda5l2SIFsx2F3N3MUsg/EubL
+         Rv1SIKw0HlDXz1KiuVTGA4QEPg1Qe60+0Zf3npYclH0fqmQAoKiWAdoQLszqHNgM8coi
+         uDMxv4MLSMzEUPVlOhSRPmJKoMjjTDGlHfYWiua1t4Yl9jZvdSwFgisTDdYgDgYZnVeB
+         SrU0zZFICCx+YHHeyhg1UrsKiWwAaeDXk7CnMVQ864TxQpSieEBMXzJf/qhKYMAUjvq6
+         zLyqw7tg27O6tTKvketSFSNTa2nk033dykVfDttLPDaME1Mf6NZpE+eezybuX9jO8ZEJ
+         81/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzKNsMUycBGCzzxBEMN72mvs4jBWh2gfvUQduAL9CPTT7Fp+2R/u+1mOiJEUO48zfJqwA4yuPQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lq10buQ49GXRKypoXVJzXw9Tim2MJp+Ajf8UiD4Mq6BRcRR0dk
+	GHgZYdaDrPxwP/T2ZgIffTlkU0iz+0ttr8vr3sP5ofbQqWsHbXV+AjOe
+X-Gm-Gg: AYBFou0w+dofL2CGpuOPzQNRQJe/+5l1ve8gy6XMnpIBrHmmQbyvZV1YQ77deh6YZwD
+	IWBlD9JaZmP9WHvk0pKQSTIAUEANdzkyAeSbyrRbuWjPcmkH051ff3KKg0OXY758XRi7JE1iIqY
+	vXxfBDI7RDDAkQW/dK9yn6uF5xRnenlf5VupFx80qX8C1LWZXKWvui3LBSiL2TrJrwN6Ypeit9A
+	2X/LwlGiSl1k6oJJK4S8bFkVgGXpiezZSIiloKbb/mBhWl8Pum5dq1N6RImxsbQqMll86AbZUff
+	UrmGZhqZQ6mArVlSevOXP0zphcD67i9ssdTuBpPeP7q0iS2SqDur6HEYLCVIwdkTJoqQeFMmA4c
+	+gkb5kYKTrq0kKjaKOjN9cxRtd658YVeaDxWnqlmWoON0DMp5XL6qITvnrc8K1AMl8bAeOt7I/A
+	KcjpzYO6oURyuLwX+uL7H8+wj+7LV4ieitVMFHYT8yYfYTmgzA8IZnAg==
+X-Received: by 2002:a05:6a00:1302:b0:878:3783:8a4e with SMTP id d2e1a72fcca58-87e9be76a5amr2245806b3a.54.1790256878537;
+        Thu, 24 Sep 2026 06:34:38 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87d1e0f4fbbsm3024366b3a.52.2026.09.24.06.34.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 06:34:38 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Hannes Reinecke <hare@suse.de>,
+	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	James Bottomley <James.Bottomley@suse.de>,
+	Joe Eykholt <jeykholt@cisco.com>,
+	Robert Love <robert.w.love@intel.com>,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] scsi: libfc: fix directory server rport memory leak
+Date: Thu, 24 Sep 2026 21:34:29 +0800
+Message-ID: <20260924133429.1587511-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260921-perso-ma35d1-upstream-clk-v2-1-209fd32a8b00@bootlin.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 21, 2026 at 08:44:45AM +0200, Miquel Raynal wrote:
-> The WDT and WWDT muxes list PCLK3/4096 and PCLK4/4096 among their
-> possible parents, but the driver never registers the corresponding
-> clocks, so these parents could never be used.
-> 
-> Add pclk3_div4096 and pclk4_div4096 as fixed factor children of pclk3
-> and pclk4 and expose them through the clock provider.
-> 
-> Reported-by: Jacky Huang <ychuang570808@gmail.com>
-> Closes: https://lore.kernel.org/linux-clk/b8a8a65b-e302-4747-bc90-4920fc48795a@gmail.com/
-> Suggested-by: Jacky Huang <ychuang570808@gmail.com>
-> Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock controller")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
-> ---
->  drivers/clk/nuvoton/clk-ma35d1.c               | 2 ++
->  include/dt-bindings/clock/nuvoton,ma35d1-clk.h | 4 +++-
+fc_rport_create() does not add FC_FID_DIR_SERV rports to
+lport->disc.rports. If fc_frame_alloc() fails in
+fc_rport_recv_plogi_req() after creating a directory server rport, its
+initial reference is not released through the normal rport teardown
+path.
 
-Please do not combine patches.
+Normal rports are added to lport->disc.rports and removed from the list
+before their initial reference is dropped. The directory server rport
+bypasses both operations.
 
->  2 files changed, 5 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-ma35d1.c
-> index 9f65d0623517..9d57de6a1e56 100644
-> --- a/drivers/clk/nuvoton/clk-ma35d1.c
-> +++ b/drivers/clk/nuvoton/clk-ma35d1.c
-> @@ -543,6 +543,8 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
->  	hws[HCLK3] = ma35d1_clk_fixed_factor(dev, "hclk3", "sysclk1_mux", 1, 2);
->  	hws[PCLK3] = ma35d1_clk_fixed_factor(dev, "pclk3", "sysclk1_mux", 1, 2);
->  	hws[PCLK4] = ma35d1_clk_fixed_factor(dev, "pclk4", "sysclk1_mux", 1, 2);
-> +	hws[PCLK3_DIV4096] = ma35d1_clk_fixed_factor(dev, "pclk3_div4096", "pclk3", 1, 4096);
-> +	hws[PCLK4_DIV4096] = ma35d1_clk_fixed_factor(dev, "pclk4_div4096", "pclk4", 1, 4096);
->  
->  	hws[USBPHY0] = ma35d1_clk_fixed("usbphy0", 480000000);
->  	hws[USBPHY1] = ma35d1_clk_fixed("usbphy1", 480000000);
-> diff --git a/include/dt-bindings/clock/nuvoton,ma35d1-clk.h b/include/dt-bindings/clock/nuvoton,ma35d1-clk.h
-> index ba2d70f776a6..d3fd8251c806 100644
-> --- a/include/dt-bindings/clock/nuvoton,ma35d1-clk.h
-> +++ b/include/dt-bindings/clock/nuvoton,ma35d1-clk.h
-> @@ -248,6 +248,8 @@
->  #define ADC_GATE	233
->  #define EADC_DIV	234
->  #define EADC_GATE	235
-> -#define	CLK_MAX_IDX	236
-> +#define PCLK3_DIV4096	236
-> +#define PCLK4_DIV4096	237
-> +#define	CLK_MAX_IDX	238
+Add directory server rports to lport->disc.rports and use the existing
+list removal path when they are deleted. Keep the existing directory
+server callback and retry behavior unchanged.
 
-This cannot be updated. If it has to, then not a binding and should be
-first dropped from the bindings like we did for most of the platforms
-having similar issue.
+The issue was identified by a static analysis tool I developed and
+confirmed by manual review.
 
-Best regards,
-Krzysztof
+Fixes: 3ac6f98f4113 ("[SCSI] libfc: correctly handle incoming PLOGI request.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+v2:
+  - Add directory server rports to the discovery rport list and use the
+    existing teardown path, as suggested by Hannes Reinecke.
+  - Preserve the existing LLDD callback and retry behavior for directory
+    server rports.
+
+ drivers/scsi/libfc/fc_rport.c | 12 ++++--------
+ 1 file changed, 4 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/scsi/libfc/fc_rport.c b/drivers/scsi/libfc/fc_rport.c
+index c25979d96808..eac3fde1246a 100644
+--- a/drivers/scsi/libfc/fc_rport.c
++++ b/drivers/scsi/libfc/fc_rport.c
+@@ -160,10 +160,9 @@ struct fc_rport_priv *fc_rport_create(struct fc_lport *lport, u32 port_id)
+ 	rdata->maxframe_size = FC_MIN_MAX_PAYLOAD;
+ 	INIT_DELAYED_WORK(&rdata->retry_work, fc_rport_timeout);
+ 	INIT_WORK(&rdata->event_work, fc_rport_work);
+-	if (port_id != FC_FID_DIR_SERV) {
++	if (port_id != FC_FID_DIR_SERV)
+ 		rdata->lld_event_callback = lport->tt.rport_event_callback;
+-		list_add_rcu(&rdata->peers, &lport->disc.rports);
+-	}
++	list_add_rcu(&rdata->peers, &lport->disc.rports);
+ 	return rdata;
+ }
+ EXPORT_SYMBOL(fc_rport_create);
+@@ -363,11 +362,8 @@ static void fc_rport_work(struct work_struct *work)
+ 
+ 		mutex_lock(&rdata->rp_mutex);
+ 		if (rdata->rp_state == RPORT_ST_DELETE) {
+-			if (port_id == FC_FID_DIR_SERV) {
+-				rdata->event = RPORT_EV_NONE;
+-				mutex_unlock(&rdata->rp_mutex);
+-				kref_put(&rdata->kref, fc_rport_destroy);
+-			} else if ((rdata->flags & FC_RP_STARTED) &&
++			if (port_id != FC_FID_DIR_SERV &&
++			    (rdata->flags & FC_RP_STARTED) &&
+ 				   rdata->major_retries <
+ 				   lport->max_rport_retry_count) {
+ 				rdata->major_retries++;
+-- 
+2.43.0
 
