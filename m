@@ -1,170 +1,137 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A32304A4824
-	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 15:56:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+Received: from smtp.uniroma2.it (smtp-2015.uniroma2.it [160.80.4.37])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 11E5A4825B0;
+	Thu, 24 Sep 2026 16:01:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.80.4.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790265389; cv=none; b=WbGLYo30EMQcrc5LnjbqPjFTBEiXM62g7XSd06fdTzwTd1QNhHhCDvVPCeYC25auYh8VLRVt3+FC6GFBZnjYHrBH8eccMoS5bfhY+d42ZYeW7pzHVZ11ZKyMYpEPXTQayt+6FioeDDhFaoG0Q/qXAHryaxjiwWvsArg4/r8Ei0E=
+	t=1790265672; cv=none; b=gIo0rgXWTktq0G9Jmj8okvJXaWl3sFXp1pdf1O4isbBk8AU5+0i4DrXPBYUP/tLTITViZcVp21nvmAVYJc9m/OZmhOfIwOmDJoPPeY68rWiSakpSepNqCWsR28Z19pgvoL5ed7zbo5IfldHdQA2HANr3J0WY77Vh5RVU4pFCkII=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790265389; c=relaxed/simple;
-	bh=SzpsF1R44Ubodi/lWdByRj3ussGr5imnuwlywY4gVK4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mpV3i1Nxc1S1nN9duFwgDeH/CRyOu5cQWD94KDXIyPH9XJc08s0UECPX+oXr7vx+gig5EBnr3sa9d9Yg2LNSxVArRqO68KVF9FU7OVMqyzpm49WDbkqTP77za/h2NskhI4uYzHFeGMssMmeVc3ZYs6yp6OCCkDD82slmTTuuBek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=FUBoAsq6; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=UshE4h47; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790265672; c=relaxed/simple;
+	bh=XeNHz13ULfMA2b1+O2mBPioLeq/Y4ctBbaxu6kae3XE=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=HKePSmWxvr8YGpwMzr8h6E5Cz4v/su0063arHH187mzae9fKMZlE0V7NHXXaMU9rmqDRUeCIhqL7HyAbaxOTXTzXHVtbnfB/QxI8buys44WZOYfvsehPNSCXwyxfPkiiUDZe+QnMbRwONLS94mt+wyLZnSp04IVHv/yjd70I+e8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it; spf=pass smtp.mailfrom=uniroma2.it; dkim=permerror (0-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b=l9StfxJN; dkim=pass (2048-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b=WuPPe7+i; arc=none smtp.client-ip=160.80.4.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniroma2.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="FUBoAsq6";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="UshE4h47"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790265386;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	dkim=permerror (0-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b="l9StfxJN";
+	dkim=pass (2048-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b="WuPPe7+i"
+Received: from smtpauth-2019-1.uniroma2.it (smtpauth.uniroma2.it [160.80.5.46])
+	by smtp-2015.uniroma2.it (8.14.4/8.14.4/Debian-8) with ESMTP id 68OG0MTU021248;
+	Thu, 24 Sep 2026 18:00:27 +0200
+Received: from lubuntu-18.04 (host-95-234-228-71.retail.telecomitalia.it [95.234.228.71])
+	by smtpauth-2019-1.uniroma2.it (Postfix) with ESMTPSA id BF2171227F6;
+	Thu, 24 Sep 2026 18:00:16 +0200 (CEST)
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=uniroma2.it;
+	s=ed201904; t=1790265617; h=from:from:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=BsIicbnwmHZxyMI07vJAKZ5x+YHru/pqorNr3bVuoUs=;
-	b=FUBoAsq6gRxq3IqRfTzLK1igZqfsUWybo1WnUgvo0llcwx2WQ8l+Mpt40ppz2SPiTaerdc
-	Fgs7EIMJrgzGaYT1NoI5iCjqKaqRt3/siFY4ONpec4UlPc35oD1I+CKPJ4sEeLjSKY6GJF
-	+1dMOQL3I+lU5QB11gwfK7comqeQEQY=
-Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
- [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-612-P4gHeZFaNGWmnsk5pxUWBA-1; Thu, 24 Sep 2026 11:56:23 -0400
-X-MC-Unique: P4gHeZFaNGWmnsk5pxUWBA-1
-X-Mimecast-MFC-AGG-ID: P4gHeZFaNGWmnsk5pxUWBA_1790265382
-Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-c29452ecadeso234112566b.3
-        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 08:56:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790265382; x=1790870182; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BsIicbnwmHZxyMI07vJAKZ5x+YHru/pqorNr3bVuoUs=;
-        b=UshE4h47sI9NtWfWCugd+LddLlvaa7IXNIR2zXv1pn0UWX77z2W8IiMbg3cFLOsP4c
-         EIfrab0R59uhfBMlpROLHM1hi3E8xcuLbc2PTsXbr4EiDqoIYIpt4wwdW/ZURcMPJT6Z
-         xAvGt0sOKqJ9/XZwO9mok/dS+QGyeH/gipNoU7BZ1ZB0MTrYZYL/Nx/uI/qSS6F9QvNY
-         LVVjMWvROYKaBIZtrp5gwl6BmGgHNKAwdbUyrmWPPI4Sma3Y+ob/KHB7fdeNCytrpa47
-         QvC4d8x+dx3CnY0LPBu3h/7hBQuj5oJoUxk82MAVnG4JzKYHfTXluh39a9SfPFUyAEZN
-         RazQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790265382; x=1790870182;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BsIicbnwmHZxyMI07vJAKZ5x+YHru/pqorNr3bVuoUs=;
-        b=g/L7dw2HYT2mziGN0x7SqcaePk1fW9HBl5h5DedE6+yvW2rvYJpRqf31rIqhLGFZd8
-         AT+JWs5G7JeEixaG6NfLhVahVm3hAvbnUBlf1XyKMz88uXvTDAqK4rqNpHrNQAqEK88u
-         n/MuEmQDS/pIg2XH/sUbhK+uTyjxnK0fmZJjirCXSqsgsFFBQTRlKakxZq0Z1Mwl6tCf
-         zHo+y0wA3NeOGBkRJFYRla9Y1bq3Fu+dE4a1U0twoJVN7EJekWCXDZf8vOhMfoWoFbE9
-         fct79FX478Jm2sfODdLI79zCroRsFVyhol0vNQTdF2e9yrxs6d4G7vdaJOTox8J/sAR4
-         F/1g==
-X-Forwarded-Encrypted: i=1; AKwUvBzdGO1nxGCUSNTteOluxM67dVpDsV7f9TYi/KJPWOHwkVRzZ2whKt5doqZBW+yKtMIv1Kc/cXs=@vger.kernel.org
-X-Gm-Message-State: AFuF++kM/yQ752q68GkDsdpoTZMdXPWnINjuL+fuOGnjfluh4dDuA4EZ
-	tlyfdrZxjfeFf8zCd9n6VrYE9VJfT9YnijFhS9OBzrJp7BbBwLr7wRWNPDFmUNDxWf3dSzASxtr
-	EdK98yFP13wtXEqaQkNr85X/LuxUi9mIYWY/ej7h/kmfmLwa4akAxArrPLA==
-X-Gm-Gg: AYBFou2FLSq4UxMx+p6bqFQ1JBt6GSPGCtZfVF7cTVurUirKCYSn84hQ938o7LBukKs
-	/Wo+8OGrBhBC7aPK/JCTjS6h2FLV1MluiDpj073SevOh0GI7U2Ag8b4m5TEtrXIbSpQ4She7ph3
-	/KZGRyoYORPvfmqwCfdqb5UMFXNBLWs2Fvz3X7SamAwakjmh+ZtuWQnQ5/clHjQRoHWqwgJ4ujF
-	nQxNroBYRf2+4e0G+Z2BQW+VUcpbIrYCOSi5gzLsU8KDL8YBB0HJ59iNOr07aMUadmQd/e+woWz
-	fXXeAXe/24mqHks0LnwR+ljMniypAtLYvu32NhFW8O3e8Q5tO6H7ySBnIqFjMX4XaGOlVrrWVhW
-	JqTeZAMKkpogN3p8XHhJK1/YAVw/JkRMJ/2CY2ymt1r2fQE6ju9h2p/RRTOJ+IFwbHg==
-X-Received: by 2002:a17:907:968b:b0:c26:1648:a072 with SMTP id a640c23a62f3a-c2ac2594bcdmr230040966b.45.1790265382169;
-        Thu, 24 Sep 2026 08:56:22 -0700 (PDT)
-X-Received: by 2002:a17:907:968b:b0:c26:1648:a072 with SMTP id a640c23a62f3a-c2ac2594bcdmr230038666b.45.1790265381573;
-        Thu, 24 Sep 2026 08:56:21 -0700 (PDT)
-Received: from redhat.com (2a02-ab04-0158-f000-2548-f3bd-8b42-b18f.dynamic.v6.chello.sk. [2a02:ab04:158:f000:2548:f3bd:8b42:b18f])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aae33e046sm312897966b.8.2026.09.24.08.56.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 08:56:21 -0700 (PDT)
-Date: Thu, 24 Sep 2026 11:56:19 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Fang Xieyan <fangxy@xiaopeng.com>
-Cc: Jason Wang <jasowangio@gmail.com>,
-	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
-	Rusty Russell <rusty@rustcorp.com.au>, stable@vger.kernel.org,
-	virtualization@lists.linux.dev, kvm@vger.kernel.org,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] vringh: reject empty / undersized indirect descriptor
- tables
-Message-ID: <20260924114316-mutt-send-email-mst@kernel.org>
-References: <20260924030627.13287-1-fangxy@xiaopeng.com>
+	bh=ZqTQ4TKcaUuTMiORSWhLajW+Q/jdKZkfzyxyFJ9V2Ro=;
+	b=l9StfxJNNBMjtdvhJnH2tHe5LNbKHfQUm+DWsgQcWe78vDuRmSn6cdH8ireR5htvan0tuY
+	9Y2hyftPAylzEhCA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniroma2.it; s=rsa201904;
+	t=1790265617; h=from:from:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZqTQ4TKcaUuTMiORSWhLajW+Q/jdKZkfzyxyFJ9V2Ro=;
+	b=WuPPe7+iAOBgsS5+95Pv6STPwgGR8VVxD7H0EJonqYlziJzH3CEswzATFzjBkdfrOi6rbt
+	G2+IkqPDTdyzt72TSj754fYMhEZHHXNIPucKNj5YvwB2EaJVGfQF7c2uQkOIoSIYNWGmWy
+	TjQ/SX7MIQZtA+x1MbugC6ldLSN9kBlzDcrwZ6XFOP/sFr1IgVs33Gzd2AKtbMxI8Wivbt
+	oiQRzUz7jlr4HzAjEHRy6onx2F655uWxrNXXpT8X86wBQgL4PdP64u8klKdlrrYDfqUXcc
+	HhlATJ/qgGPvAiWmBDDe+o2Ijg1o8dsH2H52NkW0CSRvyUqdBlv+sbFt9L9LpQ==
+Date: Thu, 24 Sep 2026 18:00:16 +0200
+From: Andrea Mayer <andrea.mayer@uniroma2.it>
+To: Hui Peng <benquike@gmail.com>
+Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+        pabeni@redhat.com, dsahern@kernel.org, netdev@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+        hangbin.liu@linux.dev, leitao@debian.org,
+        Andrea Mayer
+ <andrea.mayer@uniroma2.it>
+Subject: Re: [PATCH net v4] ipv6: sr: enforce exact attribute length for
+ SEG6_ATTR_DST
+Message-Id: <20260924180016.f1a9947223549a9a88c9a2fe@uniroma2.it>
+In-Reply-To: <20260924093610.3286959-1-benquike@gmail.com>
+References: <20260924093610.3286959-1-benquike@gmail.com>
+X-Mailer: Sylpheed 3.5.1 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924030627.13287-1-fangxy@xiaopeng.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Virus-Scanned: clamav-milter 0.100.0 at smtp-2015
+X-Virus-Status: Clean
 
-On Thu, Sep 24, 2026 at 11:06:27AM +0800, Fang Xieyan wrote:
-> move_to_indirect() rejects an indirect descriptor table only when its
-> length is not an exact multiple of sizeof(struct vring_desc).  A guest
-> descriptor with VRING_DESC_F_INDIRECT and len == 0 passes that check, so
-> *desc_max becomes 0, yet __vringh_iov() keeps walking the (empty) table
-> and aborts with -ELOOP only after reading one full descriptor past its
-> end -- leaking 16 bytes of memory adjacent to the table into a kernel
-> stack variable.
+On Thu, 24 Sep 2026 09:36:10 +0000
+Hui Peng <benquike@gmail.com> wrote:
+
+> In seg6_genl_policy, SEG6_ATTR_DST is defined with .type = NLA_BINARY and
+> .len = sizeof(struct in6_addr). For NLA_BINARY, .len only enforces the
+> maximum payload length and permits shorter payloads (e.g., 0 bytes).
+> When seg6_genl_set_tunsrc() copies sizeof(struct in6_addr) bytes via
+> kmemdup(val, sizeof(*val), GFP_KERNEL), a short SEG6_ATTR_DST attribute
+> triggers a 16-byte out-of-bounds read past skb->tail into uninitialized
+> skb->head memory, which is stored in sdata->tun_src and leaked back to
+> userspace via SEG6_CMD_GET_TUNSRC.
 > 
-> Reject any len smaller than one descriptor, before the existing stride
-> check, so no descriptor is ever fetched from an empty table.
+> Switch SEG6_ATTR_DST in seg6_genl_policy to
+> NLA_POLICY_EXACT_LEN(sizeof(struct in6_addr)) so that generic netlink
+> validation rejects any attribute whose length is not exactly
+> sizeof(struct in6_addr) with -ERANGE.
 > 
-> Fixes: f87d0fbb5798 ("vringh: host-side implementation of virtio rings.")
+> Tested in QEMU against Linux 7.3.0-rc3 by sending a SEG6_CMD_SET_TUNSRC
+> Generic Netlink message with a 0-byte SEG6_ATTR_DST attribute followed
+> by SEG6_CMD_GET_TUNSRC. On the unfixed kernel, SEG6_CMD_SET_TUNSRC
+> succeeds (err = 0) and SEG6_CMD_GET_TUNSRC leaks 16 bytes of
+> uninitialized kernel heap memory; with this patch applied,
+> SEG6_CMD_SET_TUNSRC is rejected by netlink policy validation with
+> -ERANGE (-34) and tun_src remains zeroed.
+> 
+> Fixes: 915d7e5e5930 ("ipv6: sr: add code base for control plane support of SR-IPv6")
 > Cc: stable@vger.kernel.org
-> Assisted-by: Hawkeye:GLM-5.3-flash
-> Assisted-by: Qoder:Qwen3.8-Max
-> Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
+> Reviewed-by: Andrea Mayer <andrea.mayer@uniroma2.it>
+> Reviewed-by: Hangbin Liu <hangbin.liu@linux.dev>
+> Reviewed-by: Breno Leitao <leitao@debian.org>
+> Assisted-by: LLM
+> Signed-off-by: Hui Peng <benquike@gmail.com>
 > ---
->  drivers/vhost/vringh.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
+> Changes in v4:
+> - Drop raw hex memory dump string from commit message as suggested by Breno
+>   Leitao.
+> - Add Reviewed-by tag from Breno Leitao.
 > 
-> Leak path: once move_to_indirect() sets *desc_max = 0 and points *descs
-> at the (empty) table, the next __vringh_iov() iteration first runs
+> Changes in v3:
+> - Add Reviewed-by tag from Andrea Mayer.
+> - Send as a fresh standalone thread (no In-Reply-To header) as requested by
+>   Jakub Kicinski.
 > 
-> 	err = copy(vrh, &desc, &descs[i], sizeof(desc));
+> Changes in v2:
+> - Drop the redundant nla_len(info->attrs[SEG6_ATTR_DST]) !=
+>   sizeof(struct in6_addr) check in seg6_genl_set_tunsrc() since
+>   NLA_POLICY_EXACT_LEN() in seg6_genl_policy already enforces the exact
+>   length, as pointed out by Hangbin Liu.
 > 
-> i.e. a 16-byte read from descs[0] -- one full struct vring_desc past the
-> end of the table -- *before* the "indirect_count > desc_max" test fires.
-> When the guest page backing the table sits just before a sensitive host
-> page, those 16 bytes are attacker-influenced adjacent memory.
-
-
-> The multiple-of-16 stride check is kept for defense in depth.
+>  net/ipv6/seg6.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 > 
-> Userspace reproducer (move_to_indirect()/__vringh_iov() extracted verbatim,
-> 2048-byte region followed by a guarded red zone):
-> 
->     [VULNERABLE] return=-62 (-ELOOP)  OOB-read=YES  bytes-past-region=16
->     [PATCHED   ] return=-22 (-EINVAL) OOB-read=no   bytes-past-region=0
 
-it seems nicer not to fail with EINVAL not with ELOOP as we currently
-do, so the patch is fine. but the commit log if weird, looks like
-an ai hallucination.
+The v2 was applied to netdev/net.git (main) as commit 2d959c75c27f
+("ipv6: sr: enforce exact attribute length for SEG6_ATTR_DST"):
 
+https://git.kernel.org/netdev/net/c/2d959c75c27f90e9ec489d18ce5ee6b852ad4741
 
-"an attacker" "vulnerable" and "leak" - is there an implication that this is a
-security problem somehow? Because I do not see how this data gets
-anywhere.
+One general note for your future postings, not about this patch which is
+already applied: please do not repost a patch less than 24 hours after
+the previous posting. See the "Resending after review" section of
+Documentation/process/maintainer-netdev.rst:
 
-> 
-> diff --git a/drivers/vhost/vringh.c b/drivers/vhost/vringh.c
-> index 9066f9f..0767748 100644
-> --- a/drivers/vhost/vringh.c
-> +++ b/drivers/vhost/vringh.c
-> @@ -197,8 +197,9 @@ static int move_to_indirect(const struct vringh *vrh,
->  	}
->  
->  	len = vringh32_to_cpu(vrh, desc->len);
-> -	if (unlikely(len % sizeof(struct vring_desc))) {
-> -		vringh_bad("Strange indirect len %u", desc->len);
-> +	if (unlikely(len < sizeof(struct vring_desc) ||
-> +		     len % sizeof(struct vring_desc))) {
-> +		vringh_bad("Invalid indirect len %u", desc->len);
->  		return -EINVAL;
->  	}
->  
-> -- 
-> 2.50.1
+https://docs.kernel.org/process/maintainer-netdev.html#resending-after-review
 
+Ciao,
+Andrea
