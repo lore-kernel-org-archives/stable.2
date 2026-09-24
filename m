@@ -1,166 +1,178 @@
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
+Received: from mail-pj2-f32.google.com (mail-pj2-f32.google.com [74.125.227.160])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC37F457E7A
-	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 09:56:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.205
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790243819; cv=pass; b=twx93CaEgoD8nx/Am7OU48j5MmbuMVtuiGj252HuGy+5P02x/0G8gsHk+d+dtTZO7ZTEluW8iIqFItd8SN1ABmIX1U8vyo0rgz+tLLbxS+VlZgJywL64s9VFTZuGeiNXlxRgqrOYdUrqayz3y0dPuNBtI/395CpmSOXqGes+RVs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790243819; c=relaxed/simple;
-	bh=P1ndA+eBVn+zYbAgTqPlA5s6bd2yOGM1nW0tBCwcEQA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Q6s8vm7oLVWH5789l+g9YREmvzYbYxgZNKba+8Vj1iuhjCPReQQeoVc6L3JMFR1j/A1Aq+vqKqEqHHpC/rE8XtUcnpjYqmA0O1ioL/EYHEiLl/x2V7JoCq2iqazsm+up8r9XDXcIv9Bg1brsWaI/WZnqAAaVKJOqCJGRng/wJP0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PJVbFSWT; arc=pass smtp.client-ip=74.125.230.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E679409632
+	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 10:00:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.160
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790244038; cv=none; b=kI3LBASq1Crr46TO55GW/GPAE1msrcRGfLhlBDWV+T/DCPNCApfTDXNw3HrrXSNa58/bFU5Y1ZMT4M1OMJC0+IAsXjrviTzCsg/FxJ+2mNhCjAEohh1mw8mBGRkp/bB/8z5ZIbSpabchYcSCFrNzdXqllrAnBuRwwMOeilCodq4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790244038; c=relaxed/simple;
+	bh=ZooIw2NXmAULWJuKoapaauNHvCQH06h1cYnr4qHA9dg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=IzHSYGVEaFa2ZFKdGqxTfGtUADvrFTy9hJx1WCGHCHZadVxydkkS/LInfyY6aNbFMZxalk3W6B9DTL7OGg84E9UGapLdLW0/YQy6uKIQzL2JqbNrGmFAfXseJjpxnZjYkT4w8cdgAkp/SVFKA2IrvpEoL6lucV59qx8QdRDB0ho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vc8kXbis; arc=none smtp.client-ip=74.125.227.160
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PJVbFSWT"
-Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-52fb76906adso31304671cf.0
-        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 02:56:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790243801; cv=none;
-        d=google.com; s=arc-20260327;
-        b=IbWe9v9AtohgnON02qJiC0KNOsF6iF86cgDfpSIoTiDCcXtVCTpTAn/uN6ilzRv8jv
-         h+h3myEsNbkmOQMeH0N6+bkSU1qvnp/D++vTRF30wLlRfhMLjrl6sWrccTrR8KuW4PhF
-         nSsXw/SC6PBFvStjWjj0a/nk13SkEghRuVXS0BHoJXPnylkNopcPdQxsupcVLz49UVau
-         asKAP4R2sZc0KqawdnznpHWhXFsjXzTXJpjdVFnui1HwTsBcS9UgTVq+HRAiM63f1XXV
-         QO/rcM4mBlkRMU5B3bfr6LsCZigvlG0+dhbDD9CCLoDLQHwbprGRfktYTunMee3fs+gs
-         wFLQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ZIYNgjeCL0OsYc0prVytzssq1ZX8j8EgYAM9VB1jIEI=;
-        fh=dUnfrn/WxkPSCMREUDAAenF3jtmpv+x0JF9ey5HpHpM=;
-        b=jH0TA8giBxZnQ2lMOfInu56TVJAY2S5tkMz67E/K4UwUEMGLqEq4ymID6NKbcor5mf
-         Ib/0J6lkviWmgVvllcRGQ4MNkGUHP06brFADxMKHrzDAZXo4ubF04gUwLDMNNekMZQZI
-         C7FGMZCFDuVV8odeVtt/SYTbVlYJXIBHvW0KuL1GxA48UOmB/a8IPEr4f9mn7jW9Z1ZT
-         0Dro4Ab/nAa9/TGkg5duEOLVS+Tkqi8AnY9njK0FqWMgardBY9lyqqjwoi5Uuu0WO3fb
-         2nGSVSaqklH/2A/ZRF/yKP/Vy4QCUaSsITrwVqBmYpcWoQMEH6kh8EsgCKfsOKhpRb5T
-         ppAw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vc8kXbis"
+Received: by mail-pj2-f32.google.com with SMTP id d9443c01a7336-2d747f05ffdso8366755ad.1
+        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 03:00:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790243801; x=1790848601; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZIYNgjeCL0OsYc0prVytzssq1ZX8j8EgYAM9VB1jIEI=;
-        b=PJVbFSWT1X8mh3hx5PnKzYW0FA/5H4rTYypMG8e8iiFO5+aj/nMoI9Gyr3Iu0eiS0a
-         ZaaWilagYC66hqDVHeZrt/JkpRuoFook6AwqndEcd9wc9iKuSc/qkSEA4OBN1vUN4A6E
-         SPbEJivIzQWCLAgHdwfpXWFin95GtMqkzsmw7Y/lPabc1SvRNmaAs6/UEfvMWBAzsVKT
-         /YRgxIyEqzYo9ZzcInvBJwndjBRVcoeIYlqOm12/vGG55nYbJC+qBj2inSaSB4zHV4jY
-         EzcG4Fv3KSfA1uX9XE3lOwQwhVmJjQeKaDTbbvgnl/i5Lr52Hm272rIZRl00vaFuE1/V
-         sgGw==
+        d=gmail.com; s=20251104; t=1790244024; x=1790848824; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PNcv7R2Cv9BHSyuhVjO6vXYIN0OaNo4GYPMek76PDQ4=;
+        b=Vc8kXbismZsY6yavCW3hNVoMd3O7mjrCYpzwU5xDhv5qoBdXFkDFRH0UwgOGEfbzeD
+         vfIwDYdTB/KTak0pokvFMqFoxxWt9qciEU0pAWDId0krVOXTwAlsLaExVZs9SeaEn5Ye
+         mSANnz5uB7N21I/8HgWhaIxGoUA8QvUHjBAF5YwpEZgHWmV1JwYhTx6BXwcLsV7J4QRU
+         HYxp5BdssF9BRgZpBfPOh84YF8xc8y4u18I6bMW3ym44xV/OLA8GiHGHegsO7UAzh9WD
+         XpSi9S8D6nrDGZXjC8qnh54RmIsSMRBXPQIld5XsksSBXhiwVHnLJinqBGEXAIUB3Erl
+         1hkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790243801; x=1790848601;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZIYNgjeCL0OsYc0prVytzssq1ZX8j8EgYAM9VB1jIEI=;
-        b=T8ByXw2QclHEyX8UCday20RPxqao+phAxfpRLpE6jqvG4U1l7da2Vf2ir9nBX8irAU
-         x6PDlF2rWP3AHgtcXqdQCV6zjTo8iwWCXgl0YS8c33p2ZyNqxaSO+ZAyaH+RLwGH3xRd
-         WTAqtYcEuA2744OPWJThM6t5W8+Lz3jjtyB34aKgKXvJbKsMRwAPeUtJowE9kohV8A1r
-         XX6UItPFvzMF1om5LF6DRMGdXgWnnzDbdC5rqJuKd0A/dkL0ERwFSzO4RBwvJTEIIqJS
-         50FDrS2XF9W24N/8sky9mb/CFB4MBwOKn7OtFM0ckIxMWQ15VWZ0zSR7cbLEmcUgmYrd
-         vXDQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy/jBCSXP9Ds+DEAN6aLJ/oootKfq6FuB+POtAn/QiV/2SyueJcoXyDzPu8IfIjcaHbj9a3h6g=@vger.kernel.org
-X-Gm-Message-State: AFuF++n5EONA8XPLEzqDvCzaOgfISR/3FIpaDmlJb88weYoRuCZfo7Zx
-	PQCXD3RczvpMfonEttlw4CmxbheoLRRbxST+iCdMUVt1sop+uq8hZzJggrH7Vo797/dfi4X+GVK
-	FsNQJrW3cNOZP1o+13Gva260aDe2KWLQ=
-X-Gm-Gg: AYBFou2UmIIFpSn0MdnEBScwnwkFwbFl2CA2WThhdGG/hum1KXsiGdCxvwV059RnAdR
-	x7l0/qyBn5RqyIhwvZYB+gFZ9Q/R/qg6LoF8ukjtlMsIYQbcEshjn3FbGCV6eqPULYBi8xDAXn0
-	bLTD7s+tOWwl4Hw6qC9qqHgyWqn0tr9dGd/YCuVtqlx7ES3bNR8bRSA+XWlAK3bgT1ZsgrP2DP3
-	VrzCn5OZ1pnfnjiQeBDb5+jb73ZuROEKLQ1XjOaTllxX583elerEvmJNrlkPNCVV41rPRTy16yd
-	ZGsvLYrZ/Te3tXzcKOo6rhJgj/kAaxT5Qfy30vxFJMJ/zb1aRm3DXBWL
-X-Received: by 2002:a05:622a:410:b0:532:d838:12dc with SMTP id
- d75a77b69052e-532fe9eed7fmr14187851cf.3.1790243800860; Thu, 24 Sep 2026
- 02:56:40 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790244024; x=1790848824;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PNcv7R2Cv9BHSyuhVjO6vXYIN0OaNo4GYPMek76PDQ4=;
+        b=WBG4lZzY5BkZPgkSXrg7TjvdBXVm/paSZa48isdT8Lwv5ifbJV7eDn0ie/tFwLKxwA
+         eZL05L04s1AkYlIDA13U0oiGORYlPYxyh/ZioKdYHwyuCQvjBisFAjraUuZ7PSjj4dNh
+         4WfRE3rTYn1Xu/di7Vow5gMToKPhdMuuoS2hUEtk/57eNwJltuXHeRW9nahfZQK9eYyH
+         Xd3U4lKBSvfHxDcz3PgtyFPpBuTk/ygCEKbNDRRK+stmK2nV7BuAyR0P71KBqD1zYVVB
+         7WcFK5seBL51WSl7otWTpYUIDL7AJmEZ9nb9NuLkYGJPlG5OfdNHvtFsAXqo3DVq9miC
+         e2LQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxxGW60vqpzvfv5WHGsiU5D71iIuBFAfeIXv2a7uEASOcFes+jVcJlGPXAABLLx7G2MzcqApLs=@vger.kernel.org
+X-Gm-Message-State: AFuF++lucr8b0H3Xm5Ny5PTZ9xk3oqt4C/NJLMPxjln9QYwZ9m1JDnma
+	0oXIT3r2SnlEexQatbKkvhTZUlhvZ8UmviPOZ5wJRuFqI2VFjO+B1/sM
+X-Gm-Gg: AYBFou3j9LWqk4X6gxlx+Bz0YwCprLHPySoOTt6pZN+BofyRe/4WFJqLQd72LC/XMiU
+	waQwovUCZuD3Y2ZQIztryUg86k03zg6aYKZ8AxELMlc69g+hg3Pfwr4/eGHCZEdskwE1zi179+p
+	qBHl2G/ZAvpodrpJQnPzgpslWpZvGrAJLx1JsjQNtyuvy1EhYEpyX4oLY6H8iN7aUEQrpWBXFBt
+	MNqZ6u0PasuUMfm8XYphYgMbLbLaCm4DQyOQoTjW+JwOoAsRAhSjyOOQ9ZDbpZqxDnAsHJXB7hl
+	dmUUVLd0IM4MBml3D7fh6GjD924dvtgzOxwanp72S0tp099OcZlJI+qyok+IG+r3kIX+6wRcSXK
+	qPk9mdvY9wo2cG8R+6QZwnl8hyZEBGVTmL2ESbpSC3+AITg7VCGAm8uEJqdpb1hDXV6jN1LnE3p
+	fM5x3r3SnlNFRW2HmUuLZO4/8tTVYOdszjcNFPZiFFjsLFLo2B5tb0ayDxdUushPnDNRzWUIomw
+	i8misYxjQXCLK4ydL34gTuXLe1RCbzYmdmLZsSmcDGgyQdGf8/jrcDqRQP4uRhstv/z1UziqBuT
+	O6QZHppV0A==
+X-Received: by 2002:a17:903:32cb:b0:2dd:c100:80b7 with SMTP id d9443c01a7336-2df7e6681c3mr18526985ad.50.1790244022009;
+        Thu, 24 Sep 2026 03:00:22 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com (67.51.127.34.bc.googleusercontent.com. [34.127.51.67])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a516d58sm24409255ad.11.2026.09.24.03.00.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 03:00:21 -0700 (PDT)
+From: Hui Peng <benquike@gmail.com>
+To: gregkh@linuxfoundation.org,
+	arve@android.com,
+	tkjos@android.com,
+	maco@android.com,
+	brauner@kernel.org,
+	cmllamas@google.com
+Cc: maco@google.com,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hui Peng <benquike@gmail.com>
+Subject: [PATCH v2 1/2] binder: defer fd_install() until after copy_to_user() in binder_thread_read()
+Date: Thu, 24 Sep 2026 10:00:18 +0000
+Message-ID: <20260924100019.3389555-2-benquike@gmail.com>
+X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
+In-Reply-To: <20260919213650.3316812-1-benquike@gmail.com>
+References: <20260919213650.3316812-1-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260924095152.3069-1-nsvatoslav515@gmail.com>
-In-Reply-To: <20260924095152.3069-1-nsvatoslav515@gmail.com>
-From: =?UTF-8?B?0KHQstGP0YLQvtGB0LvQsNCyINCd0ZbQutC+0LvQtdC90LrQvg==?= <nsvatoslav515@gmail.com>
-Date: Thu, 24 Sep 2026 12:56:28 +0300
-X-Gm-Features: AclHuK83QQU4UjKE_sfTN9cHFKc0YIJOfadhF_smKbWELBPGpi5wSU3S_A9rXeo
-Message-ID: <CAJ_tAk7VFvsRk-suqg7-JJHcm=N1kEt9-qgg6sD+u5oAfyB03Q@mail.gmail.com>
-Subject: Re: [PATCH net v3] net: e1000: fix warning in iounmap on probe failure
-To: anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com, 
-	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com, 
-	kuba@kernel.org, pabeni@redhat.com
-Cc: intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	syzbot+ca1ef9e2e234b8d3599b@syzkaller.appspotmail.com, 
-	Aleksandr Loktionov <aleksandr.loktionov@intel.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Please drop this version. I accidentally sent this without staging my
-local changes.
-Sending v4 shortly with the actual code.
+In binder_thread_read(), binder_apply_fd_fixups() installs translated file
+descriptors into current->files via fd_install() BEFORE put_user() and
+copy_to_user() copy the BR_TRANSACTION / BR_REPLY command to userspace.
 
+If put_user() or copy_to_user() returns -EFAULT, any file descriptors in
+t->fd_fixups have already been installed into the recipient process's file
+descriptor table and removed from t->fd_fixups, even though the transaction
+failed and the sender receives BR_FAILED_REPLY.
 
-=D1=87=D1=82, 24 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 12:52 Svya=
-toslav Nikolenko <nsvatoslav515@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> When e1000_probe() fails, the shared error handling ladder attempts to
-> iounmap() the hw->ce4100_gbe_mdio_base_virt pointer. If the hardware is
-> not a CE4100, this pointer remains uninitialized (NULL). On architectures
-> like x86, passing a NULL pointer to iounmap() triggers a WARN_ON_ONCE,
-> which is fatal under panic_on_warn.
->
-> Fix this by conditionally unmapping the CE4100 MDIO base only if the
-> mac_type is e1000_ce4100, matching the exact logic used in e1000_remove()=
-.
-> The hw->hw_addr iounmap() remains unconditional since it is guaranteed to
-> be valid for all error paths reaching the err_sw_init label.
->
-> Reported-by: syzbot+ca1ef9e2e234b8d3599b@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3Dca1ef9e2e234b8d3599b
-> Fixes: 13acde8fffc0af ("e1000: Fix the CE4100 bus type for the MDIO/PHY r=
-egisters")
-> Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
-> ---
-> v3:
->   - Switched from pointer null-checks to checking hw->mac_type =3D=3D e10=
-00_ce4100
->   - Removed redundant check for hw->hw_addr since it cannot be NULL here
->   - Added missing Cc: stable tag and Closes tag
-> v2:
->   - Expanded commit message to answer reviewer questions (reproduction de=
-tails)
->   - Added appropriate Fixes tags
->   - Added Reviewed-by tag from Aleksandr Loktionov
->
->  drivers/net/ethernet/intel/e1000/e1000_main.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/net/ethernet/intel/e1000/e1000_main.c b/drivers/net/=
-ethernet/intel/e1000/e1000_main.c
-> index d7f5c6f16142..156903089fa6 100644
-> --- a/drivers/net/ethernet/intel/e1000/e1000_main.c
-> +++ b/drivers/net/ethernet/intel/e1000/e1000_main.c
-> @@ -1227,8 +1227,10 @@ static int e1000_probe(struct pci_dev *pdev, const=
- struct pci_device_id *ent)
->         kfree(adapter->rx_ring);
->  err_dma:
->  err_sw_init:
-> -       iounmap(hw->ce4100_gbe_mdio_base_virt);
-> -       iounmap(hw->hw_addr);
-> +       if (hw->ce4100_gbe_mdio_base_virt)
-> +               iounmap(hw->ce4100_gbe_mdio_base_virt);
-> +       if (hw->hw_addr)
-> +               iounmap(hw->hw_addr);
->  err_ioremap:
->         disable_dev =3D !test_and_set_bit(__E1000_DISABLED, &adapter->fla=
-gs);
->         free_netdev(netdev);
-> --
-> 2.47.3
->
+Split fd_install() out of binder_apply_fd_fixups() into
+binder_fd_fixups_install(t) and invoke it only after put_user() and
+copy_to_user() succeed.
+
+Tested in QEMU against Linux 7.3.0-rc3 using a multi-process C reproducer:
+a sender thread transmits a pipe write-end FD via BINDER_TYPE_FD in a
+one-way transaction to a recipient thread whose read buffer spans an
+unmapped virtual memory page, triggering -EFAULT in copy_to_user(): on the
+unfixed kernel, the pipe write-end FD was prematurely installed into
+current->files (polling the read-end did NOT produce POLLHUP); whereas
+with this fix applied, fd_install() is deferred past copy_to_user(), so
+the FD is not installed on -EFAULT (polling the read-end produces POLLHUP).
+
+Fixes: 44d8047f1d87 ("binder: use standard functions to allocate fds")
+Cc: stable@vger.kernel.org
+Reviewed-by: Carlos Llamas <cmllamas@google.com>
+Assisted-by: LLM
+Signed-off-by: Hui Peng <benquike@gmail.com>
+---
+Changes in v2:
+- Split out as patch 1/2 as requested by Greg Kroah-Hartman and Carlos
+  Llamas.
+- Added QEMU test procedure details in commit message body.
+- Added Reviewed-by tag from Carlos Llamas.
+
+ drivers/android/binder.c | 22 ++++++++++++++++------
+ 1 file changed, 16 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/android/binder.c b/drivers/android/binder.c
+index fb9ff072bd6c..ee01e6a06631 100644
+--- a/drivers/android/binder.c
++++ b/drivers/android/binder.c
+@@ -4705,7 +4705,7 @@ static int binder_wait_for_work(struct binder_thread *thread,
+ static int binder_apply_fd_fixups(struct binder_proc *proc,
+ 				  struct binder_transaction *t)
+ {
+-	struct binder_txn_fd_fixup *fixup, *tmp;
++	struct binder_txn_fd_fixup *fixup;
+ 	int ret = 0;
+ 
+ 	list_for_each_entry(fixup, &t->fd_fixups, fixup_entry) {
+@@ -4730,19 +4730,25 @@ static int binder_apply_fd_fixups(struct binder_proc *proc,
+ 			goto err;
+ 		}
+ 	}
+-	list_for_each_entry_safe(fixup, tmp, &t->fd_fixups, fixup_entry) {
+-		fd_install(fixup->target_fd, fixup->file);
+-		list_del(&fixup->fixup_entry);
+-		kfree(fixup);
+-	}
+ 
+-	return ret;
++	return 0;
+ 
+ err:
+ 	binder_free_txn_fixups(t);
+ 	return ret;
+ }
+ 
++static void binder_fd_fixups_install(struct binder_transaction *t)
++{
++	struct binder_txn_fd_fixup *fixup, *tmp;
++
++	list_for_each_entry_safe(fixup, tmp, &t->fd_fixups, fixup_entry) {
++		fd_install(fixup->target_fd, fixup->file);
++		list_del(&fixup->fixup_entry);
++		kfree(fixup);
++	}
++}
++
+ static int binder_thread_read(struct binder_proc *proc,
+ 			      struct binder_thread *thread,
+ 			      binder_uintptr_t binder_buffer, size_t size,
+@@ -5141,6 +5147,8 @@ static int binder_thread_read(struct binder_proc *proc,
+ 		}
+ 		ptr += trsize;
+ 
++		binder_fd_fixups_install(t);
++
+ 		trace_binder_transaction_received(t);
+ 		binder_stat_br(proc, thread, cmd);
+ 		binder_debug(BINDER_DEBUG_TRANSACTION,
