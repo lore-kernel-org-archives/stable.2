@@ -1,43 +1,35 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB5DA442389;
-	Thu, 24 Sep 2026 09:05:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF4E04446FC;
+	Thu, 24 Sep 2026 09:11:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790240765; cv=none; b=o1k8Njf5LNpWiZwhe/IeZPxdC33mYBD6MH1nwV4RiGU+YIUuM/EPj8/+DQ0PXc2tLxy+cNNnPzfBVXZLWYKlVgGYQbGSJ+s7yw/TicvWXwjT3+/n6Dnm0RIhLUca5Y3BppXjo71GEAMvEHUJBMOf/BbZr4Fpr7m1fodTNuHejvI=
+	t=1790241077; cv=none; b=bgRWG8I2xX9cZVFsxBcUX8zzh5J56zhcOCHRhFUClEsSB5wfLjxELQqy4NRuWi+E/cTia2iHYENEMWzj3zGw5t51STa8Or4YO/sULPmhPPW301ehrhfcAVPlKg65ANAvWO6g6PfqwFCIKltixyxCZENTXLXwPN8sN/Y7kxLvFoo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790240765; c=relaxed/simple;
-	bh=eFECeLyDkbWzBkQVvwJoMcgBPRYqOL8szfGa49qfmBs=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=WP/n94Z+I85OjIdGxB5XCGUoihoIv/vihqschh0RSdm3ls0LaxZTjRxouSdk0aZYhRtFHNJ+e7q4vu8YYereYCZuF6vqfeQ76VAN0bWTzxNtHP2b723ZHyRGt2WdLzJ1jKO8bFvMPDzKtUNvG+Uj85brMgjCycEH+e1DzuCN+xI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=T7szqF68; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790241077; c=relaxed/simple;
+	bh=UvUiJVYAQ9rY09y3Z0MMOKLOwLLmx9N+YaThfpWjiDI=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=F8BQ/1niK1+PSo3TaakfqA22bFu0SDokeyHJlylRMa/VcHHrAyNsFcm2BkaD/MYrIM9K9/yKbl0JR/T2r9oSOAmoHszUgl06lfNOHiGQthzDRr40iFuo7+kwhtlZErashzrBXtwerSLIZQqlzMpsvDzpef/Gpz0SJdDPvaaf/II=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LDJxVeSB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="T7szqF68"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=f3
-	eIWvq8JseXKyO0v9+KOkbgd8+L+uJ1/rUfXrwV9h0=; b=T7szqF68yJZuZUg61X
-	S1h5dAaPJL3WID0K3JY2N7iSyEZuSLeE8lzJ3wSRcNcn/y1fjF4RPClZEZe2ZrXl
-	u18vqCZaP2JPE2QVp6yFf5vefnx9IyywUT1fk/uMjsd7LffrDsPCXhPEYRCOYkqY
-	ZY/0iS74Ys9N4D8eih+4zYFxA=
-Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wD3H6Xj57RqnK4OAg--.46651S2;
-	Thu, 24 Sep 2026 17:05:40 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Tom Lendacky <thomas.lendacky@amd.com>,
-	John Allen <john.allen@amd.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	Gary R Hook <gary.hook@amd.com>,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Jiale Yao <yaojiale02@163.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] crypto: ccp: drain v5 IRQ tasklet during teardown
-Date: Thu, 24 Sep 2026 17:05:37 +0800
-Message-Id: <20260924090537.173532-1-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LDJxVeSB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90A3E1F000FF;
+	Thu, 24 Sep 2026 09:11:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790241075;
+	bh=GZfgzrbUvvFCBkVZOq/CM3Z+p6HIjpOgO0+7DQgIAc8=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=LDJxVeSB+A8SXjQ2ES4K0ov8L3xp7z/QTCft3XjeBemFIV51DvkQwlKZ5cCcNVpHL
+	 3a12RVY79bNSu9HwqMICvTUHG0VhGVBtS0knfMGyhsHIT0OqTPbM1hm4oBZJtzm4P3
+	 o9a6ly8cdDrUy13E+SzzusTZJxBWSK6UIHKUQo4flFZlG342WJ0wdR2pfA8wK8z0xC
+	 H+BPCMbx2lVw6pasxfmE56Gdg+iKOfmqlZev49rYLB1riPqqcIuvrREVMBAEfe3D1L
+	 zGayBsHfF26IWIrtvGPtdogin0HpHQrqWmFpr2YSvYvTjWuwsccWIN+7hRhozjbkOU
+	 wKBdwWmXywC0g==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 1994439EAFD2;
+	Thu, 24 Sep 2026 09:10:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,58 +37,42 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3H6Xj57RqnK4OAg--.46651S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Ww4kuw13JF1xtF43uF45ZFb_yoW8Aw4fpa
-	9rGay5KryrJr429a97Zw1UW34rZFsak345Kr40qw1Svwn8uFWFgry7Cw47t3WjyFn5ZFy2
-	qayj9FWrCr4kA3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pREeHhUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzQT6NWq05+TBRQAA3f
+Subject: Re: [PATCH net 0/1] net: ipconfig: bound DHCP option construction
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179024100489.1422440.2291512880873856008.git-patchwork-notify@kernel.org>
+Date: Thu, 24 Sep 2026 09:10:04 +0000
+References: <cover.1789798023.git.xuyuqiabc@gmail.com>
+In-Reply-To: <cover.1789798023.git.xuyuqiabc@gmail.com>
+To: Yuqi Xu <xuyuqiabc@gmail.com>
+Cc: netdev@vger.kernel.org, dsahern@kernel.org, idosch@nvidia.com,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, stable@vger.kernel.org, vega@nebusec.ai, weir@nebusec.ai,
+ xuyq21@lenovo.com
 
-On PCI devices using MSI-X, ccp5_irq_handler() disables the queue
-interrupts and schedules ccp->irq_tasklet. The tasklet calls
-ccp5_irq_bh(), which accesses registers and wait queues through
-ccp->cmd_q.
+Hello:
 
-Both the ccp5_init() error path and ccp5_destroy() free the CCP IRQ
-before the command queues and the device-managed ccp allocation are
-released. sp_free_ccp_irq() prevents another hard IRQ and waits for an
-in-flight handler, but it does not drain a tasklet that the handler
-already scheduled. The tasklet can therefore access ccp->cmd_q after
-its backing allocation has been released.
+This patch was applied to netdev/net.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
 
-Kill the tasklet after sp_free_ccp_irq(), when no handler can schedule
-it again, and before the command queues or ccp can be released. Check
-ccp->use_tasklet because the tasklet is initialized only for MSI-X.
+On Sat, 19 Sep 2026 16:45:26 +0800 you wrote:
+> Hi Linux kernel maintainers,
+> 
+> We found and validated an issue in net/ipv4/ipconfig.c.  Triggering it
+> requires control over the kernel command line (the ip= and dhcpclass=
+> boot parameters), so it is not reachable by an unprivileged user; a
+> root-controlled boot or a malicious boot configuration can still turn
+> it into a boot-time panic.
+> 
+> [...]
 
-Fixes: 6263b51eb319 ("crypto: ccp - Change ISR handler method for a v5 CCP")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
----
- drivers/crypto/ccp/ccp-dev-v5.c | 4 ++++
- 1 file changed, 4 insertions(+)
+Here is the summary with links:
+  - [net,1/1] net: ipconfig: bound DHCP option construction
+    https://git.kernel.org/netdev/net/c/e47a1958e12a
 
-diff --git a/drivers/crypto/ccp/ccp-dev-v5.c b/drivers/crypto/ccp/ccp-dev-v5.c
-index dcd6aab51e47..dacde9614e8a 100644
---- a/drivers/crypto/ccp/ccp-dev-v5.c
-+++ b/drivers/crypto/ccp/ccp-dev-v5.c
-@@ -995,6 +995,8 @@ static int ccp5_init(struct ccp_device *ccp)
- 
- e_irq:
- 	sp_free_ccp_irq(ccp->sp, ccp);
-+	if (ccp->use_tasklet)
-+		tasklet_kill(&ccp->irq_tasklet);
- 
- e_pool:
- 	for (i = 0; i < ccp->cmd_q_count; i++)
-@@ -1046,6 +1048,8 @@ static void ccp5_destroy(struct ccp_device *ccp)
- 			kthread_stop(ccp->cmd_q[i].kthread);
- 
- 	sp_free_ccp_irq(ccp->sp, ccp);
-+	if (ccp->use_tasklet)
-+		tasklet_kill(&ccp->irq_tasklet);
- 
- 	/* Flush the cmd and backlog queue */
- 	while (!list_empty(&ccp->cmd)) {
+You are awesome, thank you!
 -- 
-2.34.1
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
