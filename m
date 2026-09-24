@@ -1,33 +1,60 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F078E1FB1;
-	Thu, 24 Sep 2026 07:19:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD907420897;
+	Thu, 24 Sep 2026 07:20:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790234372; cv=none; b=uJJTYAiVn2GHZ2v7hHStbEKAOftetc3RXXZRQRmcsU1ijDKuMU6KsB/QfxCdOwoY8OAnKsb7BMgnd46TNSfB1oDxXFyuEsINl0ODZcP5IiAzHDfHL6qaNAtgD3yVZOBhK6DwOmkjX17NDgk7nOyx5yHq3XFr/U08GODech+JUQE=
+	t=1790234421; cv=none; b=i4cD9hvQgUP4+e3zvzwryoIp11yh3ZdSEQ2Nl8eIm3Z0xLIy0DigRoyBMgoMoHWjEdHEAwE+l37YqcqJU86uexEEgQkADNUia4jZ6bVSlUkFMFIbmaSEVKV1cJHR2r4NcaSSizeCnnwTGLnG2NZXN5grRT0pBWFV8sA42ZMrz20=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790234372; c=relaxed/simple;
-	bh=E05+bHXFCopTh54aMIB75+V6H9AcsfKr0sltighp1tA=;
+	s=arc-20240116; t=1790234421; c=relaxed/simple;
+	bh=8/+n6ttYS5k4bW8rAJAuplqWZrECTussHVcG4y8g0Gw=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QafvEVBhxuOJX8VoLrEAtic7FjtXcE5Neb4ukFZbAwiqQBdgb/ml8LtRmXv1ZofmDZb+NQ+qlsW8JfWzwqAn5vUxm4amAjMdLG1sYscZmJsHCJspxlgeIkI1Q8UaLeuh8WYCCYQWttOtOw43VpCp5SePA0Cc0ftmlLFYinyoRDI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b4iXV3Na; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=upShDqww1avct6ovujdPXEpdevFWok9pd2yBoC5hc1+CjebPSTiMHDfnbmcjW5KTfl34C5Gqy4AF5sE/d/6DaxbxzRJ/GOpeLvnlhvdA4ZuoC5kz5ieoVDpvR4/PDyHJ+u506lSIwGyKObxaadmBfpyqOPxqxuhOoCh8S+jVR1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=CJrZGpVx; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b4iXV3Na"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB2501F000FF;
-	Thu, 24 Sep 2026 07:19:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790234370;
-	bh=HRGpzjaTceiGt52QZ0R/rEbnbWW0z7ilUt0hAEkQ7UI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=b4iXV3NabyOxUcBPZ8lgAovkC6m2VuuSKldwe0olRSxe98ajOQgDN/wubgMNxfblC
-	 DG06jdpCLXpNrYvcVcI+dZZACChVDXYmK7wITwUltHVKHWlavEfGXflk3uqbZcq2eS
-	 HTrLyut3xvn0gueitiwmIZtGd5Sou6IvK0NSRcicaAWLu3orguL3ENfH7fe9PEMWWm
-	 /lEADdsAFofMOWo3QvSz/XvZYt4zJXRTDfbXoj1xDlxk0nkfggUgxJTriNLZ5sKQY9
-	 BbminPUgyo9WdKHRQ69iA7zv3YRLyCg46fUZdpwDV6AIzV/yzuzwgZYJehpnaLi0Az
-	 dngTMEtU1HIog==
-Message-ID: <a4bf1f96-787d-4c1e-9bef-52ab2be570ae@kernel.org>
-Date: Thu, 24 Sep 2026 09:19:26 +0200
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="CJrZGpVx"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O5bsmn1373014;
+	Thu, 24 Sep 2026 07:20:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=WJhehG
+	Qd9aRPX7vjgjx/ERcpmc89lp0B6IGpXEk+EOo=; b=CJrZGpVxrEK0isBpFslGtp
+	G67LPbJQuPPlMciSA3NlNHsuqg2MENAyzgo1R2YNMF6yRb5mLHtZM7tPZ7AVBkkf
+	mOyTMgYHWJzMVEtdr9TLDVLJ8drcuthkf7pjN/X3ykVMsZIY0Ee3LmTQzRZlC0R9
+	C+MJsK7k26cicpPP7Fet3kc68xTiyYhAWdO0b1Or8FOdTlmRAQDnJ2/pFa+EllIl
+	H/Sdgmh0PZjfM1AJa72l5yHoTiUj8x4Zm/8ABdLHe7F2NB/Xyhb2MEwef7l4E/y/
+	QRxh4Xw0wHS2t4sWATGWPKn+HRpUoB9EtQ5xY65FwHP8z/l7zhAxCTFpvnPfadjg
+	==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskdvexj8-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 24 Sep 2026 07:20:06 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68O5laFx1555050;
+	Thu, 24 Sep 2026 07:20:06 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gvb8jvky1-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 24 Sep 2026 07:20:06 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68O7K2CS50397634
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 24 Sep 2026 07:20:02 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 4B6DB2004D;
+	Thu, 24 Sep 2026 07:20:02 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 2D30720040;
+	Thu, 24 Sep 2026 07:19:59 +0000 (GMT)
+Received: from [9.123.13.199] (unknown [9.123.13.199])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Thu, 24 Sep 2026 07:19:58 +0000 (GMT)
+Message-ID: <8ff9a376-ac7d-4b72-bb56-01eecb939984@linux.ibm.com>
+Date: Thu, 24 Sep 2026 12:49:58 +0530
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,137 +62,195 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/vma: predicate setting mmap_prepare VMA fields on new
- vma alloc
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>
-Cc: Suren Baghdasaryan <surenb@google.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260923-fix-mmap-prepare-overwrite-v1-1-3b3f1bfcdf5e@kernel.org>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Subject: Re: [PATCH net v5] net/smc: fix lgr/lnk lifetime vs diag reader race
+To: Mahanta Jambigi <mjambigi@linux.ibm.com>, andrew+netdev@lunn.ch,
+        davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+        pabeni@redhat.com, alibuda@linux.alibaba.com,
+        dust.li@linux.alibaba.com
+Cc: hidayath@linux.ibm.com, pasic@linux.ibm.com, horms@kernel.org,
+        tonylu@linux.alibaba.com, guwen@linux.alibaba.com,
+        stable@vger.kernel.org, netdev@vger.kernel.org,
+        linux-s390@vger.kernel.org, linux-rdma@vger.kernel.org
+References: <20260923061716.1970059-1-mjambigi@linux.ibm.com>
 Content-Language: en-US
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <20260923-fix-mmap-prepare-overwrite-v1-1-3b3f1bfcdf5e@kernel.org>
+From: Sidraya Jayagond <sidraya@linux.ibm.com>
+In-Reply-To: <20260923061716.1970059-1-mjambigi@linux.ibm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: LydTOY3ZeSpXk65VTGFwI-UWm0F6MsGJ
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDAzMCBTYWx0ZWRfXyV0quSZJwNTV
+ dUCxd+snDUcZhLJKbqY2jmugnZAKpmePYoo+TjilzISu/9KpfW+IVz/diypud0uB232ds4vliyI
+ 0Tk3i0gUBYyrOl/B9ibphdZ3HeS1hWc=
+X-Authority-Analysis: v=2.4 cv=FLiOVOos c=1 sm=1 tr=0 ts=6ab4cf27 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8
+ a=LpUJkNdiZc8MTJID-NQA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: lNS6KwxTJoNfvWvPq3xAF4OhWovsaF3r
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDAzMCBTYWx0ZWRfX7CwQ9odjSmuv
+ aG6KXAe85jM7FuFYDEjD9wSikvHnJkrFFzXhJ6MebAXvCwmneDHOddoKDy3w1yPJkaw064Yp6aL
+ nOzGw/efj93lrH86Y3pMCGhcdh2oidYNw736ykOoWMsZ6SE3n8fduoW31JjxS+T5OCgMnzBZDKm
+ fXlVfmGH7CvRJaCLZPPq5ooiF5pXWVAz3DBFhjfFP7JTZs/Zd9w6e90d+NQpU6B/NCHLmsuVrP0
+ p5KQz8V/H6ZtmS9PbWQH0psRz8gyPn5YcVEwwtKvuP5y/5fAqRWGL69t5jXw022Wjcg56yBmEGz
+ F6/akUYKXKDmieM/t7VxvL+ghqtBdq67Wk+7BzcTWX1RvlO6djfEFLe4ttxNnzrbAmApXsGEbZd
+ EFuvUHrS2EbRINq3vQhgtbz3LrVEnj/gOBFy32sAwWV6HgG56Fs44s8ldyuB2EuMxs0DLzO99uq
+ 0vGERq5HEVULAw+oylQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-24_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 impostorscore=0 phishscore=0 spamscore=0 clxscore=1015
+ suspectscore=0 bulkscore=0 lowpriorityscore=0 priorityscore=1501
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609240030
 
-On 9/23/26 19:45, Lorenzo Stoakes (ARM) wrote:
-> It only makes sense to manipulate VMA fields if a new VMA was allocated,
-> rather than merged.
+
+
+On 23/09/26 11:47 am, Mahanta Jambigi wrote:
+> The diag dump walks the socket hash table under a read_lock and dereferences
+> conn->lgr and conn->lnk. Two terminal teardown paths drop those references via
+> smc_conn_free() while the socket is still hashed:
 > 
-> VMA merging does not compare vm_ops or vm_private_data, so a merged VMA
-> keeps its own, which is also what the legacy f_op->mmap path does since it
-> never touches an existing VMA.
+>   - smc_conn_kill() -> smc_close_active_abort() -> smc_conn_free()
+>   - smc_close_passive_work() -> smc_conn_free()
 > 
-> Currently, these fields will get overwritten by whatever state is
-> established in the mmap_prepare hook, and if the VMA was merged,
-> vm_ops->mapped will not have been called, so this could destructively clear
-> existing state without replacing it with anything valid.
+> This allows the diag reader to dereference a freed lgr or lnk.
 > 
-> There is an implicit requirement that vm_private_data and vm_ops are
-> fungible across VMAs which means that losing the 'new' state is
-> fine.
+> Fix it by unhashing the socket before smc_conn_free() is called at the two
+> terminal teardown sites in smc_close.c.
 > 
-> However in this case the 'old' state is being overwritten by potentially
-> invalid 'new' state, so this must be rectified.
+> Additionally, smc_conn_abort() calls smc_conn_free() during early handshake
+> aborts while the socket remains hashed in SMC_INIT state. The
+> smc_listen_out_err() path leaves the socket hashed in SMC_CLOSED state after
+> smc_conn_abort() returns. Guard the conn/lgr/lnk inspection blocks in
+> __smc_diag_dump() by skipping them when the socket is in SMC_INIT or SMC_CLOSED
+> state.
 > 
-> Additionally constify have_mmap_prepare while here.
-> 
-> All existing in-tree users either derive state for the tree or are
-> unmergeable due to VMA flags, so this has no direct impact.
-> 
-> Fixes: c84bf6dd2b83 ("mm: introduce new .mmap_prepare() file callback")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Fixes: f16a7dd5cf27 ("smc: netlink interface for SMC sockets")
+> Fixes: 9dbe086c69b8 ("net/smc: fix invalid link access in dumping SMC-R connections")
+> Signed-off-by: Mahanta Jambigi <mjambigi@linux.ibm.com>
 > ---
-> Note that this is cc: stable to account for any possible back-ports that could
-> break it (unlikely)
-
-Does it mean that patches are on the way to mainline that will break it, but
-it's unlikely they will be backported? Or there are no such patches yet?
-Just curious... if it's the first case then with the amount of random stuff
-that goes to stable these days, I'd rather assume they could be backported
-at some point :)
-
-or out-of-tree modules which might be affected.
-
-That is never a concern, and even suggesting it can bring hch's wrath ;)
-
-Anyway,
-
-Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-
-
-> ---
->  mm/vma.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+> Changes in v5:
+> - guard conn/lgr/lnk blocks in __smc_diag_dump() with an
+>   (SMC_INIT || SMC_CLOSED) state check placed after the
+>   SMC_DIAG_FALLBACK nla_put; SMC_INIT can coexist with fallback
+>   (smc_sendmsg() MSG_FASTOPEN path), so the guard must not suppress
+>   the fallback reason
 > 
-> diff --git a/mm/vma.c b/mm/vma.c
-> index 9f0a0acf694a..6cde67883fb0 100644
-> --- a/mm/vma.c
-> +++ b/mm/vma.c
-> @@ -2849,7 +2849,7 @@ static unsigned long __mmap_region(struct file *file, unsigned long addr,
->  {
->  	struct mm_struct *mm = current->mm;
->  	struct vm_area_struct *vma = NULL;
-> -	bool have_mmap_prepare = file && file->f_op->mmap_prepare;
-> +	const bool have_mmap_prepare = file && file->f_op->mmap_prepare;
->  	VMA_ITERATOR(vmi, mm, addr);
->  	const pgoff_t anon_pgoff = addr >> PAGE_SHIFT;
->  	MMAP_STATE(map, mm, &vmi, addr, len, pgoff, anon_pgoff, vma_flags, file);
-> @@ -2892,7 +2892,7 @@ static unsigned long __mmap_region(struct file *file, unsigned long addr,
->  		allocated_new = true;
+> Changes in v4:
+> - dropped smc_conn_unhash() wrapper, conn->unhashed flag, and all
+>   changes to af_smc.c, smc.h, smc_core.c and smc_core.h;
+>   smc_unhash_sk() is already idempotent via sk_hashed(), so direct
+>   calls at the two teardown sites in smc_close.c are sufficient
+> - dropped the __smc_release() hunk: it needs no change since the
+>   subsequent unhash there is already a safe no-op
+> - fixed premature-unhash issue present in v3: smc_conn_free() must not
+>   unhash because smc_conn_abort() calls it before
+>   smc_switch_to_fallback() in both smc_listen_decline() and
+>   smc_connect_rdma() error paths; unhashing there would make live
+>   fallback sockets invisible to smcss
+> - likewise, the ISM/RDMA retry loops (smc_find_ism_v2_device_serv(),
+>   smc_find_rdma_v2_device_serv()) call smc_conn_abort() on a failed
+>   attempt and then smc_conn_create() on the next device; unhashing in
+>   smc_conn_free() would permanently hide the established connection from
+>   smc_diag since smc_conn_create() does not re-hash the socket
+> 
+> Changes in v3:
+> - redesigned as a single patch; dropped the lgr_lnk_lock spinlock
+>   approach and the 2-patch split
+> - fix is now at the socket hash layer: introduce smc_conn_unhash() with
+>   a per-connection unhashed flag; smc_conn_free() unhashes before dropping
+>   lgr/lnk refs, so any socket visible to the diag reader under the hash
+>   read_lock has valid conn->lgr and conn->lnk pointers
+> - __smc_release() updated to call smc_conn_unhash() for non-fallback
+>   sockets so the flag is honoured when smc_conn_free() already ran first
+> - smc_diag.c needs no changes; the hash read_lock invariant is
+>   sufficient without any per-connection lock in the dump path
+> - dropped the clcsock/mutex_trylock fix as that will be addressed separately
+> 
+> Changes in v2:
+> - this is v2 of the 2-patch series; the earlier submission was mislabelled
+>   [PATCH v3] but was in fact the first version sent to the list
+> - split into a 2-patch series; patch 1/2 adds per-connection lgr_lnk_lock
+>   infrastructure to smc_core, patch 2/2 fixes the diag dump path using it
+> - dropped lock_sock()/release_sock() from __smc_diag_dump(); v1 held the
+>   socket lock across all lgr/lnk dereferences, requiring the hash read_lock
+>   to be dropped and re-acquired around each socket
+> - dropped the restart-from-head loop in smc_diag_dump_proto(); the new
+>   design does not drop the hash read_lock mid-walk so the hlist truncation
+>   concern no longer applies
+> - dropped refcount_inc_not_zero() socket pinning from the dump loop for the
+>   same reason: the hash read_lock is now held for the full walk
+> - added per-connection lgr_lnk_lock spinlock to struct smc_connection;
+>   conn->lgr and conn->lnk are NULLed under this lock in smc_conn_free()
+>   before borrowed references are released, establishing the invariant: a
+>   non-NULL conn->lgr seen under lgr_lnk_lock guarantees the lgr is alive
+> - added lgr_lnk_lock to smc_switch_link_and_count() to protect the conn->lnk
+>   pointer swap from concurrent diag readers
+> - replaced mutex_lock() on clcsock_release_lock in smc_diag_msg_common_fill()
+>   with mutex_trylock(); mutex_lock() was valid in v1 because the hash
+>   spinlock had been dropped, but the new design holds the hash read_lock
+>   throughout so only a non-sleeping trylock is safe; a failed trylock leaves
+>   address fields zeroed, which is acceptable for a monitoring tool
+> - all conn->lgr and conn->lnk accesses in __smc_diag_dump() use a
+>   snapshot-then-use pattern: fields are copied into local stack variables
+>   under lgr_lnk_lock and nla_put() is called after releasing the lock,
+>   avoiding any sleeping operation under the spinlock
+> 
+>  net/smc/smc_close.c | 10 ++++++++++
+>  net/smc/smc_diag.c  |  4 ++++
+>  2 files changed, 14 insertions(+)
+> 
+> diff --git a/net/smc/smc_close.c b/net/smc/smc_close.c
+> index bb0313ef5f7c..3940098c651d 100644
+> --- a/net/smc/smc_close.c
+> +++ b/net/smc/smc_close.c
+> @@ -130,6 +130,11 @@ void smc_close_active_abort(struct smc_sock *smc)
+>  	struct sock *sk = &smc->sk;
+>  	bool release_clcsock = false;
+> 
+> +	/*
+> +	 * Unhash before any branch calls smc_conn_free() and drops lgr/lnk refs;
+> +	 * the diag reader must not see a hashed socket with freed lgr/lnk.
+> +	 */
+> +	sk->sk_prot->unhash(sk);
+>  	if (sk->sk_state != SMC_INIT && smc->clcsock && smc->clcsock->sk) {
+>  		sk->sk_err = ECONNABORTED;
+>  		if (smc->clcsock && smc->clcsock->sk)
+> @@ -433,6 +438,11 @@ static void smc_close_passive_work(struct work_struct *work)
+>  		sk->sk_state_change(sk);
+>  		if ((sk->sk_state == SMC_CLOSED) &&
+>  		    (sock_flag(sk, SOCK_DEAD) || !sk->sk_socket)) {
+> +			/*
+> +			 * Unhash before smc_conn_free() drops lgr/lnk refs so the diag
+> +			 * reader cannot see a hashed socket with freed lgr/lnk.
+> +			 */
+> +			sk->sk_prot->unhash(sk);
+>  			smc_conn_free(conn);
+>  			if (smc->clcsock)
+>  				release_clcsock = true;
+> diff --git a/net/smc/smc_diag.c b/net/smc/smc_diag.c
+> index bf0beaa23bdb..fb615d3af058 100644
+> --- a/net/smc/smc_diag.c
+> +++ b/net/smc/smc_diag.c
+> @@ -103,5 +103,8 @@ static int __smc_diag_dump(struct sock *sk, struct sk_buff *skb,
+>  	if (nla_put(skb, SMC_DIAG_FALLBACK, sizeof(fallback), &fallback) < 0)
+>  		goto errout;
+> 
+> +	if (sk->sk_state == SMC_INIT || sk->sk_state == SMC_CLOSED)
+> +		goto out;
+> +
+>  	if ((req->diag_ext & (1 << (SMC_DIAG_CONNINFO - 1))) &&
+>  	    smc->conn.alert_token_local) {
+> @@ -185,5 +188,6 @@ static int __smc_diag_dump(struct sock *sk, struct sk_buff *skb,
+>  			goto errout;
 >  	}
->  
-> -	if (have_mmap_prepare)
-> +	if (have_mmap_prepare && allocated_new)
->  		set_vma_user_defined_fields(vma, &map);
->  
->  	__mmap_complete(&map, vma);
 > 
-> ---
-> base-commit: fe2ec83746e501645709761605c2464a44fd2929
-> change-id: 20260923-fix-mmap-prepare-overwrite-6304d112a4c7
-> 
-> Best regards,
+> +out:
+>  	nlmsg_end(skb, nlh);
+>  	return 0;
 
+Reviewed-by: Sidraya Jayagond <sidraya@linux.ibm.com>
