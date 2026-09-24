@@ -1,84 +1,116 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCAFF226D05;
-	Thu, 24 Sep 2026 14:10:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2D02390205;
+	Thu, 24 Sep 2026 14:13:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790259030; cv=none; b=XVy7+Se9K5oSqRsfuLlMYet1sGc10/gxKavZn22cZdT/HiqjrEbACUbfRpkkOljRNz8x9vyZKHblWrxUOQLynnwNu01rIlufP5NWItD21MbcCOyKqfF4WAKm+TdeJOxFRbObyK8YZf/L8WkI4rsiTNRKjrZcMK+lO6dWX9ie9AU=
+	t=1790259233; cv=none; b=iXd6q9hpLfsOKFvfTiX1GpIvZ5fqpEecjQB0NQCaZ1cNHbIE6L3sLS4WOEZucoqUvHFlQ6ehKslYPft9Vk/mDR95HtIqtVLk1cyWBsuDgwS8urPupmVtCFROf0WpAVOIsp3WgJ2jpX+tRbYns4WwgDE+eADQ45HEYVdOzQO5e8w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790259030; c=relaxed/simple;
-	bh=aM1l7xWpk7Nk9FZ6Y4cSOcCke0Ue1Ak3K90xdmwzNUE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JyXtjhCmmvY3MxFefUbS2THvdP6EQgew+wGopfl82UlMPWYT7DFtmdRLaJhCqursQml5S5NgpilpWOEZOhCF341Nv2loE/ElG6aJbLtFHe0lfny9a6hAzz/peuH7/UD2MJxI6TGEQ4cyzrbUcx9vZzD2t8XZ3hpSQNvQP2rkewQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=tuPx3f7D; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1790259233; c=relaxed/simple;
+	bh=3V6zsaWZkV3AmfOkM4NDyGgnqhDAKaMMkVC3s8uT1Gg=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=LrfvBwYioWeN/wZNO5dP3Zi27CFurg1+xcrwBSbXkWtYwvw3KTnAxI8O2yQB20IxSJXeX8ZRxNDUDEt0co64WI6D6GWXz+y8KgKXonVGwuSNHAdWMnqROC+tv9TH9Vodt9eNUW+VhuR2g3ntxZsH0fsrzBHYVHpsBAVtMZDg48U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=R8OANUY2; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="tuPx3f7D"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
-	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
-	In-Reply-To:References; bh=EGjUVyBqiUHIChv/xiYG27ZIn2mAGCIWx0iT0s8Mbrc=; b=tu
-	Px3f7DqcaBG5pm8gODsd1RHxL1XmyRewbX51QApDoPZ2dKwuNQbjmny+NX38bhndBEwr61oQqHRcX
-	icQ+ncY8wYhlv3H4+38VmVNeA8aT5BwU+7f6Oeu75oWtDPHsyK6DW1US2zmqXY7aVOmC0UVAn7aR3
-	psntzXOz5LoYk90=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x9k9Y-0070YL-BH; Thu, 24 Sep 2026 16:10:24 +0200
-Date: Thu, 24 Sep 2026 16:10:24 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Aldo Ariel <qwe.aldo@gmail.com>
-Cc: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
-	maxime.chevallier@bootlin.com, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	sashiko-bot@kernel.org
-Subject: Re: [PATCH] net: stmmac: guard FCS stripping against runt frames
-Message-ID: <64d3ca1a-7218-4c90-a110-6ff7defb56ac@lunn.ch>
-References: <20260923162339.1375698-1-qwe.aldo@gmail.com>
- <arQ4dVkI9llhXCDx@lore-desk>
- <78724445-4c69-44fb-b82a-1f9275e37e9e@lunn.ch>
- <arTX2kNFGXLg7vdn@lore-desk>
- <8b3d8225-0d86-4e73-86c8-b7f644faef56@lunn.ch>
- <arUhV90af6coj2IK@lore-desk>
- <CAP48HfvkCNb2_UnpvTvn_O3K+vgtDK55JjXPBF0cbBrmb_6oCA@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="R8OANUY2"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=2k
+	1M6fx3ueANmn6GVVEI5evj18BpKqj4tThdWLwQKEA=; b=R8OANUY2yxQFPm7f58
+	y0cTmNza3Sa/QKJSgBsffyNjYfptVXwAzwlArVX9NNDf80bZNHWBMyhqznWaCHSV
+	J4ezlhIlu9beIzwZrxQWIDoEVDLkaEnXG1hY49uGVffm712V4pqsXHmClLS+ND1l
+	vlugIy260X5m078X2OoZ/4b00=
+Received: from pc.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wDXN8sIMLVqBMA4Ag--.5098S5;
+	Thu, 24 Sep 2026 22:13:33 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	Masaki Ota <masaki.ota@jp.alps.com>,
+	"Daniel M. Lambea" <dmlambea@gmail.com>,
+	David Barksdale <dbarksdale@uplogix.com>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Jiale Yao <yaojiale02@163.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 03/10] HID: cp2112: validate response report lengths
+Date: Thu, 24 Sep 2026 22:13:18 +0800
+Message-Id: <20260924141326.1154421-4-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260924141326.1154421-1-yaojiale02@163.com>
+References: <20260924141326.1154421-1-yaojiale02@163.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAP48HfvkCNb2_UnpvTvn_O3K+vgtDK55JjXPBF0cbBrmb_6oCA@mail.gmail.com>
+X-CM-TRANSID:_____wDXN8sIMLVqBMA4Ag--.5098S5
+X-Coremail-Antispam: 1Uf129KBjvJXoW7tF17uF48XF1fAF4kWrWrGrg_yoW8tFy8pa
+	95tFs5Gr4DJw1Ivwn3Jrs8C345AF1xJF47ury8G3WY9r1rCF1UCF1jgry0q398JFZ2q3sr
+	KrWqqw15GFWDuaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zR55rxUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8A4XUWq1MA5cRQAA3A
 
-On Thu, Sep 24, 2026 at 10:51:11AM -0300, Aldo Ariel wrote:
-> Hi Andrew, Lorenzo,
-> 
-> Fair point on the subject — the trigger is not limited to runt frames.
->  
-> The FCS stripping in stmmac_rx() at lines 5810-5817 runs on every
-> last-segment descriptor regardless of total frame size:
-> 
->     if (likely(!(status & rx_not_ls))) {
->         if (buf2_len) {
->             buf2_len -= ETH_FCS_LEN;
->         } else if (buf1_len) {
->             buf1_len -= ETH_FCS_LEN;
->         }
->     }      
->        
-> For a multi-descriptor frame, the last descriptor's buf2_len or
-> buf1_len carries only the tail of the frame. With the default
-> dma_buf_sz = BUF_SIZE_2KiB for MTU 1500, a 4097-byte frame splits as:
+The HID core invokes raw_event callbacks before validating the report
+length.  cp2112_raw_event() reads every field of a transfer status response
+without checking size.  For a data response, it reads the length at offset
+two and copies that many bytes from offset three, again without ensuring
+that the input report contains them.
 
-Is the MTU programmed into the hardware? Will it even try to transfer
-an 4097 octet frame when the MTU is configured to 1500?
+Require a complete transfer status structure.  For data responses, first
+require the header and then ensure the clamped payload length fits in the
+received report before copying it.
 
-   Andrew
+Commit 47669bec44fe ("HID: asus: refactor the two workqueues and init
+sequence") added the same kind of raw_event length validation to hid-asus.
 
+Fixes: e932d8178667 ("HID: add hid-cp2112 driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
+ drivers/hid/hid-cp2112.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
+diff --git a/drivers/hid/hid-cp2112.c b/drivers/hid/hid-cp2112.c
+index 04379db93571..6b938f75e72f 100644
+--- a/drivers/hid/hid-cp2112.c
++++ b/drivers/hid/hid-cp2112.c
+@@ -1430,6 +1430,9 @@ static int cp2112_raw_event(struct hid_device *hdev, struct hid_report *report,
+ 
+ 	switch (data[0]) {
+ 	case CP2112_TRANSFER_STATUS_RESPONSE:
++		if (size < sizeof(*xfer))
++			return 0;
++
+ 		hid_dbg(hdev, "xfer status: %02x %02x %04x %04x\n",
+ 			xfer->status0, xfer->status1,
+ 			be16_to_cpu(xfer->retries), be16_to_cpu(xfer->length));
+@@ -1463,11 +1466,16 @@ static int cp2112_raw_event(struct hid_device *hdev, struct hid_report *report,
+ 		atomic_set(&dev->xfer_avail, 1);
+ 		break;
+ 	case CP2112_DATA_READ_RESPONSE:
++		if (size < 3)
++			return 0;
++
+ 		hid_dbg(hdev, "read response: %02x %02x\n", data[1], data[2]);
+ 
+ 		dev->read_length = data[2];
+ 		if (dev->read_length > sizeof(dev->read_data))
+ 			dev->read_length = sizeof(dev->read_data);
++		if (dev->read_length > size - 3)
++			return 0;
+ 
+ 		memcpy(dev->read_data, &data[3], dev->read_length);
+ 		atomic_set(&dev->read_avail, 1);
+@@ -1494,4 +1502,3 @@ module_hid_driver(cp2112_driver);
+ MODULE_DESCRIPTION("Silicon Labs HID USB to SMBus master bridge");
+ MODULE_AUTHOR("David Barksdale <dbarksdale@uplogix.com>");
+ MODULE_LICENSE("GPL");
+-
+-- 
+2.34.1
 
