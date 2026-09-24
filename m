@@ -1,41 +1,41 @@
 Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D312338C421;
-	Thu, 24 Sep 2026 14:44:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 002A73CCFAF;
+	Thu, 24 Sep 2026 14:44:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790261086; cv=none; b=mLQZD8c9yi+AXVYc1UDyLIq4r1Y1LrfNNkbmto5hVUdTgtVNeuKA2TgRCZO0sF/s0S2Iegp9ptFYTtGp8BHZxjN3nbgISHF3F+bEZH/fvfYDIJIPLbF4V0TL+2OirnjrnytEBVvp5nmzuy9VlHdzv50kVHitN2IcnMqh37Wpd2w=
+	t=1790261087; cv=none; b=DPj/sgAyzNGb0OHp2pzFU/O0Gb6p0Mjtks1PfT0x26+vzvjLPMeTLCaBAzFc+nXnNz1YSmgSRlBblvH8mUOhFfxgH3Q5F6m1alDDiw2c8snI0ml+TNzver2gTqiPSluHbfXoC2KsuszACJT01WfSwIi5L34Sjq54hpPz6d5EtSQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790261086; c=relaxed/simple;
-	bh=HXm1yorfvdGtaMEBU6GpbVck/uABmJb16a14ZL/lNTY=;
+	s=arc-20240116; t=1790261087; c=relaxed/simple;
+	bh=cztF09N+3wyfNtfZwVMPnNEUWplO8pYv7+uEbrMz/1Y=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=HInjlltYvX2U9Q/1sTlUZR/2xl+XXY9CgG5DFA2j8DfLoX0KiR5wR8eoAzhNK2QGaUylnmYWhjfA+braj1b7qY8dhhExhDOg36XfwZc0YSDNbMF0iqzZxn6riaRADrjbCz5zZ5Pom0QJ11sWtKkAIAvJ9AL8suuofUsOHAcDEUg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=HGOaoGOd; arc=none smtp.client-ip=117.135.210.4
+	 MIME-Version; b=eeJOlm3FE/W4LmxleZFl5l+pRImmHcKkVTeUYQFpc7/Gxwtg3+5AUezR4RHPf0ZJk/ZXvy5637SVbhLNEE9pHq+VcikOMrGSX1A0Nr0gKHaoNtkVx0J6Taq7g+KZUT/Pn4hiSUBcgHwhZOI1i/OGnrm5eVo4POV6WdCIh42Rrb0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=g19wLnoO; arc=none smtp.client-ip=117.135.210.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="HGOaoGOd"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="g19wLnoO"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=yJ
-	vO0Bk4vmm7stk9qO/JlCSbCGgN6pBCu9S63MWOT60=; b=HGOaoGOdpyXRs6K+f1
-	SZMmBZr+cxTO9wDdcwSQkYct3wYYZK1ibVKJec5fddEFoUgzUi4vb1ZUMpVg6vgS
-	y+EcVyrDKOzCNaFlP7jc2V5Zm5kQ5wyoIOsyuYGUF96W6UBoi7W7roVyz/HbmA9w
-	wYNGS6fZGQmvNDThJTWl0JtCE=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=pO
+	K9Z15/6NeZFY3XKFZNY5eck7brRsBImPrG/E/vqOA=; b=g19wLnoOvUjv+b2sls
+	A3PvY9s1pxQhPs1NzIMf+E6z7Z2n+Sjyz2pMyaIzZ5y1Bdg2IqpqmRYIcy0tysC9
+	GRzcZiC5qKeILYDk7fjFctEKOJq9S/cI2Oo4/t90NXnUqJS3RX78x+LvtMArZfzx
+	cjnOibTRCq53/NAkeoW8crfQU=
 Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wD330ZHN7VqyTtKAg--.25624S3;
-	Thu, 24 Sep 2026 22:44:27 +0800 (CST)
+	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wD330ZHN7VqyTtKAg--.25624S6;
+	Thu, 24 Sep 2026 22:44:30 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
 To: Jiri Kosina <jikos@kernel.org>,
 	Benjamin Tissoires <bentiss@kernel.org>,
-	Masaki Ota <masaki.ota@jp.alps.com>,
+	Jiri Slaby <jirislaby@kernel.org>,
 	linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: Jiale Yao <yaojiale02@163.com>,
 	stable@vger.kernel.org
-Subject: [PATCH 01/10] HID: alps: reject short input reports
-Date: Thu, 24 Sep 2026 22:44:04 +0800
-Message-Id: <20260924144414.1192037-2-yaojiale02@163.com>
+Subject: [PATCH 04/10] HID: elo: reject short touchscreen reports
+Date: Thu, 24 Sep 2026 22:44:07 +0800
+Message-Id: <20260924144414.1192037-5-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260924144414.1192037-1-yaojiale02@163.com>
 References: <20260924144414.1192037-1-yaojiale02@163.com>
@@ -46,68 +46,45 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD330ZHN7VqyTtKAg--.25624S3
-X-Coremail-Antispam: 1Uf129KBjvJXoW7uFykJF47CF1UAr1fKryxuFg_yoW8ur1DpF
-	Z5Gr95trW5tr1fZFWjqrn8Ca4ayryxXryxXFy7K34I9w15X34UuF109ryFvr4a9r48Krsx
-	Kr4q9FnYk3WDZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0z_eHqUUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8AvnImq1N0v2vQAA3W
+X-CM-TRANSID:_____wD330ZHN7VqyTtKAg--.25624S6
+X-Coremail-Antispam: 1Uf129KBjvJXoW7urWxCw1DGFW7WFy8JF47urg_yoW8JFyxpr
+	Z3JF90kw47Jr4xuw4UKa1kua4Y9wn5JrWfuFyfGw1agw15AF9agFWYk34Y9ryrJFZ5Kwn3
+	ta1DtrZ3Ca4j9a7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRjQ6JUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8A7oI2q1N073CAAA3s
 
-The HID core invokes a driver's raw_event callback before validating the
-report length.  Both ALPS input parsers therefore need to validate size
-before accessing their fixed-format reports.
+The HID core invokes raw_event callbacks before validating the report
+length.  elo_raw_event() only checks the first-byte packet marker before
+elo_process_data() reads coordinates, flags, and pressure through offset
+seven.  A truncated packet beginning with the expected marker can therefore
+cause an out-of-bounds read.
 
-t4_raw_event() casts the buffer to struct t4_input_report and reads its
-contacts and button.  u1_raw_event() reads five bytes per configured finger
-starting at offset three, or six bytes for a stick report.  A short report
-can make either parser read beyond the valid data.
-
-Reject reports that do not contain all fields used by the selected parser.
+Require the complete eight-byte SmartSet packet before parsing it.
 
 Commit 47669bec44fe ("HID: asus: refactor the two workqueues and init
 sequence") added the same kind of raw_event length validation to hid-asus.
 
-Fixes: 2562756dde55 ("HID: add Alps I2C HID Touchpad-Stick support")
-Fixes: 73196ebe134d ("HID: alps: add support for Alps T4 Touchpad device")
+Fixes: d23efc19478a ("HID: add driver for ELO 4000/4500")
 Cc: stable@vger.kernel.org
 Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- drivers/hid/hid-alps.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ drivers/hid/hid-elo.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/hid/hid-alps.c b/drivers/hid/hid-alps.c
-index 67179e3fe39b..b1950aff6ad4 100644
---- a/drivers/hid/hid-alps.c
-+++ b/drivers/hid/hid-alps.c
-@@ -322,7 +322,7 @@ static int t4_raw_event(struct alps_dev *hdata, u8 *data, int size)
- 	int i;
- 	struct t4_input_report *p_report = (struct t4_input_report *)data;
- 
--	if (!data)
-+	if (size < sizeof(*p_report))
+diff --git a/drivers/hid/hid-elo.c b/drivers/hid/hid-elo.c
+index b8f5f3eb53a4..86e8729e1975 100644
+--- a/drivers/hid/hid-elo.c
++++ b/drivers/hid/hid-elo.c
+@@ -85,6 +85,9 @@ static int elo_raw_event(struct hid_device *hdev, struct hid_report *report,
+ 	if (!(hdev->claimed & HID_CLAIMED_INPUT) || list_empty(&hdev->inputs))
  		return 0;
- 	for (i = 0; i < hdata->max_fingers; i++) {
- 		x = p_report->contact[i].x_hi << 8 | p_report->contact[i].x_lo;
-@@ -370,6 +370,9 @@ static int u1_raw_event(struct alps_dev *hdata, u8 *data, int size)
- 		break;
- 	case U1_ABSOLUTE_REPORT_ID:
- 	case U1_ABSOLUTE_REPORT_ID_SECD:
-+		if (size < 3 + hdata->max_fingers * 5)
-+			return 0;
+ 
++	if (size < ELO_SMARTSET_PACKET_SIZE)
++		return 0;
 +
- 		for (i = 0; i < hdata->max_fingers; i++) {
- 			u8 *contact = &data[i * 5];
+ 	hidinput = list_first_entry(&hdev->inputs, struct hid_input, list);
  
-@@ -407,6 +410,9 @@ static int u1_raw_event(struct alps_dev *hdata, u8 *data, int size)
- 		return 1;
- 
- 	case U1_SP_ABSOLUTE_REPORT_ID:
-+		if (size < 6)
-+			return 0;
-+
- 		sp_x = get_unaligned_le16(data+2);
- 		sp_y = get_unaligned_le16(data+4);
- 
+ 	switch (report->id) {
 -- 
 2.34.1
 
