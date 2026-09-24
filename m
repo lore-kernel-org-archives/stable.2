@@ -1,342 +1,134 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AB304A840C
-	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 16:03:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCBC24A9D62
+	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 16:05:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790265785; cv=none; b=Uln/aLpKFUZNRgSauDtmCH5CSwMmdXvY0eBAzYG2lUFjupRITbVF++1rxADRB+dokdJ6nIyGZEkuO6Lai8d2WrFGLQWRNHGkMx6jjhUkraDkZlL5gUbagTr9lWgKDRntn9OiOLOV+kDcFt4g3UfGERH6K0YwWpW8GNKn/02nAzw=
+	t=1790265925; cv=none; b=Ac3JULfvWIZ/2uzJQ0qQahBKLazW2yGnNK4fiDHs1sn/oaY5538/2KoFu5Un5+mmkslbZe/Md0QtfQu+PxowTahUVXCOzxRRiRhdU5B8fiv3eB7reV3suMrKZ5y50t+YZQk4ix1dfYUbVwdmQxdtq9miKOUJ7F6cn0hWzvyh62E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790265785; c=relaxed/simple;
-	bh=PI9WxX6Hs5eY3/prLxsCB7uv//MkTGW3D6wACjsV1kY=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:Subject:Cc:To:
-	 References:In-Reply-To; b=rEA77gQK7kLoWRisbCjtaba/pDckrKMEKRxg0Bl8ADXY75uGh7Yq2LqED9lrqmSdFVDJxRU0aEB7ay4q8wGaWWH+K6gjzCDooKWS+Pg56/sa41oErW4ZIRftAlDnG//nEBZI4NOZitNjBWj54Rw051vex3+tjXWXRiaa/2jtQU8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=SuLCfYj/; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790265925; c=relaxed/simple;
+	bh=ikXMgmXHONWXYFYrMoc05cqE3qRXFvvliZBDSOJzrak=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=D3DYUcKfpC+A3BJ9h5FG3bWmMWlpbAPTj/cJyQyqzXoLVR6x1/wGFtC0k/9laxm0A7rCIGCxY+wfdkBFitDWVSNcvKJ6NVu/guMRG+WQrSj9I9cia3rPds3HtFIxTnrw3dLKVlhbngCq7sjIHqzbIBGYc9q5RpkO+l7DxogyeOo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jR58+ES4; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="SuLCfYj/"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 75C091A1002;
-	Thu, 24 Sep 2026 16:03:00 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 3D98460738;
-	Thu, 24 Sep 2026 16:03:00 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id CF6FF10329450;
-	Thu, 24 Sep 2026 18:02:48 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790265774; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=31Pz2WasmTyS3PmhBsofr0EqPzewlEwdRxWXsLlXZes=;
-	b=SuLCfYj/neF5rxoOvPNano4rwpDWS6duqjGHsPBzLtp81Fz9eqg+oFdX0UgpyNJB4OE21S
-	gbto5FmCL5NVm5xQQ3hueTQs0RWwXdt2T9zUK/I/jKM148CL2VU1+dME4ivRrJPHrjQgLx
-	id4jL61W+fde7/wUFBZn+wUE4C2Pob7SnojogOTmSRudI5hbP7NWYXFLn3FunM8rZ9ygsK
-	kSPh+Pb4aRdHsgcArr5O+C+ABfx2XQgJ44gk7EGszW+oTZJknJoCEgs0el6Cgh8WEps+4X
-	sIp1+NfX24FY+bMHTOJbpAh0FnpxJTgwo4ke7Gp/EJ9NKDYLctDwUGTyGdaGQw==
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jR58+ES4"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccd5cf02so26263a91.3
+        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 09:05:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790265921; x=1790870721; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=0MSHTGjNK+jZgiSFsmQTMaSs2OTjPQCQBd2UwSTXfYI=;
+        b=jR58+ES481tNIBZMkFyT8Cnhz8Sq0hacKrg8PBI4sD4PqF7NFzUBRE9xkBZoZH29IL
+         qX82KTmFLAL034bwG+8k/nruP/bBdhC/E4l+8r7vdTwbvVPjiacFVemFkumfpm+JS9TH
+         bjHEuUmmbeC2PK7ZxJ7ewYJswwxyWNqaVyXVDhEOBq2sgCK9BRVzd25kXr5y7VKZd4xK
+         lg1hKSX65O+gwmMzrAz8p48NHSa9xDIaOZQ2Ed4ijfcaxd/B6Q+089af5Zg8uGxFSTKo
+         QTucBGpkBG1iybK8rtlCZq4vAJx3gdXvcn9+dIMhpj0t1GnxIRQoxGEycr7KbiDvZ/ZA
+         sejg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790265921; x=1790870721;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0MSHTGjNK+jZgiSFsmQTMaSs2OTjPQCQBd2UwSTXfYI=;
+        b=mS4xk+mxbc567HjAeSscSPSYFQAHBXfgP9xIg4IdDF38pRUERl/vVJbQ8XP9tuka5U
+         x5nV66aItzLSXi+ZWdVipRHoYLafg38I24NiPzmifxe3R1T04BpO6PSAJ7xz/TTcDT2c
+         iFCCpU42AZYKoomBuhrM28PlXt66fv4hRnWLx0Gkbp8prpwhY8vmid+0sG+ZatcTXWKk
+         Ls5ERguWmos/EK4wVmD+aA90K84FisXW0a33K/zPwAVTYiUIYwqOhSjiFaVX9bAH0EDO
+         UpJiswx6ohZ1G+6Eu+Ihfi5E38/XMkmn23SFlVPvINxT+5Artndv/Hmp/sYSkS4AVnAS
+         P/FQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwz0YtbT1BCvgbrPACMRYv/Ju9spPqhXNLhHegHHw72Yu1bVe/XbzgI0hqK32r7YqengcUvwY4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mUZC4ffkH2hU8hljftXG4Zq4uEXqkKmxKfNWSW2c/6+J6sXmZe
+	W5ble3KIAinDOXrOxE2huROlMAnPIovUzP+BBBI8P9IhD5MNuiq0ihbH
+X-Gm-Gg: AYBFou0M9vYszq+qg3PrJLT8HXyWdNutSZuzii9JyuIAkM9bRej3muoBsBPsrQW2q8e
+	kXx5Nnw1PevRlugt7UBJGWjXZ3j+yPhLQTdwQYRJrJPKJIXebBcez02HapFMqky0fLekR/CRUAA
+	GsHRpG9k0X51H/+Xb80LABF/W3pKk9bgr+OODhfcggz+jU7DJw6YFrozY04mkDlvUxif7n5eytL
+	pOuf7Izq6SLwoye6np3eg68OCMH7CUlaXZ10aUDn2Wiovi1YLqq3sjaaq5bSbhZ9QBEgBoHYsQs
+	JRhr5TKUbrMbnB5Lf10V2dFHk3tVlsdR19E81R0w9Rx4RaNG2gAK/uPAwZnNBPwCYdM71eCqqu3
+	6OypPABja/Hugl5RZveyNYx35WQHBApvgV3Cumly/QpYTdiaX7Lme9SlVn5x85GXp0dyOpG3Bbc
+	RZDG3/CH+wkSkCbfD2hTkiNUHaw3sqr2MLLULNNIc2qINI9jchF5OVU9cN+bRuS+iIG64BuZQl+
+	rETMVK2oDer
+X-Received: by 2002:a17:90a:b81:b0:3a0:abc3:afb5 with SMTP id 98e67ed59e1d1-3a0abc3c2a8mr650385a91.34.1790265920942;
+        Thu, 24 Sep 2026 09:05:20 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc75f3f5e79sm2965662a12.25.2026.09.24.09.05.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 09:05:20 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Thu, 24 Sep 2026 09:05:19 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Jiale Yao <yaojiale02@163.com>
+Cc: Aleksa Savic <savicaleksa83@gmail.com>, Jack Doan <me@jackdoan.com>,
+	linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] hwmon: (aquacomputer_d5next) reject short status reports
+Message-ID: <7b40ae2e-57d8-44f7-9791-ac65a3e97290@roeck-us.net>
+References: <20260924151121.1233666-1-yaojiale02@163.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 24 Sep 2026 18:02:48 +0200
-Message-Id: <DLNO9025LKHA.YJ9XCMRCRF52@bootlin.com>
-From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
-Subject: Re: [PATCH net 3/3] net: macb: quiesce IRQs and drain BH on
- interface close
-Cc: <conor.dooley@microchip.com>, <andrew+netdev@lunn.ch>,
- <davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
- <pabeni@redhat.com>, <horms@kernel.org>, <nicolas.ferre@microchip.com>,
- <sean.anderson@linux.dev>, <atenart@kernel.org>, <linux@armlinux.org.uk>,
- <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>, <nb@tipi-net.de>,
- <vladimir.kondratiev@mobileye.com>, <gregory.clement@bootlin.com>,
- <tawfik.bayouk@mobileye.com>, <thomas.petazzoni@bootlin.com>,
- <maxime.chevallier@bootlin.com>, <stable@vger.kernel.org>
-To: <netdev-bot+sashiko@kernel.org>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260918-macb-close-v1-3-05e32ce98813@bootlin.com>
- <179010942347.2160803.5970158668197373074@kernel.org>
-In-Reply-To: <179010942347.2160803.5970158668197373074@kernel.org>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924151121.1233666-1-yaojiale02@163.com>
 
-Hello netdev-bot+sashiko,
+On Thu, Sep 24, 2026 at 11:11:21PM +0800, Jiale Yao wrote:
+> The HID driver raw_event callback runs before HID core validates the
+> received report length.  aqc_raw_event() reads device-specific status
+> fields at fixed offsets, including multi-byte values, without checking
+> that the received buffer contains the complete report.  A truncated status
+> report can therefore cause out-of-bounds reads and update hwmon state with
+> data beyond the received report.
+> 
+> Reject status reports shorter than the length derived from their report
+> descriptor before accessing any fields.  Commit 47669bec44fe ("HID: asus:
+> refactor the two workqueues and init sequence") added equivalent raw-event
+> length validation to hid-asus.
+> 
+> Fixes: 0e35f63f7f4e ("hwmon: add driver for Aquacomputer D5 Next")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jiale Yao <yaojiale02@163.com>
+> ---
+>  drivers/hwmon/aquacomputer_d5next.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/hwmon/aquacomputer_d5next.c b/drivers/hwmon/aquacomputer_d5next.c
+> index 1ca70e726298..1ebc8bc4c090 100644
+> --- a/drivers/hwmon/aquacomputer_d5next.c
+> +++ b/drivers/hwmon/aquacomputer_d5next.c
+> @@ -1331,6 +1331,8 @@ static int aqc_raw_event(struct hid_device *hdev, struct hid_report *report, u8
+>  
+>  	if (report->id != STATUS_REPORT_ID)
+>  		return 0;
+> +	if (size < hid_report_len(report))
+> +		return 0;
 
-On Tue Sep 22, 2026 at 10:37 PM CEST,  wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
->
-> Critical: 0 =C2=B7 High: 0 (2) =C2=B7 Medium: 1 (1) =C2=B7 Low: 0
->
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->
-> - [Medium] macb_close() now calls macb_quiesce_start() (synchronize_irq()
->   on every queue IRQ, cancel_work_sync(&bp->hresp_err_bh_work),=E2=80=A6
->
-> Pre-existing issues:
-> - [High] macb_suspend()/macb_resume() still open-code the per-queue
->   napi_disable()/napi_enable() loops without setting/clearing=E2=80=A6
-> - [High] macb_set_ringparam() calls macb_close() and then macb_open()
->   while discarding macb_open()'s return value and always returning 0.
-> - [Medium] bp->hresp_err_bh_work and bp->tx_lpi_work are initialized by
->   INIT_WORK()/INIT_DELAYED_WORK() only *after* register_netdev() in=E2=80=
-=A6
->
-> --
->
-> net: macb: quiesce IRQs and drain BH on interface close
->
-> This adds macb_quiesce_start()/macb_quiesce_end() helpers plus a new
-> bp->irq_quiesced flag so that macb_interrupt() self-disarms while the
-> interface is down, and reorders macb_close() to drain IRQs, the two work
-> items, NAPI and the LPI delayed work in a defined order. macb_open() uses
-> the same helpers on its success and error paths.
->
-> A few questions below.
->
->> diff --git a/drivers/net/ethernet/cadence/macb.h b/drivers/net/ethernet/=
-cadence/macb.h
->> index cfaa0ca49f1a..1cb2778fe49e 100644
->> --- a/drivers/net/ethernet/cadence/macb.h
->> +++ b/drivers/net/ethernet/cadence/macb.h
->> @@ -1382,6 +1382,11 @@ struct macb {
->>  	struct delayed_work	tx_lpi_work;
->>  	u32			tx_lpi_timer;
->> =20
->> +	/* ISR must not drive NAPI & BH mechanisms. True when the interface
->> +	 * is closed. Protected by bp->lock.
->> +	 */
->> +	bool			irq_quiesced;
->> +
->>  	int	rx_bd_rd_prefetch;
->>  	int	tx_bd_rd_prefetch;
->> =20
->> diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethe=
-rnet/cadence/macb_main.c
->> index c418f859cc34..75bbde81d62c 100644
->> --- a/drivers/net/ethernet/cadence/macb_main.c
->> +++ b/drivers/net/ethernet/cadence/macb_main.c
->> @@ -1995,6 +1995,53 @@ static int macb_tx_poll(struct napi_struct *napi,=
- int budget)
->>  	return work_done;
->>  }
->> =20
->> +static void macb_quiesce_start(struct macb *bp)
->> +{
->> +	struct macb_queue *queue;
->> +	unsigned long flags;
->> +	unsigned int q;
->> +
->> +	spin_lock_irqsave(&bp->lock, flags);
->> +	bp->irq_quiesced =3D true;
->> +	spin_unlock_irqrestore(&bp->lock, flags);
->> +
->> +	for (q =3D 0, queue =3D bp->queues; q < bp->num_queues; ++q, ++queue)
->> +		synchronize_irq(queue->irq);
->> +
->> +	cancel_work_sync(&bp->hresp_err_bh_work);
->
-> [Severity: Medium]
-> This isn't a bug introduced by this patch, but can this cancel_work_sync(=
-)
-> run on a work_struct that has not been initialized yet?
->
-> In macb_probe(), register_netdev() happens before the two work items are
-> set up:
->
-> 	err =3D register_netdev(netdev);
-> 	if (err) {
-> 		dev_err(&pdev->dev, "Cannot register net device, aborting.\n");
-> 		goto err_out_free_tieoff;
-> 	}
->
-> 	INIT_WORK(&bp->hresp_err_bh_work, macb_hresp_error_task);
-> 	INIT_DELAYED_WORK(&bp->tx_lpi_work, macb_tx_lpi_work_fn);
->
-> The queue IRQ handlers were already installed earlier by
-> macb_init_dflt()'s devm_request_irq(..., macb_interrupt, ...), and
-> register_netdev() publishes the device, so an 'ip link set up' racing wit=
-h
-> the tail of probe can reach macb_open() -> macb_quiesce_end(), which clea=
-rs
-> bp->irq_quiesced. From there an HRESP interrupt would let
-> macb_interrupt_misc() do queue_work(system_bh_wq, &bp->hresp_err_bh_work)
-> on a zeroed work_struct whose ->func is NULL, and macb_close() or the
-> macb_open() error path would call cancel_work_sync() /
-> cancel_delayed_work_sync() on the same uninitialized objects.
->
-> The pre-existing macb_close() already had the cancel_delayed_work_sync() =
-on
-> bp->tx_lpi_work, so this only widens an existing window. Would moving bot=
-h
-> INIT_WORK()/INIT_DELAYED_WORK() calls ahead of macb_init()/register_netde=
-v()
-> be reasonable?
+That doesn't ensure that the report is not at least as long as accessed
+later in the function, and thus does not fix anything. The same applies
+to the other patch.
 
-This race is out of this world, but does technically exist.
-Let's fix it anyway.
+A proper fix would be to ensure that size is at least as long as accessed
+in the function. hid_report_len() does not and can not know that value.
+It is purely driver specific.
 
->> +
->> +	for (q =3D 0, queue =3D bp->queues; q < bp->num_queues; ++q, ++queue) =
-{
->> +		/* Must be done before NAPI is disabled: the task ends with a
->> +		 * napi_enable() call.
->> +		 */
->> +		cancel_work_sync(&queue->tx_error_task);
->> +
->> +		napi_disable(&queue->napi_rx);
->> +		napi_disable(&queue->napi_tx);
->> +	}
->> +
->> +	/* Must be done after napi_tx is disabled: its completion re-arms
->> +	 * the LPI timer.
->> +	 */
->> +	cancel_delayed_work_sync(&bp->tx_lpi_work);
->> +}
->> +
->> +static void macb_quiesce_end(struct macb *bp)
->> +{
->> +	struct macb_queue *queue;
->> +	unsigned long flags;
->> +	unsigned int q;
->> +
->> +	for (q =3D 0, queue =3D bp->queues; q < bp->num_queues; ++q, ++queue) =
-{
->> +		napi_enable(&queue->napi_rx);
->> +		napi_enable(&queue->napi_tx);
->> +	}
->> +
->> +	spin_lock_irqsave(&bp->lock, flags);
->> +	bp->irq_quiesced =3D false;
->> +	spin_unlock_irqrestore(&bp->lock, flags);
->> +}
->> +
->>  static void macb_hresp_error_task(struct work_struct *work)
->>  {
->>  	struct macb *bp =3D from_work(bp, work, hresp_err_bh_work);
->> @@ -2137,8 +2184,8 @@ static irqreturn_t macb_interrupt(int irq, void *d=
-ev_id)
->>  	spin_lock(&bp->lock);
->> =20
->>  	while (status) {
->> -		/* close possible race with dev_close */
->> -		if (unlikely(!netif_running(netdev))) {
->> +		/* self-disarm while the netdev is closed */
->> +		if (unlikely(bp->irq_quiesced)) {
->>  			queue_writel(queue, IDR, -1);
->>  			macb_queue_isr_clear(bp, queue, -1);
->>  			break;
->
-> [Severity: High]
-> This is a pre-existing issue, but does the new gating condition need a
-> companion change in macb_suspend()/macb_resume()?
+Also, the code added in commit 47669bec44fe is:
 
-Pre-existing. Similarly to HRESP task, the infra will be put in place
-and reusable to fix the suspend path which needs to shutdown all BH
-features, even in WOL case.
+        if (size < 2) {
+                hid_dbg(hdev, "Unexpected keyboard report size %d\n", size);
+                return 0;
+        }
 
-[...]
+which makes sense because asus_raw_event() never accesses more than two bytes
+in the report. The statement "Commit 47669bec44fe ("HID: asus: refactor the two
+workqueues and init sequence") added equivalent raw-event length validation
+to hid-asus" is either hallucinated or intentionally misleading.
 
->> @@ -3155,8 +3202,6 @@ static int macb_open(struct net_device *netdev)
->>  {
->>  	size_t bufsz =3D netdev->mtu + ETH_HLEN + ETH_FCS_LEN + NET_IP_ALIGN;
->>  	struct macb *bp =3D netdev_priv(netdev);
->> -	struct macb_queue *queue;
->> -	unsigned int q;
->>  	int err;
->> =20
->>  	netdev_dbg(bp->netdev, "open\n");
->> @@ -3180,10 +3225,7 @@ static int macb_open(struct net_device *netdev)
->>  		goto free_rings;
->>  	macb_init_buffers(bp);
->> =20
->> -	for (q =3D 0, queue =3D bp->queues; q < bp->num_queues; ++q, ++queue) =
-{
->> -		napi_enable(&queue->napi_rx);
->> -		napi_enable(&queue->napi_tx);
->> -	}
->> +	macb_quiesce_end(bp);
->> =20
->>  	macb_init_hw(bp);
->> =20
->> @@ -3210,11 +3252,10 @@ static int macb_open(struct net_device *netdev)
->>  	phy_power_off(bp->phy);
->> =20
->>  reset_hw:
->> +	/* The netdev stays down: quiesce and drain, as macb_close() does. */
->> +	macb_quiesce_start(bp);
->> +
->>  	macb_reset_hw(bp);
->> -	for (q =3D 0, queue =3D bp->queues; q < bp->num_queues; ++q, ++queue) =
-{
->> -		napi_disable(&queue->napi_rx);
->> -		napi_disable(&queue->napi_tx);
->> -	}
->>  free_rings:
->>  	macb_free(bp);
->>  pm_exit:
->
-> [Severity: High]
-> This is a pre-existing issue, but does the new reset_hw path make the
-> macb_set_ringparam() failure case worse?
-
-We ignore macb_set_ringparam() close/open when netif_running() because
-we know what the right solution is (context swapping) and it's coming.
-One step at a time.
-
-[...]
-
->
->> @@ -3225,19 +3266,17 @@ static int macb_open(struct net_device *netdev)
->>  static int macb_close(struct net_device *netdev)
->>  {
->>  	struct macb *bp =3D netdev_priv(netdev);
->> -	struct macb_queue *queue;
->>  	unsigned long flags;
->>  	unsigned int q;
->> =20
->> -	netif_tx_stop_all_queues(netdev);
->> +	macb_quiesce_start(bp);
->> =20
->> -	for (q =3D 0, queue =3D bp->queues; q < bp->num_queues; ++q, ++queue) =
-{
->> -		napi_disable(&queue->napi_rx);
->> -		napi_disable(&queue->napi_tx);
->> +	/* Drain the BH contexts before stopping the queues: NAPI completion
->> +	 * and tx_error_task wake them up.
->> +	 */
->> +	netif_tx_stop_all_queues(netdev);
->> +	for (q =3D 0; q < bp->num_queues; ++q)
->>  		netdev_tx_reset_queue(netdev_get_tx_queue(netdev, q));
->> -	}
->> -
->> -	cancel_delayed_work_sync(&bp->tx_lpi_work);
->
-> [Severity: Medium]
-> Moving netif_tx_stop_all_queues() after the whole quiesce sequence looks
-> fine for the ndo_stop path, where the core already ran
-> dev_deactivate_many() so no xmit can happen. Is it also safe for the dire=
-ct
-> caller?
-
-Again, context swapping is the solution. Sashiko complains the
-close/open dance in set_ringparam is unsafe, but anyway before this
-series macb_close() is super race sensitive and we fix it here. One
-step at a time.
-
-[...]
-
-Thanks,
-
---
-Th=C3=A9o Lebrun, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
+Guenter
