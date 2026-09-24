@@ -1,101 +1,155 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E62BF483BF9;
-	Thu, 24 Sep 2026 15:11:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD2F83A1696;
+	Thu, 24 Sep 2026 15:11:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790262719; cv=none; b=Oko/FesTwU6e6VpbBokXky/YYH4X9oYzIgwm1efIbuS2C4qAxUN8vLbbFB8roWlTJaMVFD+PxUfgN1SVJauetddjv3ppIYxd4LvrSnrZcRyuXfXqtaozCQdNxQH0vZWdjabXkIQLaR1LOX2w+FpG+IfSoqh1nZJwtGehk1Hr6Ww=
+	t=1790262722; cv=none; b=fkIWSvfHhe/WOLzQ+cg+8Za4rrL6Vz6cpvFIFWJkHJ7wY6B2yeLTVf5BGkE/DlzirmXGJpYD8aiUw+O3P884JbVzv66bi66NS1vuvMnGVwQ4/8AUfs3JBIm5pq6hBEETqlwru52EaSx29xxTSIMuD6JytTilJdfTS4oYhICd6PI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790262719; c=relaxed/simple;
-	bh=z1fVKQyG3kFh+BFPM+VltqdXwbHV1NcguUr7+MG39BI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=jnq7BOPvS/ABZvKw7mdsLN2qeLHHJEik7VTFRniAJpaTCqa1NZwjd/eGDqx2HukYKgi0WXvO4PKfzNHWU2TP2CRL70lRMiYsGBZPpvG7U16dqwqQoCOQRqVXdtjkz4pivN0JoyMF1aRF5AfAc256BOhcrtIUH9Yz0fVF560JkgA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=G3JVPnOD; arc=none smtp.client-ip=117.135.210.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790262722; c=relaxed/simple;
+	bh=ZykuZkJ4JL+Et9AOMagm3MkYCr3EzzexzQ4kmYPzF2Q=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=kbnlbfwG8MEqZlF/kZxsTSIbCKQFTHkJEM5NoEQCLScyexJy4tAdW8grAQsnsPOTuCOn19KKMHELAJ9OwCMADAIzOPDic7IQvS8u4tGzas6SxusTzEbVifzDl7FfG+UzsCQZar01XJpFY5DdzxJcIY6kLliZXARRir//qtGdUNY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=WsVmNySU; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="G3JVPnOD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=1v
-	f4XxP+OrgVyIzX4zJp2UaohykwkBrQmwM0c+DeFPE=; b=G3JVPnODi6U5Gwo8yS
-	af5kZXjuEODqDcYd5Dc1l8WxeDhFhk/rGPxne2Xod0GvicxPCxqfHRQFlVAQrv/+
-	VIp6naP6MkOcZwilKXU8KVvJgqPKzXrHx7q7FeS+Dct49E1KkscyerbnlhNpboUQ
-	F/1i8q2A7efZfWKBq+LibaWeU=
-Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wDnP2imPbVq6eE9Ag--.8701S2;
-	Thu, 24 Sep 2026 23:11:35 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Aleksa Savic <savicaleksa83@gmail.com>,
-	Guenter Roeck <linux@roeck-us.net>,
-	linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Jiale Yao <yaojiale02@163.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] hwmon: (gigabyte_waterforce) reject short input reports
-Date: Thu, 24 Sep 2026 23:11:32 +0800
-Message-Id: <20260924151133.1233860-1-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="WsVmNySU"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 46647C211E7;
+	Thu, 24 Sep 2026 15:12:43 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id ADB6C60341;
+	Thu, 24 Sep 2026 15:11:55 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3CA5F103293D8;
+	Thu, 24 Sep 2026 17:11:44 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790262710; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=eL6oLqTGeMgwRc+mGLllj+d8cQJlbDrWIsv/RTygnkc=;
+	b=WsVmNySUi/GaEvuAJLoHJce4dzMcNEzJ+YZ+jBptYPB3p9G0ORgDPl2fGtFTSmpt4bKhr9
+	QWYLg49IqpaynIRLGbbkKqhssfezt2yJnxtcq3DLwgIcOBkYO/cXxebSPKv+m6VJnE+D6W
+	iVKKz15yQAyEoHT3pRD2MqdftLuzPWqIePkKR04THJIVYhNT5R05aCIWQHRB1YSC4BpYyC
+	21/uUfKyUrZkNGANEg+Ci+CzUDnOT0M7FoEJfM2QQLGFW7U01pzG1LzM1yG9BE9PxF5cRN
+	pO3zr2HZZwrcN//jqo3XjqrzqIPfVbTMmYllSJ8SNwy+7g5LkVDoFiCAuujfFw==
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDnP2imPbVq6eE9Ag--.8701S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7CFWUCF4UCr18JFW7ZFWfuFg_yoW8ury5pF
-	W5AFsxtrWUtrWfXr1DJa1UZFy5XF1rJrW3Wry0939YqF1UCry5WFyI9rZYqwsY9rWrKrsI
-	ga18tw1fKFyqyaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pi3l1DUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzgeAumq1PafViwAA3o
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 24 Sep 2026 17:11:43 +0200
+Message-Id: <DLNN5W7M505X.TWFOK1HD0CQL@bootlin.com>
+Subject: Re: [PATCH net 1/3] net: macb: never give hardware a NULL RX buffer
+Cc: <conor.dooley@microchip.com>, <andrew+netdev@lunn.ch>,
+ <davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
+ <pabeni@redhat.com>, <horms@kernel.org>, <nicolas.ferre@microchip.com>,
+ <sean.anderson@linux.dev>, <atenart@kernel.org>, <linux@armlinux.org.uk>,
+ <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>, <nb@tipi-net.de>,
+ <vladimir.kondratiev@mobileye.com>, <gregory.clement@bootlin.com>,
+ <tawfik.bayouk@mobileye.com>, <thomas.petazzoni@bootlin.com>,
+ <maxime.chevallier@bootlin.com>, <stable@vger.kernel.org>
+To: <netdev-bot+sashiko@kernel.org>
+From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260918-macb-close-v1-1-05e32ce98813@bootlin.com>
+ <179010942002.2160803.8691011751847108495@kernel.org>
+In-Reply-To: <179010942002.2160803.8691011751847108495@kernel.org>
+X-Last-TLS-Session-Version: TLSv1.3
 
-The HID driver raw_event callback runs before HID core validates the
-received report length.  waterforce_raw_event() reads the command bytes
-and then accesses fixed offsets for firmware or status data without any
-length checks.  A truncated report can therefore cause out-of-bounds reads
-and update hwmon state with data beyond the received report.
+Hello netdev-bot+sashiko,
 
-Require both command bytes before identifying a report, then check the
-minimum length needed by the firmware and status paths before accessing
-their payloads.  Commit 47669bec44fe ("HID: asus: refactor the two
-workqueues and init sequence") added equivalent raw-event length
-validation to hid-asus.
+On Tue Sep 22, 2026 at 10:37 PM CEST,  wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential
+> issue(s) to consider.
+>
+> Critical: 0 =C2=B7 High: 2 =C2=B7 Medium: 0 =C2=B7 Low: 0
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>
+> - [High] gem_init_rx_ring()
+>   (drivers/net/ethernet/cadence/macb_main.c:2793) now sets=E2=80=A6
+> - [High] gem_init_rx_ring() now publishes MACB_BIT(RX_USED) on every RX
+>   descriptor of a queue, resets queue->rx_tail/rx_prepared_head and then=
+=E2=80=A6
+>
+> --
+>
+> net: macb: never give hardware a NULL RX buffer
+>
+> This makes gem_init_rx_ring() set the RX_USED bit on every RX descriptor
+> before calling gem_rx_refill(), so that a refill that fails part way
+> through does not leave descriptors owned by hardware while their skb
+> pointers are still NULL.  The change affects macb_open(), macb_resume(),
+> the HRESP error recovery path and set_ringparam().
+>
+>> diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethe=
+rnet/cadence/macb_main.c
+>> index b8234ac4b602..751fa9e68099 100644
+>> --- a/drivers/net/ethernet/cadence/macb_main.c
+>> +++ b/drivers/net/ethernet/cadence/macb_main.c
+>> @@ -2785,9 +2785,14 @@ static int macb_alloc(struct macb *bp)
+>> =20
+>>  static void gem_init_rx_ring(struct macb_queue *queue)
+>>  {
+>> +	unsigned int i;
+>> +
+>>  	queue->rx_tail =3D 0;
+>>  	queue->rx_prepared_head =3D 0;
+>> =20
+>> +	for (i =3D 0; i < queue->bp->rx_ring_size; i++)
+>> +		macb_rx_desc(queue, i)->addr |=3D MACB_BIT(RX_USED);
+>> +
+>
+> [Severity: High]
+>
+> Does RX_USED now carry two different meanings that the RX consume path
+> cannot tell apart?
+>
+> gem_rx() uses RX_USED at queue->rx_tail as the only indication that
+> hardware delivered a frame, and it has no bound against
+> queue->rx_prepared_head:
 
-Fixes: 42ac68e3d4ba ("hwmon: Add driver for Gigabyte AORUS Waterforce AIO coolers")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
----
- drivers/hwmon/gigabyte_waterforce.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Yes that is correct! We can fix that using our cursors
+rx_tail/rx_prepared_head that tell us which descriptors were
+reallocated properly.
 
-diff --git a/drivers/hwmon/gigabyte_waterforce.c b/drivers/hwmon/gigabyte_waterforce.c
-index 4eea05f8b569..9499cb274cbd 100644
---- a/drivers/hwmon/gigabyte_waterforce.c
-+++ b/drivers/hwmon/gigabyte_waterforce.c
-@@ -257,8 +257,14 @@ static int waterforce_raw_event(struct hid_device *hdev, struct hid_report *repo
- {
- 	struct waterforce_data *priv = hid_get_drvdata(hdev);
- 
-+	if (size < sizeof(get_status_cmd))
-+		return 0;
-+
- 	if (data[0] == get_firmware_ver_cmd[0] && data[1] == get_firmware_ver_cmd[1]) {
- 		/* Received a firmware version report */
-+		if (size <= FIRMWARE_VER_START_OFFSET_2)
-+			return 0;
-+
- 		priv->firmware_version =
- 		    data[FIRMWARE_VER_START_OFFSET_1] * 10 + data[FIRMWARE_VER_START_OFFSET_2];
- 
-@@ -269,6 +275,8 @@ static int waterforce_raw_event(struct hid_device *hdev, struct hid_report *repo
- 
- 	if (data[0] != get_status_cmd[0] || data[1] != get_status_cmd[1])
- 		return 0;
-+	if (size <= WATERFORCE_TEMP_SENSOR)
-+		return 0;
- 
- 	priv->temp_input[0] = data[WATERFORCE_TEMP_SENSOR] * 1000;
- 	priv->speed_input[0] = get_unaligned_le16(data + WATERFORCE_FAN_SPEED);
--- 
-2.34.1
+IE in gem_rx() we stop once `queue->rx_tail =3D=3D queue->rx_prepared_head`=
+.
+
+[...]
+
+> [Severity: High]
+>
+> Is any exclusion against a running RX poll needed here now that the whole
+> ring is published as RX_USED?
+>
+> macb_hresp_error_task() runs from system_bh_wq, masks queue interrupts,
+> clears RE/TE, and then calls mog_init_rings() with no napi_disable(), no
+> napi_synchronize() and no lock:
+
+This is a known race, but we won't fix it in this series. And in
+particular it is completely unrelated to this first patch.
+
+It is semi-related to the last patch that puts in place the mechanisms
+that could be reused to fix macb_hresp_error_task(). But again, not
+here, not today.
+
+[...]
+
+Thanks,
+
+--
+Th=C3=A9o Lebrun, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
