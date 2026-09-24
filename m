@@ -1,30 +1,30 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4615B423EBA;
-	Thu, 24 Sep 2026 14:13:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E7A3396B9A;
+	Thu, 24 Sep 2026 14:14:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790259242; cv=none; b=FFAzEe9Ud+3PQzzSYCseuDPUbujgJGdf1q5BoubmNhnXsRXvcW7dZ41V4Unob6IgBxq+kR9J4Puqn2CpO+Na1kSn0fC9wazYm86kh3vLIhtAOIRGPCnyuQeZaqZDl8bAo998wM56cQeKpECn7Jaa++BdbDZNQI8g4UttUPJmQms=
+	t=1790259248; cv=none; b=QsVLyq5MbGEfPjDFe3CkWrwYf9moIYts7J+zRGr7ZzQ89HUfcu4hNQaT/KO9vzhxOZy4cSBPdKmGebGpl1fe/vRlfWKmsIsfPzw2TsuboJjmrW8Nuq+mi3msPYO2xvMupF5YTut6BsZuDnwSUA3j0mc1Ioa32+ecjG8axU7Ymk8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790259242; c=relaxed/simple;
-	bh=B8hVzjIIeFEIT3s8OsymYvSH9nBBah61MIi7JDClqpE=;
+	s=arc-20240116; t=1790259248; c=relaxed/simple;
+	bh=v4HnElppdkTTpGF5YsiZmpQYv9wwlkRxdY/XfeU1KGI=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=dlytOiH4keZj+x1rOOV49cf0+cy0+HJDXF+SHuwMD/kJLM7VpOJpry+0Eyv55nPHUWJp89xqMzTAOxhQx08WDaJIVax2vzo9rajovXU4K3ACYv4jJ8cZUk0WteWc4I34vfqIv2Fnp6MdueRGdgG+w12+L9EQ2cej4Y9mkTaqzKM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=RgOMvD7X; arc=none smtp.client-ip=220.197.31.4
+	 MIME-Version; b=OpwmLKYVPcKdRnAGeqMERm5PO8+2+wzpZcFCdiAffu1AyIEJIL6za4SlcZbk148v7U/+TtybTHwfSsy00skSHWBUwvdwHLPJBWF+8iY/hbFMy3FKu87bZ0vqrEROKUZ4smh3pdlNSVK6/ea1S/T0M1QsTdBuwvQbCak3crR6eL8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=f/yJUAwz; arc=none smtp.client-ip=220.197.31.2
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="RgOMvD7X"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="f/yJUAwz"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=MO
-	WH0Vxv02bgZyLOaScalkxEhV5/qrIuKTys05vj4rQ=; b=RgOMvD7Xfnp550RNqc
-	+oqf/YzVohDsA/NO5GHzRsyhjRcpjfYS0bPnkEVf0XXMOf/7onF0RFgPLupq8cAc
-	BSKPjpm6fSw7idkedtcdBRRVITXjxT+ppLIdnrN/aC7tLy/87Tw7bR4/ELlf82b1
-	/30E+5/paXWt5Fvr18d5+06h8=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=8X
+	smbpeUSmHxHlokK/RMK/RB2b9+QB57A5De1YNTHJk=; b=f/yJUAwzfrggUeg24d
+	ZMoWFFHqy834fq06U0i3+Mthb3qqmDfEB/PmfGshCCDQ/4xPR6u3JXe7gYmyjB2X
+	PSP72go3t6HeRQZXcUbZ68MiVic841zj0SnbgkVT10BD9bgeJ6aKlq1wE5XQaSRU
+	ZEmGCZJOQ0fqvOmi2SX9rqGMA=
 Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wDXN8sIMLVqBMA4Ag--.5098S10;
-	Thu, 24 Sep 2026 22:13:39 +0800 (CST)
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wDXN8sIMLVqBMA4Ag--.5098S12;
+	Thu, 24 Sep 2026 22:13:42 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
 To: Jiri Kosina <jikos@kernel.org>,
 	Benjamin Tissoires <bentiss@kernel.org>,
@@ -35,9 +35,9 @@ To: Jiri Kosina <jikos@kernel.org>,
 	linux-kernel@vger.kernel.org
 Cc: Jiale Yao <yaojiale02@163.com>,
 	stable@vger.kernel.org
-Subject: [PATCH 08/10] HID: prodikeys: validate fixed-format MIDI reports
-Date: Thu, 24 Sep 2026 22:13:23 +0800
-Message-Id: <20260924141326.1154421-9-yaojiale02@163.com>
+Subject: [PATCH 10/10] HID: zydacron: validate key report length
+Date: Thu, 24 Sep 2026 22:13:25 +0800
+Message-Id: <20260924141326.1154421-11-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260924141326.1154421-1-yaojiale02@163.com>
 References: <20260924141326.1154421-1-yaojiale02@163.com>
@@ -48,51 +48,53 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDXN8sIMLVqBMA4Ag--.5098S10
-X-Coremail-Antispam: 1Uf129KBjvJXoW7CF1UGFWrKF13Gw1UCFWfXwb_yoW8Xw18pF
-	yDtF4q9rWDJr4fuw17CF18Xa4rtw1kGFsruFW0yas09w15u3WUGrW0gas0grZ5ZrWktrZa
-	yw4kXrn3Ca1DZaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRm9a9UUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzRQZU2q1MBRFWwAA32
+X-CM-TRANSID:_____wDXN8sIMLVqBMA4Ag--.5098S12
+X-Coremail-Antispam: 1Uf129KBjvJXoW7uw47tF43Aw4fJr18KF1rJFb_yoW8GFWkpF
+	ZxKrZ0yFW5trWfuw15GF4rJa4jkF1vqw12qasxKw109w15ZFyUGrW29F90qr1rXFsYyr9x
+	KF4qqwnxCry0va7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pij-eOUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzRYZU2q1MBZFqAAA3F
 
 The HID core invokes raw_event callbacks before validating the report
-length.  Prodikeys reports 0x01 and 0x04 are passed to handlers that always
-read bytes one through three, regardless of the supplied size.  A truncated
-report can therefore cause an out-of-bounds read.
+length.  zc_raw_event() verifies the report ID in byte zero and then reads
+the key code from byte one for report IDs 0x02 and 0x03 without checking
+that the second byte is present.
 
-Require four bytes for the two fixed-format reports.  Keep report 0x03 on
-its existing variable-length path, which derives the number of note pairs
-from size and only accesses complete pairs.
+A one-byte report reproduced the issue under KASAN:
+
+  BUG: KASAN: slab-out-of-bounds in zc_raw_event+0x54c/0x580
+  Read of size 1 by task hidtrigger/93
+  Call Trace:
+   zc_raw_event+0x54c/0x580
+   __hid_input_report+0x2ef/0x3a0
+   inject_store+0x479/0x490 [faketrans]
+
+Require both the report ID and key code before processing the report.
 
 Commit 47669bec44fe ("HID: asus: refactor the two workqueues and init
 sequence") added the same kind of raw_event length validation to hid-asus.
 
-Fixes: 3a370ca1dcf8 ("HID: Prodikeys PC-MIDI HID Driver")
+Fixes: d0742abaa1c3 ("HID: add omitted hid-zydacron.c file")
 Cc: stable@vger.kernel.org
 Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- drivers/hid/hid-prodikeys.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/hid/hid-zydacron.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/hid/hid-prodikeys.c b/drivers/hid/hid-prodikeys.c
-index fba01e4fcab1..bf5add40d3e1 100644
---- a/drivers/hid/hid-prodikeys.c
-+++ b/drivers/hid/hid-prodikeys.c
-@@ -772,8 +772,13 @@ static int pk_raw_event(struct hid_device *hdev, struct hid_report *report,
- 		if (report->id == data[0])
- 			switch (report->id) {
- 			case 0x01: /* midi keys (qwerty)*/
--			case 0x03: /* midi keyboard (musical)*/
- 			case 0x04: /* extra/midi keys (qwerty)*/
-+				if (size < 4)
-+					break;
-+				ret = pcmidi_handle_report(pm, report->id,
-+							   data, size);
-+				break;
-+			case 0x03: /* midi keyboard (musical)*/
- 				ret = pcmidi_handle_report(pm,
- 						report->id, data, size);
- 				break;
+diff --git a/drivers/hid/hid-zydacron.c b/drivers/hid/hid-zydacron.c
+index 1aae80f848f5..02de153d5628 100644
+--- a/drivers/hid/hid-zydacron.c
++++ b/drivers/hid/hid-zydacron.c
+@@ -114,6 +114,9 @@ static int zc_raw_event(struct hid_device *hdev, struct hid_report *report,
+ 	unsigned key;
+ 	unsigned short index;
+ 
++	if (size < 2)
++		return 0;
++
+ 	if (report->id == data[0] && (hdev->claimed & HID_CLAIMED_INPUT)) {
+ 
+ 		/* break keys */
 -- 
 2.34.1
 
