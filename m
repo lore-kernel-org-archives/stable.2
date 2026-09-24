@@ -1,204 +1,150 @@
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+Received: from mail-yx1-f69.google.com (mail-yx1-f69.google.com [74.125.224.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1329C496D5B
-	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 13:45:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790257522; cv=pass; b=rLJNd+GVxw8PpD4+FFvLqBom0iSxZVGQ/eDMhw2bVESp6gT/oFRpm2m+vksH3qs6aiivMR1k7nhpvAF8xgnwjr8Hix3hUxoX5giiRymWAhiQCwoEuXwfws90r4GYT+LR1nN8lfs6bej1olLxiCOqJdWuKU7kjOsog/AQJUod8m4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790257522; c=relaxed/simple;
-	bh=jZQJkk3KHNIcE56oWvAfHwi1YqZoDB4/A8UkPIGIqKc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jpSISQ7StzEZXiDIBr9bpkj0uErpDRw268cgWxxacYtVAVyU2m+EUCGZAJIZlM2cVXlOJOJG6P9/JE7YxzkYiwG+9rWyT8BijWIV1qD1y1w6eu47kGoV0RZ+rPS9/5mK5ww1rK6B/g1a4Q+ob2MhfkblOpDfYU2nwSCJBMO4R8c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AkFm5kJP; arc=pass smtp.client-ip=74.125.224.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D07AD305699
+	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 13:47:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.69
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790257655; cv=none; b=bNrOdjO6I79tUsZRAKPvDxrW7yn4njaNwdFu78Omb1KGtTtAHM3mCwE2WRudiaV3njmkAT5OvI3CVzK9rSvnMksNkVi3nvIU8IMTo1eOxXpmJUEcWvAsR+t9N1Jv/uxetTbs2CUQNJqf2m929RcG/c8+89w9Pn1iTQykPl438Gw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790257655; c=relaxed/simple;
+	bh=XViOdXX0ciytSS1KgoYGFljV8PYMENTtMf4j9QFe7Ro=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=NDoYw+1KxFVMSvaIshto3gYx1mcervlxzRuvX4Psz44+Y1qrhbxJX9xU3H9AAUroE2cnAjwUtH50696BqjFNS6N4K1SkoaRYaZ1GajKFUKvxoyIu9YV5nwdNQWKL0J/2+UQqgCbRwm5zhGVxYtPHTij3fzLt69IjRa6bdDvMBp0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--edumazet.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=UEe9ENY3; arc=none smtp.client-ip=74.125.224.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--edumazet.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AkFm5kJP"
-Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66e4aa8d881so2190726d50.1
-        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 06:45:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790257515; cv=none;
-        d=google.com; s=arc-20260327;
-        b=jdlVnbLjJiZNSwZbJqIbOoi+J13juvt5HfpUOZ+hcpVC7EniXHu+SXCYXbhDIbIg3I
-         eKhiCwaQq5NLAGNFZeFqEOJEW0okcN+Id5z9KusPKFzRrOiGxVY4t9L0+il3QytbrMyL
-         BnoI7rQBqJcYqH945TtCRL0lgEJrn3Ojc63qinTB8uMUU+K7TYGRwzSRluEsAFeL6def
-         wvySPAFLSvSVWN+/UwMbHPFP4kplhMT++CUYNDw82QtHtaICSR8AKBKfMwmOVsRDPMIs
-         n9WIm5aRbS12yX3WsNGBGgDEgEfAN3YRJcReHDVQzQC76+AiWWoxqOMEC+usywlSpxf7
-         8VHw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=FNNubV5ejx2bLbWQoB8ueW+/fkh0ACbiMkvSyTP+9DI=;
-        fh=agakoqKwVTBWVGtsoAsMCx2V37PPbCb9EGYw6zrTLPk=;
-        b=C5Btc9ltJsQq8JxxxbZsgmQdzMpSJlONISxo8TnOZHG96Dfyg16RUkZGRDSXyCuCu4
-         mdc+zeUOH3igzf5h767BtlXzocLOFqee4+Jn1TeMkw47NbFueuOw2v9uMOTqp8Y8JU/6
-         rLScV+2AwRcXFh+gdxDFkT4Ku5UQ6UymnxwZWTrMWqUuDbleZ2i654GvEPn6gVhqrV4X
-         K+Z4zOMDa4pv/I5TPvFnwsi7t7wbi7epM603XbeNl/+Yu7+3QUpjH6wCMsVXVMzwYXrN
-         zDg/jn4W4R8diSWZ/3Vje0gitz2oaDtseEYVrRo9wZUaEFrBMrUGALjZ9pVGGi4yxPH2
-         Y9fA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="UEe9ENY3"
+Received: by mail-yx1-f69.google.com with SMTP id 956f58d0204a3-672e7c0d4d4so1870554d50.0
+        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 06:47:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790257515; x=1790862315; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1790257653; x=1790862453; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=FNNubV5ejx2bLbWQoB8ueW+/fkh0ACbiMkvSyTP+9DI=;
-        b=AkFm5kJPBWhEpym/Od1w9XRnCnR2bocmI+klD0GK7b8Ymlb9HOoL+GMivc3IJ2AE6X
-         yRt/DNeQika1XXDo/czBrYXzdZb6HDOgQR10fHCltgK+GmHC9QQFH/rkjoIPLSgTxcq2
-         K9WCyA2S0TswE4QOnbm8M8Jd2gcFpzFgRPW5jxL27QWTt3m3ukGYrd0mlTzVimC0spcf
-         zf/yxUrJSqwBwpTSfjKDSDqb8KSKNhGIxG/jjBNKJVfEdflNU1zW7taNbJxwXq1bVd5I
-         M/DF7KvXoJu7JFf2Knd2ebcNlDeD8eIM8pcFVLnun4yvyE8Qu27ajYBQl4Nv6Vm7HwNB
-         gYpQ==
+        bh=sB4Dtj6n9lKc7hOiK2+Yd/RhFtCYkxmiDn4ArhaQY/w=;
+        b=UEe9ENY3IBJKD05W0reGl7cvrOtdLVf5duRXanipPzMnM5RpmUWoxytM+G1zaLFsZH
+         6apBixt7FjL3KkYeOU1RfkQ7A+5gh68PeddR4x3mqMXvYsQ1H/BtT4AF8p8bKUl6LH3R
+         YUV9nqZcQGMhih5pR2g5/arDH5QBs5C6CEPs5VTyD44YFTk8NpA+YhFBt4GX84lgAB0K
+         sTzfOazfNpI1zTQJ8dpxwBlk7p6DGWUoEXzF+KYUCmd78H0oQqYXw3k1MISscoAmebxN
+         b9YghpIeiYT0WiE1Eeq4qH71jIHjWW3btepziSh5s1JMRZ5uMNhIzLZiPeEVxgeqeVwn
+         WtAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790257515; x=1790862315;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=FNNubV5ejx2bLbWQoB8ueW+/fkh0ACbiMkvSyTP+9DI=;
-        b=Pvf/f6H8Ho/xeXWbZ1leyLstEkYwwA/dawUBG1zsXd0H/pH7Ez+XcWBZH76kQ0aK/S
-         rH8IC+xxnCFOpivJW0XQ4oluP0DAYCLmL/tNTpZHapbfWcA24VzoaDK5J2q3n4a0cJ82
-         L/nQ7rSFxqL9AUXbBG8o+LKXoRB2xST3d430MwCv8wFnUXq3wJ0bad5WdIrDnBaESczL
-         iXu+e/kfjULrKYPoadv6wCQVhnuDJXoO+DW9fsFLZJsLmtjo6Z2nlGhBYMdHCR51GdrF
-         eEmMbPpzzCw1AH8bJFkbV+vBTKOEWV1xSb3Y195OfF1/HtTlpT6q4mNGXm4U58iRR3fo
-         ECCA==
-X-Gm-Message-State: AFuF++nlJ3IZJISiYTtA5/qrDCzExBbHRagraQMNQmW77SPHcLU+S7E9
-	D82efmtZPu8IcQNqeFU4cDpbcsFqo6Lb/Es8ZFrKFnCW8V2LNinrwBcA2Izkvs1g5NDWqgWIRpu
-	H/uFS248DytbbV6HerqgoHmiCMycT4sw=
-X-Gm-Gg: AYBFou0nwpyRqy0KHWzolSSUoa9lHNsxLAUZl4+t5CZwAhwKKr8mBCdqto5thVtNuAQ
-	2g8Ki8a8e1e+Zg9Q/JhrrkISGry1XB4gjE/8+l8ZUDFVC3ctscU5lHoLpm7PCzGAQe7SEikSsfA
-	bCoBmvfT1WVst4PXZeLbInjoMzjmsyJiuzac86zRCV7tb3vnDq1KbQ4oQ2BYcjfzXZV1UIEsBDg
-	1zGk2kxgnFAFGmQFO/Ip1Y7J/oU/vzYwESdrgOUZU2q6okGCOHWk/H5hHsB1ZM3QTHBb77cxk7O
-	gu8RfGnjSqy++HKhitzMDdiSQsLoDNKQN28K7m2UgSot91fmKyYwRiCdNQ==
-X-Received: by 2002:a05:690e:118e:b0:672:d609:6bfe with SMTP id
- 956f58d0204a3-672ed32167bmr1527450d50.39.1790257515508; Thu, 24 Sep 2026
- 06:45:15 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790257653; x=1790862453;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sB4Dtj6n9lKc7hOiK2+Yd/RhFtCYkxmiDn4ArhaQY/w=;
+        b=hvGZZh6UoHVoOL5b4P+nFBpI0O+SIuUIehuqE0KuQra0benCvnpmlYwKvRGnjivzRJ
+         kufPiJnr0VoDzm86aGf3E9ItmjMKlXdNprSlH+igGC8tuwDsW1TNcEq5F6GFSJeP8vD3
+         o03y4mTOQLaDInynlqPodKL63ickH32bjQNFI0WTDfpjZJtIOk97W3Q60pi+Au/xu6sV
+         kuwzDEnkqzo21Jk6OQFuLaP/N/gSCte1Kg4bTPmxi4kVBwctmC+7ndBOEB2giORsDeGO
+         kVffPBOfhDJKjMeF7CxTRTJzKlB5X4zJyyHjCqKj6dxLfu1T2PpXgpXbCN4SUI2xItJB
+         6gcQ==
+X-Forwarded-Encrypted: i=1; AKwUvByEJ/zCjc2vd+ZULpdVVvivqAZuK1Pfa/HiIxLw0MDBNX1ozLuWxXA4jfVTfLgzNvE+iKw6ZTg=@vger.kernel.org
+X-Gm-Message-State: AFuF++nTNFsQyulwYpoDG7DQM4Q8Xx6EJV0QGo0Z/zcxn4yct6+CeJLV
+	MNgzaGdO04XmK2mVa+W8R2BpY3Ht3BzAD2ftnp/8rMtyu25DrgjO/gM0qRYHCAeomd+vhbqpTH1
+	x6Vw8409sV6/0sQ==
+X-Received: from qvc20.prod.google.com ([2002:a05:6214:8114:b0:914:1e09:3805])
+ (user=edumazet job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:690e:134c:b0:673:a6e4:cb7f with SMTP id 956f58d0204a3-673a6e4ceddmr410567d50.29.1790257652495;
+ Thu, 24 Sep 2026 06:47:32 -0700 (PDT)
+Date: Thu, 24 Sep 2026 13:47:21 +0000
+In-Reply-To: <20260924134729.2047213-1-edumazet@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260921073847.63505-1-lgs201920130244@gmail.com>
- <dd60ce64-4af1-479e-99d3-1787a06da882@intel.com> <CANUHTR9F+D1C49MLiiy5z1snyKtbBtdU1cnuhsgr0cysp+yOcQ@mail.gmail.com>
- <af20eb97-2fca-4ab9-9759-90b210b34802@intel.com>
-In-Reply-To: <af20eb97-2fca-4ab9-9759-90b210b34802@intel.com>
-From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Thu, 24 Sep 2026 21:45:05 +0800
-X-Gm-Features: AclHuK-k2HlTZ7P5DTUJL2j0cqyTUAaIHPGi3MajOMUrhuB7BSfKPVp4d38KpIc
-Message-ID: <CANUHTR99pQfVVjNiQbVFQ9y9EAgTgxu6WbdSAcMxpWHJJuTJJg@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: Intel: SST: fix platform device leak on probe failure
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Cc: stable@vger.kernel.org, Liam Girdwood <liam.r.girdwood@linux.intel.com>, 
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, 
-	Bard Liao <yung-chuan.liao@linux.intel.com>, 
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, Mark Brown <broonie@kernel.org>, 
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Thorsten Blum <thorsten.blum@linux.dev>, 
-	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+Mime-Version: 1.0
+References: <20260924134729.2047213-1-edumazet@google.com>
+X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
+Message-ID: <20260924134729.2047213-2-edumazet@google.com>
+Subject: [PATCH v2 net-next 1/9] dlm: fix send buffer backpressure handling
+From: Eric Dumazet <edumazet@google.com>
+To: "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>, Neal Cardwell <ncardwell@google.com>, 
+	Kuniyuki Iwashima <kuniyu@google.com>, Willem de Bruijn <willemb@google.com>, netdev@vger.kernel.org, 
+	eric.dumazet@gmail.com, Eric Dumazet <edumazet@google.com>, stable@vger.kernel.org, 
+	Alexander Aring <aahringo@redhat.com>, David Teigland <teigland@redhat.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Hi Czarek,
+lowcomms.c tests and clears SOCKWQ_ASYNC_NOSPACE in con->sock->flags,
+but this bit has not been stored there for ten years.
 
-Thanks for the clarification.
+Commit 9cd3e072b0be ("net: rename SOCK_ASYNC_NOSPACE and
+SOCK_ASYNC_WAITDATA") mechanically renamed the two dlm users, then
+commit ceb5d58b2170 ("net: fix sock_wake_async() rcu protection") moved
+the bit from socket->flags to the RCU protected socket_wq->flags, where
+it is reachable only through sk_set_bit() and sk_clear_bit(), and is
+only maintained for sockets having SOCK_FASYNC set.  dlm uses kernel
+sockets, which never have SOCK_FASYNC set, and never sets the bit
+itself, so the test in send_to_sock() has been false ever since.
 
-On Wed, 23 Sept 2026 at 16:15, Cezary Rojewski
-<cezary.rojewski@intel.com> wrote:
->
-> On 9/22/2026 10:17 AM, Guangshuo Li wrote:
-> > Hi Czarek,
-> >
-> > Thanks for the review.
->
-> >>> @@ -361,15 +362,21 @@ static int sst_acpi_probe(struct platform_device *pdev)
-> >>>
-> >>>       ret = sst_platform_get_resources(ctx);
-> >>>       if (ret)
-> >>> -             return ret;
-> >>> +             goto err_unregister_mdev;
-> >>>
-> >>>       ret = sst_context_init(ctx);
-> >>>       if (ret < 0)
-> >>> -             return ret;
-> >>> +             goto err_unregister_mdev;
-> >>>
-> >>>       sst_configure_runtime_pm(ctx);
-> >>>       platform_set_drvdata(pdev, ctx);
-> >>>       return ret;
-> >>> +
-> >>> +err_unregister_mdev:
-> >>> +     platform_device_unregister(mdev);
-> >>> +err_unregister_plat_dev:
-> >>> +     platform_device_unregister(plat_dev);
-> >>> +     return ret;
-> >>>  }
-> >>
-> >> Looks like sst_acpi_remove() does not unregister the devices either.
-> >> That could be fixed by enlisting devm_add_action_or_reset() in
-> >> sst_acpi_probe() without altering sst_acpi_remove() at all.
-> >>
-> >> Would you mind sending a separate patch updating the function so both
-> >> the error path and the driver-unload clean up the device objects?
-> >>
-> >>
-> >> Kind regards,
-> >> Czarek
-> >
-> > I'll update the title to:
-> >
-> > ASoC: Intel: atom: Fix platform device leak on probe failure
-> >
-> > and trim the commit message as suggested, including the
-> > s/machine drivers/machine board/ change. I'll also add your Reviewed-by.
-> >
-> > For the separate cleanup patch, do you mean something like this?
-> >
-> > +static void sst_unregister_platform_device(void *data)
-> > +{
-> > +        platform_device_unregister(data);
-> > +}
-> > +
-> >         plat_dev = platform_device_register_data(...);
-> >         if (IS_ERR(plat_dev))
-> >                 return PTR_ERR(plat_dev);
-> > +
-> > +       ret = devm_add_action_or_reset(dev, sst_unregister_platform_device,
-> > +                                      plat_dev);
-> > +       if (ret)
-> > +               return ret;
-> >
-> >         ...
-> >
-> >         mdev = platform_device_register_data(...);
-> >         if (IS_ERR(mdev))
-> >                 return PTR_ERR(mdev);
-> > +
-> > +       ret = devm_add_action_or_reset(dev, sst_unregister_platform_device,
-> > +                                      mdev);
-> > +       if (ret)
-> > +               return ret;
-> >
-> > This would let devres clean up both devices on later probe failure and on
-> > driver unload, so the explicit unregister error paths from the first patch
-> > would no longer be needed after this patch.
-> >
-> > Would this be what you had in mind? If so, I'll follow Krzysztof's
-> > suggestion, organize the related changes into a proper patch series,
-> > and send a two-patch v2.
->
-> I do not mind either approach. There are two problems here:
->         1) leak on probe() failure
->         2) leak on driver remove()
->
-> So, two patches-approach IMHO is perfectly fine. And yes, enlisting
-> devm_add_action_or_reset() closes both 1) and 2) in one go.
->
-> Kind regards,
-> Czarek
+The consequence is that when sock_sendmsg() returns -EAGAIN because the
+socket send buffer is full, dlm no longer sets CF_APP_LIMITED, does not
+increment sk_write_pending, and does not return DLM_IO_END to wait for
+lowcomms_write_space().  It returns DLM_IO_RESCHED instead, and
+process_send_sockets() immediately requeues the send work.  A connection
+to a peer that is slow to drain thus keeps cycling through
+sock_sendmsg() and -EAGAIN, burning CPU, instead of sleeping until TCP
+reports that space is available again.
 
-I'll use devm_add_action_or_reset() to handle both the probe failure and
-driver removal cases, and send the updated change in v2.
+Test SOCK_NOSPACE instead.  This is the bit that lives in socket->flags,
+that TCP sets whenever sendmsg() returns -EAGAIN for lack of send buffer
+space (tcp_sendmsg_locked() and sk_stream_wait_memory()), and that
+lowcomms_write_space() already clears.  This restores the semantics dlm
+had before the bit moved.
 
-Thanks,
-Guangshuo
+Also remove the clear_bit() of SOCKWQ_ASYNC_NOSPACE from
+lowcomms_write_space(), for the same reason.
+
+SCTP connections are deliberately left as they are.  SCTP does not set
+SOCK_NOSPACE, and it never calls sk->sk_write_space(): sctp_wfree() ends
+up in sctp_wake_up_waiters(), which calls sctp_write_space() directly.
+lowcomms_write_space() is thus never invoked for an SCTP connection, and
+the test added here stays false, so send_to_sock() keeps returning
+DLM_IO_RESCHED as it does today.  This is the only safe behavior, as
+returning DLM_IO_END would wait for a callback that never comes.
+
+Fixes: ceb5d58b2170 ("net: fix sock_wake_async() rcu protection")
+Cc: stable@vger.kernel.org
+Cc: Alexander Aring <aahringo@redhat.com>
+Cc: David Teigland <teigland@redhat.com>
+Acked-by: Alexander Aring <aahringo@redhat.com>
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+---
+ fs/dlm/lowcomms.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/fs/dlm/lowcomms.c b/fs/dlm/lowcomms.c
+index 2aff1c7c17de49c41f9fd02a1fae00bcc9e6af5b..abe9ae4c643fae061d2e168c03219a4f4e1bc007 100644
+--- a/fs/dlm/lowcomms.c
++++ b/fs/dlm/lowcomms.c
+@@ -522,10 +522,8 @@ static void lowcomms_write_space(struct sock *sk)
+ 	clear_bit(SOCK_NOSPACE, &con->sock->flags);
+ 
+ 	spin_lock_bh(&con->writequeue_lock);
+-	if (test_and_clear_bit(CF_APP_LIMITED, &con->flags)) {
++	if (test_and_clear_bit(CF_APP_LIMITED, &con->flags))
+ 		con->sock->sk->sk_write_pending--;
+-		clear_bit(SOCKWQ_ASYNC_NOSPACE, &con->sock->flags);
+-	}
+ 
+ 	lowcomms_queue_swork(con);
+ 	spin_unlock_bh(&con->writequeue_lock);
+@@ -1391,7 +1389,7 @@ static int send_to_sock(struct connection *con)
+ 	if (ret == -EAGAIN || ret == 0) {
+ 		lock_sock(con->sock->sk);
+ 		spin_lock_bh(&con->writequeue_lock);
+-		if (test_bit(SOCKWQ_ASYNC_NOSPACE, &con->sock->flags) &&
++		if (test_bit(SOCK_NOSPACE, &con->sock->flags) &&
+ 		    !test_and_set_bit(CF_APP_LIMITED, &con->flags)) {
+ 			/* Notify TCP that we're limited by the
+ 			 * application window size.
+-- 
+2.56.0.rc1.310.g51773c2048-goog
+
