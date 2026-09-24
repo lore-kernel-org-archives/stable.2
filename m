@@ -1,88 +1,46 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outbound.st.icloud.com (st-2005d-snip4-11.eps.apple.com [57.103.79.63])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40299449ED6
-	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 09:13:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E7C2421256
+	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 09:15:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.79.63
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790241188; cv=none; b=DtJn+wMglpB5/Covw8Wbe7HzTpCADk8z62kC720IqnOcCqeiggz/GbgRsxxwOQaPgCrrClDtml9aYsOLJeysVoPwzvSouKKxoHR2v2o4uAHSIQ/HxmXblhzKnJDUGQR5hXqAREq+F/cwRoFvgByTLcsUw5dOfFdnrJoeE29pqPE=
+	t=1790241344; cv=none; b=NHyYFfN45WuUfoIs38e9d1+2+jPajtSOrjShOErwWOhHKhFn3Z7VaHxErdbgnqK+te24/oBog4Q5XDteZAJUvhthHtUsGU3tCUuwJjicB2+zlR9qu86HC6CxcqtyRLubhTosPY3HwcDo5wD6lVj7X6TFgiGdQiEacgutYE8KZXM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790241188; c=relaxed/simple;
-	bh=R2v6XIS8rFzH1++61DHzZpR8Odr/UFZzSld3CIqALtM=;
+	s=arc-20240116; t=1790241344; c=relaxed/simple;
+	bh=14ALabbbOP9GXqf6RTeOJdOBb4z5LNlRu7KNnki25+s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=khWDpDK7fewezxicY5XMZAeMeAHsYJpB7zxwQYjaRnijW0Bq0IWoxd8pfNPe5FRxrYZ9K9jnOMz5qfuhAYYOXXGZc9Q/kqMTeAVSVfY+si6XmRSe70Otmkwlz107k4BabSanHz72vMlu//Y3vNxORfao0g9K3fL/zrFUXaik48c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UYuIOpz7; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=ev99GiGdRUFYdpMN3aI9iP9b+XwFdg1kpsPRxc11CuzMWBLhNFNijXtp0vJ6skQ66aQpeam78cFWngmqk8TGYmnF2tyDPz1/g2AAvI2t7EhqfnqnCYNkCr14TIZV7peF/hmPprm43YWxjEX9+b2vHOl53ZNnsTSqu9hP7PzimvQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dabasinskas.net; spf=pass smtp.mailfrom=dabasinskas.net; dkim=pass (2048-bit key) header.d=dabasinskas.net header.i=@dabasinskas.net header.b=Zz1R20vg; arc=none smtp.client-ip=57.103.79.63
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dabasinskas.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dabasinskas.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UYuIOpz7"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ccead2aecso8144445e9.0
-        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 02:13:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790241183; x=1790845983; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Q3UEIk5rnMiFTRGuZ99oPenAjQD9CsZRbMnKE/eY65Q=;
-        b=UYuIOpz7j6vU2ibj8cfoBAxRZK2IAanJQ8c6r++AJPUZ3U7iw2r8DUjdaybDb1sDOb
-         h5Z78rP4R8WHZpcj5Tk+YsSPgnAGdcaPxWrRR97l634lFp2CWvK5w1FP1Q/jmlsj6nYm
-         RADQH+5FgGnJ7fe8L3BigTcEMBSm2tRPJh7gcJH36nvS6t6krVZnE8HPfMI0JCAQKUHT
-         Wkr7fCpJpW9LLeb3xhAnvSDU25WTfACbZGWP4D9cl5yvhsvPxn2KFsVVYh9C35wgWY79
-         6EPC61Tb4AkETEhvL2No1XWittJnoE5YiSHDI8y9mBOHJrHqEwF41GmQBKWj6/zz/VPX
-         d83Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790241183; x=1790845983;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Q3UEIk5rnMiFTRGuZ99oPenAjQD9CsZRbMnKE/eY65Q=;
-        b=nREiXVm5HbEE4Legnd1E/Cci1eMpPyR4EfwlWRZA7Oiib6QQsj5eO1B7CFSAqGDPVc
-         pCpYkX2XNle751HOikjiKXuZvo07lKXk1LCtOQcxg0YD1leuuQPakjxV1XiWpvhx56/A
-         PturRrkDLrqdh9DndZ2PiFXQpYkqXmyTmcz+DAD5GAHNs9AxJNFl52CdC5OsbaPTYB1n
-         tJRhdoMKJo2iT3MoT4Nr8EdBgXPbjcLQgx0n4NpXXNwGVw2fVafoykRC7crZe6o5DZDi
-         rjt/ZS/LzNjAR5Oro6fWNGOG1n/olBBjqeuDxDPlWJXLEWkpWvTTlhF/lKJSsjAo5bkl
-         Ting==
-X-Forwarded-Encrypted: i=1; AKwUvBxoNeUpPS+FEduCagemmhUxKix62eXkrtz15FsDDGHrkAazO7m1qp25joaO+oNFANQ43gUlQtE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nCFrHG6na60yUZWBOciNS2+VNNZVg5Ork++AiRsYJzRWiYR8pP
-	on7SDj12fE80z1W983GV6PE//uFdoD2rBMkLLRo1tjLPmxkvSEdNLE3D
-X-Gm-Gg: AYBFou3DNwLqHazOA0GPa64m8prQh5DCaVFT+Ib6+kV6F337XmyPKRiXoPMiWCUsAW0
-	Jqd39Bq1n5kZ0qDKzGX7HBbordio0EKjYvGSQb74ZKGTeRv2TnDZvN7m6m2DZ86KFXodjNCHWzk
-	b+fdMDz6UXNfsHRKRh2FlKAYyd2vHe3o61sgjWYn7bNU4fUKsqA+Gr7N4fm63enkqi+KZaJLVti
-	kowp3BHzRWN060zlcIKvUXmOIvgxNzg5pb2xx300z6UFMmnaQ3mUzINyQ35EhOlWIUVqnvYf1qi
-	FR2P7/bAleYz/fAQV3r6cAOyHlWrtR+GJdiqPBZ3NOxfXtOmtsJD6PxrFpHdx5FHFn6JslYsWmU
-	Sl0TKEDbr4tBeRbxWzbRxOGBOwHzAsRP/3t7g3gp8aG6shKyCQv+dyV4Y9p0a9CZRY7aHcN1iTd
-	n/tPqVCeOdEnlxgVRON2ngYXnQ32VmxGHPMkXlTsgP1ay4kThwVxrA1XPzC1PWSSM49Z3gIMMsQ
-	P3zK4CNua6KkQlPX43rvvagkku9GtMgn45ggg5D5F6olVIHqskGad8XFrcEPKc0TwHlNBTnq8z+
-	qTsI+lEmu5cHb2U=
-X-Received: by 2002:a05:600c:a015:b0:49f:c199:e1e2 with SMTP id 5b1f17b1804b1-49fe6700006mr27711555e9.28.1790241183440;
-        Thu, 24 Sep 2026 02:13:03 -0700 (PDT)
-Received: from andreayoga.localdomain (93-42-14-189.ip84.fastwebnet.it. [93.42.14.189])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886848636asm12756677f8f.6.2026.09.24.02.13.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 02:13:03 -0700 (PDT)
-From: Andrea Parri <parri.andrea@gmail.com>
-To: Christian Brauner <brauner@kernel.org>,
-	Carlos Maiolino <cem@kernel.org>,
-	"Darrick J . Wong" <djwong@kernel.org>,
-	Joanne Koong <joannelkoong@gmail.com>,
-	Brian Foster <bfoster@redhat.com>,
-	Christoph Hellwig <hch@infradead.org>,
-	Damien Le Moal <dlemoal@kernel.org>,
-	Hannes Reinecke <hare@suse.de>,
-	Daniel Gomez <da.gomez@samsung.com>,
-	Pankaj Raghav <p.raghav@samsung.com>,
-	Dave Chinner <dchinner@redhat.com>
-Cc: Andrea Parri <parri.andrea@gmail.com>,
-	linux-xfs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2 4/4] iomap: don't lose a failed direct I/O bio's error when zeroing the tail
-Date: Thu, 24 Sep 2026 11:11:54 +0200
-Message-ID: <20260924091203.198225-5-parri.andrea@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260924091203.198225-1-parri.andrea@gmail.com>
-References: <20260924091203.198225-1-parri.andrea@gmail.com>
+	dkim=pass (2048-bit key) header.d=dabasinskas.net header.i=@dabasinskas.net header.b="Zz1R20vg"
+Received: from outbound.st.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-east-1a-60-percent-10 (Postfix) with ESMTPS id 573111800174;
+	Thu, 24 Sep 2026 09:15:38 +0000 (UTC)
+X-ICL-RepId: 01a0d2b2-f39b-7711-b008-0abf84a49746
+X-ICL-Out-Info: HUtFAUMHWwJACUgATUQeDx5WFlZNRAJCTQtJBUMGWQpeCFYKTVIPDwRWFVIedw9TElgLWgNEAFMDFxZWGRcNVk1dGVEMRAJcA1IZQENZDkZQSxsOVRcDVxxWRVwYQwldBVccHR5DRVsTVRdGCRkIXR0ZCEcfCjADQg5WA0MHRQAtGRxXUFMKUBFKEV0eXApBXlcdR01aAlZNBUoDXwFbC0INSApcAlkBXg9BBlgBRgNdTRdeDEQrVhFbGUAEWRhZEUpWXQhDVRIEQAhWUFQeQQRWFWwJWAZTGVc=
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dabasinskas.net; s=sig1; t=1790241340; x=1792833340; bh=YNha2tnc+p52KTqs7NXJ1fZ3/H/1Ts4hZ4nZuoBQktM=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=Zz1R20vgGsULtPogRAKtAPDEEMHxyUHISiSx9l7tINV5syFMll9yqrHhHkTeUBYiVgUEn1AhHAOdNlNwK8dE/qRMnwnmmiihP1hSs49tRvOfDATbLqU+oDcd8IiE8nrvFlZFA+Wd1rH9kKTAK6XlbAOoVWrzbdz10kqsqIgvE6CmwfG1pzNN6zd6u55hSfKtslMQJkHzRQlziFH3hQ3N4BeIi/TLEGfQd7/vUsYDC1fXBHCzScDG0sUPpvwsQ6hDhwJGWdI9NXAvwU3bCTFXBozml7yToMGmC4yo2SXoXuaU/kebiY0th5RoIyss1nlnAz7CEkZx64QrldGFONT9bg==
+mail-alias-created-date: 1477328645000
+Received: from localhost.localdomain (unknown [17.156.216.30])
+	by p00-icloudmta-asmtp-us-east-1a-60-percent-10 (Postfix) with ESMTPSA id 2F8B91800169;
+	Thu, 24 Sep 2026 09:15:36 +0000 (UTC)
+From: Tomas Dabasinskas <tomas@dabasinskas.net>
+To: rbergant@redhat.com
+Cc: linux-nfs@vger.kernel.org,
+	trondmy@kernel.org,
+	anna@kernel.org,
+	neil@brown.name,
+	prabhakar.pujeri@dell.com,
+	stable@vger.kernel.org,
+	Tomas Dabasinskas <tomas@dabasinskas.net>
+Subject: Re: [PATCH v2] NFS: return DENIED in decode_lock_denied if we cannot decode owner
+Date: Thu, 24 Sep 2026 12:15:19 +0300
+Message-ID: <20260924091523.69556-1-tomas@dabasinskas.net>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260917104905.669983-1-rbergant@redhat.com>
+References: <20260917104905.669983-1-rbergant@redhat.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -90,94 +48,82 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Authority-Info-Out: v=2.4 cv=NLPYOk6g c=1 sm=1 tr=0 ts=6ab4ea3a
+ cx=c_apl:c_pps:t_out a=oyWFxbOnq+dmhQrAPgaJYA==:117
+ a=oyWFxbOnq+dmhQrAPgaJYA==:17 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=NEAV23lmAAAA:8 a=Yc9LJkcKBAbQym8JMEsA:9
+X-Proofpoint-ORIG-GUID: o7J5vrKgdtpHic3sbXZ55IOgtSt17obH
+X-Proofpoint-GUID: o7J5vrKgdtpHic3sbXZ55IOgtSt17obH
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDAzOCBTYWx0ZWRfX48Lr2SM0XQhp
+ O3RLaMJW9XLyR8tt0teMfhkTOF7b/v0TsyhRWv24j3hqfnNKXOdXx+LmjKhg359+00MFQs1Xg4t
+ zrcU10BtMedPPCcKvTcsYiJbyJ4xW3+7dcFqJpTOafCjftf6KwblH7cgkpLr8SpPs12Vc3N0mV6
+ wXf2ToSbyy14GebTZpbFuK96JWlbjyi05otde4rK1orZoO0Bc2VPHnhvHeBTBYrnqcbsz2vSCZZ
+ /+41AgQMO342qJQHpX2o7ih3Pu4cuNHVTUKylz+5PBpG1DLbBL9vx/y3Y9OKY5hQ0sS5CIa777q
+ xkgi5U+clNbZvqLXn/+Dxxduth64NGl1+lLUbgGvoL0ml5/H/ndn9u2EwwuIaQ=
+X-JNJ: AAAAAAABd4m8lSK6g3Q9zE6xL+BosVimPsXgk80c2AHYnu5QOzxg5j/uvpoX+tb7KxvhnO9hQAedWnYXKzo8ElykdJWhEaRbLU7quGQoL5fkiT4Bpnq0ftD0fUWtZJDg3eA0IheQk1tEobO8QMDrXbdisguPxBg22MzKC2e08+TlUeM7wKjhhHxukNLYJqDtShIOysbm3dg+NYScafqYe4W7DFjWdwgwryc6N1YC4/+k3Zeha6giWDjkr6TsPTz2dsLhni62jl7nbsMcuu+sU2H23XIMRH5p1DfO9PN+ur7WfEDUgdL18eZtabslOeYENuFHNsr0RluYBJJvr954uIMKj9l7KP2qzjGz+9zXXwozO4rjIfcJGEnp7bfSGzizdMfxFf4xep+Mh0LJugA4XjJQFGUbAbD05Fce9Aic/DdqVifk0t5T2zmvAErzmBhl/Kn7gzG41KnW4774Xwocee+DVbuMtb1vlJv6YfYuVe29R0MTvYsKpYnXzMEqK2XC5Kl30r+iASTyYqyT9FDDl77FGhcA6UEgfzD30PVn7sjr3lRO2H7+gUYW4Ms6A2nG+BByCgjinvhb45JONhZJGw44nAO0GB4NiywuMyrzQmZSZ2avoFKEUodhmltQYg6NRLUrsMrpl71u8c3U5NORH+g13FMJDZBhp+kNXJmCxrfY9RmQGmB1jyO4AL2KGBcRD7LRQg9afA4J/Aak36YHxU1qSoH4wXiDNMWx/0FFhrOTZ34S0YWJdry1UQufOzkUOT7r2eBUgjW+wp6kNFxmrjlA7n0K1QxXTJQLzMman0awcsZ+mXwX6IcCeA0GDtNPXOvKIrmyDiERTPMw1HApSx75Zg9MduLKzcTht0g9stOu9nQxYfvh+MBfYbc++PMKIUyHU0byaCGzrJd4EQ8iFHb0NZ0YUYdomXI3gO/qYkqP0IQ89fIFTh3UKy4dlb9ag0JhamnK+NS1B6nR+A5QCEhUdz4Dsgk
+ jB3gpoPeBrs5ReQDol3SgEfNUzqPgj/sUHvHrGLEFEk9icpUjMOWvmhjzWgm/U65at6tlWFVjzBLeI7boY0zB/2nG1QbM2A0XiOWZWMHmAFk3j2oiZHL5sxg8cKVLJc30K2tlviQOXoC94iwBxSk0s6RxfoPLBbL/2bUBK6bTcubxbaV1sWMhv2YGbLpDkbAd/omy99t0dP/85dXFhNLW6iIOAFTFiFiuWVrR7jmD0ocFfxF6K6KO1IwREoA8FRaNwC49k6KldEHwQIUcaNEvvqZ2njOyX40FmNzobQdmgv/XbVhQmdL81fRQoyuilNnmmPIi1WGBJRzOlNaJvnQRJg==
 
-iomap_dio_bio_iter() falls through to the sub-block tail zeroing when
-the data bio submission fails, so that the rest of the block is still
-zeroed and stale data is not exposed.  The zeroing result was assigned
-to ret, which overwrote the submission error with the successful
-zeroing result (zero) and the failed write was reported as success.
+On Wed, 2026-09-17, Roberto Bergantinos Corpas wrote:
+> a buggy NFS server that sent oversized denied responses which led to
+> us returning EIO instead of DENIED
 
-iomap_dio_zero() can only return an error from a can't-happen
-WARN_ON_ONCE() (nr_vecs exceeding BIO_MAX_VECS, which the existing
-comment there says "shall never be reached" for any in-tree
-filesystem), so it isn't a real runtime failure worth reporting to
-userspace, let alone one worth losing the actual submission error for.
-Make iomap_dio_zero() return void and drop the error handling at both
-call sites instead of threading the result through a separate
-variable.
+We hit this in production last week and spent a while tracking it down
+before finding your patch, so here is an independent data point, plus a
+request to consider it for stable.
 
-Fixes: 10553a91652d ("iomap: fix iomap_dio_zero() for fs bs > system page size")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
----
- fs/iomap/direct-io.c | 19 +++++++------------
- 1 file changed, 7 insertions(+), 12 deletions(-)
+The server is Google Cloud Filestore (NFSv4.1, zonal tier), which is
+nfs-ganesha based. When a blocking lock conflicts, it reports the
+conflicting owner as the 21 byte placeholder "ganesha_unknown_owner".
+With decode_lock_denied_maxsz now budgeting 52 bytes, which allows a 20
+byte owner, decode_lock_denied() cannot decode it, and userspace gets
+EIO from a plain F_SETLKW instead of waiting. I confirmed the same
+behaviour against upstream nfs-ganesha 6.5 on a plain VM, so it is not
+specific to Google's build.
 
-diff --git a/fs/iomap/direct-io.c b/fs/iomap/direct-io.c
-index 8b4039d16ce89..e00995c296c79 100644
---- a/fs/iomap/direct-io.c
-+++ b/fs/iomap/direct-io.c
-@@ -296,8 +296,9 @@ u32 iomap_finish_ioend_direct(struct iomap_ioend *ioend)
- 	return vec_count;
- }
- 
--static int iomap_dio_zero(const struct iomap_iter *iter, struct iomap_dio *dio,
--		loff_t pos, unsigned len)
-+static void iomap_dio_zero(const struct iomap_iter *iter,
-+			   struct iomap_dio *dio, loff_t pos,
-+			   unsigned int len)
- {
- 	struct inode *inode = file_inode(dio->iocb->ki_filp);
- 	struct bio *bio;
-@@ -305,14 +306,14 @@ static int iomap_dio_zero(const struct iomap_iter *iter, struct iomap_dio *dio,
- 	int nr_vecs = max(1, i_blocksize(inode) / folio_size(zero_folio));
- 
- 	if (!len)
--		return 0;
-+		return;
- 
- 	/*
- 	 * This limit shall never be reached as most filesystems have a
- 	 * maximum blocksize of 64k.
- 	 */
- 	if (WARN_ON_ONCE(nr_vecs > BIO_MAX_VECS))
--		return -EINVAL;
-+		return;
- 
- 	bio = iomap_dio_alloc_bio(iter, dio, nr_vecs,
- 				  REQ_OP_WRITE | REQ_SYNC | REQ_IDLE);
-@@ -328,8 +329,6 @@ static int iomap_dio_zero(const struct iomap_iter *iter, struct iomap_dio *dio,
- 		len -= io_len;
- 	}
- 	iomap_dio_submit_bio(iter, dio, bio, pos);
--
--	return 0;
- }
- 
- static ssize_t iomap_dio_bio_iter_one(struct iomap_iter *iter,
-@@ -541,10 +540,7 @@ static int iomap_dio_bio_iter(struct iomap_iter *iter, struct iomap_dio *dio)
- 	if (need_zeroout) {
- 		/* zero out from the start of the block to the write offset */
- 		pad = pos & (fs_block_size - 1);
--
--		ret = iomap_dio_zero(iter, dio, pos - pad, pad);
--		if (ret)
--			goto out;
-+		iomap_dio_zero(iter, dio, pos - pad, pad);
- 	}
- 
- 	do {
-@@ -582,8 +578,7 @@ static int iomap_dio_bio_iter(struct iomap_iter *iter, struct iomap_dio *dio)
- 		/* zero out from the end of the write to the end of the block */
- 		pad = pos & (fs_block_size - 1);
- 		if (pad)
--			ret = iomap_dio_zero(iter, dio, pos,
--					     fs_block_size - pad);
-+			iomap_dio_zero(iter, dio, pos, fs_block_size - pad);
- 	}
- out:
- 	/* Undo iter limitation to current extent */
--- 
-2.53.0
+Reproducer, two processes on one client, one file on an NFSv4.1 mount:
 
+  import fcntl, time
+  for i in range(20):
+      f = open('/mnt/share/lockfile', 'a+b')
+      fcntl.lockf(f, fcntl.LOCK_EX)   # EIO here instead of blocking
+      time.sleep(0.05)
+      fcntl.lockf(f, fcntl.LOCK_UN)
+      f.close()
+
+Run two of them at once. A single process never fails, since nothing
+has to be reported as denied.
+
+Results, same server and same mount options throughout
+(vers=4.1,retrans=2,timeo=30), 8 processes x 40 iterations:
+
+  6.1.0-53       320 locks OK, 0 EIO
+  6.8.0-1069     320 locks OK, 0 EIO
+  6.11.0-1013    320 locks OK, 0 EIO
+  6.12.107       1 lock OK, 319 EIO
+  7.0.0-1011     same failure
+
+Tracepoint on the failing kernels:
+
+  nfs4_set_lock: error=-5 (EIO) cmd=SETLKW:WRLCK
+
+The capture shows the server replying NFS4ERR_DENIED with a 21 byte
+owner, and no CB_NOTIFY_LOCK is ever requested, because the client
+never reaches the wait path. The same client against a Linux knfsd
+export shows no failures at all.
+
+The practical impact is wider than one filer: every GKE node image on
+6.12 or later hits this against Filestore, and anything taking file
+locks on such a share stops working. For us it was OpenTofu's shared
+provider cache, which takes one blocking lock per provider and treats
+EIO as fatal. That is also why a stable backport would help, since
+cloud node images follow the stable trees rather than mainline.
+
+I reported the placeholder owner to nfs-ganesha as well, since
+returning the real owner, or at least a shorter placeholder, would help
+clients that are already deployed:
+
+  https://github.com/nfs-ganesha/nfs-ganesha/issues/1420
+
+Thanks for the fix.
+
+Tomas
