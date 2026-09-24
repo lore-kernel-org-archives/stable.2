@@ -1,87 +1,109 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f26.google.com (mail-ed2-f26.google.com [74.125.228.90])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F7362F8EBE;
-	Thu, 24 Sep 2026 11:27:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A9C7473C64
+	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 11:28:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.90
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790249269; cv=none; b=stmlrkeIyzs6vFdzzugPLlZY2LrFnwHCrvjpmgKERB3xVAmHJSGRYOpRrnZsUAqsekM1v63IW0TVtjN2dDjO8c6jtbWaoOxxmFi+G8Nlg+EL+2BNVMF5p5tCHTn8ILf+G79Xht/mc+J+t5gqMgKdAc9XKwMRb0Nqpnl+n9QtXlk=
+	t=1790249336; cv=none; b=ZN7PgzGYcndtxKXF3phJjCUcdZCCJu6AVoWVHn9zoCozAxew9s/NTCiv3ZXyLSpAEP7UD/mODvQ2CGbamK43uWNrkxlmbTo35VqflYE8pDplNfR6gNh2tWLfJZRCcs+aueBTEsjs9TMqLKlSs1oOmOmxy/t+6K+zZG1ued8wQd4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790249269; c=relaxed/simple;
-	bh=Ng7XHk3vpmGWxyiouXoCljFHBI00MSlQhcephg9jKS4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gH0rl38tAT8WwWZzINZb5oMGssfpTMh8mAlhIQJeC5yOFYxrV8qJmDB17eNA08TJyLGLMBQ+3rYr0/w49nigAaNpqY2v3dVD5tWzyBEYZ/MCGkGJDAyS4ND4ppIjd2T6/eE2iqbzJuNpHL0uS/vQOci/BWNLIi0dIgtx/MAT/lw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=h2t7rfHD; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="h2t7rfHD"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7DD4F1049F9;
-	Thu, 24 Sep 2026 13:27:41 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1790249262;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=A/bkNYgnP1tyQMZCXVadG8RKvR7fukhaEYBVhethcP0=;
-	b=h2t7rfHDzZe3/1vbR4n6MtreDsBbtBTo6FV57F6VTZTmhZOUU+e+g/4ber7/xLWfcCdZpd
-	MsAvn84twcvMH+B6huqPt09LIh7b4m7z7KBQn93Xndpkaa7nbnG2bdGvu3A49OiHNID3hx
-	hiSXTAoOurxm6aVabDbtLXaakJbBZIKRfnYERmenEKBEEvY7iyBud3Na9d75sCFjQAa/WH
-	5tdS2/n5Gu2G9FloOwCHMDPAzxM2JG6QPPJ7SSd+gI0FDvTa50pXBlvpyGJO+qQhs4VUTu
-	QfemVdMM7Nv6X5egdSYcf04hXsgIWN0a2oZ4JIY2KJAWzZEQSuJYSJ99VgyeUg==
-Date: Thu, 24 Sep 2026 13:27:40 +0200
-From: Pavel Machek <pavel@nabladev.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 6.18 000/398] 6.18.54-rc1 review
-Message-ID: <arUJLMtVma4wwXt0@duo.ucw.cz>
-References: <20260923140643.441954610@linuxfoundation.org>
+	s=arc-20240116; t=1790249336; c=relaxed/simple;
+	bh=9q+9njbl5fGDnCjt+CP+V3k7O4J5TEC5Hn04Vn4F3FU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZHXNu49ccGIGtM6tFsMHieMjMeRIZUVjym192iRO5D3zf5XnpBxuJUcUIscME2Z+/6gLfu3McVdJa1ZwR7BB2bMvua4Z3IIBDDQxBTHjM8rjGQFA1EPpUtNdpkNxVOZ0I5NOUeKn/Q/YjZ2b+ux9DcHE+FcZnHVxd9WPtrR6U8Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.228.90
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ed2-f26.google.com with SMTP id 4fb4d7f45d1cf-6aa13e194easo3046747a12.1
+        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 04:28:51 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790249329; x=1790854129;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zuSFDBweOP7pWzPIqUP/KjNZXgPolc/RJ9LLzLh1/A8=;
+        b=QigDOEfBB1SPLyXO38LWpN9eJ/tflWb8w+59dA1v+8rzh+tYYDvsfj7zRnKPeMAMi9
+         LM7oN4ZDrUZTZOnSa2Jvb0bSQnuiBBCEz5W8mQ/g3cKiS12G/+0jUcnneVBxVdJIlzlW
+         /gxIXJNq/a5mfYdJy6+XI4bk08TnW9WrDYwTDOpCDnPou2/b/AKleYRogtLNWlAw9UtV
+         1PCXxutkKZatu8CTLJtX0XUDpoywsVVM8D7KhUFlZOc1aIQDNXkAKFviZdyCV6y8eNpQ
+         SsdZNGoJhkEYNHxoDJevdBn5XxdjziM1STPxCxeLGmHJc7iCaZ+RmugUyqx8RDjoNbkk
+         07zg==
+X-Forwarded-Encrypted: i=1; AKwUvBx8/kaDSsEzvuwLZamcFLGPqQSIh9/sf1nfGvwMVGAv01tuA/Mc5KupGAPOBbuHf1IhbS/P0i0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mQ38Ep854VkvkSgzX3Ipmboes12neCuAdFAqVuG3Z7NKjaCp9p
+	WXZnGS6lWbENQnfz4j+in8hTYiGp+yaLb/EvJboh4Qsxqa6OS3Yv70Je
+X-Gm-Gg: AYBFou2PZl77YmYgZGq7zJmkxWmB6Lob9JbwJ97lSAZF0cFivKJVUmybU00lIX1tmpT
+	VwaFrbI5hBUZgLijWfnFeqRx7i3HZ1mfvwJ3p95QZvOHxSZYmER8DSy0kSh5+Qycio4nNHhcWlw
+	uWjMyrSjHH7PiE7Cqek+/z7GKHu+wFiwm89rZe0vGBM4rBRYWOIJmTgtjzYZBEEXOLuWwi3lgVd
+	FUMY8gDiPCUk5QcWuWDNIm9Tjs9QxaXCb9njSkPYh2atydDTax5ZtqY0R21ZB2OCPyIINn1xgvf
+	UgQOvTws8jgEB9OwGPAKj1Ipg5Rojgh984yKgu6ufZ6AxZFmIz4ZtlpAWmgNk/NND8VGSzAE6//
+	zqMzxhitLDIg2cYjgWbbIXp1TrQF38wVaf6bjlTZ2qEYjCuEsGnBLPWwXAnl1xZDNVlremxui17
+	as19trbmQ8V/OZ1MGhDmgw3oxm0nebnOAFpB6e1H8WQYyhVH0vQNs09yS9x2rMa1Y6pskI/g==
+X-Received: by 2002:a17:906:f597:b0:c29:448b:f5d0 with SMTP id a640c23a62f3a-c2ac25d513emr197041766b.33.1790249328602;
+        Thu, 24 Sep 2026 04:28:48 -0700 (PDT)
+Received: from white ([5.194.185.161])
+        by smtp.googlemail.com with ESMTPSA id a640c23a62f3a-c2aae5c6022sm284374166b.14.2026.09.24.04.28.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 04:28:48 -0700 (PDT)
+From: "Denis Efremov (Oracle)" <efremov@linux.com>
+To: linux-block@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	"Denis Efremov (Oracle)" <efremov@linux.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] floppy: return the drive state flags from the 32-bit FDGETDRVSTAT
+Date: Thu, 24 Sep 2026 15:28:25 +0400
+Message-ID: <20260924112825.3525931-1-efremov@linux.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="Tf7bFjsRjOWnN9fS"
-Content-Disposition: inline
-In-Reply-To: <20260923140643.441954610@linuxfoundation.org>
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
+compat_getdrvstat() copies every field of the drive state to a 32-bit
+caller except ->flags, which stays zero. 32-bit FDGETDRVSTAT and
+FDPOLLDRVSTAT therefore never report FD_DISK_WRITABLE, FD_DISK_CHANGED
+or FD_VERIFY: i386 fdutils (floppycontrol -P, fdmount), and other
+32-bit users see every disk as write-protected and never see a disk
+change. The compat code in block/compat_ioctl.c copied the field;
+it was lost when that code moved into floppy.c
 
---Tf7bFjsRjOWnN9fS
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Also declare the field as compat_ulong_t: the 32-bit struct
+floppy_drive_struct starts with an unsigned long, and a signed char at
+offset 0 only lines up with its low byte on little-endian machines. The
+size and offsets of the compat structure, and so FDGETDRVSTAT32, do not
+change.
 
-Hi!
+Cc: stable@vger.kernel.org
+Fixes: 229b53c9bf4e ("take floppy compat ioctls to sodding floppy.c")
+Signed-off-by: Denis Efremov (Oracle) <efremov@linux.com>
+---
+ drivers/block/floppy.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-> This is the start of the stable review cycle for the 6.18.54 release.
-> There are 398 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+diff --git a/drivers/block/floppy.c b/drivers/block/floppy.c
+index f04397b8e381..569e8823dd3f 100644
+--- a/drivers/block/floppy.c
++++ b/drivers/block/floppy.c
+@@ -3601,7 +3601,7 @@ struct compat_floppy_drive_params {
+ };
+ 
+ struct compat_floppy_drive_struct {
+-	signed char	flags;
++	compat_ulong_t	flags;
+ 	compat_ulong_t	spinup_date;
+ 	compat_ulong_t	select_date;
+ 	compat_ulong_t	first_read_date;
+@@ -3785,6 +3785,7 @@ static int compat_getdrvstat(int drive, bool poll,
+ 			goto Eintr;
+ 		process_fd_request();
+ 	}
++	v.flags = drive_state[drive].flags;
+ 	v.spinup_date = drive_state[drive].spinup_date;
+ 	v.select_date = drive_state[drive].select_date;
+ 	v.first_read_date = drive_state[drive].first_read_date;
 
-CIP testing did not find any problems here:
+base-commit: 62f4c998b297cf233997a2b4cd6fc2d2df0319c9
+-- 
+2.55.0
 
-https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/tree/linux-6.18.y
-
-Tested-by: Pavel Machek (CIP) <pavel@nabladev.com>
-
-Best regards,
-                                                                Pavel
-
---Tf7bFjsRjOWnN9fS
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCarUJLAAKCRAw5/Bqldv6
-8la5AJ97GSO3ZP/hNOZWdJV1pAEOq+VRaQCgtQ60idRgWmYTmprHUudBYAhPRug=
-=FooU
------END PGP SIGNATURE-----
-
---Tf7bFjsRjOWnN9fS--
