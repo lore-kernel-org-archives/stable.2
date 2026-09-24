@@ -1,79 +1,81 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB89C414DFA
-	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 17:38:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76EE43254B8
+	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 17:40:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790271530; cv=none; b=jd4QBB9DItyD4efzaFfehfRlxDfJcd1B8An834uRFRUq9PsxGiMmYPnJ7oqUFXjDH6GtLb1ZShNFes1kNOJ/dQCFaDHT8gxe2KWFpA/MKuyZSmmVX85NgH/Q4y9gQxv4nC5lIWur75ViCjPdOFJhtizdJhFwegr+kfdlQciFmK4=
+	t=1790271662; cv=none; b=mlxogncIxCEC9Czh5MH20vxkO3/+bBotDdv9vzN5Jcd1OhBADtDw9L5/4wts8Ee3povKQAjxoiRF13X4ipNdf93cO4QpJV5lzg3Bza0sAoMcdSRQsHNECx98MFuz8i46lH1XQEnlt8bI7/f4GAj+u+A/T24C/bfwdDwNt88Xh2Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790271530; c=relaxed/simple;
-	bh=NyMX52JyA02kh4pbyRNFP3C5O6xMYXgI19hTNHr/ZZo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NfJQiRlYp3wJr8galN2C2RWuu+uTJVNazhALH5fMZq3QXlF07xZWhPa/1PMbT27eLc1w79gHDv47ZhLdD7QyiPX8s+6OdyiwwuvImx7B+x8PNVBIwsL98v+FJkWuT1unzIs1ghqjSag/4xlhNVUt+a8DJUhrvkfmiQ2gBq4LlxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=EPvxEQRT; arc=none smtp.client-ip=74.125.228.41
+	s=arc-20240116; t=1790271662; c=relaxed/simple;
+	bh=yemf7qBVHtplzwIJK6k/1ljMzfRpZRUYczEE/HsMmmo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Sx7H46tFdCrDTR9slMay7L19fAFZZjMA3UZE1Kz6qS/8YdYmk7Qb4GCZJVBAm083oX9/Wy1Fy8KSAUcucI495dO/Z35RcBa2AP+E7Uu1JpSpGDnbV8BCQUmINdqS7ovlIlPLllO5y5jk9jchMAqE+YRHTC5HYYXU9vxvR9ox9IU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=GAT2GxIn; arc=none smtp.client-ip=74.125.227.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="EPvxEQRT"
-Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85469b2e1d5so113523b3a.1
-        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 10:38:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="GAT2GxIn"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-398b3b189e0so120136a91.2
+        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 10:40:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1790271527; x=1790876327; darn=vger.kernel.org;
+        d=trailofbits.com; s=google; t=1790271659; x=1790876459; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=P1c2EGZGxAzDBsgLy2P99YqOfGYlohir92D2nOhn61A=;
-        b=EPvxEQRTSgZt6jrh2tFA6pxcsr9zDuQhE2fdQpKs8Ydq70s6TOwlHJiDAicFxvsIKY
-         mC5D3O2JqXFjtzCLJybp4Vo8ydUxk6oXRbmyA5KLuaaQJgL2KTo4u5o2zKZ2j9HNmfCH
-         94DFvCHFH6oqnsmI9Dsq6atwO7bQtzFToYTf73kjLkUU07kutyPIRSJeBery5tm69OF1
-         5MIyKT+mLd6IPaJN8x3jAapcnCtysv2M4STSmiKBg08YmX4JHRR8WnYHX/LeH+XGonOE
-         Uh3Oeu64d3dtG6wB1VDwjxjY6R7N2byobLKBs7lUw5QBEQOeXJA9GYK/ZREy9fikMfkW
-         7lcg==
+        bh=jcavR+kumVH2a25pyfmlJjp3ykD/tBOqZkHbAf7QxFs=;
+        b=GAT2GxInqTQb4g1bJ+aVebjC/sgr/c6K3+LbPitNSpV8LZI/883vbFNLwdFRxu+ZBj
+         nMcC/8XR3BtP6Q10JSAdyCSC6KfV/y4H+5bCiB1R0LwTY8tfEAvqadWhOmqzZUmmDI07
+         pZfBa1XJJ2Pj1f7OxSFIjGaCsrVFGiSrXcw++1TFvQxy1f2bG7oHDJrWqaNZYHM22J/d
+         KzLZO6U64JJPaZaB/sncvJQ8ltSeuzl6BhkBwB7QyZuEvI4XFTDClrpYCVuSj0YOvM3U
+         FyZKYng7Vko1eTP3Ho70sGLxM1Vu074dJ57bQzWhOMp/q8RQSu2C/f7XgTEiuFpjdVWg
+         QRnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790271527; x=1790876327;
+        d=1e100.net; s=20260707; t=1790271659; x=1790876459;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=P1c2EGZGxAzDBsgLy2P99YqOfGYlohir92D2nOhn61A=;
-        b=gDoXYsHmkJvbmMBeqS50qjwhSt4sFpOEKR7nuhxokqrS7GAYqtOTyHyX5cgOOwVt1x
-         5ia4H47i88A0hGMJMXHlmRA2splkInb94I7CycRCgm1aBxL8lk2QCV5zssiz73UxJ2k8
-         8Hg2Yp2A56uT5DXAfoaSMgZEY/JCoMIduGrGoYujrcIngNFA22WG5rPmNfZRaIOxii9L
-         wVlOk1KCuYQ3vw1BG0JjkJbUiYXifW4Z0Q2VI8xmGQIb5JDVxehED7j2jdKu2QAkBEkF
-         3V4og+UXbc2+epfKlU97Bss3vaPxJmbVXi26NMDmOBxvU92xNHRm3tTetef+MI1Nqua7
-         6erQ==
-X-Gm-Message-State: AFuF++n1f3J9PmHZ0XvvzD1lm/mZ8n5yKsdXQY6cmaBfad1ruExvqjFs
-	t84B5Y9B3/q5qK3xHf454MA7WTwjb101CdJvle4nYdbcpFdRcjd/Oig/JTVTeitpzENRuetdJVj
-	3pHN4DrI=
-X-Gm-Gg: AYBFou2LJ9kw6JTuSWnzehONR0CRW060UxLR2ONEC3tYF+jpza39y07jBqRWjK18AaG
-	JyCexg/NY53R2jxb1+P97rixTjztP6Kaap2quX0F4R7+xl+Y4zi1Q82goUmZ2IKLm1OpBR5KSTc
-	PJ4El/UR7OKlX2Bajcf/VV1i1fO+mwXmtYTcqveG4TDSrc0QGyqgiX+Xv6NPf9FVLw+R0yQ8EZD
-	MPd4uAtWwxoagDVdGMw2jDGT3y799cpQaDAnaWnbzV5ju+ErBJirXsHlrfVWeOTSdcJsv80QHBF
-	K95H0SJdGm+i9W6cVvtOrQwjKq4IBE47Flo2rT7J0h+maNvq2agz/shlViW2+jK5VzUjIkkE3y/
-	84tObnIs0UQYXEt8B68hWvLLjq/X+KPlIlFtCAryhwzEnOYnHtG9pxbhqBg0y60MTZ6EyF3veEl
-	rnCHJiybcc+pR04fCTUsLOKq4UdP5ElLr6eBhbYr5nY/Ejez89y8eL6sbcEhAosHi4QK9JLvwHA
-	g80jH6b13aLr8iMww4//2RIs4N+C94R6PbxEsDDzjcoaL+dY/xi9dFTYfMLuirqFU3ALqQ5fgyW
-	WXw59A==
-X-Received: by 2002:a05:6a00:1d82:b0:86a:141e:2a8d with SMTP id d2e1a72fcca58-87e989951famr2807752b3a.11.1790271526738;
-        Thu, 24 Sep 2026 10:38:46 -0700 (PDT)
+        bh=jcavR+kumVH2a25pyfmlJjp3ykD/tBOqZkHbAf7QxFs=;
+        b=dqj6KruO2tKi6wcdRbGgyswNCx/W+68LeRFcso2IN+T+DZj8UYevkQB8ZyXl49l0p8
+         aldVplBes7q1FvqYg2DnsKz0fvyMoPkqNEMZXoUeqYAxP6Tv+QMxaekvjm7aVoO6quzl
+         kojFdUSflAiuXAhZFgR6kwpS0Z+kCS+OGGArSI6SDKy6DwYvCniZ7SErznkYGE0Gnnkx
+         KWodYKhrZ+wK9TvhOFcyzzx87fv3Bn6GoCv3/NrlVv3MTpvZqUMbso/ggJbC/3xxRvP9
+         qkcMrInKivUnhu7IDkXeuXZn9GzHyKB5Jww398EZhCFbXdy4dsjtBJr2HPF1J0k0pz4D
+         gZvg==
+X-Gm-Message-State: AFuF++lYr2TfLRUW87a0xk7og0jXZQX2H5qnv8bEDXIo3yar6K4pXdVx
+	HjT4doNu6Nv2/H49o/Dyhwm+al3n/FUTs1CyreQNCm/+wH3nGKCXGxne+WLx9lt8RpmAKXKJZQF
+	lIjlN0KQ=
+X-Gm-Gg: AYBFou2y1MEdVtjZ1bVnqKnoMF1nMuTsog3Xv5E/E0J1PPRPV1J8m1hpOZgrfxjq0lF
+	LwFLcFfBZoJihuq4duCVmBbpfetkNOQZ6rWweFlAuTc9kwPIG8Nb6uErGNymK4dyD4U2xidLbTS
+	mYS00a+58gtTEqspz7PA9KTK05f8vtcrA4HX9VLkN878s14H02FBjA5SiRsJhra2Rk2zA+BUklJ
+	j8O0nJfb8F3JFFz5Mqh3BBNxFyCOOljLmXNqmIeHTkGncd0egY85mLpoWyYtbW2froNggfDPIBO
+	O1Pq2x+miD6jk38pNql/nohNGvj+klM27bleL3ApKGDD0CdSD73E1Inlwtd5ourEnaJHlbXQE9Z
+	Lbp3uQh7h+M06V7/xaM2PeldKcnxDRQ7p9c9RX3nEZk5awUCxVdf7CzYtoMjyDYhA7dBACPYaSH
+	M4hQEur0IFbjNsgk3V6dg/uIrm9P9ZlVQNEtNjmS4q95oJlwJ++pT0hylS86azuuCaMqd6rYKxJ
+	cNIZKGltAGDEIxJebxelrB6VaNsecZ1Rgv5mLKpZY+SsMhFR3lWhQ00QBkHiFCgvJyTNO0=
+X-Received: by 2002:a17:90b:3c0e:b0:39b:92bb:9eef with SMTP id 98e67ed59e1d1-3a098ce1c3emr3210269a91.22.1790271658828;
+        Thu, 24 Sep 2026 10:40:58 -0700 (PDT)
 Received: from localhost.localdomain ([2603:8001:5f01:8bab:f875:3165:4649:e818])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87feb57e56csm37517b3a.48.2026.09.24.10.38.45
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df9144e6e4sm120375ad.64.2026.09.24.10.40.56
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 24 Sep 2026 10:38:46 -0700 (PDT)
+        Thu, 24 Sep 2026 10:40:58 -0700 (PDT)
 From: Artem Dinaburg <artem@trailofbits.com>
 To: stable@vger.kernel.org
 Cc: Artem Dinaburg <artem@trailofbits.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>,
-	Yoshinori Sato <ysato@users.sourceforge.jp>,
-	Rich Felker <dalias@libc.org>,
-	Paul Mundt <lethal@linux-sh.org>,
-	linux-sh@vger.kernel.org,
+	Yan-Hsuan Chuang <tony0620emma@gmail.com>,
+	Kalle Valo <kvalo@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-wireless@vger.kernel.org,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Duoming Zhou <duoming@zju.edu.cn>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-Subject: [PATCH 6.1.y] sh: push-switch: Reorder cleanup operations to avoid use-after-free bug
-Date: Thu, 24 Sep 2026 13:38:41 -0400
-Message-ID: <20260924173842.88036-1-artem@trailofbits.com>
+	Dmitry Antipov <dmantipov@yandex.ru>,
+	Ping-Ke Shih <pkshih@realtek.com>
+Subject: [PATCH 6.1.y] wifi: rtw88: delete timer and free skb queue when unloading
+Date: Thu, 24 Sep 2026 13:40:53 -0400
+Message-ID: <20260924174054.88252-1-artem@trailofbits.com>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -83,42 +85,28 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Duoming Zhou <duoming@zju.edu.cn>
+From: Dmitry Antipov <dmantipov@yandex.ru>
 
-[ Upstream commit 246f80a0b17f8f582b2c0996db02998239057c65 ]
+[ Upstream commit 634fcbcaa4062db39aeb5ac6ed1bc1feb8dd5216 ]
 
-The original code puts flush_work() before timer_shutdown_sync()
-in switch_drv_remove(). Although we use flush_work() to stop
-the worker, it could be rescheduled in switch_timer(). As a result,
-a use-after-free bug can occur. The details are shown below:
+Fix possible crash and memory leak on driver unload by deleting
+TX purge timer and freeing C2H queue in 'rtw_core_deinit()',
+shrink critical section in the latter by freeing COEX queue
+out of TX report lock scope.
 
-      (cpu 0)                    |      (cpu 1)
-switch_drv_remove()              |
- flush_work()                    |
-  ...                            |  switch_timer // timer
-                                 |   schedule_work(&psw->work)
- timer_shutdown_sync()           |
- ...                             |  switch_work_handler // worker
- kfree(psw) // free              |
-                                 |   psw->state = 0 // use
+Reviewed-by: Ping-Ke Shih <pkshih@realtek.com>
+Signed-off-by: Dmitry Antipov <dmantipov@yandex.ru>
+Signed-off-by: Kalle Valo <kvalo@kernel.org>
+Link: https://lore.kernel.org/r/20230628072327.167196-1-dmantipov@yandex.ru
 
-This patch puts timer_shutdown_sync() before flush_work() to
-mitigate the bugs. As a result, the worker and timer will be
-stopped safely before the deallocate operations.
-
-Fixes: 9f5e8eee5cfe ("sh: generic push-switch framework.")
-Signed-off-by: Duoming Zhou <duoming@zju.edu.cn>
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Reviewed-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-Link: https://lore.kernel.org/r/20230802033737.9738-1-duoming@zju.edu.cn
-Signed-off-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-
-[ Backport to 6.1.y: use timer_shutdown_sync(), already available here,
-  so the timer cannot rearm before the queued work is flushed. ]
+[ Backport to 6.1.y: the source change is unchanged; only hunk locations
+  in rtw_core_deinit() differ. The target-only Fixes trailer names the
+  initial rtw88 driver commit, which introduced this lifetime. ]
+Fixes: e3037485c68e ("rtw88: new Realtek 802.11ac driver")
 Assisted-by: LLM
 Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
 ---
-Hi Greg, Sasha, and SH maintainers,
+Hi Greg, Sasha, and rtw88 maintainers,
 
 I am continuing with CVE backports still missing from 6.1.y.
 This fix is inherited by v6.6 and every later mainline release, but 6.1.y
@@ -130,31 +118,35 @@ Could you please queue it for 6.1.y?
 Thanks,
 Artem Dinaburg
 
-CVE: CVE-2023-52629
+CVE: CVE-2023-53574
 
-Build validation: SH r7785rp_defconfig with CONFIG_PUSH_SWITCH=y and
-CONFIG_WERROR=y built push-switch.o with no new warnings or errors.
+Build: This patch was included in the x86_64 allmodconfig and
+CONFIG_WERROR=y build.
+It produced vmlinux and modules with no new warnings or errors.
 
 AI assistance: An LLM helped find, adapt, and validate this
 backport; I reviewed the patch and test output.
 
- arch/sh/drivers/push-switch.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/net/wireless/realtek/rtw88/main.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/arch/sh/drivers/push-switch.c b/arch/sh/drivers/push-switch.c
-index 2813140fd92bb2..6ecba5f521eb6c 100644
---- a/arch/sh/drivers/push-switch.c
-+++ b/arch/sh/drivers/push-switch.c
-@@ -101,8 +101,8 @@ static int switch_drv_remove(struct platform_device *pdev)
- 		device_remove_file(&pdev->dev, &dev_attr_switch);
+diff --git a/drivers/net/wireless/realtek/rtw88/main.c b/drivers/net/wireless/realtek/rtw88/main.c
+index 8f486152fbd9fe..53c61758d57a0e 100644
+--- a/drivers/net/wireless/realtek/rtw88/main.c
++++ b/drivers/net/wireless/realtek/rtw88/main.c
+@@ -2135,10 +2135,12 @@ void rtw_core_deinit(struct rtw_dev *rtwdev)
+ 		release_firmware(wow_fw->firmware);
  
- 	platform_set_drvdata(pdev, NULL);
-+	timer_shutdown_sync(&psw->debounce);
- 	flush_work(&psw->work);
--	del_timer_sync(&psw->debounce);
- 	free_irq(irq, pdev);
+ 	destroy_workqueue(rtwdev->tx_wq);
++	timer_delete_sync(&rtwdev->tx_report.purge_timer);
+ 	spin_lock_irqsave(&rtwdev->tx_report.q_lock, flags);
+ 	ieee80211_purge_tx_queue(rtwdev->hw, &rtwdev->tx_report.queue);
+-	skb_queue_purge(&rtwdev->coex.queue);
+ 	spin_unlock_irqrestore(&rtwdev->tx_report.q_lock, flags);
++	skb_queue_purge(&rtwdev->coex.queue);
++	skb_queue_purge(&rtwdev->c2h_queue);
  
- 	kfree(psw);
+ 	list_for_each_entry_safe(rsvd_pkt, tmp, &rtwdev->rsvd_page_list,
+ 				 build_list) {
 -- 
 2.39.5
-
