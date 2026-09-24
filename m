@@ -1,33 +1,43 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relayaws-01.paragon-software.com (relayaws-01.paragon-software.com [35.157.23.187])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E50AD4A4985;
-	Thu, 24 Sep 2026 15:32:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 855F449CF20;
+	Thu, 24 Sep 2026 15:37:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.157.23.187
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790263958; cv=none; b=ZoLfXmOQVF2hcPN0QTbo4sDDsmI974oxSBwZI4D1+COF4RDlPDgW7R7qQDZFGX6afPtwOb/eYWmZrAPPlXEKF7RRK5tMaDYLZ1NNOxGfsnm115CqPPySvCpZ8Yl7eEOCnezaLAw7i1lwllzqH2Mnwfk5NfMCoe6qvu7TEd2N2I4=
+	t=1790264233; cv=none; b=NEp4rJTJ8lm42Hu7izaWg3HVUktCiznMazrR0J55GQ8lJfvbQfpNtySRiEcXwjLQxf1h8qVHdSX/yGcDhFFY9ITv/LvoizM/yAp7ZVTR/DGWyC6SWgo5garKAy2NYZ2xqWLZpCVIpXmwQeCJCT34dKCz0uQwYDXq/BSKpcWCTp0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790263958; c=relaxed/simple;
-	bh=RSDNtHrnL48+9T76NsiydnP9X1Kiq4Yc/BlNcsoLJ+U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=m9YCteCQ0dRRipeTdSbX+4LzbnbwJExN8HtzT1irVf3y3p/jlUZySuxSKlIgxPso+CDEld87XisMuUkleOpXFsno4+bjvSGEqD1sX4nNw6hWImMxeOzbLSeufeTjojDnnlE4rtyXyUEdVdHj6L4ijGOez9kedeoOLci7Ilu2jEg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hg4n58kr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790264233; c=relaxed/simple;
+	bh=LtlID1Tut84vhZMMIt6dhqBV++ovLnqLdWrDbAfps5s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=U33CG0uWKxTbPR6Tgn4GF40MD7HXH4IyZ+F46yVdH5WRW/XCJayAOKnCQjh2ZsHopfl/gzi1lv66WTn40eX9HFmpLAAKgpfLKkcHs4Y/GEBJBe8eDGkVoqZY1fsXAh5xUxZCRGVI61Vy0yMuhQ9rOSb1S+lONeaG5KkWQQbnM8Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com; spf=pass smtp.mailfrom=paragon-software.com; dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b=Y5Fhi7Rz; arc=none smtp.client-ip=35.157.23.187
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paragon-software.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hg4n58kr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 081C01F000FF;
-	Thu, 24 Sep 2026 15:32:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790263956;
-	bh=Tp54T1Ky+sYrkKZngcDc+33ltudUbUl+mxqhtBF8KeU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Hg4n58kr9CttSBeBe2vfr/Et9VbEL8MqbZpXHJ0iiBzc4hhByg3+16A1POnInnQX8
-	 cJHOIa1g0xiybET9Pia85SthvEICDSRl9C4Zdda37DziAECqHjqCaHArGGnIAkEvOa
-	 faZ0d1SEgd5dl33T2wObXW0Oy1bulzKVIEs3gav9zbV4S8vJ36EFduALALooYn+hoS
-	 PucgzMknkfWIgwVRs8uYRuCn+/KhnIfZ8S22nrjXbCDtJJGfkBo0B4sXzPcbZyzHSo
-	 0OTJIUlfRNtv51E8vmwaRvxToByyj8dMObojWQzSnCKgp87UE7EwMf9Yepur01Rnkk
-	 CiGTvFVGMNtgQ==
-Message-ID: <e7f48cc6-be21-4ab1-91a0-df0e3a6ec0b5@kernel.org>
-Date: Thu, 24 Sep 2026 17:32:22 +0200
+	dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b="Y5Fhi7Rz"
+Received: from relayfre-01.paragon-software.com (relayfre-01.paragon-software.com [176.12.100.13])
+	by relayaws-01.paragon-software.com (Postfix) with ESMTPS id B00861D78;
+	Thu, 24 Sep 2026 15:38:03 +0000 (UTC)
+Authentication-Results: relayaws-01.paragon-software.com;
+	dkim=pass (1024-bit key; unprotected) header.d=paragon-software.com header.i=@paragon-software.com header.b=Y5Fhi7Rz;
+	dkim-atps=neutral
+Received: from dlg2.mail.paragon-software.com (vdlg-exch-02.paragon-software.com [172.30.1.105])
+	by relayfre-01.paragon-software.com (Postfix) with ESMTPS id 6963B1D70;
+	Thu, 24 Sep 2026 15:37:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=paragon-software.com; s=mail; t=1790264228;
+	bh=aNerNzZMBL5stsqR6RVjnN5baso0dUCYrXQWA/vpOz8=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To;
+	b=Y5Fhi7Rz7gPWXAUGjpEniAwnYXR0X1dNav8qVg8haRcfBkFXxouofzaV+isXpl47U
+	 quVA4b7OhboEx5t6kWRJjPAwgOCcfM+MKwRHeUNwMlT/XT0F8IN5gKin+zf9BFYbzd
+	 RhTn9OJbsnCqRnUPnHln36PAUwRJ3P3SdaBRbKBI=
+Received: from [192.168.95.128] (172.30.20.214) by
+ vdlg-exch-02.paragon-software.com (172.30.1.105) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.7; Thu, 24 Sep 2026 18:37:07 +0300
+Message-ID: <63dedf61-1e76-421f-9b7f-c4e463f21aa8@paragon-software.com>
+Date: Thu, 24 Sep 2026 17:37:05 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,123 +45,74 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/7] mm: allow shared folios to be promoted to a fast
- tier
-To: Gregory Price <gourry@gourry.net>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
- akpm@linux-foundation.org, ljs@kernel.org, liam@infradead.org,
- vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com,
- mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com,
- vincent.guittot@linaro.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
- bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
- kprateek.nayak@amd.com, ziy@nvidia.com, baolin.wang@linux.alibaba.com,
- nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com,
- baohua@kernel.org, lance.yang@linux.dev, usama.arif@linux.dev,
- kas@kernel.org, matthew.brost@intel.com, joshua.hahnjy@gmail.com,
- rakie.kim@sk.com, byungchul@sk.com, ying.huang@linux.alibaba.com,
- apopple@nvidia.com, jannh@google.com, pfalcato@suse.de, hannes@cmpxchg.org,
- shy828301@gmail.com, raghavendra.kt@amd.com, stable@vger.kernel.org
-References: <20260922182928.2199090-1-gourry@gourry.net>
- <20260922182928.2199090-3-gourry@gourry.net>
- <f0cd5c54-deca-42e7-bc85-1838dfa917f3@kernel.org>
- <arUtcPIw_FaUSPv4@gourry-fedora-PF4VCD3F>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: Re: [PATCH] Fix OOB write if err == buflen in ntfs_readlink_hlp()
+To: =?UTF-8?Q?Alexandro_Cal=C3=B2?= <alexandro.calo@nozominetworks.com>
+CC: "ntfs3@lists.linux.dev" <ntfs3@lists.linux.dev>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+References: <029C54CF-FC6C-4BFA-854C-847F8E656626@nozominetworks.com>
 Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <arUtcPIw_FaUSPv4@gourry-fedora-PF4VCD3F>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+In-Reply-To: <029C54CF-FC6C-4BFA-854C-847F8E656626@nozominetworks.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: vdlg-exch-02.paragon-software.com (172.30.1.105) To
+ vdlg-exch-02.paragon-software.com (172.30.1.105)
 
-On 9/24/26 16:07, Gregory Price wrote:
-> On Thu, Sep 24, 2026 at 01:59:15PM +0200, David Hildenbrand (Arm) wrote:
->> I wonder if a better name would just make the comment above (about memory
->> tiering) implicit and make more sense of the sysctl_numa_balancing_mode &
->> NUMA_BALANCING_MEMORY_TIERING) check.
->>
->> 	folio_promotable()
->>
->> 	folio_is_promotable()
->>
->> 	folio_numa_promotable()
->>
->> etc.
->>
->> because that seems to be what we really test with both things combined.
->>
-> 
-> maybe:  folio_numab_promotable() ?
+On 7/8/26 13:30, Alexandro Calò wrote:
 
-Works for me if "numab" means numa balancing :)
+> [You don't often get email from alexandro.calo@nozominetworks.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+>
+>  From 64361f8e12081dc8828480588bc48c2c931ffc91 Mon Sep 17 00:00:00 2001
+> From: Alexandro Calo <alexandro.calo@nozominetworks.com>
+> Date: Wed, 8 Jul 2026 12:04:37 +0200
+> Subject: [PATCH] Fix OOB write if err == buflen in ntfs_readlink_hlp()
+>
+> ntfs_utf16_to_nls() may return buflen. The caller later uses the returned
+> length as the index for writing the trailing NUL byte,
+> so err == buflen writes one byte past the end of buffer.
+>
+> Fix this by limiting err to the last valid buffer index before writing
+> NUL.
+>
+> ntfs_utf16_to_nls() returning a negative value is already handled by
+> if (err < 0) goto out;
+> As long as buflen is guaranteed to be nonzero the patch is fine.
+> As a defensive fix if(buflen==0) could be added.
+>
+> This heap out-of-bounds write requires a crafted filesystem image,
+> which is not in the kernel threat model, but fixing memory errors would
+> be nice to keep things secure.
+>
+> Signed-off-by: Alexandro Calo <alexandro.calo@nozominetworks.com>
+> ---
+>   fs/ntfs3/inode.c | 3 +++
+>   1 file changed, 3 insertions(+)
+>
+> diff --git a/fs/ntfs3/inode.c b/fs/ntfs3/inode.c
+> index 0c9bd669117d..d4803e1625fe 100644
+> --- a/fs/ntfs3/inode.c
+> +++ b/fs/ntfs3/inode.c
+> @@ -2029,6 +2029,9 @@ static noinline int ntfs_readlink_hlp(const struct dentry *link_de,
+>          if (err < 0)
+>                  goto out;
+>
+> +       if (err >= buflen)
+> +               err = buflen - 1;
+> +
+>          /* Translate Windows '\' into Linux '/'. */
+>          for (i = 0; i < err; i++) {
+>                  if (buffer[i] == '\\')
+>
+> base-commit: 0e35b9b6ec0ffcc5e23cbdec09f5c622ad532b53
+> --
+> 2.47.3
 
-> 
->>> -		if ((vma->vm_flags & VM_EXEC) && folio_maybe_mapped_shared(folio))
->>> +		if ((vma->vm_flags & VM_EXEC) &&
->>> +		    folio_maybe_mapped_shared(folio) &&
->>> +		    (!folio_in_lowtier(folio) || !node_is_toptier(node)))
->>>  			return -EACCES;
->>>  
->>>  		/*
->>
->> Sashiko has some comment about anonymous shared COW folios. I think it has a
->> point, but didn't look too closely.
->>
-> 
-> its tl;dr:
-> 
-> `skipping this check means those folios could end up freely migrating east-west
->  between slow tiers`
-> 
-> Which cannot happen (we only migrate to top tier, numab will never
-> migrate *to* a slow tier).
-> 
-> basically false-positive
+Hello,
 
-False-positive? From Sashiko? I am shocked!
+Sorry for the delay.
+The patch is applied, thanks.
 
--- 
-Cheers,
+Regards,
+Konstantin
 
-David
