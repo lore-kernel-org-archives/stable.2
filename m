@@ -1,145 +1,145 @@
-Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1CCF480335
-	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 13:34:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE14547A0B8
+	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 13:36:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790256896; cv=none; b=ARKsAW8GnC/wNSEMCObQqQn2VEBuV02o8ZshpkM9J97x9kJO0Iqpi57Gkk0lShEXl8G2wukUW1hh1BpFJtkExO+xoC9OBZJjPd+QAtz1KwKJO8HcGgoIr0t2EmVbkb6X17iJPm0GKXiHLusUD+xW06bQHncpMSyUrWf6z3o4S7Q=
+	t=1790257021; cv=none; b=RqOuc9gex/sog/CYn6686UrpfLqrOF8gfApwN7NtdNZ7X4EX2yOjW5EBqGSdnLnz2pJRnSz92ojiHIH2c5LKHsxSTdm/hoac39jm8L5RnTqtqu2v/i/ApyDhaaIulPEzHKvacV2UjdWCt9f+Gvs3Cbgq2/mnooIfBIEfRRMxQ3g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790256896; c=relaxed/simple;
-	bh=Zw0pIP5eSJI28ZqgOlOYqy4ScF2vOQAnlGs6UoZ0oSM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EKeQdKs+U9OymXQKTwQ9qrWb3ls0yjxI586WHXIeC9nXXQ8QKMdt20afsgYbFC4Z4kpWdJTfa9py8DjwU9LI09zmsS0v/7myXOC35DwrG7C5YW8zUq0+OCJrOm2wqxyPomKsBm+AbM9rPoWiTbmpXYs+3IZzUCGnCkzwoI2DZ/8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZB4v8vx9; arc=none smtp.client-ip=74.125.228.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790257021; c=relaxed/simple;
+	bh=h/S/qyS5zfANXYCprjt2K0FZNKdUhZgNY83n2Q03IQ0=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=l61R7LhGiHoi0DVEAFf366BTbQCWEXYYolKvwZpyP9xWms8CNJ5QBWfftekdS55WcCxWKR79Gn4VgMxpdScoApnObw3s9SOnZiWpj61Zb211nRRHk8kxPJ/XAsBK5fsVj758f4aTSr28jS6wnMciABUdpnlInUOBeBgmj6knAd8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=xvYKnTIr; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZB4v8vx9"
-Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-8631d0023daso1099342b3a.2
-        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 06:34:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="xvYKnTIr"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49d1fb0cf5eso15261775e9.3
+        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 06:36:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790256879; x=1790861679; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wOCGbQf6XP96p7s0OjDQYdkOZWkG2NUg2kYXrHgNtio=;
-        b=ZB4v8vx9T5Ii0v14xNQJRScTrcNU9LVmZ0nw6SPPjOVeoti7wLSSwUAVTTzlE+Ds0j
-         W1B6bPIpTw9gwbXk5IXO1TYW7FkufQpfMeeugX5AXc+lvJnMadq0Jp1LoRqmoXhUkkMh
-         CguJyjIb86z6F5SpgL1+OHdcYXAYNQSNunHeStRoNZFoiwqXCON+/u9acwcOSfTFQA2T
-         ik8wgcoDHGEjUixaY6aGHTXzUVryzdnD/gtQM+YgCkeN0GicqMnxzYVVl36tUE0SFuME
-         TNh36Hu+C6tvjFVQh15p5EsJcCXw8Fwxnt8R+rUq4EBHAf3ZoHD+HHogoL9txBITgep+
-         KMgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790256879; x=1790861679;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=linaro.org; s=google; t=1790257005; x=1790861805; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=wOCGbQf6XP96p7s0OjDQYdkOZWkG2NUg2kYXrHgNtio=;
-        b=L2ZmUX3inJ81Do871idTPfmw7LaK3UiAQlZaPAzpKFda5l2SIFsx2F3N3MUsg/EubL
-         Rv1SIKw0HlDXz1KiuVTGA4QEPg1Qe60+0Zf3npYclH0fqmQAoKiWAdoQLszqHNgM8coi
-         uDMxv4MLSMzEUPVlOhSRPmJKoMjjTDGlHfYWiua1t4Yl9jZvdSwFgisTDdYgDgYZnVeB
-         SrU0zZFICCx+YHHeyhg1UrsKiWwAaeDXk7CnMVQ864TxQpSieEBMXzJf/qhKYMAUjvq6
-         zLyqw7tg27O6tTKvketSFSNTa2nk033dykVfDttLPDaME1Mf6NZpE+eezybuX9jO8ZEJ
-         81/Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzKNsMUycBGCzzxBEMN72mvs4jBWh2gfvUQduAL9CPTT7Fp+2R/u+1mOiJEUO48zfJqwA4yuPQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lq10buQ49GXRKypoXVJzXw9Tim2MJp+Ajf8UiD4Mq6BRcRR0dk
-	GHgZYdaDrPxwP/T2ZgIffTlkU0iz+0ttr8vr3sP5ofbQqWsHbXV+AjOe
-X-Gm-Gg: AYBFou0w+dofL2CGpuOPzQNRQJe/+5l1ve8gy6XMnpIBrHmmQbyvZV1YQ77deh6YZwD
-	IWBlD9JaZmP9WHvk0pKQSTIAUEANdzkyAeSbyrRbuWjPcmkH051ff3KKg0OXY758XRi7JE1iIqY
-	vXxfBDI7RDDAkQW/dK9yn6uF5xRnenlf5VupFx80qX8C1LWZXKWvui3LBSiL2TrJrwN6Ypeit9A
-	2X/LwlGiSl1k6oJJK4S8bFkVgGXpiezZSIiloKbb/mBhWl8Pum5dq1N6RImxsbQqMll86AbZUff
-	UrmGZhqZQ6mArVlSevOXP0zphcD67i9ssdTuBpPeP7q0iS2SqDur6HEYLCVIwdkTJoqQeFMmA4c
-	+gkb5kYKTrq0kKjaKOjN9cxRtd658YVeaDxWnqlmWoON0DMp5XL6qITvnrc8K1AMl8bAeOt7I/A
-	KcjpzYO6oURyuLwX+uL7H8+wj+7LV4ieitVMFHYT8yYfYTmgzA8IZnAg==
-X-Received: by 2002:a05:6a00:1302:b0:878:3783:8a4e with SMTP id d2e1a72fcca58-87e9be76a5amr2245806b3a.54.1790256878537;
-        Thu, 24 Sep 2026 06:34:38 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87d1e0f4fbbsm3024366b3a.52.2026.09.24.06.34.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 06:34:38 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Hannes Reinecke <hare@suse.de>,
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	James Bottomley <James.Bottomley@suse.de>,
-	Joe Eykholt <jeykholt@cisco.com>,
-	Robert Love <robert.w.love@intel.com>,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] scsi: libfc: fix directory server rport memory leak
-Date: Thu, 24 Sep 2026 21:34:29 +0800
-Message-ID: <20260924133429.1587511-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        bh=xXlP/969CHxJtU22HfzbT0qcpswupuWX/2g/r8D5tLk=;
+        b=xvYKnTIrXk4m4Zxs2WTzzVBqPPrVR8hIdPqsqf+NQTZsgsyyHQi7lR03BbdJUqGSZO
+         UUvpX/9QApG29vK0uljTDyEqAwA4Ya8MpJKwevNzhGhPdHRe/aEQ2n8eEXbjFkHeli/s
+         25OQWDKuadH87nahDpipiIpgD+tZAfN2lqd0r7AP5wpuL4FDkK2WJEjF0H1hc2OA5cFS
+         6QsQ36AZQCHoAtXRrQUgGzA3wajXvm04O6fsBOZwWWquY/CJlv5I/1zeFUYGuWlbLp0n
+         Oh8wsySoWEfu8IoMZCUrjx7w4lAK9Vm4M9YecxPrhYi3wpx/ddUvfMHbKkcWMT9y2jPR
+         3nRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790257005; x=1790861805;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xXlP/969CHxJtU22HfzbT0qcpswupuWX/2g/r8D5tLk=;
+        b=mGT7sZ0Nmd38MO/6IikePKON+2qGkt0221Ngc+R+mhZVlO0ulCGxljG8WHy2tXJz3t
+         BKg2RdGqlncCskFm6bNvngrVjbSgZQiy0SMtCg+cUUuyB3EY6XqUdtKFJ4dtoCEO6I7V
+         iESFkM6Xob0VqH3emB8R5LWgz+Nq0fZHr8Wh0jEBfvfmveK9Cb/YZ0lnXPWNG5RAZAEq
+         PySwXZHy87391U8bmvpk/S2txGKZ8hE2TbbuvVTd2ZrFne/2OGUjwp1QDOhSPEa9eY7z
+         MZkfvUzsspkARavn7nSPJk1rJkb799u6jyZDoPIfed2uy3mHcKiMA2Bc8UV8Lvas9Mji
+         yNvA==
+X-Forwarded-Encrypted: i=1; AKwUvBw39WZUxN9wF8KoqbZ+tmAOMFvDtOfA5pqtYjnPsz3gFr+Qv9MAmxjwj5IfqBfFD3B49KCPnH8=@vger.kernel.org
+X-Gm-Message-State: AFuF++k4GDhnOFUbCxD6G4XRISeneHEERRmsQlgOcLheBlIIzwcyntVb
+	beU8Mv0XnOup7Z79aPPjTtaT0HJhzMDDLAkngw+DpbwQ/87AZpTTvRXaIlozee4Br34=
+X-Gm-Gg: AYBFou3b05VBQ66HwUPfWWH6BAixE7M71NFdVf+SOfFjWeq9i1E3t5Mv8jraqIyzd7r
+	SdyzZnfa1d4YgirhOBGxa893/DBdgc09dCAyeVvnv8UyS/Y8zeTvKCUcKgY+aFSPsSl4g4ZQPXf
+	wqtbUb7BmdQp2gRF8H5jC5GUcJSSRBKHqXdZuvHA5GjYPPYxbDk0HSv8iyZP/KFNmgChuwe7xeU
+	vBhWuNh818u8TIJYhPMm+bhXb9I0q5c+vwe2QLIErHIkhMXoaOGnSKNMmXdvMOQwQH6K+X8XpU/
+	c3Mr+80pOK6tGgUBTkBjIs8mE9d1Af9PRsGn/XJ8IIeRKybJWGVPTe0Ubhrj8YR62SAMmn8k4Ih
+	myzUX6MqceruFcHla6rbVqpgi2I3li2GVIsr4w8zC8uGNv0qgXDcbdW1OCqZesHzMVFbFrLpvK3
+	2tybxSo8TC1B68bxzKH/ktQFq17t3HGXf+8xp/qG/t71XJh1LqmkpHonl14D1DD4DHx0Khm69Mn
+	Vtdcoj95MPAyodoJq9OK5URZRm+g3VFjjQ5NsuyFJEHaWI64cPUdG4=
+X-Received: by 2002:a05:600c:468c:b0:49f:bd3c:bc19 with SMTP id 5b1f17b1804b1-49fe66f4cabmr40024985e9.20.1790257005322;
+        Thu, 24 Sep 2026 06:36:45 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:336e:a1a0:8f96:9f7a? ([2a01:e0a:106d:1080:336e:a1a0:8f96:9f7a])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48868889130sm14521695f8f.37.2026.09.24.06.36.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 24 Sep 2026 06:36:44 -0700 (PDT)
+Message-ID: <8f18e32d-07a7-46d9-9e6b-55c8fd25ede6@linaro.org>
+Date: Thu, 24 Sep 2026 15:36:43 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+From: neil.armstrong@linaro.org
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH] drm/panel: Fix node reference leak in
+ rpi_touchscreen_probe()
+To: Wentao Liang <vulab@iscas.ac.cn>, airlied@gmail.com
+Cc: architt@codeaurora.org, bcm-kernel-feedback-list@broadcom.com,
+ dri-devel@lists.freedesktop.org, eric@anholt.net,
+ florian.fainelli@broadcom.com, jesszhan0024@gmail.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-rpi-kernel@lists.infradead.org, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, simona@ffwll.ch, treding@nvidia.com,
+ tzimmermann@suse.de, stable@vger.kernel.org
+References: <20260916180549.2090497-1-vulab@iscas.ac.cn>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260916180549.2090497-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-fc_rport_create() does not add FC_FID_DIR_SERV rports to
-lport->disc.rports. If fc_frame_alloc() fails in
-fc_rport_recv_plogi_req() after creating a directory server rport, its
-initial reference is not released through the normal rport teardown
-path.
+On 9/16/26 20:05, Wentao Liang wrote:
+> of_graph_get_remote_port() returns a reference to the remote port
+> node.  On the success path that reference is passed to the registered
+> DSI device and released with it, but if mipi_dsi_device_register_full()
+> fails the reference is never dropped.  Release it on the error path.
+> 
+> Fixes: 2f733d6194bd ("drm/panel: Add support for the Raspberry Pi 7" Touchscreen.")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+>   drivers/gpu/drm/panel/panel-raspberrypi-touchscreen.c | 1 +
+>   1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/gpu/drm/panel/panel-raspberrypi-touchscreen.c b/drivers/gpu/drm/panel/panel-raspberrypi-touchscreen.c
+> index dc4bb8ad9131..c14776561623 100644
+> --- a/drivers/gpu/drm/panel/panel-raspberrypi-touchscreen.c
+> +++ b/drivers/gpu/drm/panel/panel-raspberrypi-touchscreen.c
+> @@ -428,6 +428,7 @@ static int rpi_touchscreen_probe(struct i2c_client *i2c)
+>   	if (IS_ERR(ts->dsi)) {
+>   		dev_err(dev, "DSI device registration failed: %ld\n",
+>   			PTR_ERR(ts->dsi));
+> +		of_node_put(info.node);
+>   		return PTR_ERR(ts->dsi);
+>   	}
+>   
 
-Normal rports are added to lport->disc.rports and removed from the list
-before their initial reference is dropped. The directory server rport
-bypasses both operations.
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-Add directory server rports to lport->disc.rports and use the existing
-list removal path when they are deleted. Keep the existing directory
-server callback and retry behavior unchanged.
-
-The issue was identified by a static analysis tool I developed and
-confirmed by manual review.
-
-Fixes: 3ac6f98f4113 ("[SCSI] libfc: correctly handle incoming PLOGI request.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
-v2:
-  - Add directory server rports to the discovery rport list and use the
-    existing teardown path, as suggested by Hannes Reinecke.
-  - Preserve the existing LLDD callback and retry behavior for directory
-    server rports.
-
- drivers/scsi/libfc/fc_rport.c | 12 ++++--------
- 1 file changed, 4 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/scsi/libfc/fc_rport.c b/drivers/scsi/libfc/fc_rport.c
-index c25979d96808..eac3fde1246a 100644
---- a/drivers/scsi/libfc/fc_rport.c
-+++ b/drivers/scsi/libfc/fc_rport.c
-@@ -160,10 +160,9 @@ struct fc_rport_priv *fc_rport_create(struct fc_lport *lport, u32 port_id)
- 	rdata->maxframe_size = FC_MIN_MAX_PAYLOAD;
- 	INIT_DELAYED_WORK(&rdata->retry_work, fc_rport_timeout);
- 	INIT_WORK(&rdata->event_work, fc_rport_work);
--	if (port_id != FC_FID_DIR_SERV) {
-+	if (port_id != FC_FID_DIR_SERV)
- 		rdata->lld_event_callback = lport->tt.rport_event_callback;
--		list_add_rcu(&rdata->peers, &lport->disc.rports);
--	}
-+	list_add_rcu(&rdata->peers, &lport->disc.rports);
- 	return rdata;
- }
- EXPORT_SYMBOL(fc_rport_create);
-@@ -363,11 +362,8 @@ static void fc_rport_work(struct work_struct *work)
- 
- 		mutex_lock(&rdata->rp_mutex);
- 		if (rdata->rp_state == RPORT_ST_DELETE) {
--			if (port_id == FC_FID_DIR_SERV) {
--				rdata->event = RPORT_EV_NONE;
--				mutex_unlock(&rdata->rp_mutex);
--				kref_put(&rdata->kref, fc_rport_destroy);
--			} else if ((rdata->flags & FC_RP_STARTED) &&
-+			if (port_id != FC_FID_DIR_SERV &&
-+			    (rdata->flags & FC_RP_STARTED) &&
- 				   rdata->major_retries <
- 				   lport->max_rport_retry_count) {
- 				rdata->major_retries++;
--- 
-2.43.0
-
+Thanks,
+Neil
