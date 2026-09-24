@@ -1,126 +1,138 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E10C4A99D7;
-	Thu, 24 Sep 2026 16:08:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43E91481664
+	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 16:12:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790266112; cv=none; b=b1CYDh/1pTcieE/tUKj1WZxjwm1S2FcqdtMcITVXWyJnMsLQpjyCElWmnEm7B2g3b9EQgaDTIp9dwlG7jH1w/Bjcc1mcx9paNy7z0zXfWqRKF2Qo38tEbzK+CNphOd4AKNcTgZv1v8aBPhQp98voiNlLOlpMmTkUayLnKcHt4oQ=
+	t=1790266376; cv=none; b=o++VXT2ebv/Bl6ZInn3Rob5RaX1deO18DTcQAR2QMUpq0V4Dn8bq2edlO/UtsA+Tpl9GehXAI5PtRvhZkwpN6myMom/EX2EtPESltxiZAg9AObT61qiJ1MnD8j/92cU2rugN2mjLn/O23ZSq5Kh1oRwiSvsxN67eJPMUpQplzjQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790266112; c=relaxed/simple;
-	bh=PdOrdhPdZuZhrlxEVnCGfBAZmrpdFXAr/Fx0uRSk2gY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=gY5lnNzIxROe8HJBZrkuED68VxPOeeqvO3Z1xRPURmML7WHT4BjcYrVmygQjcWCXItKB+4b6WHuCf7Fq96/JVlmnLYEiPmydI+9OOoRSPeZglvt/BApWghwBOY1kNB9hj2Zkn1VMLRLUfwCYspDRYYZiMUaiVIN4WHKr9XTgBA0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ONsXbOcr; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790266376; c=relaxed/simple;
+	bh=kDYLFZJPxTJMzn8FmYfHN54E/Y+7dtsIoP5THCuRkNk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=D/KY9bnn3G41PatUEx1gtYte2cdKptiLFX5kjlOqXFJiKWnzEOd/HMd5LUusFVKcubSiDe+AO7KMJqmcgxCm3jxiLeyon1oOHa4qQI3vQiZoMuuemPkM/MOm20/xf9Icnqoexab4fX5VhcBGlcnceNg+fNA9cF45Wcp8TRHqYKU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z/uvwxpu; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ONsXbOcr"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 2E0C31A0FFD;
-	Thu, 24 Sep 2026 16:08:27 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 00C3760738;
-	Thu, 24 Sep 2026 16:08:27 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0105010329450;
-	Thu, 24 Sep 2026 18:06:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790266041; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=BH+arErWIBY7hpZKpPthQMU4Dv/fEL3yycrYdB+7SAY=;
-	b=ONsXbOcr23MBp97WH0svxjX/qajC1P03GDotsG32pqiLLyxtrTG9i/nFxLh60PPtt6ib8B
-	KpwGfgCIAwOe7tqrY2Dr+yZGfVzW92Q/qGCRLH12Zq2Z+wkPwECFoEWvCnx7LufxoQmNdg
-	WJ38Cg8+yZ30XQiNT8mAwHbSzwvtFH3WA1zvLte7l0Hovu7kidqd16A6YZg6XsdpHqCF84
-	NeFQDNgfTJzmgMmEB3SwdUbUw3tntTqszPGEZrO2bTGHan5QGUo5jUepD2J8Oh1oP19ybF
-	hrPgZgr2bEWcYpEAMR3ve3Agm7LWsRG1dKDyFtfL681JTjL1Biw6uMGRLV74FQ==
-From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-Date: Thu, 24 Sep 2026 18:06:25 +0200
-Subject: [PATCH 5.10.y] SUNRPC: lock against ->sock changing during sysfs
- read
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z/uvwxpu"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469f20513so57693b3a.0
+        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 09:12:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790266368; x=1790871168; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=xGGTqz2aZKsHPcNK1Wt2KAGCnTv0BbXSbSraW+Q8OuY=;
+        b=Z/uvwxpuIfJjm2CSjfE6ZbDS5iYLaIOXXTK6BV0B59uqXXxi5OChTUQKNFXx2Ccm/k
+         yr+jw5NPY7pNmiQDlZPiO0j5K9LZvgRipmKiN4afra+XGc5TLVvsr528ODvtTtOujAmv
+         EJ8Cz0e+tTunBVV0wi0fC4woUsGwN4luOATpKUVh+pzdObEuSEO3/nPr8E+X/UC/9Iwt
+         uRPOfNFv/XxELWRzTpGZQTAwyftaZ+lWMTb0Em2KwWokatuKp1nUG7YXSjtyVOZKYEdY
+         tKgmv5C6DDov2DNCxdnWTrR97dEsdUFkkQapX31XZTELSr01BrgpYzUbA7vpbJAkcdkN
+         s3mg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790266368; x=1790871168;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xGGTqz2aZKsHPcNK1Wt2KAGCnTv0BbXSbSraW+Q8OuY=;
+        b=IXEmdfFtzsvTmZwjMniAYalklygbWY1UWiZdc/b5e7WJYwdsFq85SyJZ14Of5tTNnh
+         xgxqVp7Td9tcfTq0TtzpzTOoXx6cFxtFWubxzbyqvbLnSuPzZ+okoN2afYuTvmU8T/dB
+         8EZyW3xL7h79negy8EGjWk6iiUL7BBiUTidkn5UkTD4Q/VFU5yKK+C6H19selF01a4hS
+         Zp79IwesYMPVXbZFfSEjd2ac6nMFTX/1cvQGI/mYvV7zZ8PQ1sxD1rsIYSrJ3MpChk7l
+         GWiDMHsXuoKzQNqXFvDBSUXaFZAbVoWKHD9P2w9WGcUtS41LJMiI8LL+fqV6mqHo1Qnh
+         65lw==
+X-Forwarded-Encrypted: i=1; AKwUvBz0s3xPITFfmL8hkRTxtGhGOCgrZur+076gA11hPDj1lPr6l7UItxyEPuXMjR8iG40snO4aBAY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nZ6X7VQIVfbqSZWx6aTwJJbRcTyIca6KtlvDripx5FNTmQI0IF
+	54+mGrHIOjlGCkEslJhMQbdaizGNRd2XZZcwF3CVLwqcgq6WhVwoKnsj
+X-Gm-Gg: AYBFou1dspzUwIbJm5iYziCG7IHsApRaqomIjDKIQ5kcTelVpKLheeatAnODO+xPCGW
+	PSeTihtt+xYK2AYF19lF/fmzq0d2Xgohykh3MX1Y8xiiNvCxaQ1eMxatWAbbwGPS80VGF/JR3aH
+	eyUC4XEvXCSi9jtO7K36wKw7y6gEHjkaqai7kTowA8RjMqcFEKKDczUtOfK6YcRhXYncNMZmbaZ
+	co7BncYnLTUQYcGhybOuYtFm0tFU+V8r+9NTTntifwPD+PaYObPkmkYClsak+l4qmSq2lGVO0/p
+	px2vruT4FGP1nHYsiq9MFzlBmWzmqs5u3l0sbpkhsfvfQ8c4v99TFSnvr4SkRvVYxBr4OtxNv+c
+	9ryTHmvk3ujxGFiy4Rixkvm61IrnO2VhV50Myg3pH7FlHjo0/TZiHaXrfvn3/dWnqe4pbynxJHa
+	wf/1+qZkGUYVn8TuqB+gzmVIhJRqkY8O0aeUJFaaUBrZP/eNnXtcsbfVKHnWmxzMkJjJiLDmrxV
+	7T552jTbhvjWCcXyEuJSCU=
+X-Received: by 2002:a05:6a00:4b4e:b0:879:30ac:c161 with SMTP id d2e1a72fcca58-87e9c63a4edmr2723587b3a.49.1790266367643;
+        Thu, 24 Sep 2026 09:12:47 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87d1e1f5db6sm3312081b3a.54.2026.09.24.09.12.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 09:12:47 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Thu, 24 Sep 2026 09:12:46 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Jiale Yao <yaojiale02@163.com>
+Cc: Aleksa Savic <savicaleksa83@gmail.com>, linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] hwmon: (gigabyte_waterforce) reject short input reports
+Message-ID: <5b8b6c95-693a-4472-93c4-c54d22280b79@roeck-us.net>
+References: <20260924151133.1233860-1-yaojiale02@163.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-cve-2022-48816-v1-1-b44c7e4dd493@bootlin.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ7CMAxE0atUs8ZVHNqq4SqIRTAOmEVBCVSgq
- ncnwPKNNH9B0WxasGsWZJ2t2G2q4E0DucTprGSnanjnBxd8RzIrVXjqxpEHYg59SCmKxC3q6Z4
- 12esX3KNv2bVvHP57eR6vKo9vDev6AQqjEkB6AAAA
-X-Change-ID: 20260924-cve-2022-48816-11959ffacca3
-To: stable@vger.kernel.org, 
- Trond Myklebust <trond.myklebust@hammerspace.com>, 
- Anna Schumaker <anna.schumaker@netapp.com>, 
- "J. Bruce Fields" <bfields@fieldses.org>, 
- Chuck Lever <chuck.lever@oracle.com>, 
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
- Olga Kornievskaia <kolga@netapp.com>
-Cc: Benjamin Robin <benjamin.robin@bootlin.com>, 
- Anna Schumaker <Anna.Schumaker@Netapp.com>, linux-nfs@vger.kernel.org, 
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, NeilBrown <neilb@suse.de>, 
- Robert Garcia <rob_garcia@163.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790265996; l=1838;
- i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
- bh=liulsZ/coQfT07R5JtzG+PjFTbjUtiJrY8ERm44fUGw=;
- b=hvuAFoVF4j+paPwTWzFrf8A5Zvpgx03sXgeYvPovb8Fl/DD4+3oPfzYGOZU2WXVBh2AVlco3N
- vH+l07ieePVCOtgTy7kARTUQVdDf8YorRQLKWt+tC9Bhkqw27kHEwg0
-X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
- pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924151133.1233860-1-yaojiale02@163.com>
 
-From: NeilBrown <neilb@suse.de>
+On Thu, Sep 24, 2026 at 11:11:32PM +0800, Jiale Yao wrote:
+> The HID driver raw_event callback runs before HID core validates the
+> received report length.  waterforce_raw_event() reads the command bytes
+> and then accesses fixed offsets for firmware or status data without any
+> length checks.  A truncated report can therefore cause out-of-bounds reads
+> and update hwmon state with data beyond the received report.
+> 
+> Require both command bytes before identifying a report, then check the
+> minimum length needed by the firmware and status paths before accessing
+> their payloads.  Commit 47669bec44fe ("HID: asus: refactor the two
+> workqueues and init sequence") added equivalent raw-event length
+> validation to hid-asus.
+> 
+> Fixes: 42ac68e3d4ba ("hwmon: Add driver for Gigabyte AORUS Waterforce AIO coolers")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jiale Yao <yaojiale02@163.com>
+> ---
+>  drivers/hwmon/gigabyte_waterforce.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+> 
+> diff --git a/drivers/hwmon/gigabyte_waterforce.c b/drivers/hwmon/gigabyte_waterforce.c
+> index 4eea05f8b569..9499cb274cbd 100644
+> --- a/drivers/hwmon/gigabyte_waterforce.c
+> +++ b/drivers/hwmon/gigabyte_waterforce.c
+> @@ -257,8 +257,14 @@ static int waterforce_raw_event(struct hid_device *hdev, struct hid_report *repo
+>  {
+>  	struct waterforce_data *priv = hid_get_drvdata(hdev);
+>  
+> +	if (size < sizeof(get_status_cmd))
+> +		return 0;
+> +
 
-[ Upstream commit b49ea673e119f59c71645e2f65b3ccad857c90ee ]
+The return length must be > FIRMWARE_VER_START_OFFSET_2 in all situations,
+so a single check against FIRMWARE_VER_START_OFFSET_2 would be sufficient here.
 
-->sock can be set to NULL asynchronously unless ->recv_mutex is held.
-So it is important to hold that mutex.  Otherwise a sysfs read can
-trigger an oops.
-Commit 17f09d3f619a ("SUNRPC: Check if the xprt is connected before
-handling sysfs reads") appears to attempt to fix this problem, but it
-only narrows the race window.
+Guenter
 
-[ Removed the changes about net/sunrpc/sysfs.c, as this file doesn't
-exist in 5.10 ]
-
-Fixes: 17f09d3f619a ("SUNRPC: Check if the xprt is connected before handling sysfs reads")
-Fixes: a8482488a7d6 ("SUNRPC query transport's source port")
-Signed-off-by: NeilBrown <neilb@suse.de>
-Signed-off-by: Anna Schumaker <Anna.Schumaker@Netapp.com>
-Signed-off-by: Robert Garcia <rob_garcia@163.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
----
- net/sunrpc/xprtsock.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/net/sunrpc/xprtsock.c b/net/sunrpc/xprtsock.c
-index 5dccad3271fe..4ec6516a53e0 100644
---- a/net/sunrpc/xprtsock.c
-+++ b/net/sunrpc/xprtsock.c
-@@ -1666,7 +1666,12 @@ static int xs_get_srcport(struct sock_xprt *transport)
- unsigned short get_srcport(struct rpc_xprt *xprt)
- {
- 	struct sock_xprt *sock = container_of(xprt, struct sock_xprt, xprt);
--	return xs_sock_getport(sock->sock);
-+	unsigned short ret = 0;
-+	mutex_lock(&sock->recv_mutex);
-+	if (sock->sock)
-+		ret = xs_sock_getport(sock->sock);
-+	mutex_unlock(&sock->recv_mutex);
-+	return ret;
- }
- EXPORT_SYMBOL(get_srcport);
- 
-
----
-base-commit: 1797d8bf8d0c2e74defad605d14e3553d43a3caf
-change-id: 20260924-cve-2022-48816-11959ffacca3
-
-Best regards,
---  
-Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
-
+>  	if (data[0] == get_firmware_ver_cmd[0] && data[1] == get_firmware_ver_cmd[1]) {
+>  		/* Received a firmware version report */
+> +		if (size <= FIRMWARE_VER_START_OFFSET_2)
+> +			return 0;
+> +
+>  		priv->firmware_version =
+>  		    data[FIRMWARE_VER_START_OFFSET_1] * 10 + data[FIRMWARE_VER_START_OFFSET_2];
+>  
+> @@ -269,6 +275,8 @@ static int waterforce_raw_event(struct hid_device *hdev, struct hid_report *repo
+>  
+>  	if (data[0] != get_status_cmd[0] || data[1] != get_status_cmd[1])
+>  		return 0;
+> +	if (size <= WATERFORCE_TEMP_SENSOR)
+> +		return 0;
+>  
+>  	priv->temp_input[0] = data[WATERFORCE_TEMP_SENSOR] * 1000;
+>  	priv->speed_input[0] = get_unaligned_le16(data + WATERFORCE_FAN_SPEED);
+> -- 
+> 2.34.1
+> 
