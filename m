@@ -1,210 +1,133 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B90D040D587;
-	Thu, 24 Sep 2026 07:14:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AF6E422533
+	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 07:16:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790234084; cv=none; b=owTiOw50963Ns6Nt+RmqPJZnpC9mTnqhCKmewHyd8FBuPaf7RQUBGAhEoDiJBglnj4mKbN1cRR2sg26261Y68LliRm8naiLOU1OK1Poxyo6+U4HsMG6cqugdc7RNm3AzaqNRkGOuLHWC6pzw6I9o2pTgiS2Ls08H1Qpq38FAAOc=
+	t=1790234200; cv=none; b=C1FiPPrdHUmGw72+w/ag3nuj0uVs7M+zjSY2MM57QhAEvPVJM0zB1jwpsRsMqBq3QTNpCNbC55V5sdhM3EJ7A30f/XpRNFSU5BB7IExshbUFf40vg0GwF4MopX3PRabgEAWwfYRVNkfutmjnaHIMHm3Al+FXo/BuIQb1R3o/9cY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790234084; c=relaxed/simple;
-	bh=NBZ+eic9CfIEwgnBewHMCalGbR6k3uxner4TVUF83uk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=okihCd4RKQfhhmeziSV1nKFqm0ANYh6vMhVxn3jZn6TMWtWp4a8iDzrV5DC7Xrml4XQNeuNeR6Idub0qgrUxgQh2C7aGZPHUS+Cb2lMizBvjGmcYgS5hXjBZMgR+Gf8eVhviC1M8xqb5tEIkZLuFoLkr+Nvg9BpiFBdl7pn57JE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=lEB74waK; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=heyBVIvW; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=bGgQDb2V; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=MdeQGqzD; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1790234200; c=relaxed/simple;
+	bh=hYnJ9I+SNx7F4uX7FBbOoRj/uPSXg/C3ApDaKmBP2ow=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=rw3qFhx6XmTMaISRCmB2+GMSAHrao2oBooqZO0mdodh0mmY56QvN4gGPpl1lNiKFALsEQJwMYJAbPDGpSjwIsTuHZPABQV1gJKNdxbCMcd/Ok7orEkjpRICiSQgr/UjcBMPmxmWD5yT0O9lV6Xy9xfXSCSkMewT0yny/K4yZxW4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OjJElf+8; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="lEB74waK";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="heyBVIvW";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="bGgQDb2V";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="MdeQGqzD"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 6618D21C40;
-	Thu, 24 Sep 2026 07:14:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790234070; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=l1UzpKZExQHMgq+sq0aemQthY02cjPSoIUfciqIEIaE=;
-	b=lEB74waKjCNzIPQgRSgy6lHlkj+gwyoJwFri8Zfs/+e21A1Pp6DGEuqkf2Qg18xfuVDFpa
-	68Q1r0l06H4sgKPWMUQrbYGAKLvgO4KjTAsj1L8u+5drEEdJwaEsp3QdG7q9BkZPVrmUe6
-	ucO1+/A4oHlFp9vJzuf+kiWbDfBg+kI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790234070;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=l1UzpKZExQHMgq+sq0aemQthY02cjPSoIUfciqIEIaE=;
-	b=heyBVIvWHWTwiCNdC/5RpW9/oY2sJg8Hst2cP7sXtj7gS8Nd+vOHEHMJkhyq3mmnhNVh3q
-	8KjeGrO2995JoYCw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790234066; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=l1UzpKZExQHMgq+sq0aemQthY02cjPSoIUfciqIEIaE=;
-	b=bGgQDb2V5m3rkqavrer2ZCW4Ya2tX+tiGP7mna3pk9KD4fBeC6hf89OcWFTY5krxBCSP+o
-	2igWuiFmqHvf7Wzct0o8i38aSnUTbu76I7gIhiyOH5bm/xAVRj1UDnTURzLtq1icvGqMk2
-	IbTUhCh97u3ZFfCkXx/g3TOylBwi9S0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790234066;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=l1UzpKZExQHMgq+sq0aemQthY02cjPSoIUfciqIEIaE=;
-	b=MdeQGqzDCxiNWGlYm3VoqJE7inIR2oistRjtJVNnWy6ewu6YORpH3ArvHjjLV4jaazuenq
-	KwE6NbhTVEpwjYDg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F110D13354;
-	Thu, 24 Sep 2026 07:14:25 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id oTP2LtHNtGoqCQAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Thu, 24 Sep 2026 07:14:25 +0000
-Message-ID: <35bc19a3-27d7-4d3e-978e-0692de78f8a0@suse.de>
-Date: Thu, 24 Sep 2026 09:14:25 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OjJElf+8"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39d654f02baso920771a91.3
+        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 00:16:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790234192; x=1790838992; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IsM2VZ0IjpuwkgawgmQ1mCqOQgkHltfRpIT8ot/Ka44=;
+        b=OjJElf+8SyKAZx81/sX9xCITxHIaz11/iYWorlcKfjbrYCBXXuUfNkauFixvD5goZr
+         V9CZqiZixhVYTV5WxxT7WpKrpC721pdP730GgFSTsxMbF+qnDztggpAS+XQ5Qj8F/IDn
+         wDpt9DWbed/AN/14wrWdhnU2ZeqNtTOYgXID4PMrghUjVmMPT8eiLT4PpuH7FmEVre2X
+         5K/6gwv33djUr7KayYa0HCcB9sFmjMVmHaPC1yoOhCQjnyMsQaJlLoOC9NuLS9DMAvje
+         MgUVCBWWJaLA11FG3qh4t+HEqPjpJrTN4Czg8Z57qGt44tI58HY+lgDEueN/65PbiWhP
+         sOYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790234192; x=1790838992;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IsM2VZ0IjpuwkgawgmQ1mCqOQgkHltfRpIT8ot/Ka44=;
+        b=JdBdF1k36hneQ0i0q5axPJjhYnRuU/5yerkdh3pFfUaAx3Kh6KgXYctD6Qpc+eno+V
+         1eG4C1ZdUMc5M7WiUk8xOaiJeURHhEGjbPQJgsfxHhpzHwsJlZ1Rx/cLV9RoHdfwPzRS
+         sonvuEF2dVnGDq7LKSs3hgZZroMYaqP1LMGXeDjj5OOh56ofGPzC+8C73z7N1Fe/Fjvg
+         BUHBnqktihpufhL1fvl9BVIaJcsYOjtMN5N8z8UBgWBIne1PFRvgiFSEa7iRouN5Spcz
+         PdjG+lkrgWSxCvkagtweNIf75jS/iwlgbvKeWzUKX9X/jfC1ZD3tqIbleuLt4aZRlyQO
+         XQCw==
+X-Forwarded-Encrypted: i=1; AKwUvBxtvPawuKkjlptdZjeQmhNf+DJbIYrFx82AZtWGz2Dqo5pa34fjRE2PAgIooBosofGV/nBLKXs=@vger.kernel.org
+X-Gm-Message-State: AFuF++ninB1z0NiiMzSaQnAy3WXYHjXVb1CAZ+2Phih+9kVdFHx0IyP5
+	aboPoIoPlVHU1DFTfltQo/E145AAaQTieat5aiTwm9u+yXB1dQq7UWwfuF75cPRS
+X-Gm-Gg: AYBFou3fkGg9TdZeyVWcQVe8pD4kwr6C/VLNqTKMloRaLCiqV/81T2qspt7IjG8ehUo
+	jtSbtKpaDGfVpa8tt8AK+1jqFCz56YGtSR9i8xJ1INgWz6aciozJEoy7de2Jdt+lECbyUOdN/lI
+	eKVs0g6Lp+KT1CDYMJJBwnYzkVPqpa3alYWT3V0U8X6Krtf3jEeAJ+B6NO3WRd51J+dz3u2qqFY
+	wEjsi63HOLUYiK8jBRwdpCaAdOmb0S2aYGrJIJm6Vj9rR7BrI1jshYLwh0i84YM7AgTnH2kbArQ
+	+XvXmzgSSL/hkeS67lrw5EDew4JGCQKPdnm7i7HAI+z060zZXTW+nJ1Q5lgEIMwHTeSxIi13Tz7
+	RJQ1NLThKI/jkZ//jY9fcWRBfNhuI3b6MV8Z0xTgYkM6p7KOFAZOq1/z9Wf8n3vLMODl9942XjI
+	BOrKIWXNvKBy93zxflSqbWEC/5Suu7IPH/ePeVDc3PsJUhKbUP6v2paoK3R3WixFfGU5L+QtW/C
+	hQHphKukTX/K64f4cgHn1I8relD2QLQCDC9ZonQaCqZ4MO+0HOiYVHWF9piEEP/6he2vT/mUkYa
+	3DiZtA5L/A==
+X-Received: by 2002:a17:90b:4c0b:b0:39e:6a81:5a96 with SMTP id 98e67ed59e1d1-3a098e37bbamr1320905a91.42.1790234191488;
+        Thu, 24 Sep 2026 00:16:31 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com (67.51.127.34.bc.googleusercontent.com. [34.127.51.67])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0972efa00sm4003402a91.5.2026.09.24.00.16.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 00:16:31 -0700 (PDT)
+From: Hui Peng <benquike@gmail.com>
+To: kuniyu@amazon.com,
+	edumazet@google.com,
+	davem@davemloft.net,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hui Peng <benquike@gmail.com>
+Subject: [PATCH net v2 1/2] af_unix: decrement u->inq_len when skipping unread OOB skb in manage_oob()
+Date: Thu, 24 Sep 2026 07:16:28 +0000
+Message-ID: <20260924071629.2683160-2-benquike@gmail.com>
+X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
+In-Reply-To: <20260924071629.2683160-1-benquike@gmail.com>
+References: <20260924071629.2683160-1-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] drm/udl: reject short USB control transfers in
- udl_read_edid_block()
-To: Hui Peng <benquike@gmail.com>, jani.nikula@linux.intel.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
- simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260919223511.3889061-1-benquike@gmail.com>
- <20260924064434.2541959-1-benquike@gmail.com>
- <20260924064434.2541959-2-benquike@gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260924064434.2541959-2-benquike@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spam-Score: -4.30
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	FREEMAIL_TO(0.00)[gmail.com,linux.intel.com,kernel.org,ffwll.ch];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	MIME_TRACE(0.00)[0:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid,suse.com:url]
-X-Spam-Flag: NO
 
-Hi
+When a normal in-band read on an AF_UNIX stream socket (without MSG_PEEK
+and without SO_OOBINLINE) encounters an unread u->oob_skb in manage_oob(),
+manage_oob() clears u->oob_skb, unlinks the 1-byte skb from
+sk->sk_receive_queue, and drops it with SKB_DROP_REASON_UNIX_SKIP_OOB
+without decrementing u->inq_len. Because queue_oob() incremented
+u->inq_len by 1 when queuing the OOB skb, u->inq_len remains permanently
+inflated by 1 byte for each skipped unread OOB skb, causing SIOCINQ /
+FIONREAD to report a stale positive byte count on an empty socket.
 
-Am 24.09.26 um 08:44 schrieb Hui Peng:
-> In udl_read_edid_block(), usb_control_msg() requests 2 bytes into
-> read_buff for each EDID byte, and read_buff[1] is stored into buf[i].
-> Currently the short-transfer check tests ret < 1 instead of ret != 2, so
-> if a short USB control transfer returns 1 byte, read_buff[1] is not
-> written by usb_control_msg() and retains the previous iteration's byte (or
-> uninitialized kmalloc(2) memory on the first iteration), which is then
-> copied into buf[i].
->
-> Change the check from ret < 1 to ret != 2 so any short USB control
-> transfer fails with -EIO.
->
-> Tested in QEMU against Linux 7.3.0-rc3 using dummy_hcd and raw-gadget
-> emulating a DisplayLink UDL USB device: on the unfixed kernel, when
-> usb_control_msg() returned 1 byte for an EDID read (short transfer),
-> udl_read_edid_block() accepted ret = 1 and stored stale read_buff[1]
-> data into the EDID buffer; whereas with this fix applied, ret != 2
-> correctly fails with -EIO and prevents EDID buffer corruption.
->
-> Fixes: 5320918b9a87 ("drm/udl: initial UDL driver (v4)")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
-> ---
-> Changes in v2:
-> - Split out as patch 1/2 as requested by Jani Nikula.
-> - Added testing details in QEMU on short USB EDID control transfers.
->
->   drivers/gpu/drm/udl/udl_edid.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/udl/udl_edid.c b/drivers/gpu/drm/udl/udl_edid.c
-> index af4cff2a7c51..b7c462436573 100644
-> --- a/drivers/gpu/drm/udl/udl_edid.c
-> +++ b/drivers/gpu/drm/udl/udl_edid.c
-> @@ -36,7 +36,7 @@ static int udl_read_edid_block(void *data, u8 *buf, unsigned int block, size_t l
->   		if (ret < 0) {
->   			drm_err(dev, "Read EDID byte %zu failed err %x\n", i, ret);
->   			goto err_drm_dev_exit;
-> -		} else if (ret < 1) {
-> +		} else if (ret != 2) {
+Decrement u->inq_len by 1 when unlinking the unread OOB skb in
+manage_oob().
 
-Please test for (ret < 2) instead. It makes the test a little less 
-dependent on the earlier calls.
+Tested in QEMU against Linux 7.3.0-rc3 by sending three 1-byte MSG_OOB
+packets interleaved with normal stream data on an AF_UNIX SOCK_STREAM
+socketpair and draining all in-band data via recv(): on the unfixed
+kernel, ioctl(SIOCINQ) reports 3 on the empty socket; with this patch
+applied, ioctl(SIOCINQ) reports 0.
 
-Best regards
-Thomas
+Fixes: f4e1fb04c123 ("af_unix: Use cached value for SOCK_STREAM in unix_inq_len().")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Hui Peng <benquike@gmail.com>
+---
+Changes in v2:
+- Split the manage_oob() and unix_stream_read_skb() fixes into a 2-patch
+  series as requested by Kuniyuki Iwashima.
+- Update Fixes: tag to f4e1fb04c123 ("af_unix: Use cached value for
+  SOCK_STREAM in unix_inq_len().") and clarify the commit message as
+  noted by Sashiko.
 
->   			ret = -EIO;
->   			drm_err(dev, "Read EDID byte %zu failed\n", i);
->   			goto err_drm_dev_exit;
+ net/unix/af_unix.c | 1 +
+ 1 file changed, 1 insertion(+)
 
+diff --git a/net/unix/af_unix.c b/net/unix/af_unix.c
+index 42cffeafc8c1..1770af3c2684 100644
+--- a/net/unix/af_unix.c
++++ b/net/unix/af_unix.c
+@@ -2849,6 +2849,7 @@ static struct sk_buff *manage_oob(struct sk_buff *skb, struct sk_buff **last,
+ 		WRITE_ONCE(u->oob_skb, NULL);
+ 
+ 		if (!sock_flag(sk, SOCK_URGINLINE)) {
++			WRITE_ONCE(u->inq_len, u->inq_len - 1);
+ 			__skb_unlink(skb, &sk->sk_receive_queue);
+ 			unread_skb = skb;
+ 			skb = skb_peek(&sk->sk_receive_queue);
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
-
+2.55.0.1082.g2b9226bbc0-goog
