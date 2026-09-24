@@ -1,176 +1,79 @@
-Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C3B9314A98;
-	Wed, 23 Sep 2026 23:46:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F76D2ED141;
+	Thu, 24 Sep 2026 00:01:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790207206; cv=none; b=BTl9dE9sc1b0XgOrFVybTpjAnRVfC/1AqKgNRh3ZppWM1XN4wSz7Q1PKMkgrWRa+Q/MZie+KnvhlwWeb3fS+GpDIF/GC2dud/bC09JaFcvl5zgDAcEX4E/lwWgV62hUTfXn4ja3TTZPosO9yV0m3A1CK897UNdfOo7FidCW9Bh4=
+	t=1790208079; cv=none; b=XtvxYqMZRiC2fkPpeHM9GTMVW5wkeh6MFrR0pFLuoS1dvOE0HGwlOltxX5527qu5P7t13ZFX5D9cYY2+pUwLSxHPsdKBuV0SGL+oFM/L5Z9qRfxJ+QsZAzrjgbAUkb+CodbSk7VY1KDnO1XREUbYWyW+/WtxSCsPFZOCbnC47ek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790207206; c=relaxed/simple;
-	bh=yNpiPqdLp3R+R3L6kkyskUDkI/XsTX/Rq6jb0UkleLk=;
-	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Date:
-	 MIME-Version:Content-Type; b=feHhbwzVNG4TyUZuR2vVpL1pQ0Qsqv+ZOY6Z5Z97sVCYKC41sZjYrE8AIuQ2CXul6Aru8xWsKsyAlTQtNGNZqPogTHMAiS4dwFxB3HGgeEj954KN7BO3XqLg7wjw/CST7tq5LB0r/CeIeoiDKLzZLrDDNtF+nzyCPm0CGLBPlcI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=q4B/HmFP; arc=none smtp.client-ip=143.255.12.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
+	s=arc-20240116; t=1790208079; c=relaxed/simple;
+	bh=jxdVOhJzmMbVcoVsLUhPyPH7GpvilUyKW5zjlxG4pWo=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=aC9UTISfSnRb8TqjfUKS1HR3LUU/lK9MW2in/UXPIsBXKZLxCseWIgmsEBrn9TlFDvVbtwVxaApNEnLVx03qiC0ssHXwa7BfpBsrXszzDXGAF3QAyaiZjAti7PE8kxDR/kIxUDqrEHkYg7jb+0p6j2ukI1WHPUcIHZ5Vr73Mx8w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fVNna8Cl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="q4B/HmFP"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:References:
-	In-Reply-To:Subject:Cc:To:From:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=EqQ40mnOXqnZL0TEZ9hopQUSh3U92S6ROmEtqwgnXfE=; b=q4B/HmFPQOCFsCoIEV52J13/Zp
-	MP7rB3E0JczlfiVfPo3hJfF4kWN9EZn1Nt1dMYaQbKNMOfY/LbkjPfAmrkz93y3anGmjWHMjUvAyT
-	bx5UJ2XL5GPhSjWypNkm8wfu0MA61ujspYEkuSvUL19FJerdJWI0LMvHBN//rReE4p+H0XJ3n/xSw
-	5lbNm0BK2YRe1aUVJBN73m70KCRBBvqVj88VgLYxHe0HUd9iYH+VPv9pLRGc4psoZ/q1Ux0EtofOu
-	E1Nv33gH21eYusV5SNvdmFbbDaBkwiUL9kQ0fbyUq/kfQZf7cv3sjfAUWlCtQh8tvWmu0Ux75JiNs
-	oIhG9bgQ==;
-Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
-	id 1x9Wfc-000000028kw-1045;
-	Wed, 23 Sep 2026 20:46:36 -0300
-Message-ID: <b5a645319f7b2475f65306c3445953db@manguebit.org>
-From: Paulo Alcantara <pc@manguebit.org>
-To: Matthew Wilcox <willy@infradead.org>
-Cc: linux-cifs@vger.kernel.org, netfs@lists.linux.dev, David Howells
- <dhowells@redhat.com>, Christian Brauner <brauner@kernel.org>, Namjae Jeon
- <linkinjeon@kernel.org>, Ronnie Sahlberg <ronniesahlberg@gmail.com>, Shyam
- Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>, Bharath SM
- <bharathsm@microsoft.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/5] netfs: clear post-EOF pagecache when extending a
- file via write
-In-Reply-To: <arHVJ0ihdqmNETMw@casper.infradead.org>
-References: <20260921230755.1133425-1-pc@manguebit.org>
- <arHVJ0ihdqmNETMw@casper.infradead.org>
-Date: Wed, 23 Sep 2026 20:46:35 -0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fVNna8Cl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8CAE1F00893;
+	Thu, 24 Sep 2026 00:01:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790208078;
+	bh=Auc887FzkdId58On3DTA9zy75jByf5mTG6zE0R78+m0=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=fVNna8Cl236/rGiGlMf9S6Ucxj8mXjXlr1pecPJV3hZp5HuikPYPKghtVuDNV/6fG
+	 2rGtbzDwXf/AN7E+XP7vgdkxD0yxQ8E5jTLY78cdGPAut4+8w9kiPuu8ySjTj8dVx3
+	 3omhLff3DMCY8QZGkPoeclSSq1bRb44tnl39hXJJyCwPZ3zAegVjdYNBcLVrWyLMID
+	 +S9pbPZzwE89FEPM7kUzV8Vtc8gPfM8uvPA/OVNpaEHY6GHiGJ+12qsG5IoOOyy0gW
+	 xiTnggEG2vfckpnj7dm0mkeETJZj8y5J3IG8YsuJrJeULaJ/2JlcKi7ssKI6kmfrqU
+	 wLGiCbetaT2xA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0EBC39E9602;
+	Thu, 24 Sep 2026 00:00:08 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net] net: bridge: mdb: restart port group walk after
+ deletion
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179020800742.1240300.14996897175624601551.git-patchwork-notify@kernel.org>
+Date: Thu, 24 Sep 2026 00:00:07 +0000
+References: <20260920110852.60293-1-fouriezhang@tencent.com>
+In-Reply-To: <20260920110852.60293-1-fouriezhang@tencent.com>
+To: Fourie Zhang <littleddfu@gmail.com>
+Cc: netdev@vger.kernel.org, corvus@tencent.com, stable@vger.kernel.org,
+ razor@blackwall.org, idosch@nvidia.com, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ petrm@nvidia.com, bridge@lists.linux.dev
 
-Matthew Wilcox <willy@infradead.org> writes:
+Hello:
 
-> On Mon, Sep 21, 2026 at 08:07:51PM -0300, Paulo Alcantara wrote:
->> +	int netfs_clear_stale_post_eof(struct inode *inode, unsigned long long from,
->> +				       unsigned long long to, bool nowait);
->
-> Should this be uoff_t?  Or even loff_t?
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-uoff_t.
+On Sun, 20 Sep 2026 19:08:43 +0800 you wrote:
+> br_mdb_flush_pgs() keeps a pointer-to-pointer cursor while walking
+> mp->ports. br_multicast_del_pg() can re-enter the same MDB entry through
+> br_multicast_sg_del_exclude_ports() and unlink other port groups. If the
+> cursor points into one of those groups, the next iteration dereferences a
+> stale cursor and can leave mp->ports pointing at freed memory.
+> 
+> A following RTM_GETMDB exposes the dangling pointer:
+> 
+> [...]
 
->
->> +int netfs_clear_stale_post_eof(struct inode *inode, unsigned long long from,
->> +			       unsigned long long to, bool nowait)
->> +{
->> +	struct address_space *mapping = inode->i_mapping;
->> +	fgf_t fgp = FGP_LOCK;
->> +	struct folio *folio;
->> +
->> +	if (from >= to)
->> +		return 0;
->> +
->> +	if (nowait)
->> +		fgp |= FGP_NOWAIT;
->> +
->> +	folio = __filemap_get_folio(mapping, from >> PAGE_SHIFT, fgp, 0);
->> +	if (IS_ERR(folio))
->> +		return PTR_ERR(folio) == -EAGAIN ? -EAGAIN : 0;
->> +
->> +	if (folio_mkclean(folio))
->> +		folio_mark_dirty(folio);
->> +
->> +	if (folio_test_uptodate(folio)) {
->> +		size_t end = umin(to - folio_pos(folio), folio_size(folio));
->> +		size_t offset = offset_in_folio(folio, from);
->> +
->> +		folio_zero_segment(folio, offset, end);
->> +	}
->> +
->> +	folio_unlock(folio);
->> +	folio_put(folio);
->> +	return 0;
->> +}
->> +EXPORT_SYMBOL(netfs_clear_stale_post_eof);
->
-> This looks suspiciously similar to pagecache_isize_extended() but does
-> not mention it.  So any updates to that function will probably imss this
-> one.  That's not great.
+Here is the summary with links:
+  - [net] net: bridge: mdb: restart port group walk after deletion
+    https://git.kernel.org/netdev/net/c/ab1404ac8115
 
-True.  Sorry about that.
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-There are some reasons that I ended up with our own helper:
 
-- The block size checks make no sense for CIFS, as reads and writes will
-  be byte aligned.  For instance, CIFS and AFS set block size to >=
-  PAGE_SIZE, therefore calling pagecache_isize_extended() is a no-op for
-  them.
-
-- netfslib needs to honour NOWAIT, which pagecache_isize_extended()
-  can't do due to filemap_lock_folio() and folio_mkclean().  Besides, we
-  would also need to return -EAGAIN in case the folio is mapped or under
-  writeback.
-
-- netfs_clear_stale_post_eof() will be called before i_size is updated,
-  so we re-check i_size after acquiring the folio lock.  It runs with
-  i_rwsem held shared in both the buffered and unbuffered/DIO paths, so
-  extending writers might concurrently change i_size while we run.
-  pagecache_isize_extended() can't also be used as it requires to be
-  called after i_size is updated, therefore hitting WARN_ON(to >
-  inode->i_size).
-
-NFS also has its own helper (nfs_truncate_last_folio), but couldn't
-re-use it due to above reasons.
-
-Please let me know if you have any ideas.
-
-This is what I currently have for new helper (trying to address some
-issues found out by sashiko as well):
-
-int netfs_clear_stale_post_eof(struct inode *inode,
-			       uoff_t from, uoff_t to, bool nowait)
-{
-	struct address_space *mapping = inode->i_mapping;
-	fgf_t fgp = FGP_LOCK;
-	struct folio *folio;
-	int ret;
-
-	if (from >= to)
-		return 0;
-
-	if (nowait)
-		fgp |= FGP_NOWAIT;
-
-	folio = __filemap_get_folio(mapping, from >> PAGE_SHIFT, fgp, 0);
-	if (IS_ERR(folio))
-		return PTR_ERR(folio) == -EAGAIN ? -EAGAIN : 0;
-
-	ret = 0;
-	if (nowait && (folio_mapped(folio) || folio_test_writeback(folio))) {
-		ret = -EAGAIN;
-		goto out;
-	}
-
-	folio_wait_writeback(folio);
-
-	if (folio_mkclean(folio))
-		folio_mark_dirty(folio);
-
-	if (folio_test_uptodate(folio)) {
-		uoff_t fpos = folio_pos(folio);
-
-		from = umax(from, i_size_read(inode));
-		if (from < to && from < fpos + folio_size(folio)) {
-			size_t end = umin(to - fpos, folio_size(folio));
-			size_t offset = from - fpos;
-
-			folio_zero_segment(folio, offset, end);
-		}
-	}
-out:
-	folio_unlock(folio);
-	folio_put(folio);
-	return ret;
-}
