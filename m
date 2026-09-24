@@ -1,131 +1,141 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-b4-smtp.messagingengine.com (fout-b4-smtp.messagingengine.com [202.12.124.147])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD1DF409298
-	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 23:12:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790291554; cv=pass; b=A5WJyKwWN2RYvn4IMX+S1LCZsepou6PISrDEK54+xq9VxJOCJ6yaT7WAqUrndAF1xYcKaxDzpuTbo3DH49tTyM0ikUOMMIYmKfoI0DYtlF91ks7LlPppNryxNva6bDsB2LAWEFYa0QXO4diyBBbXr6slHCcmfpgIXtcGP1X6iuI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790291554; c=relaxed/simple;
-	bh=i5gtPL45/HsWqgNnaIaxvWIYAE5RMDtissUXKYWjbRg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qWibdXNDez6TxgNnWGBDPWOyh+y6Mv9SVN3YWAS+KVeyRxySpUAI3di62cp8uW74yjuDf/k6+w5Uvlawi4IPK5SwqFLfmYi3k7hBWPl6JOWEnxACLOxh/j7+nNHyf83Bl+OlraOnM3ptg9mmlOQfdzhD6LjM/AKiNMU2SpfQRjc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=MNhn+6bQ; arc=pass smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 771A03E7BCC;
+	Thu, 24 Sep 2026 23:17:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.147
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790291875; cv=none; b=fzb+umYNSyOF2+KMEdLORI/8o9btRSGN+OGVovZZAfSxjmnE7a+20eIqIkpruIHWOaLiqfiybtpVRrSdwQAZPcw/NM3Xc2l25V1QK/ZD/6t0vd8sPpIkOfzIP4R+xUiykp0Zs20n/3JPqwaJSBwDJIitskaeifFSDAlv/fiqv2M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790291875; c=relaxed/simple;
+	bh=r37+e0dh3/Jf+/sV6I4N0uWhgQXrQi0HnMIftUzmUzo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nnteIiDhVCCElyCb7OUf9AV8dPzfliNGx1GeANatATZmh3bIeZTee4bS5Ox64Sw03VBAdclrJAV7mp7WHjnXhIbGh/J2jrlGXDx5dIi9CwjPA0E/mpR8Ukn8JsIyr2r+PEmdXXRjUp27oshLS9JTq/2VXpabqeFt94v66QdfzZk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=gfiYt4Bh; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=AI8jySSI; arc=none smtp.client-ip=202.12.124.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="MNhn+6bQ"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f6c7a4aso40365966b.0
-        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 16:12:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790291551; cv=none;
-        d=google.com; s=arc-20260327;
-        b=LGrnlbZNblYS98aaH33PEVYU3qvq5DUQE6kpLsJ4fTXZcnqh83xM7HxWWHQMB6Ctxu
-         oID4U1fCPUxsBNFjs//BVKw/aT8bCwbDOiLK1MpgBw4jepU3NC7FiB0fJfiihwMB+62+
-         Q0TKeOyJyo228Tltv0V89HeQ8WHgfjv7XtjVo+Jq7QZhnyLAsEdOEVCZEaPaMw5daosD
-         NquU6Io38YSUZhlpU2rS1xMBT00ledVtOSKch59TZ0xB7bAFzQVlq+dAUmeXS1AWqqR7
-         AfPqUMJf/6f5TOjD0FsOUc3CxvxNcr2OZMPrI9qWbqryj2idxTrYp8da9WPk1CKNLJKF
-         780A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=1/GtmCck+btFeib66fipBTabB87VzP8LLtE6Qx5AZ/Y=;
-        fh=hfYHmujyHHOD6TnouOZfWIR/N+ZQwznLBTsh7hckEmU=;
-        b=USZKTuVeZaZXHFyEnP61eOiNfwGD1tPPmZJB+SGkLUr9aGetCPSJbRLmfWUSLE1VAa
-         gk/82A9RHWmIAnNHF0SeUOSbTybNYFLthSfq6O7TISQ6U55EVnhoZuEmU6xg3d8r6c50
-         ud1FIeA3MbJzvF5Or9j7DKGTJhrXBFoJssXFuP7K4DZNHFJqiYtyBo5u32YGCQMQC8H+
-         DD7iXQYZHewP4jWe2k8UzWeuCuq1F/bO4C3waIZCEZkunoTpr6sINhiv8qL0RAMqkd4+
-         L2A2KffBA6Z1HeZDbKzNuqwk+fQ4ld/nrd7OfDZ0l3ZkCPKhmmbZ5otfyT2EJVoiNQXZ
-         SBAw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790291551; x=1790896351; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1/GtmCck+btFeib66fipBTabB87VzP8LLtE6Qx5AZ/Y=;
-        b=MNhn+6bQ0yOwUi7nD6sQIuImLP3dhxaCTGS8dOraKPpILKFlSAkUGE3t4ALNV+KO9Q
-         /YU+LtmbbQkpU4iiaBwJgqyWJQh4Xc5wZqldJV6GaIQvRo7eCbQxqIfb7PVDjkXIa7Bp
-         7LI1OBOZEb5rgbfLu0eOtxGDw/wihzA4pcYUPoba1k91jZiLyqKwGbcNkHiguyiDuuf3
-         h6bxvZ2rvSaeRHTBpuP3msEQqCYBau1I5OWIfkx9/xmqYRzwJ/03CjSzFDJnS8AEBcVH
-         s4LMyEZVErV1aRicdWUXf6Y3wEPkcOeDky8CLY0bO7rryhOpKdhL0Hscv50Oitv9sLOG
-         s88w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790291551; x=1790896351;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=1/GtmCck+btFeib66fipBTabB87VzP8LLtE6Qx5AZ/Y=;
-        b=n1QJfFV+A5AUJWwHX5Z7s6YcmYEonIpegXxHaGvMyeO9tSei2VpySkBSmVO578hkOB
-         GSwD3HJWlvWpELWJUve8uRD2Y9E4zomuVnw3rZYVSEHLmTY/QT5j0RFDtu5spRMdJBDV
-         BDdg0d4DOSy7DrJf5O0G/L0ljFUfO7jypRKsm7+pP744IfuuPajTFvM3R4oF8MWC/9w9
-         Kbn0NHT6cceETSZkZlfPgSZ3uJJEaiKNcyj9vnWkOj2QfzuVkABsuh9vuqNSg84mvvMA
-         CRF6Ns1JYG+ENqCytdZ0TqAWfoHUDSfShX/vkYw51MIVRj22Q0qNfUNL/49wy2vcRkrh
-         Q9mw==
-X-Forwarded-Encrypted: i=1; AKwUvBzC5AenSk9kgu+e18eA280XCJBCKeVCqAjoUk2aVPfHloFLRs5wubVcfgmhG7L9yLQSu162cv8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mRlhB4lPejzpR2nan671EcTwx7RDF5nsy+VB2pNxbqnkwdtC2p
-	OivD0sqRbimL+b2XMDMDwqCf5izUWOdUjqMq7JHmUibwfx79Azj6NfpsTHLsGyhCUspOuqi4NK/
-	4s6kqm6d4jKTMsGiXayFd/DT7sGR4Ibp00+/zOlSE
-X-Gm-Gg: AYBFou3jpsM955f5AcGyv5IHSLYgV5ffsIQ3dWeHEZGpzVZWgAh/oa+7N19ZZEe7Jmk
-	r3MT5vZMa4waMw56alka93KA551qMTIMylxcc4Oqk3S77qj3gKutuz2WehlRgkvBhso7q9/p/aL
-	cU5A1stOBx24xv4n7YRjhLDbCJbVQ8Z0H+KNBHnXkcKcPLTQBxYKUd3iqYr839GO7QIsKuMyV4A
-	H+gjnV/QgeNrfsfiPBMwpnszwiOK2oI26YN2t3swpts4lQmX9YqD06JkJXEO15XsU6cNxVKkLDB
-	FO9Z6Hyld3MXLg7aueGAvxyVPOPyzPwxMS5roC1i7dmuUcynT0a9cWPD29GlbXhuApvBABiEstR
-	oZxmGNDG0Qy15Ile2m5yQ
-X-Received: by 2002:a17:907:7a8b:b0:c29:3b7e:3a94 with SMTP id
- a640c23a62f3a-c2ac53d2785mr321958666b.38.1790291550387; Thu, 24 Sep 2026
- 16:12:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="gfiYt4Bh";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="AI8jySSI"
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfout.stl.internal (Postfix) with ESMTP id 5A9B51D0012D;
+	Thu, 24 Sep 2026 19:17:51 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-06.internal (MEProxy); Thu, 24 Sep 2026 19:17:51 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm1; t=1790291871; x=
+	1790378271; bh=EkIBzmmhG1qNHEaj05MzODGJ1wqq2yv0z+g9/Um+w3s=; b=g
+	fiYt4BhK4DTyYOkkX22mOIS6BtPaz8ef37LEUW+1i8VQX20sRizfVM5vTutJ6IoG
+	0ewaRriMf6wqUe+3j8Dqyh/GTag+a+C4fEEQ3SVZztcXCHmpkelpiI2rB3q2apTN
+	tQUQQDx1tUViEVcUrXnhlBcqzRDYM3Zl453ffyJ9rDcRCmVNhS9cRx7TBTI1USq5
+	4LG3WA5iXRwP1VYRA/E2ANK9ztE1Ww1ESUsG/mpnK8T6XsFTdmMnVGBjDSciayNt
+	OzKQwzAa9ZN0fbg/SoXbWnNZPL5cBg/3pDCNMfNzV3t7n6AgSjBEDB+joDOFEP/y
+	pdjxNbDoN7QlKEXlEKvJQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1790291871; x=1790378271; bh=EkIBzmmhG1qNHEaj05MzODGJ1wqq2yv0z+g
+	9/Um+w3s=; b=AI8jySSIPhknOivQkd8TQ1xquNo/7OkV8Y10hcChA/HRbq95/ey
+	9bZR1x81deKQNKmfQm6+jmPbypUbc2GjNcu/WpAB25oP/5DHsUnZmBG9ipVpATOB
+	BjrqoRYJvNAseMcU2H+baahMZH1KpvYgkvR0FYQlfH152zphOt+ut1J3+bEJ/p45
+	WZYCHTun08f8ZqS2hEX2Wlo0RDIu0e2+jl6JlhQz/WDZu1TB5ONZcp2JWmzPmjFo
+	TB/RO4G32LeDkHzkbXRvrmFU1XVlAz7Zfs0LCH2l+SVAv9TPYdgnebhCVhOfIR1a
+	nD16o2NDgtREoS5iLXrCoPD5k4ASzfWgVaQ==
+X-ME-Sender: <xms:nq-1at5Q6u9-MVK3GCF856cRI-oP__T6KfxSFGz6y6bZnCI9Nxg9Gg>
+    <xme:nq-1amUwqgosLN5yyNiy3G3pvTrR1lZ5OaHx18Hz4VYev1yYYMT2sKe9uFL_-kkw_
+    Nn075gljRdmaCdVAr0A2-Pv5C1K06-G1hKLDugQsRyog_W5opA0IWg>
+X-ME-Received: <xmr:nq-1an9s-CwHqdZ72zMfS2DOa65i3Lt2hdhIomF7dfkHfr09xnYm-h7LuvdFNp63i21ZKx9yoEJBz7ajhLQ-Jw2Z0Xk0RQ>
+X-ME-Proxy-Cause: dmFkZTEmnFfhaopq8cy1ZF5DbDxloBLOWH5DGQyfgzbPpBh517TTO5P5ao/xK/agP3KgdL
+    2ClF8MXx7KeuwQIDtbdx0kjaZTef2YxHXClHx7WuW2F5TJRkcI+XIiCt4iPNB2i2FdNwEo
+    Zk5BEKVPpHT6aoBk44qQUhkvtwe3vZnjebt2/+Qucus6YhDpKpXtf2J0dJyxHMwPv07YUX
+    f4p6/jqRFxvOc7xdZ/9dqSOuSVzGTEGBFlfwdDyXUDl8AsxKaHtVMtp/gqMtFJmVWAr8Bh
+    5J65rc9gaaHgNNkKOE67UyVxcrlIQMgaLRl6gCBJ9Lg1H6xfUaydXylq04MFVyhnmAMvPg
+    hlQJYQ/onQNi7dQHQfbOBmyuF8LpsJS6WSAsWhjZ8G8YRQQ7SRerc0ogbhBKakNzc/sM2B
+    1YQMzebfHG8xVUvtoIbogTHDROBqYYP2fcqgc2f8wCnRjDQSxP/pabMAMqFDyQ7xE2EG8N
+    k5Cd7zNjglZEtfKZx+/4I7vJhHOAPp7yF6VUIFEhkfkp7ZhWGRscAbi3kp7DgVnZUqfQ/l
+    HDWSmPwpPAnkrSFEvQnmFaMqC98jZBdA+9JlhtLwHsPWDR4XtnCRIULlWLGZIo7XZ0Tap8
+    kxVBNBnGCi0zqEkSb4gph+eSI6eqskoFiSowNszUEbDMali9PEsZHlYfeDAQ
+X-ME-Proxy: <xmx:n6-1aqkygZmbC4JVLuEC9NQqWEidnUVPr9nsZavygkYFX9HtDtRhIA>
+    <xmx:n6-1atX6ZFRHSYgFhay3TtY5fSMPhbhgqn2RYQRYy1ELaHZC3FcPnQ>
+    <xmx:n6-1avFUVyBQXwzdyi2d8QdmpEvYfoSnOiNomv2axwBIiIbsrgDGQw>
+    <xmx:n6-1apdtwbwNJH3l0v75vUh8vl8nEulzh28cpZU98ZL3GbN9ba8Dlw>
+    <xmx:n6-1an0ucwozN6PoQPe2OwYly5JgCXjg8i_Qj7MvSEhygMpItgv_aayo>
+Feedback-ID: ie8e14432:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 24 Sep 2026 19:17:49 -0400 (EDT)
+Date: Fri, 25 Sep 2026 08:17:46 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org, linux1394-devel@lists.sourceforge.net,
+	stable@vger.kernel.org
+Subject: Re: [GIT PULL] firewire fixes for v7.3-rc5
+Message-ID: <20260924231746.GA344870@sakamocchi.jp>
+Mail-Followup-To: Linus Torvalds <torvalds@linux-foundation.org>,
+	linux-kernel@vger.kernel.org, linux1394-devel@lists.sourceforge.net,
+	stable@vger.kernel.org
+References: <20260924032636.GA314300@sakamocchi.jp>
+ <CAHk-=wjRVQhcCGHCA9LL6oPf5CQe2Sw2ru_Bm-qJz_bp-dZVmg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260918025416.604297-1-dhavale@google.com> <2ednz67kpd2ikrnerrmnvol2mdfntgqhakuoiu7x4cnrlpiugm@ojqolvlfmpnj>
-In-Reply-To: <2ednz67kpd2ikrnerrmnvol2mdfntgqhakuoiu7x4cnrlpiugm@ojqolvlfmpnj>
-From: Sandeep Dhavale <dhavale@google.com>
-Date: Thu, 24 Sep 2026 16:12:19 -0700
-X-Gm-Features: AclHuK_JnRXmc4okmBH7-69dBKIYOYrVopgPbSH1OLPpNlpiiv03zV98rUrU7KA
-Message-ID: <CAB=BE-Svy3yoG+nJ7Z6Us5GG2Rj-7dyCY+EMpR9Y+PtyXUKnCQ@mail.gmail.com>
-Subject: Re: [PATCH] ext4: fix race between inline dir conversion and folio read
-To: Jan Kara <jack@suse.cz>
-Cc: "Theodore Ts'o" <tytso@mit.edu>, kernel-team@android.com, stable@vger.kernel.org, 
-	Andreas Dilger <adilger.kernel@dilger.ca>, Baokun Li <libaokun@linux.alibaba.com>, 
-	Ojaswin Mujoo <ojaswin@linux.ibm.com>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
-	Zhang Yi <yi.zhang@huawei.com>, linux-ext4@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAHk-=wjRVQhcCGHCA9LL6oPf5CQe2Sw2ru_Bm-qJz_bp-dZVmg@mail.gmail.com>
 
->
-> Good catch! At least the first paragraph below would be also useful in the
-> commit changelog - the realworld impact is important information. But I
-> guess Ted can modify the changelog on commit if he wants. Feel free to add:
->
-> Reviewed-by: Jan Kara <jack@suse.cz>
->
->                                                                 Honza
->
-Hi Jan,
-Thanks for the review!
-
-Hi Ted,
-Is that something you can add while applying or shall I send v2 with
-just updated commit message?
-
-Thanks,
-Sandeep.
-> > ---
-> > Note:
-> > This issue was reported by an Android partner encountering kernel panics
-> > in ext4_dirblock_csum_verify() ("No space for directory leaf checksum")
-> > on 16KB page size kernels mounting a 4KB block size ext4 filesystem.
+On Thu, Sep 24, 2026 at 06:07:48AM -0700, Linus Torvalds wrote:
+> On Wed, 23 Sept 2026 at 20:26, Takashi Sakamoto <o-takashi@sakamocchi.jp> wrote:
 > >
-> > We verified with a standalone reproducer that the race reproduces
-> > deterministically on Iteration 0 (< 1s) on both ARM64 (16KB page size,
-> > 4KB ext4 blocks) and upstream ext4-tree/dev on x86_64 (4KB page size,
-> > 1KB ext4 blocks), and confirmed that this patch resolves the issue.
-> >
-> >  fs/ext4/inline.c | 1 +
-> >  fs/ext4/namei.c  | 2 ++
-> >  2 files changed, 3 insertions(+)
+> >   git://git.kernel.org/pub/scm/linux/kernel/git/ieee1394/linux1394.git tags/firewire-fixes-7.3-rc5
+> 
+> That's actually not a signed tag.
+> 
+> Can you please re-do it with the proper pgp signing?
+> 
+>                Linus
+
+Oops. Indeed, the tag is never signed. I overlooked a mistake when updating
+my local tool to create releases. Thank you for pointing it out.
+
+I correct the tag with my signature, and pushed. Would you please apply it
+to your tree, instead?
+
+
+The following changes since commit 93f51579e7df248780214094418f205253383cc5:
+
+  Linux 7.3-rc4 (2026-09-20 13:48:15 -0700)
+
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/ieee1394/linux1394.git tags/firewire-fixes-7.3-rc5
+
+for you to fetch changes up to c6b51091cafff9ce6c03c1416aa13864d17ab97c:
+
+  firewire: cdev: fix back-transition for iso_resource_auto client resource (2026-09-23 09:20:17 +0900)
+
+----------------------------------------------------------------
+firewire fixes for 7.3-rc5
+
+Fix a race in the cdev layer that can cause a fw_iso_resource_auto object
+to transition back to a previous state. This can happen when a file
+descriptor is closed while the work item for the object is running. The
+race can leak several memory objects, including client object itself.
+This fix should be applied to 7.2 kernel or later.
+
+----------------------------------------------------------------
+Takashi Sakamoto (1):
+      firewire: cdev: fix back-transition for iso_resource_auto client resource
+
+ drivers/firewire/core-cdev.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+
+Thanks
+
+Takashi Sakamoto
