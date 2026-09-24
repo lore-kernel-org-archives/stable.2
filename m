@@ -1,138 +1,168 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04BB63BB9F4
-	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 06:35:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E5C240B0FE;
+	Thu, 24 Sep 2026 06:42:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790231730; cv=none; b=LsJPjSJuBpKCbHx76QTEAkQ9FU5j9FSaXz7spgp9T5hQGXZBbhqYpOqjtkuvZ8yM/fnV8kqYh1y2f614BGl0FhOJcRu2rw20WnjSTMaUVeF0GUma4NxgNfydsqfvp49MEZKT0r30MQrx9+XLvyYunwNwtLyxZN9iIX6RWlMWzC4=
+	t=1790232131; cv=none; b=LS6SVelvKs+jDc7JoZqHO4gv8cOjPWmuspe7Lm9svH9R8y/V2yseYEpZk7nyZmvNHQC+fEJ2AW+vvOVH2ouFbsxV+bQHjJe8NnEWRJtQjGr5HlPaGalr/3IAu2t8lvYQO5/pVlH73JybxWE0ih7xPcMr45tfwWDbOeVBVs7f60c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790231730; c=relaxed/simple;
-	bh=GoE6o8P/d0Va/Z0LlIUQKz5h1yWkYNQVcuM2L4eXEIk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=r3bHO9g8PsE5FEhEED/PCt1B+1xPH40fUaB01XfpukT2M9MiXlDZHiaSCOfO+PadW0PEAVQGi/Vw2DdqfjrRMyHlF0aI+8h+TChS2TorK3A+989gEVU3Ko2EQUxOI6hvj8WQCnWD7LlTKCfJPVJVDlfBRnZ//++Q996Xju95bOQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UEgo2/yv; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790232131; c=relaxed/simple;
+	bh=meTevEAx63VoU8Z84Anl84+Dyomtfyb3OaTgc/fluOs=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=cCmXN+8mhMUv2mKJUIBsQHVnMY4PQ/31gkSIhGmPoFgqhEUA7fVD0DtzLbzn25ztblCuPpxfbwpmSey2MJ8cOWYqNfZle5uCGSk+D3DUpenGw1pFhmC9B2CDZWoALtbSqbS/UzADGV7DQQP47ZK08VHJp3omkj99BpvomSAi0jQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f6MsxWCM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UEgo2/yv"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-398beb616f5so707739a91.1
-        for <stable@vger.kernel.org>; Wed, 23 Sep 2026 23:35:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790231728; x=1790836528; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8KB3JUcp+hPnUpMcJXhgcWxJ6rdRHTjTvXdKQKWbtEA=;
-        b=UEgo2/yvjFd9M6whhXNTGY3N2B/S++bCqtrkMwxri+rL/bx3EwqFQNJnn7EenKcxSz
-         UTuxQLNaU5FXyI1XJ8ILY1DMYYb1Z6qKh81kS6jjFtAz0G54m8QQVX9peVTf0dmB701K
-         SWaLNQC12TurlSfImdpg3ORtFBefUQVSskxHK4ig92KGFjwErohkWVQ3TvxU8RS+zN5J
-         Nxm69kEgTpOEWPCovFdAfo+7/EFZ6ELxtpsK4VsvsdEboDwunqxbM73kyZTViNiLXLmR
-         7v3O2KkfmMlpgNbLtYX9j/9vsOsLrNo1nUu1hz9G8Mg2y1JeCn88l5Rp79gag6PRAJGv
-         Mpxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790231728; x=1790836528;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8KB3JUcp+hPnUpMcJXhgcWxJ6rdRHTjTvXdKQKWbtEA=;
-        b=gyt43DSzvfUhAUieH2eikAgtmKwuIMT4w+krHShnjScN/iL8LZH0kKbXm3OcTBygnA
-         BHSxsmezwSj856L931OwLX4XLE6e5KIjxhP9k9QV+mTDttbDuR3ga4YiGtWkfcHE8vLS
-         gPeJveSYNbe/W7aFTBuqzGibSoaGhs/UCoc5+9Be/w7U3a/qi8+wopFAzSb5hJkxsZoe
-         h2bAnk1ZOf/ptW3ZFLZ9W7fD65NSag37QKkn7iOT+wCIsSbXOVXvHFuIkRGXt8SFY+SD
-         tornqEH++jlSlnDK5mbT3iR2FvfA+n9MkzQvLpz5cQyKM1wKNtFs/34rUACLqLvuzaHq
-         GDYQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwkxU3ul3T11XcE+ORn6UpI1YXC7O9ZS3xeFo8bP4gzbTY5RzM/HFX3F//9r6SccbrwrVREIaQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++ncVz1+4saeq0YjNQuo8kq2OAsU5OtEXQDbG6JPAqXlTjCsY5jm
-	fAe7ACg/EtGDTXJ9f5HVN/f3WFmTO/GabLR1+6m8G7GjoWXBtqh5HhwW
-X-Gm-Gg: AYBFou0lrZgbDehGyvN2RX08za6fzUSDA3yQnfGqzQP8YG+hEAsCQMpPOfe5ChWjnKW
-	Fbu87bYY+xk/Nook8pFJyychVNjZkBvHc0iuqu15SLy+nYLxGdFXkxE6xEKD8IUB5CJjbcjARLM
-	tJszz9WMPD3ahGG7bftQaXUFr21hCXK5ZjIt2QnkM7qMjmIPuvnZV6mWuWDhBj2wk5k4Sv5rUmx
-	EccfJAoeHYeRI0z2/pHgOpVlq6jXk5g0/jzQTX7IBMH9Yjqhl+p6R7Q+eLD1BozvnCApqptw3Vk
-	6NVG7d5Y/yHcSy4wpPKHIsH7EO//ew4CdCQ9fWbN8Fc3AmyfunjiFxlt775VstS2xBqLjnF35RL
-	meQZNy4o5Qwb3fWi2CUeqIawoKPg6lRnF7h21giOMySvq2SxCXLnhKBnfcq7o5o2LAUBhA8Hhth
-	etgyhjfCMmXQC3t8oK6GTFTtZsB9NmRG8PA9/TIObve3aPIS6peRXIA5CwjZDw9SnsatSz5YQ/H
-	BNlAXbY2V8nhEnay9I2zyzrxy/FsyemqfRDkPnVh8OIzBUjgxc8ezIa5HV+QERWGCx9bHqsn1Ez
-	HX5wwJsjnQ==
-X-Received: by 2002:a17:90b:4c0f:b0:39e:3dad:684f with SMTP id 98e67ed59e1d1-3a09860fe27mr933896a91.4.1790231728114;
-        Wed, 23 Sep 2026 23:35:28 -0700 (PDT)
-Received: from phui-2.c.googlers.com.com (67.51.127.34.bc.googleusercontent.com. [34.127.51.67])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a096b8753csm3109897a91.0.2026.09.23.23.35.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 23:35:27 -0700 (PDT)
-From: Hui Peng <benquike@gmail.com>
-To: axboe@kernel.dk
-Cc: io-uring@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hui Peng <benquike@gmail.com>
-Subject: [PATCH v2 2/2] io_uring: require 3 free CQ slots for 32b CQE in io_fill_nop_cqe()
-Date: Thu, 24 Sep 2026 06:35:25 +0000
-Message-ID: <20260924063525.2500081-3-benquike@gmail.com>
-X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
-In-Reply-To: <20260924063525.2500081-1-benquike@gmail.com>
-References: <20260919203516.2581409-1-benquike@gmail.com>
- <20260924063525.2500081-1-benquike@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f6MsxWCM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 026731F000FF;
+	Thu, 24 Sep 2026 06:42:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790232126;
+	bh=Hf2kO5YOY3KalHQaeAkcW4ZtTxm5AaXHNpVzUFmNyIo=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=f6MsxWCMyau3S24kpHf0zSYuaTnV/WC0OVIh2Krm1amSYJIl0NBCSSiilZRN8vUTH
+	 HTXK+NRi/mtCUvowFUZ+Dz8k51EgsPIeD/kCa3lu48xqJRzoHwILoCkZbwSZzra84m
+	 r8CgF3j0rzASKyTpCfeljVjFDZViZ+Ea1C057A/vB1lTBQWUqwSTUDRDvsPj4q5+HB
+	 vizMc8AFEEIoDgF8wiNRZI2a3AjpJ7jI0wmY23K9nmDgGKAwlPP6UTc0RsHUZHz0jX
+	 lHpz2yJ4Y3e5LPzSOewGk3zt0EsQvo7PP7S1XqiVRj41Mv2ffACbvW8VV4Dz/7tYII
+	 tAfhgRNez1JKw==
+Subject: Re: [PATCH net v3 2/3] ieee802154: ca8210: prevent stack buffer
+ overflow in hwme_get_request_sync()
+From: netdev-bot+sashiko@kernel.org
+To: benquike@gmail.com
+Cc: h.morris@cascoda.com, alex.aring@gmail.com, miquel.raynal@bootlin.com,
+ stefan@datenfreihafen.org, david.laight.linux@gmail.com,
+ linux-wpan@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, kuba@kernel.org
+Date: Thu, 24 Sep 2026 06:42:05 +0000
+Message-ID: <179023212547.2160803.17631623699458578311@kernel.org>
+In-Reply-To: <20260922093126.141969-3-benquike@gmail.com>
+References: <20260922093126.141969-3-benquike@gmail.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-When io_cqe_cache_refill() is called for a 32-byte CQE at the last slot
-of an IORING_SETUP_CQE_MIXED ring (off + 1 == ctx->cq_entries),
-io_fill_nop_cqe() writes an IORING_CQE_F_SKIP CQE at the last slot and
-increments cached_cq_tail, consuming 1 free slot, after which the 32-byte
-CQE itself requires 2 more contiguous free slots at index 0.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Currently, io_fill_nop_cqe() only checks io_cqring_queued(ctx) <
-ctx->cq_entries (free >= 1). When free is 1 or 2, io_fill_nop_cqe()
-succeeds and increments cached_cq_tail for the skip CQE, and then
-io_cqe_cache_refill() computes len = min(free, ctx->cq_entries - off) < 2
-and returns false because len < (cqe32 + 1). This leaves an orphan skip
-CQE in the ring with cached_cq_tail already incremented while the 32-byte
-CQE is deferred to cq_overflow_list.
+Low priority / nit picks for your consideration:
 
-Require at least 3 free slots (io_cqring_queued(ctx) + 3 <=
-ctx->cq_entries) in io_fill_nop_cqe() before emitting the skip CQE.
+- [Low] hwme_get_request_sync() (drivers/net/ieee802154/ca8210.c:1655) is
+  changed so that *hw_attribute_length becomes a mandatory *input*: line…
 
-Tested in QEMU against Linux 7.3.0-rc3 on a 4-entry IORING_SETUP_CQE_MIXED
-ring with 2 queued CQEs (head = 1, tail = 3, free = 2, off = 3) followed
-by a 32-byte NOP (IORING_NOP_CQE32): on the unfixed kernel cq_tail
-advances to 4 due to the orphan skip CQE while the 32-byte CQE overflows,
-whereas with the fix applied cq_tail remains at 3 and both slots remain
-consistent.
+Pre-existing issues:
+- [Medium] hwme_get_request_sync() validates the device-reported
+  hw_attribute_length only from above; it never checks that the confirm…
 
-Fixes: e26dca67fde1 ("io_uring: add support for IORING_SETUP_CQE_MIXED")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Hui Peng <benquike@gmail.com>
----
-Changes in v2:
-- Split out as patch 2/2 as requested by Jens Axboe.
+--
 
- io_uring/io_uring.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ieee802154: ca8210: prevent stack buffer overflow in hwme_get_request_sync()
 
-diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
-index ae7c77158c58..b430301fead9 100644
---- a/io_uring/io_uring.c
-+++ b/io_uring/io_uring.c
-@@ -698,7 +698,12 @@ static unsigned int io_cqring_queued(struct io_ring_ctx *ctx)
-  */
- static bool io_fill_nop_cqe(struct io_ring_ctx *ctx, unsigned int off)
- {
--	if (io_cqring_queued(ctx) < ctx->cq_entries) {
-+	/*
-+	 * Creating a skip CQE and posting a 32b CQE requires 3 free CQ slots
-+	 * in total (1 for the skip CQE at the end of the ring and 2 for the
-+	 * 32b CQE at the start of the ring).
-+	 */
-+	if (io_cqring_queued(ctx) + 3 <= ctx->cq_entries) {
- 		struct io_uring_cqe *cqe = &ctx->rings->cqes[off];
- 
- 		cqe->user_data = 0;
+The patch turns the hw_attribute_length argument of
+hwme_get_request_sync() into an in/out parameter: the caller-supplied
+value is now used as the capacity of the destination buffer, and an
+over-long HWME-GET.confirm is rejected with IEEE802154_SYSTEM_ERROR.
+The single caller ca8210_get_ed() initialises lenvar to 1 to match the
+one-byte level buffer.
+
+> diff --git a/drivers/net/ieee802154/ca8210.c b/drivers/net/ieee802154/ca8210.c
+> index a990a0f347ad8..8aa7ffeb22d78 100644
+> --- a/drivers/net/ieee802154/ca8210.c
+> +++ b/drivers/net/ieee802154/ca8210.c
+> @@ -1677,6 +1677,9 @@ static u8 hwme_get_request_sync(
+>  		return IEEE802154_SYSTEM_ERROR;
+>  
+>  	if (response.pdata.hwme_get_cnf.status == IEEE802154_SUCCESS) {
+> +		if (response.pdata.hwme_get_cnf.hw_attribute_length >
+> +		    *hw_attribute_length)
+> +			return IEEE802154_SYSTEM_ERROR;
+
+[Severity: Low]
+This isn't a bug, but should the kernel-doc above hwme_get_request_sync()
+be updated to describe the new contract?  The block still reads:
+
+  /**
+   * hwme_get_request_sync() - HWME_GET_request/confirm according to API Spec
+   * @hw_attribute:        Attribute Number
+   * @hw_attribute_length: Attribute length
+   * @hw_attribute_value:  Pointer to Attribute Value
+   * @device_ref:          Nondescript pointer to target device
+   *
+   * Return: 802.15.4 status code of HWME-GET.confirm
+   */
+
+The @hw_attribute_length wording is word for word the same as the one used
+for hwme_set_request_sync(), where the parameter really is a plain input
+value, and the Return: line no longer covers the new
+IEEE802154_SYSTEM_ERROR case for an over-long reply.
+
+A second call site that follows the current wording and passes the expected
+attribute length (or leaves the variable uninitialised, as ca8210_get_ed()
+did before this patch) would either reintroduce the overflow being fixed
+here or make every valid reply fail.  Would it help to document that the
+caller must pass sizeof(destination buffer) on entry and receives the number
+of bytes written on return?
+
+>  		*hw_attribute_length =
+>  			response.pdata.hwme_get_cnf.hw_attribute_length;
+
+[Severity: Medium]
+This is a pre-existing issue and not introduced by this patch, but since the
+new check sits exactly where a length test belongs: should there also be a
+lower-bound or consistency check here?
+
+Only over-long lengths are rejected, so a confirm with
+status == IEEE802154_SUCCESS and hw_attribute_length == 0 passes, copies
+zero bytes and returns IEEE802154_SUCCESS:
+
+drivers/net/ieee802154/ca8210.c:ca8210_get_ed() {
+	u8 lenvar = 1;
+	...
+	return link_to_linux_err(
+		hwme_get_request_sync(HWME_EDVALUE, &lenvar, level, priv->spi)
+	);
+}
+
+The returned lenvar is ignored, so ca8210_get_ed() reports 0 while *level
+was never written, although struct ieee802154_ops.ed in
+include/net/mac802154.h expects the callback to store the measured energy.
+
+There is a related case for a short confirm.  'struct mac_message response'
+in hwme_get_request_sync() is an uninitialised stack object, and
+ca8210_rx_done() only enforces an upper bound before copying:
+
+drivers/net/ieee802154/ca8210.c:ca8210_rx_done() {
+	buf = cas_ctl->tx_in_buf;
+	len = buf[1] + 2;
+	if (len > sizeof(struct mac_message)) {
+		...
+		goto finish;
+	}
+
+	if (buf[0] & SPI_SYN) {
+		if (priv->sync_command_response) {
+			memcpy(priv->sync_command_response, buf, len);
+	...
+}
+
+If the device answers SPI_HWME_GET_CONFIRM with a length byte that stops
+before the attribute bytes, response.pdata.hwme_get_cnf.hw_attribute_length
+and hw_attribute_value keep whatever was on the stack.  When that stale
+length happens to be 0 or 1 the new check passes, and a stale stack byte is
+copied into *level while success is returned.  Would an exact length test
+for the fixed-width HWME_EDVALUE attribute, plus a check that the confirmed
+attribute length fits within response.length, close both cases?
+
+In the current tree neither variant is reachable from userspace, since ->ed
+has no in-tree caller (net/mac802154/main.c only checks for its presence
+with a WARN_ON, and ED scans are refused in net/mac802154/scan.c).
+
 -- 
-2.55.0.1082.g2b9226bbc0-goog
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260922093126.141969-1-benquike%40gmail.com
