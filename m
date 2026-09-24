@@ -1,169 +1,105 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f32.google.com (mail-wr2-f32.google.com [74.125.225.96])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 563402673AA;
-	Thu, 24 Sep 2026 13:59:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9130F349B19
+	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 13:59:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.96
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790258359; cv=none; b=QfysT13vs5PVGfVfGxQ1KUIsvqDNLWMOQ4ktTRGr0EnYun6Rfni0si7QN5N998/KJQbgsxl0Vb6RE3rZAZrZ04l6UQYHIEUK91ilAjHJ9t0ih8FAZvj4xN7q/VeDD9TFN/FYXNDW2szrPuceUYkHHt3oAw12xMu7tqEB5aQ2RyM=
+	t=1790258371; cv=none; b=NjE/3eIVVgVfkm4GG52HEhBDL6KGYxq4WysnEpngOYM1bhU2qk440w++TzXrgHmzYdFSQ41PJAqEXNix2awUr+CyaG2H361I7cB/b+6zd3nwDRRTN7qcPsHcjNa2Kywg/IxFBmDVeRIZgIsCWcnwejirMdj2z52oGXSLdnM9xKM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790258359; c=relaxed/simple;
-	bh=8KMJp4l5scS6ux5Pa9OBYN91E878i428O2BdSDBLFVI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GSpcm/yWsbd+e+elUNTJiwTA4m4mfSeMmbPgZccPlOnvHtc9MRlQrnWBS5i8wzkbrBlDbmyhJXddOVCSbtiNW3Vdbwq7z02cM+uxI9QRoq3wEqc7r2XsLtMjpXHqsuK7gp9bWR0luVaMUsjhcplilwfJF2yy3DX+4ZkLarNaho0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=lMt+eMLs; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1790258371; c=relaxed/simple;
+	bh=JpqOeur7GpbN7ezXANNXc+iz0nVAxCGXy8kfPhgmAqs=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=o178nrhIkBeK9EL6U3leA5i041b4Zoe81W/ineH0EYe9Ctm3G7AJhVXJOweZMwZj2NpFjEuFCgHjBdRGkBzrb3IS6FmnsloopDfd57MDTE5hdUesCXGN6p+2f6UnCdM0C8xGxMBqAxtrxEtgI078fBy4zdZ38bXvJQA/hqRJO8I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=xkylD8iy; arc=none smtp.client-ip=74.125.225.96
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="lMt+eMLs"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id AE6CFC23;
-	Thu, 24 Sep 2026 15:57:27 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790258247;
-	bh=8KMJp4l5scS6ux5Pa9OBYN91E878i428O2BdSDBLFVI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=lMt+eMLs1r5yHIJANFw4QjdwgZK1CFv+1yYIrzAAcAu+9sy4ct2q5mY04rWFSODDH
-	 wv9jcKWEoYQpWLqgeidOe3mIZ2CbNqkkp+a7uSR6BZOc+9jYiO/jW6IXxupb9CHIVq
-	 dr6NutuwWyTvNNcu3n6TUg1OrFiMMI9U6/T448I0=
-Date: Thu, 24 Sep 2026 16:59:13 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Hongbing Hu <huhb04@gmail.com>
-Cc: hansg@kernel.org, mchehab@kernel.org, kieran.bingham@ideasonboard.com,
-	ribalda@chromium.org, linux-media@vger.kernel.org,
-	linux5-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v3] media: uvcvideo: defer cancelled buffer completion
- until copies finish
-Message-ID: <20260924135913.GB135998@killaraus.ideasonboard.com>
-References: <20260903131141.6368-1-huhb1@xiaopeng.com>
- <20260917144630.16923-1-huhb04@gmail.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="xkylD8iy"
+Received: by mail-wr2-f32.google.com with SMTP id ffacd0b85a97d-482f6350f91so1342460f8f.1
+        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 06:59:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790258368; x=1790863168; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LRDlFyxUk3KppsRNFoYPmaT40+fQeOq7faNwXvSK4kA=;
+        b=xkylD8iy+rfMATOyklNh+KekcA/IpTEDD0jhfZWX3dDtgSLyMYN+wt/DGsIiLPJelP
+         1RmaS7GVLF+rzxKhCYBvAKj6UqMaLkY2ZP0fveenlk/tmzbl/yXt67lTvj7tkXiG0u0L
+         ZmtZFHpeXHwey/G6XHgvCZdinJLyoZfEu8DM6HZgHNhmtDd6kzBVTZuqhacbYCK1plIK
+         7P3S0fNOtT5xLMjqjJn9rsCX1i3wi5Pb707SvSlQz5OnItYanyEvW9fdYOAgv8DBEMxg
+         y0UrQpR7+FDrMT547mpVSseDYhpTbaLBeRFDdaXL0O2lrP/11Ct1mKrtrv6KKSwomMMk
+         uZGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790258368; x=1790863168;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LRDlFyxUk3KppsRNFoYPmaT40+fQeOq7faNwXvSK4kA=;
+        b=Jc8l00SZWAUoM1bSyxDko6/YumHpaAqVnJ01MI8FLa/9UdD9X+7ycrxU1bWX2nV0+Y
+         1+Oussj8AFjdlDhKBy+0hEHqFQGr040qnYOIqqfczuVGWkLMTwEFpODnDl5gWp5K9yXr
+         2iat0H8NqZSBZpFGK5G40aItMUPp3Do5yhx64p0ZHHY6g+aT9hh31Dx2nfkzziVdNwiy
+         OVQKzKstVUK6ukHqHILrWlIpAHTugsPuWEkPNFkfCV4vhrn+0EGRpSXXVykzYEp6mIXB
+         n27I3xdCgSmv3Z3e5TS4U7CNKu6gOuogAoNbRXJkhD7HhVnG3Q8NSGRo/Nl81KY5ek1r
+         Hg7w==
+X-Forwarded-Encrypted: i=1; AKwUvBziTu1vHoEOTbZYVKq1O/zp+7NFCs+U0ndvG+gjdgCKRGwRLkjdbYGWvA5Ij00HqX/z/L4IqKM=@vger.kernel.org
+X-Gm-Message-State: AFuF++nvve0e3BQ4PgB3i7Z56xal0UmfwX1pm7CVPiJe3zT4lXHPHTlU
+	5nhhx24/hKMhRsUv4onQyso+2m52L9izTcvND48YqejZJhtYB0/R4Fif4yfAkgfgWMM=
+X-Gm-Gg: AYBFou1TCRVibIjCBMrLTD2PHY+X8TGkips57Sr93NkYZ/iW4urenxTMXRbNPW8K23g
+	SGxxQIRuoKoKMg3IfgCCEh6fXS6we1v26G50oCGGbDjXTgWCPDE4zYvPlsJD9u6y6Vbu7X4JBty
+	tp4ScN3A1FSaB5IWg0ZbtT1P6CuC4++ZKwDqexFI9wHsPiWzGUKF0YZBrLwLvfl4oJwHRwFTOR3
+	kFUHrNttcCBxKQmu6/RJqGNe2KULAr1YBKAeRCmy3HvakYIyps218UxILXdc3qvmpbLW/7FiOfP
+	X8qFN8hLbAZzygdGkFrR5LXkb7zMqTEdA61BIDb9sfCLY17WrPJgMfq/0vdAWlj2qcU65rJpfHs
+	h58Teu6yWUloDnA/0j6TYdntIUBphMpALoZYRopq2Lpk5qfHySeMf0n18m3Kw9ror/Rm3U/1YPr
+	BnJXQslSl2GqPACg/zUYGzgQGKQYxH/eCAZ1h96WwEqTT5HS+cgkycSwXFsYRnHES4F3K1TOEuj
+	VqL3CDtEzKR09KGreNr
+X-Received: by 2002:a05:600c:a00d:b0:49f:ce73:7ab with SMTP id 5b1f17b1804b1-49fe6708b23mr50754095e9.34.1790258367671;
+        Thu, 24 Sep 2026 06:59:27 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886876c500sm15799213f8f.19.2026.09.24.06.59.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 06:59:27 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+To: Joel Selvaraj <foss@joelselvaraj.com>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Sam Ravnborg <sam@ravnborg.org>, Marco Mattiolo <marco.mattiolo@hotmail.it>, 
+ Linus Walleij <linusw@kernel.org>, David Heidelberg <david@ixit.cz>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, Casey Connolly <casey.connolly@linaro.org>, 
+ stable@vger.kernel.org
+In-Reply-To: <20260908-ebbg-ft8719-fixups-v2-0-5454ae1f5581@ixit.cz>
+References: <20260908-ebbg-ft8719-fixups-v2-0-5454ae1f5581@ixit.cz>
+Subject: Re: [PATCH v2 0/3] Xiaomi Poco F1 (ebbg display variant) fixes
+Message-Id: <179025836659.3234093.17562514637378483936.b4-ty@b4>
+Date: Thu, 24 Sep 2026 15:59:26 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260917144630.16923-1-huhb04@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.1
 
-On Thu, Sep 17, 2026 at 10:46:30PM +0800, Hongbing Hu wrote:
-> uvc_queue_cancel() returns queued buffers to videobuf2 directly via
-> vb2_buffer_done(). This is unsafe because asynchronous memcpy workers may
-> still hold a reference on the same uvc_buffer. Once vb2_buffer_done() has
-> run, userspace can dequeue and requeue the buffer while the old worker is
-> still running, leading to the same list_head being inserted into irqqueue
-> twice and corrupting the list.
-> 
-> The crash manifests in two ways depending on the drop-corrupted-frames
-> module parameter:
-> 
-> 1. With the default (drop corrupted frames enabled), the old worker's
->    final kref_put reaches uvc_queue_buffer_complete(), sees buf->error set,
+Hi,
 
-What sets buf->error in that case ?
+On Tue, 08 Sep 2026 14:45:01 +0200, David Heidelberg wrote:
+> Been broken in mainline for some time.
 
->    and calls uvc_queue_buffer_requeue(). This performs list_add_tail() on
->    buf->queue even though userspace has already QBUF'd the same buffer and
->    added it to irqqueue.
-> 
-> 2. With nodrop=1, uvc_queue_buffer_complete() calls vb2_buffer_done() a
->    second time. If userspace has already dequeued and requeued the buffer,
->    the second completion exposes it to userspace again, and the next
->    DQBUF/QBUF inserts the still-linked list_head into irqqueue a second
->    time.
-> 
-> Both cases produce the kind of list_del corruption seen here:
-> 
->     list_del corruption. next->prev should be ..., but was ...
->     kernel BUG at lib/list_debug.c:64!
-> 
-> Fix the cancel path to remove buffers from irqqueue and drop the queue's
-> reference through uvc_queue_buffer_release() (i.e. kref_put()). The final
-> VB2 completion then only happens from uvc_queue_buffer_complete() once the
-> last async reference is released, so userspace cannot reuse the buffer
-> while an old worker still accesses it.
-> 
-> Introduce a dedicated bool cancelled flag in struct uvc_buffer,this keeps
-> the cancellation semantics explicit regardless of any later state updates
-> from the packet decoder.
-> Cancelled buffers are forced to complete as errors; normal malformed frames
-> continue to be requeued or dropped as before.
-> 
-> Fixes: 01e90464e42e ("media: uvcvideo: queue: Support asynchronous buffer handling")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hongbing Hu <huhb04@gmail.com>
-> ---
-> v3:
-> - invoke uvc_queue_buffer_release() while holding the spinlock to keep it simple
-> - Set/clear the new cancelled flag in uvc_queue_cancel() and
->   uvc_buffer_prepare() instead of overloading buf->state. 
-> - Force cancelled buffers to complete as errors,
->   so the returned buff->state is UVC_BUF_STATE_ERROR.
-> 
->  drivers/media/usb/uvc/uvc_queue.c | 17 +++++++++++++++--
->  drivers/media/usb/uvc/uvcvideo.h  |  1 +
->  2 files changed, 16 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/media/usb/uvc/uvc_queue.c b/drivers/media/usb/uvc/uvc_queue.c
-> index 3c002c8f44..1026d7def3 100644
-> --- a/drivers/media/usb/uvc/uvc_queue.c
-> +++ b/drivers/media/usb/uvc/uvc_queue.c
-> @@ -122,6 +122,7 @@ static int uvc_buffer_prepare(struct vb2_buffer *vb)
->  
->  	buf->state = UVC_BUF_STATE_QUEUED;
->  	buf->error = 0;
-> +	buf->cancelled = false;
->  	buf->mem = vb2_plane_vaddr(vb, 0);
->  	buf->length = vb2_plane_size(vb, 0);
->  	if (vb->type != V4L2_BUF_TYPE_VIDEO_OUTPUT)
-> @@ -289,10 +290,17 @@ int uvc_queue_init(struct uvc_streaming *stream, struct uvc_video_queue *queue,
->   */
->  void uvc_queue_cancel(struct uvc_video_queue *queue, int disconnect)
->  {
-> +	struct uvc_buffer *buf;
->  	unsigned long flags;
->  
->  	spin_lock_irqsave(&queue->irqlock, flags);
-> -	__uvc_queue_return_buffers(queue, UVC_BUF_STATE_ERROR);
-> +	while (!list_empty(&queue->irqqueue)) {
-> +		buf = list_first_entry(&queue->irqqueue, struct uvc_buffer, queue);
-> +		list_del(&buf->queue);
-> +		buf->error = 1;
-> +		buf->cancelled = true;
-> +		uvc_queue_buffer_release(buf);
-> +	}
->  	/*
->  	 * This must be protected by the irqlock spinlock to avoid race
->  	 * conditions between uvc_buffer_queue and the disconnection event that
-> @@ -356,7 +364,12 @@ static void uvc_queue_buffer_complete(struct kref *ref)
->  	struct vb2_buffer *vb = &buf->buf.vb2_buf;
->  	struct uvc_video_queue *queue = vb2_get_drv_priv(vb->vb2_queue);
->  
-> -	if (buf->error && !uvc_no_drop_param) {
-> +	/*
-> +	 * Buffers cancelled from uvc_queue_cancel() are forced to complete as
-> +	 * errors. They must not be requeued by the corrupted-frame policy even
-> +	 * when buf->error is set.
-> +	 */
-> +	if (!buf->cancelled && buf->error && !uvc_no_drop_param) {
->  		uvc_queue_buffer_requeue(queue, buf);
->  		return;
->  	}
-> diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
-> index b6bcee4a22..1b611715fa 100644
-> --- a/drivers/media/usb/uvc/uvcvideo.h
-> +++ b/drivers/media/usb/uvc/uvcvideo.h
-> @@ -317,6 +317,7 @@ struct uvc_buffer {
->  
->  	enum uvc_buffer_state state;
->  	unsigned int error;
-> +	bool cancelled;
->  
->  	void *mem;
->  	unsigned int length;
+Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
+
+[1/3] drm/panel: ebbg-ft8719: Set prepare_prev_first
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/4eeeac9d7c3600a6cae75b2a7bc9c5b67530923c
+[2/3] drm/panel: ebbg-ft8719: Fix the MODULE_LICENSE() string
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/b1885bd1c985999b8a5393f2e23eea8dde3109a9
+[3/3] drm/panel: ebbg-ft8719: Split initialization into enable/disable fn
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/012dc8a8e5b6bca57ef7bb62d6015faff7690e0a
 
 -- 
-Regards,
+Neil
 
-Laurent Pinchart
