@@ -1,102 +1,65 @@
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71B204A64CC
-	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 17:10:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA990357D0C
+	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 17:13:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790269826; cv=none; b=ZkdrhRmFICM9pns+VUF317tZguFwJiJKL/01t4zjKwCSe9HyV6OP0eWSAPv2IZ1WJHNRgBprCE7m2dF7ZSGh0V9qKdKK7qAyMGv67LlrN5k7/4+bCITu0JjFYpzSUqm4pueBU+f2RtsFdQJPfCwtLEBgybZPvwcB9+prfQOFs34=
+	t=1790270015; cv=none; b=utdjdfccKXCWmcc788rW4g2gngU33pOjJ6SuTw/Ai6sm6d3Z+yyAYQyThytXB7qIrZmTgNI21+U8BHTV693px3zTEBrnN5ir7TzJmAki7YSv7AfEuxwLpyIT/FFf6e9Y6XtXU6qlzJgvsW0kChVg6YEw4PzYXj1qvI5yEURFJ5A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790269826; c=relaxed/simple;
-	bh=xT64NIlMh8pIe5ecVgBrXsUOxFiPNMLxtcPdfQhZyIs=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=mN+tIazCZBxAlJOepUhZXySPj7+Qo8NwpEr1Emc26a1NqPb4IJHt1z/nxGmfRxXr/d9+QD15xVbyOgpv/HTd+VpjUKA1yO2EXGPMMtJPQctUqeX35da2D5jdBdTyu0qpaYRg5LmQH+hB+a6Yw73nlgF31Qu9gIFRnagExNBaW/U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=dw+mJNvn; arc=none smtp.client-ip=209.85.210.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1790270015; c=relaxed/simple;
+	bh=HuBq1dgoqjt6qemoZulCxbv8xiDtMjOnT6LEr3oBzyA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=PMn/+fp1LWMf7rC/OWBoEcA9ms1CumaexIa0DaB0Et00FlhV3kVthjC4dvEV6Jp2i9oGQrOHcdw6v9er3DXpqEIAsmBgHEibStElgkKC5p4XuGlDhePzPyFcekcKv0RglDqpzp126k/if0SjL54+jJHd71+188eJWjs2qAHscu8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xkw8QSU1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="dw+mJNvn"
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-86917d18a02so94348b3a.1
-        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 10:10:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790269824; x=1790874624; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1o1i2f/hTrS1n0Ninzv8Gte0+MRdXhRWFBn8i4nuoHM=;
-        b=dw+mJNvnSwqqZLAWgwkUb7J5ZGKuFg33lIK7PMZKFvaJ7vcgStinZYYymPjpw/U/bc
-         yI2Niq+tI3gE3Z+D9jI7Asxeboi9GoFEwa/gmRSEtxKuz81u5IaI9kqMI/uON7Oj4D8t
-         /jJVaPXhbY6naad/vti5mm0F6r0LCNpEOm3AE4a5H3X5LoXH+/xl3YooQSrGoB/fjzJl
-         siZFm0BcIOcfZKfoRe6BCdoKqy2MyqO0goTJonV2Cro6wu1N5EzFiQRdUGyyp3ve3ly3
-         2cK2Cr/AS7WDm8x+x90anv4dz2JSE8fhC9mxhJ43MYogdS7fFXZio+k+zgOzBhQ68/Vn
-         Wc4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790269824; x=1790874624;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1o1i2f/hTrS1n0Ninzv8Gte0+MRdXhRWFBn8i4nuoHM=;
-        b=Ke/nwabRQy1uF2J9uxbcPxa58zoP4gXCWZgIn2HpGIwI9AJzLvePV14KvF24UudEVQ
-         462HHJO+HBzg/3v+2zxsT50muei8BfYx9TJU09PLNua3Vq87DfUYu/NnR+pEybfleJRC
-         Gnc9wfb26ZTzzg2FrATvw6CgxljaJ5ErFwDCI/EYWvfWJCNlKf2AsCKZaYogl9vJHiqN
-         I1qFuyoKDHZMT82adw+9g4tQlZc5nxAlLiI+d9M1ZQGNO2on6XArmdrgZsyZmqVlhWVy
-         QS61orM17StYaafM/kHIL7NXgaHAQZ31o7kLKSO8JEdOfJ4XXyxGSlmVEa8sEvcgP5XR
-         j33g==
-X-Forwarded-Encrypted: i=1; AKwUvBxS1EyBOnX2rBodOk9NVrcMlU9NUAOTN7fTg5J4jT5hBpF55izd1nQex6GNQtWhosm0wZ27VfU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kkuenPzBqWF/0R18FHeDuEDPsrFxnfzoVAdX+oGe8OwCKBZvp4
-	XI7i5jgM3vuhXpDjCcO9Dv70k7O7s2xSzBh9cY+IoMosbCF2lMs5y63OzezWUbRnf9mvzKqdKO5
-	O3O7x5A==
-X-Received: from pgbfp2.prod.google.com ([2002:a05:6a02:2ce2:b0:cc4:ac62:d4ef])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:3408:b0:3dd:85a8:4c5f
- with SMTP id adf61e73a8af0-3de0e76286amr3010885637.38.1790269823517; Thu, 24
- Sep 2026 10:10:23 -0700 (PDT)
-Date: Thu, 24 Sep 2026 10:10:22 -0700
-In-Reply-To: <daily-reply-0006-re-kvm-mmu-derive-child-role-5-15@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xkw8QSU1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 061D81F000FF;
+	Thu, 24 Sep 2026 17:13:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790270014;
+	bh=KVynk1J9ZIK4NwAOt2xgFc/0dJmWVgfWI4Vto+E1s90=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Xkw8QSU1DY28gW4aTKgq8Pup73EjI4O7BSOXGjhDPEgAPnPPEsRBp5iQmpvThMv1V
+	 ATK/P3jPW9Guz9FUWdPM4IjfGc0CVyYFCRPUPXCH8gYjRtcpNhygJ284BUKcnV0JDj
+	 8stpYgR4uUH/Ev2aJldIKvTobxf9kQG1jiAuC8LR8jR7995st6DWQVej3D6d5ujjU5
+	 /Sax2mW6uVzLxG+jzqtxxDJdIG58XWY1IJmk/AInYGd59Xn+dBXld2IpTFdS3OanhS
+	 nUjT8SWCAtAtwPIS06kRVAX46BPDm/J+IlNg0mK/o/RSwWHelir/bSVoIWDRSREQvc
+	 seiU7Ut/houZg==
+From: Sasha Levin <sashal@kernel.org>
+To: gregkh@linuxfoundation.org
+Cc: Sasha Levin <sashal@kernel.org>,
+	stable@vger.kernel.org,
+	xiang@kernel.org,
+	chao@kernel.org,
+	zbestahu@gmail.com,
+	jefflexu@linux.alibaba.com,
+	dhavale@google.com,
+	lihongbo22@huawei.com,
+	guochunhai@vivo.com,
+	yinxin.x@bytedance.com,
+	linux-erofs@lists.ozlabs.org,
+	Wenwu Hou <hwenwur@gmail.com>
+Subject: Re: [PATCH stable] erofs: fix large folio race in erofs_fscache_req_complete
+Date: Thu, 24 Sep 2026 13:13:20 -0400
+Message-ID: <2026-09-24-daily-reply-0001-re-erofs-fscache-large-folio-race@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260923084823.496741-1-hwenwur@gmail.com>
+References: <20260923084823.496741-1-hwenwur@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260913155523.7423-4-k@mgml.me> <daily-reply-0006-re-kvm-mmu-derive-child-role-5-15@kernel.org>
-Message-ID: <arVZfjUskXC54OKZ@google.com>
-Subject: Re: [PATCH 5.15.y v3 3/7] KVM: x86/mmu: Derive shadow MMU page role
- from parent
-From: Sean Christopherson <seanjc@google.com>
-To: Sasha Levin <sashal@kernel.org>
-Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, stable@vger.kernel.org, 
-	Paolo Bonzini <pbonzini@redhat.com>, Peter Xu <peterx@redhat.com>, 
-	David Matlack <dmatlack@google.com>, Kenta Akagi <k@mgml.me>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 14, 2026, Sasha Levin wrote:
-> > -	role.direct = direct;
-> > -	if (role.direct)
-> > -		role.gpte_is_8_bytes = true;
-> > [...]
-> > +	if (!role.gpte_is_8_bytes) {
-> > +		struct kvm_mmu_page *parent_sp = sptep_to_sp(sptep);
-> > +		role.quadrant = (sptep - parent_sp->spt) % 2;
-> 
-> The "if (role.direct) role.gpte_is_8_bytes = true;" that kvm_mmu_get_page()
-> used to do is removed here, and kvm_mmu_child_role() does not put it back.
-> 
-> That works upstream because the field there is has_4_byte_gpte, which
-> defaults to 0. On 5.15 the field is gpte_is_8_bytes, the inverse, so the
-> translation flips: for a non-paging guest
-> kvm_calc_shadow_root_page_role_common() leaves gpte_is_8_bytes at 0 while
-> kvm_calc_shadow_mmu_root_page_role() sets direct to 1, and a direct shadow
-> page ends up with a quadrant stamped onto it.
-> 
-> Keeping "if (role.direct) role.gpte_is_8_bytes = true;" in
-> kvm_mmu_child_role() preserves the upstream behaviour. The alternative is to
-> backport the upstream role-computation change first so the field carries the
-> mainline sense.
+> For stable branches: 5.19.y, 6.0.y–6.19.y, and 7.0.y.
 
-I vote to backport the relevant upstream commits.  Reviewing this without those
-commits is a pain.  I think it's these, to get fairly clean cherry-picks?
+Queued for 6.18, 6.12 and 6.6, thanks. 6.1 doesn't need it, since erofs
+doesn't enable large folios there.
 
-  dc1ce45575b3401102568dd60ba8894849d1d64b KVM: MMU: update comment on the number of page role combinations
-  41e35604eaff2266ba8523787ebe99c5ca4c4045 KVM: X86: Remove useless code to set role.gpte_is_8_bytes when role.direct
-  b46a13cb7ea1137b2e01dfaafcacd5cd79db8390 KVM: X86: Calculate quadrant when !role.gpte_is_8_bytes
-  bb3b394d35e80d7a58ce015191e4960a13f54ba5 KVM: X86: Rename gpte_is_8_bytes to has_4_byte_gpte and invert the direction
+-- 
+Thanks,
+Sasha
