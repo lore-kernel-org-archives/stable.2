@@ -1,66 +1,75 @@
-Received: from pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.83.148.184])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com [74.125.229.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC3A54CE673;
-	Thu, 24 Sep 2026 20:39:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.83.148.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFAC44C14EF
+	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 20:42:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790282367; cv=none; b=iLKJStC44exuAM0MBnCiCeeqb+BasIB2gJRB42o/97BjmEx9m8uJwQ35666bH7mK9CdhxpkB4Spip6o6KSfZqvLhcbu/ecBW+ZghYLIftxoDfKGmPYwoRlqrwqS12hnt3paMvkeRwQpE8kK3yv2DD+fpL9NBnnz40NsJHX9+J30=
+	t=1790282535; cv=none; b=YwOba+lYAt2f61B7CHzeoSFs2sT038CzU+3h1hnv8UBwGAhmdhZjg66xHGYSLds8LWIJF6rVGY7WrJ3JRUv0b8cvngTbjwZYAYPOkpgXM1Kw97co5bgx+7FmFiwCEXKnyOVhV5eDkVnXtpf2+t8zTJbNJiC1ns11Pxxi6z0++Dk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790282367; c=relaxed/simple;
-	bh=3jVrqWHVmL2RraT3Mi3b21L1yYxL47Uc+1gWwEb2hek=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=NefUoHXJw6tlbIIo/nJlsGbOmLqL7WLgxbedpeNr+6iZVU2DKd9gch0brOUBd0AFo8U9aFP8wj5rbfNK7sCQIeC9SmxSuLkN3EIWtASDBJ8f+ZMXRrjA4TGwCYG7nD55vcxA3QtVLwKIOAp1ZFJO6RTnZvkHfprCfNadP1XzJEE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=eIw7o1X6; arc=none smtp.client-ip=35.83.148.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	s=arc-20240116; t=1790282535; c=relaxed/simple;
+	bh=OzqluZqRVfMingGFZl8Ew6dmAbmJFB15xftTLwFF31c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dWFG0GdIq3tmTA1E+8/GSjEezX2kWAqlRoR1QkB1XqU5CTLnwocxJu5iXzVHR8vNkHXSw+ONCtIuSPUvnwkoHoIE+G8x/OPtv7g3x3cMvCJLw/GmL/gteCKOu5fYtSbd4kg3bU9H/oMkdxVNxLsQE0XeBLdVLtv/TjWa3U3LIOI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tCmgC5CE; arc=none smtp.client-ip=74.125.229.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="eIw7o1X6"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tCmgC5CE"
+Received: by mail-dl2-f43.google.com with SMTP id a92af1059eb24-1438e88300cso223610c88.0
+        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 13:42:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1790282365; x=1821818365;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=kBejIS3XTPtv+8rSCICSRV8LuykKs33Sp+7QIDwXSd8=;
-  b=eIw7o1X6qni55ZJJmy4MM+aD4BR5LZWYrPoxdqqEOIXm3mDFqBdtNLRd
-   hV/vd+zxa2Tpw/jSkfKpthqTJCh6w6gadPFcjpGlkm8bPVX7S5gklCRQn
-   rOlfGZwQhMswKMH/9mqWHYVTg7yjxRLvzaaAxwL0GDwvnd3arKHaGW385
-   ZiUmLNLMuMCDNVk5IedTkA6QYjTbAYKE6GrBrIAGtdTx6c0CLkff9+Xwx
-   UBfwiUZWpjjWIiVv7eJFEte7fYGN8L2PEj0chyd2kViG17NFpEm4+Gx2T
-   CqPk2k9p06/KD+jRlmRjc7rOKtTd1vy5S8Rhvz5VRDZhxO8p1XpTGV2sv
-   Q==;
-X-CSE-ConnectionGUID: hxBSeCFRTyGM15gG+jc36g==
-X-CSE-MsgGUID: 4f6jy1ZcSkSQwh4gAX8SiA==
-X-IronPort-AV: E=Sophos;i="6.27,121,1787011200"; 
-   d="scan'208";a="29367262"
-Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
-  by internal-pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 20:39:25 +0000
-Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.111:29520]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.33.144:2525] with esmtp (Farcaster)
- id adf95163-f066-4943-bfe1-5ee58d62e57f; Thu, 24 Sep 2026 20:39:25 +0000 (UTC)
-X-Farcaster-Flow-ID: adf95163-f066-4943-bfe1-5ee58d62e57f
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Thu, 24 Sep 2026 20:39:24 +0000
-Received: from dev-dsk-surajjs-2c-afd24e6d.us-west-2.amazon.com
- (10.189.247.117) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49; Thu, 24 Sep 2026
- 20:39:24 +0000
-From: Suraj Jitindar Singh <surajjs@amazon.com>
-To: <stable@vger.kernel.org>
-CC: Vitaly Kuznetsov <vkuznets@redhat.com>, Michael Kelley
-	<mhklinux@outlook.com>, "K . Y . Srinivasan" <kys@microsoft.com>, "Haiyang
- Zhang" <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, Dexuan Cui
-	<decui@microsoft.com>, Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires
-	<benjamin.tissoires@redhat.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	<linux-hyperv@vger.kernel.org>, <linux-input@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Saurabh Sengar <ssengar@linux.microsoft.com>,
-	Jiri Kosina <jkosina@suse.com>
-Subject: [PATCH 6.1.y] HID: hyperv: streamline driver probe to avoid devres issues
-Date: Thu, 24 Sep 2026 20:39:21 +0000
-Message-ID: <20260924203921.21711-1-surajjs@amazon.com>
-X-Mailer: git-send-email 2.47.3
+        d=gmail.com; s=20251104; t=1790282529; x=1790887329; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FULwkoFMwVo8tcQ8iB8waPMOVXDiej94ubxh80J+bpE=;
+        b=tCmgC5CEVmYmI9p1E0BlNMnOOrtWt46Zsy5xh2nUMCCWGFkpAKMHU32hgdAti0Blhk
+         ++3Iku1N4Z8RkiDJE44SWvAa5Yij1DFHOIyHiLZXW/F+rWvo2wUUDiazJs2qTd9IESRk
+         ORMbXWCXRHePw2euUHmzJ5snZOCJPu8/pfZbZ21iwaWUeBmpBPwtymHd3STgtxP20Zt6
+         DNU4lJUZq4KpjB1ZjFoo4eKkZaqpDUn+wQnfi73kkmvg0fme+nzvZ/qx4mQK8LvL7oJ0
+         XMz1pRFSmFWuQju/WJvg9OgO0Y71d45flv6Vk8wTHP73kUYoUoMQbJcanuCNcsbcmoOj
+         VMyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790282529; x=1790887329;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FULwkoFMwVo8tcQ8iB8waPMOVXDiej94ubxh80J+bpE=;
+        b=cwqGz3jKWDswAjUV/tXU4mbqPINLHQmPcxO2OUpPUnSL559YYhOr8dNA0yKW/yYPg+
+         NiJxCNh54PydZ1yP/FVp3IhA9cQCSq1J14Q68bAEJ3ZPMKeJOxg91wVH1l+lsz7tTYQe
+         qNDsXCn5jTsbp20+gyCY/2iCrloT4xn85tCGictHiDIses2sVpxvlwYLh3yTw1J3Pm3B
+         SaPITjFtX2kZhDWRm2MsVnUZpZYuCJyLbXRww5lEF0T3MBmqfh/Vwa4UosfRZyXITD8U
+         dG9rY4BFHrmXkrsXbxyC9Amwrdd6HG+2E/t6zg/22y0MtD86cur7idSKGwyXanvZ6TcK
+         2+og==
+X-Forwarded-Encrypted: i=1; AKwUvBzDir5jRFGg/Sl3FnLI6+ccUGYp2MiffF2FPluGHXheG0R1DCgbHBotYJqnSUv1A30AY1xMwOs=@vger.kernel.org
+X-Gm-Message-State: AFuF++lsEiZ4uLTvOfRkxmuNPsBTZ4nXovBdDYtc08Vv8N+wmIsRlX+M
+	97f4hbFrmpBbIvfPmu2zxsoC8ZWE21HZeW4X+tNmFeR+s4cyPuLhXZ2NWpSSxUbI
+X-Gm-Gg: AYBFou1rOPIFq3lepP3MeuPwnZNG8kZ0GPYpAXd78vpfnFcrHpmEh+6E4YoK1Hm6HCj
+	Pe/Yiu+RCmi3YTPzAi1Ni0UqfoOWmFQEF0xezoDqTL8NmKVgNni1vMobpsREK46dqDEKs0+DeEg
+	kh86pLRjpkrZIZNL+e6hAnV2VWAlEgVtQIgrNQkev3yxu+h1I12tG0MYEcXpLmHNnGgTROhB0dJ
+	dnEVwoYzUjf4q6GSOA5FUu7y4Rkp9lbPRdIzz+6cgjZGy+wcPD8jcl4G6eXsUMw8GYa2yJeUeLj
+	k2ZT5EEEVoiOu2rZbWPCj8pHMP+SNJvccNJ8DRZPiYhr7Dv6USvEGcu8+1sy8J8phv7Bc5mnYt2
+	tSre9M5R06zrtGTsnB+MjgGg14mKt20PU7B7nodxck15NL+sSNQfaASl7PentltjwwtWLlIdBii
+	gNCID2Px7PiAZmwhP+96TojibQsSrEVGE9yWrEhVI+e6eJy3TTS/GItDALoF/VQAkZ8Wl0woXGv
+	+uED+cOq3CrRmeV/DnjCt0jXw==
+X-Received: by 2002:a05:701b:205b:10b0:144:eab0:8373 with SMTP id a92af1059eb24-14503f6a391mr2766998c88.13.1790282529002;
+        Thu, 24 Sep 2026 13:42:09 -0700 (PDT)
+Received: from localhost.localdomain ([103.77.186.88])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3414485a9cdsm946902eec.16.2026.09.24.13.42.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 13:42:07 -0700 (PDT)
+From: Raj Ojha <rajojha047@gmail.com>
+To: Ulf Hansson <ulfh@kernel.org>
+Cc: Maxim Levitsky <maximlevitsky@gmail.com>,
+	linux-mmc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzkaller-bugs@googlegroups.com,
+	Raj Ojha <rajojha047@gmail.com>,
+	syzbot+ccffdf05833ebdaeae70@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH] memstick: core: wait for request completion before freeing card
+Date: Fri, 25 Sep 2026 02:11:42 +0530
+Message-ID: <20260924204142.607-1-rajojha047@gmail.com>
+X-Mailer: git-send-email 2.47.0.windows.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,181 +77,89 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWC003.ant.amazon.com (10.13.139.252) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-From: Vitaly Kuznetsov <vkuznets@redhat.com>
+In memstick_alloc_card() and memstick_set_rw_addr(),
+wait_for_completion_timeout() is used to wait for device identification
+and address configuration requests to complete.
 
-commit 66ef47faa90d838cda131fe1f7776456cc3b59f2 upstream
+The memstick subsystem does not provide an abort or cancellation
+callback in struct memstick_host for in-flight requests. If
+wait_for_completion_timeout() expires (for instance, when a USB transfer
+or command retry is delayed), memstick_alloc_card() returns an error and
+frees the memstick_dev structure via kfree(card).
 
-It was found that unloading 'hid_hyperv' module results in a devres
-complaint:
+However, the host controller driver (such as rtsx_usb_ms) is still
+running the request asynchronously in worker context. When the transfer
+eventually finishes, the driver writes into host->req->data, which
+points to memory inside the already freed card structure. This leads to
+a KASAN slab-use-after-free write:
 
- ...
- hv_vmbus: unregistering driver hid_hyperv
- ------------[ cut here ]------------
- WARNING: CPU: 2 PID: 3983 at drivers/base/devres.c:691 devres_release_group+0x1f2/0x2c0
- ...
- Call Trace:
-  <TASK>
-  ? devres_release_group+0x1f2/0x2c0
-  ? __warn+0xd1/0x1c0
-  ? devres_release_group+0x1f2/0x2c0
-  ? report_bug+0x32a/0x3c0
-  ? handle_bug+0x53/0xa0
-  ? exc_invalid_op+0x18/0x50
-  ? asm_exc_invalid_op+0x1a/0x20
-  ? devres_release_group+0x1f2/0x2c0
-  ? devres_release_group+0x90/0x2c0
-  ? rcu_is_watching+0x15/0xb0
-  ? __pfx_devres_release_group+0x10/0x10
-  hid_device_remove+0xf5/0x220
-  device_release_driver_internal+0x371/0x540
-  ? klist_put+0xf3/0x170
-  bus_remove_device+0x1f1/0x3f0
-  device_del+0x33f/0x8c0
-  ? __pfx_device_del+0x10/0x10
-  ? cleanup_srcu_struct+0x337/0x500
-  hid_destroy_device+0xc8/0x130
-  mousevsc_remove+0xd2/0x1d0 [hid_hyperv]
-  device_release_driver_internal+0x371/0x540
-  driver_detach+0xc5/0x180
-  bus_remove_driver+0x11e/0x2a0
-  ? __mutex_unlock_slowpath+0x160/0x5e0
-  vmbus_driver_unregister+0x62/0x2b0 [hv_vmbus]
-  ...
+  BUG: KASAN: slab-use-after-free in ms_read_bytes+0x8fe/0x990
+  Write of size 1 at addr ffff88813c188079 by task kworker/1:5/5239
+  Workqueue: events rtsx_usb_ms_handle_req
+  Call Trace:
+   ms_read_bytes+0x8fe/0x990 drivers/memstick/host/rtsx_usb_ms.c:450
+   rtsx_usb_ms_issue_cmd drivers/memstick/host/rtsx_usb_ms.c:477 [inline]
+   rtsx_usb_ms_handle_req+0x557/0x1a00 drivers/memstick/host/rtsx_usb_ms.c:531
+   process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
+   worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
+   kthread+0x373/0x450 kernel/kthread.c:436
 
-And the issue seems to be that the corresponding devres group is not
-allocated. Normally, devres_open_group() is called from
-__hid_device_probe() but Hyper-V HID driver overrides 'hid_dev->driver'
-with 'mousevsc_hid_driver' stub and basically re-implements
-__hid_device_probe() by calling hid_parse() and hid_hw_start() but not
-devres_open_group(). hid_device_probe() does not call __hid_device_probe()
-for it. Later, when the driver is removed, hid_device_remove() calls
-devres_release_group() as it doesn't check whether hdev->driver was
-initially overridden or not.
+  Allocated by task 1662:
+   memstick_alloc_card drivers/memstick/core/memstick.c:383 [inline]
+   memstick_check+0x2c1/0x10d0 drivers/memstick/core/memstick.c:452
+   process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
 
-The issue seems to be related to the commit 62c68e7cee33 ("HID: ensure
-timely release of driver-allocated resources") but the commit itself seems
-to be correct.
+  Freed by task 1662:
+   kfree+0x20c/0x650 mm/slub.c:6792
+   memstick_alloc_card drivers/memstick/core/memstick.c:420 [inline]
+   memstick_check+0x72b/0x10d0 drivers/memstick/core/memstick.c:452
+   process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
 
-Fix the issue by dropping the 'hid_dev->driver' override and using
-hid_register_driver()/hid_unregister_driver() instead. Alternatively, it
-would have been possible to rely on the default handling but
-HID_CONNECT_DEFAULT implies HID_CONNECT_HIDRAW and it doesn't seem to work
-for mousevsc as-is.
+Host controller drivers (rtsx_usb_ms, jmb38x_ms, tifm_ms, r592) already
+implement their own hardware and bus timeouts, and callers in
+mspro_block and ms_block already rely on wait_for_completion()
+unconditionally.
 
-Fixes: 62c68e7cee33 ("HID: ensure timely release of driver-allocated resources")
-Suggested-by: Michael Kelley <mhklinux@outlook.com>
-Signed-off-by: Vitaly Kuznetsov <vkuznets@redhat.com>
-Reviewed-by: Michael Kelley <mhklinux@outlook.com>
-Tested-by: Saurabh Sengar <ssengar@linux.microsoft.com>
-Signed-off-by: Jiri Kosina <jkosina@suse.com>
-[ 6.1: context adjusted only - mousevsc_ll_driver is non-const in 6.1
-  because the hid_ll_driver constification (for-6.12/constify-rdesc,
-  e.g. 054e0bd34577) is not present; the applied diff is identical to
-  the upstream commit, no functional change ]
-Signed-off-by: Suraj Jitindar Singh <surajjs@amazon.com>
+Replace wait_for_completion_timeout() with wait_for_completion() in
+memstick_set_rw_addr() and memstick_alloc_card() so that the card
+structure is never freed while an asynchronous request is in flight.
 
-diff --git a/drivers/hid/hid-hyperv.c b/drivers/hid/hid-hyperv.c
---- a/drivers/hid/hid-hyperv.c
-+++ b/drivers/hid/hid-hyperv.c
-@@ -456,6 +456,25 @@ static int mousevsc_hid_raw_request(struct hid_device *hid,
- 	return 0;
- }
- 
-+static int mousevsc_hid_probe(struct hid_device *hid_dev, const struct hid_device_id *id)
-+{
-+	int ret;
-+
-+	ret = hid_parse(hid_dev);
-+	if (ret) {
-+		hid_err(hid_dev, "parse failed\n");
-+		return ret;
-+	}
-+
-+	ret = hid_hw_start(hid_dev, HID_CONNECT_HIDINPUT | HID_CONNECT_HIDDEV);
-+	if (ret) {
-+		hid_err(hid_dev, "hw start failed\n");
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
- static struct hid_ll_driver mousevsc_ll_driver = {
- 	.parse = mousevsc_hid_parse,
- 	.open = mousevsc_hid_open,
-@@ -465,7 +484,16 @@ static struct hid_ll_driver mousevsc_ll_driver = {
- 	.raw_request = mousevsc_hid_raw_request,
- };
- 
--static struct hid_driver mousevsc_hid_driver;
-+static const struct hid_device_id mousevsc_devices[] = {
-+	{ HID_DEVICE(BUS_VIRTUAL, HID_GROUP_ANY, 0x045E, 0x0621) },
-+	{ }
-+};
-+
-+static struct hid_driver mousevsc_hid_driver = {
-+	.name = "hid-hyperv",
-+	.id_table = mousevsc_devices,
-+	.probe = mousevsc_hid_probe,
-+};
- 
- static int mousevsc_probe(struct hv_device *device,
- 			const struct hv_vmbus_device_id *dev_id)
-@@ -507,7 +535,6 @@ static int mousevsc_probe(struct hv_device *device,
- 	}
- 
- 	hid_dev->ll_driver = &mousevsc_ll_driver;
--	hid_dev->driver = &mousevsc_hid_driver;
- 	hid_dev->bus = BUS_VIRTUAL;
- 	hid_dev->vendor = input_dev->hid_dev_info.vendor;
- 	hid_dev->product = input_dev->hid_dev_info.product;
-@@ -522,20 +549,6 @@ static int mousevsc_probe(struct hv_device *device,
- 	if (ret)
- 		goto probe_err2;
- 
--
--	ret = hid_parse(hid_dev);
--	if (ret) {
--		hid_err(hid_dev, "parse failed\n");
--		goto probe_err2;
--	}
--
--	ret = hid_hw_start(hid_dev, HID_CONNECT_HIDINPUT | HID_CONNECT_HIDDEV);
--
--	if (ret) {
--		hid_err(hid_dev, "hw start failed\n");
--		goto probe_err2;
--	}
--
- 	device_init_wakeup(&device->device, true);
- 
- 	input_dev->connected = true;
-@@ -615,12 +628,23 @@ static struct  hv_driver mousevsc_drv = {
- 
- static int __init mousevsc_init(void)
+Fixes: baf8532a147d ("memstick: initial commit for Sony MemoryStick support")
+Reported-by: syzbot+ccffdf05833ebdaeae70@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=ccffdf05833ebdaeae70
+Cc: stable@vger.kernel.org
+Signed-off-by: Raj Ojha <rajojha047@gmail.com>
+---
+ drivers/memstick/core/memstick.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/memstick/core/memstick.c b/drivers/memstick/core/memstick.c
+index 7f3f47db4c98..1a2b3c4d5e6f 100644
+--- a/drivers/memstick/core/memstick.c
++++ b/drivers/memstick/core/memstick.c
+@@ -378,9 +378,7 @@ int memstick_set_rw_addr(struct memstick_dev *card)
  {
--	return vmbus_driver_register(&mousevsc_drv);
-+	int ret;
-+
-+	ret = hid_register_driver(&mousevsc_hid_driver);
-+	if (ret)
-+		return ret;
-+
-+	ret = vmbus_driver_register(&mousevsc_drv);
-+	if (ret)
-+		hid_unregister_driver(&mousevsc_hid_driver);
-+
-+	return ret;
- }
+ 	card->next_request = h_memstick_set_rw_addr;
+ 	memstick_new_req(card->host);
+-	if (!wait_for_completion_timeout(&card->mrq_complete,
+-			msecs_to_jiffies(500)))
+-		card->current_mrq.error = -ETIMEDOUT;
++	wait_for_completion(&card->mrq_complete);
  
- static void __exit mousevsc_exit(void)
- {
- 	vmbus_driver_unregister(&mousevsc_drv);
-+	hid_unregister_driver(&mousevsc_hid_driver);
+ 	return card->current_mrq.error;
  }
+@@ -413,9 +411,7 @@ static struct memstick_dev *memstick_alloc_card(struct memstick_host *host)
+ 			goto err_out;
  
- MODULE_LICENSE("GPL");
+ 		card->next_request = h_memstick_read_dev_id;
+ 		memstick_new_req(host);
+-		if (!wait_for_completion_timeout(&card->mrq_complete,
+-				msecs_to_jiffies(500)))
+-			card->current_mrq.error = -ETIMEDOUT;
++		wait_for_completion(&card->mrq_complete);
+ 
+ 		if (card->current_mrq.error)
+ 			goto err_out;
+-- 
+2.47.0.windows.1
