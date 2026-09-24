@@ -1,113 +1,194 @@
-Received: from mail-dl2-f42.google.com (mail-dl2-f42.google.com [74.125.229.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A44E47B406
-	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 12:57:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5942E2E4257;
+	Thu, 24 Sep 2026 12:59:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790254637; cv=none; b=unWqbNujJFVpk5Ar/eQTapb/PdsnKstP9MUNwBDmTW7MN50nm+P9XbllDhVWPj7KbtBToy2QrcmaNs4M+D25e+E6WUZhTtrzAT1sGLRCM4Qt3qF2axVtcUFSB/zJX/R9sfGoKjtinQcRBG1j1UpLsuYP5wD++KqEuFDZFJgdTgw=
+	t=1790254775; cv=none; b=ltsHzQJZUr5vwJewmRm7nCrxum4nen4AqZ/DIz2HZqXyFFgcw51t6LUGVHYdP3HtYLQlXGP8tgHUlyYc0eMLPFGpQuqI5mXPOSqgnG0ARpGTgOzXCiQ8CILGL/5IedMY1GciMaMcEmCnGQ8WV8s1shzrZ+EbJMDBcGn8Zc7zO7U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790254637; c=relaxed/simple;
-	bh=qO0kj9PE3B3BHU7L9oKJMgaMPTafszLp+ZSfz5gzDLc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Q5WMdSBXS6jne3Uz1SNGufGxNj6YUI0azbCEdHVIgOP5AcuoSndiHWqcNwS1LMrgz8ud8TK/iTg8LbvOl3f6NwHPEFinVe1gCvFkdb2s4DneAmCNjkjotFOUrTXk+gw6hueXV2B5IKQVVuBXKJuz4IQmUYJVGAlmbEvE2yDGmCk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=LW7QsO6h; arc=none smtp.client-ip=74.125.229.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	s=arc-20240116; t=1790254775; c=relaxed/simple;
+	bh=+JrXAtVBVqegDGgtW79BTSXQHzo3yblwMOVTotibgo4=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=plereA7G/bCcBBwSUW1SOJu9nupgNlRk6glH4POQq72mevy7UhsMKiU+jwf1y6+QwfCVSBOKdzFPFVfe/oG7qaVVmg/JCnfljpkBbik/N0ww5dRR28l6PqX6gdi05dvTqKiaEY3AeTv/YrnYHwWzwnIdm8/Uu86Wx3ZlhPpkqwE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=X6spdxh0; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="LW7QsO6h"
-Received: by mail-dl2-f42.google.com with SMTP id a92af1059eb24-144efd1ea76so1593544c88.1
-        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 05:57:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1790254633; x=1790859433; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pevCrRcNO3jk1yVeVzTiK99o69tfb2DiDsJdfsvZ4aU=;
-        b=LW7QsO6hNJO5D72KAhOv1RfeZJ+a66q4U23s4dQ3+/aepIHGhuXeAcBpHsHzsK9nPe
-         HUZb5e8AckQ7n/dBel5MsXyT6XxyEPB+Vn/VJXG9Nq7K3h3oCkkdyCxU54uZEOowhTSl
-         SifJxz6dkZHbrWR2Mo0JC3aDrCSFgy6uOH2B/5zKvRygjP1rpQ/Wh8g1BGKsZ6HTzaYb
-         yjfRlqRD5Gvm4OuDc2YfaFznXbE41KQVrwavUWv4CkFk4VWQ5/7bUy6c9OA/lvMAeUga
-         c8HHo5Jm7TFkQdyovVDkHCtoN8OwHLaSCPjqAYdHgJjU/nqDyV90FUwLPcKM67ReZfQz
-         JH4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790254633; x=1790859433;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pevCrRcNO3jk1yVeVzTiK99o69tfb2DiDsJdfsvZ4aU=;
-        b=rwCL+Izh/TQ0pSlOJKiPNzHhy6xvSYndEUlxHABEKmORJYdzdKDiGubEO2Kn/EflZU
-         BRNS37C17hpVC729qH1wkT5hEWhCD5Yx9SBRCJ+5hMJkkq/TPuZVt2PI1VMwYH9/3akM
-         q26Afxjzn9OzoH/J0dFaMyC8eaev2+r3rapztbbrCnDa/NSD2kf9XujRmbFlY7jBNdYY
-         3jV1BqxJGezBKM95bkYo3shakQB3/YyM0ugz3kG1BcLXNjDmGnIVr9hg7oQOtEcekU64
-         5ESyjX1AlzIRpSWAuN4EXPyAky2FbTgZdGdgEEnQjwKmI+zwfg5jNHDnTkIBw1WZeuds
-         pQLQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxWGWja288UAGrCiV5VT3b5WOtWyKaeugLqjqCptcpsvmJGyG3klT0rQxtnCBs2yZ1Hvjf0i0k=@vger.kernel.org
-X-Gm-Message-State: AFuF++m7oxS2STv4XhkYmp/KZ7Ho6oTM7TxQ++/dnrzecJgJB3psil9S
-	TQTjrkxwNNczqARmCunLNdnVP/nTxscM3mwXdzea6/97TifrH/gjHTwkYrk1A7FITYA=
-X-Gm-Gg: AYBFou22MDzOwmUOmsLb3Eh6Cd432lOaA0J+jQMHn2Z8gIIueLBZjpGzab4+per+sC8
-	C8qQ9OH63WJssIwpOPRGZwlMup45nj1kY2o4ieYETIXItFiO8Mnk8sk4qNhCBRgJwj3UBZrl72s
-	/7s/oZiD4/4pnDy0UiT/e3WV8HC8apr+k0kvVppLlczaSjIBEZnI6DvmxkZ46SB4BBO1eNIA8pV
-	GpuUCc5IBeRFur8rITVPSoooOfbFblk0349ozkBxhFYCvV7K8ReG+Y0b3fmFpUXXQrwPCAy2jzd
-	KJ/KXuizCNZOU/4plL+VCcT7sH/vAMJR00fY9AyKOxpV2v+K7yiNHWPiv8yLIK9kwq0cgsjFp6n
-	d+ZPPA1q2SUViTKZGL/noTewqbdKJVjPU94/yReLjNBLf0G4hparl3c+tq5MHehwk4bV+T32NQB
-	FJWwUXTWqeDux+JcWr3c7jvf6ifDwv1QRSSm5Hgo07sd6c4LCmszsOnNyrYLU5LZutSZjvfre/W
-	hYMrQHoBkBTBCk3rwbRauYIDGV7Bk1z4S00BZJ85ghZ1uzZAWfUVVsAYkZQy9iXflYn
-X-Received: by 2002:a05:701b:2083:20b0:137:f532:e360 with SMTP id a92af1059eb24-14504030c73mr2106323c88.3.1790254633130;
-        Thu, 24 Sep 2026 05:57:13 -0700 (PDT)
-Received: from [192.168.1.125] ([198.8.77.157])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f98ca0edsm12812367c88.15.2026.09.24.05.57.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Sep 2026 05:57:12 -0700 (PDT)
-Message-ID: <73b530eb-ae36-4c20-b9d1-b657410ead97@kernel.dk>
-Date: Thu, 24 Sep 2026 06:57:11 -0600
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="X6spdxh0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1790254773; x=1821790773;
+  h=from:subject:date:message-id:mime-version:
+   content-transfer-encoding:to:cc;
+  bh=+JrXAtVBVqegDGgtW79BTSXQHzo3yblwMOVTotibgo4=;
+  b=X6spdxh0MDDCD1S/0tO1vrbKFcYoD91PkVFWr6rwXf/ve+sPs2qduzuY
+   CaSLQTYz8RUvz+8ZDkOzp5f3Bpn4WyYmbzWYBRJ3QsYCpW8298CMjx75A
+   nSDwFmhajro+SKQk7YDj00PuqhCCdmLsgQfugz86DvaIUnYgvSZSk30H5
+   Oz9QesfSg7U2OZt9UpS3cOw1jmi14zhm+xQbDRrPm+nmMHee9H+vzRfkV
+   y+AuikbufQWGF4okKqNjJNFJrDXXH5tkzEjm9dbqOqtS7hKrMPM7nVz6Q
+   CSn+iPD/JgMZwL6vCuLBTLTW3nNvaVP/Lo1F6+bi8poLQYc4yKWicJNBd
+   w==;
+X-CSE-ConnectionGUID: GKMKZxmSQXOzXk2HFKINSg==
+X-CSE-MsgGUID: vHuPeq6fR9eKIZA8LSPnFA==
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
+   d="scan'208";a="64097078"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 24 Sep 2026 05:59:26 -0700
+Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Thu, 24 Sep 2026 05:59:26 -0700
+Received: from [127.0.1.1] (10.10.85.11) by chn-vm-ex01.mchp-main.com
+ (10.10.85.143) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
+ Transport; Thu, 24 Sep 2026 05:59:22 -0700
+From: Ariana Lazar <ariana.lazar@microchip.com>
+Subject: [PATCH v8 0/5] Refactor Microchip MCP47FEB02 I2C driver in
+ separate modules to add support for MCP48FEB02 SPI driver
+Date: Thu, 24 Sep 2026 15:59:18 +0300
+Message-ID: <20260924-mcp47feb02_refactor-v8-0-17dc2ce3485e@microchip.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/2] io_uring: fix CQE32 and CQE_MIXED ring refill
- handling
-To: Hui Peng <benquike@gmail.com>
-Cc: io-uring@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260919203516.2581409-1-benquike@gmail.com>
- <20260924063525.2500081-1-benquike@gmail.com>
-Content-Language: en-US
-From: Jens Axboe <axboe@kernel.dk>
-In-Reply-To: <20260924063525.2500081-1-benquike@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAKYetWoC/3XOzW7DIAwH8FepOC8TGDCmp73HNE1AzMKhTZRM0
+ aYq7z7SHRpN7Pj3x8++iYXnwos4n25i5rUsZbzWQE8nkYZw/eCu9DULkIASwXaXNBmXOUp4nzm
+ H9DnOXQ5kQAbWQCDq5lQ75euuvr7VPJSljn3fj6xqr/56DnTTW1UnO2brGTU6iOnlUtI8pqFMz
+ 2m8iN1c9cMhadqOro53mSKprBGo5ZiDo3zbMdWJHCEEHXMvfcuxD8fLfxxbHYroYgrR6161HDw
+ 4CtsOVgfIGjRoVabmP+7oUNtx+z+QgvOGQ2b462zb9gNC5JRSIgIAAA==
+X-Change-ID: 20260625-mcp47feb02_refactor-fa8420ae3282
+To: Jonathan Cameron <jic23@kernel.org>, David Lechner
+	<dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy
+ Shevchenko" <andy@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+CC: <linux-iio@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, Ariana Lazar <ariana.lazar@microchip.com>,
+	Jonathan Cameron <jic23@kernel.org>, <sashiko-bot@kernel.org>,
+	<stable@vger.kernel.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790254762; l=5458;
+ i=ariana.lazar@microchip.com; s=20250825; h=from:subject:message-id;
+ bh=+JrXAtVBVqegDGgtW79BTSXQHzo3yblwMOVTotibgo4=;
+ b=JmjSRd4H3S1c3xUWlk/NHFdEDfKlhvnxDcEqPNcP8pTtrJydDoCswiQD+em7Qxa3vMqEoZvpS
+ G1y1sDs82mUAttxeFG9c26vDNB6kG+qk8sVH2NgJt3bJfHl7Rgs/cA0
+X-Developer-Key: i=ariana.lazar@microchip.com; a=ed25519;
+ pk=jmvf1fSxcnzZmXfITM3L94IwutM+wqA1POQHiYyD6Dk=
 
-On 9/24/26 12:35 AM, Hui Peng wrote:
-> This series fixes two issues in io_cqe_cache_refill() and
-> io_fill_nop_cqe() for 32-byte CQEs:
-> 
-> 1. Restrict skip CQE insertion at off + 1 == ctx->cq_entries to
->    IORING_SETUP_CQE_MIXED rings so pure IORING_SETUP_CQE32 rings do not
->    emit bogus IORING_CQE_F_SKIP entries.
-> 2. Require 3 free CQ slots in io_fill_nop_cqe() before emitting a skip
->    CQE for a 32-byte CQE wrapping across the end of an
->    IORING_SETUP_CQE_MIXED ring, preventing an orphan skip CQE when fewer
->    than 3 slots are free.
-> 
-> Changes in v2:
-> - Split into a 2-patch series and drop the third hunk from v1, as
->   requested by Jens Axboe.
+Refactor I2C driver implementation into separate modules in order to add
+support for SPI MCP48FxBy1/2/4/8 DAC family on top of the I2C
+implementation. The I2C and SPI devices have the same memory map and
+supported functionalities.
 
-Sorry maybe my reply got lost, but I did do this work for you and
-split it into a 7.3 and 7.4 set. See my branches here:
+Signed-off-by: Ariana Lazar <ariana.lazar@microchip.com>
+---
+Changes in v8:
+- create a new precursor patch for moving mutex in store_eeprom_store()
+- add property present check for label before reading
+- use EXPORT_NS_SIMPLE_DEV_PM_OPS() instead of EXPORT_SIMPLE_DEV_PM_OPS()
+- base this version on testing branch in order to send just remaining
+   patches to be accepted
+- Link to v7: https://lore.kernel.org/r/20260918-mcp47feb02_refactor-v7-0-82ca794eafe2@microchip.com
 
-https://git.kernel.org/pub/scm/linux/kernel/git/axboe/linux.git/log/?h=for-7.4/io_uring
+Changes in v7:
+- replace custom mask define with standard field_prep()
+- use "Suggested-by" instead of "Reported-by" where it was more suitable
+- use "Fixes:" with "Closes:" instead of "Link:" for fixes tags in commit
+   messages
+- modified module description for core when adding support for SPI parts
+   in order to specify SPI families too
+- remove unused macro MCP47FEB02_GAIN_BIT_MASK from the second commit
+- Link to v6: https://lore.kernel.org/r/20260916-mcp47feb02_refactor-v6-0-285464651f89@microchip.com
 
-https://git.kernel.org/pub/scm/linux/kernel/git/axboe/linux.git/log/?h=io_uring-7.3
+Changes in v6:
+- use field_get() in Gain, Vref and Power-Down registers channel formulas
+- rebase from 7.2 to 7.3-rc1
+- add fixes tags and Cc stable in the commit messages
+- add numeric constants in front of time defines for better readability
+- replaced dev_err() with dev_warn_probe() for missing label
+- if match data is not found at probe, return -ENODATA and a suitable
+    error message
+- Link to v5: https://lore.kernel.org/r/20260909-mcp47feb02_refactor-v5-0-8b67bcab93d1@microchip.com
 
-Please take a look.
+Changes in v5:
+- improve commit messages by justifying the changes made
+- increase polling time for EEPROM writes
+- delete unnecessary comments and extra blank line from header file
+- Link to v4: https://lore.kernel.org/r/20260819-mcp47feb02_refactor-v4-0-beb2aa3bfd09@microchip.com
 
+Changes in v4:
+- remove unused headers
+- add missing header types.h in protocol files
+- create 6 precursor commits before the refactor patch for handling:
+    - comment typo
+    - renaming command mask define
+    - for an invalid label use a debug message instead of probe error
+    - correct return value in store_eeprom_store() for false state case
+    - correct channel gain formula
+    - read DAC value register to initialize channel data struct field at
+      probe
+- Link to v3: https://lore.kernel.org/r/20260804-mcp47feb02_refactor-v3-0-97f8b81f3628@microchip.com
+
+Changes in v3:
+- renumbering the patch version to include the first patch submision
+- fix review comments device tree binding:
+   - change 'additionalProperties' to unevaluatedProperties
+   - add else branch with spi-max-frequency in the condition which checks
+     if a device has SPI interface
+   - correct SPI address example
+   - add clock polarity and clock phase properties for SPI devices
+   - enumerate I2C devices in lexicographic order from the description section
+   - specify supported SPI modes using dependencies
+- fix review comments driver:
+   - remove unneccesarry libraries and add the missing ones
+   - correct comment typo
+   - return -ENODEV using dev_err_probe() in protocol probe functions
+   - use named initializers
+   - move defines for registers and enums from the header to the core file
+   - add dev_set_drvdata() in probe()
+   - move mutex aquiring from mcp47feb02_write_to_eeprom() to
+     store_eeprom_store()
+   - write correct value into Vref register in resume()
+- Link to v2: https://lore.kernel.org/r/20260723-mcp47feb02_refactor-v1-0-ee59e63672bc@microchip.com
+
+Changes in v2:
+- include in the same patch series the refactoring of the driver and the
+  support for SPI devices, but in different patches
+- remove changes regarding review comments received not related to the
+  code refactoring
+- first version of the combined refactoring I2C and adding support for SPI
+  driver
+- Link to v1: https://lore.kernel.org/all/20260403-mcp47feb02-fix2-v1-1-da60c773550e@microchip.com
+
+v1:
+- first version which did not separate the refactoring and adding support for
+  SPI devices (into different patches from the same series)
+
+---
+Ariana Lazar (5):
+      iio: dac: mcp47feb02: Avoid unjustified probe error on missing label
+      iio: dac: mcp47feb02: protect EEPROM store sequence with mutex
+      iio: dac: mcp47feb02: refactor MCP47FEB02 I2C driver into two modules
+      dt-bindings: iio: dac: add support for MCP48FEB02 SPI
+      iio: dac: add support for Microchip MCP48FEB02
+
+ .../bindings/iio/dac/microchip,mcp47feb02.yaml     | 221 ++++++++++---
+ MAINTAINERS                                        |   2 +-
+ drivers/iio/dac/Kconfig                            |  32 +-
+ drivers/iio/dac/Makefile                           |   4 +-
+ .../iio/dac/{mcp47feb02.c => mcp47feb02-core.c}    | 342 ++-------------------
+ drivers/iio/dac/mcp47feb02-i2c.c                   | 145 +++++++++
+ drivers/iio/dac/mcp47feb02-spi.c                   | 145 +++++++++
+ drivers/iio/dac/mcp47feb02.h                       |  43 +++
+ 8 files changed, 573 insertions(+), 361 deletions(-)
+---
+base-commit: 81e043887112f846f88ef9ef20c744b5c815de57
+change-id: 20260625-mcp47feb02_refactor-fa8420ae3282
+
+Best regards,
 -- 
-Jens Axboe
+Ariana Lazar <ariana.lazar@microchip.com>
 
