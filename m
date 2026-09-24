@@ -1,84 +1,162 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7809F3B42C6;
-	Thu, 24 Sep 2026 14:23:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C41239150A
+	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 14:25:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790259798; cv=none; b=Y7qY3X/u3jQKCmQQwN13ncEbh5+vj1CdR8r5D/+50YNt4X2/Erbk/xbRh9am8oABATH1qbF6A0REh4X8AYpUbJbWxQ3LyXT3x6xpKzEUnc/LVqRBbClAjpxcmwuEM/9ys3byXzflZ1rq2ymN+WJxvp7ld2PCgTbHNly+QUYQpWc=
+	t=1790259932; cv=none; b=lrMTtPlDKWdBBL5mVAp3a1lgnHQL6SgReetnVwGYKkZsnxIaUhTXuN9dAIviOVEjGQM3dKf+PP/fs++kaYiUpmmEs0MvLpg9gKBENn7GtSFYpn9FfJrnYSBCs4XquH72b6U7AtBqa7l2maHfh8OmUDFlQJhsGNKp/eqoVhUQk5k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790259798; c=relaxed/simple;
-	bh=GPC1yr+ZTTPDV2IqY+Tm9zUxSqdHGv82/wq619yWX9w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UTcEtSs/WlBLYLp05C2I3pfnz3xCoU6EU5cBfq72F5vN1DG5ixWt7/myqKigpkSk82IYdKxmlMQHfpg5f94IEc1izQjsy1IHmMsoZrVZQn5zsQM9jdyqKGHUsQlDKbna+LMNWMclKybsvDaBA7dgPc3CkZBOmD8YJjXW4P7Wn+Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=yf9+62Dr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790259932; c=relaxed/simple;
+	bh=PCceAyxaZLKgL8goEMDQOo0fDMqrsGEIZWywwLaroIg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Bs413TvNdqRzSs5Ct1WxY5EtXBxgfGJcNFQAdV+HRCHigkIoH3SEYqo/9QfOcJgSS5BJskYMR3Mh8uYunNLpGPA/fYdOmSrBvWRVsjwNZw9RS17VKRyHtduiV2TLnSp/0OrH45/dRRiH3FmUfg8q7aWHOUoH6Lei/k6Mw06JR2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iUaJOYo0; arc=none smtp.client-ip=209.85.215.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="yf9+62Dr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BD851F000FF;
-	Thu, 24 Sep 2026 14:23:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790259792;
-	bh=pBM8yzJ1P/YN8g9AMJ+6Lw5x7cfNoUSq+jqBG8i0rrM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=yf9+62DrRhmwpUBlW+gMhbTsNOS1KTcXSP7BgKJPFGKHgHOehWO30BHv8nBA5C0Fh
-	 vA3q7hz1P9J9n0lzKgLHRH10MhpSQ6pROQVg48/8Pm7f4WldMXdWWNATdWP2bSGUSD
-	 pDq2K0m94tcjvwcTWhVwv3411a5gVgdJNmUqvbng=
-Date: Thu, 24 Sep 2026 16:22:54 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Paolo Abeni <pabeni@redhat.com>
-Cc: Ming Wang <wangming01@loongson.cn>, netdev@vger.kernel.org,
-	linux-usb@vger.kernel.org, stable@vger.kernel.org,
-	Oliver Neukum <oliver@neukum.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] net: usb: cdc_mbim: add MeiG Smart SRM821 to ZLP
- whitelist
-Message-ID: <2026092409-status-rocker-0fef@gregkh>
-References: <20260920074500.826121-1-wangming01@loongson.cn>
- <4d5e2857-e6eb-43e2-b668-83e779aaa734@redhat.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iUaJOYo0"
+Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cc52c1b8286so473698a12.1
+        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 07:25:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790259930; x=1790864730; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MaWkFoUOQ+u9WS91tjqMuEOPGp9Db2ThXslkCbREcik=;
+        b=iUaJOYo047OfnqEbDRf/l0Vc+QXRDOu6pdcz7FU6JL9utiqm4seLDMg+ftiJt8tShO
+         azCo2kEEykKInL8/677EBvQFEdMyjmM9jdTI+U40gdOdhoxwzCns98K1LOOG68Tl4K/c
+         C/YPGzk75w+vf1gcgBUIwPYLa4wETVhXgVYKnYj075UsYAgxg+1oVc7llgndUyQ4OD0I
+         wjDILbkwQkJrjVVZfpq5ER/wAQp9neyhrBt57P/KP1/H0En6uLY8a/N33pq5mRtmh2zN
+         7Dm/bgj+8zOZAluO3jBCF/5nEet/FOA/pMXG6xujb9ZiC+k53cbGRPJU3fE4m99FNagj
+         Qb1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790259930; x=1790864730;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MaWkFoUOQ+u9WS91tjqMuEOPGp9Db2ThXslkCbREcik=;
+        b=whyhqBDSzW2EeNRdraZLM+RN6Pz/KDIhU11W5Fa/WFlaS5fBkdGV/wHoe2uXaFCkPF
+         hkQ0vlw6s8Q8oBtBVGoAndU/VYyU78bUvI8nxuh5mr5P6YZ85DZOqk3MH3jNa7brzksd
+         wd8Arqhctl+sZGaPvNUWi5Do+cvg9GaL5C6GDGdomA9FjFgyQqyr5SvNSFPJx7kX2K5l
+         Ay6vKHduYeQ2laH2UnUJYqFiSGsBeX9fAu5BmcCr3tpF5VFQZNsZgsPuL1RzpQ8k2SKQ
+         2pon/froEahccuwsh26dZ4hwE2NcAb+2WTWRhlrd9Ezot1pLPaY7cTTt4Vj13MCYRcNB
+         w+rQ==
+X-Gm-Message-State: AFuF++nqxk5q2+FYx4RlHfrucxYiNsQ+316+oUkha38e5upkKpUWZjh3
+	IBV+LUeO69nWbow6PTJ7R71Hz0oS+9QPLRToTc9oucTK75bTZW3aOqyo
+X-Gm-Gg: AYBFou2vwf0IetwSXjFdOoeGE3Yu0DelVI3RVNvrB87Op+n44nd3HLAbKy5TTbX1MXx
+	ew5GTewC+tUtr9Ydo73LeJIi9I3fgSDDCnmB1/mZyeaVkS/Vo+WkJJ+8Z6OCwkzjLT1iM+VDFlo
+	Nwp1qMhUegCOdB8b9lKtzn9ZB557HHCOuHnywjjeYC1GNt+03OU3AHDZLyeBmotvEms9q7XbULK
+	YZnYT7KALk9jJWtIj+VbLavUO9w6d03F24gUh/X8Jh/A985F26fB5ynMvVpvZnV5nCUx6FFjHQl
+	V+Did9DY/4nKOh/2vaqTLTXc1bKAJvqmWIuWf2pcLHxjBNWkIN1AKlUW2uTDxKomwQS1e0rWuzq
+	Hyb9/XefpLjqdZJjScH8zxiaGXaaAWZ2xNaaU0wwq5J/WBuBnEWqGN2FJsq6U3EsFBYDXdOo34S
+	ocYgVCZHKLIDSwghzBnW29e27rdj/RLh+uZ7GwfcS/5iEQe1TUcZD0jA==
+X-Received: by 2002:a05:6a00:1c8a:b0:87c:f3e5:ebda with SMTP id d2e1a72fcca58-87e99e3efcemr1451856b3a.0.1790259930408;
+        Thu, 24 Sep 2026 07:25:30 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87d1afb99f0sm3157310b3a.6.2026.09.24.07.25.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 07:25:29 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Ulf Hansson <ulfh@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Miaoqian Lin <linmq006@gmail.com>,
+	Guangshuo Li <lgs201920130244@gmail.com>,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Dong Aisheng <aisheng.dong@nxp.com>,
+	Lucas Stach <l.stach@pengutronix.de>,
+	linux-pm@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH v2] pmdomain: imx: gpc: remove all initialized power domains
+Date: Thu, 24 Sep 2026 22:25:20 +0800
+Message-ID: <20260924142520.1594149-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4d5e2857-e6eb-43e2-b668-83e779aaa734@redhat.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 24, 2026 at 12:24:06PM +0200, Paolo Abeni wrote:
-> On 9/20/26 09:44, Ming Wang wrote:
-> > The MeiG Smart SRM821 5G module (0x2dee:0x4d53) crashes and drops off
-> > the USB bus when it receives a Zero Length Packet (ZLP) after sending
-> > or receiving an NTB of exactly 16384 bytes (tx_max).
-> > 
-> > According to the MBIM specification, devices do not require a ZLP
-> > if the NTB size is exactly dwNtbOutMaxSize. However, the cdc_mbim
-> > driver defaults to sending ZLPs for devices not explicitly whitelisted
-> > to accommodate non-conformant hardware. This default behavior breaks
-> > the strictly conformant MeiG SRM821 module.
-> > 
-> > Add this device to the ZLP conformance whitelist (cdc_mbim_info) so
-> > the driver will pad the NTB to avoid sending ZLPs, preventing the
-> > device firmware from crashing.
-> > 
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Ming Wang <wangming01@loongson.cn>
-> 
-> Before any other step, please read:
-> 
-> https://elixir.bootlin.com/linux/v7.3-rc3/source/Documentation/process/maintainer-netdev.rst#L454
-> 
-> AFAICS this is actually support for additional H/W, just worded in
-> very unusual way: please reword the commit message accordingly and
-> drop stable from CC.
+imx_gpc_old_dt_init() initializes all power domains described by
+of_id_data->num_domains, while imx_gpc_remove() only removes the PU and
+ARM domains.
 
-Why drop stable from cc:?  Do you not want it in any stable kernel
-release?  Seems like it should be to me, we gladly take quirk additions
-and new device ids in stable kernels.
+Use the match data to remove all initialized power domains in reverse
+order. Release the PU clocks after the PU domain is removed.
 
-thanks,
+This issue was found by manual code inspection.
 
-greg k-h
+Fixes: 5a42d1198901 ("soc: imx: gpc: fix imx6sl gpc power domain regression")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+v2:
+  - Check the result of device_get_match_data() before using it.
+  - Use an unsigned num_domains variable and a decrementing while loop,
+    as suggested by Andy Shevchenko.
+
+ drivers/pmdomain/imx/gpc.c | 29 +++++++++++++++++------------
+ 1 file changed, 17 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/pmdomain/imx/gpc.c b/drivers/pmdomain/imx/gpc.c
+index abca5f449a22..d83fb37e2297 100644
+--- a/drivers/pmdomain/imx/gpc.c
++++ b/drivers/pmdomain/imx/gpc.c
+@@ -502,7 +502,9 @@ static int imx_gpc_probe(struct platform_device *pdev)
+ 
+ static void imx_gpc_remove(struct platform_device *pdev)
+ {
++	const struct imx_gpc_dt_data *of_id_data;
+ 	struct device_node *pgc_node;
++	unsigned int num_domains;
+ 	int ret;
+ 
+ 	pgc_node = of_get_child_by_name(pdev->dev.of_node, "pgc");
+@@ -519,20 +521,23 @@ static void imx_gpc_remove(struct platform_device *pdev)
+ 	if (!pgc_node) {
+ 		of_genpd_del_provider(pdev->dev.of_node);
+ 
+-		ret = pm_genpd_remove(&imx_gpc_domains[GPC_PGC_DOMAIN_PU].base);
+-		if (ret) {
+-			dev_err(&pdev->dev, "Failed to remove PU power domain (%pe)\n",
+-				ERR_PTR(ret));
++		of_id_data = device_get_match_data(&pdev->dev);
++		if (!of_id_data)
+ 			return;
+-		}
+-		imx_pgc_put_clocks(&imx_gpc_domains[GPC_PGC_DOMAIN_PU]);
+ 
+-		ret = pm_genpd_remove(&imx_gpc_domains[GPC_PGC_DOMAIN_ARM].base);
+-		if (ret) {
+-			dev_err(&pdev->dev, "Failed to remove ARM power domain (%pe)\n",
+-				ERR_PTR(ret));
+-			return;
+-		}
++		num_domains = of_id_data->num_domains;
++		while (num_domains--) {
++			ret = pm_genpd_remove(&imx_gpc_domains[num_domains].base);
++			if (ret) {
++				dev_err(&pdev->dev,
++					"Failed to remove %s power domain (%pe)\n",
++					imx_gpc_domains[num_domains].base.name,
++					ERR_PTR(ret));
++				return;
++			}
++
++		if (num_domains == GPC_PGC_DOMAIN_PU)
++			imx_pgc_put_clocks(&imx_gpc_domains[num_domains]);
+ 	}
+ 
+ 	of_node_put(pgc_node);
+-- 
+2.43.0
+
