@@ -1,42 +1,41 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E157C4BC007;
-	Thu, 24 Sep 2026 20:23:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83A2C4CCDD5;
+	Thu, 24 Sep 2026 20:23:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790281388; cv=none; b=p4dk55unfIIAEWOOI1Y5iaJ7lHJk9hcfaOWT5/guoFbxQNfAq78MFbBIGe905/c2urGz/NXiYefVGgLymVRs487cdKpS/TVX6zJM8B9WfT9wh3KEFVDVFux1nKHVOhfZXWWkjTnX6HyjCsAYE3oIwGdRbGwa/zLZqpDrGefrDRg=
+	t=1790281395; cv=none; b=rrtVvskHb/3YZi7e9Vez6EQCs1tDRQ9g+a14q4AQzZpuqfEwuFnWRzQiF8EXXc7FAhuQltILoMGifStxkoYi/LYPsM0TsSA2xA5xUzPybsRSdWMLFsSCBT76ESKkWZZG5hl51+O2t82ybQgkDAAJLyBK5SBFQINV17aTlr6m4RU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790281388; c=relaxed/simple;
-	bh=gLweIRM4XISp2baOIMY8uK/Sef3bkasI7oNMwYhty88=;
+	s=arc-20240116; t=1790281395; c=relaxed/simple;
+	bh=ywWgSKZ9M8JMUZyXFiqqRwjOufXQhfrVgCwbuOZqYNM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=E1213MlElyWHDwsC9UuVR+UzaxN9F+GbwGBpUAx3QWEtABW9n9mn3HFclUh4pxUWLzIH5T+i+GovaNuI8M4bWyKFZrO9Ij+sfj62sdzaT6GZW68nCHCSThl9pzISzdwg0DgprF0Jd1ZUsV9TLOMJWdVG5m1XlsK85B5xSZ/x1Xk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=D3GHXNRd; arc=none smtp.client-ip=185.246.84.56
+	 In-Reply-To:To:Cc; b=E7t0Em1lu0HXa2HmK3l+fatx//4glh5vy3anRRoqQD4zmAAxdxUpcHC2/p8xEbIdFNsqQlqNQlFMD4w3UZbemVSAHjBBm8t1Ly5XxbrKlX4BpGR3qzF9McmEB8PHg36HEdI5Z7zjdsS6L80JfUxtQqLeuNfNAXqA0/1fXMqoUQc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=oREc8FRP; arc=none smtp.client-ip=185.246.85.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="D3GHXNRd"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="oREc8FRP"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 47DB81A1008;
-	Thu, 24 Sep 2026 20:23:04 +0000 (UTC)
+	by smtpout-03.galae.net (Postfix) with ESMTPS id D34D64E41060;
+	Thu, 24 Sep 2026 20:23:10 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 11DE760738;
-	Thu, 24 Sep 2026 20:23:04 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AFB96103293D0;
-	Thu, 24 Sep 2026 22:22:59 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id A837B60738;
+	Thu, 24 Sep 2026 20:23:10 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id F03C810329519;
+	Thu, 24 Sep 2026 22:23:02 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790281382; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1790281385; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=/HvbqL5ahGM2Sx2LeH1RDjAf8iWg6s+gxtrm64+WnVk=;
-	b=D3GHXNRd8FJ6F30rqTW7RbnTDznaED7JydSUvpzRM+LJZ9V74xIK7CFpoeWSsD3n4tDrSf
-	Iix5iF6pEgGNfdBxnyC5GbdCnn7wSe71Kf3zMgFEQd1sipPFNF1erX2tt4vvg6/fcjYvEa
-	Q+KbjwUQTrqTo4P39VPjPR98Woiy8WBpD88QWDklvvlPbG4tXVjkSuLStJo0GRnBStnoU+
-	IIC39UBPHdK5PnKEy9dF8SMh+uJjPVWE/cQeJ6IOYxloi8APDuResRiffAtAldhn9eWNfU
-	wEpyZQtkv6Stm+2Ou3zlK8nGIL7IEDMOYyQOZjZRBnLMy0OXphOqhJGI9nj5Ow==
+	bh=Wcu2lddx2dnUnJTYqmz8Uu/z6oGPWaTm+IedQU/c4mU=;
+	b=oREc8FRPAG4UbQSzGTnwF52et3qUD5lEqneMhHlFnx1tr8v18/g0SNGnvjjXCQ3Tqh/WTn
+	M80RMHVGJEAhWbCjXPkjpgSDls1oLeq0N92OoYh4NOcYz0wtQKM9AMMYMunrXjekyNG1Gy
+	RSOYTDN8cHAubnyaLUDDUEf6CfmlfWE2xDEnAPuAJZCUO/nu7aMlC8giY51wQ1S5bGW7Kp
+	1iLiRP43Ht7CZ0OSfyaCw72zkEU5WmrhXKp8Aoq6zXfomTYgH0P0OQaNrH4We0HNDBAP+2
+	RtSTdktG4CB9OWJweXxc6jTbvk03Bze/CtTNNstmfbLcgPQGOI4VhlENTmQpxg==
 From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-Date: Thu, 24 Sep 2026 22:22:42 +0200
-Subject: [PATCH 5.10.y 1/3] net: add and use skb_unclone_keeptruesize()
- helper
+Date: Thu, 24 Sep 2026 22:22:43 +0200
+Subject: [PATCH 5.10.y 2/3] net: add skb_set_end_offset() helper
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,7 +44,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-cve-2022-49142-v1-1-0bfea684c11b@bootlin.com>
+Message-Id: <20260924-cve-2022-49142-v1-2-0bfea684c11b@bootlin.com>
 References: <20260924-cve-2022-49142-v1-0-0bfea684c11b@bootlin.com>
 In-Reply-To: <20260924-cve-2022-49142-v1-0-0bfea684c11b@bootlin.com>
 To: stable@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
@@ -60,126 +59,111 @@ Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
  "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>, 
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790281368; l=3587;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790281368; l=2964;
  i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
- bh=jK0qXsoO6IZNsU0KEJYVzHpwBX05PjftnX6mzwXZiX4=;
- b=E4RJxPfGlhWAb8bgWbIf4SW/TLdQ0G45zwCjkMNDw435hkZE5N802GsVJ4FtbOF0dyUBYO04m
- suoEN2EmwXwCv6omBTF5NIgDgt4Ql+n/9eO2dCgo19E49C/4t0z1NLt
+ bh=XtBt+/L0qC2RUOyc8jXidZjf/LLTBNBZxO1nn7gWJBI=;
+ b=DCXZMD3fodwRNyTqlsdpjlofqAKUyZLt3s4WWRf3rWW1FGFG6xX6JxkYZHSbtRB4Ysu3m8lQv
+ iT5mU2qUvnaCWvzbFCI3lyJ+KlVGo90H5xp77hNSVrS+QyVxZlisv/b
 X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
  pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
 X-Last-TLS-Session-Version: TLSv1.3
 
 From: Eric Dumazet <edumazet@google.com>
 
-commit c4777efa751d293e369aec464ce6875e957be255 upstream.
+commit 763087dab97547230a6807c865a6a5ae53a59247 upstream.
 
-While commit 097b9146c0e2 ("net: fix up truesize of cloned
-skb in skb_prepare_for_shift()") fixed immediate issues found
-when KFENCE was enabled/tested, there are still similar issues,
-when tcp_trim_head() hits KFENCE while the master skb
-is cloned.
+We have multiple places where this helper is convenient,
+and plan using it in the following patch.
 
-This happens under heavy networking TX workloads,
-when the TX completion might be delayed after incoming ACK.
-
-This patch fixes the WARNING in sk_stream_kill_queues
-when sk->sk_mem_queued/sk->sk_forward_alloc are not zero.
-
-Fixes: d3fb45f370d9 ("mm, kfence: insert KFENCE hooks for SLAB")
 Signed-off-by: Eric Dumazet <edumazet@google.com>
-Acked-by: Marco Elver <elver@google.com>
-Link: https://lore.kernel.org/r/20211102004555.1359210-1-eric.dumazet@gmail.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- include/linux/skbuff.h | 16 ++++++++++++++++
- net/core/skbuff.c      | 14 +-------------
- net/ipv4/tcp_output.c  |  6 +++---
- 3 files changed, 20 insertions(+), 16 deletions(-)
+ include/linux/skbuff.h | 10 ++++++++++
+ net/core/skbuff.c      | 19 +++++--------------
+ 2 files changed, 15 insertions(+), 14 deletions(-)
 
 diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
-index 01eb7bc4e84b..80de69bf9586 100644
+index 80de69bf9586..34b6a7e3af8d 100644
 --- a/include/linux/skbuff.h
 +++ b/include/linux/skbuff.h
-@@ -1645,6 +1645,22 @@ static inline int skb_unclone(struct sk_buff *skb, gfp_t pri)
- 	return 0;
+@@ -1416,6 +1416,11 @@ static inline unsigned int skb_end_offset(const struct sk_buff *skb)
+ {
+ 	return skb->end;
  }
- 
-+/* This variant of skb_unclone() makes sure skb->truesize is not changed */
-+static inline int skb_unclone_keeptruesize(struct sk_buff *skb, gfp_t pri)
++
++static inline void skb_set_end_offset(struct sk_buff *skb, unsigned int offset)
 +{
-+	might_sleep_if(gfpflags_allow_blocking(pri));
-+
-+	if (skb_cloned(skb)) {
-+		unsigned int save = skb->truesize;
-+		int res;
-+
-+		res = pskb_expand_head(skb, 0, 0, pri);
-+		skb->truesize = save;
-+		return res;
-+	}
-+	return 0;
++	skb->end = offset;
 +}
+ #else
+ static inline unsigned char *skb_end_pointer(const struct sk_buff *skb)
+ {
+@@ -1426,6 +1431,11 @@ static inline unsigned int skb_end_offset(const struct sk_buff *skb)
+ {
+ 	return skb->end - skb->head;
+ }
 +
- /**
-  *	skb_header_cloned - is the header a clone
-  *	@skb: buffer to check
++static inline void skb_set_end_offset(struct sk_buff *skb, unsigned int offset)
++{
++	skb->end = skb->head + offset;
++}
+ #endif
+ 
+ /* Internal */
 diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-index faea3bf36d49..ac2fc4d1f4ea 100644
+index ac2fc4d1f4ea..8118cd4e1b31 100644
 --- a/net/core/skbuff.c
 +++ b/net/core/skbuff.c
-@@ -3388,19 +3388,7 @@ EXPORT_SYMBOL(skb_split);
-  */
- static int skb_prepare_for_shift(struct sk_buff *skb)
- {
--	int ret = 0;
--
--	if (skb_cloned(skb)) {
--		/* Save and restore truesize: pskb_expand_head() may reallocate
--		 * memory where ksize(kmalloc(S)) != ksize(kmalloc(S)), but we
--		 * cannot change truesize at this point.
--		 */
--		unsigned int save_truesize = skb->truesize;
--
--		ret = pskb_expand_head(skb, 0, 0, GFP_ATOMIC);
--		skb->truesize = save_truesize;
--	}
--	return ret;
-+	return skb_unclone_keeptruesize(skb, GFP_ATOMIC);
- }
+@@ -278,7 +278,7 @@ static struct sk_buff *__build_skb_around(struct sk_buff *skb,
+ 	skb->head = data;
+ 	skb->data = data;
+ 	skb_reset_tail_pointer(skb);
+-	skb->end = skb->tail + size;
++	skb_set_end_offset(skb, size);
+ 	skb->mac_header = (typeof(skb->mac_header))~0U;
+ 	skb->transport_header = (typeof(skb->transport_header))~0U;
  
- /**
-diff --git a/net/ipv4/tcp_output.c b/net/ipv4/tcp_output.c
-index e469f689cd5c..6bde4c463a89 100644
---- a/net/ipv4/tcp_output.c
-+++ b/net/ipv4/tcp_output.c
-@@ -1560,7 +1560,7 @@ int tcp_fragment(struct sock *sk, enum tcp_queue tcp_queue,
- 		return -ENOMEM;
- 	}
- 
--	if (skb_unclone(skb, gfp))
-+	if (skb_unclone_keeptruesize(skb, gfp))
- 		return -ENOMEM;
- 
- 	/* Get a new skb... force flag on. */
-@@ -1669,7 +1669,7 @@ int tcp_trim_head(struct sock *sk, struct sk_buff *skb, u32 len)
- {
- 	u32 delta_truesize;
- 
--	if (skb_unclone(skb, GFP_ATOMIC))
-+	if (skb_unclone_keeptruesize(skb, GFP_ATOMIC))
- 		return -ENOMEM;
- 
- 	delta_truesize = __pskb_trim_head(skb, len);
-@@ -3227,7 +3227,7 @@ int __tcp_retransmit_skb(struct sock *sk, struct sk_buff *skb, int segs)
- 				 cur_mss, GFP_ATOMIC))
- 			return -ENOMEM; /* We'll try again later. */
- 	} else {
--		if (skb_unclone(skb, GFP_ATOMIC))
-+		if (skb_unclone_keeptruesize(skb, GFP_ATOMIC))
- 			return -ENOMEM;
- 
- 		diff = tcp_skb_pcount(skb);
+@@ -1686,11 +1686,10 @@ int pskb_expand_head(struct sk_buff *skb, int nhead, int ntail,
+ 	skb->head     = data;
+ 	skb->head_frag = 0;
+ 	skb->data    += off;
++
++	skb_set_end_offset(skb, size);
+ #ifdef NET_SKBUFF_DATA_USES_OFFSET
+-	skb->end      = size;
+ 	off           = nhead;
+-#else
+-	skb->end      = skb->head + size;
+ #endif
+ 	skb->tail	      += off;
+ 	skb_headers_offset_update(skb, nhead);
+@@ -6105,11 +6104,7 @@ static int pskb_carve_inside_header(struct sk_buff *skb, const u32 off,
+ 	skb->head = data;
+ 	skb->data = data;
+ 	skb->head_frag = 0;
+-#ifdef NET_SKBUFF_DATA_USES_OFFSET
+-	skb->end = size;
+-#else
+-	skb->end = skb->head + size;
+-#endif
++	skb_set_end_offset(skb, size);
+ 	skb_set_tail_pointer(skb, skb_headlen(skb));
+ 	skb_headers_offset_update(skb, 0);
+ 	skb->cloned = 0;
+@@ -6249,11 +6244,7 @@ static int pskb_carve_inside_nonlinear(struct sk_buff *skb, const u32 off,
+ 	skb->head = data;
+ 	skb->head_frag = 0;
+ 	skb->data = data;
+-#ifdef NET_SKBUFF_DATA_USES_OFFSET
+-	skb->end = size;
+-#else
+-	skb->end = skb->head + size;
+-#endif
++	skb_set_end_offset(skb, size);
+ 	skb_reset_tail_pointer(skb);
+ 	skb_headers_offset_update(skb, 0);
+ 	skb->cloned   = 0;
 
 -- 
 2.55.0
