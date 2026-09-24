@@ -1,128 +1,225 @@
-Received: from mail-qk2-f41.google.com (mail-qk2-f41.google.com [74.125.230.233])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBF3946AA97
-	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 16:53:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2A764A1E02;
+	Thu, 24 Sep 2026 16:56:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790268791; cv=none; b=idW+6xoNmJoJxFzNEtnuSyeWjcMAs3eSsVqk8NxUWJOfpEgAxYqsYqX8wm5oQUD18jIapLqf0EgrWyX5ghmVbt4VZ0efMm7arvWOmqxZMZqMexzmsM7KwTODJBtjIIVZtuNiNa57t+rbwBZh2d0HNkaQd1mnBD/i0Xng81FQ6Ng=
+	t=1790269016; cv=none; b=cOXj3qkEggGsAlHvTXHuhI2Purk6ebPdg2BCiJziVp8jTipDWazpm7PbvwpSI6RH5cFdvqBKkzIDtwYRoD5gj0tCaD417hdU8yesL3NTGFwNp0v3uwXu5MNf3rMQ4s56Y0LIn5BjPV6Ff/mzrNid9dbTKjR/qFGdDWLJKwhtyWM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790268791; c=relaxed/simple;
-	bh=LorE3121kbAX0dxZ1po3DR7h466+jIoSoP4ATV7UzDo=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=PJ+u23DpPFDQ2SVSDGTMlHqd17xpWuL7sNtJ0kgNoAoBhKhE5z+mu9A7oKYtMbQPWXCwYcM6n7IW5JThCerxrm6jBIw3E0InzlsyGQIx7E1Kd8YUJuymJx/XuXpTDgq76gNgri9xnNtrl8Xu8IEH5y/00cgU49THyr5yAe8DrGk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hOLA4gUy; arc=none smtp.client-ip=74.125.230.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790269016; c=relaxed/simple;
+	bh=6GoBYB20cNxu/nXI4zC2xvZw5WS3sdmYWWg1srXYBWg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qENmCTp0qnccCknylWy+qdg/KbGyJFH7g1K2q5l7Wnb64gOK5goP7SEAxQeJjburIN/9aZW149fndm6A1+IhH/rVuNZqOBSBgP02EsJgEVezSYPc+5zOgrtZdMr+DNnZmPBNUJcVsITOLK7+CoHGgrXqcdovIk8oxASHUq07/Uw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=D79S1lvn; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=/j42n/1x; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=TDVXUjny; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=RAdzgSla; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hOLA4gUy"
-Received: by mail-qk2-f41.google.com with SMTP id d75a77b69052e-532c7643bc4so509401cf.3
-        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 09:53:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790268789; x=1790873589; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=H7p/7arhw4fENNL3I9usSe+ODbWZbM+M8BPItKrFIF8=;
-        b=hOLA4gUy3HaiPHPVeS/aI4XIC7z1Y/kbURnWjnJly1Y8DvKaeMn7D45tn5u8azU5sT
-         4CmGa7tcrM90GJTy1RdE3Vzb9jG8u+G6vD9acwzPQv7urDyPzbQ/LURJGRibdmYVHFAS
-         Jup9einuw3koekB2Lt1/hWRwooxY2BXCCrDUaBkn4C3U9thDraQEPovhzfV/lmdhdGj0
-         nshdbc/mkIQwbS4aVs1JXq+pOAgFULe/ZgPm9zWl1yqrajyb8HNMDUh6OkISBnHcAXVK
-         4JTEGmqY7lSHYC+G30vejTXddi1YeWhXa38/bMzPmhBRCf5j5wjJ0BlwviYxaEeg+Szr
-         UwNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790268789; x=1790873589;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=H7p/7arhw4fENNL3I9usSe+ODbWZbM+M8BPItKrFIF8=;
-        b=iok1uqqkJhBdSDY1TQrKIC6te2Xdr/gm0etioW0i/OcsOQJ1uEmmNlt1ytVTJ5y31y
-         vShi3s5SFrhBG5EEZ7fXFKzZ+/QFZ/swwiUsLBNhSwCLwQmZyWMlM/BSe+H3SoQJs55X
-         wbLW4dujSRgz753SS6Bw0SWejNMC6NaUH2wFLS1uDW5bAYi6rvise3muNnCds7+R+Zzc
-         enrIViv9Bs1nH29v9x+TijuaBJJ3WQTLINJRpFjIN8+aRa8lGPdGB8VfX2xDXYgzL7f0
-         7lWONxKl3hkPmQbsolB9amycyalch16LR/7CojhyuYiToueMYQDYGGYVkYUa0uaH2SAm
-         AJAw==
-X-Forwarded-Encrypted: i=1; AKwUvBzw63q0/1+lM2JAUhvX8lmtyn/d89tDDz2Fyd2T+IhFU1xUtmoxWC9a1WXvh5zieZPPsE0rt+s=@vger.kernel.org
-X-Gm-Message-State: AFuF++mocnyfEsTPUiPFvhJARjKfp97Y+fecY3YSmXhY+9VUuqgz9bSU
-	2fgQbgo2CSpiVhgEm8UERYxxd5O2yJveIu+fXkJ5DFfKeFVyJbnm/e6w
-X-Gm-Gg: AYBFou2MAWOYd0SJoIc67zFOLvle0c2nGNpzc0ue7SVsX6tyRIdumfHdo2uBTB3R28m
-	svT71/l+PA685otC1Y8Q0hYD37rSJWqSmTeDrQ0Aj+veLLOOWB3GP/pxFhOctFP2QE90tRSAAlN
-	UqyDu5er2TzIPVeTxtiXVbyIs9bNiQshlTDezAPQrMTBEJTRWOOqWfV+4wcBBUguoL40/UveihR
-	SghJB6qP4S9GOGUbCLizJFEFuc8ZGzN0QOTP1JNAQySQ3D0d+ZxhzO1eKAiofhmKqwzF+9tMnia
-	RgSSQE24pB0QTZArjPat3HBj/xd/HMYDJJ2NerZbEHXPnw6X890bIXUk2z8Ciw6PYKDYSxYY+f5
-	2XSp6rKd5A8GOjQlyGaJNPnB5Vy0Ovd+B7eCeGwlOn6/ys4yUO5A2I6WLboykV5fNpi7aD+PT0j
-	xg9QkJ6++wjvFU0RX/gNhi3Epm+QFddD+NCJAUkXU9rMwSCgvmVY19E5BOzUVgiGpkOA3vIuYzh
-	wI=
-X-Received: by 2002:a05:622a:288:b0:532:d54d:5b34 with SMTP id d75a77b69052e-532feb60341mr30517451cf.57.1790268788761;
-        Thu, 24 Sep 2026 09:53:08 -0700 (PDT)
-Received: from localhost ([2600:4040:9399:4000:e553:72e5:7d37:c7ef])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-532eb364154sm46019211cf.22.2026.09.24.09.53.07
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Sep 2026 09:53:08 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="D79S1lvn";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="/j42n/1x";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="TDVXUjny";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="RAdzgSla"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 953F6200E2;
+	Thu, 24 Sep 2026 16:56:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790269008; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ieJvlrAgk+y/IIunMtd5uXKsQGJx+qv4AsIourcCCbw=;
+	b=D79S1lvnOmv4eA4aLqE72WH5VuMNXzyXjlh7Aj8P1a3TEeawfzhHXzM2MPThpB1iChr1rc
+	XAiv4nsmxW+dNc3e+ZYGdzT+8yXSIkU3WFraAZHm6qbZBrCaCeKw5MFxmpO7Dx7AxSr/Ma
+	rhwkHhZ498XNKNrPZcZixKyEfZH1D20=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790269008;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ieJvlrAgk+y/IIunMtd5uXKsQGJx+qv4AsIourcCCbw=;
+	b=/j42n/1xrNTp8UUvNhWPQEBzcBL7IYy2kQmUU/4FSDJdgNps5c5F1Az/xWoA3UxM10Pi61
+	/t5NrrCMJhSCR7Cg==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=TDVXUjny;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=RAdzgSla
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790269004; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ieJvlrAgk+y/IIunMtd5uXKsQGJx+qv4AsIourcCCbw=;
+	b=TDVXUjnyVHwuFhIPaGjnkTEEEXyztBJH4+KecIRtzrtWqtvOqLPiZ9M4scb7EnBuB0EDio
+	UH1Fp8SDFCHT2SXlaG+BGGquMHgy4abRoqEgJKAWqKwo71YLCpFv7MpL7mmgpcfd5J8Zud
+	bglC1jEOYpsaELo4y89n2YsT0FrIbaE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790269004;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ieJvlrAgk+y/IIunMtd5uXKsQGJx+qv4AsIourcCCbw=;
+	b=RAdzgSlauPkvkdUG0C6RXec1vWQwtrmNSTQcq/rc4x/piFUgHnHeAAcvys57ponMWg3zmc
+	kw39rHwf/UzJoOAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6CE8213354;
+	Thu, 24 Sep 2026 16:56:44 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id aJdmEkxWtWp3OgAAD6G6ig
+	(envelope-from <jack@suse.cz>); Thu, 24 Sep 2026 16:56:44 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id F0F41A132E; Thu, 24 Sep 2026 18:56:39 +0200 (CEST)
+Date: Thu, 24 Sep 2026 18:56:39 +0200
+From: Jan Kara <jack@suse.cz>
+To: Matthias Goergens <matthias.goergens@gmail.com>
+Cc: linux-ext4@vger.kernel.org, jack@suse.cz, tytso@mit.edu, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3] ext4: drop extra ea_inode ref in cached-block reuse
+ path
+Message-ID: <p72ohr4pnixuhsi4mve2saudzmcomxb6h2tamvl6qwnr7msiyi@q2gcmmhmyjvp>
+References: <20260916071046.2182813-1-matthias.goergens@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 24 Sep 2026 12:53:07 -0400
-Message-Id: <DLNPBJ3BV10C.26KWSF0WJ9FAK@gmail.com>
-Cc: <davem@davemloft.net>, <kuba@kernel.org>, <edumazet@google.com>,
- <pabeni@redhat.com>, <horms@kernel.org>, <andrew+netdev@lunn.ch>,
- <dzahka@meta.com>, <john.fastabend@gmail.com>, <sd@queasysnail.net>,
- "Willem de Bruijn" <willemb@google.com>, <stable@vger.kernel.org>
-Subject: Re: [PATCH net] tcp: prevent collapsing skbs across boundary in rtx
- queue
-From: "Daniel Zahka" <daniel.zahka@gmail.com>
-To: "Willem de Bruijn" <willemdebruijn.kernel@gmail.com>,
- <netdev@vger.kernel.org>
-X-Mailer: aerc 0.21.0-threadmapfix
-References: <20260924154427.953800-1-willemdebruijn.kernel@gmail.com>
-In-Reply-To: <20260924154427.953800-1-willemdebruijn.kernel@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916071046.2182813-1-matthias.goergens@gmail.com>
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 953F6200E2
+X-Spamd-Result: default: False [-2.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_COUNT_THREE(0.00)[3];
+	FREEMAIL_TO(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCPT_COUNT_FIVE(0.00)[5];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:email,suse.cz:dkim,suse.cz:email,sashiko.dev:url]
+X-Spam-Flag: NO
+X-Spam-Score: -2.51
 
-On Thu Sep 24, 2026 at 11:44 AM EDT, Willem de Bruijn wrote:
-> From: Willem de Bruijn <willemb@google.com>
->
-> tcp_write_collapse_fence() sets TCP_SKB_CB(skb)->eor =3D 1 on
-> tcp_write_queue_tail(sk) to prevent skbs queued after a switch to
-> device encryption from being collapsed into earlier skbs.
->
-> The fence is a no-op if all earlier data has already been transmitted
-> when the switch happens: sk->sk_write_queue is empty. The not yet
-> acknowledged earlier skbs wait in sk->tcp_rtx_queue with eor 0.
->
-> On a subsequent retransmit or SACK shift, tcp_retrans_try_collapse() or
-> tcp_shift_skb_data() can then merge an skb queued after the switch into
-> one queued before it.
->
-> Both users of the fence are affected:
->
-> - psp: devices only encrypt skbs with skb->decrypted set. The merged skb
->   keeps decrypted =3D 0 from the earlier skb, so merged data sent after
->   psp_sock_assoc_set_tx() is retransmitted in cleartext.
->
-> - tls device offload: the merged skb straddles the start marker set in
->   tls_set_device_offload(). The software fallback (fill_sg_in() returns
->   -EINVAL) and the mlx5, nfp and funeth drivers cannot handle such an
->   skb and drop it. Every retransmit rebuilds the same skb, so the
->   connection stalls.
->
-> Fix this in two places, for defense in depth:
->
-> 1. Fall back to tcp_rtx_queue_tail(sk) in tcp_write_collapse_fence()
->    when tcp_write_queue_tail(sk) is NULL.
->
-> 2. Check !skb_cmp_decrypted(to, from) in tcp_skb_can_collapse(), as
->    tcp_skb_can_collapse_rx() does on receive. skb_shift(), which both
->    collapse paths call, already has a DEBUG_NET_WARN_ON_ONCE() for this
->    condition.
->
-> Fixes: e8f69799810c ("net/tls: Add generic NIC offload infrastructure")
+On Wed 16-09-26 15:10:46, Matthias Goergens wrote:
+> ext4_xattr_block_set() takes a reference on the ea_inode via
+> ext4_xattr_inode_lookup_create() before it builds the new xattr block.
+> The new-block path drops that reference once
+> ext4_xattr_inode_inc_ref_all() has counted every entry in the block.
+> When a separately built block is discarded in favour of an identical
+> cached block, the cached block already counts its entries and the
+> lookup reference is left unbalanced.
+> 
+> Each affected reuse leaks one on-disk reference, and the ea_inode and
+> its data blocks stay allocated after the last xattr referring to them
+> is gone.  Setting the same xattr on two files is enough when the value
+> needs an EA inode and the entry does not fit in the inode body: the
+> second set reuses the first file's block and leaves the ea_inode at
+> refcount 2, and removing the xattr from both files leaves it at 1.
+> 
+> Drop the reference when the entry was not written into the old block in
+> place.  new_bh != bs->bh is not the right test: the in-place path can
+> reach 'inserted' and match a different cached block, and there the
+> reference belongs to the old block and ext4_xattr_release_block() drops
+> it, so dropping it here too would under-count.  Conversely, new_bh ==
+> bs->bh with a cloned s->base (re-setting an unchanged external value on
+> a shared block) leaks the reference as well, so the check follows both
+> branches.
+> 
+> If the decrement fails the filesystem is already broken: report the
+> error and return it without rolling back, putting and clearing ea_inode
+> first so that cleanup does not retry the decrement.  The reused block
+> keeps its incremented refcount and its block quota charge; e2fsck
+> corrects the refcount.
+> 
+> Found by the Sashiko AI review bot while reviewing commit 54b6bd40898d
+> ("ext4: stop retrying saturated xattr cache entries"):
+> https://sashiko.dev/#/patchset/20260802065941.1726052-1-matthias.goergens@gmail.com?part=1
+> 
+> Fixes: 0a46ef234756 ("ext4: do not create EA inode under buffer lock")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Willem de Bruijn <willemb@google.com>
-> ---
+> Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
 
-Reviewed-by: Daniel Zahka <daniel.zahka@gmail.com>
+Grumble. This code is really subtle and needs some simplification. But your
+fix looks good to me now so feel free to add:
+
+Reviewed-by: Jan Kara <jack@suse.cz>
+
+								Honza
+
+> ---
+> v3:
+> - Error path per Jan: report with ext4_error_inode() and return, no
+>   unwinding.  Put and clear ea_inode there so cleanup does not retry the
+>   decrement.  After a successful decrement the branch reaches cleanup
+>   with error == 0, which only puts the inode, so nothing is needed there.
+>   The new-block path is unchanged.
+> - Keep the in-place condition instead of new_bh != bs->bh; reasons and
+>   measurements in the reply to v2.
+> - Changelog: the normal-path leak does not retain quota charges; state
+>   the preconditions of the example.
+> - Shorter comment, EXT4_ERROR_INODE(); rebased onto ext4 dev; Cc stable.
+> v2: fail the operation on a failed decrement instead of masking it.
+>  fs/ext4/xattr.c | 18 ++++++++++++++++++
+>  1 file changed, 18 insertions(+)
+> 
+> diff --git a/fs/ext4/xattr.c b/fs/ext4/xattr.c
+> index 5c310747b9650..d9e60b5952d2d 100644
+> --- a/fs/ext4/xattr.c
+> +++ b/fs/ext4/xattr.c
+> @@ -2113,6 +2113,24 @@ ext4_xattr_block_set(handle_t *handle, struct inode *inode,
+>  			mb_cache_entry_touch(ea_block_cache, ce);
+>  			mb_cache_entry_put(ea_block_cache, ce);
+>  			ce = NULL;
+> +			if (ea_inode && !(bs->bh && s->base == bs->bh->b_data)) {
+> +				/*
+> +				 * The cached block already owns its EA inode
+> +				 * references.  For an in-place update the lookup
+> +				 * reference belongs to the old block and is
+> +				 * dropped when that block is released.
+> +				 */
+> +				error = ext4_xattr_inode_dec_ref(handle,
+> +								 ea_inode);
+> +				if (error) {
+> +					EXT4_ERROR_INODE(inode,
+> +							 "dec ref error=%d",
+> +							 error);
+> +					ext4_put_ea_inode(ea_inode);
+> +					ea_inode = NULL;
+> +					goto cleanup;
+> +				}
+> +			}
+>  		} else if (bs->bh && s->base == bs->bh->b_data) {
+>  			/* We were modifying this block in-place. */
+>  			ea_bdebug(bs->bh, "keeping this block");
+> -- 
+> 2.55.0
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
