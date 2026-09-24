@@ -1,30 +1,30 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2D02390205;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2BE5384CC3;
 	Thu, 24 Sep 2026 14:13:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790259233; cv=none; b=iXd6q9hpLfsOKFvfTiX1GpIvZ5fqpEecjQB0NQCaZ1cNHbIE6L3sLS4WOEZucoqUvHFlQ6ehKslYPft9Vk/mDR95HtIqtVLk1cyWBsuDgwS8urPupmVtCFROf0WpAVOIsp3WgJ2jpX+tRbYns4WwgDE+eADQ45HEYVdOzQO5e8w=
+	t=1790259233; cv=none; b=CBklRIWrOTLheRL7FEXTznAb2RtnyWkxXpKa1GHJHJsRUECrUozfHqnWVd2hZhmk1FhjULwKci1JqE1ocmEA97Ku6WuRn4bpyEJY4JF8yGZJPGtYt90i70UNd1FP6Co57ncxoZWx8YYuDCMux3wbEHnTJUpD0fK0fg4IiEHr9es=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790259233; c=relaxed/simple;
-	bh=3V6zsaWZkV3AmfOkM4NDyGgnqhDAKaMMkVC3s8uT1Gg=;
+	bh=8GJVh8zyxnT5u0h4IreF5rD+qZqANbXKz98OmJ810PA=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=LrfvBwYioWeN/wZNO5dP3Zi27CFurg1+xcrwBSbXkWtYwvw3KTnAxI8O2yQB20IxSJXeX8ZRxNDUDEt0co64WI6D6GWXz+y8KgKXonVGwuSNHAdWMnqROC+tv9TH9Vodt9eNUW+VhuR2g3ntxZsH0fsrzBHYVHpsBAVtMZDg48U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=R8OANUY2; arc=none smtp.client-ip=117.135.210.2
+	 MIME-Version; b=ZzkB8C9+f9f9L+YwtFzED7Fds9IYGYn2YWAYSHF18dscD5MJA8PKCh1kNKJPFKUriqaVsOjlczX7kdt0PMXRrJ12uWF3NLZB8r2pKuwHCPwqPFESBclcurrJIo/wMuEBQPTdCkKT81cgA7P0dDUQg0W2adkWLeh96pzE6fQoVWs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=eNIQyNPD; arc=none smtp.client-ip=117.135.210.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="R8OANUY2"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="eNIQyNPD"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=2k
-	1M6fx3ueANmn6GVVEI5evj18BpKqj4tThdWLwQKEA=; b=R8OANUY2yxQFPm7f58
-	y0cTmNza3Sa/QKJSgBsffyNjYfptVXwAzwlArVX9NNDf80bZNHWBMyhqznWaCHSV
-	J4ezlhIlu9beIzwZrxQWIDoEVDLkaEnXG1hY49uGVffm712V4pqsXHmClLS+ND1l
-	vlugIy260X5m078X2OoZ/4b00=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=X3
+	B0WsYGwWxeNRan1ARn3/d6wJOVWNtlnr5O1j4FW5A=; b=eNIQyNPD0HMNVzG/tN
+	ep7iBe8kPsil12NByxOEAIfidff8xSbulnv1tdyAL9Bm+4haik8zoR1JuCCch4Rk
+	vIOD3mCVP6dEgfoLGDMlB0sWTe3BeHzdvfkq07ajBR90P4ytsiHuBnKT/jViWd2p
+	xkUy/3qGdrHWpPqyQAXJ6/8GU=
 Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wDXN8sIMLVqBMA4Ag--.5098S5;
-	Thu, 24 Sep 2026 22:13:33 +0800 (CST)
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wDXN8sIMLVqBMA4Ag--.5098S4;
+	Thu, 24 Sep 2026 22:13:32 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
 To: Jiri Kosina <jikos@kernel.org>,
 	Benjamin Tissoires <bentiss@kernel.org>,
@@ -35,9 +35,9 @@ To: Jiri Kosina <jikos@kernel.org>,
 	linux-kernel@vger.kernel.org
 Cc: Jiale Yao <yaojiale02@163.com>,
 	stable@vger.kernel.org
-Subject: [PATCH 03/10] HID: cp2112: validate response report lengths
-Date: Thu, 24 Sep 2026 22:13:18 +0800
-Message-Id: <20260924141326.1154421-4-yaojiale02@163.com>
+Subject: [PATCH 02/10] HID: cougar: reject short special-key reports
+Date: Thu, 24 Sep 2026 22:13:17 +0800
+Message-Id: <20260924141326.1154421-3-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260924141326.1154421-1-yaojiale02@163.com>
 References: <20260924141326.1154421-1-yaojiale02@163.com>
@@ -48,69 +48,46 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDXN8sIMLVqBMA4Ag--.5098S5
-X-Coremail-Antispam: 1Uf129KBjvJXoW7tF17uF48XF1fAF4kWrWrGrg_yoW8tFy8pa
-	95tFs5Gr4DJw1Ivwn3Jrs8C345AF1xJF47ury8G3WY9r1rCF1UCF1jgry0q398JFZ2q3sr
-	KrWqqw15GFWDuaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zR55rxUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8A4XUWq1MA5cRQAA3A
+X-CM-TRANSID:_____wDXN8sIMLVqBMA4Ag--.5098S4
+X-Coremail-Antispam: 1Uf129KBjvJXoW7WFy3GFWxXFWxCrWxWrW7Arb_yoW8GF4UpF
+	s8tr90krZrtrWfuw1rGw1UCFyFvwn5JrW29FyrGw1Fvwn09FnIgay093sFqFW5Zw40qr9F
+	kwsrtrs5uFyDuaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pR1q2tUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7wwXUWq1MAxX5wAA32
 
 The HID core invokes raw_event callbacks before validating the report
-length.  cp2112_raw_event() reads every field of a transfer status response
-without checking size.  For a data response, it reads the length at offset
-two and copies that many bytes from offset three, again without ensuring
-that the input report contains them.
+length.  cougar_raw_event() reads the key code and action from offsets one
+and two without checking that those bytes are present.  A short report on
+the special interface can therefore cause an out-of-bounds read.
 
-Require a complete transfer status structure.  For data responses, first
-require the header and then ensure the clamped payload length fits in the
-received report before copying it.
+Consume reports that do not contain the action field before accessing the
+fixed offsets, consistent with the callback's handling of other reports on
+the special interface.
 
 Commit 47669bec44fe ("HID: asus: refactor the two workqueues and init
 sequence") added the same kind of raw_event length validation to hid-asus.
 
-Fixes: e932d8178667 ("HID: add hid-cp2112 driver")
+Fixes: b8e759b8f6da ("HID: cougar: Add support for the Cougar 500k Gaming Keyboard")
 Cc: stable@vger.kernel.org
 Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- drivers/hid/hid-cp2112.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ drivers/hid/hid-cougar.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/hid/hid-cp2112.c b/drivers/hid/hid-cp2112.c
-index 04379db93571..6b938f75e72f 100644
---- a/drivers/hid/hid-cp2112.c
-+++ b/drivers/hid/hid-cp2112.c
-@@ -1430,6 +1430,9 @@ static int cp2112_raw_event(struct hid_device *hdev, struct hid_report *report,
+diff --git a/drivers/hid/hid-cougar.c b/drivers/hid/hid-cougar.c
+index ad027c45f162..7156658166f5 100644
+--- a/drivers/hid/hid-cougar.c
++++ b/drivers/hid/hid-cougar.c
+@@ -270,6 +270,9 @@ static int cougar_raw_event(struct hid_device *hdev, struct hid_report *report,
+ 	if (!shared->enabled || !shared->input)
+ 		return -EPERM;
  
- 	switch (data[0]) {
- 	case CP2112_TRANSFER_STATUS_RESPONSE:
-+		if (size < sizeof(*xfer))
-+			return 0;
++	if (size <= COUGAR_FIELD_ACTION)
++		return -EPERM;
 +
- 		hid_dbg(hdev, "xfer status: %02x %02x %04x %04x\n",
- 			xfer->status0, xfer->status1,
- 			be16_to_cpu(xfer->retries), be16_to_cpu(xfer->length));
-@@ -1463,11 +1466,16 @@ static int cp2112_raw_event(struct hid_device *hdev, struct hid_report *report,
- 		atomic_set(&dev->xfer_avail, 1);
- 		break;
- 	case CP2112_DATA_READ_RESPONSE:
-+		if (size < 3)
-+			return 0;
-+
- 		hid_dbg(hdev, "read response: %02x %02x\n", data[1], data[2]);
- 
- 		dev->read_length = data[2];
- 		if (dev->read_length > sizeof(dev->read_data))
- 			dev->read_length = sizeof(dev->read_data);
-+		if (dev->read_length > size - 3)
-+			return 0;
- 
- 		memcpy(dev->read_data, &data[3], dev->read_length);
- 		atomic_set(&dev->read_avail, 1);
-@@ -1494,4 +1502,3 @@ module_hid_driver(cp2112_driver);
- MODULE_DESCRIPTION("Silicon Labs HID USB to SMBus master bridge");
- MODULE_AUTHOR("David Barksdale <dbarksdale@uplogix.com>");
- MODULE_LICENSE("GPL");
--
+ 	code = data[COUGAR_FIELD_CODE];
+ 	action = data[COUGAR_FIELD_ACTION];
+ 	for (i = 0; cougar_mapping[i][0]; i++) {
 -- 
 2.34.1
 
