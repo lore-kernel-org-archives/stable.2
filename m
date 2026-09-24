@@ -1,182 +1,148 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C7A5040801D;
-	Thu, 24 Sep 2026 09:50:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790243449; cv=none; b=LbEqGveW/coVUd4b4Je6EUPnxuADbbAwa1uNV/QikajnUaqS76eSqeQb6ohLvgPHG/mOlpog0nEZXCg13cQ8GZLsNxWNQpVwJXJAQEp7JWcx4L3XqzL1n2gHNAGeM3zYPSzOIddsXFEzRyWBiQdeouE7opBZeiI4ksooSgWuHlg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790243449; c=relaxed/simple;
-	bh=8EeDJUKWzmbKZHvSf5EzOlL7Hm/HRnxcUKk/qxOp0jQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lklwDlnZjwXiFCNoIGIR5icHYyiZVsYEz5Ou2si/RX6dhUCM4di5mNrry8E6v9GpsBV4MdC1MhIyCcaCJQyNxRZi33SK12ocOOgnNmhCExKhEAwezW8RYYCcYAHL+JcgwIN+6qHvIh/ua7I0kRCMVGmglNAktwqJwXEaPfs8Dzo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=qfWYrEUB; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from mail-yx2-f43.google.com (mail-yx2-f43.google.com [74.125.224.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D854643FD09
+	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 09:52:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790243546; cv=pass; b=NravF5MOmEatzLN/una2fTqTYYrskBs4KPDvu5Kczo19pCs6UVsB8pf2psas5lJtUANAjVO8Y9w6MInMkB6R4b8RnEq7EZBKq2QIel9/QhySfqF089vHdhi9TgSvpd6cZ32sF8HV3poUmmNUoQ6UDQ1JG/U0NEGaJpM0Tx8xUf0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790243546; c=relaxed/simple;
+	bh=PW1zCvq/ozVI53ru/7Q/LImJLODk/Q/cpy7eifbxXfs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=i55nqMfDdlzjMFCuC8sQ5sTNqNRxbbQHx4yIKkD814LGtGIs4KcCABRpwZbCXNCepDzlf6gu7LY+UZhjGvTzk4GNw213Rx0vbqaSYuhbmdwK/TJYUM7TkLYAPHYwyaMb+/1Cv8VvZdVtZjLOShEeLTWCqL4e/UTJYB2t4bxjZJA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rruectjT; arc=pass smtp.client-ip=74.125.224.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="qfWYrEUB"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 97B80152B;
-	Thu, 24 Sep 2026 02:50:29 -0700 (PDT)
-Received: from workstation-e142269.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7FEA13F86F;
-	Thu, 24 Sep 2026 02:50:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790243433; bh=8EeDJUKWzmbKZHvSf5EzOlL7Hm/HRnxcUKk/qxOp0jQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=qfWYrEUB5j3U+8mgY0E3CjMBvSOqzbpp456E3vbet8uflDlSnbRssfEFdaOBqUsLN
-	 NuyhALNLlfoYjc1CRYHyltNa52hifvRoDEucaedFOBaGznMxbD5JoEDvQZVvbOpFv1
-	 txrpvLYdBl2qL2VEEhGWnLaqbkkOXlX9/VbRJWaI=
-From: Wei-Lin Chang <weilin.chang@arm.com>
-To: linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Cc: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Sebastian Ene <sebastianene@google.com>,
-	Vincent Donnefort <vdonnefort@google.com>,
-	Itaru Kitayama <itaru.kitayama@fujitsu.com>,
-	Wei-Lin Chang <weilin.chang@arm.com>,
-	Sashiko AI <sashiko-bot@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v4 1/2] KVM: arm64: ptdump: Check the page tables aren't freed when accessing
-Date: Thu, 24 Sep 2026 10:49:50 +0100
-Message-ID: <20260924094951.727352-2-weilin.chang@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260924094951.727352-1-weilin.chang@arm.com>
-References: <20260924094951.727352-1-weilin.chang@arm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rruectjT"
+Received: by mail-yx2-f43.google.com with SMTP id 00721157ae682-859023466e0so1562007b3.3
+        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 02:52:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790243530; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Xnq6E3oqPRPzZLRN2QTmJzFcH6mSuiW5042u4DTF9AJVTH9NlFtA0Lg8Ljq2MZFYLa
+         25hBz15aZGPEuOoItDexZZ84U2yUvyVdNAXvReP7QFIXvjZW+WhcbGIqTPPPocMDSsBs
+         jseRpVWdpR+7hxt0G1RbxaKlv4ZPdLxmcSnbeJ9ybRo4F/e6c3rqEXJiNwT4KUtKNxqL
+         wXr77HJmlIIpsaAuQL3jppXC/oJoORmrLuxthHL5jxyVCHDqk5A4B2KaLCRd6iUtvGRi
+         OcB23+x0CziKVdSKDrMe40ERRCxhsaGnNQEwdbq6f5NFPqGfOEURizQ0aXnryx99u/bA
+         tzfQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=N2s7BUiFW3srljLC0aZ+G0xvX1DREGg6wj6UTgtwrW4=;
+        fh=pe4yxGTPlUiLcYP9wTlceFSN0RYaFDhuS0pEtGXtc4w=;
+        b=a0fX6TmSzGf7xMtp1PAYklbYzqvbHiuJ9xd1qJboH4lfll6EIi2cIEEfJ/K2Yzxtua
+         dlF1SgjmPG4WI4184KVGQ60KxBwk53qIN9PxfuLleSoF0BXwctO9c8EXQtyyDN2Yd7Cb
+         B6j6tqPlbacSRMYi55Pc+uYIZBPw0BsNeKvxrDjWDskJom7FVp5Y/8UsKys2L5JCibAG
+         YRzxCBAGCWk1OD9CmrSwEfhBw5X/UwHCdoDa/T/mlHzYKAnuFld6pP4iCENOomkbhBCz
+         xaCPezjSk3gwtG5eJleKC4zoFP5gZpwFf/V+9wSE6kWpOH+ROdSDLPw//rjEFg8d8TYM
+         bjxA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790243530; x=1790848330; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=N2s7BUiFW3srljLC0aZ+G0xvX1DREGg6wj6UTgtwrW4=;
+        b=rruectjToVCx8lTL3jZI9PEFjCwIWPMdP6uWR0sbOTo96j2MACHPLkko5QFRDvD4Dt
+         2oO+sC7wbD6/GuQC6k9vo1l40ZFb8MloB5j1jYlSf27yxhUigm/xzVnaUumfSubt/+ne
+         nRwBZMqsjv5llQlAZ6qsI3LVrZVhbqBGszxPwr0NU50w9k/f+3EKrW1VC51746hdwNPq
+         wSecZNEKsA7igTfxCqyHJQFDGRBFOxxWt/sp0ZhXOSso5z3bj7ty4deUsly0bhO+kypj
+         aRZxxeYeiwm9VD7/6e9+xRQB5+br78iG/1hwhV2m7og5dlh1gcF0S1vKH3Ztd89W036a
+         T2pg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790243530; x=1790848330;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=N2s7BUiFW3srljLC0aZ+G0xvX1DREGg6wj6UTgtwrW4=;
+        b=bhdF9OgGTvNAgHOcWX9QLISzT5CXQV2/SierROy6p27iKZLLpjafKt8PpHUPyKJGgN
+         R4CXGWjacFX/unjsjMAV+scis3qeNi4nB+ZxnEWhsIQkB7cft7qMyvJ9Ih9n1W7jiCLx
+         OtxnixSYCqj2Ug6TLAkSfDWaLS9fGPg2oWrso6xJ0un9aw8gqIYYyG+VjSAwBxj+sYVg
+         DqJ3lBS5DHarnS3PGxAqVTb47rvx7dHwoJuI3/3LVuS1XNXRaT2zgVJpPnK5XxGD0ZDi
+         6iVFk9ovYzzOvtxBn7ZCm1JjoDmLI4jKBe//U3fJouLlLEgC7dmQwnTm6juYWAIdl6jP
+         2kaQ==
+X-Gm-Message-State: AFuF++k0gBBEXBwew6rl+f2VhTUzIHSM/8Or6aEshGvuu8QvQk4TapfD
+	11VmFTS3XNIMiRuvHZAO6/b4J7led9qdDgoc/Bugp4y+4sVe6xZnhPYCIGcLvSLiY3GC0mS2ivd
+	8s7x6ZYQ4BsUlRqHxMnOmS9kXM6RKWY9F5dPY
+X-Gm-Gg: AYBFou3dMXPTStbTOddg6yOCZwGxzOHDMPJKHJ0OCRwOVaJu/xYvEE64xCFRQymRfdb
+	KDtxSjKuIQt3jKbtZ9k0+oVJmBq949jWV8SyXVYJFXF/Psyhgds0lwuqD5CbL2ZIVffkrCQuUvJ
+	6VhosJN/lC29LDCb1KyjGjLhAFK0K/bkWeHlzgKIKWwM5QK8+4diU3BPfZ+h42DUOko0lYjl98m
+	Kx2F9QYnh/np1fe2PjFhBQ+pzML2GxjTVa71r4ubQNhjP0WXBTvwbmrg3eHAyFGFQZXSkpB4jrM
+	a98i3UctfyekY1mPkiCPZPi8Sk7VWO6tTJKdNAtYmk83qsUedALa4IfEMkA9ofiiD54=
+X-Received: by 2002:a05:690c:4a09:b0:841:dd38:a734 with SMTP id
+ 00721157ae682-8a64403f287mr18562517b3.0.1790243530155; Thu, 24 Sep 2026
+ 02:52:10 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260922140318.668429-1-itai.handler@gmail.com> <2026-09-23-daily-reply-0008-re-spi-zynqmp-gqspi-shutdown-5-10@kernel.org>
+In-Reply-To: <2026-09-23-daily-reply-0008-re-spi-zynqmp-gqspi-shutdown-5-10@kernel.org>
+From: Itai Handler <itai.handler@gmail.com>
+Date: Thu, 24 Sep 2026 12:51:57 +0300
+X-Gm-Features: AclHuK9FhNdAh4A60RkaACsXXPA-TomQibdwScmPR5kKOszFUTgb8gHglFMTNsQ
+Message-ID: <CAFpOueS2DVM-8JT+tZTtrJtWZ0ddz5ehuOHR1YKPK81P5NU_3g@mail.gmail.com>
+Subject: Re: [PATCH 5.10.y] spi: spi-zynqmp-gqspi: stop the controller on shutdown
+To: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org, Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-An open debugfs file keeps the KVM structure alive, but does not prevent
-mmu notifier release from freeing the stage-2 page tables when the VMM’s
-address space is torn down. Therefore page tables belonging to the mmus
-could have been freed when a thread opens or reads the ptdump files.
-Take the mmu_lock and check mmu->pgt is still alive before accessing the
-page tables.
+On Thu, Sep 24, 2026 at 3:21=E2=80=AFAM Sasha Levin <sashal@kernel.org> wro=
+te:
+>
+> > +     ret =3D pm_runtime_get_if_in_use(&pdev->dev);
+> > +     if (!ret)
+> > +             return;
+> > +
+> > +     zynqmp_gqspi_write(xqspi, GQSPI_EN_OFST, 0x0);
+>
+> On 5.10 with CONFIG_PM=3Dy this check always returns early, so GQSPI_EN i=
+s
+> never cleared and the kexec DMA corruption is not fixed there.
+>
+> 5.10 picked up 58eaa7b2d07d ("spi: spi-zynqmp-gqspi: Fix runtime PM imbal=
+ance
+> in zynqmp_qspi_probe") and then reverted it in 5.10.199 with 1ceaf0d3a883
+> ("Revert "spi: spi-zynqmp-gqspi: Fix runtime PM imbalance in
+> zynqmp_qspi_probe""). Probe therefore ends with a pm_runtime_put_autosusp=
+end()
+> that has no matching get, leaving usage_count at -1. device_shutdown()'s
+> pm_runtime_get_noresume() brings it back to 0, and pm_runtime_get_if_in_u=
+se()
+> then returns 0 whether the controller is active or runtime suspended.
+>
+> Could you send a 5.10 v2 that clears GQSPI_EN unconditionally, as 5.10's
+> zynqmp_qspi_remove() and zynqmp_qspi_suspend() already do?
 
-Also for the ipa_range file and stage2_levels file, switch from keeping
-the pointer to the page tables to keeping the pointer to the mmu.
+Thanks for looking into this.
 
-Fixes: 7c4f73548ed1 ("KVM: arm64: Register ptdump with debugfs on guest creation")
-Reported-by: Sashiko AI <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/kvmarm/20260623144054.B91D21F000E9@smtp.kernel.org/
-Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
-Tested-by: Vincent Donnefort <vdonnefort@google.com>
-Tested-by: Itaru Kitayama <itaru.kitayama@fujitsu.com>
-Signed-off-by: Wei-Lin Chang <weilin.chang@arm.com>
-Cc: stable@vger.kernel.org
----
- arch/arm64/kvm/ptdump.c | 43 +++++++++++++++++++++++++++++++----------
- 1 file changed, 33 insertions(+), 10 deletions(-)
+I agree with your analysis of the 5.10 runtime-PM state: because of the
+probe-time runtime-PM imbalance, pm_runtime_get_if_in_use() cannot be
+used reliably in this path on 5.10.
 
-diff --git a/arch/arm64/kvm/ptdump.c b/arch/arm64/kvm/ptdump.c
-index 69899797dbad..b5a0584260e8 100644
---- a/arch/arm64/kvm/ptdump.c
-+++ b/arch/arm64/kvm/ptdump.c
-@@ -115,15 +115,28 @@ static int kvm_ptdump_build_levels(struct ptdump_pg_level *level, u32 start_lvl)
- 
- static struct kvm_ptdump_guest_state *kvm_ptdump_parser_create(struct kvm_s2_mmu *mmu)
- {
-+	struct kvm *kvm = kvm_s2_mmu_to_kvm(mmu);
- 	struct kvm_ptdump_guest_state *st;
--	struct kvm_pgtable *pgtable = mmu->pgt;
-+	s8 start_level;
- 	int ret;
- 
-+	/*
-+	 * We only need the pgt start level to initialize the ptdump, get it
-+	 * while holding the mmu_lock. It's fine if the pgt gets freed
-+	 * afterwards, we'll check again when doing the actual dump.
-+	 */
-+	scoped_guard(read_lock, &kvm->mmu_lock) {
-+		if (mmu->pgt)
-+			start_level = mmu->pgt->start_level;
-+		else
-+			return ERR_PTR(-ENOENT);
-+	}
-+
- 	st = kzalloc_obj(struct kvm_ptdump_guest_state, GFP_KERNEL_ACCOUNT);
- 	if (!st)
- 		return ERR_PTR(-ENOMEM);
- 
--	ret = kvm_ptdump_build_levels(&st->level[0], pgtable->start_level);
-+	ret = kvm_ptdump_build_levels(&st->level[0], start_level);
- 	if (ret) {
- 		kfree(st);
- 		return ERR_PTR(ret);
-@@ -149,6 +162,9 @@ static int kvm_ptdump_guest_show(struct seq_file *m, void *unused)
- 	};
- 
- 	guard(write_lock)(&kvm->mmu_lock);
-+	if (!mmu->pgt)
-+		return 0;
-+
- 	st->parser_state = (struct ptdump_pg_state) {
- 		.marker		= &st->ipa_marker[0],
- 		.end_address	= BIT(mmu->pgt->ia_bits),
-@@ -211,17 +227,27 @@ static const struct file_operations kvm_ptdump_guest_fops = {
- 
- static int kvm_pgtable_range_show(struct seq_file *m, void *unused)
- {
--	struct kvm_pgtable *pgtable = m->private;
-+	struct kvm_s2_mmu *mmu = m->private;
-+	struct kvm *kvm = kvm_s2_mmu_to_kvm(mmu);
-+
-+	guard(read_lock)(&kvm->mmu_lock);
-+
-+	if (mmu->pgt)
-+		seq_printf(m, "%2u\n", mmu->pgt->ia_bits);
- 
--	seq_printf(m, "%2u\n", pgtable->ia_bits);
- 	return 0;
- }
- 
- static int kvm_pgtable_levels_show(struct seq_file *m, void *unused)
- {
--	struct kvm_pgtable *pgtable = m->private;
-+	struct kvm_s2_mmu *mmu = m->private;
-+	struct kvm *kvm = kvm_s2_mmu_to_kvm(mmu);
-+
-+	guard(read_lock)(&kvm->mmu_lock);
-+
-+	if (mmu->pgt)
-+		seq_printf(m, "%1d\n", KVM_PGTABLE_MAX_LEVELS - mmu->pgt->start_level);
- 
--	seq_printf(m, "%1d\n", KVM_PGTABLE_MAX_LEVELS - pgtable->start_level);
- 	return 0;
- }
- 
-@@ -230,15 +256,12 @@ static int kvm_pgtable_debugfs_open(struct inode *m, struct file *file,
- {
- 	struct kvm_s2_mmu *mmu = m->i_private;
- 	struct kvm *kvm = kvm_s2_mmu_to_kvm(mmu);
--	struct kvm_pgtable *pgtable;
- 	int ret;
- 
- 	if (!kvm_get_kvm_safe(kvm))
- 		return -ENOENT;
- 
--	pgtable = mmu->pgt;
--
--	ret = single_open(file, show, pgtable);
-+	ret = single_open(file, show, mmu);
- 	if (ret < 0)
- 		kvm_put_kvm(kvm);
- 	return ret;
--- 
-2.43.0
+However, I don't think we should change the backport to unconditionally
+write GQSPI_EN. The upstream patch intentionally avoids accessing the
+GQSPI registers when the controller is runtime-suspended, since its
+clocks are then disabled.
 
+I'd also prefer not to introduce different runtime-PM/MMIO logic in the
+5.10 backport just to work around the 5.10-specific usage_count issue.
+
+I suggest dropping this backport for now and first fixing the runtime-PM
+logic in the 5.10 tree. Once that is fixed, we can revisit the GQSPI
+shutdown patch and backport it with the same runtime-PM logic as
+upstream.
+
+This also avoids potentially accessing the GQSPI register block while
+the controller is runtime-suspended.
+
+If that sounds reasonable, let's drop the 5.10 backport for now.
+
+Thanks,
+Itai
