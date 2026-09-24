@@ -1,102 +1,105 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B91583CB571;
-	Thu, 24 Sep 2026 16:44:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80F7E3E3D80
+	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 16:48:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790268252; cv=none; b=rtqyXLDm9HEbVASwqqREVvMcvh0EsqafgyG94/Fm9a/lpQf6wZz+MFhWQDily/33qt01M5xTCOh20dz3MHiWtjiPJ0UA+ysFbFPtsFhdEsGRYSh8KoCa1tZw2xj1kIjm7kk27C6CbNa81mlJDsoTaZWLXUEzUNRReJMBV+egq6Y=
+	t=1790268501; cv=none; b=LDefsF21oWbxBkFGKeAKgGFkvgOQctTB+y8FU7KUn+o0iuc59UnbN0b2feBT3tqINe9w1MjTcu3EdBFLVW9JqXVeB5PVkCUeiDHDNm4AOJu2FNP28SiVIYwfbNSC8S15Om8uSjd6KZ1Fu0SiCKBuy6lI8Uj1Nz/wyazN6KRhQtk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790268252; c=relaxed/simple;
-	bh=GcGxAuHjegieUhml6jhBvnFuF/HH3L+FUtaOGvDFm8M=;
+	s=arc-20240116; t=1790268501; c=relaxed/simple;
+	bh=09gWLrxV9B2YL08j33NGm5uI7VMhjtGXOM0U4bCV5Gs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=N2ai8v8RKXgXUoG+L3j1XIOl6lIlSzd82wsNBVzUOYlOKHbmII65X2mzHscOS9vaQNjUehr0q4dEwQCGbVcJDYObsSFuE4Rn/WWDMY+ZYFBnwyCWgzQ2PcyWNdYieJbuXYDCU6OQsYFYVKEANMNyNu/2N3k3aibJM4bfsQqRG2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=4HkTsIfL; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=jp3yOBtiAG0QvPY6n6GyKhjNZeoIxdeMrfOA9BRo4HCtPf19+52zGBn3JmCol6imO/15AMjTwENI2Inp4/qIRySe9UWhud2/JEfPeEQ8FFKRbUejSixcVPDGSYQ0Lm2Bc1o49TOSUaC+d9fJkZxoet0+OkQsvzBXr/jJGl++lAI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zit9VWog; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="4HkTsIfL"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
-	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
-	In-Reply-To:References; bh=ahg9seQPPv3QHPFNI00LWYz0svWliPsZtiwzoOpE8Ew=; b=4H
-	kTsIfLHuWIpfSB3ipqT2ISLVJ0B1rBPYMRiJXiS6D0z68mcpwagQYyqErCt/7GAv+SpS0NPYNniBm
-	zg12SQZB/NxMLyErTwL9TwOmGy42i0aCCpt/KJHLNxZdrNfnI7V2vbvyzZR8Q01KhthvnaYoETHKC
-	//RgQhcVGfU2SfA=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x9mXw-0072Sg-LG; Thu, 24 Sep 2026 18:43:44 +0200
-Date: Thu, 24 Sep 2026 18:43:44 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: =?utf-8?B?0JbQsNC80LHQsNC60LjQtdCyINCg0LDQtNC40Lkg0KDQuNC60LDRgNC00Lg=?=
-	=?utf-8?B?0L3QvtCy0LjRhw==?= <r.zhambakiev@prosoftsystems.ru>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Denis Benato <benato.denis96@gmail.com>,
-	Jacob Keller <jacob.e.keller@intel.com>,
-	Petr Machata <petrm@nvidia.com>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"lvc-project@linuxtesting.org" <lvc-project@linuxtesting.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: Re: [PATCH net 1/3] net: fealnx: fix teardown order in remove
-Message-ID: <95c9fa4a-79e5-47fe-9de5-2c6cd186216d@lunn.ch>
-References: <20260924104231.110576-1-r.zhambakiev@prosoftsystems.ru>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zit9VWog"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccb1a98fso113956a91.1
+        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 09:48:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790268500; x=1790873300; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=vcbua5mIvOolDP5npCwiYAbITQjIUK3wgIKLBNoELyk=;
+        b=Zit9VWogUurDYmJnES1DV2o51mAVb4WfWQRO805+UtMdRTDq1OUmqDW9fl4LTHpLLJ
+         5qP9o1NqZnWEIoo6n8BJe66bVhyHkQPvVmbEjk30uKBtGhxFPK4c/I8cKHeYJCrg1BmW
+         ksLitFj1o59y0Y4t4ZAhA+0H12YTcotc+3lNyZFUtpNZUPdJ1vy9YBRhfMpKDo6QTJCu
+         72NKJ+ZaB5sx+/FtZocryqrF+1UqEWq+syn7Cci0Yy5+nD0ZcBnkShISzzug3Hhsi9wP
+         b/OXovt+uzsXFuV5c7pBc7Gd3KOyyUxpNJdXCfiXSweo6nHiY3s/LeUQvMb9wSMxmig8
+         6cVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790268500; x=1790873300;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vcbua5mIvOolDP5npCwiYAbITQjIUK3wgIKLBNoELyk=;
+        b=FKZiTwKFSGWu1+b7D+CzG8qxfTqOKfDwXdghootG6quageqScK4CllCX8hQEtj3bJr
+         Zmac+STZL1XMIE3RiZSIlzzOh9NFeMJqGJfQDpgwYcPAM3PJFC7rnzjKdQ6IVwNwjap2
+         oEihKwpORM9fThdd/bmghKPUKQuIA436Vo6a4oaugh0QkVByq5sa84P7pHVnRVTOnq6e
+         SRCa1Vfr1YJOeGnvuym2SS49I9dCWd4JAEXfuZZNE/F5LVkMmNNWsaxViZWaLZ28bDWF
+         Qj03AD/U+BzXfmn5g79VkjiAhTcxQuDa9mtY8qdkxfthY/CbHFhBrZ1JDP/Z0wxyfwKp
+         D1vQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy90NoxmmY/s43iTtKAn2WSM2GJov8AXarzMkEhrXUIWDxhjwwnl+gNjBWdfG9fBy5NaE3aY7o=@vger.kernel.org
+X-Gm-Message-State: AFuF++n0c5UTCsUNaHNCd23G57ZRRf//wuBdo3iH/S0URv6OvMk9hIa6
+	8Ic9mP85tF++XTOY5I4fNMOXXhJBvAH/frO9cMhu5F3kH7/KPHuXW+Hr
+X-Gm-Gg: AYBFou39FOhQ0nC92EQ1MPfcEGXIQ9AiaZ4KQz5EJNLo/81wht5K/D1MK0xNVbs5ZQ3
+	yTo//7sS908pBnzz9P55FTXyxootGHIvhZjy1lVMmnJnPVLFeoLHF1uSuGovjWsH+FAmN6FsA6i
+	UESKhffAcKzVY3J2gL8q491RR/iDtWYxIsGub+r5xEKc9S3Mtyg2QM71sQ38BfG7NJLW8CF7/Nl
+	gclG3zZD1isFqt/xrS3rVMM03y1ypx+zEtJyT8KN8OJHWdFZvAb5qPR1ZaI74t26/I6jeSUxdK3
+	1ElPFYB/7K7iCp+DW06ZM9+lLgxTE0okOO0TYENIa9G2Jg4Pf3TZ8S4C6QETzvjS/1Z764XAc7j
+	6iku4W1OAUBC4WhNzvJwyZdu4Ey53dzcrvKUXl+UzexTMrNk+qby6ycj7ogiHK+scHiFFMyRUBx
+	wVNvvmDpPwN5M9bhPW7gxw40e1CtE4rrf+RLRnrORyCLvxKEXgBVEAHumr3pPaJ/0lStJnDwPhU
+	7KNUb8tKK0g
+X-Received: by 2002:a17:90a:1108:b0:3a0:9ed5:5420 with SMTP id 98e67ed59e1d1-3a09ed559a0mr1484080a91.44.1790268499752;
+        Thu, 24 Sep 2026 09:48:19 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a09733f48fsm5863409a91.11.2026.09.24.09.48.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 09:48:19 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Thu, 24 Sep 2026 09:48:18 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Ridham Khurana <khurana.ridham222@gmail.com>
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Shuah Khan <shuah@kernel.org>, Jori Koolstra <jkoolstra@xs4all.nl>,
+	Brigham Campbell <me@brighamcampbell.com>,
+	linux-kernel-mentees@lists.linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH] hwmon: (lm95245) Fix negative temperature conversion
+Message-ID: <0d7f2c30-a775-43ce-a74b-a2019558e5a6@roeck-us.net>
+References: <20260923172551.1593798-1-khurana.ridham222@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260924104231.110576-1-r.zhambakiev@prosoftsystems.ru>
+In-Reply-To: <20260923172551.1593798-1-khurana.ridham222@gmail.com>
 
-On Thu, Sep 24, 2026 at 10:44:21AM +0000, Жамбакиев Радий Рикардинович wrote:
-> From: Radiy Zhambakiev <r.zhambakiev@prosoftsystems.ru>
+On Wed, Sep 23, 2026 at 05:25:48PM +0000, Ridham Khurana wrote:
+> temp_from_reg_signed() uses only the high byte when the sign bit is set
+> and drops the fractional bits in the low byte. Writing -500 to
+> temp2_offset stores 0xff80 (-0.5 degrees C) in the offset registers,
+> but reading temp2_offset back returns -1000.
 > 
-> fealnx_remove_one() frees the DMA rings before unregistering the
-> netdev, while the interface may still be up, which leaves a
-> window where freed memory can be accessed.
+> Negative temp1_input and temp2_input values are rounded down to the
+> next whole degree the same way. The chip reports -0.125 degrees C as
+> 0xffe0, which the driver returns as -1000.
 > 
-> Call unregister_netdev() first so dev_close() stops the Tx/Rx
-> engines, deletes the timers, and frees the IRQ before the rings are
-> freed. While at it use dev_err() instead of printk() for the 
-> unknown-device case.
+> Treat the register pair as a single 16-bit two's complement value.
+> lm95241 had the same conversion fixed in commit 0c2a40e2fe4f
+> ("hwmon: (lm95241) Fix negative temperature results").
 > 
-> Found by Linux Verification Center (linuxtesting.org)
-> 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Fixes: fffd80ccc1e6 ("hwmon: LM95245 driver")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Radiy Zhambakiev <r.zhambakiev@prosoftsystems.ru>
-> ---
->  drivers/net/ethernet/fealnx.c | 29 ++++++++++++++++-------------
->  1 file changed, 16 insertions(+), 13 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/fealnx.c b/drivers/net/ethernet/fealnx.c
-> index bdc38aac5850..d7cd1644a375 100644
-> --- a/drivers/net/ethernet/fealnx.c
-> +++ b/drivers/net/ethernet/fealnx.c
-> @@ -678,20 +678,23 @@ static int fealnx_init_one(struct pci_dev *pdev,
->  static void fealnx_remove_one(struct pci_dev *pdev)
->  {
->  	struct net_device *dev = pci_get_drvdata(pdev);
-> +	struct netdev_private *np;
-> +
-> +	if (!dev) {
-> +		dev_err(&pdev->dev, "remove for unknown device\n");
-> +		return;
-> +	}
+> Signed-off-by: Ridham Khurana <khurana.ridham222@gmail.com>
 
-I know you are just moving code around, but is that possible?  We try
-avoid defensive code. It is better to actually understand the code and
-stop bad things happening.
+Applied.
 
-     Andrew
-
+Thanks,
+Guenter
