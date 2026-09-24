@@ -1,95 +1,80 @@
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71AA347D931
-	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 12:49:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE86D311946;
+	Thu, 24 Sep 2026 12:51:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790254197; cv=none; b=XRY2ZyY8G7HtAA8VWoGlkfEO1iyVrXh+k+Xuru9pOBP4ldVFTem7v62WMNFJ8rlQGbXrttF7DZXeJDAcZ3I90/PM+ALpojo54GIsroTy8AVnZSKMkZS8ERgl4cG6khJErwyKi2YAfDlAalkWMrEJCuHr7MUlo9xxmZ/2i20jPuA=
+	t=1790254274; cv=none; b=A+sJRNxDqL0H9XGLXwiZuTV71BDD0c0KW/kYAn12EegSPcppoQrF6M/P3R9B6/ihD2oHlyT/THgF4xv1oODVwoYKYumAmeBBaA9gNGFt1Y7OMdF1y4k0+3zv/v3R+/1if+qU62DXzqaW3W0aBD5upoNLTwlYOmdmG4NGbdABtZA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790254197; c=relaxed/simple;
-	bh=n/XsUE7Gx26s3D/sGXyNDOn7kihXXXhDcnFSXNoy74g=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=p1pz34DlF38t8tPtdaijJ4yCBXCFImIPUrQTUpCf5YkDfqT1VAU2ojL949ZSybWN2CC793/YKQuZr1bGqP8Q+SYYHC4CCI+aCcCq1Q5D5hKBQuxJX2H6UgAQtcYnhzhDXJBSLV+jpTge80DJ/vn5sAbUfuEli6E47wh3gBq3J68=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OyEoiJ/6; arc=none smtp.client-ip=74.125.229.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790254274; c=relaxed/simple;
+	bh=0NoCcowoVuCQyLtJFecCntna/RvD8szpkF05RojNLwA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=g/72S0jMFVC2EPJyNhjI9qJvM6VF8aWsiNXhuZdjlswvYxl4QMezMM/yEZ2cBfYG/fKePupdr4Irm7rFMaj9QJP0Fcfm6XXPdXOMOJMhGjHarQck+zEVcA6J0M6qWhkoTGLflQiywSOnvrCYIGnW1IyDWkL1w81812RKTQt9tCo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=ib+gPErF; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OyEoiJ/6"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b899413537so2742177e87.1
-        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 05:49:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790254193; x=1790858993; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=S2q/mdgPycUE8ql0R016J++ZYLmYbGYSCmSNkPnI+ws=;
-        b=OyEoiJ/65HeH4ay99vQBX3uRPVofGDzw/iltdPvmoJzEL1BaEXXxa03hnGkJ1KMAGP
-         dnTJF68RNAuTz4exPnme1M1aBjjXkeIE4MgO2O4n7ficJvL6FhnE7LATypQGWhpylk/z
-         XGg3mxmVb0HXkOQMvqMJgeV66t4P2dRsGHrCHtC7cJHf+99i4x5569PTctljy6Fqt82j
-         rz1/RDd5xSaDZYBna8jObh3JE95eU4bePmvDE1SecebIcDGCKPdvndzXNa9kbjkRykDW
-         NXekA3gOiEtDux7ySxH7KblWTb2gOYJFF9t17FO1UrSYzkVi7chVnxGuPkKD3IEsIv2V
-         skCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790254193; x=1790858993;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=S2q/mdgPycUE8ql0R016J++ZYLmYbGYSCmSNkPnI+ws=;
-        b=XY3jRjfTiGPQS56QjeOMpgEhi6qJb7wdVg9YCZSOmnMgJSikPKCYp5BY1bMfR09LfD
-         Y1+Dh9h+CT3rkrSP9TLBKgtdQ+U0jQUiWxo6hJUXdGzflRzUJ7Yw+uMv313libyKdD7L
-         ee1PaU2nbkoGZpezxSZgdrHmtyxKu4l/8HBThqxO6ctRllYB3uAdmaOUbSYMfQpsYHkA
-         yC8rhtPVRtZrVwOZtoTSMCh8LVnWRaXWkwL1ZGpTTek1yDijaLcHKpE3NzQT6yrI39Ig
-         rfzAUuhrzckqaPmPLmbApCFaaELdzJSyNXrHC3+Bh+I6c4RSpdIwlr2F8T5wz6MrIhNy
-         uBPA==
-X-Gm-Message-State: AFuF++l9NdkThA76t35Xql6sl68qf4zfCjlNDmBedYthZPuDDQhOpnMs
-	D8k8bvnW7Ai/ImTm57NDQN3H2Eyuck1TzsTmfvnoFfho0hn4XLag02bAwMfzGmbPA9ThQA==
-X-Gm-Gg: AYBFou0r4yeEijUCREBdGE3R5cz1qvsBnDgXs0xyyaQ1JaOsTePP+FAFowoVt/64QDF
-	RyX6LAfjxTCr3o2BDM6EeqmHmdVp1LTM9NtxV5Bx7ErAxMG7j/aAuNV4AR9gPtFNhC3geHuwQ2j
-	N+I3hzTeUlaKwudJc1nZfyhRHkH4TkWTD7aJP4+9j6dVeHpvRLVv421F3HxIpa2R4AF4otkphd1
-	p2UuOl31PZYtaRhATiT0jV3aPouSo6DSHTRkA/KjH28aJTO5XWvrnUnOCjgRJSY7W+Zl87OFuoC
-	pCViypMjYbyYy3CQAIA2kDLkqwNXg+RDQC06jw2vxGzCiiGK7ETRkpFxaut4ZIEwGYUs9xRA77I
-	vFooDhk/xTwWe1NIadr52AOGy+8d07Hsf5sUnQ2acXcSI7y7dlDejOgIOYqe1yEHkXFRY85XT3q
-	xghHs6mJbGHbnlzupCwOu5BYqGPM+udidMoa2lEv1NVYwcHkjRF/rOcI7Xo6c3ZlX9zVr7dGPKF
-	lRQBlQHS0yz5XI=
-X-Received: by 2002:ac2:4e15:0:b0:5b8:9f19:7363 with SMTP id 2adb3069b0e04-5b8df07ab74mr906775e87.36.1790254193213;
-        Thu, 24 Sep 2026 05:49:53 -0700 (PDT)
-Received: from localhost.localdomain ([80.66.93.88])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8d859568asm1406880e87.77.2026.09.24.05.49.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 05:49:52 -0700 (PDT)
-From: Maxim Skokov <skokovmaksimevg@gmail.com>
-To: stable@vger.kernel.org
-Cc: Maxim Skokov <skokovmaksimevg@gmail.com>,
-	John Johansen <john.johansen@canonical.com>,
-	apparmor@lists.ubuntu.com,
-	Fedor Pchelkin <pchelkin@ispras.ru>,
-	Gaosheng Cui <cuigaosheng1@huawei.com>
-Subject: [6.6.y] apparmor: pdb leaks, two fixes missing
-Date: Thu, 24 Sep 2026 15:49:37 +0300
-Message-ID: <20260924124939.276438-1-skokovmaksimevg@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="ib+gPErF"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=5PtMn6ukGg6gAsqu/cBjeIKvLMgTB7HQzRle6zjWATg=; b=ib+gPErFxsicRDZfSVfRrDJlO4
+	IkT3EdKg1TZSG65DPsXiMOKLswHDzpB1ribsEEgjOBBv8QYVaaUaELPrHmDfdtbwhy1ivOAOlS+D1
+	NvzQTGVjr7t0IL2dWZujkGGuJnj3BLReG2vj2PjacAR7UF93rO36MRvPSZScozxC0dzY=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x9iul-006zbx-9w; Thu, 24 Sep 2026 14:51:03 +0200
+Date: Thu, 24 Sep 2026 14:51:03 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+Cc: Aldo Ariel Panzardo <qwe.aldo@gmail.com>, maxime.chevallier@bootlin.com,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, sashiko-bot@kernel.org
+Subject: Re: [PATCH] net: stmmac: guard FCS stripping against runt frames
+Message-ID: <8b3d8225-0d86-4e73-86c8-b7f644faef56@lunn.ch>
+References: <20260923162339.1375698-1-qwe.aldo@gmail.com>
+ <arQ4dVkI9llhXCDx@lore-desk>
+ <78724445-4c69-44fb-b82a-1f9275e37e9e@lunn.ch>
+ <arTX2kNFGXLg7vdn@lore-desk>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <arTX2kNFGXLg7vdn@lore-desk>
 
-Please apply to 6.6.y:
+On Thu, Sep 24, 2026 at 09:57:14AM +0200, Lorenzo Bianconi wrote:
+> > > > @@ -5808,10 +5809,10 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
+> > > >  
+> > > >  		/* ACS is disabled; strip manually. */
+> > > >  		if (likely(!(status & rx_not_ls))) {
+> > > > -			if (buf2_len) {
+> > > > +			if (buf2_len >= ETH_FCS_LEN) {
+> > > 
+> > > I do not think this approach is correct since, at least theoretically, the FCS can be
+> > > splitted between buf1 and buf2.
+> > 
+> > We are talking about runt frames here, so less than 64 bytes in
+> > size. Can such a frame be split over two buffers? What is the minimum
+> > size of the first buffer?
+> 
+> Why are talking just about runt frames?  According to my understanding,
+> this codebase (at least the one in stmmac_rx()) is executed on all
+> 'last fragments'. Am I missing something?
 
-1af5aa82c976 ("apparmor: free the allocated pdb objects")
-8ead196be219 ("apparmor: Fix memory leak in unpack_profile()")
+That the patch subject is wrong?
 
-Both fix 98b824ff8984 ("apparmor: refcount the pdb"), which is in 6.6.
-Neither fix is in 6.6.157 or queue-6.6. 6.1 predates the pdb refcount,
-6.12 and later have both fixes.
+[PATCH] net: stmmac: guard FCS stripping against runt frames
 
-Without them every policy load leaks the file pdb of each profile, and
-every freed pdb leaks its own allocation, so memory grows with each
-profile reload. kmemleak on 6.6.157 (Debian 13 userspace, 107 profiles):
+I suspect this is an AI generated bug report, a minimal fix has been
+proposed, but no actual thought applied to the situation, such as does
+the hardware even allow it to happen, does it apply to more complex
+situations, such as fragmentation etc. The usual AI problems....
 
-  after boot:                76 objects from aa_alloc_pdb
-  after 10x apparmor_parser -r /etc/apparmor.d/:  2258
-
-With both commits cherry-picked (they apply cleanly, in this order):
-0 and 0. KASAN, UBSAN and lockdep quiet on the same runs.
+	Andrew
