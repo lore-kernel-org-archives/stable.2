@@ -1,140 +1,103 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D08F345D1BD;
-	Thu, 24 Sep 2026 10:00:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DF1B45FFD2
+	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 10:11:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790244058; cv=none; b=r//11qQYTCpN/aln+dLx8lwz7EgM50i/XRCn3WJWZcP0hZ55wpKV2fYKgL0aILwVFXH8E5wh91zJwrwAQHgFF46Je5AZaKWNV9fCdgvyHFtEfvg8Vr4qtATKu3SlQbtZfw8CqsqYR+C2Xodc0h7FcgnRL5l8Aw653T5s45Lh9iE=
+	t=1790244716; cv=none; b=Qs6EczN40f+oOB8Jzd0OuE5mgzMm9SoIaGtM2UfwI6xc/tkqvpx4Tv+pjfTurHP+2UFNVtiUriPFDPM7fnC0Wk0E7Ynl6C4BnVaxUyoyYMHhNWA7lO5G7MsFAqauG2EjP+VSYEZKIfOhFJOITl3RdbTiKNH88u2otz5J2DaKj7Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790244058; c=relaxed/simple;
-	bh=FFQYnczjBATsnDZ529OE5mhMgnVzXRtQTsOmc4nStHc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aSCpLgDx2uo2VC2PUDQ8GeBj4FsGAFI4vnf+UBVhQaFdMiggypFrnype7m8Tqs3SPeHAocnwmhK/rEvupahnaTlyDjJu7s0/iNRUtQFnphF9/eBJj2lIVxNxKvITlSsI7+g/WtF6DivTUxkKdtuQF9HrSHjONbE+DkvAD2g3xYk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=L3+eDnBY; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1790244716; c=relaxed/simple;
+	bh=Nc++9B0b2Rw64hQH1uTtHtl01UfhcPbPRHWlll6r3Hc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=tBNCRzJV/P0tiSxIGXvbfk/XVAi8GWqMYGqr0cR79avpc3xtzzf730JyC8VVlHozPyHzM+dVPYcMR7wnDTb2j8uMkHaErM2Mnr7N/7ONOL0vmN0RowIIdJy82WbZNahRKkrAedbG8XsC1QG6HxFCRc4Wtuvtk+mTvqVyxcx0G8s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=evXBZTV7; arc=none smtp.client-ip=74.125.227.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="L3+eDnBY"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=xt0MlUmSz2PI0Rs6KjVEiWXP3SZQmqgbE8xNOYhlUnA=; b=L3+eDnBYBrBBegfejLjGVQpoZv
-	/m8mslbFtnH9L8vWjDaNeyXWjMY2P9g87gq/2DlbW6dgm5krE+axEuXWAEQV2AlfQpGYRKnDTmp92
-	cjxKuQekxs8N4Um2Bc8KBI+DqKDG8AQj7skY2Z+kCuIj/TES9CPd4yTVx0CacEtesQsE1v+Buqzi5
-	EtQwx51aV42yiPeg+dNdnQTFfyFh6znXD3qFAVfJtU2Kb1SCcK9JrICp7aTJz5Pj9AmqG3mceluQM
-	8KxA9F1VmJFoDOudBJwMsSZcZAryBqXRjrQNAZk1/7kC091pkZ50wPz275IOnQ4vo4XkiuZy/WDQw
-	MigtAWYw==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1x9gFt-0000000FoXH-3bW0;
-	Thu, 24 Sep 2026 10:00:42 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id A08433006DD; Thu, 24 Sep 2026 12:00:40 +0200 (CEST)
-Date: Thu, 24 Sep 2026 12:00:40 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Vineet Gupta <vineet.gupta@linux.dev>
-Cc: rostedt@goodmis.org, mhiramat@kernel.org, mark.rutland@arm.com,
-	mathieu.desnoyers@efficios.com, andrii@kernel.org,
-	linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org, kernel-team@meta.com, stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] tracing: fgraph: Raise FTRACE_RETSTACK_ALLOC_SIZE to
- 1024
-Message-ID: <20260924100040.GD4121339@noisy.programming.kicks-ass.net>
-References: <20260922225526.1554758-1-vineet.gupta@linux.dev>
- <20260922225526.1554758-2-vineet.gupta@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="evXBZTV7"
+Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-396ccb65437so1139923a91.3
+        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 03:11:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790244701; x=1790849501; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5bJLApz7a6Sj13/KQXZnv/qEoqKgMiQN8Xc7a1Ahq80=;
+        b=evXBZTV7OUxqvWuG2xpT4JlqhvV/BLjIx2yy8zN8G86lKiwODvQiAKwWDClcGKy56Y
+         DJn1hCA/t70F2zN/wYtrO17QkyMU1HLizueMxp0eq/g0UMsvle9GNBmnceT+3hruPMAW
+         ENfbbKzl4/v9Zlu50C2jt8BXt7QX4qMW1R9wCzD2wTEt0KKzujQiimcYtRZm/uz5+M0w
+         SzgpMNN6RxvIN5tA5hRoWVtMFGSkicMJcVPjoFqTWVfqIM8dv/Yaewh8vcPSAd//usOU
+         szA7YCUSnpKBZrgGcn5EjeJhaLcaVz9MD0v3+68/PsKzMclGTMLVMbbH3vEpN/ZEh5ud
+         12Ow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790244701; x=1790849501;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5bJLApz7a6Sj13/KQXZnv/qEoqKgMiQN8Xc7a1Ahq80=;
+        b=N2YxMTJaPu96F2VWHv4hqCrWBpm2ISwF5qETrlKd9OU8E0la0Q4uKL0hsaj0qk7xUi
+         HcqsYK9Y6iB91dIuNHVKA41EEYorJ6Oh8Ds88D5UD1MUJLWQH2KXHx4FKESFqOJF6Pdc
+         pdU21/sp3vdP/HiXgK0f67vCBipsbFKizbs3NOhVQVEkaJIYzs9ybvasdB+Wd4bPK1u7
+         90BXZapcOsJQdQg9A/iWWaWb5U5vGm7WbdRwAhx0et+5NZeBJnP09CzxO8sd7ir2w+d7
+         IOY+MwSB9rbQ8+nIC01JTUGu7RodmA3oaJG0W88KQ4oeJTYHGZDLtmgqJLOYmS0y6m4x
+         myHw==
+X-Forwarded-Encrypted: i=1; AKwUvBzewkcJnrk7gkid3TodUe/JH6D1M0d8kyz7Fb4YVYzpZEz0Wv1jr90wIW5t3VsdcsrAc4awLuQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++m15ksiwGHwXMNR/odoL3YjDz7OlYsjNwPEyXVBPKM2Fo3FiVvd
+	8VvT0bu8X2Kncr6cscobt7BMM9QItdXS01WnELrojsc4KAsSwQIIEaqK
+X-Gm-Gg: AYBFou14mlC99flofqu57USluHpNetc5LIHclIN3AUyzp0urvPqrpSe5Ab2+U7HGU5K
+	quEHiEL/Q7D3r5CtEkhuZro9Vvp8yjh75i91j/ZObEoq1bp1j6yh77FY4OeKVckIEqe7DHwuJod
+	s77vczxVRgUX7NzmnPSAua3IEVQ22a/1QPB2mgjPK61c0D7lOty7ccfn9+27iQAQbhLGbVC11Kw
+	f0G1f234p2Kveyye4jNsSyzF+zzZo/FmFyUJQtrFU+t/ZKepaqBoxf1T2pLJulDmfX+oZ2mC54C
+	UDKFRg7Gha7xDvvY7yAvgik7BF3bYLG8yqN6+DGXLOJ/6CN9RCqr6EPksqIRrhYlpRvqHAfmW3D
+	cF5uEcoWsEhtjimXi+00efbN4yZSG9Aig7lm7K7DOwyNH6xNvsnCXaTh8f6MSDhnmJOR2pwKKAE
+	fkPcK2SrldaIDjpd3AXr1gmA2JC/47efpZW88WxMO+pOn/Ui6WOzk7FdF9hDwnWH5GPnk2YjMKv
+	kghfNNJvxsVSFzocVTAohojvqZ8VTyVEF6U2GcpUaeyjogF18WTrfC9gqu/Ix53Ks4qpltFdFLw
+	ouwFMcpacYRaO4guQn8pizL0ESREL2peRbKtVv3Zxh1RGdl9mUe6Ciwn+W4=
+X-Received: by 2002:a17:90b:4b41:b0:39e:4c7f:7307 with SMTP id 98e67ed59e1d1-3a098b8ab32mr1639460a91.30.1790244700743;
+        Thu, 24 Sep 2026 03:11:40 -0700 (PDT)
+Received: from spider.bream-herring.ts.net ([103.6.151.236])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0974ec5dfsm4075446a91.3.2026.09.24.03.11.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 03:11:39 -0700 (PDT)
+From: Matthias Goergens <matthias.goergens@gmail.com>
+To: Hui Peng <benquike@gmail.com>
+Cc: Anders Larsen <al@alarsen.net>,
+	Christian Brauner <brauner@kernel.org>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3 0/6] fs/qnx6: fix buffer head leaks, double free, and inode validation
+Date: Thu, 24 Sep 2026 18:11:36 +0800
+Message-ID: <20260924101136.2380154-1-matthias.goergens@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260924073920.2782917-1-benquike@gmail.com>
+References: <20260924073920.2782917-1-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260922225526.1554758-2-vineet.gupta@linux.dev>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 22, 2026 at 03:55:25PM -0700, Vineet Gupta wrote:
-> When ftrace graphing is turned on, all tasks in the system missing
-> return stack page are assigned one. This is done in a simplistic
-> multi-sweep loop of FTRACE_RETSTACK_ALLOC_SIZE (currently 32) tasks
-> at a time as follows:
-> 
->    start_graph_tracing()
-> 	do {
-> 		alloc_retstack_tasklist
-> 	} while (-EAGAIN);
-> 
->    alloc_retstack_tasklist()
-> 	alloc x32           # GFP_KERNEL, may sleep
-> 	rcu_read_lock()     # preempt off
-> 		for_each_process_thread    walk N_total, no cond_resched
->                      t->ret_stack = new_page
-> 	rcu_read_unlock()   # preempt enable but no explicit yield
-> 
-> Each successive iteration of loop invokes for_each_process_thread()
-> which doesn't support cursor based resume and always restarts from the
-> init_task. Thus each successive loop needs to skip the tasks assigned
-> ret_stack in prior sweeps and thus take longer and longer to find the
-> candidate 32 tasks. 
+Hi Hui,
 
-Does this work?
+Thanks for picking up my tags so quickly.  I tried to test v3 as well,
+but it doesn't apply to mainline (40288c9206c1) or on top of v2, and
+its context has code that isn't in fs/qnx6 in mainline or linux-next,
+for example qnx6_inode->di_ptr in 1/6 and the out_sbl1/out_sbl2 labels
+in 3/6.  My Tested-by and Reviewed-by were for v2 as posted [1], so
+please drop them from v3 for now.
 
-diff --git a/kernel/trace/fgraph.c b/kernel/trace/fgraph.c
-index ed455b53513b..155dafad474d 100644
---- a/kernel/trace/fgraph.c
-+++ b/kernel/trace/fgraph.c
-@@ -1036,10 +1036,9 @@ trace_func_graph_ent_t ftrace_graph_entry = ftrace_graph_entry_stub;
- /* Try to assign a return stack array on FTRACE_RETSTACK_ALLOC_SIZE tasks. */
- static int alloc_retstack_tasklist(unsigned long **ret_stack_list)
- {
--	int i;
--	int ret = 0;
- 	int start = 0, end = FTRACE_RETSTACK_ALLOC_SIZE;
- 	struct task_struct *g, *t;
-+	int i, ret = 0;
- 
- 	if (WARN_ON_ONCE(!fgraph_stack_cachep))
- 		return -ENOMEM;
-@@ -1054,26 +1053,29 @@ static int alloc_retstack_tasklist(unsigned long **ret_stack_list)
- 		}
- 	}
- 
--	rcu_read_lock();
--	for_each_process_thread(g, t) {
--		if (start == end) {
--			ret = -EAGAIN;
--			goto unlock;
--		}
-+	scoped_guard (rcu) {
-+		for_each_process_thread(g, t) {
-+			unsigned long *rs;
-+
-+			if (t->ret_stack)
-+				continue;
-+
-+			rs = kmem_cache_alloc(fgraph_stack_cachep, GFP_NOWAIT);
-+			if (!rs) {
-+				if (start == end)
-+					return -EAGAIN;
-+				rs = ret_stack_list[start++];
-+			}
- 
--		if (t->ret_stack == NULL) {
- 			atomic_set(&t->trace_overrun, 0);
--			ret_stack_init_task_vars(ret_stack_list[start]);
-+			ret_stack_init_task_vars(rs);
- 			t->curr_ret_stack = 0;
- 			t->curr_ret_depth = -1;
- 			/* Make sure the tasks see the 0 first: */
--			smp_wmb();
--			t->ret_stack = ret_stack_list[start++];
-+			smp_store_release(&t->ret_stack, rs);
- 		}
- 	}
- 
--unlock:
--	rcu_read_unlock();
- free:
- 	for (i = start; i < end; i++)
- 		kmem_cache_free(fgraph_stack_cachep, ret_stack_list[i]);
+Which tree is v3 based on?  If you can point me at it, or rebase onto
+mainline, I'm happy to review and test it again and send the tags for
+the new version.
+
+One small thing for the respin: the 1/6 commit message says
+QNX6_PTR_MAX_LEVELS is 3, but include/linux/qnx6_fs.h defines it as 5.
+
+Thanks,
+Matthias
+
+[1] https://lore.kernel.org/all/20260921042511.1473629-1-benquike@gmail.com/
