@@ -1,106 +1,151 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 58BE345039;
-	Thu, 24 Sep 2026 04:46:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-wr2-f30.google.com (mail-wr2-f30.google.com [74.125.225.94])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 760CE309EE9
+	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 05:07:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.94
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790225168; cv=none; b=V33b948MYER3KqPkTvz+VDe4LiwJp1lWzqVp4jrD6jiRtc1Y+n5fcl9zK/1UvtLsnQ01vl/FotfgzY4u5FDECkdeDgFUrfhmCpcxUrVxV3O/se+AiWA/uOodSrAyxeSoo105xudzEi5dARQtEpn/GQkdVKEd0IpukghaBA5Tmdw=
+	t=1790226443; cv=none; b=mcQCmucW7relcKUqAYDKerrddTk4O0MZynvefn5UosY3GQPrqlJ3fbE45lnkQdxhxgYOVyhVXtT3UX8QWzOHCyD3i1hl6vEQoBUBCXCgrVrYUEEmCTbB/2HmZTeprYQPrGiwj0qzm/J6GEmWlQIVeTTqZ+q466ybJmyXT8mzybI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790225168; c=relaxed/simple;
-	bh=twJdAsaPAodbcF/MI4mhg53E/bpYg9gpDeHwjpTU600=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EOKG/WFY7YrWLt6ltnJppnkuVS8VqNNpUF7rF8tiw1QV/NwA0FU2SxrOvi1JC9dHIGoamFdfe7Q7IBO6Zlow4CQK+2I6Wg49MpJmK8yyGhFIePsSVE9k9CO/XZcJ1mfmKmC3JdPExENvTQ6H52DUUVX7iHtTIr7cFbmu2Z/jPkU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ZsnSmBfs; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790226443; c=relaxed/simple;
+	bh=RvN9tr7OMSHjhSPPDl4QRVwPNOQ621tRsWxmvVvpx70=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GHHcL1OOKPz++1EHsRjmYmluFiSpYX3LXlblpGLr8cLStpbUeN3kkCUMlrR/mKiSWYxOYJ1YJ2VT+LdT7MSyvPC9CSEMRlIEF02HE42/gNGxzgwqILcNb+5+duH+wTvCOHCUkpBWQiblARDkOfQYqoGDc7RdMKyU/nYjt34IEIo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VUFKHl6x; arc=none smtp.client-ip=74.125.225.94
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ZsnSmBfs"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 20843143D;
-	Wed, 23 Sep 2026 21:46:02 -0700 (PDT)
-Received: from [10.164.19.30] (unknown [10.164.19.30])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5E3643F86C;
-	Wed, 23 Sep 2026 21:46:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790225165; bh=twJdAsaPAodbcF/MI4mhg53E/bpYg9gpDeHwjpTU600=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ZsnSmBfszOm6qzkEvFPgQjQ0kQZ5rsw/V9DHea66UnB7W7VSv5h9Ddq4TabOy99Wh
-	 XMueywuU9wOiu50kH2brG1fCB0yg3HCNcInkPkgPSEf8VkYfVkp1Wa3Zv1icE/xGNZ
-	 zE0kADTabnlTDAY+7Dmq3XLFBQ9ZCA3SmxNMKe9Y=
-Message-ID: <27fbf794-6fbb-44e3-91e7-d2ae86aae9af@arm.com>
-Date: Thu, 24 Sep 2026 10:15:59 +0530
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VUFKHl6x"
+Received: by mail-wr2-f30.google.com with SMTP id ffacd0b85a97d-48439feca17so1398173f8f.1
+        for <stable@vger.kernel.org>; Wed, 23 Sep 2026 22:07:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790226440; x=1790831240; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hAiejLrEozrEZ8WjZRhX5Jq/prYDWf06MJHYnvfVrr4=;
+        b=VUFKHl6x+BYZUQl45FQlDzv+KJoGQOZzuRwADS+os4hNlF4tNPoFfbI6k+sRmzsH2F
+         S/n75OgaptPOdl9vNooYjPfiSDCtIwTPmGSLoDuIeqWXGm9I0HfZIRMevhHDNNzThqQy
+         Ltvi7ZnVSfVNbyjeF+h3XERurhdscX2L3IiK3HUHbidQylUMS0rVx00ZcvokIzagtxZW
+         ePKAeb11bG3gDOB9cdGo27O+jsPuisdS6REgVhM1Dt0EVtbIL2GlEIx8ucFJY3piKEFi
+         /WMRruckjDrNAoMFU8OBynCMQm1yCp8PqwSUpcDCBXejU+55FQiheDRmMnCJ4+IhTMN7
+         tq1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790226440; x=1790831240;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hAiejLrEozrEZ8WjZRhX5Jq/prYDWf06MJHYnvfVrr4=;
+        b=UWTlUN/zunubmeJ3XWkixRBfvQz1NfSdd5WwOkdNohE7hEi4OUFdduxzvJowipQLE+
+         7hdSzuRjBh8hLxxLA8NNqdiNFDCxUg1ojFqaIAbX4ns2MMCXV5Cq8KGfdK4b3VyicbHY
+         dCDsZVKOdkmWs/Pf/OZ3NOzRLsNoPEbRFlJBWsuTSNCCveCMD90LxhelPzKZseSIWOAP
+         JkhvjTrCkudvNd9f90NFAOb3QC77NSv93O2sJgh1ITkP/0e/mQeTTavQJx9qC5R4DBrS
+         dVNqrLJu+bFYuH/7A+P7wmVhXW+8OPSmNnCn0O6zHnRLQiFJ+FPVnTJ5i65Bn3AW/AUO
+         C72w==
+X-Forwarded-Encrypted: i=1; AKwUvByWFGOuXhvH5LZYLYYe2MI1Sku5cUD1AmLVJjKTC8no6kBWR3cRDaUNXse80m6p9tq1E3nhiaM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lUy5bZzz6sBFZTSA+cvHfTN3GmPAihVZ1Ln/R4IIIKfFpZyCyj
+	kNZFNEmGybUGLT+X6fTrW5r7xEiEWmu8Rb1gF0OSMpWIduQ8ZB8BRQY1
+X-Gm-Gg: AYBFou1QV8ASF6TCATJIh0mOyK8Hu7USZt3ZudQGWD0L3wvyfqvBlOcoT0brhcBuEhx
+	vJ70yfJ3GiXoSISZK2uNxfqCkvEvmmZ+45ezKBKo/CdVxE0YpYvr5t2wQPeVD67pUyj5LlrzS0D
+	w6pXQ9eeB8iHew6nN9eTsn3+gUjd8gkA+kc4KZjSYyT1Si0dQrFJZf8ZwOKWdBiv26hafXudBEV
+	CSj6Qkx+r4VUN4tqC8R4m3AJv7333yH62dOkyCBcmXP6O0AVfpYFqFz76MCIO2DQ96zPQQbo/9S
+	exs0us/Pgb3hfmEY0wvvtTr7L8i7Lu/Dn+3t8G5fYjQ9HLzTd4buR4LU55BpNttEc178s9HVFeK
+	7CJRvHx3z1xxYexzLHWHZQTKggsH/pD4x2Z7SQunCSEscY40Y2SNnPFJH4qzYF0f+fMwYbgE3H2
+	paZDTPFGDDK821/2zPwum0ByDcdEe+iXaUhg6UiLln4E9HUmppkE7IRqfVfvht14N0vtR9
+X-Received: by 2002:a05:6000:2510:b0:487:c99:9020 with SMTP id ffacd0b85a97d-48871714226mr2176971f8f.2.1790226439478;
+        Wed, 23 Sep 2026 22:07:19 -0700 (PDT)
+Received: from archlinux ([188.163.27.108])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48868889926sm15720202f8f.36.2026.09.23.22.07.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 22:07:18 -0700 (PDT)
+From: Matvey Valigura <valigurasm@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Chas Williams <3chas3@gmail.com>,
+	Duncan Sands <duncan.sands@free.fr>
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	syzbot+9ca2c9f85bd8b5e46516@syzkaller.appspotmail.com,
+	Matvey Valigura <valigurasm@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] usb: atm: use request_firmware_direct() for firmware probing
+Date: Thu, 24 Sep 2026 08:06:54 +0300
+Message-ID: <20260924050654.15347-1-valigurasm@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: mm: Fix the break-before-make flush range for
- erratum 2645198
-To: Andrea Parri <parri.andrea@gmail.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>, Ryan Roberts <ryan.roberts@arm.com>,
- Ard Biesheuvel <ardb@kernel.org>, Kevin Brodsky <kevin.brodsky@arm.com>,
- Anshuman Khandual <anshuman.khandual@arm.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260923143636.89480-1-parri.andrea@gmail.com>
-Content-Language: en-US
-From: Dev Jain <dev.jain@arm.com>
-In-Reply-To: <20260923143636.89480-1-parri.andrea@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+When disconnecting a device while firmware is not present on the system,
+usbatm_usb_disconnect() waits for the heavy_init thread to finish:
+    wait_for_completion(&instance->thread_exited);
 
+If CONFIG_FW_LOADER_USER_HELPER_FALLBACK is enabled, missing firmware
+causes request_firmware() to fall back to sysfs/udevd. This creates a
+circular dependency during disconnect:
+1. usb_disconnect() holds device_lock(&udev->dev).
+2. usbatm_usb_disconnect() waits for instance->thread to exit.
+3. instance->thread waits for request_firmware() sysfs fallback.
+4. udevd receives the firmware uevent and attempts to read sysfs
+   attributes (e.g. serial), blocking on device_lock(&udev->dev).
 
-On 23/09/26 8:06 pm, Andrea Parri wrote:
-> modify_prot_start_ptes() performs the break-before-make TLB invalidation
-> required by erratum 2645198 with __flush_tlb_range(), whose third
-> argument is the end address of the range.  It passes nr * PAGE_SIZE
-> instead of addr + nr * PAGE_SIZE, so __do_flush_tlb_range() computes the
-> page count as (nr * PAGE_SIZE - addr) >> PAGE_SHIFT.
-> 
-> For addr > nr * PAGE_SIZE that subtraction underflows, the page count
-> exceeds the batching limit and the flush degenerates to flush_tlb_mm(),
-> so a single-page mprotect broadcasts an ASID-wide invalidation and a
-> full-range mmu notifier call.
-> 
-> For addr <= nr * PAGE_SIZE only [addr, nr * PAGE_SIZE) is invalidated,
-> and when the cleared batch starts below nr * PAGE_SIZE the tail is left
-> in the TLB.  The workaround then no longer covers the whole batch, and
-> for addr == nr * PAGE_SIZE the flush is empty.
-> 
-> On affected Cortex-A715 CPUs, this can corrupt ESR_ELx and FAR_ELx on the
-> next instruction abort caused by a permission fault.
-> 
-> Pass addr + nr * PAGE_SIZE as the end address.
-> 
-> Fixes: 7efa1cd5f89b5 ("arm64: add batched versions of ptep_modify_prot_start/commit")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
-> ---
+Furthermore, the fallback wait uses wait_for_completion_killable_timeout(),
+which ignores the non-fatal SIGTERM signal sent by usbatm_usb_disconnect().
+Because speedtch and cxacru probe multiple candidate firmware files
+sequentially, each file stalls for the 60-second fallback timeout,
+triggering hung task timeouts (>120s) reported by syzbot.
 
-Thanks, such typos should be filtered out by LLMs nowadays : )
+Switch to request_firmware_direct() to probe firmware files directly from
+the filesystem without falling back to user-mode helper.
 
-Reviewed-by: Dev Jain <dev.jain@arm.com>
+Reported-by: syzbot+9ca2c9f85bd8b5e46516@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=9ca2c9f85bd8b5e46516
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Matvey Valigura <valigurasm@gmail.com>
+---
+ drivers/usb/atm/cxacru.c   | 2 +-
+ drivers/usb/atm/speedtch.c | 6 +++---
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-
->  arch/arm64/mm/mmu.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
-> index 79d90226fd5dc..d4384131e10d8 100644
-> --- a/arch/arm64/mm/mmu.c
-> +++ b/arch/arm64/mm/mmu.c
-> @@ -2295,7 +2295,7 @@ pte_t modify_prot_start_ptes(struct vm_area_struct *vma, unsigned long addr,
->  		 * in cases where cpu is affected with errata #2645198.
->  		 */
->  		if (pte_accessible(vma->vm_mm, pte) && pte_user_exec(pte))
-> -			__flush_tlb_range(vma, addr, nr * PAGE_SIZE,
-> +			__flush_tlb_range(vma, addr, addr + nr * PAGE_SIZE,
->  					  PAGE_SIZE, 3, TLBF_NOWALKCACHE);
->  	}
->  
+diff --git a/drivers/usb/atm/cxacru.c b/drivers/usb/atm/cxacru.c
+index 636f7886f..7d1944487 100644
+--- a/drivers/usb/atm/cxacru.c
++++ b/drivers/usb/atm/cxacru.c
+@@ -993,7 +993,7 @@ static int cxacru_find_firmware(struct cxacru_data *instance,
+ 	sprintf(buf, "cxacru-%s.bin", phase);
+ 	usb_dbg(usbatm, "cxacru_find_firmware: looking for %s\n", buf);
+ 
+-	if (request_firmware(fw_p, buf, dev)) {
++	if (request_firmware_direct(fw_p, buf, dev)) {
+ 		usb_dbg(usbatm, "no stage %s firmware found\n", phase);
+ 		return -ENOENT;
+ 	}
+diff --git a/drivers/usb/atm/speedtch.c b/drivers/usb/atm/speedtch.c
+index 9d28c652b..c82db2f7a 100644
+--- a/drivers/usb/atm/speedtch.c
++++ b/drivers/usb/atm/speedtch.c
+@@ -357,15 +357,15 @@ static int speedtch_find_firmware(struct usbatm_data *usbatm, struct usb_interfa
+ 	sprintf(buf, "speedtch-%d.bin.%x.%02x", phase, major_revision, minor_revision);
+ 	usb_dbg(usbatm, "%s: looking for %s\n", __func__, buf);
+ 
+-	if (request_firmware(fw_p, buf, dev)) {
++	if (request_firmware_direct(fw_p, buf, dev)) {
+ 		sprintf(buf, "speedtch-%d.bin.%x", phase, major_revision);
+ 		usb_dbg(usbatm, "%s: looking for %s\n", __func__, buf);
+ 
+-		if (request_firmware(fw_p, buf, dev)) {
++		if (request_firmware_direct(fw_p, buf, dev)) {
+ 			sprintf(buf, "speedtch-%d.bin", phase);
+ 			usb_dbg(usbatm, "%s: looking for %s\n", __func__, buf);
+ 
+-			if (request_firmware(fw_p, buf, dev)) {
++			if (request_firmware_direct(fw_p, buf, dev)) {
+ 				usb_err(usbatm, "%s: no stage %d firmware found!\n", __func__, phase);
+ 				return -ENOENT;
+ 			}
+-- 
+2.55.0
 
