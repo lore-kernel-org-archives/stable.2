@@ -1,109 +1,81 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E18745FFCB
-	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 16:31:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BC17446053;
+	Thu, 24 Sep 2026 16:31:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790267463; cv=none; b=JdvxTpAUiITX/SR2ntO6cdsh7mwVxTE3pSHvuHFU8EvEQaWvHCKqgqe453WuCqVRq9JbVB/11uGkip5F55ECV39FXMBlbDuYDpG8bX21hhcKZ3AEgUkI+9uCmwL62QrLQQLhF22nJUty+qsaZsMv/L7GprRpe6vrnGvHP7Csrvg=
+	t=1790267477; cv=none; b=LBGS+2BNjtJz5FHGMypVV94hlg4LxShZ5+J/Eh1oZC6jbMIYX8JSqHYjRey3l5BW6rmDBKC//tf3tIv6ZQjGlaEs6Pc12HRZn/YqsZgORZERjOpzHzppSQY9u9268ZnUf3/GEiHsZYvBWYr4ItPYslKH3JRK6gLVrMG7XNsoXPE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790267463; c=relaxed/simple;
-	bh=AW69JSTuKRu0+owu5Z9DZUhFDLudIJOEddmW6LlPCNw=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:Subject:Cc:To:
-	 References:In-Reply-To; b=g5NwW8T4Z8z36n0O580aIRDMMlhg5QGn4AUIF//DgvQuoNkNg0ORDlw0CjqlLdzwgESHgeZMnBQibV9S3CYLHpa//dXC4MgKyR9nz11/hHphnAqe+jzaycsB6/EVH18bOcpErV4wUY6JpYk3vsuWvqUZNlvplooYGhNpvByn9eM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Cv687Kf2; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790267477; c=relaxed/simple;
+	bh=IdA+mcFIM/aPB3twx0y7leb4szaFE/tPvTooXY9G6LA=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=OILzECM2DxC4qPB/oQQUknbbyyM+7p0ae/ZWl/ZN3lkHEQOkVw6j4hXmq6W2NY4pOv5DzobMguAefu0w1DimS6+7QhJX99jEUofP+aCmNZEdY7dTzpTrhSp2c8qo7hqntHls9Cf67/GK0Ku6AGJAZM43x04QjXPwkLfjoBe/9s4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nk5g+hFX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Cv687Kf2"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id DDBB71A1003;
-	Thu, 24 Sep 2026 16:30:59 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id AEA5660738;
-	Thu, 24 Sep 2026 16:30:59 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0E2E41032952B;
-	Thu, 24 Sep 2026 18:30:52 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790267458; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=dhFm/PLOniIQxvCkDITkzQzqbwdfD5DtiTHbFqGEDOw=;
-	b=Cv687Kf2jLWjj7JAKOj+GR15zorz7Tfz7B+YYC4ycRp8S9lbsf+qO3nwk+1NyBIG2nSUu0
-	jNL9TF9/vzNvz91w8vnz6UB3z8mo8QBoEpJYuRHJfKNUOTKHLht7UFT5aUMUXJpTvq6hbq
-	iRcdUTwm82OD+8rcKj5Lw8CMxpPvCiDAZ6nasY+GxukuIRVXW6Sx7ODRTNZCCap3fo7STs
-	20MfaOn5q3FL6zwkwh1zmWYjQnPCV6GBQQdNpqsRPne7Tb5EeMPfr1Xv4/bL6eTWJKnUzU
-	6IJxOTWgO2MSXJE7PJNwWEqJEafpzgjlaK8uIEEmPnrAHRY7BlIQj8XqckUxNA==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nk5g+hFX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB2B31F00893;
+	Thu, 24 Sep 2026 16:31:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790267475;
+	bh=ow/Q57RKC0ibuf1QxYnFsae0EBpIqB7kmXidBtLR4os=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=Nk5g+hFX1F5vuh0mFcjO9vJLU3bQNQh2q8Jv8EOPPrKTp3bmz34Q81opzVIUcFbpm
+	 2CdBEc85FeGnWgT7q8USMGOtJhkks+q+7mcp14Jh6v9myPXNrdt7DX/I5/Wir5PrmV
+	 e9SdfZ9QC8T/tnGDT5i7ytogWbRuFCQn6fRQqz4nXRlTg3MC6VTPXlGk0rHWbs5eCZ
+	 39wScb4ed3A7SI86rDT+Yc7fP3S54TsGUY94l+HD/yILUenFyLW3nRDF/oo4JiJmMl
+	 uC6RxEVoxLAq7fJemHXmn6f12lFPYshTTmMFFKciI90D/HurIMP2Q9glFSC1eFEPvx
+	 M4oLnshqtfj/A==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 198543A566CE;
+	Thu, 24 Sep 2026 16:30:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 24 Sep 2026 18:30:52 +0200
-Message-Id: <DLNOUHOHFIAT.2CM5NXJLGRM4H@bootlin.com>
-From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
-Subject: Re: [PATCH net 1/3] net: macb: never give hardware a NULL RX buffer
-Cc: <netdev-bot+sashiko@kernel.org>, <conor.dooley@microchip.com>,
- <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
- <pabeni@redhat.com>, <horms@kernel.org>, <nicolas.ferre@microchip.com>,
- <sean.anderson@linux.dev>, <atenart@kernel.org>, <linux@armlinux.org.uk>,
- <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>, <nb@tipi-net.de>,
- <vladimir.kondratiev@mobileye.com>, <gregory.clement@bootlin.com>,
- <tawfik.bayouk@mobileye.com>, <thomas.petazzoni@bootlin.com>,
- <maxime.chevallier@bootlin.com>, <stable@vger.kernel.org>
-To: "Jakub Kicinski" <kuba@kernel.org>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260918-macb-close-v1-1-05e32ce98813@bootlin.com>
- <179010942002.2160803.8691011751847108495@kernel.org>
- <20260923184756.16ce33a7@kernel.org>
- <DLNN7LYYGP7L.3OSN8JZNC37PS@bootlin.com>
- <20260924084104.25099f60@kernel.org>
-In-Reply-To: <20260924084104.25099f60@kernel.org>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v2] net: usb: cdc_mbim: add MeiG Smart SRM821 to ZLP
+ whitelist
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179026740490.1641283.14259237051960646702.git-patchwork-notify@kernel.org>
+Date: Thu, 24 Sep 2026 16:30:04 +0000
+References: <20260920074500.826121-1-wangming01@loongson.cn>
+In-Reply-To: <20260920074500.826121-1-wangming01@loongson.cn>
+To: Ming Wang <wangming01@loongson.cn>
+Cc: netdev@vger.kernel.org, linux-usb@vger.kernel.org, stable@vger.kernel.org,
+ oliver@neukum.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ linux-kernel@vger.kernel.org
 
-On Thu Sep 24, 2026 at 5:41 PM CEST, Jakub Kicinski wrote:
-> On Thu, 24 Sep 2026 17:13:58 +0200 Th=C3=A9o Lebrun wrote:
->> > If the AI interprets the rx poll side correctly these seem like a majo=
-r
->> > flaw in setting the USED bit :( =20
->>=20
->> Yes the AI is correct (unsurprisingly). But two things:
->
-> If it's correct then patch needs to be changed.
-> Please don't write puzzles for me to solve.
->
->>  - before this patch what happened was that HW read the NULL descriptor,
->>    so not much better
->>  - we can detect in gem_rx() using our ring buffer cursors that tell us
->>    what we've managed to allocate, that we gem_rx() doesn't iterate
->>    over descriptors that haven't been allocated
->
-> Grammatically dubious puzzles at that.
+Hello:
 
-Sorry for the fuzzy message.
-Yes, Sashiko is correct and, yes, the patch will change.
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-To explain more in detail: gem_rx() iterates over descriptors using
-RX_USED as signal that a descriptor was filled by the hardware. The
-risk is to reach a descriptor where allocation failed (and we used
-RX_USED as signal for the hardware to not fill it up). We can avoid
-that using our cursors (queue->rx_tail and queue->rx_prepared_head)
-that tell us the range of allocated descriptors.
+On Sun, 20 Sep 2026 15:44:59 +0800 you wrote:
+> The MeiG Smart SRM821 5G module (0x2dee:0x4d53) crashes and drops off
+> the USB bus when it receives a Zero Length Packet (ZLP) after sending
+> or receiving an NTB of exactly 16384 bytes (tx_max).
+> 
+> According to the MBIM specification, devices do not require a ZLP
+> if the NTB size is exactly dwNtbOutMaxSize. However, the cdc_mbim
+> driver defaults to sending ZLPs for devices not explicitly whitelisted
+> to accommodate non-conformant hardware. This default behavior breaks
+> the strictly conformant MeiG SRM821 module.
+> 
+> [...]
 
-In concrete terms, we stop iterating in gem_rx() if
+Here is the summary with links:
+  - [v2] net: usb: cdc_mbim: add MeiG Smart SRM821 to ZLP whitelist
+    https://git.kernel.org/netdev/net/c/f75f21ef3628
 
-	queue->rx_tail =3D=3D queue->rx_prepared_head
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-or if
-
-	desc->addr & MACB_BIT(RX_USED)
-
-Thanks,
-
---
-Th=C3=A9o Lebrun, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
 
