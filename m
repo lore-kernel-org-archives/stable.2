@@ -1,82 +1,79 @@
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC65C5304BC
-	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 17:35:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB89C414DFA
+	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 17:38:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790271312; cv=none; b=QamVuj5Ez4Cs+569WMeCIXmHJr1usQyXLQJqiCa1gfD0qqxqVOAsHxzxxCfbsIEzJD02fKyMJ3zq7T0u/O2k8n7dwmX9oqVnUnSMnbtayx/fIhZQ0BfUjrnMLiFlJf+Q4b9DQ7WqAyLNhW/RBkK9LkmEYwb/fywvvraF9b3TXwA=
+	t=1790271530; cv=none; b=jd4QBB9DItyD4efzaFfehfRlxDfJcd1B8An834uRFRUq9PsxGiMmYPnJ7oqUFXjDH6GtLb1ZShNFes1kNOJ/dQCFaDHT8gxe2KWFpA/MKuyZSmmVX85NgH/Q4y9gQxv4nC5lIWur75ViCjPdOFJhtizdJhFwegr+kfdlQciFmK4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790271312; c=relaxed/simple;
-	bh=/0chTZvN7Ky+TA9HvI41ZWJ8tmuDbI07h2tw1R5aq3Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JuBFxDJXiOWGja4xjEPsv5HAr/ulZnA9/TQFwuEcbhpdBvqYNm56aqnL2zlKuCFY6/7TlZnm/KwQHnsA20Bem2E4zuGu/f1894NxvtCaLuvIhKdtF0tCXYbbYljDwHEpMgvlQw4vtg5oWZ8Rte74o8rVrQ16llixHHrq3SVGxqg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=f0NyiEPQ; arc=none smtp.client-ip=74.125.228.42
+	s=arc-20240116; t=1790271530; c=relaxed/simple;
+	bh=NyMX52JyA02kh4pbyRNFP3C5O6xMYXgI19hTNHr/ZZo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NfJQiRlYp3wJr8galN2C2RWuu+uTJVNazhALH5fMZq3QXlF07xZWhPa/1PMbT27eLc1w79gHDv47ZhLdD7QyiPX8s+6OdyiwwuvImx7B+x8PNVBIwsL98v+FJkWuT1unzIs1ghqjSag/4xlhNVUt+a8DJUhrvkfmiQ2gBq4LlxU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=EPvxEQRT; arc=none smtp.client-ip=74.125.228.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="f0NyiEPQ"
-Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc1cea4c79fso10102a12.0
-        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 10:35:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="EPvxEQRT"
+Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85469b2e1d5so113523b3a.1
+        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 10:38:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1790271309; x=1790876109; darn=vger.kernel.org;
+        d=trailofbits.com; s=google; t=1790271527; x=1790876327; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XmTxiFdIaWCCF0HjMXWXx42hXA6kt9BLAaeoJ6xE+TU=;
-        b=f0NyiEPQQwTtinupWvlQRcBUbJaLkJ6RMStEfGPzGwImkmU30Pp2fk0/e6FucXnB7p
-         7CmPTitA8K5bQqlP69h+JcfHcEf3cMm+nz2oWyXQoDIHc3lccSDZu6I33/pIhVq3q+fX
-         Md8wJ/432kEl4tTeNxWTLKXMM3D1troMSujbytquQHiVW2aXy7B4LuZg6oKTYZURGR4R
-         6wIO8unTyugSQ+5Nb20qCcD2eBVleeEFRWt2cCCsU2fBRmk7gW2nhmPjJFfnwBfEVVd4
-         NWfv3CohdDLeQc3oRj4TFKNyKAjj2Ns0/Um39jzdVCHdnPfvB3ZJxkzD1A0jLMNP42HI
-         CQ9g==
+        bh=P1c2EGZGxAzDBsgLy2P99YqOfGYlohir92D2nOhn61A=;
+        b=EPvxEQRTSgZt6jrh2tFA6pxcsr9zDuQhE2fdQpKs8Ydq70s6TOwlHJiDAicFxvsIKY
+         mC5D3O2JqXFjtzCLJybp4Vo8ydUxk6oXRbmyA5KLuaaQJgL2KTo4u5o2zKZ2j9HNmfCH
+         94DFvCHFH6oqnsmI9Dsq6atwO7bQtzFToYTf73kjLkUU07kutyPIRSJeBery5tm69OF1
+         5MIyKT+mLd6IPaJN8x3jAapcnCtysv2M4STSmiKBg08YmX4JHRR8WnYHX/LeH+XGonOE
+         Uh3Oeu64d3dtG6wB1VDwjxjY6R7N2byobLKBs7lUw5QBEQOeXJA9GYK/ZREy9fikMfkW
+         7lcg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790271309; x=1790876109;
+        d=1e100.net; s=20260707; t=1790271527; x=1790876327;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=XmTxiFdIaWCCF0HjMXWXx42hXA6kt9BLAaeoJ6xE+TU=;
-        b=KAPm7PwmALbPDg8/+f5IO1rIdXIP0mK0vH7b8THS4lpitQNXCF2bLH7SCGb7Rfy4ac
-         yv27TO98C4GdWdhSYb0TSDIePfRhsBesNu3KmBwsz09QzN6hYtAYZ3XZbT5HeCiAboz4
-         bA4A+DX9d9VecDQhKfun58ddt+2mZ2TH2HIC6nAG35qMs/6It07sY0rgfrgPfMXeonj0
-         7/yf/Tk2b3wH0VHDkktWzNke+ZJsE8Cd0ubLBgXAnsRM6I/9sepEBg+2ZlUCbnvKbnQG
-         Y8trVerESJdj7/nsjIZ6DurbUFMfaB1D2Gk+TwxtJ0hFKdWsnX8nh3FTi3yiAZhuzz+T
-         lpuA==
-X-Gm-Message-State: AFuF++mCF3zLTEg6n6wf3UVNWZDF6oCGIimAQFb2yWC/zkj9n+AdClUP
-	DsrqWazEbxEt7chral37OfE2W06ib34E6rlDPQKCX1Ww5KZehNdbD5MzJ1Y8pvBR2KJ+UpNIsKQ
-	tZKE0rw8=
-X-Gm-Gg: AYBFou2HagMGQD3WKdiNg4+MtvTROciRVVjcn57ZvsEMxY3kvlpK2GqO08Q/2caty6p
-	z9XfNX/8LX6P2lxhqr9uKE0UPBfe4UqA+EyzWQURzQF339OfaUeSBncvepHDW1UwEyOC3rv8Ouf
-	86nFEpiyUfl6XLgi1lGHr3HVhW3ktQyXz3QujYqt+KCHnmrRMdAAoneujdsbKb0mCYh0eZ28SrW
-	UHNBqj6nOsK59eocNuxsNhCngWB6gxs1PN+vRpeuRXKD3rixnSySw2YwpUc5mrjo4E5pgxeJtNv
-	JzoyreVWwPbtqiNausjLvKv5tZDAej3248RQ6OozjZ/3qwCT3yrkHp/Mic9pOeyRdMcH8BfUGZc
-	vawMTPf76OaMtCS/VHOLZiUzmZ5DjkJDcX6bpKBGiogdi/Ib/47v+x5acnrVs9JnN3MQVetP4VO
-	un65BfymxBeZQSc/czUiDDHZUk9yx0skdCgp6z4bnyJz2hdpqGl3GhKOqOrZQ0CONNbAWNHmE1b
-	+oYSC2rD6VEYVsLgS9X/CVnHxEMpsXX7DVvJLsBBGqishQbvcFd8QpVqNiL98zE9gZ25J4V
-X-Received: by 2002:a17:90b:3c45:b0:3a0:2646:7495 with SMTP id 98e67ed59e1d1-3a09897046fmr3104409a91.53.1790271309276;
-        Thu, 24 Sep 2026 10:35:09 -0700 (PDT)
+        bh=P1c2EGZGxAzDBsgLy2P99YqOfGYlohir92D2nOhn61A=;
+        b=gDoXYsHmkJvbmMBeqS50qjwhSt4sFpOEKR7nuhxokqrS7GAYqtOTyHyX5cgOOwVt1x
+         5ia4H47i88A0hGMJMXHlmRA2splkInb94I7CycRCgm1aBxL8lk2QCV5zssiz73UxJ2k8
+         8Hg2Yp2A56uT5DXAfoaSMgZEY/JCoMIduGrGoYujrcIngNFA22WG5rPmNfZRaIOxii9L
+         wVlOk1KCuYQ3vw1BG0JjkJbUiYXifW4Z0Q2VI8xmGQIb5JDVxehED7j2jdKu2QAkBEkF
+         3V4og+UXbc2+epfKlU97Bss3vaPxJmbVXi26NMDmOBxvU92xNHRm3tTetef+MI1Nqua7
+         6erQ==
+X-Gm-Message-State: AFuF++n1f3J9PmHZ0XvvzD1lm/mZ8n5yKsdXQY6cmaBfad1ruExvqjFs
+	t84B5Y9B3/q5qK3xHf454MA7WTwjb101CdJvle4nYdbcpFdRcjd/Oig/JTVTeitpzENRuetdJVj
+	3pHN4DrI=
+X-Gm-Gg: AYBFou2LJ9kw6JTuSWnzehONR0CRW060UxLR2ONEC3tYF+jpza39y07jBqRWjK18AaG
+	JyCexg/NY53R2jxb1+P97rixTjztP6Kaap2quX0F4R7+xl+Y4zi1Q82goUmZ2IKLm1OpBR5KSTc
+	PJ4El/UR7OKlX2Bajcf/VV1i1fO+mwXmtYTcqveG4TDSrc0QGyqgiX+Xv6NPf9FVLw+R0yQ8EZD
+	MPd4uAtWwxoagDVdGMw2jDGT3y799cpQaDAnaWnbzV5ju+ErBJirXsHlrfVWeOTSdcJsv80QHBF
+	K95H0SJdGm+i9W6cVvtOrQwjKq4IBE47Flo2rT7J0h+maNvq2agz/shlViW2+jK5VzUjIkkE3y/
+	84tObnIs0UQYXEt8B68hWvLLjq/X+KPlIlFtCAryhwzEnOYnHtG9pxbhqBg0y60MTZ6EyF3veEl
+	rnCHJiybcc+pR04fCTUsLOKq4UdP5ElLr6eBhbYr5nY/Ejez89y8eL6sbcEhAosHi4QK9JLvwHA
+	g80jH6b13aLr8iMww4//2RIs4N+C94R6PbxEsDDzjcoaL+dY/xi9dFTYfMLuirqFU3ALqQ5fgyW
+	WXw59A==
+X-Received: by 2002:a05:6a00:1d82:b0:86a:141e:2a8d with SMTP id d2e1a72fcca58-87e989951famr2807752b3a.11.1790271526738;
+        Thu, 24 Sep 2026 10:38:46 -0700 (PDT)
 Received: from localhost.localdomain ([2603:8001:5f01:8bab:f875:3165:4649:e818])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a097390328sm6144943a91.16.2026.09.24.10.35.07
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87feb57e56csm37517b3a.48.2026.09.24.10.38.45
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 24 Sep 2026 10:35:08 -0700 (PDT)
+        Thu, 24 Sep 2026 10:38:46 -0700 (PDT)
 From: Artem Dinaburg <artem@trailofbits.com>
 To: stable@vger.kernel.org
 Cc: Artem Dinaburg <artem@trailofbits.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>,
-	Saeed Mahameed <saeedm@nvidia.com>,
-	Leon Romanovsky <leon@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Roi Dayan <roid@nvidia.com>,
-	netdev@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
+	Yoshinori Sato <ysato@users.sourceforge.jp>,
+	Rich Felker <dalias@libc.org>,
+	Paul Mundt <lethal@linux-sh.org>,
+	linux-sh@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Jianbo Liu <jianbol@nvidia.com>,
-	Vlad Buslov <vladbu@nvidia.com>
-Subject: [PATCH 6.1.y] net/mlx5e: TC, Fix internal port memory leak
-Date: Thu, 24 Sep 2026 13:35:04 -0400
-Message-ID: <20260924173505.87763-1-artem@trailofbits.com>
+	Duoming Zhou <duoming@zju.edu.cn>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+Subject: [PATCH 6.1.y] sh: push-switch: Reorder cleanup operations to avoid use-after-free bug
+Date: Thu, 24 Sep 2026 13:38:41 -0400
+Message-ID: <20260924173842.88036-1-artem@trailofbits.com>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -86,61 +83,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jianbo Liu <jianbol@nvidia.com>
+From: Duoming Zhou <duoming@zju.edu.cn>
 
-[ Upstream commit ac5da544a3c2047cbfd715acd9cec8380d7fe5c6 ]
+[ Upstream commit 246f80a0b17f8f582b2c0996db02998239057c65 ]
 
-The flow rule can be splited, and the extra post_act rules are added
-to post_act table. It's possible to trigger memleak when the rule
-forwards packets from internal port and over tunnel, in the case that,
-for example, CT 'new' state offload is allowed. As int_port object is
-assigned to the flow attribute of post_act rule, and its refcnt is
-incremented by mlx5e_tc_int_port_get(), but mlx5e_tc_int_port_put() is
-not called, the refcnt is never decremented, then int_port is never
-freed.
+The original code puts flush_work() before timer_shutdown_sync()
+in switch_drv_remove(). Although we use flush_work() to stop
+the worker, it could be rescheduled in switch_timer(). As a result,
+a use-after-free bug can occur. The details are shown below:
 
-The kmemleak reports the following error:
-unreferenced object 0xffff888128204b80 (size 64):
-  comm "handler20", pid 50121, jiffies 4296973009 (age 642.932s)
-  hex dump (first 32 bytes):
-    01 00 00 00 19 00 00 00 03 f0 00 00 04 00 00 00  ................
-    98 77 67 41 81 88 ff ff 98 77 67 41 81 88 ff ff  .wgA.....wgA....
-  backtrace:
-    [<00000000e992680d>] kmalloc_trace+0x27/0x120
-    [<000000009e945a98>] mlx5e_tc_int_port_get+0x3f3/0xe20 [mlx5_core]
-    [<0000000035a537f0>] mlx5e_tc_add_fdb_flow+0x473/0xcf0 [mlx5_core]
-    [<0000000070c2cec6>] __mlx5e_add_fdb_flow+0x7cf/0xe90 [mlx5_core]
-    [<000000005cc84048>] mlx5e_configure_flower+0xd40/0x4c40 [mlx5_core]
-    [<000000004f8a2031>] mlx5e_rep_indr_offload.isra.0+0x10e/0x1c0 [mlx5_core]
-    [<000000007df797dc>] mlx5e_rep_indr_setup_tc_cb+0x90/0x130 [mlx5_core]
-    [<0000000016c15cc3>] tc_setup_cb_add+0x1cf/0x410
-    [<00000000a63305b4>] fl_hw_replace_filter+0x38f/0x670 [cls_flower]
-    [<000000008bc9e77c>] fl_change+0x1fd5/0x4430 [cls_flower]
-    [<00000000e7f766e4>] tc_new_tfilter+0x867/0x2010
-    [<00000000e101c0ef>] rtnetlink_rcv_msg+0x6fc/0x9f0
-    [<00000000e1111d44>] netlink_rcv_skb+0x12c/0x360
-    [<0000000082dd6c8b>] netlink_unicast+0x438/0x710
-    [<00000000fc568f70>] netlink_sendmsg+0x794/0xc50
-    [<0000000016e92590>] sock_sendmsg+0xc5/0x190
+      (cpu 0)                    |      (cpu 1)
+switch_drv_remove()              |
+ flush_work()                    |
+  ...                            |  switch_timer // timer
+                                 |   schedule_work(&psw->work)
+ timer_shutdown_sync()           |
+ ...                             |  switch_work_handler // worker
+ kfree(psw) // free              |
+                                 |   psw->state = 0 // use
 
-So fix this by moving int_port cleanup code to the flow attribute
-free helper, which is used by all the attribute free cases.
+This patch puts timer_shutdown_sync() before flush_work() to
+mitigate the bugs. As a result, the worker and timer will be
+stopped safely before the deallocate operations.
 
-Fixes: 8300f225268b ("net/mlx5e: Create new flow attr for multi table actions")
-Signed-off-by: Jianbo Liu <jianbol@nvidia.com>
-Reviewed-by: Vlad Buslov <vladbu@nvidia.com>
-Signed-off-by: Saeed Mahameed <saeedm@nvidia.com>
+Fixes: 9f5e8eee5cfe ("sh: generic push-switch framework.")
+Signed-off-by: Duoming Zhou <duoming@zju.edu.cn>
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Reviewed-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+Link: https://lore.kernel.org/r/20230802033737.9738-1-duoming@zju.edu.cn
+Signed-off-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
 
-[ Backport to 6.1.y: this tree already releases the primary flow-attribute
-  references in mlx5e_tc_del_fdb_flow() and lacks
-  mlx5_free_flow_attr_actions(); release only cloned post-action attribute
-  references from the corresponding free_flow_post_acts() cleanup. ]
+[ Backport to 6.1.y: use timer_shutdown_sync(), already available here,
+  so the timer cannot rearm before the queued work is flushed. ]
 Assisted-by: LLM
 Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
 ---
-Hi Greg, Sasha, and mlx5e maintainers,
+Hi Greg, Sasha, and SH maintainers,
 
-I am continuing CVE backports still missing from 6.1.y.
+I am continuing with CVE backports still missing from 6.1.y.
 This fix is inherited by v6.6 and every later mainline release, but 6.1.y
 still has the affected code. The target-specific adjustment is described
 in the bracketed note above.
@@ -150,46 +130,31 @@ Could you please queue it for 6.1.y?
 Thanks,
 Artem Dinaburg
 
-CVE: CVE-2023-53999
+CVE: CVE-2023-52629
 
-Build: This patch was included in an x86_64 allmodconfig and
-CONFIG_WERROR=y build.
-It produced vmlinux and modules with no new warnings or errors.
+Build validation: SH r7785rp_defconfig with CONFIG_PUSH_SWITCH=y and
+CONFIG_WERROR=y built push-switch.o with no new warnings or errors.
 
 AI assistance: An LLM helped find, adapt, and validate this
 backport; I reviewed the patch and test output.
 
- drivers/net/ethernet/mellanox/mlx5/core/en_tc.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ arch/sh/drivers/push-switch.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_tc.c b/drivers/net/ethernet/mellanox/mlx5/core/en_tc.c
-index 05888942ef276a..d2f226a09a0c7 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en_tc.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en_tc.c
-@@ -3692,6 +3692,7 @@ free_flow_post_acts(struct mlx5e_tc_flow *flow)
- {
- 	struct mlx5_core_dev *counter_dev = get_flow_counter_dev(flow);
- 	struct mlx5e_post_act *post_act = get_post_action(flow->priv);
-+	struct mlx5_esw_flow_attr *esw_attr;
- 	struct mlx5_flow_attr *attr, *tmp;
- 	bool vf_tun;
+diff --git a/arch/sh/drivers/push-switch.c b/arch/sh/drivers/push-switch.c
+index 2813140fd92bb2..6ecba5f521eb6c 100644
+--- a/arch/sh/drivers/push-switch.c
++++ b/arch/sh/drivers/push-switch.c
+@@ -101,8 +101,8 @@ static int switch_drv_remove(struct platform_device *pdev)
+ 		device_remove_file(&pdev->dev, &dev_attr_switch);
  
-@@ -3713,6 +3714,16 @@ free_flow_post_acts(struct mlx5e_tc_flow *flow)
- 				mlx5_modify_header_dealloc(flow->priv->mdev, attr->modify_hdr);
- 		}
+ 	platform_set_drvdata(pdev, NULL);
++	timer_shutdown_sync(&psw->debounce);
+ 	flush_work(&psw->work);
+-	del_timer_sync(&psw->debounce);
+ 	free_irq(irq, pdev);
  
-+		if (mlx5e_is_eswitch_flow(flow)) {
-+			esw_attr = attr->esw_attr;
-+			if (esw_attr->int_port)
-+				mlx5e_tc_int_port_put(mlx5e_get_int_port_priv(flow->priv),
-+						      esw_attr->int_port);
-+			if (esw_attr->dest_int_port)
-+				mlx5e_tc_int_port_put(mlx5e_get_int_port_priv(flow->priv),
-+						      esw_attr->dest_int_port);
-+		}
-+
- 		list_del(&attr->list);
- 		kvfree(attr->parse_attr);
- 		kfree(attr);
+ 	kfree(psw);
 -- 
 2.39.5
+
