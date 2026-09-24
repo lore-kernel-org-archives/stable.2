@@ -1,142 +1,162 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F787477E58
-	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 11:51:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790250681; cv=pass; b=kyRVfaklupwqVEzAmSivJb/3ko61cagZJD+H1LDaip9d2Znr9aFWPaLOYVf7WDeDYjTlPU8F0vzjhyB+3uIEi2qE87AjRfXKVGk2+2bInv7m4glLjWHCUvbZHPAgTajob17jbiy05Dma9v2KH2zAOT10kAVFdSmu0Vry2Kb2+ho=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790250681; c=relaxed/simple;
-	bh=beqzQKKjoxSVK9Ait4o2AWQYoYHmh36alBr6u7mmw2I=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PsQwZVvwH3s8sCSubOc13sfUMIh681s9EP6XcfppiUum3h7Ll9nJvXjZYwAkDX9/2Fg2Dg66YOud5n2ynKvh4e45kBFrpwzrOsd9+EU6cYSOMDDgGFMRgnOk3UDIXVNzWgugA7++r2eS6QscOotz+NGQogdJFQ9rG+YJBP2w5y8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com; spf=pass smtp.mailfrom=futuring-girl.com; dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b=DznRrfa7; arc=pass smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=futuring-girl.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7421F30C14A
+	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 11:56:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790250990; cv=none; b=Aza2gHWx06yy/aqfXZcDVI/3sfTgdRruRQEFxvs9pWmDG2KLsH9Ejv9cZqncrGMfrnLv9V1mi+PEfeTeqtW9i5+XAu3b4ZgDfuNKx8752+rJVCf/EoRw+YEZnGVlIuj9QCsp/cnh/J6X55swxm0YqMOfT/B4g9NOyJoOyrEqDMg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790250990; c=relaxed/simple;
+	bh=+Z8ZTpGEfHWM4q/zUbV7kqxbu5dhULZPNJ7diN0yJeM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=m4BVp7Oc6p5LtPFaIdc9TxZzqjGykiS4ekm9ZNa84+jVpfynX3jN1pUcZ04YMOH/TonZYUu6yQZj8BifMsvRMgbQuIWbYn1imX/mtOMmTe6zfcee1uLq5SWIEbpshitLe4+G9x3FqKZlgCRIoJmVIc6PPR++FSWo9E6em5k00Mc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BINVxFsR; arc=none smtp.client-ip=74.125.227.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b="DznRrfa7"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f55eff0so283993966b.0
-        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 04:51:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790250676; cv=none;
-        d=google.com; s=arc-20260327;
-        b=AsD+oAxnOvwqDnxWxDjX8du6x8J53wIP+Y6PojjrgX3FvsJL+JPs8rvAIEsmDa6kuB
-         qQqBAtzhwPOnGk5Yp4NqoRNZ++EEGNYCO7REUwe/V4XpajEUwLLKhH+/F/vNQxTg63+E
-         4qPZQn5tybAnJ8Bpy0GbjlY07e6mvIoPNeoieqRczsfMMNgrDKz5gQLynGps/WyXrfTW
-         Re/xmaVbiL9Q2ZK+4Jg9dq5MK9OdQJyWWtRIVCa9Jj7N5jQ5S4qELGbmUm7KbUU6EhkZ
-         RMHtFuEQFCdr64xexlIiiPPYylazLzCtjHw8rrFYlrbzBEsbH28kxXLdY9uvkjBWjmVO
-         1qSQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=omFqe/7YRCaMs7Y6/oYqn8ZEqPS++HtW5gJ+iDHObDM=;
-        fh=Wz8J5UEBOCqQDV8EGy7SaS7auVxYFAJQ5oaobiGaD9E=;
-        b=kvlq1lNRpubHF8oi/YDGIPuxVSg9lsa7CBOG5Xgb7K5FJiswwfM1I6Xeuz2zpsS8qn
-         2zf/+hCFsa3vol7ZJnTjDKfSKkc5aJotcOXdtJhHtdoxOmngkRJBG7X84zqmB2p0xcr3
-         JNA4Ag7s1JyM10dhr/RsLxH7KhahIThwiGkscv7t1XvMRIew5OOPR7deOsl2xMJLx4mK
-         YNhrbKPOpcqCyT2xHlZ1kgU55JM6Pw1HVj2e7xQG1Lq4NovsUInQijvXom7vlqN2vnlN
-         tAE48pjbONNnsFgxdj2o6J4ZHI50lYd9+jdc2cSyUALaRVN9XSA4Fb22w3za+lAaagWa
-         jaEw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BINVxFsR"
+Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-396ccda24afso1081208a91.3
+        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 04:56:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=futuring-girl.com; s=google; t=1790250676; x=1790855476; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=omFqe/7YRCaMs7Y6/oYqn8ZEqPS++HtW5gJ+iDHObDM=;
-        b=DznRrfa7ItvCi/j0cWXpGUaxAND5iPx1l6/8I/B7W8ysFoKCzPEtyLjK23J0dp4Zqp
-         ibdgZ4S4qHIRCrWG8ILW/bgfmMVTCmRNsdyBn+j1Qh5NESeQIZ2Kkfo5zJmdM3mhgl1C
-         lg0RT7xbUJ778K6ex1fwNPAo3fHUUh4MIaqX1zo3eshPw81WEiUsG9qwM5gGRQ7f1che
-         YjqbkIpaE0pqY7JHD14RUcQsysD8JFmgid+nbk3YAkPMhbD1bGuLclLTmHybGJw14njo
-         oZA6eadjq0l1GbcM2bF350pRuy+0fcnoWm4xTx1mjPPG5/f4/nl5bBOmhgMNgVf9+xHb
-         f5og==
+        d=gmail.com; s=20251104; t=1790250989; x=1790855789; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6rBh57CQ8oC/XCjJGNJlSdgV/jpJp4/g95+Pgh7fgMA=;
+        b=BINVxFsR7UzNJSt2OxM6kj3K5c/Bbn80SGQgLz5Bculzt8BEv1ozy2i39EZ4Aci7sI
+         rqcbyd+wKl7GV8+3oZxyxgoRzYcvyKNaB9zYoODSrxI8x/kfW6UWtCuEoB/B0PCxocjG
+         /18lhqey5AdE1CkIN9vsQ4GDeipPklgntAbGBe3zRC2NUbniCbyt1rzdY+0F2LpMRIvI
+         p6ZMCMrNTPCeok2aQ4yOF7vSXAZufmCvjLyEZTVKYTVg1/CZxYbOVunKh2K1X8M1g1DO
+         4i7oNBrJEwHSDsYUZWvKsewAVXvQRvJ+LmF15Py7Cly7ELneWtbeat7JVKSNdxqkK5+M
+         zFUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790250676; x=1790855476;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=omFqe/7YRCaMs7Y6/oYqn8ZEqPS++HtW5gJ+iDHObDM=;
-        b=L2XufD2adIrhS+10rOJLU2ew8drHBQxBNBUT3x1/y6edyKiVj+b1Kjq7xa648OinX2
-         OJ5GxIXXCB3QuvYRv7WI/kPYPSJw+K2e65KyKDga3ihMAc9MN2SrvPbf8MXHiXMeSWFC
-         1YNSTIdV9WO4GCDQ3P7DBVK9D/KOXXl/eEBvd+BLZqtoojJozCUyJXcQq7NXv+BEAKdY
-         U6GBx+8AiFZ/67gM3FIT9RHawZ6FxLRxdotrw6qxYyOYVhCdILdP6tKLVPSUGhlPQnbq
-         dyDKiSN+5yofphASRWLi1Qr5XtchfZYMFQYdqo9znxPXoGTvpmBoVZQnvlSNKLBse70k
-         lSQA==
-X-Gm-Message-State: AFuF++mZiQcPIgl5+Zz5U6TPErA4BLzwrdMe+QVnHMH8cH2k2j1SBYqQ
-	Xfhhx2Y97rMjG5o2DBTvlhqWtbIbAiWI7hXXrzfV9w567AxEfTjhica4s9iBimxeh95XIZcobZT
-	/9sIQz6TgSiUnR7eWSK1BlwDj0MoN1zy0xsbaGC+MKw==
-X-Gm-Gg: AYBFou2Xw6hkslG46txXg0HlriSVAWjQNteu3balAXrNnOkOjAOCGW8Rz3kpSe+ONJX
-	KUkauWiOBsyG0Kdk07Cl8pvHre0XzUrCzcW4JRmXfCWDWtIzn2ohIAJfgqH+l7UO4VribY30nz8
-	OEW3jq9oZ8cV03dP/etuKHM8hCC09CTgdKgBMPxEZfHl0g7NUGKtysqT6jMbIRZQwY2aq2eqMzW
-	8tqspcNJ1YYLPAckachPCsQ2iPsp3/D0KIfU9rQ2HPPl7tJM+GG9f0CUgH72ZI5J0tq2f/aOqoR
-	h+1lG5qCTTiiS58bt66GmChQHipba0o04Z0AcK11rfwErWb+KX3oGSii
-X-Received: by 2002:a17:907:97cb:b0:c25:6230:dfcd with SMTP id
- a640c23a62f3a-c2ac239eb52mr194296566b.15.1790250675739; Thu, 24 Sep 2026
- 04:51:15 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790250989; x=1790855789;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6rBh57CQ8oC/XCjJGNJlSdgV/jpJp4/g95+Pgh7fgMA=;
+        b=VjQLWhplIfPzb0w3j/2h/c20ORanRvSDuCAPVSnctyPxqu44wdz02zIDoCTFHO50Ay
+         O5BdJcJBlGxE622BRFfaSzDsc/tunZJKrlRn+IwPvCNY6lL/SSEGvv02uFx+3FsorEQc
+         ociOMc8NY27zRCGX/WLYdiadQMZyb8vfuYYXZp2nBcN5dPGzZS9ltN00oOApg+Bipo7O
+         0AZX7fqLdcjAEvLgwl/iZ9Td0BDXKmYhQGsebCtVvkr0XXvSCErbyPdnmEvYljvrGQK1
+         cZIbn0PPL1H5RqNAl3M/oxcqb3QalMXbrnnBeyD+00utCDTjYdWF9jVMEis32sGjnzt7
+         woGw==
+X-Forwarded-Encrypted: i=1; AKwUvByXkxcKDZGUw8uyHk4g2Cr02bfF8kWyRhVx11HxvrayHizaosWwChJd8jvwoagTz9a7W+bsDyY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kft++zu6Rn+diYhVXCrPGO2cre8GNJgyrOrsWrS7FnyT63xAeH
+	OsZBoB/brmrCVYmfgwdb2bXRUKg+0Uy8W8uwAfU4n4XX+AYQeYHiN2MD
+X-Gm-Gg: AYBFou23XunkPd+qOIYeaUXfNiCUPOyXGX9G+CVpcq8Li4KzhLDdVCn6CuosScOj+h2
+	k0RmeYgoP/vmxDK+KR5PYlz7KZcVRMU782hQa0g+21RmvBpg4cw634lGPpjQweo9rpPZG1OCxtY
+	Qkk96dW1a4/3w0EdoO5tMKTraeluPoZbA7JOWhuhi5O88b+pELhlK1OulHeninrjUBuJH5AOSgg
+	Onu66QTTOiwl3+XRD4yAQbOOQ1xfMdqPcy9U7N2mEluI9xz4LvlM6oZ5zLu93JFkhapxs/kwM0Z
+	vxsOXq7CbwuZBBDk6xzuU2IrS508zDRz9tWNID4WJ1AaytceGgsAt8IzGwIw9d55v4Smuh9GBg6
+	S+hFOPStRe+NJnCJ097gQaW8/eyiKnQOzGXYM39oJbDYnS0K6ZATfef7gVna/B759kVlPxm948Y
+	7s+e7WH48PSpcjb3PpiVjEhXGQ2fpHHpU4SV0jTBecEqOlFYqebFyPpw==
+X-Received: by 2002:a17:90b:5807:b0:3a0:8050:2ec5 with SMTP id 98e67ed59e1d1-3a0985be2fcmr1751949a91.12.1790250984098;
+        Thu, 24 Sep 2026 04:56:24 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a097663fd0sm4598745a91.9.2026.09.24.04.56.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 04:56:23 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Bao Cheng Su <baocheng.su@siemens.com>,
+	Benedikt Niedermayr <benedikt.niedermayr@siemens.com>,
+	Tobias Schaffner <tobias.schaffner@siemens.com>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Henning Schild <henning.schild@siemens.com>,
+	platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] platform/x86: simatic-ipc: fix platform device leak on registration failure
+Date: Thu, 24 Sep 2026 19:56:17 +0800
+Message-ID: <20260924115617.1578309-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260923140644.756254324@linuxfoundation.org>
-In-Reply-To: <20260923140644.756254324@linuxfoundation.org>
-From: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
-Date: Thu, 24 Sep 2026 20:50:58 +0900
-X-Gm-Features: AclHuK-Phr3WDpb7SshIHOAYwI2RYTxswDPC0MCmKsbJLi96tShPIIuezgDdacA
-Message-ID: <CAKL4bV7H-9F-JEM2ohs3G6GyC5Gi-C2sb0wJdixuObcE-bSuCQ@mail.gmail.com>
-Subject: Re: [PATCH 7.2 000/438] 7.2.8-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
-	patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
-	jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
-	rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
-	achill@achill.org, sr@sladewatkins.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Greg
+register_platform_devices() registers the battery, LED, and watchdog
+platform devices in sequence. If LED registration fails, the battery
+device remains registered. If watchdog registration fails, the LED and
+battery devices remain registered.
 
-On Thu, Sep 24, 2026 at 12:19=E2=80=AFAM Greg Kroah-Hartman
-<gregkh@linuxfoundation.org> wrote:
->
-> This is the start of the stable review cycle for the 7.2.8 release.
-> There are 438 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Fri, 25 Sep 2026 14:05:46 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
->         https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-=
-7.2.8-rc1.gz
-> or in the git tree and branch at:
->         git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable=
--rc.git linux-7.2.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
->
+These failure paths leave successful platform_device_register_data()
+calls without the matching platform_device_unregister() calls.
 
-Linux version 7.2.8-rc1 tested.
+Add an unwind ladder to unregister previously registered platform
+devices in reverse order before returning the registration error.
 
-Build successfully completed.
-Boot successfully completed.
-No dmesg regressions.
-Video output normal.
-Sound output normal.
+The issue was identified by a static analysis tool I developed and
+confirmed by manual review.
 
-Lenovo ThinkPad X1 Carbon Gen10(Intel i7-1260P(x86_64) arch linux)
+Fixes: dd123e62bded ("platform/x86: simatic-ipc: add main driver for Siemens devices")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+v2:
+  - Use an unwind ladder to unregister previously registered platform
+    devices in reverse order, as suggested by Dan Carpenter.
 
-[    0.000000] Linux version 7.2.8-rc1rv-g54e8ef17140e
-(takeshi@ThinkPadX1Gen10J0764) (gcc (GCC) 16.2.1 20260810, GNU ld (GNU
-Binutils) 2.47) #1 SMP PREEMPT_DYNAMIC Thu Sep 24 19:15:39 JST 2026
+ drivers/platform/x86/siemens/simatic-ipc.c | 21 +++++++++++++++++----
+ 1 file changed, 17 insertions(+), 4 deletions(-)
 
-Tested-by: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
+diff --git a/drivers/platform/x86/siemens/simatic-ipc.c b/drivers/platform/x86/siemens/simatic-ipc.c
+index 7039874d8f11..4a4509fc9263 100644
+--- a/drivers/platform/x86/siemens/simatic-ipc.c
++++ b/drivers/platform/x86/siemens/simatic-ipc.c
+@@ -92,6 +92,7 @@ static int register_platform_devices(u32 station_id)
+ 	u8 wdtmode = SIMATIC_IPC_DEVICE_NONE;
+ 	u8 battmode = SIMATIC_IPC_DEVICE_NONE;
+ 	char *pdevname;
++	int ret;
+ 	int i;
+ 
+ 	for (i = 0; i < ARRAY_SIZE(device_modes); i++) {
+@@ -139,8 +140,10 @@ static int register_platform_devices(u32 station_id)
+ 				pdevname, PLATFORM_DEVID_NONE,
+ 				&platform_data,
+ 				sizeof(struct simatic_ipc_platform));
+-		if (IS_ERR(ipc_led_platform_device))
+-			return PTR_ERR(ipc_led_platform_device);
++		if (IS_ERR(ipc_led_platform_device)) {
++			ret = PTR_ERR(ipc_led_platform_device);
++			goto err_unregister_batt;
++		}
+ 
+ 		pr_debug("device=%s created\n",
+ 			 ipc_led_platform_device->name);
+@@ -153,8 +156,10 @@ static int register_platform_devices(u32 station_id)
+ 				KBUILD_MODNAME "_wdt", PLATFORM_DEVID_NONE,
+ 				&platform_data,
+ 				sizeof(struct simatic_ipc_platform));
+-		if (IS_ERR(ipc_wdt_platform_device))
+-			return PTR_ERR(ipc_wdt_platform_device);
++		if (IS_ERR(ipc_wdt_platform_device)) {
++			ret = PTR_ERR(ipc_wdt_platform_device);
++			goto err_unregister_led;
++		}
+ 
+ 		pr_debug("device=%s created\n",
+ 			 ipc_wdt_platform_device->name);
+@@ -169,6 +174,14 @@ static int register_platform_devices(u32 station_id)
+ 	}
+ 
+ 	return 0;
++
++err_unregister_led:
++	if (ledmode != SIMATIC_IPC_DEVICE_NONE)
++		platform_device_unregister(ipc_led_platform_device);
++err_unregister_batt:
++	if (battmode != SIMATIC_IPC_DEVICE_NONE)
++		platform_device_unregister(ipc_batt_platform_device);
++	return ret;
+ }
+ 
+ static void request_additional_modules(u32 station_id)
+-- 
+2.43.0
+
