@@ -1,82 +1,81 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23456409273
-	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 10:00:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD1133C13EE
+	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 10:00:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790244037; cv=none; b=uO7p3rCBbST4T+zsxrt+Y+SOicTMYoAufbP9gfjJgX2Jpsrq8bsnGviw3KuvJmRT//0hqPqbRmLlKz/POiXQmqI1am5+uUf6nIOPdtH4zFN+m+J7B3+SJVvABCrIe2CIj3gfmKR1uhk7o0R7ne9V8N31zOq2HDU9TXRrmpkc67Y=
+	t=1790244046; cv=none; b=lmj2ZHoXC4BjLE854Qcodw2SYdNZd/hcc5WmwAiJj6dSYXHdOKltuB7wc+uYeSSW0bbUuVIRA2LoVj9rvd/da/FSnlgbXWP4QjiSBU1Mw3cTuXqe53dHISLc0O4S+K2mclkxoBd5NqGq7diBbbmQSoEn40LpT6pSoFHRZqR8FCg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790244037; c=relaxed/simple;
-	bh=SLSQjZywF7+Lc6VeIM/QlV47NxBvlyxdZos75W9Su5Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RmOXLuUvl69RSrU+utp+MMsvutS/AGlYFJoqIh9cUHNb07oucAfbleSB7r1WMYZSpSEvehhOg9okrBGHk111JOVmZ83OhEFripA1lAWwtytIK796VBvIwr7hys9vxOs+5HxCNvlAqwsKi9CqFWL/QKMZio0M3ZTVJsn4liNxcrE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nqWR2WZm; arc=none smtp.client-ip=74.125.227.140
+	s=arc-20240116; t=1790244046; c=relaxed/simple;
+	bh=nwaYkLbsXfKCJjGkeRjXJQ6s3GI3fNcy0etbBPov7F4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=M+y2xTqz4SnD/K7SuyBEzpB6nz7JtLDIPx4FDdjTbQVtks6fo1kmx6X+6eCk+qzVJxDctExB/3WJ+idj9fHlePl7wY2uZaolhWtt9dTI2iBKN4OZFvVmAnUnC7RDThaatrmPebV+FmdveFDIrmvJcQY0O4Ss9tP66h+JDU9sDOQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nnV06heG; arc=none smtp.client-ip=74.125.228.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nqWR2WZm"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2dd77300825so11439075ad.1
-        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 03:00:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nnV06heG"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f9f0b20so285511766b.3
+        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 03:00:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790244025; x=1790848825; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bcRsvehqcHDvG/4dqBrJDWSUw7cpSxyb7LT/W2jFI9I=;
-        b=nqWR2WZm+1anIIhyt9c86sQR4yP6s++H19IpbhvQ77KAUUBKC9u5s6OFDQEtgd8cui
-         4T2nSOiHA4MEhD9TuR6xzA/F1+Y7UrwvcHt5XMbhae+hGCryxdgGdJCp80RlXoYMQQdy
-         CRBsusgNH17jORom3PC5YVNSLV+RouN39aqTgtMajPnxjlHBy5GSyczRRIwNg0gOE4Hg
-         mATURBX5aE/lTt1UiuEuPXsd7jRkHwFo1NfFhF8OlKksyq+WbcWa70cxCbS5MVlj03YE
-         A5662iezTAoms2cY996RwVZKzXRddyX7lWBN/4x7Us+YTtrpPE7TjOIxHIB1ootbKSv0
-         /8Yw==
+        d=gmail.com; s=20251104; t=1790244029; x=1790848829; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=U6oEIghWvcJ4GRb1a00MSWjde3NQ7RviSDO9ePyO6Z0=;
+        b=nnV06heG/ot2k7wc4CyHxJ9gviveiXqs9gQ/UUcL4UdxKHteC2ZMTmLuCeyW+M1Vkw
+         5S+uVnCykbcKSUB+z26n6+gyh6w/cbnAYcAS+Qu1Tj0IHIlMZfzBbsGP/KZbim97QLBR
+         ts7kxzl1hOJF8fqOP3q8mTpJ76qhIUUPWir754aSU5q22a/ozyAtFWhbiU0SDnhc44I3
+         NMVqcJjQH59KKVGiKKf0IhAm4eu1HSk774hnvWKhE0S2mSAUxprBiypADVZ661BpD6xb
+         UKyqH8tXRmpFh29iailXQbcUExrCpNxe83iXyN7gitmHtIRXUfw98gnx+dBYo3XkiCVP
+         FoYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790244025; x=1790848825;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bcRsvehqcHDvG/4dqBrJDWSUw7cpSxyb7LT/W2jFI9I=;
-        b=K9dxYxT9OfpZWT8YISN1lQHSQvQEQKfut+bMeyB5yildUADhfVIzMc66oMlCvbyJDQ
-         y6JH2xgsSGhVh8AoJVJV0vntCwvAFwOkS5+VQtrjY4F9PrQ1rnQQcLnVUx7nwjLR8Tfy
-         6uW9EhsSuuQy4G25dBlAohoaIdv9Hs3VpDSHwzSJ05kXVUlEc7IWSpqMmMqzIaNk7LwO
-         YvJ3KHFqeHlcpf2eCr7OmNy5aToRNvuSFmSmoeK2Wv2hQ01DsJ3VV3rrGOhm32TSb/pt
-         /Jgi6DWGKmNNi46hPovrxiBinlDvoDeZaLBoi/ez6ZUpI9YR4XOkqxMSSMkAO6B4/6pU
-         qdHA==
-X-Forwarded-Encrypted: i=1; AKwUvBwQjA2XhfifjgxCvVKd7hXdsyCqNEeZRcuyjJqex1omdCPyk0zgle/kXcrcAQOLBVBQTp3hQek=@vger.kernel.org
-X-Gm-Message-State: AFuF++nsY3mnbM5vSp7rfsNioqUr+YS1ac7yH2kyI/QhEywXQiW1dzFI
-	sshbWXFzpSeMl3IDhuJIv1m+J4cKRWd94WuVZYKVCmFDSzkbRQX0ZfLB
-X-Gm-Gg: AYBFou0u5FqRBNyXAKKtRvnWBSmZVBMFRsh7VsNlRYN3BZ5f0O7yUrzjD20XY+D0l9x
-	Ms06jDZeKfhzhpU8tNXFlYCA4tFNQAvxyqFmBiPgRXVxY6U2Wa77DzV9wBIhN29yN7bU4s/4YVT
-	GVnBamfb951PFFSKrJRJhBf3sZ2ey1PxBq1FKx9I5CS5DIessjB0wspfY/xzFjuWBZYjhs5fMIH
-	O8Fz7SR8LNYyAeUyQVk8nUCT602wroOsL3OewUDR09J6Au+RgNVA4HZ3JmlAexCw9F4dDtfzy5r
-	p+EXFBRcq1dmwaFo2YIqf6RuVlgKlQz9qOJhRS2bTx6EMsQJTYjcMUlnOB0NL2eZKF8a7A0AKFk
-	4L492cJ+FrDaed2FHJOhPatzsNMGhW42oh4iOUugGyushq5lybWdyGxswlcwWsDjBnsQyNxxcTN
-	a5i8XXrT162rbtvxGiNj5zpiNdrpqOXdO46NuIguWHq/rycL/eEpnIctn3Ow13kiOLGYJSwxwdk
-	NDvsqgW/w3Q30zooIci/AVwvx5ZfXN1sHOrojtUM6tLREH4jXqQTCRBrtM7/Qfo5w5wKOTb9Qim
-	t0tfate/UpU=
-X-Received: by 2002:a17:903:90f:b0:2dd:c100:a5de with SMTP id d9443c01a7336-2df7dd6d6d3mr17119355ad.50.1790244021513;
-        Thu, 24 Sep 2026 03:00:21 -0700 (PDT)
-Received: from phui-2.c.googlers.com.com (67.51.127.34.bc.googleusercontent.com. [34.127.51.67])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a516d58sm24409255ad.11.2026.09.24.03.00.20
+        d=1e100.net; s=20260707; t=1790244029; x=1790848829;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=U6oEIghWvcJ4GRb1a00MSWjde3NQ7RviSDO9ePyO6Z0=;
+        b=D5Ox4DM71P74ix4Ga+vU3oZedEaOg6weo7Qkvu+ZNKzPTsK9st9UscA2lqhV1GzSQL
+         cO10W9TktGUvctDd0s+RGt8wO43EaVWyBQk8FdbDz79Cka43tA424G2HpvCgGnHi22Yz
+         84wbTP1o5JkGq6YWDgpc9IWKjM8EmpXMbN3uzJjF7jnmw4viZjmY17qNkdK09+rssne6
+         jxk86IwTO+MkcumeWeEUZ+UrqlQAG68MYP6j8gB9BcDhiUbJ+QGaeok1ZqMwpu1U1fz/
+         TTEUz/PW+Di51HFfIrwDO+3V4R20tF7bZvxOOeQ91PnjmM5vdyF4nO5xjr8BiE+eU8Ff
+         Heqw==
+X-Forwarded-Encrypted: i=1; AKwUvBzcTduWgvS4SoUhwYbJjo6BWy96AqelsFjzQe9K4UG6C9OG9/NDz5pCtkTKU3XsQzxBKkCQDr0=@vger.kernel.org
+X-Gm-Message-State: AFuF++l4Mc8+agYu0ThNIAjlLQCp1WzHAgsdROuT54PKosSdpqy6qDhP
+	1B+QOlBqnIM6/MP4G0O/xmzfIvJgC1psYf4xWlxPAoP631I1P2x7CZ5E
+X-Gm-Gg: AYBFou3bDRm0RsTucaUBKAv9yw0lAcI+LV9wCCF95kHeY26FovltcCigTUoD05OPfEJ
+	B9ile+8OHnZ4doCdx+Z+9A47iSBBr84oDw9bULlgKvBh3EMPhIMy9bPRe6BXpPrVeWkdS17Euov
+	Ij2f44H79GpBx+CtAdvkSw6/U1NkIY4qJvMnIrv/Xtz2cchz7bQAjO17ppdk0TRByIY8G3PXQUE
+	jblXeqjYzI6UsTyq+47SolY5lnutGxV5h+cUZp+G2YpSffydNhcrBQbMmfg3lFczd1DWg7QPGbq
+	KGAJAXREOg5sews2Jv/pG2sz9umRFf+x60bkM1PTqb5G6RF25oXLRVRa3L2VP9xfGWeSgPNpHWA
+	uyDfumtrMGNQNwvR5EvYlJRNZ9WfH7oSp5+YXtv7Rqg0kJq5ItvfGsacI/XhpGtygQwekmZDCDb
+	YURMwWOIoWAZkLPb2YpSQhHCwN5wTag+9zY+XR0xEzb1gRDutudxAMph6qr53O5+ANejZ9Ni0/6
+	GH0kTk/GU9z2R5M
+X-Received: by 2002:a17:907:9407:b0:c29:f0ec:1c15 with SMTP id a640c23a62f3a-c2ac20ab89cmr165652766b.6.1790244029398;
+        Thu, 24 Sep 2026 03:00:29 -0700 (PDT)
+Received: from localhost.localdomain ([94.240.182.136])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aae6682d3sm260123766b.40.2026.09.24.03.00.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 03:00:21 -0700 (PDT)
-From: Hui Peng <benquike@gmail.com>
-To: gregkh@linuxfoundation.org,
-	arve@android.com,
-	tkjos@android.com,
-	maco@android.com,
-	brauner@kernel.org,
-	cmllamas@google.com
-Cc: maco@google.com,
+        Thu, 24 Sep 2026 03:00:28 -0700 (PDT)
+From: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
+To: anthony.l.nguyen@intel.com,
+	przemyslaw.kitszel@intel.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: intel-wired-lan@lists.osuosl.org,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
+	Svyatoslav Nikolenko <nsvatoslav515@gmail.com>,
+	syzbot+ca1ef9e2e234b8d3599b@syzkaller.appspotmail.com,
 	stable@vger.kernel.org,
-	Hui Peng <benquike@gmail.com>
-Subject: [PATCH v2 0/2] binder: fix premature fd_install() and buffer leak on read -EFAULT
-Date: Thu, 24 Sep 2026 10:00:17 +0000
-Message-ID: <20260924100019.3389555-1-benquike@gmail.com>
-X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
-In-Reply-To: <20260919213650.3316812-1-benquike@gmail.com>
-References: <20260919213650.3316812-1-benquike@gmail.com>
+	Aleksandr Loktionov <aleksandr.loktionov@intel.com>
+Subject: [PATCH net v4] net: e1000: fix warning in iounmap on probe failure
+Date: Thu, 24 Sep 2026 12:59:55 +0300
+Message-ID: <20260924095955.3471-1-nsvatoslav515@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -85,23 +84,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series fixes two error-handling issues in binder_thread_read():
+When e1000_probe() fails, the shared error handling ladder attempts to
+iounmap() the hw->ce4100_gbe_mdio_base_virt pointer. If the hardware is
+not a CE4100, this pointer remains uninitialized (NULL). On architectures
+like x86, passing a NULL pointer to iounmap() triggers a WARN_ON_ONCE,
+which is fatal under panic_on_warn.
 
-1. Defer fd_install() until after put_user() and copy_to_user() succeed,
-   preventing file descriptors from being prematurely installed into the
-   recipient process's file descriptor table when userspace copy fails.
-2. Call binder_free_buf() on -EFAULT error paths in binder_thread_read() so
-   the transaction buffer and associated node/ref references are freed.
+Fix this by conditionally unmapping the CE4100 MDIO base only if the
+mac_type is e1000_ce4100, matching the exact logic used in e1000_remove().
+The hw->hw_addr iounmap() remains unconditional since it is guaranteed to
+be valid for all error paths reaching the err_sw_init label.
 
-Changes in v2:
-- Split into a 2-patch series with separate single-purpose commits as
-  requested by Greg Kroah-Hartman and Carlos Llamas.
-- Added Reviewed-by tag from Carlos Llamas.
+Reported-by: syzbot+ca1ef9e2e234b8d3599b@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=ca1ef9e2e234b8d3599b
+Fixes: 13acde8fffc0af ("e1000: Fix the CE4100 bus type for the MDIO/PHY registers")
+Cc: stable@vger.kernel.org
+Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
+Signed-off-by: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
+---
+v4:
+  - Actually include the code changes (v3 was sent un-staged by mistake)
+v3:
+  - Switched from pointer null-checks to checking hw->mac_type == e1000_ce4100
+  - Removed redundant check for hw->hw_addr since it cannot be NULL here
+  - Added missing Cc: stable tag and Closes tag
+v2:
+  - Expanded commit message to answer reviewer questions (reproduction details)
+  - Added appropriate Fixes tags
+  - Added Reviewed-by tag from Aleksandr Loktionov
 
-Hui Peng (2):
-  binder: defer fd_install() until after copy_to_user() in binder_thread_read()
-  binder: free transaction buffer via binder_free_buf() on read -EFAULT
+ drivers/net/ethernet/intel/e1000/e1000_main.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
- drivers/android/binder.c | 30 +++++++++++++++++++++++-------
- 1 file changed, 23 insertions(+), 7 deletions(-)
+diff --git a/drivers/net/ethernet/intel/e1000/e1000_main.c b/drivers/net/ethernet/intel/e1000/e1000_main.c
+index d7f5c6f16142..d7e279b739b8 100644
+--- a/drivers/net/ethernet/intel/e1000/e1000_main.c
++++ b/drivers/net/ethernet/intel/e1000/e1000_main.c
+@@ -1227,7 +1227,8 @@ static int e1000_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 	kfree(adapter->rx_ring);
+ err_dma:
+ err_sw_init:
+-	iounmap(hw->ce4100_gbe_mdio_base_virt);
++	if (hw->ce4100_gbe_mdio_base_virt)
++		iounmap(hw->ce4100_gbe_mdio_base_virt);
+ 	iounmap(hw->hw_addr);
+ err_ioremap:
+ 	disable_dev = !test_and_set_bit(__E1000_DISABLED, &adapter->flags);
+-- 
+2.47.3
 
