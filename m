@@ -1,30 +1,30 @@
 Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7417B46C833;
-	Thu, 24 Sep 2026 13:20:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8119748550E;
+	Thu, 24 Sep 2026 13:20:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790256057; cv=none; b=it8TU/oxVlDFm2alF+a5XCrLIE4kMl6WVJrkKar9UfsrX3Dq6owC+CK2fueRcBYOm3ykG2QYJ6i2dhRKNFy0nNh1cRKyyrrLwgfapDPdooa6ptNvyikCToBSFePZp8f+Z5+HYbd19+k/u3dhuvULOjkCO3DpesReJFP2k45/QFE=
+	t=1790256061; cv=none; b=mvH0j6aqvkEZxCLP3qdw/sy/gD334r1YVaUjiXpJdPBxJkeLUaE3Vk9zJnZQGe0a0crhgr2kOIq8bSVceuohRHxdE6E760C8EfoHEklg2okjFu4cdLDjYN8qgaffHZYbhKJKZpD4VDHENKAEbrmw0eV8klK5uCqLCZBhxRz01fg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790256057; c=relaxed/simple;
-	bh=FSnqtKcDg8w5pPHPJybQRNTxbIRGTAm59dUPQ6CDzPw=;
+	s=arc-20240116; t=1790256061; c=relaxed/simple;
+	bh=HwthhyVLeALg10vV6t3qDKnfJtJhKjmcFjIIsnOjOHk=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=VzbA0tAXeiRrc2eR46+lSxLcq3CMCjniDhtsYpEo3Pee1XQ6a1KJUWNNC79C3dlLlNHUt6aLuT5TL3hgKHe4JrFST9maqrgQ9bxNAlxBM6++YNHHkqJ0AdYXu9vdds+WLJt1oTxZa3RO0dR7HXFRw/5OeSGMhEvk3EH/HF8EVCU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=S66dTXwE; arc=none smtp.client-ip=220.197.31.2
+	 MIME-Version; b=kLru2DinJAcAWnEe3dm8EvbZQ7xMp718nfL/ELJBxXgXTqVO/vDupwE4/gStmgs51QxmI0TjcAzd7IhSELw9GheufT16zzTJbaK9dtmon4W2/tpkqwwt2MyLwXtJqVgc9nAKUBQrA9yl7c2vZfOfFeK4AGQAS5VEO0LOZnd1P6k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=TG0Ulld8; arc=none smtp.client-ip=220.197.31.2
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="S66dTXwE"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="TG0Ulld8"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=li
-	hAyBuquZIbZWcutVuY8mTNAbIEE8ErIPZuIuxaZb8=; b=S66dTXwEVaN3E3z5N9
-	g2Ng2Ff579FLzDegik66tF9xbnXdRIA1LqBAYQsN6o/HaNgcYdBIzvxqsKthyyHX
-	efGHixF4Z3m6CAYq2xv4J94y2gc3IT2+uwNHCoAs9FwW3X7cTijrgjbPTvExF3sW
-	GSts7VtDkXzh4uJ2Dn+ZO6QKk=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=nJ
+	zntUbDfqeoG/uTtpJiDO8MUahdbbleXqqU3yFVq34=; b=TG0Ulld8Z8QDwbH5zo
+	MXu+Gn9XOZp3KOvvoBFf4E8x9IJ1s/osEhLAVkVulolYKVc+Wt0N1o+ahu8ZEz1b
+	e7akDDANl10uOOSJv7XQyQq0lzKl7Z2/bk3eiV2Kex5e+lJuTeHVJzLcLFKA3s93
+	Y0UuIPpXKTL94Lb9z4qRBw3A4=
 Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wD3d5ROI7Vqq0FrAg--.32720S3;
-	Thu, 24 Sep 2026 21:19:19 +0800 (CST)
+	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wD3d5ROI7Vqq0FrAg--.32720S5;
+	Thu, 24 Sep 2026 21:19:32 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
 To: Felix Fietkau <nbd@nbd.name>,
 	Lorenzo Bianconi <lorenzo@kernel.org>,
@@ -41,20 +41,21 @@ To: Felix Fietkau <nbd@nbd.name>,
 	Marek Vasut <marex@nabladev.com>,
 	Ville Nummela <ville.nummela@kempower.com>,
 	Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>,
-	Quan Zhou <quan.zhou@mediatek.com>,
+	Deren Wu <deren.wu@mediatek.com>,
 	Hao Zhang <hao.zhang@mediatek.com>,
+	Quan Zhou <quan.zhou@mediatek.com>,
+	Amitkumar Karwar <amit.karwar@redpinesignals.com>,
 	Kalle Valo <kvalo@kernel.org>,
 	Prameela Rani Garnepudi <prameela.j04cs@gmail.com>,
-	Amitkumar Karwar <amit.karwar@redpinesignals.com>,
 	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-mediatek@lists.infradead.org
 Cc: Jiale Yao <yaojiale02@163.com>,
 	stable@vger.kernel.org
-Subject: [PATCH 1/4] wifi: mt76: mt7615: unwind add_interface failures
-Date: Thu, 24 Sep 2026 21:19:01 +0800
-Message-Id: <20260924131908.950229-2-yaojiale02@163.com>
+Subject: [PATCH 3/4] wifi: rsi: unwind add_interface failure
+Date: Thu, 24 Sep 2026 21:19:03 +0800
+Message-Id: <20260924131908.950229-4-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260924131908.950229-1-yaojiale02@163.com>
 References: <20260924131908.950229-1-yaojiale02@163.com>
@@ -65,75 +66,48 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3d5ROI7Vqq0FrAg--.32720S3
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Kr47trWfAr1kAFyxZryrJFb_yoW8Kr4rpr
-	4UKFZ0kr1kJr15ta1fC3W7ZFyrWw4fKry3Cr17uwn5uwn5AryIvF4Yya42vF9YyrW0kF1j
-	vr42yan8WF95uaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pi_M3tUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7xflIGq1I1dJuAAA3n
+X-CM-TRANSID:_____wD3d5ROI7Vqq0FrAg--.32720S5
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Kr47trWfAr1kAFyxXryrZwb_yoW8Ww1Dpr
+	4DK3s0kryrGr4aqw45Ga18ZFyrCan5KrW2kF18G343WF4YvFyfZrn09a4Uua93CFZ5Ja15
+	Ar4qv34Yg3srGrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zifHUkUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzQXpJGq1I2U2OQAA3T
 
 mac80211 does not call remove_interface() after add_interface() fails, so
 the driver must undo any state it published before returning an error.
 
-mt7615_add_interface() records a monitor vif before resource allocation,
-and later reserves vif and OMAC bits and publishes the station WCID.  An
-allocation or firmware failure leaves some or all of that state behind.
-The stale monitor_vif can then be used by the testmode transmit path after
-mac80211 frees the vif, while the leaked mask bits permanently consume
-interface resources.
+rsi_mac80211_add_interface() stores the vif in adapter->vifs[] and
+increments sc_nvifs before sending the VAP capabilities command.  If that
+command fails, the function returns without undoing either update.  The
+array entry can therefore refer to vif memory freed by mac80211, while the
+interface count remains inflated.
 
-Unpublish the WCID and release its resources when adding device information
-fails, clear the reserved mask bits after failures that occur after their
-allocation, and clear monitor_vif on every failed add.
+Clear the vif slot and restore sc_nvifs when setting VAP capabilities
+fails, mirroring the state cleanup in remove_interface().
 
 Commit 2fb6480c52f6 ("wifi: mt76: mt7915: unwind state on add_interface
-failure") fixed the same failure-unwind issue in mt7915.
+failure") fixed the same failure-unwind pattern in another wireless driver.
 
-Fixes: 4f0bce1c8888 ("mt76: mt7615: implement testmode support")
+Fixes: b8bd3a439f35 ("rsi: add/remove interface enhancements for p2p")
 Cc: stable@vger.kernel.org
 Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- .../net/wireless/mediatek/mt76/mt7615/main.c  | 19 ++++++++++++++++++-
- 1 file changed, 18 insertions(+), 1 deletion(-)
+ drivers/net/wireless/rsi/rsi_91x_mac80211.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/net/wireless/mediatek/mt76/mt7615/main.c b/drivers/net/wireless/mediatek/mt76/mt7615/main.c
-index 67f56e428d9a..d20b109666dc 100644
---- a/drivers/net/wireless/mediatek/mt76/mt7615/main.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt7615/main.c
-@@ -219,7 +219,7 @@ static int mt7615_add_interface(struct ieee80211_hw *hw,
- 
- 	ret = mt7615_mcu_set_dbdc(dev);
- 	if (ret)
--		goto out;
-+		goto err_mask;
- 
- 	idx = MT7615_WTBL_RESERVED - mvif->mt76.idx;
- 
-@@ -237,7 +237,24 @@ static int mt7615_add_interface(struct ieee80211_hw *hw,
+diff --git a/drivers/net/wireless/rsi/rsi_91x_mac80211.c b/drivers/net/wireless/rsi/rsi_91x_mac80211.c
+index 3faf2235728b..34ddcbc43fdc 100644
+--- a/drivers/net/wireless/rsi/rsi_91x_mac80211.c
++++ b/drivers/net/wireless/rsi/rsi_91x_mac80211.c
+@@ -518,6 +518,8 @@ static int rsi_mac80211_add_interface(struct ieee80211_hw *hw,
+ 	if (rsi_set_vap_capabilities(common, intf_mode, vif->addr,
+ 				     vif_info->vap_id, vap_status)) {
+ 		rsi_dbg(ERR_ZONE, "Failed to set VAP capabilities\n");
++		adapter->vifs[vap_idx] = NULL;
++		adapter->sc_nvifs--;
+ 		mutex_unlock(&common->mutex);
+ 		return -EINVAL;
  	}
- 
- 	ret = mt7615_mcu_add_dev_info(phy, vif, true);
-+	if (ret)
-+		goto err_wcid;
-+
-+	mt7615_mutex_release(dev);
-+
-+	return 0;
-+
-+err_wcid:
-+	rcu_assign_pointer(dev->mt76.wcid[idx], NULL);
-+	mt76_wcid_cleanup(&dev->mt76, &mvif->sta.wcid);
-+err_mask:
-+	dev->mt76.vif_mask &= ~BIT_ULL(mvif->mt76.idx);
-+	dev->omac_mask &= ~BIT_ULL(mvif->mt76.omac_idx);
-+	phy->omac_mask &= ~BIT_ULL(mvif->mt76.omac_idx);
- out:
-+	if (phy->monitor_vif == vif)
-+		phy->monitor_vif = NULL;
-+
- 	mt7615_mutex_release(dev);
- 
- 	return ret;
 -- 
 2.34.1
 
