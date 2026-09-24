@@ -1,80 +1,80 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7969A420897;
-	Thu, 24 Sep 2026 07:13:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B90D040D587;
+	Thu, 24 Sep 2026 07:14:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790233986; cv=none; b=TP8+w+fn4PlHov1Id3nsO3DdmZCwD7+QmGvTyXY32mFrZp1kPO+jJ5/LLO3ovpvBQFHEKouX0WU1yoG+lygc5tQK/xrqqkINgyRGTQ8JnloUAs/f5lY7nJLFmuHzdgKXKX5rcYscHv5kLJoX5LI/EsKOFNOfT5Qu2jeMPq1ahfQ=
+	t=1790234084; cv=none; b=owTiOw50963Ns6Nt+RmqPJZnpC9mTnqhCKmewHyd8FBuPaf7RQUBGAhEoDiJBglnj4mKbN1cRR2sg26261Y68LliRm8naiLOU1OK1Poxyo6+U4HsMG6cqugdc7RNm3AzaqNRkGOuLHWC6pzw6I9o2pTgiS2Ls08H1Qpq38FAAOc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790233986; c=relaxed/simple;
-	bh=W+VIXknoRE2coJYyz3jrlRoKiT3F8++B/RUgJ6Cw9F4=;
+	s=arc-20240116; t=1790234084; c=relaxed/simple;
+	bh=NBZ+eic9CfIEwgnBewHMCalGbR6k3uxner4TVUF83uk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OL9w6Gy5IbTzOSPWSBX65kGxaN4aQmHVIDxKy6GPU9gy5qx/2MfAqm2Vun6F7ycyPQ+tH72u0b8pVjJXwbtYQNtyPDPDAVLEASnXw4MSGRodVnfJcrl9/dXMtEvKKD2/Bv4SAqvF1tSooJBkVVTg7M1SwULTs37s9AMJMY2xdZ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=b4s6UBsX; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=9OcVumtZ; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=mvF1UAlH; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=bnCSjTZe; arc=none smtp.client-ip=195.135.223.131
+	 In-Reply-To:Content-Type; b=okihCd4RKQfhhmeziSV1nKFqm0ANYh6vMhVxn3jZn6TMWtWp4a8iDzrV5DC7Xrml4XQNeuNeR6Idub0qgrUxgQh2C7aGZPHUS+Cb2lMizBvjGmcYgS5hXjBZMgR+Gf8eVhviC1M8xqb5tEIkZLuFoLkr+Nvg9BpiFBdl7pn57JE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=lEB74waK; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=heyBVIvW; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=bGgQDb2V; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=MdeQGqzD; arc=none smtp.client-ip=195.135.223.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="b4s6UBsX";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="9OcVumtZ";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="mvF1UAlH";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="bnCSjTZe"
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="lEB74waK";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="heyBVIvW";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="bGgQDb2V";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="MdeQGqzD"
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 709B81FFF5;
-	Thu, 24 Sep 2026 07:12:47 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 6618D21C40;
+	Thu, 24 Sep 2026 07:14:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790233971; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1790234070; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=IFmCbw1AXLcVDygfc6RLKARsvcPzfF5hCK7aTly65Nk=;
-	b=b4s6UBsXSdjD7v/VYQFK9VJlMmtgZkB+IyLwPFzHp5mVa4G28LM1fECv8c9azltiFRXdid
-	a8MslDZvDszwwgmBjKMtP9zCpPhAjRXFmIiEREuMNc4SIQqfUlg0/ixA1ixbZQmxeoNNMa
-	LFlK5OzDrd6oQ3Ut4iNYiUHBVk6xgHI=
+	bh=l1UzpKZExQHMgq+sq0aemQthY02cjPSoIUfciqIEIaE=;
+	b=lEB74waKjCNzIPQgRSgy6lHlkj+gwyoJwFri8Zfs/+e21A1Pp6DGEuqkf2Qg18xfuVDFpa
+	68Q1r0l06H4sgKPWMUQrbYGAKLvgO4KjTAsj1L8u+5drEEdJwaEsp3QdG7q9BkZPVrmUe6
+	ucO1+/A4oHlFp9vJzuf+kiWbDfBg+kI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790233971;
+	s=susede2_ed25519; t=1790234070;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=IFmCbw1AXLcVDygfc6RLKARsvcPzfF5hCK7aTly65Nk=;
-	b=9OcVumtZsdPFzzGrOxU1aDK6S/IPWfBV37qrJUkfmThviqsDLAREiqhqP9hg3U3lPSvCJY
-	6Tqn9Fe0AVLhqTDA==
-Authentication-Results: smtp-out2.suse.de;
+	bh=l1UzpKZExQHMgq+sq0aemQthY02cjPSoIUfciqIEIaE=;
+	b=heyBVIvWHWTwiCNdC/5RpW9/oY2sJg8Hst2cP7sXtj7gS8Nd+vOHEHMJkhyq3mmnhNVh3q
+	8KjeGrO2995JoYCw==
+Authentication-Results: smtp-out1.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790233967; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1790234066; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=IFmCbw1AXLcVDygfc6RLKARsvcPzfF5hCK7aTly65Nk=;
-	b=mvF1UAlHmOYDSEMf65/U5ILhWnk61wqonV9bJbvGtT0SqO1PdSHzcah02N/C07MmylFQlb
-	RqwFHA5pFXmwgjZwpwZSraFemRovmEihY5nWEct8jAUB+P61ONSXFyr8f2A4W/tjcC1vlO
-	H+9piOz3uWC6XZl8qonRpRaEPgU7Bi0=
+	bh=l1UzpKZExQHMgq+sq0aemQthY02cjPSoIUfciqIEIaE=;
+	b=bGgQDb2V5m3rkqavrer2ZCW4Ya2tX+tiGP7mna3pk9KD4fBeC6hf89OcWFTY5krxBCSP+o
+	2igWuiFmqHvf7Wzct0o8i38aSnUTbu76I7gIhiyOH5bm/xAVRj1UDnTURzLtq1icvGqMk2
+	IbTUhCh97u3ZFfCkXx/g3TOylBwi9S0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790233967;
+	s=susede2_ed25519; t=1790234066;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=IFmCbw1AXLcVDygfc6RLKARsvcPzfF5hCK7aTly65Nk=;
-	b=bnCSjTZevcb8hfB4gg/muzq4Av+BrQRVQDOv+okdaEDGMJOshqq+UP5t9YPsP5shSpKlvp
-	A/2thrHwTkvE4xAw==
+	bh=l1UzpKZExQHMgq+sq0aemQthY02cjPSoIUfciqIEIaE=;
+	b=MdeQGqzDCxiNWGlYm3VoqJE7inIR2oistRjtJVNnWy6ewu6YORpH3ArvHjjLV4jaazuenq
+	KwE6NbhTVEpwjYDg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1176713354;
-	Thu, 24 Sep 2026 07:12:46 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F110D13354;
+	Thu, 24 Sep 2026 07:14:25 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id AHPELW7NtGoPCAAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Thu, 24 Sep 2026 07:12:46 +0000
-Message-ID: <11236038-2c96-4d9e-bfe0-6ebd59d4823c@suse.de>
-Date: Thu, 24 Sep 2026 09:12:46 +0200
+	id oTP2LtHNtGoqCQAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Thu, 24 Sep 2026 07:14:25 +0000
+Message-ID: <35bc19a3-27d7-4d3e-978e-0692de78f8a0@suse.de>
+Date: Thu, 24 Sep 2026 09:14:25 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -82,8 +82,8 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] drm/udl: clean up USB resources if
- drm_dev_register() fails
+Subject: Re: [PATCH v2 1/2] drm/udl: reject short USB control transfers in
+ udl_read_edid_block()
 To: Hui Peng <benquike@gmail.com>, jani.nikula@linux.intel.com,
  maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
  simona@ffwll.ch
@@ -91,7 +91,7 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  stable@vger.kernel.org
 References: <20260919223511.3889061-1-benquike@gmail.com>
  <20260924064434.2541959-1-benquike@gmail.com>
- <20260924064434.2541959-3-benquike@gmail.com>
+ <20260924064434.2541959-2-benquike@gmail.com>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -118,7 +118,7 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260924064434.2541959-3-benquike@gmail.com>
+In-Reply-To: <20260924064434.2541959-2-benquike@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Spam-Score: -4.30
@@ -142,59 +142,62 @@ X-Spamd-Result: default: False [-4.30 / 50.00];
 	RCVD_TLS_ALL(0.00)[];
 	TO_MATCH_ENVRCPT_ALL(0.00)[];
 	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid,suse.de:email,suse.com:url]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid,suse.com:url]
 X-Spam-Flag: NO
 
-
+Hi
 
 Am 24.09.26 um 08:44 schrieb Hui Peng:
-> In udl_usb_probe(), udl_driver_create() calls udl_init(udl), which
-> allocates USB URBs and DMA buffers via udl_alloc_urb_list() that are
-> normally freed by udl_drop_usb() in udl_usb_disconnect(). If
-> drm_dev_register() fails in udl_usb_probe(), udl_usb_probe() returns
-> without calling udl_drop_usb(udl), leaking the allocated URB list and DMA
-> buffers because udl_usb_disconnect() is not called when probe fails.
+> In udl_read_edid_block(), usb_control_msg() requests 2 bytes into
+> read_buff for each EDID byte, and read_buff[1] is stored into buf[i].
+> Currently the short-transfer check tests ret < 1 instead of ret != 2, so
+> if a short USB control transfer returns 1 byte, read_buff[1] is not
+> written by usb_control_msg() and retains the previous iteration's byte (or
+> uninitialized kmalloc(2) memory on the first iteration), which is then
+> copied into buf[i].
 >
-> Call udl_drop_usb(udl) when drm_dev_register() fails in udl_usb_probe().
+> Change the check from ret < 1 to ret != 2 so any short USB control
+> transfer fails with -EIO.
 >
-> Tested in QEMU against Linux 7.3.0-rc3 using dummy_hcd by simulating
-> a registration error in drm_dev_register(): on the unfixed kernel,
-> udl_usb_probe() returned an error without calling udl_drop_usb(udl),
-> leaking 8 allocated URBs and DMA buffers; whereas with this fix applied,
-> udl_drop_usb(udl) is called on error, freeing all URB and DMA
-> allocations.
+> Tested in QEMU against Linux 7.3.0-rc3 using dummy_hcd and raw-gadget
+> emulating a DisplayLink UDL USB device: on the unfixed kernel, when
+> usb_control_msg() returned 1 byte for an EDID read (short transfer),
+> udl_read_edid_block() accepted ret = 1 and stored stale read_buff[1]
+> data into the EDID buffer; whereas with this fix applied, ret != 2
+> correctly fails with -EIO and prevents EDID buffer corruption.
 >
 > Fixes: 5320918b9a87 ("drm/udl: initial UDL driver (v4)")
 > Cc: stable@vger.kernel.org
 > Assisted-by: LLM
 > Signed-off-by: Hui Peng <benquike@gmail.com>
-
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-
 > ---
 > Changes in v2:
-> - Split out as patch 2/2 as requested by Jani Nikula.
-> - Added testing details in QEMU on drm_dev_register() failure cleanup.
+> - Split out as patch 1/2 as requested by Jani Nikula.
+> - Added testing details in QEMU on short USB EDID control transfers.
 >
->   drivers/gpu/drm/udl/udl_drv.c | 4 +++-
->   1 file changed, 3 insertions(+), 1 deletion(-)
+>   drivers/gpu/drm/udl/udl_edid.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/udl/udl_drv.c b/drivers/gpu/drm/udl/udl_drv.c
-> index 1922988625eb..239a6983f49f 100644
-> --- a/drivers/gpu/drm/udl/udl_drv.c
-> +++ b/drivers/gpu/drm/udl/udl_drv.c
-> @@ -97,8 +97,10 @@ static int udl_usb_probe(struct usb_interface *interface,
->   		return PTR_ERR(udl);
->   
->   	r = drm_dev_register(&udl->drm, 0);
-> -	if (r)
-> +	if (r) {
-> +		udl_drop_usb(udl);
->   		return r;
-> +	}
->   
->   	DRM_INFO("Initialized udl on minor %d\n", udl->drm.primary->index);
->   
+> diff --git a/drivers/gpu/drm/udl/udl_edid.c b/drivers/gpu/drm/udl/udl_edid.c
+> index af4cff2a7c51..b7c462436573 100644
+> --- a/drivers/gpu/drm/udl/udl_edid.c
+> +++ b/drivers/gpu/drm/udl/udl_edid.c
+> @@ -36,7 +36,7 @@ static int udl_read_edid_block(void *data, u8 *buf, unsigned int block, size_t l
+>   		if (ret < 0) {
+>   			drm_err(dev, "Read EDID byte %zu failed err %x\n", i, ret);
+>   			goto err_drm_dev_exit;
+> -		} else if (ret < 1) {
+> +		} else if (ret != 2) {
+
+Please test for (ret < 2) instead. It makes the test a little less 
+dependent on the earlier calls.
+
+Best regards
+Thomas
+
+>   			ret = -EIO;
+>   			drm_err(dev, "Read EDID byte %zu failed\n", i);
+>   			goto err_drm_dev_exit;
 
 -- 
 --
