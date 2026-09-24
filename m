@@ -1,57 +1,57 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6178419FCC
-	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 17:13:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D569F415B76;
+	Thu, 24 Sep 2026 17:29:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790270025; cv=none; b=W/vQiYATlFRt2YVgZu1BQOcLSyYCbO2TtffUmUz2F5C+oQPpkBp/wWo+40XQK7s/rIHICXSvJYkBjKRB7oH4WfqbMpwzWYew9gGppu/8/maCkQ8er63/vrJybjjNwoLcFcAO5whOwE5ydcIfnHzDtvnxAoqkRZBwIU0K0DrGVnU=
+	t=1790270952; cv=none; b=HkWwQX3kRr2Z+tdyuGOT/12cVX7y7F537XVnmlVFBE9kq/GZlBFOYnUveVRX1ecl0c/3WlfEJe0CYllAGRCv8k0L1z/JpszFMipUmtxMJQjBQXxyiavyag6eVv8qRFVRG+HpKC52DKOA2OGEVW15nW2Y5fvM3Oj/8ZhQW4GMxcU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790270025; c=relaxed/simple;
-	bh=UMiRIdkkvByXIsej7YtohS1owkRrHoaJZF5o0iUSbqk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=baPPZpeHn6A3FfK7O8bN3TqAzvguB7dbtW8axTSjTMEd4ArBiX9RTj+AiAfrO/DXBCxfS4pHQ+ejm55NiH8TijArIpoyD/dqv9sndAzuSE1b0IbtrJK+0jL78fNrjioa1rsREga30ud1G45z9L04eMzrRuI2DSjBa2e6hOAUFZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C2aXXueC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790270952; c=relaxed/simple;
+	bh=2gv8kLBW9SVyay1G5opQjJimEfQR9TY8I0YqxyfPupU=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=QKx2xzTdxu1gE145x4S0I23Gx3F7to9EDoTixTnGmqHGnZ5JW4psxmTK5JAzOCbfn4iwFi1IKiN1ZAE/37MpBeqQ5KnYdSsJefcrwYXWHiOzzTr7CsWEdBDvGdrk9G5rWMlcPptN7UENJifFTkzFL1z3o293kBL144xKk+8xusg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=daYPQflU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C2aXXueC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D56C1F00899;
-	Thu, 24 Sep 2026 17:13:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="daYPQflU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A6C21F000FF;
+	Thu, 24 Sep 2026 17:29:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790270024;
-	bh=m1CYQj51jmg+SkzOzX5FztoEtR86JjxUuimwyUkOGSQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=C2aXXueCmiBxzA+X+CDcxjEXeAV1l9JrAycO2TsbCrSAOMLLqYMOVdiFWucnJlhfS
-	 wLwDpo5q0Mib9VyiWBkKVl2wzn27VeZk4TTCNuMJ87CFNVrQjQoaxDzBHX4eoPK6Sy
-	 F2NmnHHe6h6QjX+/XPBVWf4Lm6cN4w0bveuHn6Zn8QkirV2spFve+RhHxsx0vMNZc3
-	 ZmnoPcS00sGEtFyO3ddrLelkzBD8ANKzDup/7mdZhSnSHR0L8bUQGPDkqs8TYzMtIB
-	 ho2pBA4HUnHJTjSDQ2HwMcEQY+HCsU5xV3doGfBkQBXMp05sERXoSq23u8rh1Pvcv8
-	 RZgJkZyPXQBfg==
-From: Sasha Levin <sashal@kernel.org>
-To: Itai Handler <itai.handler@gmail.com>
-Cc: Sasha Levin <sashal@kernel.org>,
-	stable@vger.kernel.org,
-	Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH 5.10.y] spi: spi-zynqmp-gqspi: stop the controller on shutdown
-Date: Thu, 24 Sep 2026 13:13:29 -0400
-Message-ID: <2026-09-24-daily-reply-0010-re-spi-zynqmp-gqspi-shutdown-5-10-drop@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <CAFpOueS2DVM-8JT+tZTtrJtWZ0ddz5ehuOHR1YKPK81P5NU_3g@mail.gmail.com>
-References: <20260922140318.668429-1-itai.handler@gmail.com> <2026-09-23-daily-reply-0008-re-spi-zynqmp-gqspi-shutdown-5-10@kernel.org> <CAFpOueS2DVM-8JT+tZTtrJtWZ0ddz5ehuOHR1YKPK81P5NU_3g@mail.gmail.com>
+	s=k20260515; t=1790270951;
+	bh=D4hYFv6SRlJplIdtSS3eB5FFK6xtOtWwojufnunZOk0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=daYPQflUu+VBQKTdfYUgJrVnNzbyQ4xTbPErEtq+YY2F/HT4s4v4VPZOSWcbm1Y5Z
+	 OoS5JzGl77jWmwqGH+c1PZvvD22Bc0dgJRmLy5h19c1mPNoKZjM5jpOZ8QgQ4EhHyg
+	 LUANR/Hkxcnyg7/X4esCYHlnnBhQcKRLgtZIZ2DPsCtCw32l4lhZyxmeUOfZq3oCcK
+	 gzhiDUgChqV4OzZ4vlOoeSw1qBB93KEcEDRsRb77HOM2CXjKjkZe+IZGRvMWT3cV64
+	 W8bcjKqve4XS5ec377wsM3VZijETPx1uczUz8S1BP+57rFXKWHoKneLtEi1izp+sqf
+	 P2QJSJC5c7ZPA==
+Date: Thu, 24 Sep 2026 10:29:10 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Jamal Hadi Salim <jhs@mojatatu.com>
+Cc: netdev@vger.kernel.org, stable@vger.kernel.org, Jiri Pirko
+ <jiri@resnulli.us>, "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
+ <horms@kernel.org>, Vlad Buslov <vladbu@nvidia.com>, Marcelo Ricardo
+ Leitner <marcelo.leitner@gmail.com>, hybris <hybris@mojatatu.ai>,
+ sashiko-bot@kernel.org
+Subject: Re: [PATCH net 1/2] net/sched: act_api: reject duplicate actions in
+ a batch
+Message-ID: <20260924102910.09e9c601@kernel.org>
+In-Reply-To: <QDISC-K1TH.v1.20260922072206@mojatatu.com>
+References: <QDISC-K1TH.v1.20260922072206@mojatatu.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-> I suggest dropping this backport for now and first fixing the runtime-PM
-> logic in the 5.10 tree. Once that is fixed, we can revisit the GQSPI
-> shutdown patch and backport it with the same runtime-PM logic as
-> upstream.
+On Tue, 22 Sep 2026 07:50:54 -0400 Jamal Hadi Salim wrote:
+> Subject: [PATCH net 1/2] net/sched: act_api: reject duplicate actions in a batch
 
-Agreed. 5.10 stays without it for now.
-
+missing patch 2/2 here ?
 -- 
-Thanks,
-Sasha
+pw-bot: cr
