@@ -1,97 +1,149 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3EB6224AFA;
-	Thu, 24 Sep 2026 00:49:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12A6D23BF9F;
+	Thu, 24 Sep 2026 01:06:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790210974; cv=none; b=V17ZgbQC4ZVTgmTgaGKSTHBEtVyE9FLbWaBWmSQ0fC78ToeGNFSZFFe5YyX1qvURrsAwgl3VMje5DXD02puUhodAWz/qNs4Ks+E2mgdNXAVoUvr0NLDFFx9IKZ6jHhp/dSZtpDEqgnYsodcDczBIHVTKGZU2Bbx0Fh+aimRw79c=
+	t=1790212019; cv=none; b=hoPWCpU2uyesDvHE7MoyN1KBd+skmOulKPulSxL+K6lAVga8/JNs6xTeGhQ3wvhUCZGk3cCbuZV46rxbVT+6V/MPAhNr4E4o/GL2wInKI1yYBQ6bOLr3ClTgmd48zzKgnShf7uYbIUxEGq0fWjZjPQ9K455f04rdR33/jOrtDcM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790210974; c=relaxed/simple;
-	bh=0S0Q2ZnEizyjRV0nHgLWG20eI9b0fZbqwRPb55FHysk=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=bz53U5Z2wQEil5PPUcXas5ilKAIPfPVNY9auZyPntokZASeeeOUg6jmT+FChCSJbnS85k7zdBwXCKLei8X15QmydLheqZc+rbK/CC/u/gfuDFlIwU4NZRB9oyAZEf9SL1hTIyF8yDCy3ccYJG4df8Dyc9sMdvBnNATGPjEwfqEg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=Y4HfnhUG; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1790212019; c=relaxed/simple;
+	bh=OFG7solwFJRuwBszQ7Wnwkkpl8Opqn5d4oDAoeNgtfw=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=IE1YdEwv2fU9Y0DRGrLoV8XrT6kNG++d/itSC+fjUgQmfdPRwh9gMd3tijbDu+djy/Wc1q1+vFld7aTU9grXYCHNQGBB2y+u19k14Wx8lX3KjCq+fMArJfXSEIeQkmNNinJKDMQYc6xsdKP8pZ/0zNxHnyoMGGdJeJvQVFRQAWs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XPXk9yS1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="Y4HfnhUG"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68O0nS7v9768405, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1790210968; bh=0S0Q2ZnEizyjRV0nHgLWG20eI9b0fZbqwRPb55FHysk=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=Y4HfnhUGyTAShXVeNP8+JRUx1v+o+amN56vBFSCT5UsG4uaT+kyONQl1xnsLxaUAn
-	 V24L8Jyf4MSEJMco76lqYwqDMCulolWQz8ACqsbCl1GXnp+v2LKtHJUmkzf1KDxtIy
-	 AbiavPBD5u8rWm/dxFp5ZXv/qJ2qQn/M6NxVkIGrSX5Q/6Wx1VMBq/NgqPlgFPPoK4
-	 kKiKGkGzgAEEza084A/f3pXJggMKGj10GNC7v3ATA3Rpsnswldn+CSWXWdPLCHu1LX
-	 xQOwGwOpEPtY7Z+yoO1pCZJ4kF/vQ+xIA55kupWvoy2ZxhuOt+5Fdhe/Mlcqv3PRQp
-	 N/QjqJHZdxzMg==
-Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68O0nS7v9768405
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Thu, 24 Sep 2026 08:49:28 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 24 Sep 2026 08:49:28 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 24 Sep 2026 08:49:28 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Thu, 24 Sep 2026 08:49:28 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Bitterblue Smith <rtl8821cerfe2@gmail.com>, Josef Schlehofer
-	<pepe.schlehofer@gmail.com>
-CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: RE: [PATCH rtw-next] wifi: rtw88: extend the TX report timeout to
- RTL8822BU
-Thread-Topic: [PATCH rtw-next] wifi: rtw88: extend the TX report timeout to
- RTL8822BU
-Thread-Index: AQHdSenJcyZ0zJutbUi+wqdx39QBULbZ2AMggAHnXICAASlsMA==
-Date: Thu, 24 Sep 2026 00:49:28 +0000
-Message-ID: <3d24a4e461dd4e5fbb7aaac66aad1b0b@realtek.com>
-References: <20260921165343.8131-1-pepe.schlehofer@gmail.com>
- <4c000f11b23c4920b052e8513ad28345@realtek.com>
- <96f122e7-2004-43d6-917d-a07027f568a4@gmail.com>
-In-Reply-To: <96f122e7-2004-43d6-917d-a07027f568a4@gmail.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XPXk9yS1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 118E71F000FF;
+	Thu, 24 Sep 2026 01:06:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790212017;
+	bh=CJkNWkNrY+y078XLIOaRAPfEesb+E74HSkQALPyaJbM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=XPXk9yS1BU/M0jfJbkv2L68IC9GWxkDZPn86zB7oC5cQh18ZiHUGlqB2ftmrLBchk
+	 gmiKBPLFlEzNQ2r7wFaVyaUEpo9jhnumi4Sttonwdn4EHXcaZbsIutNGLwgMNFuht8
+	 aUTvgzv8movXQzUUz+Z/gb9DVXxhfT8efFmmPacY47xk5Ue1NRgNiWU7wGBzRFiE2F
+	 Zdk3YKG2SiMHNNKfwPgpv5j3XaULtb8Zp8N64fqzzgdSjA8e9wwby94BgEc95Y1EYj
+	 LZhLW17QsCsNUJXrQVQhQcwBBxpcs2SGPeL12wBTzy/GNy3F2TYslkuJxumnkgPY6B
+	 Lvvc8MwoJ/hww==
+Date: Thu, 24 Sep 2026 10:06:54 +0900
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Cc: Steven Rostedt <rostedt@goodmis.org>, Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>, linux-trace-kernel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v1] ring-buffer: Fix the sub-buffer array base in
+ rb_meta_subbuf_idx()
+Message-Id: <20260924100654.49809fad606e577ee39f3086@kernel.org>
+In-Reply-To: <20260918071507.1019251-1-donggeunyoo.kernel@gmail.com>
+References: <20260918071507.1019251-1-donggeunyoo.kernel@gmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-SGkgSm9zZWYsDQoNCkJpdHRlcmJsdWUgU21pdGggPHJ0bDg4MjFjZXJmZTJAZ21haWwuY29tPiB3
-cm90ZToNCj4gT24gMjIvMDkvMjAyNiAwNTowMywgUGluZy1LZSBTaGloIHdyb3RlOg0KPiA+IEpv
-c2VmIFNjaGxlaG9mZXIgPHBlcGUuc2NobGVob2ZlckBnbWFpbC5jb20+IHdyb3RlOg0KPiA+PiBk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9uZXQvd2lyZWxlc3MvcmVhbHRlay9ydHc4OC90eC5jIGIvZHJp
-dmVycy9uZXQvd2lyZWxlc3MvcmVhbHRlay9ydHc4OC90eC5jDQo+ID4+IGluZGV4IDRlMTEwYTQ1
-Ny4uNTVkNzkyM2UxIDEwMDY0NA0KPiA+PiAtLS0gYS9kcml2ZXJzL25ldC93aXJlbGVzcy9yZWFs
-dGVrL3J0dzg4L3R4LmMNCj4gPj4gKysrIGIvZHJpdmVycy9uZXQvd2lyZWxlc3MvcmVhbHRlay9y
-dHc4OC90eC5jDQo+ID4+IEBAIC0yMDgsNyArMjA4LDggQEAgdm9pZCBydHdfdHhfcmVwb3J0X2Vu
-cXVldWUoc3RydWN0IHJ0d19kZXYgKnJ0d2Rldiwgc3RydWN0IHNrX2J1ZmYgKnNrYiwgdTggc24p
-DQo+ID4+ICAgICAgICAgX19za2JfcXVldWVfdGFpbCgmdHhfcmVwb3J0LT5xdWV1ZSwgc2tiKTsN
-Cj4gPj4gICAgICAgICBzcGluX3VubG9ja19pcnFyZXN0b3JlKCZ0eF9yZXBvcnQtPnFfbG9jaywg
-ZmxhZ3MpOw0KPiA+Pg0KPiA+PiAtICAgICAgIGlmICgocnR3ZGV2LT5jaGlwLT5pZCA9PSBSVFdf
-Q0hJUF9UWVBFXzg3MjNEICYmDQo+ID4+ICsgICAgICAgaWYgKCgocnR3ZGV2LT5jaGlwLT5pZCA9
-PSBSVFdfQ0hJUF9UWVBFXzg3MjNEIHx8DQo+ID4+ICsgICAgICAgICAgICAgcnR3ZGV2LT5jaGlw
-LT5pZCA9PSBSVFdfQ0hJUF9UWVBFXzg4MjJCKSAmJg0KPiA+PiAgICAgICAgICAgICAgcnR3ZGV2
-LT5oY2kudHlwZSA9PSBSVFdfSENJX1RZUEVfVVNCKSB8fA0KPiA+DQo+ID4gSGkgQml0dGVyYmx1
-ZSwNCj4gPg0KPiA+IEl0IHNlZW1zIGxpa2UgbW9yZSBhbmQgbW9yZSBVU0IgY2hpcHMgbmVlZCB0
-aGlzLCBsZXQncyBlbmxhcmdlIHRpbWVvdXQgdGltZQ0KPiA+IGZvciBhbGwgVVNCIGRldmljZXMu
-IERvIHlvdSBoYXZlIGFueSBjb25jZXJuPyBOZWVkIHlvdXIgaW5wdXQuDQo+ID4NCj4gDQo+IEl0
-IHNlZW1zIGZpbmUgdG8gbWUuDQo+IA0KPiA+PiAgICAgICAgICAgICBydHdfaXNfODcyM2JzKHJ0
-d2RldikpDQo+ID4NCj4gPiBBbHNvLCBjb25zaWRlcmluZyBTRElPIGNoaXBzLCBzaG91bGQgd2Ug
-a2VlcCBvcmlnaW5hbCB0aW1lb3V0IGZvciBQQ0kgb25seT8NCj4gPg0KPiANCj4gVGhpcyB0b28u
-DQo+IA0KDQpJIHNlbnQgYSBwYXRjaCBbMV0uIFBsZWFzZSB0ZXN0IGlmIGl0IHdvcmtzIHRvIHlv
-dS4gDQpJZiBzbywgSSdkIHRha2UgbXkgb25lLCBhbmQgZHJvcCB0aGlzLg0KDQpbMV0gaHR0cHM6
-Ly9sb3JlLmtlcm5lbC5vcmcvbGludXgtd2lyZWxlc3MvMjAyNjA5MjQwMDQ2MzcuOTk1OC0xLXBr
-c2hpaEByZWFsdGVrLmNvbS9ULyN1DQoNCg0KDQo=
+On Fri, 18 Sep 2026 16:15:07 +0900
+Donggeun Yoo <donggeunyoo.kernel@gmail.com> wrote:
+
+> On a persistent ring buffer, rb_meta_subbuf_idx() can return an index one
+> sub-buffer too high.  rb_setup_ids_meta_page() then fills subbuf_ids[]
+> shifted by one and leaves subbuf_ids[0] NULL, which __rb_map_vma()
+> dereferences when userspace maps trace_pipe_raw.  rb_update_meta_reader()
+> writes two such indices into meta->buffers[], which rb_cpu_meta_valid()
+> would reject on the next boot, discarding the previous boot's trace.
+> 
+> A CPU's sub-buffer array starts after its meta header and the nr_subbufs
+> integers that follow, aligned up to a sub-buffer.  rb_meta_subbuf_idx()
+> inverts that calculation but skips only the integers, not the header, so
+> its base is one sub-buffer low whenever the omitted header size crosses
+> the alignment boundary.
+> 
+> Invert the calculation with rb_subbufs_from_meta() rather than repeating
+> it.  rb_range_buffer() maps an index back to an address through the same
+> helper, so the two directions can no longer disagree.
+> 
+
+Ah, nice catch!
+
+Acked-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+
+Thanks,
+
+> Cc: <stable@vger.kernel.org>
+> Fixes: b14d032973d4 ("ring-buffer: Add ring_buffer_meta data")
+> Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+> ---
+> x86_64_defconfig plus KASAN, FTRACE, TRACING and TRACER_SNAPSHOT, on
+> 5dd1818b15d9, booted with reserve_mem=<size>:0x1000:trace
+> trace_instance=boot_mapped@trace.  head_buffer is from
+> instances/boot_mapped/per_cpu/cpuN/buffer_meta, the map of that CPU's
+> trace_pipe_raw.
+> 
+> nr_cpus=1, 24 reserved sizes 4096 bytes apart:
+> 
+>   nr_subbufs      head_buffer  map      head_buffer  map
+>                   unpatched             patched
+>   997 .. 1004     1            ok       1            ok
+>   1005 .. 1012    2            oops     1            ok
+>   1013 .. 1019    1            ok       1            ok
+> 
+> nr_cpus=4, nr_subbufs 1017, one boot:
+> 
+>   cpu 0           1            ok       1            ok
+>   cpu 1, 2, 3     2            oops     1            ok
+> 
+> cpu 0's meta sits after the buffer-wide header and the scratch area and is not
+> sub-buffer aligned; every other cpu's is, so the affected nr_subbufs differ
+> between them.
+> 
+> Unpatched oops:
+> 
+>   Oops: general protection fault, probably for non-canonical address 0xdffffc0000000007: 0000 [#1] SMP KASAN NOPTI
+>   KASAN: null-ptr-deref in range [0x0000000000000038-0x000000000000003f]
+>   RIP: 0010:__rb_map_vma+0x418/0xa20
+> 
+> With no reserved range at all, both kernels map the global buffer.  On both
+> arms, tools/testing/selftests/ring-buffer passes 6/6 with no skips and
+> CONFIG_RING_BUFFER_STARTUP_TEST reports "Ring buffer PASSED!".  ftracetest
+> gives identical per-test verdicts on the two arms -- 153 pass, 6 fail, 6
+> unresolved, 10 unsupported, 2 xfail.  The six failures are the same on both
+> arms and their cause was not established; the unresolved and unsupported ones
+> need pahole, a hypervisor trace remote, or userspace this initramfs does not
+> have.
+> 
+> The discarded-trace path is not measured: a fresh QEMU boot gets fresh guest
+> memory, so this harness cannot carry a persistent buffer across a reboot.
+> 
+>  kernel/trace/ring_buffer.c | 4 +---
+>  1 file changed, 1 insertion(+), 3 deletions(-)
+> 
+> diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+> index 04bb94c29f58..fa2e2ce683aa 100644
+> --- a/kernel/trace/ring_buffer.c
+> +++ b/kernel/trace/ring_buffer.c
+> @@ -3627,10 +3627,8 @@ static void rb_inc_iter(struct ring_buffer_iter *iter)
+>  /* Return the index into the sub-buffers for a given sub-buffer */
+>  static int rb_meta_subbuf_idx(struct ring_buffer_cpu_meta *meta, void *subbuf)
+>  {
+> -	void *subbuf_array;
+> +	void *subbuf_array = rb_subbufs_from_meta(meta);
+>  
+> -	subbuf_array = (void *)meta + sizeof(int) * meta->nr_subbufs;
+> -	subbuf_array = (void *)ALIGN((unsigned long)subbuf_array, meta->subbuf_size);
+>  	return (subbuf - subbuf_array) / meta->subbuf_size;
+>  }
+>  
+> 
+> base-commit: 5dd1818b15d98d4a20806cd00b1b40320b06004f
+> -- 
+> 2.53.0
+> 
+
+
+-- 
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
