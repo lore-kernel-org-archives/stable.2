@@ -1,245 +1,147 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from sonic301-22.consmr.mail.ir2.yahoo.com (sonic301-22.consmr.mail.ir2.yahoo.com [77.238.176.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEDBF41DEE7
-	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 22:51:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 020C3428475
+	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 22:52:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.238.176.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790290318; cv=none; b=SzILmXrF67TckSt+hq5ULdFq+wyzQNOBf/z+TXJZjCMbc8s2tC9RZlfXDYcD1WB6dZ7Qu2EXtjQyfXKHbhZjGQ/IGGd5IIv54QeVPkDRXRPzCpN7Utjv0p2YkuzxaVOiqee3lEyRqUT7xk6ytd9doqR9hyNjZs4gqNxe5zaEp34=
+	t=1790290375; cv=none; b=KkoLTePz70k2e5KOT6DOf91X6ksXjOgMkGV+R9ktgisNulPmK39vlK7A1BzcqASSRHCwONFYnNXKNu3r+OxngX4mMS4ObqTJYzCJLeEK0wvCM/VQ1WlYqhJOHjv6RsLH856QFvLCvU440JqHbT2NX//vG/wUl1To/W6N6UsJ6eU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790290318; c=relaxed/simple;
-	bh=62XiZv6zk3rTKUR1/CJN607c+3Nv6L/9YqYGWxYk92A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RgN1xTHWQhOg3DrjeJo1+G2/vfPmTv8kYvhB0YfQVI9p4d4alLGv/GX2BUEJ7aXxKax5ILc5HdC3BNHsAYy2d6dIaFUcYQu4aQE32FDjPzF/b2rMpenLUcsXnD54hSRBOeuO0Ivcv0pEt/tTcfvejLpW07AU/S01v8YT0KMVak4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jr7MkNWE; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790290375; c=relaxed/simple;
+	bh=sLZ2f3qmkmQP40OEduwbrkPI3sTryjrODxdy8yYGMyg=;
+	h=Date:From:To:Cc:Message-ID:References:Subject:MIME-Version:
+	 Content-Type; b=TaCXSMpPqv/aK1JPBObPtdUc7ZaZqfb6TNfNnpTbdzIweAaZmek4zD+iYy5/eD8epEjCPCwlPNi+Xhcsd2AN3tFYJYjNmk/iV6o7j2LxBbJBvF0BszjOwODKxTWMuvQuRsBdENEqF+k5I4b37gQQrFf8W4EqM42w/3ypNYHiIak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ymail.com; spf=pass smtp.mailfrom=ymail.com; dkim=pass (2048-bit key) header.d=ymail.com header.i=@ymail.com header.b=pR/gl+eA; arc=none smtp.client-ip=77.238.176.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ymail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ymail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jr7MkNWE"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e7bcb94d3so2287765e9.2
-        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 15:51:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790290315; x=1790895115; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DY4/sCTlc60wxmtt4c/QaqdPIrvNF/5bj6Z1Qp+fliA=;
-        b=Jr7MkNWEv9EYHPscJTXfpurWeYrYnCM+0e9DH3RLK9v+Nzxzgy3jxSmw3Rz3HEmIeM
-         vc8RvLFYRO3qGRbf2Ab6qQZd8G+2zmeNFT1kR7r0K1BIumx0TyHU+TPNUmg4K7itAeCt
-         KqSB8clSDNfg6p2TZHy/2Xg+HH9Y70oOO+JLGLlPyAtpB048S9L9LfO8EiyEPT9w5ncO
-         O9xTcLFXKKweYgvlRQoGX7c9W0QaNUKpi3OTzmA7r0lvpgI5Mtubsx9+3vjF7lnwRrYq
-         HvPGtjDoVqqmO3uNUaE01pxfloL+FrLDw2FtO9/QOI+DzuBwtCVFKscHyN2qzVb6EvJF
-         veTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790290315; x=1790895115;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DY4/sCTlc60wxmtt4c/QaqdPIrvNF/5bj6Z1Qp+fliA=;
-        b=u7Q1oho7AOt5ATYr0lBcEkRLiYeFWOVGmo0YaTVGdXJ7R754/S3yBqH9HgNN6/xfod
-         ZHAhpCn3yC7Fj5PepuBPD+C0Dew9+x3uGixd/gPnBYQkqG6WC4das009cNcQSLTGgFt/
-         Dgbu9jCLffxJ3464BN1nYWjHcAlk6AeN3kjconSySZP5wMrrUMel7qXGarUW81BrTbAM
-         VTkxasR//AOj5P8e+414F5dh/3yJiGQBuZBjTLbxvTpok+eXXaiaDlLUbQb9h/WUgMb3
-         5hIus8s/MksKmrxUCqiJ3wt6rvIm7a+MyR9jpeJ+4VQWqnUnKiEAwXbtSFzfhcCGNoiH
-         dPMw==
-X-Forwarded-Encrypted: i=1; AKwUvByyNhJoClW7/QIWPhRICb9zCjGVZkfkdyxkTXOv7tg1IEJObLwYquXOCq4RuGZkQ/1Bfnjeirw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mmokf7aB60MO6pBVic6YsK5Q36P2XXG5NQ2xuB1yD0Q+5gtoWa
-	4Yh6M7jh50ROtKzxpEAUQZYxr7VihpJwONSLT159humOdDFf8C/YsFsF
-X-Gm-Gg: AYBFou2e86BU0qGYtKh4a8qY/00RJ0/ZjvtxBgbqLPEsx27WDOvKq45SC34apOKWerr
-	KpKiFR8XKDQvnwMgGefPMmwvdpt0R3dpOj3YvCeBU9mMt2NFotDesMUGr9UjrVzvFG8m0DNftTb
-	fFR8DUFYt5DVCyhkcN/rkn3fUFJlA7DUdfrL3OKLre+GDbDNsjiJSialRbEKdPlZCgjS3Vqf9ZS
-	uXM5PFqwzNpPrByBoDEBri8Qe01izSPyEUnkM8/cld9CmS2r9RtYUSMOGX0iB0I6g8E0dOR68c+
-	pTt6pgQjOmbXO9XT6G7huNV7AVg1v+qZxNpHksrBlw0v7bNx/x7fbtOiAu2uKEkaDO889Pp4T1I
-	XuxFI6H1VFAMfp6yaNyXtFITTgiJJDbhfw0M0Q7hZRi+5XKwXpWIivGbkwehlC2kIHJoXW/i9ja
-	VLrzOmsr0sJ17pHtfL6xbKotP7jZaACl6z/nnBSo6MQYRDB3J7FZEdwUki/64AYAhtr53yoGlwV
-	EUeV+uguyXDZspGeQTlSMITIHlDKFJdclnK1uXslS9OSLnw48zooNB7dym6P5WyDmtTccaIai25
-	5Z2sB90OnSyu8X9ZtZM1aCCTe6M=
-X-Received: by 2002:a05:600c:1d28:b0:49c:fc6e:8cbd with SMTP id 5b1f17b1804b1-49fe66fc677mr74153985e9.33.1790290314882;
-        Thu, 24 Sep 2026 15:51:54 -0700 (PDT)
-Received: from 1Z10 (mob-176-245-31-160.net.vodafone.it. [176.245.31.160])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5ce4941sm97253225e9.6.2026.09.24.15.51.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 15:51:54 -0700 (PDT)
-From: Maurizio Casciano <mauriziocasciano7@gmail.com>
-To: Sebastian Reichel <sre@kernel.org>
-Cc: Hans de Goede <hansg@kernel.org>,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] power: supply: core: Honor supplied-from with CONFIG_OF=y
-Date: Fri, 25 Sep 2026 00:51:52 +0200
-Message-ID: <20260924225152.985489-1-mauriziocasciano7@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=ymail.com header.i=@ymail.com header.b="pR/gl+eA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ymail.com; s=s2048; t=1790290365; bh=sLZ2f3qmkmQP40OEduwbrkPI3sTryjrODxdy8yYGMyg=; h=Date:From:To:Cc:References:Subject:From:Subject:Reply-To; b=pR/gl+eABl6qk5Gs/xQGyJkgeaWqTVQEERCRwNX1TA0xydEYGwJxI3I0lmpZ6JgZB9nQ3SeaBAvacZHw9m5PcbLudZExhcKIX9jzDX3NX7+saSBn7NQQ97VChRpy7pVJ28e2lLn35STmzY4E3wnC83DNC4D8ZHwPQH94vPVAgRy6uFq/aBlYadnQcm4PdVKe5OElOKQZO0BTD//NV8ncxoFlQbGTZ64LHR6Qjt+ON7sr0MPjPDHGtjUivX2v3j9C6gaVvGlgjYWRX6LMzU2B32wHXn67XK44KUYrarI5rztjYPeOxjpu0+spB+WsrVVERnY8PULjkUQtRrtC0EQ4vw==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1790290365; bh=asUaaEONd7F9dRtGEHUv6RN9+n0WatlEM5WXTR+02Wg=; h=X-Sonic-MF:Date:From:To:Subject:From:Subject; b=DbB2sFzRDNwzR52hXsC6wPg5CxMguOrN8gWvl42hPUthdPDtqK3CwMKtngbueHZMCPkypFalMJI2ECYsnbQX4tTV/Ucb9jtBJPvYw1n6xd7oLlBbAL7OWOneXQer/46vfuIn3I+kjbIGW05Ez1MzuKwZ7q3mm0VRzmoKDsIVECfsewyeL6k7IMWYiCYpqmrOT3Px6Dl6RP8unVlL3Be/qXSOVhApI16zm3uwUtRNMzCuTSB0UB93v+fnAYUjZNfm6D4r9pUu3xuJqRXo1gXfV5hwaVt/ajCXBXpBEyqbTLw8LtaLz60/7TWnn4+9PvEBrO3vi4QUXZETgovxSpdoCg==
+X-YMail-OSG: MudnEewVM1kCG9By9l7Isqrkg15R_DFcw7O2SdpvA1ZkJoQbp5pyrlz.VVP7oTK
+ xULu0sAz5SIVC2Xt5.3bUjkcy6uSSrnKWDPmz_27pc2XuE4uXjSkgkPRjy7ZEBIS0CljOOfI_JcR
+ q3Yve.QRC7lX2bOC7Y_mbNUiHkAEzDWkvFkk5InKE3lQrfIZHRC.LKPJsO3HbvbA9AfSdwAuporr
+ YYiRZJKV.pDMpVES3X53WNof_aVsAD6cVkKgMu18BNlRRWxSwOf1WFIWZn22krcKyQmnEza8TSqz
+ T7a8xnu0fZMHYVuCp9NTZdG_xv5vKYfx8EPV2D6DNjrWQhSZ6Xm_YRlG2MtoWgZPoCRxRdOFQL_G
+ C8XGfCr_Xr6xFbKZuBHf9Exr1PY2WHSdIv5cugmKFB.lKnHHqyDdtxAkYmyTv62UUwirQQO0XW4t
+ 37PcXtwOQM.Su_SesIB1AeifZA0q1.bWbtFGa4yGNsr_nlYf2lxz17HWCcwI24A_ppanlgLwu_Uz
+ nhG1wmCoLqVU1Kq7vryxRNAI5fEyYyfNQIKUSE8lYzBuVdZ2pjHGFXRCHemSW__Jdaf_.yoZ0T3U
+ 3HzITtII.jiXCIgjt50vOl9_4pLiZjuo1dRdhZXN1h_0LkMcPYbhThrteFiDIpCVbaKg5P8aMvUd
+ pWMG.WzBCIx24jrj6geHR95.qjWCPnc8DRRh8HkKL8b7tsJWSovz5CFQGuPvHd5HXrnbnyF3SJMR
+ he5smS5uq_7n4lAteWPVYOqmCWsH7HB_KuMxgZsZ3dWklsJ5pX9LFMHq9VblyjcYYFZowgg.oAwL
+ 5qxjEQKMWCPl.mWjjt2r1Ihd1nuSINEZPR63uPWCozt0YKeJpy2riCSODhHsWp1FVlzyKHOCjYGx
+ 5isPLheFCg8gBZhUCqqJtMQ5w9h0tq9vEB0gA1TYxAelRctZDnu8iytE7a6OG_USyweOZZhasPEo
+ qunXFcST0iQKcxILkUkrtBxZOnbZIZDmQT.Q49TMHkfBl4WC1gSCeeHsDtabQAN0HPARsBiw7iEa
+ timUPTgO3NWrYm86eViybhrBUcKUgZs64Np6ALkKREh.lw7waYqxSHVhIRx9iItgU2quQKq2P.F7
+ UsPDGopa.1gmxw9SB5GG0Bvhdvd12uIz7y9DiZeChn7eUOTmaHgmMVC0_hY5HWjgFjZZhWxdJ.mR
+ RmAf915vKplJDFkVgGXIR0MNbFz_Ty9kgsE3_0tFXI.bjXo5NmI7GIwsQZM.kFTffcE0yZz1jq.u
+ qDyeVqi.ejkgyOOqrLdQAYq9eeaZZ.RcFuomXghb_l4kNvMDpj1ZKYHP.QS4bgO9GCKDb0O5f7Nd
+ xtK7BdM4HxvLaBiDkreTD_SURiy9MLs7te6vH_va_uQIimY3rN1Njo.4Bdk.Ky567mXv6r22pUvE
+ C2z2M7yeFsWnS9kihjA2PqVPTY4WAWH.UHEbF3uqatjor5mAxSNU72XPax72CwJVgSg_v8y8vTpB
+ SLzwf50OgBZUkOva5InI83cMBxs.9H1ShEpgcya4Zu2ao_VqAd1zCGtQmVqBiq1aSwMGuSpbLXmQ
+ 1ru2PXAjyrtKGKUp.TP_nMkv9XwPRs2ZmaCGj5y3Mc0U1z.dk_s6lrtZupXTwHQ7isuGRVlgvG4a
+ hGPeiu5VwLl0r1j_NcLJT9LCKAZPCQ.n0wsojQ9kQYpR1UQhzO4pm.o16Cs7d87zKR4O.LB6UmyP
+ x80oQvVwg9B_sX9wjQptpp4OA65VIJzBgU0.oPvq6UDTsOM5wGkheDq28GakKqQmMtKCO4fAREKF
+ PyS0cZfYLhCFgqNoOJ0kH9hks7vU_mxxUfku33LdtiOHwxrPP_gi0DL.cjUNPlQd4aCcAAXCXtDX
+ HpxESsf.f8DbZxj5IM8zeW8hkDuvGho1S9UW8oEHL_AUzJHfAJiYEsefxHHZavySYlvavxdtKNKL
+ IwskReFirkuC76Ju5DoZE_uLLMlaiqqHH0LSpTad40hHl54ONpd6QvNPHjS_8ymNxBnbgn8wnOY_
+ 8BYY7XZb.zmgU0MIMpAJqC47ZBntoLZ_V1T0wvC8Qzja3n0pBbrGdFDbEOoD9l9ZuyD5RIUI8Pk5
+ JYxjtnaAHpcavz8f16VBDo3uG7U2gK1.9mkAWKT_UIlzKIoeQjXOAV24zKsqQaRwANu5JT1snQSD
+ S60BDIhKBXMqaakEDBjAZqUi8LmmiO9.UOe0pzp8OSM1q19dXhO9Nr.ZzvrDx_.hwp2A51Kc0mzT
+ CSqq_06y4zGgRODg2NFbDL.SYATgRjU6mGz2mLSpodVW2E00TmH7MMkHZh0s-
+X-Sonic-MF: <d.piecha@ymail.com>
+X-Sonic-ID: 38cb62ca-ffc3-44fe-9710-c77ec00c410a
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic301.consmr.mail.ir2.yahoo.com with HTTP; Thu, 24 Sep 2026 22:52:45 +0000
+Date: Thu, 24 Sep 2026 22:51:23 +0000 (UTC)
+From: Dennis Piecha <d.piecha@ymail.com>
+To: "hkallweit1@gmail.com" <hkallweit1@gmail.com>, 
+	"nic_swsd@realtek.com" <nic_swsd@realtek.com>, 
+	"o.rempel@pengutronix.de" <o.rempel@pengutronix.de>
+Cc: "andrew@lunn.ch" <andrew@lunn.ch>, 
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>, 
+	"regressions@lists.linux.dev" <regressions@lists.linux.dev>, 
+	"stable@vger.kernel.org" <stable@vger.kernel.org>, 
+	"kuba@kernel.org" <kuba@kernel.org>, 
+	"nb@tipi-net.de" <nb@tipi-net.de>
+Message-ID: <353419280.954808.1790290283530@mail.yahoo.com>
+References: <353419280.954808.1790290283530.ref@mail.yahoo.com>
+Subject: [REGRESSION] r8169: RTL8168h silent RX stall with EEE after "net:
+ phy: realtek: fix EEE advertisement write on the internal PHY MMD path"
+ (6.18.y)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailer: WebService/1.1.26577 YMailNovation
 
-The supplied-from device property is the name-based counterpart to
-firmware-node power-supplies references. It was added for non-DT platforms,
-but its parser is compiled only when CONFIG_OF is disabled. CONFIG_OF is
-a global kernel option, so x86 systems commonly enable it even when
-individual power supplies are described by software nodes.
+Hi,
 
-Consequently, these consumers never populate supplied_from and supplier
-notifications do not reach their external_power_changed() callbacks. On a
-Lenovo Yoga Book YB1-X91L, ftrace showed the Whiskey Cove supplier
-notification running without invoking the BQ25892 callback, leaving the
-input current limit at its boot-time value.
+after updating from 6.18.39 to 6.18.52 (Home Assistant OS 18.2 -> 18.3,
+close to vanilla stable), the onboard RTL8168h of my NUC silently stops
+receiving every ~7-20 minutes. Disabling EEE at runtime makes it stable
+again, so I suspect the stable backport of
 
-Use a single power_supply_check_supplies() implementation for all
-configurations. Preserve firmware-node power-supplies references as the
-preferred firmware description and use the name-based supplied-from
-property only when no references are specified. Continue to honor an
-explicitly provided supplied_from list first and propagate errors from
-specified firmware references.
+202fef9bbbf5 ("net: phy: realtek: fix EEE advertisement write on the
+internal PHY MMD path")
 
-With the fix, ftrace shows the BQ25892 callback on hotplug. A boot-offline
-test changes its input current limit from 500 mA to 2 A.
+(0af3afd054e7 in 6.18.y). There are no changes to r8169_main.c between
+6.18.39 and 6.18.52, but this PHY fix touches rtlgen_write_mmd(), which
+is used by the "Generic FE-GE Realtek PHY" bound to this NIC. My
+guess: with the advertisement write now landing, EEE actually gets
+negotiated with the link partner, and RTL8168h doesn't handle LPI
+correctly on the RX side. The fix itself looks correct to me; it seems
+to expose an existing r8169/RTL8168h problem.
 
-Fixes: 58a36bb06891 ("power: supply: core: Add support for supplied-from device-property")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
----
-Changes in v2:
-- Keep firmware-node power-supplies references ahead of the name-based
-  supplied-from fallback, as requested by Hans.
-- Propagate errors while resolving specified firmware references.
-- Use one power_supply_check_supplies() implementation, as requested by
-  Sebastian.
+Hardware:
+Intel NUC11ATKPE, BIOS ATJSLCPX.0039.2023.0221.1502
+RTL8168h/8111h, 10ec:8168 (subsys 8086:3027), XID 541
+PHY: Generic FE-GE Realtek PHY
+link partner: AVM FRITZ!Box 6690 Cable, 1000/Full, flow control off
+no VLANs, ASPM already disabled on the device (LnkCtl ASPM bits 0)
 
-Link: https://lore.kernel.org/r/20260901145156.3177187-1-mauriziocasciano7@gmail.com
----
- drivers/power/supply/power_supply_core.c | 84 ++++++++++++------------
- 1 file changed, 42 insertions(+), 42 deletions(-)
+EEE state on 6.18.52 (read via ETHTOOL_GEEE):
+supported=0x28 advertised=0x28 lp_advertised=0x28
+eee_active=1 eee_enabled=1 tx_lpi_enabled=1 tx_lpi_timer=12
 
-diff --git a/drivers/power/supply/power_supply_core.c b/drivers/power/supply/power_supply_core.c
-index 47e307709e5e..945052a8371e 100644
---- a/drivers/power/supply/power_supply_core.c
-+++ b/drivers/power/supply/power_supply_core.c
-@@ -190,7 +190,35 @@ static void power_supply_deferred_register_work(struct work_struct *work)
- 		device_unlock(psy->dev.parent);
- }
- 
--#ifdef CONFIG_OF
-+static int power_supply_check_supplies_by_name(struct power_supply *psy)
-+{
-+	struct device *parent = psy->dev.parent;
-+	int nval, ret;
-+
-+	if (!parent)
-+		return 0;
-+
-+	nval = device_property_string_array_count(parent, "supplied-from");
-+	if (nval <= 0)
-+		return 0;
-+
-+	psy->supplied_from = devm_kmalloc_array(&psy->dev, nval,
-+						sizeof(*psy->supplied_from),
-+						GFP_KERNEL);
-+	if (!psy->supplied_from)
-+		return -ENOMEM;
-+
-+	ret = device_property_read_string_array(parent, "supplied-from",
-+						(const char **)psy->supplied_from,
-+						nval);
-+	if (ret < 0)
-+		return ret;
-+
-+	psy->num_supplies = nval;
-+
-+	return 0;
-+}
-+
- static int __power_supply_populate_supplied_from(struct power_supply *epsy,
- 						 void *data)
- {
-@@ -262,22 +290,21 @@ static int power_supply_find_supply_from_fwnode(struct fwnode_handle *supply_nod
- static int power_supply_check_supplies(struct power_supply *psy)
- {
- 	struct fwnode_handle *np;
--	int cnt = 0;
-+	int cnt, ret;
- 
- 	/* If there is already a list honor it */
- 	if (psy->supplied_from && psy->num_supplies > 0)
- 		return 0;
- 
--	/* No device node found, nothing to do */
--	if (!psy->dev.fwnode)
--		return 0;
--
--	do {
--		int ret;
-+	for (cnt = 0; psy->dev.fwnode; cnt++) {
-+		np = fwnode_find_reference(psy->dev.fwnode, "power-supplies", cnt);
-+		if (IS_ERR(np)) {
-+			ret = PTR_ERR(np);
-+			if (ret != -ENOENT)
-+				return ret;
- 
--		np = fwnode_find_reference(psy->dev.fwnode, "power-supplies", cnt++);
--		if (IS_ERR(np))
- 			break;
-+		}
- 
- 		ret = power_supply_find_supply_from_fwnode(np);
- 		fwnode_handle_put(np);
-@@ -286,48 +313,21 @@ static int power_supply_check_supplies(struct power_supply *psy)
- 			dev_dbg(&psy->dev, "Failed to find supply!\n");
- 			return ret;
- 		}
--	} while (!IS_ERR(np));
-+	}
- 
--	/* Missing valid "power-supplies" entries */
--	if (cnt == 1)
--		return 0;
-+	/* Fall back to the name-based property if no references were specified. */
-+	if (!cnt)
-+		return power_supply_check_supplies_by_name(psy);
- 
- 	/* All supplies found, allocate char * array for filling */
- 	psy->supplied_from = devm_kcalloc(&psy->dev,
--					  cnt - 1, sizeof(*psy->supplied_from),
-+					  cnt, sizeof(*psy->supplied_from),
- 					  GFP_KERNEL);
- 	if (!psy->supplied_from)
- 		return -ENOMEM;
- 
- 	return power_supply_populate_supplied_from(psy);
- }
--#else
--static int power_supply_check_supplies(struct power_supply *psy)
--{
--	int nval, ret;
--
--	if (!psy->dev.parent)
--		return 0;
--
--	nval = device_property_string_array_count(psy->dev.parent, "supplied-from");
--	if (nval <= 0)
--		return 0;
--
--	psy->supplied_from = devm_kmalloc_array(&psy->dev, nval,
--						sizeof(char *), GFP_KERNEL);
--	if (!psy->supplied_from)
--		return -ENOMEM;
--
--	ret = device_property_read_string_array(psy->dev.parent,
--		"supplied-from", (const char **)psy->supplied_from, nval);
--	if (ret < 0)
--		return ret;
--
--	psy->num_supplies = nval;
--
--	return 0;
--}
--#endif
- 
- struct psy_am_i_supplied_data {
- 	struct power_supply *psy;
--- 
-2.53.0
+Symptom: carrier stays up, nothing at all is logged by r8169 or phylib,
+no NETDEV WATCHDOG. rx_packets freezes while TX and the MSI-X interrupt
+count keep going; no RX error/missed/dropped counters move:
+
+time rx_packets tx_packets irq bql_inflight tx_timeout
+23:08:29 626373 188818 201071 0 0
+23:08:31 626458 188908 201236 0 0
+23:08:34 626513 189037 201394 0 0 <- stall
+23:08:37 626513 189126 201473 0 0
+23:08:44 626513 189284 201606 0 0
+23:08:51 626513 189517 201788 0 0
+
+It never recovers by itself. "ip link set eno1 down; ip link set eno1 up"
+restores traffic within 3 s; flushing the neighbour table does not help.
+Disabling TX checksum offload and pinning MTU 1500 (workaround for the
+VLAN-related TX timeouts reported by others on the same update) has no
+effect here.
+
+EEE test: on a 6.18.52 boot that had stalled at ~7 min and again ~7 min
+later, I disabled EEE via ETHTOOL_SEEE (eee_active=0 afterwards). Since
+then it has run for 60+ minutes without a stall, nothing else changed.
+
+What I have NOT done yet: verified the EEE state on 6.18.39 for
+comparison, and tested 6.18.52 with the commit reverted. I can do the
+former easily; building a kernel is harder on this appliance-style OS
+but possible if needed. I can also capture a MAC register dump
+(ETHTOOL_GREGS) during a stall if that helps.
+
+Original patch thread:
+https://lore.kernel.org/all/20260806134716.3511821-1-o.rempel@pengutronix.de/
+
+Downstream report with more detail:
+https://github.com/home-assistant/operating-system/issues/5042
+
+#regzbot introduced: 202fef9bbbf5
+
+Thanks,
+Dennis Piecha
