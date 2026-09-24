@@ -1,239 +1,216 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49C0447D46D
-	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 12:21:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790252492; cv=pass; b=oDB/1SSuSZfX6QhLpcJQ6/WXlb55PteTl2tSAkTgPKQ8clj2EcWFdgLwgnV+2qcprJC8/WLGyB3WW2v479pDgKcdzQ93MaO4uREqyZX/WxxhjTr9nVG5xgKTqiJktaAyeYNGYWGvLn6pOQNMpgfunuY3B/48c8sRFfEI/GDM8Qw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790252492; c=relaxed/simple;
-	bh=xeNd5Z4KutAQUnG4imh+PXHxOYvDguVwzRBnlJk6ubU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tUI4gWtws9GqLUL+/k2P+kW7FBWFiyeHjYlk9opI5e9xD64tsWZCQXfLtgBSb76FkPEUAKxHYALYXaUNHWRaDvH7UCoVIDyobpkLqAqMimrvnyx2/OJnpTHUTu9T4mZxlbl16q2zQix1LcJSKTtWFiz7HgjDEMDC9nvnbFxSeRU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zg1veJnj; arc=pass smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9230446D547;
+	Thu, 24 Sep 2026 12:24:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790252673; cv=none; b=JvaJgHnATPp2ZTVPq2gG72rermHXFmC2I1JlS5ior8pO+XJnLrwCnTVn069N99bBMSMmfYleCKoK0E2gZTtk/mCRGBHTMN/ZVTvdhhnqPEj8aHGmfd59cvz3sD2rOH6MYI9FhkOd5OKGNCYZu02wDwqcFjOw97UdgvvR4OAyIRw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790252673; c=relaxed/simple;
+	bh=XGGBMm1Apzxwee3AXyDFyTLvD3phuRXxoP1bdn6bl/A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VT4XeI6JXlDDHPu678zvGwc99k+YfjPswi/HL5Woav6oN/YqesPs1drpxMq5m/Z6GYrVndZc3slvdRgz63ryRhj2dtsmX0kgG7Xh65YOvi6E2beUcmMof6enVzoH4ob4/yHWKylrkX+lXBAjbEU0f507UvkTCqY5RY9rldOZUKI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Hd4ENon7; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=8CIub1yI; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=LfRSO0iu; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=fL4AqYg2; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zg1veJnj"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350f89so1398833f8f.3
-        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 05:21:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790252489; cv=none;
-        d=google.com; s=arc-20260327;
-        b=cLCaqgdLpXKB6njHOXINnELynQxxJV1jq02MWFuxwCjr1lcTYOb/HwJQNJMQniFQhm
-         uutNXLJ9OXV1X3ecu3r4bCHuHtOAzK8grVTfL5RlbicD91WqU2Seit1P1+nCtDxkFgEw
-         BREg7UGiGrU7ylisdRdZi+SXyIbSembEjAg8BVzXosKCPAEnco3CLyfW130wyJstyElh
-         fOLafLNcRDQ9RU8iyZSDatXvsqloSAapq12+H93kUmTGDiD8EbB1n/6tPPV/sEApKKQq
-         5gX9pte6yE1wHotExvk97nNbsIUKjRXwalS7CX5PJXaBnjtx4FfrDBiCmawmk4eOKRMf
-         GKCw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=qM5+SKQmy+vgU7/eLGaFkuMRmst60I3hKbtua8AJCxc=;
-        fh=oWiUcjJfomtwrgRozCJuUg7w5P8YpUyUxc4AKaukB3g=;
-        b=TxpUo0zfvWZmF5nCZ2NzQC2VEYINh8A2zm5bmYvbV13FIYz99ikTGGuxTbFLyX3LXG
-         wapE/Nql1bwszTDVLz08WWrt66c4L/65JKMJy5nbOoTNCbjbopEyOSSatlud3FEkSZ7s
-         N5y2N1dZFVBQlnwun996xnhE8vVg0jv6zjw1vPQzVQRfjjik9TBs33fZVeEnBwy8sv34
-         9dOYfXL23NBzf/Y9PUKMQtiaZ6kSfX77icUAPWAv+dz8n0gZQqB7Hz5grhAWDbv6mtBy
-         R7JLl3GFD2baNjjhlmxz6/NheaZHJzdGWznfVQyzTL1LogZKv5TtCMwRy/v15WPEQcHt
-         Ru3g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790252489; x=1790857289; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qM5+SKQmy+vgU7/eLGaFkuMRmst60I3hKbtua8AJCxc=;
-        b=Zg1veJnjezsEgJvBYZtGGJ+l1w5aCC3xIToB28sSyDZ6qrclGyHkZ/BkblIybs6Oj/
-         BD2FsYhT2bQjZPGYAlSMUEO2ZmURV/2oDLLt6w81DWQhjVCb4v7QpXEkQ6o7M885RfWP
-         7ljUhNqdYxe9qSuExVXISLn1DhufuDrJnEDeaqB2umhgQ+ptjrPERmzMHPTw+tOwibIR
-         XBzoKX4HNqPmr1U5KUQySm+vmRKMN3qTTyIPSYkNouwVHhun86IqAoW+tlV50p3LxKLS
-         WM0M1FZKknIkHkwklcNTP5tAfG4XJf0pwha3/Cse40U9S1KCrJgw8/1XnUGmnJq0jiQS
-         mOZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790252489; x=1790857289;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qM5+SKQmy+vgU7/eLGaFkuMRmst60I3hKbtua8AJCxc=;
-        b=ugCBVBcJTJMyIrNuzE/8p+nZhwRrAjcVBzzHseu6VHu5AS0En424XlFRAL70F2MT40
-         86R66JoSs778cu99EgUTqLAiP+KZTIMZVYnYgeBUXa6OjCQoHsyj/WCS0KwFzWMBPfki
-         WW4FshZPIzyo/xh4FFTLIXYZvH13ejz2sEWXIGd77fndIEASh2Yzpr9PhdAEMYBl4Lnl
-         P3pzcDHn89HQZh7OOw0hMSUqjTBHmzOTkMljEZrN7A12twB2uN0Jlho9CvvXjIUcf48O
-         Gfj6d288nLZKR4V4lcInhsQvTeZRN90ScQcjpaFlyYh4DvBeTeJCZ16T24CMp9UBbIdo
-         aXbA==
-X-Forwarded-Encrypted: i=1; AKwUvBwSIB2MM2xkPTKHErzep+UPYMG4gFGWSU4ZpNkxG29utYW1tLOBd6cs5tDv2riBpbz4yUlmevM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kzD28JVDIwvDpCLeYYhHWIQYBFxOXgjCWohq6liwy/1SghFx6r
-	4UU09gpunvgsB3MGpnC0oNEdf0J0k/yM00B1orVaJO8aKZ6G1lLTWzZsQOmDnKEYY/5IGtZawuV
-	pvK03ddEUpa3llu8L/3ufRXPPQARFSStHXMCHMPI=
-X-Gm-Gg: AYBFou3pqCSPLT9n1IwH8KwtVgj0haaZcf6PZM9PqpV7bxf6t6sUKIfN0CvqXDorrkC
-	ampe4vtgM5d3yXQ6cFrAVldlckhEH93sOAz6zyDfp3DlgzWwGyGm74Q0RTjxvVmST2kN+ZqjWCk
-	dxXMLo7ZCwFChk7ZiSZzGtrQdCsbmvBrnBthMJr5XoExQAWJO3yO1HxyIgb+9NlGFr7xozvx/32
-	QBw1Wc+NAQ9X8acG9gn2Jh9Dsw3SMQZvIK6YA47psf/v3Q4xu8Fd3ecQur0JJOJULLBkv2w4TIm
-	zXlVIYsyU4LTmT/S1A9A2g3aFOau5oRH4Lcief9j5aG0zgh/sxoZRZ6Mer4LC9vFrF8my8unjYi
-	ED6D+6TEvn/Ju4Y8osM8HyvAcm4VL24ZK2NSeKS5KkhNxZGmh+UZMEg==
-X-Received: by 2002:a05:6000:41ee:b0:487:71a:be5e with SMTP id
- ffacd0b85a97d-48871751e7emr3952817f8f.28.1790252488589; Thu, 24 Sep 2026
- 05:21:28 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Hd4ENon7";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="8CIub1yI";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="LfRSO0iu";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="fL4AqYg2"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 6428621D2F;
+	Thu, 24 Sep 2026 12:24:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790252665; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=8ltJQJiwP4sg8UED1LnyRiGoPM3NSf1WElJ2i4ppZAI=;
+	b=Hd4ENon7G6FY3sxJgQfNNF8HdQK/sk1PZv+d08mvA9RBQkP3kFN7+GgELBBLIqtwOee9J1
+	Z4tpx8RkCSfXoBEITlJqrZ1CYCQKI8n3zRBMM87jFu+pqk8eYJlDJmAU3gNQHimUJXtZJI
+	4b93zhtRdg1nlbgtckp3pkud1v8VEKI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790252665;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=8ltJQJiwP4sg8UED1LnyRiGoPM3NSf1WElJ2i4ppZAI=;
+	b=8CIub1yI4Gguq/XE5IMraKeA0SVyLTx9x+rOoW+tsYdoWQ1aXkSoHCsN3GgjpsldmSgBgl
+	0zsRyhh5NW+QINCg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790252661; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=8ltJQJiwP4sg8UED1LnyRiGoPM3NSf1WElJ2i4ppZAI=;
+	b=LfRSO0iu/JiE4+ijCBHhag08gMu6/6QQCg0YtggGv1JLVccHjLqc/sSSvQazJMmxhkdDVv
+	y4n0Z+uiedYYpIqx2s71tGEvdf2pTz/rBkajxl9Lmf//spaFEBeDNFH/0U20DF4PrOh1dv
+	qr9ZMnFY2kPHS2MibkP5fTYMZ+tkZaY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790252661;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=8ltJQJiwP4sg8UED1LnyRiGoPM3NSf1WElJ2i4ppZAI=;
+	b=fL4AqYg2h7xiGSH76p+H73fOVt0BMiUzEq1T+5+l+r4J5EDaisAxPdi5KoaKUvhvzQbtQu
+	ZvBgbdFuRbIKZIDw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0B73813354;
+	Thu, 24 Sep 2026 12:24:21 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 5EvHNHQWtWpjYgAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Thu, 24 Sep 2026 12:24:21 +0000
+Message-ID: <bb1176c6-a1d5-4c89-9524-caeedd9282c4@suse.de>
+Date: Thu, 24 Sep 2026 14:24:20 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260922144629.586997-1-claudiu.beznea@kernel.org> <20260922144629.586997-3-claudiu.beznea@kernel.org>
-In-Reply-To: <20260922144629.586997-3-claudiu.beznea@kernel.org>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Thu, 24 Sep 2026 13:21:01 +0100
-X-Gm-Features: AclHuK_X7dFqx5_PZTR1oHZdsVG_VtavdMBztYLyOGLheA-ut1aT-qqdUnVWM6M
-Message-ID: <CA+V-a8tnpOF8gEjMcz8+sg7c2ec-uAncRK01NWcsL4A-TM-bSQ@mail.gmail.com>
-Subject: Re: [PATCH v4 2/8] PCI: rzg3s-host: Fix runtime PM handling in the
- NOIRQ suspend/resume phase
-To: Claudiu Beznea <claudiu.beznea@kernel.org>
-Cc: lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org, 
-	robh@kernel.org, bhelgaas@google.com, p.zabel@pengutronix.de, 
-	claudiu.beznea@tuxon.dev, linux-pci@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] drm/udl: reject short USB control transfers in
+ udl_read_edid_block()
+To: Hui Peng <benquike@gmail.com>, jani.nikula@linux.intel.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260924064434.2541959-1-benquike@gmail.com>
+ <20260924064434.2541959-2-benquike@gmail.com>
+ <20260924073012.2742968-2-benquike@gmail.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260924073012.2742968-2-benquike@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Level: 
+X-Spam-Score: -4.30
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-4.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FREEMAIL_TO(0.00)[gmail.com,linux.intel.com,kernel.org,ffwll.ch];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	MID_RHS_MATCH_FROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:mid]
 
-On Tue, Sep 22, 2026 at 3:57=E2=80=AFPM Claudiu Beznea
-<claudiu.beznea@kernel.org> wrote:
+Hi
+
+Am 24.09.26 um 09:30 schrieb Hui Peng:
+> In udl_read_edid_block(), usb_control_msg() requests 2 bytes into
+> read_buff for each EDID byte, and read_buff[1] is stored into buf[i].
+> Currently the short-transfer check tests ret < 1 instead of ret < 2, so
+> if a short USB control transfer returns 1 byte, read_buff[1] is not
+> written by usb_control_msg() and retains the previous iteration's byte (or
+> uninitialized kmalloc(2) memory on the first iteration), which is then
+> copied into buf[i].
 >
-> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+> Change the check from ret < 1 to ret < 2 so any short USB control
+> transfer fails with -EIO.
 >
-> The runtime PM documentation states the following:
-> - During system suspend, pm_runtime_get_noresume() is called for every
->   device right before executing the subsystem-level .prepare() callback
->   (in device_prepare()). In addition, the PM core disables runtime PM for
->   every device right before executing the subsystem-level .suspend_late()
->   callback (in device_suspend_late()).
-> - During system resume, pm_runtime_enable() is called for every device
->   right after executing the subsystem-level .resume_early() callback (in
->   device_resume_early()), and pm_runtime_put() is called right after
->   executing the subsystem-level .complete() callback (in
->   device_complete()).
+> Tested in QEMU against Linux 7.3.0-rc3 using dummy_hcd and raw-gadget
+> emulating a DisplayLink UDL USB device: on the unfixed kernel, when
+> usb_control_msg() returned 1 byte for an EDID read (short transfer),
+> udl_read_edid_block() accepted ret = 1 and stored stale read_buff[1]
+> data into the EDID buffer; whereas with this fix applied, ret < 2
+> correctly fails with -EIO and prevents EDID buffer corruption.
 >
-> The driver's .suspend_noirq() callback is invoked after .suspend_late(),
-> while .resume_noirq() is invoked before .resume_early().
->
-> If:
-> - the device is not part of the wake-up path, and
-> - its runtime PM status is not RPM_SUSPENDED,
-> the generic power domain .suspend_noirq()/.resume_noirq() callbacks
-> (genpd_suspend_noirq()/genpd_resume_noirq()) invoke the driver's
-> .suspend_noirq()/.resume_noirq() callbacks and call
-> genpd_stop_dev()/genpd_start_dev() before and after them, respectively.
->
-> Calling genpd_stop_dev()/genpd_start_dev() allows devices whose power is
-> controlled by generic power domains to be powered off and on during
-> system suspend and resume, even though their runtime PM usage count does
-> not reach zero.
->
-> Since the runtime PM usage count is incremented in device_prepare() and
-> decremented in device_complete(), runtime PM operations performed from
-> the driver's .suspend_noirq()/.resume_noirq() callbacks are no-ops. The
-> actual power transitions are handled by the generic power domain
-> .suspend_noirq()/.resume_noirq() callbacks.
->
-> Moreover, attempting to runtime resume a device while runtime PM is
-> disabled may return -EACCES. This may cause system resume to fail when
-> resuming after a failed Root Port reset, as described in a subsequent
-> patch adding hot-plug support.
->
-> Remove the runtime PM calls from the driver's
-> .suspend_noirq()/.resume_noirq() callbacks and rely on the generic power
-> domain callbacks to power the device off and on.
->
-> Fixes: 7ef502fb35b2 ("PCI: Add Renesas RZ/G3S host controller driver")
+> Fixes: 5320918b9a87 ("drm/udl: initial UDL driver (v4)")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Assisted-by: LLM
+> Signed-off-by: Hui Peng <benquike@gmail.com>
+
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+
+Thanks for the fix.
+
+Best regards
+Thomas
+
 > ---
->
-> Changes in v4:
-> - simplified the comments in rzg3s_pcie_suspend_noirq()/rzg3s_pcie_resume=
-_noirq()
->
 > Changes in v3:
-> - none, this patch is new
+> - Change (ret != 2) to (ret < 2) in udl_read_edid_block(), as requested
+>    by Thomas Zimmermann.
 >
->  drivers/pci/controller/pcie-rzg3s-host.c | 22 ++++++++++------------
->  1 file changed, 10 insertions(+), 12 deletions(-)
+> Changes in v2:
+> - Split out as patch 1/2 as requested by Jani Nikula.
+> - Added testing details in QEMU on short USB EDID control transfers.
 >
-Reviewed-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Tested-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>   drivers/gpu/drm/udl/udl_edid.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/udl/udl_edid.c b/drivers/gpu/drm/udl/udl_edid.c
+> index af4cff2a7c51..2120e363b6eb 100644
+> --- a/drivers/gpu/drm/udl/udl_edid.c
+> +++ b/drivers/gpu/drm/udl/udl_edid.c
+> @@ -36,7 +36,7 @@ static int udl_read_edid_block(void *data, u8 *buf, unsigned int block, size_t l
+>   		if (ret < 0) {
+>   			drm_err(dev, "Read EDID byte %zu failed err %x\n", i, ret);
+>   			goto err_drm_dev_exit;
+> -		} else if (ret < 1) {
+> +		} else if (ret < 2) {
+>   			ret = -EIO;
+>   			drm_err(dev, "Read EDID byte %zu failed\n", i);
+>   			goto err_drm_dev_exit;
 
-Cheers,
-Prabhakar
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
 
-> diff --git a/drivers/pci/controller/pcie-rzg3s-host.c b/drivers/pci/contr=
-oller/pcie-rzg3s-host.c
-> index e1105b1f2652..0ef49bb5ab1a 100644
-> --- a/drivers/pci/controller/pcie-rzg3s-host.c
-> +++ b/drivers/pci/controller/pcie-rzg3s-host.c
-> @@ -1961,19 +1961,18 @@ static int rzg3s_pcie_suspend_noirq(struct device=
- *dev)
->         if (ret)
->                 goto config_reinit;
->
-> -       ret =3D pm_runtime_put_sync(dev);
-> -       if (ret)
-> -               goto power_resets_restore;
-> +       /*
-> +        * Since the power domain's genpd_suspend_noirq() will disable cl=
-ocks,
-> +        * there is no need to manually invoke runtime PM API here.
-> +        */
->
->         ret =3D rzg3s_sysc_config_func(sysc, RZG3S_SYSC_FUNC_ID_RST_RSM_B=
-, 0);
->         if (ret)
-> -               goto rpm_resume;
-> +               goto power_resets_restore;
->
->         return 0;
->
->         /* Restore the previous state if any error happens */
-> -rpm_resume:
-> -       pm_runtime_resume_and_get(dev);
->  power_resets_restore:
->         reset_control_bulk_deassert(data->num_power_resets,
->                                     host->power_resets);
-> @@ -2011,13 +2010,14 @@ static int rzg3s_pcie_resume_noirq(struct device =
-*dev)
->                         goto assert_rst_rsm_b;
->         }
->
-> -       ret =3D pm_runtime_resume_and_get(dev);
-> -       if (ret)
-> -               goto assert_rst_rsm_b;
-> +       /*
-> +        * Since the power domain's genpd_resume_noirq() will enable cloc=
-ks,
-> +        * there is no need to manually invoke runtime PM API here.
-> +        */
->
->         ret =3D rzg3s_pcie_power_resets_deassert(host);
->         if (ret)
-> -               goto rpm_put;
-> +               goto assert_rst_rsm_b;
->
->         ret =3D rzg3s_pcie_host_setup(host, rzg3s_pcie_msi_hw_setup,
->                                     rzg3s_pcie_msi_hw_teardown);
-> @@ -2033,8 +2033,6 @@ static int rzg3s_pcie_resume_noirq(struct device *d=
-ev)
->  assert_power_resets:
->         reset_control_bulk_assert(data->num_power_resets,
->                                   host->power_resets);
-> -rpm_put:
-> -       pm_runtime_put_sync(dev);
->  assert_rst_rsm_b:
->         rzg3s_sysc_config_func(sysc, RZG3S_SYSC_FUNC_ID_RST_RSM_B, 0);
->         return ret;
-> --
-> 2.43.0
->
->
+
