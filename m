@@ -1,103 +1,133 @@
-Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DF1B45FFD2
-	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 10:11:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81C3947887E
+	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 10:24:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790244716; cv=none; b=Qs6EczN40f+oOB8Jzd0OuE5mgzMm9SoIaGtM2UfwI6xc/tkqvpx4Tv+pjfTurHP+2UFNVtiUriPFDPM7fnC0Wk0E7Ynl6C4BnVaxUyoyYMHhNWA7lO5G7MsFAqauG2EjP+VSYEZKIfOhFJOITl3RdbTiKNH88u2otz5J2DaKj7Q=
+	t=1790245453; cv=none; b=MJNHUexQQ3kGTYWgeW4xrzypYVVTdmPnh0kHRGfezz0zpFS7y5xAjxdJSdxq/xk9otLibj6pSE27pQ0uoRhlfcDpqSljgVtQZzecdJmk4uZoPlnkTWaI5O3B6ntEoSnjXmW+UsxnKwZZehTLrp5C13tCNqc2uQ+2W8fan0DVmn8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790244716; c=relaxed/simple;
-	bh=Nc++9B0b2Rw64hQH1uTtHtl01UfhcPbPRHWlll6r3Hc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tBNCRzJV/P0tiSxIGXvbfk/XVAi8GWqMYGqr0cR79avpc3xtzzf730JyC8VVlHozPyHzM+dVPYcMR7wnDTb2j8uMkHaErM2Mnr7N/7ONOL0vmN0RowIIdJy82WbZNahRKkrAedbG8XsC1QG6HxFCRc4Wtuvtk+mTvqVyxcx0G8s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=evXBZTV7; arc=none smtp.client-ip=74.125.227.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790245453; c=relaxed/simple;
+	bh=/I7sMKRC+Fm/RMOumClgldkrmS5D2N3LRxy0pszOg5k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=N6nnJMgl44x9D+gQpWEY1o19zd0cDnyFrhRnHPR2gTSKHB8xW+kaKRVLXJXNeS7TXwV0EEsEYIEfpeEQFWqFhuW8cWqX5E9JKvLbYU5TMMc9PBXvEuvsWWShXV6wiKhwPpCtn6SOsOIbHrkMCIN/RDIhznjTw0/U94Nb+S/278A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=hXIReeRt; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Jetjw+p0; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="evXBZTV7"
-Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-396ccb65437so1139923a91.3
-        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 03:11:43 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="hXIReeRt";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Jetjw+p0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790245450;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4gKaCmlo8zL0/IT3A5NQAgJVMGj3NM0BKVIjo7Jj9JQ=;
+	b=hXIReeRtmdztWdNm93WBpP5nhcBdOLR+FevhnF/gt9JaH2QKBflgOorkLHSg5oSQ1eRH2U
+	KcO7q4c/i2qArJFvv/dsCfDRV1p+0QjOQbNHgNDlC3EX5dYWmleUzYzzilXIGJXwRtG1WH
+	Pzjjsc1MOBbWs1BERyy33e0hxNU4aPo=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-687-I71GKDn2MACwaxQPIZ8ANQ-1; Thu, 24 Sep 2026 06:24:09 -0400
+X-MC-Unique: I71GKDn2MACwaxQPIZ8ANQ-1
+X-Mimecast-MFC-AGG-ID: I71GKDn2MACwaxQPIZ8ANQ_1790245448
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-49cd83ca361so26392495e9.1
+        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 03:24:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790244701; x=1790849501; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5bJLApz7a6Sj13/KQXZnv/qEoqKgMiQN8Xc7a1Ahq80=;
-        b=evXBZTV7OUxqvWuG2xpT4JlqhvV/BLjIx2yy8zN8G86lKiwODvQiAKwWDClcGKy56Y
-         DJn1hCA/t70F2zN/wYtrO17QkyMU1HLizueMxp0eq/g0UMsvle9GNBmnceT+3hruPMAW
-         ENfbbKzl4/v9Zlu50C2jt8BXt7QX4qMW1R9wCzD2wTEt0KKzujQiimcYtRZm/uz5+M0w
-         SzgpMNN6RxvIN5tA5hRoWVtMFGSkicMJcVPjoFqTWVfqIM8dv/Yaewh8vcPSAd//usOU
-         szA7YCUSnpKBZrgGcn5EjeJhaLcaVz9MD0v3+68/PsKzMclGTMLVMbbH3vEpN/ZEh5ud
-         12Ow==
+        d=redhat.com; s=google; t=1790245448; x=1790850248; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4gKaCmlo8zL0/IT3A5NQAgJVMGj3NM0BKVIjo7Jj9JQ=;
+        b=Jetjw+p0l+j2Sxgn8CqbAnf8sEthYJm2QROIeqJNHCOqddxM4t2MUsTeAhf9Lu6Szp
+         2PyQ3mMNvp1B1MyikvsoT2ICLqft92Tk1Ce/NVG0nAD1I6yvukwgvoHvoVm2VkuQAVM+
+         sv9cOBYRBZkNtxz45f9KxA6V+2pkcU+4AeWGEBd71sKlpww5HdWzw8oRfrA9rrYeBTZ1
+         hBzm3qiVZ8rqkUWJ/5zSq8yA8T7aAd7GZHVkBIj5CJKcNMxwR9IcGtqPFai1YQseoAB6
+         agHZhGPWSpzndeQwdB6rbbhtGNMAX7SFjbp9pAYP0Aowd0la9jnm1AQ6Gxs32c1XnVIM
+         1h5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790244701; x=1790849501;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5bJLApz7a6Sj13/KQXZnv/qEoqKgMiQN8Xc7a1Ahq80=;
-        b=N2YxMTJaPu96F2VWHv4hqCrWBpm2ISwF5qETrlKd9OU8E0la0Q4uKL0hsaj0qk7xUi
-         HcqsYK9Y6iB91dIuNHVKA41EEYorJ6Oh8Ds88D5UD1MUJLWQH2KXHx4FKESFqOJF6Pdc
-         pdU21/sp3vdP/HiXgK0f67vCBipsbFKizbs3NOhVQVEkaJIYzs9ybvasdB+Wd4bPK1u7
-         90BXZapcOsJQdQg9A/iWWaWb5U5vGm7WbdRwAhx0et+5NZeBJnP09CzxO8sd7ir2w+d7
-         IOY+MwSB9rbQ8+nIC01JTUGu7RodmA3oaJG0W88KQ4oeJTYHGZDLtmgqJLOYmS0y6m4x
-         myHw==
-X-Forwarded-Encrypted: i=1; AKwUvBzewkcJnrk7gkid3TodUe/JH6D1M0d8kyz7Fb4YVYzpZEz0Wv1jr90wIW5t3VsdcsrAc4awLuQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++m15ksiwGHwXMNR/odoL3YjDz7OlYsjNwPEyXVBPKM2Fo3FiVvd
-	8VvT0bu8X2Kncr6cscobt7BMM9QItdXS01WnELrojsc4KAsSwQIIEaqK
-X-Gm-Gg: AYBFou14mlC99flofqu57USluHpNetc5LIHclIN3AUyzp0urvPqrpSe5Ab2+U7HGU5K
-	quEHiEL/Q7D3r5CtEkhuZro9Vvp8yjh75i91j/ZObEoq1bp1j6yh77FY4OeKVckIEqe7DHwuJod
-	s77vczxVRgUX7NzmnPSAua3IEVQ22a/1QPB2mgjPK61c0D7lOty7ccfn9+27iQAQbhLGbVC11Kw
-	f0G1f234p2Kveyye4jNsSyzF+zzZo/FmFyUJQtrFU+t/ZKepaqBoxf1T2pLJulDmfX+oZ2mC54C
-	UDKFRg7Gha7xDvvY7yAvgik7BF3bYLG8yqN6+DGXLOJ/6CN9RCqr6EPksqIRrhYlpRvqHAfmW3D
-	cF5uEcoWsEhtjimXi+00efbN4yZSG9Aig7lm7K7DOwyNH6xNvsnCXaTh8f6MSDhnmJOR2pwKKAE
-	fkPcK2SrldaIDjpd3AXr1gmA2JC/47efpZW88WxMO+pOn/Ui6WOzk7FdF9hDwnWH5GPnk2YjMKv
-	kghfNNJvxsVSFzocVTAohojvqZ8VTyVEF6U2GcpUaeyjogF18WTrfC9gqu/Ix53Ks4qpltFdFLw
-	ouwFMcpacYRaO4guQn8pizL0ESREL2peRbKtVv3Zxh1RGdl9mUe6Ciwn+W4=
-X-Received: by 2002:a17:90b:4b41:b0:39e:4c7f:7307 with SMTP id 98e67ed59e1d1-3a098b8ab32mr1639460a91.30.1790244700743;
-        Thu, 24 Sep 2026 03:11:40 -0700 (PDT)
-Received: from spider.bream-herring.ts.net ([103.6.151.236])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0974ec5dfsm4075446a91.3.2026.09.24.03.11.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 03:11:39 -0700 (PDT)
-From: Matthias Goergens <matthias.goergens@gmail.com>
-To: Hui Peng <benquike@gmail.com>
-Cc: Anders Larsen <al@alarsen.net>,
-	Christian Brauner <brauner@kernel.org>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v3 0/6] fs/qnx6: fix buffer head leaks, double free, and inode validation
-Date: Thu, 24 Sep 2026 18:11:36 +0800
-Message-ID: <20260924101136.2380154-1-matthias.goergens@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260924073920.2782917-1-benquike@gmail.com>
-References: <20260924073920.2782917-1-benquike@gmail.com>
+        d=1e100.net; s=20260707; t=1790245448; x=1790850248;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4gKaCmlo8zL0/IT3A5NQAgJVMGj3NM0BKVIjo7Jj9JQ=;
+        b=ZE92iLsQ8Jcux+OW84M9KUH2ZcQbm+htNHIz6yeVQZQxb5c3+gUYCE1mNte0wG9igZ
+         QgW65WxGL4KZCy9cqr+OLc0yBtArGmYKgMydgjgnBak3y7M5UWD1O9VGT8ci93wsX74o
+         XLw0fsnRgvksp2zEy7iaaEqf7MI63jyklKcnMdZ5a0nIZeZ+jpWL8kqT88u4a7ib5Nmr
+         utjM1QK7fmzncGzYld5hImEKdJkZ0cMn9W3f7v+WmKzAjm3j9EwndoPpXh/4JwsatwmB
+         XaTtUniql3GbMVKxhgSVcMj7P3U9nLEp3TleXSHmnsoYMbE8ydbRw6F14/NFbO65pKoc
+         p7hw==
+X-Forwarded-Encrypted: i=1; AKwUvBwNXo2hQxD4rT0//EKdJfJ4wkBNN2mXpKLF/io/a/0ZPwK8/NKmfXnIlomuRRH5eHM6lk9N9h8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kBN5KqJQTtz2okCROiU9H3cZ7Tvi3v4NRQh8SQ/koi/k0eBYOd
+	Qkdujr/jAP3CKwmvdaP41nl0h71A4JKmFOGWd+yHA9w7SlOYmhvHQhnipopw0aoDQhNpCuO9Tny
+	3LYNL2HKuBtoHHrArsvitPNTTVYhHjddyPnJTf/tXe//SLvotZmXNhfj04w==
+X-Gm-Gg: AYBFou3FLTaMgP9Hwq3Z6pVQkp3iymn+CuqbVUo4pqw3rJrCQRm4a5vj+velthHnJnd
+	EZlvhFWUDYnSN1/gYoW1uJeJlALH3Y7q35qUmlIdg0jeh/4ynPqGRU4QBcgfAAkUe9DOnnz0+6X
+	Yi6u8zlyNr3OJN6m2VdvQlMfuWqLYgtMA6N6TzxpU0RSGd8w+/m0XcozKLSpRUhb1Q3E8v2ZyG4
+	ZnkgRolUbXx9SvDPXVcgVGDgaBckVqWOMEucPSPKfwFW02Ti2QjSVmPqmUuuq6FQHRP1GUqtFW3
+	PtanDoidVi++6bXQdHGfdjGTpkibJHbawr85STWPcFqBeQNOu94Wt4cUF8R4flxEIpKk6hRWOki
+	e2E8HfALEdldG7Mp2KA5v1EBhyRRPKIt9+yJJXA7eK0Y/egPi9PGXGwdz3z629bDY5AHOTeExhA
+	==
+X-Received: by 2002:a05:600c:3515:b0:49f:d778:be09 with SMTP id 5b1f17b1804b1-49fe66fcc19mr33137715e9.24.1790245448048;
+        Thu, 24 Sep 2026 03:24:08 -0700 (PDT)
+X-Received: by 2002:a05:600c:3515:b0:49f:d778:be09 with SMTP id 5b1f17b1804b1-49fe66fcc19mr33137285e9.24.1790245447655;
+        Thu, 24 Sep 2026 03:24:07 -0700 (PDT)
+Received: from [192.168.188.234] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5b9c59dsm52797735e9.1.2026.09.24.03.24.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 24 Sep 2026 03:24:07 -0700 (PDT)
+Message-ID: <4d5e2857-e6eb-43e2-b668-83e779aaa734@redhat.com>
+Date: Thu, 24 Sep 2026 12:24:06 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] net: usb: cdc_mbim: add MeiG Smart SRM821 to ZLP
+ whitelist
+To: Ming Wang <wangming01@loongson.cn>, netdev@vger.kernel.org
+Cc: linux-usb@vger.kernel.org, stable@vger.kernel.org,
+ Oliver Neukum <oliver@neukum.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, linux-kernel@vger.kernel.org
+References: <20260920074500.826121-1-wangming01@loongson.cn>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <20260920074500.826121-1-wangming01@loongson.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Hui,
+On 9/20/26 09:44, Ming Wang wrote:
+> The MeiG Smart SRM821 5G module (0x2dee:0x4d53) crashes and drops off
+> the USB bus when it receives a Zero Length Packet (ZLP) after sending
+> or receiving an NTB of exactly 16384 bytes (tx_max).
+> 
+> According to the MBIM specification, devices do not require a ZLP
+> if the NTB size is exactly dwNtbOutMaxSize. However, the cdc_mbim
+> driver defaults to sending ZLPs for devices not explicitly whitelisted
+> to accommodate non-conformant hardware. This default behavior breaks
+> the strictly conformant MeiG SRM821 module.
+> 
+> Add this device to the ZLP conformance whitelist (cdc_mbim_info) so
+> the driver will pad the NTB to avoid sending ZLPs, preventing the
+> device firmware from crashing.
+> 
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ming Wang <wangming01@loongson.cn>
 
-Thanks for picking up my tags so quickly.  I tried to test v3 as well,
-but it doesn't apply to mainline (40288c9206c1) or on top of v2, and
-its context has code that isn't in fs/qnx6 in mainline or linux-next,
-for example qnx6_inode->di_ptr in 1/6 and the out_sbl1/out_sbl2 labels
-in 3/6.  My Tested-by and Reviewed-by were for v2 as posted [1], so
-please drop them from v3 for now.
+Before any other step, please read:
 
-Which tree is v3 based on?  If you can point me at it, or rebase onto
-mainline, I'm happy to review and test it again and send the tags for
-the new version.
+https://elixir.bootlin.com/linux/v7.3-rc3/source/Documentation/process/maintainer-netdev.rst#L454
 
-One small thing for the respin: the 1/6 commit message says
-QNX6_PTR_MAX_LEVELS is 3, but include/linux/qnx6_fs.h defines it as 5.
+AFAICS this is actually support for additional H/W, just worded in
+very unusual way: please reword the commit message accordingly and
+drop stable from CC.
 
-Thanks,
-Matthias
+/P
 
-[1] https://lore.kernel.org/all/20260921042511.1473629-1-benquike@gmail.com/
