@@ -1,66 +1,66 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BD11372045
-	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 14:07:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5466133F599
+	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 14:08:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790258830; cv=none; b=Ts6py70GthMHs86AYLPLlzav+ex02vivOEgX95rU1pwqcaI8c6t9ie4wl+wWiWzdI7plcZK9zhdnrVVYf/ijsJuSeeu6IwBZzii106Nmy542t2uJLfc9JLLHOAggYq34fEdUihbIboGwlXq5nLCV+hVap4m2AURzlx9Z/qWCesc=
+	t=1790258900; cv=none; b=MqAJIJ6F+uhFf4J0WUJW1DfO9lOyJdooMovBH9HImP5XHz3SvdS1MeH6tTeZeGWgJBb2OXbF7XWtydKlFmlVHqLmO7HNoqmMzEqKvCZH+HtlYBu78ma/u4DTijU6tIZUOnLEngGOhMuk1NcJdRCWQoPHIE0QQySbojNGeJHckUE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790258830; c=relaxed/simple;
-	bh=8tYi0WAgjaIJKipC9deR0xFZyoQuyzFMvHZ4foYg+RY=;
+	s=arc-20240116; t=1790258900; c=relaxed/simple;
+	bh=Zosx0/qtM2U93wY2yvl2h75cV7USyTkdpcN6VQSTV+g=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lc+HxoTXsaJMcHKuzqLJDfNBlm3/4DAp3DzylLbULuPrE30Ukynfp/8EXc010/Wi5yJmoAOgiRgl7hmQAluBFywKkZI/3KOT1URlNIh4BsbkgwK9pXBB2/rRdH62WjnVe/GmDsOQ9r2pnQB/atyBlTLCvMKJJFVhbDymUrAXy9c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=dcimGur3; arc=none smtp.client-ip=74.125.230.204
+	 Content-Type:Content-Disposition:In-Reply-To; b=BBwPfDAC/xwMf0DjBGJQ30FCaSw/5hRp14Op4rdY0NXcufoF9msCkxf3dGQf3a9f3Mli6qb/keWqFKF2osK6Jn9kC4HGnfYEroSquN9iwYvZ1t6VjjErU9LTvpBHNftI9t2qrpShSGd8X0Ql4UNBGl4mKLWWOjTOobLNFWL252s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=OwmX0wpK; arc=none smtp.client-ip=74.125.224.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="dcimGur3"
-Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-530d0d5ae11so20496621cf.0
-        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 07:07:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="OwmX0wpK"
+Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-671563fb8beso1984939d50.3
+        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 07:08:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1790258828; x=1790863628; darn=vger.kernel.org;
+        d=gourry.net; s=google; t=1790258897; x=1790863697; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=/ztBx4OPk6JOhZIQ7ImRBBL50CNHJh8elF9MxANZMVE=;
-        b=dcimGur3kPV9EKM93rmL3TDcB5EE3EPswfpDMtbdZfH/MJnWsv7KWDImHpNRV1IF1C
-         MTO5Cxdmxz8kw0VfY35H23Ca6QrzCWq/g5iBRE1DpOgIiRoFlONvQqppJcc+WCuNZcJZ
-         ZtER8+1tUg+FY3Hbb0SfX59ElhBp1WRBguMmZYx5oDM83S8iuDGSJAwyao4VuoVjdEXC
-         l06IZQyua43U5iABwOmcOnIHHG/v2RFll0PSgaKT+0hYQ3TWJWkfyCFtnwQjliSDo7zd
-         OgY7LmaJ48q+Hj5Z22OGyVRCVNI7Z7zdxKJjObVfd/4NnasrJ7CLKuAhuKr9ZP6zIBnt
-         Flhw==
+        bh=vfI1NR8Tep8AKRWcGdJ4Ave6RFunEN3KZDqYuNUnkYI=;
+        b=OwmX0wpKIMrGOhySBo1IqYmpPYxZNf0k2COzcFGMy3G9pTBwcspZTzGNiI8D3WhQSb
+         WnAgFCSqLFRPQwxhosIhcPCxFYmTGLaIWEl4CyLWRRPbN1uQuJuruNoY4P1//QJkrqwa
+         48xn0hRL164exARZesHNyZYp1TbhvIHUJC3npErpx2O5LQ0dOCAlcHi2vyP2LEe/nXkn
+         tvHPz/jYULdTCB2Vf+Z1Zrdzp3gB5LojnnDZTJDxllnUKXpFHu81F/ECOCu6KlhDjsvI
+         wIjy+1HHV4nK8+bx2FDU8qt8TpPm84X6/QmVdhomL0GaHhTTZ4Zs0Kve8T437rdGGWeu
+         zpbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790258828; x=1790863628;
+        d=1e100.net; s=20260707; t=1790258897; x=1790863697;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=/ztBx4OPk6JOhZIQ7ImRBBL50CNHJh8elF9MxANZMVE=;
-        b=tRw9v1q07I2s1xHT8tPKwBGe+fNXifjqJXoqd+5MLhKQPo2DAYQhtbrckn+xlHR9/F
-         uWG+xmX+EKXH4PuZKc1EEoob2LLVmFINn1RJXDS5Xq4I+o51zMDKWvQeU/1qTJHV598i
-         aIcV99g1f4S9qjADO4lqTt6k/gH6Clnxd5sXbuo25cviYhX6oE5vPk5U4RCy0mf/bLw2
-         luholiWixKC6qfpP5zOL2eqTaj7KARfoGKKWlFJZW5mCSFY3Su8cF7LEC3/RTwPCyzpV
-         w2iUChSu8xwpTjFq9G9emRd+aIHFBw3KcxmFuAoAoJ09sa9I55m5D0kUwm3aGu59VICD
-         sIqw==
-X-Forwarded-Encrypted: i=1; AKwUvBwigX7Jzb4i/h9WFs8DqDj9RvCq4kHpCW1z1gl5/tKDaWSo5RMLJOdoC7Mi4eW8IRXH0y3J4u0=@vger.kernel.org
-X-Gm-Message-State: AFuF++m3CHt+mxRAVcoTapaP3MYfSdXLxBewav9koXjadalfHwL2cXvk
-	eliWlPA4CyXgoxoMKT75mW27jlcNy0vSxqJx86xKGNVYdLHZz4f51wEj4cTnvAdkEpA=
-X-Gm-Gg: AYBFou0icca2yZwQMmXyWqyzI4I13McGLjwUfEq52ESzbt/B+3QKXfNcJDyUtXnZtgo
-	8JoiMz9Aby+MngXayVB/75jhjjpzIR0hCce8J33nMG9okOyy+2gXlXrKuO4jCiu6Z5oBsiS4k+9
-	aiYLN+POGVK4WUMA1qnX63RB7s3vLpbB1qvpEXpmCa9eqECi06cO+L73zjOAf11n3cE3OWl4n18
-	JhkXw2I2pn/5d1JmS2v3vFNeu90P0b9mpsk+EJQBvyXFCj0TQlY3ghDLjSLYTZ5ekoET8dNHWhh
-	cRgsPNkvbKNloE9NeXkpY5b252buaZg1PdVWrPb1mE3QAcb6bQuAEQdOGw9PRyby8uDQwDNF7fg
-	U+d6KP3OG7vpynlqtUmUMZBJ1YY4pY9fJxHMV/L7CjpMR7kLt4QFo6LHiIi+JTNwymEWfkKDvZT
-	0kbY5ko3vwYQtQPLdgZ4W+EY2bQSnYMeBVzhaMY77C2oSYgVHeKFniuTJqP9QvpMEHVeXrKOpEt
-	EytsgyK2GsnC7GfXZM+h515FzWyvKGhmRMVb3Bs/Snqp1vLIjA4tew=
-X-Received: by 2002:a05:622a:1f8f:b0:532:bda6:a48b with SMTP id d75a77b69052e-532fea0a65cmr25291591cf.12.1790258828027;
-        Thu, 24 Sep 2026 07:07:08 -0700 (PDT)
+        bh=vfI1NR8Tep8AKRWcGdJ4Ave6RFunEN3KZDqYuNUnkYI=;
+        b=Oww/wnxDG0fwwtoig7VqjIfurD6+ofCxIv4C2axdFsIwGdN9QWbboQumzrocuyl4/p
+         s1fpNLNmhpBO02eGGIc83k4AzSXg4eLFFQJl1KSjLVffRMrNqunNU59O+mpPBm8SlF7E
+         a9eTmoHyjrLstHfYoABREUzR5GJRZVU9EfxAdE/ocxfe3Rl9XY0O8O28wE23LwhKeaNE
+         KuebkMJcxIrQXHEGHiwV+QJbtYUkgfCxJqJOxHvE5eDbBBIwfg2E3DaDf5QHs9cfxV4T
+         DMOocE231IKMXeOYsV8hunq4rZHLpAcnoJgBgu9K+CJgoz6Aac1EgGNDSap3T6Fx8mzt
+         jsHw==
+X-Forwarded-Encrypted: i=1; AKwUvBwcBlk1Us5WH5TbL9azfXYc7w4Jh8V/hxY8LnFDMzo0ONrwSA/rWvVeShXcs3tw/UedpU2dXBQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nKtS857+lnK2PApGe4Ah8TYwd4/X71rlfsHV48GDIyc4IbLQdI
+	WllxVaTnCDa0725Wy+0hOIj2v/cJOXgNG8KN6o0zyC1PIkXGTqVCVU7VGzZ0YVXUDR8=
+X-Gm-Gg: AYBFou0JKFBa5NLUD53bLlX6cGveQLA7id+mKbOMsmWpwZ9L5SLWsTyGOKdX3MOJLmG
+	f3xz1AgJDff0IxjgQ6jjSLB2gXAkxPT2M29In2WkILho+X2yDStpRXkMJrF8FNt1gEYJSmcf7jm
+	i135Gkcatkn7H/LIMIxcGD1p7Pom9penxi32h7lzvCYrgsN3ibA6rePAvb5B8JY3Cb2hvfEngZp
+	O3+Bl/jdQJz+e6GSv/9ICZv8x07vvtEW2LQpIFrmoOtp2Cod51IN2kQ89UzxA0IA3DOnFISa7m9
+	+7NiEXid9amBnXG0dsl/CkSVnCyx8jD28ubzrVHgMsvASUUxCtMy7wPfW0QxATU839om9BxXFQK
+	gi9at4TKIZnCAzQBjMvhqMGB49S+eOFgWXup5e+g3YXFJup7sz21jnbw6bDtQKEfQ+Zy+EJ1JCh
+	U5q9HerkgDcW2HBn3qC8apP/r1vAtJ8A0rQg+RTK6UvbTPQ0WEqMsFUTSBiQbjGYni1AflGY9p0
+	rXhm3S3NULfnhLnFNg0pTJ3mdNF1xEwDZwy6cKMvzLThtbgnf83hqLS
+X-Received: by 2002:a05:690e:169e:b0:667:b503:4d2e with SMTP id 956f58d0204a3-672ed1d4e4bmr1602236d50.37.1790258897201;
+        Thu, 24 Sep 2026 07:08:17 -0700 (PDT)
 Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-532eaec185esm43147051cf.3.2026.09.24.07.07.06
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9141e217944sm17455606d6.9.2026.09.24.07.08.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 07:07:07 -0700 (PDT)
-Date: Thu, 24 Sep 2026 10:07:05 -0400
+        Thu, 24 Sep 2026 07:08:16 -0700 (PDT)
+Date: Thu, 24 Sep 2026 10:08:14 -0400
 From: Gregory Price <gourry@gourry.net>
 To: "David Hildenbrand (Arm)" <david@kernel.org>
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
@@ -75,12 +75,11 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
 	ying.huang@linux.alibaba.com, apopple@nvidia.com, jannh@google.com, pfalcato@suse.de, 
 	hannes@cmpxchg.org, shy828301@gmail.com, raghavendra.kt@amd.com, 
 	stable@vger.kernel.org
-Subject: Re: [PATCH v3 2/7] mm: allow shared folios to be promoted to a fast
- tier
-Message-ID: <arUtcPIw_FaUSPv4@gourry-fedora-PF4VCD3F>
+Subject: Re: [PATCH v3 1/7] mm: support promotion-only NUMA hinting scans
+Message-ID: <arUum9WcKl8qF0UC@gourry-fedora-PF4VCD3F>
 References: <20260922182928.2199090-1-gourry@gourry.net>
- <20260922182928.2199090-3-gourry@gourry.net>
- <f0cd5c54-deca-42e7-bc85-1838dfa917f3@kernel.org>
+ <20260922182928.2199090-2-gourry@gourry.net>
+ <8699eba1-21cd-420e-a992-51a90ba62b71@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -89,46 +88,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <f0cd5c54-deca-42e7-bc85-1838dfa917f3@kernel.org>
+In-Reply-To: <8699eba1-21cd-420e-a992-51a90ba62b71@kernel.org>
 
-On Thu, Sep 24, 2026 at 01:59:15PM +0200, David Hildenbrand (Arm) wrote:
-> I wonder if a better name would just make the comment above (about memory
-> tiering) implicit and make more sense of the sysctl_numa_balancing_mode &
-> NUMA_BALANCING_MEMORY_TIERING) check.
+On Thu, Sep 24, 2026 at 01:45:24PM +0200, David Hildenbrand (Arm) wrote:
+> >  - Opting VMAs out of scanning because they became inactive obviously
+> >    breaks tiering - because the intent is to identify when a VMA
+> >    becomes active.  Applying it in tiering modes causes
 > 
-> 	folio_promotable()
-> 
-> 	folio_is_promotable()
-> 
-> 	folio_numa_promotable()
->
-> etc.
-> 
-> because that seems to be what we really test with both things combined.
+> Incomplete sentence.
 >
 
-maybe:  folio_numab_promotable() ?
+oi
 
-> > -		if ((vma->vm_flags & VM_EXEC) && folio_maybe_mapped_shared(folio))
-> > +		if ((vma->vm_flags & VM_EXEC) &&
-> > +		    folio_maybe_mapped_shared(folio) &&
-> > +		    (!folio_in_lowtier(folio) || !node_is_toptier(node)))
-> >  			return -EACCES;
-> >  
-> >  		/*
+Applying it in tiering modes causes VMAs to become permanently stranded
+on lower tiers.
+
+> > 
+> >  - Opting Read-only file VMAs out of scanning is just incorrect for
+> >    tiering modes because its intent is to prevent bouncing between
+> >    sockets (east-west), while tiering controls tier migration
+> >    (north-south).  The result is hot read-only files can overload
+> >    lower tier bandwidth.
+> > 
+> > Add MM_CP_PROT_NUMA_PROMO_ONLY and let task_numa_work() select the type
+> > of walk. Build the change-protection flags there and pass them unchanged
+> > through change_prot_numa() so its PTE/PMD paths use the same decision.
+> > 
+> > Have folio_can_map_prot_numa() derive the single-threaded private state at
+> > the point of use instead of adding another precomputed boolean to the
+> > protection-walk interface. This keeps the interface focused on scan intent
+> > and avoids plumbing VMA-derived state beside cp_flags.
+> > 
+> > The tradeoff for the cleaner interface is an atomic mm_users read for each
+> > folio, rather than once per PTE range. Check the promotion-only top-tier
+> > exclusion bit first as a mild optimization.
+> > 
+> > The scan-intent interface is required by the following memory-tiering
+> > fixes and must accompany them when backported.
+> > 
+> > Fixes: c574bbe91703 ("NUMA balancing: optimize page placement for memory tiering system")
+> > Cc: stable@vger.kernel.org
+> > Suggested-by: David Hildenbrand <david@kernel.org>
+> > Link: https://lore.kernel.org/r/4d2853c9-edf4-4685-b186-7214ed6abd84@kernel.org
+> > Assisted-by: LLM
+> > Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+> > ---
 > 
-> Sashiko has some comment about anonymous shared COW folios. I think it has a
-> point, but didn't look too closely.
->
-
-its tl;dr:
-
-`skipping this check means those folios could end up freely migrating east-west
- between slow tiers`
-
-Which cannot happen (we only migrate to top tier, numab will never
-migrate *to* a slow tier).
-
-basically false-positive
-
-~Gregory
+> LGTM
+> 
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> 
+> -- 
+> Cheers,
+> 
+> David
