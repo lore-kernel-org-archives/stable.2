@@ -1,112 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-186.mta0.migadu.com [91.218.175.186])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ECF644AB64;
-	Thu, 24 Sep 2026 22:36:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E8AD36F434
+	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 22:42:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.186
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790289385; cv=none; b=EsZ41QFyl5HqFuRgt6EEBCOW4VK8H4Pfrlbdr1nQ4A4NsdovU3d2P4itppadADvOd5WnVgq1WAA/pwlsBFUEf2v982cZH9QPbX8tBd9XHivExXl7YfuEhY2iPUFmRdsftvMIOlLU1oob6nCnmF4TxYkD/N5O97rOfaVmP28G75E=
+	t=1790289769; cv=none; b=TPqlKDwP9S189RuE9vvNfScmB+NuGFZYDqsHIQtrYNRM9SkrrZujrxvFIxQ56l06kIACnhC+CpnU9p0QHVO5rzrfE4k0/I1l1M4/hYxeBrYwL+/MVoMLqgZAu05d04WGSk1iq665E22zpHh2bLhB3BkDHVbxYZpydnS1C0Z1oek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790289385; c=relaxed/simple;
-	bh=f+Y2zBdHwooikCuT6+kNpHr2IOsCvatB3zQCIYcbK1g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=B8lsXkjhEwAnR3y6e6cfz1R+wCN5HLG09s3bxZFfqhdvUUIVRWhLWdUtRBagNH7DzaeHicL/RLqnOGyVXCOdZG6dyJql6pImH2l7MVrEVbPLe2Vj8vkW9BQ7rX4rC2KNNPGIDu0qOXDOY8XPzH1L8Wu5Y4hgDUtedL9bnYSscJQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gMWsVbHj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790289769; c=relaxed/simple;
+	bh=WRPL/H0LrA/BKC4g71mMipRThq8ER0G25bE1inVY1ww=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=BnALNLg3G2ZefvDwUjg2Z/utE7ED6iyN/z0SkNNH9tlTYRqBh3P6CgNdDLbOjBO76MznX38OoHgKR69Fl/WGCzc+OIhTxLqZ+NEKEBxCzqTjbArP8a7FMQWCQIm41+meoGTVRZDUfVScFy8UD1+M1b7EcDdlv8/AOUIt4ovy0hc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cressey.dev; spf=pass smtp.mailfrom=cressey.dev; dkim=pass (2048-bit key) header.d=cressey.dev header.i=@cressey.dev header.b=M8uxa+x1; arc=none smtp.client-ip=91.218.175.186
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cressey.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cressey.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gMWsVbHj"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id D5F821F00899;
-	Thu, 24 Sep 2026 22:36:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790289380;
-	bh=oO7pTbzOQg3p6Qohgo7dMSkUQxFRRkTdpH1EKi/kSbg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gMWsVbHjI834shGtzLDCJYDtQ/4UNtFv28WaxNqgehr4uSk5Qi0ElXhbZLgtPItCp
-	 Oi5dzmdXt/Go84KZeg1aTgvQ6qiLILfnR0JIi7red0yLzgevWzxZwRkAMd9qEc+8kH
-	 7MDNoDSmA81s01ugXkcDGJJbcXhC/423JYFv7RbFd+v3UFbW9RBWdp+pj7T5xENCXr
-	 x/pyGE23z83kgMdOmAaKOv865pGl4/xQqtP4bCGslm0ja7Ozdecba9bh0WRyono5kS
-	 UE+MWLTLr4DtHNwGp5MDJuw45CQt6GbzwO+tdAGlpROf/tcV+5L+lt/+VceRhwbx63
-	 QX0/GMZwu9Acg==
-Date: Thu, 24 Sep 2026 15:36:20 -0700
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: Andrea Parri <parri.andrea@gmail.com>
-Cc: Christian Brauner <brauner@kernel.org>,
-	Carlos Maiolino <cem@kernel.org>,
-	Joanne Koong <joannelkoong@gmail.com>,
-	Brian Foster <bfoster@redhat.com>,
-	Christoph Hellwig <hch@infradead.org>,
-	Damien Le Moal <dlemoal@kernel.org>, Hannes Reinecke <hare@suse.de>,
-	Daniel Gomez <da.gomez@samsung.com>,
-	Pankaj Raghav <p.raghav@samsung.com>,
-	Dave Chinner <dchinner@redhat.com>, linux-xfs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 4/4] iomap: don't lose a failed direct I/O bio's error
- when zeroing the tail
-Message-ID: <20260924223620.GM2705364@frogsfrogsfrogs>
-References: <20260924091203.198225-1-parri.andrea@gmail.com>
- <20260924091203.198225-5-parri.andrea@gmail.com>
- <20260924185317.GK2705364@frogsfrogsfrogs>
- <20260924203013.9967-2-parri.andrea@gmail.com>
+	dkim=pass (2048-bit key) header.d=cressey.dev header.i=@cressey.dev header.b="M8uxa+x1"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=WRPL/H0LrA/BKC4g71mMipRThq8ER0G25bE1inVY1ww=;
+ c=simple/simple; d=cressey.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790289764; v=1; x=1790894564;
+ b=M8uxa+x1EgcdMivO9OwY+7QaX6MRK+r6ztKF+95QExiaFoS9Iq2uxFuSFzvWFZIsPw8FHyJl
+ 55HOpmJpG9mO6EL5dasJFrMiO7ToSHdJ9K9dUCmcc/zTsQH7bc8CkYH/kNZzD8+/yHQU0iWzpmL
+ OUJR/k6PPfC/MAL+AMJinC3iuVXwXq4JDq/TLXkLqSSKBxoTFI+D7CTmOSGRaPIn5sFk0fwV5uI
+ MyINjT1Q74dmu2b/AO4UBPkCvdc5Cgr6H2TuBiQRZthPpbgBTopw1MMUsSfMVvpE8oXVSNeGtvB
+ 3BoB2y+RTihECm+J62I47Sc1ZqmcKprYI9nQ1kD1c35tg==
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 9c16178fdf9bcaa3;
+	Thu, 24 Sep 2026 22:42:34 +0000
+X-Mizu-Trace-ID: 9c16178fdf9bcaa3
+X-Migadu-Flow: FLOW_OUT
+From: Ben Cressey <ben@cressey.dev>
+Date: Thu, 24 Sep 2026 22:42:30 +0000
+Subject: [PATCH] arm64: kexec: mark machine_kexec() __nocfi
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924203013.9967-2-parri.andrea@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260924-arm64-kexec-nocfi-v1-1-bbae2e2eadc8@cressey.dev>
+X-B4-Tracking: v=1; b=H4sIAFWntWoC/2XMQQ6CMBCF4auQWTsRa63iVYyLMj5kNBbSqiEh3
+ N1Wly6/ybx/poSoSHSsZop4a9IhZGxWFUnvwxWsl2wytXF1Yyz7+HCW75ggHAbplG3j4Ox2tz8
+ IKO/GiE6nb/N0/jm92hvkWULlo/UJ3EYfpC+nwvVfl5blA0MBvFyeAAAA
+X-Change-ID: 20260924-arm64-kexec-nocfi-496e643578ce
+To: Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Nathan Chancellor <nathan@kernel.org>, 
+ Nick Desaulniers <ndesaulniers@google.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+ Pasha Tatashin <pasha.tatashin@soleen.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ llvm@lists.linux.dev, Sami Tolvanen <samitolvanen@google.com>, 
+ Kees Cook <kees@kernel.org>, David Woodhouse <dwmw@amazon.co.uk>, 
+ kexec@lists.infradead.org, stable@vger.kernel.org, 
+ Ben Cressey <ben@cressey.dev>
+X-Mailer: b4 0.15.2
 
-On Thu, Sep 24, 2026 at 10:30:08PM +0200, Andrea Parri wrote:
-> On Thu, Sep 24, 2026 at 11:53:17AM -0700, Darrick J. Wong wrote:
-> > > Cc: stable@vger.kernel.org
-> > 
-> > Cc: <stable@vger.kernel.org> # v6.12
-> 
-> Fixed for v3.
-> 
-> > > @@ -582,8 +578,7 @@ static int iomap_dio_bio_iter(struct iomap_iter *iter, struct iomap_dio *dio)
-> > >  		/* zero out from the end of the write to the end of the block */
-> > >  		pad = pos & (fs_block_size - 1);
-> > >  		if (pad)
-> > > -			ret = iomap_dio_zero(iter, dio, pos,
-> > > -					     fs_block_size - pad);
-> > > +			iomap_dio_zero(iter, dio, pos, fs_block_size - pad);
-> > 
-> > I think this is the original cause of the bug, right?  We might have
-> > already had a nonzero ret, and the assignment here blows that away.
-> > Right?
-> 
-> Right.  When iomap_dio_bio_iter_one() fails we break out of the loop
-> with ret < 0 and fall through to the tail zeroing, and this assignment
-> replaced that error with iomap_dio_zero()'s 0.
-> 
-> > If the answer to that is yes, then
-> > Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
-> 
-> Thanks, picked up for v3.
-> 
-> > (I should probably whine about how changing the function signature of
-> > iomap_dio_zero should be a separate patch to make it more obvious what's
-> > the actual fix...)
-> 
-> Fair point.  FWIW, before 10553a91652d iomap_dio_zero() returned void
-> and neither call site touched ret; that commit made it return int and
-> added both "ret = iomap_dio_zero(...)" assignments.  So the signature
-> change here is really undoing the part of 10553a91652d that introduced
-> the bug, and keeping it in one patch makes the stable backport
-> self-contained.  If you'd still prefer a one-line fix followed by the
-> void conversion, I'm happy to split it.
+When the loaded image needs relocation, machine_kexec() makes an
+indirect call into the copy of arm64_relocate_new_kernel in the control
+page:
 
-I'd prefer that, though I don't have a strong opinion.  Someone in
-another multiverse could have come along and decided "URrgghg,
-iomap_dio_zero doesn't need a farking return value!" and accidentally
-fixed this bug.
+	kernel_reloc = (void *)kimage->arch.kern_reloc;
+	kernel_reloc(kimage);
 
-Eh, whatever, just leave it as it is. :)
+With CONFIG_CFI=y the kCFI check on this call loads a type hash from
+kern_reloc - 4. arm64_relocate_new_kernel is SYM_CODE_START and carries
+no hash. Its copy also sits at the start of the control page, which is
+all that TTBR0 maps at this point, so the load faults and the kernel
+oopses after "Bye!" instead of entering the new kernel:
 
---D
+ Unable to handle kernel paging request at virtual address 00000000544bfffc
+ Internal error: Oops: 0000000096000007 [#1]  SMP
+ pc : machine_kexec+0x104/0x274
+ Code: d5182008 d5033fdf aa1303e0 f9418a68 (b85fc110)
 
-> Thanks!
->   Andrea
-> 
+b85fc110 is "ldur w16, [x8, #-4]" with x8 = kimage->arch.kern_reloc.
+The crash kernel and images loaded in place take the IND_DONE path
+through cpu_soft_restart() instead, which is SYM_TYPED_FUNC_START in
+.idmap.text and not affected.
+
+arm64_relocate_new_kernel cannot be given a type hash, since the linker
+script asserts that the relocation code starts at that symbol and a
+hash would have to precede it. Mark machine_kexec() __nocfi instead, as
+commit e2f8216ca2d8 ("arm64: Set __nocfi on swsusp_arch_resume()") did
+for the same pattern on the hibernate path and commit 2114796ca041
+("x86/kexec: Mark machine_kexec() with __nocfi") did on x86.
+
+Fixes: efc2d0f20a9d ("arm64: kexec: keep MMU enabled during kexec relocation")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ben Cressey <ben@cressey.dev>
+Assisted-by: LLM
+---
+Functional check only, under QEMU TCG (-M virt,gic-version=3,its=off
+-cpu max -smp 2), v7.3-rc4 defconfig plus CONFIG_CFI=y, clang 21:
+"kexec -l" or "kexec -s -l" of the same Image then "kexec -e" oopses as
+above without the patch and reaches the second kernel with it.
+"kexec -p" plus sysrq-c reaches the crash kernel either way.
+---
+ arch/arm64/kernel/machine_kexec.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm64/kernel/machine_kexec.c b/arch/arm64/kernel/machine_kexec.c
+index 8f9bc2327dc85..7d218339b84a6 100644
+--- a/arch/arm64/kernel/machine_kexec.c
++++ b/arch/arm64/kernel/machine_kexec.c
+@@ -160,7 +160,7 @@ int machine_kexec_post_load(struct kimage *kimage)
+  *
+  * Called from the core kexec code for a sys_reboot with LINUX_REBOOT_CMD_KEXEC.
+  */
+-void machine_kexec(struct kimage *kimage)
++void __nocfi machine_kexec(struct kimage *kimage)
+ {
+ 	bool in_kexec_crash = (kimage == kexec_crash_image);
+ 	bool stuck_cpus = cpus_are_stuck_in_kernel();
+
+---
+base-commit: 93f51579e7df248780214094418f205253383cc5
+change-id: 20260924-arm64-kexec-nocfi-496e643578ce
+
