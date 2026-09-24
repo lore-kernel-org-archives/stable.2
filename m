@@ -1,213 +1,196 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C604377EC7
-	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 12:30:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BAC21C5499
+	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 12:32:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790253056; cv=none; b=n4hdZRc9HYUA1KsAFXHt83f1bkhwhqB0TSXzqXN0vwHkCCLZEHrnJHltq/bUfm75QtFzEMDo4zyf+i20xNFZ/wME3YxEPlUlzTjp42BfeLczl965xGKMqB85rIKYaQ5yMCURwFIHS8XZ3LbpWWmho/0gWDBeFzBl8uXCABOCs6c=
+	t=1790253160; cv=none; b=roskGP0M9WvnQX224C939J0cx2rG5HZQ86cSj4KC2rh3TO5HFkt4GCYAgYJOvPxg4g/p1nxehkjoGNrKegiMpT1GwHCir0ES+6pRvRdXSxQ3XsN6uX4naXUXi2dFEuad8sNuemQWu/DizCw8c0l9UrySxKsSaF4zlhg/Lxn2BTI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790253056; c=relaxed/simple;
-	bh=omk9GI045/Wzc6JEiHTL3O2HU5TJfulTTCxUFqD7tN0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=C6BY7rWzmRQ7knt9rV0Y+W48pUaacStSQFQ+FsqwLaZ6clyXIwaVRh+HRNIwal03lj9eC8qR4sgjOCCSxFVTo2ucTpqeCNK44hYwA5MdJIAtpWas17G5lJSFXSgRU2DYvKX+BI6y/27sSAf11mOhfxaRNc/WCB2e83IkT1lv4JM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IkNJdfGM; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790253160; c=relaxed/simple;
+	bh=I+J3lijk9qNAEc8We+uj5POGMAxHJEguo+5161ZH51A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gF4bzHko27ck89ztVXZkJqzTtq0pBgexQ64302ub1EFIpjAxbvjNOZErXyA9kd0rymH+jSe7fsl4p9MfEylLa7CfLcs308zUXd9jAe0d2oYbvECkDHJ3JrhtRo/occfl8JtzCXhcsCeS56NMWfm1YbzeGdspdP39Yfcjej9o9es=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PsSn/PK4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WJO3+L5j; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IkNJdfGM"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e4b11so12244505e9.3
-        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 05:30:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PsSn/PK4";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WJO3+L5j"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68OC4sBo1630757
+	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 12:32:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	A0DzMsof/BPeClgNGuLflawDdZB+Su4EkTYJSKZSgpk=; b=PsSn/PK4jle23gbd
+	MNEt0oNAfO8sIJY3D/Am/tdXEQazyDYk1SG2Np7kO3KqBXVvdZI0Y8TJCwbj7Cnt
+	jBJ87XwM7+yTUsxu+0rMfD7Uz2VYaVYIHuAlImjb9v5BFH5xivKsk/vfhYjmAfIq
+	y5sNexITJMd6QCTG49+uZH+fMXcWPEyOknvI6rF9XH3Tk3cZCDHvCOKi0jRyR5TU
+	VaF0XpYj8FzMvbPONhPYwfc2rp8gotzGr4wVK6vMyB4hrZFzAF5k+BnGtu17kB5n
+	Qb5sBIogxoBqD20Ez44D15qaWkG+0+nd3FJ+gEbD8worjdTYGelVmDwP6ULqKEfN
+	J4fmSg==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvr90b1y6-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 12:32:38 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-30c0d568830so3714849eec.1
+        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 05:32:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790253052; x=1790857852; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IeZGVwvFZh+DRIKqU9fspJebPiKjj3eoo80WtQQLI48=;
-        b=IkNJdfGMtF1KdIA0c/UZ1zk5m/AYh6gTTl9E8NS6892RjGyjWHwadJRndSZsG8hjUB
-         8PTqS1EnoutCOkrobRey36lGNGqMrzKmmoyBBvaefPTceT5NxpN2PldvCjHTjUfTsnUR
-         5Pr8NKsJLObIfW1mDKPD0Mwf+Irgip+b0Nq9LwNAAEfgzQS2CCdt5I4IB+W5dntnYGSr
-         1J3M82Z+qfxX6+PKclXv2xMlVKUDCTEIHovfZlIzLAR2b5OAlMcM5f9Gi+iHLS/rnBIR
-         DRSwwAZihgUVVEqfy52FYGGioTmuEEbjh2U9mRLVjMu+Gu/zWuD7r3aI0NuSiF4esBwt
-         Pzxw==
+        d=oss.qualcomm.com; s=google; t=1790253157; x=1790857957; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=A0DzMsof/BPeClgNGuLflawDdZB+Su4EkTYJSKZSgpk=;
+        b=WJO3+L5jOkjjhMTgzH75NCGUatKs4hsEWJX9ByHlfw72tCj2A8chzCjw4V17RmJz3x
+         rQuHl1UQVzFa7r9wredELhV2PLY0Ipw8fktd6dBhxvO1X0EGheV2M9+a3shuMsW4BRJS
+         Dg1nZ5OzLWqZCgX6QoCYYRfVCwpoRKpxoq9nAC3ebUnkx98X73xJ6vxcRM96G6Cc68NY
+         7oq3RAZiG0INWSWjJgT9tGPq/6+pDr6JYrr7GBiwO/HB+e2nhNBB+fW+XT+oAS0sIn4y
+         staKteiB5pNKKVU7BDmGiY5GizIIn1SsPK1toYQHNRFoJYBkGu+jH2UiFeu7+l1AaOql
+         RKpg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790253052; x=1790857852;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IeZGVwvFZh+DRIKqU9fspJebPiKjj3eoo80WtQQLI48=;
-        b=i1efg0hbNwapc5PT+64OhM9GtWWUfRQRXvqD0vXf555PRN/KzZurckin1HAFOjZhzU
-         zPlsDdCXzLAXmcxKvnK9egBLgJf4d+V045INQBaThoPNPwUa1HnuuGztAO0iUFOtr8HS
-         fQv+jWbNAlNem37DJo/3BFNKv0pa7eLaQ4RlZ5pEeXvV4Mb9xzyZKv+Zf59vDuNXgqjx
-         uCBlHUpT5Dbu3OM/vTB0w2VVRA2NpkTeoqXZGVhgG5ER6aTRQBYhcIsW6qACOk5US8cB
-         eYMhFpJUl0pbnzzL41HJ8IJG2uxUgE7fka+vAM9dm8Ntnwn5Y32X3TAmYkq9Je6jgQO1
-         5M7g==
-X-Forwarded-Encrypted: i=1; AKwUvBz7ToT108SnqnFGJ9KbGwkF8Z8DLhCWEvkasnI/vmQ69FV1rn4pGq7lD/aVUcw5EeDB5IZrCK8=@vger.kernel.org
-X-Gm-Message-State: AFuF++m5w0jiCXYpp9u/x2LMqi9N3znzZkxHMvOs9K2t9dFVR0krKir+
-	XHh9RngNSWO7nzKMjU/5q0K74b9euuwR0T3ouFRU7hD6joevOK+R8brTHtUHzOxl
-X-Gm-Gg: AYBFou2jze0Sj7C7OKdbRKewe3+JMPo2uEJ0IcheG2CaoSA5D/A1FIJ0BQW1/YHlErP
-	D+jqpnMaJLPi9pbRTRpFqc8ijqgdAqI3h3LHobpAn5shqADMUAidlaLwQaVkwL3ELMHTj9M8TIg
-	biVVb4H2m5J9IzlP71ORhwQdu8dGMoZ+e4yBPZTGZq1LsBPSRk/iXgU11yIuVAoQpgYcSQtLPTl
-	xsThWUO5G6LxtymM2atRVXxprcQRb297n3g02F3RGQ8BRDN8RjyGHW3hbE4PLRlQKty9twO8h5p
-	NRtoCphqdVZx6wCGCQqcgEv4muJ9ealeGYPwnWnhURt/orkUC0hd/O21yGfQaQ67pSulYUBLNwo
-	F+t7+ZCW0Mkti6wiJy598W2IgWFfzKnF/VVawoDY7khfBw+M5BdBZ5kKhy3Iu4RgsDFX/tO83GA
-	e7I95492eVYxzesN5DRDtFxUdDyai88Ibt50oi13RltZkkND2hgt8ls1zv2LtqXYTPd2VKKQHAz
-	Ul4sGbciFIQdV8aW0thXFtU/AmkkE9Ub86Qr6EH9orDbqlhxcsJ/W7mEOTPWzRe5BRomgj1nv0=
-X-Received: by 2002:a05:600c:138c:b0:49d:174e:2a1e with SMTP id 5b1f17b1804b1-49fe66e6538mr38211495e9.19.1790253051185;
-        Thu, 24 Sep 2026 05:30:51 -0700 (PDT)
-Received: from pws-dionisio-3680.powersoft.it (78-209-174-168.subs.proxad.net. [78.209.174.168])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5bae43dsm64010115e9.5.2026.09.24.05.30.48
+        d=1e100.net; s=20260707; t=1790253157; x=1790857957;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=A0DzMsof/BPeClgNGuLflawDdZB+Su4EkTYJSKZSgpk=;
+        b=ZekQblFH2qyPK/IX+uB59mVP7sMj4GEtfxdyupOJZOFPQgEzaw6vraF5xaVWZ/QprU
+         O6ZKNZVnGsL13x2UQpzd9ROb6/PT4AR3exguu6MtGts9aKE6VWlJxBf7cPxrwP5DsMzr
+         GCqBZ+gpC9wkbIR+h+u9xLmYO8rLTFZ3cJ0YZuh2/jm8kGz/oJMgESbJmvgg24FhBQF/
+         pIgojVBrjnyV3cBEsMfZ4gfJfeFD8f4Y99eznROtPHLAXTmfiGSMAAWQ0CTtxxYLeSJH
+         77tMxLCI8EHFJuWCm+kSgGojk0xC4b1oPonM2QL84b/x2Q4gczKIpM9RxBlRs+7OsCZ+
+         P04Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzi0uDh8dU4moqyHYRhm3/jqVRWzKUqjKPtZS8nQwrDFmShdTBnexeWTEclgpL1XszyfGrz4pw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lfgAH4Grx6dXjvDf68AwRenm8wLjvCrPr6twlodSS5AxUH/cGZ
+	ARv1L97hPT7FXsa2var4qRJBD8sp5p3SwPxNuUQVbmFEP7XnIu4gDrk1Yufqqc0XgzpMv5Wp32g
+	Ex82vKx4Zv9vcK1XUowfX7GZOFOHANgmX8IaITN32Vru9ZvZlsFF6ttsmsYE=
+X-Gm-Gg: AYBFou2IdIEBQCSV9//nPhZcbfdZgO/4bsW7k60YpU3bJkmmDA9S3K15npYgJuFkhlh
+	UQg6IaMsrnliBgOEh8xisJPHDdskOj9s8lOSgkvxA7TwUNHcFecr46mrsg3E2Vg80z3dRxhQg4H
+	V+in3SrNuYhtzqAzaB9ctS3YJ3jkgc6BCkG1uR+iLVuSq2KGT5vYFKYxPo5XZoW0/+2UU9DDFMB
+	2UZHh4sewJeGdYRKuFMtTl2SzitWk0ECUhZebwDr1ZL7CtOh2CWjMPEyFOMtJo51NWH3nMG3VVN
+	/+PPlB7c6JT3uJjhW+B8MLK3XAPN9y9E3DqGhDjkS8eBX9ArRfP17nC469aPMJD+DQ/Tmo/Pb2b
+	8SBCDCf2NQ3SEr+NLiSBAaKUGcg==
+X-Received: by 2002:a05:7301:da87:b0:339:d06e:64ea with SMTP id 5a478bee46e88-33ffe343a49mr1710411eec.4.1790253157156;
+        Thu, 24 Sep 2026 05:32:37 -0700 (PDT)
+X-Received: by 2002:a05:7301:da87:b0:339:d06e:64ea with SMTP id 5a478bee46e88-33ffe343a49mr1710371eec.4.1790253156373;
+        Thu, 24 Sep 2026 05:32:36 -0700 (PDT)
+Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e95c7c63bsm13461908eec.10.2026.09.24.05.32.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 05:30:50 -0700 (PDT)
-From: Michele Dionisio <michele.dionisio@gmail.com>
-To: Arend van Spriel <arend.vanspriel@broadcom.com>
-Cc: Michele Dionisio <michele.dionisio@gmail.com>,
-	Hante Meuleman <meuleman@broadcom.com>,
-	Fan Wu <fanwu01@zju.edu.cn>,
-	Kalle Valo <kvalo@kernel.org>,
-	Pieter-Paul Giesberts <pieterpg@broadcom.com>,
-	linux-wireless@vger.kernel.org,
-	brcm80211@lists.linux.dev,
-	brcm80211-dev-list.pdl@broadcom.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH wireless 1/1] wifi: brcmfmac: fix P2P device removal race in brcmf_detach()
-Date: Thu, 24 Sep 2026 14:30:27 +0200
-Message-ID: <20260924123027.4122909-2-michele.dionisio@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260924123027.4122909-1-michele.dionisio@gmail.com>
-References: <20260924123027.4122909-1-michele.dionisio@gmail.com>
+        Thu, 24 Sep 2026 05:32:35 -0700 (PDT)
+Date: Thu, 24 Sep 2026 18:02:29 +0530
+From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+To: MyungJoo Ham <myungjoo.ham@samsung.com>,
+        Kyungmin Park <kyungmin.park@samsung.com>,
+        Chanwoo Choi <cw00.choi@samsung.com>,
+        "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+        Rajagopal Venkat <rajagopal.venkat@linaro.org>
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org
+Subject: Re: [PATCH] devfreq: stop monitor before calling governor GOV_STOP
+Message-ID: <20260924123229.qkiyz5zo2owh5xtv@hu-mojha-hyd.qualcomm.com>
+References: <20260721171141.1281754-1-mukesh.ojha@oss.qualcomm.com>
+ <20260803181614.wk62kshvmbx6rpab@hu-mojha-hyd.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260803181614.wk62kshvmbx6rpab@hu-mojha-hyd.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA1MSBTYWx0ZWRfX/5z8lClXFQi3
+ hAJyr9a9bR4eW7iSy7B5nK9mJ9bRCnsc92fXVApin5vDZnHCvXWq+dg3H+4wlkWW96O2xKnkQoR
+ kKX6sDrfTvqi7Ydy7pnEj6iykPGzR60=
+X-Proofpoint-GUID: TRHt4VioA3WCnckRKHRYuQKZQxHOA1Yg
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA1MSBTYWx0ZWRfX9JpPR+Zwn13J
+ hNZPxXxA6vxG9D17Zlh9QM84ST3gE2JMliWt9ij6PGQZWnzNggrTHzVn7ARdBeAxstCwq4QYl+/
+ 6C+JQ/DOx2+p5Q41rc5b/rkItvwEAuZERW7pT5DVLb8K/j7Zt3PDT+zmOe7zhZgkCoHGwuGLvU9
+ tCGkqxz7RNrr+l29g/aj6qdqg6dOBA0Y88RSRPGZrByLaiVG/Ig8juDNTttAIFzmdEvsTzoWDwM
+ L2d38oxx+peUxTFxftYijs1jX5RmGSvf2FrYZCFwVZaO6ejXtmtX/yNGJH0nql76UL3Yb69bfBK
+ AOD0BTW9o13//uMviBjNt33pzNLT0AdeLGpCvNElQXpU0ua1triDDq52veoX1HPZF+XX9uT56Qj
+ ZgadXke7iAY4gJ/V35B0QneHayu7sXWROULUNO5D/4S058t6yAOtdrCTdf1RdAi6gJWREa8zKWc
+ PCdWdM2iqDDO2kX2nJw==
+X-Proofpoint-ORIG-GUID: TRHt4VioA3WCnckRKHRYuQKZQxHOA1Yg
+X-Authority-Analysis: v=2.4 cv=fMusTpae c=1 sm=1 tr=0 ts=6ab51866 cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=x_Bf0CEzfFRy0vkMM70A:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-24_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 bulkscore=0 adultscore=0 lowpriorityscore=0 spamscore=0
+ clxscore=1015 impostorscore=0 malwarescore=0 priorityscore=1501 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240051
 
-When the driver is removed while the user space process that created
-the P2P device (e.g. wpa_supplicant) is still exiting, the P2P device
-interface is removed twice and the kernel crashes.
+On Mon, Aug 03, 2026 at 11:46:14PM +0530, Mukesh Ojha wrote:
+> On Tue, Jul 21, 2026 at 10:41:41PM +0530, Mukesh Ojha wrote:
+> > The following NULL pointer dereference is observed when devfreq_monitor
+> > fires after userspace_exit() has freed governor_data:
+> > 
+> >   pc : devfreq_userspace_func+0x10/0x2c
+> >   Code: 39402109 --> ldrb w9, [x0, #8]   (x0 = NULL)
+> >   Call trace:
+> >    devfreq_userspace_func+0x10/0x2c
+> >    devfreq_monitor+0x34/0x134
+> >    process_scheduled_works+0x1d8/0x804
+> >    worker_thread+0x1c0/0x458
+> > 
+> > The fault address 0x8 is userspace_data.valid — an 8-byte unsigned long
+> > (user_frequency) precedes it, so governor_data == NULL is the cause.
+> > 
+> > The race: devfreq_resume_device() reads df->governor without holding
+> > devfreq_list_lock, while governor_store() updates it under that lock.
+> > The stale pointer dispatches GOV_RESUME to the old governor
+> > (simple_ondemand) after the switch has already completed:
+> > 
+> >   CPU 0 (devfreq_resume_device)        CPU 1 (governor_store)
+> > 
+> >   read df->governor → simple_ondemand
+> >                                        lock(devfreq_list_lock)
+> >                                        GOV_STOP → monitor stopped
+> >                                        df->governor = userspace
+> >                                        GOV_START → governor_data alloc'd
+> >                                        unlock(devfreq_list_lock)
+> >   simple_ondemand->event_handler
+> >     (DEVFREQ_GOV_RESUME)
+> >     → devfreq_monitor_resume()
+> >         stop_polling == true → re-queue work  ← stray monitor!
+> >         stop_polling = false
+> > 
+> > devfreq_monitor is now queued with df->governor == userspace. When
+> > devfreq_remove_device() or governor_store() next calls userspace GOV_STOP,
+> > userspace_exit() frees governor_data. The stray monitor fires,
+> > dereferences NULL governor_data, and crashes.
+> > 
+> > Call devfreq_monitor_stop() before every GOV_STOP dispatch in the core,
+> > ensuring the polling work is fully cancelled before any governor tears down
+> > its private data.  devfreq_monitor_stop() is safe unconditionally:
+> > IRQ_DRIVEN governors return immediately, polling governors that already
+> > call it in their own GOV_STOP handler make the second call a no-op
+> > (stop_polling already true), and governors that never polled get a harmless
+> > cancel_delayed_work_sync() on an empty queue.
+> > 
+> > Four sites are fixed: devfreq_remove_device(), governor_store(),
+> > devfreq_remove_governor() (governor module unload), and timer_store()
+> > (timer-type change performs a GOV_STOP + GOV_START cycle).
+> > 
+> > Fixes: 7e6fdd4bad03 ("PM / devfreq: Core updates to support devices which can idle")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+> 
+> Can we consider reviewing fix for the mentioned issue ?
 
-The two paths are:
+Change still applies on linux-next tip, So no need of a rebase.
 
- - wpa_supplicant, on exit, sends NL80211_CMD_DEL_INTERFACE for the P2P
-   device. nl80211_del_interface() holds RTNL and the wiphy mutex and
-   calls brcmf_p2p_del_vif(), which disables discovery and waits up to
-   1.5 s for BRCMF_E_IF_DEL. Then it calls brcmf_remove_interface(),
-   which unregisters the wdev and frees the vif and the ifp.
+Can I get review on this ?
 
- - brcmf_detach() sets the bus down, so BRCMF_E_IF_DEL never arrives,
-   and calls brcmf_remove_interface(ifp, false) for the same ifp.
-   brcmf_p2p_ifp_removed() reads ifp->vif and then blocks on
-   rtnl_lock(). When brcmf_p2p_del_vif() releases RTNL, it calls
-   cfg80211_unregister_wdev() on the wdev that was already unregistered
-   and freed.
-
-The second list_del_rcu() of wdev->list faults on LIST_POISON2:
-
-  brcmfmac: brcmf_p2p_del_vif delete P2P vif
-  brcmfmac: brcmf_p2p_deinit_discovery enter
-  brcmfmac: brcmf_p2p_del_vif P2P: GO_NEG_PHASE status cleared
-  brcmfmac: brcmf_detach Enter
-  brcmfmac: brcmf_bus_change_state 1 -> 0
-  brcmfmac: brcmf_remove_interface Enter, bsscfgidx=1, ifidx=0
-  brcmfmac: brcmf_del_if Enter, bsscfgidx=1, ifidx=0
-  brcmfmac: brcmf_p2p_ifp_removed P2P: device interface removed
-  [1.5 s later, brcmf_p2p_del_vif() timed out]
-  brcmfmac: brcmf_remove_interface Enter, bsscfgidx=1, ifidx=0
-  brcmfmac: brcmf_del_if Enter, bsscfgidx=1, ifidx=0
-  brcmfmac: brcmf_p2p_ifp_removed P2P: device interface removed
-  Unable to handle kernel paging request at virtual address dead000000000122
-  Internal error: Oops: 96000044 [#1] PREEMPT_RT SMP
-  pc : _cfg80211_unregister_wdev+0x6c/0x264 [cfg80211]
-  Call trace:
-   _cfg80211_unregister_wdev+0x6c/0x264 [cfg80211]
-   cfg80211_unregister_wdev+0x10/0x1c [cfg80211]
-   brcmf_p2p_ifp_removed+0x84/0xb0 [brcmfmac]
-   brcmf_remove_interface+0x1f4/0x254 [brcmfmac]
-   brcmf_detach+0x88/0x180 [brcmfmac]
-   brcmf_sdio_remove+0x90/0x7b0 [brcmfmac]
-   brcmf_sdiod_remove+0x20/0xa0 [brcmfmac]
-   brcmf_ops_sdio_remove+0xbc/0x12c [brcmfmac]
-   sdio_bus_remove+0x38/0x144
-   device_release_driver_internal+0x1e8/0x2c0
-   device_release_driver+0x14/0x20
-   brcmf_sdio_bus_remove+0x2c/0x40 [brcmfmac]
-   brcmf_fwvid_unregister_vendor+0xd8/0x170 [brcmfmac]
-   __exit_compat+0x18/0x418 [brcmfmac_cyw]
-   __arm64_sys_delete_module+0x1ac/0x244
-
-The log was taken with debug=0x406 on an i.MX 8M Plus board with a
-CYW55513 (Sona IF513) on SDIO. The driver is the Ezurio backport of
-brcmfmac from v6.18.22 on a 5.4-rt kernel. The code involved is the same
-in mainline.
-
-To reproduce:
-
-  1. Start wpa_supplicant on wlan0 and let it associate. It creates the
-     P2P device (iw dev shows "type P2P-device").
-  2. Stop wpa_supplicant and remove the driver without waiting for
-     wpa_supplicant to exit:
-
-       kill $(pidof wpa_supplicant)
-       rmmod brcmfmac_cyw brcmfmac
-
-The crash is reproducible on that board.
-
-For the interface without a netdev (the P2P device), take RTNL and the
-wiphy mutex in brcmf_detach() before reading iflist, and remove it with
-locked=true. If brcmf_p2p_del_vif() runs first, brcmf_detach() finds the
-slot empty. If brcmf_detach() runs first, nl80211 does not find the wdev
-any more. The interfaces with a netdev are removed as before, because
-brcmf_del_if() takes RTNL on its own for the primary interface.
-
-Fixes: 9831bcb987df ("brcmfmac: Deleting of p2p device is leaking memory.")
-Cc: stable@vger.kernel.org
-Assisted-by: claude-opus-5-5
-Signed-off-by: Michele Dionisio <michele.dionisio@gmail.com>
----
- .../broadcom/brcm80211/brcmfmac/core.c        | 27 +++++++++++++++++--
- 1 file changed, 25 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c
-index d2ae679856067..92ec269f43b23 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c
-@@ -1489,8 +1489,31 @@ void brcmf_detach(struct device *dev)
- 	brcmf_bus_change_state(bus_if, BRCMF_BUS_DOWN);
- 	/* make sure primary interface removed last */
- 	for (i = BRCMF_MAX_IFS - 1; i > -1; i--) {
--		if (drvr->iflist[i])
--			brcmf_remove_interface(drvr->iflist[i], false);
-+		struct brcmf_if *ifp = drvr->iflist[i];
-+
-+		if (!ifp)
-+			continue;
-+
-+		if (ifp->ndev) {
-+			brcmf_remove_interface(ifp, false);
-+			continue;
-+		}
-+
-+		/* The P2P device interface has no netdev. Its removal can
-+		 * race with NL80211_CMD_DEL_INTERFACE issued by a user space
-+		 * process that is exiting (e.g. wpa_supplicant), which ends
-+		 * in brcmf_p2p_del_vif() under RTNL and the wiphy mutex. If
-+		 * both paths remove the interface, the wdev is unregistered
-+		 * twice and the vif is used after being freed. Take the same
-+		 * locks and re-read iflist, so only one path removes it.
-+		 */
-+		rtnl_lock();
-+		wiphy_lock(drvr->wiphy);
-+		ifp = drvr->iflist[i];
-+		if (ifp)
-+			brcmf_remove_interface(ifp, true);
-+		wiphy_unlock(drvr->wiphy);
-+		rtnl_unlock();
- 	}
- 	brcmf_bus_stop(drvr->bus_if);
- 
 -- 
-2.53.0
-
+-Mukesh Ojha
