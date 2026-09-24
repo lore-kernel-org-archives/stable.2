@@ -1,113 +1,84 @@
-Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68060376BC1
-	for <stable@vger.kernel.org>; Thu, 24 Sep 2026 14:19:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7809F3B42C6;
+	Thu, 24 Sep 2026 14:23:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790259571; cv=none; b=j2Itw3tlUQak5/ufowBq5S31oOXagfLQ2rvK95Z3pBiFAWp5zi/GbJAXSq+ibDAtt8lVfUs4fIycOfbJ/za/lBoJYUItIWFWB2NtdSl8IKsIF1cFfX7/HV5TOifYSeYvCep8YtpYIsSthvK/qpQIQv6ySsC2C9MLx/WUJlR03BI=
+	t=1790259798; cv=none; b=Y7qY3X/u3jQKCmQQwN13ncEbh5+vj1CdR8r5D/+50YNt4X2/Erbk/xbRh9am8oABATH1qbF6A0REh4X8AYpUbJbWxQ3LyXT3x6xpKzEUnc/LVqRBbClAjpxcmwuEM/9ys3byXzflZ1rq2ymN+WJxvp7ld2PCgTbHNly+QUYQpWc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790259571; c=relaxed/simple;
-	bh=TWdASb3MyAf7mGzhM1GabLO0eutszFmZKdYoyrSrb/g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gHVd0Sd6eOlSWpzDk/jtPi2kie1RgdtrBVLitZM23qlJUuw8vNmYaheCsEaRTOq4nAGhEx1t4uPzCpAlg7vJfzNJZewLFefpJeavlpfZ8ViNw6zGBSzFUbG5KSliN40+I46fp70eoeIQwTV/baZBJupkVV8Nrk90vZGtmC21cdY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=xUsYOoK3; arc=none smtp.client-ip=74.125.229.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	s=arc-20240116; t=1790259798; c=relaxed/simple;
+	bh=GPC1yr+ZTTPDV2IqY+Tm9zUxSqdHGv82/wq619yWX9w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UTcEtSs/WlBLYLp05C2I3pfnz3xCoU6EU5cBfq72F5vN1DG5ixWt7/myqKigpkSk82IYdKxmlMQHfpg5f94IEc1izQjsy1IHmMsoZrVZQn5zsQM9jdyqKGHUsQlDKbna+LMNWMclKybsvDaBA7dgPc3CkZBOmD8YJjXW4P7Wn+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=yf9+62Dr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="xUsYOoK3"
-Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-328664e051fso2373633eec.1
-        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 07:19:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1790259565; x=1790864365; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=l5t+RkrxBW/tPG0f8s8vACvjj/UzJW53i35clI9VtqY=;
-        b=xUsYOoK3GAHlCcY3Apa/Z4b/UYuwhAOdAh4pYHuimBtUMwFObIHfZeSd8GtmaKBqyh
-         VNScnMR2fSPIqEpCCsYjigBiLXBr3g1EaT0YYmCUJ4KugsX006BE9dQJ47nv65UnYuGd
-         9sjuAXkibl6VRbaC70Z9QvL9h5eTrdkmTQvuNMfN5fYSNJgMJHRE93sGNB2ht3MowNpV
-         Suq0BxBNGDyVxFPwsC7EovxYj9CmxjJds6rXnn123huZXZcJItEZV6HJZgxfykBJaFFQ
-         kSUADyZ8D5ee3nUtzdtxg/8ktkfurjEmH0H0PaUUuonLrNto10o8WGMyGdjPXsR2ITdv
-         cHVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790259565; x=1790864365;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=l5t+RkrxBW/tPG0f8s8vACvjj/UzJW53i35clI9VtqY=;
-        b=LmVZN1fgoltTApedKRCgt3HW7KGJqjNi3KGpgrmH9UDRUn8FzBudFT/Qcpv0bNk1HW
-         Ybr14CGiv3Jf3mZBd5weIunx/XdGy/vPPqQHbL+ybjxhKb5xPggBq5lB+UFIYp5LwLBB
-         RiKtjo6r4ddP3Lv+phQYQw+i6DPdzEUOEDqhx+/S8TJFaa5maHgDZ+yjjr/jROxhvMWk
-         74nOubi4UEaALNqTFLDeOSSZIfXyDPsLoXPycwSK50m7kX26PscvAy8/VULnQqhtUHlg
-         xibYQOSs+IUhIIyjp7AVF2vQ1IJQOJNiXIrwLuD+iflK7aU1QjXd9rLTKZlU5xO2Ma4o
-         75jg==
-X-Forwarded-Encrypted: i=1; AKwUvBxtq9A9EBIy1vWKf/e/lSNC2zjamAFSgaH/QDKr+DxGYucHGHoWDANauAuB2J6y9q4Zssynoh4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lZU+tOa6Jf04IxKXtLu3RilNJkmMZPGFHJJ8hMavNokskhsKDg
-	A4J9r/ONaaTnmN/qLvAk/8z1bXCE+PJNRgEJqD1Bv0YboO//svJI7VPUT6cC2Xko+PY=
-X-Gm-Gg: AYBFou3dr9OObwjq8Lrdx0kGoErdd2lw+ZJj8xBgCrDSu7P++XEk0GBYp3aoMshBCNz
-	FvUiQSGjJj3cAxVQbvMlezqns2Rhc+zCl3jMgagyicoJWsyoaVUYEjTA5xG485h4Gmxz+mXC/8c
-	JjB8JBh/DI13xWYt2zO1i/JusVUX++9ieR7qaSdqI4yDSG9w8J6cVGyc9OQylO6Ko3Xf2tr7q8v
-	mb2nSMOl44pDuJneZ4E5utUvf1JAMS0HbUSYRX/kvUshZPMDd4iQWdUnHxBXisnyzYpAYkuqe1q
-	iT9IES7JLDUavPjK4K1xpqbjHl+h6dCRQjfUmZ1CLU78b1kDGwd1A+pDQpJqBJk6UCEb2A7X0cH
-	Earm1/viN3kU0aSekCT9GYx4f51cNEk/eN1n0k2dhnWAqTtiRYQ0PFll++BDTRX3xE5tx/JD5K6
-	T3SA20/qmWAj67FfNB4/9yEPQZFbMyZi4fcRv+cydwmL30ywvUarpFWR8CKzvaOzyG0Xr+m6j1C
-	Jb+RZBFaUuFtKupuzSYAGOGLoakCcS+ns+kHT/qrFSWnmIhYHL91Vkpaw==
-X-Received: by 2002:a05:693c:87c7:20b0:33b:f566:eca9 with SMTP id 5a478bee46e88-34001c1401fmr2175061eec.11.1790259563746;
-        Thu, 24 Sep 2026 07:19:23 -0700 (PDT)
-Received: from [192.168.1.125] ([198.8.77.157])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e9684ed70sm12529265eec.19.2026.09.24.07.19.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Sep 2026 07:19:23 -0700 (PDT)
-Message-ID: <e1fb70aa-cc4c-4ed5-809a-e8babd52dacf@kernel.dk>
-Date: Thu, 24 Sep 2026 08:19:22 -0600
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="yf9+62Dr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BD851F000FF;
+	Thu, 24 Sep 2026 14:23:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790259792;
+	bh=pBM8yzJ1P/YN8g9AMJ+6Lw5x7cfNoUSq+jqBG8i0rrM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=yf9+62DrRhmwpUBlW+gMhbTsNOS1KTcXSP7BgKJPFGKHgHOehWO30BHv8nBA5C0Fh
+	 vA3q7hz1P9J9n0lzKgLHRH10MhpSQ6pROQVg48/8Pm7f4WldMXdWWNATdWP2bSGUSD
+	 pDq2K0m94tcjvwcTWhVwv3411a5gVgdJNmUqvbng=
+Date: Thu, 24 Sep 2026 16:22:54 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Paolo Abeni <pabeni@redhat.com>
+Cc: Ming Wang <wangming01@loongson.cn>, netdev@vger.kernel.org,
+	linux-usb@vger.kernel.org, stable@vger.kernel.org,
+	Oliver Neukum <oliver@neukum.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] net: usb: cdc_mbim: add MeiG Smart SRM821 to ZLP
+ whitelist
+Message-ID: <2026092409-status-rocker-0fef@gregkh>
+References: <20260920074500.826121-1-wangming01@loongson.cn>
+ <4d5e2857-e6eb-43e2-b668-83e779aaa734@redhat.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 12/17] exec: cancel io_uring requests before
- de_thread()
-To: Christian Brauner <brauner@kernel.org>, Oleg Nesterov <oleg@redhat.com>,
- Chris Mason <mason@kernel.org>, linux-fsdevel@vger.kernel.org
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
- NeilBrown <neil@brown.name>, Ingo Molnar <mingo@redhat.com>,
- Peter Zijlstra <peterz@infradead.org>, linux-mm@kvack.org,
- io-uring@vger.kernel.org, stable@vger.kernel.org
-References: <20260921-work-coredump-fixes-v3-0-8e4adb1619e6@kernel.org>
- <20260921-work-coredump-fixes-v3-12-8e4adb1619e6@kernel.org>
-Content-Language: en-US
-From: Jens Axboe <axboe@kernel.dk>
-In-Reply-To: <20260921-work-coredump-fixes-v3-12-8e4adb1619e6@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <4d5e2857-e6eb-43e2-b668-83e779aaa734@redhat.com>
 
-On 9/21/26 7:45 AM, Christian Brauner wrote:
-> begin_new_exec() cancels the exec'ing thread's io_uring requests after
-> de_thread() made it the only thread in the thread-group. Now
-> io_uring_task_cancel() runs task work after. If it runs a
-> create_worker_cb() item then a io-wq queued on the thread before the
-> exec creates a new io-wq worker thread.
+On Thu, Sep 24, 2026 at 12:24:06PM +0200, Paolo Abeni wrote:
+> On 9/20/26 09:44, Ming Wang wrote:
+> > The MeiG Smart SRM821 5G module (0x2dee:0x4d53) crashes and drops off
+> > the USB bus when it receives a Zero Length Packet (ZLP) after sending
+> > or receiving an NTB of exactly 16384 bytes (tx_max).
+> > 
+> > According to the MBIM specification, devices do not require a ZLP
+> > if the NTB size is exactly dwNtbOutMaxSize. However, the cdc_mbim
+> > driver defaults to sending ZLPs for devices not explicitly whitelisted
+> > to accommodate non-conformant hardware. This default behavior breaks
+> > the strictly conformant MeiG SRM821 module.
+> > 
+> > Add this device to the ZLP conformance whitelist (cdc_mbim_info) so
+> > the driver will pad the NTB to avoid sending ZLPs, preventing the
+> > device firmware from crashing.
+> > 
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Ming Wang <wangming01@loongson.cn>
 > 
-> Said thread joins the thread-group which de_thread() just took down. The
-> io-iwq sticks around until it notices that its workqueue is dying. But
-> code after de_thread() relies on being single-threaded.
+> Before any other step, please read:
 > 
-> Move io_uring_task_cancel() before de_thread() but behind the point of
-> no return. Any worker created during task work run from
-> io_uring_task_cancel() is just a sibling thread that de_thread() will
-> take down and reap.
+> https://elixir.bootlin.com/linux/v7.3-rc3/source/Documentation/process/maintainer-netdev.rst#L454
 > 
-> Once io_uring_task_cancel() returned the thread has neither a task
-> context nor a workqueue left so nothing can add a thread behind
-> de_thread()'s back anymore.
+> AFAICS this is actually support for additional H/W, just worded in
+> very unusual way: please reword the commit message accordingly and
+> drop stable from CC.
 
-Reviewed-by: Jens Axboe <axboe@kernel.dk>
+Why drop stable from cc:?  Do you not want it in any stable kernel
+release?  Seems like it should be to me, we gladly take quirk additions
+and new device ids in stable kernels.
 
--- 
-Jens Axboe
+thanks,
 
+greg k-h
