@@ -1,34 +1,49 @@
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-91.mta1.migadu.com [95.215.58.91])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07CF030D3FE;
-	Fri, 25 Sep 2026 06:40:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38E6B38758C
+	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 06:44:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.91
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790318445; cv=none; b=bXjd4nddqiW3JZT/Lt8jZyCGCXPAt1mnwwjzpRJeG99LMnbvV/1RScQ4Ia1EDsyvor44Mt0qT76eGq/r9QqGtFiOnEDgMBN9dYr/G+i9BKhAn8ivfS6jX/BzOIlGdnWaxGMKeVTIRi4VfVeccuOEz3KgLZ86xTSpvwLOBLvTGKI=
+	t=1790318653; cv=none; b=d4W8B9QxP/tSIQ5k8cZ7qOUTqUBZODZuG5CLOA+M7i1O+xaL2RuDW9SrkkRqtC1aqdtoFTR2FvD+jMQg63Y+UYhsMPG4AX81/nUjSDxBCXGQjF60rye7f14QSJLg2UymfRd/oj3ZYfNcnCBgr9BR9dsGErZ/yPikLBlWH2+kNtg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790318445; c=relaxed/simple;
-	bh=MVXaqP390HP2CbDIg/sMXdEuHh1BDRf9GarVNEeNbBc=;
+	s=arc-20240116; t=1790318653; c=relaxed/simple;
+	bh=ZDL1HfNVxbiMqbti4og9R59qDW9u+w06j5ax8qGIoTM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eIyp/g/ruuDLOzHlWW0GHVmuLjb7/HDQabD7mbC+h/LNnMIwRxUTr0pW7IdnZft+BxZE720kE6GDOx4WNk7lp4ZKyM8HYovHW3ndeylOOc0RlZdR2P76/XUnErZ4kQZDdNEDAKtC/5sGPHMUpY68w+DooL6VpeyvPYWdB7ruol4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
-Received: by verein.lst.de (Postfix, from userid 2407)
-	id 0E45068BFE; Fri, 25 Sep 2026 08:40:39 +0200 (CEST)
-Date: Fri, 25 Sep 2026 08:40:38 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Breno Leitao <leitao@debian.org>, linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: Re: [PATCH v4 1/3] fs: configfs: add helpers for opening
- non-configfs paths
-Message-ID: <20260925064038.GA4025@lst.de>
-References: <20260921090559.41364-1-runyu.xiao@seu.edu.cn> <20260921090559.41364-2-runyu.xiao@seu.edu.cn> <20260922132903.GA31642@lst.de> <20260923023923.2002144-1-runyu.xiao@seu.edu.cn>
+	 Content-Type:Content-Disposition:In-Reply-To; b=l74PcqgdERlEmNVX/8IpVcO87Tx109QjlWaDIUphL8FqTjUvUBKDktOcHcMLWdJSIJShBSATgebEZWCXEiSvezqGRieJGNOMo5YjEPwA3PiojMxNoNYbUvScxHx9CJEQwZEahuLXmTDeucrdlS535dEqVCHKuAppVXys7e9y1as=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=JQJ6UFgX; arc=none smtp.client-ip=95.215.58.91
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="JQJ6UFgX"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ZDL1HfNVxbiMqbti4og9R59qDW9u+w06j5ax8qGIoTM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790318648; v=1; x=1790923448;
+ b=JQJ6UFgXoyKpBSbSkUciVKQLZm3rV3z2lGYCkmknd+Mlfo/TYsPlCZHeCO4kkm3N4A/Q/oZn
+ daF2UME8Ah0CtwvJuqnEBHBTtDNIX7lDnBqgE3uwrFwJBOO09wyl9MlW2Cnl1T4f5JRRlb9QIHX
+ m5mSaOtH+N/Ofql5VFem3Rrs=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f84654a804b26889;
+	Fri, 25 Sep 2026 06:44:07 +0000
+X-Mizu-Trace-ID: f84654a804b26889
+X-Migadu-Flow: FLOW_OUT
+Date: Fri, 25 Sep 2026 08:43:53 +0200
+From: "Pankaj Raghav (Samsung)" <pankaj.raghav@linux.dev>
+To: Andrea Parri <parri.andrea@gmail.com>
+Cc: Christian Brauner <brauner@kernel.org>, 
+	Carlos Maiolino <cem@kernel.org>, "Darrick J . Wong" <djwong@kernel.org>, 
+	Joanne Koong <joannelkoong@gmail.com>, Brian Foster <bfoster@redhat.com>, 
+	Christoph Hellwig <hch@infradead.org>, Damien Le Moal <dlemoal@kernel.org>, 
+	Hannes Reinecke <hare@suse.de>, Daniel Gomez <da.gomez@samsung.com>, 
+	Pankaj Raghav <p.raghav@samsung.com>, Dave Chinner <dchinner@redhat.com>, linux-xfs@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2 4/4] iomap: don't lose a failed direct I/O bio's error
+ when zeroing the tail
+Message-ID: <arYXUaQCgdch5P4s@quentin>
+References: <20260924091203.198225-1-parri.andrea@gmail.com>
+ <20260924091203.198225-5-parri.andrea@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,43 +52,38 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260923023923.2002144-1-runyu.xiao@seu.edu.cn>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+In-Reply-To: <20260924091203.198225-5-parri.andrea@gmail.com>
 
-On Wed, Sep 23, 2026 at 10:39:23AM +0800, Runyu Xiao wrote:
-> > > +EXPORT_SYMBOL_GPL(configfs_open_root);
-> >
-> > These two aren't used outside this file, so they could be static,
-> > or in case of configfs_path_is_configfs even be folded into the
-> > only caller.  Or do you plan to have other users?
+On Thu, Sep 24, 2026 at 11:11:54AM +0200, Andrea Parri wrote:
+> iomap_dio_bio_iter() falls through to the sub-block tail zeroing when
+> the data bio submission fails, so that the rest of the block is still
+> zeroed and stale data is not exposed.  The zeroing result was assigned
+> to ret, which overwrote the submission error with the successful
+> zeroing result (zero) and the failed write was reported as success.
 > 
-> I folded the filesystem-type check into configfs_open_root() and dropped
-> the predicate entirely.  configfs_file_open() is for callers that have a
-> pathname, while configfs_open_root() is for callers that keep a resolved
-> root and open files below it.
+> iomap_dio_zero() can only return an error from a can't-happen
+> WARN_ON_ONCE() (nr_vecs exceeding BIO_MAX_VECS, which the existing
+> comment there says "shall never be reached" for any in-tree
+> filesystem), so it isn't a real runtime failure worth reporting to
+> userspace, let alone one worth losing the actual submission error for.
 
-Which callers are those?  There are none in this series, so right now
-this is just adding dead code.  If you have other callers, please send
-everything in one series, as it needs to go together.
+I initially did not have a return value for this function but later I
+had to add it based on comments. But I missed the return value being
+overwritten.
 
+> Make iomap_dio_zero() return void and drop the error handling at both
+> call sites instead of threading the result through a separate
+> variable.
 > 
-> > > +struct file *configfs_file_open(const char *filename, int flags, umode_t mode)
-> >
-> > Can you add a kerneldoc comment explaining how/why this should be used?
-> 
-> I will add kerneldoc comments for both helpers in v5.
+> Fixes: 10553a91652d ("iomap: fix iomap_dio_zero() for fs bs > system page size")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
+> ---
 
-The versions added look like extremely verbose AI generated text.
-Please use your own brains and your own voice to write a concise
-description.
+Looks good except the comment from Christoph regarding the reformatting.
 
-> 
-> > Didn't you also have patches for drivers/target/ that should use
-> > the new helper?
-> 
-> Yes.  The target-core patch titled "scsi: target: pin db_root for metadata
-> writes" is another consumer of configfs_open_root().  I will rebase that
-> patch on this series and drop its duplicate configfs changes.
+Reviewed-by: Pankaj Raghav <p.raghav@samsung.com>
 
-Please merge everything into one series.
-
+--
+Pankaj
