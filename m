@@ -1,117 +1,159 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA3A7472074;
-	Fri, 25 Sep 2026 08:02:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7EA2429036;
+	Fri, 25 Sep 2026 08:02:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790323335; cv=none; b=heyNInSjtrdb3KuHQfB18pWPXWLa6PfH1r9Qqfj9wZa+nW+xRNYjlkHuIInMNkg/j6hGhQ9mpAS6no4kFKw/0Ixn9iCHI7z0HXHHcPPkIL509/55uWoHwZo64jAPyeSHT532HagSdxwmOmar4N8O6PKSs4xYKAd16+2RUs6HZpc=
+	t=1790323375; cv=none; b=kScY9lUeh1kBz/aOA/98EJ+sIIoQR9Esfa7DhDJ+7uYP0DgXjjnIp81nUD6+GauP/m8vH+w68n0uqmtl+pU2EARS18ZZ3U1HToJzL/GUQh3+9F779w3yGjrOl4+BUIzSWWp4FidyWckT4F2vcq1LBWwkLIDQFFpaaJFHQMKbEGg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790323335; c=relaxed/simple;
-	bh=+DRenrfOBRPWCg/bZE5lamxz3pkI8rfaJkxVqObPch0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=X55rvCxIJwso/2IXfH5WSsLgTPtBmSE7CelfbwN6p9eKrhjMdZAFAN+KWf3OzymWmRcy7Opm5w5L7E3tZWycpJTdzRFlrWE4cE4lado2KJMt3DH1pMEX4eM5todQYlEieIPSSGGCGan3zEvwL8ZLH/kc3FCav9ab/Dhntcu5KjQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=xVpbGWAc; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790323375; c=relaxed/simple;
+	bh=AYSqMTtE1fV4VjXlqjLWaSe80ghKeBur//2SbcdzhZM=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=n+orv8WPi+lLOjEoqQuVXY2kw9IkezVJ+siVVtwIM5srfmy5jm6cCDoGn/E4OD1E4cSuR4G72uq1ujb4xJOH8uQP9rDq8R8S/Tr52qWpbAGb6Wwui2ScoURbum9A64RP8uZIKg+XIJlLGmELFHxEhvfqpjuEKTqNZk53JFFfvas=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cACoKe0W; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="xVpbGWAc"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 465731A101C;
-	Fri, 25 Sep 2026 08:02:11 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 0823F6073B;
-	Fri, 25 Sep 2026 08:02:11 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E25811032958C;
-	Fri, 25 Sep 2026 10:02:02 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790323325; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=9jyvMpt45MrCCPOtjlqvlTfvOBzmfHESr9M/HslmaFM=;
-	b=xVpbGWAcr+2EwwWEKpYWe61wSCTw3NFDENClb+BXvt03jAPCO8qam6t+JoZBNrsaeXqrOr
-	ahq9ZHf11WcR8NL9SF6Xu5Ha+pwnvYZ6u1fiGuCKshBVvz2ijBm41fqU/KGK2NI+avoiNJ
-	xvYFMGAKfxW/7htWlYNyznqjVk2qIIa6hhnE18HLTzysQGXdr7sdk5qOdzvnTU3p/BmWtY
-	ce6ZBeEkJeRvE70O58pjDbGHw0xpq6EU69s/wcIUIwfU2AwgeVVREOnxYnfRiCdFsZ5GY1
-	JE9vCS/BUtdSrEqbW1cIYAOPQfPx+6WE6yCi5QYvbeYvgXQNhKhGtBY7737JiA==
-From: "Benjamin Robin (Schneider Electric)" <benjamin.robin@bootlin.com>
-Date: Fri, 25 Sep 2026 10:01:44 +0200
-Subject: [PATCH 6.12.y 2/2] netfilter: nf_tables: join hook list via
- splice_list_rcu() in commit phase
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cACoKe0W"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A1C71F000FF;
+	Fri, 25 Sep 2026 08:02:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790323374;
+	bh=gVjg6yAH4af8nJpcF1EN2HhLt3HM9n0qHsdjGQwzX8Q=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=cACoKe0W1HHQyAMonJg2IpATZHeHsgCpjWE0rA/wipMRFaFQJ6IUHci9zCBy8nmEB
+	 /O37nR+wF5oGej1gW3HwCCypyTQ4+5+BCPlymUAE8vhcBdZol7Shq19PP7CBOvSMyE
+	 Wc3whWLe/YgNMR1VTswNenFOcBA9KsddvB+NVqxwhCzKug5L+RCznpTG6VqiXxCU6d
+	 b/KeVzTTO1r8irD6zT37XixKbdtCD/ybb1dEWDlODLMw3eU2kCWH3NIxSvuG2qw004
+	 Pg3oiPJzBQSjsEHY2vFxvzsyIGkfijRhJWtK+Hp73k/7WnEv3UoshA9OV/+OM8WAA7
+	 xDLJTrPwHrMaQ==
+Subject: Re: [PATCH net v2] af_packet: fix integer overflow in
+ prb_calc_retire_blk_tmo()
+From: netdev-bot+sashiko@kernel.org
+To: zhangdairui@gmail.com
+Cc: netdev@vger.kernel.org, willemb@google.com, daniel@iogearbox.net,
+ stable@vger.kernel.org, kuba@kernel.org
+Date: Fri, 25 Sep 2026 08:02:53 +0000
+Message-ID: <179032337381.2160803.13389684683115214605@kernel.org>
+In-Reply-To: <20260923050101.1510064-1-zhangdairui@gmail.com>
+References: <20260923050101.1510064-1-zhangdairui@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260925-cve-2026-52988-6-12-v1-2-d14d787d2cb5@bootlin.com>
-References: <20260925-cve-2026-52988-6-12-v1-0-d14d787d2cb5@bootlin.com>
-In-Reply-To: <20260925-cve-2026-52988-6-12-v1-0-d14d787d2cb5@bootlin.com>
-To: stable@vger.kernel.org, "Paul E. McKenney" <paulmck@kernel.org>, 
- Frederic Weisbecker <frederic@kernel.org>, 
- Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, 
- Joel Fernandes <joel@joelfernandes.org>, 
- Josh Triplett <josh@joshtriplett.org>, Boqun Feng <boqun.feng@gmail.com>, 
- Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang1211@gmail.com>, 
- Pablo Neira Ayuso <pablo@netfilter.org>, 
- Jozsef Kadlecsik <kadlec@netfilter.org>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>
-Cc: thomas.petazzoni@bootlin.com, rcu@vger.kernel.org, 
- linux-kernel@vger.kernel.org, netfilter-devel@vger.kernel.org, 
- coreteam@netfilter.org, netdev@vger.kernel.org, 
- "Benjamin Robin (Schneider Electric)" <benjamin.robin@bootlin.com>, 
- Sasha Levin <sashal@kernel.org>
-X-Mailer: b4 0.15.2
-X-Last-TLS-Session-Version: TLSv1.3
 
-From: Pablo Neira Ayuso <pablo@netfilter.org>
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-[ Upstream commit a6134e62dba2ea4f760b29d5226907f447c92400 ]
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-Publish new hooks in the list into the basechain/flowtable using
-splice_list_rcu() to ensure netlink dump list traversal via rcu is safe
-while concurrent ruleset update is going on.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Fixes: 78d9f48f7f44 ("netfilter: nf_tables: add devices to existing flowtable")
-Fixes: b9703ed44ffb ("netfilter: nf_tables: support for adding new devices to an existing netdev chain")
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/netfilter/nf_tables_api.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+- [Medium] The commit message says the negative timeout needs `div == 1`,
+  i.e. a 1 Gbps link.
+- [Low] The commit message says the reproducer "needs CAP_NET_RAW (a
+  --network host container has it by default) and a 1 Gbps NIC (QEMU…
 
-diff --git a/net/netfilter/nf_tables_api.c b/net/netfilter/nf_tables_api.c
-index 2613ebfdc854..c7d3d6fe5efe 100644
---- a/net/netfilter/nf_tables_api.c
-+++ b/net/netfilter/nf_tables_api.c
-@@ -10360,8 +10360,8 @@ static int nf_tables_commit(struct net *net, struct sk_buff *skb)
- 				nft_chain_commit_update(nft_trans_container_chain(trans));
- 				nf_tables_chain_notify(&ctx, NFT_MSG_NEWCHAIN,
- 						       &nft_trans_chain_hooks(trans));
--				list_splice(&nft_trans_chain_hooks(trans),
--					    &nft_trans_basechain(trans)->hook_list);
-+				list_splice_rcu(&nft_trans_chain_hooks(trans),
-+						&nft_trans_basechain(trans)->hook_list);
- 				/* trans destroyed after rcu grace period */
- 			} else {
- 				nft_chain_commit_drop_policy(nft_trans_container_chain(trans));
-@@ -10513,8 +10513,8 @@ static int nf_tables_commit(struct net *net, struct sk_buff *skb)
- 							   nft_trans_flowtable(trans),
- 							   &nft_trans_flowtable_hooks(trans),
- 							   NFT_MSG_NEWFLOWTABLE);
--				list_splice(&nft_trans_flowtable_hooks(trans),
--					    &nft_trans_flowtable(trans)->hook_list);
-+				list_splice_rcu(&nft_trans_flowtable_hooks(trans),
-+						&nft_trans_flowtable(trans)->hook_list);
- 			} else {
- 				nft_clear(net, nft_trans_flowtable(trans));
- 				nf_tables_flowtable_notify(&ctx,
+--
+
+af_packet: fix integer overflow in prb_calc_retire_blk_tmo()
+
+This patch makes prb_calc_retire_blk_tmo() compute mbits in 64-bit
+arithmetic. The old 32-bit int product could wrap negative for large
+TPACKET_V3 block sizes. The negative result then armed the retire hrtimer
+with a negative relative timeout, and the timer re-fired forever.
+
+> The condition is actually (8 * size) mod 2^32 >= 2^31 && div == 1,
+> so the trigger set is [256,512), [768,1024), [1280,1536) and
+> [1792,2048) MiB. Other sizes wrap to non-negative values and faster
+> links divide the unsigned value back below 2^31, which is why this
+> doesn't blow up for everyone.
+
+[Severity: Medium]
+Does the negative return really need div == 1?
+
+In the pre-patch prb_calc_retire_blk_tmo(), a link reporting 2000-2999
+Mbps (for example SPEED_2500, so div == 2) can also return a negative
+value. The final unsigned increment is what pushes it over:
+
+    div = ecmd.base.speed / 1000;
+    mbits = (blk_size_in_bytes * 8) / (1024 * 1024);
+
+    if (div)
+        mbits /= div;
+
+    if (div)
+        return mbits + 1;
+
+Take tp_block_size = 0x1ffe0000. It is positive as an int and page
+aligned, so packet_set_ring() accepts it:
+
+    blk_size_in_bytes * 8    = 0xfff00000 (-1048576 as int)
+    / (1024 * 1024)          = -1, so mbits = UINT_MAX
+    mbits /= 2               = 0x7fffffff
+    return mbits + 1         = 0x80000000 (INT_MIN as int)
+
+ms_to_ktime() takes a u64, so INT_MIN is sign-extended and multiplied by
+NSEC_PER_MSEC, which gives a negative ktime. init_prb_bdqc() passes that
+to hrtimer_start(). prb_retire_rx_blk_timer_expired() keeps returning
+HRTIMER_RESTART, so the timer spins just as it does when div == 1.
+
+More generally, with div == 2 the old int quotient only has to be -1 or
+-2. That covers sizes about 128-384 KiB below each 512 MiB multiple
+(512, 1024, 1536 and 2048 MiB).
+
+The u64 arithmetic in this patch fixes these sizes too. Could the
+description of the trigger condition be corrected, so that stable and
+security triage also covers 2.5 Gbps links?
+
+> Reproducer, needs CAP_NET_RAW (a --network host container has it by
+> default) and a 1 Gbps NIC (QEMU e1000 works):
+
+[Severity: Low]
+Is the set of users who can reach this wider than described here?
+
+packet_create() checks the capability against the user namespace that
+owns the netns:
+
+    if (!ns_capable(net->user_ns, CAP_NET_RAW))
+        return -EPERM;
+
+Root inside an unprivileged user namespace passes this check.
+
+The same user can create a tun device in its own netns, since
+tun_set_iff() checks ns_capable(net->user_ns, CAP_NET_ADMIN). It can also
+set the device speed with ETHTOOL_SLINKSETTINGS:
+
+- dev_ethtool() does the same ns_capable() check.
+- ethtool_set_link_ksettings() does not validate the speed.
+- tun_set_link_ksettings() copies the settings unchanged:
+
+    memcpy(&tun->link_ksettings, cmd, sizeof(*cmd));
+
+prb_calc_retire_blk_tmo() then reads that speed back through
+__ethtool_get_link_ksettings() for the bound ifindex:
+
+    unshare(CLONE_NEWUSER | CLONE_NEWNET)
+      -> TUNSETIFF
+      -> ETHTOOL_SLINKSETTINGS with speed = 1000 (or 2500)
+      -> socket(AF_PACKET), bind to the tun device
+      -> PACKET_VERSION = TPACKET_V3, PACKET_RX_RING
+
+On systems that allow unprivileged user namespaces, this seems to let an
+unprivileged local user start the maximum-rate soft hrtimer with no real
+hardware. Would it be worth saying so in the commit message?
+
+The same tun setup could also be used to test the fix at runtime. The
+notes say the patch was only compile-tested because no 1 Gbps setup was
+available.
 
 -- 
-2.55.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260923050101.1510064-1-zhangdairui%40gmail.com
