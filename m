@@ -1,131 +1,174 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4392049C4BC
-	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 17:21:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B63463D79E9
+	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 17:36:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790356913; cv=none; b=WDmQN7iOYw1AO83jkRGeNlzRpEwRPhfN8IOZDLrAgBENcAEgGd3nUJf3tFtS6f9KwuLuhm6E9fBrJj34U4Z0/SjOC65yfkx5WojPV6BJ4mcEMt5QkqKUUtxthpdog/FPiB1glAMaOeiiUi27PkR/7sTLJnkEVQ2LZyQ+O6yF8cs=
+	t=1790357814; cv=none; b=Dtkwc4LsUTyc6hlYzwIQSUDJNidkQ3edfxAbTsCY3iHzjaVU6ScNkouQILhOWLdbEWDz0inljmlHMoC9Ctpmfc0knpglJonsEPNUI0XX3l8PEmN5H2fRei0yX2uZTn/B8Qm+ZEwe97euXKopM0oWl0p1w/Mj8r29FPlmt7twiwo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790356913; c=relaxed/simple;
-	bh=XsLurEGBZvM2bLU0UgX7me9FFWLASNVgRaWp8LKPMIc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PIisnZ2YBL+nxPuZ5vNpTJb/D04QGE6QyJMsHkvjX78SayTkoL1Tr1ed4/E+Hagn0zJ1PyxavPsdW1vRDt8EPH/NI9HxIzD3jqxRPwb4MN4T1g5iP8Bh1wWRU0dhCm0XYbJz3HE574U7oKxoQY8ZonVBu+tjalvAsOs415rWeNo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=CzmCVyTe; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790357814; c=relaxed/simple;
+	bh=eUe3fw3CfbiK9WiV4zbNsrqE6pO8Ggm9Gyg8b0vVQ1w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=X6CTKsPQoW4TWOed8Jzt7waxTowTR13TXk5KgfQgS4MXXJn45r4ubfEDehyfJG4O6TmGLt7lieCMGeslQ/kJwaybUHSk8RpRKrbMcqp1JueGZc/l+tEK0vBml8AFq0Q5VqfhKeXDii6wfFPK+nbkZmGe8h/ylWzEkS549n0V+E8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=JI7jvzup; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="CzmCVyTe"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790356908;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=2y3SWVL9xb1mi6/jmBV5roo3osTXZ0gweNVe3xO+8yY=;
-	b=CzmCVyTeiwzZTHCFaGXxm6Lo7twuj0ACK+TyW30YAG/ruiLSZNGeSio/d+ZroltdnsHsz1
-	nQAkTgWDAWO9nycXWWboPPOxITUsICrjJNUI6fqBFl+xAytRHYov0JRVV6I/IB+02bWit9
-	xKfgKbvaxf7KHDcqkn3Tkc1bPN7BkmU=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-404-Dpk2Qw1wOKOy6r-1EGkHgg-1; Fri,
- 25 Sep 2026 13:21:44 -0400
-X-MC-Unique: Dpk2Qw1wOKOy6r-1EGkHgg-1
-X-Mimecast-MFC-AGG-ID: Dpk2Qw1wOKOy6r-1EGkHgg_1790356903
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 69C9B1955F75;
-	Fri, 25 Sep 2026 17:21:43 +0000 (UTC)
-Received: from lcapitul-thinkpadt14gen3.rmtcaqc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 876B71800473;
-	Fri, 25 Sep 2026 17:21:42 +0000 (UTC)
-From: Luiz Capitulino <luizcap@redhat.com>
-To: stable@vger.kernel.org,
-	linux-mm@kvack.org
-Cc: rppt@kernel.org,
-	sayalip@linux.ibm.com
-Subject: [PATCH v6.18.y] selftests/mm: hugepage-mremap: fix mapping alignment
-Date: Fri, 25 Sep 2026 13:21:29 -0400
-Message-ID: <20260925172129.2962208-1-luizcap@redhat.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="JI7jvzup"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A3B28169C;
+	Fri, 25 Sep 2026 10:36:48 -0700 (PDT)
+Received: from thinkpad-e142931.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C18873F632;
+	Fri, 25 Sep 2026 10:36:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790357812; bh=eUe3fw3CfbiK9WiV4zbNsrqE6pO8Ggm9Gyg8b0vVQ1w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=JI7jvzupOdlrIzgE7q2xd3OjO1eLLJFuytdQUiPAB9pq0h31YG4LQGt4/i4hyTmLH
+	 FcxfkbMC/A28aM6TXC2vX+hJSv2OCH1J+wpD0r/SQ+bYgMlz1NxjRIMiiiu0ISsFkZ
+	 CJOtqy3rV+0jnMB1OjkRWHgBQkdpxr9MD1gcwkmw=
+Date: Fri, 25 Sep 2026 18:36:42 +0100
+From: Wei-Lin Chang <weilin.chang@arm.com>
+To: Vincent Donnefort <vdonnefort@google.com>, maz@kernel.org, 
+	oupton@kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Cc: joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, 
+	yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, 
+	kernel-team@android.com, fuad.tabba@linux.dev, qperret@google.com, 
+	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH v1 5/6] KVM: arm64: Use kvm_s2_fault_vma_info in
+ gmem_abort()
+Message-ID: <am2rfnuwjkglavbtzkt2lk2gclahvca5irrv5me4vppzkotexf@yauajpybhsnm>
+References: <20260922130821.1666713-1-vdonnefort@google.com>
+ <20260922130821.1666713-6-vdonnefort@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922130821.1666713-6-vdonnefort@google.com>
 
-When running the HugeTLB kselftest suite on arm64 with 64K base pages,
-this test always fails:
+On Tue, Sep 22, 2026 at 02:08:20PM +0100, Vincent Donnefort wrote:
+> From: Fuad Tabba <fuad.tabba@linux.dev>
+> 
+> gmem_abort() maps at s2fd->fault_ipa, which HPFAR_EL2 holds at 4K
+> granularity whatever the page size. The generic page-table code aligns
+> it, but pkvm_pgtable_stage2_map() looks up existing mappings over
+> [addr, addr + size), so on a pKVM host with pages larger than 4K a
+> guest_memfd-backed guest that faults past the first 4K of a page can
+> find its neighbour's mapping, get -EAGAIN and take the same fault
+> forever.
+> 
+> Take the addresses from kvm_s2_fault_vma_info instead, as
+> user_mem_abort() does, and report the gfn kvm_gmem_get_pfn() failed on
+> in the memory fault exit. kvm_s2_fault_get_vma_info() itself isn't
+> called: a guest_memfd memslot's userspace_addr doesn't need to be
+> backed by a VMA.
+> 
+> Fixes: a7b57e0995927 ("KVM: arm64: Handle guest_memfd-backed guest page faults")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/r/20260913175105.A57AC1F000FF@smtp.kernel.org
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+> Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
+> ---
+>  arch/arm64/kvm/mmu.c | 28 +++++++++++++---------------
+>  1 file changed, 13 insertions(+), 15 deletions(-)
+> 
+> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+> index 5aac624b0442..ee0fcca838c1 100644
+> --- a/arch/arm64/kvm/mmu.c
+> +++ b/arch/arm64/kvm/mmu.c
+> @@ -1953,11 +1953,9 @@ static int gmem_abort(const struct kvm_s2_fault_desc *s2fd)
+>  	enum kvm_pgtable_walk_flags flags = KVM_PGTABLE_WALK_SHARED;
+>  	enum kvm_pgtable_prot prot = KVM_PGTABLE_PROT_R;
+>  	struct kvm_pgtable *pgt = s2fd->vcpu->arch.hw_mmu->pgt;
+> -	unsigned long mmu_seq;
+> -	struct page *page;
+> +	struct kvm_s2_fault_vma_info s2vi = {};
 
-  # -------------------------
-  # running ./hugepage-mremap
-  # -------------------------
-  # TAP version 13
-  # 1..1
-  # # Map haddr: Returned address is 0x7eaa40000000
-  # # Map daddr: Returned address is 0x7daa40000000
-  # # Map vaddr: Returned address is 0x7faa40000000
-  # Bail out! ioctl-UFFDIO_REGISTER: Invalid argument
-  # # Planned tests != run tests (1 != 0)
-  # # Totals: pass:0 fail:0 xfail:0 xpass:0 skip:0 error:0
-  # [FAIL]
-  not ok 1 hugepage-mremap # exit=1
-  # NOTE: These hugetlb tests provide minimal coverage.  Use
-  #       https://github.com/libhugetlbfs/libhugetlbfs.git for
-  #       hugetlb regression testing.
-  # SKIP ./uffd-wp-mremap
+I'd say it's unfortunate this struct's name contains vma :P
 
-The problem is that the default HugeTLB page size on such systems is
-512 MiB and 'length' is not aligned to the page size. This causes
-uffd_register() to fail as 'length' is 10 MiB and not aligned to the
-HugeTLB page size.
+>  	struct kvm *kvm = s2fd->vcpu->kvm;
+>  	void *memcache = NULL;
+> -	kvm_pfn_t pfn;
+>  	gfn_t gfn;
+>  	int ret;
+>  
+> @@ -1968,23 +1966,22 @@ static int gmem_abort(const struct kvm_s2_fault_desc *s2fd)
+>  			return ret;
+>  	}
+>  
+> -	if (s2fd->nested)
+> -		gfn = kvm_s2_trans_output(s2fd->nested) >> PAGE_SHIFT;
+> -	else
+> -		gfn = s2fd->fault_ipa >> PAGE_SHIFT;
+> +	s2vi.vma_pagesize = PAGE_SIZE;
+> +	s2vi.gfn = ALIGN_DOWN(s2fd->fault_ipa, s2vi.vma_pagesize) >> PAGE_SHIFT;
+> +	gfn = get_canonical_gfn(s2fd, &s2vi);
 
-On upstream this was fixed by a914785f6349 ("selftests/mm: hugetlb-mremap:
-add setup of HugeTLB pages") as that commit aligns 'length' to the
-default HugeTLB page size as part of what it's doing. Since this commit
-is part of a 50+ patch series, we backport only the 'length' alignment
-bits to fix the test.
+Perhaps it is worth reserving plain "gfn" for the value we use as the
+IA of the (shadow) page table, and name this variable something like
+canonical_gfn. Similar to what kvm_s2_fault_map() does.
 
-Signed-off-by: Luiz Capitulino <luizcap@redhat.com>
----
+>  
+>  	write_fault = kvm_is_write_fault(s2fd->vcpu);
+>  	exec_fault = kvm_vcpu_trap_is_exec_fault(s2fd->vcpu);
+>  
+>  	VM_WARN_ON_ONCE(write_fault && exec_fault);
+>  
+> -	mmu_seq = kvm->mmu_invalidate_seq;
+> +	s2vi.mmu_seq = kvm->mmu_invalidate_seq;
+>  	/* Pairs with the smp_wmb() in kvm_mmu_invalidate_end(). */
+>  	smp_rmb();
+>  
+> -	ret = kvm_gmem_get_pfn(kvm, s2fd->memslot, gfn, &pfn, &page, NULL);
+> +	ret = kvm_gmem_get_pfn(kvm, s2fd->memslot, gfn, &s2vi.pfn, &s2vi.page, NULL);
+>  	if (ret) {
+> -		kvm_prepare_memory_fault_exit(s2fd->vcpu, s2fd->fault_ipa, PAGE_SIZE,
+> +		kvm_prepare_memory_fault_exit(s2fd->vcpu, gfn_to_gpa(gfn), s2vi.vma_pagesize,
 
-Two notes:
+Huh, I guess you also fixed a bug here? s2fd->fault_ipa could be the
+nested ipa instead of the canonical ipa.
 
- 1. This is fixing an issue upstream commit a914785f6349
-    incidently fixed
- 2. This should apply to v6.12.y as well
+Thanks,
+Wei-Lin Chang
 
- tools/testing/selftests/mm/hugepage-mremap.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/tools/testing/selftests/mm/hugepage-mremap.c b/tools/testing/selftests/mm/hugepage-mremap.c
-index 928c1045e295..0d4e1a5b185d 100644
---- a/tools/testing/selftests/mm/hugepage-mremap.c
-+++ b/tools/testing/selftests/mm/hugepage-mremap.c
-@@ -97,6 +97,7 @@ static void register_region_with_uffd(char *addr, size_t len)
- 
- int main(int argc, char *argv[])
- {
-+	unsigned long hugepage_size;
- 	size_t length = 0;
- 	int ret = 0, fd;
- 
-@@ -114,7 +115,12 @@ int main(int argc, char *argv[])
- 	else
- 		length = DEFAULT_LENGTH_MB;
- 
-+	hugepage_size = default_huge_page_size();
-+	if (!hugepage_size)
-+		ksft_exit_skip("Could not detect default hugetlb page size\n");
-+
- 	length = MB_TO_BYTES(length);
-+	length = (length + hugepage_size - 1) & ~(hugepage_size - 1);
- 	fd = memfd_create(argv[0], MFD_HUGETLB);
- 	if (fd < 0)
- 		ksft_exit_fail_msg("Open failed: %s\n", strerror(errno));
--- 
-2.55.0
-
+>  					      write_fault, exec_fault, false);
+>  		return ret;
+>  	}
+> @@ -2002,7 +1999,7 @@ static int gmem_abort(const struct kvm_s2_fault_desc *s2fd)
+>  		prot = adjust_nested_exec_perms(kvm, s2fd->nested, prot);
+>  
+>  	kvm_fault_lock(kvm);
+> -	if (mmu_invalidate_retry(kvm, mmu_seq)) {
+> +	if (mmu_invalidate_retry(kvm, s2vi.mmu_seq)) {
+>  		ret = -EAGAIN;
+>  		goto out_unlock;
+>  	}
+> @@ -2013,16 +2010,17 @@ static int gmem_abort(const struct kvm_s2_fault_desc *s2fd)
+>  		 * PTE, which will be preserved.
+>  		 */
+>  		prot &= ~KVM_NV_GUEST_MAP_SZ;
+> -		ret = KVM_PGT_FN(kvm_pgtable_stage2_relax_perms)(pgt, s2fd->fault_ipa,
+> +		ret = KVM_PGT_FN(kvm_pgtable_stage2_relax_perms)(pgt, gfn_to_gpa(s2vi.gfn),
+>  								 prot, flags);
+>  	} else {
+> -		ret = KVM_PGT_FN(kvm_pgtable_stage2_map)(pgt, s2fd->fault_ipa, PAGE_SIZE,
+> -							 __pfn_to_phys(pfn), prot,
+> +		ret = KVM_PGT_FN(kvm_pgtable_stage2_map)(pgt, gfn_to_gpa(s2vi.gfn),
+> +							 s2vi.vma_pagesize,
+> +							 __pfn_to_phys(s2vi.pfn), prot,
+>  							 memcache, flags);
+>  	}
+>  
+>  out_unlock:
+> -	kvm_release_faultin_page(kvm, page, !!ret, prot & KVM_PGTABLE_PROT_W);
+> +	kvm_release_faultin_page(kvm, s2vi.page, !!ret, prot & KVM_PGTABLE_PROT_W);
+>  	kvm_fault_unlock(kvm);
+>  
+>  	if ((prot & KVM_PGTABLE_PROT_W) && !ret)
+> -- 
+> 2.55.0.1082.g2b9226bbc0-goog
+> 
