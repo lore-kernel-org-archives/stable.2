@@ -1,55 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6164C3DC4AE;
-	Fri, 25 Sep 2026 18:48:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86EB1440653;
+	Fri, 25 Sep 2026 18:48:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790362120; cv=none; b=ChVZ/Qhr67cBIkKqKiWw9TpOErNLBEO8bss+BH8DpkKIIvVyNwS0mkC3WI+OCQl09EhWSU9ricgfH6PTS9PBbZGXnhy9Cs/l6WwmBDa3mPWw2bwUwx5iHhOu41L8waVxVTosYBqPWc8lKiOYKKw7RTsrFXIudUbiIPqTUHyIe1w=
+	t=1790362127; cv=none; b=kdSTN9qPzQ/5VEiWbFPaL8pmPm7QZoBTmLiBXHz0re8q2MJL8UqBx7NyN1y9OUMGPNTOuYXNDWwy23tkcDCs96HZPUNIh1MwgxFmMy2+0atu0/tS+tus5vIJs6CP60puYI81Q5ulRB54pO3o/lwbzALzN1FoW1w3PRCMqREkjwE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790362120; c=relaxed/simple;
-	bh=+PXrbTr9W3WMI4KWWlThGDbxJqHXIc0ukPT+qhY7mAM=;
+	s=arc-20240116; t=1790362127; c=relaxed/simple;
+	bh=H51giSJCAt5iKVItQalE9H76qkaFVERRy6Hzt5q09sA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ldx3WeuYECAgEKGja+wGgZ+pFZOa9iJFakhSxPInaXjaN23mmntHuxVAmojK43kLNBaRhMhAzS+JK53et1TbqVZ6IFLsVE/UlVt23EmYPpktGEJeYoTMpTejuiWO23hUOBwOsYhhS5AGGf2NzfZInCxnHsu3/nbcsAfVDi+HjlE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JeEdSaNS; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=HfqvcfFhymNrx2e+PLaO8Z0Qt42Cs72yRCnVH3qwQ2AcS6ga0lRjzM2zx9lsqcRGzR7hY/8udqXREONdyMGx9+k8F81Vnog1S0qpZluHpMrKNdnsCB+XoUD3DOwkBEH4WhbOGsXn3EM3LtNheOeSe5V6d80KTElrw7XxuIb6/Uk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XD0S6BrP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JeEdSaNS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C508B1F000FF;
-	Fri, 25 Sep 2026 18:48:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XD0S6BrP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E55D1F0089B;
+	Fri, 25 Sep 2026 18:48:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790362115;
-	bh=WrgWRdYmbvngJuego1CL3y0Q6XgtgwKTem8e626V37s=;
+	s=k20260515; t=1790362111;
+	bh=4dTvN9eu58SVrWngLpoHGRAn4LoxzEKFTncDXvCSQ78=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JeEdSaNSef922NokpeOobJ0BVHhX7Dvt1FQDeZ05iBGsjwIVL4b0Hlq70n6Pc/hJf
-	 +hKDFnRaa8RO9EbNVnuo2vjAqhcVAjB2/YBgZNbXGSVnUU2H80Euds/ktKZQVLqGQ2
-	 cCXPK7OwhhMNrb5g8dyNnJuSAO0T/oIC4dYU79Z3rNvDgS08SsvU8ho63HNIT8yaJ7
-	 ZWf8KDXr+B+vSWdXOYMkLoCRi4932bgbQ3AM+QzmKfvrTyTs3gcKrzbObFJDDZYJv4
-	 M+8RNUfInHPoiIuO+9BERi0OCQDQ1qUd0W6wRQbEw3vFfNtdMjR2hR/+5CRweYR4w3
-	 H5zEFeJW0B3PA==
+	b=XD0S6BrP3cCfs7n77XMafWo+a6lKfmqGhd3a2DA05WFHz/j3mu7wYHO1KyvGsn7rc
+	 G8ueYShXRSCpROMSUFS8TteqEOkFog0v0AcGym0tJHc/AwtQpdxcplgi0djlU/OetE
+	 I7R7qvb4DpbZayLcQJpzL7ZZKfDxZbImR3NXyBvRVvSpfyxWl2XBKMUUV5Kpz9cHd/
+	 3Z5J2nVCI3pY6Cs1sVTpCWiputh2/V3mgcKTxJAWub5Q5pVtV5J4m/NAq7tpRIMhge
+	 9iNjgrsSmZq0XGe7jvEg1L0+8UFSK6xFoT/umTZ1bwGAUmeXck1KbIbfvE/NcwD1rq
+	 I+y9Fk3iIHC9A==
 From: Sasha Levin <sashal@kernel.org>
-To: Gao Xiang <xiang@kernel.org>
+To: stable@vger.kernel.org,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Eric Dumazet <edumazet@google.com>,
+	Alexey Kuznetsov <kuznet@ms2.inr.ac.ru>,
+	Hideaki YOSHIFUJI <yoshfuji@linux-ipv6.org>,
+	Marco Elver <elver@google.com>,
+	Alexander Potapenko <glider@google.com>,
+	Dmitry Vyukov <dvyukov@google.com>,
+	Andrew Morton <akpm@linux-foundation.org>
 Cc: Sasha Levin <sashal@kernel.org>,
-	Artem Dinaburg <artem@trailofbits.com>,
-	stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Chao Yu <chao@kernel.org>,
-	Yue Hu <huyue2@coolpad.com>,
-	Jeffle Xu <jefflexu@linux.alibaba.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	linux-erofs@lists.ozlabs.org,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
 	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	Sandeep Dhavale <dhavale@google.com>,
-	Will Shiu <will.shiu@mediatek.com>,
-	Gao Xiang <hsiangkao@linux.alibaba.com>,
-	Alexandre Mergnat <amergnat@baylibre.com>
-Subject: Re: [PATCH 6.1.y] erofs: Fix detection of atomic context
-Date: Fri, 25 Sep 2026 14:48:05 -0400
-Message-ID: <2026-09-25-daily-reply-0013-re-erofs-atomic-context-5-15@kernel.org>
+	netdev@vger.kernel.org,
+	Benjamin Robin <benjamin.robin@bootlin.com>,
+	"Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	syzbot <syzkaller@googlegroups.com>
+Subject: Re: [PATCH 5.10.y 0/3] net: preserve skb_end_offset() in skb_unclone_keeptruesize()
+Date: Fri, 25 Sep 2026 14:48:03 -0400
+Message-ID: <2026-09-25-daily-reply-0011-re-skb-unclone-keeptruesize-5-10-bounce@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <arYacJ7KdcTO7UDQ@MacBookPro.fritz.box>
-References: <20260922200448.27724-1-artem@trailofbits.com> <arSoAUX4jDzgY-rG@MacBookPro.fritz.box> <2026-09-24-daily-reply-0004-re-erofs-atomic-context-follow-up@kernel.org> <arYacJ7KdcTO7UDQ@MacBookPro.fritz.box>
+In-Reply-To: <20260924-cve-2022-49142-v1-0-0bfea684c11b@bootlin.com>
+References: <20260924-cve-2022-49142-v1-0-0bfea684c11b@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -58,15 +59,13 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> btw, just correct a bit 5.15.y also has commit 648f2de053a8 ("erofs: use
-> workqueue decompression for atomic contexts only"), so
+> I backported two other patches to make the series apply cleanly.
 >
-> upstream commit 12d0a24afd9e ("erofs: Fix detection of atomic context")
-> upstream commit c99fab6e80b7 ("erofs: fix atomic context detection when !CONFIG_DEBUG_LOCK_ALLOC")
->
-> are also needed for 5.15.y.
+> Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
 
-Right, both are already queued for 5.15 (and for 6.1).
+Your Signed-off-by is only on the cover letter, none of the three patches
+carries it. Could you resend with it added to each patch? The patches
+themselves look fine.
 
 -- 
 Thanks,
