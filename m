@@ -1,41 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DB6D37C0F5;
-	Fri, 25 Sep 2026 15:19:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CB764C0426;
+	Fri, 25 Sep 2026 15:22:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790349557; cv=none; b=CtLN7x9+Wh94PzDyMCdnNHVjbN029lKzMpGepF8MwRybswat5xy3lDa4MIX8NNlHrYt7ygtIk06HsA+D+mc+oq3qyvhNW/V2uwZgNiBg7xm3KAxhPNtULLtD3TSfvVjbd+PvGplJnvqtw6eX4GgXES1N9Au/cZDwFW5TYC3ulXE=
+	t=1790349762; cv=none; b=A9mY+KqEPLrIg8EnMuH43x2ic5oyzZM/sV3fED4lC3sf1UmcRjFtlwYB5lu+vlWF8yR4VIp7xQce+dduk3LFCUrpFSNmIbOvBeHt0Z/IaAp3pn2pa6LiBXI2YAflpopT04VFZel845tuPabuXU8TDIR0ZnbuHbG8g5Nw+1bnP+E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790349557; c=relaxed/simple;
-	bh=TpSqpNqKyuSoyeWtU1IVlmeYJTWYXguelTZlF/N9oM8=;
+	s=arc-20240116; t=1790349762; c=relaxed/simple;
+	bh=a/4ADJbOd8sLho6YLFhg/EPEOq9EHI8pZzqiW7RQA38=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=iEhspaAcv/Rnce5QripUv8U+z4uL5zUj7L8jrPGWZhmsVzyGwAtHFfm4TIeyUOjst7pbP43JHA5qgznPAKWDu98MggKoV9i/nQ1MA1vGciu3P0RzpR2r/nPVW9+RfSeU9Ga2sWsghMN8DJuF4lvW+0vvhcFfI5VGdTNzCJbHBz8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gQMRXT2S; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=C9ycIZfOcZUgCrcAb2k2lMi5fYxCLL0U5h7B8yLFyXlMaf4y7LjZK16UPKM6t0kLcN4JDjQ9ATIcfMcME12Fd0ikxY57nNt2IQ1R/f0NYllILWwDdp5Qxk5STt+9fQv3EUoHYNMNhB4SyO7DLy/4WyIHBrPDB4Kt5MJHHtes8Xo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JjLNjpD7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gQMRXT2S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D90E1F00893;
-	Fri, 25 Sep 2026 15:19:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JjLNjpD7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC1741F000FF;
+	Fri, 25 Sep 2026 15:22:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790349553;
-	bh=Y6/QROIQGqleWmHbIv1YDGIron6nQb66ooTgjR8V0ag=;
+	s=k20260515; t=1790349760;
+	bh=KriGHtIyXKt/JLmxE+VFLzUtULWIvJuWxYuFwNfEJxk=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=gQMRXT2SAcebjcduC+LVDKul05frsCc2GYK30kgkoyHfetIipmEVvAgYP+8DO5pbD
-	 DsFmzcVQZJ1I3wDSRhiva53JdpA9U+xIj4JBYFlzIjmcTz8RFUqVWcCvjFjJyT4gQG
-	 1CIccSkH/Fm6Ei986b5sB4Lu5GgLMdmc0c1try3mwww1nEaaiogo07EfMuCohar1gX
-	 s7BDBekKSkM4B3dT/sISOyBkvjcOEChb3nXTtLMjXulhNM5T4kVTWo4kBhtK5e8dC9
-	 lwwPH93ocQNyh6mpoeXdcghgsCvYoKMMhPrkETL7c74BBkiIU5joyj1YYgTtmTzPzV
-	 uTIKtdfw+j8YA==
-From: Mark Brown <broonie@kernel.org>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: lgirdwood@gmail.com, linux-kernel@vger.kernel.org, m.purski@samsung.com, 
- stable@vger.kernel.org
-In-Reply-To: <20260917143052.2156903-1-vulab@iscas.ac.cn>
-References: <20260917143052.2156903-1-vulab@iscas.ac.cn>
-Subject: Re: [PATCH] regulator: core: Fix coupled regulators reference leak
- on removal
-Message-Id: <179029222340.149798.2335376229223099439.b4-ty@b4>
-Date: Fri, 25 Sep 2026 00:23:43 +0100
+	b=JjLNjpD7yGEJYKrOEKr7mglZC0tXCrMymFcE6KcBiLpvLWfdufcbUCSD8oCpMflX9
+	 e4GxmLlco2X9qru9boAePq5swLgbzneixNCJeGIQdLy3L0zBekxfjyCvoEU68Q4dRY
+	 5JXfb19iGxXSlHOk27TCTnw8/FX+yCgzHSZiC7wxb7+QAsWNbdzyyQTbFJn+vGmNH3
+	 c/Dz3s+hzQodg75oBIHLKuPDoV5yJjS4kkd6DYNesUbC8k1pUnXs4GSlb0Ex5gQRlV
+	 sitCoUT8AWMpItEbTFTPSqiIojzQ6Vg0DTps5fVTVnq+KtZwY6O1GTS3tX+QVfFDgV
+	 HqZytxg98HAOw==
+From: Christian Brauner <brauner@kernel.org>
+To: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
+ Alexei Starovoitov <ast@kernel.org>, 
+ Matt Bobrowski <mattbobrowski@google.com>, Song Liu <song@kernel.org>, 
+ Andrea Parri <parri.andrea@gmail.com>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ bpf@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <20260922145530.369775-1-parri.andrea@gmail.com>
+References: <20260922145530.369775-1-parri.andrea@gmail.com>
+Subject: Re: [PATCH bpf] bpf: fs/xattr: don't assume the inode is locked in
+ path_unlink/path_rmdir
+Message-Id: <20260925-letztendlich-hochachtung-unzeit-f43c63617e87@brauner>
+Date: Fri, 25 Sep 2026 17:22:31 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,47 +47,34 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1156; i=broonie@kernel.org;
- h=from:subject:message-id; bh=TpSqpNqKyuSoyeWtU1IVlmeYJTWYXguelTZlF/N9oM8=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqtpDtMwqQIkfu8fXvPS0kSS0bQktXCF72rSfHJ
- FrE8dJaPqKJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaraQ7QAKCRAk1otyXVSH
- 0EecB/4puWlU11SYpfUFj5+k7Rr4SdaS08noMASqXMiD0gr8toI4184/lgEKrEs1GEZj+TChJDu
- 8BQ0tOxrr4DM4n00mMQPaR+X/MdQqLXjj7vOZ52vPieLZP3LUU2ox3Ge4pGftGCYO7IE56vsmnl
- 3/ElbbibB533/A7HEiZJbtZ0cqN8kAuFP4G6SjN+/MfDqPmoCdzR3gdAegzJFyc1MaXXGgys1d8
- X5zAX04gm1MJodJ0e3zGRL6j8ptu70jdf7Vqj4VXtWP0vI5YfcT7m8CdrqJhfhPfvOzEeNWytHk
- Cva6RvbG0WiFmFmoPJc/WYQSLv7BJUQdRu/EymVSlA2dUxy5
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+X-Mailer: b4 0.17-dev-db0b7
+X-Developer-Signature: v=1; a=openpgp-sha256; l=922; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=a/4ADJbOd8sLho6YLFhg/EPEOq9EHI8pZzqiW7RQA38=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRtm7gn27x/dX+5k53wAWObgLg3M5Pf9yTs/M74e0nK6
+ /NmDnvXdZSyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAEyEt4jhN0v22dZT+TE/brXz
+ u0/hq7Tn4nvuOu+tp42+6mW15d8/ezL80/X347vX0jmv3T9F/f5j+6kH7mr5+3iZLraNF8uZ5bS
+ bBQA=
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-On Thu, 17 Sep 2026 14:30:52 +0000, Wentao Liang wrote:
-> regulator: core: Fix coupled regulators reference leak on removal
+On Tue, 22 Sep 2026 16:55:30 +0200, Andrea Parri wrote:
+> bpf: fs/xattr: don't assume the inode is locked in path_unlink/path_rmdir
 
-Applied to
+Applied to the vfs.fixes branch of the vfs/vfs.git tree.
+Patches in the vfs.fixes branch should appear in linux-next soon.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.4
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
 
-Thanks!
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
 
-[1/1] regulator: core: Fix coupled regulators reference leak on removal
-      https://git.kernel.org/broonie/regulator/c/b9205f0837ca
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs.fixes
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+[1/1] bpf: fs/xattr: don't assume the inode is locked in path_unlink/path_rmdir
+      https://git.kernel.org/vfs/vfs/c/35d442ed1f86
 
