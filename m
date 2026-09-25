@@ -1,198 +1,138 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8A633955FD
-	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 15:05:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790348714; cv=pass; b=IwRuC7e38TsA0xNXwXOFViuFasJum2sSDyXOjAg+fzTr1lCta/l2MN52rkULYx6h/8vqp8KQ7iAtlq37yKokoNhl13LqfHJAkclMXq693q0Jl4lYDQjrUxc8LkCX/nCO/O12SouIR4wYZkmaZxiM3DuqMQNYaDW5Wua8OnUPJew=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790348714; c=relaxed/simple;
-	bh=WAWqhJNmyo51Od5KW8SJ0vK6DSlgvw2LcK3VD7saVMk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tR+yFZycE3sVqc8Pfw7BSG+qpmURLCFxqR9cSTu1/WrO0H8iW7yoLqCEBlzJkiU8lL8JdVi+/OxKyZTr93M63LIF8i1Q/61y+xMNyh7o2u8n4wxum3BwciUgCvMYuCdyf4lKn7L2XK2a5VxchYqGEFLlxVwMQ1IqJkDcKjtWwxo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EjQmcmay; arc=pass smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5402F4A4EE7;
+	Fri, 25 Sep 2026 15:09:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790348987; cv=none; b=rxgM+cpBPrXZShUcZmU1h9hf6KELaTuvA5Kkas8gAxptverU2s1HbBkmwQOfDJsjyf+KqD3dWm4U3wtP0VNmaEDs1/0eqo/QFlFg/k2C1ban7QLEbVEhP3EYX03HZxS9bin6VbCnLsv0eBXUFGC9BWP8E2CqbCNmrTnH9E57rKY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790348987; c=relaxed/simple;
+	bh=VW/XrB+qV68/FcIQ5eMC74++xgOoT9nZOvKItukui0g=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ZclRZGW7eYpacRvk7SCO6s+th6G4Wil9RTKuNT4XqweN6B+ibi/cSf1G2YLlRydq1bwivzKFMTxjMqtpbx2Opmym6kmNZMuupGsSDjBVgOyTtZJ/qm1Gi+D7LBamVGfC7JRgRiOUevGhoJKSd0Zm1RGaZFzDos4djK4zPUcABHk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=hobvotZH; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EjQmcmay"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a60591ae54so1648373a12.3
-        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 08:05:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790348700; cv=none;
-        d=google.com; s=arc-20260327;
-        b=E3WzKVbZYBsLMp7FZ9oNShPQfLWWkptSCFa6qx5sTX9RCj0STIDMkekeDIOy/iNrNX
-         fkCpuXVaV+fvWPk/AfKyGM99Z77+FGEtTxdFE5W9VQhUSDifIFipRWdTWxiu+tjTzwhB
-         pw0uItFwLoNfxCiBcBeA2CapU28f5CUknOz8WftSkYdSEKdGOhT7qQ9+boK2is4eZjdH
-         VaLfUB6FmrxHljkyDDekwJFxqzM2fYOF9OfGE1/U8IlKvHf0E+vM4WtBT7jtdPs/BC7i
-         Azg24DUnGuOldriVOwhi5al4HSWD9fFuhr0B91yl7DcEm/J/1okRvepf4jiYFs/xAk60
-         XOfg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=x6h1BVvc6NlZ/1f8ypPzy3ocqWyFlnaev/ls/pKUnb8=;
-        fh=hKBal6v82/DJ7iwFxGgLehy4OofVmcgIwniOV00J1fo=;
-        b=npsPLMSPSdY1B1sgzrt8VZ5E9vADtHhAs5y16YScMgbCq0SUw6Ml6Bcz4S7fWstul+
-         yN8vyuD4qvq2gYBdZs0edM53gKJKx2OkEIdV7YXL8uXBfr26ZV+ku50hrrhLaD8R23dd
-         c4ch8o+5AOSxZ+W5LW3FX2A44K5GswJDCLfYP7Gr6opFFxfi4Lb83idfa/G6hiwEbcXU
-         jFdpHfL04IBHnVGWW9QgIs059vvQorsVTW6t/AN2WIEo84c+88tVurui0b51jJGuA11N
-         oqALzOxenV6gPMRPt0iKqs7khpdVScaaMjpwJ8ABLru0HyaWdGBzDcz1VDpWyW1qY0Um
-         VClQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790348700; x=1790953500; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=x6h1BVvc6NlZ/1f8ypPzy3ocqWyFlnaev/ls/pKUnb8=;
-        b=EjQmcmayCVkHHRheUxRBMKhMGxjjSG3w9P62Mo/R5MrPRDrQ7AtdMFociIibDGvO9Y
-         lTB8UjLcG90to0VIOsJSOyoOgbWhm8Jbl+3FqPP9uTzEgkKEZYXB9omRzSLOh2VWnB4/
-         qVgnSgh3i7vc7m5ApBRXVzyfjoPU3TyNN1n6FVxFwVvDlP2fuG/OrjI4av6aOZQjJtHn
-         V+p8BP9VmGllwqsx5kUqGHzDNSdHR08aCI7+UrpTMTRPtFfA2v0nSFxeG4VcrcwVtdHv
-         iW6tD0qxn+tsWfoGbU/gUPDrWnWDkUMFI17wxrWnFFU8M1RRzO0K+CINdoJpjohcIITP
-         gG4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790348700; x=1790953500;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=x6h1BVvc6NlZ/1f8ypPzy3ocqWyFlnaev/ls/pKUnb8=;
-        b=Q3Vo8la6/1vD1kTRyrv5dXe0crmqFAgFf9o+umfqmKb2ACjOOgSKvlYkqYahsM/Z9S
-         l6cfz9t4jQe+ZExQTtSMV1Rs7vqmfZ6xptBBSrJkzxuezVhSU2wPHFXULhqJL86wcCQw
-         kkGJ9nJbKhvNobyHQoukbdm3wqS+ePZ1eDhjHag5dtLrme2r1rmQV3eL7tODaqBwIUkt
-         XpLu7Ls07+fGNSRpn/KFXus94G8w9PJ/omYBfTvtpssLYmkZpub7FbpIxFQ3zo6ER+It
-         6cLFmsm7OtDBeJizNC3E8z5lpwiJIWXVxc44o0M8ex16c4cFqUkrCjwv06JllZ1Js8Ew
-         1b/Q==
-X-Forwarded-Encrypted: i=1; AKwUvBx1J/jstMbZ5uTu+B7uimVKxPJ9ornVxdWxLE3T0TqaOGPvMs1Effn8qmmr9hZHQ2jXvAzdfwI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nCdpblF1pVc9NTA6UDPvKM+QlNAhLVkudhx3UptRMqPSux/hix
-	z7UL0hY+xKqWJU0tBgHy6O34vdnhiP5z1kBoNgoVuUZw+f9S1COYl1HshZTc+BVYrzsfO54Ljmp
-	0nfJroU2o7idGNGSiKlvdpux3hvfKBQM=
-X-Gm-Gg: AYBFou2g0DirmfBfhQQJKlmrXHqaTBQqCI6CUO0s7m2yVtu/PzsULA9j7qAMSEy1Yjo
-	HLwD+nGEaYksk9f1+E9BnT/M/LPjd48T7tvJKFd5bbXF4ffek14JHVmNTwh1+szrexq1UDFyotZ
-	yII436xMUz9hnXA0GeBefVsMhTtGFPPe+fd9tLezpQl55RAgDRiYHEevbMSxR19aZL0XcxtMSXB
-	l54lJ/X3vHhaUK2u6NZSvpGDDr5aM54ZGd8/nIckjLeYySroReTpn7vgzUIuKaoQhprnrdOFZ1d
-	MutLS8OwpXGCNFlYLo8KdV37njdecGnF4e82h/fO//FEFvmsKmMor4zoHA==
-X-Received: by 2002:a05:6402:304f:b0:698:c13e:179a with SMTP id
- 4fb4d7f45d1cf-6aac8f0fb76mr4307366a12.10.1790348699463; Fri, 25 Sep 2026
- 08:04:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="hobvotZH"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
+	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
+	bh=8ZsRdp36EZWb0DJkYc8BpcrrbAf/mTTeVBAJoAH0lws=; b=hobvotZHAGf8k17uWJCa0M633j
+	Xgu23JcquGP8lXWipCmZh/G5kobCcsQQgbPcHmuGoMq96+PQL+Jad5Ov52BpZ7TFaGP0d0jOSmGWj
+	6kiqbW57/z7+9gDCZlJxAb5O4dOE/JVX2ZKWKt8xx3MWpWEum2UudXPmjoR32fXhHqY5ifLUsQOTb
+	sUBNeBh8euK5zvvxWA405zJ5cIHTdHnqODY/WrLKnjJnYtN9o3DyO6Kav1EFwCUs9a2/93UMT5QLu
+	6tIiG1WpkOTSbEA+Gd7Nk9H0+EuCUZuNf3rAtEHNd2MvyT9Tj6pmN4LpdWSlSaaJkQ+67idAKuFMp
+	dpCZQ1NQ==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xA7Y7-005OBd-3C;
+	Fri, 25 Sep 2026 15:09:20 +0000
+From: Breno Leitao <leitao@debian.org>
+Date: Fri, 25 Sep 2026 08:09:11 -0700
+Subject: [PATCH] ACPI: APEI: accumulate the queued flag across error
+ sections
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260924112858.51392-1-disgoel@linux.ibm.com>
-In-Reply-To: <20260924112858.51392-1-disgoel@linux.ibm.com>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Fri, 25 Sep 2026 17:04:48 +0200
-X-Gm-Features: AclHuK99bcpAkghS0fUG2lImCTNfTZaz5pVDj1Ros9PGZp_xBJVRQl4OTsgjcsA
-Message-ID: <CAOQ4uxh+VbTTUTQxRZ6jxYCLyBedKEPOQAPEkrJwhbiL32eGPg@mail.gmail.com>
-Subject: Re: [PATCH 1/2] ovl: fix mount setup failing when override_creds
- drops CAP_SYS_ADMIN
-To: Disha Goel <disgoel@linux.ibm.com>, Christian Brauner <brauner@kernel.org>
-Cc: miklos@szeredi.hu, viro@zeniv.linux.org.uk, jack@suse.cz, shuah@kernel.org, 
-	linux-unionfs@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260925-ghes-queued-accumulate-v1-1-df50553957d4@debian.org>
+X-B4-Tracking: v=1; b=H4sIAJaOtmoC/yXMQQ6CMBBG4auQWTsJlEDEqxgXZfoDYxS1Q4kJ4
+ e5WXX6L9zYyRIXRqdgoYlXTx5xRHQqSyc8jWEM2udK1ZecaHicYvxISAnuRdE83v4CbrpKjl7q
+ vXaAcPyMGff/G58vflvorZPneaN8/uRej5noAAAA=
+X-Change-ID: 20260925-ghes-queued-accumulate-591c8ac3b32d
+To: "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>, 
+ Hanjun Guo <guohanjun@huawei.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Shuai Xue <xueshuai@linux.alibaba.com>, Len Brown <lenb@kernel.org>, 
+ James Morse <james.morse@arm.com>, Xiaofei Tan <tanxiaofei@huawei.com>
+Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, 
+ linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-mm@kvack.org, kernel-team@meta.com, stable@vger.kernel.org, 
+ Breno Leitao <leitao@debian.org>
+X-Mailer: b4 0.15-dev-47773
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2558; i=leitao@debian.org;
+ h=from:subject:message-id; bh=VW/XrB+qV68/FcIQ5eMC74++xgOoT9nZOvKItukui0g=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBqto6cfmYO00v2L5iB3D85pOjejWCOxbWqEF6kF
+ qwUy4rKhbuJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCaraOnAAKCRA1o5Of/Hh3
+ bWocEACQACuoZbczHAR3Rz/S8hB7WnO0Vizvw1vb4qil7D1UuTHVGfBa5Yq/CEMt0OpJ/5hTy8D
+ wkUu/gKIGVue2gswaJh5dy1CkheOC0xhz1sWpOaBV7ppyuIJ794lQEBhfyknXQslfc5FwHdEGVV
+ ssJHzJANQ0WPGcvnJYgm9p+oK46hGKpURxGvDDRET0+YJuqa9simwd0l3IHB5jgILRn7OC6F3PP
+ 0NTjURh1DrHb02TzaoCFNc9obI1TavcnYT6VY9NFBWFVsTKB5sRxbACa74lwHKh9eyeGOP7VaDZ
+ 2R/B/WJI6ztT4r+OUBKcc0TeTO0MaAtLFgcJRlH0SG1uKrNx4S5YqM/4WGEdsu91HTVXBIKL0YJ
+ jBiHe5BJRu0rT3+6gVO0Maax1MVE4FHFvcIU+8ZE9y9zc7fMZ0W4Gnd4XEbQK4SlQABU6qJndEl
+ 6/ytsZNye/i3lNsWC7OrGYguBBqlt0DxKL1W6+vOZhm4PFlGKeZlTLbBu79BeAfoPcY5ebJ674t
+ nHVRmSgk+4LVl6GM6YtyxKsN1jyYc1kAnE0vMyEDV04Wq8U6UmBHoMyYTnRKEuzUddfKZJLGb78
+ j5I9HMLf221Of0Rp/rI+40pxpvJDkxoDiwcYY/txMHa1Dys3Sbi8moPMPz2K/rwQ6Lx/HCBee5l
+ AuiUvgm0Z2A0+2w==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
-On Thu, Sep 24, 2026 at 1:29=E2=80=AFPM Disha Goel <disgoel@linux.ibm.com> =
-wrote:
->
-> When a process drops CAP_SYS_ADMIN and calls fsconfig(FSCONFIG_SET_FLAG,
-> "override_creds"), overlayfs saves those restricted credentials in
-> ofs->creator_cred.  ovl_fill_super() then wrapped the entire mount setup
-> in with_ovl_creds(), switching to those restricted credentials for the
-> duration.
->
-> Mount setup calls clone_private_mount(), which checks CAP_SYS_ADMIN
-> against current credentials.  With restricted credentials active, this
-> check fails with -EPERM and the mount fails even though the calling
-> process is fully privileged.
->
-> Mount setup is a one-time privileged operation and must run under the
-> caller's credentials.  with_ovl_creds() belongs only in post-mount I/O
-> paths.  Remove it from ovl_fill_super().
->
-> Fixes: 539a0879de47 ("ovl: allow to specify override credentials")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Disha Goel <disgoel@linux.ibm.com>
-> ---
+ghes_do_proc() walks every error section of a CPER record, and
+ghes_handle_arm_hw_error() walks every error-info entry of an ARM
+processor section.  Both assign to "queued" instead of OR-ing into it,
+so only the last iteration counts: a later section or entry that queues
+no memory-failure work clears the flag an earlier one set.
 
-Hi Disha,
+Instead of reassigning the variable at every time, just do an `OR`, so,
+if there was a single match, it will return "queued" as set.
 
-Thanks for the report!
+The comment above the check says "If no memory failure
+work is queued", which is the semantics this patch implements. I.e, only
+SIGBUS if there are queue was not handled at all. If we want to SIGBUS
+if any event was not handled/queued at all, we will need something more
+sophisticated.
 
->  fs/overlayfs/super.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
->
-> diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
-> index bd0a3f9039d2..29f9489b8242 100644
-> --- a/fs/overlayfs/super.c
-> +++ b/fs/overlayfs/super.c
-> @@ -1557,8 +1557,12 @@ int ovl_fill_super(struct super_block *sb, struct =
-fs_context *fc)
->                         goto out_err;
->         }
->
-> -       with_ovl_creds(sb)
-> -               err =3D ovl_fill_super_creds(fc, sb);
-> +       /*
-> +        * Mount setup must run under the caller's credentials, not
-> +        * creator_cred: clone_private_mount() requires CAP_SYS_ADMIN,
-> +        * which override_creds may have dropped.
-> +        */
-> +       err =3D ovl_fill_super_creds(fc, sb);
+Fixes: 7f17b4a121d0 ("ACPI: APEI: Kick the memory_failure() queue for synchronous errors")
+Fixes: ccb5ecdc2dde ("ACPI: APEI: fix synchronous external aborts in user-mode")
+Cc: stable@vger.kernel.org
+Signed-off-by: Breno Leitao <leitao@debian.org>
+---
+ drivers/acpi/apei/ghes.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-Without ovl creds, the name of this helper is a bit odd..
+diff --git a/drivers/acpi/apei/ghes.c b/drivers/acpi/apei/ghes.c
+index fe10ab0e02f68..ec2d5ca51db02 100644
+--- a/drivers/acpi/apei/ghes.c
++++ b/drivers/acpi/apei/ghes.c
+@@ -603,7 +603,7 @@ static bool ghes_handle_arm_hw_error(struct acpi_hest_generic_data *gdata,
+ 		 * and don't filter out 'corrected' error here.
+ 		 */
+ 		if (is_cache && has_pa) {
+-			queued = ghes_do_memory_failure(err_info->physical_fault_addr, flags);
++			queued |= ghes_do_memory_failure(err_info->physical_fault_addr, flags);
+ 			p += err_info->length;
+ 			continue;
+ 		}
+@@ -951,11 +951,11 @@ static void ghes_do_proc(struct ghes *ghes,
+ 			atomic_notifier_call_chain(&ghes_report_chain, sev, mem_err);
+ 
+ 			arch_apei_report_mem_error(sev, mem_err);
+-			queued = ghes_handle_memory_failure(gdata, sev, sync);
++			queued |= ghes_handle_memory_failure(gdata, sev, sync);
+ 		} else if (guid_equal(sec_type, &CPER_SEC_PCIE)) {
+ 			ghes_handle_aer(gdata);
+ 		} else if (guid_equal(sec_type, &CPER_SEC_PROC_ARM)) {
+-			queued = ghes_handle_arm_hw_error(gdata, sev, sync);
++			queued |= ghes_handle_arm_hw_error(gdata, sev, sync);
+ 		} else if (guid_equal(sec_type, &CPER_SEC_CXL_PROT_ERR)) {
+ 			struct cxl_cper_sec_prot_err *prot_err = acpi_hest_get_payload(gdata);
+ 
 
->
->  out_err:
->         if (err) {
-> --
-> 2.45.1
->
+---
+base-commit: 587858367581b9c55c3690f4e63382ad622719d4
+change-id: 20260925-ghes-queued-accumulate-591c8ac3b32d
 
-Chritian,
+Best regards,
+--  
+Breno Leitao <leitao@debian.org>
 
-I see that selftests are failing on upstream:
-
-#  RUN           set_layers_via_fds.set_override_creds_nomknod ...
-[520332.680688] overlayfs: failed to clone upperpath
-# set_layers_via_fds.c:516:set_override_creds_nomknod:Expected
-sys_fsconfig(fd_context, FSCONFIG_CMD_CREATE, NULL, NULL, 0) (-1) =3D=3D 0
-(0)
-# set_override_creds_nomknod: Test terminated by assertion
-#          FAIL  set_layers_via_fds.set_override_creds_nomknod
-
-#  RUN           set_layers_via_fds.set_layers_via_detached_mount_fds ...
-# set_layers_via_fds.c:711:set_layers_via_detached_mount_fds:Expected
-layers_found[i] (0) =3D=3D true (1)
-# set_layers_via_fds.c:39:set_layers_via_detached_mount_fds:Expected
-rmdir("/set_layers_via_fds") (-1) =3D=3D 0 (0)
-# set_layers_via_detached_mount_fds: Test terminated by assertion
-#          FAIL  set_layers_via_fds.set_layers_via_detached_mount_fds
-not ok 7 set_layers_via_fds.set_layers_via_detached_mount_fds
-
-oops, I thought these were running in CI...
-
-Apparently failing since v6.16-rc1
-c28f922c9dcee ("clone_private_mnt(): make sure that caller has
-CAP_SYS_ADMIN in the right userns")
-
-The question is whether doing the guts of ovl_fill_super() with checks like
-
-int ovl_can_decode_fh(struct super_block *sb)
-{
-        if (!capable(CAP_DAC_READ_SEARCH))
-
-Without the user provided override_cred is the right thing to do.
-
-Could lead to confusing state post mount.
-
-Thoughts?
-
-Thanks,
-Amir.
