@@ -1,134 +1,140 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47802384CDF;
-	Fri, 25 Sep 2026 20:36:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57D0D4F6469
+	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 20:52:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790368599; cv=none; b=ttkHm1VVkgMnRGULYdS12dQ+6YCznZjULa7SQY1ccVvMt8Jvm78kYRfN73DAfHQsLNosCeJCyy5yc9gBSi+2yXOScGihcTyvYBh58PTW5elsBoD5DOj5o/A8OZjO9aAqRPwtX/C0dC1SikqxRQqa4B79/FKo4N+MAeNqiBtAaM8=
+	t=1790369580; cv=none; b=iCrHD7qej/UWr6+vVOm2KMMDas0F5pg/qNO7js3FW7PEKp0BwJuAnAEVnuQc8cKUuarqVyZOa+UDrmgE183yt335LGLc3qgbPN63qz1CgJDBRnLMx0A5Q8PK1pWNzQvXxtl5mjLtbPcKPB4XScpx0LKEXUQ78eIBktQEBaotHl0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790368599; c=relaxed/simple;
-	bh=ICymGZtr06Ysm/FmMmH0MBqiwdMdH1zJF4nyEHczBlc=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=h1LdjbXYkLHxSAEutJOJ5u8rTdDrvfp7XWrdF0cyLQcktR1az0ZcdTln6mlCJLBbE5erhizYnitngJBZ3SEDmHBGzherGJaSEjcdNNiyeu1XJXESZnWSB9DkKJnYkim0N5yaEOlXs4Cz3K0dUC+Tknh6IXJF7ahvoyRgH4yE/IQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=BQ2mTr7x; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1790369580; c=relaxed/simple;
+	bh=V3+yZT6YgVYUQdzB9TmvQNwHwQAuLA6xbe0leH+6ANM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IrOSNZLYe8e3eHa9aalCJ51GCPmlYrj7vxDXMu1e+eudUaZShvvQ8h3Xe8w3szDOk4STopfY6Nhhy/IWn/TB9lOnOErCAQQwMbMo+/MqVgnqYb5IwSXRDG+PrTQa/I0o1yFQS9+1lmfuSY70h6XhSJOJdmcxpLa88ItEGz91bIc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Lxudg0PB; arc=none smtp.client-ip=74.125.229.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="BQ2mTr7x"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68PJ5N1i031036;
-	Fri, 25 Sep 2026 20:36:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=JPbDZV
-	kHkHveuVIklk/lqenZFJcP6dLwpKqAT/JIlqc=; b=BQ2mTr7xALEUua0Mhudyjx
-	uPnMu1NKiz76BrUpZffOZpXL1uPSC3RkOQsxzYrrwYb9R8oRhWdDKT5n8BQt97r0
-	RaUibVb4pbUhDgbgJzsy8DScz/j2NEHieQCy4pmtz2j3fd8RsaFla+pw3QazuuA/
-	OqvlZU66P9f3cMTkWOVNZDLIybiz1VMFg1OibAqn+ixCnkqyYSEoVoTGaHghfP99
-	6QVa10AiJ0kehfYdNg54Nueg1yyOxn6u6WF4jnyhHvMVPIsmaP/+lUWzxGUDcMpM
-	5jQA08Kbmw7zS5clLtvkGcuwc0n0MeKJtLrmTMk1+C5V147vcXHttH4WA4VRYRrA
-	==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gske294yp-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 25 Sep 2026 20:36:15 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68PImAvm130353;
-	Fri, 25 Sep 2026 20:36:14 GMT
-Received: from smtprelay03.dal12v.mail.ibm.com ([172.16.1.5])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gvbu93v5f-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 25 Sep 2026 20:36:14 +0000 (GMT)
-Received: from smtpav04.wdc07v.mail.ibm.com (smtpav04.wdc07v.mail.ibm.com [10.39.53.231])
-	by smtprelay03.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68PKa4KY27460330
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 25 Sep 2026 20:36:04 GMT
-Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id ED4425805E;
-	Fri, 25 Sep 2026 20:36:03 +0000 (GMT)
-Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 2C6E358054;
-	Fri, 25 Sep 2026 20:36:03 +0000 (GMT)
-Received: from d (unknown [9.61.165.251])
-	by smtpav04.wdc07v.mail.ibm.com (Postfix) with ESMTPS;
-	Fri, 25 Sep 2026 20:36:03 +0000 (GMT)
-From: Dave Marquardt <davemarq@linux.ibm.com>
-To: mingming cao <mmc@linux.ibm.com>
-Cc: netdev@vger.kernel.org, davem@davemloft.net, kuba@kernel.org,
-        horms@kernel.org, edumazet@google.com, pabeni@redhat.com,
-        andrew+netdev@lunn.ch, nnac123@linux.ibm.com, maddy@linux.ibm.com,
-        mpe@ellerman.id.au, linuxppc-dev@lists.ozlabs.org,
-        bjking1@linux.ibm.com, shaik.abdulla1@ibm.com, stable@vger.kernel.org
-Subject: Re: [PATCH net 1/2] ibmveth: h_free logical LAN on open-fail after
- register
-In-Reply-To: <b2116532-c9d2-46d9-85e1-28d829e1b1f2@linux.ibm.com> (mingming
-	cao's message of "Fri, 25 Sep 2026 12:48:54 -0700")
-References: <cover.1790357373.git.mmc@linux.ibm.com>
-	<7a56fbfb9e0674f011f4e310fbd7dfd8e67c30aa.1790357373.git.mmc@linux.ibm.com>
-	<87jyo917gv.fsf@linux.ibm.com>
-	<b2116532-c9d2-46d9-85e1-28d829e1b1f2@linux.ibm.com>
-Date: Fri, 25 Sep 2026 15:36:02 -0500
-Message-ID: <87bj9l132l.fsf@linux.ibm.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Lxudg0PB"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-341027843a5so850426eec.2
+        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 13:52:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790369577; x=1790974377; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3hILfYSx6Rwo5N+DFRo2zikr7W+nhdamltoaH7/MZZ8=;
+        b=Lxudg0PBKwp3TkGFWH+jnoPkEYXRPzkBciKOhNDAdWp+8FspFJZllz99/+7RAVml0i
+         piwFFRPrPFvWgxL3MXp+p8mqJdjP3RXnylD36IvLR6VSsQnI0mjswWOYJYNRmKPLAAEh
+         nxMVPw7Vv4C+w8U+VY6GHgaPFEfKheJFwCv5clXkiPy594UNtJxQ+HDdUwF52ZW+8mIO
+         N/EbZucLx+4hkNnrHdr0ArtuuBOGOYOgZ79KIF7+te107j/Hl/k1ozzUqwKwF8J//cKZ
+         GKnYXx1rUhJC8ZO23BFUjLKdL4UJxcq3Dj5UetFh86ERg01Px+kFTONXh2//9Od5fvh1
+         dZFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790369577; x=1790974377;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3hILfYSx6Rwo5N+DFRo2zikr7W+nhdamltoaH7/MZZ8=;
+        b=j+9X014APRHWavEHiT3hm5OH8P/XQoQvjaMySCgVOrY2es4pMG3u6tGEc3o8yahI00
+         cz+VpRgv0hl+Q77n0dNzSj37sXdiZ5daWLp1aEpP73TKSX3zr67RJdOzcIuOM42LGGpJ
+         pLlXThBFDvhn7tRfKgUNdzQ9s8YuimoNlLhRLUPJJ/p62dEfbPyI9rLjKzeJY3LT2scI
+         1+ZMv+o1cmJKcl832GgfjogUobnsyp/rbdMF248vf24enZIxShtSHL07pii9Hx4U4NUv
+         C4N3vnq/o403lhQlXZ7bsm9cWNR2O8O59DF/d5WCxV9btcHXVjqyFFUN1Xw7N3BfNjJX
+         JWyA==
+X-Forwarded-Encrypted: i=1; AKwUvBwQYjHHle7KDZga3sb0imtDDwXfsAUY7sLcXD8LZnymcQ4D2nuhIaZvsd1rUGbeaIsogcGYOzk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kfdOC1+8ddeBtOjxqVGWcsLLh2xlA/Deh56N1rqwJDL2lJdJbN
+	kAaMGUhttq8OIPqJmCEZSsdYlDEP6vUgp4xfAedTnX2kuuyJNsDFfgi8Gyxyujc2
+X-Gm-Gg: AYBFou3wacE4F2hX6IFy0hfFQlWSmldwWPURt88ZdPNMsxoIAFq2x753kasmd3/QbJ3
+	B3CNwOebW61mBlNxGA/017kffkjk8LLqhK2l/M3zjA9jdDCytbA/xDEMNOSW3sKcfn4/iTaYYbD
+	GUoHeHJfXsBtJyNuf9yXeyt/3RkkR8TO0ntnm4YSaWqaIswqu8WKFg/naJnilOMt9Jw4cyQcLRY
+	zUMmRkaKp34JPYR8e+NYQr89cliCSIwBDgjSHSnvHPSxe8eE73R6O0pi0z7c9+TjcixtAG/H3k+
+	/qY9Nq5fr4uAflM3cBLc5vOuSZV3Fso/Z/ged2Qeu8B1g0oyl0BleeSgdZdk+S+of491BqFxgud
+	v7aJdKHpaiEms035W5eBAP0OyfI1yeGHKhzG4rSDYcAQzL3cGyo4WH4WXd42xHougbVOlE8BdTp
+	M73IbQGGiB9Z+UZS5+jUeh1FCkgZjrn5UL/Oxn1xBaFmdV44D84XoMPZ0j+yG2eIuiPNT/Z8wRe
+	095XPOUuwS9wffl6nHS2fF878u383Q9vyyd+0Mg
+X-Received: by 2002:a05:7301:dd97:b0:341:8e9e:28f6 with SMTP id 5a478bee46e88-34273946002mr1097965eec.41.1790369576952;
+        Fri, 25 Sep 2026 13:52:56 -0700 (PDT)
+Received: from CP-Notebook (host8.181-2-204.telecom.net.ar. [181.2.204.8])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34141d2fe4bsm8673833eec.4.2026.09.25.13.52.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 13:52:56 -0700 (PDT)
+From: Ciro Pedrini <ciro.pedrini@gmail.com>
+To: Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	platform-driver-x86@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Ciro Pedrini <ciro.pedrini@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] platform/x86: hp-wmi: Add OMEN board 8A17 thermal profile support
+Date: Fri, 25 Sep 2026 17:52:26 -0300
+Message-ID: <20260925205226.883724-1-ciro.pedrini@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: fzPdm23rj8wL-WaU15_8er85TtjkUSGS
-X-Authority-Analysis: v=2.4 cv=EOCTQFZC c=1 sm=1 tr=0 ts=6ab6db40 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8
- a=nKwSdBsyh74nXFs96kUA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDA4MiBTYWx0ZWRfX8i3lrld8EEeX
- CZWUXR1WHPIwudfQuAX7zHzeKxM3uAcCL8PJt80SLJUUkB92ED3kwOJaSa1pV2945DA6bBKrkRG
- +Q3DTw0n4Zb7UhiTHQC3nM94B2Tv45k=
-X-Proofpoint-GUID: hec-NSCBgVNHqD0Ku_6ASDvZ5kwwIdqU
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA4MiBTYWx0ZWRfXyTCHVYtT5CWT
- b3w+wam0H4HcR4odwdRLkrKioav0zaXhIunq0RfXt8o9UeTqCiWD3p6kV9H+Vs0ousYPU8hphiV
- nGbMEMMzCBDH+UHFinqjwfNhlLEI4qRAJHDnbQk+K+jqbp3gRcJZq/8M+hzKc04pXPcXMXVFn9R
- 92BFlCIDkaXwpVRP+xugixW9GsllZIXaqDP0LkR6ax6bLUoh20TjsMhDxC8LmxvrRvvZ5rdeoE4
- Q+b6CIEZXNJRLwgUZS27bEY+kzXlkYvCr/4Zbq9sL8j7rPR6ChAtWXnAIYS5vD0Pffjrkvl5Bz6
- p24xjKCHFAribWeI/LGkUbzH6Xv2tvMAUfvmULWuO7DY2/VFj9+rhXu6gXlGIn+ryYfr0Ux5WVz
- BUZ2pjVoKawqT2BK5axXT7KFEUCIpehSRmfoWMGsQJFW5u7a9JV+cCn/PUmwAN3XtnrbJ+c+9fp
- zolIkSSXflrsAiXrW7w==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-25_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 phishscore=0 priorityscore=1501 clxscore=1015 spamscore=0
- adultscore=0 impostorscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609250082
+Content-Transfer-Encoding: 8bit
 
-mingming cao <mmc@linux.ibm.com> writes:
+The HP OMEN 17-ck1xxx (board 8A17) isn't in omen_thermal_profile_boards,
+so hp-wmi uses the generic thermal profile query. The firmware only
+stores that value and never acts on it, so the EC stays in its default
+mode and the CPU is held at 45 W whatever profile is selected.
 
-> On 9/25/26 12:01 PM, Dave Marquardt wrote:
->> This code change is good. But I noticed another thing that's a pretty
->> minor bug of useless code just after this:
->>
->> 	rc =3D -ENOMEM;
->>
->> rc isn't used in that code path after it is set. Is there some reason I
->> do not understand to have this here?
->
-> Yeah, that |rc =3D -ENOMEM| at line 728 is dead =E2=80=94 set right before
-> |return 0| and never read again. Pre-existing junk. |d43732| set it
-> for the bounce alloc that used to run next. |d6832| moved the TX LTB
-> earlier and dropped the bounce, but left the line. After |request_irq|
-> succeeds we replenish, start TX, and return 0.
->
-> It's harmless (not user-visible) =E2=80=94 I prefer leaving it out of this
-> Fixes and letting the MQ series clean it up naturally when it rewrites
-> that whole open() path. But fine to respin a new version if desired.
+The board uses the OMEN interface (mode byte at EC 0x95, thermal policy
+v1) and also needs the timed profile quirk: without it, the EC drops
+back to the default mode about two minutes after each profile change.
 
-Agreed.
+Add 8A17 to omen_thermal_profile_boards and
+omen_timed_thermal_profile_boards.
 
--Dave
+With this, all three profiles work and sustained package power under
+load goes from 45 W to 56-79 W.
+
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Ciro Pedrini <ciro.pedrini@gmail.com>
+---
+
+Notes:
+    Tested on 7.2.7, whose OMEN profile code matches for-next. Without the
+    timed quirk, EC 0x63 counts down from about 120 after each profile
+    write, and at zero the EC resets 0x95 to 0x30.
+    
+    8A13, 8A14, 8A16 and 8A18 appear in the same DSDT. 8A18 is in the OMEN
+    list but not the timed one, so it may have the same two-minute
+    fallback. I can't test it.
+    
+    I used an AI assistant (Claude) for the ACPI analysis and to draft this
+    message. I tested the change on my machine and reviewed everything.
+
+ drivers/platform/x86/hp/hp-wmi.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
+index 7ab81ce5f..76f489d5d 100644
+--- a/drivers/platform/x86/hp/hp-wmi.c
++++ b/drivers/platform/x86/hp/hp-wmi.c
+@@ -207,7 +207,7 @@ static const char * const omen_thermal_profile_boards[] = {
+ 	"886B", "886C", "88C8", "88CB", "88D1", "88D2", "88F4", "88F5", "88F6",
+ 	"88F7", "88FD", "88FE", "88FF",
+ 	"8900", "8901", "8902", "8912", "8917", "8918", "8949", "894A", "89EB",
+-	"8A15", "8A18", "8A42", "8A43",
++	"8A15", "8A17", "8A18", "8A42", "8A43",
+ 	"8BAD",
+ 	"8E41",
+ };
+@@ -226,7 +226,7 @@ static const char * const omen_thermal_profile_force_v0_boards[] = {
+  * "balanced" when reaching zero.
+  */
+ static const char * const omen_timed_thermal_profile_boards[] = {
+-	"8A15", "8A42",
++	"8A15", "8A17", "8A42",
+ 	"8BAD",
+ };
+ 
+
+base-commit: f475845eaf3d749114a63270bf2efea459e14dd2
+-- 
+2.55.0
+
