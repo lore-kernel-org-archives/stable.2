@@ -1,98 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fout-a4-smtp.messagingengine.com (fout-a4-smtp.messagingengine.com [103.168.172.147])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 144E2371CFF;
-	Fri, 25 Sep 2026 04:13:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B33C328243;
+	Fri, 25 Sep 2026 04:18:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790309620; cv=none; b=M0J1GQVxn70EZ08AHNmHG/0XHXUQB5BGWANDmzBeInC7ZtYqDDNNgBrEWqnvIurxH/BYEt/fYbHj91j3zoIZIPkSO4zgIKKAnDvOuel1WoaZpYFLSuKQQbn4kToGJmtS1GBVa0ZvXzwzIVwUPMqajBBpA3mGB9mYJrJz8Nk4a4Q=
+	t=1790309929; cv=none; b=NBVim8Z/SGjZagXDHFH2v7PtZ9/0Ck+5lZVk1RSKhXc8XvzBQ8ExaZfOtPa42w5IbnNAOJ+Zy0fYOarzXb73A91t2YGIvp75vNENyQnmk/EHSIQxow7AVL7kd+bRZO5juAcxjkgjIQfKUtvIPBUhK/7gABgcQEnUqbMFEZmduVU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790309620; c=relaxed/simple;
-	bh=2hR6Uuaw9sCHP9NFQ4JtAB112ufKsDzbrO+VmWYClBg=;
-	h=Date:Subject:From:To:Cc:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QdT9M17lJNyzucD4dAAvCziOhq41OvOaNCAessto4mn7vpDgqC2QqZUgegjWVOHYEOn4MGFkclUdsQaKbzdVikZrFK0u/LimB3SoAO96HWkyy6kzylDF6HTz3xERPZo/lCnOgQtNZadGMlAglKfsNdvQYZp0z9MLWK81xS0S35c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gkd1VP+9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790309929; c=relaxed/simple;
+	bh=FHUz+DfsrT1n6pQhuvpk/+iRp5WJ1hmoTnsQ5WemJJQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=U5qljvDC87oZhLhSo28wnE3vXKc966CXM8LYPpFpAOpWaqJVnFitVRinLvVfMbDT/EIYopos16CewMEryARhEYrm3aLpSOrQfRh7iUn3VTXkJ9RUkw1Ov7kdz9eHdL5r5p9oYDic0/ys2NGDIJYGRW7QARYNL+EDFeipHy6uBI4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=ajdJN8Fj; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=bvmk9C5h; arc=none smtp.client-ip=103.168.172.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gkd1VP+9"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 99F561F000FF;
-	Fri, 25 Sep 2026 04:13:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790309618;
-	bh=HRfHxjeQoLoryi0a4RZo288MfTf4W3DJJp36JcTu3gQ=;
-	h=Date:Subject:From:To:Cc:In-Reply-To:References;
-	b=Gkd1VP+9FPeIkWZ5MwmrrMkw1jMKydGc5CoVT/ZfC9LFo4DUqmiVcnhBeqia4ef7p
-	 f9K5kX2tG38txBZPUfpFPXnTCrk6DQDte8yAHkMqcN+7C5Xw+tnjdxNTn/byuy/7rO
-	 NQcaadX+bkPKCDJb09a+snUAl4Eis3itzKBuQGcUUXKUpM1My3FnAbf52xW2HD4g8R
-	 jyrzuk8oU+5392U7l28Yn0W32et7MBHyzj9FcsRWufso7BsakXYCkJ/n8lBA04hZ02
-	 +8u6XDbWd31EcPlYjHcDttbXEXCtSkswK6aI0YPPUzKGt6r6JVhdA9olRL6UxKIJ1+
-	 Pf8sxTBHh06ow==
-Date: Thu, 24 Sep 2026 21:13:38 -0700
-Subject: [PATCH 12/12] xfs: check fork type against dabtree block magic number
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: cem@kernel.org, djwong@kernel.org
-Cc: stable@vger.kernel.org, linux-xfs@vger.kernel.org
-Message-ID: <179030932303.3344850.1246558346723808401.stgit@frogsfrogsfrogs>
-In-Reply-To: <179030931976.3344850.17488605741516845262.stgit@frogsfrogsfrogs>
-References: <179030931976.3344850.17488605741516845262.stgit@frogsfrogsfrogs>
+	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="ajdJN8Fj";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="bvmk9C5h"
+Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
+	by mailfout.phl.internal (Postfix) with ESMTP id 21A16EC021B;
+	Fri, 25 Sep 2026 00:18:46 -0400 (EDT)
+Received: from phl-frontend-02 ([10.202.2.161])
+  by phl-compute-11.internal (MEProxy); Fri, 25 Sep 2026 00:18:46 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1790309926;
+	 x=1790396326; bh=/5eEb1xerJLAbtSFCqEL4ocUKBGXXhcin+4+uz96tnA=; b=
+	ajdJN8Fjh9LxR8/AOaPr8M9V07L0Yuh2B/+tHuUig9PJMegz2sJnaCDlIwXZsCT5
+	RR1awYepHbZvDbDhHsrFXl29SMIIx8Yc6inx3leb3Nj9lhQFvlbTRSxUgCnt8OCV
+	aAWFiyEUmVePhG+RlHH7AEf/FWbbRSLOTsiWr3UNja5tzACSU82x/ZjuEI3s5J+2
+	p8HWfJt39U0MnTOYaPSjVijFjVrHOSGwI6ONhWMLVZCe/oz2lV7A4f+yumTEN8xO
+	FC9Q+r1J8hB+JD9r/+DaIkr8MjR3J0Sv06GNMGMdl+T6izW9ufPHxNLr5qOCZIO7
+	jbT6ZN1MAyyS5XZQIHy3lw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790309926; x=
+	1790396326; bh=/5eEb1xerJLAbtSFCqEL4ocUKBGXXhcin+4+uz96tnA=; b=b
+	vmk9C5h4vFE/fp+2QLSzcKgpwMQmB4++Ha/eUwvx3THwReTb0/ni4U35ArJlu99C
+	dhNU/TchAFWvFsZ18fjNulOvg9ZOHyzcJetj4nRarZPMDcP0gpmkkCrVOND0FX0k
+	wk67klSlY3+w0JR02lh/Z0cHXUTS3ZspcZVKkpF6t32Bf3wP6iRWsFRCbnLSig50
+	P8vvSRK0jm51X9xncqTIOFFksW4b9J2lkeBXPZ7RbHmYEqYhfDog5FP9aSow/GqC
+	q167LJSYwV7GeKgTOmgWOr/Imwc+vzyeC8HbAPf+sBp7UEFLDEMq83J0OznkKZIn
+	Cq7xU3E9xwUyHYShIhwOQ==
+X-ME-Sender: <xms:Jfa1anvFEqFQ1-0fvRAVlTzTHFMBLCEJf0OTgtZxLZlCrzTtBNM79Q>
+    <xme:Jfa1akXm0QUEkWRhhcRkCjyqlAy0IcQz9mprarA_T4pugk_C0lKQm1897ztTggOsf
+    BGiEB1e1Ln3L4Q8PTdTwaRx-VUO5UepS3y1Jj7uXQ4etZTaFNXv7Vhe>
+X-ME-Received: <xmr:Jfa1amTw8DV4ceNFo5s1W4TtQpGk4wZvKhGcuXIFFLwpPPKbmpac5k7tDHAVHMAEna_fdDBN649fWVLClrwodvXjb5maKmdS>
+X-ME-Proxy-Cause: dmFkZTGsP48+WByhG+X7tNrTBmqPjV5nT4JgXqfIb6LSMkBmlZp629+BkEepAHRxOhzHt7
+    lIrAPJ00gcEQfVN6cQ5Wr5qCa3eNzMHziejRc4HpApBfBNjnaqF8IPEte99jJGqiquVvl1
+    TnOmEg0OjIy+MY5B3v0CzxArFjo7f0AIy8Nb1oqXnnuO2lcTRUP34/0rlO9StDO7YHgor9
+    HL6RTfeUuxE9h7iZof13jcH1Slr1VlkEfvYjyscBjj5rWNSRqB+dH1lOpGOyF4mdnEXcSR
+    ptz/7E+ESs5JHnykKRBqNSdGM1hNfn3r44lBqHpWY9HA2E+Ikuok5BmxR3SJBj7DHTOSqr
+    nxZs1endMDolYMlcIJ2tjFlUGK5B1fySaTTJdprgtODXTRUSd/xfR+ds3HS1d+ARkVbqGX
+    2pwSGw0Tm96YY6fFsCA2xLWLgRv+Xtn8oKAQmcH476nQaeM0ZYdJYwjdfAl/I8tMXwg0JW
+    7KdUwtMB4ne1EKRoZcAKbQiraxGTKMBXPsf5PQbby30gY9PotinVUGIzP7NxsTpWFdad95
+    atAgJ1wPiLYVQf+aazK09fYxwuZ8XzRmDuLpJ5Dr6CWOOWa0M6tBOrw7/Dzug25YxvIXma
+    3qLrvBIXz43wsEWzQjJB0gLFh+4/6NGM1jTo1ZnxgcmU5L+CuQTgfPJ7VP0Q
+X-ME-Proxy: <xmx:Jfa1aqIcMxfkMduHebSMCAK43iGcjIiMDeeMjr0yUCgYkEV65XFP2w>
+    <xmx:Jfa1av11QCn5SiOy7QTWeKvZRNICX4ufuwk1ZD8nb5RoTfGSUyTjRg>
+    <xmx:Jfa1alIhC2bBEZZb35JruvM3uF4lRU1Rok6VeR3LcIcYsP9-p4co6Q>
+    <xmx:Jfa1ann9DlDu6nMWp19O8MQNeIu6v1ZvpC8FTxbLWwZUqlUR-oD5HA>
+    <xmx:Jva1aiDpBzlG5zPszoxoeslEmdRenJBIO2njIMA8yLlHYBdfeVuvRUrY>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 25 Sep 2026 00:18:43 -0400 (EDT)
+Message-ID: <1272ec00-bbe6-4d70-ae0c-e1f68c5e65ee@pobox.com>
+Date: Thu, 24 Sep 2026 21:18:41 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.2 000/438] 7.2.8-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260923140644.756254324@linuxfoundation.org>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20260923140644.756254324@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-From: Darrick J. Wong <djwong@kernel.org>
+On 9/23/26 7:00 AM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.2.8 release.
+> There are 438 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Fri, 25 Sep 2026 14:05:46 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.8-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-LOLLM complains that we fail to flag dabtree blocks that should never be
-associated with the file fork -- data forks can't point to xattr leaves,
-and attr forks can't point to dirent blocks.  Add the missing checks.
+On 3 amd64 systems and 1 arm64 virtual machine, I tested 7.2.7 +
+stable-queue as of commit b1b54c5d771a22b69e435ef44b5fe9ac1e714703
+("drop 3 patches and reorder one 6.18 patch based on RC review feedback").
 
-Cc: <stable@vger.kernel.org> # v4.15
-Fixes: 7c4a07a424c18d ("xfs: scrub directory/attribute btrees")
-Signed-off-by: "Darrick J. Wong" <djwong@kernel.org>
-Assisted-by: LOLLM # finding obvious bugs
----
- fs/xfs/scrub/dabtree.c |   12 ++++++++++++
- 1 file changed, 12 insertions(+)
+Working well, no regressions observed.
 
+Tested-by: Barry K. Nathan <barryn@pobox.com>
 
-diff --git a/fs/xfs/scrub/dabtree.c b/fs/xfs/scrub/dabtree.c
-index 72cd880a5745e7..639228601cc6bc 100644
---- a/fs/xfs/scrub/dabtree.c
-+++ b/fs/xfs/scrub/dabtree.c
-@@ -410,6 +410,10 @@ xchk_da_btree_block(
- 				XFS_BLFT_ATTR_LEAF_BUF);
- 		blk->magic = XFS_ATTR_LEAF_MAGIC;
- 		blk->hashval = xfs_attr_leaf_lasthash(blk->bp, pmaxrecs);
-+		if (dargs->whichfork != XFS_ATTR_FORK) {
-+			xchk_da_set_corrupt(ds, level);
-+			goto out_freebp;
-+		}
- 		if (ds->tree_level != 0)
- 			xchk_da_set_corrupt(ds, level);
- 		break;
-@@ -419,6 +423,10 @@ xchk_da_btree_block(
- 				XFS_BLFT_DIR_LEAFN_BUF);
- 		blk->magic = XFS_DIR2_LEAFN_MAGIC;
- 		blk->hashval = xfs_dir2_leaf_lasthash(ip, blk->bp, pmaxrecs);
-+		if (dargs->whichfork != XFS_DATA_FORK) {
-+			xchk_da_set_corrupt(ds, level);
-+			goto out_freebp;
-+		}
- 		if (ds->tree_level != 0)
- 			xchk_da_set_corrupt(ds, level);
- 		break;
-@@ -428,6 +436,10 @@ xchk_da_btree_block(
- 				XFS_BLFT_DIR_LEAF1_BUF);
- 		blk->magic = XFS_DIR2_LEAF1_MAGIC;
- 		blk->hashval = xfs_dir2_leaf_lasthash(ip, blk->bp, pmaxrecs);
-+		if (dargs->whichfork != XFS_DATA_FORK) {
-+			xchk_da_set_corrupt(ds, level);
-+			goto out_freebp;
-+		}
- 		if (ds->tree_level != 0)
- 			xchk_da_set_corrupt(ds, level);
- 		break;
-
+-- 
+-Barry K. Nathan  <barryn@pobox.com>
