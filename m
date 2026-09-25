@@ -1,129 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0DCB36495F;
-	Fri, 25 Sep 2026 12:58:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E0FF36495F;
+	Fri, 25 Sep 2026 12:58:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790341096; cv=none; b=GWh4VGQp10JzU6/o7EZVYZ89UiuKgd9d6MJnMOAWu6QoIjTB3+oMDcu/h1xyHaChxpTe8ZdAzAL0swWN+eLObfjoX6zP2dloG4mq/Kaw6XBuy47xeHAcdwnJspxRDX3geZqJSHeyN22h2Pkk4hz8ADHAip2V2sI4k0FctQa14bQ=
+	t=1790341108; cv=none; b=NEd3vQvSqsEd0DwvZcjQAGzWi7HqD9oqQ+0N5tnEnezBagMRnh+WNYu3vm5ANu0Uw6ApYPG9HixM/yDRdmql/rgEFQ+/zSmQIL8tls3uzDnEx8sQ8UpnNJ1aTbPsKKMLaRQGmeocAfkX4AKrdwWUC6u5Xmm7KEL0SnEag/7ZmbE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790341096; c=relaxed/simple;
-	bh=Djh7EIlJWoKVdGspdFOu0gSdxVPNo3FdFkoX9qmfmgk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cXwEsqLMTtQxheXEut98HRIMBOWwzYBpz8sxo6vLSAc3FMTEgcTxforlZmhcE6NgdjUsEpvLaeAVzAJCYmgRwTlHbRNmWz6IsnoAIM3QI1BdapfL8nIyd8dzgTKmJqMoNs44fs9YZv86ow3H5rHMFqJst6JNB710hmWx7hVSAjo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UbmABMCD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790341108; c=relaxed/simple;
+	bh=JDAQJyiC7YeCYZHCyezL/VjzYHBQbtFEYhZXzW2D1/c=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=FmF5FgtKtlnQjO6BLxNV6DQY1V4gMzJrTYfi2JhREwrW1//mMhVzfRanc3fTDUGy0gzUGYD2OpBBY7igoSwe/uk0YCZ/o4wvwqkxcYx1asIsHhhqAg/BYeApqtTbflnd5RDGT/lmNVO5L9nhr4eNBEI0npXg/QOeM4hQmpz2ShM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Sqz+VnK1; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UbmABMCD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A961A1F000FF;
-	Fri, 25 Sep 2026 12:58:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790341095;
-	bh=jbnszAl0K2VzxzoSrqdeRmwXSjuXaYSQ8xFcW+B2Iio=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UbmABMCD3NJD18sg93yx8jrXsuUaIDW5mnrEVLTg6fzvCRXCnallCKU/aHKc5Ujl1
-	 I0vVx09yYduB7rxp1XMEkWSATP3Hr91gCvaUbQVzA6YRrqzVzcpW/2mZeZdO/NaN61
-	 /Ans4jXN/JZUSgJU9zX/4auRYKLjRb9rkc+U7MUBZD+JSbsP16pCy9+MI19foMDerf
-	 RI9aFat4ufgdX2dLBvZpCR85hUow+beiMf3AWGSmKCslac+6pkbCfRJF4A7L+KvrmQ
-	 VOI/0qY2BpPUJVRWTbO4abBg81p80fQDim3OHWxCLzlGQgcyg2WZ0wFZ74pqkLq6nA
-	 YBVlqyXBNL4vA==
-Date: Fri, 25 Sep 2026 14:58:11 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Jacky Huang <ychuang3@nuvoton.com>, 
-	Shan-Chun Hung <schung@nuvoton.com>, Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
-	Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Steam Lin <STLin2@winbond.com>, 
-	linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, Jacky Huang <ychuang570808@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] clk: nuvoton: ma35d1: Add missing WDT/WWDT parent
- clocks
-Message-ID: <20260925-skinny-husky-of-cookies-4aaddb@quoll>
-References: <20260921-perso-ma35d1-upstream-clk-v2-0-209fd32a8b00@bootlin.com>
- <20260921-perso-ma35d1-upstream-clk-v2-1-209fd32a8b00@bootlin.com>
- <20260924-bald-awesome-griffin-7d1d5b@quoll>
- <87jyo9ljlo.fsf@bootlin.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Sqz+VnK1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=hr
+	var9ms2CLILUqPU2E68sQCBkXDl1Ad+NmZigrC4Mg=; b=Sqz+VnK12mXLS/3/1J
+	BoGDM0hZudXYbYcX3Z2IfwjxGDqLxjDu5ovfwi7MLR/AhBNZG9f3uTyC1t1VADcw
+	1dOkLgTlVazcPU6GAfdi2/c63+otumEz1IMScARm1glooAhd5HxVSbkxq/AOvMM6
+	Xj9cqlHX06kC0EbFOVN6ymmfc=
+Received: from pc.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wD3f3zUb7ZqOLTlAg--.28269S3;
+	Fri, 25 Sep 2026 20:57:59 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Alisa-Dariana Roman <alisa.roman@analog.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	linux-iio@vger.kernel.org,
+	linux@analog.com,
+	linux-kernel@vger.kernel.org
+Cc: Jiale Yao <yaojiale02@163.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/9] iio: adc: ad7192: reject devices without match data
+Date: Fri, 25 Sep 2026 20:57:39 +0800
+Message-Id: <20260925125754.2162337-2-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260925125754.2162337-1-yaojiale02@163.com>
+References: <20260925125754.2162337-1-yaojiale02@163.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <87jyo9ljlo.fsf@bootlin.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3f3zUb7ZqOLTlAg--.28269S3
+X-Coremail-Antispam: 1Uf129KBjvJXoW7tw15uF4rWrWDKFykArWrZrb_yoW8Gr1xpF
+	WjkF9Y9rWUGF1xGr4DGa4UCFy5uF13C3yrKFykuasa9ryFkr1UZryIga4Sqr1rKFWFka4D
+	trW7tr18W3WkCr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pi1CJLUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzhdZk2q2b9ev9QAA3t
 
-On Fri, Sep 25, 2026 at 12:18:43PM +0200, Miquel Raynal wrote:
-> Hello Krzysztof,
-> 
-> >> Reported-by: Jacky Huang <ychuang570808@gmail.com>
-> >> Closes: https://lore.kernel.org/linux-clk/b8a8a65b-e302-4747-bc90-4920fc48795a@gmail.com/
-> >> Suggested-by: Jacky Huang <ychuang570808@gmail.com>
-> >> Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock controller")
-> >> Cc: stable@vger.kernel.org
-> >> Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
-> >> ---
-> >>  drivers/clk/nuvoton/clk-ma35d1.c               | 2 ++
-> >>  include/dt-bindings/clock/nuvoton,ma35d1-clk.h | 4 +++-
-> >
-> > Please do not combine patches.
-> 
-> I thought splitting these changes would not make sense in this (= a fix)
-> case, but fine.
-> 
-> [...]
-> 
-> >> @@ -248,6 +248,8 @@
-> >>  #define ADC_GATE	233
-> >>  #define EADC_DIV	234
-> >>  #define EADC_GATE	235
-> >> -#define	CLK_MAX_IDX	236
-> >> +#define PCLK3_DIV4096	236
-> >> +#define PCLK4_DIV4096	237
-> >> +#define	CLK_MAX_IDX	238
-> >
-> > This cannot be updated. If it has to, then not a binding and should be
-> > first dropped from the bindings like we did for most of the platforms
-> > having similar issue.
-> 
-> When you say "This cannot be updated", do we agree that you mean
-> "CLK_MAX_IDX cannot be updated"?
+SPI driver_override allows a device to bind to this driver without
+matching either the OF or SPI device ID table. In that case,
+spi_get_device_match_data() returns NULL.
 
-Yes, the MAX ID.
+ad7192_probe() immediately dereferences the returned chip information
+to initialize the IIO device, causing a NULL pointer dereference.
 
-> 
-> I'm not sure I fully understand the reasoning behind, because the whole
-> point of defining this CLK_MAX_IDX value is to let drivers know the
-> number of clocks, so it must obviously follow the updates in this
-> file. I cannot just drop it, the driver does not work without it. If we
+Commit 572a00852635 ("iio: dac: ad5686: missing NULL check on match
+data") fixed the same driver_override issue in another SPI driver.
+Reject devices without match data before using the chip information.
 
-It's not a binding if it has to change, because bindings should not
-change - otherwise they break its users, because  since it is ABI there
-is an outside user expecting EXACTLY this number of clocks and it cannot
-grow. Obviously, this is not a binding just like FOR EVERY other case so
-can be safely dropped.
+Fixes: c3708c829a06 ("iio: adc: ad7192: Convert from of specific to fwnode property handling")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
+ drivers/iio/adc/ad7192.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-> enlarge that number, what is the problem as long as we keep the other
-> numbers identical?
-> 
-> Maybe one way to fix that mess is to:
-> 1- Add the 2 new values (238 and 239) + a new define:
->    NUVOTON_MA35D1_MAX_IDX 240
->    238 would then have two definitions for a short period of time.
-> 2- Replace CLK_MAX_IDX by NUVOTON_MA35D1_MAX_IDX in the driver
-> 3- Drop CLK_MAX_IDX in the bindings.
-
-Why we can't fix it like we did everywhere else?
-git lg -- include/dt-bindings/clock/
-and search for "number" which leads to recent commits like
-d10f26a7abbd3dd5d59bac1acdca117385b54ea9
-but there was same work for Samsung and many others (Renesas, maybe
-NXP?). You add define to the driver, then drop it from the binding. Can
-be a few commits like we did for many cases, but recent change from
-Linus I think went acked while combined binding and driver.
-
-Best regards,
-Krzysztof
+diff --git a/drivers/iio/adc/ad7192.c b/drivers/iio/adc/ad7192.c
+index d8f5886fcf69..8bd810546311 100644
+--- a/drivers/iio/adc/ad7192.c
++++ b/drivers/iio/adc/ad7192.c
+@@ -1406,6 +1406,9 @@ static int ad7192_probe(struct spi_device *spi)
+ 	st->int_vref_mv = ret == -ENODEV ? avdd_mv : ret / MILLI;
+ 
+ 	st->chip_info = spi_get_device_match_data(spi);
++	if (!st->chip_info)
++		return -ENODATA;
++
+ 	indio_dev->name = st->chip_info->name;
+ 	indio_dev->modes = INDIO_DIRECT_MODE;
+ 	indio_dev->info = st->chip_info->info;
+-- 
+2.34.1
 
