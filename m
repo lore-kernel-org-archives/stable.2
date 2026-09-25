@@ -1,165 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f42.google.com (mail-qv2-f42.google.com [74.125.230.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A49E2F8E88;
-	Fri, 25 Sep 2026 14:02:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21F434734DE
+	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 14:11:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790344972; cv=none; b=uM3J3t1hMf8GrEFIm+pjKVBe+mZ0RLBWDqFPXY3ti8EAz3DTkIq5G46CCsEubnfM9OVCfMaEZsZeVfCN5SFATmgzIqd87H6mO/p5k6bQcCGyL2ufx6J9G+Fo9B+4IvmkfuZT0I7tds7y0f+unbIavMO/GrCKOYjXnm6GtN4CmKM=
+	t=1790345494; cv=none; b=ErTW6objIKjJ+BQZ7kVuSvWfdZjWcnd7YLcD2aCkra6pEHS1aDiReVwxWwsZedBWBS0/IQCiKZSOuRRyH+KuoidMwY+IqnY3VyDJRla0SHELefMsq0NRo464Aoyx+KrOsGR3MVdKm3nz5A0bHByoHSPWRXeqJfXTkMNuxr5dfK8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790344972; c=relaxed/simple;
-	bh=vJmM53T1gvLVt2GOugt91tr2ZoRcYIz6a2/D9x2PQuA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OX1aA/QxMGkdtNOh8ddLRafAPlPz8vXd0ROZoppHRCUDPwHGNxJT7M98C3NdMHPV0FVwKm9j5b6hMSpw3PHPWM51R+4PJ4Kw6rWK1i1H77CZoWKBgB5lA3iApEPPRVWlmRPVbq66bkrr9gy8k1/mGQY9dku7TMKvQDCz5jmIAeQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jVd9KAcu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790345494; c=relaxed/simple;
+	bh=BnuemxHse+a2/gGmYQjf5SbAdx7uvJn7RYhO3uV+Qmg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=c3u2MXxnHbrVuR5fetmBUfRTdjmwlMMF5SlSn/pIH6mejUJ9t+ltrDFNa+i3s7RZgrSuQwQp1TWkOlO40Ud85AJuqrUKV2NE0s6P81JKrkneExtwq4M2NBxJKLJ6HByxeBAZQTgERaKTIIIi+3D8uKDCrsLC++oUpVh0aDMDVPA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=1password.com; spf=pass smtp.mailfrom=agilebits.com; dkim=pass (1024-bit key) header.d=1password.com header.i=@1password.com header.b=B92yiX1u; arc=none smtp.client-ip=74.125.230.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=1password.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=agilebits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jVd9KAcu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A503F1F000FF;
-	Fri, 25 Sep 2026 14:02:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790344970;
-	bh=NNCsrq1Pv4PJ3tCFfQhR0ITmItYI/b9/JCcKk5G3gR4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=jVd9KAcuMu0TNXZeoByHF3KAzOSxm8XMBVZ6mQ6QBVKKxJTc7/cm529qR6DbrR8Io
-	 rAoWeoJCZM+eN7ARUYqNxWblUf31m2r8SH6cjJX46DD/Ph0kY85iYkqO+a6eDEYMZC
-	 faitM5TpGFrED073qp0WLAr9ejfunVcNc6wbGLBDwxjfqJ6mj9NfeZqPmKsVicfzjB
-	 2cSe6opxwp84fTugfEwBHskJZj9y016emGRNn7jtQLkyaSHF38KgsAmK7vfWQHA37k
-	 y0fbpezVJaTCm7/xo1L1ImRh6Rh1nLMVf8GNdqXYNgD2hNuaoKD6HTGx2FeZlD8QO4
-	 5QAZSjCeKoROQ==
-Message-ID: <d7460bcd-b9c2-4a83-8248-d13a9ac1678b@kernel.org>
-Date: Fri, 25 Sep 2026 13:28:30 +0200
+	dkim=pass (1024-bit key) header.d=1password.com header.i=@1password.com header.b="B92yiX1u"
+Received: by mail-qv2-f42.google.com with SMTP id 6a1803df08f44-9144083bddaso1312316d6.3
+        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 07:11:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1password.com; s=google; t=1790345492; x=1790950292; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=h/EePFAN2I0oSDWPKvqO/KiMg/JE8Drv0QT/R0nbfqc=;
+        b=B92yiX1u+05EtCtx2AhCFuC8mP4bluVjTL5SEs+sQX308H47b5YOTJL1/9/jtMyAk7
+         //lBF1cstwiOOYRgfrZsov950rU8wMWjyf/nEPfKbUBsAejWAxynyeMQ3/bc7Duax25i
+         DyZis8JmqoQelvzaBWLPsNhGfyKlTUSzE2NWw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790345492; x=1790950292;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=h/EePFAN2I0oSDWPKvqO/KiMg/JE8Drv0QT/R0nbfqc=;
+        b=MIqVDXCiji/0uoBMoUld1G2EzpZ9kbt4lslVJOuNd3Q8f5vtu230hcwPlvM1dJhZ2g
+         oHQQsnk+rWraGFiIXJF6+OXQrJrWZMTY8Cq2E8s8cuDYcV4+fkPsYJlF/38UHAXZ0+d7
+         BvFiQqzR0DRtobRvJeohSaFIu0wsyaYX1S6KFUytEsjAXFnssAklKrRNqFU7cRkKq2+S
+         q02RSviN5sWOtKBgEEBNNnVaFhMe9a4XgyCiCD0cNILU64KfGO5tj+gFcskhodJjaptv
+         npxtHb7l+VqJe9CSj0aeWOOEZo0pJikwArm7cipzEyEz6ZmbQAvWpFI+JG8gKr7Qmg/j
+         K2vQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzgzyRcpClnA02sjnDkBWHFbdBnZDsMQc6uZO2fsSN44W5/35TMam6r8mVEWK1zU0u7suzfHV8=@vger.kernel.org
+X-Gm-Message-State: AFuF++k3m1bhk1dQO/21a/6na1NqfhfznGSsV5LmejHY67ckSMmJrTgC
+	Wz10B7PCKXLtX9/GILlKoH2PwK2iPiFQ2/TYMLFnXkZop//Ja+hh2NR0Fo1bKoav/EY=
+X-Gm-Gg: AYBFou1vtGkYPg6vjMeu5Rg4oficTVBKsD0vWdZ5o5Z5n6Rcf95wZYv6SHcIYYP/S+W
+	SWRN/ur4TumiZyv+3M8LdHxKCmfUyd2BZ+fdaGJBUp3RZcTxgWpQcDD9s3KVbwvySvg6figbVQ4
+	n53hOQhzE3cUqscyQA99nF4S4evSDPxuGhVnv3/P8RO3tzSk4mzn5e/KbmUr4tZTOhBD9c9RiVE
+	XBu6iYzGjMM37JQcBMy7qbYSVSz8b6AAvBVIMiVVaBht9HVvTVkMzR9ad4slaFaY2iwOqb1+1kR
+	cyNP+JS8cet75oC4l7YkVnYU6wPMFCnKpVVtdWHs6ZDvgJVg3j/O+KyNiXSI0NXA6kJ3Ojtg8Sp
+	ihrhWhREBlGvvFfjZzXuPBNsykn/KbDr7DDtag4l+fvdDxXyS/Fd5TKL120NZ8wqME/8KgqohxJ
+	0q3+64ZQgn0gi2IvDAByhAGh4Tp5LuWxG+PcN5fJEEg9vJjsPwMtJk2SXPSau1cwgjykwi5mdBo
+	hnWzGlUbgIr9qlXmMnH/OGv1kiafw==
+X-Received: by 2002:a05:6214:3116:b0:90c:b843:d679 with SMTP id 6a1803df08f44-9142f8c7f44mr44499816d6.29.1790345491808;
+        Fri, 25 Sep 2026 07:11:31 -0700 (PDT)
+Received: from localhost ([2600:4041:59c3:300:7917:c7f6:28c6:182b])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9143f0cc9d3sm3637356d6.19.2026.09.25.07.11.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 07:11:31 -0700 (PDT)
+From: Axel Mierczuk <axel.mierczuk@1password.com>
+To: Julian Anastasov <ja@ssi.bg>,
+	Simon Horman <horms@verge.net.au>
+Cc: Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>,
+	Phil Sutter <phil@nwl.cc>,
+	netfilter-devel@vger.kernel.org,
+	lvs-devel@vger.kernel.org,
+	coreteam@netfilter.org,
+	netdev@vger.kernel.org,
+	Willy Tarreau <w@1wt.eu>,
+	Keith Hoodlet <keith.hoodlet@1password.com>,
+	Axel Mierczuk <axel.mierczuk@1password.com>,
+	stable@vger.kernel.org
+Subject: [PATCH nf 1/2] ipvs: validate cport in received sync records
+Date: Fri, 25 Sep 2026 10:11:14 -0400
+Message-ID: <20260925141115.16126-2-axel.mierczuk@1password.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260925141115.16126-1-axel.mierczuk@1password.com>
+References: <20260925141115.16126-1-axel.mierczuk@1password.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] proc/task_mmu: handle special PMDs in clear_refs and
- pagemap
-To: Gregory Price <gourry@gourry.net>, linux-mm@kvack.org
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
- kernel-team@meta.com, akpm@linux-foundation.org, liam@infradead.org,
- ljs@kernel.org, vbabka@kernel.org, jannh@google.com, pfalcato@suse.de,
- peterx@redhat.com, jgg@ziepe.ca, sashiko-bot <sashiko-bot@kernel.org>,
- stable@vger.kernel.org
-References: <20260912122822.3348978-1-gourry@gourry.net>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260912122822.3348978-1-gourry@gourry.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/12/26 14:28, Gregory Price wrote:
-> mshv_vtl_low can install a special PMD from a PFN supplied in the mmap file
-> offset.  That PFN need not have a memmap entry.  Reading /proc/PID/pagemap
-> or writing /proc/PID/clear_refs for such a mapping oopses the kernel.
-> 
-> With a test driver mapping the PFN at the 1 TiB mark:
-> 
->   echo 1 > /proc/self/clear_refs
-> 
->   BUG: unable to handle page fault for address: fffffb5b80000008
->   #PF: supervisor read access in kernel mode
->   #PF: error_code(0x0000) - not-present page
->   RIP: 0010:clear_refs_pte_range+0xb1/0x1e0
->   Call Trace:
->    walk_pgd_range+0x50a/0xad0
->    __walk_page_range+0x6a/0x1d0
->    walk_page_range_mm_unsafe+0x193/0x230
->    clear_refs_write+0x18e/0x3f0
-> 
->   pread(pagemap_fd, buf, 512 * 8, addr / PAGE_SIZE * 8)
-> 
->   BUG: unable to handle page fault for address: fffff57840000008
->   RIP: 0010:pagemap_pmd_range+0x3cf/0x6b0
->   Call Trace:
->    walk_pgd_range+0x50a/0xad0
->    __walk_page_range+0x6a/0x1d0
->    walk_page_range_mm_unsafe+0x193/0x230
->    pagemap_read+0x1dc/0x350
-> 
-> clear_refs_pte_range() passes the PMD to pmd_folio(), while
-> pagemap_pmd_range_thp() uses pmd_page() followed by page_folio().
-> 
-> Both paths assume the PFN has a struct page and dereference bad address.
-> 
-> Use vm_normal_folio_pmd() and vm_normal_page_pmd() so clear_refs skips
-> folio operations and pagemap skips folio-derived flags for special PMDs.
-> This matches the PTE paths, which already use vm_normal_folio() and
-> vm_normal_page().
-> 
-> User-facing notes:
->  - Pagemap still reports PM_PRESENT and the PFN to a CAP_SYS_ADMIN reader.
-> 
->  - For a special PMD backed by a valid memmap entry and for the huge
->    zero PMD, PM_FILE changes from set to clear.
-> 
->  - PM_MMAP_EXCLUSIVE is already clear in both cases.
-> 
->  - The output for an anonymous THP is unchanged.
-> 
-> Tested in QEMU with the test driver on broken and fixed kernels.  Both proc
-> operations oops before the fix and return 0 after it.
-> 
-> Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/patchset/20260912034833.2952750-1-gourry%40gourry.net
-> Fixes: 3c8e44c9b369 ("mm: mark special bits for huge pfn mappings when inject")
-> Cc: <stable@vger.kernel.org> # v6.19+
-> Assisted-by: LLM
-> Signed-off-by: Gregory Price <gourry@gourry.net>
-> ---
+Local templates have cport 0 and IP_VS_CONN_F_NO_CPORT clear, so
+ip_vs_conn_in_get() cannot match them. A template received over the
+unauthenticated sync protocol with a nonzero cport can reach the
+protocol state machine. Before template state validation, this
+could cause out-of-bounds reads, crashes and kernel data leaks.
 
-Simple fix, let's CC-stable indeed (unless I am too late and this is already
-upstream :) )
+Ordinary records with cport 0 and IP_VS_CONN_F_NO_CPORT clear, or
+with a nonzero cport and IP_VS_CONN_F_NO_CPORT set, create connections
+that incoming lookups cannot match. The latter also keeps the
+cport-zero fallback in ip_vs_conn_in_get() enabled.
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reject all three cases. Continue accepting ordinary connections
+with cport 0 and IP_VS_CONN_F_NO_CPORT. The companion patch
+"ipvs: filter some flags received in the backup server" rejects
+template records carrying IP_VS_CONN_F_NO_CPORT.
 
+Fixes: 87375ab47cd0 ("[IPVS]: ip_vs_ftp breaks connections using persistence")
+Cc: stable@vger.kernel.org
+Suggested-by: Julian Anastasov <ja@ssi.bg>
+Signed-off-by: Axel Mierczuk <axel.mierczuk@1password.com>
+---
+ net/netfilter/ipvs/ip_vs_sync.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
+
+diff --git a/net/netfilter/ipvs/ip_vs_sync.c b/net/netfilter/ipvs/ip_vs_sync.c
+index 5383aeafb0ae..3998e9a0a391 100644
+--- a/net/netfilter/ipvs/ip_vs_sync.c
++++ b/net/netfilter/ipvs/ip_vs_sync.c
+@@ -848,6 +848,25 @@ static void ip_vs_proc_conn(struct netns_ipvs *ipvs, struct ip_vs_conn_param *pa
+ 	struct ip_vs_dest *dest;
+ 	struct ip_vs_conn *cp;
+ 
++	/* Templates require cport 0. Ordinary connections require
++	 * NO_CPORT exactly when cport is 0.
++	 */
++	if (flags & IP_VS_CONN_F_TEMPLATE) {
++		if (param->cport) {
++			IP_VS_DBG(2, "BACKUP, template with cport dropped\n");
++			kfree(param->pe_data);
++			return;
++		}
++	} else if (!param->cport && !(flags & IP_VS_CONN_F_NO_CPORT)) {
++		IP_VS_DBG(2, "BACKUP, conn without cport dropped\n");
++		kfree(param->pe_data);
++		return;
++	} else if (param->cport && (flags & IP_VS_CONN_F_NO_CPORT)) {
++		IP_VS_DBG(2, "BACKUP, conn with cport and NO_CPORT dropped\n");
++		kfree(param->pe_data);
++		return;
++	}
++
+ 	if (!(flags & IP_VS_CONN_F_TEMPLATE)) {
+ 		cp = ip_vs_conn_in_get(param);
+ 		if (cp && ((cp->dport != dport) ||
 -- 
-Cheers,
+2.43.0
 
-David
