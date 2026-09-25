@@ -1,78 +1,85 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 633F84D90D7
-	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 16:10:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2551B4E06C1
+	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 16:12:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790352642; cv=none; b=rh7+Lu2SLJAU3nPCzSuj6EvKSKmqJTMFDyUivpYjMu87WO6PdxfWGMJAURFDK1k3UKcOynzbEfbiXi+JTZKLiCGhkOMvhSjMwAT8fSyeeC6bDOure6rU2daI+tf5bxUr68WR5oOT6GvVwx3tD1dfusK6MVdBUJfmwS3O4K859iw=
+	t=1790352726; cv=none; b=kE52hJYCIOKXjDSgBpR8nb7J2Byje1Ve38k71XKu8VFR9YD+eE0aaA+ef5RDAfL2wTRzsSSAJFX3SMDJVJyVc/Ugr69w8TbudCNksOAWY9uU2eASW4/M0W0AOq4XKzeJW+zoBHqWOyVOyNYvRrRs8AT6eQlvAwOl5jRcnV5I6pY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790352642; c=relaxed/simple;
-	bh=7VEA427ZI5xoviEL+ab5QjV9AmDy8LeRj5+8UZplDTc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FX+xgf6iVQbuqGthILfDd6j9XTstfuPkmnjVhh19ZhaTfGdsRz/qdqX6gzJMd6Emb+jNfwFEWYArD51jgti1fC6YBvAucC1C06jXR5J1HZCfdANSEGVyMB65SSEiqOkiPR3szyFwhGb8UT+EFCZlzrUqRWAuJ7eKDMiMLXB/yeE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YeW5FInb; arc=none smtp.client-ip=209.85.221.45
+	s=arc-20240116; t=1790352726; c=relaxed/simple;
+	bh=Wfze54LtPMmI0xqKGIBHk5HpMn0us4cGASNlC9vZDgI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=FiquVDE3kcQAdDRS31lTYHfP/TLPBn3y7JiO94tLWni9Bo1oS43rlCry/eR5lFeYfJ/2BNdEkF6h57JrNcBdl6KPsLoh+RnTPmwmvOzUQbJ6iqwgnKR90lxc9Xw5LkXaWRkUyukc1e8qSjXr+5RG8vIgApou/+51oypf9Esmuww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sNgjUbZI; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YeW5FInb"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-4887d3c59ecso423433f8f.1
-        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 09:10:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sNgjUbZI"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e8185e037so6258435e9.3
+        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 09:12:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790352636; x=1790957436; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aH6diTs8gNRzCNhYXYtlFdmXwTeE1+K2YSTWsii/I0U=;
-        b=YeW5FInbK2E3AeoHM3rgIC35a2IXQ+Xj874MtsxXexgn42V141RGfvvj935ze5FT26
-         l+ylWXmjkbVAMXgXib85MENj8W6GNTyotlKC3nqvFSt54ha6tDQM1cIbs93VCRMbf5WS
-         Eci8XARZvnwTTkS3u9fkNPECDDO6EdhFplQRBQhhdn47nDg+kr00UF0bnq4qCDnwADxy
-         gnmaGNUBYoz9tStbl7LUjITmTcfRAn7HrfxD3Wz6HIlUBTrYIgqPdMoLEkaMFXxOkHOR
-         ICOh8CpDzaTmgtaRoDMSHx9VD8kNeGAmH6W9ws4K00CsQF/EOAahR3quGaOSI8WJnT3Y
-         PRCg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790352636; x=1790957436;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790352722; x=1790957522; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=aH6diTs8gNRzCNhYXYtlFdmXwTeE1+K2YSTWsii/I0U=;
-        b=w7/KDakA0jXw0oAegmKBbQnar9WbMrxXx+psfe8oOygz25qufhRx3Vseydx1aoNreg
-         A/2I+oYr5MRbIdNe8zhV2GV2chw/YkuL5XHw84Cul3JgKHOJs9Ewf+qrdv0HlIQm00CJ
-         m2AD4/tPDh4lF3MJzsxJUBaaAK3dqdTaEFGD27e9kWHqd6+y2TlsFWMRrusdrh+Ca/+v
-         Q+GAyoGeykgDbxO/W4gNUZCR6Ec3pmI6BYfQXcrnzOfJmVXoRhGwgWwc0aCBwUVMHyil
-         lHFalNbQgnMD0+4T6u5gAg+F/38Qc3JIMiazGmwzMEWwk5hLG6ovoU+bx8KV3gdMkodb
-         USmg==
-X-Forwarded-Encrypted: i=1; AKwUvBzYwWy0o/IhVtTGxB22A1QTfJSDvtOKXRC6wVuP0IwXBFKkeuUA7oBGR10Z65JRWTSKl8RBIaI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lmvP86VfYHliPTzgI23/LdKMNGrGDNEDrJLnEVvPsk2WaM509x
-	RwncSBpK6xjF9Nl+/SIcXK7NT3tlshjcRDr7D/LRtRCmp4ywl4btPZdl+8i9gOG69/o=
-X-Gm-Gg: AYBFou0psVkcL2pcccCUHTinLhYV6KDdA6DRLglW9r3keXehVAMtn9xTM6DXNgCMxK/
-	KyxLPAMWXT745wXhH6Wj2gu8eKjbRvdZK0o+CrD7YmKU/KMk91D774E4u98S7bSql85GWYiT1yj
-	otxqNa42GnUah4ntJzW1voTw1nY/BGQWtyWtkOxotnXGn3RnEKVFAXucXIxdfndGKHuVelXT/2z
-	jF6sdEi/6xf+9h2tyMEoaLPr3S6PEP1zFIJxz8VJ1t+sPRKyLx4Hbqy4RxH1wKZ2973Gn6WOo33
-	pzEfB8CiZM3QOOp7XAly+fDqJaIbXji/Omoel9ImLUHeL5cmgZDMPivwdLMK/GWgdR0wlKHNjKs
-	wov3/SAqoEZZXCu6S7I+55yz3VxKcEX47cnlK+Hov/skPzE3T7tKOBrRwk/isMbPD657q1ORgS7
-	8XQrNdrVfagFpVOqwuDZHJQkZmmJWrOz/rhfbzD9wSi0hH7gOjvCNYpK4imw9nRuCTOynGuvWRT
-	pNg8XU8g3UHgcAJWPxSWRqTOn2wee1tYG7hQHLBucJ246ntYZqrr50=
-X-Received: by 2002:a05:600c:5955:b0:49f:e29f:55ec with SMTP id 5b1f17b1804b1-49fe66f1af5mr85015775e9.9.1790352636084;
-        Fri, 25 Sep 2026 09:10:36 -0700 (PDT)
+        bh=gEfLZw+SZ9l3bCU1EQAdMa/xVIANZgIsiXamG4UPSuY=;
+        b=sNgjUbZIhygAZIkzzXLeekEyzPl1Zbb/HGIyvknQLWjo7H/n9l/TphO1K4oMsUNBrO
+         oYzvxfN++4dbmQNRTdbkMq63Q1omdMItldekZ+by82xNOU1g81F2xKQNgm+YWYhrz+QE
+         xR812hSyZWmXRPSJG77v8F4MFP/n8E6HVeDJcrXE8v7TIjlRG47R24EZ8jyDiYo1Fsz9
+         UMsy/25BUx2gs4fIFv4oF8Id/yxOu5x1OCQrDCQBh0iyKlHUawwrrwouFs+MyVnwDDW5
+         noTNODFwNmPFNl4fF0CXChlKNhYTuQgBdq2/KyP1pSx6fo/poLsQoQ4NVmALl04Tv1Cr
+         QEIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790352722; x=1790957522;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gEfLZw+SZ9l3bCU1EQAdMa/xVIANZgIsiXamG4UPSuY=;
+        b=yVeEgUX9g0Mfxvkr4Dc6f2crNCIunS3zm9YKI7PJMv6vlcUstoZsIuDbf/7tZlYmM2
+         KLvIoNfuqAERv8LeAsrCLbR5ZU8+qOUP+QScorMeOQbxqH4g4ruaR5KwZ5MYNJx5H3/u
+         o30rdcvWtDn5zcG8jo6YCSZWvYwZH63heHh2C/xUX/vUaIR6qSwzfgUicV9FASfVuLjJ
+         D0dnJTJD/q6sjeocOaAtZ0s219eSfhd89l3WVCvtPBjiPIz1O0HTETJ0ZohduZEEjEA4
+         Gjnj3cieqgCWi4rHyY+DH3ZnMc4nIGaM3joLgEmAQ/5NxD9dp2cTXUEgEhB1HxxRZ/Dp
+         AJHA==
+X-Forwarded-Encrypted: i=1; AKwUvBy9KuUBDpRqamSqMh+km++nB2Q5sQKsOLe46slbG4Tcy2SekAyOpAmzRhs3LNFsLPb6dcF+Xf4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kRFzKzBrY6LOSOff3Qq2HqDpAFybAjCGOQK7Vl9rQmGkJJZRog
+	V9mCNkL41NouR26FSze98rYKCxcJMsj+6xPU+FA4VtE1pwrIMLJUoPPNiixEObV6M3c=
+X-Gm-Gg: AYBFou1LAUKY5NXpJJ6oAt5hyhm3R0lMNsxcihq/8zoay8fDOQLU7qjpJFUxFeZItul
+	Z3r4lnLwxO7YsCVCuBX72opmHOyzc5Y7kIx4sNA7iXVEsUgHtJr4lrGIpR08TreTRtzM5DDD9TU
+	HSvHeVI4EVstnvXsihuP1+kAvETnXnCrDfIuX3VdzaJG3a278IXtTZ8+0djd+BruLfgd4KxMsDG
+	E2yiMaH4R8lZT2kmABSkV6BwM+WJU2i6EgHIvm1975t4KIF5dUe7ZRqdbRSoJRGXwj5AukuaJxd
+	a0iiwXtdMuC94sTX7KudE53JOWfQpaURxGFpYLjCncsiwMtaqPTW8DFNhNjSs/AWyrUwGYmR4Bb
+	i/utQeSeHwPcH1IpgqNZStY8rmLVjxQWsQrVJi4bkQZaEyO8DeEqJ6j6VPHUG/BW62LZrCjT/zL
+	z0Sd6YlRE63rN9iKpHkA3myf6GTWAPQ5x6ZFk0S/F45AcFR/r+l3kZaNBMzCnShKFOoOdRpdluL
+	f129ejeIAHjV5EYGheAheVXl3bq/H/OxN/dBhZydydK
+X-Received: by 2002:a05:600c:8518:b0:49f:d325:9912 with SMTP id 5b1f17b1804b1-49ff06bcd79mr47529705e9.10.1790352721951;
+        Fri, 25 Sep 2026 09:12:01 -0700 (PDT)
 Received: from andreayoga.wind3.hub ([31.189.116.68])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a64f9bcsm8196828f8f.32.2026.09.25.09.10.34
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff0658747sm81238665e9.1.2026.09.25.09.12.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 09:10:35 -0700 (PDT)
+        Fri, 25 Sep 2026 09:12:01 -0700 (PDT)
 From: Andrea Parri <parri.andrea@gmail.com>
-To: Alex Williamson <alex@shazbot.org>,
-	Ankit Agrawal <ankita@nvidia.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>,
+	Kevin Tian <kevin.tian@intel.com>
 Cc: Andrea Parri <parri.andrea@gmail.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
+	Joerg Roedel <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Joao Martins <joao.m.martins@oracle.com>,
+	Alex Williamson <alex@shazbot.org>,
 	Yishai Hadas <yishaih@nvidia.com>,
-	Shameer Kolothum <skolothumtho@nvidia.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Jiaqi Yan <jiaqiyan@google.com>,
-	kvm@vger.kernel.org,
+	iommu@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] vfio/nvgrace-gpu: Skip PFN registration for empty memory regions
-Date: Fri, 25 Sep 2026 18:10:16 +0200
-Message-ID: <20260925161024.189771-1-parri.andrea@gmail.com>
+Subject: [PATCH 1/4] iommufd/iova_bitmap: Clip recorded ranges to the bitmap
+Date: Fri, 25 Sep 2026 18:11:37 +0200
+Message-ID: <20260925161142.189813-2-parri.andrea@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260925161142.189813-1-parri.andrea@gmail.com>
+References: <20260925161142.189813-1-parri.andrea@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -81,93 +88,80 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-nvgrace_gpu_open_device() registers nvdev->resmem only when it has a
-length, but registers nvdev->usemem unconditionally.  In fallback mode,
-where the ACPI memory properties are missing or the C2C link is down,
-usemem.memlength is zero, so the empty region is still registered.
+IOMMU_HWPT_GET_DIRTY_BITMAP can set bits in the caller's memory past the
+end of the bitmap.  When the queried range ends inside a dirty huge
+IOPTE, the generic page-table dirty code records the whole entry, and
+iova_bitmap_set() then sets every bit up to the end of the pinned page.
 
-register_pfn_address_space() then inserts a node covering
-[0, ULONG_MAX].  Nothing removes it, because the fallback device table
-closes through vfio_pci_core_close_device() rather than
-nvgrace_gpu_close_device().  A second open fails with -EBUSY, and once
-the device is unbound the node outlives the nvdev that contains it, so a
-later registration or a memory-failure event walks freed memory.
+iova_bitmap_mapped_range() checks a range only against the pages
+currently pinned, and iova_bitmap_mapped_length() caps only the pinning
+window, so neither limits the write.  A range that starts inside the
+bitmap but ends past it passes iova_bitmap_advance_to() on its start,
+and the write loop runs to the end of the last pinned page.
 
-The node also captures every memory-failure report for a PFN with no
-struct page.  The callback rejects every VMA of the fallback device, so
-no process is killed, but the failure is logged as MF_RECOVERED rather
-than MF_IGNORED.
+Clip the range to [bitmap->iova, bitmap->iova + bitmap->length - 1]
+before computing cur_bit and last_bit.  A range that starts before the
+bitmap now has its in-range part recorded; the unsigned underflow in
+iova_bitmap_advance_to() previously rejected it whole.
 
-Guard the usemem registration with its length, matching the resmem
-handling.  Fallback mode then registers nothing and the existing close
-path is correct.  Guard the unregistration the same way.
+The clip runs before any pinning or indexing, so for a validated query
+range cur_bit and last_bit can no longer address outside the bitmap.  It
+only narrows the requested range; the bitmap bounds are fixed at
+allocation.
 
-On the unfixed tree a second open after unbind reports:
-
-  BUG: KASAN: slab-use-after-free in interval_tree_iter_first+0x209/0x310
-  ...
-   interval_tree_iter_first+0x209/0x310
-   register_pfn_address_space+0x97/0x100
-   nvgrace_gpu_open_device+0x21c/0x730
-   vfio_df_open+0x213/0x520
-  ...
-  Allocated by task 152:
-   _vfio_alloc_device+0x3a/0x500
-   nvgrace_gpu_probe+0xcb/0x660
-
-The fix should be safe because memlength already decided whether the
-range was meaningful: full mode always has a nonzero usemem.memlength,
-and fallback mode never calls nvgrace_gpu_close_device().  The guard
-only skips a registration that could never have been unregistered.
-
-Fixes: e5f19b619fa0 ("vfio/nvgrace-gpu: register device memory for poison handling")
+Fixes: 58ccf0190d19 ("vfio: Add an IOVA bitmap support")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
 ---
-Tested on x86-64 under virtme-ng with KASAN, not on Grace hardware. The
-driver was bound through driver_override to a QEMU cxl-type3 function,
-whose CXL Device DVSEC reports the memory as valid and active, so probe
-takes the fallback path; the device was opened through a noiommu VFIO
-cdev. Without the patch the second open fails with -EBUSY and, after
-unbind and rebind, the next open hits the KASAN report quoted above.
-With the patch neither happens.
+ drivers/iommu/iommufd/iova_bitmap.c | 27 +++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
 
- drivers/vfio/pci/nvgrace-gpu/main.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/vfio/pci/nvgrace-gpu/main.c b/drivers/vfio/pci/nvgrace-gpu/main.c
-index 963fd8ded20d1..326b991732148 100644
---- a/drivers/vfio/pci/nvgrace-gpu/main.c
-+++ b/drivers/vfio/pci/nvgrace-gpu/main.c
-@@ -207,9 +207,12 @@ static int nvgrace_gpu_open_device(struct vfio_device *core_vdev)
- 			goto error_exit;
- 	}
+diff --git a/drivers/iommu/iommufd/iova_bitmap.c b/drivers/iommu/iommufd/iova_bitmap.c
+index dac3e657d498d..44826ae330c4b 100644
+--- a/drivers/iommu/iommufd/iova_bitmap.c
++++ b/drivers/iommu/iommufd/iova_bitmap.c
+@@ -388,6 +388,30 @@ int iova_bitmap_for_each(struct iova_bitmap *bitmap, void *opaque,
+ }
+ EXPORT_SYMBOL_NS_GPL(iova_bitmap_for_each, "IOMMUFD");
  
--	ret = nvgrace_gpu_vfio_pci_register_pfn_range(core_vdev, &nvdev->usemem);
--	if (ret && ret != -EOPNOTSUPP)
--		goto register_mem_failed;
-+	if (nvdev->usemem.memlength) {
-+		ret = nvgrace_gpu_vfio_pci_register_pfn_range(core_vdev,
-+							      &nvdev->usemem);
-+		if (ret && ret != -EOPNOTSUPP)
-+			goto register_mem_failed;
-+	}
++/*
++ * Trim [@iova..@iova+@length-1] to the IOVA range covered by @bitmap.
++ * Dirty trackers may report more than was asked for, for instance a whole
++ * huge IOPTE of which only a part was queried.
++ */
++static bool iova_bitmap_clip(struct iova_bitmap *bitmap, unsigned long *iova,
++			     size_t *length)
++{
++	unsigned long first = max(*iova, bitmap->iova);
++	unsigned long last = bitmap->iova + bitmap->length - 1;
++	unsigned long end;
++
++	if (!*length)
++		return false;
++	if (!check_add_overflow(*iova, *length - 1, &end))
++		last = min(last, end);
++	if (first > last)
++		return false;
++
++	*iova = first;
++	*length = last - first + 1;
++	return true;
++}
++
+ /**
+  * iova_bitmap_set() - Records an IOVA range in bitmap
+  * @bitmap: IOVA bitmap
+@@ -404,6 +428,9 @@ void iova_bitmap_set(struct iova_bitmap *bitmap,
+ 	struct iova_bitmap_map *mapped = &bitmap->mapped;
+ 	unsigned long cur_bit, last_bit, last_page_idx;
  
- 	vfio_pci_core_finish_enable(vdev);
- 	nvdev->bar0_base = io;
-@@ -235,7 +238,8 @@ static void nvgrace_gpu_close_device(struct vfio_device *core_vdev)
- 	if (nvdev->resmem.memlength)
- 		unregister_pfn_address_space(&nvdev->resmem.pfn_address_space);
- 
--	unregister_pfn_address_space(&nvdev->usemem.pfn_address_space);
-+	if (nvdev->usemem.memlength)
-+		unregister_pfn_address_space(&nvdev->usemem.pfn_address_space);
- 
- 	/* Unmap the mapping to the device memory cached region */
- 	if (nvdev->usemem.memaddr) {
-
-base-commit: f49a343b305c0b6c19a3b50c0bbf10bcd0e2e8fd
++	if (!iova_bitmap_clip(bitmap, &iova, &length))
++		return;
++
+ update_indexes:
+ 	if (unlikely(!iova_bitmap_mapped_range(mapped, iova, length))) {
+ 		/*
 -- 
 2.53.0
 
