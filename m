@@ -1,63 +1,63 @@
-Received: from mail-pj2-f30.google.com (mail-pj2-f30.google.com [74.125.227.158])
+Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8395A46D2D8
-	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 07:51:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EE7547124D
+	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 07:51:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790322703; cv=none; b=P+qgvo7vJQ++1zUIpVAEamG47io6i/vxJGKSyFcAsbx4AJgQD0q/c6w/4i8qld2k972d0fVmF1z82vnUNGiZLl9MqiT1YfO/4Lc9v1PUkDVMmxuxXMrpCTpdsYkMyTzVobR0RVaGsNszhSbln75ajwNkq521lMtnrz00TDP545k=
+	t=1790322705; cv=none; b=KgH87c6czLXb1sW0Lfvm71k4XfDKjGa9ETa7MhEhJu9OIxQRSWt2IwxVZ3h756Hpf5zKZTINMl/PUnFIJ98DREWyPlhMxHw8BLbKjbVw6rcQbr8k9TMj3rMS19ys76zdDQHV/KBgB3I3CiTtEG0mrskQafg8cY1Cfy2OH3awUhg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790322703; c=relaxed/simple;
-	bh=5VFamt//9IVay154N9o/SJYnH/x0AOoQEJpP7Z5jksY=;
+	s=arc-20240116; t=1790322705; c=relaxed/simple;
+	bh=AE4ed5EuDDeiXAv98L0Il17NDPiv4a4pOR4ytnHlC3Q=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jX96eEIEOrTyMYx+SR/vh35sWTxZAsI8pbgtnHe9zZb2EZaXvMTMZpZj06jdM/XfIQs8oDMwWezfrXUcGR97vQsoX48OMmetWlqEjleO/ylx+a6TBu+5EtxYqK34ZU4jjqx5igNWRaW1m3pKX8tqqIS2QVArz0e5M5meyhZjpg8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Oe/00XKr; arc=none smtp.client-ip=74.125.227.158
+	 MIME-Version; b=Qm2LpzkMiqb1prU4jtPxMKZg/ekBFgpVfXQr8ZfPvLh0PrODMClRo8opKyQdaX3gTLVoYtr/m9YDW4eWWSODaz+x/v0aMF3v5/pE0lv8D2wk5KAG6bQyVvnM+Q5o3ElidmxePdG4L9gVsaYf3IHznR25FWTqZb2lG/8NV1RDiGU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B0DLxqxQ; arc=none smtp.client-ip=74.125.227.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Oe/00XKr"
-Received: by mail-pj2-f30.google.com with SMTP id d9443c01a7336-2d6ff2f2c4eso734375ad.1
-        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 00:51:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B0DLxqxQ"
+Received: by mail-pj2-f41.google.com with SMTP id 98e67ed59e1d1-3a0aa8aea53so138030a91.2
+        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 00:51:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790322697; x=1790927497; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790322700; x=1790927500; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=vV2liFOZgZ0xQDnBn10ckAcfKSt1UF7Me/i23FVAaN8=;
-        b=Oe/00XKrZPBdBPJXvJAgL4BsMQmhPdcl+7R5S+ofIwk2E2fsFXhqdXbWz+UhM0mp3T
-         BcViYMlNOc3KMMgtkSmv/sYOqcw4X+cbsz2je2fPQgyk+SgzSDBC8jJ4Hsg13Czpa25p
-         eX52gfK0P7RCbc3KxBYGhwYj/uuUM9cJ6FdvYyLB7z+E9cv9M0ct3hdcLliwO+h1Fv9P
-         ISPM3w3At5lOuKT3jJt78pMGjpAedPIKTMlFxpAAkooNNL2MbRZKeFu7BL8+/0rPe0DD
-         FAIVYRtsn1E4hW/xHZxWp65JALHZKs2fVlxY8pYU3BM1togo2V+8EUw8YoNx7ORdFMFG
-         5lcA==
+        bh=jpLrGCv4J+0iubueWZJcqGPb4zZNzwy+TJzfy9q1TYY=;
+        b=B0DLxqxQW2omh+ROsatbozyyWtf+1Ih8WB836ltJos2L7V9pDOfCLnxSaHfGJ7OJym
+         37TSok09qRuRXWVQV3vkTChbV5W1J8hC+cDj+8nKFw37rei7zu0S1v4L4r0IPNyZD6i4
+         TIbGYe1zDoMij30SrVhcZDB6MBDQ2Q1i+MSyCatKQ72Y5W657ETi5XoAEjPNJpmOF6+m
+         MhLnVbfuC+Jqjjo4pMcM/oWDqfaw6L2CCduhelP1hnRdU4MfYeuO3DFHsFuAuu+85gTx
+         Llua8Ni9sGq0Da7TkU7UZAUGhbRL3EJ+qGX6fYnKMFjtY8loj8XyfB3V22zl5gvzp9/q
+         8B/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790322697; x=1790927497;
+        d=1e100.net; s=20260707; t=1790322700; x=1790927500;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vV2liFOZgZ0xQDnBn10ckAcfKSt1UF7Me/i23FVAaN8=;
-        b=v5ptsnRSGchaxwy/g5T+tWIG50U5mUxCkGwUHuvlxG3pdO+LKg8njplkQq3+5QVpoN
-         5OHP6ugjOzLNXPsOUORMSRBnYJJpAEOzbaY6J8RLuHeGQhL+w0iULdUQYuF2lipUyvBd
-         ctK+O3XqXNm9sbRNHbyDXYAgTGKZ8gtjInuDyYSTlzwr2H3mzpgXh4fFDnj05IE09K7c
-         Ar7L+5gVVOgYpc0LmIqcAp6BrMBViEK5unqODJ92ob4dgiEglOWwciqnNpgtN4WwPvzM
-         b0Umnlx+TMxjH5ExC5Ds02Su497Iu2gLNbrYW4whtQSDcn1ynR8KH7C/9+Q55GmgpQ1g
-         vjkg==
-X-Gm-Message-State: AFuF++kSnAFQSdg9f6rtc7aTHC1lak3fCVG8fK9A7Msy3k2WDzf1GRmg
-	hAenKbe0nSo3mVNMG15LuGzgd5YrPks4FXBLBSbJSeAT4qVNCeZw5G+F3/ByA/qw
-X-Gm-Gg: AYBFou3fqil5t7g8cUcotJ3KVhzRdUWsnrS3LF+DaIe0vGJB3pWjzi3qrunDlfWaJsS
-	xYFyJA2Yx8SCfaJnCaHTOOst3CMZ0hIJPVgSRwqU5R00aOqqtacHUTxD7tOvb987bJAapxDfWcG
-	30RU7ziFmjM2jMLaM+LEMnckXusCB4GMG/3Y+8/DPOtKHfdADCQb9bCLRGsP/KbNd8UV7MkgfhG
-	HGdu8mzZby20Fo3hMS7M3j3DybtBETnFEnsvg2cGfnAfZDeaCMa7AqqCgzh78kicieHlR8zJi66
-	lSBf6awwq7FQgM3w6Lb2d57xjoDLPBFh2BPMYkYH+sWU+uwkCj8clY6QyMqFlUbw1rXhKVxITCl
-	b/Q+qj5EZQxKlxLKVkaWZZyFxJ8XGmeCWuSaFhl7+JnGfXatn5zra4z5C/o2CfIMhXneUrbzdQQ
-	98UlZLjd7W0DKDNZ4XVxf5wChdx04fNQn50MKVYXB7wTigeQKyykIYiyt/iUK7Z7fyRVhBj960h
-	0efvT7VhN0=
-X-Received: by 2002:a17:90b:3c8d:b0:3a0:8001:7d11 with SMTP id 98e67ed59e1d1-3a0b2617800mr3241918a91.6.1790322697387;
-        Fri, 25 Sep 2026 00:51:37 -0700 (PDT)
+        bh=jpLrGCv4J+0iubueWZJcqGPb4zZNzwy+TJzfy9q1TYY=;
+        b=Oi9Z/vVgn7I/NUxzkfc9pATUo5gVhY+wK6TnrYH06RvFKz2YaRss5k1qFe62X1r/dV
+         99RmaA5CQHNqf1Ya5AW42Xr6k9MP5vVOM9BMDQpOdAIM5I85hkon3aWALVUK70SOdHNK
+         hKortP9QzY/R+ajcVaMkq+OR8qhWJu7OqYrfzwNf2Y3LvE3bilnVjgJzJypAM9XBDoMi
+         e36HaizmW+AW/J8HBiJCv9f76m/i6Ceo+uYwnQZqcOVXsskixpk6O3kr4Pa9iys07oaw
+         dvmsRCya3R+nD3jDfAchu5wlfTMmlDvjA2NltpkL1y0GKty+qRKmD+UVEpS5sDH5p/1k
+         xhwg==
+X-Gm-Message-State: AFuF++mXhzXWobc3YWyPGbYhW9kcTcT8HIfxk5jPNhg9Hx94/AnphOZU
+	WTbyQPoPsEemec1bL0/W3dKuay6kbm40E99/e432TeQg0Ph7D8SrLNTXtlSDnw==
+X-Gm-Gg: AYBFou1YIFHQWTRF1H/U0B56mgFOPTIadDQJ4Py4uZeJgD1m5Im6g9uRpigtN/RLX9y
+	MtG6XEfs0Yb4oI6YcXz+WFPT2LyQerGXzoU8uBlIScbLQ9AC7enL46BRTMcatLsYHgZ7VlCj8dA
+	fuUcxkRBDhATTNk0DVXDGEDWIWW7VckysRwTrmAdv6FneZTfiuHjndQ4RuDDimQi3VdvwG9uuIG
+	1cCaLy+/tSeWAPvWYd21YzwU5s6GTOrIKfdAe39l2lEoWzB8qBF7CiJi1vkyS+EUl4vV1FCmutt
+	pY9oTqN1HqCyMnvaOcZI3C8cOW4lH1oN+jvPX3e5RITx9Aw5q53nzg277RmLmx7ZwrCn4m/wm62
+	jZ5NUilG07mtfRit9yny3X0gOLYM6j+M4MJwhiqsZRqK44E57KWt7AQFMcrP1B0XQmZLzs8gMAD
+	V4Mer2yRCjtRh1AR4YiP5Gs8uXH+jbP8NmcNY5NxfdyuUuWWjOplyXIt8TilkHL14AYGb0x03h8
+	IQhC1domBE=
+X-Received: by 2002:a17:90b:4c51:b0:39e:261:4e13 with SMTP id 98e67ed59e1d1-3a098cf9d1bmr7398945a91.3.1790322699628;
+        Fri, 25 Sep 2026 00:51:39 -0700 (PDT)
 Received: from localhost.localdomain ([175.159.181.20])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc790c80e62sm255962a12.28.2026.09.25.00.51.35
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc790c80e62sm255962a12.28.2026.09.25.00.51.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 00:51:36 -0700 (PDT)
+        Fri, 25 Sep 2026 00:51:39 -0700 (PDT)
 From: Yu Junzhe <junzheyu1@gmail.com>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -65,9 +65,9 @@ Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Pablo Neira Ayuso <pablo@netfilter.org>,
 	Florian Westphal <fw@strlen.de>,
 	netfilter-devel@vger.kernel.org
-Subject: [PATCH 6.12 2/2] netfilter: nf_tables: Simplify chain netdev notifier
-Date: Fri, 25 Sep 2026 07:51:26 +0000
-Message-ID: <20260925075128.646-3-junzheyu1@gmail.com>
+Subject: [PATCH 6.6 6.1 1/2] netfilter: nf_tables: Tolerate chains with no remaining hooks
+Date: Fri, 25 Sep 2026 07:51:27 +0000
+Message-ID: <20260925075128.646-4-junzheyu1@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260925075128.646-1-junzheyu1@gmail.com>
 References: <20260925020025.616-1-junzheyu1@gmail.com> <2026092558-grime-yahoo-6b34@gregkh>
@@ -82,83 +82,141 @@ Content-Transfer-Encoding: 8bit
 
 From: Phil Sutter <phil@nwl.cc>
 
-commit 375f222800bc001bb9cbd2baa1daec006430aeba upstream.
+commit fc0133428e7ad65aa6b7c8e65ccfe86e469e4512 upstream.
 
-With conditional chain deletion gone, callback code simplifies: Instead
-of filling an nft_ctx object, just pass basechain to the per-chain
-function. Also plain list_for_each_entry() is safe now.
+Do not drop a netdev-family chain if the last interface it is registered
+for vanishes. Users dumping and storing the ruleset upon shutdown to
+restore it upon next boot may otherwise lose the chain and all contained
+rules. They will still lose the list of devices, a later patch will fix
+that. For now, this aligns the event handler's behaviour with that for
+flowtables.
+The controversal situation at netns exit should be no problem here:
+event handler will unregister the hooks, core nftables cleanup code will
+drop the chain itself.
 
 Signed-off-by: Phil Sutter <phil@nwl.cc>
 Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
 Signed-off-by: Yu Junzhe <junzheyu1@gmail.com>
 ---
- net/netfilter/nft_chain_filter.c | 21 +++++++--------------
- 1 file changed, 7 insertions(+), 14 deletions(-)
+ include/net/netfilter/nf_tables.h |  2 --
+ net/netfilter/nf_tables_api.c     | 41 -------------------------------
+ net/netfilter/nft_chain_filter.c  | 29 ++++++----------------
+ 3 files changed, 7 insertions(+), 65 deletions(-)
 
+diff --git a/include/net/netfilter/nf_tables.h b/include/net/netfilter/nf_tables.h
+index 4056d2272..515031702 100644
+--- a/include/net/netfilter/nf_tables.h
++++ b/include/net/netfilter/nf_tables.h
+@@ -1233,8 +1233,6 @@ static inline bool nft_is_base_chain(const struct nft_chain *chain)
+ 	return chain->flags & NFT_CHAIN_BASE;
+ }
+ 
+-int __nft_release_basechain(struct nft_ctx *ctx);
+-
+ unsigned int nft_do_chain(struct nft_pktinfo *pkt, void *priv);
+ 
+ static inline bool nft_use_inc(u32 *use)
+diff --git a/net/netfilter/nf_tables_api.c b/net/netfilter/nf_tables_api.c
+index a9053667e..81d67a4ae 100644
+--- a/net/netfilter/nf_tables_api.c
++++ b/net/netfilter/nf_tables_api.c
+@@ -11267,47 +11267,6 @@ int nft_data_dump(struct sk_buff *skb, int attr, const struct nft_data *data,
+ }
+ EXPORT_SYMBOL_GPL(nft_data_dump);
+ 
+-static void __nft_release_basechain_now(struct nft_ctx *ctx)
+-{
+-	struct nft_rule *rule, *nr;
+-
+-	list_for_each_entry_safe(rule, nr, &ctx->chain->rules, list) {
+-		list_del(&rule->list);
+-		nf_tables_rule_release(ctx, rule);
+-	}
+-	nf_tables_chain_destroy(ctx->chain);
+-}
+-
+-int __nft_release_basechain(struct nft_ctx *ctx)
+-{
+-	struct nft_rule *rule;
+-
+-	if (WARN_ON_ONCE(!nft_is_base_chain(ctx->chain)))
+-		return 0;
+-
+-	nf_tables_unregister_hook(ctx->net, ctx->chain->table, ctx->chain);
+-	list_for_each_entry(rule, &ctx->chain->rules, list)
+-		nft_use_dec(&ctx->chain->use);
+-
+-	nft_chain_del(ctx->chain);
+-	nft_use_dec(&ctx->table->use);
+-
+-	if (!maybe_get_net(ctx->net)) {
+-		__nft_release_basechain_now(ctx);
+-		return 0;
+-	}
+-
+-	/* wait for ruleset dumps to complete.  Owning chain is no longer in
+-	 * lists, so new dumps can't find any of these rules anymore.
+-	 */
+-	synchronize_rcu();
+-
+-	__nft_release_basechain_now(ctx);
+-	put_net(ctx->net);
+-	return 0;
+-}
+-EXPORT_SYMBOL_GPL(__nft_release_basechain);
+-
+ static void __nft_release_hook(struct net *net, struct nft_table *table)
+ {
+ 	struct nft_flowtable *flowtable;
 diff --git a/net/netfilter/nft_chain_filter.c b/net/netfilter/nft_chain_filter.c
-index 543f258b7..19a553550 100644
+index d170758a1..e48de5a2b 100644
 --- a/net/netfilter/nft_chain_filter.c
 +++ b/net/netfilter/nft_chain_filter.c
-@@ -319,17 +319,16 @@ static const struct nft_chain_type nft_chain_filter_netdev = {
- };
- 
- static void nft_netdev_event(unsigned long event, struct net_device *dev,
--			     struct nft_ctx *ctx)
-+			     struct nft_base_chain *basechain)
+@@ -322,37 +322,22 @@ static void nft_netdev_event(unsigned long event, struct net_device *dev,
+ 			     struct nft_ctx *ctx)
  {
--	struct nft_base_chain *basechain = nft_base_chain(ctx->chain);
- 	struct nft_hook *hook;
- 
- 	list_for_each_entry(hook, &basechain->hook_list, list) {
- 		if (hook->ops.dev != dev)
- 			continue;
- 
--		if (!(ctx->chain->table->flags & NFT_TABLE_F_DORMANT))
--			nf_unregister_net_hook(ctx->net, &hook->ops);
-+		if (!(basechain->chain.table->flags & NFT_TABLE_F_DORMANT))
-+			nf_unregister_net_hook(dev_net(dev), &hook->ops);
- 
- 		list_del_rcu(&hook->list);
- 		kfree_rcu(hook, rcu);
-@@ -343,25 +342,20 @@ static int nf_tables_netdev_event(struct notifier_block *this,
- 	struct net_device *dev = netdev_notifier_info_to_dev(ptr);
- 	struct nft_base_chain *basechain;
- 	struct nftables_pernet *nft_net;
--	struct nft_chain *chain, *nr;
-+	struct nft_chain *chain;
- 	struct nft_table *table;
--	struct nft_ctx ctx = {
--		.net	= dev_net(dev),
--	};
+ 	struct nft_base_chain *basechain = nft_base_chain(ctx->chain);
+-	struct nft_hook *hook, *found = NULL;
+-	int n = 0;
++	struct nft_hook *hook;
  
  	if (event != NETDEV_UNREGISTER)
- 		return NOTIFY_DONE;
+ 		return;
  
--	nft_net = nft_pernet(ctx.net);
-+	nft_net = nft_pernet(dev_net(dev));
- 	mutex_lock(&nft_net->commit_mutex);
- 	list_for_each_entry(table, &nft_net->tables, list) {
- 		if (table->family != NFPROTO_NETDEV &&
- 		    table->family != NFPROTO_INET)
- 			continue;
+ 	list_for_each_entry(hook, &basechain->hook_list, list) {
+-		if (hook->ops.dev == dev)
+-			found = hook;
+-
+-		n++;
+-	}
+-	if (!found)
+-		return;
++		if (hook->ops.dev != dev)
++			continue;
  
--		ctx.family = table->family;
--		ctx.table = table;
--		list_for_each_entry_safe(chain, nr, &table->chains, list) {
-+		list_for_each_entry(chain, &table->chains, list) {
- 			if (!nft_is_base_chain(chain))
- 				continue;
+-	if (n > 1) {
+ 		if (!(ctx->chain->table->flags & NFT_TABLE_F_DORMANT))
+-			nf_unregister_net_hook(ctx->net, &found->ops);
++			nf_unregister_net_hook(ctx->net, &hook->ops);
  
-@@ -370,8 +364,7 @@ static int nf_tables_netdev_event(struct notifier_block *this,
- 			    basechain->ops.hooknum != NF_INET_INGRESS)
- 				continue;
- 
--			ctx.chain = chain;
--			nft_netdev_event(event, dev, &ctx);
-+			nft_netdev_event(event, dev, basechain);
- 		}
+-		list_del_rcu(&found->list);
+-		kfree_rcu(found, rcu);
+-		return;
++		list_del_rcu(&hook->list);
++		kfree_rcu(hook, rcu);
++		break;
  	}
- 	mutex_unlock(&nft_net->commit_mutex);
+-
+-	/* UNREGISTER events are also happening on netns exit.
+-	 *
+-	 * Although nf_tables core releases all tables/chains, only this event
+-	 * handler provides guarantee that hook->ops.dev is still accessible,
+-	 * so we cannot skip exiting net namespaces.
+-	 */
+-	__nft_release_basechain(ctx);
+ }
+ 
+ static int nf_tables_netdev_event(struct notifier_block *this,
 -- 
 2.53.0
 
