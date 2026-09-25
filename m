@@ -1,141 +1,104 @@
-Received: from mail-qv2-f43.google.com (mail-qv2-f43.google.com [74.125.230.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25E7A4EA39A
-	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 19:17:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A76B44160C;
+	Fri, 25 Sep 2026 19:18:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790363835; cv=none; b=DmU3l8vCSLpLD390o9WILIGWFpGxrP8oKwu0TV7Yxbe72eKIn2PZz3SKQ06DYNl5P53nKbyJ3Wm1GzJObnYFuD1jUbh7vcaF987pPVf8dENjXAXoOBNXDB5PdNnFEv7Qn4Qe11/D7vopBMUcCoQFHxTO6akImKv5/vIEvMX9iY8=
+	t=1790363912; cv=none; b=igdIM27YTjzg+4h8mkzxeTqM9CDwOJMLXyteMR1gRHvQyPxoTa31UZ4xu3XclJBhILMmYMKy0lBgKXik016Ggtlnma6sySuTo5qyGTpRoun2CA9D9T80qkXYfw/aOefPZjMlZ29Si2SskX5L7DqIizUdErDzMAGd49/i2w4S2fA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790363835; c=relaxed/simple;
-	bh=XhREjkmhNCUql4b5JIcUpys+k+BsoJ+A9gP9gB2g0ns=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tQtzNAm6pH6r/OLgyWW4tIP6nBkMA9/FzCRen+48RG33Cs3wP4a3Y7nPlBd6rF/RBMnBFI3PiolNL/xX9H6Ih0e2Wlf1hgQnDghbE0kqcDTTfsIH19NVMdh7nqROpyY8NIjIuDzKZhe95BtQeSqeZXNypemuaeDH4FK5BfwIGVY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KUP7Ifi2; arc=none smtp.client-ip=74.125.230.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790363912; c=relaxed/simple;
+	bh=3orQFDWizViT4HVIZURXrImU7M8bIjlDllgnoDzBCzA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WRDCV0mjxOyiu7jWGR+Lli5F/ngGfenC7Ehm5+312RfzkBAx5N43yNzVpc0w44RatclhImJ9V+1IqZtuOhC+HOOJpHKjNNTQCMT+bjrmXK/S3xLGKdZvjqSfz7YPoXgSY/a+gZlWXC6BzyaL+7hgaLQSaJouaE+E22Eol/zd2gg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GEERQ5eA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KUP7Ifi2"
-Received: by mail-qv2-f43.google.com with SMTP id 6a1803df08f44-9142e0b0668so13890466d6.2
-        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 12:17:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790363833; x=1790968633; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YTcnAr0ZcdWSjcBB1bEaQzDSsCqaWUPkS0US6ahLsTs=;
-        b=KUP7Ifi2+UmoY1j2EVngOcpDYqQVkhqwPhr8aF47l3gIQX6WkkKr6Z1EVPm243Vsfo
-         w/5f/YcyeaAked5s6YpBLIzr2SvdJOuM0FYMTbBQvwrNKg/z5qnbmoP4Hb9iLmC7J1V3
-         Uezrz0V6xcGUbe0LlnL6dzfxPP1oTLCYkfzM3HRCzGSdZzvrYDb3UNLR2lYsZ6Jk0255
-         uQ0NxXJUBHCu8pW1p0RWvtqsT+tFva7jNuCZA+Vzay4/4p8l6NtVvrjGcKKRHEgop4Lz
-         Ywsdx9NTdqeKT5bvcq7fzXu/yXTwRCBV1tpAT63zF/1ks3zHQF1IduvrUMKg/WHBJc43
-         XyTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790363833; x=1790968633;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YTcnAr0ZcdWSjcBB1bEaQzDSsCqaWUPkS0US6ahLsTs=;
-        b=GCqB/qvS6QYF08nyEquoaEkIVacFZz/qRbr29f+bf9RHSf0omg5dDAdxis1ppTo3gx
-         FXRaV7tMLWPol8Hv6N/eIvqd+50ZjHKYLzP1NJYzIQlugoo50WdCVhzOZlsH+sQAmzqI
-         giGteJ5wfVSmiTtLqgVPgWxHUUqQZBrtk9ILJzio0/2i2g7A8QRdif7IJRak+oJ48NPV
-         r2WavQVn4MOidjzT6kLsqHzjhoUpkKd0qOJZDA067TFnYOuzPxL2yoFt9y0y+qLBS6MJ
-         l8pdDXx0FzfkdAeVj7n2prjXA3de6nw/a4f8kEKRvsMEfCg0Xre0Ynjrx8oS9bPIOZtg
-         LYNg==
-X-Forwarded-Encrypted: i=1; AKwUvBwSDibFOtWgYoVdZntakwkBnGzv6lkxJh4RImEph3vJC5QHVdqbM7Bq9q6Et3Ml5ZPZpr6mO/Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++kVys/CIFX8bT9MnA0yyguTPEDLd7wFZVXnLkZ/li0RCZo8j4QP
-	ExtMoXQZbijOwg61qq6NUgB8ZBj1BdUafQDwJqrkcaQpSro0EfaLuG3BBXH4uL8drw==
-X-Gm-Gg: AYBFou2YhoOq3vFfVcC3/B7gsexCL7fYogiFE4VsW4GXjdsLxOfqIN/qAhMarXsIzVK
-	XhdRMc9MDWvL4nkqL5WtLZhWsAyzdhZi3MsFa4AcD/PCakqdwuyNbkADLUGobnFQi5tfIhv2w6m
-	JweNLfuNB4DqJvBFU/GLoEkMxU39YoNVsf7qUdd1j0MLbZL4NSYOIEfFYVIHURxFy6j65jaW7ex
-	EQlR053mmxhTTILk8oS/1EdCTXsUQig9/nrIPVqC9LqzpGV1n9jAnD3MC/MF10C/Hp7Wr1hJMFI
-	R+eXcgnwkzBEBJ0j2qCtkIwUIEiroEdoJG2TNnRZN/5B8KWNR4QkuVKborfQUcCvZlZtUSAQxJH
-	8V2OHnySa5QfuwJXAsfbyjtu5g7MvEhdYaTM5i1rd+t6h0LNMI73+9muxzU3vesMf+CrXhiRFOu
-	qk2es41yApKkbdc46kUUFgMveDlUie0HrAONZgCBaVF2Ai1Zm6tii2TcbOhsu7naK88NmB5SxDQ
-	GjwLnIXRBZ0VRk31H24kTOQf4hGtpIgPg1LP8vKrGNLgqdGGMYZD8/LV+6gu12M/slVPv5b4Mj3
-	voUZtZuzLPwB26W8u4dvmXsO/7GTQd1Wn6jMCpM=
-X-Received: by 2002:a05:6214:d8c:b0:912:40d2:45c2 with SMTP id 6a1803df08f44-9142f8b25bdmr62523526d6.30.1790363833095;
-        Fri, 25 Sep 2026 12:17:13 -0700 (PDT)
-Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91430e09ce4sm23521776d6.28.2026.09.25.12.17.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 12:17:10 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Ming Qian <ming.qian@nxp.com>,
-	Ming Qian <ming.qian@oss.nxp.com>,
-	Zhou Peng <eagle.zhou@nxp.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Myeonghun Pak <mhun512@gmail.com>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH v4 2/2] media: amphion: prevent unbind while video instances are open
-Date: Fri, 25 Sep 2026 15:17:06 -0400
-Message-ID: <20260925191706.3144437-3-mhun512@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260925191706.3144437-1-mhun512@gmail.com>
-References: <20260925191706.3144437-1-mhun512@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GEERQ5eA"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 03D7A1F000FF;
+	Fri, 25 Sep 2026 19:18:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790363911;
+	bh=m7sgBEwMKGYA8QZpgcquSjBb1+yXuaWJR3rmiBUx+1c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GEERQ5eAny7gPc0Pzgb3tIRJLHYp3F9IsQqqa9mK0mu2RuBN29D+ZisI/6gNsXSqv
+	 vhvSTUcjjIMJwtcUzpSslfJ9czpNpo27mNlTYEYxdNeN72C1qZSNHSlb6gnz2jFhoo
+	 iiUw3r3lTjG4MGb5S2ipfSpnr7oKJv3Z3MOT33XtZ8t/BZkS101TxO6xbYJtk/QtH1
+	 UNtc8vB9EFczXImnobXdFrhlG/wMZlQJHOKVshMTBK6rGgUoiTXDfxKqJ0q84EK2LT
+	 4nQP602eFsGY2WzrDzxejIcz8gsLAbW809yEZuGD0HrwoxrR1l9d6ZzUHw+2RzsGlE
+	 qwB5BiT0o7ExQ==
+Date: Fri, 25 Sep 2026 12:18:30 -0700
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: Christoph Hellwig <hch@infradead.org>
+Cc: cem@kernel.org, stable@vger.kernel.org, linux-xfs@vger.kernel.org,
+	Hans Holmberg <hans.holmberg@wdc.com>,
+	Damien Le Moal <dlemoal@kernel.org>
+Subject: Re: [PATCH 09/12] xfs: break out of zoned reservation loop if
+ signals are pending
+Message-ID: <20260925191830.GO2705364@frogsfrogsfrogs>
+References: <179030931976.3344850.17488605741516845262.stgit@frogsfrogsfrogs>
+ <179030932240.3344850.15431918414180548991.stgit@frogsfrogsfrogs>
+ <arYJouxwjLL4O2GY@infradead.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <arYJouxwjLL4O2GY@infradead.org>
 
-An open video instance holds a plain pointer to its devm-allocated core.
-Unbinding the core or its parent through sysfs can release that memory
-while the instance remains open. A later ioctl or close then uses the
-stale pointer.
+On Thu, Sep 24, 2026 at 10:41:54PM -0700, Christoph Hellwig wrote:
+> On Thu, Sep 24, 2026 at 09:12:51PM -0700, Darrick J. Wong wrote:
+> > From: Darrick J. Wong <djwong@kernel.org>
+> > 
+> > I noticed that if you run generic/476 for long enough on a zoned
+> > filesystem that it runs out of space in the zoned section, fsstress gets
+> > stuck in this loop trying to reserve space, failing, and kicking off the
+> > gc.
+> 
+> I guess this is not directly fixed here, right?
 
-The video file operations pin the module, but sysfs unbind bypasses that
-protection. Suppress manual bind and unbind for both platform drivers,
-and warn if core removal ever encounters a live instance.
+Correct.  There's enough space freeing activity going on (truncate,
+punch, unlink, etc) so that the gc actually does clear out zones; but
+there are also enough writers consuming more space that they all end up
+in this loop at some point, and some of the threads never manage to get
+what they want from rtavailable.
 
-Fixes: 9f599f351e86 ("media: amphion: add vpu core driver")
-Cc: stable@vger.kernel.org
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
- drivers/media/platform/amphion/vpu_core.c | 3 +++
- drivers/media/platform/amphion/vpu_drv.c  | 1 +
- 2 files changed, 4 insertions(+)
+> > The garbage collector in turn is continuously running (so we don't
+> > break out of the loop) but the process is no longer responsive to
+> > signals and can't be killed.
+> > 
+> > Fix this by backing out to userspace for any pending signal.  This
+> > should be safe because space reservation is usually the first step in
+> > any modification to a zoned file.
+> > 
+> > Cc: <hch@lst.de>
+> > Cc: <stable@vger.kernel.org> # v6.15
+> > Fixes: 0bb2193056b596 ("xfs: add support for zoned space reservations")
+> > Signed-off-by: "Darrick J. Wong" <djwong@kernel.org>
+> > ---
+> >  fs/xfs/xfs_zone_space_resv.c |    5 +++++
+> >  1 file changed, 5 insertions(+)
+> > 
+> > 
+> > diff --git a/fs/xfs/xfs_zone_space_resv.c b/fs/xfs/xfs_zone_space_resv.c
+> > index 7aa3c74fb2e01a..8edc82025abbd5 100644
+> > --- a/fs/xfs/xfs_zone_space_resv.c
+> > +++ b/fs/xfs/xfs_zone_space_resv.c
+> > @@ -157,6 +157,11 @@ xfs_zoned_reserve_available(
+> >  		if (error != -ENOSPC)
+> >  			break;
+> >  
+> > +		if (signal_pending(current)) {
+> > +			error = -ERESTARTSYS;
+> > +			break;
+> > +		}
+> 
+> I don't think normal fs read/write semantics allow for -ERESTARTSYS
+> on arbitrary signals.  So this should probably be limited to
+> fatal_signal_pending().
 
-diff --git a/drivers/media/platform/amphion/vpu_core.c b/drivers/media/platform/amphion/vpu_core.c
-index a0c58ec97a42..2e8e08e05de7 100644
---- a/drivers/media/platform/amphion/vpu_core.c
-+++ b/drivers/media/platform/amphion/vpu_core.c
-@@ -696,6 +696,8 @@ static void vpu_core_remove(struct platform_device *pdev)
- 	struct vpu_core *core = platform_get_drvdata(pdev);
- 	int ret;
- 
-+	WARN_ON(!list_empty(&core->instances));
-+
- 	vpu_core_remove_dbgfs_file(core);
- 	ret = pm_runtime_resume_and_get(dev);
- 	WARN_ON(ret < 0);
-@@ -846,6 +848,7 @@ static struct platform_driver amphion_vpu_core_driver = {
- 	.remove = vpu_core_remove,
- 	.driver = {
- 		.name = "amphion-vpu-core",
-+		.suppress_bind_attrs = true,
- 		.of_match_table = vpu_core_dt_match,
- 		.pm = &vpu_core_pm_ops,
- 	},
-diff --git a/drivers/media/platform/amphion/vpu_drv.c b/drivers/media/platform/amphion/vpu_drv.c
-index 2cca61f41bea..9c6f32c5eae9 100644
---- a/drivers/media/platform/amphion/vpu_drv.c
-+++ b/drivers/media/platform/amphion/vpu_drv.c
-@@ -205,6 +205,7 @@ static struct platform_driver amphion_vpu_driver = {
- 	.remove = vpu_remove,
- 	.driver = {
- 		.name = "amphion-vpu",
-+		.suppress_bind_attrs = true,
- 		.of_match_table = vpu_dt_match,
- 	},
- };
--- 
-2.53.0
+Ok.  That at least means I can ^C the g/476 test processes. :)
 
+--D
