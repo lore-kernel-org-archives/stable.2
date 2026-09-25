@@ -1,41 +1,46 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE0B932D0EE;
-	Fri, 25 Sep 2026 12:36:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F26F41CB31;
+	Fri, 25 Sep 2026 12:38:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790339782; cv=none; b=F5wsvXp/omOnySkaZZ0r1REiZ4kGLlnZ0GlLBcXDRKpMLeMlM2/52d574ORjOUO0qlcSVKWbgAOnzz6p8eI1cxTaSkJnrTY39q5N+YKvqXLJaymPU25SE3+AwSxZeKdkr1PGbXhXuWRy9+ApuAuuQEJ1LE+titVeFzgYiO/LKP0=
+	t=1790339906; cv=none; b=MB7NHfQbkqZ70WJgk0yRsMHknDIJ2syEL+S3fwd7NgkNTdhk5jySpueAW4dHu4YXq0OYoOICOI148Ii9QAIHw+vY3YCxK2Tl60xHQKj5nBnEcl7B2SfITYgwBC9S6mJf7nius4kA2ILo4xUyTvRxAIQsnm1qAyD8Sswk3TmqxZU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790339782; c=relaxed/simple;
-	bh=rpQFIIFkv9fk4XIyvpy8zsWnjPeYC0WS8JZuxINRqHg=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=h7akeUpqXPQrSktuXejBc0635AmIZTlzbSxstxlxTP7uxxIQz9Km1mCHqN3VKNH1JBDBesjUykvKdg4BEF6vS+G2O5fF8Y6mOQkyYZ3KaxxPz/36NyQQuOdiImKDa9gxIpxoELzkONofM/MdepOqUyIXAnKr/Ysifg9kLAByWNQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=XHDOAbOm; arc=none smtp.client-ip=220.197.31.4
+	s=arc-20240116; t=1790339906; c=relaxed/simple;
+	bh=bUKM7GAj7RfmtMhTJItSx+lMXOSuuGzZWTuTo5ImD/8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ozBbFNWr4VkzazOmNmfjxh9cRl/IYYGM0+T6Frec1UKSA8dFL5rKORePFjsC+//n8DD7ZFAD40X5Q2y/lIwdB4Q9MOAQS6/6NpBGX43RPst1wKl8aT/W5Y3yRouFMSJP0Dz3RJx2xj9zRaKfKHW6k2LZhRGI/Q/skMYDEbmc+H4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ISSf/tqA; arc=none smtp.client-ip=117.135.210.3
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="XHDOAbOm"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ISSf/tqA"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=67
-	meGW5j/G0D+oDnqFcGKDrhbn8L41CakbHBABXFtL4=; b=XHDOAbOmvi66YtMvs3
-	dTr5j5QEBxELn4tCmx+LdC8ChjF2rdjBA8dcpv/al+0p2kO+MPvy3cRXWnYU3ffA
-	pbQBwhQOVeR8xcSlisEauBTdbLSOLuwAiX553on/l1VclOwjlH2m6AJrh/a1Do94
-	pMU7PBKAyBLaDJ2Djor8ggaXc=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=LC
+	j1gS6mo+8bA9TVubBcb0q4WeEjMzjeJmbHoKOVv9s=; b=ISSf/tqANPthljrCKs
+	ffTfZqWSE0PmG0mBAt382veh8FMr06CacyotBKczDtcq1Ve/dkWVExt9eZhjzICg
+	76d2DV84COuDve62TY6DrqYi4bMdAy9bR36FspMFqCLtyf7jGoWtXJR7ZFImxjgG
+	5//EmUXJ2DVsVCEJ8AZF1Qw6o=
 Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wD333ylarZqSbc3Aw--.20723S2;
-	Fri, 25 Sep 2026 20:35:50 +0800 (CST)
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wD3_5u5arZqp98VAw--.59006S2;
+	Fri, 25 Sep 2026 20:36:10 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
-To: Moritz Fischer <mdf@kernel.org>,
-	Xu Yilun <yilun.xu@intel.com>,
-	Tom Rix <trix@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	linux-fpga@vger.kernel.org,
+To: Alex Lanzano <lanzano.alex@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+	Mehdi Djait <mehdi.djait@bootlin.com>,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
 Cc: Jiale Yao <yaojiale02@163.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] fpga: altera-ps-spi: reject devices without match data
-Date: Fri, 25 Sep 2026 20:35:15 +0800
-Message-Id: <20260925123515.2081743-1-yaojiale02@163.com>
+Subject: [PATCH] drm/tiny: sharp-memory: reject devices without match data
+Date: Fri, 25 Sep 2026 20:36:08 +0800
+Message-Id: <20260925123608.2082429-1-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -44,47 +49,45 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD333ylarZqSbc3Aw--.20723S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7tw15uF13try3XFWDWrWUtwb_yoW8GF1rpF
-	WUWa4UCryDXFsxKrsrCry0vF90kan3t3yF93Wakwna93s5CFyrZrW8K3sYqwn2yFZ5JF1x
-	tFW5Xw1ag3W0yw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEqg47UUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzgYMRmq2aqZR7wAA3s
+X-CM-TRANSID:_____wD3_5u5arZqp98VAw--.59006S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7tw15uF1kCF4kWw4DXr4rGrg_yoW8GF4xpr
+	4xJF90kryDJFnIka1xGa1DCFy5Z3WvgayrGFy7AwnIgrnxCFyUZryxK3yYqry8JrW3GFy7
+	tFnrJrWfWas2yr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piL0ePUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzhoRS2q2arpTXwAA3O
 
 SPI driver_override allows a device to bind to this driver without
 matching either the OF or SPI device ID table. In that case,
 spi_get_device_match_data() returns NULL.
 
-The probe stores the result in conf->data and registers the FPGA
-manager. A later programming request dereferences conf->data in
-altera_ps_write_init() to obtain the device timing values, causing a
-NULL pointer dereference.
+sharp_memory_probe() immediately dereferences the returned display mode
+to calculate the pitch and transmit buffer size, causing a NULL pointer
+dereference.
 
 Commit 572a00852635 ("iio: dac: ad5686: missing NULL check on match
 data") fixed the same driver_override issue in another SPI driver.
-Reject devices without match data before registering the manager.
+Reject devices without match data before using the display mode.
 
-Fixes: 3b08f52c2561 ("fpga: altera-ps-spi: Use spi_get_device_match_data()")
+Fixes: b8f9f21716fe ("drm/tiny: Add driver for Sharp Memory LCD")
 Cc: stable@vger.kernel.org
 Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- drivers/fpga/altera-ps-spi.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/tiny/sharp-memory.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/fpga/altera-ps-spi.c b/drivers/fpga/altera-ps-spi.c
-index d0ec3539b31f..69fcefce462c 100644
---- a/drivers/fpga/altera-ps-spi.c
-+++ b/drivers/fpga/altera-ps-spi.c
-@@ -240,6 +240,9 @@ static int altera_ps_probe(struct spi_device *spi)
- 		return -ENOMEM;
+diff --git a/drivers/gpu/drm/tiny/sharp-memory.c b/drivers/gpu/drm/tiny/sharp-memory.c
+index 7efd7b567f3b..049e98f657f3 100644
+--- a/drivers/gpu/drm/tiny/sharp-memory.c
++++ b/drivers/gpu/drm/tiny/sharp-memory.c
+@@ -557,6 +557,8 @@ static int sharp_memory_probe(struct spi_device *spi)
  
- 	conf->data = spi_get_device_match_data(spi);
-+	if (!conf->data)
+ 	drm->mode_config.funcs = &sharp_memory_mode_config_funcs;
+ 	smd->mode = spi_get_device_match_data(spi);
++	if (!smd->mode)
 +		return -ENODATA;
-+
- 	conf->spi = spi;
- 	conf->config = devm_gpiod_get(&spi->dev, "nconfig", GPIOD_OUT_LOW);
- 	if (IS_ERR(conf->config)) {
+ 
+ 	smd->pitch = (SHARP_ADDR_PERIOD + smd->mode->hdisplay + SHARP_DUMMY_PERIOD) / 8;
+ 	smd->tx_buffer_size = (SHARP_MODE_PERIOD +
 -- 
 2.34.1
 
