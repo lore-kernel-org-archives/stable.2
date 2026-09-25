@@ -1,125 +1,129 @@
-Received: from fout-a4-smtp.messagingengine.com (fout-a4-smtp.messagingengine.com [103.168.172.147])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4EDF1DFFB;
-	Fri, 25 Sep 2026 04:23:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29E1A31578E
+	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 04:29:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790310227; cv=none; b=CmBhUtRJ4iDhIeOSXHDG/l03xTrdBx7BHYRPsiVYc/zsGUQv5o5mAYtYCTBpeWNErkdV3R9LZb0J/4WLp81zCckP16lAeG+a01kdR1QYDLrXRYqeXsz1hIPUpmEAEVBOSMMxVLqNodt1TO7KYEt2teY6Svm9D5qmp+bkI0vUfQ8=
+	t=1790310559; cv=none; b=sNxg0f8CjenNZsLbppXLRog1zVNrdGiV/eLCStF6Yu4OXdONEPg5OIulndqc6xHtCnonSQyPixrs17ogMr8NOujTEBjA32bA4Qpl3kpb6IJIk3xekDcTHHIzbjuVmc1Zj/O3aUGnJh04ys/NKIoKfFn63saDRdCGrte8vJwrnOw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790310227; c=relaxed/simple;
-	bh=HtRyOc2GBalbvAbi+TOSi3VpG+yiZxePG9PVaII6ZNw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=D9cTp4SYi1iA5O8/CnPuoQ2sTj0XCC1pmHRuHoDLokw3B8udeTQDDsOTwggJVLTiCt3MdosqUdW7ypSVrUU4oYMisknxiviDoxpeyBg9q784R74Jqwa/3lBDLmNfCrtc2wMzZAnNC6NskGzSWJkZWB/fN8XbRuyCRYGA93qIgn8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=HJ+uCA1l; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=ESY6Mfy+; arc=none smtp.client-ip=103.168.172.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	s=arc-20240116; t=1790310559; c=relaxed/simple;
+	bh=K1PCFGydr6vhIM+0fLoxih9XImLqTH7iNyf5B48F2r4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=orNaCe3Z9C8QCvrBFklPLoRyevpXi8IBT3gvwEc2kH1iNHy/L0IPr+MSlCu8Uy669RfYLmWCN+Utx9UFJOYcb7G7b1IlJ8SQNe1m87Og/0b9EjkZnWawTeyXRXQlauEy2AZ9Grmz541MNb2IdfQ5KJF17pnZAVl+Ch5Q7Vsd+ME=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MTkGjSRc; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="HJ+uCA1l";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="ESY6Mfy+"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfout.phl.internal (Postfix) with ESMTP id 1C3D5EC0227;
-	Fri, 25 Sep 2026 00:23:45 -0400 (EDT)
-Received: from phl-frontend-02 ([10.202.2.161])
-  by phl-compute-05.internal (MEProxy); Fri, 25 Sep 2026 00:23:45 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1790310225;
-	 x=1790396625; bh=9O4l752m2avZiUeNfxEd+COoYSLhzCRbs4uuuwUXsJA=; b=
-	HJ+uCA1l9zKO9nf9qJ1pesOt/s4EPYphZq665vfTymcif1+gawGY5+Uul6mQJbqa
-	7ygQuSg4xtYA5o8e1yydNgmhNL+KRc9WAeuU1vnGi6V1yHtmcnh85bGRAayAzCdu
-	/uyzU4n2h6xzW8LI7FfzgByQWi2jC+/gZ9hN+/ePGG4Fmpal0XGEulqOAnfpmKB5
-	bLUya4x4/NOzy48oZKa5y1K8dwyUtcNhY4kzg+y4c5vCAdcvxCKraICPTqV1L9h9
-	/PCcygn2Enrls2sjdN/iSaddNORzpWl1W4NDPrQE5Ycwmv1171skgE0xpN5ylTyE
-	dMYnJz56OxkM02tkkBtmLw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790310225; x=
-	1790396625; bh=9O4l752m2avZiUeNfxEd+COoYSLhzCRbs4uuuwUXsJA=; b=E
-	SY6Mfy++bpQnOsYBFWSZVSbR/e0KqiFO4DCo7ljf24rbJh764daacR/5rC7NiA2l
-	FPuDRvYmq0+dZlhw5Q+FFp84CAOqumtxwntsK3wf22hjCmBg0hc6cozFdlf5u7Ye
-	RRFsyNfV0NHL1wo4Vv6mG8ZP9ky/CXQEucjH27C+aBnoJ23VlaC6f2AAeVArkFN4
-	Rq788BG+JaU5mZ9xskhLvYFJEIV97SfeoaiZYtBMP9iink4v0JIvp/SUD/tu7uqt
-	XEA+WVhHape6ZnRU+r3J659h5EPN+OaEeP2ALcBCdLRsf7NPIcOKzEAy+D270UH0
-	6fI+FlDWydvkkwBBtatMQ==
-X-ME-Sender: <xms:UPe1ahKbkscYkVCbGIOO23UJIG7ra8Z3a8l2J6SMbSJhYDXyF_MDJg>
-    <xme:UPe1apCBWR3SbVGO6nUuB01V4JYdCGJ_vAkCk2PJshHi_aXwtL1Lz9wYLXCSTt1kU
-    Tk__P53BhUFfCw4EFL8d9BHwrGlOUcyhf9tf2gRN0Iss8RmsXG0XHGD>
-X-ME-Received: <xmr:UPe1alNxV0PvvO4jXUo4_CE1dVTstAHEzdwRlLFWLmeoNxXg9v57WaUtGckPFX-pKvxR39tr5f1CDj96xOJoCY5v1jbKM6EP>
-X-ME-Proxy-Cause: dmFkZTF2PRITwLn3mE5o1/Duw1QkPZC2jsLU/pfKJ63Kr0MOa586KQPs+cn3s49RyyHZqG
-    e7iVvBh46D0UPZ/ItvlEZOkuFpT2FeAZmyyAwXjEN0HydKnGt06QAnZvKu89cMCrH85991
-    w637pIvBzyEpfWckRb8dokT7s7u88mnwDyEk4khHqItkDKpfXPf+b1I9zjIw9Ntx0fM8XJ
-    JI6Jgm6rbUmTSiXhhi/XFI8Ic26rBO5Au5dh4JGfGIjTjtwTOvxue7vyGqcAjfLjcUUOad
-    4fBuqGil/VXvhjQ+ugZ6IACK5/dEFuo0wQ83lvbc6Txswq4/F7z+cMvBNKPl40/EFNwGcb
-    NtpulbUwRmEWb9uvazYHIYQAMCD8AOZr5nF7TzxV0pVGusFH2U43iJluvzaDpqIjFqr4kw
-    D/ooXtt3q8j+kwG92uxCW7zh1pjXy2WKNUgN8ImPeIDKuzB/zGxWq8L9OY0/cm/MRxs6dS
-    +O490X0qxLR2O6M4HdZkHb88mjiajKb2VlSunUacKpcapxbRnVWKrQKWUuQYm1gf9VAW2n
-    fhMAZvVhWI8CINtYYYHVR7W8vqW2fqItEfJLzjhf3Jr9sJelneQI/zvaEKe0OY9PvADZKb
-    DxthUo3BcqfOuN33WuOTtOrcGS+9EQIWElPCvBDOTq6c/bV5F/lNbpqhdy6w
-X-ME-Proxy: <xmx:UPe1amW8AgKRBPnEb8sPvdyzIckLkNgnMK5P0jF3N5tJTYYHcFD6GQ>
-    <xmx:UPe1agSu9A4p2wTCdjjgE8Jxhmmqqv4fQeC8dfh1YSLA2cXF5nYR5Q>
-    <xmx:UPe1ak1Gkdb3_zEGpCuRIvPNnmWzfQuU4lmM9tVNY7FcZqLyt85WCQ>
-    <xmx:UPe1alg-yn8HagnmXs-4bkuoEf5E3Wj3WlFTUKbfU9XxpZyQSNWr3w>
-    <xmx:Ufe1aqfNcYulSsN7EccSyh4f5k6ilicaLwaECTTQaGqocGX7y6xFS6E_>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 25 Sep 2026 00:23:42 -0400 (EDT)
-Message-ID: <dae37b3f-f29d-4a3a-8e8a-df1159f75d13@pobox.com>
-Date: Thu, 24 Sep 2026 21:23:41 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MTkGjSRc"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d91ede8035so3699885ad.3
+        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 21:29:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790310557; x=1790915357; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IMzp+2P8aZfHlr8qYMa3jORBlQwD/QB/O+yiPFw4Ks4=;
+        b=MTkGjSRcvIbKxOqW2J7jhtZtGplNIapGJtThy67KsE9IgVcWzziEuZMt17gHy6okCe
+         2EJcPDkiphYcLUqR8b9DOVHb9S8pFQvhFnozraNNjzo+18RGNwBUbe84dGAgdwCTBNlV
+         00XoHD6+yT0+6bbFccBOrTh46+O9BSkMK37jB+6MEm2sr3xbxr6z5mv+NvhXLS8oPtS9
+         PAXWrT62mHpTgadGPkwqvut2mrCFn2Splw8s/oiVnaeQte6iPOZZm7GQo85rkLTanM7+
+         WGR0LdjLArQVj+YIbpO3BfVdyF1MkLzuOoBo+Bg/reznMCiBApc2+T03T/OlIWJYftjU
+         8IUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790310557; x=1790915357;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IMzp+2P8aZfHlr8qYMa3jORBlQwD/QB/O+yiPFw4Ks4=;
+        b=tRZFjnbH4Yeo1F133Rra5f4FeG9nXuPZ52jtaA7qqvxxe/DA0UPUJlHHhFMNhyJrnM
+         6P46yvp+QvLmdvFj/Py9YgY7kSJLgePpwF902UASZqNiRB2IGnhGbUY64VK8gBdvPj4t
+         UT36abKJeOrfsXwqRhewalYHxchNX2hcXYPKyNB+EMQU/ADD4gI2+EKQFRnvQpew9GGa
+         KvaqhQvXtVBF4ZA/MhSBd7iVRCoBsQ3O/+BBKr3Uutihh5UXFS7QupV7vWw42SZ+ULtM
+         /hFYd3fqU/txYTrgbIPhbDMo9Wk6UlQuBmJzpI5sQ/F1OpV8oSBwQ/wzVoq9pAiQUl1c
+         lRgQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxs9+W1pqywuTmRJhKKxrSq84Y0yGU2/gzSfqZz854qH78oODgYw3z+dx2IIHK4HKO/Mu3yDzA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kji6mgHAHT6cPS11WJYTF6PRMK7ZjPMqVHjRjqzQUCd6lngT6T
+	GjL5+1LK2D2ypeCgB7EN5IdgE1oYScH4r96La20ho4VbSfxOidrVEWEiJBFiAo2qeA==
+X-Gm-Gg: AYBFou2uSC/u/o3FGAZ0EntaBsf0ysvJ1s8jHXF7ryCYCgHk8a59w6RW87AbZaLraVE
+	AksgpICuMQZP9BD+VkeX24nGZP2rQ7CuZJMlq7zmxfcpbCMSG+Nwl52HRULks3GCr3NUeVYX0mB
+	bglOzKvuC59A0zoJkNAEi9yeKVwG8s0U7mfnEz0OOxVLJY1P1gUH1hHQfOOhcLcG/LgQPA2Ht9u
+	om5z5s2H5BR7bVEyxkXZfSCWQDp5pDWdk0/LaM6i1PJiNsKMkfn4wsAEze4uA0ef39UyZRNvDtK
+	68CwTDmEayixfv95IMyLLauVpq0Ms6eCxdxOfga2WMPwffAbK7sVhZ2pi/SrST+EcxbvLg+CvMN
+	naHRLwfLhrg7+1eZPDOSjhjM7bISwJ3CFbtK2U75bKNt0lubUN+sobgXskcFpOvB83AxDX9QkU6
+	uJwca9rsalknei1uowEaPIedAlndhPKeB45ysD4i9zRn39HMPLBo9bFtyshqX/EybJzg+wTTkE1
+	9Cn/HfdRujtEeclfmAeqE+3oA==
+X-Received: by 2002:a17:902:cf03:b0:2d9:54:fc69 with SMTP id d9443c01a7336-2df9490a51amr8031815ad.7.1790310557275;
+        Thu, 24 Sep 2026 21:29:17 -0700 (PDT)
+Received: from ydg-Zenbook-14-UM3406GA ([211.230.25.193])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df9525cd53sm2499125ad.38.2026.09.24.21.29.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 21:29:16 -0700 (PDT)
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+To: akpm@linux-foundation.org,
+	rppt@kernel.org
+Cc: peterx@redhat.com,
+	surenb@google.com,
+	aarcange@redhat.com,
+	david@kernel.org,
+	ljs@kernel.org,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	mhocko@suse.com,
+	shuah@kernel.org,
+	kirill@shutemov.name,
+	linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	donggeunyoo.kernel@gmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/2] userfaultfd: clear the inherited uffd bit in move_swap_pte()
+Date: Fri, 25 Sep 2026 13:29:06 +0900
+Message-ID: <20260925042907.2330519-2-donggeunyoo.kernel@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260925042907.2330519-1-donggeunyoo.kernel@gmail.com>
+References: <20260925042907.2330519-1-donggeunyoo.kernel@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 000/398] 6.18.54-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260923140643.441954610@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20260923140643.441954610@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/23/26 7:01 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.54 release.
-> There are 398 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Fri, 25 Sep 2026 14:05:48 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.54-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+UFFDIO_MOVE on a swapped-out page installs the source PTE at the
+destination unchanged, so a uffd bit set on the source lands in a
+destination VMA that was never registered for write protection.  It
+can't be unset there, and THP collapse can't happen either, because a
+swap entry with the uffd bit set makes the scan bail.
 
-On an amd64 laptop (Lenovo ThinkPad T14 Gen 1) and an arm64
-virtual machine, I tested 6.18.53 + stable-queue as of commit
-b1b54c5d771a22b69e435ef44b5fe9ac1e714703
-("drop 3 patches and reorder one 6.18 patch based on RC review feedback").
+I don't think it's intentional because for an unswapped page the bit
+doesn't come along, and I don't see why being swapped out should change
+that.
 
-Working well, no regressions observed.
+Clear the uffd bit on the moved swap entry unless the destination is
+RWP-registered.
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
+Fixes: adef440691ba ("userfaultfd: UFFDIO_MOVE uABI")
+Cc: <stable@vger.kernel.org>
+Assisted-by: LLM
+Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+---
+ mm/userfaultfd.c | 1 +
+ 1 file changed, 1 insertion(+)
 
+diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+index 74f04c323c50f..f39f109f17989 100644
+--- a/mm/userfaultfd.c
++++ b/mm/userfaultfd.c
+@@ -1449,6 +1449,7 @@ static int move_swap_pte(struct mm_struct *mm, struct vm_area_struct *dst_vma,
+ 	orig_src_pte = ptep_get_and_clear(mm, src_addr, src_pte);
+ 	if (pgtable_supports_soft_dirty())
+ 		orig_src_pte = pte_swp_mksoft_dirty(orig_src_pte);
++	orig_src_pte = pte_swp_clear_uffd(orig_src_pte);
+ 	/* Re-arm RWP on the moved swap entry if dst_vma is RWP-registered. */
+ 	if (userfaultfd_rwp(dst_vma))
+ 		orig_src_pte = pte_swp_mkuffd(orig_src_pte);
 -- 
--Barry K. Nathan  <barryn@pobox.com>
+2.53.0
+
