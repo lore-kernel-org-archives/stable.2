@@ -1,234 +1,134 @@
-Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com [74.125.229.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E87D4F405D
-	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 20:36:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47802384CDF;
+	Fri, 25 Sep 2026 20:36:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790368594; cv=none; b=Lw7TYjFYGxcIFSwCjAPHlfYiAdIsyVlgxNFGQPnVnwbmtNBDbeMynyUgtGCpUxX9onaWWBsp9sp9rIMIx7UcU0OmKgHVfjOXx1TgxrBhazG273cITV6CpT+Wk9dVu+tcu9/dVLYyEhws0gT9FQiaWXCYG2s6QMeIoIUgLIovkl8=
+	t=1790368599; cv=none; b=ttkHm1VVkgMnRGULYdS12dQ+6YCznZjULa7SQY1ccVvMt8Jvm78kYRfN73DAfHQsLNosCeJCyy5yc9gBSi+2yXOScGihcTyvYBh58PTW5elsBoD5DOj5o/A8OZjO9aAqRPwtX/C0dC1SikqxRQqa4B79/FKo4N+MAeNqiBtAaM8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790368594; c=relaxed/simple;
-	bh=JA1MmlvysdwOS02CEm2fbSKD0SzlpVAbqKq6s8T/mfk=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=qal4fk5QSIEqRqMa8MV/fPcAqsCSqMABZ3ZeYhGzvF6cOhk3hQUCe1Q0UzfUXdiu7K/AbUP6z4enfE5CvExdJV2o9KBAaPCh9EZUgrbChiHP/b9GSaVZT9DtpKQeA/LxXkN2NoQJwB7YLFCI1Y5SA5SjXPFRDmPlyDP630VlGIw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rUQoARdI; arc=none smtp.client-ip=74.125.229.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790368599; c=relaxed/simple;
+	bh=ICymGZtr06Ysm/FmMmH0MBqiwdMdH1zJF4nyEHczBlc=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=h1LdjbXYkLHxSAEutJOJ5u8rTdDrvfp7XWrdF0cyLQcktR1az0ZcdTln6mlCJLBbE5erhizYnitngJBZ3SEDmHBGzherGJaSEjcdNNiyeu1XJXESZnWSB9DkKJnYkim0N5yaEOlXs4Cz3K0dUC+Tknh6IXJF7ahvoyRgH4yE/IQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=BQ2mTr7x; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rUQoARdI"
-Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-142dd04f7f2so1098639c88.0
-        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 13:36:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790368585; x=1790973385; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:user-agent:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=4RNJ5nQR9k5gmyuH0UoJLYl6j03ODsgZ0SnhdOWBbVs=;
-        b=rUQoARdIqa7zC5jv8hEpX+gubV1tNKAP/VULSdvg4ONtky2R9Bk6rSfbWJEPfamK4A
-         b1fzg38bIjCaXnVivkD0QGNNl4gijLyUIFIJZTIvg0Id8dZsDgyTC16/DzWoULc3O87P
-         JcaBhIjwsvcs0wIj01D7sC/OGWUupO5DYVcL8c6h/twInBtbabpygzLoaDHO9MWhALPL
-         pJ7Gyk1J6VcfzdVxWae2SrFiRpewXdTndy1GJ8I7J5Qbj0qJkqlKvI94DGjK8532d34I
-         ES1v1CzJoglwra7xBNsyijJ4skcl2qwaJSnmMSlOwGRWtsFUx1Futcv1p+UQRkhZ0fzZ
-         GGnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790368585; x=1790973385;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4RNJ5nQR9k5gmyuH0UoJLYl6j03ODsgZ0SnhdOWBbVs=;
-        b=WZ54Hpy209XdLEGek/7RMzkfMJwzbJQUFUIYHwkHIdbLczxLyC63GJ2c3bUWyz40Rj
-         iwfE6XpwFRrLLuXzZXsGelsfZbTLEUBpRWcVMTvizHjrhZ6WSaydGW5mvDyIcEAd/V2u
-         AUZVMxXxBrnB/Vryb24NelndrpSPZZJ9NOU+lWbCfkhf0h9ci/kRcLMceccRlWm/yfVh
-         7ok/POICWA1wSuYteKWJHU/nvuu6SrxzPzclhHd98uPvcTuPrRyrm22rYmOGkD66ylco
-         NEi/wRRbVLJsk8y+wAJ7aRkTypuX04tA7Jg3ALeJRQ96x7pZzCjGiW6jAEYd14wLv93P
-         CLmA==
-X-Forwarded-Encrypted: i=1; AKwUvBycjJKqCNhcnV6FRcUMb2M4gTmBlv6luqYivQWbrDx03RKyn5/0suGUXsTI5Hdd0IZ3LuyzZEU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nGDRm54BY7N4JJgdBdjuIeyWwY4nQLGwc3NdFlX70aXQ2Sdv5W
-	8C761pYvUmIjpKCDusvOexonlhxW91ZU8YExR2rYypkGRD+IO/7zZ55F
-X-Gm-Gg: AYBFou2GyPI+Fr9Syc4h4winmIuXsXpC8f68bTzyaohU2nMtaZLHnsn8H3sZ4Op0of4
-	6dihVtw9tw3SrDcf+jevOblvOeXP2vq1uTUauyFLfRZzM7fp5h4wxzkgm4hly7Qxh643zys0zAu
-	andgZjrIET29wBDnAuqkhIb5V1G1guURa74/Xz0SCe/LG3qazHwhD5LIzg99W5Fmj1tvLY0YkPX
-	Pl/EzrW0vbhE2WgZKINH/JyndOBAq/BdrV4xD4Fe3+ufeVACpnlYMsxOleMLJOJ0A+h9W6EjIJ5
-	8c1SNVe6LasZewCuig9F9iZ+Rl+gMhjkR2DFG325WingAq2CAN03mP/vWXSQI73wFwx2kK59JbE
-	JEPprYN1WdptO5gufMk6ha4xbZEdmkU0s+U2NbqhqLWY9aOFssDH3kohhBvidnpjDYTnHqESZMg
-	089MfDCw8kpvztOF6iZOARgI23EOTpIFOF2j1Im/wfiK3xsQitxjFf+m0rIRx7vHPsSASUkgtaQ
-	sJTHrGe4Bq+FzAiMNz+1+n+OYipTIT2jQQ6cGV2NNO+NWGDh8kMgTukt/h9IsQFB2dITA==
-X-Received: by 2002:a05:701b:4346:b0:13e:aa58:89f8 with SMTP id a92af1059eb24-146ce86dbddmr949798c88.15.1790368585236;
-        Fri, 25 Sep 2026 13:36:25 -0700 (PDT)
-Received: from ehlo.thunderbird.net ([2a00:79e1:2e00:6c01:e929:591c:a76d:ca9c])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145ad9e097fsm8107732c88.13.2026.09.25.13.36.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 25 Sep 2026 13:36:24 -0700 (PDT)
-Date: Fri, 25 Sep 2026 13:36:24 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: David Heidelberg <david@ixit.cz>
-CC: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Henrik Rydberg <rydberg@bitmath.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Petr Hodina <petr.hodina@protonmail.com>, linux-input@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v7_1/4=5D_Input=3A_stmfts_-_w?=
- =?US-ASCII?Q?ait_for_controller_ready_after_reset?=
-User-Agent: K-9 Mail for Android
-In-Reply-To: <b684b88b-55a6-41a9-a4da-3bca33550164@ixit.cz>
-References: <20260907-stmfts5-v7-0-4a53381cd038@ixit.cz> <20260907-stmfts5-v7-1-4a53381cd038@ixit.cz> <arbJrK9zfoO1dGzy@google.com> <b684b88b-55a6-41a9-a4da-3bca33550164@ixit.cz>
-Message-ID: <B0EA1BC5-3B3E-4D31-9A37-974E38309C74@gmail.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="BQ2mTr7x"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68PJ5N1i031036;
+	Fri, 25 Sep 2026 20:36:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=JPbDZV
+	kHkHveuVIklk/lqenZFJcP6dLwpKqAT/JIlqc=; b=BQ2mTr7xALEUua0Mhudyjx
+	uPnMu1NKiz76BrUpZffOZpXL1uPSC3RkOQsxzYrrwYb9R8oRhWdDKT5n8BQt97r0
+	RaUibVb4pbUhDgbgJzsy8DScz/j2NEHieQCy4pmtz2j3fd8RsaFla+pw3QazuuA/
+	OqvlZU66P9f3cMTkWOVNZDLIybiz1VMFg1OibAqn+ixCnkqyYSEoVoTGaHghfP99
+	6QVa10AiJ0kehfYdNg54Nueg1yyOxn6u6WF4jnyhHvMVPIsmaP/+lUWzxGUDcMpM
+	5jQA08Kbmw7zS5clLtvkGcuwc0n0MeKJtLrmTMk1+C5V147vcXHttH4WA4VRYRrA
+	==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gske294yp-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 25 Sep 2026 20:36:15 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68PImAvm130353;
+	Fri, 25 Sep 2026 20:36:14 GMT
+Received: from smtprelay03.dal12v.mail.ibm.com ([172.16.1.5])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gvbu93v5f-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 25 Sep 2026 20:36:14 +0000 (GMT)
+Received: from smtpav04.wdc07v.mail.ibm.com (smtpav04.wdc07v.mail.ibm.com [10.39.53.231])
+	by smtprelay03.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68PKa4KY27460330
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 25 Sep 2026 20:36:04 GMT
+Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id ED4425805E;
+	Fri, 25 Sep 2026 20:36:03 +0000 (GMT)
+Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 2C6E358054;
+	Fri, 25 Sep 2026 20:36:03 +0000 (GMT)
+Received: from d (unknown [9.61.165.251])
+	by smtpav04.wdc07v.mail.ibm.com (Postfix) with ESMTPS;
+	Fri, 25 Sep 2026 20:36:03 +0000 (GMT)
+From: Dave Marquardt <davemarq@linux.ibm.com>
+To: mingming cao <mmc@linux.ibm.com>
+Cc: netdev@vger.kernel.org, davem@davemloft.net, kuba@kernel.org,
+        horms@kernel.org, edumazet@google.com, pabeni@redhat.com,
+        andrew+netdev@lunn.ch, nnac123@linux.ibm.com, maddy@linux.ibm.com,
+        mpe@ellerman.id.au, linuxppc-dev@lists.ozlabs.org,
+        bjking1@linux.ibm.com, shaik.abdulla1@ibm.com, stable@vger.kernel.org
+Subject: Re: [PATCH net 1/2] ibmveth: h_free logical LAN on open-fail after
+ register
+In-Reply-To: <b2116532-c9d2-46d9-85e1-28d829e1b1f2@linux.ibm.com> (mingming
+	cao's message of "Fri, 25 Sep 2026 12:48:54 -0700")
+References: <cover.1790357373.git.mmc@linux.ibm.com>
+	<7a56fbfb9e0674f011f4e310fbd7dfd8e67c30aa.1790357373.git.mmc@linux.ibm.com>
+	<87jyo917gv.fsf@linux.ibm.com>
+	<b2116532-c9d2-46d9-85e1-28d829e1b1f2@linux.ibm.com>
+Date: Fri, 25 Sep 2026 15:36:02 -0500
+Message-ID: <87bj9l132l.fsf@linux.ibm.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: fzPdm23rj8wL-WaU15_8er85TtjkUSGS
+X-Authority-Analysis: v=2.4 cv=EOCTQFZC c=1 sm=1 tr=0 ts=6ab6db40 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8
+ a=nKwSdBsyh74nXFs96kUA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDA4MiBTYWx0ZWRfX8i3lrld8EEeX
+ CZWUXR1WHPIwudfQuAX7zHzeKxM3uAcCL8PJt80SLJUUkB92ED3kwOJaSa1pV2945DA6bBKrkRG
+ +Q3DTw0n4Zb7UhiTHQC3nM94B2Tv45k=
+X-Proofpoint-GUID: hec-NSCBgVNHqD0Ku_6ASDvZ5kwwIdqU
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA4MiBTYWx0ZWRfXyTCHVYtT5CWT
+ b3w+wam0H4HcR4odwdRLkrKioav0zaXhIunq0RfXt8o9UeTqCiWD3p6kV9H+Vs0ousYPU8hphiV
+ nGbMEMMzCBDH+UHFinqjwfNhlLEI4qRAJHDnbQk+K+jqbp3gRcJZq/8M+hzKc04pXPcXMXVFn9R
+ 92BFlCIDkaXwpVRP+xugixW9GsllZIXaqDP0LkR6ax6bLUoh20TjsMhDxC8LmxvrRvvZ5rdeoE4
+ Q+b6CIEZXNJRLwgUZS27bEY+kzXlkYvCr/4Zbq9sL8j7rPR6ChAtWXnAIYS5vD0Pffjrkvl5Bz6
+ p24xjKCHFAribWeI/LGkUbzH6Xv2tvMAUfvmULWuO7DY2/VFj9+rhXu6gXlGIn+ryYfr0Ux5WVz
+ BUZ2pjVoKawqT2BK5axXT7KFEUCIpehSRmfoWMGsQJFW5u7a9JV+cCn/PUmwAN3XtnrbJ+c+9fp
+ zolIkSSXflrsAiXrW7w==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-25_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 phishscore=0 priorityscore=1501 clxscore=1015 spamscore=0
+ adultscore=0 impostorscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609250082
 
-On September 25, 2026 1:20:56 PM PDT, David Heidelberg <david@ixit=2Ecz> wr=
-ote:
->On 25/09/2026 21:27, Dmitry Torokhov wrote:
->> Hi David,
->>=20
->> On Mon, Sep 07, 2026 at 12:50:19PM +0200, David Heidelberg via B4 Relay=
- wrote:
->>>   -static void stmfts_reset(struct stmfts_data *sdata)
->>> +static int stmfts_reset(struct stmfts_data *sdata)
->>>   {
->>>   	gpiod_set_value_cansleep(sdata->reset_gpio, 1);
->>>   	msleep(20);
->>>   +	reinit_completion(&sdata->cmd_done);
->>>   	gpiod_set_value_cansleep(sdata->reset_gpio, 0);
->>> -	msleep(50);
->>> +	enable_irq(sdata->client->irq);
->>> +
->>> +	if (!wait_for_completion_timeout(&sdata->cmd_done,
->>> +					 msecs_to_jiffies(STMFTS_RESET_TIMEOUT_MS)))
->>> +		return -ETIMEDOUT;
->>> +
->>> +	return 0;
->>>   }
->>>     static int stmfts_configure(struct stmfts_data *sdata)
->>>   {
->>>   	int err;
->>>     	err =3D stmfts_command(sdata, STMFTS_SYSTEM_RESET);
->>>   	if (err)
->>> @@ -593,42 +602,47 @@ static int stmfts_power_on(struct stmfts_data *s=
-data)
->>>   		return err;
->>>     	/*
->>>   	 * The datasheet does not specify the power on time, but considerin=
-g
->>>   	 * that the reset time is < 10ms, I sleep 20ms to be sure
->>>   	 */
->>>   	msleep(20);
->>>   -	if (sdata->reset_gpio)
->>> -		stmfts_reset(sdata);
->>> +	if (sdata->reset_gpio) {
->>> +		err =3D stmfts_reset(sdata);
->>> +		if (err) {
->>> +			dev_err(&sdata->client->dev,
->>> +				"controller not ready after reset: %d\n", err);
->>> +			goto err_disable_irq;
->>> +		}
->>> +	} else {
->>> +		enable_irq(sdata->client->irq);
->>> +		msleep(50);
->>> +	}
->>>     	err =3D stmfts_read_system_info(sdata);
->>>   	if (err)
->>> -		goto err_disable_regulators;
->>> -
->>> -	enable_irq(sdata->client->irq);
->>> -
->>> -	msleep(50);
->>> +		goto err_disable_irq;
->>=20
->>=20
->> I think the logic is becoming quite convoluted here, and factored out
->> stmfts_reset() does not help=2E How about we make it look like this:
->>=20
->> static int stmfts_power_on(struct stmfts_data *sdata)
->> {
->> 	int err;
->>=20
->> 	if (sdata->reset_gpio) {
->> 		gpiod_set_value_cansleep(sdata->reset_gpio, 1);
->> 		/* a short delay before powering up */
->> 		usleep_range(1000, 1500);
->> 	}
->>=20
->> 	err =3D regulator_bulk_enable(ARRAY_SIZE(stmfts_supplies),
->> 				    sdata->supplies);
->> 	if (err)
->> 		return err;
->>=20
->> 	if (sdata->reset_gpio) {
->> 		reinit_completion(&sdata->cmd_done);
->>=20
->> 		/*
->> 		 * The datasheet does not specify the power on time, but
->> 		 * considering that the reset time is < 10ms, sleep for 20ms
->> 		 * to be sure before releasing reset line=2E
->> 		 */
->> 		msleep(20);
->> 		gpiod_set_value_cansleep(sdata->reset_gpio, 0);
->>=20
->> 		enable_irq(sdata->client->irq);
->>=20
->> 		if (!wait_for_completion_timeout(&sdata->cmd_done,
->> 						 msecs_to_jiffies(STMFTS_RESET_TIMEOUT_MS))) {
->> 			dev_err(&sdata->client->dev, "controller not ready after reset");
->> 			err =3D -ETIMEDOUT;
->> 			goto err_disable_irq;
->> 		}
->> 	} else {
->> 		/*
->> 		 * We do not know the real controller state (was it powered
->> 		 * off or reset)=2E Let's hope that this is enough time to
->> 		 * initialize=2E
->> 		 */
->> 		msleep(70);
->>=20
->> 		enable_irq(sdata->client->irq);
->> 	}
->>=20
->> 	err =3D sdata->ops->configure(sdata);
->> 	if (err)
->> 		goto err_disable_irq;
->>=20
->> 	/*
->> 	 * At this point no one is using the touchscreen
->> 	 * and I don't really care about the return value
->> 	 */
->> 	(void)i2c_smbus_write_byte(sdata->client, STMFTS_SLEEP_IN);
->>=20
->> 	return 0;
->>=20
->> err_disable_irq:
->> 	disable_irq(sdata->client->irq);
->>=20
->> 	regulator_bulk_disable(ARRAY_SIZE(stmfts_supplies), sdata->supplies);
->> 	return err;
->> }
+mingming cao <mmc@linux.ibm.com> writes:
+
+> On 9/25/26 12:01 PM, Dave Marquardt wrote:
+>> This code change is good. But I noticed another thing that's a pretty
+>> minor bug of useless code just after this:
+>>
+>> 	rc =3D -ENOMEM;
+>>
+>> rc isn't used in that code path after it is set. Is there some reason I
+>> do not understand to have this here?
 >
->Thanks, it seems to be better (thou would be nicer if we didn't have two =
-branches, but=2E=2E=2E what we can do)=2E
-
-That's that enable_irq() in the middle=2E=2E=2E We could have more "ifs" b=
-ut that also looks ugly=2E=20
-
+> Yeah, that |rc =3D -ENOMEM| at line 728 is dead =E2=80=94 set right before
+> |return 0| and never read again. Pre-existing junk. |d43732| set it
+> for the bounce alloc that used to run next. |d6832| moved the TX LTB
+> earlier and dropped the bounce, but left the line. After |request_irq|
+> succeeds we replenish, start TX, and return 0.
 >
->I added you as Co-developed-by :)
+> It's harmless (not user-visible) =E2=80=94 I prefer leaving it out of this
+> Fixes and letting the MQ series clean it up naturally when it rewrites
+> that whole open() path. But fine to respin a new version if desired.
 
-Thanks but I don't think the change was large enough to warrant it=2E
+Agreed.
 
-
---=20
-Dmitry
+-Dave
