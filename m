@@ -1,83 +1,78 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B880B4B049D;
-	Fri, 25 Sep 2026 14:52:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 077894BD35C;
+	Fri, 25 Sep 2026 14:57:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790347969; cv=none; b=aw4jHYNzpZxkeBr4iWalRHijpv+NkEYPXFZTn7Q47NCmg9VaQvqmAGn+/PiN9Il91H3ncKs1Vlw56DpTbizULnL8GUXNkvJumaPg8pJBP1NTIMdOAWmR1VJMVc3PBXo6kH5Bl134T2afDhN9gIrUiwzrl7rK6CnFQqth2VaItg0=
+	t=1790348276; cv=none; b=pvy1W81C+oRP8eoVl/VSOPymt2KR7WajG/Xag6e0nGNnNu9VbVybCY6VTWB+UKKyjAN4chaeEgnWSSHth91iv0MHQQqHlAMIOgAZ4Ifs6h+tIWVNLy+Y4wTum4sBiFQzAuMOLFqc52fulF9jOaB3DjeXSsKtnP3h3CLnGVBl6W8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790347969; c=relaxed/simple;
-	bh=Hl+8wz8tp1wu8qAL6hnJ8ublCc3/qSu9zox/vnjT1Pw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ew1u3ucgil652hj2bWM6p19Ddg2OMflUk0msgk7IsM2Nav5N+h1Vvz8tnDlBFZ2bPpo0v80xwTn6MkFtrVdF0Pg0RxARvTAAgWgl6tZuLHCU4Pd8DWTgewIuaTFl7Z/TH15KUe2HDzHzZCDIiG4x0UXCR4emWt+CAWUkJqb5Q7A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WKKK8XKP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790348276; c=relaxed/simple;
+	bh=qgiPTRHHBDsdWtpSfEQMVSG8rZenbKuJolNS9oCwZcg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=ted8SPPKAnI56L3RA5pWIo7bOqBDmDTc1xfS0NFeFdqCInT5V/lK1Lddl49SGp9C9PwiMqm7jajYtiiwGyyWmyWbj4+EDaAWYo70Mx30+G9Se5HxhS78OiXcwWnvvbuHM+wCpj6BcTDOzDmplObfIl3PqHKNld7srB7mIJME6Wk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N0Cds4je; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WKKK8XKP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE9D21F000FF;
-	Fri, 25 Sep 2026 14:52:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N0Cds4je"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C47EC1F000FF;
+	Fri, 25 Sep 2026 14:57:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790347961;
-	bh=eqwba8uIyIBHU0D+mbWaPP6/65+16kFFe7c0vWebTx4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WKKK8XKP/if2xktccrO3rxMkmW6KauTsNF/lj7apJemrvIkZh0tl++Rd6QTb/r0kB
-	 7aiSZdBVt4ia9O5hAGENSxqkZ6y2rmcbfkuKUCjPZzgPw2pwDyiOl+fIe5iyPYZ8H/
-	 Ax8/uJesAMhZVGETEX/Idvmy/JXR20JcAIQ/6lnzcMqNkB+Zj5dIMi78/ThMizoyQa
-	 RuS8y4xzId+2brqX6xy9hkRWnXdYwcBc8RPHksQMo6YqBf6F/wgkB6axS4oSzJmBOG
-	 SJ+tevz7BD4d/3Z1HyECvqS51nX6U5rChQ3MB+b0dlPtJiXM64w+BkSrns4wj5gvKM
-	 RgVt6SXFkZNVg==
-Date: Fri, 25 Sep 2026 15:52:36 +0100
-From: Simon Horman <horms@kernel.org>
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: anthony.l.nguyen@intel.com, alessio.bogani@elettra.eu,
-	przemyslaw.kitszel@intel.com, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, richardcochran@gmail.com,
-	intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	jianhao.xu@seu.edu.cn
-Subject: Re: [PATCH net v2] igb: initialize PTP state before registering PHC
-Message-ID: <20260925145236.GO13925@horms.kernel.org>
-References: <cd12af33-ed01-4eca-88e3-703b59c05453@intel.com>
- <20260917150247.2562991-1-runyu.xiao@seu.edu.cn>
+	s=k20260515; t=1790348250;
+	bh=JHoWmvc5VW037x1xGuI+6ckYAN/C+4nEMLY8oldVLdw=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=N0Cds4je/+07P9mu7EpPfJUB9JJ7PPk40+37cQ+MpBk84kXWd6HSWUytE5Nl/4Muf
+	 aFMP3vwxfeKIZzf7XPAWDDJu06NC9FfSTQkEPo2UZ7WWBu10WOhmxzzSs4X2W9OM8Z
+	 cz/5rH6OMX4I7THbw2nIzvnt7OddDbxXjwRB2WO4z0WMHpEXLVQi9SgT83Gk6hVnB7
+	 wW4pqPoVlYj5hOU2AYfobm9WJCpt+pr2KGUOIpBpf0ET1MHb9SPdqmvFyckuBwbN2h
+	 Yx718xpi2zaysELF9Un22yys+JU6OKio3Ipk7rMSlRebYxBptNvMXf9XPni3sF3m9j
+	 Qf3w4G8Phx3bw==
+From: Christian Brauner <brauner@kernel.org>
+To: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
+ Breno Leitao <leitao@debian.org>
+Cc: linux-fsdevel@vger.kernel.org, paulmck@kernel.org, 
+ linux-kernel@vger.kernel.org, kernel-team@meta.com, stable@vger.kernel.org
+In-Reply-To: <20260918-dcache-task-rcu-qa-v1-1-963ec83e6d0b@debian.org>
+References: <20260918-dcache-task-rcu-qa-v1-1-963ec83e6d0b@debian.org>
+Subject: Re: [PATCH] dcache: report a Tasks-RCU quiescent state in
+ dentry_kill()
+Message-Id: <20260925-tunlichst-subsumieren-wortbruch-130f8e4e222a@brauner>
+Date: Fri, 25 Sep 2026 16:57:25 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917150247.2562991-1-runyu.xiao@seu.edu.cn>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-db0b7
+X-Developer-Signature: v=1; a=openpgp-sha256; l=903; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=qgiPTRHHBDsdWtpSfEQMVSG8rZenbKuJolNS9oCwZcg=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRt675WscBM90wrh1DIi4U/Gu7qCM288ceSKXHr1G0Lw
+ rgLz/pe6ShlYRDjYpAVU2RxaDcJl1vOU7HZKFMDZg4rE8gQBi5OAZhI5kxGhoNT7FrOn7HZvKbf
+ 9am640YzD1uh3mQF1pk7V1jeueeb/peRYb4Lu2v/zrmqjJ9fdu/6WHC7yufqjxzn3sT824rcE6N
+ WMQAA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-On Thu, Sep 17, 2026 at 11:02:47PM +0800, Runyu Xiao wrote:
-> igb_ptp_init() currently initializes the PTP lock, work items,
-> timestamp configuration, and timecounter after ptp_clock_register().
-> The PHC is published by that call, so PTP callbacks and timestamp
-> interrupts can run before those objects are ready.
-> 
-> Initialize the complete PTP state before registering the PHC. Skip the
-> setup when CONFIG_PTP_1588_CLOCK is disabled, since the PTP registration
-> helper is then a no-op. If PHC registration fails, cancel the work items
-> queued by igb_ptp_reset() or a timestamp interrupt before returning.
-> 
-> Fixes: b888c510f7b3 ("igb: Avoid starting unnecessary workqueues")
-> Cc: stable@vger.kernel.org
-> Link: https://lore.kernel.org/netdev/20260830154912.2712900-1-runyu.xiao@seu.edu.cn/
-> Assisted-by: LLM
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-> 
-> ---
-> v2:
-> - Restore all PTP state initialization before PHC registration.
-> - Skip PTP setup when CONFIG_PTP_1588_CLOCK is disabled.
-> - Cancel both PTP work items when PHC registration fails.
+On Fri, 18 Sep 2026 04:01:57 -0700, Breno Leitao wrote:
+> dcache: report a Tasks-RCU quiescent state in dentry_kill()
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+Applied to the vfs-7.4.misc branch of the vfs/vfs.git tree.
+Patches in the vfs-7.4.misc branch should appear in linux-next soon.
 
-For future reference: please post new patch revisions as new
-email threads, rather than as a response to an earlier revision.
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
 
-Link: https://docs.kernel.org/process/maintainer-netdev.html#resending-after-review
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
 
-Thanks!
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
+
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs-7.4.misc
+
+[1/1] dcache: report a Tasks-RCU quiescent state in dentry_kill()
+      https://git.kernel.org/vfs/vfs/c/a647a53bc89a
+
