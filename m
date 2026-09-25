@@ -1,48 +1,49 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 683454AA3F9;
-	Fri, 25 Sep 2026 14:28:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D777D4AC167;
+	Fri, 25 Sep 2026 14:28:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790346522; cv=none; b=nx8wQK8QlwYZ/xjoWEQWvtjY3Mq8DQPTTFfD8rFkdhJD8210g5Byg870Jt66yD7LJAKnoLRLplTMcFCPMCnZ4I7jzNnvvz+iWuAv1CTF7zUFmXIth0gr2sg/hVM0NaRNYDMWowRg7AdVIpPBic9Ak2YhCzJ8mbWDT/Qq++5EpNI=
+	t=1790346531; cv=none; b=B5sjVNDbu8VkF4ZpAl0FJNyt9jUkx2jD3CoZWMr9g2EAwFuIHU+OB4OBbXxJIv+2ykmZrIHUwz0mENGrgmcswwMhMD61Og+waTcr8dCq1YSwtqbHyrC+n67KuquauOZBZLfAs2FXdiFc5MHkiaAbiqvzGH1ulEQfIwyvYMflBos=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790346522; c=relaxed/simple;
-	bh=e+IEvfQQNLyDg334ue/uJkR+TQVfOVB/ZrhNwYn46Hs=;
+	s=arc-20240116; t=1790346531; c=relaxed/simple;
+	bh=5gtiiDiK+HpWvPtqxf0XoX4Rpnqasvbc0Su0oWao/Io=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=OybGVX2O5QbcYDLE6zgWhGwPf1EP608uyuShCbkMUTsOg+XaW5lYQhrlUhbBTTwY8kYC+6sfI2zKqbUyx50tF5+VbUiBaJsiofZ7RyU/8xaSc/NdBKTMVN/275IsJRI1oAlM5zgTINfs08sVeigbTjMA3flhtKo1rByqpI/kgls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=at6GKfc4; arc=none smtp.client-ip=185.246.84.56
+	 MIME-Version:Content-Type; b=qUrPTHh7QjM689NLwGRpqniVIljvXE3zQgasX30aJebs96QlBeNsnYG6bTN6uUIFgXEkAfN8+FHekhXPhF/Nfyzul6FgqFULpQiv0OEflwW7rwnSZV9tvnV4i16H3uJkc6OQcL4tk3KHQxfXQUDV6i+ZONQZJtWP94xzNChHQeU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Yas0I/aM; arc=none smtp.client-ip=185.246.85.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="at6GKfc4"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Yas0I/aM"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id B371C1A0FF7;
-	Fri, 25 Sep 2026 14:28:35 +0000 (UTC)
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 5E3A94E41072;
+	Fri, 25 Sep 2026 14:28:48 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 864C76073B;
-	Fri, 25 Sep 2026 14:28:35 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 96832102F1E07;
-	Fri, 25 Sep 2026 16:28:27 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 3259E6073B;
+	Fri, 25 Sep 2026 14:28:48 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8A5D9102F1E10;
+	Fri, 25 Sep 2026 16:28:40 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790346510; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1790346523; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=/Szyux9DyHheIDnsjqi+HSqLOWfZhUZQhMC3M9IhzG4=;
-	b=at6GKfc491Zf19q6ai9lcmvvmxHpbTSOHcrdNW201op1kfQgITsZemaHFXgjhN76jIQIqW
-	lWIX3wxP+QjVHWJhniuDn29jP61lV5PO2bbaKU5Zvh2grnjjnPobEOE22MSJfcu573AJOq
-	jvNzBzzVHJaZ/ECjTT5WZVFJuiOH7bRpD1L6OGh5DXcnepL88dEbNf4/dw3yTV0wHuk13l
-	9ltCc1ewLGtPWJq13NMawijCavACFXqHPgNwmhW7O03ghnY09mJ3ITL3zmAhuS7KICTMvW
-	TAsMBJtG1wPtpGoyIROmApgY5A1M5cxTVrsCpk4TamX98E5kKNo2UhzxQftUHA==
+	bh=qQValb4cdXQVQPWw0cUkOsUztHcoNAL4ungnrJTbea0=;
+	b=Yas0I/aMMutQJ5rQT1HRAoH/UT2oGQTScVXHc/N/RpiVYPjCtWZ6NS2B26ruvVTZthFVIS
+	MUhfMNMcHUCFhRxB+MsT/8RiaPm61lS9HEFPgCB0uZdVPzFXOyypbnqikN+71qkd4pfYXw
+	gmzyjlTFATxm5o3Acx9goeh8lGrNm4xWM9Fl1LT7odQ3fyIQXw+TNs9cntB5DZQTaz8uYt
+	u3z/3LbetShpZJf3JDw5zr5HytNqqUM53y4IDF6mLG4Y+sRI56eJABV4heQ10MRVLeLBvW
+	nIU7nMABZUb0oW38ooWonS1VKaHJrR1hdBQucNNeUbSgC4lfkEeQ7BBxSfq4uQ==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Richard Weinberger <richard@nod.at>, 
- Vignesh Raghavendra <vigneshr@ti.com>, Myeonghun Pak <mhun512@gmail.com>
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
+To: akpm@osdl.org, Wentao Liang <vulab@iscas.ac.cn>
+Cc: dwmw2@infradead.org, linux-kernel@vger.kernel.org, 
+ linux-mtd@lists.infradead.org, richard@nod.at, vigneshr@ti.com, 
  stable@vger.kernel.org
-In-Reply-To: <20260915010647.54099-1-mhun512@gmail.com>
-References: <20260915010647.54099-1-mhun512@gmail.com>
-Subject: Re: [PATCH] mtd: maps: pci: balance PCI enable on cleanup
-Message-Id: <179034650740.1166139.2004199297491159166.b4-ty@bootlin.com>
-Date: Fri, 25 Sep 2026 16:28:27 +0200
+In-Reply-To: <20260917102051.2146567-1-vulab@iscas.ac.cn>
+References: <20260917102051.2146567-1-vulab@iscas.ac.cn>
+Subject: Re: [PATCH] mtd: amd76xrom: Fix PCI device reference leak in
+ amd76xrom_init_one()
+Message-Id: <179034652046.1166139.1375101716012625421.b4-ty@bootlin.com>
+Date: Fri, 25 Sep 2026 16:28:40 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -54,22 +55,21 @@ Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.14.3
 X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, 14 Sep 2026 21:06:47 -0400, Myeonghun Pak wrote:
-> mtd_pci_probe() leaves the PCI device enabled on later probe failure and
-> mtd_pci_remove() does not disable it either. Use pcim_enable_device() to
-> release the enable reference after the existing map and region cleanup.
+On Thu, 17 Sep 2026 10:20:51 +0000, Wentao Liang wrote:
+> init_amd76xrom() obtains the PCI device with pci_get_device() and
+> hands the reference over to amd76xrom_init_one(), which stores it in
+> window->pdev.  When reserving the ROM window fails, that function
+> returns -EBUSY directly instead of going through amd76xrom_cleanup(),
+> so the reference is neither released nor cleared.
 > 
-> The imbalance is already present in the initial Git import.
-> 
-> This issue was identified during our ongoing static-analysis research
-> while reviewing kernel code.
+> Drop the reference and clear window->pdev on that path.
 > 
 > [...]
 
 Applied to mtd/next, thanks!
 
-[1/1] mtd: maps: pci: balance PCI enable on cleanup
-      commit: 3be16e5d4990bf96309ac5ba35cb369c6015bce7
+[1/1] mtd: amd76xrom: Fix PCI device reference leak in amd76xrom_init_one()
+      commit: 1a122f5fecbabd47b81b1be3f0934f57b78aad42
 
 Patche(s) should be available on mtd/linux.git and will be
 part of the next PR (provided that no robot complains by then).
