@@ -1,159 +1,186 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010070.outbound.protection.outlook.com [52.101.56.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7EA2429036;
-	Fri, 25 Sep 2026 08:02:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790323375; cv=none; b=kScY9lUeh1kBz/aOA/98EJ+sIIoQR9Esfa7DhDJ+7uYP0DgXjjnIp81nUD6+GauP/m8vH+w68n0uqmtl+pU2EARS18ZZ3U1HToJzL/GUQh3+9F779w3yGjrOl4+BUIzSWWp4FidyWckT4F2vcq1LBWwkLIDQFFpaaJFHQMKbEGg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790323375; c=relaxed/simple;
-	bh=AYSqMTtE1fV4VjXlqjLWaSe80ghKeBur//2SbcdzhZM=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=n+orv8WPi+lLOjEoqQuVXY2kw9IkezVJ+siVVtwIM5srfmy5jm6cCDoGn/E4OD1E4cSuR4G72uq1ujb4xJOH8uQP9rDq8R8S/Tr52qWpbAGb6Wwui2ScoURbum9A64RP8uZIKg+XIJlLGmELFHxEhvfqpjuEKTqNZk53JFFfvas=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cACoKe0W; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63CBE3AFB19;
+	Fri, 25 Sep 2026 08:07:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.70
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790323641; cv=fail; b=rZOj7FLLv4Vl30qWIe3EBLrS2voHAg0917Qj4seVdec3EwT9VZ+XYa385nO0KvaLmpa6CKzEaQRJHX7zI1nAU5rB7a0FIUz27xNdXsnF9bc6pJH4l4q3lloDLsEpAGWwjNZkceeQ+3vLfCetc5S9TURD8CMBYyfPgN2VxV/GRU8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790323641; c=relaxed/simple;
+	bh=kuKluRmt7ivFLhjiFJfeUMUrLl+5ugU52zygA/5Z2mo=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=OoQh+ruV9wepAnnbd4cQ6qShATv4N4HrZvEtts4hHXmRUW5tVpX5ONYXbnXHEI3ViOhqIJSuq8hJXrVlD7IUmZC3RJfNTYKe+U9SmAfHjnHV8MAZsX7llPwmPqiMZEIvgrM6cpmPxnr0uB3mfwIL5EH/6LhKdBw57F8tchm/dyA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=KFfoubN+; arc=fail smtp.client-ip=52.101.56.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cACoKe0W"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A1C71F000FF;
-	Fri, 25 Sep 2026 08:02:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790323374;
-	bh=gVjg6yAH4af8nJpcF1EN2HhLt3HM9n0qHsdjGQwzX8Q=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=cACoKe0W1HHQyAMonJg2IpATZHeHsgCpjWE0rA/wipMRFaFQJ6IUHci9zCBy8nmEB
-	 /O37nR+wF5oGej1gW3HwCCypyTQ4+5+BCPlymUAE8vhcBdZol7Shq19PP7CBOvSMyE
-	 Wc3whWLe/YgNMR1VTswNenFOcBA9KsddvB+NVqxwhCzKug5L+RCznpTG6VqiXxCU6d
-	 b/KeVzTTO1r8irD6zT37XixKbdtCD/ybb1dEWDlODLMw3eU2kCWH3NIxSvuG2qw004
-	 Pg3oiPJzBQSjsEHY2vFxvzsyIGkfijRhJWtK+Hp73k/7WnEv3UoshA9OV/+OM8WAA7
-	 xDLJTrPwHrMaQ==
-Subject: Re: [PATCH net v2] af_packet: fix integer overflow in
- prb_calc_retire_blk_tmo()
-From: netdev-bot+sashiko@kernel.org
-To: zhangdairui@gmail.com
-Cc: netdev@vger.kernel.org, willemb@google.com, daniel@iogearbox.net,
- stable@vger.kernel.org, kuba@kernel.org
-Date: Fri, 25 Sep 2026 08:02:53 +0000
-Message-ID: <179032337381.2160803.13389684683115214605@kernel.org>
-In-Reply-To: <20260923050101.1510064-1-zhangdairui@gmail.com>
-References: <20260923050101.1510064-1-zhangdairui@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="KFfoubN+"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=du//csdSv6hp5nkkgMXG/i5SHYAC0RMpmIoAPacfg4RWipSSXrEYoOZh+aksfOIYIcNtrBH/bp05L0Aj/e05KpWAPTZLlfq7jLXAFfVKKLcFLmzEIgfpjjZMhTej/DMIm0nAig9+XLjlqqtqyLJWkVXbkkm/SoYlk1At4S5U+5weOBTe+yZGmA4KwR5wCRGStGnB5Ect3EGqh00/UMazLvgcCBX9L8BwQ+V5pDzq7qC3lSP7RWgtxc9oIcxyKP2G0HvzqvTdPpIWEh3lFCkntVY+uQJ+Bvngk9uaQpiQiZJ/RZiK+N5okVKKO4FdteP91TVRkhWdOLLtHChlIJy2bA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LsjWijD3QNyw2ucvtCPwmvMVceBQLCl5MFegrI/dsMA=;
+ b=os6qwJEyiPWOIGEuox8R39L41ARRts+L1Mrb2p8kcV3qyzzi45ScfyQUlBs4TtT0yUCLQYOM6ncc4oACA/yomG/Cc+rqCa1ZcXqrE8AeJRZbrw3jDNZP4u1QT/kl+HJqQL5V71ndjmk0R7Dxn1sz/21F952ewCPFkHbKSYJo1+IDnPaVAisjuN/To9N4wTQkxKZ7d+8oRXRsXaHn/ZoymIVzxze6SPmqCK4lFDjMnyV26NxyayQzW5t9DvofBvw3wAuOtcrs58Rft4rd80nHGk85pGMsyq3JooleEJ9mzEnxv6dxJVd8P9ZBP5+vkSJP9pDWpEnrNy4GgyrfBciSDQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LsjWijD3QNyw2ucvtCPwmvMVceBQLCl5MFegrI/dsMA=;
+ b=KFfoubN+vEtwjfrdOTZraArmk2CKWZwEc5d9YBNaW1KBqs0q3O0+dcuFjmzHpk86q92/Hh53ynW9Phvorv+FwDDn7VR1PXAUXeE2x+heON0Dj5TFatThcbZJaxllr72kP1dGN3YgJYVLyOIOkfDyCzh0Rf/qA6eUWQ8/oqxIweM=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DS2PR12MB9567.namprd12.prod.outlook.com (2603:10b6:8:27c::8) by
+ MW4PR12MB7167.namprd12.prod.outlook.com (2603:10b6:303:225::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Fri, 25 Sep
+ 2026 08:07:16 +0000
+Received: from DS2PR12MB9567.namprd12.prod.outlook.com
+ ([fe80::636:1b52:24ca:d7e5]) by DS2PR12MB9567.namprd12.prod.outlook.com
+ ([fe80::636:1b52:24ca:d7e5%4]) with mapi id 15.21.0451.014; Fri, 25 Sep 2026
+ 08:07:15 +0000
+Message-ID: <611b8e7a-b434-40c0-8f0e-4978208bb01f@amd.com>
+Date: Fri, 25 Sep 2026 13:35:59 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ASoC: amd: ps: fix snd_acp63_remove() teardown ordering
+To: Fan Wu <fanwu01@zju.edu.cn>, lgirdwood@gmail.com, broonie@kernel.org
+Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Syed.SabaKareem@amd.com,
+ stable@vger.kernel.org, Song Li <songl@zju.edu.cn>,
+ "Dommati, Sunil-kumar" <Sunil-kumar.Dommati@amd.com>,
+ Syed Saba Kareem <syed.sabakareem@amd.com>,
+ "Prasad, Prasad" <venkataprasad.potturu@amd.com>
+References: <20260923092640.502145-1-fanwu01@zju.edu.cn>
+Content-Language: en-US
+From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+In-Reply-To: <20260923092640.502145-1-fanwu01@zju.edu.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN0PR01CA0016.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:4f::21) To DS2PR12MB9567.namprd12.prod.outlook.com
+ (2603:10b6:8:27c::8)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PR12MB9567:EE_|MW4PR12MB7167:EE_
+X-MS-Office365-Filtering-Correlation-Id: 25ff7eac-cf82-4035-0b02-08df1adc02e2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|10067099003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	rC8U/cQhmoPJpjxTaUUxhaSNxe2gMiJBheAfkkLTredcOX3XLMc9E4iDRs9N1cI964ZE4xekVpybt7AZDXXxRNj54MFxgTmvhh2W9+PmueQew4URClgjum8pWHlmHbUuaDm/aPfdFLxA5ZDXoIBOBGrslKDlWoOkh6bkeLmOHtPliAYqlndj9+5lWczMmOueEIfoJ+VhOTrNa9o/fm7wRPKMfvks3L5DvB8l7DFvyO/KX7Hal9CYpyyYPUJgHqOcuGSopIjHBL4O/4Cp6G4CWFhiEM0NgwS7iMTy4tQ8fW2oNXglY1SUF4tCmMv5qzUahW8P2DpqHkKlntZQQu/h4UpqwlyQyxns4DD/ISZlDEIvURYSSlQbQspujC9XUJVDtcXjb6eXICm7KJT4MHeK9BCn0/HMJspAODEW1nKPkFyD2QuskxdSoWxVZz5LHOFXc3ru8H5AzAb1gvqrZQjIqCPLsPEbiWadMWDTdamYhhDkZAk4IVKsmS97DNKjV56ueUsBo/u5NpUtahNK4qWpnikcMY0WKT5KMDZXCWGjaGIUHoKt1Q5UR3Y71Qq6bluvzr76q+C4nRhBX+xZlssprhSjwQ80JXmd8DJjYjAA2o/nQ/xmQRiMrnKVyPmNis8hrrzA5DSKPNreSBWC6RBR++3o5ZTHZH4S0wQ7ygVERdU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS2PR12MB9567.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?K2NNTXRQVEVJS1JBTDJBV1pWK1lzZzRTYjd6a1RqRDNmVHBMWEZRdTlpUVdx?=
+ =?utf-8?B?dWtxTi9oZ0REUW1KbGlHRU1vaG1Dc2JSWnpHc2l1eVR4eHRVeFJ0WlVzUmcw?=
+ =?utf-8?B?VStrWVB2WmNMc2k1dHgzTjVEM2ljZ1ZBTHFYSmVEMVF5UFdOVlQzMDZBVzkr?=
+ =?utf-8?B?cVMyaWwxV0sxaDE3WVEzKzJnMkxFeG9hTWpRK2x5T3ZOS01XL1NtTFBlQzhD?=
+ =?utf-8?B?K1FOc0tScnlOUk5LTkl0UUZpMmROcWhuQmFPV1cya2dpTTVzUXMzNHZKekE4?=
+ =?utf-8?B?ZlNhaWlRWjZnWlNIbkVUMG1kYXpLSmhVU1hWTjhyOEZIMEd4bTYzUVNoMEJV?=
+ =?utf-8?B?MCt1dTB2bDNUaXZjWWdURzZpNnlpdXdYSkZUK3M5OU5kYkppeElZRnFyZm8z?=
+ =?utf-8?B?NjhScVlBMThQa28yeW5uamdBUUpzb2d6a21mbDlrSHFweURSMk92WFNhTnps?=
+ =?utf-8?B?MHBjTDNHbkNKaGJOU1Buc1huYUZFaFkwK2NBYndSUTB1NHkzM3phQld2ZlJI?=
+ =?utf-8?B?SEhHNVNzOVF4a0RXRlNhSEV3ZldROVRObEttQVVsVVhoTmd4ekttZm9HU1ZS?=
+ =?utf-8?B?S2l3dGtTdGl4ZlBERy9yRFNOVkhTUDY4Y3ZCNHl5WHgwNkJJQy9lRmpoS08y?=
+ =?utf-8?B?bWRZRG1DUUFxNWJSbWMzM09kVHl2VDVvU01EUGZMVlFzY1JtSDJvU1RJYnQ5?=
+ =?utf-8?B?R0lKOEVGQlo4aGlNYVU0MllORk1rNDhCdVNZTTU4U3FOZjhYcENURjhETEMr?=
+ =?utf-8?B?RmpOVFp2a0RrOHNKb3VDL2xwZ2dhZVVicVJRTG1Lb0tiRXpDanNYS0lKdEYx?=
+ =?utf-8?B?eGlIbUcwRTYrSDNlQUJ1dmo4djBjSG0wZkhxTUNCN0JZVmRWMmRvcVJ5UnN4?=
+ =?utf-8?B?VjBicm5pZmpCVUhONVRaTGtzcHlvZUN1MVFxYWpuK0dTSEpTaE83c0FVVTBK?=
+ =?utf-8?B?dE0vUzlkM2hjM0toY1c4SURrMVhwOC9KeTIvREVZcU1lY1BqTUVPQW5wWXVY?=
+ =?utf-8?B?VG1KTVJZQlBKK2N1Umg5S1NqY2w3bWRCZ2dMMTd6b0lsdWFjWGNjc2E4Nmg5?=
+ =?utf-8?B?dE9wRW5xNWZRSG5UZ3hkNVd0bWdUc1k4QlpnV0E0by9ScmcwRTIrK2R2OEdF?=
+ =?utf-8?B?OGpoZkpNdVBNYWlyUlVkWFNQTXB5cHkzVmQxYVZmOHlxWW9CbWFta0VSbUVP?=
+ =?utf-8?B?dEgvNy8zV01RNmlScHp5bDhJQm0zZkFPdENyRERod1IvTnZPOVpBckYxOTdm?=
+ =?utf-8?B?aDhkcDRwbTFubjQ0UHBla012T1F1THhJWTJqUFlqdWxBUTJLTC85TCtVU0Ja?=
+ =?utf-8?B?aHZnYU83TlozWjhaUTE1QXJPQXFUVEF5b2x2cHg1VWpTZFdIenFKTG5OaEYz?=
+ =?utf-8?B?UVpvMk9LVU8xVkZOSzhNMjF6SnFRT1IrQlJzeFIvZkxnK3MrMEc0Q1YydVl4?=
+ =?utf-8?B?MU9ZZGVHbFdSMXJUYXBncFRRYU83eFE2OGlTcHlpN202S01aMjRlZG5ocXVx?=
+ =?utf-8?B?eHQyTm0vcnEwbTFtSVdmSTU4VmYxS2I0L3hNS0MxRE1SS2pWZkpnOWpJZ3pO?=
+ =?utf-8?B?Tlo0ZGtKWmNNZVZhQ2tWN3lIVWdIeG1oRGtXbDRQek1uRGRFY085WlcxU05s?=
+ =?utf-8?B?S2xaK0F6UlVlYmxqcEcvc0p1TXpORGZJanRRQkhWcG5BZTVhUGRQSHc5Vm5x?=
+ =?utf-8?B?a0xtbFU4ajJCa3VLV21rOVQ2aVB3dUMrbTYyTVRER1NHVDJDMmFWbWlpTFUv?=
+ =?utf-8?B?MTZzZHZ0WkFpZm9qTUwwVXR2bUxGQWJPbnd5bDFHVjZCTWVTRTBOR2RTSkNq?=
+ =?utf-8?B?SklYVWdhNFY5aWhubVIxWlk4T3lDeG5ONVh0U29XN3ZWaTh2emJ1QjB2VWJo?=
+ =?utf-8?B?OTJaS2NLUHUwUURmYm00Nkk0U01LbXJBZ2YxWkZYSG1kMFNBViswdEdlOEJj?=
+ =?utf-8?B?UVQ4UXVxSm9XbTBQMVBVajJGdTJqUUFYU2FRdFlFdWY5MXM4a05YK0owNHVi?=
+ =?utf-8?B?RisrbHpwUHI2L3R5NTVrMW9hRmNsZ3gvWmVJQU1qc2M2ZDZ4ME9TN1dPdDVY?=
+ =?utf-8?B?cXRZeWZXd3hqemN1UXAwYUY3cXBNVUJoS2tMSHdkQVZPc2J2VktjcVFHLzZ4?=
+ =?utf-8?B?RHQ0QU0vTU42RjJqVlVhdENqeGp6Y1E2RDMzNnZ6MVZ6c0ttY2lOZnBqN25t?=
+ =?utf-8?B?R0lSSUZtVGV6NWNpWmhiSDFmODN1cjRhclJOVVlUcVQycHlhN0p2Uk1sMDQ1?=
+ =?utf-8?B?UnVQVTRHcFhLaXZ6UUNrU3RoK2JVenMyUnBQTi9rV2ZTS1FsRlhvWEQzaStv?=
+ =?utf-8?B?WURjOEZFamN0T1JOOE5tSTJLRlJCTW5rTGNvVGJrbTgvR3J2dWpJZz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 25ff7eac-cf82-4035-0b02-08df1adc02e2
+X-MS-Exchange-CrossTenant-AuthSource: DS2PR12MB9567.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 08:07:15.7195
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: iVeRb+yb/E+zqznk5vXt3iRBzlh+z/Z7Deo2bLocPr/FhWrlw8dPlsenYN71FImgraPnuGhVtX16pdZGkU/LWQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7167
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+On 9/23/26 14:56, Fan Wu wrote:
+> The ACP threaded interrupt handler dereferences the SoundWire and PDM
+> child platform devices, but snd_acp63_remove() unregisters them while
+> the interrupt is still registered: devm_request_threaded_irq() ties its
+> release to devres cleanup, which runs only after the remove callback
+> returns. A completion in this window is a use-after-free.
+>
+> Fix this by masking the ACP interrupt sources and calling devm_free_irq()
+> before the first child device is unregistered. The interrupt line is
+> shared, and acp_hw_deinit() clears the sources only after the children
+> are gone, which would leave the line raised with no handler left to
+> ack it. The window predates the tagged refactor, which only reshaped
+> the dereferences.
+>
+> This issue was found by an in-house static analysis tool.
+>
+> Fixes: eaf825037d6d ("ASoC: amd: ps: refactor acp child platform device creation code")
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Song Li <songl@zju.edu.cn>
+> Signed-off-by: Song Li <songl@zju.edu.cn>
+> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+> ---
+>   sound/soc/amd/ps/pci-ps.c | 6 ++++++
+>   1 file changed, 6 insertions(+)
+>
+> diff --git a/sound/soc/amd/ps/pci-ps.c b/sound/soc/amd/ps/pci-ps.c
+> index 729f9aa..01ee697 100644
+> --- a/sound/soc/amd/ps/pci-ps.c
+> +++ b/sound/soc/amd/ps/pci-ps.c
+> @@ -738,6 +738,12 @@ static void snd_acp63_remove(struct pci_dev *pci)
+>   	int ret;
+>   
+>   	adata = pci_get_drvdata(pci);
+> +	/* Mask the interrupt sources before freeing the shared IRQ. */
+> +	writel(ACP_EXT_INTR_STAT_CLEAR_MASK,
+> +	       adata->acp63_base + ACP_EXTERNAL_INTR_STAT);
+> +	writel(0, adata->acp63_base + ACP_EXTERNAL_INTR_CNTL);
+> +	writel(0, adata->acp63_base + ACP_EXTERNAL_INTR_ENB);
+++ The fix open-codes the register offsets (ACP_EXTERNAL_INTR_STAT, 
+ACP_EXTERNAL_INTR_CNTL, ACP_EXTERNAL_INTR_ENB) directly in 
+snd_acp63_remove(). Future platforms may have different interrupt 
+control register offsets, which would require changes in this remove 
+path as well. Consider adding a disable_interrupts callback to struct 
+acp_hw_ops and invoking it here instead. This keeps the remove path 
+platform-agnostic and the interrupt masking logic co-located with its 
+platform-specific counterpart in ps-common.c.
+> +	devm_free_irq(&pci->dev, pci->irq, adata);
+>   	if (adata->sdw) {
+>   		amd_sdw_exit(adata);
+>   		platform_device_unregister(adata->sdw_dma_dev);
 
-- [Medium] The commit message says the negative timeout needs `div == 1`,
-  i.e. a 1 Gbps link.
-- [Low] The commit message says the reproducer "needs CAP_NET_RAW (a
-  --network host container has it by default) and a 1 Gbps NIC (QEMU…
-
---
-
-af_packet: fix integer overflow in prb_calc_retire_blk_tmo()
-
-This patch makes prb_calc_retire_blk_tmo() compute mbits in 64-bit
-arithmetic. The old 32-bit int product could wrap negative for large
-TPACKET_V3 block sizes. The negative result then armed the retire hrtimer
-with a negative relative timeout, and the timer re-fired forever.
-
-> The condition is actually (8 * size) mod 2^32 >= 2^31 && div == 1,
-> so the trigger set is [256,512), [768,1024), [1280,1536) and
-> [1792,2048) MiB. Other sizes wrap to non-negative values and faster
-> links divide the unsigned value back below 2^31, which is why this
-> doesn't blow up for everyone.
-
-[Severity: Medium]
-Does the negative return really need div == 1?
-
-In the pre-patch prb_calc_retire_blk_tmo(), a link reporting 2000-2999
-Mbps (for example SPEED_2500, so div == 2) can also return a negative
-value. The final unsigned increment is what pushes it over:
-
-    div = ecmd.base.speed / 1000;
-    mbits = (blk_size_in_bytes * 8) / (1024 * 1024);
-
-    if (div)
-        mbits /= div;
-
-    if (div)
-        return mbits + 1;
-
-Take tp_block_size = 0x1ffe0000. It is positive as an int and page
-aligned, so packet_set_ring() accepts it:
-
-    blk_size_in_bytes * 8    = 0xfff00000 (-1048576 as int)
-    / (1024 * 1024)          = -1, so mbits = UINT_MAX
-    mbits /= 2               = 0x7fffffff
-    return mbits + 1         = 0x80000000 (INT_MIN as int)
-
-ms_to_ktime() takes a u64, so INT_MIN is sign-extended and multiplied by
-NSEC_PER_MSEC, which gives a negative ktime. init_prb_bdqc() passes that
-to hrtimer_start(). prb_retire_rx_blk_timer_expired() keeps returning
-HRTIMER_RESTART, so the timer spins just as it does when div == 1.
-
-More generally, with div == 2 the old int quotient only has to be -1 or
--2. That covers sizes about 128-384 KiB below each 512 MiB multiple
-(512, 1024, 1536 and 2048 MiB).
-
-The u64 arithmetic in this patch fixes these sizes too. Could the
-description of the trigger condition be corrected, so that stable and
-security triage also covers 2.5 Gbps links?
-
-> Reproducer, needs CAP_NET_RAW (a --network host container has it by
-> default) and a 1 Gbps NIC (QEMU e1000 works):
-
-[Severity: Low]
-Is the set of users who can reach this wider than described here?
-
-packet_create() checks the capability against the user namespace that
-owns the netns:
-
-    if (!ns_capable(net->user_ns, CAP_NET_RAW))
-        return -EPERM;
-
-Root inside an unprivileged user namespace passes this check.
-
-The same user can create a tun device in its own netns, since
-tun_set_iff() checks ns_capable(net->user_ns, CAP_NET_ADMIN). It can also
-set the device speed with ETHTOOL_SLINKSETTINGS:
-
-- dev_ethtool() does the same ns_capable() check.
-- ethtool_set_link_ksettings() does not validate the speed.
-- tun_set_link_ksettings() copies the settings unchanged:
-
-    memcpy(&tun->link_ksettings, cmd, sizeof(*cmd));
-
-prb_calc_retire_blk_tmo() then reads that speed back through
-__ethtool_get_link_ksettings() for the bound ifindex:
-
-    unshare(CLONE_NEWUSER | CLONE_NEWNET)
-      -> TUNSETIFF
-      -> ETHTOOL_SLINKSETTINGS with speed = 1000 (or 2500)
-      -> socket(AF_PACKET), bind to the tun device
-      -> PACKET_VERSION = TPACKET_V3, PACKET_RX_RING
-
-On systems that allow unprivileged user namespaces, this seems to let an
-unprivileged local user start the maximum-rate soft hrtimer with no real
-hardware. Would it be worth saying so in the commit message?
-
-The same tun setup could also be used to test the fix at runtime. The
-notes say the patch was only compile-tested because no 1 Gbps setup was
-available.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260923050101.1510064-1-zhangdairui%40gmail.com
