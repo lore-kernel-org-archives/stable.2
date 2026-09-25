@@ -1,148 +1,100 @@
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com [209.85.221.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE97F33936A
-	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 13:16:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B6CE46D0A0;
+	Fri, 25 Sep 2026 13:24:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790342231; cv=none; b=P4TfFQSkNpfhehKK6NRauNQLIst0rvcSGX10fk6JaOyt/VSvl7Da1wuJMaivZvF6Zf+LKDAfL1bnCWHUaEC23CkbkMJabXQvqKVOteKu8ii8RUnx06PRNfORE3aek1F27e5fiwVHP63aweav7gKRGODesfN48jyJ+RWDPUGzJic=
+	t=1790342663; cv=none; b=asCGiVfiTwcb3Q/6QUhfRcwtB8u8DT6LcMUcQp0+YbuoByiN5Tzp9MXpgUV/xzWfkx1pvC/QAoSKtd5Eu/GPxvU44Lj2i1S3NPCKRAgeGKxPS6h+7M9AQxXFgg+OB+GITa8LDs5w0avgiADrA4hCzUBQy/i5SMZYQIoCe6i8zhs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790342231; c=relaxed/simple;
-	bh=B712JoRcyFoMSbKBervxh9wr2vYX17tgUo12dg0bdxU=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=qaC1E8kTf3eP08d/sd08g2+yYAzD/gsHNZlpk4MI6nvikCRzlf5uk4QfhJDda3kuXMzxein9Yx37PPkPahLVsV8S/0IK4Gf8DJrWviQ6QANVUoShVi6chGirdRVdYHv3B3tVaeqzFDLuZB5QRzQkkbGg1ch6yXMBQYkeQLg5h1A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--mmaslanka.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=EEdwpLgm; arc=none smtp.client-ip=209.85.221.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--mmaslanka.bounces.google.com
+	s=arc-20240116; t=1790342663; c=relaxed/simple;
+	bh=4y24Yk+Rzhuj1/s72AkBq6Szbdrt5sE0ovPW5rzCBo4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=LWDbcwLOgz/4GMfwZKKG/hrmbZ3hCBZz2mtIeUtNRfMrk67kXTGxZB66tjMLTEPoiEYTF1Cga8db8crNhvIkP+O8u7HBq8t57aSKgl7e3tyUB/18hbxOqA8zqxum7auMh4rE6xGYw+Z/jOgAM0AYksQFOVAh7Cmqfi3aSk2zDRY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=l9dlpdkD; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="EEdwpLgm"
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-4888382a9e9so100057f8f.1
-        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 06:16:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790342215; x=1790947015; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pnYktdoDVBCojJdRzjgQ4AeYDMFgB+nPtv1aQqwR7fk=;
-        b=EEdwpLgmW1TI/qAsXI+mB7zlUcUKVJdeBvARQOGPBT9yVJdpJVzaI1YvFNskiGbrW+
-         CDdHot/vo3trLX+zoX+RVpWX71den6Y9afbbZ8IyMm363C4d6m95MjTdmH9/BoXw+7jC
-         SymnzR3jrQUc65g+13AjdqJSVvhFMlxqUYDQdfi3K6F6aUKYDLuJWGJ/UevChQcRRAcF
-         n/aKfXjLEmk221whwHB0b7ysINXnwziz/tVvTH+wR/KTjTT7Ude8omu3waKsWHuW4BSN
-         Hm/lGgdKE9Eq9SnJ8fBFzFsg7U58+I9KWUJg16633tv/0tOkBohwQRjZePXGV680iaJu
-         VVKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790342215; x=1790947015;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pnYktdoDVBCojJdRzjgQ4AeYDMFgB+nPtv1aQqwR7fk=;
-        b=KeU4Nq7lNS6g07z+MRNFAksaQIBIFPOK7Bpce7gQlJNIbS/bcagiMtqp3LPDEkIMOX
-         MUGRyRtZ4HbN4G8ZkJgYSH/TwP3/XVPEQCPXuxrJr0mFS7Uzbarpjk2zkQDB6vN/Rk0H
-         92WeJqKLy153+5Sr+jaTBTmdsjWX3G6/GwdOsv9xhzG6r2q15ls3+jDZANdfTjLln0VQ
-         57MjpNN13/fgMSAh5l3OHzx9gWo4Zs1yHKHzGH1kK/lg2p79LDz19UjSQWMHt0m3ZGPm
-         UQm+WQozC2fKl/RpKyDmC06zRtkO9sJeiqChy1ObgZFUU5e9SZcBck8zkShpzS6NclWD
-         eppg==
-X-Forwarded-Encrypted: i=1; AKwUvBwXGd9uhBMXhyjN3DdBKzQ8VYkW0e0hMD8MjLsITtG77za8h+z8MKlmriCL7VT2XCezl0Vaby0=@vger.kernel.org
-X-Gm-Message-State: AFuF++m29b7TkMaAvTCA/PzssTaG3RpTjS2bW5wT2+MlmFH2807TIfk/
-	NqHnHgREL1ocvNhGEU1+yh/4z4o1oMHoXUpe8kKnwsohSwrkeJggP2BwxZb3vSSub6r0cLEqKfP
-	RG/sMfiRaS4R+M71CEw==
-X-Received: from wryt2.prod.google.com ([2002:a05:6000:1a42:b0:488:7ee2:d76b])
- (user=mmaslanka job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6000:2910:b0:487:1aa1:f54f with SMTP id ffacd0b85a97d-488716a89cemr10903126f8f.46.1790342214446;
- Fri, 25 Sep 2026 06:16:54 -0700 (PDT)
-Date: Fri, 25 Sep 2026 15:16:50 +0200
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="l9dlpdkD"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 03BB4C653F0;
+	Fri, 25 Sep 2026 13:25:06 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 114D06073B;
+	Fri, 25 Sep 2026 13:24:18 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E7FB8103282D5;
+	Fri, 25 Sep 2026 15:24:08 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790342656; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=dWHwO8k89KMIOROmHdTn+tsJpwKFcpuMyDpGO9S6/Q0=;
+	b=l9dlpdkDqiMckaNfwr7bun/p57zAVub7v1PghXsTuWnOsGqHAv7yuZLECjhqrrsOeJUlt8
+	0yi7CHR2q3FKkEu2BWyKiTdGdFyriXxXWni+kPX//yN7vO8tYReF0gJRI4D6/VYNUXKadT
+	P/NLpDmMJxWSM66/UTT8NCpc+1YWPVWxixpKyenM6bzKNGCL37wrmmjS5N884rAc0om23n
+	FoLrsIGum1CEoiMAq5r1n1hPJ7y7vPZklmteNdn3HQb8/uEBaq9lATJSaE7nTOFVOESVEv
+	0+UGOn3R4XdzuF3E1tQSRg6EQ2GujU5+bWm6Wn9LDddEUB91EaiETkax8M+e5Q==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Jacky Huang <ychuang3@nuvoton.com>,  Shan-Chun Hung
+ <schung@nuvoton.com>,  Michael Turquette <mturquette@baylibre.com>,
+  Stephen Boyd <sboyd@kernel.org>,  Richard Cochran
+ <richardcochran@gmail.com>,  Arnd Bergmann <arnd@arndb.de>,  Brian Masney
+ <bmasney+clk@redhat.com>,  Jerome Brunet <jbrunet+clk@baylibre.com>,  Rob
+ Herring <robh@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>,  Thomas Petazzoni
+ <thomas.petazzoni@bootlin.com>,  Steam Lin <STLin2@winbond.com>,
+  linux-arm-kernel@lists.infradead.org,  linux-clk@vger.kernel.org,
+  linux-kernel@vger.kernel.org,  devicetree@vger.kernel.org,  Jacky Huang
+ <ychuang570808@gmail.com>,  stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] clk: nuvoton: ma35d1: Add missing WDT/WWDT
+ parent clocks
+In-Reply-To: <20260925-skinny-husky-of-cookies-4aaddb@quoll> (Krzysztof
+	Kozlowski's message of "Fri, 25 Sep 2026 14:58:11 +0200")
+References: <20260921-perso-ma35d1-upstream-clk-v2-0-209fd32a8b00@bootlin.com>
+	<20260921-perso-ma35d1-upstream-clk-v2-1-209fd32a8b00@bootlin.com>
+	<20260924-bald-awesome-griffin-7d1d5b@quoll>
+	<87jyo9ljlo.fsf@bootlin.com>
+	<20260925-skinny-husky-of-cookies-4aaddb@quoll>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Fri, 25 Sep 2026 15:24:08 +0200
+Message-ID: <87a4p5jwg7.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260925131650.3777399-1-mmaslanka@google.com>
-Subject: [PATCH] usb: typec: port-mapper: Only match USB4 port if host
- interface is available
-From: Marek Maslanka <mmaslanka@google.com>
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Marek Maslanka <mmaslanka@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-typec_port_match() adds a component match for the USB4 port whenever a
-USB 3.x port that shares the _PLD with the Type-C connector has the
-"usb4-host-interface" property, regardless of whether a USB4 port can
-ever be registered for it. The component framework binds the aggregate
-device only once every match has found its component, so if the USB4
-port never shows up, the USB 2.0 and USB 3.x ports are not linked to the
-connector either: the "connector" symlinks are never created and USB
-devices enumerated on those ports are never linked with the Type-C
-partner.
 
-This happens in at least two cases:
+>> Maybe one way to fix that mess is to:
+>> 1- Add the 2 new values (238 and 239) + a new define:
+>>    NUVOTON_MA35D1_MAX_IDX 240
+>>    238 would then have two definitions for a short period of time.
+>> 2- Replace CLK_MAX_IDX by NUVOTON_MA35D1_MAX_IDX in the driver
+>> 3- Drop CLK_MAX_IDX in the bindings.
+>
+> Why we can't fix it like we did everywhere else?
+> git lg -- include/dt-bindings/clock/
+> and search for "number" which leads to recent commits like
+> d10f26a7abbd3dd5d59bac1acdca117385b54ea9
+> but there was same work for Samsung and many others (Renesas, maybe
+> NXP?). You add define to the driver, then drop it from the
+> binding. Can
 
-1. CONFIG_USB4 is not reachable from the Type-C core, i.e. CONFIG_USB4=n,
-   or CONFIG_USB4=m with CONFIG_TYPEC=y as in the x86_64 gki_defconfig.
-   usb4_usb3_port_match() is then a stub that always returns false.
+Aaah, ok, got it. Now I get what you mean by "the max is not a
+binding". While true, I find it much less obvious to have it somewhere
+outside of the file defining the clocks. I would have "preferred" to
+consider the name of the definition immutable, rather than its value,
+but if that's the way, I'll comply :-)
 
-2. The firmware references a USB4 host interface that is disabled. For
-   example, on Intel Alder Lake-N (ChromeOS Nissa) the TCSS xHCI USB3
-   ports (SS01-SS04) reference TDM0/TDM1, whose _STA returns 0 because
-   the SoC has no integrated Thunderbolt/USB4 and the DMA controllers
-   are disabled in TCSS DEVEN. No PCI device is enumerated for them.
+> be a few commits like we did for many cases, but recent change from
+> Linus I think went acked while combined binding and driver.
 
-Only add the USB4 component match if CONFIG_USB4 is reachable and the
-referenced host interface is available and has been enumerated as a
-device. The latter mirrors the check in usb_acpi_add_usb4_devlink(), see
-commit 623dae3e7084 ("usb: acpi: fix boot hang due to early incorrect
-'tunneled' USB3 device links").
+Thanks for the pointers, I'll "move" that number away from the bindings,
+since the driver is the only consumer of that.
 
-Fixes: 4fd7a1f0f7f2 ("usb: typec: Connect Type-C port with associated USB4 port")
-Cc: stable@vger.kernel.org
-Signed-off-by: Marek Maslanka <mmaslanka@google.com>
----
- drivers/usb/typec/port-mapper.c | 21 +++++++++++++++++++--
- 1 file changed, 19 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/usb/typec/port-mapper.c b/drivers/usb/typec/port-mapper.c
-index cdbb7c11d714..3a97b084c3bd 100644
---- a/drivers/usb/typec/port-mapper.c
-+++ b/drivers/usb/typec/port-mapper.c
-@@ -42,6 +42,23 @@ static int usb4_port_compare(struct device *dev, void *fwnode)
- 	return usb4_usb3_port_match(dev, fwnode);
- }
- 
-+static bool typec_has_usb4_host_interface(const struct fwnode_handle *fwnode)
-+{
-+	if (!IS_REACHABLE(CONFIG_USB4))
-+		return false;
-+
-+	struct fwnode_handle *nhi_fwnode __free(fwnode_handle) =
-+		fwnode_find_reference(fwnode, "usb4-host-interface", 0);
-+
-+	/*
-+	 * The USB4 port can only appear if the host interface is enabled in
-+	 * the firmware and has been enumerated as a device. The latter is
-+	 * the same check as in usb_acpi_add_usb4_devlink().
-+	 */
-+	return !IS_ERR(nhi_fwnode) && fwnode_device_is_available(nhi_fwnode) &&
-+	       nhi_fwnode->dev;
-+}
-+
- static int typec_port_compare(struct device *dev, void *fwnode)
- {
- 	return device_match_fwnode(dev, fwnode);
-@@ -64,11 +81,11 @@ static int typec_port_match(struct device *dev, void *data)
- 				    adev_fwnode);
- 
- 		/*
--		 * If dev is USB 3.x port, it may have reference to the
-+		 * If dev is USB 3.x port, it may have reference to an available
- 		 * USB4 host interface in which case we can also link the
- 		 * Type-C port with the USB4 port.
- 		 */
--		if (fwnode_property_present(adev_fwnode, "usb4-host-interface"))
-+		if (typec_has_usb4_host_interface(adev_fwnode))
- 			component_match_add(&arg->port->dev, &arg->match,
- 					    usb4_port_compare, adev_fwnode);
- 	}
--- 
-2.56.0.rc1.315.gc6ed9934b7-goog
-
+Thanks,
+Miqu=C3=A8l
