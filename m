@@ -1,105 +1,125 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2CD0484232
-	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 14:28:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A730395AFB;
+	Fri, 25 Sep 2026 14:28:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790346492; cv=none; b=ICm2kEGc3+S53r7Q3bwaQS7sKK1lLRuLwCKWHg6iyUkuLdtrGFFiMu/jyhzgL+5YfILUE1YvyO69Wm/PPelJeYQFDCnbyGD2sTNEtIZNX8iayoHeoWCCN2mRn18QcyxZaOJ/XPLMLbg/Y4sGRHs/kdWeiSNsm55m+zoBokAZreU=
+	t=1790346509; cv=none; b=RDds19P0lLGnpWbWel8v7Wtk/gSzlKi4pXTK4y9VxXdTGXHzUGSChiQ0OrCE/7+lCWcD9qsph1UHaeh6UPZRBJzHfPD4PS4zjumkIWgEpCGSup56mxhmylqO+7xTisvrBDfyleJIMzPVXODeUJVA60iW5JTewoJbwMnLRBcqutA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790346492; c=relaxed/simple;
-	bh=TGNkIuF5gTjAzHPFpiLKVY6ti8pVfUSGwQEaWPQUFeA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=to8tyc6H2zeSFHQJQieEHJpKM42yX8YM7EZfNOC7bIX9Adj3e7HFvLKXsq5SJi6jBNdm6UJ+jQWOe11ZyVv4sZZlGOH/FaFYL3Dz7OcWlWJJ8hGLOwOzf7ayhkZr09TLJ/btpNAOfS+WqJJVQ9pOVHo1homMycuWmvS8w4gp/pw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=NPa66Yeu; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790346509; c=relaxed/simple;
+	bh=CRZuqGr10cJAsTOWqM27qfJGoBw3MW3h0E/Z6zUfFxs=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=GqLGAhOIj+fAnRiAvIQKhSPAmw+M06L+PA7DK5VoJ3dVLXUSSNNKqW9xbHrpND4izMZ6JGV7O8TZFxiTjrHubN6ZqgGF1qfVQllOH7meSJxveIu+vMyDiMxuuYbJKJzM9Pi1pbKKi2/aFDbvX4wXvILVIYvkADBr9xJzUqgu4Tc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V07CjrEI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="NPa66Yeu"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id BC9054E41073
-	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 14:28:08 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 8A1B76073B;
-	Fri, 25 Sep 2026 14:28:08 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AD405102F08C8;
-	Fri, 25 Sep 2026 16:28:07 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790346488; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=VNOU4v5DR83cVG7ebuGPW0h6VIJLtkDDzGa9SRSivsg=;
-	b=NPa66Yeuw7Qs+Bqo5iJFL4ynuRN1GSs27G7mV56NQnN4LXxhsbWW1jvT5P6xzvLbae9UbD
-	XrAPea0fZ6D243EuXgnZRxgCLpdnl8zA6Cvl3FZfMgQu1HvFOJKn8Lbk7xa4H/SqstUGMZ
-	0et9HlMgCN8dlIxjBdpGcCAmg02TlRSFhDwuI1VaB0rYRr5vgE0YLfybv6g4v1Ctqz/Uch
-	osco2A5uhZbM/c582toSzJsm1PWx2+ZtnEbOBWx6urCtl8MWX5bHMeTz8SayvsnOC5b7Hm
-	yv0Im5mTfP93P5ysD060JtJhl1VFbPhXM86udNC7lTSVUYR2nZZI+zj0r+VO7Q==
-From: Benjamin Robin <benjamin.robin@bootlin.com>
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org
-Subject:
- Re: [PATCH 6.18.y 1/2] rculist: add list_splice_rcu() for private lists
-Date: Fri, 25 Sep 2026 16:28:06 +0200
-Message-ID: <JyCWa7ltR_KwJYUaBPJh-g@bootlin.com>
-In-Reply-To: <2026092540-jokester-certify-1339@gregkh>
-References:
- <20260925-cve-2026-52988-6-18-v1-0-680b24895415@bootlin.com>
- <20260925-cve-2026-52988-6-18-v1-1-680b24895415@bootlin.com>
- <2026092540-jokester-certify-1339@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V07CjrEI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EEA31F000FF;
+	Fri, 25 Sep 2026 14:28:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790346507;
+	bh=6LSNpmMhH3IgC836Hc/le3/h3yCpQ5DOv9o6ecFpYpg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=V07CjrEIi0kH2G/IiBGBqsqP4+5dt4n2L9qyf3zOrBgzbEpaGcG0/TfKdsMnqeDfo
+	 9mingLgE7CLnNkwhBeO9EKUjyXoHcha2hCMx+kV+qm7WTrf3slioXbD6bZeOlVaaIY
+	 KXwduaMqUI2zOBKJBDHPAnuNE0EY+l5Au4n4Jogygt7mTOVtvnKJJEoNlhZ/duCn2u
+	 OT9TSIA1eqsP5NAKMNlxcuYcWtWMgYdAedVvt15mBG9TIFf5a0JAp+AuhJ2KAffBXk
+	 ypeTGO+cg44O4c0uzLo3owf7+6qUIPTBorgf025HjJ3FIQUdii0xbBg5KLWxBGCdLM
+	 ETAkGPEQfDfKA==
+Date: Fri, 25 Sep 2026 23:28:22 +0900
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+To: Danish Khateeb <danishkhateeb03@gmail.com>
+Cc: "David S. Miller" <davem@davemloft.net>, Andreas Larsson
+ <andreas@gaisler.com>, Masami Hiramatsu <mhiramat@kernel.org>, Oleg
+ Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, Allen
+ Pais <allen.lkml@gmail.com>, sparclinux@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] sparc64: kprobes: fix relbranch_fixup() for BPr,
+ FBfcc and FBPfcc
+Message-Id: <20260925232822.094082fd46fb3b02d9cfff10@kernel.org>
+In-Reply-To: <20260923144909.414968-2-danishkhateeb03@gmail.com>
+References: <20260923144909.414968-1-danishkhateeb03@gmail.com>
+	<20260923144909.414968-2-danishkhateeb03@gmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-Last-TLS-Session-Version: TLSv1.3
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Friday, September 25, 2026 at 4:23=E2=80=AFPM, Greg KH wrote:
-> On Fri, Sep 25, 2026 at 09:52:23AM +0200, Benjamin Robin (Schneider Elect=
-ric) wrote:
-> > From: Pablo Neira Ayuso <pablo@netfilter.org>
-> >=20
-> > [ Upstream commit f902877b635551513729bdf9a8d1422c4aab7741 ]
-> >=20
-> > This patch adds a helper function, list_splice_rcu(), to safely splice
-> > a private (non-RCU-protected) list into an RCU-protected list.
-> >=20
-> > The function ensures that only the pointer visible to RCU readers
-> > (prev->next) is updated using rcu_assign_pointer(), while the rest of
-> > the list manipulations are performed with regular assignments, as the
-> > source list is private and not visible to concurrent RCU readers.
-> >=20
-> > This is useful for moving elements from a private list into a global
-> > RCU-protected list, ensuring safe publication for RCU readers.
-> > Subsystems with some sort of batching mechanism from userspace can
-> > benefit from this new function.
-> >=20
-> > The function __list_splice_rcu() has been added for clarity and to
-> > follow the same pattern as in the existing list_splice*() interfaces,
-> > where there is a check to ensure that the list to splice is not
-> > empty. Note that __list_splice_rcu() has no documentation for this
-> > reason.
-> >=20
-> > Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
-> > Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
-> > ---
-> >  include/linux/rculist.h | 29 +++++++++++++++++++++++++++++
-> >  1 file changed, 29 insertions(+)
->=20
-> You did not sign off on this commit :(
+On Wed, 23 Sep 2026 09:49:07 -0500
+Danish Khateeb <danishkhateeb03@gmail.com> wrote:
 
-Hello Greg,
+> A kprobe single-steps a copy of the probed instruction in
+> p->ainsn.insn[]. When the copy is a taken PC-relative branch, its target
+> is relative to the copy, and relbranch_fixup() moves it back to the
+> probed code. It only recognizes call, BPcc and Bicc, though. For a taken
+> BPr (brz, brnz, ...), FBfcc or FBPfcc it keeps the target as is, and the
+> kernel continues at the copy's address plus the branch displacement.
+> 
+> GCC often starts a function with a BPr on an argument. For example,
+> __se_sys_getcpu() begins with "brz,pn %o0". With a kprobe on it
+> ("p:kprobes/kgetcpu __se_sys_getcpu" in kprobe_events), the first
+> getcpu(NULL, NULL, NULL) crashes the kernel in QEMU sun4u:
+> 
+>   init(1): Kernel illegal instruction [#1]
+>   TSTATE: 0000004411001603 TPC: fffff800048d63c0 TNPC: fffff8000492631c
+>   Kernel panic - not syncing: Fatal exception
+> 
+> Add the missing branch formats. BPr is matched with bit 28 clear. The
+> CBcond instructions of newer CPUs share its op2 value, but they have no
+> delay slot, so a taken one never reaches the single-step breakpoint and
+> this function.
+> 
 
-Sorry about that, I was not sure about the rule if I did not modify
-the commit in any way.
-I will send a v2 for all branches ASAP (but I may only send the v2
-on Monday).
+Sounds reasonable. From kprobes maintainer point of view:
 
-=2D-=20
-Benjamin Robin, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Acked-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 
 
+Thanks,
 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
+> ---
+>  arch/sparc/kernel/kprobes.c | 13 ++++++++-----
+>  1 file changed, 8 insertions(+), 5 deletions(-)
+> 
+> diff --git a/arch/sparc/kernel/kprobes.c b/arch/sparc/kernel/kprobes.c
+> index 191bbaca9921..9a26c57c8d33 100644
+> --- a/arch/sparc/kernel/kprobes.c
+> +++ b/arch/sparc/kernel/kprobes.c
+> @@ -207,12 +207,15 @@ static unsigned long __kprobes relbranch_fixup(u32 insn, struct kprobe *p,
+>  	if (regs->tnpc == regs->tpc + 0x4UL)
+>  		return real_pc + 0x8UL;
+>  
+> -	/* The three cases are call, branch w/prediction,
+> -	 * and traditional branch.
+> +	/* The cases are call and the branches with a PC-relative
+> +	 * displacement.
+>  	 */
+> -	if ((insn & 0xc0000000) == 0x40000000 ||
+> -	    (insn & 0xc1c00000) == 0x00400000 ||
+> -	    (insn & 0xc1c00000) == 0x00800000) {
+> +	if ((insn & 0xc0000000) == 0x40000000 ||	/* call */
+> +	    (insn & 0xc1c00000) == 0x00400000 ||	/* BPcc */
+> +	    (insn & 0xc1c00000) == 0x00800000 ||	/* Bicc */
+> +	    (insn & 0xd1c00000) == 0x00c00000 ||	/* BPr */
+> +	    (insn & 0xc1c00000) == 0x01400000 ||	/* FBPfcc */
+> +	    (insn & 0xc1c00000) == 0x01800000) {	/* FBfcc */
+>  		unsigned long ainsn_addr;
+>  
+>  		ainsn_addr = (unsigned long) &p->ainsn.insn[0];
+> -- 
+> 2.55.0
+> 
+
+
+-- 
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
