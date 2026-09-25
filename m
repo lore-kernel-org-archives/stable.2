@@ -1,41 +1,41 @@
 Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 239874A6CD5
-	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 13:59:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8101A4A4EF5
+	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 13:59:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790344793; cv=none; b=rxxMg2iMhZSOx6I/xOtCcrt2iA0NjD2HgnpFuDBI+wKI/i0ZfHdpjbtEXRJbv6LycL/7inNuWeEjoPLu09JfQVyglh8t6/fN5Mqendit+hq4hXUFfclwB+3HE3i1OWMTwcF+A7cbmicmZcSc2iYI8Z110EibBfRUzEPTlWiFQtA=
+	t=1790344802; cv=none; b=puYRP1qjNOON4/oLknaN84e45VvZabSPgpGk7smDZKG2C5vkELF8/ssEklK8TxDao6Xl/ZubpEvLzJ5qdWUtoyOjohPMTe91k+erjv0ylCPu2e/mGHLdcUWvXTi8cPlCg9J3TjYU4jnV/1lxgi+9KX18x04ZRk6h18KMxlx/9kU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790344793; c=relaxed/simple;
-	bh=rxgqcxMBzyiCaShIe6oKqSQwEXJpXEvJGCpXStURPY8=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=t2xpl3pMDnepYEwdLd1BYvCFIVn8a51cjZQLSZHf7wpdNE0zmzBgkIZeVFdICXSd2OowQUVUMyoAdITKwDO1do9ky9WJ67pi0zwsP25Z65mocS3GMYhpDGwK6+2j3O9Jlyjzxhz6n+fz5laEUQO9U8naSGZ9kLYTCuypq0zDbLM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ayToTLTg; arc=none smtp.client-ip=185.246.84.56
+	s=arc-20240116; t=1790344802; c=relaxed/simple;
+	bh=GXbd9O8F0Ga868206Jp3PJXH7V5mfwwh4/C7YNP71qw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=VE2kgyJzudf2I6DpC6T5D5Hn5XGtZtn01JzgOeIf3YlNHL3gnAxVsYXpybJgrAqub7h9tvj8scwgySNC/hVzFY1Q9PdhysxhA8GbDkLVfkHiaORAwD2jUZt0aLskjrJzd/YSMHkB7XpNZFKO9Z5Yf9zCe12vOErcJbxF7BjJsZI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=VzMRiRta; arc=none smtp.client-ip=185.246.84.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ayToTLTg"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="VzMRiRta"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id DBA8D1A101D;
-	Fri, 25 Sep 2026 13:59:48 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 5949B1A101D;
+	Fri, 25 Sep 2026 13:59:55 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id AD9D46073B;
-	Fri, 25 Sep 2026 13:59:48 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 00A77103293B6;
-	Fri, 25 Sep 2026 15:59:39 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 2D4AF6073B;
+	Fri, 25 Sep 2026 13:59:55 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9905C10328856;
+	Fri, 25 Sep 2026 15:59:47 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790344783; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=XS8Dc0EYvbktyBpK0cidB0SJsr+eMfdYCTUgJ32Ne9E=;
-	b=ayToTLTgy2T2GLhsJemTzmA4zW9w+BidfcpCFU68eFsTsQ5wkby7iOuBP6o+NPDzvHsvpm
-	KhZHeVkRTwkiA5wcXlVBQGmyiBWktzkb4FXH+dvUe0VWvyrdUeswvmZBtsxLVPCsw+/ESh
-	thbhBvhe0ztRpQtr1vGaPT0+iM7HoSXwlMAFupH6SBVkVhx4/DoEh37eamffvn+/Lhpz8l
-	8E5J1K+xrJnZHdOUZGgKyAV9nvE006doTyOGr5Ys1RjF7sy3jF/037kRGKI63Og9zjdils
-	ioMVV3sGgySJmlxx1nnOspCOWPs2uPOiDRDMjgVF9wIXvzm/djhMk9v5kNNEsw==
+	t=1790344789; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=MT3XSGNQA4LE+B/Kq3xueLTY2svzc0JEP6wXJ7cJaUc=;
+	b=VzMRiRta30sYqbaLaweAUJ/ANph1gDspnL9W1+XpVNtPp2+NZIkFpAk/+sIMSkccLy3Bfs
+	yEqSy87K61ZlfIKMN2uE8iMdG4LqffW74vO8vRIWiAJ5uttiZPDy+E4H8MH00yCtHY75xW
+	eqIFbWlms1tPwhb8qHZOYsOR2GPnVQs0t6AGnWFlg7IQb2RtOVXeFX6IKGqbFUfzSt+kEl
+	NGKyyyV0+ZaIN3yhhFk0nU08SpLGxLarDD35BX9dyC0SYU33kYH9UnkZ4UTNCNn+gN64WT
+	EUjmg7SyC2PRNeHVzX4oMBTtH1/EFJZY9LulhF4nANDXXnRnSALYMpdtxT/ERQ==
 From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
-Subject: [PATCH net v2 0/3] net: macb: fix close races (and RX refill error
- handling)
-Date: Fri, 25 Sep 2026 15:59:33 +0200
-Message-Id: <20260925-macb-close-v2-0-360efa565914@bootlin.com>
+Date: Fri, 25 Sep 2026 15:59:34 +0200
+Subject: [PATCH net v2 1/3] net: macb: never give hardware a NULL RX buffer
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,11 +44,9 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNQQ6CMBREr2L+2pq2KLauvIdhwW8/UgOtaSvRE
- O4u4MpElzOZ92aERNFRgtNmhEiDSy74OcjtBkxb+ysxZ+cMksuSa6FYXxtkpguJmEW0ssA9qkb
- CDNwjNe65yi7gKUP1KdMDb2TyollmrUs5xNd6OYh1/Ms+CMaZlMJqUeJRl+KMIeTO+Z0J/eL5C
- /EDFdKQVkoUX1A1TdMbvigzrfIAAAA=
-X-Change-ID: 20260918-macb-close-dbbd23b4b8f2
+Message-Id: <20260925-macb-close-v2-1-360efa565914@bootlin.com>
+References: <20260925-macb-close-v2-0-360efa565914@bootlin.com>
+In-Reply-To: <20260925-macb-close-v2-0-360efa565914@bootlin.com>
 To: Conor Dooley <conor.dooley@microchip.com>, 
  Andrew Lunn <andrew+netdev@lunn.ch>, 
  "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
@@ -69,89 +67,89 @@ Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
 X-Mailer: b4 0.15.2
 X-Last-TLS-Session-Version: TLSv1.3
 
-The context-swapping series [0] has been ongoing for a while. The most
-interesting part is a proper hardware shutdown sequence, which is truly
-lacking in other parts of the MACB driver: at close, at suspend and in
-the HRESP error task.
+The refill logic is simple: iterate over all pending rx slots, allocate
+SKB (& DMA map) if needed and hand it off to the hardware by clearing
+the RX_USED flag.
 
-Instead of introducing that sequence for a new feature, apply it now to
-fix the main offender, the close path. That fixes the races listed in
-patch 3 and will allow the sequence to be reused later.
+If the refill operation fails mid-way, it early returns leaving the
+remaining slots untouched. In an initialised ring that is safe: a slot
+is either owned by the hardware holding a valid buffer, or
+software-owned (RX_USED set) waiting for refill to hand it a new one.
+When slots have never been initialised however, we are in trouble.
 
-The first two patches are also fixes, but not related to the shutdown
-sequence: they address allocation-failure codepaths. They are sent
-alongside patch 3 because they touch the same code and would cause
-merge conflicts if applied separately.
+After dma_alloc_coherent() of the rx ring buffer, all slots have NULL
+pointers and RX_USED cleared meaning HW will try using them. Ensure
+this does not happen by setting the RX_USED flag on all slots before
+calling refill at buffer alloc, in gem_init_rx_ring(). That way even if
+refill fails on an alloc/dma_map, the HW won't try using NULL pointers
+as buffers.
 
-Now, let me list issues I'm aware of that we do *not* fix here, to make
-the scope explicit:
- - HRESP task should sync with all other contexts. It frees buffers
-   under the feet of the whole driver. The hardware shutdown sequence
-   will help.
- - Suspend callback is also racy with BH primitives. We'll be able to
-   reuse the hardware shutdown sequence.
- - Even if we assume tasks are frozen, the phylink ops aren't and might
-   trigger between suspend and resume callbacks. Here we need to
-   (1) early return in phylink ops and (2) at resume put the HW in its
-   proper state according to phylink ops that occured.
- - Alloc failure codepaths aren't perfect outside open. Hardware and
-   ring buffers are left in a sad state. We can probably do better.
+Note we tweak gem_rx() and macb_rx_pending(): their previous stop
+condition was only if desc was RX_USED. Now it must be either RX_USED
+or we got out of the range of successfully allocated descriptors
+(detected using the rx_tail and rx_prepared_head cursors).
+Otherwise gem_rx() could consume unallocated buffers.
 
-[0]: https://lore.kernel.org/all/20260812-macb-context-v9-0-7ddbf5f715e0@bootlin.com/
+Theoretical bugfix, never encountered in practice. To reproduce,
+introduce memory pressure (less than 512 SKBs of free memory) and open
+the interface.
 
----
-Changes in v2:
-- P1: ensure gem_rx() and macb_rx_pending() don't consume the
-  descriptors where alloc failed.
-- P2: gem_rx_refill() now only propagates an error if zero descriptors
-  are ready. We tolerate partial refill hoping the next one will help.
-- P2: we do *NOT* fix the set_ringparam codepath reported by Sashiko.
-  Proper implementation will come with context swapping which will
-  reuse the infra put in place in P3.
-- P3: the hresp_err_bh_work/tx_lpi_work Sashiko-reported race has been
-  fixed in a standalone, *NOT* here.
-  https://lore.kernel.org/netdev/20260925-macb-netdev-register-race-v1-1-752f90ce1c39@bootlin.com/
-- Take 2x Reviewed-by: Nicolai.
-- Rebase onto latest net/main (11536ee3d3e0), nothing to report.
-- Link to v1: https://patch.msgid.link/20260918-macb-close-v1-0-05e32ce98813@bootlin.com
-- Nicolai's v1 reviews (duplicate thread):
-  https://patch.msgid.link/20260918-macb-close-v1-0-221d916b7961@bootlin.com
+Note that this codepath also hits at resume, on HRESP errors and on
+set_ringparam (while interface is running).
 
-To: Conor Dooley <conor.dooley@microchip.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>
-To: "David S. Miller" <davem@davemloft.net>
-To: Jakub Kicinski <kuba@kernel.org>
-To: Paolo Abeni <pabeni@redhat.com>
-To: Simon Horman <horms@kernel.org>
-To: Sean Anderson <sean.anderson@linux.dev>
-To: Antoine Tenart <atenart@kernel.org>
-To: Eric Dumazet <edumazet@kernel.org>
-To: Nicolas Ferre <nicolas.ferre@microchip.com>
-To: Russell King <linux@armlinux.org.uk>
-Cc: netdev@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: Nicolai Buchwitz <nb@tipi-net.de>
-Cc: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
-Cc: Gregory CLEMENT <gregory.clement@bootlin.com>
-Cc: Tawfik Bayouk <tawfik.bayouk@mobileye.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Fixes: 4df95131ea80 ("net/macb: change RX path for GEM")
+Cc: stable@vger.kernel.org
+Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
 Signed-off-by: Théo Lebrun <theo.lebrun@bootlin.com>
-
 ---
-Théo Lebrun (3):
-      net: macb: never give hardware a NULL RX buffer
-      net: macb: propagate RX ring refill errors
-      net: macb: quiesce IRQs and drain BH on interface close
+ drivers/net/ethernet/cadence/macb_main.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
- drivers/net/ethernet/cadence/macb.h      |   7 +-
- drivers/net/ethernet/cadence/macb_main.c | 133 ++++++++++++++++++++++++-------
- 2 files changed, 112 insertions(+), 28 deletions(-)
----
-base-commit: 7c416e8f8423e6fe9b48e0b9c174bd902789f8db
-change-id: 20260918-macb-close-dbbd23b4b8f2
+diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
+index 8e5c034dc3a4..7f25574928d7 100644
+--- a/drivers/net/ethernet/cadence/macb_main.c
++++ b/drivers/net/ethernet/cadence/macb_main.c
+@@ -1596,6 +1596,13 @@ static int gem_rx(struct macb_queue *queue, struct napi_struct *napi,
+ 		dma_addr_t addr;
+ 		bool rxused;
+ 
++		/* Only descriptors in [rx_tail, rx_prepared_head) were armed
++		 * for hardware. Outside, we might have RX_USED descriptors for
++		 * alloc failures.
++		 */
++		if (queue->rx_tail == queue->rx_prepared_head)
++			break;
++
+ 		entry = macb_rx_ring_wrap(bp, queue->rx_tail);
+ 		desc = macb_rx_desc(queue, entry);
+ 
+@@ -1859,6 +1866,10 @@ static bool macb_rx_pending(struct macb_queue *queue)
+ 	struct macb_dma_desc *desc;
+ 	unsigned int entry;
+ 
++	/* No armed descriptor left: nothing can be pending. */
++	if (macb_is_gem(bp) && queue->rx_tail == queue->rx_prepared_head)
++		return false;
++
+ 	entry = macb_rx_ring_wrap(bp, queue->rx_tail);
+ 	desc = macb_rx_desc(queue, entry);
+ 
+@@ -2795,9 +2806,14 @@ static int macb_alloc(struct macb *bp)
+ 
+ static void gem_init_rx_ring(struct macb_queue *queue)
+ {
++	unsigned int i;
++
+ 	queue->rx_tail = 0;
+ 	queue->rx_prepared_head = 0;
+ 
++	for (i = 0; i < queue->bp->rx_ring_size; i++)
++		macb_rx_desc(queue, i)->addr |= MACB_BIT(RX_USED);
++
+ 	gem_rx_refill(queue);
+ }
+ 
 
-Best regards,
---  
-Théo Lebrun <theo.lebrun@bootlin.com>
+-- 
+2.55.0
 
