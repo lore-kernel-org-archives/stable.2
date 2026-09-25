@@ -1,148 +1,201 @@
-Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FBA020E023
-	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 02:00:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14673260565;
+	Fri, 25 Sep 2026 02:14:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790301631; cv=none; b=NwIlrYqxwhc9EHmpviQ1Vtgk4yzuVIvKxRfRLg6sJIEt/0e67pPgUNyO1SiAiXiVMOgHQA5SEkyzl++P+Aa0rxxC0jTfRifgu4JBq8i5HoNB606Ovui8ZG1taNoet3akcZAAKAoPwValY8qiEuvi6peB2y8PiP/u1z+xDnIZp9g=
+	t=1790302494; cv=none; b=NHG2txAxTiWGeJ56c19YOdOS2mmlpHcvuPTYwtK1FP54EJMSsoOcDR6L6Ejd9HfKN3daaWc2uSez0EQaND7QlNKH+tZ9vFdGQfUr3Erf0XbNAOONWm0rIHjA1UQSH0twn/T7TL6kdrxR4LQ0nU4Mufu2HZIzQAl96KsIhCs6IFM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790301631; c=relaxed/simple;
-	bh=B+MQDJkbz2ZurZea5vqo3nhLCU5cbS/MTcfN28h2I6M=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hQdYaGDfHw/2Xl1jvsf88xOzkGsK+TnNCmPEcjFLKuiHKK5yH+Gsfa4D8kU1rNIPeGm3o+Zrg2VI7M4bXfG8PNr1Fp29vgeHVrop49ln+gTyo85GOe4ZphW0oMjk7+YRiIWLMW+1RfDRmlrqAqdmptcvPg2yT1Z5JR6onUPmJFE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TfyZPT/x; arc=none smtp.client-ip=74.125.227.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790302494; c=relaxed/simple;
+	bh=Vfy3OM5aMKIBYfOxgC1Dl9TLjVYN6dt1uricYc07uh0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BkNiSnUwiSG/vpYbjwLV5TfKVi7DKmYzj4K48MI12aLe1ZBk/MsuwxzHmrOCPQCmLcFOg+HVlRlzJ5MCygr4gfrisA741/xXSAHhj8VspZSdqyIz+K7jSGxrYzQpG4ZCauZRCFWKayhLsXaJcsCWpgSqwW+VEuDHCRb9o2NGNvY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RtZfvI+0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TfyZPT/x"
-Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-3a0a97efe99so28512a91.0
-        for <stable@vger.kernel.org>; Thu, 24 Sep 2026 19:00:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790301630; x=1790906430; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wdXQvAxDw9Kg7I9/XYmAKp3RYy+BwvAtZIh1L7zo0oo=;
-        b=TfyZPT/xFN1HR3Z5zKavfCc/upNJIEs3sGNuTPXQBh9B5bb4Pn8Y1eC43JWwB7SRAS
-         U+eH6/EhwxeIiut5WMN1XfxkhYa9bB0E4/p0zvLofsO/SxwpXASh4N90Jzd+3d2WdCxh
-         9/953vlZYTS3mqKDFfjfCqaCTuv6KK//+Nd/9bVKo30T1GZ4RW2DdYgJOlJCVomQPT35
-         99g+TuLiixef/eYUAg2I+jBDhPwqiHQV0YVLxvto0Dedo5x0Uc4raGlyAI7B2zKltrWw
-         oXQ+iMNeQkFItH21L6LC7unUP1aAXvwwjT0c+fqCHoFlyqObJtXtm3LWxRUYSr+ijuh8
-         vYKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790301630; x=1790906430;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wdXQvAxDw9Kg7I9/XYmAKp3RYy+BwvAtZIh1L7zo0oo=;
-        b=L0oYJhz4CuMaWJQINnbt4c0LBmE4vs78Zcoldoz0GHxlGvEiPl6yypWsv7duwj34Qp
-         UnIGGi1hx7r2YPNmkniJsimfkj9Bs1yQSOgbaWdAvdSbOggL0G1oi+2MVm6ebVJBQE7w
-         DFXC+LQNRqkTrkORyL7CGHnUvl9OhvAicyKq+F2yWqO7ygiOrU2PObSpWipzuVrxZy8G
-         qX0jfQCRwgNe+eWJ+ktq2QZG+yOVsalR01oSbvvFGmkj2KvxVjhqNeA/A8QI0hwGXgL5
-         o3Idxo/aaax5k/00YbLORJkQaofzIRJ++8Yed2vIgNxYzcpXnbs4G0ZuMmtEDB+idEYx
-         qxAA==
-X-Gm-Message-State: AFuF++leKglCr6KH+VZpNhFz0rAmb5Oz31CIqkqZF+geSHHv/tVdzF+s
-	M1YRJfdD3VOLXHodJOBu3iAducyLaE8SX81Rp++DqCZztyWv9ZkxUIbq81muvpwsUzk=
-X-Gm-Gg: AYBFou0F10w9azbPMfi7Hm4kQpQT/Shx6q6v6IJCz62YRS1qbDsAioEfH9JZ/QslxDo
-	Jyz9dej2eOs+RcjnnH3WXJiwZ4+vudg1rfxORKC6dtockI9dvsekVuDg10y/Lisp69k+PPYM9Rx
-	9KfJtNt5hS/Fr5AOjRLXJtRfqdeEDQLuFS5RjODibcCaoYpzSYh4CMEvxa+ZE4kw5U89v0sG1HX
-	it0Qtq6vJuWxL4XLitRFjur2ERrGMFbcuG6yDZT4A3ttHWc5j+ar1UUOAIAibW+KJAfcr3N7N6Q
-	PSa+iQiWxebMxtYf2EaM/27igBfVWghe9vR7DYi9SE2gNFb5Zo89eZSSMncO1++BPdWDCLDAWDa
-	RQbNTqXJSfaokP1aSntxM+/ww/0vXaI4A+4GzeSxMqprSCoGOscnoKtKcKU1SdTP9YVj3h5C9Ps
-	HEF04A3mYErDN4GcYguPdivrMiA+AGoK4MSvVTiZrWNu0oQI8L1JFYPxd5yxH0jz+2HtJmRPACB
-	pUOCeZQ92M=
-X-Received: by 2002:a17:90b:3889:b0:39e:55ce:af15 with SMTP id 98e67ed59e1d1-3a0b28344abmr2168977a91.5.1790301629463;
-        Thu, 24 Sep 2026 19:00:29 -0700 (PDT)
-Received: from localhost.localdomain ([175.159.181.20])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0ba31f408sm369914a91.3.2026.09.24.19.00.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 19:00:28 -0700 (PDT)
-From: Yu Junzhe <junzheyu1@gmail.com>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	netfilter-devel@vger.kernel.org
-Subject: [PATCH request stable 6.12 6.6 6.1] netfilter: nf_tables_netdev_event UAF of binding chain
-Date: Fri, 25 Sep 2026 02:00:25 +0000
-Message-ID: <20260925020025.616-1-junzheyu1@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RtZfvI+0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A09A71F000FF;
+	Fri, 25 Sep 2026 02:14:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790302492;
+	bh=4NZMBuFlBSPtFWQr/+9V5+/tkqwiVb2mT8iCwcDe+8A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RtZfvI+0S4V+OekP5WBn1nVIUqDPiXLFh3fdRqN8ZDUwVce/S4asXsblhu3wC7DOE
+	 GbAIh9/C07mr0GF0tbofTmf5Vh0QKmJfWlUDUQKZbx5gDAAcqcXWxm0sgLQc//ypHv
+	 jO9CmqTIYSTr9t9weTOjL/NCQbH2O/ONs0pTwsy/iCX3GdEjutOGBw8JIjznuZF3M5
+	 L9mY4BtABZcPbuC7nChFNUEdrvwSCyUvTACaL1efLT9QKt6flCrcCxo6cKHwv7vxLo
+	 laFfSlVsH6bLZ+kmYF9DAgd+zE2yBn9b2RxyvFW9ozMp74Cn8CBLnSECJFK8Jp0Lj3
+	 67LYDZ+gM9l5Q==
+Date: Thu, 24 Sep 2026 19:14:52 -0700
+From: Kees Cook <kees@kernel.org>
+To: Ben Cressey <ben@cressey.dev>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev, Sami Tolvanen <samitolvanen@google.com>,
+	David Woodhouse <dwmw@amazon.co.uk>, kexec@lists.infradead.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] arm64: kexec: mark machine_kexec() __nocfi
+Message-ID: <202609241804.BB23BF10@keescook>
+References: <20260924-arm64-kexec-nocfi-v1-1-bbae2e2eadc8@cressey.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924-arm64-kexec-nocfi-v1-1-bbae2e2eadc8@cressey.dev>
 
-Hello,
+On Thu, Sep 24, 2026 at 10:42:30PM +0000, Ben Cressey wrote:
+> With CONFIG_CFI=y the kCFI check on this call loads a type hash from
+> kern_reloc - 4. arm64_relocate_new_kernel is SYM_CODE_START and carries
+> no hash. Its copy also sits at the start of the control page, which is
+> all that TTBR0 maps at this point, so the load faults and the kernel
+> oopses after "Bye!" instead of entering the new kernel:
+> [...]
+> arm64_relocate_new_kernel cannot be given a type hash, since the linker
+> script asserts that the relocation code starts at that symbol and a
+> hash would have to precede it. Mark machine_kexec() __nocfi instead, as
+> commit e2f8216ca2d8 ("arm64: Set __nocfi on swsusp_arch_resume()") did
+> for the same pattern on the hibernate path and commit 2114796ca041
+> ("x86/kexec: Mark machine_kexec() with __nocfi") did on x86.
 
-Please consider a backport of the following use-after-free to the
-longterm trees that still have it: 6.12, 6.6, and 6.1. 6.18 and newer
-are not affected.
+I think e2f8216ca2d8 made a mistake here; using SYM_TYPED_FUNC_START
+wouldn't have been tautological: the defense is making sure that the
+indirect call itself can't be used with a bad pointer. Fixing this
+correctly isn't so bad: it just needs to decouple the entrypoint from
+the page address.
 
-There is no single upstream commit to cherry-pick. On current linux.git
-the netdev notifier no longer calls __nft_release_basechain(); it only
-unregisters the per-device hook. That change arrived as part of the
-netdev-hook rework and does not apply to these stable trees.
+But, barring that, what I don't like here (and with x86) is that it
+covers the entire function, so _all_ indirect calls go unprotected.
 
-Bug
-===
+Can you pull the call out into an inline helper so that the other
+indirect call (cpu_soft_restart) doesn't lose coverage?
 
-nf_tables_netdev_event() walks table->chains with
-list_for_each_entry_safe. On NETDEV_UNREGISTER of the last hook,
-nft_netdev_event() calls __nft_release_basechain(). Releasing the base
-chain deactivates a JUMP to an NFT_CHAIN_BINDING chain, which
-nft_chain_del()s that successor and nft_immediate_destroy() kfree()s
-it. The walker's saved nr still points at the freed nft_chain.
+-Kees
 
-Still present in:
+P.S.
 
-  linux-6.12.y  (6.12.111)  nft_chain_filter.c: __nft_release_basechain()
-  linux-6.6.y   (6.6.157)
-  linux-6.1.y   (6.1.188)
+Doing the whole SYM_TYPED_FUNC_START change (below, only build tested)
+is larger, but maybe things besides KCFI will want things before the
+entry point?
 
-Gone in linux-6.18.y and linux-7.0.y.
+ arch/arm64/include/asm/kexec.h      |    2 ++
+ arch/arm64/kernel/machine_kexec.c   |   13 +++++++++++--
+ arch/arm64/kernel/relocate_kernel.S |   14 +++++++++-----
+ arch/arm64/kernel/vmlinux.lds.S     |    5 +++--
+ 4 files changed, 25 insertions(+), 9 deletions(-)
 
-Reproducer (nftables 1.0.9)
-===========================
 
-An anonymous jump is what sets NFT_CHAIN_BINDING (chain flags 0x4).
-Commit the base chain first, then add the jump in a second command.
-Chains are appended to table->chains, and the walker frees the chain
-that follows the base chain. One nft -f that contains both creates the
-binding chain first and does not hit this path.
+diff --git a/arch/arm64/include/asm/kexec.h b/arch/arm64/include/asm/kexec.h
+index 892e5bebda957..0be042ec22c1f 100644
+--- a/arch/arm64/include/asm/kexec.h
++++ b/arch/arm64/include/asm/kexec.h
+@@ -100,6 +100,8 @@ void cpu_soft_restart(unsigned long el2_switch, unsigned long entry,
+ 		      unsigned long arg0, unsigned long arg1,
+ 		      unsigned long arg2);
+ 
++void arm64_relocate_new_kernel(struct kimage *kimage);
++
+ int machine_kexec_post_load(struct kimage *image);
+ #define machine_kexec_post_load machine_kexec_post_load
+ #endif
+diff --git a/arch/arm64/kernel/machine_kexec.c b/arch/arm64/kernel/machine_kexec.c
+index 8f9bc2327dc85..1cf4cb135ee2b 100644
+--- a/arch/arm64/kernel/machine_kexec.c
++++ b/arch/arm64/kernel/machine_kexec.c
+@@ -136,9 +136,18 @@ int machine_kexec_post_load(struct kimage *kimage)
+ 	kimage->arch.ttbr1 = __pa(trans_pgd);
+ 	kimage->arch.zero_page = __pa_symbol(empty_zero_page);
+ 
++	/*
++	 * The whole .kexec_relocate.text section is copied to the control
++	 * page, but arm64_relocate_new_kernel is not required to be the first
++	 * thing in it. Allow for whatever precedes it (e.g. a landing pad,
++	 * a kCFI type hash, etc) by carrying its offset within the section
++	 * across the copy.
++	 */
+ 	reloc_size = __relocate_new_kernel_end - __relocate_new_kernel_start;
+ 	memcpy(reloc_code, __relocate_new_kernel_start, reloc_size);
+-	kimage->arch.kern_reloc = __pa(reloc_code);
++	kimage->arch.kern_reloc = __pa(reloc_code) +
++		((unsigned long)arm64_relocate_new_kernel -
++		 (unsigned long)__relocate_new_kernel_start);
+ 	rc = trans_pgd_idmap_page(&info, &kimage->arch.ttbr0,
+ 				  &kimage->arch.t0sz, reloc_code);
+ 	if (rc)
+diff --git a/arch/arm64/kernel/vmlinux.lds.S b/arch/arm64/kernel/vmlinux.lds.S
+index af1d720209764..81540c09a3db8 100644
+--- a/arch/arm64/kernel/vmlinux.lds.S
++++ b/arch/arm64/kernel/vmlinux.lds.S
+@@ -432,6 +432,7 @@ ASSERT(swapper_pg_dir - tramp_pg_dir == TRAMP_SWAPPER_OFFSET,
+ ASSERT(__relocate_new_kernel_end - __relocate_new_kernel_start <= SZ_4K,
+        "kexec relocation code is bigger than 4 KiB")
+ ASSERT(KEXEC_CONTROL_PAGE_SIZE >= SZ_4K, "KEXEC_CONTROL_PAGE_SIZE is broken")
+-ASSERT(__relocate_new_kernel_start == arm64_relocate_new_kernel,
+-       "kexec control page does not start with arm64_relocate_new_kernel")
++ASSERT(arm64_relocate_new_kernel >= __relocate_new_kernel_start &&
++       arm64_relocate_new_kernel < __relocate_new_kernel_end,
++       "kexec relocation entry point is outside the copied region")
+ #endif
+diff --git a/arch/arm64/kernel/machine_kexec.c b/arch/arm64/kernel/machine_kexec.c
+index 1cf4cb135ee2b..90302efebb426 100644
+--- a/arch/arm64/kernel/machine_kexec.c
++++ b/arch/arm64/kernel/machine_kexec.c
+@@ -202,7 +202,7 @@ void machine_kexec(struct kimage *kimage)
+ 		restart(is_hyp_nvhe(), kimage->start, kimage->arch.dtb_mem,
+ 			0, 0);
+ 	} else {
+-		void (*kernel_reloc)(struct kimage *kimage);
++		typeof(arm64_relocate_new_kernel) *kernel_reloc;
+ 
+ 		if (is_hyp_nvhe())
+ 			__hyp_set_vectors(kimage->arch.el2_vectors);
+diff --git a/arch/arm64/kernel/relocate_kernel.S b/arch/arm64/kernel/relocate_kernel.S
+index 6cb4209f5dab5..e3e575c57fe12 100644
+--- a/arch/arm64/kernel/relocate_kernel.S
++++ b/arch/arm64/kernel/relocate_kernel.S
+@@ -8,6 +8,7 @@
+  * Pasha Tatashin <pasha.tatashin@soleen.com>
+  */
+ 
++#include <linux/cfi_types.h>
+ #include <linux/kexec.h>
+ #include <linux/linkage.h>
+ 
+@@ -32,11 +33,14 @@
+  * new image to its final location.  To assure that the
+  * arm64_relocate_new_kernel routine which does that copy is not overwritten,
+  * all code and data needed by arm64_relocate_new_kernel must be between the
+- * symbols arm64_relocate_new_kernel and arm64_relocate_new_kernel_end.  The
+- * machine_kexec() routine will copy arm64_relocate_new_kernel to the kexec
+- * safe memory that has been set up to be preserved during the copy operation.
++ * symbols __relocate_new_kernel_start and __relocate_new_kernel_end.  The
++ * machine_kexec() routine will copy that whole region to the kexec safe
++ * memory that has been set up to be preserved during the copy operation,
++ * and enter it at arm64_relocate_new_kernel's offset within it.
++ *
++ * It is called indirectly, through the copy, so it needs a kCFI type hash.
+  */
+-SYM_CODE_START(arm64_relocate_new_kernel)
++SYM_TYPED_FUNC_START(arm64_relocate_new_kernel)
+ 	/*
+ 	 * The kimage structure isn't allocated specially and may be clobbered
+ 	 * during relocation. We must load any values we need from it prior to
+@@ -98,4 +102,4 @@ SYM_CODE_START(arm64_relocate_new_kernel)
+ 	mov	x2, xzr
+ 	mov	x3, xzr
+ 	br	x28				/* Jumps from el1 */
+-SYM_CODE_END(arm64_relocate_new_kernel)
++SYM_FUNC_END(arm64_relocate_new_kernel)
 
-  ip link add br0 type bridge
-  ip link set br0 up
-  nft -f - <<'EOF'
-  table netdev t {
-          chain in {
-                  type filter hook ingress device "br0" priority 0; policy accept;
-          }
-  }
-  EOF
-  nft add rule netdev t in 'jump { accept; }'
-  ip link del br0
 
-The namespace must still be alive. Netns teardown is too late: nft
-pernet exit wins that race. Needs CAP_NET_ADMIN. Do not run on a host
-kernel.
-
-Confirmed on Linux 6.6.144 KASAN (same __nft_release_basechain() walk
-as 6.6.y and 6.12.y). I have not booted 6.12.111 or 6.1.188.
-
-  BUG: KASAN: slab-use-after-free in nf_tables_netdev_event+0x635/0x970
-  Read of size 8 at addr ff110000037faa20 by task ip/229
-  Freed by task 229:
-    nft_immediate_destroy
-    __nft_release_basechain_now
-    __nft_release_basechain
-    nf_tables_netdev_event
-
-The read is 8 bytes at offset 32 of a kmalloc-128 object
-(nft_chain.list).
-
-Thanks,
-Yu Junzhe
-FuzzAnything <fuzzanything@gmail.com>
+-- 
+Kees Cook
