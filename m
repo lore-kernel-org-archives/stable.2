@@ -1,69 +1,60 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012000.outbound.protection.outlook.com [52.101.43.0])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FA304432FF;
-	Fri, 25 Sep 2026 06:33:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.0
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790317998; cv=fail; b=ePALXHPPX9BSZuInP5E4DneprMMndrUsHzLE8Ryu0Zw+uBehorZhpcJekARfwjt0omPZNj5jmXYdE+ExekB3JJPxGtFkuj0sYjng4Nl0h8O7w4FoR5eaehPTvte5egjFR8YzAwtu7/GAvmxwT288B7fhYpvNmxwOfLHIKtRMiGs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790317998; c=relaxed/simple;
-	bh=cWe5aip5IahY1IpOQ8S6hqCgZo1B6r9dPS5cNimXKxs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=T22NCKCbmvUKQGYOIKfD0b+qFBO2aIgiW9jg2rHRtqGYjaX54HVS2nGmBoY7RTeir1fPv1dIkhHD6jTAogv56VSNxmlTfjZNzXkaQ5IhgzAjEbEvg8isrQbsIrJRRfcbj3sfl2q7G+hQAmoBQChN+51AEfR5dwRTYQtCk+cq0QA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=bnpKDFDy; arc=fail smtp.client-ip=52.101.43.0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFB4B39769B;
+	Fri, 25 Sep 2026 06:38:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790318334; cv=none; b=hbVj6FDLPNbVUMiFBg3KyB1t1fGTnwlK1lgdMUVVssJFljtXI3MCqGIwLRcWasEMimThTjBk1+ZZ0gPT8NJqZ0PAFIFR3JRkzf/kqubNbzyvGuzcpkgLbR3rI4x9w3dngn+V5hQXKvb9o+Pddy0Tfd57RvaYBNvfndvDQ8iqEfA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790318334; c=relaxed/simple;
+	bh=Kx2FTHjANCexFxlTXWpOw90MEvQnQPMZnsbgGPFT3oQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=S32E4i/gKHaE517gQFNrH6JTfDwhhWIVpT1ea7ag8Fq9tdy5gn1CAYB+X6ZXBPBLhp8rO7EkayukcTB9EVUj3wU94ZrGVNqxqFI4ZYw+12+dV2xlwo0HwU6a4tfB6xtOLP8PhOyyz3AgvnePLscQHJ1tTt5HjLp7oRWztx6+mOM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=l3so31Cg; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="bnpKDFDy"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UJwJK8x9y45wURrOK5O9Ya41U8Vtxg4lN9xJXtv1bGDWEKt1ivoTJwUrFzPdQ9NAakOMwLZUZWNanJFx91b5XjudApu9NhZOhWHwh64u7vtD8HBN33L3u7CLT8hcVRgt0rDY16138tXBBoV1QEYgrZ7fpv2Re3B59OQjyYjY4mUj4HigRd3D2RzxngTK/WGrFyaWJVx03iV5Mu37/xLOUtxhwJ4ghBBLb4zrO9b9fLDS2Qx6h+eR7aXzOUAmgi/1tPBJI80tK8CzB9kLb4QNz/ecMPPByZS9HNvo8grMdYkxvaQT9iqCKM0rKigWwaFJrXiIzQqGyDXGNupTB2n/qA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qvXnIbnim7ip1ox4SYDw8tGjRyr7E9bmooSJ3kxTVLU=;
- b=qvBIEmFwQ/+cmXvN+WQBr2MeYGMBrmh05RYqSzcSAor08seqiaubHgisYZKUMavO9LTktgeJNlCw4vFIttwjOe92Sz1eX5CigTDNJmHSqnUk1e3qs2chYKAG5ADLco1u+kdZf1pEABfYK8a2rKv2t25Y8/wpNZEOGa1+qOhkIo5LGi+9u6PRmeGHbkZHTkZiC+T0dj5mjfMIxv4kifFrSoCvLHOUZwG+qcBOOO+FxhFPt1O5pRqAy+zPD/+FoYMYZZVVlwcbdJ1ZrJRnbppG7TVTynL27bfFj3qRcsbHqZT+f/CcrbJAV0omoCn4hzTZKwVEzKl/XxCfXCoMWAE8fw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qvXnIbnim7ip1ox4SYDw8tGjRyr7E9bmooSJ3kxTVLU=;
- b=bnpKDFDylNwrGfHxWs3KmWDRZFGxalKsRsJOHpf8hPYuE/GviFzAlONMC4PmI3J86kVZBU3sVJrdj0SKnySOiKAtf4sYTcUGXsBpURvHgXjoW5Kz1tmpAVZ8guHarCShJ8tpUupCfx+zGrFbVxa//Z6T3/v4/XyTQHAqNmMbX44=
-Received: from SJ0P220CA0003.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:41b::34)
- by CHAPR12MB999249.namprd12.prod.outlook.com (2603:10b6:610:300::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
- 2026 06:33:07 +0000
-Received: from SJ5PEPF00000206.namprd05.prod.outlook.com
- (2603:10b6:a03:41b:cafe::84) by SJ0P220CA0003.outlook.office365.com
- (2603:10b6:a03:41b::34) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.18 via Frontend Transport; Fri,
- 25 Sep 2026 06:33:07 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ5PEPF00000206.mail.protection.outlook.com (10.167.244.39) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Fri, 25 Sep 2026 06:33:07 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 25 Sep
- 2026 01:33:06 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 25 Sep
- 2026 01:33:06 -0500
-Received: from [10.85.35.99] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Fri, 25 Sep 2026 01:33:04 -0500
-Message-ID: <f0ff1193-8612-4eee-9997-4ef3ec215977@amd.com>
-Date: Fri, 25 Sep 2026 12:03:03 +0530
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="l3so31Cg"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68P4aDEH074518;
+	Fri, 25 Sep 2026 06:38:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=Uagz98
+	eh/mahAwwBREcI7xRyVPw/6sqouZ8XEfabap4=; b=l3so31CgupnOGkaFVuIX19
+	lg7jM3uNj5xvhgsUwKbJoHIEYhzTuMBtAI65LtIKRBi3T8B3D+b1SNw+k/Vk4CbQ
+	t/3VosYW9wCZXut/WoZZNyadNIJIDIWnOEE9EszTYV842KDR5dzp7rEobFyoVuL/
+	EIKS/mayPmY6T0yQ53bfdhsHVjqTtBcd+k1kX6spp2SkOnDYJdovPVcK4aAReEd8
+	iUcHxyIq9F0i8sJ8m2GtD0xnhMbTmkQC+TGkvKk9DTKRb2SQ2cYcu6J6gjTPKfuE
+	/GswpCTj267grnQzF7Z+IuIHWD1YK/0WdqhimaO3kgYFGRvIayzJI1EzxB+bM9HA
+	==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskg2wp3m-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 25 Sep 2026 06:38:44 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68P4laUd3244947;
+	Fri, 25 Sep 2026 06:38:43 GMT
+Received: from smtprelay06.dal12v.mail.ibm.com ([172.16.1.8])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gvbu918yh-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 25 Sep 2026 06:38:43 +0000 (GMT)
+Received: from smtpav04.wdc07v.mail.ibm.com (smtpav04.wdc07v.mail.ibm.com [10.39.53.231])
+	by smtprelay06.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68P6cgxI32703164
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 25 Sep 2026 06:38:42 GMT
+Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 391EF5805E;
+	Fri, 25 Sep 2026 06:38:42 +0000 (GMT)
+Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 6A72658045;
+	Fri, 25 Sep 2026 06:38:35 +0000 (GMT)
+Received: from [9.39.21.9] (unknown [9.39.21.9])
+	by smtpav04.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Fri, 25 Sep 2026 06:38:35 +0000 (GMT)
+Message-ID: <f3318ef1-02d9-4eda-80b9-d371bbbe1bf2@linux.ibm.com>
+Date: Fri, 25 Sep 2026 12:08:33 +0530
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,159 +62,322 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] KVM: SVM: Trigger new ASID allocation in both VMCBs on
- pCPU switch
-To: Yosry Ahmed <yosry@kernel.org>, Sean Christopherson <seanjc@google.com>
-CC: Paolo Bonzini <pbonzini@redhat.com>, <kvm@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, Stefan Teodorescu
-	<fane@google.com>
-References: <20260903223258.486034-1-yosry@kernel.org>
+Subject: Re: [PATCH net v5] net/smc: fix lgr/lnk lifetime vs diag reader race
+To: netdev-bot+sashiko@kernel.org
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+        kuba@kernel.org, pabeni@redhat.com, alibuda@linux.alibaba.com,
+        dust.li@linux.alibaba.com, sidraya@linux.ibm.com,
+        hidayath@linux.ibm.com, pasic@linux.ibm.com, horms@kernel.org,
+        tonylu@linux.alibaba.com, guwen@linux.alibaba.com,
+        stable@vger.kernel.org, netdev@vger.kernel.org,
+        linux-s390@vger.kernel.org, linux-rdma@vger.kernel.org
+References: <20260923061716.1970059-1-mjambigi@linux.ibm.com>
+ <179028482174.2160803.16069872683642574185@kernel.org>
 Content-Language: en-US
-From: Nikunj A Dadhania <nikunj@amd.com>
-In-Reply-To: <20260903223258.486034-1-yosry@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF00000206:EE_|CHAPR12MB999249:EE_
-X-MS-Office365-Filtering-Correlation-Id: af24912e-8ef6-4f91-e72a-08df1acedc6a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|23010399003|1800799024|36860700016|6133799003|13003099007|18002099003|22082099003|11063799006|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	gYfExFccB+WZt3OvefJn87QeuKyQRqrgPRATRhTJETHr8Xo7070pWAvMXg9lOX1pXA7257Dbm8nDdyHKYb/HhStcslHcXELczgHE1a7UMjKABd+82V3oOPW5YxRFleAd+6Yvu0XDkPR6VjMdBnmBf+Z53dpnjNNvB63FNd2gUpIM2wLBZGMw4Ov1oqHQNEz6rU7pFyQnmdagwtFO3qKdA540ZOCUoWGN6Jebhj11uCtrFtPvDxW8qklEQ1cp1IFMZEmLgqtak7EDxn9Ee+K/tedKoYl51KkPp9SjR9jU019cagYbob3HqYUaVdULekqvlNcbhUVKhtOSIcSJ81shqB0oQdw+U5cZMSI03PEnoP5KrRDtqiw5FB3llh9tlDLFXU9I7wNiA0H+bPsvyAiu0ydcOsAtNRKfbYFiFWJ4M53HmtjLrdbyO5j125sRSPkExuN9/yhaym/jtK1xxqSThwJ/kE/rM0wslGZ3ynhDRdqhVuMzaqPBU2Yp3h+e+gbXlHfboI+CYSA7eEIqqLeY4CYYSOTiekrOOaLsbJQNgO6fmxPD/BsRyZE5jQsOtQdQkFjpybr6vs5XB0h3J6GAVc8tGXDicuPVID49ghVsqhvBO9JK5udIpEtGA6N7YWn6bx+6R6hdCczFhm6TthtuCcrYdAZSwLvJ00bVyWF9iYsbvuBY4AMVxgOm7Te0ayQV8q/ymbGgIAOam6Sd/SQz0Q==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(23010399003)(1800799024)(36860700016)(6133799003)(13003099007)(18002099003)(22082099003)(11063799006)(56012099006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	ZcJZTKIaKKJ4vEH6mXUHkSlHsT+noAd+qdeegc6O9Iz4HUELF0146YkmONAuw1N1SEDo6zB1dAdka/RHkDeAI4xgQkhQXbK5iVJGUgS9sy1XkKBAv75gfX27JdlXC0PUD6g4W/9JMYLWCJes7UH9YZL0n5rfg2ySUUC3fAdcQNR0zpQnZzTUeRn+gUuMWtjtFcoI5xnDc9uTJMRYeseqC5eDxNhSUo93t87E4bVSC9uee25O59VkvLaBTt7poAYf9JukA44dt3G2gCMd61Gl9+cZtfxJqm/LoPFgMp/qz3Ab/R3fm4qwcf1I7J5PEjP6LmNQvDmAxF4iUakdEcWr2pwIH7If3w+tkfxhJJSmkVFS0h737FBAwOgAZh9UFZJl/tx9CUqKXXLDo7geC6Cwx6rZmR51Un8vhH3s+PyZ0xxZ5Xh6gKkDmlpVMjHrVd6/
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 06:33:07.2205
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: af24912e-8ef6-4f91-e72a-08df1acedc6a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF00000206.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CHAPR12MB999249
+From: Mahanta Jambigi <mjambigi@linux.ibm.com>
+In-Reply-To: <179028482174.2160803.16069872683642574185@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: aNUD6pwb3Kd1ntFYZ5tTRpsRhf3JyGPo
+X-Authority-Analysis: v=2.4 cv=I43w19gg c=1 sm=1 tr=0 ts=6ab616f5 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8
+ a=-Cb9ymFxY4KYdMEwedoA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDAyNiBTYWx0ZWRfX+BrI78t1bbj3
+ lzuWV3jPV9KXZfov1RS7oATp5zpbTbNNgiR7vnR/GF3ss5mQLxvBQWbB+pkncemiuvhny8mHqXs
+ QiNL7nM5DpBcmvkVyPJz8Wt5kqNgIfdMqbPnNe2GYQ5/GlZ9CCjs9G+B8j6kohevPxMhA8cXuwR
+ gHV3BV//lUDEv7TvEY1Qduo3RM8Et1f0w3/dx9Z1PLuZHcKGt/IbV1qXATbBj+YmcZuD2fBRtCk
+ 0nnmGZBj79pdbCMG3iNW4BcSsrhbqQ5RTGGCOINE2LslbxLGhR8KGidj1MeK5LFonZQfY/UyDnb
+ puFS52qiIem2ZFVcMVr44ESWiEN1vQqnurrmct1PA5ve0GvggSe+tifAriiZ5iZIi5Jm/i4+yyd
+ jL9ag/d4a8K4tblhLBaG5/bTm3oSwh9P3XYXMyc0bIqErFh+b++yE9Y2pKTT6BuTz8h1jx9n5bn
+ 2d4cZM7rEKNjnSBUDXA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDAyNiBTYWx0ZWRfX7sbW0WMvO3aM
+ sGF9bIgJ9jcvuTU4IqwKDnGrsR8BBboUSS9xY9Z91OJ1eDIlxALajtaSqYi3eSkPzA+8BEsPLnS
+ A45v1cfMpk5RnkMnwNDCiXugZBxUpRM=
+X-Proofpoint-GUID: mObDE-BHI6C7tLj1JEeILXMIMqHKl3Hg
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015 adultscore=0 suspectscore=0 impostorscore=0
+ lowpriorityscore=0 bulkscore=0 phishscore=0 priorityscore=1501 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609250026
 
-On 9/4/2026 4:02 AM, Yosry Ahmed wrote:
-> When the pCPU where the VMCB was mostly recently used is switched, reset
 
-s/mostly recently/most recently/
 
-> the ASID generation in both VMCBs, triggering new ASID allocation for
-> the immediate VMRUN as well as the next VMRUN on the other VMCB.
+On 25/09/26 2:50 am, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential
+> issue(s) to consider.
 > 
-> The ASID is shared between vmcb01 and vmcb02, and gets flushed on every
-> nested transition. However, since pCPU tracking is done per VMCB, it is
-> possible for one VMCB to allocate a new ASID when migrated to a new
-> pCPU, and then the other VMCB reuses that ASID on the old pCPU. This can
-> result in the same ASID being used by multiple vCPUs on the old pCPU.
+> Critical: 0 · High: 2 (1) · Medium: 1 · Low: 0
 > 
-> Example scenario:
-> - vCPU runs on pCPU A, vmcb01 is active, asid=1.
-> - vCPU migrates to pCPU B, vmcb01 pCPU changes, new asid=2.
-> - Another vCPU runs on pCPU A and allocates asid=2 as well.
-> - vCPU migrates back to pCPU A, and then switches to vmcb02 before it
->   runs again with vmcb01.
-> - No pCPU switch is detected for vmcb02, so VMRUN is done with asid=2.
-> - Two vCPUs end up using asid=2 on the same pCPU.
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
 > 
-> Keep the VMCB dirtying to the active VMCB only. Clean bits are tracked
-> by a pCPU for each VMCB, so do not unnecessarily dirty a VMCB if its
-> pCPU does not change.
+> - [High] __smc_diag_dump() (net/smc/smc_diag.c:91-96) still reads
+>   `smc->conn.lgr->is_smcd` to work out r->diag_mode.
+> - [High] In the SMC_DIAG_LGRINFO block, __smc_diag_dump() does `struct
+>   smc_link *link = smc->conn.lnk;` and then dereferences…
+> - [Medium] The commit message says the socket is unhashed "before
+>   smc_conn_free() is called at the two terminal teardown sites".
 > 
-> Additionally, initialize the tracked pCPU for vmcb02 to -1 on nested
-> enablement as hardening, so that a new ASID allocation is always
-> triggered when nested is disabled and re-enabled.
+> Pre-existing issues:
+> - [High] This problem wasn't introduced by this patch, but the patch
+>   leaves it open while adding an unhash that runs too late on the same…
 > 
-> No performance regression was noticed when overcommitting L1 vCPUs in L0
-> (to force rescheduling), pinning L1 <-> L2 vCPUs, and running CPUID in a
-> tight loop bouncing between 2 vCPUs in L2.
+> --
 > 
-> An alternative (and perhaps more proper) fix would be tracking the ASID
-> per-VMCB instead (e.g. [1]). However, that's a more involved change, and
-> it would result in having different ASIDs for L1 and L2 without actually
-> properly maintaining them. It would probably work because all TLB
-> flushes target the current VMCB, and the other VMCB is always flushed on
-> nested transitions, but the code ends up in an arguably more fragile
-> state. Punt a proper clean fix to an incoming (and overdue) overhaul of
-> SVM's ASID usage [2].
+> net/smc: fix lgr/lnk lifetime vs diag reader race
 > 
-> [1]https://lore.kernel.org/lkml/20250205182402.2147495-2-yosry.ahmed@linux.dev/
-> [2]https://lore.kernel.org/kvm/20260728003557.1136583-1-yosry@kernel.org/
+> This patch unhashes SMC sockets in smc_close_active_abort() and
+> smc_close_passive_work() before smc_conn_free() drops the lgr/lnk
+> references. It also makes __smc_diag_dump() skip the conn/lgr/lnk
+> attribute blocks when the socket is in SMC_INIT or SMC_CLOSED state. The
+> goal is to keep the diag reader from dereferencing a freed link group or
+> link.
 > 
-> Cc: stable@vger.kernel.org
-> Reported-by: Stefan Teodorescu <fane@google.com>
-> Signed-off-by: Yosry Ahmed <yosry@kernel.org>
-> ---
+>> diff --git a/net/smc/smc_close.c b/net/smc/smc_close.c
+>> index bb0313ef5f7c1..3940098c651d9 100644
+>> --- a/net/smc/smc_close.c
+>> +++ b/net/smc/smc_close.c
+>> @@ -130,6 +130,11 @@ void smc_close_active_abort(struct smc_sock *smc)
+>>  	struct sock *sk = &smc->sk;
+>>  	bool release_clcsock = false;
+>>  
+>> +	/*
+>> +	 * Unhash before any branch calls smc_conn_free() and drops lgr/lnk refs;
+>> +	 * the diag reader must not see a hashed socket with freed lgr/lnk.
+>> +	 */
+>> +	sk->sk_prot->unhash(sk);
 > 
-> v1 -> v2:
-> - Make resetting asid_generation in vmcb02 unconditional (Sean).
+> [Severity: Medium]
+> The commit message says the socket is unhashed "before smc_conn_free() is
+> called at the two terminal teardown sites". This unhash, though, runs
+> unconditionally for every state. Is that intended?
 > 
-> ---
->  arch/x86/kvm/svm/nested.c |  1 +
->  arch/x86/kvm/svm/svm.c    | 19 +++++++++++++++----
->  2 files changed, 16 insertions(+), 4 deletions(-)
+> The SMC_ACTIVE, SMC_APPCLOSEWAIT1 and SMC_APPCLOSEWAIT2 branches never call
+> smc_conn_free(). They only set SMC_CLOSED and call sock_put(). SMC_INIT,
+> SMC_PEERABORTWAIT and SMC_CLOSED don't call it either. Neither does the early
+> break taken when smc_close_cancel_work() changes the state.
 > 
-> diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
-> index 73f37b050d0a0..0c55c71fc6010 100644
-> --- a/arch/x86/kvm/svm/nested.c
-> +++ b/arch/x86/kvm/svm/nested.c
-> @@ -1494,6 +1494,7 @@ int svm_allocate_nested(struct vcpu_svm *svm)
->  	if (!svm->nested.msrpm)
->  		goto err_free_vmcb02;
->  
-> +	svm->nested.vmcb02.cpu = -1;
->  	svm->nested.initialized = true;
->  	return 0;
->  
-> diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-> index ea647938a2a65..762b6059eda31 100644
-> --- a/arch/x86/kvm/svm/svm.c
-> +++ b/arch/x86/kvm/svm/svm.c
-> @@ -3765,14 +3765,25 @@ static int pre_svm_run(struct kvm_vcpu *vcpu)
->  	struct vcpu_svm *svm = to_svm(vcpu);
->  
->  	/*
-> -	 * If the previous vmrun of the vmcb occurred on a different physical
-> -	 * cpu, then mark the vmcb dirty and assign a new asid.  Hardware's
-> -	 * vmcb clean bits are per logical CPU, as are KVM's asid assignments.
-> +	 * If the previous VMRUN of the VMCB occurred on a different physical
-> +	 * cpu, then mark the VMCB dirty as hardware's clean bits are per pCPU.
-> +	 *
-> +	 * Reset the ASID generation in both VMCBs. This will lead to assigning
-> +	 * a new ASID now, and then again when switching to the other VMCB.
-> +	 * However, this is needed as the ASID is shared between the VMCBs, and
-> +	 * otherwise it would be possible to use an ASID allocated on one pCPU
-> +	 * on another, for example:
-> +	 * - vCPU migrates from pCPU A to pCPU B, allocates a new ASID.
-> +	 * - vCPU migrates back to pCPU A, and then switches the VMCB.
-> +	 * - The new VMCB does not detect a pCPU change and runs on pCPU A with
-> +	 *   the new ASID allocated on pCPU B, which is potentially used by
-> +	 *   another vCPU/VM.
->  	 */
+> On link group termination, smc_conn_kill() calls smc_close_active_abort()
+> for every connection:
+> 
+> net/smc/smc_core.c:smc_conn_kill() {
+>     ...
+>     smc_lgr_unregister_conn(conn);
+>     smc_close_active_abort(smc);
+> }
+> 
+> Doesn't this make killed SMC_ACTIVE sockets vanish from smc_diag/smcss
+> right away instead of at close? The application still has them open, and
+> their lgr/lnk references are still held.
+> 
+> These sockets reach smc_conn_free() later in __smc_release(), which already
+> unhashes first. smc_release() is also a third caller of
+> smc_close_active_abort(), and the commit message doesn't mention it.
+> 
+> Would it be narrower to unhash only right before the two smc_conn_free()
+> calls in the SMC_PEERCLOSEWAIT1/2/SMC_PEERFINCLOSEWAIT and
+> SMC_PROCESSABORT/SMC_APPFINCLOSEWAIT branches?
 
-Nit, the example duplicates the one in the change log. How about dropping
-the bullet list here and depend on the change log for example scenario?
+You are right. The unconditional unhash at the top of
+smc_close_active_abort() was placed there because v5 traced the
+smc_conn_kill() → smc_close_active_abort() → smc_conn_free() chain and
+stopped at smc_close_active_abort() as the insertion point. This was too
+broad — it also fires for the SMC_ACTIVE/APPCLOSEWAIT branches which
+never call smc_conn_free(), and for the smc_release() call site where
+the socket is a live connection the application still has open.
 
-Either way:
+Fix in v6: remove the unconditional unhash from the top of
+smc_close_active_abort() and place it scoped, immediately before each of
+the two smc_conn_free() calls — in the PEERCLOSEWAIT1/2/PEERFINCLOSEWAIT
+branch and the PROCESSABORT/APPFINCLOSEWAIT branch.
 
-Reviewed-by: Nikunj A Dadhania <nikunj@amd.com>
-
->  	if (unlikely(svm->current_vmcb->cpu != vcpu->cpu)) {
-> -		svm->current_vmcb->asid_generation = 0;
->  		vmcb_mark_all_dirty(svm->vmcb);
->  		svm->current_vmcb->cpu = vcpu->cpu;
-> +		svm->vmcb01.asid_generation = 0;
-> +		svm->nested.vmcb02.asid_generation = 0;
->          }
->  
->  	if (is_sev_guest(vcpu))
 > 
-> base-commit: 76671054f9a1ff6abb976583cd8da37650acdc97
+> [Severity: High]
+> This is a pre-existing issue, not one introduced by this patch. Still, on
+> the smc_conn_kill() path this new unhash runs too late to protect against
+> it.
+> 
+> On SMC-D with dmb_nocopy (for example loopback-ism), smc_conn_kill() frees
+> the sndbuf descriptor before it unregisters the conn and before it calls
+> smc_close_active_abort():
+> 
+> net/smc/smc_core.c:smc_conn_kill() {
+>     ...
+>     if (smc_ism_support_dmb_nocopy(conn->lgr->smcd))
+>         smcd_buf_detach(conn);
+>     ...
+>     smc_lgr_unregister_conn(conn);
+>     smc_close_active_abort(smc);
+> }
+> 
+> smcd_buf_detach() does this:
+> 
+>     buf_desc = conn->sndbuf_desc;
+>     conn->sndbuf_desc = NULL;
+>     kfree(buf_desc);
+> 
+> During that window the socket is still hashed and still in SMC_ACTIVE, so
+> it passes the new diag guard. alert_token_local is also still set. That
+> means __smc_diag_dump() enters the SMC_DIAG_CONNINFO block and evaluates:
+> 
+>     .sndbuf_size = conn->sndbuf_desc ?
+>         conn->sndbuf_desc->len : 0,
+> 
+> These are plain loads, and only the hash read_lock is held. Could this
+> dereference NULL, or read ->len from an smc_buf_desc that has been kfree'd?
+> The lock_sock() in __smc_lgr_terminate() does not exclude the diag reader.
+> 
+> Would unhashing at the start of smc_conn_kill(), before smcd_buf_detach(),
+> close this as well?
 
+You are right. In smc_conn_kill(), smcd_buf_detach() NULLs and frees
+conn->sndbuf_desc before smc_close_active_abort() is called, but the
+socket is still hashed during that window. The v5 unhash inside
+smc_close_active_abort() is too late.
+
+Fix in v6: move the unhash to the top of smc_conn_kill(), before
+smcd_buf_detach(). Both call sites (__smc_lgr_terminate() and
+smc_conn_abort_work()) hold lock_sock and have no expectation that the
+socket remains hashed after smc_conn_kill() returns. smc_unhash_sk() is
+idempotent so the subsequent unhash attempts further down become safe
+no-ops.
+
+> 
+>>  	if (sk->sk_state != SMC_INIT && smc->clcsock && smc->clcsock->sk) {
+>>  		sk->sk_err = ECONNABORTED;
+>>  		if (smc->clcsock && smc->clcsock->sk)
+> 
+> [ ... ]
+> 
+>> diff --git a/net/smc/smc_diag.c b/net/smc/smc_diag.c
+>> index bf0beaa23bdb6..fe32091e37dab 100644
+>> --- a/net/smc/smc_diag.c
+>> +++ b/net/smc/smc_diag.c
+>> @@ -103,6 +103,9 @@ static int __smc_diag_dump(struct sock *sk, struct sk_buff *skb,
+>>  	if (nla_put(skb, SMC_DIAG_FALLBACK, sizeof(fallback), &fallback) < 0)
+>>  		goto errout;
+>>  
+>> +	if (sk->sk_state == SMC_INIT || sk->sk_state == SMC_CLOSED)
+>> +		goto out;
+>> +
+> 
+> [Severity: High]
+> Does this guard cover the lgr dereference earlier in __smc_diag_dump() that
+> sets r->diag_mode?
+> 
+> net/smc/smc_diag.c:__smc_diag_dump() {
+>     ...
+>     if (smc->use_fallback)
+>         r->diag_mode = SMC_DIAG_MODE_FALLBACK_TCP;
+>     else if (smc_conn_lgr_valid(&smc->conn) && smc->conn.lgr->is_smcd)
+>         r->diag_mode = SMC_DIAG_MODE_SMCD;
+>     ...
+> }
+> 
+> That load happens before the new SMC_INIT/SMC_CLOSED check, and only the
+> smc hash read_lock is held.
+> 
+> The commit message says this guard handles the smc_conn_abort() SMC_INIT
+> case. Take a handshake failure such as smc_listen_decline() ->
+> smc_conn_abort(new_smc, local_first). The socket is still hashed in
+> SMC_INIT and use_fallback has not been set yet:
+> 
+> net/smc/af_smc.c:smc_conn_abort() {
+>     ...
+>     smc_conn_free(conn);
+>     if (local_first && lgr_valid)
+>         smc_lgr_cleanup_early(lgr);
+> }
+> 
+> The following chain then frees the lgr synchronously:
+> 
+> smc_lgr_cleanup_early()
+>   __smc_lgr_terminate()
+>     smc_lgr_free()
+>       smc_lgr_put()
+>         __smc_lgr_free()
+>           kfree(lgr)
+> 
+> Nothing on this path takes the hash write_lock, and conn->lgr is never
+> cleared. smc_conn_lgr_valid() is only plain loads of conn->lgr and
+> conn->alert_token_local.
+> 
+> Can a diag reader pass smc_conn_lgr_valid() just before the conn is
+> unregistered, and then read lgr->is_smcd after the kfree()?
+> 
+> smc_diag_handler_dump() has no capability check, and a remote peer can
+> cause the handshake failure. Would checking the state (or use_fallback)
+> before any conn.lgr access close this?
+
+You are right. The conn->lgr->is_smcd load in the r->diag_mode
+assignment happens before the SMC_INIT guard, leaving a window where a
+concurrent smc_lgr_cleanup_early() → kfree(lgr) on another CPU can race
+with the reader. This is remotely triggerable since
+smc_diag_handler_dump() has no capability check and a remote peer can
+cause the handshake failure that leads to smc_conn_abort().
+
+Fix in v6: inline an sk->sk_state != SMC_INIT check directly into the
+else if condition, so conn->lgr->is_smcd is never loaded for SMC_INIT
+sockets. The SMC_CLOSED check is not needed at that line — on every path
+that sets SMC_CLOSED, either the socket is unhashed before
+smc_conn_free() runs (__smc_release(), passive work), or conn->lgr is
+still live and the dereference is safe.
+
+> 
+>>  	if ((req->diag_ext & (1 << (SMC_DIAG_CONNINFO - 1))) &&
+>>  	    smc->conn.alert_token_local) {
+>>  		struct smc_connection *conn = &smc->conn;
+> 
+> [Severity: High]
+> Sockets in SMC_ACTIVE and the closing states still get past this guard. Is
+> the SMC_DIAG_LGRINFO block further down still exposed to a concurrent link
+> switch?
+> 
+> net/smc/smc_diag.c:__smc_diag_dump() {
+>     ...
+>     struct smc_link *link = smc->conn.lnk;
+>     ...
+>     memcpy(linfo.lnk[0].ibname, link->smcibdev->ibdev->name,
+>            sizeof(link->smcibdev->ibdev->name));
+>     ...
+> }
+> 
+> Only the hash read_lock is held here. During SMC-R link failover,
+> smcr_link_down() -> smc_switch_conns() -> smc_switch_link_and_count()
+> replaces conn->lnk under conn->send_lock and drops the conn's reference on
+> the old link:
+> 
+> net/smc/smc_core.c:smc_switch_link_and_count() {
+>     ...
+>     smcr_link_put(conn->lnk);
+>     conn->lnk = to_lnk;
+>     ...
+> }
+> 
+> When smcr_link_clear() drops the last reference, __smcr_link_clear() calls
+> put_device() on the ibdev and then memset(lnk, 0). The lgr stays on its
+
+After tracing the refcount accounting I believe this race is not
+reachable. The smcr_link_put() in smc_switch_link_and_count() only drops
+the per-connection hold taken by smc_conn_create(). The link's base ref
+(initialised to 1 in smcr_link_init()) is only released by
+smcr_link_clear(), which is called exclusively from the lgr termination
+path. Hence __smcr_link_clear() is not called in this path.
+
+By that point the lgr has already been removed from the global list, so
+the diag reader's !list_empty(&smc->conn.lgr->list) check already gates
+it out of the lgrinfo block.
+
+Will post v6 shortly.
+
+pw-bot: cr
