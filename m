@@ -1,83 +1,77 @@
-Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
+Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 096A4416125
-	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 19:16:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.235
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D55ED43F8BA
+	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 19:17:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790363821; cv=none; b=CbFR5MX8qcJ5jCgbI5j94Qs5T/4zhADNcZgPgtAT97hLnRp57drwmB+Zx8nL3kUbuNA1hCzv7oKixJM/bJaerPh9zYoAbt30K6ql335HvtFo8u6FpsOisqrXNptsJM0p/ZB3AOz989wjq4dzoRcSFG6Od0NZJNJNfFI1CklRogE=
+	t=1790363832; cv=none; b=uHmjML1cUFZ0RygJUgd6QpK107PZdSt3Xw6yaHoC+F9eaKEW6mnMIYDczvYWL0Ba8yGDnuyXeOCdOTIcLQqIIgM6mDUCypK0FJ0cXOq7QVpc03zSbkbkdJWUPFClzXuAjjth83vwlNGQt3Ma1Da42Lu72lT3dG+KhH8Sf+VIsDk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790363821; c=relaxed/simple;
-	bh=+96OmNdu52OLdp6PqNcnZbKt8nrAE4bnHJngCEEGTaE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Jw3KFho8dJj6fELk9v6ZKkiAzLwfyf1DN6frda8+p10Z/MpThKVbCWtsUAzjcZe4GiTd7VPw+4mfx1PFfkWY6uVvBqHld6p7juim21WF3UiNNIYHXw+9T/QN+RWptSao32NP+6vhltuAHPt/JKzLlSxxxIpBPK2vBF/9TDw02hY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ruPTmgrk; arc=none smtp.client-ip=74.125.230.235
+	s=arc-20240116; t=1790363832; c=relaxed/simple;
+	bh=6ZjKEyBbmPcbe24qPTA+D/2bGCpH25Z30RUGitkCA6M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QDODRBcVyUI9eEPqusMjvw3n0JH+Hf/am6i0KWwZ9CW4jqTIVBAF/Mmg/JFSFmqlqCly/NbhWBiGWwN0pNWWP/ivGHU+VILPhTaPnPVs3+wo9MgQBTbo4oFTOZzzavI+i5T/IjQqxkPgHeDmpkl5dhLPGJewQyN3CUaqvW7owlg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DYsLgxpu; arc=none smtp.client-ip=209.85.160.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ruPTmgrk"
-Received: by mail-qk2-f43.google.com with SMTP id af79cd13be357-93910ca5aa8so115551685a.3
-        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 12:16:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DYsLgxpu"
+Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-52f9fc510e1so16768811cf.0
+        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 12:17:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790363819; x=1790968619; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wvpGMpsWr2y15kZYUKT28HeHCdI9j+YtoSYsRebbgn4=;
-        b=ruPTmgrkZnuKH7sceS0e5xg0u0Ob7erHTEHHECzWYsDJmsfJ9WfHojMjTlMvfUak26
-         8TtmeyjGbwa6x+q3ImVrgkXp1cZzq922hUaR1ftJops/zXaNOJ+lQZ6JiUGcN4iDfJSJ
-         ujp/ziptN666wraCJf3zIPF2le9K8NWyusg0SjLwYgrFsXYlGlj37u6pig3oZO4SV7y+
-         jwd/DTAaV68lRCBticIVsF98trlNgESmNEalLtdSm7iL5oFBwb5Ol2csVQLlYNKDtWC+
-         jcZoT+OlLh/r6RcSRpNbqgfl4GhCGtwZPf/HQ8hBwbDRuu4NJKmAOyD6qSfWJYHnR+/8
-         YvjA==
+        d=gmail.com; s=20251104; t=1790363829; x=1790968629; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MuvE+f2YVwcbigtaxoSqblfNR1nt2DA6GS6SXj46zY4=;
+        b=DYsLgxpugfgwtX4lWFNqmgFozhf24/11rHlYg4+pfRRXIWWal4HnxAfg3RlpFffaqF
+         fnRs6DxFO0wgPEozj1TKS3DRCuEeCkpCd8lDnYZHGi83+KRkrAF9r5QYvJ1HTkDE0AI3
+         WM+3ZJ3x2BkSOpyisrvO10G2FYTfolKN4Gbe9Uj+0U3GMr5d01nIxpjVyWE2XkwRLzKZ
+         pJUgVN88ABtvHYXquAj1tFqmJhlD2JZ9hkG11IrI9v7WhdsthEGIZbPVm8DjXiT3liZU
+         N/9v0q+tiPAbAAedpp13rz3dIdQlLZErstDBhr0RVvuwz6ERAwE/Qlia87u5ZpkfF6ai
+         4iLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790363819; x=1790968619;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wvpGMpsWr2y15kZYUKT28HeHCdI9j+YtoSYsRebbgn4=;
-        b=nBWoT+THE+SeUDg47GsHY3cuUtH71tHT6GMgGxPh5BVBBFuBvEumEWnoysb9b+P+5G
-         vPXtlkIkD33RONzyMMYm7ylxBtBQrBphhKgNu0En9N99jobuIV1NEkdmdAqp39HiZZjq
-         JOEG9r/dBxob7AzA1zI3Vh8D4QbPxPAC8WFASwql9ikXeq9xCkMGOj/Ova1BHu3We3LM
-         3aYntfsZStM11hnmHCLrXxXcW/L1g1qCHcrXZuAYYQ0i/N2cY17LXXhQPzc7gzd/pIaN
-         Ux4bmJDURmUsgLhaM1lrwbkDm+rXqifRCnMySHcnWvXDn2g+gjvk7v4u/zF5NYA/qvmE
-         p8EQ==
-X-Forwarded-Encrypted: i=1; AKwUvByEQ4+LQQNJmlh/MLPstrcQEl9UVrr8l8qwtx/OsqxQ6HyXDsq9UKDo/1zWIKAg1ptONCTdY4A=@vger.kernel.org
-X-Gm-Message-State: AFuF++mJQH1qpGZGfKwh4yqeVavRqV8UwstkMSjL2qtTB7SfuE++CX5L
-	LhUqrX4gumokT+m7Bm3PpuqDoQkIUmRWbBwkTNfaftJ0E00pkWzxiKk=
-X-Gm-Gg: AYBFou0v5+Ul7OsiR51VVJQFVFsoK0lotHLL6hp7lnoeCFSqvx4DkHxZ4E81t5btDdN
-	wztcZZki9uruFwBWGLzePmnFkeiXYlh6PdUIIHAgTPom1WpTKk2SeALLb7aGd5OxdtYMw29YZID
-	5uahlqWXoGmJKkx2hLoYTF0TjZUsZBmKq2bfPoq1A1D/zbjtm1/UupGvl9DcjR+zBMLUsz6wdF0
-	tZoyIQGj3Q37PmIdsE8TiGFa19PVCPkUIs5KrUYn/83XxZ9SBxUmfdafKBbFXGQ2RSJ0NBSHXdd
-	QwJYYuhJxfrAdLQ9eh7AmE8r6TN3VVOG4/VttTCuGy9cCLfSJh5NC75PQRPdNMGiFfScAvpCzNG
-	+SKHh7MvEBhld/O1z6hMd+zszlV7HxWmzkGKBt4OwyQfiJ989KYIJcY5Iqu8lZAU5JZhsMTlyHX
-	vmynmO8fjl6wt+JzcQmuYuIIWM7BIehSFxEEn5DnNV+CznRMTKnXrU3KAYy/T310YT715K9FXQp
-	1ZgIeLOc2RB8Qrj7Q41LA6ZIXruIuOz7pL3Y7Q3sEURwQzlaJD8v1fjNrNuhGAeb5MHhBVN4TYx
-	5fao8FqnSeBIX/LK8plAl30Xklht
-X-Received: by 2002:a05:620a:1a1b:b0:939:7c8:78a9 with SMTP id af79cd13be357-93c43b61a84mr653468985a.3.1790363818750;
-        Fri, 25 Sep 2026 12:16:58 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790363829; x=1790968629;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MuvE+f2YVwcbigtaxoSqblfNR1nt2DA6GS6SXj46zY4=;
+        b=OCupreeGNVaZkIBiXiDZt2fbuUdFF9Q3U31uDm7kyY3lfLQMUljnCdY6tmZ/XIWsv/
+         C0nqAaS14GDrDnfEhd9J0p0nxi0JwsMqBVoSysJPwr1kPgLFHc2SLLsm7e45t496jmGm
+         Hs+wR67nW+3D1bdywNhtjNSL/VmI6pCw54t+tsYxUWbPKSERmk9xnuquhvAESwcHEd1x
+         BllGHIjhEdhMIPz+3XwX+udWS1PlFsYXBiLKDSlwz/rn6CrcATed+xZN8AZlLbLp2MEc
+         6ulM6GTt7uPWYO0lqddyQpxAo+xvs1Ox6ubQM4tfCFUmGJlOicBo/rYvp6REDnV0ucvB
+         KsdQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwV1TVgWt70N7BGP5GdUi9+liEFrTtQtxzu8REgawGGD/remrqER4rn/g7jQFtno5XAtyTR0yI=@vger.kernel.org
+X-Gm-Message-State: AFuF++l4tsaIuvh6hohTKpLkVdkjCJYvsNxwe+tFfWTUB5pHd3iML9OP
+	TmlVDvpOH+6FZYRSaCGl27SsUjQwTFfPJyPweoCXVWYkBZpKpK5xlyA=
+X-Gm-Gg: AYBFou2pYI0yen/B05cM/hMbyRiC0tn3wZoDZKf/s3ZHrwXJXnK6EZcSxu2gKRzUD2V
+	/OXtV5YxwePwOvYQU9dUuy3LBzp4c9Q77HnRUf0/qpnh7RGNRs4bkLyuf03gIBm/vIoy4v/AUDO
+	oiQPsIXGSmOKcYij70f/I+GlGp1Lv4lCu1JVJGhZMFk9QfVHKE8wYdxsgt2GFGzmNU+yxLc1yLr
+	ZE9gPc2pcybKP+tGqQ6vh3kFdbP1pSkErJgqSpk0Us2/KYzxRZHnd/WwnZTuuWV1F68WOrxqYDx
+	gC5Qc5igeUc2btASXNZ0e6JWl81y6mW8/sfg3dwkHWkRqgC349/yn2NSnHzvA1Yl6B0V6rMwnHS
+	Ln3Fy1MHDdgASqElZsBaPM48EUZonNI+SujiCJg4ituI3+px1wp7L2SRqPNgzueE6FPlp+NQguF
+	gcjD5HcCzuEKXT2Bk1PSUMkj6MJhQ3kpeZCzAkIeC4ysMS801hzJGlDMzUJctfmtl8OxbQYBFH9
+	o/uZnQrUsnm58G1sPDoF09xPhzNHbpsB1QfujE+V94M3gYPtUHghfDap1U49Ob0Ouaj0Z23rzpN
+	hNeiLyyrOMAp5CE4MdV1I6phzfe0
+X-Received: by 2002:ac8:5f8f:0:b0:532:9af3:638f with SMTP id d75a77b69052e-5330b6ba05fmr59591321cf.27.1790363829240;
+        Fri, 25 Sep 2026 12:17:09 -0700 (PDT)
 Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-914309a24c4sm24142666d6.6.2026.09.25.12.16.57
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91430e09ce4sm23521776d6.28.2026.09.25.12.17.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 12:16:57 -0700 (PDT)
+        Fri, 25 Sep 2026 12:17:08 -0700 (PDT)
 From: Myeonghun Pak <mhun512@gmail.com>
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
+To: Ming Qian <ming.qian@nxp.com>,
+	Ming Qian <ming.qian@oss.nxp.com>,
+	Zhou Peng <eagle.zhou@nxp.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: Myeonghun Pak <mhun512@gmail.com>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	linux-media@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>,
 	stable@vger.kernel.org,
 	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH v3 2/2] media: venus: disable recovery work before HFI teardown
-Date: Fri, 25 Sep 2026 15:16:53 -0400
-Message-ID: <20260925191653.3144006-3-mhun512@gmail.com>
+Subject: [PATCH v4 0/2] media: amphion: fix VPU core lifetime during teardown
+Date: Fri, 25 Sep 2026 15:17:04 -0400
+Message-ID: <20260925191706.3144437-1-mhun512@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260925191653.3144006-1-mhun512@gmail.com>
-References: <20260925191653.3144006-1-mhun512@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -86,57 +80,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-venus_remove() cancels core->work before the IRQ is disabled. An IRQ
-thread can queue the work again after cancellation. The work can then
-access HFI state after venus_hfi_destroy() frees it. The work also
-requeues itself when recovery fails, so cancelling an already running
-instance alone does not close the race.
+vpu_core_unregister() releases the message FIFO buffer and VPU reference
+before draining queued message work. An open video instance can also keep
+a pointer to devm-allocated core state while sysfs unbind removes the core
+or its parent.
 
-Disable and drain the work at the start of remove, before other resources
-are dismantled. Do the same in venus_hfi_destroy() for paths that bypass
-remove, including probe unwind. Disabling the work prevents both IRQ
-handlers and the work itself from requeuing it. Drain the work before
-disabling the IRQ so an active recovery can finish any IRQ based
-completion waits. Then synchronize the IRQ before freeing HFI state.
+The first patch drains message work before releasing core state. The
+second prevents manual unbind on both platform drivers and warns if core
+removal encounters a live instance.
 
-Fixes: af2c3834c8ca ("[media] media: venus: adding core part and helper functions")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/all/20260730153912.BAC5E1F00A3D@smtp.kernel.org/
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
- drivers/media/platform/qcom/venus/core.c      | 2 +-
- drivers/media/platform/qcom/venus/hfi_venus.c | 1 +
- 2 files changed, 2 insertions(+), 1 deletion(-)
+Changes in v4:
+- Resend through git send-email after the v3 Gmail submission altered
+  diff headers and whitespace in transit. No code changes.
 
-diff --git a/drivers/media/platform/qcom/venus/core.c b/drivers/media/platform/qcom/venus/core.c
-index 243e342b0ae7..94d4b8688ac2 100644
---- a/drivers/media/platform/qcom/venus/core.c
-+++ b/drivers/media/platform/qcom/venus/core.c
-@@ -538,7 +538,7 @@ static void venus_remove(struct platform_device *pdev)
- 	struct device *dev = core->dev;
- 	int ret;
- 
--	cancel_delayed_work_sync(&core->work);
-+	disable_delayed_work_sync(&core->work);
- 	ret = pm_runtime_get_sync(dev);
- 	WARN_ON(ret < 0);
- 
-diff --git a/drivers/media/platform/qcom/venus/hfi_venus.c b/drivers/media/platform/qcom/venus/hfi_venus.c
-index e7e4e78a186a..20b8ba1e62f1 100644
---- a/drivers/media/platform/qcom/venus/hfi_venus.c
-+++ b/drivers/media/platform/qcom/venus/hfi_venus.c
-@@ -1689,6 +1689,7 @@ void venus_hfi_destroy(struct venus_core *core)
- {
- 	struct venus_hfi_device *hdev = to_hfi_priv(core);
- 
-+	disable_delayed_work_sync(&core->work);
- 	disable_irq(core->irq);
- 	core->priv = NULL;
- 	venus_interface_queues_release(hdev);
+Changes in v3:
+- Resend with intact diff headers after the v2 mail submission wrapped
+  the diff --git lines. No code changes.
+
+Changes in v2:
+- Move vpu_core_put_vpu() after the work drain.
+- Keep runtime PM and mailbox teardown unchanged.
+- Address sysfs unbind in a separate patch.
+
+Myeonghun Pak (2):
+  media: amphion: drain message work before releasing core state
+  media: amphion: prevent unbind while video instances are open
+
+ drivers/media/platform/amphion/vpu_core.c | 18 +++++++++++-------
+ drivers/media/platform/amphion/vpu_drv.c  |  1 +
+ 2 files changed, 12 insertions(+), 7 deletions(-)
+
+
+base-commit: 4efa625593e1e9c76346232413997556dea1d89f
 -- 
 2.53.0
-
