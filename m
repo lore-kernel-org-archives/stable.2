@@ -1,222 +1,172 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC3DE4D9573;
-	Fri, 25 Sep 2026 16:38:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D3E14E4312
+	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 16:41:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790354322; cv=none; b=hPOF0KvWGLUjevvlG0119FVG7iXkxek4BX/SzEktpFM/v6wTMLT8O0UxMNo8H9xrKiVHKFpxMiJ9CvuH7sa+Lj2SZyhCVKjvGvQHwJ+6Z9bk60HyaJIY4UmR87mtSVdVubkVqkSZ6i1l3WkJKr4RPi51xNjG7tbeFjqBMPYnjUM=
+	t=1790354501; cv=none; b=f4v7qlNFgRAM+tj7LsoMAlDdB052VFWLJ4XzkK0Z1JoFFpu+jdhphXQGi3TPWRfVSVfLSmAQDnSxlA6FZBStrUPqqdMAfS+MsfLzBRE/EcGZmbL4jCKrfE8YmI8QtyI4u71B0W+CL+KbORu1DGAopyEhgL5GzTvIHuFk5WCmmXo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790354322; c=relaxed/simple;
-	bh=7JEZFKX+P/T1np0rBfRn5XbrnUCGgHH+54tJTV1OQXU=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=oZL4iBqI4JK15ZEzZ3Z6VlXHtRxk7A29EmrRPKk5colh67jJmkAV8ctJoYD0WX+JJBNcnXL6/NjAXuARe8mAWf14pOEbUUVNrfH7hWCJT64Q+taZjikWWLB4KEIIakU2IHeLDHzP3umkT5fdk7+g0TLpVzorOEpiB+tNdiIuSg0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ER993GLF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790354501; c=relaxed/simple;
+	bh=TtrcUjfhGxN+/Il9E+zFlb127nCYs18NSgDSKBIiHpo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=IUwNWhRJVMqGkGp2hPl+pIBCqsuUFj99WxiMQRsYuvHXVIMYsTaL0tnFLrng5EVQqFrt71irwFKPLoITMARUaLRaLBkzKYuRzNCpTA/TCvX8M8ck2Ld8gIH9kb1LGCNMPkLUXlv0jndthmqslG7mwqf+v39iPPqTc1RwoI2SQms=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=iJ+EAK6T; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ER993GLF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA6201F00893;
-	Fri, 25 Sep 2026 16:38:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790354316;
-	bh=Ef5AYQYzA6WRtJxzWsmKVPm+wztV1FQUcjUH5RY8340=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ER993GLFdFWegZ1zeJakvYgwmNtNST0z1wbj7yRNKh1rwstT4dVw1BDWN4mx6hRt+
-	 E9q8dgtPMHNudVEujWTF/4jAJ2r+8gLELbFtKKZLSyoOEO6KVpLXgcWItrwUI+oA0Q
-	 CeUlFIdkaIdRVgr1ykl5B1fzAa/gk/ZxMB9IhPCEZv3U2PHJ4mYOsCBXQhliOKU1qV
-	 gfL43YaEpPISCRDVyy/PqZD5z3inJ/Ffsnp+tCCVUmikrnjjZoYhXBmWb24FST4Df1
-	 qIVuDhsBhvztbE1aem5vP93USxJ1GCUTXL64TcW/hargRO7ULBLZWo7eGBSfw80mP4
-	 CUNqT89AnHBUw==
-Date: Sat, 26 Sep 2026 01:38:32 +0900
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-To: Andrea Parri <parri.andrea@gmail.com>
-Cc: Naveen N Rao <naveen@kernel.org>, "David S. Miller"
- <davem@davemloft.net>, Steven Rostedt <rostedt@goodmis.org>, Josef Bacik
- <josef@toxicpanda.com>, linux-trace-kernel@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] kprobes: Fix permanent hang when flushing the kprobe
- optimizer
-Message-Id: <20260926013832.abaa63a3903d563655bc60d6@kernel.org>
-In-Reply-To: <20260924092142.199198-1-parri.andrea@gmail.com>
-References: <20260924092142.199198-1-parri.andrea@gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="iJ+EAK6T"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747ec6185so4603235ad.0
+        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 09:41:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nebusec.ai; s=google; t=1790354483; x=1790959283; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6hQQWvTzGmogv0EMa2VjHO6aB1rZOWzNyIYZn2ueb1k=;
+        b=iJ+EAK6Tjdequ3S+h5hPGfQbsMqbmfJT7FDq2pnWNrnK23ZhbpKwx4DqzclvIKVMqn
+         ZyBZeXIv9FLiqzYu3OU+jlbwubQsqJHZxpGNwvvgFosXIVdLqZM1Hg+PTv/GQvjE2nI1
+         odhYpfnranEYpmHuVqgZK1CaS5EASEtI2/9XiZSccNfrW85cWD0fosvQjOXi7os0kN71
+         wMTogkmpcKCh21LaVCYmbCowjf6uU+k0+0ZbCntlgAbGuCbbFZDlOGCjzGFEALkjyzYx
+         EWZ7QUQFRLi+yx+aIB/xOZgKMXzK5bSxRfowsV77jopGTtE0+AKUg4nnvbf8qNBZ0Yll
+         M9+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790354483; x=1790959283;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6hQQWvTzGmogv0EMa2VjHO6aB1rZOWzNyIYZn2ueb1k=;
+        b=TVVFY1m+lAGaERrFzMpgfEcPEEEKZ84uI2SepKB8wSQOKEsTVz4iEKBVNyOq44BNGA
+         5mVlJ2TPpA8/QDXjexHEXOH0dIjfiXLg1gi2EyQvxABNoaJ9+ImqDIzkDVnDeI6Yc5uF
+         xubZdMTea2IJKOCX67/o7k+7JMRz8bB6QG4hMRHxf0dLEr7nv1ufidX7L31X+zupV9wt
+         PDcH0tUox96TIc2NoS7JgdpWPLG8d/bYsnqnAMc1zg1tmOwjFExrjP0a2vSdm1rpZFp8
+         V7o8oQsusAJk1ygv/jfTozACv85Jx9V1q0UddIPN517rQwGT20bvmZ/7yv4qx4467SZP
+         iz6Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwwDxQY/utoQimEi9f9cwWpnFOko4Vfcfuh5A1EteRME4KIPy6VO+eIuTS6NnvhI+v8Phaj6Ds=@vger.kernel.org
+X-Gm-Message-State: AFuF++lHT+IZqWeBejPpsPkGLZNpnGZs8LkT1syBeUpb2sq2SjNj3QoG
+	82y4zoX9iP6VNR3kbDZhutZ7coPfsG1KnN2IvpEAsclitxFJ/zBgAhbh9cJU921AkWBj
+X-Gm-Gg: AYBFou03QlBToCnMGd+x0HzYn9z0r9bsjVQiTWKEKJqm1FgzHR/aqbCkBL98rVFNi2E
+	DFIPLAHXC2Bm3RolDYbTmsr5MUlQRqJCZLlg60vC8UQy9r6WQbiYz7GAcWlP0A7lEXYi/PSSGyK
+	OMU8AMlgYuXWjetr4jhjz3WgcFFb7L870jhzkwneg28YLl9qXgoC97GAC10mXUGMD0LGh+ZVVam
+	Y+1zQLp+gNckz11v6jDtgW+ysOkJkUIqHXIKnYFjzmtswMrQRFFK06TUQDJCnPdiWNZTaGgRr2V
+	vSWCdUdwUKZs7shYjuAuZfdJqwgJZCFD34kYI8LOok/+2gsa5qXlV9LRD+YXbGDhhF+E8Kzi1DR
+	Mb9eLkxVPUbpeCLXR/TulNtXMbWm2joE8EuBn6XmVh6B0TGemWrYSnbR4qfGXE5J5j7zm8a+H9f
+	EF508HcrCA2tPqNnWZJSNUG3m8Q/3aYW5gPXktjeJpAD7gQWtRepJ4g1gcP7UDaAr4BGZFbGdxk
+	bb6fNWU7EujO6sDfUXdEo44XXxiMme1nkFuFWYq
+X-Received: by 2002:a17:903:1447:b0:2dd:c053:ec73 with SMTP id d9443c01a7336-2df7e11ad13mr46713485ad.38.1790354482412;
+        Fri, 25 Sep 2026 09:41:22 -0700 (PDT)
+Received: from 954df21a5119.. ([122.51.212.64])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df9146edb4sm13855275ad.81.2026.09.25.09.41.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 09:41:21 -0700 (PDT)
+From: Zihan Xi <zihanx@nebusec.ai>
+To: netdev@vger.kernel.org,
+	lvs-devel@vger.kernel.org,
+	netfilter-devel@vger.kernel.org
+Cc: horms@verge.net.au,
+	ja@ssi.bg,
+	pablo@netfilter.org,
+	fw@strlen.de,
+	phil@nwl.cc,
+	zihanx@nebusec.ai,
+	stable@vger.kernel.org,
+	Vega <vega@nebusec.ai>,
+	Luxing Yin <root@tr0jan.top>
+Subject: [PATCH nf v5 3/3] ipvs: reject FTP control ports as data ports
+Date: Fri, 25 Sep 2026 16:40:48 +0000
+Message-ID: <a1fcb8b49e266e1cac9cce78498842167ae0f2a3.1790266803.git.zihanx@nebusec.ai>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1790266803.git.zihanx@nebusec.ai>
+References: <cover.1790266803.git.zihanx@nebusec.ai>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Thu, 24 Sep 2026 11:21:39 +0200
-Andrea Parri <parri.andrea@gmail.com> wrote:
+ip_vs_ftp_out() creates a wildcard data connection from the
+server-advertised passive port. If that port is one of the configured FTP
+control ports, ip_vs_conn_new() binds the FTP helper to the new connection
+again. A subsequent wildcard lookup can then extend a controlled-connection
+chain.
 
-> Writing 0 to /proc/sys/debug/kprobes-optimization while a kprobe is
-> jump-optimized never returns. The writer sleeps in D state forever with
-> kprobe_sysctl_mutex held, so any later read or write of that sysctl
-> hangs as well. For example, with vfs_read+9 as an optimizable address
-> in this build:
-> 
->   # cd /sys/kernel/tracing
->   # echo 'p:myprobe vfs_read+9' >> kprobe_events
->   # echo 1 > events/kprobes/myprobe/enable
->   # # wait until /sys/kernel/debug/kprobes/list shows [OPTIMIZED]
->   # echo 0 > /proc/sys/debug/kprobes-optimization
-> 
->   INFO: task sh:246 blocked for more than 10 seconds.
->   Call Trace:
->    <TASK>
->    __schedule+0x1176/0x4f70
->    schedule+0xdc/0x2c0
->    schedule_timeout+0x17b/0x260
->    wait_for_completion+0x173/0x3c0
->    wait_for_kprobe_optimizer_locked+0xbc/0x130
->    proc_kprobes_optimization_handler+0x156/0x1b0
->    proc_sys_call_handler+0x324/0x490
->    vfs_write+0x52d/0xfe0
->    ksys_write+0xff/0x200
->    do_syscall_64+0x106/0x630
->    entry_SYSCALL_64_after_hwframe+0x77/0x7f
->    </TASK>
->   ...
->   INFO: task cat:265 is blocked on a mutex likely owned by task sh:246.
-> 
-> wait_for_kprobe_optimizer_locked() reinitializes optimizer_completion,
-> asks the optimizer thread to flush and sleeps in wait_for_completion().
-> The thread drains the (un)optimizing lists, but calls complete() only
-> if completion_done() is true, i.e. if the completion is already done,
-> which never happens while someone waits. disarm_all_kprobes() and
-> kprobe_trace_self_tests_init() wait the same way.
-> 
-> Calling complete() unconditionally would not be enough: the waiter
-> drops kprobe_mutex while it sleeps, and nothing else serializes the
-> sysctl handler against the debugfs "enabled" file. A second flusher
-> that still finds the lists non-empty, e.g. because a disabled probe is
-> queued for unoptimizing, reinitializes the completion under the first:
-> 
->   sysctl write                      debugfs "enabled" write
->   unoptimize_all_kprobes()
->     wait_for_kprobe_optimizer_locked()
->       init_completion(c)
->       mutex_unlock(&kprobe_mutex)
->       wait_for_completion(c)
->                                     disarm_all_kprobes()
->                                       wait_for_kprobe_optimizer_locked()
->                                         init_completion(c)
->                                           // c->wait is reset, the first
->                                           // waiter is off the queue
->                                         mutex_unlock(&kprobe_mutex)
->                                         wait_for_completion(c)
->   kprobe_optimizer()
->     complete(c)
->       // wakes the debugfs writer only
-> 
-> where c is &optimizer_completion. Lining up the two writes during an
-> optimizer pass loses the sysctl writer this way.
-> 
-> Replace the completion with a counter of optimizer passes, bumped at the
-> end of each pass and signalled with wake_up_var_locked(), both under
-> kprobe_mutex. A flusher samples the count and waits with
-> wait_var_event_mutex(), which drops kprobe_mutex only while sleeping, so
-> a new count means a whole pass ran in the meantime. Nothing is
-> reinitialized, so several flushers can sleep in the wait at once.
-> 
-> Fixes: 73c12f209462 ("kprobes: Use dedicated kthread for kprobe optimizer")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
-> ---
-> This overlaps with two patches under discussion in the "rcu-tasks: build
-> Tasks RCU on Tasks Trace readers in trampolines" thread:
-> 
->  - Masami's RFC "kprobes: Make optprobe optimizer multi-generational and
->    asynchronous" [1] rewrites the same code.  It drops the
->    completion_done() check, which fixes the hang reported here, but it
->    keeps init_completion() in wait_for_kprobe_optimizer_locked(), so the
->    concurrent-flusher case described above remains.  The two patches
->    conflict textually.
+Reject zero and configured control ports before creating passive
+connections. For active mode, reject a zero client port and a data port
+derived from a configured control port.
 
-OK, this fix looks good to me. Let me pick this for probes/fixes and
-rebase mine on top of it. Anyway I think we need both.
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Reported-by: Vega <vega@nebusec.ai>
+Assisted-by: LLM
+Co-developed-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
+---
+changes in v5:
+  - Rebase this patch on Julian Anastasov's v3 timer-callback fix.
+  - v4 Link: https://lore.kernel.org/all/cover.1790146910.git.zihanx@nebusec.ai/
+changes in v4:
+  - Resend the FTP helper fix as patch 3/3 with the generic cleanup fixes.
+  - v3 Link:
+    https://lore.kernel.org/all/cover.1789877273.git.zihanx@nebusec.ai/
+changes in v3:
+  - Keep the active-mode guard for configured FTP control ports.
+  - v2 Link:
+    https://lore.kernel.org/all/cover.1789435989.git.zihanx@nebusec.ai/
+changes in v2:
+  - Add the active-mode check for a data port derived from a configured
+    control port.
+  - v1 Link:
+    https://lore.kernel.org/all/cover.1789110326.git.zihanx@nebusec.ai/
 
-Thank you,
+ net/netfilter/ipvs/ip_vs_ftp.c | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
-> 
->  - Josef's "kprobes: Expose the optprobe jump window to Tasks RCU" [2]
->    changes kprobe_optimizer() around synchronize_rcu_tasks(); its
->    kernel/kprobes.c hunks still apply on top of this patch.
-> 
-> [1] https://lore.kernel.org/all/179017148080.466588.9116221556625712980.stgit@devnote2/
-> [2] https://lore.kernel.org/all/20260922-b4-rcu-tasks-preempt-qs-v5-3-410f57770bad@toxicpanda.com/
-> 
->  kernel/kprobes.c | 22 ++++++++++++++--------
->  1 file changed, 14 insertions(+), 8 deletions(-)
-> 
-> diff --git a/kernel/kprobes.c b/kernel/kprobes.c
-> index 6337da5cab9e7..4edd8ca5c6578 100644
-> --- a/kernel/kprobes.c
-> +++ b/kernel/kprobes.c
-> @@ -42,6 +42,7 @@
->  #include <linux/execmem.h>
->  #include <linux/cleanup.h>
->  #include <linux/wait.h>
-> +#include <linux/wait_bit.h>
->  
->  #include <asm/sections.h>
->  #include <asm/cacheflush.h>
-> @@ -526,7 +527,8 @@ enum {
->  	OPTIMIZER_ST_FLUSHING = 2,
->  };
->  
-> -static DECLARE_COMPLETION(optimizer_completion);
-> +/* Bumped at the end of each kprobe_optimizer() pass, under 'kprobe_mutex' */
-> +static unsigned long optimizer_passes;
->  
->  #define OPTIMIZE_DELAY 5
->  
-> @@ -654,9 +656,9 @@ static void kprobe_optimizer(void)
->  		do_free_cleaned_kprobes();
->  	}
->  
-> -	/* Step 5: Kick optimizer again if needed. But if there is a flush requested, */
-> -	if (completion_done(&optimizer_completion))
-> -		complete(&optimizer_completion);
-> +	/* Step 5: Wake up flushers, and kick optimizer again if needed. */
-> +	optimizer_passes++;
-> +	wake_up_var_locked(&optimizer_passes, &kprobe_mutex);
->  
->  	if (!list_empty(&optimizing_list) || !list_empty(&unoptimizing_list))
->  		kick_kprobe_optimizer();	/*normal kick*/
-> @@ -708,7 +710,8 @@ static void wait_for_kprobe_optimizer_locked(void)
->  	lockdep_assert_held(&kprobe_mutex);
->  
->  	while (!list_empty(&optimizing_list) || !list_empty(&unoptimizing_list)) {
-> -		init_completion(&optimizer_completion);
-> +		unsigned long passes = optimizer_passes;
-> +
->  		/*
->  		 * Set state to OPTIMIZER_ST_FLUSHING and wake up the thread if it's
->  		 * idle. If it's already kicked, it will see the state change.
-> @@ -717,9 +720,12 @@ static void wait_for_kprobe_optimizer_locked(void)
->  			OPTIMIZER_ST_FLUSHING) != OPTIMIZER_ST_FLUSHING)
->  			wake_up(&kprobe_optimizer_wait);
->  
-> -		mutex_unlock(&kprobe_mutex);
-> -		wait_for_completion(&optimizer_completion);
-> -		mutex_lock(&kprobe_mutex);
-> +		/*
-> +		 * kprobe_optimizer() holds 'kprobe_mutex' for a whole pass, which
-> +		 * this drops while sleeping, so a new count means a full pass ran.
-> +		 */
-> +		wait_var_event_mutex(&optimizer_passes,
-> +				     optimizer_passes != passes, &kprobe_mutex);
->  	}
->  }
->  
-> -- 
-> 2.53.0
-> 
-
-
+diff --git a/net/netfilter/ipvs/ip_vs_ftp.c b/net/netfilter/ipvs/ip_vs_ftp.c
+index 9e3e005a82635..4822a1a75212d 100644
+--- a/net/netfilter/ipvs/ip_vs_ftp.c
++++ b/net/netfilter/ipvs/ip_vs_ftp.c
+@@ -62,6 +62,17 @@ static unsigned short ports[IP_VS_APP_MAX_PORTS] = {21, 0};
+ module_param_array(ports, ushort, &ports_count, 0444);
+ MODULE_PARM_DESC(ports, "Ports to monitor for FTP control commands");
+ 
++static bool is_control_port(u16 port)
++{
++	unsigned int i;
++
++	for (i = 0; i < ports_count; i++) {
++		if (ports[i] == port)
++			return true;
++	}
++	return false;
++}
++
+ 
+ static char *ip_vs_ftp_data_ptr(struct sk_buff *skb, struct ip_vs_iphdr *ipvsh)
+ {
+@@ -319,6 +330,10 @@ static int ip_vs_ftp_out(struct ip_vs_app *app, struct ip_vs_conn *cp,
+ 		return 1;
+ 	}
+ 
++	/* Do not redirect data to control ports */
++	if (!port || is_control_port(ntohs(port)))
++		return 0;
++
+ 	/* Now update or create a connection entry for it */
+ 	{
+ 		struct ip_vs_conn_param p;
+@@ -529,6 +544,9 @@ static int ip_vs_ftp_in(struct ip_vs_app *app, struct ip_vs_conn *cp,
+ 		return 1;
+ 	}
+ 
++	if (!port || is_control_port(ntohs(cp->vport) - 1))
++		return 0;
++
+ 	/* Passive mode off */
+ 	cp->app_data = (void *) IP_VS_FTP_ACTIVE;
+ 
 -- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
+2.43.0
+
