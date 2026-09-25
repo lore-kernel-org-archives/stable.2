@@ -1,198 +1,173 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9AEE38DC57;
-	Fri, 25 Sep 2026 19:21:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41D1B4E1C87
+	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 19:22:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790364111; cv=none; b=GvoIF2FpXHor0e4Rstr9a5/5weuvcoTqchuHdd/gdKZA44joEpO/pb7GLLRy4shxsP67iavThNN/pBpQQQLFCiY5/wpm2fZPNGk5b7gyUfZEZs+ffa7eKW6xqCuixV3UD/uIXEuhiXDMbJzCGvTeDpeEQ7cJHMWOQn3LzhiXURA=
+	t=1790364168; cv=none; b=k2S+eiuf3G3wtWSrhgocM6q1cl+v9erCI6c9tfpCaFOfNfkamjBN+v7kIHAV1VzcjC/yvWPWj2yYAOgp6OnP6EFzosf6yQOx56MA5KDX29SAdLyEzcoVxhwe8Y2r5q57fkwb6S1+8jSbWXfoKd9XGWUln961ojoBbTsmPK6IHyw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790364111; c=relaxed/simple;
-	bh=RZYt9tYVrh5QH4PuGFx6f7lGWsmbno3pw+s6VE8zrgU=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ouh2wFDIHfm4yTaxWTrx34rSKAV+mVCt489iY7cUuuhnO428JMMols/qECWRSctXF66m/ra2dBln0ajJ6584XV5DudRBMIJuhRl0TNTD23R1iRU9vKijzXf6nhjrdCkgkEFXvv4eXjNmZfKUu2hZMzhtpf2NF1fru86z8m1+Q3U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZD7Kud9U; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790364168; c=relaxed/simple;
+	bh=bQdHUqZ89Dat9b4twM81FEqBHQkZuZ38nbP+8euFmpw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kCT6E8otyvLXqZQyRoJKwqr9gKShjZq5g3mtJSj7g4kkskHL7oiN4LaOA2Jtg9k95lfxIUrFJFAQgSTWAca6pkFOAlC+3/39IxyONIAxfqLlel1Vt3+UcLAm+J53wpya3AgEOZE1lYRIQjVYhRh3f9M7JD77vV10oxB2L6Kcl+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=dxYu7UEa; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZD7Kud9U"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE6A01F00893;
-	Fri, 25 Sep 2026 19:21:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790364109;
-	bh=xjUHYtaexOjua91/becooqNz1ihfwstGU7oM1IvldSU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ZD7Kud9UVDUk7H4mCXztndEaZft1VZ8+fzVyM+mjIXEiuSz4Hnwek0omDBzMT+m/d
-	 oFBsInaAJ6fx+1G45dphqSMYT0oSZFOh1kQ6s+/3GI/CtPpP2DUxNVewZ/+uqZiLQd
-	 tCNdSPjCitD4LeGXH50MPuEoBgbCx7ZwnQhzdxaIsl8kyRjzCxgu3LrrGfAE/7OmTO
-	 JMSGT1/jruaEYD6szUx13ydqeaGD1viqBvbH+PgRVWPtdGsY+QJcl7oi+6r3fZWl2J
-	 9O94cRXFT9RNLoaOh928LeRhHHE0mpnJ/1ibfUte56/s9UHH0grWhj7kEYTxBBx2BI
-	 e6uMYswKnb+kQ==
-Subject: Re: [PATCH net] net: extend IPv6 exthdr detection of tunneled packets
-From: netdev-bot+sashiko@kernel.org
-To: willemdebruijn.kernel@gmail.com
-Cc: netdev@vger.kernel.org, davem@davemloft.net, kuba@kernel.org,
- edumazet@google.com, pabeni@redhat.com, horms@kernel.org,
- andrew+netdev@lunn.ch, xietangxin@yeah.net, willemb@google.com,
- stable@vger.kernel.org
-Date: Fri, 25 Sep 2026 19:21:48 +0000
-Message-ID: <179036410829.2160803.1955366625960078958@kernel.org>
-In-Reply-To: <20260924192128.1197118-1-willemdebruijn.kernel@gmail.com>
-References: <20260924192128.1197118-1-willemdebruijn.kernel@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dxYu7UEa"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790364161;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=aWk4K3bjs72mNw+sBMqiIvaUwaOVCuWNNLV5F6PcuRc=;
+	b=dxYu7UEafVO0OqggvWdbEMYCLfP6+o3qyVqGVmbuWocHWTA/Vk8qj/m8baJNS+t5UFFN6n
+	Ab/v9xlZDmacrhzZtqJIeXU4rXHFXpLWVE9Fq4CBfc6aZcfib2g3NUyTFR1VI9c3KVknU8
+	Bb2X+TMtD9DmHdCM3pJM/rPkXeYPt3c=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-163-Ke7tYFS9MfOCqCl9BWIvpQ-1; Fri,
+ 25 Sep 2026 15:22:35 -0400
+X-MC-Unique: Ke7tYFS9MfOCqCl9BWIvpQ-1
+X-Mimecast-MFC-AGG-ID: Ke7tYFS9MfOCqCl9BWIvpQ_1790364153
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 76EE61911B23;
+	Fri, 25 Sep 2026 19:22:32 +0000 (UTC)
+Received: from [100.91.18.181] (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 38DF141D;
+	Fri, 25 Sep 2026 19:22:30 +0000 (UTC)
+Message-ID: <547bea01-880a-4a87-8cbc-a632f087f896@redhat.com>
+Date: Fri, 25 Sep 2026 15:22:29 -0400
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/3] cgroup/cpuset: return PERR_NOCPUS in
+ remote_partition_enable() on subpartitions_cpus conflict
+To: Hui Peng <benquike@gmail.com>, Ridong Chen <ridong.chen@linux.dev>,
+ Guopeng Zhang <guopeng.zhang@linux.dev>, Tejun Heo <tj@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
+ <mkoutny@suse.com>
+Cc: Shuah Khan <shuah@kernel.org>, Chen Ridong <chenridong@huawei.com>,
+ cgroups@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260924042729.1908863-1-benquike@gmail.com>
+ <20260924042729.1908863-2-benquike@gmail.com>
+Content-Language: en-US
+From: Waiman Long <longman@redhat.com>
+In-Reply-To: <20260924042729.1908863-2-benquike@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On 9/24/26 12:27 AM, Hui Peng wrote:
+> When a remote partition is created underneath an existing local partition
+> via a non-partition (PRS_MEMBER) intermediate cgroup, update_prstate() sees
+> parent->partition_root_state == PRS_MEMBER and calls
+> remote_partition_enable().
+>
+> Commit 86888c7bd117 ("cgroup/cpuset: Add warnings to catch inconsistency
+> in exclusive CPUs") replaced the cpumask_intersects(tmp->new_cpus,
+> subpartitions_cpus) error check in remote_partition_enable() with
+> WARN_ON_ONCE(). As a result, remote_partition_enable() emits a warning
+> and proceeds to enable the remote partition on CPUs that are already
+> owned by the ancestor local partition in subpartitions_cpus.
+>
+> This can be reproduced on Linux 7.3.0-rc3 with:
+>
+>    mkdir -p /tmp/cg1
+>    mount -t cgroup2 none /tmp/cg1
+>    echo "+cpuset" > /tmp/cg1/cgroup.subtree_control
+>
+>    mkdir /tmp/cg1/A
+>    echo 1 > /tmp/cg1/A/cpuset.cpus
+>    echo 1 > /tmp/cg1/A/cpuset.cpus.exclusive
+>    echo root > /tmp/cg1/A/cpuset.cpus.partition
+>    echo "+cpuset" > /tmp/cg1/A/cgroup.subtree_control
+>
+>    mkdir /tmp/cg1/A/B
+>    echo 1 > /tmp/cg1/A/B/cpuset.cpus
+>    echo 1 > /tmp/cg1/A/B/cpuset.cpus.exclusive
+>    echo "+cpuset" > /tmp/cg1/A/B/cgroup.subtree_control
+>
+>    mkdir /tmp/cg1/A/B/D
+>    echo 1 > /tmp/cg1/A/B/D/cpuset.cpus
+>    echo 1 > /tmp/cg1/A/B/D/cpuset.cpus.exclusive
+>    echo root > /tmp/cg1/A/B/D/cpuset.cpus.partition
+>
+> which triggers:
+>
+>    WARNING: kernel/cgroup/cpuset.c:1594 at remote_partition_enable+0x1c1/0x300
+>
+> and leaves both /tmp/cg1/A and /tmp/cg1/A/B/D as active root partitions
+> claiming exclusive CPU 1.
+>
+> Fix this by returning PERR_NOCPUS when tmp->new_cpus intersects
+> subpartitions_cpus in remote_partition_enable(), matching the error code
+> used by remote_cpus_update() for the same subpartitions_cpus conflict, and
+> add a regression test case to
+> tools/testing/selftests/cgroup/test_cpuset_prs.sh.
+>
+> Tested in QEMU on Linux 7.3.0-rc3 using the reproducer above and
+> tools/testing/selftests/cgroup/test_cpuset_prs.sh.
+>
+> Fixes: 86888c7bd117 ("cgroup/cpuset: Add warnings to catch inconsistency in exclusive CPUs"
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
+Technically, this commit isn't  wrong as it does not expect that a 
+remote partition can be created under a local partition. I will put the 
+commit to be fixed as 181c8e091aae ("cgroup/cpuset: Introduce remote 
+partition").
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Other than that, it looks good to me.
 
-- [High] Regression for non-encapsulated IPv6 CHECKSUM_PARTIAL skbs in
-  skb_csum_hwoffload_help(), plus a matching gap in…
+Reviewed-by: Waiman Long <longman@redhat.com>
 
---
+> Suggested-by: Guopeng Zhang <guopeng.zhang@linux.dev>
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Hui Peng <benquike@gmail.com>
+> ---
+>   kernel/cgroup/cpuset.c                            | 3 ++-
+>   tools/testing/selftests/cgroup/test_cpuset_prs.sh | 2 ++
+>   2 files changed, 4 insertions(+), 1 deletion(-)
+>
+> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+> index 2538faac9aba..7381fa8502e7 100644
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+> @@ -1591,10 +1591,11 @@ static int remote_partition_enable(struct cpuset *cs, int new_prs,
+>   	 * above it or remote partition root underneath it is not allowed.
+>   	 */
+>   	compute_excpus(cs, tmp->new_cpus);
+> -	WARN_ON_ONCE(cpumask_intersects(tmp->new_cpus, subpartitions_cpus));
+>   	if (!cpumask_intersects(tmp->new_cpus, cpu_active_mask) ||
+>   	    cpumask_subset(top_cpuset.effective_cpus, tmp->new_cpus))
+>   		return PERR_INVCPUS;
+> +	if (cpumask_intersects(tmp->new_cpus, subpartitions_cpus))
+> +		return PERR_NOCPUS;
+>   	if (((new_prs == PRS_ISOLATED) &&
+>   	     !isolated_cpus_can_update(tmp->new_cpus, NULL)) ||
+>   	    prstate_housekeeping_conflict(new_prs, tmp->new_cpus))
+> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> index 3f7e81709365..b732078bf319 100755
+> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> @@ -298,6 +298,8 @@ TEST_MATRIX=(
+>   	" C0-4:X2-4 C1-4:X2-4:P2 C2-4:X4:P1 \
+>   				   .      .      .      X1      .    0 A1:0-1|A2:2-4|A3:2-4 \
+>   								       A1:P0|A2:P2|A3:P-1 2-4"
+> +	" CX1-3:P1 CX1-3  CX1-3    .      .      .      P1      .    0 A1:1-3|A2:1-3|A3:1-3 \
+> +								       A1:P1|A2:P0|A3:P-1"
+>   
+>   	# Remote partition offline tests
+>   	"   C0-3    C1-3  C2-3     .    X2-3   X2-3 X2-3:P2:O2=0 .   0 A1:0-1|A2:1|A3:3 A1:P0|A3:P2 2-3"
 
-net: extend IPv6 exthdr detection of tunneled packets
-
-This patch replaces skb_gso_has_extension_hdr() with
-skb_has_ipv6_extension_hdr(). The new helper runs ipv6_ext_hdr() on the
-outer IPv6 nexthdr. For encapsulated skbs that have an inner network
-header, it also runs it on the inner IPv6 nexthdr. skb_csum_hwoffload_help()
-now uses the same helper instead of its open coded skb_network_header_len()
-test.
-
-> diff --git a/net/core/dev.c b/net/core/dev.c
-> index f660fccfc0dbc..992b78308c13f 100644
-> --- a/net/core/dev.c
-> +++ b/net/core/dev.c
-> @@ -3818,20 +3818,29 @@ static netdev_features_t dflt_features_check(struct sk_buff *skb,
->  	return vlan_features_check(skb, features);
->  }
->  
-> -static bool skb_gso_has_extension_hdr(const struct sk_buff *skb)
-> -{
-> -	if (!skb->encapsulation)
-> -		return ((skb_shinfo(skb)->gso_type & SKB_GSO_TCPV6 ||
-> -			 (skb_shinfo(skb)->gso_type & SKB_GSO_UDP_L4 &&
-> -			  vlan_get_protocol(skb) == htons(ETH_P_IPV6))) &&
-> -			skb_transport_header_was_set(skb) &&
-> -			skb_network_header_len(skb) != sizeof(struct ipv6hdr));
-
-[ ... ]
-
-> +static bool __skb_has_ipv6_ext_hdr(const struct sk_buff *skb, int nhoff)
-> +{
-> +	const struct ipv6hdr *ip6h;
-> +	struct ipv6hdr _ip6h;
-> +
-> +	ip6h = skb_header_pointer(skb, nhoff, sizeof(_ip6h), &_ip6h);
-> +	return ip6h && ip6h->version == 6 && ipv6_ext_hdr(ip6h->nexthdr);
-> +}
-> +
-> +static bool skb_has_ipv6_extension_hdr(const struct sk_buff *skb)
-> +{
-> +	if (vlan_get_protocol(skb) == htons(ETH_P_IPV6) &&
-> +	    __skb_has_ipv6_ext_hdr(skb, skb_network_offset(skb)))
-> +		return true;
-> +
-> +	/* Tunnels without an inner network header, such as SCTP-in-UDP or
-> +	 * PSP, have no inner IP header and thus no inner extension header.
-> +	 */
-> +	if (skb->encapsulation && skb_inner_network_header_was_set(skb) &&
-> +	    __skb_has_ipv6_ext_hdr(skb, skb_inner_network_offset(skb)))
-> +		return true;
-> +
-> +	return false;
->  }
-
-[ ... ]
-
-> @@ -3988,8 +3997,7 @@ int skb_csum_hwoffload_help(struct sk_buff *skb,
->  		return 0;
->  
->  	if (features & (NETIF_F_IP_CSUM | NETIF_F_IPV6_CSUM)) {
-> -		if (vlan_get_protocol(skb) == htons(ETH_P_IPV6) &&
-> -		    skb_network_header_len(skb) != sizeof(struct ipv6hdr))
-> +		if (skb_has_ipv6_extension_hdr(skb))
->  			goto sw_checksum;
-
-[Severity: High]
-Does this weaken the check for non-encapsulated IPv6 CHECKSUM_PARTIAL
-skbs?
-
-When !skb->encapsulation, validate_xmit_skb() sets the transport header to
-csum_start just before it calls skb_csum_hwoffload_help():
-
-net/core/dev.c:validate_xmit_skb() {
-    ...
-		if (skb->ip_summed == CHECKSUM_PARTIAL) {
-			if (skb->encapsulation)
-				skb_set_inner_transport_header(skb,
-							       skb_checksum_start_offset(skb));
-			else
-				skb_set_transport_header(skb,
-							 skb_checksum_start_offset(skb));
-			if (skb_csum_hwoffload_help(skb, features))
-				goto out_kfree_skb;
-    ...
-}
-
-That means the removed skb_network_header_len() test checked that
-csum_start sits right after the 40 byte IPv6 header.
-
-The new helper only checks whether the outer nexthdr is one of the six
-values listed in ipv6_ext_hdr(). It skips the inner check because
-encapsulation is 0.
-
-Take IPv6|UDP|VXLAN|Eth|IP|TCP, or IPv6|IPv6|TCP (nexthdr 41), with
-csum_start at the inner TCP header and csum_offset 16. Would that packet
-now reach the csum_offset switch and return 0?
-
-Such skbs can come from untrusted input. __virtio_net_hdr_to_skb() is
-used by tap, vhost-net and AF_PACKET with PACKET_VNET_HDR. It accepts
-VIRTIO_NET_HDR_F_NEEDS_CSUM with any csum_start via
-skb_partial_csum_set(). It does not look at nexthdr and does not set
-skb->encapsulation.
-
-One case: a guest sends IPv6 VXLAN traffic with a CHECKSUM_PARTIAL inner
-TCP header (LCO). The host bridges it to a device that has
-NETIF_F_IPV6_CSUM but not NETIF_F_HW_CSUM.
-
-On a device that parses headers itself, such as bnxt, bnxt_exthdr_check()
-accepts an outer nexthdr of UDP for non-encapsulated skbs. The hardware
-would then fill in the outer UDP checksum and leave the inner TCP checksum
-holding only the pseudo-header seed. Before this patch, the kernel
-computed these checksums in software.
-
-The skbuff.h description of NETIF_F_IPV6_CSUM covers only "unencapsulated
-packets of the form IPv6|TCP or IPv6|UDP where the Next Header field in
-the IPv6 header is either TCP or UDP."
-
-gso_features_check() has the same gap. For non-encapsulated skbs, the old
-branch removed NETIF_F_TSO6 and NETIF_F_GSO_UDP_L4 whenever the transport
-header was not at nh + 40. The new code removes them only when the outer
-nexthdr is an extension header.
-
-The commit message talks about removing false positives, but it doesn't
-mention this relaxation for non-encapsulated skbs.
-
-Could the offset test stay for the !skb->encapsulation case? For example:
-
-	skb_checksum_start_offset(skb) - skb_network_offset(skb) != sizeof(struct ipv6hdr)
-
-Or could the check require nexthdr to be IPPROTO_TCP or IPPROTO_UDP,
-instead of testing ipv6_ext_hdr()?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260924192128.1197118-1-willemdebruijn.kernel%40gmail.com
