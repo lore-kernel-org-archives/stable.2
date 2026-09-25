@@ -1,85 +1,86 @@
-Received: from mail-ej2-f42.google.com (mail-ej2-f42.google.com [74.125.228.170])
+Received: from mail-ej2-f17.google.com (mail-ej2-f17.google.com [74.125.228.145])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D8D74CE668
-	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 18:42:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 886BA4D9F7F
+	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 18:42:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.145
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790361726; cv=pass; b=hvaMx0u/3/J5lbyjYfs2/OQkvxUIwps3gqeIXeJTFAmDL608RibwwsIk8YhmPyrMNbpWGAsbbIzKMnWEBrzkIR0jcnLHbMuixUttXdkHlPjD5R+g3Ayu67CvmAcGYKgYazgJdYzezVePKoNu2aoxW52sPs1KjCrUbt+3g+Oc11o=
+	t=1790361732; cv=pass; b=S6TCPpOTB40ooZKvBvGYD63C4aBf0ibxHMi+pP0zuVTHPUXHj1nk7zWCLTajWUQEGcokInrat0J9Vf8NyWzjoyiRcRrxxgixVf0YQDPidZJ1zVkbs52xY5CPzvGPyyPwdQS78Vl2aYqoJvVT/tUXW855q/15/jHm9TkDMTxUTUo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790361726; c=relaxed/simple;
-	bh=HS7UjO0jQ6s+qLOgaF7cYDk1QhzxkXFUd4jz+Y1RB18=;
+	s=arc-20240116; t=1790361732; c=relaxed/simple;
+	bh=EG2PHgTixg9rBHSr4w1yLq7tvCjPCFuWWWvAJw5rlQc=;
 	h=MIME-Version:In-Reply-To:References:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=P/dg9wD/9Q9Z32C/0n7zwwqWUWfsrWzlwwysd8m/79iA+5f+67RTPjL3by/H7VgHHBXzjH8hWmZN+mKdLYLpjFUw4q7NY+b5MNi3z7+ruud51A/9evOzLZS3QI5D6W+zFcqpbrCK0WfrdhBkKDoLQMOFM5lgfyXnujEkRtPGjQo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J4mPYDLL; arc=pass smtp.client-ip=74.125.228.170
+	 To:Cc:Content-Type; b=kB/qmgTnnKa6LLpqr12QPSxUF7E5ba8tI/vbCYiMuaW2zzH7Z2gNQNP3wcuyU3Muso5XgWT7ysGVBaVjwr0V/SGBKwUKrVLrvYpx3z2FoPnurwTdwDjW4g9Vj4bQHgPUnQpZvOUMuPb6Ghn0n86hQKU/UjifJF48lHk9tSD6zE8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hc3ck6Ur; arc=pass smtp.client-ip=74.125.228.145
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J4mPYDLL"
-Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c2c570f6f36so15708266b.3
-        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 11:42:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790361723; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hc3ck6Ur"
+Received: by mail-ej2-f17.google.com with SMTP id a640c23a62f3a-c29d50b7cf9so197465066b.2
+        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 11:42:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790361728; cv=none;
         d=google.com; s=arc-20260327;
-        b=J3pyMD/IfKX1L3DBS8BllUiwX2q9vGwdEXIOsmMuFSJoQRp+pZef04ph1FKUYJ3FcG
-         gr6ixYZiscG8vXnw1tx51lycVmZAUhFn7TO9/DRUPTrs0XzyhuCQMGWZrvf4ZW0X+ZfV
-         JCBuHtqyxFf/XDneaquGp+dNlXYEitsWSvZb+o2oRaGXm7SGRTM5vO/V9EKjymVL0gku
-         0AptVOgi/K00stPcBc+Hy7uDiMhBcV+cJ7dEsnlXFe6A07zUGQbYcyZ0J5+YCkWM3rCV
-         vtkaIdLdrEpjV+GO5DITT0nhF6Bx/bDzqVPcLsIyYVjMmo2MXPxUvzD+pmHyepxYcmKj
-         nQXA==
+        b=BkPDfDb7h3ZjGNXedJ7LkMGRgxxEKrpkftjExh3BQDpvVMpbeM3OimtvxJZuH7o4t3
+         4Rn6kKhyE21zJDBp1IVWZdz6Y1Bx0iZYYd67XuWFNHQOThrjKjh9hdjPQMWW+lKmzp2i
+         cw8WsbEuyLUUtT2rXXZQob3xRtnweF63S6goDobuA9VjpjKe1uWzbDSLf9gkeWqNjw7/
+         6PjBC8va3NCkgGr1JxlvHDBYuzjG3m1soFjNc9+JBsWoYSK4CXp0+WstLQ665qyKX3bk
+         SswXGoIaLJpAi96ZtSTfyWeBAQA4+rCvgWDoNuS7ownyvSBLpAnbA9NuQI882IbcY1fo
+         rDmw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:from:references:in-reply-to
          :mime-version:dkim-signature;
-        bh=1PCN/eJ30EXDvqgIEVywdLTEtL09HO8pRJxVwe8r1Ec=;
-        fh=pbf8ikERzmLEwjED2PjouhiF3wpV69rNIJWcIweaHPQ=;
-        b=qXxj5ATxp07JVd+jSkAq7Ayx5HhChooVaH9rtCnaLF81nh4vKezvWsVIUU1sG456rD
-         yo5t7btfIGqL2A/khqik1Mt1FZqxsVBehG0LT9S1K9MHadvZwPhJE6YgbTlibQKp9f2N
-         gct8yewur0kKGLwK9GsKc4GOZtPQrfFyCsEpVCs8D7dlzaf0QlIpqSVDxhZThA4/twl6
-         9y7OQEFj+MalTz5BMIuk+nsZ1rjYlCF6GgygzbWy+f9D+9UYt4jMyiH+tzAv5CryQ4dg
-         0D0jD4SZYXr+0at5vIg9RHrxNV9PCu+lAz/2DHl3T98ODZcxReM2bzkQPSchvgP6Y2Xh
-         3VtA==;
+        bh=iH33DlG7lPeRyDNU7/KmTL8YXtHt+KDjYSFCKP0/eps=;
+        fh=ZK9yLWvZuWHAcfOe1JTcSun89665t4VfwqIAp8QtY08=;
+        b=DI+PHIqVz0GjmBak5SYw09hDFrQQNZNBko060yRhm1ZVaW7T+QeJBl9JKUj6ftOzGq
+         5NgfYifvJ7hONAfByjJPpKze3Hj3heDr7mQws/rmdateGDPNczv2fA1tLT/LPZ4ZP6WZ
+         O7rrNse1CysE0k3s0/Mi72tu8CtQi64d5bd25UO3FaJKg42HxWg2LbMy5MNp94OmuwpS
+         Wfo/lqHeXr1tTNvVmrnrz67hE5BvK3ndjyWlVPRS4NyQljytS/x251UW2xBwjthGdORN
+         q1T+PFGS3ISo0D7PDb2kdIzqOgULaxg6fx7W11iF3IbPLmzIWiBuIx+h0liX2iCnQSH+
+         ZNPA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790361723; x=1790966523; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790361728; x=1790966528; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:references
          :in-reply-to:mime-version:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=1PCN/eJ30EXDvqgIEVywdLTEtL09HO8pRJxVwe8r1Ec=;
-        b=J4mPYDLLGnE9uQ0T9aObl44DmPjEjQcZ9j2RUOBjM2WRi6zwG0xI+JoDLIooAOqCGV
-         evkU7ggPB5r0Bpndf4xqvyFVj9E6omxgLhZZPkW2slooTX4j0okmdZD9C2F2NgC1vCl6
-         k86ys1Vl3Uxu8L7us1MbwsGNoyS6J87JdOGsfSek3Kh55j2iZdrdWno3igUO5MiX8O8p
-         dR2WU38Cvx11QMsxg5hG8q1aBZqzTEJt5tBtGOgUGjhrXSCvTxhwFRBVCDZofhfRbZNF
-         RxsSsK14g4kjEqRr85WWpRT0EUIiycESqWfFlXU5JXsjoZkj4QGtN6ErwBKI8vI0H5mQ
-         FRSA==
+        bh=iH33DlG7lPeRyDNU7/KmTL8YXtHt+KDjYSFCKP0/eps=;
+        b=Hc3ck6UrOQDwxnK63GsfDThgGWBOpQd13H9nIYM+xizWrGjXwpIcJxg5DdJy/sPd80
+         cwgzlsSbt0sFvuZu3W1EuRslN9S497d4E/pcYfB8xkS5kn0hgfdzrcmM/dHUaFb7PtgF
+         GtBMtxi6zPDZbjknWJYdwEpACj2EsQYUJwcrjMbzPSmntWYwi9FkDT2xDnx6Y+5ihTO7
+         B7Q1y4ZvMksps/7T9gdRKciyGQOSsXxrVSullgeU/EVyK/3Rtv9VPRqYu5zStJNclXmH
+         Wx1lKKmJT77owEBdXgbr4QrbZbfvco51Z4QQUOmGyxR2ejj59HP5sWJgb0yJ4Ii3f2je
+         IL5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790361723; x=1790966523;
+        d=1e100.net; s=20260707; t=1790361728; x=1790966528;
         h=content-type:cc:to:subject:message-id:date:from:references
          :in-reply-to:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=1PCN/eJ30EXDvqgIEVywdLTEtL09HO8pRJxVwe8r1Ec=;
-        b=wgjslNxoGvW9cuZ4L9WRY5sb7I8uUGtExvNs9nwAqbFIUEvSfXNdAbabfZhug8RQyS
-         ozjECS1n9Qi939kyfNUQsF9gUQiw0uIbbgy26Ncx4xm0dfpbcNce+LIi8OY+fcHXFJOc
-         IsttnErePwuFtRUsdd1ueELNOZPZgWBjk7EMj+laignuSZQaOk+IyrC0OASrDkpHYbnP
-         CotFG86FBEixnzRziOxr1N5ljixLdC935ThVBAr304LEPdkbcUbEo9CiOqEsWrhWsHEI
-         SuxPV9PJdneyCPNKu8yTp7Tmhr0YtYYRBBmuAwG37A9KLxEIW/7pPpn27npuFAP0h3Fj
-         AzTA==
-X-Forwarded-Encrypted: i=1; AKwUvBxK5sbVr3dF0vlZqeE14mk3VnEeVewVKiY0qhZr+IsCYqz1vQEUHSwbZaZmb0D9fo3hZzFiLQ0=@vger.kernel.org
-X-Gm-Message-State: AFuF++m0E5c+s83Pm5j89XQcTYyDSAJfIQAoE7EEE3K14W9k9W1ab9ae
-	jSoQEv/u0q/VNx/z2owcevrhgIgGiupRwvJH0KcNiK88RWnQn/LbggxRiogXSl7QjCLoZNb/Ay4
-	B2und6g5ToUwxUjBNR0SKVX24iHBAaU3N
-X-Gm-Gg: AYBFou32p5wYZ7/bVElX0L6tIqR0xUIeZybfroP2q49lOfk7UTFdV872jciRuC54bnb
-	FqBvfEB9ra2DA9zxz/GBzQu/xM0eplKohm0+6fxKsOMTucuwcoKzcFS0OokodfdVGzTY0Itmoix
-	FMdcQ0ZTja273z6pXzt8I4Qeng7Ik3En3QD+j0gH9P9K04/OUXSC4vZmxBV5w2bEz6F5ahR0153
-	Vq/rZqBowJfBbXIO9PeXhauI2sZ5aKTrTb5GqXoAy0WhThmlbcDhDbr1OqEjEao4lP1n0QVA+Sz
-	LD1xthzONhBCycrwfxKeiSkYDh3KRmtnZjos4rY52waNsEs0Zbw4wB2yfyzxj0KaQZUfVfXnSfG
-	W+JqcniRTMh1z49PkKc8vElw0yGNzBSH76KnsSwS7+34+SRaYMkUrmesLKSsD72+2
-X-Received: by 2002:a17:907:c609:10b0:c2a:f5c2:5cfb with SMTP id
- a640c23a62f3a-c2af5c26112mr141173866b.7.1790361723550; Fri, 25 Sep 2026
- 11:42:03 -0700 (PDT)
+        bh=iH33DlG7lPeRyDNU7/KmTL8YXtHt+KDjYSFCKP0/eps=;
+        b=rC7tfSb6YSZHbAad2a2foDPMyEXMKL+ZOAxM8S/Au4tWoiJDWnJp71x4NfciKvHevZ
+         vEQzMfNsHzkTcBXqueq9eNTbJJrMRzUaS8qtVzI3cfNU3eoKIBCEA+jfmPVSq+AD99HI
+         GcPP9l5XL4LlhJpCnfNeh/ts/fR3dYqIzzQwWYYIUPziDsRAKNwC5060HAlwesGuySiO
+         R0gsTF3NxESICgt5FU0Si+jiQuiPAsqrYuiVXFreMrXDCrhcSRyEDALbU4kOi8eoPg63
+         LIoOC5X4bK4luX+4r4anUpfe6xNz5Wrl77t/I38uozZ0BSukEiYBl3PVcONNdqN4FIlK
+         QMag==
+X-Forwarded-Encrypted: i=1; AKwUvBzLfikh7bXat+OyCkhLrM8YjmdDZHb03QRgm39xHbdp1S7M8Q8KbKtqk+yCS6N4JrPtDiGXhxo=@vger.kernel.org
+X-Gm-Message-State: AFuF++meAowt9zBA6yDtn6QqkvOgjg+W3oMDWQkYA6919tGXzLKuaaD+
+	TUQHahlDrTR854JrIswsjid4/H1xa9GrWaCG91NRfujMD3UAnPcTdwXT2J33AboUavCVj7tb6+v
+	4kX1TsY+CcYiEEaMnZHb/uqMeY7aypg==
+X-Gm-Gg: AYBFou2LUIoxrPK6HAPJ/x4o29iM9n6TNenaIF00C6VE88hBUbZL/Dz3gSvEyZhxDeg
+	7gzxzn0zwxNbtP7Ds+DIpMiAMmL4flz9QdJ+OzZ5AvLQ+Cr72SAxphMO2r5kONpK4N7kwcBrxDt
+	zC40OhDoGqprPQlMGxkycnpdR6bqMzHVS9WwFK/Tl77eLWaDBgISjNCN7a8ACdktAm/uYStDz1m
+	36QleBzKIm4ZcHl+ywqMYp+n0FwODP05uS6LeQI8iiB4rdoz9FQjCYL3C3NyJ5JvSirSNDoPMgb
+	iq9o7dmuveM1UVymVeZuYaB4h+nJ5zLhY+0jE9kaq8uQnI/R2ECB8b48gXB7vaAWs1rGxgTHUPy
+	c+wQw8O0mf8iZTR22ltCA5iOdxniMOh6dPsYxkwNRU+IHTdOk1FBZi/9FFzEi0CXGKlrtizWcAZ
+	k=
+X-Received: by 2002:a17:907:e918:b0:c2a:9e6a:3b4e with SMTP id
+ a640c23a62f3a-c2ac228e60cmr610461666b.0.1790361728266; Fri, 25 Sep 2026
+ 11:42:08 -0700 (PDT)
 Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Fri, 25 Sep 2026 18:42:02 +0000
+ Fri, 25 Sep 2026 13:42:07 -0500
 Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Fri, 25 Sep 2026 13:41:33 -0500
+ Fri, 25 Sep 2026 13:41:49 -0500
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -87,15 +88,15 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Received: from 77377267392	named unknown	by gmailapi.google.com	with HTTPREST;
- Fri, 25 Sep 2026 11:41:11 -0700
+ Fri, 25 Sep 2026 13:41:44 -0500
 In-Reply-To: <CAGEsz8Hurq=5MJXLD5uA-+uPJdMp55auATafawac1_3mpv65PA@mail.gmail.com>
 References: <CAGEsz8Hurq=5MJXLD5uA-+uPJdMp55auATafawac1_3mpv65PA@mail.gmail.com>
 From: Myeonghun Pak <mhun512@gmail.com>
-Date: Fri, 25 Sep 2026 18:42:02 +0000
-X-Gm-Features: AclHuK93WCMThwzB62NGGPUhReh2HvWzHdMO2hPiVwHYNnR5LFZOQOgclwYoXI0
-Message-ID: <CAGEsz8HdRUS+fiSq=Yp-ivN6_SiruegFc+V_AsmOxr=V+5rJpw@mail.gmail.com>
-Subject: [PATCH v3 1/2] media: amphion: drain message work before releasing
- core state
+Date: Fri, 25 Sep 2026 13:42:07 -0500
+X-Gm-Features: AclHuK-11njtSOspeCyZG4OM6KWbRhEYVXC0k2M43DNY4OjfE88LmT1g-L_uDk0
+Message-ID: <CAGEsz8H4wT2Cswcr3g+5KJJDek0GACj1-gbFAC_NunHV+d78JA@mail.gmail.com>
+Subject: [PATCH v3 2/2] media: amphion: prevent unbind while video instances
+ are open
 To: Ming Qian <ming.qian@nxp.com>, Ming Qian <ming.qian@oss.nxp.com>, 
 	Zhou Peng <eagle.zhou@nxp.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: Myeonghun Pak <mhun512@gmail.com>, linux-media@vger.kernel.org, 
@@ -103,12 +104,14 @@ Cc: Myeonghun Pak <mhun512@gmail.com>, linux-media@vger.kernel.org,
 	Ijae Kim <ae878000@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 
-vpu_core_unregister() frees core->msg_buffer before cancelling the message
-workers, although core->msg_fifo still uses the buffer as its backing
-storage. A queued worker can read it after it has been freed.
+An open video instance holds a plain pointer to its devm-allocated core.
+Unbinding the core or its parent through sysfs can release that memory
+while the instance remains open. A later ioctl or close then uses the
+stale pointer.
 
-Drain the core and instance message work first, then release core->vpu
-and the FIFO buffer. This follows the ordering in vpu_core_suspend().
+The video file operations pin the module, but sysfs unbind bypasses that
+protection. Suppress manual bind and unbind for both platform drivers,
+and warn if core removal ever encounters a live instance.
 
 Fixes: 9f599f351e86 ("media: amphion: add vpu core driver")
 Cc: stable@vger.kernel.org
@@ -116,44 +119,44 @@ Co-developed-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 ---
- drivers/media/platform/amphion/vpu_core.c | 15 ++++++++-------
- 1 file changed, 8 insertions(+), 7 deletions(-)
+ drivers/media/platform/amphion/vpu_core.c | 3 +++
+ drivers/media/platform/amphion/vpu_drv.c  | 1 +
+ 2 files changed, 4 insertions(+)
 
 diff --git a/drivers/media/platform/amphion/vpu_core.c
 b/drivers/media/platform/amphion/vpu_core.c
-index 85cc4a14f8ed..a0c58ec97a42 100644
+index a0c58ec97a42..2e8e08e05de7 100644
 --- a/drivers/media/platform/amphion/vpu_core.c
 +++ b/drivers/media/platform/amphion/vpu_core.c
-@@ -299,22 +299,23 @@ static void vpu_core_put_vpu(struct vpu_core *core)
- 	core->vpu->put_vpu(core->vpu);
- }
+@@ -696,6 +696,8 @@ static void vpu_core_remove(struct platform_device *pdev)
+ 	struct vpu_core *core = platform_get_drvdata(pdev);
+ 	int ret;
 
-+static void vpu_core_cancel_work(struct vpu_core *core);
++	WARN_ON(!list_empty(&core->instances));
 +
- static int vpu_core_unregister(struct device *dev, struct vpu_core *core)
- {
- 	list_del_init(&core->list);
-
--	vpu_core_put_vpu(core);
--	core->vpu = NULL;
--	kfree(core->msg_buffer);
--	core->msg_buffer = NULL;
--
- 	if (core->workqueue) {
--		cancel_work_sync(&core->msg_work);
--		cancel_delayed_work_sync(&core->msg_delayed_work);
-+		vpu_core_cancel_work(core);
- 		destroy_workqueue(core->workqueue);
- 		core->workqueue = NULL;
- 	}
-
-+	vpu_core_put_vpu(core);
-+	core->vpu = NULL;
-+	kfree(core->msg_buffer);
-+	core->msg_buffer = NULL;
-+
- 	return 0;
- }
-
+ 	vpu_core_remove_dbgfs_file(core);
+ 	ret = pm_runtime_resume_and_get(dev);
+ 	WARN_ON(ret < 0);
+@@ -846,6 +848,7 @@ static struct platform_driver amphion_vpu_core_driver = {
+ 	.remove = vpu_core_remove,
+ 	.driver = {
+ 		.name = "amphion-vpu-core",
++		.suppress_bind_attrs = true,
+ 		.of_match_table = vpu_core_dt_match,
+ 		.pm = &vpu_core_pm_ops,
+ 	},
+diff --git a/drivers/media/platform/amphion/vpu_drv.c
+b/drivers/media/platform/amphion/vpu_drv.c
+index 2cca61f41bea..9c6f32c5eae9 100644
+--- a/drivers/media/platform/amphion/vpu_drv.c
++++ b/drivers/media/platform/amphion/vpu_drv.c
+@@ -205,6 +205,7 @@ static struct platform_driver amphion_vpu_driver = {
+ 	.remove = vpu_remove,
+ 	.driver = {
+ 		.name = "amphion-vpu",
++		.suppress_bind_attrs = true,
+ 		.of_match_table = vpu_dt_match,
+ 	},
+ };
 -- 
 2.53.0
