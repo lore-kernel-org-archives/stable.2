@@ -1,187 +1,283 @@
-Received: from mail-ej2-f42.google.com (mail-ej2-f42.google.com [74.125.228.170])
+Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54D8E4D7D34
-	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 15:51:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.170
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790351470; cv=none; b=C8O3ta4Dcle6qR0YmifYXW69H4FQSAoEslOLBf2nP0zSdhudDs2lQjQItYGWnf8bzMyWv/J+esxxfwyjH7PAvRiJ+4guOMrOn36OH9Ooyag9A9241yiQrJjNo4N7VuTJShwaJrKfEhRP6YKDDOD+8dK4XcxdH+zRF01HBWQaRok=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790351470; c=relaxed/simple;
-	bh=8Sl6QXs9f/prUlQJGcMmVpKU9w+SU9Wg3hJmmffsgtA=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B831D3939D7
+	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 15:57:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.99
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790351858; cv=pass; b=Z4zNU4lpHoenxqVnKQ1+H72s3q7Z99TBKpgk8WTtg/TUix9is5k9WwkTIRa8XEJ3LLAddJa51Psszbh0xAdZCIACkEwwmRPpvDmdboH6G31z28EbIiZ0TlTMTCtVbxCr99iRlmzArPMS7CZuq5U3VxD7UYQxjNyyUnUJgZVz7yI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790351858; c=relaxed/simple;
+	bh=+rd9BLTE4a5WJJ+eX0XRtQ3schbzUk6dFpAODuJHfJE=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CvZI8eO/eP+6S6sNzSAyPFlIl/Iu1DWCmOfWZB/odSYrwDtvt3Tyt8297RX1/ZMMl4mUqZD52Ba3VZRY7QEmW+oyfAseqGwcH2qMB4ddsZkvslAefU6Jno1ictTYWIeIL0AmzRoolJOrvS3djHFXDlP3xj4YJ1uvxhboETGk/7s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.win; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.228.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.win
+	 To:Cc:Content-Type; b=W/XRaAmjYnT2z98SK4QbonbaUMR4UACnJYLx9UknEC70L3U5E624c1gncjeC9JG7/RnsvZS3u9ju5F/V+fKUkLfJ7y3fS0rl5qWNRORQm4ZATVx3vrVmlgJlV43k6cypFgIjLEstA4a7OlQ+mLYw4g1oEhDfNkbaaNv5TuRSAUo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gAVYgi67; arc=pass smtp.client-ip=74.125.228.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c2afd63c3e0so36715966b.0
-        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 08:51:06 -0700 (PDT)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gAVYgi67"
+Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6aaad1544b7so2128108a12.1
+        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 08:57:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790351855; cv=none;
+        d=google.com; s=arc-20260327;
+        b=lVul/E5/WC0JOovHErVWLbnuZxVepyBV/je/O5xGkO6iPw4FyYfr+HsNv7Qlha/3zo
+         rfG9gGcqKEeIxz0qSmrJidl19qXAA0/Yv/wUjBbr1bAW8cW1XORlDvuEVXL87c4QL6+y
+         lX66nA9TFKyx4XG6Md7Wmb6iomKeF3bqbO4Ksrk5S7KdScs5ZfIzODvLFJuKgIVJGh9p
+         vx1RpvdVPZuqsg5EVW5KCYOLrHwoLJMo1goXwEck2yn0ScJXPN/wjNyuGkQruFIc9ECk
+         zEHfiD2Lr+4bKHuf+eVTz9Kik/fr+0VX8eMyWd9VkdnJBMWYQ+sRcuQk7s1oyWdlaS/6
+         dYmw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=nMAg6pX/HlA77Pu3mxpzrHzAZUs7ETdSimrKmiOB8sM=;
+        fh=3bg6rGtM9lw34xqFCXUd5Krbg6aJS8+grtokW3ksXf0=;
+        b=r1V1KmRTUAC7IlX4YXfDzd/7SiDCfL7ph5PiM/Ke9SQcPQ85vCGEDWQG04EuCV/hxZ
+         /Fq2/dQ1ZKRZ/nBxVjaIZS7s6/PcD4+XT1cVEMqGaKihl1tOk0mnw8zBJxS3pHOb3aiu
+         qyQTwEhGSTTFzu3k9+oW/49MxsOgKxlPJzVUEUt0IZiPaHAK8382y2jXqLSLzqhGQ7MF
+         h4SmlnnG0OXmhRlhz1Z/DmSkOyIsTj0XYhUxxkEUIixMEhh1vFzX6AGznxVmk5NWymIf
+         V+5BLBKEEAAHdLbTZSW2pyqnOiQnJOQ3vZSuRTNlVz2B6BR2j7BWu34z8idI24vJeojL
+         tOYA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790351855; x=1790956655; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=nMAg6pX/HlA77Pu3mxpzrHzAZUs7ETdSimrKmiOB8sM=;
+        b=gAVYgi670zfKUzzOMdMCKrTF6MMXXzY8WhAoWiALNjDT0aSxm1+Laa13xnVRtje+KY
+         eXXdZ5NM4LqLNJo91LvvAKoC/F9w5xeM45n/3LOM/psf7agz8GkVuzYPjLgschPnZ+OS
+         +M3P6IubLFHbk2NN8pNpO3B6bmRqqtEnhbaSpqfGDeRjl7jowo8Z1YjfFs2ekTXLjDkJ
+         kZ3P4eILmpqjwC7qIvvQF9x1+E7b6VatTpajjZNY1gguT6V5fqXkrFL5BdsYkY6z0P8m
+         lnxYWQrsxTHxC1ARkai7VLjh+HeYwzXmg6KYIa2Io+l09O05k35N8EImSMZSG3SDXgiJ
+         UxUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790351465; x=1790956265;
+        d=1e100.net; s=20260707; t=1790351855; x=1790956655;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=n7HjLJsKXetAb0Aw0AgEZE0vzcstRBizx1Ha0tT6wh0=;
-        b=0wUhxysxqL/vZ/2w8MOn7vb/Ud5fmfTXi5xaJIiHQLjz324gKYMZuX95OJ2A5VziWZ
-         lstXhx8lDQqTiIGMB3WGu+OlehD7gho+LryxjIqsX+MX/Xk1liZ8teTCXk33LShNdmm1
-         FaPttp7uK3hgS4XfFB2nrlwcl7uyssW5XbIfOfE2Ej6UxKRWCx2Yj+tk2W13gVdFwKW3
-         f2Y5oUMan3vZirBmFXfQxD5GYNnrGGq4jfRsIXNflKHvaw1FObM5E2q4IN1C/Qizls6D
-         asDF+6FItoLs7apSrsHJjq4BakgHh5H2NJiGDm0n9YqKue3LZaIkRzM03S1vv7cXVZGD
-         S6ww==
-X-Forwarded-Encrypted: i=1; AKwUvBydOOLASDk8ft/J4n1f8RbLMuWcXNuleziDXzTV1G3IhZkPz+FSAtbLC7ZmqGpg+KtBBiCyNGQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++k9/mNmDk+wEeAv7pEznFvIgcBMijwC/84R1jXVns/j2gTRoSF/
-	dFbJX/ReMSsRaMssm4iGruT2n2U8HUSRxrwg0+T6ZiL2xbUOcAN4bO6M8GwXSRb/pm8=
-X-Gm-Gg: AYBFou1EBOmp0S3J/hk91cNSoWXem6eMbT5yb4ExKrwMQbP8KLKZtc5l855Rf9DdM3e
-	WQRBg2kVZp4vcR3vfY+OX51rz9Ic6bpudUfD8u26/QB6DR33vO8/kjzTuyFdG6ePUpSI13+Mifq
-	mx9sbCanDYpEUWvV1oWZwtx2FO91/nY4z+QsDS8ThS+Z8Stua3sejlaDucjrzybWOnnkdSgajdd
-	lmu/dzNDlbsW/Ki7dYiBTpmK2G2AT2vM8as9VNpi3NJyzVZJsET2XUQHqNgE06SlbKuQKxSfebV
-	XFAwf4NQe34IgIz3M6iaDVCJ0jskvcbQpjDZu8CYukNW29B6H0ubu+XC17vFdHasTghfi1s2PpH
-	vMOs6gaa/zAHlZexRh+jEBTuyEBfs/zhl8j8uqFxHmrzVxxZKsjrWLSM3OffajgoSHF/q6kUNUY
-	3KEcfvu/RAJPeToB+S/ko5J5bLmRVLG0OwsqHp0VM1eUkxh/KWGRx2dztGZWWYN3DplSu1nKDUs
-	w7s5s5VQhPigP8GIIFMfNoIfarlCYg=
-X-Received: by 2002:a17:907:d08:b0:c29:ab1d:b5be with SMTP id a640c23a62f3a-c2ac256d532mr568935566b.27.1790351464755;
-        Fri, 25 Sep 2026 08:51:04 -0700 (PDT)
-Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com. [74.125.228.171])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2af70056bbsm54397566b.49.2026.09.25.08.51.04
-        for <stable@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 25 Sep 2026 08:51:04 -0700 (PDT)
-Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2af7721e4aso60532766b.1
-        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 08:51:04 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwlZgb/RC1P9+t12Z8zN5BA9/6bLtis7Cd6qwWR8zvEaUZ5tWhcivqrY0KjXJ6Mw+K7rTioUDw=@vger.kernel.org
-X-Received: by 2002:a17:907:e918:b0:c2a:9e6a:3b4e with SMTP id
- a640c23a62f3a-c2ac228e60cmr567189166b.0.1790351463882; Fri, 25 Sep 2026
- 08:51:03 -0700 (PDT)
+        bh=nMAg6pX/HlA77Pu3mxpzrHzAZUs7ETdSimrKmiOB8sM=;
+        b=GMxyMPv/L0EnIyg/ZESohthi9xux3mIp3WEV4G9xcJsVlacHmkMUYTYXj/a3FPsFxi
+         aBcf9vcGaFaJ6kfTuPA43NWRgwJPb8lsjJP2gwZjJZ7jMBGs3u80H3RLFZNRaky+xnwK
+         vOwB3FpqliKCH0cn6/qVYjfQ5v8HLvng0Xlus1KBHT6H2mwNUhRBGV1+Nks5MLJTVvRQ
+         R/9UUjE8dzdAVc7ab/7YiYgIGEcbcDVTux6LJkZFWjuFyPtJiXWI+78nD6SRQSQ2cqay
+         VNDdZvA2PkoKr77PDFfxHw1utDjuZ0frf19QtmEZcb/fnA+gop0hUG0rKelKisb+Umag
+         YPwA==
+X-Forwarded-Encrypted: i=1; AKwUvBy/YDEf/p4YBLt48G3Vo/rNjGdCTKdMmvDBC18WGTvzj2HZRBpFVpnCW4L/aPjY59KGzjqINd4=@vger.kernel.org
+X-Gm-Message-State: AFuF++n1Nsl7Ipvje0excthIshTnqLAj3XY4cs43Vj2WTbKdW+OMTckn
+	UVIRGER9FbPM1IrcuoyGgM93hQM5XqMspN5tzReBWyLW3m2OZ8qz/+GLVyskkb90ncd3TtN56ZP
+	NkoKQJxumAHuBt+XAOZW9St/WjfNdDRM=
+X-Gm-Gg: AYBFou0Nm0TeSw0fuT9ZL1qd4pjjJOeUXabvnB6SMxZHwA5VyiYLM8WcbIvSRWNODEH
+	AuiZLd3stUuM46lgoKTa5L3++HHYHFCSXFqZwiFt55RULv/c1Jabtvs9gUSfUfofqQNcoFHylBF
+	ca682sGsdrwPZNikEPBmiCecvJ1COPQf5/kk333BxnN4E4U2YBcp9Ocus2364ZSm8WDWYF9mphb
+	4pq3FNbxwpzcXidSMPuC4wxtqB5rlfVUYkWtTxP5lBkGEtdrZEdWTLK6622dHRvX5buxDlbhedh
+	PMRjKFjfrI11kmnteC9UyHYpX1gSU6YrEhn2ZH/f00/Vd9hG4VrNSZ8TcXKFh4OIeM0=
+X-Received: by 2002:a05:6402:3806:b0:6aa:e46b:2ca with SMTP id
+ 4fb4d7f45d1cf-6aae8f391b3mr2402778a12.30.1790351854413; Fri, 25 Sep 2026
+ 08:57:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260919223438.3883567-1-benquike@gmail.com> <CAHC9VhS7sZQaPaRswKQ1ETrReEPB2f5buNAMGSXqZ1iBKTs+bg@mail.gmail.com>
- <20260920235249.260530-1-benquike@gmail.com>
-In-Reply-To: <20260920235249.260530-1-benquike@gmail.com>
-From: Ignat Korchagin <ignat@linux.win>
-Date: Fri, 25 Sep 2026 16:50:51 +0100
-X-Gmail-Original-Message-ID: <CAOs+rJVgp-mG1PtqHKnSejjnXiw8n6MA5ye2JGHoL0=JUADAzQ@mail.gmail.com>
-X-Gm-Features: AclHuK8AHjiRwMxnh93efSsuU_hhOCN66FUp5ELHqoUEvyW1GbfwsAHY6Z1odGA
-Message-ID: <CAOs+rJVgp-mG1PtqHKnSejjnXiw8n6MA5ye2JGHoL0=JUADAzQ@mail.gmail.com>
-Subject: Re: [PATCH v2] certs: x509: duplicate cert->tbs when
- sig->algo_takes_data is set
-To: Hui Peng <benquike@gmail.com>
-Cc: David Howells <dhowells@redhat.com>, Lukas Wunner <lukas@wunner.de>, 
-	Herbert Xu <herbert@gondor.apana.org.au>, Paul Moore <paul@paul-moore.com>, 
-	keyrings@vger.kernel.org, linux-crypto@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org, 
+References: <20260924112858.51392-1-disgoel@linux.ibm.com> <20260924112858.51392-2-disgoel@linux.ibm.com>
+In-Reply-To: <20260924112858.51392-2-disgoel@linux.ibm.com>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Fri, 25 Sep 2026 17:57:23 +0200
+X-Gm-Features: AclHuK92kTEXDHL8m7s-mwWhA-PfNWKaA3m5DTMfLrf-QlUnLQ-m8TUSXfz_Sqs
+Message-ID: <CAOQ4uxgj3RL2roivmha9yeWToR-s9kaBm8WUK1vJ_q7pWOjxOQ@mail.gmail.com>
+Subject: Re: [PATCH 2/2] ovl: fix wrong layer paths in mountinfo for detached
+ mount FDs
+To: Disha Goel <disgoel@linux.ibm.com>, brauner@kernel.org
+Cc: miklos@szeredi.hu, viro@zeniv.linux.org.uk, jack@suse.cz, shuah@kernel.org, 
+	linux-unionfs@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 21, 2026 at 12:52=E2=80=AFAM Hui Peng <benquike@gmail.com> wrot=
-e:
+On Thu, Sep 24, 2026 at 1:29=E2=80=AFPM Disha Goel <disgoel@linux.ibm.com> =
+wrote:
 >
-> In x509_get_sig_params(), when sig->algo_takes_data is true, sig->m is
-> assigned (u8 *)cert->tbs with sig->m_free =3D false. However, cert->tbs
-> points into the temporary ASN.1 buffer (prep->data) passed to
-> x509_cert_parse(), while cert->sig is retained in
-> prep->payload.data[asym_auth] by x509_key_preparse() after prep->data
-> is freed by the caller. Subsequent signature verification on the key's
-> public_key_signature dereferences the freed TBS buffer.
+> When overlayfs layers are passed as detached mount file descriptors
+> (opened with open_tree(OPEN_TREE_CLONE)), ovl_parse_layer() uses d_path()
+> to record the layer's path for display in mountinfo.
 >
-> Duplicate cert->tbs with kmemdup() and set sig->m_free =3D true so sig->m
-> remains valid for the lifetime of struct public_key_signature.
+> d_path() walks up the mount tree to the process's filesystem root.  For
+> detached mounts this walk stops at the anonymous namespace root instead
+> of the real system root, producing a short incorrect path like "/l1"
+> instead of the full absolute path.
 >
-> Tested in QEMU against Linux 7.3.0-rc3 with KASAN enabled by adding an
-> ML-DSA-44 (OID 2.16.840.1.101.3.4.3.17) X.509 certificate via
-> add_key("asymmetric", ...) and linking it into a signature-restricted
-> keyring via keyctl(KEYCTL_LINK), which triggers the following KASAN
-> slab-use-after-free before this patch:
+> Export mnt_is_anon() from fs/namespace.c to detect detached mounts.  In
+> ovl_parse_layer(), use dentry_path_raw() for detached mounts instead of
+> d_path().  dentry_path_raw() walks the dentry chain independent of mount
+> namespace and returns the correct fs-relative path.  The path is
+> display-only; the actual layer_path used for mounting is always correct.
 >
->   BUG: KASAN: slab-use-after-free in mldsa_verify+0x95/0xa0 [mldsa]
->   Read of size 1 at addr ffff88800108c004 by task init/1
+> Also fix the set_layers_via_detached_mount_fds selftest: the mountinfo
+> check strings were copy-pasted from the regular (non-detached) test and
+> expected absolute /tmp/ paths, causing the test to always fail.
 >
->   Call Trace:
->    <TASK>
->    dump_stack_lvl+0x70/0xa0
->    print_report+0x153/0x4c6
->    kasan_report+0xf1/0x120
->    mldsa_verify+0x95/0xa0 [mldsa]
->    public_key_verify_signature+0x5cb/0x8e0
->    verify_signature+0xe4/0x130
->    key_or_keyring_common+0x428/0x850
->    key_link+0x22e/0x360
->    keyctl_keyring_link+0x6b/0xc0
->    __do_sys_keyctl+0x146/0x4f0
->    do_syscall_64+0xda/0x4b0
->    entry_SYSCALL_64_after_hwframe+0x77/0x7f
->    </TASK>
->
->   Allocated by task 1:
->    kasan_save_stack+0x30/0x50
->    kasan_save_track+0x14/0x30
->    __kasan_kmalloc+0x7f/0x90
->    __kvmalloc_node_noprof+0x1c2/0x5b0
->    __do_sys_add_key+0x1c2/0x390
->    do_syscall_64+0xda/0x4b0
->    entry_SYSCALL_64_after_hwframe+0x77/0x7f
->
->   Freed by task 1:
->    kasan_save_stack+0x30/0x50
->    kasan_save_track+0x14/0x30
->    kasan_save_free_info+0x3b/0x70
->    __kasan_slab_free+0x47/0x70
->    kfree+0x159/0x420
->    __do_sys_add_key+0x2b3/0x390
->    do_syscall_64+0xda/0x4b0
->    entry_SYSCALL_64_after_hwframe+0x77/0x7f
->
->   The buggy address belongs to the object at ffff88800108c000
->    which belongs to the cache kmalloc-4k of size 4096
->   The buggy address is located 4 bytes inside of
->    freed 4096-byte region [ffff88800108c000, ffff88800108d000)
->
-> Fixes: f3eccecd782d ("pkcs7: Allow the signing algo to do whatever digest=
-ion it wants itself")
+> Fixes: a08557d19ef4 ("ovl: specify layers via file descriptors")
 > Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
+> Signed-off-by: Disha Goel <disgoel@linux.ibm.com>
 
-Reviewed-by: Ignat Korchagin <ignat@linux.win>
+Disha,
+
+Thanks for the report!
 
 > ---
-> Changes in v2:
-> - Dropped the net/netlabel/netlabel_calipso.c change, keeping only the
->   crypto/asymmetric_keys/x509_public_key.c fix.
-> - Added the KASAN slab-use-after-free report and test description to the
->   commit message.
+>  fs/namespace.c                                |  9 ++++++++
+>  fs/overlayfs/params.c                         | 14 ++++++++++-
+>  include/linux/mount.h                         |  1 +
+>  .../overlayfs/set_layers_via_fds.c            | 23 +++++++++++--------
+>  4 files changed, 37 insertions(+), 10 deletions(-)
 >
->  crypto/asymmetric_keys/x509_public_key.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
+> diff --git a/fs/namespace.c b/fs/namespace.c
+> index ae5dc64f8b45..9feefa0a517d 100644
+> --- a/fs/namespace.c
+> +++ b/fs/namespace.c
+> @@ -363,6 +363,15 @@ bool __mnt_is_readonly(const struct vfsmount *mnt)
+>  }
+>  EXPORT_SYMBOL_GPL(__mnt_is_readonly);
 >
-> diff --git a/crypto/asymmetric_keys/x509_public_key.c b/crypto/asymmetric=
-_keys/x509_public_key.c
-> index 25cf8ac7f257..5c9165a83f91 100644
-> --- a/crypto/asymmetric_keys/x509_public_key.c
-> +++ b/crypto/asymmetric_keys/x509_public_key.c
-> @@ -53,9 +53,11 @@ int x509_get_sig_params(struct x509_certificate *cert)
+> +bool mnt_is_anon(struct vfsmount *mnt)
+> +{
+> +       struct mount *m =3D real_mount(mnt);
+> +       struct mnt_namespace *ns =3D READ_ONCE(m->mnt_ns);
+> +
+> +       return !IS_ERR_OR_NULL(ns) && is_anon_ns(ns);
+> +}
+> +EXPORT_SYMBOL_GPL(mnt_is_anon);
+> +
+>  static inline void mnt_inc_writers(struct mount *mnt)
+>  {
+>  #ifdef CONFIG_SMP
+> diff --git a/fs/overlayfs/params.c b/fs/overlayfs/params.c
+> index c93fcaa45d4a..2758ff8426b7 100644
+> --- a/fs/overlayfs/params.c
+> +++ b/fs/overlayfs/params.c
+> @@ -477,7 +477,19 @@ static int ovl_parse_layer(struct fs_context *fc, st=
+ruct fs_parameter *param,
+>                 layer_path =3D param->file->f_path;
+>                 path_get(&layer_path);
 >
->         if (sig->algo_takes_data) {
->                 /* The signature algorithm does whatever passes for hashi=
-ng. */
-> -               sig->m =3D (u8 *)cert->tbs;
-> +               sig->m =3D kmemdup(cert->tbs, cert->tbs_size, GFP_KERNEL)=
+> -               layer_name =3D d_path(&layer_path, buf, PATH_MAX);
+> +               /*
+> +                * For detached mounts (open_tree(OPEN_TREE_CLONE)), d_pa=
+th()
+> +                * resolves against the anonymous namespace root and retu=
+rns a
+> +                * short fs-relative path rather than a full system path.=
+  Use
+> +                * dentry_path_raw() instead, which gives the path relati=
+ve to
+> +                * the filesystem root regardless of mount namespace.  Th=
+e name
+> +                * is display-only; layer_path itself is always correct.
+> +                */
+> +               if (mnt_is_anon(layer_path.mnt))
+> +                       layer_name =3D dentry_path_raw(layer_path.dentry,
+> +                                                    buf, PATH_MAX);
+> +               else
+> +                       layer_name =3D d_path(&layer_path, buf, PATH_MAX)=
 ;
-> +               if (!sig->m)
-> +                       return -ENOMEM;
->                 sig->m_size =3D cert->tbs_size;
-> -               sig->m_free =3D false;
-> +               sig->m_free =3D true;
->                 goto out;
->         }
+>                 if (IS_ERR(layer_name))
+>                         return PTR_ERR(layer_name);
 >
+> diff --git a/include/linux/mount.h b/include/linux/mount.h
+> index acfe7ef86a1b..51e9f228c9d1 100644
+> --- a/include/linux/mount.h
+> +++ b/include/linux/mount.h
+> @@ -78,6 +78,7 @@ extern void mnt_make_shortterm(struct vfsmount *mnt);
+>  extern struct vfsmount *mnt_clone_internal(const struct path *path);
+>  extern bool __mnt_is_readonly(const struct vfsmount *mnt);
+>  extern bool mnt_may_suid(struct vfsmount *mnt);
+> +extern bool mnt_is_anon(struct vfsmount *mnt);
+>
+>  extern struct vfsmount *clone_private_mount(const struct path *path);
+>  int mnt_get_write_access(struct vfsmount *mnt);
+> diff --git a/tools/testing/selftests/filesystems/overlayfs/set_layers_via=
+_fds.c b/tools/testing/selftests/filesystems/overlayfs/set_layers_via_fds.c
+> index 7a293544233d..12d930fe46be 100644
+> --- a/tools/testing/selftests/filesystems/overlayfs/set_layers_via_fds.c
+> +++ b/tools/testing/selftests/filesystems/overlayfs/set_layers_via_fds.c
+> @@ -686,23 +686,28 @@ TEST_F(set_layers_via_fds, set_layers_via_detached_=
+mount_fds)
+>         while (getline(&line, &len, f_mountinfo) !=3D -1) {
+>                 char *haystack =3D line;
+>
+> -               if (strstr(haystack, "workdir=3D/tmp/w"))
+> +               /*
+> +                * Detached mount FDs are resolved via dentry_path_raw(),
+> +                * which gives a path relative to the underlying fs root
+> +                * (e.g. "/u/upper", "/l1") rather than a full system pat=
+h.
+> +                */
+> +               if (strstr(haystack, "upperdir=3D/u/upper"))
+>                         layers_found[0] =3D true;
+> -               if (strstr(haystack, "upperdir=3D/tmp/u"))
+> +               if (strstr(haystack, "workdir=3D/u/work"))
+>                         layers_found[1] =3D true;
+> -               if (strstr(haystack, "lowerdir+=3D/tmp/l1"))
+> +               if (strstr(haystack, "lowerdir+=3D/l1"))
+>                         layers_found[2] =3D true;
+> -               if (strstr(haystack, "lowerdir+=3D/tmp/l2"))
+> +               if (strstr(haystack, "lowerdir+=3D/l2"))
+>                         layers_found[3] =3D true;
+> -               if (strstr(haystack, "lowerdir+=3D/tmp/l3"))
+> +               if (strstr(haystack, "lowerdir+=3D/l3"))
+>                         layers_found[4] =3D true;
+> -               if (strstr(haystack, "lowerdir+=3D/tmp/l4"))
+> +               if (strstr(haystack, "lowerdir+=3D/l4"))
+>                         layers_found[5] =3D true;
+> -               if (strstr(haystack, "datadir+=3D/tmp/d1"))
+> +               if (strstr(haystack, "datadir+=3D/d1"))
+>                         layers_found[6] =3D true;
+> -               if (strstr(haystack, "datadir+=3D/tmp/d2"))
+> +               if (strstr(haystack, "datadir+=3D/d2"))
+>                         layers_found[7] =3D true;
+> -               if (strstr(haystack, "datadir+=3D/tmp/d3"))
+> +               if (strstr(haystack, "datadir+=3D/d3"))
+>                         layers_found[8] =3D true;
+>         }
+>         free(line);
 > --
-> 2.47.3
+> 2.45.1
 >
 
-Thanks
+Christian,
+
+I confirm that the test is failing on upstream:
+
+# Starting 1 tests from 1 test cases.
+#  RUN           set_layers_via_fds.set_layers_via_detached_mount_fds ...
+# set_layers_via_fds.c:717:set_layers_via_detached_mount_fds:Expected
+layers_found[i] (0) =3D=3D true (1)
+# set_layers_via_fds.c:39:set_layers_via_detached_mount_fds:Expected
+rmdir("/set_layers_via_fds") (-1) =3D=3D 0 (0)
+# set_layers_via_detached_mount_fds: Test terminated by assertion
+#          FAIL  set_layers_via_fds.set_layers_via_detached_mount_fds
+not ok 1 set_layers_via_fds.set_layers_via_detached_mount_fds
+# FAILED: 0 / 1 tests passed.
+
+I could not find a point of regression.
+Could it be that the test was merged failing?
+That would be strange.
+
+This is how mountinfo of detached layers look like on upstream:
+/ /set_layers_via_fds rw,relatime - overlay none
+rw,lowerdir+=3D/,lowerdir+=3D/,lowerdir+=3D/,lowerdir+=3D/,datadir+=3D/,dat=
+adir+=3D/,datadir+=3D/,upperdir=3D/upper,workdir=3D/work,uuid=3Don,metacopy=
+=3Don
+
+Whether the suggested solution is what we want for it, I am not sure.
+I also don't recall if we discussed this at the time and whether
+there were any decisions about how to present this mountinfo.
+
+Maybe this mountinfo is fine and then we only need to fix the test.
+
+Thanks,
+Amir.
