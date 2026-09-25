@@ -1,79 +1,109 @@
-Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f42.google.com (mail-dl2-f42.google.com [74.125.229.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B7CA4C150B;
-	Fri, 25 Sep 2026 17:44:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 590554C4F6C
+	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 17:58:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790358270; cv=none; b=bIFtG7eYpQQ6uzyGBDTsm7Dz4wMsQT7XdpEMZbuLwiCoY5C135Wpm7r6CqcCGJ5bZmmBuHXDlLq26pmEgA5ouznU+1fzFiuR9DJTUySDgRNjdgtE27b0XiGUi63LkU1mvylPIOIF5fds3cfLtSICAWRIEH4FsStqEuNWvpmu/JU=
+	t=1790359103; cv=none; b=Tjswu08EQ4PDhp+9/5FGbVyjaJBkESP5pmO9qOe9ndnInwHrXBLuu/uXxK5RZMI5JxPlPWWDDnqxohfwSaKDwlO8wcdqzyNn11X1uqzJrMKCA9daZCsxQbtXNKYB9qIlH7GOs8ZsqWR0fdG5BVKAZQJnkAtlVPEJu9I30jGTnQM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790358270; c=relaxed/simple;
-	bh=3YcmZ1BT8br4riowCC9Yq9wm3zVRB4R66oU8gb5Ds2g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kf5lwlFb1lCjQDgd3xg0ysDOdcQYvUz46bh4239n9xxceK+fzw4NoI+LbhhMSp5/olBmoGm+dVL05gL3jobYqCY2diepGxmuEXNivhRl8mlQHFC1QKyC1DmBR3FmpFsHQ9kWKft8pXiic7EHYW26L9GjbjqkE5h0FhbRiNRg1BU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=Lpbqcf4u; arc=none smtp.client-ip=199.89.1.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	s=arc-20240116; t=1790359103; c=relaxed/simple;
+	bh=iOZHQT4IOAIyVGF4UgMZZiMxiLFANObxfB3HkuQmwoQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uPBlNzk0rugNW61UmtSOH8/HTewm1WWeXYZUd4vYBEO2RVcmnrX8BVdNc2rgW1VrEgiM492bDcPhsgCUl7JHIXFWHFUkF/nES9710Hyq8UUaf5sPaH1N/FzrldJ1VBDrk+76UCoFK8Jpr7L6Olm+ktM4CAsIe134pO7oh1Q/Xw4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QZWgfEoT; arc=none smtp.client-ip=74.125.229.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="Lpbqcf4u"
-Received: from localhost (localhost [127.0.0.1])
-	by 013.lax.mailroute.net (Postfix) with ESMTP id 4hrykg5ZtPzlfvpK;
-	Fri, 25 Sep 2026 17:44:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1790358262; x=1792950263; bh=3YcmZ1BT8br4riowCC9Yq9wm
-	3zVRB4R66oU8gb5Ds2g=; b=Lpbqcf4uDT6rgEcxqyjDAJ4E93CEtMds/20/8zPb
-	wOBgKcsQ7B9kpiOqNmV3aI5G454x+JgxaeP9NIT66bhFjl9YXIi9+njMEJwbEMqX
-	gPegw+rdh0vQnScvm5dYpgBJ+AqUjKforb+XyEnbRWD3vx0kTAq7HNMym1ceCSv/
-	f6vmZeJOnfU3JowC7mwnqy27lgPwM7gU/1xq0gAJ0VWGCtfPASyvaN1IvN2NVgs1
-	cNwMhO/zL7r/qZsx+BSStMd22aVg2KRiWK2fok77MTcZbXkmrM4EzaxZXjYxrcR9
-	BcNlmOYRv5dlBe3bkKYE7LSNzq0qfA+eKtwwmdRYtia2wA==
-X-Virus-Scanned: by MailRoute
-Received: from 013.lax.mailroute.net ([127.0.0.1])
- by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id YS2P9XGf-JZS; Fri, 25 Sep 2026 17:44:22 +0000 (UTC)
-Received: from [100.80.231.125] (unknown [104.135.182.41])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4hrykW6r8XzlfvpG;
-	Fri, 25 Sep 2026 17:44:19 +0000 (UTC)
-Message-ID: <759c9980-9044-466a-96a2-25f83b3cf202@acm.org>
-Date: Fri, 25 Sep 2026 10:44:19 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QZWgfEoT"
+Received: by mail-dl2-f42.google.com with SMTP id a92af1059eb24-144ecebb6cbso479165c88.3
+        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 10:58:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790359100; x=1790963900; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sJ/NQTl1WNpwK1sUwU0K8HlG1PwVQbHpKjHbUF6bYOc=;
+        b=QZWgfEoT09Bisc5Fojz1pSZtBoSM4htRvJTQG8kGERI2MyI6EYlL6g0f7PunI+C4Fg
+         MvyGgKYHzFegfvBCZxqXLoD12trHzahGYgylpfbHoiWeqwj78G8Uh2ZuISlkIuPUZzvD
+         OUcH3X1feRGhGEwZQZ10uU+c2TBfGG77zPN/WS9iR7hCiRsvVkyrXbLB/tkgUSlSzXyS
+         faVyYXZpgsVlK5bADQsOb3ezq6fs76Z6XhKiAGVNpSFY3xmNJw44kgXqDtp9scHQFN5p
+         cPFTyyNQ120AJrbFf1Rv9aTqXwoUjW822i6kWcHVXzn3wQ3/P3xwqOzb5DGMKxhGv7H7
+         E6fg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790359100; x=1790963900;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sJ/NQTl1WNpwK1sUwU0K8HlG1PwVQbHpKjHbUF6bYOc=;
+        b=NCyNgAPBPuDZZKjCDSzrE1ltTj+RjggtHmEY4XOm2kO4+NBD9pNlAuAaE8bYe+G7fH
+         +NfUVzvSOBFWE1d57dTeOeWwwr53VEjXukN5IuxMT1vjRZNZZQ/YWdvtRV8/+Ytz1SJr
+         zSgMwi6Li5VadN3WXjhf6mNWLrBFrc+Mh7k6/gF43qBXy2sraI8WYdp6y7sMwW3lmsGJ
+         nfbjP9gr6iP2EGJFY8QLqwvrrU5D5nZYeq+WF1FYPJ2d1KIif2WeTwZzQTTdkBOzFjwK
+         WKvrsexhv8uhnA4SOLejEqTDzWOFEraFU/ArOhACxp2vn7nat6NpthIuEH16JoPgPMoJ
+         D1cA==
+X-Forwarded-Encrypted: i=1; AKwUvByaoZt1oNq2yCQYIkOnG4sdsKtZ9ajf9lOUvz2XKRb3Sgmu4zwx+TcTMXg8crcebKZ6WnQsGsQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++m4LZboxmyrsvC1t+pIRRldgN0VAmHKjELURMDS3Vk4o1kA8tSL
+	ILp1ijlDI86sLn14vAqbP9J4XPNw3iIXk6MH1gkKsX6XB5W/tNVs6gVx
+X-Gm-Gg: AYBFou0HUczT21LE3ZBU7Ex23630sC42rDfNR0CronEGAfj5kIBPUQvpE6Y5jZJWfB9
+	tai2ALWkJ3E0AI6lWQrJqnX34UJPfvFSrcza7jI4wVs2bk6szG2yaCO30SWdwudk44SVvfkHxw0
+	ZdNMVWuCi/mIvdOLeLEIYaxChWLIbUU3vPqtfMqzpDTPbWb5Z6qp4Ki0iHWWCOUOQD8m0WRjryj
+	+Pex2fbN+PTbEpvxbGTSVTHkG/B0jlxFrp5OxOMrfCflizk6pW9etbFnKngjxeriavMaSKyW6c/
+	fpu1qs8gzj6NPeQEMQfPTu9BzT0/CHvYScLSQjRMxO/r2oipJp+DphpNHCe045h2ztiXGg5sFi+
+	iUiOgWEGfcwWfSZQ71HaRkMiBGT2+Wc9YQpuhlhDr7pCVqUpfPKTt1H3Rtab1T7xOBG3fdIhOs4
+	1saSzmpSC8lFaYmxMoQqQkkQC7jgCFyO83g/K2bb8My+fGsrJZTUQHJGxoXgScNklAGJW8g3rOw
+	g==
+X-Received: by 2002:a05:7022:2525:b0:144:f096:4dda with SMTP id a92af1059eb24-146d096d302mr1238633c88.43.1790359098946;
+        Fri, 25 Sep 2026 10:58:18 -0700 (PDT)
+Received: from beelink.. ([187.13.30.172])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34145727589sm7005744eec.23.2026.09.25.10.58.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 10:58:18 -0700 (PDT)
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+To: david@ixit.cz
+Cc: oe-linux-nfc@lists.linux.dev,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Subject: [PATCH] nfc: nxp-nci: fix IRQ use-after-free in i2c remove
+Date: Fri, 25 Sep 2026 14:58:00 -0300
+Message-ID: <20260925175800.3694044-1-qwe.aldo@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] scsi: ufs: core: Decouple CQ sweep from request
- iterator in MCQ
-To: Stanley Jhu <stanleyjhu@google.com>,
- "Martin K . Petersen" <martin.petersen@oracle.com>,
- Bean Huo <beanhuo@micron.com>
-Cc: Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman <avri.altman@wdc.com>,
- "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
- Manivannan Sadhasivam <mani@kernel.org>, Peter Wang
- <peter.wang@mediatek.com>, linux-scsi@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <CAE14pdek6ynze+muDZrK+yNX-3ioe3vprxOA4W22qokg352tJQ@mail.gmail.com>
- <20260918143809.3034592-1-stanleyjhu@google.com>
- <20260918143809.3034592-3-stanleyjhu@google.com>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20260918143809.3034592-3-stanleyjhu@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/18/26 7:38 AM, Stanley Jhu wrote:
-> Sweep or poll each hardware queue (hba->uhq[i]) once at the start of
-> ufshcd_mcq_compl_pending_transfer(). When force_compl is true, run
-> blk_mq_tagset_busy_iter() afterward to complete residual in-flight
-> requests with DID_REQUEUE, and remove the now-unused
-> ufshcd_mcq_compl_one() callback.
+nxp_nci_i2c_remove() calls nxp_nci_remove() before free_irq().
+nxp_nci_remove() unregisters the NCI device and frees ndev via
+nci_free_device().  The IRQ handler nxp_nci_i2c_irq_thread_fn()
+dereferences phy->ndev and calls nci_get_drvdata() on it; if the
+interrupt fires between the nxp_nci_remove() and free_irq() calls the
+handler operates on freed memory.
 
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+Swap the order: disable the interrupt first with free_irq(), then tear
+down the device.
+
+Fixes: 6be88670fc59 ("NFC: nxp-nci_i2c: Add I2C support to NXP NCI driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+---
+ drivers/nfc/nxp-nci/i2c.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/nfc/nxp-nci/i2c.c b/drivers/nfc/nxp-nci/i2c.c
+index XXXXXXX..YYYYYYY 100644
+--- a/drivers/nfc/nxp-nci/i2c.c
++++ b/drivers/nfc/nxp-nci/i2c.c
+@@ -346,8 +346,8 @@ static void nxp_nci_i2c_remove(struct i2c_client *client)
+ {
+ 	struct nxp_nci_i2c_phy *phy = i2c_get_clientdata(client);
+
+-	nxp_nci_remove(phy->ndev);
+ 	free_irq(client->irq, phy);
++	nxp_nci_remove(phy->ndev);
+ }
+
+ static const struct i2c_device_id nxp_nci_i2c_id_table[] = {
