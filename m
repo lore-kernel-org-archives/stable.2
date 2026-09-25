@@ -1,164 +1,112 @@
-Received: from mta1.migadu.com (out-68.mta1.migadu.com [95.215.58.68])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D7214A5C40
-	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 19:32:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.68
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 953514DE73F;
+	Fri, 25 Sep 2026 19:37:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790364784; cv=none; b=adu0LtABY/+Lzu4oe2f/IzxbKhrNj4mDxci5GP45c+Zo8J5RxqwZ1TKj9roJVBzi8UiLer3zMkdSrC96u2rnl2COutiNUyFZadhsozFPyixY0uCfEvb8uY5tQxd/ueB51bM2KH1L4bfIgb+wagTdtCOBTxoQeKV/l2hBGbX+tXc=
+	t=1790365044; cv=none; b=JmLvPTX4fbHihmeJ5bAOZl8sLoAxtiDHBu0Z5Tgp6Ns1d7FsG9lZ8OfQKhcM5rM+2W+R6Ogc03DdiZhXsn/rzoa6ehhusGdL6gfGYGIpSNmPm6lDgHWS4vzc6PYDeejO+FtlfDdoKfli0IujP9X6sns+w8DmJ47AR5hyuhga1w4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790364784; c=relaxed/simple;
-	bh=8V5VwhpeXhxeuPpsgf59bCJyOR0PZgomhhn/k9/LjAc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oDntePYQ9F6UPUOtI5Ta7RiwiRhs8MVM9Buzar1xLYrRYQWPhOVAem95C06ij2++gS3dV9Z1DfPwIBZqqIkIlaZBYavQbyBSOr6LtF8oLjee4a/6qLKImsaeslaQh1n+ADCmgiPFjgGg1Ykv9bguirPAtmr75HM9/ZttaAtmP1E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ZjNtJnKb; arc=none smtp.client-ip=95.215.58.68
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790365044; c=relaxed/simple;
+	bh=RfW8sGRT5+qoYaxBWno9E7kyH2YwL9rGfo0FyyF7m9c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=i+TLVpniQFbrZNxSROynujfvMMOpuvv6S4m4zFAQbbHTZm7M3snxBJ8vCBwSYXAv5wuehriifyP5ih/9cXImfg98BHZJZwDP1gwZ4aj7ELJCXXjCXRB7SuJwS1Ta8FLgbtIqqjg3qsM7iCLhmiGXFfNVutA7jTegfLxy2/WyJfQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gPLHJ7SN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ZjNtJnKb"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=8V5VwhpeXhxeuPpsgf59bCJyOR0PZgomhhn/k9/LjAc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790364774; v=1; x=1790969574;
- b=ZjNtJnKbagh8MvIjULkiplrnHTEmJ1zkpRh3XgjMkrlMzB3K/lSnCB3Xj+4f82e0nef+DHx/
- D67yN5BOxVlUbUWhLw8w8E5J73qlPwzA1qvLMOIYPW+oF60kwji/IjlX4tX7WGHqZ3rtrficpPo
- su8VNp3KFxVeY/PteHVp7vdA=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 88cdd669b54f57db;
-	Fri, 25 Sep 2026 19:32:52 +0000
-X-Mizu-Trace-ID: 88cdd669b54f57db
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <1e223334-b371-487b-a60a-7f1f5c007f7e@linux.dev>
-Date: Fri, 25 Sep 2026 12:32:49 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gPLHJ7SN"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 6FADD1F000FF;
+	Fri, 25 Sep 2026 19:37:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790365043;
+	bh=7fAX8ToQ+KN1SjKBrrQcodD+POK4xgQeUTLqOhlBn1M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gPLHJ7SNY9CVlofi9WtCYgndW75HeoV1PKazU+u5dlrVltYjtFdqbX7IAwvyWCIYz
+	 Xal7EgQmn3ccDlSR3k7lRO6mzhSCpCyQCgcFPXQBNSrvUme5u+UYpl92tOf2svSsBl
+	 RhWVo6jEOgAyrXCp5Nz+62deGs9UJ/VzXIEufNJ66SAkMLOtmbrNj2qQ8NGOt9KdUt
+	 XLuwS3IA++2bB1N0q5TdLX/9yKAktg5/E7M3jar+R4haFDxJW89mEh2fEtrEv2F7U5
+	 G2pfj2Ers78X7ggXQUjTyRXgSTUZTpngp44MGbCEfX4m9EZmOZsHlj70MIBu8a675c
+	 1vpw+WetbVcxg==
+Date: Fri, 25 Sep 2026 12:37:22 -0700
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: Christoph Hellwig <hch@infradead.org>
+Cc: cem@kernel.org, stable@vger.kernel.org, linux-xfs@vger.kernel.org,
+	Hans Holmberg <hans.holmberg@wdc.com>,
+	Damien Le Moal <dlemoal@kernel.org>
+Subject: Re: [PATCH 09/12] xfs: break out of zoned reservation loop if
+ signals are pending
+Message-ID: <20260925193722.GP2705364@frogsfrogsfrogs>
+References: <179030931976.3344850.17488605741516845262.stgit@frogsfrogsfrogs>
+ <179030932240.3344850.15431918414180548991.stgit@frogsfrogsfrogs>
+ <arYJouxwjLL4O2GY@infradead.org>
+ <20260925191830.GO2705364@frogsfrogsfrogs>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] tracing: fgraph: Raise FTRACE_RETSTACK_ALLOC_SIZE to
- 1024
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: rostedt@goodmis.org, mhiramat@kernel.org, mark.rutland@arm.com,
- mathieu.desnoyers@efficios.com, andrii@kernel.org,
- linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org,
- bpf@vger.kernel.org, kernel-team@meta.com, stable@vger.kernel.org
-References: <20260922225526.1554758-1-vineet.gupta@linux.dev>
- <20260922225526.1554758-2-vineet.gupta@linux.dev>
- <20260924100040.GD4121339@noisy.programming.kicks-ass.net>
-From: Vineet Gupta <vineet.gupta@linux.dev>
-Content-Language: en-US
-In-Reply-To: <20260924100040.GD4121339@noisy.programming.kicks-ass.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260925191830.GO2705364@frogsfrogsfrogs>
 
-On 9/24/26 3:00 AM, Peter Zijlstra wrote:
-> On Tue, Sep 22, 2026 at 03:55:25PM -0700, Vineet Gupta wrote:
->> When ftrace graphing is turned on, all tasks in the system missing
->> return stack page are assigned one. This is done in a simplistic
->> multi-sweep loop of FTRACE_RETSTACK_ALLOC_SIZE (currently 32) tasks
->> at a time as follows:
->>
->>     start_graph_tracing()
->> 	do {
->> 		alloc_retstack_tasklist
->> 	} while (-EAGAIN);
->>
->>     alloc_retstack_tasklist()
->> 	alloc x32           # GFP_KERNEL, may sleep
->> 	rcu_read_lock()     # preempt off
->> 		for_each_process_thread    walk N_total, no cond_resched
->>                       t->ret_stack = new_page
->> 	rcu_read_unlock()   # preempt enable but no explicit yield
->>
->> Each successive iteration of loop invokes for_each_process_thread()
->> which doesn't support cursor based resume and always restarts from the
->> init_task. Thus each successive loop needs to skip the tasks assigned
->> ret_stack in prior sweeps and thus take longer and longer to find the
->> candidate 32 tasks.
-> Does this work?
+On Fri, Sep 25, 2026 at 12:18:30PM -0700, Darrick J. Wong wrote:
+> On Thu, Sep 24, 2026 at 10:41:54PM -0700, Christoph Hellwig wrote:
+> > On Thu, Sep 24, 2026 at 09:12:51PM -0700, Darrick J. Wong wrote:
+> > > From: Darrick J. Wong <djwong@kernel.org>
+> > > 
+> > > I noticed that if you run generic/476 for long enough on a zoned
+> > > filesystem that it runs out of space in the zoned section, fsstress gets
+> > > stuck in this loop trying to reserve space, failing, and kicking off the
+> > > gc.
+> > 
+> > I guess this is not directly fixed here, right?
+> 
+> Correct.  There's enough space freeing activity going on (truncate,
+> punch, unlink, etc) so that the gc actually does clear out zones; but
+> there are also enough writers consuming more space that they all end up
+> in this loop at some point, and some of the threads never manage to get
+> what they want from rtavailable.
+> 
+> > > The garbage collector in turn is continuously running (so we don't
+> > > break out of the loop) but the process is no longer responsive to
+> > > signals and can't be killed.
+> > > 
+> > > Fix this by backing out to userspace for any pending signal.  This
+> > > should be safe because space reservation is usually the first step in
+> > > any modification to a zoned file.
+> > > 
+> > > Cc: <hch@lst.de>
+> > > Cc: <stable@vger.kernel.org> # v6.15
+> > > Fixes: 0bb2193056b596 ("xfs: add support for zoned space reservations")
+> > > Signed-off-by: "Darrick J. Wong" <djwong@kernel.org>
+> > > ---
+> > >  fs/xfs/xfs_zone_space_resv.c |    5 +++++
+> > >  1 file changed, 5 insertions(+)
+> > > 
+> > > 
+> > > diff --git a/fs/xfs/xfs_zone_space_resv.c b/fs/xfs/xfs_zone_space_resv.c
+> > > index 7aa3c74fb2e01a..8edc82025abbd5 100644
+> > > --- a/fs/xfs/xfs_zone_space_resv.c
+> > > +++ b/fs/xfs/xfs_zone_space_resv.c
+> > > @@ -157,6 +157,11 @@ xfs_zoned_reserve_available(
+> > >  		if (error != -ENOSPC)
+> > >  			break;
+> > >  
+> > > +		if (signal_pending(current)) {
+> > > +			error = -ERESTARTSYS;
+> > > +			break;
+> > > +		}
+> > 
+> > I don't think normal fs read/write semantics allow for -ERESTARTSYS
+> > on arbitrary signals.  So this should probably be limited to
+> > fatal_signal_pending().
+> 
+> Ok.  That at least means I can ^C the g/476 test processes. :)
 
-Yes it does and much better at that: test run for 400k threads went down 
-from 227 s (stock) to 7.2 s (my patch) to 92 ms. Woo hoo !
-I didn't know about this cool trick.
+Heh.  Rereading my notes it was always possible to kill -9 the process,
+but the difficulty with fsstress is that it uses SIGTERM sets a global
+flag to tell its threads to exit their file IO loops.  Since that's not
+a fatal action, fatal_signal_pending() returns false and so the thread
+remains stuck looping in the kernel.
 
-A couple of things worth pointing out:
-
-
-> diff --git a/kernel/trace/fgraph.c b/kernel/trace/fgraph.c
-> index ed455b53513b..155dafad474d 100644
-> --- a/kernel/trace/fgraph.c
-> +++ b/kernel/trace/fgraph.c
-> @@ -1036,10 +1036,9 @@ trace_func_graph_ent_t ftrace_graph_entry = ftrace_graph_entry_stub;
->   /* Try to assign a return stack array on FTRACE_RETSTACK_ALLOC_SIZE tasks. */
->   static int alloc_retstack_tasklist(unsigned long **ret_stack_list)
->   {
-> -	int i;
-> -	int ret = 0;
->   	int start = 0, end = FTRACE_RETSTACK_ALLOC_SIZE;
->   	struct task_struct *g, *t;
-> +	int i, ret = 0;
->   
->   	if (WARN_ON_ONCE(!fgraph_stack_cachep))
->   		return -ENOMEM;
-> @@ -1054,26 +1053,29 @@ static int alloc_retstack_tasklist(unsigned long **ret_stack_list)
->   		}
->   	}
->   
-> -	rcu_read_lock();
-> -	for_each_process_thread(g, t) {
-> -		if (start == end) {
-> -			ret = -EAGAIN;
-> -			goto unlock;
-> -		}
-> +	scoped_guard (rcu) {
-> +		for_each_process_thread(g, t) {
-> +			unsigned long *rs;
-> +
-> +			if (t->ret_stack)
-> +				continue;
-> +
-> +			rs = kmem_cache_alloc(fgraph_stack_cachep, GFP_NOWAIT);
-
-It still pre-allocates FTRACE_RETSTACK_ALLOC_SIZE reserves in the fast 
-path - my (limited) testing never hit the reserves, but I agree better 
-to keep it and 32 seems like a reasonably low number?
-> +			if (!rs) {
-> +				if (start == end)
-> +					return -EAGAIN;
-
-This indicates the reserve pool is exhausted so it safe to elide the 
-free: loop at the end: warrants a comment IMO.
-
-For submission, would you take this up as reported-by me or do you 
-prefer I send a v2 (your authorship and SoB etc) ? No big deal either 
-ways just not sure what the std operating procedure is and nuances of 
-all the tags etc.
-
-Thx,
--Vineet
-
-> +				rs = ret_stack_list[start++];
-> +			}
->   
-> -		if (t->ret_stack == NULL) {
->   			atomic_set(&t->trace_overrun, 0);
-> -			ret_stack_init_task_vars(ret_stack_list[start]);
-> +			ret_stack_init_task_vars(rs);
->   			t->curr_ret_stack = 0;
->   			t->curr_ret_depth = -1;
->   			/* Make sure the tasks see the 0 first: */
-> -			smp_wmb();
-> -			t->ret_stack = ret_stack_list[start++];
-> +			smp_store_release(&t->ret_stack, rs);
->   		}
->   	}
->   
-> -unlock:
-> -	rcu_read_unlock();
->   free:
->   	for (i = start; i < end; i++)
->   		kmem_cache_free(fgraph_stack_cachep, ret_stack_list[i]);
-
+--D
