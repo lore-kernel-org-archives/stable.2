@@ -1,49 +1,49 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2021D4AB3CC
-	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 14:28:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 103364AE107
+	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 14:28:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790346534; cv=none; b=n5bRplAMUNDX+yvhG7BS1J91FUBnmcglMJwsdIwNsQsQ1g5SUUZE7VtSkmoEoDVHqX1QZmTmLksCDB5DzF3VcLLURztYAaQZhaaejK4/LyNxYF1mx5pdGdf09Y3kVX/ujQmjqS2PE5LhJvbke4eOKo+ovALTCd72qsiice/i1BM=
+	t=1790346536; cv=none; b=qo8BaxpW+veccfGenNYs/a8zunU99pmoeg6O10baUx1+AGz6zsIbfP2J4NJyi0jOniks+6vwVuV27DPaUjpY2N+RAVrsEPrBry8NtpTbo6rJ+yWSYinT+WYSiUoaHqyLNwRNjobeJBoHW3nJJAXUo2GgcUKpqLIvp2KgzgGOdCI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790346534; c=relaxed/simple;
-	bh=S1yyYoIfsXDNk26tkXJrV63IZblVCGtxk56PBE1zovo=;
+	s=arc-20240116; t=1790346536; c=relaxed/simple;
+	bh=vPABlXTvAHYs7re5yflf5KEOwi1Oo7wzBTr5T9fnK1U=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=ZoBG1BB9R/NzB4oWqV0NDvwbBRN7H3jziYe2r8+22WRXy6hiL8sZh3vGUa3y+uIfeSk0PA4RPsIe8p0+46KWL65jUuNcyctSXIrAu3oP2YeKsT0R5RmIMye/l0NPFRGY4BPeNEQ30wDELP3K+n36BvBwm6ucgkmEQz/2Q9QlXys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=GV+OxjOc; arc=none smtp.client-ip=185.171.202.116
+	 MIME-Version:Content-Type; b=n3hWJwYY0vy67eCQdx/po3vNVPfSVbGYDi3RC9wO4fLG2Klbew8rwtnUNx7HAdU9D4p6SyfN0F/vhIxFnXCElWojV/r9kbvJZ728aJMao0DOEEBZJPWyeBnm4YZ1h54PB33lHcmqw9rJIQIxAyN5xPIdh02YnyqlPbcKgByx7MI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=gXZcrreV; arc=none smtp.client-ip=185.246.84.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="GV+OxjOc"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="gXZcrreV"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 25195C653FA;
-	Fri, 25 Sep 2026 14:29:39 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 91BF21A101E;
+	Fri, 25 Sep 2026 14:28:53 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 3CE3C6073B;
-	Fri, 25 Sep 2026 14:28:51 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 203F0102F19F8;
-	Fri, 25 Sep 2026 16:28:49 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 65DDD6073B;
+	Fri, 25 Sep 2026 14:28:53 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C6F88102F08C8;
+	Fri, 25 Sep 2026 16:28:50 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790346530; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1790346532; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=48TSY6/XqUrQC7pG5irCkd7o+Gn6x10HSD/mfjLBu8w=;
-	b=GV+OxjOcXeQg3GbndjDmYQeb9rE2x/7r3ExFjXmTu4962hzCt84kcQSZlBLn2/8Tg1517J
-	5nusq3BIDopS/69XOdSFuNGzwpGI//SSx7HdnY21MdHSXY2TUIXN9qzSnwXRDQLGNJVGnI
-	LaPYABgMW4bnfAqCPNSpbjHTWkC4H5fj3/FKoWUSnumTwgwXBZoAtSI5kthmvJdy9qNaJX
-	m6gsfmUMe3OpBPgeNsKqXOnFjg3Xt83euUFU+9/y8ydHlzwWlpvGD1ywVoivGQk5Qa13KY
-	ZplEsJr6U+DQYHFa2OB8OVsE9N9x8tYJkyG07+4hs0P1N7xz6cYraDyd9ZKwVA==
+	bh=FKzsy+CYXj4lbJ3LMsgqSQbf9iKfxj/uQZtvE+v+/n4=;
+	b=gXZcrreVRlEjpngJOa2Yl3i0dkCM5F4NPD5I/aB+IuRzRf6Nhq0HF9cri+/gqhN1gvOXtg
+	bL2sfg2mVWhVb24UAO9w4iLLbOfKmW0R+U8vqjlMIPSISI3n5CAJ0rDO+A5+iQt3OTMC12
+	P1ZxqWArLYb3MEcs2uyDDx4uQtyIEipYxFXlO5AV9hLrjfvLMZs7LIESRyoTRsqNJSn3fn
+	K2X4jE/dMnk2I0vQJF0IK77ABAFCElGexeELa6Vq0TwhPrJeYs4nvWtzKfixGMs/ZrigRh
+	2ZsyhbM/x1ltcqCwHGcZoTvjqrnNH1/CJX65qg0Qxmw/BY8eCAh6w8NTjF+C/w==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: akpm@osdl.org, Wentao Liang <vulab@iscas.ac.cn>
-Cc: dwmw2@infradead.org, linux-kernel@vger.kernel.org, 
- linux-mtd@lists.infradead.org, richard@nod.at, vigneshr@ti.com, 
+To: dhowells@redhat.com, Wentao Liang <vulab@iscas.ac.cn>
+Cc: linux-kernel@vger.kernel.org, linux-mtd@lists.infradead.org, 
+ richard@nod.at, vigneshr@ti.com, viro@zeniv.linux.org.uk, 
  stable@vger.kernel.org
-In-Reply-To: <20260917102407.2146727-1-vulab@iscas.ac.cn>
-References: <20260917102407.2146727-1-vulab@iscas.ac.cn>
-Subject: Re: [PATCH] mtd: maps: l440gx: Fix double put of the PM device in
- init_l440gx()
-Message-Id: <179034652899.1166139.902487494191174396.b4-ty@bootlin.com>
-Date: Fri, 25 Sep 2026 16:28:48 +0200
+In-Reply-To: <20260917102550.2146806-1-vulab@iscas.ac.cn>
+References: <20260917102550.2146806-1-vulab@iscas.ac.cn>
+Subject: Re: [PATCH] mtd: mtdsuper: Fix MTD device reference leak in
+ mtd_get_sb()
+Message-Id: <179034653062.1166139.3563266165640465080.b4-ty@bootlin.com>
+Date: Fri, 25 Sep 2026 16:28:50 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -55,21 +55,22 @@ Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.14.3
 X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, 17 Sep 2026 10:24:07 +0000, Wentao Liang wrote:
-> The PIIX4 PM device reference taken with pci_get_device() is dropped
-> again before the iobase resource is allocated.  If pci_assign_resource()
-> fails, the error path calls pci_dev_put() on pm_dev a second time,
-> releasing a reference that is no longer owned and underflowing the
-> reference count.
+On Thu, 17 Sep 2026 10:25:50 +0000, Wentao Liang wrote:
+> mtd_get_sb() is called with a reference to the MTD device already
+> taken by the caller.  When sget_dev() fails, the function returns the
+> error without dropping that reference, so the device is never released
+> and its refcount never reaches zero.  Every mount attempt on an MTD
+> device whose superblock cannot be set up leaks a reference.
 > 
-> Remove the extra pci_dev_put().
+> Restore the put_mtd_device() that the fs_context conversion dropped on
+> this path.
 > 
 > [...]
 
 Applied to mtd/next, thanks!
 
-[1/1] mtd: maps: l440gx: Fix double put of the PM device in init_l440gx()
-      commit: e6ca524ee5b2705be30ea19ce2e55122d9f9ed8f
+[1/1] mtd: mtdsuper: Fix MTD device reference leak in mtd_get_sb()
+      commit: 62ee3da38f41bef83c1cf250f6816a0ee187674b
 
 Patche(s) should be available on mtd/linux.git and will be
 part of the next PR (provided that no robot complains by then).
