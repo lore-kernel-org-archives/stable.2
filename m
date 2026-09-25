@@ -1,78 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 077894BD35C;
-	Fri, 25 Sep 2026 14:57:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790348276; cv=none; b=pvy1W81C+oRP8eoVl/VSOPymt2KR7WajG/Xag6e0nGNnNu9VbVybCY6VTWB+UKKyjAN4chaeEgnWSSHth91iv0MHQQqHlAMIOgAZ4Ifs6h+tIWVNLy+Y4wTum4sBiFQzAuMOLFqc52fulF9jOaB3DjeXSsKtnP3h3CLnGVBl6W8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790348276; c=relaxed/simple;
-	bh=qgiPTRHHBDsdWtpSfEQMVSG8rZenbKuJolNS9oCwZcg=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=ted8SPPKAnI56L3RA5pWIo7bOqBDmDTc1xfS0NFeFdqCInT5V/lK1Lddl49SGp9C9PwiMqm7jajYtiiwGyyWmyWbj4+EDaAWYo70Mx30+G9Se5HxhS78OiXcwWnvvbuHM+wCpj6BcTDOzDmplObfIl3PqHKNld7srB7mIJME6Wk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N0Cds4je; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 050824BF92A
+	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 14:59:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790348412; cv=pass; b=dz/YQWnBvx/ZNZso9ma98RfThHH/AdBT0uFEWTKnk3Mhtubzmok/bYelx87g5nxYRTGku1IxZwpyzuP++e63fSVczSpTkQDqcVXooZedT6CdSS5p7jn//mFqDE4iyDhK1o6J94+I1kPi8eba0wS7qZ9rxxwovoNXLMg5JvCWZB8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790348412; c=relaxed/simple;
+	bh=G7PD1SsyWtfXJXkRv2FlPB9lAjfDo8cMbMk/Mdw9V7U=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=J4Xc0SWWNrVHFRqP5iePnHDQDgcWQvdTY2BmJtuGljtuQ9lZB/WBJhzCZ44NDVy0w6aiRy3yfGy+hauETNfxRwzDQvLPkubqp9+APNCtMjBDxvvXv3IcebMdJPmH5TGMDqpFRSJZw1uxPo6GUfHUzIekSy91MVdLq9Thkj/SI+M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu; spf=pass smtp.mailfrom=szeredi.hu; dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b=VU+craBP; arc=pass smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=szeredi.hu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N0Cds4je"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C47EC1F000FF;
-	Fri, 25 Sep 2026 14:57:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790348250;
-	bh=JHoWmvc5VW037x1xGuI+6ckYAN/C+4nEMLY8oldVLdw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=N0Cds4je/+07P9mu7EpPfJUB9JJ7PPk40+37cQ+MpBk84kXWd6HSWUytE5Nl/4Muf
-	 aFMP3vwxfeKIZzf7XPAWDDJu06NC9FfSTQkEPo2UZ7WWBu10WOhmxzzSs4X2W9OM8Z
-	 cz/5rH6OMX4I7THbw2nIzvnt7OddDbxXjwRB2WO4z0WMHpEXLVQi9SgT83Gk6hVnB7
-	 wW4pqPoVlYj5hOU2AYfobm9WJCpt+pr2KGUOIpBpf0ET1MHb9SPdqmvFyckuBwbN2h
-	 Yx718xpi2zaysELF9Un22yys+JU6OKio3Ipk7rMSlRebYxBptNvMXf9XPni3sF3m9j
-	 Qf3w4G8Phx3bw==
-From: Christian Brauner <brauner@kernel.org>
-To: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
- Breno Leitao <leitao@debian.org>
-Cc: linux-fsdevel@vger.kernel.org, paulmck@kernel.org, 
- linux-kernel@vger.kernel.org, kernel-team@meta.com, stable@vger.kernel.org
-In-Reply-To: <20260918-dcache-task-rcu-qa-v1-1-963ec83e6d0b@debian.org>
-References: <20260918-dcache-task-rcu-qa-v1-1-963ec83e6d0b@debian.org>
-Subject: Re: [PATCH] dcache: report a Tasks-RCU quiescent state in
- dentry_kill()
-Message-Id: <20260925-tunlichst-subsumieren-wortbruch-130f8e4e222a@brauner>
-Date: Fri, 25 Sep 2026 16:57:25 +0200
+	dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b="VU+craBP"
+Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-530d0d5ae11so11245861cf.0
+        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 07:59:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790348391; cv=none;
+        d=google.com; s=arc-20260327;
+        b=npdzF3TD8m+wXKrTdGMkbqgCbcNgB3m6bP6VKFwEtpdS1Yol9tZtdZhvuDuCvrmxzx
+         uYgHvJLldGsrw/z88pCPUfhcdcZJxeAoup3q1Gcea2gLELPmGYf5zjwzTVnBgqcm+SVi
+         S+fpcEqwG4cFjUUAiIaYfNHS/1y+KzLL0H0zmkK4vHq7H3zyvS+9EzH4X/hm2TaXcrX3
+         X9+/G1gk6KPUW0ZBYgfcbCdQlzLvvApmgW7OMx0WTb18oPpg4+e6ASX6f4KuE4YPBUZl
+         1wjyw2XQgehBS2erMoWDB9njV9oNf6r0gcCHPqeFctFOE0E0yp3nhu1BWQJhNTVRjFJD
+         c6HQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=oNCxj1Tkne1Dd9zOhmWp2sMzjpmd3KFTSPzHbdHwTl8=;
+        fh=HGBvUlUP9HqrDRkEyc4adwIiLR+yLWD7aUZzAzXGhYw=;
+        b=Lybb8bzN79a8dWoYHYuPRpY+v6cMx/AjNAWNh7/6Pa5rem0yJLrUl1cxHlxaO6fSB5
+         D3TzoXdAqjK8moIrSieCAZjITPgQFYpqiFNkRRzf2JvZFYUcENkmLNVnozCxnqdrIU7p
+         jlev7Fag/MRtze1Ibljodlq2RllPH9DfaawvRvQbSZPG3OeGqcXx0cTp60JETI21F7P0
+         kyE1SUo1Lnx8bFgrdxT6ku9i9WQ3BojKSkSOJksX3ckV7R/WXw6VnTl+gDSB2O/rAYfB
+         D7bAZBPbjaZfUTTLlz5zVxjT2KDpzC+LqZtMXjKBl4vZlrqzbtjyvAXHQ1cz5z4bMOXn
+         rnmw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=szeredi.hu; s=google; t=1790348391; x=1790953191; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oNCxj1Tkne1Dd9zOhmWp2sMzjpmd3KFTSPzHbdHwTl8=;
+        b=VU+craBP5sTfmgsks6GqGyE/aSlKFV/uYtDlbeOzYSOfhZM0LCRTW9xsMii7u5DKPP
+         ee+c9I/OHN3XyjUODNRuDCK0Kc+tq2ddcB9We9B5h0V6rfU7Ena6Hzd3gZ9r2rPCXGqY
+         gWDr2/Ff5lGSfoHuHqx1lh1188vB1iCslgZSU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790348391; x=1790953191;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=oNCxj1Tkne1Dd9zOhmWp2sMzjpmd3KFTSPzHbdHwTl8=;
+        b=Xoq+sYPWSRSU1xTUUFK5wlNRv8hFaoTwKL8MruNyGb28Y4EeYxhzcipAGn/Eay99uv
+         f+4l+MOCes+ZkdAvz0uvODswaNL2FWba9KQOt27n9kqgy878oUyckUxB3Pv9VUq/49Za
+         6wrC9NI+Dsgm74Zgd4AB5tCvG6YRvg6sebhltEiZLtM2vmv/CquD5pYs37IiOzKsu2zi
+         05usMnp0cN2UD2QLurAiR1Vvfx6tUNCKQy0DmPmVms/WeSfHMMAtWu/lr76lnb/9e40Q
+         hle9rdsCBJOGK65UGGxYJDnmlNShF3vRk6CPbinI6Q4EhM8TzxDoDFkFisDeuo5VPV/L
+         LFsQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxiKbgeNIDD2/4flXF/S32ckYvBDttx+4hVx0p7dF4mNu6MOVeejeWfgNq5cd2q1cWm6DkggBM=@vger.kernel.org
+X-Gm-Message-State: AFuF++n7MDI1/dyvDykI6eU3+jLGJ4SjddW0DTFzFH4SUBpfxJKgrwjD
+	K0btr7V0bQuCvmlT/d6bMlJMSrowZG+8OCpGgRvESHoyYR7PLmpnrakNAtP6GITZXXd4TNJMs/Q
+	rw1zKIIPFknDB/GnxSsoKGHYhdrXnexRjc+PA1+/bkg==
+X-Gm-Gg: AYBFou0x2kw41gIYymb71jW3ztTRNqMNf25j2zTFMYrLVm0JpF090gxmIJGXcarpm+w
+	kNkBz3bGU8hghleO9m2ltQbww7V65yCulN9AShEiEBcR81D9yq1jJNLPJ4fTMqqHOxmR2UjaKGL
+	R7Gx0WTqgkEnvxdXoogT5QO7PNcWQEym2FMD4TSFbIpDp/eKpibqbbRf8wsLUfjcY9PFLFEBjLQ
+	7JlO91llOkgCNwSeoxd57D5MCiqR4qJlKI1xLBSNxXd28i3XzrAC3pcwmgNUwyecVdM4VfLonIJ
+	l4mf6KZLi0jZ5rVWjghjimixBKEyG/EMfyMR6j7m5UVRhYk2oSNlSKkZvUqABJmpj5op86cgIWJ
+	zyvDyGhcigA==
+X-Received: by 2002:a05:622a:508:b0:530:2cc6:c8ad with SMTP id
+ d75a77b69052e-5330b5ad6e9mr51539751cf.19.1790348391358; Fri, 25 Sep 2026
+ 07:59:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-db0b7
-X-Developer-Signature: v=1; a=openpgp-sha256; l=903; i=brauner@kernel.org;
- h=from:subject:message-id; bh=qgiPTRHHBDsdWtpSfEQMVSG8rZenbKuJolNS9oCwZcg=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRt675WscBM90wrh1DIi4U/Gu7qCM288ceSKXHr1G0Lw
- rgLz/pe6ShlYRDjYpAVU2RxaDcJl1vOU7HZKFMDZg4rE8gQBi5OAZhI5kxGhoNT7FrOn7HZvKbf
- 9am640YzD1uh3mQF1pk7V1jeueeb/peRYb4Lu2v/zrmqjJ9fdu/6WHC7yufqjxzn3sT824rcE6N
- WMQAA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+References: <20260910235110.3922068-1-xmei5@asu.edu>
+In-Reply-To: <20260910235110.3922068-1-xmei5@asu.edu>
+From: Miklos Szeredi <miklos@szeredi.hu>
+Date: Fri, 25 Sep 2026 16:59:40 +0200
+X-Gm-Features: AclHuK8PxhLjayeNK4Ioc2AfP1egLwmVYg_0ZofucCJ6SB6GJuae3F4l1SVQLt0
+Message-ID: <CAJfpegsxW3gf6Dj+zVKTTHx8bsASXiMboZ6UWd5WWtBMqd8WZQ@mail.gmail.com>
+Subject: Re: [PATCH v8 1/2] fuse: don't BUG when the copy buffer is exhausted
+To: Xiang Mei <xmei5@asu.edu>
+Cc: Joanne Koong <joannelkoong@gmail.com>, Bernd Schubert <bernd@bsbernd.com>, 
+	Baokun Li <libaokun@linux.alibaba.com>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A . R . Silva" <gustavoars@kernel.org>, fuse-devel@lists.linux.dev, 
+	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Luis Henriques <luis@igalia.com>, 
+	Pavel Begunkov <asml.silence@gmail.com>, bestswngs@gmail.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, 18 Sep 2026 04:01:57 -0700, Breno Leitao wrote:
-> dcache: report a Tasks-RCU quiescent state in dentry_kill()
+On Fri, 11 Sept 2026 at 01:51, Xiang Mei <xmei5@asu.edu> wrote:
+>
+> fuse_copy_fill() hits BUG_ON(!err) once the iterator backing the copy
+> runs out of pages.  Over io-uring the amount copied is not bounded by the
+> payload buffer the server registered, so an unprivileged user can drain
+> the iterator and panic the host - mount a FUSE filesystem with small
+> payload buffers, then setxattr() a larger value:
 
-Applied to the vfs-7.4.misc branch of the vfs/vfs.git tree.
-Patches in the vfs-7.4.misc branch should appear in linux-next soon.
+Applied series, thanks.
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
-
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
-
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
-
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs-7.4.misc
-
-[1/1] dcache: report a Tasks-RCU quiescent state in dentry_kill()
-      https://git.kernel.org/vfs/vfs/c/a647a53bc89a
-
+Miklos
