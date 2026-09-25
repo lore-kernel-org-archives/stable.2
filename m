@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB66F49CF45;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 142614FC8C1;
 	Fri, 25 Sep 2026 21:22:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790371342; cv=none; b=BbQ8fdjoCo3P3cxVA6oNR2k7qvDcNkH6i0Yz5WWEHNspzXa6/d2L92eWeM1o6yaxeyOqdSw2/A/ZFXgV/VWwJrQnuul494YMU+99w1/DQU/sMEXqVTrjMpvp/BLPHAS5k58XCRP/ZAC2jEX+FYFR5xrZ8FiIPITwGLdx0RI+ymw=
+	t=1790371343; cv=none; b=lfUWc/ZLlD1SvMzNDCNiKTCfHmaBcSy6NRZVyjFAZBQ6RFFShVCyo3XjjzLTLUxSwW6e/QNkhDgIxVL+fyk+vNoR+u8EJYGNYLi7Q6ZgwO/FJKyyTbxAxQdTompoOtI019wR0o28CDV9uX/aWeIkw6T0ZcgDo0k0eUzEizaZCEI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790371342; c=relaxed/simple;
-	bh=NYGGX08Rh22ux8AkT9s+UILhXOkXRQN1DhjSewJHGj4=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=eTy9joWjC+w2ZLc61EFc9cICScqHxlitSn2jkL16O9eNUPu+kEky4l2/+utUggsqU1vRL4N3k3Yo0GBRGMc5WHpWejelytU/k/3qj3QPmEuRGQMdTlvEwGett0WwfystQZYux7w1RNg66kZ/d6cZSCYAdVDLBtj0L4cZ81nkcZ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EF7K2XMG; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790371343; c=relaxed/simple;
+	bh=a+KdKsTZhfa/DABR8dxHk8cRR3qLZ2vqAHQD6gthLAw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=V7PswW1BELzhJrKUHEfA+bW+liRHzxgKew6TEKFUWJdDfYjdPu0Xwuu6SoT2+6LhiPft9twM03CGBHdROELFz7GNbSQb+biQtpI6c0Ggi0CbgWoHO2uN7kgvo8cRvS2QqAPozK+KZNFrHhPuMciKWzykGi55RBj/OtF7AbxNFPY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b3DEYKOd; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EF7K2XMG"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 8A258C2BCB8;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b3DEYKOd"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 99D3AC2BCF4;
 	Fri, 25 Sep 2026 21:22:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1790371342;
-	bh=NYGGX08Rh22ux8AkT9s+UILhXOkXRQN1DhjSewJHGj4=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=EF7K2XMGYlIp9VpZQw30KyQD+fexSlKECTJBsvLNMH6BfUlvK9Y80EnsKCxWQuEYQ
-	 SOqp0Ld1yHR5NeCq6oKNlRxv1Kefv+k8eP1mNDEW9UAtTf38AcOHfzwsrHcuYkK6bL
-	 OptVH+MmZApIKTWKDPBHb6aIBSg+9a64TxreeA5qXT97SVlbAKgbYuEV18vfaaaSHa
-	 pzib1ZR2OI21zMgj4MZOXhnLReE0xI00Jmbd1CmzcszovRJoCHLJwq5XxWAHjXW0jv
-	 8RE/esKwJm/CFhCWL0uRGxTlXKHFo6bkPB/jOjuhJvpA2vduYnriU7f+tkRIgtew2m
-	 CXelqqLGa0Dwg==
+	bh=a+KdKsTZhfa/DABR8dxHk8cRR3qLZ2vqAHQD6gthLAw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=b3DEYKOdu/lnm0xbFmJ64UsluczJG5AT/xvnJNvJAlAivK03MuNcfG5mZGznHvoGe
+	 bzAu+Ylk67t8RsP8mxa3nV347UboSzkebBPbSrGsQjBYWQZibX2x9Db/6S4MzlFkS7
+	 0en5sZl03uwnnq5M9snePER0qD0adoNVyIqoUtpcNRuwMub3yh0rGfqsTuQZKw/b0C
+	 8/Qzco8dObIIpiEQUxKJuj3AhNfmUn8+ybok+d0PJSKk6CxcsvZn5c90rmt96UJtiA
+	 COLwuw79hbMyOMZWRgAsOvd+wErYAXkRK/t6/7k/6c6xUNyqcx78xIJx6mNhAyK5NN
+	 SgiEKKPD9WtUA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 61D77C9832A;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 780A5C98326;
 	Fri, 25 Sep 2026 21:22:22 +0000 (UTC)
 From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Subject: [PATCH v8 0/5] Input: support for STM FTS5
-Date: Fri, 25 Sep 2026 23:22:18 +0200
-Message-Id: <20260925-stmfts5-v8-0-0fcf49e2c85f@ixit.cz>
+Date: Fri, 25 Sep 2026 23:22:19 +0200
+Subject: [PATCH v8 1/5] Input: stmfts - wait for controller ready after
+ reset
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -40,12 +41,9 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/13QTU7DMBAF4KtUXhM047E9NivugVjEf9QLWhRHU
- aHK3XGKhNMu33i+p5GvoqappCpeDlcxpaXUcj61YJ8OIhzH00caSmxZSJAGJKqhzp95rnrwigk
- x+8gkRdv+mlIul1vT23vLx1Ln8/R9K15wm/51EOB/x4IDDFIGpa13YzD2tVzK/Bx+xNawyJ1C3
- ZVsisEHSyk57fBeUVcKqCtqSseRjQ05SnhQaq9cV6opo3Iy7Ymj1/dKd2URutJNQWDi6KRzbO6
- V6cqB6cpsF0L22YzZMj78Bu8Vd8VNqVETWQwRaKfWdf0FhRF3QeABAAA=
-X-Change-ID: 20260214-stmfts5-b47311fbd732
+Message-Id: <20260925-stmfts5-v8-1-0fcf49e2c85f@ixit.cz>
+References: <20260925-stmfts5-v8-0-0fcf49e2c85f@ixit.cz>
+In-Reply-To: <20260925-stmfts5-v8-0-0fcf49e2c85f@ixit.cz>
 To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
  Alexandre Torgue <alexandre.torgue@foss.st.com>, 
@@ -58,158 +56,196 @@ Cc: Petr Hodina <petr.hodina@protonmail.com>, linux-input@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
  linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>, stable@vger.kernel.org, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Abel Vesa <abel.vesa@oss.qualcomm.com>
+ David Heidelberg <david@ixit.cz>, stable@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5706; i=david@ixit.cz;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4929; i=david@ixit.cz;
  h=from:subject:message-id;
- bh=NYGGX08Rh22ux8AkT9s+UILhXOkXRQN1DhjSewJHGj4=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqtuYMZRK6dVaJ8gJpvVKh2HmICVoHNTi2sCpAt
- jefMomniYaJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCarbmDAAKCRBgAj/E00kg
- chd4D/0W2SNOEooROfqD6meWgaQDNnkiYb0LaZSwBE9pwsOD20aRosXFOkB23BHUkmsBXRJhvg3
- ROuuOp9OuOR1RVpbzPuyLp132K9cs7KAeWOw7IODS6qPmJMfYC8HE1EaJfxgYaVmDZEG5W+vDup
- EuiULs74RDDlQmcX5qgbMEydMGwzuLzXGrWnrfUM+PkTp8+lThqxf8WxKRgyLsYn6/aL2nuRpn5
- ZiqJFJ4qoYKDIn3yH7pwvfNzb30shKGSFxI/UpMB1X61X93gLWjas9FgyvIgfzvFcdX6XR270yy
- pHfLjpuH5OQoOckxaKddivReiX/m80PwDyznLl9AugrZMpjtVzg1MT1u9NgAsMD9kxJ0HcrM6Bu
- tiz2zvZncgWyQKCdMn1WLLjrEgcvJp5mgAoqEbDJJFC07W5+Qk5oF4Wsx2VV8Yzvd9qzVWM4WIG
- zIHWfZW+xvSemfAJ0htIXGwtfTXvlkWcGBtp0KRvOtEekejIl0Z/YDl+yI5Ctefu+M+s8yDlIBd
- CGbR0wkWJRR1A65YPrlTfHdWxaOUJtuVMuXSbB5If4XZwTNAk0dFdj2Tg8ZKqVqInhHidSbKj1g
- IbhcK6KZFNi3IMPxiPzDeG/LhRzkG2bqjyKT80CuCjz+X39NDP+Hx0PMucz5JZKiK09jA01X2hu
- JAY7lx0s38bWwTA==
+ bh=eDTdFrg/SW6FiqwVfkrIiMqi05Gtrp3Ip5N2yAkOtDM=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqtuYMVR8nrgjUXsVjL86TgRoFvvNYq6ifK59IW
+ 5gCwJLISBGJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCarbmDAAKCRBgAj/E00kg
+ cgVHD/0R++6Q9P5r44FhEmGEmOc7TvbHDtU0dAQQkxVnqvaEuC3n7VPdmnvwk5yItwwr/ohG7pw
+ AZrIsPsrUY5u4zwLm0E5zE2eaDojGHNWKTCuHIJEeiwrsUic+OllOQJk6YkNzN81A6oLE9nHvBp
+ KQNaR04ChyRBNdL7WN0THb0BysdPLewZ30RaZFtAxgY4OLsAx6K0rqLK1s2G6MHiVrwXi5nQhX2
+ MAYuRDn88BbjRufeo7GqKVNPg3ACGADSBFDmxG5j75HYSJP4Ab8hZlmrmRh/pOPpeM8hVjTnoea
+ eWUWAflYaz6hVHuBL5IJtWJ5UMi1swReO72MkZqhp+YMM5EIrlz5hy4vrCb/tV0NZR6mvXKnJfh
+ LNM2wjoZramlSopy1p94cX/HkUovJEJEiFbgLlMnV8rjL78Pz5DUHKNo+3yh12wTbaEiMW9k7h7
+ XUs7jPD1edQYQKeSiUVs6JFRO2slnrM6N6L6VLDUuco/COgU/h2xCHsyl+ByFZBipxIMoLfxXCI
+ xVf5hrT93MDdPm9Etkg3b0+gJHNsm0SQ38tXF6VDLPlHQMmk9IZrEVVHB+VCLDqv3GtX83Le65v
+ 3cy/Kga65M7QhyVMfRBe0XJYpim/IGj7QjF+R28+cmXF202t29zd+UIdcxqkQT6uwI33mgxy3Ya
+ OgUydjXIO4Zsy+g==
 X-Developer-Key: i=david@ixit.cz; a=openpgp;
  fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
 X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
 X-Original-From: David Heidelberg <david@ixit.cz>
 Reply-To: david@ixit.cz
 
-Used on various phones. Minimal viable driver.
+From: David Heidelberg <david@ixit.cz>
 
-Includes device-tree enabling touchscreen on Pixel 3.
-Also, tested on Xiaomi Mi 8 (device-tree is not yet inside the mainline).
+After releasing the reset line stmfts_reset() sleeps a fixed 50 ms and
+stmfts_power_on() another 50 ms before the first I2C access.  That is
+enough for a warm reset, but when both supplies were really cut during
+system suspend the controller boots from cold and can need longer.  If
+it does, the first read fails, stmfts_resume() returns an error and the
+touchscreen is left powered off with its interrupt disabled.
 
-What is missing:
- - switching between AP and SLPI mode (to be able to wake up phone by touch)
- - firmware loading
- - anything above basic touch
+The controller posts a controller ready event once it has booted, and
+the event parser already completes cmd_done on it.  Enable the interrupt
+right after releasing reset and wait for that event instead of sleeping,
+giving the controller 300 ms, the total budget the vendor driver allows.
+Boards without a reset line keep the old timing.
 
+Usually phones such as Pixel 4a and Xiaomi Mi 8 needs longer delay, so
+without this change touchscreen stops working.
+
+Fixes: 8a1f9de80e45 ("Input: stmfts - add optional reset GPIO support")
+Cc: stable@vger.kernel.org
+Co-developed-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
-Changes in v8:
-- Split DT binding example changes into own commit (Krzysztof, Dmitry)
-- Refectored the stmfts_power_on fix. (Dmitry)
-- Added ABS_MT_TOOL_TYPE. (Dmitry, Sashiko)
-- Link to v7: https://patch.msgid.link/20260907-stmfts5-v7-0-4a53381cd038@ixit.cz
+ drivers/input/touchscreen/stmfts.c | 60 ++++++++++++++++++++++++--------------
+ 1 file changed, 38 insertions(+), 22 deletions(-)
 
-Changes in v7:
-- Added 'Input: stmfts - wait for controller ready after reset',
-  the waiting is done for both FTS4 and FTS5, similarly to the
-  downstream driver. Should improve reliability everywhere.
-- Link to v6: https://patch.msgid.link/20260906-stmfts5-v6-0-50fbf6af8718@ixit.cz
+diff --git a/drivers/input/touchscreen/stmfts.c b/drivers/input/touchscreen/stmfts.c
+index 972687797f826..1720202d6186b 100644
+--- a/drivers/input/touchscreen/stmfts.c
++++ b/drivers/input/touchscreen/stmfts.c
+@@ -59,16 +59,18 @@
+ #define STMFTS_MASK_X_MSB			0x0f
+ #define STMFTS_MASK_Y_LSB			0xf0
+ 
+ /* key related event masks */
+ #define STMFTS_MASK_KEY_NO_TOUCH		0x00
+ #define STMFTS_MASK_KEY_MENU			0x01
+ #define STMFTS_MASK_KEY_BACK			0x02
+ 
++#define STMFTS_RESET_TIMEOUT_MS	300
++
+ #define STMFTS_EVENT_SIZE	8
+ #define STMFTS_STACK_DEPTH	32
+ #define STMFTS_DATA_MAX_SIZE	(STMFTS_EVENT_SIZE * STMFTS_STACK_DEPTH)
+ #define STMFTS_MAX_FINGERS	10
+ #define STMFTS_DEV_NAME		"stmfts"
+ 
+ static const struct regulator_bulk_data stmfts_supplies[] = {
+ 	{ .supply = "vdd" },
+@@ -538,25 +540,16 @@ static int stmfts_read_system_info(struct stmfts_data *sdata)
+ 	sdata->chip_ver = reg[0];
+ 	sdata->fw_ver = be16_to_cpup((__be16 *)&reg[2]);
+ 	sdata->config_id = reg[4];
+ 	sdata->config_ver = reg[5];
+ 
+ 	return 0;
+ }
+ 
+-static void stmfts_reset(struct stmfts_data *sdata)
+-{
+-	gpiod_set_value_cansleep(sdata->reset_gpio, 1);
+-	msleep(20);
+-
+-	gpiod_set_value_cansleep(sdata->reset_gpio, 0);
+-	msleep(50);
+-}
+-
+ static int stmfts_configure(struct stmfts_data *sdata)
+ {
+ 	int err;
+ 
+ 	err = stmfts_command(sdata, STMFTS_SYSTEM_RESET);
+ 	if (err)
+ 		return err;
+ 
+@@ -582,53 +575,76 @@ static int stmfts_configure(struct stmfts_data *sdata)
+ 
+ 	return 0;
+ }
+ 
+ static int stmfts_power_on(struct stmfts_data *sdata)
+ {
+ 	int err;
+ 
++	if (sdata->reset_gpio) {
++		gpiod_set_value_cansleep(sdata->reset_gpio, 1);
++		/* a short delay before powering up */
++		usleep_range(1000, 1500);
++	}
++
+ 	err = regulator_bulk_enable(ARRAY_SIZE(stmfts_supplies),
+ 				    sdata->supplies);
+ 	if (err)
+ 		return err;
+ 
+-	/*
+-	 * The datasheet does not specify the power on time, but considering
+-	 * that the reset time is < 10ms, I sleep 20ms to be sure
+-	 */
+-	msleep(20);
++	if (sdata->reset_gpio) {
++		reinit_completion(&sdata->cmd_done);
+ 
+-	if (sdata->reset_gpio)
+-		stmfts_reset(sdata);
++		/*
++		 * The datasheet does not specify the power on time, but
++		 * considering that the reset time is < 10ms, sleep for 20ms
++		 * to be sure before releasing reset line.
++		 */
++		msleep(20);
++		gpiod_set_value_cansleep(sdata->reset_gpio, 0);
+ 
+-	err = stmfts_read_system_info(sdata);
+-	if (err)
+-		goto err_disable_regulators;
++		enable_irq(sdata->client->irq);
+ 
+-	enable_irq(sdata->client->irq);
++		if (!wait_for_completion_timeout(&sdata->cmd_done,
++						 msecs_to_jiffies(STMFTS_RESET_TIMEOUT_MS))) {
++			dev_err(&sdata->client->dev, "controller not ready after reset");
++			err = -ETIMEDOUT;
++			goto err_disable_irq;
++		}
++	} else {
++		/*
++		 * We do not know the real controller state (was it powered
++		 * off or reset). Let's hope that this is enough time to
++		 * initialize.
++		 */
++		msleep(70);
++
++		enable_irq(sdata->client->irq);
++	}
+ 
+-	msleep(50);
++	err = stmfts_read_system_info(sdata);
++	if (err)
++		goto err_disable_irq;
+ 
+ 	err = stmfts_configure(sdata);
+ 	if (err)
+ 		goto err_disable_irq;
+ 
+ 	/*
+ 	 * At this point no one is using the touchscreen
+ 	 * and I don't really care about the return value
+ 	 */
+ 	(void)i2c_smbus_write_byte(sdata->client, STMFTS_SLEEP_IN);
+ 
+ 	return 0;
+ 
+ err_disable_irq:
+ 	disable_irq(sdata->client->irq);
+-err_disable_regulators:
++
+ 	regulator_bulk_disable(ARRAY_SIZE(stmfts_supplies), sdata->supplies);
+ 	return err;
+ }
+ 
+ static void stmfts_power_off(void *data)
+ {
+ 	struct stmfts_data *sdata = data;
+ 
 
-Changes in v6:
-- Enable only the multi-touch scan on FTS5 sense-on (0xff was wrong,
-  only 0x01 is needed. This broke Xiaomi Mi 8 toucschreen).
-- Fixed Y-coordinate comments. (Dmitry)
-- Corrected event[0] parsing. (Dmitry)
-- Dropped checking < 0 on unsigned area. (Dmitry)
-- Dropped unnecessary i2c writes after reset. Verified against
-  downstream driver. (Dmitry, Sashiko)
-- Added pieces for supporting non-OF integration. (Sashiko)
-- Shared input open/close into one impl. (Dmitry).
-- Link to v5: https://patch.msgid.link/20260810-stmfts5-v5-0-0c737d929976@ixit.cz
-
-Changes in v5:
-- 3.3V is analog, 1.8V is digital supply. Fix that.
-- Name the error variables "err" (Dmitry)
-- Use scoped_guard() for ->running, and only set it once the scan
-  mode has actually been enabled. (Dmitry)
-- Use i2c_master_send() instead of open-coding a single-message
-  i2c_transfer(). (Dmitry)
-- Drivers may report coordinates outside the declared min/max, so
-  remove the clamping. (Dmitry)
-- BTN_TOUCH and INPUT_PROP_DIRECT are already set up by
-  input_mt_init_slots(..., INPUT_MT_DIRECT). (Dmitry)
-- Let the input core track contacts: drop the touch_id/stylus_id
-  bitmaps and the hand-rolled BTN_TOUCH reporting, and sync the frame
-  once per interrupt with input_mt_sync_frame() instead of calling
-  input_sync() per contact event. The controller pushes contacts one
-  by one into the event FIFO and only resends the ones that changed,
-  so INPUT_MT_DROP_UNUSED is wrong here and is dropped as well. (Dmitry)
-- Restore the FTS4 interrupts accidentally dropped by introduction of
-  FTS5.
-- mode-switch-gpios isn't required with stmfts5. Some designs, such as
-  Xiaomi Mi 8, has no such GPIO connected and is limited to AP mode.
-- Nit: updated example to use interrupts-extended.
-- Nit: (maximum x/y coordinate reported + 1), corrected example.
-- Link to v4: https://lore.kernel.org/r/20260409-stmfts5-v4-0-64fe62027db5@ixit.cz
-
-Changes in v4:
-- Wrap everything below enabling the supplies into stmfts_configure()
-  to avoid bunch of gotos to power off on error (Dmitry T.)
-- Finished chip specific ops and removed is_fts5. (Dmitry T.)
-- Link to v3: https://lore.kernel.org/r/20260403-stmfts5-v3-0-5da768cfd201@ixit.cz
-
-Changes in v3:
-- s/touchscreen_pins/touchscreen_irq_n. (Konrad)
-- Use interrupts-extended. (Konrad)
-- Fixed rebase conflict against 8665ceb926ec ("Input: stmfts - use guard notation when acquiring mutex")
-- Rename switch-gpios to mode-switch-gpios.
-- Do not define properties in if:then: branches. (Krzysztof)
-- Link to v2: https://lore.kernel.org/r/20260315-stmfts5-v2-0-70bc83ee9591@ixit.cz
-
-Changes in v2:
-- Fix typo in the binding s/switch-gpio/switch-gpios/.
-- Deduplacate allOf. (Rob yamllint)
-- Add missing S-off-by. (Dmitry B.)
-- Dropped irq-gpios as it's not needed. (Konrad)
-- Correct x and y touchscreen area size. (Konrad)
-- Correct reset introduction commit description. (Krzysztof)
-- Partially implemented chip specific ops. (Dmitry T.)
-- Separeted license naming cleanup into separate commit (Dmitry T.)
-- Link to v1: https://lore.kernel.org/r/20260301-stmfts5-v1-0-22c458b9ac68@ixit.cz
-
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>
-To: Petr Hodina <petr.hodina@protonmail.com>
-To: David Heidelberg <david@ixit.cz>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Henrik Rydberg <rydberg@bitmath.org>
-To: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-input@vger.kernel.org
-Cc: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: devicetree@vger.kernel.org
-Cc: linux-arm-msm@vger.kernel.org
-
----
-David Heidelberg (4):
-      Input: stmfts - wait for controller ready after reset
-      dt-bindings: input: touchscreen: st,stmfts: Improve example
-      dt-bindings: input: touchscreen: st,stmfts: Introduce STM FTS5
-      Input: stmfts - support FTS5
-
-Petr Hodina (1):
-      arm64: dts: qcom: sdm845-google: Add STM FTS touchscreen support
-
- .../bindings/input/touchscreen/st,stmfts.yaml      |  29 +-
- .../arm64/boot/dts/qcom/sdm845-google-blueline.dts |  19 +-
- arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi |   2 +-
- drivers/input/touchscreen/stmfts.c                 | 462 ++++++++++++++++++---
- 4 files changed, 443 insertions(+), 69 deletions(-)
----
-base-commit: 944a035ecca915ae947905dcfb03f2b9dc6d032c
-change-id: 20260214-stmfts5-b47311fbd732
-
-Best regards,
---  
-David Heidelberg <david@ixit.cz>
+-- 
+2.55.0
 
 
