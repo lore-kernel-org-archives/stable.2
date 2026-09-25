@@ -1,162 +1,202 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 871E948423C
-	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 09:52:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40E622E7165
+	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 09:56:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790329979; cv=none; b=mY8ujPJBMMbHsr7HL6wf/tWGMnAPgfIW2S+lYvpormRPXg1/V6bcEAZJxYo/hRSNtrJsbgO2hePgpvtGW5EqsKjq8KgxvZJ+HeYMf0ioHCFaxOpuwDmu8Or7cLqRUAWoWqvuDJfW6jCiIvZHWpkqeYbE6r4mzqCgYCQ+Bt6OqRc=
+	t=1790330201; cv=none; b=J1UJkyEXO22bI7ng9n7Z+MImgKG4DkPXfp83EzviGGQC9hbDEfPq8LBFxUx36FMsHEuUkB+CV6GLB484xanZwR5+il+7oRHv75yxDmuk7MCNKFGjSFWwtnxCBu3wUxWGd1OeS9svzpyCIcm0k8m2tf5kG+zm+qDDRLwqA3hmygc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790329979; c=relaxed/simple;
-	bh=nvyA3TDTbhtrxdFzEjqfVphfihD1nWdpT6xp1d3CrP0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sg83z1n4y228jtQXPM03oOdNRsplNo2xqLC1SHG2Z1JbnGsu482Rt1lWgWjUk7BqKS2bUEaEtv+oykbcRVrz8aElNeiKIl/dqehMI7cFBiCCh30VwkKwE/YDJ1WmdGusnWWxcDaaJcLUcGSIX9Ed71qUlq+qIOG+uH0T+qw2FbI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fvSr9cB3; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790330201; c=relaxed/simple;
+	bh=U1ykP2v4vBanOjpsoDqzdLlC3dQbDgoQVd9oGf9UHZU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=qq/nmd8U1vGQGGbID9mrJ1hA746CTdvhFyQ9hrQry6mkdZysb4lh5qouXun/7aRSr7yn4prJrrU7B/YgkbV3PRSQSgPXj9PWuxjE641DpjMspitBKtC9DYptx6TSy9q0hiYyFBJ3dp2evUeTqbHCGEaT6F+LPtaI0Qh2vDOyheM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TGjRHxMf; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CrPQBFLO; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fvSr9cB3"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4887ebc85eeso34767f8f.2
-        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 02:52:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TGjRHxMf";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CrPQBFLO"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68P4YcSW3532125
+	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 09:56:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=0QNRZM/+ly43XM1TDOLVOU
+	BQNvVjmzMTjRLEM43AcCo=; b=TGjRHxMf98XDUqNcnQcKqA8//3OWdbdTrTNQyQ
+	VHtXJjDYPW7RO+L95a+vGfMWBSltsmobkn9sEoTvB93OQmxiRx76Ph/c/FpU8OLU
+	x4a0CgpVDMrGHcpjEnYsrDWxWYG2/FoliGgEUEwvyNMSsmEX105UbbcphoA8UxOE
+	cuoimkgiW9z5+SS6WbXTNMBDfpBOu3iUebpoSjNuLmUYLIb3mv1Z6mMxc9MTp81c
+	dU7cH+L61ma5alvypWVwRibmh8S+rEUvX5vGWEs1WismvPJpcDCZPvcapgWczq5i
+	96DZddLTXzO8QK0Fop8t353UkAcljRH08HS4pVst+noV19MA==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gw94kanx8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 09:56:39 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-342217d8d53so535733eec.0
+        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 02:56:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790329974; x=1790934774; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wnKtVfuA6DDtxDljFMt/DQAZ8I6CllqSJuo16Cr5Xvo=;
-        b=fvSr9cB36vtc62nWqPWi5GwtqeyaqXo5+12p1oMlSp6oVN8Ha1/2Dkq+hhSD6Zq63w
-         t7JB64usB4P6BEoQF7mehPiqyGz6ePx/WO7tm6jIrxvL3R8dgCfHaI9a8Mpfxa6AK8Qq
-         kTMpNS94C6UtgbxQAjpOuhKcYQ2PS4PcG3jVJj1VD6WerbO+uVlnxvDFjUrm7Pi95nHv
-         tdC6wb4QkuH+Uk7yruyYfD8voNJKk0YMPECNMBpTc1fAcdi2iIwK7V3+L9VPIB2IzaUW
-         +7VQ02CjQaTZ/f2hwsKvE7HOgAm7KuoqX8ORqstjxnFrcfJ64vkrEc86tvdfMEUd4GZk
-         9lsA==
+        d=oss.qualcomm.com; s=google; t=1790330199; x=1790934999; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=0QNRZM/+ly43XM1TDOLVOUBQNvVjmzMTjRLEM43AcCo=;
+        b=CrPQBFLOLTokz3qMglUlfgyWgMYHIqFMXUaVGCsWZhPaWoyAvRIM3ysuc8HwfuN3f6
+         SdYV1ZcUR4axkm89EUcJtQnzCjXJimTVrWKVnNvxuiGIiLLj6sI3h3qa0TnZG+AXR3xT
+         hX9D8shq+8C6oIF66tDkIkVwTssT15tCqRR0MLFORety4sNaSSU/mVDh+lgkQbV0pBJw
+         d61Tkk2ujoujPQsq94A0RZFl2h5O+T1621wcSens7lGa89pk8QogeRKgirYOSNMuFCYK
+         nAWIdRKSM1cslu7HuukCnxQPuRS9tn+tneUcbfLPQMU7C3qisqhTDZLGH/l3RUv8m2N4
+         KSnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790329974; x=1790934774;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wnKtVfuA6DDtxDljFMt/DQAZ8I6CllqSJuo16Cr5Xvo=;
-        b=iHIZVS4P1e2vDmMW/JUNN+Xy/iJ8IF5xZyjdwrsjvm/BmLexAEH9wqe/sDMoCV9Z3t
-         DeCqYg1+hzGJ5C36KpaKf3i+rh38h2AjeuNQJHI/pbn7rO9DI8mKT/IYCdER0mjbAjt2
-         WvJUS/6xw7I8j+QcecgSqEa3BJ1dtOhPxTTcW2aI9xhqXAnEsP4QmhscB3sLiHWi76vA
-         3gZa+kng5To+CzGwQt4d8Gc2omw2+bAdB+6GZcrnVsfQvoaK2GLnXsVCh3wOTubFbINd
-         jq/iQukQbmR9sjusjMAn1+A90yCWyNgI0ErNiTLflL+IxylK+f9v4GpZEeihzBXJ7fbo
-         llvw==
-X-Forwarded-Encrypted: i=1; AKwUvBxCb5lTkn1arF8UqeA4KhiwT/9z+tstFolO0/SJirhQt/z2s+kUjiWYcHR9hp4L9DwSmYPfdYY=@vger.kernel.org
-X-Gm-Message-State: AFuF++n3jSKWFOYz82sJJSMAz7gzB+UkjEuxvYBd7GCr38x8V3ABEpGB
-	xlFNayiQdS2L+/MXtSL1zo3UnrQhRSq6Ih6oNesLnoF1+remF5VixMA8IaFohcRVPCQ=
-X-Gm-Gg: AYBFou0Sr4XbPupf1a089CyGs5Isu7Oa6CsTuIkXOw6ot/PO+euumD597MgfdNYw9A7
-	eQKnObZqcw/VXLSXXCoTll3MmjmAAigps/P1SUCbCiZuyyIKk77W+FyXWJrxnow7ryNXrtfEEPU
-	i6OmQO7tz9yk57sTEnBhC85NA3eSpBCnKfHhlmYbdcMv3rjIssMJsvDJMRXgpDqt57vWaWX7wvj
-	hocaGMBIPlyjt2kfLih2Gyp4NDaU1VaMclpTcdWWNm2Xpx5CCedKSiS1Enn/DOGedwsPJnvkw7e
-	FJmEf4WWrFiuNOg6G9QzyQlABl6lbIvW3+vHl57+mEdzDk30ydagcTNUdbexJzo73AJpdlw42a4
-	gjf6INacfJ+7sEzaXtMaaxN7lbsc5NkXCgeRir8nXk47VEgxhiT5VkUeYwu2Z82jJmMANoY/bxg
-	ayxxP2fXbs8cZP+wAcjPgH6nCzsZTcAFFuQsx8ArSeaPDk/ts7EgTrFXmeE8zBe2ucXtCSgFo1p
-	M+ISY+40hgxwcZs/GWJjrSjLuF1g0JIAyOvC8j3bxlv8Yvy1U/31es6v+jOQ0Rl2egsd+18pEdq
-	WdJtOBgLl/wuTwSTK5p3N+BKeAbJbN4Xb/wrtPwlxvMOMZSo396/hRWE5vLe9WaN1HU77j7sJHr
-	ye6WszYoyd6jG/B7FqN0=
-X-Received: by 2002:a5d:5d0d:0:b0:488:79d9:ef3a with SMTP id ffacd0b85a97d-4887a89f181mr3916537f8f.2.1790329974230;
-        Fri, 25 Sep 2026 02:52:54 -0700 (PDT)
-Received: from ?IPV6:2a02:3100:5dd2:bcfc:4dfb:2ac9:70ba:48bd? (dynamic-2a02-3100-5dd2-bcfc-4dfb-2ac9-70ba-48bd.310.pool.telefonica.de. [2a02:3100:5dd2:bcfc:4dfb:2ac9:70ba:48bd])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a355c65sm5863049f8f.19.2026.09.25.02.52.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 25 Sep 2026 02:52:53 -0700 (PDT)
-Message-ID: <21bfa8a9-c488-49aa-b2a1-4d282fd51c42@gmail.com>
-Date: Fri, 25 Sep 2026 11:52:52 +0200
+        d=1e100.net; s=20260707; t=1790330199; x=1790934999;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=0QNRZM/+ly43XM1TDOLVOUBQNvVjmzMTjRLEM43AcCo=;
+        b=WPz+Za6ITf4ApjfCb5rdJHvvss7DzQYW/3wX/qwn1wOB3/Qlvvxc18uUC3d99x0oqE
+         FAjoR4Q2Cmfs4ceNfv28VE5hMPkAneYtR83pI2D3k2UxdnmqA1urQRGuzhA7ctJjwq6N
+         xOpVMSQrrxkqGuNmLinTuDxXmSD2dvHdzVJoOCBsd5oFrH13KLD7QPcPmZ3rrwczl5CV
+         ZAcySLLFP32UCToTy5/S20tzOiaFgZvDtAvYh1j6eowwdjPUPhLAIBf0INPLpXyHKK+e
+         ocp1zf1kC53xMnrJIJFxYdJn3AWZdOYhZWl/m4M/1vWbzUf8nhKuFm0RyLumu4VyqjFE
+         cEMw==
+X-Forwarded-Encrypted: i=1; AKwUvBxUMFqHX/OMed0Uoo4kZtWGWhAI9RJX/nAzYyV2EOywcdk67UhBSQUcajCZwVgegWOEtFCKdvM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mAjCmK0JYgFQTWAqqYeYCVGITLH7JRs+rLq/iitnieejR5t32O
+	XZ4b7FeTKlt1TWM9Ac3TDm3G8oqH0JTHDHfY973Xs6GVqcB1VlYp6SMJqaDKD57bK9etcnYmS1V
+	C1NF18IMkQPeKNWcCi1zXgC6behyLZtsL+Al3XbQnRJkRU7SikUHCdBi/acqn8nbAkhg=
+X-Gm-Gg: AYBFou1C1FNmLgUBJYruq+vGxo8qyjkysxjGsNvcvu3+sw2t1bmRYmtfqULhtHGAzDa
+	hfjSGEOKZq+GA48uiWRrDNPRgjs4lpcvOvtLAclQrnE6jHssZ8vnsxUCSvlnoQNXPQYrPIi+g4U
+	FhFagRe7i6NmWahcVstgAgOkGlFzAfKp3bOf/MZcy76b2OSAAUT7osCaVmVTYU22HhtUY9Z49FL
+	WH+QJiNMaVICc4dwkfx5zL2TlEHaOLeEE1MpGV3CbowsGSuT7wzFDFWHOiTiLphj+aqI08lQl1j
+	EEIM0trArFXwA/5GuTy20zoQH9eNOKeLjhW6bEYgV7BornX+QqSOgSHhR4KTen4IryNGkZAUDmU
+	pRFA8j2OsdEuhFPoAIRZRiS4WuhCH1b2o
+X-Received: by 2002:a05:7301:a23:b0:341:4466:1cd2 with SMTP id 5a478bee46e88-3414466298fmr2048377eec.20.1790330198699;
+        Fri, 25 Sep 2026 02:56:38 -0700 (PDT)
+X-Received: by 2002:a05:7301:a23:b0:341:4466:1cd2 with SMTP id 5a478bee46e88-3414466298fmr2048339eec.20.1790330198003;
+        Fri, 25 Sep 2026 02:56:38 -0700 (PDT)
+Received: from hu-pkondeti-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34144757263sm5066698eec.12.2026.09.25.02.56.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 02:56:37 -0700 (PDT)
+From: Pavankumar Kondeti <pavan.kondeti@oss.qualcomm.com>
+Date: Fri, 25 Sep 2026 15:25:12 +0530
+Subject: [PATCH] workqueue: Fix NULL current_pwq deref in flush dependency
+ check
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] net: hsr: unfold GSO super-packets at the forward
- entry
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, andrew+netdev@lunn.ch,
- shuah@kernel.org, kees@kernel.org, petr.wozniak@gmail.com,
- qingfang.deng@linux.dev, fmaurer@redhat.com, luka.gejak@linux.dev,
- xiaoliang.yang_1@nxp.com, skhawaja@google.com, liuhangbin@gmail.com,
- stable@vger.kernel.org, sdf.kernel@gmail.com
-References: <20260809121455.1745-1-xiexinet@gmail.com>
- <20260809121455.1745-4-xiexinet@gmail.com>
- <20260923104346.ur63K3h2@linutronix.de>
- <2cf54664-c07d-471f-af6d-4b70e09626b4@gmail.com>
- <20260925082954.MYDugnDU@linutronix.de>
-Content-Language: en-GB
-From: Xin Xie <xiexinet@gmail.com>
-Autocrypt: addr=xiexinet@gmail.com; keydata=
- xsDNBGpiHugBDADJ5KuJaOYfUx7TGbRw0UE1km4dLnJomCSNtgq2T9BqgZ6TRPEy37soAmW3
- XxCPvhfL6CPLldzy6O6EkUD7/8zlbQP1DM6gUIQUyKxxkb8uR+oCogDKjsxt0QPycP/dR9fk
- SL4qKReprnkOOcGeLahLHzofVdn46mc5igCBsAA/PPSpo1GqsfGk+zYV97rSVa8zhnSXsqZ/
- 9DbUfQynZKVqYN4tm1B30JE5SEWDCko95Qw9fAORX2W356MOQJGr05z9qMSy7CkF7bAUkziG
- d6ZSPsGEsel5jYByP8ZvwQ2A8kdKpRy8+zQCaC+vEotTH7Fs7SIzE/Z5mEVIi1xQqEzN1rqG
- BW7KgzRDWjw8lKsoBbxv20nfhUzuZLan2HzUJ+LxZ18Os4zkWg9sxHgMi+AGqn/+0ppbDcOH
- 9Jm072/xA7O1MCXLgr4FOP+4PJH1vcqU+0EZVz7KCjrwkdz+l5Ojso2FLXq2MGoqWGShIsDV
- bF1JYpgm4spdPbnISkidUC0AEQEAAc0cWGluIFhpZSA8eGlleGluZXRAZ21haWwuY29tPsLB
- DQQTAQgANxYhBAHOahKZFnMu2n/CxrTrSufyPi3LBQJqYh7oBQkFo5qAAhsDBAsJCAcFFQgJ
- CgsFFgIDAQAACgkQtOtK5/I+LctmngwAlmrGPWnWxDW6PSJeR9SM0faqwuY33TWAE35nshm/
- EEkBgpVVhG4z4Cdy7L+6TG6NHVDnvl+IHLyyOZlL3LQPQIpiKVgo6jHmm9TF6mK+Vo3nsXAA
- uSJYu9iY9Aywmy2JVQ15ttQ0NfcoZ0sV14bT7pSr9zXB6D8p3XA4AQI6IBeLvj993Z1+tPyC
- 6BJ+2aWWLBx7xGpFo3X8dhjS/Lm8QoietKbI+ACefKKCDNiM2KG53P76wdXJp52u4dqP6eFc
- +Qv35QefnALoPkOGQEdd1qvUycyZhuaCj8h0AxDu7bL3G/IM8G2K8qsbSJuui8zCSZ9b/QZf
- H7u1nevPOgxyWC1Pep/TbRZ62ktn8lrmWA8PZjuaJJQGjahuK1GgTQZNG+7DB7NwjLr6aXIm
- JirtT4FeR+IUovvL/ll+VHzpGpFbgXz4GTsWsikQkT1huFSB8MRLlWMXdAKblL96L754j8Z5
- p/YV26YTppXI56uJ3XyOwZSrfrK1pfqNIp2Yr9vUzsDNBGpiHukBDACePM1YZ1FvAiFay/2v
- KVDNpuazmpVb1CBFy+rqM9HcuHe+5CuxLd4RI4hb0qmjlm5Vi5M8+AuNB/wi/f8oDuhJwlMn
- v9L0lfgpRRdShnB26hnt2wWwWFgOU3BwymSruxhEYq+eIjjxCAo6yW7Qm+ArZ+riETMI67sy
- ZyLx6o4yRiWxOrh1nhwV/f6PIOl+Iv4yLAG3eFXpU7/EZpim610bKMwcXEpiRkf3NjiflIha
- adoKHV0LCiVNrU7r8TICjjnugpl1tXAR2RlaRcSxmvOzrXY2O/xBLpwPr5erbdk8RCaxUzS0
- kK0hw+/On3Sr4Z4gtLl2xtDkjRh3KQ9ZqMPrFD/5XOs842ueNivwIyAf2kQJjKfJGWc771EM
- 0ZWo1r1AthbuM+IeN5QM74rMJxaf5WyDX3ZeqBA55fCJGJ3zrp7Tqeoq8DYufiNkppE9S71z
- Cvxva2f8mUWTlTUf8s33sRD7C87XpT0whKpn1I9/nJB9Kb0dKyRCdcsT4o1ynxUAEQEAAcLA
- /AQYAQgAJhYhBAHOahKZFnMu2n/CxrTrSufyPi3LBQJqYh7pBQkFo5qAAhsMAAoJELTrSufy
- Pi3L/iwL/3aoCeq19Pog3fqisRyEZeX8pXw2GYlrJWYoM0mQ1USaTpdsMwCXaoFMoSBqid0F
- VPrqlH4bSIEEAzVmFPX0NjGhREDMrQ9eR5S9yqSpBvX+hz+xgpt4NOPhbVQmV+9f4lX9TJT7
- GOO3EX2eeokg6ZAISycCAx7srXuc8oyRTJtnUQziH9GXrEeon88LHf1QHg0Z0sL/c7DfDqvW
- 9924M4ngQAZ8RgCBGZocoWuXCemSPkfQVLt5DzycSgSQODhbNSEmr+jb1V9Svf9D9k0CQfEY
- cB3uwOHWb6Z/yaEARbGZPSPn89YjXBncQTpgSvUM578b5x3pKi6PjZB/hwtUsRgrWGWoIwRi
- +ZmcHnCzsuo6uuNYX8VvmWqYsVajykjnpjdCGmU89QUsVmrtnDPBrfr8VVJcZPnCJhE595Pk
- LO29Oj0au9kr7kMW5Q+fBeHj5zz6VggAaRRU74/sgtwLODBWESPZ9LqUUdB5L/XbrSq2VDlD
- sNySbH3veZ/55EtlXA==
-In-Reply-To: <20260925082954.MYDugnDU@linutronix.de>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260925-wq_flush_dep_fix-v1-1-fc5a9de31828@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAP9EtmoC/x2MWwqAIBAArxL7naCGRV0lQkq3XAgrpQdId0/6n
+ IGZBBEDYYSuSBDwokibzyDKAowb/YKMbGaQXNa8lYrdh57XMzptcdczPUwIrFVj+CRsBTnbA2b
+ 9L/vhfT/7cwRMYgAAAA==
+X-Change-ID: 20260925-wq_flush_dep_fix-11e657c0b1d3
+To: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>
+Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+        Pavankumar Kondeti <pavan.kondeti@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790330195; l=3214;
+ i=pavan.kondeti@oss.qualcomm.com; s=20260311; h=from:subject:message-id;
+ bh=U1ykP2v4vBanOjpsoDqzdLlC3dQbDgoQVd9oGf9UHZU=;
+ b=U0WpEy6fvjOZfPyEF6q6Yv1pd63EZiIRoMxi7wcfv/jdBnBX0fb3EYyVTM00kNud62u2ijwUW
+ Y5Yxqmi+kpVAZ9s1uzhWBoNEZBXgtZEKmjNIUAKKx1jrN5FVOjBTw7k
+X-Developer-Key: i=pavan.kondeti@oss.qualcomm.com; a=ed25519;
+ pk=Pdl9NnQpMlqbYaAGGkgBGpURTnZFe2de5LRZSGHkbHY=
+X-Authority-Analysis: v=2.4 cv=aaj0Dhot c=1 sm=1 tr=0 ts=6ab64557 cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=GxlpXvE1fLWR5UxzRzIA:9 a=QEXdDO2ut3YA:10
+ a=PxkB5W3o20Ba91AHUih5:22
+X-Proofpoint-GUID: z_sov1pJMxyrQDeZ2yTW9ND1NZ5YPNXe
+X-Proofpoint-ORIG-GUID: z_sov1pJMxyrQDeZ2yTW9ND1NZ5YPNXe
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDAzOSBTYWx0ZWRfXw+zHw1hzObgK
+ fuGHl+dAnlh1vqq9G23qxkxjqqO8gWOosHcU/qvyU6EDE8lTEgRMmHT2seYhx/7cy1L/96yk99R
+ FysTH0bAT5lcgizeWHC6ssH4Jb6PfSz/OOb/ykpcPormWCmwX/wK6adlWmmHTRZmLmINUXWUtHS
+ 5pP62ATfT3bHN8N67GArrKnZ4Axws0oBK+KP1n0g741icODGm3vNpMri6a8QX0TcTIC7T5LWUts
+ 74NnpJ9vQzeU1Yi6yh3qeYBAiVaI/bxtaALCw7bJyI6gmUCm81tHAhAdJacRhDESifiTyLNeGtx
+ tBV5+kAKFDZ0rSQ15CdLbAmk3/VTPEzYN+33wW00w/tF48+Ym57MYUakpamWJYVsk4w52X2fOhg
+ zi8Xz5sgRYVyX1DqFNK+4Kx0kxsjlyImIHyvaXDoBSfTDrC3lnQ0uRcJWSqCXeEJFweZQYyFbMH
+ NF4PUAgSIz6sa/MJfRg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDAzOSBTYWx0ZWRfX34Zn1FOvBHjJ
+ SAfPXIs6h1aeXNtQ4j0h1vQlMR0LIvJW6hr061lFK/rOONQ7rBt/QS/fgN5Okuzxzd5qoh00BgS
+ MKAzJC1A5pfUXjBBobxOYpZfyq2siRg=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 malwarescore=0 priorityscore=1501 spamscore=0 bulkscore=0
+ clxscore=1011 phishscore=0 impostorscore=0 adultscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609250039
 
-On 25/09/2026 10:29, Sebastian Andrzej Siewior wrote:
-> So you disable GRO on the interlink port and still receive GRO packets?
-> Or is this performance related where you want to keep GRO enabled on the
-> interlink port?
-I am not trying to keep GRO enabled for performance. The difference
-is between a physical interlink and a veth interlink.
+check_flush_dependency() uses current_wq_worker() to determine whether
+the caller is a workqueue worker and then dereferences worker->current_pwq
+to test whether the current workqueue is WQ_MEM_RECLAIM.
 
-With a physical interlink, TCP data is split into packets before it
-goes onto the wire via TSO/GSO. If GRO is off at the receiver, this
-interlink RX path needs no extra segmentation. Patch 3 is indeed
-unnecessary in this case.
+current_wq_worker() only means that %current has PF_WQ_WORKER set. A
+kworker can reach check_flush_dependency() while it is not executing a
+work item. One such path is worker_thread() acting as the pool manager,
+where create_worker() does GFP_KERNEL allocation and the allocation path
+invokes the OOM notifier. In that state worker->current_pwq is NULL
+because current_pwq is set only by process_one_work() and cleared again
+after the work function returns.
 
-With a veth interlink, there is no physical wire:
-TCP -> prp0-peer -> prp0-int (interlink) -> PRP
+[  416.760634][  T375] Call trace:
+[  416.760638][  T375]  check_flush_dependency+0x80/0x120 (P)
+[  416.760648][  T375]  __flush_work+0x98/0x224
+[  416.760657][  T375]  flush_work+0x30/0x44
+[  416.760665][  T375]  ...
+[  416.760710][  T375]  blocking_notifier_call_chain+0x58/0xa0
+[  416.760719][  T375]  out_of_memory+0xb4/0x458
+[  416.760730][  T375]  __alloc_pages_may_oom+0x11c/0x1a8
+[  416.760739][  T375]  __alloc_pages_slowpath+0x314/0x46c
+[  416.760746][  T375]  __alloc_frozen_pages_noprof+0x110/0x1a4
+[  416.760753][  T375]  new_slab+0x12c/0x484
+[  416.760759][  T375]  ___slab_alloc+0x7a8/0xc7c
+[  416.760765][  T375]  __slab_alloc+0x74/0xd8
+[  416.760772][  T375]  __kmalloc_cache_node_noprof+0x2ac/0x304
+[  416.760779][  T375]  alloc_worker+0x28/0x60
+[  416.760785][  T375]  create_worker+0x4c/0x20c
+[  416.760790][  T375]  worker_thread+0xe8/0x2b8
+[  416.760796][  T375]  kthread+0x1a8/0x200
+[  416.760805][  T375]  ret_from_fork+0x10/0x20
 
-A veth pair is simply an in-kernel memory pipe. When a large TCP skb 
-arrives at prp0-peer, veth does not trigger TSO or software segmentation,
-it simply hands over the intact skb pointer directly to prp0-int.
+Guard the WQ_MEM_RECLAIM-worker warning with worker->current_pwq. If the
+kworker is not currently executing a work item, there is no current
+workqueue to diagnose with that warning. The PF_MEMALLOC warning is left
+unchanged so explicit reclaim context flushing a !WQ_MEM_RECLAIM target
+is still reported.
 
-Turning GRO off on prp0-int does not force prp0-peer to split it. I 
-confirmed this with ordinary TCP traffic in a VM, with GRO off on both 
-veth ends.
+Fixes: fca839c00a12 ("workqueue: warn if memory reclaim tries to flush !WQ_MEM_RECLAIM workqueue")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Pavankumar Kondeti <pavan.kondeti@oss.qualcomm.com>
+---
+ kernel/workqueue.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Patch 3 splits that skb before PRP assigns sequence numbers and adds
-RCTs. Each resulting frame needs its own sequence number and RCT.
-Ordinary non-GSO skbs skip the segmentation path.
+diff --git a/kernel/workqueue.c b/kernel/workqueue.c
+index 1ae3732a2c51..959525393739 100644
+--- a/kernel/workqueue.c
++++ b/kernel/workqueue.c
+@@ -3918,7 +3918,7 @@ static void check_flush_dependency(struct workqueue_struct *target_wq,
+ 	WARN_ONCE(current->flags & PF_MEMALLOC,
+ 		  "workqueue: PF_MEMALLOC task %d(%s) is flushing !WQ_MEM_RECLAIM %s:%ps",
+ 		  current->pid, current->comm, target_wq->name, target_func);
+-	WARN_ONCE(worker && ((worker->current_pwq->wq->flags &
++	WARN_ONCE(worker && worker->current_pwq && ((worker->current_pwq->wq->flags &
+ 			      (WQ_MEM_RECLAIM | __WQ_LEGACY)) == WQ_MEM_RECLAIM),
+ 		  "workqueue: WQ_MEM_RECLAIM %s:%ps is flushing !WQ_MEM_RECLAIM %s:%ps",
+ 		  worker->current_pwq->wq->name, worker->current_func,
 
-In addition, if GRO disablement fails (e.g., buggy drivers or
-hardware-fixed GRO_HW that cannot be turned off via ethtool), Patch 3
-also acts as a fallback defense for these edge cases.
+---
+base-commit: 93f51579e7df248780214094418f205253383cc5
+change-id: 20260925-wq_flush_dep_fix-11e657c0b1d3
 
---
-Xin
+Best regards,
+-- 
+Pavankumar Kondeti <pavan.kondeti@oss.qualcomm.com>
+
