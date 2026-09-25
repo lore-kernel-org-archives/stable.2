@@ -1,71 +1,62 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C80934D0CE1;
-	Fri, 25 Sep 2026 18:06:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA3A218E025
+	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 18:08:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790359592; cv=none; b=dLhB/pf81nWgXq/nqlu363FyOpbPw08XvyuaQe0Tg6XAQ2Viym81f5s2PEkRoIxVIKbE+q10b0FCgxJbGah53dNNQakSCIsjy0eInLUc1vZOBzNQ5qdiQceQ+DLt8hf0mBzf5nutZdg8OAtXXITZjEbjhn6y5tKGhzDFvEIt4+8=
+	t=1790359694; cv=none; b=ksM98rP2ng/JCXp7Tu5QhbQktLXw+BFRX1BXwc9vcaeH+7eG2NjQ4MK/O03boIkr70RtH1EWn5xjHoPWyqzugESG14wqudXKkmxjySLZSxDkONlf0OhXsDghvEzxh8ZyWaUdFj2MmPdZMaEOw4NfVsDiriXZMBrdJydq2LauObQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790359592; c=relaxed/simple;
-	bh=jxLM5he2QdFIqXe6uWLU4HkdwLIfgqAXOLo/DeH8T/0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=uMI9fxijJJxmUh2ceTWJIjpvQaI6lkXPH1a9r6XVgUwPh1P+ekT/yoN8+AF+hBdM+YzQmB9OhhHIFoSKaH/9wAnc3XmqYutssPaCVFWAIiVbFWEk28ZETrvWjim/k5O3FTxVC6VFtd4gT4n0LW7jdD5MxZx1cjNW+nUtXiKDxOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=QlzNcIc7; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="QlzNcIc7"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68PG5Q7U1513469;
-	Fri, 25 Sep 2026 18:06:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=Tr1wRnlJSSblAHWdX
-	9jLq0PeMJPxvFseSvgLSm0TABE=; b=QlzNcIc7GZpkb/t8El1bXu4bvXpp729/l
-	JnL/drSwBbeFPp+K8vGpP07kxWQEKZidMbHGcM/9vC7b2qAYCM8m0cXpNMWdX6+p
-	8X4YeQ7yg5fT0HabmJe7WxML+zIo8qFdRxOaph6bazP3i4Shv13u5uOi9gaS32Ab
-	7kC/7E43UTlM5Q6a9dE0GbmiGePA6rhGqYnDl2UCD2sCLz1EP8a2ZwcsG8poIIyo
-	QCCsjsdjyTZxupjHZ7d7GbzdbSSkTBCn93dgIsLhaDnotb3KZUDXbAgq/mka93dZ
-	CCwNOuMetXRfwfqEqitSAw69ZAzFO/M57+afH1ffaQTc6xrzCs0Xw==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskgsreuj-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 25 Sep 2026 18:06:15 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68PG35RY2859248;
-	Fri, 25 Sep 2026 18:06:15 GMT
-Received: from smtprelay06.dal12v.mail.ibm.com ([172.16.1.8])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gvu7efpct-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 25 Sep 2026 18:06:15 +0000 (GMT)
-Received: from smtpav01.wdc07v.mail.ibm.com (smtpav01.wdc07v.mail.ibm.com [10.39.53.228])
-	by smtprelay06.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68PI6DTZ29229626
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 25 Sep 2026 18:06:13 GMT
-Received: from smtpav01.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 5D6CA58065;
-	Fri, 25 Sep 2026 18:06:13 +0000 (GMT)
-Received: from smtpav01.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id DD5C458059;
-	Fri, 25 Sep 2026 18:06:10 +0000 (GMT)
-Received: from localhost.localdomain (unknown [9.67.6.174])
-	by smtpav01.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Fri, 25 Sep 2026 18:06:10 +0000 (GMT)
-From: Mingming Cao <mmc@linux.ibm.com>
-To: netdev@vger.kernel.org
-Cc: davem@davemloft.net, kuba@kernel.org, horms@kernel.org,
-        edumazet@google.com, pabeni@redhat.com, andrew+netdev@lunn.ch,
-        nnac123@linux.ibm.com, maddy@linux.ibm.com, mpe@ellerman.id.au,
-        linuxppc-dev@lists.ozlabs.org, davemarq@linux.ibm.com,
-        bjking1@linux.ibm.com, Mingming Cao <mmc@linux.ibm.com>,
-        shaik.abdulla1@ibm.com, stable@vger.kernel.org
-Subject: [PATCH net 2/2] ibmveth: fix TX LTB and filter unwind on open-fail
-Date: Fri, 25 Sep 2026 11:05:30 -0700
-Message-Id: <d14314c2b10f125f5e578782484ba3cc50564d53.1790357373.git.mmc@linux.ibm.com>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
-In-Reply-To: <cover.1790357373.git.mmc@linux.ibm.com>
-References: <cover.1790357373.git.mmc@linux.ibm.com>
+	s=arc-20240116; t=1790359694; c=relaxed/simple;
+	bh=YWAleQXRs2MJb3aPe0X/tf0CkJQOfkPUjqBznQefgME=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ur4ZY/as13hCb/pTg8wnPULcyZTG5yxjREXYXKTZNwF6qsC3bDlkNTvZ8+ByakPJ68flb1/4dqnDY+Jcfg694ESkjgfDUAzdmEyZXe1fzh6kNALlXLZGv0B1gM2Yxw3iTb8DItSJM+dd61O1YBXz5AwNaKxegGmX+1sQi6nE8b8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grische.xyz; spf=pass smtp.mailfrom=grische.xyz; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grische.xyz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grische.xyz
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d37b6so6905295e9.0
+        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 11:08:12 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790359691; x=1790964491;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EeBaURt4JWv0bo+NgSZ7c7BxLfPQXBf65HraIwaxvcI=;
+        b=pzir/pseB8OxD/v74k9NtjV/sLMPZA10U8DmsNIvgrkivluEon3+X0dKl3rUHwf0W0
+         cmLEBXJ9zD/yIdBFRB0nMWRnoRwPxegvgvfXmLJrYzksVp9xlVhMODNOJQV4ZLcK4rck
+         RQK9EcAzuhS03oGMeUW2zKTje3Z2uMRWc3PULQNcvKrMmmUdC7VGSlQq6delD0huTozM
+         8cn8raP8P/uhqsHpB236QH415DAuacN53XJDoesLvEi8EnK3/ai0HP30CJTdMfDIrtCQ
+         tVvE8HN3RV35f4TOzT9nKa15i3YDjjf+49h97CHqaK6nNOCHetWTgtT0yN3pXtAackRl
+         fFgQ==
+X-Gm-Message-State: AFuF++nQ2O85B6R4C/0XA4Nbl9jI2ihTZpIroAKcNymQpjCeEkME/FWh
+	0r9WFKS0h9drlvqJsGcFiLeNBUndpd7QVN90lLqPWKEDa29ktRYjVv3JSEiHX+iTfhJhElDGcMn
+	96c8uUP2Zog==
+X-Gm-Gg: AYBFou1jr0vBneHwqh2cA8lZ0svrJRW0dA0x5RkzpdQW2kK74x7/rlsUvIUKTy7CQLs
+	QMJgYU4rX7R6xBK0OtoWwoQ/jwaZEZCmjW+/iJBVKEmqVy5fwCXTwHIbNOdpxeOdiRzuarZRdaq
+	R0yHBwP8BLAn64EpD9qDeUpKWnhATxwaMvG6Lb//7BnLIsGXD28goNcpbsxoVSlBOpg54tYPOW4
+	/KSK2M+e267ggsUnLAulWNRgYGL/ntwGNoiHhaVadumMuQFURSWismXEcVwjUYs5u1hAy/oMgx7
+	1kVUodykd/QWKWYSWAAyJPisP3O2v6+GY1dH3FmJgIo9swT70/RV6kT3J9qiQCsbO2ccQ+g/uEr
+	y9qY7XNDac1rPC2TV+tuT9cRm5Lolids39Pj+95x6mXwywW0DGTFZL5Tm/5ilXKgOX/xcZCTrjo
+	4EB0jeCIFID7HzCipvsuLE6fHdjUS6UJu8jS/PSCSiUxfAVkY/p5ns+ayxDRuHFF72d7o=
+X-Received: by 2002:a05:600c:1daa:b0:49f:ce78:3568 with SMTP id 5b1f17b1804b1-49fe66fa94fmr101704765e9.25.1790359690828;
+        Fri, 25 Sep 2026 11:08:10 -0700 (PDT)
+Received: from lake ([2a02:810d:d09:1b65:58b8:6ca9:69ba:902d])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff264723csm66272715e9.4.2026.09.25.11.08.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 11:08:10 -0700 (PDT)
+From: Grische <opensource@grische.xyz>
+To: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org,
+	Guillaume Nault <gnault@redhat.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Eric Dumazet <edumazet@google.com>
+Subject: Re: [PATCH 6.6.y 4/5] vxlan: Handle stats using NETDEV_PCPU_STAT_DSTATS.
+Date: Fri, 25 Sep 2026 20:08:09 +0200
+Message-ID: <20260925180809.603571-1-opensource@grische.xyz>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260812091127.1349673-4-sashal@kernel.org>
+References: <20260812091127.1349673-4-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -73,94 +64,30 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=V/XoQuni c=1 sm=1 tr=0 ts=6ab6b818 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=AH3WPYaT6UqvX0A6lMAA:9
-X-Proofpoint-ORIG-GUID: iLJTvf4xjBErxaFqs6pbDS2hrACzou3m
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA3MiBTYWx0ZWRfX2habhu6s6pCI
- ot/T/GWC00o6aY3/aHJv39dkA2uX8sqGEYe2XiGv5b/syaGD9Z+7ZqvmWSUj6Yi5mjBgp0Z/Iq9
- HBclFuz5PYNypL4EfseMxdRxcDdcslY4C7vBT3o/b1c0gIrhQHDX7k0c0zGHuc/glfrl3pzXvoL
- 48uQsRHwGDZlSx89VUeeFW0UUtHKbt5e08MdtgrCMPr0ZGgtSRxoj+bBWuYaoOrvK2hYe9WziOa
- YdSaxTRDrbkbQxRnl0Z4of1WQcqr4Ml6Mp2a41Yk3diSmO+8MwxC7lKYK8jg9YGVUEV5HbfKwvj
- iDHhfhc7Zolu/w2HIgi/VmaqCizYyTjwWcydU7tkutnPM4NxC83lSoydtIsIo6sqa/V7W/uMgpB
- qNfPV1ylNZV9kCbnAG4zUqWolUgKpvPjwfsYUsB22WsSDAOHzxb43t2oIke6PvWFCas2na9Jd8q
- 1/qoGvMPdBXI45phjzg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDA3MiBTYWx0ZWRfX7cvWag620ZId
- vBzUkNdH+OVA7MDvTghmGnLwKScQ4DIGb8W2GmbuS5kAey6rie808VfeAG65cU3As/Or8b802Ca
- TyGiHex2e1SBcSxKDUspMNCQoulq9V0=
-X-Proofpoint-GUID: pdW0s0SLYHtIMs_2NBtG-hMIHT7Coz89
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-25_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 malwarescore=0 clxscore=1011 phishscore=0
- bulkscore=0 adultscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609250072
 
-out_free_buffer_pools reuses open()'s loop index for the TX LTB
-walk. After the pool unwind i is -1, so the TX buffers allocated
-earlier are leaked. request_irq() failure has the same leak.
+Hi Sasha,
 
-The TX-fail goto on that walk also skips dma_unmap of the filter
-list (pre-existing since the LTB was added). Rewrite the TX walk
-to real_num_tx_queues with a pointer check, and unmap the filter
-list before those frees.
+The backport went into 6.6.153 together with "net: harmonize tstats and
+dstats", but without the later fix for the same conversion,
 
-Fixes: d926793c1de9 ("ibmveth: Implement multi queue on xmit")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mingming Cao <mmc@linux.ibm.com>
----
- drivers/net/ethernet/ibm/ibmveth.c | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
+  8431c602f551 ("ip_tunnel: adapt iptunnel_xmit_stats() to NETDEV_PCPU_STAT_DSTATS")
 
-diff --git a/drivers/net/ethernet/ibm/ibmveth.c b/drivers/net/ethernet/ibm/ibmveth.c
-index 3e44f6b714d4..abebdb1fc262 100644
---- a/drivers/net/ethernet/ibm/ibmveth.c
-+++ b/drivers/net/ethernet/ibm/ibmveth.c
-@@ -553,10 +553,15 @@ static int ibmveth_rxq_harvest_buffer(struct ibmveth_adapter *adapter,
- 
- static void ibmveth_free_tx_ltb(struct ibmveth_adapter *adapter, int idx)
- {
-+	void *ptr = adapter->tx_ltb_ptr[idx];
-+
-+	if (!ptr)
-+		return;
-+
-+	adapter->tx_ltb_ptr[idx] = NULL;
- 	dma_unmap_single(&adapter->vdev->dev, adapter->tx_ltb_dma[idx],
- 			 adapter->tx_ltb_size, DMA_TO_DEVICE);
--	kfree(adapter->tx_ltb_ptr[idx]);
--	adapter->tx_ltb_ptr[idx] = NULL;
-+	kfree(ptr);
- }
- 
- static int ibmveth_allocate_tx_ltb(struct ibmveth_adapter *adapter, int idx)
-@@ -667,7 +672,7 @@ static int ibmveth_open(struct net_device *netdev)
- 
- 	for (i = 0; i < netdev->real_num_tx_queues; i++) {
- 		if (ibmveth_allocate_tx_ltb(adapter, i))
--			goto out_free_tx_ltb;
-+			goto out_unmap_filter_list;
- 	}
- 
- 	adapter->rx_queue.index = 0;
-@@ -745,10 +750,8 @@ static int ibmveth_open(struct net_device *netdev)
- 	dma_unmap_single(dev, adapter->filter_list_dma, 4096,
- 			 DMA_BIDIRECTIONAL);
- 
--out_free_tx_ltb:
--	while (--i >= 0) {
-+	for (i = netdev->real_num_tx_queues - 1; i >= 0; i--)
- 		ibmveth_free_tx_ltb(adapter, i);
--	}
- 
- out_unmap_buffer_list:
- 	dma_unmap_single(dev, adapter->buffer_list_dma, 4096,
--- 
-2.50.1 (Apple Git-155)
+which went to 6.12.105, 6.18.50 and 6.19.10 and is tracked as
+CVE-2026-23459.
 
+Without it, iptunnel_xmit_stats() keeps bumping the tstats syncp,
+which overlaps rx_drops in struct pcpu_dstats, so VXLAN's rx_dropped is
+corrupted on 32-bit kernels.
+
+The netdevice.h hunk does not cleanly apply to 6.6, as 6.6 has no
+net_device_read_txrx group, and it only moves pcpu_stat_type.
+
+The ip_tunnels.h hunk doesn't seem to work directly in 6.6 either. In
+6.6, wireguard, ip_tunnel, ip6_tunnel, ip6_vti, sit, geneve, bareudp,
+gtp and amt still allocate dev->tstats themselves and leave
+pcpu_stat_type unset.
+
+I can try to send a 6.6.y backport with the above in mind if that's easier.
+
+Cheers,
+Grische
