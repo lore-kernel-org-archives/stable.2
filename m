@@ -1,52 +1,50 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A62354A2070
-	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 13:35:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCA2E4A3847
+	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 13:35:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790343351; cv=none; b=MabA8WBDJeQ8x966uzsQGub3vtapba281iEVYAAzsXyzTws6EGYNFHi9VbmbV0xKSQfRrNn8z0XnjWKNgBjLhdQkDgIOMU++GJknOC9Zp1mTJk6U7/B115brBZTvHYAFf0Nz1eQfImrpmX4DEK8Tm6AUmZ7uv5e+ZjZGW7S10Uk=
+	t=1790343354; cv=none; b=MX4iE5nmJLQ+SyT2nxTsEpT3FUvciRFCb7DHlrLuPrAz84qbAtfTlDbGsUg/MN3wPW1aSsuzHYd+/hr8OJQ3CQkroCotJwVUS48yVWkqkOo5U5DcimSBqcyaKIC0WI9tnmjSVp89faaETHrz5jxCWAJ9Afw3WDmdaiEMGLdj6NE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790343351; c=relaxed/simple;
-	bh=P+GjcTLKO76fZOnl2Km+cOqizEfTXAmLuXOwvS4gQa4=;
+	s=arc-20240116; t=1790343354; c=relaxed/simple;
+	bh=Zu3GYWdQb2Vh0cJDlbZ3kIWWiOBaQXw3I5UIff2Ka2M=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=FL5zT8Nk6mXkte983FBgjbOWcqUSwr2C06WqsxRUKRnNOn9iBXrfFDWTx3d6rSYYcuCUa7/OOIASLXmr5AeTETgM36VHg+Ktr88DrVvVA73PLXyBwK0mNLVHFEpDex1Km84M5hGb3hJ3J391O76R5FNL0ha10XQM3aFuYoclfaE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ny6LvokO; arc=none smtp.client-ip=185.246.85.4
+	 MIME-Version:Content-Type; b=WJfCP7Db+H9FnrLJhHs+SqVXMsU6xR4pxqNBkuhhnjgWQ/UNw12Cjcivkc6iFBTfLpunglvPnsMZk/4YyePTghoDBCT6mv+2qiuWKIjOpVIozF6RpG4xRZb/CFg6IIhGxVRLsPUOi4LuZsLuA4MKtH3+0cT1X2uBIElLGOQ+2hA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=cw1Dm84v; arc=none smtp.client-ip=185.171.202.116
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ny6LvokO"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="cw1Dm84v"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 16F504E4106C;
-	Fri, 25 Sep 2026 13:35:46 +0000 (UTC)
+	by smtpout-04.galae.net (Postfix) with ESMTPS id ED71AC653F3
+	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 13:36:38 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id E01C66073B;
-	Fri, 25 Sep 2026 13:35:45 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2D415103293B8;
-	Fri, 25 Sep 2026 15:35:42 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 152A26073B;
+	Fri, 25 Sep 2026 13:35:51 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B70A810328856;
+	Fri, 25 Sep 2026 15:35:45 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790343345; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1790343349; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=1EJjIk661tikGJLhJppgEVPju+d+qJSsQCa/QerB5sk=;
-	b=ny6LvokOTTzcILNazPwpbeNmw2xP3dG5bx+iKYLFy2S7VHg45a7UFIz9Dw+0ynvgHvaQSv
-	EcSH7rgGCkxFYFYtcMqKgl2M5NQ8qshp0fCBAq1sBEwe2gq8QSuaN3dledvxWODzIxhxRG
-	g/z3Tf+04TlnRnFywsGIdwtqgCkcODQdqwC04wl41+hiRQxA6Cgp9zg4pKVbaUH+RQ3Q/u
-	mWB4j5wJf+Ei/SFzqjzDhW64Zk8PkicUxEGGAcB1FeITUsAYWii4USRLp5LBzpmtLIT2Qn
-	0r1gasqQGhMtLI+74vRVJPxUj0GonOA3+e+Du6ulL0UKPuY4nNGL4gYqvXM47g==
+	bh=WQZlysiv0d/2BjDEIe3tNwkeQrAxLfTelLLNUmuJ3W4=;
+	b=cw1Dm84viQYCZx6ABoHnHL1Qp9oQfr5rKvoMMxb+r9sNGxE7HwsyCXIsK14za/yYulyUev
+	ykqBIkwzXO23hvV/2Xu1UPId8vjaogYuO6EQ36ik2HxCFInJV0o4nFTvnXHrc5rCViVfXf
+	TLs8WZJd9Wnsy5Bwcsy/DxOky5ivu2e3jrStr2kp88CG2xnkPKpETPzc/JDAAz4Ea0lpd0
+	0lOwcLXS8u61ce7L9z5E3hzS67PiK4q0wTDXsbm1j4fmR4A4l7pov7Pl9Xtqol+bQJCF2g
+	SBYbwhpFZD3QCd1IU3JEDouubYPDDsJo4Haj1EZ5XvXvPQJONj/pjKNU5DhhYg==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Richard Weinberger <richard@nod.at>, 
- Vignesh Raghavendra <vigneshr@ti.com>, Jacky Huang <ychuang3@nuvoton.com>, 
- Shan-Chun Hung <schung@nuvoton.com>, Hui-Ping Chen <hpchen0nvt@gmail.com>, 
- linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, 
- Guangshuo Li <lgs201920130244@gmail.com>
-Cc: stable@vger.kernel.org
-In-Reply-To: <20260915164537.2496540-1-lgs201920130244@gmail.com>
-References: <20260915164537.2496540-1-lgs201920130244@gmail.com>
-Subject: Re: [PATCH] mtd: rawnand: nuvoton: fix clock cleanup on probe
- failure
-Message-Id: <179034334209.1124555.2976716142691961983.b4-ty@bootlin.com>
-Date: Fri, 25 Sep 2026 15:35:42 +0200
+To: alexandre.belloni@bootlin.com, Wentao Liang <vulab@iscas.ac.cn>
+Cc: bbrezillon@kernel.org, claudiu.beznea@tuxon.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-mtd@lists.infradead.org, nicolas.ferre@microchip.com, richard@nod.at, 
+ vigneshr@ti.com, stable@vger.kernel.org
+In-Reply-To: <20260917102924.2146959-1-vulab@iscas.ac.cn>
+References: <20260917102924.2146959-1-vulab@iscas.ac.cn>
+Subject: Re: [PATCH] mtd: rawnand: atmel: Fix MCK clock leak in
+ atmel_nand_controller_init()
+Message-Id: <179034334517.1124555.16021884625975139988.b4-ty@bootlin.com>
+Date: Fri, 25 Sep 2026 15:35:45 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -58,23 +56,21 @@ Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.14.3
 X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, 16 Sep 2026 00:45:37 +0800, Guangshuo Li wrote:
-> ma35_nand_probe() gets and enables the NAND clock with
-> devm_clk_get_enabled(), but the ma35_nand_chips_init() failure path
-> also calls clk_disable() before returning.
-> 
-> devm_clk_get_enabled() registers a managed cleanup that calls
-> clk_disable_unprepare() on probe failure and driver removal. Calling
-> clk_disable() explicitly first drops the clock enable count, so the
-> managed cleanup attempts to disable the clock again and triggers the
-> clock framework warning for an already disabled clock.
+On Thu, 17 Sep 2026 10:29:24 +0000, Wentao Liang wrote:
+> atmel_nand_controller_init() takes a reference to the MCK clock with
+> of_clk_get() and keeps it in nc->mck for the lifetime of the
+> controller.  If the "atmel,smc" phandle is missing or the SMC regmap
+> cannot be obtained afterwards, the error path jumps to out_release_dma
+> which only releases the DMA channel, so the clock reference is leaked.
+> The callers return the error directly and never run
+> atmel_nand_controller_cleanup(), where the clock is normally put.
 > 
 > [...]
 
 Applied to nand/next, thanks!
 
-[1/1] mtd: rawnand: nuvoton: fix clock cleanup on probe failure
-      commit: 8a485a40f45a19c5fcafb5cbee7387c2762af7c4
+[1/1] mtd: rawnand: atmel: Fix MCK clock leak in atmel_nand_controller_init()
+      commit: 94edcda45d888c3bb1310de11e10e4537c166f00
 
 Patche(s) should be available on mtd/linux.git and will be
 part of the next PR (provided that no robot complains by then).
