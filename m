@@ -1,114 +1,116 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 493BD4AE13E
-	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 14:32:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 614894AF9F3
+	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 14:36:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790346766; cv=none; b=PVkUVG5JK7+ZflsPrR+iqricLryGPzjb393KsT5AYdGs0JiKzNF3J1jV0uG1x1SCEhwKRLFLTgvQjCAGMxoq0zg7HX7JuD+Shf8FmYGeMRuNyBK+AaUbUKN5cO3fx2usUsoODQ7ADlZTxpqedzqSioyZJH7EWihpq0KLsaK/HII=
+	t=1790347023; cv=none; b=ArpRso5dV3/ewi2H4bHjlZcJk1J8vN9QMS6jlkWkIMuhSYqmbMbVOyXqdyhropxMS9ef3SaOKybiaRplYBNfV6mybRG9hS72XALRACP8p/vfJX4CFfdJd2eei+2FpkWpduIbnQIDs47hOkQgx0RvxoW1ftp7+yWg3YLQ5WhnVK8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790346766; c=relaxed/simple;
-	bh=JfjNdOkV6czIA57rgjyzP2vkzS7QeX8zyexGClAHNV4=;
+	s=arc-20240116; t=1790347023; c=relaxed/simple;
+	bh=yVYbgpctf+cIcCi/3azkcmMVYQ2W+T1GNvOQCWr2MoA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ahjKfsWlMv80yxaV1hK8o22HgYdP1rE5nW8aTEpYBXf36UTgQxfd4ifObdh8KZ/fCL4K0rd8j/2pjD2uxsdJw/91ccs+UNTEWXbbBxNnw7ZEHPCCbV+MVzapAz1i2k++5IDAx4u4cqCJ7bRFWjN4EoDkltiwoN1YWRbzqCMDrPs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hR6z2bMD; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version:Content-Type; b=PmQgg5SS/SYHtheT6C+zZxARL5nPx0C5pOly30NPgfPRspTNXJ37ZHzUeRQsNrn2gEDuHZ1H/EtnNMtqlMpt5mCI4kbSfuHj4zI05pe4jxb/FH2k3FxBbvi0KQODKGrnIYHyvi3B8YCC0FerUPEMzD/bRjYNrOooStkcZ4FdWNM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=WlK5r/wP; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hR6z2bMD"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e8185e037so5646665e9.3
-        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 07:32:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790346754; x=1790951554; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/6G1/nB52qdf+pNA4653UiqYpDMxleEfU1TnV94wJwE=;
-        b=hR6z2bMDq0jmYglEjbKA6Xre+kvsAjX8/IzpTm1EJ6QgiwpvJCih0EXAlrxlJz2W3A
-         wJZ1JOw9THj8GCx47p+kfz36Y/OzHfp2zob0r2RoDe884ozVMZ5HbVVJ1ia61z70EGMe
-         PHefQOn4mO0HWamibHpSI2VrdReQecoqKdUrQFB33grsv5u6DfeHyCJDBrIN90u3oY3j
-         N0O1lKaMOfm3rLwF9lZDOMBfXLfVbrDaSnrCGejig34YxvmBEYnumAZ51grxe0aj63nl
-         ScL4wKQ5r5UD4OM1EBiOmvSQb+IAXAoVltLnaKAFjsQRIGBbbHNED7YxycdxVDtqWsoS
-         Yriw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790346754; x=1790951554;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/6G1/nB52qdf+pNA4653UiqYpDMxleEfU1TnV94wJwE=;
-        b=iRdNst/vDRH4uuyWFvg52HZr+YfJr+rxsBZlqoi+B5DVA7Q8hGrLFxOKyTCbEWFfrZ
-         DyHzoA1UqjVNWGCzuG4T/Xeedrs7nIA2P/GnDLZXs9ZrtOq3CaTgm51ZnYNf5C4ioFdZ
-         GmObTTTxG/s2U9G9p1ns4t/0vcx8QbS9+4UXhIv/tmAXGsnva4bkNskDJf13uw7PQ8a3
-         X/57XaR4vbOgoVm5wfaSO6UZYQWDO4mn3GzNx49caIKp61FIrEIjTe9Kb8oWd/yxq0/Q
-         RJW+N+9X48D6fq8dnv68lZbwlIDS4gHY7nuOCyF/j7ApvAG1sSV2MZFy8mwgVgNM/C+E
-         GE9Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzc7o4OGe3Eb2z9Zgs9kjFaNu1ubSTntVoDynIC1qykTt7Vog0T301rDNVLfVN/4TcRFP4OEVE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nZuqFj7BB9KFP3hQyzTGY8XAB4Yx4JCtWa1VxMmdOpjvhTrRAm
-	+WSkXKgbhWUXBJqLtVLlR2FFVli/pScl3l4HNApqfeMXzQ/QG26GvKgJ8jY690ng
-X-Gm-Gg: AYBFou3NXdG0XU4lApRBvJrqUMxmvQa3oq0muufkileYRa8cZWYIyeXCta0UI2mnO/N
-	3pujs5dDwGLSLhj+zXNrFq67Ab46kOg3Y0kDzyls46QOv+W1GivvjAj0Kv/YRPmYbqZMzKXkbNR
-	2gWrhUYfQF07pQ7/hWcSz54uBjZSp0rnLmYMPDVSRg9oZxDsvAMTVZN5a3wcqT2VdwK0khqTjGL
-	S9o6SgHe7sILYIK42MUaWgbg9lrtYQPPakZ3/VbnYXMLmzX/zDn2xEPtwQUDzxxRlOtyo8DaANE
-	2FiDawyzSr9RyD7G/7dJsSneD8iM1TqlDwhIzz8YPMuGfmgNYjcuFS6XqFhfQ5UTWfp6AlwFFhg
-	Fv6zOggGJPRxefGAKzvMchl6RmAp6NGpO2OObmkrxN2qpbXL31zzVHOT/CBo1F2Qq00RsgdR94V
-	7MYCfZ2VWPE81Ca1nzPcIMWj5pEYr8A9ChAh4JYqOTjMmLumJMxKb6gZ1MuI2cm7HM43oOrp1cy
-	9gI/K+kQrTWXEXyAe0fRyaCYzRRgpKGxp82UmvDIMzcK5S0G1zS
-X-Received: by 2002:a05:600c:4f47:b0:49f:c199:e1e2 with SMTP id 5b1f17b1804b1-49ff06ed9c1mr51897165e9.28.1790346754282;
-        Fri, 25 Sep 2026 07:32:34 -0700 (PDT)
-Received: from VivoBook-ASUS-X712UA-M712UA.lan (public-gprs197761.centertel.pl. [46.134.111.194])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a746c57sm7034706f8f.35.2026.09.25.07.32.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 07:32:33 -0700 (PDT)
-From: Stanislaw Pal <kuncy7@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>
-Cc: Gabor Juhos <j4g8y7@gmail.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Jie Luo <jie.luo@oss.qualcomm.com>,
-	Georg Seema <georgseema@gmail.com>,
-	Mieczyslaw Nalewaj <namiltd@yahoo.com>,
-	Brian Masney <bmasney@redhat.com>,
-	linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v4] clk: qcom: ipq-cmn-pll: keep the CMN block bus clocks enabled
-Date: Fri, 25 Sep 2026 16:32:28 +0200
-Message-ID: <20260925143228.386299-1-kuncy7@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260813093351.178419-1-kuncy7@gmail.com>
-References: <20260813093351.178419-1-kuncy7@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="WlK5r/wP"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id A0BFC4E41072;
+	Fri, 25 Sep 2026 14:36:33 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 6CDB96073B;
+	Fri, 25 Sep 2026 14:36:33 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 90638102F1E10;
+	Fri, 25 Sep 2026 16:36:28 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790346988; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=Cho8VxMpsdgUEHhTUgNDONJA8kzPaWVfHk2YSHY12P0=;
+	b=WlK5r/wPvrmwFvwC+CgaqGYU/TCjkUDUSgcnMPCQx1tj7vT77hpeMAQXZFwglnXeAsugLK
+	O7h33FjAZ16k0+ZOR6QFUu+FdmrZqjwFR0nA4++9W8WnxR4QLuLJakJrJkAD9X/G37KQBw
+	KmoNwfVOphnMaTIgyv+jCSLQ+I+swwR4ASz7q2xtPM0uRbIxnKrYy8oF62CbBJQk+hV1IV
+	bG0jzd4XeQIHHO0/qIOZHf004LxbrlesrTMKbXaZyHgAsNQQFaBYBy5IXmoOv0ShEKTwdd
+	eSziNnw1Q7lSdxm7TTs/naVFSw3Nl3slFPdaeBe3VJed59vOOIjpIWUHYwaPaQ==
+From: Benjamin Robin <benjamin.robin@bootlin.com>
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org,
+ "miguel.gasquez@bootlin.com" <miguel.gasquez@bootlin.com>
+Subject:
+ Re: [PATCH 6.18.y 1/2] rculist: add list_splice_rcu() for private lists
+Date: Fri, 25 Sep 2026 16:36:27 +0200
+Message-ID: <8TOvOdgDRsCPoDckusflIA@bootlin.com>
+In-Reply-To: <JyCWa7ltR_KwJYUaBPJh-g@bootlin.com>
+References:
+ <20260925-cve-2026-52988-6-18-v1-0-680b24895415@bootlin.com>
+ <2026092540-jokester-certify-1339@gregkh>
+ <JyCWa7ltR_KwJYUaBPJh-g@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-Last-TLS-Session-Version: TLSv1.3
 
-Please drop this patch.
+On Friday, September 25, 2026 at 4:28=E2=80=AFPM, Benjamin Robin wrote:
+> On Friday, September 25, 2026 at 4:23=E2=80=AFPM, Greg KH wrote:
+> > On Fri, Sep 25, 2026 at 09:52:23AM +0200, Benjamin Robin (Schneider Ele=
+ctric) wrote:
+> > > From: Pablo Neira Ayuso <pablo@netfilter.org>
+> > >=20
+> > > [ Upstream commit f902877b635551513729bdf9a8d1422c4aab7741 ]
+> > >=20
+> > > This patch adds a helper function, list_splice_rcu(), to safely splice
+> > > a private (non-RCU-protected) list into an RCU-protected list.
+> > >=20
+> > > The function ensures that only the pointer visible to RCU readers
+> > > (prev->next) is updated using rcu_assign_pointer(), while the rest of
+> > > the list manipulations are performed with regular assignments, as the
+> > > source list is private and not visible to concurrent RCU readers.
+> > >=20
+> > > This is useful for moving elements from a private list into a global
+> > > RCU-protected list, ensuring safe publication for RCU readers.
+> > > Subsystems with some sort of batching mechanism from userspace can
+> > > benefit from this new function.
+> > >=20
+> > > The function __list_splice_rcu() has been added for clarity and to
+> > > follow the same pattern as in the existing list_splice*() interfaces,
+> > > where there is a check to ensure that the list to splice is not
+> > > empty. Note that __list_splice_rcu() has no documentation for this
+> > > reason.
+> > >=20
+> > > Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
+> > > Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+> > > ---
+> > >  include/linux/rculist.h | 29 +++++++++++++++++++++++++++++
+> > >  1 file changed, 29 insertions(+)
+> >=20
+> > You did not sign off on this commit :(
+>=20
+> Hello Greg,
+>=20
+> Sorry about that, I was not sure about the rule if I did not modify
+> the commit in any way.
+> I will send a v2 for all branches ASAP (but I may only send the v2
+> on Monday).
 
-Gabor's fix for the same hang has been applied:
+I have an additional question, I was wondering if it is necessary
+to add in CC: rcu@vger.kernel.org, linux-kernel@vger.kernel.org,
+netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
+netdev@vger.kernel.org, ...
+These emails were auto suggested, so I kept them. But since I am
+sending to stable, maybe I don't need to "spam" everybody.
 
-  33f9cb56cc28 ("clk: qcom: gcc-ipq5018: mark 'gpll0_main' clock as critical")
+Again sorry about that, and thank in advance.
 
-It addresses the platform-level cause: 'gpll0_main' feeds the CPUs
-through GPLL0 during early boot, before the APCS clock is registered
-and CCF can see that consumer, so the first driver to drop a runtime PM
-reference on a GCC clock under it takes the CPUs down with it. The
-ipq-cmn-pll probe was only the first driver to do so on the AX55 v1; I
-had verified on that board that Gabor's change alone gives a reliable
-boot with this patch absent, and OpenWrt has since replaced this patch
-with his in its tree.
+=2D-=20
+Benjamin Robin, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
-That also answers the two open questions here. Jie's suggestion of
-making the GCC a consumer of the CMN PLL outputs is no longer needed
-for this hang, and Konrad's question about crashdump mode I cannot
-answer: I never captured that state, and with the fix in place I have
-nothing left that reproduces it.
 
-Thank you all for the review, and Gabor for finding the actual cause.
 
-Best regards,
-Stanislaw
