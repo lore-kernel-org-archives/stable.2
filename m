@@ -1,63 +1,65 @@
-Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
+Received: from mail-qk2-f41.google.com (mail-qk2-f41.google.com [74.125.230.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D55ED43F8BA
-	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 19:17:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 762E836655C
+	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 19:17:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790363832; cv=none; b=uHmjML1cUFZ0RygJUgd6QpK107PZdSt3Xw6yaHoC+F9eaKEW6mnMIYDczvYWL0Ba8yGDnuyXeOCdOTIcLQqIIgM6mDUCypK0FJ0cXOq7QVpc03zSbkbkdJWUPFClzXuAjjth83vwlNGQt3Ma1Da42Lu72lT3dG+KhH8Sf+VIsDk=
+	t=1790363834; cv=none; b=MLWkwyD9j6JE4x1osBHTLd2/PacyDKVsX4PEDkcJKHOKBz8xdbxGyuKjlnqq+j9bapIr6vjWhVL0lLgGheuqvbfsAx/t919mslfeEgfUe7D+HDlr19W3ZVK/aZqZ7uMsAoTmKDsepy0KshRQcuHnyy/GLKbms81NpGQY8r9d6uc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790363832; c=relaxed/simple;
-	bh=6ZjKEyBbmPcbe24qPTA+D/2bGCpH25Z30RUGitkCA6M=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QDODRBcVyUI9eEPqusMjvw3n0JH+Hf/am6i0KWwZ9CW4jqTIVBAF/Mmg/JFSFmqlqCly/NbhWBiGWwN0pNWWP/ivGHU+VILPhTaPnPVs3+wo9MgQBTbo4oFTOZzzavI+i5T/IjQqxkPgHeDmpkl5dhLPGJewQyN3CUaqvW7owlg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DYsLgxpu; arc=none smtp.client-ip=209.85.160.175
+	s=arc-20240116; t=1790363834; c=relaxed/simple;
+	bh=cx+Qxo7ICqpNTesdr02Y5BPfFrvbALtUCzOZqGDYf10=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ove1EI95e9T4CKQsumouDO3NE7dMrOGA1VEQBexup7nqUCRDvahm+mKVnVxhZeH/njJrgKw0J6sgIJl5X6tyZjHaXKBzOcRty1dChBTueofIwip/FdP3EbYu5q0GEtZlIqiaGlPIUbdB0VpjKRwN/mdN22ugMN6/FuTH3/Yqzh8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J427zTKm; arc=none smtp.client-ip=74.125.230.233
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DYsLgxpu"
-Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-52f9fc510e1so16768811cf.0
-        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 12:17:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J427zTKm"
+Received: by mail-qk2-f41.google.com with SMTP id af79cd13be357-93c57d36d37so3366685a.3
+        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 12:17:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790363829; x=1790968629; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MuvE+f2YVwcbigtaxoSqblfNR1nt2DA6GS6SXj46zY4=;
-        b=DYsLgxpugfgwtX4lWFNqmgFozhf24/11rHlYg4+pfRRXIWWal4HnxAfg3RlpFffaqF
-         fnRs6DxFO0wgPEozj1TKS3DRCuEeCkpCd8lDnYZHGi83+KRkrAF9r5QYvJ1HTkDE0AI3
-         WM+3ZJ3x2BkSOpyisrvO10G2FYTfolKN4Gbe9Uj+0U3GMr5d01nIxpjVyWE2XkwRLzKZ
-         pJUgVN88ABtvHYXquAj1tFqmJhlD2JZ9hkG11IrI9v7WhdsthEGIZbPVm8DjXiT3liZU
-         N/9v0q+tiPAbAAedpp13rz3dIdQlLZErstDBhr0RVvuwz6ERAwE/Qlia87u5ZpkfF6ai
-         4iLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790363829; x=1790968629;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790363830; x=1790968630; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=MuvE+f2YVwcbigtaxoSqblfNR1nt2DA6GS6SXj46zY4=;
-        b=OCupreeGNVaZkIBiXiDZt2fbuUdFF9Q3U31uDm7kyY3lfLQMUljnCdY6tmZ/XIWsv/
-         C0nqAaS14GDrDnfEhd9J0p0nxi0JwsMqBVoSysJPwr1kPgLFHc2SLLsm7e45t496jmGm
-         Hs+wR67nW+3D1bdywNhtjNSL/VmI6pCw54t+tsYxUWbPKSERmk9xnuquhvAESwcHEd1x
-         BllGHIjhEdhMIPz+3XwX+udWS1PlFsYXBiLKDSlwz/rn6CrcATed+xZN8AZlLbLp2MEc
-         6ulM6GTt7uPWYO0lqddyQpxAo+xvs1Ox6ubQM4tfCFUmGJlOicBo/rYvp6REDnV0ucvB
-         KsdQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwV1TVgWt70N7BGP5GdUi9+liEFrTtQtxzu8REgawGGD/remrqER4rn/g7jQFtno5XAtyTR0yI=@vger.kernel.org
-X-Gm-Message-State: AFuF++l4tsaIuvh6hohTKpLkVdkjCJYvsNxwe+tFfWTUB5pHd3iML9OP
-	TmlVDvpOH+6FZYRSaCGl27SsUjQwTFfPJyPweoCXVWYkBZpKpK5xlyA=
-X-Gm-Gg: AYBFou2pYI0yen/B05cM/hMbyRiC0tn3wZoDZKf/s3ZHrwXJXnK6EZcSxu2gKRzUD2V
-	/OXtV5YxwePwOvYQU9dUuy3LBzp4c9Q77HnRUf0/qpnh7RGNRs4bkLyuf03gIBm/vIoy4v/AUDO
-	oiQPsIXGSmOKcYij70f/I+GlGp1Lv4lCu1JVJGhZMFk9QfVHKE8wYdxsgt2GFGzmNU+yxLc1yLr
-	ZE9gPc2pcybKP+tGqQ6vh3kFdbP1pSkErJgqSpk0Us2/KYzxRZHnd/WwnZTuuWV1F68WOrxqYDx
-	gC5Qc5igeUc2btASXNZ0e6JWl81y6mW8/sfg3dwkHWkRqgC349/yn2NSnHzvA1Yl6B0V6rMwnHS
-	Ln3Fy1MHDdgASqElZsBaPM48EUZonNI+SujiCJg4ituI3+px1wp7L2SRqPNgzueE6FPlp+NQguF
-	gcjD5HcCzuEKXT2Bk1PSUMkj6MJhQ3kpeZCzAkIeC4ysMS801hzJGlDMzUJctfmtl8OxbQYBFH9
-	o/uZnQrUsnm58G1sPDoF09xPhzNHbpsB1QfujE+V94M3gYPtUHghfDap1U49Ob0Ouaj0Z23rzpN
-	hNeiLyyrOMAp5CE4MdV1I6phzfe0
-X-Received: by 2002:ac8:5f8f:0:b0:532:9af3:638f with SMTP id d75a77b69052e-5330b6ba05fmr59591321cf.27.1790363829240;
-        Fri, 25 Sep 2026 12:17:09 -0700 (PDT)
+        bh=AVZBghBD2hthXf6SLqJUAS1zp/fiQW6QZMeVDkbpjJg=;
+        b=J427zTKmGY3rvXqo3cjJ0HLN+jG9rtNpwcggo1EJQ6hmkMjFumoeXAXSyYrwbpszWU
+         cfREcNyarQC4KVuU+17M0t+51ZPr63KxY/mjL0BGvwSu0prlL8TPQnIMM4JvZ3e8vB5h
+         aJ0RDd4hXRqK8L9aHlIfZJDDx7x7Z7XbikYaixy5eE8pJ5ShA6m5U/luz1RLXI2Jhxmr
+         Bk/Q4FT8//lSBiverkS81uNxhrg2h6SSQiW48LROdf7t0C1X7Xwp6lqg3b342nMngptd
+         +mF47j2Bg6lXG748k7hcXN3Nq/rbbMdI/pq1P/Cy4hmNCqDI0eEeWYYSqbczuGr5hvxb
+         KCfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790363830; x=1790968630;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AVZBghBD2hthXf6SLqJUAS1zp/fiQW6QZMeVDkbpjJg=;
+        b=HK2apPjktlnevTAQXZZATojoagrrsUpEOX2WwZPlFSWVXuTJzKCT/LQYaVZk/Xo1CR
+         ScbCTAAYqO3N7rXYqTJrBrOaiwHTAdLFpFAzm9tyIPNSQ/Zmmnoi8jqdwBZxOjUNGiC9
+         ucsZW9FRHdxdG8lw0yUzKNq4bdiZvhG4X05hGdl7aDpBYwxMUdwqv1EPqx48y6jRcqyN
+         /bvrvGTsAcY5gfWPi6KKNeHj1+fPMbPeZK3zHdcON2dseNL3PG4QDAGsrKSkKaOrMXQV
+         Up8x0AIggluPhZR1wL5DTav3vTp3bkqguh0xkFKTX6adAe2gfUriuqQQL50a+Y6ukbos
+         GDZQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwzz2aSZzjWFbWhKWKtuvo9g5UcfkAhEkHzOkg9UcgfEgPDx6BAz/LflIwtAqHWx/yuC17iTBA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nAhMiNdoF6a5a5lLJxL2GdL7KVnsrbVjWm5BVZlJsuRfDobBpK
+	fknUmES+VNWNuwRsje1wxpGc1oKMUyYD7Hn+UnDtkvdPljAOqz9zHxoQ/rCuuOAL/A==
+X-Gm-Gg: AYBFou3EmyS11Fie11wJ2wje6L6G52Wfl0O64bUiCfP0wIghyK9q4nPW8pfCyVYZfCC
+	M+/mtP9HRMxIPxz37PBLcuV/E63PySq9SLq3XxYSSPW19Fx/vMDsoTStajdd8rv+KPfoWLKp0Bp
+	LCq6sMyrcmViHbzXdFE9sbO/3iP6XJjNWBvvKS3hmWoGp6uMSpF4BTLTywaVK6Yu9ZsOTxlYz8J
+	lKEUl9dUYYdHCpZAEU8lOi2iB6NdQMPoWhhk4XNjrAsKYBNAL3cpVyxWI5SYOi3yX62fL+SmPuy
+	C/himz7vqWYQN6XM8W1PQULzEcakJvT4B20Nxy5xCsz567q4Z0boVgOOsGwKt5Q/HkBRvAw6A6J
+	NZfKmOsFJU0g30FwFbWaqa1Hc6lRy22et2Vx5FjVVwXnaSvfvkutU1OIe/GsO+01+PRr945zBnF
+	cty96h2ZqoiD9HY2MHID8kUU0+wctKL5rbp9Lxh0RUdGowNvUPkd0KSbSFG4K8dNtbl+q/Pi7NH
+	sVemOd3IeTUo5vVSwlmxNThuxwKrb3zLcMfyfG1K5zXadynNqSDPUsycjxMc/Zv1SJM2LCWmjh5
+	rzJgkipwoVwh4Lr/K/wsh/3EMgr0
+X-Received: by 2002:a05:620a:a7a0:10b0:93c:56a8:a0a1 with SMTP id af79cd13be357-93c56a8a319mr54053485a.58.1790363830310;
+        Fri, 25 Sep 2026 12:17:10 -0700 (PDT)
 Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91430e09ce4sm23521776d6.28.2026.09.25.12.17.07
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91430e09ce4sm23521776d6.28.2026.09.25.12.17.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 12:17:08 -0700 (PDT)
+        Fri, 25 Sep 2026 12:17:09 -0700 (PDT)
 From: Myeonghun Pak <mhun512@gmail.com>
 To: Ming Qian <ming.qian@nxp.com>,
 	Ming Qian <ming.qian@oss.nxp.com>,
@@ -68,10 +70,12 @@ Cc: Myeonghun Pak <mhun512@gmail.com>,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH v4 0/2] media: amphion: fix VPU core lifetime during teardown
-Date: Fri, 25 Sep 2026 15:17:04 -0400
-Message-ID: <20260925191706.3144437-1-mhun512@gmail.com>
+Subject: [PATCH v4 1/2] media: amphion: drain message work before releasing core state
+Date: Fri, 25 Sep 2026 15:17:05 -0400
+Message-ID: <20260925191706.3144437-2-mhun512@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260925191706.3144437-1-mhun512@gmail.com>
+References: <20260925191706.3144437-1-mhun512@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -80,37 +84,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-vpu_core_unregister() releases the message FIFO buffer and VPU reference
-before draining queued message work. An open video instance can also keep
-a pointer to devm-allocated core state while sysfs unbind removes the core
-or its parent.
+vpu_core_unregister() frees core->msg_buffer before cancelling the message
+workers, although core->msg_fifo still uses the buffer as its backing
+storage. A queued worker can read it after it has been freed.
 
-The first patch drains message work before releasing core state. The
-second prevents manual unbind on both platform drivers and warns if core
-removal encounters a live instance.
+Drain the core and instance message work first, then release core->vpu
+and the FIFO buffer. This follows the ordering in vpu_core_suspend().
 
-Changes in v4:
-- Resend through git send-email after the v3 Gmail submission altered
-  diff headers and whitespace in transit. No code changes.
+Fixes: 9f599f351e86 ("media: amphion: add vpu core driver")
+Cc: stable@vger.kernel.org
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+---
+ drivers/media/platform/amphion/vpu_core.c | 15 ++++++++-------
+ 1 file changed, 8 insertions(+), 7 deletions(-)
 
-Changes in v3:
-- Resend with intact diff headers after the v2 mail submission wrapped
-  the diff --git lines. No code changes.
-
-Changes in v2:
-- Move vpu_core_put_vpu() after the work drain.
-- Keep runtime PM and mailbox teardown unchanged.
-- Address sysfs unbind in a separate patch.
-
-Myeonghun Pak (2):
-  media: amphion: drain message work before releasing core state
-  media: amphion: prevent unbind while video instances are open
-
- drivers/media/platform/amphion/vpu_core.c | 18 +++++++++++-------
- drivers/media/platform/amphion/vpu_drv.c  |  1 +
- 2 files changed, 12 insertions(+), 7 deletions(-)
-
-
-base-commit: 4efa625593e1e9c76346232413997556dea1d89f
+diff --git a/drivers/media/platform/amphion/vpu_core.c b/drivers/media/platform/amphion/vpu_core.c
+index 85cc4a14f8ed..a0c58ec97a42 100644
+--- a/drivers/media/platform/amphion/vpu_core.c
++++ b/drivers/media/platform/amphion/vpu_core.c
+@@ -299,22 +299,23 @@ static void vpu_core_put_vpu(struct vpu_core *core)
+ 	core->vpu->put_vpu(core->vpu);
+ }
+ 
++static void vpu_core_cancel_work(struct vpu_core *core);
++
+ static int vpu_core_unregister(struct device *dev, struct vpu_core *core)
+ {
+ 	list_del_init(&core->list);
+ 
+-	vpu_core_put_vpu(core);
+-	core->vpu = NULL;
+-	kfree(core->msg_buffer);
+-	core->msg_buffer = NULL;
+-
+ 	if (core->workqueue) {
+-		cancel_work_sync(&core->msg_work);
+-		cancel_delayed_work_sync(&core->msg_delayed_work);
++		vpu_core_cancel_work(core);
+ 		destroy_workqueue(core->workqueue);
+ 		core->workqueue = NULL;
+ 	}
+ 
++	vpu_core_put_vpu(core);
++	core->vpu = NULL;
++	kfree(core->msg_buffer);
++	core->msg_buffer = NULL;
++
+ 	return 0;
+ }
+ 
 -- 
 2.53.0
+
