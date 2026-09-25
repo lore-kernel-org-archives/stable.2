@@ -1,165 +1,97 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AAD6384258;
-	Fri, 25 Sep 2026 07:13:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790320433; cv=pass; b=HvcKfZmhqLGtyeazuH0JLO2CpwJ00+e/GcFdyVEn7vebdetydkcK0+1pKXg8pR+FzLtvtfVzSSSAYFF3X7nDwXIyRd0Igz39oVRPmx1iKcPIRu3OxLRff+y0b9JSV6x2inNBazzqJBgvjLPuAEBZlvjHBeFgR7EONPcYrkYEZbQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790320433; c=relaxed/simple;
-	bh=204sKMI5do38KKJp7Jqj1fEbF7DyWfLHVaIFvH58Y1E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GzAlbXmVDhUiCttGoiO+8WuCkDZ61VLYEMYkW2yhfqhFfBGy5KuKbJrz5MzwcORgmD61kX1HpTnldFVIianBy2FINVknaYVGLZ40j5OivFctsHdx0hltnFn5OFLti8gLAf0eBVJLgfmYEoAn/b7VRsZ4HA3YvtTQzNcUU64pCp4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=LmI0yBIq; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5755C201278
+	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 07:19:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790320745; cv=none; b=SiXFx7h0Ftm4QyJvTvei1LXnr7KvZLLa8zS5MH5yD7K57y6hFahsTvP1ROQ6ROZ1CthF/GzvKorGcmDKHWnW3EBWmBn3uQoHI+XIceOCpLMcFZyKp2o0/YOmD99wUUeGMIaF31gLJjthuFr1xE56aR8yFC8o0fQAeFeqB6YqypM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790320745; c=relaxed/simple;
+	bh=wunzVgverBhRiUsz9U+PX33jIBCRD9wkVi1KnyqrITk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=jVwrMm+d5hxCvz2fsj5m89AKSb4rKvAW1xnmZg38YFF+PLT3pMk9ZPjXL8nZHJoFkLv4DmC/u3443abjepgs7YBsWTT0NfGUTtcnNjkV1Sx8oHowJpuTIZLoY3lDGU38Q1m2/X7d+ikUh3n8DM7PvnXl1iV33KZOzHb4sunPHuI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Ibf/yjZn; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="LmI0yBIq"
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 3D21C2010E2;
-	Fri, 25 Sep 2026 09:13:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790320430;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Ibf/yjZn"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790320743;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=WLceNeGlZl/gS3dxnKEM095tZNl9hbWJqJ8xL8l+Ngk=;
-	b=LmI0yBIqgdLYlZkBCpjZXNKQNbWFfWYbjkQGdgI8oJTKi4oGntWIoji0TdDTHQJ3EEPyUM
-	lUWPkBqVsnlERCCmLxdFcgnWBGblRcHNwoTEY/qihG5/7/bkzheB+luC+QfHmQf91ehAEC
-	k107ogFRxkRe9xelZoDmMOsDsp0azvpkOqIrPCOJ03AdM+h1e5xR6r37+JpN/WbHKiVW14
-	CEV+Lex9xsFyd1fSyQcodP/oO4KTWOrSow8GmzEZtCTcXbFioBuupqJFOvCj9v4xbj7BPk
-	aPVNQXjFE12d2YntZd5szOvIYc4bgVsUk/cY0LHbHE6J35BH2O4Oeii1fBTQ1Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790320430;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WLceNeGlZl/gS3dxnKEM095tZNl9hbWJqJ8xL8l+Ngk=;
-	b=FjSBUpNBgiTP2RKJG00Xn9iQ/JJqcctKp9O/ky08jS+C51zWkAhFYyH8sVwdFPCHYKa9us
-	+U5V0v0A74FHrHCtCGWJLPN/5re7JATWiLsAr0APVCoWMcyDMoeTcwUtm0xhDtdwvdJwrR
-	qpi5M7aaqkU+vJ5l/TkHEB9gd5UMOY2mt6Y7flzTlKenM+rv6aCd3nAHA3KjbBIYKPe/z8
-	nFh82pKaYtTwgA94J0AVCxKt66K2KQCJoAWsriaPCCGuV175PmxJBctTIyXLhXsN+uFR5W
-	Z6m+s1AxL62HnXrs1mfJeVwlSTOGwmcpDJ6nIgvEX8+MtM3l9UeQONk5e+d5yg==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790320430; a=rsa-sha256;
-	cv=none;
-	b=PRWtc/sudJkmT2stVbINd3FjWG7+/X+w1GiaPS6ulSjIXeuumkxkXw8KYppU9Dq7TW1d8g
-	MPKIL2swAhb+tSAM5JPbgYPfa7de+dcAwBiIhpOhANYfWQRfwDvab2NWso3j7PB/h0h2wt
-	gNbrPM07qISuPs4803t9tGq5RJ/Z0lKhZUaao4zC4qUKdarYttF+sZ+N8puvdjU2Sf0bIk
-	mD2skZUlLlABJgpn7LAu010byQgRRbvc3WJ0m3hpNKOlJExaNWagJfHNer0I/DAovVjRO9
-	sx98NJeMnjoTHMpIMJuMofN3PqNC3jO/5tjkuEbe2R1OESp7s77GQi7Et2F/nw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
-Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <ore@pengutronix.de>)
-	id 1xA07y-002h3b-0W;
-	Fri, 25 Sep 2026 09:13:50 +0200
-Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
-	(envelope-from <ore@pengutronix.de>)
-	id 1xA07x-00000005Ptt-481R;
-	Fri, 25 Sep 2026 09:13:49 +0200
-Date: Fri, 25 Sep 2026 09:13:49 +0200
-From: Oleksij Rempel <o.rempel@pengutronix.de>
-To: Dennis Piecha <d.piecha@ymail.com>
-Cc: "hkallweit1@gmail.com" <hkallweit1@gmail.com>,
-	"nic_swsd@realtek.com" <nic_swsd@realtek.com>,
-	"andrew@lunn.ch" <andrew@lunn.ch>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"regressions@lists.linux.dev" <regressions@lists.linux.dev>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>,
-	"kuba@kernel.org" <kuba@kernel.org>,
-	"nb@tipi-net.de" <nb@tipi-net.de>
-Subject: Re: [REGRESSION] r8169: RTL8168h silent RX stall with EEE after
- "net: phy: realtek: fix EEE advertisement write on the internal PHY MMD
- path" (6.18.y)
-Message-ID: <arYfLe7JpeO5tw6G@pengutronix.de>
-References: <353419280.954808.1790290283530.ref@mail.yahoo.com>
- <353419280.954808.1790290283530@mail.yahoo.com>
+	bh=wunzVgverBhRiUsz9U+PX33jIBCRD9wkVi1KnyqrITk=;
+	b=Ibf/yjZnQkqlY+UV5CGqOIPi4ymgraxxYQEKBa4uDvzRRFGkNJrb1lHtamxF+cqpj6Svqw
+	6kLnOFPOnl6BPM/E1/vwGtvajpGVI+52QcvdiBg0vuKcWCR99d2VvKMz/SF4nLY3+6NkLe
+	lOL3SkoZ0BT4SqsI/lNX7nzAqdJZ8W4=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-438-pHI5C_PAPKa_FE_kBufkgQ-1; Fri,
+ 25 Sep 2026 03:18:58 -0400
+X-MC-Unique: pHI5C_PAPKa_FE_kBufkgQ-1
+X-Mimecast-MFC-AGG-ID: pHI5C_PAPKa_FE_kBufkgQ_1790320737
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 6F17B180B5FA;
+	Fri, 25 Sep 2026 07:18:56 +0000 (UTC)
+Received: from jtornosm-thinkpadp1gen7.rmtes.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 5A14D1800351;
+	Fri, 25 Sep 2026 07:18:52 +0000 (UTC)
+From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+To: kuba@kernel.org
+Cc: aleksandr.loktionov@intel.com,
+	andrew+netdev@lunn.ch,
+	anthony.l.nguyen@intel.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	horms@kernel.org,
+	jacob.e.keller@intel.com,
+	jtornosm@redhat.com,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	przemyslaw.kitszel@intel.com,
+	rafal.romanowski@intel.com,
+	sdf@fomichev.me,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net 1/4] iavf: return EBUSY if reset in progress or not ready during MAC change
+Date: Fri, 25 Sep 2026 09:18:43 +0200
+Message-ID: <20260925071850.53292-1-jtornosm@redhat.com>
+In-Reply-To: <20260915092418.0aafd079@kernel.org>
+References: <20260915092418.0aafd079@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <353419280.954808.1790290283530@mail.yahoo.com>
-X-Sent-From: Pengutronix Hildesheim
-X-URL: http://www.pengutronix.de/
-X-Accept-Language: de,en
-X-Accept-Content-Type: text/plain
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-H Dennis,
+Hi Jakub,
 
-On Thu, Sep 24, 2026 at 10:51:23PM +0000, Dennis Piecha wrote:
-> Hi,
-> 
-> after updating from 6.18.39 to 6.18.52 (Home Assistant OS 18.2 -> 18.3,
-> close to vanilla stable), the onboard RTL8168h of my NUC silently stops
-> receiving every ~7-20 minutes. Disabling EEE at runtime makes it stable
-> again, so I suspect the stable backport of
-> 
-> 202fef9bbbf5 ("net: phy: realtek: fix EEE advertisement write on the
-> internal PHY MMD path")
-> 
-> (0af3afd054e7 in 6.18.y). There are no changes to r8169_main.c between
-> 6.18.39 and 6.18.52, but this PHY fix touches rtlgen_write_mmd(), which
-> is used by the "Generic FE-GE Realtek PHY" bound to this NIC. My
-> guess: with the advertisement write now landing, EEE actually gets
-> negotiated with the link partner, and RTL8168h doesn't handle LPI
-> correctly on the RX side. The fix itself looks correct to me; it seems
-> to expose an existing r8169/RTL8168h problem.
-> 
-> Hardware:
-> Intel NUC11ATKPE, BIOS ATJSLCPX.0039.2023.0221.1502
-> RTL8168h/8111h, 10ec:8168 (subsys 8086:3027), XID 541
-> PHY: Generic FE-GE Realtek PHY
-> link partner: AVM FRITZ!Box 6690 Cable, 1000/Full, flow control off
-> no VLANs, ASPM already disabled on the device (LnkCtl ASPM bits 0)
-> 
-> EEE state on 6.18.52 (read via ETHTOOL_GEEE):
-> supported=0x28 advertised=0x28 lp_advertised=0x28
-> eee_active=1 eee_enabled=1 tx_lpi_enabled=1 tx_lpi_timer=12
-> 
-> Symptom: carrier stays up, nothing at all is logged by r8169 or phylib,
-> no NETDEV WATCHDOG. rx_packets freezes while TX and the MSI-X interrupt
-> count keep going; no RX error/missed/dropped counters move:
-> 
-> time rx_packets tx_packets irq bql_inflight tx_timeout
-> 23:08:29 626373 188818 201071 0 0
-> 23:08:31 626458 188908 201236 0 0
-> 23:08:34 626513 189037 201394 0 0 <- stall
-> 23:08:37 626513 189126 201473 0 0
-> 23:08:44 626513 189284 201606 0 0
-> 23:08:51 626513 189517 201788 0 0
-> 
-> It never recovers by itself. "ip link set eno1 down; ip link set eno1 up"
-> restores traffic within 3 s; flushing the neighbour table does not help.
-> Disabling TX checksum offload and pinning MTU 1500 (workaround for the
-> VLAN-related TX timeouts reported by others on the same update) has no
-> effect here.
-> 
-> EEE test: on a 6.18.52 boot that had stalled at ~7 min and again ~7 min
-> later, I disabled EEE via ETHTOOL_SEEE (eee_active=0 afterwards). Since
-> then it has run for 60+ minutes without a stall, nothing else changed.
-> 
-> What I have NOT done yet: verified the EEE state on 6.18.39 for
-> comparison, and tested 6.18.52 with the commit reverted. I can do the
-> former easily; building a kernel is harder on this appliance-style OS
-> but possible if needed. I can also capture a MAC register dump
-> (ETHTOOL_GREGS) during a stall if that helps.
+Would you be ok with dropping patch 1/4 and resubmitting only
+patches 2-4?
 
-Can you please test following patch:
-https://lore.kernel.org/all/20260925071040.2137178-1-o.rempel@pengutronix.de/
+Patch 1/4 was originally needed to avoid the 2.5s wait during
+reset with netdev_lock held. With patch 3/4 replacing the
+wait_event with a synchronous send + poll, the original concern
+is already addressed. During reset (if necessary), if it times
+out it will return, same behavior as the pre-patch code. Patch
+1/4 becomes just an extra precaution, not strictly required, so
+it can be removed.
 
-Best Regards,
-Oleksij
--- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+The core fix is in patch 3/4 which carries the Fixes: tag.
+Patches 2/4 and 4/4 avoid unnecessary VF resets when changing
+trust, reducing disruption and wait times.
+
+Thanks
+
+Best regards
+José Ignacio
+
