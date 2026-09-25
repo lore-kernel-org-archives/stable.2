@@ -1,95 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DED146EF75;
-	Fri, 25 Sep 2026 13:13:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B7954503EA
+	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 13:15:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790342005; cv=none; b=qV0EzonmSEy3cRGboTZ2CFflDAN/xzOuGRLnpWhHv1vzAWAitc06tI3pkv1WzGhbjg+ElEc2tDqO7WGtJbNBrhXUsjasCriiA8ZjNNev6zf2eoa0GSCOPkXcK9dstdLP5aCa2kavr5sHexvITaVHd6PozIwfoHj+qceePFPu4YY=
+	t=1790342132; cv=none; b=hdTCY7Nm7dGM1EYIUbp3ySTCzig55S2r2e0ei9doyvEJHlaUywTpC8itVW5AGDQQXN4Ba/ViavJw7Q4A7vOj/2lLnB05ntOeNvE/ciuxkPHMJr/ckUR/iriIBAXWMZTeX1rIItLvsVyGIhygB9QJBRGFc4D7mljleqSorw6j/nY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790342005; c=relaxed/simple;
-	bh=/6gBip90GBXQDdZq2MPJw/zNYdq8kQI02YUI5ZI+vsQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RwQ87g2+QJMX10IHMVm2z4Vk9iDi1hhuRR9gOa/dZWCnymaPoY59f3TUMdAQs//JNW3h+sg6NC51ola3xiw6fYdtyRWPb+qwu4aAHkmirNW+sqxZ72LYnHaOsFbjs9mEnbq32dY5u7/o+JCGQzKh+BKDZrOTMH302kNfsaeKwD4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M9MXET6Z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790342132; c=relaxed/simple;
+	bh=KTQ/C/AGHF9RbysM3AnAFePH/hkPn6orzxkp3dkZudU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=sIJ2D0Eslppqlbo40jmV36kzE3swoqQmoHgWpgnnsxYFdpVLYtlbTWu9jbBmxrTHWe/SOG3fhPlSyncAplfcdt5syzGf0LOLKU1NFJv+HeSycyc813XAh1VKzuUVCRG8KHHBSQpSoGxZboz1nhetjhNwdXdR+vuhXCcgylhQiU0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=fvtzHCEg; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M9MXET6Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAD3A1F000FF;
-	Fri, 25 Sep 2026 13:13:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790342000;
-	bh=2pUvtFKKkBhLOY/E+/Hhh8fL8Ve/qhFsisMU+/7F7Bg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=M9MXET6ZxusfItvf4j6h820H+ZNZcPxwPS+FUzMcGJXI0QSF5nh3AdWz6bAJ+d3xh
-	 xjBSU0gnQaYDTS85b8XyebzgHiP+BU/hTw091SlIE9gIb/7UcNSAt6yWsWXXQGX6r8
-	 LVa6/X5aaH+wvE4j4SRybsgMTHywKKk4Td6qQ7HSG9RHnY2f19YMZfl5v5h5jX73KA
-	 Ib3IxQUbNo29C5UK0saN34A36ZZqGHN/o4K6ePIpf3GKx3ToCvS0ms5wZynEI1k36j
-	 XEFWdHr83Rf+7jP3UJfFp1M3Y59dme5l9HByE+23gf910Q0GZ+0z+6PgRWVfE8RfBE
-	 yTNHtfWV35mzA==
-Date: Fri, 25 Sep 2026 14:13:15 +0100
-From: Simon Horman <horms@kernel.org>
-To: Jamal Hadi Salim <jhs@mojatatu.com>
-Cc: netdev@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Victor Nogueira <victor@mojatatu.com>, stable@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>, hybris <hybris@mojatatu.ai>
-Subject: Re: [PATCH net] net/sched: cls_api: reclaim an empty proto on the
- error path
-Message-ID: <20260925131315.GK13925@horms.kernel.org>
-References: <QDISC-JCOT.v1.20260910090924@mojatatu.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="fvtzHCEg"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 6D9101A1020;
+	Fri, 25 Sep 2026 13:15:17 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 411E16073B;
+	Fri, 25 Sep 2026 13:15:17 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 158B9103294F3;
+	Fri, 25 Sep 2026 15:15:11 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790342116; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=aA/jH+abiUuanyuKQ/jErOx9VrxS5Sybyk7KxjQG/Zg=;
+	b=fvtzHCEg+5XGvBIiIIbDm/qRBcKezZoWZkz0a8OqTjBzK4C8Sm6pUVgUXqfeg3LglpLoA1
+	J16LXk9TzJtGw8b+tQSgAsaMr4988sHQcGo7XRZYqro3kuUGnjrP6SKJeYlKt+HvUZ8Vvo
+	6L6IqR3cV4OuiC2wm9KyvOcn264FmIzriSk2XWYDeCWCbcylLMRKz/mFTXVRITUC+iz2+Q
+	Of6mGvPl/dJzSjq8DuCu3YjCR3bNlh4FACoeQxhGJ9t3rZF4OYxUKJxagsx0t1ltOJSDO3
+	Bxa4sK7Vv2Jc6eXWF/6Gbv8CbMWKIToeL6BpJ9HL7nZZxKnoKnpQpovKuuG/0A==
+From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
+Date: Fri, 25 Sep 2026 15:15:08 +0200
+Subject: [PATCH net] net: macb: init workqueues before register_netdev()
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <QDISC-JCOT.v1.20260910090924@mojatatu.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260925-macb-netdev-register-race-v1-1-752f90ce1c39@bootlin.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMzQrCMBAGX6Xs2YU2NAV9FfGQn8+6glF20yKUv
+ rtRjzMws5FBBUanbiPFKibP0mA4dJRuocxgyY3J9W7qj87zI6TIBTVjZcUsVqGsIYFdHAfnc/b
+ T6Kn1L8VV3r/3mVpBl7+0Jd6R6vdK+/4BlG0FqYIAAAA=
+X-Change-ID: 20260925-macb-netdev-register-race-2b4125dd5645
+To: Conor Dooley <conor.dooley@microchip.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Eric Dumazet <edumazet@kernel.org>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Nicolai Buchwitz <nb@tipi-net.de>, 
+ Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
+ Gregory CLEMENT <gregory.clement@bootlin.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, stable@vger.kernel.org, 
+ sashiko <sashiko@sashiko.dev>, 
+ =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
+X-Mailer: b4 0.15.2
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, Sep 24, 2026 at 04:32:49AM -0400, Jamal Hadi Salim wrote:
-> Two racing tc filter add requests on the same chain/prio of an
-> unlocked classifier both run change() on the shared proto and both
-> can fail: the winner's tcf_chain_tp_delete_empty() attempt gives up
-> because the loser's handle is still in the idr, and the loser's
-> error path drops only its own reference without a second reclamation
-> attempt. The empty proto stays linked in the chain, holding the
-> chain reference, a block reference and the classifier module
-> reference until the chain or block is torn down.
-> 
-> Reclaim the proto on the error path of any failed request that holds
-> a proto reference. The reclamation is emptiness-gated:
-> tcf_chain_tp_delete_empty() unlinks the proto only when
-> delete_empty() admits it is empty, so a live shared proto is never
-> unlinked. A proto the request created is reclaimed unconditionally -
-> it is the only owner, so marking it for deletion is safe even without
-> a delete_empty callback. Classifiers without one (the check marks the
-> proto unconditionally) are rtnl-serialized, so the raced window this
-> guard closes cannot arise for them.
-> 
-> This is a follow-up to commit d4e359b3608a ("net/sched: cls_api: fix
-> teardown of an adopted proto on insert-race loss"), which stopped the
-> loser of the insert race from unlinking the winner's live proto but
-> left the empty-proto residual in place.
-> 
-> Conditions to recreate:
-> - CONFIG_NET_CLS_FLOWER=y; veth pair
-> - tc qdisc add dev veth0 ingress
-> - two concurrent `tc filter add dev veth0 ingress protocol ip pref 1
->   flower skip_sw ... action drop` (both fail in fl_hw_replace_filter
->   after publishing their handle in the idr); repeat in a loop
-> - an empty flower tp stays linked after both requests fail; visible
->   as a bare `filter protocol ip pref 1 flower chain 0` header in
->   `tc filter show` with no filter entries
-> - CAP_NET_ADMIN (namespace-local via unshare -Urn suffices)
-> 
-> Fixes: 8b64678e0af8 ("net: sched: refactor tp insert/delete for concurrent execution")
-> Reported-by: Sashiko (nipa) <sashiko-bot@kernel.org>
-> Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260805134049.927864-1-victor@mojatatu.com
-> Tested-by: hybris <hybris@mojatatu.ai>
-> Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
+register_netdev() exposes the interface to userspace which might trigger
+operations like close on it. Those access the HRESP/LPI tasks and
+might therefore use them uninitialised.
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+Fix this race by initialising both `struct work_struct` before
+register_netdev().
+
+Theoretical bugfix. The main reason for fix is to avoid future Sashiko
+reports which triggers if we grow the race condition (by touching those
+workqueues at open for example). The likeliness of this bug sounds
+tiny, but I've not spent any time trying to reproduce it.
+
+Fixes: c5092ba3155e ("net: macb: Convert tasklet API to new bottom half workqueue mechanism")
+Cc: stable@vger.kernel.org
+Reported-by: sashiko <sashiko@sashiko.dev>
+Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260918-macb-close-v1-0-05e32ce98813%40bootlin.com
+Link: https://lore.kernel.org/netdev/179010942347.2160803.5970158668197373074@kernel.org/
+Signed-off-by: Théo Lebrun <theo.lebrun@bootlin.com>
+---
+ drivers/net/ethernet/cadence/macb_main.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
+index 8e5c034dc3a4..76260b97a07b 100644
+--- a/drivers/net/ethernet/cadence/macb_main.c
++++ b/drivers/net/ethernet/cadence/macb_main.c
+@@ -5968,15 +5968,15 @@ static int macb_probe(struct platform_device *pdev)
+ 	if (err)
+ 		goto err_out_unregister_mdio;
+ 
++	INIT_WORK(&bp->hresp_err_bh_work, macb_hresp_error_task);
++	INIT_DELAYED_WORK(&bp->tx_lpi_work, macb_tx_lpi_work_fn);
++
+ 	err = register_netdev(netdev);
+ 	if (err) {
+ 		dev_err(&pdev->dev, "Cannot register net device, aborting.\n");
+ 		goto err_out_free_tieoff;
+ 	}
+ 
+-	INIT_WORK(&bp->hresp_err_bh_work, macb_hresp_error_task);
+-	INIT_DELAYED_WORK(&bp->tx_lpi_work, macb_tx_lpi_work_fn);
+-
+ 	netdev_info(netdev, "Cadence %s rev 0x%08x at 0x%08lx irq %d (%pM)\n",
+ 		    macb_is_gem(bp) ? "GEM" : "MACB", macb_readl(bp, MID),
+ 		    netdev->base_addr, netdev->irq, netdev->dev_addr);
+
+---
+base-commit: c15c41239b491c7fa380e7ffd115ba037f2d4b11
+change-id: 20260925-macb-netdev-register-race-2b4125dd5645
+
+Best regards,
+--  
+Théo Lebrun <theo.lebrun@bootlin.com>
 
