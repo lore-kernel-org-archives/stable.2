@@ -1,54 +1,50 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28053423A79;
-	Fri, 25 Sep 2026 18:48:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 986F443E48B;
+	Fri, 25 Sep 2026 18:48:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790362111; cv=none; b=aDU9V8iuzbnlJjOQ7ygGwXtaqI5JcmXljv+F7jq5tY5mgglDiBeqPDG3wysQRRJLBX7UDUfAPmYV1/+VanoNtGrGZORbgDsmwVo7tKYNekQALqg3Qz9agh3fmA8xRpbqjvwNgqSWwIZYUwrBX9e350zR0EWgaMwyLQUIP+WCyGo=
+	t=1790362111; cv=none; b=UTk7NOX0GPunibfH1tTPZpZiehqDQTP7dB3TWy3DaMfnTlI6WBEm06Lap7/eAMZ49ury++fwWjJHkGaLKBAgGtLDUPaT3uITY+0nNOqX5ScCnqdwhYwOgIC3X0XuSLtsb5pR7nL3/DxUk3OZG3aCvNrYRJlElPuGR+sf9zseQTg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790362111; c=relaxed/simple;
-	bh=NN8HMG3CJkBLmP2lCORwewNsyyr3V5NeSaKxoGI99z4=;
+	bh=Lgbxg9hf/JixN1bh4yYjqMkPNR+EWnhkxX9pTnZxFwg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZuvXlYrqdjxpeNRH+bLfCOkwJGxa/yui5mBh4DyGlFVLKJNgBtf40z5tCqiCs3hNzP7G7AAEYoSj9oOdkq8VXxsfw6YUH0Gbvyol92BA9iB4Cmrafj2PaX9xpCajt8JlDww3lgukcVqzD75mRZcb0pP9XeqZdvAvAdOPsfJhr+k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fh3ky6Wh; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=mLrv1dq3bqzTT5HxqaU3NaQOn4/hzU1KHhL9+qayS5WFxSVFrEGNAxj1IP4epZZ/weJCLAt7c20rFW9O7rVWdJIWRjG8MGsjgt7EBzq1nSD3TgpLYwsju/8QG6VwnA4980uinSxcb8Cncc/thYrCwqgQalFfy3VdSXLVF0b3JfQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UTLefvhP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fh3ky6Wh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76BD71F00898;
-	Fri, 25 Sep 2026 18:48:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UTLefvhP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E89A1F00893;
+	Fri, 25 Sep 2026 18:48:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790362106;
-	bh=UUghsFTVrlc+3PZSfcRcNdNfaaDOYSLWokuXgaIKoog=;
+	s=k20260515; t=1790362107;
+	bh=fFFsE5Dpykubt5ihgA8tr0oReh42cQ0wz2+h2wzH75M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fh3ky6Wh/lurU9omv/ABZLCvKkQ9gncwgcKazVzHeaGfddaymKjEAN5vT6gDyXkZc
-	 b3RCVXYrSsKbYRSXtyGyyPtOqMtV/n2fIl8sVzWb89m6CuoItDavDFQmPLLSFQmQvi
-	 tSw5EvcGM9EPYOBeCyKrvmCH47R/XWc7zW22sP3HG19VN97BxhXpBqum6IMUZYBsAM
-	 KxSpy9I6L0/fUFdja4SeMlLh8CwKYBi0RALTBI5HakyFk3v77BwC1I8ppTUqWuO6L5
-	 3cXW3WmIa1rx6QQmo3GSAHYMPs0nl0a2icsNOwAmttERxlQVmeaUCSqXK0AJM61+qc
-	 UWX9cPUoJ1LMg==
+	b=UTLefvhP+xVVODmxOEkIVp2q8Cm4Y8BXsoklodKRduQceqYqoGdd5BpylBxYJSRpB
+	 zyf7dFmm/SrSlG9+jeC7zKMw0OfBmEGxvwtla9vXSFdKa2W/XICKOiQRLa9NZZ+3+G
+	 OYS5bF7UN2qja0iN3wvsXLUxZ4Nm67S2gZ7RjrQhPEdHM6IySV2Jafk3uZ1fE/T5sw
+	 o7xrOhIAakeTq0rSDa3xGV6ve2aX0NiYe4i6UMF48B/jVY+SzI5JLWhHHA+/spWJCA
+	 8gmZR8P16MlP343pghfem2byOATYfkNsrX64egPgV7ZqZLuyKlARbqUCLPbFmDjiXb
+	 Nj2T97s0+6heQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
 	Artem Dinaburg <artem@trailofbits.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Saeed Mahameed <saeedm@nvidia.com>,
-	Leon Romanovsky <leon@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Roi Dayan <roid@nvidia.com>,
-	netdev@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
+	Yoshinori Sato <ysato@users.sourceforge.jp>,
+	Rich Felker <dalias@libc.org>,
+	Paul Mundt <lethal@linux-sh.org>,
+	linux-sh@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Jianbo Liu <jianbol@nvidia.com>,
-	Vlad Buslov <vladbu@nvidia.com>
-Subject: Re: [PATCH 6.1.y] net/mlx5e: TC, Fix internal port memory leak
-Date: Fri, 25 Sep 2026 14:48:00 -0400
-Message-ID: <2026-09-25-daily-reply-0008-re-mlx5e-int-port-leak-6-1@kernel.org>
+	Duoming Zhou <duoming@zju.edu.cn>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+Subject: Re: [PATCH 6.1.y] sh: push-switch: Reorder cleanup operations to avoid use-after-free bug
+Date: Fri, 25 Sep 2026 14:48:01 -0400
+Message-ID: <2026-09-25-daily-reply-0009-re-sh-push-switch-uaf-6-1@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260924173505.87763-1-artem@trailofbits.com>
-References: <20260924173505.87763-1-artem@trailofbits.com>
+In-Reply-To: <20260924173842.88036-1-artem@trailofbits.com>
+References: <20260924173842.88036-1-artem@trailofbits.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -57,10 +53,8 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> [ Backport to 6.1.y: this tree already releases the primary flow-attribute
->   references in mlx5e_tc_del_fdb_flow() and lacks
->   mlx5_free_flow_attr_actions(); release only cloned post-action attribute
->   references from the corresponding free_flow_post_acts() cleanup. ]
+> [ Backport to 6.1.y: use timer_shutdown_sync(), already available here,
+>   so the timer cannot rearm before the queued work is flushed. ]
 
 Queued for 6.1, thanks.
 
