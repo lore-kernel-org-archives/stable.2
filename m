@@ -1,174 +1,92 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B63463D79E9
-	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 17:36:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97D082F3C37;
+	Fri, 25 Sep 2026 17:37:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790357814; cv=none; b=Dtkwc4LsUTyc6hlYzwIQSUDJNidkQ3edfxAbTsCY3iHzjaVU6ScNkouQILhOWLdbEWDz0inljmlHMoC9Ctpmfc0knpglJonsEPNUI0XX3l8PEmN5H2fRei0yX2uZTn/B8Qm+ZEwe97euXKopM0oWl0p1w/Mj8r29FPlmt7twiwo=
+	t=1790357848; cv=none; b=HJWoI798P2KtnRTpWz/XkwK47J1bh4AB8nxZ01SFFn110xQ4D7gtjAN38bhYtWnxplxIFKyVubPZYYEZ89rjv+tV+H59MFaBUOwPPQEqCgJ2ErIdZ+wJd0e7ZAu2ldiSCCCYUidHQY6aIT2giF9FHZmtHUEpPSynP47YpliXw+o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790357814; c=relaxed/simple;
-	bh=eUe3fw3CfbiK9WiV4zbNsrqE6pO8Ggm9Gyg8b0vVQ1w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=X6CTKsPQoW4TWOed8Jzt7waxTowTR13TXk5KgfQgS4MXXJn45r4ubfEDehyfJG4O6TmGLt7lieCMGeslQ/kJwaybUHSk8RpRKrbMcqp1JueGZc/l+tEK0vBml8AFq0Q5VqfhKeXDii6wfFPK+nbkZmGe8h/ylWzEkS549n0V+E8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=JI7jvzup; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790357848; c=relaxed/simple;
+	bh=8YDHmZxqaylxaByl56+FZbewy7PATgP4K/9kZXMxfAU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gvHZhxoCOFNDalcpYTRpA9Aqn9+UBboSqh4U7dmRAUZ1HCcwOYqWLfk9u2K765hCYkEPSkXlSPaUYZ4HH1YywPd7ka/T3gszA6A1O9UyHfinimTsJ4jnTxhtTmaOVZ+wkpanZ0rPP+LOCJKVBAC0X+8dwKv7EO7YfvXrw9/Ev30=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=k5ahHOZ7; arc=none smtp.client-ip=199.89.1.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="JI7jvzup"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A3B28169C;
-	Fri, 25 Sep 2026 10:36:48 -0700 (PDT)
-Received: from thinkpad-e142931.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C18873F632;
-	Fri, 25 Sep 2026 10:36:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790357812; bh=eUe3fw3CfbiK9WiV4zbNsrqE6pO8Ggm9Gyg8b0vVQ1w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=JI7jvzupOdlrIzgE7q2xd3OjO1eLLJFuytdQUiPAB9pq0h31YG4LQGt4/i4hyTmLH
-	 FcxfkbMC/A28aM6TXC2vX+hJSv2OCH1J+wpD0r/SQ+bYgMlz1NxjRIMiiiu0ISsFkZ
-	 CJOtqy3rV+0jnMB1OjkRWHgBQkdpxr9MD1gcwkmw=
-Date: Fri, 25 Sep 2026 18:36:42 +0100
-From: Wei-Lin Chang <weilin.chang@arm.com>
-To: Vincent Donnefort <vdonnefort@google.com>, maz@kernel.org, 
-	oupton@kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Cc: joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, 
-	yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, 
-	kernel-team@android.com, fuad.tabba@linux.dev, qperret@google.com, 
-	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH v1 5/6] KVM: arm64: Use kvm_s2_fault_vma_info in
- gmem_abort()
-Message-ID: <am2rfnuwjkglavbtzkt2lk2gclahvca5irrv5me4vppzkotexf@yauajpybhsnm>
-References: <20260922130821.1666713-1-vdonnefort@google.com>
- <20260922130821.1666713-6-vdonnefort@google.com>
+	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="k5ahHOZ7"
+Received: from localhost (localhost [127.0.0.1])
+	by 011.lax.mailroute.net (Postfix) with ESMTP id 4hryZZ01YMz1XM4Tl;
+	Fri, 25 Sep 2026 17:37:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1790357840; x=1792949841; bh=+ydXSBnWK/+8M86bpQ+eR7Wn
+	vD/YM0flWAzOAzReNnM=; b=k5ahHOZ7mZSznlN9ySkutsIyDiToXIus2XjEChtK
+	gVJRliXHm3gw+/3WrzHANzO/Z6IbwHqsnITDcshpWxIwS04jfV+Pd6YXnlMBCqMr
+	m9iDidSk9o8/SkZPPgGpk7IDoOvjMdzi38BTVdnTT+DJ09lyRwV9tajHwX5UQJUV
+	32n4VGe7DMiOrBBjUFi4kPO+lcv9Gxw7DfDU/E3qe79yOpcen7PgAxQDooHQMG72
+	Jqkkr4dKxtIJcaDMfaP2IBdPIEtangAeSmKiw4Rc0NnD1hkVZTC6TTOIPWKGEEOO
+	V8LAzl/+PIWmS7iPQYi3mV3whVLSwL5tAwdDK94iwZQ1ug==
+X-Virus-Scanned: by MailRoute
+Received: from 011.lax.mailroute.net ([127.0.0.1])
+ by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id u52u3Cgsz2mj; Fri, 25 Sep 2026 17:37:20 +0000 (UTC)
+Received: from [100.80.231.125] (unknown [104.135.182.41])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4hryZP6MxWz1XM4Sx;
+	Fri, 25 Sep 2026 17:37:17 +0000 (UTC)
+Message-ID: <e48b50c2-fa01-4733-bc2b-aca9266212d2@acm.org>
+Date: Fri, 25 Sep 2026 10:37:17 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260922130821.1666713-6-vdonnefort@google.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] scsi: ufs: core: Avoid unsafe MMIO reads in
+ ufshcd_mcq_compl_all_cqes_lock()
+To: Stanley Jhu <stanleyjhu@google.com>,
+ "Martin K . Petersen" <martin.petersen@oracle.com>,
+ Bean Huo <beanhuo@micron.com>
+Cc: Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman <avri.altman@wdc.com>,
+ "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Manivannan Sadhasivam <mani@kernel.org>, Peter Wang
+ <peter.wang@mediatek.com>, linux-scsi@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <CAE14pdek6ynze+muDZrK+yNX-3ioe3vprxOA4W22qokg352tJQ@mail.gmail.com>
+ <20260918143809.3034592-1-stanleyjhu@google.com>
+ <20260918143809.3034592-2-stanleyjhu@google.com>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <20260918143809.3034592-2-stanleyjhu@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 22, 2026 at 02:08:20PM +0100, Vincent Donnefort wrote:
-> From: Fuad Tabba <fuad.tabba@linux.dev>
-> 
-> gmem_abort() maps at s2fd->fault_ipa, which HPFAR_EL2 holds at 4K
-> granularity whatever the page size. The generic page-table code aligns
-> it, but pkvm_pgtable_stage2_map() looks up existing mappings over
-> [addr, addr + size), so on a pKVM host with pages larger than 4K a
-> guest_memfd-backed guest that faults past the first 4K of a page can
-> find its neighbour's mapping, get -EAGAIN and take the same fault
-> forever.
-> 
-> Take the addresses from kvm_s2_fault_vma_info instead, as
-> user_mem_abort() does, and report the gfn kvm_gmem_get_pfn() failed on
-> in the memory fault exit. kvm_s2_fault_get_vma_info() itself isn't
-> called: a guest_memfd memslot's userspace_addr doesn't need to be
-> backed by a VMA.
-> 
-> Fixes: a7b57e0995927 ("KVM: arm64: Handle guest_memfd-backed guest page faults")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/r/20260913175105.A57AC1F000FF@smtp.kernel.org
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-> Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
-> ---
->  arch/arm64/kvm/mmu.c | 28 +++++++++++++---------------
->  1 file changed, 13 insertions(+), 15 deletions(-)
-> 
-> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-> index 5aac624b0442..ee0fcca838c1 100644
-> --- a/arch/arm64/kvm/mmu.c
-> +++ b/arch/arm64/kvm/mmu.c
-> @@ -1953,11 +1953,9 @@ static int gmem_abort(const struct kvm_s2_fault_desc *s2fd)
->  	enum kvm_pgtable_walk_flags flags = KVM_PGTABLE_WALK_SHARED;
->  	enum kvm_pgtable_prot prot = KVM_PGTABLE_PROT_R;
->  	struct kvm_pgtable *pgt = s2fd->vcpu->arch.hw_mmu->pgt;
-> -	unsigned long mmu_seq;
-> -	struct page *page;
-> +	struct kvm_s2_fault_vma_info s2vi = {};
+On 9/18/26 7:38 AM, Stanley Jhu wrote:
+> +	/* After processed the cqe, mark it empty (invalid) entry */
 
-I'd say it's unfortunate this struct's name contains vma :P
+Please fix the grammar in the above source code comment and use capital
+letters for "CQE".
 
->  	struct kvm *kvm = s2fd->vcpu->kvm;
->  	void *memcache = NULL;
-> -	kvm_pfn_t pfn;
->  	gfn_t gfn;
->  	int ret;
->  
-> @@ -1968,23 +1966,22 @@ static int gmem_abort(const struct kvm_s2_fault_desc *s2fd)
->  			return ret;
->  	}
->  
-> -	if (s2fd->nested)
-> -		gfn = kvm_s2_trans_output(s2fd->nested) >> PAGE_SHIFT;
-> -	else
-> -		gfn = s2fd->fault_ipa >> PAGE_SHIFT;
-> +	s2vi.vma_pagesize = PAGE_SIZE;
-> +	s2vi.gfn = ALIGN_DOWN(s2fd->fault_ipa, s2vi.vma_pagesize) >> PAGE_SHIFT;
-> +	gfn = get_canonical_gfn(s2fd, &s2vi);
+> +	/*
+> +	 * All completion entries have been processed and cleared.
+> +	 * Synchronize tail to head in software to mark the queue empty,
+> +	 * avoiding an MMIO read of CQTPy while the controller is disabled.
+> +	 */
+> +	hwq->cq_tail_slot = hwq->cq_head_slot;
 
-Perhaps it is worth reserving plain "gfn" for the value we use as the
-IA of the (shadow) page table, and name this variable something like
-canonical_gfn. Similar to what kvm_s2_fault_map() does.
-
->  
->  	write_fault = kvm_is_write_fault(s2fd->vcpu);
->  	exec_fault = kvm_vcpu_trap_is_exec_fault(s2fd->vcpu);
->  
->  	VM_WARN_ON_ONCE(write_fault && exec_fault);
->  
-> -	mmu_seq = kvm->mmu_invalidate_seq;
-> +	s2vi.mmu_seq = kvm->mmu_invalidate_seq;
->  	/* Pairs with the smp_wmb() in kvm_mmu_invalidate_end(). */
->  	smp_rmb();
->  
-> -	ret = kvm_gmem_get_pfn(kvm, s2fd->memslot, gfn, &pfn, &page, NULL);
-> +	ret = kvm_gmem_get_pfn(kvm, s2fd->memslot, gfn, &s2vi.pfn, &s2vi.page, NULL);
->  	if (ret) {
-> -		kvm_prepare_memory_fault_exit(s2fd->vcpu, s2fd->fault_ipa, PAGE_SIZE,
-> +		kvm_prepare_memory_fault_exit(s2fd->vcpu, gfn_to_gpa(gfn), s2vi.vma_pagesize,
-
-Huh, I guess you also fixed a bug here? s2fd->fault_ipa could be the
-nested ipa instead of the canonical ipa.
+This assignment can be removed because if the above code is reached
+it is guaranteed that hwq->cq_tail_slot == hwq->cq_head_slot and later
+code zeroes both slot indexes anyway (ufshcd_host_reset_and_restore()
+-> ufshcd_mcq_config_resource()).
 
 Thanks,
-Wei-Lin Chang
 
->  					      write_fault, exec_fault, false);
->  		return ret;
->  	}
-> @@ -2002,7 +1999,7 @@ static int gmem_abort(const struct kvm_s2_fault_desc *s2fd)
->  		prot = adjust_nested_exec_perms(kvm, s2fd->nested, prot);
->  
->  	kvm_fault_lock(kvm);
-> -	if (mmu_invalidate_retry(kvm, mmu_seq)) {
-> +	if (mmu_invalidate_retry(kvm, s2vi.mmu_seq)) {
->  		ret = -EAGAIN;
->  		goto out_unlock;
->  	}
-> @@ -2013,16 +2010,17 @@ static int gmem_abort(const struct kvm_s2_fault_desc *s2fd)
->  		 * PTE, which will be preserved.
->  		 */
->  		prot &= ~KVM_NV_GUEST_MAP_SZ;
-> -		ret = KVM_PGT_FN(kvm_pgtable_stage2_relax_perms)(pgt, s2fd->fault_ipa,
-> +		ret = KVM_PGT_FN(kvm_pgtable_stage2_relax_perms)(pgt, gfn_to_gpa(s2vi.gfn),
->  								 prot, flags);
->  	} else {
-> -		ret = KVM_PGT_FN(kvm_pgtable_stage2_map)(pgt, s2fd->fault_ipa, PAGE_SIZE,
-> -							 __pfn_to_phys(pfn), prot,
-> +		ret = KVM_PGT_FN(kvm_pgtable_stage2_map)(pgt, gfn_to_gpa(s2vi.gfn),
-> +							 s2vi.vma_pagesize,
-> +							 __pfn_to_phys(s2vi.pfn), prot,
->  							 memcache, flags);
->  	}
->  
->  out_unlock:
-> -	kvm_release_faultin_page(kvm, page, !!ret, prot & KVM_PGTABLE_PROT_W);
-> +	kvm_release_faultin_page(kvm, s2vi.page, !!ret, prot & KVM_PGTABLE_PROT_W);
->  	kvm_fault_unlock(kvm);
->  
->  	if ((prot & KVM_PGTABLE_PROT_W) && !ret)
-> -- 
-> 2.55.0.1082.g2b9226bbc0-goog
-> 
+Bart.
