@@ -1,41 +1,42 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4A084A92C8
-	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 14:00:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 452D44A9D42;
+	Fri, 25 Sep 2026 14:00:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790344813; cv=none; b=WM4o4nQ//SsiIS19JHFQ+mjmRJ22PFFZkDCJ4ydGnIW6X01ySi4Qy6NEAyVY6AbgLAAoxZtsh4zUHMZWj1+G2OZ2Y69guk7rO7uba4fdZlSJo5wOB9/y6ClnuiGAJ3zqygu2w7bIoB+a8x8gUgfCeHPemMjNpAJr8u0sCvl+eIY=
+	t=1790344817; cv=none; b=HjUfoqPmoacz/XF42L1zku5va8BlUepPGWpMl8oh237KSJEQRcz1FDRYSji+pmx8htrp+rFyrPhsISNQyPGOmzGYf2kt2vgKudHUJc/d+rz/jlq7qfW0ohEZ7ui7foZi8JjBfJVUxUow1CNlLRvpx62Z4Z5TAN2PLbanJBhXGGo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790344813; c=relaxed/simple;
-	bh=o6cJivv/VfQF33KG/q30DTCzJt3jsglm2Oj8tzgi5/U=;
+	s=arc-20240116; t=1790344817; c=relaxed/simple;
+	bh=BgwPVGM5htdEbSVqgbrxWN2+UbA/R66GdTOSA9Cbnt4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=TNN9uxKh9SQeYPtX1PyaAQhsxP4VDYzTjqiKsp66OuRHaZIhqS986TRgcINSYkwCkkdDFIle//OH12VOLeUqHAfEUoXBT72IMSWELM6hlrWaioUKBZMt0XqdrzQS0pUPbpk8ske7+qpY4BXPxv6WBRHAaqhVYo61zOOtuAp7LZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Pp8szPut; arc=none smtp.client-ip=185.171.202.116
+	 In-Reply-To:To:Cc; b=t5WkyjcJl6Jk9Y7bcpVAp8UyEW2NZm+Fh8Sw8Z+85nzfvfYt0F6M6cbU6gr8ryK8SbY+W6in3gzsK1YCawrXFcqLJvH7OHs0b4ne2HNzup0vPGitTy0Y0z+PS/bLky8PZIh6+xhV5OSPEx5kmTayelBsYZCXmI1S0col+FkvOTA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=cO68NurB; arc=none smtp.client-ip=185.246.85.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Pp8szPut"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="cO68NurB"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 39992C653F6;
-	Fri, 25 Sep 2026 14:00:49 +0000 (UTC)
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 4588F4E41072;
+	Fri, 25 Sep 2026 14:00:08 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 4C4906073B;
-	Fri, 25 Sep 2026 14:00:01 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C3D30103294F6;
-	Fri, 25 Sep 2026 15:59:53 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 17D2F6073B;
+	Fri, 25 Sep 2026 14:00:08 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 43C1B10329527;
+	Fri, 25 Sep 2026 16:00:00 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790344795; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1790344802; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=kVReI9ke85UyIir8w2GPSE/VSeURL4Y7GpIiX34KEE0=;
-	b=Pp8szPuta8jc1GXT2fQ450uuWBeThA8/GunqqEMrXpUA6nTb40MukUDGYuJ/VT1LItNw5d
-	Sx9kr8+++fDh81DyU2AaRYS5W1Ck9eZdKaGQSbe1LgIRvwi0fObvgw3lzDaFbtpkMK7y2f
-	R48+hpK5MBy1uaOQTkrlq/XmF4m0d7o6AyDUdh5T35rfk1vwMgE6KFd5E3Y20soDk63S4b
-	DuKEVwzKEMxvS37N+FZ+kJvZC+A8+lMDAd308iO9OnnJIz62udjC889F+u6hZuZbSrvtu4
-	gBZN+CLvJRfj60UmZK0kinY8mfuSYLD1mQgFWiV0S8SxPLh4tvy8OKTJJ8So6w==
+	bh=aHr2jhlS0HazH4+CNkOfPqlvGH22UoWzJoaXrl82ZXE=;
+	b=cO68NurB24nOc8B6bUGUQfpcsoD5zBeULOS+x8G5Peqv7dEykOPmCFUxSElZzE7wO9OFAA
+	WtxXhsvkDVLP3E0vmIfuKkiK3rr/Tub2zY2Ju7wXGRFct2fkH8o/MgqDK4Zkewp4Bi80zG
+	A7EgmfEw/vk4PzXpyRo2nQZm+eiRwTsCnZ7cfqlN4Y9h1jee6xqoPaJ2X6suh/zdfdJF4a
+	K2F1cVnjS0sJu9AnOR9mzKtTlLWUYxQMM+CLCbpktC3t1VcojiSVP2+ju3a4gun9oLntkq
+	nZM5FIfX2b4dHyBRHEHRYUUWIWlqGagtD8qtjCplwDSmd4/b6jvDSnaCebSGyg==
 From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
-Date: Fri, 25 Sep 2026 15:59:35 +0200
-Subject: [PATCH net v2 2/3] net: macb: propagate RX ring refill errors
+Date: Fri, 25 Sep 2026 15:59:36 +0200
+Subject: [PATCH net v2 3/3] net: macb: quiesce IRQs and drain BH on
+ interface close
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,7 +45,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260925-macb-close-v2-2-360efa565914@bootlin.com>
+Message-Id: <20260925-macb-close-v2-3-360efa565914@bootlin.com>
 References: <20260925-macb-close-v2-0-360efa565914@bootlin.com>
 In-Reply-To: <20260925-macb-close-v2-0-360efa565914@bootlin.com>
 To: Conor Dooley <conor.dooley@microchip.com>, 
@@ -67,155 +68,251 @@ Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
 X-Mailer: b4 0.15.2
 X-Last-TLS-Session-Version: TLSv1.3
 
-gem_rx_refill() is responsible for Rx SKB allocation, including at open,
-but its prototype indicates a void return value.
+The macb_close() operation is facing races as it disables IRQs late in
+its sequence and keeps BH primitives alive while shutdown.
 
-Therefore we change the code to propagate allocation and DMA mapping
-errors back up the stack, making sure the open fails if no descriptors
-were allocated. Change all those to return errno-style ints:
- - gem_rx_refill()
- - its parent gem_init_rx_ring()
- - its grand-parent gem_init_rings()
- - the macbgem_ops.mog_init_rings function pointer
- - its grand-uncle macb_init_rings()
+Non exhaustive list of races that could occur:
 
-We tolerate some allocation failures: we accept running with the rx ring
-only partially filled with successful descriptors. It is important we
-refuse the zero-valid-descriptor case: nothing would ever trigger a
-refill, which only happens once a frame has been received.
+ - macb_tx_error_task() could be scheduled and access the buffers freed
+   by macb_close().
 
-Theoretical bugfix, never encountered in practice. To reproduce,
-introduce memory pressure (less than 512 SKBs of free memory) and open
-the interface. I expect the last queue to be unusable because it has
-zero usable rx buffers.
+ - macb_tx_error_task() or macb_hresp_error_task() might re-enable
+   interrupts after the IDR write in macb_close().
 
-Note that other callers of refill (resume, HRESP error task, NAPI)
-cannot do anything useful with that error and keep their best-effort
-refill, hoping it will improve.
+ - macb_close() calls napi_disable() meaning that if
+   macb_tx_error_task() occurs later, it will deadlock on napi_disable()
+   that shouldn't be called if NAPI is already disabled.
 
-Fixes: 4df95131ea80 ("net/macb: change RX path for GEM")
+ - macb_hresp_error_task() might reinit every RX/TX ring under
+   macb_close()'s foot.
+
+ - macb_interrupt() might re-enable NAPI just after it has been
+   disabled by macb_close().
+
+Instead, disable all our primitives one by one:
+ - (1) mask and sync on IRQ handlers,
+ - (2) drain any scheduled bp->hresp_err_bh_work,
+ - (3) drain any scheduled queue->tx_error_task,
+ - (4) drain queue->napi_rx/napi_tx,
+ - (5) drain bp->tx_lpi_work.
+
+Careful! Ordering is important because our scheduling primitives can
+wake each other up. Recap table:
+
+|               |   enable/disable   |           schedule            |
+|               |----|-------|-------|------|----|----|--------|-----|
+|               |IRQs|napi_tx|napi_rx|tx_lpi|napi|napi|tx_error|hresp|
+| Context       |    |       |       | task | rx | tx |  task  |task |
+|===============|====|=======|=======|======|====|====|========|=====|
+| open          | X  |   X   |   X   |      |    |    |        |     |
+| link_up       | X  |       |       |      |    |    |        |     |
+| link_down     | X  |       |       |      |    |    |        |     |
+| close         | X  |   X   |   X   |      |    |    |        |     |
+| enable_tx_lpi |    |       |       |  X   |    |    |        |     |
+| swap          | X  |   X   |   X   |  X   |    |    |        |     |
+| suspend       | X  |   X   |   X   |      |    |    |        |     |
+| resume        | X  |   X   |   X   |      |    |    |        |     |
+|---------------|----|-------|-------|------|----|----|--------|-----|
+| irq & netpoll | X  |       |       |      | X  | X  |   X    | X   |
+|---------------|----|-------|-------|------|----|----|--------|-----|
+| napi_rx       | X  |       |       |      | X  |    |        |     |
+| napi_tx       | X  |       |       |  X   |    | X  |        |     |
+|---------------|----|-------|-------|------|----|----|--------|-----|
+| tx_error_task | X  |   X   |       |      |    |    |        |     |
+| hresp task    | X  |       |       |      |    |    |        |     |
+
+As example, one ordering constraint that can be deduced from the table:
+napi_tx can schedule tx_lpi_task meaning napi_tx must be disabled
+before tx_lpi_task, else we risk napi_tx re-enabling tx_lpi_task after
+it has been disabled by macb_close().
+
+We do *not* use IDR masking to shutdown IRQs because that risks
+conflicting with BH primitives we have not disabled yet. For example if
+we writel(IDR) in macb_close() and napi_rx is pending then IRQs might
+be unmasked by the NAPI poll. As for why we do not use disable_irq():
+we will have situations where we are quiesced but want to listen to
+some IRQs and (minor reason) we register shared IRQ handlers so we
+shouldn't disable the full IRQ line.
+
+Instead we introduce a bool that tells macb_interrupt() to self-disarm.
+Its default value is true as we start closed. It gets set to false
+while interface is active. Reading into my crystal ball, we'll reuse
+that flag in suspend/WOL, set_ringparam and change_mtu (context swap).
+
+Note that old IRQ handler tried preventing a race with close by
+self-disarming based on netif_running(). This might work, but it does
+not prevent a race with the error codepath of macb_open() which needs
+to run with IRQs dis-armed but netif_running() returns true during that
+time.
+
+Fixes: e86cd53afc59 ("net/macb: better manage tx errors")
 Cc: stable@vger.kernel.org
+Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
 Signed-off-by: Théo Lebrun <theo.lebrun@bootlin.com>
 ---
- drivers/net/ethernet/cadence/macb.h      |  2 +-
- drivers/net/ethernet/cadence/macb_main.c | 33 +++++++++++++++++++++++++-------
- 2 files changed, 27 insertions(+), 8 deletions(-)
+ drivers/net/ethernet/cadence/macb.h      |  5 ++
+ drivers/net/ethernet/cadence/macb_main.c | 84 ++++++++++++++++++++++++--------
+ 2 files changed, 69 insertions(+), 20 deletions(-)
 
 diff --git a/drivers/net/ethernet/cadence/macb.h b/drivers/net/ethernet/cadence/macb.h
-index d6931c41f39d..cfaa0ca49f1a 100644
+index cfaa0ca49f1a..1cb2778fe49e 100644
 --- a/drivers/net/ethernet/cadence/macb.h
 +++ b/drivers/net/ethernet/cadence/macb.h
-@@ -1197,7 +1197,7 @@ struct macb_queue;
- struct macb_or_gem_ops {
- 	int	(*mog_alloc_rx_buffers)(struct macb *bp);
- 	void	(*mog_free_rx_buffers)(struct macb *bp);
--	void	(*mog_init_rings)(struct macb *bp);
-+	int	(*mog_init_rings)(struct macb *bp);
- 	int	(*mog_rx)(struct macb_queue *queue, struct napi_struct *napi,
- 			  int budget);
- };
+@@ -1382,6 +1382,11 @@ struct macb {
+ 	struct delayed_work	tx_lpi_work;
+ 	u32			tx_lpi_timer;
+ 
++	/* ISR must not drive NAPI & BH mechanisms. True when the interface
++	 * is closed. Protected by bp->lock.
++	 */
++	bool			irq_quiesced;
++
+ 	int	rx_bd_rd_prefetch;
+ 	int	tx_bd_rd_prefetch;
+ 
 diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index 7f25574928d7..18a1b5f7ad91 100644
+index 18a1b5f7ad91..1d6361c0d8bc 100644
 --- a/drivers/net/ethernet/cadence/macb_main.c
 +++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -1486,7 +1486,7 @@ static int macb_tx_complete(struct macb_queue *queue, int budget)
- 	return packets;
+@@ -2009,6 +2009,53 @@ static int macb_tx_poll(struct napi_struct *napi, int budget)
+ 	return work_done;
  }
  
--static void gem_rx_refill(struct macb_queue *queue)
-+static int gem_rx_refill(struct macb_queue *queue)
- {
- 	struct macb *bp = queue->bp;
- 	struct macb_dma_desc *desc;
-@@ -1558,6 +1558,14 @@ static void gem_rx_refill(struct macb_queue *queue)
- 
- 	netdev_vdbg(bp->netdev, "rx ring: queue: %p, prepared head %d, tail %d\n",
- 		    queue, queue->rx_prepared_head, queue->rx_tail);
++static void macb_quiesce_start(struct macb *bp)
++{
++	struct macb_queue *queue;
++	unsigned long flags;
++	unsigned int q;
 +
-+	/* Fail if queue has zero prepared descriptors. This is critical because
-+	 * nothing will ever trigger a refill again.
++	spin_lock_irqsave(&bp->lock, flags);
++	bp->irq_quiesced = true;
++	spin_unlock_irqrestore(&bp->lock, flags);
++
++	for (q = 0, queue = bp->queues; q < bp->num_queues; ++q, ++queue)
++		synchronize_irq(queue->irq);
++
++	cancel_work_sync(&bp->hresp_err_bh_work);
++
++	for (q = 0, queue = bp->queues; q < bp->num_queues; ++q, ++queue) {
++		/* Must be done before NAPI is disabled: the task ends with a
++		 * napi_enable() call.
++		 */
++		cancel_work_sync(&queue->tx_error_task);
++
++		napi_disable(&queue->napi_rx);
++		napi_disable(&queue->napi_tx);
++	}
++
++	/* Must be done after napi_tx is disabled: its completion re-arms
++	 * the LPI timer.
 +	 */
-+	if (queue->rx_prepared_head == queue->rx_tail)
-+		return -ENOMEM;
++	cancel_delayed_work_sync(&bp->tx_lpi_work);
++}
 +
-+	return 0;
- }
- 
- /* Mark DMA descriptors from begin up to and not including end as unused */
-@@ -2804,7 +2812,7 @@ static int macb_alloc(struct macb *bp)
- 	return -ENOMEM;
- }
- 
--static void gem_init_rx_ring(struct macb_queue *queue)
-+static int gem_init_rx_ring(struct macb_queue *queue)
- {
- 	unsigned int i;
- 
-@@ -2814,14 +2822,16 @@ static void gem_init_rx_ring(struct macb_queue *queue)
- 	for (i = 0; i < queue->bp->rx_ring_size; i++)
- 		macb_rx_desc(queue, i)->addr |= MACB_BIT(RX_USED);
- 
--	gem_rx_refill(queue);
-+	return gem_rx_refill(queue);
- }
- 
--static void gem_init_rings(struct macb *bp)
-+static int gem_init_rings(struct macb *bp)
- {
- 	struct macb_queue *queue;
- 	struct macb_dma_desc *desc = NULL;
-+	int last_err = 0;
- 	unsigned int q;
-+	int err;
- 	int i;
- 
- 	for (q = 0, queue = bp->queues; q < bp->num_queues; ++q, ++queue) {
-@@ -2834,11 +2844,15 @@ static void gem_init_rings(struct macb *bp)
- 		queue->tx_head = 0;
- 		queue->tx_tail = 0;
- 
--		gem_init_rx_ring(queue);
-+		err = gem_init_rx_ring(queue);
-+		if (err)
-+			last_err = err;
- 	}
++static void macb_quiesce_end(struct macb *bp)
++{
++	struct macb_queue *queue;
++	unsigned long flags;
++	unsigned int q;
 +
-+	return last_err;
- }
- 
--static void macb_init_rings(struct macb *bp)
-+static int macb_init_rings(struct macb *bp)
- {
- 	int i;
- 	struct macb_dma_desc *desc = NULL;
-@@ -2853,6 +2867,8 @@ static void macb_init_rings(struct macb *bp)
- 	bp->queues[0].tx_head = 0;
- 	bp->queues[0].tx_tail = 0;
- 	desc->ctrl |= MACB_BIT(TX_WRAP);
++	for (q = 0, queue = bp->queues; q < bp->num_queues; ++q, ++queue) {
++		napi_enable(&queue->napi_rx);
++		napi_enable(&queue->napi_tx);
++	}
 +
-+	return 0;
- }
++	spin_lock_irqsave(&bp->lock, flags);
++	bp->irq_quiesced = false;
++	spin_unlock_irqrestore(&bp->lock, flags);
++}
++
+ static void macb_hresp_error_task(struct work_struct *work)
+ {
+ 	struct macb *bp = from_work(bp, work, hresp_err_bh_work);
+@@ -2151,8 +2198,8 @@ static irqreturn_t macb_interrupt(int irq, void *dev_id)
+ 	spin_lock(&bp->lock);
  
- static void macb_reset_hw(struct macb *bp)
-@@ -3183,7 +3199,9 @@ static int macb_open(struct net_device *netdev)
- 		goto pm_exit;
- 	}
+ 	while (status) {
+-		/* close possible race with dev_close */
+-		if (unlikely(!netif_running(netdev))) {
++		/* self-disarm while the netdev is closed */
++		if (unlikely(bp->irq_quiesced)) {
+ 			queue_writel(queue, IDR, -1);
+ 			macb_queue_isr_clear(bp, queue, -1);
+ 			break;
+@@ -3179,8 +3226,6 @@ static int macb_open(struct net_device *netdev)
+ {
+ 	size_t bufsz = netdev->mtu + ETH_HLEN + ETH_FCS_LEN + NET_IP_ALIGN;
+ 	struct macb *bp = netdev_priv(netdev);
+-	struct macb_queue *queue;
+-	unsigned int q;
+ 	int err;
  
--	bp->macbgem_ops.mog_init_rings(bp);
-+	err = bp->macbgem_ops.mog_init_rings(bp);
-+	if (err)
-+		goto free_rings;
+ 	netdev_dbg(bp->netdev, "open\n");
+@@ -3204,10 +3249,7 @@ static int macb_open(struct net_device *netdev)
+ 		goto free_rings;
  	macb_init_buffers(bp);
  
- 	for (q = 0, queue = bp->queues; q < bp->num_queues; ++q, ++queue) {
-@@ -3221,6 +3239,7 @@ static int macb_open(struct net_device *netdev)
- 		napi_disable(&queue->napi_rx);
- 		napi_disable(&queue->napi_tx);
- 	}
-+free_rings:
+-	for (q = 0, queue = bp->queues; q < bp->num_queues; ++q, ++queue) {
+-		napi_enable(&queue->napi_rx);
+-		napi_enable(&queue->napi_tx);
+-	}
++	macb_quiesce_end(bp);
+ 
+ 	macb_init_hw(bp);
+ 
+@@ -3234,11 +3276,10 @@ static int macb_open(struct net_device *netdev)
+ 	phy_power_off(bp->phy);
+ 
+ reset_hw:
++	/* The netdev stays down: quiesce and drain, as macb_close() does. */
++	macb_quiesce_start(bp);
++
+ 	macb_reset_hw(bp);
+-	for (q = 0, queue = bp->queues; q < bp->num_queues; ++q, ++queue) {
+-		napi_disable(&queue->napi_rx);
+-		napi_disable(&queue->napi_tx);
+-	}
+ free_rings:
  	macb_free(bp);
  pm_exit:
- 	pm_runtime_put_sync(&bp->pdev->dev);
+@@ -3249,19 +3290,17 @@ static int macb_open(struct net_device *netdev)
+ static int macb_close(struct net_device *netdev)
+ {
+ 	struct macb *bp = netdev_priv(netdev);
+-	struct macb_queue *queue;
+ 	unsigned long flags;
+ 	unsigned int q;
+ 
++	macb_quiesce_start(bp);
++
++	/* Drain the BH contexts before stopping the queues: NAPI completion
++	 * and tx_error_task wake them up.
++	 */
+ 	netif_tx_stop_all_queues(netdev);
+-
+-	for (q = 0, queue = bp->queues; q < bp->num_queues; ++q, ++queue) {
+-		napi_disable(&queue->napi_rx);
+-		napi_disable(&queue->napi_tx);
++	for (q = 0; q < bp->num_queues; ++q)
+ 		netdev_tx_reset_queue(netdev_get_tx_queue(netdev, q));
+-	}
+-
+-	cancel_delayed_work_sync(&bp->tx_lpi_work);
+ 
+ 	phylink_stop(bp->phylink);
+ 	phylink_disconnect_phy(bp->phylink);
+@@ -4783,6 +4822,11 @@ static int macb_init_dflt(struct platform_device *pdev)
+ 	bp->tx_ring_size = DEFAULT_TX_RING_SIZE;
+ 	bp->rx_ring_size = DEFAULT_RX_RING_SIZE;
+ 
++	/* No locking needed because the IRQs are not requested yet. The
++	 * flag is cleared by macb_open() and re-armed by macb_close().
++	 */
++	bp->irq_quiesced = true;
++
+ 	/* set the queue register mapping once for all: queue0 has a special
+ 	 * register mapping but we don't want to test the queue index then
+ 	 * compute the corresponding register offset at run time.
 
 -- 
 2.55.0
