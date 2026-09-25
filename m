@@ -1,73 +1,71 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BDD94B1CE5
-	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 18:05:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C72313AAF70;
+	Fri, 25 Sep 2026 18:06:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790359539; cv=none; b=TAdLGhWh/09WCENCN867KytnZ1V2yblBXDidnfaZjlUQwjp4Jv4mfxOo5nAJOhSnjh0eMUjHVYV8szUQc/096fF1dW8l+DFsSnYQCWfwinwuRPmn9FWMucq/WtnN6u4VNtKuqnmgIHU7yHQuYhH4nymPL7Eq9xhkBDelUPmXzDU=
+	t=1790359590; cv=none; b=P5ApgaVZRXjKCTcE5VwPSUc7DLY7GLoeUMCPn1qzYKg7LH8D2+aknTfkgkN7m1eLRtOO8YxThywiHYR9Q3+716irtbE6ucG2XxPiBvar0s/NywQxNBt0Viksezr08Aj5DTW0DKwn4vEkkxUoJRUAN8ZYaEWQf/Db7YFeuN5kgT4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790359539; c=relaxed/simple;
-	bh=s5+8pjr6Fwtuw6XJ7hD5nPa7v+Qr2/LhjInKDahwUig=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lsdbqO9Qsx+gRLEyDaw97tmvSyXhLFLgM0ZJQP7fIpJuhRNtM246dwbAcAk6OrzOzwXYGGz7FPy6T8Gn5nVY3hNXrOmS1e8fIw4Yhf4v457Uf6np2VoX8MhpdFqmPSRah7JO5vOvFIzhS6OQKO9hGtqG6eI0cYIkCmiMVGRlYSU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=inspiral.be; spf=none smtp.mailfrom=inspiral.be; dkim=pass (2048-bit key) header.d=inspiral-be.20251104.gappssmtp.com header.i=@inspiral-be.20251104.gappssmtp.com header.b=0hRc45tQ; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=inspiral.be
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=inspiral.be
+	s=arc-20240116; t=1790359590; c=relaxed/simple;
+	bh=SNYO7NVs+GgNeAgty8lb4AO6zDODG2MfSjdu+pOxETM=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=hec57e1gAhVLbQqVFDlY/NsByzlLVRgaFs5PfMCnMaUdJRVu0Vv7UFuIsuFXmwMjNbwvrNxCE/7Q/Wa/bOyD9eRzeLdUWC6Be+39SzEFIKtKoPhROrW0rBmQd7Sa6YX+kOqQ3Fg7cKsHMb/aRX4mDQojpyBhOAYwvsBouPh5e0I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=hgyMjH9o; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=inspiral-be.20251104.gappssmtp.com header.i=@inspiral-be.20251104.gappssmtp.com header.b="0hRc45tQ"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d097b4939so7353855e9.0
-        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 11:05:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=inspiral-be.20251104.gappssmtp.com; s=20251104; t=1790359536; x=1790964336; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jlZAHXA/+Siu5/Nc7tK0sL1VUl2GgSD7bLrNdmf+Xek=;
-        b=0hRc45tQFHneENMDmtdYWQl09hdcnu5Tq8RbrO5w0YP0Spt2OUarCsn3PrbVbRjrQb
-         T9pArz8DHAvpeJpqCnQ9f/vj1sd9boWenB4uiXhR2h3QqwP3V3b6ojte6bXLwyvtvBGp
-         6uhFJASymnOnERn7YJGkXYdUc0v6AlhJskM7nWa7FdQwMyexEzkztLTuN8C6hjExN+Za
-         Zi/PXkHKY9CtWZlkE+VKrdzpSwaGFpPKVl3p8uEco4qTeMFAj4wJH2vS4nM3wxhByAOO
-         WEe16dozKBrpE1LpXvpe3t+PJDFHhqa2R2D/vfHWNnTo5XNfE5hG9haHt0GEoI/ahYRv
-         bdHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790359536; x=1790964336;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jlZAHXA/+Siu5/Nc7tK0sL1VUl2GgSD7bLrNdmf+Xek=;
-        b=g9uASmI68qgw3eBPrN5zs3DX1MGPC7fTPAcxqwEWldlT4fwzpZHc9C1kIP/idrBvKZ
-         wklTR8aTzAgBSHf/wnE64txyBsDIN/vcPtw4RbJoZyGM9CuS4czo6ooYVWFpTtdPQ8LD
-         Ljn/AqrOaxY7dla7wPhI3+vARWYsCwiaSESLP+FsLMpLw/uhhV2G5H+kLsUsq/UdWhHY
-         wu705oRqEEupXa5IO7xehQhHmbms+gtsCGc9+3ta/o6goj/xNevWR/vUqijA28ZFZTy6
-         WwBr5yBsX1KjuAQLY3VFS9Tj248s3qCEH9s3s3wtooQ0UXUliwlDVSap2SAGT/JtmR7l
-         LWdQ==
-X-Gm-Message-State: AFuF++nF589Kl8he/Xe6Q27EFHCfgVnbxEPfTtHu7zySnCnXnLIIlvjT
-	bZKBx0wJlUG7UTEN2ma6OjTfBAGfec+X/aTlLg2TH+eCVK7QfEogQCTqe+Duw9jDFk8HZ5PQBf/
-	XmPoj
-X-Gm-Gg: AYBFou0SbTjmkfnfqEnyZI8s+aSW1Ox1VsG2ZdQM1ZwBXm3+bsSTkwNUaTgtdlck9Fs
-	yxvy/NtQeAfUOa8gNkQqRclsHKdUA/43I2XNk04VCky+ZEINVS5GO0gHSvS9MtjsZUgm1DWMCuB
-	NoCOfgR5hF7CssvoLQNgR7S0SThAW5A1mYv80PWciECFr9X6+64eosNK1mS+z+NyLqumI61c2WD
-	0xP+IQaAHCIx4ouQ0hdxBC46FyPBs0y84ub7JjaFYNCZq3haJZ+dvPhH0Q5I3PochLpOL0ecwUa
-	Pz9KG7Z02WoB1pOgAVRyExLpvIC5Vq7JGXd5/Lk75gO8smx/YGcuX0USD3lDMb5Ecx5r1ueyeSh
-	b8rAuFZeCNrLYmD3d6AeO3rS99//G5kdjXzKUQWg4ZvGrgfMs90dMtCdEKaUAoo8F/3W2u4ELxB
-	leyTP561RMbR5UG1as0PNBMMcrbQ0lt+cU0hmDMKHq8mLk/broy8CwoDKXVDb4H6R4hVmUPBV5a
-	TXz8cLR/b85Cn2RC1kxy28k8UkEMds1kD8cnhevN343NMNM
-X-Received: by 2002:a05:600d:8653:10b0:49f:e701:51c8 with SMTP id 5b1f17b1804b1-49fe70151ebmr86184735e9.9.1790359536473;
-        Fri, 25 Sep 2026 11:05:36 -0700 (PDT)
-Received: from vger.localdomain (178-119-186-126.access.telenet.be. [178.119.186.126])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5ce4941sm165106255e9.6.2026.09.25.11.05.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 11:05:36 -0700 (PDT)
-From: Tom Verdonck <tom.verdonck@inspiral.be>
-To: tom.verdonck@inspiral.be
-Cc: stable@vger.kernel.org
-Subject: [PATCH 3/3] hwmon: (sht4x) Fix jiffies wraparound in heater-ready check
-Date: Fri, 25 Sep 2026 20:04:46 +0200
-Message-ID: <7b2087ccb963e097cf3f6333efaec0c46549003b.1790358356.git.tom.verdonck@inspiral.be>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1790358356.git.tom.verdonck@inspiral.be>
-References: <cover.1790358356.git.tom.verdonck@inspiral.be>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="hgyMjH9o"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68PG5SAS1556318;
+	Fri, 25 Sep 2026 18:06:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=DiRC9dA2hvXehvHrZ
+	LvtGNleHCVhLG/kEjs+ZK0uOrk=; b=hgyMjH9oS6QGMCxS0OOs461To1BlE9wzs
+	pTTF5BtMPkjSy0XnlKh7bxYCX87jZPCNotuJk57sJDp58iCYPgfrFGwJi/PGdBOc
+	BLXM6NFcTL6zHN5l3gXh0/B/biiPNEcZSd1zEJQCZ6zYhyw9XwxkK4qScALEgNaw
+	7Wxm8blKoX9QDKIVAWTaLlZnZYn4GHX/o+wk5XceFlaVF0q68fni0xHqWbb0o0LI
+	PcYLQQNFRXbUrvQfsPUz2tmft3XyCwvsUSCDDJZmvPXlQ2TpPuOkT3eecL7wzmWX
+	7z9FS7eXrkg9hy9ymZQAR/XHPxp+u2Bcx9pLEM5CyIYqjfewUzIcA==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskdvqfwk-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 25 Sep 2026 18:06:10 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68PG39au4186670;
+	Fri, 25 Sep 2026 18:06:09 GMT
+Received: from smtprelay06.wdc07v.mail.ibm.com ([172.16.1.73])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gvbe23fyu-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 25 Sep 2026 18:06:09 +0000 (GMT)
+Received: from smtpav01.wdc07v.mail.ibm.com (smtpav01.wdc07v.mail.ibm.com [10.39.53.228])
+	by smtprelay06.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68PI67iA64291276
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 25 Sep 2026 18:06:07 GMT
+Received: from smtpav01.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 91BD258055;
+	Fri, 25 Sep 2026 18:06:07 +0000 (GMT)
+Received: from smtpav01.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id B560A58059;
+	Fri, 25 Sep 2026 18:06:03 +0000 (GMT)
+Received: from localhost.localdomain (unknown [9.67.6.174])
+	by smtpav01.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Fri, 25 Sep 2026 18:06:03 +0000 (GMT)
+From: Mingming Cao <mmc@linux.ibm.com>
+To: netdev@vger.kernel.org
+Cc: davem@davemloft.net, kuba@kernel.org, horms@kernel.org,
+        edumazet@google.com, pabeni@redhat.com, andrew+netdev@lunn.ch,
+        nnac123@linux.ibm.com, maddy@linux.ibm.com, mpe@ellerman.id.au,
+        linuxppc-dev@lists.ozlabs.org, davemarq@linux.ibm.com,
+        bjking1@linux.ibm.com, Mingming Cao <mmc@linux.ibm.com>,
+        shaik.abdulla1@ibm.com, stable@vger.kernel.org
+Subject: [PATCH net 1/2] ibmveth: h_free logical LAN on open-fail after register
+Date: Fri, 25 Sep 2026 11:05:29 -0700
+Message-Id: <7a56fbfb9e0674f011f4e310fbd7dfd8e67c30aa.1790357373.git.mmc@linux.ibm.com>
+X-Mailer: git-send-email 2.39.3 (Apple Git-146)
+In-Reply-To: <cover.1790357373.git.mmc@linux.ibm.com>
+References: <cover.1790357373.git.mmc@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -75,105 +73,77 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: Mg0Z59Vwzm7Hzb2OoMxJYJLsDltQwhk6
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDA3MiBTYWx0ZWRfX6TdMairycIER
+ xWW0ISja2//HVLFX4euVaJjOjpAbvoyAI+1uRGEMhBJZGcfwJVew8cVQtoWdEC8IhG6Om7C5f5s
+ DG1XYnyqAGAn91XULB41/DRZeshom9o=
+X-Authority-Analysis: v=2.4 cv=FLiOVOos c=1 sm=1 tr=0 ts=6ab6b812 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=YwJyo6ll96k2yfcBO2wA:9
+X-Proofpoint-GUID: HeVpEW0a7N1XleYYX_tLGJUGRYZfPjXs
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA3MiBTYWx0ZWRfX3t1pb+K2xYpT
+ g8brkhKqOW3n06EAqFdD8Iscg/hbneJy43aELnpTC/EksGB+DN0gcayn1IouEba9LWvxpNgsRO0
+ yagWlzWmaZK2MQtvbSMCEWaM9JrdB4wUekWPeTYceyYSvgSWizO0nBEvyy7WRx0dw2E7Uyr6hng
+ 3im7AOxNNd6r6ULMCMF/CaCJ+JT1NAFTkIBpD5lDtd+L7y5a60U68MzECRU4coFwmd7gBr2PLih
+ pgxehUIgjzgZnDGWfsBtXEzjw/I0h853YgH8L6KLoB59LAB5fUjZJIg8fsU8w4oby6oeweAyVsd
+ +HQItrtYMu0JhnQEnivNCtQjXBKOWuaATpvVdBs8TvuWf20qzlNP6zC/gPBQNxAz4uSkxnrXfpI
+ IPP75csCTdZKXUflJ5RoynI/GbwjJqD1ovIYWfzeif+hRYfJ4hDXyiynatZzXhUa7WXq3Xsva5v
+ T/u/N3cozZfmaLhHZXA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-25_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 impostorscore=0 phishscore=0 spamscore=0 clxscore=1011
+ suspectscore=0 bulkscore=0 lowpriorityscore=0 priorityscore=1501
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609250072
 
-sht4x stores in ->heating_complete the jiffies deadline at which the
-current heater pulse finishes. It is set once at probe (to jiffies) and
-only updated when the heater is explicitly enabled via sysfs, so in the
-common case where the heater is never used it stays frozen at its probe
-value.
+ibmveth_open() registers the logical LAN, then allocates the RX
+buffer pools. A pool failure jumps to out_free_buffer_pools without
+h_free_logical_lan(), so PHYP still owns the buffer-list page when
+it is unmapped. request_irq() failure already issued the hypercall
+before taking the same label.
 
-->heating_complete is an unsigned long compared with time_before(),
-whose signed difference is only meaningful while the two values are
-within LONG_MAX jiffies of each other. Because the deadline is frozen,
-jiffies keeps advancing away from it, and after 2^31 jiffies the
-difference flips sign. On a 32-bit HZ=100 kernel that happens ~248.5
-days after boot. time_before() in sht4x_read_values() then wrongly
-reports that heating is still in progress and the read path executes
+Move that h_free to the shared post-register unwind so both paths
+deregister before the buffer list is unmapped.
 
-	msleep(jiffies_to_msecs(data->heating_complete - curr_jiffies));
-
-with a bogus, huge delta, blocking the temperature read for a very long
-time instead of returning data. The heater_enable sysfs attributes are
-affected the same way (spurious -EBUSY and "1" readback).
-
-Store the deadline as a 64-bit jiffies value and compare it with
-get_jiffies_64()/time_before64(), which does not wrap in any practical
-uptime.
-
-Fixes: 0eed6fc3d2b9 ("hwmon: (sht4x): add heater support")
+Fixes: d43732ce021f ("ibmveth: properly unwind on init errors")
 Cc: stable@vger.kernel.org
-Signed-off-by: Tom Verdonck <tom.verdonck@inspiral.be>
+Signed-off-by: Mingming Cao <mmc@linux.ibm.com>
 ---
- drivers/hwmon/sht4x.c | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+ drivers/net/ethernet/ibm/ibmveth.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/hwmon/sht4x.c b/drivers/hwmon/sht4x.c
-index a97dda9e92dc..da2b6130fca7 100644
---- a/drivers/hwmon/sht4x.c
-+++ b/drivers/hwmon/sht4x.c
-@@ -67,7 +67,7 @@ DECLARE_CRC8_TABLE(sht4x_crc8_table);
-  */
- struct sht4x_data {
- 	struct i2c_client	*client;
--	unsigned long		heating_complete;	/* in jiffies */
-+	u64			heating_complete;	/* in jiffies */
- 	bool			data_pending;
- 	u32			heater_power;	/* in milli-watts */
- 	u32			heater_time;	/* in milli-seconds */
-@@ -92,14 +92,14 @@ static int sht4x_read_values(struct sht4x_data *data)
- 	u8 crc;
- 	u8 cmd[SHT4X_CMD_LEN] = {SHT4X_CMD_MEASURE_HPM};
- 	u8 raw_data[SHT4X_RESPONSE_LENGTH];
--	unsigned long curr_jiffies;
-+	u64 curr_jiffies;
+diff --git a/drivers/net/ethernet/ibm/ibmveth.c b/drivers/net/ethernet/ibm/ibmveth.c
+index 73e051d26b9d..3e44f6b714d4 100644
+--- a/drivers/net/ethernet/ibm/ibmveth.c
++++ b/drivers/net/ethernet/ibm/ibmveth.c
+@@ -718,10 +718,6 @@ static int ibmveth_open(struct net_device *netdev)
+ 	if (rc != 0) {
+ 		netdev_err(netdev, "unable to request irq 0x%x, rc %d\n",
+ 			   netdev->irq, rc);
+-		do {
+-			lpar_rc = h_free_logical_lan(adapter->vdev->unit_address);
+-		} while (H_IS_LONG_BUSY(lpar_rc) || (lpar_rc == H_BUSY));
+-
+ 		goto out_free_buffer_pools;
+ 	}
  
--	curr_jiffies = jiffies;
--	if (time_before(curr_jiffies, data->heating_complete))
-+	curr_jiffies = get_jiffies_64();
-+	if (time_before64(curr_jiffies, data->heating_complete))
- 		msleep(jiffies_to_msecs(data->heating_complete - curr_jiffies));
+@@ -737,6 +733,9 @@ static int ibmveth_open(struct net_device *netdev)
+ 	return 0;
  
- 	if (data->data_pending &&
--	    time_before(jiffies, data->heating_complete + data->update_interval)) {
-+	    time_before64(get_jiffies_64(), data->heating_complete + data->update_interval)) {
- 		data->data_pending = false;
- 	} else {
- 		next_update = data->last_updated +
-@@ -237,7 +237,7 @@ static ssize_t heater_enable_show(struct device *dev,
- {
- 	struct sht4x_data *data = dev_get_drvdata(dev);
- 
--	return sysfs_emit(buf, "%u\n", time_before(jiffies, data->heating_complete));
-+	return sysfs_emit(buf, "%u\n", time_before64(get_jiffies_64(), data->heating_complete));
- }
- 
- static ssize_t heater_enable_store(struct device *dev,
-@@ -279,14 +279,14 @@ static ssize_t heater_enable_store(struct device *dev,
- 
- 	guard(hwmon_lock)(dev);
- 
--	if (time_before(jiffies, data->heating_complete))
-+	if (time_before64(get_jiffies_64(), data->heating_complete))
- 		return -EBUSY;
- 
- 	ret = i2c_master_send(data->client, &cmd, SHT4X_CMD_LEN);
- 	if (ret < 0)
- 		return ret;
- 
--	data->heating_complete = jiffies + msecs_to_jiffies(heating_time_bound);
-+	data->heating_complete = get_jiffies_64() + msecs_to_jiffies(heating_time_bound);
- 	data->data_pending = true;
- 	return count;
- }
-@@ -410,7 +410,7 @@ static int sht4x_probe(struct i2c_client *client)
- 	data->client = client;
- 	data->heater_power = 200;
- 	data->heater_time = 1000;
--	data->heating_complete = jiffies;
-+	data->heating_complete = get_jiffies_64();
- 
- 	crc8_populate_msb(sht4x_crc8_table, SHT4X_CRC8_POLYNOMIAL);
- 
+ out_free_buffer_pools:
++	do {
++		lpar_rc = h_free_logical_lan(adapter->vdev->unit_address);
++	} while (H_IS_LONG_BUSY(lpar_rc) || (lpar_rc == H_BUSY));
+ 	while (--i >= 0) {
+ 		if (adapter->rx_buff_pool[i].active)
+ 			ibmveth_free_buffer_pool(adapter,
 -- 
-2.53.0
+2.50.1 (Apple Git-155)
 
