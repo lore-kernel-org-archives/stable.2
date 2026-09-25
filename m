@@ -1,122 +1,215 @@
-Received: from mail-yx2-f42.google.com (mail-yx2-f42.google.com [74.125.224.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B85F9442373
-	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 21:13:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB66F49CF45;
+	Fri, 25 Sep 2026 21:22:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790370818; cv=none; b=R5iaEvN43olg003VP4mfpBEw/VYDZWQB+CqXWT64IOQ8RFNEo9BIrEuK9kLtj3Rx6xgAYuQvIpBun4tswpSK9yJZSNDNIjEP0KYwgWZ38BwB21Ko8ErwDXi8/a3/MAl717RjPU20v6YZ8G01tC1D3J9AQvg9frcLgl0iBJxxKg8=
+	t=1790371342; cv=none; b=BbQ8fdjoCo3P3cxVA6oNR2k7qvDcNkH6i0Yz5WWEHNspzXa6/d2L92eWeM1o6yaxeyOqdSw2/A/ZFXgV/VWwJrQnuul494YMU+99w1/DQU/sMEXqVTrjMpvp/BLPHAS5k58XCRP/ZAC2jEX+FYFR5xrZ8FiIPITwGLdx0RI+ymw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790370818; c=relaxed/simple;
-	bh=l2U8nzCNNQ/nwq4FEs6iLspFROyaC5q68fQmREhjkjI=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type; b=F+CkM9gvdXfawdDMb3ziTRYkUGSXyXErgT+4AJ5YWlMHMaELgKv89lkNa+Ilr6eNo9h8IqyzzznG8k1YCeXp1lhNDz6Z4AKV8bZgjw3K4Y6BolYORt5JVfZR3JAZbuYRdiSuutrl5ZsddNpULajZylSDbpwITc0tZNHfwrEpQ/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cisRoBq6; arc=none smtp.client-ip=74.125.224.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790371342; c=relaxed/simple;
+	bh=NYGGX08Rh22ux8AkT9s+UILhXOkXRQN1DhjSewJHGj4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=eTy9joWjC+w2ZLc61EFc9cICScqHxlitSn2jkL16O9eNUPu+kEky4l2/+utUggsqU1vRL4N3k3Yo0GBRGMc5WHpWejelytU/k/3qj3QPmEuRGQMdTlvEwGett0WwfystQZYux7w1RNg66kZ/d6cZSCYAdVDLBtj0L4cZ81nkcZ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EF7K2XMG; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cisRoBq6"
-Received: by mail-yx2-f42.google.com with SMTP id 00721157ae682-895fd505824so11727897b3.1
-        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 14:13:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790370814; x=1790975614; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=kE6Ci4ey9edySdwisM07uhodEQlZii4EnlJAnWzc9lU=;
-        b=cisRoBq6/2Mq0XJdC1G9mBuK3ldnHNb9jKiaWs+33Rc9Ql4AWqtx8FuaMW4DlLSGKn
-         aNzRW3Xr4Nb8tqUVTXnM29fbRf8rJhalyTQFeKez/3pF7KcvrqDZZ81KO07NatMbCHkm
-         EeFPv3cZhomWMAftMZKLlhqGRuFKwPJdCTFWycrSnHHoPbyb0y6ug1YqTFWpEDKaaxji
-         OIV/gPPS62wKm5YMYAdAEifz54ulE0iXwi7cfD1OzGQ8GhC0NWZT7U5wyHWs3CFc3SVw
-         xu+EClqcAwz4x2xM247cg35WNjGDaj+q9D1CnllGILL//ReivfxRRk1EZjoPzyDRyYU9
-         tWWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790370814; x=1790975614;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kE6Ci4ey9edySdwisM07uhodEQlZii4EnlJAnWzc9lU=;
-        b=vP9PqktJzl18mBGjcKaelJCbDzvybi+zXYVO5q7VoW8I+HBBte/lsQy/eWKE05dNY+
-         oMWKjUlecHTd7iOeXK+JCpxVj79WkzTFIxFipA4btEoafiT5OtJsUyIkh7OoHDpG4PgT
-         JDt/eT/0jsLnMs0vwssKctIEexSSRFKAj6Za9MNY6IW1sm6WzIZRCFcAEV9g4AeBv74B
-         GIbVnsIHC8J4pf0OUceEy5JEViZIL6+tLdrj2QX9cFN16HqKlOnYrq9gejmflSjJwhlT
-         WFr1+gFcpnP+gUDKjzfL1qo0M8tTRUVsemeP88a5WO98SM+hdLcSc5tK/+HJ7n0tR2tb
-         yXHQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwhcILftnMOfuKik8pkAJ+2QAfkrF1ZDdMs4akyGd731E1yUkj3JfSwIM5jEpX0ihk5Xl7WgeM=@vger.kernel.org
-X-Gm-Message-State: AFuF++m6qo+L5GPxfVo16gXhyrbqBm0ThCl9GOo++6GC7hRPh0aBrbik
-	00a7mtFudWgoDtuIRpdZUEqr1HUNWnntApkSJu5ljU82ztg9kkqfGCh5
-X-Gm-Gg: AYBFou2caUIhD0wzDoj93gMAJ9VxseMwZ4Hw52DOoWgFvfemuhiDsUiQzSyjJ73s7LO
-	XAxRA3+lG0CJwnoKJvU33sDrCgh7pBxCiWsPi+Gx1i1OSU5F8KUNyCOE4GV7o8vAcAVwH5hqgGu
-	p75SuyK1Iwj1o0Byn8JBqr/jm0D/rHWQ8W2LOXwH1mXG9JfI0ngp1ZRGuWkObg/hou7LZ4z2tA7
-	Y3sDUgxWHX0wOXAEmyfimPcebCiUWrDf4iVOWb6a4OzKUmp9TLG3avnTxGnq6XF3mZBUs/vK+Kh
-	6vm8j9Wf6/VMzhyfrU2up8RW4H8Q1F+jfawbXCTrSoqMQBqJzuqCGshh1tR4T05BxBciQBNYNIe
-	feAOrIcDskZ1qBFYkZB+EOddSyzDOsVH7QYwwz9nNfuB50eaix0H7gCtAZTEkP9lgcdGDhwje49
-	O8FogQUB01OL2WrWubGYRechUu2PIG9vLU7wpw67IVnhz1NEUkBPMYiFo1pgOD38cHjc2dgPPzN
-	NlpTarB5QsnIu/4G8KcWq9m7tq4vB9/21E4vY4l2hztmWUHzGZWnbjMzxaBI+my
-X-Received: by 2002:a05:690c:19:b0:8a5:1570:a298 with SMTP id 00721157ae682-8a64ded27c7mr30052657b3.50.1790370814571;
-        Fri, 25 Sep 2026 14:13:34 -0700 (PDT)
-Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a860fe88d6sm13938657b3.31.2026.09.25.14.13.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 14:13:33 -0700 (PDT)
-Date: Fri, 25 Sep 2026 17:13:33 -0400
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: Zihan Xi <zihanx@nebusec.ai>, 
- netdev@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, 
- davem@davemloft.net, 
- edumazet@google.com, 
- kuba@kernel.org, 
- pabeni@redhat.com, 
- horms@kernel.org, 
- dsahern@kernel.org, 
- idosch@nvidia.com, 
- kuniyu@google.com, 
- willemb@google.com, 
- kees@kernel.org, 
- richardbgobert@gmail.com, 
- zihanx@nebusec.ai, 
- stable@vger.kernel.org, 
- Vega <vega@nebusec.ai>, 
- Luxing Yin <root@tr0jan.top>
-Message-ID: <willemdebruijn.kernel.21eac4268187e@gmail.com>
-In-Reply-To: <20260924051521.32568-2-zihanx@nebusec.ai>
-References: <20260924051521.32568-1-zihanx@nebusec.ai>
- <20260924051521.32568-2-zihanx@nebusec.ai>
-Subject: Re: [PATCH net v6 1/1] net: gso: limit recursive IP-in-IP
- segmentation
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EF7K2XMG"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 8A258C2BCB8;
+	Fri, 25 Sep 2026 21:22:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790371342;
+	bh=NYGGX08Rh22ux8AkT9s+UILhXOkXRQN1DhjSewJHGj4=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=EF7K2XMGYlIp9VpZQw30KyQD+fexSlKECTJBsvLNMH6BfUlvK9Y80EnsKCxWQuEYQ
+	 SOqp0Ld1yHR5NeCq6oKNlRxv1Kefv+k8eP1mNDEW9UAtTf38AcOHfzwsrHcuYkK6bL
+	 OptVH+MmZApIKTWKDPBHb6aIBSg+9a64TxreeA5qXT97SVlbAKgbYuEV18vfaaaSHa
+	 pzib1ZR2OI21zMgj4MZOXhnLReE0xI00Jmbd1CmzcszovRJoCHLJwq5XxWAHjXW0jv
+	 8RE/esKwJm/CFhCWL0uRGxTlXKHFo6bkPB/jOjuhJvpA2vduYnriU7f+tkRIgtew2m
+	 CXelqqLGa0Dwg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 61D77C9832A;
+	Fri, 25 Sep 2026 21:22:22 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Subject: [PATCH v8 0/5] Input: support for STM FTS5
+Date: Fri, 25 Sep 2026 23:22:18 +0200
+Message-Id: <20260925-stmfts5-v8-0-0fcf49e2c85f@ixit.cz>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/13QTU7DMBAF4KtUXhM047E9NivugVjEf9QLWhRHU
+ aHK3XGKhNMu33i+p5GvoqappCpeDlcxpaXUcj61YJ8OIhzH00caSmxZSJAGJKqhzp95rnrwigk
+ x+8gkRdv+mlIul1vT23vLx1Ln8/R9K15wm/51EOB/x4IDDFIGpa13YzD2tVzK/Bx+xNawyJ1C3
+ ZVsisEHSyk57fBeUVcKqCtqSseRjQ05SnhQaq9cV6opo3Iy7Ymj1/dKd2URutJNQWDi6KRzbO6
+ V6cqB6cpsF0L22YzZMj78Bu8Vd8VNqVETWQwRaKfWdf0FhRF3QeABAAA=
+X-Change-ID: 20260214-stmfts5-b47311fbd732
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Henrik Rydberg <rydberg@bitmath.org>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: Petr Hodina <petr.hodina@protonmail.com>, linux-input@vger.kernel.org, 
+ linux-stm32@st-md-mailman.stormreply.com, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org, 
+ David Heidelberg <david@ixit.cz>, stable@vger.kernel.org, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Abel Vesa <abel.vesa@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5706; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=NYGGX08Rh22ux8AkT9s+UILhXOkXRQN1DhjSewJHGj4=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqtuYMZRK6dVaJ8gJpvVKh2HmICVoHNTi2sCpAt
+ jefMomniYaJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCarbmDAAKCRBgAj/E00kg
+ chd4D/0W2SNOEooROfqD6meWgaQDNnkiYb0LaZSwBE9pwsOD20aRosXFOkB23BHUkmsBXRJhvg3
+ ROuuOp9OuOR1RVpbzPuyLp132K9cs7KAeWOw7IODS6qPmJMfYC8HE1EaJfxgYaVmDZEG5W+vDup
+ EuiULs74RDDlQmcX5qgbMEydMGwzuLzXGrWnrfUM+PkTp8+lThqxf8WxKRgyLsYn6/aL2nuRpn5
+ ZiqJFJ4qoYKDIn3yH7pwvfNzb30shKGSFxI/UpMB1X61X93gLWjas9FgyvIgfzvFcdX6XR270yy
+ pHfLjpuH5OQoOckxaKddivReiX/m80PwDyznLl9AugrZMpjtVzg1MT1u9NgAsMD9kxJ0HcrM6Bu
+ tiz2zvZncgWyQKCdMn1WLLjrEgcvJp5mgAoqEbDJJFC07W5+Qk5oF4Wsx2VV8Yzvd9qzVWM4WIG
+ zIHWfZW+xvSemfAJ0htIXGwtfTXvlkWcGBtp0KRvOtEekejIl0Z/YDl+yI5Ctefu+M+s8yDlIBd
+ CGbR0wkWJRR1A65YPrlTfHdWxaOUJtuVMuXSbB5If4XZwTNAk0dFdj2Tg8ZKqVqInhHidSbKj1g
+ IbhcK6KZFNi3IMPxiPzDeG/LhRzkG2bqjyKT80CuCjz+X39NDP+Hx0PMucz5JZKiK09jA01X2hu
+ JAY7lx0s38bWwTA==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-Zihan Xi wrote:
-> IP-in-IP GSO can re-enter inet_gso_segment() or ipv6_gso_segment()
-> for each nested IP header. encap_level tracks header bytes, not callback
-> depth, so a deep chain can exhaust the kernel stack. Making
-> inet_gso_segment() stackable introduced unbounded IPv4 nesting; IPIP
-> GSO/TSO later made the path reachable. The IPv6 stackable path was
-> introduced separately and uses the same guard.
-> 
-> Count IPv4 and IPv6 GSO handler entries in skb_gso_cb, initialized once
-> per top-level GSO operation and preserved across GRE/UDP context changes.
-> Use the existing IP_TUNNEL_RECURSION_LIMIT for both handlers. The first
-> five entries pass, and the sixth returns -EINVAL before dispatching
-> another GSO callback.
-> 
-> Fixes: 3347c9602955 ("ipv4: gso: make inet_gso_segment() stackable")
-> Cc: stable@vger.kernel.org
-> Reported-by: Vega <vega@nebusec.ai>
-> Closes: https://lore.kernel.org/all/cover.1790157745.git.zihanx@nebusec.ai/
-> Assisted-by: LLM
-> Co-developed-by: Luxing Yin <root@tr0jan.top>
-> Signed-off-by: Luxing Yin <root@tr0jan.top>
-> Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
+Used on various phones. Minimal viable driver.
 
-Reviewed-by: Willem de Bruijn <willemb@google.com>
+Includes device-tree enabling touchscreen on Pixel 3.
+Also, tested on Xiaomi Mi 8 (device-tree is not yet inside the mainline).
+
+What is missing:
+ - switching between AP and SLPI mode (to be able to wake up phone by touch)
+ - firmware loading
+ - anything above basic touch
+
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+Changes in v8:
+- Split DT binding example changes into own commit (Krzysztof, Dmitry)
+- Refectored the stmfts_power_on fix. (Dmitry)
+- Added ABS_MT_TOOL_TYPE. (Dmitry, Sashiko)
+- Link to v7: https://patch.msgid.link/20260907-stmfts5-v7-0-4a53381cd038@ixit.cz
+
+Changes in v7:
+- Added 'Input: stmfts - wait for controller ready after reset',
+  the waiting is done for both FTS4 and FTS5, similarly to the
+  downstream driver. Should improve reliability everywhere.
+- Link to v6: https://patch.msgid.link/20260906-stmfts5-v6-0-50fbf6af8718@ixit.cz
+
+Changes in v6:
+- Enable only the multi-touch scan on FTS5 sense-on (0xff was wrong,
+  only 0x01 is needed. This broke Xiaomi Mi 8 toucschreen).
+- Fixed Y-coordinate comments. (Dmitry)
+- Corrected event[0] parsing. (Dmitry)
+- Dropped checking < 0 on unsigned area. (Dmitry)
+- Dropped unnecessary i2c writes after reset. Verified against
+  downstream driver. (Dmitry, Sashiko)
+- Added pieces for supporting non-OF integration. (Sashiko)
+- Shared input open/close into one impl. (Dmitry).
+- Link to v5: https://patch.msgid.link/20260810-stmfts5-v5-0-0c737d929976@ixit.cz
+
+Changes in v5:
+- 3.3V is analog, 1.8V is digital supply. Fix that.
+- Name the error variables "err" (Dmitry)
+- Use scoped_guard() for ->running, and only set it once the scan
+  mode has actually been enabled. (Dmitry)
+- Use i2c_master_send() instead of open-coding a single-message
+  i2c_transfer(). (Dmitry)
+- Drivers may report coordinates outside the declared min/max, so
+  remove the clamping. (Dmitry)
+- BTN_TOUCH and INPUT_PROP_DIRECT are already set up by
+  input_mt_init_slots(..., INPUT_MT_DIRECT). (Dmitry)
+- Let the input core track contacts: drop the touch_id/stylus_id
+  bitmaps and the hand-rolled BTN_TOUCH reporting, and sync the frame
+  once per interrupt with input_mt_sync_frame() instead of calling
+  input_sync() per contact event. The controller pushes contacts one
+  by one into the event FIFO and only resends the ones that changed,
+  so INPUT_MT_DROP_UNUSED is wrong here and is dropped as well. (Dmitry)
+- Restore the FTS4 interrupts accidentally dropped by introduction of
+  FTS5.
+- mode-switch-gpios isn't required with stmfts5. Some designs, such as
+  Xiaomi Mi 8, has no such GPIO connected and is limited to AP mode.
+- Nit: updated example to use interrupts-extended.
+- Nit: (maximum x/y coordinate reported + 1), corrected example.
+- Link to v4: https://lore.kernel.org/r/20260409-stmfts5-v4-0-64fe62027db5@ixit.cz
+
+Changes in v4:
+- Wrap everything below enabling the supplies into stmfts_configure()
+  to avoid bunch of gotos to power off on error (Dmitry T.)
+- Finished chip specific ops and removed is_fts5. (Dmitry T.)
+- Link to v3: https://lore.kernel.org/r/20260403-stmfts5-v3-0-5da768cfd201@ixit.cz
+
+Changes in v3:
+- s/touchscreen_pins/touchscreen_irq_n. (Konrad)
+- Use interrupts-extended. (Konrad)
+- Fixed rebase conflict against 8665ceb926ec ("Input: stmfts - use guard notation when acquiring mutex")
+- Rename switch-gpios to mode-switch-gpios.
+- Do not define properties in if:then: branches. (Krzysztof)
+- Link to v2: https://lore.kernel.org/r/20260315-stmfts5-v2-0-70bc83ee9591@ixit.cz
+
+Changes in v2:
+- Fix typo in the binding s/switch-gpio/switch-gpios/.
+- Deduplacate allOf. (Rob yamllint)
+- Add missing S-off-by. (Dmitry B.)
+- Dropped irq-gpios as it's not needed. (Konrad)
+- Correct x and y touchscreen area size. (Konrad)
+- Correct reset introduction commit description. (Krzysztof)
+- Partially implemented chip specific ops. (Dmitry T.)
+- Separeted license naming cleanup into separate commit (Dmitry T.)
+- Link to v1: https://lore.kernel.org/r/20260301-stmfts5-v1-0-22c458b9ac68@ixit.cz
+
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>
+To: Petr Hodina <petr.hodina@protonmail.com>
+To: David Heidelberg <david@ixit.cz>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Henrik Rydberg <rydberg@bitmath.org>
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-input@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org
+
+---
+David Heidelberg (4):
+      Input: stmfts - wait for controller ready after reset
+      dt-bindings: input: touchscreen: st,stmfts: Improve example
+      dt-bindings: input: touchscreen: st,stmfts: Introduce STM FTS5
+      Input: stmfts - support FTS5
+
+Petr Hodina (1):
+      arm64: dts: qcom: sdm845-google: Add STM FTS touchscreen support
+
+ .../bindings/input/touchscreen/st,stmfts.yaml      |  29 +-
+ .../arm64/boot/dts/qcom/sdm845-google-blueline.dts |  19 +-
+ arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi |   2 +-
+ drivers/input/touchscreen/stmfts.c                 | 462 ++++++++++++++++++---
+ 4 files changed, 443 insertions(+), 69 deletions(-)
+---
+base-commit: 944a035ecca915ae947905dcfb03f2b9dc6d032c
+change-id: 20260214-stmfts5-b47311fbd732
+
+Best regards,
+--  
+David Heidelberg <david@ixit.cz>
+
+
