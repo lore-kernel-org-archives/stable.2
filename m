@@ -1,129 +1,164 @@
-Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+Received: from mta1.migadu.com (out-68.mta1.migadu.com [95.215.58.68])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E7E0426D13
-	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 19:31:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D7214A5C40
+	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 19:32:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.68
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790364671; cv=none; b=jP6ier3Kr0WF8uRSgXmPqi4uT6MsEPSTU0m07POKAuDF3mWkZJ6lyDM2PtU7A+miVUV8Qfz3SunIGtaoJqhl2SDPF1S/9+7cy4YI8EoMusTTrsNTjKqhUwhBPPe2hmIN8SFF7QyNODSoscIpMwS6hIQ6RWHsTfZHnFjTMdr9Gks=
+	t=1790364784; cv=none; b=adu0LtABY/+Lzu4oe2f/IzxbKhrNj4mDxci5GP45c+Zo8J5RxqwZ1TKj9roJVBzi8UiLer3zMkdSrC96u2rnl2COutiNUyFZadhsozFPyixY0uCfEvb8uY5tQxd/ueB51bM2KH1L4bfIgb+wagTdtCOBTxoQeKV/l2hBGbX+tXc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790364671; c=relaxed/simple;
-	bh=dcxM9nciXFXskGhLl3NfboI6U82tcnMqomfNizhspnU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oqqBoJdNL0n4GpICcJD9/kgWjRVl328h2oXje13zPOSyb/wMwSiwBbgOWPaiaCxP9KQqk3lnlj+PBVkAhzNIxK9vbCCk8t/V/bD9ZSL+m5JWRnzUFEIf+fzEEQn7wmwwbTLt0hP4jwqgC1IKNjSVQEnccTEhDftVoyFcQRr9MFg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kI3BXM7H; arc=none smtp.client-ip=74.125.82.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790364784; c=relaxed/simple;
+	bh=8V5VwhpeXhxeuPpsgf59bCJyOR0PZgomhhn/k9/LjAc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=oDntePYQ9F6UPUOtI5Ta7RiwiRhs8MVM9Buzar1xLYrRYQWPhOVAem95C06ij2++gS3dV9Z1DfPwIBZqqIkIlaZBYavQbyBSOr6LtF8oLjee4a/6qLKImsaeslaQh1n+ADCmgiPFjgGg1Ykv9bguirPAtmr75HM9/ZttaAtmP1E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ZjNtJnKb; arc=none smtp.client-ip=95.215.58.68
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kI3BXM7H"
-Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-13fc403e373so2224733c88.1
-        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 12:31:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790364668; x=1790969468; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/PfC+JKXiHR2gOczjEvFYMX7OwerkeM8UAQevJLjnNs=;
-        b=kI3BXM7HmkiDuG2//zoA2nI+Ol8UU2sJHIknc7ZIovdBOntXpnInQ490DZNBYydjyW
-         xebUnG7anUkarGF0Ob4YdsN09hsUyJJy/0cMT3WYef0l3LcaO2gE0cElySZ26kIjIe4Q
-         wXp2xjpaU/9Prtv0Gl05FPGbkhMzkg93IP8fmpnp1qlKJM9ZqOcgnjPWmQDxyaXTuMo7
-         uik7gL3HnVmnwy3truAy++2fTHENsVvsfZkbj51r2hyvRVcL5IOHyGfMDVXEGYRrmEMR
-         tNDXXwKPyVxKVc776pGpstlU4gJkTdFr6m18kg9zBA9wb+aGVnRG2lLOBVOlkqrtFlsn
-         PfPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790364668; x=1790969468;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/PfC+JKXiHR2gOczjEvFYMX7OwerkeM8UAQevJLjnNs=;
-        b=Wv3q9KMVxDFFnNBLB7vT4y1XkZRZVrXD3Invs9lPkmOY8+vOy47CrXl1MwMPlQce4P
-         M5t8Fi6fB57yXoy6gR2uVABlcipHZ4SRBeuo0M6nBpGFOTLyzwEq/5+Z745DniYPRDvj
-         hdlcUfD95gJMFlsqkLMMj/nKn3E26SQV5idL7u0jb2Qd9/rVkds+1ItuR1fqV0BrWxqt
-         jSgCMHT2xpswHXiXmyWh0pW5t3BY0RyT2aukgtDJhk1y1u7tUkqgFCNvcw4LkxMtDe9Z
-         tG3cJ2Pfi0vHQ2tIY7lL4nk2aGkoROGzki37fMXdVqLcVHkRysFB5+58GFFjiamZnm7p
-         I8Kg==
-X-Forwarded-Encrypted: i=1; AKwUvBwOvpd5h6RuHsV49VgZxbt9pW0KZ2HBe28Am3C+kFXykjuNI1te3WtAGGljpaIJ/33vZjbGmKM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kZdNZS92lO9ocgqbEO8yw0voUSLv3p1N/vqRK0Gj7gMaNihEtb
-	vSxS4ss3vUE3F1WV7jbGgPl+u1vUcyg9GLWEasUJDJVgLvsgk6d4HXZi
-X-Gm-Gg: AYBFou271t7HQZ9AZfUW8pE8qNjulFqLB0sUdfEOP9s2cNtmzeyNhzHN8sGawFmWf5j
-	SkZxaaVyhc/V4m31ascTnoPQdzCyemIP9nMSjQGDPjPus8mHTWZO+mo0XSHhk9jWlsh5OIH4Bqv
-	Jg1/qGWGygqaSMRAvc+7HYWHQtzZfYdMI3RuT8Vevi1/uYNVcNZxhGj/D6ciLwuPSxQve6lAOcg
-	Ewtg9bT4HkNTmrkQ1ylVYgAiVSQSh9R7ZIMttJJNUkei3wZiyMv53HCK5UFaL4twiO38zuTTcua
-	GwKBlU0JnP8R/YPhunr1uEFzV7h1ojQiNGJvufMfscecq1gSdWKwRyv1f7mvqefRwH4dpCL4OzG
-	GQE4JO/fTuBmd44oANKwjl/mokbK61P86xXZIHJrRj88xJsaj8rzhZFxyoGr3ymi25IW7Se/CDZ
-	La9H99qkgDWRujzSvkHejyJohRZsouztDHCl1xM7PM3x+5LqNKxvY+N6+dQjyCPWpVG4EXWXsTa
-	V6HVVk7HvA67iSUNZOxM5mRIHzQjN63XFIZAJsBIT+0YjETyRTAm0yRr4RQCeJRk4lE41pyE5OC
-	FJXHMffAb7Q3LbdVuLCSbF6xWHpV5WDqE0OhIsTtQuL9aA==
-X-Received: by 2002:a05:7022:1584:b0:13b:32f4:e826 with SMTP id a92af1059eb24-146ce968c47mr1007700c88.11.1790364668278;
-        Fri, 25 Sep 2026 12:31:08 -0700 (PDT)
-Received: from ututo.. ([2803:9810:87dd:de10:161:9095:8001:15fb])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145acc47ab8sm7886956c88.6.2026.09.25.12.31.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 12:31:07 -0700 (PDT)
-From: Lucas Costa <2000.costalucas@gmail.com>
-To: Mark Brown <broonie@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Ray Jui <rjui@broadcom.com>,
-	Scott Branden <sbranden@broadcom.com>
-Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	linux-spi@vger.kernel.org,
-	linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Lucas Costa <2000.costalucas@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] spi: bcm2835: fix device_node reference leak in bcm2835_spi_setup()
-Date: Fri, 25 Sep 2026 16:30:08 -0300
-Message-ID: <20260925193008.127314-1-2000.costalucas@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260923184450.135601-1-2000.costalucas@gmail.com>
-References: <20260923184450.135601-1-2000.costalucas@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ZjNtJnKb"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=8V5VwhpeXhxeuPpsgf59bCJyOR0PZgomhhn/k9/LjAc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790364774; v=1; x=1790969574;
+ b=ZjNtJnKbagh8MvIjULkiplrnHTEmJ1zkpRh3XgjMkrlMzB3K/lSnCB3Xj+4f82e0nef+DHx/
+ D67yN5BOxVlUbUWhLw8w8E5J73qlPwzA1qvLMOIYPW+oF60kwji/IjlX4tX7WGHqZ3rtrficpPo
+ su8VNp3KFxVeY/PteHVp7vdA=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 88cdd669b54f57db;
+	Fri, 25 Sep 2026 19:32:52 +0000
+X-Mizu-Trace-ID: 88cdd669b54f57db
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <1e223334-b371-487b-a60a-7f1f5c007f7e@linux.dev>
+Date: Fri, 25 Sep 2026 12:32:49 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] tracing: fgraph: Raise FTRACE_RETSTACK_ALLOC_SIZE to
+ 1024
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: rostedt@goodmis.org, mhiramat@kernel.org, mark.rutland@arm.com,
+ mathieu.desnoyers@efficios.com, andrii@kernel.org,
+ linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org,
+ bpf@vger.kernel.org, kernel-team@meta.com, stable@vger.kernel.org
+References: <20260922225526.1554758-1-vineet.gupta@linux.dev>
+ <20260922225526.1554758-2-vineet.gupta@linux.dev>
+ <20260924100040.GD4121339@noisy.programming.kicks-ass.net>
+From: Vineet Gupta <vineet.gupta@linux.dev>
+Content-Language: en-US
+In-Reply-To: <20260924100040.GD4121339@noisy.programming.kicks-ass.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-of_find_compatible_node() returns a device_node with its reference count
-incremented, but bcm2835_spi_setup() only uses the return value to test
-for a matching node in the loop and never releases it.
+On 9/24/26 3:00 AM, Peter Zijlstra wrote:
+> On Tue, Sep 22, 2026 at 03:55:25PM -0700, Vineet Gupta wrote:
+>> When ftrace graphing is turned on, all tasks in the system missing
+>> return stack page are assigned one. This is done in a simplistic
+>> multi-sweep loop of FTRACE_RETSTACK_ALLOC_SIZE (currently 32) tasks
+>> at a time as follows:
+>>
+>>     start_graph_tracing()
+>> 	do {
+>> 		alloc_retstack_tasklist
+>> 	} while (-EAGAIN);
+>>
+>>     alloc_retstack_tasklist()
+>> 	alloc x32           # GFP_KERNEL, may sleep
+>> 	rcu_read_lock()     # preempt off
+>> 		for_each_process_thread    walk N_total, no cond_resched
+>>                       t->ret_stack = new_page
+>> 	rcu_read_unlock()   # preempt enable but no explicit yield
+>>
+>> Each successive iteration of loop invokes for_each_process_thread()
+>> which doesn't support cursor based resume and always restarts from the
+>> init_task. Thus each successive loop needs to skip the tasks assigned
+>> ret_stack in prior sweeps and thus take longer and longer to find the
+>> candidate 32 tasks.
+> Does this work?
 
-Declare the node with a scope-based __free(device_node) cleanup so the
-reference is dropped automatically when leaving the loop body, matching
-the existing __free(kfree) usage in the same function.
+Yes it does and much better at that: test run for 400k threads went down 
+from 227 s (stock) to 7.2 s (my patch) to 92 ms. Woo hoo !
+I didn't know about this cool trick.
 
-Fixes: e19c1272c80a ("spi: bcm2835: Restore native CS probing when pinctrl-bcm2835 is absent")
-Cc: stable@vger.kernel.org
-Signed-off-by: Lucas Costa <2000.costalucas@gmail.com>
----
-Changes in v2:
-- Use a scope-based __free(device_node) cleanup instead of an explicit
-  of_node_put(), as suggested by the reviewer.
-- v1: https://lore.kernel.org/all/20260923184450.135601-1-2000.costalucas@gmail.com/
+A couple of things worth pointing out:
 
- drivers/spi/spi-bcm2835.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/spi/spi-bcm2835.c b/drivers/spi/spi-bcm2835.c
-index 8f8715809c7c..23606967f7d1 100644
---- a/drivers/spi/spi-bcm2835.c
-+++ b/drivers/spi/spi-bcm2835.c
-@@ -1297,7 +1297,9 @@ static int bcm2835_spi_setup(struct spi_device *spi)
- 	}
- 
- 	for (i = 0; i < ARRAY_SIZE(pinctrl_compats); i++) {
--		if (of_find_compatible_node(NULL, NULL, pinctrl_compats[i]))
-+		struct device_node *np __free(device_node) =
-+			of_find_compatible_node(NULL, NULL, pinctrl_compats[i]);
-+		if (np)
- 			break;
- 	}
- 
+> diff --git a/kernel/trace/fgraph.c b/kernel/trace/fgraph.c
+> index ed455b53513b..155dafad474d 100644
+> --- a/kernel/trace/fgraph.c
+> +++ b/kernel/trace/fgraph.c
+> @@ -1036,10 +1036,9 @@ trace_func_graph_ent_t ftrace_graph_entry = ftrace_graph_entry_stub;
+>   /* Try to assign a return stack array on FTRACE_RETSTACK_ALLOC_SIZE tasks. */
+>   static int alloc_retstack_tasklist(unsigned long **ret_stack_list)
+>   {
+> -	int i;
+> -	int ret = 0;
+>   	int start = 0, end = FTRACE_RETSTACK_ALLOC_SIZE;
+>   	struct task_struct *g, *t;
+> +	int i, ret = 0;
+>   
+>   	if (WARN_ON_ONCE(!fgraph_stack_cachep))
+>   		return -ENOMEM;
+> @@ -1054,26 +1053,29 @@ static int alloc_retstack_tasklist(unsigned long **ret_stack_list)
+>   		}
+>   	}
+>   
+> -	rcu_read_lock();
+> -	for_each_process_thread(g, t) {
+> -		if (start == end) {
+> -			ret = -EAGAIN;
+> -			goto unlock;
+> -		}
+> +	scoped_guard (rcu) {
+> +		for_each_process_thread(g, t) {
+> +			unsigned long *rs;
+> +
+> +			if (t->ret_stack)
+> +				continue;
+> +
+> +			rs = kmem_cache_alloc(fgraph_stack_cachep, GFP_NOWAIT);
 
-base-commit: fe2ec83746e501645709761605c2464a44fd2929
--- 
-2.43.0
+It still pre-allocates FTRACE_RETSTACK_ALLOC_SIZE reserves in the fast 
+path - my (limited) testing never hit the reserves, but I agree better 
+to keep it and 32 seems like a reasonably low number?
+> +			if (!rs) {
+> +				if (start == end)
+> +					return -EAGAIN;
+
+This indicates the reserve pool is exhausted so it safe to elide the 
+free: loop at the end: warrants a comment IMO.
+
+For submission, would you take this up as reported-by me or do you 
+prefer I send a v2 (your authorship and SoB etc) ? No big deal either 
+ways just not sure what the std operating procedure is and nuances of 
+all the tags etc.
+
+Thx,
+-Vineet
+
+> +				rs = ret_stack_list[start++];
+> +			}
+>   
+> -		if (t->ret_stack == NULL) {
+>   			atomic_set(&t->trace_overrun, 0);
+> -			ret_stack_init_task_vars(ret_stack_list[start]);
+> +			ret_stack_init_task_vars(rs);
+>   			t->curr_ret_stack = 0;
+>   			t->curr_ret_depth = -1;
+>   			/* Make sure the tasks see the 0 first: */
+> -			smp_wmb();
+> -			t->ret_stack = ret_stack_list[start++];
+> +			smp_store_release(&t->ret_stack, rs);
+>   		}
+>   	}
+>   
+> -unlock:
+> -	rcu_read_unlock();
+>   free:
+>   	for (i = start; i < end; i++)
+>   		kmem_cache_free(fgraph_stack_cachep, ret_stack_list[i]);
 
