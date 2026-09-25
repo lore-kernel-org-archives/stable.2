@@ -1,65 +1,83 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 373C84E325E
-	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 19:15:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B51043F089
+	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 19:16:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790363757; cv=none; b=e1bVZk4NKy/3A7+indLoU6Z12LKIC2btOCgzq+UV8pXPENTJkmOqaX+nOAYdRvJzJObKus0PuxX3gouWfWtWRBILr8Q3/tkNsXn5ik+TgmpmVBOxYLFTo2tROKFFo1oLJG9lHWp66COkGgA/9B8G6zk23MMc3wh3l+xbIlgXluk=
+	t=1790363820; cv=none; b=tRrue1Ax/zExQRvW2FafGWBl9EISqzLEJPxZ8TfpDe+a2WAy5wHEwrhQ2FRTLBjwjt5K/OSYT+vojvH6V84AijY8SqcldFU7qorxKO/bsam1gWKK2f13mY2JnFgMAlHjjWN8XhG9vS4LdHo1nh1q4EMUge2oL1xGjePNf2RMD3M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790363757; c=relaxed/simple;
-	bh=1iQYlNeb3MrVFHVuyqAHdMXtCaOZscTNUbEqzCORxQw=;
+	s=arc-20240116; t=1790363820; c=relaxed/simple;
+	bh=j5qbuXrDX2plwlT/z3lSzoNInbPkdLmaRYkhQoo2lGM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kayrydpgurF7Z4bjVINhhwM7XCnTGUfp0MFnmPGOJyGj4p/9/Fci005X8iCTvSsouexycclig6hHPWXmpyHRFpV6cqgcegW4PfvD5lJubnQYigfLHPb03OQ0mdwT2Yby90jt0VLzEVWCvIdRTt/HyeUWRioSr8oizdVMJ/3wz1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=XsspPzuB; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 MIME-Version; b=G46ZSEcazwoNkc5MEf10Vnl6AOidX1ZbmBlDHwyOd+MClAWXPe9QobLnrF6i+NUn3naNQOWrqDRbQqJ5TywEb1kMGcj5OlN9z9YWOW3mZ94uczkUp772R1pxsGeRrUtbSE2kh4YjXxd4PW2YZI1+voL4WrcgbSj9K46E0LAlXlk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dlL1i+Bb; arc=none smtp.client-ip=209.85.222.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="XsspPzuB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790363752;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=w2QYCor8/EHodqVrXWLpxAEHB8hZMJ7N24MS/yoFyvY=;
-	b=XsspPzuBxQA3WtOxwaPEpNmcEkxnXFKzDgO5mHAnCmE9beu2lyE9uK5Sp2WrwlJgORMHEf
-	rSk/DJ0QBAih3qaIzX/WWlghm6TN3sQgd2Do9e7pgUIQ/YCGURTc/TWbcOjFpyjVYu10rC
-	jE5wLFvTHXIfCppNFNXYdJx61HhKzMU=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-62-ZzFAzJ6IMKinhC4234EWzQ-1; Fri,
- 25 Sep 2026 15:15:49 -0400
-X-MC-Unique: ZzFAzJ6IMKinhC4234EWzQ-1
-X-Mimecast-MFC-AGG-ID: ZzFAzJ6IMKinhC4234EWzQ_1790363747
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 1EF64195419F;
-	Fri, 25 Sep 2026 19:15:47 +0000 (UTC)
-Received: from warthog.com (unknown [10.44.32.54])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 420B11800473;
-	Fri, 25 Sep 2026 19:15:43 +0000 (UTC)
-From: David Howells <dhowells@redhat.com>
-To: netdev@vger.kernel.org
-Cc: David Howells <dhowells@redhat.com>,
-	Marc Dionne <marc.dionne@auristor.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	linux-afs@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dlL1i+Bb"
+Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-93a40a9a01aso209605685a.0
+        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 12:16:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790363817; x=1790968617; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Lfjo9pAawGhp175tsWiMgt+u8R0WsNzuMBsHkL3MrJQ=;
+        b=dlL1i+Bb52Um433seW73O7dcdH2e9hWMsQX+rkvscV9Wvdz1mMrjVsY8GOXoqxQPlm
+         Aoaqyse9+uuHpidc3CS+twF+Jne+LMAUql8wYeQvqEMkUX1q2C73CiAjOZC8lHnh6+B7
+         BCHVcgtJua85zps8cZCXW3c9BvLo5WwoJwOcYmzsIPYOaDf4Yaw6V+a3FF7crvYdg3xc
+         6dBRCCT/+lKxH0RYDQC94f0gZioKD+dRED9+rvrHZSVRdWjgDxotXx9Qa9oL5K6c4NkG
+         OTd8VRbToR4KaOvcs9VScSqpX6qWsbi9NHV/ECPPK4WJqhuLGfm/NiXe6HZ9B73Vbxwa
+         MpWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790363817; x=1790968617;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Lfjo9pAawGhp175tsWiMgt+u8R0WsNzuMBsHkL3MrJQ=;
+        b=nNvYpft2URog96jEsMSP2q1mIc9aJpL3KqU0+aKI5gb+xRIaDNRzcnvwmlV0kxTTz1
+         EEAYJ4TYMXgHSPnpIlVtt8pUqQrhNgsBOX6lechMW3QZnxCEN8KOZqqJHQnBE9NuB4Du
+         acI8gX+E+B5AlL71bJKkN7dTa9sw2Hxnxp+AE18bldv8t91LhcaCwPh7Jlgq6GUcnbW/
+         OnlnT+VNQvLfmK1VU8akW2ZOoZxtPmOxbrCIoVMhnF1nSncRN1dxq+UnpIpcUQWsK9NA
+         ylIEZdTLFhRZqWJ7mAs4TU29EiE2AvOOaQBhGS5LYb4auIdOUkL5G1DvFLxfbR5rwvrv
+         2Nrg==
+X-Forwarded-Encrypted: i=1; AKwUvBxWHJq5PIAnbklgcuscuHmVik3cVVIl8EtH/n/a74+Jcdb5WFvjxQViRZCTwiqxDKAsW3MRVjI=@vger.kernel.org
+X-Gm-Message-State: AFuF++my/G+MQIhXkYqluDwpHYutKbeDIMp1sA486pATbIul3OS470Ja
+	Ge1n1Rqu97lQF9NDDee+Mitqg/Ge96r/oLvcOHZIzg2UFtbCAwRipJM=
+X-Gm-Gg: AYBFou0OWfFZQfP5qD0og4WnyQAS35b+I4Zt3Bk04P+Mj1x6zT3Ncxfzj/uTeFGPTNz
+	eTNjA1685oWo+XnZ7Et2fvbw3vyuen5/Xb9AUggNs6CyKIl1rNyYT/K1zy27iNDQIa4QZJmqZ7N
+	6yNXaCN79GAl+N9QeNGH0P7maNAilOCN2hrTbWAtpUVkchn8V0nV3AeQZLJu5o2CdUgzdMLtWgk
+	EMt8Swu9/lpzNw1HHHiFRERijO7t0zE7nX2d6wm8EfQoo4WAB1NS5acvY14tOUXflyOD1PXQwlT
+	wTEXZZbUQmlHj/dnaydm8LbMAlsp8NiS8kcVS59DARwr2gB3m6lahT1izilzeK1fjohoBz4Thpr
+	/u/dsnAzrxdguoEPfZ461knwjmmygRkkh2XHCv46LQ1/0kJlVMmZ+pnxZOKZ9rOQpnIWkSo2lNO
+	03GxlxRl5HiqLiVye+7nfoszFjweegTw+RQC39sNbcSaX3iRbeJTqfC73fbmTW/IptQF46JfN+E
+	6H3SXRwIu6vhEvevcVie93bMtuINy3fellz77/3Fj3TAfUOa5i1S1GnFm/RV6AMUJwfy+LL182Q
+	wugGEcDePUGVMr8mCMdMK1eIIHQv
+X-Received: by 2002:a05:620a:4045:b0:93b:cb64:25a5 with SMTP id af79cd13be357-93c43c28e52mr647745785a.12.1790363817360;
+        Fri, 25 Sep 2026 12:16:57 -0700 (PDT)
+Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-914309a24c4sm24142666d6.6.2026.09.25.12.16.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 12:16:56 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
+Cc: Myeonghun Pak <mhun512@gmail.com>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Jeffrey Altman <jaltman@auristor.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net 2/2] rxrpc: Fix RACK-TLP implementation
-Date: Fri, 25 Sep 2026 20:15:19 +0100
-Message-ID: <20260925191520.2206700-3-dhowells@redhat.com>
-In-Reply-To: <20260925191520.2206700-1-dhowells@redhat.com>
-References: <20260925191520.2206700-1-dhowells@redhat.com>
+	Sashiko <sashiko-bot@kernel.org>,
+	stable@vger.kernel.org,
+	Ijae Kim <ae878000@gmail.com>
+Subject: [PATCH v3 1/2] media: venus: hfi: disable IRQ before freeing HFI device
+Date: Fri, 25 Sep 2026 15:16:52 -0400
+Message-ID: <20260925191653.3144006-2-mhun512@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260925191653.3144006-1-mhun512@gmail.com>
+References: <20260925191653.3144006-1-mhun512@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,204 +85,48 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-Fix the RACK-TLP implementation in the following ways:
+venus_hfi_destroy() releases the interface queues and frees hdev before
+calling disable_irq(). An IRQ handler that has already read core->priv
+can continue to access hdev and its queues after they are freed. Clearing
+core->priv does not revoke the handler's local pointer.
 
- (1) Move the "in/exiting Fast or RTO recovery" flags to the rxrpc_call
-     struct rather than rxrpc_ack_summary so that they persist beyond ACK
-     parsing to the next time rxrpc_congestion_management() happens (when
-     the next ACK is parsed).  This allows those values to be accessed by
-     RACK-TLP when invoked by the Reorder timer expiring.
+Commit 640803003cd9 ("media: venus: hfi: explicitly release IRQ during
+teardown") added disable_irq(), but placed it after kfree(hdev), too late
+to protect a handler already using hdev.
 
- (2) In rxrpc_input_call_event(), rearm the RTO timer before the function
-     returns if no other timer is running and if DATA packets have been
-     sent but not yet ACK'd.  This prevents us not having a timer set to
-     drive retransmission.
+Disable the IRQ first so that both the hard IRQ and threaded handler have
+completed before clearing core->priv or releasing hdev.
 
- (3) In rxrpc_congestion_management(), initialise the TLP state when
-     entering the FAST_RETRANSMIT congestion control state, not every time
-     we process that state - otherwise TLP doesn't happen in that state.
-
- (4) Don't reset segment_xmit_ts in rxrpc_rack_mark_lost() as that's called
-     from two places, one of which shouldn't do that.  Instead, do it in
-     rxrpc_rack_detect_loss().
-
- (5) In rxrpc_tlp_calc_pto(), check flight_size is at most one jumbo
-     packet's worth of subpackets in size, not just any non-zero value
-     (RFC8985 7.2 has a comparison against 1, so this is approximated
-     because we'll be sending jumbo packets if possible).
-
- (6) In rxrpc_prepare_data_packet(), only increment call->tx_nr_resent if
-     the DATA packet being retransmitted was not previously transmitted
-     otherwise tx_nr_resent will keep getting bigger and cause RACK-TLP to
-     malfunction (the value is used in the in-flight calculation).
-     tx_nr_resent is decremented when a packet that has been retransmitted
-     is discarded - but only by 1 per packet.
-
-Fixes: 7c482665931b ("rxrpc: Implement RACK/TLP to deal with transmission stalls [RFC8985]")
-Signed-off-by: David Howells <dhowells@redhat.com>
-Reviewed-by: Marc Dionne <marc.dionne@auristor.com>
-Tested-by: Marc Dionne <marc.dionne@auristor.com>
-Reviewed-by: Jeffrey Altman <jaltman@auristor.com>
-cc: Eric Dumazet <edumazet@google.com>
-cc: "David S. Miller" <davem@davemloft.net>
-cc: Jakub Kicinski <kuba@kernel.org>
-cc: Paolo Abeni <pabeni@redhat.com>
-cc: Simon Horman <horms@kernel.org>
-cc: linux-afs@lists.infradead.org
-cc: stable@vger.kernel.org
+Fixes: d96d3f30c0f2 ("[media] media: venus: hfi: add Venus HFI files")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260612103333.5585D1F000E9@smtp.kernel.org/
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 ---
- net/rxrpc/ar-internal.h |  4 ++--
- net/rxrpc/call_event.c  | 13 +++++++++++++
- net/rxrpc/input.c       | 10 ++++++----
- net/rxrpc/input_rack.c  |  8 ++++----
- net/rxrpc/output.c      |  4 ++--
- 5 files changed, 27 insertions(+), 12 deletions(-)
+ drivers/media/platform/qcom/venus/hfi_venus.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/net/rxrpc/ar-internal.h b/net/rxrpc/ar-internal.h
-index f0c8cbcc5dd5..9c7b2e0817e7 100644
---- a/net/rxrpc/ar-internal.h
-+++ b/net/rxrpc/ar-internal.h
-@@ -818,6 +818,8 @@ struct rxrpc_call {
- 	u16			cong_dup_acks;	/* Count of ACKs showing missing packets */
- 	u16			cong_cumul_acks; /* Cumulative ACK count */
- 	ktime_t			cong_tstamp;	/* Last time cwnd was changed */
-+	bool			cong_in_recovery:1;		/* If we're in Fast/RTO recovery */
-+	bool			cong_exiting_recovery:1;	/* If we're leaving Fast/RTO recovery */
- 
- 	/* RACK-TLP [RFC8985] state. */
- 	ktime_t			rack_xmit_ts;	/* Latest transmission timestamp */
-@@ -896,8 +898,6 @@ struct rxrpc_ack_summary {
- 	bool		retrans_timeo:1;	/* T if reTx due to timeout happened */
- 	bool		need_retransmit:1;	/* T if we need transmission */
- 	bool		rtt_sample_avail:1;	/* T if RTT sample available */
--	bool		in_fast_or_rto_recovery:1;
--	bool		exiting_fast_or_rto_recovery:1;
- 	bool		tlp_probe_acked:1;	/* T if the TLP probe seq was acked */
- 	u8 /*enum rxrpc_congest_change*/ change;
- };
-diff --git a/net/rxrpc/call_event.c b/net/rxrpc/call_event.c
-index 21be9c86d7a7..07e9aac42163 100644
---- a/net/rxrpc/call_event.c
-+++ b/net/rxrpc/call_event.c
-@@ -440,6 +440,19 @@ bool rxrpc_input_call_event(struct rxrpc_call *call)
- 				       rxrpc_propose_ack_input_data);
- 	}
- 
-+	/* Need to rearm the RTO timer if we don't start the TLP-PTO
-+	 * timer [RFC8985 7.3].
-+	 */
-+	if (call->rack_timer_mode == RXRPC_CALL_RACKTIMER_OFF &&
-+	    rxrpc_tx_in_flight(call) > 0) {
-+		ktime_t rto = rxrpc_get_rto_backoff(call, true);
-+
-+		call->rack_timer_mode = RXRPC_CALL_RACKTIMER_RTO;
-+		call->rack_timo_at = ktime_add(ktime_get_real(), rto);
-+		trace_rxrpc_rack_timer(call, rto, false);
-+		trace_rxrpc_timer_set(call, rto, rxrpc_timer_trace_rack_rto);
-+	}
-+
- 	/* Make sure the timer is restarted */
- 	if (!__rxrpc_call_is_complete(call)) {
- 		ktime_t next = READ_ONCE(call->expect_term_by), delay;
-diff --git a/net/rxrpc/input.c b/net/rxrpc/input.c
-index 73cafe6bfa9f..0e9f6a1e9f00 100644
---- a/net/rxrpc/input.c
-+++ b/net/rxrpc/input.c
-@@ -34,6 +34,8 @@ static void rxrpc_congestion_management(struct rxrpc_call *call,
+diff --git a/drivers/media/platform/qcom/venus/hfi_venus.c b/drivers/media/platform/qcom/venus/hfi_venus.c
+index bd82066bb6e7..e7e4e78a186a 100644
+--- a/drivers/media/platform/qcom/venus/hfi_venus.c
++++ b/drivers/media/platform/qcom/venus/hfi_venus.c
+@@ -1689,11 +1689,11 @@ void venus_hfi_destroy(struct venus_core *core)
  {
- 	summary->change = rxrpc_cong_no_change;
- 	summary->in_flight = rxrpc_tx_in_flight(call);
-+	call->cong_in_recovery = false;
-+	call->cong_exiting_recovery = false;
+ 	struct venus_hfi_device *hdev = to_hfi_priv(core);
  
- 	if (test_and_clear_bit(RXRPC_CALL_RETRANS_TIMEOUT, &call->flags)) {
- 		summary->retrans_timeo = true;
-@@ -106,12 +108,12 @@ static void rxrpc_congestion_management(struct rxrpc_call *call,
- 		call->cong_extra = 0;
- 		call->cong_dup_acks = 0;
- 		summary->need_retransmit = true;
--		summary->in_fast_or_rto_recovery = true;
-+		call->cong_in_recovery = true;
-+		rxrpc_tlp_init(call);
- 		goto out;
- 
- 	case RXRPC_CA_FAST_RETRANSMIT:
--		rxrpc_tlp_init(call);
--		summary->in_fast_or_rto_recovery = true;
-+		call->cong_in_recovery = true;
- 		if (!summary->new_low_snack) {
- 			if (summary->nr_new_sacks == 0)
- 				call->cong_cwnd += 1;
-@@ -125,7 +127,7 @@ static void rxrpc_congestion_management(struct rxrpc_call *call,
- 			summary->change = rxrpc_cong_progress;
- 			call->cong_cwnd = call->cong_ssthresh;
- 			if (call->acks_nr_snacks == 0) {
--				summary->exiting_fast_or_rto_recovery = true;
-+				call->cong_exiting_recovery = true;
- 				goto resume_normality;
- 			}
- 		}
-diff --git a/net/rxrpc/input_rack.c b/net/rxrpc/input_rack.c
-index 072e1d9ecb2e..66ef2fc6d3d9 100644
---- a/net/rxrpc/input_rack.c
-+++ b/net/rxrpc/input_rack.c
-@@ -29,7 +29,6 @@ static void rxrpc_rack_mark_lost(struct rxrpc_call *call,
- 	} else {
- 		call->tx_nr_lost++;
- 	}
--	tq->segment_xmit_ts[ix] = UINT_MAX;
++	disable_irq(core->irq);
+ 	core->priv = NULL;
+ 	venus_interface_queues_release(hdev);
+ 	mutex_destroy(&hdev->lock);
+ 	kfree(hdev);
+-	disable_irq(core->irq);
+ 	core->ops = NULL;
  }
  
- /*
-@@ -174,14 +173,14 @@ static ktime_t rxrpc_rack_update_reo_wnd(struct rxrpc_call *call,
- 		call->rack_dsack_round = snd_nxt;
- 		call->rack_reo_wnd_mult++;
- 		call->rack_reo_wnd_persist = 16;
--	} else if (summary->exiting_fast_or_rto_recovery) {
-+	} else if (call->cong_exiting_recovery) {
- 		call->rack_reo_wnd_persist--;
- 		if (call->rack_reo_wnd_persist <= 0)
- 			call->rack_reo_wnd_mult = 1;
- 	}
- 
- 	if (!call->rack_reordering_seen) {
--		if (summary->in_fast_or_rto_recovery)
-+		if (call->cong_in_recovery)
- 			return 0;
- 		if (call->acks_nr_sacks >= dup_thresh)
- 			return 0;
-@@ -227,6 +226,7 @@ static ktime_t rxrpc_rack_detect_loss(struct rxrpc_call *call,
- 				remaining = ktime_sub(ktime_add(xmit_ts, lost_after), now);
- 				if (remaining <= 0) {
- 					rxrpc_rack_mark_lost(call, tq, ix);
-+					tq->segment_xmit_ts[ix] = UINT_MAX;
- 					trace_rxrpc_rack_detect_loss(call, summary, seq);
- 				} else {
- 					timeout = max(remaining, timeout);
-@@ -297,7 +297,7 @@ ktime_t rxrpc_tlp_calc_pto(struct rxrpc_call *call, ktime_t now)
- 	if (call->rtt_count > 0) {
- 		/* Use 2*SRTT as the timeout. */
- 		pto = ns_to_ktime(call->srtt_us * NSEC_PER_USEC / 4);
--		if (flight_size)
-+		if (flight_size <= call->peer->pmtud_jumbo)
- 			pto = ktime_add(pto, call->tlp_max_ack_delay);
- 	} else {
- 		pto = NSEC_PER_SEC;
-diff --git a/net/rxrpc/output.c b/net/rxrpc/output.c
-index 88cad087f13b..9e082f740331 100644
---- a/net/rxrpc/output.c
-+++ b/net/rxrpc/output.c
-@@ -576,8 +576,8 @@ static size_t rxrpc_prepare_data_packet(struct rxrpc_call *call,
- 			call->tx_nr_lost--;
- 		if (req->retrans) {
- 			__set_bit(ix, &tq->ever_retransmitted);
--			__set_bit(ix, &tq->segment_retransmitted);
--			call->tx_nr_resent++;
-+			if (!__test_and_set_bit(ix, &tq->segment_retransmitted))
-+				call->tx_nr_resent++;
- 		} else {
- 			call->tx_nr_sent++;
- 			start_tlp = true;
+-- 
+2.53.0
 
