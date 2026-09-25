@@ -1,66 +1,86 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B27853C4B60;
-	Fri, 25 Sep 2026 04:46:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 075773C4B60;
+	Fri, 25 Sep 2026 04:48:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790311594; cv=none; b=WQbHbKYmF4WNXLlL4CUNgg09CgR9KPrp52zlFufClFkQBYoT7nLlxOwmzQrd7rdQzzDQu3DIBsDSBZgv1+FnYcl7xDE3RgNhtHfotmMnmfl018d0YPVmjaJqC6TmZOlgT/TgvcxnFFvtXesD1tExbTRqTFtk0zjqanOG6alqm1U=
+	t=1790311694; cv=none; b=j8E7sd9IdYakfh0QDmN688PXj9rF4GFx7EKfvgg6zD52eWFOGK7WHylfeWHmxjEv5EsttOjt+VAcHvYYjAhbE2nhvLjLzgMe/nwiI40QIs6FxWOVtrzFlnpR5KtQKHFEn/PI5dd8vI/vLjm7w6GnEx1+o4wUm67HQRmMjw3LxTY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790311594; c=relaxed/simple;
-	bh=M7NmYC/Iylm9myghHwqILim55SAUt9QrM+UZYk0eJlw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KiuaBDljHGjsPqVpcPPJh2fikJoXoYcbYFV/be9Q9nfmxUECVK7kdBXg0XsXkpOTXRC0AeqpIoxtgSkvVYQm7s3WcGLZKtofRD1XuR38mSJet38UvNBJdhPFLPvDVw3MbcHSpuoNyJjeRYgJGfvcv0XW5mzLaYEz9BRcOQfJvvs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=ygKGmc2p; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
+	s=arc-20240116; t=1790311694; c=relaxed/simple;
+	bh=bTF8N5VU6A0M5Bd+3CI/WxYoOH8Yw+XwOhBN1h0/Bpc=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=sci5mVx82zOrx6FpzOmG/V+1HF+LTU3uFhV8Lt/4Lg/Z799eTLQG8w9qoQ4CAUPKWa8vHuAuAVjaLGASK0wNGWLNFuDxcgkw7w6eztB3iC+nuc3VQviuTJ5vP2orqdBECPn7bDuXuZvglK9kn5A4rtq2bSQNXDHwL9utdOE3I0A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=mBbJ0AG8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="ygKGmc2p"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=M7NmYC/Iylm9myghHwqILim55SAUt9QrM+UZYk0eJlw=; b=ygKGmc2pzEHPWjB2NQC8tuMtoP
-	KFP4uA1k7vDzAbfU06x+PsnuzmY8ujaR0w9xvcGZxhPVGqKu+99sMn6iqOOIQ7mjnLXaL7UtFpWDm
-	zQfTKazk6HczNtXY7rDHlSczAubcDueZgqTIDtPC8wlteYoBln7LwnZBG3a+uuDiQteDIA9fHCPUs
-	Z7UnXOBg/fKN2pjJr5TCui3h7WMXnBeCUUiQoCCiG16k9G08XO+JGDNzRBRJuvuMt/ZJWd7zEA9gk
-	rBoL2eZX7M0SDsN0WzIK6/AoLR6jvWABUtsoCAOLQ388Elgh2chYmVW2Ygoxj2uaR9Z4KNKSH0Fdw
-	3d3CGWRA==;
-Received: from hch by bombadil.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x9xpI-0000000CctB-14iX;
-	Fri, 25 Sep 2026 04:46:24 +0000
-Date: Thu, 24 Sep 2026 21:46:24 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: Andrea Parri <parri.andrea@gmail.com>
-Cc: Christian Brauner <brauner@kernel.org>,
-	Carlos Maiolino <cem@kernel.org>,
-	"Darrick J . Wong" <djwong@kernel.org>,
-	Joanne Koong <joannelkoong@gmail.com>,
-	Brian Foster <bfoster@redhat.com>,
-	Christoph Hellwig <hch@infradead.org>,
-	Damien Le Moal <dlemoal@kernel.org>, Hannes Reinecke <hare@suse.de>,
-	Daniel Gomez <da.gomez@samsung.com>,
-	Pankaj Raghav <p.raghav@samsung.com>,
-	Dave Chinner <dchinner@redhat.com>, linux-xfs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] iomap: don't resubmit an ioend after
- ->writeback_submit() failed
-Message-ID: <arX8oLYjmxBl8rWD@infradead.org>
-References: <20260924091203.198225-1-parri.andrea@gmail.com>
- <20260924091203.198225-2-parri.andrea@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="mBbJ0AG8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 139BB1F000FF;
+	Fri, 25 Sep 2026 04:48:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1790311692;
+	bh=EAbfPfUo1z2sF6AlMVME2ig0vFfsexu9oO7eGK/q4T0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=mBbJ0AG85Go83iWFJVKJrU87L9CaAbCtMGm6NjiNKpqM7xtTKxKZvef54DAST8hdY
+	 +qge4H+e+pCaCp35Z1lQNebvY2P1qqK32vopKcRR0ex2koXo/Ox5iw650cODpaRjLs
+	 Dx4kTv+n0Xgy11j7vQIgkcBlXm0McLH6kDK8NYwc=
+Date: Thu, 24 Sep 2026 21:48:11 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Cc: rppt@kernel.org, peterx@redhat.com, surenb@google.com,
+ aarcange@redhat.com, david@kernel.org, ljs@kernel.org, liam@infradead.org,
+ vbabka@kernel.org, mhocko@suse.com, shuah@kernel.org, kirill@shutemov.name,
+ linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] userfaultfd: clear the inherited uffd bit in
+ move_swap_pte()
+Message-Id: <20260924214811.19ef8af417d37071ed8338c4@linux-foundation.org>
+In-Reply-To: <20260925042907.2330519-2-donggeunyoo.kernel@gmail.com>
+References: <20260925042907.2330519-1-donggeunyoo.kernel@gmail.com>
+	<20260925042907.2330519-2-donggeunyoo.kernel@gmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924091203.198225-2-parri.andrea@gmail.com>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Looks good:
+On Fri, 25 Sep 2026 13:29:06 +0900 Donggeun Yoo <donggeunyoo.kernel@gmail.com> wrote:
 
-Reviewed-by: Christoph Hellwig <hch@lst.de>
+> UFFDIO_MOVE on a swapped-out page installs the source PTE at the
+> destination unchanged, so a uffd bit set on the source lands in a
+> destination VMA that was never registered for write protection.  It
+> can't be unset there, and THP collapse can't happen either, because a
+> swap entry with the uffd bit set makes the scan bail.
+> 
+> I don't think it's intentional because for an unswapped page the bit
+> doesn't come along, and I don't see why being swapped out should change
+> that.
+> 
+> Clear the uffd bit on the moved swap entry unless the destination is
+> RWP-registered.
+
+Thanks, but...
+
+When fixing a bug, please always fully describe the userspace-visible
+effects of that bug.
+
+> Fixes: adef440691ba ("userfaultfd: UFFDIO_MOVE uABI")
+> Cc: <stable@vger.kernel.org>
+
+Especially when proposing a backport.
+
+Please review the first half-page of
+Documentation/process/stable-kernel-rules.rst
+
+I don't mean "be reluctant to backport".  I mean "when proposing a
+backport, explain *why*".
+
+> Assisted-by: LLM
+
+Great!  Please add a prompt to LLM's .md ensuring that future
+changelogs always provide this information.  Please also share that
+update with the rest of your organization.
 
