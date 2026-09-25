@@ -1,219 +1,237 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012025.outbound.protection.outlook.com [52.101.43.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C45313E51DE;
-	Fri, 25 Sep 2026 10:55:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790333729; cv=none; b=DX02jrbdD4UrpzvzH4ZcSfdc4S4s4zK4omf9sLw26H7+aA6WvVeZyoF9J1RUOLxiL3MuJycosmrMjIFZ5grs1FEp5bdgAMAjedZw/71LgjcIYoJ5+qD8BiQkffQJTWHN6IclcSe1xX8IWTHxUkFhhl2l1k6oHcRhCTB8OqjNi50=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790333729; c=relaxed/simple;
-	bh=90oCiblxcmMKki320b5oH8g1qw2hyPccBSLwPjfnkIw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rFeDrPFBGybRew0xJYUROnmwCATsN7VX5q/4HCybOJeWUPQrCUbbdt0NFBqyJp9xNmXyK+t2D0h6itytaCcnjZc5noPRLrQvO54yoijkh2JV5UnwWDt9G8UyuBv9KqGcm9v0ifJKYaWRhU69QD/gW12tXNyNR3SQXE+rmyrCcHw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=konjO3sD; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C34547887F;
+	Fri, 25 Sep 2026 11:08:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.25
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790334484; cv=fail; b=Wdj9k+E+0YWw6scs7lMin391y8DHac7ezENZQiF9QR0U71y6qXsDOXQRKSYsJCoU+2mZFV1TRce6/MZlSKQpcNCz2WQX1sMaDY/jGaPefzho0tP0wK1zLorRbqjtfJ9+bAgy3BsS5C3EEg4XARgt0EhFkRyGC44d7BjeZ6ZJsJg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790334484; c=relaxed/simple;
+	bh=a4ImTzBPRev2j1koqJ23ZmFVR7jRCXpeWS07vbMBBuQ=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=msaD2gWc3pmYKz3of9rvZZtdVFmG2HfpsybmVub12rsi6JM8rXWFDMY7C+35b2wGiV+VMbNSO1As0R207yvG0n/hBzqejTU/oTMv92TO1Bfofhhi3cVXJv8aeIisjPqvdU6FfacPpX43/rReBmeQrkkbefaWVReKuU0szsAFuwg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=erH1c85h; arc=fail smtp.client-ip=52.101.43.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="konjO3sD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3820D1F000FF;
-	Fri, 25 Sep 2026 10:55:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790333722;
-	bh=ATppPA08cbrd3rkkrcMCwx3kOQ21INX+r6Ut92RHrGc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=konjO3sD23vveaJBinGM0SJByCg78KytyAQj8Pht9Dv5oz1t2mIBzNIe/XRlEdNJX
-	 XnpYp27AgOerWofLyjYuQe4vlt30/DNLVeUbBBdPvonILl3DS1TXLEzSRF4EbYgTFS
-	 mauWH0jz4ZCRYic2poGKUz4ee2pfoawHcb/fOhaunODCqLpsf9fbmfGTMa3MG1YlJV
-	 Cm5/yDYv/IWyPnQ5MPTBmWji5IYL783VGrNjFn3Hb5FT/BVw0zf0xLxYVsWmKKJOWD
-	 U23iyusaUTu7lwNj+0RdCqBlMpkDq370R2ueOlaYwhirmA41+ru+ohVYwOhqf0paF1
-	 cWczDrPzDVMjw==
-Message-ID: <ad99014e-3714-45a5-ad23-aa7fe72745cb@kernel.org>
-Date: Fri, 25 Sep 2026 12:55:09 +0200
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="erH1c85h"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ykJuLkoB6pvNy647C/e4BJ+fb+RUYtbg4ZGLTu/Ll7fOE44+Q6nDqTcqiINev2uqL0+5jKhy7FztsQGQRTU4egrtN4q8U/aNq7L+88thBdfHu7G+6yOcrpa95E2NemGuBizvG14tm05BFoeCdJZyVQexjG9t6dJojnPdkOgVXOKG7bymzMAZG3K/soTO2qTkamrQYRsIFEgMQxr218lwNXgxWzh+T8WqcX1d+38ok9+fhDTiqu5lVRLXccwKDyu6gV/WR/NrSdMJm9VDZtnekwDvLisf0QD2ZXtbGTRxk4v3gUsRnvGxixBxXqkife1rAaIC0XsGXhKcUXL8aobQgg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8AaUjuPrkzLcb5Ad1iw9KIhs8NoeEZWXAkbseKFMVfM=;
+ b=jzJklCIQq9B7k3K6hUDVvuhFjKnRIcfpgtsfCNOoa0zE8wL5cRARbZrGfYuow2/fWnwEwE7SITmR/0D3Rjjt7CxnqEjS2Ggl8YDt7obUPhz7aEjq0sBC0ZPzQipU3y+5DzZQFclGHMUjaMPHf3EKTT41LFGWkcHs88VgKn48EEtowmCKAM/FV0bcEg/OMXbB8QOY2XGDjWgY6pDXjZ20+nU8BdzccrcQq1lBowBc9o16HA7RjQeqwcpKlD/yz8BekI625BJZ/kaCIZoFJTcDMXMKDwiOlAf+s0L+bh07oVogbKVLSsZPAXVNMJ2/d9IXbORt3ocnkBgt2GDgA+q2CA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8AaUjuPrkzLcb5Ad1iw9KIhs8NoeEZWXAkbseKFMVfM=;
+ b=erH1c85h5iIBtydgdeeapr97KKoy7NXmH6/TKlFL//WDXEsd4jDo5psnh7miz+41chw4TULOJ8GM9qca/I27Xw3GXXOlEknS6aAWWwr+crHzzEg8u/FkyJIfHNGZLC/UhH3i8y7v/DfXv7EOz9ITGJNeA4Zl0m7oBeQd3e7Z7aE=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from LV5PR12MB9804.namprd12.prod.outlook.com (2603:10b6:408:303::8)
+ by IA0PR12MB7602.namprd12.prod.outlook.com (2603:10b6:208:43a::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
+ 2026 11:07:59 +0000
+Received: from LV5PR12MB9804.namprd12.prod.outlook.com
+ ([fe80::cab9:7e9a:fc29:bcb2]) by LV5PR12MB9804.namprd12.prod.outlook.com
+ ([fe80::cab9:7e9a:fc29:bcb2%5]) with mapi id 15.21.0451.014; Fri, 25 Sep 2026
+ 11:07:59 +0000
+Message-ID: <99797539-45aa-49c4-9e16-e96206127cce@amd.com>
+Date: Fri, 25 Sep 2026 16:37:51 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] rtc: zynqmp: Enable crystal oscillator when setting
+ time
+To: =?UTF-8?Q?Daniel_Via=C3=B1o?= <danividanivi@gmail.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: "Simek, Michal" <michal.simek@amd.com>,
+ "linux-rtc@vger.kernel.org" <linux-rtc@vger.kernel.org>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>
+References: <20260925052015.22019-1-danividanivi@gmail.com>
+Content-Language: en-US
+From: "T, Harini" <harini.t@amd.com>
+In-Reply-To: <20260925052015.22019-1-danividanivi@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN3PR01CA0106.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:9b::14) To LV5PR12MB9804.namprd12.prod.outlook.com
+ (2603:10b6:408:303::8)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/7] sched/numa: scan PID-inactive VMAs for promotion
-To: Gregory Price <gourry@gourry.net>, linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com,
- akpm@linux-foundation.org, ljs@kernel.org, liam@infradead.org,
- vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com,
- mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com,
- vincent.guittot@linaro.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
- bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
- kprateek.nayak@amd.com, ziy@nvidia.com, baolin.wang@linux.alibaba.com,
- nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com,
- baohua@kernel.org, lance.yang@linux.dev, usama.arif@linux.dev,
- kas@kernel.org, matthew.brost@intel.com, joshua.hahnjy@gmail.com,
- rakie.kim@sk.com, byungchul@sk.com, ying.huang@linux.alibaba.com,
- apopple@nvidia.com, jannh@google.com, pfalcato@suse.de, hannes@cmpxchg.org,
- shy828301@gmail.com, raghavendra.kt@amd.com, stable@vger.kernel.org
-References: <20260922182928.2199090-1-gourry@gourry.net>
- <20260922182928.2199090-6-gourry@gourry.net>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260922182928.2199090-6-gourry@gourry.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV5PR12MB9804:EE_|IA0PR12MB7602:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9141436b-a902-49af-699d-08df1af54207
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|10067099003|56012099006|11063799006|6133799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	hnSRN5xu6qYO7/nkYozlHiVTgbF+LyhDqtgqQDO6eMTZbLEBLpKIaSOS5SQMsLSAJvMqdNoahsAbqKWEu3IsasPT22aKORge5k+Vg2ByQNeidaZ+Czr5CMancQnPCLzfBQxix4kETMb74nSYBFGIrhCy8RQIsHHUvoiQqvgr1IG5ZIz5o1HzMIBLR+se9sfzYWuB43WN0hyB4cDh1K1Ip8Zo2m9v35INXg5bGUvoPI7z/hJusLd5JELY51wQv19Gc1ceSQ8fjwzbUjEVbRla0vRkoVCSwOUfKlThidwHeUnKMa0qCbFQEMmT2/QVvVj7A/0UR5q1FLA9O8EWRaKZ0Bc+KqEFU4KY/RvWzElb7kzo+H6eoobYe3HjPFBDFr+bSqhBlLsSVAcuXKDqdvu6FkDhkrv8CpxSUv6QGJ9Gua+9md9o0l2XQml379IHqLQlrRpsqw9XpsEyVJjToIMvb/ve7DdKYwHw/kpjj9HaRpQYmCcUbtAf+G66S0NjEmk4cn1/mxzkNa04fJSdSPAtrfy3QUD90S3/9lwl0eQQ12P1YqHzJhgnIE3BwMNvoQWAGf17eiKjZ2u1bdIo5DtGSNvEo4ITjw/h3r4cEdoctg2uWdsVFIs9p8i5j48UoRTtKs1kgp8vhxbVqI7Kuw06kvrMpN88xF5rtlwuRtJfDJc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV5PR12MB9804.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(10067099003)(56012099006)(11063799006)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UHlZcGFnbUZZSmZxbHgyTHhlOGgxb1UyUHM1bWtZb2Yxb2I0RmVYdFhtYnVi?=
+ =?utf-8?B?cTNRMUFEM2lvakNWandidVFzSEYzZDBDa2RuelpaZ005YmM5VHkzYzJQVWEz?=
+ =?utf-8?B?S2JDOElnMXB2TlFaT1lKTEgrQTk4UzBVODBONGIzY2Z0Vzh1b0NHK1lacEt5?=
+ =?utf-8?B?aVljMEliRWI1cWFaL3dlQWxVY3FTVWp2N3o1TlhjZEhNNXJhaGtzRE5KMEZG?=
+ =?utf-8?B?d0Q2enhsalp3RFRzTVVUb3B0Z0dTMHN5aVpSV0RHR0w2UEh5M2dOdG11alpp?=
+ =?utf-8?B?SWF0UHJNclBsTlJhemk4aGxHV1VDN2Y3SGJUNGk3MWE1cGtsWUlIbUYxbklH?=
+ =?utf-8?B?NGswOGFNTUp6Ukp2aEVmdElKUGszakRpaktZNVloem8wTFpwdUszUmFWbVNo?=
+ =?utf-8?B?QzVFQ3lYTmRLdi8xbXRvT2tkTWVEdDl1di9lK1BiSG1SL2FIby9MbXhGc21J?=
+ =?utf-8?B?aFdmMWRiU0xiR3padDFIVHNXak8wK1RzK2Q2NDllSmlsa2dBd0ZUczkxUDVr?=
+ =?utf-8?B?UTV0OXdERGJXYkh1cmV2S2RGTktWWnkvaSs3aWlaT3BnUHRkZXQxRk9OS3RD?=
+ =?utf-8?B?ZnpkSHM5a1BHc1pNbjRpbU9LdEJCVG1sVFhNWWRTRjlmazZtZDNYK0JSSXhK?=
+ =?utf-8?B?aW1EdXB4emRDQURXS0lnZHZaTFpneTdCcU5jWjQyRUtHQ3hxR1Z4UC9EZ1Fk?=
+ =?utf-8?B?emVOL0lzZ1E4R1BwMDl1Y2R6NkxZUjg2UHlnTWVSNUloNzd0QWR5RTFyeWZU?=
+ =?utf-8?B?aHhJdUlDWnoxRGcxaUZtT0VqVFlMZHBRSG9pRVNwb01BNFBjaVYzNVhPSEtK?=
+ =?utf-8?B?clFoQXdrQkJPcVNmcE1xQ080MGxzbmhYRlVENDNScTBtNS9rVEh5VzN3bytL?=
+ =?utf-8?B?SlUrVWpKRXJMVVM4R0lIU1MrOWxUQ2R6NUxrVHRteFh4akFXMko4Q2ROeVBR?=
+ =?utf-8?B?NVZZVjNpdTBTNDNMNTNaVmxGU3RTOS82YlNRUnhmWXZVTnhrL0piMmpEcnlR?=
+ =?utf-8?B?MGRmTGVpVE4zMXhCbklhaDlrSnFnMEwrdFlKY1YvZG1taHZibG4zZFl3UjQw?=
+ =?utf-8?B?cG1ObHRHMm4wR0ZpVkRPbTVPUjBlUmpHNFN3WmMzbFZjMi9CYnFVb3ZVeEpP?=
+ =?utf-8?B?M1RHeFMwc3JRV25nWlk2QkJ2K1IxdElLekIrOFRzMlhXWWNoK2dvdng5dS9W?=
+ =?utf-8?B?QjFRUnBHL1Z3NjM1Nkh6LzdqNXRzbGZRYTVCMDNTc2ZsNmg1WGFqSXI3V2FS?=
+ =?utf-8?B?TitZc2dEblVmMWNCRFpmam5MY3JxQzFRSW03WWM0TDZFZXBxOFh2eU1jOGpM?=
+ =?utf-8?B?YjhzMURCSlF6MjNPVjh2SlgzaTJSZG5CRVo5NkppeHJXN3c0LzFZdDI4cGRq?=
+ =?utf-8?B?SjhzNTRSazV5UkVmZGtDVkx4cFo5cHFLblJrVGlNc2ZralZ1Tmx2WkloUERl?=
+ =?utf-8?B?eWVpQkVtYXFUOCtkYkUrSTJRZkJoUUlOcnQzRGg5NjF3NTFVYm1iRzRReWcw?=
+ =?utf-8?B?T1VrbzJZLzliQTNKdWFUdjN1ZW44ckJxK0Z1Q3h2bUdrdVFFZ0VzMVVlZVpq?=
+ =?utf-8?B?MlRobENSdTZOOHFkbnN3NFgzU3NxdkJSdnQvNkZLKzcyK01JV2RNQjVOaWcr?=
+ =?utf-8?B?aU13M0dlV3h6TzNWcmlOTW01RlBsaFJ0Mm4yenV1RmQ3TWpjbExuSGxlYmVF?=
+ =?utf-8?B?VEY2TFk5QmNXNVZPMzJhRko5WjF2ZXRobUtVdWgyS3hHNnVJdVlnZ3RrZG1n?=
+ =?utf-8?B?eldXUjNlTXhReXpvRGtzZEVkajBFQW85SVNuM3BBWGJGa01DSzY4UExxWEZo?=
+ =?utf-8?B?YUVTWXBUSm9wQS9yQkJDTmtLOVd3YWx6NzRQcEVvcko5YWd4UkZvZ1hrbkVC?=
+ =?utf-8?B?ZjVzc1hPQ3pYT1Z2QVkvL1NxakJwWmZFVEh0TXFROHN3dW5mUEQxRTI5L3Ji?=
+ =?utf-8?B?cGFjWittQ1VQam9ZU1NTUGFESHRBemYwYzI0bFljNnhYZDdoYllIRE04TmpG?=
+ =?utf-8?B?S2NxcS9Kd1ZZSThnWjVBYmNqWHE2UWM2eDBSVDF1T2l1YnVaSDBzTE5ycGpo?=
+ =?utf-8?B?OVdkN1lBenNLclNMT2JlUmY5VmV1QkVUNXZXNlo2dlZYeXBxblNvY0VadWtF?=
+ =?utf-8?B?c0FJaEtHNlhEWmE2U2JZcC9uTkxGb2p6SHhoN2lVMjZvTFpteVJNeGJOWFRS?=
+ =?utf-8?B?Ny9MbnMwZkdIdjd2bklLOXVmVTFBRVZVTDNrWTJjc0tXdlZzMlVmV2VleEpU?=
+ =?utf-8?B?WXk2dVNDTkZWbGZRbTFWM1NKeTQrV2g5SThtRVR2Nm1RdHZINlV3cHJnbUd6?=
+ =?utf-8?Q?EH6qkb0aHur9CE3+Ba?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9141436b-a902-49af-699d-08df1af54207
+X-MS-Exchange-CrossTenant-AuthSource: LV5PR12MB9804.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 11:07:59.0165
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: m3dnsLwfEHlJh3t4G+XQ9ln2aod1JitKB5oqQbTM4X53rfCuWYbii7O1tt1qtSWx
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7602
 
-On 9/22/26 20:29, Gregory Price wrote:
-> From: "Gregory Price (Meta)" <gourry@gourry.net>
+Hi,
+
+On 9/25/2026 10:50 AM, Daniel Viaño wrote:
+> [You don't often get email from danividanivi@gmail.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
 > 
-> Commit fc137c0ddab2 ("sched/numa: enhance vma scanning logic") skips
-> VMAs without recent PID activity. Since only NUMA hint faults record
-> that activity, the filter can suppress the fault needed to promote hot
-> slow-tier memory.
+> Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
 > 
-> Let memory tiering bypass the PID scan filter. In combined mode, use the
-> placement decision to restrict top-tier sampling to VMAs that need it,
-> while inactive VMAs still receive promotion-only scans.
 > 
-> Track the last completed placement scan separately from scans of any
-> kind. Promotion-only scans still update prev_scan_seq, but do not
-> advance the placement-starvation horizon.
+> The RTC_OSC_EN macro was defined when the driver was originally
+> introduced, but was never asserted by the driver. On cold boots, after
+> battery exhaustion, or on platforms where firmware does not configure
+> RTC_CTRL, the oscillator remains disabled and the counter never ticks.
 > 
-> On a host with 768 GB of DRAM and 256 GB of CXL memory, one large shmem
-> VMA consumed most scanning activity, while 2,537 other VMAs covering
-> 84 GB were skipped as inactive. One stand-out result: a hot 20 GB hash
-> table ended up trapped entirely on CXL and drove CXL bandwidth
-> utilization beyond sustainable levels - resulting in a large regression.
+> Unconditionally enabling the oscillator during driver initialization
+> would cause the RTC to free-run from an uninitialized or stale counter
+> value, reporting an untrusted time to userspace. Instead, keep the
+> oscillator disabled until a valid time is programmed: guard
+> xlnx_rtc_read_time() on RTC_OSC_EN and return -EINVAL when it is not
+> set, and assert RTC_OSC_EN in xlnx_rtc_set_time() once valid time is
+> programmed so the RTC can free-run.
 > 
-> With this series, the hot hash table ends up split evenly between DRAM
-> and CXL, tier residency tracked runtime load, and CXL bandwidth
-> utilization drops from 45GB/s (maxed) to 5-10GB/s, while DRAM bandwidth
-> utilization increases from ~200GB/s to 250GB/s+, resulting in major
-> throughput improvements for the database workload.
+> Per the Zynq UltraScale+ TRM (UG1085), bit 24 (OSC_CNTRL) is a static
+> level enable for the crystal inverter rather than an edge-triggered reset;
+> asserting it from set_time() is non-destructive and will not glitch an
+> already-running oscillator.
+>
+
+Thanks, but the premise doesn't hold: Osc_Cntrl resets to "enabled", not
+disabled - ZynqMP reset 0x1 (bit 24 = 1), Versal reset 0x2 (crystal 
+mode, bit 24 = 0). So after a cold boot / battery exhaustion the 
+oscillator is already on and the counter ticks from ~0;
+
+- ZynqMP: bit 24 is 1 out of reset and never cleared, so the read_time
+-EINVAL check is unreachable
+
+
+
+> Tested on Zynq UltraScale+ hardware, confirming that read_time returns
+> -EINVAL while the oscillator is disabled, and advances reliably after
+> setting time.
+
+Also, how was the "oscillator disabled" state produced in test? With bit 
+24 = 1 out of reset I don't see how read_time hits -EINVAL on a real 
+cold boot.
+
+Thanks,
+Harini T
+
 > 
-> Fixes: fc137c0ddab2 ("sched/numa: enhance vma scanning logic")
+> Fixes: 11143c19eb57 ("rtc: add xilinx zynqmp rtc driver")
 > Cc: stable@vger.kernel.org
-> Assisted-by: OpenAI:gpt-5
-> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+> Signed-off-by: Daniel Viaño <danividanivi@gmail.com>
 > ---
->  include/linux/mm_types.h |  7 +++++++
->  kernel/sched/fair.c      | 26 +++++++++++++++++++++-----
->  2 files changed, 28 insertions(+), 5 deletions(-)
+> v2:
+>   - Leave xlnx_init_rtc() unchanged so the oscillator is not enabled on probe
+>   - Return -EINVAL in xlnx_rtc_read_time() when RTC_OSC_EN is not set
+>   - Enable RTC_OSC_EN in xlnx_rtc_set_time() once valid time is programmed
 > 
-> diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
-> index fd35db969bc94..dcca3ead9db59 100644
-> --- a/include/linux/mm_types.h
-> +++ b/include/linux/mm_types.h
-> @@ -804,6 +804,13 @@ struct vma_numab_state {
->  	 */
->  	int prev_scan_seq;
->  
-> +	/*
-> +	 * MM scan sequence ID when the VMA was last scanned for placement.
-> +	 * The starvation horizon in vma_needs_placement_scan() counts against
-> +	 * this, so promotion-only scans cannot postpone placement indefinitely.
-> +	 */
-> +	int prev_placement_scan_seq;
+>   drivers/rtc/rtc-zynqmp.c | 13 +++++++++++++
+>   1 file changed, 13 insertions(+)
+> 
+> diff --git a/drivers/rtc/rtc-zynqmp.c b/drivers/rtc/rtc-zynqmp.c
+> index 5bcb7536e973..6c3ba8f1aa57 100644
+> --- a/drivers/rtc/rtc-zynqmp.c
+> +++ b/drivers/rtc/rtc-zynqmp.c
+> @@ -59,6 +59,8 @@ static int xlnx_rtc_set_time(struct device *dev, struct rtc_time *tm)
+>          struct xlnx_rtc_dev *xrtcdev = dev_get_drvdata(dev);
+>          unsigned long new_time;
+> 
+> +       u32 rtc_ctrl;
 > +
->  	/* Preserve placement-scan eligibility during an in-progress scan. */
->  	bool placement_scan;
->  };
-> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> index a2849e72c4e26..412c72084a63d 100644
-> --- a/kernel/sched/fair.c
-> +++ b/kernel/sched/fair.c
-> @@ -4097,7 +4097,7 @@ static bool vma_needs_placement_scan(struct mm_struct *mm,
->  	 * threads can help scan this vma, force a vma scan.
->  	 */
->  	if (READ_ONCE(mm->numa_scan_seq) >
-> -	   (vma->numab_state->prev_scan_seq + get_nr_threads(current)))
-> +	   (vma->numab_state->prev_placement_scan_seq + get_nr_threads(current)))
->  		return true;
->  
->  	return false;
-> @@ -4267,7 +4267,8 @@ static void task_numa_work(struct callback_head *work)
->  			 * to prevent VMAs being skipped prematurely on the
->  			 * first scan:
->  			 */
-> -			 vma->numab_state->prev_scan_seq = mm->numa_scan_seq - 1;
-> +			vma->numab_state->prev_scan_seq = mm->numa_scan_seq - 1;
-> +			vma->numab_state->prev_placement_scan_seq = mm->numa_scan_seq - 1;
->  		}
->  
->  		/*
-> @@ -4300,10 +4301,13 @@ static void task_numa_work(struct callback_head *work)
->  		 * Do not scan the VMA if a task has not accessed it, unless no other
->  		 * VMA candidate exists. If a scan is already in-progress, finish it,
->  		 * but track continuation separately from starting a new one.
-> +		 *
-> +		 * The PID filter must not gate promotion. Allow PID-inactive VMAs
-> +		 * to proceed when memory tiering is enabled.
->  		 */
->  		placement_due = vma_needs_placement_scan(mm, vma);
->  		scan_started = mm->numa_scan_offset > vma->vm_start;
-> -		pid_scan_allowed = vma_pids_forced || placement_due;
-> +		pid_scan_allowed = tiering || vma_pids_forced || placement_due;
->  
->  		if (!pid_scan_allowed) {
->  			if (scan_started) {
-> @@ -4315,10 +4319,16 @@ static void task_numa_work(struct callback_head *work)
->  			}
->  		}
->  
-> -		/* Keep scan policy stable while processing a VMA in chunks.*/
-> +		/*
-> +		 * Keep scan policy stable while processing a VMA in chunks.
-> +		 * A fault in one chunk can make a VMA placement-eligible. Keep a
-> +		 * promotion-only decision sticky for the rest of a partial scan.
-> +		 */
->  		placement_scan &= numab_mode & NUMA_BALANCING_NORMAL;
->  		if (scan_started)
->  			placement_scan &= vma->numab_state->placement_scan;
-> +		else if (tiering)
-> +			placement_scan &= placement_due;
+>          /*
+>           * The value written will be updated after 1 sec into the
+>           * seconds read register, so we need to program time +1 sec
+> @@ -78,6 +80,14 @@ static int xlnx_rtc_set_time(struct device *dev, struct rtc_time *tm)
+>           */
+>          writel(RTC_INT_SEC, xrtcdev->reg_base + RTC_INT_STS);
+> 
+> +       /*
+> +        * Now that the time is valid, start the crystal oscillator so the
+> +        * RTC free-runs.
+> +        */
+> +       rtc_ctrl = readl(xrtcdev->reg_base + RTC_CTRL);
+> +       rtc_ctrl |= RTC_OSC_EN;
+> +       writel(rtc_ctrl, xrtcdev->reg_base + RTC_CTRL);
+> +
+>          return 0;
+>   }
+> 
+> @@ -87,6 +97,9 @@ static int xlnx_rtc_read_time(struct device *dev, struct rtc_time *tm)
+>          unsigned long read_time;
+>          struct xlnx_rtc_dev *xrtcdev = dev_get_drvdata(dev);
+> 
+> +       if (!(readl(xrtcdev->reg_base + RTC_CTRL) & RTC_OSC_EN))
+> +               return -EINVAL;
+> +
+>          status = readl(xrtcdev->reg_base + RTC_INT_STS);
+> 
+>          if (status & RTC_INT_SEC) {
+> --
+> 2.53.0
 
-Same comment. Apart from that LGTM.
-
--- 
-Cheers,
-
-David
