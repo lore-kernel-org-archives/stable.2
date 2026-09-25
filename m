@@ -1,182 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DBF349B212;
-	Fri, 25 Sep 2026 11:42:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DDC1423E9F;
+	Fri, 25 Sep 2026 11:43:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790336568; cv=none; b=n+4UhCff2sikdY8F0yYxRG7fIDpnSPqDgc4jrLuxZ/GxLO1CDzjEsNUufrnvNviiCaDA4MhcOGG88+/00h3i5FxPUgQC1/81gUk0ya+i8DoBQYwAoXxmepOFiM96tPHqDiT45P9ioLwuZwKkuS/kuC7qba2GrW0+1IY5eUeS74s=
+	t=1790336641; cv=none; b=J17V9qcaDVT+/LU2wOAAT0dH5IU6bAc01BHpRHZfboa/0urTSRlWwsATESgqonNcBqlGVibSiNM2KOWfei7nCyo1jOxxDWYS90bnA4WRam4XIS72r4K/Dq7BcKHTXHLHAIr5VZlQvG8q0rqMarpY79WnOI2KPsaEiKtYgki9ZdM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790336568; c=relaxed/simple;
-	bh=5FN3ZXz/DRiHZgykmiItbh/ShtFikwDRXdwIYMEI3tI=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Q7o2X6P/lVnnYT9FOsNhmobHsrWhdI1BahIP+JoX2lDNhfvK4roKiFze6cHkL37wCeD1USUf9y5MSvAXx1iF966iVcDX98uv3hQow+z6c4xV9wvBRKEA/YGaQn7USY0U2fBQqtvjLiRLXRbNRfe8ua/Pll1Qrc5sDxLPyR+gV8I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HIRUCXAY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790336641; c=relaxed/simple;
+	bh=xSCzSQa9vpv7fTrpe4D6eJEWhOskC3i34wNAy1rzkek=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mnkiJXSYQZU5E8KPwgE5+TVuuv9pxMVf0/TL0CUAk5acWZgOB1R78wNO8il6KBHnLjZziYJ1td55qtd2VCVEFGrY1DYODI3/5/TBox5snsD8hnCw3a3Qr+7w1b7p09gkiP7/OMnqPj4+Vg8uTefV0/skwbSk+jsQGzb+VO51GUg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Iw3RTHAf; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HIRUCXAY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C5E01F00893;
-	Fri, 25 Sep 2026 11:42:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790336566;
-	bh=Dkzgsqb0EASiZi+afnhB/CWendYTMD6ABVU+iO9chVc=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=HIRUCXAYZYs6AYm/AeT1GDbo3VCe6gZifURK9imA3noWwJ2ikRyHzfOdXl6EUPU6+
-	 Aox8QApX8EQ1z0ulO0K0iiBaxdxCDEZiWVuULI2NCPNj8X+seIGR5zHANqdq3Q8wsp
-	 gweSrjJIC0aBypS7sx049uGsaUb0kDmuHtivpGS62951TZA1E5zQxmcEKuHSdlNehQ
-	 XHfXFwQY+XvMf1zfX5clliOI3oD3jm04F8kGV6UvBizqpn821bQjWm9ct/7j9bjjuf
-	 LqYZRXq1pzUlPDtI/9MmYZGAVxuivNiRU6HrQAQuzxkp2fdGucEYClSfbDOXvj9m3J
-	 VU8SUo/tRy3xw==
-Subject: Re: [PATCH v2] net/sched: sch_cake: prevent shaper corruption and
- stall in cake_overhead()
-From: netdev-bot+sashiko@kernel.org
-To: ndaugoing@gmail.com
-Cc: netdev-bot+sashiko@kernel.org, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, toke@redhat.com,
- jhs@mojatatu.com, jiri@resnulli.us, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Fri, 25 Sep 2026 11:42:45 +0000
-Message-ID: <179033656561.2160803.10981674263912832826@kernel.org>
-In-Reply-To: <20260922084124.36858-1-ndaugoing@gmail.com>
-References: <20260922084124.36858-1-ndaugoing@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Iw3RTHAf"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790336639; x=1821872639;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=xSCzSQa9vpv7fTrpe4D6eJEWhOskC3i34wNAy1rzkek=;
+  b=Iw3RTHAfe7sw9ahOQqHAK8b3sKpHUFqOT5Isq8TTEFEuWYVoBCqOw9Tq
+   oM5nGcK0f+iqnNPl+g60HRE8fet4tKrlf3Imp35FjSMBAwQelIWqD5/j2
+   6z0j9kFG0XEyUJT+defvMjjPSiVWFyBg9eW/DYpHGOUH+G8Hp5OgcEVW8
+   sjFNHHgooYX1tBc/dfO3bu3yiYXfARHSDZ+2RpmXKY0JoG+o/ZUWi5fCJ
+   Pb21JWcdrDnt28XKzNEFh7axjbzgazgaE068L2tFOBeVqRFm99gepVAKa
+   wO10AWbzhAVTZUqhhb4C1cG/tWuc7kqoQuSrSPUbeb7BOh84khtt+8GDj
+   g==;
+X-CSE-ConnectionGUID: xXgE0HWESwCGmUWys7M+jg==
+X-CSE-MsgGUID: d6h5kYFGQRuAEa/NbdhR/w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="93839867"
+X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
+   d="scan'208";a="93839867"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 04:43:22 -0700
+X-CSE-ConnectionGUID: /daeCRXrS4WRpBjCCG+/fw==
+X-CSE-MsgGUID: rpOFlsItSKaRR05dJQ3aaA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
+   d="scan'208";a="312238006"
+Received: from soc-5cg4396xfb.clients.intel.com (HELO [10.102.89.94]) ([10.102.89.94])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 04:43:16 -0700
+Message-ID: <edc255b9-4537-4542-bfa8-6f004bcbe6b7@linux.intel.com>
+Date: Fri, 25 Sep 2026 13:43:14 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dma-buf: Fix IOVA offset when linking phys vecs to sgt
+To: Yili Zhang <zhangyili01@baidu.com>, Sumit Semwal
+ <sumit.semwal@linaro.org>, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>
+Cc: Ankit Agrawal <ankita@nvidia.com>, Nicolin Chen <nicolinc@nvidia.com>,
+ Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260924065508.27245-1-zhangyili01@baidu.com>
+Content-Language: en-US
+From: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298
+ Gdansk - KRS 101882 - NIP 957-07-52-316
+In-Reply-To: <20260924065508.27245-1-zhangyili01@baidu.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On 2026-09-24 8:55 AM, Yili Zhang wrote:
+> The dma_buf_phys_vec_to_sgt() routine links every physical range into
+> the allocated IOVA space at offset zero instead of advancing the offset
+> by the already mapped length. This breaks the THRU_HOST_BRIDGE flow
+> whenever phys_vec contains more than one entry: the second and
+> subsequent dma_iova_link() calls try to install mappings on top of
+> PTEs that already exist, which fails and makes the whole conversion
+> return an error.
+> 
+> Fix it by passing the accumulated mapped_len as the IOVA offset. This
+> matches the pattern used by all other dma_iova_link() callers and is
+> consistent with the rest of the function: dma_iova_sync() and the
+> error path in dma_iova_destroy() both operate on the [0, mapped_len)
+> prefix of the IOVA space, which assumes that the ranges were linked
+> contiguously starting at offset 0.
+> 
+> Fixes: 3aa31a8bb11e ("dma-buf: provide phys_vec to scatter-gather mapping routine")
+> Cc: stable@vger.kernel.org
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+Reviewed-by: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+> Signed-off-by: Yili Zhang <zhangyili01@baidu.com>
+> ---
+>   drivers/dma-buf/dma-buf-mapping.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-mapping.c
+> index 833be519e1e6..ef0f22854d01 100644
+> --- a/drivers/dma-buf/dma-buf-mapping.c
+> +++ b/drivers/dma-buf/dma-buf-mapping.c
+> @@ -156,7 +156,7 @@ struct sg_table *dma_buf_phys_vec_to_sgt(struct dma_buf_attachment *attach,
+>   						       phys_vec[i].paddr);
+>   		} else if (dma_use_iova(dma->state)) {
+>   			ret = dma_iova_link(attach->dev, dma->state,
+> -					    phys_vec[i].paddr, 0,
+> +					    phys_vec[i].paddr, mapped_len,
+>   					    phys_vec[i].len, dir,
+>   					    DMA_ATTR_MMIO);
+>   			if (ret)
 
-- [Medium] Single `Fixes: a41851bea7bf` tag plus `Cc: stable` for three
-  independent defects, none of which was introduced by the tagged commit.
-- [Low] The changelog justifies change 3 with "post-enqueue mangling
-  (such as BPF packet trimming via bpf_skb_net_shrink())", but that…
-
---
-
-net/sched: sch_cake: prevent shaper corruption and stall in cake_overhead()
-
-This changes cake_overhead() to bail out to cake_calc_overhead() for
-segs <= 1, to skip the multi-segment path when the transport header was
-never set, and to treat a negative header offset as a fallback case by
-making hdr_len signed. The stated goal is to avoid inflated lengths being
-charged to the CAKE shaper.
-
-> diff --git a/net/sched/sch_cake.c b/net/sched/sch_cake.c
-> index dc93267029e70..45969c1b95fc9 100644
-> --- a/net/sched/sch_cake.c
-> +++ b/net/sched/sch_cake.c
-> @@ -1413,21 +1413,28 @@ static u32 cake_calc_overhead(struct cake_sched_data *qd, u32 len, u32 off)
->  static u32 cake_overhead(struct cake_sched_data *q, const struct sk_buff *skb)
->  {
->  	const struct skb_shared_info *shinfo = skb_shinfo(skb);
-> -	unsigned int hdr_len, last_len = 0;
-> +	unsigned int last_len = 0;
->  	u32 off = skb_network_offset(skb);
->  	u16 segs = qdisc_pkt_segs(skb);
->  	u32 len = qdisc_pkt_len(skb);
-> +	int hdr_len;
->  
->  	WRITE_ONCE(q->avg_netoff, cake_ewma(q->avg_netoff, off << 16, 8));
->  
-> -	if (segs == 1)
-> +	if (segs <= 1)
->  		return cake_calc_overhead(q, len, off);
->  
->  	/* borrowed from qdisc_pkt_len_segs_init() */
-> -	if (!skb->encapsulation)
-> +	if (!skb->encapsulation) {
-> +		if (unlikely(!skb_transport_header_was_set(skb)))
-> +			return cake_calc_overhead(q, len, off);
->  		hdr_len = skb_transport_offset(skb);
-> -	else
-> +	} else {
->  		hdr_len = skb_inner_transport_offset(skb);
-> +	}
-
-[Severity: Medium]
-Should the three changes here carry their own Fixes tags rather than a
-single Fixes: a41851bea7bf plus Cc: stable?
-
-None of the three defects look like they were introduced by
-a41851bea7bf. git show a41851bea7bf only replaces
-
-	hdr_len = skb_transport_offset(skb);
-
-with the encapsulation if/else, so it neither added the segs handling nor
-the missing sentinel check.
-
-The segs early return that changes from segs == 1 to segs <= 1 came in
-with c5d34f4583ea88 ("net_sched: cake: use qdisc_pkt_segs()"). Before
-that commit cake_overhead() recomputed the count itself for dodgy GSO
-skbs:
-
-	segs = DIV_ROUND_UP(skb->len - hdr_len, shinfo->gso_size);
-
-so a cached segs == 0 could not be observed in older trees.
-
-The missing skb_transport_header_was_set() guard, on the other hand,
-dates back to a729b7f0bd5bf4, where the same
-hdr_len = skb_transport_offset(skb); had the identical ~0U sentinel
-behaviour.
-
-With only the a41851bea7bf tag, doesn't the segs <= 1 hunk get applied to
-trees that never had the cached count, while the sentinel fix never
-reaches the trees between a729b7f0bd5bf4 and a41851bea7bf that are
-exposed to the ~66 KB per segment accounting the changelog describes?
-
-Would splitting this into one logical fix per patch, each with its own
-Fixes tag, make the stable ranges match the defects?
-
-> +
-> +	if (unlikely(hdr_len < 0))
-> +		return cake_calc_overhead(q, len, off);
->  
->  	/* + transport layer */
->  	if (likely(shinfo->gso_type & (SKB_GSO_TCPV4 |
-
-[Severity: Low]
-The changelog justifies this guard with:
-
-    If post-enqueue mangling (such as BPF packet trimming via
-    bpf_skb_net_shrink()) produces a negative offset, hdr_len wraps to
-    near UINT_MAX
-
-Is that ordering possible? __dev_queue_xmit() calls
-
-	reason = qdisc_pkt_len_segs_init(skb);
-
-near its top, and only afterwards runs sch_handle_egress() and
-__dev_xmit_skb() -> cake_enqueue() -> cake_overhead(), which is the only
-caller. So cake_overhead() runs during enqueue, not after it.
-
-The two windows that do exist look like:
-
-  - between qdisc_pkt_len_segs_init() and enqueue, i.e. tc/BPF egress in
-    sch_handle_egress()
-  - inside cake_enqueue() itself, since cake_classify() -> tcf_classify()
-    (act_bpf, act_pedit, act_mpls, act_vlan) runs before
-    get_cobalt_cb(skb)->adjusted_len = cake_overhead(q, skb)
-
-The underlying mechanism still holds: bpf_skb_adjust_room() with
-BPF_ADJ_ROOM_MAC ends up in bpf_skb_net_hdr_pop(), which adjusts only
-mac_header/network_header and leaves transport_header stale, so
-skb_transport_offset() becomes old_offset - len_diff and can go negative.
-
-Could the changelog name that ordering and a concrete path instead of
-"post-enqueue mangling", given the patch is tagged Cc: stable?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260922084124.36858-1-ndaugoing%40gmail.com
