@@ -1,108 +1,198 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 050824BF92A
-	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 14:59:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8A633955FD
+	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 15:05:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790348412; cv=pass; b=dz/YQWnBvx/ZNZso9ma98RfThHH/AdBT0uFEWTKnk3Mhtubzmok/bYelx87g5nxYRTGku1IxZwpyzuP++e63fSVczSpTkQDqcVXooZedT6CdSS5p7jn//mFqDE4iyDhK1o6J94+I1kPi8eba0wS7qZ9rxxwovoNXLMg5JvCWZB8=
+	t=1790348714; cv=pass; b=IwRuC7e38TsA0xNXwXOFViuFasJum2sSDyXOjAg+fzTr1lCta/l2MN52rkULYx6h/8vqp8KQ7iAtlq37yKokoNhl13LqfHJAkclMXq693q0Jl4lYDQjrUxc8LkCX/nCO/O12SouIR4wYZkmaZxiM3DuqMQNYaDW5Wua8OnUPJew=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790348412; c=relaxed/simple;
-	bh=G7PD1SsyWtfXJXkRv2FlPB9lAjfDo8cMbMk/Mdw9V7U=;
+	s=arc-20240116; t=1790348714; c=relaxed/simple;
+	bh=WAWqhJNmyo51Od5KW8SJ0vK6DSlgvw2LcK3VD7saVMk=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=J4Xc0SWWNrVHFRqP5iePnHDQDgcWQvdTY2BmJtuGljtuQ9lZB/WBJhzCZ44NDVy0w6aiRy3yfGy+hauETNfxRwzDQvLPkubqp9+APNCtMjBDxvvXv3IcebMdJPmH5TGMDqpFRSJZw1uxPo6GUfHUzIekSy91MVdLq9Thkj/SI+M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu; spf=pass smtp.mailfrom=szeredi.hu; dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b=VU+craBP; arc=pass smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=szeredi.hu
+	 To:Cc:Content-Type; b=tR+yFZycE3sVqc8Pfw7BSG+qpmURLCFxqR9cSTu1/WrO0H8iW7yoLqCEBlzJkiU8lL8JdVi+/OxKyZTr93M63LIF8i1Q/61y+xMNyh7o2u8n4wxum3BwciUgCvMYuCdyf4lKn7L2XK2a5VxchYqGEFLlxVwMQ1IqJkDcKjtWwxo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EjQmcmay; arc=pass smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b="VU+craBP"
-Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-530d0d5ae11so11245861cf.0
-        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 07:59:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790348391; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EjQmcmay"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a60591ae54so1648373a12.3
+        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 08:05:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790348700; cv=none;
         d=google.com; s=arc-20260327;
-        b=npdzF3TD8m+wXKrTdGMkbqgCbcNgB3m6bP6VKFwEtpdS1Yol9tZtdZhvuDuCvrmxzx
-         uYgHvJLldGsrw/z88pCPUfhcdcZJxeAoup3q1Gcea2gLELPmGYf5zjwzTVnBgqcm+SVi
-         S+fpcEqwG4cFjUUAiIaYfNHS/1y+KzLL0H0zmkK4vHq7H3zyvS+9EzH4X/hm2TaXcrX3
-         X9+/G1gk6KPUW0ZBYgfcbCdQlzLvvApmgW7OMx0WTb18oPpg4+e6ASX6f4KuE4YPBUZl
-         1wjyw2XQgehBS2erMoWDB9njV9oNf6r0gcCHPqeFctFOE0E0yp3nhu1BWQJhNTVRjFJD
-         c6HQ==
+        b=E3WzKVbZYBsLMp7FZ9oNShPQfLWWkptSCFa6qx5sTX9RCj0STIDMkekeDIOy/iNrNX
+         fkCpuXVaV+fvWPk/AfKyGM99Z77+FGEtTxdFE5W9VQhUSDifIFipRWdTWxiu+tjTzwhB
+         pw0uItFwLoNfxCiBcBeA2CapU28f5CUknOz8WftSkYdSEKdGOhT7qQ9+boK2is4eZjdH
+         VaLfUB6FmrxHljkyDDekwJFxqzM2fYOF9OfGE1/U8IlKvHf0E+vM4WtBT7jtdPs/BC7i
+         Azg24DUnGuOldriVOwhi5al4HSWD9fFuhr0B91yl7DcEm/J/1okRvepf4jiYFs/xAk60
+         XOfg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=oNCxj1Tkne1Dd9zOhmWp2sMzjpmd3KFTSPzHbdHwTl8=;
-        fh=HGBvUlUP9HqrDRkEyc4adwIiLR+yLWD7aUZzAzXGhYw=;
-        b=Lybb8bzN79a8dWoYHYuPRpY+v6cMx/AjNAWNh7/6Pa5rem0yJLrUl1cxHlxaO6fSB5
-         D3TzoXdAqjK8moIrSieCAZjITPgQFYpqiFNkRRzf2JvZFYUcENkmLNVnozCxnqdrIU7p
-         jlev7Fag/MRtze1Ibljodlq2RllPH9DfaawvRvQbSZPG3OeGqcXx0cTp60JETI21F7P0
-         kyE1SUo1Lnx8bFgrdxT6ku9i9WQ3BojKSkSOJksX3ckV7R/WXw6VnTl+gDSB2O/rAYfB
-         D7bAZBPbjaZfUTTLlz5zVxjT2KDpzC+LqZtMXjKBl4vZlrqzbtjyvAXHQ1cz5z4bMOXn
-         rnmw==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=x6h1BVvc6NlZ/1f8ypPzy3ocqWyFlnaev/ls/pKUnb8=;
+        fh=hKBal6v82/DJ7iwFxGgLehy4OofVmcgIwniOV00J1fo=;
+        b=npsPLMSPSdY1B1sgzrt8VZ5E9vADtHhAs5y16YScMgbCq0SUw6Ml6Bcz4S7fWstul+
+         yN8vyuD4qvq2gYBdZs0edM53gKJKx2OkEIdV7YXL8uXBfr26ZV+ku50hrrhLaD8R23dd
+         c4ch8o+5AOSxZ+W5LW3FX2A44K5GswJDCLfYP7Gr6opFFxfi4Lb83idfa/G6hiwEbcXU
+         jFdpHfL04IBHnVGWW9QgIs059vvQorsVTW6t/AN2WIEo84c+88tVurui0b51jJGuA11N
+         oqALzOxenV6gPMRPt0iKqs7khpdVScaaMjpwJ8ABLru0HyaWdGBzDcz1VDpWyW1qY0Um
+         VClQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=szeredi.hu; s=google; t=1790348391; x=1790953191; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oNCxj1Tkne1Dd9zOhmWp2sMzjpmd3KFTSPzHbdHwTl8=;
-        b=VU+craBP5sTfmgsks6GqGyE/aSlKFV/uYtDlbeOzYSOfhZM0LCRTW9xsMii7u5DKPP
-         ee+c9I/OHN3XyjUODNRuDCK0Kc+tq2ddcB9We9B5h0V6rfU7Ena6Hzd3gZ9r2rPCXGqY
-         gWDr2/Ff5lGSfoHuHqx1lh1188vB1iCslgZSU=
+        d=gmail.com; s=20251104; t=1790348700; x=1790953500; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=x6h1BVvc6NlZ/1f8ypPzy3ocqWyFlnaev/ls/pKUnb8=;
+        b=EjQmcmayCVkHHRheUxRBMKhMGxjjSG3w9P62Mo/R5MrPRDrQ7AtdMFociIibDGvO9Y
+         lTB8UjLcG90to0VIOsJSOyoOgbWhm8Jbl+3FqPP9uTzEgkKEZYXB9omRzSLOh2VWnB4/
+         qVgnSgh3i7vc7m5ApBRXVzyfjoPU3TyNN1n6FVxFwVvDlP2fuG/OrjI4av6aOZQjJtHn
+         V+p8BP9VmGllwqsx5kUqGHzDNSdHR08aCI7+UrpTMTRPtFfA2v0nSFxeG4VcrcwVtdHv
+         iW6tD0qxn+tsWfoGbU/gUPDrWnWDkUMFI17wxrWnFFU8M1RRzO0K+CINdoJpjohcIITP
+         gG4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790348391; x=1790953191;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=oNCxj1Tkne1Dd9zOhmWp2sMzjpmd3KFTSPzHbdHwTl8=;
-        b=Xoq+sYPWSRSU1xTUUFK5wlNRv8hFaoTwKL8MruNyGb28Y4EeYxhzcipAGn/Eay99uv
-         f+4l+MOCes+ZkdAvz0uvODswaNL2FWba9KQOt27n9kqgy878oUyckUxB3Pv9VUq/49Za
-         6wrC9NI+Dsgm74Zgd4AB5tCvG6YRvg6sebhltEiZLtM2vmv/CquD5pYs37IiOzKsu2zi
-         05usMnp0cN2UD2QLurAiR1Vvfx6tUNCKQy0DmPmVms/WeSfHMMAtWu/lr76lnb/9e40Q
-         hle9rdsCBJOGK65UGGxYJDnmlNShF3vRk6CPbinI6Q4EhM8TzxDoDFkFisDeuo5VPV/L
-         LFsQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxiKbgeNIDD2/4flXF/S32ckYvBDttx+4hVx0p7dF4mNu6MOVeejeWfgNq5cd2q1cWm6DkggBM=@vger.kernel.org
-X-Gm-Message-State: AFuF++n7MDI1/dyvDykI6eU3+jLGJ4SjddW0DTFzFH4SUBpfxJKgrwjD
-	K0btr7V0bQuCvmlT/d6bMlJMSrowZG+8OCpGgRvESHoyYR7PLmpnrakNAtP6GITZXXd4TNJMs/Q
-	rw1zKIIPFknDB/GnxSsoKGHYhdrXnexRjc+PA1+/bkg==
-X-Gm-Gg: AYBFou0x2kw41gIYymb71jW3ztTRNqMNf25j2zTFMYrLVm0JpF090gxmIJGXcarpm+w
-	kNkBz3bGU8hghleO9m2ltQbww7V65yCulN9AShEiEBcR81D9yq1jJNLPJ4fTMqqHOxmR2UjaKGL
-	R7Gx0WTqgkEnvxdXoogT5QO7PNcWQEym2FMD4TSFbIpDp/eKpibqbbRf8wsLUfjcY9PFLFEBjLQ
-	7JlO91llOkgCNwSeoxd57D5MCiqR4qJlKI1xLBSNxXd28i3XzrAC3pcwmgNUwyecVdM4VfLonIJ
-	l4mf6KZLi0jZ5rVWjghjimixBKEyG/EMfyMR6j7m5UVRhYk2oSNlSKkZvUqABJmpj5op86cgIWJ
-	zyvDyGhcigA==
-X-Received: by 2002:a05:622a:508:b0:530:2cc6:c8ad with SMTP id
- d75a77b69052e-5330b5ad6e9mr51539751cf.19.1790348391358; Fri, 25 Sep 2026
- 07:59:51 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790348700; x=1790953500;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=x6h1BVvc6NlZ/1f8ypPzy3ocqWyFlnaev/ls/pKUnb8=;
+        b=Q3Vo8la6/1vD1kTRyrv5dXe0crmqFAgFf9o+umfqmKb2ACjOOgSKvlYkqYahsM/Z9S
+         l6cfz9t4jQe+ZExQTtSMV1Rs7vqmfZ6xptBBSrJkzxuezVhSU2wPHFXULhqJL86wcCQw
+         kkGJ9nJbKhvNobyHQoukbdm3wqS+ePZ1eDhjHag5dtLrme2r1rmQV3eL7tODaqBwIUkt
+         XpLu7Ls07+fGNSRpn/KFXus94G8w9PJ/omYBfTvtpssLYmkZpub7FbpIxFQ3zo6ER+It
+         6cLFmsm7OtDBeJizNC3E8z5lpwiJIWXVxc44o0M8ex16c4cFqUkrCjwv06JllZ1Js8Ew
+         1b/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBx1J/jstMbZ5uTu+B7uimVKxPJ9ornVxdWxLE3T0TqaOGPvMs1Effn8qmmr9hZHQ2jXvAzdfwI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nCdpblF1pVc9NTA6UDPvKM+QlNAhLVkudhx3UptRMqPSux/hix
+	z7UL0hY+xKqWJU0tBgHy6O34vdnhiP5z1kBoNgoVuUZw+f9S1COYl1HshZTc+BVYrzsfO54Ljmp
+	0nfJroU2o7idGNGSiKlvdpux3hvfKBQM=
+X-Gm-Gg: AYBFou2g0DirmfBfhQQJKlmrXHqaTBQqCI6CUO0s7m2yVtu/PzsULA9j7qAMSEy1Yjo
+	HLwD+nGEaYksk9f1+E9BnT/M/LPjd48T7tvJKFd5bbXF4ffek14JHVmNTwh1+szrexq1UDFyotZ
+	yII436xMUz9hnXA0GeBefVsMhTtGFPPe+fd9tLezpQl55RAgDRiYHEevbMSxR19aZL0XcxtMSXB
+	l54lJ/X3vHhaUK2u6NZSvpGDDr5aM54ZGd8/nIckjLeYySroReTpn7vgzUIuKaoQhprnrdOFZ1d
+	MutLS8OwpXGCNFlYLo8KdV37njdecGnF4e82h/fO//FEFvmsKmMor4zoHA==
+X-Received: by 2002:a05:6402:304f:b0:698:c13e:179a with SMTP id
+ 4fb4d7f45d1cf-6aac8f0fb76mr4307366a12.10.1790348699463; Fri, 25 Sep 2026
+ 08:04:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260910235110.3922068-1-xmei5@asu.edu>
-In-Reply-To: <20260910235110.3922068-1-xmei5@asu.edu>
-From: Miklos Szeredi <miklos@szeredi.hu>
-Date: Fri, 25 Sep 2026 16:59:40 +0200
-X-Gm-Features: AclHuK8PxhLjayeNK4Ioc2AfP1egLwmVYg_0ZofucCJ6SB6GJuae3F4l1SVQLt0
-Message-ID: <CAJfpegsxW3gf6Dj+zVKTTHx8bsASXiMboZ6UWd5WWtBMqd8WZQ@mail.gmail.com>
-Subject: Re: [PATCH v8 1/2] fuse: don't BUG when the copy buffer is exhausted
-To: Xiang Mei <xmei5@asu.edu>
-Cc: Joanne Koong <joannelkoong@gmail.com>, Bernd Schubert <bernd@bsbernd.com>, 
-	Baokun Li <libaokun@linux.alibaba.com>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A . R . Silva" <gustavoars@kernel.org>, fuse-devel@lists.linux.dev, 
-	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Luis Henriques <luis@igalia.com>, 
-	Pavel Begunkov <asml.silence@gmail.com>, bestswngs@gmail.com
+References: <20260924112858.51392-1-disgoel@linux.ibm.com>
+In-Reply-To: <20260924112858.51392-1-disgoel@linux.ibm.com>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Fri, 25 Sep 2026 17:04:48 +0200
+X-Gm-Features: AclHuK99bcpAkghS0fUG2lImCTNfTZaz5pVDj1Ros9PGZp_xBJVRQl4OTsgjcsA
+Message-ID: <CAOQ4uxh+VbTTUTQxRZ6jxYCLyBedKEPOQAPEkrJwhbiL32eGPg@mail.gmail.com>
+Subject: Re: [PATCH 1/2] ovl: fix mount setup failing when override_creds
+ drops CAP_SYS_ADMIN
+To: Disha Goel <disgoel@linux.ibm.com>, Christian Brauner <brauner@kernel.org>
+Cc: miklos@szeredi.hu, viro@zeniv.linux.org.uk, jack@suse.cz, shuah@kernel.org, 
+	linux-unionfs@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 11 Sept 2026 at 01:51, Xiang Mei <xmei5@asu.edu> wrote:
+On Thu, Sep 24, 2026 at 1:29=E2=80=AFPM Disha Goel <disgoel@linux.ibm.com> =
+wrote:
 >
-> fuse_copy_fill() hits BUG_ON(!err) once the iterator backing the copy
-> runs out of pages.  Over io-uring the amount copied is not bounded by the
-> payload buffer the server registered, so an unprivileged user can drain
-> the iterator and panic the host - mount a FUSE filesystem with small
-> payload buffers, then setxattr() a larger value:
+> When a process drops CAP_SYS_ADMIN and calls fsconfig(FSCONFIG_SET_FLAG,
+> "override_creds"), overlayfs saves those restricted credentials in
+> ofs->creator_cred.  ovl_fill_super() then wrapped the entire mount setup
+> in with_ovl_creds(), switching to those restricted credentials for the
+> duration.
+>
+> Mount setup calls clone_private_mount(), which checks CAP_SYS_ADMIN
+> against current credentials.  With restricted credentials active, this
+> check fails with -EPERM and the mount fails even though the calling
+> process is fully privileged.
+>
+> Mount setup is a one-time privileged operation and must run under the
+> caller's credentials.  with_ovl_creds() belongs only in post-mount I/O
+> paths.  Remove it from ovl_fill_super().
+>
+> Fixes: 539a0879de47 ("ovl: allow to specify override credentials")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Disha Goel <disgoel@linux.ibm.com>
+> ---
 
-Applied series, thanks.
+Hi Disha,
 
-Miklos
+Thanks for the report!
+
+>  fs/overlayfs/super.c | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
+>
+> diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
+> index bd0a3f9039d2..29f9489b8242 100644
+> --- a/fs/overlayfs/super.c
+> +++ b/fs/overlayfs/super.c
+> @@ -1557,8 +1557,12 @@ int ovl_fill_super(struct super_block *sb, struct =
+fs_context *fc)
+>                         goto out_err;
+>         }
+>
+> -       with_ovl_creds(sb)
+> -               err =3D ovl_fill_super_creds(fc, sb);
+> +       /*
+> +        * Mount setup must run under the caller's credentials, not
+> +        * creator_cred: clone_private_mount() requires CAP_SYS_ADMIN,
+> +        * which override_creds may have dropped.
+> +        */
+> +       err =3D ovl_fill_super_creds(fc, sb);
+
+Without ovl creds, the name of this helper is a bit odd..
+
+>
+>  out_err:
+>         if (err) {
+> --
+> 2.45.1
+>
+
+Chritian,
+
+I see that selftests are failing on upstream:
+
+#  RUN           set_layers_via_fds.set_override_creds_nomknod ...
+[520332.680688] overlayfs: failed to clone upperpath
+# set_layers_via_fds.c:516:set_override_creds_nomknod:Expected
+sys_fsconfig(fd_context, FSCONFIG_CMD_CREATE, NULL, NULL, 0) (-1) =3D=3D 0
+(0)
+# set_override_creds_nomknod: Test terminated by assertion
+#          FAIL  set_layers_via_fds.set_override_creds_nomknod
+
+#  RUN           set_layers_via_fds.set_layers_via_detached_mount_fds ...
+# set_layers_via_fds.c:711:set_layers_via_detached_mount_fds:Expected
+layers_found[i] (0) =3D=3D true (1)
+# set_layers_via_fds.c:39:set_layers_via_detached_mount_fds:Expected
+rmdir("/set_layers_via_fds") (-1) =3D=3D 0 (0)
+# set_layers_via_detached_mount_fds: Test terminated by assertion
+#          FAIL  set_layers_via_fds.set_layers_via_detached_mount_fds
+not ok 7 set_layers_via_fds.set_layers_via_detached_mount_fds
+
+oops, I thought these were running in CI...
+
+Apparently failing since v6.16-rc1
+c28f922c9dcee ("clone_private_mnt(): make sure that caller has
+CAP_SYS_ADMIN in the right userns")
+
+The question is whether doing the guts of ovl_fill_super() with checks like
+
+int ovl_can_decode_fh(struct super_block *sb)
+{
+        if (!capable(CAP_DAC_READ_SEARCH))
+
+Without the user provided override_cred is the right thing to do.
+
+Could lead to confusing state post mount.
+
+Thoughts?
+
+Thanks,
+Amir.
