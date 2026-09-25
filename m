@@ -1,173 +1,136 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com [74.125.226.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41D1B4E1C87
-	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 19:22:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26E654AAC51
+	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 19:24:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790364168; cv=none; b=k2S+eiuf3G3wtWSrhgocM6q1cl+v9erCI6c9tfpCaFOfNfkamjBN+v7kIHAV1VzcjC/yvWPWj2yYAOgp6OnP6EFzosf6yQOx56MA5KDX29SAdLyEzcoVxhwe8Y2r5q57fkwb6S1+8jSbWXfoKd9XGWUln961ojoBbTsmPK6IHyw=
+	t=1790364287; cv=none; b=lOh0IfjYwC0fbWzRhEoMVypM0RNm4V24OHzwbKTOji1TPAVZ3O5JTZSxVvxAoOWDwjgKmmsAaCPmBF0zj7NcvozWUu3YLx0CULJtdEVrEqNan9kPE96SFK/4RZa6vbALOaKgMkgFWzMXYb7Z+pgLx9IR2Jw8OgP2Kq3Po5OvNMQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790364168; c=relaxed/simple;
-	bh=bQdHUqZ89Dat9b4twM81FEqBHQkZuZ38nbP+8euFmpw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kCT6E8otyvLXqZQyRoJKwqr9gKShjZq5g3mtJSj7g4kkskHL7oiN4LaOA2Jtg9k95lfxIUrFJFAQgSTWAca6pkFOAlC+3/39IxyONIAxfqLlel1Vt3+UcLAm+J53wpya3AgEOZE1lYRIQjVYhRh3f9M7JD77vV10oxB2L6Kcl+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=dxYu7UEa; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790364287; c=relaxed/simple;
+	bh=7S/MKduvHW3eZ0cEHVQzZei57mdgxITKfqv+Mzb0+Os=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=NfFpV0lrvYrDBn/0u64yUrT4LZLrC5JSTNgtzGGnMQ2oeGijva2Cz6Pb+aWI3R+Z73PLYeQRTwUp1bmeoLs2U7Z7j+lGc7emUmEREUVywar+1shjAcXMaF2YnADZvveeQ98XzlI+pAjN9quYgV1GF4bA8hbDrLA4a5xIOvJU/ag=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JKG+lVrw; arc=none smtp.client-ip=74.125.226.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dxYu7UEa"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790364161;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aWk4K3bjs72mNw+sBMqiIvaUwaOVCuWNNLV5F6PcuRc=;
-	b=dxYu7UEafVO0OqggvWdbEMYCLfP6+o3qyVqGVmbuWocHWTA/Vk8qj/m8baJNS+t5UFFN6n
-	Ab/v9xlZDmacrhzZtqJIeXU4rXHFXpLWVE9Fq4CBfc6aZcfib2g3NUyTFR1VI9c3KVknU8
-	Bb2X+TMtD9DmHdCM3pJM/rPkXeYPt3c=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-163-Ke7tYFS9MfOCqCl9BWIvpQ-1; Fri,
- 25 Sep 2026 15:22:35 -0400
-X-MC-Unique: Ke7tYFS9MfOCqCl9BWIvpQ-1
-X-Mimecast-MFC-AGG-ID: Ke7tYFS9MfOCqCl9BWIvpQ_1790364153
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 76EE61911B23;
-	Fri, 25 Sep 2026 19:22:32 +0000 (UTC)
-Received: from [100.91.18.181] (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 38DF141D;
-	Fri, 25 Sep 2026 19:22:30 +0000 (UTC)
-Message-ID: <547bea01-880a-4a87-8cbc-a632f087f896@redhat.com>
-Date: Fri, 25 Sep 2026 15:22:29 -0400
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JKG+lVrw"
+Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-982db8d3b1eso362036241.1
+        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 12:24:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790364284; x=1790969084; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=7z+aHZZJ9kwGfOKnNeUVi/yULRqMkVDfnGrm/awK8nY=;
+        b=JKG+lVrwLdmlikedoA8gbiM81wgJyXjc0pz4aWuQitS9ASmGKngljtPdEq3yEvgLzq
+         q+SrLZ3f3afE9DP+25yhYei3Emuq8JLXQLn4CkV3CAO0sfmPKdJzSApTfB+KVaaIskrA
+         guE+xzs1K9B0a1FELOZah79veNvkmGAKrBR+3Uyp3ajC9nJBHqo6pOrgLKz5d2EoP0l5
+         FtTGwmN4mqa+0KmWqlAsm9Y9U/D0QcZ73CszKIvpKW/olxCfmYukI64RE1lCKE7wT9k8
+         BVL0zPRWm8zk4yrPrLdwy6rd+hQl1vlevIjA6HPzpyURSpfmi92hCukqIWcTo6qj6iEL
+         bYjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790364284; x=1790969084;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7z+aHZZJ9kwGfOKnNeUVi/yULRqMkVDfnGrm/awK8nY=;
+        b=HS2Jt8mB8uDApnEZDOlVADBv16aahogRG9vKXEic+QhdMIRPTqkKlXhvF+YoW0sSAN
+         lX79/BsRl1qJQEm9LrFgO5EUgBKst6GizTt3IDglRv2ZU4Mj63N/rIKy389gvv/7NLIy
+         kVcNqLSDsNVcpdo9aOZ7t7/4PApHhg4Aov3592Z6bXmvF9je8hLQGIQzmp8MaiFQusih
+         BBbiLMMpBuVBY8jfxA4HZzJRLdTF78hkORuEG+WhVB10Nte6kn1DM9mIstsOrj2D8t8r
+         nIhDxUe+Rv63dr0B77pLrwLpNW1n31Z9RURbbBnnzDUGrYpPSCvU13DzPQ+q3uq1vPb5
+         iN/A==
+X-Gm-Message-State: AFuF++mTe8SlTlharKNzBXw9O20CldtthaaH+92DeSijvP/VZQIz0+x8
+	h3ROPMjYYNUn+lOnx4jhXVvvrUFQ9AIVoCBvJ2/+e1mSeD83ZuljQZ8k
+X-Gm-Gg: AYBFou2kfwlTKvHNM0OEYVPZ/HL8wGHIux0zQFbPUWfWe4W6EJwpyJb7+XYqSsjiv9L
+	IrlZ1UNttFORe12yT5VecYBV6CIQuZwJ7h18CX/ZreiXoVkjiY/chYHc8aTq62HslrwVbmKz6ox
+	RRR1DqLhtxp+o5EaeHnk5gG2gMawbuBr8VV+5LztfO2wXWDDg84v3y9pq0Eo1uxzVmHM2RurAgU
+	Fys2+/QYE9DxYgdMqKF9Tgfb4r8r23Rj1xXaTnYhjTqCUZLUkmQwmTOxwxSmCKmuZblItOjimWK
+	L+6jfTX3eQT0jk2O35lRano8AL888aSU+891ND7oq4WCyxeaK3efxZdP2FCGTV8ZmSn7TUnnZUx
+	RBTnDegkQovr951VdQMMjCTnRpvOtwbvwHtwKudAdhbLfwRT81VzT17OSD3uqIls6BleJdDtH5n
+	ItzNA+zBgqQc5Hwhis7dqRp7PQzYTcA4atib1wmDbJOcYwTyAJEAkLClXhGZBJA+KjIoO2Y2kSp
+	+2eRX+kCPQVDVANZb0FEciL/7KHJ4PJyh4YxzxR
+X-Received: by 2002:a05:6102:8098:b0:7a7:1db6:c769 with SMTP id ada2fe7eead31-7b1c751f1e3mr1094309137.22.1790364283907;
+        Fri, 25 Sep 2026 12:24:43 -0700 (PDT)
+Received: from localhost (host-190-210-193-94.iplanisp.com.ar. [190.210.193.94])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9861b0b6ce4sm3698675241.13.2026.09.25.12.24.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 25 Sep 2026 12:24:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/3] cgroup/cpuset: return PERR_NOCPUS in
- remote_partition_enable() on subpartitions_cpus conflict
-To: Hui Peng <benquike@gmail.com>, Ridong Chen <ridong.chen@linux.dev>,
- Guopeng Zhang <guopeng.zhang@linux.dev>, Tejun Heo <tj@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>
-Cc: Shuah Khan <shuah@kernel.org>, Chen Ridong <chenridong@huawei.com>,
- cgroups@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260924042729.1908863-1-benquike@gmail.com>
- <20260924042729.1908863-2-benquike@gmail.com>
-Content-Language: en-US
-From: Waiman Long <longman@redhat.com>
-In-Reply-To: <20260924042729.1908863-2-benquike@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 25 Sep 2026 16:24:39 -0300
+Message-Id: <DLON63JAAXEO.18FNAXS16CHHB@gmail.com>
+Cc: <stable@vger.kernel.org>
+Subject: Re: [PATCH 7/9] iio: adc: ti-ads1018: reject devices without match
+ data
+From: "Kurt Borja" <kuurtb@gmail.com>
+To: "Jiale Yao" <yaojiale02@163.com>, "Kurt Borja" <kuurtb@gmail.com>,
+ "Jonathan Cameron" <jic23@kernel.org>, "David Lechner"
+ <dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ "Andy Shevchenko" <andy@kernel.org>, <linux-iio@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20260925125754.2162337-1-yaojiale02@163.com>
+ <20260925125754.2162337-8-yaojiale02@163.com>
+In-Reply-To: <20260925125754.2162337-8-yaojiale02@163.com>
 
-On 9/24/26 12:27 AM, Hui Peng wrote:
-> When a remote partition is created underneath an existing local partition
-> via a non-partition (PRS_MEMBER) intermediate cgroup, update_prstate() sees
-> parent->partition_root_state == PRS_MEMBER and calls
-> remote_partition_enable().
+On Fri Sep 25, 2026 at 9:57 AM -03, Jiale Yao wrote:
+> SPI driver_override allows a device to bind to this driver without
+> matching either the OF or SPI device ID table. In that case,
+> spi_get_device_match_data() returns NULL.
 >
-> Commit 86888c7bd117 ("cgroup/cpuset: Add warnings to catch inconsistency
-> in exclusive CPUs") replaced the cpumask_intersects(tmp->new_cpus,
-> subpartitions_cpus) error check in remote_partition_enable() with
-> WARN_ON_ONCE(). As a result, remote_partition_enable() emits a warning
-> and proceeds to enable the remote partition on CPUs that are already
-> owned by the ancestor local partition in subpartitions_cpus.
+> ads1018_spi_probe() immediately dereferences the returned chip
+> information to initialize the IIO device, causing a NULL pointer
+> dereference.
 >
-> This can be reproduced on Linux 7.3.0-rc3 with:
+> Commit 572a00852635 ("iio: dac: ad5686: missing NULL check on match
+> data") fixed the same driver_override issue in another SPI driver.
+> Reject devices without match data before allocating the IIO device.
 >
->    mkdir -p /tmp/cg1
->    mount -t cgroup2 none /tmp/cg1
->    echo "+cpuset" > /tmp/cg1/cgroup.subtree_control
->
->    mkdir /tmp/cg1/A
->    echo 1 > /tmp/cg1/A/cpuset.cpus
->    echo 1 > /tmp/cg1/A/cpuset.cpus.exclusive
->    echo root > /tmp/cg1/A/cpuset.cpus.partition
->    echo "+cpuset" > /tmp/cg1/A/cgroup.subtree_control
->
->    mkdir /tmp/cg1/A/B
->    echo 1 > /tmp/cg1/A/B/cpuset.cpus
->    echo 1 > /tmp/cg1/A/B/cpuset.cpus.exclusive
->    echo "+cpuset" > /tmp/cg1/A/B/cgroup.subtree_control
->
->    mkdir /tmp/cg1/A/B/D
->    echo 1 > /tmp/cg1/A/B/D/cpuset.cpus
->    echo 1 > /tmp/cg1/A/B/D/cpuset.cpus.exclusive
->    echo root > /tmp/cg1/A/B/D/cpuset.cpus.partition
->
-> which triggers:
->
->    WARNING: kernel/cgroup/cpuset.c:1594 at remote_partition_enable+0x1c1/0x300
->
-> and leaves both /tmp/cg1/A and /tmp/cg1/A/B/D as active root partitions
-> claiming exclusive CPU 1.
->
-> Fix this by returning PERR_NOCPUS when tmp->new_cpus intersects
-> subpartitions_cpus in remote_partition_enable(), matching the error code
-> used by remote_cpus_update() for the same subpartitions_cpus conflict, and
-> add a regression test case to
-> tools/testing/selftests/cgroup/test_cpuset_prs.sh.
->
-> Tested in QEMU on Linux 7.3.0-rc3 using the reproducer above and
-> tools/testing/selftests/cgroup/test_cpuset_prs.sh.
->
-> Fixes: 86888c7bd117 ("cgroup/cpuset: Add warnings to catch inconsistency in exclusive CPUs"
-
-Technically, this commit isn't  wrong as it does not expect that a 
-remote partition can be created under a local partition. I will put the 
-commit to be fixed as 181c8e091aae ("cgroup/cpuset: Introduce remote 
-partition").
-
-Other than that, it looks good to me.
-
-Reviewed-by: Waiman Long <longman@redhat.com>
-
-> Suggested-by: Guopeng Zhang <guopeng.zhang@linux.dev>
+> Fixes: bf0bba486b5b ("iio: adc: Add ti-ads1018 driver")
 > Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
-> ---
->   kernel/cgroup/cpuset.c                            | 3 ++-
->   tools/testing/selftests/cgroup/test_cpuset_prs.sh | 2 ++
->   2 files changed, 4 insertions(+), 1 deletion(-)
->
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index 2538faac9aba..7381fa8502e7 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -1591,10 +1591,11 @@ static int remote_partition_enable(struct cpuset *cs, int new_prs,
->   	 * above it or remote partition root underneath it is not allowed.
->   	 */
->   	compute_excpus(cs, tmp->new_cpus);
-> -	WARN_ON_ONCE(cpumask_intersects(tmp->new_cpus, subpartitions_cpus));
->   	if (!cpumask_intersects(tmp->new_cpus, cpu_active_mask) ||
->   	    cpumask_subset(top_cpuset.effective_cpus, tmp->new_cpus))
->   		return PERR_INVCPUS;
-> +	if (cpumask_intersects(tmp->new_cpus, subpartitions_cpus))
-> +		return PERR_NOCPUS;
->   	if (((new_prs == PRS_ISOLATED) &&
->   	     !isolated_cpus_can_update(tmp->new_cpus, NULL)) ||
->   	    prstate_housekeeping_conflict(new_prs, tmp->new_cpus))
-> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> index 3f7e81709365..b732078bf319 100755
-> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> @@ -298,6 +298,8 @@ TEST_MATRIX=(
->   	" C0-4:X2-4 C1-4:X2-4:P2 C2-4:X4:P1 \
->   				   .      .      .      X1      .    0 A1:0-1|A2:2-4|A3:2-4 \
->   								       A1:P0|A2:P2|A3:P-1 2-4"
-> +	" CX1-3:P1 CX1-3  CX1-3    .      .      .      P1      .    0 A1:1-3|A2:1-3|A3:1-3 \
-> +								       A1:P1|A2:P0|A3:P-1"
->   
->   	# Remote partition offline tests
->   	"   C0-3    C1-3  C2-3     .    X2-3   X2-3 X2-3:P2:O2=0 .   0 A1:0-1|A2:1|A3:3 A1:P0|A3:P2 2-3"
+> Signed-off-by: Jiale Yao <yaojiale02@163.com>
 
+Reviewed-by: Kurt Borja <kuurtb@gmail.com>
+
+> ---
+>  drivers/iio/adc/ti-ads1018.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/iio/adc/ti-ads1018.c b/drivers/iio/adc/ti-ads1018.c
+> index d9ec4a8d7ce5..8f2d03eee77b 100644
+> --- a/drivers/iio/adc/ti-ads1018.c
+> +++ b/drivers/iio/adc/ti-ads1018.c
+> @@ -624,12 +624,16 @@ static int ads1018_trigger_setup(struct iio_dev *in=
+dio_dev)
+> =20
+>  static int ads1018_spi_probe(struct spi_device *spi)
+>  {
+> -	const struct ads1018_chip_info *info =3D spi_get_device_match_data(spi)=
+;
+> +	const struct ads1018_chip_info *info;
+>  	struct device *dev =3D &spi->dev;
+>  	struct iio_dev *indio_dev;
+>  	struct ads1018 *ads1018;
+>  	int ret;
+> =20
+> +	info =3D spi_get_device_match_data(spi);
+> +	if (!info)
+> +		return -ENODATA;
+> +
+>  	indio_dev =3D devm_iio_device_alloc(dev, sizeof(*ads1018));
+>  	if (!indio_dev)
+>  		return -ENOMEM;
+
+--=20
+Thanks,
+ ~ Kurt
