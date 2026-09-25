@@ -1,317 +1,162 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BB51486650;
-	Fri, 25 Sep 2026 09:49:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 871E948423C
+	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 09:52:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790329750; cv=none; b=Eo4AzIbYMWRn3jDHq1lvOa4w3uqCDSuh0TJhuMqaLRaISF5n0rgnv6jH2dsPeWvcoRAkSokdrKdaEP0wa0l6xAk/5bugudVc02hSsUwwxao1bqyaymxr3z9EQNJ9YC+cAJGeJZw95YB1r3YrN81kj5EOhP00/Uc+leaj8udW/sE=
+	t=1790329979; cv=none; b=mY8ujPJBMMbHsr7HL6wf/tWGMnAPgfIW2S+lYvpormRPXg1/V6bcEAZJxYo/hRSNtrJsbgO2hePgpvtGW5EqsKjq8KgxvZJ+HeYMf0ioHCFaxOpuwDmu8Or7cLqRUAWoWqvuDJfW6jCiIvZHWpkqeYbE6r4mzqCgYCQ+Bt6OqRc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790329750; c=relaxed/simple;
-	bh=KVwrx190xktzE843f4n92D/podfAs9oU/wmC2+vWqsQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FOyeb6SzxPKscgdLemAk4OxlxwjCTna/VqPJOVxqlY+wA5ZuHtDNIpoTdEA87BWGx+SnPSZTvkmQE/DVf1qdKmwR6+aHrsZqLs8kgQl9w20FWAfzo0yWqrCE1AWO5Q0Dz+6vcm9j1JNWnkaK5AgII1rtJTzrKdQK+xIG/7Z1Gx8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KTgsclWA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790329979; c=relaxed/simple;
+	bh=nvyA3TDTbhtrxdFzEjqfVphfihD1nWdpT6xp1d3CrP0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sg83z1n4y228jtQXPM03oOdNRsplNo2xqLC1SHG2Z1JbnGsu482Rt1lWgWjUk7BqKS2bUEaEtv+oykbcRVrz8aElNeiKIl/dqehMI7cFBiCCh30VwkKwE/YDJ1WmdGusnWWxcDaaJcLUcGSIX9Ed71qUlq+qIOG+uH0T+qw2FbI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fvSr9cB3; arc=none smtp.client-ip=74.125.225.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KTgsclWA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52A151F00893;
-	Fri, 25 Sep 2026 09:49:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790329746;
-	bh=EgNxEGp+NlXRyeq9TTW8FL/WtBpQd1jhsUJlo4uhSCM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KTgsclWAjBuNrbYTl+gMM5Ohfb2sYdWd/06rxf7lowvW2wIlB+oTzy8CwbrLAko+V
-	 qMwAwp+8GwQTSo5ePf/VwyI0xs978AAqDPex3V097Uqx/41ZkVDMCbuDeA0mSwe9ai
-	 TF0lckr8frxVEOUuIz9DMxkMstAYNpVAPWWdKf8V6UN6povzoVHHDHaVXhqli4QvTq
-	 dkVkl8obonsZvhzvHTYFVvkyquziJaST6uc7lCG8CpG6aFxCADdkRTr4vqhyPCNUe3
-	 LuXyPFDrc+sE+G8endy9vhgMu8K4Y0z6FFXTuYB2doccbk8f3t2iiT600eu/6Irdvq
-	 M4QNh3PwuIHLw==
-Date: Fri, 25 Sep 2026 10:49:01 +0100
-From: Simon Horman <horms@kernel.org>
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: Ronak Doshi <ronak.doshi@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: Re: [PATCH net] net: vmxnet3: unwind partial IRQ setup
-Message-ID: <20260925094901.GH13925@horms.kernel.org>
-References: <20260922110710.1569410-1-runyu.xiao@seu.edu.cn>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fvSr9cB3"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4887ebc85eeso34767f8f.2
+        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 02:52:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790329974; x=1790934774; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wnKtVfuA6DDtxDljFMt/DQAZ8I6CllqSJuo16Cr5Xvo=;
+        b=fvSr9cB36vtc62nWqPWi5GwtqeyaqXo5+12p1oMlSp6oVN8Ha1/2Dkq+hhSD6Zq63w
+         t7JB64usB4P6BEoQF7mehPiqyGz6ePx/WO7tm6jIrxvL3R8dgCfHaI9a8Mpfxa6AK8Qq
+         kTMpNS94C6UtgbxQAjpOuhKcYQ2PS4PcG3jVJj1VD6WerbO+uVlnxvDFjUrm7Pi95nHv
+         tdC6wb4QkuH+Uk7yruyYfD8voNJKk0YMPECNMBpTc1fAcdi2iIwK7V3+L9VPIB2IzaUW
+         +7VQ02CjQaTZ/f2hwsKvE7HOgAm7KuoqX8ORqstjxnFrcfJ64vkrEc86tvdfMEUd4GZk
+         9lsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790329974; x=1790934774;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wnKtVfuA6DDtxDljFMt/DQAZ8I6CllqSJuo16Cr5Xvo=;
+        b=iHIZVS4P1e2vDmMW/JUNN+Xy/iJ8IF5xZyjdwrsjvm/BmLexAEH9wqe/sDMoCV9Z3t
+         DeCqYg1+hzGJ5C36KpaKf3i+rh38h2AjeuNQJHI/pbn7rO9DI8mKT/IYCdER0mjbAjt2
+         WvJUS/6xw7I8j+QcecgSqEa3BJ1dtOhPxTTcW2aI9xhqXAnEsP4QmhscB3sLiHWi76vA
+         3gZa+kng5To+CzGwQt4d8Gc2omw2+bAdB+6GZcrnVsfQvoaK2GLnXsVCh3wOTubFbINd
+         jq/iQukQbmR9sjusjMAn1+A90yCWyNgI0ErNiTLflL+IxylK+f9v4GpZEeihzBXJ7fbo
+         llvw==
+X-Forwarded-Encrypted: i=1; AKwUvBxCb5lTkn1arF8UqeA4KhiwT/9z+tstFolO0/SJirhQt/z2s+kUjiWYcHR9hp4L9DwSmYPfdYY=@vger.kernel.org
+X-Gm-Message-State: AFuF++n3jSKWFOYz82sJJSMAz7gzB+UkjEuxvYBd7GCr38x8V3ABEpGB
+	xlFNayiQdS2L+/MXtSL1zo3UnrQhRSq6Ih6oNesLnoF1+remF5VixMA8IaFohcRVPCQ=
+X-Gm-Gg: AYBFou0Sr4XbPupf1a089CyGs5Isu7Oa6CsTuIkXOw6ot/PO+euumD597MgfdNYw9A7
+	eQKnObZqcw/VXLSXXCoTll3MmjmAAigps/P1SUCbCiZuyyIKk77W+FyXWJrxnow7ryNXrtfEEPU
+	i6OmQO7tz9yk57sTEnBhC85NA3eSpBCnKfHhlmYbdcMv3rjIssMJsvDJMRXgpDqt57vWaWX7wvj
+	hocaGMBIPlyjt2kfLih2Gyp4NDaU1VaMclpTcdWWNm2Xpx5CCedKSiS1Enn/DOGedwsPJnvkw7e
+	FJmEf4WWrFiuNOg6G9QzyQlABl6lbIvW3+vHl57+mEdzDk30ydagcTNUdbexJzo73AJpdlw42a4
+	gjf6INacfJ+7sEzaXtMaaxN7lbsc5NkXCgeRir8nXk47VEgxhiT5VkUeYwu2Z82jJmMANoY/bxg
+	ayxxP2fXbs8cZP+wAcjPgH6nCzsZTcAFFuQsx8ArSeaPDk/ts7EgTrFXmeE8zBe2ucXtCSgFo1p
+	M+ISY+40hgxwcZs/GWJjrSjLuF1g0JIAyOvC8j3bxlv8Yvy1U/31es6v+jOQ0Rl2egsd+18pEdq
+	WdJtOBgLl/wuTwSTK5p3N+BKeAbJbN4Xb/wrtPwlxvMOMZSo396/hRWE5vLe9WaN1HU77j7sJHr
+	ye6WszYoyd6jG/B7FqN0=
+X-Received: by 2002:a5d:5d0d:0:b0:488:79d9:ef3a with SMTP id ffacd0b85a97d-4887a89f181mr3916537f8f.2.1790329974230;
+        Fri, 25 Sep 2026 02:52:54 -0700 (PDT)
+Received: from ?IPV6:2a02:3100:5dd2:bcfc:4dfb:2ac9:70ba:48bd? (dynamic-2a02-3100-5dd2-bcfc-4dfb-2ac9-70ba-48bd.310.pool.telefonica.de. [2a02:3100:5dd2:bcfc:4dfb:2ac9:70ba:48bd])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a355c65sm5863049f8f.19.2026.09.25.02.52.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 25 Sep 2026 02:52:53 -0700 (PDT)
+Message-ID: <21bfa8a9-c488-49aa-b2a1-4d282fd51c42@gmail.com>
+Date: Fri, 25 Sep 2026 11:52:52 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260922110710.1569410-1-runyu.xiao@seu.edu.cn>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/4] net: hsr: unfold GSO super-packets at the forward
+ entry
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, andrew+netdev@lunn.ch,
+ shuah@kernel.org, kees@kernel.org, petr.wozniak@gmail.com,
+ qingfang.deng@linux.dev, fmaurer@redhat.com, luka.gejak@linux.dev,
+ xiaoliang.yang_1@nxp.com, skhawaja@google.com, liuhangbin@gmail.com,
+ stable@vger.kernel.org, sdf.kernel@gmail.com
+References: <20260809121455.1745-1-xiexinet@gmail.com>
+ <20260809121455.1745-4-xiexinet@gmail.com>
+ <20260923104346.ur63K3h2@linutronix.de>
+ <2cf54664-c07d-471f-af6d-4b70e09626b4@gmail.com>
+ <20260925082954.MYDugnDU@linutronix.de>
+Content-Language: en-GB
+From: Xin Xie <xiexinet@gmail.com>
+Autocrypt: addr=xiexinet@gmail.com; keydata=
+ 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
+ sNySbH3veZ/55EtlXA==
+In-Reply-To: <20260925082954.MYDugnDU@linutronix.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 22, 2026 at 07:07:10PM +0800, Runyu Xiao wrote:
-> Track which interrupt vectors successfully acquired an IRQ handler and
-> release that subset when a later request fails. This prevents activation
-> error paths from leaving handlers registered while queue resources are
-> being torn down.
-> 
-> Reproducer:
-> 
->   Build an x86_64 kernel with CONFIG_PCI=y, CONFIG_PCI_MSI=y,
->   CONFIG_NET=y, CONFIG_NETDEVICES=y, and CONFIG_VMXNET3=m. For testing,
->   add a test-only wrapper around vmxnet3_request_irqs() that lets the
->   first request_irq() succeed and returns -EBUSY for the second request.
->   Boot QEMU with a vmxnet3 device, for example:
-> 
->     qemu-system-x86_64 -machine pc -m 1G -smp 2 -nodefaults \
->       -no-reboot -display none -serial file:console.log \
->       -kernel arch/x86/boot/bzImage -initrd test.cpio.gz \
->       -append 'console=ttyS0 rdinit=/init loglevel=7 panic=1' \
->       -netdev user,id=n0 -device vmxnet3,netdev=n0
-> 
->   In the guest, load the driver and open the interface:
-> 
->     insmod vmxnet3.ko
->     ip link set dev eth0 up
->     cat /proc/interrupts
-> 
->   The injected second request makes the open fail with -EBUSY. On the
->   unfixed kernel, the first handler remains registered and
->   /proc/interrupts contains an eth0-rxtx-0 entry. On the fixed kernel,
->   the same failure leaves no vmxnet3 IRQ entry. The injection is
->   deliberate to exercise the partial-registration path and is not a
->   claim that ordinary interface activation fails this way.
-> 
-> Fixes: d1a890fa37f2 ("net: VMware virtual Ethernet NIC driver: vmxnet3")
-> Cc: stable@vger.kernel.org
+On 25/09/2026 10:29, Sebastian Andrzej Siewior wrote:
+> So you disable GRO on the interlink port and still receive GRO packets?
+> Or is this performance related where you want to keep GRO enabled on the
+> interlink port?
+I am not trying to keep GRO enabled for performance. The difference
+is between a physical interlink and a veth interlink.
 
-I am not at all sure that failures can occur in practice.
-And while I'm happy to be convinced otherwise, if this
-is a theoretical bug, then I think it is best handled
-as a patch for net-next (without a Fixes tag or CC to stable).
+With a physical interlink, TCP data is split into packets before it
+goes onto the wire via TSO/GSO. If GRO is off at the receiver, this
+interlink RX path needs no extra segmentation. Patch 3 is indeed
+unnecessary in this case.
 
-> Assisted-by: LLM
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-> ---
->  drivers/net/vmxnet3/vmxnet3_drv.c | 38 ++++++++++++++++++++++++-------
->  drivers/net/vmxnet3/vmxnet3_int.h |  1 +
->  2 files changed, 31 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/net/vmxnet3/vmxnet3_drv.c b/drivers/net/vmxnet3/vmxnet3_drv.c
-> index f8df83f99..05373ba4d 100644
-> --- a/drivers/net/vmxnet3/vmxnet3_drv.c
-> +++ b/drivers/net/vmxnet3/vmxnet3_drv.c
-> @@ -53,6 +53,9 @@ static int enable_mq = 1;
->  static void
->  vmxnet3_write_mac_addr(struct vmxnet3_adapter *adapter, const u8 *mac);
->  
-> +static void
-> +vmxnet3_free_irqs(struct vmxnet3_adapter *adapter);
-> +
->  /*
->   *    Enable/Disable the given intr
->   */
-> @@ -2585,8 +2588,11 @@ vmxnet3_request_irqs(struct vmxnet3_adapter *adapter)
->  					"Failed to request irq for MSIX, %s, "
->  					"error %d\n",
->  					adapter->tx_queue[i].name, err);
-> +				vmxnet3_free_irqs(adapter);
->  				return err;
->  			}
-> +			if (adapter->share_intr != VMXNET3_INTR_BUDDYSHARE)
-> +				intr->irq_requested[vector] = true;
->  
->  			/* Handle the case where only 1 MSIx was allocated for
->  			 * all tx queues */
-> @@ -2620,8 +2626,10 @@ vmxnet3_request_irqs(struct vmxnet3_adapter *adapter)
->  					   "Failed to request irq for MSIX, "
->  					   "%s, error %d\n",
->  					   adapter->rx_queue[i].name, err);
-> +				vmxnet3_free_irqs(adapter);
->  				return err;
->  			}
-> +			intr->irq_requested[vector] = true;
->  
->  			adapter->rx_queue[i].comp_ring.intr_idx = vector++;
->  		}
-> @@ -2631,6 +2639,8 @@ vmxnet3_request_irqs(struct vmxnet3_adapter *adapter)
->  		err = request_irq(intr->msix_entries[vector].vector,
->  				  vmxnet3_msix_event, 0,
->  				  intr->event_msi_vector_name, adapter->netdev);
-> +		if (!err)
-> +			intr->irq_requested[vector] = true;
->  		intr->event_intr_idx = vector;
->  
->  	} else if (intr->type == VMXNET3_IT_MSI) {
-> @@ -2646,11 +2656,14 @@ vmxnet3_request_irqs(struct vmxnet3_adapter *adapter)
->  #ifdef CONFIG_PCI_MSI
->  	}
->  #endif
-> +	if (intr->type != VMXNET3_IT_MSIX && !err)
-> +		intr->irq_requested[0] = true;
->  	intr->num_intrs = vector + 1;
->  	if (err) {
->  		netdev_err(adapter->netdev,
->  			   "Failed to request irq (intr type:%d), error %d\n",
->  			   intr->type, err);
-> +		vmxnet3_free_irqs(adapter);
->  	} else {
->  		/* Number of rx queues will not change after this */
->  		for (i = 0; i < adapter->num_rx_queues; i++) {
-> @@ -2693,29 +2706,38 @@ vmxnet3_free_irqs(struct vmxnet3_adapter *adapter)
->  
->  		if (adapter->share_intr != VMXNET3_INTR_BUDDYSHARE) {
->  			for (i = 0; i < adapter->num_tx_queues; i++) {
-> -				free_irq(intr->msix_entries[vector++].vector,
-> -					 &(adapter->tx_queue[i]));
-> +				if (intr->irq_requested[vector])
-> +					free_irq(intr->msix_entries[vector].vector,
-> +						 &adapter->tx_queue[i]);
-> +				intr->irq_requested[vector++] = false;
->  				if (adapter->share_intr == VMXNET3_INTR_TXSHARE)
->  					break;
->  			}
->  		}
->  
->  		for (i = 0; i < adapter->num_rx_queues; i++) {
-> -			free_irq(intr->msix_entries[vector++].vector,
-> -				 &(adapter->rx_queue[i]));
-> +			if (intr->irq_requested[vector])
-> +				free_irq(intr->msix_entries[vector].vector,
-> +					 &adapter->rx_queue[i]);
-> +			intr->irq_requested[vector++] = false;
->  		}
->  
-> -		free_irq(intr->msix_entries[vector].vector,
-> -			 adapter->netdev);
-> +		if (intr->irq_requested[vector])
-> +			free_irq(intr->msix_entries[vector].vector, adapter->netdev);
-> +		intr->irq_requested[vector] = false;
->  		BUG_ON(vector >= intr->num_intrs);
->  		break;
->  	}
->  #endif
->  	case VMXNET3_IT_MSI:
-> -		free_irq(adapter->pdev->irq, adapter->netdev);
-> +		if (intr->irq_requested[0])
-> +			free_irq(adapter->pdev->irq, adapter->netdev);
-> +		intr->irq_requested[0] = false;
->  		break;
->  	case VMXNET3_IT_INTX:
-> -		free_irq(adapter->pdev->irq, adapter->netdev);
-> +		if (intr->irq_requested[0])
-> +			free_irq(adapter->pdev->irq, adapter->netdev);
-> +		intr->irq_requested[0] = false;
->  		break;
->  	default:
->  		BUG();
+With a veth interlink, there is no physical wire:
+TCP -> prp0-peer -> prp0-int (interlink) -> PRP
 
-> diff --git a/drivers/net/vmxnet3/vmxnet3_int.h b/drivers/net/vmxnet3/vmxnet3_int.h
-> index 9f24d66db..93c545eb6 100644
-> --- a/drivers/net/vmxnet3/vmxnet3_int.h
-> +++ b/drivers/net/vmxnet3/vmxnet3_int.h
-> @@ -362,6 +362,7 @@ struct vmxnet3_intr {
->  	enum vmxnet3_intr_type       type;	/* MSI-X, MSI, or INTx? */
->  	u8  num_intrs;			/* # of intr vectors */
->  	u8  event_intr_idx;		/* idx of the intr vector for event */
-> +	bool irq_requested[VMXNET3_LINUX_MAX_MSIX_VECT];
+A veth pair is simply an in-kernel memory pipe. When a large TCP skb 
+arrives at prp0-peer, veth does not trigger TSO or software segmentation,
+it simply hands over the intact skb pointer directly to prp0-int.
 
-This isn't the central point I want to make, but if you take
-this approach then perhaps a bitmap could be considered
-rather than an array of bool.
+Turning GRO off on prp0-int does not force prp0-peer to split it. I 
+confirmed this with ordinary TCP traffic in a VM, with GRO off on both 
+veth ends.
 
->  	u8  mod_levels[VMXNET3_LINUX_MAX_MSIX_VECT]; /* moderation level */
->  	char	event_msi_vector_name[IFNAMSIZ+17];
->  #ifdef CONFIG_PCI_MSI
-> -- 
-> 2.34.1
+Patch 3 splits that skb before PRP assigns sequence numbers and adds
+RCTs. Each resulting frame needs its own sequence number and RCT.
+Ordinary non-GSO skbs skip the segmentation path.
 
-The first main point I want to make is this: vmxnet3_free_irqs() tries to
-do too much.  It is is a long function with nested if conditions. And it
-doesn't follow the basic flow of keeping error paths in conditions and the
-main thread of execution outside of those conditions:
+In addition, if GRO disablement fails (e.g., buggy drivers or
+hardware-fixed GRO_HW that cannot be turned off via ethtool), Patch 3
+also acts as a fallback defense for these edge cases.
 
-	err = do_something_awesome();
-	if (err)
-		/* Oops, it wasn't so awesome after all */
-
-	/* Main thread of execution continues here */
-
-Probably a lot of clarity would be achieved by cleaning-up the above.
-But not without the risk of adding bugs :(
-
-The second point I want to make is that, as a wise person once told me,
-relying on generic clean-up-everything functions leads to errors. And while
-it feels like duplication, it's usually cleaner to simply unwind using a
-goto ladder.
-
-I think this is the case here. And I'd suggest an approach similar
-to the following (compile tested only; please check for out-by-one mistakes).
-
-diff --git a/drivers/net/vmxnet3/vmxnet3_drv.c b/drivers/net/vmxnet3/vmxnet3_drv.c
-index f8df83f9965d..618850ba7918 100644
---- a/drivers/net/vmxnet3/vmxnet3_drv.c
-+++ b/drivers/net/vmxnet3/vmxnet3_drv.c
-@@ -2562,6 +2562,8 @@ static int
- vmxnet3_request_irqs(struct vmxnet3_adapter *adapter)
- {
- 	struct vmxnet3_intr *intr = &adapter->intr;
-+	int num_msix_tx = 0;
-+	int num_msix_rx = 0;
- 	int err = 0, i;
- 	int vector = 0;
- 
-@@ -2576,17 +2578,17 @@ vmxnet3_request_irqs(struct vmxnet3_adapter *adapter)
- 					      vmxnet3_msix_tx, 0,
- 					      adapter->tx_queue[i].name,
- 					      &adapter->tx_queue[i]);
-+				if (err) {
-+					dev_err(&adapter->netdev->dev,
-+						"Failed to request irq for MSIX, %s, error %d\n",
-+						adapter->tx_queue[i].name, err);
-+					goto err_free_msix_tx;
-+				}
-+				num_msix_tx++;
- 			} else {
- 				sprintf(adapter->tx_queue[i].name, "%s-rxtx-%d",
- 					adapter->netdev->name, vector);
- 			}
--			if (err) {
--				dev_err(&adapter->netdev->dev,
--					"Failed to request irq for MSIX, %s, "
--					"error %d\n",
--					adapter->tx_queue[i].name, err);
--				return err;
--			}
- 
- 			/* Handle the case where only 1 MSIx was allocated for
- 			 * all tx queues */
-@@ -2620,8 +2622,9 @@ vmxnet3_request_irqs(struct vmxnet3_adapter *adapter)
- 					   "Failed to request irq for MSIX, "
- 					   "%s, error %d\n",
- 					   adapter->rx_queue[i].name, err);
--				return err;
-+				goto err_free_msix_rx;
- 			}
-+			num_msix_rx++;
- 
- 			adapter->rx_queue[i].comp_ring.intr_idx = vector++;
- 		}
-@@ -2676,6 +2679,16 @@ vmxnet3_request_irqs(struct vmxnet3_adapter *adapter)
- 	}
- 
- 	return err;
-+
-+err_free_msix_rx:
-+	for (i = 0; i < num_msix_rx; i++)
-+		free_irq(intr->msix_entries[vector++].vector,
-+			 &(adapter->rx_queue[i]));
-+err_free_msix_tx:
-+	for (i = 0; i < num_msix_tx; i++)
-+		free_irq(intr->msix_entries[vector++].vector,
-+			 &(adapter->tx_queue[i]));
-+	return err;
- }
- 
- 
+--
+Xin
