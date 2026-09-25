@@ -1,62 +1,78 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA3A218E025
-	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 18:08:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F130439F9E
+	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 18:23:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790359694; cv=none; b=ksM98rP2ng/JCXp7Tu5QhbQktLXw+BFRX1BXwc9vcaeH+7eG2NjQ4MK/O03boIkr70RtH1EWn5xjHoPWyqzugESG14wqudXKkmxjySLZSxDkONlf0OhXsDghvEzxh8ZyWaUdFj2MmPdZMaEOw4NfVsDiriXZMBrdJydq2LauObQ=
+	t=1790360617; cv=none; b=Z3eKieTHn7U/RgHnH0+/05pyM7zRrraTRpid62rVoGxzuC6Io8p3gEHBc0S6eidPTH8sHCy1DBBlgRup21nJNZul6Xs+6DJ0CRThQxSYROD+xmYDEPpSppDsRzNs3j67klKSRaTfScnXWvR6zmizFP8N1u6jTDAGV4kbZFBmKZ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790359694; c=relaxed/simple;
-	bh=YWAleQXRs2MJb3aPe0X/tf0CkJQOfkPUjqBznQefgME=;
+	s=arc-20240116; t=1790360617; c=relaxed/simple;
+	bh=/RXIEdBfSd8D6osEYZ1YidMBoUc4bIY9Xc3UHnj34Zo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ur4ZY/as13hCb/pTg8wnPULcyZTG5yxjREXYXKTZNwF6qsC3bDlkNTvZ8+ByakPJ68flb1/4dqnDY+Jcfg694ESkjgfDUAzdmEyZXe1fzh6kNALlXLZGv0B1gM2Yxw3iTb8DItSJM+dd61O1YBXz5AwNaKxegGmX+1sQi6nE8b8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grische.xyz; spf=pass smtp.mailfrom=grische.xyz; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grische.xyz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grische.xyz
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d37b6so6905295e9.0
-        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 11:08:12 -0700 (PDT)
+	 MIME-Version; b=Vo+e6aDIv8bmzt7KvF3AzlUHBsm2okzxSArFkNWbaFgkt8FhGCvsXEGTA62TbzjyqVcUGa719RV5eJFXqkkeWPh1wC0Ji6X179IbDBHWB7v8IxCgX1Vk2PZbltMgXUeZ+8h9SE8IZSnDeu9EBZRFtw2dmTjLZs5/yfSR/ResYe8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=inspiral.be; spf=none smtp.mailfrom=inspiral.be; dkim=pass (2048-bit key) header.d=inspiral-be.20251104.gappssmtp.com header.i=@inspiral-be.20251104.gappssmtp.com header.b=JSty6xIM; arc=none smtp.client-ip=74.125.225.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=inspiral.be
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=inspiral.be
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=inspiral-be.20251104.gappssmtp.com header.i=@inspiral-be.20251104.gappssmtp.com header.b="JSty6xIM"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-488780459e2so1201385f8f.2
+        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 11:23:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=inspiral-be.20251104.gappssmtp.com; s=20251104; t=1790360614; x=1790965414; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YGzeXfDrgiYqRCtYgTkGIXW4Hfhn589xMj/GX/7sOpA=;
+        b=JSty6xIM4ZlRXsSf1eqXB3AhwyAGpSJ5ySrIS9PFO10nIyhSY0jYspFbN8UUri9JvY
+         yvyoB4XS1LYXD6Geg+yqem6WD2RJQ0Ei93MbSNgginz78F1UjXyr9+XGoAi5wvrg9mOR
+         QjTLDmyQU0yh7DdzknFdkj8B8SCTvjraWGvoWTeDHEd3jR4pMv48I8fQM2lR9qlkvF/B
+         KmB6f1bLlbzCm85aij8S+1y7FguZjy8oLugghBY3+v2ThuvDwF74DKsvUJbiXNV60FUZ
+         lQQdLd50Ec4lmGkUqruLVu2iU2eLv4VYz0OTnxSCaJugrVDxuu+vr6echnyGDiFfkB/+
+         m4Yw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790359691; x=1790964491;
+        d=1e100.net; s=20260707; t=1790360614; x=1790965414;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EeBaURt4JWv0bo+NgSZ7c7BxLfPQXBf65HraIwaxvcI=;
-        b=pzir/pseB8OxD/v74k9NtjV/sLMPZA10U8DmsNIvgrkivluEon3+X0dKl3rUHwf0W0
-         cmLEBXJ9zD/yIdBFRB0nMWRnoRwPxegvgvfXmLJrYzksVp9xlVhMODNOJQV4ZLcK4rck
-         RQK9EcAzuhS03oGMeUW2zKTje3Z2uMRWc3PULQNcvKrMmmUdC7VGSlQq6delD0huTozM
-         8cn8raP8P/uhqsHpB236QH415DAuacN53XJDoesLvEi8EnK3/ai0HP30CJTdMfDIrtCQ
-         tVvE8HN3RV35f4TOzT9nKa15i3YDjjf+49h97CHqaK6nNOCHetWTgtT0yN3pXtAackRl
-         fFgQ==
-X-Gm-Message-State: AFuF++nQ2O85B6R4C/0XA4Nbl9jI2ihTZpIroAKcNymQpjCeEkME/FWh
-	0r9WFKS0h9drlvqJsGcFiLeNBUndpd7QVN90lLqPWKEDa29ktRYjVv3JSEiHX+iTfhJhElDGcMn
-	96c8uUP2Zog==
-X-Gm-Gg: AYBFou1jr0vBneHwqh2cA8lZ0svrJRW0dA0x5RkzpdQW2kK74x7/rlsUvIUKTy7CQLs
-	QMJgYU4rX7R6xBK0OtoWwoQ/jwaZEZCmjW+/iJBVKEmqVy5fwCXTwHIbNOdpxeOdiRzuarZRdaq
-	R0yHBwP8BLAn64EpD9qDeUpKWnhATxwaMvG6Lb//7BnLIsGXD28goNcpbsxoVSlBOpg54tYPOW4
-	/KSK2M+e267ggsUnLAulWNRgYGL/ntwGNoiHhaVadumMuQFURSWismXEcVwjUYs5u1hAy/oMgx7
-	1kVUodykd/QWKWYSWAAyJPisP3O2v6+GY1dH3FmJgIo9swT70/RV6kT3J9qiQCsbO2ccQ+g/uEr
-	y9qY7XNDac1rPC2TV+tuT9cRm5Lolids39Pj+95x6mXwywW0DGTFZL5Tm/5ilXKgOX/xcZCTrjo
-	4EB0jeCIFID7HzCipvsuLE6fHdjUS6UJu8jS/PSCSiUxfAVkY/p5ns+ayxDRuHFF72d7o=
-X-Received: by 2002:a05:600c:1daa:b0:49f:ce78:3568 with SMTP id 5b1f17b1804b1-49fe66fa94fmr101704765e9.25.1790359690828;
-        Fri, 25 Sep 2026 11:08:10 -0700 (PDT)
-Received: from lake ([2a02:810d:d09:1b65:58b8:6ca9:69ba:902d])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff264723csm66272715e9.4.2026.09.25.11.08.10
+        bh=YGzeXfDrgiYqRCtYgTkGIXW4Hfhn589xMj/GX/7sOpA=;
+        b=BCmr7hHIlaFuTKyaWs4Z/XMh9UJKaMUX0UgA2t6vFSiJjS7y6TZ1RZ7dmZJuV8mGaK
+         XBmE9Q7vzZAyKaZb2s6bXsYjYPZXYNcPaXsCprkngBjw4hwVLGAoCKk0JawEx51Gb79m
+         O+vtt1j3tXcmnd81IR9EnW2AJgHdPKvNTWstfvYizvvT8rWAlfZA6JCbMS5JMvGtnGue
+         q7RtMQXnzpCLI0kVQBsW3oIjc4NL+Lno09RVqmu0Z8Z/RbGjxcfCxZ6aavFO4mGB2DPG
+         YNcV+st1U94UEEqjTAzQ+UmT4sSoD8pa7KFTreMKRiAXu2bQFYg1eJlucr+PwpsO/joq
+         9Rlw==
+X-Forwarded-Encrypted: i=1; AKwUvBzYARf2YSK7YIlVx+WQkYNPDG5RbJ7dSIJ9LxmwrAyQn60GS7oCKmcANXDheKS83FM0A+3HuTI=@vger.kernel.org
+X-Gm-Message-State: AFuF++m+RYNQPcqKPVQj7vs6X0iMAoi/qAD4Rw/X/PRxCEj4Avbgwrwk
+	MGthwC9jOvcKS769Nvez8WCeylyhm1dJWrnAHubj6B6ni4KGmYCZLn/Vb1dzhevdc4tdaqRm1Rx
+	lRbA/STA=
+X-Gm-Gg: AYBFou1HtHkz7D8xMcFepbusDd0Coaza3Zf9E4QoAiOU5jK5raV2GjjSVkJyAYl+B2F
+	PiBnmwScm2Ri8cELHsTFwD+aNMCy4dKgJkmqGeIPvWS7kgFW+TzpiZNoDZsXH2pZjfp2EVXhySn
+	iQrCf8PfH+SYzKomQipg5kKjzi89c+b61xqqaO04cdsSqaMcRsrMzeMWWfGtrL3qdJCwd8ps0dS
+	5VJEJHdihK7vPb8nynYA9nzrWUCt9nxnuV0M6pU3NjDnf9ASIRsO1FyGg4xufALUSQJqgQUkQKZ
+	X1nRwy9J7uQs2LBrK8chuqid0xdjVJ4sHsxvcM5rWqXMA93YdSLtGqyrJ0bqTCIPlH6L7pV6Glh
+	ZNvUUuhineNtEnRm/Nt8uzp0qo+UHkb861Oh3tL1i2zOz4TAIiwMFpCDaRAYiJYz6mRcW/D8pvW
+	WeWHrlibqpsIgp6UpEdVo26S+h6LUthFYspI5zuB9hHHhpDdgdXVIyI3IqBgTZiKUKjqHGj9zTZ
+	zdi4o/UI3IHrSwv42GOG5RWgAJJgFlM7t7QgVDAwwkODxQY
+X-Received: by 2002:a05:600c:6207:b0:49c:fc6c:be13 with SMTP id 5b1f17b1804b1-49fe66ff146mr124005245e9.25.1790360613975;
+        Fri, 25 Sep 2026 11:23:33 -0700 (PDT)
+Received: from vger.localdomain (178-119-186-126.access.telenet.be. [178.119.186.126])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe667ae2fsm165253895e9.13.2026.09.25.11.23.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 11:08:10 -0700 (PDT)
-From: Grische <opensource@grische.xyz>
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org,
-	Guillaume Nault <gnault@redhat.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Eric Dumazet <edumazet@google.com>
-Subject: Re: [PATCH 6.6.y 4/5] vxlan: Handle stats using NETDEV_PCPU_STAT_DSTATS.
-Date: Fri, 25 Sep 2026 20:08:09 +0200
-Message-ID: <20260925180809.603571-1-opensource@grische.xyz>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260812091127.1349673-4-sashal@kernel.org>
-References: <20260812091127.1349673-4-sashal@kernel.org>
+        Fri, 25 Sep 2026 11:23:31 -0700 (PDT)
+From: Tom Verdonck <tom.verdonck@inspiral.be>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Tom Verdonck <tom.verdonck@inspiral.be>,
+	stable@vger.kernel.org,
+	Nishanth Menon <nm@ti.com>
+Subject: [PATCH 1/3] hwmon: (tmp102) Fix jiffies wraparound in conversion-ready check
+Date: Fri, 25 Sep 2026 20:23:22 +0200
+Message-ID: <2952f070f82913aea96eec25d28008d3b9058656.1790358356.git.tom.verdonck@inspiral.be>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <cover.1790358356.git.tom.verdonck@inspiral.be>
+References: <cover.1790358356.git.tom.verdonck@inspiral.be>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -64,30 +80,73 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Message-ID: <20260925182322.UwS83UF1BlZH8Lh0MAGWKhijgQ4PFwody2IQAPzOgno@z>
 
-Hi Sasha,
+tmp102 records a one-shot deadline in ->ready_time at probe (and resume)
+and, on every temperature read, refuses the read with -EAGAIN while
+time_before(jiffies, ready_time) is true, in order to skip the first
+~35 ms conversion.
 
-The backport went into 6.6.153 together with "net: harmonize tstats and
-dstats", but without the later fix for the same conversion,
+->ready_time is an unsigned long compared with time_before(), whose
+signed difference is only meaningful while the two values are within
+LONG_MAX jiffies of each other. Because ->ready_time is set once and
+never refreshed, jiffies keeps advancing away from it, and after 2^31
+jiffies the difference flips sign. On a 32-bit HZ=100 kernel that
+happens ~248.5 days after boot: time_before() then permanently reports
+"not ready" and the driver returns -EAGAIN on every read, without ever
+touching the sensor, until the next reboot.
 
-  8431c602f551 ("ip_tunnel: adapt iptunnel_xmit_stats() to NETDEV_PCPU_STAT_DSTATS")
+Store the deadline as a 64-bit jiffies value and compare it with
+get_jiffies_64()/time_before64(), which does not wrap in any practical
+uptime.
 
-which went to 6.12.105, 6.18.50 and 6.19.10 and is tracked as
-CVE-2026-23459.
+Fixes: 3d8f7a89a197 ("hwmon: (tmp102) Improve handling of initial read delay")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tom Verdonck <tom.verdonck@inspiral.be>
+---
+ drivers/hwmon/tmp102.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-Without it, iptunnel_xmit_stats() keeps bumping the tstats syncp,
-which overlaps rx_drops in struct pcpu_dstats, so VXLAN's rx_dropped is
-corrupted on 32-bit kernels.
+diff --git a/drivers/hwmon/tmp102.c b/drivers/hwmon/tmp102.c
+index 50a8b050d8da..8c8463ddb6c4 100644
+--- a/drivers/hwmon/tmp102.c
++++ b/drivers/hwmon/tmp102.c
+@@ -58,7 +58,7 @@ struct tmp102 {
+ 	const char *label;
+ 	struct regmap *regmap;
+ 	u16 config_orig;
+-	unsigned long ready_time;
++	u64 ready_time;
+ 	u16 sample_time;
+ };
+ 
+@@ -106,7 +106,7 @@ static int tmp102_read_temp(struct device *dev, u32 attr, long *val)
+ 	switch (attr) {
+ 	case hwmon_temp_input:
+ 		/* Is it too early to return a conversion ? */
+-		if (time_before(jiffies, tmp102->ready_time)) {
++		if (time_before64(get_jiffies_64(), tmp102->ready_time)) {
+ 			dev_dbg(dev, "%s: Conversion not ready yet..\n", __func__);
+ 			return -EAGAIN;
+ 		}
+@@ -354,7 +354,7 @@ static int tmp102_probe(struct i2c_client *client)
+ 	 * Mark that we are not ready with data until the first
+ 	 * conversion is complete
+ 	 */
+-	tmp102->ready_time = jiffies + msecs_to_jiffies(CONVERSION_TIME_MS);
++	tmp102->ready_time = get_jiffies_64() + msecs_to_jiffies(CONVERSION_TIME_MS);
+ 
+ 	hwmon_dev = devm_hwmon_device_register_with_info(dev, client->name,
+ 							 tmp102,
+@@ -387,7 +387,7 @@ static int tmp102_resume(struct device *dev)
+ 	err = regmap_update_bits(tmp102->regmap, TMP102_CONF_REG,
+ 				 TMP102_CONF_SD, 0);
+ 
+-	tmp102->ready_time = jiffies + msecs_to_jiffies(CONVERSION_TIME_MS);
++	tmp102->ready_time = get_jiffies_64() + msecs_to_jiffies(CONVERSION_TIME_MS);
+ 
+ 	return err;
+ }
+-- 
+2.53.0
 
-The netdevice.h hunk does not cleanly apply to 6.6, as 6.6 has no
-net_device_read_txrx group, and it only moves pcpu_stat_type.
-
-The ip_tunnels.h hunk doesn't seem to work directly in 6.6 either. In
-6.6, wireguard, ip_tunnel, ip6_tunnel, ip6_vti, sit, geneve, bareudp,
-gtp and amt still allocate dev->tstats themselves and leave
-pcpu_stat_type unset.
-
-I can try to send a 6.6.y backport with the above in mind if that's easier.
-
-Cheers,
-Grische
