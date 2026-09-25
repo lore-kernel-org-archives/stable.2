@@ -1,144 +1,250 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3E724EA398
-	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 20:12:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 644BD40BCB8;
+	Fri, 25 Sep 2026 20:20:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790367135; cv=none; b=tmLqTmUg6WvHIp/m7/lGCDna3bnquDEHozLkS5TgUQeH4QVYHs7NPzn4k8pHYHQRMMNAJMl3S97gn+7BvW+ZQd8LiqvspAqxI5Jdri18sm544euJQteVdlfrvlo/qUzA7tK54z+aSk3hjRiCU+8AKacneU+lLRE+Y3QEVajr5NI=
+	t=1790367661; cv=none; b=bxASarUXhVB2QHJ0IrRDWtR8kZQsLcDzIxpkgE5ScG5X7lHDagwFLqh9xWN+gpOiu3029NSXvV0JbLkoE2KZn5hilkPi7m8t4wwflLUP/4p1muZP0FC4qooC5rdt6HH7DZr/OVviogDFuxf6hEphZ3IgkrroG2h0L+D1oOKoBEQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790367135; c=relaxed/simple;
-	bh=002S8vnOMFAFJ6nMl4iWnh77cSjc+g9V5FRVgu3Kd9M=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=dHsNkFOHZghcy9DCm9NXoYKiEvW22PbcKZPn+7qlD+yzVL97HxOlcNkINk0skAj9dWVpFnxlpzJhIU6SmEJHeWrZE9suZaczUsy8unNYo356SmDVqunr8twYsffkcqvZ4RteZtajwIy52fqbe78w0hQvMXxZEVSym7Z3An65yEg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P43pVqON; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790367661; c=relaxed/simple;
+	bh=tAQBxFgeNXRYWDnVw3qPWSdDudkU5b4E58qID2FP0sc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=r+/Aa+jpCJ4xs/Zzc9njZqAAZWDAH3Yi+jC/sK5xY/JF5vErb1ujf1+X6RLLbtRpr3OZMn71HV9NVxHbJSjC1zgl6QRoCdNpnViM2EaU/PUtY6H3LTcx+2+KJfigjLELXCoyVqubi6Er6OS+yg6nerPARG49NrQjUFs3u2jzEBM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=rSfzWamQ; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P43pVqON"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEBA31F0089E
-	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 20:12:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790367126;
-	bh=NN+opJ6O2i01W0leRwrhsq0wiHd+Q/Ia/9/Q0jKm2jo=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=P43pVqON16RdSxxedGDaoYJRXM0lPKYOXPyFcPO6QGJ7o5qjzmFPr0VwvOOveyt2X
-	 zR4oF8a36+p76I2Lqf5k2JR+9TsEP3AzLYb7aEGU0UTf0syDHHm+HDyCcROptndioo
-	 faiWzEGv7C3PSA3m7IoRJbN7txH9OPm0unPs+JX+s3zkhnLkz0TTQdaMhRLAcblzvm
-	 sOewHWYQ5dMB/SkLg8Lxo+pmrrkhscHh00vCpQ7oNVxI8eU9TmIkZCiG9228jDt0YQ
-	 Dd3vcAw+UTPz8QwGMLFpg00bNlj+cv1TqcxvwQ+jBBQLjooytQ7nyROmMwp3r5UZ1D
-	 kl6d5+0bgIawA==
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a5b2864f1cso10815871fa.3
-        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 13:12:06 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwmO9Vtyz8NV+QAzrfJ92DPTLQdCqWpKGVbRX6wD201m7ztxrygsQPnG1x6mkCGPsZCIDBNg3g=@vger.kernel.org
-X-Gm-Message-State: AFuF++ntcqz7qPV7AoYJLDPpiumlR0SQdQieQkQMUDdQqqsLtzdKGBiO
-	kqVymdJ9GAR7deeZG6qCJ1GmvUTcQRH25bkjR70M0bYkZ/IsV1YepEPF0WCpnWOCFZifP55/0nm
-	n4pLhHY70uoW7ajknusnRRXtNBuaiXz0=
-X-Received: by 2002:a05:6512:10cf:b0:5b6:1a7c:fd82 with SMTP id
- 2adb3069b0e04-5b8df0d7b78mr2515060e87.40.1790367125182; Fri, 25 Sep 2026
- 13:12:05 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="rSfzWamQ"
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id C6B1B5340215;
+	Fri, 25 Sep 2026 22:20:56 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1790367656;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=PgOgOgX/53l72xX/VCoPzjEGh8tHz10dY4VffJmYMnQ=;
+	b=rSfzWamQPk8r0LfhDfHY11UnKlZihsBnF7ExdfD+7jEEapvq3lZgcCaLZcSdCpR6JO5DwU
+	E4HgGUGOCGvi/1QBYn0JUkWIEVRCAcQkbnKy571y5aK1CowtpM1z6puja4rIqxiAMi/nve
+	LzVML0cPLkjTRTjgDAiOYAfzu4CrS+0=
+Message-ID: <b684b88b-55a6-41a9-a4da-3bca33550164@ixit.cz>
+Date: Fri, 25 Sep 2026 22:20:56 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260923072730.487900-1-fanwu01@zju.edu.cn>
-In-Reply-To: <20260923072730.487900-1-fanwu01@zju.edu.cn>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Fri, 25 Sep 2026 22:10:26 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0i6W1QX97vuNvenqQ3QDv-fzStCff3LtyJTXWnheTCRSQ@mail.gmail.com>
-X-Gm-Features: AclHuK-Wj2SzVKECYTkqnGCHaP1RVehr5DmH6bxqZpoFFJ9I8SsW-EPjTvEB7GM
-Message-ID: <CAJZ5v0i6W1QX97vuNvenqQ3QDv-fzStCff3LtyJTXWnheTCRSQ@mail.gmail.com>
-Subject: Re: [PATCH] thermal: intel: int340x: Fix use-after-free in proc_thermal_pci
-To: Fan Wu <fanwu01@zju.edu.cn>
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@linaro.org>, 
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, stable@vger.kernel.org, 
-	Song Li <songl@zju.edu.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 1/4] Input: stmfts - wait for controller ready after
+ reset
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Henrik Rydberg <rydberg@bitmath.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Petr Hodina <petr.hodina@protonmail.com>, linux-input@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260907-stmfts5-v7-0-4a53381cd038@ixit.cz>
+ <20260907-stmfts5-v7-1-4a53381cd038@ixit.cz> <arbJrK9zfoO1dGzy@google.com>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <arbJrK9zfoO1dGzy@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 23, 2026 at 9:28=E2=80=AFAM Fan Wu <fanwu01@zju.edu.cn> wrote:
->
-> proc_thermal_pci_remove() cancels pci_info->work before disabling the
-> interrupt sources that schedule it. A threshold IRQ which arrives after
-> the cancel but before the THRES_0 and INT_ENABLE_0 MMIO mask makes
-> proc_thermal_irq_handler() reschedule the work, so
-> proc_thermal_threshold_work_fn() runs after devm cleanup has freed
-> pci_info and dereferences pci_info->tzone and proc_priv->mmio_base. The
-> shared IRQ is never freed in remove(), which widens the window, and the
-> probe error paths never cancel the work either.
->
-> Fix this by cutting off the producers before draining: mask the THRES_0
-> and INT_ENABLE_0 registers, free the MSI interrupts or the shared IRQ,
-> and only then cancel the delayed work. The probe error paths cancel the
-> work before the thermal zone is unregistered.
->
-> The work function re-enables the INT_ENABLE_0 bit, but the IRQs are
-> already freed when it is cancelled and THRES_0 stays cleared, so nothing
-> can schedule the work again.
->
-> This issue was found by an in-house static analysis tool.
->
-> Fixes: acd65d5d1cf4 ("thermal/drivers/int340x/processor_thermal: Add PCI =
-MMIO based thermal driver")
-> Cc: stable@vger.kernel.org
-> Co-developed-by: Song Li <songl@zju.edu.cn>
-> Signed-off-by: Song Li <songl@zju.edu.cn>
-> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+On 25/09/2026 21:27, Dmitry Torokhov wrote:
+> Hi David,
+> 
+> On Mon, Sep 07, 2026 at 12:50:19PM +0200, David Heidelberg via B4 Relay wrote:
+>>   
+>> -static void stmfts_reset(struct stmfts_data *sdata)
+>> +static int stmfts_reset(struct stmfts_data *sdata)
+>>   {
+>>   	gpiod_set_value_cansleep(sdata->reset_gpio, 1);
+>>   	msleep(20);
+>>   
+>> +	reinit_completion(&sdata->cmd_done);
+>>   	gpiod_set_value_cansleep(sdata->reset_gpio, 0);
+>> -	msleep(50);
+>> +	enable_irq(sdata->client->irq);
+>> +
+>> +	if (!wait_for_completion_timeout(&sdata->cmd_done,
+>> +					 msecs_to_jiffies(STMFTS_RESET_TIMEOUT_MS)))
+>> +		return -ETIMEDOUT;
+>> +
+>> +	return 0;
+>>   }
+>>   
+>>   static int stmfts_configure(struct stmfts_data *sdata)
+>>   {
+>>   	int err;
+>>   
+>>   	err = stmfts_command(sdata, STMFTS_SYSTEM_RESET);
+>>   	if (err)
+>> @@ -593,42 +602,47 @@ static int stmfts_power_on(struct stmfts_data *sdata)
+>>   		return err;
+>>   
+>>   	/*
+>>   	 * The datasheet does not specify the power on time, but considering
+>>   	 * that the reset time is < 10ms, I sleep 20ms to be sure
+>>   	 */
+>>   	msleep(20);
+>>   
+>> -	if (sdata->reset_gpio)
+>> -		stmfts_reset(sdata);
+>> +	if (sdata->reset_gpio) {
+>> +		err = stmfts_reset(sdata);
+>> +		if (err) {
+>> +			dev_err(&sdata->client->dev,
+>> +				"controller not ready after reset: %d\n", err);
+>> +			goto err_disable_irq;
+>> +		}
+>> +	} else {
+>> +		enable_irq(sdata->client->irq);
+>> +		msleep(50);
+>> +	}
+>>   
+>>   	err = stmfts_read_system_info(sdata);
+>>   	if (err)
+>> -		goto err_disable_regulators;
+>> -
+>> -	enable_irq(sdata->client->irq);
+>> -
+>> -	msleep(50);
+>> +		goto err_disable_irq;
+> 
+> 
+> I think the logic is becoming quite convoluted here, and factored out
+> stmfts_reset() does not help. How about we make it look like this:
+> 
+> static int stmfts_power_on(struct stmfts_data *sdata)
+> {
+> 	int err;
+> 
+> 	if (sdata->reset_gpio) {
+> 		gpiod_set_value_cansleep(sdata->reset_gpio, 1);
+> 		/* a short delay before powering up */
+> 		usleep_range(1000, 1500);
+> 	}
+> 
+> 	err = regulator_bulk_enable(ARRAY_SIZE(stmfts_supplies),
+> 				    sdata->supplies);
+> 	if (err)
+> 		return err;
+> 
+> 	if (sdata->reset_gpio) {
+> 		reinit_completion(&sdata->cmd_done);
+> 
+> 		/*
+> 		 * The datasheet does not specify the power on time, but
+> 		 * considering that the reset time is < 10ms, sleep for 20ms
+> 		 * to be sure before releasing reset line.
+> 		 */
+> 		msleep(20);
+> 		gpiod_set_value_cansleep(sdata->reset_gpio, 0);
+> 
+> 		enable_irq(sdata->client->irq);
+> 
+> 		if (!wait_for_completion_timeout(&sdata->cmd_done,
+> 						 msecs_to_jiffies(STMFTS_RESET_TIMEOUT_MS))) {
+> 			dev_err(&sdata->client->dev, "controller not ready after reset");
+> 			err = -ETIMEDOUT;
+> 			goto err_disable_irq;
+> 		}
+> 	} else {
+> 		/*
+> 		 * We do not know the real controller state (was it powered
+> 		 * off or reset). Let's hope that this is enough time to
+> 		 * initialize.
+> 		 */
+> 		msleep(70);
+> 
+> 		enable_irq(sdata->client->irq);
+> 	}
+> 
+> 	err = sdata->ops->configure(sdata);
+> 	if (err)
+> 		goto err_disable_irq;
+> 
+> 	/*
+> 	 * At this point no one is using the touchscreen
+> 	 * and I don't really care about the return value
+> 	 */
+> 	(void)i2c_smbus_write_byte(sdata->client, STMFTS_SLEEP_IN);
+> 
+> 	return 0;
+> 
+> err_disable_irq:
+> 	disable_irq(sdata->client->irq);
+> 
+> 	regulator_bulk_disable(ARRAY_SIZE(stmfts_supplies), sdata->supplies);
+> 	return err;
+> }
 
-Please see Sashiko's feedback on this:
+Thanks, it seems to be better (thou would be nicer if we didn't have two 
+branches, but... what we can do).
 
-https://sashiko.dev/#/patchset/20260923072730.487900-1-fanwu01%40zju.edu.cn
+I added you as Co-developed-by :)
 
-and let me know what you think.
+David
 
-Thanks!
+> 
+> 
+> Thanks.
+> 
 
-> ---
->  .../processor_thermal_device_pci.c                | 10 ++++++++--
->  1 file changed, 8 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/thermal/intel/int340x_thermal/processor_thermal_devi=
-ce_pci.c b/drivers/thermal/intel/int340x_thermal/processor_thermal_device_p=
-ci.c
-> index c693d93..1856e76 100644
-> --- a/drivers/thermal/intel/int340x_thermal/processor_thermal_device_pci.=
-c
-> +++ b/drivers/thermal/intel/int340x_thermal/processor_thermal_device_pci.=
-c
-> @@ -409,7 +409,10 @@ static int proc_thermal_pci_probe(struct pci_dev *pd=
-ev, const struct pci_device_
->  err_free_vectors:
->         if (msi_irq)
->                 proc_thermal_free_msi(pdev, pci_info);
-> +       else
-> +               devm_free_irq(&pdev->dev, pdev->irq, pci_info);
->  err_ret_tzone:
-> +       cancel_delayed_work_sync(&pci_info->work);
->         thermal_zone_device_unregister(pci_info->tzone);
->  err_del_legacy:
->         if (!pci_info->no_legacy)
-> @@ -424,13 +427,16 @@ static void proc_thermal_pci_remove(struct pci_dev =
-*pdev)
->         struct proc_thermal_device *proc_priv =3D pci_get_drvdata(pdev);
->         struct proc_thermal_pci *pci_info =3D proc_priv->priv_data;
->
-> -       cancel_delayed_work_sync(&pci_info->work);
-> -
->         proc_thermal_mmio_write(pci_info, PROC_THERMAL_MMIO_THRES_0, 0);
->         proc_thermal_mmio_write(pci_info, PROC_THERMAL_MMIO_INT_ENABLE_0,=
- 0);
->
->         if (msi_irq)
->                 proc_thermal_free_msi(pdev, pci_info);
-> +       else
-> +               devm_free_irq(&pdev->dev, pdev->irq, pci_info);
-> +
-> +       /* Cancel after the IRQs are freed, or the handler may reschedule=
- it. */
-> +       cancel_delayed_work_sync(&pci_info->work);
->
->         thermal_zone_device_unregister(pci_info->tzone);
->         proc_thermal_mmio_remove(pdev, pci_info->proc_priv);
->
