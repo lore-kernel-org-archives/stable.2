@@ -1,62 +1,66 @@
 Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com [205.220.165.32])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E4FD48382E;
-	Fri, 25 Sep 2026 12:56:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E5AF49BD96;
+	Fri, 25 Sep 2026 12:56:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.165.32
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790340966; cv=none; b=e0J0EG0CDDI3FDrAnofUyCnNYlOsg+SIqP6T+9QPXQe/4LeczNRw4ol6QkPFMNJlbWv5fUqA0qSKm6WqLnFD9PjXzHldEPRLLcHcqDWKRCd/It23NmQzURtd7qoAPe4P1tP54RZcFnf2rZJg/tP5Ey00DRJtHCSZ1XrYPXx6Ujc=
+	t=1790340967; cv=none; b=UZO5/1af82gmG9siSya/yhrsnRFkg0UV73It6R6k8TdBx+ENo9kw/8aMkphygMBt4ATFVGi2fwr3gdgKjJWrqCyonxH4Qa9wceQufhVR73QsyTo/lWmaejDLssey7uhZpja2F4yCGFpMz1NBiwYNelm//Wc6+5YzYKyWt163Xts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790340966; c=relaxed/simple;
-	bh=D096dryHKrWj3LBepXAlWMyewApQY5jzztYlMxINOnk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XFBljUbfS+BBIaUhyCDCTgC+vqklPFJAPTfpibFjtBUouje26rgI1XCpvxzTYEGqlnx2e8ZgYPuEWx52K4jkWrppV4XwWO21P9b5uqyau9ZqXrcZHxzFS2ytxQdxe2QkJYup6zKvXqA9Ogs4jImTlIqZyMZnjIgRBwpv2EU7K/k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=GGyrdl0f; arc=none smtp.client-ip=205.220.165.32
+	s=arc-20240116; t=1790340967; c=relaxed/simple;
+	bh=M5ab6c+p8U71b/A4WXpDIxiZbFTTgzocIpJjVcjRFgw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ffrFIl8zAKOcpBWYfGsMwszCpMD7RimatdxhPMx8J0upG6LcOWcHjnSMsd5Jk8eRf1wvh7HbKPEibtDpmEKhXN/vr7JXiHNioEfIy7N1K9wmTXbJpp2dl4aZLU/bZFz2lbILNJ1GdVUGMoUc3nZMQez6hsxkkXa7yQVj6HSamrc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=K0x/Cwmo; arc=none smtp.client-ip=205.220.165.32
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="GGyrdl0f"
-Received: from pps.filterd (m0246629.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68OLMmIA1513496;
-	Fri, 25 Sep 2026 12:55:50 GMT
+	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="K0x/Cwmo"
+Received: from pps.filterd (m0246617.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68OLNAMk1261706;
+	Fri, 25 Sep 2026 12:55:53 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=corp-2025-04-25; bh=mUg5BDojxXm0bkgUyXGo25cg/QJGZ
-	Pwsw9qxyTyKxI0=; b=GGyrdl0fLi8eBX+apkslI+PMm/sGujIfUSNHu4y5Me3Lt
-	kPrPPt57Zwm3JpZRBJh1vp8zMdIme1ILgZLYvEBJWgCo0z+Dj/ilEESb3msrVR8Z
-	tjhhNYH2BI9tCZZT4es1mKdAi5Y76hT9S6DuS6vJQCrS1KE+MnWQ+DSmym1Y12Sg
-	/fR0VQEDh6kxFmHQVK2PhXLslNVtgk9dwMatZz6nRr1eqtzc1yyjJKIgjQY5wKJq
-	LNb93KAD9FJAZkDfZYhU7uapKvj0b8iSMRBN8zSRpn2j82sOKbFuQPOQ86ePSecM
-	uFMQt2Mdf9HS5KrjKdluJdAgfY/SnhaZT2XaKt5pQ==
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=corp-2025-04-25; bh=1Uydq
+	wKWdiCfTSeBY06yakwPq3SOJpnWGQ1hziRUXVk=; b=K0x/CwmoSftU9fidqxDci
+	rk1mY0scaOQerIGqKMMjHpO6rvt7YA7W3Mj5iKgWnEbavZnxKiCAVhyuHsSjZFFM
+	NZHKE0Cff3NLurjh3PKLnlmQP7ZMjTViCvibWs0LDhmwuQnp3E/hL/QJjnae65wW
+	B/f/DiUWlNcl9IYoga5CC4Z5/nInBrKcRypBIWLUyvqW/HosDEhX4k2Pm9Ytl1Ep
+	K/9ff5qc148dxLviASOSmDyc30VerCCwaIZ5oF/yX1hwIPVvD3ed5DHMJ7fa4bNw
+	15gt7IIRW/PUy+YJbSNxUuVrYf5cG3JfBwAOVZao2ZpdjYc5ZmBnkyNt5ttHZm+b
+	A==
 Received: from phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (phxpaimrmta02.appoci.oracle.com [147.154.114.232])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4gsk2d98bp-1
+	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4gsk2199f5-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 25 Sep 2026 12:55:50 +0000 (GMT)
+	Fri, 25 Sep 2026 12:55:52 +0000 (GMT)
 Received: from pps.filterd (phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
-	by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 68PCo1L3039573;
-	Fri, 25 Sep 2026 12:55:49 GMT
+	by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 68PCo3rE039769;
+	Fri, 25 Sep 2026 12:55:52 GMT
 Received: from pps.reinject (localhost [127.0.0.1])
-	by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id 4gtegq8x7q-1
+	by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id 4gtegq8x8x-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 25 Sep 2026 12:55:49 +0000 (GMT)
+	Fri, 25 Sep 2026 12:55:52 +0000 (GMT)
 Received: from phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 68PCtntT014933;
-	Fri, 25 Sep 2026 12:55:49 GMT
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 68PCtntV014933;
+	Fri, 25 Sep 2026 12:55:51 GMT
 Received: from ca-dev112.us.oracle.com (ca-dev112.us.oracle.com [10.129.136.47])
-	by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTP id 4gtegq8x79-1;
-	Fri, 25 Sep 2026 12:55:49 +0000 (GMT)
+	by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTP id 4gtegq8x79-2;
+	Fri, 25 Sep 2026 12:55:51 +0000 (GMT)
 From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
 To: Miquel Raynal <miquel.raynal@bootlin.com>,
         Richard Weinberger <richard@nod.at>,
         Vignesh Raghavendra <vigneshr@ti.com>,
-        Luca Ceresoli <luca.ceresoli@bootlin.com>,
         Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>,
+        Luca Ceresoli <luca.ceresoli@bootlin.com>,
         linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org
 Cc: kernel-janitors@vger.kernel.org, error27@gmail.com,
         harshit.m.mogalapalli@oracle.com, stable@vger.kernel.org
-Subject: [PATCH 1/2] mtd: virt-concat: unlink concat node before freeing it
-Date: Fri, 25 Sep 2026 05:55:44 -0700
-Message-ID: <20260925125546.1020149-1-harshit.m.mogalapalli@oracle.com>
+Subject: [PATCH 2/2] mtd: virt-concat: unlink discarded items before freeing
+Date: Fri, 25 Sep 2026 05:55:45 -0700
+Message-ID: <20260925125546.1020149-2-harshit.m.mogalapalli@oracle.com>
 X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260925125546.1020149-1-harshit.m.mogalapalli@oracle.com>
+References: <20260925125546.1020149-1-harshit.m.mogalapalli@oracle.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,53 +75,59 @@ X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
  mlxlogscore=999 lowpriorityscore=0 spamscore=0 mlxscore=0 suspectscore=0
  phishscore=0 adultscore=0 bulkscore=0 classifier=spam adjust=0 reason=mlx
  scancount=1 engine=8.19.0-2609040000 definitions=main-2609250051
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA1MSBTYWx0ZWRfX3yqLDIWnizZF
- EYIfwhFc0+HB8X7VD+v4+2Q0wh5D5Ht4tyBk+DaLLBYZZHQ0qQyueS/EFYOQWXhh3hwLOCVXMnd
- BNcMUdctElbZLWfHPUceELO9RVGth24xQYJfxxuTyGfv2ziOgT2OBTkwh1xYGKvfJFRfKD3P0o7
- IRGWZVOTI8Yz3SqOsPMqiGImZEBbweofr3GDVbSOBn7Xth2ef+BTRj5Yh3Sb36dMjC9e8W8RMj3
- I5IZMRSiIc4/rBBxBpeXIYCJ/2X77jwuDJ0lOGyjUKT4MQS1CNiA83+R9wwpik4C53cDQiizs13
- uULYgHcesMLeOt/NHJBMTakjH+BbW+FUKJhCDanuf85YJhw2/27gk3EQu71HmRhPzoPkztczOjy
- YstZbfjvRa0JVAC5wjY0ZrRiE7mx5HtHKW7LEdDP+z3D4hoKXdkAgCm3FC93jrS9OcMpJeIMBpG
- +MJYqbmElvq6RGQK5ZA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDA1MSBTYWx0ZWRfX84TUhippg9QL
- RIu4lL2Xw2BwHAVxl9SSnacY3rNt6l4Ltbz7MFIJnfNjmIw7TLYMgBQivq/S8GNXVtY8H7ScNy9
- 6axXp4fNm2X8iFc7qCTEJmAHP0a+V1zLdSQbEvLXyhZFQdxwX/vs
-X-Proofpoint-ORIG-GUID: LaPCtExoA6xX3mkGIaMqK18F9FP7nmBu
-X-Authority-Analysis: v=2.4 cv=f+Ddl+yM c=1 sm=1 tr=0 ts=6ab66f56 cx=c_pps
+X-Authority-Analysis: v=2.4 cv=APP6TA4N c=1 sm=1 tr=0 ts=6ab66f58 cx=c_pps
  a=OOZaFjgC48PWsiFpTAqLcw==:117 a=OOZaFjgC48PWsiFpTAqLcw==:17
  a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=jiCTI4zE5U7BLdzWsZGv:22
- a=EIcjfB9IiI4px24ztqRk:22 a=VwQbUJbxAAAA:8 a=yPCof4ZbAAAA:8
- a=sl9Z5FRMRRGf1EUxCFUA:9
-X-Proofpoint-GUID: LaPCtExoA6xX3mkGIaMqK18F9FP7nmBu
+ a=7Gl3-_t3PgB9XO-mQDs3:22 a=VwQbUJbxAAAA:8 a=yPCof4ZbAAAA:8
+ a=GlL9jMAypNo6eQQohVQA:9
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDA1MSBTYWx0ZWRfXzRAtcy7fcCPI
+ 3w8WshuymCnLQADbUxKKYsEf38K5527ZSZwW/dZ5+iT7E3yMYcFvGt95AdaFv7igms8LMLWjwqp
+ Y+Y7edfEmcs4KKzOh3M7xsynu2G72ae2CsClEodTHU7tUZX9WDsH
+X-Proofpoint-ORIG-GUID: LOYQb3nmMcBUNgkhVwv0P70Z_AfKoK6g
+X-Proofpoint-GUID: LOYQb3nmMcBUNgkhVwv0P70Z_AfKoK6g
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA1MSBTYWx0ZWRfX2+o5E+9E+jHh
+ stxA2QFxcCK2upO+CNnTnT+8GdCFd3YNhO/2M46cNP3umEnnCDpR0c5zWMZjoOYyI3JDis89/W9
+ e515ngkptScxACM9R8cAlPmjsbNtIxnKnFppDj9OLjXqXXnRVBuS/49PCP7uiSX/jhee4M7BYS8
+ cgdLOqrMnDHBLxdfcG+pCV7NhQ0KPhtqMDwjA41U2scfZKK4K5CHBXe6VoDqlmHFrIlI3Xj1At+
+ mIW6CY3xZB0iwzb5xagfWISndRJ+xou+ogwqjkFK5+3k4qYBE0K7Ws1B62g7Bq2EtWPcogQltyd
+ F73AeT8QDz58nIIPp3ByHuafSzl5YnRO3BJMdTIw4BlidM2GyINZa7LvQ3YH5xnnbr+2814CHcN
+ Pqupo88O/q6qC7PT2K0Jfsu1Tnwlju5ifNgyFD/FWx/vGYVfoD3nx8fXE5XKSuvZbzfSLo4P/SS
+ iyS52QoOkOwdG+A+LYQ==
 
-mtd_virt_concat_create_item() links each new mtd_virt_concat_node to
-concat_node_list. mtd_virt_concat_destroy() later frees the node after
-destroying its concatenated MTD device, but fails to unlink it. A later
-list traversal dereferences the freed node, causing a use-after-free.
+mtd_virt_concat_destroy_items() frees each item without removing it
+from concat_node_list. list_for_each_entry_safe() protects the
+current traversal, but concat_node_list still points to the freed
+items afterward.
 
-Remove the node from concat_node_list before freeing it.
+The function also unwinds errors from mtd_virt_concat_node_create().
+
+A later initialization can traverse a freed item in
+mtd_is_part_concat(), causing a use-after-free.
+
+Unlink each item before freeing it.
 
 Fixes: 43db6366fc2d ("mtd: Add driver for concatenating devices")
 Cc: stable@vger.kernel.org
 Assisted-by: Codex:gpt-5.6, smatch
 Signed-off-by: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
 ---
-Was performing static analysis with smatch and found this.
+Was writing a Smatch check for list APIs and found this. Only compile
+tested.
 ---
  drivers/mtd/mtd_virt_concat.c | 1 +
  1 file changed, 1 insertion(+)
 
 diff --git a/drivers/mtd/mtd_virt_concat.c b/drivers/mtd/mtd_virt_concat.c
-index 25cf33fe1ec1..1443f0e4c7cb 100644
+index 1443f0e4c7cb..40b300021dda 100644
 --- a/drivers/mtd/mtd_virt_concat.c
 +++ b/drivers/mtd/mtd_virt_concat.c
-@@ -130,6 +130,7 @@ int mtd_virt_concat_destroy(struct mtd_info *mtd)
- 			mtd_concat_destroy(&concat->mtd);
- 		}
+@@ -202,6 +202,7 @@ void mtd_virt_concat_destroy_items(void)
+ 	int i;
  
+ 	list_for_each_entry_safe(item, temp, &concat_node_list, head) {
 +		list_del(&item->head);
- 		for (idx = 0; idx < item->count; idx++)
- 			of_node_put(item->nodes[idx]);
+ 		for (i = 0; i < item->count; i++)
+ 			of_node_put(item->nodes[i]);
  
 -- 
 2.52.0
