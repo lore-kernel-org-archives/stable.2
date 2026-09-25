@@ -1,356 +1,341 @@
-Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com [74.125.229.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED2144E3ECA
-	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 19:56:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D20B7409272
+	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 20:06:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790366188; cv=none; b=nPXL7WiIByW8fwjOAZHA58kKvl6+76MoNxcOowLWMpoKyJNJARpkaEAg4V3RFmJloSKRFZ8b3asTD6CLDLIxlQrzMH5GTDgdEuodn40rQHqObh2UtCBNPkb9PgFrTe1bCb6OK4RnmOewnVmBBJarM961aINT8Rk69SddjN4Iq1Q=
+	t=1790366801; cv=none; b=sd+GxGBVY9pZa6n3QyMX6Z6vDJwi4fhwQq/Azn6nIRSWkvaif0YgeC1/QD2cR2nmQeKiX4z9QygqLwE/Kqem8EOxeaBgZfGZtxbr7D1Zlwcy/N6h8yRHwl9FVqLZR7dcQxoLz+LnRQyqd8upqRch39ZlOXVUdtLS8DJPJCuRkgE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790366188; c=relaxed/simple;
-	bh=88gHi5tt2vQJVNgwwlPqnU1wWyBlNFn3+png4x5rN/E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jL2O4pegdqZvxJao4cQ9G+Ho+/BmTrj5tjf7L6NqYQRDEPWf5PlFR4xfc0PLycFwIR3XkbOWbx4q+tZ9058wWv5uTepOnJ4x65VloW6jV1qX2PhFm+tgQT3xXcYTR9rWl8tDUPzICuze2Z813fO1Fhhrt6Qdn1peY/8EFtx3WdY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=LJrzhEkT; arc=none smtp.client-ip=74.125.229.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	s=arc-20240116; t=1790366801; c=relaxed/simple;
+	bh=NEuCVKYpXaXTglhJheHiFNsL1MQDxePE9zq5IU7cI+0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Bv6CdGYV+90feW4WpKYGPsv9AWoMzVTs2gEpoIuNMS/Czuv/xc/fJ4+YF2xFxCqqPNREk6+sWP8Lzlr4s1d3MD5Jqc3pDuXoKUsQmlUocRH8HCaZB1js0EO4XeOsWGZqRSnxJFvVdu/RUX+UuzdDOzQppvXwWcZ3Nl0938mMMdo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jllMzOMs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="LJrzhEkT"
-Received: by mail-dl2-f43.google.com with SMTP id a92af1059eb24-145047ad220so500595c88.3
-        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 12:56:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1790366186; x=1790970986; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RsGc4QXOLttpcAW5RUpIRxgpzS034z18ViuTykInQ0Q=;
-        b=LJrzhEkTE5in3Vpl6/NPTD8kX3B2kxldD+IwOcHMHvcCBMiIg1Mn3xXxcbOtJtTLsq
-         D5EnCzK+LffjZBrq6OPO6A/l+aoB5gEP6AcnVxT9hB/Ag3kxhGhp/dKvXdKCxvF3l2by
-         VaWKIOxFPU2Et2NmR4jRaanzf6x6VwUAvvbQK6x9cf4NU2jumaO3Qxbn8FV4hKe7vvwt
-         XwM7lhx3h0766sURIIqTX2V7KTPdZtrV7x+1AGPE8lg6na9s4qaHMZOQQ5vO6I3xmlgq
-         h9UAlZQuQNyBnaXcewmnQVE5xKxs8gKkF1LrU2rEblRNeKnaXu8aZ2pfer2dXSXbdnpU
-         oGJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790366186; x=1790970986;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RsGc4QXOLttpcAW5RUpIRxgpzS034z18ViuTykInQ0Q=;
-        b=p5jr07azzZ4sLRiBAU2xL00DFoYOn+Q0FrzsdZ+0zCZyS+JpWtlQSKIXJy2R/c2c67
-         RETNiYPM5FUzsuHYJDFdVvRp6dBbn+BQOayfZgq4QAj7xBHjsIY+Hhsb6k5mtRni/jGZ
-         SfTNQ4gXl0C7IcJLOF6h9R9MFDbVGwI78jYAHu7qPyrs8bqOsDhtU7L2PoR8hkd6iUxO
-         /Q0y3nn7tw3/9HAIVknr1qvnWBIfUIloLpne/rk9qRX3lQxGaQQEb+Feu/frsIur0pC1
-         JfUDlZ4h2Yh+S+f8RLnGIFzVLQzn9NTiCcnNzU5KRG7gJfGFu4l9Iobc9Jd2iDL5mw/p
-         X//w==
-X-Gm-Message-State: AFuF++lDeBDaowAMCkf1kp4faL/ooAw6U87lNy0ZMnXtqbNWJo/hFFqH
-	PsanziDoWq5llghYGS+q3eg+y3HXBq5NIc4TVFH6sdVTDIFsyzwhzsSYfWyrDlHIT4dRCEVxoNx
-	xHgndQ28=
-X-Gm-Gg: AYBFou0BY1oe3NuJEXOmsR3pEeJwarlCNzAz4+dENF8LDWmZWv5ZlDu6Y9gdVN1DJV2
-	U3aoNesfhYa5WE+dmoChVDodTIctrCfhC9Z/KwwOxPlvfY1RHLE2ziTILptfyUsHrC1mYuIR3jW
-	JePlcc/XnLjkCA4/yBv/R8grZCa6HuKxKYeOy94RjvYgfTgqIAZZhlxoo+dr9bnOEMN+y3R97Ip
-	ZGnTMdQOclaeKp6/Ah/FeQUaY9pvXBvAf5YhPDhFlLY+XHH3HpYUosAds1quPayIBIY1gtqJl7S
-	M/mj7BDpFPdqyLo9FDk5FvwI0yZSfOVlrABZqDOuMWbmWgrq0FiAY5wLa2/obAE5DC2XmrnAfLM
-	ijxez1BqS3d/LgIKHd3VIpzpFKlOchDsCEbSbifWWsPwC3BFRbNjyTYJTo6R8aEBk3XIMrAeXj9
-	sDjAqS+ikhN1KbjeUZsQkG5u/VSOa50zBZzOTcTFuG2oft5elF8EG79hKxSMWgKPkykNvVWhEcI
-	HkT9B2IRbzzKgLWwiE2g75c9IMABf/vQwnsgUPmDmXS7Zn6BclBT3QBkxNTrAJmT9pD9Q==
-X-Received: by 2002:a05:701b:4247:10b0:143:3d94:501c with SMTP id a92af1059eb24-146d02aa1d5mr987473c88.38.1790366185873;
-        Fri, 25 Sep 2026 12:56:25 -0700 (PDT)
-Received: from localhost.localdomain ([2603:8001:5f01:8bab:c85b:dba:2dee:3972])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-146bb6551d9sm1852631c88.9.2026.09.25.12.56.24
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 25 Sep 2026 12:56:25 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: Artem Dinaburg <artem@trailofbits.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Xingui Yang <yangxingui@huawei.com>,
-	Xiang Chen <chenxiang66@hisilicon.com>,
-	Yihang Li <liyihang9@h-partners.com>,
-	John Garry <john.garry@huawei.com>,
-	"James E . J . Bottomley" <jejb@linux.ibm.com>,
-	"Martin K . Petersen" <martin.petersen@oracle.com>,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 6.1.y] scsi: hisi_sas: Grab sas_dev lock when traversing the members of sas_dev.list
-Date: Fri, 25 Sep 2026 15:56:21 -0400
-Message-ID: <20260925195622.31558-1-artem@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jllMzOMs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33BD31F00899
+	for <stable@vger.kernel.org>; Fri, 25 Sep 2026 20:06:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790366797;
+	bh=PvjIw4Gs04yENhnrcbPATTUQJ8DYxFb6SwPViZKQF2k=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=jllMzOMsRcewmmqSXsblf+UxIBx5k8QdJm4oV2wnL4SIPttjrGGRMYUH5shiyHVlH
+	 wGueA3QfUnlrfcebBKXlfueCb8IwDothJnWl2mNQKOu09BDnAnBm9S2JT9gy4sfD/w
+	 NbEw8H51BE94R3JLA+s21zfbiWxRPZgsHrtqDfqmpsvdDhledZuu7detQFrq90+Q4o
+	 dsHbWgS/jACUkC/uaxF5v95gD3FsqLEkZZyEwgT3bLiUVkvy0csh+F5fHYJSo+t7qJ
+	 hAa95kNEeNyPyX26Mk/V2HL9QMwGf/PrDb0ACnvbBCmvy1bdLjDAnWQP6DtOswwnWE
+	 jDU2iYuR2WH7w==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8e6ec4dd4so842139e87.1
+        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 13:06:37 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByTKE7pjzYPo7ApAhJ1VOH1/bFtEwgnts0CLbAiq6m7uBU5znh6j+BGDwtocvPYV+/xSig7iI0=@vger.kernel.org
+X-Gm-Message-State: AFuF++ngWE5zbsFSMSEGPnRXl/1gFh8OT7J99reBBALbgqRwRNei7KAF
+	PwLjFBFE/nF1nD6v0GkfLby3/4wIxzfoUJyNflh+m1bYD/WBJMLG9cAsTKxQOjUnmNx7SwbPXmM
+	4UvRcVKsXsQgUVnASCmCOC8Mg4a4ikJw=
+X-Received: by 2002:a05:6512:12cc:b0:5b8:e716:64e3 with SMTP id
+ 2adb3069b0e04-5b8e716662cmr1316403e87.31.1790366795556; Fri, 25 Sep 2026
+ 13:06:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260922081052.321581-1-fanwu01@zju.edu.cn>
+In-Reply-To: <20260922081052.321581-1-fanwu01@zju.edu.cn>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Fri, 25 Sep 2026 22:04:56 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0jJ4-2kRtozUzQY1K08uw2wnjFBMadSa-gTrYEAHmM-ow@mail.gmail.com>
+X-Gm-Features: AclHuK8KWMJjQNWo7EjI7Q-RsAPzdXQBOdtga1f-vYg85MK18pnUSJR1Qx6NV5s
+Message-ID: <CAJZ5v0jJ4-2kRtozUzQY1K08uw2wnjFBMadSa-gTrYEAHmM-ow@mail.gmail.com>
+Subject: Re: [PATCH] PM: EM: Fix use-after-free of perf domain in netlink doit handlers
+To: Fan Wu <fanwu01@zju.edu.cn>
+Cc: rafael@kernel.org, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Lukasz Luba <lukasz.luba@arm.com>, Song Li <songl@zju.edu.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Xingui Yang <yangxingui@huawei.com>
+On Tue, Sep 22, 2026 at 10:12=E2=80=AFAM Fan Wu <fanwu01@zju.edu.cn> wrote:
+>
+> The doit handlers dropped em_pd_list_mutex before dereferencing the
+> perf domain, so a concurrent device unregister could free it while the
+> reply was being built.
+>
+> Encode the reply from em_perf_domain_for_id() callbacks, which run
+> under the mutex, and allocate the skb outside of it, like the dumpit
+> path already does.
+>
+> This issue was found by an in-house static analysis tool.
+>
+> Fixes: 380ff27af25e ("PM: EM: Add dump to get-perf-domains in the EM YNL =
+spec")
+> Fixes: f2d2946eaa5c ("PM: EM: Implement em_nl_get_pd_table_doit()")
+> Cc: stable@vger.kernel.org
+> Cc: Lukasz Luba <lukasz.luba@arm.com>
+> Assisted-by: Codex:gpt-5.6
+> Co-developed-by: Song Li <songl@zju.edu.cn>
+> Signed-off-by: Song Li <songl@zju.edu.cn>
+> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+> ---
+>  kernel/power/em_netlink.c   | 122 +++++++++++++++++++++++-------------
+>  kernel/power/em_netlink.h   |   8 ++-
+>  kernel/power/energy_model.c |   8 ++-
+>  3 files changed, 87 insertions(+), 51 deletions(-)
+>
+> diff --git a/kernel/power/em_netlink.c b/kernel/power/em_netlink.c
+> index 4d4fd29bd2be..1f68d456a713 100644
+> --- a/kernel/power/em_netlink.c
+> +++ b/kernel/power/em_netlink.c
+> @@ -95,41 +95,62 @@ static int __em_nl_get_pd_for_dump(struct em_perf_dom=
+ain *pd, void *data)
+>         return ret;
+>  }
+>
+> +struct em_nl_doit_ctx {
+> +       struct genl_info *info;
+> +       int cmd;
+> +       struct sk_buff *msg;
+> +};
+> +
+> +static int __em_nl_get_pd_doit_fill(struct em_perf_domain *pd, void *dat=
+a)
+> +{
+> +       struct em_nl_doit_ctx *ctx =3D data;
+> +       void *hdr;
+> +
+> +       hdr =3D genlmsg_put_reply(ctx->msg, ctx->info, &dev_energymodel_n=
+l_family, 0,
+> +                               ctx->cmd);
+> +       if (!hdr)
+> +               return -EMSGSIZE;
+> +
+> +       if (__em_nl_get_pd(pd, ctx->msg)) {
+> +               genlmsg_cancel(ctx->msg, hdr);
+> +               return -EMSGSIZE;
+> +       }
+> +
+> +       genlmsg_end(ctx->msg, hdr);
+> +       return 0;
+> +}
+> +
+>  int dev_energymodel_nl_get_perf_domains_doit(struct sk_buff *skb,
+> -                                             struct genl_info *info)
+> +                                            struct genl_info *info)
+>  {
+> -       int id, ret =3D -EMSGSIZE, msg_sz =3D 0;
+> -       int cmd =3D info->genlhdr->cmd;
+> -       struct em_perf_domain *pd;
+> +       struct em_nl_doit_ctx ctx =3D {
+> +               .info =3D info,
+> +               .cmd =3D info->genlhdr->cmd,
+> +       };
+>         struct sk_buff *msg;
+> -       void *hdr;
+> +       int id, ret, msg_sz =3D 0;
+>
+>         if (!info->attrs[DEV_ENERGYMODEL_A_PERF_DOMAIN_PERF_DOMAIN_ID])
+>                 return -EINVAL;
+>
+>         id =3D nla_get_u32(info->attrs[DEV_ENERGYMODEL_A_PERF_DOMAIN_PERF=
+_DOMAIN_ID]);
+> -       pd =3D em_perf_domain_get_by_id(id);
+> -       if (!pd)
+> -               return -EINVAL;
+>
+> -       __em_nl_get_pd_size(pd, &msg_sz);
+> +       /* Encode under em_pd_list_mutex, like the dumpit path. */
+> +       ret =3D em_perf_domain_for_id(id, __em_nl_get_pd_size, &msg_sz);
+> +       if (ret)
+> +               return ret;
+> +
+>         msg =3D genlmsg_new(msg_sz, GFP_KERNEL);
+>         if (!msg)
+>                 return -ENOMEM;
+>
+> -       hdr =3D genlmsg_put_reply(msg, info, &dev_energymodel_nl_family, =
+0, cmd);
+> -       if (!hdr)
+> -               goto out_free_msg;
+> -
+> -       ret =3D __em_nl_get_pd(pd, msg);
+> +       ctx.msg =3D msg;
+> +       ret =3D em_perf_domain_for_id(id, __em_nl_get_pd_doit_fill, &ctx)=
+;
+>         if (ret)
+> -               goto out_cancel_msg;
+> -       genlmsg_end(msg, hdr);
+> +               goto out_free_msg;
+>
+>         return genlmsg_reply(msg, info);
+>
+> -out_cancel_msg:
+> -       genlmsg_cancel(msg, hdr);
+>  out_free_msg:
+>         nlmsg_free(msg);
+>         return ret;
+> @@ -148,19 +169,6 @@ int dev_energymodel_nl_get_perf_domains_dumpit(struc=
+t sk_buff *skb,
+>         return for_each_em_perf_domain(__em_nl_get_pd_for_dump, &ctx);
+>  }
+>
+> -static struct em_perf_domain *__em_nl_get_pd_table_id(struct nlattr **at=
+trs)
+> -{
+> -       struct em_perf_domain *pd;
+> -       int id;
+> -
+> -       if (!attrs[DEV_ENERGYMODEL_A_PERF_TABLE_PERF_DOMAIN_ID])
+> -               return NULL;
+> -
+> -       id =3D nla_get_u32(attrs[DEV_ENERGYMODEL_A_PERF_TABLE_PERF_DOMAIN=
+_ID]);
+> -       pd =3D em_perf_domain_get_by_id(id);
+> -       return pd;
+> -}
+> -
+>  static int __em_nl_get_pd_table_size(const struct em_perf_domain *pd)
+>  {
+>         int id_sz, ps_sz;
+> @@ -245,34 +253,58 @@ int __em_nl_get_pd_table(struct sk_buff *msg, const=
+ struct em_perf_domain *pd)
+>         return -EMSGSIZE;
+>  }
+>
+> +static int __em_nl_get_pd_table_size_cb(struct em_perf_domain *pd, void =
+*data)
+> +{
+> +       *(int *)data =3D __em_nl_get_pd_table_size(pd);
+> +       return 0;
+> +}
+> +
+> +static int __em_nl_get_pd_table_doit_fill(struct em_perf_domain *pd,
+> +                                         void *data)
+> +{
+> +       struct em_nl_doit_ctx *ctx =3D data;
+> +       void *hdr;
+> +
+> +       hdr =3D genlmsg_put_reply(ctx->msg, ctx->info, &dev_energymodel_n=
+l_family, 0,
+> +                               ctx->cmd);
+> +       if (!hdr)
+> +               return -EMSGSIZE;
+> +
+> +       if (__em_nl_get_pd_table(ctx->msg, pd))
+> +               return -EMSGSIZE;
+> +
+> +       genlmsg_end(ctx->msg, hdr);
+> +       return 0;
+> +}
+> +
+>  int dev_energymodel_nl_get_perf_table_doit(struct sk_buff *skb,
+> -                                           struct genl_info *info)
+> +                                          struct genl_info *info)
+>  {
+> -       int cmd =3D info->genlhdr->cmd;
+> -       int msg_sz, ret =3D -EMSGSIZE;
+> -       struct em_perf_domain *pd;
+> +       struct em_nl_doit_ctx ctx =3D {
+> +               .info =3D info,
+> +               .cmd =3D info->genlhdr->cmd,
+> +       };
+>         struct sk_buff *msg;
+> -       void *hdr;
+> +       int id, ret, msg_sz;
+>
+> -       pd =3D __em_nl_get_pd_table_id(info->attrs);
+> -       if (!pd)
+> +       if (!info->attrs[DEV_ENERGYMODEL_A_PERF_TABLE_PERF_DOMAIN_ID])
+>                 return -EINVAL;
+>
+> -       msg_sz =3D __em_nl_get_pd_table_size(pd);
+> +       id =3D nla_get_u32(info->attrs[DEV_ENERGYMODEL_A_PERF_TABLE_PERF_=
+DOMAIN_ID]);
+> +
+> +       ret =3D em_perf_domain_for_id(id, __em_nl_get_pd_table_size_cb, &=
+msg_sz);
+> +       if (ret)
+> +               return ret;
+>
+>         msg =3D genlmsg_new(msg_sz, GFP_KERNEL);
+>         if (!msg)
+>                 return -ENOMEM;
+>
+> -       hdr =3D genlmsg_put_reply(msg, info, &dev_energymodel_nl_family, =
+0, cmd);
+> -       if (!hdr)
+> -               goto out_free_msg;
+> -
+> -       ret =3D __em_nl_get_pd_table(msg, pd);
+> +       ctx.msg =3D msg;
+> +       ret =3D em_perf_domain_for_id(id, __em_nl_get_pd_table_doit_fill,=
+ &ctx);
+>         if (ret)
+>                 goto out_free_msg;
+>
+> -       genlmsg_end(msg, hdr);
+>         return genlmsg_reply(msg, info);
+>
+>  out_free_msg:
+> diff --git a/kernel/power/em_netlink.h b/kernel/power/em_netlink.h
+> index 583d7f1c3939..bc98a3c278b9 100644
+> --- a/kernel/power/em_netlink.h
+> +++ b/kernel/power/em_netlink.h
+> @@ -12,7 +12,8 @@
+>  #if defined(CONFIG_ENERGY_MODEL) && defined(CONFIG_NET)
+>  int for_each_em_perf_domain(int (*cb)(struct em_perf_domain*, void *),
+>                             void *data);
+> -struct em_perf_domain *em_perf_domain_get_by_id(int id);
+> +int em_perf_domain_for_id(int id, int (*cb)(struct em_perf_domain *, voi=
+d *),
+> +                         void *data);
+>  void em_notify_pd_created(const struct em_perf_domain *pd);
+>  void em_notify_pd_deleted(const struct em_perf_domain *pd);
+>  void em_notify_pd_updated(const struct em_perf_domain *pd);
+> @@ -24,9 +25,10 @@ int for_each_em_perf_domain(int (*cb)(struct em_perf_d=
+omain*, void *),
+>         return -EINVAL;
+>  }
+>  static inline
+> -struct em_perf_domain *em_perf_domain_get_by_id(int id)
+> +int em_perf_domain_for_id(int id, int (*cb)(struct em_perf_domain *, voi=
+d *),
+> +                         void *data)
+>  {
+> -       return NULL;
+> +       return -EINVAL;
+>  }
+>
+>  static inline void em_notify_pd_created(const struct em_perf_domain *pd)=
+ {}
+> diff --git a/kernel/power/energy_model.c b/kernel/power/energy_model.c
+> index e610cf8e9a06..a76089e2ce8c 100644
+> --- a/kernel/power/energy_model.c
+> +++ b/kernel/power/energy_model.c
+> @@ -1031,7 +1031,9 @@ int for_each_em_perf_domain(int (*cb)(struct em_per=
+f_domain*, void *),
+>         return 0;
+>  }
+>
+> -struct em_perf_domain *em_perf_domain_get_by_id(int id)
+> +/* Run @cb on the matching domain with em_pd_list_mutex held. */
+> +int em_perf_domain_for_id(int id, int (*cb)(struct em_perf_domain *, voi=
+d *),
+> +                         void *data)
+>  {
+>         struct em_perf_domain *pd;
+>
+> @@ -1040,9 +1042,9 @@ struct em_perf_domain *em_perf_domain_get_by_id(int=
+ id)
+>
+>         list_for_each_entry(pd, &em_pd_list, node) {
+>                 if (pd->id =3D=3D id)
+> -                       return pd;
+> +                       return cb(pd, data);
+>         }
+>
+> -       return NULL;
+> +       return -EINVAL;
+>  }
+>  #endif
 
-[ Upstream commit 71fb36b5ff113a7674710b9d6063241eada84ff7 ]
-
-When freeing slots in function slot_complete_v3_hw(), it is possible that
-sas_dev.list is being traversed elsewhere, and it may trigger a NULL
-pointer exception, such as follows:
-
-==>cq thread                    ==>scsi_eh_6
-
-                                ==>scsi_error_handler()
-				  ==>sas_eh_handle_sas_errors()
-				    ==>sas_scsi_find_task()
-				      ==>lldd_abort_task()
-==>slot_complete_v3_hw()              ==>hisi_sas_abort_task()
-  ==>hisi_sas_slot_task_free()	        ==>dereg_device_v3_hw()
-    ==>list_del_init()        		  ==>list_for_each_entry_safe()
-
-[ 7165.434918] sas: Enter sas_scsi_recover_host busy: 32 failed: 32
-[ 7165.434926] sas: trying to find task 0x00000000769b5ba5
-[ 7165.434927] sas: sas_scsi_find_task: aborting task 0x00000000769b5ba5
-[ 7165.434940] hisi_sas_v3_hw 0000:b4:02.0: slot complete: task(00000000769b5ba5) aborted
-[ 7165.434964] hisi_sas_v3_hw 0000:b4:02.0: slot complete: task(00000000c9f7aa07) ignored
-[ 7165.434965] hisi_sas_v3_hw 0000:b4:02.0: slot complete: task(00000000e2a1cf01) ignored
-[ 7165.434968] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
-[ 7165.434972] hisi_sas_v3_hw 0000:b4:02.0: slot complete: task(0000000022d52d93) ignored
-[ 7165.434975] hisi_sas_v3_hw 0000:b4:02.0: slot complete: task(0000000066a7516c) ignored
-[ 7165.434976] Mem abort info:
-[ 7165.434982]   ESR = 0x96000004
-[ 7165.434991]   Exception class = DABT (current EL), IL = 32 bits
-[ 7165.434992]   SET = 0, FnV = 0
-[ 7165.434993]   EA = 0, S1PTW = 0
-[ 7165.434994] Data abort info:
-[ 7165.434994]   ISV = 0, ISS = 0x00000004
-[ 7165.434995]   CM = 0, WnR = 0
-[ 7165.434997] user pgtable: 4k pages, 48-bit VAs, pgdp = 00000000f29543f2
-[ 7165.434998] [0000000000000000] pgd=0000000000000000
-[ 7165.435003] Internal error: Oops: 96000004 [#1] SMP
-[ 7165.439863] Process scsi_eh_6 (pid: 4109, stack limit = 0x00000000c43818d5)
-[ 7165.468862] pstate: 00c00009 (nzcv daif +PAN +UAO)
-[ 7165.473637] pc : dereg_device_v3_hw+0x68/0xa8 [hisi_sas_v3_hw]
-[ 7165.479443] lr : dereg_device_v3_hw+0x2c/0xa8 [hisi_sas_v3_hw]
-[ 7165.485247] sp : ffff00001d623bc0
-[ 7165.488546] x29: ffff00001d623bc0 x28: ffffa027d03b9508
-[ 7165.493835] x27: ffff80278ed50af0 x26: ffffa027dd31e0a8
-[ 7165.499123] x25: ffffa027d9b27f88 x24: ffffa027d9b209f8
-[ 7165.504411] x23: ffffa027c45b0d60 x22: ffff80278ec07c00
-[ 7165.509700] x21: 0000000000000008 x20: ffffa027d9b209f8
-[ 7165.514988] x19: ffffa027d9b27f88 x18: ffffffffffffffff
-[ 7165.520276] x17: 0000000000000000 x16: 0000000000000000
-[ 7165.525564] x15: ffff0000091d9708 x14: ffff0000093b7dc8
-[ 7165.530852] x13: ffff0000093b7a23 x12: 6e7265746e692067
-[ 7165.536140] x11: 0000000000000000 x10: 0000000000000bb0
-[ 7165.541429] x9 : ffff00001d6238f0 x8 : ffffa027d877af00
-[ 7165.546718] x7 : ffffa027d6329600 x6 : ffff7e809f58ca00
-[ 7165.552006] x5 : 0000000000001f8a x4 : 000000000000088e
-[ 7165.557295] x3 : ffffa027d9b27fa8 x2 : 0000000000000000
-[ 7165.562583] x1 : 0000000000000000 x0 : 000000003000188e
-[ 7165.567872] Call trace:
-[ 7165.570309]  dereg_device_v3_hw+0x68/0xa8 [hisi_sas_v3_hw]
-[ 7165.575775]  hisi_sas_abort_task+0x248/0x358 [hisi_sas_main]
-[ 7165.581415]  sas_eh_handle_sas_errors+0x258/0x8e0 [libsas]
-[ 7165.586876]  sas_scsi_recover_host+0x134/0x458 [libsas]
-[ 7165.592082]  scsi_error_handler+0xb4/0x488
-[ 7165.596163]  kthread+0x134/0x138
-[ 7165.599380]  ret_from_fork+0x10/0x18
-[ 7165.602940] Code: d5033e9f b9000040 aa0103e2 eb03003f (f9400021)
-[ 7165.609004] kernel fault(0x1) notification starting on CPU 75
-[ 7165.700728] ---[ end trace fc042cbbea224efc ]---
-[ 7165.705326] Kernel panic - not syncing: Fatal exception
-
-To fix the issue, grab sas_dev lock when traversing the members of
-sas_dev.list in dereg_device_v3_hw() and hisi_sas_release_tasks() to avoid
-concurrency of adding and deleting member. When function
-hisi_sas_release_tasks() calls hisi_sas_do_release_task() to free slot, the
-lock cannot be grabbed again in hisi_sas_slot_task_free(), then a bool
-parameter need_lock is added.
-
-Signed-off-by: Xingui Yang <yangxingui@huawei.com>
-Signed-off-by: Xiang Chen <chenxiang66@hisilicon.com>
-Link: https://lore.kernel.org/r/1679283265-115066-2-git-send-email-chenxiang66@hisilicon.com
-Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>
-
-[ Backport to 6.1.y: omit the SATA NCQ-error call-site update because that
-  path does not call hisi_sas_do_release_task() in 6.1.y. The list locking
-  change is otherwise identical to upstream. ]
-Assisted-by: LLM
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
----
-Hi Greg, Sasha, and SCSI maintainers,
-
-This is the 6.1.y backport of the fix for CVE-2023-53627. Linux 6.1
-still has the unlocked sas_dev.list walkers described in the upstream
-commit, while the same fix shipped in 6.3.4 as commit 6e2a40b3a332.
-
-The fix is already present in every newer supported stable tree (6.6.y,
-6.12.y, 6.18.y, and 7.2.y), satisfying the newer-trees requirement. For
-context, it is still absent from 5.15.y and 5.10.y; this submission only
-asks for 6.1.y.
-
-The only omitted upstream edit updates a SATA NCQ-error call site that
-does not exist in 6.1.y. Every hisi_sas_slot_task_free() caller present
-in 6.1 is updated, and both existing sas_dev.list walkers are protected.
-
-This is slightly larger than the nominal stable patch-size guideline.
-The locking change remains atomic because 6.3.4 carried it as one patch,
-and splitting the need_lock plumbing from the lock acquisition would
-leave a behaviorless preparatory commit.
-
-Could you please queue it for 6.1.y?
-
-This was built on v6.1.188 using x86_64 allmodconfig and 
-CONFIG_WERROR=y. The build produced no compiler warnings or errors in
-the touched code.
-
-CVE: CVE-2023-53627
-
-AI assistance: An LLM helped identify, adapt, and validate this backport.
-
-Thanks,
-Artem Dinaburg
-
- drivers/scsi/hisi_sas/hisi_sas.h       |  3 ++-
- drivers/scsi/hisi_sas/hisi_sas_main.c  | 23 +++++++++++++++--------
- drivers/scsi/hisi_sas/hisi_sas_v1_hw.c |  2 +-
- drivers/scsi/hisi_sas/hisi_sas_v2_hw.c |  2 +-
- drivers/scsi/hisi_sas/hisi_sas_v3_hw.c |  4 +++-
- 5 files changed, 22 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/scsi/hisi_sas/hisi_sas.h b/drivers/scsi/hisi_sas/hisi_sas.h
-index 9aebf4a26b132d..2ecf97f7ae525e 100644
---- a/drivers/scsi/hisi_sas/hisi_sas.h
-+++ b/drivers/scsi/hisi_sas/hisi_sas.h
-@@ -652,7 +652,8 @@ extern void hisi_sas_phy_down(struct hisi_hba *hisi_hba, int phy_no, int rdy,
- extern void hisi_sas_phy_bcast(struct hisi_sas_phy *phy);
- extern void hisi_sas_slot_task_free(struct hisi_hba *hisi_hba,
- 				    struct sas_task *task,
--				    struct hisi_sas_slot *slot);
-+				    struct hisi_sas_slot *slot,
-+				    bool need_lock);
- extern void hisi_sas_init_mem(struct hisi_hba *hisi_hba);
- extern void hisi_sas_rst_work_handler(struct work_struct *work);
- extern void hisi_sas_sync_rst_work_handler(struct work_struct *work);
-diff --git a/drivers/scsi/hisi_sas/hisi_sas_main.c b/drivers/scsi/hisi_sas/hisi_sas_main.c
-index 10ea1d434c48db..290c9915fb9b29 100644
---- a/drivers/scsi/hisi_sas/hisi_sas_main.c
-+++ b/drivers/scsi/hisi_sas/hisi_sas_main.c
-@@ -205,7 +205,7 @@ static int hisi_sas_slot_index_alloc(struct hisi_hba *hisi_hba,
- }
- 
- void hisi_sas_slot_task_free(struct hisi_hba *hisi_hba, struct sas_task *task,
--			     struct hisi_sas_slot *slot)
-+			     struct hisi_sas_slot *slot, bool need_lock)
- {
- 	int device_id = slot->device_id;
- 	struct hisi_sas_device *sas_dev = &hisi_hba->devices[device_id];
-@@ -239,9 +239,13 @@ void hisi_sas_slot_task_free(struct hisi_hba *hisi_hba, struct sas_task *task,
- 		}
- 	}
- 
--	spin_lock(&sas_dev->lock);
--	list_del_init(&slot->entry);
--	spin_unlock(&sas_dev->lock);
-+	if (need_lock) {
-+		spin_lock(&sas_dev->lock);
-+		list_del_init(&slot->entry);
-+		spin_unlock(&sas_dev->lock);
-+	} else {
-+		list_del_init(&slot->entry);
-+	}
- 
- 	memset(slot, 0, offsetof(struct hisi_sas_slot, buf));
- 
-@@ -1059,7 +1063,7 @@ static void hisi_sas_port_notify_formed(struct asd_sas_phy *sas_phy)
- }
- 
- static void hisi_sas_do_release_task(struct hisi_hba *hisi_hba, struct sas_task *task,
--				     struct hisi_sas_slot *slot)
-+				     struct hisi_sas_slot *slot, bool need_lock)
- {
- 	if (task) {
- 		unsigned long flags;
-@@ -1076,7 +1080,7 @@ static void hisi_sas_do_release_task(struct hisi_hba *hisi_hba, struct sas_task
- 		spin_unlock_irqrestore(&task->task_state_lock, flags);
- 	}
- 
--	hisi_sas_slot_task_free(hisi_hba, task, slot);
-+	hisi_sas_slot_task_free(hisi_hba, task, slot, need_lock);
- }
- 
- static void hisi_sas_release_task(struct hisi_hba *hisi_hba,
-@@ -1085,8 +1089,11 @@ static void hisi_sas_release_task(struct hisi_hba *hisi_hba,
- 	struct hisi_sas_slot *slot, *slot2;
- 	struct hisi_sas_device *sas_dev = device->lldd_dev;
- 
-+	spin_lock(&sas_dev->lock);
- 	list_for_each_entry_safe(slot, slot2, &sas_dev->list, entry)
--		hisi_sas_do_release_task(hisi_hba, slot->task, slot);
-+		hisi_sas_do_release_task(hisi_hba, slot->task, slot, false);
-+
-+	spin_unlock(&sas_dev->lock);
- }
- 
- void hisi_sas_release_tasks(struct hisi_hba *hisi_hba)
-@@ -1620,7 +1627,7 @@ static int hisi_sas_abort_task(struct sas_task *task)
- 		 */
- 		if (rc == TMF_RESP_FUNC_COMPLETE && rc2 != TMF_RESP_FUNC_SUCC) {
- 			if (task->lldd_task)
--				hisi_sas_do_release_task(hisi_hba, task, slot);
-+				hisi_sas_do_release_task(hisi_hba, task, slot, true);
- 		}
- 	} else if (task->task_proto & SAS_PROTOCOL_SATA ||
- 		task->task_proto & SAS_PROTOCOL_STP) {
-diff --git a/drivers/scsi/hisi_sas/hisi_sas_v1_hw.c b/drivers/scsi/hisi_sas/hisi_sas_v1_hw.c
-index 70c24377c6a191..76176b1fc035dd 100644
---- a/drivers/scsi/hisi_sas/hisi_sas_v1_hw.c
-+++ b/drivers/scsi/hisi_sas/hisi_sas_v1_hw.c
-@@ -1310,7 +1310,7 @@ static void slot_complete_v1_hw(struct hisi_hba *hisi_hba,
- 	}
- 
- out:
--	hisi_sas_slot_task_free(hisi_hba, task, slot);
-+	hisi_sas_slot_task_free(hisi_hba, task, slot, true);
- 
- 	if (task->task_done)
- 		task->task_done(task);
-diff --git a/drivers/scsi/hisi_sas/hisi_sas_v2_hw.c b/drivers/scsi/hisi_sas/hisi_sas_v2_hw.c
-index ae39f6b5dc9a8c..1470d6bf3052bf 100644
---- a/drivers/scsi/hisi_sas/hisi_sas_v2_hw.c
-+++ b/drivers/scsi/hisi_sas/hisi_sas_v2_hw.c
-@@ -2473,7 +2473,7 @@ static void slot_complete_v2_hw(struct hisi_hba *hisi_hba,
- 	}
- 	task->task_state_flags |= SAS_TASK_STATE_DONE;
- 	spin_unlock_irqrestore(&task->task_state_lock, flags);
--	hisi_sas_slot_task_free(hisi_hba, task, slot);
-+	hisi_sas_slot_task_free(hisi_hba, task, slot, true);
- 
- 	if (!is_internal && (task->task_proto != SAS_PROTOCOL_SMP)) {
- 		spin_lock_irqsave(&device->done_lock, flags);
-diff --git a/drivers/scsi/hisi_sas/hisi_sas_v3_hw.c b/drivers/scsi/hisi_sas/hisi_sas_v3_hw.c
-index ccd52fc7d34a2c..3db206c7438317 100644
---- a/drivers/scsi/hisi_sas/hisi_sas_v3_hw.c
-+++ b/drivers/scsi/hisi_sas/hisi_sas_v3_hw.c
-@@ -873,6 +873,7 @@ static void dereg_device_v3_hw(struct hisi_hba *hisi_hba,
- 
- 	cfg_abt_set_query_iptt = hisi_sas_read32(hisi_hba,
- 		CFG_ABT_SET_QUERY_IPTT);
-+	spin_lock(&sas_dev->lock);
- 	list_for_each_entry_safe(slot, slot2, &sas_dev->list, entry) {
- 		cfg_abt_set_query_iptt &= ~CFG_SET_ABORTED_IPTT_MSK;
- 		cfg_abt_set_query_iptt |= (1 << CFG_SET_ABORTED_EN_OFF) |
-@@ -880,6 +881,7 @@ static void dereg_device_v3_hw(struct hisi_hba *hisi_hba,
- 		hisi_sas_write32(hisi_hba, CFG_ABT_SET_QUERY_IPTT,
- 			cfg_abt_set_query_iptt);
- 	}
-+	spin_unlock(&sas_dev->lock);
- 	cfg_abt_set_query_iptt &= ~(1 << CFG_SET_ABORTED_EN_OFF);
- 	hisi_sas_write32(hisi_hba, CFG_ABT_SET_QUERY_IPTT,
- 		cfg_abt_set_query_iptt);
-@@ -2364,7 +2366,7 @@ static void slot_complete_v3_hw(struct hisi_hba *hisi_hba,
- 	}
- 	task->task_state_flags |= SAS_TASK_STATE_DONE;
- 	spin_unlock_irqrestore(&task->task_state_lock, flags);
--	hisi_sas_slot_task_free(hisi_hba, task, slot);
-+	hisi_sas_slot_task_free(hisi_hba, task, slot, true);
- 
- 	if (!is_internal && (task->task_proto != SAS_PROTOCOL_SMP)) {
- 		spin_lock_irqsave(&device->done_lock, flags);
-
-base-commit: 1a8763b93150b2c8f3992c27a5ce7857fee4ab0f
--- 
-2.39.5
+Applied as 7.4 material, thanks!
