@@ -1,29 +1,29 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3779E423E99;
-	Fri, 25 Sep 2026 05:30:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FD3540DB3F;
+	Fri, 25 Sep 2026 05:30:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790314216; cv=none; b=gLJ1fgNpsOeyeuStvQPT73WXo7/h72SwDeUloP1WVQYeJtMMtrTwYxEHL5b8kadVVwR/E69HnJih8PQkxgStaxVCKYAkDHIPxifj+ORw+8JXO2gwEmlgRLZ31RbPwL3DlS502waOf8I6uaoczK06tXc/9PxnDJgViXKXw5on2us=
+	t=1790314219; cv=none; b=WZkEOzMKLsSmWyRwt7xmNTUycdkphpu015/8fk2rl4wxajMnqkI1cuygUG79y4uRH9OhlU4Nvg/SJhIFiT2Abq50l4DxDd1s7VL0ZzTuWtz7YZNqgYLbJdiJniC0FCQ0yS36f2eb5ie3R69t1BxWlioirAsgVaZQmyfY6xftJ54=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790314216; c=relaxed/simple;
-	bh=+5f8E3hOM4QhzPk4W/QLUJ7sHloiO7DiVELzcZebiTA=;
+	s=arc-20240116; t=1790314219; c=relaxed/simple;
+	bh=ibENGHcc1Z91hnkDlPuyvRQ5BYkidVtng8t214jbk8A=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ALRohuCG4e2Kwa1XTrAbK72l9TE5Ez1ax9Y8/9/vO5eWmGfHh60aOcLtvtrl/drD11KeARoCiUV4dzwb1cuDcpZr+WS/r7nu1tR50DHui896q4Bambz3KPtTapvvOLH2N30tmhp+LOAaB/fOwVwLj/fg8kgmeEOdlv7JaF5nJmg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=IMBya8Le; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=FTrBQpf1FUbyA2fLDFaNjl4pb1dtUpz9/HNvJw6nMK1jLYImsavFr06b5p6q9Pqrpo+dmtLOibinloS3Wxd2gK0jdd5DFmZuCsmPpRG6z42AU6EQPFdjU/yVrbqEnzCFKq1nql8g0d/1ZyX3p9hNhbfQYPvuq3Dhlel9aDrZP+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=XBaO+Zgd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="IMBya8Le"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 618411F000FF;
-	Fri, 25 Sep 2026 05:30:14 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="XBaO+Zgd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 406381F000FF;
+	Fri, 25 Sep 2026 05:30:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790314214;
-	bh=6agBB+xlIInaNFgPYojPw8v7PFgmCfgsq4/k+3Cg+Es=;
+	s=korg; t=1790314217;
+	bh=HZI9lS8DIMjeAPo5oH72MXZLc4nTybYrp5yISIe1pNo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IMBya8LeYT6QF2CQUNhgQDf/NNGsCp+iNbxqInFIxVnimGOQpysC0GSTxPMHwT+Wa
-	 kCN6Gqiv38gshmoWJ08/Axh50HRsDP4j4cN16/XAHSbgLbf9XRde31KN6QBZPXR6vn
-	 gXpNipC3kwpbP6DgfGWwle2Gtp7UjuDwxlVfOfWs=
-Date: Fri, 25 Sep 2026 07:08:33 +0200
+	b=XBaO+ZgdBqAilddIWgyalGBk/LU7SrjslBKyrStfNOdxwSgrKgQJb8iqFh9hZt9Yd
+	 KPwdlX++kblMeJyQihBpSUizG9nGuVwNvEv0t7390Ad2I5Tyfw1YCtaREQItUPca7I
+	 tloRh7iB4sJlRNo37cSOm3hMvHZSvgXqkq85GSNY=
+Date: Fri, 25 Sep 2026 07:08:49 +0200
 From: Greg KH <gregkh@linuxfoundation.org>
 To: mhun512@gmail.com
 Cc: valentina.manea.m@gmail.com, shuah@kernel.org,
@@ -32,7 +32,7 @@ Cc: valentina.manea.m@gmail.com, shuah@kernel.org,
 	linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Subject: Re: [PATCH v3] usbip: vudc: Prevent transfer timer rearm during
  teardown
-Message-ID: <2026092555-pastime-fender-3712@gregkh>
+Message-ID: <2026092538-feline-aftermost-8c2a@gregkh>
 References: <CAGEsz8Gwh=Y31EuTJLUp_jq3HhiizHxt7_ivOuytyZZH06mycA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -54,10 +54,15 @@ On Thu, Sep 24, 2026 at 09:51:44PM +0000, mhun512@gmail.com wrote:
 > inaccurate blanket lock comment with __must_hold(&udc->lock) on
 > v_start_timer() and v_kick_timer(); v_init_timer() and v_stop_timer() run
 > unlocked.
+> 
+> A KASAN/DEBUG_OBJECTS_TIMERS x86_64 QEMU harness binds g_zero to
+> usbip-vudc.0, sends CMD_SUBMIT to usbip_sockfd via a socketpair, and
+> repeatedly unbinds/rebinds vudc.  The unpatched kernel reported a
+> free-active timer and a use-after-free in v_timer(); the patched kernel
+> ran 4000 iterations without either report.  No physical device or
+> remote client was tested.
+> 
+> Fixes: d96209626a29 ("usbip: vudc: Fix use after free bug in
+> vudc_remove due to race condition")
 
-That is two different things you are doing here, so this should be a
-patch series of 2 patches, right?
-
-thanks,
-
-greg k-h
+Do not line wrap.
