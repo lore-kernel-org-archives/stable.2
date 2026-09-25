@@ -1,83 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB3BA25A645;
-	Fri, 25 Sep 2026 14:24:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A99664AA1C9;
+	Fri, 25 Sep 2026 14:24:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790346257; cv=none; b=UIMHwEkwzD/f1dAnxCluBvPUcEE9gL9OnfWZ4bnwlvF/68DU8y6y8Dl9A1H8fyOUffihyxtGdeMCU514erfOVe7OK2nwI4YSrqF5WM7UBNcpYmPcehZhksY+Blju822JqacRtDYu0eo1qLPl0w/TVf6IH8E/6SUrTOw2b+CNQjE=
+	t=1790346293; cv=none; b=AUYzDP5BkFvJ3lLlB1n7P/Ghw96ZX/9vQlAgW4lCi7ESDXdlZYOCeSh3+XYbg7Z4sMM9JGOLREOP0KzyFOg+0ZM34iyo4Ufjs2YDZYqmxJKdHF5LU2EZcwuQedMkwSRIqauOdmpn6qnPqk3zN+PawtbYLDsOzkL/vddgw8cSapM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790346257; c=relaxed/simple;
-	bh=AmOt7srfsN4col0DOnzjyPH6aPF03diVX5dxoLkeOWQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KM5HqTTwIna4Nyx84Pzujd3kn6U+mfm7E1OGwzAb95v1lh72wO9uJ0N4J5XDja3CesDDza79DUet+sFeeAzVNFeqjBkBw2F79sBviV9UF88YSbuB7E6msWkJPJi1kDnzTgyDKLlELX4YJB6B5Q8MD8jkk8S28ltDsCK95G+KCdo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=e5OAsv4k; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790346293; c=relaxed/simple;
+	bh=Fo27gl1RGyenZyUjEKAJq11sc/Bjc3iIib4jpTRAiFA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=jtC19OTaSxB5uLQMMXbsq51S2+C2yx5r5KaZ185q0j8miAtYlFGcVAGL3yx8oPRYxAH7h3A9OkqVkhiUOe7ronYXWU+b32pT99W47v3OUMptF3E5Xz/hOmcl+RvQ8oXsU3cZESiphJICHqGWywgE9BztBa6gO3wHM6B2fYa6cEc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=ioU/GpfN; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="e5OAsv4k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC0C71F000FF;
-	Fri, 25 Sep 2026 14:24:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790346256;
-	bh=vULyxcrwIr4KcwQ7oLTDTwGJ+5VC3JzEkmvnLduq6Rc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=e5OAsv4kfaqsx2bEEECmBmAtocvm1t1fU1PBSGxMe1aOPtY0e6qPjW5a/8JEI9dRj
-	 XFoEfq4JSVmwr+Z/s7DJt/oigiy3wTgYMJJM+m0aL8CGzpQomRxmlUr8g/zBIdrHr/
-	 Y95O8CEeWvZw/KyrORyGvk0G+NFjDeg4AY3Td2QQ=
-Date: Fri, 25 Sep 2026 16:24:11 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: "Benjamin Robin (Schneider Electric)" <benjamin.robin@bootlin.com>
-Cc: stable@vger.kernel.org, "Paul E. McKenney" <paulmck@kernel.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Boqun Feng <boqun.feng@gmail.com>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Jozsef Kadlecsik <kadlec@netfilter.org>,
-	Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, miguel.gazquez@bootlin.com,
-	thomas.petazzoni@bootlin.com, rcu@vger.kernel.org,
-	linux-kernel@vger.kernel.org, netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org, netdev@vger.kernel.org,
-	Sasha Levin <sashal@kernel.org>
-Subject: Re: [PATCH 6.18.y 2/2] netfilter: nf_tables: join hook list via
- splice_list_rcu() in commit phase
-Message-ID: <2026092556-puzzling-urologist-0848@gregkh>
-References: <20260925-cve-2026-52988-6-18-v1-0-680b24895415@bootlin.com>
- <20260925-cve-2026-52988-6-18-v1-2-680b24895415@bootlin.com>
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="ioU/GpfN"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+	Date:Subject:Cc:To:From:From:Reply-To;
+	bh=dI6bBwIKN837u15LRjHH6yORdLJ9Jv+nGmfAtWoSIj4=; b=ioU/GpfNjfa62OUxfeGvW6DW12
+	c4fgOUVYMwNTcttmdh8BxOz34aUZnFpQamcymo4bK7n2RKsLImC6ULN5ILwRQx0L3mIndvivp6eUK
+	eZ60NC9rAIFJvLQauigufGK0ZsToOCNIEDhhtUsZ3tgSvkikb704pWnwbq4UnwwdAwFNlOwrdHzVN
+	5SBGRXms0heZcKcsEkLImF9/lUYsNpeaHMzFlWfntWOC2a95HTCW2IJn/HIf97+XG+35giNf6Frdx
+	yxYr2apycUzRbGpYGAmTPKCzalAj0NuS7SYCMb8zemr12MFzI9mgXZyafK5z7++NIZo+16zcQzeFg
+	Ldks3oJw==;
+Received: from [179.105.94.163] (helo=prince)
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1xA6qh-007BCc-9l; Fri, 25 Sep 2026 16:24:27 +0200
+From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
+To: mripard@kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>
+Cc: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+	dave.stevenson@raspberrypi.com,
+	kernel-list@raspberrypi.com,
+	maarten.lankhorst@linux.intel.com,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	eric@anholt.net,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] drm/vc4: drain the hangcheck timer and works on V3D unbind
+Date: Fri, 25 Sep 2026 11:23:17 -0300
+Message-ID: <179034619503.422955.6530940008343029668.b4-ty@igalia.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260915095103.156007-1-fanwu01@zju.edu.cn>
+References: <20260915095103.156007-1-fanwu01@zju.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260925-cve-2026-52988-6-18-v1-2-680b24895415@bootlin.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 25, 2026 at 09:52:24AM +0200, Benjamin Robin (Schneider Electric) wrote:
-> From: Pablo Neira Ayuso <pablo@netfilter.org>
-> 
-> [ Upstream commit a6134e62dba2ea4f760b29d5226907f447c92400 ]
-> 
-> Publish new hooks in the list into the basechain/flowtable using
-> splice_list_rcu() to ensure netlink dump list traversal via rcu is safe
-> while concurrent ruleset update is going on.
-> 
-> Fixes: 78d9f48f7f44 ("netfilter: nf_tables: add devices to existing flowtable")
-> Fixes: b9703ed44ffb ("netfilter: nf_tables: support for adding new devices to an existing netdev chain")
-> Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->  net/netfilter/nf_tables_api.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
 
-Again, no signed-off-by :(
+On Tue, 15 Sep 2026 09:51:03 +0000, Fan Wu wrote:
+> Nothing stops the hangcheck timer that submitted jobs arm, or the
+> job_done_work that the render-done interrupt queues, at teardown:
+> vc4_irq_disable() cancels only overflow_mem_work, and vc4_gem_destroy()
+> runs from the drm-managed release, after vc4_v3d_unbind() has already
+> uninstalled the V3D interrupt and cleared vc4->v3d. A timer still armed
+> by then reads V3D registers through the NULL vc4->v3d pointer, and the
+> late callbacks run on the vc4_dev embedding them after it has been
+> freed.
+> 
+> [...]
+
+Applied with a small adjustment to the first comment, thanks!
+
+[1/1] drm/vc4: drain the hangcheck timer and works on V3D unbind
+      commit: 94cf5971b1d04c6382437387c4dc3836cc7a1437
+
+Best regards,
+- Maíra
