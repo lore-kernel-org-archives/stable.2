@@ -1,74 +1,77 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63D053E16B9
-	for <stable@vger.kernel.org>; Sat, 26 Sep 2026 14:49:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 895E037A839
+	for <stable@vger.kernel.org>; Sat, 26 Sep 2026 14:59:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790434187; cv=none; b=hBbeFckqzMRiviCSCObf/GGufW3AjQpllhMt/8GfhFRhVk/UhikMdUqTcvoNBFpU/N3KCFc4wlodI/5MB1a6rzn4AyRULN7kt5h6K2QLg6Q0hybnKDQw66vzZqymE7A+6E2nL5epITpSbh/zsM4vKie8T58jp+bgaN4ii3Kj7ZA=
+	t=1790434754; cv=none; b=uBeow/okwYSXM6QN1HcNsr2UsMJvRIv8QKXo0WkYz6v8pNMIlicq1MwXiVLExhuLpw5r5UM8Jk3Pif7a6wjJHJ/iqNeQnLH4Jt7n0tJIL+JyAmqA2vYs59wAGkU0Rc8TBN01z76rvOYJQl1bfiAlj+JR3S8qlzqAau3rhN+VAzU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790434187; c=relaxed/simple;
-	bh=O4ei2s9gZuecLamrTdJFFCxcBL+em9k63fiNXCLXqzM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=X0FEMa6sHf0+PzcIi3FH6FTq862LSIcccVmK1FvQt8onp9anaXwVNqbgOUjeyxjOYIgElpi4UVLCRDOJsplXcIoDcGfixl8zWW3iaeziwMDLvl49PNrpzPA8drV3cAp1XRo0nPUc1ZH/OBKoiolSH7NyPEYS0BbiwjISYgYi88w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qp2Ww90z; arc=none smtp.client-ip=74.125.227.140
+	s=arc-20240116; t=1790434754; c=relaxed/simple;
+	bh=0vLf4wsautSGPoindTukbpU3HzvGRz/8vbGGYbIW4Ss=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uiuI3z/gqDNORnlecLAyaAt6lEn/QxAgVUCTFXyLSgPjZSzhJfPcmX0Txo8riGaq2ToKN3IfT4lrEtm2lO1BOlCEYmb4c6qDHBTf0mld0STbEQ9OvpeVWl19+A9N8IUNYNhV2r5wB8A7IxlCA6Tk0VEjU/LIaZZ8OOBHJWzPNtc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mUyb0VOk; arc=none smtp.client-ip=74.125.229.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qp2Ww90z"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d8fb334ddcso8311325ad.0
-        for <stable@vger.kernel.org>; Sat, 26 Sep 2026 07:49:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mUyb0VOk"
+Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-341d5303884so995336eec.3
+        for <stable@vger.kernel.org>; Sat, 26 Sep 2026 07:59:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790434185; x=1791038985; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790434752; x=1791039552; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LxnEwlfneT94G2UrKcochh8UCTOdTS8Fzu8EtUevf3s=;
-        b=qp2Ww90zkqywzHPDhgrZqLYZkkjgVFTs+7wMumtGuxSvnBFuqfPm720+/gaLeoUafx
-         HyWcc21HV02Wzl1EgDsXLDuGYvmK2GPqtAsjZF+iZuZNlLr83yiWoUDtIpVrzSHPgYAv
-         qP7LlLOxtl7Ax0rWyw10zj10FYEdtDCs+QRFm7CxrcHWAofs4ydb64b5O9IQG38FPeMo
-         h3Sq2sXVHxncoEsy4AngWZx7s/O4AyRvMkp013z39bZkXx8Ib7Qh51Cf/ztWpPR7eGHN
-         5AXo4ripakkqKWH6F8zKWj+3Q5U4MMErlObyMnmFtjP8i8JA7MU4ARTb2IWXRjw7yVL3
-         ehTw==
+        bh=7vjDxNGtx5H9Ua7b/Rh8PBSRk9w4/mM73r+TwEkNiRg=;
+        b=mUyb0VOkxarFhTkKvX/1taZ5w/BDNwKB5INM+90jsjQVsiFT4AN5RyyY/UX5J9F/hN
+         V6EGztJWCeIEMuqNQYy4sVoE1uf5XD192L6TP2R8wmTK2czRiJpHH50efnRqE8FWsSXc
+         tP5tX1B4YKRjUYl3BsyEEh007S3vrhaXJKCeO3mJ1/87k/HdDmOhXm5+Lbl702H9te8B
+         +c+hKtJH2ohgDi4kee7S7LIfdryq3tVQVO7/8a2ty3n6jCxP/jHB2j6dc+q9p0IfSjEG
+         LME0IoC1g0BSM8i+fxPAHTKr8lBKgzQGeQlAMJhgUrCW67T+kvT8PYMn1+LMiLWisvv4
+         o1wQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790434185; x=1791038985;
+        d=1e100.net; s=20260707; t=1790434752; x=1791039552;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=LxnEwlfneT94G2UrKcochh8UCTOdTS8Fzu8EtUevf3s=;
-        b=DZW63n3t9aWI5CLamEdB/ZOMeFk8c0PTcie3b4CzGJfw/OxBIfm1MTyZ09QD/eYf9t
-         wBPlqZaeDIxsdEZSiyPeUpygEwYKXkZ3DtdSdagCjSURO+NblNzfNR2+QoPOEQ9Unr02
-         ZsVwGR74oadV6VvRcinK0WjC/W+B929JQ1q8WkJorkM9BdTmTKvjggttSK9b7x+U1uk5
-         ZB++kg+5tg2f33z8K2hy1KpvqIcvpofau8ok3JE0bC4WRoDePXnW6ZAfRWUgGzudDRcB
-         53PfTWRjAIUA7ElBhH/6SsodAmI3H9cnO1X5rPvhDivWl4UQ4PcHMMCQgoDlY5ntHx19
-         qwNw==
-X-Forwarded-Encrypted: i=1; AKwUvBy6DF20/jago2Npj+w1qNF4kf9wl7O5JCRFTRXwtUxMf5LUqdrTjnr1600goR3lC/JJAWPrpQ4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIqMLNA6b6ARjv5TzLOK4V/JijRLgfEdzA35Reof0vGOcF0ms1w
-	j0XaJPieTfowmNBP2edz3zfkVNTQNsRpgMrtC2cpgKMmyCjtyfEnSu4E
-X-Gm-Gg: AYBFou3eUDMsV2eVkAs1aPSdkywsA6c5mpHPRbrW1oiaukJltRiBO0/S8TRUt4tG5nf
-	+pVqFVtL6v0KrjGQ9zNCM+x7hWalwFya6bZ02fD/+k+1MDZGkm6zdaZOzki/gE5EUA3y8AuPlv4
-	6c4EzV6qyyNA/OHrWMWzTa3YIhga14nxz+8h86MjnmBbrBxhYqk9Jm9CcNrXh65wKDq3D9BAzYC
-	p6EH1Bu3uXTkt4XY/KEmlhexV0raWYxD2EbfAKtxxv7ZXAPEiIJAjq6jMV4WUloysFftmNQvvtB
-	CQhY5y8mDpkgAoPcaby/OhiymKOfdDjK5H4/fuh3pghQ4I3O2oTYGRMKeLy/Z6KlYfP4vjztYgQ
-	HAN4V6wxGMsyWyLlukMaPdiiYB9jvqsh2PxKHh3n/+Ugk3HwhrgYbGw99+gPkRoESSUoMzDLEd1
-	/kGfD+6FyiXPvDM0O98fgA+B+qhRIJp9Xegl3g+5XwqqqPujW3RbJSiuJvC40lYGSBQlH4n11df
-	eAOFXp8aRub1h7B
-X-Received: by 2002:a17:90b:3d92:b0:3a0:f0a1:b460 with SMTP id 98e67ed59e1d1-3a0f0a1b954mr748138a91.66.1790434185508;
-        Sat, 26 Sep 2026 07:49:45 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2405:4802:1d4a:e90:a00e:c90a:972a:c5a2])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b9589f7esm10105011a91.10.2026.09.26.07.49.43
+        bh=7vjDxNGtx5H9Ua7b/Rh8PBSRk9w4/mM73r+TwEkNiRg=;
+        b=A1YZYe+54X73X41EuMn4lMHVeptMTcCpFSetxOjMPF/EPM1qcHoOJ49q4zK+cNleRh
+         KTTrXzqHMBEfJmKca24TJSDlbDuALZKR6ZyNbPA/JD925TNmuXL+c6p2/VtQtrFUCcCt
+         GkqUy8oGNiBCXDd2tPW6HGfOzNH9M1LW92enuODxiRhwDK0WmfHqz1SOWAJzYBnmTEkQ
+         9YtPoUX3cI20T2C6cegyrmYBWPd2cjmutTuFpKKFQiKQVN9wAIMRCIZjN6IoxpZR6j28
+         odWGwWzXR3BLSoFVZT+uG+Ox0mbfcOyTzQZ9M7OiK4Uz3fHumY96/vDf5mdpseXUusKq
+         wY6g==
+X-Forwarded-Encrypted: i=1; AKwUvBxtV6D6crnaJiVKpaIggM4pXyaflOa6FU7w8FE/6jxjFe4cSa0yGh2Tnm3jjdzZ3/FjExtiHBk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL+Q+nWVib2gYthwJwsMJSkkdXGhvcDqd3rSiQ/iIujwu1mzTfO
+	RE76jyM56g229ceMFzkDRzUlkuFJ3kDEMGMuhwEdk78zw2rh8VJKKnIi
+X-Gm-Gg: AYBFou3HFHCBjZpTnC6tFKmOcvuzMeTpNS/goZQIRcgromW5DDbXtYewYn0Z/aQg+VP
+	ZHP60yyQPz3RmQKzcegBzPr6bl9hVdLSvJwnYkV5gfUISmvUdJaq6/1cbZY/2boqSz2WIsRy1Cb
+	vjk47+JDW0xsmDS2o7x+DooES64Nnk+WmquCKBR1TvQ5tGRs2dCCFpPcK6ovMOP+398Q4zwXhq7
+	ggHg1oABRSNjpG78BS8PnvGUFPcS7bnHAXHXs5cr/be7fIJ8FSpql8cvcCJhXEVWfj5eWkJz1HH
+	ogPUbM/+uElBa9HZ+jWnYQOmmRNt42LT/o8zw/xynqqoldy5Vl+Wxvox6AxvvqRXcPS8eBeCOge
+	BkyHZPFOWNUqLYW2LGXUCqv9SaQHZotNkj0uFgSvj+J3NkwmIRwRss5xB8CK7taDDARTj/C9HoK
+	9FWyceBWs0aSbHQe7rEPmPeD0UewDUKrxOwqUlQeuzZmlc0OuiduRYu1TSF6VhcKw5gZG4Icmlv
+	vRDm0oFqm9+ZuEgyw==
+X-Received: by 2002:a05:7301:4301:b0:343:311a:372d with SMTP id 5a478bee46e88-343311a386amr2050888eec.28.1790434751423;
+        Sat, 26 Sep 2026 07:59:11 -0700 (PDT)
+Received: from kernel ([103.219.206.17])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34145c166cfsm14171312eec.28.2026.09.26.07.59.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 07:49:45 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: David Heidelberg <david@ixit.cz>
-Cc: oe-linux-nfc@lists.linux.dev,
-	linux-usb@vger.kernel.org,
+        Sat, 26 Sep 2026 07:59:10 -0700 (PDT)
+From: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
+To: herbert@gondor.apana.org.au,
+	ebiggers@kernel.org
+Cc: davem@davemloft.net,
+	skhan@linuxfoundation.org,
+	me@brighamcampbell.com,
+	jkoolstra@xs4all.nl,
+	linux-crypto@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
-	syzbot+89f5f8143d8e62af2b61@syzkaller.appspotmail.com,
+	Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] nfc: port100: cancel a stale out URB before sending a command
-Date: Sat, 26 Sep 2026 21:49:40 +0700
-Message-ID: <20260926144940.14412-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Subject: [PATCH v2] crypto: x86/aes-gcm - fix always true check for last AAD segment
+Date: Sat, 26 Sep 2026 20:29:03 +0530
+Message-ID: <20260926145903.6061-1-raizudeen.kerneldev@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -77,40 +80,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-port100_send_frame_async() reuses dev->out_urb for every command. It
-assumes that once the device has ACKed and answered a command, the out
-URB of that command has completed. A device can answer without ever
-consuming the OUT transfer, leaving the URB queued. The next command
-then resubmits an active URB and trips the "URB submitted while active"
-warning in usb_submit_urb(), e.g. from port100_probe() when it sends
-SET_COMMAND_TYPE right after GET_COMMAND_TYPE.
+In gcm_process_assoc(), a segment that is not the last one must have its
+length rounded down to a multiple of 16 bytes, as required by the
+assembly. The check for a non-last segment is `if (unlikely(assoclen))
+/* Not the last segment yet? */` where assoclen is the number of AAD
+bytes remaining after the current segment.
 
-Kill the out URB before submitting it again, as port100_send_ack()
-already does.
+Since the conversion to the new scatterwalk API, assoclen is decremented
+at the end of the loop body rather than the beginning, so it still
+includes the current segment when the check executes, making the check
+always true.
 
-Reported-by: syzbot+89f5f8143d8e62af2b61@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=89f5f8143d8e62af2b61
-Fixes: 0347a6ab300a ("NFC: port100: Commands mechanism implementation")
+As a result the last segment was rounded down as well, causing some
+avoidable extra work: an additional memcpy into the temporary buffer and
+an additional call into the assembly afte the loop. The GCM
+authentication tag is unaffected either way, so the self-tests pass and
+this went unnoticed. It is purely an efficiency issue rather than a
+correctness one.
+
+Fix this by moving the assoclen decrement back to the beginning of the
+loop body.
+
+Fixes: e9787deff49ea ("crypto: x86/aes-gcm - use the new scatterwalk functions")
 Cc: stable@vger.kernel.org
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Suggested-by: Eric Biggers <ebiggers@kernel.org>
+Signed-off-by: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
 ---
- drivers/nfc/port100.c | 3 +++
- 1 file changed, 3 insertions(+)
+Changes in v2:
+- Use the correct Fixes commit and cc to stable
+- Change the fix by moving the assoclen decrement back to the top of the
+  loop body instead of changing the condition as suggested by Eric
+  Biggers.
 
-diff --git a/drivers/nfc/port100.c b/drivers/nfc/port100.c
-index b613f5e2fd57..5fad6444fe3a 100644
---- a/drivers/nfc/port100.c
-+++ b/drivers/nfc/port100.c
-@@ -780,6 +780,9 @@ static int port100_send_frame_async(struct port100 *dev,
- 	print_hex_dump_debug("PORT100 TX: ", DUMP_PREFIX_NONE, 16, 1,
- 			     out->data, out->len, false);
+Link to v1: https://lore.kernel.org/all/20260926040614.8683-1-raizudeen.kerneldev@gmail.com/T/
+
+ arch/x86/crypto/aesni-intel_glue.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/x86/crypto/aesni-intel_glue.c b/arch/x86/crypto/aesni-intel_glue.c
+index f522fff9231e..1903ed8bbe3b 100644
+--- a/arch/x86/crypto/aesni-intel_glue.c
++++ b/arch/x86/crypto/aesni-intel_glue.c
+@@ -1293,6 +1293,7 @@ static void gcm_process_assoc(const struct aes_gcm_key *key, u8 ghash_acc[16],
+ 		unsigned int len;
+ 		const u8 *src = walk.addr;
  
-+	/* The device may answer without consuming the previous frame. */
-+	usb_kill_urb(dev->out_urb);
-+
- 	rc = usb_submit_urb(dev->out_urb, GFP_KERNEL);
- 	if (rc)
- 		goto exit;
++		assoclen -= orig_len_this_step;
+ 		if (unlikely(pos)) {
+ 			len = min(len_this_step, 16 - pos);
+ 			memcpy(&buf[pos], src, len);
+@@ -1320,7 +1321,6 @@ static void gcm_process_assoc(const struct aes_gcm_key *key, u8 ghash_acc[16],
+ 			kernel_fpu_end();
+ 			kernel_fpu_begin();
+ 		}
+-		assoclen -= orig_len_this_step;
+ 	}
+ 	if (unlikely(pos))
+ 		aes_gcm_aad_update(key, ghash_acc, buf, pos, flags);
 -- 
-2.43.0
+2.53.0
 
