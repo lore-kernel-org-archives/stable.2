@@ -1,54 +1,57 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE15B345EB4
-	for <stable@vger.kernel.org>; Sat, 26 Sep 2026 05:26:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC43F367F3A
+	for <stable@vger.kernel.org>; Sat, 26 Sep 2026 05:33:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790400414; cv=none; b=PePMAzhLipk1paO/ntrJ/AXXtIFo4rZBBIGLau9ZNSyLz9aVW5LGSZ5YIcrE0rKLf0R6oUPuwQ0yRApmD8aIt9SWuzLdvcMdTKqAy8lGAWIctS/q3+Z1UjeWNriedB005nyixWpElRajmay25wJaA9CX3G+7imQwiVxJfccI/qE=
+	t=1790400784; cv=none; b=Jkag7jEBfbcX1O0krmT1GUpHZcdbOc1uTbFfttHjL7L/rxfzRE/QVY9ZGudgJ6SfK6oBWwGhXGUGWEEOPvp/IMrSr6Fpsf0M5+EaNVvQ6V/wNsZcuXFD4N1zTnsbXUTWSwHVAf0s6kRTx9ZouxQIR1FUpRZO9qK7Ur+P4W3pd9g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790400414; c=relaxed/simple;
-	bh=4P9v5MNF+H4noSBR7OJYRA03UpcVDJ1wkDA1N3AMcj4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=HmwZcIkoWfIe/a1oI1jd12N0uDY6yHlbNDNFyqoNiZaKJ2ejNN8STFNbADvYioyrHhDqF35qklef3bj/jfKbMED5eFt0RQGRMq7OerQReXthv4Wq+ssvL2baVtjf4/DHFGMhNrPgmt2IyDilxY9yFCd24vb8WgBQX1BF4c/HgM4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=EA98V28q; arc=none smtp.client-ip=170.10.133.124
+	s=arc-20240116; t=1790400784; c=relaxed/simple;
+	bh=GN8GZruQXYRaF7EO63+YgQk2i0jrLoiCCKQQn3gDa9Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=REE4g12B7ALDE4YNPURd09zztjTAlurvdOmMYzhl+5SPa+YsSn+KMatX7ZyrdpHpXLiwzZM6Imb4ZR1+5pAAX1LN+Q8JRgUONH6aT9o8EXceuxe+MmnyvJI2VXlAxIc1e1x4HzHJlu7M7iagomBb8XUgaEyFmBCBLzu21J86Y7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Lvvap1c2; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="EA98V28q"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Lvvap1c2"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790400412;
+	s=mimecast20190719; t=1790400781;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=NvmGXSA00HPZOSJCm9LwOa3iASeTeG9V+ogkkFW7yoI=;
-	b=EA98V28qB/0AdTy9zs/gYXej+9OkmuEoq2tsBWtvbyBtjKlyWIkSN75jcM/SlislHBnzSj
-	9/WH5eMBXGwmtZC6VZ32KWjcON7T0+C8Wqvl/CUd2TQlEUdDWJ8bML3nfajFHgs7rExEXJ
-	2OQOaXA058mnul3UYDTR3+nZowBkF9A=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+M2+L1H5egwQQlZ0xHrmsDhZ8xEZMT62MEpuXSNGixQ=;
+	b=Lvvap1c2wSL6R+aTalxeR7ftDN2dlCHfVeKi51lh7TX/2ID9fOa734cKlQEzjmde6M6Ir/
+	S0f9qeCOsbRY8dGc0peCG6zPG8Pv8YA95SAs+0/vLLD9bsT0HQZ3uYTtI4ezNM42I0mA81
+	ySX/9zml8+ruDvr5L6bZTnuoh8ivNAE=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-448-mf8t4hv8OJ20ml8ky0IVzw-1; Sat,
- 26 Sep 2026 01:26:48 -0400
-X-MC-Unique: mf8t4hv8OJ20ml8ky0IVzw-1
-X-Mimecast-MFC-AGG-ID: mf8t4hv8OJ20ml8ky0IVzw_1790400407
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-325-43i1mL1sM4qBU_AMwsrp5w-1; Sat,
+ 26 Sep 2026 01:32:58 -0400
+X-MC-Unique: 43i1mL1sM4qBU_AMwsrp5w-1
+X-Mimecast-MFC-AGG-ID: 43i1mL1sM4qBU_AMwsrp5w_1790400776
 Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id DC408195606F;
-	Sat, 26 Sep 2026 05:26:46 +0000 (UTC)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 9400A1800871;
+	Sat, 26 Sep 2026 05:32:56 +0000 (UTC)
 Received: from virtlab1023.virt.eng.rdu2.dc.redhat.com (virtlab1023.virt.eng.rdu2.dc.redhat.com [10.18.48.26])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 35B091956086;
-	Sat, 26 Sep 2026 05:26:46 +0000 (UTC)
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 0A11F1956086;
+	Sat, 26 Sep 2026 05:32:55 +0000 (UTC)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: linux-kernel@vger.kernel.org,
 	kvm@vger.kernel.org
 Cc: Sean Christopherson <seanjc@google.com>,
-	Gabriel Schneider <gbrls@osec.io>,
 	stable@vger.kernel.org
-Subject: [PATCH] KVM: x86/mmu: Bail from shadow walks if the root is invalid or a dummy
-Date: Sat, 26 Sep 2026 01:26:45 -0400
-Message-ID: <20260926052645.195528-1-pbonzini@redhat.com>
+Subject: [PATCH 02/11] KVM: SVM: Update control fields on #VMEXIT if and only if VMRUN succeeded
+Date: Sat, 26 Sep 2026 01:32:44 -0400
+Message-ID: <20260926053253.195597-3-pbonzini@redhat.com>
+In-Reply-To: <20260926053253.195597-1-pbonzini@redhat.com>
+References: <20260926053253.195597-1-pbonzini@redhat.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -61,75 +64,54 @@ X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
 From: Sean Christopherson <seanjc@google.com>
 
-When walking shadow page tables, immediately terminate the walk if the root
-is a "dummy" root, i.e. a root whose top-level page table is backed by the
-zero page, but otherwise doesn't exist.  If memslot creation races with a
-stage-2 page fault (EPT violation or #NPF) from L2, then if the stars align,
-KVM will attempt to walk shadow page tables using the zero page and hit a
-NULL pointer deref.
+Leave control.erap_ctl and control.clean as-is in the VMCS if VMRUN fails,
+because as per AMD:
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000021
-  #PF: supervisor read access in kernel mode
-  #PF: error_code(0x0000) - not-present page
-  PGD 0 P4D 0
-  Oops: Oops: 0000 [#1] SMP
-  CPU: 30 UID: 1000 PID: 941 Comm: qemu Not tainted 7.2.0-rc2-1b731e5ded48-next-vm #1741 PREEMPTLAZY
-  Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 0.0.0 02/06/2015
-  RIP: 0010:__kvm_mmu_invalidate_addr+0xea/0x210 [kvm]
-  Call Trace:
-   <TASK>
-   kvm_mmu_invalidate_addr+0x92/0xe0 [kvm]
-   __kvm_inject_emulated_page_fault+0x67/0x80 [kvm]
-   ept_page_fault+0x160/0x850 [kvm]
-   kvm_mmu_do_page_fault+0x102/0x1f0 [kvm]
-   kvm_mmu_page_fault+0x8e/0x6b0 [kvm]
-   vmx_handle_exit+0x163/0x640 [kvm_intel]
-   kvm_arch_vcpu_ioctl_run+0x960/0x2120 [kvm]
-   kvm_vcpu_ioctl+0x2c7/0x970 [kvm]
-   __x64_sys_ioctl+0x90/0xd0
-   do_syscall_64+0x67/0x5f0
-   entry_SYSCALL_64_after_hwframe+0x4b/0x53
-  RIP: 0033:0x7f606d0b53bb
+  there's no explicit architectural guarantee about the behavior in the
+  presence of VMRUN failures. So the best thing to do would be to assume
+  that if VMRUN fails, the actions requested in the control fields may not
+  have been performed.
 
-Opportunistically harden the shadow walks against fully invalid roots, but
-WARN, as all callers are expected/required to pre-check for a valid root.
-Don't WARN in the dummy root case as the whole point of using a dummy root
-is to provide a root that's valid enough to enter the guest, i.e. it should
-Just Work for all flows except those that *need* to know about dummy roots.
-
-Alternatively, KVM could allocate a dedicated page and associated shadow
-page structure for the dummy root, which is very tempting as it such an
-approach should be more resilient against unexpected behavior.  But that
-would be a much larger and thus riskier change than simply terminating
-walks of dummy roots.
-
-Fixes: 0e3223d8d00a ("KVM: x86/mmu: Use dummy root, backed by zero page, for !visible guest roots")
-Reported-by: Gabriel Schneider <gbrls@osec.io>
 Cc: stable@vger.kernel.org
 Signed-off-by: Sean Christopherson <seanjc@google.com>
-Message-ID: <20260925234256.2384816-1-seanjc@google.com>
+Message-ID: <20260904170642.3291466-3-seanjc@google.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- arch/x86/kvm/mmu/mmu.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ arch/x86/kvm/svm/svm.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
 
-diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index 8e62476e477b..a0d608e3fceb 100644
---- a/arch/x86/kvm/mmu/mmu.c
-+++ b/arch/x86/kvm/mmu/mmu.c
-@@ -2512,6 +2512,12 @@ static void shadow_walk_init_using_root(struct kvm_shadow_walk_iterator *iterato
- 
- 	iterator->addr = addr;
- 	iterator->shadow_addr = root;
+diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
+index afbaaaab84ed..b63e7c69aa1c 100644
+--- a/arch/x86/kvm/svm/svm.c
++++ b/arch/x86/kvm/svm/svm.c
+@@ -4625,17 +4625,17 @@ static __no_kcsan fastpath_t svm_vcpu_run(struct kvm_vcpu *vcpu, u64 run_flags)
+ 	if (!svm_is_vmrun_failure(svm->vmcb->control.exit_code)) {
+ 		this_cpu_ptr(&svm_data)->flush_all_asids = false;
+ 		svm->vmcb->control.tlb_ctl = TLB_CONTROL_DO_NOTHING;
 +
-+	if (WARN_ON_ONCE(!VALID_PAGE(root)) || kvm_mmu_is_dummy_root(root)) {
-+		iterator->level = 0;
-+		return;
-+	}
++		/*
++		 * Unconditionally mask off the CLEAR_RAP bit, the AND is just
++		 * as cheap as the TEST+Jcc to avoid it.
++		 */
++		if (cpu_feature_enabled(X86_FEATURE_ERAPS))
++			svm->vmcb->control.erap_ctl &= ~ERAP_CONTROL_CLEAR_RAP;
 +
- 	iterator->level = vcpu->arch.mmu->root_role.level;
++		vmcb_mark_all_clean(svm->vmcb);
+ 	}
  
- 	if (iterator->level >= PT64_ROOT_4LEVEL &&
+-	/*
+-	 * Unconditionally mask off the CLEAR_RAP bit, the AND is just as cheap
+-	 * as the TEST+Jcc to avoid it.
+-	 */
+-	if (cpu_feature_enabled(X86_FEATURE_ERAPS))
+-		svm->vmcb->control.erap_ctl &= ~ERAP_CONTROL_CLEAR_RAP;
+-
+-	vmcb_mark_all_clean(svm->vmcb);
+-
+ 	/* if exit due to PF check for async PF */
+ 	if (svm->vmcb->control.exit_code == SVM_EXIT_EXCP_BASE + PF_VECTOR)
+ 		vcpu->arch.apf.host_apf_flags =
 -- 
 2.52.0
+
 
