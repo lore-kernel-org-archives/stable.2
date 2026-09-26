@@ -1,127 +1,112 @@
-Received: from mail-ej2-f26.google.com (mail-ej2-f26.google.com [74.125.228.154])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F33930D3FD
-	for <stable@vger.kernel.org>; Sat, 26 Sep 2026 13:03:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.154
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790427835; cv=pass; b=FxtkpjljEmLasUlXnMSJrn5kLiOcGirKqJ9AxhdsaKiDz49nP1VGvU2VcQqYwdTtfS+I3O1nsF2nca5+HtEpo/4q2VI9gzAZ8BbD+kyJ/OLXlXo1rVXgPghgy/1zkA6so3KQJvQ9xQDd42ZCn32UfHz/qebVmL76d41ogIIfBTI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790427835; c=relaxed/simple;
-	bh=KPB4QfuQyfLFpvVLFN1RqwpJdFRHs9clkHigX3iiJE4=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=AV2WRuucyk4TzBNLKWRF4ols4fCCIJj5v7ILpI3uKVf/9frGxHS+20ksP6EhOvWOpOx3bSVOcPacWVp7o2P/jkSTQMI5w84icXOz99sCfevAW9+w7rQP1vMgDZrUPxkCr9TVnAv31Y65UoTt2hpFYcqzsdp1DQhIIO1Ag1A1wq0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=Bigq8mBr; arc=pass smtp.client-ip=74.125.228.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B7E1448BB3;
+	Sat, 26 Sep 2026 13:17:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790428634; cv=none; b=C4dom8yA3cPqYnrgQHXyjVYQWH/vdPyEaYUS2jCvouEYsA5EmK4T3797WOD9wCrld/3IgRUfDhCUvO6Ve5MkxPo3c5ZsNWvDyS94lNODjxucHB9F+2L6BjaM5KsQZe0UNg8rsA78KlOUBfWPZnop2EL/SkTT9QXxIzPimpurLn4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790428634; c=relaxed/simple;
+	bh=nk6tWgfWfCzVJ80HB+E43ly8yTYHGUV6LKNb27D3Q4g=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=D7o4mtm5shdS26vypbZwSsWcHUpzsMKGnrXi2951SxhVq6pjdogVePRyyHVNcSjFyozAwFl6QYUTiuosjkYrmMCmo3GfA9nCWclta7lyvbCnswRBy68c8UMMdzueebzpIRlO89MbHXQBRdNmsjee4eqYwwO1l36f3KOhqCAsj+g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m+w3z9c4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="Bigq8mBr"
-Received: by mail-ej2-f26.google.com with SMTP id a640c23a62f3a-c2940ef15d3so207720466b.2
-        for <stable@vger.kernel.org>; Sat, 26 Sep 2026 06:03:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790427831; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Cj+pZfJJNmh7E+3fAogvFi0iF3ejp5mmZtI8lKpwOlIN2MH/c9NvuQsTGyeQZGdcJ6
-         +/a/iBcdqoLd5KOCkXadfQn/yStAhqpMCwzq151mgNB5sMTKYllsQD0MZKbLX6Tf/HON
-         hsE+w5UgGPeoV6hUJ9eD5ocnv3IH7PQt2ZrOpIQOCt2qwvF8SzBs/xCkR3hF0h0hCLIz
-         Dwb3Ha7TKHTgTi9Mg3fXU8liNVqHd/YF0ucWXfaPDmOld0rXi1W+taZdPnnKQSFELl4F
-         tw4WtBeyizwwXUqQ/+0dETQL887q3gAgXu1BaO5JTMaZ36f6cy5E+WpKLTX4LZDHLh44
-         tLbw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=KPB4QfuQyfLFpvVLFN1RqwpJdFRHs9clkHigX3iiJE4=;
-        fh=ICGN9nnLs78z7wzfOAFmYlG0CtCWWo8R3sej5/829eE=;
-        b=JHmrks/Wcu5l31ULk8KxuEiBgBBCUsOxjKV9IlivZ64Zntms4cTomM9J++pCTyv2Hf
-         5p3NmpbH9HgcwtqMnHc2ebFPQArLfF3zVxeR3gu5mdud69REMPlE+P8FdcRKSc/9f86p
-         UU2UodTqqd2pVDNrN9GCKA0vm8jqzGPJbAj2s5svsQHX4xfv55XrvU/mMpOh5Yij7E1e
-         NJedVSXeGYuMmQjWxCWT4V/0ygo+wlm2zJOHctohytZ1TalsEccgYe2X3CaBeKX1zu/R
-         fO0tWdZp2zbnp4GIrIUHnWI9RCVhzX2KaRZTdvHkIVFoxdJGhKqwuw8w9TIhcg1lcK6u
-         sWcw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20251104; t=1790427831; x=1791032631; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KPB4QfuQyfLFpvVLFN1RqwpJdFRHs9clkHigX3iiJE4=;
-        b=Bigq8mBryqX0Ds0N2EipDlro4L+H9O/z3QEvC2R2/KKo2UG8jq1WVXKVj4ImYJmJhC
-         /pJNrV1Q2bOU3d+fujPLyzpAz79y5kjycTXtIJX9S5gM22ppi5gPn8dZAGquJK3sdFdk
-         oAiAfWfz/vT7ws29OBupl5j8AK8wLNj3jMtANqJnrpMgkyzkudoi0noGIC1Wl275YgvS
-         U8yqX2EkPVbMBhX+8nVOkQk3PVxxrVp3iFl3pSmqY0lLw52viRNUyRAmIS94gZzmKP+G
-         qHLetdxslS6sQfKbhaoXqj6/fAkkJrz+8sjNt5VSvwvMOsvpW7UtExDW736Vnm/nRx5U
-         LVdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790427831; x=1791032631;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=KPB4QfuQyfLFpvVLFN1RqwpJdFRHs9clkHigX3iiJE4=;
-        b=bfkeLw/UQppd2IKoLDmNhZ84/nYclo2s4W89QejAwp0o1Pzos/wMcoXtWUIEsu2Xeg
-         KnqG7dg8VOYhaxyp4fh5xijyhJ/rBJ/6Nh1PbqfMo2OFowhmUowtcrhxJ0/560wbvGt6
-         5pnppFlnYWKB3GC4TEOTxiBZtbPFJeBh2ptkF+h6g3YdvahjXHsotpCgRnPOnzUXY7+2
-         u2kAaHnR0/AENxkMfliSdWNGOrzudLq4WSQMZlYg4VKmcltakyYlja05yuqlR2R4bd2K
-         G9kWotxUE6iufIEDt6/WifKHQRIAUm5AuHfw8ppgv/GyBLoL3XzylcCMbaCDq9vU9BAg
-         vLdQ==
-X-Gm-Message-State: AFuF++mPwHRL1E4EUZCcO0aVa8ghk4WBtmmjGFQF4CTe2Nyxccudeh4W
-	RcXo+Xe8+rbZdVXsQrxdgrOHBSuX239Hwe1H/EmIIfZdhOvZkeRweH4YBSB48xrINndq4ILvJgl
-	ZS8lmjyfJYARuunG70BM29J4yyCv6LuAuIKMyz05wL3H9J8s=
-X-Gm-Gg: AYBFou3sp8ynwBJEeXX8Gc9fdqRLPJ6IeI3lVp3KAuzMFVhiAPUEBT3XfkQGIp+J4f9
-	FKtUqJ7rSPItkgIq8JlT73PP/NDnaKwKMOqNo6p3vGCMan5AhiicXfY6kivxJ+mOd6gCsh7VyEp
-	/UzqIo/EkkNGS2w/OppBj4IGCYWn1sAw6NtjGcRINQ2keBEcJHj/2xDWAOFY8fTQTZHk52vzeWR
-	KqhbHGCmB5NJtMaeGsiKvtuAc/nZEYEoS4DWMIOAfqzqS8OarKd7ujaRLMRXQKsYBKmXglXW1O1
-	f+fbl7DzfyfTWowJi3h3Doy1aQDMOfcpc9Ad22jOe6P7QMfKhB4Odg==
-X-Received: by 2002:a17:906:dc8a:b0:c25:2e93:289e with SMTP id
- a640c23a62f3a-c2ac233f3e8mr713822766b.16.1790427831544; Sat, 26 Sep 2026
- 06:03:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m+w3z9c4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FC151F000FF;
+	Sat, 26 Sep 2026 13:17:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790428633;
+	bh=6K6aRJbm7O7grujLpKfmwFADDk/4ClgBVhZ4DN1sLn4=;
+	h=From:Subject:Date:To:Cc;
+	b=m+w3z9c4uR3Tk1a+jEp1F89n3VGMnDg0YXzs4afked4AIoPSeW26r/FEPyUP5w3MT
+	 LZ2iWYiB/6baEW0O3nPZdNcpkLC11oTcAWoUadbraQWCQZJnerna1kKGZJoMQxyjYG
+	 rs6iDi/wsSr2kd8OHMPjgQ0Y0gkqN1KMZKRSsCvnAh/SkThlHWgE6bHMfOtg5QtBLF
+	 Pb733RnWIiObeUfPHruNaHFUnfKxguYogzsbsIJB4smncQwe9BKB7akbl5v5OeG3nE
+	 P4AZIbTJiwRjzrJ8rLKxT6ZvfXhoJTAc54l3H668uOwNTM1Nn/a9BgNGIfEQ/WQ7eC
+	 GHFp5ppRc3CYg==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Subject: [PATCH 0/6] fbdev: fixup callers which ignore errors from
+ fb_deferred_io_init()
+Date: Sat, 26 Sep 2026 14:16:58 +0100
+Message-Id: <20260926-fix-fbdefio-error-handling-v1-0-a94810b6e263@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Faaris Ansari <faarisansari@googlemail.com>
-Date: Sat, 26 Sep 2026 14:03:40 +0100
-X-Gm-Features: AclHuK952zT1VOkbWHfF6M_lj11z6Tzl9P8Q_FSCl8Jh__qj6jK24voSq9ltu-8
-Message-ID: <CANBVYRCL=8QdLxGg4S6qrahrFtwJxhv-aSGpW7-1S=+iOe4ZGA@mail.gmail.com>
-Subject: [REGRESSION] Audient EVO4 hardware volume control now requires quirk
-To: stable@vger.kernel.org
-Cc: regressions@lists.linux.dev, linux-sound@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqAIBBA0avErBtQo6CuEi0yxxoIjREiCO/e0
+ PLD479QSJgKTM0LQjcXzknDtg1sx5p2Qg7a4IwbzOgGjPxg9IEiZySRLKgsnJx2XL3tem/s2G0
+ edHCJquefz0utH+HA3R5sAAAA
+X-Change-ID: 20260926-fix-fbdefio-error-handling-ab135b0193cb
+To: Helge Deller <deller@gmx.de>, 
+ Javier Martinez Canillas <javierm@redhat.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ =?utf-8?q?Bruno_Pr=C3=A9mont?= <bonbons@linux-vserver.org>, 
+ Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
+ Bernie Thompson <bernie@plugable.com>, Greg Kroah-Hartman <gregkh@suse.de>, 
+ Steve Glendinning <steve.glendinning@shawell.net>, 
+ Florian Tobias Schandinat <FlorianSchandinat@gmx.de>
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-input@vger.kernel.org, 
+ Steve Glendinning <steve.glendinning@smsc.com>, 
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, stable@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1832; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=nk6tWgfWfCzVJ80HB+E43ly8yTYHGUV6LKNb27D3Q4g=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLK2H71yU8auJ7GmyeWWIqPwfdbAMG+nBPuSZTY5e++wm
+ 78PFDbqKGVhEONikBVTZHn+RXx/kEjYvM4L/m4wc1iZQIYwcHEKwETOljAybFJ1X2V3r/74+UyO
+ Z8pClw9dTdZ8MXkq+6Y5Gn9vrucKWs/wP+IY53zuhRM/zVQJZviWOPFZ8S+j8/OF5ly1WKaYZpl
+ uxgUA
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-#regzbot introduced: v7.1.13..v7.2.5
+Commit 56c134f7f1b5 ("fbdev: Track deferred-I/O pages in pageref struct")
+converted fb_deferred_io_init() from a void function to one returning an
+error value.
 
-Hello,
+However a number of callers don't seem to have been apprised of the fact
+and continue to treat it like a void function.
 
-A new regression has been introduced between an update on my system
-from kernel 7.1.13 to 7.2.5. When attempting to control the volume of
-my audio interface (Audient EVO4) through pipewire / wireplumber, it
-attempts to modify the hardware volume, then falls back to modifying
-the software volume instead. This causes the system volume to be
-dramatically lower when modifying it through software. However, moving
-the hardware knob very slightly to change the volume brings the
-software volume back up to 1.0.
+This is problematic, as upon allocation failure, struct
+fb_info->fbdefio_state is NULL.
 
-I confirmed this is a kernel regression by reverting only the kernel
-on my system back to the working 7.1.13 (now EOL) version, where the
-issue did not occur. I also tested both the 6.12 and 6.18 LTS
-branches, and the issue also occurred there.
-I also worked through troubleshooting this with a WirePlumber
-developer to confirm it isn't an issue with the PipeWire stack:
-https://gitlab.freedesktop.org/pipewire/wireplumber/-/work_items/1022
+That means when a subsequent operation is performed upon the driver, for
+instance opening the file, a NULL pointer dereference occurs.
 
-I was able to work around the issue by adding extra modprobe config to
-my system, specifically the below:
+Update all of the remaining drivers which fail to check this to do so.
 
-options snd_usb_audio quirk_flags=2708:0006:ignore_ctl_error
+This issue was discovered as part of a separate series which updated logic
+belonging to ssd1307fb.
 
-Does this quirk need to be added to the snd_usb_audio module or is
-there an underlying fix somewhere else?
-While troubleshooting I also attempted to patch my kernel with this
-patch set hoping it would help with the problem:
-https://lore.kernel.org/lkml/20260919151840.24371-1-arc@gmx.li/
-The patch set worked fine but this specific problem was still
-occurring. Using both the patch set and the quirk above makes the EVO4
-work perfectly however.
+Also fix up a separate issue with a BUG_ON() occurring on allocation
+failure for udlfb and smcufx.
 
-Would appreciate further guidance on helping to debug.
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+Lorenzo Stoakes (ARM) (6):
+      fbdev: ssd1307fb: check for fb_deferred_io_init() error
+      fbdev: xen-fbfront: check for fb_deferred_io_init() error
+      HID: picoLCD: check for fb_deferred_io_init() error
+      fbdev: udlfb: check for fb_deferred_io_init() error
+      fbdev: smscufx: check for fb_deferred_io_init() error
+      fbdev: sh_mobile_lcdc: check for fb_deferred_io_init() error
 
-Thanks,
-Faaris
+ drivers/hid/hid-picolcd_fb.c           | 12 +++++++++---
+ drivers/video/fbdev/sh_mobile_lcdcfb.c |  6 +++++-
+ drivers/video/fbdev/smscufx.c          |  9 ++++++---
+ drivers/video/fbdev/ssd1307fb.c        |  6 +++++-
+ drivers/video/fbdev/udlfb.c            |  9 ++++++---
+ drivers/video/fbdev/xen-fbfront.c      |  7 ++++++-
+ 6 files changed, 37 insertions(+), 12 deletions(-)
+---
+base-commit: 6812ce4e4379ffc99c52401ec28f0d7ffbc36206
+change-id: 20260926-fix-fbdefio-error-handling-ab135b0193cb
+
+Best regards,
+-- 
+Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
