@@ -1,78 +1,74 @@
-Received: from mail-pj2-f3.google.com (mail-pj2-f3.google.com [74.125.227.131])
+Received: from mail-oa2-f35.google.com (mail-oa2-f35.google.com [74.125.231.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2A68383310
-	for <stable@vger.kernel.org>; Sat, 26 Sep 2026 17:10:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1C12383980
+	for <stable@vger.kernel.org>; Sat, 26 Sep 2026 17:21:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790442659; cv=none; b=FRuAoEzd7PJABR8KLj1gtvewmGAtbM3BeVBmNF/kbmDwCSdOp01JM95ceZRULfke+Z+v40o5BSn6EUheFdutDQ2j9baXyy3HxWgwOYs66lNXnCR1hEfCWKaZvc2URLARm0hKzAV5nrDLYv+ee5ey8BbWkYHCldTSg1bKoyWjRyw=
+	t=1790443281; cv=none; b=sqzAB4/aDuuq7Q+RGJ9FetYtlCjFS9MU/270c9Xj1ysgIBCO5GMz9xBtCVAPm5+D87dHoEkdT0bltdKIxh1/IoqHqeVEuApt2/lfKrnkhrIHrPqyAaFOSaWuo/1SRchC++6X+JC377ph3ll91chsI4eDAfWLLCVcflkVERJmXiU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790442659; c=relaxed/simple;
-	bh=1Ijmd4NtwbrxYG0QbmrAlqjExMAyCe44/2dJ1XZKKMU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=jQx9RAMejhMiaDcXfsQ9FZPdgmT7cD1FmYu0yc0EkrehCegeUvumu6dBjDhvu349b8ZB9aj0VCVmqVOFvG5yHOA9NnRZvBmZ/8DFbqxTNvNrP6BbXVp6331TMnrVyHvDPK1Gb5XgqxQ0506uNDi0dr9oN61aEUHDI5kaInKu7G8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=embeddedlinux.blog; spf=pass smtp.mailfrom=embeddedlinux.blog; dkim=pass (2048-bit key) header.d=embeddedlinux.blog header.i=@embeddedlinux.blog header.b=L2IgYw6v; arc=none smtp.client-ip=74.125.227.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=embeddedlinux.blog
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=embeddedlinux.blog
+	s=arc-20240116; t=1790443281; c=relaxed/simple;
+	bh=r8HxKt0y8Dn/q6FFwqRAaZx4ISjhVY18Af8HDOWOtJQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SQf2Wn1zMaGwryKe4H0h+oYHoHklzDhjYYJbLKPe7WCN76eBjFP3IN+IcYm8c/IUnT4slz9kTLY2b1V/9dvcM4JRh6e2XxZ8tH1tolQZ9Nghpk+aU2o2wa9Jn8zzMxUjGY+5OdXYo5FvLezQHQiJOJOorU4QTb8Y9tKpvUmxBRo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m9WTRFjP; arc=none smtp.client-ip=74.125.231.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=embeddedlinux.blog header.i=@embeddedlinux.blog header.b="L2IgYw6v"
-Received: by mail-pj2-f3.google.com with SMTP id 98e67ed59e1d1-3a0cb6b922eso492249a91.1
-        for <stable@vger.kernel.org>; Sat, 26 Sep 2026 10:10:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m9WTRFjP"
+Received: by mail-oa2-f35.google.com with SMTP id 586e51a60fabf-4938dd40902so954995fac.3
+        for <stable@vger.kernel.org>; Sat, 26 Sep 2026 10:21:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=embeddedlinux.blog; s=google; t=1790442657; x=1791047457; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790443278; x=1791048078; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=F0/79LdVzvZe+TAFF8pS9QgkNB/YVyvKTl0/c5RoqxI=;
-        b=L2IgYw6vW8xHZseT0u/BrE3tqC4C62lAdDxT4lMSuILCnmhBEqEt27ypHi8rQK06Bk
-         HrGUp/4oC/m+yslwIFGAZ61FvvFcG4x/j8nNqswfdNntkD+SZeOuYbfqdTFwhQFhcwBS
-         eyiC/tiqTH6ZbdhgovRXypAlRDXHc9gLJ1DHu1Y0z/DWo+KnWzqWTgyhSw5Jc4oacw10
-         7OxnMUgyln/RK4UAJm6q4826RGyhM5HNpptyeiXBq7LYWYZKA9du4wbwFGxVGlZLf0ww
-         yWnkOlDAEmuWOkauwgJRnuERCrKY4S5zwoOrJjANH/ur9puem4Ap8MbxfFYMQQA3Veg7
-         /s2A==
+        bh=x02wxXy9eBaknTCUIBHusevlZwUPADcsIU5t7Qklh7U=;
+        b=m9WTRFjP3+x/y/m9E6UApbVquVH0q1qW7L3NUrbSpoftdo0lUuZiGJP20tedXsxO20
+         oiidejmH/1i8aFkLKLRJZLifwphmEqHXBSqI3qJPSHxhom/lmz3qosv9BVYxi/jF0nA0
+         9tsfWIL86kySyL37LSIKaoYS85gsVhtuG+EA8wLbNddMBe+FRGP+OdzS2WCL9KnJrjuV
+         gadl5yMH04mSas7tRJQg1ECuHpC5u0RH8hl6KLSWqx6y8Oe4ldnYKMFhvCfw3YU95vNp
+         neSO8NqQ1vLW1vQQ2TuYgG7q01zvgxJ6vmA73noTkWyZ8R1H0yMVmk8Cd70nXtLZ05VC
+         3rPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790442657; x=1791047457;
+        d=1e100.net; s=20260707; t=1790443278; x=1791048078;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=F0/79LdVzvZe+TAFF8pS9QgkNB/YVyvKTl0/c5RoqxI=;
-        b=CJ75alxQ+rhxdqcn4zV+4cafUOIMEN9svmk7kyeS6wgwbsq8V40Uue/pXZlUGXYxzX
-         nrymuxskyeXrJ4vybdQDlFqCeP2Y8cuiVJ+cjDXOGSU/TWpIs2gtP/5c6tFoa7XMNn//
-         Bdy+vqwpC4aEIdkBd8kmyDSZTFWljr1cq+k1rCvJ+TGu2c5/r/2BBVRp1DQYBpR0cwrE
-         YDMnfHMgS+i8/hPntUpJLTRH52Fe6SJuGl5zN/F6ANTZMm5jmUPnzweu9BbQOaGoQgvN
-         efadmwJbraxSdo98kAxVkIKR12I4WzkX8Vc2yTmBog6PTcu5IJX0Qh/j12N1AkctuB7o
-         TGTQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx/zNNZRYEltF7dSiqxm1T4GQs6Oac1CJ24HDrQUrpBnoN3ndzGpcSVyf+nWvYz5Ve8ZPawFgc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL7gJhPDHg/iVcIw84EpyRPuTJINFUmuQ7xtvI05oem1a9/cpTY
-	OwYNxFc9NP67lJlZgc7oy0S/sDmkU9bEHIc9E33jrCIt2CoQFEYliXc2lbdq5rTHszo6
-X-Gm-Gg: AYBFou2mjURoZoOejFzJEDZ39HN9ohz3lPQugHaJf535esPQjcbo0WuLV6yZaOuK/os
-	vf0TFvvXmVro4lyJ6L8pfcWoQ3WVS+PoWjtMgXJS4g86shoYMqrbU2VfX/JbjFyDW2HzBbc86H/
-	sSkGpJgT9GctgaFwGy4qHbh6Yen2t9ONMiuKXdeIJxuf+BWH2kU0uVXMH+vcHYlnEse/UerrYFw
-	EGsSyw1rrE82mWXy4yZkF2idxKmIK4OfyN6gZSCzgIs5ik/SZ3oQfUD+WtG8dkel0WLxDorJXlR
-	8IkIiOUcAbAtEMex2nWrz/s8cizNzCfMHswpoRHkdP6dC2T0QXlyJ/uaJCY7VXMkZ13ZDJy90Br
-	FooklB0srnpW35OVUgmFE4WfAxrqYSlANEhR9pUNxQ93z4ZKcd8Q0YaCO2xno0Th5ozxJ5l/zrB
-	XmU1jSKIQmSb6vUdbhJCi04VCBYAFN9HemZgYlN3PNLfXi1Uju6Ipz8KbCbHDnE3T+Lg==
-X-Received: by 2002:a17:90b:4c42:b0:39e:4c80:f680 with SMTP id 98e67ed59e1d1-3a098bb66d1mr8321977a91.31.1790442656808;
-        Sat, 26 Sep 2026 10:10:56 -0700 (PDT)
-Received: from ltu.. ([171.245.4.151])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0976c7435sm17467136a91.11.2026.09.26.10.10.52
+        bh=x02wxXy9eBaknTCUIBHusevlZwUPADcsIU5t7Qklh7U=;
+        b=Zv9/UTlXe1JE7OInD+TVhsl2c4ia0cdqntW2CTCRu4gqGJ4i+eX5B58xOxqlCthPpk
+         fLgqT8xQAk8eDODMu66+qMvV4yYj9DVLRuwW44/rc3OkEEFW+PAzy4gcdiwyEMJbujMa
+         cPVjP+Or6BdT0ByC/UEugjQ4QUSuXKCji2GVn+OBWq/nX1SV8BA59FKTvFnDX1z1aESC
+         zJcwtsh5WbgiU1WTM1GNnE44WKtwc/EYhs7R/ZToSgGdcoVy3NueJSTE2K9nKF1EHh+0
+         /FdS349xh2eQIniENRpoR96OUNOlcVE61iuI5UV3K/uyWh7xBHXIW9rYafuSREQlpYZC
+         mQ9g==
+X-Forwarded-Encrypted: i=1; AKwUvBxvcsdOPfFCc1vTwYAM5Ji1kKgKuH3e3nec203tcge5442k6X3CiycNlowmpL86XP5yD6Q/ubk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kLyWmuAVqqYZdsL2E4TJjkRcyntV3RrgFpHUDuPgHVNVJtgBa6
+	g581c1qKbAiU2/gAxf25tXKrrUm6SOT4SbBpcy1KRNTG2oNlsLsnYchq
+X-Gm-Gg: AYBFou33PfgMkuBdTzsFfCxflZkRPxN4KPpoNUTfdr18JHU24ZUtqS5l88TI3q8JjHS
+	Do88NZUrnExyZ0WnCH3BN/YZPR3PBc5/gpQ19x00MntXtDErP/PTehxpp8RnbfZz+P6sH6Bsctk
+	EJ30316mCpltq4++04IoQaTQ/yJyNcffRrNBPmh7s7f5OSrIACk3lmtO+RvfxvLqsmfkLAf4ZkW
+	p2XvdYrIN4MopyzJEMgrxMo0SLmVE7MlLLCjD8BpmI5xrg9FlWAhMjcaHxi2DgJYpH4/Uyyzq2S
+	l+x1ZczhE6U1FaoMRy+9HOkqDUkB8NxBOYYjdQfNp7PeRJwwdRFO2iDZoKGBzVWHStQlDzbJVT7
+	u1NJ5k8AOwne0uhpgnosJlkY332MjAR6XQDljAodI0tvHOKGzo4gdn+QfU1vkAlKoBM94doMCOZ
+	ZGDb0K7QTiWm1P+DmmQ2aOJ3XvD84As7n6NocPukEGD6FrTw0KRK7of4R1R2dFOlFHVz8BsHrwr
+	q7QQeV27gFc1FU3kQiZv/qlPAopp6b983K0MulUXQDOdmxmHFk=
+X-Received: by 2002:a05:6870:7886:b0:475:e066:771a with SMTP id 586e51a60fabf-491e95119a5mr7660296fac.33.1790443278638;
+        Sat, 26 Sep 2026 10:21:18 -0700 (PDT)
+Received: from archlinux.lan ([136.34.156.120])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-493356565b6sm5407325fac.9.2026.09.26.10.21.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 10:10:55 -0700 (PDT)
-From: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
-To: Vinod Koul <vkoul@kernel.org>
-Cc: Frank Li <Frank.Li@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Chengfeng Ye <dg573847474@gmail.com>,
-	dmaengine@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
+        Sat, 26 Sep 2026 10:21:17 -0700 (PDT)
+From: Danish Khateeb <danishkhateeb03@gmail.com>
+To: lee@kernel.org,
+	pavel@kernel.org
+Cc: afd@ti.com,
+	linux-leds@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	tien.nguyenminh@embeddedlinux.blog,
+	Danish Khateeb <danishkhateeb03@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v3] dmaengine: sun6i: Fix potential deadlock on &sdev->lock
-Date: Sun, 27 Sep 2026 00:10:49 +0700
-Message-Id: <20260926171049.841335-1-tien.nguyenminh@embeddedlinux.blog>
-X-Mailer: git-send-email 2.34.1
+Subject: [PATCH] leds: tca6507: Fix use-after-free on unbind
+Date: Sat, 26 Sep 2026 12:21:15 -0500
+Message-ID: <20260926172115.543800-1-danishkhateeb03@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -81,87 +77,99 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chengfeng Ye <dg573847474@gmail.com>
+Since the LEDs are registered with devm_led_classdev_register(), they
+are unregistered only after tca6507_remove() has cancelled the work.
+Unregistering an LED that is on turns it off, which queues the work
+again from led_assign(), and the work then runs after devres has freed
+the chip:
 
-As &sdev->lock is taken by the tasklet sun6i_dma_tasklet() in softirq
-context, other users of the lock in process context should disable
-interrupts, otherwise the tasklet can preempt a holder of the lock on
-the same CPU and deadlock. sun6i_dma_terminate_all() and
-sun6i_dma_pause() take it without disabling interrupts.
+  BUG: KASAN: slab-use-after-free in assign_work+0x414/0x5b0
+  Read of size 8 at addr ffff888010d5c0c0 by task kworker/1:2/65
+  ...
+  Last potentially related work creation:
+   ...
+   queue_work_on+0xb6/0xc0
+   led_assign+0x223/0x340 [leds_tca6507]
+   led_classdev_unregister+0x26b/0x340
+   release_nodes+0xb3/0x140
+   devres_release_group+0x247/0x470
+   i2c_device_remove+0xbf/0x1b0
 
-This was found by an experimental static analysis tool for irq-related
-deadlocks. Lockdep reports it too on an Allwinner T113, where the lock
-is also taken inside the HARDIRQ-safe vc->lock:
+Set up the work with devm_work_autocancel() before the LEDs are
+registered, so that devres cancels it after they are gone, and drop
+tca6507_remove().
 
-  [  299.389380] WARNING: possible irq lock inversion dependency detected
-  [  299.411196] c7109568 (&sdc->lock){+.-.}-{3:3}, at: sun6i_dma_terminate_all+0x40/0x2c4
-  [  299.419137] but this lock was taken by another, HARDIRQ-safe lock in the past:
-  [  299.426398]  (&vc->lock){-.-.}-{3:3}
-
-Use spin_lock_irqsave() in both places, as
-sun6i_dma_free_chan_resources() already does.
-
-Fixes: 555859308723 ("dmaengine: sun6i: Add driver for the Allwinner A31 DMA controller")
+Fixes: 1b5c2fa7081c ("leds: tca6507: Use devm_led_classdev_register() to simplify remove path")
 Cc: stable@vger.kernel.org
-Signed-off-by: Chengfeng Ye <dg573847474@gmail.com>
-[tien: rebased, added the lockdep report from a T113, Fixes and Cc stable]
-Signed-off-by: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
+Assisted-by: LLM
+Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
 ---
-I ran into this on a MangoPi MQ-Dual (Allwinner T113-S3): with lockdep
-on, stopping dmatest set off the report above in
-sun6i_dma_terminate_all(), and a small test module set it off in
-sun6i_dma_pause(). While looking for a fix I found Chengfeng's v2 from
-2023. It never got a review and no longer applies, so I rebased it on
-dmaengine next and added the lockdep report, a Fixes tag and Cc stable.
-Chengfeng, I hope you don't mind me picking it up.
 
-With it, lockdep stays quiet on both paths on 7.3-rc4, and dmatest on
-four channels passes while another channel is paused, resumed and
-terminated in a loop.
+Notes:
+    Tested in QEMU on a next-20260925 KASAN kernel, with the driver built as
+    a module and a test-only module that adds a fake I2C adapter and a
+    software node for a TCA6507 with two LEDs. With the LEDs on, unbinding
+    hits the report above (38 reports in 20 unbind/bind cycles), and so does
+    unloading the driver in 2 of 3 runs. With this patch there are no
+    reports in 20 cycles or 3 unloads, and the LEDs come back after each
+    rebind. A W=1 build with GPIOLIB is clean.
 
-v2: https://lore.kernel.org/20230726051727.64088-1-dg573847474@gmail.com
+ drivers/leds/leds-tca6507.c | 19 +++++++++----------
+ 1 file changed, 9 insertions(+), 10 deletions(-)
 
- drivers/dma/sun6i-dma.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/dma/sun6i-dma.c b/drivers/dma/sun6i-dma.c
-index 5ad9d01cf..aee32363c 100644
---- a/drivers/dma/sun6i-dma.c
-+++ b/drivers/dma/sun6i-dma.c
-@@ -887,6 +887,7 @@ static int sun6i_dma_pause(struct dma_chan *chan)
- 	struct sun6i_dma_dev *sdev = to_sun6i_dma_dev(chan->device);
- 	struct sun6i_vchan *vchan = to_sun6i_vchan(chan);
- 	struct sun6i_pchan *pchan = vchan->phy;
-+	unsigned long flags;
+diff --git a/drivers/leds/leds-tca6507.c b/drivers/leds/leds-tca6507.c
+index 9afe2722986c..503a465a07f4 100644
+--- a/drivers/leds/leds-tca6507.c
++++ b/drivers/leds/leds-tca6507.c
+@@ -79,6 +79,7 @@
+ #include <linux/gpio/driver.h>
+ #include <linux/property.h>
+ #include <linux/workqueue.h>
++#include <linux/devm-helpers.h>
  
- 	dev_dbg(dmaengine_chan_dev(chan), "vchan %p: pause\n", &vchan->vc);
+ /* LED select registers determine the source that drives LED outputs */
+ #define TCA6507_LS_LED_OFF	0x0	/* Output HI-Z (off) */
+@@ -735,9 +736,15 @@ static int tca6507_probe(struct i2c_client *client)
+ 		return -ENOMEM;
  
-@@ -894,9 +895,9 @@ static int sun6i_dma_pause(struct dma_chan *chan)
- 		writel(DMA_CHAN_PAUSE_PAUSE,
- 		       pchan->base + DMA_CHAN_PAUSE);
- 	} else {
--		spin_lock(&sdev->lock);
-+		spin_lock_irqsave(&sdev->lock, flags);
- 		list_del_init(&vchan->node);
--		spin_unlock(&sdev->lock);
-+		spin_unlock_irqrestore(&sdev->lock, flags);
- 	}
+ 	tca->client = client;
+-	INIT_WORK(&tca->work, tca6507_work);
+ 	spin_lock_init(&tca->lock);
+-	i2c_set_clientdata(client, tca);
++
++	/*
++	 * Unregistering the LEDs turns them off, which queues the work again,
++	 * so it must be cancelled after them: set this up before registering.
++	 */
++	err = devm_work_autocancel(dev, &tca->work, tca6507_work);
++	if (err)
++		return err;
  
+ 	for (i = 0; i < NUM_LEDS; i++) {
+ 		struct tca6507_led *l = tca->leds + i;
+@@ -766,20 +773,12 @@ static int tca6507_probe(struct i2c_client *client)
  	return 0;
-@@ -935,9 +936,9 @@ static int sun6i_dma_terminate_all(struct dma_chan *chan)
- 	unsigned long flags;
- 	LIST_HEAD(head);
+ }
  
--	spin_lock(&sdev->lock);
-+	spin_lock_irqsave(&sdev->lock, flags);
- 	list_del_init(&vchan->node);
--	spin_unlock(&sdev->lock);
-+	spin_unlock_irqrestore(&sdev->lock, flags);
- 
- 	spin_lock_irqsave(&vchan->vc.lock, flags);
+-static void tca6507_remove(struct i2c_client *client)
+-{
+-	struct tca6507_chip *tca = i2c_get_clientdata(client);
+-
+-	cancel_work_sync(&tca->work);
+-}
+-
+ static struct i2c_driver tca6507_driver = {
+ 	.driver   = {
+ 		.name    = "leds-tca6507",
+ 		.of_match_table = of_match_ptr(of_tca6507_leds_match),
+ 	},
+ 	.probe    = tca6507_probe,
+-	.remove   = tca6507_remove,
+ 	.id_table = tca6507_id,
+ };
  
 
-base-commit: 0a8dda0a15d3926422d286567f945a05328a4ac6
+base-commit: 05b4738b0078f7d6f154f68068a11c8a0635e9df
 -- 
-2.34.1
+2.55.0
 
