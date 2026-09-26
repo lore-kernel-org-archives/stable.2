@@ -1,130 +1,127 @@
-Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f26.google.com (mail-ej2-f26.google.com [74.125.228.154])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59E19435507;
-	Sat, 26 Sep 2026 12:54:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.11
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790427286; cv=none; b=qyJY6p+lVN9lbr/7OnbjcvHp9gsBK5+Csmfol7m8dJoClOOvooQG2ThTE5YdtdizL5Q9dMZut957wcPzBKlrfP18Fezl0vv+BEu3JgC5T6C7VkYAQh/GfnvLfYukvsaBRQ9Vjf4HpZgyihxJ4KWNwdN5/39bcN/DZCIRF5RsmOY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790427286; c=relaxed/simple;
-	bh=oNz6sell6XKOwLw0TDtcAFRmwEe1yrH4ncDfkV/vayY=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Y85Hfy6S+smS9zkoHaI4zOdBTMu/JopXbOY24DXIjwaX3i0xXyLTOE3AJVtDzalrNz3ZieEAg/5Ej+uO8G+gXB3BHcx23qkp+kqUyhL92iYBpqaU3XXW1F2YKmIb9CHCISmAL+YJeW12bCaZc4L5utDT1Fn0B+czT1ORk14EZCw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=lIqGliNq; arc=none smtp.client-ip=216.40.44.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F33930D3FD
+	for <stable@vger.kernel.org>; Sat, 26 Sep 2026 13:03:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.154
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790427835; cv=pass; b=FxtkpjljEmLasUlXnMSJrn5kLiOcGirKqJ9AxhdsaKiDz49nP1VGvU2VcQqYwdTtfS+I3O1nsF2nca5+HtEpo/4q2VI9gzAZ8BbD+kyJ/OLXlXo1rVXgPghgy/1zkA6so3KQJvQ9xQDd42ZCn32UfHz/qebVmL76d41ogIIfBTI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790427835; c=relaxed/simple;
+	bh=KPB4QfuQyfLFpvVLFN1RqwpJdFRHs9clkHigX3iiJE4=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=AV2WRuucyk4TzBNLKWRF4ols4fCCIJj5v7ILpI3uKVf/9frGxHS+20ksP6EhOvWOpOx3bSVOcPacWVp7o2P/jkSTQMI5w84icXOz99sCfevAW9+w7rQP1vMgDZrUPxkCr9TVnAv31Y65UoTt2hpFYcqzsdp1DQhIIO1Ag1A1wq0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=Bigq8mBr; arc=pass smtp.client-ip=74.125.228.154
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="lIqGliNq"
-Received: from omf14.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay07.hostedemail.com (Postfix) with ESMTP id AF45E160896;
-	Sat, 26 Sep 2026 12:46:57 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf14.hostedemail.com (Postfix) with ESMTPA id 14D5532;
-	Sat, 26 Sep 2026 12:46:50 +0000 (UTC)
-Date: Sat, 26 Sep 2026 08:46:47 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Vineet Gupta <vineet.gupta@linux.dev>, mhiramat@kernel.org,
- mark.rutland@arm.com, mathieu.desnoyers@efficios.com, andrii@kernel.org,
- linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org,
- bpf@vger.kernel.org, kernel-team@meta.com, stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] tracing: fgraph: Raise FTRACE_RETSTACK_ALLOC_SIZE
- to 1024
-Message-ID: <20260926084647.3685ae85@fedora>
-In-Reply-To: <20260924100040.GD4121339@noisy.programming.kicks-ass.net>
-References: <20260922225526.1554758-1-vineet.gupta@linux.dev>
-	<20260922225526.1554758-2-vineet.gupta@linux.dev>
-	<20260924100040.GD4121339@noisy.programming.kicks-ass.net>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="Bigq8mBr"
+Received: by mail-ej2-f26.google.com with SMTP id a640c23a62f3a-c2940ef15d3so207720466b.2
+        for <stable@vger.kernel.org>; Sat, 26 Sep 2026 06:03:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790427831; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Cj+pZfJJNmh7E+3fAogvFi0iF3ejp5mmZtI8lKpwOlIN2MH/c9NvuQsTGyeQZGdcJ6
+         +/a/iBcdqoLd5KOCkXadfQn/yStAhqpMCwzq151mgNB5sMTKYllsQD0MZKbLX6Tf/HON
+         hsE+w5UgGPeoV6hUJ9eD5ocnv3IH7PQt2ZrOpIQOCt2qwvF8SzBs/xCkR3hF0h0hCLIz
+         Dwb3Ha7TKHTgTi9Mg3fXU8liNVqHd/YF0ucWXfaPDmOld0rXi1W+taZdPnnKQSFELl4F
+         tw4WtBeyizwwXUqQ/+0dETQL887q3gAgXu1BaO5JTMaZ36f6cy5E+WpKLTX4LZDHLh44
+         tLbw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=KPB4QfuQyfLFpvVLFN1RqwpJdFRHs9clkHigX3iiJE4=;
+        fh=ICGN9nnLs78z7wzfOAFmYlG0CtCWWo8R3sej5/829eE=;
+        b=JHmrks/Wcu5l31ULk8KxuEiBgBBCUsOxjKV9IlivZ64Zntms4cTomM9J++pCTyv2Hf
+         5p3NmpbH9HgcwtqMnHc2ebFPQArLfF3zVxeR3gu5mdud69REMPlE+P8FdcRKSc/9f86p
+         UU2UodTqqd2pVDNrN9GCKA0vm8jqzGPJbAj2s5svsQHX4xfv55XrvU/mMpOh5Yij7E1e
+         NJedVSXeGYuMmQjWxCWT4V/0ygo+wlm2zJOHctohytZ1TalsEccgYe2X3CaBeKX1zu/R
+         fO0tWdZp2zbnp4GIrIUHnWI9RCVhzX2KaRZTdvHkIVFoxdJGhKqwuw8w9TIhcg1lcK6u
+         sWcw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20251104; t=1790427831; x=1791032631; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KPB4QfuQyfLFpvVLFN1RqwpJdFRHs9clkHigX3iiJE4=;
+        b=Bigq8mBryqX0Ds0N2EipDlro4L+H9O/z3QEvC2R2/KKo2UG8jq1WVXKVj4ImYJmJhC
+         /pJNrV1Q2bOU3d+fujPLyzpAz79y5kjycTXtIJX9S5gM22ppi5gPn8dZAGquJK3sdFdk
+         oAiAfWfz/vT7ws29OBupl5j8AK8wLNj3jMtANqJnrpMgkyzkudoi0noGIC1Wl275YgvS
+         U8yqX2EkPVbMBhX+8nVOkQk3PVxxrVp3iFl3pSmqY0lLw52viRNUyRAmIS94gZzmKP+G
+         qHLetdxslS6sQfKbhaoXqj6/fAkkJrz+8sjNt5VSvwvMOsvpW7UtExDW736Vnm/nRx5U
+         LVdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790427831; x=1791032631;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=KPB4QfuQyfLFpvVLFN1RqwpJdFRHs9clkHigX3iiJE4=;
+        b=bfkeLw/UQppd2IKoLDmNhZ84/nYclo2s4W89QejAwp0o1Pzos/wMcoXtWUIEsu2Xeg
+         KnqG7dg8VOYhaxyp4fh5xijyhJ/rBJ/6Nh1PbqfMo2OFowhmUowtcrhxJ0/560wbvGt6
+         5pnppFlnYWKB3GC4TEOTxiBZtbPFJeBh2ptkF+h6g3YdvahjXHsotpCgRnPOnzUXY7+2
+         u2kAaHnR0/AENxkMfliSdWNGOrzudLq4WSQMZlYg4VKmcltakyYlja05yuqlR2R4bd2K
+         G9kWotxUE6iufIEDt6/WifKHQRIAUm5AuHfw8ppgv/GyBLoL3XzylcCMbaCDq9vU9BAg
+         vLdQ==
+X-Gm-Message-State: AFuF++mPwHRL1E4EUZCcO0aVa8ghk4WBtmmjGFQF4CTe2Nyxccudeh4W
+	RcXo+Xe8+rbZdVXsQrxdgrOHBSuX239Hwe1H/EmIIfZdhOvZkeRweH4YBSB48xrINndq4ILvJgl
+	ZS8lmjyfJYARuunG70BM29J4yyCv6LuAuIKMyz05wL3H9J8s=
+X-Gm-Gg: AYBFou3sp8ynwBJEeXX8Gc9fdqRLPJ6IeI3lVp3KAuzMFVhiAPUEBT3XfkQGIp+J4f9
+	FKtUqJ7rSPItkgIq8JlT73PP/NDnaKwKMOqNo6p3vGCMan5AhiicXfY6kivxJ+mOd6gCsh7VyEp
+	/UzqIo/EkkNGS2w/OppBj4IGCYWn1sAw6NtjGcRINQ2keBEcJHj/2xDWAOFY8fTQTZHk52vzeWR
+	KqhbHGCmB5NJtMaeGsiKvtuAc/nZEYEoS4DWMIOAfqzqS8OarKd7ujaRLMRXQKsYBKmXglXW1O1
+	f+fbl7DzfyfTWowJi3h3Doy1aQDMOfcpc9Ad22jOe6P7QMfKhB4Odg==
+X-Received: by 2002:a17:906:dc8a:b0:c25:2e93:289e with SMTP id
+ a640c23a62f3a-c2ac233f3e8mr713822766b.16.1790427831544; Sat, 26 Sep 2026
+ 06:03:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: e1bao6t1cr5fu77wybj3uqnu9hyppfu9
-X-Rspamd-Server: rspamout04
-X-Rspamd-Queue-Id: 14D5532
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1+detvj2Mb+Uir/a8JKayUwPlIX+aqfpKA=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=GOey0FkJywmjr6DnXdW757XDcEKE+vQJiVsQMU+r0d8=; b=lIqGliNqnjMEDUA15BokywbL6Uemv/GjVpc8UmoiZxKnMK3xlv6QlBgm1KEQnAA+lCVykoZhLXTsT3vzEHf4C7QAWu3Bdgb6amxW9omw061d6/3YBnWbrKFbmvNCuKamlJkTYTmWf0jVUuCxApDLEy4I0NnByHyhlSXg2pAAaQ8=
-X-HE-Tag: 1790426810-931399
-X-HE-Meta: U2FsdGVkX1/K9XxuXgRvlIpfTDDGDxRxFQCYlS5kemVW+V4Br8IotJW9C1NsQnLsLD0e8W3AvaNk7Ox9uVr6hTspzptgGu2WPJyAFIlJH8XitKFQOuku8j5z+vSq2xidnW+BYgnKn9gIXrLBn/f7d7eVdtW9F53TGWXpu2E+SVK+l+OVXAxfcBJBHVx25XT8jDcThU5uI+d7pZfTA5qIL7uWR/v0i8Uodmu/Caut/dknD9b9sulB7/HT+b1czHUFoWNU42neQ5uhlO2HVhWxk987I2wj/McCrGhKmk+JHtaQ06iDHU3B2vH9HooX3wE88GD+q6Kb/VYtRgbLLrek8DuWTjmBqp/Kz1RmSwY8zGAG5W5zqkYDaSbtKUNdx62l
+From: Faaris Ansari <faarisansari@googlemail.com>
+Date: Sat, 26 Sep 2026 14:03:40 +0100
+X-Gm-Features: AclHuK952zT1VOkbWHfF6M_lj11z6Tzl9P8Q_FSCl8Jh__qj6jK24voSq9ltu-8
+Message-ID: <CANBVYRCL=8QdLxGg4S6qrahrFtwJxhv-aSGpW7-1S=+iOe4ZGA@mail.gmail.com>
+Subject: [REGRESSION] Audient EVO4 hardware volume control now requires quirk
+To: stable@vger.kernel.org
+Cc: regressions@lists.linux.dev, linux-sound@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, 24 Sep 2026 12:00:40 +0200
-Peter Zijlstra <peterz@infradead.org> wrote:
+#regzbot introduced: v7.1.13..v7.2.5
 
-> 
-> Does this work?
-> 
-> diff --git a/kernel/trace/fgraph.c b/kernel/trace/fgraph.c
-> index ed455b53513b..155dafad474d 100644
-> --- a/kernel/trace/fgraph.c
-> +++ b/kernel/trace/fgraph.c
-> @@ -1036,10 +1036,9 @@ trace_func_graph_ent_t ftrace_graph_entry = ftrace_graph_entry_stub;
->  /* Try to assign a return stack array on FTRACE_RETSTACK_ALLOC_SIZE tasks. */
->  static int alloc_retstack_tasklist(unsigned long **ret_stack_list)
->  {
-> -	int i;
-> -	int ret = 0;
->  	int start = 0, end = FTRACE_RETSTACK_ALLOC_SIZE;
->  	struct task_struct *g, *t;
-> +	int i, ret = 0;
->  
->  	if (WARN_ON_ONCE(!fgraph_stack_cachep))
->  		return -ENOMEM;
-> @@ -1054,26 +1053,29 @@ static int alloc_retstack_tasklist(unsigned long **ret_stack_list)
->  		}
->  	}
->  
-> -	rcu_read_lock();
-> -	for_each_process_thread(g, t) {
-> -		if (start == end) {
-> -			ret = -EAGAIN;
-> -			goto unlock;
-> -		}
-> +	scoped_guard (rcu) {
-> +		for_each_process_thread(g, t) {
-> +			unsigned long *rs;
-> +
-> +			if (t->ret_stack)
-> +				continue;
-> +
-> +			rs = kmem_cache_alloc(fgraph_stack_cachep, GFP_NOWAIT);
-> +			if (!rs) {
-> +				if (start == end)
-> +					return -EAGAIN;
-> +				rs = ret_stack_list[start++];
-> +			}
+Hello,
 
-Yeah this is fine. This iteration code goes back to when function graph
-was first added back in 2008. Back then, looping all tasks required
-taking the task_list lock and I remember we didn't want to call
-kmalloc() while holding that. This code could definitely use some
-reassessment.
+A new regression has been introduced between an update on my system
+from kernel 7.1.13 to 7.2.5. When attempting to control the volume of
+my audio interface (Audient EVO4) through pipewire / wireplumber, it
+attempts to modify the hardware volume, then falls back to modifying
+the software volume instead. This causes the system volume to be
+dramatically lower when modifying it through software. However, moving
+the hardware knob very slightly to change the volume brings the
+software volume back up to 1.0.
 
--- Steve
+I confirmed this is a kernel regression by reverting only the kernel
+on my system back to the working 7.1.13 (now EOL) version, where the
+issue did not occur. I also tested both the 6.12 and 6.18 LTS
+branches, and the issue also occurred there.
+I also worked through troubleshooting this with a WirePlumber
+developer to confirm it isn't an issue with the PipeWire stack:
+https://gitlab.freedesktop.org/pipewire/wireplumber/-/work_items/1022
 
+I was able to work around the issue by adding extra modprobe config to
+my system, specifically the below:
 
->  
-> -		if (t->ret_stack == NULL) {
->  			atomic_set(&t->trace_overrun, 0);
-> -			ret_stack_init_task_vars(ret_stack_list[start]);
-> +			ret_stack_init_task_vars(rs);
->  			t->curr_ret_stack = 0;
->  			t->curr_ret_depth = -1;
->  			/* Make sure the tasks see the 0 first: */
-> -			smp_wmb();
-> -			t->ret_stack = ret_stack_list[start++];
-> +			smp_store_release(&t->ret_stack, rs);
->  		}
->  	}
->  
-> -unlock:
-> -	rcu_read_unlock();
->  free:
->  	for (i = start; i < end; i++)
->  		kmem_cache_free(fgraph_stack_cachep, ret_stack_list[i]);
+options snd_usb_audio quirk_flags=2708:0006:ignore_ctl_error
 
+Does this quirk need to be added to the snd_usb_audio module or is
+there an underlying fix somewhere else?
+While troubleshooting I also attempted to patch my kernel with this
+patch set hoping it would help with the problem:
+https://lore.kernel.org/lkml/20260919151840.24371-1-arc@gmx.li/
+The patch set worked fine but this specific problem was still
+occurring. Using both the patch set and the quirk above makes the EVO4
+work perfectly however.
+
+Would appreciate further guidance on helping to debug.
+
+Thanks,
+Faaris
