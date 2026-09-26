@@ -1,78 +1,74 @@
-Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com [74.125.229.140])
+Received: from mail-dl2-f42.google.com (mail-dl2-f42.google.com [74.125.229.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B35D2DBF75
-	for <stable@vger.kernel.org>; Sat, 26 Sep 2026 17:27:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D78AD308F03
+	for <stable@vger.kernel.org>; Sat, 26 Sep 2026 17:28:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790443652; cv=none; b=K/6kGZixudF2ck6ygzko1A01lxZFc+k2kGinws7F2PGH5DYabpZ1FCcTDUeJGArc9XKqsTXfxfsa/kHK3cmW9/mXGApAVTD787tUzXzZUjAvNE5n3b5Q9Rm//Sxid+a2neZIjaRUg5JlzfLoIHKVKFowSLPQqS5qQXqeJKiYaU4=
+	t=1790443719; cv=none; b=DosJZUsyVxjynPwfYnT66PL96cp63vGI2TpV04J0OMm3XG14yZ3OPVmVS2B23WWQJ1KLiHReUD4wzKWZ400txan56kLyuJiNsPZqUAt01r2yUT2UU92+rMtaRsuO00RTCKEiam1PiRdULWcdJFBTvkmrLf1t86uxseJrpzICGOI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790443652; c=relaxed/simple;
-	bh=2ZTmtkIFSofC2JVrEOSYkSGryK/4WBfRMxRimqC7VJ4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mwny3mo5/qcfDJw8l9ZnyeWPEBH/ymWIWEjHsbdMpQgJtdK99SMf3dKVsNqF+MuIDkcNXzHK0uVqM5hEbGojHvZw0mnBb60MU/zetLtsic1LyDI7nro9Ole/CTahRx61Iu8YZ+GjsiZrYWafDQjDw5orj5MiD50nF/bJeSo8FtQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U/yE7S3o; arc=none smtp.client-ip=74.125.229.140
+	s=arc-20240116; t=1790443719; c=relaxed/simple;
+	bh=+HgRyJZqhYbFivkio75Od5NgednHCZsaD6zIdhfYl3A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=P67LZwkSenHZ/VzUDlqfG8gFLOCB0Nh0+zcs5tXqHE5gZ+j8ip8nv3a6dQQKpY3ch9moue7aEmeVvgYZxNzopAtrRe3RNzvlGVNnvJfAj9JybxWTcQgwA+aXOztmjkuyN1Oh0GMfTeU8iLnn+2cTgxBufE01Kvb1Rp/6O6qF2iE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RR9Q61rH; arc=none smtp.client-ip=74.125.229.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U/yE7S3o"
-Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-141a5d476abso60313c88.2
-        for <stable@vger.kernel.org>; Sat, 26 Sep 2026 10:27:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RR9Q61rH"
+Received: by mail-dl2-f42.google.com with SMTP id a92af1059eb24-144ef651963so28336c88.3
+        for <stable@vger.kernel.org>; Sat, 26 Sep 2026 10:28:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790443650; x=1791048450; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790443717; x=1791048517; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BWkCXAv8KL7gS3gupSCkFH2TZ/H32WNAz15njK7x33c=;
-        b=U/yE7S3oayvOj97t1Yo9gN7YzqOxqVAW2SMBXNxVvfzqDFfD07iJ5ToxAdkR7vz0Ym
-         JXM+WSYourTGDdWd20ZKNvokQ368OB0qZJXuOTRsS7JXXPSdjCrCySngN2TUMs1wXvwu
-         +MOMFLuWOKsJz6RIM2iioDCp5JPlwURX46y18gU0+HuM9jZPX7WEsI0ggq32ytAMZNJI
-         GMyrSeH5yt3z9yUEB/b5fhnQb1gQ3dujEUYji3ZAoxrVS3eIqwO1uEEMVMcskzgatQQh
-         cClD+IQMfNo/JdXPYF6ieVtSkOWJpAhkpHr+jLBmPN50R5XMaXIeUyIW/r7hVmDHEaDw
-         BoeA==
+        bh=tkhLBNre7EA3iLFHkofLObtqttiY9XfSZc+5/v8P8mQ=;
+        b=RR9Q61rHwUsGR8HRz9Lypfp3uEWu5x4pJI6aElo00I1TR9BnFU7+SPZZ5rQRiVnrVG
+         BQ9AeRhkQy6HZ7tKJOts1R1AoYcPSU1Ds1SMstuilw3g67mb57R1WnG1BV1L0Y/mBlPd
+         WkTusgvU5rA5Yi7qzU640BToxB/THBu7Epey/hHCpzUcPFiOunIcTuwrvc5zrzBTwMnt
+         FQdvRZBfCbL8Vf8GBuKH3/FpH+sU8zuxmxjtTD85nkfEytvnrKsJKkszNnbAeLmX7u8H
+         DpAE50C/2Lw9F+ceqB+yton9wbRedbUpLY/KXArkkWo1tRneZrHK0C5gTV8gNkXBbzOb
+         EdwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790443650; x=1791048450;
+        d=1e100.net; s=20260707; t=1790443717; x=1791048517;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=BWkCXAv8KL7gS3gupSCkFH2TZ/H32WNAz15njK7x33c=;
-        b=E8M5sOrJifgAoHto7wkOI2at0gwifAmrzYnVdNoNKVVJFHsRkIdRgEzwO9VcZvFoJK
-         2Bh5Z9LRn3kRnY/ngOAGvypjGKgjv9XRvvcY41/HCTV9NbMesxgTzkRraGnQY3vv1za/
-         KQHYsVqLC7jon6vQJuPXrkixnobaGF8jEoWwAKxW/Ff4bw+n4KOp4z7GNApNy3XqyKxQ
-         DwsP97s7P1g/Kb9flroEd4wkpwinh+uQJa9OnMc/40pHUdS/Ep0a7ECs7IOwI9SmFDjD
-         21imWMf7sSyr/PwMwUzeNukmesJ0L6CLY8BE33Ta4msJF75fxzuZqJFYKFc+3HFXvX9H
-         a87w==
-X-Forwarded-Encrypted: i=1; AKwUvByrPZ4mEBBpux/x9fmb5tiz9KqIppgN3oNYP1HXc29AOvJ9NEVWKvjKAaiR+z+cprrJuW38VeQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lqgDYzhDU9TBq5wZB+wkgUaJTlS6Zxlb2V5hecFrCUEJjAPvi0
-	Zog3hb8FnomdXxGAsreyvazENPaV/F1ZZlH6eAS8bLZA6Hgwa0g1bSi6
-X-Gm-Gg: AYBFou1Wu5tHsnDBa7O1JMyzI3eWwN5m0qOc/t+dY4bUPrmHZjGjSrWE1kxmMUgaRxk
-	uHDEFWcIxviEoThEqgB3wiavmp2WCW2kSh6KNL2mJ/nrvodXKui4qDKNn4j9qkVgkilyWYjUjqK
-	www2h+4klryMZnISl0/9pQedLKu31Qh84fvAQ/4yaBP2Mh2zQBMYNoqSyY1QtrOIMFh4LXUD/6j
-	J+NMa6/mcVd26hrMytS5/ASj37B6TSveZ1SNZmhlepbUnob3ruHa4RZXpI+Uef0wMyHPkb4XOC6
-	GuJAchl01ekuzO9NrAhT1bueh3Q3+fpTVMjMnWoNhMShlYUFafAECODszVbv/El0TKsotXE0Gnl
-	omzoS9wnBjRBUlV32HBMuvni0JPVHY7ZRGzfPM4JZezP5l5NqUTLd23LK5XsJnkUDkHcH5dVw2H
-	0QWSURVOcRRJfc8ZMpptXftwQPneuRXtlHe3OrJW+qNaXxK2bN/NSzUerFAtnn64RAnOR176R9s
-	Ye/LDBSUSEgzmrG3pKSh6f7PQgQSxaDcjKKZs+YAH0QtnRVFL5X9PqpvzdrH6pAkzsOcg==
-X-Received: by 2002:a05:701a:c919:b0:143:3240:89ac with SMTP id a92af1059eb24-146cfdcef79mr6165010c88.2.1790443650232;
-        Sat, 26 Sep 2026 10:27:30 -0700 (PDT)
+        bh=tkhLBNre7EA3iLFHkofLObtqttiY9XfSZc+5/v8P8mQ=;
+        b=md9MA5p4haLl32nuhzW0j3p5FvdpJ2TND/3+e+1SsOLFjZMTZLVlIN70hHD0TDtjoV
+         JusaTNmMJYiLdWXZipBMhev/Sd37q2tPy64SkO/5xZdmVVFZGo4vw7x5Bqd9jupwOARn
+         H5+2OgVG1v7MvMieujaKPHzR7P+N57R0zHxQGSVb1m8gMHTwgqEhNmSiNl3qBmNfZOiH
+         0TAGliQU2Gm7gVemmqMFEZAsG3OC2tiVrTViOVZiYSmD1iZ9bdgsqw4TQiPWZTmAuT+r
+         6H7MhOsdQ1wfgXUPqN8PLXzAQcBfAUU1Z2cWxIp1UPHQU1VUGJCYTKR2VGekO/zK8u+Q
+         FZ4w==
+X-Forwarded-Encrypted: i=1; AKwUvByJWNjEFIJTKCc+NlTUNwPykZE5XEgM8Nv/e5DlTN9DBLGHHsj7E5DjQ3wEoZkoFcP7r7QBnkA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kk2r49tGsmEIM7bxlynH5XlaCVCcdTmiEGb9wQJC34/We/rR7H
+	9zjRgTEnnDyzu0R00GHjuBaEmQTfOk8aoiyrrD2G5xTMibV/8TxYMyBV
+X-Gm-Gg: AYBFou3AaqriexEdmpSKSNLdmypRqCEfSGqJcoCgbukhP1/epdvaAYDpJLTNHp/lYGN
+	QGGuvauKCPxXfmdc9C6soXTv79zBJXuQzcfJ6xaL33lIebRXvaqIeOkPoyGLWeIzCYIfU1Wz2bb
+	O6QPvyhTXWxpSxoXQRWwWrc+S3AkptSCsGI1zHgZi8pnjgRI7dEFl2xJ5GyQNLUOtYcAa9dEeeo
+	RJrXRIIhv8OQtJG1EpnxB2g5WcDYvLrYbXM6/OC9WcghvNMAQsv1MlaYmSSeCrsUUbkcPuBkMNQ
+	HE3UOt2GoT7HbgSseVLtYUIgPcIiSFrF58ljVciHwG2n6FF3uGBylv/PivBGgm/0Vtw8yjhCUKA
+	IGuxkJmxmikiwcs9OXI7Vht8LDikxOufKfo/EukU7dvouFlAimrd3q9hOp7r1h27YAUcCle6ilf
+	LmY/2bDQ7Y6CiEtrZkqh/o7u2Rd1bvnBiSwJfks/HtMROD9/m9WgBiJzgEFvSMsRImP4SU1b5hV
+	B2a3Ew15f/1fciQLsPE+NeJVIHasCf/dgR16+vflPKVgw222Z73bFBqP3zt9Zk9wAB9jQrLL3tB
+	EVx6
+X-Received: by 2002:a05:7022:1504:b0:143:858d:fb0e with SMTP id a92af1059eb24-146caf2aafcmr6359262c88.0.1790443716967;
+        Sat, 26 Sep 2026 10:28:36 -0700 (PDT)
 Received: from localhost.localdomain (95.169.12.199.16clouds.com. [95.169.12.199])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145a7318afcsm13436097c88.0.2026.09.26.10.27.26
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145aa0cb7bcsm12652549c88.2.2026.09.26.10.28.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 10:27:29 -0700 (PDT)
+        Sat, 26 Sep 2026 10:28:36 -0700 (PDT)
 From: Chengfeng Ye <nicoyip.dev@gmail.com>
 To: Marcel Holtmann <marcel@holtmann.org>,
 	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Mark Brown <broonie@kernel.org>,
-	Johan Hovold <johan@kernel.org>,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
-	Tim Bird <tim.bird@sony.com>,
-	Kees Cook <kees@kernel.org>,
-	Peter Hurley <peter@hurleysoftware.com>
+	=?UTF-8?q?Jonas=20Dre=C3=9Fler?= <verdre@v0yd.nl>
 Cc: linux-bluetooth@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
+	Chengfeng Ye <nicoyip.dev@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] Bluetooth: RFCOMM: Fix initial port reference race
-Date: Sun, 27 Sep 2026 01:27:23 +0800
-Message-ID: <20260926172723.2405885-1-nicoyip.dev@gmail.com>
+Subject: [PATCH] Bluetooth: hci_sync: Fix inquiry cache use-after-free
+Date: Sun, 27 Sep 2026 01:28:31 +0800
+Message-ID: <20260926172831.2415074-1-nicoyip.dev@gmail.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -82,85 +78,113 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-For RFCOMM_RELEASE_ONHUP devices, rfcomm_tty_install() and
-__rfcomm_release_dev() both use RFCOMM_TTY_OWNED to decide who drops the
-initial tty_port reference. The release path tests the bit separately
-from the install path setting it, so both can drop that reference.
+The sync command worker holds hdev->req_lock, but inquiry-cache updates
+and flushes use hdev->lock. Both hci_acl_create_conn_sync() and
+hci_stop_discovery_sync() look up entries and read their fields without
+taking hdev->lock.
 
-The synchronous hangup does not prevent this race: port->tty is not
-assigned until tty_port_open(), after installation. The following
-interleaving is possible:
+After either lookup returns, a concurrent HCIINQUIRY ioctl can acquire
+hdev->lock and flush the cache, freeing the entry. The worker then reads
+the freed entry while preparing a create-connection or remote-name-cancel
+command. The list traversal also races with cache updates and removal.
 
-  1. Install and release each obtain a reference with rfcomm_dev_get().
-  2. Release observes RFCOMM_TTY_OWNED clear.
-  3. Install sets RFCOMM_TTY_OWNED and drops the initial reference.
-  4. Release drops the same initial reference again.
-  5. TTY cleanup drops its reference and frees the device.
-  6. Release performs its final tty_port_put() on the freed port.
+KASAN reported these accesses:
 
-KASAN reported:
-
-  BUG: KASAN: slab-use-after-free in tty_port_put+0x22/0x190
-  Write of size 4 at addr ffff8881001d3d5c by task poc/92
-
+  BUG: KASAN: slab-use-after-free in hci_acl_create_conn_sync+0x5f1/0x650
+  Workqueue: hci0 hci_cmd_sync_work
   Call Trace:
-   tty_port_put+0x22/0x190
-   rfcomm_dev_ioctl+0x1d4/0x1930
-   sock_do_ioctl+0x110/0x260
-   sock_ioctl+0x380/0x590
-   __x64_sys_ioctl+0x134/0x1c0
+   hci_acl_create_conn_sync+0x5f1/0x650
+   hci_cmd_sync_work+0x13c/0x290
 
-  Allocated by task 88:
-   rfcomm_dev_ioctl+0x8f6/0x1930
-   sock_do_ioctl+0x110/0x260
-   sock_ioctl+0x380/0x590
-   __x64_sys_ioctl+0x134/0x1c0
+  Allocated by task 90:
+   hci_inquiry_cache_update+0x3e6/0x7d0
+   hci_inquiry_result_evt+0x3cb/0x560
 
-  Freed by task 65:
-   kfree+0x131/0x3c0
-   rfcomm_dev_destruct+0x23b/0x2f0
-   release_one_tty+0xc1/0x370
-   process_one_work+0x661/0x1090
+  Freed by task 93:
+   hci_inquiry_cache_flush+0x111/0x2b0
+   hci_inquiry+0x2f2/0x780
+   hci_sock_ioctl+0x269/0x5f0
 
-Use test_and_set_bit() in both paths so that only the caller that changes
-RFCOMM_TTY_OWNED from clear to set drops the initial reference. Each path
-keeps its own lookup reference until release or TTY cleanup, preserving
-the existing callback ordering and error handling.
+  BUG: KASAN: slab-use-after-free in hci_stop_discovery_sync+0x3b1/0x3c0
+  Workqueue: hci0 hci_cmd_sync_work
+  Call Trace:
+   hci_stop_discovery_sync+0x3b1/0x3c0
+   hci_cmd_sync_work+0x173/0x300
 
-Fixes: 80ea73378af4 ("Bluetooth: Fix unreleased rfcomm_dev reference")
+  Allocated by task 86:
+   hci_inquiry_cache_update+0x483/0x940
+   hci_inquiry_result_evt+0x3cb/0x560
+
+  Freed by task 91:
+   hci_inquiry_cache_flush+0x13e/0x2f0
+   hci_inquiry+0x2f2/0x780
+   hci_sock_ioctl+0x269/0x5f0
+
+Hold hdev->lock across each lookup and all reads from its result. Copy the
+remote address before unlocking so discovery cancellation does not retain
+a cache entry pointer. Release the lock before sending synchronous HCI
+commands, since their completion handlers may need the same lock.
+
+Fixes: cf75ad8b41d2 ("Bluetooth: hci_sync: Convert MGMT_SET_POWERED")
+Fixes: 45340097ce6e ("Bluetooth: hci_conn: Only do ACL connections sequentially")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
 Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
 ---
- net/bluetooth/rfcomm/tty.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ net/bluetooth/hci_sync.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/net/bluetooth/rfcomm/tty.c b/net/bluetooth/rfcomm/tty.c
-index b2c1060394e6..dc3cdf614def 100644
---- a/net/bluetooth/rfcomm/tty.c
-+++ b/net/bluetooth/rfcomm/tty.c
-@@ -462,7 +462,7 @@ static int __rfcomm_release_dev(void __user *arg)
- 	/* Shut down TTY synchronously before freeing rfcomm_dev */
- 	tty_port_tty_vhangup(&dev->port);
+diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
+index 74e2b04c84b2..0712ed09edd5 100644
+--- a/net/bluetooth/hci_sync.c
++++ b/net/bluetooth/hci_sync.c
+@@ -5764,6 +5764,7 @@ int hci_stop_discovery_sync(struct hci_dev *hdev)
+ {
+ 	struct discovery_state *d = &hdev->discovery;
+ 	struct inquiry_entry *e;
++	bdaddr_t addr;
+ 	int err;
  
--	if (!test_bit(RFCOMM_TTY_OWNED, &dev->status))
-+	if (!test_and_set_bit(RFCOMM_TTY_OWNED, &dev->status))
- 		tty_port_put(&dev->port);
+ 	bt_dev_dbg(hdev, "state %u", hdev->discovery.state);
+@@ -5799,15 +5800,21 @@ int hci_stop_discovery_sync(struct hci_dev *hdev)
+ 		return 0;
  
- 	tty_port_put(&dev->port);
-@@ -724,10 +724,9 @@ static int rfcomm_tty_install(struct tty_driver *driver, struct tty_struct *tty)
- 	 * when the last process closes the tty. The behaviour is expected by
- 	 * userspace.
- 	 */
--	if (test_bit(RFCOMM_RELEASE_ONHUP, &dev->flags)) {
--		set_bit(RFCOMM_TTY_OWNED, &dev->status);
-+	if (test_bit(RFCOMM_RELEASE_ONHUP, &dev->flags) &&
-+	    !test_and_set_bit(RFCOMM_TTY_OWNED, &dev->status))
- 		tty_port_put(&dev->port);
--	}
+ 	if (d->state == DISCOVERY_RESOLVING || d->state == DISCOVERY_STOPPING) {
++		hci_dev_lock(hdev);
+ 		e = hci_inquiry_cache_lookup_resolve(hdev, BDADDR_ANY,
+ 						     NAME_PENDING);
+-		if (!e)
++		if (!e) {
++			hci_dev_unlock(hdev);
+ 			return 0;
++		}
++
++		bacpy(&addr, &e->data.bdaddr);
++		hci_dev_unlock(hdev);
+ 
+ 		/* Ignore cancel errors since it should interfere with stopping
+ 		 * of the discovery.
+ 		 */
+-		hci_remote_name_cancel_sync(hdev, &e->data.bdaddr);
++		hci_remote_name_cancel_sync(hdev, &addr);
+ 	}
  
  	return 0;
- }
+@@ -7236,6 +7243,7 @@ static int hci_acl_create_conn_sync(struct hci_dev *hdev, void *data)
+ 	bacpy(&cp.bdaddr, &conn->dst);
+ 	cp.pscan_rep_mode = 0x02;
+ 
++	hci_dev_lock(hdev);
+ 	ie = hci_inquiry_cache_lookup(hdev, &conn->dst);
+ 	if (ie) {
+ 		if (inquiry_entry_age(ie) <= INQUIRY_ENTRY_AGE_MAX) {
+@@ -7247,6 +7255,7 @@ static int hci_acl_create_conn_sync(struct hci_dev *hdev, void *data)
+ 
+ 		memcpy(conn->dev_class, ie->data.dev_class, 3);
+ 	}
++	hci_dev_unlock(hdev);
+ 
+ 	cp.pkt_type = cpu_to_le16(conn->pkt_type);
+ 	if (lmp_rswitch_capable(hdev) && !(hdev->link_mode & HCI_LM_MASTER))
 -- 
 2.43.0
 
