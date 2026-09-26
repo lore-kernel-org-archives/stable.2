@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC86B3A83AC;
-	Sat, 26 Sep 2026 13:45:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF60D3A83AC;
+	Sat, 26 Sep 2026 13:45:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790430306; cv=none; b=VwOVGe7g5jNWqzZYXAPS/Ljx1vteq1oEL0EyQ60eg2wS18qyl1XO/duTOg1rle2lKxd/QgtpN5X57uH663fiBknNCzSIm5pGpH36UHlxCpUpvalwTXk/i0y6i4q+k8V78h8/KvqL423LXK+6nLS7AZRFH/daN9M/Tg7iKSaoWb4=
+	t=1790430309; cv=none; b=Vt/JgVSWBES5UhZXBDMkBvgU1T1oKi//HWSAioPBWBZfAdtb6nzzVRL+TPnDDwIUelM/X+qwJqiZRpjM7nRefu+iJA2tQ/0Su4kopFvoZUTE5rzl8CK329Dcy2ciT9Bc/rCyTE+iYCDQpApyf7ybaSYJCE6dLV977PdxQZRPOj0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790430306; c=relaxed/simple;
-	bh=zXomIoI+vZFKPF7zJgI5yEoLh7Vj6L1o9v9PdSpv6kQ=;
+	s=arc-20240116; t=1790430309; c=relaxed/simple;
+	bh=6cdALDwvy9Pvr2FgvR66gxhqT9o7/4iyapYCJHIv56g=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=kxV5FhBGa9prCxPP5uzrnbcl8Au2z5jN9kYqa2Q/FMD7w7NNRteAK3jj6HN0Wm7k2Ag9ALd7UXELtOdFLh3/RHJDnRwo3khs0AYkHqfRKSkh7CL227wlN0d4t2sTDDV6E0f76JtZQ9WyU/ZAsXPAmxshQzWaIE31itqN795eAv4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m5ACq8hl; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=a79X5eAcBAAMalApdURbe1cMRmWH1iMrfV0+unT+gWIdNhKCW8fsV0ofJQpQWJpVI1q87qexauHvnj172dkcQXVfFyjJKhr075JmoOVIpkR1zMaM6coVE1R7XSbGEsITLqJec/GKGK793lgLTwtaZhAFscpOrNSPQqlJbwesPho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GAQ0GpdE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m5ACq8hl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0CAF1F00893;
-	Sat, 26 Sep 2026 13:45:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GAQ0GpdE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1A491F000FF;
+	Sat, 26 Sep 2026 13:45:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790430305;
-	bh=CKvnfsCSUlliikvhztE/eN4DlCI2w9mJAK3tYMBFdXc=;
+	s=k20260515; t=1790430307;
+	bh=AvtGJR2jYLthiursZ/IVSSS3cZlVfS/SUFs/g+loBMo=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=m5ACq8hlCx0ymvuy2g8BJrJKusfsxmH9LMVxaaMXmPeLc94fZo7z1ZYCT3bu6tXR8
-	 cGCQsy+BYg8rXXKJVH+4hL/k4GY/6AAx6qvvEAV8nxA6j3W6VNePjp4fE/l1540T1D
-	 1Fj5fY1t1Kz4U0GILrdnvGPiqxHKUsgqx1MR/BKItARjA4phBhI/Jcgie/A/U7Dpvn
-	 /0ngop0MOtG0D0NvehzTvEmbvNZ0/mi7DjMofMepAh/pyNextiRvuBnNj9LgGhN+FP
-	 QxHRRCQxts8BdXkzzEHnULOS3u26IT6ubn4CYwGjzaig/ALMf0jEpFVPc3jShQizM3
-	 DmlvTPnD8SvKg==
+	b=GAQ0GpdEptYc+JGV5Yg8ptW/inKQkLlC0vBczukVmVeMYXlE3+CMjeD63qSLWN7BW
+	 LYttNBo5NvuXYe3I+xboK0e8JBIyfZv3G758zc9Q8b37FpNPpi2j+Oip2Yeni0yHhS
+	 TNYDdSegTu5wc6TP+OARDSj6mW8c4ZF56mNpoAqVliTd0+CvcdlGJforv3YGd1hW7n
+	 KjPmepiyyvbyZfVcPZRTHwNuGXfVtizA8qVz7G0KQcxkuV6RcipSMOygcLefUDgt10
+	 OydZYT0xBs0Dr72+B7uUvohvpi1dFPPyhf6UaI7OB7ICsux7OTQ4YztvqJPvu5019y
+	 QHPJt9ZTmcwCA==
 From: Christian Brauner <brauner@kernel.org>
-Date: Sat, 26 Sep 2026 15:44:24 +0200
-Subject: [PATCH 01/10] namespace: reset the old parent's ->overmount in
- mnt_change_mountpoint()
+Date: Sat, 26 Sep 2026 15:44:25 +0200
+Subject: [PATCH 02/10] statmount: read the parent of an unmounted mount
+ under mount_lock
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260926-work-mount-fixes-2-v1-1-f357abf3d17b@kernel.org>
+Message-Id: <20260926-work-mount-fixes-2-v1-2-f357abf3d17b@kernel.org>
 References: <20260926-work-mount-fixes-2-v1-0-f357abf3d17b@kernel.org>
 In-Reply-To: <20260926-work-mount-fixes-2-v1-0-f357abf3d17b@kernel.org>
 To: linux-fsdevel@vger.kernel.org
@@ -47,61 +47,74 @@ Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
  Jann Horn <jannh@google.com>, 
  "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
 X-Mailer: b4 0.17-dev-db0b7
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2057; i=brauner@kernel.org;
- h=from:subject:message-id; bh=zXomIoI+vZFKPF7zJgI5yEoLh7Vj6L1o9v9PdSpv6kQ=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRtPxOVdmP7pwlGil5bZvH77anem+6zUIZBrOJq+fOWl
- briC29c6yhlYRDjYpAVU2RxaDcJl1vOU7HZKFMDZg4rE8gQBi5OAZjIxS5GhkPtJnaOO7eJ/DXP
- 9ixdeJLx4V5ZG75Vq3oXeE0os9mYr8jI8CkpJrk0Z8XV9WKbc347iMk0nZy5W+Le8n39BQ6i1Y0
- /+AA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2500; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=6cdALDwvy9Pvr2FgvR66gxhqT9o7/4iyapYCJHIv56g=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRtPxOlqLP9oW6yZuB7GVHvs44p4cFxn2z3HZnLJ7pj9
+ s8n29YadJSyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAEzkaxDD/3BusUVpbYfFvqpb
+ prov+p118sdp+YtfrJ9VzQ1ddPqqQAsjw4K6e5LBJ8+EVMjH14hMYtpSIvfrywULsyiNon8Phfh
+ nsAMA
 X-Developer-Key: i=brauner@kernel.org; a=openpgp;
  fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-__umount_mnt() resets ->overmount of the parent when it unmounts the
-mount that overmounts it. mnt_change_mountpoint() doesn't. It moves the
-mount to its new parent and leaves the old one pointing at it.
+statmount_mnt_basic() reads the ids of the parent through m->mnt_parent
+with namespace_sem held for reading. That's fine for a mount that is
+in a namespace. Everything above it is pinned by that namespace.
 
-For a mount that is moved beneath in attach_recursive_mnt() that doesn't
-matter. The new mount has already reset ->overmount of the old parent by
-the time the old top mount is moved onto it.
+STATMOUNT_BY_FD also accepts a file descriptor on a mount that has
+been unmounted on purpose and that only the file descriptor keeps alive.
+If that mount stayed attached to its parent when it was unmounted the
+parent is unmounted as well and nothing pins it for the child.
 
-It matters for reparent() though. propagate_umount() moves a surviving
-overmount onto the first ancestor that isn't going to be unmounted. The
-mount it was taken from is unmounted immediately afterwards. If a file
-descriptor keeps that unmounted mount alive ->overmount points at the
-moved mount. That's a dangling pointer and UAF as the moved mount is
-unmounted and freed.
+The final mntput() unmounts the children under mount_lock alone and
+frees the parent afterwards. Concurrently, statmount_mnt_basic() reads
+m->mnt_parent twice while that can happen and can easily dereference a
+mount that's already gone.
 
-do_lock_mount() follows ->overmount from the target path under
-mount_lock. With a file descriptor on such a mount as the target of a
-mount beneath topmost_overmount() walks into the freed mount and
-do_lock_mount() takes references on whatever it finds there.
+Read the parent of an unmounted mount under mount_lock. The parent
+can't be put while it is held and both ids come from the same mount. A
+mounted mount's parent is pinned by the namespace and a mount can't
+leave its namespace while namespace_sem is held, so the common case
+takes no global lock.
 
-So reset ->overmount of the old parent in mnt_change_mountpoint() the
-same way __umount_mnt() does. A mount's ->overmount is then always a
-mount that is attached to it.
-
-Fixes: ffdc52fbbd58 ("prevent mount hash conflicts")
-Cc: stable@vger.kernel.org # v6.17+
+Fixes: 0e5032237ee5 ("statmount: accept fd as a parameter")
+Cc: stable@vger.kernel.org # v7.0+
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- fs/namespace.c | 3 +++
- 1 file changed, 3 insertions(+)
+ fs/namespace.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
 diff --git a/fs/namespace.c b/fs/namespace.c
-index 73215f84e04d..230f95675a93 100644
+index 230f95675a93..d1e8dd2e1e8e 100644
 --- a/fs/namespace.c
 +++ b/fs/namespace.c
-@@ -1069,7 +1069,10 @@ static void attach_mnt(struct mount *mnt, struct mount *parent,
- void mnt_change_mountpoint(struct mount *parent, struct mountpoint *mp, struct mount *mnt)
- {
- 	struct mountpoint *old_mp = mnt->mnt_mp;
-+	struct mount *old_parent = mnt->mnt_parent;
+@@ -5335,15 +5335,25 @@ static void statmount_sb_basic(struct kstatmount *s)
+ 	s->sm.sb_flags = sb->s_flags & (SB_RDONLY|SB_SYNCHRONOUS|SB_DIRSYNC|SB_LAZYTIME);
+ }
  
-+	if (old_parent->overmount == mnt)
-+		old_parent->overmount = NULL;
- 	list_del_init(&mnt->mnt_child);
- 	hlist_del_init(&mnt->mnt_mp_list);
- 	hlist_del_init_rcu(&mnt->mnt_hash);
++static void statmount_mnt_parent(struct kstatmount *s, const struct mount *m)
++{
++	s->sm.mnt_parent_id = m->mnt_parent->mnt_id_unique;
++	s->sm.mnt_parent_id_old = m->mnt_parent->mnt_id;
++}
++
+ static void statmount_mnt_basic(struct kstatmount *s)
+ {
+ 	struct mount *m = real_mount(s->mnt);
+ 
+ 	s->sm.mask |= STATMOUNT_MNT_BASIC;
+ 	s->sm.mnt_id = m->mnt_id_unique;
+-	s->sm.mnt_parent_id = m->mnt_parent->mnt_id_unique;
+ 	s->sm.mnt_id_old = m->mnt_id;
+-	s->sm.mnt_parent_id_old = m->mnt_parent->mnt_id;
++	/* An unmounted mount is cut loose from its parent under mount_lock alone. */
++	if (likely(is_mounted(s->mnt)))
++		statmount_mnt_parent(s, m);
++	else
++		scoped_guard(mount_locked_reader)
++			statmount_mnt_parent(s, m);
+ 	s->sm.mnt_attr = mnt_to_attr_flags(&m->mnt);
+ 	s->sm.mnt_propagation = mnt_to_propagation_flags(m);
+ 	s->sm.mnt_peer_group = m->mnt_group_id;
 
 -- 
 2.53.0
