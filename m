@@ -1,104 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out28-74.mail.aliyun.com (out28-74.mail.aliyun.com [115.124.28.74])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93F2C33939D;
-	Sat, 26 Sep 2026 16:07:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7BEF357CE9;
+	Sat, 26 Sep 2026 16:08:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790438853; cv=none; b=sueCBKf76Mg9W20eOYBDGGuIQ8M5HV5qphRo3HgHaXc9YQcNw81zuaeDCQWuzItVP//OPbyC8+oJEatepHdWzhPGgUMTGPDGhv/8fi3oK6v6o8v84sR5SKHll+TofSDPWCJJAuVBHV0QBcI3guKBJ0wWWUHFYJGw3nq/gp2hrl8=
+	t=1790438891; cv=none; b=X5+hdFtrwrKo9xT5CfES2J+6QWvpGPwkAdCriPRbX2XChJtDDijqnDrlH5E5DUXcIkVbe6+/cAZANIOxHvMv7zU7B5IS3ZJ77MMharDXihZFWFb/pRMDufCwTISsgGcy8ptGYcJf75tZb739SNuPF9bEv01oTekusgn3kBrCHsw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790438853; c=relaxed/simple;
-	bh=fCpIFvl7ZwW62OkGDGD5v7fCnPe8M1AHuK9cojsuvrs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=icq/VWbA0B+hYZoZ5/D2DojmmReNBW6O9pzkqVb2Bep87vZDCIvqU0+evi+af8F3OMej0Zv/d5USvn1SCq9zMexbzy7b+ZiyF1xVE8k0h7MIMdxh/5pemTumNX1Nti8sqRC97bbPYB0rzSOOXaHKjESN6cghwnIXHC/KReakv5w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WFM0+3nP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790438891; c=relaxed/simple;
+	bh=tqLckBEZHvSegR6zv+qVZBZSgGXz+gwBiExasXQX3fI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=aWTv0XIoKfWPT/oNhztW9hTLq3Iy1/WBMS0vmBxZgC+ZvadQqw7s3vRv0f5h9av5y9nzg5g2Diobx/HM0uA5luei3JGugHP+gdY9ZjqJmj0NlEPizJhScNcLlBf5n7/e+o3+/DzLTYFFsoLX5fgumeyqAzelb4vjJyjaiXKz1wI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=pyPyB0br; arc=none smtp.client-ip=115.124.28.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WFM0+3nP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C4BC1F000FF;
-	Sat, 26 Sep 2026 16:07:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790438851;
-	bh=S3t1A76c1I5xQVch012q5qgP4+OVf6tO0xlKOOAI77w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WFM0+3nPjyvLLSsq1pYbwrqr9aZJlto2ZLx5z5YrjcGV2f6LTyzFfelMkrQLc7Ifl
-	 wIW7aADV+1bXCFmEttZ9g4yxWdFLx1w3nGa+//Oh8CF0jFcin7XZZkoBMp+FIfKiLL
-	 eq2inBeFocWFvhI/duaBacdS1AxnSYT0IuJBK2dDZ+QiI6yy7FUxYhD1FUoREPsaGQ
-	 x+j/RTCMsDohY65XNvotJGd5BRZLlZxYRnTmsLuj3fvBqIJ+Wyu7bZKnCnCvZ/czHK
-	 FwnLg0etpPbEr58IZ/xcgNn5KsLWiJ0/YQC8KhF/VgQoGGjW1szoZzBFsQjL+QRu18
-	 7Iso6h8QOzEXQ==
-Date: Sat, 26 Sep 2026 17:07:27 +0100
-From: Simon Horman <horms@kernel.org>
-To: Sandeep Haemoon <sandeeph@loljews.com>
-Cc: netdev@vger.kernel.org, Felix Fietkau <nbd@nbd.name>,
-	Lorenzo Bianconi <lorenzo@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH net v3] net: ethernet: mtk_eth_soc: allocate dummy netdev
-Message-ID: <20260926160727.GW13925@horms.kernel.org>
-References: <patch-e52c13380b0768fec63af04c80e4b487@loljews.com>
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="pyPyB0br"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1790438878; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=Vmew8F6cGoltC/zlxLQ/V2Ko/5hlJ0diq7QdLHv/b2g=;
+	b=pyPyB0brJjkU6YAnShJGXKM0IIkWQV6CkkyiQwgYBV+8zTaTE+UOXwb2Rq/RtqMJHBUOnv6gcHy+vQ688j0/rgtzlsfW+V/qMqfSZd+m+Nva4H5U7ztHA5F8jfMba/p1QVMpYl8OBXo5u+fW4UdqqayrpUU9lLqd/ZHhOwgp64o=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.0451441|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.0306825-0.00118257-0.968135;FP=3451580394671390456|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037006180;MF=fangxy@xiaopeng.com;NM=1;PH=DS;RN=9;RT=9;SR=0;TI=SMTPD_---.jOPHQ-s_1790438876;
+Received: from localhost.localdomain(mailfrom:fangxy@xiaopeng.com fp:SMTPD_---.jOPHQ-s_1790438876 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Sun, 27 Sep 2026 00:07:57 +0800
+From: Fang Xieyan <fangxy@xiaopeng.com>
+To: "Michael S . Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowangio@gmail.com>,
+	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>
+Cc: Rusty Russell <rusty@rustcorp.com.au>,
+	stable@vger.kernel.org,
+	virtualization@lists.linux.dev,
+	kvm@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] vringh: reject empty / undersized indirect descriptor tables
+Date: Sun, 27 Sep 2026 00:07:55 +0800
+Message-ID: <20260926160755.21485-1-fangxy@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260924030627.13287-1-fangxy@xiaopeng.com>
+References: <20260924030627.13287-1-fangxy@xiaopeng.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <patch-e52c13380b0768fec63af04c80e4b487@loljews.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 24, 2026 at 11:51:37PM +0300, Sandeep Haemoon wrote:
-> The RX rings and the shared NAPI are carried by an internal "dummy" netdev
-> (eth->dummy_dev). mtk_probe() creates that dummy device, and adds the
-> shared tx/rx NAPI to it, only after the MAC netdevs have been registered.
-> That order has been there since the MT7623 support was added and leaves a
-> window in which the netdevs are visible to the network core before the
-> shared NAPI and the dummy device exist.
-> 
-> If anything brings the first netdev up during that window (e.g. netifd
-> opening the WAN link the instant the interface is registered), the
-> first-open path runs without them. On NETSYS v2 and later SoCs
-> mtk_rx_alloc() -> __xdp_rxq_info_reg() then dereferences eth->dummy_dev ==
-> NULL:
-> 
->   WARNING: CPU: ... Missing net_device from driver
-> 
-> in net/core/xdp.c and mtk_open() fails with -ENODEV. On NETSYS v1 SoCs
-> (MT7621/MT7622/MT7623/MT7629) there is no page pool, so the same open
-> instead calls napi_enable() on a napi_struct that netif_napi_add() has not
-> initialised yet and dereferences a NULL napi->dev.
-> 
-> Allocate the dummy netdev and add the shared tx/rx NAPI to it before the
-> register_netdev() loop. Both the dummy-allocation failure and a
-> register_netdev() failure now unwind through mtk_unreg_dev(), which
-> unregisters the net_device notifiers and the netdevs registered so far,
-> stopping a concurrently-opened netdev (ndo_stop) and its NAPI before the
-> dummy carrier is freed.
-> 
-> A netdev that opened during the window can also have queued the
-> frame-engine reset worker (via the tx watchdog or phylink), so the probe
-> error path now cancels eth->pending_work before freeing the shared state,
-> as mtk_cleanup() already does on remove.
-> 
-> Fixes: 656e705243fd ("net-next: mediatek: add support for MT7623 ethernet")
-> Signed-off-by: Sandeep Haemoon <sandeeph@loljews.com>
-> ---
-> 
-> Changes in v3:
->   - Changelog now also covers the NETSYS v1 SoCs (MT7621/MT7622/MT7623/
->     MT7629): there is no page pool, so the same early ndo_open reaches
->     napi_enable() on a NAPI that netif_napi_add() has not initialised yet
->     and dereferences a NULL napi->dev, not the __xdp_rxq_info_reg() WARN.
->   - Fixes: now points at 656e705243fd ("net-next: mediatek: add support for
->     MT7623 ethernet"), which introduced the register_netdev()-before-
->     init_dummy_netdev() ordering, rather than b209bd6d0bff, which only turned
->     the embedded dummy_dev into a late-allocated pointer.
->   - The probe error path now cancels eth->pending_work before freeing the
->     dummy carrier and the rest of the shared state: a netdev opened during the
->     window can have queued the frame-engine reset worker (tx watchdog or
->     phylink), which takes rtnl and drives the hardware.
->   - Rebased on current net (includes Lorenzo's unregister-net-devices fix).
-> 
-> The notifier-unregister gap on the pre-register error paths (devm_request_irq()/
-> mtk_mdio_init()/mtk_ppe_init() failures) flagged in the same review is
-> pre-existing and intentionally left for a separate change.
+move_to_indirect() validates an indirect descriptor table only with
+"len % sizeof(struct vring_desc)".  A descriptor flagged
+VRING_DESC_F_INDIRECT with len == 0 passes that test, so *desc_max is
+set to 0 while *descs points at the empty table.  __vringh_iov() then
+copies one struct vring_desc from descs[0] -- 16 bytes past the end of
+the table -- before the "indirect_count > desc_max" loop detection
+aborts the walk.  The over-read value is discarded when the walk aborts
+and is never used to map anything, but the access itself is out of
+bounds.
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+Reject any len smaller than one descriptor, alongside the existing
+stride check, so an empty table is refused with -EINVAL and no
+descriptor is ever fetched from it.
+
+Fixes: f87d0fbb5798 ("vringh: host-side implementation of virtio rings.")
+Cc: stable@vger.kernel.org
+Assisted-by: Hawkeye:GLM-5.3-flash
+Assisted-by: Qoder:Qwen3.8-Max
+Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
+---
+ drivers/vhost/vringh.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+Changes in v2:
+  - Commit message rewritten per Michael's review: the over-read value
+    is copied into a local struct vring_desc and never reaches the
+    caller, so the security framing ("leak" etc.) is dropped and this
+    is presented as the plain out-of-bounds read fix it is.
+  - Code is unchanged; the diff is identical to v1.
+
+Testing:
+  Userspace reproducer carrying the move_to_indirect()/__vringh_iov()
+  logic with an instrumented copy() (len == 0 indirect table, 2048-byte
+  mapped region followed by 64 guard bytes):
+
+    without the fix:  reads 16 bytes past the table end, returns -ELOOP
+    with the fix:     returns -EINVAL, no read past the table end
+
+diff --git a/drivers/vhost/vringh.c b/drivers/vhost/vringh.c
+index 9066f9f..0767748 100644
+--- a/drivers/vhost/vringh.c
++++ b/drivers/vhost/vringh.c
+@@ -197,8 +197,9 @@ static int move_to_indirect(const struct vringh *vrh,
+ 	}
+ 
+ 	len = vringh32_to_cpu(vrh, desc->len);
+-	if (unlikely(len % sizeof(struct vring_desc))) {
+-		vringh_bad("Strange indirect len %u", desc->len);
++	if (unlikely(len < sizeof(struct vring_desc) ||
++		     len % sizeof(struct vring_desc))) {
++		vringh_bad("Invalid indirect len %u", desc->len);
+ 		return -EINVAL;
+ 	}
+ 
+-- 
+2.50.1
 
