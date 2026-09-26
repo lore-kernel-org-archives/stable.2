@@ -1,307 +1,129 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f39.google.com (mail-pz2-f39.google.com [74.125.228.39])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EC18547063;
-	Sat, 26 Sep 2026 07:40:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13731126C02
+	for <stable@vger.kernel.org>; Sat, 26 Sep 2026 08:02:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790408434; cv=none; b=o/Wvj6+M3ZZKzxFHaKmUEcRZSAsqiYhMCEmQh5kqiLoYmR2SrjoQRSzwYCpKbyAj2BupS+ZCmZdU9VWaHXekmfN3zGFET1Fh6UB8ip5lQwreEK6Dx3/hbqW3mXLqbF1mUM2SdhSgZhQy0YLliyL2AW6a3+0EB7mUtXrs8ulbHq4=
+	t=1790409738; cv=none; b=jfviGAT24zftWGe1uJirRpNLUFVxJG3JeEYss67YEsi68aDvnVdl4NFILwJPPCJSCfDyaUa45TiepRE6KxEkRy/y7zrUA0I+1hygD2nn9z2Vd0wCXLSnr12oIBNvh+mNrvLyl3b1UfNjjeFX+ImXlGHOEK/6+xKKeM9WjNBVozY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790408434; c=relaxed/simple;
-	bh=hvso6QataZbi+mHsHv2Vfl3CuuRu6gjXK9d49MdERJE=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=I6CkiopOJYYETthNPWHQM9Y658xi8Pt7v3xzJkSh7g+nhsAebDorwh27OHCOB8Xe+CRgLHUj/7tn4ePQXhLcYrUjrbsKwnKrzGDMinbhe5GuLZszQbvZMqlw54DKpstUzqNcoAqWCiHzCVFb1l0KPxSzxUjmSjBK1krK+CSK0TY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oqefaKg/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790409738; c=relaxed/simple;
+	bh=JO526X/6Tt2mXMMyzxnEn8I9inabf6bHTO7ljFpjf1Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=q4okUUPwDzk4MI6J3N48gNZMMSaFja3BkHLS7DIEFqlLnwb9D7U3DLibmaTHcouc6EUSL2FxueUfEze17gr14GBcQ8Va9V25fq8ScNEcG/SOUi0HGeWBGpb5iiLQcTEyeyjymSAUPZsK1nxppjUVFUAVxdAiLBK1Jx1OAXAA+7I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MnFKI6jf; arc=none smtp.client-ip=74.125.228.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oqefaKg/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C8531F000FF;
-	Sat, 26 Sep 2026 07:40:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790408432;
-	bh=ena0fpFeDtVV/SSXvnKDFH2KEMd5CE8KQmcKCnR29zU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=oqefaKg/yK+I6T5xsuehcIAeBGTcUxl8oW7Vq0x3p7JLFbJq2ynv+6QoqIpyGkI/G
-	 J/MjgLIv+JNemYTQbo0/TjQdMuiR8ohf9uF0XbPz+PtiEIwsgYzFAmNmGA7w4siUSc
-	 3UtCWXxZYmTJksdEIbVGs394PNy3AA4JDWTCch849AUNvLoenvBDYdqOw9ZdvfQ0pu
-	 5bzJUTPPJy05CtSspszBipx7iu44ThWhSQ2fsdz9hQkLq2/WX0e/6fsKwS/+jIyths
-	 1c+JtQp76gW6PiF1qSOBMOLnfJgRIMTD9/SFC82+oZdL6Q3H+6MzvciOPv72mOPfOW
-	 udzmpQDlPBcuA==
-Subject: Re: [PATCH net v4] net: mana: fix reset work race with device removal
-From: netdev-bot+sashiko@kernel.org
-To: fanwu01@zju.edu.cn
-Cc: netdev@vger.kernel.org, kys@microsoft.com, haiyangz@microsoft.com,
- wei.liu@kernel.org, decui@microsoft.com, longli@microsoft.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, linux-hyperv@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, songl@zju.edu.cn
-Date: Sat, 26 Sep 2026 07:40:30 +0000
-Message-ID: <179040843066.2160803.16315462315045553577@kernel.org>
-In-Reply-To: <20260922070728.309280-1-fanwu01@zju.edu.cn>
-References: <20260922070728.309280-1-fanwu01@zju.edu.cn>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MnFKI6jf"
+Received: by mail-pz2-f39.google.com with SMTP id 41be03b00d2f7-cc7979d1dadso602079a12.0
+        for <stable@vger.kernel.org>; Sat, 26 Sep 2026 01:02:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790409736; x=1791014536; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1QOIpORY6Eh+rWA+8y7RMDhGXP2bTeo70K5JN02r+40=;
+        b=MnFKI6jf0N5lYK3hX0YnOUPgn1wKgd83/PcYHxcApRIg5thxrRjluqGmtaUR7M2756
+         no5lwoIYRPf5byniUNe5S8o2JmmNtowYKF9vMDhNv0kDhHsfTPkI9uUHXH2e15xKENky
+         qryZ9s5yWirA3/c+6+yfMDn9tMbbNcNsWnUHiAgiq0jwZTKY8GpYNorqP4WWpRjaeTS5
+         nRRXgDjjB3Ml5cBTD4Dy9YiHg/kt+CnJo6trVvsDgZd6XHONy9K6sJbiXJHfk6oDH/8n
+         WWIWR3QVgnMoSxqEqSy8lmKvEg90QEaeORYS03emrY5Afm29flpygz6CPkLJOYVlg3wN
+         FygQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790409736; x=1791014536;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1QOIpORY6Eh+rWA+8y7RMDhGXP2bTeo70K5JN02r+40=;
+        b=OD5bD8DDZS4ZRDoRb5ZW4OC/rY/xrnHR11NFMDhrxVRVqgSkcQdfFAXR8dnlLW+ORQ
+         iwo9JAlV8GHy12tmrEuZuA4gxqrS5ZBE5O1L/G8lCvAX+PWQp1D0JbVC5TPqtjdSVaCn
+         0KH0kh8qZGk5kYGmxTQlYdaq4cCpWApbD+O3SWbv71Rpe3h7HK2xV9eTmDzxHZkoaWU5
+         kT89E73P3yi7/Hc8V+fPtlGmPTwIDUKjnvgbk80VhZkIY1RiXgxN6PpHBYUUWaGUlk/+
+         rKx11ux5evDfFtKvyaxVL9V9zVorr9lBw51RPPcoErUZf5qte+SjhLFuFiBVdeBUhvmS
+         waWw==
+X-Gm-Message-State: AFq9FYKtFR3LOqM2DOJmutfr/RaeLcxqYKhVJPS5VN5wyjKEgJcnNgXf
+	GX7G/1CHQD34bR1nxmdrasbMYUyBCjEa/BrX458nXIK10hSLeHBpHGJjq/eKnjMoyAoLZw==
+X-Gm-Gg: AYBFou3/KFBY6pa1RNSU+Rrp07sYBFohOLVMwTG+KYhmE/E+80vBdfSkvXQagImIviy
+	vRGpM3AbSrM3mP5wORJhDaSUxqA2/EmuPmgQIP9WeONA2vrGchXHfXfOa9olCtT+XnDBMxsH3qF
+	pLEuEUEGL6Kp02tPU1qt5d/bKLlb5wE3l2nbCUVfh2vvfHHcKqGJkXlLrhddSVds93cM9emNhQf
+	g2KzH9nekBpSnsgAEY8fOoVoRX/wYZKDozhoJ0U9GdnfvsJIe3Aqz2SCSy6D7zIUoOipyT0OgNI
+	oCslqiHV2GeyAHj7H1bYna/KCYYxeDV6W/Sk4Dl7/NFVSrapMtKxWSqjP5tDAxdjs2pPfGXz4Ey
+	5qlwTno71djHQdi5q0VUtO5T3atdUo5PfYhJ5aYgp252JyoDUZ943Ov1P81ionBVg+imrmOnrAf
+	YzxyYvKkwG3kOnRKNPqzPo96VuzhAu9umH3RHPSXZY698bfd29RPYX4yh2WjIkKxIp0y2bJ/Cv
+X-Received: by 2002:a17:90b:3b8f:b0:3a0:e76e:ae10 with SMTP id 98e67ed59e1d1-3a0e76eafc7mr518174a91.28.1790409736118;
+        Sat, 26 Sep 2026 01:02:16 -0700 (PDT)
+Received: from localhost ([101.126.46.117])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b998dbf2sm8709168a91.12.2026.09.26.01.02.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 01:02:15 -0700 (PDT)
+From: Dairui Zhang <zhangdairui@gmail.com>
+To: zhangdairui@gmail.com
+Cc: stable@vger.kernel.org
+Subject: [PATCH] ksmbd: verify transform SessionId matches the decrypted header
+Date: Sat, 26 Sep 2026 16:02:12 +0800
+Message-ID: <20260926080212.1671197-1-zhangdairui@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+The decryption key for an encrypted request is selected by the
+SessionId in the encryption transform header, but the request is
+then authorized under the session named in the decrypted inner SMB2
+header. Nothing compares the two, so on a connection carrying more
+than one session a client can have a request decrypted with one
+session's key and executed under another session's identity. Since
+encrypted requests are also exempt from the signing requirement, the
+AEAD tag is the only proof of session identity, and it is checked
+against the wrong session.
 
-Critical: 0 · High: 0 (1) · Medium: 1 · Low: 2
+Per MS-SMB2 the server must verify that the SessionId in the
+transform header matches the one in the decrypted SMB2 header and
+treat a mismatch as a protocol error. Compare them after decryption
+and drop the connection on mismatch.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+The check only applies to plain SMB2 payloads; a compression
+transform payload carries the session id only after decompression
+and is left as-is for now.
 
-- [Medium] mana_gf_stats_work_handler()
-  (drivers/net/ethernet/microsoft/mana/mana_en.c:4056-4072) now drops…
-- [Low] The comment added at the new service_quiesce label in
-  mana_gd_probe() ('The stats work can admit service once mana_probe()…
-- [Low] mana_schedule_serv_work() replaces schedule_work() with
-  queue_work(system_wq, &gc->serv_work).
+Reported-by: Dairui Zhang <zhangdairui@gmail.com>
+Assisted-by: LLM
+Cc: stable@vger.kernel.org
+Signed-off-by: Dairui Zhang <zhangdairui@gmail.com>
+---
+ fs/smb/server/smb2pdu.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-Pre-existing issues:
-- [High] The new admission/quiesce protocol is applied to
-  mana_gd_remove(), mana_gd_shutdown() and the probe unwind, but not to…
-
---
-
-net: mana: fix reset work race with device removal
-
-The service work item is moved into struct gdma_context and its lifecycle
-is guarded by a new serv_lock plus a waitqueue, so removal, shutdown and
-the probe unwind can close admission and wait for an in-flight reset cycle
-before gc is freed.  The probe boundary is handled by latching reset events
-that arrive while the probe is still running.
-
-A few questions below about the new admission gates and the paths that were
-not converted.
-
-> diff --git a/drivers/net/ethernet/microsoft/mana/gdma_main.c b/drivers/net/ethernet/microsoft/mana/gdma_main.c
-> index 8e9bfc1d6a2ae..b91d2542cfe56 100644
-> --- a/drivers/net/ethernet/microsoft/mana/gdma_main.c
-> +++ b/drivers/net/ethernet/microsoft/mana/gdma_main.c
-
-[ ... ]
-
-> @@ -796,51 +899,94 @@ static void mana_recovery_delayed_func(struct work_struct *w)
-
-[ ... ]
-
-> +/* Serialize admission with retirement.  Called in hard IRQ context, so
-> + * serv_lock is taken with interrupts disabled and nothing that may
-> + * sleep runs under it.
-> + */
->  int mana_schedule_serv_work(struct gdma_context *gc, enum gdma_eqe_type type)
->  {
-> -	struct mana_serv_work *mns_wk;
-> +	unsigned long flags;
-> +	bool busy;
-
-[ ... ]
-
->  	dev_info(gc->dev, "Start MANA service type:%d\n", type);
-> -	mns_wk->pdev = to_pci_dev(gc->dev);
-> -	mns_wk->type = type;
-> -	pci_dev_get(mns_wk->pdev);
-> -	INIT_WORK(&mns_wk->serv_work, mana_serv_func);
-> -	schedule_work(&mns_wk->serv_work);
-> +
-> +	gc->serv_type = type;
-> +	pci_dev_get(to_pci_dev(gc->dev));
-> +	queue_work(system_wq, &gc->serv_work);
->  	return 0;
->  }
-
-[Severity: Low]
-Is system_wq the intended target here?  include/linux/workqueue.h carries:
-
-    extern struct workqueue_struct *system_wq; /* use system_percpu_wq, this will be removed */
-
-and system_wq is created with __WQ_DEPRECATED, so __queue_work() emits:
-
-    workqueue: work func %ps enqueued on deprecated workqueue. Use system_{percpu|dfl}_wq instead.
-
-The schedule_work() that was removed expanded to queue_work(system_percpu_wq,
-...), so this hunk seems to newly pick the deprecated alias and a warning on
-every service cycle.
-
-Given that mana_serv_reset()/mana_serv_fpga() do msleep(MANA_SERVICE_PERIOD *
-1000) and PCI stop/rescan, would system_long_wq (or system_dfl_long_wq) be a
-better fit than the per-CPU queue?
-
-[ ... ]
-
-> @@ -2558,22 +2697,26 @@ static int mana_gd_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
->  
->  	err = mana_rdma_probe(&gc->mana_ib);
->  	if (err)
-> -		goto cleanup_mana;
-> +		goto service_quiesce;
->  
->  	/*
->  	 * If a hardware reset event has occurred over HWC during probe,
->  	 * rollback and perform hardware reset procedure.
->  	 */
-> -	if (test_and_set_bit(GC_PROBE_SUCCEEDED, &gc->flags)) {
-> +	rollback = mana_service_probe_complete(gc);
-> +	if (rollback) {
->  		err = -EPROTO;
-> -		goto cleanup_mana_rdma;
-> +		goto service_quiesce;
->  	}
->  
->  	return 0;
->  
-> -cleanup_mana_rdma:
-> +service_quiesce:
-> +	/* The stats work can admit service once mana_probe() has run:
-> +	 * retire an in-flight cycle before any teardown.
-> +	 */
-> +	mana_service_quiesce(gc);
-
-[Severity: Low]
-Does this comment still describe the code after the change in mana_en.c?
-
-The stats work handler now only admits service when
-mana_service_probe_done(gc) is true, and serv_probe_done is set solely by
-mana_service_probe_complete(), which runs after mana_rdma_probe() has
-succeeded.  On the path that jumps here because mana_rdma_probe() failed,
-serv_probe_done is still false, so the stats work cannot have admitted a
-cycle at all, and the EQ producer is gated on the same flag.
-
-Could the comment be reworded to match the gate, or is a producer intended
-that can still admit during probe?
-
-[ ... ]
-
-> @@ -2687,6 +2837,9 @@ static void mana_gd_shutdown(struct pci_dev *pdev)
->  
->  	dev_info(&pdev->dev, "Shutdown was called\n");
->  
-> +	/* Shutdown tears down the same HW paths as remove(). */
-> +	mana_service_quiesce(gc);
-> +
->  	mana_rdma_remove(&gc->mana_ib);
->  	mana_remove(&gc->mana, true);
-
-[Severity: High]
-This isn't a bug introduced by this patch, since the old GC_IN_SERVICE bit
-was ignored by the PM callbacks too, but should mana_gd_suspend() and
-mana_gd_resume() (installed as mana_driver.suspend/.resume) get the same
-treatment as remove() and shutdown()?
-
-An admitted cycle runs:
-
-mana_serv_reset()
-    mana_gd_suspend(pdev, PMSG_SUSPEND);
-    msleep(MANA_SERVICE_PERIOD * 1000);
-    ret = mana_gd_resume(pdev);
-
-with serv_in_flight set for that whole 10+ second window, and the work sits
-on system_wq, which is not WQ_FREEZABLE.  If the guest enters system suspend
-or hibernate during that window, pci_pm_suspend() -> pci_legacy_suspend()
-calls mana_gd_suspend() a second time on the same gc, and neither PM callback
-consults serv_in_flight/serv_removing or calls mana_service_quiesce().
-
-Both threads then reach mana_hwc_destroy_channel(), whose guard is not atomic
-with the clearing store:
-
-drivers/net/ethernet/microsoft/mana/hw_channel.c:mana_hwc_destroy_channel() {
-	struct hw_channel_context *hwc = gc->hwc.driver_data;
-
-	if (!hwc)
-		return;
-	...
-	kfree(hwc);
-	gc->hwc.driver_data = NULL;
-	gc->hwc.gdma_context = NULL;
-
-	vfree(gc->cq_table);
-	gc->cq_table = NULL;
-}
-
-mana_gd_cleanup_device() has the same shape around gc->service_wq:
-
-	if (gc->service_wq) {
-		destroy_workqueue(gc->service_wq);
-		gc->service_wq = NULL;
-	}
-
-Can this interleaving double-free hwc and gc->cq_table, or call
-destroy_workqueue() twice on gc->service_wq?  And can mana_gd_resume() from
-the service cycle re-arm DMA/MMIO on a device the PM core has already
-suspended?
-
-> diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
-> index 591fb4191d90d..0eb23aea2e139 100644
-> --- a/drivers/net/ethernet/microsoft/mana/mana_en.c
-> +++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
-
-[ ... ]
-
-> @@ -4060,10 +4060,13 @@ static void mana_gf_stats_work_handler(struct work_struct *work)
->  		memset(&ac->hc_stats, 0, sizeof(ac->hc_stats));
->  		dev_warn(gc->dev,
->  			 "Gf stats wk handler: gf stats query timed out.\n");
-> -		/* As HWC timed out, indicating a faulty HW state and needs a
-> -		 * reset.
-> +		/* As HWC timed out, indicating a faulty HW state and
-> +		 * needs a reset.  Never admit service work before the probe
-> +		 * has completed: a probe that is failing unwinds netdevs and
-> +		 * the HWC channel itself and cannot drain a cycle.
->  		 */
-> -		mana_schedule_serv_work(gc, GDMA_EQE_HWC_RESET_REQUEST);
-> +		if (mana_service_probe_done(gc))
-> +			mana_schedule_serv_work(gc, GDMA_EQE_HWC_RESET_REQUEST);
->  		return;
->  	}
->  	schedule_delayed_work(&ac->gf_stats_work, MANA_GF_STATS_PERIOD);
-
-[Severity: Medium]
-When mana_service_probe_done(gc) is false here, is the reset request lost for
-good?
-
-mana_probe() arms this work with a MANA_GF_STATS_PERIOD delay, while
-serv_probe_done is only set later, at the tail of mana_gd_probe():
-
-	err = mana_rdma_probe(&gc->mana_ib);
-	if (err)
-		goto service_quiesce;
-	...
-	rollback = mana_service_probe_complete(gc);
-
-So the handler can run with serv_probe_done still false if mana_rdma_probe()
-(register device plus the synchronous mana_ib adev probe and its HWC
-requests) takes longer than that delay.
-
-In that window an -ETIMEDOUT from mana_query_gf_stats() takes the new branch,
-no cycle is admitted, serv_during_probe is not set so
-mana_service_probe_complete() reports no rollback, and the return also skips
-the schedule_delayed_work() re-arm.  If the probe then succeeds, is there any
-remaining path that retries?  The recovery list in mana_gd_probe() is only
-populated when the probe itself fails with -ETIMEDOUT/-EPROTO, and
-hwc_timeout_occurred only feeds a warning, so hc_stats would stay zeroed for
-the life of the binding and a wedged HWC would never be reset.  Before this
-patch the request was unconditional and the resulting reset cycle re-armed
-the stats work through mana_probe(resuming=true).
-
-The EQ producer solves the same race by latching under serv_lock:
-
-	admit = gc->serv_probe_done;
-	first = !gc->serv_during_probe;
-	if (!admit)
-		gc->serv_during_probe = true;
-
-Would routing this producer through the same latch-or-admit helper work, or
-alternatively keeping the delayed work re-armed so the request is retried
-once serv_probe_done is set?
-
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index 4cf7083..e4cfbe6 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -10890,6 +10890,22 @@ int smb3_decrypt_req(struct ksmbd_work *work)
+ 	if (rc)
+ 		return rc;
+ 
++	/*
++	 * The decryption key is selected by the transform header SessionId,
++	 * while the request is authorized under the session named in the
++	 * decrypted inner header. Per MS-SMB2 the two must match; verify
++	 * that here and drop the connection on mismatch. A compression
++	 * transform payload carries the session id only after
++	 * decompression, so it is not covered by this check.
++	 */
++	if (((struct smb2_hdr *)iov[1].iov_base)->ProtocolId ==
++	    SMB2_PROTO_NUMBER &&
++	    le64_to_cpu(tr_hdr->SessionId) !=
++	    le64_to_cpu(((struct smb2_hdr *)iov[1].iov_base)->SessionId)) {
++		pr_err_ratelimited("SessionId mismatch between transform and inner header\n");
++		return -ECONNABORTED;
++	}
++
+ 	/* Drop the AEAD authentication tag from the inner RFC1002 frame. */
+ 	memmove(buf + 4, iov[1].iov_base, original_msg_size);
+ 	*(__be32 *)buf = cpu_to_be32(original_msg_size);
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260922070728.309280-1-fanwu01%40zju.edu.cn
+2.53.0
+
