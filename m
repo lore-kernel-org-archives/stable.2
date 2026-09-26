@@ -1,117 +1,156 @@
-Received: from mail-qk2-f42.google.com (mail-qk2-f42.google.com [74.125.230.234])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9958D49D5A8
-	for <stable@vger.kernel.org>; Sat, 26 Sep 2026 20:20:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.234
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F246C63CB;
+	Sat, 26 Sep 2026 20:26:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790454048; cv=none; b=MuuBGBr5+t4JiEhYSIEwqhwiVyvs58fTZaDPIE6HA7VKV4km6KXQKM/SAPaaHwlbDaND43Ev1YUYQgbFkSHpry/8m9cGrr2KbTPBYki9x3RHxtCWxYAr66gNbIG4SzGXbe9Cn86ZFtojeic0XT/SgVeiR0e7SQPxEKS24SPEz7k=
+	t=1790454410; cv=none; b=G4vr4gGkBUMlZQSCAjnrbMzjCvJNtn5rvIr7z9jb1lukcFbJa70CJTtk2BtsCMew9NdPUEy9YMI1XkXmG0OMapg52hjBy6g/WP2RSWwlcMtq9Znqj1DQQDxeRBy4Wf41+ANTC/UdPukNzNHHSOn2MNOQOphWVJEeQTNKmETRkQ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790454048; c=relaxed/simple;
-	bh=TeA4rzx3tIqodbILhjQ27AMr7aKkw2UurfV3eDfJVl0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=el183AjGdbnYASBr5XwhApOQasltdqwOyBMm+xgOJrQAVOYskonz/U1DFvzp+rYY/20u+nrpqc6VnAIKAqOg8noKM03MAuejrR2YbUgQqT+PURSvuWt258XCvY5RbQ/rnbIQXWrp0FLdhy/43FDWe695ok6T9gtYF5QG5xJ7vMI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B4C9Ye8v; arc=none smtp.client-ip=74.125.230.234
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790454410; c=relaxed/simple;
+	bh=cS0QdhLNkY9KqLzjGfE/25az1mVmYzQU0keGJqcZq38=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=VHRkHqsqB3yfBd1yhr2+zKDT4Z6G4vx6lySIzQ3CqM2Zd9R8gp1w+tTX4VBLcxz+wstRcxH5CW1u4xd+FOUfMh5VVX5rg1RQFMzPwPVb63Xz/Q2bC9oND7kUfk6Vt3gY7x50F88ewK+pKeZlFaiSghn882w/Lw12BaPfcE+et6Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FYqAIkE9; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B4C9Ye8v"
-Received: by mail-qk2-f42.google.com with SMTP id d75a77b69052e-53320dc09f3so8840151cf.1
-        for <stable@vger.kernel.org>; Sat, 26 Sep 2026 13:20:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790454046; x=1791058846; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1yMSXbv0RzpnT7LQIOAfBfWiKfyiEPbJB+JqeZgxSJQ=;
-        b=B4C9Ye8vDV0EFsr3oKHAyHI/kH/795eJXULV6vT3OFXuif5LrmDFJ2MYGsg7JXT4uT
-         ufJt4GlDu/P+DI6O4ptzoISLqHmP4k13q8/+xaH2/oq06MPe+304AwYH+9JSpIHukkrj
-         msYhQ6rZYWa8HlPg8jofzEwYIisYXyzCD2dHDLQZe0M9XIuso7NblssbQdhBIXM3Gumb
-         zxSj4v98NHWT3y4NhbeheZ3ZQkPxXLVeGoro3sIOMV3IjoK9NUsjOd0lS6Yv7yEFMpXa
-         XVrq1faiFZeIj0VRrlETekFJrbaoCjUf0ueeUmifrAZ8aECYbb87fbG9m3nA9rsgHvDj
-         I89A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790454046; x=1791058846;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1yMSXbv0RzpnT7LQIOAfBfWiKfyiEPbJB+JqeZgxSJQ=;
-        b=T1xKytDMj+kJAwH25CYbqsNJXO7Mrk7O0qN7pHYBXW4Zt+ukufNdg/5GFKuNA1TZYv
-         kYvafs5w8915dFFHCjt19DQVmAvUJzDhZLaLOgBJZdWEkSAnN9l2QqxRbe+qkU5FKfmi
-         j4rMNJuqvdhFXn9Vw+seVQPb52IcXzeUl8o5axkWkuweSet5QQkNo68B/q1P0+7wYKg8
-         uxXZpWshogjuHa8LTXKuFCBRqk24H1Ko8FjikJhHdDp34/SeO+EFH0uYnChAMKchRV5H
-         WnOHGVzJjuNziz8/iZu8A0MvXUhbY5GveqkV2jbCr7PyJEFYswPDKRFppoSJ2u0zVpav
-         j0yA==
-X-Forwarded-Encrypted: i=1; AKwUvByhKyD2VWQHRLcAkaIjtMeoeHwe9SoVBH5XZSuxGWl5w2PdD9I7RzrJTUtFNbB/ax4vUbBc8uc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kaXIJE9xc80NBTA2Au4qsokRwB9s6JeTp3jaaBOR+H3kppekG8
-	C+GYfofiRGTUnDn4E/xc1A6vO6r5REXGWZTL5kC9QufR0tCYCe+WMEAo
-X-Gm-Gg: AYBFou2kZx/l/j6uTeD9jDC8yDrGMnxreglQXfLfMJ9eoewhgvnIi14dkhqYbIG3niE
-	g2bGrkh1nppgmjCPOEEQk8Q8rw7gdk9IXIOmCwg0PyQRgsL2uUj/8I5kWiePHLluaP5T6fzRUfg
-	K6K9QzCZHpIjpsL5Oig63UX2bxwAeBrpRRWFOOUsB38bCLmsBbFvZMFq51usYbEtG21CHUA5gBY
-	JzwIRrFmiNGoMFtz7mMH9cKHCQ3MPz9S68/BcLBTn5zLFFekLZ9oHJJmgs+V6eVUJQ967h44NsQ
-	LTwd/PBJDCPXzEOty6ZInIj/AcS56YIN7pui57xaEq8jyuagpCbb5EfnFjCoUaK9JH/ghQthKnx
-	ALmF/kTmzreT6Z1yFlwopXZ6LRuXiAvOYsI03hfd3MES2OHRe3/zDtDxKlV11pb+OVvV2Xj31PU
-	nCZtTvA1RFL25mMoJ3MQnFhQeNsv794n9LMdteRFj0YDdDZFav+6/fPeY71880isgDjZmPxMcPG
-	C0iWSxSlf3eRRo+6FBiJA==
-X-Received: by 2002:a05:622a:15c4:b0:530:178a:9dd8 with SMTP id d75a77b69052e-5330b556ae7mr122052901cf.8.1790454046528;
-        Sat, 26 Sep 2026 13:20:46 -0700 (PDT)
-Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5332238c585sm25325811cf.20.2026.09.26.13.20.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 13:20:46 -0700 (PDT)
-From: Yuho Choi <oss.patchbox@gmail.com>
-To: David Airlie <airlied@redhat.com>,
-	Gerd Hoffmann <kraxel@redhat.com>,
-	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
-	Dongwon Kim <dongwon.kim@intel.com>
-Cc: Gurchetan Singh <gurchetansingh@chromium.org>,
-	Chia-I Wu <olvaffe@gmail.com>,
-	dri-devel@lists.freedesktop.org,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Yuho Choi <oss.patchbox@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v1] drm/virtio: Reset device before deleting virtqueues on freeze
-Date: Sat, 26 Sep 2026 16:20:27 -0400
-Message-ID: <20260926202040.1313385-1-oss.patchbox@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FYqAIkE9"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 958FAC2BCB8;
+	Sat, 26 Sep 2026 20:26:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790454409;
+	bh=cS0QdhLNkY9KqLzjGfE/25az1mVmYzQU0keGJqcZq38=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=FYqAIkE9EqpXw7t5fJC0GVr6ENvaI8xJfZLAgqkLsJcctHDdBDZbM2atOsH7Q1I27
+	 mKrzlnFFo909c1Zv7vRpQB28WxlB8ETyMJN8OWiLb+alDP7NrD62m/12WoaIzOM7Sh
+	 57QFSYzP2RFzYGufXyr8GPSIFouaDYdhewtFZdhGUIREF25BK//6nM0/fWq6pybdJ1
+	 Stj5EfRWR8pgeLcV/waJlK9glvndM2eqakA5VtL6a5CTOmJy1cI83BwmsqgIWvwHHw
+	 G4p2VYCg5ndR61qr8Y/XRbOS1hjS0nfpoD3K2WfLHS8xfTg4JYWRz9rWb3YH18lzdn
+	 LXyAn5nn+m/qA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6CAD3C9832A;
+	Sat, 26 Sep 2026 20:26:49 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Sat, 26 Sep 2026 22:26:47 +0200
+Subject: [PATCH v2] Input: s6sy761 - fix resume ordering and restore
+ sensing
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260926-s6sy761-suspend-v2-1-8f00a96ee6e8@ixit.cz>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNQQ6CMBBFr0JmbU1bsRVX3sOwoGUq4wJIpxCQc
+ HcB1y5f8v77CzBGQoZ7tkDEkZi6dgN9ysA3VftCQfXGoKU2stAXwYZna5TggXtsa6FzY3Mnb1f
+ rKthWfcRA01F8lj/mwb3Rpz2zGw1x6uJ8XI5q9/7XRyWUMCGEwqBV3skHTZTO/gPluq5fbIySR
+ 74AAAA=
+X-Change-ID: 20260923-s6sy761-suspend-24674b0857ba
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+ Andi Shyti <andi@etezian.org>, Rob Herring <robh@kernel.org>, 
+ Marco Mattiolo <marco.mattiolo@hotmail.it>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, stable@vger.kernel.org, 
+ David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2550; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=zam6eeZKJN3iy7FLZYqEzX+RoG2h8gfBIV6S+jPTMYo=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBquCqItB6OXXeLTO07zF/aNObgie6pXfvp/zXcC
+ zuQCrStHxWJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCargqiAAKCRBgAj/E00kg
+ cqI3D/wKUm1IG782wR+Rk+uc2OaP3CIfhd1+ZBDvW0FB5RqTvXHF+TquSmHjSF57RxvHre05s73
+ +gRed7O8MXuFKQ8mHiBghTNJQTlxgha2mPm65bIpVERb05naperVRvgdXszbkei0AAZPdWyb8x7
+ WfFaXEt7vDoK0TdpYmoPADBk029kj5sIwSoIf2C9dywTp2127bAjgDG/rBBiL6ayAY5SKTBHsS8
+ Vo2giTI2IMUmb8QkCvy5yy2ALez1TmCVwngHWKlnRtRR4k8zPGmckUtqR4aC23iJ/jKJ6eIuH2G
+ eTc4ZKAJDgI+KuufStFcNtfPueBsjXxzngZj6Zj6VEN4nFu/WGBjo1AWbdxdPNMmXsMl8L5VsTS
+ Ys1A6FmRkUDBH4mFbpiHBE1wTBiS4m48xhyfYPy7Bbl1BGK1RrZV/Yo1yAZ1Kcu5tkt0qqFZb/P
+ NZMk5GL7c+y6A0ztmVoHIEBdIz1hZ9SW1aKQZxHnmfOjgfzOCgXui1kK9fYGLjzdrCQVlc18Y/8
+ KvwzxPpnKfuC9OL4leGUQS+pH0mrK+FOldq1v5SSJdopODAY2obzKk+HckeKhPwFY/xyaeyvfPx
+ nlD6AS8pPHw+EB1U4mMPIWFFAzBlwi509DheTMtkmqgX3cXudm6B1Jf2g25164nnZVHEeP9xZQ3
+ gfnKKYF9czjMEfA==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-virtgpu_freeze() waits for the control and cursor queues to drain and
-then deletes the virtqueues, but nothing tells the device to stop first.
-del_vqs() frees the vring backing, but does not provide a generic device
-quiesce operation. In particular, modern virtio-pci keeps enabled queues
-active until the device is reset, so the device is left DRIVER_OK with
-its queues pointing at memory that has been freed and may be reused while
-the guest is suspended. virtio_device_restore() only resets the device
-later, on resume.
+From: David Heidelberg <david@ixit.cz>
 
-Reset the device before deleting the virtqueues, the way
-virtio_gpu_deinit() already does on removal.
+System suspend powers the controller off and resume powers it back on,
+but the resume path enables the interrupt before s6sy761_power_on()
+checks the boot. The firmware raises its boot-complete event on the
+interrupt line, the threaded handler consumes it, s6sy761_power_on()
+then reads an empty event and resume fails with -ENODEV, skipping the
+touch function setup:
 
-Fixes: cad6a879a7fb ("drm/virtio: Freeze and restore hooks to support suspend and resume")
+s6sy761 2-0048: PM: dpm_run_callback(): s6sy761_resume [s6sy761] returns -19
+
+Power the chip on first and only then unmask the interrupt. Once resume
+completes the boot handshake the chip comes back with sensing off, as
+at probe where input_open() turns it on, so the touchscreen stays dead
+after resume. Send SENSE_ON again when the input device is open.
+
+Tested on a Pixel 3 XL over several s2idle cycles: resume succeeds and
+the touch function and sense status match the pre-suspend state.
+
+Assisted-by: LLM
 Cc: stable@vger.kernel.org
-Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
+Fixes: 0145a7141e59 ("Input: add support for the Samsung S6SY761 touchscreen")
+Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- drivers/gpu/drm/virtio/virtgpu_drv.c | 1 +
- 1 file changed, 1 insertion(+)
+Changes in v2:
+- Explicit return err in _resume. (Dmitry)
+- Do not enable interrupt when power on fails. (Dmitry)
+- Link to v1: https://patch.msgid.link/20260923-s6sy761-suspend-v1-1-6fff96e71cb0@ixit.cz
+---
+ drivers/input/touchscreen/s6sy761.c | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/virtio/virtgpu_drv.c
-index 2aaa7cb08085..52c174f9bff7 100644
---- a/drivers/gpu/drm/virtio/virtgpu_drv.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
-@@ -225,6 +225,7 @@ static int virtgpu_freeze(struct virtio_device *vdev)
- 		goto err_resume;
- 	}
- 
-+	virtio_reset_device(vdev);
- 	vdev->config->del_vqs(vdev);
+diff --git a/drivers/input/touchscreen/s6sy761.c b/drivers/input/touchscreen/s6sy761.c
+index 0f24a9b730635..899c179fb2d31 100644
+--- a/drivers/input/touchscreen/s6sy761.c
++++ b/drivers/input/touchscreen/s6sy761.c
+@@ -495,20 +495,32 @@ static int s6sy761_suspend(struct device *dev)
+ 	s6sy761_power_off(sdata);
  
  	return 0;
--- 
-2.43.0
+ }
+ 
+ static int s6sy761_resume(struct device *dev)
+ {
+ 	struct s6sy761_data *sdata = dev_get_drvdata(dev);
++	int err;
++
++	err = s6sy761_power_on(sdata);
++	if (err)
++		return err;
+ 
+ 	enable_irq(sdata->client->irq);
+ 
+-	return s6sy761_power_on(sdata);
++	guard(mutex)(&sdata->input->mutex);
++
++	if (!input_device_enabled(sdata->input))
++		return 0;
++
++	err = i2c_smbus_write_byte(sdata->client, S6SY761_SENSE_ON);
++
++	return err;
+ }
+ 
+ static const struct dev_pm_ops s6sy761_pm_ops = {
+ 	SYSTEM_SLEEP_PM_OPS(s6sy761_suspend, s6sy761_resume)
+ 	RUNTIME_PM_OPS(s6sy761_runtime_suspend, s6sy761_runtime_resume, NULL)
+ };
+ 
+ #ifdef CONFIG_OF
+
+---
+base-commit: 7079a12d7506b07fb53b54a664bfad5fa9b16d70
+change-id: 20260923-s6sy761-suspend-24674b0857ba
+
+Best regards,
+--  
+David Heidelberg <david@ixit.cz>
+
 
