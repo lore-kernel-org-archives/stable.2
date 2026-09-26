@@ -1,109 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f39.google.com (mail-pj2-f39.google.com [74.125.227.167])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C29045D180;
-	Sat, 26 Sep 2026 13:17:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF5163385BC
+	for <stable@vger.kernel.org>; Sat, 26 Sep 2026 13:22:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790428660; cv=none; b=gwg0aLalNmuI7jt5BVMNDpETXjwWserGQwwEsOVDFDxACNzcLe5bsniJktQZYSBuQizRawHabrfbmeUIL5BkpKHpBzWz2ZOuESMXltQ6OyWaAC/Vxr7rtD2Cnv7odKHw3jFOrP4wHjpl26z7qy1RKhRIcfofswBwNEHp0GvGG34=
+	t=1790428943; cv=none; b=NVNeS+haw8yxx7ys+z2gwrF0LqFZ537ElK3FPc4ZlV+aK4bO6QvtzG0uocRk5rJjZ7tRuTyLFg53OauMVRIZWGScJPm+pp5uvcBVywt0Pnu4DFOuQtP5mY5HtP6wxme5KwP+Cz0/c2ckByEZEow82rdrMsU3F2ctDEu7KJRwpP0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790428660; c=relaxed/simple;
-	bh=dMncSx2UyYLi2dqedF+v1BK1FWHzRgo/LCaroSYg0tc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=lQu0+u9kQ7ymG9raxahwM9KfaGovMls0faS8AOga1FUSwfQZSY1dKzkjNhbJFrof98Qiyyr+vq8Dq9+2DjJAya3I0fMwPBxckUal2/NNYt9TyBNFkRDPwbukrDXv0PVBpgbBAlFd5IgFizGlyO5nf9PESQBPw5OcAFWH7GYwlw8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YAqq27kk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790428943; c=relaxed/simple;
+	bh=8rgTvvwDFSaspEHo+kCgQNZbcI/BJZf21gNZIv2AIRA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Y0/ExV8Qv0TzanevPX2Mevskj0Ivi2/RsSZk7hvA27eBi10oAFrdYpQy2LqrRgz4iec4fX3j/2jlixX9ZB3+UeR/SccywJemIr/G7oDWMv/5+X0Tnr4dWTfW7Pi6ks7LBMiYgtDf2JU/BtwBotCvQj9FBlaUAluYmHRHPTBU/RQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=IoYrGoTi; arc=none smtp.client-ip=74.125.227.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YAqq27kk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 523FE1F008BC;
-	Sat, 26 Sep 2026 13:17:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790428659;
-	bh=+XrNL16ZCg2GVmApUxxrwAUI6/bTuhIIbKwqFaiiCBs=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=YAqq27kksXDUuc5wh1SjhduSlDqU8MGIy1c6OXOdPIfjkQ7LaI/Bt+sEgclzO60xb
-	 5xWLizQxgtMVsZ8xiQzogJ51sEik7BylX0bQi7Mql1SSSCv3fB7yVRbI+sQleasR6U
-	 jYGT8HicdvYrST8eFGjaUYT5l/0C2QKaTBXx3Pcxz1fwQt1/bLNTj/E5o/30Y61H97
-	 llR/4vpzGH733BqPiOnbieZedVlTM3GUBNWVVWiBhndobrx+gIhBT40pSV8n2rQAWk
-	 uRFa14mc5W+ZPozPibQHGf90KbR7OqvZ6yEkm6s9olW0wD3UllttRAay1nyxhsgLZC
-	 gVz5eYzmgA1WQ==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Sat, 26 Sep 2026 14:17:04 +0100
-Subject: [PATCH 6/6] fbdev: sh_mobile_lcdc: check for fb_deferred_io_init()
- error
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="IoYrGoTi"
+Received: by mail-pj2-f39.google.com with SMTP id 98e67ed59e1d1-3a0dc47fee0so239475a91.1
+        for <stable@vger.kernel.org>; Sat, 26 Sep 2026 06:22:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nebusec.ai; s=google; t=1790428940; x=1791033740; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WY6jVhJ1QtI7aO10MKO0OcssEc831y4vQM9w+i0byGU=;
+        b=IoYrGoTi6aru4z9/uiV1wb5/qC7Q0A21ix7UNXoBu9FYgU2RBHjFmFtcNtKLUkGV1w
+         S2VijHZiEk8TefWyF0w3KWsdYCoslzg37jalrDrUyGXX0+oZhuacBQk9M3bM6OSH/Lxp
+         3+M6xb3nObn4mxHxJzy48yyFtCvIVDM6RU3y0QkB6iQQ3LctdabJcs0qF7L9rAqeLy88
+         Df4TB4oZSoSxlJuoTg+VGzoXXqk0FNrqb14shOWd8e+5P60wAAZ83Ng/DaC+MGOY2Xxx
+         +l40q48wcJ21E6Aazf1Dr0xGYGQMgURJDnQ4wKDMHnwfq6tEXNTEqOQrPCpgi9PokdUM
+         Ldtw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790428940; x=1791033740;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WY6jVhJ1QtI7aO10MKO0OcssEc831y4vQM9w+i0byGU=;
+        b=h4cEnTQvLoYKEzXyjVZDbath1f9jYnZuHSWdm953ZasCXHubaqdgNdtn0wiED9Cktf
+         kq9n8kOiJMlvrgdGYC54EkNjT+XXkB0WdBCSwgmmvLp5KixNvBqj2y2OPYD9uO50Htsz
+         Lvb8ueKy7KHOqjFfdJlZrDsc1uYjvP5pSKiEMNLv2+//e7yBxWCLO+/ZMK3EJmjvCdO6
+         LVR+ZFM3xjDEXXBKiLWdj2v9vqfJFAniY6A0c9CQM8P2oAr9LuES0u1ouES4T1RGm2Dh
+         IUGzgewhRPECv7SDkgiUHZiZ0H2Cm8xjN1pjwFMMz/S4mcJlqRYJqZ3CL7+WgdrDA12J
+         XpoQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwJvH7k4O173qWCwQPNIcBjI+zsvnTSHdd6LPNwcdzd+p74S95JKtbKLhHc8ZjiV361euGvJF8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIxLfVY+OoLrHGkS7XBoUHE1o8PIsDTAXfL6NMmicIj2APpgsEB
+	irDlQoWJQJUpCGm78DMX4RjtYkM1Ue2qOxlSfbfLwvCn19joAET0AdaZnOrazfjoak72
+X-Gm-Gg: AYBFou12SrsE5KVNs81dpHp1mXw/Fpkrj57E4/gBbLObJ/Hae9bTlJydfio0QCTa764
+	4MpWqJF5prqQhQ5NMa2kiMn/CUFE06LA5N196tOYxmixJ5VR+Mj2w0poX5hjPydBqDNICK15g/O
+	21aG1S5fOxV17rSapEj71cLRF1fsxxMyLaUts3nazktgrRJWpoblL8qm/b77XwAJ6VOw6PCRT1N
+	N2fSZr71t1oGkmTdELAOQccLtlvYb+avwiuu4s9yXuf9vmcZKhR/ad66QR8M810KMAj4+fTLjAT
+	XeU/IVlczIUMtdYYQbMOrrviYc6S083LvRRBLIAp0Y0uUTaZbw40zYt5Vg4p+mLsEZe1PvZQrPb
+	v2Eq/p06ld0vrWDufQ13NnOJAw0yLC4QYq46TfC2V57XyY+6XvIr5D4+PO9eEpFZlgcu1+dJoNA
+	8rCcdpG0/vVB3R/QTG/DToRXQYBP5mg5qOuN9H41Jp9ACPR0V2Yh6TTPlFCfaUAmbPs/vtKCHFN
+	r2NAokKIdQy6SGH8IJs4/ZE41qQRA==
+X-Received: by 2002:a17:90b:3dc3:b0:3a0:ce5f:e292 with SMTP id 98e67ed59e1d1-3a0ce5fe752mr2448333a91.65.1790428940028;
+        Sat, 26 Sep 2026 06:22:20 -0700 (PDT)
+Received: from 954df21a5119.. ([122.51.212.64])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b8efb156sm10619253a91.1.2026.09.26.06.22.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 06:22:19 -0700 (PDT)
+From: Zihan Xi <zihanx@nebusec.ai>
+To: pc@manguebit.org,
+	linkinjeon@kernel.org
+Cc: zihanx@nebusec.ai,
+	ronniesahlberg@gmail.com,
+	sprasad@microsoft.com,
+	tom@talpey.com,
+	bharathsm@microsoft.com,
+	dhowells@redhat.com,
+	stfrench@microsoft.com,
+	linux-cifs@vger.kernel.org,
+	samba-technical@lists.samba.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	kernel test robot <lkp@intel.com>,
+	Dan Carpenter <error27@gmail.com>,
+	Luxing Yin <root@tr0jan.top>
+Subject: [PATCH] smb: client: avoid NULL resp_iov dereference
+Date: Sat, 26 Sep 2026 13:22:08 +0000
+Message-ID: <20260926132208.23360-1-zihanx@nebusec.ai>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260926-fix-fbdefio-error-handling-v1-6-a94810b6e263@kernel.org>
-References: <20260926-fix-fbdefio-error-handling-v1-0-a94810b6e263@kernel.org>
-In-Reply-To: <20260926-fix-fbdefio-error-handling-v1-0-a94810b6e263@kernel.org>
-To: Helge Deller <deller@gmx.de>, 
- Javier Martinez Canillas <javierm@redhat.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, 
- =?utf-8?q?Bruno_Pr=C3=A9mont?= <bonbons@linux-vserver.org>, 
- Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
- Bernie Thompson <bernie@plugable.com>, Greg Kroah-Hartman <gregkh@suse.de>, 
- Steve Glendinning <steve.glendinning@shawell.net>, 
- Florian Tobias Schandinat <FlorianSchandinat@gmx.de>
-Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-input@vger.kernel.org, 
- Steve Glendinning <steve.glendinning@smsc.com>, 
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1566; i=ljs@kernel.org;
- h=from:subject:message-id; bh=dMncSx2UyYLi2dqedF+v1BK1FWHzRgo/LCaroSYg0tc=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLK2H73KEn/g933Vea0zd8uU13Sbhb0Xd1pskP0pmqM44
- +f1UGXujlIWBjEuBlkxRZbnX8T3B4mEzeu84O8GM4eVCWQIAxenAEyE25uR4WuJzjGueXH6rO9c
- rt42ua3H+PeC3/vQ4IXFGbmmV/5rnGVkeCYx2SyqMvp756PXugXGn/dXX1/rqSm89LfTeWlXlXe
- fuQE=
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Transfer-Encoding: 8bit
 
-fb_deferred_io_init() allocates deferred I/O state, populating
-info->fbdefio_state, or leaving it NULL if an error occurs.
+compound_send_recv() only populates response vectors when resp_iov is
+non-NULL. The final pre-authentication hash update nevertheless
+dereferences resp_iov[0] whenever all compound requests complete.
 
-Currently sh_mobile_lcdc_start() ignores its return value.
+Guard the update with resp_iov to match the response-buffer handling and
+avoid a NULL pointer dereference on callers that do not request response
+vectors.
 
-Therefore if an error arises in fb_deferred_io_init() (for instance, due
-to an allocation failure) info->fbdefio_state is left NULL.
-
-When the file is subsequently opened, fb_open() will dereference a NULL
-pointer (calling fb_deferred_io_open()).
-
-Fix this by checking for the error.
-
-Also clear info->fbdefio in that case, so that sh_mobile_lcdc_stop() does
-not attempt to clean up deferred I/O state that was never initialised.
-
-Fixes: 56c134f7f1b5 ("fbdev: Track deferred-I/O pages in pageref struct")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Fixes: 62432a3f5145 ("cifs: Clean up some places where an extra kvec[] was required for rfc1002")
+Cc: stable@vger.kernel.org
+Reported-by: kernel test robot <lkp@intel.com>
+Reported-by: Dan Carpenter <error27@gmail.com>
+Closes: https://lore.kernel.org/all/202609241449.HlHmnZFZ-lkp@intel.com/
+Assisted-by: LLM
+Co-developed-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
 ---
- drivers/video/fbdev/sh_mobile_lcdcfb.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ fs/smb/client/transport.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/video/fbdev/sh_mobile_lcdcfb.c b/drivers/video/fbdev/sh_mobile_lcdcfb.c
-index e8324b01700f..1409a5cc736b 100644
---- a/drivers/video/fbdev/sh_mobile_lcdcfb.c
-+++ b/drivers/video/fbdev/sh_mobile_lcdcfb.c
-@@ -1042,7 +1042,11 @@ static int sh_mobile_lcdc_start(struct sh_mobile_lcdc_priv *priv)
- 			ch->defio.deferred_io = sh_mobile_lcdc_deferred_io;
- 			ch->defio.delay = msecs_to_jiffies(tmp);
- 			ch->info->fbdefio = &ch->defio;
--			fb_deferred_io_init(ch->info);
-+			ret = fb_deferred_io_init(ch->info);
-+			if (ret) {
-+				ch->info->fbdefio = NULL;
-+				return ret;
-+			}
- 		}
- 
- 		sh_mobile_lcdc_display_on(ch);
-
+diff --git a/fs/smb/client/transport.c b/fs/smb/client/transport.c
+index 6e21b5f8754a1..307bd82128781 100644
+--- a/fs/smb/client/transport.c
++++ b/fs/smb/client/transport.c
+@@ -1111,7 +1111,7 @@ compound_send_recv(const unsigned int xid, struct cifs_ses *ses,
+ 	/*
+ 	 * Compounding is never used during session establish.
+ 	 */
+-	if (num_processed == num_rqst) {
++	if (num_processed == num_rqst && resp_iov) {
+ 		spin_lock(&ses->ses_lock);
+ 		if ((ses->ses_status == SES_NEW) || (optype & CIFS_NEG_OP) || (optype & CIFS_SESS_OP)) {
+ 			struct kvec iov = {
 -- 
-2.55.0
+2.43.0
 
