@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57B4D3BB12B;
-	Sat, 26 Sep 2026 13:45:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66F30449B11;
+	Sat, 26 Sep 2026 13:45:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790430310; cv=none; b=Q+xLJxeOizNiRRUXunQbXFlhexDTiRWaMmXnLeStCVMw1Pt04hTdNfvlND8InevX8T724GrzREHpPLfPMMARVf4GOJUl3FVNusUf1NpXiEXGBOMWlTf3gp54E6/RlVUIlDfSDc3upNCgO1LEuGrZMz+gguuh6dfeb7oaQDf5QmU=
+	t=1790430312; cv=none; b=DeDpHb3TEwmn4A29JX3OqE34myuHlFUJ5QSVfHUaQJredJpSiGvtEymRs4GTY6n2Tdc8LlNNda8+wAe837Au/6WEK9CdCXI7qzyzK+v3fLqiieNgtsHYzh28bgj+jFT53NKmLctI2W8NtRf5S5eshH2m8bPIhry/GjUUY3QFFRs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790430310; c=relaxed/simple;
-	bh=UJiud4KcgnXPLgbGUXVSMDG97mdVFK//H8FidfVDNag=;
+	s=arc-20240116; t=1790430312; c=relaxed/simple;
+	bh=9Ke16FF5IWS/LUC8c6AFBYfn6zb2w8Ms7qYYX9oabUA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=KF277TJoDaIqcl1S+xrN9/XF7eW8rQB/I3BZP11ZzJRb+tB3CPiNLnYATRYqMmzbBP7QegnorgwAf5LWH5DC8g9G2+Obt28bgcpMidLL4ef/+bW6gPw7s5QPpPZb0fe1KUXPISxHQjt/Hd8omoU1kBg2k8vLyA9oYiAflMcyM2A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lPXL56nI; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=SzDz1nmMxzGPLY75KDvHj6/LJOmdOuLh+JP/zIS3DyL9JZaHb7WBdnIyMCVMsiofoMhctV6mfA9OH3OETQqWMI+v/BgGUSVSNGdxisMbYJgGd5ag68qyQSyxdupntdkrEWI3jk14NZBny/KCRfJwSOHZeNfts4bthAKWln+mN7g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D5uHCUft; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lPXL56nI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBAB71F00893;
-	Sat, 26 Sep 2026 13:45:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D5uHCUft"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B08FA1F000FF;
+	Sat, 26 Sep 2026 13:45:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790430309;
-	bh=RY3IqDdVGhyEtBp2MsbDbgUWsmFh2sHOaVfK8mrWEn4=;
+	s=k20260515; t=1790430311;
+	bh=TlIaIKq4za3aRuCylTXYp061aDVgJqEIoySalVX1nBQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=lPXL56nIc4N/VKt3273wntwKrcLuWITKP1tplJwTyIHcD5X/28Sp9EzxI+4t4sOAw
-	 7TSepD5qsw7OGVmRFYuac9/WwBk/2P4wtg4GUNrY260elwCQ9P6mS/ZsR94ti3a7DP
-	 wljrPkzzJG1KQ8S1HAariuLeNqEB28EFVQB5lDXbjj0reVNmalaiIrdQc+bpic3v4T
-	 T57sIJQg5wCcaLVUBzEkhYvBEitKQDMXCjWVQGFOyeVgMcLcitFclAJhQ9LgnpaFLH
-	 cfR4Xw0VCRJvzUBNGwpy8JfWfh0JWvTc7P9DHXvGk9q67SfZAazeyqPdRDf89mrx+H
-	 uthuxVFsDsrWg==
+	b=D5uHCUftzvtRtrvn8QJN/Q+6Lyi+RhZnDaaEGwKv5uGjhcgRBiSKdVTUgA83YSrmd
+	 dc6hfPf6sQR0vZ8SYpel7RJNwvtkr3Gqt1hxNyexwWxN7cSZJMmaDaDuJvzq8JFscB
+	 B+72eaDuiOHlrOfqeScMLKqqd+XbA3OCtyyWWqV9tXkNZbZ+mCc+WLo6wCgYihwOHg
+	 kCmOQweiVrlYdlJf1GvVLA8gAl4K0NgL/JOxLIDGam+/s/HR0lc9UEFGiB88JXfTOj
+	 GH3T4eMo7l/WzMZkLZ6nVgyoe9oeEEIrIfT2uuxJQ48bWqHSu4kJ5n0ITYFOoAN7+v
+	 dOwBecyuSUmPA==
 From: Christian Brauner <brauner@kernel.org>
-Date: Sat, 26 Sep 2026 15:44:26 +0200
-Subject: [PATCH 03/10] namespace: don't inherit MNT_UMOUNT in clone_mnt()
+Date: Sat, 26 Sep 2026 15:44:27 +0200
+Subject: [PATCH 04/10] namespace: don't copy an unmounted mount tree
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,7 +37,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260926-work-mount-fixes-2-v1-3-f357abf3d17b@kernel.org>
+Message-Id: <20260926-work-mount-fixes-2-v1-4-f357abf3d17b@kernel.org>
 References: <20260926-work-mount-fixes-2-v1-0-f357abf3d17b@kernel.org>
 In-Reply-To: <20260926-work-mount-fixes-2-v1-0-f357abf3d17b@kernel.org>
 To: linux-fsdevel@vger.kernel.org
@@ -46,104 +46,64 @@ Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
  Jann Horn <jannh@google.com>, 
  "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
 X-Mailer: b4 0.17-dev-db0b7
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3995; i=brauner@kernel.org;
- h=from:subject:message-id; bh=UJiud4KcgnXPLgbGUXVSMDG97mdVFK//H8FidfVDNag=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRtPxN15MXBleq3Vp3M6zzyIGMDS6zgwm1nnEqb/wqeN
- T4W9WemakcpC4MYF4OsmCKLQ7tJuNxynorNRpkaMHNYmUCGMHBxCsBEHrYyMizyULQ/dypnzkqd
- +07fr4ad3rTNbbG5x0ZfDu2tC+olxUIZGeYFS/m71KntfjtRT1He7ckddy5jp8aahObAfcI1Ow8
- VcAIA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2094; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=9Ke16FF5IWS/LUC8c6AFBYfn6zb2w8Ms7qYYX9oabUA=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRtPxN1QXyxpGDkk4DPFbEsKzvCOfl9AqaqfK1/4Fiv8
+ c4nVseyo5SFQYyLQVZMkcWh3SRcbjlPxWajTA2YOaxMIEMYuDgF4CK9jAzfQu1KXqzW/X6oZeXB
+ 5fzSNtWvbjkfYFztnvEyaUqqt0Q+w//6Nlufw0VXIk6JqfGdvZvNIPG06obpk1jzDB4/E+nFa/g B
 X-Developer-Key: i=brauner@kernel.org; a=openpgp;
  fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-MNT_UMOUNT gets raised on a mount that umount_tree() or umount_one() has
-taken out of its namespace. It's never cleared. __detach_mounts()
-unhooks a mount that carries it instead of unmounting it.
+may_copy_tree() accepts a mount whose root is an nsfs or pidfs file
+before it checks whether that mount is mounted. This exception exists
+for nsfs and pidfs mounts. They are part of no mount namespace so
+neither check_mnt() nor is_mounted() would let them through and
+bind-mounting a nsfsfd or a pidfd wouldn't work.
 
-disconnect_mount() lets an unmounted child stay attached only if its
-parent carries it. propagate_umount() takes it as the sign that a mount
-is going to be unmounted when it decides what else can be unmounted,
-where a chain of locked mounts ends and where a for reparenting an
-overmount.
-
-clone_mnt() copies the flags of the source and only masks
-MNT_INTERNAL_FLAGS which doesn't include MNT_UMOUNT. A mount that was
-lazily unmounted but is kept alive by a file descriptor can still be
-copied when its root is an nsfs or pidfs file because may_copy_tree()
-accepts those before checking whether the source is mounted at all:
+Problem is that exception also admits a bind mount of such a file when
+it was lazily unmounted and is only kept alive by a file descriptor:
 
   mount --bind /proc/self/ns/net /tmp/x
   exec 3< /tmp/x
   umount -l /tmp/x
-  mount --bind /proc/self/fd/3 /tmp/y
+  mount --rbind /proc/self/fd/3 /tmp/y
 
-The mount on /tmp/y is attached to the caller's namespace with
-MNT_UMOUNT already set and every copy of it inherits the flag again.
+With MS_REC or AT_RECURSIVE copy_tree() doesn't stop at the unmounted
+mount. It copies every mount that stayed attached to it as well. So if
+you have a bunch of overmounts over the nsfsfd or the pidfd the whole
+unmounted stack is copied. That's a bug.
 
-That causes a number of bugs:
+So refuse to walk an unmounted tree. Copying its root alone stays
+possible. So a bind mount of a namespace that is gone can still be
+recreated from a file descriptor on the old one. The file descriptor
+pins that mount and its root and __has_locked_children() only reads the
+direct children which don't leave the parent's list without
+namespace_sem. The internal mounts carry MNT_NS_INTERNAL instead of NULL
+and are still walked. Copying an unmounted tree recursively fails with
+EINVAL.
 
-- Unlink its mountpoint from a mount namespace where it isn't one.
-  __detach_mounts() takes it for a mount that was unmounted earlier,
-  unhooks it from its parent and drops the reference the namespace
-  holds on it. It stays in the namespace with one reference too few
-  and as its own parent, so it can't be unmounted through the file
-  descriptor anymore and the namespace never finds it again. When the
-  namespace goes away it's leaked and points to a freed struct
-  mnt_namespace that may_change_propagation() and anon_ns_root() read
-  on the next propagation change or mount_setattr() through the file
-  descriptor.
-
-- Make it shared and unmount a peer. trace_transfers() follows the
-  flag from the peer into it and strips it from its peer group.
-
-- Let a propagated umount reach it. gather_candidates() marks it with
-  T_UMOUNT_CANDIDATE but never puts it on the candidate list, so the
-  mark is never cleared and every later propagated umount skips it. If
-  it's the parent of a locked mount handle_locked() takes it as the
-  cutoff and commits the locked child that should have stayed and
-  disconnect_mount() leaves that child attached to it, unmounted under
-  a mounted parent, which is what disconnect_mount() exists to
-  prevent. When the namespace goes away umount_tree() visits the child
-  a second time. And once __detach_mounts() has made it its own parent
-  reparent() never finds the end of the chain of unmounted parents.
-
-A clone is a new mount that has never been unmounted. Add MNT_UMOUNT
-to MNT_INTERNAL_FLAGS so clone_mnt() never copies it. And warn when
-umount_tree() reaches a mount that already has it set.
-
-Fixes: 590ce4bcbfb4 ("mnt: Add MNT_UMOUNT flag")
+Fixes: e149ed2b805f ("take the targets of /proc/*/ns/* symlinks to separate fs")
+Fixes: ef4144ac2dec ("pidfs: allow bind-mounts")
 Cc: stable@vger.kernel.org
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- fs/namespace.c        | 2 ++
- include/linux/mount.h | 2 +-
- 2 files changed, 3 insertions(+), 1 deletion(-)
+ fs/namespace.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/fs/namespace.c b/fs/namespace.c
-index d1e8dd2e1e8e..6d4ecde682df 100644
+index 6d4ecde682df..c7e252eb249e 100644
 --- a/fs/namespace.c
 +++ b/fs/namespace.c
-@@ -1799,6 +1799,8 @@ static void umount_tree(struct mount *mnt, enum umount_tree_flags how)
+@@ -3007,6 +3007,9 @@ static struct mount *__do_loopback(const struct path *old_path,
+ 	if (!may_copy_tree(old_path))
+ 		return ERR_PTR(-EINVAL);
  
- 	/* Gather the mounts to umount */
- 	for (p = mnt; p; p = next_mnt(p, mnt)) {
-+		/* A mount is unmounted once. */
-+		VFS_WARN_ON_ONCE(p->mnt.mnt_flags & MNT_UMOUNT);
- 		p->mnt.mnt_flags |= MNT_UMOUNT;
- 		if (mnt_ns_attached(p))
- 			move_from_ns(p);
-diff --git a/include/linux/mount.h b/include/linux/mount.h
-index acfe7ef86a1b..b16ba5d45605 100644
---- a/include/linux/mount.h
-+++ b/include/linux/mount.h
-@@ -52,7 +52,7 @@ enum mount_flags {
- 	MNT_ATIME_MASK = MNT_NOATIME | MNT_NODIRATIME | MNT_RELATIME,
++	if (recurse && !old->mnt_ns)
++		return ERR_PTR(-EINVAL);
++
+ 	if (!recurse && __has_locked_children(old, old_path->dentry))
+ 		return ERR_PTR(-EINVAL);
  
- 	MNT_INTERNAL_FLAGS = MNT_INTERNAL | MNT_DOOMED |
--			     MNT_SYNC_UMOUNT | MNT_LOCKED
-+			     MNT_SYNC_UMOUNT | MNT_LOCKED | MNT_UMOUNT
- };
- 
- struct vfsmount {
 
 -- 
 2.53.0
