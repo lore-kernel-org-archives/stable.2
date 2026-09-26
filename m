@@ -1,139 +1,134 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-dy2-f32.google.com (mail-dy2-f32.google.com [74.125.229.32])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B4E638AC9A
-	for <stable@vger.kernel.org>; Sat, 26 Sep 2026 06:32:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 183E538B14C
+	for <stable@vger.kernel.org>; Sat, 26 Sep 2026 06:37:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.32
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790404350; cv=none; b=EzfMxN+D8+Hd0mYqD/tXIJn1ODJcXD9M4DkiLfeoU4++2/w8kM3WBvvER6rlYz3OcxDze0kjLW3ml1QVZvkxFXRFJJbpi58vm9Tv+XEYO56uUWQwcci38c+K2Cf1HSDsFC4Bs4xg85nW8g6n+dpS1+aGCjA9MBkgJe2kLtM74Gk=
+	t=1790404655; cv=none; b=S6ZsMTMj3XSoBoqRIgoYROERk3rBcw+7/0XU6Gd3mePoufuwXlpqY9ijvRUREhMaMPDGz5mAQllx93CeP8/qZrWDr7Aoi7Jp6SyVEq8eEeJJ0w/c7u2HhuHoX8ZcsdkyBLhCFVh6hYlhw3Gx8k89VLeZF/9Rh4g+jrav4koZt6s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790404350; c=relaxed/simple;
-	bh=RKnDzIDzmT8Fb769giFnrQq/6P1KJS3fV65UjMQ0CGg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cI1IVKqI0F/h+RPk47aM03cVpdPGjaEBEa4dMHNlSD84t3fGPmiiT/paT3i6j6+dVaSBDMkxKU8Vwzch7OEmsJmeXA8OmEm6+4Rq/8Ean3BDDiQmYmnF1X1Up/VlIyXqyHAa7r/CFXDXD3qQLq2vi0sEZaUibhv2MKKUg2Wg60I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=gXX5Z85Y; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1790404655; c=relaxed/simple;
+	bh=4uMF+Zyheka+eW7kDUK3k8FRqJGU0Etmiqlk+J0Llxg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oMVKWnXgwxWn62YSirU9D76trrJMHEb8d8RDf1otBMfjjeiBmHNkF/HAcYaCtKgj8Wd6KjpW3li0eHFLDlrSpWHFPoFLI3BNyyh1fdSgZSzWXWtiEu+tzJ//x4uu8PN7SXt2csqJjo54XxLGy9MgwDcuEOEkE7YbzTK58OrPI74=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ThY8gsz6; arc=none smtp.client-ip=74.125.229.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="gXX5Z85Y"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d3920so11348385e9.1
-        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 23:32:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ThY8gsz6"
+Received: by mail-dy2-f32.google.com with SMTP id 5a478bee46e88-33b9e805130so1102222eec.1
+        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 23:37:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790404346; x=1791009146; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RKnDzIDzmT8Fb769giFnrQq/6P1KJS3fV65UjMQ0CGg=;
-        b=gXX5Z85Y0RwaWosKfpCqGaIeWjwWs0BChPeTyEZAMy6FaxIPVSiIhA1GZb/H9AVtVe
-         DwOF/oRYap8Geej275IqIR6jebCDgn65+2cHbsJ3EVzFGSW7dQPRrlptcbAnKUnhJz+E
-         q5E0lzj3auVEcsIhPropmnySt1AlwT0oCCWyLf1XBlzIiLp1pKBo35KIQIxz9tYXxXVL
-         nkbFPPcRH/t4dGygknK+CqOw+3Wdcw2lT2j7dBuuMdBaTIh+tziwSesP1X96/ViqA3h1
-         KO6olydEn/pPIG6QpP1yS5JW/gkriEfKMpYQcHe1AWl2jDqZAF51lzysOjRSAcDSCYNa
-         ppTg==
+        d=gmail.com; s=20251104; t=1790404653; x=1791009453; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vtzEc8ALe2Ni0U200YE53lUimcTmcbv5pev4EjEWMTg=;
+        b=ThY8gsz6vsuo9tV08Gq/VdQm2h6L00V22bSKLP37LYHAMtsY55eSV31DsV1s92+iZQ
+         fM8ZOGMjjcjw1crB5n4QGlVANdPzls8UNwx4Po6D2QZEMYqVJhJ756T42WYL2ucZo5Wp
+         QbgAgAHWmHaCnjctr5jN/AmvXS25RquQk/GSnGclhPZUOuArJpEXXZOSlpv6NlHIYXnZ
+         blLx7LttXt5SHf1eOT7RjjCnZDeSgJ2Qb+IZsTjFWBklq5W3bLmOOouz03OjNbQJHkmZ
+         VsaGzfwvRHNGgUUADCkPHoF6MsTMvpbO3f23MV0F03QGMkhIOV2Jal8hiz+zNyxdUn8y
+         m6gA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790404346; x=1791009146;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RKnDzIDzmT8Fb769giFnrQq/6P1KJS3fV65UjMQ0CGg=;
-        b=tS/unZxcx3idvZJTqcCwiw176PixEjppwElLPSkYNyiz5W8qKarMkF5bBS+5kHmG+A
-         Jd1dRMGGvDkXpTi8YndQlTEs8EHK/oS86iVQhNDonEXIJClL+8ELOcbHWP+eu72SEuIw
-         YILkA/2D9jbAg8rl2y+wZZWkOqvolqi4o756buOcjSKSKNc3W+zx6oI/SbPrF456AHIO
-         Os/3FRig/Tctw0gArrtCi4Z13NCpJo2YGk8CK1NvIw9XfdbpA376YfV5gycVxA0IvUJO
-         O6JzHJ46LhZJ3X6rkYc+oLC6w6DehxEYqn5GIBHm98+LBLGzJDJdX1QeQL+QfO3sy9vt
-         Y8Hw==
-X-Forwarded-Encrypted: i=1; AKwUvBxEDXNSjhnv/kBmP/bK2mgd8iY8zrYgQ53ibm7Y+nQQFFqop9gK6xz4JcufUApUT3GdMkO6wEY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nTQvUdhjbVzwqcvQ/7D++/A5peg75F3E+YiIVdiY4nVUNex2iu
-	m/dU2tmyfC+Bax1rSplnZHJnWuLumg14v0bHKG6SEhkgzM1EP3FQS9Yfq/n04AF+l74=
-X-Gm-Gg: AYBFou1lqOph1f7D2w+YUmJZE0ttxTZBlBZ48bzs+cyqfpY1bl8o/EbkXVy/OouPXf0
-	uD1PHIpkTq5DGKrqYuovj8GcgeO2zmtDe82ZL3RJYzctkqaqbz0+y0onaabVzQ9d3jGTAAKT4/d
-	nBbRs0KdR/JpFEaCsZdoN+A6VQYE7f+s0UKo3VIG+0SxvRw7w9TGixOO7v/Wium0P7+F2NLIHtF
-	a6lmqy5y1cTTM5FROeA2APqAeXoqUtSR8m1JvFsar0SbqhnihYilyK4nro404lJI2YEWB/QXvVQ
-	HnfLKVvRYVgtozkoGOgQn9VX7PCDHfGkTbiHEnhHf6JLUG4tQ3yV07ZIC2BOcdHPgfwDU/G1CG0
-	S7fOdBf6geVgLgBU9q3mNvxGWmZ/Iw9m/U2oDA5kNkl3U1jxuO9v1Pq+V0lXWXp86pOd+ruj12J
-	/k47bCHlSTDzM7FL6+j2WjvtgMULSrA3E/k6B8qOOqOKULQSOzQ10j+M2QYjYgN3XqTyW6OqIqW
-	f1s/jxEbFLgNb0=
-X-Received: by 2002:a05:600c:3486:b0:49f:f9d4:674d with SMTP id 5b1f17b1804b1-49ff9d4695dmr17829285e9.13.1790404345436;
-        Fri, 25 Sep 2026 23:32:25 -0700 (PDT)
-Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49ff06b6108sm130167325e9.8.2026.09.25.23.32.23
+        d=1e100.net; s=20260707; t=1790404653; x=1791009453;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vtzEc8ALe2Ni0U200YE53lUimcTmcbv5pev4EjEWMTg=;
+        b=Xzognmz/jutPdKHxkRPttraagSyw/9IeQIBzq/mlrs1DHIF2gV+3EXUZTIVg2cfvTB
+         B8AHnauJ43sbzSiwaFCWseeLCGdcz2+PGekEYs526+KT9UBoFn0vzqgxSiX+jCFprPgc
+         j2KGMMiaBnWqn8xmCz96Y3HZPaQ904VotxhjNTp7goc374RzPJf192TpxFyE1up1c4a8
+         q1/iPr2UvOOHeM2zAfFi3gwr2XGhaz8qT1vMIpDcjU+s/Vqrxy3eA8Vuu3i5nN1ICfhy
+         JX8uIwyUjHP3zDlyzSRl5HZKMlDfnHVqlj0nx66iwr3ai/3bw0M/kKpmxFQnEgTVOux9
+         DtfA==
+X-Forwarded-Encrypted: i=1; AKwUvBxNxlyUhP1jET9AcMNIIZKiWZGuhGRaXwDbLJPYfmxfnUQapmgWSh97nKGVg+iD+LhGs3RZfWc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kdazuilG1nfQbe7LZpCRSxrosGGLmfGNkwTqCZnSHa7DaeQDwM
+	CJkgnFxXIBnNbFiHERn3t70m9zb82Jdyw+OPCb2EaweQSsu+l2EF4PFL
+X-Gm-Gg: AYBFou3NqQWspCdOqiVehynVd9I8Satz/KlJHHMw1aF4l8ysg3GHp2bsY5ElvEZv5+N
+	endONlM58uaV0EoxovqutW6huB4gWzbFUpN12wEwughD/J7hJOSPbOrNvy2gXmJRvRYwWnFIVr/
+	bUcpSqcDHyieJwx1kFrlNHCj6Bg5+mUH2QojF+M/vALQyZEGyuokxP9A3CUOGfj5fJ/6zU9SCK2
+	Ks801IfrGPwWHBEHjU+JUIi9HcyxtpHV20XR228r5sN9ABzcf7yCj2VApCTVfESGMtpcBH1A/3+
+	/IcLFVW/AJQ4YUEoKzyk3mVBTcAtFb9F2GeqdrMUbmwPTehBKbJ0vqJMEQWyBV0dYgfOX3O5G9P
+	OrcbcZg6Xk1qnQD4frte8c1xmfJ6WW+eToyecxo+sPn/sS2sLdL750EN0LtcDh8A2aRU8I8QyOE
+	mohQMavi1W3b/WL9SlGV3TNseiObHFVA/LJHlygB5fbjjXJyJbcvakjfHOefe67IHAMdrDXcmXG
+	ls9/7E3gUvm/cAJYaFTOMYV3b7BdTO4
+X-Received: by 2002:a05:701b:2618:b0:141:5281:8a41 with SMTP id a92af1059eb24-146cdfbbbf1mr1748789c88.9.1790404652850;
+        Fri, 25 Sep 2026 23:37:32 -0700 (PDT)
+Received: from 192.168.50.3 ([198.176.50.208])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145ad9e097fsm11239841c88.13.2026.09.25.23.37.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 23:32:24 -0700 (PDT)
-Date: Sat, 26 Sep 2026 08:32:22 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Jiale Yao <yaojiale02@163.com>
-Cc: Alex Lanzano <lanzano.alex@gmail.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Dmitry Baryshkov <lumag@kernel.org>, 
-	Mehdi Djait <mehdi.djait@bootlin.com>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+        Fri, 25 Sep 2026 23:37:32 -0700 (PDT)
+From: Weiming Shi <bestswngs@gmail.com>
+To: Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H . Peter Anvin" <hpa@zytor.com>
+Cc: Vitaly Kuznetsov <vkuznets@redhat.com>,
+	kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Zhong Wang <wangzhong.c0ss4ck@bytedance.com>,
+	Weiming Shi <bestswngs@gmail.com>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] drm/tiny: sharp-memory: reject devices without match data
-Message-ID: <ardmUk4lMFhnc76E@monoceros>
-References: <20260925123608.2082429-1-yaojiale02@163.com>
+Subject: [PATCH] KVM: nVMX: Rebuild MSR bitmap after eVMCS control changes
+Date: Sat, 26 Sep 2026 14:37:21 +0800
+Message-ID: <20260926063721.1471741-1-bestswngs@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="j7h5nzpwlz2f2g5n"
-Content-Disposition: inline
-In-Reply-To: <20260925123608.2082429-1-yaojiale02@163.com>
+Content-Transfer-Encoding: 8bit
 
+The Enlightened MSR Bitmap shortcut reuses vmcs02's bitmap when L1 marks
+MSR_BITMAP clean, but the bitmap also depends on execution controls in
+CONTROL_GRP1 and CONTROL_PROC.  L1 can change either group while leaving
+MSR_BITMAP clean, preserving stale APIC_TASKPRI passthrough for L2.
 
---j7h5nzpwlz2f2g5n
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] drm/tiny: sharp-memory: reject devices without match data
-MIME-Version: 1.0
+Reusing the bitmap after a failed rebuild is unsafe too.  The failed entry
+disables hardware MSR bitmaps, but KVM subsequently marks the eVMCS clean,
+allowing the next entry to reactivate the old vmcs02 bitmap.
 
-Hello,
+Require both control groups to be clean before reusing the bitmap, and keep
+force_msr_bitmap_recalc set until a rebuild succeeds.
 
-On Fri, Sep 25, 2026 at 08:36:08PM +0800, Jiale Yao wrote:
-> SPI driver_override allows a device to bind to this driver without
-> matching either the OF or SPI device ID table. In that case,
-> spi_get_device_match_data() returns NULL.
->=20
-> sharp_memory_probe() immediately dereferences the returned display mode
-> to calculate the pitch and transmit buffer size, causing a NULL pointer
-> dereference.
->=20
-> Commit 572a00852635 ("iio: dac: ad5686: missing NULL check on match
-> data") fixed the same driver_override issue in another SPI driver.
-> Reject devices without match data before using the display mode.
->=20
-> Fixes: b8f9f21716fe ("drm/tiny: Add driver for Sharp Memory LCD")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jiale Yao <yaojiale02@163.com>
+Fixes: 502d2bf5f2fd ("KVM: nVMX: Implement Enlightened MSR Bitmap feature")
+Cc: stable@vger.kernel.org
+Reported-by: Zhong Wang <wangzhong.c0ss4ck@bytedance.com>
+Assisted-by: LLM
+Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+---
+ arch/x86/kvm/vmx/nested.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-Note there is an effort to make it impossible to use driver_override in
-the core and only allow a few dedicated drivers. (See
-https://lore.kernel.org/lkml/20260922-driver-override-opt-out-v1-0-58c35ded=
-3b83@nvidia.com/)
+diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
+index 151873407abd3..0f0e677d99482 100644
+--- a/arch/x86/kvm/vmx/nested.c
++++ b/arch/x86/kvm/vmx/nested.c
+@@ -755,13 +755,17 @@ static inline bool nested_vmx_prepare_msr_bitmap(struct kvm_vcpu *vcpu,
+ 		struct hv_enlightened_vmcs *evmcs = nested_vmx_evmcs(vmx);
+ 
+ 		if (evmcs && evmcs->hv_enlightenments_control.msr_bitmap &&
+-		    evmcs->hv_clean_fields & HV_VMX_ENLIGHTENED_CLEAN_FIELD_MSR_BITMAP)
++		    evmcs->hv_clean_fields & HV_VMX_ENLIGHTENED_CLEAN_FIELD_MSR_BITMAP &&
++		    evmcs->hv_clean_fields & HV_VMX_ENLIGHTENED_CLEAN_FIELD_CONTROL_GRP1 &&
++		    evmcs->hv_clean_fields & HV_VMX_ENLIGHTENED_CLEAN_FIELD_CONTROL_PROC)
+ 			return true;
+ 	}
+ 
+ 	CLASS(kvm_vcpu_map_local_readonly, m)(vcpu, gpa_to_gfn(vmcs12->msr_bitmap));
+-	if (m.ret)
++	if (m.ret) {
++		vmx->nested.force_msr_bitmap_recalc = true;
+ 		return false;
++	}
+ 
+ 	msr_bitmap_l1 = (unsigned long *)m.map.hva;
+ 
+-- 
+2.55.0
 
-That should make your effort to implement that check in all the driver
-redundant.
-
-Best regards
-Uwe
-
---j7h5nzpwlz2f2g5n
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmq3ZvQACgkQj4D7WH0S
-/k6Qcgf9G3X0KeSPaCKttnPz60x5oy+ze4Lrp0MR133CvtMOi/KpCFTC0JPCuv3a
-M8mOGrUG7qRG9hwJz2xlMIeNTtr3Jib0Jgu6pZYvMaNnVJBmNdDF4sTWaZmx5hL7
-A/qqL7LyP9lRn6Ko2yw/zhyWp276vGLp/yjW3tFDpUlJucJ8XPXfmYJlZVvgrvoV
-4NAfE+Byneex1y222VYJX4lsZ70byfg0BVuBtxV3kxsdIRW9y9vo+ZBAyzgmd57s
-Y6GxPfU0SKn/qiRPg54hhtwSAru7oele0BN3Hjwf41Ll2rt59Troh7l18UONatC4
-tXudK822kPgqBO/Ax1CSPtsjwbLZgg==
-=Gwu0
------END PGP SIGNATURE-----
-
---j7h5nzpwlz2f2g5n--
