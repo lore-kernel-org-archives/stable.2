@@ -1,183 +1,139 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 805183DB655;
-	Sat, 26 Sep 2026 09:55:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B2FC2D0605
+	for <stable@vger.kernel.org>; Sat, 26 Sep 2026 09:56:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790416509; cv=none; b=euh54/+Q5dF79um4bMioDTYR5cGIUnkjmdfoFshbIv25oWe4g8tIMBv1KtmOTxhgwwbxePvGnNuikEyyoMSAs/qNeEcoKP2it1QCLbqVtzsoAbB5vD/ekioDl5LDsXGZnbU6AYYGrvSLunXX/+sCgWCTBGTvWRcxgvrojSJD+Z4=
+	t=1790416575; cv=none; b=K8wOYCjovJqNElhEajE5JVeOYNZGmGQ3zNq58lz2w3rubFNSV+Ud8sMdE9QEBI3lo4a0jmIskopCry00QKI2CcbduSf5nsaHrzYuumcS++e8NzeJzr/s8+/NWNBCNEqi97c9syWGcnzSUtbuT63ZF1XM80AXuNUJQZrTEr1WEug=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790416509; c=relaxed/simple;
-	bh=d3yPoZPNCzeh+K127bR9RSO6Nj48iTjKgG7zkSD1icM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=B1q0V/UMyevc2clsL/dDfYdvg4dru3xdoGUlTA8K23CSQmQVht+sRljxhYjUaweoHAOVXsQ0ZPyi34u8aRWA1/EsPMnB7oTn7cOfAS/5tJbCJFeJUmXPdi1X5Dyb/6zAu7xs5MxEEA7CF3cnBVPcnLqXRtwssslMQ11GiQ8F/QU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=sHRtMZAA; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1790416575; c=relaxed/simple;
+	bh=3CS+HQmjBl52m4CqYlnA7nOrv8anzA0BVQsCvgH+SAs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lYhu2AMkvJD6iFeqDnSLsMLYHwPJz0WTEbFKQrNQhAflkCiUUO+gQe1jqH4Yhjf2Q/cO3sg/ochrc+hJmsF3lylvFCg65Klv633/t1W0FQtmpSn5IvmAXwU8PSoCBa25f6Cdr6i8LLjBGkcVqkZ6bmvCZ9hXqH4IRXIDz0QMsDo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qc+FMbVL; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="sHRtMZAA"
-Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id D5D9C5340CEE;
-	Sat, 26 Sep 2026 11:55:03 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1790416504;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=32rpdRY1d+z3I43eDHyo/Txi1c6izkB8dW4wsRXOcy4=;
-	b=sHRtMZAAldTESvErMIFIB/BeSlgtma36U9wm1GorQc/UZg7tqznuPif/K+9E798gsxA+V4
-	Ib2lA1n86HZDSv3rNI9YM/+TKmXPOVWUiiY7zFT/TmhVtJkm9/1XWt7m75Cm6c6lwqeBWB
-	fEUTlc9ZvifG2qaaStCoQi85zjRZxRk=
-Message-ID: <187c9ec1-03fe-40a8-8c97-415b1a7aac23@ixit.cz>
-Date: Sat, 26 Sep 2026 11:55:03 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qc+FMbVL"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccb65437so966448a91.3
+        for <stable@vger.kernel.org>; Sat, 26 Sep 2026 02:56:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790416572; x=1791021372; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=v6OJthMlr/f101i8o7uKwd+owesuh/rzBHv4PGBQmQg=;
+        b=qc+FMbVLNU2+VFRFFghHpWZP7+0XXjMnKy3U3xkEI4qG07jfRlFMBaIDti+S4Wq/ZX
+         1qs6EX1W7vIc6og401xgPMhfRHgigWrP+Ir2695047bCQqmPquYELJw/kxN/B8+2kS41
+         b652GJRRaUHDdwzWVUezpj0U66Ed+3y2aQ1wuPXoowiqe0DN2pr6vkTO8ddf8GpyR37E
+         SOysyQi5l1znjFGbEq4ojixuXIvCi4DhEkCScPKfqgxkoNrWk0NwkMIiA2BMW6YDxNpK
+         O0usNFuEseda7tWdKWdt/SZ41ovvCEyv95Yc+qebmanzy2KwRCbs0B8pMboJYotRs4Tm
+         hNbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790416572; x=1791021372;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=v6OJthMlr/f101i8o7uKwd+owesuh/rzBHv4PGBQmQg=;
+        b=lO7I0NLyVhg4lFDnQft4pnvxKOtcyHxIBbj78cgS+aHyaZA3zKfRIWLtzOgMcmNhrN
+         q4RPdRhw1GcVOyp042/wH3i3Yg+j4Ursv/wzYqw4Hgg+P4whpCvPBkXV0lcPiGFRJ+c0
+         6bDJfY/jnTFADYKcLPUFMQfmxJxz3kc1LyqPZLb2CI9LP6ICqpql0j39SVi2gVS/BE2m
+         q/bRt1YdyZnf3g7tNNWVIk7dBFrbeOp6npNwYX8DR1+MUFQ1Op5J0Kv1Bd/SqK9jioPP
+         iQJoFF7GzCp00jsQCpiJ0iGvz/LZiH/l01Ew5/2QrkUPJKNcty7MIMekn8772q+r11ZS
+         WsDA==
+X-Forwarded-Encrypted: i=1; AKwUvBy4xtCutzSIsY9GxxOS/eeU9Szicw5spgAIsY8aqZx3FZSkdTQXffImpPXqQoRBDN265j6yJjs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI7RQU4iX/8UQPkbbjtOBSBQXMYNGhg2EbAX9iVhbYB7DJ/2j3+
+	OUwZT8I0Yqz9it6I242A0m0ik9VUdmKs7oafKb8fQWJBjcVOxChVdik+
+X-Gm-Gg: AYBFou1EclzrkiCoKJAFAG6DO4coSPBYp+ZKD13U3+vvUMSmLo9PRvc2k/2OQRC0QN+
+	hgcuqWjyr2xu4O47yeikuUc1QmAUHARAaA+yzgrUG4teGJBp76P9EvhxAOjpD23ojRSC8oheCBa
+	/ipJ46qUhkjCgqxW7aRo4NMd/dpEKxYmonCO7kTt4CCvnlhCEtdf6W28b+SeGI5G1GN2wnIk9lC
+	lPGJguN5XZbDfPQoioNzFwKM1W5IBdpEkp+mmW6X0jaXwnsLWKvXOm4eSZHqKMgrD/OpZksQ0V5
+	IMl7e5fGWCTFtyzvpTuexh/D/nHuxcOWypjIInyUGPAeaf93qFEX9Dz4o3p+RCW2nsEPhfpZzLY
+	iuXGl6lKmwxzpeVbeHUiLduYESOPiJcoACHXPGw/9+sbq8TvOr4RDladAlzJfu2tGI1putbn6G6
+	IjIQ302oP/v+BSJElpap7A7LIL0pzr3eBdq94zpBDQ0peyS/mI5MwmsvdwRth11WbXEIdynyhw3
+	BLGL2DZ4RizLrRg9j4Cb4SMnAUDXJaE3Ftxh5zEuQDxag==
+X-Received: by 2002:a17:90b:51c1:b0:39e:1692:34bc with SMTP id 98e67ed59e1d1-3a098ad4cd1mr6376096a91.1.1790416572070;
+        Sat, 26 Sep 2026 02:56:12 -0700 (PDT)
+Received: from JUNVYYANG-MC1.tencent.com ([43.132.141.25])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b9481e17sm8774670a91.8.2026.09.26.02.56.09
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 26 Sep 2026 02:56:11 -0700 (PDT)
+From: Jun Yang <juny24602@gmail.com>
+To: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+	Xin Long <lucien.xin@gmail.com>
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	linux-sctp@vger.kernel.org,
+	netdev@vger.kernel.org,
+	Jun Yang <junvyyang@tencent.com>,
+	stable@vger.kernel.org,
+	TencentOS Corvus AI <corvus@tencent.com>
+Subject: [PATCH net v3] sctp: check RCV_SHUTDOWN after the sendmsg connect wait
+Date: Sat, 26 Sep 2026 17:55:15 +0800
+Message-ID: <20260926095606.68601-1-juny24602@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Input: s6sy761 - fix resume ordering and restore sensing
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Andi Shyti <andi@etezian.org>, Rob Herring <robh@kernel.org>,
- Marco Mattiolo <marco.mattiolo@hotmail.it>, linux-input@vger.kernel.org,
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260923-s6sy761-suspend-v1-1-6fff96e71cb0@ixit.cz>
- <ardMSVsG1RlOOkNp@google.com>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <ardMSVsG1RlOOkNp@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 26/09/2026 06:40, Dmitry Torokhov wrote:
-> Hi David,
-> 
-> On Wed, Sep 23, 2026 at 03:27:06PM +0200, David Heidelberg via B4 Relay wrote:
->> From: David Heidelberg <david@ixit.cz>
->>
->> System suspend powers the controller off and resume powers it back on,
->> but the resume path enables the interrupt before s6sy761_power_on()
->> checks the boot. The firmware raises its boot-complete event on the
->> interrupt line, the threaded handler consumes it, s6sy761_power_on()
->> then reads an empty event and resume fails with -ENODEV, skipping the
->> touch function setup:
->>
->>    s6sy761 2-0048: PM: dpm_run_callback(): s6sy761_resume [s6sy761] returns -19
->>
->> Power the chip on first and only then unmask the interrupt. Once resume
->> completes the boot handshake the chip comes back with sensing off, as
->> at probe where input_open() turns it on, so the touchscreen stays dead
->> after resume. Send SENSE_ON again when the input device is open.
->>
->> Tested on a Pixel 3 XL over several s2idle cycles: resume succeeds and
->> the touch function and sense status match the pre-suspend state.
->>
->> Assisted-by: LLM
->> Cc: stable@vger.kernel.org
->> Fixes: 0145a7141e59 ("Input: add support for the Samsung S6SY761 touchscreen")
->> Signed-off-by: David Heidelberg <david@ixit.cz>
->> ---
->>   drivers/input/touchscreen/s6sy761.c | 11 ++++++++++-
->>   1 file changed, 10 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/input/touchscreen/s6sy761.c b/drivers/input/touchscreen/s6sy761.c
->> index 0f24a9b730635..c52c45a7d1029 100644
->> --- a/drivers/input/touchscreen/s6sy761.c
->> +++ b/drivers/input/touchscreen/s6sy761.c
->> @@ -495,20 +495,29 @@ static int s6sy761_suspend(struct device *dev)
->>   	s6sy761_power_off(sdata);
->>   
->>   	return 0;
->>   }
->>   
->>   static int s6sy761_resume(struct device *dev)
->>   {
->>   	struct s6sy761_data *sdata = dev_get_drvdata(dev);
->> +	int err;
->>   
->> +	err = s6sy761_power_on(sdata);
->>   	enable_irq(sdata->client->irq);
-> 
-> Why are we enabling the interrupt even if power on failed?
+From: Jun Yang <junvyyang@tencent.com>
 
-originally I moved the enable_irq after condition, but LLM kept convincing me 
-it's wrong:
+sctp_wait_for_connect() drops the socket lock while it sleeps. An
+out-of-the-blue ABORT can then be processed from the socket backlog and
+unlink the association. If a concurrent shutdown(fd, SHUT_RD) sets
+RCV_SHUTDOWN, the waiter breaks with err == 0 before checking
+asoc->base.dead. Its final sctp_association_put() can then free the
+association, leaving sctp_sendmsg_to_asoc() to continue with a dangling
+pointer.
 
-enable_irq() still runs when power-on fails. That is correct, because the next 
-suspend or unbind calls disable_irq() again through s6sy761_power_off(), and the 
-two calls must stay paired.
+Check RCV_SHUTDOWN along with the wait error in sctp_sendmsg_to_asoc()
+before using the association again. The check only accesses the socket,
+so it needs no additional association reference. Return the existing
+-ESRCH so that sctp_sendmsg() skips freeing a new association that may
+already have been destroyed.
 
-In case of failure the power_off will be run anyway, thus it make sense to me.
+Keep sctp_wait_for_connect() unchanged to preserve its behavior for the
+connect() caller.
 
-> 
->> +	if (err)
->> +		return err;
->>   
->> -	return s6sy761_power_on(sdata);
->> +	guard(mutex)(&sdata->input->mutex);
->> +
->> +	if (!input_device_enabled(sdata->input))
->> +		return 0;
->> +
->> +	return i2c_smbus_write_byte(sdata->client, S6SY761_SENSE_ON);
-> 
-> Explicit return err/return 0 please - there are multiple failure points
-> in this function.
+Fixes: 668c9beb9020 ("sctp: implement assign_number for sctp_stream_interleave")
+Cc: stable@vger.kernel.org
+Reported-by: TencentOS Corvus AI <corvus@tencent.com>
+Assisted-by: tencentos-corvus-ai:hy4-preview
+Signed-off-by: Jun Yang <junvyyang@tencent.com>
+---
+v3:
+- Check RCV_SHUTDOWN after the sendmsg connect wait, as suggested by
+  Xin Long, instead of taking an extra association reference and checking
+  asoc->base.dead.
+- Keep the shared wait helper unchanged and retain the -ESRCH error path.
+- Link to v2: https://lore.kernel.org/all/20260911090039.75646-1-juny24602@gmail.com/
+- Review: https://lore.kernel.org/all/CADvbK_f=S-2waid_92PbOCh-LWjU5oiZT+__xWfttVeTHEPQTg@mail.gmail.com/
 
-Sure, I'll send next version making the explicit return.
+v2:
+- Leave sctp_wait_for_connect() unchanged to preserve connect() semantics.
+- Hold and validate the association in the sendmsg-only caller.
 
-David
+ net/sctp/socket.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> 
-> Thanks.
-> 
-
+diff --git a/net/sctp/socket.c b/net/sctp/socket.c
+index c7b9e325ec1c..4652fd90d9a6 100644
+--- a/net/sctp/socket.c
++++ b/net/sctp/socket.c
+@@ -1844,7 +1844,7 @@ static int sctp_sendmsg_to_asoc(struct sctp_association *asoc,
+ 		if (asoc->ep->intl_enable) {
+ 			timeo = sock_sndtimeo(sk, 0);
+ 			err = sctp_wait_for_connect(asoc, &timeo);
+-			if (err) {
++			if (err || sk->sk_shutdown & RCV_SHUTDOWN) {
+ 				err = -ESRCH;
+ 				goto err;
+ 			}
+-- 
+2.54.0 (Apple Git-157)
