@@ -1,77 +1,80 @@
-Received: from mail-vs2-f38.google.com (mail-vs2-f38.google.com [74.125.227.38])
+Received: from mail-yx2-f40.google.com (mail-yx2-f40.google.com [74.125.224.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7264A4A33E1
-	for <stable@vger.kernel.org>; Sat, 26 Sep 2026 21:21:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.38
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9143254707C
+	for <stable@vger.kernel.org>; Sat, 26 Sep 2026 21:48:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790457721; cv=none; b=APjo1YhVEHo9ueULPSFn+WJ/JzZ6piPzZzgGBGEYQ0GDaVLwLz6kPn6IFSXonhHDuSuo5p5PLw61kumHVBB5Eog7ew+u+srl1tu+csiEIPqtbx1EDKrOmmeFkXit3DVqYEw0UMwfudiISKFTmHiA2GvAmucLzArkq33O0FVAYYY=
+	t=1790459329; cv=none; b=gigH9Qkle7XsKn9pSfKohkIR0Y4AXMCTasrGtaoj5Tou+Z2XGrGxRDqqgy5/4FC4jSwqP4fljvFRnSOAcNl2VyTeBltd8ecr4Ja/QkW7DiOIk3/bpJHlgM0KHsWfW0j3j6Kvnz87qO9mC4FCjPVeVjLD8iZDbchTnBvhnux/Ngg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790457721; c=relaxed/simple;
-	bh=iUsKcuSqM8LKxJ3OF5Fci9kpal55BiJ0imcLGZ8OU2I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=n/PwHY3F1oUWmvI9ArWUTWEfaspd77RcL5vEkGDVSjTb58hq5D6bl7n9/dkXZ36YdCWvwO5yKx9nUka9hhEWsRK2VWhigp3XKzJzEcKizs3ED7zR0fJfidifxeAJU3J+MCeTaLw8DvzS0cqRJg4cfWfOs+8wnA+8POUkRp7sq5w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=grgApZfd; arc=none smtp.client-ip=74.125.227.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790459329; c=relaxed/simple;
+	bh=ltMzi6WSp1v1sPEAB0YuafeMHE6TDKR0i2K0CbEvpjY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=MdwbF7CSUOndvbIM0MOEM2CrnXfU8/8S/+Cx+D4ex3U1E80EG9Z3txIPGmlZlXHdxXre0s5KrC7E4w/H5Suyzp0wX5dhfUab2S9a6DPeCZqr907FG0Ghn6Ul64kHY6hI5UZ2xs8xIjpvhpFHFK45nXqi8Kt4qNbZ6z7HuPbQ22Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=mmg5R3YS; arc=none smtp.client-ip=74.125.224.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="grgApZfd"
-Received: by mail-vs2-f38.google.com with SMTP id ada2fe7eead31-7b35eae3076so230124137.2
-        for <stable@vger.kernel.org>; Sat, 26 Sep 2026 14:21:59 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="mmg5R3YS"
+Received: by mail-yx2-f40.google.com with SMTP id 956f58d0204a3-67453dc240fso714721d50.1
+        for <stable@vger.kernel.org>; Sat, 26 Sep 2026 14:48:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790457718; x=1791062518; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3//vnaiZHcbkMpFRtVySzfVBm8/5bMl7/bCO511VH1A=;
-        b=grgApZfdz5+U0TZw/wvPzM1+9xZfnzg8p4k7lRELDym+TTeEkw1F4i7ywoeRputXW+
-         gUlrd13/Bu1594dVnjBiEbE8r5wB8tmGuKpnsKaDTn7Qfe8Tg72rSY7bnCXYfqBqCRca
-         c7s03vfQXNpn7v7tHRkMV5P1v+sdQZq8OMZSIFBBu338rqiUpVoKXiUhUMCZKJtvXeN0
-         6TCKsSwVXQJ9zwclPqp56N38ks2M/NBvymJlcLqT9RPPxP1lhSFaivwD1tJyHRQHL/Hj
-         U6axNXc4DB1HjPvhvWVcLj3QmQLZ/6LCM0mcFvWfncd6pX/wgeANb4FMR6CMumOB0VE8
-         KFsA==
+        d=mojatatu.com; s=google; t=1790459326; x=1791064126; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XyQb/Kvi4xiTQoKBJXICuDhcx6oaxflcn/hQlo1w4JM=;
+        b=mmg5R3YS0zzZ7rMfMYJo5GS6h4C6bRckXWGVeZcTkfD0ytV461ovsLVZmHDGTTtQd+
+         I44kKQpV3Brs1JoPBKApc09dCtJOCTcjovRMGPUB4ErSdh9GG6MPktD9ZDp35c42ONPL
+         Ucl/NwLqIb28R54YnIq/dPWiaBQn6yb5Z2QsY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790457718; x=1791062518;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3//vnaiZHcbkMpFRtVySzfVBm8/5bMl7/bCO511VH1A=;
-        b=cdPykUe6YUNadX1+lylSyDwQM8T8KmhdkVSF+xoM8Z2rdPnULTnhpPKcmqJnJcx8FW
-         MHDybe68MwievghWMYyLExqXVjRR8EMjcFXrtCweEeQZjZPj1cB4JRWb7/6Ndy34kPYY
-         hr/yc7MQuWeUOm7bHBdiHWr/pmrIi2zeMLf6xDN0Sbmzrr+MzFu+eySS4kMG9D8fmhnL
-         USqFkP/AYMu0xqOf2J0B8LZ2p2SLJIOAwNuO7KWNYww2ixg2h6vy54nx7LlzT921lNfo
-         oR0uzaqq2Nec91zK6As2ZyxJweVA27vh2Wm+ImsVs8Bc0U4Ckg4GwKw6AJdfO/OP5IRZ
-         ad5w==
-X-Forwarded-Encrypted: i=1; AKwUvBz+abNPmJd0AjebuKsSYX0EyDGPpbsjU3smHdYo71KRDhIojXZuER3whW752jEla7coyM6Wk8Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKyMngChRvrffgFVRGSgKljBnCQfH928/RrR186L4RtVUOL3Hjh
-	TAqhOaWzR4MT4PbYaXrBeQaTe3VO69qmZX2e7B0LkFKVZtni7QSXKwPD
-X-Gm-Gg: AYBFou2i8PQMHEQfgyIZTJeJ5Bsa8lEyoCJetteTfka8N3KVf2iNXb4IJtf76gF1HuO
-	VGlWXgsM+XOmT9HSmfnOtI78nznG9ZRLiL6oFHvkFbkB0ZKLBrR86noV9ujWCyt/h+noabM4e9Y
-	MEnNWQ3u/HB+R9fsO9FMf4guC3T77pvdZDsltPrg9Zyit2WPpr4wqT+q9plgxi/xntIFEyGOEBl
-	g7RKHvcWABzIIo+JhndCauPWBYrEEyQ2EcT2Yeut+RLc8hsS/UlMJ/FO1FZu+AMkDo2ZnSIYFoF
-	CECMejfg2iZD4MA3Cs+dqU3Q3TbZi7H4JvnTZUJSml66KVS867Yu8hkfcr8qhvqX+fO93EKRb4q
-	xV4StPb+e3HQ7M8c6Uuwk+cZFY2ETwo4Afr0xx/QsQXCpe5Qw9uGRC/Z3iitjpQGJ0kaOml0XZE
-	OQue5u8QMKUVg9Ymx2vm4M+5dNEocRVkBvRxoBtXg1bmc1Zw4MwD/Z2AmIAItEIbtX
-X-Received: by 2002:a05:6102:3e8e:b0:7a2:2068:6b5e with SMTP id ada2fe7eead31-7b1c751f228mr1543838137.24.1790457717860;
-        Sat, 26 Sep 2026 14:21:57 -0700 (PDT)
-Received: from beelink.. ([187.13.30.172])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5cde615a356sm3003222e0c.14.2026.09.26.14.21.54
+        d=1e100.net; s=20260707; t=1790459326; x=1791064126;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XyQb/Kvi4xiTQoKBJXICuDhcx6oaxflcn/hQlo1w4JM=;
+        b=eo+JqVdoFKfnvDraFLeN8UQWGtZEAKHXyUdujYn01bDjyocZykgMvScWp8yQKyouWp
+         rLHxS6NtVa9G3hdZWx/Ps/p/5mo8XAONC9zNxY1c97f8LXb/QM5fphgdYOOGvEY2rOZl
+         kCLIWKrC1mxzJJHR4yaH7RNPRnNLepSLTX4AHYed8FdVFIeAC19IpyTXbfdldQVjWoHn
+         hdFvqCWASK7qfD8CsY2F69wrxjxNYeZvLOWKvWpCOqf8Pt+SCIHSzHlpSHY3D2htGo4C
+         aKTYeyeEVDQD/pIiI59kcxxzt4Z03Cc353ViwUIYsMVivdXdzVbJcsolEqPqHwb1eFZx
+         vqZA==
+X-Forwarded-Encrypted: i=1; AKwUvBzoOj8a095+2A+46ezFoo2YNABgmpdS4K5WG+XEyMGR7iEUZRJoGKOp/oKqWbXkDger9yc55b4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJdOtLitRU+z6wsM6jCf632sMd5XvBCnU1aahTjImBYbMxWtu6m
+	jE5SGWHuSUq5SXic9R+9prywtBYuap6zDkFlkWjxSevRbNOsiMT2pQUDJTDOU1XJAA==
+X-Gm-Gg: AYBFou0mmmmpGzEYyPSSsB5AWu6cQDRPrdnaz9Juvh714Mp0ZzxgQIL2Swe9/QcYO6J
+	NadBjTiunYRfCx2w7w23596kV6XPg1Zl5CM58J9HFexh0hBjzqkAhNdvRahnLqJdjEjpVyRWskc
+	IvlFUT03Ug6FH7rzg8WgHaG9YCowwxbqAE0SdNLb3Z7xnBJbyCJiwdWOkmruVZb0tj4fshP17R9
+	j9PKY4WdiSCW7Gbfz8oihZPi8NtPA5UABz8IoxBgS8r5CKJOQm6j/lW5vajQjgku1Ak1Z6+86Tw
+	u/GenFHURFtkkvwvD5YwQNXJ07W8OwedNcDEFPprLDzAZBb7X0Idmqv8UwKV4DNZp99aBNR5cTT
+	cVwHheDJpVB/tpRW4TCZA4Fvs+yXOB1Kh9lQrZz0DVpdFRiIY1mTgBmF/J5QDVS+I96Qw974Wf/
+	TA7jZhEYfRSGZZYMzszvbbt2TAXAxLPTYEKHvYhQnVS5DzopOm5S4TH97D+R7kahH5t+hMCjUV7
+	nkHXFt4SEGCbUb5Mxhix4CbSQm0Cq5tUb/fjAvuTMxy6S/P/prCQfCPNj/C
+X-Received: by 2002:a05:690e:b43:b0:674:118e:d32f with SMTP id 956f58d0204a3-674118f3307mr2036778d50.44.1790459326400;
+        Sat, 26 Sep 2026 14:48:46 -0700 (PDT)
+Received: from mbili.tail33bf8.ts.net ([64.203.83.2])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-6740ef2932dsm2543838d50.12.2026.09.26.14.48.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 14:21:57 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: pav@iki.fi,
-	luiz.dentz@gmail.com
-Cc: marcel@holtmann.org,
-	linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+        Sat, 26 Sep 2026 14:48:45 -0700 (PDT)
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+To: netdev@vger.kernel.org
+Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	Vinicius Costa Gomes <vinicius.gomes@intel.com>,
+	Simon Horman <horms@kernel.org>,
+	Tonghao Zhang <xiangxia.m.yue@gmail.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Victor Nogueira <victor@mojatatu.com>,
+	Zero Day Initiative <zdi-disclosures@trendmicro.com>,
+	hybris <hybris@mojatatu.ai>,
 	stable@vger.kernel.org,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Subject: [PATCH v4] Bluetooth: SCO: serialise sco_conn lifetime against sco_recv_scodata()
-Date: Sat, 26 Sep 2026 18:21:45 -0300
-Message-ID: <20260926212145.1343318-1-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260923122026.3465391-1-qwe.aldo@gmail.com>
-References: <20260923122026.3465391-1-qwe.aldo@gmail.com>
+	Eric Dumazet <edumazet@google.com>
+Subject: [PATCH net v3] net: cap skb->queue_mapping when the tx queue is picked
+Date: Sat, 26 Sep 2026 17:48:40 -0400
+Message-Id: <QDISC-9R8V.v3.20260926072930@mojatatu.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -80,248 +83,232 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-sco_recv_scodata() upgrades the weak hcon->sco_data back-pointer to a
-strong reference under hdev->lock:
+skbedit can set skb->queue_mapping and raise the per-CPU skip_txqueue
+flag so __dev_queue_xmit() honours the mapping. __dev_queue_xmit()
+cleared the flag before sch_handle_egress() and only read it afterwards,
+so the flag was not confined to the xmit that set it: a nested xmit
+(mirred redirect or mirror, or a drop after skbedit) could set the flag
+and the outer xmit would consume it for an skb that never went through
+skbedit.
 
-    hci_dev_lock(hdev);
-    hcon = hci_conn_hash_lookup_handle(hdev, handle);
-    ...
-    conn = sco_conn_hold_unless_zero(hcon->sco_data);
-    hci_dev_unlock(hdev);
+A forwarded packet still carries the ingress NIC's rx_queue + 1 in
+skb->queue_mapping, so the outer device then indexes its tx queue state
+with that stale value. Taprio's child array q->qdiscs[] is sized to the
+device's queue count, so taprio_enqueue() indexes past its allocation
+and dereferences the result as a struct Qdisc *.
 
-but the pointer is cleared from the other side without that lock. When
-the last sco_conn reference is dropped, sco_conn_free() ran
+Own the flag for the whole xmit frame: save the incoming value and clear
+it before any of the frame's egress work can recurse, and restore it only
+when the frame exits. A transmit-qdisc classifier is a documented flag
+producer too (it runs in q->enqueue(), after sch_handle_egress()), so the
+flag must be owned for the whole frame, not just around the clsact hook.
+The flag then never crosses an xmit boundary in either direction. Also
+store the value netdev_cap_txqueue() selected back into skb->queue_mapping
+in netdev_tx_queue_mapping(), as netdev_core_pick_tx() already does, so
+the skip_txqueue path never hands a later reader on the xmit path a
+mapping the device cannot serve. A store made still later in the same
+frame, by a tc BPF program attached to a transmit qdisc, is outside this
+path and is not re-capped; a separate followup will resolve that path.
 
-    conn->hcon->sco_data = NULL;
+netdev_xmit_skip_txqueue() now returns the previous flag value so the
+save-and-clear is one call, and a no-op stub is provided when
+CONFIG_NET_EGRESS is disabled. This removes the inline #ifdef around the
+save and the two restores.
 
-with no hdev->lock held, so the RX path could read hcon->sco_data and
-call kref_get_unless_zero() on an sco_conn that was concurrently freed:
+A local user in a network namespace can redirect a packet from a device
+with more TX queues to one with fewer after setting a mapping valid only
+on the larger device. That reaches these reads and, under KASAN, faults
+with "slab-out-of-bounds in taprio_enqueue".
 
-    BUG: KASAN: slab-use-after-free in sco_conn_hold_unless_zero+0xbe/0x160
-    Write of size 4 by task kworker/u17:0
-    Workqueue: hci0 hci_rx_work
-    Call Trace:
-     sco_conn_hold_unless_zero+0xbe/0x160
-     sco_recv_scodata+0x13f/0x490
-     hci_rx_work+0x3af/0x730
+Conditions to recreate the bug: with CONFIG_NET_SCH_TAPRIO=y,
+CONFIG_NET_ACT_SKBEDIT=y, CONFIG_NET_ACT_MIRRED=y,
+CONFIG_NET_CLS_MATCHALL=y, CONFIG_NET_SCH_PRIO=y and KASAN enabled,
+create qa (3 queues), qb (2 queues) and qc (1 queue) as dummy devices;
+put a taprio root on qb and clsact on all three; then add an egress
+matchall filter on every device. On qa: "action skbedit queue_mapping 2
+pipe action mirred egress redirect dev qb". On qb: "action mirred egress
+mirror dev qc". On qc: "action skbedit queue_mapping 0 pipe". Send one
+packet out qa. qc's skbedit sets the flag while qb's outer xmit is in
+flight; without the fix qb consumes it and reads its two-entry taprio
+child array with the forwarded packet's stale mapping. A qc whose skbedit
+is instead installed in a transmit-qdisc classifier (a matchall filter on
+the qc root qdisc) reaches the same code path the same way.
 
-kref_get_unless_zero() only guards against a zero refcount, not against
-the backing memory already being freed.
+Testing: on a KASAN build with panic_on_warn=1 the unfixed kernel panics
+with "BUG: KASAN: slab-out-of-bounds in taprio_enqueue", a read 0 bytes
+past a 16-byte taprio_init() allocation; the fixed kernel runs the
+clsact-setter and the transmit-qdisc-classifier reproducers with no report
+and no clamp notice, and a clsact skbedit-then-tc-BPF store with no report
+but the expected "selects TX queue" clamp notice from the write-back;
 
-Give hcon->sco_data an actual reference on the sco_conn it points to, so
-the object cannot be freed while the pointer is still installed, and only
-clear and drop it from sco_conn_del(), which runs under hdev->lock (its
-callers, sco_connect_cfm() and sco_disconn_cfm(), hold it). The reader in
-sco_recv_scodata() also takes hdev->lock, so the store and the read are
-now serialised: the RX path either observes NULL or a reference that is
-guaranteed to stay valid until it drops its own.
-
-sco_conn_add() no longer hands its kref_init() reference to the caller as
-the connection's only reference; that initial reference is the one owned
-by hcon->sco_data, and callers get their own via sco_conn_hold().
-
-Because the sco_conn can now outlive the socket (the association keeps it
-alive until the link goes down), the hci_conn can no longer be dropped
-from sco_conn_free() without regressing socket close: closing a connected
-SCO socket must still tear the link down. Move hci_conn ownership to the
-socket instead: __sco_chan_add() takes an hci_conn reference and it is
-released from sco_chan_del() and sco_sock_destruct(), exactly once. The
-sco_conn no longer owns an hci_conn reference, so sco_conn_add() stops
-consuming one and sco_connect() drops the hci_connect_sco() reference on
-every path; sco_connect_cfm() no longer needs its hci_conn_hold() dance.
-
-Fixes: e6720779ae61 ("Bluetooth: SCO: Use kref to track lifetime of sco_conn")
-Cc: stable@vger.kernel.org
-Suggested-by: Pauli Virtanen <pav@iki.fi>
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Fixes: 2f1e85b1aee4 ("net: sched: use queue_mapping to pick tx queue")
+Reported-by: Zero Day Initiative <zdi-disclosures@trendmicro.com>
+Link: https://lore.kernel.org/netdev/CANn89iLwYx8nCVf0pCEk_MmEiyC6kQaMwCQT9WkQVeeNzNQHqQ@mail.gmail.com/
+Link: https://lore.kernel.org/netdev/179008581937.2160803.7117814290574262942@kernel.org/
+Link: https://lore.kernel.org/netdev/179033713973.2160803.4914570693994398206@kernel.org/
+Link: https://lore.kernel.org/netdev/20260925180407.63647514@kernel.org/
+Suggested-by: Eric Dumazet <edumazet@google.com>
+Suggested-by: Jakub Kicinski <kuba@kernel.org>
+Tested-by: hybris <hybris@mojatatu.ai>
+Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
 ---
-v4: remove early return in sco_sock_destruct() that skipped
-    skb_queue_purge() when conn was non-NULL (found by sashiko.dev).
-v3: fix two UAFs found by Pauli Virtanen in the v2 review:
-    - sco_chan_del(): drop hci_conn ref before clearing conn->sk so that
-      sco_conn_del() on another CPU cannot free hci_conn under our feet
-    - sco_sock_destruct(): same ordering fix
-    - remove dead branch in sco_conn_add() (conn->hcon == NULL impossible)
-    - move hci_conn_drop in sco_connect() tighter after __sco_chan_add()
-v2: quote inlined code and KASAN splat with spaces (bluez CI gitlint);
-    no functional change.
+v2 -> v3:
+- netdev_xmit_skip_txqueue() returns the previous flag value, so the entry
+  save-and-clear is one call; a no-op stub is provided when
+  !CONFIG_NET_EGRESS, removing the three inline #ifdefs (Jakub Kicinski).
+- Narrow the capability claim: the capped write-back covers the
+  skip_txqueue path only; a store made later in the frame by a tc BPF
+  program on a transmit qdisc is not re-capped and is a separate followup
+  (nipa Sashiko).
+- Comment: "per-CPU (per-task on PREEMPT_RT)" (nipa Sashiko).
+- Drop the now-redundant #ifdef in act_skbedit.c.
 
-diff --git a/net/bluetooth/sco.c b/net/bluetooth/sco.c
-index 3d4362a..a2f17ab 100644
---- a/net/bluetooth/sco.c
-+++ b/net/bluetooth/sco.c
-@@ -84,12 +84,14 @@ static void sco_conn_free(struct kref *ref)
- 	if (conn->sk)
- 		sco_pi(conn->sk)->conn = NULL;
+v1 -> v2:
+- Rework the root cause to the per-CPU skip_txqueue flag lifetime: it was
+  cleared before sch_handle_egress() and read after, so a nested xmit could
+  set it and the outer xmit consume it for an skb that never went through
+  skbedit (Eric Dumazet, nipa Sashiko).
+- Own the flag for the whole xmit frame: save/clear it before any of the
+  frame's egress work can recurse, and restore it only when the frame exits.
+- Retain the v1 producer-side cap (netdev_tx_queue_mapping() writes the
+  clamped value back).
+- Correct the description of the reproducer to a three-device chain
+  (qa 3q -> qb 2q taprio -> qc 1q).
+
+ include/linux/rtnetlink.h |  7 ++++++-
+ net/core/dev.c            | 33 +++++++++++++++++++++++++++------
+ net/sched/act_skbedit.c   |  2 --
+ 3 files changed, 33 insertions(+), 9 deletions(-)
+
+diff --git a/include/linux/rtnetlink.h b/include/linux/rtnetlink.h
+index 95729339e7a5..a54ec40d095c 100644
+--- a/include/linux/rtnetlink.h
++++ b/include/linux/rtnetlink.h
+@@ -186,7 +186,12 @@ void net_dec_ingress_queue(void);
+ #ifdef CONFIG_NET_EGRESS
+ void net_inc_egress_queue(void);
+ void net_dec_egress_queue(void);
+-void netdev_xmit_skip_txqueue(bool skip);
++bool netdev_xmit_skip_txqueue(bool skip);
++#else
++static inline bool netdev_xmit_skip_txqueue(bool skip)
++{
++	return false;
++}
+ #endif
  
--	if (conn->hcon) {
--		conn->hcon->sco_data = NULL;
--		hci_conn_drop(conn->hcon);
--	}
-+	/* hcon->sco_data is cleared and the association's reference on the
-+	 * sco_conn is dropped in sco_conn_del() under hdev->lock, and the
-+	 * hci_conn is now owned by the socket (held in __sco_chan_add() and
-+	 * dropped in sco_chan_del()/sco_sock_destruct()), so there is nothing
-+	 * left to release towards hcon here.
-+	 */
- 
--	/* Ensure no more work items will run since hci_conn has been dropped */
-+	/* Ensure no more work items will run before the connection is freed */
- 	disable_delayed_work_sync(&conn->timeout_work);
- 
- 	kfree(conn);
-@@ -188,25 +190,19 @@ static void sco_sock_clear_timer(struct sock *sk)
- }
- 
- /* ---- SCO connections ---- */
--/* Consumes a reference on @hcon, which the returned sco_conn owns until it is
-- * freed. On failure (NULL return) the reference is left for the caller to drop.
-+/* Returns a new reference the caller must drop with sco_conn_put(). The
-+ * hcon->sco_data association holds its own reference on the sco_conn for the
-+ * connection's lifetime; it is dropped in sco_conn_del() under hdev->lock.
-+ * @hcon is not consumed: the hci_conn reference is taken and owned by the
-+ * socket in __sco_chan_add().
-  */
- static struct sco_conn *sco_conn_add(struct hci_conn *hcon)
+ void rtnetlink_init(void);
+diff --git a/net/core/dev.c b/net/core/dev.c
+index f660fccfc0db..3b114fbf7015 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -4404,9 +4404,14 @@ EXPORT_SYMBOL(dev_loopback_xmit);
+ static struct netdev_queue *
+ netdev_tx_queue_mapping(struct net_device *dev, struct sk_buff *skb)
  {
- 	struct sco_conn *conn = hcon->sco_data;
+-	int qm = skb_get_queue_mapping(skb);
++	int queue = skb_get_queue_mapping(skb);
++	int capped;
  
- 	conn = sco_conn_hold_unless_zero(conn);
--	if (conn) {
--		if (!conn->hcon) {
--			sco_conn_lock(conn);
--			conn->hcon = hcon;
--			sco_conn_unlock(conn);
--		} else {
--			/* conn already owns a reference on hcon */
--			hci_conn_drop(hcon);
--		}
-+	if (conn)
- 		return conn;
--	}
- 
- 	conn = kzalloc_obj(struct sco_conn);
- 	if (!conn)
-@@ -227,7 +223,10 @@ static struct sco_conn *sco_conn_add(struct hci_conn *hcon)
- 
- 	BT_DBG("hcon %p conn %p", hcon, conn);
- 
--	return conn;
-+	/* kref_init() above set the association reference owned by
-+	 * hcon->sco_data; hand the caller its own reference.
-+	 */
-+	return sco_conn_hold(conn);
+-	return netdev_get_tx_queue(dev, netdev_cap_txqueue(dev, qm));
++	capped = netdev_cap_txqueue(dev, queue);
++	if (unlikely(capped != queue))
++		skb_set_queue_mapping(skb, capped);
++
++	return netdev_get_tx_queue(dev, capped);
  }
  
- /* Delete channel.
-@@ -242,6 +241,19 @@ static void sco_chan_del(struct sock *sk, int err)
- 	BT_DBG("sk %p, conn %p, err %d", sk, conn, err);
- 
- 	if (conn) {
-+		struct hci_conn *hcon;
-+
-+		sco_conn_lock(conn);
-+		hcon = conn->hcon;
-+		sco_conn_unlock(conn);
-+
-+		/* Drop the socket's hci_conn reference BEFORE clearing
-+		 * conn->sk, so sco_conn_del() on another CPU cannot free
-+		 * the hci_conn while we still hold a pointer to it.
-+		 */
-+		if (hcon)
-+			hci_conn_drop(hcon);
-+
- 		sco_conn_lock(conn);
- 		conn->sk = NULL;
- 		sco_conn_unlock(conn);
-@@ -266,6 +278,13 @@ static void sco_conn_del(struct hci_conn *hcon, int err)
- 
- 	BT_DBG("hcon %p conn %p, err %d", hcon, conn, err);
- 
-+	/* Detach from the hci_conn and drop the association's reference.
-+	 * The caller holds hdev->lock, which serialises this against the
-+	 * read of hcon->sco_data in sco_recv_scodata().
-+	 */
-+	hcon->sco_data = NULL;
-+	sco_conn_put(conn);
-+
- 	sco_conn_lock(conn);
- 	sk = sco_sock_hold(conn);
- 	sco_conn_unlock(conn);
-@@ -290,6 +309,11 @@ static void __sco_chan_add(struct sco_conn *conn, struct sock *sk,
- 	sco_pi(sk)->conn = sco_conn_hold(conn);
- 	conn->sk = sk;
- 
-+	/* The socket owns an hci_conn reference for as long as it stays
-+	 * attached; it is dropped in sco_chan_del()/sco_sock_destruct().
-+	 */
-+	hci_conn_hold(conn->hcon);
-+
- 	if (parent)
- 		bt_accept_enqueue(parent, sk, true);
+ #ifndef CONFIG_PREEMPT_RT
+@@ -4415,9 +4420,13 @@ static bool netdev_xmit_txqueue_skipped(void)
+ 	return __this_cpu_read(softnet_data.xmit.skip_txqueue);
  }
-@@ -371,6 +395,7 @@ static int sco_connect(struct sock *sk)
- 	if (sk->sk_state != BT_OPEN && sk->sk_state != BT_BOUND) {
- 		release_sock(sk);
- 		sco_conn_put(conn);
-+		hci_conn_drop(hcon);
- 		err = -EBADFD;
- 		goto unlock;
- 	}
-@@ -379,9 +404,13 @@ static int sco_connect(struct sock *sk)
- 	sco_conn_put(conn);
- 	if (err) {
- 		release_sock(sk);
-+		hci_conn_drop(hcon);
- 		goto unlock;
- 	}
  
-+	/* __sco_chan_add() took its own hci_conn reference; drop ours. */
-+	hci_conn_drop(hcon);
-+
- 	/* Update source addr of the socket */
- 	bacpy(&sco_pi(sk)->src, &hcon->src);
- 
-@@ -495,9 +524,25 @@ static struct sock *sco_get_sock_listen(bdaddr_t *src)
- 
- static void sco_sock_destruct(struct sock *sk)
+-void netdev_xmit_skip_txqueue(bool skip)
++bool netdev_xmit_skip_txqueue(bool skip)
  {
-+	struct sco_conn *conn = sco_pi(sk)->conn;
++	bool prev = netdev_xmit_txqueue_skipped();
 +
- 	BT_DBG("sk %p", sk);
+ 	__this_cpu_write(softnet_data.xmit.skip_txqueue, skip);
++
++	return prev;
+ }
+ EXPORT_SYMBOL_GPL(netdev_xmit_skip_txqueue);
  
--	sco_conn_put(sco_pi(sk)->conn);
-+	/* If the channel was not already torn down via sco_chan_del(), drop
-+	 * the socket's own references here.
+@@ -4427,9 +4436,13 @@ static bool netdev_xmit_txqueue_skipped(void)
+ 	return current->net_xmit.skip_txqueue;
+ }
+ 
+-void netdev_xmit_skip_txqueue(bool skip)
++bool netdev_xmit_skip_txqueue(bool skip)
+ {
++	bool prev = netdev_xmit_txqueue_skipped();
++
+ 	current->net_xmit.skip_txqueue = skip;
++
++	return prev;
+ }
+ EXPORT_SYMBOL_GPL(netdev_xmit_skip_txqueue);
+ #endif
+@@ -4824,6 +4837,7 @@ int __dev_queue_xmit(struct sk_buff *skb, struct net_device *sb_dev)
+ 	int cpu, rc = -ENOMEM;
+ 	bool again = false;
+ 	struct Qdisc *q;
++	bool skip_txq;
+ 
+ 	skb_reset_mac_header(skb);
+ 	skb_assert_len(skb);
+@@ -4846,6 +4860,13 @@ int __dev_queue_xmit(struct sk_buff *skb, struct net_device *sb_dev)
+ 	skb_update_prio(skb);
+ 
+ 	tcx_set_ingress(skb, false);
++	/* The flag is per-CPU (per-task on PREEMPT_RT) and a nested xmit can
++	 * set it from its own clsact hook or transmit qdisc. Own it for the
++	 * whole frame: this frame cannot consume a nested xmit's flag and a
++	 * nested xmit cannot inherit this frame's.
 +	 */
-+	if (conn) {
-+		struct hci_conn *hcon;
++	skip_txq = netdev_xmit_skip_txqueue(false);
 +
-+		sco_conn_lock(conn);
-+		hcon = conn->hcon;
-+		sco_conn_unlock(conn);
-+
-+		if (hcon)
-+			hci_conn_drop(hcon);
-+		sco_pi(sk)->conn = NULL;
-+		sco_conn_put(conn);
-+	}
- 
- 	skb_queue_purge(&sk->sk_receive_queue);
- 	skb_queue_purge(&sk->sk_write_queue);
-@@ -1511,12 +1557,10 @@ static void sco_connect_cfm(struct hci_conn *hcon, __u8 status)
- 	if (!status) {
- 		struct sco_conn *conn;
- 
--		conn = sco_conn_add(hci_conn_hold(hcon));
-+		conn = sco_conn_add(hcon);
- 		if (conn) {
- 			sco_conn_ready(conn);
- 			sco_conn_put(conn);
--		} else {
--			hci_conn_drop(hcon);
+ #ifdef CONFIG_NET_EGRESS
+ 	if (static_branch_unlikely(&egress_needed_key)) {
+ 		if (nf_hook_egress_active()) {
+@@ -4854,8 +4875,6 @@ int __dev_queue_xmit(struct sk_buff *skb, struct net_device *sb_dev)
+ 				goto out;
  		}
- 	} else
- 		sco_conn_del(hcon, bt_to_errno(status));
+ 
+-		netdev_xmit_skip_txqueue(false);
+-
+ 		nf_skip_egress(skb, true);
+ 		skb = sch_handle_egress(skb, &rc, dev);
+ 		if (!skb)
+@@ -4952,12 +4971,14 @@ int __dev_queue_xmit(struct sk_buff *skb, struct net_device *sb_dev)
+ 
+ 	reason = SKB_DROP_REASON_RECURSION_LIMIT;
+ drop:
++	netdev_xmit_skip_txqueue(skip_txq);
+ 	rcu_read_unlock_bh();
+ 
+ 	dev_core_stats_tx_dropped_inc(dev);
+ 	kfree_skb_list_reason(skb, reason);
+ 	return rc;
+ out:
++	netdev_xmit_skip_txqueue(skip_txq);
+ 	rcu_read_unlock_bh();
+ 	return rc;
+ }
+diff --git a/net/sched/act_skbedit.c b/net/sched/act_skbedit.c
+index bfec6b668410..9c1ade20c004 100644
+--- a/net/sched/act_skbedit.c
++++ b/net/sched/act_skbedit.c
+@@ -72,9 +72,7 @@ TC_INDIRECT_SCOPE int tcf_skbedit_act(struct sk_buff *skb,
+ 	}
+ 	if (params->flags & SKBEDIT_F_QUEUE_MAPPING &&
+ 	    skb->dev->real_num_tx_queues > params->queue_mapping) {
+-#ifdef CONFIG_NET_EGRESS
+ 		netdev_xmit_skip_txqueue(true);
+-#endif
+ 		skb_set_queue_mapping(skb, tcf_skbedit_hash(params, skb));
+ 	}
+ 	if (params->flags & SKBEDIT_F_MARK) {
 -- 
 2.43.0
+
