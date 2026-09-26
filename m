@@ -1,93 +1,78 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B55C23BCD3D;
-	Sat, 26 Sep 2026 14:24:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F78F47DFAA;
+	Sat, 26 Sep 2026 14:24:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790432666; cv=none; b=rz+qmViBBp2/ZQMaQHk++q26CYPRoz7tlPIiDlXdM5jRBztWnys0vaqonp4R7CXRP52riWCaX8WwB4h2wc71uQ3Z2gKUCrbSKEG3gq6lSACj3uHNInHWmK361ChGOnHeTD9xlYIDaW6peagLYHe/SSBPaQeJ88Y51MTxJ9LVEno=
+	t=1790432681; cv=none; b=RWR5nMyh3lqFJARzTKa+wzrYf2w4bKJG/y5ine2PwI+KXl9DQgRssewOmVL/Ev/H4qGjbA82T5etB5wTOZ8IDeovQ4ABes1LPGg5mvHFMctbJBASffqBiUlnp+694NExIgbfkHI1iGYyxAQ762X/dvwe7zywQtqCVvChUsjKJDE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790432666; c=relaxed/simple;
-	bh=aQ0eoM8RbS8erFSE79TCqvZjxefs4sAf/aP6gtgKhuo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oPL+HKmI+N+j1cBNRrPVqHOFPiCyfnWIj/M6R6SdAp67YLF3GSWOqxe3qTv4bft2iw1tzumZIM6OSA7vjXqE0gzFEfTK5Lo71iAWQJuZ8Hv2JWtcshiT6Ih7d2HgcXnkl0LkUinveh8xOJDmfPyTklICC9H/SYtXB+dZqT5gu0I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ET8y45Op; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790432681; c=relaxed/simple;
+	bh=I2kRED7Ex9hGK6RVw+r2WGj0oY7Lljw2I3UvRXkGIIs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=sxaiv5mNyYRN1deq2/Z6C3zVArTS741nUUWxrMCjW+EFH5hd74shJOlimM+aO8us7bdgC2JpBO+RdLqEryDhKJZNWRy89ZR+HQwhbQSiVYEZKZAT3exh3IYElpuv/2cSCMEBeSSFWsjFpyznNuQu24sckl1P+5AT6V1Y/rS6pu8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=LXOCmzQS; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ET8y45Op"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DAD31F000FF;
-	Sat, 26 Sep 2026 14:24:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790432662;
-	bh=a34dKCFGnj1YhLXhoEWVxE1cmbQtJTn1UZf0QYyW3u0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ET8y45OpVi01KkX0kIn6q1NJ2NbMjGdLsNWSWGyV3YfshbpjmBaQ/7QW33gekyxW9
-	 yx47I3zv6Xr/hHwk4wvYBh0ZUeJ71cfichVp2vKNcHeiIudUPNY8acwWyITS22qSdP
-	 yYX8qUXYXgaOp/qgWrgUrE46sb+6sa9rNyBnywDyl/k0ZDO+Lmo12QQpEzIoTB4dxn
-	 7zpBBryWAQzTGfNPG9ZpwP/3lheQx5FIn04EIqzhXMT0RCZt26UlMDdZmDdz3LZrgS
-	 NsCcv0VYd2uNiJPqKTsC8iuslQJUrBg2DNlhaPl+j3Yclcf3gkwuv/zJIyATLLf0Sm
-	 toJmeMCGLlcjA==
-Date: Sat, 26 Sep 2026 16:24:09 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Can Peng <pengcan@kylinos.cn>
-Cc: vkoul@kernel.org, neil.armstrong@linaro.org, bmasney@redhat.com, 
-	linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] phy: freescale: fsl-samsung-hdmi: Fix runtime PM
- cleanup
-Message-ID: <millx4qmsnogv3uxol44dp243oyct7n5duvrhomapgoc3egsia@6e4p7id3igyk>
-References: <20260721064752.153338-1-pengcan@kylinos.cn>
- <20260721064752.153338-2-pengcan@kylinos.cn>
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="LXOCmzQS"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+	Date:Subject:Cc:To:From:From:Reply-To;
+	bh=JW51wsFy1A0rbfcAOKBAwrs5VuLl6snxykqG+tyAoyk=; b=LXOCmzQStatVVm7/KmsiT+oSUC
+	ZkQaGdkNnVK+QMYNg4aN3cqoOgW7A7u48GYntMuatc0weYNYMwLwd1LBxGYC3ygjh1uUlJYnbkoHx
+	SgkWl6zts2zt8bWhFqLexn75cDCmbV3v8hLOiZXGFvOD8ZdW7hIkJeDDzDjEVRjwC61UNnYoy/IJc
+	+4gNR8mYa2C9CGG1YQqitkG/v8eWcTeeRYVA0Xs81AO0jxGOvCaAFj4vEvD1aOKYxBjEOzInWf0fj
+	NcF0l1pJ/CkThyU4Gi654c99Fylq8b848BjP0a+JSSxrj6AeReKpdYK7KWmsH1ZsgpoBXspqzsUrd
+	jeFz7yZw==;
+Received: from [179.105.94.163] (helo=prince)
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1xATKB-007dEi-2p; Sat, 26 Sep 2026 16:24:23 +0200
+From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
+To: airlied@gmail.com,
+	Wentao Liang <vulab@iscas.ac.cn>
+Cc: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+	dave.stevenson@raspberrypi.com,
+	dri-devel@lists.freedesktop.org,
+	javierm@redhat.com,
+	kernel-list@raspberrypi.com,
+	linux-kernel@vger.kernel.org,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	simona@ffwll.ch,
+	tzimmermann@suse.de,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] drm/vc4: Fix firmware reference leak in vc4_drm_bind()
+Date: Sat, 26 Sep 2026 11:23:40 -0300
+Message-ID: <179043261253.642825.11543928631039908274.b4-ty@igalia.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260916154015.2056797-1-vulab@iscas.ac.cn>
+References: <20260916154015.2056797-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260721064752.153338-2-pengcan@kylinos.cn>
 
-On Tue, Jul 21, 2026 at 02:47:49PM +0800, Can Peng wrote:
-> fsl_samsung_hdmi_phy_probe() takes a runtime PM reference, marks the
-> device active and enables runtime PM before registering the PHY clock.
-> If phy_clk_register() fails, probe returns without dropping the runtime
-> PM reference or disabling runtime PM.
-> 
-> The remove callback only unregisters the clock provider, so runtime PM
-> is also left enabled after a successful probe followed by driver unbind.
-> 
-> Check pm_runtime_set_active(), use devm_pm_runtime_enable() so runtime
-> PM is disabled automatically, and drop the initial noresume reference
-> on PM setup and clock registration failures.
-> 
-> Fixes: 6ad082bee902 ("phy: freescale: add Samsung HDMI PHY")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Can Peng <pengcan@kylinos.cn>
-> ---
->  drivers/phy/freescale/phy-fsl-samsung-hdmi.c | 14 ++++++++++----
->  1 file changed, 10 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/phy/freescale/phy-fsl-samsung-hdmi.c b/drivers/phy/freescale/phy-fsl-samsung-hdmi.c
-> index d010fec15671..e7af4f9c7b20 100644
-> --- a/drivers/phy/freescale/phy-fsl-samsung-hdmi.c
-> +++ b/drivers/phy/freescale/phy-fsl-samsung-hdmi.c
-> @@ -665,20 +665,26 @@ static int fsl_samsung_hdmi_phy_probe(struct platform_device *pdev)
->  				     "failed to get ref clk\n");
->  
->  	pm_runtime_get_noresume(phy->dev);
-> -	pm_runtime_set_active(phy->dev);
-> -	pm_runtime_enable(phy->dev);
-> +	ret = pm_runtime_set_active(phy->dev);
-> +	if (ret)
-> +		goto pm_put_noidle;
-> +
-> +	ret = devm_pm_runtime_enable(phy->dev);
-> +	if (ret)
-> +		goto pm_put_noidle;
 
-Use devm_pm_runtime_set_active_enabled().
+On Wed, 16 Sep 2026 15:40:15 +0000, Wentao Liang wrote:
+> The firmware reference obtained via rpi_firmware_get() is leaked when
+> aperture_remove_all_conflicting_devices() fails, as the error label
+> returns without putting it. This happens before the firmware is
+> consumed and put further down in the function.
+> 
+> Put the firmware reference before jumping to err.
+> 
+> [...]
 
-- Mani
+Applied, thanks!
 
--- 
-மணிவண்ணன் சதாசிவம்
+[1/1] drm/vc4: Fix firmware reference leak in vc4_drm_bind()
+      commit: b816da5d5df1461446a0a5f3fe2b4948a659a790
+
+Best regards,
+- Maíra
