@@ -1,256 +1,159 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f14.google.com (mail-pj2-f14.google.com [74.125.227.142])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 107D12AEE1;
-	Sat, 26 Sep 2026 10:54:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C715D28033B
+	for <stable@vger.kernel.org>; Sat, 26 Sep 2026 12:11:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.142
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790420045; cv=none; b=ZZ5dYbW6V7f5LgM7Q5TWoV0ZJRwp5vCLnvFLPvUE793GdTAwZIDx6JzKaB/MTS2U0tdMwm3pqUcgPSsdPI3parIv78QMhS+0j4g5ZFEp6t06DE3JqPO9AXsUc6couqkOD7yStMBfK43JKYhM5nDhyFENCmJF92zrx6F26xGDCxY=
+	t=1790424700; cv=none; b=WBmjXbJ796F+/X0wJWS1qa44b4GGJf6cI2MV3kclSHPnECx8lEkpRWH90nf0rRUzGJ7yWjaelvNdApRyWHkEOCCT3wy/jufnUK2K+J2z0iDxTuzMPr9O1ARzoLZGnci/T+dOuE7t+oYotLHF2of/qwCX25rMHQKzPvrJSOAJTyA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790420045; c=relaxed/simple;
-	bh=E8qseG3lAh2Gqznur1fW5a/Q4FQBN75qcS8bPYI94iQ=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=CXsaewltEEB75zOHJqODiBx5LAyHG8/JEr9MPoequ27eMieeO0tgKfELrAL9+qygS5nRve0o2RLDQwS2/7lpCiRwb15E0lr4UMk2FV8lWM3jhfes/APRwPHxhP91275Ry2vLb4H/4dPUpBO0gr69fAm5Xlj/TuaitAz6GAgujmU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h//5IdTR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790424700; c=relaxed/simple;
+	bh=LPLjbx8I8Er+Ls1rTGy3VE3lTFlXqKXn4zGM+1+2f5g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gk5cFC2KWOK1pOEkHXJnslVygRRitDJVrakgJWRZxsq19ZorCc3lbWFT0v0AznXsmPxNunHQMYkvMEQCbhbmfO35za/VhWLNS8LO6H6NBFw32Kb9YOzzU5rsWkZ2KTVKhDhTBun+u20tgssOJ/qczqWrXC0JvHpMcVNlcV2mr2U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i+4mpl5r; arc=none smtp.client-ip=74.125.227.142
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h//5IdTR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87E7E1F000FF;
-	Sat, 26 Sep 2026 10:54:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790420043;
-	bh=MEUsGDPZJ1etI6bT5VFrdoyo40LYh6UcgGZhMJWLshk=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=h//5IdTRClvnADITeggLeepX6FWpE6vTlokvRi4v4s18EVrn6XWy/zlW2KkGFv+pX
-	 qf5mqtW5ylGpRsjaDKIzCBCzlsmYnv2uPu7yDyEdbbC0m71FVpLfao0CxGxNh+kORD
-	 wz2fCMHwUaTE9n1T5MP+Buel2TFPbELHqsCYxFQYW5BfRxJgTzu+lrjs7IGlDkA3jE
-	 b2jaDBS2OX0AswZaeUNRbGmdcJP+pPZCnRy8TUoBIQ5fu5Q4O6H5A0RNsNkpl2dRiE
-	 67jHWIfYC1KJSX710BlGlNlaEyAuW9pAiHpX/VHDCI8PLnFZ9/8l/QUJyX/+9weZsk
-	 qnWhlPTyusrPA==
-Subject:
- Re: [PATCH v2] nfc: nci: ignore unexpected CORE_RESET_NTF and CORE_RESET_RSP
-From: netdev-bot+sashiko@kernel.org
-To: ndaugoing@gmail.com
-Cc: horms@kernel.org, david@ixit.cz, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, oe-linux-nfc@lists.linux.dev,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Sat, 26 Sep 2026 10:54:01 +0000
-Message-ID: <179042004198.2160803.79590143461584366@kernel.org>
-In-Reply-To: <20260922102144.39689-1-ndaugoing@gmail.com>
-References: <20260922102144.39689-1-ndaugoing@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i+4mpl5r"
+Received: by mail-pj2-f14.google.com with SMTP id d9443c01a7336-2dd58e1e2c7so7805655ad.0
+        for <stable@vger.kernel.org>; Sat, 26 Sep 2026 05:11:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790424698; x=1791029498; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5UCqXVsEit/5UgovE1bO5G5/xS9YReJJK497aNTHOdc=;
+        b=i+4mpl5rv2a6ykWEoNCD2VM5dipnqgRCGFSH2x6FYqPEhwazS+sezAQVnrwVGvoBVl
+         b1QcReKIkUnqvftoR5xrZUhVvyGrNa6+wsSiUEY0vy2oAEmWqo74TaZ6eZvEebcWgpJ/
+         JcnxbyPyCrxA1SeVrdPL+LD887wod2annT8NfBsoXiyPzfi/u9j8cFUhBMHghBCPl4Bh
+         Qir7w1blCyJ9NFkHgSP7iOCgvSQ6EaALlSXtfvGkAQzbcnfA8DPyCKvNsoJ7P3lHeugI
+         z2tzqwT35TqrZXw536FCVA1ONPDbw6iHpZu/o7WwACDO4QntLBWXE3aSRAj5ohItdFQD
+         gU2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790424698; x=1791029498;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5UCqXVsEit/5UgovE1bO5G5/xS9YReJJK497aNTHOdc=;
+        b=oG1DXF4P+qlcuw9/hacm2WQ7cvBzNEOEjZhAPxkCyFAMdNK0d3/w0DLSMmQ+LHhdGH
+         Ju3x989/+W2lY/xhw0mhixltzsj7Uzwk/kkLHYrVAgGtR3EnEqSn0iKI9q97+GrUrgNP
+         urYA0ryVRWBWBhZNu0uQp+VnYNfkHBPCl4azOt4BYnZUObl67uxshWXcHU/27nhPERYj
+         HYcnEa06EW0CjIuu5W6w4z2VlZkzrGOvdselbl6ktYeU1IGC/g6XVWnpyp4D98iSFc77
+         l6zXp4jdSXeQ6yWznPAg1j6/ML9DYVBN8goSTJjS/+Vd3pI/2xaIYBercUn/wqjV7EEI
+         Uu4g==
+X-Forwarded-Encrypted: i=1; AKwUvBxNIPkPe/E9n8+fuby42IZSYntFermPwEYh0vl/F06PkKLpQm2WUCuSNMtTp7NkOh/BPj9hbEU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLJiFGyCqvftCuGXjfPvnAUuwczt5V3i9mOaOfF7NMExIz7yF23
+	qKNfAaWiUTXjCQF/UBb0+zEwJMq0B/srMoXpWCJTPA7NnSE28IiWMaf8
+X-Gm-Gg: AYBFou3lwEdRlplXVKgTrWPyKJ+oIVLRA3qmmAavu/4zL3zWm+s4nAO5BjGc7FuGOj7
+	Wf3iqn4TKHzKJ/hsXQcdeP7czsTD6BbcPjZrnf2Mt1Ab0XUs7WZbqZ6moCFjrWKoAmTeOsHeSKf
+	4iGM/K/UO+UOqlueuKsEY3Nj0aZZoToJcx0LVvKblJtXtBSILXlXdEaKhIPdqjBfKO14yHD8MS4
+	CaXevOw/H8TyPMa8UlYuMQca/zEL9HL1YRkrVnkcehbgAtYE+C2gdJhRfkdzpSNLxQ0VWyrOkk8
+	oQiIQmUv+/cWbVPB+HIiMGT98OCqhMEh+6BPy5rpKET6pMzvXpM9MUKVGI2Nm794Xnuf/muRobC
+	5yuBCYgNWmk5d4fyDBjDJUPf5NuZ0TqnysdQPKC2/Og1MQDSFi2l8H846Is+pLpvzaKE3gap9No
+	9iCIvhA93CKyf7mEOLB44HII2r5hkfDdz2uKpqJXysxVnViOrxjgi0kGA7LE6CWEmpARaEGTxWW
+	O0kv/NHgc8kEvQ0Ng00CR0zGtWqS2KE9AAYpX/PlRvx
+X-Received: by 2002:a17:903:22c4:b0:2df:8ef0:4597 with SMTP id d9443c01a7336-2df8ef04654mr43600025ad.42.1790424693330;
+        Sat, 26 Sep 2026 05:11:33 -0700 (PDT)
+Received: from localhost.localdomain ([2409:40e3:208b:3411:14ea:51a9:50f2:5786])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df913dfe98sm21709715ad.22.2026.09.26.05.11.28
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 26 Sep 2026 05:11:31 -0700 (PDT)
+From: Rounak Das <rounakdas2025@gmail.com>
+To: Borislav Petkov <bp@alien8.de>
+Cc: Dinh Nguyen <dinguyen@kernel.org>,
+	Tony Luck <tony.luck@intel.com>,
+	linux-edac@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Rounak Das <rounakdas2025@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v3] EDAC/altera: Fix device node reference leaks in the SDMMC ECC setup
+Date: Sat, 26 Sep 2026 17:38:46 +0530
+Message-ID: <20260926120846.35716-1-rounakdas2025@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+Under altr_portb_setup() and socfpga_init_sdmmc_ecc(),
+of_find_compatible_node() was being used to look up the sdmmc-ecc
+node. This node wasn't being dropped using of_node_put().
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+altr_portb_setup() did not drop its reference under its success path
+or on any error path.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+socfpga_init_sdmmc_ecc() did an early return thereby skipping the
+common exit label and thus leaking the reference.
 
-- [Medium] The NCI_RESET_PENDING gate is evaluated in workqueue context
-  (nci_rx_work() -> nci_rsp_packet()/nci_ntf_packet(),…
-- [Low] The patch adds contradictory reset-trigger semantics in two
-  artifacts of the same commit: include/net/nfc/nci.h:143-146 defines…
+Add the missing of_node_put() calls in altr_portb_setup(), and route
+socfpga_init_sdmmc_ecc()'s success path through the common exit label.
 
---
+Fixes: 911049845d70 ("EDAC, altera: Add Arria10 SD-MMC EDAC support")
+Fixes: 788586efd116 ("EDAC/altera: Initialize peripheral FIFOs in probe()")
+Cc: stable@vger.kernel.org # 6.18+
+Closes: https://sashiko.dev/#/patchset/20260708091135.94114-1-rounakdas2025%40gmail.com
+Acked-by: Dinh Nguyen <dinguyen@kernel.org>
+Signed-off-by: Rounak Das <rounakdas2025@gmail.com>
+---
+v3:
+ - Rebase on top of Dinh's "Address sashiko reviews part 1" series (Dinh).
+ - Limit stable backport to 6.18+.
+v2: https://lore.kernel.org/all/20260717131720.19038-1-rounakdas2025@gmail.com/
+v1: https://lore.kernel.org/all/20260717102549.13309-1-rounakdas2025@gmail.com/
+---
+ drivers/edac/altera_edac.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-nfc: nci: ignore unexpected CORE_RESET_NTF and CORE_RESET_RSP
+diff --git a/drivers/edac/altera_edac.c b/drivers/edac/altera_edac.c
+index 4c20fb926160..bb95dab847b3 100644
+--- a/drivers/edac/altera_edac.c
++++ b/drivers/edac/altera_edac.c
+@@ -1506,6 +1506,7 @@ static int altr_portb_setup(struct altr_edac_device_dev *device)
+ 	dci = edac_device_alloc_ctl_info(sizeof(*altdev), ecc_name, 1,
+ 					 ecc_name, 1, 0, edac_idx);
+ 	if (!dci) {
++		of_node_put(np);
+ 		edac_printk(KERN_ERR, EDAC_DEVICE,
+ 			    "%s: Unable to allocate PortB EDAC device\n",
+ 			    ecc_name);
+@@ -1518,6 +1519,7 @@ static int altr_portb_setup(struct altr_edac_device_dev *device)
+ 
+ 	if (!devres_open_group(device->edac->dev, altr_portb_setup, GFP_KERNEL)) {
+ 		edac_device_free_ctl_info(dci);
++		of_node_put(np);
+ 		return -ENOMEM;
+ 	}
+ 
+@@ -1584,6 +1586,8 @@ static int altr_portb_setup(struct altr_edac_device_dev *device)
+ 		rc = -ENOMEM;
+ 		goto err_release_group_1;
+ 	}
++	of_node_put(np);
++
+ 	altr_create_edacdev_dbgfs(dci, prv);
+ 
+ 	list_add(&altdev->next, &altdev->edac->a10_ecc_devices);
+@@ -1600,6 +1604,7 @@ static int altr_portb_setup(struct altr_edac_device_dev *device)
+ 	 */
+ 	devres_release_group(device->edac->dev, altr_portb_setup);
+ 	edac_device_free_ctl_info(dci);
++	of_node_put(np);
+ 	edac_printk(KERN_ERR, EDAC_DEVICE,
+ 		    "%s:Error setting up EDAC device: %d\n", ecc_name, rc);
+ 	return rc;
+@@ -1627,7 +1632,7 @@ static int socfpga_init_sdmmc_ecc(struct altr_edac_device_dev *device)
+ 		goto exit;
+ 
+ 	/* Setup portB */
+-	return altr_portb_setup(device);
++	rc = altr_portb_setup(device);
+ 
+ exit:
+ 	of_node_put(child);
 
-This adds an NCI_RESET_PENDING flag which is set when CORE_RESET_CMD is
-sent and cleared when the request finishes, and gates the core layer
-handling of CORE_RESET_RSP and CORE_RESET_NTF on that flag.  The intent is
-that an unsolicited or delayed reset packet no longer completes an
-unrelated in-flight request nor overwrites ndev->nci_ver and the
-manufacturer fields.
-
-A couple of questions below.
-
-> diff --git a/include/net/nfc/nci.h b/include/net/nfc/nci.h
-> index 09efcaed7c3f6..2ac45adba0886 100644
-> --- a/include/net/nfc/nci.h
-> +++ b/include/net/nfc/nci.h
-> @@ -140,6 +140,11 @@
->  #define NCI_RESET_TYPE_KEEP_CONFIG				0x00
->  #define NCI_RESET_TYPE_RESET_CONFIG				0x01
->  
-> +/* NCI Reset Triggers */
-> +#define NCI_RESET_TRIGGER_ERROR					0x00
-> +#define NCI_RESET_TRIGGER_POWER_ON				0x01
-> +#define NCI_RESET_TRIGGER_RESET_CMD				0x02
-> +
-
-[Severity: Low]
-Do these new definitions agree with the comment added in
-nci_core_reset_ntf_packet() in the same patch?
-
-Here 0x00 is named NCI_RESET_TRIGGER_ERROR and 0x02 is named
-NCI_RESET_TRIGGER_RESET_CMD, but the new comment in ntf.c says:
-
-	 * revision-dependent (0x00 in NCI 1.0, 0x02 in NCI 2.0), so both
-	 * are let through to the reset-pending gate below instead.
-
-The in-tree selftest tools/testing/selftests/nci/nci_dev.c uses 0x02 as
-the first payload byte of its CORE_RESET_NTF, which matches
-NCI_RESET_TRIGGER_RESET_CMD but not the 0x00 claim.
-
-Also, only NCI_RESET_TRIGGER_POWER_ON is used anywhere;
-NCI_RESET_TRIGGER_ERROR and NCI_RESET_TRIGGER_RESET_CMD have no
-references under net/nfc or drivers/nfc.  Should the unused ones be
-dropped, or should the code actually test for
-NCI_RESET_TRIGGER_RESET_CMD?
-
-Following from that, if a notification with reset_trigger == 0x00 arrives
-while NCI_RESET_PENDING is set, the handler treats it as a successful
-command-triggered reset:
-
-	ndev->nci_ver = ntf->nci_ver;
-	...
-	nci_req_complete(ndev, NCI_STATUS_OK);
-
-Is reporting NCI_STATUS_OK correct for a trigger the header names ERROR?
-
-[ ... ]
-
-> diff --git a/net/nfc/nci/core.c b/net/nfc/nci/core.c
-> index 5f46c4b5720f6..5a90591cd9af7 100644
-> --- a/net/nfc/nci/core.c
-> +++ b/net/nfc/nci/core.c
-> @@ -134,6 +134,7 @@ static int __nci_request(struct nci_dev *ndev,
->  	}
->  
->  	ndev->req_status = ndev->req_result = 0;
-> +	clear_bit(NCI_RESET_PENDING, &ndev->flags);
->  
->  	return rc;
->  }
-> @@ -163,6 +164,8 @@ static void nci_reset_req(struct nci_dev *ndev, const void *opt)
->  {
->  	struct nci_core_reset_cmd cmd;
->  
-> +	set_bit(NCI_RESET_PENDING, &ndev->flags);
-> +
->  	cmd.reset_type = NCI_RESET_TYPE_RESET_CONFIG;
->  	nci_send_cmd(ndev, NCI_OP_CORE_RESET_CMD, 1, &cmd);
->  }
-
-[Severity: Medium]
-Is the flag enough to keep a late reset packet from completing a
-different request?
-
-NCI_RESET_PENDING is set and cleared here in process context under
-req_lock, while the gate is evaluated from the rx workqueue
-nci_rx_work() -> nci_rsp_packet()/nci_ntf_packet(), which never takes
-req_lock.  So the gate test, the flag clear and nci_req_complete() are
-three separate steps with respect to the request lifetime:
-
-rx_wq
-nci_core_reset_rsp_packet()
-	if (!test_bit(NCI_RESET_PENDING, &ndev->flags))
-		return;		/* passes, then gets preempted */
-
-process context
-__nci_request()
-	rc = -ETIMEDOUT;
-	ndev->req_status = ndev->req_result = 0;
-	clear_bit(NCI_RESET_PENDING, &ndev->flags);
-
-nci_open_device() then fails and drops req_lock.  Its failure path purges
-cmd_q/rx_q/tx_q and calls ops->close(), but does not flush ndev->rx_wq,
-so the handler above can still be mid-execution while a retry starts a
-new request and sets req_status = NCI_REQ_PEND.  When the handler
-resumes:
-
-	clear_bit(NCI_RESET_PENDING, &ndev->flags);
-	nci_req_complete(ndev, rsp->status);
-
-and nci_req_complete() only checks req_status == NCI_REQ_PEND, with no
-opcode or generation matching, so the new request (CORE_INIT, for
-instance) is completed with NCI_STATUS_OK without any of its fields
-being parsed.
-
-The same window exists in nci_core_reset_ntf_packet() between the
-successful test_and_clear_bit() and nci_req_complete(), so switching the
-response handler to test_and_clear_bit() would not close it.  Would
-evaluating the gate and calling nci_req_complete() under req_lock, or
-matching the completion to the pending opcode, be a better fit than the
-flag?
-
-> diff --git a/net/nfc/nci/ntf.c b/net/nfc/nci/ntf.c
-> index f5c9a8ab7ec10..57f99bf46a221 100644
-> --- a/net/nfc/nci/ntf.c
-> +++ b/net/nfc/nci/ntf.c
-> @@ -36,7 +36,22 @@ static int nci_core_reset_ntf_packet(struct nci_dev *ndev,
->  	if (skb->len < sizeof(struct nci_core_reset_ntf))
->  		return -EINVAL;
->  
-> -	ntf = (struct nci_core_reset_ntf *)skb->data;
-> +	ntf = (const struct nci_core_reset_ntf *)skb->data;
-> +
-> +	/*
-> +	 * A power-on notification must not update core protocol state nor
-> +	 * complete a pending request.  The CORE_RESET_CMD trigger value is
-> +	 * revision-dependent (0x00 in NCI 1.0, 0x02 in NCI 2.0), so both
-> +	 * are let through to the reset-pending gate below instead.
-> +	 * Return 0 so driver-specific notification hooks can still run.
-> +	 */
-> +	if (ntf->reset_trigger == NCI_RESET_TRIGGER_POWER_ON)
-> +		return 0;
-> +
-> +	if (!test_and_clear_bit(NCI_RESET_PENDING, &ndev->flags)) {
-> +		pr_warn_ratelimited("unexpected CORE_RESET_NTF\n");
-> +		return 0;
-> +	}
->  
->  	ndev->nci_ver = ntf->nci_ver;
->  	pr_debug("nci_ver 0x%x, config_status 0x%x\n",
-> diff --git a/net/nfc/nci/rsp.c b/net/nfc/nci/rsp.c
-> index b0ab4f5acbce8..3a2491497e4b3 100644
-> --- a/net/nfc/nci/rsp.c
-> +++ b/net/nfc/nci/rsp.c
-> @@ -32,14 +32,26 @@ static void nci_core_reset_rsp_packet(struct nci_dev *ndev,
->  
->  	pr_debug("status 0x%x\n", rsp->status);
->  
-> +	/*
-> +	 * If no reset request is pending, ignore unexpected responses to avoid
-> +	 * prematurely completing an unrelated request.
-> +	 */
-> +	if (!test_bit(NCI_RESET_PENDING, &ndev->flags))
-> +		return;
-> +
-> +	if (rsp->status != NCI_STATUS_OK) {
-> +		clear_bit(NCI_RESET_PENDING, &ndev->flags);
-> +		nci_req_complete(ndev, rsp->status);
-> +		return;
-> +	}
-> +
->  	/* Handle NCI 1.x ver */
-> -	if (skb->len != 1) {
-> -		if (rsp->status == NCI_STATUS_OK) {
-> -			ndev->nci_ver = rsp->nci_ver;
-> -			pr_debug("nci_ver 0x%x, config_status 0x%x\n",
-> -				 rsp->nci_ver, rsp->config_status);
-> -		}
-> +	if (skb->len >= sizeof(*rsp)) {
-> +		ndev->nci_ver = rsp->nci_ver;
-> +		pr_debug("nci_ver 0x%x, config_status 0x%x\n",
-> +			 rsp->nci_ver, rsp->config_status);
->  
-> +		clear_bit(NCI_RESET_PENDING, &ndev->flags);
->  		nci_req_complete(ndev, rsp->status);
->  	}
->  }
-
+base-commit: eef3b67f9c6782127163b631c9043011a68016e2
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260922102144.39689-1-ndaugoing%40gmail.com
+2.54.0 (Apple Git-157)
+
