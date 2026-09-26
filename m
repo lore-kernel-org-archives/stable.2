@@ -1,35 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44CE5448CE0;
-	Sat, 26 Sep 2026 13:17:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FCE145D180;
+	Sat, 26 Sep 2026 13:17:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790428643; cv=none; b=VomOs4xNkrjTcCA5aYJlvCQBGMj6oSna8c+ugKYy/Wyc+1noH6LwhVQ7teix2cPIk2rQtoGas7xg5PhmePyo77E0if+SwiyfqGJAWVdZmFWFctprMeiiDZ8D4UHqiYG2vENr+bXHiQUWLr5C6PQlBXaJcnsyNaqb6wB5JT6S1Rs=
+	t=1790428647; cv=none; b=dtmulvtGtImSx/TSpqxTX8NLvAIDg7Hg13kuwq6808MjxtMoyCcswhuLwzpD5tSqHJ/QPHqemidlg6siJ3Yx3kYySXcyKV0FPQZPyAa+ZBCgQTn0kMzU8jVEAzx795nerW2fyyLwUOe9wOtxUda7WCmSRZDz6OOcB//JD+yA4+A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790428643; c=relaxed/simple;
-	bh=8bKrepULYvgg1nh28mHYXcYdVUXLFHADnNiLS+Xz4eU=;
+	s=arc-20240116; t=1790428647; c=relaxed/simple;
+	bh=qlKpIS0kYvsCmMZPm9g3cnnWgN6jr43hgjF/R4k10xk=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=WtQcRT9Eee8j+1HDoiJ3Kv7GMBh1/2Zv2GOxKe7IQ8mAnRNlDFLPEwZuppsVmAXMr7T2YibdnqosACwH1ojMgdzMoufBKjuhok6MlojSAgWHxdsR6UlwB5CJ6rQ0+ezUo19VhOcXoSZbuvp+VVU5jNKF4We0HHHbEn8GDcc34fE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RdT7UcMR; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=nKB1psRzHJ0IFzQbSnNoPH1b0d5zXblH4j/IDZWsMy0YDBqzbXt1pmjK3SVf9/u5LKpvz6r0e3OCwMG/rkGM5d1Liz7UvCoTDwAKdDcVoIE68UhfM87qdCRClT+WaAKYvLggCjqEvweufA0BU6SMIyRCQciZzCnE1Fywk69Fwxw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c6hsqenm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RdT7UcMR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B9FC1F000FF;
-	Sat, 26 Sep 2026 13:17:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c6hsqenm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7238C1F00893;
+	Sat, 26 Sep 2026 13:17:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790428641;
-	bh=wtbXqDxYJ+fXu0msVrSYQq3hHAakzipc5tFwCJC/Qwo=;
+	s=k20260515; t=1790428646;
+	bh=iQnzgzJlbml6qFFICw9e5A4EzueJyltcPpFfUYnosW4=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=RdT7UcMR3+utgAUAcl+2E9Ad88+klv+W8/EHXh8HFnCisVfusSz9lm3HjPp77Ylb4
-	 TwfbFuIRJGePrznNOQ7Y7+jqFqVpShewGR2YVTbrELoT5CvhyNqNTO9ynFvo+Hg0eU
-	 bwLUmbKVn+GDcDKPrgwmF8zszCTk1n61ysUT1EPlXtkUAigJp0BDUFrOWRh5Hc12CK
-	 YbFXX96XFPCRyi5qQMs/ILq5PrXuGLNhDoWz/qQAcMde95M1PWVr4gi2TLOqaqia2X
-	 PH9PAOmcywOUiNzqsjD6EgxbY1WH1D6/5pxQkfVoZ2VBclB17yN73QtSWelqb1oQwU
-	 fF68SnVCqgAJw==
+	b=c6hsqenm0bpKhgnA6m71tv9/GuHSXGFCPIYdm1NxTsO0virkycHxbC7eDP1D34hVf
+	 do0edCXBoYtAhUmIvfUybAyIzZbexIU50Olza3am/sUzRhFNqRCtbDVjRYbBqqMoQ1
+	 E46aopb+kQT36s3I8kK86LR6klCrpl1GB/+SiKQI9U/uPbxF1zykj2l8r6ZxT2chEs
+	 nagz2ryolNAq94oBGA6mSUC5opx3y3FPE1ObztndNFrW8CS44gwUPNxdYSqIDZ57UA
+	 9ygXeUGobSNnw+wmWlGF/2ZFRRD+OPp4EF9XfnYaFQ60Jr1ndY21OnyInxg0PEqQEX
+	 wDEUwoD/N4MhA==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Sat, 26 Sep 2026 14:17:00 +0100
-Subject: [PATCH 2/6] fbdev: xen-fbfront: check for fb_deferred_io_init()
- error
+Date: Sat, 26 Sep 2026 14:17:01 +0100
+Subject: [PATCH 3/6] HID: picoLCD: check for fb_deferred_io_init() error
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,7 +37,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260926-fix-fbdefio-error-handling-v1-2-a94810b6e263@kernel.org>
+Message-Id: <20260926-fix-fbdefio-error-handling-v1-3-a94810b6e263@kernel.org>
 References: <20260926-fix-fbdefio-error-handling-v1-0-a94810b6e263@kernel.org>
 In-Reply-To: <20260926-fix-fbdefio-error-handling-v1-0-a94810b6e263@kernel.org>
 To: Helge Deller <deller@gmx.de>, 
@@ -54,19 +53,19 @@ Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Steve Glendinning <steve.glendinning@smsc.com>, 
  "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, stable@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1514; i=ljs@kernel.org;
- h=from:subject:message-id; bh=8bKrepULYvgg1nh28mHYXcYdVUXLFHADnNiLS+Xz4eU=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLK2H73iHcQql2Rjm//aPsz8+p1Z+gynLG8fPcD9XO/1H
- NtNx+5+7ihlYRDjYpAVU2R5/kV8f5BI2LzOC/5uMHNYmUCGMHBxCsBEYvgZGR6Jvr5+9zH/o3Vb
- VinIRJ1byVfpKs/Ol7NhuXSQ8LSVS7czMqxt0I8S+XBm4p9s9X3KdW4CP96qbZZTdu37NfngtHt
- ui1kA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1697; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=qlKpIS0kYvsCmMZPm9g3cnnWgN6jr43hgjF/R4k10xk=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLK2H70y1Us18tk+S00BxiLnqa6cz9TsTv9rfqMT4bzP2
+ Lc3OelIRykLgxgXg6yYIsvzL+L7g0TC5nVe8HeDmcPKBDKEgYtTACaSc5GR4d/Ozur/J0NSN8aX
+ Pzxks1305T2da3v7HPZUfLRR3PCm6Akjw19vRbl/5+3v3hJifWl04uT8H9nF82dZL9q7snB6MOM
+ 3DXYA
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
 fb_deferred_io_init() allocates deferred I/O state, populating
 info->fbdefio_state, or leaving it NULL if an error occurs.
 
-Currently xenfb_probe() ignores its return value.
+Currently picolcd_init_framebuffer() ignores its return value.
 
 Therefore if an error arises in fb_deferred_io_init() (for instance, due
 to an allocation failure) info->fbdefio_state is left NULL.
@@ -76,38 +75,47 @@ pointer (calling fb_deferred_io_open()).
 
 Fix this by checking for the error.
 
+Also correct cleanup ordering - defio is initialised after the sysfs file,
+so cleanup defio first.
+
 Fixes: 56c134f7f1b5 ("fbdev: Track deferred-I/O pages in pageref struct")
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- drivers/video/fbdev/xen-fbfront.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/hid/hid-picolcd_fb.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/video/fbdev/xen-fbfront.c b/drivers/video/fbdev/xen-fbfront.c
-index 4385976277ac..7ef909d4242d 100644
---- a/drivers/video/fbdev/xen-fbfront.c
-+++ b/drivers/video/fbdev/xen-fbfront.c
-@@ -443,7 +443,11 @@ static int xenfb_probe(struct xenbus_device *dev,
+diff --git a/drivers/hid/hid-picolcd_fb.c b/drivers/hid/hid-picolcd_fb.c
+index 8c28e982e09d..a016dd9ca847 100644
+--- a/drivers/hid/hid-picolcd_fb.c
++++ b/drivers/hid/hid-picolcd_fb.c
+@@ -531,17 +531,23 @@ int picolcd_init_framebuffer(struct picolcd_data *data)
+ 		goto err_cleanup;
  	}
  
- 	fb_info->fbdefio = &xenfb_defio;
--	fb_deferred_io_init(fb_info);
-+	ret = fb_deferred_io_init(fb_info);
-+	if (ret < 0) {
-+		xenbus_dev_fatal(dev, ret, "fb_deferred_io_init");
-+		goto error_cmap;
+-	fb_deferred_io_init(info);
++	error = fb_deferred_io_init(info);
++	if (error) {
++		dev_err(dev, "failed to initialize deferred I/O\n");
++		goto err_sysfs;
 +	}
++
+ 	error = register_framebuffer(info);
+ 	if (error) {
+ 		dev_err(dev, "failed to register framebuffer\n");
+-		goto err_sysfs;
++		goto err_defio;
+ 	}
+ 	return 0;
  
- 	xenfb_init_shared_page(info, fb_info);
++err_defio:
++	fb_deferred_io_cleanup(info);
+ err_sysfs:
+ 	device_remove_file(dev, &dev_attr_fb_update_rate);
+-	fb_deferred_io_cleanup(info);
+ err_cleanup:
+ 	data->fb_info    = NULL;
  
-@@ -465,6 +469,7 @@ static int xenfb_probe(struct xenbus_device *dev,
- 
- error_fb:
- 	fb_deferred_io_cleanup(fb_info);
-+error_cmap:
- 	fb_dealloc_cmap(&fb_info->cmap);
- 	framebuffer_release(fb_info);
- error_nomem:
 
 -- 
 2.55.0
