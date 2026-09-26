@@ -1,332 +1,108 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4CCD351C22
-	for <stable@vger.kernel.org>; Sat, 26 Sep 2026 07:19:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD8AE33F589;
+	Sat, 26 Sep 2026 07:24:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790407157; cv=none; b=B+l9BxBB2VnZlWNWh4UhMqLoDlM5sZtkFjQ370drsPqnt7d7lsGznZn2IVcX0k62/zJ+zTT3vgqNaOYvwchzBeBpH1hhKywgnuiiVKvjj0GhaSpSUGsdmnTvjCIPb41cr6/yHJ/idTEoa0H2bDSdC3gcFUKUlG7dOKypYm3lKHg=
+	t=1790407470; cv=none; b=AGySIVeHGuoIWPtJrgSsf95c/GMfZQAo0gPDksk3fwZkrklVaKAwYRFnwJ4V/DPhAOWmCDGbC+xy/qt+kIH87vEChhHjce3vSVyTPDzHd1OpSxahZStZR/hbMC5Y4ET6C7sVIJLIuMWowIBRATa2ZPCUVnQSKcRjoliRU0pttwY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790407157; c=relaxed/simple;
-	bh=wt1G9EdRXHMt0dUJJPcioJa+Etvgiz0NvwrGIL/1pSg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=cEuezqEL6KIs1DR5ok/HKIebgGrUAHzfbcXPtSn/fIh7LypxDaJbGkyckeSFY+fvjd132XpmD9rJ2TkwItZZY0pHT8JY9n7SEcILLUUQumeLq+YrfBiw+CmualqA6xgPrj0rfEPGJgWa194ubS9ivm6dDWSHBjtnsywqP2p2rcE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KLlp709V; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790407470; c=relaxed/simple;
+	bh=LSFWMmwZm9AOOui3G9yO6os/W4ndoAnTIvP6M1MFVyw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Tp/AB1nLcE7ssaCIWMVluR2RIURcCyUKuG2QeyUe7OczsXpLUbiKUkfPNLY0/yutcEsJjFTH3+WH3q0EtA01BW5m1apZ6Dw1vBSiaQsTrYAI5jxVNjUTpWF+QxFhajjBSMM9iBVEoiKR03sZYxuGjQGi7tTtbRWaBMV6lBPTJAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F70k0EEf; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KLlp709V"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e71cdb22bso11185125e9.2
-        for <stable@vger.kernel.org>; Sat, 26 Sep 2026 00:19:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790407154; x=1791011954; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=29/rcOA6l7jaypa23Gt7b/u/553lXtaIHjUtlGKhfpw=;
-        b=KLlp709VjvzzfY+25Su8RfB7HdVid3vOqZgx/A2m0YTd3O6KiN1bOaORBAsd/pKTwz
-         go9geKSK05uLEX4XiUs5PZoWcrsg6hk3Oem08tB97dA/IT2PxqRrhNmLoK6HG3SIK4wY
-         20LEZ+vXAeTH4o/JRy6M8WlX5A1hReQ/K40qQqxcH7eulBKfDvgGLZF+F/jJU8DjPyjH
-         wFDx3Vf8dMBKshQxLU2KMG8PET5o37S6zhWW30rfONkki3jokW1B2aJgBhZNV2CKNIHF
-         X07mHjWCyVkxkEAFom8GvS0hbMOXV084o0E/Fq8RPb0QAJSAgOy+E/iMhXA9YmhkapC2
-         A8qA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790407154; x=1791011954;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=29/rcOA6l7jaypa23Gt7b/u/553lXtaIHjUtlGKhfpw=;
-        b=pDeRholqlFVdHXYxGAw207guoiOzRx0k7EhoFknWM4VuAiqOP7IOpydT7gh0UblYPI
-         5EoKq28FjHy/f1meUZxRuh9aIl1/IIqbclcjnS741leIPnq63pCsUESlgpQIIsy12i96
-         nBYdJRkMmdYTGqVgxjUey2UR8pmCZHZzTjEQqS1HqscerNAxduk4rKCwWIWwSwPadcvm
-         IAWH/GUXs0dDRtcDxJLmlbEUusYW2MlPKkeJksvZEtOtyax5qmJ6uq96Clt9giTkrV0d
-         72dBqsK7Cg0N9X8/wF3c/DszJy+oyzG3hrsRQg3EYlOy+cVxlnG1MN289I162A7ccKtf
-         J7hw==
-X-Forwarded-Encrypted: i=1; AKwUvBydd3CN2965d2uH0XyjmWMZyuQ3GOQEYI0fNDL1XkWdb0RyWsDZZ3w0aRGGt8iDngUGIjpCcxk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kfg/DmWE9/U05meqtAkHpUCCPaHytJBdBD/YKrN0Vdwp2jqrH8
-	MurCTU5uSq/slk5eQMeA9rXHxtJO4bTfH57q+L2LbCXetgRGE7a3PhzjveDY8cpV
-X-Gm-Gg: AYBFou2zWZfJqRrWFdk/ZVpQ9NqwXtQpxAtPoL8poOu9gw6XXOir27W5G5MUtqH+Nsz
-	ciKw3g3enpa0WmC7kScRskvf9QyY9aATg+qIw6vc1Z72kqF8W5bVLlCahARYC7H+q4fuJdgCAjO
-	VtvKV51agofawCX6AZcW7FKTdr3GmMhok9A6Ggvj4tXyWFW9crZWg24Dd/cftQS+G5/8nbf7QFL
-	Ye0h6/kSVvMehvzkjntbQXiuBefj5/J+Xsg63NyZ9xi26noXgb6zGavO4SalQpZZKeaklABrLPA
-	INFTbRe70U0e/AYz5/lQ4Hp4wnXFg5qwHERzulEGltNRb0RPNkk1cuCgmb90ajcDoMgeVKwLykQ
-	Du10ZQBNWQK/lsHB0ResYODT5OMi2fO1nq3H9ecKK5KIA193JtWuYI5Wb9Cnd2sl0YJKs6mGoqm
-	G3LQ0k/8zECYap9BwFPj2ipRw+XXogSFmS8mwrzie1DhsjCi9hMQP2mR3+KodxwwkavICYHilCv
-	76hUvmkYxu7rtLb8kjT8YQS56MREv2XU4h0G8UVf39fOhVw+xD/l2sPYStusqieGnp9OkmrMi4w
-	orqCP258sIKPRWw4amuMg5deuqfkTDO7BBNsDSzhVJ8Emv0uGoe/R3NOq2FFIvu52x36/z4i3OQ
-	ntnRpBwY=
-X-Received: by 2002:a05:600c:138f:b0:49f:cbf3:551c with SMTP id 5b1f17b1804b1-49fe66cc5camr135423255e9.12.1790407153438;
-        Sat, 26 Sep 2026 00:19:13 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-b162-c701-4960-a998-3de8-2fce.310.pool.telefonica.de. [2a02:3100:b162:c701:4960:a998:3de8:2fce])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a2acb4dsm12171640f8f.0.2026.09.26.00.19.12
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 26 Sep 2026 00:19:13 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Ackerley Tng <ackerleytng@google.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Breno Leitao <leitao@debian.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	Naoya Horiguchi <nao.horiguchi@gmail.com>,
-	Oscar Salvador <osalvador@suse.de>,
-	Peter Xu <peterx@redhat.com>,
-	Rik van Riel <riel@surriel.com>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	stable@vger.kernel.org
-Subject: [PATCH 6.1.y] mm/hugetlb: fix avoid_reserve to allow taking folio from subpool
-Date: Sat, 26 Sep 2026 09:19:09 +0200
-Message-Id: <20260926071909.77553-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <2025021023-plank-tribesman-b3f2@gregkh>
-References: <2025021023-plank-tribesman-b3f2@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F70k0EEf"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 21047C2BCB8;
+	Sat, 26 Sep 2026 07:24:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790407470;
+	bh=LSFWMmwZm9AOOui3G9yO6os/W4ndoAnTIvP6M1MFVyw=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=F70k0EEfDlYyHcVUO1ludQ5Sq/5NlWWVaNpChhgYfOyEtspuKDmcTMX0TdJ7UxnmC
+	 e4em7lAOgJGOqqeiLMSXcQaTFlGFqEitG6JVaAXORSOcDXTZTAbCjUnSRm/2Ei3721
+	 DdF/rpRUglY+fs+3/7lcx/9Y+ruvOKaUF+/YosFeUOvbwoC+vQaJKKSF6EsjtHMaqD
+	 wOdtscZz+70I7FVyRbpejHuh3GOoL/kQHDw/pHdJRg6egT9mNi4XzH6MVgJw86TvPn
+	 LuqIONOpKtzopWldB8pCZblI2g4ba1ijQ83Kh9hGIZO51tymrZJiKz9WIRa6wYDNAT
+	 B3DpTnduGWJ3g==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EFDEFC98318;
+	Sat, 26 Sep 2026 07:24:29 +0000 (UTC)
+From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
+Date: Sat, 26 Sep 2026 02:24:19 -0500
+Subject: [PATCH] ALSA: hda/tegra: Re-enable SDO workaround for Tegra194
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260926-tegra194-hda-sdo-v1-1-f7a636a07a58@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqAIBBA0avIrBtQKdGuEi1Ep5qNhkYE4d2Tl
+ m/x/wuVClOFWbxQ6ObKOXWoQUA4fNoJOXaDltpIpw1etBev3IhH9FhjRhXtGIy0k3IWenYW2vj
+ 5l8va2gf4fpxUYgAAAA==
+X-Change-ID: 20260926-tegra194-hda-sdo-1d84c6085198
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>
+Cc: Thierry Reding <treding@nvidia.com>, linux-sound@vger.kernel.org, 
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Aaron Kling <webgeek1234@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790407469; l=1584;
+ i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
+ bh=8rAycl98UAJVNpg4nxLeFSEwU8WePutSW40I7utV8vY=;
+ b=jpT6mRhj6kFaT03vLb78Ga/cCq4a5oFDhA6+ifoHcGRLo0Q1WygeZdjkILrQ2wRqTUOIgSoJj
+ ur/C6Ic/N/jCoPadVejJRrh2MNXBWbwY9PtMqbgCOK/Yg6KbL8H5cHw
+X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
+ pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
+X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
+ auth_id=342
+X-Original-From: Aaron Kling <webgeek1234@gmail.com>
+Reply-To: webgeek1234@gmail.com
 
-From: Peter Xu <peterx@redhat.com>
+From: Aaron Kling <webgeek1234@gmail.com>
 
-commit 58db7c5fbe7daa42098d4965133a864f98ba90ba upstream.
+This workaround was originally added for Tegra194, but no longer gets
+applied for it. Commit 615d43540043 ("ALSA: hda/tegra: fix tegra-hda on
+tegra30 soc") changed the guard to tegra30-hda, which worked because all
+affected archs had the fallback compatible. However, commit 7f0ea5acfc19
+("arm64: tegra: Use correct compatible string for Tegra194 HDA") removed
+the fallback compatible for Tegra194, causing this to break.
 
-Patch series "mm/hugetlb: Refactor hugetlb allocation resv accounting",
-v2.
-
-This is a follow up on Ackerley's series here as replacement:
-
-https://lore.kernel.org/r/cover.1728684491.git.ackerleytng@google.com
-
-The goal of this series is to cleanup hugetlb resv accounting, especially
-during folio allocation, to decouple a few things:
-
-  - Hugetlb folios v.s. Hugetlbfs: IOW, the hope is in the future hugetlb
-    folios can be allocated completely without hugetlbfs.
-
-  - Decouple VMA v.s. hugetlb folio allocations: allocating a hugetlb folio
-    should not always require a hugetlbfs VMA.  For example, either it got
-    allocated from the inode level (see hugetlbfs_fallocate() where it used
-    a pesudo VMA for allocation), or it can be allocated by other kernel
-    subsystems.
-
-It paves way for other users to allocate hugetlb folios out of either
-system reservations, or subpools (instead of hugetlbfs, as a file system).
-For longer term, this prepares hugetlb as a separate concept versus
-hugetlbfs, so that hugetlb folios can be allocated by not only hugetlbfs
-and other things.
-
-Tests I've done:
-
-- I had a reproducer in patch 1 for the bug I found, this will start to
-  work after patch 1 or the whole set applied.
-
-- Hugetlb regression tests (on x86_64 2MBs), includes:
-
-  - All vmtests on hugetlbfs
-
-  - libhugetlbfs test suite (which may fail some tests, but no new failures
-    will be introduced by this series, so all such failures happen before
-    this series so shouldn't be relevant).
-
-This patch (of 7):
-
-Since commit 04f2cbe35699 ("hugetlb: guarantee that COW faults for a
-process that called mmap(MAP_PRIVATE) on hugetlbfs will succeed"),
-avoid_reserve was introduced for a special case of CoW on hugetlb private
-mappings, and only if the owner VMA is trying to allocate yet another
-hugetlb folio that is not reserved within the private vma reserved map.
-
-Later on, in commit d85f69b0b533 ("mm/hugetlb: alloc_huge_page handle
-areas hole punched by fallocate"), alloc_huge_page() enforced to not
-consume any global reservation as long as avoid_reserve=true.  This
-operation doesn't look correct, because even if it will enforce the
-allocation to not use global reservation at all, it will still try to take
-one reservation from the spool (if the subpool existed).  Then since the
-spool reserved pages take from global reservation, it'll also take one
-reservation globally.
-
-Logically it can cause global reservation to go wrong.
-
-I wrote a reproducer below, trigger this special path, and every run of
-such program will cause global reservation count to increment by one, until
-it hits the number of free pages:
-
-  #define _GNU_SOURCE             /* See feature_test_macros(7) */
-  #include <stdio.h>
-  #include <fcntl.h>
-  #include <errno.h>
-  #include <unistd.h>
-  #include <stdlib.h>
-  #include <sys/mman.h>
-
-  #define  MSIZE  (2UL << 20)
-
-  int main(int argc, char *argv[])
-  {
-      const char *path;
-      int *buf;
-      int fd, ret;
-      pid_t child;
-
-      if (argc < 2) {
-          printf("usage: %s <hugetlb_file>\n", argv[0]);
-          return -1;
-      }
-
-      path = argv[1];
-
-      fd = open(path, O_RDWR | O_CREAT, 0666);
-      if (fd < 0) {
-          perror("open failed");
-          return -1;
-      }
-
-      ret = fallocate(fd, 0, 0, MSIZE);
-      if (ret != 0) {
-          perror("fallocate");
-          return -1;
-      }
-
-      buf = mmap(NULL, MSIZE, PROT_READ|PROT_WRITE,
-                 MAP_PRIVATE, fd, 0);
-
-      if (buf == MAP_FAILED) {
-          perror("mmap() failed");
-          return -1;
-      }
-
-      /* Allocate a page */
-      *buf = 1;
-
-      child = fork();
-      if (child == 0) {
-          /* child doesn't need to do anything */
-          exit(0);
-      }
-
-      /* Trigger CoW from owner */
-      *buf = 2;
-
-      munmap(buf, MSIZE);
-      close(fd);
-      unlink(path);
-
-      return 0;
-  }
-
-It can only reproduce with a sub-mount when there're reserved pages on the
-spool, like:
-
-  # sysctl vm.nr_hugepages=128
-  # mkdir ./hugetlb-pool
-  # mount -t hugetlbfs -o min_size=8M,pagesize=2M none ./hugetlb-pool
-
-Then run the reproducer on the mountpoint:
-
-  # ./reproducer ./hugetlb-pool/test
-
-Fix it by taking the reservation from spool if available.  In general,
-avoid_reserve is IMHO more about "avoid vma resv map", not spool's.
-
-I copied stable, however I have no intention for backporting if it's not a
-clean cherry-pick, because private hugetlb mapping, and then fork() on top
-is too rare to hit.
-
-Link: https://lkml.kernel.org/r/20250107204002.2683356-1-peterx@redhat.com
-Link: https://lkml.kernel.org/r/20250107204002.2683356-2-peterx@redhat.com
-Fixes: d85f69b0b533 ("mm/hugetlb: alloc_huge_page handle areas hole punched by fallocate")
-Signed-off-by: Peter Xu <peterx@redhat.com>
-Reviewed-by: Ackerley Tng <ackerleytng@google.com>
-Tested-by: Ackerley Tng <ackerleytng@google.com>
-Reviewed-by: Oscar Salvador <osalvador@suse.de>
-Cc: Breno Leitao <leitao@debian.org>
-Cc: Muchun Song <muchun.song@linux.dev>
-Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
-Cc: Rik van Riel <riel@surriel.com>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-[ Karl Mehltretter: The upstream changes map directly to this stable tree's
-  page-based HugeTLB helpers. The backport retains this stable tree's direct
-  -ENOSPC return instead of importing the later out_end_reservation path;
-  the functional changes otherwise match upstream. ]
+Fixes: 7f0ea5acfc19 ("arm64: tegra: Use correct compatible string for Tegra194 HDA")
+Cc: stable@vger.kernel.org
 Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
 ---
-Tested against the current linux-6.1.y tip, 6.1.188:
+ALSA: hda/tegra: Re-enable SDO workaround for Tegra194
+---
+ sound/hda/controllers/tegra.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-- x86-64 QEMU, 2 MiB HugeTLB pages, at 1 and 4 vCPUs
-- compared with the unpatched kernel, an extended version of the commit's
-  fork/COW reproducer kept the child mapping alive during the parent write
-  and changed HugePages_Rsvd after program cleanup from 5 to 4 and after
-  unmount from 1 to 0
-- parent/child data isolation passed and no kernel diagnostic was observed
-
- mm/hugetlb.c | 22 +++-------------------
- 1 file changed, 3 insertions(+), 19 deletions(-)
-
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index bfcb936084e85..d588426f011f2 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -1397,8 +1397,7 @@ static unsigned long available_huge_pages(struct hstate *h)
- 
- static struct page *dequeue_huge_page_vma(struct hstate *h,
- 				struct vm_area_struct *vma,
--				unsigned long address, int avoid_reserve,
--				long chg)
-+				unsigned long address, long chg)
- {
- 	struct page *page = NULL;
- 	struct mempolicy *mpol;
-@@ -1414,10 +1413,6 @@ static struct page *dequeue_huge_page_vma(struct hstate *h,
- 	if (!vma_has_reserves(vma, chg) && !available_huge_pages(h))
- 		goto err;
- 
--	/* If reserves cannot be used, ensure enough pages are in the pool */
--	if (avoid_reserve && !available_huge_pages(h))
--		goto err;
--
- 	gfp_mask = htlb_alloc_mask(h);
- 	nid = huge_node(vma, address, gfp_mask, &mpol, &nodemask);
- 
-@@ -1431,7 +1426,7 @@ static struct page *dequeue_huge_page_vma(struct hstate *h,
- 	if (!page)
- 		page = dequeue_huge_page_nodemask(h, gfp_mask, nid, nodemask);
- 
--	if (page && !avoid_reserve && vma_has_reserves(vma, chg)) {
-+	if (page && vma_has_reserves(vma, chg)) {
- 		SetHPageRestoreReserve(page);
- 		h->resv_huge_pages--;
- 	}
-@@ -3114,17 +3109,6 @@ struct page *alloc_huge_page(struct vm_area_struct *vma,
- 			vma_end_reservation(h, vma, addr);
- 			return ERR_PTR(-ENOSPC);
- 		}
--
--		/*
--		 * Even though there was no reservation in the region/reserve
--		 * map, there could be reservations associated with the
--		 * subpool that can be used.  This would be indicated if the
--		 * return value of hugepage_subpool_get_pages() is zero.
--		 * However, if avoid_reserve is specified we still avoid even
--		 * the subpool reservations.
--		 */
--		if (avoid_reserve)
--			gbl_chg = 1;
- 	}
- 
- 	/* If this allocation is not consuming a reservation, charge it now.
-@@ -3147,7 +3131,7 @@ struct page *alloc_huge_page(struct vm_area_struct *vma,
- 	 * from the global free pool (global change).  gbl_chg == 0 indicates
- 	 * a reservation exists for the allocation.
+diff --git a/sound/hda/controllers/tegra.c b/sound/hda/controllers/tegra.c
+index 31c14c4bbe683..674cc0f79c3c8 100644
+--- a/sound/hda/controllers/tegra.c
++++ b/sound/hda/controllers/tegra.c
+@@ -374,7 +374,8 @@ static int hda_tegra_first_init(struct azx *chip, struct platform_device *pdev)
+ 	 * in powers of 2, next available ratio is 16 which can be
+ 	 * used as a limiting factor here.
  	 */
--	page = dequeue_huge_page_vma(h, vma, addr, avoid_reserve, gbl_chg);
-+	page = dequeue_huge_page_vma(h, vma, addr, gbl_chg);
+-	if (of_device_is_compatible(np, "nvidia,tegra30-hda"))
++	if (of_device_is_compatible(np, "nvidia,tegra30-hda") ||
++	    of_device_is_compatible(np, "nvidia,tegra194-hda"))
+ 		chip->bus.core.sdo_limit = 16;
  
- 	if (!page) {
- 		spin_unlock_irq(&hugetlb_lock);
+ 	/* codec detection */
+
+---
+base-commit: 4c253ac4b29b8c6cc6fdef8f92d4facde62e63b9
+change-id: 20260926-tegra194-hda-sdo-1d84c6085198
+
+Best regards,
 -- 
-2.53.0
+Aaron Kling <webgeek1234@gmail.com>
+
+
