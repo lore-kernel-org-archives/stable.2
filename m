@@ -1,109 +1,153 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx.ssi.bg (mx.ssi.bg [193.238.174.39])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2BB430F95C
-	for <stable@vger.kernel.org>; Sat, 26 Sep 2026 19:43:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A3E5308F03;
+	Sat, 26 Sep 2026 19:48:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.238.174.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790451802; cv=none; b=ccAJwR+dj7ftieBdirQ50/zEfUUE5XZPPvicHybj4Bf33IwiP3sDDux58+iCmR5alo+N/t0tx+zvRYop5QYDcTj5qaJiEaoMgI3iQfDSL5lxDXtNj+ScZ1Ok+hl/7MHF+Or4KpUlf2BdI+Oc5a9zu9fY207IJCuZlhqaLFkTdwc=
+	t=1790452143; cv=none; b=U3wVcbpKe4yCwCgN+d3RV1ck8MfDlwihufvOaw24E5EMVit8VHn2UmVnCrAseV0TFlSD1FUFImy9mL9C7L5rqr1EAaye1piyan5Vk6/x6zoAD4c06NXFRpmVG3wJpWOBy00bC+GUTLGBtV/vxlWmJjEoXGVP3eLgSy3O3Y1OAyk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790451802; c=relaxed/simple;
-	bh=yFzj5SLBlau0HvAKLRZZb9fm5oHRvILo885f0yEf6+I=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EIZFo/DTN4j6mFVJTaPjflCWyqGCl5llJfJF+IMu0fjJ+xdWnRecgh+sgE26JvmSxWjwle5INWhXfpcDb75XZrpVUEBmGpKp/CsBJodzkJ0eF3ugBgvv59e7hfdSoOKe+u7VWz0/JXdjYX0IskmHJ/gqXBveIEVDfubhoyYOWfc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=SmIezdHK; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	s=arc-20240116; t=1790452143; c=relaxed/simple;
+	bh=Ibb/6XXCwXQp4NCYZvletoa717y4olArOp/reI1OTVc=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=HQ3S0ATMRT7FlXyqpoq1VwCbv8dcyQyj1K0BlFFyvsNCwtza7WEfkKK8Qfpig2Ez4w+ibzK5XaA5yqIcWDMMevMbCm1Z2l8wGGuTxSNXxNkUGNtBTjE1dMcAmt8HxMYs9aTAPRJpY6G/jH7ugSq1HCuwSSIWwhGHPjxmw3rnawM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg; spf=pass smtp.mailfrom=ssi.bg; dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b=jJQ12Axa; arc=none smtp.client-ip=193.238.174.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ssi.bg
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SmIezdHK"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ff9642c57so2183425e9.0
-        for <stable@vger.kernel.org>; Sat, 26 Sep 2026 12:43:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1790451799; x=1791056599; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KGm9iURTFOlFsZwXuvtV7Ou17cgzdnPa0yxJVyNfdSA=;
-        b=SmIezdHKprJN3ZjANvSWLfMXmZLxaKO2zcpWybN25horFWCOlgRmSQPS+j0URZrbmY
-         tz+HTZ3ScIZUId5NJgaN7UFxraHNY9HN/VacwqgH3pE0EuProk/6QqX9mDR9+IkjrYTF
-         cWwAB+0RxbKZFIusc38rbzVpnLaaU85OynABE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790451799; x=1791056599;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KGm9iURTFOlFsZwXuvtV7Ou17cgzdnPa0yxJVyNfdSA=;
-        b=xLkyrEwOKHNbQQ9xycFHPTjGolVftT6lBu2cMph3zugVr1PFz3FvzIo30mT/l1aFW7
-         AXvbZ1FAqGE9smPAKGTeqaNglNVKlzotpwS1y9u+tunzcFFKXRYSyU8MDD5QWUez4x7f
-         YQRKu6NZwiOfg7NG4u0YLu0VOX4u7GoZcQLSn5OCTKQIIOjGPWsswCwSkDIRn9AIYAEm
-         kWaZSI7v2Qi0mk9KKS6mhwTMTa3E9IgbfJygSXf2/BbLiSd14bF51/M9PQmklwIAsekv
-         HSdqD+CCb4V41KvFMY8XsuU49drU7Su1q+03ue/i5L+vJCc5WQ1yCq4s2fpc5vYfKfSI
-         HDuw==
-X-Forwarded-Encrypted: i=1; AKwUvBxkf0Xv3LhaHVIATdkSOBr1+XMmObnT/3y1Gku61jyPW913ie/OJBZ0f55CVHu0p+XEn0i9rnU=@vger.kernel.org
-X-Gm-Message-State: AFuF++ntBmLnMl/FcwMqU5SR4guaCmeoiCRe1mwewhjkUUu29l5KZlPi
-	NwMGxGnVZtEFqWPK73t5EGvrSJ9mSL5iNyWeXfm1Ot8hsrhqy1OoD0PGa5Agc9Y1glY=
-X-Gm-Gg: AYBFou2UfE1vlMjRHgRxhA5GF5JvFb/ftZH2bSwGKiSJI7cV9mRVUydzxPF0ulpDTX4
-	P3LWt8VZCQ7w72uTnH0sx1ap5YYQJwoDFshIOj9LAfzHM3s3uvdxYbJkrV/A0SJk8rlAB+AkhgY
-	xKDV+vAUJq8BUOQIB8aUR3Kx0FlimdgAw0/V1s/ZZTj01wlEKqs8rsM8JM2aRPQu9QB2wYGnaO5
-	2ntglVGiFZRBjiuV7Cofa0cSynaDH56XIFbbYGP8jxgD/9FYJxyUfVpzmeyn1uXolH28jmbv6cr
-	D9QV+F29+5IWdD6PEadP8cr1Ot7VlePNe2mJ4ev4bwltuamXkxhlXbhA4hEIIIhcTbn3wPph6xx
-	59UoTGuBpoiA7vRHZYQ5fbhEGrojqaZwlXNdBPMDQFKdelFx6uPU4KuVgl3o/eh05i+DMvqxzn4
-	r5HLYfl8borio0BIOLShfclIngZl8nECJD2uerdFZltol6lzQs1h0nsTjoVJEKZKqp7UWS/X3rI
-	VVJAMQFuWZGoxtdj84Q1dh4Dt0+xDAIg/q+K10KPOxSuQbcqLmH7V5yFw==
-X-Received: by 2002:a05:600c:4705:b0:49e:65f2:db64 with SMTP id 5b1f17b1804b1-49fe66d03b6mr165541205e9.5.1790451798838;
-        Sat, 26 Sep 2026 12:43:18 -0700 (PDT)
-Received: from [10.188.205.27] (cust-west-par-46-193-1-237.cust.wifirst.net. [46.193.1.237])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fffc12af2sm35786975e9.10.2026.09.26.12.43.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 26 Sep 2026 12:43:17 -0700 (PDT)
-Message-ID: <b0b2ed50-efc3-4b73-bf03-33adbe37cd2d@linuxfoundation.org>
-Date: Sat, 26 Sep 2026 13:43:14 -0600
+	dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b="jJQ12Axa"
+Received: from mx.ssi.bg (localhost [127.0.0.1])
+	by mx.ssi.bg (Potsfix) with ESMTP id 315D9213BC;
+	Sat, 26 Sep 2026 22:48:46 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ssi.bg; h=cc:cc
+	:content-type:content-type:date:from:from:in-reply-to:message-id
+	:mime-version:references:reply-to:subject:subject:to:to; s=ssi;
+	 bh=r65cERo9nN3Di2tCK7Ta1e4t4LWAALdjLsCb4qNUXHk=; b=jJQ12Axa2HCs
+	kfHXTLDavQxDxR/qvSBGW91RBDI0r2HBTMUiucDSuR1oXZzAiZTPZYrxaYISQ2lK
+	pdEWjpXx8afq8wDxHOYo33WpD8gbbrxNs+pk4Us6pQe8bkgcKhzJzsFMRTXs7sdz
+	rI4OwpOXzQOQWpPUn2o8JENhtBMVoULXeUhezYhuLuU1xj1h6b+nS0mO0mY7mdAW
+	XpOw9qAlflM3aGthodAb/uH4zpKo0DQxURziSqkDUgRyWNbNx6W3F+IPThQg8qU3
+	eZhFeAT0BdaZYPTDTx1KmwSqbSOARglq6E6tOF3aaFq0FATH6bJEs4ZiESr6DXsJ
+	nSQ0xTSr9c0e+89gdBA8yILMUCRN4IWF2ilKrB1S/IYk6TDln1zvOO9aZEl+J0S3
+	mbvgJcKWlVNy4dp47BA/WrEjzYsddagvKihTQWzSrfUpQ435bWtswdd2Dm3zD/DQ
+	FBl92HJcq9hWwN+Q4zgEJBCSj61RepqvUepMzZeKgHdioAJ6ogiQJnAgptq+GwqU
+	gbu+GuvW8TKz2jY54cIOTwTYgpi70VWjKTWNJrtmK3cwwWK6ATCQkapHjj2kE/Hv
+	ofJ86DKV2Uid/1A85+NWOqOplBMfJ+9JszdNlFgkeL1ukhPj7uUYxkz6Z24kyQW3
+	JS9A3hZLh1i7kOgvFfdSmyPy3qM+jVE=
+Received: from box.ssi.bg (box.ssi.bg [193.238.174.46])
+	by mx.ssi.bg (Potsfix) with ESMTPS;
+	Sat, 26 Sep 2026 22:48:46 +0300 (EEST)
+Received: from ja.ssi.bg (unknown [213.16.62.126])
+	by box.ssi.bg (Potsfix) with ESMTPSA id 4DCD4608A1;
+	Sat, 26 Sep 2026 22:48:48 +0300 (EEST)
+Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
+	by ja.ssi.bg (8.18.2/8.18.2) with ESMTP id 68QJmeRi056579;
+	Sat, 26 Sep 2026 22:48:40 +0300
+Date: Sat, 26 Sep 2026 22:48:40 +0300 (EEST)
+From: Julian Anastasov <ja@ssi.bg>
+To: Chengfeng Ye <nicoyip.dev@gmail.com>
+cc: Simon Horman <horms@verge.net.au>, Pablo Neira Ayuso <pablo@netfilter.org>,
+        Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
+        lvs-devel@vger.kernel.org, netfilter-devel@vger.kernel.org,
+        coreteam@netfilter.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org
+Subject: Re: [PATCH net] ipvs: Defer application parent freeing until after
+ RCU readers
+In-Reply-To: <20260926175129.2612644-1-nicoyip.dev@gmail.com>
+Message-ID: <7ee83494-378a-ea25-6f31-e3164d533594@ssi.bg>
+References: <20260926175129.2612644-1-nicoyip.dev@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] usbip: vudc: Prevent transfer timer rearm during
- teardown
-To: mhun512@gmail.com, valentina.manea.m@gmail.com, shuah@kernel.org,
- i@zenithal.me, gregkh@linuxfoundation.org
-Cc: ae878000@gmail.com, michael.bommarito@gmail.com,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Shuah Khan <skhan@linuxfoundation.org>
-References: <CAGEsz8Gwh=Y31EuTJLUp_jq3HhiizHxt7_ivOuytyZZH06mycA@mail.gmail.com>
-Content-Language: en-US
-From: Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <CAGEsz8Gwh=Y31EuTJLUp_jq3HhiizHxt7_ivOuytyZZH06mycA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
 
-On 9/24/26 15:51, mhun512@gmail.com wrote:
-> Commit d96209626a29 ("usbip: vudc: Fix use after free bug in
-> vudc_remove due to race condition") deletes the timer before
-> usb_del_gadget_udc() stops the receive thread.  v_kick_timer() can rearm
-> it even in VUDC_TR_STOPPED, leaving v_timer() to use freed vudc.
+
+	Hello,
+
+On Sun, 27 Sep 2026, Chengfeng Ye wrote:
+
+> unregister_ip_vs_app() removes each incarnation from its protocol list and
+> uses call_rcu() to defer freeing it, but frees the parent application
+> immediately. An RCU reader that already found an incarnation can still
+> access the parent through inc->app in ip_vs_app_inc_get().
 > 
-> Use timer_shutdown_sync() to reject later rearms.  Replace the
-> inaccurate blanket lock comment with __must_hold(&udc->lock) on
-> v_start_timer() and v_kick_timer(); v_init_timer() and v_stop_timer() run
-> unlocked.
+> During FTP helper module unload, the following interleaving is possible:
 > 
-> A KASAN/DEBUG_OBJECTS_TIMERS x86_64 QEMU harness binds g_zero to
-> usbip-vudc.0, sends CMD_SUBMIT to usbip_sockfd via a socketpair, and
-> repeatedly unbinds/rebinds vudc.  The unpatched kernel reported a
-> free-active timer and a use-after-free in v_timer(); the patched kernel
-> ran 4000 iterations without either report.  No physical device or
-> remote client was tested.
-> > Fixes: d96209626a29 ("usbip: vudc: Fix use after free bug in
-> vudc_remove due to race condition")
+>   CPU 0 (RCU reader)                 CPU 1 (module unload)
+>   tcp_app_conn_bind()
+>     find inc in protocol list
+>                                      unregister_ip_vs_app()
+>                                        ip_vs_app_inc_release(inc)
+>                                          list_del_rcu(&inc->p_list)
+>                                          call_rcu(&inc->rcu_head, ...)
+>                                        kfree(a)
+>     ip_vs_app_inc_get(inc)
+>       try_module_get(inc->app->module)
+> 
+> The helper module is already going away, so try_module_get() would fail,
+> but evaluating its argument first reads the freed parent. The subsequent
+> rcu_barrier() in pernet unregistration cannot protect this earlier free.
+> KASAN reported:
+> 
+>   BUG: KASAN: slab-use-after-free in ip_vs_app_inc_get+0x7c/0x90
+>   Call Trace:
+>    ip_vs_app_inc_get+0x7c/0x90
+>    tcp_app_conn_bind+0x1bc/0x290
+>    ip_vs_conn_new+0x1915/0x20d0
+>    ip_vs_schedule+0x697/0xea0
+>    tcp_conn_schedule+0x489/0x820
+>    ip_vs_in_hook+0x7bf/0x1f40
+>   Allocated by task 88:
+>    kmemdup_noprof+0x20/0x50
+>    register_ip_vs_app+0x12d/0x2c0
+>    __ip_vs_ftp_init+0x56/0x160 [ip_vs_ftp]
+>   Freed by task 104:
+>    kfree+0x131/0x3c0
+>    unregister_ip_vs_app+0x2f4/0x5b0
+>    unregister_pernet_operations+0x232/0x490
+>    unregister_pernet_subsys+0x1c/0x30
+>    __do_sys_delete_module+0x346/0x510
+> 
+> Use kfree_rcu() with the existing rcu_head to keep the parent alive until
+> these readers finish. Successful helper references already prevent normal
+> module unload, and incarnation RCU callbacks do not access the parent.
+> 
+> Fixes: 363c97d7435e ("ipvs: convert app locks")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
 
-If you haven't tested this physical devices and a remote client, how
-do you know this change fixes the problem. Sorry I can't accept this
-patch.
+	Looks good to me for the nf tree, thanks!
 
-thanks,
--- Shuah
+Acked-by: Julian Anastasov <ja@ssi.bg>
+
+> ---
+>  net/netfilter/ipvs/ip_vs_app.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/net/netfilter/ipvs/ip_vs_app.c b/net/netfilter/ipvs/ip_vs_app.c
+> index 11cbdbaf561d..2c1b47702da2 100644
+> --- a/net/netfilter/ipvs/ip_vs_app.c
+> +++ b/net/netfilter/ipvs/ip_vs_app.c
+> @@ -242,7 +242,7 @@ void unregister_ip_vs_app(struct netns_ipvs *ipvs, struct ip_vs_app *app)
+>  		}
+>  
+>  		list_del(&a->a_list);
+> -		kfree(a);
+> +		kfree_rcu(a, rcu_head);
+>  
+>  		/* decrease the module use count */
+>  		ip_vs_use_count_dec();
+> -- 
+> 2.43.0
+
+Regards
+
+--
+Julian Anastasov <ja@ssi.bg>
+
