@@ -1,149 +1,135 @@
-Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC9923859F5
-	for <stable@vger.kernel.org>; Sat, 26 Sep 2026 04:40:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE15B345EB4
+	for <stable@vger.kernel.org>; Sat, 26 Sep 2026 05:26:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790397638; cv=none; b=doFgrRbUGCfwxgzd9Qm3jkPoMuS5+A+A44pz6VUMBecSPGgPmRqfWNHz0YHwuKE31j43yegCA4lPPtmmpdTr+TxwCj91eC9qcaiSfSNck/PJEsYK6KAFmCzOBDJn0QjBfacghwqM+YoL6H0EjnyWozRnfkE1I0uw4e1a8CJBehQ=
+	t=1790400414; cv=none; b=PePMAzhLipk1paO/ntrJ/AXXtIFo4rZBBIGLau9ZNSyLz9aVW5LGSZ5YIcrE0rKLf0R6oUPuwQ0yRApmD8aIt9SWuzLdvcMdTKqAy8lGAWIctS/q3+Z1UjeWNriedB005nyixWpElRajmay25wJaA9CX3G+7imQwiVxJfccI/qE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790397638; c=relaxed/simple;
-	bh=9/8pQ7p02Q5KmGp4IRdYWIfOXW7xj9/SWyUcOpAt66s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=T98pdcZe6Vs6Gsa8VIHYOMuS3w9iNQ7aDbzM6/1hMMgNJ3TLjAHB0PtlpdSAKVrkxCXRQKpnAHBeTFvhu4W20ciyPr4LDrP8DLo/j3PEMNFm4r0ug2xS+hAZWxFRAZslyap/SAgFtBgqaMjKV3LyAnse0/aRCJI/WuMKTRC3KQY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZJ0X+k1Z; arc=none smtp.client-ip=74.125.229.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790400414; c=relaxed/simple;
+	bh=4P9v5MNF+H4noSBR7OJYRA03UpcVDJ1wkDA1N3AMcj4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=HmwZcIkoWfIe/a1oI1jd12N0uDY6yHlbNDNFyqoNiZaKJ2ejNN8STFNbADvYioyrHhDqF35qklef3bj/jfKbMED5eFt0RQGRMq7OerQReXthv4Wq+ssvL2baVtjf4/DHFGMhNrPgmt2IyDilxY9yFCd24vb8WgBQX1BF4c/HgM4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=EA98V28q; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZJ0X+k1Z"
-Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-3396cec93b6so1774600eec.3
-        for <stable@vger.kernel.org>; Fri, 25 Sep 2026 21:40:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790397636; x=1791002436; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IUYBRI5sdXRLkIxlzo71bpLRDvT0ncaqZ/+GUrIm8/E=;
-        b=ZJ0X+k1ZokMbEMxaNXbmKkwxVT4DgAY4qGz8jtRM7WA1hMlBbEL3KR5UkrAXE/l3Ml
-         5aj3jEq9po2uT7rjl1kSTmSsl1QI2tOsbv1HTbZL8NXQ00cEqMFZMtfKR9lnY3uM/Upm
-         dmCteq9/XCCYXPaEBnXni8hojKoUR4eaRq2Rd6vRWMsrL2NNBmhTxq1y3Q5300QeUnk0
-         7S8pDT3f4iRRfw5O6h29OxRrsC6T7KTp5PBBjFj6OhULzDSU8oeTuXmHJ6zuWhAsfl8u
-         x11OiLXBKyjz4y/0HwF/LzPDu+ZJSyWNYGIBd+TEv4VLaRRJV6WNftleKhOgm2UnIobn
-         HcNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790397636; x=1791002436;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IUYBRI5sdXRLkIxlzo71bpLRDvT0ncaqZ/+GUrIm8/E=;
-        b=sLfwV4vXEggFeRM68B/X40sF6uFTcNsU6Xe2Pbf56swfgfSG/p8NgXmlo7Wgy1Nuw+
-         lpfD1ZztkEh690LBPwLWMv79ijmMv+uL4p1+/QFu3hg5kFYdlQ2yG20XkuHTCmo9k8Cq
-         ThP69kekbigoSKUttjPzlezt2ByX5mfYj3wW2n/q/ammscliVyk1kTzpx+6oUDt2QUp0
-         4K34RN9ia6Fb6FV9GVlLunvMU/efRMmMokUep2RzHYa9d/YwzzOqei5ImEoPZi65wMTX
-         QSFbwa2KeHh5QfJ9DzO8hzAahi7dC2ON9NMA3WwQ5h7YjPglXqi96VMnyFiAFbyEtibw
-         6kLQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz5s9lpF1AezpdLBccqoZM5RR6m7ZHIeS/g/ID+UiVDXydCdajLdvDEkXYOaKCZj/iYxpq0n/0=@vger.kernel.org
-X-Gm-Message-State: AFuF++m77prNFZSs2DPjxoilCkcPWdwGI+vtkB1Pohyh0bCqKzWAIuNp
-	9C6wRYH2J0bD3jP44aOzgNurZKRzPC6kQUqyrHUbBbvoJt+I3hS3PTk2
-X-Gm-Gg: AYBFou1JAV8L5Yf4s65/xE7t3CHnj0z0YjFUXKQzkRmdH3F59k0rT1NjuelOE6zYZYP
-	WXRNgC4kpV3Ap8xb2M0PqgScjlSPMw/tGrSle8x+Gd3EEJ5KO6HM0whRr4DUy9mCPJx5dymsl7C
-	0e5NnhgoXTQeDrQ4yiEjcBFX+eXVZp3SyLdyhJ7rcqBYAsCk+bEwIeqQJpGfQDfBz/KSYu/M/NQ
-	xZ5+NdLyKTLuzwfKTuDs/MA+v10AaSJnu8rA9VDBckZzigzRjnY7y1T8F2lTSK2MP1IkrlrZDpM
-	zDHTDqkd++wc8TdqQHex2PpZUp3sw6HOHwKUzUdZhowEWhl0OOTuPDJBqUNKOTO55BUYnSMb6Wi
-	d+amhIXhYIQ0UeK3b+AbJK3YFK0DgiUvM4Cgxtuz3cLZ5n3fNO/QPbTdfssb8GJ8fzWUeFIvzyg
-	MsveqjyJZyU5y23DtP/VlQ/07ZHrtx/gYxTo2e/93EcmrUb/o4kkQkH5vFxA2rKYZF4PvDbAsGi
-	of996guNe/3h7Ntcx5VYdytSooXbaINHdi0HJ4=
-X-Received: by 2002:a05:7301:4d0b:b0:341:d191:b838 with SMTP id 5a478bee46e88-34272562bc0mr2032551eec.31.1790397636098;
-        Fri, 25 Sep 2026 21:40:36 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:375:19cf:5fee:be32])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-341447576b9sm11731720eec.15.2026.09.25.21.40.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 21:40:35 -0700 (PDT)
-Date: Fri, 25 Sep 2026 21:40:32 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: david@ixit.cz
-Cc: Andi Shyti <andi@etezian.org>, Rob Herring <robh@kernel.org>, 
-	Marco Mattiolo <marco.mattiolo@hotmail.it>, linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	phone-devel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] Input: s6sy761 - fix resume ordering and restore sensing
-Message-ID: <ardMSVsG1RlOOkNp@google.com>
-References: <20260923-s6sy761-suspend-v1-1-6fff96e71cb0@ixit.cz>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="EA98V28q"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790400412;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=NvmGXSA00HPZOSJCm9LwOa3iASeTeG9V+ogkkFW7yoI=;
+	b=EA98V28qB/0AdTy9zs/gYXej+9OkmuEoq2tsBWtvbyBtjKlyWIkSN75jcM/SlislHBnzSj
+	9/WH5eMBXGwmtZC6VZ32KWjcON7T0+C8Wqvl/CUd2TQlEUdDWJ8bML3nfajFHgs7rExEXJ
+	2OQOaXA058mnul3UYDTR3+nZowBkF9A=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-448-mf8t4hv8OJ20ml8ky0IVzw-1; Sat,
+ 26 Sep 2026 01:26:48 -0400
+X-MC-Unique: mf8t4hv8OJ20ml8ky0IVzw-1
+X-Mimecast-MFC-AGG-ID: mf8t4hv8OJ20ml8ky0IVzw_1790400407
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id DC408195606F;
+	Sat, 26 Sep 2026 05:26:46 +0000 (UTC)
+Received: from virtlab1023.virt.eng.rdu2.dc.redhat.com (virtlab1023.virt.eng.rdu2.dc.redhat.com [10.18.48.26])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 35B091956086;
+	Sat, 26 Sep 2026 05:26:46 +0000 (UTC)
+From: Paolo Bonzini <pbonzini@redhat.com>
+To: linux-kernel@vger.kernel.org,
+	kvm@vger.kernel.org
+Cc: Sean Christopherson <seanjc@google.com>,
+	Gabriel Schneider <gbrls@osec.io>,
+	stable@vger.kernel.org
+Subject: [PATCH] KVM: x86/mmu: Bail from shadow walks if the root is invalid or a dummy
+Date: Sat, 26 Sep 2026 01:26:45 -0400
+Message-ID: <20260926052645.195528-1-pbonzini@redhat.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923-s6sy761-suspend-v1-1-6fff96e71cb0@ixit.cz>
+Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-Hi David,
+From: Sean Christopherson <seanjc@google.com>
 
-On Wed, Sep 23, 2026 at 03:27:06PM +0200, David Heidelberg via B4 Relay wrote:
-> From: David Heidelberg <david@ixit.cz>
-> 
-> System suspend powers the controller off and resume powers it back on,
-> but the resume path enables the interrupt before s6sy761_power_on()
-> checks the boot. The firmware raises its boot-complete event on the
-> interrupt line, the threaded handler consumes it, s6sy761_power_on()
-> then reads an empty event and resume fails with -ENODEV, skipping the
-> touch function setup:
-> 
->   s6sy761 2-0048: PM: dpm_run_callback(): s6sy761_resume [s6sy761] returns -19
-> 
-> Power the chip on first and only then unmask the interrupt. Once resume
-> completes the boot handshake the chip comes back with sensing off, as
-> at probe where input_open() turns it on, so the touchscreen stays dead
-> after resume. Send SENSE_ON again when the input device is open.
-> 
-> Tested on a Pixel 3 XL over several s2idle cycles: resume succeeds and
-> the touch function and sense status match the pre-suspend state.
-> 
-> Assisted-by: LLM
-> Cc: stable@vger.kernel.org
-> Fixes: 0145a7141e59 ("Input: add support for the Samsung S6SY761 touchscreen")
-> Signed-off-by: David Heidelberg <david@ixit.cz>
-> ---
->  drivers/input/touchscreen/s6sy761.c | 11 ++++++++++-
->  1 file changed, 10 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/input/touchscreen/s6sy761.c b/drivers/input/touchscreen/s6sy761.c
-> index 0f24a9b730635..c52c45a7d1029 100644
-> --- a/drivers/input/touchscreen/s6sy761.c
-> +++ b/drivers/input/touchscreen/s6sy761.c
-> @@ -495,20 +495,29 @@ static int s6sy761_suspend(struct device *dev)
->  	s6sy761_power_off(sdata);
->  
->  	return 0;
->  }
->  
->  static int s6sy761_resume(struct device *dev)
->  {
->  	struct s6sy761_data *sdata = dev_get_drvdata(dev);
-> +	int err;
->  
-> +	err = s6sy761_power_on(sdata);
->  	enable_irq(sdata->client->irq);
+When walking shadow page tables, immediately terminate the walk if the root
+is a "dummy" root, i.e. a root whose top-level page table is backed by the
+zero page, but otherwise doesn't exist.  If memslot creation races with a
+stage-2 page fault (EPT violation or #NPF) from L2, then if the stars align,
+KVM will attempt to walk shadow page tables using the zero page and hit a
+NULL pointer deref.
 
-Why are we enabling the interrupt even if power on failed?
+  BUG: kernel NULL pointer dereference, address: 0000000000000021
+  #PF: supervisor read access in kernel mode
+  #PF: error_code(0x0000) - not-present page
+  PGD 0 P4D 0
+  Oops: Oops: 0000 [#1] SMP
+  CPU: 30 UID: 1000 PID: 941 Comm: qemu Not tainted 7.2.0-rc2-1b731e5ded48-next-vm #1741 PREEMPTLAZY
+  Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 0.0.0 02/06/2015
+  RIP: 0010:__kvm_mmu_invalidate_addr+0xea/0x210 [kvm]
+  Call Trace:
+   <TASK>
+   kvm_mmu_invalidate_addr+0x92/0xe0 [kvm]
+   __kvm_inject_emulated_page_fault+0x67/0x80 [kvm]
+   ept_page_fault+0x160/0x850 [kvm]
+   kvm_mmu_do_page_fault+0x102/0x1f0 [kvm]
+   kvm_mmu_page_fault+0x8e/0x6b0 [kvm]
+   vmx_handle_exit+0x163/0x640 [kvm_intel]
+   kvm_arch_vcpu_ioctl_run+0x960/0x2120 [kvm]
+   kvm_vcpu_ioctl+0x2c7/0x970 [kvm]
+   __x64_sys_ioctl+0x90/0xd0
+   do_syscall_64+0x67/0x5f0
+   entry_SYSCALL_64_after_hwframe+0x4b/0x53
+  RIP: 0033:0x7f606d0b53bb
 
-> +	if (err)
-> +		return err;
->  
-> -	return s6sy761_power_on(sdata);
-> +	guard(mutex)(&sdata->input->mutex);
-> +
-> +	if (!input_device_enabled(sdata->input))
-> +		return 0;
-> +
-> +	return i2c_smbus_write_byte(sdata->client, S6SY761_SENSE_ON);
+Opportunistically harden the shadow walks against fully invalid roots, but
+WARN, as all callers are expected/required to pre-check for a valid root.
+Don't WARN in the dummy root case as the whole point of using a dummy root
+is to provide a root that's valid enough to enter the guest, i.e. it should
+Just Work for all flows except those that *need* to know about dummy roots.
 
-Explicit return err/return 0 please - there are multiple failure points
-in this function.
+Alternatively, KVM could allocate a dedicated page and associated shadow
+page structure for the dummy root, which is very tempting as it such an
+approach should be more resilient against unexpected behavior.  But that
+would be a much larger and thus riskier change than simply terminating
+walks of dummy roots.
 
-Thanks.
+Fixes: 0e3223d8d00a ("KVM: x86/mmu: Use dummy root, backed by zero page, for !visible guest roots")
+Reported-by: Gabriel Schneider <gbrls@osec.io>
+Cc: stable@vger.kernel.org
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Message-ID: <20260925234256.2384816-1-seanjc@google.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+---
+ arch/x86/kvm/mmu/mmu.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
+diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+index 8e62476e477b..a0d608e3fceb 100644
+--- a/arch/x86/kvm/mmu/mmu.c
++++ b/arch/x86/kvm/mmu/mmu.c
+@@ -2512,6 +2512,12 @@ static void shadow_walk_init_using_root(struct kvm_shadow_walk_iterator *iterato
+ 
+ 	iterator->addr = addr;
+ 	iterator->shadow_addr = root;
++
++	if (WARN_ON_ONCE(!VALID_PAGE(root)) || kvm_mmu_is_dummy_root(root)) {
++		iterator->level = 0;
++		return;
++	}
++
+ 	iterator->level = vcpu->arch.mmu->root_role.level;
+ 
+ 	if (iterator->level >= PT64_ROOT_4LEVEL &&
 -- 
-Dmitry
+2.52.0
+
