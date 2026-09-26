@@ -1,78 +1,78 @@
-Received: from mail-dl2-f28.google.com (mail-dl2-f28.google.com [74.125.229.156])
+Received: from mail-pj2-f3.google.com (mail-pj2-f3.google.com [74.125.227.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBDC137F74B
-	for <stable@vger.kernel.org>; Sat, 26 Sep 2026 17:04:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.156
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2A68383310
+	for <stable@vger.kernel.org>; Sat, 26 Sep 2026 17:10:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790442262; cv=none; b=dV+s36LAPgVK+LauX4loYQzqJDl+6E2sUi7FV4IkVL1L9q1/cwxqdAMg+UjCVDMSWb8g6G/9TQXAJP3n76q8d2IgUncKvqwiu/oL7HrfhNIYsSDcczAjRk9Sgap8pSszVzYQ+DkbJTseeEdCWehVOwIcDJSLPa766XFNGcaGAZY=
+	t=1790442659; cv=none; b=FRuAoEzd7PJABR8KLj1gtvewmGAtbM3BeVBmNF/kbmDwCSdOp01JM95ceZRULfke+Z+v40o5BSn6EUheFdutDQ2j9baXyy3HxWgwOYs66lNXnCR1hEfCWKaZvc2URLARm0hKzAV5nrDLYv+ee5ey8BbWkYHCldTSg1bKoyWjRyw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790442262; c=relaxed/simple;
-	bh=FOTy/TBPMa65c0zW+/hXfcPf2be11FeCATWE+c9E1vk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gfqYBvsmprfXgb4DO5O5sndzUb+9+qYwFxVy1EigJh4e8TUCn3cGi8g9yk+wvRMeGcDhe8r2xBOGzyxB/tybZoy9MTpN2NtEcVi8S2nHjdYgUezD8uj9Nc3XWY8MSLaqR1POIqx1oqX/yifEfDe8vwagVFa3E3Zq2OOdmq0SV8k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ihr3FdRI; arc=none smtp.client-ip=74.125.229.156
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790442659; c=relaxed/simple;
+	bh=1Ijmd4NtwbrxYG0QbmrAlqjExMAyCe44/2dJ1XZKKMU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=jQx9RAMejhMiaDcXfsQ9FZPdgmT7cD1FmYu0yc0EkrehCegeUvumu6dBjDhvu349b8ZB9aj0VCVmqVOFvG5yHOA9NnRZvBmZ/8DFbqxTNvNrP6BbXVp6331TMnrVyHvDPK1Gb5XgqxQ0506uNDi0dr9oN61aEUHDI5kaInKu7G8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=embeddedlinux.blog; spf=pass smtp.mailfrom=embeddedlinux.blog; dkim=pass (2048-bit key) header.d=embeddedlinux.blog header.i=@embeddedlinux.blog header.b=L2IgYw6v; arc=none smtp.client-ip=74.125.227.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=embeddedlinux.blog
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=embeddedlinux.blog
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ihr3FdRI"
-Received: by mail-dl2-f28.google.com with SMTP id a92af1059eb24-1437c39c109so13935c88.3
-        for <stable@vger.kernel.org>; Sat, 26 Sep 2026 10:04:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=embeddedlinux.blog header.i=@embeddedlinux.blog header.b="L2IgYw6v"
+Received: by mail-pj2-f3.google.com with SMTP id 98e67ed59e1d1-3a0cb6b922eso492249a91.1
+        for <stable@vger.kernel.org>; Sat, 26 Sep 2026 10:10:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790442259; x=1791047059; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lW9B3RFKax9dJ+z9f2YCeF20/rKA4gk2jBKeDVcp2oU=;
-        b=ihr3FdRIjVBHgpuxiYnjnz42PDw9n/ehAAun1V0NVDmVXvZti5XlOeoi0O34yCOMDf
-         EPROAX125ewX28PX2lGsZ9GglvMKyouM8VpnULj8LUH9ggDNHTxxc5lMGVazVm6sJYYb
-         NUm3bQyowbNQ9SarBZWvYSe/K5wkCRHQmrynIfoY9WjVDopuqFjaZ0CifjvLSmgVfWAL
-         dIKctOb9Qd7xKnpsBldok9nvW9JvRjajfs4bQWlVVLohvp2LM6N6tJi5ugD/rAo/dcr3
-         qAhRIvJzeKpyuV+4zB4qZLk+bWo3mnQ2mu21dwnNUARAQxEzziF053UzBskA2CnD/mDO
-         eZpg==
+        d=embeddedlinux.blog; s=google; t=1790442657; x=1791047457; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=F0/79LdVzvZe+TAFF8pS9QgkNB/YVyvKTl0/c5RoqxI=;
+        b=L2IgYw6vW8xHZseT0u/BrE3tqC4C62lAdDxT4lMSuILCnmhBEqEt27ypHi8rQK06Bk
+         HrGUp/4oC/m+yslwIFGAZ61FvvFcG4x/j8nNqswfdNntkD+SZeOuYbfqdTFwhQFhcwBS
+         eyiC/tiqTH6ZbdhgovRXypAlRDXHc9gLJ1DHu1Y0z/DWo+KnWzqWTgyhSw5Jc4oacw10
+         7OxnMUgyln/RK4UAJm6q4826RGyhM5HNpptyeiXBq7LYWYZKA9du4wbwFGxVGlZLf0ww
+         yWnkOlDAEmuWOkauwgJRnuERCrKY4S5zwoOrJjANH/ur9puem4Ap8MbxfFYMQQA3Veg7
+         /s2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790442259; x=1791047059;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lW9B3RFKax9dJ+z9f2YCeF20/rKA4gk2jBKeDVcp2oU=;
-        b=RC/ofvjiQ10YixrKGyumIazyyKBeV0NZ0N33Fbc/GQ32Qux4EmKCO7zjNg7YNb4G3B
-         T58C9GmYkHzI8Vbn1VVBLFBWVnbMce49WMZSgnV/9AQPm/gGPPrYbkTVHLb86QRXesNr
-         MUe2GOMIbLgbgaBtGwoOW/HyCPp5mZOSq8iAU0advMvsJ7BHoiymtpHwJZblRPiyDZT+
-         yZirqlVQW/1UFl9KMShdVDrRHgdaiKEJVNUMwdYYCUmS1ZkUHTv9QIaS5I2IkEZJl1TM
-         TT6bEkWEgMtPZIFczGPGmaKxY0ZV1yVtK301/zTazxTkjlAbisIFGLRstqWQNPO8HbK6
-         gQ0g==
-X-Forwarded-Encrypted: i=1; AKwUvBxugduwn50VWMGufycSeuQGHRX35UW/6i9a2yiMUfeWnCnDK+DUQrL8Q27jGxg82GmEYqXdfLk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lFtjgoVQT01H94M/XOh9l4Hae/oAqqWWJ7Q0CqRnKmctW6ocNn
-	3BCLbcmSfwxXXuLfYwGN6ogvKd/PWDFDiFVsV2eeIpDaO82FUWXSYyTf
-X-Gm-Gg: AYBFou2dKJHh0E7Q2oRve5Pwwt2CeoH/mpvcokQ9+DBlulJxkvW5p+m0VxHspcEHbgU
-	FAnGgB4CjDslBkcfvr6DPOG/J2caH49iNtRzyR5Nw8tWcUY6gA+a303BV1y7D+2NwePYJrHmEys
-	c+/CSNH2lOVXEVYexB9va0H2voaRnFCQ8cMuxIqrmXXqgdzbSqjVs8eGQMHqZXpU1E/IVQp7OJg
-	idQ0w3AwrjbbD3yiMTI2xoZLGttcQmWUAUBOJUgsnRtw+09deXFXjiCJmtq5wW21nKjGLvjEfBd
-	Ahd0ldwYVw05+izxs2Ny1vP/B0Ds1BwbnAkzuQ3ZXRztO6qrLV7AjcuYbcASj1rovQ1qzdtQQ7Q
-	Rwvf6xzkngwcyubNlbf9YqFgLJIJU25LVkSbnct2BhydJTWgi+HBFr0idFg2JVOmFNLBScHJgMS
-	7qbpmn1VwAGsIXEa4syO8I/+sxjFDGAGDXST0+2cDXRydoq2v44yHKNA0BW8I6tcL+FcUlQBGzY
-	HWpp98got3ez0ZveyT0onE4NYRp9wfalVMdnUWBdBIpk3zMa3YNBkIZYnUJBi3Ieeg4UA==
-X-Received: by 2002:a05:7022:5f11:b0:127:def:dd72 with SMTP id a92af1059eb24-146cfdcf467mr4623512c88.2.1790442258542;
-        Sat, 26 Sep 2026 10:04:18 -0700 (PDT)
-Received: from localhost.localdomain (95.169.12.199.16clouds.com. [95.169.12.199])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145a7318afcsm13343905c88.0.2026.09.26.10.04.16
+        d=1e100.net; s=20260707; t=1790442657; x=1791047457;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=F0/79LdVzvZe+TAFF8pS9QgkNB/YVyvKTl0/c5RoqxI=;
+        b=CJ75alxQ+rhxdqcn4zV+4cafUOIMEN9svmk7kyeS6wgwbsq8V40Uue/pXZlUGXYxzX
+         nrymuxskyeXrJ4vybdQDlFqCeP2Y8cuiVJ+cjDXOGSU/TWpIs2gtP/5c6tFoa7XMNn//
+         Bdy+vqwpC4aEIdkBd8kmyDSZTFWljr1cq+k1rCvJ+TGu2c5/r/2BBVRp1DQYBpR0cwrE
+         YDMnfHMgS+i8/hPntUpJLTRH52Fe6SJuGl5zN/F6ANTZMm5jmUPnzweu9BbQOaGoQgvN
+         efadmwJbraxSdo98kAxVkIKR12I4WzkX8Vc2yTmBog6PTcu5IJX0Qh/j12N1AkctuB7o
+         TGTQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx/zNNZRYEltF7dSiqxm1T4GQs6Oac1CJ24HDrQUrpBnoN3ndzGpcSVyf+nWvYz5Ve8ZPawFgc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL7gJhPDHg/iVcIw84EpyRPuTJINFUmuQ7xtvI05oem1a9/cpTY
+	OwYNxFc9NP67lJlZgc7oy0S/sDmkU9bEHIc9E33jrCIt2CoQFEYliXc2lbdq5rTHszo6
+X-Gm-Gg: AYBFou2mjURoZoOejFzJEDZ39HN9ohz3lPQugHaJf535esPQjcbo0WuLV6yZaOuK/os
+	vf0TFvvXmVro4lyJ6L8pfcWoQ3WVS+PoWjtMgXJS4g86shoYMqrbU2VfX/JbjFyDW2HzBbc86H/
+	sSkGpJgT9GctgaFwGy4qHbh6Yen2t9ONMiuKXdeIJxuf+BWH2kU0uVXMH+vcHYlnEse/UerrYFw
+	EGsSyw1rrE82mWXy4yZkF2idxKmIK4OfyN6gZSCzgIs5ik/SZ3oQfUD+WtG8dkel0WLxDorJXlR
+	8IkIiOUcAbAtEMex2nWrz/s8cizNzCfMHswpoRHkdP6dC2T0QXlyJ/uaJCY7VXMkZ13ZDJy90Br
+	FooklB0srnpW35OVUgmFE4WfAxrqYSlANEhR9pUNxQ93z4ZKcd8Q0YaCO2xno0Th5ozxJ5l/zrB
+	XmU1jSKIQmSb6vUdbhJCi04VCBYAFN9HemZgYlN3PNLfXi1Uju6Ipz8KbCbHDnE3T+Lg==
+X-Received: by 2002:a17:90b:4c42:b0:39e:4c80:f680 with SMTP id 98e67ed59e1d1-3a098bb66d1mr8321977a91.31.1790442656808;
+        Sat, 26 Sep 2026 10:10:56 -0700 (PDT)
+Received: from ltu.. ([171.245.4.151])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0976c7435sm17467136a91.11.2026.09.26.10.10.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 10:04:17 -0700 (PDT)
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-To: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Gustavo Padovan <padovan@profusion.mobi>
-Cc: linux-bluetooth@vger.kernel.org,
+        Sat, 26 Sep 2026 10:10:55 -0700 (PDT)
+From: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
+To: Vinod Koul <vkoul@kernel.org>
+Cc: Frank Li <Frank.Li@kernel.org>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Chengfeng Ye <dg573847474@gmail.com>,
+	dmaengine@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
+	tien.nguyenminh@embeddedlinux.blog,
 	stable@vger.kernel.org
-Subject: [PATCH net 2/2] Bluetooth: hci_core: Serialize SCO and ISO scheduling with teardown
-Date: Sun, 27 Sep 2026 01:04:03 +0800
-Message-ID: <410c2b78a2bdab548f1794cae2a131ad32f23b6b.1790407061.git.nicoyip.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1790407061.git.nicoyip.dev@gmail.com>
-References: <cover.1790407061.git.nicoyip.dev@gmail.com>
+Subject: [PATCH v3] dmaengine: sun6i: Fix potential deadlock on &sdev->lock
+Date: Sun, 27 Sep 2026 00:10:49 +0700
+Message-Id: <20260926171049.841335-1-tien.nguyenminh@embeddedlinux.blog>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -81,150 +81,87 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-hci_low_sent() selects a connection under RCU but drops the read lock
-before calculating its quota and returning it to the scheduler. The
-connection is then used without lifetime protection by hci_sched_iso()
-and hci_sched_sco().
+From: Chengfeng Ye <dg573847474@gmail.com>
 
-After the TX worker drops the RCU read lock, hci_abort_conn_sync() on
-hdev->req_workqueue can remove the connection from the hash, complete
-synchronize_rcu(), purge its queues and release it. The TX worker on
-hdev->workqueue can then access the freed connection in hci_quote_sent()
-or while dequeuing packets and updating conn->sent.
+As &sdev->lock is taken by the tasklet sun6i_dma_tasklet() in softirq
+context, other users of the lock in process context should disable
+interrupts, otherwise the tasklet can preempt a holder of the lock on
+the same CPU and deadlock. sun6i_dma_terminate_all() and
+sun6i_dma_pause() take it without disabling interrupts.
 
-KASAN reported:
+This was found by an experimental static analysis tool for irq-related
+deadlocks. Lockdep reports it too on an Allwinner T113, where the lock
+is also taken inside the HARDIRQ-safe vc->lock:
 
-  BUG: KASAN: slab-use-after-free in hci_low_sent+0x730/0x840
-  Workqueue: hci0 hci_tx_work
-  Call Trace:
-   hci_low_sent+0x730/0x840
-   hci_sched_iso+0x25e/0x4d0
-   hci_tx_work+0x239/0xcb0
+  [  299.389380] WARNING: possible irq lock inversion dependency detected
+  [  299.411196] c7109568 (&sdc->lock){+.-.}-{3:3}, at: sun6i_dma_terminate_all+0x40/0x2c4
+  [  299.419137] but this lock was taken by another, HARDIRQ-safe lock in the past:
+  [  299.426398]  (&vc->lock){-.-.}-{3:3}
 
-  Allocated by task 93:
-   __hci_conn_add+0x16f/0x1b40
-   hci_bind_bis+0x782/0x17b0
-   hci_connect_bis+0xa0/0x510
-   iso_sock_connect+0x589/0x1050
+Use spin_lock_irqsave() in both places, as
+sun6i_dma_free_chan_resources() already does.
 
-  Freed by task 88:
-   kfree+0x131/0x3c0
-   device_release+0xc8/0x240
-   kobject_put+0x14d/0x280
-   hci_conn_del+0x55a/0xe80
-   hci_disconnect_sync+0x156/0x180
-   hci_abort_conn_sync+0x3e7/0x940
-   hci_cmd_sync_work+0x13c/0x290
-
-Hold hci_dev_lock() across connection selection and transmission in both
-SCO and ISO scheduling, serializing them with connection teardown. This
-also prevents queuing completion timestamps after the connection queues
-have been purged. Extending RCU across transmission would be unsafe
-because the transmit path can sleep. Keep the ISO timeout check outside
-the mutex since hci_link_tx_to() takes it itself.
-
-The preceding channel fix already holds this mutex in the ACL and LE
-schedulers, which call the SCO scheduler between packets. Move the SCO
-body to __hci_sched_sco(), assert that its caller holds the mutex, and
-use it directly from these locked paths. Keep a locking hci_sched_sco()
-wrapper for the direct calls from hci_tx_work(). This avoids recursively
-acquiring the device mutex while preserving the scheduling order.
-
-Remove the obsolete claim that connection removal disables TX.
-
-Fixes: bf4c63252490 ("Bluetooth: convert conn hash to RCU")
+Fixes: 555859308723 ("dmaengine: sun6i: Add driver for the Allwinner A31 DMA controller")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+Signed-off-by: Chengfeng Ye <dg573847474@gmail.com>
+[tien: rebased, added the lockdep report from a T113, Fixes and Cc stable]
+Signed-off-by: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
 ---
- net/bluetooth/hci_core.c | 26 ++++++++++++++++++--------
- 1 file changed, 18 insertions(+), 8 deletions(-)
+I ran into this on a MangoPi MQ-Dual (Allwinner T113-S3): with lockdep
+on, stopping dmatest set off the report above in
+sun6i_dma_terminate_all(), and a small test module set it off in
+sun6i_dma_pause(). While looking for a fix I found Chengfeng's v2 from
+2023. It never got a review and no longer applies, so I rebased it on
+dmaengine next and added the lockdep report, a Fixes tag and Cc stable.
+Chengfeng, I hope you don't mind me picking it up.
 
-diff --git a/net/bluetooth/hci_core.c b/net/bluetooth/hci_core.c
-index 24b46ccd4da2..985c58dc6da8 100644
---- a/net/bluetooth/hci_core.c
-+++ b/net/bluetooth/hci_core.c
-@@ -3402,9 +3402,6 @@ static struct hci_conn *hci_low_sent(struct hci_dev *hdev, __u8 type,
- 	struct hci_conn *conn = NULL, *c;
- 	unsigned int num = 0, min = ~0;
+With it, lockdep stays quiet on both paths on 7.3-rc4, and dmatest on
+four channels passes while another channel is paused, resumed and
+terminated in a loop.
+
+v2: https://lore.kernel.org/20230726051727.64088-1-dg573847474@gmail.com
+
+ drivers/dma/sun6i-dma.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/dma/sun6i-dma.c b/drivers/dma/sun6i-dma.c
+index 5ad9d01cf..aee32363c 100644
+--- a/drivers/dma/sun6i-dma.c
++++ b/drivers/dma/sun6i-dma.c
+@@ -887,6 +887,7 @@ static int sun6i_dma_pause(struct dma_chan *chan)
+ 	struct sun6i_dma_dev *sdev = to_sun6i_dma_dev(chan->device);
+ 	struct sun6i_vchan *vchan = to_sun6i_vchan(chan);
+ 	struct sun6i_pchan *pchan = vchan->phy;
++	unsigned long flags;
  
--	/* We don't have to lock device here. Connections are always
--	 * added and removed with TX task disabled. */
--
- 	rcu_read_lock();
+ 	dev_dbg(dmaengine_chan_dev(chan), "vchan %p: pause\n", &vchan->vc);
  
- 	list_for_each_entry_rcu(c, &h->list, list) {
-@@ -3609,13 +3606,15 @@ static void __check_timeout(struct hci_dev *hdev, unsigned int cnt, u8 type)
- }
- 
- /* Schedule SCO */
--static void hci_sched_sco(struct hci_dev *hdev, __u8 type)
-+static void __hci_sched_sco(struct hci_dev *hdev, __u8 type)
- {
- 	struct hci_conn *conn;
- 	struct sk_buff *skb;
- 	int quote, *cnt;
- 	unsigned int pkts = hdev->sco_pkts;
- 
-+	lockdep_assert_held(&hdev->lock);
-+
- 	bt_dev_dbg(hdev, "type %u", type);
- 
- 	if (!hci_conn_num(hdev, type) || !pkts)
-@@ -3650,6 +3649,13 @@ static void hci_sched_sco(struct hci_dev *hdev, __u8 type)
- 		queue_work(hdev->workqueue, &hdev->tx_work);
- }
- 
-+static void hci_sched_sco(struct hci_dev *hdev, __u8 type)
-+{
-+	hci_dev_lock(hdev);
-+	__hci_sched_sco(hdev, type);
-+	hci_dev_unlock(hdev);
-+}
-+
- static void hci_sched_acl_pkt(struct hci_dev *hdev)
- {
- 	unsigned int cnt = hdev->acl_cnt;
-@@ -3685,8 +3691,8 @@ static void hci_sched_acl_pkt(struct hci_dev *hdev)
- 			chan->conn->sent++;
- 
- 			/* Send pending SCO packets right away */
--			hci_sched_sco(hdev, SCO_LINK);
--			hci_sched_sco(hdev, ESCO_LINK);
-+			__hci_sched_sco(hdev, SCO_LINK);
-+			__hci_sched_sco(hdev, ESCO_LINK);
- 		}
+@@ -894,9 +895,9 @@ static int sun6i_dma_pause(struct dma_chan *chan)
+ 		writel(DMA_CHAN_PAUSE_PAUSE,
+ 		       pchan->base + DMA_CHAN_PAUSE);
+ 	} else {
+-		spin_lock(&sdev->lock);
++		spin_lock_irqsave(&sdev->lock, flags);
+ 		list_del_init(&vchan->node);
+-		spin_unlock(&sdev->lock);
++		spin_unlock_irqrestore(&sdev->lock, flags);
  	}
  
-@@ -3745,8 +3751,8 @@ static void hci_sched_le(struct hci_dev *hdev)
- 			chan->conn->sent++;
+ 	return 0;
+@@ -935,9 +936,9 @@ static int sun6i_dma_terminate_all(struct dma_chan *chan)
+ 	unsigned long flags;
+ 	LIST_HEAD(head);
  
- 			/* Send pending SCO packets right away */
--			hci_sched_sco(hdev, SCO_LINK);
--			hci_sched_sco(hdev, ESCO_LINK);
-+			__hci_sched_sco(hdev, SCO_LINK);
-+			__hci_sched_sco(hdev, ESCO_LINK);
- 		}
- 	}
+-	spin_lock(&sdev->lock);
++	spin_lock_irqsave(&sdev->lock, flags);
+ 	list_del_init(&vchan->node);
+-	spin_unlock(&sdev->lock);
++	spin_unlock_irqrestore(&sdev->lock, flags);
  
-@@ -3772,6 +3778,8 @@ static void hci_sched_iso(struct hci_dev *hdev, __u8 type)
+ 	spin_lock_irqsave(&vchan->vc.lock, flags);
  
- 	__check_timeout(hdev, *cnt, type);
- 
-+	hci_dev_lock(hdev);
-+
- 	while (*cnt && (conn = hci_low_sent(hdev, type, &quote))) {
- 		while (quote-- && (skb = skb_dequeue(&conn->data_q))) {
- 			BT_DBG("skb %p len %d", skb, skb->len);
-@@ -3785,6 +3793,8 @@ static void hci_sched_iso(struct hci_dev *hdev, __u8 type)
- 			(*cnt)--;
- 		}
- 	}
-+
-+	hci_dev_unlock(hdev);
- }
- 
- static void hci_tx_work(struct work_struct *work)
+
+base-commit: 0a8dda0a15d3926422d286567f945a05328a4ac6
 -- 
-2.43.0
+2.34.1
 
