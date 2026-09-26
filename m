@@ -1,88 +1,46 @@
-Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E02E3A382B
-	for <stable@vger.kernel.org>; Sat, 26 Sep 2026 07:11:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.40
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAD7C351C22;
+	Sat, 26 Sep 2026 07:16:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790406703; cv=none; b=aLUJyuc+X6eWBiKmTz5sxt/RLyQPhUFU0mmZ8lwtU8Fe28Erhq2wK6wHTQJwSYKS1jFqzIaTwv6P5AkC2u/aZVUAJaqdTj0f7pj+p/nLdxkG00AXTtNCvvIFTBVKaRsJD/ZwhyF3Utq0n/FnOKEpsuu1jjHw9UNRZUNJ4esmqYc=
+	t=1790407017; cv=none; b=qU9YMqhwDlgLyUbgKN5g2yIZt5ZBO7wx2Hd32BNOGck2gNTnG6bpMoosVtN1mawQ6kI+r68MeuU1bczCaquVzOwTVM9hjraW2SkO3whUkOQs0Z9arColHqdu9yYkxUPnH70bX/FQjdxIzASOxRf3QwaLakp3sTwrHL2Uhs+VZcA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790406703; c=relaxed/simple;
-	bh=PtlgsNXnmfis3ceY240pb1ELF3pamHCPllFSka5A5+M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nvRSsvGD6lZBxHi9Yl9GVVPlJB6cN0SPV7IYtdsU7GiVp1LxLU7UJ2tTigRb2uuEd/Kp5usPuWtot6hw3prk/Fi5qaGSq5j5zXVYBM19HKpgo4JRoDVGttNVWtzM38I4S3Mmj3A5bujdptubxW6ZfO8xe3i0p0ymOxnY3bw+0ec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dnlhIxjb; arc=none smtp.client-ip=74.125.228.40
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790407017; c=relaxed/simple;
+	bh=eQ7MB/qBuFHzMv4qVO3cAx9UnXEJ34m+nOfTXpVOyw0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=oYZVVIhnobkHACsVz7JUN0glsr0Y0rt08zZmeff2aNy842T2u/g+svSV8LGGkqmTspvFCEgb5CYfxJfzAifexoa1CsdrbznmB6OCRCS9cwoq+wEUeJb/PLBDrIVzur5urk1YyqV3Pms7iPm8jQ70vE8efK8f07vr440HrRIEr5A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=aApRAPIu; arc=none smtp.client-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dnlhIxjb"
-Received: by mail-pz2-f40.google.com with SMTP id d2e1a72fcca58-8804b59404aso618915b3a.3
-        for <stable@vger.kernel.org>; Sat, 26 Sep 2026 00:11:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790406694; x=1791011494; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=e1uflVYidz7MNBUBcoHSIOw+jh4ssEiqibOfcA56ewY=;
-        b=dnlhIxjbeka0hiFEsy6IJsk6y0sXeZ4a7i+9tX+GS0hO61X7cJ0MVk48JjuAkKH19X
-         9ZDxu5p+fq6xnO6CtNqdRVeaMqjhC/AQmihuP7UJYHCSqbG4gH75Po1NpSNtiPbl3CMR
-         zghf1iKF8ibP+YogLazMlaXXBsyBHPoDMyRQ9lPAXBYLm8OAGiCrumL/R5Z5wBkRtCEe
-         IGoJa6hmlbTrjk0sKUGVWaMHey0wwOq/KigstkHqLm4NTz2twS5K4t0YGj5DC7NR2Ix/
-         EmE2mTzmFllqcXPZaVe97W8/Gysd1KTBDWFSmjG/lGrko4pa+eJXiKTtcGIgbeOLRzPp
-         H/vA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790406694; x=1791011494;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=e1uflVYidz7MNBUBcoHSIOw+jh4ssEiqibOfcA56ewY=;
-        b=YI8/x88XboNuDM8N8am+MvNhY4ulYLivPUi5C7tp3pNq97kh5cBW5V3WGG7T82zf/i
-         3U+b2KH3XngaUIUiLV+Gv1T7veNWjbBx9nwqkj1L2feiVAMkO7pG9jB2c1p526R8OcAw
-         PqJUZGEGF9GuRCOSclXhhUGVviE4M69lDBtdcs3rIuD3/FkgCkBxRdN1fhDMSxVyHMep
-         w94RPJxgpY9eahaWFtS3/V1u1oCTW9tXc3Vi3Qf8DshNPARv/okNIb04NAyzB7LhbmAK
-         eqFjrUQ1dzDp2xzKzbmFNq5C0hbw7LCmVMz+yAqLE7SnP8yTE8Uq3pGQZWN7SKPR+RWK
-         iXiA==
-X-Forwarded-Encrypted: i=1; AKwUvBwFdHeHETcPLr2EMf066U773NDL9hKELV3dukbrai8xGfMyprDxRdCXsRtvncismDzkc1oU9zY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lv4+6UYGb92vgoOctX5NVtoDAa5/Y5ktU48DsqwoFczEvfEpUQ
-	dm7VeWkP8WJbfvjnfME52aplSgQHZk+0UbwY41Q048lvajFAEpmqbGc=
-X-Gm-Gg: AYBFou0EExOtzcm09UQ1Xhwv+dTsv469Txf/FSfJMdbKSrymYgoZ3rg3L/fIZoxlXhK
-	sPYmWdVx6GQiLuQMLosEnuNsxNkR2ZmSDPzZcuOGF4kDsycx5aUzbMIebeuJnYZ2sYYGbnRV+FS
-	jvL2kWjWrndruS3QqN9vUOzq1Zw4zMAxYOp+IrSEu5ySlQMN4x/dXUkSY/TjzKRgj0hZjYAjEwa
-	Y6HGcgMwGk0okU4/e8/NsysVWfLDe/I+LmZbBzZKpaykkj4EM+vxraeWauQM/X1biinQTZwAG3K
-	bl+PMXw9AjRvt/YwUllUkSicuywrlSjJGjDk0d9uYZJC6/ww59ArLH99cz2Mln4JT5xX2ze5mZ3
-	hMHKqIRlTybfhZPOhZs4gWLac9yEYzTaT0bJvNLfp3AJc0lxpl1B8Js8Y8VETaqC4keZ4kfQgxM
-	MQF1FbkFfOwkL+79ryc+Wyxdqo/CSY+TdBoTVuM2SMCHbL5Py1mtRgkC2zDzIiyF6iKzHA9wuny
-	qEACBgf+HkVEjBXwHWv8BCw
-X-Received: by 2002:a05:6a00:b904:b0:881:79ec:a65d with SMTP id d2e1a72fcca58-88179eca7c0mr762226b3a.32.1790406693845;
-        Sat, 26 Sep 2026 00:11:33 -0700 (PDT)
-Received: from ydg-Zenbook-14-UM3406GA ([211.230.25.193])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87feae8d827sm1971825b3a.36.2026.09.26.00.11.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 00:11:33 -0700 (PDT)
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
-	akpm@linux-foundation.org,
-	rppt@kernel.org,
-	peterx@redhat.com,
-	surenb@google.com,
-	aarcange@redhat.com,
-	ljs@kernel.org,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	mhocko@suse.com,
-	shuah@kernel.org,
-	kirill@shutemov.name,
-	linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="aApRAPIu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=73
+	XNOlAF6E96w2dh7owltodN0UASq3BclRNN+vB8FBk=; b=aApRAPIuaegCfEtdx4
+	KAhhMhIAmtfcuyumghTOTmgEYMVTuH5m7BCNIe0zbDLzyzecq736mqm1CKVTHvua
+	2RQub8XJ/g+SNHnWl3aix54Qph8kP/2dUjVNpdvlmQcwqoh7nmeqxQZMKt6kU1Hn
+	aWqUBnleZelFTVn7OQqrlFWdc=
+Received: from pc.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wDnTzo3cbdqUXJ1Aw--.58745S2;
+	Sat, 26 Sep 2026 15:16:08 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Davidlohr Bueso <dave@stgolabs.net>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Alison Schofield <alison.schofield@intel.com>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Dan Williams <djbw@kernel.org>,
+	Ira Weiny <iweiny@kernel.org>,
+	Li Ming <ming.li@zohomail.com>,
+	linux-cxl@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Jiale Yao <yaojiale02@163.com>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] userfaultfd: clear the inherited uffd bit in move_swap_pte()
-Date: Sat, 26 Sep 2026 16:11:26 +0900
-Message-ID: <20260926071126.2869041-1-donggeunyoo.kernel@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <8f60eae1-31ba-4ff4-adf9-951240561f13@kernel.org>
-References: <20260925042907.2330519-1-donggeunyoo.kernel@gmail.com> <20260925042907.2330519-2-donggeunyoo.kernel@gmail.com> <20260924214811.19ef8af417d37071ed8338c4@linux-foundation.org> <8f60eae1-31ba-4ff4-adf9-951240561f13@kernel.org>
+Subject: [PATCH v2] cxl/acpi: Check ACPI companion before use
+Date: Sat, 26 Sep 2026 15:16:05 +0800
+Message-Id: <20260926071605.3013893-1-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -90,33 +48,74 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDnTzo3cbdqUXJ1Aw--.58745S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7tryDtF1rtw15Aw1furW8Xrb_yoW8tFy7pF
+	Z7ta4FkrW8GrW0kw4qv3y5C3WF9a10ya4UCF1kGwn8u39Igr1DJFy3tFWUZr98Cr93tayI
+	yF1UtF10ka4UZaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRR6wJUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8BjyLWq3cTg8ggAA3d
 
-On Fri, 25 Sep 2026 09:36:26 +0200, David Hildenbrand (Arm) wrote:
-> It would also be helpful to describe if this was actually hit in practice so
-> far. IOW, how relevant is this in practice.
+Platform drivers can be forced to match devices outside their ID tables
+through driver_override.  cxl_acpi_probe() assumes that every bound device
+has an ACPI companion and dereferences adev->dev.bus without checking the
+result of ACPI_COMPANION().  Force-binding cxl_acpi to a platform device
+without a companion therefore causes a NULL pointer dereference.
 
-Not that I know of.  An LLM found it reading the code, and I couldn't find
-a report of it on linux-mm or lkml.
+This was reproduced by setting the driver override for the pcspkr platform
+device to cxl_acpi and binding it through sysfs:
 
-> Will this trigger a kernel splat later?
-
-Yes, with CONFIG_PAGE_TABLE_CHECK.  When the moved page is faulted in at
-the destination, do_swap_page() copies the uffd bit to the present PTE and,
-because the destination isn't WP-registered, also makes it writable.  A
-read fault is enough:
-
-  WARNING: mm/page_table_check.c:202 at __page_table_check_ptes_set+0x185/0x1e0
+  BUG: kernel NULL pointer dereference, address: 0000000000000280
+  #PF: supervisor read access in kernel mode
+  RIP: cxl_acpi_probe+0xf4/0x220
   Call Trace:
-   set_ptes+0x67/0xc0
-   do_swap_page+0x990/0xfe0
-   __handle_mm_fault+0x7d0/0xeb0
-   handle_mm_fault+0x9c/0x250
-   do_user_addr_fault+0x207/0x650
-   exc_page_fault+0x65/0x150
-   asm_exc_page_fault+0x26/0x30
+   platform_probe+0x4d/0x80
+   really_probe+0x106/0x370
+   device_driver_attach+0x4c/0xa0
+   bind_store+0xd0/0x100
 
-That's on 7.3-rc4 in QEMU, from a WP- or RWP-armed source; with this
-patch applied it doesn't fire.  I'll put it in the v3 changelog.
+Commit 2b3a5dabe89e ("platform/surface: acpi-notify: Check ACPI
+companion before use") fixed the same force-binding issue in another
+platform driver.  Check the companion before setting up the CXL root and
+return -ENODEV when it is absent.
 
-Thanks,
-Donggeun
+Fixes: 7d4b5ca2e2cb ("cxl/acpi: Add downstream port data to cxl_port instances")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
+
+Notes:
+    Changes in v2:
+    - Move the ACPI companion assignment immediately before its NULL check.
+    - Reorder local declarations in reverse Christmas tree order.
+
+ drivers/cxl/acpi.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/cxl/acpi.c b/drivers/cxl/acpi.c
+index 3b818adbd38b..fb09a5ff48c1 100644
+--- a/drivers/cxl/acpi.c
++++ b/drivers/cxl/acpi.c
+@@ -885,13 +885,17 @@ static int pair_cxl_resource(struct device *dev, void *data)
+ 
+ static int cxl_acpi_probe(struct platform_device *pdev)
+ {
+-	int rc;
++	struct cxl_cfmws_context ctx;
++	struct acpi_device *adev;
+ 	struct resource *cxl_res;
+ 	struct cxl_root *cxl_root;
+ 	struct cxl_port *root_port;
+ 	struct device *host = &pdev->dev;
+-	struct acpi_device *adev = ACPI_COMPANION(host);
+-	struct cxl_cfmws_context ctx;
++	int rc;
++
++	adev = ACPI_COMPANION(host);
++	if (!adev)
++		return -ENODEV;
+ 
+ 	device_lock_set_class(&pdev->dev, &cxl_root_key);
+ 	rc = devm_add_action_or_reset(&pdev->dev, cxl_acpi_lock_reset_class,
+-- 
+2.34.1
+
