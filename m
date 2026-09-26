@@ -1,168 +1,256 @@
-Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 957B3426D0C
-	for <stable@vger.kernel.org>; Sat, 26 Sep 2026 10:51:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 107D12AEE1;
+	Sat, 26 Sep 2026 10:54:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790419882; cv=none; b=kbhwdl6nAHMrIM+v6BJwzncwWo2Fmd9ByzGxGgJl6PyTuy/uPrXaSShYT+l4x+s+aMpfFoyQedun8p2B+WoO9Lh0LWIyPmWUkD5lRe4YS6ZZTjH16S+H65Xv1/GbLAal2btnk6qSskhRrx0acJsdP+lY2gVsseyUKDROXUeMeQw=
+	t=1790420045; cv=none; b=ZZ5dYbW6V7f5LgM7Q5TWoV0ZJRwp5vCLnvFLPvUE793GdTAwZIDx6JzKaB/MTS2U0tdMwm3pqUcgPSsdPI3parIv78QMhS+0j4g5ZFEp6t06DE3JqPO9AXsUc6couqkOD7yStMBfK43JKYhM5nDhyFENCmJF92zrx6F26xGDCxY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790419882; c=relaxed/simple;
-	bh=p8ORfN9N1BvBiIfNdyK1EL1yqSsunDsvGuDRaYt15QM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SEFaGh00ICg3njf6cNCOT3Pn5n95jgP5S7AS+tRi1LjbWbH0vSFx7KkAazyh4npQH5N9A9jq/9S/z0rB+Kkxl91AxKAUK9jD3A0KQB5gd++vc+jM5lzMmSoZqqBhiQr6a/YMi/aSrsuRxS3txPbREpeHXbFQhLuckx25hnIopGU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=UadDcNhw; arc=none smtp.client-ip=209.85.160.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	s=arc-20240116; t=1790420045; c=relaxed/simple;
+	bh=E8qseG3lAh2Gqznur1fW5a/Q4FQBN75qcS8bPYI94iQ=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=CXsaewltEEB75zOHJqODiBx5LAyHG8/JEr9MPoequ27eMieeO0tgKfELrAL9+qygS5nRve0o2RLDQwS2/7lpCiRwb15E0lr4UMk2FV8lWM3jhfes/APRwPHxhP91275Ry2vLb4H/4dPUpBO0gr69fAm5Xlj/TuaitAz6GAgujmU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h//5IdTR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="UadDcNhw"
-Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-5306abbdccbso17404181cf.1
-        for <stable@vger.kernel.org>; Sat, 26 Sep 2026 03:51:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1790419877; x=1791024677; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4S3VSL5jcx+g44Lzd252R2CJu0ug8jx5f4c9i60iZqU=;
-        b=UadDcNhw4AEKmwPtOl4c51xSQxyxPq/R8LD0MxSOARyndxXBH51HZwQDebgnC3dETU
-         MRJhvSVIGbb4NR1pWC8vh3t3r8ALiYNQxFPJHmRZPnCRc/KEq8zxQruciPNZZvk+oAmC
-         0w7F/BWUeW33freIV4dnYO4YsKWWwW1PQDhh4oD2hByv1nMBP+54VBDy5f7BmSK+9lEj
-         S70wYsJsjFbg7r2Ddo8Pyd+b3IKnLF6YvHe3mkG93cw42Q/4WLA6tczXmcTjN5WJjz/X
-         S210deEDInSbTktzzLNblbR7TupHueCXBDa+UaC1Hp/pw/R7A85aEmCOXgZ4RwpqM5JP
-         eh1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790419877; x=1791024677;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4S3VSL5jcx+g44Lzd252R2CJu0ug8jx5f4c9i60iZqU=;
-        b=WpaKasTTxYmcuU5y2ZS6QKyWdxWfHm3e/tBPVY3MbCi0veDaiXKYD6Uo3ZTkUJLdWl
-         xMBVmvC/XTIuXbWd/nbJ3HFXtsVFwMmnbNzYxXtiQQ6QeOy89FS3hIYvHzNfro1BwJx2
-         WjsiBzMTQvomxCqluY0an4A5e6NzVqYjBpVluxkyUv7X32VQ0wMIIbR/gTRASY79Q/j/
-         bOaEdTk7tTWYJqGPXyEVtuKe+LpRTvwi6lvnWIkWahkLVp7fXYxpZK71iSyRlqwcLiuP
-         3hpmTC2i0lAy4G7o4jxJ3s6Vq8rXuGFwc1LwFtXXbIIfxmBHonuwqJSsLrTOulfjr26C
-         uXOA==
-X-Forwarded-Encrypted: i=1; AKwUvByAOa4nylQvKregiXV3pfwnWmR+PFQcDMeLz6ZMOa9hHBvKgQtMRr+miX3RcA1YG9ajoLLSjFc=@vger.kernel.org
-X-Gm-Message-State: AFuF++k58ndgyIRCtFTpM53X7lNdc0q+D/4QtNJ7YKiig5/yPsjNycJa
-	3auq+Q9Q3nyYywI0ibNpVZcL5DDp0Hj/k68rvszykB6eA+Yye3B8/4y/Q2K2PFGj4PA=
-X-Gm-Gg: AYBFou1ypPUJDcow4CMa5Tl4zIyoY4mKsD5StGCwQPgTYgd2ffBRUhHBL0X6gFYMKwQ
-	l31Vn7SYDsGkdOa4FlmRjz/Iu1fZgSPC3T5pQ8wYMdmN59DZxCWiYc9KGCiv98c6gIICoQ4eZ3N
-	dbzMY5LRPqa5JuwrYewwaOBK7ucjVWztn7KdqvUdqc0xcjHgBDDFUnHgy3wvI1LPNA5isPnVmHC
-	47klBOde6GfFgTKMiVnLdAc06WrcjUUdiP6h/Rqg4FB/OBaPyiMsD5rLf2b1gHb3kWhIv33BxlU
-	bcyL0NBoeeeTPeKcByfIXM/Vysx6DIs2jbwmhWYWin6AVM/lwLS+IqGRmh/eekhNoqojADh+CP1
-	qvggZNFnVggUAryfe1k2hucd7WI5MScRl2xjydRNjbOm4uE0xSxxdeKETCvFYhcpHvZHtBqxF3a
-	WOk6u4Fe9e0K41+dUVkiryyQ8zBrh0wQYW6S6qDeNb1gXgU+3gqUyosJZTiUDClLq9gxgX3zszn
-	ZXazrJQa0YKPOJgN5h3yMGS6RnIaYOQNA2Ofo4stJHrohUTRVDDSGRKlHSh
-X-Received: by 2002:a05:622a:2295:b0:531:1e10:acfe with SMTP id d75a77b69052e-5330b5b9d4fmr87128541cf.10.1790419877016;
-        Sat, 26 Sep 2026 03:51:17 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53322422063sm15060361cf.28.2026.09.26.03.51.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 03:51:16 -0700 (PDT)
-From: Gregory Price <gourry@gourry.net>
-To: linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org,
-	kernel-team@meta.com,
-	akpm@linux-foundation.org,
-	liam@infradead.org,
-	ljs@kernel.org,
-	david@kernel.org,
-	vbabka@kernel.org,
-	jannh@google.com,
-	gourry@gourry.net,
-	ziy@nvidia.com,
-	joshua.hahnjy@gmail.com,
-	rakie.kim@sk.com,
-	ying.huang@linux.alibaba.com,
-	peterx@redhat.com,
-	jgg@ziepe.ca,
-	sashiko-bot <sashiko-bot@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v3 2/2] mm/madvise: use vm_normal_folio_pmd() in cold/pageout PMD range
-Date: Sat, 26 Sep 2026 06:51:10 -0400
-Message-ID: <20260926105110.2156652-3-gourry@gourry.net>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260926105110.2156652-1-gourry@gourry.net>
-References: <20260926105110.2156652-1-gourry@gourry.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h//5IdTR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87E7E1F000FF;
+	Sat, 26 Sep 2026 10:54:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790420043;
+	bh=MEUsGDPZJ1etI6bT5VFrdoyo40LYh6UcgGZhMJWLshk=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=h//5IdTRClvnADITeggLeepX6FWpE6vTlokvRi4v4s18EVrn6XWy/zlW2KkGFv+pX
+	 qf5mqtW5ylGpRsjaDKIzCBCzlsmYnv2uPu7yDyEdbbC0m71FVpLfao0CxGxNh+kORD
+	 wz2fCMHwUaTE9n1T5MP+Buel2TFPbELHqsCYxFQYW5BfRxJgTzu+lrjs7IGlDkA3jE
+	 b2jaDBS2OX0AswZaeUNRbGmdcJP+pPZCnRy8TUoBIQ5fu5Q4O6H5A0RNsNkpl2dRiE
+	 67jHWIfYC1KJSX710BlGlNlaEyAuW9pAiHpX/VHDCI8PLnFZ9/8l/QUJyX/+9weZsk
+	 qnWhlPTyusrPA==
+Subject:
+ Re: [PATCH v2] nfc: nci: ignore unexpected CORE_RESET_NTF and CORE_RESET_RSP
+From: netdev-bot+sashiko@kernel.org
+To: ndaugoing@gmail.com
+Cc: horms@kernel.org, david@ixit.cz, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, oe-linux-nfc@lists.linux.dev,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Sat, 26 Sep 2026 10:54:01 +0000
+Message-ID: <179042004198.2160803.79590143461584366@kernel.org>
+In-Reply-To: <20260922102144.39689-1-ndaugoing@gmail.com>
+References: <20260922102144.39689-1-ndaugoing@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-mmap a VM_MIXEDMAP region whose ->huge_fault installs a PMD through
-vmf_insert_pfn_pmd() - mshv_vtl_low does this, and needs CAP_SYS_ADMIN
-to open - then:
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-  madvise(p, PMD_SIZE, MADV_PAGEOUT);
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-With a stand-in module for the driver:
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-  BUG: unable to handle page fault for address: fffff587c0000008
-  RIP: 0010:madvise_cold_or_pageout_pte_range+0x410/0x9b0
-   walk_pgd_range+0x52b/0xaf0
-   __walk_page_range+0x6a/0x1d0
-   walk_page_range_vma_unsafe+0x8e/0x120
-   madvise_pageout+0xb2/0x180
-   madvise_vma_behavior+0x46b/0xa90
-   do_madvise+0x108/0x190
-   __x64_sys_madvise+0x26/0x30
+- [Medium] The NCI_RESET_PENDING gate is evaluated in workqueue context
+  (nci_rx_work() -> nci_rsp_packet()/nci_ntf_packet(),…
+- [Low] The patch adds contradictory reset-trigger semantics in two
+  artifacts of the same commit: include/net/nfc/nci.h:143-146 defines…
 
-Nothing validates the pfn on the way in:
+--
 
-  can_madv_lru_vma()     rejects VM_PFNMAP, but not VM_MIXEDMAP
-  can_fault()            *pfn = vmf->pgoff & ~(mask >> PAGE_SHIFT);
-  vmf_insert_pfn_pmd()   no pfn_valid() check
-  pmd_folio()            pfn_to_page() -> unpopulated vmemmap
+nfc: nci: ignore unexpected CORE_RESET_NTF and CORE_RESET_RSP
 
-Even with a valid pfn the path is wrong.  The mapping carries no rmap, so
-folio_maybe_mapped_shared() sees mapcount 0, and the walker goes on to
-folio_deactivate(), or folio_isolate_lru() plus reclaim_pages(), against a
-folio this mapping does not own.
+This adds an NCI_RESET_PENDING flag which is set when CORE_RESET_CMD is
+sent and cleared when the request finishes, and gates the core layer
+handling of CORE_RESET_RSP and CORE_RESET_NTF on that flag.  The intent is
+that an unsolicited or delayed reset packet no longer completes an
+unrelated in-flight request nor overwrites ndev->nci_ver and the
+manufacturer fields.
 
-Use vm_normal_folio_pmd() and skip on NULL, as the PTE half of this same
-walker already does with vm_normal_folio().  This also filters the huge
-zero PMD, so its separate check is no longer needed.
+A couple of questions below.
 
-Fixes: 3c8e44c9b369 ("mm: mark special bits for huge pfn mappings when inject")
-Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260817220810.1175596-1-gourry%40gourry.net
-Cc: stable@vger.kernel.org # v6.19+
-Assisted-by: LLM
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
----
- mm/madvise.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+> diff --git a/include/net/nfc/nci.h b/include/net/nfc/nci.h
+> index 09efcaed7c3f6..2ac45adba0886 100644
+> --- a/include/net/nfc/nci.h
+> +++ b/include/net/nfc/nci.h
+> @@ -140,6 +140,11 @@
+>  #define NCI_RESET_TYPE_KEEP_CONFIG				0x00
+>  #define NCI_RESET_TYPE_RESET_CONFIG				0x01
+>  
+> +/* NCI Reset Triggers */
+> +#define NCI_RESET_TRIGGER_ERROR					0x00
+> +#define NCI_RESET_TRIGGER_POWER_ON				0x01
+> +#define NCI_RESET_TRIGGER_RESET_CMD				0x02
+> +
 
-diff --git a/mm/madvise.c b/mm/madvise.c
-index 61e15d9502ca..85ab9bc76e06 100644
---- a/mm/madvise.c
-+++ b/mm/madvise.c
-@@ -395,16 +395,15 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
- 			return 0;
- 
- 		orig_pmd = *pmd;
--		if (is_huge_zero_pmd(orig_pmd))
--			goto huge_unlock;
--
- 		if (unlikely(!pmd_present(orig_pmd))) {
- 			VM_WARN_ON_ONCE(!pmd_is_migration_entry(orig_pmd) &&
- 					!pmd_is_device_private_entry(orig_pmd));
- 			goto huge_unlock;
- 		}
- 
--		folio = pmd_folio(orig_pmd);
-+		folio = vm_normal_folio_pmd(vma, addr, orig_pmd);
-+		if (!folio)
-+			goto huge_unlock;
- 
- 		if (folio_is_zone_device(folio))
- 			goto huge_unlock;
+[Severity: Low]
+Do these new definitions agree with the comment added in
+nci_core_reset_ntf_packet() in the same patch?
+
+Here 0x00 is named NCI_RESET_TRIGGER_ERROR and 0x02 is named
+NCI_RESET_TRIGGER_RESET_CMD, but the new comment in ntf.c says:
+
+	 * revision-dependent (0x00 in NCI 1.0, 0x02 in NCI 2.0), so both
+	 * are let through to the reset-pending gate below instead.
+
+The in-tree selftest tools/testing/selftests/nci/nci_dev.c uses 0x02 as
+the first payload byte of its CORE_RESET_NTF, which matches
+NCI_RESET_TRIGGER_RESET_CMD but not the 0x00 claim.
+
+Also, only NCI_RESET_TRIGGER_POWER_ON is used anywhere;
+NCI_RESET_TRIGGER_ERROR and NCI_RESET_TRIGGER_RESET_CMD have no
+references under net/nfc or drivers/nfc.  Should the unused ones be
+dropped, or should the code actually test for
+NCI_RESET_TRIGGER_RESET_CMD?
+
+Following from that, if a notification with reset_trigger == 0x00 arrives
+while NCI_RESET_PENDING is set, the handler treats it as a successful
+command-triggered reset:
+
+	ndev->nci_ver = ntf->nci_ver;
+	...
+	nci_req_complete(ndev, NCI_STATUS_OK);
+
+Is reporting NCI_STATUS_OK correct for a trigger the header names ERROR?
+
+[ ... ]
+
+> diff --git a/net/nfc/nci/core.c b/net/nfc/nci/core.c
+> index 5f46c4b5720f6..5a90591cd9af7 100644
+> --- a/net/nfc/nci/core.c
+> +++ b/net/nfc/nci/core.c
+> @@ -134,6 +134,7 @@ static int __nci_request(struct nci_dev *ndev,
+>  	}
+>  
+>  	ndev->req_status = ndev->req_result = 0;
+> +	clear_bit(NCI_RESET_PENDING, &ndev->flags);
+>  
+>  	return rc;
+>  }
+> @@ -163,6 +164,8 @@ static void nci_reset_req(struct nci_dev *ndev, const void *opt)
+>  {
+>  	struct nci_core_reset_cmd cmd;
+>  
+> +	set_bit(NCI_RESET_PENDING, &ndev->flags);
+> +
+>  	cmd.reset_type = NCI_RESET_TYPE_RESET_CONFIG;
+>  	nci_send_cmd(ndev, NCI_OP_CORE_RESET_CMD, 1, &cmd);
+>  }
+
+[Severity: Medium]
+Is the flag enough to keep a late reset packet from completing a
+different request?
+
+NCI_RESET_PENDING is set and cleared here in process context under
+req_lock, while the gate is evaluated from the rx workqueue
+nci_rx_work() -> nci_rsp_packet()/nci_ntf_packet(), which never takes
+req_lock.  So the gate test, the flag clear and nci_req_complete() are
+three separate steps with respect to the request lifetime:
+
+rx_wq
+nci_core_reset_rsp_packet()
+	if (!test_bit(NCI_RESET_PENDING, &ndev->flags))
+		return;		/* passes, then gets preempted */
+
+process context
+__nci_request()
+	rc = -ETIMEDOUT;
+	ndev->req_status = ndev->req_result = 0;
+	clear_bit(NCI_RESET_PENDING, &ndev->flags);
+
+nci_open_device() then fails and drops req_lock.  Its failure path purges
+cmd_q/rx_q/tx_q and calls ops->close(), but does not flush ndev->rx_wq,
+so the handler above can still be mid-execution while a retry starts a
+new request and sets req_status = NCI_REQ_PEND.  When the handler
+resumes:
+
+	clear_bit(NCI_RESET_PENDING, &ndev->flags);
+	nci_req_complete(ndev, rsp->status);
+
+and nci_req_complete() only checks req_status == NCI_REQ_PEND, with no
+opcode or generation matching, so the new request (CORE_INIT, for
+instance) is completed with NCI_STATUS_OK without any of its fields
+being parsed.
+
+The same window exists in nci_core_reset_ntf_packet() between the
+successful test_and_clear_bit() and nci_req_complete(), so switching the
+response handler to test_and_clear_bit() would not close it.  Would
+evaluating the gate and calling nci_req_complete() under req_lock, or
+matching the completion to the pending opcode, be a better fit than the
+flag?
+
+> diff --git a/net/nfc/nci/ntf.c b/net/nfc/nci/ntf.c
+> index f5c9a8ab7ec10..57f99bf46a221 100644
+> --- a/net/nfc/nci/ntf.c
+> +++ b/net/nfc/nci/ntf.c
+> @@ -36,7 +36,22 @@ static int nci_core_reset_ntf_packet(struct nci_dev *ndev,
+>  	if (skb->len < sizeof(struct nci_core_reset_ntf))
+>  		return -EINVAL;
+>  
+> -	ntf = (struct nci_core_reset_ntf *)skb->data;
+> +	ntf = (const struct nci_core_reset_ntf *)skb->data;
+> +
+> +	/*
+> +	 * A power-on notification must not update core protocol state nor
+> +	 * complete a pending request.  The CORE_RESET_CMD trigger value is
+> +	 * revision-dependent (0x00 in NCI 1.0, 0x02 in NCI 2.0), so both
+> +	 * are let through to the reset-pending gate below instead.
+> +	 * Return 0 so driver-specific notification hooks can still run.
+> +	 */
+> +	if (ntf->reset_trigger == NCI_RESET_TRIGGER_POWER_ON)
+> +		return 0;
+> +
+> +	if (!test_and_clear_bit(NCI_RESET_PENDING, &ndev->flags)) {
+> +		pr_warn_ratelimited("unexpected CORE_RESET_NTF\n");
+> +		return 0;
+> +	}
+>  
+>  	ndev->nci_ver = ntf->nci_ver;
+>  	pr_debug("nci_ver 0x%x, config_status 0x%x\n",
+> diff --git a/net/nfc/nci/rsp.c b/net/nfc/nci/rsp.c
+> index b0ab4f5acbce8..3a2491497e4b3 100644
+> --- a/net/nfc/nci/rsp.c
+> +++ b/net/nfc/nci/rsp.c
+> @@ -32,14 +32,26 @@ static void nci_core_reset_rsp_packet(struct nci_dev *ndev,
+>  
+>  	pr_debug("status 0x%x\n", rsp->status);
+>  
+> +	/*
+> +	 * If no reset request is pending, ignore unexpected responses to avoid
+> +	 * prematurely completing an unrelated request.
+> +	 */
+> +	if (!test_bit(NCI_RESET_PENDING, &ndev->flags))
+> +		return;
+> +
+> +	if (rsp->status != NCI_STATUS_OK) {
+> +		clear_bit(NCI_RESET_PENDING, &ndev->flags);
+> +		nci_req_complete(ndev, rsp->status);
+> +		return;
+> +	}
+> +
+>  	/* Handle NCI 1.x ver */
+> -	if (skb->len != 1) {
+> -		if (rsp->status == NCI_STATUS_OK) {
+> -			ndev->nci_ver = rsp->nci_ver;
+> -			pr_debug("nci_ver 0x%x, config_status 0x%x\n",
+> -				 rsp->nci_ver, rsp->config_status);
+> -		}
+> +	if (skb->len >= sizeof(*rsp)) {
+> +		ndev->nci_ver = rsp->nci_ver;
+> +		pr_debug("nci_ver 0x%x, config_status 0x%x\n",
+> +			 rsp->nci_ver, rsp->config_status);
+>  
+> +		clear_bit(NCI_RESET_PENDING, &ndev->flags);
+>  		nci_req_complete(ndev, rsp->status);
+>  	}
+>  }
+
 -- 
-2.55.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260922102144.39689-1-ndaugoing%40gmail.com
