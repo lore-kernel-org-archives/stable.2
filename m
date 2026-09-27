@@ -1,135 +1,279 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from o1.ptr9745.em.honeycomb.io (o1.ptr9745.em.honeycomb.io [149.72.141.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 042D7547068
-	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 04:45:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B80E3377A80
+	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 05:04:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.72.141.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790484356; cv=none; b=Ea7juiVFUi/QglH6mAXGfKY54BSn6M1Fpgi5C9Y7TCwhvkdt4XmzAwLrZIKQf4RqoCeiXYMpjmLap92RfvXYoSrXsJSGn+3erye2M6AnzTWbfMPd5Erjf/jh1R9Zv6veLcgZc9q4b6Bbm8YjPwOVsrWfqVZU9yWxZX5o4Xlwtmg=
+	t=1790485482; cv=none; b=H1kT9q1bDFd2KfZItr88ggLvrMk0i+Dxl4ML1zfqjNl2/IrNhnodS4Z8SWRvzjPqIvG95YslzbRMMKayASwCCKSxmnrKPZl8U8OMUg457NfNltuyTBQ/SscOM0BpIQ5xrGLRGuybj3KJ/hTrjXE2NArTF37Gs0xMNtWkptcAWzI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790484356; c=relaxed/simple;
-	bh=lwbuO94m1Y7nNgaCvIakrp+Jlj/Ls07Kcmk7d5tERa0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QZJjl9VhozZll1vtlzOna3CYvqoX/1n1BtffMNFnh8fJ9ceY8DuzuOncDtcdXzMpKzJ39gY9Xx4G7buLVf4yY2xDZZtsX47Lq94QLRIEe2Za+ujXO9qDe3EYs5b/m1340xRBRDP7B7yQTQ6OcoTVv0mGdvJ720vGY1p6G45bTvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nXFRQ4JV; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790485482; c=relaxed/simple;
+	bh=TvjgwKfxRWoop+S5G5ZIakPAQZmM9hjcQdoUj56GMq0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=mLDPn4kh5suIS2ZkuJGXP+r6Nx8N97Es33/ZmLRxXWOunQtsJqsAKUoZPFoO1ALn+/1FPyvQeegxf7VMUNDjSFwXsZRg7lm90gX7xYQz5MhuB9ZMfEeh6JyzYJXQcmjVSVpuGuHw7QY+MS9f4IL2NUwAvQlIUqj6twB7F/EEeW0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=honeycomb.io; spf=pass smtp.mailfrom=em.honeycomb.io; dkim=pass (2048-bit key) header.d=honeycomb.io header.i=@honeycomb.io header.b=kknxETGX; arc=none smtp.client-ip=149.72.141.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=honeycomb.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=em.honeycomb.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nXFRQ4JV"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d8fb334ddcso9551895ad.0
-        for <stable@vger.kernel.org>; Sat, 26 Sep 2026 21:45:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790484353; x=1791089153; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ILSKS40563v3cg9jd/GJ4zISgLCLK1UIjjAKEYNJvaw=;
-        b=nXFRQ4JV4vIkc+BBIZ0Qz8+T9fNbi/b3nFYdqeYNasbq9grXxnsliYgd17j+vxpE4V
-         gmomqKxIOZX1bptZBPJPWiQi4yJJl/UFnbQjhVWJJNqcI/JCOJ8bt5xRLWqziQNtUfgn
-         /p0Za51WPxJELYhk99i8OGCBGcrzS3ACywXTPMjvKylMOmxZWn+fphCUdVWCJwyNZbWz
-         3I6XiFe4FfYojHyQHslkk0N/s4gRR9vvvqQvN2PgoooYNEcejac4KqprW3Jej4P+wEe5
-         tcqJWiOwsflWNcwLrIeY66Gvx9yqP29fwjux6JXnKKiI/5m9f/B6JfYMehSOJU2VsvBp
-         4U4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790484353; x=1791089153;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ILSKS40563v3cg9jd/GJ4zISgLCLK1UIjjAKEYNJvaw=;
-        b=ByPcXVEU25XfYztCnqcmJdOhM9acHUqd4ngRwdhNCUqeYlrkEyxSsOSFYi4w5JGfw2
-         HXVzqsLMba6R/GNXbAk4jgwA+FOv1D8lZGvcb09h8IZagx728z6Z9oKQY1cNl2GOncxt
-         np6I0FX62mEuO5LGqVpZAsg7/QynBNSkteVqgnU7K0xptYYIVpHHYWnxay2RdpxgFL3M
-         Ntb+T7NnZR/eGCf8XUa/tkaQLuqlt9f93t8XK+YIE1kin+wWuxT6E2NDt72UksXU+DiT
-         yEiP+Bf/jAPVSPabhFYeVpeBpNhoKcvtnbYwOQvOjeBLJhCuYOyaUj7VuLWmPGSbZiyx
-         EHYw==
-X-Forwarded-Encrypted: i=1; AKwUvByL7iZKH8WuziB/OERuwba5wDR+xVs+lcZNWREMR3S7A+xZRcVfGxXBPSQOI3BJDA8uFHh6TyA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKzspSMBIjJJOToZfoP7sCW0YUlZK2e+LpTQN31M+3D6hcx+djl
-	bRFpm1wxkDyu79bxFg/yXSHJIE5IECNl/VipGZl0TahWJsqKO/9u5kUx
-X-Gm-Gg: AYBFou2OYNB3ua5Qwzr28vgtQEsuiDfUgZE20d+YHqp44loB9azg2bO7wvaqf/92QLs
-	ybqVDv/8Qd7Omcbywwk1ofPxEmM97nFnYiBtrSgYCKXzjMWBP7f7ljdgOsZpqZ0bw41M6PSClhS
-	+tLQueJcX+qRsgxatJm6nKUVVFZX8wy7Emi+VhFQWnkH+8wHQsik/Q6khcWmhTgE0vgtSb9bVjd
-	vgoYnwZNzV+zubap/ixgYfI1mLDSXQOs2qjNOEbqWTh8HcxgKFchgPOFwYozvYsoayWKqTdzJek
-	X7o9/2hFHfX6RjYJhKDnK+0J4AgyvWXG2RneSkuD3qpwlmmPlf+R/Ap4hO2ZJsc47ECLc10w3QI
-	XIHs367qL16OXHzPnLIvUm3aKmUxUwQLKph46ZFt96IBc2YEWKajERurdpjnXSF1HwWyZ/DVMiy
-	tKJ8bqVvyclbwd/cnGt6jp6XXVa1o9858yakyf78pOh5gcpYLoEOv0DYKu5ddJYaF+0qv3Iiv7H
-	Sr4mumckRieuOFgdg==
-X-Received: by 2002:a17:90a:dfcd:b0:3a0:631a:ba6b with SMTP id 98e67ed59e1d1-3a098db9593mr7472762a91.33.1790484353317;
-        Sat, 26 Sep 2026 21:45:53 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2405:4802:1d4a:e90:3a0c:2ea9:4ab7:bd1b])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0c719f86fsm10628448a91.7.2026.09.26.21.45.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 21:45:53 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Antti Palosaari <crope@iki.fi>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
-	syzbot+c35815bad054e6ad396e@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH] media: dvb-usb-v2: set active_fe before the demux goes live
-Date: Sun, 27 Sep 2026 11:45:47 +0700
-Message-ID: <20260927044547.26979-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=honeycomb.io header.i=@honeycomb.io header.b="kknxETGX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=honeycomb.io;
+	h=from:date:subject:mime-version:content-type:content-transfer-encoding:
+	to:cc:cc:content-type:date:from:subject:to;
+	s=s1; t=1790485479;
+	bh=+4jro1MTzUF06io04gLz+PFvy0PpidJfPQA84CrpgNI=;
+	b=kknxETGXBLiN+fC0CeXE1ukNhZOsuMLR5UzCAlEaXRQeDgkRzLcNF0OOkTfPgNQWiICR
+	3AUVExFJIvOhYg/aoVp3N7mjOGkoFtcXAMSIy+UiilUxqSuFbn4T/fxxwYuap5EVqd9pxA
+	3LJk4TGrz8g5yBaYzJwiFmFMU6mBsODIiSEHZmtFv78lXQ7Qcr1MF8FXuwRdNesa9fUy0y
+	XrndeTaWyntZUDlINYJGdOWidPHEmmQOJeSdd7AcA4bkeZXrfnycHeWqYK5Mr/udkFgw7U
+	x2ssd1dkBi2d5Xfd3XGrjdzwZe6kSRxSc2AhR7FzcyrLEldwwSgBSOKwSvEfOE8w==
+Received: by recvd-859f4b9877-dwngx with SMTP id recvd-859f4b9877-dwngx-1-6AB8A3E7-47
+	2026-09-27 05:04:39.464940507 +0000 UTC m=+206322.744621825
+Received: from [127.0.1.1] (unknown)
+	by geopod-ismtpd-20 (SG) with ESMTP
+	id CwOn27KUQ7m8N7Fcb1r4_Q
+	Sun, 27 Sep 2026 05:04:39.406 +0000 (UTC)
+From: Liz Fong-Jones <lizf@honeycomb.io>
+Date: Sun, 27 Sep 2026 05:04:39 +0000 (UTC)
+Subject: [PATCH] writeback: let foreign flushes reach dying cgwbs
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260926-wb-dying-cgwb-flush-v1-1-a8d898085a3a@honeycomb.io>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMywqDMBBFf0Vm3YE0i4D+inSRxxhHJC2ZWlvEf
+ 3esu3u4nLOBUGUS6JoNKn1Y+FkU7rcG4uhLJuSkDNZYZ1rrcA2YflwyxqxzmBcZ0TjSl6wPPoG
+ ar0oDf//V/nGxLGGi+D5TsO8HW4+owXcAAAA=
+X-Change-ID: 20260926-wb-dying-cgwb-flush-06e260e2abad
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8522; i=lizf@honeycomb.io;
+ s=gpg; h=from:subject:message-id;
+ bh=TvjgwKfxRWoop+S5G5ZIakPAQZmM9hjcQdoUj56GMq0=;
+ b=owEBbQGS/pANAwAKAaXO1OOXra/CAcsmYgBquKPn1sNIzpCLby9DFncuje+MLA0Jh6n64I/7x
+ T0INynFIhiJATMEAAEKAB0WIQSfW1LPQ0gyJmoTHwelztTjl62vwgUCarij5wAKCRClztTjl62v
+ wgqtB/9JY2u8FDB4jdu0zx08IpYZbBst2X/t92lMZU/EhRadpIbqbAcbQhiTHD48+MH6n3ERy24
+ tsVF1Vr+QV3T2zpzzxgarSuCPtGS/ZRPmWY0G3Fa+KQC8pDqJ1+LohkTEUZ1JxzKavSeOGbelC3
+ r3pPpQqhEaZXeZeTMxhqLKDhBX+ei6plsi5qAmvLRh+N/sF0eg4qLWJt9z47Btll94kTwD6FT0H
+ ZVsAi4tFOGbUPxG7CDcv7PQARoNdQh7LTkv1QrBtQy1Ba4HqUoiAK8EBnugu58XeesHkWZ2loLs
+ 1YxiVg8idpW15lSEMAL4gLK4AEnVs8ITAXJ+Cd0gmhKn3Syn
+X-Developer-Key: i=lizf@honeycomb.io; a=openpgp;
+ fpr=1F7714D7EC3441D2CECC24606A3F8B00FBDDD2A4
+X-SG-EID: 
+ =?us-ascii?Q?u001=2ECuH7N2XAoeMR1zrzr=2F6NZrhli2vbKPOHff5fJuZuba6ZIE8QPyIf9mn4Y?=
+ =?us-ascii?Q?ezqeFFjUkh=2FeROy4LtnO7KN9jZmeUj22rDtwFPn?=
+ =?us-ascii?Q?6t5WoqjriadbwirARoiyHWAvFOS2kX70JYRV+VB?=
+ =?us-ascii?Q?yTo5789UNL2v4=2FqF1gmk28QYLOV8QYCFeeMVShH?=
+ =?us-ascii?Q?v7p3uCy17OpJ6AAL1ATRCiutLLKOvBfoqmTDzkA?=
+ =?us-ascii?Q?jBW76RLNBJCGgwN8YXoc3N4D=2F7ddfY9fRUZk8Ob?= =?us-ascii?Q?Ei+Q?=
+To: Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Tejun Heo
+	<tj@kernel.org>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jens Axboe <axboe@kernel.dk>,
+	Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner
+	<hannes@cmpxchg.org>, Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt
+	<shakeel.butt@linux.dev>, Xin Yin <yinxin.x@bytedance.com>,
+	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org, ian@honeycomb.io, stable@vger.kernel.org,
+	Liz Fong-Jones <lizf@honeycomb.io>
+X-Entity-ID: u001.GRlkmHQ+Ka/CKxmoC/CxTw==
 
-dvb_usbv2_adapter_dvb_init() registers the demux devices before
-dvb_usbv2_adapter_frontend_init() runs. Only the latter set
-adap->active_fe to -1, so until then it holds the kzalloc'ed 0 while
-adap->fe[0] is still NULL.
+cgwb_kill() takes an offline memcg's wbs out of bdi->cgwb_tree, but
+inodes that are still being dirtied stay attached to them. When a
+replacement container keeps appending to those files, its foreign
+flushes fail with -ENOENT in wb_get_lookup(), and it sleeps in
+balance_dirty_pages() for seconds to minutes.
 
-A process that opens the demux and starts a filter in that window, which
-lasts as long as frontend_attach() takes, gets past the active_fe == -1
-check in dvb_usb_start_feed() and passes the NULL adap->fe[0] to
-streaming_ctrl() (or get_stream_config()). mxl111sf_ep6_streaming_ctrl()
-then dereferences it:
+Fall back to searching bdi->wb_list, where killed wbs stay until they
+are released. With commit 168a8c13159c ("writeback: size foreign
+flushes by target wb dirty pages"), the flush is then sized from the
+wb's own dirty pages and writes out what the replacement dirtied.
 
-  Oops: general protection fault, probably for non-canonical address 0xdffffc0000000061
-  KASAN: null-ptr-deref in range [0x0000000000000308-0x000000000000030f]
-  RIP: 0010:mxl111sf_ep6_streaming_ctrl+0x2e/0x2e0
-   dvb_usb_start_feed+0x57a/0xc70
-   dmx_ts_feed_start_filtering+0x129/0x220
-   dvb_dmxdev_filter_start+0x434/0x10d0
-   dvb_demux_do_ioctl+0x48b/0x540
+Test, on top of that commit: a cgroup appends to 1000 files at
+250MiB/s and is removed, then a second cgroup keeps appending to the
+same files under a 4G parent limit. Worst lag of the second writer
+behind schedule over 120s, in three runs:
 
-Initialise active_fe to -1 before the demux is registered so early
-feeds fail with -EINVAL.
+  without this patch   85.3s  46.9s  52.1s
+  with this patch       1.0s   1.0s   1.1s
 
-Reported-by: syzbot+c35815bad054e6ad396e@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=c35815bad054e6ad396e
-Fixes: ad6b9e517b39 ("[media] dvb_usb_v2: move from dvb-usb to dvb-usb-v2")
+Fixes: d62241c7a406 ("writeback, memcg: Implement cgroup_writeback_by_id()")
 Cc: stable@vger.kernel.org
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Assisted-by: Claude:claude-opus-5-5 checkpatch sparse
+Signed-off-by: Liz Fong-Jones <lizf@honeycomb.io>
 ---
- drivers/media/usb/dvb-usb-v2/dvb_usb_core.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+At Honeycomb, a container that reads from Kafka and writes columnar
+files to a host volume stalls for 30-60s after each deploy replaces it
+(v6.18). This is likely the cause: the stall looks the same as in the
+reproducer (little CPU use, lag growing linearly and then recovering),
+though we haven't traced it in production yet.
 
-diff --git a/drivers/media/usb/dvb-usb-v2/dvb_usb_core.c b/drivers/media/usb/dvb-usb-v2/dvb_usb_core.c
-index bd86d250433d..557451b541e6 100644
---- a/drivers/media/usb/dvb-usb-v2/dvb_usb_core.c
-+++ b/drivers/media/usb/dvb-usb-v2/dvb_usb_core.c
-@@ -637,7 +637,6 @@ static int dvb_usbv2_adapter_frontend_init(struct dvb_usb_adapter *adap)
- 	dev_dbg(&d->udev->dev, "%s: adap=%d\n", __func__, adap->id);
+Based on vfs-7.4.misc, next to Xin Yin's 168a8c13159c, which fixes the
+sizing but not the lookup of a removed cgroup's wb. Each helps without
+the other; this one also applies cleanly to mainline. On mainline
+(fd179f8a05be), without 168a8c13159c, the test from the changelog gave
+52.8s, 73.3s and 5.2s worst lag before this patch and 1.0s, 1.0s and
+1.0s after.
+
+Trigger: a cgroup dirties files and is removed while they are still
+dirty; a sibling keeps appending to the same files under a parent memory
+limit. Symptom: cgroup_writeback_by_id() returns -ENOENT and the sibling
+stalls in balance_dirty_pages(). Minimal recipe below; the harness that
+produced the numbers (paced writer, lag per second, MODE=alive control)
+is at https://gist.github.com/lizthegrey/2209d831930588f63076bdc0ac7b78e2.
+
+On ext4, syncing before the removal doesn't reliably help: writeback can
+leave inodes I_DIRTY_SYNC after syncfs, and cleanup_offline_cgwbs_workfn()
+then skips the dying wb entirely (2 of 3 runs at 5000 files; a second
+syncfs avoided it in 5 of 5). On XFS one syncfs left the wb clean in 5
+of 5 runs.
+
+Harness settings for all numbers: MEM_MAX=max POD_MAX=4G RATE_MBPS=250,
+plus NFILES=5000 SYNC_OLD=1 (or 2) for the syncfs runs and
+NFILES=500000 OLD_SECS=120 SYNC_OLD=1 POD_HOP=10 for the 500k-file runs.
+
+Also reproduced unpatched on bare-metal arm64 with Ubuntu's 7.0 kernel
+(ext4 on a loop device): 12.9s worst lag with the old cgroup removed,
+2.5s with it kept.
+
+Tested: arm64 KVM guests (virtme-ng), ext4 and XFS on virtio. No lockdep,
+PROVE_RCU, DEBUG_ATOMIC_SLEEP or DEBUG_PAGEALLOC reports. W=1, sparse
+and checkpatch --strict clean.
+No new warnings building arm64 defconfig with and without
+CGROUP_WRITEBACK, allnoconfig, arm multi_v7_defconfig with
+CGROUP_WRITEBACK, and the touched files (W=1) under arm64 allmodconfig
+and x86_64 defconfig with CGROUP_WRITEBACK.
+
+Not tested: x86, production, linux-next.
+
+Workaround until this lands: lowering vm.dirty_expire_centisecs from
+3000 to 500 cut the worst lag on unpatched mainline to 4.8s, 4.6s and
+14.3s, but did not remove the stall.
+
+Stable: please take 168a8c13159c too. Without it the flush is sized from
+the dead memcg's own dirty pages, so this only helps while it has some.
+f6988c90671e (already in mainline and tagged for stable) also matters:
+on XFS with 500k synced inodes and the pod cgroup removed 10s later, the
+handover was slow enough without it that the replacement fell 21-22s
+behind (vfs-7.4.misc), against 1.0-1.2s with it (mainline).
+Before 5.14 there is no offline_cgwbs cleanup, but the bdi->wb_list walk
+should still apply.
+
+Not covered: after a blkcg association change, wb_get_lookup() finds the
+new clean wb, so the fallback doesn't run.
+
+Developed with Claude Opus 5.5, which wrote the code, the reproducers
+and first drafts of this text, and ran the builds and VM tests. I drove
+the investigation from the production symptoms, designed the
+experiments and controls (repeated runs, parent-commit baselines,
+testing this patch on its own), and reviewed the analysis, code and
+results.
+
+Minimal recipe:
+	#!/bin/bash
+	# As root, cgroup v2, in a directory on ext4/xfs/btrfs ($DIR).
+	cg=/sys/fs/cgroup/wbmini
+	mkdir $cg && echo +memory > $cg/cgroup.subtree_control
+	echo 4G > $cg/memory.max
+	mkdir $cg/old $cg/new
+	append() {  # append $1 blocks of $2 to each of 1000 files
+		for i in $(seq 1000); do
+			dd if=/dev/zero of=$DIR/f$i bs=$2 count=$1 \
+			   oflag=append conv=notrunc status=none
+		done
+	}
+	(echo $BASHPID > $cg/old/cgroup.procs
+	 append 8 1M            # old owner writes the files...
+	 append 1 64k)          # ...and exits with all of them dirty
+	rmdir $cg/old           # its cgroup goes away while they are dirty
+	bpftrace -e 'kretprobe:cgroup_writeback_by_id { @ret[(int32)retval] = count(); }' &
+	sleep 3
+	time (echo $BASHPID > $cg/new/cgroup.procs
+	      append 4 1M)      # replacement keeps appending to the same files
+	kill -INT $!; wait
+	rmdir $cg/new $cg
+	# Unpatched: many @ret[-2] (-ENOENT) and the append stalls.
+	# Patched: @ret[0] only.
+---
+ fs/fs-writeback.c           |  2 ++
+ include/linux/backing-dev.h |  2 ++
+ mm/backing-dev.c            | 31 +++++++++++++++++++++++++++++++
+ 3 files changed, 35 insertions(+)
+
+diff --git a/fs/fs-writeback.c b/fs/fs-writeback.c
+index d26b2cf05283..5fb70c16488d 100644
+--- a/fs/fs-writeback.c
++++ b/fs/fs-writeback.c
+@@ -1189,6 +1189,8 @@ int cgroup_writeback_by_id(u64 bdi_id, int memcg_id,
+ 	 * there's nothing to flush, don't create one.
+ 	 */
+ 	wb = wb_get_lookup(bdi, memcg_css);
++	if (!wb)
++		wb = wb_get_lookup_dying(bdi, memcg_css);
+ 	if (!wb) {
+ 		ret = -ENOENT;
+ 		goto out_css_put;
+diff --git a/include/linux/backing-dev.h b/include/linux/backing-dev.h
+index c2284466e7aa..2bbc74b3b180 100644
+--- a/include/linux/backing-dev.h
++++ b/include/linux/backing-dev.h
+@@ -151,6 +151,8 @@ static inline void bdi_wb_stat_mod(struct inode *inode, enum wb_stat_item item,
  
- 	memset(adap->fe, 0, sizeof(adap->fe));
--	adap->active_fe = -1;
+ struct bdi_writeback *wb_get_lookup(struct backing_dev_info *bdi,
+ 				    struct cgroup_subsys_state *memcg_css);
++struct bdi_writeback *wb_get_lookup_dying(struct backing_dev_info *bdi,
++					  struct cgroup_subsys_state *memcg_css);
+ struct bdi_writeback *wb_get_create(struct backing_dev_info *bdi,
+ 				    struct cgroup_subsys_state *memcg_css,
+ 				    gfp_t gfp);
+diff --git a/mm/backing-dev.c b/mm/backing-dev.c
+index cecbcf9060a6..1437f80ed7e3 100644
+--- a/mm/backing-dev.c
++++ b/mm/backing-dev.c
+@@ -807,6 +807,37 @@ struct bdi_writeback *wb_get_lookup(struct backing_dev_info *bdi,
+ 	return wb;
+ }
  
- 	if (d->props->frontend_attach) {
- 		ret = d->props->frontend_attach(adap);
-@@ -795,6 +794,9 @@ static int dvb_usbv2_adapter_init(struct dvb_usb_device *d)
- 			adap->max_feed_count = adap->props->pid_filter_count;
- 		}
- 
-+		/* demux is live before frontends attach: no feed until then */
-+		adap->active_fe = -1;
++/**
++ * wb_get_lookup_dying - get a killed wb for a given memcg
++ * @bdi: target bdi
++ * @memcg_css: cgroup_subsys_state of the target memcg (must have positive ref)
++ *
++ * wb_get_lookup() only finds wbs that are still in @bdi->cgwb_tree.  A
++ * killed wb leaves the tree but stays on @bdi->wb_list until it is
++ * released, and inodes attached to it can keep collecting dirty pages from
++ * other memcgs until they are written back and switched away, so foreign
++ * flushes still need to reach it.  Returns a wb of @memcg_css on @bdi which
++ * has dirty IO, with a reference held, or %NULL.  If there are several,
++ * the first one found is returned; this is best effort.
++ */
++struct bdi_writeback *wb_get_lookup_dying(struct backing_dev_info *bdi,
++					  struct cgroup_subsys_state *memcg_css)
++{
++	struct bdi_writeback *wb;
 +
- 		ret = dvb_usbv2_adapter_stream_init(adap);
- 		if (ret)
- 			goto err;
--- 
-2.43.0
++	rcu_read_lock();
++	list_for_each_entry_rcu(wb, &bdi->wb_list, bdi_node) {
++		if (wb->memcg_css == memcg_css && wb_has_dirty_io(wb) &&
++		    wb_tryget(wb)) {
++			rcu_read_unlock();
++			return wb;
++		}
++	}
++	rcu_read_unlock();
++
++	return NULL;
++}
++
+ /**
+  * wb_get_create - get wb for a given memcg, create if necessary
+  * @bdi: target bdi
+
+---
+base-commit: 168a8c13159c6e3f0f08da6f8fa2f633a91ba9fd
+change-id: 20260926-wb-dying-cgwb-flush-06e260e2abad
+
+Best regards,
+--  
+Liz Fong-Jones <lizf@honeycomb.io>
 
