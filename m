@@ -1,271 +1,506 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B27F13B1EE2
-	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 15:30:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790523023; cv=none; b=tDK13bkoRP1iPvy5zUbyeea4yxPBMtdViJwdu1E/GyhEw5chdA6rEOxWfb+NsKHyOfT9mVOaH66iSpLqn2TWSPGiw0io29fXO3/7XPIiya1OQVbCVwokbe4/1GlVCYAc0z4WOl93ztYtLgU5ZydHI3QNTTYJI5RJz3h7njvRQeg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790523023; c=relaxed/simple;
-	bh=a0rewO12vdtnPhBBS/nIg+3RPM7hKRWtmasS1tiBbUk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=j6Kkg/61zQIbMVOn3FXsCeY+7/x8XHZ3QzBgaxzF1JjwLPeI96mpH81VeAk4JI5i4JmMmWHh+O9v7O39dKDnAN//h2PbL6dl+Zwbpd8j8TTDR0N3kycQKNz7xHm3xArtIh/pZouK+//0G4hHdu88f0WanE84IVxXyv9xiwMVdjI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DmZyox2N; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A0702DCF55
+	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 15:48:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.180
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790524134; cv=pass; b=oNKqYOfBxetH5x73yqu3Q3IxIh3Dk4FlkDViutRtKlJoYqskx7tYscXRiCIKCIGj+pe6lcJQZHVE/vzy+ScxY1f+7LSnoNVa7ZOv4ywgSBT0bK2tFLg6sziPTYJKUC16UyGiuuugcZkSy8IfwrpEHBdkSoZVS58leVvBfOvmywU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790524134; c=relaxed/simple;
+	bh=KKXhqBY8xV/yPUmhQTv4NiNHf39AiDPdvqW8YncS+QY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Tm8IIi5cMHvnqLwIf7HC5Lv22kyAtvUr2k4VLirtL98XsNUw+DLufKdWW5WAO/nfTc/19Q3zP3JsmluuLL5mXQ7aGASll3Z8G6VXQ7rqPEzSGr2gBsMq3CB8dgX6S6QWizUVR3ViqelAsAIT6ZBZ7fmo8093sDN/jP4DcuHH+Dc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=YCJZ4uVB; arc=pass smtp.client-ip=209.85.160.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DmZyox2N"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747f0135fso14905565ad.0
-        for <stable@vger.kernel.org>; Sun, 27 Sep 2026 08:30:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="YCJZ4uVB"
+Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-53334ea7b5cso6751301cf.0
+        for <stable@vger.kernel.org>; Sun, 27 Sep 2026 08:48:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790524130; cv=none;
+        d=google.com; s=arc-20260327;
+        b=dtFrjxqDTGksASGMubuq47o2MpLakCz5cxuGzIultoDynZPS9XStfwIHKdnrboZ+UD
+         EE7HLrZuQtmxBmiw/MASHwm+dcCB7oihteVZNm8b3l4FXvr3jULnRWIu9EmwRuc37FWd
+         KPSkyy+CJjr209lzhKzyB8LXOIpFgLL5JCymtj8kreqqYH6ry+Gn0zXpNxWKvJnXosvx
+         CULa3tcrwyAKXZe7SejnwTor5G44lpJZ+mA/r81e/2Mao2yWf1Ap4X7ZTHuHqNQ0FVE6
+         RTWnOhMFxyIu9B6mfaLnlmhp2indNIBMYCKA9rf01QCRUV5qXR63RK129IOmO2LVP4OB
+         AmUA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=VMzyYQ0LHiIjCBtAm/3xng79Rt1ZUyuxYcQUuTQiELY=;
+        fh=jAb/W8R+y5tUNL6ZZ4vN4wIv4+cl0swSxbPvQeftbyk=;
+        b=Q8CKD0FRT3t4xIOUpIN/YuC7epdPy6J339Tr9B3rDHiP2zI/QjsYGcEyAOOq4EhsdM
+         fRRxqZzGxKTK5Ux+oYT9muqK513oHpnAAJH1dNfKTlkvZe6LBh7AD3enjXREKYotRr4Z
+         x0i0G9NnbV1dCimcwHvgQ5Sfbkvsp61H5lJesX96bGq1mF38pLlvMkFtUyjrsTAunbTn
+         LZThe/GyaK0iH0n6O4bzyC4DoPbB8UZOroNL2OIuDnF2D8YidiMSpisYIzSOgNLSOkB4
+         hM9EaO4/F7Dc6Jt+4QnuG4Z8SC1LJIYY03Xa6ekFly/6naS7QiaydQebRryF6EZiud5A
+         IXEg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790523021; x=1791127821; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mjhaILwxKgFt49EiWkQN7M/n6MN/CEKyFnK5lZJ/n7U=;
-        b=DmZyox2NU3Yyz8znjAW7WTerIVEzDDHVS+0fB5Z8qiDGC4xJfhTqMXRM5PdAFWmN83
-         0q+aZmoJmoIChZyDitjpR4X9jHY8eYuCEzeSwY7QntCw1GEZvBgBWNrJtkHcRllnDW5m
-         uqo01dZAA/M8L/1q1KTZydQ9STXAc531ciL3L0qPWo3RcLehDQFn5LAxDtIGQw1TF0a5
-         mex4zMgOQCkaLXC80+rFnHp1kjA8FQlyl6i+k7VeZ4QQC5O2aFWZKFT6PpEgtVGvIZR2
-         c0Dqnd85okZhVmQQdHjCGk1UQrH9eUdMTp6VfpkV0Ro4vHphsFtTzp0t5ZEkYtE4bQ2b
-         DEaQ==
+        d=google.com; s=20251104; t=1790524130; x=1791128930; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=VMzyYQ0LHiIjCBtAm/3xng79Rt1ZUyuxYcQUuTQiELY=;
+        b=YCJZ4uVBLApdBvMasdQNRiFKdB8fLUmIXVEVbrGpDemrK9TGM5JC4+uz6B9tJOu7fZ
+         0hnvkWDSwUiAXdzCu25jtCxBVr0GSKXXZtEO+cxW3e9En4kTTlHkpQKOzwOryCNrhNx1
+         xiyHe7F4rAeTyECKAr2paWK1TGxr8SpyNGiS7oXaLdGejdJ8tR+VtWzrpHjJIpLHqzIx
+         55Ah0ttkCUFpc+yQmJC0yKVcbh4xbsuKBlQzeOtfsrdazg8W/ilhAqDZ67cNWTzPt6Le
+         ymFnOc3I67TCTX/hF1bMDpll34Xo4Fq53lUGoCLnkcS/nTB+BU+ASUThLc8Qq06t6mul
+         SN+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790523021; x=1791127821;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mjhaILwxKgFt49EiWkQN7M/n6MN/CEKyFnK5lZJ/n7U=;
-        b=alyEi3IqvR1UFrt7h7eU1kNKY2x1W0wRqOIKK59oGXlOj6VGVZf5t5GQce2ukK7bKW
-         /SwNQtWHpVVxW5JGgpiTDfNA74dd8UvLkYTcdVyiqowS7V2e94P3vUEKl5UCRSz8Gf/4
-         QiNk1n4HluPjcoQGc/KeI2E3gIhoMFzC5gMZg6kJP2GctIQPr3SQ0d+khuaJuTdQFhft
-         r0i2ODuw27/R/D4Jh95azDFAAE+ucpolxsgEn9wzOZ2Fxw6Qtji8w4SzA6rMHBhTq4qF
-         IFpS+SwSpXIBtrbc3KqdTr8MUHs9AAofWOCZR64iHmkzJ4cs1SqA+O+iR+s3MKJ4eqKo
-         SbCA==
-X-Forwarded-Encrypted: i=1; AKwUvBzkfb7DM7gqD+swzhJEYz1hFEAREGA2X+jiL73kZaLH3sYM3kOJCTSDcBSWy/qEWnPjUn22hgA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJN602KhkNudbXZG7skm33wo2SGQZTGibqaUpWChxDxA4kvseuI
-	p9nLKLtNo8BPeSvzXmVsWGglrzwHPhCeyCIJL4M6Gz7hn+d0AsIMyec3
-X-Gm-Gg: AYBFou1TunnSj2CyHwnOFvjq0deimjAfcSevpTvL+CozZbJErYLl1u0aHGHoKzoMuev
-	V2Qb2bm8rX6Oy16ozWbydSiO+Z+k8obNBaR1fA3+87K1avRVCRaM5lmpTcwFxoVhlggBngk3WBj
-	5UJSLmpvhy51wcMceFFMJEGg1jqxAgTRxFvG4J5RocSe/8dzBt2MONgx1Mda9o7abfYrxkvUvUx
-	Yc+C0YUa3dQDLa/ArlUpMKZV7JwA2gVIw6aDmWfnLmqpXlkKgBVutZiqzRfFZgrzoo35g8CXVbf
-	2p1Oq7rjLGkyxu/DlwNhq0E1K6BnzILBHcX3Ipy7bcyHi/nkaHM0cYM7CVUZ7h6lcV0tGcKYwnX
-	ChWvd580uCMTllX3igpj6zOPDPyfM1FDj7ca3zeQhBewwxknqR2TqO7Sj8o3uYbuy/tIOj9LC5D
-	zaa3O3sR8nhXOGU//rOVxcsafMz3PLw1durL9rGaec2UbGVT1kBnAO0DiJZCbi2V+9x/uWtPPGu
-	/ET9RMgd9Hh4oLBTs0ifYw=
-X-Received: by 2002:a17:903:1a43:b0:2df:ab36:f15f with SMTP id d9443c01a7336-2dfab36f4femr28967115ad.43.1790523020553;
-        Sun, 27 Sep 2026 08:30:20 -0700 (PDT)
-Received: from jmoon ([118.220.156.4])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df9142b00dsm30373515ad.49.2026.09.27.08.30.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 08:30:18 -0700 (PDT)
-From: Jinmo Yang <jinmo44.yang@gmail.com>
-To: david@readahead.eu,
-	jikos@kernel.org,
-	bentiss@kernel.org
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jinmo Yang <jinmo44.yang@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] HID: wiimote: initialise rumble_worker once per device
-Date: Mon, 28 Sep 2026 00:30:14 +0900
-Message-ID: <20260927153014.1395106-1-jinmo44.yang@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20260707; t=1790524130; x=1791128930;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VMzyYQ0LHiIjCBtAm/3xng79Rt1ZUyuxYcQUuTQiELY=;
+        b=qxNTUfCjNS55Fzio6PCaDIq/4G/VZPu5asQa2zJ1VTveCKSvIB1jCgnFYFQEjjNy4g
+         JocOWqcpp6ZtIqiPZgDN2Z6p3vcTTcDEs8RmHduLcEFspeOYviEms+1Pa0ZrcyvsgUuK
+         ULvwSFOe3PDCzDzavu0pwZGbGMenHxr7EKRUn/LiFhyPw8PjimIQ6FcbtilPN+H3lYqW
+         ew/M5gpwtg0B/eAXnTyoc1RX3XVBT80SLaUbfZZCbSMl0t57TB4q6TSR+npNCF89MGny
+         frs2n4nydlnzVQV024fUWdiQuVS30+TC7bGlzl4X4S1+LcrDRJ/jijqZNL6zP3xdTTA6
+         Il1Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzRXfbCv1V6GQjly/vpbl2UJnpXgEh87Rp0Ob6a7OLoW16KSZlDJL3AZwBmxGSIQ3BmcpYMzpE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lE/I3ikPGL8jYvnVHp9wqEacHzr6OpcZsEIWZ7p7U/fhSU69Rh
+	Krncf04Rp55ZnuUrS5gmQQp4iHbIoOrQwwnryLxzngyVwQXG7+7xQvWW0FKgDTa1Rkxw4mJuYvU
+	G9q4cCdXLfprdarnvkLKqdsi1lGL0Tp03ObhawJSH
+X-Gm-Gg: AYBFou1HX9bFkzHQVNydmh7H0cCl7gPe7TRRSVy0kZaaBUuNe5sumLbevmCGoUsq4z7
+	mHjzAwILfU9lduvPxctOzgZBLM9JteFrYcKte02lD8C7/6YDlEsSxpCA3oVbJHj8EdULJCSU0NI
+	vog1WCH6lLyZIoiVpg0XP77yey/DpinurK8vQlpXTx1JfkWYQtg7WXxufwUeMtQfSyzYqcn4AZs
+	1n5/8H4FwSYsvxh8qh6VbT+FE8gsQYwessTBn4WqCSN1xACj4CBehrPjRKu5/AofLB+hCnaCD7v
+	Jyyu77qj6lFwIjoYyc0fzg5Tho4S68/neYf7Qn3IBOM/hMCAhRCDyf0OD3crH4a1S5fV1UEMGBu
+	uTAn/+WRn5hSGFz3vZUbeJ/WPuvQ+KG0yrFqW2bDDZZqG2pLHLhrAY69E6TViEwBLkYJS
+X-Received: by 2002:a05:622a:355:b0:533:3a42:aeaa with SMTP id
+ d75a77b69052e-5333a42b791mr31315001cf.4.1790524129332; Sun, 27 Sep 2026
+ 08:48:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <QDISC-9R8V.v3.20260926072930@mojatatu.com>
+In-Reply-To: <QDISC-9R8V.v3.20260926072930@mojatatu.com>
+From: Eric Dumazet <edumazet@google.com>
+Date: Sun, 27 Sep 2026 17:48:36 +0200
+X-Gm-Features: AclHuK_oBXVuMJ8UJqGHXTuAMFFpgnVD4PZuwujYaohD7q-EDWKf01RUjCkdAUs
+Message-ID: <CANn89i+k-mZKDQVtvws_MEXeuMTAdaCcOXFZE-RfhcGTu90sjA@mail.gmail.com>
+Subject: Re: [PATCH net v3] net: cap skb->queue_mapping when the tx queue is picked
+To: Jamal Hadi Salim <jhs@mojatatu.com>
+Cc: netdev@vger.kernel.org, "David S . Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Jiri Pirko <jiri@resnulli.us>, Vinicius Costa Gomes <vinicius.gomes@intel.com>, 
+	Simon Horman <horms@kernel.org>, Tonghao Zhang <xiangxia.m.yue@gmail.com>, 
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Victor Nogueira <victor@mojatatu.com>, 
+	Zero Day Initiative <zdi-disclosures@trendmicro.com>, hybris <hybris@mojatatu.ai>, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-wdata->rumble_worker is a single work_struct in struct wiimote_data, but
-two different modules called INIT_WORK() on it:
+On Sat, Sep 26, 2026 at 11:48=E2=80=AFPM Jamal Hadi Salim <jhs@mojatatu.com=
+> wrote:
+>
+> skbedit can set skb->queue_mapping and raise the per-CPU skip_txqueue
+> flag so __dev_queue_xmit() honours the mapping. __dev_queue_xmit()
+> cleared the flag before sch_handle_egress() and only read it afterwards,
+> so the flag was not confined to the xmit that set it: a nested xmit
+> (mirred redirect or mirror, or a drop after skbedit) could set the flag
+> and the outer xmit would consume it for an skb that never went through
+> skbedit.
+>
+> A forwarded packet still carries the ingress NIC's rx_queue + 1 in
+> skb->queue_mapping, so the outer device then indexes its tx queue state
+> with that stale value. Taprio's child array q->qdiscs[] is sized to the
+> device's queue count, so taprio_enqueue() indexes past its allocation
+> and dereferences the result as a struct Qdisc *.
+>
+> Own the flag for the whole xmit frame: save the incoming value and clear
+> it before any of the frame's egress work can recurse, and restore it only
+> when the frame exits. A transmit-qdisc classifier is a documented flag
+> producer too (it runs in q->enqueue(), after sch_handle_egress()), so the
+> flag must be owned for the whole frame, not just around the clsact hook.
+> The flag then never crosses an xmit boundary in either direction. Also
+> store the value netdev_cap_txqueue() selected back into skb->queue_mappin=
+g
+> in netdev_tx_queue_mapping(), as netdev_core_pick_tx() already does, so
+> the skip_txqueue path never hands a later reader on the xmit path a
+> mapping the device cannot serve. A store made still later in the same
+> frame, by a tc BPF program attached to a transmit qdisc, is outside this
+> path and is not re-capped; a separate followup will resolve that path.
+>
+> netdev_xmit_skip_txqueue() now returns the previous flag value so the
+> save-and-clear is one call, and a no-op stub is provided when
+> CONFIG_NET_EGRESS is disabled. This removes the inline #ifdef around the
+> save and the two restores.
+>
+> A local user in a network namespace can redirect a packet from a device
+> with more TX queues to one with fewer after setting a mapping valid only
+> on the larger device. That reaches these reads and, under KASAN, faults
+> with "slab-out-of-bounds in taprio_enqueue".
+>
+> Conditions to recreate the bug: with CONFIG_NET_SCH_TAPRIO=3Dy,
+> CONFIG_NET_ACT_SKBEDIT=3Dy, CONFIG_NET_ACT_MIRRED=3Dy,
+> CONFIG_NET_CLS_MATCHALL=3Dy, CONFIG_NET_SCH_PRIO=3Dy and KASAN enabled,
+> create qa (3 queues), qb (2 queues) and qc (1 queue) as dummy devices;
+> put a taprio root on qb and clsact on all three; then add an egress
+> matchall filter on every device. On qa: "action skbedit queue_mapping 2
+> pipe action mirred egress redirect dev qb". On qb: "action mirred egress
+> mirror dev qc". On qc: "action skbedit queue_mapping 0 pipe". Send one
+> packet out qa. qc's skbedit sets the flag while qb's outer xmit is in
+> flight; without the fix qb consumes it and reads its two-entry taprio
+> child array with the forwarded packet's stale mapping. A qc whose skbedit
+> is instead installed in a transmit-qdisc classifier (a matchall filter on
+> the qc root qdisc) reaches the same code path the same way.
+>
+> Testing: on a KASAN build with panic_on_warn=3D1 the unfixed kernel panic=
+s
+> with "BUG: KASAN: slab-out-of-bounds in taprio_enqueue", a read 0 bytes
+> past a 16-byte taprio_init() allocation; the fixed kernel runs the
+> clsact-setter and the transmit-qdisc-classifier reproducers with no repor=
+t
+> and no clamp notice, and a clsact skbedit-then-tc-BPF store with no repor=
+t
+> but the expected "selects TX queue" clamp notice from the write-back;
+>
+> Fixes: 2f1e85b1aee4 ("net: sched: use queue_mapping to pick tx queue")
+> Reported-by: Zero Day Initiative <zdi-disclosures@trendmicro.com>
+> Link: https://lore.kernel.org/netdev/CANn89iLwYx8nCVf0pCEk_MmEiyC6kQaMwCQ=
+T9WkQVeeNzNQHqQ@mail.gmail.com/
+> Link: https://lore.kernel.org/netdev/179008581937.2160803.711781429057426=
+2942@kernel.org/
+> Link: https://lore.kernel.org/netdev/179033713973.2160803.491457069399439=
+8206@kernel.org/
+> Link: https://lore.kernel.org/netdev/20260925180407.63647514@kernel.org/
+> Suggested-by: Eric Dumazet <edumazet@google.com>
+> Suggested-by: Jakub Kicinski <kuba@kernel.org>
+> Tested-by: hybris <hybris@mojatatu.ai>
+> Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
+> ---
+> v2 -> v3:
+> - netdev_xmit_skip_txqueue() returns the previous flag value, so the entr=
+y
+>   save-and-clear is one call; a no-op stub is provided when
+>   !CONFIG_NET_EGRESS, removing the three inline #ifdefs (Jakub Kicinski).
+> - Narrow the capability claim: the capped write-back covers the
+>   skip_txqueue path only; a store made later in the frame by a tc BPF
+>   program on a transmit qdisc is not re-capped and is a separate followup
+>   (nipa Sashiko).
+> - Comment: "per-CPU (per-task on PREEMPT_RT)" (nipa Sashiko).
+> - Drop the now-redundant #ifdef in act_skbedit.c.
+>
+> v1 -> v2:
+> - Rework the root cause to the per-CPU skip_txqueue flag lifetime: it was
+>   cleared before sch_handle_egress() and read after, so a nested xmit cou=
+ld
+>   set it and the outer xmit consume it for an skb that never went through
+>   skbedit (Eric Dumazet, nipa Sashiko).
+> - Own the flag for the whole xmit frame: save/clear it before any of the
+>   frame's egress work can recurse, and restore it only when the frame exi=
+ts.
+> - Retain the v1 producer-side cap (netdev_tx_queue_mapping() writes the
+>   clamped value back).
+> - Correct the description of the reproducer to a three-device chain
+>   (qa 3q -> qb 2q taprio -> qc 1q).
+>
+>  include/linux/rtnetlink.h |  7 ++++++-
+>  net/core/dev.c            | 33 +++++++++++++++++++++++++++------
+>  net/sched/act_skbedit.c   |  2 --
+>  3 files changed, 33 insertions(+), 9 deletions(-)
+>
+> diff --git a/include/linux/rtnetlink.h b/include/linux/rtnetlink.h
+> index 95729339e7a5..a54ec40d095c 100644
+> --- a/include/linux/rtnetlink.h
+> +++ b/include/linux/rtnetlink.h
+> @@ -186,7 +186,12 @@ void net_dec_ingress_queue(void);
+>  #ifdef CONFIG_NET_EGRESS
+>  void net_inc_egress_queue(void);
+>  void net_dec_egress_queue(void);
+> -void netdev_xmit_skip_txqueue(bool skip);
+> +bool netdev_xmit_skip_txqueue(bool skip);
+> +#else
+> +static inline bool netdev_xmit_skip_txqueue(bool skip)
+> +{
+> +       return false;
+> +}
+>  #endif
+>
+>  void rtnetlink_init(void);
+> diff --git a/net/core/dev.c b/net/core/dev.c
+> index f660fccfc0db..3b114fbf7015 100644
+> --- a/net/core/dev.c
+> +++ b/net/core/dev.c
+> @@ -4404,9 +4404,14 @@ EXPORT_SYMBOL(dev_loopback_xmit);
+>  static struct netdev_queue *
+>  netdev_tx_queue_mapping(struct net_device *dev, struct sk_buff *skb)
+>  {
+> -       int qm =3D skb_get_queue_mapping(skb);
+> +       int queue =3D skb_get_queue_mapping(skb);
+> +       int capped;
+>
+> -       return netdev_get_tx_queue(dev, netdev_cap_txqueue(dev, qm));
+> +       capped =3D netdev_cap_txqueue(dev, queue);
+> +       if (unlikely(capped !=3D queue))
+> +               skb_set_queue_mapping(skb, capped);
+> +
+> +       return netdev_get_tx_queue(dev, capped);
+>  }
+>
+>  #ifndef CONFIG_PREEMPT_RT
+> @@ -4415,9 +4420,13 @@ static bool netdev_xmit_txqueue_skipped(void)
+>         return __this_cpu_read(softnet_data.xmit.skip_txqueue);
+>  }
+>
+> -void netdev_xmit_skip_txqueue(bool skip)
+> +bool netdev_xmit_skip_txqueue(bool skip)
+>  {
+> +       bool prev =3D netdev_xmit_txqueue_skipped();
+> +
+>         __this_cpu_write(softnet_data.xmit.skip_txqueue, skip);
+> +
+> +       return prev;
+>  }
+>  EXPORT_SYMBOL_GPL(netdev_xmit_skip_txqueue);
+>
+> @@ -4427,9 +4436,13 @@ static bool netdev_xmit_txqueue_skipped(void)
+>         return current->net_xmit.skip_txqueue;
+>  }
+>
+> -void netdev_xmit_skip_txqueue(bool skip)
+> +bool netdev_xmit_skip_txqueue(bool skip)
+>  {
+> +       bool prev =3D netdev_xmit_txqueue_skipped();
+> +
+>         current->net_xmit.skip_txqueue =3D skip;
+> +
+> +       return prev;
+>  }
+>  EXPORT_SYMBOL_GPL(netdev_xmit_skip_txqueue);
+>  #endif
+> @@ -4824,6 +4837,7 @@ int __dev_queue_xmit(struct sk_buff *skb, struct ne=
+t_device *sb_dev)
+>         int cpu, rc =3D -ENOMEM;
+>         bool again =3D false;
+>         struct Qdisc *q;
+> +       bool skip_txq;
+>
+>         skb_reset_mac_header(skb);
+>         skb_assert_len(skb);
+> @@ -4846,6 +4860,13 @@ int __dev_queue_xmit(struct sk_buff *skb, struct n=
+et_device *sb_dev)
+>         skb_update_prio(skb);
+>
+>         tcx_set_ingress(skb, false);
+> +       /* The flag is per-CPU (per-task on PREEMPT_RT) and a nested xmit=
+ can
+> +        * set it from its own clsact hook or transmit qdisc. Own it for =
+the
+> +        * whole frame: this frame cannot consume a nested xmit's flag an=
+d a
+> +        * nested xmit cannot inherit this frame's.
+> +        */
+> +       skip_txq =3D netdev_xmit_skip_txqueue(false);
 
-  wiimod_rumble_probe()  devtype module, once per device
-  wiimod_pro_probe()     extension module, once per extension hotplug
+Hi Jamal
 
-These have independent lifetimes.  The devtype module is loaded once by
-wiimote_modules_load() and stays until wiimote_destroy(), while the
-extension module is loaded and unloaded any number of times by
-wiimote_ext_load() / wiimote_ext_unload().  wiimote_ext_load() calls the
-extension probe with no lock and no cancel_work_sync(), and for the
-common EXT_NONE -> EXT_PRO_CONTROLLER transition the preceding
-wiimote_ext_unload() is a no-op because wiimod_ext_table[] maps both
-EXT_NONE and EXT_UNKNOWN to wiimod_dummy, which has no .remove.
+Moving netdev_xmit_skip_txqueue() outside of
+static_branch_unlikely(&egress_needed_key) means every packet in
+__dev_queue_xmit() now pays for a per-CPU (or current->) read and two
+writes when CONFIG_NET_EGRESS=3Dy, even when no egress hook is active.
 
-So nothing stops the force-feedback path, which is still live in the
-base module, from having queued the work already:
+Commit 2f1e85b1aee4 specifically used egress_needed_key to avoid this
+fast-path cost.
 
-	/* wiimod_rumble_play() */
-	wdata->state.cache_rumble = value;
-	schedule_work(&wdata->rumble_worker);
+Also, in __dev_queue_xmit(), txq is picked before q->enqueue() runs, so
+tcf_skbedit_act() setting skip_txqueue from q->enqueue() (or from
+ingress) has no effect on the current packet and only pollutes the
+per-CPU flag.
 
-INIT_WORK() on a queued work item is memory corruption.  __INIT_WORK()
-does
+I noticed that nf_skip_egress(skb, true/false) already brackets
+sch_handle_egress(). If we make skb->nf_skip_egress available under
+CONFIG_NET_EGRESS (instead of CONFIG_NETFILTER_SKIP_EGRESS),
+tcf_skbedit_act() can only arm skip_txqueue when running in
+sch_handle_egress().
 
-	(_work)->data = (atomic_long_t) WORK_DATA_INIT();
-	INIT_LIST_HEAD(&(_work)->entry);
+Given this idea my LLM produced the following (untested) patch:
 
-which clears the pool reference and the PENDING bit, and re-points
-->entry at itself while the item is still linked into the worker pool
-list, leaving its neighbours pointing at a node that has left the list.
+diff --git a/include/linux/netfilter_netdev.h b/include/linux/netfilter_net=
+dev.h
+index 3175073a66ba6ba61db0f6d9d62c73ca15206ef0..2a854a0bbd4ba7b5c611b7aaf90=
+b07711e57d9e0
+100644
+--- a/include/linux/netfilter_netdev.h
++++ b/include/linux/netfilter_netdev.h
+@@ -133,7 +133,7 @@ static inline struct sk_buff
+*nf_hook_egress(struct sk_buff *skb, int *rc,
 
-Note that CONFIG_DEBUG_OBJECTS_WORK hides the impact rather than just
-reporting it: work_fixup_init() calls cancel_work_sync() for the caller,
-so a debug kernel prints a warning and then repairs the state.  That is
-the kernel stating what the driver should have done.  Production kernels
-have no such repair.
-
-Initialise the work once in wiimote_create(), which is where the object
-that contains it is created and which already initialises
-wdata->queue.worker, wdata->init_worker and wdata->timer, and drop both
-module-level INIT_WORK() calls.  wiimote_create() runs as the first
-statement of wiimote_hid_probe(), before hid_parse() and hid_hw_start(),
-so it strictly precedes the existence of any input device and therefore
-of any path that could queue the work.
-
-This does not affect the deadlock fix in commit f50f9aabf32d ("HID:
-wiimote: fix FF deadlock").  That fix is the offload itself - caching
-the value and deferring to a worker instead of taking state.lock inside
-the FF callback - and this patch leaves wiimod_rumble_play(),
-wiimod_rumble_worker() and state.cache_rumble untouched.  Only the
-placement of the initialisation changes.
-
-The two halves come from different actors, and both are available on a
-stock Android phone without root.  The extension hotplug half needs only
-/dev/uhid, which is group 3011 and held by the shell.  The shell cannot
-write to an evdev node - SELinux grants it read access only - so the
-force-feedback half comes from an ordinary app calling
-InputDevice.getVibrator().vibrate(), which reaches EVIOCSFF through
-system_server; VIBRATE is a normal permission and is granted
-automatically.  A paired Bluetooth HID device can supply the hotplug
-half instead of /dev/uhid.
-
-The ordering matters: the device has to be created without an extension
-so that the devtype resolves to a GEN10/GEN20 that includes
-WIIMOD_RUMBLE, because WIIMOTE_DEV_PRO_CONTROLLER does not, and the
-extension has to be plugged afterwards.
-
-Measured before the change:
-
-  Pixel 11, stock Android 17 user build, SELinux enforcing, no KASAN and
-  no DEBUG_OBJECTS at runtime, kernel 6.12.81: reboots with
-  ro.boot.bootreason=kernel_panic one to two seconds after the two paths
-  start overlapping.
-
-    Unable to handle kernel NULL pointer dereference at virtual address
-      0000000000000008
-    CPU: 5 Comm: kworker/5:4
-    Workqueue:  wiimod_rumble_worker (events)
-    pc : process_scheduled_works+0xd4/0x810
-    Kernel panic - not syncing: Oops: Fatal exception
-
-  The empty workqueue name in that line is itself the corruption:
-  print_worker_info() reads wq->name with copy_from_kernel_nofault() and
-  it failed, while another CPU in the same dump shows the normal form,
-  "Workqueue: events wiimote_init_worker" - the task that called
-  wiimod_pro_probe().
-
-  x86_64 with CONFIG_KASAN_GENERIC and CONFIG_DEBUG_OBJECTS_WORK both
-  enabled, 15 s in: KASAN says nothing, because INIT_WORK() writes to a
-  valid field of a live object, and DEBUG_OBJECTS_WORK reports
-
-    ODEBUG: init active (active state 0) object type: work_struct
-      hint: wiimod_rumble_worker+0x0/0x70
-    WARNING: lib/debugobjects.c:629 at debug_print_object
-    Workqueue: events wiimote_init_worker
-     __debug_object_init+0x1ff/0x3b0
-     __init_work+0x51/0x60
-     wiimod_pro_probe+0x28/0xba0
-     wiimote_init_worker.cold+0xb6a/0xe88
-
-After the change the same reproducer drives 36774 extension hotplugs and
-612156 force-feedback plays in 60 s on that x86_64 kernel with no ODEBUG,
-WARNING or KASAN output, and the rumble reports still arrive, so the
-force-feedback path is unaffected.
-
-Fixes: f50f9aabf32d ("HID: wiimote: fix FF deadlock")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jinmo Yang <jinmo44.yang@gmail.com>
----
-Notes for reviewers, not for the commit message:
-
- - base-commit below is the public next-20260925 tag, but the three files
-   touched are byte-identical in linux-next, hid/for-next, hid/master and
-   hid/for-7.4/*, and the patch applies to all of them unchanged, so pick
-   whichever tree suits.
-
- - It conflicts textually with the pending series "[PATCH v4 0/4] HID:
-   wiimote: new LED behavior on connect + scoped_guards" from Rafael Passos
-   (<20260817213840.1053216-1-rafael@rcpassos.me>), whose 4/4 rewrites
-   wiimote_create() and drops the call. Happy to rebase on top of that if it
-   goes in first; I kept this one standalone because it is a stable
-   candidate and that series is a refactor.
-
- - The reproducer is a reactive /dev/uhid wiimote emulator, plus a
-   reflection-only dex run through app_process to drive the force-feedback
-   half on Android. I can post either if that would help.
-
- drivers/hid/hid-wiimote-core.c    | 1 +
- drivers/hid/hid-wiimote-modules.c | 5 +----
- drivers/hid/hid-wiimote.h         | 1 +
- 3 files changed, 3 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/hid/hid-wiimote-core.c b/drivers/hid/hid-wiimote-core.c
-index 63c4fa8fbb9b..1946c23867c8 100644
---- a/drivers/hid/hid-wiimote-core.c
-+++ b/drivers/hid/hid-wiimote-core.c
-@@ -1754,6 +1754,7 @@ static struct wiimote_data *wiimote_create(struct hid_device *hdev)
- 	wdata->state.cmd_battery = 0xff;
- 
- 	INIT_WORK(&wdata->init_worker, wiimote_init_worker);
-+	INIT_WORK(&wdata->rumble_worker, wiimod_rumble_worker);
- 	timer_setup(&wdata->timer, wiimote_init_timeout, 0);
- 
- 	return wdata;
-diff --git a/drivers/hid/hid-wiimote-modules.c b/drivers/hid/hid-wiimote-modules.c
-index dccb78bb3afd..c5b48065638e 100644
---- a/drivers/hid/hid-wiimote-modules.c
-+++ b/drivers/hid/hid-wiimote-modules.c
-@@ -117,7 +117,7 @@ static const struct wiimod_ops wiimod_keys = {
-  */
- 
- /* used by wiimod_rumble and wiipro_rumble */
--static void wiimod_rumble_worker(struct work_struct *work)
-+void wiimod_rumble_worker(struct work_struct *work)
+ static inline void nf_skip_egress(struct sk_buff *skb, bool skip)
  {
- 	struct wiimote_data *wdata = container_of(work, struct wiimote_data,
- 						  rumble_worker);
-@@ -155,8 +155,6 @@ static int wiimod_rumble_play(struct input_dev *dev, void *data,
- static int wiimod_rumble_probe(const struct wiimod_ops *ops,
- 			       struct wiimote_data *wdata)
+-#ifdef CONFIG_NETFILTER_SKIP_EGRESS
++#ifdef CONFIG_NET_EGRESS
+        skb->nf_skip_egress =3D skip;
+ #endif
+ }
+diff --git a/include/linux/rtnetlink.h b/include/linux/rtnetlink.h
+index 95729339e7a54819b08e124bd36126cf71dfd9a4..a54ec40d095c041191ca44f7c43=
+34aa37fa6b891
+100644
+--- a/include/linux/rtnetlink.h
++++ b/include/linux/rtnetlink.h
+@@ -186,7 +186,12 @@ void net_dec_ingress_queue(void);
+ #ifdef CONFIG_NET_EGRESS
+ void net_inc_egress_queue(void);
+ void net_dec_egress_queue(void);
+-void netdev_xmit_skip_txqueue(bool skip);
++bool netdev_xmit_skip_txqueue(bool skip);
++#else
++static inline bool netdev_xmit_skip_txqueue(bool skip)
++{
++       return false;
++}
+ #endif
+
+ void rtnetlink_init(void);
+diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
+index 84308498a3a8cd5a86364e0b15ddb35755732635..a3ff380d43f01db0b040573c9dd=
+7acc4e2e2cda8
+100644
+--- a/include/linux/skbuff.h
++++ b/include/linux/skbuff.h
+@@ -1020,7 +1020,7 @@ struct sk_buff {
+ #ifdef CONFIG_NET_REDIRECT
+        __u8                    from_ingress:1;
+ #endif
+-#ifdef CONFIG_NETFILTER_SKIP_EGRESS
++#ifdef CONFIG_NET_EGRESS
+        __u8                    nf_skip_egress:1;
+ #endif
+ #ifdef CONFIG_SKB_DECRYPTED
+diff --git a/include/net/sch_generic.h b/include/net/sch_generic.h
+index f35bd06a6bad680586da6b8ef20efc5d6b68fd6d..1acaadb3e2cf08827bb0d94e164=
+9cfeb9e9c85ac
+100644
+--- a/include/net/sch_generic.h
++++ b/include/net/sch_generic.h
+@@ -810,6 +810,15 @@ static inline bool skb_at_tc_ingress(const struct
+sk_buff *skb)
+ #endif
+ }
+
++static inline bool skb_at_tc_egress(const struct sk_buff *skb)
++{
++#ifdef CONFIG_NET_EGRESS
++       return skb->nf_skip_egress && !skb_at_tc_ingress(skb);
++#else
++       return false;
++#endif
++}
++
+ static inline bool skb_skip_tc_classify(struct sk_buff *skb)
  {
--	INIT_WORK(&wdata->rumble_worker, wiimod_rumble_worker);
--
- 	set_bit(FF_RUMBLE, wdata->input->ffbit);
- 	if (input_ff_create_memless(wdata->input, NULL, wiimod_rumble_play))
- 		return -ENOMEM;
-@@ -1865,7 +1863,6 @@ static int wiimod_pro_probe(const struct wiimod_ops *ops,
- 	int ret, i;
- 	unsigned long flags;
- 
--	INIT_WORK(&wdata->rumble_worker, wiimod_rumble_worker);
- 	wdata->state.calib_pro_sticks[0] = 0;
- 	wdata->state.calib_pro_sticks[1] = 0;
- 	wdata->state.calib_pro_sticks[2] = 0;
-diff --git a/drivers/hid/hid-wiimote.h b/drivers/hid/hid-wiimote.h
-index 9c12f63f6dd2..c63cd0a68e0c 100644
---- a/drivers/hid/hid-wiimote.h
-+++ b/drivers/hid/hid-wiimote.h
-@@ -262,6 +262,7 @@ enum wiiproto_reqs {
- #define dev_to_wii(pdev) hid_get_drvdata(to_hid_device(pdev))
- 
- void __wiimote_schedule(struct wiimote_data *wdata);
-+void wiimod_rumble_worker(struct work_struct *work);
- 
- extern void wiiproto_req_drm(struct wiimote_data *wdata, __u8 drm);
- extern void wiiproto_req_rumble(struct wiimote_data *wdata, __u8 rumble);
+ #ifdef CONFIG_NET_CLS_ACT
+diff --git a/net/core/dev.c b/net/core/dev.c
+index f660fccfc0dbc56d7e1a9643525229b278bca547..8638c994bbcb0d1bf25ed603f83=
+3f105236a45bf
+100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -4404,9 +4404,14 @@ EXPORT_SYMBOL(dev_loopback_xmit);
+ static struct netdev_queue *
+ netdev_tx_queue_mapping(struct net_device *dev, struct sk_buff *skb)
+ {
+-       int qm =3D skb_get_queue_mapping(skb);
++       int queue =3D skb_get_queue_mapping(skb);
++       int capped;
 
-base-commit: f5f84daefcd92d7a630066635ecea1433ed5eac7
--- 
-2.53.0
+-       return netdev_get_tx_queue(dev, netdev_cap_txqueue(dev, qm));
++       capped =3D netdev_cap_txqueue(dev, queue);
++       if (unlikely(capped !=3D queue))
++               skb_set_queue_mapping(skb, capped);
++
++       return netdev_get_tx_queue(dev, capped);
+ }
 
+ #ifndef CONFIG_PREEMPT_RT
+@@ -4415,9 +4420,13 @@ static bool netdev_xmit_txqueue_skipped(void)
+        return __this_cpu_read(softnet_data.xmit.skip_txqueue);
+ }
+
+-void netdev_xmit_skip_txqueue(bool skip)
++bool netdev_xmit_skip_txqueue(bool skip)
+ {
++       bool prev =3D netdev_xmit_txqueue_skipped();
++
+        __this_cpu_write(softnet_data.xmit.skip_txqueue, skip);
++
++       return prev;
+ }
+ EXPORT_SYMBOL_GPL(netdev_xmit_skip_txqueue);
+
+@@ -4427,9 +4436,13 @@ static bool netdev_xmit_txqueue_skipped(void)
+        return current->net_xmit.skip_txqueue;
+ }
+
+-void netdev_xmit_skip_txqueue(bool skip)
++bool netdev_xmit_skip_txqueue(bool skip)
+ {
++       bool prev =3D netdev_xmit_txqueue_skipped();
++
+        current->net_xmit.skip_txqueue =3D skip;
++
++       return prev;
+ }
+ EXPORT_SYMBOL_GPL(netdev_xmit_skip_txqueue);
+ #endif
+@@ -4848,21 +4861,25 @@ int __dev_queue_xmit(struct sk_buff *skb,
+struct net_device *sb_dev)
+        tcx_set_ingress(skb, false);
+ #ifdef CONFIG_NET_EGRESS
+        if (static_branch_unlikely(&egress_needed_key)) {
++               bool skip_txq;
++
+                if (nf_hook_egress_active()) {
+                        skb =3D nf_hook_egress(skb, &rc, dev);
+                        if (!skb)
+                                goto out;
+                }
+
+-               netdev_xmit_skip_txqueue(false);
++               skip_txq =3D netdev_xmit_skip_txqueue(false);
+
+                nf_skip_egress(skb, true);
+                skb =3D sch_handle_egress(skb, &rc, dev);
+-               if (!skb)
++               if (!skb) {
++                       netdev_xmit_skip_txqueue(skip_txq);
+                        goto out;
++               }
+                nf_skip_egress(skb, false);
+
+-               if (netdev_xmit_txqueue_skipped())
++               if (netdev_xmit_skip_txqueue(skip_txq))
+                        txq =3D netdev_tx_queue_mapping(dev, skb);
+        }
+ #endif
+diff --git a/net/sched/act_skbedit.c b/net/sched/act_skbedit.c
+index bfec6b66841031cd566d0c2bdc3d120cec41e3e4..26258b353cdeec4806341377043=
+9878d27ed60cf
+100644
+--- a/net/sched/act_skbedit.c
++++ b/net/sched/act_skbedit.c
+@@ -72,9 +72,8 @@ TC_INDIRECT_SCOPE int tcf_skbedit_act(struct sk_buff *skb=
+,
+        }
+        if (params->flags & SKBEDIT_F_QUEUE_MAPPING &&
+            skb->dev->real_num_tx_queues > params->queue_mapping) {
+-#ifdef CONFIG_NET_EGRESS
+-               netdev_xmit_skip_txqueue(true);
+-#endif
++               if (skb_at_tc_egress(skb))
++                       netdev_xmit_skip_txqueue(true);
+                skb_set_queue_mapping(skb, tcf_skbedit_hash(params, skb));
+        }
+        if (params->flags & SKBEDIT_F_MARK) {
