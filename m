@@ -1,85 +1,76 @@
-Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C17AD3BD22B
-	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 07:51:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3296C3B6BF1
+	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 07:54:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790495493; cv=none; b=jX4atnBroWHgpCxOJjdWcR+NtldudK1ZfCsvwPv3+TvKUeQOSDYD1enjnOa65QaqYD1vGpAFXBKyyuzW3r60nAN7K+yea0MdKK7XAwworyS2ar8M1xokDuVJEj4mhgsN8m0QyOaKNGBDWIJYDw+1DhUp5RJYECp/sXWfXvOl4N4=
+	t=1790495683; cv=none; b=k0wGQZ36RyQalGzZ79I6pMyVS7e5wSIPZQZsaha7Ek92nhuZiruN/Aw2Ho0zssTeqnzTo1ULG/ClzE8gtaX/hoVPCCvPQu+FM2T25mGfdfQxCEFHrI/w0tTtOZEBm8R0QyokzsIN5tohlvyRm19DHkkGnofiAdLLXmc/NBMQ/Ew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790495493; c=relaxed/simple;
-	bh=dlod1CpWCqRLRGZdexHX97cGGQWxbZmQMIDU5wgRoU8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=E4Nii4yZSgR2aErx8povK7ZdZHtkvFkBiSOXxGmpZfnGUEXlzRIjYphtpRbXofszuJ5YidtBM75wRccL+VkSgiqQSJb6OXR6678cbJ+Vs7EH746Au+SM40kZDge3q3uoETh8OzRUDxTk2i8aDVYisRNL1pSrTndRFsjoqp6CjYA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s6dtL95l; arc=none smtp.client-ip=74.125.229.41
+	s=arc-20240116; t=1790495683; c=relaxed/simple;
+	bh=IGTw7cpaA8o18EKEwX+QiaExhRaxJ2vai2vQzvv5R7A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nn2Jv9QuyoXvNrcmzqEv5lOkL+ONvYCRGQF5cCBSNXEHLnhLXgwOkFHgObgncsf2NA8SE9YYGwe+50/BASQwJq4u7tYL+Lwk9r/IBcDaHz47XdA37t9v0aTeGjlmzGpMjjiJP0kZFHrC7DaZZaMktR31sqcNEHhiuizSB/XBQtk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O4iZ7WIG; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s6dtL95l"
-Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-343697ad877so42826eec.1
-        for <stable@vger.kernel.org>; Sun, 27 Sep 2026 00:51:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O4iZ7WIG"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747ee1f9bso9577285ad.3
+        for <stable@vger.kernel.org>; Sun, 27 Sep 2026 00:54:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790495489; x=1791100289; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790495680; x=1791100480; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ww6aqGhJtBvyRvMZDM65zhE1MjD4RPJH9QsBDwHkn30=;
-        b=s6dtL95lnEQD1T93TXEtIX3bzEzxyPks9PH5j1pAZYi07gxwdZXkJobWnV+nLcxxfE
-         UwFT8ax4js4sYgTC+G5gOVOc0yN6bzquIMUqzOkmIRRHHMuNQeb+pWjXh7NzTZjo+wLW
-         UeZhmMMkapjnBsaRGUYAdYwrYqo8DLJYYgnWtpQi2ceJgbcwytOEoXtRQ8DB7E0WprTN
-         BsWij6zbRv4kqhd4cVJuRSWshZqeul0Ijzk6Wo6gVUzV7/aypMQ55whLA4oahik8bJ3n
-         N9wAsxVcEv5HJZ6Re+jkZTF9LTm3GP5a7ny78nnQv6iNYdKXoCnrd76gKwu9X+FYrwtX
-         lXEg==
+        bh=bjwFwUue96fleY0pohUkbrbEGxywxs4gaD//2C9cu0w=;
+        b=O4iZ7WIGNgCdr/aCOjqlfspt0Zb9tlYAwMFzJ/+aMO7h9LpNSjpsWwa8XHWsRvUymG
+         p9RZLaosQPNHo1NyK7GWGgx8gYbry4mceJ0L2S1L9VOYDFjWt7MedPmZc4q/y3gT/1/P
+         8F6vqlJLI2xjOh3mFyFn3Of0Tl83LmQJx0H3bdziUsWWyNO5ZAh3tdk76RLZADSVPNzO
+         XSgge5tUGJXJ2fR9MQ1WGT5Nn3B59m6ntd2OGhu1JpY+m/mjCRhTI3UTkhrOuEQY58XO
+         P69GeQFNC95F9efSBAmG7/ekvnqHyigHzCjucgCvxpx+9TvszEfaBAVlug/7czn2P3Hl
+         6O3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790495489; x=1791100289;
+        d=1e100.net; s=20260707; t=1790495680; x=1791100480;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Ww6aqGhJtBvyRvMZDM65zhE1MjD4RPJH9QsBDwHkn30=;
-        b=U19pDjreH+Mu2z9CUPI+ihTYRxSVP1ZzQxjZFhnJh250XjIDgBuc+9lbxIZaEEhbkN
-         ZiasMehzTK1tb4UafAXQN5IuNsfHIp8lNjwKUi72Svr+FwHQAzmAdYCtZZcQzjjwFROh
-         VeCHWTSigTqOJ8MKk/ugjPSmfIZNbvf0K2oxBKuL9oD7dMrgqcZontGWN06bKYv/nvNe
-         SxZwRrSsu9HMbEX7kGF+wflp5ygOwBXLOqhJQ3zU/c5vNzk3vuZk9ZTmBQbqtAW0wTT6
-         Xbdg0XQjhzpOJwq8IkG1GUsK8QeWz591XbuigbRE7eML3Pldo7WtFnrg3IhzHrJQ0RM9
-         mHWQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxu2Nvz2XVnxV6Z2lD6Y/aoUKFomrQ6Fn+n39d335k7JnIn8fDHGi+X2dw6/3iQekha2OmzAX0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKasYrrYeJh9MydUmeYxxhcb1NK42f6lSb/7b9Ac7JkoFLHahGx
-	ALBkCMjmsJT8SYv8ESzjMo7VQIJIQKecKORAEBOHDJ5o3+wQcdtCU2+g
-X-Gm-Gg: AYBFou18fdyQwzoRW8Q7da35YuwgZ1p5NX8SK3Bnct2hVubKNKGHA4M3IJ/zRjnBSh2
-	J2hu4Frs76D8vVJoazH8uuPqAc6HZ8elxY/7+3uk9f26p8vWkExBBTBKCyn0dHg2zzO1qPxI64E
-	Qu0qj3IhxmRIqKHT3HGDifv60MDEYFODsbe/KTrWsdG/uHvhKCzQgS0dbtJXdqZdH4pSKPMqyzA
-	kazivl7Zw2fOoxTauobP9KqnfG3j6GvBlx6wYcf7w5TXevc4FdWpGnaW3MMU/yYc6/jcSUoJ/TT
-	BPCG737wfAtCiCgTpzyskmlr1ENSNyEfrPR4+0o3aZxPSUDXO1u2tL4Xz1itbEqw72JSZjcjfYJ
-	gZnmv6gZoUJDajuKNPuX5WQJU1E7PrVwrgR8pnE7vuOyJTPuBpNM59Sve68P1mQ2pxybHLzUNCJ
-	WbAWmF01ucXq7R+8I0sSq8VD27wXLQC92KqqoRJJnV6XYfXj3v+ePgaA+RgHywrDSRfWOv4g1EW
-	B3CW1Ox98/872LoHcSItw4RVOCqYiD+hCYE6mR33YaMRY2Ms1j0Ycv+jDUUGueBl4HCRFtRbZPH
-	NxYQ
-X-Received: by 2002:a05:7301:540e:b0:33c:1bd2:1db6 with SMTP id 5a478bee46e88-3426d0df371mr8407759eec.0.1790495488467;
-        Sun, 27 Sep 2026 00:51:28 -0700 (PDT)
-Received: from localhost.localdomain (95.169.12.199.16clouds.com. [95.169.12.199])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3414504fae2sm20464916eec.20.2026.09.27.00.51.24
+        bh=bjwFwUue96fleY0pohUkbrbEGxywxs4gaD//2C9cu0w=;
+        b=ONdJe2CTCLDqAkqEnO1v2SKMf0QavsGOotsEbLi3H+9HBg2G+wwJZjEyghKX2lAfl3
+         op1vw0E06BmAsgOX+LSsWd955UKEX9yJ7ZRyFI086nWDCTKk0SU+cJs+0qh76q8WN1fW
+         yRVbTWjxQrfCKR22YeM4VBFIPESoxazSPiaN/z2kqjl5YBI3XaGYhdI9dquN5xIJeKM1
+         o4uC4T+iKH8+nMc5EsJ9KEqjdKS+vW4XNmqM35IYzlevAZg8TvUoaXKwAPWtAMMf0kh1
+         NYNlmPVzZ1esdqj5jrjV1fI22lEcGFRH/zpxrDfDeoCfgkSLZ+uyCnbSy5ljZH8gUzlF
+         nygQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz94jX/mnNKJoseDSy3awH/NKOgxgaKEZjGB4TTs8zBlkfcUBYDVIQD1Wqd5p0Q0S2fGg9u/PM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJE5n945YjI6on5Imr0rSxnhHeXiWUJ4/JXR7BTRnfcJ2ST9phf
+	JeaAU1asiUvwiLNbFRfKT6VB0a9PpRstcCBylX3tr93L/TuidB6MFKEO
+X-Gm-Gg: AYBFou1i52WrqRucZ+TUiKwMxVAgonXVCSTFBj2Zn1XC9CO/enJFXiW+sJxo49o8Sb6
+	gmVRyGtkIi0rQT3oz1e/TarRqhlEIx2iwtVRbR6rfYo4L+qpHBCr0tMl8tmrHd3qlfU/RT/TBc2
+	hy3YUgp82wI0Lh5FVi35dxIUxsVVI8hMNNyzdxmLwT4RIJCSvioRJrA9ubnhkEDBhcCQHw8n9XY
+	uUiYk/yUycTwL28LpQetHYkCsx871pcCafG0bfWVANgky4FDdb+o+6BSqdHr8T3RXCLkJJ053KL
+	CRB5aHwocwozbhrw/ETVFrmQOP7ujqjA1kQs0IvsEkmoBhkzBwuqEUN+7CXG1cbt6qUPyU5xOFx
+	7ELUakN0h1y+oPwrJpjQI1r/eVGAX3mPxcqb5TMCkPAr9PZ06xTSRqcgY+wI7k+4b3LoDP7bOl7
+	WHvJTnhUAzZUoSkMmngJdKdhqe4MdUwUhWCPuqPKr9Rok6wkWufvBazCXaJz2qIvplN1r6zN1ap
+	4TcFb0/N2Xb8tOf
+X-Received: by 2002:a17:90b:57c6:b0:3a0:22bd:6ef6 with SMTP id 98e67ed59e1d1-3a09853a6cdmr7064156a91.2.1790495680466;
+        Sun, 27 Sep 2026 00:54:40 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2405:4802:1d4a:e90:3a0c:2ea9:4ab7:bd1b])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b8efaeb3sm13771287a91.2.2026.09.27.00.54.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 00:51:27 -0700 (PDT)
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-To: "D. Wythe" <alibuda@linux.alibaba.com>,
-	Dust Li <dust.li@linux.alibaba.com>,
-	Sidraya Jayagond <sidraya@linux.ibm.com>,
-	Mahanta Jambigi <mjambigi@linux.ibm.com>,
-	Tony Lu <tonylu@linux.alibaba.com>,
-	Wen Gu <guwen@linux.alibaba.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Ursula Braun <ubraun@linux.vnet.ibm.com>
-Cc: linux-rdma@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	netdev@vger.kernel.org,
+        Sun, 27 Sep 2026 00:54:40 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
+	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
+	syzbot+ca23c8570669ead78867@syzkaller.appspotmail.com,
 	stable@vger.kernel.org
-Subject: [PATCH net] net/smc: Hold a socket reference for transmit work
-Date: Sun, 27 Sep 2026 15:51:20 +0800
-Message-ID: <20260927075120.3695060-1-nicoyip.dev@gmail.com>
+Subject: [PATCH] drm/fb-helper: defer setup when fbdev_probe() fails, not just on -EAGAIN
+Date: Sun, 27 Sep 2026 14:54:34 +0700
+Message-ID: <20260927075434.72658-1-ngocthang2710.1999@gmail.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -89,210 +80,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-SMC transmit work is queued without holding a socket reference. After
-an active close has cancelled tx_work, a received CDC message can queue
-it again while the socket is in SMC_PEERCLOSEWAIT1. Passive close can
-then reach SMC_CLOSED, call smc_conn_free() and drop the last socket
-reference before smc_tx_work() acquires the socket lock. The worker
-then accesses the freed socket.
+__drm_fb_helper_initial_config_and_unlock() calls
+drm_client_modeset_probe() first, which already fills in each
+mode_set->mode/num_connectors for every connected output, and only
+afterwards calls drm_fb_helper_single_fb_probe() to create
+fb_helper->fb and wire it into those mode_sets via
+drm_setup_crtcs_fb().
 
-KASAN reported:
+If drm_fb_helper_single_fb_probe() fails with anything other than
+-EAGAIN (e.g. dev->driver->fbdev_probe() itself fails), the function
+bails out before drm_setup_crtcs_fb() runs and before setting
+fb_helper->deferred_setup. The client is left with mode_sets that
+have a mode and connectors but mode_set->fb == NULL, and nothing
+marks this fb_helper as needing a retry.
 
-  BUG: KASAN: slab-use-after-free in lock_sock_nested+0x97/0x180
-  Write of size 8 by task kworker/0:1/11
-  Workqueue: smc_tx_wq-00000000 smc_tx_work
-  Call Trace:
-   lock_sock_nested+0x97/0x180
-   smc_tx_work+0x5d/0x170
-   process_one_work+0x5ce/0xeb0
-   worker_thread+0x45b/0xd10
+__drm_fb_helper_restore_fbdev_mode_unlocked() only skips committing
+when fb_helper->deferred_setup is set, so a later .restore() call
+(drm_lastclose() on process exit, in this report) commits the stale
+mode_set through drm_client_modeset_commit() ->
+drm_client_modeset_commit_atomic() -> __drm_atomic_helper_set_config(),
+which hits WARN_ON(!set->fb).
 
-  Allocated by task 24:
-   sk_prot_alloc+0x56/0x210
-   sk_alloc+0x2b/0x6f0
-   smc_tcp_listen_work+0x16d/0xfc0
+Mark fb_helper->deferred_setup on any drm_fb_helper_single_fb_probe()
+failure, not just -EAGAIN, so restore keeps skipping the commit until
+a later hotplug event successfully re-probes and re-populates
+mode_set->fb. The real error code is still returned to the caller
+unchanged.
 
-  Freed by task 182:
-   slab_free_after_rcu_debug+0xa6/0x1e0
-   rcu_core+0x509/0x1850
-
-Hold a socket reference for each successful enqueue and release it when
-the worker finishes or a pending invocation is cancelled. Cover all three
-queue sites and all cancellation sites, including the socket options.
-Check conn->freed in smc_tx_pending() under the socket lock: retaining the
-socket does not retain connection resources released by smc_conn_free().
-This also covers pending transmit processing from smc_release_cb().
-
-Use queue_delayed_work() for the busy-slot retry as well. All tx_work
-delays are zero, so an already queued invocation needs no timer update.
-Unlike mod_delayed_work(), its return value distinguishes a successful
-enqueue from work disabled temporarily by cancel_delayed_work_sync(),
-allowing the extra reference to be returned when no work was queued.
-
-Fixes: e6727f39004b ("smc: send data (through RDMA)")
+Reported-by: syzbot+ca23c8570669ead78867@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=ca23c8570669ead78867
+Fixes: ca91a2758fce ("drm/fb-helper: Support deferred setup")
 Cc: stable@vger.kernel.org
-Link: https://lists.openwall.net/netdev/2026/09/09/105
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
 ---
- net/smc/af_smc.c    |  6 ++++--
- net/smc/smc_close.c | 18 ++++++++++++------
- net/smc/smc_core.c  |  4 +++-
- net/smc/smc_tx.c    | 18 +++++++++++++-----
- 4 files changed, 32 insertions(+), 14 deletions(-)
+Tested in QEMU (KVM, x86_64) with the syzbot C reproducer, which enumerates
+a USB device over raw-gadget matching drm/gud's ID (idVendor 0x1d50,
+idProduct 0x614d) then opens the resulting DRM node. In our test VM gud
+lands on a different card minor than in the syzbot report since other
+drivers (vgem/vkms/bochs-drm) register first, but retargeting the
+reproducer's open() at gud's actual minor reproduces it directly on the
+very first probe:
 
-diff --git a/net/smc/af_smc.c b/net/smc/af_smc.c
-index e9f93b3ab435..7ebd51f922aa 100644
---- a/net/smc/af_smc.c
-+++ b/net/smc/af_smc.c
-@@ -3141,7 +3141,8 @@ int smc_setsockopt(struct socket *sock, int level, int optname,
- 			if (val) {
- 				SMC_STAT_INC(smc, ndly_cnt);
- 				smc_tx_pending(&smc->conn);
--				cancel_delayed_work(&smc->conn.tx_work);
-+				if (cancel_delayed_work(&smc->conn.tx_work))
-+					sock_put(sk);
- 			}
- 		}
- 		break;
-@@ -3152,7 +3153,8 @@ int smc_setsockopt(struct socket *sock, int level, int optname,
- 			if (!val) {
- 				SMC_STAT_INC(smc, cork_cnt);
- 				smc_tx_pending(&smc->conn);
--				cancel_delayed_work(&smc->conn.tx_work);
-+				if (cancel_delayed_work(&smc->conn.tx_work))
-+					sock_put(sk);
- 			}
- 		}
- 		break;
-diff --git a/net/smc/smc_close.c b/net/smc/smc_close.c
-index bb0313ef5f7c..a8d4b4b65f24 100644
---- a/net/smc/smc_close.c
-+++ b/net/smc/smc_close.c
-@@ -118,7 +118,8 @@ static void smc_close_cancel_work(struct smc_sock *smc)
- 	release_sock(sk);
- 	if (cancel_work_sync(&smc->conn.close_work))
- 		sock_put(sk);
--	cancel_delayed_work_sync(&smc->conn.tx_work);
-+	if (cancel_delayed_work_sync(&smc->conn.tx_work))
-+		sock_put(sk);
- 	lock_sock(sk);
- }
+  gud 1-1:1.0: [drm] format XR24 little-endian (0x34325258) not supported
+  gud 1-1:1.0: [drm] No compatible format found
+  gud 1-1:1.0: [drm] *ERROR* fbdev: Failed to setup emulation (ret=-22)
+  ------------[ cut here ]------------
+  !set->fb
+  WARNING: drivers/gpu/drm/drm_atomic.c:2031 ...
+
+On the unpatched kernel this isn't benign: __drm_atomic_helper_set_config()
+warns and then continues, committing an active CRTC/plane with a NULL
+framebuffer, which escalates into a NULL-pointer dereference and a fatal
+kernel panic a few lines later in our runs. With this patch applied, the
+same gud probe failure (ret=-22) still happens every time as expected, but
+restore() no longer commits the stale mode_set: no warning, no panic,
+clean shutdown across repeated runs.
+
+ drivers/gpu/drm/drm_fb_helper.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
+index d4664ed468b2..0817b639b3fa 100644
+--- a/drivers/gpu/drm/drm_fb_helper.c
++++ b/drivers/gpu/drm/drm_fb_helper.c
+@@ -1724,10 +1724,10 @@ __drm_fb_helper_initial_config_and_unlock(struct drm_fb_helper *fb_helper)
  
-@@ -230,7 +231,8 @@ int smc_close_active(struct smc_sock *smc)
- 	case SMC_ACTIVE:
- 		smc_close_stream_wait(smc, timeout);
- 		release_sock(sk);
--		cancel_delayed_work_sync(&conn->tx_work);
-+		if (cancel_delayed_work_sync(&conn->tx_work))
-+			sock_put(sk);
- 		lock_sock(sk);
- 		if (sk->sk_state == SMC_ACTIVE) {
- 			/* send close request */
-@@ -264,7 +266,8 @@ int smc_close_active(struct smc_sock *smc)
- 		if (!smc_cdc_rxed_any_close(conn))
- 			smc_close_stream_wait(smc, timeout);
- 		release_sock(sk);
--		cancel_delayed_work_sync(&conn->tx_work);
-+		if (cancel_delayed_work_sync(&conn->tx_work))
-+			sock_put(sk);
- 		lock_sock(sk);
- 		if (sk->sk_state != SMC_APPCLOSEWAIT1 &&
- 		    sk->sk_state != SMC_APPCLOSEWAIT2)
-@@ -372,7 +375,8 @@ static void smc_close_passive_work(struct work_struct *work)
- 		/* peer has not received all data */
- 		smc_close_passive_abort_received(smc);
- 		release_sock(sk);
--		cancel_delayed_work_sync(&conn->tx_work);
-+		if (cancel_delayed_work_sync(&conn->tx_work))
-+			sock_put(sk);
- 		lock_sock(sk);
- 		goto wakeup;
- 	}
-@@ -462,7 +466,8 @@ int smc_close_shutdown_write(struct smc_sock *smc)
- 	case SMC_ACTIVE:
- 		smc_close_stream_wait(smc, timeout);
- 		release_sock(sk);
--		cancel_delayed_work_sync(&conn->tx_work);
-+		if (cancel_delayed_work_sync(&conn->tx_work))
-+			sock_put(sk);
- 		lock_sock(sk);
- 		if (sk->sk_state != SMC_ACTIVE)
- 			goto again;
-@@ -475,7 +480,8 @@ int smc_close_shutdown_write(struct smc_sock *smc)
- 		if (!smc_cdc_rxed_any_close(conn))
- 			smc_close_stream_wait(smc, timeout);
- 		release_sock(sk);
--		cancel_delayed_work_sync(&conn->tx_work);
-+		if (cancel_delayed_work_sync(&conn->tx_work))
-+			sock_put(sk);
- 		lock_sock(sk);
- 		if (sk->sk_state != SMC_APPCLOSEWAIT1)
- 			goto again;
-diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
-index 9974149659c2..6021322253e9 100644
---- a/net/smc/smc_core.c
-+++ b/net/smc/smc_core.c
-@@ -1070,7 +1070,9 @@ static int smc_switch_cursor(struct smc_sock *smc, struct smc_cdc_tx_pend *pend,
- 	    smc->sk.sk_state != SMC_CLOSED) {
- 		rc = smcr_cdc_msg_send_validation(conn, pend, wr_buf);
- 		if (!rc) {
--			queue_delayed_work(conn->lgr->tx_wq, &conn->tx_work, 0);
-+			sock_hold(&smc->sk);
-+			if (!queue_delayed_work(conn->lgr->tx_wq, &conn->tx_work, 0))
-+				sock_put(&smc->sk);
- 			smc->sk.sk_data_ready(&smc->sk);
- 		}
- 	} else {
-diff --git a/net/smc/smc_tx.c b/net/smc/smc_tx.c
-index 3144b4b1fe29..c5c00c63ce4c 100644
---- a/net/smc/smc_tx.c
-+++ b/net/smc/smc_tx.c
-@@ -570,8 +570,10 @@ static int smcr_tx_sndbuf_nonempty(struct smc_connection *conn)
- 			if (conn->killed)
- 				return -EPIPE;
- 			rc = 0;
--			mod_delayed_work(conn->lgr->tx_wq, &conn->tx_work,
--					 SMC_TX_WORK_DELAY);
-+			sock_hold(&smc->sk);
-+			if (!queue_delayed_work(conn->lgr->tx_wq, &conn->tx_work,
-+						SMC_TX_WORK_DELAY))
-+				sock_put(&smc->sk);
- 		}
- 		return rc;
- 	}
-@@ -667,7 +669,7 @@ void smc_tx_pending(struct smc_connection *conn)
- 	struct smc_sock *smc = container_of(conn, struct smc_sock, conn);
- 	int rc;
+ 	ret = drm_fb_helper_single_fb_probe(fb_helper);
+ 	if (ret < 0) {
+-		if (ret == -EAGAIN) {
+-			fb_helper->deferred_setup = true;
++		/* modesets are probed but fb_helper->fb isn't; defer restore too */
++		fb_helper->deferred_setup = true;
++		if (ret == -EAGAIN)
+ 			ret = 0;
+-		}
+ 		mutex_unlock(&fb_helper->lock);
  
--	if (smc->sk.sk_err)
-+	if (smc->sk.sk_err || conn->freed)
- 		return;
- 
- 	rc = smc_tx_sndbuf_nonempty(conn);
-@@ -690,6 +692,7 @@ void smc_tx_work(struct work_struct *work)
- 	lock_sock(&smc->sk);
- 	smc_tx_pending(conn);
- 	release_sock(&smc->sk);
-+	sock_put(&smc->sk);
- }
- 
- void smc_tx_consumer_update(struct smc_connection *conn, bool force)
-@@ -718,8 +721,13 @@ void smc_tx_consumer_update(struct smc_connection *conn, bool force)
- 			return;
- 		if ((smc_cdc_get_slot_and_msg_send(conn) < 0) &&
- 		    !conn->killed) {
--			queue_delayed_work(conn->lgr->tx_wq, &conn->tx_work,
--					   SMC_TX_WORK_DELAY);
-+			struct smc_sock *smc =
-+				container_of(conn, struct smc_sock, conn);
-+
-+			sock_hold(&smc->sk);
-+			if (!queue_delayed_work(conn->lgr->tx_wq, &conn->tx_work,
-+						SMC_TX_WORK_DELAY))
-+				sock_put(&smc->sk);
- 			return;
- 		}
- 	}
+ 		goto err_drm_fb_helper_release_info;
 -- 
 2.43.0
 
