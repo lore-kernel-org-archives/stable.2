@@ -1,195 +1,173 @@
-Received: from mail-dl2-f41.google.com (mail-dl2-f41.google.com [74.125.229.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C59593B14D7
-	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 16:26:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 488C93B27EA;
+	Sun, 27 Sep 2026 16:26:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790526364; cv=none; b=u5+lKNlxFZyyYyMtgUWa7VgqwcU7VGG9N1PqZsVdHechMbsHi4xRRCNfj+zRY6Y5tpWkuyFQ0STgQATIW8E57o7NHZNrhUHS/wDy7s1JmZzWiskWtDRB2m/W1/9wsoJese7SMRguTC0sprv9PUXdJPEOTzaW2c3k3xNb1OEcyyE=
+	t=1790526420; cv=none; b=JionWRSdmOVpnN6HhGNQw8Odu3LppShhno9J/dN+D6OXYFsV8wkesEr0y/twA3YAOozo70F7OXG9IqUHtWLtfJHXdkgaqJG/4e/ldlqsbDHSnSWLH40OCOeW0SsxEWT+PZ4dGUetu1OfKfct6qkonsyVMV35123IMZhKyo6XqKI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790526364; c=relaxed/simple;
-	bh=w7hXOZR3kGcBhr0hjg4B5lwGJGB/KZcZNRTsshLVPPs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LaR5FT4+1Xm6jz7GmS8H6EgoHmlLyRw0U7sqMc5cNU6twGQKWia69WvgrsKDxjzIG0hRdpUKUAurgJOSuaFdhJN75fYEETfJ8ma1wJPiLrP3MA2rznzTwGximqmC0elcYm8/wOSZZm/0o+BtU+n2JShbdjLf/nn5W2F2gxp4Wb4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B7exR3oT; arc=none smtp.client-ip=74.125.229.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790526420; c=relaxed/simple;
+	bh=6A5xFIWDpJx3rVrbilD5Zv15HcRr67kq2q2m6q1tNoY=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=fsM/ar3VHzhGVR7CaXACeJOILteNFhEnxFGJCVcISKyQmHHgRt6Ae8lI5QZENBfzGgw0+R2wvDKCRTzg1T2kLYGP4XULe5+EY7wJDgnwTQkpUW101DBMXBAvF7P+SRgDtRb+Aeiobm/vAXDxmWl3FDAQai+RYb5BTwD+Gfwnb9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kqOdXy5K; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B7exR3oT"
-Received: by mail-dl2-f41.google.com with SMTP id a92af1059eb24-147be78cc56so26323c88.1
-        for <stable@vger.kernel.org>; Sun, 27 Sep 2026 09:26:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790526362; x=1791131162; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=N3ycCXPKuJpAbU8om5dCwVVH3DJubz8qaLeZTTofQWI=;
-        b=B7exR3oTA2rtdJVTHBE7Acu8x7bnuCAqkFk08S12qAvZWwp8QVYfUl+ztUKhoVtLTj
-         vnG13LeURACVwp1m6PzG1DvWdspEel0XinKQvk14tbR3xo5UpBMKYoou4vOp9CVxigmV
-         cQmcZLeQ3q4BtrsIKRAT/fxyRg0sn6pCyNwiZF+WmYwR4jAVD5ujH/yIl4lx9OTt8/ch
-         cFNntNL9wadNBByttKaoBGBoS0R2LSTiBnFSudl3RWvxQ7+fWiig4fjVlTe49zFRp7oR
-         cSshj1LjLmT0ZEGXHWN3OM7yVJMRRQl84xc0C7m20z/bsbangzmgk5+6YjEVW8beKldq
-         stmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790526362; x=1791131162;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=N3ycCXPKuJpAbU8om5dCwVVH3DJubz8qaLeZTTofQWI=;
-        b=qQ95y62WDMR4e1j9FK/NKbyDDlIDn/aP/OqQKLYWVWDfAb9nSWiuVSZVQe27Tq49Gx
-         uEmd7nceH6uUFp8PVVSiKqb4jT7M6AjFEb9mZpLI33VX0VCVhyUIv+p8826cxVWJ5Etv
-         /4++mP1LNpp8NdJ24lg+WgQFWZMPZL/W1FUnyrd5pEU2MHYP7EXCZB/q1zWeHzfVM7Z4
-         CeaCUvH1P3NkStrV1/lUIu5BUP8tBrMnwei3b1LpOdQA8unMPj4gwLN0I9JpkHZLzk7X
-         zABcuWsZBPmxQQhlyX9boyij6BBJ1cTww11yOXuxm84Fo6xC5iZK8LkcTm+0h5f7rY9G
-         +TFA==
-X-Forwarded-Encrypted: i=1; AKwUvBxyVAYAImr3LwDpjWoRl2m6Oq7J8P8epCfzp1So//MPFB1+vA/X4EJtTqCfcE06IMqEPuGjEic=@vger.kernel.org
-X-Gm-Message-State: AFuF++nA4k2rZ24oOoxUn43t8YOx2vaJHhlp5VDHXhJDM15pwg2vMW6o
-	W6RfyxLheG6ZEgGXukJoMQnSzNnPwOmzCf1w9FTUeB+r+R2Ew7FaOLL4
-X-Gm-Gg: AYBFou37ueU4qEbNxbiDwAHOIa7pVgkF5Jy2kJNbZweYSoJE2ZEkkFiwnIPBsG73N4y
-	r+vWNQDWCLdHC3OFCZdwXDsClFPOTiaKagl1fyT0wWNwkRqEZUF6pIvyKyqylfIQspqjU+T1dVW
-	LRmLa5gUq7OztVK6UVmGiF8dDEwabNtVMBj78Q4HrmHl3bthsxDjeJtZ07LScOh1C93I1k3QTWX
-	UmwsdQKiUtyQIXeqsdzXuDC8t/wAKnanAgOHD9UXQPFLhWlLeZKUsu45qemWTL1ceu4mS9CUz09
-	owl9EQ5eCoAT1CJCv0YJCdkGPjPjk+LVHvbE2Jjx6LWN2LFsheJ5DAPftA0E2FpaYKKEZxuofSN
-	t/t13kmNNi2Vb5XMpvBb1BJusIc4KQ/pTmDqczUyuBJaDpwYW5hYbM1afe/ELeNWApIzLvJwURi
-	XgWKgsopBM3U1jLw/NlzXcK3zgKvL6jgdMoPkKdcHxt053y1BC67AVBMBpIg83qiDgI/a49Qpr9
-	auB0Eh17CFWbS3xrOdt4fzkiVwB5+uQe5GtE1Gvd652Io6sPUwnLnnKqEVCHxwbbC1srA==
-X-Received: by 2002:a05:701b:418f:20b0:144:fd17:3b21 with SMTP id a92af1059eb24-146cb50233emr12002309c88.0.1790526361709;
-        Sun, 27 Sep 2026 09:26:01 -0700 (PDT)
-Received: from localhost.localdomain (95.169.12.199.16clouds.com. [95.169.12.199])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145a7318afcsm18498575c88.0.2026.09.27.09.25.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 09:26:01 -0700 (PDT)
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-To: David Howells <dhowells@redhat.com>,
-	Jarkko Sakkinen <jarkko@kernel.org>
-Cc: Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E . Hallyn" <serge@hallyn.com>,
-	keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kqOdXy5K"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C42401F000FF;
+	Sun, 27 Sep 2026 16:26:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790526418;
+	bh=7kW7yGXjKhbeDUHOmR2h0QTxavzpIFMKdj9dx2ZV444=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=kqOdXy5Ke1C4DXMhLh+tKnpi1VA6ACyj2ZCmtln93wuOHC0CZYNXqBC5DcX/HVSUw
+	 tcgmukQomsbc2JVRGFIuORep+DRAqGwpuP9jMPA6tmnYol4uLHfhOUmuP3tukUUF4r
+	 0OVKuAliLvavecpPcItmrPAh22SWniGndqa0I3Wcd2Z9Z3RER6HxuPlM26380u+c1G
+	 lZ2GLm04mH4CsjPf0kRs6+43lbluRPwtR9gw3+xOhZ16mPGEKSnJUIKccslE4qrBlU
+	 8xnS2a7IdA/Gh/KRBm9VrP1mXGHH4z2vQ71jFe5unBvo2djW+vjsBvVEzyVhpsCLnT
+	 tsWxMiqF7tnIA==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xAriK-0000000E2Eb-1Xaj;
+	Sun, 27 Sep 2026 16:26:56 +0000
+Date: Sun, 27 Sep 2026 17:30:04 +0100
+Message-ID: <87qzie3beb.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Wei-Lin Chang <weilin.chang@arm.com>
+Cc: Vincent Donnefort <vdonnefort@google.com>,
+	oupton@kernel.org,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	joey.gouly@arm.com,
+	seiden@linux.ibm.com,
+	suzuki.poulose@arm.com,
+	yuzenghui@huawei.com,
+	catalin.marinas@arm.com,
+	will@kernel.org,
+	kernel-team@android.com,
+	fuad.tabba@linux.dev,
+	qperret@google.com,
+	Sashiko <sashiko-bot@kernel.org>,
 	stable@vger.kernel.org
-Subject: [PATCH v3 2/2] keys: Serialize ownership transfers with key accounting
-Date: Mon, 28 Sep 2026 00:25:28 +0800
-Message-ID: <20260927162528.943886-3-nicoyip.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260927162528.943886-1-nicoyip.dev@gmail.com>
-References: <20260927162528.943886-1-nicoyip.dev@gmail.com>
+Subject: Re: [PATCH v1 5/6] KVM: arm64: Use kvm_s2_fault_vma_info in gmem_abort()
+In-Reply-To: <am2rfnuwjkglavbtzkt2lk2gclahvca5irrv5me4vppzkotexf@yauajpybhsnm>
+References: <20260922130821.1666713-1-vdonnefort@google.com>
+	<20260922130821.1666713-6-vdonnefort@google.com>
+	<am2rfnuwjkglavbtzkt2lk2gclahvca5irrv5me4vppzkotexf@yauajpybhsnm>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: weilin.chang@arm.com, vdonnefort@google.com, oupton@kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, kernel-team@android.com, fuad.tabba@linux.dev, qperret@google.com, sashiko-bot@kernel.org, stable@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-Protecting individual accesses to key->user does not make ownership
-transfers atomic with accounting updates. keyctl_chown_key() holds
-key->sem, but instantiation is serialized by key_construction_mutex and
-need not hold that semaphore. KEY_LOOKUP_PARTIAL also permits chown of
-an uninstantiated key.
+On Fri, 25 Sep 2026 18:36:42 +0100,
+Wei-Lin Chang <weilin.chang@arm.com> wrote:
+> 
+> On Tue, Sep 22, 2026 at 02:08:20PM +0100, Vincent Donnefort wrote:
+> > From: Fuad Tabba <fuad.tabba@linux.dev>
+> > 
+> > gmem_abort() maps at s2fd->fault_ipa, which HPFAR_EL2 holds at 4K
+> > granularity whatever the page size. The generic page-table code aligns
+> > it, but pkvm_pgtable_stage2_map() looks up existing mappings over
+> > [addr, addr + size), so on a pKVM host with pages larger than 4K a
+> > guest_memfd-backed guest that faults past the first 4K of a page can
+> > find its neighbour's mapping, get -EAGAIN and take the same fault
+> > forever.
+> > 
+> > Take the addresses from kvm_s2_fault_vma_info instead, as
+> > user_mem_abort() does, and report the gfn kvm_gmem_get_pfn() failed on
+> > in the memory fault exit. kvm_s2_fault_get_vma_info() itself isn't
+> > called: a guest_memfd memslot's userspace_addr doesn't need to be
+> > backed by a VMA.
+> > 
+> > Fixes: a7b57e0995927 ("KVM: arm64: Handle guest_memfd-backed guest page faults")
+> > Reported-by: Sashiko <sashiko-bot@kernel.org>
+> > Closes: https://lore.kernel.org/r/20260913175105.A57AC1F000FF@smtp.kernel.org
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+> > Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
+> > ---
+> >  arch/arm64/kvm/mmu.c | 28 +++++++++++++---------------
+> >  1 file changed, 13 insertions(+), 15 deletions(-)
+> > 
+> > diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+> > index 5aac624b0442..ee0fcca838c1 100644
+> > --- a/arch/arm64/kvm/mmu.c
+> > +++ b/arch/arm64/kvm/mmu.c
+> > @@ -1953,11 +1953,9 @@ static int gmem_abort(const struct kvm_s2_fault_desc *s2fd)
+> >  	enum kvm_pgtable_walk_flags flags = KVM_PGTABLE_WALK_SHARED;
+> >  	enum kvm_pgtable_prot prot = KVM_PGTABLE_PROT_R;
+> >  	struct kvm_pgtable *pgt = s2fd->vcpu->arch.hw_mmu->pgt;
+> > -	unsigned long mmu_seq;
+> > -	struct page *page;
+> > +	struct kvm_s2_fault_vma_info s2vi = {};
+> 
+> I'd say it's unfortunate this struct's name contains vma :P
 
-The instantiated-key count can therefore be charged to the wrong owner:
+If that was the only thing that is wrong in the MMU code, we'd be in a
+pretty good position! ;-)
 
-  instantiate                       keyctl_chown_key()
-  lock key_user_lock
-  increment old->nikeys
-  unlock key_user_lock
-                                    observe KEY_IS_UNINSTANTIATED
-                                    skip the nikeys transfer
-                                    replace key->user
-  mark key instantiated
+> 
+> >  	struct kvm *kvm = s2fd->vcpu->kvm;
+> >  	void *memcache = NULL;
+> > -	kvm_pfn_t pfn;
+> >  	gfn_t gfn;
+> >  	int ret;
+> >  
+> > @@ -1968,23 +1966,22 @@ static int gmem_abort(const struct kvm_s2_fault_desc *s2fd)
+> >  			return ret;
+> >  	}
+> >  
+> > -	if (s2fd->nested)
+> > -		gfn = kvm_s2_trans_output(s2fd->nested) >> PAGE_SHIFT;
+> > -	else
+> > -		gfn = s2fd->fault_ipa >> PAGE_SHIFT;
+> > +	s2vi.vma_pagesize = PAGE_SIZE;
+> > +	s2vi.gfn = ALIGN_DOWN(s2fd->fault_ipa, s2vi.vma_pagesize) >> PAGE_SHIFT;
+> > +	gfn = get_canonical_gfn(s2fd, &s2vi);
+> 
+> Perhaps it is worth reserving plain "gfn" for the value we use as the
+> IA of the (shadow) page table, and name this variable something like
+> canonical_gfn. Similar to what kvm_s2_fault_map() does.
 
-The key becomes instantiated under the new owner while the increment
-remains with the old owner. Negative instantiation has the same race.
+Maybe. We have gfn in the vncr fault handling code as well, but that
+one is the result of a S1 walk, so maybe more obvious.
 
-Quota reservation can likewise run between charging the new owner and
-replacing key->user. It then adjusts the old owner's quota and changes
-key->quotalen while chown is transferring that quota burden.
+> 
+> >  
+> >  	write_fault = kvm_is_write_fault(s2fd->vcpu);
+> >  	exec_fault = kvm_vcpu_trap_is_exec_fault(s2fd->vcpu);
+> >  
+> >  	VM_WARN_ON_ONCE(write_fault && exec_fault);
+> >  
+> > -	mmu_seq = kvm->mmu_invalidate_seq;
+> > +	s2vi.mmu_seq = kvm->mmu_invalidate_seq;
+> >  	/* Pairs with the smp_wmb() in kvm_mmu_invalidate_end(). */
+> >  	smp_rmb();
+> >  
+> > -	ret = kvm_gmem_get_pfn(kvm, s2fd->memslot, gfn, &pfn, &page, NULL);
+> > +	ret = kvm_gmem_get_pfn(kvm, s2fd->memslot, gfn, &s2vi.pfn, &s2vi.page, NULL);
+> >  	if (ret) {
+> > -		kvm_prepare_memory_fault_exit(s2fd->vcpu, s2fd->fault_ipa, PAGE_SIZE,
+> > +		kvm_prepare_memory_fault_exit(s2fd->vcpu, gfn_to_gpa(gfn), s2vi.vma_pagesize,
+> 
+> Huh, I guess you also fixed a bug here? s2fd->fault_ipa could be the
+> nested ipa instead of the canonical ipa.
 
-Extend the key_user_lock critical section in keyctl_chown_key() across
-the quota and key-count transfers, state check, and owner replacement.
-Also extend the instantiation critical sections across the state update,
-so chown observes the count increment and instantiated state together.
-The existing per-user quota locks continue to serialize quota changes
-against other keys owned by the same user.
+Yeah, it appears so. Worth capturing in Fixes: as well.
 
-Keep allocations, notifications and reference release outside
-key_user_lock, and release it on the quota-overrun path.
+	M.
 
-Fixes: 5801649d8b83 ("[PATCH] keys: let keyctl_chown() change a key's owner")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
----
-Changes in v3:
-- Split from v2 as patch 2/2; see the cover letter for the full split.
-- Rebase onto current mainline and retain explicit reader-side locking.
-
-v2: https://lore.kernel.org/r/20260904080940.575882-1-nicoyip.dev@gmail.com/
-
- security/keys/key.c    | 4 ++--
- security/keys/keyctl.c | 6 ++++--
- 2 files changed, 6 insertions(+), 4 deletions(-)
-
-diff --git a/security/keys/key.c b/security/keys/key.c
-index d0d583194b05..54c675b3b58d 100644
---- a/security/keys/key.c
-+++ b/security/keys/key.c
-@@ -454,8 +454,8 @@ static int __key_instantiate_and_link(struct key *key,
- 			/* mark the key as being instantiated */
- 			spin_lock(&key_user_lock);
- 			atomic_inc(&key->user->nikeys);
--			spin_unlock(&key_user_lock);
- 			mark_key_instantiated(key, 0);
-+			spin_unlock(&key_user_lock);
- 			notify_key(key, NOTIFY_KEY_INSTANTIATED, 0);
- 
- 			if (test_and_clear_bit(KEY_FLAG_USER_CONSTRUCT, &key->flags))
-@@ -613,8 +613,8 @@ int key_reject_and_link(struct key *key,
- 		/* mark the key as being negatively instantiated */
- 		spin_lock(&key_user_lock);
- 		atomic_inc(&key->user->nikeys);
--		spin_unlock(&key_user_lock);
- 		mark_key_instantiated(key, -error);
-+		spin_unlock(&key_user_lock);
- 		notify_key(key, NOTIFY_KEY_INSTANTIATED, -error);
- 		key_set_expiry(key, ktime_get_real_seconds() + timeout);
- 
-diff --git a/security/keys/keyctl.c b/security/keys/keyctl.c
-index c17924609317..83a9575b084e 100644
---- a/security/keys/keyctl.c
-+++ b/security/keys/keyctl.c
-@@ -1004,6 +1004,8 @@ long keyctl_chown_key(key_serial_t id, uid_t user, gid_t group)
- 		if (!newowner)
- 			goto error_put;
- 
-+		spin_lock(&key_user_lock);
-+
- 		/* transfer the quota burden to the new user */
- 		if (test_bit(KEY_FLAG_IN_QUOTA, &key->flags)) {
- 			unsigned maxkeys = uid_eq(uid, GLOBAL_ROOT_UID) ?
-@@ -1036,11 +1038,10 @@ long keyctl_chown_key(key_serial_t id, uid_t user, gid_t group)
- 			atomic_inc(&newowner->nikeys);
- 		}
- 
--		spin_lock(&key_user_lock);
- 		zapowner = key->user;
- 		key->user = newowner;
--		spin_unlock(&key_user_lock);
- 		key->uid = uid;
-+		spin_unlock(&key_user_lock);
- 	}
- 
- 	/* change the GID */
-@@ -1060,6 +1061,7 @@ long keyctl_chown_key(key_serial_t id, uid_t user, gid_t group)
- 
- quota_overrun:
- 	spin_unlock_irqrestore(&newowner->lock, flags);
-+	spin_unlock(&key_user_lock);
- 	zapowner = newowner;
- 	ret = -EDQUOT;
- 	goto error_put;
 -- 
-2.43.0
-
+Jazz isn't dead. It just smells funny.
