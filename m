@@ -1,121 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA4631AA1D5;
-	Sun, 27 Sep 2026 04:03:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 741E23B71AD
+	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 04:11:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790481782; cv=none; b=HSK577LWUbGioEb8qlJqU93IvEVYjH/KCBnSOOln4Y1cVu2A6DaH5bae1pe7OUbKYgTjCES5cBWCf57qzCnibHEh3sKWZyJlc6U5SQpHeJ+u8oytDRgbeYyXGXRjcx9/jKoYWhCTePiFkvdZkbbwZNtZfC+n2z8xSlb/eGUrMPE=
+	t=1790482309; cv=none; b=JAL4UTVdgBo8+K/4iLV2sEQaKqcl+CCUpPi+BBKJ6lADsU23mRN95O13jWJdi4kHpe9kQErLauMIjXjhJqWEt7GYID47eGNpxZ+THbbBmwZSUisflLXllXscbgMvB/TSS4D96NkID9JmCSq/N3tkg20H+des9m4F89FV6WiuWyU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790481782; c=relaxed/simple;
-	bh=8/Pbq6e0Egu5v5AdbXrKrQZKM8VxS12zXS4hrd1rh88=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=SW3h5WXjnvIALfTTNDrq8c4ekw5bAqrOmYTMJgW27G78zDNi7DcHjVIyGR0YpVxpT+JJwo2Gg4CpNcipHZXnQ4BfwhOcM5F3ulSBXp6lqhoVTB9Y0u18tpGvCm6CeOf6gsh4DaAi5xSSWx9INj+AqYYhjuqbq9nV+MVQcrKK+XM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kFtP15S4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790482309; c=relaxed/simple;
+	bh=xaV/yrHeCHmm9VjtGETQC++wPH6mhJCL1/6v/GQNs+E=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=QeyGQ04aj/TrQG+HatK1mesAzgSNZFVSggORCv36mKT7aRmKoPNzpTc3M9B0dMxzJO+u37Yl3AMZVqiM3cDCD0jYEp8jVX9zbhBsH5tVZFJ0xntCcnQbx0T0sgkejACy8+L1XAulya2kDHZBxRMxKNKOn6XR67g6mTVhE2fJe2o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GPULYV/x; arc=none smtp.client-ip=74.125.227.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kFtP15S4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5902F1F000FF;
-	Sun, 27 Sep 2026 04:03:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790481781;
-	bh=GC7coo6sKErkgEMskr01q7qu9o3kxRtbkgfzjm0Q4lY=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=kFtP15S4BUOShAcFAgqUdROdbeOeafymgeS9M6D0J0a8jC+wMgqDIK9tixgRQJCN9
-	 Z84+fZ30DBMhOxu23nmUx0Y9JS3ufzBhY6XakzL9m8Hr1s922PUM1YVTphFKo31fGL
-	 cvbpRc5TnfgDw3amSwr0eU9q+rukAocRDmHhZdTwR0LgohJB9gH3/qRULEMj4WMvv8
-	 /JIP6dtNjzuk3kWPS2SlNZq+SDBm/aWjNW4SjklbsCruOP5eZ0PaihE1Ev0TO5GvcO
-	 Ua1A4Ti13QprF5Tb1+fRiFBoXtJJK+UsQYaHaSBXT7NhlGHZlkZ7nRnKJLp25sMJhU
-	 DejpI9xv0LZbg==
-Subject: Re: [PATCH net] net: gen_estimator: protect seqcount updates from
- hardirq readers
-From: netdev-bot+sashiko@kernel.org
-To: runyu.xiao@seu.edu.cn
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, bigeasy@linutronix.de,
- clrkwllms@kernel.org, rostedt@goodmis.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
- stable@vger.kernel.org, jianhao.xu@seu.edu.cn
-Date: Sun, 27 Sep 2026 04:02:59 +0000
-Message-ID: <179048177964.2160803.12902537767476134602@kernel.org>
-In-Reply-To: <20260923032936.2020902-1-runyu.xiao@seu.edu.cn>
-References: <20260923032936.2020902-1-runyu.xiao@seu.edu.cn>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GPULYV/x"
+Received: by mail-pj2-f40.google.com with SMTP id 98e67ed59e1d1-3a0eeda3e03so262729a91.1
+        for <stable@vger.kernel.org>; Sat, 26 Sep 2026 21:11:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790482307; x=1791087107; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0P7XkiDHrjWCoSLhkn5DvRqIs2QJwoOotquq3MRAl4I=;
+        b=GPULYV/xTzn59LdCZnwjQKtLsR/j+fwQeAVEH1d4FGmoRvuGO+shje8m26gq4etLbv
+         jaTKUsIvg1Qm+rD5Ir9/AhfGnDL5sFNh7Pryycsa4zim4EGrtpDax1154OwwktO2XVw/
+         /nt8uSIuTkp0TgdYhlEWfPfmEhW5OFZQE8oL2pg23x+4oDGBpotzmBYEde0f1juxJo6+
+         /ePpBgRqFucVVEUVXwcgMBy7lS0Nba5S6cPAz8f8ias4tQiyErfOqxKlYnvBUtQTbNNx
+         oGaaXPT0RIuZ7/ZWqUEVBF7V5IuOeandU3nkkhWwi9BZhWWh6oQPn640eFLBkFkMQD1s
+         +bgw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790482307; x=1791087107;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0P7XkiDHrjWCoSLhkn5DvRqIs2QJwoOotquq3MRAl4I=;
+        b=KS+472bFtXlBkxwJ5ghyVP40RnLXm3UknDJCpUKTFZJR23jIixAJExQP0aRGNsubjf
+         PPYFM7oSlRTZB06U7JcYHaiWyRT2J0u82dExxvzvopHhDTCoLi4Zx3CNoc/MtOsTnPS+
+         crGty3ro/7mL4hrTS5BDu9IYVbT1WgrEWGU+C0zj2UjPJsxaWiMTZoSABUnpYgJ8kK/y
+         Mwke99N3S8kTL1f7ryBRhGYrmxI57aHAp8kgAgpUMBuJBqOgjZ1G/wPxbWUyvre5Z9B7
+         ZfsjB9PsiAG3UJr4o4W9l7KUMlncGt4BVbpw3q9dgejc3ESCVYWjWC40qy2YiN5cP4dh
+         JF7A==
+X-Forwarded-Encrypted: i=1; AKwUvBzqrGOPxssY/BJ1v9X9FgvSNRo7f/Szje9VpAufJMvj+/QORgCwffW8bnWAGUeHhoi94ithsvU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIE3sENpzJj74lZ2N+Z+xghMrMspbe2+wXOwlFXbOX0QIXvNsyN
+	l7o0D+glLiq68pG2lWWXCfdQqE/3eZsDCZhbNd7jYQvAAlDAXT4r6JUN
+X-Gm-Gg: AYBFou0IXQ8PNhn45Xt8jkG+tOOLXt6zti7LZnZH31A8oUwifbXKBhinGYSZ6BOrZ8E
+	jNcnwXngkrzxGanIoSI9FRf65jQRvxXr1NrJW3m1CE2scp7+fOx1WrXggZ07ns1wWip90gYjePm
+	hRvC76YIjdy25/L78TxP0s9/EbpwCMZMuM/VNGaWuCzuhU1AbxSLYKZtJaXJXLQlE/JH97NOXpy
+	l/yRzc+fYSO3w7a8bxkeY/ViocvQ30Y5h8NvvdpnTdKFvhD4y4vjuARerJzhkYdYOq9bbiLVoR+
+	kZfMhzanCP7Y7UrhJ+Br8HEdOIK7iuo+8SJvvEvNSgqYenrGbJFqBYBcAKYeKV2whqaOwjm5LC+
+	Rj7egUg4yiMXKYBB6uxLPyEovwny2zinbF/4egdDKIMBQJNHiG2QKuyDE8ufr43to9wTluCXQM9
+	0UL79gmNRVj9Z9f/RafbaOMXJonLaFWgt2TgjY8bbpD67JE03gF5FH0lO2pRr17EPlUF2qevUWE
+	Gi2RQ+LntSLKWPmElTIUTw=
+X-Received: by 2002:a17:90b:28c5:b0:39e:6a81:c923 with SMTP id 98e67ed59e1d1-3a098729524mr6985130a91.22.1790482306558;
+        Sat, 26 Sep 2026 21:11:46 -0700 (PDT)
+Received: from jmoon ([118.220.156.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b4f6345fsm5542732a91.1.2026.09.26.21.11.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 21:11:45 -0700 (PDT)
+From: Jinmo Yang <jinmo44.yang@gmail.com>
+To: ping.cheng@wacom.com,
+	jason.gerecke@wacom.com,
+	jikos@kernel.org,
+	bentiss@kernel.org
+Cc: dmitry.torokhov@gmail.com,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jinmo Yang <jinmo44.yang@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/5] HID: wacom: check the input device in the shared report helpers
+Date: Sun, 27 Sep 2026 13:11:34 +0900
+Message-ID: <20260927041138.4112920-2-jinmo44.yang@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260927041138.4112920-1-jinmo44.yang@gmail.com>
+References: <579o8so3-09o3-o312-4sq0-0qp6n672q46p@xreary.bet>
+ <20260927041138.4112920-1-jinmo44.yang@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+wacom_report_numbered_buttons() and wacom_wac_finger_count_touches() are
+reached from several report handlers and use the input device they are
+given without checking it.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+Both can see a NULL input device on a fully successful probe. The report
+handler is selected by features.type from the id table, while the three
+input devices are allocated from what the report descriptor declares.
+When wacom_setup_{pen,touch,pad}_input_capabilities() returns -ENODEV,
+wacom_setup_inputs() frees that input device, sets the pointer to NULL
+and still returns 0 - the "no pen in use on this interface" case.
+wacom_wac_irq() then still routes reports to a handler that passes the
+NULL pointer down.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Reproduced on linux-next 20260925 (x86_64, KASAN) from one /dev/uhid
+device plus a single UHID_INPUT2 write:
 
-- [Medium] The commit message describes a bug that nothing in the tree
-  can trigger, yet the patch carries Fixes: and Cc: stable.
+  BUG: KASAN: null-ptr-deref in range [0x290-0x297]
+  RIP: 0010:wacom_report_numbered_buttons+0x37/0x210
+   wacom_intuos_irq+0x29e/0x3300
+   wacom_wac_irq+0x1b59/0xb3f0
+   wacom_raw_event+0x68f/0xb60
+   __hid_input_report+0x398/0x4d0
+   uhid_char_write+0xa99/0xfc0
 
---
+Check the pointer in both helpers, following the convention the driver
+already uses in wacom_tpc_irq() and wacom_wac_pad_event().
 
-net: gen_estimator: protect seqcount updates from hardirq readers
+Fixes: 10059cdc0ad0 ("Input: wacom - split out the pad device for Intuos/Cintiq")
+Fixes: 2a6cdbdd4cc0 ("HID: wacom: Introduce new 'touch_input' device")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jinmo Yang <jinmo44.yang@gmail.com>
+---
+ drivers/hid/wacom_wac.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-This commit replaces preempt_disable_nested() with local_irq_save() around
-the est->seq write section in est_timer() in net/core/gen_estimator.c. The
-aim is to stop a hardirq reader of gen_estimator_read() on the same CPU
-from spinning on an odd sequence count while the timer is interrupted.
-
-> est_timer updates the estimator seqcount with preemption disabled, which
-> does not exclude hardirq readers on non-PREEMPT_RT kernels.  A reader can
-> observe an odd sequence and spin while the timer is interrupted.
-
-[ ... ]
-
-> The hardirq context is deliberately injected to
-> exercise this interleaving; ordinary userspace traffic does not guarantee
-> it.
->
-> Fixes: 1c0d32fde5bd ("net_sched: gen_estimator: complete rewrite of rate estimators")
-> Cc: stable@vger.kernel.org
-
-[Severity: Medium]
-Is there an in-tree hardirq or NMI caller of gen_estimator_read()?
-
-struct net_rate_estimator is private to net/core/gen_estimator.c. That
-means gen_estimator_read() is the only reader of est->seq. Its callers
-appear to be:
-
-  gnet_stats_copy_rate_est() in net/core/gen_stats.c, reached from
-  netlink dump paths in process context: tcf_action_copy_stats(),
-  tc_fill_qdisc(), and the drr/hfsc/htb/qfq dump_class_stats callbacks.
-
-  xt_rateest_mt() in net/netfilter/xt_rateest.c, which runs from
-  netfilter hooks in softirq context or with BH disabled.
-
-  tcf_police_act() in net/sched/act_police.c, which runs in the tc
-  datapath in softirq context or under rcu_read_lock_bh().
-
-Netpoll transmits with IRQs off, but it calls netdev_start_xmit()
-directly. It never reaches qdiscs, tc actions or netfilter.
-
-On !PREEMPT_RT, est_timer() runs from the timer softirq. If the writer
-interrupts a process or BH reader, that reader just retries. On
-PREEMPT_RT, preempt_disable_nested() already expanded to a real
-preempt_disable().
-
-The commit message also says the reproducer relies on a test-only
-hardirq injection.
-
-If no real hardirq reader exists, could this be presented as hardening,
-with the Fixes: and Cc: stable tags dropped? If one does exist, could the
-commit message name the hardirq path that reaches gen_estimator_read()?
-
+diff --git a/drivers/hid/wacom_wac.c b/drivers/hid/wacom_wac.c
+index c4cd87b781c4..177a1e09fd05 100644
+--- a/drivers/hid/wacom_wac.c
++++ b/drivers/hid/wacom_wac.c
+@@ -1263,6 +1263,9 @@ static int wacom_wac_finger_count_touches(struct wacom_wac *wacom)
+ 	int count = 0;
+ 	int i;
+ 
++	if (!input)
++		return 0;
++
+ 	if (!touch_max)
+ 		return 0;
+ 
+@@ -4226,9 +4229,14 @@ static void wacom_update_led(struct wacom *wacom, int button_count, int mask,
+ static void wacom_report_numbered_buttons(struct input_dev *input_dev,
+ 				int button_count, int mask)
+ {
+-	struct wacom *wacom = input_get_drvdata(input_dev);
++	struct wacom *wacom;
+ 	int i;
+ 
++	if (!input_dev)
++		return;
++
++	wacom = input_get_drvdata(input_dev);
++
+ 	for (i = 0; i < wacom->led.count; i++)
+ 		wacom_update_led(wacom,  button_count, mask, i);
+ 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260923032936.2020902-1-runyu.xiao%40seu.edu.cn
+2.53.0
+
