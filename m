@@ -1,148 +1,128 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97BBD231A23
-	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 01:45:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EB2C381EA3
+	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 02:17:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790473525; cv=none; b=ArE+3K3E9M/yKybEmEmqjeAW1QffZUdDs9ZDrySvwYgDeC7pWNpnc9SnD1VnhR2rtUNVBjuE18xvhofkKG4E7MlwJZqGQ6RrFcfV7/zC9zuaUxJ03Ba5QcFBMbL1Rd3WORQqVVNoukv4RAIEbTN0PrwzRuk6TBlRmNX1obVJIyo=
+	t=1790475424; cv=none; b=oQ7LNKeiXdTjMz890G0RiaWYsS0tHvJPKloerDCNarqZTEsQCECVhv9KqxhBO4BIkwxFZiASe/U3QWBg0m5L/Zv9Yjr3NEuoDq0TVM0PNs4uAnHcDazLpmx7BkOHrNzUGFSmZ1rlSN99k5IXuJ9rOJWU1TtDELAjHWTXQwuLoiE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790473525; c=relaxed/simple;
-	bh=ZmshJRVNGhiDD241iabHMvHEahKSg7LVi7ZdIgOie5M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IFGWF7Zfu/F6MHA8PEoutrAdCOVMQfERXyEUxAfCzuX1grYPB4fsm4UZfz87uu6bb7ISo4tsMyawr1tKB/kD1wun+9MbFRjKLdyeGVBDYeXQ6fZw1kJwJUCabq2EF57kFXDhGQ794hTQFrm4R+xuNs/EThWGFa8xq0dunJUGVNg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=bCXaFh83; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790475424; c=relaxed/simple;
+	bh=CimnbEdL/fI+14EzbWIUB3wxS6Zq7zdxIR5jRBUDEE8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZlCvFMl+EF9bnDtIzl8M5YU4CgXGdjfVkkdwm9Ib+slVNan0Hv6MV7kE1+VJJhAXoZb4PG7UryAfRjLDyC7i3ue35crCrQat+RYe9fvtDnFLuPo9z18wXE2JbpmPS7y3Tt2wdrCvl6nYCCa3eZta0t7BXHB8qAg3XKaVXhLK/Zc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XgcDPnaA; arc=none smtp.client-ip=74.125.229.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bCXaFh83"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790473522;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XUoH5rgAH1n+by9vaKnGPJrkH26uAPsRf2XvFcpnSDw=;
-	b=bCXaFh83f/n3GgTwELGGfK5xPbknPT+MU0V9qY2kYRZ/bgEfLBgwRvRZGAhaO9P+H87WQn
-	uhkLBmc8wbHjvfDh5pzN9YmUIZNrl129LkH18Ch9u7fLsR/mU+Wb9+KXrmKlqiaUlU1oHG
-	xbdyOZSP7+7DzK0QbI+sWovN9x1ZKwQ=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-277-tMlZC61VNVufI_UeeYlH9w-1; Sat,
- 26 Sep 2026 21:45:16 -0400
-X-MC-Unique: tMlZC61VNVufI_UeeYlH9w-1
-X-Mimecast-MFC-AGG-ID: tMlZC61VNVufI_UeeYlH9w_1790473515
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 7A1CD1955F7A;
-	Sun, 27 Sep 2026 01:45:14 +0000 (UTC)
-Received: from [100.91.18.181] (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id D528C180034F;
-	Sun, 27 Sep 2026 01:45:11 +0000 (UTC)
-Message-ID: <b5926447-1b52-4a8b-86d8-8adf40ca5f3f@redhat.com>
-Date: Sat, 26 Sep 2026 21:45:10 -0400
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XgcDPnaA"
+Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-33bb1a50f6fso1122517eec.2
+        for <stable@vger.kernel.org>; Sat, 26 Sep 2026 19:17:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790475422; x=1791080222; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=T/SZOGr7JpcDmeWPHecdCBMiWMxgwXtwWIncAhWIkpk=;
+        b=XgcDPnaAMOo1Nirw9wLTovHRyPoiJJYNKaXEM9ecn4+Us/0uLbedYYjNSodSG3Kk9u
+         dBuuGi/QB65N2UcAmNLNeBsMAM1iiumYpwdrf45rrG2ddi39lItfA+OvmfVAw2r2v508
+         P7L0ZRvviLGHVbUmuoeYbUFSLTkOPyr1dTIfqVJLt+/k9rtLFcJLK/4mk7nE53kknOlH
+         8QiQVMkiaVIhSafUUgyIe3MoPGavzegyka462nD8QvGO5wuy5UlyrpOskdOhByDj+hjS
+         W83Mdg6xkfk6jDwCsRe+jPXPWMFGWY0ZhUIlY85PoXQbQ1gKRe17+QsaXmZ0zTeVVEat
+         tFcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790475422; x=1791080222;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=T/SZOGr7JpcDmeWPHecdCBMiWMxgwXtwWIncAhWIkpk=;
+        b=dRqhVhEZfEcugrXvxWKPuR2o1haMjtSfec39x09ue6BFZDbcWmxKYD3co/lMIZJIo1
+         4+S8qGU7u/nY0oxmU5AqLHSzPkvQiy82Y360LmEHPrYJzQSzhdFmzfo12HjqbbYHi9hO
+         txOu+8/uMJXfMv1bl3QOFDyL3RKqYjT8TptH2O3NQ0/6BmDZryRaBmWYU/OzAA/9zyzR
+         59Tugs7vHHr+D6x1gP+X22XS+BPWdPl6+Golz23Bmlzx35N2TmVej7qYddqTUbcllm3M
+         +jC+EndOZHLXapYoTdKtepSGhwP9o1RfnI/h4V9mDJHYOFHOqWgwYQ6sVvshl9zEMrd4
+         J7oA==
+X-Forwarded-Encrypted: i=1; AKwUvBxOvggiV081BKZtjiLdymc+2Qn/4vFuxByiM8dPnOeH9SLrEtp1aYAr8hFZuXsm4PedYdpedoE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mCLYTg2u6tqKGQ088yPMIR4KskV+7YPBe5GOWfF1PdDn/M3Gr/
+	Qul5FXII4VoxEdPbtjrtgdFiGFVDQC7Apqh5ZBzTLUHiRbN/DigH2Gw2XC8jpGEGlmnxrA==
+X-Gm-Gg: AYBFou2wA9cddrWpYkqriNmHiK2IzvaMJX4NuEUq5sgb2lO6hkA7kTOTU6XP0EtOf6S
+	PH1RLN1SYgvSsQdNrts66kLngSiOFqGw3HbvrHwT4yK4v7QZ36P+XHubXHZlZRGJsZ/wi8joT/0
+	3dFjqcUIV+xkd2RRG5Ymd+jGK18CxoV0PPcEyLc69oqwKzoWQ9+9hwZUa6s7fdVXjadK7ZEYAVf
+	4VU6h9+YXUaS8Ajxa/aqhxas3jLJDmxKG9bDmIMjCVJZlNrbkGQLnlo78T9RzQ4GPgRR9MiaiC+
+	lQjIlm31F7pY7yNKKngcRPha3WHG1jTLxV31bvoEdY6fztB9OXasH8SIJwvN/a7Dc1kwMLc4Ms5
+	rWrC0+l3klZNvz/I+uvLi8vlqKYxiqOCQqrp3/Z88rMhMYVIW2DL/x78lkGLoeCH6MA/py54TwW
+	xqakjCFanPNwXE/y7/nNCuLHXdWGcwOMhXO+5Jwst0YiqOCcMnHTHK4DOq9Dkzg06t9KL7qwUvh
+	eGpTYWZ2KL7AuljNQ==
+X-Received: by 2002:a05:701b:2406:b0:146:852d:60ac with SMTP id a92af1059eb24-146cdfbd198mr4755230c88.10.1790475422169;
+        Sat, 26 Sep 2026 19:17:02 -0700 (PDT)
+Received: from Gris-Laptop ([116.169.71.40])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145ac67c0ccsm15757238c88.4.2026.09.26.19.16.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 19:17:01 -0700 (PDT)
+From: Gris Ge <cnfourt@gmail.com>
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Gris Ge <cnfourt@gmail.com>,
+	stable@vger.kernel.org,
+	Benson Leung <bleung@chromium.org>,
+	Andrei Kuchynski <akuchynski@chromium.org>,
+	Jameson Thies <jthies@google.com>,
+	Pooja Katiyar <pooja.katiyar@intel.com>,
+	Hsin-Te Yuan <yuanhsinte@chromium.org>,
+	Johan Hovold <johan@kernel.org>,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] usb: typec: ucsi: Skip CAM query when partner has no alt modes
+Date: Sun, 27 Sep 2026 10:16:46 +0800
+Message-ID: <20260927021649.8967-1-cnfourt@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/3] cgroup/cpuset: prevent activating local partition
- over remote one
-To: Hui Peng <benquike@gmail.com>, Ridong Chen <ridong.chen@linux.dev>,
- Guopeng Zhang <guopeng.zhang@linux.dev>, Tejun Heo <tj@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>
-Cc: Shuah Khan <shuah@kernel.org>, Chen Ridong <chenridong@huawei.com>,
- cgroups@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260924042729.1908863-1-benquike@gmail.com>
- <20260924042729.1908863-3-benquike@gmail.com>
-Content-Language: en-US
-From: Waiman Long <longman@redhat.com>
-In-Reply-To: <20260924042729.1908863-3-benquike@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+Content-Transfer-Encoding: 8bit
 
-On 9/24/26 12:27 AM, Hui Peng wrote:
-> Commit 6da580ec656a ("cgroup/cpuset: Don't allow creation of local
-> partition over a remote one") added a check in update_prstate() to reject
-> creating a top-level local partition whose cs->exclusive_cpus intersects
-> subpartitions_cpus.
->
-> However, if a top-level cgroup A1 has a child A1/A2 enabled as a remote
-> partition on a subset of its exclusive CPUs (X2-3 on A1, CX2-3:P2 on
-> A1/A2), and A1 is then set to "root" (P1, becoming "root invalid" via
-> update_prstate() because its exclusive CPUs intersect subpartitions_cpus)
-> followed by expanding its CPUs to include additional non-remote CPUs
-> (CX1-3), update_cpumask() / update_exclusive_cpumask() calls
-> validate_partition() without going through update_prstate(). Because
-> validate_partition() does not check trialcs->exclusive_cpus against
-> subpartitions_cpus, A1 transitions from "root invalid" to a valid local
-> partition over the existing remote partition A1/A2 and triggers:
->
->    WARNING: kernel/cgroup/cpuset.c:1943 at update_parent_effective_cpumask+0x189b/0x1fd0
->
-> Check trialcs->exclusive_cpus against subpartitions_cpus in
-> validate_partition() when !is_partition_valid(cs), and add a regression
-> test case to tools/testing/selftests/cgroup/test_cpuset_prs.sh.
->
-> Tested in QEMU on Linux 7.3.0-rc3 using
-> tools/testing/selftests/cgroup/test_cpuset_prs.sh.
->
-> Fixes: 6da580ec656a ("cgroup/cpuset: Don't allow creation of local partition over a remote one")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
-> ---
->   kernel/cgroup/cpuset.c                            | 4 ++++
->   tools/testing/selftests/cgroup/test_cpuset_prs.sh | 2 ++
->   2 files changed, 6 insertions(+)
->
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index 7381fa8502e7..7c5b4a8f1f3a 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -2415,6 +2415,10 @@ static enum prs_errcode validate_partition(struct cpuset *cs, struct cpuset *tri
->   	if (cpumask_empty(trialcs->effective_xcpus))
->   		return PERR_INVCPUS;
->   
-> +	if ((parent == &top_cpuset) && !is_partition_valid(cs) &&
-> +	    cpumask_intersects(trialcs->exclusive_cpus, subpartitions_cpus))
-> +		return PERR_REMOTE;
-> +
->   	if (prstate_housekeeping_conflict(trialcs->partition_root_state,
->   					  trialcs->effective_xcpus))
->   		return PERR_HKEEPING;
-The code change looks good to me.
-> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> index b732078bf319..4a451350ad84 100755
-> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> @@ -321,6 +321,8 @@ TEST_MATRIX=(
->   	" C1-3:P2  X4:P2    .      .      .    X3:P2    .      .     0 A1:1-2|XA1:1-3|A2:3:XA2:3 A1:P2|A2:P2 1-3"
->   	" C0-3:P2    .      .    C4-6   C0-4     .      .      .     0 A1:0-4|B1:5-6 A1:P2|B1:P0"
->   	" C0-3:P2    .      .    C4-6 C0-4:C0-3  .      .      .     0 A1:0-3|B1:4-6 A1:P2|B1:P0 0-3"
-> +	"   X2-3  CX2-3:P2  .      .  P1:CX1-3   .      .      .     0 A1:1|A2:2-3|XA2:2-3 \
-> +								       A1:P-1|A2:P2 2-3"
->   
+Since Thunderbolt alternate mode support was added,
+`ucsi_altmode_update_active()` is called on every Connector Partner
+Changed event.  This made the driver send `UCSI_GET_CURRENT_CAM` to
+PPMs even when the partner had no alternate modes registered. Firmware
+that does not support the optional alternate mode details answered Not
+Supported, which produced a spurious error on every partner change:
 
-This test case is problematic as it fails on my test system because of a 
-bug in the SCHED_DEADLINE task shrink test in validate_change() that can 
-be triggered if there are deadline tasks in the system which will fail 
-the test. I am going to post a patch to fix that bug. Can you take out 
-this test case from this patch as I don't want this test to be 
-backported to stable releases? You can send this out as a separate 
-testing patch if you want to.
+```
+ucsi_acpi USBC000:00: GET_CURRENT_CAM command failed
+```
 
-Cheers,
-Longman
+Fixed by skipping the command when there is nothing to update.
 
->   	# Local partition invalidation tests
->   	" C0-3:X1-3:P2 C1-3:X2-3:P2 C2-3:X3:P2 \
+Fixes: da87d45b1951 ("usb: typec: ucsi: Add Thunderbolt alternate mode support")
+Cc: stable@vger.kernel.org # v7.0+
+Assisted-by: Codex:deepseek-v4.1-flash
+Signed-off-by: Gris Ge <cnfourt@gmail.com>
+---
+ drivers/usb/typec/ucsi/ucsi.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
+index bef3f9b71d71..71b28e4df470 100644
+--- a/drivers/usb/typec/ucsi/ucsi.c
++++ b/drivers/usb/typec/ucsi/ucsi.c
+@@ -360,6 +360,15 @@ void ucsi_altmode_update_active(struct ucsi_connector *con)
+ 	u8 cur;
+ 	int i;
+ 
++	/*
++	 * Alternate mode support is optional, and the PPM is not required to
++	 * support GET_CURRENT_CAM when it does not support alternate modes.
++	 * There is also nothing to update when the partner has not registered
++	 * any alternate modes, so don't send the command in that case.
++	 */
++	if (!con->partner_altmode[0])
++		return;
++
+ 	command = UCSI_GET_CURRENT_CAM | UCSI_CONNECTOR_NUMBER(con->num);
+ 	ret = ucsi_send_command(con->ucsi, command, &cur, sizeof(cur));
+ 	if (ret < 0) {
+-- 
+2.55.0
 
