@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF742376A08;
-	Sun, 27 Sep 2026 21:38:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B36D396D36;
+	Sun, 27 Sep 2026 21:46:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790545140; cv=none; b=lpPJfjRqUeLhKbMmcAo30QUHpK+7NmUOD+3Y4hszwVDgYYEc8CRcKyQehj1rToIm+g9kdzoBqIJ9gpyERTlqFqKZkWalOZn3vY+p+8JVAQpxqZh74Urz68VWx4FwBf08NycOe1HbS28cE6xvUiNvylsQezkG/QMQjTbHgeEXYb4=
+	t=1790545586; cv=none; b=ebTxX1ayGvoUCgQy470/ZwCult80wLVSqOmcBOmVPJ11375PrfGbgR5HVOQBm3qa2g3YpLNaEh4Xberf4RQQIoLo8BdaVZ5hDKFiAoKGQJs3+NvlYMM34VHtSsxJE4ZZn5GniMLsFoOKvbGGZ9Zg/RiVmlmXP//tyKj76QfxlVQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790545140; c=relaxed/simple;
-	bh=bXX/MaA89W2S67iIyAtM+RQhK3dZ9P4qvcZOfQSX90w=;
-	h=Date:To:From:Subject:Message-Id; b=Zt7np2hpPApwq7qStaK6k5MruAYkFb71xzYk7YkbFhJF7mmVvny0Vmp0pvstc3Tz4iKjWaSRJ8RjAZ/sgm4Y5kSVZU+xqZQ5lJPvImqS1hAyVRvkA3/Bd+CGZY2muGiZA2VyfpjxJTLFO0GT5LgSIrGsmSg/o7Zh56mvxYCjQ4w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=cg8CSX9T; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790545586; c=relaxed/simple;
+	bh=g7AvGueYQjO/zSrOBZzi2jw5X0mdhN7wIQ8d/x//kvU=;
+	h=Date:To:From:Subject:Message-Id; b=eavkZjDIoNxhOE7V62d3PlNANi98FoVAWyToeywPaajF4nky/xTwcNYIoHqDC8M5AD0rjRC+MLS4qknTm7uG7qye5kg52lSIXQE2XeYDrm8h8BlBDSn61M8OIPz+e7XCSOfs3vQuBmFEcPos+FT5+G1Z9ELipBEFus7zcbbteas=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=s+S4aryL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="cg8CSX9T"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 361271F000FF;
-	Sun, 27 Sep 2026 21:38:59 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="s+S4aryL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F51A1F000FF;
+	Sun, 27 Sep 2026 21:46:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1790545139;
-	bh=x4XJmnHfTRwQp1Izspk7il3d0Mt4FBmCw0IjA1k3NQc=;
+	d=linux-foundation.org; s=korg; t=1790545584;
+	bh=Mf1GXidq3/SfTJi6BrIvuQ6kcmAZ3OrU3RC6c6NjTfY=;
 	h=Date:To:From:Subject;
-	b=cg8CSX9TaTHWn5Gfv1Inktf7h4Wqi8f/EidwFJnbLAjgoHpwzEQ2ZsC4HFNuiRzEI
-	 3hHbfFxkGLlToQB7IVpmlhkDaf6x4XjbJxTh+CNgufwIW8wurS5xUT7NIj1XFlixkV
-	 2uZ4ryxpUJH0O9KEFy3rjBF2Ndbc7Rf5JAWgorZ4=
-Date: Sun, 27 Sep 2026 14:38:58 -0700
-To: mm-commits@vger.kernel.org,vbabka@kernel.org,surenb@google.com,stable@vger.kernel.org,shuah@kernel.org,rppt@kernel.org,peterx@redhat.com,mhocko@suse.com,ljs@kernel.org,liam@infradead.org,kas@kernel.org,david@kernel.org,aarcange@redhat.com,donggeunyoo.kernel@gmail.com,akpm@linux-foundation.org
+	b=s+S4aryL/GyMp7zM/RJwsnRVtG2wQq7TgjZPhwNNS92g40s/fL0XiA7dtnmUA12bF
+	 6BtYBp28DN8CezSQCk+tegS9N7M78J8FGbNZM4Q6+bD8uonbMd603ZKwQrWeJWhFI+
+	 fnisRcDWx2ERTCGbPDbTlWVptyMSfWqITCQ0QtpQ=
+Date: Sun, 27 Sep 2026 14:46:24 -0700
+To: mm-commits@vger.kernel.org,ziy@nvidia.com,ying.huang@linux.alibaba.com,vbabka@kernel.org,stable@vger.kernel.org,sashiko-bot@kernel.org,rakie.kim@sk.com,peterx@redhat.com,ljs@kernel.org,liam@infradead.org,joshua.hahnjy@gmail.com,jgg@ziepe.ca,jannh@google.com,david@kernel.org,gourry@gourry.net,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + userfaultfd-clear-the-inherited-uffd-bit-in-move_swap_pte.patch added to mm-hotfixes-unstable branch
-Message-Id: <20260927213859.361271F000FF@smtp.kernel.org>
+Subject: + mm-mempolicy-use-vm_normal_folio_pmd-in-queue_folios_pmd.patch added to mm-unstable branch
+Message-Id: <20260927214624.7F51A1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,14 +35,14 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
 The patch titled
-     Subject: userfaultfd: clear the inherited uffd bit in move_swap_pte()
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     userfaultfd-clear-the-inherited-uffd-bit-in-move_swap_pte.patch
+     Subject: mm/mempolicy: use vm_normal_folio_pmd() in queue_folios_pmd()
+has been added to the -mm mm-unstable branch.  Its filename is
+     mm-mempolicy-use-vm_normal_folio_pmd-in-queue_folios_pmd.patch
 
 This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/userfaultfd-clear-the-inherited-uffd-bit-in-move_swap_pte.patch
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-mempolicy-use-vm_normal_folio_pmd-in-queue_folios_pmd.patch
 
-This patch will later appear in the mm-hotfixes-unstable branch at
+This patch will later appear in the mm-unstable branch at
     git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 Before you just go and hit "reply", please:
@@ -58,97 +58,197 @@ branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 and is updated there most days
 
 ------------------------------------------------------
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Subject: userfaultfd: clear the inherited uffd bit in move_swap_pte()
-Date: Sat, 26 Sep 2026 21:41:44 +0900
+From: Gregory Price <gourry@gourry.net>
+Subject: mm/mempolicy: use vm_normal_folio_pmd() in queue_folios_pmd()
+Date: Sat, 26 Sep 2026 06:51:09 -0400
 
-Patch series "userfaultfd: clear the inherited uffd bit in
-move_swap_pte()", v3.
+Patch series "mm: stop calling pmd_folio() on special PMDs", v3.
 
+Two page table walkers resolve the folio behind a PMD with pmd_folio(),
+which is only valid for a PMD mapping a refcounted struct page:
 
-UFFDIO_MOVE on a swapped-out page installs the source PTE at the
-destination unchanged, so a uffd bit set on a write-protected or
-RWP-protected source lands in a destination VMA that was never registered
-for either, and nothing clears it afterwards.  Patch 1 clears the bit,
-then re-arms it if the destination is RWP-registered, which is what the
-present-page and zeropage move paths already do.  Patch 2 adds the tests
-that catch it.
+  madvise_cold_or_pageout_pte_range() mm/madvise.c
+  queue_folios_pmd() mm/mempolicy.c
+
+vmf_insert_pfn_pmd() installs special PMDs holding a raw pfn that need not
+have a memmap entry at all.  Both walkers can reach one and fault on the
+first folio field read.  The PTE halves of both already use
+vm_normal_folio(); these two patches make the PMD halves match.
+
+The four callers of vmf_insert_pfn_pmd(), and which walker each reaches:
+
+  drivers/vfio/pci/vfio_pci_core.c        VM_PFNMAP     mempolicy
+  drivers/gpu/drm/drm_gem_shmem_helper.c  VM_PFNMAP     mempolicy
+  drivers/gpu/drm/panthor/panthor_gem.c   VM_PFNMAP     mempolicy
+  drivers/hv/mshv_vtl_main.c              VM_MIXEDMAP   both
+
+can_madv_lru_vma() rejects VM_PFNMAP, so only mshv_vtl_low reaches the
+madvise walker, and that needs CAP_SYS_ADMIN.  queue_pages_walk_ops
+supplies its own ->test_walk, so walk_page_test()'s generic VM_PFNMAP skip
+never runs and vfio-pci is reachable by any process holding the device fd.
+Hence the different stable tags.
+
+One behaviour change: mbind(MPOL_MF_STRICT) over a PMD mapped VM_PFNMAP
+region now returns 0 rather than -EIO.  The PTE loop already returned 0
+there.  drm_gem_shmem and panthor are where this is observable, since they
+PMD map pages that do have a memmap entry and so never faulted.
+
+Reproducer
+==========
+
+No hardware needed.  An out of tree module stands in for the drivers
+above: three misc devices, each with a ->huge_fault calling
+vmf_insert_pfn_pmd(), plus VM_HUGEPAGE so the fault path takes the PMD
+branch.
+
+  /dev/pmdspec_mixed    VM_MIXEDMAP, pfn at the 1 TiB mark, no memmap
+  /dev/pmdspec_pfnmap   VM_PFNMAP,   pfn at the 1 TiB mark, no memmap
+  /dev/pmdspec_real     VM_PFNMAP,   real alloc_pages(PMD_ORDER) on node 0
+
+Userspace maps the device into a PMD aligned window, reads one byte to
+fault the PMD in, checks a module parameter to confirm it went in, then
+issues the operation.
+
+  vng --run <bzImage> --user root --memory 4G --verbose \
+      --append "numa=fake=2" \
+      --exec "insmod pmdspec.ko && ./pmdspec_test <subtest>"
+
+numa=fake=2 gives a node 1 to bind to; the module allocates its real page
+on node 0, which is what makes queue_folio_required() true.
+
+  subtest        operation                              parent   series
+  --------------------------------------------------------------------
+  madv_cold      madvise(MADV_COLD)                     oops     ret=0
+  madv_pageout   madvise(MADV_PAGEOUT)                  oops     ret=0
+  mbind_mixed    mbind(MPOL_BIND, n1, MPOL_MF_MOVE)     oops     ret=0
+  mbind_pfnmap   mbind(MPOL_BIND, n1, MPOL_MF_STRICT)   oops     ret=0
+  mbind_real     mbind(MPOL_BIND, n1, MPOL_MF_STRICT)   -EIO     ret=0
+
+Two things the table shows that are easy to miss in the code:
+
+  - mbind_mixed passes only MPOL_MF_MOVE.  MPOL_MF_STRICT is not needed for
+    a VM_MIXEDMAP vma: walk_page_test() only skips VM_PFNMAP, and
+    vma_migratable() is true for VM_MIXEDMAP.
+
+  - mbind_real demonstrates the user visible change (-EIO -> 0)
 
 
 This patch (of 2):
 
-UFFDIO_MOVE on a swapped-out page installs the source PTE at the
-destination unchanged, so a uffd bit set on a write-protected or
-RWP-protected source lands in a destination VMA that was never registered
-for either.  Nothing clears it there, and userspace sees:
+mmap a VM_PFNMAP region whose ->huge_fault installs a PMD through
+vmf_insert_pfn_pmd() - a vfio-pci MMIO BAR does this - then
 
- - /proc/<pid>/pagemap reports the page as uffd-tracked (bit 57), both
-   while it is swapped out and after it is faulted back in.
- - MADV_COLLAPSE fails with EINVAL on a range containing it, because the
-   collapse scan bails on a swap entry with the uffd bit set.
- - With CONFIG_PAGE_TABLE_CHECK, faulting the page in warns.
-   do_swap_page() carries the bit into the present PTE and, since the
-   destination isn't WP-registered, also makes it writable:
+	mbind(p, len, MPOL_BIND, &mask, maxnode, MPOL_MF_STRICT);
 
-   WARNING: mm/page_table_check.c:202 at __page_table_check_ptes_set+0x185/0x1e0
-   Call Trace:
-    set_ptes+0x67/0xc0
-    do_swap_page+0x990/0xfe0
-    __handle_mm_fault+0x7d0/0xeb0
-    handle_mm_fault+0x9c/0x250
-    do_user_addr_fault+0x207/0x650
-    exc_page_fault+0x65/0x150
-    asm_exc_page_fault+0x26/0x30
+With a stand-in module for the driver:
 
-Reaching it takes UFFDIO_MOVE out of a WP- or RWP-protected area into one
-that isn't, on a page that is swapped out at the time.  It hasn't been
-seen in practice.
+  BUG: unable to handle page fault for address: fffff96dc0000008
+  RIP: 0010:queue_folios_pte_range+0xaf/0x440
+   walk_pgd_range+0x52b/0xaf0
+   __walk_page_range+0x6a/0x1d0
+   walk_page_range_mm_unsafe+0x193/0x230
+   queue_pages_range+0x64/0xa0
+   do_mbind+0x25e/0x640
 
-A resident page doesn't carry the bit, because move_present_ptes() builds
-the destination PTE from dst_vma->vm_page_prot.  Clear it on the moved
-swap entry as well, then re-arm it if the destination is RWP-registered.
+queue_folios_pmd(), inlined above, calls pmd_folio() on that PMD.  The pfn
+is raw MMIO with no memmap entry, so the folio lands in unpopulated
+vmemmap.  Neither guard stops the walk:
 
-The WP case has been there since v6.8, where UFFDIO_MOVE was added.
+  walk_page_test()         skips VM_PFNMAP, but queue_pages_walk_ops
+                           supplies ->test_walk, so it never runs
+  queue_pages_test_walk()  honours vma_migratable(), but only while
+                           MPOL_MF_STRICT is clear
 
-Link: https://lore.kernel.org/20260926124145.2878520-1-donggeunyoo.kernel@gmail.com
-Link: https://lore.kernel.org/20260926124145.2878520-2-donggeunyoo.kernel@gmail.com
-Fixes: adef440691ba ("userfaultfd: UFFDIO_MOVE uABI")
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+A VM_MIXEDMAP vma needs neither flag, being vma_migratable(), so plain
+mbind(MPOL_MF_MOVE) reaches this too - and there the bad folio carries on
+into migrate_folio_add() and folio_isolate_lru().  mshv_vtl_low is such a
+mapping.
+
+Use vm_normal_folio_pmd() and skip on NULL, as the PTE loop in
+queue_folios_pte_range() already does with vm_normal_folio().  This also
+filters the huge zero PMD, so its separate check is no longer needed.
+
+mbind(MPOL_MF_STRICT) over a PMD mapped VM_PFNMAP region now returns 0
+rather than -EIO.  The PTE loop already returned 0 there.
+
+Link: https://lore.kernel.org/20260926105110.2156652-1-gourry@gourry.net
+Link: https://lore.kernel.org/20260926105110.2156652-2-gourry@gourry.net
+Fixes: 3c8e44c9b369 ("mm: mark special bits for huge pfn mappings when inject")
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260817220810.1175596-1-gourry%40gourry.net
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Zi Yan <ziy@nvidia.com>
 Assisted-by: LLM
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Andrea Arcangeli <aarcange@redhat.com>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
 Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
 Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Shuah Khan <shuah@kernel.org>
-Cc: Kiryl Shutsemau <kas@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: Rakie Kim <rakie.kim@sk.com>
+Cc: Ying Huang <ying.huang@linux.alibaba.com>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>
 Cc: <stable@vger.kernel.org>
 ---
 
- mm/userfaultfd.c |    1 +
- 1 file changed, 1 insertion(+)
+ mm/mempolicy.c |   13 +++++--------
+ 1 file changed, 5 insertions(+), 8 deletions(-)
 
---- a/mm/userfaultfd.c~userfaultfd-clear-the-inherited-uffd-bit-in-move_swap_pte
-+++ a/mm/userfaultfd.c
-@@ -1449,6 +1449,7 @@ static int move_swap_pte(struct mm_struc
- 	orig_src_pte = ptep_get_and_clear(mm, src_addr, src_pte);
- 	if (pgtable_supports_soft_dirty())
- 		orig_src_pte = pte_swp_mksoft_dirty(orig_src_pte);
-+	orig_src_pte = pte_swp_clear_uffd(orig_src_pte);
- 	/* Re-arm RWP on the moved swap entry if dst_vma is RWP-registered. */
- 	if (userfaultfd_rwp(dst_vma))
- 		orig_src_pte = pte_swp_mkuffd(orig_src_pte);
+--- a/mm/mempolicy.c~mm-mempolicy-use-vm_normal_folio_pmd-in-queue_folios_pmd
++++ a/mm/mempolicy.c
+@@ -667,7 +667,8 @@ static inline bool queue_folio_required(
+ 	return node_isset(nid, *qp->nmask) == !(flags & MPOL_MF_INVERT);
+ }
+ 
+-static void queue_folios_pmd(pmd_t *pmd, struct mm_walk *walk)
++static void queue_folios_pmd(pmd_t *pmd, unsigned long addr,
++		struct mm_walk *walk)
+ {
+ 	struct folio *folio;
+ 	struct queue_pages *qp = walk->private;
+@@ -678,13 +679,9 @@ static void queue_folios_pmd(pmd_t *pmd,
+ 			qp->nr_failed++;
+ 		return;
+ 	}
+-	folio = pmd_folio(pmdval);
+-	if (folio_is_zone_device(folio))
++	folio = vm_normal_folio_pmd(walk->vma, addr, pmdval);
++	if (!folio || folio_is_zone_device(folio))
+ 		return;
+-	if (is_huge_zero_folio(folio)) {
+-		walk->action = ACTION_CONTINUE;
+-		return;
+-	}
+ 	if (!queue_folio_required(folio, qp))
+ 		return;
+ 	if (!(qp->flags & (MPOL_MF_MOVE | MPOL_MF_MOVE_ALL)) ||
+@@ -717,7 +714,7 @@ static int queue_folios_pte_range(pmd_t
+ 
+ 	ptl = pmd_trans_huge_lock(pmd, vma);
+ 	if (ptl) {
+-		queue_folios_pmd(pmd, walk);
++		queue_folios_pmd(pmd, addr, walk);
+ 		spin_unlock(ptl);
+ 		goto out;
+ 	}
 _
 
-Patches currently in -mm which might be from donggeunyoo.kernel@gmail.com are
+Patches currently in -mm which might be from gourry@gourry.net are
 
-userfaultfd-clear-the-inherited-uffd-bit-in-move_swap_pte.patch
-selftests-mm-add-tests-for-uffdio_move-of-a-uffd-protected-swap-entry.patch
-mm-damon-core-charge-only-the-part-of-a-region-the-filter-left.patch
-mm-damon-tests-core-kunit-test-the-size-charged-for-a-filter-trimmed-region.patch
+mm-mempolicy-take-a-cpuset-cookie-for-the-interleave-node-count.patch
+mm-mempolicy-use-srcu-for-the-weighted-interleave-state.patch
+mm-mempolicy-stop-copying-the-nodemask-in-the-interleave-paths.patch
+mm-huge_memory-skip-zone-device-folios-in-madvise_free_huge_pmd.patch
+mm-madvise-skip-zone-device-folios-in-cold-pageout-pmd-range.patch
+mm-mempolicy-skip-zone-device-folios-when-queueing-folios.patch
+mm-memory_hotplug-factor-out-node_is_memoryless.patch
+mm-mempolicy-use-vm_normal_folio_pmd-in-queue_folios_pmd.patch
+mm-madvise-use-vm_normal_folio_pmd-in-cold-pageout-pmd-range.patch
+mm-refactor-find_next_best_node-to-find_next_best_node_in.patch
+mm-page_alloc-refactor-build_node_zonelist-out-of-build_zonelists.patch
+proc-task_mmu-handle-special-pmds-in-clear_refs-and-pagemap.patch
+mm-madvise-reclaim-isolated-folios-if-pte-restart-fails.patch
+mm-madvise-use-folio_trylock-in-the-cold-pageout-pmd-split.patch
 
