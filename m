@@ -1,77 +1,95 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCFB53403F1;
-	Sun, 27 Sep 2026 14:56:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 066282FD7B1;
+	Sun, 27 Sep 2026 14:56:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790520971; cv=none; b=Ps4aKCuJRYEpfpKNE3x/uy+POdY0VbyCCWfJDRxwTG0FCpXHjjgKITr5KhH90mq1cC7hyjpxUD+KH28+SJweInqH5KysiFR2qxtIrU0N2dA4OeUVjyJpjJlf1CxjVaQUPkQa3HFQaIgYxy+dP/OjrmMZm96Pj2Yps+raJkx+pLw=
+	t=1790520977; cv=none; b=NQ2DiTxLkujRZRuFcZSOgB+NosGiNPCpX6LaaNj09cN30CKeKo8sNeLslPOZYr7UBydKhSRMDrRXYNn2n+pzAzjyXAVGVeZ5AfuHnDkgIDi97QLaWLxzO3YcuHlDKO42GQXn1lJcYExGkc55ujsfjamrys81VhQWXnJx8pGJpHQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790520971; c=relaxed/simple;
-	bh=ZcU40FFHJvRddSme+YyOAgkWxq0a822Pw8UlCWr9AeM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=YT2ni7KOR8mLEqxXNU3Jf6k/P2oLIf4EaAu+0hRDlVDOrr0UrXbou00qnIZA3y0+u06mMWV5ry0fnJtfWDu+70kM4sO4u17UswsBhOEAJdKQfLXjJqesv49GfuLpM1G/ppD6iePuGCN5ZucvZieCAhHDEZouQXGuTuxa1SxSu6o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=L8oNUjq+; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790520977; c=relaxed/simple;
+	bh=TIexbawRrjBvcMBwQFMDCA6x81r5yBaqzgAOaIgzfkE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=eqZR1tFGBHcuEffPUdKCUYRb3SwYc8Y48bSiLglmXIl5nvXIzQHo34wn326C78CCgCSbxeqX8DfKu9AQreG21s/wU9jz6DMXY1bsnXjjyJ9+bKP2sAXMAmo1cUBgCdOugbJ1l9kK+WaUd5NPMFKBzQODp0Ps2TqaEW9S9nNOIGU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JA0eYk+i; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="L8oNUjq+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=ZcU40FFHJvRddSme+YyOAgkWxq0a822Pw8UlCWr9AeM=; b=L
-	8oNUjq+tcdWjz7jjBOUBgDNCfP9iWtCFyIENykLxe9fdUnujyw6t7EwpEOPt5foT
-	uYMSOYNz+QXrNKcP0YGhayd9ZVdfl7ljWdXwp52XTkHPPnrBKdzIEac6ni/WDuTv
-	3PRmcTUeqS6m1KiOSydqI1GU9KcySA+xeXnCESRBxE=
-Date: Sun, 27 Sep 2026 22:53:53 +0800 (CST)
-From: "jiale yao" <19888972804@163.com>
-To: "Francesco Dolcini" <francesco@dolcini.it>
-Cc: "Wei Fang" <wei.fang@nxp.com>, "Frank Li" <frank.li@nxp.com>,
-	"Shenwei Wang" <shenwei.wang@nxp.com>,
-	"Andrew Lunn" <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	"Eric Dumazet" <edumazet@google.com>,
-	"Jakub Kicinski" <kuba@kernel.org>,
-	"Paolo Abeni" <pabeni@redhat.com>,
-	"Fabio Estevam" <fabio.estevam@freescale.com>, imx@lists.linux.dev,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JA0eYk+i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66F5F1F000FF;
+	Sun, 27 Sep 2026 14:56:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790520971;
+	bh=Ewo/kFhfNF9BUM9+V8oV0ndAio75zzFZWkSpzJ/6QFY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=JA0eYk+icdXbhoC+ApA3bVeLwziBW0BHyQlLJ6143opdiBvujXIYGQpLW4IER7Zc1
+	 Y2U2jUjj4CXZCrfKzhltklUF43dkaYe8nSBhOz5ZHsWUDdy2+TgMA4hAKnlZKUHnfa
+	 lRY19NIiMIdg94oPVpaYm1k0XqyoMTyQNTvN6YEKgkw6meAOCN7XFgN0ud9GoyMa8t
+	 I8CGa3uh82SUi3hVqV2tsqNCGjF9O/xCjywAmEj51p4GXqfA8/LToN4lHCHmfDNYsk
+	 Hwt06RYisTcjRr8U7awX4jbblleX74vF9T5jI2TWd1Ps65hDkbzfwz4Xzc/xNXdZNv
+	 uID1lemqulIqg==
+From: Imre Kaloz <kaloz@kernel.org>
+To: Alex Deucher <alexander.deucher@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: Re:Re: [PATCH 2/7] net: fec: manage the netdev lifetime with devres
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <20260927143745.GA54546@francesco-nb>
-References: <20260927111005.1035089-1-yaojiale02@163.com>
- <20260927111005.1035089-3-yaojiale02@163.com>
- <20260927143745.GA54546@francesco-nb>
-X-NTES-SC: AL_Qu2SAvmZv0Ao5SeaY+kcn08ShO49XMOyvfoi2YFTc+wEtDDx5D0YcXZsLHvo+tO2Bwe2uhyyaypowcFTQZNHZW/RWTL+AessDjTw6V0abg==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+Subject: [PATCH v2 1/2] drm/radeon: Read the VRAM VBIOS signature with readb()
+Date: Sun, 27 Sep 2026 16:55:04 +0200
+Message-ID: <20260927145505.16883-2-kaloz@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260927145505.16883-1-kaloz@kernel.org>
+References: <20260927145505.16883-1-kaloz@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <6db17bb3.2840.1a0e35bb6ca.Coremail.19888972804@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:ZygvCgD312ABLrlq4EVPAA--.48920W
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzQGUzmq5LgHgLwAA3l
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Transfer-Encoding: 8bit
 
-SGkgRnJhbmNlc2NvLAoKVGhhbmtzIGZvciB0aGUgcmV2aWV3LiBTb3JyeSBJIG1pc3NlZCB0aGF0
-IKGqIEkndmUgZml4ZWQgdGhlIGVtcHR5CmxpbmVzIGJldHdlZW4gdGhlIHRhZ3MsIGFuZCBhcHBs
-aWVkIHRoZSBzYW1lIHRvIHRoZSBvdGhlciBjb21taXRzLgppbiBodHRwczovL2xvcmUua2VybmVs
-Lm9yZy9hbGwvMjAyNjA5MjcxNDQ3NDEuMTMyMDU1OC0xLXlhb2ppYWxlMDJAMTYzLmNvbS8KCkF0
-IDIwMjYtMDktMjcgMjI6Mzc6NDUsICJGcmFuY2VzY28gRG9sY2luaSIgPGZyYW5jZXNjb0Bkb2xj
-aW5pLml0PiB3cm90ZToKPk9uIFN1biwgU2VwIDI3LCAyMDI2IGF0IDA3OjA5OjU5UE0gKzA4MDAs
-IEppYWxlIFlhbyB3cm90ZToKPj4gZmVjX2Rydl9yZW1vdmUoKSBmcmVlcyB0aGUgbmV0ZGV2IGJl
-Zm9yZSBkZXZyZXMgcmVsZWFzZXMgdGhlIG1hbmFnZWQKPj4gSVJRcyB3aG9zZSBoYW5kbGVycyB1
-c2UgaXQgYXMgdGhlaXIgZGF0YSBwb2ludGVyLiBBIGxhdGUgaW50ZXJydXB0IGNhbgo+PiB0aGVy
-ZWZvcmUgYWNjZXNzIHRoZSBmcmVlZCBuZXRkZXYuCj4+IAo+PiBBbGxvY2F0ZSB0aGUgbmV0ZGV2
-IHdpdGggZGV2cmVzIHNvIHRoYXQgdGhlIGxhdGVyIElSUSByZWdpc3RyYXRpb25zIGFyZQo+PiBy
-ZWxlYXNlZCBmaXJzdCBkdXJpbmcgdGVhcmRvd24uCj4+IAo+PiBGaXhlczogMGQ5YjJhYjFjMzc2
-ICgiZmVjOiBVc2UgZGV2bV9yZXF1ZXN0X2lycSgpIikKPj4gCj5yZW1vdmUgdGhlIGVtcHR5IGxp
-bmUsIHRhZ3Mgc2hvdWxkIGJlIGFsbCB0b2dldGhlciB3aXRob3V0IGFueSBlbXB0eQo+bGluZSBp
-bi1iZXR3ZWVuLiBzYW1lIGFwcGxpZXMgdG8gdGhlIG90aGVyIGNvbW1pdHMuCj4+IENjOiBzdGFi
-bGVAdmdlci5rZXJuZWwub3JnCj4+IFNpZ25lZC1vZmYtYnk6IEppYWxlIFlhbyA8eWFvamlhbGUw
-MkAxNjMuY29tPgo+Cj5GcmFuY2VzY28KCkppYWxl
+igp_read_bios_from_vram() checked bios[0]/bios[1] with a plain
+__iomem load, which faults on sparc64 before the copy runs at all.
+radeon_read_bios() already reads its two signature bytes with
+readb() ahead of its own copy; use the same accessor here, keeping
+the check before the allocation.
+
+Fixes: b442962a9e82 ("drm/radeon/kms: add support for "Surround View"")
+Cc: stable@vger.kernel.org
+Signed-off-by: Imre Kaloz <kaloz@kernel.org>
+---
+Changes in v2:
+- Read the signature with readb() before the allocation instead of
+  checking the RAM copy, as radeon_read_bios() does.
+
+ drivers/gpu/drm/radeon/radeon_bios.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/radeon/radeon_bios.c b/drivers/gpu/drm/radeon/radeon_bios.c
+index 8595f4c6e2e5..1da6bf1c17ff 100644
+--- a/drivers/gpu/drm/radeon/radeon_bios.c
++++ b/drivers/gpu/drm/radeon/radeon_bios.c
+@@ -49,6 +49,7 @@
+ static bool igp_read_bios_from_vram(struct radeon_device *rdev)
+ {
+ 	uint8_t __iomem *bios;
++	uint8_t val1, val2;
+ 	resource_size_t vram_base;
+ 	resource_size_t size = 256 * 1024; /* ??? */
+ 
+@@ -63,7 +64,10 @@ static bool igp_read_bios_from_vram(struct radeon_device *rdev)
+ 		return false;
+ 	}
+ 
+-	if (size == 0 || bios[0] != 0x55 || bios[1] != 0xaa) {
++	val1 = readb(&bios[0]);
++	val2 = readb(&bios[1]);
++
++	if (size == 0 || val1 != 0x55 || val2 != 0xaa) {
+ 		iounmap(bios);
+ 		return false;
+ 	}
+-- 
+2.47.3
+
