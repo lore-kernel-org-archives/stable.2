@@ -1,532 +1,193 @@
-Received: from mail-pz2-f38.google.com (mail-pz2-f38.google.com [74.125.228.38])
+Received: from mail-ed2-f33.google.com (mail-ed2-f33.google.com [74.125.228.97])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BB7C5C613
-	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 23:07:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.38
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BF13397E85
+	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 23:08:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.97
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790550437; cv=pass; b=SN+1Zay87NiPFMhW2QCm1ADmZEejXUXKY7gVCy7Ev2ldRh26VLsnz0w+Yx5gvtP6UP4ZSdxqdSTd3Ig9do2zLrOY27xYuaMPJ6EM7j1/T4hrFsC6/v1wjVJcKFJq3BHI4b6gUyvHiEEnJ16oue9V20yPdQz7n3PKmbOwnrLZZ2I=
+	t=1790550485; cv=pass; b=ML4r5JCaL4qs3k7X7xYOKLHE8nCXbpDr4FPLXnrOQCZ2k2cpf3l0TxDYO8rg2cTCV9y2LnrUgodsNEs5dx6UmY0ppDPo59lgcHjMeHL6aywTxLhMke7ui3Jeo/NdLHsB0tLm7qm7E7GwWRxreZwPjTZFdxOj+35nq6C+zjw34bI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790550437; c=relaxed/simple;
-	bh=DEzeiYA+qkLlY7IV2Y48wovNN6wlOhrqRRhPjQinWMs=;
+	s=arc-20240116; t=1790550485; c=relaxed/simple;
+	bh=CTNDXQo5Ik8pEUNZkcnEchXw8zaYFKTIx91vzZ5s5LI=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kFYo+lFSLy+OLPhj+Blbv2agN92Iv6TacyuwJs+lKwY2kaOZ3yKwvREn923cu4DHG/kgkr3qEyG5cdF+lc+LZp/6vCH4fk8dBLjcH0f5KjmbQNhBElx9sI7V2w4R8YhsUeYT4PS3Lzbo2Mg2naqa8DNR2pR4q5EVQSYj8RmvRYo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=W9kTHqam; arc=pass smtp.client-ip=74.125.228.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	 To:Cc:Content-Type; b=U2VSFgDz28hWKWm1x7GhGCuJeMMT3KgHA+GPUKCL8UpWSYQbSx8LE52rQNjncVJ5Y/v3y6RskBsH/pGGR2VcTRqB+HCTBd/eQR9/JszQ4RJiypUFION7c6tfRH8wgIy8gD3kfdx67Am8DW2kCM/+D4eA6PB1hpuVPhCVSJn/FBg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EF9Z6Iyf; arc=pass smtp.client-ip=74.125.228.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="W9kTHqam"
-Received: by mail-pz2-f38.google.com with SMTP id d2e1a72fcca58-882c2bcef77so392137b3a.3
-        for <stable@vger.kernel.org>; Sun, 27 Sep 2026 16:07:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790550435; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EF9Z6Iyf"
+Received: by mail-ed2-f33.google.com with SMTP id 4fb4d7f45d1cf-6ac6f5c507fso769437a12.1
+        for <stable@vger.kernel.org>; Sun, 27 Sep 2026 16:08:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790550482; cv=none;
         d=google.com; s=arc-20260327;
-        b=RKdLhA2Tx+f/upO2rCqkemsIXX9eJVAmp2q97EgYOM+O16zOY8Rrd7BZJuaONbSNRx
-         7Ue4HjUUDSb02g/30rwMhqUZwqbxQMOCUZjvmpbf9f7TF60VbGYWUk78k8ztftXIoKEP
-         yk+E2CEyyZJHBWJbh9Gu+vFqTPFKQKQj/4Bo9Ia+ylGsgSV27zH68GXCJEWhQnaDYlj3
-         jzYIh8fZK0yVOdFetVFO+PBjfUnUpUJplAiTIgWypl6X06hCfVaFiNpqVwBR5GMKXA04
-         fU1vPgE8U2KFch1eKKFPWuyNQu3+YUyBdUsrUw9SgB2gPnMbbmKhF7aq+n892uCWbIlD
-         /C6A==
+        b=p6Yx0gAFC3JV1suWdybMYCoKTWDlI6uYGvbROuyN9Ia5KO5IoiiHzEbUkLj8+UpHVR
+         5rvEbYyBsMyAQF0jrJsqyMQbdk+ep9KMZphdXnXOFPvW8yUuxTABgjfXzGxKoHk6SZHp
+         q2Yi622uBk9j9KwreWuXO8zyTL9lXhU0HfQC8ycAZonA6VfF7/zoEa8/T7AqKjt2A5ee
+         ivyloDtnDy29n80M49WCH2LxHthRivMRljxWPN52stb2U5Ai+fWC5ynIUqWDn0wYgvMH
+         MGZuW89+xMQltKYpVAnK5FIw+IWLVVSI3dB5ye0mnV47LoZczwumcyyshCmj1NU1/6sx
+         F3Ow==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=8EfpsoKj73vUJtJGQgj1h0j+yXYGfQU2QNlgGB8wSlk=;
-        fh=K9DP5mERZRuexK0nEVFHCa7zwLnd8kLbnlVDZVnOiI4=;
-        b=eP+zNbuxjugXeqNypl5+BxxEkEQxbNmTKZ+GaPL8xYKw29GhkhF9FVEfRyWozT8tI2
-         f9MAXGmstWbhwTZXWelWy4VVxo0cJaa0WtcPa1exbt2P9YeKEQxMIRMsLBW7zEYQ3Syd
-         e8+OTPNwoRjaTO2wVuUUZoNDObabHmwqeFJ6MEfcVPjPhoW4qHji1FY2vudyIxy2TIKR
-         0eGY8f36L9kGYSzoBPGCV8WvH/7r2LE2AF7NvWuD8VAGppVaDMws3c+lduHZaQD3lRfG
-         2de7sSObcDDp6A5/d0PFicvZmiq/vCqbhalBm2FlNEtx2GtzqVXqJwLHpQjfMaPLhx+X
-         IJhw==;
+        bh=JG/tCdTlMmUy1VQCk4CZdBjuAkjHwjba+Uca0dFauBE=;
+        fh=Pq4q1GVxzwTQMts1Y2/SydpzmT/VfSPVP3XkGaRi9J8=;
+        b=GkVEKe5ktcwv4dL6j0X27K6QL2/a++QX2z2LdQSITMtMO6/Sqb83IJwDGfEqYevnhx
+         W3z1+Nt9tvRYnSLtDK+xWvHe4Z/bt+GohUf3WGpuDhx1ef3l9C5QQWyYci2eJLWAVgHH
+         0tOMbZx7YiobUbbhSFuUacEj8DJbknaPTcc4/6G9akF+OKAN3f8kBoGL56P4D10d6ttW
+         p4zma7aazXz21FRZydsYc2qTeRHCccDNoUHEJnBM8O4pdmhk2CcisSa4BcZ7/AqZkoDx
+         wVIdz92Fnmhvih7l9rIIVPVPb8SwGoqF5Rv2ys3CowN+ZBzTOvOuOvcchi96BVWuDCcl
+         9sag==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1790550435; x=1791155235; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790550482; x=1791155282; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=8EfpsoKj73vUJtJGQgj1h0j+yXYGfQU2QNlgGB8wSlk=;
-        b=W9kTHqamMPb/MKyTZ5ITLxVdgE968cumtW02aqQnjlMXsYQTm3ov8O82qXE0IAh9tl
-         lXTrC8jEUcdLnSVrhnQxDEqiBmksdmWT/ER5voTTAGoebMu9smNScgbCT2KZVhql8Qtz
-         GModL2Pi1DzpdzFBotB3aRKC3cgJjzTeDV6PM=
+        bh=JG/tCdTlMmUy1VQCk4CZdBjuAkjHwjba+Uca0dFauBE=;
+        b=EF9Z6Iyfy2P/6Loz3rpDWJeRmPhCmWYfpFDgQlsKyJjetf7T9rR6YNb2VmsOWbMAhy
+         xRGdj1qLEFC7pfzbSXPdSzK0mwYl3eU9R7UDNgDSX/6FVLoqtMhlPFLh8V2HHM7IWRig
+         AssMM5DxalH+MY5/e7uZIl44Wj1bJYxtlVnQZttXSJvK8vYiUINXGQ0iKXp2XxPHb2zL
+         ANMMkv7euaPBZtjWSCaZeHKVPUHM9oF4voyNYNpX+OBVbLwRnMPOw1GhYZBgCAxC2ZUM
+         4+Gx9iR3pkekQmVn1bT86x+h1JTgQN+R3NRAYVJqlWDz8kstBQcA5+XfjOjuc11sZKSo
+         YZRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790550435; x=1791155235;
+        d=1e100.net; s=20260707; t=1790550482; x=1791155282;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=8EfpsoKj73vUJtJGQgj1h0j+yXYGfQU2QNlgGB8wSlk=;
-        b=Fijtzy+t39AmH8voYHstdX+HNy7qrK3aUg81HdHCyPyL/d72vp5NYUG2f63ekgVJ4Q
-         Ujlh3OuP9ldmS+FoMGemv2SzyRhivDnn7lu97TjXEcAKW6SCFaxuXLzNXozbpTlvC+ou
-         qy6uo5cmwLQZiuyPMQl3p/nndwp2zKHDsapq0Ts1hjYSAcghq0mfSmel197Yv1DFAMhp
-         YJhRkhgsGU2pgpqZS7FkY3xWn5boH00oEFCyufQ4mXoIhndTkEiz7fICQxUcl+2696HY
-         FH9hyddKvI5riWibCfXectqjdDUl7fnRrpVq2xTmoiwcmgdpTBUKMOe/Tcf7ZotMG/C0
-         ZLYQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwQKWs1Rk47nZnq72+oMzHi2IAUdWPvFdXynX4StroxYrbUTwiB2cbhLmZhdWtB1nZahXpJX7s=@vger.kernel.org
-X-Gm-Message-State: AFuF++lcmw5fqzmGFN/U7RxraXhTJb8lqDyi6SzrIYt/neSJ6JIfPDBJ
-	l+7Br0wYgzYCTSLF5XQx9i7OOTmCY9QUu7eYqrSZzjR7HOeVAgfKUd77TrmtVcMoVZscglWigdG
-	NkXV80Kjn0cwVVQmc/tO4KqcLwxCx2Ggt+umYaIID
-X-Gm-Gg: AYBFou3kWHbKfQi84S3SEUUO+iyv1aa0St+trZ1WEBTxVUgRrb9i5SIUWE4qQAjYJ9L
-	bSsbAxTt89ER+PX+MauPkc+wy1L/j9WY3UhaMldB9LBmptQSxG2oYlcNnIW5oJ+oXp3hkbNuGkt
-	NKuvV6ZrBcmoybDvnbmjFScA0Akrh4b6JCrAgxLeLRkB/rmx3xLOQK8eU3ISq4f4n8QROYls6Ej
-	tp0If/uLI4d84aaN7SBpjzk6DoLG5AuP+a2YA4ILWUWpU+RnpZ90l7fYrv3XGYRgpm8DkTSjhot
-	VicQPcVIkKg1q2sxCjAyn7/pzLehWQgTLn28M/RDSl8KGzmzFuKIIpdTtJbjiKeeBeDBJO/NPGV
-	4mgew/8K/aOU2CjDX9OXOuHUGmITB38FaHQ==
-X-Received: by 2002:a05:6a00:2991:b0:882:d8c4:17c9 with SMTP id
- d2e1a72fcca58-882d8c423bbmr1423940b3a.23.1790550434677; Sun, 27 Sep 2026
- 16:07:14 -0700 (PDT)
+        bh=JG/tCdTlMmUy1VQCk4CZdBjuAkjHwjba+Uca0dFauBE=;
+        b=GZSCEp9ITByLZ3gKZptIOa+OR9ye3Mi9k+Iz/AOr4t6ClNsl2BlqAYfqnJTsC8jad/
+         qW+yx/vNDbyFc2QFjhaBZmyjqFhBB2NZS8L4yyC/KPTjYJUY/C4gvLw+k/5sQTRC1TN2
+         sewAlcyQ/To1DZCZZq8+LeIzA/KLItpLy1o8e13VuLeWj8TBeh+2BF90EEgZM0OLN1Im
+         VSD8qjCIw0jnFiJfoICJWijik6SH7+yiE2pLLFT/DF/BaXNeRFf+4hj4iAaHvXmm5imQ
+         uVfqgAZzFfKwKiHBdROP00x4AfImaIhH2rilBuh85lnbhWgpSHIpiEvu9yI4NyOBFTwX
+         EP1g==
+X-Forwarded-Encrypted: i=1; AKwUvBx8ByeVuEw5MGj6a5NC9U0vI8hyp8dCykYBRzB4Sj2yYQiseE4o+JX1THOtIuHSYT08Ov4fQdI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLSJNSNLpt2VsJiw2933h1UCjqNOpKzo43MXgvSqm9arniRuJvN
+	FPwj5CeCqi4uhoS3fUfs7HPilUzwMUTvZBkV8SGFHNCCAbNOG8g1HQ9buz1N8i9j1TIbUATJDWu
+	3A8e40kXkuroGQ3IF93bNwWF58IMkZKw=
+X-Gm-Gg: AYBFou2YAKhaWqtI4yEandQB6bgVzq7G7Mw+qLdpY53pbBRZQn5J05O0Dts/FvD7Qbs
+	Ou49pDZZRL7fiDOKFjn/HgbFaSNQSQFZ2qf4mK+KuPxYXyOY4k1OLVbqslGE+Fmz2GHq5X0t9NP
+	AlZth1gHacuIfBfzN8amcBy4whdKAnuUnk9+HMfz2hPxAOLSJSiLYer7REEFJHQfl21pmKApeE3
+	jDu02YPGwIONsKgxaGX33k5rK3IoMLfT0wmPKpIU3eWAQqjMbEyMYrfv3K6SQp0AGDcDX4mLgdu
+	kZ4d4zEK2zz0rlCjvl6nyrTjq1TDph4cJ0WSINXeA9+EvdMKHabuSSULsgZ/aFqay1YOf7JqzqH
+	VkvrlMEbpmRYWZwKQ+f2vuakkWHkkoa9uw59aMJnvKQ==
+X-Received: by 2002:a05:6402:208d:10b0:6aa:9fef:641c with SMTP id
+ 4fb4d7f45d1cf-6aac8f5b1d1mr7218826a12.28.1790550481746; Sun, 27 Sep 2026
+ 16:08:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <QDISC-9R8V.v3.20260926072930@mojatatu.com> <CANn89i+k-mZKDQVtvws_MEXeuMTAdaCcOXFZE-RfhcGTu90sjA@mail.gmail.com>
-In-Reply-To: <CANn89i+k-mZKDQVtvws_MEXeuMTAdaCcOXFZE-RfhcGTu90sjA@mail.gmail.com>
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-Date: Sun, 27 Sep 2026 19:07:02 -0400
-X-Gm-Features: AclHuK9krlNG6MytVUIWiHjXrlaK2ktzM3mPVdJgTfHx3cRppGgPCkFklVoxQbs
-Message-ID: <CAM0EoMkfky6883uMEsYerDqy5u_A1+fvs3pLPjkEUeeCC2=6ZQ@mail.gmail.com>
-Subject: Re: [PATCH net v3] net: cap skb->queue_mapping when the tx queue is picked
-To: Eric Dumazet <edumazet@google.com>
-Cc: netdev@vger.kernel.org, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Jiri Pirko <jiri@resnulli.us>, Vinicius Costa Gomes <vinicius.gomes@intel.com>, 
-	Simon Horman <horms@kernel.org>, Tonghao Zhang <xiangxia.m.yue@gmail.com>, 
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Victor Nogueira <victor@mojatatu.com>, 
-	Zero Day Initiative <zdi-disclosures@trendmicro.com>, hybris <hybris@mojatatu.ai>, 
-	stable@vger.kernel.org
+References: <20260927005801.8338-1-kaloz@kernel.org>
+In-Reply-To: <20260927005801.8338-1-kaloz@kernel.org>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Mon, 28 Sep 2026 01:07:50 +0200
+X-Gm-Features: AclHuK9wHFvF9AvbW3RHi3XsF87LZ25o8TZ7kIUlgFBipgElEQ_7njdLdEtPwZ0
+Message-ID: <CA+=Fv5SEwB2b2On=2kEWq2hWMKVauDZ7wqa6+6xPD5nmBgGASw@mail.gmail.com>
+Subject: Re: [PATCH] sparc32: don't clear the nocache pool through the PROM mappings
+To: Imre Kaloz <kaloz@kernel.org>
+Cc: Andreas Larsson <andreas@gaisler.com>, sparclinux@vger.kernel.org, 
+	"David S. Miller" <davem@davemloft.net>, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sun, Sep 27, 2026 at 11:48=E2=80=AFAM Eric Dumazet <edumazet@google.com>=
- wrote:
+Hi Imre,
+
+On Sun, Sep 27, 2026 at 2:59=E2=80=AFAM Imre Kaloz <kaloz@kernel.org> wrote=
+:
 >
-> On Sat, Sep 26, 2026 at 11:48=E2=80=AFPM Jamal Hadi Salim <jhs@mojatatu.c=
-om> wrote:
-> >
-> > skbedit can set skb->queue_mapping and raise the per-CPU skip_txqueue
-> > flag so __dev_queue_xmit() honours the mapping. __dev_queue_xmit()
-> > cleared the flag before sch_handle_egress() and only read it afterwards=
-,
-> > so the flag was not confined to the xmit that set it: a nested xmit
-> > (mirred redirect or mirror, or a drop after skbedit) could set the flag
-> > and the outer xmit would consume it for an skb that never went through
-> > skbedit.
-> >
-> > A forwarded packet still carries the ingress NIC's rx_queue + 1 in
-> > skb->queue_mapping, so the outer device then indexes its tx queue state
-> > with that stale value. Taprio's child array q->qdiscs[] is sized to the
-> > device's queue count, so taprio_enqueue() indexes past its allocation
-> > and dereferences the result as a struct Qdisc *.
-> >
-> > Own the flag for the whole xmit frame: save the incoming value and clea=
+> srmmu_nocache_init() runs before the switch to srmmu_swapper_pg_dir, so
+> lowmem is still reached through the PROM mappings the head code inherits
+> for KERNBASE, which end at 10MB on a SPARCstation 20. The pool, up to
+> 5MB and allocated right above the kernel, was cleared there twice, by
+> memblock_alloc() and by the memset(). Once the kernel image ends above
+> 5MB the clear runs past the PROM's window, faults, and the boot CPU
+> enters error mode.
+>
+> Every user of the pool clears what it allocates, so allocate the pool
+> with memblock_alloc_raw(), after the bitmap so the bitmap lands below it.
+>
+> This has been broken since 2.4.0-test2pre2.
+>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Imre Kaloz <kaloz@kernel.org>
+
+
+Very nice work, this makes a lot of sense.
+
+For the record, an unpatched kernel
+(carrying only the patch series needed to boot:)
+https://lore.kernel.org/sparclinux/20260816075141.3489194-1-linmag7@gmail.c=
+om/T/#t
+
+boots fine here: SS-20, PROM 2.25R, 512MB, 6MB kernel image, nocache
+pool at its 1280-page cap. So the PROM window is not always small enough fo=
 r
-> > it before any of the frame's egress work can recurse, and restore it on=
-ly
-> > when the frame exits. A transmit-qdisc classifier is a documented flag
-> > producer too (it runs in q->enqueue(), after sch_handle_egress()), so t=
-he
-> > flag must be owned for the whole frame, not just around the clsact hook=
-.
-> > The flag then never crosses an xmit boundary in either direction. Also
-> > store the value netdev_cap_txqueue() selected back into skb->queue_mapp=
-ing
-> > in netdev_tx_queue_mapping(), as netdev_core_pick_tx() already does, so
-> > the skip_txqueue path never hands a later reader on the xmit path a
-> > mapping the device cannot serve. A store made still later in the same
-> > frame, by a tc BPF program attached to a transmit qdisc, is outside thi=
-s
-> > path and is not re-capped; a separate followup will resolve that path.
-> >
-> > netdev_xmit_skip_txqueue() now returns the previous flag value so the
-> > save-and-clear is one call, and a no-op stub is provided when
-> > CONFIG_NET_EGRESS is disabled. This removes the inline #ifdef around th=
-e
-> > save and the two restores.
-> >
-> > A local user in a network namespace can redirect a packet from a device
-> > with more TX queues to one with fewer after setting a mapping valid onl=
-y
-> > on the larger device. That reaches these reads and, under KASAN, faults
-> > with "slab-out-of-bounds in taprio_enqueue".
-> >
-> > Conditions to recreate the bug: with CONFIG_NET_SCH_TAPRIO=3Dy,
-> > CONFIG_NET_ACT_SKBEDIT=3Dy, CONFIG_NET_ACT_MIRRED=3Dy,
-> > CONFIG_NET_CLS_MATCHALL=3Dy, CONFIG_NET_SCH_PRIO=3Dy and KASAN enabled,
-> > create qa (3 queues), qb (2 queues) and qc (1 queue) as dummy devices;
-> > put a taprio root on qb and clsact on all three; then add an egress
-> > matchall filter on every device. On qa: "action skbedit queue_mapping 2
-> > pipe action mirred egress redirect dev qb". On qb: "action mirred egres=
-s
-> > mirror dev qc". On qc: "action skbedit queue_mapping 0 pipe". Send one
-> > packet out qa. qc's skbedit sets the flag while qb's outer xmit is in
-> > flight; without the fix qb consumes it and reads its two-entry taprio
-> > child array with the forwarded packet's stale mapping. A qc whose skbed=
-it
-> > is instead installed in a transmit-qdisc classifier (a matchall filter =
-on
-> > the qc root qdisc) reaches the same code path the same way.
-> >
-> > Testing: on a KASAN build with panic_on_warn=3D1 the unfixed kernel pan=
-ics
-> > with "BUG: KASAN: slab-out-of-bounds in taprio_enqueue", a read 0 bytes
-> > past a 16-byte taprio_init() allocation; the fixed kernel runs the
-> > clsact-setter and the transmit-qdisc-classifier reproducers with no rep=
-ort
-> > and no clamp notice, and a clsact skbedit-then-tc-BPF store with no rep=
-ort
-> > but the expected "selects TX queue" clamp notice from the write-back;
-> >
-> > Fixes: 2f1e85b1aee4 ("net: sched: use queue_mapping to pick tx queue")
-> > Reported-by: Zero Day Initiative <zdi-disclosures@trendmicro.com>
-> > Link: https://lore.kernel.org/netdev/CANn89iLwYx8nCVf0pCEk_MmEiyC6kQaMw=
-CQT9WkQVeeNzNQHqQ@mail.gmail.com/
-> > Link: https://lore.kernel.org/netdev/179008581937.2160803.7117814290574=
-262942@kernel.org/
-> > Link: https://lore.kernel.org/netdev/179033713973.2160803.4914570693994=
-398206@kernel.org/
-> > Link: https://lore.kernel.org/netdev/20260925180407.63647514@kernel.org=
-/
-> > Suggested-by: Eric Dumazet <edumazet@google.com>
-> > Suggested-by: Jakub Kicinski <kuba@kernel.org>
-> > Tested-by: hybris <hybris@mojatatu.ai>
-> > Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
-> > ---
-> > v2 -> v3:
-> > - netdev_xmit_skip_txqueue() returns the previous flag value, so the en=
-try
-> >   save-and-clear is one call; a no-op stub is provided when
-> >   !CONFIG_NET_EGRESS, removing the three inline #ifdefs (Jakub Kicinski=
-).
-> > - Narrow the capability claim: the capped write-back covers the
-> >   skip_txqueue path only; a store made later in the frame by a tc BPF
-> >   program on a transmit qdisc is not re-capped and is a separate follow=
-up
-> >   (nipa Sashiko).
-> > - Comment: "per-CPU (per-task on PREEMPT_RT)" (nipa Sashiko).
-> > - Drop the now-redundant #ifdef in act_skbedit.c.
-> >
-> > v1 -> v2:
-> > - Rework the root cause to the per-CPU skip_txqueue flag lifetime: it w=
-as
-> >   cleared before sch_handle_egress() and read after, so a nested xmit c=
-ould
-> >   set it and the outer xmit consume it for an skb that never went throu=
-gh
-> >   skbedit (Eric Dumazet, nipa Sashiko).
-> > - Own the flag for the whole xmit frame: save/clear it before any of th=
-e
-> >   frame's egress work can recurse, and restore it only when the frame e=
-xits.
-> > - Retain the v1 producer-side cap (netdev_tx_queue_mapping() writes the
-> >   clamped value back).
-> > - Correct the description of the reproducer to a three-device chain
-> >   (qa 3q -> qb 2q taprio -> qc 1q).
-> >
-> >  include/linux/rtnetlink.h |  7 ++++++-
-> >  net/core/dev.c            | 33 +++++++++++++++++++++++++++------
-> >  net/sched/act_skbedit.c   |  2 --
-> >  3 files changed, 33 insertions(+), 9 deletions(-)
-> >
-> > diff --git a/include/linux/rtnetlink.h b/include/linux/rtnetlink.h
-> > index 95729339e7a5..a54ec40d095c 100644
-> > --- a/include/linux/rtnetlink.h
-> > +++ b/include/linux/rtnetlink.h
-> > @@ -186,7 +186,12 @@ void net_dec_ingress_queue(void);
-> >  #ifdef CONFIG_NET_EGRESS
-> >  void net_inc_egress_queue(void);
-> >  void net_dec_egress_queue(void);
-> > -void netdev_xmit_skip_txqueue(bool skip);
-> > +bool netdev_xmit_skip_txqueue(bool skip);
-> > +#else
-> > +static inline bool netdev_xmit_skip_txqueue(bool skip)
-> > +{
-> > +       return false;
-> > +}
-> >  #endif
-> >
-> >  void rtnetlink_init(void);
-> > diff --git a/net/core/dev.c b/net/core/dev.c
-> > index f660fccfc0db..3b114fbf7015 100644
-> > --- a/net/core/dev.c
-> > +++ b/net/core/dev.c
-> > @@ -4404,9 +4404,14 @@ EXPORT_SYMBOL(dev_loopback_xmit);
-> >  static struct netdev_queue *
-> >  netdev_tx_queue_mapping(struct net_device *dev, struct sk_buff *skb)
-> >  {
-> > -       int qm =3D skb_get_queue_mapping(skb);
-> > +       int queue =3D skb_get_queue_mapping(skb);
-> > +       int capped;
-> >
-> > -       return netdev_get_tx_queue(dev, netdev_cap_txqueue(dev, qm));
-> > +       capped =3D netdev_cap_txqueue(dev, queue);
-> > +       if (unlikely(capped !=3D queue))
-> > +               skb_set_queue_mapping(skb, capped);
-> > +
-> > +       return netdev_get_tx_queue(dev, capped);
-> >  }
-> >
-> >  #ifndef CONFIG_PREEMPT_RT
-> > @@ -4415,9 +4420,13 @@ static bool netdev_xmit_txqueue_skipped(void)
-> >         return __this_cpu_read(softnet_data.xmit.skip_txqueue);
-> >  }
-> >
-> > -void netdev_xmit_skip_txqueue(bool skip)
-> > +bool netdev_xmit_skip_txqueue(bool skip)
-> >  {
-> > +       bool prev =3D netdev_xmit_txqueue_skipped();
-> > +
-> >         __this_cpu_write(softnet_data.xmit.skip_txqueue, skip);
-> > +
-> > +       return prev;
-> >  }
-> >  EXPORT_SYMBOL_GPL(netdev_xmit_skip_txqueue);
-> >
-> > @@ -4427,9 +4436,13 @@ static bool netdev_xmit_txqueue_skipped(void)
-> >         return current->net_xmit.skip_txqueue;
-> >  }
-> >
-> > -void netdev_xmit_skip_txqueue(bool skip)
-> > +bool netdev_xmit_skip_txqueue(bool skip)
-> >  {
-> > +       bool prev =3D netdev_xmit_txqueue_skipped();
-> > +
-> >         current->net_xmit.skip_txqueue =3D skip;
-> > +
-> > +       return prev;
-> >  }
-> >  EXPORT_SYMBOL_GPL(netdev_xmit_skip_txqueue);
-> >  #endif
-> > @@ -4824,6 +4837,7 @@ int __dev_queue_xmit(struct sk_buff *skb, struct =
-net_device *sb_dev)
-> >         int cpu, rc =3D -ENOMEM;
-> >         bool again =3D false;
-> >         struct Qdisc *q;
-> > +       bool skip_txq;
-> >
-> >         skb_reset_mac_header(skb);
-> >         skb_assert_len(skb);
-> > @@ -4846,6 +4860,13 @@ int __dev_queue_xmit(struct sk_buff *skb, struct=
- net_device *sb_dev)
-> >         skb_update_prio(skb);
-> >
-> >         tcx_set_ingress(skb, false);
-> > +       /* The flag is per-CPU (per-task on PREEMPT_RT) and a nested xm=
-it can
-> > +        * set it from its own clsact hook or transmit qdisc. Own it fo=
-r the
-> > +        * whole frame: this frame cannot consume a nested xmit's flag =
-and a
-> > +        * nested xmit cannot inherit this frame's.
-> > +        */
-> > +       skip_txq =3D netdev_xmit_skip_txqueue(false);
->
-> Hi Jamal
->
-> Moving netdev_xmit_skip_txqueue() outside of
-> static_branch_unlikely(&egress_needed_key) means every packet in
-> __dev_queue_xmit() now pays for a per-CPU (or current->) read and two
-> writes when CONFIG_NET_EGRESS=3Dy, even when no egress hook is active.
->
-> Commit 2f1e85b1aee4 specifically used egress_needed_key to avoid this
-> fast-path cost.
->
-> Also, in __dev_queue_xmit(), txq is picked before q->enqueue() runs, so
-> tcf_skbedit_act() setting skip_txqueue from q->enqueue() (or from
-> ingress) has no effect on the current packet and only pollutes the
-> per-CPU flag.
->
-> I noticed that nf_skip_egress(skb, true/false) already brackets
-> sch_handle_egress(). If we make skb->nf_skip_egress available under
-> CONFIG_NET_EGRESS (instead of CONFIG_NETFILTER_SKIP_EGRESS),
-> tcf_skbedit_act() can only arm skip_txqueue when running in
-> sch_handle_egress().
->
+this to bite. Happy to dig into what this machine actually maps and report =
+back.
 
-Sounds reasonable. I will look into it tomorrow.
+Magnus
 
-pw-bot: cr
 
-cheers,
-jamal
-
-> Given this idea my LLM produced the following (untested) patch:
+> ---
 >
-> diff --git a/include/linux/netfilter_netdev.h b/include/linux/netfilter_n=
-etdev.h
-> index 3175073a66ba6ba61db0f6d9d62c73ca15206ef0..2a854a0bbd4ba7b5c611b7aaf=
-90b07711e57d9e0
-> 100644
-> --- a/include/linux/netfilter_netdev.h
-> +++ b/include/linux/netfilter_netdev.h
-> @@ -133,7 +133,7 @@ static inline struct sk_buff
-> *nf_hook_egress(struct sk_buff *skb, int *rc,
+> Notes:
+>     No Fixes: tag: this has been broken since 2.4.0-test2pre2, before the
+>     git history.
 >
->  static inline void nf_skip_egress(struct sk_buff *skb, bool skip)
->  {
-> -#ifdef CONFIG_NETFILTER_SKIP_EGRESS
-> +#ifdef CONFIG_NET_EGRESS
->         skb->nf_skip_egress =3D skip;
->  #endif
->  }
-> diff --git a/include/linux/rtnetlink.h b/include/linux/rtnetlink.h
-> index 95729339e7a54819b08e124bd36126cf71dfd9a4..a54ec40d095c041191ca44f7c=
-4334aa37fa6b891
-> 100644
-> --- a/include/linux/rtnetlink.h
-> +++ b/include/linux/rtnetlink.h
-> @@ -186,7 +186,12 @@ void net_dec_ingress_queue(void);
->  #ifdef CONFIG_NET_EGRESS
->  void net_inc_egress_queue(void);
->  void net_dec_egress_queue(void);
-> -void netdev_xmit_skip_txqueue(bool skip);
-> +bool netdev_xmit_skip_txqueue(bool skip);
-> +#else
-> +static inline bool netdev_xmit_skip_txqueue(bool skip)
-> +{
-> +       return false;
-> +}
->  #endif
+>  arch/sparc/mm/srmmu.c | 17 +++++++++++++----
+>  1 file changed, 13 insertions(+), 4 deletions(-)
 >
->  void rtnetlink_init(void);
-> diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
-> index 84308498a3a8cd5a86364e0b15ddb35755732635..a3ff380d43f01db0b040573c9=
-dd7acc4e2e2cda8
-> 100644
-> --- a/include/linux/skbuff.h
-> +++ b/include/linux/skbuff.h
-> @@ -1020,7 +1020,7 @@ struct sk_buff {
->  #ifdef CONFIG_NET_REDIRECT
->         __u8                    from_ingress:1;
->  #endif
-> -#ifdef CONFIG_NETFILTER_SKIP_EGRESS
-> +#ifdef CONFIG_NET_EGRESS
->         __u8                    nf_skip_egress:1;
->  #endif
->  #ifdef CONFIG_SKB_DECRYPTED
-> diff --git a/include/net/sch_generic.h b/include/net/sch_generic.h
-> index f35bd06a6bad680586da6b8ef20efc5d6b68fd6d..1acaadb3e2cf08827bb0d94e1=
-649cfeb9e9c85ac
-> 100644
-> --- a/include/net/sch_generic.h
-> +++ b/include/net/sch_generic.h
-> @@ -810,6 +810,15 @@ static inline bool skb_at_tc_ingress(const struct
-> sk_buff *skb)
->  #endif
->  }
+> diff --git a/arch/sparc/mm/srmmu.c b/arch/sparc/mm/srmmu.c
+> index 9a74902ad181..16d5cde4f949 100644
+> --- a/arch/sparc/mm/srmmu.c
+> +++ b/arch/sparc/mm/srmmu.c
+> @@ -277,15 +277,24 @@ static void __init srmmu_nocache_init(void)
 >
-> +static inline bool skb_at_tc_egress(const struct sk_buff *skb)
-> +{
-> +#ifdef CONFIG_NET_EGRESS
-> +       return skb->nf_skip_egress && !skb_at_tc_ingress(skb);
-> +#else
-> +       return false;
-> +#endif
-> +}
+>         bitmap_bits =3D srmmu_nocache_size >> SRMMU_NOCACHE_BITMAP_SHIFT;
+>
+> -       srmmu_nocache_pool =3D memblock_alloc_or_panic(srmmu_nocache_size=
+,
+> -                                           SRMMU_NOCACHE_ALIGN_MAX);
+> -       memset(srmmu_nocache_pool, 0, srmmu_nocache_size);
+> -
+>         srmmu_nocache_bitmap =3D
+>                 memblock_alloc_or_panic(BITS_TO_LONGS(bitmap_bits) * size=
+of(long),
+>                                SMP_CACHE_BYTES);
+>         bit_map_init(&srmmu_nocache_map, srmmu_nocache_bitmap, bitmap_bit=
+s);
+>
+> +       /*
+> +        * Until the switch to srmmu_swapper_pg_dir, lowmem is only reach=
+able
+> +        * through the PROM's mappings, which may end below the top of th=
+e pool
+> +        * (at 10MB on the SPARCstation 20). Allocate the pool after the =
+bitmap
+> +        * so the bitmap stays below it, and leave it uncleared: every us=
+er of
+> +        * the pool clears what it allocates.
+> +        */
+> +       srmmu_nocache_pool =3D memblock_alloc_raw(srmmu_nocache_size,
+> +                                               SRMMU_NOCACHE_ALIGN_MAX);
+> +       if (!srmmu_nocache_pool)
+> +               panic("%s: Failed to allocate %lu bytes\n", __func__,
+> +                     srmmu_nocache_size);
 > +
->  static inline bool skb_skip_tc_classify(struct sk_buff *skb)
->  {
->  #ifdef CONFIG_NET_CLS_ACT
-> diff --git a/net/core/dev.c b/net/core/dev.c
-> index f660fccfc0dbc56d7e1a9643525229b278bca547..8638c994bbcb0d1bf25ed603f=
-833f105236a45bf
-> 100644
-> --- a/net/core/dev.c
-> +++ b/net/core/dev.c
-> @@ -4404,9 +4404,14 @@ EXPORT_SYMBOL(dev_loopback_xmit);
->  static struct netdev_queue *
->  netdev_tx_queue_mapping(struct net_device *dev, struct sk_buff *skb)
->  {
-> -       int qm =3D skb_get_queue_mapping(skb);
-> +       int queue =3D skb_get_queue_mapping(skb);
-> +       int capped;
+>         srmmu_swapper_pg_dir =3D __srmmu_get_nocache(SRMMU_PGD_TABLE_SIZE=
+, SRMMU_PGD_TABLE_SIZE);
+>         memset(__nocache_fix(srmmu_swapper_pg_dir), 0, SRMMU_PGD_TABLE_SI=
+ZE);
+>         init_mm.pgd =3D srmmu_swapper_pg_dir;
 >
-> -       return netdev_get_tx_queue(dev, netdev_cap_txqueue(dev, qm));
-> +       capped =3D netdev_cap_txqueue(dev, queue);
-> +       if (unlikely(capped !=3D queue))
-> +               skb_set_queue_mapping(skb, capped);
-> +
-> +       return netdev_get_tx_queue(dev, capped);
->  }
+> base-commit: 62f4c998b297cf233997a2b4cd6fc2d2df0319c9
+> --
+> 2.47.3
 >
->  #ifndef CONFIG_PREEMPT_RT
-> @@ -4415,9 +4420,13 @@ static bool netdev_xmit_txqueue_skipped(void)
->         return __this_cpu_read(softnet_data.xmit.skip_txqueue);
->  }
 >
-> -void netdev_xmit_skip_txqueue(bool skip)
-> +bool netdev_xmit_skip_txqueue(bool skip)
->  {
-> +       bool prev =3D netdev_xmit_txqueue_skipped();
-> +
->         __this_cpu_write(softnet_data.xmit.skip_txqueue, skip);
-> +
-> +       return prev;
->  }
->  EXPORT_SYMBOL_GPL(netdev_xmit_skip_txqueue);
->
-> @@ -4427,9 +4436,13 @@ static bool netdev_xmit_txqueue_skipped(void)
->         return current->net_xmit.skip_txqueue;
->  }
->
-> -void netdev_xmit_skip_txqueue(bool skip)
-> +bool netdev_xmit_skip_txqueue(bool skip)
->  {
-> +       bool prev =3D netdev_xmit_txqueue_skipped();
-> +
->         current->net_xmit.skip_txqueue =3D skip;
-> +
-> +       return prev;
->  }
->  EXPORT_SYMBOL_GPL(netdev_xmit_skip_txqueue);
->  #endif
-> @@ -4848,21 +4861,25 @@ int __dev_queue_xmit(struct sk_buff *skb,
-> struct net_device *sb_dev)
->         tcx_set_ingress(skb, false);
->  #ifdef CONFIG_NET_EGRESS
->         if (static_branch_unlikely(&egress_needed_key)) {
-> +               bool skip_txq;
-> +
->                 if (nf_hook_egress_active()) {
->                         skb =3D nf_hook_egress(skb, &rc, dev);
->                         if (!skb)
->                                 goto out;
->                 }
->
-> -               netdev_xmit_skip_txqueue(false);
-> +               skip_txq =3D netdev_xmit_skip_txqueue(false);
->
->                 nf_skip_egress(skb, true);
->                 skb =3D sch_handle_egress(skb, &rc, dev);
-> -               if (!skb)
-> +               if (!skb) {
-> +                       netdev_xmit_skip_txqueue(skip_txq);
->                         goto out;
-> +               }
->                 nf_skip_egress(skb, false);
->
-> -               if (netdev_xmit_txqueue_skipped())
-> +               if (netdev_xmit_skip_txqueue(skip_txq))
->                         txq =3D netdev_tx_queue_mapping(dev, skb);
->         }
->  #endif
-> diff --git a/net/sched/act_skbedit.c b/net/sched/act_skbedit.c
-> index bfec6b66841031cd566d0c2bdc3d120cec41e3e4..26258b353cdeec48063413770=
-439878d27ed60cf
-> 100644
-> --- a/net/sched/act_skbedit.c
-> +++ b/net/sched/act_skbedit.c
-> @@ -72,9 +72,8 @@ TC_INDIRECT_SCOPE int tcf_skbedit_act(struct sk_buff *s=
-kb,
->         }
->         if (params->flags & SKBEDIT_F_QUEUE_MAPPING &&
->             skb->dev->real_num_tx_queues > params->queue_mapping) {
-> -#ifdef CONFIG_NET_EGRESS
-> -               netdev_xmit_skip_txqueue(true);
-> -#endif
-> +               if (skb_at_tc_egress(skb))
-> +                       netdev_xmit_skip_txqueue(true);
->                 skb_set_queue_mapping(skb, tcf_skbedit_hash(params, skb))=
-;
->         }
->         if (params->flags & SKBEDIT_F_MARK) {
