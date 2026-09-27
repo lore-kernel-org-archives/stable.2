@@ -1,212 +1,134 @@
-Received: from fhigh-b6-smtp.messagingengine.com (fhigh-b6-smtp.messagingengine.com [202.12.124.157])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 783883B3C17;
-	Sun, 27 Sep 2026 16:01:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.157
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63B433F1AC0
+	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 16:02:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790524902; cv=none; b=QNtPMfRcEzSCOP+iyyeBPSmRIvBxMY626NVbOJ0m//lh7329m04Fqmwl5iz6ZisAQd8I48LImrwwYpCZoke4gYmu/DKZkpYxZaMweAzgUt1IuaKH7WQ0EQIb5cHCtlUQzfXyxTn5l7jPXdKTCvNqIC0t/eQMY7H3/GoadKI6K+Y=
+	t=1790524983; cv=none; b=U4GxGQEcs7Exu4T+/XZvkOUWuerQZZI85aMA3pFusSG9PUhozQWCbjPJR0kVy2GY96QEQsNtGPti0qr7Plyo2ug/+uROxHSVcOSi68bQMQANlB98GK8ynd8EYr2SANPFHolfs1aLudgAZSakCpC5RbVXjVcMu3f27dGL/2ZCoi4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790524902; c=relaxed/simple;
-	bh=QKjyFzQFESEOV87npH/ZVOVFrduCd1HjBLpLmsLFlfg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=smztxdwis91jJq51F6479mGimJSq0/9kYb+BnYlxR5kLKxPliYXIs9vdxfzgSUIxjq8Hxx07nufCcHmAWT+ThYQzfcweqiS4OfKjwqd0onhNQRGiToEH01Dg3fooSLD5gy9Ys0Akx/T0q8PyEi1nD8/DXYXTkUGYZjWK7PA4b7E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=j1KOMry9; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=iVFRWIFr; arc=none smtp.client-ip=202.12.124.157
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	s=arc-20240116; t=1790524983; c=relaxed/simple;
+	bh=hjJUFq9Qq27SG4MmAUZ1qN1fAS98vkbO3WcGCKh0AEw=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=t+g3hWZwNF70N47wiSrMV2ewxwn5PIW3kWd3nLdRCw/X2IcKyu+FD2b1x4BkYrcQ4lv2MMjME9W+RpAJyjeBg4Dn302cTek4qNh95l6lBC1cyxdKbe02CyFMVh3AAKrZECABPiUxB/jfviozG9yNtnMU6qKmUCb43kE1aiMRHmA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=O7HeAZBU; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="j1KOMry9";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="iVFRWIFr"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 01A407A0060;
-	Sun, 27 Sep 2026 12:01:38 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Sun, 27 Sep 2026 12:01:39 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1790524898;
-	 x=1790611298; bh=0zuplpuVZWgGMTC2nxNOGM1NvWiIFzH5W1G4banFKks=; b=
-	j1KOMry99UyfgtbkGpL1IGgnZ98yaE23BgbyfzfKGd9C268jAZwH8eqLbVG9gKV+
-	Ab4Vz0+Sj6EUFGa3wFKqJ+evOqiu6Wv4W+5xoVeny84pL+4JQkwxMynvm/sSVYqq
-	VuplKz6jRUxjoJ3irmFhg50OKkSx+r+iL6+d21D5tqr4dY9itGHfirwejAR3ZA0G
-	cBiNJYqoHZbkAzpNWrqpd7F1m6QW8zUS182bpjZoDnBnJmoDSEsWQtiLSnbKhhok
-	IcMJyV74w2beM+Z87Im5/oTxxW1Y0lc201ASgQO/iefwhhkNeils0KpQZieah0h2
-	1q96bxapxXWwD0NlYZpb1Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790524898; x=
-	1790611298; bh=0zuplpuVZWgGMTC2nxNOGM1NvWiIFzH5W1G4banFKks=; b=i
-	VFRWIFrwDwWEm685MPHyxGtxTvUP99hWilFE9zq6tDopw/KoWMnW9BBZyMzLWyok
-	2zs2dL+Lc8kyh/njlCCnPejuHIlQO8D5NFtzmKHOuXN+cybc5Ed3TMlP/jWCMqkM
-	5lo9oIPSeTvh1s6ZaHzHqX0wFTdySKDPJxTS1UOtS+2cuhH8d4ntgOuPZPSHc9ze
-	2cArI3eLWbpXro9Z291Ctj4xF/mO53DjDH79FXIFspUKCn5oUecXvEBsQOxw47aT
-	u+6qI4ebMAMZg4aRqIPE4EJaoSfgSsMu7bmN+SlJfFP+esDX+H6YvyK35eHAuRWe
-	177fE4iV1jPkz/955MSZw==
-X-ME-Sender: <xms:4T25ao_D2fDoBqKdxmynf9sLPNH9b3Ue13AjYWFdNYllgmlzjfMlZg>
-    <xme:4T25aonI6ZbwZZG46vmi7DJNJchOBFYqCNa8O8t_PuMUtvVBzgAouRPHtSLjla6ZS
-    NmDXkzd7IZIVeJTG6HJqtWdQiAjTq3cMLfMfP4PijHKQS8ozwnaCxEt>
-X-ME-Received: <xmr:4T25atbXtKuIWwVuE26dddPlknNKtVsGXxBXpOh_LDVE4qI8GOaVDzwvja1Z8Kt_6DVZBbObzZqK4f8z5DBxb2tIqVLpOa8>
-X-ME-Proxy-Cause: dmFkZTGabjLNdShx2e8Je0zOPYz8yhq6splHMkyFigOoSkm3a9NK72vVEfV9d0NtrGX8pc
-    LOnq7UniaR7T0J5IVm+7GSEBSoQJGlrVGFlm19mH1TATVrAM401h2zssX57D9IvE31ik0e
-    /v4bO+MzgdmMmMQPSl0wekbUJlSDB+pHwKXRvpOaKjJAZ7TCGiHpiPtx6ulk+hXbq3rIxd
-    tPYZLxI8op2eFnvZ9dJ5E0kBP87TqAAEOnuAmxbHMuVjQu9mvvXEySY+NhoBYaGrY8rJqN
-    n4Re6gTxhnWiOB24QwkGcBuKDCYFdsUwkadsMEj4tpTa54at2Y88H5g/bkdo9yf8GPQrGX
-    25WXpS0efwRLNMZua7fTevwuWmxVfE/4fDyU3R/Pnh85h2ZLMVUecCea17nsRYYOWqTZj4
-    0N/2x/E2iS6mt0FW43LPagr1crXkbqzGqMje/bIUucRG6zqytyJngw0LNwU6gcVyQ7ILjQ
-    1EFWItccgIVgJ+v/xOhg8rMo3CglW/eiMBKpKAAHYRM0Pdqf+3Jt5L//G+bfiVnvdggPkc
-    sGlymBJpBAIpUdSRgpLzzf/TGr6GBVtkOnPigfc8V4aisOoOsHbzXPAB3qlm5HhM/pKyxj
-    96gGLuZf8w6KSG0PLIfCBYiyK6b+VMrjzMJW5aKXqDJn/c9LBlvbH0rSkCjw
-X-ME-Proxy: <xmx:4T25agOygzcovoxr9Dh1lFPzuAWeIUyjQyh7YtVnGvlBDVxTkg3sAQ>
-    <xmx:4T25ale7S4m_ENvPataRznOML0DZeJ7iCQUO69y906_uH1lSFN5mBw>
-    <xmx:4T25auEJvxup5nxclTiA49IscZYveZAfyMTdcahvdJjdP0q03XQoiQ>
-    <xmx:4T25aoumCX4y33fgxe8K6Z2nYpj9XVsaCg9jHatEuY84ANX9A30CAg>
-    <xmx:4j25arw-F_DCeoTpZmtqaUp3QTBnrAnoxwtl1PpuFW-HfgLZGg0imp9->
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 27 Sep 2026 12:01:37 -0400 (EDT)
-Date: Sun, 27 Sep 2026 18:01:34 +0200
-From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
-To: Jiale Yao <yaojiale02@163.com>
-Cc: Paul Barker <paul@pbarker.dev>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Sergei Shtylyov <sergei.shtylyov@cogentembedded.com>,
-	Mitsuhiro Kimura <mitsuhiro.kimura.kc@renesas.com>,
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
-	Sergey Shtylyov <s.shtylyov@omp.ru>, netdev@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 6/7] net: ravb: fix resource teardown ordering
-Message-ID: <20260927160134.GI1099675@ragnatech.se>
-References: <20260927144741.1320558-1-yaojiale02@163.com>
- <20260927144741.1320558-7-yaojiale02@163.com>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="O7HeAZBU"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffa15f67fso5651065e9.2
+        for <stable@vger.kernel.org>; Sun, 27 Sep 2026 09:02:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1790524977; x=1791129777; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KYQzv3XnB4eGBczMg+RylH9SGrdqjENMMi3iqbV4/zU=;
+        b=O7HeAZBUdpRb1PYmn5POk3hYnnDGazF3h1dIHE9FIusc6S9+IDkb36d3/iZywr5isa
+         cWjodYa1Y6HArOD8Bf0Xk62hyW9VlFD7MrHiCiF6XA0WzWvTnhNKP/5x6Qa6uAP67cGi
+         Fvs3Mvi+MQ3m/WNT+ZnY+iViGUlymzXTjms2l4yQEg1cNQ5PuvEFuMW1vQkjj+faiWbj
+         ZsrbuNhoGreIGCfd+Alx9CjuKQd6b7UXtlmPxSahm6ARQKolJgXp8lIURandfVWpNr8n
+         dU0wJjkkDFXyOR092cuaAx8I8F6JaOYJqDh1qfgPMkJKIyw6Jx9Ku5Lt2BydmCiHrgJo
+         ZUmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790524977; x=1791129777;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KYQzv3XnB4eGBczMg+RylH9SGrdqjENMMi3iqbV4/zU=;
+        b=EMAEQKdS8CxEKO/xgVHKMNFscK82ilXE1oQr9XzDUnHVqPOhfuqvrTt6AhGaV9h+Q8
+         F+rmBN43iwyy0KfxGS4E07VvaoVX07yJgRcZU0BdnBDClaxkWiX8lx0OylpIa9xmqlbc
+         impMPdgGEkXe5/Wv6ayByxfPE541oSKUvyDAOPmXR1/Q9/lTROcCdfcg+/y1MzPOeriV
+         FB3Ye12y14Y97uK0cH97pxqDzzSW855vW8Wo5GvT8xUDmFo6E1Kx1YxVl1lRu459EXM0
+         l5XJvSi8RQwGtcd064Ob212lqfan5RqXRbVHUPdwRzZFGvZmIAtovRd4mKgGKPxzxhor
+         bLQg==
+X-Forwarded-Encrypted: i=1; AKwUvBzy0x5En4W/GcaBtmxqoBasBy7f9Wo0EYZkzP7488PWyZ8f018CFoY6NKLdCE5RqZxpcUpZEh8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kGGO6KzPn0/67VkOgaaGnx1oI3Nnxn2acytLpMpBnCvFqiR9xJ
+	MsG8nEqOUmvc1CuUyPde2GDQL+SPxbv9+t70Xv6/jOrwJLexjrKbqpv/W2CzCMrMfkc=
+X-Gm-Gg: AYBFou37WCkiP57OEhx8mmpOTw6s/hecXGziMfJj1Axui9CFR6fGtNLbOSZARc5/G6c
+	cd4eCQGshlSFUBF84xa406KtRG079WGBi5KyxCmZ7vDbr2D5FY2kXpg740Qdo0S7BQwjNP2AtzH
+	ZWzgdEu30Hajzu9dh8zwuiZeU/jWW2DqvJ/2FfX18aqe5K3lbJ2rtBG/jZT6YSrR8Dcd09Jhmyn
+	0onCQb1Y8sPhpuqv5+PBwptMQX4WCIWL2e3R/pFs2fonioPW4Ig32KKPk1CAaSCJHAYd1s8YIkw
+	dBZFHp8QeE+iPDDOS4iryKsXrJNiXcsHCy1tqtOP+j5APjdD2KROSyznch6ueI9k4dyQnj966Li
+	hEilGd7OhJICEvjMpfm55H/mdqEgwpYcM2qgscN0kEDtVfVG3YbVsSRN04mHTLXAlwMO2paS2Hd
+	O82vzG7UbesE7v0JtHF6fMQj3EEHCxoLL4/eqBaRHbSnlvaZoHw3af6DFlUvPVenq4lx8W5iqEB
+	Ft2FqKgq7qMZjActw==
+X-Received: by 2002:a05:600c:8b65:b0:49f:fe7e:dc61 with SMTP id 5b1f17b1804b1-49ffe7eddc0mr51807745e9.0.1790524977389;
+        Sun, 27 Sep 2026 09:02:57 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a001915fc2sm65282445e9.14.2026.09.27.09.02.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 09:02:56 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Wentao Liang <vulab@iscas.ac.cn>, andy.tang@nxp.com
+Cc: bmasney@redhat.com, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, mturquette@baylibre.com, oss@buserror.net,
+ robh@kernel.org, sboyd@kernel.org, lkml@vger.kernel.org, Wentao Liang
+ <vulab@iscas.ac.cn>, stable@vger.kernel.org
+Subject: Re: [PATCH 2/6] clk: qoriq: Fix clock reference leak in
+ input_clock_by_index()
+In-Reply-To: <20260915042829.1725639-1-vulab@iscas.ac.cn>
+References: <20260915042829.1725639-1-vulab@iscas.ac.cn>
+Date: Sun, 27 Sep 2026 18:02:56 +0200
+Message-ID: <1jik3qadhr.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260927144741.1320558-7-yaojiale02@163.com>
+Content-Type: text/plain
 
-Hi Jiale,
+On mar. 15 sept. 2026 at 04:28, Wentao Liang <vulab@iscas.ac.cn> wrote:
 
-On 2026-09-27 22:47:39 +0800, Jiale Yao wrote:
-> ravb_remove() frees the netdev before devres releases the managed IRQs.
-> The handlers use the netdev as their data pointer, so an interrupt during
-> that window can access freed memory. Probe error paths have the same
-> ordering problem.
-> 
-> The remove callback also returns when runtime resume fails. That leaves
-> the netdev registered while the driver core still releases its managed
-> resources. A running interface already holds a runtime PM reference, so
-> the extra get cannot invoke a failing resume. A resume failure therefore
-> occurs while the interface is down and ndo_stop() will not be called.
-> 
-> Place the IRQ resources in a dedicated devres group and release it before
-> freeing the netdev. Continue unregistering and freeing software resources
-> when runtime resume fails, but skip the unmatched runtime PM put.
-
-Would it not make more sens to rework the driver to allocate the ndev 
-using devm too instead of adding a complex devres group? AFIK 
-s/alloc_etherdev_mqs/devm_alloc_etherdev_mqs/ would allocate the ndev 
-with devm too?
-
-> 
-> Fixes: c156633f1353 ("Renesas Ethernet AVB driver proper")
-> Fixes: 48f894ab07c4 ("net: ravb: Add runtime PM support")
+> input_clock_by_index() obtains a consumer clock with of_clk_get() and
+> hands it to input_clock(), which only uses __clk_get_name() to read the
+> clock name and then registers a new fixed factor clock.  The consumer
+> clock itself is discarded without clk_put(), so the reference returned
+> by of_clk_get() is never released.
+>
+> Release the reference with clk_put() once input_clock() is done with
+> the clock, mirroring the pattern used by of_clk_get_parent_name().
+>
+> Fixes: 80b4ae7acea4 ("clk: qoriq: Separate root input clock for core PLLs on ls1012a")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Jiale Yao <yaojiale02@163.com>
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+
+This is PATCH 2 out 6 but there is not thread, cover letter or other
+patches. I can't tell if there is a context I should be aware of.
+
+Please check how you've send this. Consider using b4.
+
 > ---
->  drivers/net/ethernet/renesas/ravb_main.c | 23 +++++++++++++++++------
->  1 file changed, 17 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/renesas/ravb_main.c b/drivers/net/ethernet/renesas/ravb_main.c
-> index ea1c7e536791..a25f5ac7062f 100644
-> --- a/drivers/net/ethernet/renesas/ravb_main.c
-> +++ b/drivers/net/ethernet/renesas/ravb_main.c
-> @@ -2963,28 +2963,35 @@ static int ravb_probe(struct platform_device *pdev)
->  		priv->num_rx_ring[RAVB_NC] = NC_RX_RING_SIZE;
->  	}
+>  drivers/clk/clk-qoriq.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/clk/clk-qoriq.c b/drivers/clk/clk-qoriq.c
+> index 2524c5c0eb46..2ed8f93bc861 100644
+> --- a/drivers/clk/clk-qoriq.c
+> +++ b/drivers/clk/clk-qoriq.c
+> @@ -1135,13 +1135,16 @@ static struct clk __init *input_clock_by_name(const char *name,
 >  
-> +	if (!devres_open_group(&pdev->dev, priv, GFP_KERNEL)) {
-> +		error = -ENOMEM;
-> +		goto out_reset_assert;
-> +	}
+>  static struct clk __init *input_clock_by_index(const char *name, int idx)
+>  {
+> -	struct clk *clk;
+> +	struct clk *clk, *ret;
+>  
+>  	clk = of_clk_get(clockgen.node, 0);
+>  	if (IS_ERR(clk))
+>  		return clk;
+>  
+> -	return input_clock(name, clk);
+> +	ret = input_clock(name, clk);
+> +	clk_put(clk);
 > +
->  	error = ravb_setup_irqs(priv);
->  	if (error)
-> -		goto out_reset_assert;
-> +		goto out_release_irqs;
-> +
-> +	devres_close_group(&pdev->dev, priv);
+> +	return ret;
+>  }
 >  
->  	priv->clk = devm_clk_get(&pdev->dev, NULL);
->  	if (IS_ERR(priv->clk)) {
->  		error = PTR_ERR(priv->clk);
-> -		goto out_reset_assert;
-> +		goto out_release_irqs;
->  	}
->  
->  	if (info->gptp_ref_clk) {
->  		priv->gptp_clk = devm_clk_get(&pdev->dev, "gptp");
->  		if (IS_ERR(priv->gptp_clk)) {
->  			error = PTR_ERR(priv->gptp_clk);
-> -			goto out_reset_assert;
-> +			goto out_release_irqs;
->  		}
->  	}
->  
->  	priv->refclk = devm_clk_get_optional(&pdev->dev, "refclk");
->  	if (IS_ERR(priv->refclk)) {
->  		error = PTR_ERR(priv->refclk);
-> -		goto out_reset_assert;
-> +		goto out_release_irqs;
->  	}
->  	clk_prepare(priv->refclk);
->  
-> @@ -3124,6 +3131,8 @@ static int ravb_probe(struct platform_device *pdev)
->  	pm_runtime_disable(&pdev->dev);
->  	pm_runtime_dont_use_autosuspend(&pdev->dev);
->  	clk_unprepare(priv->refclk);
-> +out_release_irqs:
-> +	devres_release_group(&pdev->dev, priv);
->  out_reset_assert:
->  	reset_control_assert(rstc);
->  out_free_netdev:
-> @@ -3141,9 +3150,10 @@ static void ravb_remove(struct platform_device *pdev)
->  
->  	error = pm_runtime_resume_and_get(dev);
->  	if (error < 0)
-> -		return;
-> +		dev_warn(dev, "failed to resume device: %d\n", error);
->  
->  	unregister_netdev(ndev);
-> +	devres_release_group(dev, priv);
->  	if (info->nc_queues)
->  		netif_napi_del(&priv->napi[RAVB_NC]);
->  	netif_napi_del(&priv->napi[RAVB_BE]);
-> @@ -3153,7 +3163,8 @@ static void ravb_remove(struct platform_device *pdev)
->  	dma_free_coherent(ndev->dev.parent, priv->desc_bat_size, priv->desc_bat,
->  			  priv->desc_bat_dma);
->  
-> -	pm_runtime_put_sync_suspend(&pdev->dev);
-> +	if (error >= 0)
-> +		pm_runtime_put_sync_suspend(&pdev->dev);
->  	pm_runtime_disable(&pdev->dev);
->  	pm_runtime_dont_use_autosuspend(dev);
->  	clk_unprepare(priv->refclk);
+>  static struct clk * __init create_sysclk(const char *name)
 > -- 
 > 2.34.1
-> 
+>
 
 -- 
-Kind Regards,
-Niklas Söderlund
+Jerome
