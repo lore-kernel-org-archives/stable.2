@@ -1,128 +1,105 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89DB2344031
-	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 19:16:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75167171BB;
+	Sun, 27 Sep 2026 19:17:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790536583; cv=none; b=Fqw37FupwkXOJSIqY/CaNumIdTlCpdfA/270x/YEFerAbs3eHWzK1Wi6MJ74ZAjm/uuQLsIHGlHYfuAndinBh3BDqhRXWua9ljnDpxAiw7qsS3CRI6UPdFBjikJukNTNNhzxVn/YIzRMRJqANmt23VXU3QbyMlqCUbicYL/rGsA=
+	t=1790536650; cv=none; b=rxtbgwm5+B3P7CLJ74wKVzRbMOYcObzkYtLL2fiv1CawoXDnss2S1LS85FqxqLhfZaSxwtaDCdkfVMjA4Ek/ETDHlL5Z8IRqOXPDamgAd7t+2yeYz/nRa34mqGOKqeqUgpm6z0pxh3rMXr5PAkioiLLZkTa20CcyU+5tkFJS7Fc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790536583; c=relaxed/simple;
-	bh=T0JUWRzx57iOTA1KZI2poUKNYg5hQ2DvWkFi/iwU020=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WER0TISgLm2tpd457K8CzxrokZtDszsqeErevGSf5pU2UfuPwzDNX//7Kgq2BZoBgYVo2kUZbe2IpDgSYNVbMG6RyrNKjUobx6I+y7rNw7Lko+e5sfCPEeDpJqHoXo5pIuSHhZIwYLWuNH3itxApjwAGvkj7DhhxF1MrQAvLVAc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PgFPX2Sh; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790536650; c=relaxed/simple;
+	bh=nSYLBMZGdUP0hpME4D1r2BWkQiRLQw5m6OCu7ysCc9M=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=BIEaF6tDrRSTVlQ/CgH9EMRdYI3CQxcbaC9aStVgh4+XYdwIfkwA+Q9pX6kgOUEYjQWnCgTlmwZ204546SSspRNd5rLYe8wiqrMP/oKxv1Yd8p/C3KwclnfLGXar4luQ9FFSEY9enNnIVi1JDVRmI96Q086iOraStdlTNUssCWs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VDE5FdR0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PgFPX2Sh"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6351831so1312771f8f.1
-        for <stable@vger.kernel.org>; Sun, 27 Sep 2026 12:16:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790536579; x=1791141379; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LP3SPyinwD8fn1a8RK+gsX1s+9bGZ+MpdPQLG7wq3ns=;
-        b=PgFPX2Shy2UiLP3eP0qxk5y+ogjxxsN45w/3pj7qsPUMaAepJftHkpsF/A5scnCqo6
-         baf+x7GXYXBP/jC10fV9HhDhK09eM8eIhCsihJeGu3qKWHSiCdBADEtMpEikX766TFX3
-         8EPGOkQ7TUoWmv3APZpnNVmB8ObG9UwhAGc18iG1ngdOktZaeXug8b0pjns1JrGX4V0R
-         FkzfnmizYZCPjLajLYfc8GtngirIrZF05Q7L7gQkHl/QXld/SjK1vr/eMhSY58t4aF2t
-         zv4IplIyXiOXXi9/2ptTlYDCCaVEXGonuTFN7IMIuNwBpyX20OnugSwGzS9sbqm2Gr7S
-         28YA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790536579; x=1791141379;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LP3SPyinwD8fn1a8RK+gsX1s+9bGZ+MpdPQLG7wq3ns=;
-        b=hGps8oTJzD3j2o/fBsawrUNHOGur2CO6T3mQIi90sz/QAlxHGJeCFImKbNF61cn8M6
-         c/2u3Vr4RI09Q8KaBWsYpFninDZqwaNquUHkw3g3HP/HMpAhSIFjIs969VMkDEceQRGI
-         Z7pQ0KkdCkGG+b0XMgO/QQvnA2641HOSurhlgdvisKpBfqmJIrMUII1zCX40otT2zh+x
-         jEiZ140YXLcg1POXaZzXLQMj9f4afjTzclRvkxtugc4gRJNpdQjAXSxYDbD7NysmW360
-         VEzFWDH+WILmFXKW8n0GqSnc9IJoTMsOsvE0i2+cZ3obz6LHlo0NbKQeSiEI1TE3HHkn
-         GNGQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxZ6lZqNcDujbuIaRzD00n8/+SPVeBFTxHfuCVFUeFVQqJKvqt73ffenjf0Ram6OpcjZdZQqeo=@vger.kernel.org
-X-Gm-Message-State: AFuF++k9SR3VvRZlvLVRx2Tj2LPHxM5JWwFM+fp1aMbpjuRaWdfzZvEV
-	9H6m33b3qE+zsfqkJ/9SLVrMmfzHBiIdp9upELPDBMrYdTu4RD5FchAy
-X-Gm-Gg: AYBFou1aO19ix2G2UEdOgaWLQ8/JXt5piOfrkTcdgKr4acC6gmB57WbaI41puL6LLhL
-	4yNIV8hGNyoosXRDZhwGgPEf7nsgHCi5ToxFLgZX28xdIykUJTed9NlKglsoByZG+V+vdws28UM
-	3mCG+J71itchkaJx/UV2csMt1njpy1IWIBkB+mjCsWI+ksGk+lFjDKzMtvnUcxH82YxHuFeVYOz
-	KzDa/gBhmS0aVvB7MhL+pCu9CBhS5Sm4/pLTVKCeu73NCxrAQP/NUidX0Nc+UjFYXl7hlj7KwZP
-	Oe+J3rkLQ2ZHhBgMmeN+P/iy66CntpKQW7PWC+cvOoLp++aTv8U22QIIIy1cxgoBK9IhHBpp6pH
-	aJyThZwtZHBDSrXYmZoWwzTTBlETK+snP6Z/h6Dd3Cwdt4BTUUEmJhyTss/MmQ8wZe9oPViA4rI
-	fKJSXCJT2dqYBS4JTvtor7pqwrKrt7OZ5bp731hktnjhTZVbCDXUfx5Pm4xw/p4rgljK6GU4eFA
-	n8IxWD4x81b7Ya++CHYRpl6CRIeG3AnHs2fDH+H3+fBfl7Q3jYFI3XwwLIOePSpRJ57eg4axFl2
-	oLNaFmu+JnNY/WZ51ZwUgFLu4IRRkZJ9050qxs9dpx0pxfY1
-X-Received: by 2002:a05:600c:468d:b0:49f:f9d1:e618 with SMTP id 5b1f17b1804b1-49ff9d1e6b1mr76692205e9.17.1790536579591;
-        Sun, 27 Sep 2026 12:16:19 -0700 (PDT)
-Received: from ?IPV6:2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c? ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0018e6dcbsm75325005e9.6.2026.09.27.12.16.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 27 Sep 2026 12:16:18 -0700 (PDT)
-Message-ID: <e2e61157-896f-46a2-8c85-8e64b4cdb004@gmail.com>
-Date: Sun, 27 Sep 2026 20:16:16 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VDE5FdR0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C2421F000FF;
+	Sun, 27 Sep 2026 19:17:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790536649;
+	bh=06+yJcHAwyVL0fFSL8xx/C1aDosXVocUDk8PkP9zMTc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=VDE5FdR0VFkbuCoMZDKjn+s4UL09dMNz+tAbVMGwaDlP8w1zRxIwVhr/gzetWe36e
+	 5lm/3HwsZHrCzmsq/Xo22OwnkukEG4BwESnnHDxPAo2StL6eonbvc5iWyotfrnecMb
+	 Pd9a2PUKX0jOA3HZBCnryaVkKou6InAUDYKud6OjWkHUqUBkAUySf7+8Y9jyyHpvZa
+	 wh4tnE7ljTyDcETM9ToJrJAiQGdbzNeUOhCZerBSVcgiN0ZCiLV71ttCJWsBaayNH0
+	 5kDmI9hKkD++4iE1TZHLwtNFMbyrtg+72SivhbEH1M5TTXBNYxIOqXfJxuGtMWXv48
+	 wzGqDkE4vgAuQ==
+Date: Sun, 27 Sep 2026 20:17:22 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Rupesh Majhi <zoone.rupert@gmail.com>
+Cc: Andy Shevchenko <andy@kernel.org>, Bill Wendling <morbo@google.com>,
+ David Lechner <dlechner@baylibre.com>, Eddie James <eajames@linux.ibm.com>,
+ Joel Stanley <joel@jms.id.au>, Justin Stitt <justinstitt@google.com>,
+ Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers
+ <ndesaulniers@google.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ llvm@lists.linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH v8 01/10] iio: pressure: dps310: fix CFG_REG bit
+ definitions
+Message-ID: <20260927201722.6f379c77@jic23-hlaptop>
+In-Reply-To: <20260921183132.233136-2-zoone.rupert@gmail.com>
+References: <20260921183132.233136-1-zoone.rupert@gmail.com>
+	<20260921183132.233136-2-zoone.rupert@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] io_uring/cmd_net: end TX_TIMESTAMP multishot when the CQ
- is full
-To: lollipopkit <a@lolli.tech>, Jens Axboe <axboe@kernel.dk>
-Cc: Willem de Bruijn <willemb@google.com>, io-uring@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260927074206.65427-1-a@lolli.tech>
-Content-Language: en-US
-From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <20260927074206.65427-1-a@lolli.tech>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 9/27/26 08:42, lollipopkit wrote:
-> SOCKET_URING_OP_TX_TIMESTAMP arms an EPOLLERR apoll multishot and, on
-> each error queue edge, posts one 32 byte aux CQE per timestamp skb. Aux
-> CQEs have no overflow backing, so io_uring_cmd_post_mshot_cqe32() fails
-> once the CQ ring is full. The loop then stops, splices the unprocessed
-> skbs back onto sk_error_queue and returns -EAGAIN.
-...>   static int io_uring_cmd_timestamp(struct socket *sock,
-> @@ -135,7 +137,8 @@ static int io_uring_cmd_timestamp(struct socket *sock,
->   		skb = skb_peek(&list);
->   		if (!skb)
->   			break;
-> -		if (!io_process_timestamp_skb(cmd, sk, skb, issue_flags))
-> +		ret = io_process_timestamp_skb(cmd, sk, skb, issue_flags);
-> +		if (ret)
->   			break;
->   		__skb_dequeue(&list);
->   		consume_skb(skb);
-> @@ -145,6 +148,12 @@ static int io_uring_cmd_timestamp(struct socket *sock,
->   		scoped_guard(spinlock_irqsave, &q->lock)
->   			skb_queue_splice(&list, q);
->   	}
-> +	/*
-> +	 * Aux CQEs cannot overflow and the poll is edge triggered, so nothing
-> +	 * re-runs the command once the CQ drains. End the multishot instead.
-> +	 */
-> +	if (ret == -ENOBUFS)
-> +		return -ENOBUFS;
+On Mon, 21 Sep 2026 21:31:23 +0300
+Rupesh Majhi <zoone.rupert@gmail.com> wrote:
 
-I'd make it a 3-state return instead of relying on
-skb_get_tx_timestamp() not returning specific error codes, but it
-should be fine for now.
-
-Reviewed-by: Pavel Begunkov <asml.silence@gmail.com>
-
->   	return -EAGAIN;
->   }
->   
+> Driver defines them as BIT(4), BIT(5) and BIT(6). Per datasheet P_SHIFT
+> is bit 2, FIFO_EN is bit 1 and SPI_MODE is bit 0.
 > 
-> base-commit: a3bdf68feecc57af5c11fb599f860ac9790ffad9
+> Only P_SHIFT has a user. dps310_set_pres_precision() sets it at
+> oversampling 16 or above, so with wrong bit the result register is never
+> shifted and stops matching the scale factor compensation divides by.
+> in_pressure_input returns -ERANGE at oversampling 16, 32 and 64.
+> 
+> FIFO_EN needed by FIFO support later in this series.
+> 
+> Fixes: ba6ec48e76bc ("iio: Add driver for Infineon DPS310")
+> Fixes: d711a3c7dc82 ("iio: dps310: Add pressure sensing capability")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Rupesh Majhi <zoone.rupert@gmail.com>
+Given we are near the end of the cycle and I'm going to be
+travelling for most of the remaining time (which makes it
+very random whether I get to IIO review or not!), I'm going
+to pick up what is ready of this series.
 
--- 
-Pavel Begunkov
+So applied this one to the testing branch of iio.git.
+
+Thanks,
+
+Jonathan
+
+> ---
+>  drivers/iio/pressure/dps310.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/iio/pressure/dps310.c b/drivers/iio/pressure/dps310.c
+> index 45bdb8c7670f..35260b399390 100644
+> --- a/drivers/iio/pressure/dps310.c
+> +++ b/drivers/iio/pressure/dps310.c
+> @@ -50,9 +50,9 @@
+>  #define DPS310_CFG_REG		0x09
+>  #define  DPS310_INT_HL		BIT(7)
+>  #define  DPS310_TMP_SHIFT_EN	BIT(3)
+> -#define  DPS310_PRS_SHIFT_EN	BIT(4)
+> -#define  DPS310_FIFO_EN		BIT(5)
+> -#define  DPS310_SPI_EN		BIT(6)
+> +#define  DPS310_PRS_SHIFT_EN	BIT(2)
+> +#define  DPS310_FIFO_EN		BIT(1)
+> +#define  DPS310_SPI_EN		BIT(0)
+>  #define DPS310_RESET		0x0c
+>  #define  DPS310_RESET_MAGIC	0x09
+>  #define DPS310_COEF_BASE	0x10
 
