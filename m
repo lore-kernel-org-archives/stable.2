@@ -1,109 +1,173 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3640C3B9949
-	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 19:03:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7751737F727;
+	Sun, 27 Sep 2026 19:09:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790535820; cv=none; b=qeEjiw8GYw+HYp7vhR4aZ7NuJ8bu7g+HIPyn9D5p/gwlhPuVhbbi0VrWlPG7vc17niDD2Nf53L/n1octhWX2jjiu1w04fOA4Wru8aBpUuI7Lg86Fsfu200tfdBxR0LC7PcIn9+OqpJMgjVbNlWnULQeupTa/KTOvo6Ae2G2HQVk=
+	t=1790536152; cv=none; b=YXhzDVpyXSxcS8rlF3LQrsVC8kSWQK1DmNzG4CR53FgDJYHNwJoLcR1xt8nZGyjdOv40ucmlkzOd3NQP3KgH5UFN99EyMkdOH1CeMDF+u1ABQj8VTZzIc69EeTSEHvSsfa2XMRUMPGtWXKTg5sPjGoB0QiGe0xDx/8lvu0LVc9c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790535820; c=relaxed/simple;
-	bh=iww9Rrw/7xVmPZYqt+U+P9KcHpNhKk1XEZ9j0Zir8vA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jm9v/CSfYnFh6HCBwU4EwiZyLzm+Ka5kqJUA/1pe6GuMTpkCMsh4Xl1pJYDWGqTKGN3oM6oGviMyRaDrqh2XPLgrPKzs6lpTf53H6wj8iOW+rmKxl4iADnisDj0bnf1NybQR/xrjV6hVqCuS8Utct7jHkgzy4rnT/MQGOBakrN8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=snNZyDmN; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790536152; c=relaxed/simple;
+	bh=ItZujjTeA728okR6dKC5Osjt2t1l8+dt1J4wA05YTY4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=fsKFZoAzeKqbFwDW8OQP87Ynrxc3TeDXgqq+qj5sCxy0WnDUlWdvyJgWIDs/cIglApSHJSRZQbsNWrSdcfY9+ZNRpH6uLfw3t1jhcj+ujKGW1OrNZtZ0o7AOb06d39iR+6udJ/DUq3FKmpCL8I2+Ts68A59FUDbqxrwgkxZ3peY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DHpoMYpK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="snNZyDmN"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f635552aso1846626f8f.2
-        for <stable@vger.kernel.org>; Sun, 27 Sep 2026 12:03:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790535816; x=1791140616; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hyA13uQBPobSZN7QEDfmz9E3dETz4qLP4md8sLtn8EE=;
-        b=snNZyDmN31vH2iWiTXD1dogUrWuUcObLz/Egz0tuCZ42V76I5nrwJuAaE2Fw9R/89N
-         FBDrSSBtHJcKk2ACMWA9bO3AYJ70k12dGtBIQW2ahbm3PgzLAyWWzGvZ3GJilIdVHgE6
-         mQvBjppBfXrpHpAjzZXoWmyFUdfi+aDwYtYvRQEMzOTgIxJ5ygIVLmdi+b7IjpG6yy8p
-         aGuObClTT/kPyCXoofYznF5SbSqh+5MfkGUfL++y4YqPCy6R5XjSGtb6Ufm8Fg8bTLu2
-         VdFyOMKuCI81gHHxAXqE7Rm/Lzwt8CYssabJUX/bovswdrZ/8QPv2MZLpblR0QXtaVdJ
-         tw7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790535816; x=1791140616;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hyA13uQBPobSZN7QEDfmz9E3dETz4qLP4md8sLtn8EE=;
-        b=fZpljTAyMzE+vQgYmeeZjF69q70xlmxRGFS+B/jXO9e5bncMajs9ypzcFxt4Zurm0S
-         3wFuT996X9WN9QCz0PZvDmXKyTR3wxKlzuJ6ntFBAGpA12FdU9Xnxi2I1RRUrVRJmTmo
-         dYvWC2Z+SdqLhop7Msa44lIvX1Kd45UMVZvzBoaddb1MYdawAj1gj9UUdhCDvFcTIqKN
-         1dq9JP6ahI+kxUEWjkP3JzihQi2kySW3lcjksYKCLtoKiDtYJcliMuYIrgCTDtu0OaSM
-         aYUmWSodxpewf3WXUf6IvdnU4eS7g1zKGpQMVZ4V+Qc4pdRu7/1KzMihZ0hgnaHzVgh7
-         ZXXg==
-X-Forwarded-Encrypted: i=1; AKwUvBwuWUrgneJgpvGyBaOSfWBDm72L6UiXCJFC2KphZhUPtEHbNGeLadEcg1AMiVl1dENvOSaNQ+M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKKFDc6wLmw6DzGLnpIktR6POmE9jgU9qM3t+9cSyPH58YfJ8Iy
-	Y0aOVW6hFO0UniFQNUKT6RnEQaJPbFTkZzlraBDX3S+/oFDnf1HnBoCO
-X-Gm-Gg: AYBFou3O8bBLLaQd/hHUFpNr/luiyRdJiIgt6qzUgvfy+VV3t0w169tTG2QEavJtIDQ
-	8DbEj4xYHO7vUflo0S4TZy3E1gRjvo7z/WscnmBKtHEpzK6lgrmwhjIMvPU1ptV0Xi3/TPke7uH
-	Eri3hLwe2aTGn9B+HTwUNHEJAKWQc1jBq7h4FywEeje8kRN2U4fzoAaNTYMDz2L2Egh4SqnAyvi
-	VQ1/fwZZf4AFDRwuEj2SUfZ6AUqgH2GV5xl5VnsFxYo1PfCz4iTquXOtf97okUwWFMukWnEayIv
-	YlO7agbXTEKs9JMjNjL4QagkOeMfjFB2BUe4tVVKdJwdGn01lYPpSkL3kgQf0GGOl+owlJDUtu6
-	ZAmtJ92CpCHvikfhjFmBKbw+sAnXVKjGNepbCUA0iQlTqYWB6n6p2UkZJMMIyimtl1bqJTdpu+a
-	UipSX8mmvgmNzqBQqokxKhLgeMSbEuLyvXfVnYVeupkVcJHX1dRscNN8kiXeIZr2QGUN7aBt/HE
-	MjasKcVxgWogsfVC/9bg2gcENJUdhzJ/YpXxmdJndodC6iCw7yacQcJwu92+ORJqu0eT6v/FsZi
-	G0FzQaIAwaV1xbVIpjjFkZP6lITnHKwImfEb5xM2BhiP2kJ8fiFuA1DI5XE=
-X-Received: by 2002:a5d:5f08:0:b0:488:89af:e95b with SMTP id ffacd0b85a97d-48889afec11mr7503670f8f.8.1790535816106;
-        Sun, 27 Sep 2026 12:03:36 -0700 (PDT)
-Received: from ?IPV6:2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c? ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a349a0esm30979151f8f.10.2026.09.27.12.03.35
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 27 Sep 2026 12:03:35 -0700 (PDT)
-Message-ID: <5b65f83b-d30b-414c-bb71-197f72feb367@gmail.com>
-Date: Sun, 27 Sep 2026 20:03:34 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DHpoMYpK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C86B1F000FF;
+	Sun, 27 Sep 2026 19:09:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790536149;
+	bh=KMa9tBdZVLWsNziVeV70/J2p5vkOfGneyxSXxXGmYm4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=DHpoMYpKilyRFauno66aCwPvTbj8xnytT5fgsskzWT+2v3C3dwL+QdKnfaWBjk7W6
+	 yMjGkYt7w+lJA2YP+oc+2XPKh51SP2T8eadfi+Ev0FZqroQdqOGGBgoKi4e83+zNWo
+	 UowSSR1LjuuW7wh/VrGR02YXxHDQi4aZDqm/AkflDlCvXNuJZeFk/XCcn3kyDLhMme
+	 MFr/ZKEIrkNvWbX4zM7GRCk2+YA3/OIA563abuOHnI2g6VPkJgQMhjkZQhJqsVZiA0
+	 K9HzwCMX6fZTBZ58Z1fr0vtkbTYjyYyO6pLOmb4RJVQSyrZ8jCZISV9KENPQr2UIcZ
+	 STr6Fk1lCMiMQ==
+Date: Sun, 27 Sep 2026 20:09:05 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>
+Cc: Fan Wu <fanwu01@zju.edu.cn>, David Lechner <dlechner@baylibre.com>, Andy
+ Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, Song Li
+ <songl@zju.edu.cn>
+Subject: Re: [PATCH] iio: adc: ad_sigma_delta: fix use-after-free on unbind
+Message-ID: <20260927200905.1cebc335@jic23-hlaptop>
+In-Reply-To: <arTioh-Dax9Ogizj@nsa>
+References: <20260923094807.503690-1-fanwu01@zju.edu.cn>
+	<arTioh-Dax9Ogizj@nsa>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] io_uring/zcrx: requeue multishot receives stopped by a
- local resource
-To: Junyuan Feng <a@lollipopkit.com>, axboe@kernel.dk
-Cc: dw@davidwei.uk, io-uring@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <010001a0cd914529-23df2f94-bbe0-49cd-ae5d-05922356fa12-000000@email.amazonses.com>
-Content-Language: en-US
-From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <010001a0cd914529-23df2f94-bbe0-49cd-ae5d-05922356fa12-000000@email.amazonses.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On 9/23/26 10:20, Junyuan Feng wrote:
-> A multishot RECV_ZC can go idle with unread TCP data when a receiver-local
-> resource runs out. An empty copy-fallback niov freelist returns -ENOMEM;
-> a full CQ returns -ENOSPC. After partial progress the stop reason is
-> lost: io_zcrx_copy_chunk() and io_zcrx_recv_skb() report the copied
-> bytes, and tcp_read_sock() drops an error from a later call once earlier
-> data was consumed. The edge-triggered request is then not requeued, so
-> it cannot consume the remaining data until another socket event arrives.
-> 
-> Record in io_zcrx_recv_skb() when a walk stops before consuming the
-> length it was offered, and requeue if the pass still returned data. The
-> failed chunk is first on the next pass. The resource is usually still
-> exhausted by then, so that pass fails at once and ends the request with
-> an error CQE, which the application must handle by re-arming. The
-> request does not spin, and the stall becomes a visible error. Keep the
-> existing skb limit and SOCK_DONE handling.
+On Thu, 24 Sep 2026 09:45:07 +0100
+Nuno S=C3=A1 <nuno.sa@analog.com> wrote:
 
-Looks good
+> On Wed, Sep 23, 2026 at 09:48:07AM +0000, Fan Wu wrote:
+> > ad_sd_buffer_postenable() allocates sigma_delta->samples_buf with
+> > devm_krealloc() at runtime, so its devres entry sits after all
+> > probe-time entries of the driver. devm resources are released in
+> > reverse allocation order, which means unbind frees samples_buf before
+> > iio_device_unregister() disables the buffers and detaches the trigger
+> > pollfunc. The data ready IRQ is still enabled at that point, so
+> > ad_sd_trigger_handler() can still run and memcpy() incoming samples
+> > into the freed samples_buf.
+> >=20
+> > Fix this by preallocating the buffer in
+> > devm_ad_sd_setup_buffer_and_trigger(), before the triggered buffer and
+> > the IRQ are set up, so it is freed only after iio_device_unregister()
+> > has drained the trigger handler via free_irq(). Size it for the worst
+> > case of all sequencer slots being active; ad_sd_validate_scan_mask()
+> > already caps the number of active channels at num_slots.
+> >=20
+> > This issue was found by an in-house static analysis tool.
+> >=20
+> > Fixes: 8bea9af887de ("iio: adc: ad_sigma_delta: Add sequencer support")
+> > Cc: stable@vger.kernel.org
+> > Co-developed-by: Song Li <songl@zju.edu.cn>
+> > Signed-off-by: Song Li <songl@zju.edu.cn>
+> > Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+> > --- =20
+>=20
+> Makes sense to me! One minor nit Jonathan might be ale to tweak when
+> applying. With that:
+Applied to the fixes-togreg branch of iio.git and tweaked as suggested.
 
-Reviewed-by: Pavel Begunkov <asml.silence@gmail.com>
+Thanks,
 
--- 
-Pavel Begunkov
+Jonathan
+
+
+>=20
+> Reviewed-by: Nuno S=C3=A1 <nuno.sa@analog.com>
+>=20
+> >  drivers/iio/adc/ad_sigma_delta.c | 32 +++++++++++++++++++-------------
+> >  1 file changed, 19 insertions(+), 13 deletions(-)
+> >=20
+> > diff --git a/drivers/iio/adc/ad_sigma_delta.c b/drivers/iio/adc/ad_sigm=
+a_delta.c
+> > index 1b41029..4f982c6 100644
+> > --- a/drivers/iio/adc/ad_sigma_delta.c
+> > +++ b/drivers/iio/adc/ad_sigma_delta.c
+> > @@ -498,7 +498,6 @@ static int ad_sd_buffer_postenable(struct iio_dev *=
+indio_dev)
+> >  	const struct iio_scan_type *scan_type =3D &indio_dev->channels[0].sca=
+n_type;
+> >  	struct spi_transfer *xfer =3D sigma_delta->sample_xfer;
+> >  	unsigned int i, slot, channel;
+> > -	u8 *samples_buf;
+> >  	int ret;
+> > =20
+> >  	if (sigma_delta->num_slots =3D=3D 1) {
+> > @@ -530,7 +529,7 @@ static int ad_sd_buffer_postenable(struct iio_dev *=
+indio_dev)
+> >  		xfer[1].bits_per_word =3D scan_type->realbits;
+> >  		xfer[1].len =3D spi_bpw_to_bytes(scan_type->realbits);
+> >  	} else {
+> > -		unsigned int samples_buf_size, scan_size;
+> > +		unsigned int scan_size;
+> > =20
+> >  		if (sigma_delta->active_slots > 1) {
+> >  			ret =3D ad_sigma_delta_append_status(sigma_delta, true);
+> > @@ -538,17 +537,6 @@ static int ad_sd_buffer_postenable(struct iio_dev =
+*indio_dev)
+> >  				return ret;
+> >  		}
+> > =20
+> > -		samples_buf_size =3D
+> > -			ALIGN(slot * BITS_TO_BYTES(scan_type->storagebits),
+> > -			      sizeof(s64));
+> > -		samples_buf_size +=3D sizeof(s64);
+> > -		samples_buf =3D devm_krealloc(&sigma_delta->spi->dev,
+> > -					    sigma_delta->samples_buf,
+> > -					    samples_buf_size, GFP_KERNEL);
+> > -		if (!samples_buf)
+> > -			return -ENOMEM;
+> > -
+> > -		sigma_delta->samples_buf =3D samples_buf;
+> >  		scan_size =3D BITS_TO_BYTES(scan_type->realbits + scan_type->shift);
+> >  		/* For 24-bit data, there is an extra byte of padding. */
+> >  		xfer[1].rx_buf =3D &sigma_delta->rx_buf[scan_size =3D=3D 3 ? 1 : 0];
+> > @@ -855,6 +843,24 @@ int devm_ad_sd_setup_buffer_and_trigger(struct dev=
+ice *dev, struct iio_dev *indi
+> > =20
+> >  		indio_dev->setup_ops =3D &ad_sd_buffer_setup_ops;
+> >  	} else {
+> > +		const struct iio_scan_type *scan_type =3D
+> > +			&indio_dev->channels[0].scan_type;
+> > +		unsigned int samples_buf_size;
+> > +
+> > +		/*
+> > +		 * Worst-case size: all sequencer slots can be active, capped
+> > +		 * at num_slots by ad_sd_validate_scan_mask().
+> > +		 */
+> > +		samples_buf_size =3D
+> > +			ALIGN(sigma_delta->num_slots *
+> > +			      BITS_TO_BYTES(scan_type->storagebits),
+> > +			      sizeof(s64));
+> > +		samples_buf_size +=3D sizeof(s64);
+> > +		sigma_delta->samples_buf =3D
+> > +			devm_kzalloc(dev, samples_buf_size, GFP_KERNEL); =20
+>=20
+> Why the line break for devm_kzalloc(). Keep it in the same line please.
+> Tbh same for for the ALIGN() call but at least that one is coherent with
+> the original code.
+>=20
+> - Nuno S=C3=A1
+>=20
+> > +		if (!sigma_delta->samples_buf)
+> > +			return -ENOMEM;
+> > +
+> >  		ret =3D devm_iio_triggered_buffer_setup(dev, indio_dev,
+> >  						      &iio_pollfunc_store_time,
+> >  						      &ad_sd_trigger_handler,
+> >  =20
 
