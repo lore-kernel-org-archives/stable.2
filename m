@@ -1,250 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 633722DFA3A;
-	Sun, 27 Sep 2026 16:38:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB2D33B2FD9
+	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 16:41:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790527119; cv=none; b=cNqqaYFVbYu3wsQgIs/8xAOcutnbfMt5DyM2vSNJ8QfpOf3fHC4UrBAcYyR91aWRDviLWxp/k/3Q4Fp/M0WRyyHgp8UonFYewJLh3q3GD1T/UG2Nv9reL0iCbZzFOh/AnmscG3oYGj4pLpIKrk4nWhXrBbdQghB+LQQHOIVGGko=
+	t=1790527314; cv=none; b=UJdTdLH8hH3Ojqk5fJ0hyJ09oXBIOFkacGLDH+rTCV72oRqifS+k/COQH29ZlOwpJZYSeZnpljkC3ULdbMnPIELZc2Rni7xQtlMQJ4rQyxBXX7UykFRDMryEyY18DogfzZcMXGqgluHRTCMaT1JVu0hcmF/XiLkby7VRLjF/kXQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790527119; c=relaxed/simple;
-	bh=VRgALpw4h+oUkjSn6KJVL524jNGRnP3zspbgJnq0/fU=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=GJ1TVw5+bcxuWTL697hLOc2eidT3RftX/7gYXgiZFaF8W/yiLhWC8Gr0o2Y3nkdcdNSIQYBaIq6KPlXDw4aG0xSWvp4sF/l1NR0KjdM2G1f9H/Nm3QqGYdqeotlZUWtIn5Xeg+vLGJNSYrgFrvZy1copROM5UxUhYFNBf4xf5B0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F2Vpnje7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790527314; c=relaxed/simple;
+	bh=oJQ7TehGKQULHuSnn7wX7YQAUj1aG3Y9J5CmP9kRzyk=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=qQTodXKZdM//9WHL89h5urrLqiQ1GZWHr8vf0rQMBPOEG4RPk5Z36PP/fwDiROAZg0syqlVUb7+RBrJv334S7+IINzLuRtTByAGqTcRWAFxUJ9SGI9Fzwf2b0ALOiwexWOsSZ7vHBdsiPH3pbVSv9bEcRDB6GuikMby3wBWNWCo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=embeddedlinux.blog; spf=pass smtp.mailfrom=embeddedlinux.blog; dkim=pass (2048-bit key) header.d=embeddedlinux.blog header.i=@embeddedlinux.blog header.b=SksMmFSX; arc=none smtp.client-ip=74.125.227.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=embeddedlinux.blog
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=embeddedlinux.blog
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F2Vpnje7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 980011F000FF;
-	Sun, 27 Sep 2026 16:38:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790527118;
-	bh=3Moh5/Zz6s5vpyS8jKb+Mom9Osf9/exVwjsCnhd/yis=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=F2Vpnje7/0LyqpNqPCyn72Fou0rfhO3agf3EYB85bttQdX1ghhHaNCWRBKoibqJWH
-	 hWms4iBWtL3SXmDwp3STpU1UykObYKXqz8NekElbrVqKnYpxrab+rCj5IKM/zNFs/c
-	 1Atj+r8N2l2OIHG8g9sij/QbwSANzGTps0H8LdgnjkXgfmuN+K8hiFJ+4fnlfu6vQM
-	 +TxKjdqvSucop8JHtCljdUBkSii/B9XUUSYGpWbeYYd6eMlulCQx7cFbyV2NVxdUi2
-	 /BiQBzB8yZ2f905vBWJaR0QfleK2SdR/kqPS544sqiYyG1Ag+U7BdU9Tfznrcnu219
-	 33UmODoSqqvfw==
-Subject: Re: [PATCH] net: stmmac: guard FCS stripping against runt frames
-From: netdev-bot+sashiko@kernel.org
-To: qwe.aldo@gmail.com
-Cc: maxime.chevallier@bootlin.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, sashiko-bot@kernel.org,
- kuba@kernel.org
-Date: Sun, 27 Sep 2026 16:38:37 +0000
-Message-ID: <179052711717.2160803.7557770095013132453@kernel.org>
-In-Reply-To: <20260923162339.1375698-1-qwe.aldo@gmail.com>
-References: <20260923162339.1375698-1-qwe.aldo@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=embeddedlinux.blog header.i=@embeddedlinux.blog header.b="SksMmFSX"
+Received: by mail-pj2-f41.google.com with SMTP id 98e67ed59e1d1-3a0abca97c0so1184541a91.1
+        for <stable@vger.kernel.org>; Sun, 27 Sep 2026 09:41:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=embeddedlinux.blog; s=google; t=1790527312; x=1791132112; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cD1GGOAxo3hdOUsJqunYxfhJul2XQRWSlBhx+D5pmZw=;
+        b=SksMmFSXxdmYyASIrD42gGRD8ICKB2i0TitCaaEM3yGf11909KZrtsA235TG5nbpml
+         uQ4JqemKmNR2zNSeGbOEfSyErPNnREtaHq8ib2e+1GLNZAjeUnOLQT+vXvD7X2wSK7Q6
+         Gw22sr1M+tBlb04P1Bo/rmiV+hBfYkXPLcKcgLcgXB+kzHIBYETgBRi6suIOWjIFUBDf
+         iuTAoip9pVqg+JEsCobT03gEojaP3Zkv9bSeUfjCu2RD6IvQjO27KXdJ4P6rRJnDD/xe
+         JANan9Ym1/AasQ2FNoUjypkX8DYQjgpsGunaZD+2q3mtdBgoADsb7m8aIW+nFz+vRPCS
+         3pIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790527312; x=1791132112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cD1GGOAxo3hdOUsJqunYxfhJul2XQRWSlBhx+D5pmZw=;
+        b=0xzZP2WGJ1CK5Rf07a7UwGSUuJUQcn+sLA/n4xnJErLA/NG1gvpRSv13t9CrmNGh9T
+         5sz/3mTyOQJkowDG6U2cWGhPoWy3uc8BGgfTyjSRr/a0Rws2Q2nQtbsNZ8uHr+jm8qcC
+         iESnX3OEeGhJ2sMLs8HINrREtiWkCM+AInOR6NxEj8mQ4prF7YIRmbOipBi3CfbahTX2
+         XtJKbMSnUmQe6D04ChsV5IS3/1EqGVHC7O7kZ4yOMqMNADZejSmRihkcMvyyEXv67mGQ
+         WHD+vB/Yk/eb0pbn1/A/UT2sdcO1StAxzhJkMVjTh35H9AZL9SD7Z0DXvPAP03W4fD5H
+         BXKA==
+X-Forwarded-Encrypted: i=1; AKwUvBxJHTv139quYF1B171PAjpi/EMJ074767pbPJ0llDmt/5qTdDTDzJ1B2r3PTYRlphtg0guTOAc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI2jIn1igHiHBUPVsPW9Ms/kyyjV//2YYp22iWiRvhSPafFgYjH
+	6kpzThjpCcPLV1bKVG1OfsBxDcARpIssZ2K6oWqKcGb/mGGKWYXU1mYh0tW+KcrZSbC5X5xIm03
+	QU4hJURICX/VVr1OMoMRdpA==
+X-Gm-Gg: AYBFou0sTq10alIIyFt6KZCiUkc8wmNn08fMxu7dAKV52mNZJpYsuhKL0t1gd9LIKuC
+	Rad3ob3AXrVpiLTnD9RYi3/ervvosLwSbzbWxsJv+FYX2WH+uS56FfZ4mKhPrNqeggdurziMoFK
+	hx2mlXvcg/Fqy8rXd8fKxS+MRvQ1Cw1y+/fuuNebo+5rNK43mXsFngpr78+5sTuAaUHpv+AuDvb
+	qYjoMKLmw+Kc+weTzYc+3RBYNCOTqKxZoxvrfmwSuwGZRvlzTqHJ3IxE9V2GQWLCaVuvQFclAXT
+	AAJ7j2aQlAznk1ran/fZ6a3aXssAcriXLuIQ1u9dioWSDD5pqS1MjlqzurYWb1pgybPHAyvzunJ
+	lJKafXQQFjh1F8cIn5ZlUwo+T8hYsoKZVFXdFdvoSP+tGPjKW/RThPrafoUzzM1PTmAo/0/F7Ua
+	Ft4QE75UavQ4oxjW9kKSogBODYsBcO3KmKZzUU4zdloo1s3Uum1HAr+hV1GW3qAmCU
+X-Received: by 2002:a17:90b:4a8f:b0:39e:423:bb8f with SMTP id 98e67ed59e1d1-3a09853c638mr8360458a91.1.1790527312129;
+        Sun, 27 Sep 2026 09:41:52 -0700 (PDT)
+Received: from ltu.. ([171.245.4.151])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0972f111csm21993533a91.2.2026.09.27.09.41.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 09:41:50 -0700 (PDT)
+From: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
+To: Bin Liu <b-liu@ti.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Johan Hovold <johan@kernel.org>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Paul Cercueil <paul@crapouillou.net>,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] usb: musb: Drop the D+ pullup during system suspend
+Date: Sun, 27 Sep 2026 23:41:45 +0700
+Message-Id: <20260927164145.1956429-1-tien.nguyenminh@embeddedlinux.blog>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+When musb_suspend() clears DEVCTL, the host sees a disconnect. But VBUS
+is still there, so the controller can start a new session on its own
+and, with SOFTCONN still set, pull D+ up again while its interrupts are
+masked. The host then fails to enumerate the gadget ("unable to
+enumerate USB device") and gives up, and nothing at resume makes it try
+again. On a T113-S3 board the gadget link never survived an s2idle
+cycle.
 
-Critical: 0 · High: 1 · Medium: 1 (1) · Low: 0
+Clear SOFTCONN once the context is saved; musb_restore_context() puts
+it back on resume. This is what the FIXME asked for, as USB can't wake
+us in time with the interrupts masked. On da8xx, which keeps the
+session over suspend, the gadget now disconnects too.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Fixes: 6fc6f4b87cb3 ("usb: musb: Disable interrupts on suspend, enable them on resume")
+Cc: stable@vger.kernel.org
+Signed-off-by: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
+---
+I found this on a T113-S3 board (sunxi, s2idle, Intel xHCI host): ssh
+over the gadget never came back after a suspend. With the patch, all 30
+cycles I ran re-enumerated after resume.
 
-- [High] stmmac_rx() still handles the FCS wrongly when the last buffer
-  holds fewer than ETH_FCS_LEN bytes, which is exactly the case the…
-- [Medium] The commit message gets the trigger, the scope and the stable
-  targeting wrong.
+To check for regressions, I also tried a BeagleBone Black (AM335x,
+dsps glue, suspend to RAM). There the link came back after every
+resume (10 cycles without the patch, 30 with it), probably because
+am335x_phy_suspend() powers the PHY off. 
 
-Pre-existing issues:
-- [Medium] Under the new guards, a complete frame shorter than
-  ETH_FCS_LEN (0..3 bytes, no secondary buffer) is passed on rather than…
+ drivers/usb/musb/musb_core.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
---
+diff --git a/drivers/usb/musb/musb_core.c b/drivers/usb/musb/musb_core.c
+index 73ac25f536..272683f14d 100644
+--- a/drivers/usb/musb/musb_core.c
++++ b/drivers/usb/musb/musb_core.c
+@@ -2825,18 +2825,24 @@ static int musb_suspend(struct device *dev)
+ 
+ 	spin_lock_irqsave(&musb->lock, flags);
+ 
++	musb_save_context(musb);
++
+ 	if (is_peripheral_active(musb)) {
+-		/* FIXME force disconnect unless we know USB will wake
+-		 * the system up quickly enough to respond ...
++		/*
++		 * We can't answer a host with the interrupts off, so drop the
++		 * D+ pullup. musb_restore_context() puts back the state saved
++		 * above.
+ 		 */
++		u8 power = musb_readb(musb->mregs, MUSB_POWER);
++
++		musb_writeb(musb->mregs, MUSB_POWER,
++			    power & ~MUSB_POWER_SOFTCONN);
+ 	} else if (is_host_active(musb)) {
+ 		/* we know all the children are suspended; sometimes
+ 		 * they will even be wakeup-enabled.
+ 		 */
+ 	}
+ 
+-	musb_save_context(musb);
+-
+ 	spin_unlock_irqrestore(&musb->lock, flags);
+ 	return 0;
+ }
 
-net: stmmac: guard FCS stripping against runt frames
-
-This commit adds lower bound checks before the 4-byte FCS is stripped in
-stmmac_rx_zc() and stmmac_rx(). A final buffer shorter than ETH_FCS_LEN
-no longer underflows buf1_len or buf2_len. Such frames are passed
-through without stripping.
-
-> Neither path checks that the buffer actually contains at least
-> ETH_FCS_LEN bytes. A runt frame delivered by the hardware with a
-> buf1_len or buf2_len smaller than 4 underflows the unsigned
-> subtraction, producing a very large value. In the XDP zero-copy path
-> this wraps data_end backwards:
->
->     buf->xdp->data_end = buf->xdp->data + buf1_len;
->
-> giving the XDP/BPF program an enormous data region that extends into
-> adjacent kernel memory.
-
-[Severity: Medium]
-
-Is "runt frame" the right description of the trigger for the
-stmmac_rx() hunk?
-
-With Split Header active, stmmac_rx_buf2_len() returns the remaining
-bytes of the frame:
-
-    plen = stmmac_get_rx_frame_len(priv, p, coe);
-
-    return plen - len;
-
-On the last descriptor this is 1..3 whenever a normal-sized frame
-leaves only part of the FCS in the last buffer. Two examples:
-
-  - a frame of dma_buf_sz + 1..3 bytes
-  - a frame of hlen + dma_buf_sz + 1..3 bytes that spills into a
-    second descriptor
-
-GMAC_CORE_INIT sets GMAC_CONFIG_JE, so the MAC accepts these lengths,
-and any sender on the LAN can choose them.
-
-Before this patch, buf2_len wrapped to about 4 GiB in the default
-non-XDP receive path and was then passed to:
-
-    if (buf2_len) {
-        dma_sync_single_for_cpu(priv->device, buf->sec_addr,
-                                buf2_len, dma_dir);
-        skb_add_rx_frag(skb, skb_shinfo(skb)->nr_frags,
-                        buf->sec_page, 0, buf2_len,
-                        priv->dma_conf.dma_buf_sz);
-
-Could the commit message describe this case? It looks like the one that
-is reachable in practice.
-
-In the zero-copy path, stmmac_xdp_set_prog() disables SPH while XDP is
-active:
-
-    priv->sph_active = priv->sph_capable && !stmmac_xdp_is_enabled(priv);
-
-So buf1_len < 4 there needs a complete, error-free frame shorter than
-4 bytes. stmmac never enables MTL FUP/FEP, and CRC errors set
-RDES3_ERROR_SUMMARY, which gives discard_frame. That seems to need a
-malfunctioning device.
-
-Also, buf1_len is unsigned int. On 64-bit, data + buf1_len moves
-data_end about 4 GiB forward, not "backwards". On 32-bit it does wrap
-backwards, but then data_end < data and the region is empty, not
-"enormous". Could that sentence be reworded?
-
-> Fixes: bba2556efad6 ("net: stmmac: Enable RX via AF_XDP zero-copy")
-
-This tag covers only the stmmac_rx_zc() hunk. The FCS stripping in
-stmmac_rx() came from 88ebe2cf7f3f ("net: stmmac: Rework stmmac_rx()").
-It was last changed by 0f296e782f21 ("stmmac_pci: Fix underflow size in
-stmmac_rx").
-
-Should there be another Fixes: tag, so that stable trees without
-zero-copy support also pick up the stmmac_rx() hunk?
-
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index d5a984ad864f2..d3e16a523abde 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -5638,7 +5638,8 @@ static int stmmac_rx_zc(struct stmmac_priv *priv, int limit, u32 queue)
->  		len += buf1_len;
->  
->  		/* ACS is disabled; strip manually. */
-> -		if (likely(!(status & rx_not_ls))) {
-> +		if (likely(!(status & rx_not_ls)) &&
-> +		    likely(buf1_len >= ETH_FCS_LEN)) {
->  			buf1_len -= ETH_FCS_LEN;
->  			len -= ETH_FCS_LEN;
->  		}
-
-[Severity: Medium]
-
-This isn't a bug introduced by this patch, but with this guard a
-complete frame of 0..3 bytes is passed through rather than dropped. It
-goes to the XDP program and, on XDP_PASS, to stmmac_dispatch_skb_zc().
-The new check in stmmac_rx() does the same for a single-buffer frame
-under 4 bytes.
-
-The short skb then reaches two helpers that don't check its length:
-
-  - stmmac_rx_vlan() reads h_vlan_proto and the TCI without checking
-    skb->len.
-  - In eth_type_trans(), eth_skb_pull_mac() ignores a failed ETH_HLEN
-    pull, so h_proto is read from beyond the received data.
-
-Later, eth_header_parse() can copy h_source bytes that were never
-received into the AF_PACKET sll_addr.
-
-To reach this, the device has to report a good, complete frame under
-4 bytes. That should not happen, since FUP/FEP are not enabled and CRC
-errors end up as discard_frame. Frames of 4..17 bytes already produced
-the same kind of short skb before this patch.
-
-Would it make sense to drop frames shorter than ETH_HLEN + ETH_FCS_LEN
-instead of passing them through, perhaps as a separate hardening
-change?
-
-> @@ -5810,10 +5811,10 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
->  
->  		/* ACS is disabled; strip manually. */
->  		if (likely(!(status & rx_not_ls))) {
-> -			if (buf2_len) {
-> +			if (buf2_len >= ETH_FCS_LEN) {
->  				buf2_len -= ETH_FCS_LEN;
->  				len -= ETH_FCS_LEN;
-> -			} else if (buf1_len) {
-> +			} else if (buf1_len >= ETH_FCS_LEN) {
->  				buf1_len -= ETH_FCS_LEN;
->  				len -= ETH_FCS_LEN;
->  			}
-
-[Severity: High]
-
-When buf2_len is 1..3, doesn't the FCS straddle two buffers? The FCS is
-always the last 4 bytes of the frame. In that case buf2 holds only the
-tail of the FCS, and the other 4 - buf2_len FCS bytes sit at the end of
-the previous buffer.
-
-Take a single-descriptor frame with SPH active that is not header
-split (hlen == 0), for example a non-IP frame of dma_buf_sz + k bytes
-with k in 1..3:
-
-  - stmmac_rx_buf1_len() returns min(dma_buf_sz, plen), which is
-    dma_buf_sz.
-  - stmmac_rx_buf2_len() returns plen - len, which is k.
-
-The new else branch then trims 4 bytes from buf1, which removes k real
-payload bytes. Later, the k FCS bytes in buf2 are still appended:
-
-    if (buf2_len) {
-        ...
-        skb_add_rx_frag(skb, skb_shinfo(skb)->nr_frags,
-                        buf->sec_page, 0, buf2_len,
-                        priv->dma_conf.dma_buf_sz);
-
-Does the skb end up with FCS bytes in place of its last k payload
-bytes?
-
-Now take a multi-descriptor SPH frame that spills k = 1..3 bytes into
-its last descriptor. stmmac_rx_buf1_len() returns 0 there:
-
-    /* Not first descriptor, buffer is always zero */
-    if (priv->sph_active && len)
-        return 0;
-
-So neither branch runs and nothing is stripped. All 4 FCS bytes stay at
-the end of the skb and are counted in rx_bytes. Is that intended?
-
-Any LAN host can send these lengths, since GMAC_CORE_INIT sets JE, SPH
-is on by default on capable cores, and no XDP is involved. Later, IP
-frames may still be marked CHECKSUM_UNNECESSARY.
-
-Would it be more correct to trim ETH_FCS_LEN - buf2_len bytes from the
-preceding buffer or frag and set buf2_len to 0, or else drop the frame?
-
+base-commit: 165768bb70265b5c38cf0b73fafd75be235f8b14
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260923162339.1375698-1-qwe.aldo%40gmail.com
+2.34.1
+
