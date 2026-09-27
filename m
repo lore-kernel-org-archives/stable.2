@@ -1,127 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E533C3EA97A;
-	Sun, 27 Sep 2026 22:50:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790549410; cv=none; b=DypliISdELAWUXrNxBV36DLNO9wSqaOsATdanEFjeC/MwJ98kWG2PEZ1pDJRT8DNp+3kweMjHwYRuitYuYX005IBhr+js0gahwSMsZTC8Rdb2FJnso0i5Ke+S4SQ8Ueqy2HrUhJ7Uey/OEnIiBGPjf0mR14Td2pkuwdnAkdXXGQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790549410; c=relaxed/simple;
-	bh=/aCovl8RC0lzVIS7AQKYGh0WIGySO+B7ueAYz7HP4Bw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=k92WMvP+YzvfLKu5WkQp4+7JQ1arMM9HJ2WNWJ5UGxFI+3OXNWHbzhXJ4Mz+lF6hLG6lYPYWdWTo3vkjDJI/mKIOVDgZgKsVG9r5hz81qj2BZSSzIPxBJRt3HxetPSXkM1niNIi8SGWFGX/dOD5kpjE7cA+effdSAGkeSOQf5pY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eRh1OBiB; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 481E03C1090
+	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 22:50:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790549447; cv=pass; b=ZPpUfQiFeo+IDK8a9GlSUrMSefLFnl5p7SUAGxfz+1u/2UBDpbWe3sdbBUc2WB628eUc9Bzcnx5tXG7yBF1qy1pLXdjKX7duyCKyJrq1lARYH66dlFn7+xhRxFnR45uCSDSoW8wsPZcga5eUi0YzWZtC5mgA9XRPkNEei+yscDY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790549447; c=relaxed/simple;
+	bh=Ifx1yTX0L1801X3uiipDGm66k2wMyQhOYEC1lY1zW3Q=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=oUCiQdpdURoUg9Yi1RsQqYeg/+CM8azl3gmXBymN9JpUQ3+3t2sAlLna6zzzhXRtj9VSIB1BUhKdmBQ0SAcyneEIuJomOkXLw3XPr/imbt3IZLtcTrOB9AVeOJTz4ZIH45W13YACJfNcSjI6l3MJeJtmuhU+QE9RMOpxZyzYkoQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=bUrQXHXj; arc=pass smtp.client-ip=74.125.228.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eRh1OBiB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE5991F000FF;
-	Sun, 27 Sep 2026 22:50:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790549408;
-	bh=MmIw28LazQjnyo5PLms13QRbrvuqaROTWE9kzh5dsd0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=eRh1OBiBveklXrJl07N/c1ijew76Eo2PYq39QJthaynDmuL48HN4EPJe86y/ZWlBP
-	 Sp1qZpVNdoe0/FNFoL9wJnU1WETWNGNm/vR9U5JALoul5sq9EKDqGD5V3Ay0vTKLXs
-	 IY3tK92ncocacEEGTqT47cVCNSKPRDDNTL75WlUstw2uwOpMay0nY4IORU/M1jlKu3
-	 keLUBFwd7C1Cp8H86ngIRwKWcspvZ39M6raFXABEYFZVRgNHoVcN1KYpRqtlVmYCqq
-	 Qco8zEvFb89/kBE99c52EkFvkqFJtoo4bazwiHRs3JLdxWZr+w76BUp5Q71IZjydex
-	 0u/9vWMww6fiw==
-Date: Sun, 27 Sep 2026 23:50:01 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Jiale Yao <yaojiale02@163.com>
-Cc: Davidlohr Bueso <dave@stgolabs.net>, Dave Jiang <dave.jiang@intel.com>,
- Alison Schofield <alison.schofield@intel.com>, Vishal Verma
- <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>, Ira Weiny
- <iweiny@kernel.org>, Li Ming <ming.li@zohomail.com>,
- linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH v2] cxl/acpi: Check ACPI companion before use
-Message-ID: <20260927235001.01316b18@jic23-hlaptop>
-In-Reply-To: <20260926071605.3013893-1-yaojiale02@163.com>
-References: <20260926071605.3013893-1-yaojiale02@163.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="bUrQXHXj"
+Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2a8b9acbc6so338046266b.0
+        for <stable@vger.kernel.org>; Sun, 27 Sep 2026 15:50:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790549444; cv=none;
+        d=google.com; s=arc-20260327;
+        b=pHf2HjQp6jCcbKYNSFIBY3bNplTaxLdJwAuk8Q2FmVXkAG0XF9i1AG92PdCe9koyEv
+         opNhzhGXKCfhxsqzX5U+XPJFPwVkIlfNg4dCyFZOkkbOGh6T1jCqojlNuA0UfM4HVt+r
+         AKGDM0689Iai19TvpU5rmFgMyW16fSOnMb4JjbJ7pmnMQXQhL5UKomwQJpO1cxQXBr/A
+         Ppk7F8Fi31URDojsZ2lSUXXQbkEdWpHUmsJrD+3BhJ+IqDc/xcFSc4VzLfpmg4/ZH2Lc
+         eE4MUqglkrHEF8NfCU0ZVZGQlyzqdzbhl3pJ+VMhY5QANWepWFPKv6WlD6SIhQgVPzJe
+         9l5w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=Ifx1yTX0L1801X3uiipDGm66k2wMyQhOYEC1lY1zW3Q=;
+        fh=Cg4sx/5K3YLVSbH6AsF+GbgcONQaQmCME7aNJtzsfLQ=;
+        b=VjA4Kl5Ks2pWSTYbd9WhKw/QnsLfCBAg4kGQc1V5UrkGvGJcsi5Oade29AolCKvZIw
+         ztxnZqt0qBKMBiXBSaYdoXG2gJ0sn6+jKZfv2aRskP85uWvmVmgGznaZ4SN8wQa/m0T+
+         yJiQvPKtEl1RpbkZh+zUwj2xpdfOMM5kySrlnO+uiaqEBGVfriIEmvLn71xCoKmec2uQ
+         vHAnqMnzaYOQR1yGmAhA4rAkKyEwOVI/Fenw/rBnFiVqPveHcWyFWPK6qtnne8yw40g4
+         OTg+/KFkn0uiBQOc+2l5IjQxcaG19pjLecYscy5R+O8YUWR/jpnJWvyFUbN54INhSAKG
+         XOvQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20251104; t=1790549444; x=1791154244; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ifx1yTX0L1801X3uiipDGm66k2wMyQhOYEC1lY1zW3Q=;
+        b=bUrQXHXjWd73HigefHpiexC1jDhP03WLbFjMridXHvWTWmWUq4jg+STaz5W/J6jRgD
+         iJzTv+bKlgZg9sQeGD5ldyz3uLp0GRi+OCSQICKDX0Q2tDQc1kYXjt1ZGa4LWJDj46yu
+         d1JdJrB8anLjre0KNJSLMH9PEC06zg7moNK0eSoiFDTZm0wR3MLmB3Zw3NDnBrOR9NXo
+         arwgo8yPQa4ocep0nZBp+5c7T1V9LIMJKQpl/rFBly8CosDzVt5UdojkUHbM8A/VUxXr
+         5TmR1obwcP0327NwkEEFumNUpZ7VIwT8xjv7qgrRIF1zbCUQ81u2pwcJJYiGWMBrSGWx
+         kPLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790549444; x=1791154244;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Ifx1yTX0L1801X3uiipDGm66k2wMyQhOYEC1lY1zW3Q=;
+        b=vMXBvIxznm7mfAhX84OQluh7dCMzPgic7m885QL3i9+dMhXKeWwYlnw9jnE75yBMRp
+         3A4UtzyBX0yLa6hojdGLnGC4Huk3OOTfVtTshHPdyQwHAfCURqPkfrF4p0d7R+zL/eAx
+         dVgibpR844gTt/3gLh7lMnIad33HjMTBQ+NNri2bV4XteNE+ir4rsV+vnZDuOqP+duPN
+         gZ7bAlI4/D/0TJ+AHC07FwMdWAX/P3IWY8yY7Cxlf05XbLJkq/K9RXzyiy1ix/rx5gzp
+         GqzGNSgOSxDL2oJqv6vjlqsRIXaaMBZhAE7qTCaPqj/3O08NGz4RlVKhv2kVINi0F9h3
+         PgAg==
+X-Gm-Message-State: AFuF++nb5M81UTzyApq3EiKLDKS8hy7N0ur1zdL5Qbpz4jDH5iod8Bek
+	AZwoHZQEHp+GyrEYM+imAzdvkCr46Pyv4EeOLr4wKyCyOzcpjtw/nokGidz49/bXVkqgcXL3gXl
+	rdQMDMk+SmyZIVIzBS4Pt/dv0++SnhIc=
+X-Gm-Gg: AYBFou3Q3fsZWKDcfx/YzQpvv/WhaJhtRhOPHZMjDcdddmwJPOsYjWMUFPs/EYdTTep
+	Nf32KBoNIjvG8kT7PpsWYUUJlgpeqjq83BYPlShUb3ypHVL5nL32btCSB2zpfWIwmWttINYw9AZ
+	LwjNhlQVjCysihp4vjWoMI3w0iN1lrNp6UX1Ss0RIBjLtAis6qhyH8hFkYoG8bgXEw1NH84/ASw
+	7fiKOYPHpHzLTC8/k6pH+3ZLSYUWjGX9KvSxafPbgTc+U/nyDxJDSy4J4MVwt20u4X2p+GjxMyB
+	TT3CTOOgvdbWZmFqsf/tiObDDwpPr9zqeSQ8lG+bquQCs4nXYU/SqRfbJQWBiYbg7gidGgPI2Oj
+	iUA0ZnEeEH+q9NHHixGObRXXlOPXYe+WGZVMMZbfZ1aSXr7Xhb3dNTAebwovjITMMybIXnaz9gq
+	lXoerYxFnn2RoBWZM=
+X-Received: by 2002:a17:907:7b8c:b0:c2d:c33d:a9d4 with SMTP id
+ a640c23a62f3a-c2dc33dada2mr233426266b.10.1790549444303; Sun, 27 Sep 2026
+ 15:50:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <CANBVYRCL=8QdLxGg4S6qrahrFtwJxhv-aSGpW7-1S=+iOe4ZGA@mail.gmail.com>
+ <2026-09-27-daily-reply-0001-re-audient-evo4-mixer-put-errors@kernel.org>
+In-Reply-To: <2026-09-27-daily-reply-0001-re-audient-evo4-mixer-put-errors@kernel.org>
+From: Faaris Ansari <faarisansari@googlemail.com>
+Date: Sun, 27 Sep 2026 23:50:33 +0100
+X-Gm-Features: AclHuK-yRwoG3EWnoCvNFcLc3JE7YWNDmy2zbYPYkBL_ZtPL-UpCyDcrqmqvJWY
+Message-ID: <CANBVYRAr_ShKGmrt2NoqsDsDEbTXa5DWJbq2oP6wKLWJQpLRWw@mail.gmail.com>
+Subject: Re: [REGRESSION] Audient EVO4 hardware volume control now requires quirk
+To: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org, regressions@lists.linux.dev, 
+	linux-sound@vger.kernel.org, 
+	=?UTF-8?Q?C=C3=A1ssio_Gabriel?= <cassiogabrielcontato@gmail.com>, 
+	Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>
+Content-Type: text/plain; charset="UTF-8"
 
-On Sat, 26 Sep 2026 15:16:05 +0800
-Jiale Yao <yaojiale02@163.com> wrote:
+Hi Sasha,
 
-> Platform drivers can be forced to match devices outside their ID tables
-> through driver_override.  cxl_acpi_probe() assumes that every bound device
-> has an ACPI companion and dereferences adev->dev.bus without checking the
-> result of ACPI_COMPANION().  Force-binding cxl_acpi to a platform device
-> without a companion therefore causes a NULL pointer dereference.
-> 
-Given I had this drawn to my attention earlier (thanks to Uwe)
-let me draw attention to an attempt to add a flag to remove the need
-for this sort of defense by blocking driver_override.
+It seems you're right. Reverting that change has fixed the volume
+control with my interface - I made sure to remove the quirk flags
+whilst testing.
 
-https://lore.kernel.org/lkml/20260922-driver-override-opt-out-v1-0-58c35ded3b83@nvidia.com/
+What are the next steps here? Is there a problem with that patch, or
+do we need to add a quirk for the EVO4 in the kernel?
 
-So maybe we can replace what we do here once that lands.
-In the meantime it's a valid bug so 
+Faaris
 
-Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-
-> This was reproduced by setting the driver override for the pcspkr platform
-> device to cxl_acpi and binding it through sysfs:
-> 
->   BUG: kernel NULL pointer dereference, address: 0000000000000280
->   #PF: supervisor read access in kernel mode
->   RIP: cxl_acpi_probe+0xf4/0x220
->   Call Trace:
->    platform_probe+0x4d/0x80
->    really_probe+0x106/0x370
->    device_driver_attach+0x4c/0xa0
->    bind_store+0xd0/0x100
-> 
-> Commit 2b3a5dabe89e ("platform/surface: acpi-notify: Check ACPI
-> companion before use") fixed the same force-binding issue in another
-> platform driver.  Check the companion before setting up the CXL root and
-> return -ENODEV when it is absent.
-> 
-> Fixes: 7d4b5ca2e2cb ("cxl/acpi: Add downstream port data to cxl_port instances")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jiale Yao <yaojiale02@163.com>
-> ---
-> 
-> Notes:
->     Changes in v2:
->     - Move the ACPI companion assignment immediately before its NULL check.
->     - Reorder local declarations in reverse Christmas tree order.
-> 
->  drivers/cxl/acpi.c | 10 +++++++---
->  1 file changed, 7 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/cxl/acpi.c b/drivers/cxl/acpi.c
-> index 3b818adbd38b..fb09a5ff48c1 100644
-> --- a/drivers/cxl/acpi.c
-> +++ b/drivers/cxl/acpi.c
-> @@ -885,13 +885,17 @@ static int pair_cxl_resource(struct device *dev, void *data)
->  
->  static int cxl_acpi_probe(struct platform_device *pdev)
->  {
-> -	int rc;
-> +	struct cxl_cfmws_context ctx;
-> +	struct acpi_device *adev;
->  	struct resource *cxl_res;
->  	struct cxl_root *cxl_root;
->  	struct cxl_port *root_port;
->  	struct device *host = &pdev->dev;
-> -	struct acpi_device *adev = ACPI_COMPANION(host);
-> -	struct cxl_cfmws_context ctx;
-> +	int rc;
-> +
-> +	adev = ACPI_COMPANION(host);
-> +	if (!adev)
-> +		return -ENODEV;
->  
->  	device_lock_set_class(&pdev->dev, &cxl_root_key);
->  	rc = devm_add_action_or_reset(&pdev->dev, cxl_acpi_lock_reset_class,
-
+On Sun, 27 Sept 2026 at 15:27, Sasha Levin <sashal@kernel.org> wrote:
+>
+> > I was able to work around the issue by adding extra modprobe config to
+> > my system, specifically the below:
+> >
+> > options snd_usb_audio quirk_flags=2708:0006:ignore_ctl_error
+> >
+> > Does this quirk need to be added to the snd_usb_audio module or is
+> > there an underlying fix somewhere else?
+>
+> The likely cause is 87a6f2fa6e6c ("ALSA: usb-audio: Propagate write errors
+> in generic mixer put callbacks"). It is in 7.2 and was backported to 6.18.53
+> and 6.12.111. Before it, a failed SET_CUR in the mixer put callbacks was
+> ignored and userspace saw success. Now the error is returned unless
+> ignore_ctl_error is set, which is exactly what your workaround does. It is
+> the only functional change to sound/usb/mixer.c between 7.1.13 and 7.2.5.
+>
+> Could you confirm by reverting just that commit on 7.2.y or 6.18.y and
+> testing without the quirk_flags option?
+>
+> --
+> Thanks,
+> Sasha
