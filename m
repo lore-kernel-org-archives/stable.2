@@ -1,163 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f39.google.com (mail-qk2-f39.google.com [74.125.230.231])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C16C73C871E;
-	Sun, 27 Sep 2026 21:46:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B64733C0A1E
+	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 21:51:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.231
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790545588; cv=none; b=BWASjJs7XmMNfoN4H4sq6qDqIR+36W6dApEmq0OUYnH+U8h/j9VtmPoET2Mk59miWGbKAsEBWjDePFzmGOqZT12bDzw4zU0/8hmvaB2mANeVvHYp/wJLKtYhAOOVWX6+Q32e2eDZ6Wh8fGxuM9rSJogKC6v3iGpefzPPrPDEl+Y=
+	t=1790545882; cv=none; b=DpEZU/aDAFthX8NPOmZmxwpztlxp/nhjMTRE7lWwVDvWVjd3EOjUao3+xx7fxO96lgDyyawNojeUllYyD9nz9OSkYn6pRFu8ZJ9/23uudOVD1I4FdUEjXRe87afibTFLrV23gVlTsWw7dfb8LjS5OH22MaoiqkxX/v5lQMRDYRQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790545588; c=relaxed/simple;
-	bh=MXGjxUTiPDAlm2Ypz5hDM2lNRUXH5UtltHTW/QoyvYg=;
-	h=Date:To:From:Subject:Message-Id; b=Org5kNrVGM6IV9DZKIA60QX8Ntq5JlZV6t0LFpucZ3oNM0IRJoyGSBkCO11lmNg2CD4WmxTN5w9EAWkWivNc45kr9ET7L5p+w4iskWBDrLqWYLh117HGu/pjrId+s9OK7RTAUeMAV8xSD2YZF7iJ4dNA5sYLvITPO+5UjjOu23M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=lRN3J6Nv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790545882; c=relaxed/simple;
+	bh=hONP6h2Dmk7VWcv73LcPm/NCq43dBIy1EVpthORM5as=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YWPrdKHhxEV6ZTSiEa7glKMLa/fLdIfSvfmr6g+WiEWLQtSPDhRujWq28XUYsLBrNDfZoiKOXgjvJX3zFB7osXYat39tjjAIDHb4WlTjaumYyKNwh1D7/5vhOmHu71vI0ADIfJyUW7Adg0jXVxgkltSZjBflhTp5/aBIbiqf5X8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LNn+mB6S; arc=none smtp.client-ip=74.125.230.231
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="lRN3J6Nv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F0F41F00893;
-	Sun, 27 Sep 2026 21:46:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LNn+mB6S"
+Received: by mail-qk2-f39.google.com with SMTP id af79cd13be357-93c67dc38f4so53959585a.0
+        for <stable@vger.kernel.org>; Sun, 27 Sep 2026 14:51:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1790545586;
-	bh=u8to28aaLdDVCWWnHiUFIo9kQ+77cShm37qUBXSoH/0=;
-	h=Date:To:From:Subject;
-	b=lRN3J6Nvd7tp7cx9OcNy+TnJpkuXLs3FroOyW39NheBrn4MeTz2g615zRraqdLcRs
-	 MQxHcJd1kKXOOkpU+frlx6cC3RdKD56ah2ZvvChfvMnVT7woLPXLx9wzs35nxcwaop
-	 t6tlPlUg4XvA9G9BUbg6tTtlbOizJdorA0TtEd9I=
-Date: Sun, 27 Sep 2026 14:46:25 -0700
-To: mm-commits@vger.kernel.org,ziy@nvidia.com,ying.huang@linux.alibaba.com,vbabka@kernel.org,stable@vger.kernel.org,sashiko-bot@kernel.org,rakie.kim@sk.com,peterx@redhat.com,ljs@kernel.org,liam@infradead.org,joshua.hahnjy@gmail.com,jgg@ziepe.ca,jannh@google.com,david@kernel.org,gourry@gourry.net,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-madvise-use-vm_normal_folio_pmd-in-cold-pageout-pmd-range.patch added to mm-unstable branch
-Message-Id: <20260927214626.5F0F41F00893@smtp.kernel.org>
+        d=gmail.com; s=20251104; t=1790545880; x=1791150680; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HjhkUG2TWCQLwM9KlXgPf4oUMSLjrl82Y/zKIRl4hi8=;
+        b=LNn+mB6SCCGbcc6GwWtRvoCmLfnbZdqSdjtRfT9uOUr5JXE+3JM9I9px1cUa8p2RLK
+         9oogTq+phr1ei0I5xIqACC9wayUfvWAcliTR6kxDUiGGfk0p2fBuKPr8Vkz5TuadXdPp
+         6XHCpHTYu7Pf2JIQfT/ew4Fo6UQZABk+F+wYNBr1suEadtMrP7nClPvMUdtWnSJ2lIuB
+         wgCDMg6OxH2RcwyOcLVIxVCHLtfCkmFaZBeCClo7X8ha0Mi6e7WyCAldvNDBR0+7bqHG
+         vIrwjVPgYQmJE3cQU4qWwZWPVvZwIwu/VMqmENgW3KgUryRlRy7Ixdl+EtgNnmgZpge7
+         ePlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790545880; x=1791150680;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HjhkUG2TWCQLwM9KlXgPf4oUMSLjrl82Y/zKIRl4hi8=;
+        b=lFbSQnAC1J+Nl+YnFApD2nKqvRxnZa2pcAuAic/DTw7ukJ6rvfL9hoKGrrZ+3q0SgC
+         OUQPiijAOIEWdrUpUzYHoJoQyDeJ9r8oQSoeS7xl0dyou9l4y/psxudCMEdM/vDEQyqt
+         zRS0c0Oe8ZYrcebkVdpWP5Ydn/N8mSJJ9GNFdYSnPQMk5IBdeGDa6HQFXTRPLMN43aBa
+         vaL7FeXp935TePKbayfkM6w390BmquqE3k5AaFPj7eWNdK7OfeNZyceHx/5ukzFpz7Ms
+         /YYPyZaqYD4i9CXfUfnkwHIsCsBYajirNPAVtdF7etjj+0P69mM/+iLPHTF+chJs0o7/
+         8dlQ==
+X-Forwarded-Encrypted: i=1; AKwUvBywcVHmMvd7/sykwEO4et2Zx8Fnm6RqcECpIfe5E6XKDsdUUIkeNwUh4mDnuTGkVrF199m/yBk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kSsZSo2/TaOR2bJqmF7HQ/g8nXI7EMDu6fNKaP77YsZRvuvTY/
+	UfEw/J8fg9OZYJVr0cSFOklE3yV76osrGnb0MZg785Q3vQCmVnNpwPjE
+X-Gm-Gg: AYBFou3iQunsE3Ww33erXOEdgkXiyUzIy3zeVYMlMYh3DA5HbbrTKzLAK7r+ZW3mQSJ
+	qbN3RTX1MwgqswBwl2s9dpMaDrhqDkEz4JfuaMlarcmtf0XzTsbgASRCby5fwEuRsn4lX5T2HaQ
+	Ti/sgGRxhGCnY1N0MSqejx6wSBjJ0BQtYCVP9sDrtw1WiCZR8Ji5Thh44AHXZ2Kh0E16wuJnnfp
+	pRjA3nsL0nweJRyF5/0MsFeoiJcrJdwXiWg4yNC4pGVg9bMzoaFq8HF3pIho4JvKLvf13vj+64C
+	FTtV3WpYoezxEg4SxhFLCWmtuai8ACpNJDLKn/USGH3vlaPvvOvjyKivPH5O2jzXUeyjorzXQ1e
+	CWQwJ8YdpD8lltOFlRiNYU0i2CEShsBlcVkwLPYbn9KTg4jsEhfj3voNX0PolMRzS0wfyD7M55u
+	SxQv6itlAvn1wa6hJaAPcvo7LTV9VG0OCYlZL22NyKpng+yONjL1vhwPJMtnOA1lqF9I0hbjNa9
+	/ERl3earo/0Mf2cBgtasXqo+iKWZlerDyscQcPdRg7dBgZz
+X-Received: by 2002:a05:620a:6189:b0:93c:6079:bd38 with SMTP id af79cd13be357-93c6079ce59mr805549585a.23.1790545879710;
+        Sun, 27 Sep 2026 14:51:19 -0700 (PDT)
+Received: from mango-teamkim.. ([129.170.192.206])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c574e5b8fsm462403585a.0.2026.09.27.14.51.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 14:51:19 -0700 (PDT)
+From: pip-izony <eeodqql09@gmail.com>
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Saranya Gopal <saranya.gopal@intel.com>,
+	Rajaram Regupathy <rajaram.regupathy@intel.com>,
+	Benson Leung <bleung@chromium.org>,
+	Andrei Kuchynski <akuchynski@chromium.org>,
+	Jameson Thies <jthies@google.com>,
+	Kyungtae Kim <Kyungtae.Kim@dartmouth.edu>,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Seungjin Bae <eeodqql09@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] usb: typec: ucsi: limit the PDO count to the number of PDOs requested
+Date: Sun, 27 Sep 2026 17:49:05 -0400
+Message-ID: <20260927214904.447250-2-eeodqql09@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+From: Seungjin Bae <eeodqql09@gmail.com>
 
-The patch titled
-     Subject: mm/madvise: use vm_normal_folio_pmd() in cold/pageout PMD range
-has been added to the -mm mm-unstable branch.  Its filename is
-     mm-madvise-use-vm_normal_folio_pmd-in-cold-pageout-pmd-range.patch
+In ucsi_get_pdos(), the number of PDOs is derived from the data length
+reported in the CCI register, which is provided by the PPM firmware.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-madvise-use-vm_normal_folio_pmd-in-cold-pageout-pmd-range.patch
+The function requests at most UCSI_MAX_PDOS PDOs on the first read and
+PDO_MAX_OBJECTS - UCSI_MAX_PDOS on the second, and ucsi_send_command()
+only copies that many bytes into the buffer. However, the returned
+length is taken from the 8 bit CCI data length field and is not bounded
+by the size of the request.
 
-This patch will later appear in the mm-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+If a malicious PPM reports a larger length, e.g. 0xFF, each
+read is counted as 63 PDOs and ucsi_get_pdos() returns up to 126, beyond
+PDO_MAX_OBJECTS and the number of PDOs actually read.
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
+ucsi_get_src_pdos() stores this value in con->num_pdos, and
+ucsi_psy_get_voltage_max() and ucsi_psy_get_current_max() use it to
+index con->src_pdos[con->num_pdos - 1], resulting in an out-of-bounds
+read. This happens without any userspace action, since
+ucsi_get_src_pdos() calls ucsi_port_psy_changed() and the resulting
+uevent reads every property.
 
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+Fix this by limiting the count of each read to the number of PDOs
+requested, so that the returned value always matches the buffer
+contents and never exceeds PDO_MAX_OBJECTS.
 
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Gregory Price <gourry@gourry.net>
-Subject: mm/madvise: use vm_normal_folio_pmd() in cold/pageout PMD range
-Date: Sat, 26 Sep 2026 06:51:10 -0400
-
-mmap a VM_MIXEDMAP region whose ->huge_fault installs a PMD through
-vmf_insert_pfn_pmd() - mshv_vtl_low does this, and needs CAP_SYS_ADMIN
-to open - then:
-
-  madvise(p, PMD_SIZE, MADV_PAGEOUT);
-
-With a stand-in module for the driver:
-
-  BUG: unable to handle page fault for address: fffff587c0000008
-  RIP: 0010:madvise_cold_or_pageout_pte_range+0x410/0x9b0
-   walk_pgd_range+0x52b/0xaf0
-   __walk_page_range+0x6a/0x1d0
-   walk_page_range_vma_unsafe+0x8e/0x120
-   madvise_pageout+0xb2/0x180
-   madvise_vma_behavior+0x46b/0xa90
-   do_madvise+0x108/0x190
-   __x64_sys_madvise+0x26/0x30
-
-Nothing validates the pfn on the way in:
-
-  can_madv_lru_vma()     rejects VM_PFNMAP, but not VM_MIXEDMAP
-  can_fault()            *pfn = vmf->pgoff & ~(mask >> PAGE_SHIFT);
-  vmf_insert_pfn_pmd()   no pfn_valid() check
-  pmd_folio()            pfn_to_page() -> unpopulated vmemmap
-
-Even with a valid pfn the path is wrong.  The mapping carries no rmap, so
-folio_maybe_mapped_shared() sees mapcount 0, and the walker goes on to
-folio_deactivate(), or folio_isolate_lru() plus reclaim_pages(), against a
-folio this mapping does not own.
-
-Use vm_normal_folio_pmd() and skip on NULL, as the PTE half of this same
-walker already does with vm_normal_folio().  This also filters the huge
-zero PMD, so its separate check is no longer needed.
-
-Link: https://lore.kernel.org/20260926105110.2156652-3-gourry@gourry.net
-Fixes: 3c8e44c9b369 ("mm: mark special bits for huge pfn mappings when inject")
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260817220810.1175596-1-gourry%40gourry.net
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Assisted-by: LLM
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: Rakie Kim <rakie.kim@sk.com>
-Cc: Ying Huang <ying.huang@linux.alibaba.com>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: <stable@vger.kernel.org> # v6.19+
+Fixes: b04e1747fbcc ("usb: typec: ucsi: Register USB Power Delivery Capabilities")
+Cc: stable@vger.kernel.org
+Signed-off-by: Seungjin Bae <eeodqql09@gmail.com>
 ---
+ drivers/usb/typec/ucsi/ucsi.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
- mm/madvise.c |    7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
-
---- a/mm/madvise.c~mm-madvise-use-vm_normal_folio_pmd-in-cold-pageout-pmd-range
-+++ a/mm/madvise.c
-@@ -395,16 +395,15 @@ static int madvise_cold_or_pageout_pte_r
- 			return 0;
+diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
+index bef3f9b71d71..639f99f49ff9 100644
+--- a/drivers/usb/typec/ucsi/ucsi.c
++++ b/drivers/usb/typec/ucsi/ucsi.c
+@@ -898,7 +898,8 @@ static int ucsi_get_pdos(struct ucsi_connector *con, enum typec_role role,
+ 	if (ret < 0)
+ 		return ret;
  
- 		orig_pmd = *pmd;
--		if (is_huge_zero_pmd(orig_pmd))
--			goto huge_unlock;
--
- 		if (unlikely(!pmd_present(orig_pmd))) {
- 			VM_WARN_ON_ONCE(!pmd_is_migration_entry(orig_pmd) &&
- 					!pmd_is_device_private_entry(orig_pmd));
- 			goto huge_unlock;
- 		}
+-	num_pdos = ret / sizeof(u32); /* number of bytes to 32-bit PDOs */
++	/* The PPM may report more data than was requested */
++	num_pdos = min_t(u8, ret / sizeof(u32), UCSI_MAX_PDOS);
+ 	if (num_pdos < UCSI_MAX_PDOS)
+ 		return num_pdos;
  
--		folio = pmd_folio(orig_pmd);
-+		folio = vm_normal_folio_pmd(vma, addr, orig_pmd);
-+		if (!folio)
-+			goto huge_unlock;
+@@ -908,7 +909,8 @@ static int ucsi_get_pdos(struct ucsi_connector *con, enum typec_role role,
+ 	if (ret < 0)
+ 		return ret;
  
- 		if (folio_is_zone_device(folio))
- 			goto huge_unlock;
-_
-
-Patches currently in -mm which might be from gourry@gourry.net are
-
-mm-mempolicy-take-a-cpuset-cookie-for-the-interleave-node-count.patch
-mm-mempolicy-use-srcu-for-the-weighted-interleave-state.patch
-mm-mempolicy-stop-copying-the-nodemask-in-the-interleave-paths.patch
-mm-huge_memory-skip-zone-device-folios-in-madvise_free_huge_pmd.patch
-mm-madvise-skip-zone-device-folios-in-cold-pageout-pmd-range.patch
-mm-mempolicy-skip-zone-device-folios-when-queueing-folios.patch
-mm-memory_hotplug-factor-out-node_is_memoryless.patch
-mm-mempolicy-use-vm_normal_folio_pmd-in-queue_folios_pmd.patch
-mm-madvise-use-vm_normal_folio_pmd-in-cold-pageout-pmd-range.patch
-mm-refactor-find_next_best_node-to-find_next_best_node_in.patch
-mm-page_alloc-refactor-build_node_zonelist-out-of-build_zonelists.patch
-proc-task_mmu-handle-special-pmds-in-clear_refs-and-pagemap.patch
-mm-madvise-reclaim-isolated-folios-if-pte-restart-fails.patch
-mm-madvise-use-folio_trylock-in-the-cold-pageout-pmd-split.patch
+-	return ret / sizeof(u32) + num_pdos;
++	return min_t(u8, ret / sizeof(u32),
++		     PDO_MAX_OBJECTS - UCSI_MAX_PDOS) + num_pdos;
+ }
+ 
+ static int ucsi_get_src_pdos(struct ucsi_connector *con)
+-- 
+2.43.0
 
