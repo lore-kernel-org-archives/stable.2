@@ -1,153 +1,102 @@
-Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8736339B48D;
-	Sun, 27 Sep 2026 08:19:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12418260565;
+	Sun, 27 Sep 2026 08:20:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790497161; cv=none; b=ErpkuXjy6qYSGZM1N0S4d4OM5/VXpuC9+A5QmjZCXwsfSY/5QqlU8pI3Mrc7IH8z02Vw4wD9XOU1ekemRXsxjJZUGMjA9bYgrWeujHDxsQgvea16aHcnXwKIGw2XrxNLCAZ1hKtOeu4WUnJ/iudUyaHAh3T5u2LigvMeRjJQUY4=
+	t=1790497233; cv=none; b=HNzYp8Fr2JEzrS+1YAT0WLMXp/OX20d+zniw6RitkQ9t/ZZzMRsyUrbZuEUsZPtxxY/fdK1HV4ohowFFXjtFuJai4BOEwWFRpUtywX8SXHF2tXda8ZTc8Hd5MVvM1RgKzHWbKuvAi84adnXnpmk9SoZIczbj+I2O6C0EIkJR2QI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790497161; c=relaxed/simple;
-	bh=Eerh34NEDalT7cOEsgMj+oWM6IMiwMDKuegRj+hdGDM=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=OezF9RZZmp/gMMT8YULjNo/kkRKDCmmGXUB7dplRaebiqb88Mn2gswHXJKKfcWsVg6l1P+E0xjkt3FZ4Oyc8V8WO2ilBwmaVM5e+RGWmE32kOHfKeZ7CzEwyKJQCM0rO0nlGc96mbmAqjeR6OX/AnBI2wJiCsicRJ99RFX/NqdY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=vQLlBTJ4; arc=none smtp.client-ip=213.160.73.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
+	s=arc-20240116; t=1790497233; c=relaxed/simple;
+	bh=fALS5WyBoTBGjrQoxPuSSOQ4DyJxHITYum2wTqT7r1M=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=R6gy03z8udoTeHvjrW/gg/e1GOctkya+pR3kFxwp8lFkBYF1n/amB31ftMPIKGN0+5k12slezNunrQUlR6we+6BLroNuAbyr4UyRUHochBpbJK6rd3JyutDgAthJi/fhEee3pkAzgZ+LT/XSfgP0mvKR8JFaxbT7z071zX8UvF4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=CwU78sMv; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="vQLlBTJ4"
-Received: by dvalin.narfation.org (Postfix) id 30792202F3;
-	Sun, 27 Sep 2026 08:19:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1790497151;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=He0WY3jCbriwnigCsrMUly3CG2kXHpH728uQPwmsPaI=;
-	b=vQLlBTJ4eC3l+pNRvSFlUaxIVfk5Hojnyeh3ymiRZ75iTAVtyFWl1fMleSfdhNHUM2lP69
-	Vq8wfCCoINFEiQdFKqfuZUNwQIvHLdK+CD5zMUE7dWfc4Xp4kqvBafj9FJ7IR37mVCtY1J
-	yd9/npehRVseGciIjGl4GkWnW4+BxaA=
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="CwU78sMv"
+Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4f3a443f6;
+	Sun, 27 Sep 2026 16:20:22 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Christoph Hellwig <hch@lst.de>
+Cc: Breno Leitao <leitao@debian.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Keith Busch <kbusch@kernel.org>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	"Martin K . Petersen" <mkp@kernel.org>,
+	Lee Duncan <lduncan@suse.com>,
+	Hannes Reinecke <hare@suse.com>,
+	Nicholas Bellinger <nab@linux-iscsi.org>,
+	linux-nvme@lists.infradead.org,
+	linux-scsi@vger.kernel.org,
+	target-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH v7 0/4] nvmet: avoid recursive configfs open
+Date: Sun, 27 Sep 2026 16:20:07 +0800
+Message-Id: <20260927082011.638723-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net] batman-adv: Close OGM aggregation before
- transmission
-From: Sven Eckelmann <sven@narfation.org>
-To: Chengfeng Ye <nicoyip.dev@gmail.com>
-Cc: Marek Lindner <marek.lindner@mailbox.org>, 
- Simon Wunderlich <sw@simonwunderlich.de>, 
- Antonio Quartulli <antonio@mandelbit.com>, 
- Sven Eckelmann <sven@narfation.org>, b.a.t.m.a.n@lists.open-mesh.org, 
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-In-Reply-To: <20260926172600.2394088-1-nicoyip.dev@gmail.com>
-References: <20260926172600.2394088-1-nicoyip.dev@gmail.com>
-Date: Sun, 27 Sep 2026 10:19:00 +0200
-Message-Id: <179049714090.25414.9706892666916736240.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4389; i=sven@narfation.org;
- h=from:subject:message-id; bh=Eerh34NEDalT7cOEsgMj+oWM6IMiwMDKuegRj+hdGDM=;
- b=owGbwMvMwCXmy1+ufVnk62nG02pJDFk7LpZHiNucl+29Nt84vbqNa/Lx+6uNAjepnhXpvduZ9
- 0pxEufkjlIWBjEuBlkxRZY9V/LPb2Z/K/952sejMHNYmUCGMHBxCsBEEm8zMqx3Wzv90rLK9E07
- 01n6W1PdVtQ7lgRdb652agvdqKt2/CYjw2mrpljNztVLGjl/nmWV/plxinXZsXJJKy07ZRGxpvQ
- z/AA=
-X-Developer-Key: i=sven@narfation.org; a=openpgp;
- fpr=522D7163831C73A635D12FE5EC371482956781AF
+X-HM-Tid: 0aa0e1f36f2c03a1kunm12f6b69c1ac324
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaQh0YVh4aH0hIGBpKTkJOSVYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pPSExVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=CwU78sMvDEsOExt0w+ZbN1oR1EIflpiWsDeKOcKPl1d2iF4JrnrQb1RTUCnW7rCWG14K1qOW5yp6HyQcyQ5xvXIWKviazvbR72a7LBPRG4mMIc4Oq3VM7Ihaig2dc+thj6ikXEr2tROgyasyPEKlx4GLLj32YloHpPAqUZl4xHY=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=V2dwCmnh4jcZ0MUl2mHzbEQ5hr9TbVsuwLEVbpur9Q0=;
+	h=date:mime-version:subject:message-id:from;
 
-Thanks for the fix.
+Several configfs store callbacks open user-configured paths while holding
+the item's frag_sem.  If a configured path resolves into configfs, the open
+can re-enter __configfs_open_file() and try to acquire the same
+non-recursive semaphore again.
 
-Please don't submit batman-adv changes to netdev directly. And please send the
-patch also to the person which introduced the problem. You can use tools like
-`b4 prep --auto-to-cc` or just the underlying ./scripts/get_maintainer.pl 
+Add helpers in configfs for opening non-configfs paths, then use them in the
+nvmet file-backed namespace and passthru paths.  The series also pins the
+target-core db_root path and uses the root-relative helper for ALUA and APTPL
+metadata, with a dedicated lock protecting the path and its configuration.
 
-    $ b4 mbox 20260926172600.2394088-1-nicoyip.dev@gmail.com
-    $ ./scripts/get_maintainer.pl 20260926172600.2394088-1-nicoyip.dev@gmail.com.mbx
-    Marek Lindner <marek.lindner@mailbox.org> (maintainer:BATMAN ADVANCED)
-    Simon Wunderlich <sw@simonwunderlich.de> (maintainer:BATMAN ADVANCED,blamed_fixes:1/1=100%)
-    Antonio Quartulli <antonio@mandelbit.com> (maintainer:BATMAN ADVANCED)
-    Sven Eckelmann <sven@narfation.org> (maintainer:BATMAN ADVANCED,blamed_fixes:1/1=100%)
-    "Linus Lüssing" <linus.luessing@c0d3.blue> (blamed_fixes:1/1=100%)
-    b.a.t.m.a.n@lists.open-mesh.org (moderated list:BATMAN ADVANCED)
-    linux-kernel@vger.kernel.org (open list)
+Changes since v6:
+- Honor O_NOFOLLOW when resolving paths in configfs_file_open().
+- Protect db_root and db_root_path against concurrent metadata writes and
+  configfs updates.
+- Return an error when a db_root update races with target device creation.
 
-This change should not go directly to net.git. The target tree must be
-batadv.git
+Checks:
+- scripts/checkpatch.pl --strict: all 4 patches pass.
+- Built the affected configfs, nvmet, and target-core objects.
+- Applied the complete series to the stated base commit with git am.
 
-    $ ./scripts/get_maintainer.pl --scm 20260926172600.2394088-1-nicoyip.dev@gmail.com.mbx
-    [...]
-    git https://git.open-mesh.org/batadv.git
-    git git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+Runyu Xiao (4):
+  fs: configfs: add helpers for opening non-configfs paths
+  nvmet: avoid recursive configfs open for file-backed namespaces
+  nvmet: avoid recursive configfs open for passthru
+  scsi: target: pin db_root for metadata writes
 
-The last tree is irrelevant for you because it is really unlikely that Linus
-Torvalds will apply your patch directly.
+ drivers/nvme/target/io-cmd-file.c     |   3 +-
+ drivers/nvme/target/passthru.c        |   3 +-
+ drivers/target/target_core_alua.c     |  42 ++++----
+ drivers/target/target_core_configfs.c | 142 +++++++++++++++++++++-----
+ drivers/target/target_core_internal.h |   5 +
+ drivers/target/target_core_pr.c       |  19 ++--
+ fs/configfs/mount.c                   |  57 +++++++++++
+ include/linux/configfs.h              |   5 +
+ 8 files changed, 219 insertions(+), 57 deletions(-)
 
-> The OGM send worker leaves its forwarding packet on forw_bat_list until
-> after batadv_iv_ogm_emit() returns. Aggregation holds forw_bat_list_lock,
-> but emission reads and clones the packet without that lock.
-> 
-> CPU 0 can therefore start emitting a queued packet while CPU 1 takes the
-> list lock, finds the same packet and appends another OGM. The sender can
-> observe the new packet length before the corresponding direct-link flag
-> is set, or clone the skb while its length and payload are being updated.
-> This can transmit an OGM with incorrect flags or inconsistent data.
-> 
-> KCSAN reported:
-> 
->   BUG: KCSAN: data-race in batadv_iv_ogm_queue_add / batadv_iv_send_outstanding_bat_ogm_packet
->   write to 0xffff888100fedcf8 of 2 bytes by interrupt on cpu 1:
->   read to 0xffff888100fedcf8 of 2 bytes by task 70 on cpu 2:
->   value changed: 0x00c0 -> 0x00d8
 
-Is there a reproducer and where can I find it?
-
-> Set num_packets to BATADV_MAX_AGGREGATION_PACKETS under the list lock
-> before emission. This waits for any ongoing append and makes the existing
-> aggregation limit check reject further appends before inspecting mutable
-> OGM flags. Emission walks packet_len rather than num_packets, so the
-> queued contents are still sent normally. Keep the packet on the list so
-> interface purging can still wait for the worker and retain its existing
-> ownership of the packet when freeing it.
-
-I might be wrong but this reads a little bit like it was written by an LLM. If
-this is the case, please think about following the annotation style described
-in https://docs.kernel.org/process/coding-assistants.html
-
-> Backports before Linux 6.15 need count-handling adaptation.
-
-This is wrong. You are depending on 434becf57bdc ("batman-adv: Limit number of
-aggregated packets directly") and not the counting adaption. Of course, for
-4.10.x-6.14.x, you also need to change the BATADV_MAX_AGGREGATION_PACKETS to
-BITS_PER_TYPE(forw_packet->direct_link_flags)
-
-And it doesn't belong in the commit message (like this). Please annotate the
-dependencies as described in
-https://docs.kernel.org/process/stable-kernel-rules.html#stable-kernel-rules
-
-> Fixes: 9b4aec647a92 ("batman-adv: fix rare race conditions on interface removal")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
->
-> diff --git a/net/batman-adv/bat_iv_ogm.c b/net/batman-adv/bat_iv_ogm.c
-> index 53fbdbbe8f4f7..59847299a1237 100644
-> --- a/net/batman-adv/bat_iv_ogm.c
-> +++ b/net/batman-adv/bat_iv_ogm.c
-> @@ -1909,6 +1909,10 @@ static void batadv_iv_send_outstanding_bat_ogm_packet(struct work_struct *work)
->  		goto out;
->  	}
->  
-> +	spin_lock_bh(&bat_priv->forw_bat_list_lock);
-> +	forw_packet->num_packets = BATADV_MAX_AGGREGATION_PACKETS;
-> +	spin_unlock_bh(&bat_priv->forw_bat_list_lock);
-> +
-
-Can you add a small comment above like "mark aggregate as full before forcing
-emit" (or something similar).
-
+base-commit: f741eaa40d2a8e199a31ceb683f30867537def70
 -- 
-Sven Eckelmann <sven@narfation.org>
+2.34.1
