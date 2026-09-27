@@ -1,49 +1,47 @@
-Received: from mta1.migadu.com (out-148.mta1.migadu.com [95.215.58.148])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1AEB37C109
-	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 09:48:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.148
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF5093D3485;
+	Sun, 27 Sep 2026 10:11:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790502495; cv=none; b=D2/7XJueyPn+YewytnZmQnjDLvqUdLjQW+wvcm7U9zEcdf68rvX7PPvRZklmbBPcv8D9GCsaWlFPlaHVwFh+fNnFveTxf/1v3Q55plqMc5kJKzwPKM1Yn0YNRW3rooDNViC0ud/SWuYuHc3Co8x8LTFJH3NawtYHeHRb7rlnjao=
+	t=1790503888; cv=none; b=Ol5pqE1Vk4ul9lg9wAO12HDqCOtIcvkpiVIhTuiIv7VkDArDSetkYPBfRLvnaVK4VWkJamgZJ6w8BPmHQLnPEjFEjyGfICcJLsZd8bbWzQ32ePHz+UYzgP8lI6AG/FAkmlfxeUoyu7eG/cf500bUr+kbrjCsHFSLFsTUcgxjQaQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790502495; c=relaxed/simple;
-	bh=5w+Y1CcKn/CttHaHw0/QkpxouoRBSJrbYaTBcdJOvHI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=D7BO1LpCbRP1FsgDlUQM0KoR5LX02T5LBWHdxqdFpPOtC3Ly/t2FrgEDjjFRpYEraz+uCeyMVsGXSiIChUGapZCq44iHjPZAKFneh/urZRWEHqbVespOXdE4lIRQp9tPRHZKB4lyQ3rJbzdYnwUEBE09sfxxHg5rqA+QagFHOW4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=s0qJvo0X; arc=none smtp.client-ip=95.215.58.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790503888; c=relaxed/simple;
+	bh=zwkk6zip1mpRhgxkj/PrPoXhBOA1BmeuosTU7gj9A/w=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=UyanJY5J4nZECD9r4Raxl5K13HR+6CTkhsxuvUWqCtxKiyLM3VOPqnGnQ0T5X0k7npDnMYYMMnT6y5ZbnjpW+yZamnmorhVYqgFKeZ9RUV489IXExctGgFNFOMtG5IrsSisXj8YpydW26QGtprJUuiREGAeW/2FuQVM1WC9nnDw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=lf6wZSq3; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="s0qJvo0X"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=5w+Y1CcKn/CttHaHw0/QkpxouoRBSJrbYaTBcdJOvHI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790502487; v=1; x=1791107287;
- b=s0qJvo0X8rx6wWtAh0YSIqtRqgO5nCOJ3tw3z4v0H4IrkzWJ3pbhT9W3yb4LKTIyh33xYTyC
- fRIHEkNPGGXJNwQnyuU1sGvjfVUihP9BFvJfhxNE/hucHeLZZJihe2ki9In/I0/xFih4+w9I8gM
- F4H9sqesJziEkb8IzGM2QPw4=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 75e904128475050b;
-	Sun, 27 Sep 2026 09:48:07 +0000
-X-Mizu-Trace-ID: 75e904128475050b
-X-Migadu-Flow: FLOW_OUT
-From: Hongfu Li <hongfu.li@linux.dev>
-To: hughd@google.com,
-	baolin.wang@linux.alibaba.com,
-	akpm@linux-foundation.org,
-	vivek.kasireddy@intel.com
-Cc: muchun.song@linux.dev,
-	osalvador@suse.de,
-	david@kernel.org,
-	linux-mm@kvack.org,
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="lf6wZSq3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=GM
+	5K3YMcvdK6ZyeBlGyhLaLE+gMTP73HJSvrqEJgq7k=; b=lf6wZSq3haUkfV3A+q
+	fbSDB1uG3Ch6cXFx0NOtpxEYeuFOEnwi+dkEE/5O1u96q7LbOVEV+zi2rdU8zU60
+	gYfiURpavW1TaYPQB51PMxli2saZPg43nxBdtvs86AlriiDjNOuDWaiJPSaFwJgA
+	24OliH9h4ivqFTH7cCpIXlkew=
+Received: from pc.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wDnn52j67hqFV5yBA--.63529S2;
+	Sun, 27 Sep 2026 18:10:44 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Felix Fietkau <nbd@nbd.name>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	Ryder Lee <ryder.lee@mediatek.com>,
+	Shayne Chen <shayne.chen@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Hongfu Li <lihongfu@kylinos.cn>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Cc: Jiale Yao <yaojiale02@163.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v3] mm/memfd: fix hugetlb reservation accounting in error paths
-Date: Sun, 27 Sep 2026 17:47:57 +0800
-Message-ID: <20260927094757.31665-1-hongfu.li@linux.dev>
-X-Mailer: git-send-email 2.54.0
+Subject: [PATCH] wifi: mt76: mt7615: cancel reset work during unregister
+Date: Sun, 27 Sep 2026 18:10:40 +0800
+Message-Id: <20260927101041.957362-1-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,126 +49,43 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDnn52j67hqFV5yBA--.63529S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxJrW3XFWkKw4kKF4fZrWkZwb_yoW8GFWDpa
+	y5K3y5u340gF4DKw4UZa1xAa45WanagrW3Cry8Xw4UW395AryFyrW0vFyjy340ya1kCa4Y
+	yrWUtry3ua4qvaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piPCztUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzQXsJ2q466WNDQAA3f
 
-From: Hongfu Li <lihongfu@kylinos.cn>
+The MCU error interrupt handler queues reset_work on the device workqueue.
+Device removal can reach mt76_unregister_device() while that work is still
+pending, since the workqueue is not destroyed until mt76_free_device().
 
-If hugetlb_add_to_page_cache() in memfd_alloc_folio() fails with -EEXIST,
-a concurrent fault has already instantiated the folio in the page cache,
-and the reservation now belongs to that folio. Calling
-hugetlb_unreserve_pages() in that case incorrectly removes the region
-backing the cached folio and releases one reservation more than it
-should, leaving that folio in the page cache with no region recording it.
+If reset_work runs in this window, it operates on an unregistered hw and
+can requeue mac_work after ieee80211_unregister_hw() has torn the device
+down. Cancel it before unregistering the device so it cannot outlive the
+registered hw.
 
-That leaves resv_huge_pages one page short until that folio is removed
-from the page cache, so available_huge_pages() reports a page that is
-not actually free and the pool can grant one reservation more than it
-can back. Applications using hugetlb memfds can then fail to allocate
-or fault in a page they already reserved. They see -ENOMEM or -ENOSPC
-from the allocation or fault path even though the reservation and
-HugePages_Free still look healthy.
-
-So hold the hugetlb fault mutex from hugetlb_reserve_pages() until the
-error-path unreserve completes to make the reserve, allocate and
-instantiate steps atomic against concurrent faults. With the mutex held
-from the start, a concurrent fault can no longer consume the reservation
-between reserve and allocate/instantiate. If a fault completed before the
-mutex was taken, it has already added the region for that index, so
-hugetlb_reserve_pages() returns 0 and the error path leaves the region in
-place.
-
-Fixes: 717cf9357325 ("mm/memfd: reserve hugetlb folios before allocation")
+Fixes: 61c4fa721968 ("mt76: mt7615: implement hardware reset support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
-v3:
-- Update commit message to describe the accounting damage and its
-  user-visible effect; no code changes.
-- Add Cc: stable@vger.kernel.org.
-v2:
-- Take the hugetlb fault mutex before hugetlb_reserve_pages() and hold
-  it until the error-path unreserve completes.
-- Update commit message
-- Link to v1: https://lore.kernel.org/all/20260831090631.29227-1-hongfu.li@linux.dev/
----
- mm/memfd.c | 31 ++++++++++++++++---------------
- 1 file changed, 16 insertions(+), 15 deletions(-)
+ drivers/net/wireless/mediatek/mt76/mt7615/pci_init.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/mm/memfd.c b/mm/memfd.c
-index c708d92533f4..0f6fff004f5e 100644
---- a/mm/memfd.c
-+++ b/mm/memfd.c
-@@ -82,22 +82,31 @@ struct folio *memfd_alloc_folio(struct file *memfd, pgoff_t idx)
- 		struct hstate *h = hstate_file(memfd);
- 		int err = -ENOMEM;
- 		long nr_resv;
-+		u32 hash;
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7615/pci_init.c b/drivers/net/wireless/mediatek/mt76/mt7615/pci_init.c
+index a9178e077fd6..7d8580720cd8 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7615/pci_init.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7615/pci_init.c
+@@ -116,6 +116,7 @@ void mt7615_unregister_device(struct mt7615_dev *dev)
+ 	mcu_running = mt7615_wait_for_mcu_init(dev);
  
- 		gfp_mask = htlb_alloc_mask(h);
- 		gfp_mask &= ~(__GFP_HIGHMEM | __GFP_MOVABLE);
- 		idx >>= huge_page_order(h);
- 
-+		/*
-+		 * Serialize hugepage allocation and instantiation to prevent
-+		 * races with concurrent allocations, as required by all other
-+		 * callers of hugetlb_add_to_page_cache().
-+		 */
-+		hash = hugetlb_fault_mutex_hash(memfd->f_mapping, idx);
-+		mutex_lock(&hugetlb_fault_mutex_table[hash]);
-+
- 		nr_resv = hugetlb_reserve_pages(inode, idx, idx + 1, NULL, EMPTY_VMA_FLAGS);
--		if (nr_resv < 0)
--			return ERR_PTR(nr_resv);
-+		if (nr_resv < 0) {
-+			err = nr_resv;
-+			goto out_unlock;
-+		}
- 
- 		folio = alloc_hugetlb_folio_reserve(h,
- 						    numa_node_id(),
- 						    NULL,
- 						    gfp_mask);
- 		if (folio) {
--			u32 hash;
--
- 			/*
- 			 * Zero the folio to prevent information leaks to userspace.
- 			 * Use folio_zero_user() which is optimized for huge/gigantic
-@@ -112,20 +121,9 @@ struct folio *memfd_alloc_folio(struct file *memfd, pgoff_t idx)
- 			 */
- 			__folio_mark_uptodate(folio);
- 
--			/*
--			 * Serialize hugepage allocation and instantiation to prevent
--			 * races with concurrent allocations, as required by all other
--			 * callers of hugetlb_add_to_page_cache().
--			 */
--			hash = hugetlb_fault_mutex_hash(memfd->f_mapping, idx);
--			mutex_lock(&hugetlb_fault_mutex_table[hash]);
--
- 			err = hugetlb_add_to_page_cache(folio,
- 							memfd->f_mapping,
- 							idx);
--
--			mutex_unlock(&hugetlb_fault_mutex_table[hash]);
--
- 			if (err) {
- 				folio_put(folio);
- 				goto err_unresv;
-@@ -133,11 +131,14 @@ struct folio *memfd_alloc_folio(struct file *memfd, pgoff_t idx)
- 
- 			hugetlb_set_folio_subpool(folio, subpool_inode(inode));
- 			folio_unlock(folio);
-+			mutex_unlock(&hugetlb_fault_mutex_table[hash]);
- 			return folio;
- 		}
- err_unresv:
- 		if (nr_resv > 0)
- 			hugetlb_unreserve_pages(inode, idx, idx + 1, 0);
-+out_unlock:
-+		mutex_unlock(&hugetlb_fault_mutex_table[hash]);
- 		return ERR_PTR(err);
- 	}
- #endif
+ 	mt7615_unregister_ext_phy(dev);
++	cancel_work_sync(&dev->reset_work);
+ 	mt76_unregister_device(&dev->mt76);
+ 	if (mcu_running)
+ 		mt7615_mcu_exit(dev);
+
+base-commit: 93f51579e7df248780214094418f205253383cc5
 -- 
-2.54.0
+2.34.1
 
