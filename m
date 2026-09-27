@@ -1,85 +1,67 @@
-Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
+Received: from mail-dy2-f40.google.com (mail-dy2-f40.google.com [74.125.229.40])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BBDF37B40C
-	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 06:24:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D1BC286D5D
+	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 06:33:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.40
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790490293; cv=none; b=CSYJV6moKtMV99AzDX6RrBylNnVhFaYSSOZ10f0F4glBY68JxE6RS8nBCJwiDhPKptdjXzLEYeSHN0aUWUKFUoI9OPjEvqZVOvR3hYP4ugon4zO9ig8F9ti4rdUGWqwQpyZ/xe8w1nztrJ16N9MRv8Yaj4x/MPxO/fnGwuRuzqo=
+	t=1790490815; cv=none; b=fsDRvL3y/i4ZQBKNWJ0BAonMxPK996gAMqZiSBkFHsbTlj8tFB09Ud7A62dE80WZ/ebkVNN59Jv7z+9j9opE9c9lZSPiNdpJ51aL0VGfhBInBtyD+74P2/No7+awKrI8LoIChuXZo8xHUQwy2QZw1giWx3XeSHC8+TcbgUWC9H8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790490293; c=relaxed/simple;
-	bh=eT/fj5vZ0Sj0xWvtck5u0p9IG2kOT0o4JMJn6zf0/qU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=m9hK88DVae2+sj0kye/LnAPC1PibT+GFnODdQ1OQwEati2KPMqTFmMCUm+9LYdJg2pxD3zMxIoMuruJDsS/opAU9a0s9WCBqofWZ0lV5g7qfD5m0BJb5eZ/yUAxvJzN9epOvrFVLPwERLSGrbX+rXFnNXg0BiRsuZKJSpOa21n8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FBqWKevv; arc=none smtp.client-ip=74.125.229.42
+	s=arc-20240116; t=1790490815; c=relaxed/simple;
+	bh=yKYsbQaSNbfxpL9AXn+Dk6w0376LevsziE0CM3vXnRg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=slv6n+xA9Y0oWLBY55wpT2cuWBS6rxLMROjaYTXqn+4Yu6wFvUA+ZvbGc5FUEwYqlqcndfmjU8uhsGzo1WIoTzuTXTbFsfdZ1smBCKck0KgDaFCXryemlRC/NVw4Cl3ytEJ1IXBOvyp6Ri6UDFtIYsUKJKet72gR01Q2WyosLy4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RqE3RrHY; arc=none smtp.client-ip=74.125.229.40
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FBqWKevv"
-Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-343241d5d34so47257eec.1
-        for <stable@vger.kernel.org>; Sat, 26 Sep 2026 23:24:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RqE3RrHY"
+Received: by mail-dy2-f40.google.com with SMTP id 5a478bee46e88-34346932d93so572803eec.3
+        for <stable@vger.kernel.org>; Sat, 26 Sep 2026 23:33:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790490291; x=1791095091; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790490813; x=1791095613; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9lvIFmMP4hhC0qEm4iuvni2Axxi7Wmdx8mVA3p2P2mI=;
-        b=FBqWKevvtUd2QdrC97qdrqzsBIb61h0S1+7pNq9x7edXsNUKxvnvhoOusCjDhLUPmz
-         AAW8nV4hay+UuN/6Pcw0fABgsGacFzX44OoeXxvPHRnEbJRcVu8UyphbwqBjhhgJ9/R7
-         mqeQ2CfV4tB9DWQwuN1DSmwnNVx25CBDwhU39r4qUP4BzGC1jjT/bkfIK4qJ3pN0eCXL
-         CoLFnO2wxnuPtfiqPgEkcl0R4KFvEOKFcTxEnVUsHUwUdndlSVNTInYuWptdN+kwE/hN
-         ZjrAFr4vFrHywWVWVht1vs6M3Lj/xE9wZkVPq3g6xAIGMLZ9JM6m6FHpMn10X53Ba2SZ
-         C05Q==
+        bh=x5E4VrjMKmWAeZuEbOPf8+lhLbvIn9eYFgM5VNzNGZ4=;
+        b=RqE3RrHY0nfrON53eX4dfaviV1sAWkM2AgoLGS3jUiIQVapqUCBnPeHDgAz/augpbj
+         z3KakUavc2Bt7BYKFP5idn/Wo/hdl1MFzSpu7Tm2vVqvElB+TpjbFkGVzwLTkYe3h7ug
+         B+NAaiBrfC/3irNEYIALjWVzoWjLFg/P7NoWo4585j+4fyPMzhbah5Ld1SbMTILDGmwG
+         CmBXAisDO42G9LbnxTY+CkZCrz4Qgq5cIkGbnoUNNI1amnMtGvXrEq8dfEUg/TskmEr8
+         kc7N9RyNfIXbdnDR9+JyYnAAHNAeumWZtL9J4aPO+PgH1r+FVA/NqQaSxqe+y413joUX
+         rS5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790490291; x=1791095091;
+        d=1e100.net; s=20260707; t=1790490813; x=1791095613;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=9lvIFmMP4hhC0qEm4iuvni2Axxi7Wmdx8mVA3p2P2mI=;
-        b=XJNpFfIHq8u+qm8aA5ptBYC4/5/rRndIbRqcrLdRFA5sJNfUl2wpJyYNvbMzgLUj+N
-         fBQBd865tEmCnxc1IlmJPdxgBDQ14EwFxPPq0TMQd710FMVPxRi5MUZt1TuEmRmLCpkM
-         40Oj5cOBKnZfn5IFS6X52VKMsyviVYP4KDU1XUlU6l3LKObqmnUF1RXu5zzmCUpCmwww
-         AJLOAEsv78QejX55SWpMGuY3vOA/yqQjpZ+GUN0zEDFFWXir0VdgzsVm6qXykA5TrGIq
-         LG9H4BsOyjR2flqRWt2bnAORTzODuD0Jh5rBBbMfsGA5wv4H6rBOwUwyxzS2YCCdUQj/
-         iuWg==
-X-Forwarded-Encrypted: i=1; AKwUvBzNMvPZhNg/2Uv+e5JUB3YkufXeNbMy7AcZh3WGtky6vlzM773keHe3lZwvro4IR9pwsaB4j0I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIXc3luzAvXR0koqXT7dipd68drtQKUQgg8iy29FB+D/VQjO/IW
-	cR9eLWVD0t3vyMHvzAGnsVx/+uRcIfVCoqWdEIvv9ZgqkTGDTf4XkEDP
-X-Gm-Gg: AYBFou2+f0il2idh5Z+/Ua5oAl8MU4UE4pu/7P5VsM8E9OOAc2XqnNXJCmZaF3hoszh
-	Gmh3TdnYhJFfYFxFKaIJ5+D9XuBiKNpuXKROnM6avflbYoSHn+ockHq8iuAROAij6Vf9cTqebo4
-	EFIo137kqzY1pSr3Nf7FPn0e8oZI67r9Na3b5ak74M4F+fGHsW5NOmpj5N4dzH5FPCN1uWnYyuP
-	YO7qo1gHC/cxHi+s06Ams2eorVU/qDtvF2y7e6qIXDn5Lw1JU2U5VqikRlVwc38R7FcVelf4Wmy
-	Fk7UP8q99xOapUwZUJzF8QLiDzP+WM13UuLIv+gZI1LaZsyfHdG/SCEICitDfMcJHuA1VoQ4b1l
-	N7ZnTNOROsXs32dr9AeNJKpDuA4ICDWjHD0kAYFniOc+s/gbNXhyJdlS0lVNapUIskRH4fnk0UP
-	Souu1jBgB+Pk1poRV9HPPTbKDEjDMTtZoEZy/Bf3mbYmpzLIxo673Mpd3SFIOWG5fldkmXsba7P
-	icioFLkfn/Bdh+EQcvaGsxLIWBkqaBcKew56foW1qZD+Cn/OwIGd+4zVkb0GPDG/Xa5vxPVHI22
-	6inq
-X-Received: by 2002:a05:7300:f64b:b0:33e:4e49:d08d with SMTP id 5a478bee46e88-34272b4bc81mr8484339eec.1.1790490291342;
-        Sat, 26 Sep 2026 23:24:51 -0700 (PDT)
-Received: from localhost.localdomain (95.169.12.199.16clouds.com. [95.169.12.199])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3413fc2413dsm19056291eec.0.2026.09.26.23.24.47
+        bh=x5E4VrjMKmWAeZuEbOPf8+lhLbvIn9eYFgM5VNzNGZ4=;
+        b=CaZIFB0Gm6rvUuQQZm+w5I6Tx9yGOnzNWPNWUtc9u/4BVBl0l6tPWMbjUC9Jv3qWRG
+         Ay5GU0yyJ7Du4TWJQ/BldbbmuKV45EjlK+4TjtxHeQHzT/AECKBWDsTuv1p+D0YkZ3tD
+         m9bpaWg1pHG4mKNQzxwAjd2uPtllJLwxcl1NSNfU23sixLlW3LkBaxyiSSoXn9fONupi
+         860E325njARE/KF+b8/dtvh2xZ39jP1grJbNIV7skSpZDN8Qn0hAurKdUcseGc5DwscW
+         /uIMYEiMCwYekpuHIb191Pqq5Z/UWe5tnwD7vcS/2GUOZ0azC1xlvDZmKiEY6ro2kmIy
+         mMiQ==
+X-Gm-Message-State: AFq9FYJIK4Nuy7SPxgN7UgGgLbptIJ7uPSZ1LNfBh+08MqoUoeUXd8sa
+	19Fooykje76ED8NevHWsfdfF0SLeoEVphPpwAh85WVpbo4DubE4567QP8Zhqp5Z++kbKvg==
+X-Gm-Gg: AYBFou0ZbYQQY38TZcAfwvR9e4Ib11td6r18EOklJB4hBNWBKPfuMFhONNP5nXUitOT
+	jAtDtPN08SgUk/lwNuFC82ftggC2XUiISjceNZ2VNI0W637XuHqet7Km9wdMAKX5Zbi3jsqcM7l
+	Tlf4HWdL8Vl+o2w+670Co3mPIOSWKQdh/MItTTwOTvXFc+ptdPsdIpcOPaqTDTA8U/OrG+jUizu
+	x2c4jzAL/sv68hOAVGf5ZvB0ady03fNzL1nX0Fzz0rD1bIWB6LvnnuMI7/dpzyfHmnyr42G9RK/
+	bfQ3cjLYcWxSaNqYG+HFN3+2P3KjYy6fZN/aVhWlo/9xovLvr/zItf6Wsia5R+sA787Ocef/P43
+	KkDVf/WZpCLZ8iBajGCImgUSOBuQByXJIYoJaiKr7O1fVO/LxYuZ/+GUHVB3LeM613unf83N/sV
+	tHJ7fh6iAbjnEmGVOaVqWkCuMRLuL6htRlociDURka07V9kWHw2ptWcAk1th+Q0gDVAw==
+X-Received: by 2002:a05:7300:cc1b:b0:327:e68e:3230 with SMTP id 5a478bee46e88-342702c203bmr6885721eec.10.1790490811988;
+        Sat, 26 Sep 2026 23:33:31 -0700 (PDT)
+Received: from localhost ([8.219.88.255])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3421dbb2971sm15335289eec.10.2026.09.26.23.33.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 23:24:50 -0700 (PDT)
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-To: Simon Horman <horms@verge.net.au>,
-	Julian Anastasov <ja@ssi.bg>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Hans Schillstrom <hans.schillstrom@ericsson.com>
-Cc: netdev@vger.kernel.org,
-	lvs-devel@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	linux-kernel@vger.kernel.org,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net] ipvs: fix protocol data lifetime during namespace teardown
-Date: Sun, 27 Sep 2026 14:24:35 +0800
-Message-ID: <20260927062435.3690129-1-nicoyip.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Sat, 26 Sep 2026 23:33:31 -0700 (PDT)
+From: Dairui Zhang <zhangdairui@gmail.com>
+To: zhangdairui@gmail.com
+Cc: stable@vger.kernel.org
+Subject: [PATCH] ksmbd: fix OOB read in ksmbd_validate_name_reconnect()
+Date: Sun, 27 Sep 2026 14:33:27 +0800
+Message-ID: <20260927063327.1731027-1-zhangdairui@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -88,86 +70,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-IPVS frees its per-net protocol data before control cleanup cancels
-defense work and unregisters the sysctl table. A defense worker can load
-a protocol data pointer, then namespace cleanup can unlink and free that
-object before the worker dereferences pd->pp or pd->next. The worker's
-securetcp_lock does not serialize with protocol cleanup. A concurrent
-defense-mode sysctl write can reach the same timeout update path.
+ksmbd_validate_name_reconnect() indexes
+ab_pathname[share->path_sz + 1] without checking that the path is
+longer than share->path_sz + 1 (d_path() fills the buffer from the
+end). A durable fp is not bound to its original share, so a client
+can preserve a file from a short-path share and reconnect it on a
+long-path share, making strcmp() read past the PATH_MAX buffer -
+with a long enough share path this oopses the kernel, and on a
+mapped page it also gives a byte-equality oracle on adjacent heap
+(the reconnect succeeds exactly when the out-of-bounds string
+equals the requested name). A same-share variant with the durable
+fp at the share root reads 1 byte past the buffer
+(strlen(ab_pathname) == share->path_sz).
 
-KASAN reported:
+Check the prefix before indexing: the path must be longer than
+share->path_sz and the next character must be '/'. The comparison
+for the valid case is unchanged.
 
-  BUG: KASAN: slab-use-after-free in ip_vs_protocol_timeout_change
-  Workqueue: events_long defense_work_handler
-  Call Trace:
-   ip_vs_protocol_timeout_change+0x1b4/0x1e0
-   update_defense_level+0x63e/0xd80
-   defense_work_handler+0x1e/0xc0
-  Allocated by task 125:
-   ip_vs_protocol_net_init+0xda/0x2f0
-   __ip_vs_init+0x16b/0x240
-   setup_net+0xfc/0x310
-  Freed by task 12:
-   ip_vs_protocol_net_cleanup+0x1d6/0x2e0
-   __ip_vs_cleanup_batch+0x7d/0x100
-   cleanup_net+0x38c/0x770
-
-Run control cleanup before protocol cleanup so that defense work and
-active sysctl handlers have finished before their protocol data is freed.
-Initialize protocols before exposing the control interface, and unwind
-in reverse order, to enforce the same lifetime on initialization failure.
-Protocol initialization and exit do not depend on control state.
-
-Fixes: 9330419d9aa4 ("IPVS: netns, use ip_vs_proto_data as param.")
+Fixes: c8efcc786146 ("ksmbd: add support for durable handles v1/v2")
+Reported-by: Dairui Zhang <zhangdairui@gmail.com>
+Assisted-by: LLM
 Cc: stable@vger.kernel.org
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+Signed-off-by: Dairui Zhang <zhangdairui@gmail.com>
 ---
- net/netfilter/ipvs/ip_vs_core.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ fs/smb/server/vfs_cache.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/net/netfilter/ipvs/ip_vs_core.c b/net/netfilter/ipvs/ip_vs_core.c
-index fd503f0efb57..8a3c880fdb26 100644
---- a/net/netfilter/ipvs/ip_vs_core.c
-+++ b/net/netfilter/ipvs/ip_vs_core.c
-@@ -2502,12 +2502,12 @@ static int __net_init __ip_vs_init(struct net *net)
- 	if (ip_vs_estimator_net_init(ipvs) < 0)
- 		goto estimator_fail;
+diff --git a/fs/smb/server/vfs_cache.c b/fs/smb/server/vfs_cache.c
+index 293dab9..52e83cf 100644
+--- a/fs/smb/server/vfs_cache.c
++++ b/fs/smb/server/vfs_cache.c
+@@ -1714,9 +1714,13 @@ int ksmbd_validate_name_reconnect(struct ksmbd_share_config *share,
+ 		return -EACCES;
+ 	}
  
--	if (ip_vs_control_net_init(ipvs) < 0)
--		goto control_fail;
--
- 	if (ip_vs_protocol_net_init(ipvs) < 0)
- 		goto protocol_fail;
+-	if (name && strcmp(&ab_pathname[share->path_sz + 1], name)) {
+-		ksmbd_debug(SMB, "invalid name reconnect %s\n", name);
+-		ret = -EINVAL;
++	if (name) {
++		if (strlen(ab_pathname) <= share->path_sz ||
++		    ab_pathname[share->path_sz] != '/' ||
++		    strcmp(&ab_pathname[share->path_sz + 1], name)) {
++			ksmbd_debug(SMB, "invalid name reconnect %s\n", name);
++			ret = -EINVAL;
++		}
+ 	}
  
-+	if (ip_vs_control_net_init(ipvs) < 0)
-+		goto control_fail;
-+
- 	if (ip_vs_app_net_init(ipvs) < 0)
- 		goto app_fail;
- 
-@@ -2527,10 +2527,10 @@ static int __net_init __ip_vs_init(struct net *net)
- conn_fail:
- 	ip_vs_app_net_cleanup(ipvs);
- app_fail:
--	ip_vs_protocol_net_cleanup(ipvs);
--protocol_fail:
- 	ip_vs_control_net_cleanup(ipvs);
- control_fail:
-+	ip_vs_protocol_net_cleanup(ipvs);
-+protocol_fail:
- 	ip_vs_estimator_net_cleanup(ipvs);
- estimator_fail:
- 	net->ipvs = NULL;
-@@ -2547,8 +2547,8 @@ static void __net_exit __ip_vs_cleanup_batch(struct list_head *net_list)
- 		ipvs = net_ipvs(net);
- 		ip_vs_conn_net_cleanup(ipvs);
- 		ip_vs_app_net_cleanup(ipvs);
--		ip_vs_protocol_net_cleanup(ipvs);
- 		ip_vs_control_net_cleanup(ipvs);
-+		ip_vs_protocol_net_cleanup(ipvs);
- 		ip_vs_estimator_net_cleanup(ipvs);
- 		IP_VS_DBG(2, "ipvs netns %d released\n", ipvs->gen);
- 		net->ipvs = NULL;
+ 	kfree(pathname);
 -- 
-2.43.0
+2.53.0
 
