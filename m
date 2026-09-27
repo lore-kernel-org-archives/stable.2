@@ -1,116 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C47F3B388D;
-	Sun, 27 Sep 2026 18:47:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC4103B388D
+	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 18:48:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790534863; cv=none; b=OYu/b1zSb9OgvPd2Lntzjn3+IFtxZhfZojiVlqCk5Tf2h6BbTzMNlEDcyj1qDZZjaAcbl9UeSeiOWoU82bORPh0QQ+mkd6liS7ONjvaWOLed8/tH3VoBZU22uu4XAjqwEy0t5lwvmAYUpzVvfJaOxTjJoAJ3oyK99+g7JEzeh/4=
+	t=1790534902; cv=none; b=iRgEZJZBESoHHqjJraGys65GZN+ksOCtqVor8en7TNpEnO+OVdkNaM23/S0zIqNXLCCJWa1T7sIstAzIo32g9mng7BWQd4ACrWLtrjlqbqT3sIiDe5suf4YibVHS3JJl9jOY49NhWsM8qGJDe4Soti48n5WouzOp8P337LbCjJY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790534863; c=relaxed/simple;
-	bh=3pJmv3/3umA7ZkP71xzHvblAqWKINyjEcVMStuRTR70=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=f/vuKr+JNm6Xr6c0XwXiBNYXuocmOURKATVe1Zq6V6wVfJqtwT7JOcyOW6Ub5FhRuMobkQPDekfUskaOxf8dgocvnFIMqq0vLwylyo+rOitREx+0rv02puW7CGfdjma0sgnhb8ynTDSDieoOt3XCbnV24JjBdLqcbN6+qBLSR+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XiouCllz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790534902; c=relaxed/simple;
+	bh=soXokHFCzmLIi+VJ1I3iTtbX0+pzsLftTokWbQ9P6Cg=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=HhBTlCJa4JBs/oOab1UhVo0owAQZfeurfn9aHYgcxL+D7C4jEDqASiLkK+SEISxZZEFg5t3l0++zmo7X3E0pjHbHxMtTN/HP7rnt0kJ4qoe1p1vpdV3ZFSHAeu4Ax3XJSN+OOFNHc337cJB/8kySdLB2WUbYuOSniUr5aTTMqoY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=k+RmNbcm; arc=none smtp.client-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XiouCllz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C85C1F000FF;
-	Sun, 27 Sep 2026 18:47:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790534861;
-	bh=rTGkk6MKJYEzG3GcMmmmeg6WnVpHww0g7NA09ykyC/4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=XiouCllzQ8ykayo10Wtw+WZ9XUHvKJYxIdOip1YinuSyngXjM6haeQeLkKxhkYMWh
-	 TEz97N/hVI+VL6sO9QCwcl0Hv2/P2G8FIsgYsoeBBCujZIwMrpMfkogK0OX77JosxG
-	 872EwwComyyYJvmkAxQaDjK2Z1y/jNw6UYUXQltl7Kw4goXb+9PPH7XPg6diolzM8d
-	 CtoHzhvC3dsG1UjptevwG1lfIp7eASokpg+hub9c1h1AawVUeGVtPBxxt8V3bWnZhT
-	 tey8FMJLq52mxDjR4COhdZNzCbsQ94N4WYx4riJmDIgbe9ALxgAoiq9M8NPYxdgko7
-	 h4J6/NSUw0vUA==
-Date: Sun, 27 Sep 2026 19:47:34 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, "Andy Shevchenko" <andy@kernel.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Olivier Moysan
- <olivier.moysan@foss.st.com>, <linux-iio@vger.kernel.org>,
- <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
- Cheick Traore <cheick.traore-ext@st.com>, <stable@vger.kernel.org>
-Subject: Re: [PATCH] iio: adc: stm32: fix minimum sampling time values
-Message-ID: <20260927194734.7bc017a2@jic23-hlaptop>
-In-Reply-To: <20260924-adc-fix-sampling-v1-1-13814954d8d7@foss.st.com>
-References: <20260924-adc-fix-sampling-v1-1-13814954d8d7@foss.st.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="k+RmNbcm"
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-3410209aa6aso893865eec.1
+        for <stable@vger.kernel.org>; Sun, 27 Sep 2026 11:48:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nexthop.ai; s=google; t=1790534900; x=1791139700; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=yqlZZ1RhSPYEVPxxu8nVXKmxPulry40jU+yUEBcr1Ew=;
+        b=k+RmNbcmk2D7AP0kteNYpcaZdc/OxOoy8fVJMwEAKZurJAThwJr5YJOZ8NitnpImVB
+         htLitsit0bfiW+cFgggLx5SZGCgVZ33wVyQIqpPA7OXzBXDiDFwyZwEVYao7D9AEVetl
+         M3uAwn8dDROWtN2sjqzmbid8rTJjyeXbVa2Sr+LP+d0g7sxLpMCHIVT3rKPyifrM/PKe
+         /cqbOOeUGoqFIka2VzrgEwWH9LMR2FmsIDGxzZObx2Ok7MGVyYeUsbJFh3PF8mgPPpf9
+         dBqVwmjmD5Am3UcUIDfBG2EXGAtCgHKUBzgeppUALzldMB3nQJ9aYBGj0B99nh5rdgun
+         7jrQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790534900; x=1791139700;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yqlZZ1RhSPYEVPxxu8nVXKmxPulry40jU+yUEBcr1Ew=;
+        b=2fUJ2V09YTfgeL+sQC5MK7QHi5BqM08i2hxOcKvVLhg5J5PPKBfiDqxXMevyJ0j1VL
+         s0Y2HcckPOdFovkauet1LlAgjnl9HncPU8ESOaM4rOxWXLJyz79/NandyMbmlGe4auUB
+         xQSHfmKqNQMaSISaka1G0lvsgXYa1GBkRpsvVxXC+rV5NWj5FpIAZklYtl/fw59UArNB
+         eC0mM7c6qedjelcGui2IAhnVl89k//3ut3t5vlNZ4W3W7W7WY3/J5ysLFjysIlc65cQ2
+         nV5L+Wv8wtBBtYDs5joi0ka10fgM6OZGIZHv71sKmAgHLhFv0R6qkTye2WtZoX3258A1
+         91jA==
+X-Forwarded-Encrypted: i=1; AKwUvBz+vJ+SA0IPPCk53ehKRD/wyVTOzknda0vMZDa33tDupWPNuHQhc7yMk9Jy8hEfUjEZdMtxBdU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJonn/CatYMhb8lhWeZYY4+a+P1X7Q07ZssdC/qA2r+jj/hH7hc
+	3XdSvY95PazHCicKntPmb4mXQ4yig3S6FBpyX3n4j6JQ3ht9CuHSspohcZO0iV8Quww=
+X-Gm-Gg: AYBFou3hLB3EF6U9bYnfSLAmEqLnzLAkXsXEOR5UfgDztCkDQMJD9a2OlwGU14EpqML
+	1ATjTfQQOpuqDG2DGpQ24ZGS+O0ayv7u3e6/JG6Fv9wFXx1aAege5r53lhMcBLYo9HNBuPQKz5z
+	A2DHYXUIEDiiSkZ/tWWi7T+G20QzJXIGKhqDp6R4gYeOrdQlIKV8F/TuD8wHTir7jsLIcWyj3hA
+	FNJ8QClmu7XF3B+rEBQT8yG5HrcbKv9g7liTnNV0hJHvpudCzser+eG2F213hOojCongDdpRTBo
+	KyPedA1yDFbhLD+C6uSDpDkmbl33w63tZgLhi0WgpEwO551+gToIJjCNU0poeC0rva7iQxk7NWn
+	XVbvn4UQcg3KW7+wm1DV8hyf/GIUAHCHz7woT5cfyJicpYZS7RjVasRyT6moZyjXYabWrHu7wDL
+	QNhT71kfCwJP4ml58lKMWd2c64ZaYmgSUplgev5oT2/d2Kv8seJwSHymJDCIeYztuSj4I07EU=
+X-Received: by 2002:a05:693c:62dc:b0:332:946c:4778 with SMTP id 5a478bee46e88-342721805c8mr5904589eec.14.1790534899604;
+        Sun, 27 Sep 2026 11:48:19 -0700 (PDT)
+Received: from localhost ([50.145.100.174])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-347323f5a7esm2044300eec.15.2026.09.27.11.48.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 27 Sep 2026 11:48:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 27 Sep 2026 11:48:18 -0700
+Message-Id: <DLQBNCNNWZNO.1AIPW6NRU3GWS@nexthop.ai>
+Cc: "Michal Simek" <michal.simek@amd.com>, "Wolfram Sang"
+ <wsa+renesas@sang-engineering.com>, "Raviteja Narayanam"
+ <raviteja.narayanam@xilinx.com>, "Wolfram Sang" <wsa@kernel.org>,
+ "Manikanta Guntupalli" <manikanta.guntupalli@amd.com>, "Shubhrajyoti Datta"
+ <shubhrajyoti.datta@amd.com>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-i2c@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <stable@vger.kernel.org>
+Subject: Re: [SPAM] [PATCH v7 0/3] i2c: xiic: fix SMBus block read and PEC
+ support
+From: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
+To: "Andi Shyti" <andi.shyti@kernel.org>, "Abdurrahman Hussain"
+ <abdurrahman@nexthop.ai>
+X-Mailer: aerc 0.22.0
+References: <20260924-i2c-xiic-v7-0-df7e752332ef@nexthop.ai>
+ <arkAZJEJTtNsCjmF@zenone.zhora.eu>
+In-Reply-To: <arkAZJEJTtNsCjmF@zenone.zhora.eu>
 
-On Thu, 24 Sep 2026 11:53:56 +0200
-Fabrice Gasnier <fabrice.gasnier@foss.st.com> wrote:
+On Sun Sep 27, 2026 at 4:40 AM PDT, Andi Shyti wrote:
+> Hi Abdurraham,
+>
+>> Abdurrahman Hussain (3):
+>>       i2c: xiic: preserve PEC byte length in SMBus block read setup
+>>       i2c: xiic: defer RX_FULL until all trailing bytes are in FIFO
+>>       i2c: xiic: don't clobber msg->len to signal block-read completion
+>
+> pushed to i2c/i2c-fixes-2.
+>
+> Thanks,
+> Andi
 
-> From: Cheick Traore <cheick.traore-ext@st.com>
-> 
-> - On stm32mp15: vddcpu and vddq_ddr are not connected to internal
-> channel, so their sampling time shouldn't be set.
-> 
-> - On stm32mp13: vddcpu and vddq_ddr are connected to internal channels
-> and the value for vddcore was not correct. Values from the datasheet
-> are 1us (e.g. 1000ns) for ts_vddcore, ts_vddcpu and ts_vddq_ddr.
-> 
-> Fixes: 7cb2303dd024 ("iio: adc: stm32: manage min sampling time on all internal channels")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Cheick Traore <cheick.traore-ext@st.com>
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Hi Cheick, Fabrice
-
-Given we are fairly late in the cycle and that we have Fabrice's
-other series poking at this same driver I've queued this up on
-the testing branch of iio.git rather than taking a (possibly) faster
-path.  That means it will go upstream in the next merge window.
-
-Thanks,
-
-Jonathan
-
-> ---
->  drivers/iio/adc/stm32-adc.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
-> index 90f0e257e6d1..b024326775ae 100644
-> --- a/drivers/iio/adc/stm32-adc.c
-> +++ b/drivers/iio/adc/stm32-adc.c
-> @@ -2734,7 +2734,7 @@ static const struct stm32_adc_cfg stm32h7_adc_cfg = {
->  	.set_ovs = stm32h7_adc_set_ovs,
->  };
->  
-> -static const unsigned int stm32_adc_min_ts_mp1[] = { 100, 100, 100, 4300, 9800 };
-> +static const unsigned int stm32_adc_min_ts_mp1[] = { 100, 0, 0, 4300, 9800 };
->  static_assert(ARRAY_SIZE(stm32_adc_min_ts_mp1) == STM32_ADC_INT_CH_NB);
->  
->  static const struct stm32_adc_cfg stm32mp1_adc_cfg = {
-> @@ -2756,7 +2756,7 @@ static const struct stm32_adc_cfg stm32mp1_adc_cfg = {
->  	.set_ovs = stm32h7_adc_set_ovs,
->  };
->  
-> -static const unsigned int stm32_adc_min_ts_mp13[] = { 100, 0, 0, 4300, 9800 };
-> +static const unsigned int stm32_adc_min_ts_mp13[] = { 1000, 1000, 1000, 4300, 9800 };
->  static_assert(ARRAY_SIZE(stm32_adc_min_ts_mp13) == STM32_ADC_INT_CH_NB);
->  
->  static const struct stm32_adc_cfg stm32mp13_adc_cfg = {
-> 
-> ---
-> base-commit: 182c47735554925da9605dc9dd90a8c15a1bbae5
-> change-id: 20260924-adc-fix-sampling-526f0f26829b
-> 
-> Best regards,
-> --  
-> Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-> 
-
+Thanks a lot!
+Abdurrahman
