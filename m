@@ -1,75 +1,86 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C7D618D62A
-	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 06:33:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 770F754707C
+	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 06:36:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790490825; cv=none; b=riX0kFQBvO/NGEmNS0VqlB6CPAEewYPuXWVfOmjvgCERUpQPHbnAbHlCET79UblFturSeCUL800k8hsU+SqdckIoSyq+FyvCXFhOCOd0oM3rT8rHGNOQ2QB7WMv5of4xogyy/7JbJ3tVpS0U0IMImMmvBD+qDUyay6odJ06WrLM=
+	t=1790490998; cv=none; b=liaqPGhcan6/+8soFLgjjhilYkkZtA52V8kloq+bHPPcDqTjN84D63yuNc05kNMQAd4jnoAPt4oXMBgAeRVMGiIR3HFV2fnvrKuojYn14Zkn0MJb0E9p6DEjC8X4RJP3IryxTMEwmkcT7Tv+bzm38Lp18y27e0FBtL4Fow4Q8o4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790490825; c=relaxed/simple;
-	bh=yKYsbQaSNbfxpL9AXn+Dk6w0376LevsziE0CM3vXnRg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dn/q5xzlmANwJge4n3lIHD1LHPCKmzkPkxhk0obEsaRHFNmf1B9sCWnaFnieY2DoOGj1sGnXK5eduEw4/Kp2ZQ4guV5SgqwvDVazyFOvBQCZs9VtHCHwLr2IumkRG8Ocp9l756mTuW7fVdnTZGTDPUEdS42s2Rp9AzwWWnghaZc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iicfrTKc; arc=none smtp.client-ip=74.125.227.141
+	s=arc-20240116; t=1790490998; c=relaxed/simple;
+	bh=wHQdLfMMd82uicydTDyrDjeBvqpPgK25O3f2d1+2qK4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jWX2swpO5WujWgAa0ukrPhfLPBkeDbN0XEN/dEZgVV+gNfQXoGzNilNVqNOAcZ55niNg7M0Ut80gss/uE5E98dnwCYadtZplEiutUYMYDIl812xroXZfXA28k+37WApgp0hPi8bZsqd0vGifZg2YIKTRRUu1a6SMMva0+m9IL/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mhXSM44g; arc=none smtp.client-ip=74.125.229.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iicfrTKc"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccb652d7so1353719a91.0
-        for <stable@vger.kernel.org>; Sat, 26 Sep 2026 23:33:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mhXSM44g"
+Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-334f6631916so239248eec.1
+        for <stable@vger.kernel.org>; Sat, 26 Sep 2026 23:36:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790490824; x=1791095624; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790490996; x=1791095796; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=x5E4VrjMKmWAeZuEbOPf8+lhLbvIn9eYFgM5VNzNGZ4=;
-        b=iicfrTKc1PAxp8WsHiF3LMwU5EowI+39ZBCp3xjDwgxk9MpZ0P58raaCXjzmhPkohs
-         UD4iNN9KPhE2o9epeIYkFDWtQEvMNyMq7jkM5DLqf/qUT15FLZUGGH5Mk35N+bPdQal/
-         fK3h2d6+FW3/n6mchLLrulwMo+FJt4tbpQe82UaIzXE9+K5lJQANUb+k6EztFvAau0yv
-         X3HKVMt/XlkMNWLyPGT5545Nxqg3ywZ/woBW8gQv4at+fbFSZhbEIWDrqKoK+xOZuLfs
-         0SFcEX+99vsgMLsL5exCzCk90S8YkSQEPW2lgy/K/g/K+Mm9duObf6RCGPvjvAF6Vru4
-         4sBw==
+        bh=iv9eqmZTsPYq8IkzTlxVg3AoSoWr/86gQvKT1wTesaU=;
+        b=mhXSM44gXIaTlG1EH6MlohpI2K43fIzKNMhLNCvGTGXvvdDQJwTAxnzQ4npeYeYBH6
+         P4IIwbuln7p5yGLbsLkKUveu+Dt4tp7XJDSit5ScuA4D3Ns1o9HQoD4fWpBH+Y1ov96I
+         nK+pJOKRAtiZbERf8WMbKWuiUL8Kq2Ln3oD4UL8NzjNerIko9JBKVW4rT8LOOxTdSE/l
+         b0OxExWhhsTS7jj37Yplh592cRtnB2u36lGmoy7KnF/zX76U3ZNBloR+aKbtjTV62ziF
+         m1MKYahkTjXREnh0gqT4pctTEVppo3BT78AqiOlUepG2D/2kBymG+NSZcqyX80aDEv3z
+         Bt/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790490824; x=1791095624;
+        d=1e100.net; s=20260707; t=1790490996; x=1791095796;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=x5E4VrjMKmWAeZuEbOPf8+lhLbvIn9eYFgM5VNzNGZ4=;
-        b=bRDm3GVaE6L7rgpBsZGwwFirBX5DChgdmZsNfo86epJ/3NQemlhEIDFdgQl4PBzI3U
-         eKbXRiY0L+J/5c2jUWlW0USyfnm74YKUCo8SFq3JNMpET+elA/U15YOJpdAyEV0Bjy8w
-         vaXZELKRaI+4I/MRf25XxVuG7fwAfKNM7Hh0EW9e359HpAExlWMG7Jof5KCyCmwZIY2+
-         wFIhwZCuvScFe20f/rTz0TFIgBKOrWCefTn7L8DZIT2v1lcV8YSTbBKcCrg1x7l0Kkit
-         OZ60nm4RTqht5EgHNn6PAOBOnXv7s3t5IjGvq7Uhcnh0vi+LfvGCZtnx4ns4He2wDX40
-         c5mQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxQ6xIXXEupacP2gIYVe4/JsSQrEjgX4sTdlp10olJKR91xQqwbU1C226asVJ5HEfo6Gck7m4s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIO6jMcraGsc3LgfbDBRwDvLtTjRb2wYTuU+jYm/gnExRHl1OGi
-	xJB2qnUTJ2jD3mizUWDlxpX3b1a42G9CLigtKHTLWJREl6URxzrtZzEU
-X-Gm-Gg: AYBFou009LGOfFXrYhlzVPmN19xPchgWPc1oczzW/9ogig07qmbcKcAq04ZJPT00Y89
-	6KMUR7yjQNVI0bkNHI7BkI2g3XR7qPtgBFfq0S+IWh2A/emuUlw7PmJ0McvY/8HWW8jf4TZTshp
-	pJXCHYyM/dLVLL/E5wxQAiRKRx3Wsh9DwGTtVwRPn21F9+HsyBjYSBTJTe63n+UMD348CYHv2qR
-	fShmPl/tqIogMNNp78bp+aDZwxU8s7wSNwD5j3h94D+/3yc0MfhrLPMGIeDG77opy4O1D8vFN5R
-	tXEKJlHIjZisLhSh30XD0Fm5L78MCGad3sjmz6fVlN2E7TiY8/hOXKjZNeEe/JpwfgTPWA0Odh9
-	M2fG8YV9QpMGdxWoF/NiRg6Pic30FF+zYijKvfWCzldbcJDI2HIm3uVjb34f+0meoB7wVDVaTR4
-	PKPZ0ooQj+UkCNZ60I8fFf9QR6X+WisprSrgwdAFo5txeSpqq4QJaJMj25QUW1L5cBfNcfAomht
-	dCr
-X-Received: by 2002:a17:90a:ec83:b0:39e:6c6a:4b77 with SMTP id 98e67ed59e1d1-3a098e43948mr7363556a91.65.1790490823764;
-        Sat, 26 Sep 2026 23:33:43 -0700 (PDT)
-Received: from localhost ([8.219.239.189])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a09773e7c3sm19804747a91.17.2026.09.26.23.33.42
+        bh=iv9eqmZTsPYq8IkzTlxVg3AoSoWr/86gQvKT1wTesaU=;
+        b=KQZPRJk++B49nNsdkmy0UKEJ0z0hyap0FbxKl/xfxLXGkjKu0/Jc+QdqVzsKYnqQ4H
+         qRkTHo5n89FdMpF3HmPbvdtovIfa2YumNcnkoai4THhsGLtT5xtUyDyIlbTt9MIw1Ss+
+         +4TTYnDWh3YhFhw/ZTQ7755xfCK6sIewTDKKtasnWPE8KtIG0hYvKBhP68uxJIMKSp76
+         PoIfdVfJNq/tQgjQhqxNsDdVzYy/Q5mmQP4WZlxJDgOOaP19rYdWGNWCLPNoA0KP+e9M
+         PDdHzBb3jXaWbs4SYJEeqbFosUDQCH2ltZbTM2110L/piq8UnZreALOGia5eduG7HheD
+         JDJg==
+X-Forwarded-Encrypted: i=1; AKwUvBzvcRffrMwV3Fz8GDfBlGMwpuKZsCWqWttj+dqwp5uNPY2KQ3XlbGXN3sfCPaG7pPdy4l6sIm0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKML8ueitIXmaxpmUWEsvZ9z2LZ8msnIrwSAYWUwaapTiPaafNx
+	wcSiRbtv3aIdOB60e9LmAVMZf1WCMJFzXhlGtsaVmyDfryrXPiFefsDN
+X-Gm-Gg: AYBFou1puUIO+9ysk9+rL9xy94PSQtmCfNDtlrZydiehR+h8ijXFAe9L0V3F1yhUrBQ
+	eh7dJbIYYiIztAcd/SnoUUmOTV24qGpcKyEj9eSsKnANYVdWj79IDRqWtfWl3EOJDxX0zcG++iV
+	0AoeNQ1eRmNLywcZ4oN5poMuEIyyf5Nyn0Z5AMYtoOiofPr/C+Uidhn8ibRssO4klAXiURl6UyP
+	uotiXPrBk+h6AaaQSa/klB2X3u9Zi0ogjEXRh75g1+DUxD1mpOtBBllsAWG7SJgPmE5X5Omoe0J
+	kj5CX5vZL+QVsAUp7OYW7Pm6skYsPaRPHnXTEK5NKTCJXzgds4pd2gNj3fC9a4JAnv+6onDW1J3
+	gy0N84qSfBj3aT69wTousBRg22jNEMQolKs9KWkETMdGpqARC4DLKUjUVaYZF1FaACw34HjZc/K
+	BCzrkdQqmyb+V+/EdcuilG47kb43vJWlI7E1Qyq6c1/fXktZ0f9rNZjAGBX4G6RL8Iw5D+CYmi+
+	ba8BAOFpbSd3v/UE3M+Kwa+bkqsgw+BDZHqmgb7N6xcl8tsMxkLPuO5eqwYbyFLPfl7yw==
+X-Received: by 2002:a05:7300:de0b:b0:341:f4d6:d9a5 with SMTP id 5a478bee46e88-3427169be76mr8420545eec.1.1790490995482;
+        Sat, 26 Sep 2026 23:36:35 -0700 (PDT)
+Received: from localhost.localdomain (95.169.12.199.16clouds.com. [95.169.12.199])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-341447576b9sm22047516eec.15.2026.09.26.23.36.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 23:33:43 -0700 (PDT)
-From: Dairui Zhang <zhangdairui@gmail.com>
-To: linux-cifs@vger.kernel.org
-Cc: Namjae Jeon <linkinjeon@kernel.org>,
-	Steve French <smfrench@gmail.com>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Tom Talpey <tom@talpey.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Dairui Zhang <zhangdairui@gmail.com>,
+        Sat, 26 Sep 2026 23:36:34 -0700 (PDT)
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+To: "D. Wythe" <alibuda@linux.alibaba.com>,
+	Dust Li <dust.li@linux.alibaba.com>,
+	Sidraya Jayagond <sidraya@linux.ibm.com>,
+	Mahanta Jambigi <mjambigi@linux.ibm.com>,
+	Tony Lu <tonylu@linux.alibaba.com>,
+	Wen Gu <guwen@linux.alibaba.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Ursula Braun <ubraun@linux.ibm.com>,
+	Karsten Graul <kgraul@linux.ibm.com>
+Cc: linux-rdma@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Chengfeng Ye <nicoyip.dev@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] ksmbd: fix OOB read in ksmbd_validate_name_reconnect()
-Date: Sun, 27 Sep 2026 14:33:39 +0800
-Message-ID: <20260927063339.1731061-1-zhangdairui@gmail.com>
-X-Mailer: git-send-email 2.53.0
+Subject: [PATCH net] net/smc: Serialize early link group cleanup with termination
+Date: Sun, 27 Sep 2026 14:36:07 +0800
+Message-ID: <20260927063607.3691520-1-nicoyip.dev@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -78,53 +89,81 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ksmbd_validate_name_reconnect() indexes
-ab_pathname[share->path_sz + 1] without checking that the path is
-longer than share->path_sz + 1 (d_path() fills the buffer from the
-end). A durable fp is not bound to its original share, so a client
-can preserve a file from a short-path share and reconnect it on a
-long-path share, making strcmp() read past the PATH_MAX buffer -
-with a long enough share path this oopses the kernel, and on a
-mapped page it also gives a byte-equality oracle on adjacent heap
-(the reconnect succeeds exactly when the out-of-bounds string
-equals the requested name). A same-share variant with the durable
-fp at the share root reads 1 byte past the buffer
-(strlen(ab_pathname) == share->path_sz).
+smc_lgr_cleanup_early() calls __smc_lgr_terminate() without checking or
+setting lgr->freeing. A concurrent smc_lgr_terminate_sched() can claim
+freeing and queue terminate_work before early cleanup takes lgr_lock.
+Early cleanup still enters __smc_lgr_terminate(), where both callers can
+observe lgr->terminating clear before either sets it. Both then tear down
+the same link group, causing use-after-free and duplicate resource release.
 
-Check the prefix before indexing: the path must be longer than
-share->path_sz and the next character must be '/'. The comparison
-for the valid case is unchanged.
+KASAN reported:
 
-Fixes: c8efcc786146 ("ksmbd: add support for durable handles v1/v2")
-Reported-by: Dairui Zhang <zhangdairui@gmail.com>
-Assisted-by: LLM
+  BUG: KASAN: use-after-free in __smc_lgr_terminate+0x393/0x3a0
+  Write of size 1 at addr ffff8880bf2c0300 by task poc/106
+  Call Trace:
+   __smc_lgr_terminate+0x393/0x3a0
+   __smc_connect+0x2e3d/0x4930
+   smc_connect+0x42c/0x580
+   __sys_connect+0xfc/0x130
+   __x64_sys_connect+0x6d/0xb0
+
+Claim lgr->freeing under lgr_lock in early cleanup, as the other teardown
+paths already do, and leave cleanup to the existing owner when it is set.
+This also prevents early cleanup from racing with the delayed free worker
+or removing a group from a device teardown's private list.
+
+Keep a link group reference across smc_conn_free() and early cleanup in
+smc_conn_abort(). Once the connection is unregistered, a termination worker
+can finish without taking its socket lock. The extra reference keeps the
+group alive until early cleanup has checked teardown ownership.
+
+Fixes: f9aab6f2ce57 ("net/smc: immediate freeing in smc_lgr_cleanup_early()")
 Cc: stable@vger.kernel.org
-Signed-off-by: Dairui Zhang <zhangdairui@gmail.com>
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
 ---
- fs/smb/server/vfs_cache.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ net/smc/af_smc.c   | 8 ++++++--
+ net/smc/smc_core.c | 5 +++++
+ 2 files changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/fs/smb/server/vfs_cache.c b/fs/smb/server/vfs_cache.c
-index 293dab9..52e83cf 100644
---- a/fs/smb/server/vfs_cache.c
-+++ b/fs/smb/server/vfs_cache.c
-@@ -1714,9 +1714,13 @@ int ksmbd_validate_name_reconnect(struct ksmbd_share_config *share,
- 		return -EACCES;
- 	}
+diff --git a/net/smc/af_smc.c b/net/smc/af_smc.c
+index e9f93b3ab435..97b0a0b51066 100644
+--- a/net/smc/af_smc.c
++++ b/net/smc/af_smc.c
+@@ -1011,12 +1011,16 @@ static void smc_conn_abort(struct smc_sock *smc, int local_first)
+ 	struct smc_link_group *lgr = conn->lgr;
+ 	bool lgr_valid = false;
  
--	if (name && strcmp(&ab_pathname[share->path_sz + 1], name)) {
--		ksmbd_debug(SMB, "invalid name reconnect %s\n", name);
--		ret = -EINVAL;
-+	if (name) {
-+		if (strlen(ab_pathname) <= share->path_sz ||
-+		    ab_pathname[share->path_sz] != '/' ||
-+		    strcmp(&ab_pathname[share->path_sz + 1], name)) {
-+			ksmbd_debug(SMB, "invalid name reconnect %s\n", name);
-+			ret = -EINVAL;
-+		}
- 	}
+-	if (smc_conn_lgr_valid(conn))
++	if (local_first && smc_conn_lgr_valid(conn)) {
+ 		lgr_valid = true;
++		smc_lgr_hold(lgr);
++	}
  
- 	kfree(pathname);
+ 	smc_conn_free(conn);
+-	if (local_first && lgr_valid)
++	if (lgr_valid) {
+ 		smc_lgr_cleanup_early(lgr);
++		smc_lgr_put(lgr);
++	}
+ }
+ 
+ /* check if there is a rdma device available for this connection. */
+diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
+index 9974149659c2..b166a379753c 100644
+--- a/net/smc/smc_core.c
++++ b/net/smc/smc_core.c
+@@ -688,6 +688,11 @@ void smc_lgr_cleanup_early(struct smc_link_group *lgr)
+ 
+ 	smc_lgr_list_head(lgr, &lgr_lock);
+ 	spin_lock_bh(lgr_lock);
++	if (lgr->freeing) {
++		spin_unlock_bh(lgr_lock);
++		return;
++	}
++	lgr->freeing = 1;
+ 	/* do not use this link group for new connections */
+ 	if (!list_empty(&lgr->list))
+ 		list_del_init(&lgr->list);
 -- 
-2.53.0
+2.43.0
 
