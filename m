@@ -1,212 +1,271 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42FC124A078;
-	Sun, 27 Sep 2026 15:27:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B27F13B1EE2
+	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 15:30:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790522862; cv=none; b=Cd+YtB5P+tMiKWbdtik+48uQA32fnH6pzsGN+AFriTsTXDNOp99F3sF4zoa09z8TDxAzQs2GyDwUMBQtspN6aIxZsoVL4weGovXAU6ySn+xsOoVV1NBCDxtGW6Nar+JZYePkKq4Co2jdeUIbuxAi4PDFtqOEreU4T7y4ZposHzI=
+	t=1790523023; cv=none; b=tDK13bkoRP1iPvy5zUbyeea4yxPBMtdViJwdu1E/GyhEw5chdA6rEOxWfb+NsKHyOfT9mVOaH66iSpLqn2TWSPGiw0io29fXO3/7XPIiya1OQVbCVwokbe4/1GlVCYAc0z4WOl93ztYtLgU5ZydHI3QNTTYJI5RJz3h7njvRQeg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790522862; c=relaxed/simple;
-	bh=ZZctbrUtdp2u1m5vR8OUb3RsnNvd4XESXPNyA9NR6/4=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ozPkFoOyFyTBezebjeiSzGmhsqebigwA4iD7dWxIc5fZi5cr3uqmts4Jk8L26/KGIWcq0iB3OYitAfkwjEdad81o8j5a23yIwO0XL99o3seMBXj/ph2lwmnrBNUI3ZnLSZNG4d5/LATR/GZhE6seeouBI0xv/VU+1p2WaYgPcPs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XJ9lOZUi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790523023; c=relaxed/simple;
+	bh=a0rewO12vdtnPhBBS/nIg+3RPM7hKRWtmasS1tiBbUk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=j6Kkg/61zQIbMVOn3FXsCeY+7/x8XHZ3QzBgaxzF1JjwLPeI96mpH81VeAk4JI5i4JmMmWHh+O9v7O39dKDnAN//h2PbL6dl+Zwbpd8j8TTDR0N3kycQKNz7xHm3xArtIh/pZouK+//0G4hHdu88f0WanE84IVxXyv9xiwMVdjI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DmZyox2N; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XJ9lOZUi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C21C41F000FF;
-	Sun, 27 Sep 2026 15:27:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790522861;
-	bh=ogmrucsA1GTOgB+NrmzwiRT9ggqTpVQd1FndsO0P5oI=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=XJ9lOZUioQgut0C+aOfkbVUFgxqx+RqYjpyXr8Jxy96ecgJqIkV1RCw6UOWab7LNK
-	 npnuMdCqFqPBu9Vdz+Xi44WpWRa/15gSMFKdNf5nOHEdnlGxcLgTLbbcX1v0jddA4n
-	 DTtcwbsgTHAczjpdB+WGatG5qHLVM+mdPShuwxaepAgUI5gwFUtZe9mY5VgWXfjDJz
-	 BtJTkK+/GCWmv31H+SAzM45DBdD1l3UWzQfWq6QdTk5HVxRYyqcgVECZfZiZOFeWGp
-	 N4REtcWRX2FuCnemnQtHe5E7Atjb6TOZh1k3QkQTDEqvZXKoKCywobAYj8fRFS/M3A
-	 Iybgv4QrKdwZA==
-Subject: Re: [PATCH net] net: mana: reserve RX buffer headroom to fix
- forwarding performance
-From: netdev-bot+sashiko@kernel.org
-To: hamzamahfooz@linux.microsoft.com
-Cc: netdev@vger.kernel.org, kys@microsoft.com, haiyangz@microsoft.com,
- wei.liu@kernel.org, decui@microsoft.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- ast@kernel.org, daniel@iogearbox.net, hawk@kernel.org,
- john.fastabend@gmail.com, sdf@fomichev.me, horms@kernel.org,
- ernis@linux.microsoft.com, dipayanroy@linux.microsoft.com,
- gargaditya@linux.microsoft.com, jacob.e.keller@intel.com,
- ssengar@linux.microsoft.com, linux-hyperv@vger.kernel.org,
- bpf@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Sun, 27 Sep 2026 15:27:39 +0000
-Message-ID: <179052285930.2160803.11184804113286091670@kernel.org>
-In-Reply-To: <20260923144500.4073380-1-hamzamahfooz@linux.microsoft.com>
-References: <20260923144500.4073380-1-hamzamahfooz@linux.microsoft.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DmZyox2N"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747f0135fso14905565ad.0
+        for <stable@vger.kernel.org>; Sun, 27 Sep 2026 08:30:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790523021; x=1791127821; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mjhaILwxKgFt49EiWkQN7M/n6MN/CEKyFnK5lZJ/n7U=;
+        b=DmZyox2NU3Yyz8znjAW7WTerIVEzDDHVS+0fB5Z8qiDGC4xJfhTqMXRM5PdAFWmN83
+         0q+aZmoJmoIChZyDitjpR4X9jHY8eYuCEzeSwY7QntCw1GEZvBgBWNrJtkHcRllnDW5m
+         uqo01dZAA/M8L/1q1KTZydQ9STXAc531ciL3L0qPWo3RcLehDQFn5LAxDtIGQw1TF0a5
+         mex4zMgOQCkaLXC80+rFnHp1kjA8FQlyl6i+k7VeZ4QQC5O2aFWZKFT6PpEgtVGvIZR2
+         c0Dqnd85okZhVmQQdHjCGk1UQrH9eUdMTp6VfpkV0Ro4vHphsFtTzp0t5ZEkYtE4bQ2b
+         DEaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790523021; x=1791127821;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mjhaILwxKgFt49EiWkQN7M/n6MN/CEKyFnK5lZJ/n7U=;
+        b=alyEi3IqvR1UFrt7h7eU1kNKY2x1W0wRqOIKK59oGXlOj6VGVZf5t5GQce2ukK7bKW
+         /SwNQtWHpVVxW5JGgpiTDfNA74dd8UvLkYTcdVyiqowS7V2e94P3vUEKl5UCRSz8Gf/4
+         QiNk1n4HluPjcoQGc/KeI2E3gIhoMFzC5gMZg6kJP2GctIQPr3SQ0d+khuaJuTdQFhft
+         r0i2ODuw27/R/D4Jh95azDFAAE+ucpolxsgEn9wzOZ2Fxw6Qtji8w4SzA6rMHBhTq4qF
+         IFpS+SwSpXIBtrbc3KqdTr8MUHs9AAofWOCZR64iHmkzJ4cs1SqA+O+iR+s3MKJ4eqKo
+         SbCA==
+X-Forwarded-Encrypted: i=1; AKwUvBzkfb7DM7gqD+swzhJEYz1hFEAREGA2X+jiL73kZaLH3sYM3kOJCTSDcBSWy/qEWnPjUn22hgA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJN602KhkNudbXZG7skm33wo2SGQZTGibqaUpWChxDxA4kvseuI
+	p9nLKLtNo8BPeSvzXmVsWGglrzwHPhCeyCIJL4M6Gz7hn+d0AsIMyec3
+X-Gm-Gg: AYBFou1TunnSj2CyHwnOFvjq0deimjAfcSevpTvL+CozZbJErYLl1u0aHGHoKzoMuev
+	V2Qb2bm8rX6Oy16ozWbydSiO+Z+k8obNBaR1fA3+87K1avRVCRaM5lmpTcwFxoVhlggBngk3WBj
+	5UJSLmpvhy51wcMceFFMJEGg1jqxAgTRxFvG4J5RocSe/8dzBt2MONgx1Mda9o7abfYrxkvUvUx
+	Yc+C0YUa3dQDLa/ArlUpMKZV7JwA2gVIw6aDmWfnLmqpXlkKgBVutZiqzRfFZgrzoo35g8CXVbf
+	2p1Oq7rjLGkyxu/DlwNhq0E1K6BnzILBHcX3Ipy7bcyHi/nkaHM0cYM7CVUZ7h6lcV0tGcKYwnX
+	ChWvd580uCMTllX3igpj6zOPDPyfM1FDj7ca3zeQhBewwxknqR2TqO7Sj8o3uYbuy/tIOj9LC5D
+	zaa3O3sR8nhXOGU//rOVxcsafMz3PLw1durL9rGaec2UbGVT1kBnAO0DiJZCbi2V+9x/uWtPPGu
+	/ET9RMgd9Hh4oLBTs0ifYw=
+X-Received: by 2002:a17:903:1a43:b0:2df:ab36:f15f with SMTP id d9443c01a7336-2dfab36f4femr28967115ad.43.1790523020553;
+        Sun, 27 Sep 2026 08:30:20 -0700 (PDT)
+Received: from jmoon ([118.220.156.4])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df9142b00dsm30373515ad.49.2026.09.27.08.30.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 08:30:18 -0700 (PDT)
+From: Jinmo Yang <jinmo44.yang@gmail.com>
+To: david@readahead.eu,
+	jikos@kernel.org,
+	bentiss@kernel.org
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jinmo Yang <jinmo44.yang@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] HID: wiimote: initialise rumble_worker once per device
+Date: Mon, 28 Sep 2026 00:30:14 +0900
+Message-ID: <20260927153014.1395106-1-jinmo44.yang@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+wdata->rumble_worker is a single work_struct in struct wiimote_data, but
+two different modules called INIT_WORK() on it:
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 2
+  wiimod_rumble_probe()  devtype module, once per device
+  wiimod_pro_probe()     extension module, once per extension hotplug
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+These have independent lifetimes.  The devtype module is loaded once by
+wiimote_modules_load() and stays until wiimote_destroy(), while the
+extension module is loaded and unloaded any number of times by
+wiimote_ext_load() / wiimote_ext_unload().  wiimote_ext_load() calls the
+extension probe with no lock and no cancel_work_sync(), and for the
+common EXT_NONE -> EXT_PRO_CONTROLLER transition the preceding
+wiimote_ext_unload() is a no-op because wiimod_ext_table[] maps both
+EXT_NONE and EXT_UNKNOWN to wiimod_dummy, which has no .remove.
 
-- [High] With XDP attached, the patch sets rxq->headroom to max_t(u32,
-  LL_RESERVED_SPACE(ndev), XDP_PACKET_HEADROOM) in…
-- [Low] mana_set_priv_flags() (mana_ethtool.c) keeps its own copy of the
-  old rule for when one buffer per page is forced anyway: `ndev->mtu +…
-- [Low] The comment above mana_get_rxbuf_cfg() still reads "Get RX
-  buffer's data size, alloc size, XDP headroom based on MTU".
+So nothing stops the force-feedback path, which is still live in the
+base module, from having queued the work already:
 
---
+	/* wiimod_rumble_play() */
+	wdata->state.cache_rumble = value;
+	schedule_work(&wdata->rumble_worker);
 
-net: mana: reserve RX buffer headroom to fix forwarding performance
+INIT_WORK() on a queued work item is memory corruption.  __INIT_WORK()
+does
 
-This patch reserves LL_RESERVED_SPACE(ndev) of headroom in MANA RX buffers,
-so forwarded packets no longer have to be reallocated by
-pskb_expand_head() to satisfy skb_cow() in ip_forward(). With XDP attached,
-the headroom is the larger of that value and XDP_PACKET_HEADROOM. The
-frag-vs-single-buffer decision now uses the computed buffer size instead of
-comparing the MTU against PAGE_SIZE / 2.
+	(_work)->data = (atomic_long_t) WORK_DATA_INIT();
+	INIT_LIST_HEAD(&(_work)->entry);
 
-> diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
-> index 591fb4191d90d..e3f3b33ba9062 100644
-> --- a/drivers/net/ethernet/microsoft/mana/mana_en.c
-> +++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
-> @@ -758,6 +758,36 @@ static void *mana_get_rxbuf_pre(struct mana_rxq *rxq, dma_addr_t *da)
+which clears the pool reference and the PENDING bit, and re-points
+->entry at itself while the item is still linked into the worker pool
+list, leaving its neighbours pointing at a node that has left the list.
 
-[ ... ]
+Note that CONFIG_DEBUG_OBJECTS_WORK hides the impact rather than just
+reporting it: work_fixup_init() calls cancel_work_sync() for the caller,
+so a debug kernel prints a warning and then repairs the state.  That is
+the kernel stating what the driver should have done.  Production kernels
+have no such repair.
 
-> +static u32 mana_get_rxbuf_headroom(struct mana_port_context *apc)
-> +{
-> +	u32 headroom = LL_RESERVED_SPACE(apc->ndev);
-> +
-> +	if (mana_xdp_get(apc))
-> +		return max_t(u32, headroom, XDP_PACKET_HEADROOM);
+Initialise the work once in wiimote_create(), which is where the object
+that contains it is created and which already initialises
+wdata->queue.worker, wdata->init_worker and wdata->timer, and drop both
+module-level INIT_WORK() calls.  wiimote_create() runs as the first
+statement of wiimote_hid_probe(), before hid_parse() and hid_hw_start(),
+so it strictly precedes the existence of any input device and therefore
+of any path that could queue the work.
 
-[Severity: High]
-With XDP attached, can rxq->headroom now be larger than
-XDP_PACKET_HEADROOM while the XDP path still assumes 256?
+This does not affect the deadlock fix in commit f50f9aabf32d ("HID:
+wiimote: fix FF deadlock").  That fix is the offload itself - caching
+the value and deferring to a worker instead of taking state.lock inside
+the FF callback - and this patch leaves wiimod_rumble_play(),
+wiimod_rumble_worker() and state.cache_rumble untouched.  Only the
+placement of the initialisation changes.
 
-MANA_HEADROOM is sizeof(struct mana_skb_head), and that size grows with
-MAX_SKB_FRAGS. CONFIG_MAX_SKB_FRAGS can be anywhere from 17 to 45. With
-17 or 18 frags, LL_RESERVED_SPACE(ndev) is 256. With 19 to 45 frags it
-is 272 to 592, and then max_t() returns that value instead of 256.
+The two halves come from different actors, and both are available on a
+stock Android phone without root.  The extension hotplug half needs only
+/dev/uhid, which is group 3011 and held by the shell.  The shell cannot
+write to an evdev node - SELinux grants it read access only - so the
+force-feedback half comes from an ordinary app calling
+InputDevice.getVibrator().vibrate(), which reaches EVIOCSFF through
+system_server; VIBRATE is a normal permission and is granted
+automatically.  A paired Bluetooth HID device can supply the hotplug
+half instead of /dev/uhid.
 
-The NIC writes each frame at va + rxq->headroom in mana_get_rxfrag():
+The ordering matters: the device has to be created without an extension
+so that the devtype resolves to a GEN10/GEN20 that includes
+WIIMOD_RUMBLE, because WIIMOTE_DEV_PRO_CONTROLLER does not, and the
+extension has to be plugged afterwards.
 
-    *da = dma_map_single(dev, va + rxq->headroom, rxq->datasize,
-                         DMA_FROM_DEVICE);
+Measured before the change:
 
-However, mana_run_xdp() in mana_bpf.c still does:
+  Pixel 11, stock Android 17 user build, SELinux enforcing, no KASAN and
+  no DEBUG_OBJECTS at runtime, kernel 6.12.81: reboots with
+  ro.boot.bootreason=kernel_panic one to two seconds after the two paths
+  start overlapping.
 
-    xdp_prepare_buff(xdp, buf_va, XDP_PACKET_HEADROOM, pkt_len, true);
+    Unable to handle kernel NULL pointer dereference at virtual address
+      0000000000000008
+    CPU: 5 Comm: kworker/5:4
+    Workqueue:  wiimod_rumble_worker (events)
+    pc : process_scheduled_works+0xd4/0x810
+    Kernel panic - not syncing: Oops: Fatal exception
 
-On XDP_PASS, mana_build_skb() then reserves
-xdp->data - xdp->data_hard_start, which is 256 rather than
-rxq->headroom:
+  The empty workqueue name in that line is itself the corruption:
+  print_worker_info() reads wq->name with copy_from_kernel_nofault() and
+  it failed, while another CPU in the same dump shows the normal form,
+  "Workqueue: events wiimote_init_worker" - the task that called
+  wiimod_pro_probe().
 
-    skb_reserve(skb, xdp->data - xdp->data_hard_start);
+  x86_64 with CONFIG_KASAN_GENERIC and CONFIG_DEBUG_OBJECTS_WORK both
+  enabled, 15 s in: KASAN says nothing, because INIT_WORK() writes to a
+  valid field of a live object, and DEBUG_OBJECTS_WORK reports
 
-In those configs, would the XDP program, the XDP_PASS skb, and the
-XDP_TX/REDIRECT/AF_XDP frames all start (headroom - 256) bytes before
-the real frame? The leading bytes would be stale page_pool contents, and
-the tail of the frame would be cut off.
+    ODEBUG: init active (active state 0) object type: work_struct
+      hint: wiimod_rumble_worker+0x0/0x70
+    WARNING: lib/debugobjects.c:629 at debug_print_object
+    Workqueue: events wiimote_init_worker
+     __debug_object_init+0x1ff/0x3b0
+     __init_work+0x51/0x60
+     wiimod_pro_probe+0x28/0xba0
+     wiimote_init_worker.cold+0xb6a/0xe88
 
-There is a related question about the MTU limit in include/net/mana/mana.h:
+After the change the same reproducer drives 36774 extension hotplugs and
+612156 force-feedback plays in 60 s on that x86_64 kernel with no ODEBUG,
+WARNING or KASAN output, and the rumble reports still arrive, so the
+force-feedback path is unaffected.
 
-    #define MANA_XDP_MTU_MAX (PAGE_SIZE - MANA_RXBUF_PAD - XDP_PACKET_HEADROOM)
+Fixes: f50f9aabf32d ("HID: wiimote: fix FF deadlock")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jinmo Yang <jinmo44.yang@gmail.com>
+---
+Notes for reviewers, not for the commit message:
 
-This still budgets 256 bytes of headroom, while the XDP branch of
-mana_get_rxbuf_cfg() keeps *alloc_size = PAGE_SIZE. mana_xdp_set() uses
-MANA_XDP_MTU_MAX both for the MTU check and to set max_mtu.
+ - base-commit below is the public next-20260925 tag, but the three files
+   touched are byte-identical in linux-next, hid/for-next, hid/master and
+   hid/for-7.4/*, and the patch applies to all of them unchanged, so pick
+   whichever tree suits.
 
-At the largest accepted XDP MTU, does the DMA window now run
-(headroom - 256) bytes into the skb_shared_info area that
-napi_build_skb() initializes afterwards? If so, fixing only the
-xdp_prepare_buff() offset would leave this limit wrong.
+ - It conflicts textually with the pending series "[PATCH v4 0/4] HID:
+   wiimote: new LED behavior on connect + scoped_guards" from Rafael Passos
+   (<20260817213840.1053216-1-rafael@rcpassos.me>), whose 4/4 rewrites
+   wiimote_create() and drops the call. Happy to rebase on top of that if it
+   goes in first; I kept this one standalone because it is a stable
+   candidate and that series is a refactor.
 
-Before this patch the XDP headroom was always exactly
-XDP_PACKET_HEADROOM, so these values always matched.
+ - The reproducer is a reactive /dev/uhid wiimote emulator, plus a
+   reflection-only dex run through app_process to drive the force-feedback
+   half on Android. I can post either if that would help.
 
-> +
-> +	return headroom;
-> +}
-> +
-> +static u32 mana_get_rxbuf_size(struct mana_port_context *apc, u32 mtu)
-> +{
-> +	u32 len = SKB_DATA_ALIGN(mtu + MANA_RXBUF_PAD +
-> +				 mana_get_rxbuf_headroom(apc));
-> +
-> +	return ALIGN(len, MANA_RX_FRAG_ALIGNMENT);
-> +}
-> +
->  static bool
->  mana_use_single_rxbuf_per_page(struct mana_port_context *apc, u32 mtu)
->  {
-> @@ -770,11 +800,16 @@ mana_use_single_rxbuf_per_page(struct mana_port_context *apc, u32 mtu)
->  	if (apc->priv_flags & BIT(MANA_PRIV_FLAG_USE_FULL_PAGE_RXBUF))
->  		return true;
->  
-> -	/* For xdp and jumbo frames make sure only one packet fits per page. */
-> -	if (mtu + MANA_RXBUF_PAD > PAGE_SIZE / 2 || mana_xdp_get(apc))
-> +	/* For xdp make sure only one packet fits per page. */
-> +	if (mana_xdp_get(apc))
->  		return true;
->  
-> -	return false;
-> +	/* Only use the page_pool fragment path when at least two buffers,
-> +	 * including the headroom each of them has to reserve, actually fit
-> +	 * into one page. Otherwise the fragment path degenerates into one
-> +	 * buffer per page while still paying the fragment accounting cost.
-> +	 */
-> +	return PAGE_SIZE / mana_get_rxbuf_size(apc, mtu) < 2;
+ drivers/hid/hid-wiimote-core.c    | 1 +
+ drivers/hid/hid-wiimote-modules.c | 5 +----
+ drivers/hid/hid-wiimote.h         | 1 +
+ 3 files changed, 3 insertions(+), 4 deletions(-)
 
-[Severity: Low]
-Should mana_set_priv_flags() in mana_ethtool.c use this same rule? It
-still has its own copy of the old one:
+diff --git a/drivers/hid/hid-wiimote-core.c b/drivers/hid/hid-wiimote-core.c
+index 63c4fa8fbb9b..1946c23867c8 100644
+--- a/drivers/hid/hid-wiimote-core.c
++++ b/drivers/hid/hid-wiimote-core.c
+@@ -1754,6 +1754,7 @@ static struct wiimote_data *wiimote_create(struct hid_device *hdev)
+ 	wdata->state.cmd_battery = 0xff;
+ 
+ 	INIT_WORK(&wdata->init_worker, wiimote_init_worker);
++	INIT_WORK(&wdata->rumble_worker, wiimod_rumble_worker);
+ 	timer_setup(&wdata->timer, wiimote_init_timeout, 0);
+ 
+ 	return wdata;
+diff --git a/drivers/hid/hid-wiimote-modules.c b/drivers/hid/hid-wiimote-modules.c
+index dccb78bb3afd..c5b48065638e 100644
+--- a/drivers/hid/hid-wiimote-modules.c
++++ b/drivers/hid/hid-wiimote-modules.c
+@@ -117,7 +117,7 @@ static const struct wiimod_ops wiimod_keys = {
+  */
+ 
+ /* used by wiimod_rumble and wiipro_rumble */
+-static void wiimod_rumble_worker(struct work_struct *work)
++void wiimod_rumble_worker(struct work_struct *work)
+ {
+ 	struct wiimote_data *wdata = container_of(work, struct wiimote_data,
+ 						  rumble_worker);
+@@ -155,8 +155,6 @@ static int wiimod_rumble_play(struct input_dev *dev, void *data,
+ static int wiimod_rumble_probe(const struct wiimod_ops *ops,
+ 			       struct wiimote_data *wdata)
+ {
+-	INIT_WORK(&wdata->rumble_worker, wiimod_rumble_worker);
+-
+ 	set_bit(FF_RUMBLE, wdata->input->ffbit);
+ 	if (input_ff_create_memless(wdata->input, NULL, wiimod_rumble_play))
+ 		return -ENOMEM;
+@@ -1865,7 +1863,6 @@ static int wiimod_pro_probe(const struct wiimod_ops *ops,
+ 	int ret, i;
+ 	unsigned long flags;
+ 
+-	INIT_WORK(&wdata->rumble_worker, wiimod_rumble_worker);
+ 	wdata->state.calib_pro_sticks[0] = 0;
+ 	wdata->state.calib_pro_sticks[1] = 0;
+ 	wdata->state.calib_pro_sticks[2] = 0;
+diff --git a/drivers/hid/hid-wiimote.h b/drivers/hid/hid-wiimote.h
+index 9c12f63f6dd2..c63cd0a68e0c 100644
+--- a/drivers/hid/hid-wiimote.h
++++ b/drivers/hid/hid-wiimote.h
+@@ -262,6 +262,7 @@ enum wiiproto_reqs {
+ #define dev_to_wii(pdev) hid_get_drvdata(to_hid_device(pdev))
+ 
+ void __wiimote_schedule(struct wiimote_data *wdata);
++void wiimod_rumble_worker(struct work_struct *work);
+ 
+ extern void wiiproto_req_drm(struct wiimote_data *wdata, __u8 drm);
+ extern void wiiproto_req_rumble(struct wiimote_data *wdata, __u8 rumble);
 
-		if (ndev->mtu + MANA_RXBUF_PAD > PAGE_SIZE / 2 ||
-		    mana_xdp_get(apc))
-			return 0;
-
-The comment above that check says single-buffer-per-page "is already
-forced regardless of this flag", so the detach/attach cycle can be
-skipped "since nothing changes".
-
-On 4K pages with an MTU of about 1459 to 1714, which includes the default
-1500, the old check is false. The new rule here already forces one buffer
-per page in that range (buf_size is 2112 at MTU 1500).
-
-Toggling the full-page-rx private flag at those MTUs would still run
-mana_pre_alloc_rxbufs(), mana_detach() and mana_attach(), even though the
-RX layout doesn't change. The mismatch only goes this way: a
-reconfiguration that is actually needed is never skipped.
-
->  }
->  
->  /* Get RX buffer's data size, alloc size, XDP headroom based on MTU */
-
-[Severity: Low]
-This isn't a bug, but this comment still describes the headroom output as
-"XDP headroom". After this patch, *headroom is always set from
-mana_get_rxbuf_headroom(). Without XDP, that is LL_RESERVED_SPACE(ndev),
-reserved for the TX-path struct mana_skb_head.
-
-[ ... ]
-
+base-commit: f5f84daefcd92d7a630066635ecea1433ed5eac7
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260923144500.4073380-1-hamzamahfooz%40linux.microsoft.com
+2.53.0
+
