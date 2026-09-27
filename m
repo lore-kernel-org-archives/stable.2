@@ -1,166 +1,95 @@
-Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com [74.125.229.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3B3341836E
-	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 16:32:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1B933B3884;
+	Sun, 27 Sep 2026 16:34:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790526778; cv=none; b=pc//aqznz0yM/CRyn4NxDloJEQyS2dsIoMobFLOlyzGa0W2BSZm4YLRYtVjuL8yq0zSSuVF5ZiKOiPmB9uR9TogqLyUBYOxkSRbWxSr2GNc7oFwPoNiMxjx5JNM7neAVMnyKJSjwNB6c5W22JSaol+51UbvTB/E6VvZfkQGJfcI=
+	t=1790526889; cv=none; b=GGAekZriQKLCpH5K+Eqej0AEdVnQrmOzUqcerlaZkVH4XmCuQKJdc43cr3nwAD3FD2PDE37/Ar5eGfa0gM+yW0sQLfkIVUp8EtZotUP41h4esKkRgzBlWoPF0dHM4LjD3a0C/keQ7zC2HstHiHIlorgJVtOoWthHNFatmBR/jig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790526778; c=relaxed/simple;
-	bh=nQuhN2l7+/6WRWmQIpvcYbsN03imFt1LfNjrv01xrR4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=M7LH+93QVbE2BsRP+mbksMbEvHOOzF3umfUW2vtzCXR6ST3ROlWx1ktRlPrHhXaj7CjYktQcvnGGgpYmx6i+pivALF0lYWJajGm4yW2yZT+NfNB+lkbsOqFZi2sgTs2CXKdhaRd+XR9jEF3G6o7DjsWrQdTgNz/6OUl6XknrOS4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KmZ0/UBP; arc=none smtp.client-ip=74.125.229.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790526889; c=relaxed/simple;
+	bh=EzanT5WuC5b1cQCPU+KgB8dZunKNYgr9kBynhOZ6FfY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sphWLLAymifWLeupxr0NZBP+bNAfaMzpRAZSjlDPHiKPRkHy3p5eT/FPoiyjG3iFHtsHLe/SG4+4MbIGMuu9Ex7myZq8Q46jE0ppjOPwWQLop3Ml8QiG4Q5mlVY1ZlV0qsDPLqXq0jvr/QHmkHBOqRP1Axe8bLeNrfmv5Y0E1rU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=BXGWVGjj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KmZ0/UBP"
-Received: by mail-dl2-f43.google.com with SMTP id a92af1059eb24-1438421d1f8so75350c88.1
-        for <stable@vger.kernel.org>; Sun, 27 Sep 2026 09:32:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790526776; x=1791131576; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WKnlC/CJp+36djLN5FPwvtqOnvSWX1NbVkCP871yhGA=;
-        b=KmZ0/UBPgAE8KKPhbqS1Dt9jwO0uIEh8qXNoLYzh0JMZtKqoZPqBy6+rceZZzasV+K
-         BYMZZzkL2XLxtH+XnzL8I94SXvaMp1+tWUWtkBrnU5tydjhOuQNj8hfV2kgH0FyZ2cvY
-         nkC7t7x99cwXpySiZVnH15yof8NtgkyQ7Ex18x9MOzNpgpDPwTO3v+F3914YqA22ZzAV
-         P9ZePPDkK+XD0GOMxG0/Y3R/WNAtSM/JdylSxRGwT3PDV9+m6sZapBkboRrtbLg2cTaN
-         3WPAZouVVz/Epf2Vuhc+pKzGXsvTQ8MO8ZZYtIanEJ03Zde7GGIK/XfXtCjZ5Cy5JSrI
-         lcSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790526776; x=1791131576;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WKnlC/CJp+36djLN5FPwvtqOnvSWX1NbVkCP871yhGA=;
-        b=M7a2aVgQr4oAiz7c0keFPAPeNIrYzC281G6iTT71A4eti2Mrs6YkA0OTSBhc4hf0NX
-         ML7lcawIKEaqoekqFvtyUbAmiEQgY5wmjaGYiJzvN0pFQpob/tCT0KFc3VI/Xr4sZt4E
-         CD+ZSJVYVtV/gQEZ8TxciZZCwlLJfQ/3m+7/kouMFLy1Iq8pffqqIRe9NyNOsDz1V8vk
-         UaZjO/oeyhQPv1T45gCf9QLhMUdlW5lpKmiSwELQNwle1T478SfGKEAaUYiFYAhpf6zb
-         O1AiylWHWuVR0cls5k9b50RQET/qLHXaLNbAa4u5aWWxtKDE7vTmmvE3BGzi4uqSs9sr
-         Dl0g==
-X-Forwarded-Encrypted: i=1; AKwUvBxhVtYNSkQEeXMBd8FYwKCG2RPcgt8zyaumMURs7jnoIteCjmcAIVxZ4jqI9DtIr0lL52lrk1c=@vger.kernel.org
-X-Gm-Message-State: AFuF++lnmwS8/1BB6vf1+Z6erVppj3gZ1AIolalLmbohAP+WyuL1xw9T
-	pLe0FMgoagLBlayRpgG07/Jdjz4widrbl6IWcKQAR+FN0uGGBa1R3HsM
-X-Gm-Gg: AYBFou1M9DyQNp5JXjv92F6iEYkFQSnimI5N1O0vnMG79g/230eoQPUpk4pQ7wiQoPC
-	JUDpGhZOHeMJfxdSyMFXS3cVZkiq6Itg1B/jBkjsqVRXAT0EqafKhpVBY/30ED47RqPfQL0nNQo
-	qZlh6YPDGqXteqP0cEgKPIlm2qoGv9S6n4AM+6HbKauXrxUoyB6jIQgbJohIjQu3WZW74L5lebK
-	4yhOvEcxWlgSpH1BTiqmOoOEk2iFI37r1qAB769LPsxVK3mlNW+UTyF/iNnjK97ByDyYlCNwBym
-	MbHas/JFjG5kGZYSUiC9TACeHSdw7oqyy0n0FyrWBe5gu8mCIxedCGTS14cDUA9vHR+KsfsJBK5
-	IYAZvb/w4wELs10IlyzkNTyCcGzCG25FK6FFDdKznLUoa7fl0YEIMgybdF2I2FfNqosoyw35gHp
-	rU84wTa0FSetKfJQhTbTKBARTYNBNKlXUn+dr+6c63sNsywllrPcN9xFxAPwhIJayjNzwzyCMPm
-	tQmU2HQ3UHuh09KO00prI/BFv0XlJKq5go6IZuvqB9y9qMADys2MZvnlOR7dlzxTl0DtiIYA8Ap
-	2qqv
-X-Received: by 2002:a05:7022:ea8a:b0:146:ffa9:2117 with SMTP id a92af1059eb24-146ffa92165mr9118845c88.1.1790526775739;
-        Sun, 27 Sep 2026 09:32:55 -0700 (PDT)
-Received: from localhost.localdomain (95.169.12.199.16clouds.com. [95.169.12.199])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145acd3d8eesm18140836c88.8.2026.09.27.09.32.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 09:32:55 -0700 (PDT)
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-To: Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>
-Cc: netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] netfilter: flowtable: flush delete work after final GC
-Date: Mon, 28 Sep 2026 00:32:48 +0800
-Message-ID: <20260927163248.1002656-1-nicoyip.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="BXGWVGjj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F0811F000FF;
+	Sun, 27 Sep 2026 16:34:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790526888;
+	bh=SOlu8u4sOWw1bl8aquiV+FQdZDJl1sJTiY0bcwBI7vA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BXGWVGjjOADCch8vlIv9WKIC8sIUSwRgP5J6C7cH3PNB6Q3+2eewuksxcWqmNamwT
+	 zKgGbnGh7F5brrULap3pwGdJW/5nVOCnlJPm4+3LZx3+9voKVTnX4WM13L5ezdy3SU
+	 qbWJre9M+DJ2O+cq+hXI6D+Jys8nVZn6V3W8YbQ4=
+Date: Sun, 27 Sep 2026 18:34:44 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Cc: rafael@kernel.org, dakr@kernel.org, driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] debugfs: fix UAF and double-free in debugfs_str
+ read/write
+Message-ID: <2026092726-posh-handyman-43a0@gregkh>
+References: <2026092647-ebony-unlatch-d3d0@gregkh>
+ <20260926134726.1063068-1-qwe.aldo@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260926134726.1063068-1-qwe.aldo@gmail.com>
 
-nf_flow_table_free() can return while delete work still holds a pointer to
-the flowtable. Its caller can then free the flowtable before the worker
-accesses it, causing a use-after-free.
+On Sat, Sep 26, 2026 at 10:47:26AM -0300, Aldo Ariel Panzardo wrote:
+> On Sat, Sep 26, 2026 at 08:53:06AM +0200, Greg Kroah-Hartman wrote:
+> > Did you forget an Assisted-by: tag here?
+> 
+> Yes, apologies.  Both patches now carry:
+> 
+>   Assisted-by: sashiko.dev <sashiko-bot@kernel.org>
 
-nf_flow_offload_del() sets NF_FLOW_HW_DYING only after allocating the work
-item. If this GFP_ATOMIC allocation fails during the first teardown GC
-pass, the flow remains eligible for deletion in the final GC pass inside
-nf_flow_table_offload_flush_cleanup(). That pass runs after the delete
-workqueue has been flushed, so a successful retry queues work which is
-not waited for:
+No LLM was used to generate the patch?
 
-  teardown worker                         delete worker
-  first GC: work allocation fails
-    NF_FLOW_HW_DYING remains clear
-  flush delete workqueue
-  final GC: allocation succeeds
-    queue FLOW_CLS_DESTROY work
-  destroy rhashtable
-  free flowtable
-                                          access offload->flowtable
+> > And how was this found and tested?
+> 
+> sashiko.dev flagged that the write path uses rcu_assign_pointer() /
+> synchronize_rcu() / kfree() but the read path dereferences the same
+> pointer without rcu_read_lock().  I then manually reviewed the write
+> path and found the second issue: no mutual exclusion between concurrent
+> writers, leading to a double-free of `old`.
+> 
+> Tested on QEMU/KVM with CONFIG_KASAN=y.  The double-free in the write
+> path reproduces immediately (~3900 KASAN reports in a single run with 8
+> concurrent writers):
+> 
+>   BUG: KASAN: double-free in debugfs_write_file_str+0x194/0x200
+> 
+> Full splat is included in patch 2/2.
+> 
+> The read-path UAF has a narrower race window (just a couple of
+> instructions between pointer load and strlen()) and did not trigger in
+> KASAN testing, but it is structurally obvious: the write path calls
+> synchronize_rcu() + kfree(old) and the read path does not hold
+> rcu_read_lock().
+> 
+> > And what kernel was tested, debugfs strings were changed a bunch in 7.1,
+> > what bug report are you working off of here?
+> 
+> Verified against torvalds/linux master at v7.3-rc4 (commit
+> 6812ce4e4379, 2026-09-26).  Both bugs are present in the current code
+> at debugfs_read_file_str() and debugfs_write_file_str() in
+> fs/debugfs/file.c.
+> 
+> This is not from a bug report.  It was found by sashiko.dev reviewing
+> an adjacent patch and I verified it independently.
 
-Flush the delete workqueue again after the final GC to complete this work
-before the flowtable can be freed. All flows have already been marked for
-teardown, so this GC pass only queues delete work, and the delete worker
-does not queue further offload work.
+Again, no LLM for all of this?
 
-KASAN reported:
+I'd like to see the userspace test scripts for this...
 
-  BUG: KASAN: slab-use-after-free in flow_offload_work_handler+0xbe8/0xe30
-  Read of size 8 at addr ffff888109c9fd98 by task kworker/u16:3/397
-  Workqueue: nf_ft_offload_del flow_offload_work_handler
-  Call Trace:
-   flow_offload_work_handler+0xbe8/0xe30
-   process_one_work+0x63a/0x1070
-   worker_thread+0x45b/0xd10
-  Allocated by task 87:
-   nf_tables_newflowtable+0x5d0/0x22f0
-   nfnetlink_rcv_batch+0x1396/0x1d00
-  Freed by task 11:
-   kfree+0x131/0x3c0
-   nf_tables_trans_destroy_work+0xb26/0xeb0
-   process_one_work+0x63a/0x1070
-  Last potentially related work creation:
-   __queue_work+0x68e/0x1030
-   flow_offload_del+0x74c/0xad0
-   nf_flow_offload_gc_step+0x264/0x8e0
-   nf_flow_table_gc_run+0xcd/0x150
-   nf_flow_table_offload_flush_cleanup+0x5c/0x70
-   nf_flow_table_free+0x280/0x350
-   nf_tables_flowtable_destroy+0x71/0x270
+thanks,
 
-Fixes: c921ffe85333 ("netfilter: flowtable: Fix flushing of offloaded flows on free")
-Cc: stable@vger.kernel.org
-Assisted-by: GPT-6-Astra
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
----
-Changes in v2:
-- Rebase onto current mainline; the independently revalidated one-line fix
-  is unchanged from v1.
-
-v1: https://lore.kernel.org/r/20260824115829.205118-1-nicoyip.dev@gmail.com/
-
- net/netfilter/nf_flow_table_offload.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/net/netfilter/nf_flow_table_offload.c b/net/netfilter/nf_flow_table_offload.c
-index 6757fd89c1f1..728220ba3882 100644
---- a/net/netfilter/nf_flow_table_offload.c
-+++ b/net/netfilter/nf_flow_table_offload.c
-@@ -1172,6 +1172,7 @@ void nf_flow_table_offload_flush_cleanup(struct nf_flowtable *flowtable)
- 	if (nf_flowtable_hw_offload(flowtable)) {
- 		flush_workqueue(nf_flow_offload_del_wq);
- 		nf_flow_table_gc_run(flowtable);
-+		flush_workqueue(nf_flow_offload_del_wq);
- 	}
- }
- 
--- 
-2.43.0
+greg k-h
