@@ -1,66 +1,148 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9233625C6EE
-	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 01:32:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97BBD231A23
+	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 01:45:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790472778; cv=none; b=d5haIoY2yKPb+tJ5cxyyHPrhIr8NHwlkR1eKje37XnsJHK+khxAgHsjV8cg+4uChO78otSmSdd1bJHnvxn6RGf+R0IEi4SPoXbEmetonVNas6rg1Jvx4FAsdlSn+HryMq/IGF6yOnvG72Hh5jOiwM0GCJXnlAf5qoC7CHLnPJB4=
+	t=1790473525; cv=none; b=ArE+3K3E9M/yKybEmEmqjeAW1QffZUdDs9ZDrySvwYgDeC7pWNpnc9SnD1VnhR2rtUNVBjuE18xvhofkKG4E7MlwJZqGQ6RrFcfV7/zC9zuaUxJ03Ba5QcFBMbL1Rd3WORQqVVNoukv4RAIEbTN0PrwzRuk6TBlRmNX1obVJIyo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790472778; c=relaxed/simple;
-	bh=3RqPolZNKqfuMrSOidK90RRpD+aYp7x9syNCo45Ffto=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZN3ErmzfbsToTOc5+B3L1oiQPBChPVLJN4gqYivzGUcLpdpRO0ZVWGDtItSnTrn0UZ7QRXbhKdtFumCCLIzONTYCj+zb4c2iBwLLjhJQ1BkJjF+3NQv+VNHPLiYEAnCpOKxWWKJUlHnbYW8hwLQAWeehlgWwc8c4pCQMmH/YEn4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84C461F0089B
-	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 01:32:57 +0000 (UTC)
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c29d50b7cf9so301686066b.2
-        for <stable@vger.kernel.org>; Sat, 26 Sep 2026 18:32:57 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwxi+a812i0erxCQr1Ljz7qj68ZVLJhIDOkq3xvLUMyIsfJj9ZAL+1tTkvFewO16sKx4ampEpo=@vger.kernel.org
-X-Gm-Message-State: AFuF++msLjyiaGPzEc1EEg6c0zqoFnfK8vPtms+Y7VaULTVqzdenEHv7
-	BG10YBec5fL6d/TV9ADUMKoSKsndzc+TpXv9AfoBTrrJSl9YL7Wl/z30D2GMXD73F3tLjcFUff6
-	A0JiTzalLdrsR8cG2FodBRxAIK3CfXXo=
-X-Received: by 2002:a17:907:3e88:b0:c2b:898e:24fd with SMTP id
- a640c23a62f3a-c2b898e3d80mr282661566b.33.1790472776127; Sat, 26 Sep 2026
- 18:32:56 -0700 (PDT)
+	s=arc-20240116; t=1790473525; c=relaxed/simple;
+	bh=ZmshJRVNGhiDD241iabHMvHEahKSg7LVi7ZdIgOie5M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IFGWF7Zfu/F6MHA8PEoutrAdCOVMQfERXyEUxAfCzuX1grYPB4fsm4UZfz87uu6bb7ISo4tsMyawr1tKB/kD1wun+9MbFRjKLdyeGVBDYeXQ6fZw1kJwJUCabq2EF57kFXDhGQ794hTQFrm4R+xuNs/EThWGFa8xq0dunJUGVNg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=bCXaFh83; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bCXaFh83"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790473522;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XUoH5rgAH1n+by9vaKnGPJrkH26uAPsRf2XvFcpnSDw=;
+	b=bCXaFh83f/n3GgTwELGGfK5xPbknPT+MU0V9qY2kYRZ/bgEfLBgwRvRZGAhaO9P+H87WQn
+	uhkLBmc8wbHjvfDh5pzN9YmUIZNrl129LkH18Ch9u7fLsR/mU+Wb9+KXrmKlqiaUlU1oHG
+	xbdyOZSP7+7DzK0QbI+sWovN9x1ZKwQ=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-277-tMlZC61VNVufI_UeeYlH9w-1; Sat,
+ 26 Sep 2026 21:45:16 -0400
+X-MC-Unique: tMlZC61VNVufI_UeeYlH9w-1
+X-Mimecast-MFC-AGG-ID: tMlZC61VNVufI_UeeYlH9w_1790473515
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 7A1CD1955F7A;
+	Sun, 27 Sep 2026 01:45:14 +0000 (UTC)
+Received: from [100.91.18.181] (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id D528C180034F;
+	Sun, 27 Sep 2026 01:45:11 +0000 (UTC)
+Message-ID: <b5926447-1b52-4a8b-86d8-8adf40ca5f3f@redhat.com>
+Date: Sat, 26 Sep 2026 21:45:10 -0400
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260926080224.1671214-1-zhangdairui@gmail.com>
-In-Reply-To: <20260926080224.1671214-1-zhangdairui@gmail.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Sun, 27 Sep 2026 10:32:44 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd-ATgduq==_gWm5sHpNds4TtMt7d7_tt=MGSNjXzkH3oQ@mail.gmail.com>
-X-Gm-Features: AclHuK9ZWgEJltsKQmjyLPmsYfmFQKQYQZoN4ENIdlG8OhR9JsjSxA1cuvIL-q4
-Message-ID: <CAKYAXd-ATgduq==_gWm5sHpNds4TtMt7d7_tt=MGSNjXzkH3oQ@mail.gmail.com>
-Subject: Re: [PATCH] ksmbd: verify transform SessionId matches the decrypted header
-To: Dairui Zhang <zhangdairui@gmail.com>
-Cc: linux-cifs@vger.kernel.org, Steve French <smfrench@gmail.com>, 
-	Sergey Senozhatsky <senozhatsky@chromium.org>, Tom Talpey <tom@talpey.com>, 
-	Paulo Alcantara <pc@manguebit.org>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/3] cgroup/cpuset: prevent activating local partition
+ over remote one
+To: Hui Peng <benquike@gmail.com>, Ridong Chen <ridong.chen@linux.dev>,
+ Guopeng Zhang <guopeng.zhang@linux.dev>, Tejun Heo <tj@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
+ <mkoutny@suse.com>
+Cc: Shuah Khan <shuah@kernel.org>, Chen Ridong <chenridong@huawei.com>,
+ cgroups@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260924042729.1908863-1-benquike@gmail.com>
+ <20260924042729.1908863-3-benquike@gmail.com>
+Content-Language: en-US
+From: Waiman Long <longman@redhat.com>
+In-Reply-To: <20260924042729.1908863-3-benquike@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-> @@ -10890,6 +10890,22 @@ int smb3_decrypt_req(struct ksmbd_work *work)
->         if (rc)
->                 return rc;
+On 9/24/26 12:27 AM, Hui Peng wrote:
+> Commit 6da580ec656a ("cgroup/cpuset: Don't allow creation of local
+> partition over a remote one") added a check in update_prstate() to reject
+> creating a top-level local partition whose cs->exclusive_cpus intersects
+> subpartitions_cpus.
 >
-> +       /*
-> +        * The decryption key is selected by the transform header Session=
-Id,
-> +        * while the request is authorized under the session named in the
-> +        * decrypted inner header. Per MS-SMB2 the two must match; verify
-> +        * that here and drop the connection on mismatch. A compression
-> +        * transform payload carries the session id only after
-> +        * decompression, so it is not covered by this check.
-> +        */
-> +       if (((struct smb2_hdr *)iov[1].iov_base)->ProtocolId =3D=3D
-> +           SMB2_PROTO_NUMBER &&
-If an encrypted request contains a compression transform, this check
-is skipped because the decrypted ProtocolId is
-SMB2_COMPRESSION_TRANSFORM_ID. After decompression, the smb2 header=E2=80=
-=99s
-SessionId must be checked against the transform header=E2=80=99s SessionId.
+> However, if a top-level cgroup A1 has a child A1/A2 enabled as a remote
+> partition on a subset of its exclusive CPUs (X2-3 on A1, CX2-3:P2 on
+> A1/A2), and A1 is then set to "root" (P1, becoming "root invalid" via
+> update_prstate() because its exclusive CPUs intersect subpartitions_cpus)
+> followed by expanding its CPUs to include additional non-remote CPUs
+> (CX1-3), update_cpumask() / update_exclusive_cpumask() calls
+> validate_partition() without going through update_prstate(). Because
+> validate_partition() does not check trialcs->exclusive_cpus against
+> subpartitions_cpus, A1 transitions from "root invalid" to a valid local
+> partition over the existing remote partition A1/A2 and triggers:
+>
+>    WARNING: kernel/cgroup/cpuset.c:1943 at update_parent_effective_cpumask+0x189b/0x1fd0
+>
+> Check trialcs->exclusive_cpus against subpartitions_cpus in
+> validate_partition() when !is_partition_valid(cs), and add a regression
+> test case to tools/testing/selftests/cgroup/test_cpuset_prs.sh.
+>
+> Tested in QEMU on Linux 7.3.0-rc3 using
+> tools/testing/selftests/cgroup/test_cpuset_prs.sh.
+>
+> Fixes: 6da580ec656a ("cgroup/cpuset: Don't allow creation of local partition over a remote one")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Hui Peng <benquike@gmail.com>
+> ---
+>   kernel/cgroup/cpuset.c                            | 4 ++++
+>   tools/testing/selftests/cgroup/test_cpuset_prs.sh | 2 ++
+>   2 files changed, 6 insertions(+)
+>
+> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+> index 7381fa8502e7..7c5b4a8f1f3a 100644
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+> @@ -2415,6 +2415,10 @@ static enum prs_errcode validate_partition(struct cpuset *cs, struct cpuset *tri
+>   	if (cpumask_empty(trialcs->effective_xcpus))
+>   		return PERR_INVCPUS;
+>   
+> +	if ((parent == &top_cpuset) && !is_partition_valid(cs) &&
+> +	    cpumask_intersects(trialcs->exclusive_cpus, subpartitions_cpus))
+> +		return PERR_REMOTE;
+> +
+>   	if (prstate_housekeeping_conflict(trialcs->partition_root_state,
+>   					  trialcs->effective_xcpus))
+>   		return PERR_HKEEPING;
+The code change looks good to me.
+> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> index b732078bf319..4a451350ad84 100755
+> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> @@ -321,6 +321,8 @@ TEST_MATRIX=(
+>   	" C1-3:P2  X4:P2    .      .      .    X3:P2    .      .     0 A1:1-2|XA1:1-3|A2:3:XA2:3 A1:P2|A2:P2 1-3"
+>   	" C0-3:P2    .      .    C4-6   C0-4     .      .      .     0 A1:0-4|B1:5-6 A1:P2|B1:P0"
+>   	" C0-3:P2    .      .    C4-6 C0-4:C0-3  .      .      .     0 A1:0-3|B1:4-6 A1:P2|B1:P0 0-3"
+> +	"   X2-3  CX2-3:P2  .      .  P1:CX1-3   .      .      .     0 A1:1|A2:2-3|XA2:2-3 \
+> +								       A1:P-1|A2:P2 2-3"
+>   
+
+This test case is problematic as it fails on my test system because of a 
+bug in the SCHED_DEADLINE task shrink test in validate_change() that can 
+be triggered if there are deadline tasks in the system which will fail 
+the test. I am going to post a patch to fix that bug. Can you take out 
+this test case from this patch as I don't want this test to be 
+backported to stable releases? You can send this out as a separate 
+testing patch if you want to.
+
+Cheers,
+Longman
+
+>   	# Local partition invalidation tests
+>   	" C0-3:X1-3:P2 C1-3:X2-3:P2 C2-3:X3:P2 \
+
