@@ -1,125 +1,176 @@
-Received: from mail-qk2-f38.google.com (mail-qk2-f38.google.com [74.125.230.230])
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECE7241A55D
-	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 17:10:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.230
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790529052; cv=pass; b=mV/2n2iCb/awYTw4G2ZhmUf8bQ12YgwSChM59skmhrx0NuvWKnkAVNrEY5HVG3LeY99lg7BdBhR2HVP/gaq4VOCz35Ox2tmA4idYya/Au1aedGpHXkqy7UMY3+GUvcsOk9pUmYv6MPaozWCNEurHdQTbThtZGX+EfOYKn0uzGFk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790529052; c=relaxed/simple;
-	bh=ikTxL5JuCzeBWeGH3nGI6q2+sz2cBQtCh19A8s6v9IU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QkB/lGS5f4BcSEnaxYDyWvuygawZIg+4XShEfqe2CyiH0TImXq4BY8lnoRMCQn3ay9b65f1bOzH9yK5V+lSCMDjZ5XR3Wj+DNXwRzxoOVz2VUWpX+JpwaNu+dgVppk6RfAS+BJg92XVLs1h06Bv30L7lZK01cO9HDofkmoValGM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=pl5oaSsw; arc=pass smtp.client-ip=74.125.230.230
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 935E8184540
+	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 17:33:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790530391; cv=none; b=NLEmh7H2EBj+fRBJkis/bWPhlmIQ0pF13QxY0hN78TOqYEuLfTygV22yi7vx3ERcwxsqJiDy1wrNrnSPF0VMUH9hXb0Y0izJxDJvF94DWkAkLxh9MEb7qzoJrSyeQjTbSWa+TSe2CIs5g24ekmVYxhE4RrM9qy4LaGLs3jhExSI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790530391; c=relaxed/simple;
+	bh=PACSGZHoWOhPcJ0+qIAAzlnOA5S/g8zlax0nJRW92Lc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WugjVv7Z56UP1pc5uGewJjyDLcvfHQYSh10/Ka0OH8LqLFgULTC+x602ssXsQpx64bt7tZNuV8KBqf8gRGRk1z4M3EQcPKSFthmd2D56nthx/5XwjCn0yBPYd72nFPoGC4drfnhllmX4fT0KKxB6r4PAgYrPSYB2iy/Q6CxpxLY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G2bJTyxf; arc=none smtp.client-ip=74.125.230.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="pl5oaSsw"
-Received: by mail-qk2-f38.google.com with SMTP id d75a77b69052e-53336049862so5932271cf.3
-        for <stable@vger.kernel.org>; Sun, 27 Sep 2026 10:10:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790529050; cv=none;
-        d=google.com; s=arc-20260327;
-        b=oG+xlj5sUkC61iaNSj8MHlAP4fI4Gyy0wsM+kzns6lNJttlWYYcQ40fm77Om7InEXO
-         jr1oPXNhTNXL3xdyOacR52Yp6WH3h37WyauQ9awUcJUdJyRQvzdku9Xf0dAMATfJCyQ8
-         0aZ28ipgvCykyngqYOQqfOTNlPF8Y9RHOS8xpfzoII2HoGqjk4PHQwZ8Xt6HhZuLSsTj
-         xV26AGmUnmZF6SyyE+RGp6mlrcI5xbAayMxSPXv/C/z53iwTQt0zPM1L6WN8feQLuC0X
-         eX/k8Me7JfkGYMstQpOF+6+DpYf/wQUFiOkDN3psHFXvcQ78trzbArNC7dtjydPVd2pX
-         61CQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ikTxL5JuCzeBWeGH3nGI6q2+sz2cBQtCh19A8s6v9IU=;
-        fh=4lDzYFLrL2JaaEu5lP89l5sEtEzVoN3cNsw8IXip/uc=;
-        b=XGJ8KlOM/o8Xy0reGLKDOEN9v6sZhNeeQTXy+bv/3fg1820T354HHu57q6cTCt6Y3V
-         2Ed/IGi1CWobTQDBCN7/eMB1NOCsPHBJQfuPvigyKFVj8nHwmH8m248ZD2IzOD1ynC+Q
-         vaCuBBJWUE5/77tdkc6AsGwvZhnRP/d600FJkwkBK546NGsxVBVQNKHEDNeBdpi7WhPm
-         32kFZwcTu/tPLwyleYTbxZqKlOvlIq7SabOCsqQ1kjP3xUKKn/mE+9A2sxgOSERNjLoJ
-         wKbd68jBtlB4XJmKooX01QWfw3VDW1akWO5eOXGBOtPe+VaFHXBUN0XFsvzb3V7MMCn4
-         wGAg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G2bJTyxf"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-91059280d58so19617286d6.1
+        for <stable@vger.kernel.org>; Sun, 27 Sep 2026 10:33:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790529050; x=1791133850; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ikTxL5JuCzeBWeGH3nGI6q2+sz2cBQtCh19A8s6v9IU=;
-        b=pl5oaSswpnk9t4rjwmLnkIZQbSXpEvhz3yxaBMgpof0O5foCC1TBCBub4Sbm3OKPha
-         yXr31BWYy+ynor0uVodWrAgSRXspIwCfB9VrcDjnsw2obA61owzNQblnkoszlWmYZ4Ax
-         vJUpjN1t6VrI0b5bJo/kEnbzY/ELpoPQcl5bYYcLQPQrdZoAHefirlmp6VtBA/rvtaz3
-         6n751M4URtrfEhoEot+zAnm/1ieDseB824xai/TYnPZuL8Hf8+PidZL6soy6/iCtsZu9
-         MNuAbHsYWRKC6m9/6vMeu9BBs5Rf2XoockOrWi+rm1K1dEyGeplg4tztubQfaprpmwXE
-         3QSA==
+        d=gmail.com; s=20251104; t=1790530388; x=1791135188; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0Bih5QsU7JkSj/FZUF3rXni5L3KGUCeOtVn2fm+Cr2s=;
+        b=G2bJTyxfG6fg5NAy97wDlB7t47lMlaBALBqFLKlp0hMSV7c1zKA20gU0d1bJVet8tk
+         hOCmNNagH5F2himkwiLkOK0nluYzFyons8fQqYbEA5gUi2Ub62fH14kRfLhvbJ7wUKvS
+         IlquUmKvqmoL5t+EJ6i0B+NwaUW1nKN+pXASpCCSHDGnHhUl6SbjNryFltZvTK4i1aC3
+         PsTqeXOzvjUrfLtKzAbXBLRbMydZPyzbWSzRjbXcbXmAf8V4N0eVHX0TxRMbob4Tf9WW
+         K40b28kiws8IECNlO0Rd8jpZ9c/HTnxIvxVrriTxD8IMNHsTnhrB6F//wVNHuyfWrugu
+         4iYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790529050; x=1791133850;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ikTxL5JuCzeBWeGH3nGI6q2+sz2cBQtCh19A8s6v9IU=;
-        b=D+ep2UQEjZZm8uMPEy7rqt5dt1uRDLmoDvoZ5ihKR/kPpS7pJIn4ka1H/kFYEB2rWP
-         x7CxuthzjbzuvDGillL4tV5J3xhhfhBMp+ZpCQhIhf9Kr+Da7sySbPIumUMbMg91HfMZ
-         bvXoJ6+/MQFfE7LkK6DViKiM+XnHjobrrbiL5PpOUaY6GkcfqUBtqba3el/keMcpnaRf
-         jq0SnQ8XJs+GLcv44LOl9PNH+9Gj3oLv7RBCZ5OzWve5SZrzS/16fH7aInjUSHlWGm1u
-         t9/UIhStO2pFkdA3Y9wIU8qS/wX7PpuXdw5NWipZ3gwLKTi+ExpOYJQimgOmc+NT4w+1
-         nM3w==
-X-Forwarded-Encrypted: i=1; AKwUvBy15RV7RzZ36x6i6JkAAUzIck9aU9iDWdMiY0l5BI48AG2P3MuEC+u8gz5N+Dmj98kD75Zp5mc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nI0Zv3YmxeruXR2PLKGMxsO7tm1LI702BLuzKVMTnNxaFph2ep
-	2o+xCUdcJLrhhNIVV0pXdojbokS8FiOXFxaJ+oz/G1xwY2Dpd/bIZNQwKPkKpKeUtjF2c33BEYr
-	3NONTlCIPV/iTnnyF3wIo7QeBu3nJuKcLeaIGSJsb
-X-Gm-Gg: AYBFou26D+jLuJYQeLyxJDVti46x235b31ICnx5ggzPqLgEdKxWAtppB7btDRI1yRjO
-	pqcOGOeqENB/snsryjwD9LaA9ztXCcDPP+skTmn+HoB4V9aDX2QdXaSj2ZCCqxOv8sUj7g4+HF9
-	8/BsWgfJklTJw9PkJcE3GxjaK2xNDWqlsl3S7+TjCDRgQlDdMcBv3loPEQtKZ7P/GjKvDIWZypi
-	CZymMpc2A6vIbrot1F+CCvnzaSQRcj5reEu50x3fk5jyC/fjnU49/V1znZgYOv8Y5NDzd6FqHa0
-	e+x4TzkqxIFgerlo/xcR++8QKygvom0z391coIPDiGrytTicmoiWZXGRgHNrJyrDwjApJUKOM+f
-	Jay+o8J5aHTAudXtzIjauCFx8G/eHTrgAdJpYsxgmJEtdUvfFwGJJ25uhRbpPS4FvjzEL
-X-Received: by 2002:a05:622a:6f16:20b0:533:3868:1f6d with SMTP id
- d75a77b69052e-53338682227mr27382171cf.59.1790529048151; Sun, 27 Sep 2026
- 10:10:48 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790530388; x=1791135188;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0Bih5QsU7JkSj/FZUF3rXni5L3KGUCeOtVn2fm+Cr2s=;
+        b=PY9T5GbGrcOXi8aQX8/2a0THZpDdyuZ9yzBwBKqi+XLaaA8hN14AdbY3OYVynTvZLs
+         bD0M4j1vrzVe8zcTR8IuZvEIr8JA0CPakR6uZ9Yzgeh275wSv6euZ6l6A6Yw5kGWb9xg
+         eMfU2j82Wr3dGvr9z1jqFmuataY74KyG/9+AE7Y8eHIq5RNO7pINLKcF8EDLn6nTFIBy
+         2QMsbHn0z38lElkk+j7TX4cPM30P5QXRCiYR1qe1erYjocC7+vjYBAr+AQbrSgTwBPHP
+         DSiZ59KNkGYJZv/+A7tbZY/cNy+Aol3GmpDoEAUZAfF3zzrDgyEUdOAZjPsngCKi9aMA
+         h0CQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzgZaG886QAZQAEbE4C4zBOd8cmyE7IZV+rQMs8aP4IuEoGim9xX5nIe7tSyOX3zxWZeoGoD6M=@vger.kernel.org
+X-Gm-Message-State: AFuF++krjCGRoNEG069f7/xwj3RWCkc/MQSTJienrjpYjUkw0DCD5085
+	K2VL8UM482aikPRgCTdnI+TgjyuU4l+HRqac1WyNNHnc3b1d7rK2m/wX
+X-Gm-Gg: AYBFou2uUmAQxNHLd50Tpa5dNyyJgRL3WSVsjXUGRVnb9sTo2AsXdBIakekoCahRcQS
+	vJvL3Qva8Q+HmMP6AHBfPFq0qUXiFwawxpR6dxi/gC9WH33OzJmMFSO9MjkRoL2gXLynAdBrbye
+	8TxM0ujztLzo8K8sxBbJ9S5d+CBGCcxDBpSNHf3j3AkL7Ydw9ET7kINBqMYn59yjmYXZSRHfgdF
+	WuCBBVqDYKVDrbPw72Am1wrGLxL9bJ3p0HtmZoNszUnyjDYXXNmR6V+FB8Hre8Y+AfeizQRLWXp
+	M/QeUvSvt83AxLzpo/xrVJ/sQ5I0PfqdHmlSzr/JgQ9jMLNN4AOfTTTDfKoOKZPfmfwnRsHuEk6
+	EiwMIhiTqJrikyIwP0p+KWvs06glLllmCbrVANqkn586P6utJ4DoEDdegTFzItbu49q4trviiyK
+	Sj5xlXTHczTdCOIyw7aTW6dTDNHweVfWVCE5UyKs0pcRer2SDTPcKymL9aFh1l2l0mSaqXY0NvR
+	uehvp2UwzTRLjX+Jn6DdY6A1CzJX+FUDfuTNtGe049lHf48XhI8PCw+SG9YNIgWtOAKiYrEhN8g
+	rfg9AEKMJN61dzMQsw==
+X-Received: by 2002:a05:6214:21c6:b0:914:4fc3:e865 with SMTP id 6a1803df08f44-9144fc3f5ecmr81736046d6.1.1790530388371;
+        Sun, 27 Sep 2026 10:33:08 -0700 (PDT)
+Received: from cachyos-SlimIce.lan (1841343-static.dvnpiaaa.metronetinc.net. [195.252.229.229])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91430da86f7sm63390986d6.9.2026.09.27.10.33.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 10:33:07 -0700 (PDT)
+From: Jared Wuerzburger <jwuerz@gmail.com>
+To: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Samuel Dionne-Riel <samuel@dionne-riel.com>,
+	Jared Wuerzburger <jwuerz@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] ALSA: hda/realtek: Fix internal mic on Minisforum V3 and V3 SE
+Date: Sun, 27 Sep 2026 12:32:37 -0500
+Message-ID: <20260927173237.339476-1-jwuerz@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260927163117.746432-2-bestswngs@gmail.com>
-In-Reply-To: <20260927163117.746432-2-bestswngs@gmail.com>
-From: Eric Dumazet <edumazet@google.com>
-Date: Sun, 27 Sep 2026 19:10:36 +0200
-X-Gm-Features: AclHuK-wtOUaURDTxb0s4NuF5eW9fAjvgRkV0CtGV9tL1ejWVBuFWcDjyUMkjB4
-Message-ID: <CANn89i+monpTo=bjqnHRhuGaCkfHe9BJNhJncjK+vUq0YKAAag@mail.gmail.com>
-Subject: Re: [PATCH 1/2] net: gso: validate TCP headers before segment length checks
-To: Weiming Shi <bestswngs@gmail.com>
-Cc: "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Jamal Hadi Salim <jhs@mojatatu.com>, Jiri Pirko <jiri@resnulli.us>, Shuah Khan <shuah@kernel.org>, 
-	netdev@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Xiang Mei <xmei5@asu.edu>, co+1fe9b56e2c61be5e@bugs.sh, 
-	stable@vger.kernel.org, "Michael S. Tsirkin" <mst@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sun, Sep 27, 2026 at 6:31=E2=80=AFPM Weiming Shi <bestswngs@gmail.com> w=
-rote:
->
-> skb_gso_transport_seglen() derives the TCP header length with
-> tcp_hdrlen() or inner_tcp_hdrlen(). Both helpers dereference transport
-> header metadata without validating it first.
->
-> A TUN user can supply a TCP GSO packet without NEEDS_CSUM and with an
-> invalid IP header. The skb remains GSO while transport_header keeps the
-> unset sentinel. TBF and police can then reach the length validator and
-> read tcp->doff outside the skb head.
+On the Minisforum V3 and V3 SE (ALC245, PCI SSID 1f4c:e001) the
+internal digital microphone array never produces any audio. The DMIC
+pin 0x12 is parsed correctly ("Internal Mic=0x12"), but the headset mic
+jack pin 0x19 (BIOS pin config 0x04a19050, jack detect enabled) has no
+presence detect wired on these boards: reading GET_PIN_SENSE on 0x19
+always returns "present" (as it does on the unused, unconnected pin
+0x18), while the headphone jack 0x21 reports correctly.
 
-Do you realize this leaves non-TCP GSO broken with unset transport_header ?
+The generic parser therefore sets up auto-mic switching and, believing
+an external mic is always plugged in, permanently routes the ADC to the
+empty jack (mixer 0x23 input 0x19 unmuted, input 0x12 muted). The
+"Mic Jack" kcontrol reports "on" with nothing plugged in.
 
-Please fix tun instead of adding numerous workarounds in our fast paths.
+Mark pin 0x19 as having no presence detect. The parser then stops
+auto-switching and exposes a normal "Capture Source" (Internal Mic /
+Mic) control, which desktop audio stacks drive from their Internal
+Microphone / Microphone ports. The existing bass speaker DAC routing is
+kept by chaining to ALC245_FIXUP_BASS_HP_DAC.
 
-__virtio_net_hdr_to_skb() needs hardening instead.
+Tested on both models with the same pin config applied through a
+snd-hda-intel patch firmware ([pincfg] 0x19 0x04a19150):
+ - V3 SE (Ryzen 7 7735U, BIOS 1.03), kernel 7.2.6
+ - V3 (Ryzen 7 8840U, BIOS 1.06), kernel 7.2.7
+Both boards report the same codec SSID and the same 0x19 default. On
+both, the internal mic records at a normal level, headphone jack
+detection on 0x21 still switches output, and the bass routing is
+retained (DAC1/DAC2 Playback Volume controls present). A headset mic
+on the combo jack was not tested (none available); with this change it
+has to be selected manually. V3 users already report that the jack mic
+gets no input [1], which is the other symptom of the same broken
+presence detect.
 
-virtio_net/tun/af_packet MUST not feed 'gso' packets without transport
-header being set,
-among other things.
+The patched alc269.c was build-tested with W=1 on tiwai/sound.git
+for-linus (7.3-rc3) without new warnings.
 
-pw-bot: rejected
+The diagnosis, the fixup and this changelog were written with the help
+of an AI coding assistant; I reviewed them and tested the change on the
+hardware listed above.
+
+Link: https://github.com/mudkipme/awesome-minisforum-v3/issues/14 [1]
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Jared Wuerzburger <jwuerz@gmail.com>
+---
+ sound/hda/codecs/realtek/alc269.c | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
+
+diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
+index 5127a111c..2de91431f 100644
+--- a/sound/hda/codecs/realtek/alc269.c
++++ b/sound/hda/codecs/realtek/alc269.c
+@@ -4384,6 +4384,7 @@ enum {
+ 	ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN_HEADSET,
+ 	ALC285_LENOVO_DAC_RENAME,
+ 	ALC287_FIXUP_YOGA9_SPEAKER2_TO_DAC1,
++	ALC245_FIXUP_MINISFORUM_V3_MIC_NO_PRESENCE,
+ };
+ 
+ /* A special fixup for Lenovo C940 and Yoga Duet 7;
+@@ -7136,6 +7137,15 @@ static const struct hda_fixup alc269_fixups[] = {
+ 		.chained = true,
+ 		.chain_id = ALC287_FIXUP_TXNW2781_I2C,
+ 	},
++	[ALC245_FIXUP_MINISFORUM_V3_MIC_NO_PRESENCE] = {
++		.type = HDA_FIXUP_PINS,
++		.v.pins = (const struct hda_pintbl[]) {
++			{ 0x19, 0x04a19150 }, /* headset mic jack, no presence detect */
++			{ }
++		},
++		.chained = true,
++		.chain_id = ALC245_FIXUP_BASS_HP_DAC
++	},
+ };
+ 
+ static const struct hda_quirk alc269_fixup_tbl[] = {
+@@ -8349,7 +8359,8 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1ee7, 0x2081, "HONOR MRB-XXX M1020", ALC256_FIXUP_HONOR_MRB_XXX_M1020_AUDIO),
+ 	SND_PCI_QUIRK(0x1f4c, 0xb020, "Minisforum AI X1 Pro",
+ 		      ALC245_FIXUP_MINISFORUM_JACK_DETECT),
+-	SND_PCI_QUIRK(0x1f4c, 0xe001, "Minisforum V3 (SE)", ALC245_FIXUP_BASS_HP_DAC),
++	SND_PCI_QUIRK(0x1f4c, 0xe001, "Minisforum V3 (SE)",
++		      ALC245_FIXUP_MINISFORUM_V3_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x1f66, 0x0105, "Ayaneo Portable Game Player", ALC287_FIXUP_CS35L41_I2C_2),
+ 	SND_PCI_QUIRK(0x2014, 0x800a, "Positivo ARN50", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
+ 	SND_PCI_QUIRK(0x2039, 0x0001, "Inspur S14-G1", ALC295_FIXUP_CHROME_BOOK),
+@@ -8579,6 +8590,7 @@ static const struct hda_model_fixup alc269_fixup_models[] = {
+ 	{.id = ALC236_FIXUP_LENOVO_INV_DMIC, .name = "alc236-fixup-lenovo-inv-mic"},
+ 	{.id = ALC2XX_FIXUP_HEADSET_MIC, .name = "alc2xx-fixup-headset-mic"},
+ 	{.id = ALC245_FIXUP_BASS_HP_DAC, .name = "alc245-fixup-bass-hp-dac"},
++	{.id = ALC245_FIXUP_MINISFORUM_V3_MIC_NO_PRESENCE, .name = "alc245-minisforum-v3-mic"},
+ 	{.id = ALC256_FIXUP_HONOR_MRB_XXX_M1020_AUDIO, .name = "alc256-honor-mrb-xxx-m1020-audio"},
+ 	{.id = ALC287_FIXUP_LENOVO_LEGION_AW88399, .name = "alc287-lenovo-legion-aw88399"},
+ 	{}
+-- 
+2.55.0
+
