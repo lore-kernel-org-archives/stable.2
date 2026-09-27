@@ -1,88 +1,159 @@
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F114B3C108E;
-	Sun, 27 Sep 2026 08:12:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.63.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A33D2367B5
+	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 08:18:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790496737; cv=none; b=dfe75tppn5u8fWAzQLP0CNZL5wcqyYvW7uerfGDYp0tKZtbXAsT5r5bKZ0jQ7Rxb44K+92PVjU7VQOrRITm+S9MeTxR6IcwPPEyP0WfbCdBIP5d/QBKR6UAF2mpyEO4mglc4VwWd8NM/LNDRWj18ZQ+fRE3HNKUPG+5pBKZSRnM=
+	t=1790497136; cv=none; b=bK50x/alnBS9+arJUq3336y+S3PjMEVKxDMAnDfNFGdVbj795W/3MAv0lxb/kuC8CidGLvL1qBUltLMkDVlcdMf38/hZ5W6tBKOjXB6rkmdVmG1iBf3V8+ryV4lGjJRkYWJdpy7q72/ZtFq3E6xMqLEC05KVQO1Zuog8JW5rjSk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790496737; c=relaxed/simple;
-	bh=HFjQqs1qUlb5jUYPLvjlzmH+l4FMVxII5Mkvsjb1geg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RhgRAjREPO6Y7NRlJ1HfbvKE+X57+3ONTrmBjCfDUshs377F2UNbjrAoof5uk7Qj7RWB2aTCHCZnsw/gdLLYB7nPf9AHg8zxp5q3sclo8iyAv8fFZH9ENarAmnUNlNC6q3jDi99JGqiziiIpN1KfN5/d1M0Vd6LvAUbd/kZW2TI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=HTp2pM3y; arc=none smtp.client-ip=188.68.63.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+	s=arc-20240116; t=1790497136; c=relaxed/simple;
+	bh=tnuxZHiMDP7NlbhxQnE94F7KWiJbmmUqD0qtt4RN/nY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Z9hHYZgHUotkx/OUbfZj/l4gTX+bewxLSBX1mn17HJ8eeUGkyS9Wdqju9sZ7zIhwQIPmVwd63a/+fxqj/KulMLX1MxsCQaL1+hS2j7SGWAagfSCnpIcjm9cSikGqXbXAmxkuOJwnOExsDsCoGdimCK7ZF+38XaAuRokmLUCDi2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C/sIZyTX; arc=none smtp.client-ip=74.125.229.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="HTp2pM3y"
-Received: from mors-relay-2501.netcup.net (localhost [127.0.0.1])
-	by mors-relay-2501.netcup.net (Postfix) with ESMTPS id 4hsxxM24mPz6Jr9;
-	Sun, 27 Sep 2026 10:12:07 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1790496727;
-	bh=HFjQqs1qUlb5jUYPLvjlzmH+l4FMVxII5Mkvsjb1geg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=HTp2pM3yGps1DzctLYKb2geTD1okMCfIvwUQqe5/a01SjzD4Dlw1DEkBikoSIumf0
-	 ksHJcCxqIvnurWqLIt7j3ZbuN7XdCEwoKJgFFYftPBnYYiNXoIg8gHbE6jsAKtHcfH
-	 wkKJ6wWq+bHX3curcBLW3eKDjNZfsdejS8uNa060uwtyq47afr5nbIyRkfC067UZnw
-	 t/ZVHjkge6J/VKN+lJE+CBExcxEiyQxUt2HFKRs8QCaHNHxdu3NGTgwZK6VAQOnMqF
-	 HIOkA+0BwhwQq4lBipPJl6z6q0nWYGosw5qkykVC9RAImsW2/CFbqNxCwUX/jnNjla
-	 LWbWhDE3d384w==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
-	by mors-relay-2501.netcup.net (Postfix) with ESMTPS id 4hsxxM1NgWz4xsg;
-	Sun, 27 Sep 2026 10:12:07 +0200 (CEST)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hsxxL5gccz8svk;
-	Sun, 27 Sep 2026 10:12:06 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 220295F94C;
-	Sun, 27 Sep 2026 10:12:06 +0200 (CEST)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <b37bba19-22db-4097-925a-192dcf9a49b7@leemhuis.info>
-Date: Sun, 27 Sep 2026 10:12:04 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C/sIZyTX"
+Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-344213c95bdso21125eec.2
+        for <stable@vger.kernel.org>; Sun, 27 Sep 2026 01:18:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790497133; x=1791101933; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=d22dLlUUYyImrNJb1bwxtlpRx+qcfWK6QMtWMrfJRas=;
+        b=C/sIZyTXbWFlry9svumX8/IQXAreIq4EgfkG0uoZCfgcN5cpjjdjhuE3LcV3LFiV4/
+         dpvMkqD7iB2R8H6k2pBXteI1DhIMeAReDqJqEF8iq68dnIT1EwE865etPvGVKbhyiUtG
+         GnlkKCiJQ0DWzZiIvmaOCV2Q6DgaQIiaqKgRjGtQv5HfipBC9fDD06YTgmFF1LmRTw/c
+         mNYuui0eEkfRu0g80P1/b69KMTlaNhKKxF6Pny3CkCi/I0wlGhqCWeVZpPEocfUHXhKY
+         yWUQ79ecVesBMynHk8Jq2e8grTwTu1VSvaI46V36kL17K/SucNE1qfrByvJ/NY1D/dKt
+         Nglw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790497133; x=1791101933;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=d22dLlUUYyImrNJb1bwxtlpRx+qcfWK6QMtWMrfJRas=;
+        b=OwYm2jg0TD09aHo78zrXzQMAoVmJQIa0cy8bRDmyBx0db4KzDmg+/GOqf8K6/CiBTm
+         8EhclYmEqjOVV99ZOr3Fi1rBbeF0jwDJ9Be8+pl+XBs4oGa8WTH7FpHWXvoaPjvwJCxU
+         zLyKI+sz+oFoE9yaYMD+HSiwSB+XPFABJZfg+xdFbhIuz+MHaWTJV8GNa9pJIv31ca4G
+         +O1+/ctC6q85aA1oCDdAuSjcP7yoiO4eWvZZowQovXLiRGPHwGBLNmKfuF1VnpbUHciQ
+         E+Rwmj+nmlfzH/ZdWLL3XCfJYHgJx2CqNzvPzbboL73ZoyArOvDjb7UTa5o3eIvaG6g3
+         kr+g==
+X-Forwarded-Encrypted: i=1; AKwUvBx8P+0wp1LGjijv3c6rYN+hwSV5N7nS8l2T4ZpWUdRGoevMyqV/DviwB5tzz8z8Pf/xOhml7zs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKT2J+b4dUJyUSiwwnk8Eu9w8euIv1R/oGgPUFC4+khHy7GC3yM
+	vr7MyAnGaFvH0liHEUiJlDlV7bxm1We/gCtmo28WzBpTaM0/AJ8fUSVq
+X-Gm-Gg: AYBFou3KuDrNYaGiN/pgL+aLMGbqpiBzfPESz2x8lX+90KwcxzSiUVdNhW8F1zfnyUi
+	ROHbjNGHCdlJxKtS35GeJ3Iff0WnTBeRjNoQPNSoinuoX89RgRIdeatMmCHSAR26ZWXg0CauSrn
+	RJceQAukr2mqy2/3/RTgxyhU3k06FF31bnLa6DXhgBVHc5CpCBUeI/wBqLEaiH4KLX4RDjg+G1D
+	We5c1zR4GVyAXyqT2DZQ9pZMpCsdfH2vLhjAbdM2ABKWbN5mJS59cLgiFrGhN0fIIcX2KSwGK7Z
+	saPUUY+Fn7SlvkBb4LNV8mHkQ4f17Iz5cLAY2la9wR03Xj3kF1mZtFEZehMyaHMvF6i6OeBZrNj
+	sNhWR9yQ1Pl6eh2mEMIMEBIhr28jef1EDn6Tccr9ydoVnSY0+i0n9W86E9UWi3Vfa/URLzwOuFb
+	IxhhzV9D/PnzqghPV/Wps/WdNqkCWpgcs+jNRLUOMAxrkjjaLHIw9Z4dZzIGv30HhvhMLnQzalb
+	0w8pRTtEMnvAlweLiuPml/Tk+jTsrFCLUaqIlDlxeoguyR1cFUR7bY1gtdI8LzF1ewhsMs3Ty19
+	6REq
+X-Received: by 2002:a05:7301:dd97:b0:33e:6a79:5a81 with SMTP id 5a478bee46e88-3427179721dmr7985570eec.1.1790497132522;
+        Sun, 27 Sep 2026 01:18:52 -0700 (PDT)
+Received: from localhost.localdomain (95.169.12.199.16clouds.com. [95.169.12.199])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34144172de6sm31192132eec.9.2026.09.27.01.18.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 01:18:51 -0700 (PDT)
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+To: David Howells <dhowells@redhat.com>,
+	Marc Dionne <marc.dionne@auristor.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>
+Cc: linux-afs@lists.infradead.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Chengfeng Ye <nicoyip.dev@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net] rxrpc: Serialize client connection IDR updates
+Date: Sun, 27 Sep 2026 16:18:45 +0800
+Message-ID: <20260927081845.3696101-1-nicoyip.dev@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] Bluetooth: ASUS USB-BT540 (0b05:1bef) fails after
- BTUSB_REALTEK quirk
-To: Niko <unknown@niemelat.fi>, linux-bluetooth@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Linux kernel regressions list <regressions@lists.linux.dev>
-References: <be59323c-d616-4ce9-b886-e1a7be1a7b7e@niemelat.fi>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <be59323c-d616-4ce9-b886-e1a7be1a7b7e@niemelat.fi>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-PPP-Message-ID: 
- <179049672644.3690133.11772297743812531246@mxe9fb.netcup.net>
-X-NC-CID: oPA8YS2oaqPINzkjgaiPsmDXKpssukyVvLrDG8NbGzu8vGZdSoM=
 
-On 9/26/26 10:49, Niko wrote:
-> 
-> I would like to report a regression affecting an ASUS USB-BT540 Bluetooth
-> adapter (USB ID 0b05:1bef).
-> 
-> The regression appears to be caused by commit:
-> 
-> 980084de4d9b25193398d89a1c0430ba3501b683
-> Bluetooth: btusb: Add ASUS USB-BT540 for Realtek 8761CU
-> 
-> which adds BTUSB_REALTEK | BTUSB_WIDEBAND_SPEECH for this USB ID.
-> [...]
->   Raspberry Pi kernel: 6.18.50+rpt-rpi-v8
-From reading
-https://lore.kernel.org/all/daily-reply-0016-re-btusb-rtl8761cuv-regression@kernel.org/
-I suspect that latest upstream fixed this already. Please report back if
-not. Ciao, Thorsten
+Client connection allocation runs in the local endpoint's I/O thread,
+but the final connection reference can be dropped by another thread.
+Connection cleanup then calls rxrpc_put_client_connection_id() directly
+or from a workqueue, without synchronizing with the I/O thread.
+
+The I/O thread can be traversing or updating local->conn_ids in
+idr_alloc_cyclic() while a cleanup worker calls idr_remove() on the same
+IDR. The removal can change or retire a radix-tree node still being used
+by the allocator. Concurrent removals are also possible. These
+unsynchronized updates can corrupt the IDR and crash the kernel.
+
+KCSAN reported:
+
+  BUG: KCSAN: data-race in node_tag_clear / radix_tree_delete_item
+
+  read (marked) to 0xffff9d03804b9fd0 of 8 bytes by task 109 on cpu 1:
+   radix_tree_delete_item+0x132/0x160
+   idr_remove+0x32/0x50
+   rxrpc_put_client_connection_id+0x53/0xe0
+   rxrpc_kill_client_conn+0x7d/0x190
+   rxrpc_clean_up_connection+0x193/0x370
+   rxrpc_put_connection+0x3d9/0x3e0
+   rxrpc_destroy_call+0x192/0x2e0
+   process_one_work+0x325/0x710
+   worker_thread+0x31d/0x5c0
+
+  write to 0xffff9d03804b9fd0 of 8 bytes by task 97 on cpu 0:
+   node_tag_clear+0x7a/0x110
+   radix_tree_iter_tag_clear+0x47/0x60
+   idr_alloc_u32+0x13e/0x1a0
+   idr_alloc_cyclic+0x7a/0xf0
+   rxrpc_connect_client_calls+0x375/0xa40
+   rxrpc_io_thread+0x79c/0xe20
+
+Serialize allocation and removal with the IDR's existing lock. Both
+paths run in process context and allocation already uses GFP_ATOMIC,
+so no additional lock or allocation changes are needed. RCU-protected
+lookups remain unchanged.
+
+Fixes: 9d35d880e0e4 ("rxrpc: Move client call connection to the I/O thread")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+---
+ net/rxrpc/conn_client.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/net/rxrpc/conn_client.c b/net/rxrpc/conn_client.c
+index 48519f0de185..93e08a13a236 100644
+--- a/net/rxrpc/conn_client.c
++++ b/net/rxrpc/conn_client.c
+@@ -45,7 +45,9 @@ static void rxrpc_activate_bundle(struct rxrpc_bundle *bundle)
+ static void rxrpc_put_client_connection_id(struct rxrpc_local *local,
+ 					   struct rxrpc_connection *conn)
+ {
++	idr_lock(&local->conn_ids);
+ 	idr_remove(&local->conn_ids, conn->proto.cid >> RXRPC_CIDSHIFT);
++	idr_unlock(&local->conn_ids);
+ }
+ 
+ /*
+@@ -162,8 +164,10 @@ rxrpc_alloc_client_connection(struct rxrpc_bundle *bundle)
+ 	if (!conn)
+ 		return ERR_PTR(-ENOMEM);
+ 
++	idr_lock(&local->conn_ids);
+ 	id = idr_alloc_cyclic(&local->conn_ids, conn, 1, 0x40000000,
+ 			      GFP_ATOMIC | __GFP_NOWARN);
++	idr_unlock(&local->conn_ids);
+ 	if (id < 0) {
+ 		kfree(conn);
+ 		return ERR_PTR(id);
+-- 
+2.43.0
 
