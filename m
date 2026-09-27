@@ -1,233 +1,103 @@
-Received: from mail-ed2-f33.google.com (mail-ed2-f33.google.com [74.125.228.97])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C34D02798EA
-	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 08:32:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.97
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790497949; cv=pass; b=dOQl3I2uBkHizVZJGbtvhjzINuUf4O+NYtisEWOrV4Pz4nNCnyqBOVy/A5RCeuvDYCJJ4zWzHwqL9ZU40aYSmNiwyvo0W81+OWdrbkdRVH4CQJZMoz4/9D5ZO92HtGT7N862B9Y6FO/0moOw+VDX/jT35s6Yes83nIQWzOmSkJQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790497949; c=relaxed/simple;
-	bh=Op4TF923PZN2pA1cGRLIOtwN+qOzyRIs41ZrhN5aXbM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gtmSeJJq+vwzbKrKvdOYrM62kfuf0pDFks+ud9QYrPAgX4hYWt94+du/H+w8mXh/n2u2C6gY8bHYCHPwUdR/jk3TvrNi8JJZWpM1Lg0ZpzkAHzmq9n7BlLnyX1diUMLiW4OEQJ1agWq/m95JbViJJaAXSLs8apBMvoKuaE5Kaxs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QbHon6ck; arc=pass smtp.client-ip=74.125.228.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B2113BFE4C;
+	Sun, 27 Sep 2026 08:50:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790499028; cv=none; b=hc2xv3b7LUq5iOHtc4YlOZ5cxGJNt+JWs7RdH0s7Pa2pXSOGq29Ewipv2FTSubeu8ONHLJomG8fQ1RytJe3mXOL+aAwgRdSqgdFlqUfUiucqcRDyFYL2nubyquVeyOhgK/b7vrQ3dMGWTh0tT7Lk+oWuIN7uUD0vsR2Qn2DRs+I=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790499028; c=relaxed/simple;
+	bh=5LaDpU6fGaHrV0IgPjndRA812opNzIdESMeFYj+vRmA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Ydgcum8tujLakId68IukxkFAPabbguOpIAIAqdek5xj8BJ3ICBvaXo4yJV3luyw5SDYF5JhiTWLusYwIQLfkOwXzFVK2qPB0pND9QeB8ujMk/2XqyBYrYMMa4HIdO6iXT2rZ+RuPa624/+SqhbCmdO3bkrwGY4wS1kPLM60ykVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=G/KdE+us; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QbHon6ck"
-Received: by mail-ed2-f33.google.com with SMTP id 4fb4d7f45d1cf-6ac6d9a3d50so55900a12.3
-        for <stable@vger.kernel.org>; Sun, 27 Sep 2026 01:32:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790497946; cv=none;
-        d=google.com; s=arc-20260327;
-        b=sMouMazjx0iD4TIDUphvGbMIq8vCgYMwqZolj+MGNgncdNSpO2IuyoYTRCOSrw2ngy
-         d5Yg0BzMQNxc/oc+64IGR+xaRlGGmjB3/+fEdKMr2SS2tkFSBU0W4zLreMtFZ5hCVtut
-         NDy2jq3XiIYotqFDhMCncQZ4pYbACsOduS+JhiG6A7apr0NHg91aGKENcbgGQaK1fn1m
-         KXE2gJP7kNTvQhoMEtZtpbIVJZ5gM4EyCEAzX2PMAm0fGGpoKMoRpP7AP8Q5gxOWgNym
-         pl53KlsbjxCjcPJCWTa8hQO0jpfB0dszm4B2PIlvA0VnAUYMW5HM+u+KnSTXid82c4PD
-         tFnw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=CUxHB4a9JqhTttVxs5UpiiqISs3GJlZ8HmVJ1p06eLc=;
-        fh=mxNKXVXSxq3Hm34v+7qs3rdKl7ifAeDTKwcli2zPO4I=;
-        b=q9r8riWWz992ds46UOUxvTXMOoMDAj/3BllSn+hgsL1YfAYINZIJ2+FmrF6y26faiw
-         4Sj/04hWvnm2L3Zbbm9iLMumgzPWq+/HlYTlPZFLi7bXVC9i8g6LGcn+UH7Hgu6I7GJB
-         jwBYKLB6jhZOHswuUFLkCyUyMYbYdD58TZA+/mxBI/247fZK02rkKhsfcsEvRLCVjN1g
-         ctxx21HeODAaXfLWSzmsmW3G9lrwwFi1Nv5gjOC2rfnNI+hnAs3gdDKTYefT/vIUDgcO
-         pxFD1S6G9CknXgbbhgQ6F4S/dUNAGuu/BRbOfzgaA3JKBOvku1wbGSFWNyH4CyIjzkPO
-         jQsg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790497946; x=1791102746; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CUxHB4a9JqhTttVxs5UpiiqISs3GJlZ8HmVJ1p06eLc=;
-        b=QbHon6ckRYMsI0mEyPG+ga7CzGgVyF9FopesfeHbDuuo+B0mBPtvABUOKpz8hHrE/Z
-         22qbB19tDzgvAnm3sk92uOWUYPgEbSUNzUxoqRXAmK4x9BREZPTpQGoTxabyAaHVV9r6
-         D1HVvCn3Wo3+faeCDEjgnnAyB5ZqCHA7UCom950omUPhW8ngruBHY4wTXlORoOg4IL97
-         1z7sWPwwKcZ/m818pdG1nOc+4URg5oLu1wbC/cCrxPhy0Qd8BKth+H+rUdtyspPDT8fY
-         UQpMFhN8nJSWBDrpSvdW3V5a7HOLYqLxRdRgyZNxvkOrKCwmQ6UiO4MFYFyRmcfUEkR1
-         YKNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790497946; x=1791102746;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CUxHB4a9JqhTttVxs5UpiiqISs3GJlZ8HmVJ1p06eLc=;
-        b=K7d6YxQduJ6bHwJ5JIVY1yv6WI/XzyDi5N3C1hPX+6R3DcuKAtcXCrtw38CdV39cbi
-         YWzi4xszraalluWoM15BtWkArPudrJjllBPNNMNCpyKZVyB/fIKbHdft3cB5ylKYUqK3
-         j/D/nj50XDZJarQLx6YoXiEKb3egopYioPah/CG5DYtj+62AUyXwxlKlLec3yovDZPNy
-         CVUsl3sn7KfZ8ij2mjSOOuPT38IxADDpCiPt2Zf0uy+bBv0mmDngXw2aD4V73h+6X5tO
-         orDgaUQbO2JbLUeun3YSXnoRuVpVzFo8+d/HjkbLyMa2+jXxZ/XvGHxe5JtSKdlePMLb
-         /W1A==
-X-Forwarded-Encrypted: i=1; AKwUvBw58jU8Kb7Z0LSK1DxckVNmtDFvkNMLA0kOhdZqHbZiW5RtpiENECWbsl4tQuqOLKow1kHlqRE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIkXOZJSDmsa0lovjio2z4ag4YcHgFBg2G8Cs9kOT2UTjNWqMB8
-	NvXadSIGoh/vC2VvgtJJTdXavJ88SRsMddAzFDqPcFyVI+irUvQZmvUdp+GLHFzj8WIGIgB9HWh
-	0shlSwzjhiWpzGW+HOBSOokjHs5A/FA8=
-X-Gm-Gg: AYBFou2rOVFOpJtulPX02U4vXO5vE0ctXpYCuGXaIeqxTvE7gBzYkawUyKDO2+Bzn4p
-	MVsx5JAEVKbgOr6EKhKBV3ba5WT366yWkc+ynGlD2S2Cnag4DLUcNSsyF1TbT+miOV5mv2Iec9x
-	Y6sgsCrIfTXfKJ1zseVtGSvZ8obPieXGTa+xMi1Xd5XIS27sp4d0rvzSt8Uhiyh2uuoUTItGLat
-	E+dyN/9QF9UomE0LWXotSKBa8L/1del6ESjHpEu/G3uFPmNYwp6OUVaOrbjDt7gwnZW7pT4nqPO
-	/72VF2/O5VCr4kzdTnrwcQfLx5MSw2/ixPnCdb4twb8flr5UADS6g8JkjH+cA50TsSEV+YW774c
-	uB6fD5Kz4d9AIrx8/cxRlZQ==
-X-Received: by 2002:a05:6402:50c6:b0:6aa:f240:241 with SMTP id
- 4fb4d7f45d1cf-6aaf24004c5mr4822258a12.0.1790497945733; Sun, 27 Sep 2026
- 01:32:25 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="G/KdE+us"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=DA
+	c3cvfHFxzrBCC2xcvA8V34m/HXJuo5iD2TpyT7ixg=; b=G/KdE+usNp/AfgATcD
+	fKfjsU1+dS+JCzQe8PTOrtP9qq4ZTFUJ9cjEgQu/StFadIfjl6ZXlogp4M5CWjC7
+	4hOW0jfUeVx1llB1hTxjF1Avo1lVU+a2hHG7I5LiAwIcYUsCXdHFZEDo3DNsAalo
+	8Kf8DW8DHNtS+VlkaITo9eXeQ=
+Received: from pc.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wD339y52Lhqbg8gBA--.18321S2;
+	Sun, 27 Sep 2026 16:50:02 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Aleksa Savic <savicaleksa83@gmail.com>,
+	Guenter Roeck <linux@roeck-us.net>,
+	linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Jiale Yao <yaojiale02@163.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] hwmon: (gigabyte_waterforce) reject short input reports
+Date: Sun, 27 Sep 2026 16:49:59 +0800
+Message-Id: <20260927084959.893708-1-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260926172600.2394088-1-nicoyip.dev@gmail.com> <179049714090.25414.9706892666916736240.b4-review@b4>
-In-Reply-To: <179049714090.25414.9706892666916736240.b4-review@b4>
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-Date: Sun, 27 Sep 2026 16:32:14 +0800
-X-Gm-Features: AclHuK-VVl8oMxw1DKEDd6CYLQdS-fllp6XQOLEY4IQxZkl62p2gPbF455zhrGI
-Message-ID: <CAAo+4rXRTJz0wh=Xjv3ME8kfBsdgDC4q-n=M0-Z+uuOWik8fOg@mail.gmail.com>
-Subject: Re: [PATCH net] batman-adv: Close OGM aggregation before transmission
-To: Sven Eckelmann <sven@narfation.org>
-Cc: Marek Lindner <marek.lindner@mailbox.org>, Simon Wunderlich <sw@simonwunderlich.de>, 
-	Antonio Quartulli <antonio@mandelbit.com>, b.a.t.m.a.n@lists.open-mesh.org, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD339y52Lhqbg8gBA--.18321S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7CFWUCF4UCr18JFW7Kr1UAwb_yoW8uF47pF
+	W5AFsxKr45tF4fXr4DJa1Uua45WF1rJrW3Wry0ka9YvFyYkrW5WryIkrn0gws8WrWrKanI
+	gw48tr1fKFWDtF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pi8wI3UUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzhotZ2q42LqxugAA3l
 
-Thanks for the quick review.
+The HID raw_event callback runs before HID core validates the received
+report length. waterforce_raw_event() reads command bytes and then accesses
+fixed offsets for firmware or status data without any length checks. A
+truncated report can therefore cause out-of-bounds reads and update hwmon
+state with unrelated data.
 
-On Sun, Sep 27, 2026 at 4:19=E2=80=AFPM Sven Eckelmann <sven@narfation.org>=
- wrote:
->
-> Thanks for the fix.
->
-> Please don't submit batman-adv changes to netdev directly. And please sen=
-d the
-> patch also to the person which introduced the problem. You can use tools =
-like
-> `b4 prep --auto-to-cc` or just the underlying ./scripts/get_maintainer.pl
->
->     $ b4 mbox 20260926172600.2394088-1-nicoyip.dev@gmail.com
->     $ ./scripts/get_maintainer.pl 20260926172600.2394088-1-nicoyip.dev@gm=
-ail.com.mbx
->     Marek Lindner <marek.lindner@mailbox.org> (maintainer:BATMAN ADVANCED=
-)
->     Simon Wunderlich <sw@simonwunderlich.de> (maintainer:BATMAN ADVANCED,=
-blamed_fixes:1/1=3D100%)
->     Antonio Quartulli <antonio@mandelbit.com> (maintainer:BATMAN ADVANCED=
-)
->     Sven Eckelmann <sven@narfation.org> (maintainer:BATMAN ADVANCED,blame=
-d_fixes:1/1=3D100%)
->     "Linus L=C3=BCssing" <linus.luessing@c0d3.blue> (blamed_fixes:1/1=3D1=
-00%)
->     b.a.t.m.a.n@lists.open-mesh.org (moderated list:BATMAN ADVANCED)
->     linux-kernel@vger.kernel.org (open list)
->
-> This change should not go directly to net.git. The target tree must be
-> batadv.git
+Require every report to contain the firmware response fields, which also
+covers both command bytes. After identifying a status response, require
+the byte at the highest status offset before accessing its payload.
 
-No problem, I will send the v2 to batadv.
+Fixes: 42ac68e3d4ba ("hwmon: Add driver for Gigabyte AORUS Waterforce AIO coolers")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
 
->
->     $ ./scripts/get_maintainer.pl --scm 20260926172600.2394088-1-nicoyip.=
-dev@gmail.com.mbx
->     [...]
->     git https://git.open-mesh.org/batadv.git
->     git git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
->
-> The last tree is irrelevant for you because it is really unlikely that Li=
-nus
-> Torvalds will apply your patch directly.
->
-> > The OGM send worker leaves its forwarding packet on forw_bat_list until
-> > after batadv_iv_ogm_emit() returns. Aggregation holds forw_bat_list_loc=
-k,
-> > but emission reads and clones the packet without that lock.
-> >
-> > CPU 0 can therefore start emitting a queued packet while CPU 1 takes th=
-e
-> > list lock, finds the same packet and appends another OGM. The sender ca=
-n
-> > observe the new packet length before the corresponding direct-link flag
-> > is set, or clone the skb while its length and payload are being updated=
-.
-> > This can transmit an OGM with incorrect flags or inconsistent data.
-> >
-> > KCSAN reported:
-> >
-> >   BUG: KCSAN: data-race in batadv_iv_ogm_queue_add / batadv_iv_send_out=
-standing_bat_ogm_packet
-> >   write to 0xffff888100fedcf8 of 2 bytes by interrupt on cpu 1:
-> >   read to 0xffff888100fedcf8 of 2 bytes by task 70 on cpu 2:
-> >   value changed: 0x00c0 -> 0x00d8
->
-> Is there a reproducer and where can I find it?
+Notes (update-waterforce-v2):
+    Changes in v2:
+    - Fold the command-byte and firmware-response checks into one minimum
+      length check, as suggested by Guenter Roeck.
+    - Drop the inaccurate hid-asus comparison from the commit message.
 
-I will prepare one and send it right away. The KCSAN was triggered
-with a kernel-side delay() instrumentation.
+ drivers/hwmon/gigabyte_waterforce.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-> > Set num_packets to BATADV_MAX_AGGREGATION_PACKETS under the list lock
-> > before emission. This waits for any ongoing append and makes the existi=
-ng
-> > aggregation limit check reject further appends before inspecting mutabl=
-e
-> > OGM flags. Emission walks packet_len rather than num_packets, so the
-> > queued contents are still sent normally. Keep the packet on the list so
-> > interface purging can still wait for the worker and retain its existing
-> > ownership of the packet when freeing it.
->
-> I might be wrong but this reads a little bit like it was written by an LL=
-M. If
-> this is the case, please think about following the annotation style descr=
-ibed
-> in https://docs.kernel.org/process/coding-assistants.html
+diff --git a/drivers/hwmon/gigabyte_waterforce.c b/drivers/hwmon/gigabyte_waterforce.c
+index 4eea05f8b569..f4d0376dd68e 100644
+--- a/drivers/hwmon/gigabyte_waterforce.c
++++ b/drivers/hwmon/gigabyte_waterforce.c
+@@ -257,6 +257,9 @@ static int waterforce_raw_event(struct hid_device *hdev, struct hid_report *repo
+ {
+ 	struct waterforce_data *priv = hid_get_drvdata(hdev);
+ 
++	if (size <= FIRMWARE_VER_START_OFFSET_2)
++		return 0;
++
+ 	if (data[0] == get_firmware_ver_cmd[0] && data[1] == get_firmware_ver_cmd[1]) {
+ 		/* Received a firmware version report */
+ 		priv->firmware_version =
+@@ -269,6 +272,8 @@ static int waterforce_raw_event(struct hid_device *hdev, struct hid_report *repo
+ 
+ 	if (data[0] != get_status_cmd[0] || data[1] != get_status_cmd[1])
+ 		return 0;
++	if (size <= WATERFORCE_TEMP_SENSOR)
++		return 0;
+ 
+ 	priv->temp_input[0] = data[WATERFORCE_TEMP_SENSOR] * 1000;
+ 	priv->speed_input[0] = get_unaligned_le16(data + WATERFORCE_FAN_SPEED);
 
-Yes, it was generated with gpt-6-Astra, and I will add the missing tag
-on v2 following the doc.
+base-commit: 93f51579e7df248780214094418f205253383cc5
+-- 
+2.34.1
 
-> > Backports before Linux 6.15 need count-handling adaptation.
->
-> This is wrong. You are depending on 434becf57bdc ("batman-adv: Limit numb=
-er of
-> aggregated packets directly") and not the counting adaption. Of course, f=
-or
-> 4.10.x-6.14.x, you also need to change the BATADV_MAX_AGGREGATION_PACKETS=
- to
-> BITS_PER_TYPE(forw_packet->direct_link_flags)
-> And it doesn't belong in the commit message (like this). Please annotate =
-the
-> dependencies as described in
-> https://docs.kernel.org/process/stable-kernel-rules.html#stable-kernel-ru=
-les
->
-> > Fixes: 9b4aec647a92 ("batman-adv: fix rare race conditions on interface=
- removal")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-> >
-> > diff --git a/net/batman-adv/bat_iv_ogm.c b/net/batman-adv/bat_iv_ogm.c
-> > index 53fbdbbe8f4f7..59847299a1237 100644
-> > --- a/net/batman-adv/bat_iv_ogm.c
-> > +++ b/net/batman-adv/bat_iv_ogm.c
-> > @@ -1909,6 +1909,10 @@ static void batadv_iv_send_outstanding_bat_ogm_p=
-acket(struct work_struct *work)
-> >               goto out;
-> >       }
-> >
-> > +     spin_lock_bh(&bat_priv->forw_bat_list_lock);
-> > +     forw_packet->num_packets =3D BATADV_MAX_AGGREGATION_PACKETS;
-> > +     spin_unlock_bh(&bat_priv->forw_bat_list_lock);
-> > +
->
-> Can you add a small comment above like "mark aggregate as full before for=
-cing
-> emit" (or something similar).
-
-No problem, the commit message and the comment will be adjusted accordingly=
-.
-
-> --
-> Sven Eckelmann <sven@narfation.org>
