@@ -1,152 +1,195 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2A1B3BBFD9
-	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 17:55:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8FCE429000
+	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 17:55:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790531726; cv=none; b=f/pSZPiiPjT04KHPqn9PNfFIYsbhe/uXB0KWz7/mUXKfHcsjafVW3yVhzAvjF+LrKq3i3xSMHZdEPai/IROy20ec6rF4VuWCUqv1dcd1uLUoTWtvMhmEIxnvHwDQ2kAkvOVyRa0Gugb/ys3grnNaB+UJ7JFHnY+fe2tDruvZEgo=
+	t=1790531744; cv=none; b=mxeY3z0e4c3wsWzCMhZiAjJs3ktK6S9+YswVqSkH8hp89F8T5xqr7FSXVWK/qyuSNL65hCXZeCNkqScIS9QJLLBM3pLDtvhGQ27zaSjB/EshzaPQIBef19EVewqLa7W0YeKxJsOA/sxHZYfZYGrL+ccEgPJ5ctN2Dn3ubjzZzvk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790531726; c=relaxed/simple;
-	bh=s6FZYmulgvomkdY9Fcfdj3azSZv7XguaNTjdt7XQ080=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Pqe18cxkBQnGCiaDFRl2I+VgA3dDEIvGGwXe7D3DbF0VGvlc61u3CgEoT5sI3MpABr5T4+Ay4Nc/LE8umW/5JnUhkIh3KMxLhpXIJSWriL3ihRccDTgZQb/ToFXT2pc6B4YwYZ+pNeO65L6Brq7kSlP9+yKEEHfsgHFZX1WzW0Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qIyidMYx; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790531744; c=relaxed/simple;
+	bh=uzulCFmfSKx4L2uI+AawFiAkCbCZ9nYjgV+Klw292bc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ELh+ZW252wTXB18Y4ciX8Xj4Jyi48Pz9LimOKpJik3F14qcXB8DEgKKzoWte8BrIJXiIp8xQJRVmhHqBk+/zpK0SzZeo5ByZyiGI7XixhbCK/djq6vl+fNZfEF0UtMHUCs/FZR0GplcT1KcnIM625gd7H8lRcNWQaJKco0i1g0Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TGt0TzC1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=au0sNVU9; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qIyidMYx"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4887635e952so983480f8f.1
-        for <stable@vger.kernel.org>; Sun, 27 Sep 2026 10:55:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TGt0TzC1";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="au0sNVU9"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68R1redq1788180
+	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 17:55:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	eYTBzgG20csW2zfR3sxsuXAX1IOCeJol8XD1eAHh4xM=; b=TGt0TzC1W+DHwGVw
+	W6Ou9mO0ezipe8xZwRbureLRbkcGzR9g4nF2P6i7aD6nnNpsftwQxK98gCRkYRZ9
+	gDq7TDk35Rmf7aUT3h80U0+Zv2oAJ84er1BoOrdfZlF6amZt/oZSyT4ktBu3O99X
+	6GxM9w5oIWukMXAq7qWNgnpABMhyrt5lWDNmrW0B17K0/BE4NvZcaCU0+urDDxXj
+	rEFcpGiRzhV3K2CqcTCnZFQq9ifnXHbw/76+ryCAd0oHCVoS2kP1av87eF1UkxfX
+	NHd75BVCj2dZR83xZpvUE7Zr+6Ow7RDvqsDciKXnqYP/hDmgNIaSrxECxIWgTLC1
+	LmPvNA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gx526kh8j-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 17:55:41 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93c5ab5c136so213640885a.3
+        for <stable@vger.kernel.org>; Sun, 27 Sep 2026 10:55:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790531723; x=1791136523; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=nKitTAlwTBExXI+cI2+8578Ap+v+wKyXIoUr5i+JPl8=;
-        b=qIyidMYxGa5GI2DCovSSGiYtkNlwmLmPZVoPMRV8/8HA9hSHYE6Myqe1TlRkKa5C2P
-         P48CbrZ3euJKTmo8k3c4ljO4/tIJXoSKK2DI9DSMcGOouEccutJ2GeH46xNDu9vAAAbF
-         Cmw8PJ5haznHdC2abLVYgfBlhY/qDt9cSNBWlmvdH+6y2Z1paE6RpgiUCwvX0HjBZvZJ
-         9AFiSdYnMbGDPiB4A8e/tVSHpHKz/tMKBUdFwtZZH1nx41qLwihQncd25CaenUHBAtv0
-         Ad77awKe8O21KBLMiLR+CfzCNoUyf20d5LDV1vA2c42P/tGBbMZJ14ueJZ8e2bNca21n
-         sMqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790531723; x=1791136523;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1790531741; x=1791136541; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=nKitTAlwTBExXI+cI2+8578Ap+v+wKyXIoUr5i+JPl8=;
-        b=aYSLJlqT+sYtDlQfeHZM2cs48ZKRPUh/slSZICm2fiufDrBZxdsSZ8/EXnJJxH5DN9
-         gLZfrF/6ItGwaquL05aD62JaNJMu+FHcv5vpKwYAwpV1bDGS8YU4ZoMV/Us5A1fvVwi6
-         OgO9LsEcC8DZEHDokCDaych8bhx/EQT9XKBcR1It1aNzKsdbyxD7Fw/pinSPTGgQZsjc
-         vFsvGVp9IB/Khjb8W5Eq5oH82Kch/EppNfEZ+anXkZTDvjLnzY0oMFouhKEtCidYM2r+
-         h2Gj2DXBhQO9PlaRwDu2CeQRzb7Vw0eoPwDPtfVQouegxrYmSCJ+QIhb2eihd5MFfjly
-         lRzA==
-X-Forwarded-Encrypted: i=1; AKwUvBwWX3Flh0bNkWECb4S5lSjR8sAqgArQ/OsUzq5sUDCgbEXMqVrdm1cSAPpCeqYbc4HiQG3fIM4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL0Z6YWqR6ryRkM77fwnp6Lh4yJPyJpXeLWawH+6SWolIekeDB0
-	oexo5v9Z2t0UBgHJzv7jLzxgieiwDl+DQ6bamKyeTM97/TuUyruZhcUP
-X-Gm-Gg: AYBFou0ARIELI4XIAhpR3YDc/JDfZkSKQisuxWmiTKdjyIRLYQHBNP2nZKQca9QXZOC
-	nIYbPelwudr/DcAExwmCtrB1p5/KU7YqUWe7xl17t7WyU44SywrJbU9u/8wF0QfvSSsqaovMQFQ
-	sG8Uxum2Nvs7OEPFQqU9wtsMkGrI8SfGCOvBmYmWYIJ9KkymeHyP0TbEsnB9a0iOcAiKexc5woK
-	N9tJQbtoWWDVWM4xz0caKJ4Q7WZYHamVEGpexxA9N3M3DwnZiu+Iktxwv7L4JjHU/8b2CycK/rz
-	5PQ/z0ayMDE7o8xWCa/u/iOXhdSJtN/gtYC8juRQh1f6nuHJDx9zTFrbiz9h/zIoiiAZB8yyDuf
-	eQnmwOyzuuXm6oO2p1vBhLQCMaOZc3f/1rEBDK7E0X2e7FBRsvxmSOjW567avRweLZFhL/6znZS
-	Yqc8YxuAyqXQHGCoyR72dvJNLakKdfA3HImaUgGhPPYHzDrhlXS4G5H+EGHeIR2op0si52lwUzj
-	Xfy1CmeLbkztWh9z8AzDz1mwoVKtppqQPUNBj8G4GeIKejKMn77Go4h4dQzZ92ornWklAHibzCd
-	O2RAzxtR04McS8LisSS3zsGF5U+eU0fuyDIxi4Y3/peDfWrZhcAGf7pfnGpb5ynHHgciuT09m0x
-	O7auk7oIsODYRqRb/ExF2ZCUm01y3U0g=
-X-Received: by 2002:a05:6000:468c:b0:488:76f5:c7d with SMTP id ffacd0b85a97d-48876f50d2bmr11484821f8f.6.1790531722779;
-        Sun, 27 Sep 2026 10:55:22 -0700 (PDT)
-Received: from systembl0wer ([2a02:8308:4092:11f0::f9f])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a30b1dfsm22726735f8f.4.2026.09.27.10.55.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 10:55:22 -0700 (PDT)
-Date: Sun, 27 Sep 2026 19:55:19 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Guangshuo Li <lgs201920130244@gmail.com>, Eugen Hristev
- <ehristev@kernel.org>, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>, Alexandre Belloni
- <alexandre.belloni@bootlin.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- linux-iio@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] iio: adc: at91-sama5d2: disable autosuspend on remove
-Message-ID: <20260927195519.76c2885b@systembl0wer>
-In-Reply-To: <20260917041128.6d10a2f6@jic23-hlaptop>
-References: <20260914113422.1689331-1-lgs201920130244@gmail.com>
-	<20260914145339.00002f0b@gmail.com>
-	<20260917041128.6d10a2f6@jic23-hlaptop>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+        bh=eYTBzgG20csW2zfR3sxsuXAX1IOCeJol8XD1eAHh4xM=;
+        b=au0sNVU91100p4KEVo3fPpjlp/apx9zBJ8fA1wOUNPPcfd5oAN36xSh+V+ENw/wFeV
+         OpHT5wMkJ7b1ZzBs7inY1fR3Z3gCMVe5avJCCX12MoBUnbprQ50Q5yh7GN7PBcRez5in
+         up4Zgqb6WD+0Kz9oEm5E/682JBfuAleRalnSFr9N92ZM24B2rBEt6/Hiq4DBYh/KK7l+
+         /jBqFLmrpNoZvj730slpfxLRi/H48mljTRFbyuZsDvltfUaxcqJVbgv03oOmq1M08uO2
+         kf9slDWtoja7VW2o+C6gSupnwZ0IW6N0VVf2Z7JwFkUsvkg6zNck/MS8I9j+0oy/25x2
+         UyPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790531741; x=1791136541;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=eYTBzgG20csW2zfR3sxsuXAX1IOCeJol8XD1eAHh4xM=;
+        b=R3UQy+5+BCw2JKz6HnUEcUh5lftIhCGU4HkyLvx+zAaNt6kjjoEkinKYzD7+5Q7zmj
+         tIIbZIFXcgnkrDvv2lvnL59VIIMrB6vhj3gBw3RM/cUt8CoEnNCmhEV/YTI8a4MFT/5E
+         dX5Nk0khtB4ZRXpjC/21uhs3A1IyZChm9iVGVjSj25MLmYOafBAntNKnkpTmv+N8H64M
+         iAL1nrz43WzIgvhE+H2gqGvbQsTPxngZVwO1mpYimD3pKDsaPPN++seRwOWug/xhe2og
+         oO07AVJAm9IgU/KZ/YQ7sQSFH0uliyC0oaNaqExGAva6YCBnzV4+z2ivujoi1+a0PAQG
+         WwAA==
+X-Forwarded-Encrypted: i=1; AKwUvByrXafgTG94elPgF1VmISnzqnnBifRkD2hNNbcaAK9RVTWyArLXkgYFEsUYrF3dPxD7Duw4yuQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++m/JAeKYQClg9dhMgBJWq4KEqXLLixKoZjGuyCpQfIwxSpf+egv
+	roe+FqzYQzbCLlkC5Joo/WfxoMV/z8+PtlFJoP+ER1eAdzAeg8boUVIRspK0DOHRvxu4HBKJpTS
+	hRhoXblzkKg0z5uSSXZY569CHUWLD3SLFE7INYHOZ+J1/+i9aoqpVP39CWdc=
+X-Gm-Gg: AYBFou3cDDlyhawjzclBiDbQ/9PaOqyEaAu0/awdgf/W4svH4WDADmB0/JjvXNR8E3Y
+	M2v42QRDZ26jH0iv1rl3HAmOZbWpNA/nSGGt7zXx2v7WIgt32Hp+mX1mk8WF4qMDKRhwFB8WpRW
+	VcDTX/CFrolWAm5AuIkvhoq7OJ4+2Y215et5IMbSE+rTsaZKg3geOUJ58Dwi8PGwTDEph7MV+X+
+	APmrXKk5XQeuNDjBZkhLKXJ7qihaQ4IS6HuK3z8oQMmHKRPYmM8gKFGCBrGhBN1TSuK9SGI8mp8
+	XYb39KrSrvUBhUxUVSPDiUhRX1zF87HDSc7bLpfw2rUto5EQYOQW1hAlecHUbTYLAciqjvqRVwC
+	Xdm+y/tKVbIOQkLI64k4Y/AIcog==
+X-Received: by 2002:a05:620a:2686:b0:93c:208:3d9b with SMTP id af79cd13be357-93c43cd656emr1657227085a.41.1790531740758;
+        Sun, 27 Sep 2026 10:55:40 -0700 (PDT)
+X-Received: by 2002:a05:620a:2686:b0:93c:208:3d9b with SMTP id af79cd13be357-93c43cd656emr1657223985a.41.1790531740248;
+        Sun, 27 Sep 2026 10:55:40 -0700 (PDT)
+Received: from [192.168.68.120] ([5.133.47.210])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a00179c729sm116866795e9.15.2026.09.27.10.55.39
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 27 Sep 2026 10:55:39 -0700 (PDT)
+Message-ID: <9f76e45e-5b0e-4a79-b4b0-a41795d9d025@oss.qualcomm.com>
+Date: Sun, 27 Sep 2026 18:55:38 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] ASoC: qcom: lpass-cpu: use DAI table index for
+ playback constraints
+To: Zimeng Li <me@lizi.moe>, srini@kernel.org, broonie@kernel.org
+Cc: lgirdwood@gmail.com, tiwai@suse.com, linux-sound@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, stable@vger.kernel.org
+References: <20260927010911.51980-1-me@lizi.moe>
+Content-Language: en-US
+From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+In-Reply-To: <20260927010911.51980-1-me@lizi.moe>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=VvS2kO2n c=1 sm=1 tr=0 ts=6ab9589d cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=iDUYOmZZWeky2fLdnAoA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-GUID: 1b5MuQakT0hRTLOyOoANHVr2vi0d31j0
+X-Proofpoint-ORIG-GUID: 1b5MuQakT0hRTLOyOoANHVr2vi0d31j0
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI3MDA3MSBTYWx0ZWRfX7yvxJ244Xu7W
+ cdcYpKXooj/+uBExX2WrC9bJmCn574lFXTw9GGlwlC/0YZ8WL/2jM9dZOZJphtK7kggP2LCnDOL
+ PPOKEbCodcU3oxz+CFFwZbtxU1iKSsQ123r65AI/bmtcxneHDeMFmaH2YMsvUVb+hE2Qf9HcYHO
+ LmPnhkZt72yqFitX7IOwFTtshWmstgE9Qxq1MSsD3fTv+VCggCH0tOsMh6CxesVoozZ9IPJP1rI
+ k91chf8k9IuuAN1UA0EdbtDpfx7XMoxZYjUN/32rNAeC+Hq/oAMIQ9qCv87jeD8JCTpiiAyD6VY
+ /rn4E2OBWTXSFSd9SSR/0OM42LY+v22eVetDMuFOD6KFb3iSjqbi101Z88d/zHT27imWOdfY/N0
+ 8MYJYHVNhz9kIv/BiX4EaBTAW6NVBePxI8bBMmu2jGAECKwY7mbO+k0uC1IZTAPJEDrgFs98cDV
+ ni+xjdUKNT0eRtRbtsA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI3MDA3MSBTYWx0ZWRfXyRunb+uhq21S
+ w5IOSyRl4JK0ym/q9vjrd4QtnXY0mr+kgMHM167i5ynbkT71CSIZea8G6QFmqYs8VPN2atuaOVC
+ BC38N3mqIkqZZTJRr0v6QJ8m1fiH9y4=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-26_05,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0 clxscore=1015
+ priorityscore=1501 spamscore=0 malwarescore=0 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609270071
 
-On Thu, 17 Sep 2026 04:11:28 +0100
-Jonathan Cameron <jic23@kernel.org> wrote:
-
-> On Mon, 14 Sep 2026 14:53:39 +0200
-> Joshua Crofts <joshua.crofts1@gmail.com> wrote:
+On 9/27/26 2:09 AM, Zimeng Li wrote:
+> The DAI ID is a hardware port ID and is not necessarily the index of
+> the corresponding entry in variant->dai_driver.
 > 
-> > On Mon, 14 Sep 2026 19:34:22 +0800
-> > Guangshuo Li <lgs201920130244@gmail.com> wrote:
-> >   
-> > > at91_adc_probe() enables runtime PM autosuspend with
-> > > pm_runtime_use_autosuspend(). The probe error path correctly undoes
-> > > this setting with pm_runtime_dont_use_autosuspend(), but the normal
-> > > remove path only disables runtime PM.
-> > > 
-> > > The runtime PM API requires pm_runtime_use_autosuspend() to be undone
-> > > with pm_runtime_dont_use_autosuspend() at driver exit unless runtime PM
-> > > was enabled with devm_pm_runtime_enable(). Leaving the autosuspend flag
-> > > set therefore leaves the runtime PM state incompletely cleaned up after
-> > > the driver is unbound.
-> > > 
-> > > Add the missing pm_runtime_dont_use_autosuspend() call to the remove
-> > > path.
-> > > 
-> > > This issue was found by manual code inspection.
-> > > 
-> > > Fixes: 75d7556ac0e4 ("iio: adc: at91-sama5d2_adc: add runtime pm support")
-> > > Cc: stable@vger.kernel.org
-> > > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> > > ---
-> > >  drivers/iio/adc/at91-sama5d2_adc.c | 1 +
-> > >  1 file changed, 1 insertion(+)
-> > > 
-> > > diff --git a/drivers/iio/adc/at91-sama5d2_adc.c b/drivers/iio/adc/at91-sama5d2_adc.c
-> > > index e8a5285bb6d4..e68632e628c7 100644
-> > > --- a/drivers/iio/adc/at91-sama5d2_adc.c
-> > > +++ b/drivers/iio/adc/at91-sama5d2_adc.c
-> > > @@ -2487,6 +2487,7 @@ static void at91_adc_remove(struct platform_device *pdev)
-> > >  
-> > >  	pm_runtime_disable(st->dev);
-> > >  	pm_runtime_set_suspended(st->dev);
-> > > +	pm_runtime_dont_use_autosuspend(st->dev);
-> > >  	clk_disable_unprepare(st->per_clk);
-> > >  
-> > >  	regulator_disable(st->vref);    
-> > 
-> > Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>  
-> Applied.
+> When configuring a DAI with LPAIF_I2SCTL_MODE_QUAD01, the probe code
+> currently uses dai_id to index variant->dai_driver. This is incorrect
+> for platforms where DAI IDs are sparse. For example, the IPQ806x MI2S
+> DAI has ID 4 while it is the only entry in the DAI driver table. If
+> that DAI is configured for QUAD01 and probe reaches this branch, the
+> code writes beyond that single entry via dai_driver[4] instead of
+> updating the DAI being processed.
 > 
-> Please make sure to take into account both Joshua and Krzystof's
-> feedback that multiple near identical changes to drivers in the
-> same subsystem should be in a series.
+> Use the loop index i when updating the current DAI's playback channel
+> constraints, while retaining dai_id for indexing the hardware-port
+> specific playback SD-line mode array.
 > 
+> This fixes the incorrect DAI table access for platforms where the DAI
+> ID does not match its position in the driver table.
+> 
+> Fixes: c223f41c1a52 ("ASoC: qcom: Add four speaker support on MI2S secondary")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zimeng Li <me@lizi.moe>
+> Assisted-by: LLM-assisted source analysis
+> ---
 
-FYI, patches like these will become redundant as I have a patch adding
-this to pm_runtime_reinit() so driver core calls this automatically on
-unbind queued for 7.4 [1].
+Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
 
-[1] https://lore.kernel.org/all/20260919-move-dont-use-autosuspend-v1-1-f6e2d1315c23@gmail.com/
+--srini
 
--- 
-Kind regards,
-Joshua Crofts
+
+> Changes in v3:
+> - Describe the assistance in Assisted-by, no longer name the model.
+> 
+> Changes in v2:
+> - Add stable to Cc.
+> - Identify the model in the Assisted-by trailer (superseded in v3).
+> - Clarify the conditions for the IPQ806x out-of-bounds access.
+> 
+> The code change is unchanged from v1 and v2.
+> Compile-tested with LLVM for ARM using multi_v7_defconfig with
+> CONFIG_SND_SOC_STORM=m. The lpass-cpu.o, lpass-ipq806x.o and
+> lpass-platform.o targets built successfully. Not hardware-tested;
+> the IPQ806x example is based on static analysis, not a reproduced crash.
+> 
+>  sound/soc/qcom/lpass-cpu.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
+> index 242bc16da..079177a6d 100644
+> --- a/sound/soc/qcom/lpass-cpu.c
+> +++ b/sound/soc/qcom/lpass-cpu.c
+> @@ -1234,8 +1234,8 @@ int asoc_qcom_lpass_cpu_platform_probe(struct platform_device *pdev)
+>  		}
+>  		if (drvdata->mi2s_playback_sd_mode[dai_id] ==
+>  			LPAIF_I2SCTL_MODE_QUAD01) {
+> -			variant->dai_driver[dai_id].playback.channels_min = 4;
+> -			variant->dai_driver[dai_id].playback.channels_max = 4;
+> +			variant->dai_driver[i].playback.channels_min = 4;
+> +			variant->dai_driver[i].playback.channels_max = 4;
+>  		}
+>  	}
+>  
+> 
+> base-commit: 0ed6f7f62318a581fe9698f8a4e98c7ca01160e4
+
