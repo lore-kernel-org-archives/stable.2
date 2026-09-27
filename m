@@ -1,61 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44F2537DE8D;
-	Sun, 27 Sep 2026 11:40:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 315F42E2663;
+	Sun, 27 Sep 2026 11:48:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790509241; cv=none; b=n4xJvsmMqe+BnGSi84yUezKwEo9K0swyVXZA5Y2j/q4vQk6JWc3ULBngYPmCl4dP1NXP7c0S7hcopvAXit6DGr5X9kH/6Cu6yOkErikjOCus97hZgPdoVXrL7NPviKQZvze5lhNvfhKrAGujg9xdN8DHpp/aWoQQWs+DuPadv7U=
+	t=1790509708; cv=none; b=h7GpPDYzyrEpxxA4t7V+6AVcBzd5siC81LRxwlDf3wDnKMnptoaFR9N9YfQ5+OWbZ9O3pORUo5GgOthGM29q5jiRqR+X0/72Jz075r3BqjMY1/VBKNir9pXRQPTNQm/Fcbo0oLjsLnnSQwaZyoPfESXQS9KTW81aBYybHuZvhp0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790509241; c=relaxed/simple;
-	bh=xp1IDY6mH5cFU1zGiZUUIq0UHnnp9rboVRAuqe0oQkI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KK+8xRVtzluxWwT9Bvu8Elu4lyKOuXM6jJiD0obdz0p9pIRdR6V8jEqWvB0VFO8Q52Uoj/O+3uWyN77po+d0XD1m+olJIaDOs1NxnU8CBRdx6oC9N1UJMKyeu0yGsY4qz7OBSSsF5Hm9E1JJryjfMgmaNgI4HO1wMUj63qjoLxk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FZk/je4r; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790509708; c=relaxed/simple;
+	bh=HBHV/62yI+JYrWhZqIWGO3sYDDSnF4jP43YHMK4BpBE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=m1bcRyHCQW6GaPKDRdanB1c36/qhjj4ybndpZ/NSk1ZohnOFtjMJHJFJdHBpibseNERzQ608WYRaEU/5g23H4j/H+Ko7BfG2hAfMRZffXaAjS6M2r+5XwKJE2AjZgoMyEWG1W0KQd9cxDtY9eW/PICL8HVNJKWuMm0zFTRLTM8A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=I9kXWnMU; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FZk/je4r"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A972D1F000FF;
-	Sun, 27 Sep 2026 11:40:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790509239;
-	bh=vmbMvMbNo21iDIQcPjYiZ8rxZbILeVSsn31zI9BczIM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FZk/je4ruH0VKxzN7nZdZENF9BdMt81miKiYG40Kbr3s+9s2grquDGd+Lyz4MPjyO
-	 uWMLZqN3+ltV+QR9jcceqmehRMiAbsLI5Y6wXXDb98IGn6ddbn5YIT5HgG8Rpj4qaO
-	 DtjVVTVDBCF8Eh0r+oDumhe7om23JSo+Afej2FZNb0ya/dXKwQ0NgKBxJeGOqR1pAy
-	 9RnTKgnhktjFOsz4X1DkOVG1Ze7j9RSQcrnHDAMApESxGFDCU1c2pW8UZgt3h2FtBg
-	 zbHE7j6aca/hbFfkQmj2ds/0JAFcBJ5eeLFQS8BaVrRc4QYl6MOQGnjjHo2V3HRaS7
-	 Y8GoTGlBrnb2A==
-Date: Sun, 27 Sep 2026 13:40:35 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Cc: Michal Simek <michal.simek@amd.com>, 
-	Wolfram Sang <wsa+renesas@sang-engineering.com>, Raviteja Narayanam <raviteja.narayanam@xilinx.com>, 
-	Wolfram Sang <wsa@kernel.org>, Manikanta Guntupalli <manikanta.guntupalli@amd.com>, 
-	Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>, linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [SPAM] [PATCH v7 0/3] i2c: xiic: fix SMBus block read and PEC
- support
-Message-ID: <arkAZJEJTtNsCjmF@zenone.zhora.eu>
-References: <20260924-i2c-xiic-v7-0-df7e752332ef@nexthop.ai>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="I9kXWnMU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=pK
+	ynHbLhG9X4po2DaLz7W43GvJJAM4U5tX5su9C/E9s=; b=I9kXWnMU4tgVBS5Hlu
+	CsZNsZlxiW9/aGqWREVLEDHJ+tFbG8t9xiQmD+449382lpmo3rJz9m2i3wZh9a+i
+	EekH2MCHqFL0izx2zVyXHcKmonemHUgGt1VNoa4ZvDn1EGZiWPgvHC1gf6G5Z2we
+	hf8m5MtgjNkJN9uJrBwBBd7ds=
+Received: from pc.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD3X_VaArlq3UCPBA--.22802S2;
+	Sun, 27 Sep 2026 19:47:39 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Dan Williams <djbw@kernel.org>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Alison Schofield <alison.schofield@intel.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Joao Martins <joao.m.martins@oracle.com>,
+	nvdimm@lists.linux.dev,
+	linux-cxl@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Jiale Yao <yaojiale02@163.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] dax/device: defer publishing the dynamic pgmap
+Date: Sun, 27 Sep 2026 19:47:36 +0800
+Message-Id: <20260927114736.1113965-1-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924-i2c-xiic-v7-0-df7e752332ef@nexthop.ai>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3X_VaArlq3UCPBA--.22802S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7KF1kKr1rAr1fKrWkXr15CFg_yoW8WrW7pF
+	WUWFyYkrWkAFnrXw1jvrW7uFyakwnFqw4xWry0gasa9r9xXw1jqry2gFWjva9xt348GF1j
+	qrZFqryUWay2yF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piPrc3UUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7xuf2Wq5AluR3gAA33
 
-Hi Abdurraham,
+The dynamic device-dax probe path publishes its devm-allocated pgmap
+before several operations that can still fail.  If one of them fails,
+devres frees the pgmap while dev_dax->pgmap remains non-NULL.  A later
+bind then fails the dynamic-dax invariant check and leaves the device
+unusable until its region is recreated.
 
-> Abdurrahman Hussain (3):
->       i2c: xiic: preserve PEC byte length in SMBus block read setup
->       i2c: xiic: defer RX_FULL until all trailing bytes are in FIFO
->       i2c: xiic: don't clobber msg->len to signal block-read completion
+Defer assigning dev_dax->pgmap until the final devm action has been
+installed and probe can no longer fail.  A failed probe then never
+publishes the temporary pgmap.
 
-pushed to i2c/i2c-fixes-2.
+Fixes: fc65c4eb0b2a ("device-dax: ensure dev_dax->pgmap is valid for dynamic devices")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
+ drivers/dax/device.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-Thanks,
-Andi
+diff --git a/drivers/dax/device.c b/drivers/dax/device.c
+index d0c9b4e03b47..8cd8e05872c3 100644
+--- a/drivers/dax/device.c
++++ b/drivers/dax/device.c
+@@ -409,7 +409,6 @@ static int dev_dax_probe(struct dev_dax *dev_dax)
+ 			return -ENOMEM;
+ 
+ 		pgmap->nr_range = dev_dax->nr_range;
+-		dev_dax->pgmap = pgmap;
+ 
+ 		for (i = 0; i < dev_dax->nr_range; i++) {
+ 			struct range *range = &dev_dax->ranges[i].range;
+@@ -450,7 +449,13 @@ static int dev_dax_probe(struct dev_dax *dev_dax)
+ 		return rc;
+ 
+ 	run_dax(dax_dev);
+-	return devm_add_action_or_reset(dev, dev_dax_kill, dev_dax);
++	rc = devm_add_action_or_reset(dev, dev_dax_kill, dev_dax);
++	if (rc)
++		return rc;
++
++	/* Probe can no longer fail; expose the pgmap via dev_dax. */
++	dev_dax->pgmap = pgmap;
++	return 0;
+ }
+ 
+ static struct dax_device_driver device_dax_driver = {
+-- 
+2.34.1
+
