@@ -1,267 +1,176 @@
-Received: from mail-oo2-f38.google.com (mail-oo2-f38.google.com [74.125.231.166])
+Received: from mail-ed2-f34.google.com (mail-ed2-f34.google.com [74.125.228.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE4373CFF49
-	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 21:59:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.166
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790546399; cv=none; b=NaNKYNpTF1Sdsf4UOo5G0GH5aQQglP3qRGWAE/REyXzURaBBSN+a2SsvSH0eFGr1b7Wf7VoGeFMhG5fyTPoImyFnNVAjUepdhgrIUz5TivdYpo/uYbNjAaMyQcuVWDTS0yE+SJmRqMjnGYZRqokZUTLsbIAhoJB0kHZIJPNWzs8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790546399; c=relaxed/simple;
-	bh=Y0o1r20SUN85wmZaOSkDQLTs++Jzg9wfmOIT41V9CN8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=QrYzfv1ZWBdLXxMtS56wrOcPzKsR3AtKlzdgymmdhWVteYkKn+iagAQ7n4IZXmoRTMehY3m3NtI8XqtH6hI/9GUR2DJna5n2fQAWsSlcYAeflbrigC8hMqDMWNk3R597vCbuVnllIk7w7lf2icunp5ziFL5V5VnIAYZNhBwOsoo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZQXx0HGN; arc=none smtp.client-ip=74.125.231.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4AF842046E
+	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 22:00:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.98
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790546417; cv=pass; b=jgMJ58hIbk1ys++pXJ94F/VlNuP09OCM9atR6UJ1KnAFViU8FoVWNf00eltJQhHnrD+6NyQxlrA96jWr3DEvJsTpHj/EkiHiVJThTvT7lHsXYyIkK99XNYRTblV32dySeC3OPn6/WzYmO409VyYdcQ8+uBWMHcg7bas9mgFYxxk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790546417; c=relaxed/simple;
+	bh=ojnNpFAcs+aJppljgRUBBPbKoV50tBwIukLugjIhzxg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=GntmrPjIYnjeL7n0f1IhG37ZpytLkTLXLsJnTMdnwsdJPTZQMHTMXPmG5Ybj0lkrISLkM+e9v/xU5a08fqUvmJpIMUtBmO3wb7ekf6qwtI+WrfVf3GberHF1YeMyFVibZyTsMdQ/56zvH86E9fGdeT4UEMutVRBW9mdHrlP5xSs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NLTqNPvj; arc=pass smtp.client-ip=74.125.228.98
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZQXx0HGN"
-Received: by mail-oo2-f38.google.com with SMTP id 46e09a7af769-805c194bc92so3155584a34.1
-        for <stable@vger.kernel.org>; Sun, 27 Sep 2026 14:59:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NLTqNPvj"
+Received: by mail-ed2-f34.google.com with SMTP id 4fb4d7f45d1cf-6aaf688ebb0so2355197a12.0
+        for <stable@vger.kernel.org>; Sun, 27 Sep 2026 15:00:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790546411; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OUzbcz/jsNDNVIbK+G4O0VgKri/qH2PzD/EjpIlfGVZ51xsOeJQWQ0u9Sly/KmDqFR
+         ANaqRByDBIErn+NaU2usOrPNNBo6sw+G9UNTJJkMEFJwCkJvdMW9rD8DCfbS6jPewrhy
+         1g2jVVqKunbEd+Ng97nNrhoT2gY2hvvSCGxF2ad7cl4lveq09D+krR9oySQNtKVPQNVu
+         U9tJLdmyZcbITxGJoMDN7T+PZaWPZw/Gw+sxa3fYgNZb5eDYDgTbC0m3QufkP9sl7wW1
+         0tu3JfsYc3NcotZCHVotqHIMLBfPfzygiS8Na+o+A+aOJ/cnZRy66cCMFkbsnwuJg2hv
+         bVtg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=w75/rsx/tttnCbPtKQAiCIgV7C32qVgicTV8Ei4olls=;
+        fh=vI8oTg7A3Gsqkzf1bn68+teTFKz/FFMD93BWFLgWQIE=;
+        b=cUB//HLDV+u6rS5laHzDvv8b2UrMORCnUwp/mRFIhBkd+eCZg1GgSFvk2OCM2P6RE9
+         syZqjwh4EZFdhU9fBqU84Xi9+0gXtPum6zeVXPw/9d6TZ+2oQ692C/C2Bt0WBImIKEy2
+         2Rm+yM49JJB/ueFWCyeGJeb3TBwI7ck5JaUbLUAmmj5FMM5jGK79wXmVNpRgMfKsui65
+         HgdpI3+0HBsg2KzpNz2dv1VvEXQav8pyB8jIcMsd+10dhfjeN3BUuWvSbfVmbqdRpo/0
+         rukylvDk5cc5+9caSEci7wVxqQ1+zTS5cvoMZNolPoKaM22SCBbkgp5C2ZRe+1xYkjvt
+         wb7w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790546391; x=1791151191; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AOmjI/wuMW3PMPrcgaqqBQf7jBpBeERU9IwSvc2Be6c=;
-        b=ZQXx0HGNdGvUJyf7MjcmhSYyc1sNCTHJ9Ee9kHQ6LRMTUgO8gtVDcyAqXizRUDBZ6s
-         PGHajSq0OTRlIl0zqXPVfHlg0/ecMWiv/pGkQb32uqDLvcxyDqlJSLDc4L9lJn08Brem
-         TdUGL8FIZhA3f6RCL7e/3l8gXxQiTducIo2qaJ2LaHxza5LcgmXM7ijOwQKk27W9HtKi
-         7D9K/6HTyCu1P3oWza5gg+8od67QNMYjJXYxhuTZa/1cfyTDLFNmwKfDGhaeKtcDAgMo
-         6QW0UqAleTzM9LyFQa0HuQfihBtbv5o9QDuEn3kh0ur03t879rqW/i3huIjmFU7ocQ1Z
-         dbqQ==
+        d=gmail.com; s=20251104; t=1790546411; x=1791151211; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=w75/rsx/tttnCbPtKQAiCIgV7C32qVgicTV8Ei4olls=;
+        b=NLTqNPvj3qzZbMUP3ZtdtDhCOXB1ElkeZ7kkKY45sAQqy1m+EDcaEy6NDHyX/yShCO
+         /TRlsiWtUTSpU3rC0xS/PBFa3QeD8VqdkEpMtig2M8h8X8bGezkYrbbwYRmmlE5y8aXE
+         l5RzIY+NTSSYjp172r5KVKw9XfA82emUfRxQ3ggZyOlydIMUQBfnAmLesYs27Ymxfk34
+         Yx4CX5wbESfpRuyzzNxEGkJW8vxfyki3sh0CaeGn+iVx82BQ2KRqg0xy0+FxvW2NSGku
+         vXJbXwfPH+IxGrZhusqyyulYNthPpbRqk7fIB4RWLUy67s1Mtc5bu13RrPUU1G6Yp1Pe
+         Vfxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790546391; x=1791151191;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1790546411; x=1791151211;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=AOmjI/wuMW3PMPrcgaqqBQf7jBpBeERU9IwSvc2Be6c=;
-        b=ojt4R17ndxFkbWGP14w4b3jLRYmSB3OYcOsZiLgnUQMsC5SR2Jn4BAFFsHGq88hF2l
-         SVsDTrcVkh3XSttLJhkPQ4mi96jTrgmnHImoZwEINxQKuq2PtP6DW6lhCTh4e34stHjO
-         My9040LY+RfmE7BVbf8m45hyjTxXikzQwAF8kIq9O0gejvO8DUk/u+niksYNXTa9TOFu
-         ZH7R/l0vWKjnGLhgDmQHj1nJhYR55NRUMi/AE3b4QIzWwfeU6Jw2xbQnc/yQW63Gf66D
-         1ByYq0wsk8BYyIVdKAoiZbMYY3eNdhTXHADjRBNtX6FS1ECGFO/dB+HSJbF3Jq1fhdiD
-         cZ0Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwYSDne1FdqqPnFOSAvvASrYWbVJDlWUPoJ8cUDRnxctwZgzZfnZpyZVFl79m56hbpmtY0dYyM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lU+jeH/HfzOITf5fgmn45jKTbhD/+RU3iIa5rjxcG7zJe5XxAy
-	Zv2g0oA4y3EBt0i1sikTORBvBj/nK7WTbxklRyhLFL19cjzANba1ks8u
-X-Gm-Gg: AYBFou10XjpZfIrosbQNN5MIUMeEfeOYU5q9zL+cVQnp3byzqYliJ8Gkq2ZZufZxfKV
-	An3I1Hiw4LPhTU4NqWFcVzQS+NW0o6kyXurfx8UOH6T6khAxgtRZqDsnO440yDoGq8cpR5Mkd/X
-	h5ckO46t5b1d1fpXN5p3PzKBEoUzKiyvnvxE7lc1/pSaGsztiLttOKaMwfOWz5RAiEa0GtLJO88
-	9zE1wEbhjjxAnSR/2o4xhI6VZ9n6ztzbtAarZbpFPdSFMideLcyy7VSPtkP9hYN0Y7WhQKE7LZ1
-	VOvlxAS3ic3T+9JF+SPgOtyxXOzA9GYA5pf2od6CZ9z1i6CXUWlGaJlyp2XRCzQ2vxbgNOJqRGI
-	98/DTisKzdNKw7L9hqR+mZutKCSPviduhBAY2plVKnFOB9KACEU6MVH0fU6s4wEmAQWZZAcK9hg
-	EzPLz7HvcL6ePZStrVjZu5y86scm64Li0GEfYGxYqkKnBd4wG/7k1cq4u2Kx1Oujs66gSWSU3u2
-	DaRLkigI04Jf7ueifnPSNBm+8f+lY7+04GgOEtGHXMu05fM0SINVDsAnuHdRa9boeU7fLvgEA8K
-	2yoATFZBjnArWdhXsC587C88yLVoqhSmSzRryHg/exCA5C6C59V04BLfE93jgIbSxk+3DJM0/FT
-	W2s9y3HhVasl2L8tzMix8
-X-Received: by 2002:a05:6820:811:b0:6d8:e5d4:9539 with SMTP id 006d021491bc7-6d8e5d495e2mr1540745eaf.25.1790546390675;
-        Sun, 27 Sep 2026 14:59:50 -0700 (PDT)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-81b3de6f7e1sm4874147a34.22.2026.09.27.14.59.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 14:59:50 -0700 (PDT)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Sun, 27 Sep 2026 15:59:37 -0600
-Subject: [PATCH net-next v5 02/19] net: stmmac: request the MDIO reset GPIO
- only once
+        bh=w75/rsx/tttnCbPtKQAiCIgV7C32qVgicTV8Ei4olls=;
+        b=g2PZbBeVK6L6m8ruQTw/eK2f3kXt7TY5RdLY+rUx0/0uHMqV/rUO8LCq9tOAQdXCGo
+         AbANELzyyniv3hHpzTszfbL/4PFmCldzsa4BbiRthdNu/+21GY6BK9vcBOoRSu//V9OR
+         +3e2OuDp3FhxRoLbRGd3/xBtG4M2Ziz37EX3+Trk0UFl7QYtWHCOhhnJcj4fyCrBX7CG
+         Fsczyz65OxRJLn1O4u8URfBP8o1FHB4hYfbryiuLhyF6s9dBoct4JMoFGIHuA1hkxUte
+         E45ZVzuCfmdpL77Zm2wXcyhKICCHheQr2IYNhbdOKB+LeQHwh614jK+FHBCbmXFKsVxB
+         wk6Q==
+X-Forwarded-Encrypted: i=1; AKwUvByxP5qEhHD2DoDyJYNlm2RFyHLaYjaPsMYSITmatyWZZVPnfLjEgbesvn+nqnEeFW1agoQvJ70=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI7m8p62VP2JKjT+Zz19EZtT0528zw64v5GFwUyWU5m8kcodoWs
+	ha/hk+v/ekIsIbUKkMYP5s/HnululajEqem3n3qhxsn+igN5CDpdE3SuNkVu29WPYMzEGGmDJIY
+	d7b/pQaqpsC5DHJ7z77GQ0Da+kj4G7pyDp7is
+X-Gm-Gg: AYBFou08W8ZH0gJrJwl3FKwWZ9y1MQgSgqrzNDy6idF90VIwQ0ePuuSmjyH1PBoW2ul
+	Y5OpgiJz8qOtIEsA9Toqd3Ii4tLLwIc8x2l6jV1ThSc8RJ5cCNhTekkNFcftgs7H56B9jZ1MfMB
+	mWlHOifuRtIgI7Pl/3cEWcv5xxrleOiQ9GLHcoXpYeFa+J2vSlFbjYtgEpKWWXYCds9/kX8cOjC
+	z7egsd/0mF5vLEOq8KrrJajgMhYWsftdYHa5bTeCLpOokvJgd/kDCPjx9lHS15LKzewer8mPdRs
+	d9n/Qo6J0ck9+zKa5KCovSEDqgHrJKKrAvu/cdGJSwUcMPtMkfAs2fy7kgUcBdr3Lu1IG0zYprY
+	nroJYH7/C19GYbIjx1fMEi43ODIk17XQr4KHJu4H76A==
+X-Received: by 2002:a05:6402:e96:b0:6aa:924d:900 with SMTP id
+ 4fb4d7f45d1cf-6aac90efbf1mr9690769a12.38.1790546410412; Sun, 27 Sep 2026
+ 15:00:10 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260927-submit-stmmac-reset-fixes-v1-v5-2-feec6c14dd06@gmail.com>
-References: <20260927-submit-stmmac-reset-fixes-v1-v5-0-feec6c14dd06@gmail.com>
-In-Reply-To: <20260927-submit-stmmac-reset-fixes-v1-v5-0-feec6c14dd06@gmail.com>
-To: Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>, 
- Heiner Kallweit <hkallweit1@gmail.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>, 
- Maxime Chevallier <maxime.chevallier@bootlin.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Christian Marangi <ansuelsmth@gmail.com>, 
- Tiezhu Yang <yangtiezhu@loongson.cn>, Huacai Chen <chenhuacai@kernel.org>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Jesper Dangaard Brouer <hawk@kernel.org>, 
- John Fastabend <john.fastabend@gmail.com>, 
- Stanislav Fomichev <sdf@fomichev.me>, Serge Semin <fancer.lancer@gmail.com>, 
- Suraj Jaiswal <quic_jsuraj@quicinc.com>, 
- Richard Cochran <richardcochran@gmail.com>, 
- Joao Pinto <Joao.Pinto@synopsys.com>, 
- Vladimir Oltean <vladimir.oltean@nxp.com>, 
- Ong Boon Leong <boon.leong.ong@intel.com>, 
- Voon Weifeng <weifeng.voon@intel.com>, 
- "Song, Yoong Siang" <yoong.siang.song@intel.com>, 
- Linus Walleij <linusw@kernel.org>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Magnus Karlsson <magnus.karlsson@intel.com>, 
- Maciej Fijalkowski <maciej.fijalkowski@intel.com>, 
- Simon Horman <horms@kernel.org>, 
- =?utf-8?q?Bj=C3=B6rn_T=C3=B6pel?= <bjorn@kernel.org>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, Jose Abreu <Jose.Abreu@synopsys.com>, 
- Yao Zi <me@ziyao.cc>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Richard Genoud <richard.genoud@bootlin.com>, 
- Alastair D'Silva <alastair@d-silva.org>, Maxime Ripard <mripard@kernel.org>, 
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-stm32@st-md-mailman.stormreply.com, 
- linux-arm-kernel@lists.infradead.org, bpf@vger.kernel.org, 
- ZhaoJinming <zhaojinming@uniontech.com>, 
- Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>, 
- Ding Hui <dinghui1111@163.com>, Linkui Xiao <xiaolinkui@kylinos.cn>, 
- Linkui Xiao <xiaolinkui@126.com>, linux-tegra@vger.kernel.org, 
- linux-sunxi@lists.linux.dev, James Hilliard <james.hilliard1@gmail.com>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.15.2
+References: <20260927005743.8299-1-kaloz@kernel.org>
+In-Reply-To: <20260927005743.8299-1-kaloz@kernel.org>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Sun, 27 Sep 2026 23:59:59 +0200
+X-Gm-Features: AclHuK-6m-r_7jB5HpKM72-JdYXDgtlwLzDmRV3LgFit-40iHT3z-9gejMq9kFI
+Message-ID: <CA+=Fv5RjY_7VHh-aqPrwPd99hUVrQQWiScbPAjAgXAHtSJWsnA@mail.gmail.com>
+Subject: Re: [PATCH] sparc32: add the CPU to mm_cpumask in switch_mm
+To: Imre Kaloz <kaloz@kernel.org>
+Cc: Andreas Larsson <andreas@gaisler.com>, sparclinux@vger.kernel.org, 
+	"David S. Miller" <davem@davemloft.net>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Linkui Xiao <xiaolinkui@kylinos.cn>
+Hi Imre,
 
-stmmac_mdio_reset() calls devm_gpiod_get_optional() every time it runs.
-A GPIO line can only be requested once, so from the second call on
-gpiod_request_commit() returns -EBUSY. devm_gpiod_get_optional() only
-turns -ENOENT into NULL, hence the error is passed straight back and
-stmmac_mdio_reset() bails out before pulsing "snps,reset" and before
-running the STE101P MDC workaround.
+On Sun, Sep 27, 2026 at 2:58=E2=80=AFAM Imre Kaloz <kaloz@kernel.org> wrote=
+:
+>
+> The SMP TLB and cache flushes in srmmu.c cross-call only the CPUs in
+> mm_cpumask(), which only switch_to() updates. exec reaches switch_mm()
+> through activate_mm(), so the exec'ing CPU is missing from the new mm's
+> mask until its next context switch.
+>
+> If a thread created meanwhile unmaps memory on another CPU, only that
+> CPU's TLB is flushed, and stores through the first CPU's stale
+> translations land in freed pages, as when a detached thread frees its
+> own stack. Only sun4m cross-calls its TLB flushes.
+>
+> Set the bit in switch_mm() as well. Tested on a dual-SuperSPARC
+> SPARCstation 20.
+>
+> This has been broken since 2.3.35.
+>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Imre Kaloz <kaloz@kernel.org>
+> ---
+>
+> Notes:
+>     No Fixes: tag: this has been broken since 2.3.35, before the git
+>     history.
+>
+>  arch/sparc/mm/srmmu.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+>
+> diff --git a/arch/sparc/mm/srmmu.c b/arch/sparc/mm/srmmu.c
+> index 9a74902ad181..7d423e5fdc94 100644
+> --- a/arch/sparc/mm/srmmu.c
+> +++ b/arch/sparc/mm/srmmu.c
+> @@ -466,6 +466,13 @@ void switch_mm(struct mm_struct *old_mm, struct mm_s=
+truct *mm,
+>  {
+>         unsigned long flags;
+>
+> +       /*
+> +        * The SMP TLB flushes cross-call only the CPUs in mm_cpumask().
+> +        * switch_to() sets this CPU there, but activate_mm() at exec com=
+es
+> +        * straight here, and a CPU left out keeps stale user translation=
+s.
+> +        */
+> +       cpumask_set_cpu(smp_processor_id(), mm_cpumask(mm));
+> +
+>         if (mm->context =3D=3D NO_CONTEXT) {
+>                 spin_lock_irqsave(&srmmu_context_spinlock, flags);
+>                 alloc_context(old_mm, mm);
+>
+> base-commit: 62f4c998b297cf233997a2b4cd6fc2d2df0319c9
+> --
+> 2.47.3
+>
+>
 
-The first call, made by of_mdiobus_register(), succeeds, so the failure
-is only visible later on: every resume that does not use WoL goes
-through stmmac_resume() -> stmmac_mdio_reset(), and that caller ignores
-the return value, so the PHY silently stays un-reset.
+Nice catch! This looks correct, and it matches what I have been seeing
+here.  I think
+this is one of three mm_cpumask problems on sparc32, the other two are in a
+HyperSPARC series I am preparing: smp_flush_tlb_mm() narrows the mask under
+active_mm and can drop a CPU that is still running the mm, and the cache
+cross-calls are gated on the mask as well.
 
-The descriptor used to be requested exactly once: stmmac_mdio_reset()
-resolved "snps,reset-gpio" itself and cached the GPIO number in
-stmmac_mdio_bus_data::reset_gpio, and commit ae26c1c6cb9b ("stmmac: fix
-PHY reset during resume") relies on that cache to reuse the line on
-every call. commit 7c86f20d15b7 ("net: stmmac: use GPIO descriptors in
-stmmac_mdio_reset") replaced it with a devm_gpiod_get_optional() that
-caches nothing, so the request is repeated on every call and fails from
-the second one on.
+The last one does not go away once the mask is accurate. mm_cpumask records=
+ TLB
+residency, but on a virtually indexed write-back cache a dirty line outlive=
+s the
+TLB entry, so the mask cannot gate a cache flush at all. Broadcasting it
+unconditionally took a fork-heavy reproducer from 70 faults in 6258 forks t=
+o 0
+in 5798  for about 7% fork throughput.
 
-Parse the whole reset description, the GPIO and "snps,reset-delays-us",
-in stmmac_mdio_register() at probe time, and keep it in struct
-stmmac_priv. This is where devm-gpiod is meant to be used: the line is
-acquired with the device and released with it, and any failure to
-acquire it is reported during probe instead of being ignored by
-stmmac_resume(). stmmac_mdio_reset() then only pulses the cached line,
-with the delays that were read once and for all at probe time.
+I'll build and test this on my SS-20.
 
-Cache the request and delays for DT devices regardless of
-mdio_bus_data->needs_reset. That flag controls the registration-time
-bus reset callback, but system resume calls stmmac_mdio_reset()
-directly. The reset routine no longer looks at the device tree: where
-the description is absent the cached descriptor is NULL and the delays
-are zero, so the pulse remains a no-op.
-
-Keep acquisition conditional on CONFIG_STMMAC_PLATFORM, matching the
-reset callback, so non-platform configurations do not request an unused
-GPIO. Also skip acquisition for a disabled MDIO child: registering that
-bus returns -ENODEV without calling its reset callback, and the driver
-must retain the existing disabled-bus success path even if the unused
-GPIO is unavailable. Remove the unnecessary gpio_desc forward declaration.
-
-Fixes: 7c86f20d15b7 ("net: stmmac: use GPIO descriptors in stmmac_mdio_reset")
-Cc: stable@vger.kernel.org
-Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
-Co-developed-by: James Hilliard <james.hilliard1@gmail.com>
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac.h      |  2 +
- drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c | 50 +++++++++++------------
- 2 files changed, 27 insertions(+), 25 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-index 4fc96b317d79..83c30b39f704 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-@@ -287,6 +287,8 @@ struct stmmac_priv {
- 
- 	unsigned int pause_time;
- 	struct mii_bus *mii;
-+	struct gpio_desc *mdio_reset_gpio;
-+	u32 mdio_reset_delays[3];
- 
- 	struct stmmac_pcs *integrated_pcs;
- 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-index afe98ff5bdcb..63287ad9652f 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-@@ -384,33 +384,16 @@ int stmmac_mdio_reset(struct mii_bus *bus)
- 	struct stmmac_priv *priv = netdev_priv(bus->priv);
- 	unsigned int mii_address = priv->hw->mii.addr;
- 
--#ifdef CONFIG_OF
--	if (priv->device->of_node) {
--		struct gpio_desc *reset_gpio;
--		u32 delays[3] = { 0, 0, 0 };
-+	if (priv->mdio_reset_delays[0])
-+		msleep(DIV_ROUND_UP(priv->mdio_reset_delays[0], 1000));
- 
--		reset_gpio = devm_gpiod_get_optional(priv->device,
--						     "snps,reset",
--						     GPIOD_OUT_LOW);
--		if (IS_ERR(reset_gpio))
--			return PTR_ERR(reset_gpio);
-+	gpiod_set_value_cansleep(priv->mdio_reset_gpio, 1);
-+	if (priv->mdio_reset_delays[1])
-+		msleep(DIV_ROUND_UP(priv->mdio_reset_delays[1], 1000));
- 
--		device_property_read_u32_array(priv->device,
--					       "snps,reset-delays-us",
--					       delays, ARRAY_SIZE(delays));
--
--		if (delays[0])
--			msleep(DIV_ROUND_UP(delays[0], 1000));
--
--		gpiod_set_value_cansleep(reset_gpio, 1);
--		if (delays[1])
--			msleep(DIV_ROUND_UP(delays[1], 1000));
--
--		gpiod_set_value_cansleep(reset_gpio, 0);
--		if (delays[2])
--			msleep(DIV_ROUND_UP(delays[2], 1000));
--	}
--#endif
-+	gpiod_set_value_cansleep(priv->mdio_reset_gpio, 0);
-+	if (priv->mdio_reset_delays[2])
-+		msleep(DIV_ROUND_UP(priv->mdio_reset_delays[2], 1000));
- 
- 	/* This is a workaround for problems with the STE101P PHY.
- 	 * It doesn't complete its reset until at least one clock cycle
-@@ -608,6 +591,23 @@ int stmmac_mdio_register(struct net_device *ndev)
- 	if (!mdio_bus_data)
- 		return 0;
- 
-+	/* Resume calls stmmac_mdio_reset() even when registration does not
-+	 * install a bus reset callback, so cache its resources in both cases.
-+	 */
-+	if (IS_ENABLED(CONFIG_STMMAC_PLATFORM) && dev_of_node(priv->device) &&
-+	    (!mdio_node || of_device_is_available(mdio_node))) {
-+		priv->mdio_reset_gpio =
-+			devm_gpiod_get_optional(priv->device, "snps,reset",
-+						GPIOD_OUT_LOW);
-+		if (IS_ERR(priv->mdio_reset_gpio))
-+			return PTR_ERR(priv->mdio_reset_gpio);
-+
-+		device_property_read_u32_array(priv->device,
-+					       "snps,reset-delays-us",
-+					       priv->mdio_reset_delays,
-+					       ARRAY_SIZE(priv->mdio_reset_delays));
-+	}
-+
- 	stmmac_mdio_bus_config(priv);
- 
- 	new_bus = mdiobus_alloc();
-
--- 
-2.53.0
-
+Magnus
