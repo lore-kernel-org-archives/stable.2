@@ -1,162 +1,88 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3296C3B6BF1
-	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 07:54:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F114B3C108E;
+	Sun, 27 Sep 2026 08:12:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.63.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790495683; cv=none; b=k0wGQZ36RyQalGzZ79I6pMyVS7e5wSIPZQZsaha7Ek92nhuZiruN/Aw2Ho0zssTeqnzTo1ULG/ClzE8gtaX/hoVPCCvPQu+FM2T25mGfdfQxCEFHrI/w0tTtOZEBm8R0QyokzsIN5tohlvyRm19DHkkGnofiAdLLXmc/NBMQ/Ew=
+	t=1790496737; cv=none; b=dfe75tppn5u8fWAzQLP0CNZL5wcqyYvW7uerfGDYp0tKZtbXAsT5r5bKZ0jQ7Rxb44K+92PVjU7VQOrRITm+S9MeTxR6IcwPPEyP0WfbCdBIP5d/QBKR6UAF2mpyEO4mglc4VwWd8NM/LNDRWj18ZQ+fRE3HNKUPG+5pBKZSRnM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790495683; c=relaxed/simple;
-	bh=IGTw7cpaA8o18EKEwX+QiaExhRaxJ2vai2vQzvv5R7A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nn2Jv9QuyoXvNrcmzqEv5lOkL+ONvYCRGQF5cCBSNXEHLnhLXgwOkFHgObgncsf2NA8SE9YYGwe+50/BASQwJq4u7tYL+Lwk9r/IBcDaHz47XdA37t9v0aTeGjlmzGpMjjiJP0kZFHrC7DaZZaMktR31sqcNEHhiuizSB/XBQtk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O4iZ7WIG; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790496737; c=relaxed/simple;
+	bh=HFjQqs1qUlb5jUYPLvjlzmH+l4FMVxII5Mkvsjb1geg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RhgRAjREPO6Y7NRlJ1HfbvKE+X57+3ONTrmBjCfDUshs377F2UNbjrAoof5uk7Qj7RWB2aTCHCZnsw/gdLLYB7nPf9AHg8zxp5q3sclo8iyAv8fFZH9ENarAmnUNlNC6q3jDi99JGqiziiIpN1KfN5/d1M0Vd6LvAUbd/kZW2TI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=HTp2pM3y; arc=none smtp.client-ip=188.68.63.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O4iZ7WIG"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747ee1f9bso9577285ad.3
-        for <stable@vger.kernel.org>; Sun, 27 Sep 2026 00:54:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790495680; x=1791100480; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bjwFwUue96fleY0pohUkbrbEGxywxs4gaD//2C9cu0w=;
-        b=O4iZ7WIGNgCdr/aCOjqlfspt0Zb9tlYAwMFzJ/+aMO7h9LpNSjpsWwa8XHWsRvUymG
-         p9RZLaosQPNHo1NyK7GWGgx8gYbry4mceJ0L2S1L9VOYDFjWt7MedPmZc4q/y3gT/1/P
-         8F6vqlJLI2xjOh3mFyFn3Of0Tl83LmQJx0H3bdziUsWWyNO5ZAh3tdk76RLZADSVPNzO
-         XSgge5tUGJXJ2fR9MQ1WGT5Nn3B59m6ntd2OGhu1JpY+m/mjCRhTI3UTkhrOuEQY58XO
-         P69GeQFNC95F9efSBAmG7/ekvnqHyigHzCjucgCvxpx+9TvszEfaBAVlug/7czn2P3Hl
-         6O3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790495680; x=1791100480;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bjwFwUue96fleY0pohUkbrbEGxywxs4gaD//2C9cu0w=;
-        b=ONdJe2CTCLDqAkqEnO1v2SKMf0QavsGOotsEbLi3H+9HBg2G+wwJZjEyghKX2lAfl3
-         op1vw0E06BmAsgOX+LSsWd955UKEX9yJ7ZRyFI086nWDCTKk0SU+cJs+0qh76q8WN1fW
-         yRVbTWjxQrfCKR22YeM4VBFIPESoxazSPiaN/z2kqjl5YBI3XaGYhdI9dquN5xIJeKM1
-         o4uC4T+iKH8+nMc5EsJ9KEqjdKS+vW4XNmqM35IYzlevAZg8TvUoaXKwAPWtAMMf0kh1
-         NYNlmPVzZ1esdqj5jrjV1fI22lEcGFRH/zpxrDfDeoCfgkSLZ+uyCnbSy5ljZH8gUzlF
-         nygQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz94jX/mnNKJoseDSy3awH/NKOgxgaKEZjGB4TTs8zBlkfcUBYDVIQD1Wqd5p0Q0S2fGg9u/PM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJE5n945YjI6on5Imr0rSxnhHeXiWUJ4/JXR7BTRnfcJ2ST9phf
-	JeaAU1asiUvwiLNbFRfKT6VB0a9PpRstcCBylX3tr93L/TuidB6MFKEO
-X-Gm-Gg: AYBFou1i52WrqRucZ+TUiKwMxVAgonXVCSTFBj2Zn1XC9CO/enJFXiW+sJxo49o8Sb6
-	gmVRyGtkIi0rQT3oz1e/TarRqhlEIx2iwtVRbR6rfYo4L+qpHBCr0tMl8tmrHd3qlfU/RT/TBc2
-	hy3YUgp82wI0Lh5FVi35dxIUxsVVI8hMNNyzdxmLwT4RIJCSvioRJrA9ubnhkEDBhcCQHw8n9XY
-	uUiYk/yUycTwL28LpQetHYkCsx871pcCafG0bfWVANgky4FDdb+o+6BSqdHr8T3RXCLkJJ053KL
-	CRB5aHwocwozbhrw/ETVFrmQOP7ujqjA1kQs0IvsEkmoBhkzBwuqEUN+7CXG1cbt6qUPyU5xOFx
-	7ELUakN0h1y+oPwrJpjQI1r/eVGAX3mPxcqb5TMCkPAr9PZ06xTSRqcgY+wI7k+4b3LoDP7bOl7
-	WHvJTnhUAzZUoSkMmngJdKdhqe4MdUwUhWCPuqPKr9Rok6wkWufvBazCXaJz2qIvplN1r6zN1ap
-	4TcFb0/N2Xb8tOf
-X-Received: by 2002:a17:90b:57c6:b0:3a0:22bd:6ef6 with SMTP id 98e67ed59e1d1-3a09853a6cdmr7064156a91.2.1790495680466;
-        Sun, 27 Sep 2026 00:54:40 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2405:4802:1d4a:e90:3a0c:2ea9:4ab7:bd1b])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b8efaeb3sm13771287a91.2.2026.09.27.00.54.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 00:54:40 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
-	syzbot+ca23c8570669ead78867@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/fb-helper: defer setup when fbdev_probe() fails, not just on -EAGAIN
-Date: Sun, 27 Sep 2026 14:54:34 +0700
-Message-ID: <20260927075434.72658-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="HTp2pM3y"
+Received: from mors-relay-2501.netcup.net (localhost [127.0.0.1])
+	by mors-relay-2501.netcup.net (Postfix) with ESMTPS id 4hsxxM24mPz6Jr9;
+	Sun, 27 Sep 2026 10:12:07 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1790496727;
+	bh=HFjQqs1qUlb5jUYPLvjlzmH+l4FMVxII5Mkvsjb1geg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=HTp2pM3yGps1DzctLYKb2geTD1okMCfIvwUQqe5/a01SjzD4Dlw1DEkBikoSIumf0
+	 ksHJcCxqIvnurWqLIt7j3ZbuN7XdCEwoKJgFFYftPBnYYiNXoIg8gHbE6jsAKtHcfH
+	 wkKJ6wWq+bHX3curcBLW3eKDjNZfsdejS8uNa060uwtyq47afr5nbIyRkfC067UZnw
+	 t/ZVHjkge6J/VKN+lJE+CBExcxEiyQxUt2HFKRs8QCaHNHxdu3NGTgwZK6VAQOnMqF
+	 HIOkA+0BwhwQq4lBipPJl6z6q0nWYGosw5qkykVC9RAImsW2/CFbqNxCwUX/jnNjla
+	 LWbWhDE3d384w==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+	by mors-relay-2501.netcup.net (Postfix) with ESMTPS id 4hsxxM1NgWz4xsg;
+	Sun, 27 Sep 2026 10:12:07 +0200 (CEST)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hsxxL5gccz8svk;
+	Sun, 27 Sep 2026 10:12:06 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 220295F94C;
+	Sun, 27 Sep 2026 10:12:06 +0200 (CEST)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <b37bba19-22db-4097-925a-192dcf9a49b7@leemhuis.info>
+Date: Sun, 27 Sep 2026 10:12:04 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [REGRESSION] Bluetooth: ASUS USB-BT540 (0b05:1bef) fails after
+ BTUSB_REALTEK quirk
+To: Niko <unknown@niemelat.fi>, linux-bluetooth@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Linux kernel regressions list <regressions@lists.linux.dev>
+References: <be59323c-d616-4ce9-b886-e1a7be1a7b7e@niemelat.fi>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <be59323c-d616-4ce9-b886-e1a7be1a7b7e@niemelat.fi>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-PPP-Message-ID: 
+ <179049672644.3690133.11772297743812531246@mxe9fb.netcup.net>
+X-NC-CID: oPA8YS2oaqPINzkjgaiPsmDXKpssukyVvLrDG8NbGzu8vGZdSoM=
 
-__drm_fb_helper_initial_config_and_unlock() calls
-drm_client_modeset_probe() first, which already fills in each
-mode_set->mode/num_connectors for every connected output, and only
-afterwards calls drm_fb_helper_single_fb_probe() to create
-fb_helper->fb and wire it into those mode_sets via
-drm_setup_crtcs_fb().
-
-If drm_fb_helper_single_fb_probe() fails with anything other than
--EAGAIN (e.g. dev->driver->fbdev_probe() itself fails), the function
-bails out before drm_setup_crtcs_fb() runs and before setting
-fb_helper->deferred_setup. The client is left with mode_sets that
-have a mode and connectors but mode_set->fb == NULL, and nothing
-marks this fb_helper as needing a retry.
-
-__drm_fb_helper_restore_fbdev_mode_unlocked() only skips committing
-when fb_helper->deferred_setup is set, so a later .restore() call
-(drm_lastclose() on process exit, in this report) commits the stale
-mode_set through drm_client_modeset_commit() ->
-drm_client_modeset_commit_atomic() -> __drm_atomic_helper_set_config(),
-which hits WARN_ON(!set->fb).
-
-Mark fb_helper->deferred_setup on any drm_fb_helper_single_fb_probe()
-failure, not just -EAGAIN, so restore keeps skipping the commit until
-a later hotplug event successfully re-probes and re-populates
-mode_set->fb. The real error code is still returned to the caller
-unchanged.
-
-Reported-by: syzbot+ca23c8570669ead78867@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=ca23c8570669ead78867
-Fixes: ca91a2758fce ("drm/fb-helper: Support deferred setup")
-Cc: stable@vger.kernel.org
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
----
-Tested in QEMU (KVM, x86_64) with the syzbot C reproducer, which enumerates
-a USB device over raw-gadget matching drm/gud's ID (idVendor 0x1d50,
-idProduct 0x614d) then opens the resulting DRM node. In our test VM gud
-lands on a different card minor than in the syzbot report since other
-drivers (vgem/vkms/bochs-drm) register first, but retargeting the
-reproducer's open() at gud's actual minor reproduces it directly on the
-very first probe:
-
-  gud 1-1:1.0: [drm] format XR24 little-endian (0x34325258) not supported
-  gud 1-1:1.0: [drm] No compatible format found
-  gud 1-1:1.0: [drm] *ERROR* fbdev: Failed to setup emulation (ret=-22)
-  ------------[ cut here ]------------
-  !set->fb
-  WARNING: drivers/gpu/drm/drm_atomic.c:2031 ...
-
-On the unpatched kernel this isn't benign: __drm_atomic_helper_set_config()
-warns and then continues, committing an active CRTC/plane with a NULL
-framebuffer, which escalates into a NULL-pointer dereference and a fatal
-kernel panic a few lines later in our runs. With this patch applied, the
-same gud probe failure (ret=-22) still happens every time as expected, but
-restore() no longer commits the stale mode_set: no warning, no panic,
-clean shutdown across repeated runs.
-
- drivers/gpu/drm/drm_fb_helper.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
-index d4664ed468b2..0817b639b3fa 100644
---- a/drivers/gpu/drm/drm_fb_helper.c
-+++ b/drivers/gpu/drm/drm_fb_helper.c
-@@ -1724,10 +1724,10 @@ __drm_fb_helper_initial_config_and_unlock(struct drm_fb_helper *fb_helper)
- 
- 	ret = drm_fb_helper_single_fb_probe(fb_helper);
- 	if (ret < 0) {
--		if (ret == -EAGAIN) {
--			fb_helper->deferred_setup = true;
-+		/* modesets are probed but fb_helper->fb isn't; defer restore too */
-+		fb_helper->deferred_setup = true;
-+		if (ret == -EAGAIN)
- 			ret = 0;
--		}
- 		mutex_unlock(&fb_helper->lock);
- 
- 		goto err_drm_fb_helper_release_info;
--- 
-2.43.0
+On 9/26/26 10:49, Niko wrote:
+> 
+> I would like to report a regression affecting an ASUS USB-BT540 Bluetooth
+> adapter (USB ID 0b05:1bef).
+> 
+> The regression appears to be caused by commit:
+> 
+> 980084de4d9b25193398d89a1c0430ba3501b683
+> Bluetooth: btusb: Add ASUS USB-BT540 for Realtek 8761CU
+> 
+> which adds BTUSB_REALTEK | BTUSB_WIDEBAND_SPEECH for this USB ID.
+> [...]
+>   Raspberry Pi kernel: 6.18.50+rpt-rpi-v8
+From reading
+https://lore.kernel.org/all/daily-reply-0016-re-btusb-rtl8761cuv-regression@kernel.org/
+I suspect that latest upstream fixed this already. Please report back if
+not. Ciao, Thorsten
 
