@@ -1,72 +1,49 @@
-Received: from mail-pz2-f39.google.com (mail-pz2-f39.google.com [74.125.228.39])
+Received: from mta1.migadu.com (out-148.mta1.migadu.com [95.215.58.148])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F8A93D3D0C
-	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 09:45:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1AEB37C109
+	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 09:48:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.148
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790502340; cv=none; b=ZDMhPgNd3p8Ip+xHjky+GZr+UpBeHYG63ipUAQqqY8f85fSLKDD9LLgc4kHIUoN9QESlNWOdEz3gD6MB7Fcks1NtngRQu99deGK7xRchHFRpxDI7iENT62DRSnaF2iC1R+WKt/2f7Xum7froU3zjsB4qQh5uHcyYfCWGwPVWono=
+	t=1790502495; cv=none; b=D2/7XJueyPn+YewytnZmQnjDLvqUdLjQW+wvcm7U9zEcdf68rvX7PPvRZklmbBPcv8D9GCsaWlFPlaHVwFh+fNnFveTxf/1v3Q55plqMc5kJKzwPKM1Yn0YNRW3rooDNViC0ud/SWuYuHc3Co8x8LTFJH3NawtYHeHRb7rlnjao=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790502340; c=relaxed/simple;
-	bh=tax8JMiviEXQQXZx8r3+hVtfjUs+GKtkWSm4PU5xCJo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rUWPB1Y/1ofuelPVahKKVhPLwX4inT8GLUf2Dfp53AOEmMBBv2RomUE/tQBy1WMEZZdQdul7325UDx1N+yNNEZg3/e0B+iEv5OGuHDJenfEhcZ+jWMz0SQhRXn7qdCrYLs1v+Bao/L9h12jitxikW8EHHexQUZqJ5D/CkA6aKRA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YaPiCJAN; arc=none smtp.client-ip=74.125.228.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790502495; c=relaxed/simple;
+	bh=5w+Y1CcKn/CttHaHw0/QkpxouoRBSJrbYaTBcdJOvHI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=D7BO1LpCbRP1FsgDlUQM0KoR5LX02T5LBWHdxqdFpPOtC3Ly/t2FrgEDjjFRpYEraz+uCeyMVsGXSiIChUGapZCq44iHjPZAKFneh/urZRWEHqbVespOXdE4lIRQp9tPRHZKB4lyQ3rJbzdYnwUEBE09sfxxHg5rqA+QagFHOW4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=s0qJvo0X; arc=none smtp.client-ip=95.215.58.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YaPiCJAN"
-Received: by mail-pz2-f39.google.com with SMTP id d2e1a72fcca58-88103e47f72so1044588b3a.2
-        for <stable@vger.kernel.org>; Sun, 27 Sep 2026 02:45:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790502339; x=1791107139; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WW03v5grmvf8mOWn+UC1EtDiLQQpdA7r8LHu21l4O94=;
-        b=YaPiCJANHqirSJ6pn0t3fsx59mZ2lfQeMrtEiFgu9OtYc8v1Sm4Pwnf+NICNfAYhCH
-         3LUcpVC8EcPRr+AQYC/ADdJe4TVEbrBoptYuINucgFgLMDaXQwarvSSi1Gc+diuaYHNa
-         X6MzcAFdpUxDMG6fzEEH6lm6WtnIJr+PaHtvAIajYI43cW4GbtCbqITtMe3AHgIfSxat
-         iCR11Om4Ue1uiP7R10qpG4TtDQzSCdf76ikuPQMZK91YTuuK/gZZZtc2m2A0jul0pDcX
-         RGoBQEz+aCmyizt/M1Srl0lOIWNYKkl48iX04O94yYsJc7u/5y8XYb02Ve6sHNrQcitK
-         cl0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790502339; x=1791107139;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WW03v5grmvf8mOWn+UC1EtDiLQQpdA7r8LHu21l4O94=;
-        b=OHIeIbcWaQoIopQ0+xNHp5GvDRgZPRK3IRIxyrJESI/QwpIuVMAWQRzQLUV6ciVMd3
-         ODg5akN0WFVueB+nddZckuOlLZc/XzDSMcu8cCsmp5+RU8efS8bkAPjkgoGpr+nEBwnh
-         4eTCRe1SYSeHTO/PJiuM1zhZ35KfWzxDMS5bZG80SXo+q+LRFrDxNiw9PhVMEB2hzAV7
-         g6lLiihQPClsJlnah+vXsaoDVPh16GSkb9a2bpmySaq+FCUaBwFUHIYs7/XDzSfGZfH9
-         2ROcU1+d2G8ApP/XoiUmdqi7T+m7hUxvnMjrs+avqFMLImV1tCTUw4eiSdnCJBpHzzL5
-         2s5A==
-X-Forwarded-Encrypted: i=1; AKwUvBz9vnujHpwLICwCNXTh1kE4qRx3/cYebkQf14W3/21x80JIyw//iWGAjtTJ6YFRNM/+tpRwT60=@vger.kernel.org
-X-Gm-Message-State: AFuF++lzcTCYgVdXl3Of2OMpeq6rv59BSjIcRV+3wnvXcKyFi444N5qu
-	CN6V0v7FeyswoG99Sna9hFrgn/2KXWkJTsu9N2V2B14/L9sj0Jf55bSo
-X-Gm-Gg: AYBFou0QOg7skZnHLsw99txUXi1nRQ219Sn6etWb7onTo6NaAUros2J8XS45nSacrdd
-	ktSmyJis4vROa+JIdscOazuaHq4YZAyohr4KI+w4Ks1le0mWthQrjj3hkNeW8zc1OPP93JKPyg5
-	BD97jbeKsVH99O+aXunuCBZ/35fjRBwqcmhZCT9dO21Ojy7bGFwKi5+PKd+Mrarx4FUwd/4yAiJ
-	hV1SJYh3HRnlurjOfd8q+V7To37lSwLUP1vRehajlgK8GDQuwwsn7olqze4A4mD9Wz0sdtldqgb
-	5E9rPcOf7zDFSOI4D+1/kpcvdLNPBS6FVdktFhARA9j4cmYjkse+jsXJsn1vVdJhunzRBJbvkKt
-	sKHbcFAejaVEplK08paLSEKx8gIOyeqFSilVjQPxg/bUvvDr4P21hNYDLLU2s4nI/7Xz/fh6rJ3
-	41ZZX7+A4+ZJQ+wOzamhghn00w9EaTmQWY5H9yc8FQkAHwxG5oYeNVTAyCifWQFys+Tg==
-X-Received: by 2002:a05:6a00:9298:b0:874:706d:856c with SMTP id d2e1a72fcca58-87e9b3b9e0bmr9164617b3a.29.1790502338655;
-        Sun, 27 Sep 2026 02:45:38 -0700 (PDT)
-Received: from localhost ([8.219.235.175])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-882ad656fdcsm501918b3a.18.2026.09.27.02.45.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 02:45:38 -0700 (PDT)
-From: Dairui Zhang <zhangdairui@gmail.com>
-To: linux-nfs@vger.kernel.org
-Cc: Chuck Lever <cel@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Dairui Zhang <zhangdairui@gmail.com>,
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="s0qJvo0X"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=5w+Y1CcKn/CttHaHw0/QkpxouoRBSJrbYaTBcdJOvHI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790502487; v=1; x=1791107287;
+ b=s0qJvo0X8rx6wWtAh0YSIqtRqgO5nCOJ3tw3z4v0H4IrkzWJ3pbhT9W3yb4LKTIyh33xYTyC
+ fRIHEkNPGGXJNwQnyuU1sGvjfVUihP9BFvJfhxNE/hucHeLZZJihe2ki9In/I0/xFih4+w9I8gM
+ F4H9sqesJziEkb8IzGM2QPw4=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 75e904128475050b;
+	Sun, 27 Sep 2026 09:48:07 +0000
+X-Mizu-Trace-ID: 75e904128475050b
+X-Migadu-Flow: FLOW_OUT
+From: Hongfu Li <hongfu.li@linux.dev>
+To: hughd@google.com,
+	baolin.wang@linux.alibaba.com,
+	akpm@linux-foundation.org,
+	vivek.kasireddy@intel.com
+Cc: muchun.song@linux.dev,
+	osalvador@suse.de,
+	david@kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Hongfu Li <lihongfu@kylinos.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] nfsd: fix READ payload landing one page ahead of the XDR accounting
-Date: Sun, 27 Sep 2026 17:45:35 +0800
-Message-ID: <20260927094535.1745224-1-zhangdairui@gmail.com>
-X-Mailer: git-send-email 2.53.0
+Subject: [PATCH v3] mm/memfd: fix hugetlb reservation accounting in error paths
+Date: Sun, 27 Sep 2026 17:47:57 +0800
+Message-ID: <20260927094757.31665-1-hongfu.li@linux.dev>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -75,57 +52,125 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-nfsd4_encode_readv() passes the in-page offset
-base = page_len & ~PAGE_MASK to nfsd_iter_read(), which writes the
-file data at that offset into *rq_next_page. After each operation
-rq_next_page is set to page_ptr + 1, so when the reply stream is
-mid-page the data lands one page ahead of where the payload
-accounting continues (which stays in the current page at base).
-The wire then carries the stale tail of the current page (previous
-RPC payloads, since reply pages are reallocated nonzeroed) instead
-of the file data: a remote kernel info leak to an authenticated
-client, plus silently corrupted READ results.
+From: Hongfu Li <lihongfu@kylinos.cn>
 
-Trigger: any compound where a READ follows an op that left the
-stream mid-page, e.g. [PUTFH, READ(100), READ(N)] or READDIR+READ.
+If hugetlb_add_to_page_cache() in memfd_alloc_folio() fails with -EEXIST,
+a concurrent fault has already instantiated the folio in the page cache,
+and the reservation now belongs to that folio. Calling
+hugetlb_unreserve_pages() in that case incorrectly removes the region
+backing the cached folio and releases one reservation more than it
+should, leaving that folio in the page cache with no region recording it.
 
-When base is nonzero, place the data in the page the accounting is
-filling (page_ptr) instead of one page ahead.
+That leaves resv_huge_pages one page short until that folio is removed
+from the page cache, so available_huge_pages() reports a page that is
+not actually free and the pool can grant one reservation more than it
+can back. Applications using hugetlb memfds can then fail to allocate
+or fault in a page they already reserved. They see -ENOMEM or -ENOSPC
+from the allocation or fault path even though the reservation and
+HugePages_Free still look healthy.
 
-Fixes: ed4a567a179e ("NFSD: Update rq_next_page between COMPOUND operations")
-Reported-by: Dairui Zhang <zhangdairui@gmail.com>
-Assisted-by: LLM
+So hold the hugetlb fault mutex from hugetlb_reserve_pages() until the
+error-path unreserve completes to make the reserve, allocate and
+instantiate steps atomic against concurrent faults. With the mutex held
+from the start, a concurrent fault can no longer consume the reservation
+between reserve and allocate/instantiate. If a fault completed before the
+mutex was taken, it has already added the region for that index, so
+hugetlb_reserve_pages() returns 0 and the error path leaves the region in
+place.
+
+Fixes: 717cf9357325 ("mm/memfd: reserve hugetlb folios before allocation")
 Cc: stable@vger.kernel.org
-Signed-off-by: Dairui Zhang <zhangdairui@gmail.com>
+Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
 ---
+v3:
+- Update commit message to describe the accounting damage and its
+  user-visible effect; no code changes.
+- Add Cc: stable@vger.kernel.org.
+v2:
+- Take the hugetlb fault mutex before hugetlb_reserve_pages() and hold
+  it until the error-path unreserve completes.
+- Update commit message
+- Link to v1: https://lore.kernel.org/all/20260831090631.29227-1-hongfu.li@linux.dev/
+---
+ mm/memfd.c | 31 ++++++++++++++++---------------
+ 1 file changed, 16 insertions(+), 15 deletions(-)
 
-From code reading only - no runtime test yet; the trigger compound
-is in the commit message. First patch to this list, so if I've
-misread the flow somewhere, please tell me.
-
- fs/nfsd/nfs4xdr.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
-
-diff --git a/fs/nfsd/nfs4xdr.c b/fs/nfsd/nfs4xdr.c
-index 6a0a97d..17aff48 100644
---- a/fs/nfsd/nfs4xdr.c
-+++ b/fs/nfsd/nfs4xdr.c
-@@ -4933,6 +4933,15 @@ static __be32 nfsd4_encode_readv(struct nfsd4_compoundres *resp,
- 	__be32 zero = xdr_zero;
- 	__be32 nfserr;
+diff --git a/mm/memfd.c b/mm/memfd.c
+index c708d92533f4..0f6fff004f5e 100644
+--- a/mm/memfd.c
++++ b/mm/memfd.c
+@@ -82,22 +82,31 @@ struct folio *memfd_alloc_folio(struct file *memfd, pgoff_t idx)
+ 		struct hstate *h = hstate_file(memfd);
+ 		int err = -ENOMEM;
+ 		long nr_resv;
++		u32 hash;
  
-+	/*
-+	 * rq_next_page only tracks full pages. When the reply stream is
-+	 * mid-page, the payload accounting continues in the current page
-+	 * at base, so the data must be placed there instead of one page
-+	 * ahead.
-+	 */
-+	if (base)
-+		resp->rqstp->rq_next_page = xdr->page_ptr;
+ 		gfp_mask = htlb_alloc_mask(h);
+ 		gfp_mask &= ~(__GFP_HIGHMEM | __GFP_MOVABLE);
+ 		idx >>= huge_page_order(h);
+ 
++		/*
++		 * Serialize hugepage allocation and instantiation to prevent
++		 * races with concurrent allocations, as required by all other
++		 * callers of hugetlb_add_to_page_cache().
++		 */
++		hash = hugetlb_fault_mutex_hash(memfd->f_mapping, idx);
++		mutex_lock(&hugetlb_fault_mutex_table[hash]);
 +
- 	nfserr = nfsd_iter_read(resp->rqstp, read->rd_fhp, read->rd_nf,
- 				read->rd_offset, &maxcount, base,
- 				&read->rd_eof);
+ 		nr_resv = hugetlb_reserve_pages(inode, idx, idx + 1, NULL, EMPTY_VMA_FLAGS);
+-		if (nr_resv < 0)
+-			return ERR_PTR(nr_resv);
++		if (nr_resv < 0) {
++			err = nr_resv;
++			goto out_unlock;
++		}
+ 
+ 		folio = alloc_hugetlb_folio_reserve(h,
+ 						    numa_node_id(),
+ 						    NULL,
+ 						    gfp_mask);
+ 		if (folio) {
+-			u32 hash;
+-
+ 			/*
+ 			 * Zero the folio to prevent information leaks to userspace.
+ 			 * Use folio_zero_user() which is optimized for huge/gigantic
+@@ -112,20 +121,9 @@ struct folio *memfd_alloc_folio(struct file *memfd, pgoff_t idx)
+ 			 */
+ 			__folio_mark_uptodate(folio);
+ 
+-			/*
+-			 * Serialize hugepage allocation and instantiation to prevent
+-			 * races with concurrent allocations, as required by all other
+-			 * callers of hugetlb_add_to_page_cache().
+-			 */
+-			hash = hugetlb_fault_mutex_hash(memfd->f_mapping, idx);
+-			mutex_lock(&hugetlb_fault_mutex_table[hash]);
+-
+ 			err = hugetlb_add_to_page_cache(folio,
+ 							memfd->f_mapping,
+ 							idx);
+-
+-			mutex_unlock(&hugetlb_fault_mutex_table[hash]);
+-
+ 			if (err) {
+ 				folio_put(folio);
+ 				goto err_unresv;
+@@ -133,11 +131,14 @@ struct folio *memfd_alloc_folio(struct file *memfd, pgoff_t idx)
+ 
+ 			hugetlb_set_folio_subpool(folio, subpool_inode(inode));
+ 			folio_unlock(folio);
++			mutex_unlock(&hugetlb_fault_mutex_table[hash]);
+ 			return folio;
+ 		}
+ err_unresv:
+ 		if (nr_resv > 0)
+ 			hugetlb_unreserve_pages(inode, idx, idx + 1, 0);
++out_unlock:
++		mutex_unlock(&hugetlb_fault_mutex_table[hash]);
+ 		return ERR_PTR(err);
+ 	}
+ #endif
 -- 
-2.53.0
+2.54.0
 
