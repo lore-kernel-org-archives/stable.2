@@ -1,44 +1,82 @@
-Received: from out28-172.mail.aliyun.com (out28-172.mail.aliyun.com [115.124.28.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f42.google.com (mail-qk2-f42.google.com [74.125.230.234])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EE293E121A;
-	Sun, 27 Sep 2026 11:59:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 319873C13E5
+	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 12:09:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.234
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790510394; cv=none; b=QljxlL+zyhTySm7CBrpo+II1WBK1SgpDNUEhPkwitYXQkzU1eH8gSq3JiVGUSs/8Km8laC4TbrJJsp3ZLaY0/ZxIS6zp7efVyRVE/+fsZu8lSjTFlR4dERNdtH07Yldl/Q6u0iFnRFkEsiY3ZoHSWP2bJtbDtHAtXeiWv89L8KI=
+	t=1790510976; cv=none; b=bUcSt0qmk4/W3SqTc7Ils4caiO0Uug+75ebaCZ2xGMmrloWl6f52qGmLTexMUcuMSRI3Hndd7zQ3ACz8YL/HR/UV7VDY0KPSVnV1Z/B7xTqezsbw5FKlMD6BA69DwhQqUyhj/hCMCdINyVTCxElyWZmmZtOM3hWUoUuf2o6lMvU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790510394; c=relaxed/simple;
-	bh=fTkVwd2Y7QM/AiOJV9TQhYvcq5o2fo81OnE8HK9d50A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=V3+CRmqrzWmt+RYhRWdd/fk155J3+0Df/SGvlEXxwRNVEBkBvkc5agSguMYaevkr91D86Kbg8oZ9Hnu3oMmCSeFSxf1SZKPGjt6avwCUtMob6pGf4cIbUkgH12bEr1IEYEjl/dOszLT/kmuuGap68cnchfkMpuPG2tFVSvlQgHw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=Gv5HSU3I; arc=none smtp.client-ip=115.124.28.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	s=arc-20240116; t=1790510976; c=relaxed/simple;
+	bh=tCyaVRK+OMgeWNDYxyRY3jzF8TBkGr6Wl3eti3U+l8E=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=kwFfoNRPHSqNCbo+ntMFurbsuy2dd1DxbnDwpsh70R6ljLLbc03SHsZ9JlTsDTTW7hI47GxWq0kjSfBIoIt0+KsrsY26tsFT8xpSTmt+NZ429zP18DGjREr4TIG5Hh8r+28naujEuPpCLBQBPzGFCoyB9vAT0MoikAbsihl+XB0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SMPwQIml; arc=none smtp.client-ip=74.125.230.234
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="Gv5HSU3I"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1790510381; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=PBee7+V8zEKXVMTs+wwTx5B3tNdbnkyFJUEXDrj7INg=;
-	b=Gv5HSU3IhInWGbue91hfEVJJdSoKH0s+8pyXQ13fYiY8/WUeAWAtA8wa+DvCh+fA1qgD77uAGCs+wh+o4fzABWURAxVpHdJWkRoYgIKlAup07DTLkYupVF0iKH7U3BGh+LFXLoGX+7sTniToS5CxiliENwSTsgUO5vnugXmDGHc=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07438608|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.0132348-0.00388059-0.982885;FP=10282059465953380003|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033022149254;MF=liuc63@xiaopeng.com;NM=1;PH=DS;RN=10;RT=10;SR=0;TI=SMTPD_---.jP8tcBj_1790510380;
-Received: from localhost(mailfrom:liuc63@xiaopeng.com fp:SMTPD_---.jP8tcBj_1790510380 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Sun, 27 Sep 2026 19:59:41 +0800
-From: Liu Chao <liuc63@xiaopeng.com>
-To: netdev@vger.kernel.org
-Cc: david@ixit.cz,
-	horms@kernel.org,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	oe-linux-nfc@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SMPwQIml"
+Received: by mail-qk2-f42.google.com with SMTP id d75a77b69052e-53320dc09fcso8990571cf.0
+        for <stable@vger.kernel.org>; Sun, 27 Sep 2026 05:09:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790510973; x=1791115773; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=eVdh45ZUj7FnpRC6Q2Foio9VZd4+GVrW1sEPilA+/sQ=;
+        b=SMPwQImlTE6MckWtM8J5Ul6KlXDx+WmV4vDJd2su6jFd60mLmMe5lqpleYpfp7kBrY
+         O94z9XwU3myA5a+1j2LXSLGsGQL30EFTHUhbdeCsdfrSatfmGjBlLKnKyZKbHX2r+1+u
+         d2nF8v8DL+quEeiG2LcrVmBNpOXahpJ+rDytaVI/xXuu9LxOvNiPzvZfJlev/LkM2cI0
+         TlilGyqmK7OntqAxSFHjJ6thyJwFB0y7RdA+H6g2kqRBLWejW4bigZ95qTylP4r8fthG
+         CJBKpyBPxo0TafT6QLjR+43gIRqOA+SGQzLsZYO1OvXHHIR6/cdQyY6l0ix0m1n9SXkT
+         DYEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790510973; x=1791115773;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=eVdh45ZUj7FnpRC6Q2Foio9VZd4+GVrW1sEPilA+/sQ=;
+        b=04PDVqIswe96F4slgVUgtlhnDV0xkw7mtTUn9grdAuzZnNjU2ig4hSShBM+F7IFX7k
+         8SjwQqnbq6ulW3kFwDlb7i+4KFH5dJ3Vl/IK9BbZXsQdLOTSfBRvSFQ7OUa7JwNA7szz
+         yqK+ixkbfvnXGcVqlzQUxN5305bACSst5/OWyT+Q1TIHxc2DSxQ8uVJag/ZrbYQrdoJ0
+         CDeeAV4GXs56+8y7jVUZuT6pdkwMoHpjCd9wX0ERCQHOS6Vuj1ElUceuXOZHHwMNBYF0
+         dZ7kfksAqclhTMoe8PePnI+Q9oi7gS9RAbK7MREDOtsQn8HlLxqiuAI661cdXv3nv0yF
+         dRfQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwi+Mf6adoQCieA5HbLR0a54nqz9GsoRFug3xhI/F5enf9v+z6EIF2NCfei85ECBtHNG5zTILA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lZYMEthk3NN4uWSBKf06ouChUard9v2CC07QHNZkfzMNn3P6Bf
+	PPQ0FXL0tRGxMRLI/4ew8FiDDuEFt6G6CcMy/3Zib5vLKCvTeOUEt1bZx/udn2rD0oQ=
+X-Gm-Gg: AYBFou1CVmq9sKbL8O4gogZiJ24opVJcKXrqxO/RMRCqTK2OESiY1DVW+JsC5HT08tY
+	v0n0KXTJ2otrT8/nLlTZcOECyByZlK0Tq4elVE+DENRh6FzHI4oGU/Z0uDHiSppdvS5GEltsuS+
+	ly5Wwi7JfF8mDO7zOvZlZBYco5Zkf3E/zo14XLCSO1kr+gpbOy27pR8+WfCHw2tA70H2y/4GEMv
+	L+bmkNvZcKfxDQhPc38ETiuO9/oODixqeWTMPlAAdf1Uke1G8cThc+ZfqML7QWvfy5vFnUu7MSq
+	W4K/cPp5MlSPHRvSgUG5pcd/gEYqx6T+C1g8q24DhFIeq6KaTQzcHt3XvW34yhUMMTcbhhmnkfJ
+	p0JtWbAxa2Qi+Or2aQ0CTW7qO9UHSko/u8jDNBwW5O7va7YjyWr0AhxoIvFH6x+l96/ErpihWTx
+	Qvx4iK3w2kYXApB/xOQiu8OdEEpXsMNcy43khhDA2PCzmm9qIgdH4C1R3EZ+eXm+7K8Em82EWhj
+	w8+UWSO93Z7YJSmoz+n8Dc0gGClZ6pkBj0QxtcZXkJffQnx82fv1E9nqOPH5E10Zg==
+X-Received: by 2002:a05:622a:8d01:b0:533:3436:9734 with SMTP id d75a77b69052e-53334369b1amr41246811cf.28.1790510972666;
+        Sun, 27 Sep 2026 05:09:32 -0700 (PDT)
+Received: from Z-System.tailddad04.ts.net (c-68-83-199-219.hsd1.mi.comcast.net. [68.83.199.219])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-533222585a1sm39538581cf.11.2026.09.27.05.09.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 05:09:31 -0700 (PDT)
+From: Zac Lanzon <lanzonza@gmail.com>
+To: linux-hwmon@vger.kernel.org
+Cc: Guenter Roeck <linux@roeck-us.net>,
+	Aleksa Savic <savicaleksa83@gmail.com>,
+	Edward Blair <edward.blair@gmail.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
+	Zac Lanzon <lanzonza@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH net v3] nfc: nci: avoid unbounded skb allocation when max_pkt_payload_len is zero
-Date: Sun, 27 Sep 2026 19:59:40 +0800
-Message-ID: <20260927115940.3817019-1-liuc63@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
+Subject: [PATCH 1/2] hwmon: (asus_rog_ryujin) Fix pump control source on the Ryujin III
+Date: Sun, 27 Sep 2026 08:09:26 -0400
+Message-ID: <20260927120927.72810-2-lanzonza@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260927120927.72810-1-lanzonza@gmail.com>
+References: <20260927120927.72810-1-lanzonza@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,203 +85,199 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-nci_queue_tx_data_frags() uses conn_info->max_pkt_payload_len as the
-fragment size.  When that value is zero, frag_len is always zero and
-total_len never decreases.  The loop then allocates skbs without bound:
-none of them are freed inside the loop, they accumulate on frags_q, and
-there is no cond_resched() in the loop body.  A single sendmsg() can
-therefore consume all allocatable memory, and on CONFIG_PREEMPT_NONE it
-occupies the CPU long enough to trip the softlockup watchdog:
+The RYUJIN III pump has a 4-pin cable for a motherboard fan header in
+addition to USB. Byte 2 of the set cooler duty command selects the pump
+control source: 0 hands the pump to its internal controller, which
+follows the PWM of the header its 4-pin cable is plugged into, and 1
+makes it follow the pump duty in byte 3. Byte 3 of the cooler duty
+report returns the current source.
 
-  watchdog: BUG: soft lockup - CPU#3 stuck for 26s! [kworker/3:1:57]
-  Workqueue: events rawsock_tx_work [nfc]
-  Call Trace:
-   nci_send_data+0x1ca/0x6b0 [nci]
-   nci_transceive+0xbb/0x170 [nci]
-   rawsock_tx_work+0xb5/0x1a0 [nfc]
+The driver fills byte 2 with duty_channel, which is 1 for the RYUJIN
+III, and a pwm2 write re-sends the reported pump duty with the new fan
+duty. So writing only the internal fan duty takes the pump away from
+its internal controller.
 
-max_pkt_payload_len comes straight from controller-supplied fields with
-no check for zero, and it is read several times along the TX path while
-the rx workqueue can update it without any lock held against this path.
+Measured on a RYUJIN III 360 (firmware AURJ2-S750-0108) with the pump
+cable on AIO_PUMP and the header PWM set through nct6775, after loading
+the driver with the pump on its internal controller (pump rpm):
 
-Take a single READ_ONCE() snapshot of the limit in nci_send_data(),
-reject a zero limit there, and pass the snapshot down to
-nci_queue_tx_data_frags().  The fragmentation decision and the
-fragmentation loop then consume the same value, so the loop cannot spin
-on a limit that differs from the one just validated, and no plain read
-of the field is left in nci_send_data() or nci_queue_tx_data_frags().
+                                   header 50%   header 80%   source
+  no write yet                        2160         3090         0
+  pwm2 = 40%, before this patch       1740         1740         1
+  pwm2 = 40%, with this patch         2130         3090         0
 
-Rejecting the zero limit at the entry of the TX data path covers the RF
-connection as well: ndev->rf_conn_info is allocated with devm_kzalloc(),
-so its max_pkt_payload_len is zero from the moment the object exists and
-only becomes usable when an activation notification assigns a
-controller-supplied value.  Checking where the value is consumed catches
-every producer of a zero limit -- the initial state, the notification,
-and any future writer.
+Send the reported source with pwm2 writes. The fan duty applies with
+either source (40%: 1545 to 1590 rpm, 30%: 870 rpm). A pwm2 write sent
+right after a pwm1 write that took the pump over, before the report
+could show the change, left the pump on USB and applied its fan duty
+(2 of 2 trials, and 7 of 7 with raw commands up to 0.9 s after).
 
-The two producers of the field are annotated with WRITE_ONCE() to match
-the snapshot read; the remaining plain accesses on the HCI path are
-untouched here, since nci_hci_send_data() loops over a different
-conn_info instance (ndev->hci_dev->conn_info) and needs its own fix,
-which is sent separately.
+pwm1 writes keep selecting source 1. The cooler reports the pump duty of
+the last write, whichever source it selected, and 40% after power-on.
+Byte 9 of the status report follows the duty the pump runs at. Measured
+from power-on (PSU switched off) once per driver, with the header at
+100%:
 
-The "failed to fragment tx data packet" print sits on a data path driven
-by controller/remote data and can fire on every transmit once
-fragmentation keeps failing.  Rate-limit it so a misbehaving controller
-cannot flood the log.  Note that with the zero-limit rejection moved into
-nci_send_data(), a rejected zero limit returns before this print, so the
-per-sendmsg flood does not occur through that path.
+                                  before this patch   with this patch
+                                  source duty  rpm    source duty  rpm
+  no write yet                       0    100  3570      0    100  3570
+  pwm2 = 40%                         1    100  3570      0    100  3570
+  pwm1 = 40%, the reported duty      1    100  3570      1     40  1710
+  pwm1 = 60%                         1     60  2430
+  pwm1 = 40%                         1     40  1725
 
-No legitimate configuration is affected: where the NCI spec does mandate
-a zero Max Data Packet Payload Size -- the NFCEE Direct RF Interface --
-nci_rf_intf_activated_ntf_packet() takes the "goto listen" shortcut,
-bypassing the assignment entirely.
+So a pwm1 write of the reported duty did not reach the pump, while
+other duties applied in one write, also when taking the pump from its
+internal controller (60%: 2460 rpm). When a pwm1 write requests the
+reported duty, write a duty 1% away first (below at 100%), then the
+requested one. Sent back to back, the two writes left the pump at the
+requested duty in all 19 trials, 9 with raw commands and 10 through
+this driver.
 
-While at it, drop the conn_info lookup in nci_queue_tx_data_frags():
-the caller has already validated the connection, the function now takes
-everything it needs as arguments, and the lookup was the only use of
-conn_info left in it.
+Tested on the RYUJIN III 360 only. The EXTREME, EVA and WHITE EDITION
+use the same rog_ryujin_iii_info and send the same command, and Edward
+Blair's analysis of the WHITE EDITION firmware shows the same pump
+control source. The RYUJIN II, whose duty_channel is 0, is unchanged.
 
-Fixes: 6a2968aaf50c ("NFC: basic NCI protocol implementation")
+Fixes: cd258aca0dc4 ("hwmon: (asus_rog_ryujin) Add ROG Ryujin III support")
+Closes: https://github.com/aleksamagicka/asus_rog_ryujin-hwmon/issues/12
+Suggested-by: Edward Blair <edward.blair@gmail.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Zac Lanzon <lanzonza@gmail.com>
 ---
-Changes in v3:
-  - Snapshot max_pkt_payload_len once in nci_send_data() with
-    READ_ONCE() and pass it down to nci_queue_tx_data_frags(), as
-    suggested by Simon Horman, so the fragmentation decision and the
-    fragmentation loop consume the same value and no plain read of the
-    field remains on this path (review:
-    https://lore.kernel.org/netdev/20260925155040.GP13925@horms.kernel.org/)
-  - Move the zero-limit rejection from nci_queue_tx_data_frags() into
-    nci_send_data(), so the check runs on the same snapshot the loop
-    consumes; this also means a rejected zero limit returns before the
-    "failed to fragment" print rather than triggering it per sendmsg
-  - Annotate the two producers of the field (RF activation NTF and
-    CORE_CONN_CREATE_RSP) with WRITE_ONCE() to match the snapshot read
-  - Drop the now-redundant conn_info lookup in nci_queue_tx_data_frags();
-    the caller already validated the connection
-  - Rate-limit the "failed to fragment tx data packet" print, which sits
-    on a data path driven by remote data, as discussed in the review of
-    the v2 series
-  - Keep the v1/v2 subject so the revision is tracked as the same fix
+ Documentation/hwmon/asus_rog_ryujin.rst |  6 +++
+ drivers/hwmon/asus_rog_ryujin.c         | 54 ++++++++++++++++++++++++-
+ 2 files changed, 59 insertions(+), 1 deletion(-)
 
-Changes in v2:
-  - READ_ONCE() snapshot of max_pkt_payload_len in
-    nci_queue_tx_data_frags(): with the check and the loop reading the
-    field independently, a store from the rx workqueue in between
-    could let the loop spin on a value the check had just rejected
----
- net/nfc/nci/data.c | 34 ++++++++++++++++++++--------------
- net/nfc/nci/ntf.c  |  3 ++-
- net/nfc/nci/rsp.c  |  3 ++-
- 3 files changed, 24 insertions(+), 16 deletions(-)
-
-diff --git a/net/nfc/nci/data.c b/net/nfc/nci/data.c
-index 4253edea5..935e1fe61 100644
---- a/net/nfc/nci/data.c
-+++ b/net/nfc/nci/data.c
-@@ -95,9 +95,9 @@ int nci_conn_max_data_pkt_payload_size(struct nci_dev *ndev, __u8 conn_id)
- EXPORT_SYMBOL(nci_conn_max_data_pkt_payload_size);
+diff --git a/Documentation/hwmon/asus_rog_ryujin.rst b/Documentation/hwmon/asus_rog_ryujin.rst
+index 3ebab230e8c..fe072e94d87 100644
+--- a/Documentation/hwmon/asus_rog_ryujin.rst
++++ b/Documentation/hwmon/asus_rog_ryujin.rst
+@@ -34,6 +34,12 @@ Usage notes
+ As these are USB HIDs, the driver can be loaded automatically by the kernel and
+ supports hot swapping.
  
- static int nci_queue_tx_data_frags(struct nci_dev *ndev,
--				   __u8 conn_id,
--				   struct sk_buff *skb) {
--	const struct nci_conn_info *conn_info;
-+				   __u8 conn_id, struct sk_buff *skb,
-+				   u8 max_pkt_payload_len)
-+{
- 	int total_len = skb->len;
- 	const unsigned char *data = skb->data;
- 	unsigned long flags;
-@@ -108,17 +108,10 @@ static int nci_queue_tx_data_frags(struct nci_dev *ndev,
- 
- 	pr_debug("conn_id 0x%x, total_len %d\n", conn_id, total_len);
- 
--	conn_info = nci_get_conn_info_by_conn_id(ndev, conn_id);
--	if (!conn_info) {
--		rc = -EPROTO;
--		goto exit;
--	}
--
- 	__skb_queue_head_init(&frags_q);
- 
- 	while (total_len) {
--		frag_len =
--			min_t(int, total_len, conn_info->max_pkt_payload_len);
-+		frag_len = min_t(int, total_len, max_pkt_payload_len);
- 
- 		skb_frag = nci_skb_alloc(ndev,
- 					 (NCI_DATA_HDR_SIZE + frag_len),
-@@ -171,6 +164,7 @@ static int nci_queue_tx_data_frags(struct nci_dev *ndev,
- int nci_send_data(struct nci_dev *ndev, __u8 conn_id, struct sk_buff *skb)
- {
- 	const struct nci_conn_info *conn_info;
-+	u8 max_pkt_payload_len;
- 	int rc = 0;
- 
- 	pr_debug("conn_id 0x%x, plen %d\n", conn_id, skb->len);
-@@ -181,17 +175,29 @@ int nci_send_data(struct nci_dev *ndev, __u8 conn_id, struct sk_buff *skb)
- 		goto free_exit;
- 	}
- 
-+	/* The rx workqueue updates the limit concurrently: snapshot it
-+	 * once and drive both the fragmentation decision and the
-+	 * fragmentation loop from the same value.
-+	 */
-+	max_pkt_payload_len = READ_ONCE(conn_info->max_pkt_payload_len);
++The pump of the RYUJIN III also has a 4-pin cable for a motherboard fan header.
++The cooler either hands the pump to its internal controller, which follows the
++PWM of the header its 4-pin cable is plugged into, or runs it at the pump duty
++set over USB. Writing pwm1 selects the duty set over USB. Writing pwm2 sets
++only the internal fan duty and leaves the pump control as it is.
 +
-+	if (!max_pkt_payload_len) {
-+		rc = -EPROTO;
-+		goto free_exit;
+ Sysfs entries
+ -------------
+ 
+diff --git a/drivers/hwmon/asus_rog_ryujin.c b/drivers/hwmon/asus_rog_ryujin.c
+index 5ced69e94ea..ba188e86793 100644
+--- a/drivers/hwmon/asus_rog_ryujin.c
++++ b/drivers/hwmon/asus_rog_ryujin.c
+@@ -50,6 +50,7 @@ static const struct rog_ryujin_device_info rog_ryujin_iii_info = {
+ #define MAX_REPORT_LENGTH	65
+ 
+ /* Cooler duty report offsets */
++#define RYUJIN_PUMP_SOURCE		3
+ #define RYUJIN_PUMP_DUTY		4
+ #define RYUJIN_INTERNAL_FAN_DUTY	5
+ 
+@@ -70,10 +71,15 @@ static const u8 get_cooler_duty_cmd[] = { RYUJIN_CMD_PREFIX, 0x9A };
+ static const u8 get_controller_speed_cmd[] = { RYUJIN_CMD_PREFIX, 0xA0 };
+ static const u8 get_controller_duty_cmd[] = { RYUJIN_CMD_PREFIX, 0xA1 };
+ 
++#define RYUJIN_SET_COOLER_CHANNEL_OFFSET	2
+ #define RYUJIN_SET_COOLER_PUMP_DUTY_OFFSET	3
+ #define RYUJIN_SET_COOLER_FAN_DUTY_OFFSET	4
+ static const u8 set_cooler_duty_cmd[] = { RYUJIN_CMD_PREFIX, 0x1A, 0x00, 0x00, 0x00 };
+ 
++/* Pump control sources in the set cooler duty command and the cooler duty report */
++#define RYUJIN_SOURCE_HEADER	0
++#define RYUJIN_SOURCE_USB	1
++
+ #define RYUJIN_SET_CONTROLLER_FAN_DUTY_OFFSET	4
+ static const u8 set_controller_duty_cmd[] = { RYUJIN_CMD_PREFIX, 0x21, 0x00, 0x00, 0x00 };
+ 
+@@ -117,6 +123,7 @@ struct rog_ryujin_data {
+ 	s32 temp_input[1];
+ 	u16 speed_input[6];	/* Pump, internal fan and four controller fan speeds in RPM */
+ 	u8 duty_input[3];	/* Pump, internal fan and controller fan duty in PWM */
++	u8 pump_source;		/* Pump control source from the cooler duty report */
+ 
+ 	u8 *buffer;
+ 	unsigned long updated;	/* jiffies */
+@@ -306,6 +313,44 @@ static int rog_ryujin_read_string(struct device *dev, enum hwmon_sensor_types ty
+ 	return 0;
+ }
+ 
++/*
++ * On devices with a non-zero duty_channel (the RYUJIN III), the channel byte of
++ * the set cooler duty command selects the pump control source.
++ * RYUJIN_SOURCE_HEADER hands the pump to its internal controller, which follows
++ * the PWM of the header its 4-pin cable is plugged into. RYUJIN_SOURCE_USB
++ * makes the pump follow the pump duty in the command. The cooler duty report
++ * returns the current source.
++ *
++ * A fan duty write sends the reported source back, so that it leaves the pump
++ * control source as it is. A pump duty write selects USB. The cooler does not
++ * pass on a pump duty equal to the one it reports, and after power-on it
++ * reports 40% while a pump handed over at that duty runs at full speed. So
++ * when a pump duty write asks for the reported duty, write a duty 1% away
++ * first.
++ */
++static int rog_ryujin_select_pump_source(struct rog_ryujin_data *priv, u8 *set_cmd,
++					 int channel)
++{
++	u8 duty = set_cmd[RYUJIN_SET_COOLER_PUMP_DUTY_OFFSET];
++	int ret;
++
++	if (channel == 1) {
++		set_cmd[RYUJIN_SET_COOLER_CHANNEL_OFFSET] = priv->pump_source;
++		return 0;
 +	}
 +
- 	/* check if the packet need to be fragmented */
--	if (skb->len <= conn_info->max_pkt_payload_len) {
-+	if (skb->len <= max_pkt_payload_len) {
- 		/* no need to fragment packet */
- 		nci_push_data_hdr(ndev, conn_id, skb, NCI_PBF_LAST);
++	set_cmd[RYUJIN_SET_COOLER_CHANNEL_OFFSET] = RYUJIN_SOURCE_USB;
++
++	if (duty != rog_ryujin_pwm_to_percent(priv->duty_input[0]))
++		return 0;
++
++	set_cmd[RYUJIN_SET_COOLER_PUMP_DUTY_OFFSET] = duty < 100 ? duty + 1 : duty - 1;
++	ret = rog_ryujin_execute_cmd(priv, set_cmd, SET_CMD_LENGTH, &priv->cooler_duty_set);
++	set_cmd[RYUJIN_SET_COOLER_PUMP_DUTY_OFFSET] = duty;
++
++	return ret;
++}
++
+ static int rog_ryujin_write_fixed_duty(struct rog_ryujin_data *priv, int channel, int val)
+ {
+ 	u8 set_cmd[SET_CMD_LENGTH];
+@@ -323,7 +368,7 @@ static int rog_ryujin_write_fixed_duty(struct rog_ryujin_data *priv, int channel
+ 			return ret;
  
- 		skb_queue_tail(&ndev->tx_q, skb);
- 	} else {
- 		/* fragment packet and queue the fragments */
--		rc = nci_queue_tx_data_frags(ndev, conn_id, skb);
-+		rc = nci_queue_tx_data_frags(ndev, conn_id, skb,
-+					     max_pkt_payload_len);
- 		if (rc) {
--			pr_err("failed to fragment tx data packet\n");
-+			pr_err_ratelimited("failed to fragment tx data packet\n");
- 			goto free_exit;
+ 		memcpy(set_cmd, set_cooler_duty_cmd, SET_CMD_LENGTH);
+-		set_cmd[2] = priv->info->duty_channel;
++		set_cmd[RYUJIN_SET_COOLER_CHANNEL_OFFSET] = priv->info->duty_channel;
+ 
+ 		/* Cooler duties are set as 0-100% */
+ 		val = rog_ryujin_pwm_to_percent(val);
+@@ -340,6 +385,12 @@ static int rog_ryujin_write_fixed_duty(struct rog_ryujin_data *priv, int channel
+ 			set_cmd[RYUJIN_SET_COOLER_FAN_DUTY_OFFSET] = val;
  		}
- 	}
-diff --git a/net/nfc/nci/ntf.c b/net/nfc/nci/ntf.c
-index f5c9a8ab7..c818c09f3 100644
---- a/net/nfc/nci/ntf.c
-+++ b/net/nfc/nci/ntf.c
-@@ -856,7 +856,8 @@ static int nci_rf_intf_activated_ntf_packet(struct nci_dev *ndev,
- 		if (!conn_info)
- 			return 0;
  
--		conn_info->max_pkt_payload_len = ntf.max_data_pkt_payload_size;
-+		WRITE_ONCE(conn_info->max_pkt_payload_len,
-+			   ntf.max_data_pkt_payload_size);
- 		conn_info->initial_num_credits = ntf.initial_num_credits;
- 
- 		/* set the available credits to initial value */
-diff --git a/net/nfc/nci/rsp.c b/net/nfc/nci/rsp.c
-index b0ab4f5ac..c0c689526 100644
---- a/net/nfc/nci/rsp.c
-+++ b/net/nfc/nci/rsp.c
-@@ -345,7 +345,8 @@ static void nci_core_conn_create_rsp_packet(struct nci_dev *ndev,
- 			ndev->hci_dev->conn_info = conn_info;
- 
- 		conn_info->conn_id = rsp->conn_id;
--		conn_info->max_pkt_payload_len = rsp->max_ctrl_pkt_payload_len;
-+		WRITE_ONCE(conn_info->max_pkt_payload_len,
-+			   rsp->max_ctrl_pkt_payload_len);
- 		atomic_set(&conn_info->credits_cnt, rsp->credits_cnt);
- 	}
++		if (priv->info->duty_channel) {
++			ret = rog_ryujin_select_pump_source(priv, set_cmd, channel);
++			if (ret < 0)
++				return ret;
++		}
++
+ 		return rog_ryujin_execute_cmd(priv, set_cmd, SET_CMD_LENGTH, &priv->cooler_duty_set);
+ 	} else {
+ 		/*
+@@ -482,6 +533,7 @@ static int rog_ryujin_raw_event(struct hid_device *hdev, struct hid_report *repo
+ 			goto unlock;
+ 		}
+ read_cooler_duty:
++		priv->pump_source = data[RYUJIN_PUMP_SOURCE];
+ 		priv->duty_input[0] = rog_ryujin_percent_to_pwm(data[RYUJIN_PUMP_DUTY]);
+ 		priv->duty_input[1] = rog_ryujin_percent_to_pwm(data[RYUJIN_INTERNAL_FAN_DUTY]);
  
 -- 
-2.50.1
+2.53.0
 
