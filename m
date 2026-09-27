@@ -1,126 +1,90 @@
-Received: from mail-pj2-f18.google.com (mail-pj2-f18.google.com [74.125.227.146])
+Received: from mta0.migadu.com (out-17.mta0.migadu.com [91.218.175.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61C9921D3E8
-	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 01:10:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.146
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 288FF846A
+	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 01:18:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790471421; cv=none; b=NRby7rxv4W6mK1cf6hTXUYz15dOEBrzn6u07cyZWkoTH7+p+LvSoBsFmL98E/cj8bHCK22azTKr06IfOSn5Rbxz7M7KHnpjKnyB6RsXx31mcSH2tbXzxTyA/XeoN3reijpRJ+aRELh+mHXcrCh9Nwj84dqUyIvKyuWbApzCWP7w=
+	t=1790471932; cv=none; b=dQ0vcJ4tlfS9VLZyYEY1o0ZIbWil1EqOSM5nP1P4b8VgQQVwl9uMUmO5eK+/sx+KaqdjSc9pxzQ2B+6dGt5Mr/Uhk4PUvJif0ZUTMhLb8TB0dBE2Z7k1JdLBCI8PsPSW1wfyiT7jsP181bb8GYE34KY3xl+hYpxGQf2NFTY9Bf4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790471421; c=relaxed/simple;
-	bh=GNR4fpZUGJ21uZ1t/ZUAIEe6gTLZnkX4Ug2geMzO4fo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=icpLlP7rrmmM4L/Ak91Htn2l+LUUlXaOUwFF8Yvrl0797HUTVNuxyvScAnEh85ShNFOcK0Zd5OOXu+7jWjlfVCuu/mfATN05sVhevKyYdrSWB4b7NmRulI8+Xek5kTHnqowXSCCQiflny2c7HG/r2Y7NeKKj+iEYMQJr7fegqiY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lizi.moe; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lizi.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pj2-f18.google.com with SMTP id d9443c01a7336-2db22383fe8so7211405ad.2
-        for <stable@vger.kernel.org>; Sat, 26 Sep 2026 18:10:20 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790471420; x=1791076220;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eHub96pVZHtUuiGqtZ06K3QF0eNyRXbrpGkCUdoQKHg=;
-        b=YGkfzN2KCzSgl3JYnZQEN0aTasu6uJTQ7iVHSD53AddErmKBV+2T5Rza3DfwTuDDAU
-         ZJiMS51NJVJ47FYMxK0Yiv+E7SCLXiH7JCN8L1Na/XCOLCsWQkowNIIaqRQ0edfpXnvr
-         UUbLZ+ukpSd7hlDOjkb6pH8rdwh7BYRjy9PxzRAWCvN0RDm4bgzzntEE9OZc3umivjl1
-         faaFBmyJVIC6tXRz7DJXzQYJkMugFfFQhg4q99u2uxyDhASAqXf7Fq9Y2mzjUlgvagI8
-         JFe1Okvh9NhvOkigaykJ/1banJFPlHADIqEI+Zfpr2ixlDh3qBscwEMYC39e7z4gOawS
-         siLQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy1JIe5yKpS35sHsmKoUL4DNOjwMah1AdS9d9fY2612ZmdLyZaFHNzNMZexPxrp57gs3OEXbeg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mxSTHxrqgm8G7/u9IYCnybHdkpWTQsRSqEhpvLcJ7AZ9pS399+
-	C3/N4PrHe3vriiC7zMQtSeuADtdly2A+FIvpPFIm1rK4eDae8IXEvgjT
-X-Gm-Gg: AYBFou37IbzLrn28QC0tvoY/CIp73ZuoVV7YZxl1pAuBDnjunz1Mfq2GEixJwHGxt95
-	JGoNtAfiomKjf3aGl3rwkJx9Y2bL25ZP9f6/EcvhwpggJKbeGgXS5ODhZXeimzqADydr7ggklGh
-	ej2op9bXE2RH5TD4gPc53oRwwcRwwRNQp9j7sT/kvmSXsGx+oniCmzcANe+2c0rDhGvnlBpuEYb
-	c3g6utfeXejdczoYrVPnHG4OSKO3QiyWZmjQh4tRKzxjvF5fEI74wff90pReivF8rTyVAgYTo+k
-	+yfq22vs10O3clUT43/NcecD1AXnCn9KYilFBRUbboHe+HspT0oaqP/w0bkKAPNYUXv+nAMGNtM
-	CM0NxyDUrzu3V0DIOFvkIoSjP3xicS3XEe+nl3XqtUxNX1IA7ipoYlAY3NFijnYJeeGACmrHPQJ
-	xhS/PGEEvCNRYPfQCPM1Q/WmyCBBvmRP7OQdaorBqxAeJhqx7v1ZCReCh+JQe0Q1CzhPj44rYj7
-	3W8YRO/g0m1rW9ZkoNs
-X-Received: by 2002:a05:6300:6cc5:10b0:3de:489a:7530 with SMTP id adf61e73a8af0-3de489a77c8mr1267646637.72.1790471419502;
-        Sat, 26 Sep 2026 18:10:19 -0700 (PDT)
-Received: from navi ([113.140.3.77])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87feaf89651sm2514829b3a.41.2026.09.26.18.10.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 18:10:18 -0700 (PDT)
-From: Zimeng Li <me@lizi.moe>
-To: srini@kernel.org,
-	broonie@kernel.org
-Cc: lgirdwood@gmail.com,
-	tiwai@suse.com,
-	linux-sound@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	stable@vger.kernel.org,
-	Zimeng Li <me@lizi.moe>
-Subject: [PATCH v3] ASoC: qcom: lpass-cpu: use DAI table index for playback constraints
-Date: Sun, 27 Sep 2026 09:09:11 +0800
-Message-ID: <20260927010911.51980-1-me@lizi.moe>
-X-Mailer: git-send-email 2.55.0
+	s=arc-20240116; t=1790471932; c=relaxed/simple;
+	bh=BxUPSzZDS3MMZBdygGN7lGzobedNX+2vAOdH6yZV9HQ=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=aaciAiCER1yIGT5uTUzDkD0x9tFOebXdCngmTGr03u8AOH/kN1NPIhiSElJtammjHfisi2877I/9z7s0LWo1pv8TkJb249HHQIc33YFPGUqETANIYvP5dqhTsx8IYc7jdFbVK4eDmvT1wfWD3zjzP7YrZP5e/RpIr+6nUUFbAbc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ruA78NxH; arc=none smtp.client-ip=91.218.175.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ruA78NxH"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=BxUPSzZDS3MMZBdygGN7lGzobedNX+2vAOdH6yZV9HQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790471927; v=1; x=1791076727;
+ b=ruA78NxHZghH/CS8b4IZTk3u92vY78GLlbeP2q+V+oY2f0rLYCMkzg+mw/U14VljTaa4PUjQ
+ JZkBvhM5D1jCH0jZF9kLvoHZHBlLM5u8lrLPTzZxe/15Hv71cR9iG7tzX1zk7g6E2C0Po3sEgas
+ pqEYe5W/QQQfBXlBk4Eddigw=
+X-Envelope-To: stable@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 685dda7770d68273;
+	Sun, 27 Sep 2026 01:18:47 +0000
+X-Mizu-Trace-ID: 685dda7770d68273
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.1\))
+Subject: Re: [PATCH] mm/hugetlb: fix subpool minimum reservation rollback
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20260907132055.26696-1-zhoujinmeng@bytedance.com>
+Date: Sun, 27 Sep 2026 09:18:29 +0800
+Cc: Oscar Salvador <osalvador@suse.de>,
+ David Hildenbrand <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Wupeng Ma <mawupeng1@huawei.com>,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org,
+ Jinmeng Zhou <zhoujinmeng@bytedance.com>,
+ stable@vger.kernel.org
+Content-Transfer-Encoding: 7bit
+Message-Id: <EA8A5B8F-CF1B-45B2-9E2D-CF59A67050DE@linux.dev>
+References: <20260907132055.26696-1-zhoujinmeng@bytedance.com>
+To: Jinmeng Zhou <jinmengzhou22@gmail.com>
+X-Mailer: Apple Mail (2.3864.700.51.1.1)
 
-The DAI ID is a hardware port ID and is not necessarily the index of
-the corresponding entry in variant->dai_driver.
 
-When configuring a DAI with LPAIF_I2SCTL_MODE_QUAD01, the probe code
-currently uses dai_id to index variant->dai_driver. This is incorrect
-for platforms where DAI IDs are sparse. For example, the IPQ806x MI2S
-DAI has ID 4 while it is the only entry in the DAI driver table. If
-that DAI is configured for QUAD01 and probe reaches this branch, the
-code writes beyond that single entry via dai_driver[4] instead of
-updating the DAI being processed.
 
-Use the loop index i when updating the current DAI's playback channel
-constraints, while retaining dai_id for indexing the hardware-port
-specific playback SD-line mode array.
+> On Sep 7, 2026, at 21:20, Jinmeng Zhou <jinmengzhou22@gmail.com> wrote:
+> 
+> When a reservation request is partially covered by a subpool minimum and
+> the remaining global reservation fails, the error path first calls
+> hugepage_subpool_put_pages() for the subpool-backed portion. It removes the
+> failed global portion from used_hpages only afterwards.
+> 
+> hugepage_subpool_put_pages() uses used_hpages to decide whether rsv_hpages
+> should be restored. Since used_hpages still includes the global portion, it
+> can remain at or above min_hpages and prevent that restoration. It then
+> reports the subpool reservation as releasable, causing
+> hugetlb_acct_memory() to incorrectly decrement h->resv_huge_pages.
+> 
+> This was reproduced with four 2 MB huge pages and a hugetlbfs mount with
+> size=10M,min_size=8M. After a successful three-page reservation, a two-page
+> reservation which needed one subpool page and one global page failed with
+> -ENOMEM. HugePages_Rsvd incorrectly dropped from four to three even though
+> the subpool minimum was still four pages.
+> 
+> Roll back the failed global portion from used_hpages first, so that
+> hugepage_subpool_put_pages() evaluates the minimum reservation against the
+> current usage and returns the correct global adjustment.
+> 
+> Fixes: a833a693a490 ("mm: hugetlb: fix incorrect fallback for subpool")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jinmeng Zhou <zhoujinmeng@bytedance.com>
 
-This fixes the incorrect DAI table access for platforms where the DAI
-ID does not match its position in the driver table.
+Acked-by: Muchun Song <muchun.song@linux.dev>
 
-Fixes: c223f41c1a52 ("ASoC: qcom: Add four speaker support on MI2S secondary")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zimeng Li <me@lizi.moe>
-Assisted-by: LLM-assisted source analysis
----
-Changes in v3:
-- Describe the assistance in Assisted-by, no longer name the model.
+Thanks.
 
-Changes in v2:
-- Add stable to Cc.
-- Identify the model in the Assisted-by trailer (superseded in v3).
-- Clarify the conditions for the IPQ806x out-of-bounds access.
-
-The code change is unchanged from v1 and v2.
-Compile-tested with LLVM for ARM using multi_v7_defconfig with
-CONFIG_SND_SOC_STORM=m. The lpass-cpu.o, lpass-ipq806x.o and
-lpass-platform.o targets built successfully. Not hardware-tested;
-the IPQ806x example is based on static analysis, not a reproduced crash.
-
- sound/soc/qcom/lpass-cpu.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
-index 242bc16da..079177a6d 100644
---- a/sound/soc/qcom/lpass-cpu.c
-+++ b/sound/soc/qcom/lpass-cpu.c
-@@ -1234,8 +1234,8 @@ int asoc_qcom_lpass_cpu_platform_probe(struct platform_device *pdev)
- 		}
- 		if (drvdata->mi2s_playback_sd_mode[dai_id] ==
- 			LPAIF_I2SCTL_MODE_QUAD01) {
--			variant->dai_driver[dai_id].playback.channels_min = 4;
--			variant->dai_driver[dai_id].playback.channels_max = 4;
-+			variant->dai_driver[i].playback.channels_min = 4;
-+			variant->dai_driver[i].playback.channels_max = 4;
- 		}
- 	}
- 
-
-base-commit: 0ed6f7f62318a581fe9698f8a4e98c7ca01160e4
--- 
-2.55.0
