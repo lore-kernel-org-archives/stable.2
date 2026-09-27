@@ -1,46 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46A7E283FC4;
-	Sun, 27 Sep 2026 10:57:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD153378D8E;
+	Sun, 27 Sep 2026 10:57:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790506622; cv=none; b=Rcm5nZuJveEvI9eUtrXyPk9rUL+UzRYpqu0Qf9Emi5oOHn3ztn5Q2i0BXkekASt8K4xnZuFf6nO/tVAgCbga5OQagVoWlQGnMDtgD3pn6awF1Uf5nH3jYtv+qM1c9ZdvI4ayrxFOH4vBowuevkifn1ivp8vKf3O7C6CPnsXDGxM=
+	t=1790506634; cv=none; b=GCTxwn3jl2xiaBnJK1o5RM95fKq6s604SrdeEw/Zr/gOTDCubyMTVVk2+HDzsbnaSnYsFju2Ib74qsaGgLD9rjgn1oKcj26CzBHimXR0tFN9WND67Euh1HOCeTzncEgtqf88r6lj+HHnbbH26ipa7vYwoOlNlMjdlqL9TzNnNVw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790506622; c=relaxed/simple;
-	bh=oUx02XbGljNjw77nl9Gkgq1I6b3LdixOYecjijGSLIc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Az402qoeBA4UPdN3NkDG+lteqS1MYxJkZbDdZKJhM7H9evZIbcdm+qrpe1xNuYW+Kw0Yb4uGlWHQpgT0/WJ0xct9FzEQ8BeoTdpkIYL6l9uFaJh5mqlCPa11lcmW/gTis6OOp4M+XM2cTqNKH6fwGrd+IEEZ2ttWRXxlmlbZdqg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I+f4gLSs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790506634; c=relaxed/simple;
+	bh=nQaan9GqXEh5h/EtBJ17HDw07kmieNsdSfNSHHUsLKM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Lr8/X4B2DCNs9vSRw45H32InyeeRgrLDHMRLclS3QtYmuRlOCaXg90crrejGcbpe1Vrj9FMOQFsEElTG/ZHMo9NILVc3w/iP2OO7x/wuPaXOCP0N33mMMi0yOyJn/JSPi+O87LSQ2aLal+yveVH9VyM+ePPn6UAf7EvF48XQwuw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ty1OgWa+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I+f4gLSs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D61121F00893;
-	Sun, 27 Sep 2026 10:56:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ty1OgWa+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 649281F000FF;
+	Sun, 27 Sep 2026 10:57:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790506620;
-	bh=o+ilA+uiXo3fEvOMt/RW1tqOfV75NJRUJnmzfGk27BU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=I+f4gLSsGPgtaHDq/bsXRsOy/6uaJW0CJ/N532wUt+z2DU2ZUlDARz5+s1/P3ACGs
-	 f1pVVjkUq5Z5fZDx1YMGHnBSk1t+YsILrD822jJ2t2PdD3d7+3GlKfynJLiSx7+PTs
-	 /MlfZP5AZQAmckRquaLBi0a7FesVnjK/lUdEvdO5zNBBQ2cXLEUqKOFctaFu8y2TuO
-	 MmVRpEGc47V+3mJL6ixSR2vvW0QPF7BdMZOdiHUE4F7S9s397qHb+VaDOXTb6AOF/9
-	 b4Nh/wguDQER1rYEcSLkPU2Hgx4LnQEy8iI1vbeLxG0rqvT+keCU5U0HypKxVJQRby
-	 gn9w6TYdWVXKw==
+	s=k20260515; t=1790506632;
+	bh=ih/TnveXuF6N00aChGuP6/N3KCo6u2f/MIgB9ZZ2AVI=;
+	h=From:To:Cc:Subject:Date;
+	b=Ty1OgWa+Jp2jMU43fIL5mnkGbdTQZ9ByFlykWjQXHCKD9RIvOQZqLbdOSTVNc6+qp
+	 27Qr/YxCnHoKaA7joda5LB8Q0MKYVWJ+gQZmZsBugXYntc3+jG+lstEVmXHDeda319
+	 dif4sH3s7qSK/ippawQvCuB/Y+ZVQmWyJ5uMAg1KbAalLg9sWI7nERVbGyzosBozzJ
+	 cHBtlNORjkZFs/qbbA7mTjP0DgmEIbLR4g98XSjV/MQvl6v//agp8uoG52zTyDZ0k/
+	 FhHJoJVVasXojyNU606SlnLxWjTRqa9EC+eW5l4QHn8FR/a+pIn/6NkrlTB9nvGM/B
+	 BLB/WYaDNyLNw==
 From: Imre Kaloz <kaloz@kernel.org>
-To: Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
+To: Bjorn Helgaas <bhelgaas@google.com>,
+	linux-pci@vger.kernel.org
+Cc: Andreas Larsson <andreas@gaisler.com>,
+	sparclinux@vger.kernel.org,
+	"David S. Miller" <davem@davemloft.net>,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 1/2] drm/radeon: Check the VBIOS signature after copying it from VRAM
-Date: Sun, 27 Sep 2026 12:55:54 +0200
-Message-ID: <20260927105555.8771-2-kaloz@kernel.org>
+Subject: [PATCH] PCI: Avoid D3 on PLX PEX 8532/8533/8548 downstream ports
+Date: Sun, 27 Sep 2026 12:56:09 +0200
+Message-ID: <20260927105609.8813-1-kaloz@kernel.org>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260927105555.8771-1-kaloz@kernel.org>
-References: <20260927105555.8771-1-kaloz@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,47 +45,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On sparc64 a plain load through an ioremap() cookie is not a valid
-access and faults; igp_read_bios_from_vram() does exactly that to check
-the VBIOS signature, so radeon KMS never gets past this BIOS-fetch
-attempt. Check the memcpy_fromio() copy instead, matching the file's
-other paths.
+Runtime PM suspends an idle downstream port of a PLX/Broadcom PEX
+8532/8533/8548 switch to D3hot, but that takes the whole switch down
+with it: any device behind another port of the same switch then
+faults with a fatal bus error on its next access, e.g. mptsas probe
+on a Sun Ultra 45.
 
-Fixes: b442962a9e82 ("drm/radeon/kms: add support for "Surround View"")
+This surfaced on sparc64 once commit a5fb3ff63287 ("PCI: Allow PCI
+bridges to go to D3Hot on all non-x86") let bridges enter D3hot. Keep
+these downstream ports out of D3 by setting PCI_DEV_FLAGS_NO_D3.
+
+Fixes: a5fb3ff63287 ("PCI: Allow PCI bridges to go to D3Hot on all non-x86")
 Cc: stable@vger.kernel.org
 Signed-off-by: Imre Kaloz <kaloz@kernel.org>
 ---
- drivers/gpu/drm/radeon/radeon_bios.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ drivers/pci/quirks.c | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_bios.c b/drivers/gpu/drm/radeon/radeon_bios.c
-index 8595f4c6e2e5..a8367e481182 100644
---- a/drivers/gpu/drm/radeon/radeon_bios.c
-+++ b/drivers/gpu/drm/radeon/radeon_bios.c
-@@ -63,10 +63,6 @@ static bool igp_read_bios_from_vram(struct radeon_device *rdev)
- 		return false;
- 	}
+diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+index de9bbccda21f..a3c9250182a6 100644
+--- a/drivers/pci/quirks.c
++++ b/drivers/pci/quirks.c
+@@ -2381,6 +2381,24 @@ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_PLX, PCI_DEVICE_ID_PLX_9050,
+ DECLARE_PCI_FIXUP_HEADER(0x1402, 0x2000, quirk_plx_pci9050);
+ DECLARE_PCI_FIXUP_HEADER(0x1402, 0x2600, quirk_plx_pci9050);
  
--	if (size == 0 || bios[0] != 0x55 || bios[1] != 0xaa) {
--		iounmap(bios);
--		return false;
--	}
- 	rdev->bios = kmalloc(size, GFP_KERNEL);
- 	if (rdev->bios == NULL) {
- 		iounmap(bios);
-@@ -74,6 +70,12 @@ static bool igp_read_bios_from_vram(struct radeon_device *rdev)
- 	}
- 	memcpy_fromio(rdev->bios, bios, size);
- 	iounmap(bios);
-+
-+	if (size == 0 || rdev->bios[0] != 0x55 || rdev->bios[1] != 0xaa) {
-+		kfree(rdev->bios);
-+		rdev->bios = NULL;
-+		return false;
++/*
++ * An idle downstream port of a PLX/Broadcom PEX 8532/8533/8548 switch
++ * autosuspends into D3hot, and that takes the whole switch down with
++ * it -- any device behind another port of the same switch then sees a
++ * fatal, non-recoverable bus fault on its next access. Keep these
++ * ports out of D3 entirely.
++ */
++static void quirk_plx_pex_no_d3(struct pci_dev *dev)
++{
++	if (pci_pcie_type(dev) == PCI_EXP_TYPE_DOWNSTREAM) {
++		dev->dev_flags |= PCI_DEV_FLAGS_NO_D3;
++		pci_info(dev, "avoiding D3 on this downstream port\n");
 +	}
- 	return true;
- }
- 
++}
++DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_PLX, 0x8532, quirk_plx_pex_no_d3);
++DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_PLX, 0x8533, quirk_plx_pex_no_d3);
++DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_PLX, 0x8548, quirk_plx_pex_no_d3);
++
+ static void quirk_netmos(struct pci_dev *dev)
+ {
+ 	unsigned int num_parallel = (dev->subsystem_device & 0xf0) >> 4;
+
+base-commit: fe2ec83746e501645709761605c2464a44fd2929
 -- 
 2.47.3
 
