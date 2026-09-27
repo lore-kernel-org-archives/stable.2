@@ -1,173 +1,62 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 488C93B27EA;
-	Sun, 27 Sep 2026 16:26:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2060A95E;
+	Sun, 27 Sep 2026 16:28:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790526420; cv=none; b=JionWRSdmOVpnN6HhGNQw8Odu3LppShhno9J/dN+D6OXYFsV8wkesEr0y/twA3YAOozo70F7OXG9IqUHtWLtfJHXdkgaqJG/4e/ldlqsbDHSnSWLH40OCOeW0SsxEWT+PZ4dGUetu1OfKfct6qkonsyVMV35123IMZhKyo6XqKI=
+	t=1790526527; cv=none; b=QvRnTzhWYChahQoZpAr6+0lbuuHcHKGGcBmargjrZjSYqBZygKzbEf3y0woR+xduWPtH7bSxka1KHbRAzWjE+sysbvkng0SCKsBVxZmkydyji7lV5yUvsZ8i2vTlOv4AkaKavhAtfLEymfSAVTdELVzr1O+9m9OQIzjcetCN/Ec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790526420; c=relaxed/simple;
-	bh=6A5xFIWDpJx3rVrbilD5Zv15HcRr67kq2q2m6q1tNoY=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fsM/ar3VHzhGVR7CaXACeJOILteNFhEnxFGJCVcISKyQmHHgRt6Ae8lI5QZENBfzGgw0+R2wvDKCRTzg1T2kLYGP4XULe5+EY7wJDgnwTQkpUW101DBMXBAvF7P+SRgDtRb+Aeiobm/vAXDxmWl3FDAQai+RYb5BTwD+Gfwnb9Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kqOdXy5K; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790526527; c=relaxed/simple;
+	bh=GaoFGR/U8AnSRE2ORrERi1yxh49b+gMt/mOM6hnbA3I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mtNpiFQlQuJ2fxlX++UofvscJDU+0zJReEOwBUtB1kqrr5/8fiUWImlLOCbwOwYEqsmqvd/G6N3Vko78Ihoo7hry08np9I1c/fmRDiEyroRwtfGejMNYULhtGyOeIaNtKnjT/AiezSCy9UeDozhy5szmIAvvMHTUG2CxlPP88gk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=oL9nLs4e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kqOdXy5K"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C42401F000FF;
-	Sun, 27 Sep 2026 16:26:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790526418;
-	bh=7kW7yGXjKhbeDUHOmR2h0QTxavzpIFMKdj9dx2ZV444=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=kqOdXy5Ke1C4DXMhLh+tKnpi1VA6ACyj2ZCmtln93wuOHC0CZYNXqBC5DcX/HVSUw
-	 tcgmukQomsbc2JVRGFIuORep+DRAqGwpuP9jMPA6tmnYol4uLHfhOUmuP3tukUUF4r
-	 0OVKuAliLvavecpPcItmrPAh22SWniGndqa0I3Wcd2Z9Z3RER6HxuPlM26380u+c1G
-	 lZ2GLm04mH4CsjPf0kRs6+43lbluRPwtR9gw3+xOhZ16mPGEKSnJUIKccslE4qrBlU
-	 8xnS2a7IdA/Gh/KRBm9VrP1mXGHH4z2vQ71jFe5unBvo2djW+vjsBvVEzyVhpsCLnT
-	 tsWxMiqF7tnIA==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xAriK-0000000E2Eb-1Xaj;
-	Sun, 27 Sep 2026 16:26:56 +0000
-Date: Sun, 27 Sep 2026 17:30:04 +0100
-Message-ID: <87qzie3beb.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Wei-Lin Chang <weilin.chang@arm.com>
-Cc: Vincent Donnefort <vdonnefort@google.com>,
-	oupton@kernel.org,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	joey.gouly@arm.com,
-	seiden@linux.ibm.com,
-	suzuki.poulose@arm.com,
-	yuzenghui@huawei.com,
-	catalin.marinas@arm.com,
-	will@kernel.org,
-	kernel-team@android.com,
-	fuad.tabba@linux.dev,
-	qperret@google.com,
-	Sashiko <sashiko-bot@kernel.org>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v1 5/6] KVM: arm64: Use kvm_s2_fault_vma_info in gmem_abort()
-In-Reply-To: <am2rfnuwjkglavbtzkt2lk2gclahvca5irrv5me4vppzkotexf@yauajpybhsnm>
-References: <20260922130821.1666713-1-vdonnefort@google.com>
-	<20260922130821.1666713-6-vdonnefort@google.com>
-	<am2rfnuwjkglavbtzkt2lk2gclahvca5irrv5me4vppzkotexf@yauajpybhsnm>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="oL9nLs4e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD55E1F000FF;
+	Sun, 27 Sep 2026 16:28:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790526525;
+	bh=kDDyjoZTZprDt7lf4HgFNIEtYfMAuyIz4FaZ2Epncis=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oL9nLs4ermSQVs41sLxGo4H+/m6Gu4an7pR4I633+8wSH/ucDccrzZoszHYD7dCzL
+	 ElUMXZcx1vl1YzrSvqTTp7zLpArutUPMAXVHjC7jWn6jYWLpJ8jiXXFafJ3Hu+xfc9
+	 Vj8lHhHYI9JG1cTJJX3vKlwL4m8uZAMOQazOZnsI=
+Date: Sun, 27 Sep 2026 18:28:42 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Fan Wu <fanwu01@zju.edu.cn>
+Cc: Jiri Slaby <jirislaby@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org
+Subject: Re: [PATCH] serial: imx: cancel RS485 trigger hrtimers in shutdown
+ and remove
+Message-ID: <2026092715-deftly-strainer-c8a3@gregkh>
+References: <20260819021916.442827-1-fanwu01@zju.edu.cn>
+ <2026092332-limes-washhouse-44a5@gregkh>
+ <20260927143550.608878-1-fanwu01@zju.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: weilin.chang@arm.com, vdonnefort@google.com, oupton@kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, kernel-team@android.com, fuad.tabba@linux.dev, qperret@google.com, sashiko-bot@kernel.org, stable@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260927143550.608878-1-fanwu01@zju.edu.cn>
 
-On Fri, 25 Sep 2026 18:36:42 +0100,
-Wei-Lin Chang <weilin.chang@arm.com> wrote:
+On Sun, Sep 27, 2026 at 02:35:50PM +0000, Fan Wu wrote:
+> Hi Greg,
 > 
-> On Tue, Sep 22, 2026 at 02:08:20PM +0100, Vincent Donnefort wrote:
-> > From: Fuad Tabba <fuad.tabba@linux.dev>
-> > 
-> > gmem_abort() maps at s2fd->fault_ipa, which HPFAR_EL2 holds at 4K
-> > granularity whatever the page size. The generic page-table code aligns
-> > it, but pkvm_pgtable_stage2_map() looks up existing mappings over
-> > [addr, addr + size), so on a pKVM host with pages larger than 4K a
-> > guest_memfd-backed guest that faults past the first 4K of a page can
-> > find its neighbour's mapping, get -EAGAIN and take the same fault
-> > forever.
-> > 
-> > Take the addresses from kvm_s2_fault_vma_info instead, as
-> > user_mem_abort() does, and report the gfn kvm_gmem_get_pfn() failed on
-> > in the memory fault exit. kvm_s2_fault_get_vma_info() itself isn't
-> > called: a guest_memfd memslot's userspace_addr doesn't need to be
-> > backed by a VMA.
-> > 
-> > Fixes: a7b57e0995927 ("KVM: arm64: Handle guest_memfd-backed guest page faults")
-> > Reported-by: Sashiko <sashiko-bot@kernel.org>
-> > Closes: https://lore.kernel.org/r/20260913175105.A57AC1F000FF@smtp.kernel.org
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-> > Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
-> > ---
-> >  arch/arm64/kvm/mmu.c | 28 +++++++++++++---------------
-> >  1 file changed, 13 insertions(+), 15 deletions(-)
-> > 
-> > diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-> > index 5aac624b0442..ee0fcca838c1 100644
-> > --- a/arch/arm64/kvm/mmu.c
-> > +++ b/arch/arm64/kvm/mmu.c
-> > @@ -1953,11 +1953,9 @@ static int gmem_abort(const struct kvm_s2_fault_desc *s2fd)
-> >  	enum kvm_pgtable_walk_flags flags = KVM_PGTABLE_WALK_SHARED;
-> >  	enum kvm_pgtable_prot prot = KVM_PGTABLE_PROT_R;
-> >  	struct kvm_pgtable *pgt = s2fd->vcpu->arch.hw_mmu->pgt;
-> > -	unsigned long mmu_seq;
-> > -	struct page *page;
-> > +	struct kvm_s2_fault_vma_info s2vi = {};
-> 
-> I'd say it's unfortunate this struct's name contains vma :P
+> Honestly: when I sent the patch it was compile-tested only
+> (CONFIG_SERIAL_IMX=m, drivers/tty/serial/imx.o rebuilt with no warnings).
+> I should have said so.  There was no runtime test behind it.
 
-If that was the only thing that is wrong in the MMU code, we'd be in a
-pretty good position! ;-)
+Sorry, I have no context here as you top-posted and did not include any
+context.  Please don't do that.  Remember, some of us get 1000+ emails a
+day...
 
-> 
-> >  	struct kvm *kvm = s2fd->vcpu->kvm;
-> >  	void *memcache = NULL;
-> > -	kvm_pfn_t pfn;
-> >  	gfn_t gfn;
-> >  	int ret;
-> >  
-> > @@ -1968,23 +1966,22 @@ static int gmem_abort(const struct kvm_s2_fault_desc *s2fd)
-> >  			return ret;
-> >  	}
-> >  
-> > -	if (s2fd->nested)
-> > -		gfn = kvm_s2_trans_output(s2fd->nested) >> PAGE_SHIFT;
-> > -	else
-> > -		gfn = s2fd->fault_ipa >> PAGE_SHIFT;
-> > +	s2vi.vma_pagesize = PAGE_SIZE;
-> > +	s2vi.gfn = ALIGN_DOWN(s2fd->fault_ipa, s2vi.vma_pagesize) >> PAGE_SHIFT;
-> > +	gfn = get_canonical_gfn(s2fd, &s2vi);
-> 
-> Perhaps it is worth reserving plain "gfn" for the value we use as the
-> IA of the (shadow) page table, and name this variable something like
-> canonical_gfn. Similar to what kvm_s2_fault_map() does.
-
-Maybe. We have gfn in the vncr fault handling code as well, but that
-one is the result of a S1 walk, so maybe more obvious.
-
-> 
-> >  
-> >  	write_fault = kvm_is_write_fault(s2fd->vcpu);
-> >  	exec_fault = kvm_vcpu_trap_is_exec_fault(s2fd->vcpu);
-> >  
-> >  	VM_WARN_ON_ONCE(write_fault && exec_fault);
-> >  
-> > -	mmu_seq = kvm->mmu_invalidate_seq;
-> > +	s2vi.mmu_seq = kvm->mmu_invalidate_seq;
-> >  	/* Pairs with the smp_wmb() in kvm_mmu_invalidate_end(). */
-> >  	smp_rmb();
-> >  
-> > -	ret = kvm_gmem_get_pfn(kvm, s2fd->memslot, gfn, &pfn, &page, NULL);
-> > +	ret = kvm_gmem_get_pfn(kvm, s2fd->memslot, gfn, &s2vi.pfn, &s2vi.page, NULL);
-> >  	if (ret) {
-> > -		kvm_prepare_memory_fault_exit(s2fd->vcpu, s2fd->fault_ipa, PAGE_SIZE,
-> > +		kvm_prepare_memory_fault_exit(s2fd->vcpu, gfn_to_gpa(gfn), s2vi.vma_pagesize,
-> 
-> Huh, I guess you also fixed a bug here? s2fd->fault_ipa could be the
-> nested ipa instead of the canonical ipa.
-
-Yeah, it appears so. Worth capturing in Fixes: as well.
-
-	M.
-
--- 
-Jazz isn't dead. It just smells funny.
+greg k-h
