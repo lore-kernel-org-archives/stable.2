@@ -1,67 +1,78 @@
-Received: from mail-pj2-f20.google.com (mail-pj2-f20.google.com [74.125.227.148])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 477BF19F137
-	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 06:08:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.148
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7A8A19F137
+	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 06:10:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790489289; cv=none; b=RhB8s2TlehiWT8PfM7+jW2w84ho7NKOtAAQwsLOiuXPf372vPK/cADsxTfUuq4AH07XuIwd9AlCNMUE2CO/7ToxDUMssK5LXhbTlKebHQDIS9bdyGgBb83Ug1AL2p1G3nsQPI8XIHR3/XVWvcuGmDFHOMQf5RE/PJ1J5MyEYhYA=
+	t=1790489415; cv=none; b=BaYmP0/xf9xM40jl/kZLCLCsLLfQGNsNpp5qyvFP6hVWb/HoYJZMWAYCE23Va6/2xHRRGTbfmfoiw1zwwv/+49Eh7i8yImulygPIJUDHcGn9jDZcEKGWs80CXiL87GyWcj32LoHtAKDOjPpBfA7Ou5sQA8SOyk8kTN3BLzfb4KQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790489289; c=relaxed/simple;
-	bh=HrPsYSSx5VmtLkvtJnoxPKv7jbfJp6G89sQoqK7ven8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BnRlqSBlzq0giDZn3rkjYN7VwGC4mbUZiKg3gqW1unEMYHXiZmQgHtJcAi8gXMOEHUeyb6zlqlAVa4CJyKuY0horWcmt9ghCSE8KVIWOAPvR0Tg0yfEvp2DBcaGyp0Gg8Lcy8F1fI/swPOAVqttyFdZVltjUVOcjpUo/PQLANbw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TdDUc9uO; arc=none smtp.client-ip=74.125.227.148
+	s=arc-20240116; t=1790489415; c=relaxed/simple;
+	bh=nVrs/8T1e/0c1wb35JoPd1Jnzl7Me3+fEMjClG+05+4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=m8F7kMR9gBuM7P/yaYWnTL/tZLm/d5ixaWVIjH+UyfwZfQ5TRrXuswQPpW7F2l3nfMt0J5ZwQX+kx47BIFBVv+3YAkL3J69ns0yR5emGjYp/0qvd0DJzqMRCoTp1pWXibyeBRYS0Bt+BZNJ+yVH8XzkpFL3D7/oBAqXNN2GJbSg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cZMW1p3T; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TdDUc9uO"
-Received: by mail-pj2-f20.google.com with SMTP id d9443c01a7336-2d747ed9866so14824115ad.2
-        for <stable@vger.kernel.org>; Sat, 26 Sep 2026 23:08:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cZMW1p3T"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39b5b07ec78so1112482a91.3
+        for <stable@vger.kernel.org>; Sat, 26 Sep 2026 23:10:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790489287; x=1791094087; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Me4JDrM3+ZMJhCrg6dCaSLfF95gdFZGC/6Q6sNMJj90=;
-        b=TdDUc9uOjWSi7eJYQL/ziTZDH7vCqdP3ROzyQ/brgxl5Q/W+AvIU5aTIDtJC2eNc6b
-         3LOrSsu0Xr669hBv3DzO81EltpHuHHGv7Y8XHJRE0oCaHfif9KbT9yBVkpJccA76wXLk
-         1QszDPPmWywD3LPNheztE87q/AqDDY8f59hXxuphBY7QXSp0YoVkX7afXHe/iAf6b689
-         yxtDVwyaD8jC/MmNVzzgJMKawyvHDvMMnmzYmto3lqPM8qDy4Mxu5deB1uWdax3LlVQ0
-         jXBDnCqeeOSLinKEkaS6/i6YhykPX0roYIIOoYZ3tV1oGu87Jy/qEc3tDvp3k00Q1w6e
-         q2KA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790489287; x=1791094087;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790489413; x=1791094213; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Me4JDrM3+ZMJhCrg6dCaSLfF95gdFZGC/6Q6sNMJj90=;
-        b=n5cTJYkperTJ+gCoWEXJxnHm+k/PxKCripYExmozO8HkgQTrQ1I//mlkTjNf8HUj+Y
-         KRj9fHqa5nG0UnRUA24V8Thwz7pPpsZW9uTJN5BhZPl2/go2tlwRf9e7TEgwRbwOrklQ
-         R65DvJyFz1SDI6xLw15/6aZEwRSHXUX5x+102ijB2KHypJor6ZxGpobLXOGUMgPLrsdv
-         XbUbWjy66WfOt1S+YrGrD5B2shuyejW/usiT0h55JxuySqZPQaxCNFhRn6kP5ABZRiIz
-         6j2hnhcIGIs4h0bLC145gsC8qfTUZT9rLJcX/wdfof3lxTsfybZ66g4famTeTMiF/jW1
-         uk1g==
-X-Gm-Message-State: AFq9FYKn9JGNPOVCR7WGQI3+jb9aXZzw440nux+NLEpWeNlilLgnqRze
-	gxCvkaIQDG5zQjzEs6BJDXCnLFCIR5f7G5iAKt5RykBmmFsXbALwAfZYOhGGVS454mXnMA==
-X-Gm-Gg: AYBFou22w7zu4u9CcffMI24pCmaoShYf2zPoIecHHO1tKAl4iIJBJA5V8NXoYlajYNB
-	hLWFqzLkLLjZ5/iO/dTD+rCUCH9dNAc4ETHAovkMaUFAHeTMbNte3VDzz/iOIKTKgJNtK6NYbjY
-	aAnzPgaeZ5vdDQXfxz5Kx6aM35WA2EqHtTO41ZR/3QGK8nS/Uww3qE+GXxgTouwzBZlZca9UEUc
-	Yu52xQqFlOM6w2MMDdwFxVNzEe/Ss4lSL5R2DnBEZBTgrxfviOFZz169E26Dbc6mP7kvRdA6UkX
-	nbjMLLzR5ZfqICzm8KkQ6thGInr7VNyjrShuVtAlXCndLikqHeUHkwQtgMV3N2FU0GgM1UT/PmY
-	vFkrQdC1h2Ka+KZvucM3c8jqUgXfou39YDAAScJa6JdRY5AS2DRYdA6FQfjOCWoQq+Kmz2o3gaX
-	cKtrUNxve8wDByTeTdG0ioLo8kS4xdyZ4c8bI1lD0b7TExhMIHadvPfcQLZizk7XXJoQy4JMk=
-X-Received: by 2002:a17:902:c406:b0:2dd:9b53:f9ba with SMTP id d9443c01a7336-2df7da5e366mr93775535ad.1.1790489287113;
-        Sat, 26 Sep 2026 23:08:07 -0700 (PDT)
-Received: from localhost ([180.184.47.241])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df90fc2e5fsm26662555ad.5.2026.09.26.23.08.05
+        bh=330RjSxESUmMZyuNK1veh17/1thhiAzCXFHq2ujk6QA=;
+        b=cZMW1p3T5mZ3yG1UNgAq+oSAxZ58YFngSjVpN+9SdHOAGYgqtvtSW5+xrfiWLqjRTl
+         MxDa1JnnOLgdXjxEchYr1EcP6+pa+IqSidWUth1sUfIiBOMLvjwiJRvxE7H96iOEPtTR
+         atF1LU+r/IZLxdzIJZnGo+YvHwd6Udx3JhAgFAgYjE+rRtgbB5zIm9LojwbT42MVWzC8
+         B7kHivflbENd7UZB4Rldperai2dxmvejDjjFMmDasx+ZC15FJJ9XfIBjZq67sf6JMAtJ
+         XWJ96Og+5FIKWzHqLEOGCDLhj7husGvNz2y2CbiVZaaWrvaUkcwXVSHSiadqaQs6yy1D
+         TZCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790489413; x=1791094213;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=330RjSxESUmMZyuNK1veh17/1thhiAzCXFHq2ujk6QA=;
+        b=YuoL5V+2rWjxv5ZrthbrO9/F+Le7pJwzzdLkK0L/GpwAUM73tHi12msO3doe+I4Ihy
+         V3C3Yx1nlEY0R4pWS6d7IdVaDqL/miCxwWHxXrrqU7LeNHjKQHqPXPqBTETouW4dgy7U
+         DlzQoWSI9y68zDB3Qw8SfZ058qAjKPWJmCCpgnBYnDTt1AZgRE+IvoaUoI01Dr7JflDm
+         sqqRRCwGSc2BUS8royDg3oY6r6n3YtmxN9F0Ab4gr7xNBSq5MJl3rQ1scTJhccT1JO0J
+         iaf/yH3P9rT9t2SKKjWfLZVv0Ccmb8fho/HgTWVa6UJcZMGABGQpI4h4JO0P7Z+c9SaI
+         42SA==
+X-Forwarded-Encrypted: i=1; AKwUvBwFHhli1PwgldQHM7KDzSDAirwDMnD/zsmOJ914eFOIaEJWdVP1fB5sQveVdAD64ApjMXe7UcU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIUPZ0LG17qHT4zQuebcJVzsPREgwYsJT4xKejpWWKKSpuKlk8W
+	3oyB5IuDysKOEljRYYsV/2d2MTa/RAViM7vwuDhHhnFvghhlrd49bP7UcggYhw==
+X-Gm-Gg: AYBFou1JSVRrXrkFlSCytE57T2nbUNalg0IZsbe5Pjn7CwlyVre1NyIOE5vUILBRr8o
+	+UxmlVl5jPTjLuJQ0PYDo5eOWgvXs6GJVUmvW+i8dauokjXR/uCSHztErhfhn+vzwjlcDCXGkmb
+	7a8hRvvc47smNN+uygaeTaeSxO5VFAsHinQNcI6x0T9wwt2BukjzLmOV9TEYPDSEz902GHBJHyA
+	wIW6+4eL5Pr8M68zHCSYXRumHsXbA+BaofUMj/oYoB5Rm2qufnR4YMrfzQLqupkmEvnNqeKHDMl
+	kY0wOzo7m0E0QsA3deYex+g87AwMYL4g8NIHbYIuCcxS+HbHEl0Q+xYsMUWfI/G2EgaH1wGzCUE
+	E3BRpquLiMfEKhFeSLjW9MKsVCdub3t2LzKfceGEMlK2erzPuTcmpIO/PKRxublX6iE5ShqPKsM
+	Qf3xvCtvUdd2oqo8/o4JUWIAJ6S0JYdcdlXGG3H++unnd6j7XNy0UEDC9w2gZWHOFagCn7+zr0G
+	QmthyX8A8srptFP
+X-Received: by 2002:a17:90b:3b4a:b0:3a0:a912:e764 with SMTP id 98e67ed59e1d1-3a0a912eb3cmr7323135a91.31.1790489413260;
+        Sat, 26 Sep 2026 23:10:13 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2405:4802:1d4a:e90:3a0c:2ea9:4ab7:bd1b])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b9356f48sm13557768a91.6.2026.09.26.23.10.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 23:08:06 -0700 (PDT)
-From: Dairui Zhang <zhangdairui@gmail.com>
-To: zhangdairui@gmail.com
-Cc: stable@vger.kernel.org
-Subject: [PATCH] ksmbd: verify transform SessionId matches the decrypted header
-Date: Sun, 27 Sep 2026 14:06:52 +0800
-Message-ID: <20260927060652.1721812-1-zhangdairui@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        Sat, 26 Sep 2026 23:10:12 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Antti Palosaari <crope@iki.fi>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
+	syzbot+c35815bad054e6ad396e@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH v2] media: dvb-usb-v2: set active_fe before the demux goes live
+Date: Sun, 27 Sep 2026 13:10:08 +0700
+Message-ID: <20260927061008.47318-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260927044547.26979-1-ngocthang2710.1999@gmail.com>
+References: <20260927044547.26979-1-ngocthang2710.1999@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,126 +81,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The decryption key for an encrypted request is selected by the
-SessionId in the encryption transform header, but the request is
-then authorized under the session named in the decrypted inner SMB2
-header. Nothing compares the two, so on a connection carrying more
-than one session a client can have a request decrypted with one
-session's key and executed under another session's identity. Since
-encrypted requests are also exempt from the signing requirement, the
-AEAD tag is the only proof of session identity, and it is checked
-against the wrong session.
+dvb_usbv2_adapter_dvb_init() registers the demux devices before
+dvb_usbv2_adapter_frontend_init() runs. Only the latter set
+adap->active_fe to -1, so until then it holds the kzalloc'ed 0 while
+adap->fe[0] is still NULL.
 
-Per MS-SMB2 the server must verify that the SessionId in the
-transform header matches the one in the decrypted SMB2 header and
-treat a mismatch as a protocol error. Compare them after decryption
-and drop the connection on mismatch. When the encrypted payload is a
-compression transform, the transform SessionId is saved and verified
-against the decompressed SMB2 header instead, since a compression
-transform header carries no SessionId.
+A process that opens the demux and starts a filter in that window, which
+lasts as long as frontend_attach() takes, gets past the active_fe == -1
+check in dvb_usb_start_feed() and passes the NULL adap->fe[0] to
+streaming_ctrl() (or get_stream_config()). mxl111sf_ep6_streaming_ctrl()
+then dereferences it:
 
-Reported-by: Dairui Zhang <zhangdairui@gmail.com>
-Assisted-by: LLM
+  Oops: general protection fault, probably for non-canonical address
+  0xdffffc0000000061
+  KASAN: null-ptr-deref in range [0x0000000000000308-0x000000000000030f]
+  RIP: 0010:mxl111sf_ep6_streaming_ctrl+0x2e/0x2e0
+   dvb_usb_start_feed+0x57a/0xc70
+   dmx_ts_feed_start_filtering+0x129/0x220
+   dvb_dmxdev_filter_start+0x434/0x10d0
+   dvb_demux_do_ioctl+0x48b/0x540
+
+Initialise active_fe to -1 before the demux is registered so early
+feeds fail with -EINVAL.
+
+Reported-by: syzbot+c35815bad054e6ad396e@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=c35815bad054e6ad396e
+Fixes: ad6b9e517b39 ("[media] dvb_usb_v2: move from dvb-usb to dvb-usb-v2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Dairui Zhang <zhangdairui@gmail.com>
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
 ---
-v1 -> v2:
-- Also cover the compression-transform case, per Namjae's review:
-  save the transform SessionId during decryption and check it
-  against the decompressed SMB2 header.
-- Reject a decrypted SMB2 message smaller than the fixed header
-  before reading its SessionId (a crafted short OriginalMessageSize
-  would otherwise make the check itself read out of bounds).
-- v1: https://lore.kernel.org/linux-cifs/20260926080224.1671214-1-zhangdairui@gmail.com/
----
- fs/smb/server/compress.c   | 14 ++++++++++++++
- fs/smb/server/ksmbd_work.h |  4 ++++
- fs/smb/server/smb2pdu.c    | 25 +++++++++++++++++++++++++
- 3 files changed, 43 insertions(+)
+ drivers/media/usb/dvb-usb-v2/dvb_usb_core.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/fs/smb/server/compress.c b/fs/smb/server/compress.c
-index 5162fb8..1c5a070 100644
---- a/fs/smb/server/compress.c
-+++ b/fs/smb/server/compress.c
-@@ -125,6 +125,20 @@ int ksmbd_decompress_work_request(struct ksmbd_work *work)
- 	if (rc)
- 		return rc;
+diff --git a/drivers/media/usb/dvb-usb-v2/dvb_usb_core.c b/drivers/media/usb/dvb-usb-v2/dvb_usb_core.c
+index bd86d250433d..557451b541e6 100644
+--- a/drivers/media/usb/dvb-usb-v2/dvb_usb_core.c
++++ b/drivers/media/usb/dvb-usb-v2/dvb_usb_core.c
+@@ -637,7 +637,6 @@ static int dvb_usbv2_adapter_frontend_init(struct dvb_usb_adapter *adap)
+ 	dev_dbg(&d->udev->dev, "%s: adap=%d\n", __func__, adap->id);
  
-+	/*
-+	 * The SessionId of the encryption transform header was saved
-+	 * before the compression transform was parsed; the decompressed
-+	 * SMB2 header must carry the same one. Per MS-SMB2 a mismatch is
-+	 * a protocol error.
-+	 */
-+	if (work->tr_sess_id &&
-+	    le64_to_cpu(((struct smb2_hdr *)smb_get_msg(out_buf))->SessionId) !=
-+	    work->tr_sess_id) {
-+		pr_err_ratelimited("SessionId mismatch between transform and decompressed header\n");
-+		kvfree(out_buf);
-+		return -ECONNABORTED;
-+	}
+ 	memset(adap->fe, 0, sizeof(adap->fe));
+-	adap->active_fe = -1;
+ 
+ 	if (d->props->frontend_attach) {
+ 		ret = d->props->frontend_attach(adap);
+@@ -795,6 +794,9 @@ static int dvb_usbv2_adapter_init(struct dvb_usb_device *d)
+ 			adap->max_feed_count = adap->props->pid_filter_count;
+ 		}
+ 
++		/* demux is live before frontends attach: no feed until then */
++		adap->active_fe = -1;
 +
- 	kvfree(work->request_buf);
- 	work->request_buf = out_buf;
- 	return 0;
-diff --git a/fs/smb/server/ksmbd_work.h b/fs/smb/server/ksmbd_work.h
-index 5f1d3eb..3e8bf2a 100644
---- a/fs/smb/server/ksmbd_work.h
-+++ b/fs/smb/server/ksmbd_work.h
-@@ -82,6 +82,10 @@ struct ksmbd_work {
- 	/* Contiguous SMB2 compression transform owned by this work item. */
- 	void				*compress_buf;
- 
-+	/* SessionId from the encryption transform header, for the
-+	 * post-decompression SessionId check. Zero when unset. */
-+	__u64				tr_sess_id;
-+
- 	unsigned char			state;
- 	/* No response for cancelled request */
- 	bool                            send_no_response:1;
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index 4cf7083..9eb13a8 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -10860,6 +10860,7 @@ int smb3_decrypt_req(struct ksmbd_work *work)
- 	unsigned int buf_data_size;
- 	struct smb2_transform_hdr *tr_hdr = smb_get_msg(buf);
- 	unsigned int original_msg_size;
-+	__le32 proto;
- 	int rc = 0;
- 
- 	if (pdu_length < sizeof(struct smb2_transform_hdr)) {
-@@ -10890,6 +10891,30 @@ int smb3_decrypt_req(struct ksmbd_work *work)
- 	if (rc)
- 		return rc;
- 
-+	/*
-+	 * The decryption key is selected by the transform header SessionId,
-+	 * while the request is authorized under the session named in the
-+	 * decrypted inner header. Per MS-SMB2 the two must match; verify
-+	 * that here and drop the connection on mismatch. A compression
-+	 * transform payload carries the session id only after
-+	 * decompression, so save the transform SessionId for the check
-+	 * after decompression instead.
-+	 */
-+	proto = ((struct smb2_hdr *)iov[1].iov_base)->ProtocolId;
-+	if (proto == SMB2_PROTO_NUMBER) {
-+		if (original_msg_size < sizeof(struct smb2_hdr)) {
-+			pr_err_ratelimited("Decrypted SMB2 message is too small\n");
-+			return -ECONNABORTED;
-+		}
-+		if (le64_to_cpu(tr_hdr->SessionId) !=
-+		    le64_to_cpu(((struct smb2_hdr *)iov[1].iov_base)->SessionId)) {
-+			pr_err_ratelimited("SessionId mismatch between transform and inner header\n");
-+			return -ECONNABORTED;
-+		}
-+	} else if (proto == SMB2_COMPRESSION_TRANSFORM_ID) {
-+		work->tr_sess_id = le64_to_cpu(tr_hdr->SessionId);
-+	}
-+
- 	/* Drop the AEAD authentication tag from the inner RFC1002 frame. */
- 	memmove(buf + 4, iov[1].iov_base, original_msg_size);
- 	*(__be32 *)buf = cpu_to_be32(original_msg_size);
+ 		ret = dvb_usbv2_adapter_stream_init(adap);
+ 		if (ret)
+ 			goto err;
 -- 
-2.53.0
+2.43.0
 
