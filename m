@@ -1,76 +1,38 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25A4F4A21
-	for <stable@vger.kernel.org>; Sun, 27 Sep 2026 05:15:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.76.78.106])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 881ED36F906;
+	Sun, 27 Sep 2026 06:01:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.76.78.106
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790486137; cv=none; b=fPlkinlQOSNBMUXcTZ2JYRBZL5Khjc87z5jRi/fxqmGAZWljz/xT2d0RN1ss+2d0kQvsndBE8bX5iuPCZRSVpZcwuOPZIg7w2zrg1OkZhMNn4gtQGrTaHjDTM4ElaEtclOF7bLRkUoHhHLnZSWpYLm42niunm9ZGgQYM660vMMs=
+	t=1790488872; cv=none; b=fwTe7uTts91chdBpNpsuewx7jlMpRp7T87NZHjmK52hIaccGtFZTXcYfWaDtAPjknKI3mM6BbyY3CNC9WxOcjCH3IbQMXmEbgFDMjtIDmczwJGloOJ/0QqZeaycykrfwqZ28y0chJ5kc97I04QUZnl/gThMkjtoOo10x4uT/7as=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790486137; c=relaxed/simple;
-	bh=H1vpmDd5WB+FOr05SbJeKBR7M/NGBe7t31aKbMuzHLg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Gwk9N9bNPNkcl+nxsXgoLfmlHaBsUP/uTrtlwpAsdHVI27rIUullQ8s2tJv4dLLXAz+b5d+8HAH/5e/Mk13AOon57ZiDnktlRGp5JchwVzyB0Njne63QfjRcNN/Y0Z8QH/jWDmiRsEK8dZ6Z017snbufZC6dRXD6NZPkC3BfSoo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bg8HHXy1; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bg8HHXy1"
-Received: by mail-pj2-f43.google.com with SMTP id d9443c01a7336-2df8de41d6eso12710915ad.1
-        for <stable@vger.kernel.org>; Sat, 26 Sep 2026 22:15:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790486134; x=1791090934; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZV36k4LG5hOENl2ipOArtqLUiTWzZUggvKm8WD05KJA=;
-        b=Bg8HHXy1Dl0DWzs83lQvTNbZGV/WqYK1wK47wgDjLTPYkWrPabJtNkhoAssyCYZz1T
-         z7UMVVmnEjUmVpCqzIJzjhaZgEkzaQ7WyDteOkO6BGAX+GPnOkuP0+/FyUwUuwn1aGGL
-         utXceiwhnpsbQpSNHnJeA4NrK0an/7+K/DdH7jQb8OdMfMubVPe+1B4ZBbd+sPJtPIyn
-         AAbBQKiGNOp5HB8kU/YkxjU/B5w3cVWiy/6noVr1qqegaGaFv4XFYK0Kca/yYkFPgUA4
-         YZSPeMvTa3GG7KxhWjvZ5Tgdv6Jox/K5C6Pt10NuCflOS6lzxBX5T0HgNKzRgxQryLKe
-         bVXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790486134; x=1791090934;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZV36k4LG5hOENl2ipOArtqLUiTWzZUggvKm8WD05KJA=;
-        b=rHEZiprrAx2Pxg7hm7ACwLLN8xFODHuDs/lmPBO7otDcbFpN4MogJAeGSEZnpSozb8
-         RtrFY1+fdbRTwKis2Spg/pHUa/lQRA3wNgL4W74883Qv0LaWGgzhllc9swcenkOp9GO/
-         P0a6r9ovm61gDQyk+5ngLtayzLgKbAPaWG4L+hHJL/quJc+2U4SvZSq0xK2pBCdGFGWy
-         hCYtbj9no5158iYvOQ6YD+UjZLjUXbh/K2p6CLc382nuzwCinTDkzUUsHujz5bQ942XS
-         Bhva4afWTGs6UNohzvj/yO00mzb/soRczLVHm0IQ+8gomEJqWq+X4gQ+1Tq3/IhrQ5ce
-         8ZEw==
-X-Forwarded-Encrypted: i=1; AKwUvBwLoBIE1Ggvq4xH58eMRS/TBATnKnIsh+kXbku4EWLJQVNIqmBf6J7HPkRkwV6slPYB0aDZB9A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKMvmmzIN4pJYYpPUBLPiP1v8+KTCPTRvVCr2XA9ukYG+EAgF/G
-	k6HuX2O5AdtJ33LhkzQzkiEe5ebC5NvYF8WWKP9Uh+OikrMlNjHH7yrs
-X-Gm-Gg: AYBFou1EnoHIzK5jNwmZyuOp1RfQoHDQDZh7mSyFkTSqDX+i8Lm4S36bHA/qZIhsSoT
-	4qaD/JtJFfVmOIsoWXfWDYTXR3OAm1ZP3anQ6eun2II6sDpuPtq0Z8yHiwYBn+oy61rzu/lJrfv
-	I27YJX+tUNElaA6sLpE/PfWXevwrNEfHkGIwx/hdcLGZ+N76qDos9MpI2/12olPjWvK3QtjQFZz
-	9bYqcSU6tJ+VdgkTnrVJkqxeAQIUC1XiwE0hSxnrjuQWlfpZHqOENmQdJlVmbJQN66f+cr9v53o
-	vZo30yHm47r9FV9FTi6ugzpPl3/aIb16AeykInKsZfKfuBsJ3FjzRuKtYKI97uNrlE6zs8ffSzj
-	mK644W1ZAvLc6Od7KnIBMrzmZcosd0wS+TCA/Tp94s3xo1QCLRNBnRikgXWX4SAFBhOWOzhTRMT
-	e27fFRZWVuNg5wUdMtYpO4LHraZncFRKq4GH4lMtObCNrBOrD+ww+jV7Zq/lM1VkUReY2C9Ab1U
-	AJLMAZH5eRITr6w
-X-Received: by 2002:a17:902:f552:b0:2db:733c:fd1f with SMTP id d9443c01a7336-2df7da424a2mr80618055ad.8.1790486134390;
-        Sat, 26 Sep 2026 22:15:34 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2405:4802:1d4a:e90:3a0c:2ea9:4ab7:bd1b])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df91460aaasm26296305ad.73.2026.09.26.22.15.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 22:15:34 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: linux-block@vger.kernel.org,
+	s=arc-20240116; t=1790488872; c=relaxed/simple;
+	bh=oQxe6umVUJbikpUv/f8hHxreXu4kY1/eFn7bii5vHQA=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=Tm2aGOj3k6bGOHiLTkOovXLdQgqIimkoqWnH5qNOlA8Y8SGatZsUCzV+NyleqnDwT5KO0vvYWYhW4wdg7+BjT7JspHJ+i0cwdYQomMq+62TVSOVBLjnuX3lbLr52JaMP6eziDqgs+xK5YZtDK2v6wdJ1B02ZDjoFZzUWo0PPAhw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=13.76.78.106
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wA3NHwUsbhqLpU9AQ--.13599S3;
+	Sun, 27 Sep 2026 14:00:54 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app2 (Coremail) with UTF8SMTPA id zC_KCgCH3nwUsbhqcp0NAA--.11892S2;
+	Sun, 27 Sep 2026 14:00:52 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: gregkh@linuxfoundation.org
+Cc: jirislaby@kernel.org,
+	broonie@kernel.org,
+	zhao.xicheng@vivo.com,
+	linux-serial@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	"Darrick J . Wong" <djwong@kernel.org>,
-	Bart Van Assche <bvanassche@acm.org>,
-	Hannes Reinecke <hare@suse.com>,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
-	syzbot+afa7aef0c237038586e7@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH] block: make blkdev_fallocate() zeroout killable
-Date: Sun, 27 Sep 2026 12:15:28 +0700
-Message-ID: <20260927051528.34698-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	stable@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>
+Subject: [PATCH v4] tty: serial: max3100: shut down timer before freeing port
+Date: Sun, 27 Sep 2026 05:59:57 +0000
+Message-Id: <20260927055957.561030-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <2026092346-sizzling-dallying-a3c1@gregkh>
+References: <2026092346-sizzling-dallying-a3c1@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -78,44 +40,120 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zC_KCgCH3nwUsbhqcp0NAA--.11892S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?EZDsSAXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnVvLbuoOKy0xUR2OEh/Lyhm3j5bhF2Nn1BrV1PeMo1kyTuVQxMtiELFgkQ9fhJq+H2ID
+	iyHaSQzY+6oFgUCRQwep9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoWxur4xXryfuryxArykWryUurX_yoWrXw4fpF
+	sakws8tFWrKr42kF9xtw47XF1rWa1rJw47Gr1Ig3yYkw15AryYg3WIkayjkayrCFykXFsr
+	AFZYq398AryqyFbCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8
+	JbIYCTnIWIevJa73UjIFyTuYvjxU7gAwDUUUU
 
-blkdev_fallocate() zeroes the requested range while holding i_rwsem
-and invalidate_lock exclusively, but does not pass BLKDEV_ZERO_KILLABLE
-to blkdev_issue_zeroout().  On a large device that falls back to
-writing zero pages (e.g. null_blk), the loop keeps going after the
-caller received SIGKILL, and every buffered reader of the device
-blocks behind it:
+max3100_shutdown() stops the polling timer but returns early during
+system suspend. If the SPI device is unbound before resume, the serial
+core does not call max3100_shutdown() again, so max3100_remove() frees
+the port while the timer remains armed. max3100_timeout() may then
+access the freed port and re-arm the timer.
 
-  rwsem_down_read_slowpath+0x61e/0x920 kernel/locking/rwsem.c:1086
-  down_read+0x99/0x2e0 kernel/locking/rwsem.c:1539
-  blkdev_read_iter+0x2f8/0x440 block/fops.c:854
+Add final timer teardown to max3100_remove() and use
+timer_shutdown_sync() to prevent a racing callback from re-arming it.
+Also free the IRQ and destroy the workqueue there before freeing the
+port. Keep timer_delete_sync() in max3100_shutdown() so that a
+subsequent open() can re-arm the timer.
 
-syzbot reports this as a hung task.  BLKZEROOUT already sets the flag
-for the same reason; do the same for fallocate.
+The workqueue is created before request_irq() and destroyed on both
+request_irq() failure and normal shutdown. Its presence at remove thus
+identifies the IRQ left registered when suspend bypasses shutdown.
 
-Reported-by: syzbot+afa7aef0c237038586e7@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=afa7aef0c237038586e7
-Fixes: 25f4c41415e5 ("block: implement (some of) fallocate for block devices")
-Cc: stable@vger.kernel.org
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Free the IRQ before destroying the workqueue, in both
+max3100_shutdown() and max3100_remove(), and cancel the pending work
+in between. free_irq() waits for a running interrupt handler to
+finish and no new handler can start afterwards, so a racing handler
+cannot queue work on a workqueue that is being destroyed; the
+force_end_work check in max3100_dowork() only narrows that window, as
+a handler delayed between the check and queue_work() could still run
+after the teardown has cleared the workqueue pointer. Cancelling the
+work also keeps destroy_workqueue() from waiting on a queued work item
+in case remove() ever runs while the freezable workqueue is still
+frozen, e.g. device removal during the resume window, before
+workqueues are thawed.
+
+This issue was found by an in-house static analysis tool.
+
+Fixes: 7831d56b0a35 ("tty: MAX3100")
+Cc: stable@vger.kernel.org # 6.2+
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 ---
- block/fops.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Changes since v3:
+  - Free the IRQ before destroying the workqueue in both
+    max3100_shutdown() and max3100_remove(), and cancel the pending
+    work in between. This closes a race where an interrupt handler
+    that already passed the force_end_work check in max3100_dowork()
+    could queue work on a cleared or destroyed workqueue pointer. It
+    also keeps destroy_workqueue() from waiting on a queued work item
+    should remove() ever run while the freezable workqueue is still
+    frozen, e.g. device removal during the resume window, before
+    workqueues are thawed.
 
-diff --git a/block/fops.c b/block/fops.c
-index 2ce7c6c4714e..a2fe27d8ceff 100644
---- a/block/fops.c
-+++ b/block/fops.c
-@@ -909,7 +909,8 @@ static long blkdev_fallocate(struct file *file, int mode, loff_t start,
- 		goto fail;
+No MAX3100 hardware was available for this change: verified by
+inspection and compilation only.
+
+v1: https://lore.kernel.org/all/20260721035631.3186613-1-fanwu01@zju.edu.cn/
+v2: https://lore.kernel.org/all/20260801061208.356142-1-fanwu01@zju.edu.cn/
+v3: https://lore.kernel.org/all/20260805004039.382698-1-fanwu01@zju.edu.cn/
+---
+ drivers/tty/serial/max3100.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/tty/serial/max3100.c b/drivers/tty/serial/max3100.c
+index 44b745fa26c6..e8027c09c619 100644
+--- a/drivers/tty/serial/max3100.c
++++ b/drivers/tty/serial/max3100.c
+@@ -535,11 +535,11 @@ static void max3100_shutdown(struct uart_port *port)
+ 	timer_delete_sync(&s->timer);
  
- 	error = blkdev_issue_zeroout(bdev, start >> SECTOR_SHIFT,
--				     len >> SECTOR_SHIFT, GFP_KERNEL, flags);
-+				     len >> SECTOR_SHIFT, GFP_KERNEL,
-+				     flags | BLKDEV_ZERO_KILLABLE);
-  fail:
- 	filemap_invalidate_unlock(inode->i_mapping);
- 	inode_unlock(inode);
+ 	if (s->workqueue) {
++		free_irq(port->irq, s);
++		cancel_work_sync(&s->work);
+ 		destroy_workqueue(s->workqueue);
+ 		s->workqueue = NULL;
+ 	}
+-	if (port->irq)
+-		free_irq(port->irq, s);
+ 
+ 	/* set shutdown mode to save power */
+ 	max3100_sr(s, MAX3100_WC | MAX3100_SHDN, &rx);
+@@ -752,6 +752,15 @@ static void max3100_remove(struct spi_device *spi)
+ 		if (max3100s[i] == s) {
+ 			dev_dbg(&spi->dev, "%s: removing port %d\n", __func__, i);
+ 			uart_remove_one_port(&max3100_uart_driver, &max3100s[i]->port);
++
++			s->force_end_work = 1;
++			timer_shutdown_sync(&s->timer);
++			if (s->workqueue) {
++				free_irq(s->port.irq, s);
++				cancel_work_sync(&s->work);
++				destroy_workqueue(s->workqueue);
++				s->workqueue = NULL;
++			}
+ 			kfree(max3100s[i]);
+ 			max3100s[i] = NULL;
+ 			break;
 -- 
-2.43.0
+2.34.1
 
