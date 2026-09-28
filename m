@@ -1,205 +1,136 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92D2C4D7D54;
-	Mon, 28 Sep 2026 19:45:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F72B45A2AA
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 19:45:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790624705; cv=none; b=Z9lOa7IrWtMcht1TmgT3WMOmwWVYNk1jFvBcWg9Mf1GZvJU03pt8U5b01MBe3rgZ4iGFzmRZHThdVfsvnvimO27ubfyAI3oiDCYOqXAR+BCfe/dyQ0NlxNT7elpBS/W/w221RyqY2pcwPjox7a2MCo6j3ImuG16mA2wZbmsl4D8=
+	t=1790624757; cv=none; b=gGXXkqFUupz5EWm4Mz7NwJgTnA1jCTU8da/69dNueJo9xd8ogXSLNGBmpsqFi27MM1hUIHuznKmX60lynqsEvaiOybknd8ArSqqT+yWNeXLIisc5EiEs7idQzMOokGu4oro7ced3u/nhmr2t+gxmKYKL+vKZRcuX0dj+iInKuRo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790624705; c=relaxed/simple;
-	bh=hCvew7md2wIV0ECyy4McQ/lsCTk4EqOcyRtTij05xfQ=;
+	s=arc-20240116; t=1790624757; c=relaxed/simple;
+	bh=CTM77BtBAxRz/NUGhlV6ePIrWWx8detoQl79hBAb/aA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qjbrTUmf2w2XuVDHPksf9BqG90+UmIWPZDKumYPnDJeqGjtkE/tiVRR+gWRh0Fkuzk3zAoUXabtdybstIu7cH9m1Q+FxjkxAwFmw0cSpfT1C7FgKQCHHKEGwzwUnHY+tf3r/TAk+4noTrDzJ6de749ensKDVibb1OOVRXl00GtM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=g9p7R7QU; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=InrYq/XPG0xxC8Uk47uNBA+QyGaLJBZOL6y6Ol+/iR5lITaQzbAfbWz8ADF/IGAHeLqpc5VgOll6jjGKZL0i6HCkrhauv1rQJT1hBzUzaogFt8guIScTM+WMZvnLKkBduEBA+J8evyYNSnPFCLMBRUqMDYvHKmpLQG9eOC5R9jI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=raYE9ug/; arc=none smtp.client-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="g9p7R7QU"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 91288B07;
-	Mon, 28 Sep 2026 21:43:10 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790624590;
-	bh=hCvew7md2wIV0ECyy4McQ/lsCTk4EqOcyRtTij05xfQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=g9p7R7QU4hq68nKGF89plMhaDxFtRRBK8CGzDRi/zzJNZhmMqVl19k0d1TNTh58M1
-	 mCckzKdKgd4TfO+0zj3kpVO1H2WZJpftALWzwbQbMQC9ielJRiGE9VI6DCbTixF8i0
-	 9/cHlf6JDxitffi57ZW2kSEnSXDuOm1yJrMXusPE=
-Date: Mon, 28 Sep 2026 22:44:59 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Ricardo Ribalda <ribalda@chromium.org>
-Cc: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@skynet.be>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] media: uvcvideo: Fix bounds for descriptor parsing
-Message-ID: <20260928194459.GH210522@killaraus.ideasonboard.com>
-References: <20260911-uvc-ctrl-bound-v1-1-7b5cfc68bae1@chromium.org>
- <20260928120252.GB4406@killaraus.ideasonboard.com>
- <CANiDSCv5pd-3aO0Eb1-rvsAOGNpB4rhpjtnTosU6Ca+xBxN1qQ@mail.gmail.com>
- <20260928122450.GA166131@killaraus.ideasonboard.com>
- <CANiDSCuBFLYXFbq7Vox7AhdhftfzC9Ga6FKL-2F1o08cHQjoAA@mail.gmail.com>
- <20260928124109.GF157191@killaraus.ideasonboard.com>
- <CANiDSCvvJd0_taNYvHm894kPpyOWQ+TaxC_XRVOs5qrUHod08Q@mail.gmail.com>
- <20260928184429.GE210522@killaraus.ideasonboard.com>
- <CANiDSCs8N-m1F7LMuerVbYF8xrBPBeVTg2_UX4p6M7g=9yz_Sg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="raYE9ug/"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2db33db4de9so12575ad.0
+        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 12:45:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790624755; x=1791229555; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=J1T7FYtEHLzKBOAf0DCFYQLvpaY4ZVWXjng9Q2koYuQ=;
+        b=raYE9ug/QFfJodxahZajkSnqSzDLSE/wyQ1H3Ykg4GuUOIoYlqrZFV2u0DH7m0sebJ
+         +UaOVs0pctUqfVDuFDM3dQ1DmScY8OquARMr0iYRlOoze+a/11bWGBtSHSlLyu3uriOh
+         MTyCCamdlM0In2RPnQ0nbta3vsyfx8yKKoKMEMWRmb1rYbGtqMCz8+uNMLinLgLR9shL
+         YQ6kttURI+k/oQZ58+Yr3kkKt3ioQmUYEQlvYlMz/Y/1Mel9PyFTiB6K5aSt9HoWwWDk
+         iLCa0b+Rmyds05sAX4nrQselCsLMVmlRoPsPO2LS1o1sNCCTCSj9p6lLwPtL1xxCvKHc
+         UI8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790624755; x=1791229555;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=J1T7FYtEHLzKBOAf0DCFYQLvpaY4ZVWXjng9Q2koYuQ=;
+        b=Bi4vSpvTvH51RQx607HdElR0xsx77zmTFex/Ev44DY1vBnJeRYUKr0BGpqD89qvl4y
+         wO8EZgk6CSJHa00W2AGescjWexO4k/mi2Qs/UCr9p6HuuDRhHS8jwfEDsXFLtwq/w0hQ
+         T1zTt48GHFvdkPkyixwh8s3DT0q4c+Cm7TbY1MgQY1rxEY+JRRBKHXQ9Anu6I41coH0u
+         01Nxw844LcRimnaRiwHaLWaVOXd8CsLP+2vaKvu6QCC8vWrHqGAKW+p+7hU4Al88hivI
+         Y2bPW+7K0GzaQ0O5r8rdk8GBcU4wx05+/d4mcVap1ox/eP9XQKxN7Sarilot0iO/Kp2K
+         Hlhw==
+X-Forwarded-Encrypted: i=1; AKwUvBxyJ2rqjnUo6Jy0U830RN3f9OtAPCb18osHeNnStEgEB073kQp+YaIFp0yGbB7Xo1oid+Gs55s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKgI+jandgmFtBOY9cUHlt/kfXF1IBuRsRp73ywLOw3SwJqW2lO
+	Nsn3hajYFMpmEu/GqUz5V+UzM+n06P9g8yWc4B3Q2Xdqsyf5CVdmTC7+hw0kRYZCbQ==
+X-Gm-Gg: AYBFou0Be1vM4y2o1gX5uTh5CBilRG8HKz5Qsc0o2Hk3xVDPltrFcRwJRc07aWSVln0
+	OQnv8A09NKQ1//TAFXvf4V2CnGr53hba86dpuqJOQ2vb5KHBVH31L84/WoUEm4XiWI6bmzPy/YO
+	gUNYfQLrGA6yQJ7Un2i0lwscVmIFlK7i1TPgO29a6ROsgqNIE9CWHojLfNWkZFycOE0zqaXfeoj
+	Y2eaAroLx1yZYc8OBh73r9LDWiSHk1mlxyT5bgjWeRSsWo2FkQ625C9SuFRvUP37qJR/C7IJC6I
+	qH2q8BLJPtqIEh2rR4IwTnCPBWdoc4u+MT2HvS7v+NjhYD1wZavEwYMb3Di1hawgreIU0FMB/Uw
+	RHzmkzoa6iLWppz645PIbUmORjn0SbY2okPO/kIwaJhTqzWqjP+u1kpQQtwnIfPvpA86gTj6c3b
+	lz1iKhaC4cAzzegqJBRQVWGb/6zZ7SnV8h8L/jUUK9+zYyHAhH2YJzLQBt9CtTOozXvGrNvGUJo
+	QR+vWG0drcRjXdUIbkFcGHn1FOLNzCHOMy7
+X-Received: by 2002:a17:903:4b0c:b0:2d5:db3d:1a42 with SMTP id d9443c01a7336-2dfa9773f0fmr8136125ad.15.1790624754609;
+        Mon, 28 Sep 2026 12:45:54 -0700 (PDT)
+Received: from google.com (105.211.142.34.bc.googleusercontent.com. [34.142.211.105])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4926b3f9fsm1077587a91.0.2026.09.28.12.45.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 12:45:54 -0700 (PDT)
+Date: Mon, 28 Sep 2026 19:45:45 +0000
+From: Pranjal Shrivastava <praan@google.com>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Jonathan Corbet <corbet@lwn.net>, iommu@lists.linux.dev,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Jean-Philippe Brucker <jpb@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
+	Mark Rutland <mark.rutland@arm.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Will Deacon <will@kernel.org>, David Matlack <dmatlack@google.com>,
+	Jean-Philippe Brucker <jean-philippe@linaro.org>,
+	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+	Nicolin Chen <nicolinc@nvidia.com>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>, patches@lists.linux.dev,
+	Samiullah Khawaja <skhawaja@google.com>,
+	Mostafa Saleh <smostafa@google.com>, stable@vger.kernel.org,
+	Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
+Subject: Re: [PATCH v7 0/9] Organize the SMMUv3 invalidation flow so iommupt
+ can use it
+Message-ID: <arrD6aTjENIsa4sO@google.com>
+References: <0-v7-e84261bbe7cd+2ea80b-smmu_tlbi_jgg@nvidia.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CANiDSCs8N-m1F7LMuerVbYF8xrBPBeVTg2_UX4p6M7g=9yz_Sg@mail.gmail.com>
+In-Reply-To: <0-v7-e84261bbe7cd+2ea80b-smmu_tlbi_jgg@nvidia.com>
 
-On Mon, Sep 28, 2026 at 09:03:41PM +0200, Ricardo Ribalda wrote:
-> On Mon, 28 Sept 2026 at 20:44, Laurent Pinchart wrote:
-> > On Mon, Sep 28, 2026 at 04:03:15PM +0200, Ricardo Ribalda wrote:
-> > > On Mon, 28 Sept 2026 at 14:41, Laurent Pinchart wrote:
-> > > > On Mon, Sep 28, 2026 at 02:35:29PM +0200, Ricardo Ribalda wrote:
-> > > > > On Mon, 28 Sept 2026 at 14:24, Laurent Pinchart wrote:
-> > > > > > On Mon, Sep 28, 2026 at 02:10:26PM +0200, Ricardo Ribalda wrote:
-> > > > > > > On Mon, 28 Sept 2026 at 14:02, Laurent Pinchart wrote:
-> > > > > > > > On Fri, Sep 11, 2026 at 01:23:50PM +0000, Ricardo Ribalda wrote:
-> > > > > > > > > uvc_parse_control() passes descriptor by descriptor to
-> > > > > > > > > uvc_parse_standard_control() with the number of bytes remaining in the
-> > > > > > > > > buffer, not the number of bytes of that descriptor.
-> > > > > > > > >
-> > > > > > > > > Because of this, malformed descriptors could leak over the next
-> > > > > > > > > descriptor, leaving malformed data in our structures.
-> > > > > > > >
-> > > > > > > > What issue does this fix in practice ?
-> > > > > > >
-> > > > > > > Look into uvc_parse_standard_control().
-> > > > > > > Let's take the UVC_VC_HEADER
-> > > > > > >
-> > > > > > > Imagine we have a malformed control at the beginning of the descriptor that has:
-> > > > > > >
-> > > > > > > buffer[0] = 3
-> > > > > > > buffer[2] = UVC_VC_HEADER
-> > > > > > > buffer[3] => Beggining of next control
-> > > > > > >
-> > > > > > > With the current code, buffer[3...X] is parsed as UVC_VC_HEADER.
-> > > > > > >
-> > > > > > > What does it fix in practice? It avoids that data outside the controls
-> > > > > > > is parsed as part of the control.
-> > > > > >
-> > > > > > I understand that, but what does it fix in practice ? And have you
-> > > > > > encountered a device that exhibits such a problem ?
-> > > > >
-> > > > > I have not encountered such devices, but even if they do not exist
-> > > > > they are easy to emulate and use for escalation.
-> > > >
-> > > > That's what I'd like to understand, can this be used for any kind of
-> > > > escalation ?
-> > >
-> > > It is very difficult (impossible?) to prove that something is not
-> > > exploitable, especially as the code evolves.
-> >
-> > Regardless of whether or not all the bytes parsed by the
-> > uvc_parse_vendor_control() and uvc_parse_vendor_control() functions are
-> > part of the control descriptor or are split across multiple descriptors,
-> > they all come from the USB descriptors buffer and are all ultimately
-> > under device control.
-> >
-> > As far as I can tell, all this patch does it add a check on buffer[0]
-> > but has no impact on anything else. If a device can supply USB
-> > descriptors data with an invalid buffer[0] that currently causes any
-> > type of issue in the driver, the same device could supply the exact same
-> > USB descriptors with buffer[0] set to a value that will be accepted and
-> > still cause the same issue. Am I missing something ?
-> >
-> > > We could spend hours trying to craft a payload, plus extra time in
-> > > future reviews whenever uvc_parse_vendor_control() changes. It is much
-> > > safer to just enforce the correct bounds now.
-> >
-> > So is your concern only about introducing issues in the future without
-> > noticing ?
+On Mon, Sep 21, 2026 at 08:55:08PM -0300, Jason Gunthorpe wrote:
+> [ This is part of the patch pile to move SMMUv3 over to the generic page
+> table, the precursor patches have been merged now. What's left:
+>  1) Organize the SMMUv3 invalidation flow so iommupt can use it
+>  2) Use the generic iommu page table for SMMUv3
 > 
-> My main concerns are that the function's API looks wrong and yes, it
-> could introduce bugs in the future.
-
-I agree there's a quite small risk of introducing future bugs. This is
-what I wanted to know, if there was an actual issue today (as in
-exploitable bugs), or if it was only a forward-looking change.
-
-> we basically have:
-> parse_field(void *data, size_t total_length)
+> The first patch should ideally go to -rc
 > 
-> instead of:
-> parse_field(void *data, size_t field_length)
+> The whole branch is here:
+>    https://github.com/jgunthorpe/linux/commits/iommu_pt_arm64/
+> ]
 > 
-> btw: in parse_field we are ignoring the field_legth in most of the cases.
+> iommupt has a design that focuses on building a single iommu_iotlb_gather
+> for arbitary batches of map/unmap operations. The gather uses the free
+> list and it captures invalidations of tables, leaves and supports mixed
+> levels.
 > 
-> I am happy to drop the cc and fixes tags if you want to consider this
-> just a boring cleanup
+> The introduction of PT_FEAT_DETAILED_GATHER provides some additional
+> information that is useful for ARM: the damage bitmaps for the table and
+> leaf changes.
+> 
+> Prior to switching SMMUv3 over to use iommupt prepare for this by
+> reworking the internal invalidation to work on the same data format that
+> iommupt will produce. Bridge the invalidations generated by io-pgtable
+> into the new format. The conversion is simple enough, io-pgtable generates
+> invalidation operations that have only a single set bit in
+> table_levels_bitmap/leaf_levels_bitmap, so we can convert the io-pgtable
+> provided size into the proper level leaf or table bit.
+>
 
-As it stands, I think the risk of introducing regressions is likely
-smaller. bLength can't be completely off or the USB core would fail
-parsing descriptors. It could be smaller than needed while still
-pointing to the next descriptors, with the control parsing then using
-the first few bytes of the next descriptor, but the chance that would
-result in values that don't cause observable weird effects are slim.
+[...]
 
-So I think we can merge this change. I'd drop the backport as we're not
-fixing any existing issue. And maybe avoid "Fix" in the subject, to
-avoid autosel being triggered ?
+FWIW, I was able to run dma_map_benchmark for 4K & 2M 
+(-g 1 / -g 512, 1..256 threads) and I observe no change in map/unmap
+latency vs. base, no measurable overhead on the leaf unmap hot path.
 
-> > > As you said, the risk to break current hardware is low. If it happens
-> > > tis change is small enough to make it easy to revert.
-> > >
-> > > > > We add minimal code and solve a family of bugs. Do you think that it
-> > > > > is a better pattern that uvc_parse_vendor_control() and
-> > > > > uvc_parse_vendor_control() have visibility beyond the control that
-> > > > > they are parsing?
-> > > >
-> > > > I'm concerned that some devices may stop working. The risk is likely
-> > > > small though, but I'd like to understand what we get from this patch to
-> > > > see if it's worth the risk.
-> > > >
-> > > > > > > > > Change the code so we pass the actual length of the descriptor to the
-> > > > > > > > > parser.
-> > > > > > > > >
-> > > > > > > > > Note that this makes the existing check more strict and some devices
-> > > > > > > > > that are wrongly parsed today will not be probed now.
-> > > > > > > > >
-> > > > > > > > > Cc: stable@vger.kernel.org
-> > > > > > > > > Fixes: c0efd232929c ("V4L/DVB (8145a): USB Video Class driver")
-> > > > > > > > > Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
-> > > > > > > > > ---
-> > > > > > > > >  drivers/media/usb/uvc/uvc_driver.c | 7 +++++--
-> > > > > > > > >  1 file changed, 5 insertions(+), 2 deletions(-)
-> > > > > > > > >
-> > > > > > > > > diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-> > > > > > > > > index e289cc71ba98..429f1ab19a2a 100644
-> > > > > > > > > --- a/drivers/media/usb/uvc/uvc_driver.c
-> > > > > > > > > +++ b/drivers/media/usb/uvc/uvc_driver.c
-> > > > > > > > > @@ -1248,11 +1248,14 @@ static int uvc_parse_control(struct uvc_device *dev)
-> > > > > > > > >        */
-> > > > > > > > >
-> > > > > > > > >       while (buflen > 2) {
-> > > > > > > > > -             if (uvc_parse_vendor_control(dev, buffer, buflen) ||
-> > > > > > > > > +             if (buflen < buffer[0] || buffer[0] < 3)
-> > > > > > > > > +                     return -EINVAL;
-> > > > > > > > > +
-> > > > > > > > > +             if (uvc_parse_vendor_control(dev, buffer, buffer[0]) ||
-> > > > > > > > >                   buffer[1] != USB_DT_CS_INTERFACE)
-> > > > > > > > >                       goto next_descriptor;
-> > > > > > > > >
-> > > > > > > > > -             ret = uvc_parse_standard_control(dev, buffer, buflen);
-> > > > > > > > > +             ret = uvc_parse_standard_control(dev, buffer, buffer[0]);
-> > > > > > > > >               if (ret < 0)
-> > > > > > > > >                       return ret;
-> > > > > > > > >
-> > > > > > > > >
-> > > > > > > > > ---
-> > > > > > > > > base-commit: 27953c044974baf7e24dee3e9342fe0103dea80c
-> > > > > > > > > change-id: 20260911-uvc-ctrl-bound-9c1940f06fc7
+Tested-by: Pranjal Shrivastava <praan@google.com>
 
--- 
-Regards,
-
-Laurent Pinchart
+Thanks,
+Praan
