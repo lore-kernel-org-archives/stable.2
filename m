@@ -1,73 +1,52 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 362264F4024
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 20:05:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 000DC4F85CD;
+	Mon, 28 Sep 2026 20:09:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790625905; cv=none; b=E23ik5T066AiT1stFh84+zBusuWiGHIpGJ8b1OtOFxnsUSS/xi9++99dUaJxGUHqsuqDlTRBB/WhjU3qFdcMUCMbOZ0HZkajz+MEGz0p+mJhkIWZzxT6L9UwNvscTC0VwjjA30/sPDMqQh3ob6zll0liigkLKa7unUIRNkLPhmc=
+	t=1790626190; cv=none; b=kQaUavP0YUWUnC2jV2HlY1R7xRudFBp2pHUiX42APGnrLJI1goeqa9P6NHJP6NCo+nMVr+mUoj3Dweo3RWP52vyutV8aWuVDOR/3TfdPG/8WeaLEL869CPvKjC991F2gt/dYawVhgGhdUho0FDprfCeKTv1G1tunkx6IBOntyq0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790625905; c=relaxed/simple;
-	bh=fDBiAhy/gjUqsADUcZNU/vSANuxG2/pdruvBG3o2m54=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CS9O9syu8ct2RUwgC0RUC4SavSoy4GjUAU0K57lR7XhE1fCV//HYdsEZOv4GpaCndIK7i2FQwLaTxqWxAQnjjwuaRiyP3bK1SgExhBL3lNfTRtNUU6ZgnPcyOdbmyWd+ayacxZDdFuWSAu3vF3F5uMybwBed53qBiXNO5SjEx0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=sLxg1RKh; arc=none smtp.client-ip=74.125.229.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
+	s=arc-20240116; t=1790626190; c=relaxed/simple;
+	bh=8mE48U+17Ds5BPxux26B8fm57AwWxUI9Xsfr5dh8sk0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=mKYVM5ypa/D8AUSj+iTfwON6HdhRFSwwqoi9gj2RobiJx/kI2/2JEBealb6u1/eLZnUwNkgUrh72mqkVzDxAugcSLj7Ee0vKtwYWRa7PjecP+xniAzVbi00KbEXbE5J1i/BADIesY7RTQAxs6PlA6TjHlCGZuDWooHpk2UHt9As=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=3t90P89s; arc=none smtp.client-ip=143.255.12.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="sLxg1RKh"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33bfb26865fso3560613eec.2
-        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 13:05:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=asu.edu; s=google; t=1790625902; x=1791230702; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=G65G9x7X+KDIM+1/pLIufiX3V7hRvBMRWxOStVH3Yl4=;
-        b=sLxg1RKh7y0/3bvgS9FK7y1Hq6ujpntFgMILOHUmQ0KDmysqr28TugjmP8FLt0MMSd
-         F25VQz42TB203BdrstNX+oOngDNskxepReCU09uy6fNPclZZQ5t0qUe6ryraLm6nCMLf
-         ArLMD1aq3bPJP5p3FmPtSNiGGYb93FEBiQ6Pv+uTZd1DyNsFQ5Nzl3Ahv7TxZjI5zQa6
-         h9F071E4lcmiC6fK38ZWSaWaoa6PmFLZiY+/a9LpgrKDxt467bB1Ql8vb581BELKY8Dd
-         Ek0MyDjxO7uS9uyMmgQxuowMVx8OBJ0ghXxk5zKAjMBwBwJjg0nKaa89frFrJoa9YER9
-         E1aQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790625902; x=1791230702;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=G65G9x7X+KDIM+1/pLIufiX3V7hRvBMRWxOStVH3Yl4=;
-        b=EbD/DJvnecdbTTry0o+V17WqlT1SY5CDTVlZDaruGziz4mDJOOqboaExVq/+jmE09A
-         xrRJYWkTh+HAKMyPAlke+l3LPMUcSAs1sofd262l8Yn0yxi6yRYDD3GXdQ7rMw3SsrgY
-         XTzCxxVoFRKB2K9zrHZkg14+TbpORa6evWyFf0ND5+W5G4iXa9zn9/exb3NFT8AwbJCF
-         10le2iFE3bO9eEGRsGErNxnpeUiigaLVyW0fBG2ubjkpKoLBB51niwg2gAhaakGhEBQN
-         yLn9UyYRYZ4Suec6dG3PE2N3w24dsz3G9mMJfrT2/9yKLnZANITB/52G7lBkJ2e4g/A+
-         qhYQ==
-X-Forwarded-Encrypted: i=1; AKwUvByd1Yy/Jbms43hNeTNdZi7vv4fIQv0HJxV3UhH8lwZu3FMz2hjLjVo2NI+2DmMdEyLZi/JgJSg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ6eT8g8fjuLleVlO9cjWM+VOteJBW8EwEETf1ai5ax75RXYzyk
-	w5ImaL7ou7Rgtn/HV73jToIS9McGwB+K91nLl1Ucx6Krhrq6btAxP8Q7R0J412NXS0RQdNLuyrz
-	7af/Tx2mH
-X-Gm-Gg: AYBFou1Z0ffeDsbBzCE+OyTN5zHS/YHfaSjuHtTx3bL8p9gxxNgN56OTOS4Kqg1EBPE
-	7f1sRHaa+FNpV+A0I5KAp8o3mHQ1imlvQxyO7DXQSlejPXQmq7ho9ZIypDaF33V1r4o5HK+jpCy
-	/29Ex9Mo+lXUdDccpaqqFRyrIPg65SvtEijgRbnPJ1VcHSSq3v7HTtYH52PuCDXxG9F0EMFkI4p
-	upRDXfFIgjQucYVcNiwe2lDnoQZvctTF5neidXgLn1Eo8x2aCgItAE8TOb/IB93eF5Hryze267H
-	AnSIycQKW541Hzgsut3skMZH6pKKk62ug2GGpRzkS8zArc2583VtkF7KwEZ4BSmW9JyMUZoOGwW
-	AepDsuae5G/9Wln7PeJCENrsjEh9rceyXlliJ/qnWDcCzPp4dW9IJszD5T6j/NlYAAIISJO6T+R
-	NPu6nHlXAHd3AaurGRz9zYFd3zRPi9S+OakdvVc1yxIq3At/FyjTC90RIfKxOBvQmsD98HPvE9X
-	AgMPDFt/zFU4P/jmR8amb+nRw0jv//Rpg==
-X-Received: by 2002:a05:693c:8812:10b0:33c:6e0:3cd7 with SMTP id 5a478bee46e88-34755659554mr4642693eec.1.1790625901912;
-        Mon, 28 Sep 2026 13:05:01 -0700 (PDT)
-Received: from gio.scai.dhcp.asu.edu (209-147-138-22.nat.asu.edu. [209.147.138.22])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3475546c982sm7704302eec.5.2026.09.28.13.05.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 13:05:01 -0700 (PDT)
-From: Giorgi Kobakhia <gkobakhi@asu.edu>
-To: Jan Kara <jack@suse.com>
-Cc: linux-kernel@vger.kernel.org,
-	Xiang Mei <xmei5@asu.edu>,
-	Giorgi Kobakhia <gkobakhi@asu.edu>,
+	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="3t90P89s"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=manguebit.org; s=dkim; h=Content-Transfer-Encoding:MIME-Version:References:
+	In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Content-Type:Reply-To:
+	Content-ID:Content-Description;
+	bh=Wp7NquTqjhY8gHnr493aStX017U5CWWUKPMBaZ2Qhp8=; b=3t90P89se5zY2ooyCmRiDYtqY4
+	eRsBNQG0RiZRaNLxQVs/hKc7HdhOYSCmj7KlE2LrEspcrcqQidXh6aAI75lJ50uPs/Dp9zsRlFZFb
+	qVclM/KsTuci7ewZ1rWtpeYSfhEU8Y+qHl5jlojM2Sm6bJ8KTu0GNGimsAiHNOpwYC4dZtYZtO2PH
+	QmU7IgNv58iXMua3ijWZdbViwfLLdfhMgWzcaIXeJndzliMF2y87IKr3F0K+AQtD3SQW69wEVOeHu
+	BqXZemCWO2fPgSw4mJhy/5EdCl+qrBVqcwP9x9kcFtKpbFfqN7zcGvoAo2rfLVyI2d5UxqkOXugR8
+	KqxwLaJQ==;
+Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
+	id 1xBHfL-00000002UJ7-2eG7;
+	Mon, 28 Sep 2026 17:09:35 -0300
+From: Paulo Alcantara <pc@manguebit.org>
+To: linux-cifs@vger.kernel.org,
+	netfs@lists.linux.dev
+Cc: Christian Brauner <brauner@kernel.org>,
+	David Howells <dhowells@redhat.com>,
+	Matthew Wilcox <willy@infradead.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Shyam Prasad N <sprasad@microsoft.com>,
+	Tom Talpey <tom@talpey.com>,
+	Bharath SM <bharathsm@microsoft.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] udf: fix return value for non-recorded-allocated extents in udf_map_block()
-Date: Mon, 28 Sep 2026 13:04:45 -0700
-Message-ID: <20260928200445.18722-1-gkobakhi@asu.edu>
-X-Mailer: git-send-email 2.43.0
+Subject: [PATCH 03/15] smb: client: discard post-EOF pagecache when extending a file via zero range
+Date: Mon, 28 Sep 2026 17:09:22 -0300
+Message-ID: <20260928200934.1040189-4-pc@manguebit.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260928200934.1040189-1-pc@manguebit.org>
+References: <20260928200934.1040189-1-pc@manguebit.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -76,47 +55,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In the if (!(map->iflags & UDF_MAP_CREATE)) check the ret is set to
-inode_bmap(inode, map->lblk, &epos, &eloc, &elen, &offset, &etype),
-which returns 1 on success, -errno on error and 0 on EOF. ret is set
-back to 0 only if the etype of the extent is EXT_RECORDED_ALLOCATED.
-In other cases the ret is still equal to 1, which is not a valid return
-value for udf_map_block() and is later accessed in page_get_link().
+smb3_zero_range() removed the pagecache only for the range being zeroed,
+so when it extends the file the folio straddling the old EOF - which may
+hold data dirtied past EOF through an mmap - was never dropped and became
+visible as file content once the file was extended.
 
- Oops: general protection fault
- KASAN: maybe wild-memory-access
- RIP: 0010:page_get_link (fs/namei.c:6503)
- Call Trace:
-  vfs_readlink (fs/namei.c:6419)
-  do_readlinkat (fs/stat.c:583)
-  __x64_sys_readlink (fs/stat.c:605 fs/stat.c:602 fs/stat.c:602)
+Lower the discard boundary to the smaller of the zero-range offset and the
+old EOF.
 
-Move the reset to 0 line outside the if, so udf_map_block() returns either
-0 or -errno, even if the extent type is not EXT_RECORDED_ALLOCATED.
-
-Fixes: c226964ec786 ("udf: refactor inode_bmap() to handle error")
+Fixes: 72c419d9b073 ("cifs: fix smb3_zero_range so it can expand the file-size when required")
+Reviewed-by: David Howells <dhowells@redhat.com>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+Cc: Christian Brauner <brauner@kernel.org>
+Cc: Matthew Wilcox <willy@infradead.org>
+Cc: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
+Cc: Shyam Prasad N <sprasad@microsoft.com>
+Cc: Tom Talpey <tom@talpey.com>
+Cc: Bharath SM <bharathsm@microsoft.com>
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Tested-by: Xiang Mei <xmei5@asu.edu>
-Signed-off-by: Giorgi Kobakhia <gkobakhi@asu.edu>
 ---
- fs/udf/inode.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/smb/client/smb2ops.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/fs/udf/inode.c b/fs/udf/inode.c
-index e45e546a739a..2f04c4f0e1b8 100644
---- a/fs/udf/inode.c
-+++ b/fs/udf/inode.c
-@@ -372,8 +372,8 @@ static int udf_map_block(struct inode *inode, struct udf_map_rq *map)
- 			map->pblk = udf_get_lb_pblock(inode->i_sb, &eloc,
- 							offset);
- 			map->oflags |= UDF_BLK_MAPPED;
--			ret = 0;
- 		}
-+		ret = 0;
- out_read:
- 		up_read(&iinfo->i_data_sem);
- 		brelse(epos.bh);
+diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
+index aa142420dae2..e55e081e47b9 100644
+--- a/fs/smb/client/smb2ops.c
++++ b/fs/smb/client/smb2ops.c
+@@ -3558,8 +3558,11 @@ static long smb3_zero_range(struct file *file, struct cifs_tcon *tcon,
+ 	/*
+ 	 * We zero the range through ioctl, so we need remove the page caches
+ 	 * first, otherwise the data may be inconsistent with the server.
++	 *
++	 * Start at the old EOF when extending so the folio straddling it, which
++	 * may hold data written past EOF through an mmap, is dropped too.
+ 	 */
+-	truncate_pagecache_range(inode, offset, offset + len - 1);
++	truncate_pagecache_range(inode, min(offset, i_size), offset + len - 1);
+ 	netfs_wait_for_outstanding_io(inode);
+ 
+ 	/* if file not oplocked can't be sure whether asking to extend size */
 -- 
-2.43.0
+2.55.0
 
