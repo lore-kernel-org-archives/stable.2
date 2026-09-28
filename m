@@ -1,143 +1,139 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB08E47ACC6
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 10:43:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F39948989F
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 10:45:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790592204; cv=none; b=NLEfxEkaF0e7IuyxFDsWX1dEsdaCGX0BHEPALdgF4/afY0QYvaYZ1pidfD9JYPd8QLZFDSGB4eqWPOeZYZdB3EHz3GfGIeEJqSrc0ZMkgBZLL2oXKZk8Lx/EkLFieKWreVNJnR36jcRE/vcUR8IYeWweCtxulfVeu+vYPUA5WF8=
+	t=1790592329; cv=none; b=P4fmlrVWbSnRHo7pfPlTrQ53MT41SfljbDfx/IlLxZ3cE0j1M52jVUCFiXXRO+TZqGnJwWXaVX1OEGTb/UJAcZtgueAFVMsqLiLkMMFZ43KRw/vXBmRQs988h+dFvm9eK/wsUvpYPnbGfw6ZUvXAUvXpWc+QIcKRWs9pVoRft0E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790592204; c=relaxed/simple;
-	bh=Us176wOm+8+rz2NBzHwXZKWbjOvthf8+VT/A+foQpNU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WIR9tj4b9AV+uiwp38jaCUx0+iEXLWYlesZHLQcH1RV1+paGKHN4Tg76VUSrhlZjniN+yIRwE+cDJuZfnXy9kQByMJMIJgbXrvLZGHkshzY+lCWo//S21RcR6FHwofYKQ+eUfxkhq0bUf3INDuTDKmvQ77C1r3vSiQ00L5v03Wo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EZhxnsLz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790592329; c=relaxed/simple;
+	bh=idEtOGz0tSPFc6Wku3wNGhIeV5TRsxTorqK2Qyxj7lY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WxCOR5+zibCVQVZws4q+wB83lN3Nt+F8obisuSlip9uA5SwUi8FCLQlrUh0GOrDa8gIHHzM+5iWwr7MeUXGLnjR7pyn+kAEEGR+yOP2hkezH9q8YXb9SJY/RwRMPIAffhoHIyENb9iFdUtN1pLXQdss7K+neRKuCOD1r4vWmHTU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N55hHaSi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EZhxnsLz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 610011F00893;
-	Mon, 28 Sep 2026 10:43:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N55hHaSi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 401FA1F00893;
+	Mon, 28 Sep 2026 10:45:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790592202;
-	bh=XG3bmLOEI8G01S8/exKbptpBhScG6uqeRlLXCCFlvyw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EZhxnsLzsdGT0QfxDNB4xb7UFGFVIj208PburOQbfFuEKKzjBOwJbwJ6T4uZhd+DU
-	 Sy0bStLx7lcAH6tJuVT9TrFBVx6iG2C/XPapvdDnN4UMS53vCdAVylBDJ9YwvWE4gC
-	 FUkQaSqsCidpRj6Lq7FZbBRf3EjodYoUcfebrD868wXm/SXjVJbwryk90o7fMXRPlU
-	 gj4IffuYPBRdJDNF5cl9Deon1Pt9hPMf7u5+PUeYffYbcYLssLQOyKxOMs3clXhZnU
-	 cZoTSXTqpziE57Dqs9lCo+ScW4Yj5EnC7WzeLsy5Dj1kLJEzwEXIEheLzTLGHv0+vP
-	 rAgpmfUNVvl2g==
-From: Miguel Ojeda <ojeda@kernel.org>
-To: stable@vger.kernel.org
-Cc: Miguel Ojeda <ojeda@kernel.org>,
-	Chunfeng Song <springbreeze@stu.pku.edu.cn>,
-	FUJITA Tomonori <fujita.tomonori@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>
-Subject: [PATCH 2/2] rust: net: phy: fix off-by-one bit positions in device status accessors
-Date: Mon, 28 Sep 2026 12:43:13 +0200
-Message-ID: <20260928104313.204453-2-ojeda@kernel.org>
-In-Reply-To: <20260928104313.204453-1-ojeda@kernel.org>
-References: <20260928104313.204453-1-ojeda@kernel.org>
+	s=k20260515; t=1790592327;
+	bh=pkN3i1kfI7ou6rynJpVZcTVcqK4JP2ip7U/AkgCuNZg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=N55hHaSiAFoCEqUbcpUK1ba3c7jI4PHLKH+LSqhl4MwioLCLKK8udMtx+wid3aAKv
+	 j0wL94J8PRdAKwdMCdLLr0Sgm9vMNCixykC2G5RufrS90JeWUr8yxCaUseMoEEKgra
+	 8HhCsnybTPOg6wMMuXmoCQPG/FF1Iv4Xz4PR4PwbTZJ6yFbOkVbVS4rVvqwHjKVUgI
+	 dipGK4gL/7U2aZ+wdvx3GXlZMlAsfnO86KRHPY7yjyWS8kvjIL7QN3i7R6vDeA7LvI
+	 8tRoxL6C3eg08+NQihufNSV+hUry/ge/Y3AsBQZLwh+L5jHFHPlm516Mmtc/VhROGT
+	 lNdUaWjfNv6gw==
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 0ADF0198003A;
+	Mon, 28 Sep 2026 06:45:23 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-06.internal (MEProxy); Mon, 28 Sep 2026 06:45:25 -0400
+X-ME-Sender: <xms:Q0W6ame47D9MaXBY-G9oKtIF0u9qyGuMcWh-z2_zFY13ibi5h3FpMg>
+    <xme:Q0W6agrV11EYmJoOBxuq2ktzvOciho9MYMAFiT5kmXW78D2IBup33aLx_LoiIY49Y
+    1vueIlY5LRWfOPCmz7_8meHs3t6DihIw2c6hyVOvML_tBSSsFAU95pJ>
+X-ME-Received: <xmr:Q0W6as_0QqgphPDV6kZf_MxU08Xna30sVf_-eX80ZHpUMsQn7wO5WKIDVJU>
+X-ME-Proxy-Cause: dmFkZTEQ2M4Yss00TVpFpyzYKayTNLhSmxlk8jgjYdWRC8efZB9dhd1fhy51Ard/y+ZR52
+    mQzsiCa3phAmXiUEsipTMcJZKBtf9dU2wz0a/IwoLhZl3hUY9v5yn7wDMUjwGwyJmAh0XC
+    bjpflSyPRI5OmclTeYExGhZ5xy1PLjrywhAsS7laXNeXT5atgJLELAXGuiG6jFTyo89i8N
+    6QrLqf/9UpPfOJ2VRQ1pffV0SHdsTMeCSkgCgk8VYQb9KnDhpYc08nTyCMw2ppxi1TusCU
+    frbp1suLUW4f78RzbWO+LUGjoIyb5F/hrDuH1UVFGbQmOyOePFniGTBH5CX1x2U1eK0tTx
+    3CAj7Tq/ETMBGkHKCBBxSzxkd2hwtd2MP8GN1m1ZL8D3ztlRI0inQfX9YZexQE3LnePDsI
+    hLJiZrCPKPYIfvxLOJyUytXOdjKpzSmzMbkmjcyAqnkzbEPpf4SgGJawzEm0x0fdIwPwjL
+    WUDs8+RNftCaeTHljXiKAoiW0Drmk3JYLBXfpPOAuvxvbfywJHy07rCO+YQQtuk8MrN4hS
+    Gjdp+OMmA3A0b+SuFVP2TYpGnsTcGrcLzmgM22cbxKxmJJd4LToubqv0fB9JWIy+7mn9XT
+    MJz++EzRZD1yR1mm8QFaqg/rtlE61Yca4OhgDVTw1nD/DjU9h4xDSAVKht2A
+X-ME-Proxy: <xmx:Q0W6ah6NgBNPToTjNWoaDm7omAaGWgrC7ZsS_-8lm7O0g2QIPq8ncw>
+    <xmx:Q0W6amiC5N-CbhpZ6pkSN_tQeoY6Q9uScOkFbq1js8aBwq4he4mM_Q>
+    <xmx:Q0W6aor9HR-Btkv3EH984Ou_Fq34Qwvob97iB9gBtEPcIKifgNOT_Q>
+    <xmx:Q0W6aiLViP_tumx3rNT1HgsOVtVpqiNQYGxqh-3WA6npHFMkfpAzRA>
+    <xmx:Q0W6alvyKHocqgx1txQ50t5HDAyk0da1pYdclSxqTGrghaw21JLIPODy>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 28 Sep 2026 06:45:22 -0400 (EDT)
+Date: Mon, 28 Sep 2026 11:45:21 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Brian Geffon <bgeffon@google.com>, Minchan Kim <minchan@kernel.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] mm/mremap: fix locked_vm leak from MREMAP_DONTUNMAP
+ self-merge
+Message-ID: <arpEHIwTy8QxUjI2@thinkstation>
+References: <20260920-fix-dontunmap-partial-self-merge-v1-0-6ffb556f8f8b@kernel.org>
+ <20260920-fix-dontunmap-partial-self-merge-v1-1-6ffb556f8f8b@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260920-fix-dontunmap-partial-self-merge-v1-1-6ffb556f8f8b@kernel.org>
 
-commit 6fb0a9d9071f1ff0cc5cfc0782302d9c90d642cb upstream.
+On Sun, Sep 20, 2026 at 03:13:10PM +0100, Lorenzo Stoakes (ARM) wrote:
+> The MREMAP_DONTUNMAP feature is highly unusual in that it permits mremap()
+> operations that keep the original VMA in place.
+> 
+> Historically this has led to a lot of bugs where non-obvious interactions
+> occur between existing mremap() operations and the original VMA.
+> 
+> Fix another of these - self-merge.
+> 
+> Self-merge occurs when a VMA is moved in front of or behind itself and the
+> attributes of the VMA permit such a merge.
+> 
+> Practically this can only happen for unfaulted anonymous VMAs due to the
+> page offset equality requirement for merge:
+> 
+>                            |------------|
+>                            |            |
+>                            |            v
+>         |...........||-----------||...........|
+>         |           || unfaulted ||           |
+>         |...........||-----------||...........|
+>               ^            |
+>               |            |
+>               |------------|
+> 
+> This becomes problematic if the VMA is configured by the user to
+> mlock-on-fault, i.e. the VMA_LOCKED_BIT, VMA_LOCKONFAULT_BIT VMA flags are
+> set.
+> 
+> MREMAP_DONTUNMAP clears mlock flags for the source VMA and maintains them
+> for the destination VMA.
+> 
+> Self-merge makes this impossible (there is only one VMA) and incorrectly
+> clears the destination VMA's mlock flags.
+> 
+> This causes a leak in mm->locked_vm as clearing this flag does not
+> decrement the counter and the VMA no longer has VMA_LOCKED_BIT set so it
+> is not decremented on unmap.
+> 
+> Resolve this by simply disallowing a self-merge in this case - the source
+> and destination VMAs are kept distinct and then are able to have distinct
+> mlock() flags.
+> 
+> Update dontunmap_complete() to make the now-redundant self-merge check a
+> VM_WARN_ON_ONCE() instead to guard against future regressions.
+> 
+> Also update the VMA userland tests to reflect the change.
+> 
+> Fixes: e346b3813067 ("mm/mremap: add MREMAP_DONTUNMAP to mremap()")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-The hand-written bitfield offsets in is_link_up(), is_autoneg_enabled()
-and is_autoneg_completed() were correct when the abstraction was
-merged: at that time autoneg, link, and autoneg_complete were at bits
-13, 14, and 15 of struct phy_device's first bitfield unit. Commit
-2796ff1e3dca ("net: phy: add flag is_genphy_driven to struct phy_device")
-later inserted is_genphy_driven just before autoneg, shifting the three
-fields up by one, so the accessors now read:
+Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
-  is_link_up()           reads bit 14 = autoneg
-  is_autoneg_enabled()   reads bit 13 = is_genphy_driven
-  is_autoneg_completed() reads bit 15 = link
+One thing: mlock semantics of MREMAP_DONTUNMAP are not documented in the
+man pages, only in the commit that added the flag. It can be surprising
+that the source gets munlocked. I am not even sure it is the right thing
+to do.
 
-The official ax88796b Rust driver uses all three accessors in its
-read_status() implementation, so it inherits the bug.
-phy_attach_direct() sets is_genphy_driven only when it falls back to
-the generic driver, and ax88796b has a real driver, so
-is_genphy_driven stays 0. The broken is_autoneg_enabled() therefore
-reads bit 13 as 0, compares it against AUTONEG_ENABLE (1), and always
-returns false, so read_status() never reaches the
-resolve_aneg_linkmode() call.
-
-The ordinary bindgen accessors take &self. Calling them through
-(*phydev).link() would create a shared reference to the complete
-bindings::phy_device, which is not appropriate for an object wrapped in
-Opaque.
-
-Use the bindgen-generated raw accessors (link_raw(), autoneg_raw(),
-and autoneg_complete_raw()) instead. They retain the bit positions and
-endianness handling generated from the C layout without creating a Rust
-reference to the complete phy_device. Drop the hand-written numbers
-together with the TODO comment that marked them as a stopgap.
-
-The raw accessors are only emitted by bindgen 0.71 and later, and were
-added at the Rust-for-Linux project's request, so this fix can only be
-backported to stable branches whose minimum bindgen version is at least
-that, hence the scope on the Cc: stable line below.
-
-Found by a static equivalence audit (C2RustDrv, a C-to-Rust driver
-migration tool) that compares hand-written bitfield offsets against
-the bindgen layout of struct phy_device. Verified by building the
-bindings and checking the generated accessors; no runtime testing was
-possible without PHY hardware.
-
-Fixes: 2796ff1e3dca ("net: phy: add flag is_genphy_driven to struct phy_device")
-Cc: stable@vger.kernel.org # Only 7.1.y and later (requires bindgen's raw pointer accessors).
-Link: https://github.com/rust-lang/rust-bindgen/issues/2674
-Signed-off-by: Chunfeng Song <springbreeze@stu.pku.edu.cn>
-Reviewed-by: FUJITA Tomonori <fujita.tomonori@gmail.com>
-Link: https://patch.msgid.link/20260910055110.167110-1-springbreeze@stu.pku.edu.cn
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ For 6.18.y, re-do the commit manually adjusting the bit numbers to
-  make it work with the `bindgen` version available there as Chunfeng
-  mentions in [1]. - Miguel ]
-Link: https://lore.kernel.org/stable/SEWP216MB9770116738884C46F156A686FAF98D2@SEWP216MB977011.KORP216.PROD.OUTLOOK.COM/ [1]
-Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
----
-Chunfeng: I assume you meant a patch like this instead in [1], right?
-
- rust/kernel/net/phy.rs | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/rust/kernel/net/phy.rs b/rust/kernel/net/phy.rs
-index bf6272d87a7b..5963dbbd54af 100644
---- a/rust/kernel/net/phy.rs
-+++ b/rust/kernel/net/phy.rs
-@@ -130,7 +130,7 @@ pub fn is_link_up(&self) -> bool {
-         // SAFETY: The struct invariant ensures that we may access
-         // this field without additional synchronization.
-         let bit_field = unsafe { &(*self.0.get())._bitfield_1 };
--        bit_field.get(14, 1) == LINK_IS_UP
-+        bit_field.get(15, 1) == LINK_IS_UP
-     }
-
-     /// Gets the current auto-negotiation configuration.
-@@ -142,7 +142,7 @@ pub fn is_autoneg_enabled(&self) -> bool {
-         // SAFETY: The struct invariant ensures that we may access
-         // this field without additional synchronization.
-         let bit_field = unsafe { &(*self.0.get())._bitfield_1 };
--        bit_field.get(13, 1) == u64::from(bindings::AUTONEG_ENABLE)
-+        bit_field.get(14, 1) == u64::from(bindings::AUTONEG_ENABLE)
-     }
-
-     /// Gets the current auto-negotiation state.
-@@ -155,7 +155,7 @@ pub fn is_autoneg_completed(&self) -> bool {
-         // SAFETY: The struct invariant ensures that we may access
-         // this field without additional synchronization.
-         let bit_field = unsafe { &(*self.0.get())._bitfield_1 };
--        bit_field.get(15, 1) == AUTONEG_COMPLETED
-+        bit_field.get(16, 1) == AUTONEG_COMPLETED
-     }
-
-     /// Sets the speed of the PHY.
---
-2.55.0
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
