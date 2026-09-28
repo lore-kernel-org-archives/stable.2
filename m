@@ -1,144 +1,153 @@
-Received: from mail-oo2-f43.google.com (mail-oo2-f43.google.com [74.125.231.171])
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C302B3859EC
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 18:23:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88B78340401
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 18:25:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790619837; cv=none; b=jni9c+zyhTIfnuI8LJv4og/ETK/C9xcQ2irNVhILnXKg6uQaD9RAQLhcCRm5EMTlSCIfoUflCnJUj9qRHGxkTWQq3AnpDtYm5FetLzRbnuyblfVJ2J7V2fY9xkh+rBj3WwZWlxHLIZR5Oc741R9DCkr3EumNy2FH5AgC65kw1ds=
+	t=1790619946; cv=none; b=L6emAzkAzDWUPKI/CwZ/6EF1w8wJtSiRV89LOZVS1XKg/qDthx7XVpvr9bdhlVDD3VKVDU2+BuBNOLtmGu4dlN+q+KYOY7rvXWMCyZjX9f6S+YpIh1dJoGJZxy0EHlNF6hLBhwkwQTgUQXEc83jdIMl8lIHjYA61dcuetabuu6c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790619837; c=relaxed/simple;
-	bh=aRIz+/TLeV5QG5HfhEI3Vm/Qlc+mrmjsdIrqB38cuUU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=R8lq9nVo3YqdUKsSa1FXudB3svyD+SGtbukJ49EfcTapFdFKlHlLQAatmHozRNtlqDBP5BGRSHFrnBRnmWnkuPYs5yyjOU+ULhYHD2bF20JYkfvICy5O5TQZwCHuZUpgedenZpkRdeRcCE2x5ZCk2B3nwOzEPL/2MIgP+s3FLpI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P5PPNtpm; arc=none smtp.client-ip=74.125.231.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790619946; c=relaxed/simple;
+	bh=S6eNU2hZhNF7ss9QpaGLOW/V81g2oJ53iDZrrOnsD4U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JZi1Kyq0WEIOjOR+iBoqvSMo1PMP4gi3fVhWbfEXeng43S+spLxP7d7gNQrXOZ44GZaESErei1NYnXmTSwm73Rwn6xzLg1cl68DCQzd+31eRDOjqf/bZ8VnLT3+PRuEIEbIZ1z3k/ceniyCo8qEYvJfQcw8L0q56dcSZlAl0168=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=IO4P93KI; arc=none smtp.client-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P5PPNtpm"
-Received: by mail-oo2-f43.google.com with SMTP id 006d021491bc7-6d817a94799so707357eaf.1
-        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 11:23:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="IO4P93KI"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2db33db4de9so8075ad.0
+        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 11:25:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790619835; x=1791224635; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qaxRhHQb6MoYo1XfTIRxXUIBkVqO+XC1qTwYParAjIk=;
-        b=P5PPNtpmEFbQctcQ+gSqHnvP5kUl9OCoV9nrkDcsB9w3P438gVG8h9iBgRr2uwIark
-         O8t7Lk+bHajZwssnw6YxfZO6IfOMokUOh4H1k6xPqVUwFOelxjFnYZMK7gW1gDx5Ca4p
-         0ZTB9sziVc/+AFNuWGg6O1Pc8EyYEH9uDnzj2lzlq0Bl9C1afx/sN6Q/X8lXVcktwcu7
-         I5KaUZLhf+7M0Fod0uF9hbYoPGgLrr3HzJIvC2HFOIOEhuWiREHswYA4b+1LXAhNAVFa
-         WDYTUemlEULGfl/8hijttcuX1WeQnWvdw7PjWNLfm7qO53k25wto6dWKnmtFl59nWaN0
-         vMBA==
+        d=google.com; s=20251104; t=1790619944; x=1791224744; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=S6xtdmPyxZgVCGy2Ldjj48nQ82FMLqqca6Mq7V23FWM=;
+        b=IO4P93KIDOW+P2uTRUmyRgsJusEnS4QCJuxRc3bgygSF+I0gLWixDuZMwr0lOdyBCX
+         Fzs9cwJm5EoViaFVszWYzHwHKNB+ABpQm06hOfX8IFHIm0uxt88SVpiuesF2sCqaMDqu
+         sFJVYUfxtaqVdbCkQqOu4FFXrldFeFwgUH27nzUFslCXQVVHbSuiE0Y/Aqbff4gEL4jM
+         uAJDLTELQhGz1OLzjtwOnmP/QoNqqvmZCYpEE30Gy/lQTHhhVnDzWc/hHKIcuGJQRxu0
+         rWdaXaOuWQf1tRn8VQeTYonGCF4yaU9mQA3eBUjDOdAXkipr8ryrZWG+BqnzjPZAxtco
+         nU2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790619835; x=1791224635;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qaxRhHQb6MoYo1XfTIRxXUIBkVqO+XC1qTwYParAjIk=;
-        b=wGu2gl4lmQMaODAJ7eP2no72dCzVKPM/NwSs0jAZNVyJEEnau81I3gAIhhELpRPD5W
-         TB8YqZPJa/sl/KqTUiC1E2Kje8T04zSDo6tr67519xZ2jUApbYRht70tqTZvunqFcnWU
-         mfZAXy2bPPoBef+gY+9agN6gHcoA5Q75XiKogKANqIuS7k2LHdoB/fOaOdlLqWkUNXVH
-         d38bUhFk9Qbhi6mG06aSreaNUPJFNL/N42UbUUySTUkNTHJ6fc0naE8qUMsGa9+Yz2ot
-         cBSIswmO5IE0SbMG1zakoy7IJESq8KFqoEPVkIXLhaJESxCkLI6HiWEvJN0wFI/H1KgA
-         4lhw==
-X-Forwarded-Encrypted: i=1; AKwUvByE5BBv6p4oR7cQdUwqZfD1287T1xhk+U8qVKqzkes54m4AL+Gsg/X4PlxrKJCOvFhr3vCJIf8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mBs1zwHxavlIkJTJLAs6eVLtXkfig4/1oILB3Pcab1ZLh2ZhUK
-	Ujh1mReJUiJcIaX6tzwyrxvdNptcUlGKgmVqmYZNySZz4FyC2inaBQgAVsZRqw==
-X-Gm-Gg: AYBFou3faqs4CBxWJ7tAvWvoNZhLxJiTPCWpnd3e3VIVWbcQINb9isSZFJVgEyy+fgK
-	h5c5xnbQSYPdMIPJA/DPhv3etXif/ZCypYPe+It7WnUSyTNFVJngooBPY/hwIyE23vuum/OpvGM
-	2zOOYQlbt8ll42t4uFNYXIIf4VMDF4sFD/HypPu+Vwkg7YCYNCJzZOlg58qmXP6V4Rj5/QAbajc
-	1o1z7G/B81dImelA4G3oXU3e98OAv1SLJ09b8u7MUIF1D2sWpoLlhgu1Fo7LiVRvToMsfzAgwV8
-	tqupJKv6AfaUCZmXVdEtGxDe3N3B1jf8zrJ1tHu3j4/A5JNpnSXCZKCFb1LO/yoM7+ad8RQ51b0
-	obdnIxb3da2gExG8lgkDKiLTqNm/CmQi7w29oU1bC2I4IPhzmrljZkjAgk7pTYNh6+Ks+mPmLVA
-	QVKosKxtxuVnkNgdQJbRNoWYZ7ZIWuFHnXENyfga3DAvZh6lWdIq0uFp/y3BqJzkhQUJakss22f
-	JVpDKgh5VJ9JGhICXRPqlRzrUqZYPgVibxhGdS+hvqdoahNcLk=
-X-Received: by 2002:a05:6820:3388:20b0:6d7:6eaf:8353 with SMTP id 006d021491bc7-6d76eaf8a3fmr3823072eaf.88.1790619834636;
-        Mon, 28 Sep 2026 11:23:54 -0700 (PDT)
-Received: from archlinux.lan ([136.34.156.120])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6d882dc4a9asm5994311eaf.10.2026.09.28.11.23.53
+        d=1e100.net; s=20260707; t=1790619944; x=1791224744;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=S6xtdmPyxZgVCGy2Ldjj48nQ82FMLqqca6Mq7V23FWM=;
+        b=bvO3K+QBrsuiNr6ZSKPj/OQYh2XySSNC13doVLIiclZWtvCT+RuK8SZsh3YOLNp4QN
+         HO3cwK9SNTJZTsZ15nP3kmSC9pcWQTIOp517mfgj08t7BOjJcnDdJrrVDHJ23wCnlsrI
+         FTYlJMfmSPCp9v/gFyk0m0xB2mqNUR3EUeS/3UU92jS9jNP+8ahz8fzOvc8Jv5qEqSYT
+         UhP7s878zeB+EZRVSPLOj7bFiQuezRbQ997sxK9aP5cBeatCJwwx7wXESiq2F+zVEN8x
+         cuLiyeGjL5gKWGce5PzikE0jGUXsmPhgP8e1oigfobuhweaYAZSAwKvqJcRdhAzlb/5B
+         yHpg==
+X-Forwarded-Encrypted: i=1; AKwUvBw84hnuJADS7kaBo4ZcE2ZVDVYgvlPvZkJyvw+wa8ZDJNK8z+zLBtA5L7i2zJIWdV5stQIj6Fs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLS52tn+kRK8VlmnkE27CJ8zYsn5fsjloce141g9HICezzJkthC
+	u8fxv//Lbu1Mkcy9CVZWzQbyMy1u8ge+9P+bLWWDSVn4XrSR5aBA7ti0d7Mvc4rWjw==
+X-Gm-Gg: AYBFou1xESBfDTtG6kcDCXxULTxebZ5DFBs+3mULG2qzLaCZz5FnigKNR5Q3grMRgnw
+	erGwz4EwqIVS+f0c2WQr5DLJLZD9v4Ei2BZQXyf9HdOuozQXVxQc5g9/iPM2Pv4KMo1nYCwFkg5
+	60IlBt8+SMa6tFY0iXebJr1ZiGBBgLTHCpikBFzMUAWuJlR2hLdjBviSQn//XpvWaCJ3KODhy/Q
+	KXM68xkwk9Ms99qeeR+iPnrClvPy/tVzWPqm/UOBKGVl8wx3l2cWxRjnkHbDRL6sj67h51h5ZHl
+	JDfZ3RrP6Lmd4IFTotnhCOZnIGhonXV9aNkwgAs6N5+gy15Lz9SqtJQeBrAGcQsR3VY617oh1Lx
+	R4+ux+wBRblrpdUdMfpbvALVNcsYGyzfiuVIAUohHTxCYw5lxEulULHJi0vYCQiZnzwbcwnTiGh
+	TOZn6b4iJZJMXIQLUydLufQyBMdiAhQpCp0I+CXrZLWmBOC6NyddfZyrCQ9u3/6btRVgcRqlsUX
+	w5QLOYuMaRZjfBb6kKHfsnYVMH2i2fD5wiz
+X-Received: by 2002:a17:903:3a8b:b0:2cf:9ec1:ea6e with SMTP id d9443c01a7336-2e2c600c613mr28065ad.8.1790619943076;
+        Mon, 28 Sep 2026 11:25:43 -0700 (PDT)
+Received: from google.com (105.211.142.34.bc.googleusercontent.com. [34.142.211.105])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a49858c123sm831538a91.3.2026.09.28.11.25.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 11:23:53 -0700 (PDT)
-From: Danish Khateeb <danishkhateeb03@gmail.com>
-To: Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>
-Cc: Ivan Orlov <ivan.orlov0322@gmail.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Danish Khateeb <danishkhateeb03@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] ALSA: timer: Handle userspace-driven timer ioctls from 32-bit tasks
-Date: Mon, 28 Sep 2026 13:23:52 -0500
-Message-ID: <20260928182352.309457-1-danishkhateeb03@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        Mon, 28 Sep 2026 11:25:42 -0700 (PDT)
+Date: Mon, 28 Sep 2026 18:25:34 +0000
+From: Pranjal Shrivastava <praan@google.com>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Jonathan Corbet <corbet@lwn.net>, iommu@lists.linux.dev,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Jean-Philippe Brucker <jpb@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
+	Mark Rutland <mark.rutland@arm.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Will Deacon <will@kernel.org>, David Matlack <dmatlack@google.com>,
+	Jean-Philippe Brucker <jean-philippe@linaro.org>,
+	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+	Nicolin Chen <nicolinc@nvidia.com>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>, patches@lists.linux.dev,
+	Samiullah Khawaja <skhawaja@google.com>,
+	Mostafa Saleh <smostafa@google.com>, stable@vger.kernel.org,
+	Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
+Subject: Re: [PATCH v7 8/9] iommu/arm-smmu-v3: Change how the tlbi describes
+ the invalidation
+Message-ID: <arqxHgwVXcS5PIJZ@google.com>
+References: <0-v7-e84261bbe7cd+2ea80b-smmu_tlbi_jgg@nvidia.com>
+ <8-v7-e84261bbe7cd+2ea80b-smmu_tlbi_jgg@nvidia.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <8-v7-e84261bbe7cd+2ea80b-smmu_tlbi_jgg@nvidia.com>
 
-32-bit tasks on a 64-bit kernel can't use userspace-driven timers. The
-compat handler for /dev/snd/timer doesn't list SNDRV_TIMER_IOCTL_CREATE,
-so creating a timer fails with -ENOTTY. The file returned for a timer
-has no .compat_ioctl either, so SNDRV_TIMER_IOCTL_TRIGGER fails with
--ENOTTY too.
+On Mon, Sep 21, 2026 at 08:55:16PM -0300, Jason Gunthorpe wrote:
+> The range-invalidation logic has long had a FIXME that there is not enough
+> information to properly compute the range invalidation. There is also
+> subtly not enough information to properly compute the single stride
+> either.
+> 
+> Change tlbi to use the information format that iommupt is going to use for
+> ARM. This prepares the invalidation code to support iommupt and fixes two
+> small limitations with the current code.
+> 
+> iommupt is designed to accumulate all invalidation into a single gather,
+> then the iommu driver should issue a small number of commands to execute
+> the gather to control invalidation latency. This is in contrast to
+> io-pgtable-arm.c which generates many gather flushes and direct walk cache
+> flushes as it progresses.
+> 
+> To accommodate this the gather will accumulate "damage" in bitmaps, one
+> for leaf changes and one for table changes. This is enough information for
+> SMMUv3 to compute the proper stride for single invalidation and to
+> generate ideal hints for range invalidation.
+> 
+> Change the inner workings of the tlbi process to directly use this
+> new-style gather description with the idea that the iommupt conversion
+> will just direct assign the gather fields to the tlbi.
+> 
+> Rework the three places creating the tlbi to express their needs in
+> terms of the new bitmaps.
+>
+> 1) Simple iotlb invalidation always gets a single range of leaf
+>    levels, so it can set a single leaf bit
+> 
+> 2) Walk invalidation is expected to clear the table and all the leaves it
+>    could contain. Set a single table bit and all the leaf bits.
+> 
+>    There is a weakness in the existing io-pgtable where it double
+>    invalidates the leaves, once through the arm_smmu_tlb_inv_walk() then
+>    again through the gather. Since these are separate operations they are
+>    not capped by the invalidation count limits and a single unmap may end
+>    up doing thousands of tlbi commands. Eventually converting to iommupt's
+>    gather only approach will correct this.
+> 
+> 3) SVA invalidation has no idea what the MM did, so it will set all
+>    the bits in the bitmaps.
+> 
+>    This corrects another weakness where the range-invalidation logic
+>    was generating hints assuming the #2 rules which isn't correct
+>    for SVA.
+> 
+> Reviewed-by: Nicolin Chen <nicolinc@nvidia.com>
+> Tested-by: Nicolin Chen <nicolinc@nvidia.com>
+> Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
 
-struct snd_timer_uinfo has the same layout for 32-bit and 64-bit tasks,
-and SNDRV_TIMER_IOCTL_TRIGGER takes no argument, so both commands can
-be passed through unchanged.
+Reviewed-by: Pranjal Shrivastava <praan@google.com>
 
-The utimer selftest doesn't catch this when built with -m32: it takes
--ENOTTY from SNDRV_TIMER_IOCTL_CREATE to mean CONFIG_SND_UTIMER=n and
-skips.
-
-Fixes: 37745918e0e7 ("ALSA: timer: Introduce virtual userspace-driven timers")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
----
-
-Notes:
-    Tested on x86_64 in QEMU (sound/for-linus plus this patch, KASAN and lockdep):
-    - A 32-bit program that creates a utimer, starts it on a second
-      /dev/snd/timer fd and triggers it 10 times gets -ENOTTY from CREATE
-      before. After, it reads back 10 ticks, the same as the 64-bit build.
-    - The -m32 utimer selftest skips before ("CONFIG_SND_UTIMER not
-      enabled") and runs after. Its tick-count case fails before and after,
-      in 32-bit and 64-bit builds alike: the global-timer helper segfaults
-      on this host once the timer ticks.
-    - No splats. Built with W=1 for arm64 (COMPAT=y, LLVM=1) and for x86_64
-      with SND_UTIMER=n.
-
- sound/core/timer.c        | 1 +
- sound/core/timer_compat.c | 1 +
- 2 files changed, 2 insertions(+)
-
-diff --git a/sound/core/timer.c b/sound/core/timer.c
-index 679b26435670..69a59b25fe0a 100644
---- a/sound/core/timer.c
-+++ b/sound/core/timer.c
-@@ -2176,6 +2176,7 @@ static const struct file_operations snd_utimer_fops = {
- 	.llseek		=	noop_llseek,
- 	.release	=	snd_utimer_release,
- 	.unlocked_ioctl	=	snd_utimer_ioctl,
-+	.compat_ioctl	=	snd_utimer_ioctl,
- };
- 
- static int snd_utimer_start(struct snd_timer *t)
-diff --git a/sound/core/timer_compat.c b/sound/core/timer_compat.c
-index 25ee81c1668b..5bab00466de7 100644
---- a/sound/core/timer_compat.c
-+++ b/sound/core/timer_compat.c
-@@ -99,6 +99,7 @@ static long __snd_timer_user_ioctl_compat(struct file *file, unsigned int cmd,
- 	case SNDRV_TIMER_IOCTL_PAUSE:
- 	case SNDRV_TIMER_IOCTL_PAUSE_OLD:
- 	case SNDRV_TIMER_IOCTL_NEXT_DEVICE:
-+	case SNDRV_TIMER_IOCTL_CREATE:
- 		return __snd_timer_user_ioctl(file, cmd, (unsigned long)argp, true);
- 	case SNDRV_TIMER_IOCTL_GPARAMS32:
- 		return snd_timer_user_gparams_compat(file, argp);
-
-base-commit: f090e7ff26fe08be4cd57e0950872ede4af5351a
--- 
-2.55.0
-
+Thanks,
+Praan
