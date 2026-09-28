@@ -1,119 +1,158 @@
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF80438E8CA
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 18:28:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B1183890E4;
+	Mon, 28 Sep 2026 18:31:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790620125; cv=none; b=F9MzJyMpW5L1kVq7EXZUfuXL2/vihrCcwYjD8nba02MSX+WhVQDSsEPySO8CKfw8CJFt/7WdvcX72UJEF0tvrGR2rGL7o4piFzQ/G5x2QEjPqWNTzeMp5LZeefr0cAaHTOAtD6yD0Ctzrc19KaSW0qvxQPnZK4Lnvxwkicq6nIw=
+	t=1790620318; cv=none; b=she65QaEW8u4b8pJo0Cw5prLDLi4VHR/1+cyV8wFlYr0mRIKl+6Fzj2OVLzSTXAeffFNlZ3gDA9MO3SbTcwZbw0ihrPx1uMsK/OTOapePjNcIHfiP11RLCLu4Ku0/MWJvCkFBdd4sDly+s1/8HPhFt5DMtZOMm6gfFkD7cWcqvE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790620125; c=relaxed/simple;
-	bh=PM7o7yT/Rqooq4IBMLSMsdjoROJ01Ib/Nu/ypwEpkk4=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=ZlFncHXOOQb3s5EJcbrBcxJVl6hyw35BOdeJh579Jz4bGlD70IrCNRTIl8kGev7WrJUjpKv4VnucdAWzR3GaXbqiSF/PxVdWNqAHIdE4gYTUYMIOkKtgjxE0n5th/Gi2KQDHl5my8Szp9PJIPjc2lM7qS6axMIGSn4m7+oWDc+c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=IemQbq/O; arc=none smtp.client-ip=209.85.214.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1790620318; c=relaxed/simple;
+	bh=JVypUUxs+lUsBPm6X6PBDEgxX0p1RR7e6NozMRHP/lM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=p4uVG7I27yMVQrkskbAY+zXjAMfWOrV8hkSBFaSM4Uv4RmTGr4KsFnX7kp+13aYrG2z8u+NKY1VHHmb9sTCDDTgUor5iUpFTyuBAuH5MPJnRjUbLRx47dgYhqHVMmt5EzAPguoX5s4ArqwfhO3pHnTheI1DcBMhB6nzuKWQkVcg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=G/oyLUAz; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="IemQbq/O"
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2d001671a54so33868795ad.2
-        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 11:28:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790620123; x=1791224923; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yCua0pp+YaMex9dVxoGDp0jAQYnIyP+7fQUI4jKTB0Q=;
-        b=IemQbq/OnixXiZNmFeFjeYRBndVu0oc89OLyUx9SG/g+a5hBaBOt4Eo9PcLvsJ2Ljr
-         YQ7owou9DlPlHx+19BLz5sNVTm1hFQNImh075825vMX6HDVcqPeXpDqXUWMJs+2B9Y7A
-         n9FJsn2a6TjtFSKB0mH3hf04+22cneapbnROgvy+iN8xRb1wbUCC9AzfPsmMw+AnWdkB
-         K0rX8CgJKLMlURHPyqdcHU6C1/i7BL8m37kLPGHOjkwDJtYMywb7ZW8ZgfnDUdtN6JXs
-         GQV745c6INICvSwm3NFOMTMJqisOE6/ikgK3A4Pvd3jBhPXa+QnPFA/UbzEoWb8kb2DQ
-         hr/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790620123; x=1791224923;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yCua0pp+YaMex9dVxoGDp0jAQYnIyP+7fQUI4jKTB0Q=;
-        b=Ih3UPV9LIpQzs6J+vROovxqwccnK+W0hHfjQwwyX0rbnP01XzFU16aOYR8L/S0ubGN
-         bwwjeuyUWgWM2VvwXOuhNRcEsQTX9MIvyyAbdiv65PNJ9A3C2hdJ8DMZf2n3CkdTCK0i
-         K9i5cQKdQXLxROTcFZmJhsEd3NCvBMeU8tCy4IdevQBygSzTMoxDc+ojzjQeNev5mSVK
-         rZXqL1H8J8Yl8GCO8HbQmp0bSJpyJ4Yu3UPnA7O1/9juCKhKv8MDWDonYsscqUpFEqo0
-         yjMPchmunINlaFQTOp2UOZxo1AFBhrAneC0t/zqr8sGwX9sKYF8P5u2MyFtTvhuXGZI+
-         cwTg==
-X-Forwarded-Encrypted: i=1; AKwUvBze79XMKVYtF9RK1CN8oQaZqGvhsrvC9QxPPJbYHVqXBQvqR2/k5gB4yaC4+Jb+zEskW1O4hDk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKMeyGgobnzp2EvMBgSZimjP3TJPR9jUId1DVqLxsup8tTswz2u
-	T8FvCn9+pu4M7OLAnDPA1pgQRj9dON9sDrn7acIAEnQLfqtQJlvaYwe2PakWWF2vLUdmgjc9n37
-	IuS8TWQ==
-X-Received: from pleb21.prod.google.com ([2002:a17:902:d415:b0:2e2:bc36:1c75])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:cec8:b0:2dd:b6e7:ac1b
- with SMTP id d9443c01a7336-2df7da427b8mr112270915ad.2.1790620122874; Mon, 28
- Sep 2026 11:28:42 -0700 (PDT)
-Date: Mon, 28 Sep 2026 11:28:42 -0700
-In-Reply-To: <20260928164427.4699-1-k@mgml.me>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="G/oyLUAz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790620317; x=1822156317;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=JVypUUxs+lUsBPm6X6PBDEgxX0p1RR7e6NozMRHP/lM=;
+  b=G/oyLUAzOMf158aCJNBPbwKIol0Btdidi4iN5R6ORL+B7WhTLF3pN75A
+   sJ60FGIGsqEolYQmIYT3vrFo1H9IgBDOz4ytGEZQ/nlxZ9eJRNwNlADS/
+   JnofTJ1VyHZc7YjzkhF4TwhSrvf2tS9puLfdISMIezF24lRlUVCQ8JPLS
+   DGdPrke/gVgMoKhhUmcw5Tv6vSgRQBT53DFY9S7v0AcLr+MgzVQIritaO
+   6+vili77vlyRDH3ELhyzw+c06u0fLoHmJIxOAhTxocs/xm8wPxiaTif4b
+   noUYJIoAGpHLoyrX8M9ZferaihNDXCbRcUX6q4khBRnCOz2rkCmbnMSkh
+   g==;
+X-CSE-ConnectionGUID: BhLoiCtSSp+GZC+QrDmbnw==
+X-CSE-MsgGUID: dBsSHsZSR2WWtZ+C4siVaw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="91348543"
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="91348543"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 11:31:55 -0700
+X-CSE-ConnectionGUID: z6NjJOy1SM+zSr3mPEeXcw==
+X-CSE-MsgGUID: XQg3q6BZSKmkTthDusIUnA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="304631589"
+Received: from b04f130c83f2.jf.intel.com ([10.165.154.98])
+  by orviesa002.jf.intel.com with ESMTP; 28 Sep 2026 11:31:54 -0700
+From: Tim Chen <tim.c.chen@linux.intel.com>
+To: Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>
+Cc: Tim Chen <tim.c.chen@linux.intel.com>,
+	Chen Yu <yu.c.chen@intel.com>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Badole,
+	Vishal <Vishal.Badole@amd.com>,
+	linux-kernel@vger.kernel.org,
+	"maintainer : X86 ARCHITECTURE" <x86@kernel.org>,
+	platform-driver-x86@vger.kernel.org,
+	K Prateek Nayak <KPrateek.Nayak@amd.com>,
+	Ricardo Neri <ricardo.neri@intel.com>,
+	stable@vger.kernel.org,
+	Klaus Kusche <klaus.kusche@computerix.info>
+Subject: [PATCH] sched/cache: Honor asym packing over cache aware scheduling on hybrid system
+Date: Mon, 28 Sep 2026 11:37:08 -0700
+Message-Id: <221f8b0345328c4b26b65daff4d3eec56a32b06d.1790617047.git.tim.c.chen@linux.intel.com>
+X-Mailer: git-send-email 2.32.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260928164427.4699-1-k@mgml.me>
-Message-ID: <arqx2imW1-OL9IU6@google.com>
-Subject: Re: [PATCH 5.15.y v4 00/11] KVM: fixes for CVE-2026-46113 and related issues
-From: Sean Christopherson <seanjc@google.com>
-To: Kenta Akagi <k@mgml.me>
-Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, stable@vger.kernel.org, 
-	Paolo Bonzini <pbonzini@redhat.com>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 29, 2026, Kenta Akagi wrote:
-> This is a backport of the CVE-2026-46113 and CVE-2026-53359 fixes to 5.15.y.
-> 
-> v2: https://lore.kernel.org/all/20260626174620.1819772-1-pbonzini@redhat.com/
-> v3: https://lore.kernel.org/stable/20260913155523.7423-1-k@mgml.me/
-> 
-> Changes from v3:
-> - Added patches 3-6 to backport the change from gpte_is_8_bytes to has_4_byte_gpte.
-> - Adjusted patches 7-8 (patches 3/7 and 4/7 in v3) accordingly.
-> 
-> A regression has been reported in the backport of commit 0cb2af2ea66a
-> ("KVM: x86: Fix shadow paging use-after-free due to unexpected GFN")
-> [1], but the corresponding fix has already been merged into 5.15.218 [2].
-> 
-> [1] https://lore.kernel.org/kvm/20260630223723.83727-1-zcgao@amazon.com/
-> [2] https://lore.kernel.org/stable/20260825132543.573783299@linuxfoundation.org/
-> 
-> David Matlack (2):
->   KVM: x86/mmu: Use a bool for direct
->   KVM: x86/mmu: Stop passing "direct" to mmu_alloc_root()
-> 
-> Lai Jiangshan (3):
->   KVM: X86: Remove useless code to set role.gpte_is_8_bytes when
->     role.direct
->   KVM: X86: Calculate quadrant when !role.gpte_is_8_bytes
->   KVM: X86: Rename gpte_is_8_bytes to has_4_byte_gpte and invert the
->     direction
-> 
-> Paolo Bonzini (5):
->   KVM: MMU: update comment on the number of page role combinations
->   KVM: x86/mmu: Derive shadow MMU page role from parent
->   KVM: x86/mmu: Always pass 0 for @quadrant when gptes are 8 bytes
->   KVM: x86/mmu: pull call to drop_large_spte() into __link_shadow_page()
->   KVM: x86: Fix shadow paging use-after-free due to unexpected role
-> 
-> Sean Christopherson (1):
->   KVM: x86: Fix shadow paging use-after-free due to unexpected GFN
-> 
->  Documentation/virt/kvm/mmu.rst  |   8 +-
->  arch/x86/include/asm/kvm_host.h |  32 +++---
->  arch/x86/kvm/mmu/mmu.c          | 184 ++++++++++++++++++++------------
->  arch/x86/kvm/mmu/mmutrace.h     |   2 +-
->  arch/x86/kvm/mmu/paging_tmpl.h  |  32 +++---
->  arch/x86/kvm/mmu/spte.h         |   5 +
->  arch/x86/kvm/mmu/tdp_mmu.c      |   2 +-
->  7 files changed, 159 insertions(+), 106 deletions(-)
+A regression was reported on an AMD Ryzen AI HX 370 running a cache
+intensive Clang full-LTO link. The little cores run at a much lower
+frequency (3.3 GHz vs 5.1 GHz) and have only half of the L3 cache
+(8 MB vs 16 MB), so pinning such a task to the little-core LLC hurts
+twice, and full-LTO builds slow down dramatically compared to
+pre-cache-aware-scheduling kernels.
 
-With the disclaimer that I didn't do extensive testing...
+Asym packing and cache aware scheduling express conflicting placement
+strategy. Asym packing wants a task to run on the highest priority CPU,
+whereas cache aware scheduling wants to co-locate the tasks of a process
+on one LLC regardless of the priority of CPUs in that LLC.
 
-Acked-by: Sean Christopherson <seanjc@google.com>
+When asym packing tries to migrate task to an empty
+core that has higher priority than source cpu, let asym packing win.
+Moving tasks to a higher performing idle core will buy more
+performance than cache co-location.
+
+Fixes: 23b2b5ccc45c ("sched/cache: Introduce helper functions to enforce LLC migration policy")
+Reported-by: Klaus Kusche <klaus.kusche@computerix.info>
+Closes: https://lore.kernel.org/lkml/2180ea5a-eb28-4152-8d4d-cd00b0c24b2e@computerix.info/
+Tested-by: Klaus Kusche <klaus.kusche@computerix.info>
+Tested-by: Ricardo Neri <ricardo.neri@intel.com>
+Cc: stable@vger.kernel.org # 7.2.x
+Signed-off-by: Tim Chen <tim.c.chen@linux.intel.com>
+---
+ kernel/sched/fair.c | 21 ++++++++++++++++++---
+ 1 file changed, 18 insertions(+), 3 deletions(-)
+
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index f265de8721dbd..31eb45efd063b 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -10823,6 +10823,8 @@ static inline bool task_misfits_asym_cpu(struct lb_env *env, struct task_struct
+ 	return false;
+ }
+ 
++static inline bool sched_asym(struct sched_domain *sd, int dst_cpu, int src_cpu);
++
+ /*
+  * Check if task p can migrate from source LLC to
+  * destination LLC in terms of cache aware load balance.
+@@ -10847,6 +10849,10 @@ static enum llc_mig can_migrate_llc_task(struct lb_env *env,
+ 	if (cpu < 0 || cpus_share_cache(src_cpu, dst_cpu))
+ 		return mig_unrestricted;
+ 
++	/* Prioritize asym packing over cache awareness */
++	if (sched_asym(env->sd, dst_cpu, src_cpu))
++		return mig_unrestricted;
++
+ 	/* skip cache aware load balance for too many threads */
+ 	if (invalid_llc_nr(grp, p, dst_cpu) ||
+ 	    exceed_llc_capacity(grp, dst_cpu)) {
+@@ -12043,6 +12049,15 @@ static inline bool llc_balance(struct lb_env *env, struct sg_lb_stats *sgs,
+ 	    sgs->group_misfit_task_load)
+ 		return false;
+ 
++	/*
++	 * On asym packing domains, if the destination CPU
++	 * has higher priority than all CPUs in the source group,
++	 * prioritize asym packing.
++	 */
++	if ((env->sd->flags & SD_ASYM_PACKING) &&
++	    sgs->group_asym_packing)
++		return false;
++
+ 	/*
+ 	 * Skip cache aware tagging if nr_balanced_failed is sufficiently high.
+ 	 * Threshold of cache_nice_tries is set to 1 higher than nr_balance_failed
+@@ -13458,12 +13473,12 @@ static int need_active_balance(struct lb_env *env)
+ {
+ 	struct sched_domain *sd = env->sd;
+ 
+-	if (alb_break_llc(env))
+-		return 0;
+-
+ 	if (asym_active_balance(env))
+ 		return 1;
+ 
++	if (alb_break_llc(env))
++		return 0;
++
+ 	if (imbalanced_active_balance(env))
+ 		return 1;
+ 
+-- 
+2.32.0
+
