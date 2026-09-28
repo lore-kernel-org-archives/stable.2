@@ -1,59 +1,56 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5273923394A;
-	Mon, 28 Sep 2026 12:37:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C9652D7DC6;
+	Mon, 28 Sep 2026 12:38:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790599060; cv=none; b=IJrEKuLPndtltEoILGVhkeLodNgpxzALk37w7FmqO1ZZ7Ixx0UxpvXtFoN/Z0pTnRImr/8WpmBkFRBuzJUvkjZpctHweThngZIUl5iMG+nmAN5uG906LY7MVZv6tqnlJdxcn0C+zAaqMu2d6Zp9xJgFvi6EIwTlbKgBBDj5UfBI=
+	t=1790599107; cv=none; b=XL789HEI2btHECgxm5FCWyTdZUEemydF5kcNQzS1MDTY8Hbba0LaHu5/YuTfzCnKVirGNpa5o5TcMsv5SEy2Ql9niiLdl7mSWNfOb0SSfa4CA+zWQsCSTPxUbC4+1DFev08Q+9vpEFCm7xCZBRcP5kDXVYL/sLQvaCL5OUphnL4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790599060; c=relaxed/simple;
-	bh=SoXoOpTq7BBQSeAI/QQRRJMSXNBW9/qJPbLw6NnYeAY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Tsa5u/btX/jTZuLQLQtLXq5obx9dg587n2evkEHbnbZvjcrLG+5yc9BdG/K2fGvIM4fkl9wFiNt32FBa8J1Gsw1NjQBlPHUO54+2IVkFjljdLVdR/jqNQBseuvOryglnL+IWTPIb5bj67yJK079W0ATUCDaBBXGOFlMwdNu8tgQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X4vojdj9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790599107; c=relaxed/simple;
+	bh=L+btqsAyxztG0Y52KiKOSdLio4lCDLaKLm/oYCRIy0I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aQHVRzvhVDY6mLDIz8HQtYHc/86oKxbclvWwGBd4phIohbAiub/dv7aS0Zpy/aTbXbs+Q3E+WUg3NH6aMyNSbPfuRdKHFQT+XsnvWxVh5bj7gUgN9OlXebIXEGGRoOe+LYCoL4F/pCzBrfzcgf/F83BFEbMxCA2cL4V1zdWFMBM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=EH+1v7Yr; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X4vojdj9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 368BE1F000FF;
-	Mon, 28 Sep 2026 12:37:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790599057;
-	bh=mg/q5Uf4qDaXSLUHElUdbcsQbRByHYyfDRviKvolrD0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=X4vojdj9/y2HEuT/FpflZXZ62rrypMdKmUzD9FVTF6mRpcrML2e9k1LS8IcAauDws
-	 owQeYlIkxvXQG1iZQFo7cjJJKcpWZxqMDc6RT6lppsYzGej1dS4VdfQ0Yk0SrmrhuH
-	 ZoJZliaNd8HQKYOYg8G2gRNz+1+W3W3Tojh+7QUDp/RapGUKDCISEp1Ty9Up5d+HLO
-	 U02MleYYmGX42NertyRZx7jsaSsmttSdkwRq30zHIAQ5QDCuRN/mdEaH30lJYaLKQw
-	 6HUKWO8Fx3n5gTWyDLI0301C8BifCh/b6OUdb2KI2hUS4B1lkpC0ZLJYaKn/fsdlY0
-	 s4LfxKSSmE7bQ==
-Message-ID: <8b12d25a-84de-42fa-8536-9ff74fece4e6@kernel.org>
-Date: Mon, 28 Sep 2026 14:37:35 +0200
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="EH+1v7Yr"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 4B2AB8FD;
+	Mon, 28 Sep 2026 14:36:33 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790598993;
+	bh=L+btqsAyxztG0Y52KiKOSdLio4lCDLaKLm/oYCRIy0I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=EH+1v7Yr9yzoAn5fXP9CHj7OdfVwHheUjM8kduBIUvHUFKp7P8dvyoCmMCWjgFNPG
+	 j/phm6RkkGG39vVUCjbviDBS9958kI86+Hp4cmksJtIkeygRq3CLERZDO0DUXNDzbm
+	 4ppHY6YSSlft5jKzOAzrATdfsXSOtFPRKeuFxg/c=
+Date: Mon, 28 Sep 2026 15:38:22 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Ricardo Ribalda <ribalda@chromium.org>
+Cc: Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Edwin Gatier <edwin.gatier@protonmail.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3 5/5] media: uvcvideo: Force UVC version for Avermedia
+ GC515
+Message-ID: <20260928123822.GE157191@killaraus.ideasonboard.com>
+References: <20260911-uvc-version-v3-0-604328d8a0dd@chromium.org>
+ <20260911-uvc-version-v3-5-604328d8a0dd@chromium.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/5] media: uvcvideo: Force UVC version for Avermedia
- GC515
-To: Ricardo Ribalda <ribalda@chromium.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Edwin Gatier <edwin.gatier@protonmail.com>, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, stable@vger.kernel.org
-References: <20260911-uvc-version-v3-0-604328d8a0dd@chromium.org>
- <20260911-uvc-version-v3-5-604328d8a0dd@chromium.org>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 In-Reply-To: <20260911-uvc-version-v3-5-604328d8a0dd@chromium.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-Hi,
-
-On 11-Sep-26 15:22, Ricardo Ribalda wrote:
+On Fri, Sep 11, 2026 at 01:22:29PM +0000, Ricardo Ribalda wrote:
 > The device announces itself as UVC 1.5, but it only accepts UVC 1.1
 > controls.
 > 
@@ -713,21 +710,16 @@ On 11-Sep-26 15:22, Ricardo Ribalda wrote:
 > 
 > Cc: stable@vger.kernel.org
 > Fixes: b400b6f28af0 ("media: uvcvideo: Force UVC version to 1.0a for 1bcf:0b40") # When version overwritte was added
+
+That doesn't seem quite right, this patch doesn't fix that commit. I
+think you can omit the Fixes tag. With that,
+
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+
 > Reported-by: Edwin Gatier <edwin.gatier@protonmail.com>
 > Closes: https://lore.kernel.org/linux-media/CANiDSCu4AW=JZ9FS+Ny=DK_+LqqytGvSe+V6aVncRiGRiyDMfA@mail.gmail.com/T/#me584c35c4b523ac455925a1590a3de8efc354349
 > Tested-by: Edwin Gatier <edwin.gatier@protonmail.com>
 > Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
-
-Thanks, patch looks good to me:
-
-Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-
-Regards,
-
-Hans
-
-
-
 > ---
 >  drivers/media/usb/uvc/uvc_driver.c | 11 +++++++++++
 >  1 file changed, 11 insertions(+)
@@ -754,5 +746,8 @@ Hans
 >  	/* ViMicro Vega */
 >  	{ .match_flags		= USB_DEVICE_ID_MATCH_DEVICE
 >  				| USB_DEVICE_ID_MATCH_INT_INFO,
-> 
 
+-- 
+Regards,
+
+Laurent Pinchart
