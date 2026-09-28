@@ -1,66 +1,66 @@
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89DA84E433A
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 16:37:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6BE44EF15D
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 16:39:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790613476; cv=none; b=P2Z3blYswRL67TbwtKAwOai7bnE7G/PiIJMXuX5Z/E7mHbaat0J7r31xkfCkKZE8rSozlepe+Dc6uoTWCUCVSNAAJE9DGxUyHZNyYpLeNuwBtNHZTfH/TXDcsjD8FawSFmJJ80UUg3iZ+gcx4zo8Zm3vFffieqR8Xd6jVl8fbX4=
+	t=1790613553; cv=none; b=a7juTiotwnTgq7GoWfhJn/mfPk+B748v81vuC85dvrBdhRYzusxBxtowcknEu4en2sx0vElze6CeLyn5RpOWc6NsSHwv6K7cK5ik0LpkFo24EHYVJszpAhXZ11ft7tfVlqU+K7JRxV4uDVr+6wqVAjIYVhzp/SjaEMGvjoVdCPA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790613476; c=relaxed/simple;
-	bh=IXp+DNYl+BoH3Oqn6yr0ixaywkuluAO68ZDn2+oQlXg=;
+	s=arc-20240116; t=1790613553; c=relaxed/simple;
+	bh=eUfvVLZQX2fpM3flyInt6K9umn99g8n9V1ePGkoJIa0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CWm2Zj3qgWlh3EVHftvW99eXnmmj6hrzEt2AHai7x8uLZNk/HXp5riX5hTTF+CvtL7/L4PSCbbBacHQZ/Tzrnm4PZFHqtLy8L/xdj5N1E95yADkm/A+Gp8RdeiEcq6pR3RmmCDc7ZOJln3xiIvMAW6WirKdC375isKY8seSd20c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=pE8sweve; arc=none smtp.client-ip=209.85.214.179
+	 Content-Type:Content-Disposition:In-Reply-To; b=hT0XGsBtqiLyI2SyZ0TEwy1cGLA4z2olVxGBCe/XLuY58g0TngkiFaqt1AVIOV9Ya81oXxo7RHTOJRzwp7+8w1Zws35WkYYWnnqlh1LZAgJzM+0EwfkjOO+wO+Ge9IuQzCQDS/hylWbPX5NZ5K3syiYMBrwPUAg6Fl5s2GNEn0U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=JfV9Pgyi; arc=none smtp.client-ip=209.85.214.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="pE8sweve"
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2d3b445a84fso90635ad.1
-        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 09:37:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="JfV9Pgyi"
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2d3b445a84fso45ad.1
+        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 09:39:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790613474; x=1791218274; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790613551; x=1791218351; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=M/MstH2yf2DRt7ZMfWOotv8NrOEYhdb7bl9lXouyXqQ=;
-        b=pE8swevejwo93+ZmhKIbrPje6BVYus/8j+iIptZ1lP9b/XPGsDuprbrjOfUrMeg/pD
-         sI88T4DBDI2YNRLdc+01yMtcC/ikry+qJy7o+FtvkjQ435ncyill+croaLKP+1gujxzI
-         ir9EcasAb6m+WLxOR/EHcfyw7TKXHpfwYFAkDtgRRGlJmVnbqI40uAaA5DM8DzbpIduM
-         3cuuUcod9kwj3doKIwzFq5MZsawRep8kEW1TWlFI9wEpybXxujKVU9yKKmu1qoylLpkT
-         xqiuDlzZUp/Tewr+/g7+sPRnWzcPYsFC6t8T9zMhWYezUKp9rMT4CTIkz5B7DnuMNgLw
-         ic+g==
+        bh=39N4SJ5sD0wjIsHC5a7NtN6vI6BvpcPPu/06LAjzoVM=;
+        b=JfV9Pgyi/tKJGmV0wsJkemyexPUQeDYYMMTxqx1EuB2KJEgjPMK8A5iByYCzvfWGQy
+         iUvAbhd+PDUFPvQDo7yCaEMSczBF2OuI+5g6BcbBra4d1orWEeuWzvojSxQ3T6/cBHfL
+         v/cBQPDSRcWvEEF22deza+mF9nbcFz+7Eh7Wy0awzsZqgoalh/xFHoPRPk4f5lQXtfLr
+         t+952EUVhJT9gWhAVqOhTgQlEMJcrBnKJzLrLLLL7zxzKCmtQI2YLzmd6z7+fMTHCVXz
+         B64mRmDUZHAaOrxPVcuy7owfdKIkVQDPhkvYxh5lv+wbhMixkCG9DQGmNarpIRstv99k
+         1HvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790613474; x=1791218274;
+        d=1e100.net; s=20260707; t=1790613551; x=1791218351;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=M/MstH2yf2DRt7ZMfWOotv8NrOEYhdb7bl9lXouyXqQ=;
-        b=EAcMTL7y1M4qrNCV7XICN4itJhIt5H00UP4A1d8wr8VtHPKBktu1uPAkmkAfAigJnD
-         xZZ/pICjzMAO9ktuSPYMwq1w+g01U+vrk79i5+zagloZyJw3tqHeKovoIr+avMAXATKI
-         GGbUGApGwDFdaORQqw0Yrtad4gRUkWwlZlZ4Z0EhFm5JiL8AuKAPMj60rSnRu+QE3WkA
-         NIDzbcPJ7nE9DEg1MvDuIHts/QZ+gYrwiuyKvj7GQMCPUJwyL50dj3rqTiYFrWVAht+9
-         KWiJWw3GSLCUuXWa2+pQEwV6vXJu6j0W/5fBERqpqcyfTldJvtZRE0Eoh3kyODzjsE0M
-         KLVg==
-X-Forwarded-Encrypted: i=1; AKwUvBwppgtgULUqyJHYd1w6VtQKZm93+2mza8VI9Bknce5NbmcFGuz4ZUotRethg4Kj+d+FoMf7Blo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKrA/OuC2tY6u1cfHTvN2QjoCHcaHEvusttOuu9ghKoHW6tJqz4
-	f5EUTw/ChW19oKwNqGI+ibG4mOfeGOdTtnfhkBcd3IPXq8C3YxrgNpZjyku/lQ9yhg==
-X-Gm-Gg: AYBFou2ohDtqCFPZdXoZMTdJZAMvYQmym5KZ8jUlj7Twv7qxjcLnozyVa54tKUR9qRZ
-	f5ADnXXuXDzAWF5Xacq/NoGEZU5CY/UPJxzWfPBKXTrG0gE4UD01zBhPntTZSeVKYn8wF5CdV56
-	uuvq+nZOs5fza/6uwa2fNnzgq83hj1kWuzrtGW6175VufYPHgWjN5foW35kVcHT+7nS9PwCh8/W
-	Dp2hLtnMDzCh3YHkHwJjwAlid7m9Nbpa7ugaoUeIUUdN+Y6ulq5vafDacHCrw8C8KYw/cYUDR4U
-	mO8em/HbvGAswaFy76I9reKik94fVE3vxyGsmo3qUK+enGqOkSEk77OrXKxplTouXYj2Byd6YZR
-	+Ljlme8//C+APMpGTX/PO3JWcBUHcBp+WjoVKdyjbNUt6ekT2+6mphq1R0udeuji+ysCPFwDpZe
-	UjT+pmf40DJabZnockuy8L1T5oR6wOHAOCdtZBxE0Yw4w3aF08CXhyfKGFgLK6jQqyFRD1utP5F
-	9/vt5a87StUsVTXgQIuaw6oqpI2h5XaH7td
-X-Received: by 2002:a17:902:e884:b0:2d6:3c22:994e with SMTP id d9443c01a7336-2dfa976fec0mr5954175ad.11.1790613472819;
-        Mon, 28 Sep 2026 09:37:52 -0700 (PDT)
+        bh=39N4SJ5sD0wjIsHC5a7NtN6vI6BvpcPPu/06LAjzoVM=;
+        b=dRP0yzf948pof8u2Es57gXyK+YUgua0n/o61UZ0fZgDymRYtAsRoqTyi3+kMAzqmjQ
+         v47EXQoSwiyZq3qiKfgU0TPLMa3brDija/VQeRrxR6j8Q3BC8ADBu9+NhYDBa1Yqpo21
+         HGaEetjjb4Mps+rZ+79NGWyCRpRURxvxlcZNBGNKyElkhwcvF7vcSoaAytz1QnF0TOm6
+         v7RtfMVV48XhJ2rQS6qvRMzPxhKkdO2mkmbFzuZ3uGcuFFxuS7c4n7wMqipqPuH8cTcv
+         EHJjSJVDHcbogdVsHyrXOqr31m1b7oWsfyJcFVZ3JOJMh07cQ9PxvQy49Pod7dTpNErH
+         rEOw==
+X-Forwarded-Encrypted: i=1; AKwUvBwiCzNjHWw2Dbq+wWrg0FWTP9fvpQaKAIZgymFRzNbyounfyKQN1OHM6BWa0FYnUvtHOcbuu9I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJBM9RGBC9ENeVhBInCJZNDyKQy8E13gLxi84CONFYFc/75ufSf
+	xDwrbCM+J3kxdQTuLGLwTU6t7oO/N9bdyRI9H8DeJ+u3PQFvAU5vJe9snSYbCDNoMQ==
+X-Gm-Gg: AYBFou37iIogYRJ0Aon7BjsFnjAyR2H7rl7IXyA1h2VnwUPFNta30aXuAkgpndauKR5
+	4/O6a4VXcKvWwI5GalIcIImdr528q/bTPqYox+TCEDTLiLIUpjiu+iin7aPUWZj4TmW1JhCWGBZ
+	fiwsLqRgwT2icspt29e0+c8hmAyF2s87tZylJQqWyimp64XnQE6m6T8Xy1nbl9b6L2MVbajQHTL
+	pwsNSLTyG8xbq+Z9qvNCtMIontYTOg9IY0dg8HFXVtm990yjkzYo4EUus7LRLKNYesI81kJ9fM9
+	FGqiAUwXm20nOEd/8aOZFOfCC9q6/XAhLIFUzTJqbS2tuY0MCHr4Hl4wtuKTN6NsSf4GR/Y3ISe
+	UTqrztmLta4zcBBq/lAp03D8C0hDmJo8DAls9yBhIYadvpN7MCA85BE7dqa7dEL77uDrbgFcMQa
+	vIAG9vVSViLG3B0KOdeTlgpBDdZMNypJ0a5qZLvk+RoDGYW4dxGDkIfLif71vMQM7e+fyRsc3yo
+	tj5KAqIvl4qVIPRYsSr5XcS2gIpBEDpPQPI/ne/mFjybgY=
+X-Received: by 2002:a17:903:4b0c:b0:2d5:db3d:1a42 with SMTP id d9443c01a7336-2dfa9773f0fmr7086335ad.15.1790613550389;
+        Mon, 28 Sep 2026 09:39:10 -0700 (PDT)
 Received: from google.com (105.211.142.34.bc.googleusercontent.com. [34.142.211.105])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87fea78fedbsm4448464b3a.23.2026.09.28.09.37.47
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a498057a62sm330376a91.13.2026.09.28.09.39.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 09:37:52 -0700 (PDT)
-Date: Mon, 28 Sep 2026 16:37:44 +0000
+        Mon, 28 Sep 2026 09:39:09 -0700 (PDT)
+Date: Mon, 28 Sep 2026 16:39:02 +0000
 From: Pranjal Shrivastava <praan@google.com>
 To: Jason Gunthorpe <jgg@nvidia.com>
 Cc: Catalin Marinas <catalin.marinas@arm.com>,
@@ -80,13 +80,11 @@ Cc: Catalin Marinas <catalin.marinas@arm.com>,
 	Samiullah Khawaja <skhawaja@google.com>,
 	Mostafa Saleh <smostafa@google.com>, stable@vger.kernel.org,
 	Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
-Subject: Re: [PATCH v7 4/9] iommu/arm-smmu-v3: Optimize range invalidation
- for latency
-Message-ID: <arqX2OC71JneElBJ@google.com>
+Subject: Re: [PATCH v7 6/9] iommu/arm-smmu-v3: Precompute the invalidation
+ commands
+Message-ID: <arqYJgFdbcyAn__v@google.com>
 References: <0-v7-e84261bbe7cd+2ea80b-smmu_tlbi_jgg@nvidia.com>
- <4-v7-e84261bbe7cd+2ea80b-smmu_tlbi_jgg@nvidia.com>
- <arpohmaJTPEEI7mi@google.com>
- <20260928135007.GA1616761@nvidia.com>
+ <6-v7-e84261bbe7cd+2ea80b-smmu_tlbi_jgg@nvidia.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -95,77 +93,19 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260928135007.GA1616761@nvidia.com>
+In-Reply-To: <6-v7-e84261bbe7cd+2ea80b-smmu_tlbi_jgg@nvidia.com>
 
-On Mon, Sep 28, 2026 at 10:50:07AM -0300, Jason Gunthorpe wrote:
-> On Mon, Sep 28, 2026 at 01:15:50PM +0000, Pranjal Shrivastava wrote:
-> > > -/* Used by non INV_TYPE_ATS* invalidations */
-> > > -static void arm_smmu_inv_to_cmdq_batch(struct arm_smmu_inv *inv,
-> > > +/*
-> > > + * One TLBI command per IOTLB entry, assuming the entries are all at least
-> > > + * iopte_granule sized. Returns false if too many commands would be needed which
-> > > + * indicates too high a latency. The threshold is similar to MAX_DVM_OPS in
-> > > + * arch/arm64/include/asm/tlbflush.h for the 4k PAGE_SIZE.
-> > > + */
-> > > +static bool arm_smmu_cmdq_batch_add_single(struct arm_smmu_device *smmu,
-> > > +					   struct arm_smmu_cmdq_batch *cmds,
-> > > +					   struct arm_smmu_cmd *cmd,
-> > > +					   struct arm_smmu_tlbi *tlbi)
-> > > +{
-> > > +	unsigned long num_ops = tlbi->size / tlbi->iopte_size;
-> > > +	unsigned long iova = tlbi->iova;
-> > > +	unsigned long i;
-> > > +
-> > > +	if (!num_ops || num_ops > 512)
-> > > +		return false;
-> > > +
-> > 
-> > Should this be ">= 512"? The old arm_smmu_inv_size_too_big() and
-> > arm64's __flush_tlb_range_limit_excess() both fall back to a full
-> > invalidation at exactly 512:
-> > 
-> >         return pages >= (MAX_DVM_OPS * stride) >> PAGE_SHIFT;
-> > 
-> > 512 is what a walk flush could generate. For example, when 
-> > __arm_lpae_unmap() frees a last-level table on a 4K granule,
-> > it calls io_pgtable_tlb_flush_walk(iova, SZ_2M, SZ_4K), hence,
-> > num_ops == 512.
-> > 
-> > Before this patch that was a single TLBI_NH_ASID/TLBI_S12_VMALL, now
-> > it becomes 512 VA TLBIs + CMD_SYNC for every 2M table freed on a
-> > non-RIL SMMU. The same check carries into arm_smmu_tlbi_calc_single()
-> > later in the series.
+On Mon, Sep 21, 2026 at 08:55:14PM -0300, Jason Gunthorpe wrote:
+> Store the required cmd data in the tlbi and just copy it out when
+> processing each item in the invs list. The cmd form only depends on if the
+> instance supports range invalidation or not, otherwise it is always the
+> same.
 > 
-> I had set it deliberately like that so that a table flush would issue
-> singles. That is largely based around the feedback from before that we
-> shouldn't over invalidate.
+> This avoids redundant calculations for each invs entry.
 > 
-> We've been insensitive to that issue in the past, and I'm going to
-> argue the >= of today's code is a bug as it effectively made alot of
-> iopgtable actions turn into new full invalidations, while originally
-> they were range bound singles.
-> 
-> So I view this choice as a return to the historical behavior before we
-> started to fix the soft lockup issues. I guess it crept it during one
-> of the refactorings where we merged the SVA limitation into the main
-> flow.
-> 
-
-Makes sense, thanks. I checked and before the invs rework the only cap
-was CMDQ_MAX_TLBI_OPS in the SVA notifier; the io-pgtable path issued
-singles without any limit.
-
-
-> Granted I didn't notice this detail that the current code was 511 not
-> 512, I will add a remark to the commit message:
-[...]
->     The current code switches at 511, but this turns every table removal
->     into a full invalidation. Change to 512 to try to minimize the amount
->     of full invalidation.
-
-Nit: that holds for a 4K granule. With 16K/64K a table removal is still
-a full invalidation (2048/8192 ops), and the limit there actually drops
-from 2047/8191 to 512, so it may be worth incorporating in the remark too.
+> Reviewed-by: Nicolin Chen <nicolinc@nvidia.com>
+> Tested-by: Nicolin Chen <nicolinc@nvidia.com>
+> Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
 
 Reviewed-by: Pranjal Shrivastava <praan@google.com>
 
