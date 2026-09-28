@@ -1,387 +1,386 @@
-Received: from mail-qk2-f41.google.com (mail-qk2-f41.google.com [74.125.230.233])
+Received: from mail-lr2-f34.google.com (mail-lr2-f34.google.com [74.125.230.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BD512C237C
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 12:46:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.233
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790599586; cv=none; b=jNB0kEYG+pg29hVufqvKiyHFiCArgsHOj5JulDqlp01fRZIgLTuBmk4vN5AB4AsL7xXvjboiAV5n6VQ36VghzVSriTYDflKf1uYq53xuWMUkNMirAPr1RlV8rMVRL1wE0ETDFSghFDzxn0FkxhGwQ7OxLGXFcz3m1eMUNcp39Fw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790599586; c=relaxed/simple;
-	bh=+73/2RVBZYhVjjU/QQ1pwX2flkUzIR8XUWrSaPb43Ck=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=qKQir1FxoTzwhmzr5pLryGXYU96FNSScfJ+jZYtubngT1Payuayo1pOwDzBcpR2q5QohWn32xpkJH3+Wau6RjyUuHu2Zdq3gsY2LsG6+H7JKdxv5Ve5clXY42MJHbZSAK+hHURLkzH0ElbP+wjYvA+bCB//OQGtby4DT1aNgRCg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=t43bwN9F; arc=none smtp.client-ip=74.125.230.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87EB0306779
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 12:50:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.98
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790599847; cv=pass; b=tAb6Nbdu02ZBeiqbJEF4A0c0M5sH5w3cP+f993KEEUgE3An7wHSBY3J5bLd1FjNBL0mcjLxge77wvH2yQGQ5x09NPuKj03w12tj2sTJwKT1SBPvzeiLnbtWZlPRMxUlfmUumSh1lhqPq5GMvRcD2J3zqa6MhgUN/YdRghikN9lY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790599847; c=relaxed/simple;
+	bh=M+3dH1GSvevY6GhwOgUyNx+LoNjtxNBLo3OfUg6iUCQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=PQ1SyRrT/dOU97A1gJwvSzdgCTMvHE6IxC+JewHPWYFzGdVTIggKSM6MRthuPyDusZwyzPK3dNDAN7z2KiajCxpnsw97eog62m6wSAQN2LXXINzglmim6e6jmjm9dhasmw+N9yNuXjIzJdnW2L2T1O2VARzrpcPdoRKsDXQp89I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=atd6iq2N; arc=pass smtp.client-ip=74.125.230.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="t43bwN9F"
-Received: by mail-qk2-f41.google.com with SMTP id af79cd13be357-93c599e3902so216929385a.2
-        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 05:46:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="atd6iq2N"
+Received: by mail-lr2-f34.google.com with SMTP id 38308e7fff4ca-3a652e2149aso23153131fa.2
+        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 05:50:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790599843; cv=none;
+        d=google.com; s=arc-20260327;
+        b=dBBmt5MaSC2nZQOh/BkVhEmLzyFEGx+FelSNoSYxQgs9+muG1czuMqa/U6yHSHKjLq
+         6Ov0Z1XtHXq7SonqL0V2ypGjBxbGGCToGsXI3MIjEzhMk91gO9+WIbPzeBXTengQ5YDN
+         SsCTeA4vFngUxbjvy0XkYCJuNZBo+RN7aqsD4BMgEDOu254xxWjoZoz0MyqS8hfWb3nd
+         VsIKjVFqpaj94oK1T597Z+BSykkBA7DphF2GUac87rX45LJsiu0WV902McIpQP9/u/mr
+         /kNCZ9vZNiMn3gvBLyhIARGrijIGsgtT8LJkX0gysbNbPiK/K8P+sxLEpeBujE/Yfdtb
+         sNGQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=FkIpXBts567ERQCT9oesG3IDq3Wrsw1PQ3XnuZr6l40=;
+        fh=KNNHjhrwfzZN7/Y0We6aW40cf43AB+BD8aI7rQZQSh8=;
+        b=o5+3oG3e4yT1opHEi7d9J3ALJc39jmHxCqAa67aIU8CXH8sFFtBU2R9GipPcOsdAr3
+         SLHPyjNBmeciQp/54w7zBysNHktwyR1/m6aY/GbWzWsXVhPOC0+TevFi4Q0083o5posm
+         XERm68kMsFJZmAA+uoD211jPicoBSiIP8pgepyhnIb3mq3sIstQQBtq+qixAEtK+7Edc
+         zfSiokgVH+2WAFei7E9O+9wdFYVHjihOF1Lnk3GNs889FoPbpz09bAGM+KO/a1aipL2J
+         2TuZDvu1aBXF9uTNfJPRibnPYxH5SrfcAn5Fb8UtsKc8YGTNTQE1wLZMEzrKzi9o9cqR
+         sb5A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1790599582; x=1791204382; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dRdc59m05rXeVS+DzkOtjK1VVLnJwJSXDPTVMzkoQik=;
-        b=t43bwN9FI0CW5dIbQwRkpIXY0fHHPzIn0KwBH14sbcK4whIH83wB/CM3ociNGh/TIN
-         KI/JLgtDGhhTleutx6lY9fmkHpqyxjmQxcjEhs/NKPg+QKIizL301b6bxrG0+ik+weER
-         aeujcwM3IJo8EQvUlvSpg0/PLYunMkn18gr6M=
+        d=nebusec.ai; s=google; t=1790599843; x=1791204643; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=FkIpXBts567ERQCT9oesG3IDq3Wrsw1PQ3XnuZr6l40=;
+        b=atd6iq2NjcHVw3ptP0o5HTXFlBIw2PfckmFwXJ2JDemLyNugFVIwMuoD3HHPwugQ+Z
+         yiukOX0J72qbEsmJgdlcbM2Bc/McBkbV8Jf3Z0yP7aXk5WLMGZnjG6j1jIP/LJC6jfRU
+         feWJGQoV8KWl1lJ0poEwKbeWOM/0Cqy+UlgayU1mxwjCRRxL8NKdYT27iXRSvJ+UjasN
+         pu+/HXvvDfasCqgpDBsxtm4ep6Ig4Gg0NIpatuaqJ6VYr4agteQwOCPK4TLdcymUUmLF
+         M+TizHWCjH2VbYFXBVaI6sqAn9q1waFfml3pD0XOV/b9Z6aIzRrzv1x5EsmdtsxlHnrW
+         F3bg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790599582; x=1791204382;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dRdc59m05rXeVS+DzkOtjK1VVLnJwJSXDPTVMzkoQik=;
-        b=ZjSIIgDigZVWQuSsvSBTxX2krOCzvNafKx+3BLeDGaPulfyLA5Y3NyAd/1umr4Z5Ju
-         6hLFmzt2OaKf1ktLQ2YSVNBEVE2BUbphy0tZAXWXpr+SHpxjTSte6SY1P+y9MEp8NmXg
-         SuIqJN2DMB/bMulPuiV58l5PNY4VU8Cmmg1Ha87Bql0iAF5NqXajigKPI4cKIXLezcIT
-         HcQN/j+MgjdTfG5Bq3B6Ms8L+p1TnJmzvTT83IpyXSUc/lMfQfqlmo1+cPZv0EPm72uF
-         G5TfY7P93iTSszceZEZMClthtZpynsaMd6SYg1mZ/LiFke6YjR3jNXJqwrrrp3QfH/T9
-         70Tg==
-X-Forwarded-Encrypted: i=1; AKwUvBxXrPx0vrU/BlYo8+TzeBUlYnYux5WTbVExn+BY4oIjNtVTSfGgHJ4P8Jrj/vsjBubSeVmHC/s=@vger.kernel.org
-X-Gm-Message-State: AFuF++nFp/gcJx06DZQGeDFF5HPgMov4HwHVDJYtYb1mky71eyuFYyxu
-	+W3oGV8PwsDrlbdybwn8Dyl3FPdyVatfrVUcJfKdgZMWATw7HoO8Ds+2UZDBnO68CQ==
-X-Gm-Gg: AYBFou1TNVkRF/qko4YhHDpXK9MnLG/4IxUx3j094R4u1VVdLA7MvZZ0jsIvs87svhU
-	O8hVF7xJeCkcBS9SM3Hk4u/qR+gHFPUo9gwCjtqwmqyEA3pcZc5gVsUKDNIGAaExosftK0Rk5uS
-	0xSKQAZ8MSfdCanfWfpuWreqUdJSWqWGGnfMabTbXtnMkHLUDUQ/swvU+PONrm46Oe/lTPlsS4m
-	iFEYAcWQ2vaEvCM/dCJRZKdR/IgDEEIPMKcHvfLwqofqnJMYBglcc2yM5Qcq77WEa2Z/NozdPWK
-	xl1GdKGLc9EFAb2PgXmvpAmbO/kxemWu1X+YFOsg5D4osk7jxzowk16YQyrvlOaAdV2yP5PaWsz
-	et4957b1va5ANkUKylb3JEobPSewwPsscX/ItevHojWbAzt+K4NTDysFE17kuiIBT+sQfsEAqpY
-	2jj/HgofVmSFrYyJENEcKjs2pwtVIorwj3Eth3RmvYziO92vQjQH4iENqI2E6VE9Kit8UA+fx1v
-	nHxFGF3y/jSYP3GKTLczdaESfnWBk/jOfAE9klB+7DKWn9+huDa17i/tU5P
-X-Received: by 2002:a05:620a:40d2:b0:93b:fafd:3adf with SMTP id af79cd13be357-93c43d0ddf0mr1940331985a.48.1790599580774;
-        Mon, 28 Sep 2026 05:46:20 -0700 (PDT)
-Received: from mbili.tail33bf8.ts.net ([64.203.83.2])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c813cf71asm138091685a.20.2026.09.28.05.46.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 05:46:20 -0700 (PDT)
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-To: netdev@vger.kernel.org
-Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	Vinicius Costa Gomes <vinicius.gomes@intel.com>,
-	Simon Horman <horms@kernel.org>,
-	Tonghao Zhang <xiangxia.m.yue@gmail.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Victor Nogueira <victor@mojatatu.com>,
-	Zero Day Initiative <zdi-disclosures@trendmicro.com>,
-	hybris <hybris@mojatatu.ai>,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	linux-rt-devel@lists.linux.dev,
-	stable@vger.kernel.org,
-	Eric Dumazet <edumazet@google.com>
-Subject: [PATCH net v4] net: cap skb->queue_mapping when the tx queue is picked
-Date: Mon, 28 Sep 2026 08:46:16 -0400
-Message-Id: <QDISC-9R8V.v4.20260928081529@mojatatu.com>
-X-Mailer: git-send-email 2.34.1
+        d=1e100.net; s=20260707; t=1790599843; x=1791204643;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FkIpXBts567ERQCT9oesG3IDq3Wrsw1PQ3XnuZr6l40=;
+        b=b6fGGI9iQ0TpmbqDmt58lFjtyrQVqF5nNEKRd6NIOBzpod8rfqQIuoaz4yKrj4H3Ap
+         ILTZuCmVSJ01GYS0Dai4nQnWTNRsr0OGOMm8rpZUV6hJ95qmBzlqWH9WSR52qZNQZFQB
+         XDAP0U5msvFSU0XNYZQEWsei0jNDhVgXkkuLNl7n7CH6KESbIlmQumfC4SMgBg6iXfZT
+         2Qjg+BjXxzTmHG4b8S0EFwmpWpPaSMAuVDWfelOjDpuiH78RvUdcZ8qr6rT5lHga2T+c
+         3ezHiyrQkHAt6lDDOgv9aqiMzVipRIA2CN+FgpaNzxAmPksqTskxj8PyxhlVNbMbRoyb
+         S2Fw==
+X-Forwarded-Encrypted: i=1; AKwUvByj8vezMif/1ihom7ZOnRN0aRFBCN4cL8HQV7DGDQKImGwgDTGLIYFrQ0imV1IjUxlOXa1OH3w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIDBHb8VvXDsDOoxQXxE++7JUFcPDZGzGiOOQC7II6dVYBmlpQi
+	x1S5lIaEAX/JmPHAFnQ3npkWNeW+1SUJHnHTT0oeL8/Hh/n3QM8jXXb5HJck5gf4Zkh7vxe2hYu
+	1n+5uxdlxqOth3o3ufH6dg1jb7FYibhaq1iCD4bzvCmg=
+X-Gm-Gg: AYBFou3o9DnoFb+mYmyqg7CESrnBfq0yCJvLgRMHj23eRBMoi83Xx9vF1qwnkAThPTc
+	gbXYn66MV2vN/srL0FeJablyfKUwIO0IHISCXbKHB8m4cqAqffARwuI/zshEUxeusVuufYdJpkE
+	aofsJlqp3tgjB8fpgBVKDABjq6OI9blONoX0pPXaaQBu5e9D/vdP955ayNVqklGvSfCz3APaDz9
+	CNy75NkxbP5pOXYuFvmDfF2qjOaunnnMP6XeROeCDv1g4/pJibp8bBa33EpaDvurqxixCZTBXUf
+	Gz7Kyn8lxLDdT9EDvnbUnEBqwbsnyZQycBBpdbcBuiTaGA0fvTmaMb7Pv5z63NN4+/IorjR7QH9
+	0sKiSdrRLJQ==
+X-Received: by 2002:a05:651c:198e:b0:3a6:4917:dbbb with SMTP id
+ 38308e7fff4ca-3a64917e589mr27771821fa.5.1790599843212; Mon, 28 Sep 2026
+ 05:50:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <2af9949fc349d17b53db432893abb4d2e97932ce.1790255682.git.zihanx@nebusec.ai>
+ <20260928094944.815915-1-horms@kernel.org>
+In-Reply-To: <20260928094944.815915-1-horms@kernel.org>
+From: zihan xi <zihanx@nebusec.ai>
+Date: Mon, 28 Sep 2026 20:50:30 +0800
+X-Gm-Features: AclHuK8LZn81RTv7sYp23KybCbUWmZsmLN5vA0Mzyb-pTREothGkyMtFiQbTFJc
+Message-ID: <CAANe3eTdu7fEEYiCA38+SK9Ja9kO7GY9EX2o7fg1bbwVsT4R+g@mail.gmail.com>
+Subject: Re: [PATCH net v12 1/1] llc: fix listener child socket leaks
+To: Simon Horman <horms@kernel.org>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, davem@davemloft.net, 
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
+	stable@vger.kernel.org, vega@nebusec.ai, root@tr0jan.top
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-skbedit can set skb->queue_mapping and raise the per-CPU skip_txqueue
-flag so __dev_queue_xmit() honours the mapping. __dev_queue_xmit()
-cleared the flag before sch_handle_egress() and only read it afterwards,
-so the flag was not confined to the xmit that set it: a nested xmit
-(mirred redirect or mirror, or a drop after skbedit) could set the flag
-and the outer xmit would consume it for an skb that never went through
-skbedit.
+On Mon, Sep 28, 2026 at 5:50=E2=80=AFPM Simon Horman <horms@kernel.org> wro=
+te:
+>
+> This is an AI-generated review of your patch. The human sending this
+> email says "I'm forwarding this as it looks legit and the forwarding
+> bot trigger seems to have timed out."
+> Full review at: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/2af99=
+49fc349d17b53db432893abb4d2e97932ce.1790255682.git.zihanx@nebusec.ai?part=
+=3D1
+> ---
+> llc: fix listener child socket leaks
+>
+> This patch reworks LLC listener passive-open handling. Child sockets
+> created on SABME are now freed when setup fails or when the connection
+> indication is dropped before accept(). Only SABME creates children, the
+> listener sends DM responses for other commands, pending indications count
+> against the accept backlog, and skb->dev is held for packets deferred to
+> the socket backlog.
+>
+> > diff --git a/net/llc/llc_conn.c b/net/llc/llc_conn.c
+> > index 260460d50f54c..77044720f12ff 100644
+> > --- a/net/llc/llc_conn.c
+> > +++ b/net/llc/llc_conn.c
+>
+> [ ... ]
+>
+> > @@ -90,6 +91,8 @@ int llc_conn_state_process(struct sock *sk, struct sk=
+_buff *skb)
+> >                */
+> >               skb_get(skb);
+> >               skb_queue_tail(&sk->sk_receive_queue, skb);
+> > +             if (sk->sk_state =3D=3D TCP_LISTEN)
+> > +                     sk_acceptq_added(sk);
+> >               sk->sk_state_change(sk);
+> >               break;
+>
+> [Severity: High]
+> This is a pre-existing issue and was not introduced by this patch. It is
+> in the same area the commit message describes, though. Can a remote peer
+> grow an unaccepted child's sk_receive_queue without bound here?
+>
+> The child stays hashed while its indication waits in the listener's
+> queue. Suppose the peer sends DISC, which moves the child from NORMAL bac=
+k
+> to ADM, and then sends SABME again. llc_conn_handler() finds the child
+> and takes the non-listener branch:
+>
+>     skb_orphan(skb);
+>     sock_hold(sk);
+>     skb->sk =3D sk;
+>     skb->destructor =3D sock_efree;
+>
+> llc_conn_rcv(child) then handles ADM + SABME, which issues another
+> connection indication. This case queues it on the child's own
+> sk_receive_queue with no rmem or sk_rcvbuf check. The child is not
+> TCP_LISTEN, so sk_acceptq_added() does not apply either. Each queued skb
+> also holds a reference on the child.
+>
+> The new sk_acceptq_is_full() check in llc_conn_rcv_sabme() limits how
+> many children are created. It does not limit how many indications build
+> up on one child, and that memory stays pinned until the application
+> accepts or closes the listener.
 
-A forwarded packet still carries the ingress NIC's rx_queue + 1 in
-skb->queue_mapping, so the outer device then indexes its tx queue state
-with that stale value. Taprio's child array q->qdiscs[] is sized to the
-device's queue count, so taprio_enqueue() indexes past its allocation
-and dereferences the result as a struct Qdisc *.
+Confirmed. This is a pre-existing issue and is not introduced by this patch=
+.
+>
+> [ ... ]
+>
+> > @@ -765,14 +768,124 @@ static struct sock *llc_create_incoming_sock(str=
+uct sock *sk,
+>
+> [ ... ]
+>
+> > +static int llc_conn_rcv_sabme(struct sock *sk, struct sk_buff *skb,
+> > +                           struct llc_addr *saddr,
+> > +                           struct llc_addr *daddr)
+> > +{
+> > +     struct sock *newsk;
+> > +     int rc;
+> > +
+> > +     if (sk_acceptq_is_full(sk))
+> > +             goto drop;
+>
+> [Severity: Medium]
+> Can sk_ack_backlog underflow, so that this check drops every SABME from
+> then on?
+>
+> The counter only goes up in llc_conn_state_process() when sk_state is
+> TCP_LISTEN at queue time. Other code resets it without looking at what is
+> still queued:
+>
+> net/llc/af_llc.c:llc_ui_listen() {
+>     ...
+>     if (sk->sk_state !=3D TCP_LISTEN) {
+>         sk->sk_ack_backlog =3D 0;
+>         sk->sk_state       =3D TCP_LISTEN;
+>     }
+>     ...
+> }
+>
+> llc_ui_connect() only rejects SS_CONNECTING. A listener with indications
+> still in sk_receive_queue can therefore call connect(), and a DM or
+> timeout then leaves it in TCP_CLOSE / SS_UNCONNECTED.
+>
+> A second listen() resets sk_ack_backlog to 0 while the old indications
+> are still queued. Each accept() of one of those indications then calls
+> sk_acceptq_removed() unconditionally in llc_ui_accept().
+>
+> The u32 counter wraps to 0xFFFFFFFF and sk_acceptq_is_full() stays true.
+> Later listen() calls do not reset the counter because sk_state is already
+> TCP_LISTEN. Is every new SABME then silently dropped here?
 
-We (ab)use the skb->nf_skip_egress which means "skip netfilter egress
-for this packet" to tag to "am I in tc egress?". Despite the overload
-I dont see it as a conflict since the marker is set only around the
-single sch_handle_egress() call and ingress path is guarded by
-tc_at_ingress.
-I will send a followup(net-next) patch once this hits net-next to
-rename the skb->nf_skip_egress bit/flag to skb->skip_egress
+ Confirmed. The accept-queue counter can underflow as described.
+>
+> > +
+> > +     local_bh_disable();
+> > +     newsk =3D llc_create_incoming_sock(sk, skb->dev, saddr, daddr);
+>
+> [ ... ]
+>
+> > @@ -786,6 +899,10 @@ void llc_conn_handler(struct llc_sap *sap, struct =
+sk_buff *skb)
+> >               goto drop;
+> >
+> >       bh_lock_sock(sk);
+> > +     if (unlikely(llc_sk_unhashed(sk)))
+> > +             goto drop_unlock;
+> > +     if (unlikely(llc_sk(sk)->state =3D=3D LLC_CONN_OUT_OF_SVC))
+> > +             goto drop_unlock;
+> >       /*
+> >        * This has to be done here and not at the upper layer ->accept
+> >        * method because of the way the PROCOM state machine works:
+>
+> [Severity: Low]
+> This isn't a bug, but two comments still say the child is created in
+> llc_conn_handler(): this one, and the one in the LLC_CONN_PRIM case of
+> llc_conn_state_process() ("the newly created struct sock in
+> llc_conn_handler").
+>
+> After this patch the child is only created in llc_conn_rcv_sabme(). When
+> the listener is owned by the user, that happens later from
+> llc_backlog_rcv(). Should both comments be updated?
 
-Arm the flag only from the egress classifier that can use it: raise
-skip_txqueue from tcf_skbedit_act() only when it runs inside
-sch_handle_egress(), thanks to skb->nf_skip_egress. An egress qdisc
-classifier runs in q->enqueue(), after the tx queue has been picked,
-so a mapping it sets cannot affect the current packet; arming the flag
-there only pollutes it for a later xmit. Then own the flag for the xmit
-frame the egress hook runs in: save the incoming value and clear it just
-before sch_handle_egress(), and restore it after the hook - on the
-consumed (drop) path, or, in the same call that reads it, on the
-surviving path. The save and the restores stay inside the
-egress_needed_key static branch, so a packet pays for them only when
-egress hooks are active (2f1e85b1aee4).
+Confirmed. The comments are stale.
+>
+> > @@ -795,11 +912,14 @@ void llc_conn_handler(struct llc_sap *sap, struct=
+ sk_buff *skb)
+> >        * in the newly created struct sock private area. -acme
+> >        */
+> >       if (unlikely(sk->sk_state =3D=3D TCP_LISTEN)) {
+> > -             struct sock *newsk =3D llc_create_incoming_sock(sk, skb->=
+dev,
+> > -                                                           &saddr, &da=
+ddr);
+> > -             if (!newsk)
+> > +             if (llc_conn_ev_rx_sabme_cmd_pbit_set_x(sk, skb)) {
+> > +                     llc_listener_send_dm(sap, sk, skb, &saddr);
+> >                       goto drop_unlock;
+> > -             skb_set_owner_r(skb, newsk);
+> > +             }
+> > +             if (!sock_owned_by_user(sk)) {
+> > +                     llc_conn_rcv_sabme(sk, skb, &saddr, &daddr);
+> > +                     goto out;
+> > +             }
+> >       } else {
+> >               /*
+> >                * Can't be skb_set_owner_r, this will be done at the
+> > @@ -813,13 +933,16 @@ void llc_conn_handler(struct llc_sap *sap, struct=
+ sk_buff *skb)
+> >               skb->sk =3D sk;
+> >               skb->destructor =3D sock_efree;
+> >       }
+> > -     if (!sock_owned_by_user(sk))
+> > -             llc_conn_rcv(sk, skb);
+> > -     else {
+> > +     if (sock_owned_by_user(sk)) {
+> >               dprintk("%s: adding to backlog...\n", __func__);
+> >               llc_set_backlog_type(skb, LLC_PACKET);
+> > +             /* The backlog can outlive the RCU protection of skb->dev=
+. */
+> > +             backlog_dev =3D skb->dev;
+> > +             netdev_hold(backlog_dev, NULL, GFP_ATOMIC);
+> >               if (sk_add_backlog(sk, skb, READ_ONCE(sk->sk_rcvbuf)))
+> >                       goto drop_unlock;
+>
+> [Severity: Critical]
+> Can a listener SABME get into the backlog here with a foreign skb->sk
+> still attached?
+>
+> Before this patch, the TCP_LISTEN branch always called
+> skb_set_owner_r(skb, newsk), and that orphans the skb first.
+>
+> Now, when the listener is owned by the user, the SABME skips both
+> skb_set_owner_r() and the skb_orphan() in the else branch. It goes
+> straight to sk_add_backlog().
+>
+> llc_rcv() only calls skb_share_check(). A frame sent locally over veth
+> from an AF_PACKET or AF_LLC socket can therefore still carry the sender's
+> skb->sk and its sock_wfree destructor.
+>
+> If the listener leaves TCP_LISTEN before the backlog drains,
+> llc_backlog_rcv() takes the non-listener branch:
+>
+>     } else if (unlikely(llc->state <=3D 1 || !skb->sk)) {
+>         goto out_kfree_skb;
+>     }
+>     rc =3D llc_conn_rcv(sk, skb);
+>
+> The !skb->sk test is supposed to drop these ownerless deferred SABMEs,
+> but the foreign skb->sk gets past it. llc_conn_state_process() then runs
+> the state machine on llc_sk(skb->sk), which is the sender's socket. This
+> path holds no reference on that socket, and it may not be an LLC socket
+> at all.
+>
+> One way to leave TCP_LISTEN while the lock is owned is llc_ui_connect().
+> It does not reject listeners and it sets sk_state =3D TCP_SYN_SENT. At th=
+at
+> point llc->state is SETUP, which is greater than 1. The backlog is then
+> drained in llc_ui_wait_for_conn() or in release_sock().
+>
+> Should the skb be orphaned before it is backlogged in the listener case?
 
-Store the value netdev_cap_txqueue() selected back into skb->queue_mapping
-in netdev_tx_queue_mapping(), as netdev_core_pick_tx() already does, so
-the skip_txqueue path never hands a later reader on the xmit path a
-mapping the device cannot serve. A store made still later in the same
-frame, by a tc BPF program attached to a transmit qdisc, is outside this
-path and is not re-capped; a separate followup will resolve that path.
+Confirmed. This is a regression introduced by the reviewed revision.
+>
+> [ ... ]
+>
+> > @@ -852,12 +976,33 @@ static int llc_backlog_rcv(struct sock *sk, struc=
+t sk_buff *skb)
+> >  {
+> >       int rc =3D 0;
+> >       struct llc_sock *llc =3D llc_sk(sk);
+> > +     struct net_device *dev =3D NULL;
+> >
+> >       if (likely(llc_backlog_type(skb) =3D=3D LLC_PACKET)) {
+> > -             if (likely(llc->state > 1)) /* not closed */
+> > -                     rc =3D llc_conn_rcv(sk, skb);
+> > -             else
+> > +             /* Drop the reference acquired before the skb entered the=
+ backlog. */
+> > +             dev =3D skb->dev;
+> > +             if (unlikely(sk->sk_state =3D=3D TCP_LISTEN)) {
+>
+> [ ... ]
+>
+> > +                     llc_pdu_decode_sa(skb, saddr.mac);
+> > +                     llc_pdu_decode_ssap(skb, &saddr.lsap);
+> > +                     llc_pdu_decode_da(skb, daddr.mac);
+> > +                     llc_pdu_decode_dsap(skb, &daddr.lsap);
+> > +                     rc =3D llc_conn_rcv_sabme(sk, skb, &saddr, &daddr=
+);
+>
+> [Severity: Medium]
+> Could this create two children for the same tuple?
+>
+> While the listener is owned, llc_conn_handler() backlogs SABMEs without
+> creating a child. A retransmitted or duplicate SABME from the same peer
+> can arrive before release_sock(). It finds no child in __llc_lookup(),
+> resolves to the listener, and is backlogged as well.
+>
+> When the backlog drains, each SABME reaches llc_conn_rcv_sabme(). That
+> function only checks sk_acceptq_is_full() before
+> llc_create_incoming_sock() hashes a new child. The established tuple is
+> not looked up again.
+>
+> Both children reach NORMAL, send UA and queue an accept indication.
+> sk_nulls_add_node_rcu() adds at the head, so only the newest child gets
+> traffic.
+>
+> The older child is still accepted by userspace but never receives frames.
+> Its sends, and its DISC on close, use the same tuple as the peer's single
+> connection.
+>
+> Before this patch, getting here needed two CPUs racing on the listener
+> slock. With this patch, hitting the owned-listener window at all seems to
+> be enough.
 
-netdev_xmit_skip_txqueue() returns the previous flag value so the
-save-and-clear is one call, and a no-op stub is provided when
-CONFIG_NET_EGRESS is disabled. skb->nf_skip_egress is compiled under
-CONFIG_NET_EGRESS rather than CONFIG_NETFILTER_SKIP_EGRESS, so
-skb_at_tc_egress() is valid whenever the egress path is built.
-
-A local user in a network namespace can redirect a packet from a device
-with more TX queues to one with fewer after setting a mapping valid only
-on the larger device. That reaches these reads and, under KASAN, faults
-with "slab-out-of-bounds in taprio_enqueue".
-
-Conditions to recreate the bug: the report's own trigger is a local user
-with CAP_NET_ADMIN in a network namespace, so no eBPF program is needed.
-With CONFIG_NET_SCH_TAPRIO=y, CONFIG_NET_ACT_SKBEDIT=y,
-CONFIG_NET_ACT_MIRRED=y, CONFIG_NET_CLS_MATCHALL=y,
-CONFIG_NET_SCH_PRIO=y and KASAN enabled, create qa (3 queues), qb
-(2 queues) and qc (1 queue) as dummy devices; put a taprio root on qb
-(num_tc 1, queues 2@0) and clsact on all three; then add an egress
-matchall filter on every device. On qa: "action skbedit queue_mapping 2
-pipe action mirred egress redirect dev qb". On qb: "action mirred egress
-mirror dev qc". On qc: "action skbedit queue_mapping 0 pipe". Send one
-packet out qa. qc's skbedit sets the flag while qb's outer xmit is in
-flight; without the fix qb consumes it and reads its two-entry taprio
-child array with the forwarded packet's stale mapping. A qc whose
-skbedit is instead installed in a transmit-qdisc classifier (a matchall
-filter on the qc root qdisc) reaches the same code path the same way
-without the fix.
-
-Testing: on a KASAN build with panic_on_warn=1 the unfixed kernel panics
-with "BUG: KASAN: slab-out-of-bounds in taprio_enqueue", a read 0 bytes
-past a 16-byte taprio_init() allocation, for the clsact-setter and the
-transmit-qdisc-classifier reproducers and for a clsact skbedit-then-tc-BPF
-store; the fixed kernel runs all three with no report, and the BPF store
-variant additionally shows the expected "selects TX queue" clamp notice
-from the write-back.
-
-Fixes: 2f1e85b1aee4 ("net: sched: use queue_mapping to pick tx queue")
-Reported-by: Zero Day Initiative <zdi-disclosures@trendmicro.com>
-Link: https://lore.kernel.org/netdev/CANn89iLwYx8nCVf0pCEk_MmEiyC6kQaMwCQT9WkQVeeNzNQHqQ@mail.gmail.com/
-Link: https://lore.kernel.org/netdev/179008581937.2160803.7117814290574262942@kernel.org/
-Link: https://lore.kernel.org/netdev/179033713973.2160803.4914570693994398206@kernel.org/
-Link: https://lore.kernel.org/netdev/20260925180407.63647514@kernel.org/
-Link: https://lore.kernel.org/netdev/CANn89i+k-mZKDQVtvws_MEXeuMTAdaCcOXFZE-RfhcGTu90sjA@mail.gmail.com/
-Suggested-by: Eric Dumazet <edumazet@google.com>
-Suggested-by: Jakub Kicinski <kuba@kernel.org>
-Tested-by: hybris <hybris@mojatatu.ai>
-Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
----
-v3 -> v4:
-- Arm skip_txqueue from tcf_skbedit_act() only inside sch_handle_egress()
-  (new skb_at_tc_egress() helper); a transmit-qdisc classifier runs after
-  the tx queue is picked, so its flag set could not affect the current
-  packet and only leaked to a later xmit (Eric Dumazet).
-- Move the save/clear/restore back inside the egress_needed_key static
-  branch: with the only producer inside sch_handle_egress() the
-  branch-local lifetime is sufficient, and packets no longer pay a
-  per-CPU read/write when no egress hook is active (Eric Dumazet).
-- Compile skb->nf_skip_egress under CONFIG_NET_EGRESS rather than
-  CONFIG_NETFILTER_SKIP_EGRESS.
-- Keep the retval helper, the !CONFIG_NET_EGRESS stub and the
-  netdev_tx_queue_mapping() capped write-back.
-- Add to Cc more stake holders.
-
-v2 -> v3:
-- netdev_xmit_skip_txqueue() returns the previous flag value, so the entry
-  save-and-clear is one call; a no-op stub is provided when
-  !CONFIG_NET_EGRESS, removing the three inline #ifdefs (Jakub Kicinski).
-- Narrow the capability claim: the capped write-back covers the
-  skip_txqueue path only; a store made later in the frame by a tc BPF
-  program on a transmit qdisc is not re-capped and is a separate followup
-  (nipa Sashiko).
-- Comment: "per-CPU (per-task on PREEMPT_RT)" (nipa Sashiko).
-- Drop the now-redundant #ifdef in act_skbedit.c.
-
-v1 -> v2:
-- Rework the root cause to the per-CPU skip_txqueue flag lifetime: it was
-  cleared before sch_handle_egress() and read after, so a nested xmit could
-  set it and the outer xmit consume it for an skb that never went through
-  skbedit (Eric Dumazet, nipa Sashiko).
-- Retain the v1 producer-side cap (netdev_tx_queue_mapping() writes the
-  clamped value back).
-- Correct the description of the reproducer to a three-device chain
-  (qa 3q -> qb 2q taprio -> qc 1q).
-
- include/linux/netfilter_netdev.h |  2 +-
- include/linux/rtnetlink.h        |  7 ++++++-
- include/linux/skbuff.h           |  2 +-
- include/net/sch_generic.h        |  9 +++++++++
- net/core/dev.c                   | 31 ++++++++++++++++++++++++-------
- net/sched/act_skbedit.c          |  5 ++---
- 6 files changed, 43 insertions(+), 13 deletions(-)
-
-diff --git a/include/linux/netfilter_netdev.h b/include/linux/netfilter_netdev.h
-index 3175073a66ba..2a854a0bbd4b 100644
---- a/include/linux/netfilter_netdev.h
-+++ b/include/linux/netfilter_netdev.h
-@@ -133,7 +133,7 @@ static inline struct sk_buff *nf_hook_egress(struct sk_buff *skb, int *rc,
- 
- static inline void nf_skip_egress(struct sk_buff *skb, bool skip)
- {
--#ifdef CONFIG_NETFILTER_SKIP_EGRESS
-+#ifdef CONFIG_NET_EGRESS
- 	skb->nf_skip_egress = skip;
- #endif
- }
-diff --git a/include/linux/rtnetlink.h b/include/linux/rtnetlink.h
-index 95729339e7a5..a54ec40d095c 100644
---- a/include/linux/rtnetlink.h
-+++ b/include/linux/rtnetlink.h
-@@ -186,7 +186,12 @@ void net_dec_ingress_queue(void);
- #ifdef CONFIG_NET_EGRESS
- void net_inc_egress_queue(void);
- void net_dec_egress_queue(void);
--void netdev_xmit_skip_txqueue(bool skip);
-+bool netdev_xmit_skip_txqueue(bool skip);
-+#else
-+static inline bool netdev_xmit_skip_txqueue(bool skip)
-+{
-+	return false;
-+}
- #endif
- 
- void rtnetlink_init(void);
-diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
-index 84308498a3a8..a3ff380d43f0 100644
---- a/include/linux/skbuff.h
-+++ b/include/linux/skbuff.h
-@@ -1020,7 +1020,7 @@ struct sk_buff {
- #ifdef CONFIG_NET_REDIRECT
- 	__u8			from_ingress:1;
- #endif
--#ifdef CONFIG_NETFILTER_SKIP_EGRESS
-+#ifdef CONFIG_NET_EGRESS
- 	__u8			nf_skip_egress:1;
- #endif
- #ifdef CONFIG_SKB_DECRYPTED
-diff --git a/include/net/sch_generic.h b/include/net/sch_generic.h
-index f35bd06a6bad..1acaadb3e2cf 100644
---- a/include/net/sch_generic.h
-+++ b/include/net/sch_generic.h
-@@ -810,6 +810,15 @@ static inline bool skb_at_tc_ingress(const struct sk_buff *skb)
- #endif
- }
- 
-+static inline bool skb_at_tc_egress(const struct sk_buff *skb)
-+{
-+#ifdef CONFIG_NET_EGRESS
-+	return skb->nf_skip_egress && !skb_at_tc_ingress(skb);
-+#else
-+	return false;
-+#endif
-+}
-+
- static inline bool skb_skip_tc_classify(struct sk_buff *skb)
- {
- #ifdef CONFIG_NET_CLS_ACT
-diff --git a/net/core/dev.c b/net/core/dev.c
-index f660fccfc0db..8638c994bbcb 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -4404,9 +4404,14 @@ EXPORT_SYMBOL(dev_loopback_xmit);
- static struct netdev_queue *
- netdev_tx_queue_mapping(struct net_device *dev, struct sk_buff *skb)
- {
--	int qm = skb_get_queue_mapping(skb);
-+	int queue = skb_get_queue_mapping(skb);
-+	int capped;
- 
--	return netdev_get_tx_queue(dev, netdev_cap_txqueue(dev, qm));
-+	capped = netdev_cap_txqueue(dev, queue);
-+	if (unlikely(capped != queue))
-+		skb_set_queue_mapping(skb, capped);
-+
-+	return netdev_get_tx_queue(dev, capped);
- }
- 
- #ifndef CONFIG_PREEMPT_RT
-@@ -4415,9 +4420,13 @@ static bool netdev_xmit_txqueue_skipped(void)
- 	return __this_cpu_read(softnet_data.xmit.skip_txqueue);
- }
- 
--void netdev_xmit_skip_txqueue(bool skip)
-+bool netdev_xmit_skip_txqueue(bool skip)
- {
-+	bool prev = netdev_xmit_txqueue_skipped();
-+
- 	__this_cpu_write(softnet_data.xmit.skip_txqueue, skip);
-+
-+	return prev;
- }
- EXPORT_SYMBOL_GPL(netdev_xmit_skip_txqueue);
- 
-@@ -4427,9 +4436,13 @@ static bool netdev_xmit_txqueue_skipped(void)
- 	return current->net_xmit.skip_txqueue;
- }
- 
--void netdev_xmit_skip_txqueue(bool skip)
-+bool netdev_xmit_skip_txqueue(bool skip)
- {
-+	bool prev = netdev_xmit_txqueue_skipped();
-+
- 	current->net_xmit.skip_txqueue = skip;
-+
-+	return prev;
- }
- EXPORT_SYMBOL_GPL(netdev_xmit_skip_txqueue);
- #endif
-@@ -4848,21 +4861,25 @@ int __dev_queue_xmit(struct sk_buff *skb, struct net_device *sb_dev)
- 	tcx_set_ingress(skb, false);
- #ifdef CONFIG_NET_EGRESS
- 	if (static_branch_unlikely(&egress_needed_key)) {
-+		bool skip_txq;
-+
- 		if (nf_hook_egress_active()) {
- 			skb = nf_hook_egress(skb, &rc, dev);
- 			if (!skb)
- 				goto out;
- 		}
- 
--		netdev_xmit_skip_txqueue(false);
-+		skip_txq = netdev_xmit_skip_txqueue(false);
- 
- 		nf_skip_egress(skb, true);
- 		skb = sch_handle_egress(skb, &rc, dev);
--		if (!skb)
-+		if (!skb) {
-+			netdev_xmit_skip_txqueue(skip_txq);
- 			goto out;
-+		}
- 		nf_skip_egress(skb, false);
- 
--		if (netdev_xmit_txqueue_skipped())
-+		if (netdev_xmit_skip_txqueue(skip_txq))
- 			txq = netdev_tx_queue_mapping(dev, skb);
- 	}
- #endif
-diff --git a/net/sched/act_skbedit.c b/net/sched/act_skbedit.c
-index bfec6b668410..26258b353cde 100644
---- a/net/sched/act_skbedit.c
-+++ b/net/sched/act_skbedit.c
-@@ -72,9 +72,8 @@ TC_INDIRECT_SCOPE int tcf_skbedit_act(struct sk_buff *skb,
- 	}
- 	if (params->flags & SKBEDIT_F_QUEUE_MAPPING &&
- 	    skb->dev->real_num_tx_queues > params->queue_mapping) {
--#ifdef CONFIG_NET_EGRESS
--		netdev_xmit_skip_txqueue(true);
--#endif
-+		if (skb_at_tc_egress(skb))
-+			netdev_xmit_skip_txqueue(true);
- 		skb_set_queue_mapping(skb, tcf_skbedit_hash(params, skb));
- 	}
- 	if (params->flags & SKBEDIT_F_MARK) {
+Confirmed. Duplicate deferred SABMEs can create duplicate children as descr=
+ibed.
+>
+> > +                     goto out;
+> > +             } else if (unlikely(llc->state <=3D 1 || !skb->sk)) {
+> >                       goto out_kfree_skb;
+> > +             }
+> > +             rc =3D llc_conn_rcv(sk, skb);
+>
+> [ ... ]
