@@ -1,163 +1,206 @@
-Received: from mail-pz2-f39.google.com (mail-pz2-f39.google.com [74.125.228.39])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013016.outbound.protection.outlook.com [52.101.72.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FE4F22157B
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 02:18:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.39
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790561918; cv=none; b=BlLteKIzECIgmbNWVF/+RiMZejS+IjyOSVEi+/JYyu6bSRt5LhLjwndyYr0zDFGgCKtF2w1pOuw46sH4yXpc2PMTVTKZ/GkMKou4xc+9AAVPqheQMr0B4XDapxFKxXCS5rnIzMN8E/S6YDk0L7n0+Ous8y6G2EEe7WXUJslgxMg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790561918; c=relaxed/simple;
-	bh=dpHqYiLpdGEhlWJ1NnGL2UjLzICJpNOUDte/rX3eCuI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pXb3bNHlNs3QFSr22vDQeKP9+0T0G1ygBW4TLsmlNXa7wRBv8QvxqDwrOvHIYMB3hGMhCYzHesE3UTg9+Y59Q9j8YlOa8zQvTkbnNeu8iiJpjOBYRy8nXGHIn5QrVQELG8qdT56it3es7oqwSC+i71+Sp/XNiU3RB0KmPvDFpoo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fMO3tmzx; arc=none smtp.client-ip=74.125.228.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50A361A6823;
+	Mon, 28 Sep 2026 02:57:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.16
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790564258; cv=fail; b=qtM+TsilSJKaMJ+fPkHaGXxMwHFS0NM/uNdYV2YbtKEzSbdowvwfFqWgk7MSYTYwbtuqOA3fFrsvRQAb+Mn4xGw8mhwb8WIlemWApZX1C30VzLNzpF+SKPGCfGxtmSH14tQi75IzMEIcPfebqHkz1lUSE30UxBeD11iWTvRN/dg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790564258; c=relaxed/simple;
+	bh=LIrbvkCOclnz442tubyeDPHoepObt/PBD1WJOKvxhV8=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=fmqIOj4TiMLjgk59TQRgYtnaQI1kWeXzIMfV368bxGVvPkTYFcx3CRphkdL8iQOZgP3QSuvBkEmqlQr1yKHhe/8SqOOEC/3XxjxMkiu3+vZP/EU5QoQW2FModLBgUeYVHRUVwwyqFuEQBb+u1eQY99oxVPEIC8B1/43J/MJaVCQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=fxO+YhP3; arc=fail smtp.client-ip=52.101.72.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fMO3tmzx"
-Received: by mail-pz2-f39.google.com with SMTP id 41be03b00d2f7-cc78d59bb02so759775a12.1
-        for <stable@vger.kernel.org>; Sun, 27 Sep 2026 19:18:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790561916; x=1791166716; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zyPOBsQ95As/bAUQjJfBc5qcRWRX4ZcJs+UrgJwMK0U=;
-        b=fMO3tmzx+wW4IzshcQyYXfRC1CPTZkuxMUOBQz8RrCfHOMr5H07YXdaMZvf4sS8fIc
-         iFnSf7rWpXy/q9/s6mN6i3ndQD3T+8iEiNdAneK1/8d+5jbdT735W5f9bnd9NgaJS6Fn
-         TUVxX6Scy+NB58uPpXqVrBH/YXD+gLfp+hTGDZggm8KoulvxaCDz5b873+zZTGWgLlId
-         vf88xF96ZGyRRrWCs5vFW16lbV/zP7VmM31L/e4Sm5FnHyvskCvoGsuW2vxJEVDGinHy
-         lBuiDJiUGt3W7T6jWtTKzsBKY0vcvY5JTrbiOL4gCmouyTaKEfC4JjE8czmg4AtvypPf
-         8Zkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790561916; x=1791166716;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zyPOBsQ95As/bAUQjJfBc5qcRWRX4ZcJs+UrgJwMK0U=;
-        b=ZkQHwfLMfnXCrEFrRhMKDj0m49yUGBPCiJCg5lmpKFjGA5YYGsoy0Yaxh2OhWlV+pf
-         7BXwV10N+v4YwxRRJFVtlvADnjyTdbUImvXkILYVwlVlFPC0hibXBL4JSLRV9zsEfZKM
-         OmJ6AiHKEnNRfTj4UiNrI9eAxbasz6oR34dft+LCMunLXJZGQdR7Xmoz4joVcDLRQjK0
-         whsfvqmpAPoqsqE285wyp0+arHPivYeVKt1rsZZRlwiTNwxfpsnb6FKs/3AlGI2TzhZ6
-         EzzoBcAz4e/ErNzVoF+x1mfhPOZq9lTgiqG3TI9pLt2j1P6g0RQj0dFHCw6aUfP0Ma6o
-         X2Zg==
-X-Forwarded-Encrypted: i=1; AKwUvBz2pooNyfXK1cte/XjNYHlpVKYyfohpUxIbl1Uq2kLRnTkc7LpV6WFYFXRIIXTDOQ6D5d+wVVk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYILb1cfn1qaqKDb+MyLeGEm0fpkoO1uK2rKbpnMnbfXxOq6CkYn
-	+oz/OVPMTKuah7qim893ktUPwb5HO+gWEIERJHhPXBZwkh7W65xgtna1
-X-Gm-Gg: AYBFou0aa55YNkHXTw2lUaOz4BRhA6iZ+w9jxjvH/DPGsHHCyelx5ZqHsVLpwVCmUcK
-	XzxmNn7XzEfcH6NgilKZPH0YJNw3t30oUZBvU8OAqC9cLRrCcIuL2ewmzMvNpA3ZBoUoM92sWI6
-	MnG9T3SfjrOP5t7jLrvPCP5rxapQmj3CdaR+SlkTM/gNQ1gJG83fJGHoAJDylfQE76GWkMQBM6/
-	7ejq3ooE7ew4Y1+Z7vSYQE2vEkKEvjzFWWoRUPuvq+iGnyCk2x1vwKpFiFTYSizrP5ncoEoR1fw
-	yVL1XpZOYwscQgPkQP9HkLGnFQMWg2RCmfh9GooHkDAbfb5C+t4sC2o4pgclOYUh5yIzK8E3rAt
-	rOHPe5LyU9usZ/TDtjvZcsnkrVWCIpOfuUVOdWAOJ4HRANGhu659rNSqU8rPprdnxoyzR8c8cXr
-	h9d22v2+z6LtLZxOuZfuT+VN8W1gIEQ2YWzNT4+6rj6u1eHVyXV5qG7HgKpDQf7TVspRPe90Lpy
-	cPlJ42133sZjcid6dxbgq54oZgQuDKKgmGAn6zNjq4j6TU=
-X-Received: by 2002:a17:90b:4e86:b0:39e:4c7f:7306 with SMTP id 98e67ed59e1d1-3a098b8addcmr9157354a91.29.1790561915972;
-        Sun, 27 Sep 2026 19:18:35 -0700 (PDT)
-Received: from JUNVYYANG-MC1.tencent.com ([43.132.141.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b94936ddsm17588500a91.7.2026.09.27.19.18.33
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 27 Sep 2026 19:18:35 -0700 (PDT)
-From: Jun Yang <juny24602@gmail.com>
-To: tung.quang.nguyen@est.tech
-Cc: davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	netdev@vger.kernel.org,
-	tipc-discussion@lists.sourceforge.net,
-	jmaloy@redhat.com,
-	Jun Yang <junvyyang@tencent.com>,
-	stable@vger.kernel.org,
-	TencentOS Corvus AI <corvus@tencent.com>
-Subject: [PATCH net v2] tipc: reject name table updates with invalid origin node
-Date: Mon, 28 Sep 2026 10:17:54 +0800
-Message-ID: <20260928021807.7945-1-juny24602@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="fxO+YhP3"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FJZ9kVx/LImE6rBMhx1zjIn2mU71lO5G92NFAv0sLTqgaJFddK7OfiUnnIMMLcvVSQdrQxlqHl8BTljpwUJgVe4dCxSFGxjN/lpi+I/7EpshKa6MryzauV4w59xusvCzoTtHoDcw+HAe5Ux0JSGrtDF7RgbbQHOTkbKF4KqvU28nBvbfG/h0ilqrdnkVHnU8Aqd/YpoV+8EN6NqF7rZzHz8Ngw4dwbLcbsKbSNBWmZiYuf+TnQ6ba6BKg3RYHIM5xgVpndcN95H4BZ3eb7fprmq3nz0SZUXvhNErYEePXdoHxgQFcddx4VTxX18pq5foZuLRbxzVplWiVQEf5w9I7w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yrbAJopO+FRE8xxHNQAairr9TpAveIw+D06s25fOpaY=;
+ b=Xn6UM6PSzcMWDVrbhYGw5quY92/94a3I1yidHoh9KlXTmuttI+55IOK8Izt1KrDCq9EQY6vmXCnjO4xbZZQX067qO+aRoytWcA7oenHEMYjIk675G+Uk6IjzJ+sXTvCtcsdFcq5LWLkS86y886dnBTh9che98uyosQsc1d6/MYgbNvG86GpSDGrH5Bi0vJhuOfO6pGHsuA+nCm06JOOWlAW7fvB3YCHKix7YA+IJmOlo5ilM5bb7jJ/9SqrU26usLxuENqfATvEJeZly2ye08XTpen9ofARCvGMFFOlih81ebBUM4BzsY6l83Ois92rmKyTHgrre6rXovps5uabj/A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yrbAJopO+FRE8xxHNQAairr9TpAveIw+D06s25fOpaY=;
+ b=fxO+YhP3UY1Sjv5n2/Z/EaT/X+/jLjGntRAh5QLprPyG6Re0ErY5la6wLIPFDZLVJSGY36ZyyS1tRyrkpzxfltBKrsuJL4aOyT1/dOToVha8HUS92Sl6vQ2U9gi8wY0I5brcXYbWU4l71yRuw8cioiqk9//lVZPCxNC7JGroOQpfk8iky5jvbz0OR9+3joNKszXnrORis3wvVNL4gBHYhqxI3sbOhrWkajQ3KPgGPHQIQc3HtMpZpfPv/UA29IfiHJe75AHmxeT4ll16zOnisXw6BRkg/KlRqJC3TUgcIZ399rAQsQRiSTXfs3AwG4UYnEfIlAdq5EYjEr9eJDinkw==
+Received: from AS4PR04MB9338.eurprd04.prod.outlook.com (2603:10a6:20b:4e6::17)
+ by VI0PR04MB11024.eurprd04.prod.outlook.com (2603:10a6:800:260::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
+ 2026 02:57:31 +0000
+Received: from AS4PR04MB9338.eurprd04.prod.outlook.com
+ ([fe80::7c4c:9c56:8552:f680]) by AS4PR04MB9338.eurprd04.prod.outlook.com
+ ([fe80::7c4c:9c56:8552:f680%6]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
+ 02:57:31 +0000
+From: Wei Fang <wei.fang@nxp.com>
+To: Jiale Yao <yaojiale02@163.com>
+CC: "stable@vger.kernel.org" <stable@vger.kernel.org>, Frank Li
+	<frank.li@nxp.com>, Shenwei Wang <shenwei.wang@nxp.com>, Andrew Lunn
+	<andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>, Fabio Estevam <fabio.estevam@freescale.com>,
+	"imx@lists.linux.dev" <imx@lists.linux.dev>, "netdev@vger.kernel.org"
+	<netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH v2 2/7] net: fec: manage the netdev lifetime with devres
+Thread-Topic: [PATCH v2 2/7] net: fec: manage the netdev lifetime with devres
+Thread-Index: AQHdTo9o+trnCymU5EaubEECaOY+dLbjRSlw
+Date: Mon, 28 Sep 2026 02:57:31 +0000
+Message-ID:
+ <AS4PR04MB9338CC981815D950C0813AB3888D2@AS4PR04MB9338.eurprd04.prod.outlook.com>
+References: <20260927144741.1320558-1-yaojiale02@163.com>
+ <20260927144741.1320558-3-yaojiale02@163.com>
+In-Reply-To: <20260927144741.1320558-3-yaojiale02@163.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: AS4PR04MB9338:EE_|VI0PR04MB11024:EE_
+x-ms-office365-filtering-correlation-id: 748a3d8c-8b57-4101-a1f2-08df1d0c3d48
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|7416014|366016|1800799024|19092799006|23010399003|10067099003|11063799006|56012099006|22082099003|18002099003|4143699003|38070700021;
+x-microsoft-antispam-message-info:
+ X43u8PzSRbnulvMWc5d80P0y5HqBmYWlcxKMsX7Zd7sOdOvvhRyj6C50dYF7UuyrcSNPNuspomst66/u6xVrSCrMxfqWvkp5mY7UUn/SCNniQ+Mzl1n9/izHliy4mq/EQ7kTnuA9bRX/EF5DH7tnBXiXoT/NDpBmviNiUl8gkmC1j1WPJEDaevbzPF824TIEHtKt6QtVtoIWMIEQh0tufJQdx458CWQ52GN7ye4y3R2k7re07cmXjzinjhmMAp+w3RoffoeXvNZuZXrt9KCplG5fxJR9a/sZEDG2tV0ZvECLgphVmtpC67Cf54L5uyJNmuCkWWLIRMGG1vzmILGKbxol/AQL9JJ5MN/jcjNvnjNcNZDHaJvtgd9hSGOaEFP0ytH0xBXQl38hEFCJlfOft0OyEDCi7It16Yem9ibn2Q/dkfLQujRKqSbhvASCYJP/8q+o9A0uDF0IbjW2MNaMuYhqS+6gIH6VsqGua+fCIEwb99okTcFMRo3Ltj//gw0Lioq1mGUsNSY5Lvx0zjmzPEYaGLt9bkcq+r0FcFc1bmo0oofwi2L021FI2JRsa5Be/PMnHSwobwDI5h0eukX9g3a5sPK18Z+QulMNLJxnjBNxgBtaeZl+u2qSJ4EiE72nbbxCefKrvEIFERCZw0Ta9u18EXJVqUSytGLT7fAtt3g=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS4PR04MB9338.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(1800799024)(19092799006)(23010399003)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003)(4143699003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?cXTBSAClx5KxrNzg43VOwUqi6Sc+WoXBGx+JztCXHmMHWR8cM+VGxTz4hiXu?=
+ =?us-ascii?Q?u07MBYwUjV/6TKxG8btqh21SOqBosIdXHjkG+Y+n9ffyR0Qbku5+kXjog1aL?=
+ =?us-ascii?Q?ENl368wYz75vtXDS+LtI5OmbdX1MxBIfISqfgcIwhTzowail3S2arAvMcfF1?=
+ =?us-ascii?Q?vXgFmFnVxp3Y8i0ZIjrFWo8/9p0ugCsg3zP3O69DGivcH5azL8HFjglgal63?=
+ =?us-ascii?Q?rM1O6fpPpvemCeUZkXrPgUA3yXAbXjaIuANz5BxqL4UST5aFSGD8CffeinRj?=
+ =?us-ascii?Q?x9wYfxEMV4btiHCT55BPGhffojhs9DkAVYad+QEGvyF+LAme76vWckIct5u7?=
+ =?us-ascii?Q?oeGwmHehDHsY6MTL3NGBcG0ltLMk98qvsUQCx14Y20fmTSXh4M3dem2xe6ci?=
+ =?us-ascii?Q?x9HA6tvLD/5zwwuDDrOolw34BZfAh9+Viq6sEJe7+2A3vfwB0x8/2iXBkq4o?=
+ =?us-ascii?Q?jYpgRfqtkQjUh8M4B/9f3lwYJy2qbGXdLGYGSZ6E0zDPM4nAEUcgVUi0YNX/?=
+ =?us-ascii?Q?muG/PLu3DZ0GU0ahyZ5Pe2foJy/5pQJl1LLJqjYjUFVc/6q6gKr6DK8yBY/D?=
+ =?us-ascii?Q?6SGa5UJDIvjZpeI2jENQzB2UNi/J6ECbCnRuI3JyI7eIWVFzJNtdrcW7wdup?=
+ =?us-ascii?Q?qQITdhGhoO+uloO+xwbvVgH5rvlPaBHWKoY3DGb56O/wSYFBOg9p/T9DNUN4?=
+ =?us-ascii?Q?tfzVgdk1e/LiaYZc/UTwvmBzi+nhMMKpYAGuvk7Nl3YbptPW9UDujdjwF5//?=
+ =?us-ascii?Q?Z5Pmxk43StWGnaYKUjEeZJg9L9li/Ak2mKuX0r8GwY+9wMKa2BTgmAnN2RNy?=
+ =?us-ascii?Q?NtOEw4HQLldrxAgxuF+GdzyowN1oSzODQg4O7lq7hZCdNiD7av2ysLqtvdz4?=
+ =?us-ascii?Q?tevdrOlvOYM8oEM+cWIrnN0xXzyHjA8hEXIDkublXaTVIOPaMDeVodA/U+4a?=
+ =?us-ascii?Q?rVjlqhcj5xA9U7UFG/5nCC0S4ZWKWMEfyyWhjVzpRA23/ZB4V/JEQoZJN/jV?=
+ =?us-ascii?Q?A8A2y4Kqb1ExRIkwjt4HZGPOni340qWIeSF86QA0Sbohxrd+kR7NFlTBaU84?=
+ =?us-ascii?Q?5FUvXI9+2+ndS/7Lm+rOXzNnGDW/aZKQecLh07wrffLB/G3jCpsQaoDrgQ7T?=
+ =?us-ascii?Q?lvi9PGu8084CG8G5ShpqvffDwyRpaecU2ky7NOeI++6LYXD5hXkFhSkSota+?=
+ =?us-ascii?Q?11vafFMJf5bwzmGZH3OMmpbN+2g86DeOL4OJkTAdhwWQpis/9GOt3HIUHSqc?=
+ =?us-ascii?Q?Doiklh0S7WYeVPmY9VO32zOMrM8OoSU5kUUIWfNU5vssBfdhXKjxRdPD6dSu?=
+ =?us-ascii?Q?K/wgOeohptYIejlURsXva0wfk1zLhjK2xwRLjc4oI7ZiqdoB+4vCSWsmLBaT?=
+ =?us-ascii?Q?SmgnzqPnB4dSJZu716chmX3yIEBclXvgF4a87NOUt4zQtzVj0JrfoSjm4R00?=
+ =?us-ascii?Q?xlgQU+A6r84o9Erqg1RSVY/afjmz11HVxuHAXP/Vvv46hfkkCwyONX21SpKP?=
+ =?us-ascii?Q?KXHqAKlkx1ci+u6zhFc8vej6K+kNta5yA3/cLase6wRq2Qm2Rvee+5Ytaf8x?=
+ =?us-ascii?Q?sqBU9mH33Og5zy8RyWHgX6w+u1/7X1O22WyMCDP12TAn9laMqnfvmWvKaEvM?=
+ =?us-ascii?Q?GyAAQFq/M0e2RyQBQC3qrYPEbRy8AW+mkRfgYPPZKoVOOBCB9V7l87Fq06Pe?=
+ =?us-ascii?Q?lwFH8fDD1ny242D8eC49eQw0KCfRtbIXCmrDygZK7DWYj9o7?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AS4PR04MB9338.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 748a3d8c-8b57-4101-a1f2-08df1d0c3d48
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Sep 2026 02:57:31.4821
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: /6PGoyhcctny7GIi38xr+XlXhjAw6E5cKXF7lpWj8Fc/HASRw+pL/sK3AyIoQ9Za1CoySUY696sehtRPSFXmzg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB11024
 
-From: Jun Yang <junvyyang@tencent.com>
+> Subject: [PATCH v2 2/7] net: fec: manage the netdev lifetime with devres
 
-tipc_rcv() locates the sending peer using msg_prevnode(), while
-tipc_named_rcv() takes the node address for NAME_DISTRIBUTOR updates
-from msg_orignode(). These are separate fields in the message header,
-so finding a valid peer does not validate the origin node.
+Please add target tree to the subject. Since this is a fix, the target tree=
+ should be net.
 
-For a WITHDRAWAL with origin node 0, tipc_nametbl_remove_publ() treats
-the node as a wildcard and can remove a matching peer publication from
-the name table. tipc_node_unsubscribe() then returns without unlinking
-binding_node because in_own_node() treats node 0 as local.
-tipc_update_nametbl() subsequently calls kfree_rcu(), leaving its
-binding_node linked on the peer's publ_list.
+>=20
+> fec_drv_remove() frees the netdev before devres releases the managed
+> IRQs whose handlers use it as their data pointer. A late interrupt can
+> therefore access the freed netdev.
+>=20
+> Allocate the netdev with devres so that the later IRQ registrations are
+> released first during teardown.
+>=20
+> Fixes: 0d9b2ab1c376 ("fec: Use devm_request_irq()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jiale Yao <yaojiale02@163.com>
+> ---
+>  drivers/net/ethernet/freescale/fec_main.c | 8 +++-----
+>  1 file changed, 3 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/drivers/net/ethernet/freescale/fec_main.c
+> b/drivers/net/ethernet/freescale/fec_main.c
+> index 794ec427b0ee..23e794a31ce8 100644
+> --- a/drivers/net/ethernet/freescale/fec_main.c
+> +++ b/drivers/net/ethernet/freescale/fec_main.c
+> @@ -5219,8 +5219,9 @@ fec_probe(struct platform_device *pdev)
+>  	fec_enet_get_queue_num(pdev, &num_tx_qs, &num_rx_qs);
+>=20
+>  	/* Init network device */
+> -	ndev =3D alloc_etherdev_mqs(sizeof(struct fec_enet_private) +
+> -				  FEC_STATS_SIZE, num_tx_qs, num_rx_qs);
+> +	ndev =3D devm_alloc_etherdev_mqs(&pdev->dev,
+> +				       sizeof(struct fec_enet_private) +
+> +				       FEC_STATS_SIZE, num_tx_qs, num_rx_qs);
+>  	if (!ndev)
+>  		return -ENOMEM;
+>=20
+> @@ -5480,8 +5481,6 @@ fec_probe(struct platform_device *pdev)
+>  failed_phy:
+>  	dev_id--;
+>  failed_ioremap:
 
-Once the publication has been freed, withdrawing an adjacent publication
-from the same peer can access the stale list entry in list_del_init().
-The following KASAN report shows this access in the list validation code:
+failed_ioremap is no longer needed, please remove it.
 
-  BUG: KASAN: slab-use-after-free in __list_del_entry_valid_or_report
-  Read of size 8 at addr ffff8880249c7120 by task a.out/9456
+> -	free_netdev(ndev);
+> -
+>  	return ret;
+>  }
+>=20
+> @@ -5522,7 +5521,6 @@ fec_drv_remove(struct platform_device *pdev)
+>  	pm_runtime_disable(&pdev->dev);
+>=20
+>  	fec_enet_deinit(ndev);
+> -	free_netdev(ndev);
+>  }
+>=20
+>  static int fec_suspend(struct device *dev)
+> --
+> 2.34.1
 
-  CPU: 0 UID: 0 PID: 9456 Comm: a.out Not tainted
-  7.3.0-rc4-00385-ga7bfaba4823e #81 PREEMPT(full)
+This patch just prevents the netdev from being freed in fec_drv_remove(),
+but fec_enet_interrupt() could still be called after the removal, and
+fec_enet_collect_events() will be called to access the registers, however,
+the ipg clk has been disabled, the registers are not accessible at that poi=
+nt,
+that is a problem.
 
-  Call Trace:
-   <IRQ>
-   dump_stack_lvl lib/dump_stack.c:122
-   print_address_description mm/kasan/report.c:379 [inline]
-   print_report mm/kasan/report.c:482
-   kasan_report mm/kasan/report.c:597
-   __list_del_entry_valid_or_report lib/list_debug.c:62
-   __list_del_entry include/linux/list.h:261 [inline]
-   list_del_init include/linux/list.h:333 [inline]
-   tipc_node_unsubscribe net/tipc/node.c:687
-   tipc_update_nametbl net/tipc/name_distr.c:311 [inline]
-   tipc_named_rcv net/tipc/name_distr.c:389
-   tipc_rcv net/tipc/node.c:2202
-   tipc_udp_recv net/tipc/udp_media.c:390
-   udp_queue_rcv_one_skb net/ipv4/udp.c:2433
-   udp_queue_rcv_skb net/ipv4/udp.c:2472
-   udp_unicast_rcv_skb net/ipv4/udp.c:2625
-   udp_rcv net/ipv4/udp.c:2697
+I think the hardware interrupts should be disabled on the removal path
+and disable_irq() should be called to disable the irqs.
 
-Reject zero and own-node origin addresses at the start of
-tipc_update_nametbl(), before inserting or removing any publication.
-Neither value is a valid origin for a peer name-table update, and
-in_own_node() covers both cases.
+BTW, do not repost a new version within 24 hours.
+https://elixir.bootlin.com/linux/v7.3-rc4/source/Documentation/process/main=
+tainer-netdev.rst#L15
 
-Fixes: 218527fe27ad ("tipc: replace name table service range array with rb tree")
-Cc: stable@vger.kernel.org
-Reported-by: TencentOS Corvus AI <corvus@tencent.com>
-Assisted-by: tencentos-corvus-ai:hy4-preview
-Signed-off-by: Jun Yang <junvyyang@tencent.com>
----
-v2:
-- Explain the distinction between the sending peer and the origin node.
-- Correct the Fixes tag to the commit introducing the node-zero wildcard.
-- Link to v1: https://lore.kernel.org/netdev/20260731101657.29119-1-juny24602@gmail.com/
-- Review: https://lore.kernel.org/netdev/GV1P189MB19887144315DA4A6AF16FE02C6D52@GV1P189MB1988.EURP189.PROD.OUTLOOK.COM/
+There are other upstream rules in maintainer-netdev.rst, please
+refer to them.
 
- net/tipc/name_distr.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/net/tipc/name_distr.c b/net/tipc/name_distr.c
-index ba4f4906e13b..a496e2e9ef62 100644
---- a/net/tipc/name_distr.c
-+++ b/net/tipc/name_distr.c
-@@ -286,6 +286,9 @@ static bool tipc_update_nametbl(struct net *net, struct distr_item *i,
- 	u32 key = ntohl(i->key);
- 	struct tipc_uaddr ua;
- 
-+	if (in_own_node(net, node))
-+		return false;
-+
- 	/* A peer-advertised binding with lower > upper can never be matched
- 	 * or withdrawn and would leak the publication; the local bind path
- 	 * rejects such ranges, so reject ranges learned from the network too.
--- 
-2.54.0 (Apple Git-157)
