@@ -1,146 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6146F46EC69
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 11:01:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AF75415F08;
+	Mon, 28 Sep 2026 11:07:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790593319; cv=none; b=t9riSf9/FffR4CT7wTdFVH5BuO5TWQLTCZ/dqC8YPY1THQPA7TgNiukNhtFlsg5mk/xem5X3Rq7kEtK/7Dr0p3I6pbE5gmLfVlfW7usVOpxwe1ud9Tj6vY+eAdmfO9TnPcdT6B5CVI3TMtlfu56PkWeJKYwnOr/oC6IlyvRSmxQ=
+	t=1790593631; cv=none; b=C5EEKbN1Qaf/04BlsP4meKEBZpWo/z6Qa5/jD9YrJAaZV8oXYEIt7WB2FC2b27dQVQSEaXetUm6DA12y85rK3Ob/M9G/ViiZqVlsXb3tEhj4/VJAuPpw40F4MbQk/Fq6D3u2j51Vd5F5sCjKngrGmiz0sZTV4IG2oalzRrrBck8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790593319; c=relaxed/simple;
-	bh=jkyTYu2joa+N7LW/jLjMCrd80RlV2NlHH6zguWtPxew=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=srzkBQ0mTaU9MaZj7+1cEEpr9N8gl5glPUQlSbM7qWGxsDj034mezSq9T4FyNiU5/5Y66ZeqIj/robIwSJrGJ1+SrdGi7inZwyOS+CojhIMZhKy3sCXumAtxomnVi/WyaehmL8/sqeKDfATMGrtcsrsIVokcH3dr377cDHm5hjE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ndx/x6nw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790593631; c=relaxed/simple;
+	bh=JuFta5vYDKkfyWSB7vYFGBGTLaKRCKTKF6A01c56UNM=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=EGfU1YCJFpMfUNxX0xELjIb3CyMON6KUg4c/ht+oRkvoLFU9ObVNf4j1FN7dUi7jD5NHqJHH3V6M0Zkw/5oVNEcKZ9nAh9cO9DUdaDtVhM9HC5zScPhPUAVf+MSlKgk3snx1Y8KZ4TbF8I6slYgVlCqseDQ1qk6OUsL2ul1vdwc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=plAWPkrL; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=av87D/iR; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=qV+phgV6; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=SMlY4QI+; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ndx/x6nw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CDCF1F00893;
-	Mon, 28 Sep 2026 11:01:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790593318;
-	bh=ZkSQyWzu7T/0A3a31XNu8vpxdHKsJ4rnNLYcnd0bezA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ndx/x6nwMj46Es9rYHZ9z5o5JqF6jxdKphwEJZh+flA2ah0VkSrN1HPEkvBpTZ55l
-	 Ec140TtlDd00Tm8VtLGdh+OYVKZXZ0cixKbTgzq/h0Jrs+rr0ZvEOC8OG3Xkgg9QsN
-	 sPsYC2pc+Yqt/UI424ddW2XK70/rrvc1WMUH306WX7q6ii+DiFZaGC8+1oeExOv1le
-	 IyMP4ppESpTjASvi8x0OInxnclTaAPXeNrazQgAAnd2ENyXioV7QTp6iRQKOApdZwH
-	 WNYK0ElfQrsxviktM5lH9ifaxdewsw+Ij7RF58oCxfzkZWcVw9CfQgdsm+NISW6BNW
-	 XNEDMAFhYc2gw==
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 51887198003A;
-	Mon, 28 Sep 2026 07:01:53 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Mon, 28 Sep 2026 07:01:56 -0400
-X-ME-Sender: <xms:IUm6amGRh7ivfHDvq4z-E4J238NnRqeDSKn55_llFW07u2nvIC12gw>
-    <xme:IUm6anzTLp0eOfCljLLN7gd438Ibx6XI9YP_osT2WClEWug6PWQZEYIJVekIUzG5l
-    Tr-0rptENVwcMoqN7WMkBrhNoGTT2U18ORsCPfW-OmiEc3ZRh8KTZ_i>
-X-ME-Received: <xmr:IUm6alm3_1G1yWMrJZAP6YyyEhFHpAW59SEB6sArwbs_1HFnH1XDQTTvpZs>
-X-ME-Proxy-Cause: dmFkZTF0aXYM8k99TJSKePzPlV0De8TMZ2NIzeehRzclNPyyK+ntmJJe9xCW5IfIQqBvZb
-    4B//Q8aA+dg+pkoM/Hu4RNB1DMHP9RcAheVWJjNEUWscLZxr0DKXN45dL8/VHoXCApqgdv
-    9kyt5mrKg/Qv0CHkIWHqHnTGVENgrqiQhzXgV4SFDHQCtMPP0dbQrKV7Ld27CUqdi/llIg
-    RPOyyKS2epukrnxpRUIDWnbAA6KMEqtKVW7p8XcJ5GCOI0cRyClu1cuGLZi8XLbNZuRw22
-    4LFnKw9fd81HwwydQsLTyoqMNRUkKJLfz8JqZMNAwQBJE82qW8VZnUdBtFke/U1qNBefWu
-    WHCWENgAaAF7ORaIKprhr7jnkKBAHlQytYXZ4nF9v7PeatMRQz3kA9MLoHMo1ubFNX0htR
-    ZZnUVdeBxwHVo2Q9B2+N3Eh6miyohAYEhBv+2AdOVJT3RUAG90m8Ht+cdygxtl1HsmeT1u
-    dMRCTmtfi2+cS/qJp0ga1/cmugkZ3GHpjh0iUJnBpTvAIMXsHbLE0TciO9UV6aYwEnsIC7
-    A51LzFfDGTFIHQMkDkOfmf1YIk0tochZfIOTFQ97CEiVXCYXjRhwr3QG4FQYMxJPb2BhM2
-    tLlFSoqklbLoC9YaXpInfuYnQIKOYnUc28/ozsBsi8pb+OVTDGPgFXtN/eWw
-X-ME-Proxy: <xmx:IUm6auBd3_IhSHMMW3j4FKZja0Mq6HFnH8XR7kq3VggHYchzikfyFg>
-    <xmx:IUm6agKxqdn9FF9woV3mgkBZEhkETPfU_LNFx8CsGvUEeAGGUsoXpQ>
-    <xmx:IUm6ahwx6SH2NL2nvBSCuoCYvtrA-MntLblDciCkdhYYgjLUBxGdoA>
-    <xmx:IUm6akz2-uaDiSQsTbDgrPDCV3AZqJhHwdzK44hNCNp5pwAqq_41GA>
-    <xmx:IUm6aj3NRI4ihvxFUzsqZuJuC6btbpULou_EwtGCUY2EM-zl6oWB9zOE>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 28 Sep 2026 07:01:52 -0400 (EDT)
-Date: Mon, 28 Sep 2026 12:01:51 +0100
-From: Kiryl Shutsemau <kas@kernel.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Brian Geffon <bgeffon@google.com>, Minchan Kim <minchan@kernel.org>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] mm/mremap: fix locked_vm leak by splitting VMA for
- MREMAP_DONTUNMAP
-Message-ID: <arpI-wmzRXU5aSOG@thinkstation>
-References: <20260920-fix-dontunmap-partial-self-merge-v1-0-6ffb556f8f8b@kernel.org>
- <20260920-fix-dontunmap-partial-self-merge-v1-2-6ffb556f8f8b@kernel.org>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="plAWPkrL";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="av87D/iR";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="qV+phgV6";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="SMlY4QI+"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 7CF2D1F812;
+	Mon, 28 Sep 2026 11:07:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790593624; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9XybMtF/N4JRglGOx/jG/Xggqki2sIqdTfZWMVmqzXE=;
+	b=plAWPkrLz8aLCjXrVAmv1ExeAO6FfbtmGBZ2SeBdM56vh6tV78d8YrzKSBlPSjfJsWOK9g
+	MUT4SHj9rJeAQWf5yhbMaSU/CSYAeoHULduRDWpl6igy39dgSLnuQ+sSQOAGj65i5AZ8Q0
+	QYtlQzr9y/hYLGfw2N2XNUkTqvnh25Q=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790593624;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9XybMtF/N4JRglGOx/jG/Xggqki2sIqdTfZWMVmqzXE=;
+	b=av87D/iRaMe9qQExAttu/T6ud3rmCwBi6Hb5qgghSuMbdGRSpZL5+J2iIJAlt/lptVfbbz
+	yTAwbFna7pRc9TCQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790593620; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9XybMtF/N4JRglGOx/jG/Xggqki2sIqdTfZWMVmqzXE=;
+	b=qV+phgV6cxj/XOoeiigha3TjbiSxZg7LO+UYv5Q0huHpMdjjEw3ZdoDUMqxhYVnAuq1fRg
+	mDa7YKKEDdCT/N/+xLPhbEoYTDcM9ZtU1lWKINbuAAQOEhbJhZvD41NfbJZ80Ii3+aIeBO
+	izhF1lI4a6mhoZL0itTbyMXfrNwgNmg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790593620;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9XybMtF/N4JRglGOx/jG/Xggqki2sIqdTfZWMVmqzXE=;
+	b=SMlY4QI+BdXyYzr1A/WzPCNmErgLU3daJolaJc5N2xqQaSGlQ0Jy+4MLSpsTZHoCbywTHG
+	EMH8rM+y30+boGDw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 28FF5133F1;
+	Mon, 28 Sep 2026 11:07:00 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id HtepAFRKumqGJwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 28 Sep 2026 11:07:00 +0000
+Date: Mon, 28 Sep 2026 13:06:59 +0200
+Message-ID: <87eced7hyk.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: baojun.xu@ti.com,
+	linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ALSA: hda/tas2781: Fix ACPI device double put in tas2781_read_acpi()
+In-Reply-To: <20260917164520.2163024-1-vulab@iscas.ac.cn>
+References: <20260917164520.2163024-1-vulab@iscas.ac.cn>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260920-fix-dontunmap-partial-self-merge-v1-2-6ffb556f8f8b@kernel.org>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Score: -3.30
+X-Spam-Level: 
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.997];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Flag: NO
 
-On Sun, Sep 20, 2026 at 03:13:11PM +0100, Lorenzo Stoakes (ARM) wrote:
-> The MREMAP_DONTUNMAP feature is highly unusual in that it permits mremap()
-> operations that keep the original VMA in place.
+On Thu, 17 Sep 2026 18:45:20 +0200,
+Wentao Liang wrote:
 > 
-> Historically this has led to a lot of bugs where non-obvious interactions
-> occur between existing mremap() operations and the original VMA.
+> The reference returned by acpi_dev_get_first_match_dev() is already
+> released right after the physical node is looked up. The adev variable
+> is not reassigned afterwards, so the acpi_dev_put() on the err path is a
+> second, spurious put of the same device, which unbalances the reference
+> count, or frees the device while physdev may still be in use.
 > 
-> Fix another of these - partial copies.
+> Drop the redundant acpi_dev_put() from the error path.
 > 
-> The long-standing mremap() partial VMA logic has the baked-in assumption
-> that the originating VMA is unmapped and thus moved.
-> 
-> However MREMAP_DONTUNMAP defeats this by performing a partial copy
-> instead since it keeps the source VMA around.
-> 
-> An mremap(..., MREMAP_DONTUNMAP) operation disallows resizing of the VMA,
-> but the operation can be performed partially:
-> 
->                            |-----------------|
->                            |                 |
->                            |                 v
->                         <------>          <------>
->                         .new_sz.           new_sz
->                      |--.------.--|       |------|
->                      |  .source.  |       | dest |
->                      |--.------.--|       |------|
->                      <------------>
->                          old_sz
-> 
-> The page tables in the specified range are moved, but the original VMA is
-> kept intact.
-> 
-> This interacts poorly with mlock()'d VMAs, as the VMA_LOCKED_BIT flag is
-> cleared for the entire source VMA and set for the entire destination VMA.
-> 
-> This results in an mm->locked_vm leak as the change is therefore not
-> accounted correctly.
-> 
-> The clear solution here is to make the portion of the source VMA which is
-> mremap()'d distinct from the rest of it, a.k.a. split it.
-> 
-> Therefore resolve this issue by splitting it ahead of the rest of the
-> mremap() operation.
-> 
-> In order to make this change re-expose split_vma() in vma.h for
-> CONFIG_MMU (nommu doesn't compile mremap.c and uses a static helper
-> instead).
-> 
-> A quick search of how MREMAP_DONTUNMAP is used in the wild suggests that
-> the partial case is either unused or rarely used, so this should not result
-> in unreasonable VMA proliferation.
-> 
-> Since this makes every mremap() MREMAP_DONTUNMAP operation operate across
-> an entire, distinct, VMA, also eliminate now-redundant code checking for
-> this in dontunmap_complete().
-> 
-> Finally, update the sys_map_count check to account for this case.
-> 
-> Fixes: e346b3813067 ("mm/mremap: add MREMAP_DONTUNMAP to mremap()")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Fixes: bb5f86ea50ff ("ALSA: hda/tas2781: Add tas2781 hda SPI driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 
-Makes sense:
+This should have been already addressed in the commit 8bec01c80e79.
+Could you verify whether there is still an issue in the latest
+upstream?
 
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+thanks,
+
+Takashi
+
+> ---
+>  sound/hda/codecs/side-codecs/tas2781_hda_spi.c | 1 -
+>  1 file changed, 1 deletion(-)
+> 
+> diff --git a/sound/hda/codecs/side-codecs/tas2781_hda_spi.c b/sound/hda/codecs/side-codecs/tas2781_hda_spi.c
+> index 0e4f3553f273..63f8b15c2d8c 100644
+> --- a/sound/hda/codecs/side-codecs/tas2781_hda_spi.c
+> +++ b/sound/hda/codecs/side-codecs/tas2781_hda_spi.c
+> @@ -386,7 +386,6 @@ static int tas2781_read_acpi(struct tas2781_hda *tas_hda,
+>  err:
+>  	dev_err(p->dev, "read acpi error, ret: %d\n", ret);
+>  	put_device(physdev);
+> -	acpi_dev_put(adev);
+>  
+>  	return ret;
+>  }
+> -- 
+> 2.34.1
+> 
