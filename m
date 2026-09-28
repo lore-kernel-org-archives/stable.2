@@ -1,129 +1,144 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A5F64DE729;
-	Mon, 28 Sep 2026 14:39:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C3A64DEC1F
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 14:42:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790606352; cv=none; b=PZNf5Lhbe+fvHXWNs6FGXW1ZE3JiKtUaSj76tJXT4zHnEQK35SnACr99eRIzC8qThdsqeRD6f7pYbJpCt/xBteay+3rsnPFspJi5/1B6a9hp5QGJ7KFwbIjXc8UkMNPeo/YOY+VRP2cVFjehQjDTpQ4FoXV7+HdglmS+iIU9amU=
+	t=1790606546; cv=none; b=s8HKYvnKhzao6No+TMYv3heFRAOe7M9Grjjje0vHhycjpuSUP0J15MEI2rzSIVP9WckX/J4QLlZo1ET5uG8x30PvQSE5IiHCXxq02kZj5Og36suqYA/M9j2f7uMvpK6ycR3ALdB8g/s05JNycJbD9GfUstIdpqpvOC1qpC3Tgo8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790606352; c=relaxed/simple;
-	bh=4YjKs+L2GTxwc1OBkiJDc7B54oY4PcXWb8rFB33O4JQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=crsq2vRhX0RNlVbLvgCF4VAhiMpUNnM/bldnilxtgX0Q09WbwDE0beB5pVN4ElRpjXnq3lZo2y0AdHZnI7Yszba0Kcgr1AnrtsyMD5tQJwaOonjdWo+387KnMBPZf9k9idxdG4seI0uwB3+On1pTw4pxTAp37KRbtP7JivuJDX4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=O5ZrpoO5; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790606546; c=relaxed/simple;
+	bh=ZC7P9layHKwxTaZQrf8DeEUaUxIpEdi/Fjb4t9SoPIo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=spnfCW09lpSQj+f6ZCJwmNXm1hVs3SUlvIsPui2Ab6mA/+NhunSF+NJbWyV4yDkGiT6TzeTvzFQsRVeACtHCxIesn4u9bSB8Ncby1/Zo8/lmleOm+qUO16TanDU/s7bA47PIF1qjbnRvQ9TpObvQTqdxatkfBYpQmE0KE/ZudkE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PsaiDo6p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="O5ZrpoO5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790606348; x=1822142348;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=4YjKs+L2GTxwc1OBkiJDc7B54oY4PcXWb8rFB33O4JQ=;
-  b=O5ZrpoO5ctK1ckLnxKCVOEyWl2YwT7lDNxf8Xkqp8Vq0aDx2bBrF7CU+
-   S7Sw7mxRWQo6J2jVfjQCSsA518n2pi1YTuGothIRrBZx8JVjgQ6QA8HKD
-   NSm7uDLI6U7SxTizqaR1/dIMVxW9g1vdHtoyJo2dth305odaS5TJZV8jn
-   k5lhIzPoJ1D6XfYGxIYqAjrsa43ep/XsH6h4heM2EWVqdug8NnXbUlVdW
-   ZhqfMUr7bpoI9x/lzdpH4UU4BLoT9p30XenQaj0hMEV6t5OXsRbnnou0i
-   PEGojPHrSBIi6bKNfPgST6Lp/th5pbCIwD6M8d7GeJJEMR9lgkFBvxfbg
-   g==;
-X-CSE-ConnectionGUID: l4jF6hM/SwOOKD4g41driA==
-X-CSE-MsgGUID: SSYTAW8PSUCOcdGz0kWP5Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="90173831"
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="90173831"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 07:39:05 -0700
-X-CSE-ConnectionGUID: G4kgOxMISGC+43LOX2830Q==
-X-CSE-MsgGUID: PrTpgZWaTx6eAiTarsbhbA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="272867583"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa006.jf.intel.com with ESMTP; 28 Sep 2026 07:39:02 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 640C599; Mon, 28 Sep 2026 16:39:01 +0200 (CEST)
-Date: Mon, 28 Sep 2026 16:39:01 +0200
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Andrei Kuchynski <akuchynski@chromium.org>
-Cc: Gris Ge <cnfourt@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	stable@vger.kernel.org, Benson Leung <bleung@chromium.org>,
-	Jameson Thies <jthies@google.com>,
-	Pooja Katiyar <pooja.katiyar@intel.com>,
-	Hsin-Te Yuan <yuanhsinte@chromium.org>,
-	Johan Hovold <johan@kernel.org>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] usb: typec: ucsi: Skip CAM query when partner has no alt
- modes
-Message-ID: <arp8BXZIrW6UFdbi@black.igk.intel.com>
-References: <20260927021649.8967-1-cnfourt@gmail.com>
- <CAMMMRMeX9-r_coX1zbUNoMGU+GUW56o4iY_jfyE5_ovFYs6UCA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PsaiDo6p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C136E1F000FF;
+	Mon, 28 Sep 2026 14:42:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790606541;
+	bh=1ynFbGdpiKPW/M+THl5bA0HB8Uf0jOanIeZdS7URUok=;
+	h=From:To:Cc:Subject:Date;
+	b=PsaiDo6p0zqAGO89q5LUGKpGSHq79YtrlbIhE4TMM/FOiErl+jyB5bKoYAcSmPKiI
+	 KnJTg4wnTUc6/ZjeKlQ7SpkZETyPSVTNbkPpmx+y+RZQfM/y78hY4t0MXmLXk9lKgI
+	 756IrKCym79o2aHPAEjg6gXOU6feIzEfgIGsgH6BfnZRaHwcg5wCEFvH3ecbP6t/m4
+	 AMENkyvuZQCpowJ8Pk+kDVf5VlPpzhKMhCRjUgnUrvKU+7XgYTQFIWxnuLpPH5Ce45
+	 S2xDnX035rkNmU2T+CJZHobozIN0O4lGX12ITSs/8D5H1PXmVu4kYwTAfRzjHhTJ19
+	 FskD5zaQv6lDw==
+From: Lee Jones <lee@kernel.org>
+To: lee@kernel.org
+Cc: stable@vger.kernel.org,
+	sdolan@janestreet.com,
+	dave.hansen@intel.com,
+	sashal@kernel.org,
+	x86@kernel.org,
+	Seth Forshee <sforshee@kernel.org>,
+	Eric Hagberg <ehagberg@janestreet.com>
+Subject: [STABLE v5.15] x86/mm: Fix check/use ordering in switch_mm_irqs_off()
+Date: Mon, 28 Sep 2026 14:42:05 +0000
+Message-ID: <20260928144205.3881537-1-lee@kernel.org>
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAMMMRMeX9-r_coX1zbUNoMGU+GUW56o4iY_jfyE5_ovFYs6UCA@mail.gmail.com>
 
-On Mon, Sep 28, 2026 at 08:47:40AM +0000, Andrei Kuchynski wrote:
-> On Sun, Sep 27, 2026 at 2:17 AM Gris Ge <cnfourt@gmail.com> wrote:
-> >
-> > Since Thunderbolt alternate mode support was added,
-> > `ucsi_altmode_update_active()` is called on every Connector Partner
-> > Changed event.  This made the driver send `UCSI_GET_CURRENT_CAM` to
-> > PPMs even when the partner had no alternate modes registered. Firmware
-> > that does not support the optional alternate mode details answered Not
-> > Supported, which produced a spurious error on every partner change:
-> >
-> > ```
-> > ucsi_acpi USBC000:00: GET_CURRENT_CAM command failed
-> > ```
-> >
-> > Fixed by skipping the command when there is nothing to update.
-> >
-> > Fixes: da87d45b1951 ("usb: typec: ucsi: Add Thunderbolt alternate mode support")
-> > Cc: stable@vger.kernel.org # v7.0+
-> > Assisted-by: Codex:deepseek-v4.1-flash
-> > Signed-off-by: Gris Ge <cnfourt@gmail.com>
-> > ---
-> >  drivers/usb/typec/ucsi/ucsi.c | 9 +++++++++
-> >  1 file changed, 9 insertions(+)
-> >
-> > diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
-> > index bef3f9b71d71..71b28e4df470 100644
-> > --- a/drivers/usb/typec/ucsi/ucsi.c
-> > +++ b/drivers/usb/typec/ucsi/ucsi.c
-> > @@ -360,6 +360,15 @@ void ucsi_altmode_update_active(struct ucsi_connector *con)
-> >         u8 cur;
-> >         int i;
-> >
-> > +       /*
-> > +        * Alternate mode support is optional, and the PPM is not required to
-> > +        * support GET_CURRENT_CAM when it does not support alternate modes.
-> > +        * There is also nothing to update when the partner has not registered
-> > +        * any alternate modes, so don't send the command in that case.
-> > +        */
-> > +       if (!con->partner_altmode[0])
-> 
-> Should we move this validation into ucsi_handle_connector_change?
-> 
->         if (con->partner_altmode[0])
->                 ucsi_altmode_update_active(con);
-> 
-> All other call sites are already guarded by this condition.
+From: Stephen Dolan <sdolan@janestreet.com>
 
-Makes sense to me.
+This is a stable-specific fix. There is no single upstream commit to
+cherry-pick; the equivalent mainline fix is commit 83b0177a6c48
+("x86/mm: Fix SMP ordering in switch_mm_irqs_off()"), which is in
+v6.18 but does not apply to these trees because the surrounding code
+was refactored.
 
-> Besides, I don't think we need that comment above.
+The backports of commit fea4e317f9e7 ("x86/mm: Eliminate window where
+TLB flushes may be inadvertently skipped") -- the fix for
+CVE-2025-37964 -- to the 6.1, 6.6 and 6.12 trees ended up with two
+code blocks in the wrong order relative to mainline. The fix depends
+on setting cpu_tlbstate.loaded_mm to LOADED_MM_SWITCHING *before*
+reading tlb_gen, so that a concurrent TLB shootdown either sees
+LOADED_MM_SWITCHING and sends the IPI, or the switching CPU sees the
+updated tlb_gen. In the stable trees the write of LOADED_MM_SWITCHING
+was placed after the tlb_gen read, so the race window fea4e317f9e7 was
+meant to close is still open and CVE-2025-37964 is unfixed there:
+a process can be left running with stale TLB entries, which typically
+manifests as rare, hard-to-bisect memory corruption or segfaults.
 
-I agree.
+This has been confirmed by several independent parties:
 
+  - reproduced on 6.1.y/6.6.y/6.12.y with the test program in [1],
+    and confirmed fixed by this patch
+  - Seth Forshee saw segfaults on 6.12.y within ~30 minutes of running
+    a test workload; with this patch it ran 18 hours cleanly [2]
+  - Greg Thelen reports 6.6.y- and 6.12.y-based test failures fixed by
+    this patch [3]
+
+Dave Hansen acked the patch [4] and has no objection to it going into
+stable [5].
+
+The patch below is against 6.12.y; the identical change applies to
+6.1.y and 6.6.y. (The cpumask_test_cpu()/smp_mb() portion of the
+mainline fix is not needed here because commit 209954cbc7d0
+("x86/mm/tlb: Update mm_cpumask lazily") was never backported to these
+trees.)
+
+[1] https://lore.kernel.org/lkml/CAHDw0oGd0B4=uuv8NGqbUQ_ZVmSheU2bN70e4QhFXWvuAZdt2w@mail.gmail.com/
+[2] https://lore.kernel.org/lkml/aZYWXe739XUJrBld@do-x1carbon/
+[3] https://lore.kernel.org/lkml/CAHH2K0brx9omC9QYyB6Lio3t_1Lf8v=VaFoiaG23UgQ-aec89Q@mail.gmail.com/
+[4] https://lore.kernel.org/lkml/281e8018-5506-4a79-8775-e0de7e58b95f@intel.com/
+[5] https://lore.kernel.org/lkml/86421ee5-5332-46c2-bb48-d40310b818be@intel.com/
+
+Fixes: fea4e317f9e7 ("x86/mm: Eliminate window where TLB flushes may be inadvertently skipped")  # 6.1.y/6.6.y/6.12.y backports
+Acked-by: Dave Hansen <dave.hansen@intel.com>
+Tested-by: Seth Forshee <sforshee@kernel.org>
+Tested-by: Eric Hagberg <ehagberg@janestreet.com>
+Signed-off-by: Stephen Dolan <sdolan@janestreet.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+[Lee: The v5.15.y backport of fea4e317f9e7 (12f703811af0) placed the
+      LOADED_MM_SWITCHING write after the tlb_gen read too, so v5.15.y
+      suffers from the same issue.  Applies cleanly]
+Signed-off-by: Lee Jones <lee@kernel.org>
+---
+ arch/x86/mm/tlb.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/arch/x86/mm/tlb.c b/arch/x86/mm/tlb.c
+index 11a43d373bae..f6e541c24ae2 100644
+--- a/arch/x86/mm/tlb.c
++++ b/arch/x86/mm/tlb.c
+@@ -596,6 +596,14 @@ void switch_mm_irqs_off(struct mm_struct *prev, struct mm_struct *next,
+ 		 */
+ 		cond_mitigation(tsk);
+ 
++		/*
++		 * Indicate that CR3 is about to change. nmi_uaccess_okay()
++		 * and others are sensitive to the window where mm_cpumask(),
++		 * CR3 and cpu_tlbstate.loaded_mm are not all in sync.
++		 */
++		this_cpu_write(cpu_tlbstate.loaded_mm, LOADED_MM_SWITCHING);
++		barrier();
++
+ 		/*
+ 		 * Stop remote flushes for the previous mm.
+ 		 * Skip kernel threads; we never send init_mm TLB flushing IPIs,
+@@ -615,14 +623,6 @@ void switch_mm_irqs_off(struct mm_struct *prev, struct mm_struct *next,
+ 		next_tlb_gen = atomic64_read(&next->context.tlb_gen);
+ 
+ 		choose_new_asid(next, next_tlb_gen, &new_asid, &need_flush);
+-
+-		/*
+-		 * Indicate that CR3 is about to change. nmi_uaccess_okay()
+-		 * and others are sensitive to the window where mm_cpumask(),
+-		 * CR3 and cpu_tlbstate.loaded_mm are not all in sync.
+- 		 */
+-		this_cpu_write(cpu_tlbstate.loaded_mm, LOADED_MM_SWITCHING);
+-		barrier();
+ 	}
+ 
+ 	if (need_flush) {
 -- 
-heikki
+2.56.0.rc1.315.gc6ed9934b7-goog
+
