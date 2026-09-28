@@ -1,233 +1,174 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f13.google.com (mail-oi2-f13.google.com [74.125.231.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 732264E780E
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 15:26:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 177574E9C0D
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 15:29:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790609212; cv=none; b=DTrx3iCq1kcoJucoIweXqRqsABb/zhCb67EFULWq8fakYFqu9qUD008Kpt0drKE9Bp0Kvn63SplwCrtn1tSeGpGMsr+KJdGeXW9MBq8bWROSi8M1X1vxfMiMac/hxTz/W2XEwFuSpDDCaJ5Pbi4a767HeEe76OA0oiLDeAWNg1s=
+	t=1790609389; cv=none; b=LqzZVSs/8kD4O4VHyznfAbavcqjqK4Yezl4zui5T4+s0KexrOzFhQYbgh3Ey1APB7LU7uOIXyvWnflBGq00LuPDM6OGksaloChOeFhTEUakvrCu3TE6EnXU43rAuofxoSi3YgfxpTILFOLdykkZMIT23fADNFb1xQzkj1tOwPDs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790609212; c=relaxed/simple;
-	bh=Dqvg11DbnRk2zmgrSPsi4PFkVSfCPoWkfkc4MJ1gLCo=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=IEkMWWtnB71MVJQXgnDKYfGega8m9duaOoPnSClKi7IpMF4ksaRS0Apum0+ZxIz10fEQHZbUt2pyEqZbKSi7ha42uTDxqdO0GedJYWIFGsBIPv4KHXmq1vYsly+xQ+01dHuJR5hJeeGaLahve+CuL4ELtqhkH77FCC7Y0ZxWSlY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TZk2SS0k; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dEIX/txS; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790609389; c=relaxed/simple;
+	bh=QWsd3wxevy+japnbf8IB+oIJRFrkXbpx/xJHJ2YNGDY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LBH5A7EP7VIy70XcTil7SKLE3sO6e62Lfx21x+GuHZxmK21YtXmVgAIvNdZ6FZqiNkI7u/bfzWK8H4SgQqFtg3Df+eZ6hNId05Wv6EBD+n6X7Q8674eQP6bHyY05PYVwxtbLRpKxRJNA+M0lw51hfJkFdazcTtea9++Fy1UvBMA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V6zdbmTk; arc=none smtp.client-ip=74.125.231.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TZk2SS0k";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dEIX/txS"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68SEdxUT2755871
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 15:26:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	m8I30bmzEkxiQOSTZb9FMgwhTXv2mfHqXd7wNca/new=; b=TZk2SS0kMHDhtF02
-	OPKyXa+8okiuK2ku1qWwqBsXl0AdMf8weR0x1G+vghoQU656fkU7lOqVVniW2mLP
-	y9yb4kv8vws+RjZsMGrw7XDEzeXfJM+Kmy+vpj2ET96R5m1m7fXRAwyuRkbIR/zG
-	7T/9b5GHV8tJJMZOsaqrvkY0+Uu1pIKofpaWpWwVhxeWaB0enRK4f4Dmx1yaUVyF
-	z3LkHrbjcQfmOmK/uWSXBull1HOGP9nxEsww8JMAs6padNyFMmkMa6M2RIG6xCOm
-	Wm49G6JzrOw5dYkeVbzcKIysm92XuQ4z1B7auX5VbY5C+ZQqZnOHsYdsrIL7mHJQ
-	ixkxeA==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyhubj8ry-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 15:26:49 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-3282d5302ffso5429758eec.1
-        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 08:26:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V6zdbmTk"
+Received: by mail-oi2-f13.google.com with SMTP id 5614622812f47-4c66ba0b762so598444b6e.1
+        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 08:29:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790609209; x=1791214009; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=m8I30bmzEkxiQOSTZb9FMgwhTXv2mfHqXd7wNca/new=;
-        b=dEIX/txSxwv4GZSbql+eM3cz8j9Zp51w1zmT9HOaqzOgkci+8IHakER+Zx62h/Vhtx
-         Oj9oUxgJxqHzU+eW3UTClyo+wZUHI9jdDuTrDeoEhKzk4fY/gjAbIR1xYGdf8/eIrGc+
-         pq5POMOSZUfzcQ+G6MpoVwllDGRtSojItPp5gaqc3iEHAcHi4o6mg8X1eVh7lSNDnEI0
-         qLNKSpsImxH6uci/+8olJVF+iBckuwWPtXZ897hhdXgA/a8KVlgxxwLNC03mogWuIooE
-         2h0szj1Du3KHGtkpU+zdWpCm+TB3U+L+ih+PN6Himy9ncWtg6q2y9cneSGLbfilXcoBt
-         VQDA==
+        d=gmail.com; s=20251104; t=1790609387; x=1791214187; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XoZ89Zwbou41YSb+ju1qDv/4cuEDzLy4HojALjA6SyI=;
+        b=V6zdbmTkGBaR5RSR268VCAy/wDdem+kjLY6zqBjYpB42PZBzACOFmMfaDKD2quImKR
+         zeqydP90lV+ucXynSfl+4xr582MX3vZWpYnTEd0G6rA9XDVUI2MwSGq3eVsHclJbyNWk
+         IeIcIXPHqgN5sJ0bV5gV2bR6Wz7DXhQFTUCeWZl8rxuqgdDc0eh0HA+OrStYuuI2q2bE
+         Duqc1usLVGnyf6zOeOw1uPZvTZqKAPhC8YjKLClaKgy3Pw18Mphl91vOnnnxZx+pe9Vr
+         e9ka5Jn5rO42g48O6UB/LL28Gb4MMjBbydsKoHj10OS4PQV6W6K4+pMdt9dUj/mLITAg
+         Q8LA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790609209; x=1791214009;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1790609387; x=1791214187;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=m8I30bmzEkxiQOSTZb9FMgwhTXv2mfHqXd7wNca/new=;
-        b=GvmAzbUZCrG/a4ZPnLPZGkfed13R5IbKlabhCIB7z3vInHWNY6g4ZdyPoygvEdLx/D
-         KsahMzheqPEZYyz40fdyPGM8gvx5p8M/leJGo4DJFQyCNybBaSrWHvR6m8eeB56VZmVY
-         XnB+xrk4RbZondehNrldeRBI3GajWZRDOZEhEEw0Ay3u8GNxWR5VPTSEza5ciWBlFLLx
-         Vd8Y+UQx8rlk1h4mpZSUogPh8/k77HW+yJhV8xLZwTpehlYP4oz/npt9+KFO6UntifM/
-         qUq/6aMuw7gR9DJuUZSh7Q/4rMxQHLmR8v0ak46pq0gyKHQaUWgv4/gcxgoBgAdYKqQD
-         NH2A==
-X-Forwarded-Encrypted: i=1; AKwUvBwCTvhPIjVOacTYLxBnJ18rssR09d8+I/qimMcjro91u3oZMD+9uFwB+bFGG240rwVQh5ntUNs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI37v50TiE3vonyqUE0DVuM/+Z1RzfO4CBjy1FIz3g1FiNvsRVO
-	+b7aK0NMfxDNlwgpDKTL/HyynaLxrOIFumMN/u7f6ouWfZR4g+S99oPiZw0RCyTpxfmei057qiV
-	Cx6Vp1t6OiD9AJV+Eg9APiPSdmEbRZFW76IBbZ6j/CJTVt/E+37fujomj2gc=
-X-Gm-Gg: AYBFou0uRR1t0aAj2Mns+ll/1AXIz8CZnLOL25knk/YfUbn7cIuvc7X/the0DCoQaSK
-	tdaAqJhYFNo0y/+Km6qeyJNETXLgY5PEtkqCua30EkBfYfUNB7lRfC/sHQ5B2aFSxtQsRjxNsT9
-	z948KjhXNMkSCNFOwqRCU4uR0SQ/WeVhQc9/GZ5DPopDG/ANyIDWB6wI2yrHe5+vS4ZKq93t1SH
-	UVdXW3j65gJ/sE+L0qMHCilxmNfF6HsOKT3lzfm6g5VuTupm6xzRXZ8/7w27fqlwyqZy2K5CPIY
-	kE1iw5UoGbxCi45eewYctRtZ0U3f9C10mZ8nMDgkEa41iSBY2J0W49FLWMNh06EDVi1+FeAHrU2
-	ME8EYmY9BCymIFQ6ij2lXJeBhFhO6SuiDzkj4L7jP9wo=
-X-Received: by 2002:a05:693c:87c9:20b0:347:a3d9:dfa3 with SMTP id 5a478bee46e88-347a3e9232dmr2971505eec.7.1790609207793;
-        Mon, 28 Sep 2026 08:26:47 -0700 (PDT)
-X-Received: by 2002:a05:693c:87c9:20b0:347:a3d9:dfa3 with SMTP id 5a478bee46e88-347a3e9232dmr2971437eec.7.1790609206721;
-        Mon, 28 Sep 2026 08:26:46 -0700 (PDT)
-Received: from [192.168.11.104] ([124.123.80.135])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34144173a2asm31407404eec.6.2026.09.28.08.26.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 28 Sep 2026 08:26:46 -0700 (PDT)
-Message-ID: <3cd93e83-6103-457a-8879-bef8521bef9e@oss.qualcomm.com>
-Date: Mon, 28 Sep 2026 20:56:41 +0530
+        bh=XoZ89Zwbou41YSb+ju1qDv/4cuEDzLy4HojALjA6SyI=;
+        b=T4HQAYdsRBTuIDpNQzC9VqGYh/4JSCNGN+GmkqsFp6jblOTCLwQ2f/bqjn5GjDuOAl
+         bV97SEXCPEsHUz7tkZKg/+UlFakv9Xhs65/hs1W0YGGXkaiwuBoYdNtahrRJXDkBIjzA
+         Pd429WiThZhf+QkZr42QOFRCAWJ18HmZJQvVtHcCtt6i4abjoqlzM0T23ubvFQZ48BpZ
+         kCu59GX7ifR+v/3KTiT6wyY7FDUFdVqn+4bxbnN4a5HhqIeBmHSkpcBN9voQD1PJAknH
+         8L3+sx0GkPmO2Mr5wjjfMtvcfTL3M7rkF0KWxGpt6ebwN9kAv9i9FEuut5k+a1yOGSU6
+         GQMQ==
+X-Forwarded-Encrypted: i=1; AKwUvBySklfvzV/uA7+ONmd+XO2Tow2KxG2NwpmsSOdst/yzcWzxbi64W/crNiz2FuKHYVT1jYh3GpA=@vger.kernel.org
+X-Gm-Message-State: AFuF++ml3JuO1R4jLsm3am5fc52XnIDZca5vgTTRYX25gf32icwKjDEq
+	HOEOKWMGgxrS1VtB3rfB1/WXiRU90MQyiOCs50kj+1GrLErHg8oxeC9z
+X-Gm-Gg: AYBFou3yNdSM0CL51bH94B+QogZgHy33pLc3fMdS5LE3DUh4GbCp7K00YBtIgp+lCYE
+	aRDXv/yq7gmP0L6gIwV7VBx2Z2blSUCShv25uhKLx/uWSPo3fLewTyu09WjccqOTiIzfQWzJAsr
+	Rr01We0d/VcBUeblXexM2Reypfh1eNN3035bsp0QHr3DSptuAlij2D0PRhuT7F0MRtp0kEOsIRp
+	qZiCj7zf+YzSbikClfecpGi25gWy0qHx9YrvkpGtuZkx5pCpwwGkw/UmTToqPzkW8f8SzojwHj/
+	FMTPLtgC5dJrwb4tZYEfOGbieSb/1oiV2bMkBNweanOXwEIxW9lu8YLOi+A3VEv48MacN7U9FMO
+	A2sCp4W50T6c5WhdAYbrNfkdJYWbeZBIS4CLLo0pNMBesDDPKiP1KAa1o+DG28NKOB9GsN8ryI+
+	9sA0ibu8vjADi2+5F61ZqGUgoT5O/yT04tXS8T19MaCzeGlK9yKcaJwVFYeCgK6/PNBBbg7UNyj
+	u2sdaQcSvRLsA1CqLoBMg==
+X-Received: by 2002:a05:6808:1204:b0:4b8:46e3:e229 with SMTP id 5614622812f47-4d72c837a21mr10326982b6e.21.1790609386543;
+        Mon, 28 Sep 2026 08:29:46 -0700 (PDT)
+Received: from cachyos-SlimIce.lan ([2607:fb90:9a26:9349::e71])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4ebb6e9e924sm1895924b6e.1.2026.09.28.08.29.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 08:29:45 -0700 (PDT)
+From: Jared Wuerzburger <jwuerz@gmail.com>
+To: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Samuel Dionne-Riel <samuel@dionne-riel.com>,
+	Jared Wuerzburger <jwuerz@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] ALSA: hda/realtek: Fix internal mic on Minisforum V3 and V3 SE
+Date: Mon, 28 Sep 2026 10:29:25 -0500
+Message-ID: <20260928152925.69032-1-jwuerz@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>
-Subject: Re: [PATCH] wifi: ath12k: order hw group devices by WSI index
-To: Benoit Masson <benoitm@perenite.com>, Jeff Johnson <jjohnson@kernel.org>
-Cc: linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
-        stable@vger.kernel.org,
-        Karthikeyan Periyasamy <quic_periyasa@quicinc.com>
-References: <20260927012314.34857-1-yahoo@perenite.com>
-Content-Language: en-US
-In-Reply-To: <20260927012314.34857-1-yahoo@perenite.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: RPXYm2V8rwLKLY7CBoaYjIWLw_wNQEx0
-X-Authority-Analysis: v=2.4 cv=C7F8WgP+ c=1 sm=1 tr=0 ts=6aba8739 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=kllYWVK2JqQtNyhMtAlpJw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=VwQbUJbxAAAA:8 a=LV5C8B2hAAAA:8 a=VlrtaSc80NQl5BrU7SEA:9 a=QEXdDO2ut3YA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22 a=uiVh3g-rw18WZz7NjXbe:22
-X-Proofpoint-ORIG-GUID: RPXYm2V8rwLKLY7CBoaYjIWLw_wNQEx0
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA2MSBTYWx0ZWRfXxisXYceDNT37
- CRi9iD55F5eK1R9rjfuDL6R1h2rcF+SuXe2PcguXjb0TLN9kcGO2LsssI4EqL4HfbhfF0i5hPH/
- TDGfsKGJJqxkg070Vb8JQvCDlvDJYGn7oQ2gk9cmqzfZ/X8CW3TXG60CombQ5ROy5s9FkUsSv/5
- sWLsPkDTshvTzFO2E1G9phi+F8E5zyPsNDQBipVZv6odbAJWtG/8ovRJi/Ywwoc8z3B5bzjWUjR
- aFGWGYfjB2FVrTBXnA30zs5N+qEEzVC0TVCRuuz7XAxfFIEfJamPBiMtGKuQUppfFH8ki34M75m
- MpLJWMhaWl3FxqocunWeFyB5naQA0QMeVfBQ4AFlG0KUin8s+CgcDbFwidCKh5le8ErFpJpR1GV
- KzUfDe89X8LgsgmlaL2alEjv4E4fEiE7p3fWauYEW0Oc0CQDDA7eCQPb8yLyuopLD0TJ/Y+enWY
- LLeDZmbySkNzULKlPRg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA2MSBTYWx0ZWRfX9G/colucbQHO
- WtR8EINvfYbZsXMgqXyLOnMM27/cXLI292n4QkX2sD1uWj0WPzRJBGQIQZQPsRiecExd8jBhKIA
- HhQjLKwkD658lJW+V0kBErHguizOJMM=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-28_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 adultscore=0 suspectscore=0 spamscore=0
- malwarescore=0 lowpriorityscore=0 clxscore=1011 phishscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609280061
+Content-Transfer-Encoding: 8bit
 
-On 9/27/2026 6:53 AM, Benoit Masson wrote:
-> On multi-chip (WSI/MLO) platforms the devices of a hardware group are
-> added to ag->ab[] in PCI probe completion order (ab->device_id =
-> ag->num_probed++). PCI probe is asynchronous, so the order in which the
-> chips complete firmware bring-up is not stable across boots.
-> 
-> ath12k_mac_allocate() builds the wiphy radio array directly from
-> ag->ab[], and takes the wiphy device from the first entry. As a result
-> both the wiphy sysfs path and the mapping of radio indices to bands
-> change from boot to boot on boards such as the TP-Link Archer BE800,
-> which has three single-band QCN9274/QCN9224 radios in one group. A
-> persisted hostapd configuration that pins radio0 to a band then attaches
-> to a random band.
-> 
-> Order the devices used to build pdev_map[] by ab->wsi_info.index, which
-> is derived deterministically from the device tree WSI ring and the
-> qcom,wsi-controller node. ath12k already uses wsi_info.index as the
-> canonical per-device index for the firmware link IDs in
-> ath12k_host_cap_hw_link_id_init().
-> 
-> Note that ag->ab[] itself is left untouched: the unassign path indexes it
-> by ab->device_id, which is the probe-order id.
-> 
-> Fixes: 6f245ea0ec6c ("wifi: ath12k: introduce device group abstraction")
-> Cc: stable@vger.kernel.org # 6.14+
-> Signed-off-by: Benoit Masson <yahoo@perenite.com>
-> ---
->   drivers/net/wireless/ath/ath12k/mac.c | 20 ++++++++++++++++++--
->   1 file changed, 18 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/net/wireless/ath/ath12k/mac.c b/drivers/net/wireless/ath/ath12k/mac.c
-> index 99bf5cf..6505255 100644
-> --- a/drivers/net/wireless/ath/ath12k/mac.c
-> +++ b/drivers/net/wireless/ath/ath12k/mac.c
-> @@ -15444,6 +15444,7 @@ static void ath12k_mac_set_device_defaults(struct ath12k_base *ab)
->   int ath12k_mac_allocate(struct ath12k_hw_group *ag)
->   {
->   	struct ath12k_pdev_map pdev_map[ATH12K_GROUP_MAX_RADIO];
-> +	struct ath12k_base *ab_order[ATH12K_MAX_DEVICES] = {};
->   	int mac_id, device_id, total_radio, num_hw;
->   	struct ath12k_base *ab;
->   	struct ath12k_hw *ah;
-> @@ -15467,6 +15468,21 @@ int ath12k_mac_allocate(struct ath12k_hw_group *ag)
->   	if (WARN_ON(total_radio > ATH12K_GROUP_MAX_RADIO))
->   		return -ENOSPC;
->   
-> +	/*
-> +	 * Order the devices deterministically by WSI index instead of PCI
-> +	 * probe completion order, so that the wiphy and the radio index to
-> +	 * band mapping do not change from boot to boot.
-> +	 */
-> +	for (i = 0; i < ag->num_devices; i++) {
-> +		ab = ag->ab[i];
-> +		if (!ab)
-> +			continue;
-> +		if (WARN_ON(ab->wsi_info.index >= ATH12K_MAX_DEVICES))
-> +			return -EINVAL;
-> +
-> +		ab_order[ab->wsi_info.index] = ab;
+On the Minisforum V3 and V3 SE (ALC245, PCI SSID 1f4c:e001) the
+internal digital microphone array never produces any audio. The DMIC
+pin 0x12 is parsed correctly ("Internal Mic=0x12"), but the headset mic
+jack pin 0x19 (BIOS pin config 0x04a19050, jack detect enabled) has no
+presence detect wired on these boards: reading GET_PIN_SENSE on 0x19
+always returns "present" (as it does on the unused, unconnected pin
+0x18), while the headphone jack 0x21 reports correctly.
 
+The generic parser therefore sets up auto-mic switching and, believing
+an external mic is always plugged in, permanently routes the ADC to the
+empty jack (mixer 0x23 input 0x19 unmuted, input 0x12 muted). The
+"Mic Jack" kcontrol reports "on" with nothing plugged in.
 
-Maintaining the ab/ar ordering in ah based on the WSI index feels like 
-the wrong layer. The WSI index is a property of a device's position in 
-the group (ag) based on DT.
+Mark pin 0x19 as having no presence detect. The parser then stops
+auto-switching and exposes a normal "Capture Source" (Internal Mic /
+Mic) control, which desktop audio stacks drive from their Internal
+Microphone / Microphone ports. The existing bass speaker DAC routing is
+kept by chaining to ALC245_FIXUP_BASS_HP_DAC.
 
-Did we consider placing ab into ag->ab[] deterministically based on 
-wsi_info.index? Do you foresee any issues with that?
+Tested on both models with the same pin config applied through a
+snd-hda-intel patch firmware ([pincfg] 0x19 0x04a19150):
+ - V3 SE (Ryzen 7 7735U, BIOS 1.03), kernel 7.2.6
+ - V3 (Ryzen 7 8840U, BIOS 1.06), kernel 7.2.7
+Both boards report the same codec SSID and the same 0x19 default. On
+both, the internal mic records at a normal level, headphone jack
+detection on 0x21 still switches output, and the bass routing is
+retained (DAC1/DAC2 Playback Volume controls present). A headset mic
+on the combo jack was not tested (none available); with this change it
+has to be selected manually. V3 users already report that the jack mic
+gets no input [1], which is the other symptom of the same broken
+presence detect.
 
-something like below in ath12k_core_hw_group_assign(),
+The patched alc269.c was build-tested with W=1 on tiwai/sound.git
+for-linus (7.3-rc3) without new warnings.
 
--       ab->device_id = ag->num_probed++;
-+       ag->num_probed++;
-+       ab->device_id = wsi->index;
-         ag->ab[ab->device_id] = ab;
+The diagnosis, the fixup and this changelog were written with the help
+of an AI coding assistant; I reviewed them and tested the change on the
+hardware listed above.
 
-If that works, ath12k_mac_allocate() wouldn't need the new ab_order[] 
-array at all. It could simply iterate over ag->ab[i] directly.
+Fixes: e34743018249 ("ALSA: hda/realtek: Add quirk for Minisforum V3 SE")
+Link: https://github.com/mudkipme/awesome-minisforum-v3/issues/14 [1]
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Jared Wuerzburger <jwuerz@gmail.com>
+---
+Changes in v2:
+- Drop the alc269_fixup_models[] entry (Takashi)
+- Add Fixes: tag for the commit that added the V3 (SE) quirk (Takashi)
+- Assisted-by: LLM (Takashi)
+- v1: https://lore.kernel.org/linux-sound/20260927173237.339476-1-jwuerz@gmail.com/
 
+ sound/hda/codecs/realtek/alc269.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
-> +	}
-> +
->   	/* All pdev get combined and register as single wiphy based on
->   	 * hardware group which participate in multi-link operation else
->   	 * each pdev get register separately.
-> @@ -15483,12 +15499,12 @@ int ath12k_mac_allocate(struct ath12k_hw_group *ag)
->   	mac_id = 0;
->   	for (i = 0; i < num_hw; i++) {
->   		for (j = 0; j < radio_per_hw; j++) {
-> -			if (device_id >= ag->num_devices || !ag->ab[device_id]) {
-> +			if (device_id >= ag->num_devices || !ab_order[device_id]) {
->   				ret = -ENOSPC;
->   				goto err;
->   			}
->   
-> -			ab = ag->ab[device_id];
-> +			ab = ab_order[device_id];
->   
->   			/*
->   			 * the assumption is all devices within an ah
-
-
+diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
+index 5127a111c5..d9ce10d5d3 100644
+--- a/sound/hda/codecs/realtek/alc269.c
++++ b/sound/hda/codecs/realtek/alc269.c
+@@ -4384,6 +4384,7 @@ enum {
+ 	ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN_HEADSET,
+ 	ALC285_LENOVO_DAC_RENAME,
+ 	ALC287_FIXUP_YOGA9_SPEAKER2_TO_DAC1,
++	ALC245_FIXUP_MINISFORUM_V3_MIC_NO_PRESENCE,
+ };
+ 
+ /* A special fixup for Lenovo C940 and Yoga Duet 7;
+@@ -7136,6 +7137,15 @@ static const struct hda_fixup alc269_fixups[] = {
+ 		.chained = true,
+ 		.chain_id = ALC287_FIXUP_TXNW2781_I2C,
+ 	},
++	[ALC245_FIXUP_MINISFORUM_V3_MIC_NO_PRESENCE] = {
++		.type = HDA_FIXUP_PINS,
++		.v.pins = (const struct hda_pintbl[]) {
++			{ 0x19, 0x04a19150 }, /* headset mic jack, no presence detect */
++			{ }
++		},
++		.chained = true,
++		.chain_id = ALC245_FIXUP_BASS_HP_DAC
++	},
+ };
+ 
+ static const struct hda_quirk alc269_fixup_tbl[] = {
+@@ -8349,7 +8359,8 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1ee7, 0x2081, "HONOR MRB-XXX M1020", ALC256_FIXUP_HONOR_MRB_XXX_M1020_AUDIO),
+ 	SND_PCI_QUIRK(0x1f4c, 0xb020, "Minisforum AI X1 Pro",
+ 		      ALC245_FIXUP_MINISFORUM_JACK_DETECT),
+-	SND_PCI_QUIRK(0x1f4c, 0xe001, "Minisforum V3 (SE)", ALC245_FIXUP_BASS_HP_DAC),
++	SND_PCI_QUIRK(0x1f4c, 0xe001, "Minisforum V3 (SE)",
++		      ALC245_FIXUP_MINISFORUM_V3_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x1f66, 0x0105, "Ayaneo Portable Game Player", ALC287_FIXUP_CS35L41_I2C_2),
+ 	SND_PCI_QUIRK(0x2014, 0x800a, "Positivo ARN50", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
+ 	SND_PCI_QUIRK(0x2039, 0x0001, "Inspur S14-G1", ALC295_FIXUP_CHROME_BOOK),
 -- 
-Ramesh
+2.55.0
+
