@@ -1,123 +1,107 @@
-Received: from mail1.nectarine.be (hip.nectarine.be [185.213.22.185])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f21.google.com (mail-pj2-f21.google.com [74.125.227.149])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57B73378D74;
-	Mon, 28 Sep 2026 07:37:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.213.22.185
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18620378D74
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 07:39:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.149
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790581030; cv=none; b=WiwT2YPZ0LiA4zJ2eUu77HaOj3kiuIhwNRlo8pgp/TQkJZRIUOg0zaM5k1DbwQMQGeTvpPCCr9G1ds5CQmoxxhCYw5VE2b49lhXXur+HkBQkIrBZr++eW+zCxCwencOn5HNkuzx7H+R9EhRlmwCZvo6b8LRXWy6jVQs/Ypvwg1A=
+	t=1790581142; cv=none; b=Qu8ycdjmrlgniWAYA+AsS3kG32eo4D7fxuzmpjdC9MQwiHZ8rFmYtlADOOtLt0iSKILYcHJTb8p946PC4GSwfMcMkIJKIqZy10bd5YChYwbfF+vaqRV57bmlkV/RN0lK6atmmc+3IwORt3M0Ox2f4aOICFJP9jwAQLNJ/lDUzmM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790581030; c=relaxed/simple;
-	bh=1jAsz6EiBgb/ZwkMPYRS1MwuvKAbkkHDr/aokCGi6J4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QZzjyTw/zLP8Pe483QKj7q4CynehdCm+ts5r/sEv5t8yIKObxJ42ydcOFTa4ZzfGgHRFqb4zM3LliE6XZudwMniomMs14zJ+W5po4v0OaqFpAtIl/tP41rviDJBd2sXJBC8KPB8f44NhiazJxXfvV4QNdxVh6BaeqYhLPdwNkWU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainez.net; spf=pass smtp.mailfrom=brainez.net; arc=none smtp.client-ip=185.213.22.185
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainez.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=brainez.net
-From: Nicolas Brainez <nicolas@brainez.net>
-To: Ard Biesheuvel <ardb@kernel.org>
-Cc: Ilias Apalodimas <ilias.apalodimas@linaro.org>,
-	Lukas Wunner <lukas@wunner.de>,
-	linux-efi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Nicolas Brainez <nicolas@brainez.net>,
-	stable@vger.kernel.org
-Subject: [PATCH] efistub/x86: Fix the size type of the Apple properties protocol
-Date: Mon, 28 Sep 2026 09:28:32 +0200
-Message-ID: <20260928072832.25399-1-nicolas@brainez.net>
+	s=arc-20240116; t=1790581142; c=relaxed/simple;
+	bh=JYguKpWYYDdj85O8UNrflccHJDrj4xz7wT+IHO0o+TI=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
+	 References:MIME-Version; b=epSAnW6e6pTnsNEa75QVjAtMqXVijD70m+RnnUgPHb6bQ1FG7yM3a6fvDFV1QTpE1RxpMzrU2bYnCSiucDKXMpmadXilgbIWniANP59G2V7EhtW0qGaAsNcpmWeXslgxoKtO+7IDtxXHcuKTLYf2y2DfVIdZg9AhmaZIdx+w5vE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CSxOnD8+; arc=none smtp.client-ip=74.125.227.149
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CSxOnD8+"
+Received: by mail-pj2-f21.google.com with SMTP id d9443c01a7336-2d747f0b25dso16889065ad.2
+        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 00:39:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790581140; x=1791185940; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NrMGPZQfXAem1w1eTjPgNNpDrfOCX+chlCVcm7+bkR4=;
+        b=CSxOnD8+FAiM1CguoaAzVBcp7KirSRa1BsTjvvt42KqpJ/9y5hIF4OSsxiqNEPKoLL
+         f+LtXK0/nFALt/2rOrnnXzzq4D5g33A+HfiYMgIAECXgyB0avC1LMjtNPv/Sv0iUsDuR
+         Laz7KJHY1h8fMh188aNXkeD/7OJnZO1Z0weHcZS7e6/i4nXSMfYDYArKuC//4cYmLMMd
+         fvPXwstO9Sr8E85AA3zR7tTvGIhwPNxf63JWLzqF8wMcCtADl9mSBCmTxwKVX0P4hJFN
+         kq6T63Ccmkg6YOBNRctP29Uh7x5yxc/AA1mjaUgnPlzXp8MncVCZqVJuNIhnZLBe9IR7
+         vYzA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790581140; x=1791185940;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NrMGPZQfXAem1w1eTjPgNNpDrfOCX+chlCVcm7+bkR4=;
+        b=fdt738kG1r+ePdNzf3Ck3hARRSVIPje0qs9HmTd/E8bfZBNgvCzjuRYwJpgWMEQ6l9
+         e+HasUIjaYnRNTxuMILsHF1XXhy+cB4fhrSmgVhzzI3IvBSA1ap/2ppetr6jQaS/DGxk
+         haPxAyyJpXSr37xFwo9goNm0/ZrIFdyE/G8OM/IqJiRGH/B7nO+8Bjh61+wBt1JWd+pN
+         Le9IH6bIWmBAOel8om+wKdWqc/oO/CH8Vwdj23a90VBJVOmoReWPVlrIfLbIolkWmJKM
+         5uQEVHV0y7v8UR4RaQd80M/vc7UAXVW3gwBfU+FX5xw09dD2UqT9CNUiyurkDayD9wXY
+         capw==
+X-Gm-Message-State: AFq9FYJQVxkp5i9vVXsyKPQxYddj849cq2wr89eydJAXr9Cu1X/05IT5
+	QGqNzYYEdiIVqZEakHDh6qM6VJZG3GXsg+JIECZs1Nuj/w38t7v0W9bV
+X-Gm-Gg: AYBFou2xWXJ9f9rkjeeS4cIeKw0VhoRvc8CR7AAg+ckn+f2cAoOhjuEvZeT2w1ZIjoy
+	7KSzZxjwQJWTKJNyw6I1KvR4IxuO5kOnbbXRbMot208T+yVCc9K2WnrAHB8TEgWeuI3h4q05JoY
+	mZ1Owr0Yj/Dk4MqyB6a732IBXSSQtUHO70GsmqQnvyQROROLuMIO+qB83SmeUDjywbXB+SqIoHt
+	NKssiCQerQVmrf2X2EIyjGnvecYgxHPpqmlyoulXIMcnTGA+tFS0qom/DbyQmiMGZqMEfZ8sHLh
+	lm2InUiLPtSCRw9wauzRk9368BfdwYCElgWH1CssiEiBJtx2yVtztXE0FvYh7LlQg55aYivPou2
+	KH3Um+x/CBAdzbEpNtZi2pZLkymwHilSBRbu6YeA0i1k3BSbPX+BsC05SzG+H7E4Kl3j7/KjbL3
+	f59ZFpQyXCURA0gGp5euSqL2g2g/zOsYKJdfxC50ifkc52HU0CMKxZVp3iOZWAWZF77+VfHgJ4L
+	740Gshj50N3oyG/f+RL/obj2swNLy+Jm7/MWZ4lN33lEQaKRA5F8mjqVaRjwyXS7pFSRPMsS2sr
+	GHHO
+X-Received: by 2002:a17:902:fc4f:b0:2da:f7ad:cfea with SMTP id d9443c01a7336-2df7dd76871mr98510165ad.8.1790581140234;
+        Mon, 28 Sep 2026 00:39:00 -0700 (PDT)
+Received: from localhost ([153.61.198.243])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df91444763sm36663265ad.60.2026.09.28.00.38.58
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 28 Sep 2026 00:38:58 -0700 (PDT)
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 28 Sep 2026 07:38:57 +0000
+Message-Id: <DLQS1EUNZG5T.1ZCONM8DQM45@gmail.com>
+Cc: <stable@vger.kernel.org>
+Subject: Re: [PATCH] bpf: Initialize IMA hash helper output buffers
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: "Jiale Yao" <yaojiale02@163.com>, "KP Singh" <kpsingh@kernel.org>, "Matt
+ Bobrowski" <matt@bobrowski.net>, "Daniel Borkmann" <daniel@iogearbox.net>,
+ "Andrii Nakryiko" <andrii@kernel.org>, "Eduard Zingerman"
+ <eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi" <memxor@gmail.com>, "Martin
+ KaFai Lau" <martin.lau@linux.dev>, "Song Liu" <song@kernel.org>, "Yonghong
+ Song" <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>, "Emil
+ Tsalapatis" <emil@etsalapatis.com>, "Ihor Solodrai"
+ <ihor.solodrai@linux.dev>, "Roberto Sassu" <roberto.sassu@huawei.com>,
+ <bpf@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+In-Reply-To: <20260927121400.1188165-1-yaojiale02@163.com>
+References: <20260927121400.1188165-1-yaojiale02@163.com>
+X-Mailer: mkdraft (claude review draft; edit before sending)
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The size argument of the get(), set() and get_all() methods of the
-Apple device properties protocol is a UINTN, not a u32. The reverse
-engineered declaration added by commit 58c5475aba67 ("x86/efi: Retrieve
-and assign Apple device properties") uses u32, and
-retrieve_apple_device_properties() passes the address of a u32 on the
-stack to get_all(). 64-bit Apple firmware writes 8 bytes through that
-pointer, so the upper half of the store lands on whatever the compiler
-placed next to the variable. OpenCore's
-Include/Apple/Protocol/DevicePathPropertyDatabase.h declares the same
-methods with UINTN, and a u32 canary placed right after the u32 size
-is zeroed by both get_all() calls on a Mac mini 2018 (Macmini8,1).
+On Sun, Sep 27, 2026 at 08:14 PM Jiale Yao <yaojiale02@163.com> wrote:
+> The output arguments of bpf_ima_inode_hash() and bpf_ima_file_hash()
+> are marked as ARG_PTR_TO_UNINIT_MEM, so the verifier considers the full
+> range initialized after either helper returns.  The IMA hash functions,
+> however, leave the buffer unchanged on error and only copy the digest
+> length on success.  A BPF program can therefore read stale data from
+> the untouched portion of the buffer.
 
-With clang and CONFIG_EFI_MIXED=n, the neighbour is the protocol
-pointer p: the first get_all() call zeroes its low half, the second
-call jumps through the corrupted pointer, and the machine powers off
-before printing anything. A GCC build leaves padding in that slot, and
-a clang build with CONFIG_EFI_MIXED=y places the setup_data pointer
-there; neither crashes, so the bug went unnoticed since 2016. Talos
-Linux, which builds its kernel with clang, reported it on several Mac
-generations.
+That's not a bug.
+These helpers are available to LSM progs only and LSM progs
+require CAP_PERFMON to load.
+With CAP_PERFMON the verifier allows reading uninitialized stack
+with or without the helper call.
 
-Declare the size as unsigned long, as the stub does for every other
-UINTN. No mixed mode argument mapping is needed: 32-bit firmware
-writes the low 32 bits of the zero-initialised value, and the upper
-half stays zero across both calls.
+Since commit 5da4a9f26fca ("bpf: Preserve stack initialization for
+generic output buffers") MEM_UNINIT helpers don't have to write
+the whole buffer.
 
-Tested on a Macmini8,1 with v6.18.51, clang 22.1.8 and LLD,
-CONFIG_EFI_MIXED=n, booted as EFI/BOOT/BOOTX64.EFI: the machine powers
-off without the patch and boots with it. Builds with clang and GCC,
-with and without CONFIG_EFI_MIXED. Mixed mode was not boot tested (no
-32-bit EFI Mac at hand).
-
-Claude Code assisted with reading the disassembly, writing the debug
-patches and drafting this changelog; the tests ran on the hardware
-above.
-
-Fixes: 58c5475aba67 ("x86/efi: Retrieve and assign Apple device properties")
-Cc: stable@vger.kernel.org
-Cc: Lukas Wunner <lukas@wunner.de>
-Link: https://github.com/siderolabs/talos/issues/13231
-Link: https://github.com/siderolabs/talos/issues/13579
-Assisted-by: LLM
-Signed-off-by: Nicolas Brainez <nicolas@brainez.net>
----
- drivers/firmware/efi/libstub/efistub.h  | 8 +++++---
- drivers/firmware/efi/libstub/x86-stub.c | 2 +-
- 2 files changed, 6 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/firmware/efi/libstub/efistub.h b/drivers/firmware/efi/libstub/efistub.h
-index fd91fc15e..1002c17a8 100644
---- a/drivers/firmware/efi/libstub/efistub.h
-+++ b/drivers/firmware/efi/libstub/efistub.h
-@@ -838,15 +838,17 @@ union apple_properties_protocol {
- 		unsigned long version;
- 		efi_status_t (__efiapi *get)(apple_properties_protocol_t *,
- 					     struct efi_dev_path *,
--					     efi_char16_t *, void *, u32 *);
-+					     efi_char16_t *, void *,
-+					     unsigned long *);
- 		efi_status_t (__efiapi *set)(apple_properties_protocol_t *,
- 					     struct efi_dev_path *,
--					     efi_char16_t *, void *, u32);
-+					     efi_char16_t *, void *,
-+					     unsigned long);
- 		efi_status_t (__efiapi *del)(apple_properties_protocol_t *,
- 					     struct efi_dev_path *,
- 					     efi_char16_t *);
- 		efi_status_t (__efiapi *get_all)(apple_properties_protocol_t *,
--						 void *buffer, u32 *);
-+						 void *buffer, unsigned long *);
- 	};
- 	struct {
- 		u32 version;
-diff --git a/drivers/firmware/efi/libstub/x86-stub.c b/drivers/firmware/efi/libstub/x86-stub.c
-index cef32e2c8..87e142cae 100644
---- a/drivers/firmware/efi/libstub/x86-stub.c
-+++ b/drivers/firmware/efi/libstub/x86-stub.c
-@@ -158,7 +158,7 @@ static void retrieve_apple_device_properties(struct boot_params *boot_params)
- 	efi_guid_t guid = APPLE_PROPERTIES_PROTOCOL_GUID;
- 	struct setup_data *data, *new;
- 	efi_status_t status;
--	u32 size = 0;
-+	unsigned long size = 0;
- 	apple_properties_protocol_t *p;
- 
- 	status = efi_bs_call(locate_protocol, &guid, NULL, (void **)&p);
--- 
-2.47.3
-
+pw-bot: cr
