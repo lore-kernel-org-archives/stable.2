@@ -1,161 +1,247 @@
-Received: from mail-wr2-f17.google.com (mail-wr2-f17.google.com [74.125.225.81])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05AB83911B2
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 06:28:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A95754349A5;
+	Mon, 28 Sep 2026 06:31:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790576930; cv=none; b=IofxyowBZn+K+Xcp2WJBrku0CS/q2d9tN3dnhV3s7t7skrvcKTXFMdZWVH3oOMH4eRmemTZljmakOArgQkri/7OjTcGw8GnwsP9gfcH56L9S2Sy9ifx+NFdS6xVTD/uiNnNfN8BhPCMHqNpwlsu/rIMpIkTtX2F9XE0Jl1iOYmk=
+	t=1790577113; cv=none; b=oirYbygwhRqKu7c3amwFFD77YfBHJzaLpZF0yrNHhL1I2QceA5X8c9l/gWOtLz4ubCzTcoOrVkODfttnGHwOO92GIeOooPXkMSR/YXhLAzrCgPxXah6y/XIc5syJWvSiqdubsf+WtqFTJZ0p6Esa3E2A8z2N7nPCuySoJaVX+fc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790576930; c=relaxed/simple;
-	bh=m3KPpRq+cNgFaSPI3z9noRAscHUfVOmBnPDUVtycS8k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Dg8HCUixxkJ4zrIuFtD5564B7PZFRWJgggNrMn2PM7jgWPXDr1UDx9tqqFtzrlEas/6iWjX9TyiReelPYkdrq/sX+qSkWEHsnIEDFWSI7zcQcdbjOZRZJDQQ1cUlbpFDHMzyCT9DsfzTP60kZbNvG6iyfWnIbS54AMy1TZfq08g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q3YEDA/s; arc=none smtp.client-ip=74.125.225.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790577113; c=relaxed/simple;
+	bh=9Il285388BxybXTDxTH1+2t+t53nD/PZTdFKZGc8FA8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cxs/cKMDYAEYuQ9Nb1dSRrj5dbZaOk5REOozZn0Wre/e0n33xln6QPYesWe8kpAkcitAxhvr54AvqdBYMjaLAm3LVsU/9RyFvWYabzMa4YA/sNyNWI6LdqZFlrF2RnMKO7Y0Xoq6F8PHiRHDwdXDWUG2UZDRPmYaOX+FVxI6sLw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=PGxSZnNt; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=ABLGZDmA; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=RTpY1fyP; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=YXDKyG7u; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q3YEDA/s"
-Received: by mail-wr2-f17.google.com with SMTP id ffacd0b85a97d-4887d06c669so2001331f8f.3
-        for <stable@vger.kernel.org>; Sun, 27 Sep 2026 23:28:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790576927; x=1791181727; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mlTeCabh7BYu07oJry0uYVnPTkXCqqBZzgHeANLiL5M=;
-        b=q3YEDA/s8miV/tQDWLeiw2qpDxUhHcd2UyG/WoNruGzydR+fzBfIhK2OSjuYISUIF6
-         rhNHP2kwj/Ui93DejjrKJvhYcOso2I/Au/5Uw1Xa8gGDO5roBK+fneDEGCPsWANfQKgQ
-         gvvNlWfdgiiYEX+qr2Lk2HBqffH92UiieAXc09chiXyDbxNzu26XzjQrw0VGXYQG4qLu
-         JCci3KpkrX0vwMg2g2tZyXOP3Fm776nPBjqg+B0a62tHBg2TTFHqWfKuvAjlifZScemZ
-         i7wmFxEcxD+nKXx6GxAIgyMv5pxwg0BzR3yJI+8duuKz98MclTIh23wafW+cGEk5XTZf
-         Ye5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790576927; x=1791181727;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mlTeCabh7BYu07oJry0uYVnPTkXCqqBZzgHeANLiL5M=;
-        b=qUdTkNeSn1qjWBuBPUwCmjhno+qL0egvkm3dDu4J5r70M2G5m2yjpeP2JNuWNzNX2r
-         ftgko+Z1RZ9s+lCkJ4g05wNRCihwamdm9eaImUYO3hStkwMHbnKuBXXI3zC2cujsRBJ0
-         yOiovWliJGlX1ezr2wA29Wjh9KBwx4qsyBIDVEfNlc6hKCI8AOfKLKkEtCshIwCUGcQP
-         KM78MUi8F//so8WZ0iAXkztk0WMm7mZE0CW9SJwvxPSPXFbcUVTAv3GnkxKcDEVW2yyC
-         jdVb2TnUblNF54EMCGgNpH6RJwTWv0/Z3tFup2qPLxdiLZv2apvnwFReZyTqqENMDqfo
-         BEbQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxm0D3YbPxqSdz9gZDr+kItl+JZyt4qwDuACmKRvTl11bcRMvseQ+DeCk838BwJRMASKBpM+5M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJNHLy9BeAg7HwgYWTgJpLuL2uiQ3Uz/TPzOAS8HKwBtaCGn7ot
-	pnI6/tWtYJVpb2pu5En9erjax0b5QSoC+9OI2xxTajTLCTg1wtb7yXOa
-X-Gm-Gg: AYBFou27IUXfAFCtTfUi79+m23ua34qZXk3aTSnD3RrcfMrwQHfoGv1nI15iPgN8NUf
-	FLMMLHYltKOnDXGTt1dU3gZcZaNPk/UjccQye0pucEdjjMuGOJqek5kXpvwd9dX5D2irdpgf7h6
-	UYCj2FfxL/C+I9ZOrLxqL+cnq0oIguYMiJzf0/xyu8zuUqu/85ADq/4SsZAsStrtVQ7MrS+d/PW
-	151oaBcO+9aNT+M6cT129G7Ig8G+8uGCm46cmMs9yPfq++KNXW/Ya4QZI/sT7qejPP44ikv8je+
-	aPP5PA+z7pcTWellb0lLqq2GTYezAHI/aNYMyGNd+BPKfSlpQjqg9QIJjDHNMqPA2HvvvC2w4MS
-	r3wJ10qPj/6EdrTfpSIkmPWYlm45oXbR43tYy4Cvf01/6wByaG9iLbA8y7SJmRJX1A4djxwE1r5
-	t/Y+o3PZTPR5jNo6AHqldyo1uDi0kbXPyJi89HKXsSjqXZE9/lM2qGS6aIATr4TuxtMvsJWTlbj
-	4P1EaFaer4a85SCyaZ75giXxqyXrPd5M3Yt7wgerLS1pX644/Uz+OLgOTLPO+lYJIAElmbiyjUr
-	38ecb8Iq6cyz1tB376Vtlh3ZCqqRNCMzv9UPuVW9kZ9KVktc/cchNchasiOaDbkBss5KQHDaFrk
-	LWZw=
-X-Received: by 2002:a05:6000:4908:b0:487:2805:6834 with SMTP id ffacd0b85a97d-48872ac763amr22046956f8f.42.1790576927074;
-        Sun, 27 Sep 2026 23:28:47 -0700 (PDT)
-Received: from unknown748F3CBA5068 (dynamic-2a02-3100-acba-a601-4494-3582-465b-0eab.310.pool.telefonica.de. [2a02:3100:acba:a601:4494:3582:465b:eab])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a64ef3asm25338956f8f.30.2026.09.27.23.28.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 23:28:46 -0700 (PDT)
-Date: Mon, 28 Sep 2026 08:28:43 +0200
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Ackerley Tng <ackerleytng@google.com>
-Cc: Zhao Li <enderaoelyther@gmail.com>, 
-	Jinmeng Zhou <zhoujinmeng@bytedance.com>, Alex Shi <alexs@kernel.org>, 
-	David Hildenbrand <david@kernel.org>, Dongliang Mu <dzm91@hust.edu.cn>, 
-	Hongxiang Lou <louhongxiang@huawei.com>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-	Nhat Pham <nphamcs@gmail.com>, Oscar Salvador <osalvador@suse.de>, Peter Xu <peterx@redhat.com>, 
-	Randy Dunlap <rdunlap@infradead.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Usama Arif <usama.arif@linux.dev>, 
-	Vlastimil Babka <vbabka@kernel.org>, Wupeng Ma <mawupeng1@huawei.com>, 
-	Yanteng Si <si.yanteng@linux.dev>, Naoya Horiguchi <nao.horiguchi@gmail.com>, fvdl@google.com, 
-	jthoughton@google.com, rientjes@google.com, vannapurve@google.com, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH v3 3/4] mm: hugetlb: Fix subpool usage leak on allocation
- failure
-Message-ID: <aroH94a5F4Mzuqgd@gmail.com>
-References: <20260916-hugetlb-subpool-always-track-used-v3-0-38aae9b5ccdd@google.com>
- <20260916-hugetlb-subpool-always-track-used-v3-3-38aae9b5ccdd@google.com>
- <20260927170426.2467-1-kmehltretter@gmail.com>
- <CAEvNRgHQLifmcD1NO6cd7EVcCiQb6gJgNUo4HkFhZAvzuwMq0w@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="PGxSZnNt";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ABLGZDmA";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="RTpY1fyP";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="YXDKyG7u"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 6513221D31;
+	Mon, 28 Sep 2026 06:31:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790577105; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=FDaDfs212NgUvCmr9pWEaywlhgSFzA9dZFzGmRyIntI=;
+	b=PGxSZnNtJLiZ/ZJFkoLz58FtMKW99QZPDqNVsDvMoFRWHNJ1mvX8xCIQZsawXALCNsr3p8
+	J3zLKGw6LtSfa/Mup528JvdJBVYWSR9KHam/jFPXOJCu5rhphU/ESrjOwbh133vaWxxEEz
+	4WgdABxtwNrB+i/eoXU7lPHkZ7ViSl0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790577105;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=FDaDfs212NgUvCmr9pWEaywlhgSFzA9dZFzGmRyIntI=;
+	b=ABLGZDmAIOgZQT6P2ak1da6ELiW1C6dFzqx52k9DezRSSddkBpRkRN2sL65KGHnz9cuwtF
+	6QtHlclj6yKIdzCQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790577101; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=FDaDfs212NgUvCmr9pWEaywlhgSFzA9dZFzGmRyIntI=;
+	b=RTpY1fyPsjdZQlvQAEP2IV/0L7wujxktcmMHjtZskaY68baNv8DZGJ3G1dZC6nt0IqKV3l
+	sfwy1eSk7gg24rOtfZRih+vzIN96vYEU7UzA1sMterSRdqaos4akzXo/inRYatTMMpMS+T
+	3wzMkRGNQKwmfgrWDaEvczGsM59IVL0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790577101;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=FDaDfs212NgUvCmr9pWEaywlhgSFzA9dZFzGmRyIntI=;
+	b=YXDKyG7u8F6YWdZyuZJ3xKHtmHRf6spUbbDLENJB/SXNeI6UTrTXo4/wxJEuRkL8+0OAW2
+	xl9bnjCqv+ty8XAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0701A133F3;
+	Mon, 28 Sep 2026 06:31:40 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 7RUqKMwJumpOfwAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Mon, 28 Sep 2026 06:31:40 +0000
+Message-ID: <21221a01-2533-44e0-881e-8225cd63fe02@suse.de>
+Date: Mon, 28 Sep 2026 08:31:40 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAEvNRgHQLifmcD1NO6cd7EVcCiQb6gJgNUo4HkFhZAvzuwMq0w@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/fb-helper: defer setup when fbdev_probe() fails, not
+ just on -EAGAIN
+To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ syzbot+ca23c8570669ead78867@syzkaller.appspotmail.com, stable@vger.kernel.org
+References: <20260927075434.72658-1-ngocthang2710.1999@gmail.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260927075434.72658-1-ngocthang2710.1999@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Score: -2.80
+X-Spam-Level: 
+X-Spamd-Result: default: False [-2.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	TAGGED_RCPT(0.00)[ca23c8570669ead78867];
+	RCVD_TLS_ALL(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com,linux.intel.com,kernel.org];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[gmail.com,ffwll.ch,lists.freedesktop.org,vger.kernel.org,syzkaller.appspotmail.com];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:email,appspotmail.com:email,imap1.dmz-prg2.suse.org:helo,syzkaller.appspot.com:url,suse.com:url]
+X-Spam-Flag: NO
 
-On Sun, Sep 27, 2026 at 10:19:08PM +0100, Ackerley Tng wrote:
-> == Questions for Karl
-> 
-> (Independent of the "Path forward for 7.3/7.4")
-> 
-> 1. Does squashing patch [4/4] of this series into [2/4] [3/4] resolve
->    any of what you found?
-> 2. Does patch [1/4] introduce new issues, or does it just not fully fix
->    all the issues? At this point I think we have so many bugs, it's more
->    about fixing bugs progressively (not regressing) than finding a
->    complete fix.
-> 3. Would it be ok if you integrate your findings across your two replies
->    on [2/4] and [3/4]? They're similar yet slightly different so it's
->    kind of confusing. If you have reproducers, it would help to share
->    them! :)
-> 
+Hi
 
-1. Squashing the unchanged patches does not fix it. Full v3 already includes
-4/4, and both controlled tests still fail:
+Am 27.09.26 um 09:54 schrieb Nguyen Ngoc Thang:
+> __drm_fb_helper_initial_config_and_unlock() calls
+> drm_client_modeset_probe() first, which already fills in each
+> mode_set->mode/num_connectors for every connected output, and only
+> afterwards calls drm_fb_helper_single_fb_probe() to create
+> fb_helper->fb and wire it into those mode_sets via
+> drm_setup_crtcs_fb().
+>
+> If drm_fb_helper_single_fb_probe() fails with anything other than
+> -EAGAIN (e.g. dev->driver->fbdev_probe() itself fails), the function
+> bails out before drm_setup_crtcs_fb() runs and before setting
+> fb_helper->deferred_setup. The client is left with mode_sets that
+> have a mode and connectors but mode_set->fb == NULL, and nothing
+> marks this fb_helper as needing a retry.
+>
+> __drm_fb_helper_restore_fbdev_mode_unlocked() only skips committing
+> when fb_helper->deferred_setup is set, so a later .restore() call
+> (drm_lastclose() on process exit, in this report) commits the stale
+> mode_set through drm_client_modeset_commit() ->
+> drm_client_modeset_commit_atomic() -> __drm_atomic_helper_set_config(),
+> which hits WARN_ON(!set->fb).
+>
+> Mark fb_helper->deferred_setup on any drm_fb_helper_single_fb_probe()
+> failure, not just -EAGAIN, so restore keeps skipping the commit until
+> a later hotplug event successfully re-probes and re-populates
+> mode_set->fb. The real error code is still returned to the caller
+> unchanged.
+>
+> Reported-by: syzbot+ca23c8570669ead78867@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=ca23c8570669ead78867
+> Fixes: ca91a2758fce ("drm/fb-helper: Support deferred setup")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
 
-  Path                     Cleanup       After files / after unmount
-  -----------------------  ------------  ---------------------------
-  hugetlb_reserve_pages()  +2, -ENOMEM   2 / ULONG_MAX-1
-  alloc_hugetlb_folio()    +1, -ENOMEM   3 / ULONG_MAX
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 
-Both should end at 4 / 0. I got the same result with one and four vCPUs.
+Thanks a lot for the fix.
 
-Patch 4 fixes the later region_add() failure path, where the global
-reservations have already been acquired. These two failures happen earlier,
-after global accounting or folio allocation has failed, so 4/4 does not
-cover them.
+Best regards
+Thomas
 
-2. The exact v3 patch 1 does introduce regressions as an intermediate
-commit. It starts tracking used_hpages on min_size-only mounts, but the old
-failure paths do not undo the new charge. In the ordinary tests, with or
-without the two queued fixes below it:
+> ---
+> Tested in QEMU (KVM, x86_64) with the syzbot C reproducer, which enumerates
+> a USB device over raw-gadget matching drm/gud's ID (idVendor 0x1d50,
+> idProduct 0x614d) then opens the resulting DRM node. In our test VM gud
+> lands on a different card minor than in the syzbot report since other
+> drivers (vgem/vkms/bochs-drm) register first, but retargeting the
+> reproducer's open() at gud's actual minor reproduces it directly on the
+> very first probe:
+>
+>    gud 1-1:1.0: [drm] format XR24 little-endian (0x34325258) not supported
+>    gud 1-1:1.0: [drm] No compatible format found
+>    gud 1-1:1.0: [drm] *ERROR* fbdev: Failed to setup emulation (ret=-22)
+>    ------------[ cut here ]------------
+>    !set->fb
+>    WARNING: drivers/gpu/drm/drm_atomic.c:2031 ...
+>
+> On the unpatched kernel this isn't benign: __drm_atomic_helper_set_config()
+> warns and then continues, committing an active CRTC/plane with a NULL
+> framebuffer, which escalates into a NULL-pointer dereference and a fatal
+> kernel panic a few lines later in our runs. With this patch applied, the
+> same gud probe failure (ret=-22) still happens every time as expected, but
+> restore() no longer commits the stale mode_set: no warning, no panic,
+> clean shutdown across repeated runs.
+>
+>   drivers/gpu/drm/drm_fb_helper.c | 6 +++---
+>   1 file changed, 3 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
+> index d4664ed468b2..0817b639b3fa 100644
+> --- a/drivers/gpu/drm/drm_fb_helper.c
+> +++ b/drivers/gpu/drm/drm_fb_helper.c
+> @@ -1724,10 +1724,10 @@ __drm_fb_helper_initial_config_and_unlock(struct drm_fb_helper *fb_helper)
+>   
+>   	ret = drm_fb_helper_single_fb_probe(fb_helper);
+>   	if (ret < 0) {
+> -		if (ret == -EAGAIN) {
+> -			fb_helper->deferred_setup = true;
+> +		/* modesets are probed but fb_helper->fb isn't; defer restore too */
+> +		fb_helper->deferred_setup = true;
+> +		if (ret == -EAGAIN)
+>   			ret = 0;
+> -		}
+>   		mutex_unlock(&fb_helper->lock);
+>   
+>   		goto err_drm_fb_helper_release_info;
 
-  - after the SIGBUS test with no files, HugePages_Rsvd is 0 instead of 2;
-  - after the failed mmap and unmount, it is 3 instead of 0.
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
 
-This does not mean always tracking used_hpages is wrong, but 1/4 is not safe
-on its own. A reworked series on top of Zhao's and Jinmeng's fixes will need
-new testing.
 
-3. In both races, hugepage_subpool_get_pages() first changes the local
-subpool state. The later global charge or folio allocation fails. Another
-operation then releases capacity and a separate mount consumes it before
-rollback. Rollback restores the local minimum, but its positive global
-correction fails with -ENOMEM and the error is ignored.
-
-I put the exact test hooks, both userspace controllers, QEMU helpers and
-validators in this test-only commit:
-
-  https://github.com/kmehltretter82/linux/commit/3ed79d756dc3845b9af9dc1dec3daa8cb141a500
-
-I support merging Zhao's max-only fix and Jinmeng's combined min/max fix
-now. They are useful, narrower improvements and do not try to cover these
-min-only races.
-
-Karl
