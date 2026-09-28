@@ -1,34 +1,34 @@
 Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FBE14EF13A;
-	Mon, 28 Sep 2026 20:09:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17D973D3329;
+	Mon, 28 Sep 2026 20:09:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790626193; cv=none; b=SpRdn36FFR8049QTt/flu8thXjikETrXT45O7VGN4h9kAYIhKJwcp6pAaQtfBhuPBd8pAm4eVQzFuTex5pA7gyAP708YR/QZNLjQXgi072OP38oH2c8extJuDGoVCkCWvs5r1CXONaYQ7eTi9PFy078yijD7Pc+Msp9QlSpp0fo=
+	t=1790626198; cv=none; b=m0KGl9cGUpwPrnFl7+vEoiLG8tQAPkCHowGncbMIy8+TqS456YmoUG5Kvy0ahjWwYiEhuEiziwuZQ7exmUEHWqwOTk5tLBOnRA+Ptf02VFemAlFkaniDN9jD5TQl6jLE9FJceLMm0SLyQQ1fvLO7b0+Pp617KJWqpbNl3dok3Y4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790626193; c=relaxed/simple;
-	bh=fJZMKSxNA2oXIcbZyVKhb5AEtBBnA+d723BxjOyZCyY=;
+	s=arc-20240116; t=1790626198; c=relaxed/simple;
+	bh=0LO1RHt4Pq+qBgzr5nVQwtooVTfZJu4UtIHTlpcs81Y=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=czZJVqDE1vADopl8uxUr2M0xfI7wTCHq46FeUuYiSlJRrZJ8MPkSVCPprtb8xXwn3p9zOMsrC6FarfLAPt+dLqiuxug3w6KjVoremBAFIxigZlCZ/rLQ9wVxUdRf0nzpLpsBxjsDVo1D4JPa/jsPolKzZDWKfg2TnP/LKAmG6hY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=tLbqOeHu; arc=none smtp.client-ip=143.255.12.172
+	 MIME-Version; b=Nd2jS2uVpkB+cz3+PvsQDZGZOpmXl4fTnnD5iQmGm2J97Cl9pflS31eSHtaSpgRn2ZtMNi299e5u82tTCU5u8PZg68YoEG6Oot4d1EmpKe0CyjGm+bts8iJ43tVo+Hxv4xetxppVqZ94kHphBfdLycnkKJKS6OpyP7NokNRSoXI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=tx+Jz++o; arc=none smtp.client-ip=143.255.12.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="tLbqOeHu"
+	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="tx+Jz++o"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=manguebit.org; s=dkim; h=Content-Transfer-Encoding:MIME-Version:References:
 	In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Content-Type:Reply-To:
 	Content-ID:Content-Description;
-	bh=SDk3J1DaxNcENwffWRehCP4eZpgbd/1ZHYIvMPOEvXQ=; b=tLbqOeHuJlrXY2mgKVuEjEL1o1
-	js8YVF3zWZfCDYwaeqr/esbMi8vwcdqMAQLhVcc3AkdY9bWnbviKVLVECS4Z5YVqScA0vdbNu2YVb
-	5xugsrsCJ9vRBMybyEy8ymJWOsrfvYfxBhje7Qp+eDPgVuOAfH0rkn0puOkAA0+bRdzXoMQjqghch
-	Xe7BEGCpregvOVOaaPArz7FFMpp3C05P99DcFP5W1bjW4esPQaOsfviv60xga/gTGv6oX/GuL522a
-	YxhYxWV4aSyGdnt01wo9mzIah9y8d0OMLZw+JcXFmM60Ib7ZmoGTRG+3E2K0AA8eqzyKxboa9ilvt
-	iwLqNITA==;
+	bh=2PvsbJq0joI/eev6mtK6X6CXDL0Cnn/N0tKmL1Ep8QQ=; b=tx+Jz++orUW1qZutxBRng7W3/Q
+	NYjLkvPYsD8a8m5B6iJZM1+Mxel6DCWEua7uGnqf9idM2rO1PFDlsSkknSmtH0d7HkPlH4oF7mHnc
+	Y3uNPARRPLT6IqYIKt2i9faq4mRwX/FNFxyazRb5yfT+JcT5VZKZLYShWn5tBm8gCyoFJ9BZUZycS
+	RDSXwkKzx7hPLhu+b8zu8vntlYTLl1P35XtlnqtNKbpGFFiRcnFtKbUrB9u7V1KvrFGbHfzoyNeWe
+	HMvKlquaCW7rOB3qa4MYdqxOO5sV3yejqYTmVvEb9+kgV3EY6QtjZPUUvvYyluiw2JH6yeqXPnk9S
+	bowLwpsw==;
 Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
-	id 1xBHfP-00000002ULb-1dif;
-	Mon, 28 Sep 2026 17:09:39 -0300
+	id 1xBHfO-00000002ULD-31oN;
+	Mon, 28 Sep 2026 17:09:38 -0300
 From: Paulo Alcantara <pc@manguebit.org>
 To: linux-cifs@vger.kernel.org,
 	netfs@lists.linux.dev
@@ -41,9 +41,9 @@ Cc: Christian Brauner <brauner@kernel.org>,
 	Tom Talpey <tom@talpey.com>,
 	Bharath SM <bharathsm@microsoft.com>,
 	stable@vger.kernel.org
-Subject: [PATCH 14/15] smb: client: distinguish real EOF from a stale remote_i_size on read
-Date: Mon, 28 Sep 2026 17:09:33 -0300
-Message-ID: <20260928200934.1040189-15-pc@manguebit.org>
+Subject: [PATCH 12/15] smb: client: only require read lease for size-extending preallocate
+Date: Mon, 28 Sep 2026 17:09:31 -0300
+Message-ID: <20260928200934.1040189-13-pc@manguebit.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260928200934.1040189-1-pc@manguebit.org>
 References: <20260928200934.1040189-1-pc@manguebit.org>
@@ -55,24 +55,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-smb2_readv_callback() sets NETFS_SREQ_HIT_EOF whenever a short read
-lines up with netfs_read_remote_i_size(inode), the server's EOF as the
-client currently believes it. That belief can be stale: after a lease
-downgrade and handle reopen, the tracked remote_i_size can sit below
-the client's own i_size while an extending write hasn't reached the
-server yet. A read in that gap comes back short for a reason that has
-nothing to do with the file's real size, but was still marked HIT_EOF,
-and netfs reports a short read for it as-is.
+smb3_simple_falloc() refuses any fallocate that clears FALLOC_FL_KEEP_SIZE
+with -EOPNOTSUPP whenever the inode is not read caching:
 
-Only treat it as real EOF when the position is also at or past the
-client's own i_size; otherwise mark it NETFS_SREQ_CLEAR_TAIL instead,
-which tells netfs the shortfall is safe to zero-fill rather than
-report as a short read.
+	/* if file not oplocked can't be sure whether asking to extend size */
+	if (!CIFS_CACHE_READ(cifsi))
+		if (!keep_size) {
+			...
+			return rc;
+		}
 
-This is what fsx (generic/363) sees as "short read: 0x0 bytes instead
-of 0x<n>" against a Windows server.
+As with smb3_zero_range(), the read lease is only needed to trust the
+cached size when deciding whether the request extends the file. When it
+is not held, the size can instead be fetched from the server, which is
+authoritative, rather than refusing the request outright: after
+flushing, query the server's end of file and take the larger of it and
+the cached size for the interior-vs-extend decision. The larger of the
+two is used because the server's end of file reflects another client's
+growth while the cached size reflects this client's own writes that may
+not have reached the server yet; using the server size alone would
+wrongly treat an interior request as extending when a range flush left
+an extending write unwritten.
 
-Fixes: 1da29f2c39b6 ("netfs, cifs: Fix handling of short DIO read")
+Rejecting interior requests is observed as generic/363 randomly failing
+against Windows Server with
+
+	do_preallocate: fallocate: Operation not supported
+
+fsx issues an interior, non-KEEP_SIZE preallocate while the inode is
+transiently not read caching: the server had just downgraded the file's
+lease from RWH to RH after breaking the write caching, and the ensuing
+handle reopen/revalidation left CIFS_CACHE_READ momentarily clear. The
+range sat within the server's end of file, so no extend was needed, yet
+it was refused and fsx aborted. This keeps the emulation correct even
+when a genuine lease break from another client leaves the inode
+without read caching -- the case the -EOPNOTSUPP guard turned into a
+hard failure. The extra flush and round trip only happen when both
+keep_size is false and no read lease is held; every other case is
+unchanged.
+
+Fixes: 9ccf3216238c ("Add support for original fallocate")
 Reviewed-by: David Howells <dhowells@redhat.com>
 Signed-off-by: Paulo Alcantara <pc@manguebit.org>
 Cc: Christian Brauner <brauner@kernel.org>
@@ -84,36 +106,63 @@ Cc: Tom Talpey <tom@talpey.com>
 Cc: Bharath SM <bharathsm@microsoft.com>
 Cc: stable@vger.kernel.org
 ---
- fs/smb/client/smb2pdu.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ fs/smb/client/smb2ops.c | 24 +++++++++++++++++++-----
+ 1 file changed, 19 insertions(+), 5 deletions(-)
 
-diff --git a/fs/smb/client/smb2pdu.c b/fs/smb/client/smb2pdu.c
-index 3d7ead36d1a0..cfe3c4b4abe7 100644
---- a/fs/smb/client/smb2pdu.c
-+++ b/fs/smb/client/smb2pdu.c
-@@ -4796,14 +4796,20 @@ smb2_readv_callback(struct TCP_Server_Info *server, struct mid_q_entry *mid)
- 				     rdata->got_bytes);
+diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
+index 45d5c66f1ad9..c97d5a9db575 100644
+--- a/fs/smb/client/smb2ops.c
++++ b/fs/smb/client/smb2ops.c
+@@ -3880,14 +3880,28 @@ static long smb3_simple_falloc(struct file *file, struct cifs_tcon *tcon,
  
- 	if (rdata->result == -ENODATA) {
--		__set_bit(NETFS_SREQ_HIT_EOF, &rdata->subreq.flags);
- 		rdata->result = 0;
-+		if (rdata->subreq.start + rdata->subreq.transferred >= i_size_read(inode))
-+			__set_bit(NETFS_SREQ_HIT_EOF, &rdata->subreq.flags);
-+		else
-+			__set_bit(NETFS_SREQ_CLEAR_TAIL, &rdata->subreq.flags);
- 	} else {
- 		size_t trans = rdata->subreq.transferred + rdata->got_bytes;
- 		if (trans < rdata->subreq.len &&
- 		    rdata->subreq.start + trans >= netfs_read_remote_i_size(inode)) {
--			__set_bit(NETFS_SREQ_HIT_EOF, &rdata->subreq.flags);
- 			rdata->result = 0;
-+			if (rdata->subreq.start + trans >= i_size_read(inode))
-+				__set_bit(NETFS_SREQ_HIT_EOF, &rdata->subreq.flags);
-+			else
-+				__set_bit(NETFS_SREQ_CLEAR_TAIL, &rdata->subreq.flags);
+ 	trace_smb3_falloc_enter(xid, cfile->fid.persistent_fid, tcon->tid,
+ 				tcon->ses->Suid, off, len);
+-	/* if file not oplocked can't be sure whether asking to extend size */
+-	if (!CIFS_CACHE_READ(cifsi))
+-		if (!keep_size) {
++
++	if (!keep_size && !CIFS_CACHE_READ(cifsi)) {
++		unsigned long long server_eof;
++
++		rc = filemap_write_and_wait(inode->i_mapping);
++		if (rc) {
+ 			trace_smb3_falloc_err(xid, cfile->fid.persistent_fid,
+ 				tcon->tid, tcon->ses->Suid, off, len, rc);
+ 			free_xid(xid);
+ 			return rc;
  		}
- 		if (rdata->got_bytes)
- 			__set_bit(NETFS_SREQ_MADE_PROGRESS, &rdata->subreq.flags);
++		netfs_wait_for_outstanding_io(inode);
++
++		rc = query_server_eof(xid, tcon, cfile, &server_eof);
++		if (rc) {
++			trace_smb3_falloc_err(xid, cfile->fid.persistent_fid,
++				tcon->tid, tcon->ses->Suid, off, len, rc);
++			free_xid(xid);
++			return rc;
++		}
++		old_eof = max_t(loff_t, old_eof, server_eof);
++	}
+ 
+ 	/*
+ 	 * Extending the file
+@@ -4013,7 +4027,7 @@ static long smb3_simple_falloc(struct file *file, struct cifs_tcon *tcon,
+ 		}
+ 	}
+ 
+-	if ((keep_size == true) || (i_size_read(inode) >= off + len)) {
++	if (keep_size || old_eof >= off + len) {
+ 		/*
+ 		 * At this point, we are trying to fallocate an internal
+ 		 * regions of a sparse file. Since smb2 does not have a
+@@ -4042,7 +4056,7 @@ static long smb3_simple_falloc(struct file *file, struct cifs_tcon *tcon,
+ 		 * ie potentially making a few extra pages at the beginning
+ 		 * or end of the file non-sparse via set_sparse is harmless.
+ 		 */
+-		if ((off > 8192) || (off + len + 8192 < i_size_read(inode))) {
++		if (off > 8192 || off + len + 8192 < old_eof) {
+ 			rc = -EOPNOTSUPP;
+ 			goto out;
+ 		}
 -- 
 2.55.0
 
