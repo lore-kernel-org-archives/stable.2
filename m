@@ -1,45 +1,89 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B70F4848B6;
-	Mon, 28 Sep 2026 08:48:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9230486B86
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 08:48:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790585305; cv=none; b=SZxXTsciJmH+Il5UhvrjLKA/1AW+FwVovBPFevmxQuiA32DVumUPSyUO9LMTIzfntRup8Jrlex9zbduIWqLf2ldgIhDmi3FoPBC4IcD1+ZC5N89JG0BgIJAFK6lBb5W3veE/B4pLY6boZdaSAZ2PfAtEN8WE3CZEfgfkE842W78=
+	t=1790585308; cv=none; b=RwMcc99aEWMsqa2KDFVLSgTkJyCme9dKAFO22BdSwFcp3HGD65BlcB937/wScRhNmq7RujSAyT3PnzYhDk36fKAF8kfCB0d0N5T8MrAZJ6uw+qRNjcoUsrC+EwrUjr3CjwFWNnqcZBHiBsBzTxY+25TQa8OoojZb1SxPBLCpA/w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790585305; c=relaxed/simple;
-	bh=o8ybOedh32j23wSzSzyd4G1EPrINANiBMUEOtQ7303U=;
+	s=arc-20240116; t=1790585308; c=relaxed/simple;
+	bh=s1sH/1IcCUCWkTuphEUbN/Is/vUMXm3bT7doJt8rKZY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FLT8lc7ZO1+TfQodniN+lOnc5sAhOPSUJsCoWssch828PggtqFTSs3p/W1KAfinR55jyFAT4mX54DDKDoPthIUDAK6zFXKjyYueVX0gaw7pooXGHkXXobtFHrwVB/MveNkRq4vcOyxPXdteWhuxj4j8JMJ5hMRValOk3woMHg2I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wy0Ja1Gl; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=XJAwc+Hun6SdNtP9yh7faVRy6z0HK4BBYYUZKoJtB3+49IalLXp03G+Fh2apaaWLiL3bWtDS5HM/pWa9LO229rl9iB56WreY6liq9oGjNZHArRz79tN0gLe8lmjNftmqnfEI7MkQm9EVc2kAXB6ke+20Dy+gGxGSzp+KPZ7sgsI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dmSUHuyO; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wy0Ja1Gl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E61B01F0089B;
-	Mon, 28 Sep 2026 08:48:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790585303;
-	bh=l+XUTYe6hm3kxfI8yuA6zaaLnG2sroAqD2TflRvrQMQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Wy0Ja1Gl5W57VgNDPaWrMrZoejn3vl/3qftaheyYiODpvqNaNAyn/ZXtL5SEFz40g
-	 mjir+nu2FumbFHeOBwM4Z3mvJrN56x0y8T1TiiWU3/KEOqmkKXfeIgoT99g5Rzoe/S
-	 Jsa/fLtMR0kJJ/WN9j8RbtBtVL7xvKqIM3hPQQgR629aqS7JH6tFF1mJPGM8ai1sBu
-	 b6nw5Q7+e+qZYuod6NSBeMvS8lpl7y45XI9zx8jSupmSPE2l+EStLCMcxYTLF6Iewx
-	 wUvi2v1wDWW8wBomt19BfInZ0Vlg6+19cD+Zv2ltxdwklnC2E43qCH8XFwPGwwubve
-	 j3yZ01TwQNmgw==
-From: SJ Park <sj@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
-	stable@vger.kernel.org,
-	SJ Park <sj@kernel.org>,
-	damon@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dmSUHuyO"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49fe8bf173aso14135285e9.3
+        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 01:48:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790585304; x=1791190104; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DW1aw9XilMAGHwwMkE5gUpMp3JZrQpWAH61R3Ws3XHs=;
+        b=dmSUHuyO7LYFvNU6p60O9dadqqst5WT2+e8G68CWxSDA1NnzcP9OssEU9gkRR6jbh6
+         rjifG3zE8DY+g+A6qJL3gHZTAdWXoZokb79xdkYUVpfEiv2YKZ2NwE0Cqhz/MBTpDFXq
+         69+aNfL/Es00juBasCQ/H3Xki9y6/fGOPUYoX0UH9MBOah6NREFSPZ9ndEeQEkRyWcqs
+         Qy5gT4QPJnaj+uby1BskFbCz639B2FgZ5e0AMibD04J4iw63e1GP/SUA9jzhZGFbTFF6
+         WIzOWwODvRxV/aN9MnfbhBlU8GhfoTQhg88AXq4sSJ/ONUC6feXOLuoSSQgpOgkeGOto
+         KXUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790585304; x=1791190104;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DW1aw9XilMAGHwwMkE5gUpMp3JZrQpWAH61R3Ws3XHs=;
+        b=ZzD7BgiOrvIDTYRe3LyBf/3b+ygUwwx6VGEfPbMy3UlvwcevxbpGuoZEqzeTBWhwck
+         BnO3eJ+5NYxCyP72BIb7lylM7eMHr8PEBd+1komjbNwkBnoG6VBOHeRiil2rdjANWHUT
+         9rjfHdLrZW4TiBwhMf7B1Urwv4yO2SQf/nXhwcywpgysGGqLagybyvcMN6BDOTzFFmIq
+         E86At/lZO6e3LuoI3JSeLwLabxw9Gq6LIJ2cdWXlM/aBlB/3Dj1jh+JLN5WhCOUwnnet
+         1iTkuRK/s4ZLjmjuR8RUNVnePWE9cwKNKtcPlR92tVH3rZCj6n7C8gYj2lvUb0TQzMw1
+         eIjA==
+X-Forwarded-Encrypted: i=1; AKwUvByBa9HChT++XWSZkYIH8dQGpE9VWdEQjWU/WkKd9NmV0BiZI3tsm4J/OsjulWndKGLJtbnp8Nc=@vger.kernel.org
+X-Gm-Message-State: AFuF++k/cIivGGeI2ooYf/mk2v7gzrzIqJNIIp3EsLE0iqJaCgs+H5Fh
+	0YgQfRhXrwplPSo2S/m9RxI3t4H5sqRT79T+PaO+K5Dtmne7d5tgd84u
+X-Gm-Gg: AYBFou23sNHzWtvGG4tEdAAYNe40uqTqb5+4hAb4NIdSUN+doBxmtyCXcB2OuGSLzhc
+	q0cfsdwqvhyeKZWHaCZ4Ud5xhxeLH9viOZElNNH7joX7BiCQ86K/4qWxH3s9qJ+Gomdhzpif41A
+	RTeqfnFhlptoNJdL99d1tBbS+irCqXbiCSRYJsB38Xj3uas4bHU4EnOUKcCD0lRA7q0n8TXsQE6
+	CkR/Vtx21wlpJrUDcuE17Ayy0NCQ322WllTHZXGn8B8JuyXkRg3DjPCUIjzpcQ6IKyoPvmC4r1w
+	kvySCi+NXa1ND8hPvaWjLZe/6cHg8AeTiQ11E9Ym3c8w2eZUhu8FXQWrYmRwrPVbYCu+NznUBJw
+	e4f4bnGAiNXKfT0kOGCohFuBi9v3xJqG6U0gfbsYLDg7leDvLeGVcqsgzBy0iD0UlaFE4vBLXej
+	J4sHnrHl/MIF07ug+oqJPBY1bkpKhD+VdHTtWnegcxKREZNtsBvhyR7oEvBBM7vuRvKEVNl3NCV
+	5sa96CqvrbLiyOZXUi8OXS0I2uF7SieqJ2lcWT6rrUcZ97M70h03ZIS6ZLwBeVgslQSq7tS0tNI
+	LdNI
+X-Received: by 2002:a05:600c:3494:b0:49f:ff73:9971 with SMTP id 5b1f17b1804b1-49fff7399f4mr69817225e9.18.1790585303613;
+        Mon, 28 Sep 2026 01:48:23 -0700 (PDT)
+Received: from andreayoga.localdomain (93-42-14-189.ip84.fastwebnet.it. [93.42.14.189])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0017652d1sm182584705e9.5.2026.09.28.01.48.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 01:48:23 -0700 (PDT)
+From: Andrea Parri <parri.andrea@gmail.com>
+To: Christian Brauner <brauner@kernel.org>,
+	Carlos Maiolino <cem@kernel.org>,
+	"Darrick J . Wong" <djwong@kernel.org>,
+	Joanne Koong <joannelkoong@gmail.com>,
+	Brian Foster <bfoster@redhat.com>,
+	Christoph Hellwig <hch@infradead.org>,
+	Damien Le Moal <dlemoal@kernel.org>,
+	Hannes Reinecke <hare@suse.de>,
+	Daniel Gomez <da.gomez@samsung.com>,
+	Pankaj Raghav <p.raghav@samsung.com>,
+	Dave Chinner <dchinner@redhat.com>
+Cc: Andrea Parri <parri.andrea@gmail.com>,
+	linux-xfs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH v5 1/2] mm/damon/core: prevent size quota overflow in the temporal goal tuner
-Date: Mon, 28 Sep 2026 01:48:14 -0700
-Message-ID: <20260928084816.5575-2-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260928084816.5575-1-sj@kernel.org>
-References: <20260928084816.5575-1-sj@kernel.org>
+	stable@vger.kernel.org,
+	Christoph Hellwig <hch@lst.de>
+Subject: [PATCH v3 1/4] iomap: don't resubmit an ioend after ->writeback_submit() failed
+Date: Mon, 28 Sep 2026 10:48:06 +0200
+Message-ID: <90fbd42df4f51306e57a95830d2d53873f630eb9.1790342457.git.parri.andrea@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <cover.1790342457.git.parri.andrea@gmail.com>
+References: <cover.1790342457.git.parri.andrea@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,55 +92,62 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+iomap_add_to_ioend() submits the pending ioend through
+->writeback_submit() before allocating a new one for the current range.
+When the submission fails the helper completes the ioend with an error,
+but iomap_add_to_ioend() returns the error without clearing
+wpc->wb_ctx.  iomap_writepages() then submits whatever wpc->wb_ctx
+points to, so the already completed ioend is submitted a second time.
 
-damos_goal_tune_esz_bp_temporal() converts the scheme's size quota
-into basis points with "quota->esz_bp = quota->sz * 10000", both
-unsigned long, and damos_set_effective_quota() divides the result
-back by 10000.  quotas/bytes is unbounded; bytes_store() hands it to
-kstrtoul() as is.
+For XFS the second bio_endio() lands in xfs_end_bio(), which
+list_add_tail()s the already linked ioend into ip->i_ioend_list.  This
+corrupts the list and leaves a use-after-free/double-free window against
+the ioend completion worker.  Reproduced with a fault-injected
+->writeback_submit() failure on a reflinked XFS file with several
+CoW writeback ranges in flight: the unfixed kernel hits repeated
+"list_add double add" warnings from __list_add_valid_or_report(),
+the fixed kernel fails writeback cleanly.
 
-On 32-bit the product wraps for any size quota above ULONG_MAX /
-10000, that is 429496 bytes.  A wrapped product below 10000 divides
-to a zero effective quota: 429497 gives 0.  damos_quota_is_full() is
-then true on the first test of every charge window.  Other wrapped
-values are wrong without being zero: 500000 gives 70503.
+Clear wpc->wb_ctx when ->writeback_submit() fails.  The old
+iomap_submit_ioend() cleared the context unconditionally; that clear was
+lost when submission moved to iomap_ioend_writeback_submit().  The final
+->writeback_submit() call in iomap_writepages() needs no equivalent fix:
+it is the last thing the function does before returning, and every
+caller allocates its iomap_writepage_ctx on the stack for a single call,
+so wpc->wb_ctx is never read again afterwards.
 
-Triggering this needs a scheme with a quota goal, the temporal goal
-tuner, and a size quota above ULONG_MAX / 10000 -- 429496 bytes on
-32-bit, 1844674407370955 on 64-bit.  The scheme then makes no
-progress for as long as the goal is unachieved, which is easy to
-notice, and writing a smaller size quota restores it.  Nothing is
-corrupted and nothing leaks.  This is unlikely to be hit on a tested
-setup.
-
-addr_unit does not cover this.  It only scales the numbers a paddr
-context writes to quotas/bytes, so a large enough scaled value wraps
-just the same, and vaddr and fvaddr contexts take raw byte values.
-
-Bound the multiply.
-
-Fixes: af738a6a00c1 ("mm/damon/core: introduce DAMOS_QUOTA_GOAL_TUNER_TEMPORAL")
-Cc: <stable@vger.kernel.org> # 7.1.x
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Reviewed-by: SJ Park <sj@kernel.org>
-Signed-off-by: SJ Park <sj@kernel.org>
+Fixes: f4fa7981fa26 ("iomap: hide ioends from the generic writeback code")
+Cc: <stable@vger.kernel.org> # v6.17
+Reviewed-by: Brian Foster <bfoster@redhat.com>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Assisted-by: LLM
+Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
 ---
- mm/damon/core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/iomap/ioend.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 0e375f4445fd..60e4233ed23c 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -3291,7 +3291,7 @@ static void damos_goal_tune_esz_bp_temporal(struct damon_ctx *c,
- 
- 	if (score >= 10000)
- 		quota->esz_bp = 0;
--	else if (quota->sz)
-+	else if (quota->sz && quota->sz <= ULONG_MAX / 10000)
- 		quota->esz_bp = quota->sz * 10000;
- 	else
- 		quota->esz_bp = ULONG_MAX;
+diff --git a/fs/iomap/ioend.c b/fs/iomap/ioend.c
+index 7bbbb417f9152..32ae292a84cbe 100644
+--- a/fs/iomap/ioend.c
++++ b/fs/iomap/ioend.c
+@@ -246,8 +246,16 @@ ssize_t iomap_add_to_ioend(struct iomap_writepage_ctx *wpc, struct folio *folio,
+ new_ioend:
+ 		if (ioend) {
+ 			error = wpc->ops->writeback_submit(wpc, 0);
+-			if (error)
++			if (error) {
++				/*
++				 * ->writeback_submit() completed the ioend
++				 * with an error, so drop the stale context;
++				 * iomap_writepages() would otherwise submit
++				 * it a second time.
++				 */
++				wpc->wb_ctx = NULL;
+ 				return error;
++			}
+ 		}
+ 		wpc->wb_ctx = ioend = iomap_alloc_ioend(wpc, pos, ioend_flags);
+ 	}
 -- 
-2.47.3
+2.53.0
+
