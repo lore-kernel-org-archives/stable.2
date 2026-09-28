@@ -1,43 +1,43 @@
 Received: from relayaws-01.paragon-software.com (relayaws-01.paragon-software.com [35.157.23.187])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 189124F93B5;
-	Mon, 28 Sep 2026 17:22:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD7BA2D8DD0;
+	Mon, 28 Sep 2026 17:23:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.157.23.187
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790616136; cv=none; b=c1uwFbkUa83IwLQGeYzJF3n78ZtM+/hShB5ukcWlJoBajKHCLW8bzmCd8BVnRWC8SOqm4OcqCvd5LdEglIHq+NNVU8vOJAWvcoc1otHB+gurOUE9MKJD5XoNpY893bDrCyB1q9VCNcJe2YhFp/XDwp83cQccQ8yP2U8duSLr3TM=
+	t=1790616217; cv=none; b=sCrYQt0f/XDrfbJBMY3YTMqf3CONZquDtYCaUKHippRFPZdLBKl1/t6u2Qge+2mCaiYi2wh5ZxQZKwiGw/gJuJCacDcMyjHZ7jqPEzI8ZovXqa10am50tzaSoFeO2vm3Z0n7sNIFEpo4ujppVLiq6QiC1XkePmBfvI3ZvRLMB/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790616136; c=relaxed/simple;
-	bh=5RvctZUCAf0FL3NxVqZcjM6pEbtTPWL0VQnh4iXuH+0=;
+	s=arc-20240116; t=1790616217; c=relaxed/simple;
+	bh=vqrAPG2a5N24mPZyIlZ1ZZFFpPG47RYaI2AKAjMgvjE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=ZTGEpkiTLBfZUCK8X4EMlYcLtYgEzeNtI69BuRuWj9OIUwGAzFOiC3pAlCJTXq6Bi9vhMQO1SOZIftDVW442WfZsFq3hR4TMrkdVbBoWNOuyqV743adqd58vow0p3hSqeSQ/OE0ixkOBkxPnf4EOrkMemyT6H+edy1rO/SedYGc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com; spf=pass smtp.mailfrom=paragon-software.com; dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b=i0Ea0Jti; arc=none smtp.client-ip=35.157.23.187
+	 In-Reply-To:Content-Type; b=U2eAE22Rp3FAZGRO5bnakLIIZNiRuogSwSxsyFmFgkRdjz90wOB4gQfDAEcYls1/Ha45dIdd8Flk920+nllkTu3wns21IweV+Nd10eboOsJtwtqJfVGhk7ftQ5Mzb6GdchYT+n34Ol8HdtVlAs9A1mltZIezC7NW2/wtWaVODoM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com; spf=pass smtp.mailfrom=paragon-software.com; dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b=HjsXUBw/; arc=none smtp.client-ip=35.157.23.187
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paragon-software.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b="i0Ea0Jti"
+	dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b="HjsXUBw/"
 Received: from relayfre-01.paragon-software.com (relayfre-01.paragon-software.com [176.12.100.13])
-	by relayaws-01.paragon-software.com (Postfix) with ESMTPS id 474B032C;
-	Mon, 28 Sep 2026 17:22:48 +0000 (UTC)
+	by relayaws-01.paragon-software.com (Postfix) with ESMTPS id 7C26A32C;
+	Mon, 28 Sep 2026 17:24:19 +0000 (UTC)
 Authentication-Results: relayaws-01.paragon-software.com;
-	dkim=pass (1024-bit key; unprotected) header.d=paragon-software.com header.i=@paragon-software.com header.b=i0Ea0Jti;
+	dkim=pass (1024-bit key; unprotected) header.d=paragon-software.com header.i=@paragon-software.com header.b=HjsXUBw/;
 	dkim-atps=neutral
 Received: from dlg2.mail.paragon-software.com (vdlg-exch-02.paragon-software.com [172.30.1.105])
-	by relayfre-01.paragon-software.com (Postfix) with ESMTPS id E181C2187;
-	Mon, 28 Sep 2026 17:21:54 +0000 (UTC)
+	by relayfre-01.paragon-software.com (Postfix) with ESMTPS id 08BF22187;
+	Mon, 28 Sep 2026 17:23:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=paragon-software.com; s=mail; t=1790616114;
-	bh=igqSE9WbsAuz84abPqqeKEyX2eYBhV8g04lvS+mTwlY=;
+	d=paragon-software.com; s=mail; t=1790616206;
+	bh=8wK+Mt7wxK/GvFsTbwxSYIH31MdufPxWj27TEn5fYbA=;
 	h=Date:Subject:To:CC:References:From:In-Reply-To;
-	b=i0Ea0JtiWMbn+Avk+U9Uze5gRhKzKQFL9TYG8rKrh7lzQjFvxbFVkWIZOGU42qeaZ
-	 e5cvOu/NQSde8Vh5VSALwwaqqZoIwEuIij7uK1Pv2gdduSGxL3C+5WwNpWmVwoAluZ
-	 uSMDLEtfzzb8v+EaiKrykCNffdny06U07qmsTPu8=
+	b=HjsXUBw/YXO5O8K+I54jGtFOzvJewiIbPkFX0dckgswm0nWog1gw7divhg3Ryq3DD
+	 ONNPEtumiKSA3gJl4Ti4D4D11jY1lQ2Z4sQuzZBlLExBQH6eVgVe2Zxh3ZgvWgdwR8
+	 5zj9UOeAj91erCnA1rQTZYSBT/+B+5HBbu4Pc9rQ=
 Received: from [192.168.95.128] (172.30.20.196) by
  vdlg-exch-02.paragon-software.com (172.30.1.105) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.7; Mon, 28 Sep 2026 20:21:53 +0300
-Message-ID: <7feaa304-022b-4e50-b20a-de72fb16fd9a@paragon-software.com>
-Date: Mon, 28 Sep 2026 19:21:52 +0200
+ 15.1.2375.7; Mon, 28 Sep 2026 20:23:24 +0300
+Message-ID: <e7aa6fe8-1284-4b5b-b6e7-ffff610466fc@paragon-software.com>
+Date: Mon, 28 Sep 2026 19:23:23 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,127 +45,113 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fs/ntfs3: fix integer overflow in find_log_rec() causing
- OOB read
-To: Ibrahim Hashimov <security@auditcode.ai>
-CC: <ntfs3@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>
-References: <20260708224618.1328-1-security@auditcode.ai>
+Subject: Re: [PATCH v2] fs/ntfs3: reject an oversized resident attribute on
+ the inline iomap path
+To: Michael Bommarito <michael.bommarito@gmail.com>, <ntfs3@lists.linux.dev>
+CC: Mihai Brodschi <m.brodschi@gmail.com>, <linux-fsdevel@vger.kernel.org>,
+	<stable@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+References: <20260711152630.2975127-1-michael.bommarito@gmail.com>
 Content-Language: en-US
 From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-In-Reply-To: <20260708224618.1328-1-security@auditcode.ai>
+In-Reply-To: <20260711152630.2975127-1-michael.bommarito@gmail.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-ClientProxiedBy: vobn-exch-01.paragon-software.com (172.30.72.13) To
  vdlg-exch-02.paragon-software.com (172.30.1.105)
 
-On 7/9/26 00:46, Ibrahim Hashimov wrote:
+On 7/11/26 17:26, Michael Bommarito wrote:
 
-> find_log_rec() validates the on-disk LFS_RECORD_HDR.client_data_len
-> field (`len`, a raw u32 read straight from a mounted $LogFile page)
-> against the log's total available space:
+> attr_data_get_block_locked() maps a resident attribute as a one-page
+> IOMAP_INLINE extent: it allocates a single page, copies the resident
+> value into it with memcpy(), and hands that page to ntfs_iomap_begin()
+> as the inline data.  The copy length is the on-disk resident value
+> length (res.data_size), and mi_enum_attr() only bounds that length
+> against the MFT record size.  A corrupted volume with MFT records larger
+> than a page can therefore present a resident $DATA whose length exceeds
+> PAGE_SIZE, and the memcpy() then writes past the single destination page.
 >
->      len = le32_to_cpu(rh->client_data_len);
->      rec_len = len + log->record_header_len;
->      if (rec_len >= log->total_avail)
->              return -EINVAL;
+> Impact: reading or writing a resident file on a mounted crafted NTFS
+> volume whose MFT records are larger than a page overflows the one-page
+> inline buffer in attr_data_get_block_locked() with attacker-controlled
+> bytes.
 >
-> The addition is unchecked. For len in [0xffffffd0, 0xffffffff] (i.e.
-> log->record_header_len away from UINT_MAX), `rec_len` wraps to a small
-> u32 value that trivially clears the `rec_len >= log->total_avail`
-> guard, so a record whose declared length is actually ~4 GiB is
-> reported as valid and in-page.
+> Reject such an attribute in attr_data_get_block_locked(), before the
+> page is allocated and the copy is made.
 >
-> Because find_log_rec() wrongly accepts the record, its caller
-> read_log_rec_lcb() hands it back to log_replay() as good. On the
-> transaction-table replay leg, log_replay() re-derives the record
-> length directly from the same raw, still-unclamped client_data_len
-> field and uses it to size the restart-table blob:
->
->      rec_len = le32_to_cpu(frh->client_data_len);   /* ~0xffffffff */
->      ...
->      t16 = le16_to_cpu(lrh->redo_off);
->      rt  = Add2Ptr(lrh, t16);
->      t32 = rec_len - t16;                            /* still ~4 GiB */
->      if (!check_rstbl(rt, t32))
->              return -EINVAL;
->
-> check_rstbl()'s own `bytes < ts` bounds guard is defeated because the
-> caller-supplied `bytes` (t32) is itself the poisoned ~4 GiB value, so
-> the guard can never trigger. The subsequent entry-validation loop then
-> walks `rt->used` (also attacker-controlled) entries of
-> sizeof(struct RESTART_TABLE) == 0x18 bytes each straight past the end
-> of the kmalloc(log->page_size) log-page buffer allocated in
-> read_log_page(), producing an out-of-bounds read that is reachable
-> simply by mounting a crafted $LogFile (no genuine dirty-page /
-> crash-recovery state is required). Confirmed via KASAN as a
-> slab-out-of-bounds read in check_rstbl(), called from log_replay() ->
-> ntfs_loadlog_and_replay() -> ntfs_fill_super() -> mount(2).
->
-> Fix the root cause instead of hardening every downstream consumer of
-> the poisoned length: make the addition in find_log_rec() overflow-safe
-> with check_add_overflow(), mirroring the pattern fs/ntfs3/run.c
-> already uses to validate other attacker-controlled on-disk
-> length/offset arithmetic decoded from MAPPING_PAIRS runs, e.g.:
->
->      if (check_add_overflow(vcn64, len, &next_vcn))
->              return -EINVAL;
->      ...
->      if (check_add_overflow(lcn, len, &lcn_end))
->              return -EINVAL;
->
-> (fs/ntfs3/run.c, run_unpack()).
->
-> With the overflow rejected instead of silently wrapped, `rec_len` is
-> only ever a true, non-wrapped sum, so the existing
-> `rec_len >= log->total_avail` check now correctly rejects any
-> oversized record up front. log_replay()'s transaction-table leg then
-> never gets a chance to re-read the poisoned client_data_len, and
-> check_rstbl() is never invoked with an attacker-inflated `bytes` for
-> this path.
->
-> Verified on a v6.19 KASAN build: mounting a crafted $LogFile whose
-> client_data_len overflows trips a KASAN slab-out-of-bounds-read
-> report in check_rstbl() before this fix; with check_add_overflow()
-> applied, the same image is cleanly rejected during log replay and no
-> KASAN report fires.
->
-> Fixes: b46acd6a6a62 ("fs/ntfs3: Add NTFS journal")
+> Fixes: 099ef9ab9203 ("fs/ntfs3: implement iomap-based file operations")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
-> Assisted-by: AuditCode-AI:2026.07
+> Assisted-by: Claude:claude-opus-4-8
+> Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
 > ---
->   fs/ntfs3/fslog.c | 4 +++-
->   1 file changed, 3 insertions(+), 1 deletion(-)
+> Changes since v1:
+> - Reworded the code comment and changelog.  The oversized resident length
+>    overflows the single alloc_page() page that attr_data_get_block_locked()
+>    copies the resident value into; v1 described the older
+>    iomap_write_end_inline() BUG_ON(!iomap_inline_data_valid()), which was
+>    removed in 7.2-rc1.  Thanks to Mihai Brodschi for catching the stale
+>    reference.  The fix itself is unchanged.
 >
-> diff --git a/fs/ntfs3/fslog.c b/fs/ntfs3/fslog.c
-> index f038c799e7ac..e5b63a02b827 100644
-> --- a/fs/ntfs3/fslog.c
-> +++ b/fs/ntfs3/fslog.c
-> @@ -7,6 +7,7 @@
+> The unbounded resident length dates to the iomap conversion; only the
+> manifestation changed when the inline buffer became a single alloc_page():
+>    - 7.2-rc: the memcpy() into the one-page buffer overflows the page
+>      (out-of-bounds write, below).
+>    - 7.0..7.1: the buffer was kmemdup()ed at the real size and the oversized
+>      length instead tripped BUG_ON(!iomap_inline_data_valid()) in
+>      iomap_write_end_inline() (a denial of service).
+> The same data_size > PAGE_SIZE check prevents both, so it is the correct fix
+> across the stable range.
 >
->   #include <linux/blkdev.h>
->   #include <linux/fs.h>
-> +#include <linux/overflow.h>
->   #include <linux/random.h>
->   #include <linux/slab.h>
+> Reproduced under QEMU + KASAN on 7.2-rc2.  A resident $DATA value length
+> above PAGE_SIZE, as a volume with MFT records larger than a page presents,
+> was supplied while the alloc_page() + memcpy() path ran unchanged; the stock
+> kernel faults with a KASAN out-of-bounds write in
+> attr_data_get_block_locked():
 >
-> @@ -2424,7 +2425,8 @@ static int find_log_rec(struct ntfs_log *log, u64 lsn, struct lcb *lcb)
->           * Check that the length field isn't greater than the total
->           * available space the log file.
->           */
-> -       rec_len = len + log->record_header_len;
-> +       if (check_add_overflow(len, log->record_header_len, &rec_len))
-> +               return -EINVAL;
->          if (rec_len >= log->total_avail)
->                  return -EINVAL;
+>    BUG: KASAN: out-of-bounds in attr_data_get_block_locked
+>    Write of size <data_size> by task ...
+>     __asan_memcpy
+>     attr_data_get_block_locked
+>     attr_data_get_block
+>     ntfs_iomap_begin
+>     iomap_iter
+>     iomap_file_buffered_write
 >
-> --
-> 2.50.1 (Apple Git-155)
+> With the patch the same access returns -EINVAL and does not fault.  An
+> in-bounds resident file (control) and a non-resident file are unaffected on
+> both the stock and patched kernels.
+>   fs/ntfs3/attrib.c | 15 +++++++++++++++
+>   1 file changed, 15 insertions(+)
+>
+> diff --git a/fs/ntfs3/attrib.c b/fs/ntfs3/attrib.c
+> index c621a4c582f9e..2f73714a2db97 100644
+> --- a/fs/ntfs3/attrib.c
+> +++ b/fs/ntfs3/attrib.c
+> @@ -1034,6 +1034,21 @@ int attr_data_get_block_locked(struct ntfs_inode *ni, CLST vcn, CLST clen,
+>   
+>   	if (!attr_b->non_res) {
+>   		u32 data_size = le32_to_cpu(attr_b->res.data_size);
+> +
+> +		/*
+> +		 * A resident attribute is copied into a single page below
+> +		 * (alloc_page() + memcpy()) and mapped as a one-page
+> +		 * IOMAP_INLINE extent by ntfs_iomap_begin().  mi_enum_attr()
+> +		 * only bounds the resident value length against the MFT record
+> +		 * size, so a corrupted volume whose records are larger than a
+> +		 * page can report data_size > PAGE_SIZE; copying that many bytes
+> +		 * would overflow the single destination page.  Reject it.
+> +		 */
+> +		if (data_size > PAGE_SIZE) {
+> +			err = -EINVAL;
+> +			goto out;
+> +		}
+> +
+>   		*lcn = RESIDENT_LCN;
+>   		*len = data_size;
+>   		if (res && data_size) {
 
 Hello,
 
-Your patch was applied, thanks.
+The patch was applied, thanks.
 
 Regards,
 Konstantin
