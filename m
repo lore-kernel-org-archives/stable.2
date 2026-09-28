@@ -1,183 +1,136 @@
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95A873368B0;
-	Mon, 28 Sep 2026 06:59:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790578797; cv=pass; b=a87tvJAmF3kvl7ShIruM2A0+/vbWia2EgX21CpiXU+bzg65aQQATlX5lce+eK0/XrtNzUDSOKQBLv+3TiT25wTIPlYn31vkLJOx4a4dTe5SD3vYkKUISSrpTZrRhYOWmiaqlj7CK4oIhbJJZyiZ1Gq87TZz1zfK2ASDjyb89w4U=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790578797; c=relaxed/simple;
-	bh=I9R9BOryNFbV7EgBRkj3htmaS4F0LubWapLIUBncKQQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FqJJdHh5KBS5RKro9933IwmSvwHn4iqq9+fwzUWeeeJirexF3DjXcACwMrCV8Yy9ucHRr77BYRtCgFCH/UZV+Wx8BvTvninnd5andOsRyyMNja3ZWnz9j11S+LZBfKmqrKNeqdjRFF1J8cloHppxuKiVteF8iT4MhC+yxIt1r2E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net; spf=fail smtp.mailfrom=hartkopp.net; dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=a/AaiXUb; dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=CH9Sy9Qc; arc=pass smtp.client-ip=85.215.255.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=hartkopp.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C009449B2C
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 07:02:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.49
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790578933; cv=none; b=bkedDKTa0UE6o+j2q5ckHBYV5zNGxkJJH3/ksRH8MPv0/RyFmugSIKYMvRV2UMgRXm55yRNDph345/uKy73NH2psgfx7bupPtW+60z2p10Mqs/Lusl7sTlKIyikN21q5Gjxf6pu7UE2m5nku7knkLAsyX90u3uxk9efsoXT3yMY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790578933; c=relaxed/simple;
+	bh=zza9TnXjTa58vqN+CvSp3ju1UX2D2hlDXXN3AqqsBZk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=qqWMC+BnKajggVGhgvm6qqwdY3TsZigwCpfStsT0V4cP8eM1JbAh0sChuX/eOZZ8tz9bvIghuBTnNWI2koxs/L7dL24URWALNl0srP7n+BLhfYIIwo8pTKRi5cCq3F4Yb2lVqUQLEGavKKMq3RjegysPwAWC2bzldDuAdoqE6IE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZLt4zvMq; arc=none smtp.client-ip=209.85.218.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="a/AaiXUb";
-	dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="CH9Sy9Qc"
-ARC-Seal: i=1; a=rsa-sha256; t=1790578785; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=cFNfJQTSwsMmYDO5C96MtyZTT+nlfOYFr0AoNBKEOv4IwoWQydec/+UZa9gnQ+2sds
-    ko1Rc5vtcuawiHYZejyAQ9BG36Bhw78VCz1bqobz7WXVfc1FsKyuAt6bfvwu2BwhH5yv
-    +20STTwNDdfrLSM5/22Jbw67oDYwmEvB2436suPpMaR2ckekvuYnxvwj4WfdQtALo8SV
-    BpUyU1dsxZtIZtbn+PSf/iSVSFoI4dXmImA1cNPxqb8P72sK39IKIf6d5by2MIwPIVxx
-    34WvlI/yF1kqO6IRJnY/2GAyWBdBFy+TIFmoIPjP4K1Gvm+9JmY3v6T7+glfzVIKjauf
-    wUuA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1790578785;
-    s=strato-dkim-0002; d=strato.com;
-    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=5supvZF1bTf9R58tuJ/omhKdhyV3UVVrr46s6dprTF8=;
-    b=Ev1+FNy+hrqfUmX/u1Pf18XRJyRe5GggbqPQ81XfgJ/CwhDO9AjpN6dhr8/vBY7JwQ
-    fOV1wbAMC1ouQm5BUgFRquKaYakd/NXHGNjY21ZlagVjLX0Pt02+eFSt3tiZCKUbbvzm
-    4izNJoTeam+ti0elyxbHZW2kichICdbF8SpmMhpyDHIuBx4cogO5kgk95kkJ7KBxDMV5
-    jM6Yrfgy09GbFlRgyte0kHuhnm3DPjT6FNyAZUJoPnGp7Lt1vRUxReSraO4f4x+gSK7O
-    +Cb50mrakWWDvznLAG1e1DGsqfaJyqHOU+ftnANvbe4C/YBQ5ItpAe3RoKEA6I4WZdbR
-    HQ/g==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1790578785;
-    s=strato-dkim-0002; d=hartkopp.net;
-    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=5supvZF1bTf9R58tuJ/omhKdhyV3UVVrr46s6dprTF8=;
-    b=a/AaiXUbwQ+3Fl8gKDsINZZ4si7BoxeqXfSj7yJA8Pp40ulG4no6Zj9h17zQt3FLrH
-    IHwcjQzTLyXgfptZlCVcQ3fLOKPg+0aSD6YcQaobTh48J5xFtPErFk6/Db9gxbyS+nLO
-    RnuRH2n5ZozuDNVMCRgK/aAyxbznwPu8RljCgkSw/wcy4goh1J14/w2GZlR1zgH/GId5
-    jjUDhgnElCtYahFF9upjC48hu2O9Hr7K4hacXAyJ3VDv3yhuyKpEhXIePnuEi1Zpz/de
-    xaUsT+xwxA/XXjnYTaX5oQsYt3zHJ2MHZHqvFt9hWyzu2awvNj11oX9neRiCsCQizPkI
-    ItCg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1790578785;
-    s=strato-dkim-0003; d=hartkopp.net;
-    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=5supvZF1bTf9R58tuJ/omhKdhyV3UVVrr46s6dprTF8=;
-    b=CH9Sy9Qc4S985Op2zynjRsU5LX3VmP7hjJofxzN/0cyFKkthPo8s0IepDlgUknFGZC
-    x4jDxrZ51gtdGPZAu0Aw==
-X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjH4JKvMdQv2tRkI16oOSW1Ti/f4Kp38="
-Received: from [192.168.20.237]
-    by smtp.strato.de (RZmta 55.6.2 SBL|AUTH)
-    with ESMTPSA id K04b9a28S6xiHxA
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Mon, 28 Sep 2026 08:59:44 +0200 (CEST)
-Message-ID: <a56a3e49-ffdf-4285-bca6-992b12127289@hartkopp.net>
-Date: Mon, 28 Sep 2026 08:59:40 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZLt4zvMq"
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c294ad260fdso443103266b.1
+        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 00:02:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790578930; x=1791183730; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=OPkNPJmzSuKsV3tYjzk5WCFitXsvoG1mbaUmgEkFosA=;
+        b=ZLt4zvMqIZ4IGgQIZPIovTA2RjGBg09wOaal7DScEU/WgnzVCgFC7WM6+vvPsaDDYv
+         C/fmdo2utPvbA8QvCzBUyyz+BcRpJjvHL+ngd7Yxt2/syI+1tviMBInt4WCe3HVjkrJO
+         Gl9QqizNBPmzQlp9w51cAG9ZAJZb4d/ceZ/k76ZlVXrIGfhEi298Z9JgrMx2mvWPVQDT
+         TSM2e0p4ew/jQ1Z1N7cGUvBj8kElXihfZlluB0dTnQsN/aCwiOSYnSt20YWwhdN+7X0o
+         yBOX/cUnb8z0DgbowQUWjwdF//OXevQALtqPNrtr2QxZL4Le01iNv3wAoSNF2OHNjUXC
+         990g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790578930; x=1791183730;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=OPkNPJmzSuKsV3tYjzk5WCFitXsvoG1mbaUmgEkFosA=;
+        b=aRvbjDOWia0zZxBXEKxrEsx1mWuw7kbdGK5MhqiMTdye+VmqXatYSQ4DJs1Wz8RiUO
+         hC/zI99i/bd2ZG5D5LtOoTkZVpfM4/UMkKuE+IJ9X1gvutODCjVl7BFCuG6pldJvmh1K
+         +Iry0kLyQqSSgkMIuVmNTj3NHSlWSzJV1hDlQ8IZFpA+F5pGzAP3AAxvyNHXoXS0/1+k
+         zkEdhLTSR8lv9fUS3M/4Yeqr9qi3EgvFYB7mPr54aEStZ3qwxAUiGN6f6IUAe6NWYcl8
+         WyJbczdSSSIZ7LjcItXJ40k/ECxCamzt3alliECJkyScxW00FQJm+TtG8K8OipKOEZpD
+         sJjQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwL8DAFqYfQw2bnKF5hVBwVouBwer8mI5Y5LaZ+pxJ5hU+AWx5WTkqDoXzB29rcBtoT0bu6HfY=@vger.kernel.org
+X-Gm-Message-State: AFuF++ljt7l8Nh5ZWTV9+FR4pJevAoQtM+zj77QbHDZEDdYJHuztbhVc
+	1qz86Cemkseb0EiV+C1euMt9uAYmMm7TKs6qYkp3FLzI6cpuNrhV2YY354AgJQ==
+X-Gm-Gg: AYBFou1Zq6Egn29LkurjCumVyWwnfR/0WNOwyiqUhEPBkRQb0Ytp/x0YvCMnUeTfbuQ
+	UtkMJMBynA50iNtmxCnk1hYdEIyryGhNr2a45WkjGDlZS/uMSJQuoZP2PyWgrOunS1ZDiTkxBdZ
+	6UMVbjFRvi24+fWuBiYgi5AISnpVeqtrInJbhWES64BcSRN8isaNaMdgdyw4E5rtiaA6jIGMbB6
+	xY1nMQjmjLYFw65NA347zThuqbeDA/m9hZtqIBe2U/Mxr2JRzP81a+9onTgxADuCCKuvPLDxooi
+	bgGeFgkVazyT4kln7We7Ofdje6T7ej/Exxqekwye1tpvnivvdfmH0R9M2h9eKrks2DGYcsnzW9c
+	WDYxjnY3Ih459WOklddAfq8SJzroC1Gq/ow56TbPaPNtaGgXlz03D+mwVqbT28gNdVbD6nJ5A05
+	CPREdUMLeTdBX4+E/on9fNAxp8mrXsG0jcfoumI0ZVRMhBY4zUtxzHQJSeljTO4gIblej3V0s3M
+	BhKaCjVndtF1KzYKjv9a8iVrvI=
+X-Received: by 2002:a17:907:9301:b0:c2a:b008:8cc0 with SMTP id a640c23a62f3a-c2ac2382bf4mr1095005966b.28.1790578930459;
+        Mon, 28 Sep 2026 00:02:10 -0700 (PDT)
+Received: from [192.168.0.253] (5403F394.catv.pool.telekom.hu. [84.3.243.148])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4887a349a0esm35536952f8f.10.2026.09.28.00.02.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 00:02:09 -0700 (PDT)
+From: Gabor Juhos <j4g8y7@gmail.com>
+Date: Mon, 28 Sep 2026 09:01:53 +0200
+Subject: [PATCH] mtd: rawnand: qcom: fix read location register usage in
+ config_nand_cw_read()
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] net/packet: guard the ll header push in
- packet_rcv_spkt()
-To: Quchaosheng <quchaosheng000406@163.com>,
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Marc Kleine-Budde <mkl@pengutronix.de>,
- stable@vger.kernel.org
-References: <20260928065000.1749383-1-quchaosheng000406@163.com>
- <20260928065000.1749383-2-quchaosheng000406@163.com>
-Content-Language: en-US
-From: Oliver Hartkopp <socketcan@hartkopp.net>
-In-Reply-To: <20260928065000.1749383-2-quchaosheng000406@163.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260928-qcom_nandc-config_nand_cw_read-fix-v1-1-98edccaaea0f@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3NQQqDMBCF4avIrB2I01bRq0gJYTLaWXRSE7AF8
+ e4NLr9/8d4BRbJKgak5IMuuRZNVdG0D/Aq2CmqsBnLUu5EIN05vb8EiIydbdL3g+euzhIiL/lD
+ Ge/+4DcF1NEAd+mSp+TqZn+f5B4jgbIN0AAAA
+X-Change-ID: 20260922-qcom_nandc-config_nand_cw_read-fix-e946537a0127
+To: Manivannan Sadhasivam <mani@kernel.org>, 
+ Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ Md Sadre Alam <md.alam@oss.qualcomm.com>
+Cc: linux-mtd@lists.infradead.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Gabor Juhos <j4g8y7@gmail.com>
+X-Mailer: b4 0.14.3
 
+On QPIC v2 controllers, when the last codeword is being read, the read
+location values must be programmed into the READ_LOCATION_LAST_CW_*
+registers. Prior to commit 8c52932da5e6 ("mtd: rawnand: qcom: cleanup
+qcom_nandc driver"), the config_nand_cw_read() function did it right,
+but since then it always writes the read location values to the
+READ_LOCATION_* registers even if the actual codeword is the last one.
 
+Change the function to always configure the registers corresponding to
+the actual codeword to restore the correct behaviour.
 
-On 28.09.26 08:50, Quchaosheng wrote:
-> 
-> packet_rcv_spkt() restores the link layer header with
-> 
-> 	skb_push(skb, skb->data - skb_mac_header(skb));
-> 
-> That subtraction is only meaningful when the device actually has a link
-> layer header and the producer initialised skb->mac_header.  A CAN skb
-> does not: init_can_skb() sets pkt_type and ip_summed but leaves
-> skb->mac_header at the 0xFFFF sentinel, because 9f10374bb024 ("can:
-> remove private CAN skb headroom infrastructure") dropped the
-> skb_reset_*_header() calls that used to be there.
-> 
-> skb_mac_header() is then 0xFFFF, the length becomes a large negative
-> number and skb_push() reports it through skb_under_panic() -- from
-> softirq context, so it is a full system panic even with panic_on_oops=0:
-> 
->    skbuff: skb_under_panic: text:ffffffffadd28261 len:-65455 put:-65471 head:... data:... tail:0x50 end:0x180 dev:can0
->    kernel BUG at net/core/skbuff.c:214!
->    RIP: 0010:skb_panic+0x50/0x60
->    Call Trace:
->     <TASK>
->     skb_push+0x4d/0x60
->     packet_rcv_spkt+0xe1/0x170
->     ...
->    Kernel panic - not syncing: Fatal exception in interrupt
-> 
-> packet_rcv() and tpacket_rcv() already handle this: both wrap their
-> skb_push() in dev_has_header(dev).  packet_rcv_spkt() is the only
-> remaining receive path that does the subtraction unconditionally, and it
-> is reachable with SOCK_PACKET -- a socket type that still works and that
-> no length or capability check keeps away from a CAN interface.
-> 
-> The missing skb_reset_*_header() calls in init_can_skb() are a regression
-> in their own right and are being fixed separately, but a packet socket
-> should not turn a link layer that forgot to initialise its mac header into
-> a kernel panic.  Guard the push the same way the other two paths do.
-> 
-> Tested on v7.3.0-rc5 under QEMU with a slcan device on a pty (the driver
-> RX path is required; vcan resets the headers on the way out and does not
-> reproduce it).  A SOCK_PACKET socket on can0 panics an unpatched kernel
-> with the trace above and is silent with this patch applied.
-> 
-> Fixes: 9f10374bb024 ("can: remove private CAN skb headroom infrastructure")
+Cc: stable@vger.kernel.org
+Fixes: 8c52932da5e6 ("mtd: rawnand: qcom: cleanup qcom_nandc driver")
+Signed-off-by: Gabor Juhos <j4g8y7@gmail.com>
+---
+ drivers/mtd/nand/raw/qcom_nandc.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-I wonder if we should fix this in af_packet.c ?
+diff --git a/drivers/mtd/nand/raw/qcom_nandc.c b/drivers/mtd/nand/raw/qcom_nandc.c
+index d7642db2e2df..170af9f26d47 100644
+--- a/drivers/mtd/nand/raw/qcom_nandc.c
++++ b/drivers/mtd/nand/raw/qcom_nandc.c
+@@ -328,14 +328,16 @@ config_nand_cw_read(struct nand_chip *chip, bool use_ecc, int cw)
+ {
+ 	struct qcom_nand_controller *nandc = get_qcom_nand_controller(chip);
+ 	struct nand_ecc_ctrl *ecc = &chip->ecc;
+-
+ 	__le32 *reg = &nandc->regs->read_location0;
++	int reg_base = NAND_READ_LOCATION_0;
+ 
+-	if (nandc->props->qpic_version2 && qcom_nandc_is_last_cw(ecc, cw))
++	if (nandc->props->qpic_version2 && qcom_nandc_is_last_cw(ecc, cw)) {
+ 		reg = &nandc->regs->read_location_last0;
++		reg_base = NAND_READ_LOCATION_LAST_CW_0;
++	}
+ 
+ 	if (nandc->props->supports_bam)
+-		qcom_write_reg_dma(nandc, reg, NAND_READ_LOCATION_0, 4, NAND_BAM_NEXT_SGL);
++		qcom_write_reg_dma(nandc, reg, reg_base, 4, NAND_BAM_NEXT_SGL);
+ 
+ 	qcom_write_reg_dma(nandc, &nandc->regs->cmd, NAND_FLASH_CMD, 1, NAND_BAM_NEXT_SGL);
+ 	qcom_write_reg_dma(nandc, &nandc->regs->exec, NAND_EXEC_CMD, 1, NAND_BAM_NEXT_SGL);
 
-There's already a patch waiting for upstream in the CAN subsystem, where 
-the problem has originally been introduced:
-
-[PATCH v2] can: restore skb header initialisations in init_can_skb()
-https://lore.kernel.org/linux-can/20260917123716.63116-1-ndaugoing@gmail.com/
+---
+base-commit: 55c5b6d5f59f59a8c98a7effc3195226cc20175c
+change-id: 20260922-qcom_nandc-config_nand_cw_read-fix-e946537a0127
 
 Best regards,
-Oliver
-
-> Assisted-by: LLM
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
-> ---
->   net/packet/af_packet.c | 12 ++++++++++--
->   1 file changed, 10 insertions(+), 2 deletions(-)
-> 
-> diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
-> index 7c83e0152..ab8e0309e 100644
-> --- a/net/packet/af_packet.c
-> +++ b/net/packet/af_packet.c
-> @@ -1911,7 +1911,17 @@ static int packet_rcv_spkt(struct sk_buff *skb, struct net_device *dev,
->   
->   	spkt = &PACKET_SKB_CB(skb)->sa.pkt;
->   
-> -	skb_push(skb, skb->data - skb_mac_header(skb));
-> +	/* The push restores the link layer header, which only exists for
-> +	 * devices that have one.  A device without a visible ll header
-> +	 * (ARPHRD_CAN and other L3 types) must not be pushed, and the
-> +	 * subtraction is meaningless when the producer never initialised
-> +	 * skb->mac_header -- it then holds the 0xFFFF sentinel and the
-> +	 * result is a huge negative length that trips skb_under_panic() in
-> +	 * softirq context.  packet_rcv() and tpacket_rcv() already guard
-> +	 * this with dev_has_header(); do the same here.
-> +	 */
-> +	if (dev_has_header(dev) && skb_mac_header_was_set(skb))
-> +		skb_push(skb, skb->data - skb_mac_header(skb));
->   
->   	/*
->   	 *	The SOCK_PACKET socket receives _all_ frames.
-> 
+-- 
+Gabor Juhos <j4g8y7@gmail.com>
 
