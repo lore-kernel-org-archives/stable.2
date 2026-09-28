@@ -1,124 +1,161 @@
-Received: from mail-ej2-f41.google.com (mail-ej2-f41.google.com [74.125.228.169])
+Received: from mail-wr2-f17.google.com (mail-wr2-f17.google.com [74.125.225.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 142303911B2
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 06:22:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05AB83911B2
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 06:28:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790576569; cv=none; b=hyGK6VEoKrEswHtD+oW3GMOep9/EOYhRWPl3VfNgGGK3vDSjWF4Dzof2S+FpfrrOF4S3MgI9ptIqbPVUbHpL1UzVG4YhOXdDJuRY2+QwjjTSkt4muaJPmkzvVQwX9Z5Rn4UJkpfFfGu5jLJugmNYMmRb0xYxeNNg6vXTh8dknd4=
+	t=1790576930; cv=none; b=IofxyowBZn+K+Xcp2WJBrku0CS/q2d9tN3dnhV3s7t7skrvcKTXFMdZWVH3oOMH4eRmemTZljmakOArgQkri/7OjTcGw8GnwsP9gfcH56L9S2Sy9ifx+NFdS6xVTD/uiNnNfN8BhPCMHqNpwlsu/rIMpIkTtX2F9XE0Jl1iOYmk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790576569; c=relaxed/simple;
-	bh=LR/nA4tVHyi6eFNl4mMbMzn2KnpfyeV8b0n4FCCSrn0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ff1Qm5H151RIj24T3ElkAxYZ+3dm5JcReb4qy/8YbEuE+/4YtIIbnRZfVPROWpOp1llQk0CU3oBD8Mt6hoRrMPAKUxSWEeE0t1C9awxF+EsvgckN5hI0tKUIDZKbu9ekp6sCK2jOmFP0LgA6ZWNre7QbeFhFbCSMQLGf2Hb7aHE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=inspiral.be; spf=none smtp.mailfrom=inspiral.be; dkim=pass (2048-bit key) header.d=inspiral-be.20251104.gappssmtp.com header.i=@inspiral-be.20251104.gappssmtp.com header.b=LUd+qxlj; arc=none smtp.client-ip=74.125.228.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=inspiral.be
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=inspiral.be
+	s=arc-20240116; t=1790576930; c=relaxed/simple;
+	bh=m3KPpRq+cNgFaSPI3z9noRAscHUfVOmBnPDUVtycS8k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Dg8HCUixxkJ4zrIuFtD5564B7PZFRWJgggNrMn2PM7jgWPXDr1UDx9tqqFtzrlEas/6iWjX9TyiReelPYkdrq/sX+qSkWEHsnIEDFWSI7zcQcdbjOZRZJDQQ1cUlbpFDHMzyCT9DsfzTP60kZbNvG6iyfWnIbS54AMy1TZfq08g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q3YEDA/s; arc=none smtp.client-ip=74.125.225.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=inspiral-be.20251104.gappssmtp.com header.i=@inspiral-be.20251104.gappssmtp.com header.b="LUd+qxlj"
-Received: by mail-ej2-f41.google.com with SMTP id a640c23a62f3a-c2dc50c6edfso111811766b.1
-        for <stable@vger.kernel.org>; Sun, 27 Sep 2026 23:22:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q3YEDA/s"
+Received: by mail-wr2-f17.google.com with SMTP id ffacd0b85a97d-4887d06c669so2001331f8f.3
+        for <stable@vger.kernel.org>; Sun, 27 Sep 2026 23:28:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=inspiral-be.20251104.gappssmtp.com; s=20251104; t=1790576565; x=1791181365; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PbVyliIXNTgSBOAj+pK7xJkZUV9YZeRWXj8iKW7Lm+M=;
-        b=LUd+qxljMVLJckINGPYvWjAF/JZv1PbV69Dd08+Uz6YKRbM++bMm19YwvyT0WNCXDV
-         Hme2XzMBi/qWNSQ1CgvyzpcEzG308zMO9vjSw3DInRxTyvZGlIuUL0ShaKdaQngAhiIp
-         HpdsMacrFYcydNqbXrL2xTfigP3dd1i5GOT6R4p81O2L5taFNnnZWT0SW12ByP5V2u2M
-         nY8S0X8ERkDJkSG/OrqgD3/Vks68e0441lxZ/F9qC9pfnqQwEuZhDeww9jstb2Rzd7Bz
-         E/8uDmQjpAUwHfVIbXFcc4Iyx0nQ1nt7ZAw6pWXj+7hV1u9MYqhctGspW4RF7LgjbW8W
-         kmIA==
+        d=gmail.com; s=20251104; t=1790576927; x=1791181727; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mlTeCabh7BYu07oJry0uYVnPTkXCqqBZzgHeANLiL5M=;
+        b=q3YEDA/s8miV/tQDWLeiw2qpDxUhHcd2UyG/WoNruGzydR+fzBfIhK2OSjuYISUIF6
+         rhNHP2kwj/Ui93DejjrKJvhYcOso2I/Au/5Uw1Xa8gGDO5roBK+fneDEGCPsWANfQKgQ
+         gvvNlWfdgiiYEX+qr2Lk2HBqffH92UiieAXc09chiXyDbxNzu26XzjQrw0VGXYQG4qLu
+         JCci3KpkrX0vwMg2g2tZyXOP3Fm776nPBjqg+B0a62tHBg2TTFHqWfKuvAjlifZScemZ
+         i7wmFxEcxD+nKXx6GxAIgyMv5pxwg0BzR3yJI+8duuKz98MclTIh23wafW+cGEk5XTZf
+         Ye5w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790576565; x=1791181365;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PbVyliIXNTgSBOAj+pK7xJkZUV9YZeRWXj8iKW7Lm+M=;
-        b=IwkH2QTstNu59VjD8km+cLj1XmpzQNTN21r4vA31IvhauM9/kdAFOw/SG+fkvuhTbT
-         SrjXPYKwgeUYBEJwI8AkiYnhTlFntd/nL8RoiKaFUOdwPUtZjvVTEd6qiZb2DhWGOLmg
-         r/mighTC0+9pBYFJl+CINaegrbEXHlJhekVi9rc6K9nHF0W2GWBjJuYtYkgH8Nt55GVT
-         IC9981U0DeqRWmDWtIFSnPa89kiE1ewe6hyH13yJs3mGeBG876xtivOaXtC69jCWvfr8
-         9Dy/HMCzGZ2kc9+pKw6iCLibVqCfu4vM6jNiOapv1ESn2ma301XnRK8uUcDw1eLPZVSX
-         EDrA==
-X-Forwarded-Encrypted: i=1; AKwUvBzhv9i8zSR4gyX+2tqw5rhIzUdIJvtLrXdLLcKFsU4C290GtFB7AIqkTLZaYEIAgYD50iA9wqc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mpEYsVn17kEJZ4lQa7exVjwCJcTq/ZXHqNLRwbpD6KLNG09iEW
-	KLisVdRoy/OEXduZqFHLx1yUsJ3lmul/29XpgnWB4Vzn8n+LhKwemXZFc4NX1inhNmPwL2Rx3MQ
-	P8IsXc34=
-X-Gm-Gg: AYBFou2Ni5b/PjjY0b4wmqOLzQ8iW7+jdeNXIdJQhfjn/n8SM7SFDl/zAP2C+qBljkx
-	2M/Zd1mk+cjOwj5tKY/LbKsqtgxQcrc/HFP1x5biWQmWT3hLu6dJ1R6c03XxeyJfpqoVzPKrkFu
-	eO7StjCkz0rhpMYukVEeAWD7klXTBJgSJjYCysU2eUHcWzsrs7Ue6ez7tOwZEUDq235MP7tZRJy
-	WUSBx+/PTtT8D/i0iHpDlQsFCwf5125RuMyp8I7JoIo3eKvUOjRroqasMz/q+KY7zMYZhSrvvL5
-	y9lP+YFzOUs5x9nbd9AE3mQGXVJuDyshKRcM8x7XdUpFYiDfbE5CaTxsrUCNOzKrhHtqH0sbtEF
-	t3EXUD1J2Eh7Z5riwD6CMInCXrgPwHyA3E93IZKIxjekW38r/F1L8saPRZ6XRnG5qSYV80F1N/o
-	Xsj0eFj2aodCHeTZPWZWGF1sXfGGw4cuA5ivwNYfD0GBsG/Dg/yJfww2nezAc0r0QbPdMiQDQv6
-	Bw1ALou45a9nRhy6k0ahgQkPB7PB4udE4AUR8Din+AO19cuKKw=
-X-Received: by 2002:a17:907:ea8b:b0:c2a:fbe1:7340 with SMTP id a640c23a62f3a-c2afbe173b5mr498650466b.41.1790576564599;
-        Sun, 27 Sep 2026 23:22:44 -0700 (PDT)
-Received: from vger (99.240-244-81.adsl-static.isp.belgacom.be. [81.244.240.99])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2ae678bbb0sm419858666b.5.2026.09.27.23.22.43
+        d=1e100.net; s=20260707; t=1790576927; x=1791181727;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mlTeCabh7BYu07oJry0uYVnPTkXCqqBZzgHeANLiL5M=;
+        b=qUdTkNeSn1qjWBuBPUwCmjhno+qL0egvkm3dDu4J5r70M2G5m2yjpeP2JNuWNzNX2r
+         ftgko+Z1RZ9s+lCkJ4g05wNRCihwamdm9eaImUYO3hStkwMHbnKuBXXI3zC2cujsRBJ0
+         yOiovWliJGlX1ezr2wA29Wjh9KBwx4qsyBIDVEfNlc6hKCI8AOfKLKkEtCshIwCUGcQP
+         KM78MUi8F//so8WZ0iAXkztk0WMm7mZE0CW9SJwvxPSPXFbcUVTAv3GnkxKcDEVW2yyC
+         jdVb2TnUblNF54EMCGgNpH6RJwTWv0/Z3tFup2qPLxdiLZv2apvnwFReZyTqqENMDqfo
+         BEbQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxm0D3YbPxqSdz9gZDr+kItl+JZyt4qwDuACmKRvTl11bcRMvseQ+DeCk838BwJRMASKBpM+5M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJNHLy9BeAg7HwgYWTgJpLuL2uiQ3Uz/TPzOAS8HKwBtaCGn7ot
+	pnI6/tWtYJVpb2pu5En9erjax0b5QSoC+9OI2xxTajTLCTg1wtb7yXOa
+X-Gm-Gg: AYBFou27IUXfAFCtTfUi79+m23ua34qZXk3aTSnD3RrcfMrwQHfoGv1nI15iPgN8NUf
+	FLMMLHYltKOnDXGTt1dU3gZcZaNPk/UjccQye0pucEdjjMuGOJqek5kXpvwd9dX5D2irdpgf7h6
+	UYCj2FfxL/C+I9ZOrLxqL+cnq0oIguYMiJzf0/xyu8zuUqu/85ADq/4SsZAsStrtVQ7MrS+d/PW
+	151oaBcO+9aNT+M6cT129G7Ig8G+8uGCm46cmMs9yPfq++KNXW/Ya4QZI/sT7qejPP44ikv8je+
+	aPP5PA+z7pcTWellb0lLqq2GTYezAHI/aNYMyGNd+BPKfSlpQjqg9QIJjDHNMqPA2HvvvC2w4MS
+	r3wJ10qPj/6EdrTfpSIkmPWYlm45oXbR43tYy4Cvf01/6wByaG9iLbA8y7SJmRJX1A4djxwE1r5
+	t/Y+o3PZTPR5jNo6AHqldyo1uDi0kbXPyJi89HKXsSjqXZE9/lM2qGS6aIATr4TuxtMvsJWTlbj
+	4P1EaFaer4a85SCyaZ75giXxqyXrPd5M3Yt7wgerLS1pX644/Uz+OLgOTLPO+lYJIAElmbiyjUr
+	38ecb8Iq6cyz1tB376Vtlh3ZCqqRNCMzv9UPuVW9kZ9KVktc/cchNchasiOaDbkBss5KQHDaFrk
+	LWZw=
+X-Received: by 2002:a05:6000:4908:b0:487:2805:6834 with SMTP id ffacd0b85a97d-48872ac763amr22046956f8f.42.1790576927074;
+        Sun, 27 Sep 2026 23:28:47 -0700 (PDT)
+Received: from unknown748F3CBA5068 (dynamic-2a02-3100-acba-a601-4494-3582-465b-0eab.310.pool.telefonica.de. [2a02:3100:acba:a601:4494:3582:465b:eab])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a64ef3asm25338956f8f.30.2026.09.27.23.28.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 23:22:44 -0700 (PDT)
-From: Tom Verdonck <tom.verdonck@inspiral.be>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Tom Verdonck <tom.verdonck@inspiral.be>,
-	Sashiko <sashiko-bot@kernel.org>,
+        Sun, 27 Sep 2026 23:28:46 -0700 (PDT)
+Date: Mon, 28 Sep 2026 08:28:43 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Ackerley Tng <ackerleytng@google.com>
+Cc: Zhao Li <enderaoelyther@gmail.com>, 
+	Jinmeng Zhou <zhoujinmeng@bytedance.com>, Alex Shi <alexs@kernel.org>, 
+	David Hildenbrand <david@kernel.org>, Dongliang Mu <dzm91@hust.edu.cn>, 
+	Hongxiang Lou <louhongxiang@huawei.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+	Nhat Pham <nphamcs@gmail.com>, Oscar Salvador <osalvador@suse.de>, Peter Xu <peterx@redhat.com>, 
+	Randy Dunlap <rdunlap@infradead.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Usama Arif <usama.arif@linux.dev>, 
+	Vlastimil Babka <vbabka@kernel.org>, Wupeng Ma <mawupeng1@huawei.com>, 
+	Yanteng Si <si.yanteng@linux.dev>, Naoya Horiguchi <nao.horiguchi@gmail.com>, fvdl@google.com, 
+	jthoughton@google.com, rientjes@google.com, vannapurve@google.com, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
 	stable@vger.kernel.org
-Subject: [PATCH] hwmon: (sht4x) Fix torn read of heating_complete in heater_enable_show()
-Date: Mon, 28 Sep 2026 08:22:38 +0200
-Message-ID: <20260928062238.67746-1-tom.verdonck@inspiral.be>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <7b2087ccb963e097cf3f6333efaec0c46549003b.1790358356.git.tom.verdonck@inspiral.be>
-References: <7b2087ccb963e097cf3f6333efaec0c46549003b.1790358356.git.tom.verdonck@inspiral.be>
+Subject: Re: [PATCH v3 3/4] mm: hugetlb: Fix subpool usage leak on allocation
+ failure
+Message-ID: <aroH94a5F4Mzuqgd@gmail.com>
+References: <20260916-hugetlb-subpool-always-track-used-v3-0-38aae9b5ccdd@google.com>
+ <20260916-hugetlb-subpool-always-track-used-v3-3-38aae9b5ccdd@google.com>
+ <20260927170426.2467-1-kmehltretter@gmail.com>
+ <CAEvNRgHQLifmcD1NO6cd7EVcCiQb6gJgNUo4HkFhZAvzuwMq0w@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAEvNRgHQLifmcD1NO6cd7EVcCiQb6gJgNUo4HkFhZAvzuwMq0w@mail.gmail.com>
 
-Commit 61406e9cac69 ("hwmon: (sht4x) Fix jiffies wraparound in
-heater-ready check") widened ->heating_complete from unsigned long to
-u64. On 32-bit architectures a u64 is no longer loaded and stored
-atomically, so heater_enable_show(), which reads ->heating_complete
-without any locking, can race heater_enable_store() and observe a torn
-value, reporting a wrong heater state.
+On Sun, Sep 27, 2026 at 10:19:08PM +0100, Ackerley Tng wrote:
+> == Questions for Karl
+> 
+> (Independent of the "Path forward for 7.3/7.4")
+> 
+> 1. Does squashing patch [4/4] of this series into [2/4] [3/4] resolve
+>    any of what you found?
+> 2. Does patch [1/4] introduce new issues, or does it just not fully fix
+>    all the issues? At this point I think we have so many bugs, it's more
+>    about fixing bugs progressively (not regressing) than finding a
+>    complete fix.
+> 3. Would it be ok if you integrate your findings across your two replies
+>    on [2/4] and [3/4]? They're similar yet slightly different so it's
+>    kind of confusing. If you have reproducers, it would help to share
+>    them! :)
+> 
 
-Take the hwmon lock in heater_enable_show(), as heater_enable_store()
-already does when it updates ->heating_complete. The other reader,
-sht4x_read_values(), is only reached through the hwmon read callback,
-which the hwmon core already serializes with the same lock.
+1. Squashing the unchanged patches does not fix it. Full v3 already includes
+4/4, and both controlled tests still fail:
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/cover.1790358356.git.tom.verdonck@inspiral.be?part=3
-Fixes: 61406e9cac69 ("hwmon: (sht4x) Fix jiffies wraparound in heater-ready check")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tom Verdonck <tom.verdonck@inspiral.be>
----
-Guenter, if the hwmon branch has not gone to Linus yet, feel free to
-squash this into commit 61406e9cac69 ("hwmon: (sht4x) Fix jiffies
-wraparound in heater-ready check") instead.
+  Path                     Cleanup       After files / after unmount
+  -----------------------  ------------  ---------------------------
+  hugetlb_reserve_pages()  +2, -ENOMEM   2 / ULONG_MAX-1
+  alloc_hugetlb_folio()    +1, -ENOMEM   3 / ULONG_MAX
 
- drivers/hwmon/sht4x.c | 2 ++
- 1 file changed, 2 insertions(+)
+Both should end at 4 / 0. I got the same result with one and four vCPUs.
 
-diff --git a/drivers/hwmon/sht4x.c b/drivers/hwmon/sht4x.c
-index da2b6130fca7..27fddff70354 100644
---- a/drivers/hwmon/sht4x.c
-+++ b/drivers/hwmon/sht4x.c
-@@ -237,6 +237,8 @@ static ssize_t heater_enable_show(struct device *dev,
- {
- 	struct sht4x_data *data = dev_get_drvdata(dev);
- 
-+	guard(hwmon_lock)(dev);
-+
- 	return sysfs_emit(buf, "%u\n", time_before64(get_jiffies_64(), data->heating_complete));
- }
- 
--- 
-2.53.0
+Patch 4 fixes the later region_add() failure path, where the global
+reservations have already been acquired. These two failures happen earlier,
+after global accounting or folio allocation has failed, so 4/4 does not
+cover them.
 
+2. The exact v3 patch 1 does introduce regressions as an intermediate
+commit. It starts tracking used_hpages on min_size-only mounts, but the old
+failure paths do not undo the new charge. In the ordinary tests, with or
+without the two queued fixes below it:
+
+  - after the SIGBUS test with no files, HugePages_Rsvd is 0 instead of 2;
+  - after the failed mmap and unmount, it is 3 instead of 0.
+
+This does not mean always tracking used_hpages is wrong, but 1/4 is not safe
+on its own. A reworked series on top of Zhao's and Jinmeng's fixes will need
+new testing.
+
+3. In both races, hugepage_subpool_get_pages() first changes the local
+subpool state. The later global charge or folio allocation fails. Another
+operation then releases capacity and a separate mount consumes it before
+rollback. Rollback restores the local minimum, but its positive global
+correction fails with -ENOMEM and the error is ignored.
+
+I put the exact test hooks, both userspace controllers, QEMU helpers and
+validators in this test-only commit:
+
+  https://github.com/kmehltretter82/linux/commit/3ed79d756dc3845b9af9dc1dec3daa8cb141a500
+
+I support merging Zhao's max-only fix and Jinmeng's combined min/max fix
+now. They are useful, narrower improvements and do not try to cover these
+min-only races.
+
+Karl
