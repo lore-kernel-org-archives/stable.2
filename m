@@ -1,64 +1,66 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19C793B71A1
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 06:42:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D245E44A3F0
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 06:42:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790577776; cv=none; b=XNjrmm3o55McwXZFnZaTkWLzoSdu0DhE67HmF/sCzDqSFajdKlrDD++wd/FR2a5RZYL7i7raMtZUDZL1s/eFfjWsDx0SXQY93GVsGBz3b8jhmdgXvHpI4A1yIpiEQTEtkb+JsO45/vxDnBOBXY/oNShmRk8iAI3fvYGVW6mIiaE=
+	t=1790577780; cv=none; b=Csc/7dHQQyr7emSiTL2DhyDAFg99VV2I4CcJxBX3Gah6FQr9cs9HMoU7raUZ11JXcCn+JzkG7NL5LRpgJyRJOc54hFYu3GQC41ofuRgJLcxA+4oKKW1LQkfYMshgDXhKko79kNBc7koSvcUGMTHcvEjpoGmM9rk8lpXwN7ycjJQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790577776; c=relaxed/simple;
-	bh=7MY9g1VCfYcNl1oUjPGni8Xlg1seVgLJlQYJCr77j3M=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=imG1zllud7pFUgDY++X4QuK9Xmy8RYOJjELQ2YVztzLa1pWQE1wRYON/asbYl022L/8Wo6XgksDUu1QhL3XGgfnQf/CzX9pIeiL2PiyyKtwdmwCgHXLIyMKUClIx56btesEOSsQtj1mIyJrr40h+gufbmWFAtD41mrZRIC3LvbM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aa5Nzwlq; arc=none smtp.client-ip=74.125.225.76
+	s=arc-20240116; t=1790577780; c=relaxed/simple;
+	bh=MyorId+LNXDQ3tBXVrKOG34/XwgfgE8q2c/oj8aOYQ8=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=j75pkqOovzXv6CBObkci8B+JhAep+6+0TjiH2QDgMkrabXyJ2KpmAlYYEUhYDdu6RlYSakYXuyP5rQ0qRvKpFoNvrjAID6TWlsG1mEMsVMBdEq+TO+Mi4CJ0yvtpRTd35oZV2KuhtwUp1kP+KKAXFR6CyxcM9FlsvMqsgtX063Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YHTim2KB; arc=none smtp.client-ip=74.125.225.99
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aa5Nzwlq"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485ac898fa4so2180548f8f.0
-        for <stable@vger.kernel.org>; Sun, 27 Sep 2026 23:42:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YHTim2KB"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4887f6cf16bso1554966f8f.0
+        for <stable@vger.kernel.org>; Sun, 27 Sep 2026 23:42:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790577773; x=1791182573; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=knKV+ty7Rl97pUKjME3IBtkaEdWWVK7KKAJhTAdQER8=;
-        b=aa5Nzwlqln8fPSTMu8dM/uCWK2R337IIkaWtyKfpKEeaG7WxSO+HOrh3HIu4ubeYAS
-         Vq4Oj5TOcd5guWzxS/oUmtHTm/V1ZFj+cEG/bq5/87Vk3hpS98b7knDpQJSk0BZWFfUe
-         N6iDkdldCo2Q60N1v1vOHyPNy5HZEh7imFuo4zTbI1fuQy5ON7ESe8Nu2yxp44QZYF82
-         yrGr0KKoLmyawqb8t8zIMHVLz8BORkwkNWZ0O2pINzPyv5V+CdkW/tm5k7P8NdrSPpmr
-         guo1AqxZDd8sffU7gQpIx/b+RGclx7+hhCVQLyH/Iw1ybO2O6fRTCqKwgBekFYJz/kqK
-         jiWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790577773; x=1791182573;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790577776; x=1791182576; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=knKV+ty7Rl97pUKjME3IBtkaEdWWVK7KKAJhTAdQER8=;
-        b=zW6hiVwLbps/0kG/EJnRfxlcLRnJW/avzHTFhwQ4xdF/yObDr21l+yCUhODYU2lbsh
-         rZuQvscBWlWwWJsp4hO2YiZwKOLa3oOyzvuMdG8AQcVauDqtVuzzP+1Za7OL2O0p5qRl
-         y0KQKC/GWcgNAk0GWwcL7Ss8M8jC6p0Y9vk6cAzJ+BoNGvvcqHvnw5btoPOOWOvx2PJQ
-         8TQ3gLo3HRFoYa+wBszKuZ1tt+ROS1BkGTyH9ACy9V+nt2e16rtnyto70LZQ124P8IBJ
-         kvolLh9ZOWg9sXnwSfpnNz5fyRdIuJxC05Yo6XpC27q0Kpk4eSlHB53CjHplXsCOSxw3
-         ijPg==
-X-Forwarded-Encrypted: i=1; AKwUvBxXHqh44YWKHHYC/ASyrMEcuV57io/QEikMw2lBxXZv5Z8Feef+auMVXHwPbzXu4qVwkGYPe18=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK6vIneHHKvJrbdKpt2N4n25gZ8kQKtzDNPrIzEGWKr3veRNQza
-	7JfgRUcK5TrX8QfjPfS5PUouoG8nf1mhR+fobU3btDpmePQethfETTkP
-X-Gm-Gg: AYBFou10gsQLRDcAcNICX9vglio5tu6kDKe23JAXdfgVhSjWJ7iOsMixRJzD/JmZ13O
-	Zpv4LxgAOqpb38A8OPsW7SuUyTW92jZhp6Lcl+yeIqgpuw/Y2GmrUaSQWk+o7YWMc1Ie1C9XtbG
-	hPgPVDKn078KpVHQbN0p2x0F88k91xJf09dtwb4/1ROh9uF/625MrgeXeSeTXZQlrkjFvlvFAXx
-	W4PoCvwCml8TaV+WN6T7Qg+CW4tUuTBzzITVM+8Kw8XyP/kD7Equ44Pg1VJo+SiM1FnnetlYKVQ
-	oqlV4PQ4A1jZF4x/yiR8fMC5iW26YLbR4hVqhgjLZUpi2cu/puBRHZI4yDnSs5U3lS7zeeCCL82
-	8y3wqnXuIJxLAnQSPw+60g4Xm7bxd22/xJrBUo0TmdOl+0T+pPrfiFDE1c2dxoahNat5MYMYTWW
-	tbGtdHvVHzcEny7H+OkeXjce0FWJRN6lXrvlFTqYnOM+n+Ufcuc5fIwmuzZDerQOPHRFFxEG60E
-	iwtto8F951yjZPDmfD04+h8SjcdmmVPvvlozt9VR1iMqqnEl1Kmu3zYNy18D3BzlftUxO9ywo6u
-	UGj53qYn/9C228wo1j3mNvKBLURuB0vRecb8zk57KQNvq2TTryKxIc4KLkVpdpkLrORrIe6MXPf
-	GeOP5Lg==
-X-Received: by 2002:a5d:5f49:0:b0:487:490:8391 with SMTP id ffacd0b85a97d-488717252c4mr22421127f8f.16.1790577773176;
-        Sun, 27 Sep 2026 23:42:53 -0700 (PDT)
+        bh=nf3oV330ckZwsw/LTGlRTnwET/Uw246suYw2VNp67Og=;
+        b=YHTim2KBMbvqW33SiIfC8KTjygBmq5593rctZM1E5bnqhT8BRn2lOE0yHsky3OSOvi
+         Q0+F3KqiIv7BpOy44YhbEScQZKi+EGf4sgwErJaJV+uPLvyw13Z8o2HnwptR2gk/P85r
+         uzE5iUETSYMae9NBVmqBDlt9UNlal72/Us+VJJJHTZtEaGSmXt2lNEv6LLRIZc1uWSlh
+         PpZw+I9C2bcJsuhCwNsxNAHDnnpBkZZNlKozqopOCZBaJuKNm10grlCwnlgRXioU0jwB
+         BSi+zJjMx+3UdwWHHwWliySPJGOjVGYUwNx14q86FlpPo4J+Ydu2Xk6bNPqnhTYXjh7d
+         Q3Dg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790577776; x=1791182576;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nf3oV330ckZwsw/LTGlRTnwET/Uw246suYw2VNp67Og=;
+        b=CTMORZAK8V6MdFe/YhtLKbuvU45uJG8tEE4mTA5DyxIaMt4CMLEVidrESm3lt18X7b
+         XtSo+gwh3tOtBZ3wXLdMJ5SnEG16fmHuzC5FECkKRIKElIn0ADoIpuPLw/rPx85qs22W
+         eF7F0Wz1nKS1sBLa169nRXSVfQRUnxAruHUMownkDQmobXSR6OEG9UHyRvA1OYxoK17y
+         34RbdrQ+prFjfNAEBRJPaRjGQB+IJ3SpGiYD+F8L71AGD9W1Be4mMvJ76vSeTL37DxwZ
+         RPI/NMhpAlWV1IXX6hvmtvnV4gLPEucgH6ZP9XGaH/DlIzA4I3bN7gKWykIm9dXCZLTJ
+         8AjA==
+X-Forwarded-Encrypted: i=1; AKwUvBzIzkAd7h0lawP7FyavRo/CNVtfbIQWMtI3Zo7OwqAuY1rWvlUuOv6SGwo2yJhafvwhCA6Lerc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLd//Khao3+5UPcj/Ce21BbCt8lLTutHQdpBIunv/noFJfr1d55
+	qvFg4FWTQI6nrDRDIM5oVKj1inXALWEDykQDh59hZLbspYmVlHWs84lN
+X-Gm-Gg: AYBFou2Vu6f4jdvti2qJouNs4bTL9if4YwTMt+OfVY1Ctmp4Up9Uf5Dxier2aOw2ooI
+	81ehYLlMYpE8Dc+ER2VplYDje/PKOuA31EgC2FkfgXn0kowSvV8bLODaXH6obvcxrzQXdGI658R
+	HLnvfu57cYrkffGFK21OTrXJmFxKxt9hYU0UKe33sGvX3L+nqmI6hhkFQI1qANQfhkpZfbO6Ffz
+	Z6whVRD/nR+gX1QMdAgA/lJuKHVbUtdY8SzCaVx7ljFxk3n4aBnrt0K7dPSEr8GVCvFNU0eVVPB
+	041+TkqR6iYqJ3iCMr0FHj7tK/E8u39ilWet2ZaAykHYNhLSrMqyCE8CEcn8McW/nENOH0Upiw/
+	MK3Nh/fordECwdAicQBbkYh5YoJeM9ysyouo/wSfOi40Kcjbo+goUESl6eCCqNug6V+E37Bn0CC
+	bvH4fvlM8vmZsw/MYaQMteL8PeN+2K2kXCXdwjeBJ/jtnkT2EsWAH787y1FTYvxMnVarou4p7Je
+	bFDkmMi3/wilT9GmhNsKmZf6dP+rExMUjltrMHyk21Fd1s/54trMhogoTzWMlXZ9zqaau6G1QAi
+	NoEOX993LXM3O9LQzNzKFue8G3jTHYQ8Kg+RwtrAJN9IR3M/H/Fcakd6zcckTjSBtkRvYNw6ypk
+	JvSHiPg==
+X-Received: by 2002:a05:6000:2909:b0:487:ff2:14f5 with SMTP id ffacd0b85a97d-4887d9fa53dmr18309491f8f.4.1790577775945;
+        Sun, 27 Sep 2026 23:42:55 -0700 (PDT)
 Received: from localhost.localdomain (dynamic-2a02-3100-acba-a601-4494-3582-465b-0eab.310.pool.telefonica.de. [2a02:3100:acba:a601:4494:3582:465b:eab])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a30b1dfsm26283196f8f.4.2026.09.27.23.42.49
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a30b1dfsm26283196f8f.4.2026.09.27.23.42.53
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 27 Sep 2026 23:42:52 -0700 (PDT)
+        Sun, 27 Sep 2026 23:42:55 -0700 (PDT)
 From: Karl Mehltretter <kmehltretter@gmail.com>
 To: netdev@vger.kernel.org
 Cc: Karl Mehltretter <kmehltretter@gmail.com>,
@@ -74,10 +76,12 @@ Cc: Karl Mehltretter <kmehltretter@gmail.com>,
 	linux-kernel@vger.kernel.org,
 	linux-rt-devel@lists.linux.dev,
 	stable@vger.kernel.org
-Subject: [PATCH net 0/2] netpoll: fix PREEMPT_RT deferred transmit locking
-Date: Mon, 28 Sep 2026 08:42:37 +0200
-Message-Id: <20260928064239.32456-1-kmehltretter@gmail.com>
+Subject: [PATCH net 1/2] netpoll: use a raw lock for the deferred transmit queue
+Date: Mon, 28 Sep 2026 08:42:38 +0200
+Message-Id: <20260928064239.32456-2-kmehltretter@gmail.com>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <20260928064239.32456-1-kmehltretter@gmail.com>
+References: <20260928064239.32456-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -86,38 +90,172 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-netpoll's deferred transmit path can acquire two sleeping locks with hard
-interrupts disabled on PREEMPT_RT. One is the sk_buff_head lock used by
-the sender and worker. The other is the device transmit lock used by the
-worker. They produce independent atomic-sleep reports.
+netpoll_send_skb() calls __netpoll_send_skb() with hard interrupts
+disabled. When direct transmission cannot complete, the latter queues
+the skb with skb_queue_tail(). The sk_buff_head lock may sleep on
+PREEMPT_RT:
 
-Patch 1 gives the deferred skb queue a dedicated raw lock.
+  BUG: sleeping function called from invalid context
+  in_atomic(): 0, irqs_disabled(): 1, non_block: 0
+  rt_spin_lock
+  skb_queue_tail
+  netpoll_send_skb
 
-Patch 2 makes the worker try the device transmit lock and defer the skb
-again when the lock is busy. It uses the queue helper added by patch 1.
+The delayed transmit worker has the same problem when it requeues a busy
+skb with skb_queue_head() after disabling interrupts.
 
-Testing:
+Add a dedicated raw spinlock and use the unlocked skb queue helpers under
+it. Keep raw critical sections limited to queue operations. During
+cleanup, splice the queue to a private list before freeing its skbs.
 
-- Arm64 and x86_64 PREEMPT_RT W=1 builds passed.
-- An unpatched Pi 400 emitted the queue-lock report five times during a
-  one-hour run. Ten boots with the complete fix passed, including one
-  3,606-second run. Every trigger and post-trigger marker arrived, Wi-Fi
-  remained usable, and neither atomic-sleep warning occurred.
-- An arm64 PREEMPT_RT QEMU control reproduced both warnings under forced
-  transmit backpressure. Three boots with the complete fix passed.
-- An x86_64 QEMU control reproduced the queue-lock warning on PREEMPT_RT.
-  Three fixed RT boots passed. The non-RT control and treatment each
-  passed three boots.
-
-Karl Mehltretter (2):
-  netpoll: use a raw lock for the deferred transmit queue
-  netpoll: avoid blocking on the transmit lock in queue_process
-
+Fixes: b6cd27ed3388 ("netpoll per device txq")
+Cc: stable@vger.kernel.org # 6.12+
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
  include/linux/netpoll.h |  1 +
- net/core/netpoll.c      | 83 +++++++++++++++++++++++++++++++++++++----
- 2 files changed, 77 insertions(+), 7 deletions(-)
+ net/core/netpoll.c      | 75 +++++++++++++++++++++++++++++++++++++----
+ 2 files changed, 70 insertions(+), 6 deletions(-)
 
-
-base-commit: a7bfaba4823e3c165bb2004c74eff7c096672bc7
+diff --git a/include/linux/netpoll.h b/include/linux/netpoll.h
+index 1c6b1eec5efd6..e20e0592e9349 100644
+--- a/include/linux/netpoll.h
++++ b/include/linux/netpoll.h
+@@ -47,6 +47,7 @@ struct netpoll_info {
+ 	struct semaphore dev_lock;
+ 
+ 	struct sk_buff_head txq;
++	raw_spinlock_t txq_lock;
+ 
+ 	struct delayed_work tx_work;
+ 
+diff --git a/net/core/netpoll.c b/net/core/netpoll.c
+index fe1e0cda5d6bf..e0cfcb05468e2 100644
+--- a/net/core/netpoll.c
++++ b/net/core/netpoll.c
+@@ -79,6 +79,68 @@ static netdev_tx_t netpoll_start_xmit(struct sk_buff *skb,
+ 	return status;
+ }
+ 
++/*
++ * Transmit paths can access txq with hard IRQs disabled. Use a raw lock
++ * because the skb queue lock may sleep on PREEMPT_RT.
++ */
++static bool netpoll_txq_empty(struct netpoll_info *npinfo)
++{
++	unsigned long flags;
++	bool empty;
++
++	raw_spin_lock_irqsave(&npinfo->txq_lock, flags);
++	empty = skb_queue_empty(&npinfo->txq);
++	raw_spin_unlock_irqrestore(&npinfo->txq_lock, flags);
++
++	return empty;
++}
++
++static struct sk_buff *netpoll_txq_dequeue(struct netpoll_info *npinfo)
++{
++	unsigned long flags;
++	struct sk_buff *skb;
++
++	raw_spin_lock_irqsave(&npinfo->txq_lock, flags);
++	skb = __skb_dequeue(&npinfo->txq);
++	raw_spin_unlock_irqrestore(&npinfo->txq_lock, flags);
++
++	return skb;
++}
++
++static void netpoll_txq_queue_head(struct netpoll_info *npinfo,
++				   struct sk_buff *skb)
++{
++	unsigned long flags;
++
++	raw_spin_lock_irqsave(&npinfo->txq_lock, flags);
++	__skb_queue_head(&npinfo->txq, skb);
++	raw_spin_unlock_irqrestore(&npinfo->txq_lock, flags);
++}
++
++static void netpoll_txq_queue_tail(struct netpoll_info *npinfo,
++				   struct sk_buff *skb)
++{
++	unsigned long flags;
++
++	raw_spin_lock_irqsave(&npinfo->txq_lock, flags);
++	__skb_queue_tail(&npinfo->txq, skb);
++	raw_spin_unlock_irqrestore(&npinfo->txq_lock, flags);
++}
++
++static void netpoll_txq_purge(struct netpoll_info *npinfo)
++{
++	struct sk_buff_head purge;
++	unsigned long flags;
++
++	__skb_queue_head_init(&purge);
++
++	raw_spin_lock_irqsave(&npinfo->txq_lock, flags);
++	skb_queue_splice_init(&npinfo->txq, &purge);
++	raw_spin_unlock_irqrestore(&npinfo->txq_lock, flags);
++
++	__skb_queue_purge(&purge);
++}
++
+ static void queue_process(struct work_struct *work)
+ {
+ 	struct netpoll_info *npinfo =
+@@ -86,7 +148,7 @@ static void queue_process(struct work_struct *work)
+ 	struct sk_buff *skb;
+ 	unsigned long flags;
+ 
+-	while ((skb = skb_dequeue(&npinfo->txq))) {
++	while ((skb = netpoll_txq_dequeue(npinfo))) {
+ 		struct net_device *dev = skb->dev;
+ 		struct netdev_queue *txq;
+ 		unsigned int q_index;
+@@ -107,7 +169,7 @@ static void queue_process(struct work_struct *work)
+ 		HARD_TX_LOCK(dev, txq, smp_processor_id());
+ 		if (netif_xmit_frozen_or_stopped(txq) ||
+ 		    !dev_xmit_complete(netpoll_start_xmit(skb, dev, txq))) {
+-			skb_queue_head(&npinfo->txq, skb);
++			netpoll_txq_queue_head(npinfo, skb);
+ 			HARD_TX_UNLOCK(dev, txq);
+ 			local_irq_restore(flags);
+ 
+@@ -282,7 +344,7 @@ static netdev_tx_t __netpoll_send_skb(struct netpoll *np, struct sk_buff *skb)
+ 	}
+ 
+ 	/* don't get messages out of order, and no recursion */
+-	if (skb_queue_len(&npinfo->txq) == 0 && !netpoll_owner_active(dev)) {
++	if (netpoll_txq_empty(npinfo) && !netpoll_owner_active(dev)) {
+ 		struct netdev_queue *txq;
+ 
+ 		txq = netdev_core_pick_tx(dev, skb, NULL);
+@@ -314,7 +376,7 @@ static netdev_tx_t __netpoll_send_skb(struct netpoll *np, struct sk_buff *skb)
+ 	}
+ 
+ 	if (!dev_xmit_complete(status)) {
+-		skb_queue_tail(&npinfo->txq, skb);
++		netpoll_txq_queue_tail(npinfo, skb);
+ 		schedule_delayed_work(&npinfo->tx_work,0);
+ 	}
+ 	ret = NETDEV_TX_OK;
+@@ -362,7 +424,8 @@ int __netpoll_setup(struct netpoll *np, struct net_device *ndev)
+ 		}
+ 
+ 		sema_init(&npinfo->dev_lock, 1);
+-		skb_queue_head_init(&npinfo->txq);
++		__skb_queue_head_init(&npinfo->txq);
++		raw_spin_lock_init(&npinfo->txq_lock);
+ 		INIT_DELAYED_WORK(&npinfo->tx_work, queue_process);
+ 
+ 		refcount_set(&npinfo->refcnt, 1);
+@@ -397,7 +460,7 @@ static void rcu_cleanup_netpoll_info(struct rcu_head *rcu_head)
+ 	struct netpoll_info *npinfo =
+ 			container_of(rcu_head, struct netpoll_info, rcu);
+ 
+-	skb_queue_purge(&npinfo->txq);
++	netpoll_txq_purge(npinfo);
+ 	kfree(npinfo);
+ }
+ 
 -- 
 2.53.0
