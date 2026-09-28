@@ -1,310 +1,310 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76237449B33;
-	Mon, 28 Sep 2026 09:50:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3858044E650;
+	Mon, 28 Sep 2026 09:53:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790589058; cv=none; b=pT9iV9z3zJewS0vVRWzzk/XQ3u4CnZX818C5PfUTy1zWDMmRYeGd5eaMdH3mDg202Mv09aCOBSYXxpl/M8U80IHTa0mzfHk1Uh+Ts3qM3uoz06VsTcLVUFx13Hz50ZdHTjNQQrEwCtdgJOoUjrBiwX/vOqCtrE0oatGrIeebCqo=
+	t=1790589229; cv=none; b=RtW/i5vPuEz4auoK6N3X2/OhxCyuFLeVQ5ITyY+1mHpjeJB+vFc0WxrjB1bleiEw+WOR3b6VSa09XokcK1kirXIHrbJsAobhkiy+oke/Oi4cuwoXB2Z1KE3GTr7DReByN9xYhtIn37SNxQAC7+GqiCKSPuuBesyASZSRI6ftNPg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790589058; c=relaxed/simple;
-	bh=tRjGfk5sAIV4MixjfBHinItrtx5gyKrzkW9vkMZnI1s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=l/KnkZRjVCS/10OUkHj5Pdbvx58EMovfiLzbqpZHh9yYcuy8ldL5eNAdKcAeUk5/+a51H71d2ndEGNEHs5J6mbCAstNhYsvSxbGp6JvMmv1COAvLEyEZKaeVd7U3jetQkcrcB7TDE5E4LuiCi2lXYn95GpfoUQOO+Bs4DZ05qtQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jPCsBlXy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790589229; c=relaxed/simple;
+	bh=+xb9xcIMrr5OJsLec1M/O2inJ9NcaKtqScgVIVaKxu4=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=NG+GlFHmIOrLUIVZOE2ian2wNBXz63vrXpGvQOLcV0vhA1Qv5Qra1eU5Jdn0abDEqlyUoKq4IrGGymsw2GPl5V/LSNmzruVCA0bnDZKWa1i7h9cueQGJmPN6U2RbzAynHcqUhUa8SdNICA2HQkE5/jPjROJAtBfWDb5jLXIUJIM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jtll7qva; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jPCsBlXy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58AC71F000FF;
-	Mon, 28 Sep 2026 09:50:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jtll7qva"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 171431F000FF;
+	Mon, 28 Sep 2026 09:53:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790589057;
-	bh=OikbOdOfQc9uSsZ38pWP0YMhgGOHi8+L5MsE0jBLjuk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jPCsBlXyFBndZaVTJAFYjb+YcgnWBBfNGGyCtMH33fhQpiTUJe6xDIuzV3os9l7aL
-	 KcYlqtN2bskaLydeMeWD98qUnnoKlJzWSnb4U4yUxcZRMIfceRe5EWEarX6utaAdD7
-	 58f/74JZm+POcGAZrDVMzZOird0AxsZ1at70+KEzKuwTzAe2QvYGH4LLsZb02rNbEw
-	 +hztTmST38yINrcbnG6VJh93nqgueYhJ3E2bRorw7JUf2OL5T0us01dPRIpEnVDd1O
-	 AK5FlUJ+4DtNOadG/0OC6MKHMhNpBKNmL1Q7cFxKaPzWgW1dmbC2WUvRSv08JYr45s
-	 dZsCDmiDQp4yw==
-From: Simon Horman <horms@kernel.org>
-To: zihanx@nebusec.ai
-Cc: Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	stable@vger.kernel.org,
-	vega@nebusec.ai,
-	root@tr0jan.top
-Subject: Re: [PATCH net v12 1/1] llc: fix listener child socket leaks
-Date: Mon, 28 Sep 2026 10:49:44 +0100
-Message-ID: <20260928094944.815915-1-horms@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <2af9949fc349d17b53db432893abb4d2e97932ce.1790255682.git.zihanx@nebusec.ai>
-References: <2af9949fc349d17b53db432893abb4d2e97932ce.1790255682.git.zihanx@nebusec.ai>
+	s=k20260515; t=1790589227;
+	bh=LuWhIMowI39Sw9VUbrs0SpvHgk8NlyRSj5QWrKqGrhU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=jtll7qva6lDmxuAdmKyWYcxH5sgpT19wKG3TPR+3+T/d5Ii+5OSa0evt+ytfX8hZT
+	 dnTSCpofI/iyDf0ySV19BKCw22OyfFp4UrT2vo+yiYnFCm1sq4NYheW0nY4CbJi0Wb
+	 7fPpcnInvGIuddgQ0E8i+1HjOPjMb0a2n3LvZXMM/wxuRMuVhRtZBJNf8ax45GRAGl
+	 RbidUH0I67F7uTfL8LxNF4aObEYD6AqZiSX8I2NOkUxmC8IJCJ/22aNp0Su0TYOUiF
+	 gB9CLBLnO5Ys3Om4m7VkUI0oWy8xtTxJ85fANwY9rymxXbwW3yLBRHK4E9LH1GoKNU
+	 /cjVVlahkVZ/w==
+Subject: Re: [PATCH net v2] nfc: llcp: prevent resource leak on repeated
+ connect after DM
+From: netdev-bot+sashiko@kernel.org
+To: qwe.aldo@gmail.com
+Cc: david@ixit.cz, davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, oe-linux-nfc@lists.linux.dev,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ sashiko-bot@kernel.org
+Date: Mon, 28 Sep 2026 09:53:46 +0000
+Message-ID: <179058922656.3145.17540746696102333949@kernel.org>
+In-Reply-To: <20260925184857.357926-1-qwe.aldo@gmail.com>
+References: <20260925184857.357926-1-qwe.aldo@gmail.com>
+X-sashiko-severity: Critical
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-This is an AI-generated review of your patch. The human sending this
-email says "I'm forwarding this as it looks legit and the forwarding
-bot trigger seems to have timed out."
-Full review at: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/2af9949fc349d17b53db432893abb4d2e97932ce.1790255682.git.zihanx@nebusec.ai?part=1
----
-llc: fix listener child socket leaks
+Thank you for your contribution! Sashiko AI review found 4 potential
+issue(s) to consider.
 
-This patch reworks LLC listener passive-open handling. Child sockets
-created on SABME are now freed when setup fails or when the connection
-indication is dropped before accept(). Only SABME creates children, the
-listener sends DM responses for other commands, pending indications count
-against the accept backlog, and skb->dev is held for packets deferred to
-the socket backlog.
+Critical: 2 · High: 2 (1) · Medium: 0 · Low: 0
 
-> diff --git a/net/llc/llc_conn.c b/net/llc/llc_conn.c
-> index 260460d50f54c..77044720f12ff 100644
-> --- a/net/llc/llc_conn.c
-> +++ b/net/llc/llc_conn.c
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-[ ... ]
+- [Critical] The new LLCP_CLOSED cleanup in llcp_sock_connect()
+  (net/nfc/llcp_sock.c:725-726, `if (llcp_sock->dev)…
+- [Critical] The new cleanup can release resources that a sleeping
+  blocking connect() still owns.
+- [High] Two paths close a socket but leave it hashed on local->sockets:
+  nfc_llcp_recv_disc() (llcp_core.c:1221-1224), and the default branch…
+- [High] The leak this patch targets is still reachable through bind().
 
-> @@ -90,6 +91,8 @@ int llc_conn_state_process(struct sock *sk, struct sk_buff *skb)
->  		 */
->  		skb_get(skb);
->  		skb_queue_tail(&sk->sk_receive_queue, skb);
-> +		if (sk->sk_state == TCP_LISTEN)
-> +			sk_acceptq_added(sk);
->  		sk->sk_state_change(sk);
->  		break;
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the retry
+  scenario the patch targets can crash the kernel.
 
-[Severity: High]
-This is a pre-existing issue and was not introduced by this patch. It is
-in the same area the commit message describes, though. Can a remote peer
-grow an unaccepted child's sk_receive_queue without bound here?
+--
 
-The child stays hashed while its indication waits in the listener's
-queue. Suppose the peer sends DISC, which moves the child from NORMAL back
-to ADM, and then sends SABME again. llc_conn_handler() finds the child
-and takes the non-listener branch:
+nfc: llcp: prevent resource leak on repeated connect after DM
 
-    skb_orphan(skb);
-    sock_hold(sk);
-    skb->sk = sk;
-    skb->destructor = sock_efree;
+Before llcp_sock_connect() takes new resources, this patch releases the
+local reference, reserved SAP, service name and device reference still
+held by an LLCP socket in LLCP_CLOSED. It targets a nonblocking connect
+that a DM PDU rejects and that is then retried.
 
-llc_conn_rcv(child) then handles ADM + SABME, which issues another
-connection indication. This case queues it on the child's own
-sk_receive_queue with no rmem or sk_rcvbuf check. The child is not
-TCP_LISTEN, so sk_acceptq_added() does not apply either. Each queued skb
-also holds a reference on the child.
+Link: https://lore.kernel.org/all/20260923133339.2518641-1-qwe.aldo@gmail.com/
 
-The new sk_acceptq_is_full() check in llc_conn_rcv_sabme() limits how
-many children are created. It does not limit how many indications build
-up on one child, and that memory stays pinned until the application
-accepts or closes the listener.
-
-[ ... ]
-
-> @@ -765,14 +768,124 @@ static struct sock *llc_create_incoming_sock(struct sock *sk,
-
-[ ... ]
-
-> +static int llc_conn_rcv_sabme(struct sock *sk, struct sk_buff *skb,
-> +			      struct llc_addr *saddr,
-> +			      struct llc_addr *daddr)
-> +{
-> +	struct sock *newsk;
-> +	int rc;
-> +
-> +	if (sk_acceptq_is_full(sk))
-> +		goto drop;
-
-[Severity: Medium]
-Can sk_ack_backlog underflow, so that this check drops every SABME from
-then on?
-
-The counter only goes up in llc_conn_state_process() when sk_state is
-TCP_LISTEN at queue time. Other code resets it without looking at what is
-still queued:
-
-net/llc/af_llc.c:llc_ui_listen() {
-    ...
-    if (sk->sk_state != TCP_LISTEN) {
-        sk->sk_ack_backlog = 0;
-        sk->sk_state       = TCP_LISTEN;
-    }
-    ...
-}
-
-llc_ui_connect() only rejects SS_CONNECTING. A listener with indications
-still in sk_receive_queue can therefore call connect(), and a DM or
-timeout then leaves it in TCP_CLOSE / SS_UNCONNECTED.
-
-A second listen() resets sk_ack_backlog to 0 while the old indications
-are still queued. Each accept() of one of those indications then calls
-sk_acceptq_removed() unconditionally in llc_ui_accept().
-
-The u32 counter wraps to 0xFFFFFFFF and sk_acceptq_is_full() stays true.
-Later listen() calls do not reset the counter because sk_state is already
-TCP_LISTEN. Is every new SABME then silently dropped here?
-
-> +
-> +	local_bh_disable();
-> +	newsk = llc_create_incoming_sock(sk, skb->dev, saddr, daddr);
-
-[ ... ]
-
-> @@ -786,6 +899,10 @@ void llc_conn_handler(struct llc_sap *sap, struct sk_buff *skb)
->  		goto drop;
->  
->  	bh_lock_sock(sk);
-> +	if (unlikely(llc_sk_unhashed(sk)))
-> +		goto drop_unlock;
-> +	if (unlikely(llc_sk(sk)->state == LLC_CONN_OUT_OF_SVC))
-> +		goto drop_unlock;
->  	/*
->  	 * This has to be done here and not at the upper layer ->accept
->  	 * method because of the way the PROCOM state machine works:
-
-[Severity: Low]
-This isn't a bug, but two comments still say the child is created in
-llc_conn_handler(): this one, and the one in the LLC_CONN_PRIM case of
-llc_conn_state_process() ("the newly created struct sock in
-llc_conn_handler").
-
-After this patch the child is only created in llc_conn_rcv_sabme(). When
-the listener is owned by the user, that happens later from
-llc_backlog_rcv(). Should both comments be updated?
-
-> @@ -795,11 +912,14 @@ void llc_conn_handler(struct llc_sap *sap, struct sk_buff *skb)
->  	 * in the newly created struct sock private area. -acme
->  	 */
->  	if (unlikely(sk->sk_state == TCP_LISTEN)) {
-> -		struct sock *newsk = llc_create_incoming_sock(sk, skb->dev,
-> -							      &saddr, &daddr);
-> -		if (!newsk)
-> +		if (llc_conn_ev_rx_sabme_cmd_pbit_set_x(sk, skb)) {
-> +			llc_listener_send_dm(sap, sk, skb, &saddr);
->  			goto drop_unlock;
-> -		skb_set_owner_r(skb, newsk);
-> +		}
-> +		if (!sock_owned_by_user(sk)) {
-> +			llc_conn_rcv_sabme(sk, skb, &saddr, &daddr);
-> +			goto out;
-> +		}
->  	} else {
->  		/*
->  		 * Can't be skb_set_owner_r, this will be done at the
-> @@ -813,13 +933,16 @@ void llc_conn_handler(struct llc_sap *sap, struct sk_buff *skb)
->  		skb->sk = sk;
->  		skb->destructor = sock_efree;
+> diff --git a/net/nfc/llcp_sock.c b/net/nfc/llcp_sock.c
+> index 1e5ee4bcde684..9d76c12aee011 100644
+> --- a/net/nfc/llcp_sock.c
+> +++ b/net/nfc/llcp_sock.c
+> @@ -715,6 +715,23 @@ static int llcp_sock_connect(struct socket *sock, struct sockaddr_unsized *_addr
+>  		goto error;
 >  	}
-> -	if (!sock_owned_by_user(sk))
-> -		llc_conn_rcv(sk, skb);
-> -	else {
-> +	if (sock_owned_by_user(sk)) {
->  		dprintk("%s: adding to backlog...\n", __func__);
->  		llc_set_backlog_type(skb, LLC_PACKET);
-> +		/* The backlog can outlive the RCU protection of skb->dev. */
-> +		backlog_dev = skb->dev;
-> +		netdev_hold(backlog_dev, NULL, GFP_ATOMIC);
->  		if (sk_add_backlog(sk, skb, READ_ONCE(sk->sk_rcvbuf)))
->  			goto drop_unlock;
+>  
+> +	if (sk->sk_state == LLCP_CLOSED) {
+> +		/* Release resources retained by a previous failed connection. */
+> +		if (llcp_sock->local) {
+> +			if (llcp_sock->reserved_ssap < LLCP_SAP_MAX)
+> +				nfc_llcp_put_ssap(llcp_sock->local, llcp_sock->ssap);
+> +			nfc_llcp_local_put(llcp_sock->local);
+> +		}
 
 [Severity: Critical]
-Can a listener SABME get into the backlog here with a foreign skb->sk
-still attached?
+Can this release resources that a blocking connect() on the same socket
+still owns?
 
-Before this patch, the TCP_LISTEN branch always called
-skb_set_owner_r(skb, newsk), and that orphans the skb first.
+While sock_wait_state() sleeps it drops the socket lock. The first caller
+keeps local and dev in its own stack frame:
 
-Now, when the listener is owned by the user, the SABME skips both
-skb_set_owner_r() and the skb_orphan() in the else branch. It goes
-straight to sk_add_backlog().
+Thread A (blocking connect)
+llcp_sock_connect()
+  sock_wait_state()
+    release_sock(sk);
+    timeo = schedule_timeout(timeo);
 
-llc_rcv() only calls skb_share_check(). A frame sent locally over veth
-from an AF_PACKET or AF_LLC socket can therefore still carry the sender's
-skb->sk and its sock_wfree destructor.
+rx worker
+nfc_llcp_recv_dm()
+  sk->sk_err = ENXIO;
+  sk->sk_state = LLCP_CLOSED;
+  sk->sk_state_change(sk);
 
-If the listener leaves TCP_LISTEN before the backlog drains,
-llc_backlog_rcv() takes the non-listener branch:
+Thread B (same fd, wins lock_sock first)
+llcp_sock_connect()
+  sk_state == LLCP_CLOSED, so:
+    nfc_llcp_put_ssap(llcp_sock->local, llcp_sock->ssap);
+    nfc_llcp_local_put(llcp_sock->local);
+    nfc_put_device(llcp_sock->dev);
+  nfc_get_device(addr->dev_idx) fails with -ENODEV
 
-    } else if (unlikely(llc->state <= 1 || !skb->sk)) {
-        goto out_kfree_skb;
-    }
-    rc = llc_conn_rcv(sk, skb);
+Thread A
+  lock_sock(sk);
+  err = sock_error(sk);   /* still -ENXIO */
+  goto sock_unlink
+    nfc_llcp_put_ssap(local, llcp_sock->ssap);
+    nfc_llcp_local_put(local);
+    nfc_put_device(dev);
 
-The !skb->sk test is supposed to drop these ownerless deferred SABMEs,
-but the foreign skb->sk gets past it. llc_conn_state_process() then runs
-the state machine on llc_sk(skb->sk), which is the sender's socket. This
-path holds no reference on that socket, and it may not be an LLC socket
-at all.
+Thread B clears ->local, ->dev and ->reserved_ssap but not ->ssap. Thread
+A then frees the same SAP again, which may already belong to another
+socket. It also drops the local and dev references a second time.
 
-One way to leave TCP_LISTEN while the lock is owned is llc_ui_connect().
-It does not reject listeners and it sets sk_state = TCP_SYN_SENT. At that
-point llc->state is SETUP, which is greater than 1. The backlog is then
-drained in llc_ui_wait_for_conn() or in release_sock().
+Could the nfc_llcp_local and nfc_dev refcounts underflow here? That would
+free local while it is still on llcp_devices, and free the nfc_dev while
+it is still registered.
 
-Should the skb be orphaned before it is backlogged in the listener case?
+Without this patch, thread B's failed connect() left the socket unchanged,
+so each resource was released only once.
+
+> +		if (llcp_sock->dev)
+> +			nfc_put_device(llcp_sock->dev);
+
+[Severity: Critical]
+Does a CLOSED socket with a non-NULL llcp_sock->dev always own an nfc_dev
+reference? That seems true only after a nonblocking connect that a
+DM(REJ/NOBOUND) rejected.
+
+Several existing paths leave the socket in LLCP_CLOSED with llcp_sock->dev
+still set, but with the reference already dropped or never taken.
+
+nfc_llcp_recv_disc() already drops the reference for a connected socket:
+
+	if (sk->sk_state == LLCP_CONNECTED) {
+		nfc_put_device(local->dev);
+		sk->sk_state = LLCP_CLOSED;
+
+nfc_llcp_socket_release() runs from
+nfc_dep_link_down()->nfc_llcp_mac_is_down(), and from local_cleanup() on
+unregister. It drops dev for CONNECTED sockets. It then moves every
+socket, BOUND and LISTEN ones included, to LLCP_CLOSED without clearing
+->dev.
+
+llcp_sock_bind() keeps ->dev as a pointer without holding a reference:
+
+	sk->sk_state = LLCP_BOUND;
+	nfc_put_device(dev);
+
+Child sockets accepted in nfc_llcp_recv_connect() also take a reference.
+DISC or link down later drops it.
+
+connect() only rejects LLCP_CONNECTED and LLCP_CONNECTING, and this
+cleanup runs before the dev_idx lookup. So bind(), then a dep link down,
+then connect() (even with a bogus dev_idx) would call nfc_put_device() on
+a reference the socket does not own.
+
+Doing this on several sockets looks like it can underflow the nfc_dev
+refcount and free the device while it is still registered.
+
+The commit message says:
+
+  "Bound sockets do not hold the device reference, so release it only
+  when reconnecting from LLCP_CLOSED."
+
+Bound sockets do reach LLCP_CLOSED on link down, though.
+llcp_sock_destruct() also assumes the reference is owned only in
+LLCP_CONNECTED:
+
+	if (sk->sk_state == LLCP_CONNECTED)
+		nfc_put_device(llcp_sock->dev);
+
+Would it be safer to drop the reference and clear llcp_sock->dev in
+nfc_llcp_recv_dm(), at the CONNECTING to CLOSED transition, instead of
+guessing ownership from the state here?
+
+> +		kfree(llcp_sock->service_name);
+> +		llcp_sock->local = NULL;
+
+[Severity: High]
+Is the socket always off local->sockets at this point?
+
+nfc_llcp_recv_disc() moves a connected socket to LLCP_CLOSED but leaves it
+on local->sockets. The default branch of nfc_llcp_recv_dm() (any reason
+other than NOBOUND/REJ) also closes the socket without unlinking it.
+
+For such a socket, this block frees the SAP, drops the local reference and
+sets llcp_sock->local = NULL. The rx worker can still find the socket
+through nfc_llcp_sock_get(), and the SAP can be given to another socket.
+
+If connect() then fails early (bad dev_idx, nfc_llcp_find_local()
+failure, dep link down, or target_idx mismatch), llcp_sock_release()
+returns before it unlinks anything:
+
+	local = llcp_sock->local;
+	if (local == NULL) {
+		err = -ENODEV;
+		goto out;
+	}
+
+Wouldn't the orphaned socket stay on local->sockets until a link down or
+unregister? Before this patch, ->local was still set on those early error
+paths, so close() unlinked the socket.
+
+If connect() goes ahead instead, it reaches:
+
+	nfc_llcp_sock_link(&local->connecting_sockets, sk);
+
+At that point sk_node is still linked in local->sockets. Two different
+rwlocks protect the two lists, and both hlists look like they would be
+corrupted.
+
+That double link existed before this patch. Since this change prepares
+CLOSED sockets for reuse, should it also unlink the socket here?
+
+> +		llcp_sock->dev = NULL;
+> +		llcp_sock->service_name = NULL;
+> +		llcp_sock->service_name_len = 0;
+> +		llcp_sock->reserved_ssap = LLCP_SAP_MAX;
+> +	}
+> +
+
+[Severity: High]
+Can the same leak still happen through bind()?
+
+After a DM(REJ/NOBOUND) rejects a nonblocking connect(), the socket is in
+LLCP_CLOSED. It still holds a local reference, a reserved local SAP, the
+kmemdup'd service_name and a dev reference.
+
+llcp_sock_bind() accepts that state:
+
+	if (sk->sk_state != LLCP_CLOSED) {
+		ret = -EBADFD;
+		goto error;
+	}
+
+It then overwrites llcp_sock->dev, ->local, ->service_name, ->ssap and
+->reserved_ssap without releasing the old values. close() later releases
+only what bind() took.
+
+If connect(O_NONBLOCK) -> DM -> bind() -> close() is repeated about 32
+times, wouldn't the local SAPs still run out, so that
+nfc_llcp_get_local_ssap() fails for every client connect on the device?
+
+Could this cleanup become a helper that llcp_sock_bind() also calls?
+
+llcp_raw_sock_bind() has the same pattern of accepting CLOSED and
+overwriting the fields. Raw sockets cannot reach this DM state, though,
+because they use sock_no_connect.
+
+[Severity: High]
+This is a pre-existing issue, not one introduced by this patch. Still, the
+retry path this patch is meant to support can oops the kernel.
+
+nfc_llcp_recv_dm() sets sk->sk_err = ENXIO. Neither connect() nor this
+new cleanup clears it. On a blocking retry, sock_wait_state() checks for a
+pending error before it checks the state again:
+
+	err = sock_error(sk);
+	if (err)
+		break;
+
+Suppose the wakeup came from nfc_llcp_recv_cc(). The socket has already
+moved to local->sockets and is set to LLCP_CONNECTED, but connect() sees
+the stale -ENXIO and takes the sock_unlink path.
+
+That path unlinks the socket from local->sockets while holding the
+connecting_sockets lock. It frees the SAP, sets ->local and ->dev to NULL
+and drops their references. It leaves sk_state at LLCP_CONNECTED.
+
+On close(), llcp_sock_release() sees local == NULL and jumps to out. Then
+llcp_sock_destruct() runs:
+
+	if (sk->sk_state == LLCP_CONNECTED)
+		nfc_put_device(llcp_sock->dev);
+
+At this point llcp_sock->dev is NULL. Doesn't that make put_device()
+dereference a near-NULL address?
+
+Should the stale sk_err be cleared when reconnecting from LLCP_CLOSED?
 
 [ ... ]
 
-> @@ -852,12 +976,33 @@ static int llc_backlog_rcv(struct sock *sk, struct sk_buff *skb)
->  {
->  	int rc = 0;
->  	struct llc_sock *llc = llc_sk(sk);
-> +	struct net_device *dev = NULL;
->  
->  	if (likely(llc_backlog_type(skb) == LLC_PACKET)) {
-> -		if (likely(llc->state > 1)) /* not closed */
-> -			rc = llc_conn_rcv(sk, skb);
-> -		else
-> +		/* Drop the reference acquired before the skb entered the backlog. */
-> +		dev = skb->dev;
-> +		if (unlikely(sk->sk_state == TCP_LISTEN)) {
-
-[ ... ]
-
-> +			llc_pdu_decode_sa(skb, saddr.mac);
-> +			llc_pdu_decode_ssap(skb, &saddr.lsap);
-> +			llc_pdu_decode_da(skb, daddr.mac);
-> +			llc_pdu_decode_dsap(skb, &daddr.lsap);
-> +			rc = llc_conn_rcv_sabme(sk, skb, &saddr, &daddr);
-
-[Severity: Medium]
-Could this create two children for the same tuple?
-
-While the listener is owned, llc_conn_handler() backlogs SABMEs without
-creating a child. A retransmitted or duplicate SABME from the same peer
-can arrive before release_sock(). It finds no child in __llc_lookup(),
-resolves to the listener, and is backlogged as well.
-
-When the backlog drains, each SABME reaches llc_conn_rcv_sabme(). That
-function only checks sk_acceptq_is_full() before
-llc_create_incoming_sock() hashes a new child. The established tuple is
-not looked up again.
-
-Both children reach NORMAL, send UA and queue an accept indication.
-sk_nulls_add_node_rcu() adds at the head, so only the newest child gets
-traffic.
-
-The older child is still accepted by userspace but never receives frames.
-Its sends, and its DISC on close, use the same tuple as the peer's single
-connection.
-
-Before this patch, getting here needed two CPUs racing on the listener
-slock. With this patch, hitting the owned-listener window at all seems to
-be enough.
-
-> +			goto out;
-> +		} else if (unlikely(llc->state <= 1 || !skb->sk)) {
->  			goto out_kfree_skb;
-> +		}
-> +		rc = llc_conn_rcv(sk, skb);
-
-[ ... ]
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260925184857.357926-1-qwe.aldo%40gmail.com
