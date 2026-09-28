@@ -1,78 +1,78 @@
-Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
+Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6D6D3CF02B
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 18:59:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C22253CAE60
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 18:59:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.204
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790621955; cv=pass; b=N+s6yJnXOftxvrSE5aWsyi3dEN/YDvsdjFwB6fzoyIyCJgIDssKx6XVSGwDc+il14HXz9mmZu+nnjYdwZz9IN13uMUMN3Ax+eOksvtUrgs+HNMn9Yj6j4Hc3oxA1B3kByIrF+viD7WdRlqsfAtC6OT6PWEuDCLfFH81M7jkmK/o=
+	t=1790621957; cv=pass; b=eYH3siH7CtJ14D+pqRM0B9bNbzU036vnDyyZswpQ3qvxlyeu4NhFvOkIMMy5oUro8cxyu425tH1fHLndhrjLVx+9gktB1ys6ynpwZxnSOF7FCaUAtB4bXiJLBhFNkfvzW4ROqL60aTRKNGZEHVPBK3vcKz3Q3Os7Iqh3z8Mvojs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790621955; c=relaxed/simple;
-	bh=ZckUBzuxfDct7Xtg49y5TXXNnoeTTdLGKQnVGpqLnmQ=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=l1NtvrHMGz98to5JbiuZvoVxMmONe3fiIq3vL9cMrGACRrVk2Mi7MxCU4PC68yhENugg/IlXHGNMoUTwonKdAnNHjz9s/Ydl6zNvuTksvo+CkCa1Y7H9uZVEhk7m2C5FSRgQibN+45nHrqpmQyK9y1sxFmr/Rv+In8F0PY+5WRc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h3SffaIu; arc=pass smtp.client-ip=74.125.229.205
+	s=arc-20240116; t=1790621957; c=relaxed/simple;
+	bh=38U1s8GZuYMNUAkuLxbkuCyOG+w/gVbAI7eJbWfyuKE=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=l+UU7VQ+qKsGoEKdriHlSeQLT1S84j1rv8s6JLbQBYyc/ytmkl7NRNdc3uG3AXzKUO705SBW5gcXGpnLEp5e3L5m/1fx0Uumo1JhcdjK5XdfSZ1jb5Bk4j1cVFhvCv6Llt59ZSTARY4mdA/rM9H5yC6MUsJwsnQ2L6PWNrafUrg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZkVMQ9Cn; arc=pass smtp.client-ip=74.125.229.204
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h3SffaIu"
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f1e428so1027959e87.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZkVMQ9Cn"
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b8f80e3f72so1852881e87.0
         for <stable@vger.kernel.org>; Mon, 28 Sep 2026 11:59:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790621950; cv=none;
+ARC-Seal: i=1; a=rsa-sha256; t=1790621951; cv=none;
         d=google.com; s=arc-20260327;
-        b=Cy3gZrwDpLl/S8ezDfrWsfS8oQbEuEebbReutKNJze+ywo07dBjBIoGp1ZYmLnwzg3
-         /MK8b0t6UwwHDIdY3VPAjr5gDp7Rhbq7AIn6U1x5cYHMoB+kmeCUmPKSWYYEnRLOxRYf
-         Tz4VFrrsnBZWDFUA3cm98ce+nFbEkwQKLmlp8TqND1rTpaI460+Be7a+0G6LfMHTAZUE
-         bvEdgs7NvVS/KuQZ6WXHPX3+mUqP7YFphG/2uTaP4ig4gsWbqrNE7f7Ti9AdY7VSu7Qo
-         G8hl4w0HKHLmSnenM+IvnHs0CeRUgoUzhi672lYtzIzzRjo5bljuYNQx6RGTZgL6ah4r
-         dz1g==
+        b=f0r641Ir8VKEPW2yHfGxxw7psLfrFiHEcKqlUQ4LB4A83cQWd2OEaVUa4AWHiA2Kt+
+         YedIPrGsgLfbKDPn98QtXoJpww3ryEaKJMLerV0IGcpmbzi4ECyKs3DZLqvlPpxFVlik
+         pxkzK7wSK0aF3GzPK6DG73/RA0ntUdj5Og0W2asCaF/1eE/hEcNu7UzYAPQMxx1qSx81
+         PW/3bQIu7TEe+JbOBE93FVgDAwu+H4rK9EfgCrW5czO85Y9RUduzjb4ivQ1KQFJkvPb+
+         IxTwlqx7nihcWfxekCmuPuFqHO7Cp/L9xnJRW0FJ/xbDSP2aaNdP/0+bGWN5qEkWO/41
+         0www==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:from:sender:mime-version
          :dkim-signature;
-        bh=Pu/ssd8DugN/kj01xDDdGW2HkDyQcHTA/d4qIgsVPkw=;
-        fh=gwwQGd7d5vlmujl8Gy0S+fzcFHygS+TBiXDCMGmIyXo=;
-        b=SBNbENkLVLxftXjlLF2cFm/X9372S3YQytVybLswif0ZW7X455sFc7fNWLArtmvosa
-         u67rf7a/Hl6yV3Uwm5Hw8X9TSt+5Jur0IqofA47fjhDqsopyaSCvNOg2BEZOLdHz2GRO
-         jAnCp7GQJQ4/QQzYpoFEcEalJbgqf3JbaUWDBmUlj00Nyq/iqU6yNpd+Q3QdUMv8sdjo
-         9C1g112h0xajzflfv+50umABIkTYYKDuMg8DMBtCiq2F2wHV1p7ApyRjaXT2YB75mtOj
-         JIZkwkgNdLqxslfWIXBF3x0sgiUR0ibkEDc2lBcVuxn0JL5zATQz9aFVsp23MfMbiMRH
-         lSjA==;
+        bh=JJn4UyQhX96Z2Uxh80LSoGTD5a8DL5VMxaJOGjyTlhs=;
+        fh=UrhO8iqon2ZSKygK/7guwXF2fGgpl67Npd15my0teo4=;
+        b=FiQQq6LquXlRv6C52nP6i58DcS7H+leUd/aKyz7pA/zaykEFLuu1Iw6ZkxManJpVeO
+         9ls5cfJwPb1KazC23COHaQwr8T/xfl7odthqTETRAZvIPBUtgUN/6BojEp4WG2A3JDyF
+         CKZ5Sof4hoCY+mRqSfSrRmu4/Cu5IPRBOgfKXXZP0jlL2rFH90krxAs4PG7neeSzzmWu
+         Tx3m4kSNmz6UuETwuO88B8uqhrB1EY39z0Rv1RXWqVNKqbuDC2Ezcls0VCvi7KZ5/u1h
+         9wmfONRiM77B5a/9oKdcrIHBDg/EJN+1eLXgHw4Rbj8i8rthrYJ9OM46Mw3gTw7ZeDHI
+         4uxw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790621950; x=1791226750; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790621951; x=1791226751; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:sender:mime-version
          :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Pu/ssd8DugN/kj01xDDdGW2HkDyQcHTA/d4qIgsVPkw=;
-        b=h3SffaIuXFZFlrN3ssHMWUrw9m8vbhLctkQmnh/rvdVVzzlksx4S5ogP1wK1h5TGAI
-         wgUF7yo0fNaktuyNZJoMC5eSIIc4tibqykGmSyVkpCCmpVbQZ173yEv6wm4D/oZjZfMa
-         HUgJkW25BBx/4ngNI5m39GxRf7pVm5kHjXAqSsx33ReLW1N4uKQK+qESkc7n/62N6pxZ
-         iDq8jbO7ge5JdBa1+TCocUuJzCYbOqF5oFo7g3LUp1Uu87AonWLkTyO39Hg7C0A+uSe8
-         fv8S5qeTXQlSYWymNgOix5a2Fr+3Oj6wp1fnhd2CmeBa/jTbmIMltZqWrGYpyNbo70wa
-         qq9g==
+        bh=JJn4UyQhX96Z2Uxh80LSoGTD5a8DL5VMxaJOGjyTlhs=;
+        b=ZkVMQ9Cn4o+jeVoWjjCwmq9CPcWR7/mF9yEG7Ns8vm6qxN6Zxr+3S2CeeJ376BXJtz
+         GVXAUUQC4m9e5XNrwD3kDMHErMmhNwdXdhjazklqN4PdGNuPuk5BjCf3IriVDoTMLJEx
+         YedorAfXg4T0qn6IGn3W4qmJpR7e2meojy9B53opjP7/4gbT2zvFH0vZ4ovTuE5/0owt
+         by/DTUHfyIoqxLiBI86H8+MjOqF2ySzbHzAQ4QmIBaPyzkHysb1yUPMCvKOpXOEWIdtP
+         fWttTVU2sH5IF9JhWLDO1iSE6HlySw/mVz+kv66d15ZLkztjyHkh9Oo3fh9BKIXMlNCP
+         oWUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790621950; x=1791226750;
+        d=1e100.net; s=20260707; t=1790621951; x=1791226751;
         h=content-type:cc:to:subject:message-id:date:from:sender:mime-version
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=Pu/ssd8DugN/kj01xDDdGW2HkDyQcHTA/d4qIgsVPkw=;
-        b=Phb9+dVQWrdTRZlb1QN0Bd8omIlGo5kcTgxpkMT27sryejq2yYjM8aUe2ODSqHort7
-         V2q9aNjJgSny5St19u6YVmpsNKUT58Y2cSXbSBrX20Oj7YchDmia0Qplw6mlS9eiskOj
-         glH8xeq879y99OSrE4CJqaQM94C/tbKxdG9u7UKiEezGLlcwcci32I0gAGJ7qFAjzwzH
-         54wffsUzRFf+k3ChRKHy5mxoz2IRXn/kcoaSVUwMyPM5RqbMJO1LgZQ558h8jC775diF
-         41DcNRiipu8x1VYmgmFxUA20hVDoB0OuBVInRb1amUzV3WlQYG2zNZMSxhb2/QH1AlOA
-         OTyw==
-X-Forwarded-Encrypted: i=1; AKwUvBz2b+tV6/iX0Wc2j0Opf81Wpye5QMinTg1APRMYTiUANF2/ccQn72aj2lVos4ntgLQ5r9HcGvw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI7OnQcXbD3ETPRyWFhioZT3fFiQLs8cWosFG8ziVleEq87L/YZ
-	YQI40mLuPEhc5dYkKITR9Rqr3aVCI59LsYtdDbusiwseS0bUJknq9WgDFLeeWvSjWEOgnS1PvrO
-	HZgx0yHscWqwFeaiDjqIoHRx0PJ7rV1k=
-X-Gm-Gg: AYBFou0MaZ9MyD2+1hF9zzC2SWBBcrPWx69JnwemdzUHdIb6bhlh0Z2rF7zyZ9Ivott
-	jVQ2NYGpK3aiheV4ba+oXmGdy2IfHsL2lb7kHy5smkk6oV9DjI3DM7jVrfGek1rl1M6FBOfH1qp
-	xFT9l7FScne257QQH8WhN3sByd6BFFUFyIjNNdMLMlx54PNYdGTIzck3+NtE2Yy3UNzkDuLwWEA
-	NCUURCJ0aEZXuYCm9tGVZ6hOtHBbrjSIp9hWNKFpqH6xdIRx63DIv49ymGapIP1LPVKPlRFmfbR
-	HnmipvILfVR92JT7w6MrA+4m/bQa8dtFnFSvQxH5VvcoT8bz8lx7k7rCx2mMX6FQaNViRc7gdo9
-	LS6KhzkYyAiKj
-X-Received: by 2002:a05:6512:134c:b0:5b6:10bc:b864 with SMTP id
- 2adb3069b0e04-5ba2e6289cemr39499e87.18.1790621950325; Mon, 28 Sep 2026
+        bh=JJn4UyQhX96Z2Uxh80LSoGTD5a8DL5VMxaJOGjyTlhs=;
+        b=kGs/wU+aFEki0TO2IPHrwPxGkI2UTdqM01hUIa2r+EdZJ02ewbAsL+HjwN429zP9Lt
+         v6Cc111inyY/dJqHYgHYpa9OHReazFOaOVE8OX7XJdAivW5XtX4ClKUhHoa6bC7GMETL
+         qBKM42KIWxmwTgTPKHHil4vunR14GfGOfx/yE20RJhhGTW2PTtHT76A2nbl9K32R5JtE
+         wI+csvTo5yj/p0Yrj358gmVnfymhCFi2+LG1GSp/s9zZPob88YE48iU6D7vyTtmJwA4v
+         hOaBAU7dVUTwHbY5qsc/0umelHea5w4+0a/WazdgfKpWdZ/PMJlBUPHCl1x6caBiZyH3
+         FZ3g==
+X-Forwarded-Encrypted: i=1; AKwUvBw7F9IKdSsoh7ncMfwdvI9CREPPMxLqxBxevOAT2z9dkfUVBlCbOy4bDmpFGmhNjKTaiCyucNQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJCq/rn3sk0u12DKstSvabny37sCAwpYhWNwmLCG1hTEbRKVaPP
+	lbCuiUoBnXqng1VCC9/uLShJJ8EnJewZn1N9SvuPR3MzVX56zIP2pA1KoxdU1uuF1t7fVlweWGQ
+	QeLUa3BdIty2gF9yJB+2OVChmJGAWZqs=
+X-Gm-Gg: AYBFou11qdxsmvONfdXtPU0IAyKZ/ZuaZLOObNrI1oLDGvBN3h8c0q6WieHHUAdY2cF
+	+QsMXZdmaMUucW/w0Sm+AkIwE+Xif76m/9RVQj3YCducWM+EPCwhY8djN8igO0R2cm0eBiH6gTm
+	BAo+mJcP/6Krxr1Zqumhy2g13nRfBYhACTaF+Q9AWQ5EqZGOJYMUYyb/mePL3DmIqv9f7chBHj8
+	dVbC+dznOJ8DWJtN2xJA90hDHLUlu5wNsuoTcKLUTiswOVrUtwu41OhEjC5rqkPUHlMME+Gt0oL
+	dbAScpuDnbuc/mwtWFZA/K9iXrB1HMnsOIdoHUf5LdBLzXs9+yzXKR/2iR6m2Xh7V9qgjCKIgTT
+	owwLZol4Yfpkz
+X-Received: by 2002:a05:6512:a87:b0:5ae:bd5e:95f7 with SMTP id
+ 2adb3069b0e04-5b8df0d42dfmr4907670e87.4.1790621950890; Mon, 28 Sep 2026
  11:59:10 -0700 (PDT)
 Received: from 254448290189 named unknown by gmailapi.google.com with
  HTTPREST; Mon, 28 Sep 2026 11:59:09 -0700
@@ -87,62 +87,71 @@ MIME-Version: 1.0
 Sender: Vamsi Krishna Kattamuri <kattamurivamsikrishna17@gmail.com>
 From: Vamsi Krishna Kattamuri <kattamurivamsikrishna17@gmail.com>
 Date: Mon, 28 Sep 2026 11:59:09 -0700
-X-Google-Sender-Auth: ZwCvM-sC4hIxe8N8dJb-AWb4nUQ
-X-Gm-Features: AclHuK-2bu843UqJ0hkn0uiGUfhhfw492ZeGe05OpMyUNCkLbPWCoP_36qHDt24
-Message-ID: <CAANnmVBmovjCL0Ky4F3ay8pnmm4jp0+HyXC9QYyHo_1Bi1FucQ@mail.gmail.com>
-Subject: [PATCH] ufs: verify cylinder summary size against cylinder group count
-To: linux-fsdevel@vger.kernel.org
-Cc: brauner@kernel.org, marco.crivellari@suse.com, ali@iusegentoo.com, 
-	kees@kernel.org, jack@suse.cz, linux-kernel@vger.kernel.org, 
+X-Google-Sender-Auth: bfjEdBcSXwRUi8bLWiPkOvkvDYo
+X-Gm-Features: AclHuK8baSSkZv-tT7IrQBt-8uVkNNdEXmB5RveGyZwqKIXYr-qkBIj5G0AoAGo
+Message-ID: <CAANnmVAicVNhy8fMUaFJ_N+b4DnbwpYi1MOL4yMVisix1WCX4w@mail.gmail.com>
+Subject: [PATCH] net: ncsi: clamp filter table counts in GP response handling
+To: netdev@vger.kernel.org, sam@mendozajonas.com
+Cc: fercerpav@gmail.com, davem@davemloft.net, edumazet@google.com, 
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
+	gwshan@linux.vnet.ibm.com, joel@jms.id.au, linux-kernel@vger.kernel.org, 
 	stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-The cylinder summary buffer is allocated with the on-disc fs_cssize
-value in ufs_read_cylinder_structures(), but it is indexed through
-fs_cs(i), which expands to s_csp[i], with the independent on-disc
-cylinder group count uspi->s_ncg as the only upper bound - see for
-example ufs_new_inode(), ufs_free_inode() and the block allocation
-paths.
+ncsi_rsp_handler_gp() iterates over the MAC address and VLAN filter
+tables using the counts from the Get Parameters response itself,
+rsp->mac_cnt and rsp->vlan_cnt.  The arrays it writes into, however,
+were allocated by the Get Controller Capabilities handler from the
+independent rsp->uc_cnt, rsp->mc_cnt, rsp->mixed_cnt and rsp->vlan_cnt
+fields.
 
-Nothing requires cssize to be large enough to hold ncg entries of
-struct ufs_csum, so on a crafted filesystem image where cssize is
-small and ncg is large, every fs_cs() access is an out-of-bounds
-access: a read when scanning for free inodes, and a 32-bit
-increment or decrement past the end of the kmalloc()ed buffer when
-an inode or block is allocated or freed.
+A malicious or buggy NCSI device can therefore report contradictory
+counts in the two responses - for example a GC response advertising
+a single unicast address filter followed by a GP response with
+mac_cnt = 255.  The GP handler then memcpy()s 255 MAC addresses into
+the 6-byte kzalloc()ed buffer, a heap out-of-bounds write of roughly
+1.5KB of device-controlled data, and the same applies to vlan_cnt
+versus the vids[] array.
 
-Since the summary arrays are only set up for writable mounts,
-triggering the out-of-bounds writes requires nothing more than
-mounting a crafted image read-write and then creating or deleting
-a file.
+The loop indices are additionally used as bit numbers for
+set_bit()/clear_bit() on the u64 filter bitmaps, so any count larger
+than 64 writes out-of-bounds bits into struct ncsi_channel.
 
-Validate at mount time that cssize covers all ncg cylinder group
-summary entries, and reject the image otherwise.
+Clamp both loops to the number of entries actually allocated for the
+channel and to the capacity of the bitmap word, mirroring the
+validation the SVF and SMA handlers already apply to their indices.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: 138635cc27c9 ("net/ncsi: NCSI response packet handler")
 Cc: stable@vger.kernel.org
 Signed-off-by: Vamsi Krishna Kattamuri <kattamurivamsikrishna17@gmail.com>
 ---
- fs/ufs/super.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ net/ncsi/ncsi-rsp.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/fs/ufs/super.c b/fs/ufs/super.c
-index 3569ac92b065..2052d5225d03 100644
---- a/fs/ufs/super.c
-+++ b/fs/ufs/super.c
-@@ -1139,6 +1139,11 @@ static int ufs_fill_super(struct super_block
-*sb, struct fs_context *fc)
- 		uspi->s_csaddr = fs32_to_cpu(sb, usb1->fs_csaddr);
-
- 	uspi->s_cssize = fs32_to_cpu(sb, usb1->fs_cssize);
-+	if (uspi->s_cssize < (u64)uspi->s_ncg * sizeof(struct ufs_csum)) {
-+		pr_err("%s(): cylinder summary size %u is too small for %u cylinder
-groups\n",
-+		       __func__, uspi->s_cssize, uspi->s_ncg);
-+		goto failed;
-+	}
- 	uspi->s_cgsize = fs32_to_cpu(sb, usb1->fs_cgsize);
- 	uspi->s_ntrak = fs32_to_cpu(sb, usb1->fs_ntrak);
- 	uspi->s_nsect = fs32_to_cpu(sb, usb1->fs_nsect);
+diff --git a/net/ncsi/ncsi-rsp.c b/net/ncsi/ncsi-rsp.c
+index fbd84bc8026a..fa1ed405dfbb 100644
+--- a/net/ncsi/ncsi-rsp.c
++++ b/net/ncsi/ncsi-rsp.c
+@@ -883,7 +883,9 @@ static int ncsi_rsp_handler_gp(struct ncsi_request *nr)
+ 	ncmf = &nc->mac_filter;
+ 	spin_lock_irqsave(&nc->lock, flags);
+ 	bitmap = &ncmf->bitmap;
+-	for (i = 0; i < rsp->mac_cnt; i++, pdata += 6) {
++	for (i = 0; i < rsp->mac_cnt &&
++	     i < ncmf->n_uc + ncmf->n_mc + ncmf->n_mixed &&
++	     i < sizeof(ncmf->bitmap) * 8; i++, pdata += 6) {
+ 		if (!(enable & (0x1 << i)))
+ 			clear_bit(i, bitmap);
+ 		else
+@@ -898,7 +900,8 @@ static int ncsi_rsp_handler_gp(struct ncsi_request *nr)
+ 	ncvf = &nc->vlan_filter;
+ 	bitmap = &ncvf->bitmap;
+ 	spin_lock_irqsave(&nc->lock, flags);
+-	for (i = 0; i < rsp->vlan_cnt; i++, pdata += 2) {
++	for (i = 0; i < rsp->vlan_cnt && i < ncvf->n_vids &&
++	     i < sizeof(ncvf->bitmap) * 8; i++, pdata += 2) {
+ 		if (!(enable & (0x1 << i)))
+ 			clear_bit(i, bitmap);
+ 		else
 -- 
 2.47.3
