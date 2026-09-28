@@ -1,136 +1,97 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C2A2471CE9;
-	Mon, 28 Sep 2026 09:34:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CD67490BEE;
+	Mon, 28 Sep 2026 09:36:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790588081; cv=none; b=p0X1gkjPFbiI/ejvkSfAjUTI8+pDdhWEGRYxYWl7S0ZDTOMR/a2S2uBBnAl7bJIloCEvekzZ7uNhdAheY4g5RpkvF9FK9yRX4B7DQb8MV9OAdfa7Ik20z61qFtc7paHHrR1O86v7oyitxNP1nVi0pFebSX4La+OX0ZrJWJd/Sp8=
+	t=1790588196; cv=none; b=c+mjiDTXti9mwldi/cgKCxnI7fqCnS9gXejLkR1Y19vw6ZMd4UMIJ1vyIiEYCegX0eU2cFyhVSDFki83ZcXaa8yP5/mHEa6Xv85SQbuYEBJ0wpbwWXmbi+J3zq+OvM4GDKyqtD3VVTkE1wo5NVp/vGoGAsvaVMBGMUEURmyadZM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790588081; c=relaxed/simple;
-	bh=cyu63G4M8s2947h0n3m0jDNJQ6XvOawDbj1EQ9J42sg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=dEYHYM8X9zlO+5YC/tcZ8icXyfjDerulqhgqnsog6Uf3fP6S97ijI676SFN/vMbKFxYIzqc/Yw94h9157NLSC5zeniUk19d0HE7tI2D7rFYmcFGdm3NC765A6JaKG1Tik7R97r//cZj50I/W9fKWk31mg/x9GJmJBCULKvDUcNw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Yr2GzNgW; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790588196; c=relaxed/simple;
+	bh=bYFzn9s+Nv0Pj7tYcNYAiPo84HKQzQEg3f6Qp3ROCdM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NP2qOPhhTNxbURAsyDr0+uUvh0IiMHRyDWduRfc1Wv0Ijowdy0dgCrqkPUaeSoMUGW8WVb1KeaCcsf2xun5lrvz9mx0DEeAzD4YjyMbyRZxe1WE2wDg5aaFuQfdA5PfiFAv5v/dAvYbvzocpfSrznY1TIwL4gOUxhT2UORm1QnY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H9xrThjU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Yr2GzNgW"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=cyu63G4M8s2947h0n3m0jDNJQ6XvOawDbj1EQ9J42sg=; b=Y
-	r2GzNgW3iCQoDwUUNBDAK5uxoGu+bnYM8W/xWz/lqosDzYN3w80PBK7Crmeyq0TV
-	VpaxhjzB8W1RlBeR4WlMSbyhO7f0BoZJrBQD/WbLjAim0U06T0QAw+Qc1pob17A/
-	uybQOaV/MbnBop2p+bVx9rTkhBcSuZn7eVa6GfDbKE=
-Date: Mon, 28 Sep 2026 17:33:29 +0800 (CST)
-From: "jiale yao" <19888972804@163.com>
-To: =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
-Cc: "Paul Barker" <paul@pbarker.dev>, "Andrew Lunn" <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	"Eric Dumazet" <edumazet@google.com>,
-	"Jakub Kicinski" <kuba@kernel.org>,
-	"Paolo Abeni" <pabeni@redhat.com>,
-	"Sergei Shtylyov" <sergei.shtylyov@cogentembedded.com>,
-	"Mitsuhiro Kimura" <mitsuhiro.kimura.kc@renesas.com>,
-	"Claudiu Beznea" <claudiu.beznea.uj@bp.renesas.com>,
-	"Sergey Shtylyov" <s.shtylyov@omp.ru>, netdev@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re:Re: [PATCH v2 6/7] net: ravb: fix resource teardown ordering
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <20260927160134.GI1099675@ragnatech.se>
-References: <20260927144741.1320558-1-yaojiale02@163.com>
- <20260927144741.1320558-7-yaojiale02@163.com>
- <20260927160134.GI1099675@ragnatech.se>
-X-NTES-SC: AL_Qu2SAvmTt0gr7yeRZOkcn08ShO49XMOyvfoi2YFTc+gGmTzU3j0if1JyFELowOyzNySDujGrVSdF5ct2e7h6WLYFX5PXEaE9PvC0XY6E3Q==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H9xrThjU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BBE41F000FF;
+	Mon, 28 Sep 2026 09:36:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790588195;
+	bh=XOs14AwKLFg4V8SGHzajS+S/B56ZsCGKEtjHhvvP85w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=H9xrThjUBMJ7LZmiobzPWMU/VllhIYfd44Nk1Wu7/RNyY+O6j2hpW21HcmMjQkBAQ
+	 qq7EWCYhvQ61UOtpfUwhkzev8ya3ALDNTc/2IRr/rtqEgRUy7VS3a4MTCJtUUGZnrL
+	 bD5t9Xol4vn+BNuvD3QpI0vlw5j3+a0mYZ07K8E0bQPGNDLwMTfLuccBwcEqIveBzI
+	 cWh3klHpBKhJ185m64p5zbFb86p/rTg62a06onmEXqn+9kQF1rQ97VlJYDOYDvVIGV
+	 tk0RRlaaG72b3zvPFYFM8xr77JBpuiXX7NzRPppTWyCM6BrJ6v0Qvdss9gJ8nnmja1
+	 +4zbBnkba8SxQ==
+Date: Mon, 28 Sep 2026 10:36:28 +0100
+From: Simon Horman <horms@kernel.org>
+To: Xuanqiang Luo <xuanqiang.luo@linux.dev>
+Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+	aleksander.lobakin@intel.com, wojciech.drewek@intel.com,
+	marcin.szycik@linux.intel.com, linux-kernel@vger.kernel.org,
+	xuanqiang.luo@kylinos.cn, stable@vger.kernel.org,
+	Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+Subject: Re: [PATCH net v2] pfcp: fix socket lifetime on netdevice
+ registration failure
+Message-ID: <20260928093628.GM13925@horms.kernel.org>
+References: <20260924055252.33488-1-xuanqiang.luo@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <32efc762.8cd6.1a0e75cbd49.Coremail.19888972804@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:iCgvCgD3lzhpNLpqw6hPAA--.51201W
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzglwqmq6NGl5RAAA3t
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924055252.33488-1-xuanqiang.luo@linux.dev>
 
-SGksCkF0IDIwMjYtMDktMjggMDA6MDE6MzQsICJOaWtsYXMgU8O2ZGVybHVuZCIgPG5pa2xhcy5z
-b2Rlcmx1bmRAcmFnbmF0ZWNoLnNlPiB3cm90ZToKPkhpIEppYWxlLAo+Cj5PbiAyMDI2LTA5LTI3
-IDIyOjQ3OjM5ICswODAwLCBKaWFsZSBZYW8gd3JvdGU6Cj4+IHJhdmJfcmVtb3ZlKCkgZnJlZXMg
-dGhlIG5ldGRldiBiZWZvcmUgZGV2cmVzIHJlbGVhc2VzIHRoZSBtYW5hZ2VkIElSUXMuCj4+IFRo
-ZSBoYW5kbGVycyB1c2UgdGhlIG5ldGRldiBhcyB0aGVpciBkYXRhIHBvaW50ZXIsIHNvIGFuIGlu
-dGVycnVwdCBkdXJpbmcKPj4gdGhhdCB3aW5kb3cgY2FuIGFjY2VzcyBmcmVlZCBtZW1vcnkuIFBy
-b2JlIGVycm9yIHBhdGhzIGhhdmUgdGhlIHNhbWUKPj4gb3JkZXJpbmcgcHJvYmxlbS4KPj4gCj4+
-IFRoZSByZW1vdmUgY2FsbGJhY2sgYWxzbyByZXR1cm5zIHdoZW4gcnVudGltZSByZXN1bWUgZmFp
-bHMuIFRoYXQgbGVhdmVzCj4+IHRoZSBuZXRkZXYgcmVnaXN0ZXJlZCB3aGlsZSB0aGUgZHJpdmVy
-IGNvcmUgc3RpbGwgcmVsZWFzZXMgaXRzIG1hbmFnZWQKPj4gcmVzb3VyY2VzLiBBIHJ1bm5pbmcg
-aW50ZXJmYWNlIGFscmVhZHkgaG9sZHMgYSBydW50aW1lIFBNIHJlZmVyZW5jZSwgc28KPj4gdGhl
-IGV4dHJhIGdldCBjYW5ub3QgaW52b2tlIGEgZmFpbGluZyByZXN1bWUuIEEgcmVzdW1lIGZhaWx1
-cmUgdGhlcmVmb3JlCj4+IG9jY3VycyB3aGlsZSB0aGUgaW50ZXJmYWNlIGlzIGRvd24gYW5kIG5k
-b19zdG9wKCkgd2lsbCBub3QgYmUgY2FsbGVkLgo+PiAKPj4gUGxhY2UgdGhlIElSUSByZXNvdXJj
-ZXMgaW4gYSBkZWRpY2F0ZWQgZGV2cmVzIGdyb3VwIGFuZCByZWxlYXNlIGl0IGJlZm9yZQo+PiBm
-cmVlaW5nIHRoZSBuZXRkZXYuIENvbnRpbnVlIHVucmVnaXN0ZXJpbmcgYW5kIGZyZWVpbmcgc29m
-dHdhcmUgcmVzb3VyY2VzCj4+IHdoZW4gcnVudGltZSByZXN1bWUgZmFpbHMsIGJ1dCBza2lwIHRo
-ZSB1bm1hdGNoZWQgcnVudGltZSBQTSBwdXQuCj4KPldvdWxkIGl0IG5vdCBtYWtlIG1vcmUgc2Vu
-cyB0byByZXdvcmsgdGhlIGRyaXZlciB0byBhbGxvY2F0ZSB0aGUgbmRldiAKPnVzaW5nIGRldm0g
-dG9vIGluc3RlYWQgb2YgYWRkaW5nIGEgY29tcGxleCBkZXZyZXMgZ3JvdXA/IEFGSUsgCj5zL2Fs
-bG9jX2V0aGVyZGV2X21xcy9kZXZtX2FsbG9jX2V0aGVyZGV2X21xcy8gd291bGQgYWxsb2NhdGUg
-dGhlIG5kZXYgCj53aXRoIGRldm0gdG9vPwoKWW91IGFyZSByaWdodCwgSSBtYWRlIHRoaW5ncyBj
-b21wbGljYXRlZC4gSSB3aWxsIHJld29yayB0aGUgcmF2YiBwYXRjaCBhbmQKZHJvcCB0aGUgZGV2
-cmVzIGdyb3VwLgoKPgo+PiAKPj4gRml4ZXM6IGMxNTY2MzNmMTM1MyAoIlJlbmVzYXMgRXRoZXJu
-ZXQgQVZCIGRyaXZlciBwcm9wZXIiKQo+PiBGaXhlczogNDhmODk0YWIwN2M0ICgibmV0OiByYXZi
-OiBBZGQgcnVudGltZSBQTSBzdXBwb3J0IikKPj4gQ2M6IHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcK
-Pj4gU2lnbmVkLW9mZi1ieTogSmlhbGUgWWFvIDx5YW9qaWFsZTAyQDE2My5jb20+Cj4+IC0tLQo+
-PiAgZHJpdmVycy9uZXQvZXRoZXJuZXQvcmVuZXNhcy9yYXZiX21haW4uYyB8IDIzICsrKysrKysr
-KysrKysrKysrLS0tLS0tCj4+ICAxIGZpbGUgY2hhbmdlZCwgMTcgaW5zZXJ0aW9ucygrKSwgNiBk
-ZWxldGlvbnMoLSkKPj4gCj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL25ldC9ldGhlcm5ldC9yZW5l
-c2FzL3JhdmJfbWFpbi5jIGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvcmVuZXNhcy9yYXZiX21haW4u
-Ywo+PiBpbmRleCBlYTFjN2U1MzY3OTEuLmEyNWY1YWM3MDYyZiAxMDA2NDQKPj4gLS0tIGEvZHJp
-dmVycy9uZXQvZXRoZXJuZXQvcmVuZXNhcy9yYXZiX21haW4uYwo+PiArKysgYi9kcml2ZXJzL25l
-dC9ldGhlcm5ldC9yZW5lc2FzL3JhdmJfbWFpbi5jCj4+IEBAIC0yOTYzLDI4ICsyOTYzLDM1IEBA
-IHN0YXRpYyBpbnQgcmF2Yl9wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQo+PiAg
-CQlwcml2LT5udW1fcnhfcmluZ1tSQVZCX05DXSA9IE5DX1JYX1JJTkdfU0laRTsKPj4gIAl9Cj4+
-ICAKPj4gKwlpZiAoIWRldnJlc19vcGVuX2dyb3VwKCZwZGV2LT5kZXYsIHByaXYsIEdGUF9LRVJO
-RUwpKSB7Cj4+ICsJCWVycm9yID0gLUVOT01FTTsKPj4gKwkJZ290byBvdXRfcmVzZXRfYXNzZXJ0
-Owo+PiArCX0KPj4gKwo+PiAgCWVycm9yID0gcmF2Yl9zZXR1cF9pcnFzKHByaXYpOwo+PiAgCWlm
-IChlcnJvcikKPj4gLQkJZ290byBvdXRfcmVzZXRfYXNzZXJ0Owo+PiArCQlnb3RvIG91dF9yZWxl
-YXNlX2lycXM7Cj4+ICsKPj4gKwlkZXZyZXNfY2xvc2VfZ3JvdXAoJnBkZXYtPmRldiwgcHJpdik7
-Cj4+ICAKPj4gIAlwcml2LT5jbGsgPSBkZXZtX2Nsa19nZXQoJnBkZXYtPmRldiwgTlVMTCk7Cj4+
-ICAJaWYgKElTX0VSUihwcml2LT5jbGspKSB7Cj4+ICAJCWVycm9yID0gUFRSX0VSUihwcml2LT5j
-bGspOwo+PiAtCQlnb3RvIG91dF9yZXNldF9hc3NlcnQ7Cj4+ICsJCWdvdG8gb3V0X3JlbGVhc2Vf
-aXJxczsKPj4gIAl9Cj4+ICAKPj4gIAlpZiAoaW5mby0+Z3B0cF9yZWZfY2xrKSB7Cj4+ICAJCXBy
-aXYtPmdwdHBfY2xrID0gZGV2bV9jbGtfZ2V0KCZwZGV2LT5kZXYsICJncHRwIik7Cj4+ICAJCWlm
-IChJU19FUlIocHJpdi0+Z3B0cF9jbGspKSB7Cj4+ICAJCQllcnJvciA9IFBUUl9FUlIocHJpdi0+
-Z3B0cF9jbGspOwo+PiAtCQkJZ290byBvdXRfcmVzZXRfYXNzZXJ0Owo+PiArCQkJZ290byBvdXRf
-cmVsZWFzZV9pcnFzOwo+PiAgCQl9Cj4+ICAJfQo+PiAgCj4+ICAJcHJpdi0+cmVmY2xrID0gZGV2
-bV9jbGtfZ2V0X29wdGlvbmFsKCZwZGV2LT5kZXYsICJyZWZjbGsiKTsKPj4gIAlpZiAoSVNfRVJS
-KHByaXYtPnJlZmNsaykpIHsKPj4gIAkJZXJyb3IgPSBQVFJfRVJSKHByaXYtPnJlZmNsayk7Cj4+
-IC0JCWdvdG8gb3V0X3Jlc2V0X2Fzc2VydDsKPj4gKwkJZ290byBvdXRfcmVsZWFzZV9pcnFzOwo+
-PiAgCX0KPj4gIAljbGtfcHJlcGFyZShwcml2LT5yZWZjbGspOwo+PiAgCj4+IEBAIC0zMTI0LDYg
-KzMxMzEsOCBAQCBzdGF0aWMgaW50IHJhdmJfcHJvYmUoc3RydWN0IHBsYXRmb3JtX2RldmljZSAq
-cGRldikKPj4gIAlwbV9ydW50aW1lX2Rpc2FibGUoJnBkZXYtPmRldik7Cj4+ICAJcG1fcnVudGlt
-ZV9kb250X3VzZV9hdXRvc3VzcGVuZCgmcGRldi0+ZGV2KTsKPj4gIAljbGtfdW5wcmVwYXJlKHBy
-aXYtPnJlZmNsayk7Cj4+ICtvdXRfcmVsZWFzZV9pcnFzOgo+PiArCWRldnJlc19yZWxlYXNlX2dy
-b3VwKCZwZGV2LT5kZXYsIHByaXYpOwo+PiAgb3V0X3Jlc2V0X2Fzc2VydDoKPj4gIAlyZXNldF9j
-b250cm9sX2Fzc2VydChyc3RjKTsKPj4gIG91dF9mcmVlX25ldGRldjoKPj4gQEAgLTMxNDEsOSAr
-MzE1MCwxMCBAQCBzdGF0aWMgdm9pZCByYXZiX3JlbW92ZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNl
-ICpwZGV2KQo+PiAgCj4+ICAJZXJyb3IgPSBwbV9ydW50aW1lX3Jlc3VtZV9hbmRfZ2V0KGRldik7
-Cj4+ICAJaWYgKGVycm9yIDwgMCkKPj4gLQkJcmV0dXJuOwo+PiArCQlkZXZfd2FybihkZXYsICJm
-YWlsZWQgdG8gcmVzdW1lIGRldmljZTogJWRcbiIsIGVycm9yKTsKPj4gIAo+PiAgCXVucmVnaXN0
-ZXJfbmV0ZGV2KG5kZXYpOwo+PiArCWRldnJlc19yZWxlYXNlX2dyb3VwKGRldiwgcHJpdik7Cj4+
-ICAJaWYgKGluZm8tPm5jX3F1ZXVlcykKPj4gIAkJbmV0aWZfbmFwaV9kZWwoJnByaXYtPm5hcGlb
-UkFWQl9OQ10pOwo+PiAgCW5ldGlmX25hcGlfZGVsKCZwcml2LT5uYXBpW1JBVkJfQkVdKTsKPj4g
-QEAgLTMxNTMsNyArMzE2Myw4IEBAIHN0YXRpYyB2b2lkIHJhdmJfcmVtb3ZlKHN0cnVjdCBwbGF0
-Zm9ybV9kZXZpY2UgKnBkZXYpCj4+ICAJZG1hX2ZyZWVfY29oZXJlbnQobmRldi0+ZGV2LnBhcmVu
-dCwgcHJpdi0+ZGVzY19iYXRfc2l6ZSwgcHJpdi0+ZGVzY19iYXQsCj4+ICAJCQkgIHByaXYtPmRl
-c2NfYmF0X2RtYSk7Cj4+ICAKPj4gLQlwbV9ydW50aW1lX3B1dF9zeW5jX3N1c3BlbmQoJnBkZXYt
-PmRldik7Cj4+ICsJaWYgKGVycm9yID49IDApCj4+ICsJCXBtX3J1bnRpbWVfcHV0X3N5bmNfc3Vz
-cGVuZCgmcGRldi0+ZGV2KTsKPj4gIAlwbV9ydW50aW1lX2Rpc2FibGUoJnBkZXYtPmRldik7Cj4+
-ICAJcG1fcnVudGltZV9kb250X3VzZV9hdXRvc3VzcGVuZChkZXYpOwo+PiAgCWNsa191bnByZXBh
-cmUocHJpdi0+cmVmY2xrKTsKPj4gLS0gCj4+IDIuMzQuMQo+PiAKPgo+LS0gCj5LaW5kIFJlZ2Fy
-ZHMsCj5OaWtsYXMgU8O2ZGVybHVuZAo=
+On Thu, Sep 24, 2026 at 01:52:52PM +0800, Xuanqiang Luo wrote:
+> From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+> 
+> pfcp_newlink() creates the UDP socket before register_netdevice().
+> If registration fails after pfcp_dev_init() succeeds, the core calls
+> pfcp_dev_uninit(), which releases the socket and clears pfcp->sk.
+> The newlink error path then releases it again, causing a NULL pointer
+> dereference. This was observed with failslab fault injection:
+> 
+>   FAULT_INJECTION: forcing a failure.
+>   kobject: kobject_add_internal failed for pfcp0 (error: -12 parent: net)
+>   BUG: KASAN: null-ptr-deref in udp_tunnel_sock_release+0x1c/0x50
+>   Read of size 8 at addr 0000000000000120 by task ip/1037
+>   Call trace:
+>    show_stack+0x18/0x24 (C)
+>    dump_stack_lvl+0x78/0x90
+>    print_report+0x468/0x5cc
+>    kasan_report+0xa4/0xf0
+>    __asan_load8+0x7c/0xd0
+>    udp_tunnel_sock_release+0x1c/0x50
+>    pfcp_newlink+0x128/0x184
+>    rtnl_newlink+0x848/0xe44
+>    rtnetlink_rcv_msg+0x468/0x514
+>    netlink_rcv_skb+0xc0/0x1f0
+>    rtnetlink_rcv+0x18/0x24
+>    netlink_unicast+0x4b8/0x558
+>    netlink_sendmsg+0x2b8/0x584
+>    ...
+> 
+> Return from pfcp_del_sock() if pfcp->sk is NULL.
+> 
+> Fixes: 76c8764ef36a5 ("pfcp: add PFCP module")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+> ---
+> Changes:
+> v2:
+>   - Use a NULL check in pfcp_del_sock() as the minimal fix for net and
+>     stable. (Simon Horman.)
+> 
+> v1: https://lore.kernel.org/all/20260918123158.5631-1-xuanqiang.luo@linux.dev/
+
+Thanks for the update, and the link to v1.
+
+Reviewed-by: Simon Horman <horms@kernel.org>
+
