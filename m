@@ -1,24 +1,24 @@
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 841F750279B;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B37B4502D53;
 	Mon, 28 Sep 2026 19:33:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790624013; cv=pass; b=ukKjpXlFMxW09DHKSzJHr6dyW9TVYiK891PvUqb9yOsNrdvmcAjbLemNImOq6OZ01TShBlkf0bbUqFQu57RJel7BuMhm+0Pg+QPXhol8M3h2cdt+lWbF0SuYTCXRl6O4PYxp6KnUACmM9d86SBKS0uq6Qy8dBMzuCcQvyWLDTng=
+	t=1790624013; cv=pass; b=t3KsChOjswpLRWitEqs6DaXdZ343uhvp/sogu8CknVMSX4I86/0+ajx0VpXBZ7HsdkmoxgVKGKPUkicT1+9RFPe0m5ChtkFJCPKzoMUEms54OAM9bqRtzPaXskSjWgSXBe1RA6dSqUsWCXZjQ+5/yv2itRB0ZaodhTHR7bbhVUc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790624013; c=relaxed/simple;
-	bh=B6MsowS/Hu8WaIsqrN0ZInLPr90Ep+8EERok4+wLTWo=;
+	bh=82vnsJPzIOPJG4mqgPhwtcpVd6DgPG277k+sraDnl+Q=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=d0YAVmOHOcNwNgTXIJDsqyNBV0J0AnGxH7rncySIoXs7IkwFpR5KWtIXvvUTq04MRuscOAPv3LWl4cIu72LziTzMUbRrOkpsYbI33j4M3Bsj19Vs6RohzXQMH7tK7GOuBcl37+P0qiCYNWmhGHA6xLjnIkhBfJpTq6uf6w/Fsso=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=DIMuGU82; arc=pass smtp.client-ip=185.203.200.13
+	 MIME-Version; b=Z0ddUBV2YF6CPl+Z+fhVPNXMMvbLq1o48pJEuKugz7xN3vGmhNO8Mh2uiCZcfAzBl3uACXSaaGKbyueKiuruqtPfuP/TZDpgh8jmPSgXo3gQa3Iy4y7mw6PXWVq4hf+bv6kEZ0INWJM7pBZhWBTbF8GEsJ5uRmKcb+cwzEXQirA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=KPXhm5C3; arc=pass smtp.client-ip=185.203.200.13
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="DIMuGU82"
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="KPXhm5C3"
 Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
 	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id A9D842022C5;
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id C00012022DB;
 	Mon, 28 Sep 2026 21:33:16 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1790623996;
@@ -26,31 +26,31 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=XVfaiHfN1z0sLsRST89F+gSzK1DVg/e0PZJQCFq2CAk=;
-	b=DIMuGU82qsqkaeIt9WFJGli1KsTQSoaZLiVZRibGcQHhqz7nyfPHYDnydrLs0VYplVjmv3
-	1lHTxufTxhnHgePy7HzV3/SFdNGSramWnwswg/Yu+3RpL/4JCytt+ufIKhGtbnGDzwxMv+
-	phUZ2WS4tOAri5NkMWw+/Sc2294AENmV0BqHfFTHKwwSkDJJdAwFPrXqgJBiM8Y1xsEUBt
-	C/YA6/c4UEWk+RebcwHzsv8Lqueh6H5X9rrJtdzKEB9ICCCtnzhhsw0RTpElkG0WHHEiRs
-	+lTpljsXutr61Y20vtD4a2xTEJh97U1NjQt9HIgi2wR+PYn/Z5/+AtnEo1x9OA==
+	bh=DiwX3o7x1yPYcflQ1RIttaef4sy8FZ96/OYMTcCjjzI=;
+	b=KPXhm5C3disguxxxh1VNDHTGCVnE0I3o+nZ8dBbbhwvcDE8/s8Ahb9cBm/4kHiP+8z80xy
+	puhohktPByhMgieUz3sR++Dbz2xOG+61SoC5nrdJTrDN+2HPpakkPgro52QHkrs8kcyNsx
+	rp1JU0xCMOkfcxGI1cyYRrqRG5bW6kbixIxrE/U114GaYoBcIdSO5HGZi+EALCZ4Js6ahy
+	81DL+2CLqeU4lGT1MEnrD/RelxuA4AxW++ugSdFgcv0lx3mccN+UYyd9CgBEP4ApoHp54d
+	1du89DBOBpemsAEuWLdQTJ3VH8YRqPFA71CgcaNYLg4xpTXVL3og7/tPjw5zcQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1790623996;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=XVfaiHfN1z0sLsRST89F+gSzK1DVg/e0PZJQCFq2CAk=;
-	b=QdrO0t8APkEI4YXVFcRCoksf+JQG808H0HFFbM5TmWhcBe3kxn04X5CtGD3bUipiuxlJzf
-	VAkf+IVBRcpysVN98lHgF9PrjTXCLYY+KUU14+iMMESGdVDnkcwFqTOihv17/D1x7czWUo
-	DmXj7JV3EHtMCSYtO9Fe8lqGmcIjRifuHOnVNegl4SgHin5yKGHhgm4drv4fnowfpS0gIg
-	2u1fViBuTys5/i6E0t37AKJNNX1QahFwnOlWuVoZwRcg7FgDv+fGnHxltal7nvwHQSQnr1
-	59hvFbewnNR9TODvRqxuyaeOhXWi9Fi46UsH9d0xmW9AGE3QnSpCY/B01EcpRQ==
+	bh=DiwX3o7x1yPYcflQ1RIttaef4sy8FZ96/OYMTcCjjzI=;
+	b=glAJMSQzJ1HD3p7CSGaikzeFk8grwbM3fOSW4lsjL6A6aVA9+p2WivRKlHiFcopPYpibjY
+	m3d7yaiCDd1Hj86Gt25p++iiIx9QVkepXhZcse0PjwtBijfY+4NT99coS6YfrKxX7hm2wd
+	Vopsyzb4z0Dyi2io34W8yDULDnJLYdxy2F026DgekNm9Vgkze/2d1IyS3PopdSixNnkHJQ
+	peyWZvnUSpnm017CPF23zZD0+9bzyLZjMds2UNWhWf/M6yn09Vf4r5tDEc0wYUPphcPdbI
+	326Ki+h5pQqchBHZ4ymUvOJa+ha+Q0Zo/NTUMytHK/R4UmiYD7wsLNTGoJ6u4A==
 ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790623996; a=rsa-sha256;
 	cv=none;
-	b=HNRsQGfNk84t/kjeGkCkaBpm7cJ5UQ83e20MRNUW9IXW2Mygr2Fx6pxLNMR6rde9W513ff
-	z9CPYiHwrHWNmo7IwX5DYDBO4p9FQxPSSeFM4QiaNRTSXmBaAaA3xJCNVsfoXDkNLbqZuy
-	8FvfYe1jZqO4Fmsa6GoFnc7o9Mu/jnfLh0QBuAev300PpHTYMgvMjr559qoml0DU1KAOKK
-	rR5PFqW9n9kJJz/p0mR0m/KHOm69JFbDRkBQJCpTd3dfRckCNAR1NqGCGb8ascI0lUumCW
-	IY5LAug/dq21HyNNMwtWcDH+wUU65nec1ik5ZkvSwTRE7ZDZ/K/lBGtMfFe4Bw==
+	b=FOprakYlsSQqmHTFRFdjW9ImKyz4KmlOl47aLjfwNgn+0KAamhXwRUAap478F0+g4OFSX4
+	QMQA7QY6tYZBbtwWgbpFgOF4XGhXG7XwGclahh4JjqUVQnKV7w4yz5kg7T0tizKp96NHqi
+	zHDSZrkklxpHUB3StLsdVbwBBlF4+JNLsbu7zFT13VvABYKjgrIp2hKRyiUzXM0/yeVT3l
+	32E4bxARm5mSqb3jYk/AO0M/eh16BOB/mxtKw8+vgRc5mvQqi29tABot8HS8dF+eFhXwZC
+	F1KWFH80KRCb3Gj7Aw/6yNyRgW9bjZTgjjeMccDQnYNsSbrJvrKgJUKbc4E9ZQ==
 ARC-Authentication-Results: i=1;
 	ORIGINATING;
 	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
@@ -58,14 +58,14 @@ Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjor
 	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.96)
 	(envelope-from <mkl@pengutronix.de>)
-	id 1xBH6C-003H6X-1d;
+	id 1xBH6C-003H6a-1n;
 	Mon, 28 Sep 2026 21:33:16 +0200
 Received: from blackshift.org (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(Client did not present a certificate)
 	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id 352C15B1558;
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 46B915B1559;
 	Mon, 28 Sep 2026 19:33:16 +0000 (UTC)
 From: Marc Kleine-Budde <mkl@pengutronix.de>
 To: netdev@vger.kernel.org
@@ -73,13 +73,15 @@ Cc: davem@davemloft.net,
 	kuba@kernel.org,
 	linux-can@vger.kernel.org,
 	kernel@pengutronix.de,
-	Fan Wu <fanwu01@zju.edu.cn>,
+	"Ji-Ze Hong (Peter Hong)" <peter_hong@fintek.com.tw>,
 	stable@vger.kernel.org,
-	Song Li <songl@zju.edu.cn>,
+	"Dynetrex, Admin" <admin@dynetrex.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Drew Willey <dwilley@google.com>,
 	Marc Kleine-Budde <mkl@pengutronix.de>
-Subject: [PATCH net 17/22] can: ems_usb: use usb_kill_urb() to stop the intr URB
-Date: Mon, 28 Sep 2026 20:45:24 +0200
-Message-ID: <20260928193312.553632-18-mkl@pengutronix.de>
+Subject: [PATCH net 18/22] usb: f81604: fix struct f81604_int_data size mismatch
+Date: Mon, 28 Sep 2026 20:45:25 +0200
+Message-ID: <20260928193312.553632-19-mkl@pengutronix.de>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260928193312.553632-1-mkl@pengutronix.de>
 References: <20260928193312.553632-1-mkl@pengutronix.de>
@@ -91,53 +93,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Fan Wu <fanwu01@zju.edu.cn>
+From: "Ji-Ze Hong (Peter Hong)" <peter_hong@fintek.com.tw>
 
-The intr URB submitted in ems_usb_start() is not anchored, and its
-completion handler ems_usb_read_interrupt_callback() resubmits it, so
-it stays in flight as long as the interface is up. But unlink_all_urbs()
-stops this URB with usb_unlink_urb(), which only initiates an
-asynchronous unlink and returns without waiting for the handler.
+The struct f81604_int_data defines 9 bytes of interrupt data:
+- Byte 0: Status register (sr)
+- Byte 1: Interrupt register (isrc)
+- Byte 2: Interrupt enable register (ier)
+- Byte 3: Arbitration lost capture (alc)
+- Byte 4: Error code capture (ecc)
+- Byte 5: Error warning limit register (ewlr)
+- Byte 6: RX error counter (rxerr)
+- Byte 7: TX error counter (txerr)
+- Byte 8: Reserved (val)
 
-The handler can therefore still be running while ems_usb_disconnect()
-frees its data: it reads the transfer buffer dev->intr_in_buffer, which
-is kfree()d there, and dereferences the private context, which is
-released via free_candev() together with the network device.
+The hardware sends exactly 9 bytes for the interrupt endpoint.
+However, the struct was defined with __aligned(4) attribute which
+caused the compiler to pad the struct to 12 bytes.
 
-Fix this by stopping the intr URB with usb_kill_urb(), which waits
-until the handler has returned, so the frees in ems_usb_disconnect()
-happen strictly after the last callback.
+This causes a problem in f81604_read_int_callback() where the short
+URB check compares urb->actual_length against sizeof(*data). When
+sizeof(struct f81604_int_data) is 12 but the hardware only sends 9
+bytes, the check fails and valid interrupt messages are discarded.
 
-The handler treats the -ENOENT completion of a killed URB as terminal and
-does not take RTNL or any sleeping lock, so the resubmit loop is cut and
-no RTNL deadlock occurs.
+This results in the driver only being able to transmit once because
+the TX complete interrupt is never processed.
 
-This issue was found by an in-house static analysis tool.
+Fix this by removing the __aligned(4) attribute so the struct size
+matches the actual hardware data size of 9 bytes.
 
-Fixes: 702171adeed3 ("ems_usb: Added support for EMS CPC-USB/ARM7 CAN/USB interface")
+Fixes: 7299b1b39a25 ("can: usb: f81604: handle short interrupt urb messages properly")
 Cc: stable@vger.kernel.org
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Link: https://patch.msgid.link/20260923030522.409344-1-fanwu01@zju.edu.cn
+Reported-by: Dynetrex, Admin <admin@dynetrex.com>
+Closes: https://lore.kernel.org/all/A3834A07-5639-4779-844F-C5843DFC3928@dynetrex.com/
+Signed-off-by: Ji-Ze Hong (Peter Hong) <peter_hong@fintek.com.tw>
+Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Tested-by: Drew Willey <dwilley@google.com>
+Link: https://patch.msgid.link/20260824-f81604-fix-v2-1-fc9be5581394@fintek.com.tw
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- drivers/net/can/usb/ems_usb.c | 2 +-
+ drivers/net/can/usb/f81604.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/can/usb/ems_usb.c b/drivers/net/can/usb/ems_usb.c
-index 24cf8f651f8f..2d31f0b86859 100644
---- a/drivers/net/can/usb/ems_usb.c
-+++ b/drivers/net/can/usb/ems_usb.c
-@@ -748,7 +748,7 @@ static void unlink_all_urbs(struct ems_usb *dev)
- {
- 	int i;
+diff --git a/drivers/net/can/usb/f81604.c b/drivers/net/can/usb/f81604.c
+index f12318268e46..4c147b9d6d69 100644
+--- a/drivers/net/can/usb/f81604.c
++++ b/drivers/net/can/usb/f81604.c
+@@ -169,7 +169,7 @@ struct f81604_int_data {
+ 	u8 rxerr;
+ 	u8 txerr;
+ 	u8 val;
+-} __packed __aligned(4);
++} __packed;
  
--	usb_unlink_urb(dev->intr_urb);
-+	usb_kill_urb(dev->intr_urb);
- 
- 	usb_kill_anchored_urbs(&dev->rx_submitted);
- 
+ struct f81604_sff {
+ 	__be16 id;
 -- 
 2.53.0
 
