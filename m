@@ -1,240 +1,60 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F95946F4AB
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 08:09:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8919546D569;
+	Mon, 28 Sep 2026 08:09:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790582942; cv=none; b=JT+KwghesOypRig4kzeu9nmKFiduN/Dfu4FbTshnHh12PCPm8g01EQgDY+bS77p7z8hvD0huUO4tGzgd4ZhuRUdWJ/D76NzKQjHJLTsd8aBmLJ9w39YSZm0EU/61vNUqydZX7OIwNiEveKzPBCFlhxizkWFBK3toU42iwTe17Gg=
+	t=1790582970; cv=none; b=rhXSgvrghUJH40d/O60biJTCJ1gXXoESC0zwG39cnswRnvCyItmOpgHbr0EQhyk6KdyWDHiOqLkXn4FaCVQlpsSDhFjCrMkYhdtwYi6U2bO0UQX7xJ6oajyzQ0fsE02HU2GtM2359Uig6V4pSRTjqJQgUHvLFJJl3U/ryMzYnSs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790582942; c=relaxed/simple;
-	bh=zZTvGlvEqVhM81Q7QDi6Pz1kmrEFa1oJJLKPdOsRH6Q=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=RUgm1JYJs6XuGJjolK/IRlFUUcu+B+nIpUMCo//V5lXjhZ/rlhrT154yhWGqvReOf375zBi4/sLyJD+//usCAnpHUeZIyZv+C3SFAzT1PzuFy2XlME2IOOxaMdDUc6No8+IpBinbRAl9FB1SfGFQnBUrfHid04ItfPXa4otjiaE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=YLc+ViZW; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790582970; c=relaxed/simple;
+	bh=TMdhrYWZYEdo2maEfTAy/xAWluzY5B2xTx+txA56zAk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KLawFadCZtGvQ1/C96DqgqCwx3qEjqGCuGHYH16DAvin4alfakbyyNryGiWl9o6bHYZLMad22ykmRMkhBBSn9C4xVYI4o55BiPVORoIHBuRLNLrmlK+QTa47EHxBNapgQ24dycMphk0KMm7kavupMXT/TRJqnDTF/UVemIPaXPE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=zcdUQ4Tu; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="YLc+ViZW"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id AC7A2C5CD50;
-	Mon, 28 Sep 2026 08:09:47 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id A3764601BD;
-	Mon, 28 Sep 2026 08:08:58 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5B5CF102F1EA6;
-	Mon, 28 Sep 2026 10:08:53 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790582937; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=3eYcAY7oljVvbfhWEJ0Iojp7ZrTqmRIRce21Z28i3ks=;
-	b=YLc+ViZWZdi/e/WsmIyMWQXG2ww0AP4DfmQa78VAX9b9uVN02OdfGN27EzxNkvQ+v9Yb38
-	0zqzN+Z/DbVJIpc5FKqkdkPs/Z0Ig9Pxo3VIGGMPpBnkWk/ExG9YxPlCa29pkuW57NLEeT
-	VdjPuh/7uuf9fQCBFsNQcSseMlbHDevtxWScClc7onegEbkq6URJvXj31IZxIZYmd+jqQx
-	dhce+D5d8BOdJhuDTnvUdWZOAZlmRfIfZi4Evt/EU67cKOKjV8KouuzFVoNrmeNFRn0zcB
-	iGBAVlBfRFRJWCVUlB0G2FJbdYb5Hr6yGdbhSPTut8ZUQSUCa2SPVmKeRv4WIA==
-From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-Date: Mon, 28 Sep 2026 10:08:32 +0200
-Subject: [PATCH 5.10.y v2 3/3] net: preserve skb_end_offset() in
- skb_unclone_keeptruesize()
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="zcdUQ4Tu"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=vqvsdRpq/UIDNnFLpPC0FuvdO32wrpNCI6g88TTlkAk=; b=zcdUQ4TurG+B6vNWIH+APtAdhi
+	5e2abmbRqpDr1zOAjeNB6iV2/95Dp6SulKmrQk05nV7x7BDhqCgq79PjiOSZLKxNoXf2gKv7vOxGz
+	MFgd3sX5kAM8SZY3q0HNxpA23n5V2Fbpc6azqNXqe+i+7tCfbU5h9L9Gk3Nu0nwCVfs7nNt3P7E88
+	rQBml1XpRYboc/K/8BoruHtceG7SLco9xKU3hBmjoN5BvmsXKZLp3R6thBMRkjYeTb9Ti/alreRX9
+	amXxp8S0bvN6LulysGRvWOd57woP+YARYgCvIQgwuim6js4t7hvZJCCV9/T08VxUmGFV4ufmNoH5Z
+	PldjZXAw==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xB6QR-000000001t6-2IGr;
+	Mon, 28 Sep 2026 08:09:27 +0000
+Date: Mon, 28 Sep 2026 01:09:27 -0700
+From: Christoph Hellwig <hch@infradead.org>
+To: "Darrick J. Wong" <djwong@kernel.org>
+Cc: cem@kernel.org, stable@vger.kernel.org, linux-xfs@vger.kernel.org
+Subject: Re: [PATCH 08/12] xfs: assign an owner to scrub_stats_fops
+Message-ID: <arogt6R9sPkCaaJx@infradead.org>
+References: <179057612523.479634.11102922479483109602.stgit@frogsfrogsfrogs>
+ <179057612767.479634.10381622374817940867.stgit@frogsfrogsfrogs>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-cve-2022-49142-v2-3-227dee37e858@bootlin.com>
-References: <20260928-cve-2022-49142-v2-0-227dee37e858@bootlin.com>
-In-Reply-To: <20260928-cve-2022-49142-v2-0-227dee37e858@bootlin.com>
-To: stable@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
- Jakub Kicinski <kuba@kernel.org>, Eric Dumazet <edumazet@google.com>, 
- Alexey Kuznetsov <kuznet@ms2.inr.ac.ru>, 
- Hideaki YOSHIFUJI <yoshfuji@linux-ipv6.org>, Marco Elver <elver@google.com>, 
- Alexander Potapenko <glider@google.com>, Dmitry Vyukov <dvyukov@google.com>, 
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Benjamin Robin <benjamin.robin@bootlin.com>, 
- "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>, 
- syzbot <syzkaller@googlegroups.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790582913; l=6375;
- i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
- bh=F/+49yeHiBwaz8LgpWOT1eP4z1kVL3V+o4c54XB9Akg=;
- b=feF1pg4HpocEVCHhaYdXCgj7J+su1rkkYzyyfcxjRFJZ7+NoTQdXkvnJkBCtrkURr12+5scCK
- TxqCPyAphp1D77KE6S0A08vZoO6D6OwVbgAwMjxRgk60Ae4si5wa0JT
-X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
- pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <179057612767.479634.10381622374817940867.stgit@frogsfrogsfrogs>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-From: Eric Dumazet <edumazet@google.com>
+On Sun, Sep 27, 2026 at 11:17:54PM -0700, Darrick J. Wong wrote:
+> From: Darrick J. Wong <djwong@kernel.org>
+> 
+> LOLLM complains that file_operations structs for debugfs files are
+> supposed to have an owner set so that the module can't get unloaded if
+> someone's sitting on a debugfs file long after unmount/rmmod.  Fix that.
 
-commit 2b88cba55883eaafbc9b7cbff0b2c7cdba71ed01 upstream.
+Ooops.  Looks good:
 
-syzbot found another way to trigger the infamous WARN_ON_ONCE(delta < len)
-in skb_try_coalesce() [1]
-
-I was able to root cause the issue to kfence.
-
-When kfence is in action, the following assertion is no longer true:
-
-int size = xxxx;
-void *ptr1 = kmalloc(size, gfp);
-void *ptr2 = kmalloc(size, gfp);
-
-if (ptr1 && ptr2)
-	ASSERT(ksize(ptr1) == ksize(ptr2));
-
-We attempted to fix these issues in the blamed commits, but forgot
-that TCP was possibly shifting data after skb_unclone_keeptruesize()
-has been used, notably from tcp_retrans_try_collapse().
-
-So we not only need to keep same skb->truesize value,
-we also need to make sure TCP wont fill new tailroom
-that pskb_expand_head() was able to get from a
-addr = kmalloc(...) followed by ksize(addr)
-
-Split skb_unclone_keeptruesize() into two parts:
-
-1) Inline skb_unclone_keeptruesize() for the common case,
-   when skb is not cloned.
-
-2) Out of line __skb_unclone_keeptruesize() for the 'slow path'.
-
-WARNING: CPU: 1 PID: 6490 at net/core/skbuff.c:5295 skb_try_coalesce+0x1235/0x1560 net/core/skbuff.c:5295
-Modules linked in:
-CPU: 1 PID: 6490 Comm: syz-executor161 Not tainted 5.17.0-rc4-syzkaller-00229-g4f12b742eb2b #0
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 01/01/2011
-RIP: 0010:skb_try_coalesce+0x1235/0x1560 net/core/skbuff.c:5295
-Code: bf 01 00 00 00 0f b7 c0 89 c6 89 44 24 20 e8 62 24 4e fa 8b 44 24 20 83 e8 01 0f 85 e5 f0 ff ff e9 87 f4 ff ff e8 cb 20 4e fa <0f> 0b e9 06 f9 ff ff e8 af b2 95 fa e9 69 f0 ff ff e8 95 b2 95 fa
-RSP: 0018:ffffc900063af268 EFLAGS: 00010293
-RAX: 0000000000000000 RBX: 00000000ffffffd5 RCX: 0000000000000000
-RDX: ffff88806fc05700 RSI: ffffffff872abd55 RDI: 0000000000000003
-RBP: ffff88806e675500 R08: 00000000ffffffd5 R09: 0000000000000000
-R10: ffffffff872ab659 R11: 0000000000000000 R12: ffff88806dd554e8
-R13: ffff88806dd9bac0 R14: ffff88806dd9a2c0 R15: 0000000000000155
-FS:  00007f18014f9700(0000) GS:ffff8880b9c00000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000000020002000 CR3: 000000006be7a000 CR4: 00000000003506f0
-DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
-DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
-Call Trace:
- <TASK>
- tcp_try_coalesce net/ipv4/tcp_input.c:4651 [inline]
- tcp_try_coalesce+0x393/0x920 net/ipv4/tcp_input.c:4630
- tcp_queue_rcv+0x8a/0x6e0 net/ipv4/tcp_input.c:4914
- tcp_data_queue+0x11fd/0x4bb0 net/ipv4/tcp_input.c:5025
- tcp_rcv_established+0x81e/0x1ff0 net/ipv4/tcp_input.c:5947
- tcp_v4_do_rcv+0x65e/0x980 net/ipv4/tcp_ipv4.c:1719
- sk_backlog_rcv include/net/sock.h:1037 [inline]
- __release_sock+0x134/0x3b0 net/core/sock.c:2779
- release_sock+0x54/0x1b0 net/core/sock.c:3311
- sk_wait_data+0x177/0x450 net/core/sock.c:2821
- tcp_recvmsg_locked+0xe28/0x1fd0 net/ipv4/tcp.c:2457
- tcp_recvmsg+0x137/0x610 net/ipv4/tcp.c:2572
- inet_recvmsg+0x11b/0x5e0 net/ipv4/af_inet.c:850
- sock_recvmsg_nosec net/socket.c:948 [inline]
- sock_recvmsg net/socket.c:966 [inline]
- sock_recvmsg net/socket.c:962 [inline]
- ____sys_recvmsg+0x2c4/0x600 net/socket.c:2632
- ___sys_recvmsg+0x127/0x200 net/socket.c:2674
- __sys_recvmsg+0xe2/0x1a0 net/socket.c:2704
- do_syscall_x64 arch/x86/entry/common.c:50 [inline]
- do_syscall_64+0x35/0xb0 arch/x86/entry/common.c:80
- entry_SYSCALL_64_after_hwframe+0x44/0xae
-
-Fixes: c4777efa751d ("net: add and use skb_unclone_keeptruesize() helper")
-Fixes: 097b9146c0e2 ("net: fix up truesize of cloned skb in skb_prepare_for_shift()")
-Reported-by: syzbot <syzkaller@googlegroups.com>
-Signed-off-by: Eric Dumazet <edumazet@google.com>
-Cc: Marco Elver <elver@google.com>
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
----
- include/linux/skbuff.h | 18 +++++++++---------
- net/core/skbuff.c      | 32 ++++++++++++++++++++++++++++++++
- 2 files changed, 41 insertions(+), 9 deletions(-)
-
-diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
-index 34b6a7e3af8d..0a7b1a7f1ae1 100644
---- a/include/linux/skbuff.h
-+++ b/include/linux/skbuff.h
-@@ -1655,19 +1655,19 @@ static inline int skb_unclone(struct sk_buff *skb, gfp_t pri)
- 	return 0;
- }
- 
--/* This variant of skb_unclone() makes sure skb->truesize is not changed */
-+/* This variant of skb_unclone() makes sure skb->truesize
-+ * and skb_end_offset() are not changed, whenever a new skb->head is needed.
-+ *
-+ * Indeed there is no guarantee that ksize(kmalloc(X)) == ksize(kmalloc(X))
-+ * when various debugging features are in place.
-+ */
-+int __skb_unclone_keeptruesize(struct sk_buff *skb, gfp_t pri);
- static inline int skb_unclone_keeptruesize(struct sk_buff *skb, gfp_t pri)
- {
- 	might_sleep_if(gfpflags_allow_blocking(pri));
- 
--	if (skb_cloned(skb)) {
--		unsigned int save = skb->truesize;
--		int res;
--
--		res = pskb_expand_head(skb, 0, 0, pri);
--		skb->truesize = save;
--		return res;
--	}
-+	if (skb_cloned(skb))
-+		return __skb_unclone_keeptruesize(skb, pri);
- 	return 0;
- }
- 
-diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-index 8118cd4e1b31..84fe9cdd16c3 100644
---- a/net/core/skbuff.c
-+++ b/net/core/skbuff.c
-@@ -1737,6 +1737,38 @@ struct sk_buff *skb_realloc_headroom(struct sk_buff *skb, unsigned int headroom)
- }
- EXPORT_SYMBOL(skb_realloc_headroom);
- 
-+int __skb_unclone_keeptruesize(struct sk_buff *skb, gfp_t pri)
-+{
-+	unsigned int saved_end_offset, saved_truesize;
-+	struct skb_shared_info *shinfo;
-+	int res;
-+
-+	saved_end_offset = skb_end_offset(skb);
-+	saved_truesize = skb->truesize;
-+
-+	res = pskb_expand_head(skb, 0, 0, pri);
-+	if (res)
-+		return res;
-+
-+	skb->truesize = saved_truesize;
-+
-+	if (likely(skb_end_offset(skb) == saved_end_offset))
-+		return 0;
-+
-+	shinfo = skb_shinfo(skb);
-+
-+	/* We are about to change back skb->end,
-+	 * we need to move skb_shinfo() to its new location.
-+	 */
-+	memmove(skb->head + saved_end_offset,
-+		shinfo,
-+		offsetof(struct skb_shared_info, frags[shinfo->nr_frags]));
-+
-+	skb_set_end_offset(skb, saved_end_offset);
-+
-+	return 0;
-+}
-+
- /**
-  *	skb_expand_head - reallocate header of &sk_buff
-  *	@skb: buffer to reallocate
-
--- 
-2.55.0
-
+Reviewed-by: Christoph Hellwig <hch@lst.de>
