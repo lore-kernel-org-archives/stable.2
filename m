@@ -1,146 +1,119 @@
-Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com [74.125.229.140])
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6A163845DC
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 18:27:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF80438E8CA
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 18:28:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790620077; cv=none; b=s6QkqMXlWpN378hOJtXJ9EIIwBOXW6mTp+wQkmpL8JUYIlrSoHTjowQQub/ofGlqHOQcrOfryXnkre/sJDsehJnDneYJ2SH4wyQECtOtpVgoOUclASgHPXLT8UPwzlYjZRgiZ0TKTrb5HlfSA1b25e4kXiJgObPR5mHnKkQt3tA=
+	t=1790620125; cv=none; b=F9MzJyMpW5L1kVq7EXZUfuXL2/vihrCcwYjD8nba02MSX+WhVQDSsEPySO8CKfw8CJFt/7WdvcX72UJEF0tvrGR2rGL7o4piFzQ/G5x2QEjPqWNTzeMp5LZeefr0cAaHTOAtD6yD0Ctzrc19KaSW0qvxQPnZK4Lnvxwkicq6nIw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790620077; c=relaxed/simple;
-	bh=lA+/qeQ/7Zd4GsOWrL7T4sQMQ721MJmAVOQwV+tc/4c=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UWrJDt7vyPNAcF1vDl1RdxUBhQt7vWSZOTU/IVOVELyUrgAwwwVlVPBVXVrotHppflByTLRXgbON3kvlZtj/Oi+4qJOh3xWID/Z8ZPNYjSXM/KF+GU9PhJ2cJP98ND5eH+YxCC8cyxD7Zd9zVHCZEqfyLIgAh9eoXCY0c0I9Q/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ae5BSqPT; arc=none smtp.client-ip=74.125.229.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790620125; c=relaxed/simple;
+	bh=PM7o7yT/Rqooq4IBMLSMsdjoROJ01Ib/Nu/ypwEpkk4=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=ZlFncHXOOQb3s5EJcbrBcxJVl6hyw35BOdeJh579Jz4bGlD70IrCNRTIl8kGev7WrJUjpKv4VnucdAWzR3GaXbqiSF/PxVdWNqAHIdE4gYTUYMIOkKtgjxE0n5th/Gi2KQDHl5my8Szp9PJIPjc2lM7qS6axMIGSn4m7+oWDc+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=IemQbq/O; arc=none smtp.client-ip=209.85.214.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ae5BSqPT"
-Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-142dd04f7f2so2229379c88.0
-        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 11:27:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="IemQbq/O"
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2d001671a54so33868795ad.2
+        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 11:28:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790620075; x=1791224875; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nZ+HoXc0R+NK0c3dnqJSfpL5GoUL8PlgcOM7DYKwAo8=;
-        b=ae5BSqPTIhZvyq0+XUTt+qfxQKZIfAQV6ruuLOrEd5WzP3Eww21WNpOu7SRGSKLAoD
-         8TdiW1HJIild+XDs4uCrvImrlcAgU6Ibvc2NO5jDu292ubL/OBIULGHSpaY+i7hPt+y9
-         ApxoMjxxnxzLmgdfCJW4hWeL2/2Dpkd6ItzCEjIM7rE7SvC3AN56BdV7k7s0ubxEYQuo
-         S6+uDnYxhtl90tilLBpLpNUtptjjoFM7kNTqut7uGJMfeoshR4rWAJI3VWOBpLss+7Ek
-         jsnKcmeiR7aIaI9SmO/2AdoLyVILgo/220ILDaBtZjExHJtp45tTHCffzhkHnQdHxhFV
-         R2zA==
+        d=google.com; s=20251104; t=1790620123; x=1791224923; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yCua0pp+YaMex9dVxoGDp0jAQYnIyP+7fQUI4jKTB0Q=;
+        b=IemQbq/OnixXiZNmFeFjeYRBndVu0oc89OLyUx9SG/g+a5hBaBOt4Eo9PcLvsJ2Ljr
+         YQ7owou9DlPlHx+19BLz5sNVTm1hFQNImh075825vMX6HDVcqPeXpDqXUWMJs+2B9Y7A
+         n9FJsn2a6TjtFSKB0mH3hf04+22cneapbnROgvy+iN8xRb1wbUCC9AzfPsmMw+AnWdkB
+         K0rX8CgJKLMlURHPyqdcHU6C1/i7BL8m37kLPGHOjkwDJtYMywb7ZW8ZgfnDUdtN6JXs
+         GQV745c6INICvSwm3NFOMTMJqisOE6/ikgK3A4Pvd3jBhPXa+QnPFA/UbzEoWb8kb2DQ
+         hr/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790620075; x=1791224875;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nZ+HoXc0R+NK0c3dnqJSfpL5GoUL8PlgcOM7DYKwAo8=;
-        b=e+pen9WagaQ9upaoGZoqQgRBkW5aJegtRYu6QSM6yr3CojiDf7BMgyzdNP0OxZ6MDA
-         /olCd6Q8Xn7l9u/AKmYqJxWy2YJ/PAsJmMjoiY/xyKcWwkvCkKAn/nUgm2z2ad7QWMTB
-         fxPcud9GoQ81j+f6JG2Xp/lB6jntLVKxoKVfZ1wlKFF0OjHemk8PItr3n//Iz1o/L4Lp
-         dUtnHkhsHp+V3r1Oszlj/YCsOgwgnPQ5HRcTVmJLAMbR5kXrY/7ckUPWKr1mvtRW47k+
-         dYUlmQvyIH4WMqvU4UgFhIZBSSBeX8C80++jPcSseGbJENOO47KdnBFJ7LHUtXXA8wjd
-         7XHg==
-X-Forwarded-Encrypted: i=1; AKwUvByXwgWATDdIu0CXS049whkSzjU5c6w1lp8xLi+7Z6aRKpea1NgzRfFmoHjnBy75YfiZV8aSUA4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kLdTh2A9OCNh5nqZqToSiI8ICBvI4J0jpSPOPSmMVIc3g+5kDr
-	MXXHH5/mZVyA0KHJV2gcg9AQxxbRcl+fEqsDuhUzHZz7caUHf+7X2S/3
-X-Gm-Gg: AYBFou0M8/2hD+FxbnHluh5E/N5oSavIr8rmnx1pnnIyf4OrquU7k2afBudlcpBde+r
-	NJXHnPR2IU3l37btVFvHPs4cd11X4IIoSeTfObda5wx9djqtLweeKaiWvi4HO+VEV4G4vO3o0ax
-	Pc/fNz6yVjLBqtofg7vX2hbNHH12zQcX7icv1gfhOGFGj1B0MNwHHD8gjCxSOIREXeSwXKIcXCl
-	ZzwJeQUhmTEfYp4Pfl3pE7Sa2fLRLpU2mfB79n0IOGsAfdOFgzaMdK8/xZm5jSKok9nj8bxXsJ/
-	nlS7+dSpNfQYZ1//MsNIPgnk13nb85AAo1NZ0FBPW0TTnI85ReT6Feyvw8dzL1hmVsHLOqUGYsr
-	e4h2FHYMQ0bhJFiT4JnlwJ4LtfqZUAb0Pw1YTnTGpMt7jt+XNKDkGVSYWAolJbT4TKDZ6wE94j3
-	nu0Du+3sWMTjVILF+fkH99oWO4c4LDPUYnUF8S4XVwUwvtiMPKJc0RxVyf/2Ku17CDAg==
-X-Received: by 2002:a05:7022:ff43:b0:13e:68c0:9d7c with SMTP id a92af1059eb24-146ce7780e7mr12379480c88.12.1790620073743;
-        Mon, 28 Sep 2026 11:27:53 -0700 (PDT)
-Received: from localhost ([8.219.239.189])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145acc45f03sm25484014c88.7.2026.09.28.11.27.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 11:27:53 -0700 (PDT)
-From: Dairui Zhang <zhangdairui@gmail.com>
-To: linux-nfs@vger.kernel.org
-Cc: Chuck Lever <cel@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Dairui Zhang <zhangdairui@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] nfsd: fix READ payload landing one page ahead of the XDR accounting
-Date: Tue, 29 Sep 2026 02:27:49 +0800
-Message-ID: <20260928182749.1835924-1-zhangdairui@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260927094535.1745224-1-zhangdairui@gmail.com>
-References: <20260927094535.1745224-1-zhangdairui@gmail.com>
+        d=1e100.net; s=20260707; t=1790620123; x=1791224923;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yCua0pp+YaMex9dVxoGDp0jAQYnIyP+7fQUI4jKTB0Q=;
+        b=Ih3UPV9LIpQzs6J+vROovxqwccnK+W0hHfjQwwyX0rbnP01XzFU16aOYR8L/S0ubGN
+         bwwjeuyUWgWM2VvwXOuhNRcEsQTX9MIvyyAbdiv65PNJ9A3C2hdJ8DMZf2n3CkdTCK0i
+         K9i5cQKdQXLxROTcFZmJhsEd3NCvBMeU8tCy4IdevQBygSzTMoxDc+ojzjQeNev5mSVK
+         rZXqL1H8J8Yl8GCO8HbQmp0bSJpyJ4Yu3UPnA7O1/9juCKhKv8MDWDonYsscqUpFEqo0
+         yjMPchmunINlaFQTOp2UOZxo1AFBhrAneC0t/zqr8sGwX9sKYF8P5u2MyFtTvhuXGZI+
+         cwTg==
+X-Forwarded-Encrypted: i=1; AKwUvBze79XMKVYtF9RK1CN8oQaZqGvhsrvC9QxPPJbYHVqXBQvqR2/k5gB4yaC4+Jb+zEskW1O4hDk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKMeyGgobnzp2EvMBgSZimjP3TJPR9jUId1DVqLxsup8tTswz2u
+	T8FvCn9+pu4M7OLAnDPA1pgQRj9dON9sDrn7acIAEnQLfqtQJlvaYwe2PakWWF2vLUdmgjc9n37
+	IuS8TWQ==
+X-Received: from pleb21.prod.google.com ([2002:a17:902:d415:b0:2e2:bc36:1c75])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:cec8:b0:2dd:b6e7:ac1b
+ with SMTP id d9443c01a7336-2df7da427b8mr112270915ad.2.1790620122874; Mon, 28
+ Sep 2026 11:28:42 -0700 (PDT)
+Date: Mon, 28 Sep 2026 11:28:42 -0700
+In-Reply-To: <20260928164427.4699-1-k@mgml.me>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20260928164427.4699-1-k@mgml.me>
+Message-ID: <arqx2imW1-OL9IU6@google.com>
+Subject: Re: [PATCH 5.15.y v4 00/11] KVM: fixes for CVE-2026-46113 and related issues
+From: Sean Christopherson <seanjc@google.com>
+To: Kenta Akagi <k@mgml.me>
+Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, stable@vger.kernel.org, 
+	Paolo Bonzini <pbonzini@redhat.com>
+Content-Type: text/plain; charset="us-ascii"
 
-nfsd4_encode_readv() computes the in-page offset
-base = page_len & ~PAGE_MASK and passes it to nfsd_iter_read(),
-which writes the file data at that offset into *rq_next_page.
-After each operation rq_next_page is set to page_ptr + 1, so when
-the reply stream is mid-page the data lands one page ahead of where
-the payload accounting continues (in the current page at base).
-The client is then sent the stale tail of the current page -
-previous RPC payloads, since reply pages are reused without
-zeroing - instead of the file data: an info leak and corrupted
-READ results.
+On Tue, Sep 29, 2026, Kenta Akagi wrote:
+> This is a backport of the CVE-2026-46113 and CVE-2026-53359 fixes to 5.15.y.
+> 
+> v2: https://lore.kernel.org/all/20260626174620.1819772-1-pbonzini@redhat.com/
+> v3: https://lore.kernel.org/stable/20260913155523.7423-1-k@mgml.me/
+> 
+> Changes from v3:
+> - Added patches 3-6 to backport the change from gpte_is_8_bytes to has_4_byte_gpte.
+> - Adjusted patches 7-8 (patches 3/7 and 4/7 in v3) accordingly.
+> 
+> A regression has been reported in the backport of commit 0cb2af2ea66a
+> ("KVM: x86: Fix shadow paging use-after-free due to unexpected GFN")
+> [1], but the corresponding fix has already been merged into 5.15.218 [2].
+> 
+> [1] https://lore.kernel.org/kvm/20260630223723.83727-1-zcgao@amazon.com/
+> [2] https://lore.kernel.org/stable/20260825132543.573783299@linuxfoundation.org/
+> 
+> David Matlack (2):
+>   KVM: x86/mmu: Use a bool for direct
+>   KVM: x86/mmu: Stop passing "direct" to mmu_alloc_root()
+> 
+> Lai Jiangshan (3):
+>   KVM: X86: Remove useless code to set role.gpte_is_8_bytes when
+>     role.direct
+>   KVM: X86: Calculate quadrant when !role.gpte_is_8_bytes
+>   KVM: X86: Rename gpte_is_8_bytes to has_4_byte_gpte and invert the
+>     direction
+> 
+> Paolo Bonzini (5):
+>   KVM: MMU: update comment on the number of page role combinations
+>   KVM: x86/mmu: Derive shadow MMU page role from parent
+>   KVM: x86/mmu: Always pass 0 for @quadrant when gptes are 8 bytes
+>   KVM: x86/mmu: pull call to drop_large_spte() into __link_shadow_page()
+>   KVM: x86: Fix shadow paging use-after-free due to unexpected role
+> 
+> Sean Christopherson (1):
+>   KVM: x86: Fix shadow paging use-after-free due to unexpected GFN
+> 
+>  Documentation/virt/kvm/mmu.rst  |   8 +-
+>  arch/x86/include/asm/kvm_host.h |  32 +++---
+>  arch/x86/kvm/mmu/mmu.c          | 184 ++++++++++++++++++++------------
+>  arch/x86/kvm/mmu/mmutrace.h     |   2 +-
+>  arch/x86/kvm/mmu/paging_tmpl.h  |  32 +++---
+>  arch/x86/kvm/mmu/spte.h         |   5 +
+>  arch/x86/kvm/mmu/tdp_mmu.c      |   2 +-
+>  7 files changed, 159 insertions(+), 106 deletions(-)
 
-Trigger: any compound where a READ follows an op that left the
-stream mid-page, e.g. [PUTFH, READ(100), READ(N)] or READDIR+READ.
+With the disclaimer that I didn't do extensive testing...
 
-Place the data in the page the accounting is filling,
-buf->pages[page_len >> PAGE_SHIFT], instead of one page ahead. At
-an exact page boundary page_ptr is the empty page after the last
-full one and page_ptr + 1 is one page too far, so this covers that
-case too.
-
-Fixes: ed4a567a179e ("NFSD: Update rq_next_page between COMPOUND operations")
-Suggested-by: Chuck Lever <cel@kernel.org>
-Reported-by: Dairui Zhang <zhangdairui@gmail.com>
-Assisted-by: LLM
-Cc: stable@vger.kernel.org
-Signed-off-by: Dairui Zhang <zhangdairui@gmail.com>
----
-v1 -> v2:
-- Use buf->pages[page_len >> PAGE_SHIFT] for rq_next_page instead of
-  page_ptr with an if (base) guard, per Chuck Lever's review: the
-  guard only covered the mid-page case, while at an exact page
-  boundary page_ptr is the empty page after the last full one and
-  page_ptr + 1 is already two pages past it. The new form matches
-  the accounting xdr_reserve_space_vec() extends.
-- v1: https://lore.kernel.org/linux-nfs/20260927094535.1745224-1-zhangdairui@gmail.com/
-
-From code reading only - I haven't runtime-tested it, and this is
-my first patch to this list. If I've misread the flow somewhere,
-please tell me.
----
- fs/nfsd/nfs4xdr.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/fs/nfsd/nfs4xdr.c b/fs/nfsd/nfs4xdr.c
-index 6a0a97d..e4b8285 100644
---- a/fs/nfsd/nfs4xdr.c
-+++ b/fs/nfsd/nfs4xdr.c
-@@ -4933,6 +4933,14 @@ static __be32 nfsd4_encode_readv(struct nfsd4_compoundres *resp,
- 	__be32 zero = xdr_zero;
- 	__be32 nfserr;
- 
-+	/*
-+	 * The payload accounting continues at
-+	 * pages[page_len >> PAGE_SHIFT]; write the data there, not one
-+	 * page ahead.
-+	 */
-+	resp->rqstp->rq_next_page = xdr->buf->pages +
-+				    (xdr->buf->page_len >> PAGE_SHIFT);
-+
- 	nfserr = nfsd_iter_read(resp->rqstp, read->rd_fhp, read->rd_nf,
- 				read->rd_offset, &maxcount, base,
- 				&read->rd_eof);
--- 
-2.53.0
-
+Acked-by: Sean Christopherson <seanjc@google.com>
