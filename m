@@ -1,141 +1,135 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.42.203.116])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09D763CFF51
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 21:05:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1A0F3CFF51;
+	Mon, 28 Sep 2026 21:05:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.42.203.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790629512; cv=none; b=MbsHU5mOd1dsH1NKi1QXbOLyapZEqlO49MF0jqQ1CqvRfhKp0JcNaBy29brd6G/mvvsKbnLO074zqiVc63vvTbkxfdT3gZM+LACuSeNUIVU/aaUt28RfzJ5Wz/E11nU4e9PtR/Gl3KOgN6Z8MKALFqvgfCOvg1BYN3dkSE7gpqs=
+	t=1790629560; cv=none; b=hb0X7SESd11jsHl0dFQis4Eu84X2x3byuVTU18HjjPhh/zZlfGa0GmlsWsmQUbE2+EiOZQ6yBrJ+Bm2EAgkmlJ0GXh27s3QFpkyUbkYa2RYOVyZicU/9x1HRgYM0m5+wfz87cNW0tHzWJz74X+TZb12j74cNkVxAzOnbCgWfhz8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790629512; c=relaxed/simple;
-	bh=bEKlKi/+IZFKOLDzrR1dsce/+n64lxtOKI6KSgMbKVU=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
-	 References:In-Reply-To; b=JJWXwjfJF5fZOHxgspIMmU+t8RwGkI+mz9oiccMdK4PysZRey78oAbz18Iq/i6cPg/nWzA4ePVNiIdVqoR9UuvU/h4//l93SpWRzcoD7973XJKEeSUvIINqWZzNl20visC+EoNiin6rQ+4CguCadshsHdvMhRplK2/GIXkiqcoc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=QdhLavMT; arc=none smtp.client-ip=74.125.229.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
+	s=arc-20240116; t=1790629560; c=relaxed/simple;
+	bh=wuUohBGbBXVSwT1F9oeyOYlWlZvZjHrxx80qx8HHdKc=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=M9eUGwDaMT8i6NJH41b5JkwXiJRwy7lGGOxtaMPsZ83JwNMtwal7XlGtX+p/1GJ0bbDHHxiDCE1Qh3kgabWZ9/Ear1bHS1QdrBXFykxDwREwlXvKUYNskzkcrr7lR7F2+OsGsY9mYmIpOHlkcZ0Sw84qwBGcAsOE+eivu1uNLkU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=ky1E9bM5; arc=none smtp.client-ip=52.42.203.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="QdhLavMT"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-3396cec93b6so4122109eec.3
-        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 14:05:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="ky1E9bM5"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nexthop.ai; s=google; t=1790629510; x=1791234310; darn=vger.kernel.org;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=SuOpjRo0nMbIZrrhGtIjOTHizEzVqe8lHpeMn+L+x88=;
-        b=QdhLavMTqGXU3Z5a8PzskU/taf9cO5W3uXmP6Tk85uhnxI2IO7/A/+G/xtzFSNY5b7
-         G+p09D9ClPRzih0/WhdPeYdJoh2EHJfwoiNI2Ubk+DI5dWMSzZiX1tvzpgu/75fhHQlM
-         CL3vOYXzE3gveM5qUj2pKSThWL/wThqtI4tebZjSbkGQHL/7l49DMvD/4qx55bWXFpHs
-         gQESL/pPuToUSTAxd4hGR5yvVc2DtQn/QtRJ8Rqiy28TwvB6vp/Xcm5twL6ViorZzJxB
-         wl1Xot2cGCmuEFDsAKXFbialIf4ExWNTQK9d4D/2WU3+jx+p3Ajrq/zJ2pBHYsenzfaa
-         FV7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790629510; x=1791234310;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SuOpjRo0nMbIZrrhGtIjOTHizEzVqe8lHpeMn+L+x88=;
-        b=FxDRYq1pRfhQDVdJD60lkg85KyqEbaNnEyvTbR5r6zMwGCEHdWEXpHC0srlkkbgofB
-         sXI7vugS61QPeXPCm7ScTSH8Wlp1rbQ1gowdVKC8XT8Lzj4yWdEEhIOvtZ1/uLZo3D+V
-         hjpdejIeMk/c+fyMSidiK+Z6U+sYugyaTAQ0Nz0vvhVbrIQhjkjYDyY7IcsdnNFIhBFI
-         2LcYJ3NldooEMyPba1X6DvEabBNGuRITi1DzOFbUGOpE+6SE4EgTOMuVSIdIAoOWfwwk
-         ZjtTvsUftmmrIIs4aU8mzGBDQRFjxB6z4TLkGDgcQ56Vj9/14e/Bahfgxe0xd4Jswohj
-         TaTw==
-X-Forwarded-Encrypted: i=1; AKwUvBxGkiByibFDvAPAMLcWn/IKQEMBGCV0LKKGpEW767cfH8z8NGhmgPdFpv9nw6CNCc2eY4fAXdQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKQyBtyGT3X3G9W+ll6tVFXbs2suF82RsqvlwspHWXG4D5G8BSv
-	eqTeJ2z5K6sdbLpxZf/EcAMqLzQ/o8RzEvj6++EJJckzENmIVNfmdgFQL50ZEv73yHvKz5kDd6F
-	gT1Ikzn8=
-X-Gm-Gg: AYBFou2hO3Lc4uxKNcso+hoS+IzfambX6wKTUl3O5oIPueWP/fJ7B5ZNnVo0W9BGXg+
-	rWkMz/O6j+S24nOJZp4zxkfO+AOSZGdO8fJ3eMNV9wj8ABt3uRMe8SJa3xrBJhHVNP6HXpAZdSY
-	tLdElKrvk6ZkGz9QMRPEmEC2hW8tTVOSNv7c/ZhytZV4CLJkTfaCTMfRZsdtfuBrG/3vik9REhc
-	hNB/CERvrKtX6iR4CkrU/bh0B3kpdOQmTR3pnOkWeH4VIqQ5CuEZNNLteD+OVFkbl/k7domaG9P
-	6C2wSAcKAIPqmY7TH+cBpmaCvJ45qX9f3z23JbhpQMQlNzJ4tndcc8WcyHGU4wELeJQ9uMIN3Wd
-	kJ2Ga6ATX4H7TGYOQpgddFFIzGsEXnagw/NH7t80BuYTo8xium26P2orvxcvfervxw5ULVgmM3G
-	6QZ53nLV+YDCR73FMUCw2PbzWhDe0I94s3kDrwulsdsEHae+Ag9mpJI4ac+3WruiijrPLlaXk=
-X-Received: by 2002:a05:693c:65d1:b0:34a:e7ba:863c with SMTP id 5a478bee46e88-34ae7ba888bmr853763eec.18.1790629509296;
-        Mon, 28 Sep 2026 14:05:09 -0700 (PDT)
-Received: from localhost ([50.145.100.174])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3433628f5basm22264934eec.18.2026.09.28.14.05.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 28 Sep 2026 14:05:08 -0700 (PDT)
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1790629558; x=1822165558;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=tNvKZbvCsCLtftmndSEfAYbnBNeVdMmjscu91WBu6mY=;
+  b=ky1E9bM5d17K+Xmau6PkP8Ti5VJDP5xatiR+mAVj+DW/J2hpcL2SeAw0
+   QI2xyImbNllu5DZAPedwIbU1U0OO11VIhMTZVcL5btycrqGRXi0IZeunf
+   ObWRYFLCB0A2D1nys92S3UMqQHahyZS28k7i+ctodjmhHiJ7rAnwUPi4K
+   /deicXgMn3lh0nTAEEgWHAo7A+nJrWAWnde5x7GC6qXfh77txfvkfax/d
+   oPpLwv4/0lyAq/VFNt5nZiKKwirZqxfVx87KXKxYQUMyCul2gQq5K0RvE
+   SRdYP+4P/G7Sb8Pbe+euKwSUJd6V0HbqedYaOXmD31hfOX4k8XpfJvEjc
+   Q==;
+X-CSE-ConnectionGUID: 5pmLN4V2R+G43Ca+EuE9Fw==
+X-CSE-MsgGUID: qj+ylq7qRTGk3cBUw90ouQ==
+X-IronPort-AV: E=Sophos;i="6.27,129,1787011200"; 
+   d="scan'208";a="29899893"
+Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
+  by internal-pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 21:05:58 +0000
+Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.111:10223]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.40.18:2525] with esmtp (Farcaster)
+ id 106b90de-cb53-4848-b400-37e7ebe7ecb4; Mon, 28 Sep 2026 21:05:57 +0000 (UTC)
+X-Farcaster-Flow-ID: 106b90de-cb53-4848-b400-37e7ebe7ecb4
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Mon, 28 Sep 2026 21:05:57 +0000
+Received: from dev-dsk-hagan-1f-c6b5e25f.us-east-1.amazon.com (172.19.159.5)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Mon, 28 Sep 2026 21:05:56 +0000
+From: "Craig I. Hagan" <hagan@amazon.com>
+To: Tony Nguyen <anthony.l.nguyen@intel.com>, Przemek Kitszel
+	<przemyslaw.kitszel@intel.com>
+CC: Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	<intel-wired-lan@lists.osuosl.org>, <netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, Fabio Sabai
+	<sabfabio@amazon.com>, Matt Vollrath <tactii@gmail.com>
+Subject: [PATCH iwl-net v3] e1000e: restore jumbo config after DMoff exit
+Date: Mon, 28 Sep 2026 21:05:52 +0000
+Message-ID: <20260928210552.13266-1-hagan@amazon.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <b6db5335-cb5c-4a91-b823-1a114fce75a1@gmail.com>
+References: <b6db5335-cb5c-4a91-b823-1a114fce75a1@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 28 Sep 2026 14:05:07 -0700
-Message-Id: <DLR96NR3FB79.2NSK3I6JR8RJO@nexthop.ai>
-Subject: Re: [PATCH] of/overlay: don't pass the changeset's own id to
- of_overlay_remove()
-From: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
-To: "Rob Herring" <robh@kernel.org>, "Abdurrahman Hussain"
- <abdurrahman@nexthop.ai>
-Cc: "Saravana Kannan" <saravanak@kernel.org>, "Frank Rowand"
- <frowand.list@gmail.com>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, "Sashiko AI" <sashiko-bot@kernel.org>,
- <stable@vger.kernel.org>
-X-Mailer: aerc 0.22.0
-References: <20260917-b4-of-overlay-remove-all-fix-v1-1-920441cecae2@nexthop.ai> <20260928182658.GA185307-robh@kernel.org>
-In-Reply-To: <20260928182658.GA185307-robh@kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D037UWC003.ant.amazon.com (10.13.139.231) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On Mon Sep 28, 2026 at 11:26 AM PDT, Rob Herring wrote:
-> On Thu, Sep 17, 2026 at 07:28:16PM -0700, Abdurrahman Hussain wrote:
->> of_overlay_remove_all() passes &ovcs->id to of_overlay_remove(), which
->> zeroes *ovcs_id once the changeset is reverted, before calling
->> free_overlay_changeset(). Through the aliased pointer that zeroes
->> ovcs->id itself, so free_overlay_changeset()'s "ovcs->id > 0" guard
->> is false and both idr_remove() and list_del() are skipped: the
->> overlay_changeset is kfree()d while still linked in ovcs_list and
->> registered in ovcs_idr.
->>
->> Every overlay removed through of_overlay_remove_all() thus leaves a
->> dangling list node and idr entry behind. The next ovcs_list iteration
->> or idr lookup walks freed memory, and the ids are never returned to
->> the idr. Nothing in-tree calls of_overlay_remove_all() today, but it
->> is the documented API for removing every overlay in one go
->> (Documentation/devicetree/overlay-notes.rst), so any module user hits
->> this deterministically.
->>
->> Pass a local copy of the id, like every other of_overlay_remove()
->> caller does.
->
-> If every caller passes a local and updating the value is not needed,
-> then we should just update the API to pass the value rather than a
-> reference.
->
+On an I219 (pch_spt+) at jumbo MTU, after a link partner reset (e.g. a
+switch reboot) the interface can come back up unable to pass traffic until
+it is manually reset. Observed on I219-LM (8086:15b7) at MTU 9000.
 
-The value is used, just not by much. of_overlay_remove() zeroes
-*ovcs_id only once the changeset is really reverted, and unittest.c
-leans on that: overlay_18 injects a pre-remove notifier error and
-checks ovcs_id survives the -EXDEV, overlay_19 injects a post-remove
-error and checks ovcs_id got zeroed. The return code says the same
-thing, so by value I'd drop those two checks and keep the ret ones.
+When the MAC exits the DMoff state on link-up, the watchdog resets only
+the PHY. A bare PHY reset does not re-run the jumbo-frame workaround
+(e1000_lv_jumbo_workaround_ich8lan), so the jumbo configuration is left
+unapplied and traffic stalls. This was seen with NIC runtime PM disabled;
+if runtime PM were enabled, the device should go through a full reset on
+resume, avoiding this issue.
 
-The zeroing is also the double-remove guard, via "if (*ovcs_id =3D=3D 0)
-return 0;". lan966x_pci keeps the id in data->ovcs_id and
-of_overlay_fdt_apply_kunit() removes from a kunit exit action, so both
-would have to clear their own copy or start getting -ENODEV and a
-pr_err() on a second call. Easy enough, but it's a behaviour change,
-not just a signature change.
+Request a full reset (FLAG_RESTART_NOW) instead of the bare PHY reset when
+the MAC exits DMoff, so the normal reset path re-applies the jumbo-frame
+configuration.
 
-> Additionally, if there are no callers we should perhaps just remove the
-> API.
+Fixes: def4ec6dce39 ("e1000e: PCIm function state support")
+Cc: stable@vger.kernel.org
+Reported-by: Fabio Sabai <sabfabio@amazon.com>
+Closes: https://github.com/systemd/systemd/issues/25925
+Suggested-by: Matt Vollrath <tactii@gmail.com>
+Reviewed-by: Matt Vollrath <tactii@gmail.com>
+Tested-by: Matt Vollrath <tactii@gmail.com>
+Assisted-by: LLM
+Signed-off-by: Craig I. Hagan <hagan@amazon.com>
+---
+v3: Correct the Fixes: tag to def4ec6dce39 ("e1000e: PCIm function
+    state support"), which introduced the DMoff-exit bare PHY reset;
+    2e7256f12cdb only added a pre-condition. This lets stable reach
+    the affected trees (v5.3+, including 5.4/5.10). Add Reviewed-by/
+    Tested-by from Matt Vollrath.
+v2: Rework per review: request a full reset on DMoff exit so the
+    jumbo-frame workaround is re-applied (root cause identified by
+    Matt Vollrath); drop the diagnostic e_info. v1:
+    https://lore.kernel.org/netdev/20260923235832.473-1-hagan@amazon.com/
 
-No in-tree callers, yes. It's the EXPORT_SYMBOL_GPL(), a paragraph in
-overlay-notes.rst and the same paragraph in the zh_CN translation.
+ drivers/net/ethernet/intel/e1000e/netdev.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-If it goes, the bug here is unreachable and the patch is pointless, so:
+diff --git a/drivers/net/ethernet/intel/e1000e/netdev.c b/drivers/net/ethernet/intel/e1000e/netdev.c
+index 844f31ab3..df7da86a8 100644
+--- a/drivers/net/ethernet/intel/e1000e/netdev.c
++++ b/drivers/net/ethernet/intel/e1000e/netdev.c
+@@ -5264,9 +5264,11 @@ static void e1000_watchdog_task(struct work_struct *work)
+ 					usleep_range(10000, 20000);
+ 					pcim_state = er32(STATUS);
+ 
+-					/* Checking if MAC exited DMoff state */
+-					if (!(pcim_state & E1000_STATUS_PCIM_STATE))
+-						e1000_phy_hw_reset(&adapter->hw);
++					/* MAC exited DMoff; do a full reset. */
++					if (!(pcim_state & E1000_STATUS_PCIM_STATE)) {
++						adapter->flags |= FLAG_RESTART_NOW;
++						goto link_up;
++					}
+ 				}
+ 			}
+ 
+-- 
+2.47.3
 
-  1. just remove of_overlay_remove_all() and drop this patch, or
-  2. this one-liner first (only piece that can go to stable), then the
-     removal, then the by-value conversion.
-
-Which do you want? I'll send 1 unless you think the backport is worth
-having.
-
-Abdurrahman
