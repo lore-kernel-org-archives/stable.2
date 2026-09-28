@@ -1,151 +1,123 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B6572367D3;
-	Mon, 28 Sep 2026 12:24:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73A75364E9E;
+	Mon, 28 Sep 2026 12:24:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790598286; cv=none; b=mD1sj3R185Zy0yttTqouTo0kg1onJ9CA8hsCoyNH2O3hbPWq/GUeV6ixefl7JIUs1wqfMi1a/C51VaOjP3cRgF3Q9rM899p/MgZUaiJfK0hpmUVBNdcqjSwoim4NoQqCHhHNHOh156z4Xl51TeRxe6tbHNw5aYh16aQocAAY26k=
+	t=1790598294; cv=none; b=bKY4ONGx4Et205JyVcl01HNiQE3FO7QpdVVfi0s4mrF29qSrNTYyrNoFJZClid5P9OIjOtrozr7gDokEgAu2vJP/IQP20VQykFLPhKDVoKvn6irj3OQ3oZmDWFbT94tmglzEl3Fv0j1Sr9ZuITP/OU9g7SdCRN4/xkJhOe2bM/g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790598286; c=relaxed/simple;
-	bh=uc0MUoMdSLJvuhnF56W9Xx19TzgaS8/1c8xXbOdAJBw=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KC8DV49oppeRXtiDL7JOTLV6T8vfKaSrzXOhH2bWozr+0MYBa5j6/ViAhidxevjj68KVq/HYNR7bnWMlaGTmxgZdkmETDsoP8VEc+vZ7TLrXlNXABLVd+okrfp9/91Ln+hDpwQ1NoVvIhtWdP+t/lC201YZR2mSVujYAinxLJpE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=2DPSZgrz; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=u+II5QUa; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=0PvowrnK; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Lx3oLs7F; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1790598294; c=relaxed/simple;
+	bh=4ovbDUsZ9LUqVK5e2/PLj0fDDC6fZoSvBhWUl/P+DLQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DxRprUZS6mHJpHmE2qRF4U5TEARsZkNBXo1hmDM3plgsxdyT0ws7Am9lyoPl/LhkmR0zG75BzH7LBidBjcDerybjfJ727vUAB4qs+VS16pLRezAV3WrwRvI1FKoPDavwTWKpu1uQIpGyWAHErxZpK3TXAQ1hnZ40pAr48wvVKzo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=LANcxJMc; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="2DPSZgrz";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="u+II5QUa";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="0PvowrnK";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Lx3oLs7F"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id F0AB922321;
-	Mon, 28 Sep 2026 12:24:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790598273; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oRwtQFoB2U+SnHxyYWXDVJjVDPN/fHCTdL2H6npSTe4=;
-	b=2DPSZgrzkbxlaqi2J4LNNXlZBcsHX3BUmZlel9+KGgzozpXrVLNxChCtTP4LjMnBejaiUF
-	iwexwZ51FPviSEY81PLcLvIWzQwYr6x5ToiEj8nTQgNAjwxPcC6Q6JQLgdztuIeW1px77N
-	Af64rKFvacShsDWR0R6uIC6l3WEeVRk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790598273;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oRwtQFoB2U+SnHxyYWXDVJjVDPN/fHCTdL2H6npSTe4=;
-	b=u+II5QUaJrbK1hbbMDW8ErhnJpucilOd5T5lmPqcSoNFX8qTRT/6G3H7Q9kiZSNRPvRkYx
-	lvRAfHGtH4w/KTAw==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=0PvowrnK;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Lx3oLs7F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790598269; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oRwtQFoB2U+SnHxyYWXDVJjVDPN/fHCTdL2H6npSTe4=;
-	b=0PvowrnKdlAekA9E+5hYEq399qN9nvWTWqJ0Usd2m2p1w+UoilMyKeheNVh3+bgY6zDiP2
-	kgk5JeHuxmhSj4Nz0ycb8nYEEuLs2mDowbOSiiTyXSrqRyGp8VdV+0uCz6w2Xe/ygrJ1Vb
-	fII0Pqg26nUQDgnMre8CYBjJJ8O59AI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790598269;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oRwtQFoB2U+SnHxyYWXDVJjVDPN/fHCTdL2H6npSTe4=;
-	b=Lx3oLs7FRGq75a3/fibx7JxP6sQQj34/htGmQd5MlxqSjnZ+dcGJ8qGWd26TfEyNErbVhM
-	KOMLY1ZcmLsZ+qDA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7670A133F1;
-	Mon, 28 Sep 2026 12:24:28 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Ikp7EnxcumoKdgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 28 Sep 2026 12:24:28 +0000
-Date: Mon, 28 Sep 2026 14:24:27 +0200
-Message-ID: <87jyo55zt0.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: Re: [PATCH] ALSA: mpu401: shut down timer before freeing MPU
-In-Reply-To: <20260927093809.681726-1-runyu.xiao@seu.edu.cn>
-References: <20260927093809.681726-1-runyu.xiao@seu.edu.cn>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="LANcxJMc"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 5197E8FD;
+	Mon, 28 Sep 2026 14:23:01 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790598181;
+	bh=4ovbDUsZ9LUqVK5e2/PLj0fDDC6fZoSvBhWUl/P+DLQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=LANcxJMcRYDjix8dLB/j0nrbBRgD5P27HY88j+jDO8/Fm/9J3Z3tiQ9OdHW5MNGFA
+	 Ksq4V1eVnBM+zfaMa+Ck6nzWbZ0CKQaiXuGVcmV7qtcQdSZG11a9YPy42+SrBmBh77
+	 3RmZ0bDuOZ3oZebppIOgjYWQB/w7JqbWk/vhAYgc=
+Date: Mon, 28 Sep 2026 15:24:50 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Ricardo Ribalda <ribalda@chromium.org>
+Cc: Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@skynet.be>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] media: uvcvideo: Fix bounds for descriptor parsing
+Message-ID: <20260928122450.GA166131@killaraus.ideasonboard.com>
+References: <20260911-uvc-ctrl-bound-v1-1-7b5cfc68bae1@chromium.org>
+ <20260928120252.GB4406@killaraus.ideasonboard.com>
+ <CANiDSCv5pd-3aO0Eb1-rvsAOGNpB4rhpjtnTosU6Ca+xBxN1qQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Score: -3.51
-X-Rspamd-Queue-Id: F0AB922321
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.51 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	ARC_NA(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,seu.edu.cn:email]
-X-Spam-Flag: NO
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CANiDSCv5pd-3aO0Eb1-rvsAOGNpB4rhpjtnTosU6Ca+xBxN1qQ@mail.gmail.com>
 
-On Sun, 27 Sep 2026 11:38:09 +0200,
-Runyu Xiao wrote:
+On Mon, Sep 28, 2026 at 02:10:26PM +0200, Ricardo Ribalda wrote:
+> On Mon, 28 Sept 2026 at 14:02, Laurent Pinchart wrote:
+> > On Fri, Sep 11, 2026 at 01:23:50PM +0000, Ricardo Ribalda wrote:
+> > > uvc_parse_control() passes descriptor by descriptor to
+> > > uvc_parse_standard_control() with the number of bytes remaining in the
+> > > buffer, not the number of bytes of that descriptor.
+> > >
+> > > Because of this, malformed descriptors could leak over the next
+> > > descriptor, leaving malformed data in our structures.
+> >
+> > What issue does this fix in practice ?
 > 
-> When an MPU401 interface has no usable IRQ, the driver polls raw-MIDI
-> input and output with a timer. During raw-MIDI teardown, the timer callback
-> can already be running when snd_mpu401_uart_remove_timer() clears the last
-> mode bit and calls timer_delete(). That API neither waits for a running
-> callback nor prevents it from rearming the timer, and free_irq() does not
-> synchronize timer callbacks. snd_mpu401_uart_free() can therefore release
-> mpu while the timer callback still uses it.
+> Look into uvc_parse_standard_control().
+> Let's take the UVC_VC_HEADER
 > 
-> Initialize the timer once when the MPU object is created and only rearm it
-> while a timer mode is active. Shut it down synchronously after freeing the
-> IRQ so an in-flight callback completes before mpu and its resources are
-> released.
+> Imagine we have a malformed control at the beginning of the descriptor that has:
 > 
+> buffer[0] = 3
+> buffer[2] = UVC_VC_HEADER
+> buffer[3] => Beggining of next control
 > 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+> With the current code, buffer[3...X] is parsed as UVC_VC_HEADER.
+> 
+> What does it fix in practice? It avoids that data outside the controls
+> is parsed as part of the control.
 
-Applied to for-next branch.  Thanks.
+I understand that, but what does it fix in practice ? And have you
+encountered a device that exhibits such a problem ?
 
+> > > Change the code so we pass the actual length of the descriptor to the
+> > > parser.
+> > >
+> > > Note that this makes the existing check more strict and some devices
+> > > that are wrongly parsed today will not be probed now.
+> > >
+> > > Cc: stable@vger.kernel.org
+> > > Fixes: c0efd232929c ("V4L/DVB (8145a): USB Video Class driver")
+> > > Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+> > > ---
+> > >  drivers/media/usb/uvc/uvc_driver.c | 7 +++++--
+> > >  1 file changed, 5 insertions(+), 2 deletions(-)
+> > >
+> > > diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+> > > index e289cc71ba98..429f1ab19a2a 100644
+> > > --- a/drivers/media/usb/uvc/uvc_driver.c
+> > > +++ b/drivers/media/usb/uvc/uvc_driver.c
+> > > @@ -1248,11 +1248,14 @@ static int uvc_parse_control(struct uvc_device *dev)
+> > >        */
+> > >
+> > >       while (buflen > 2) {
+> > > -             if (uvc_parse_vendor_control(dev, buffer, buflen) ||
+> > > +             if (buflen < buffer[0] || buffer[0] < 3)
+> > > +                     return -EINVAL;
+> > > +
+> > > +             if (uvc_parse_vendor_control(dev, buffer, buffer[0]) ||
+> > >                   buffer[1] != USB_DT_CS_INTERFACE)
+> > >                       goto next_descriptor;
+> > >
+> > > -             ret = uvc_parse_standard_control(dev, buffer, buflen);
+> > > +             ret = uvc_parse_standard_control(dev, buffer, buffer[0]);
+> > >               if (ret < 0)
+> > >                       return ret;
+> > >
+> > >
+> > > ---
+> > > base-commit: 27953c044974baf7e24dee3e9342fe0103dea80c
+> > > change-id: 20260911-uvc-ctrl-bound-9c1940f06fc7
 
-Takashi
+-- 
+Regards,
+
+Laurent Pinchart
