@@ -1,145 +1,105 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f42.google.com (mail-dl2-f42.google.com [74.125.229.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BF914D599E;
-	Mon, 28 Sep 2026 14:15:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 028974DE72F
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 14:31:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790604920; cv=none; b=cTvntvnoNAgcJAKQ8Y0USHDuyKktd0pm9LLUY+bqO2MUFFRAZor1sE8lcm4oiAQoo8wFjNzIQtou9WXwenqqnc1i7fPrBetxjW7fdnTWQLX21nqOeSWuBlUhKU6u6P0BEeLYbqzUbmYD3689bkKsOk7c9IM3nUM2z4nU6OsMgvc=
+	t=1790605890; cv=none; b=UzgX12+AXm7m5HCHsqY60s74wr57E9abhCoz/BNdFyJsLIz8Rn53hTYMjCGQUvrQmNAQxll+Yla68rNK32Y07eiOrc0CASPqfEzR5K/YHHkYz4OFUjOn71XsVc/3XLcDnojc0hrxD8duEAkrs8zg55Ljf5uzqLhi9HdJDnJbA0s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790604920; c=relaxed/simple;
-	bh=sNGhPL/BkYrHIBtMiL3IlNg9RUcfbK/9dzPLjSy+4LI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XqDm61k4McE8pKmNQNXp75tbZs9pew2Fw/NNdAolKlbw8Rs4ZzYD3C8qteh3/jHGUbF4V+KAN0kbJbLx1SFwpquiB83A31ViS3XoCFSJssG9dj38g0CLZMfWVu78kYpFtPlbsnyE9l8jN4c3BPu444TutEhA2w4y5ZQtNgoSJWs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mSKt3AyN; arc=none smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790605890; c=relaxed/simple;
+	bh=ttRLp5uZBBXIDZVrjCp1/B/OT2B3HDt+3d9o6TVjSxE=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=TG233MsHmsVuy7W1Zr/a9UAt/vYasJZDn6fJqS3fC2IESe7hv35w1cxVAX/VJVcwz5OuAyiEHwWGrGoRoBS/o7//lVT3uh2XQy7pK52jJaiWCvD6elX2YSuzSaaPpE79LiDGyT1pd9vEHMOqKoIcw1u7AHnJ3BYwdxIk4yRK8tE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=cCvfrCMW; arc=none smtp.client-ip=74.125.229.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mSKt3AyN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790604919; x=1822140919;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=sNGhPL/BkYrHIBtMiL3IlNg9RUcfbK/9dzPLjSy+4LI=;
-  b=mSKt3AyN1KYH6i2x1jyGsXsMOb5d8ioL5o4xOCUKbcqIMGa1Jye+KsPR
-   s53z2MdpGcTclhU2rrWh/w6jFZqzEBNBptcUCmbteunpseXr8ZmAh4SVX
-   RZ+czCV5nW4Ic1IG+Bi1CWQv84TAqj6fxpADLlm+6xoDIfjin4A1a81l6
-   yuMKenB7F5dQlvWprhdZiEyOmKck61Gf/u/2+LlmgxHlOVvDw34z3Aybi
-   YyS191AW709HVZdxUXpGEWF6UKKbzM5ieLhl6Hvf6D0wXg5u7ygJh8hg8
-   k6QcBjatF59JQPt11NCXlRnNOtV26llPodhGrJK+dhjoDearxQGxNbDBm
-   A==;
-X-CSE-ConnectionGUID: /nKmFZ2XTRC8wDkI5vwvLg==
-X-CSE-MsgGUID: TTHRAgZSR8ymXoGaC6XpPg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="100637662"
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="100637662"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 07:15:18 -0700
-X-CSE-ConnectionGUID: r7LjRJF3RLeWL+cE9ECceA==
-X-CSE-MsgGUID: 2b49oJs6Tw69bZQeBSldAw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="278425331"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa004.jf.intel.com with ESMTP; 28 Sep 2026 07:15:16 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 3784699; Mon, 28 Sep 2026 16:15:14 +0200 (CEST)
-Date: Mon, 28 Sep 2026 16:15:14 +0200
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: pip-izony <eeodqql09@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Saranya Gopal <saranya.gopal@intel.com>,
-	Rajaram Regupathy <rajaram.regupathy@intel.com>,
-	Benson Leung <bleung@chromium.org>,
-	Andrei Kuchynski <akuchynski@chromium.org>,
-	Jameson Thies <jthies@google.com>,
-	Kyungtae Kim <Kyungtae.Kim@dartmouth.edu>,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] usb: typec: ucsi: limit the PDO count to the number of
- PDOs requested
-Message-ID: <arp2cstT7184pH66@black.igk.intel.com>
-References: <20260927214904.447250-2-eeodqql09@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="cCvfrCMW"
+Received: by mail-dl2-f42.google.com with SMTP id a92af1059eb24-144d60be6b0so1735469c88.0
+        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 07:31:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1790605881; x=1791210681; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XjEI2w0L+wVlxSuDV0P7eMrDPKELPiH3pO+YDTZIuR4=;
+        b=cCvfrCMWtzK/r95NE2TdZLDL9vVOGEUnR0e/8U5i4KeiN9qic5XMPyQA2oZrDwELoo
+         jdScsgI90nEkv8qdf4BP4GSojsHdp1HR282ON1+rHX5hI9F9Qfye0w3tpIRexndB74g8
+         wjh0aDhHc9tyMmeOHrX/+Y7igxtEB35viPE+KQ1feQNi+6Xnshrdf4Wy5EUt9my17H1+
+         q9BPGCcIMP3G2w06R/na71/tHnXysv1lvwf7b00k/htmjGXXPl/1AimDafAgUw7bR9Q7
+         Cf+G+zVY5Q5ltsBzaqhDga6swiqa7DohJEjbBE8/TYWxjPP5MDt9mLF14YI8awWygDhX
+         dxsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790605881; x=1791210681;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XjEI2w0L+wVlxSuDV0P7eMrDPKELPiH3pO+YDTZIuR4=;
+        b=XYHJN32W/6ztBkBw63X5ZoMpt6vlmCI85/AIwml+RHb7Jsz/RTPL6ngEHF7/oX/81S
+         9rA5kgYDCiRUf+KagIgbrcLra+JACbHec8gy778ziNmwY3gm3BgK+NiIXLgPpGr3NCTN
+         /Bew2GH+qEhyQCSSnZHfZsPMdWmpohl9NrSpM5xw/82MqyY5xcHU1FbtjYSDw6zNuiwc
+         BzNr2gUmtTSBfFtQ0Sha9caJ40gY7i8+BHR8g0oO6Pot9EAYD5kZVAsAAUgvzxzPdjKw
+         QCCXmygYxd5fDBunrhPGIua9vKu0rTGqFcGmb+6oq1uAw+4wlwRd2XGL2Y7Is+0en5GE
+         /0sQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzOIkI2+FAdT7dqFtIwlQAupLZzbkQk5XpsLYei5QHPM+ZeXBcisH0TslPuF3CgxlOdypGq+gg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lgPyNF1VrBo7ehFHr5eBtdyu/hQ5fhpFZzDw+ee8GF1MrPCmtp
+	Oa/YCEdMPpcdeG/fU+e01I1KoLV8VkWkKCm6Q/Aytybb5Xi2hK87OHsf8mu0UWcjkXo=
+X-Gm-Gg: AYBFou2iNTfRDUtzxq9npAvOYOD6TeN8mKN5cVt8L7FH/qvE4vEjJ60OeUCDvj2gqVT
+	h6k2tjO+B6FfaMJsroz6QjQEzep1oq439HNTz+W8uJRVGYWhKGvHVLXE+zE0WfCNWaXG/NGqYfl
+	AmhLH4SGYtodRbV75nn/1ThpnHf0BvjX8/SBuyaFxcPnTOA5ZtcoWQXt/Peay2TZHdwPI/EON9y
+	ZyiIAJiD9iBy3PGtQIlu0v6oTeQZmAt6GHc2H9ab0PjADU80uhtby48ypLXjQAttrERrS3n5fFc
+	ocNnUScPVdof9554ElwakuuGiP2cbgXisopPQKYfBh79G/WuFBE2Ta0yXn2LlybiUX+BXeCenYR
+	RsJSV96NC7o4YLfvasXHFHOEd8sQfcsFMQg5UenkJEBnFuAO0vzdeP8Ygq+AAFrt4d9Wtiaq+w0
+	qoUn5zUAJhvkTKhfH/fCcS/6BeEOgn1TJj6ZE+mcJsESrrIDUjjIikXu/RI/Cyf8baDcyK/rxzq
+	VwPNDvUVuJQep6i/BvADyMEkPsCTL7gXI/tzgVVxK+VMBPYZ7wT4v3J0g==
+X-Received: by 2002:a05:7022:6889:b0:141:517e:52ef with SMTP id a92af1059eb24-146ce492c9fmr13591875c88.17.1790605881108;
+        Mon, 28 Sep 2026 07:31:21 -0700 (PDT)
+Received: from [192.168.1.106] ([198.8.77.135])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145ad9e097fsm28616577c88.13.2026.09.28.07.31.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 07:31:20 -0700 (PDT)
+From: Jens Axboe <axboe@kernel.dk>
+To: asml.silence@gmail.com, Junyuan Feng <a@lollipopkit.com>
+Cc: dw@davidwei.uk, io-uring@vger.kernel.org, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <010001a0cd914529-23df2f94-bbe0-49cd-ae5d-05922356fa12-000000@email.amazonses.com>
+References: <010001a0cd914529-23df2f94-bbe0-49cd-ae5d-05922356fa12-000000@email.amazonses.com>
+Subject: Re: [PATCH] io_uring/zcrx: requeue multishot receives stopped by a
+ local resource
+Message-Id: <179060587969.984285.7352315513863005103.b4-ty@b4>
+Date: Mon, 28 Sep 2026 08:31:19 -0600
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260927214904.447250-2-eeodqql09@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 
-On Sun, Sep 27, 2026 at 05:49:05PM -0400, pip-izony wrote:
-> From: Seungjin Bae <eeodqql09@gmail.com>
-> 
-> In ucsi_get_pdos(), the number of PDOs is derived from the data length
-> reported in the CCI register, which is provided by the PPM firmware.
-> 
-> The function requests at most UCSI_MAX_PDOS PDOs on the first read and
-> PDO_MAX_OBJECTS - UCSI_MAX_PDOS on the second, and ucsi_send_command()
-> only copies that many bytes into the buffer. However, the returned
-> length is taken from the 8 bit CCI data length field and is not bounded
-> by the size of the request.
-> 
-> If a malicious PPM reports a larger length, e.g. 0xFF, each
-> read is counted as 63 PDOs and ucsi_get_pdos() returns up to 126, beyond
-> PDO_MAX_OBJECTS and the number of PDOs actually read.
-> 
-> ucsi_get_src_pdos() stores this value in con->num_pdos, and
-> ucsi_psy_get_voltage_max() and ucsi_psy_get_current_max() use it to
-> index con->src_pdos[con->num_pdos - 1], resulting in an out-of-bounds
-> read. This happens without any userspace action, since
-> ucsi_get_src_pdos() calls ucsi_port_psy_changed() and the resulting
-> uevent reads every property.
-> 
-> Fix this by limiting the count of each read to the number of PDOs
-> requested, so that the returned value always matches the buffer
-> contents and never exceeds PDO_MAX_OBJECTS.
 
-I'm not going to accept any more changes like this that silently "fix"
-real or hypothetical firmware issues.
-
-In stead of doing that, make the code print a big fat error message
-informing the user that the FW/PPM sucks in the system, and then
-return a failure from the function.
-
-Thanks,
-
-> Fixes: b04e1747fbcc ("usb: typec: ucsi: Register USB Power Delivery Capabilities")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Seungjin Bae <eeodqql09@gmail.com>
-> ---
->  drivers/usb/typec/ucsi/ucsi.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
+On Wed, 23 Sep 2026 09:20:44 +0000, Junyuan Feng wrote:
+> A multishot RECV_ZC can go idle with unread TCP data when a receiver-local
+> resource runs out. An empty copy-fallback niov freelist returns -ENOMEM;
+> a full CQ returns -ENOSPC. After partial progress the stop reason is
+> lost: io_zcrx_copy_chunk() and io_zcrx_recv_skb() report the copied
+> bytes, and tcp_read_sock() drops an error from a later call once earlier
+> data was consumed. The edge-triggered request is then not requeued, so
+> it cannot consume the remaining data until another socket event arrives.
 > 
-> diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
-> index bef3f9b71d71..639f99f49ff9 100644
-> --- a/drivers/usb/typec/ucsi/ucsi.c
-> +++ b/drivers/usb/typec/ucsi/ucsi.c
-> @@ -898,7 +898,8 @@ static int ucsi_get_pdos(struct ucsi_connector *con, enum typec_role role,
->  	if (ret < 0)
->  		return ret;
->  
-> -	num_pdos = ret / sizeof(u32); /* number of bytes to 32-bit PDOs */
-> +	/* The PPM may report more data than was requested */
-> +	num_pdos = min_t(u8, ret / sizeof(u32), UCSI_MAX_PDOS);
->  	if (num_pdos < UCSI_MAX_PDOS)
->  		return num_pdos;
->  
-> @@ -908,7 +909,8 @@ static int ucsi_get_pdos(struct ucsi_connector *con, enum typec_role role,
->  	if (ret < 0)
->  		return ret;
->  
-> -	return ret / sizeof(u32) + num_pdos;
-> +	return min_t(u8, ret / sizeof(u32),
-> +		     PDO_MAX_OBJECTS - UCSI_MAX_PDOS) + num_pdos;
->  }
->  
->  static int ucsi_get_src_pdos(struct ucsi_connector *con)
-> -- 
-> 2.43.0
+> [...]
 
+Applied, thanks!
+
+[1/1] io_uring/zcrx: requeue multishot receives stopped by a local resource
+      commit: 98ad5b63f5041dc354a6e694f4a9436f74e0681b
+
+Best regards,
 -- 
-heikki
+Jens Axboe
+
+
+
