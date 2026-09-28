@@ -1,78 +1,78 @@
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.50])
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 834283A3E9A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB3494D7D2B;
 	Mon, 28 Sep 2026 17:31:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.50
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.51
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790616679; cv=pass; b=ri9AhzqMeVsvTFfys4IxBSbcGKFvm8fMReSh/nICE1/QFL9i8pxi9lZ1zTjf2/sETHipR12M13AYNNrpcZTW4lGBodsLhLkfDlFu/F2FhOxZzq0p9kGEwh//y+gbjQur+oyo/bthZ7XSGAbTTrTGUaqizpm8fiKTYdE8qTigE30=
+	t=1790616679; cv=pass; b=N0px9p9iImrdC+QzrkIontu6CPm3K748Il7hfAxJSFCeaKtJHhIrpYaRCK901i87+ZUtttQL/DzDB8JXdfQpcX0uKcbx++NSFBSgjsc1pewuqD/8K03hrC+0/m2clIGJfvWjVS+kvmbSjkER/U7lEABcC4VEwoLMNfFT3+/DHD0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790616679; c=relaxed/simple;
-	bh=R59KFAtskgMCpeDUJXUtTC3mWc4O99QMiIUVOgCV0sA=;
+	bh=8WyFQwEk2K3TlVtBzp/Ne5hy3KfpHWvSgc0QguESeg4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bNHAVLJFe9GpWqj7GtiIX+vuJqgTkHlbpZX0dtN0dwWiP5Rix9F4lAC5tk3D4DHzH0JPzUDSTvE4Xr3EcNdydY64vOWEWNatiY/gFBunffxet7DikIIbGvkS5DpzP5NzhHR/jku6KFur+54ria8UZtRJxJabLJ72K8n2dZsmitI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net; spf=fail smtp.mailfrom=hartkopp.net; dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=kDgj41MS; dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=/3Pwpgoe; arc=pass smtp.client-ip=85.215.255.50
+	 MIME-Version:Content-Type; b=aMsK0aZ/OmebzfULae/d0tr9xmvmltYSm6Ad7T/1Yxqa1lUCBoxaIdt3ttWeV9djSDuJhwPZrwwdO4erLWCb+NNPPIDPnphRuzK48V/4yQaLhyuWlNNOIX7/COrhRmY4LUnKMWn5pPMLzEqu4L4D3UjfqAWlDN5q82nbqjlNZIo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net; spf=fail smtp.mailfrom=hartkopp.net; dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=iWZDYnOd; dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=+1NteFfB; arc=pass smtp.client-ip=85.215.255.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=hartkopp.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="kDgj41MS";
-	dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="/3Pwpgoe"
-ARC-Seal: i=1; a=rsa-sha256; t=1790616673; cv=none;
+	dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="iWZDYnOd";
+	dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="+1NteFfB"
+ARC-Seal: i=1; a=rsa-sha256; t=1790616674; cv=none;
     d=strato.com; s=strato-dkim-0002;
-    b=a4XxszXyFmGrtbx3G0+LwjPY1Q67vxTU2QvN9D9hkgkG5ko9/lHe0HRNeQMr+/1AHa
-    yLd4Hvxgc7UzKJm4JqFzf2Lj4wluL5Vrbhh3z2Zt5NG4ioh3ah2f6nzD2dtWLEskRF8r
-    CTEYUX3+T95god7MasGpmuM2V6iMR0AWqlLcwIcWbe/4TDdluYqouSbrdbWwO63O+i62
-    oMwUqF7KEcayTdjYn2PXI+3y7l5zCqNUjc9VJyPnNHfk9IQWTEucRLHFOH8/X0mcNVqk
-    GWUWWP9OLirFgN6r6hy92XrAsapIy7cPn+LsIqSDUqr/5t+Trk0+jCcunq4cI/LVZsGz
-    0i0Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1790616673;
+    b=E8ZeJr+pbspz+A40FCgoJzuVSz2JY7FBiTUYS6SocrSBtdoeWGL/QzY+G7520h/UaM
+    qsfzptvPYeYW0BOgKFACPbYba2It52sPmp1dbqDpt7NrxQnEXoe80Antb0XncLvk7LbV
+    qsjtcZQzBoQL3142dINXGsd+RReqtPZbZ2dNu1L/7DxOw5gi5igbY+WZQWMKtVnH3HFR
+    tQxy5m6FREyq8wnIgzFfL85K545AEayrboTwam2PnExWp4gRCllflDpj5stvvY7QdfIT
+    BBINH9ckHmRHFg3YX/iU8qkLl3RutCRB1wD9U3TQu8ZkC0KOaDXjy4rMfkwO7NHG4d+B
+    aOyg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1790616674;
     s=strato-dkim-0002; d=strato.com;
     h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=x41+j2MXyJI/2yK/2r7PEbT8aRSrMIBRFrrZV5PPTDk=;
-    b=of8YdhkGdUVlPl9zM7KRX9XJV8SmbzwBRjDnd1fVzwpO7QgXtcWJa9ELH7Z5dDoTc6
-    f6qg9+F9l2cV+8o/eBo9KtXn2txyTLUKI6mnt63LcdA43sNiZSUi46SDwdHL42EnfKnK
-    YmXKOcYr6m42CIDY29BtZ8jKXwG7DtRWhGqEvme2AY0lWnspMs/6p/Q8/xf7VDgI/kJi
-    Py5M3ps79tV1lmM2WSq2dcBgYF0stIFcVtnJj80ub7V7Mh9L0RwTzwrh5zwDOQalOHz7
-    f07u8EiEvd88hyuqBF3m1cT25baDQD1fuhvHNbII/xtZnCnyvIY+OZGI+VUwVxaP6Zdj
-    ZOMQ==
+    bh=Y8XabUMxwTMUux2Yz4S/nCNWD8WlSIPoS7VuMAW9SfM=;
+    b=LrjTrwbxYUvkYRGRdbp1vgNiS0nipHRrWDnurel6f4mhavZwWZukQI0EXcOWj7+C06
+    mYSIWOy2W6zRDc++41sVUCQmvjNAm84+SyjpD3+ol0oajtXj7DqNa1b2roC/ISZk6c7Z
+    TbQYlfGRT8HnzMCsyMr/JkvW3NH1KIKDyKaPh1THaUt8y7AFgAd9hh0u98gTRSY8J8Hg
+    rzlCEVqbqErgV0nbtqa01cHOzDgg9+9nKgM4MoXHUKao9cdwZu+5uG9UQ6pud231qArS
+    YwjWkxTCL2Ebo2AW4M0SJT1r78u/vQA6iZiw/5CPYS/Hwt28PQnHE9hj73tisA5RA5ti
+    8gtQ==
 ARC-Authentication-Results: i=1; strato.com;
     arc=none;
     dkim=none
 X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1790616673;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1790616674;
     s=strato-dkim-0002; d=hartkopp.net;
     h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=x41+j2MXyJI/2yK/2r7PEbT8aRSrMIBRFrrZV5PPTDk=;
-    b=kDgj41MSDHvvOKRYsNRjISwXM0mh7KEgombr96XUKxl55H2huP7UNYXRE04VDxyzb2
-    49laHoC2mMIEdYBClx71b3e44hBH6XuKHZPp+jfh0no1Bb1kxr7G3/KFOYIECk0nbmyp
-    A1yNIKvZ2iOk45JriXQAUP5Y4nGCdXAM5AdlFjqVewOsiLPe48iYpt7prVI0e3zr5gJ7
-    Vu5/GpCSE/rOZXsnpL2oRuiQZtU3U6A91f+tShS2wDIvKhvXIvpuQ36RqnyAP2PSa5VZ
-    GIiJTBzuQGp0narm7yZTDLz+0tVhWh/IIJUU2/MVVax3D0b2+RezpOqkbdJge0NRsvG8
-    NhPw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1790616673;
+    bh=Y8XabUMxwTMUux2Yz4S/nCNWD8WlSIPoS7VuMAW9SfM=;
+    b=iWZDYnOdGImBYAk3WSaXyagbfzrwBVuAQjFzke/j4tApC+BQGHooQqiODa+b89EsGi
+    oSbjSEANRZf8pG0BGCjlnShuceOzHbfIj0BzFM5gds1eww5u/6z41F1f6yVlVvYueWFz
+    3W8KLrj+HX4h1XUybR+ma0N/Ks1baI/KbMfISE7XtZaHCRFhz8PdeaaJx3vIL25IMliO
+    nOPJPIF+x5Mu1joVWXlU/FL7mb2VqwViVq39YbZNYsWTdn8iqEfh8ZFzvitdiZ52GtQQ
+    Jb3LHtJsdmClCBgyav5xaZ11sT1iCy+N+xT5Z2UFEyJOoVI1lxyARb63hEmsXZkjEUD4
+    nVlw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1790616674;
     s=strato-dkim-0003; d=hartkopp.net;
     h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=x41+j2MXyJI/2yK/2r7PEbT8aRSrMIBRFrrZV5PPTDk=;
-    b=/3PwpgoeLxphOiHQ0kd7zqrzW89wMd+1EPw3h56bpCYN55FdGjgINos04TdAgmjCmG
-    umP7DicSp7+s+OHJehDg==
+    bh=Y8XabUMxwTMUux2Yz4S/nCNWD8WlSIPoS7VuMAW9SfM=;
+    b=+1NteFfBfZO3zpHiM8aeL0yK+ZYnFX+KECs/8KyxyKVD6Qy3rQYiQFgpiZJn5Z7kaO
+    4tNuYASiKIQWmtJ7amAA==
 X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjH4JKvMdQv2tTUsMrZpkO3Mw3lZ/t54cFxeEQ7s8bDup0Q=="
 Received: from vivo.lan
     by smtp.strato.de (RZmta 55.6.2 AUTH)
-    with ESMTPSA id K04b9a28SHVDOjq
+    with ESMTPSA id K04b9a28SHVEOjs
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
 	(Client did not present a certificate);
-    Mon, 28 Sep 2026 19:31:13 +0200 (CEST)
+    Mon, 28 Sep 2026 19:31:14 +0200 (CEST)
 From: Oliver Hartkopp <socketcan@hartkopp.net>
 To: linux-can@vger.kernel.org
 Cc: Oliver Hartkopp <socketcan@hartkopp.net>,
-	Norbert Szetei <norbert@doyensec.com>,
+	Joerg Willmann <joe@clnt.de>,
 	stable@vger.kernel.org
-Subject: [PATCH v2 1/3] can: remove CAN filters independent from namespace
-Date: Mon, 28 Sep 2026 19:31:03 +0200
-Message-ID: <20260928173105.51765-2-socketcan@hartkopp.net>
+Subject: [PATCH v2 3/3] can: fix unique skb identifier regression under RPS
+Date: Mon, 28 Sep 2026 19:31:05 +0200
+Message-ID: <20260928173105.51765-4-socketcan@hartkopp.net>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260928173105.51765-1-socketcan@hartkopp.net>
 References: <20260928173105.51765-1-socketcan@hartkopp.net>
@@ -85,370 +85,268 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="us-ascii"
 
-When the devices namespace is changed the socket namespace and the device
-namespace might differ. The net_eq(dev_net(dev), sock_net(sk)) check in
-the CAN protocols netdev notifiers therefore led to skipping the required
-removal of the CAN filters from the (namespace changed) CAN devices.
+Commit d4fb6514ff8e ("can: use skb hash instead of private variable in
+headroom") introduced a regression when Receive Packet Steering (RPS)
+is enabled.
 
-This patch removes the namespace equality check in the netdev notifiers for
-BCM, ISOTP and RAW sockets. Since the struct net_device pointer is globally
-unique, the notifier should always process the unregister event and remove
-the CAN filters if it matches the original socket's bound device pointer.
+When RPS is active, the network stack calculates a software hash via
+skb_get_hash() before the frame reaches the CAN subsystem. Because the
+flow dissector finds no L3/L4 headers in CAN frames, it generates a static
+software hash for every CAN packet and sets skb->sw_hash to 1.
 
-In bcm.c netdevice comparisons were performed by checking the interface
-index (bo->ifindex and op->ifindex) which is not namespace-safe either.
-Introduce tracked netdevice pointers (bo->dev and op->tx_dev) for these
-referenced devices to enable namespace-save device comparisons.
-Additional put all bo->dev accesses in bcm_notify() under lock_sock().
+Since can_set_skb_uid() originally skipped generating a unique identifier
+if skb->hash was already non-zero, it preserved this colliding RPS hash.
+If the SLAB allocator subsequently reused the same memory address for a
+different skb pointer, raw_rcv() falsely discarded the new, legitimate
+frame as a duplicate.
 
-In isotp.c the two missing can_rx_unregister() calling sites are converted
-to use dev_net(dev) instead of sock_net(sk) to get the correct namespace.
+Fix this by moving the unique identification decision logic into the CAN
+skb extension (struct can_skb_ext). Introduce a new flag CAN_EXT_UID in
+can_ext_flags to explicitly track whether a unique CAN skb identifier has
+been assigned to the frame. can_set_skb_uid() now unconditionally
+overwrites any pre-calculated network layer hashes with the unique CAN UID
+if the flag is not yet set.
 
-Fixes: 8e8cda6d737d ("can: initial support for network namespaces")
-Reported-by: Norbert Szetei <norbert@doyensec.com>
-Link: https://lore.kernel.org/linux-can/CEA6A38A-2646-4ADA-95B4-CBAE2F301A8E@doyensec.com/
+Additionally force the generation of a new CAN UID for CAN skbs routed via
+can-gw.
+
+Fixes: d4fb6514ff8e ("can: use skb hash instead of private variable in headroom")
+Reported-by: Joerg Willmann <joe@clnt.de>
+Closes: https://lore.kernel.org/linux-can/2859AD3D-C805-41A0-9036-C5E8EE152419@clnt.de/
 Cc: stable@vger.kernel.org
 Signed-off-by: Oliver Hartkopp <socketcan@hartkopp.net>
----
- net/can/bcm.c   | 100 ++++++++++++++++++++++++++++++++++++------------
- net/can/isotp.c |   7 +---
- net/can/raw.c   |   3 --
- 3 files changed, 78 insertions(+), 32 deletions(-)
 
-diff --git a/net/can/bcm.c b/net/can/bcm.c
-index 3d637a1e0ac1..cd3522ec32c0 100644
---- a/net/can/bcm.c
-+++ b/net/can/bcm.c
-@@ -128,18 +128,22 @@ struct bcm_op {
- 	struct canfd_frame sframe;
- 	struct canfd_frame last_sframe;
- 	struct sock *sk;
- 	struct net_device *rx_reg_dev;
- 	netdevice_tracker rx_reg_dev_tracker;
-+	struct net_device *tx_dev;
-+	netdevice_tracker tx_dev_tracker;
- 	spinlock_t bcm_tx_lock; /* protect tx data and timer updates */
- 	spinlock_t bcm_rx_update_lock; /* protect filter/timer data updates */
- };
+---
+v2: We need a non-zero UID for the cfecho checks in isotp.c
+    So restore the former while (!(skb->hash)) statement
+---
+ include/linux/can/core.h |  3 ++-
+ include/linux/can/skb.h  |  4 +++-
+ include/net/can.h        |  3 +++
+ net/can/af_can.c         | 29 +++++++++++++++++++----------
+ net/can/gw.c             |  3 +++
+ net/can/isotp.c          |  4 ++--
+ 6 files changed, 32 insertions(+), 14 deletions(-)
+
+diff --git a/include/linux/can/core.h b/include/linux/can/core.h
+index 3287232e3cad..5c347daaeadd 100644
+--- a/include/linux/can/core.h
++++ b/include/linux/can/core.h
+@@ -15,10 +15,11 @@
+ #define _CAN_CORE_H
  
- struct bcm_sock {
- 	struct sock sk;
- 	int bound;
- 	int ifindex;
-+	struct net_device *dev;
-+	netdevice_tracker dev_tracker;
- 	struct list_head notifier;
- 	struct list_head rx_ops;
- 	struct list_head tx_ops;
- 	unsigned long dropped_usr_msgs;
- 	struct proc_dir_entry *bcm_proc_read;
-@@ -933,10 +937,13 @@ static void bcm_free_op_work(struct work_struct *work)
- 		kfree(op->frames);
+ #include <linux/can.h>
+ #include <linux/skbuff.h>
+ #include <linux/netdevice.h>
++#include <net/can.h>
  
- 	if ((op->last_frames) && (op->last_frames != &op->last_sframe))
- 		kfree(op->last_frames);
+ #define DNAME(dev) ((dev) ? (dev)->name : "any")
  
-+	if (op->tx_dev)
-+		netdev_put(op->tx_dev, &op->tx_dev_tracker);
-+
- 	/* the last possible access to op->timer/op->thrtimer has now
- 	 * happened above via hrtimer_cancel() - op->sk is no longer
- 	 * needed by any pending timer callback, so drop our reference
- 	 */
- 	sock_put(op->sk);
-@@ -1072,10 +1079,11 @@ static int bcm_tx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
- 			int ifindex, struct sock *sk)
+ /**
+  * struct can_proto - CAN protocol structure
+@@ -56,9 +57,9 @@ extern void can_rx_unregister(struct net *net, struct net_device *dev,
+ 			      canid_t can_id, canid_t mask,
+ 			      void (*func)(struct sk_buff *, void *),
+ 			      void *data);
+ 
+ extern int can_send(struct sk_buff *skb, int loop);
+-void can_set_skb_uid(struct sk_buff *skb);
++void can_set_skb_uid(struct sk_buff *skb, struct can_skb_ext *csx);
+ void can_sock_destruct(struct sock *sk);
+ 
+ #endif /* !_CAN_CORE_H */
+diff --git a/include/linux/can/skb.h b/include/linux/can/skb.h
+index a70a02967071..ac633a049481 100644
+--- a/include/linux/can/skb.h
++++ b/include/linux/can/skb.h
+@@ -41,12 +41,14 @@ bool can_dropped_invalid_skb(struct net_device *dev, struct sk_buff *skb);
+ static inline struct can_skb_ext *can_skb_ext_add(struct sk_buff *skb)
  {
- 	struct bcm_sock *bo = bcm_sk(sk);
- 	struct bcm_op *op;
- 	struct canfd_frame *cf;
-+	struct net_device *tx_dev;
- 	bool add_op_to_list = false;
- 	unsigned int i;
- 	int err;
+ 	struct can_skb_ext *csx = skb_ext_add(skb, SKB_EXT_CAN);
  
- 	/* we need a real device to send frames */
-@@ -1103,10 +1111,26 @@ static int bcm_tx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
- 		 * therefore (complexity / locking) it is not supported.
- 		 */
- 		if (msg_head->nframes > op->nframes)
- 			return -E2BIG;
- 
-+		/* Re-resolve and re-hold the target device if a concurrent
-+		 * NETDEV_UNREGISTER already cleared it (see bcm_notify()).
-+		 * op->ifindex and sock_net(sk) is unchanged.
-+		 */
-+		if (!op->tx_dev) {
-+			tx_dev = dev_get_by_index(sock_net(sk), ifindex);
-+			if (tx_dev) {
-+				op->tx_dev = tx_dev;
-+				netdev_hold(tx_dev, &op->tx_dev_tracker,
-+					    GFP_KERNEL);
-+				dev_put(tx_dev);
-+			} else {
-+				return -ENODEV;
-+			}
-+		}
-+
- 		/* get new CAN frames content into a staging buffer before
- 		 * locking: validate and normalize the frames there so that
- 		 * bcm_can_tx() / bcm_tx_timeout_handler() never observe a
- 		 * partially updated or unvalidated frame in op->frames
- 		 */
-@@ -1169,10 +1193,22 @@ static int bcm_tx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
- 
- 		op = kzalloc(OPSIZ, GFP_KERNEL);
- 		if (!op)
- 			return -ENOMEM;
- 
-+		tx_dev = dev_get_by_index(sock_net(sk), ifindex);
-+		if (tx_dev) {
-+			op->tx_dev = tx_dev;
-+			netdev_hold(tx_dev, &op->tx_dev_tracker, GFP_KERNEL);
-+			dev_put(tx_dev);
-+		} else {
-+			/* prepare op->frames for goto free_op */
-+			op->frames = &op->sframe;
-+			err = -ENODEV;
-+			goto free_op;
-+		}
-+
- 		spin_lock_init(&op->bcm_tx_lock);
- 		op->can_id = msg_head->can_id;
- 		op->cfsiz = CFSIZ(msg_head->flags);
- 		op->flags = msg_head->flags;
- 		op->nframes = msg_head->nframes;
-@@ -1184,12 +1220,14 @@ static int bcm_tx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
- 		if (msg_head->nframes > 1) {
- 			op->frames = kmalloc_array(msg_head->nframes,
- 						   op->cfsiz,
- 						   GFP_KERNEL);
- 			if (!op->frames) {
--				kfree(op);
--				return -ENOMEM;
-+				/* prepare op->frames for goto free_op */
-+				op->frames = &op->sframe;
-+				err = -ENOMEM;
-+				goto free_op;
- 			}
- 		} else
- 			op->frames = &op->sframe;
- 
- 		for (i = 0; i < msg_head->nframes; i++) {
-@@ -1267,10 +1305,13 @@ static int bcm_tx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
- 		bcm_tx_start_timer(op);
- 
- 	return msg_head->nframes * op->cfsiz + MHSIZ;
- 
- free_op:
-+	if (op->tx_dev)
-+		netdev_put(op->tx_dev, &op->tx_dev_tracker);
-+
- 	if (op->frames != &op->sframe)
- 		kfree(op->frames);
- 	kfree(op);
- 	return err;
- }
-@@ -1790,46 +1831,47 @@ static int bcm_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
- static void bcm_notify(struct bcm_sock *bo, unsigned long msg,
- 		       struct net_device *dev)
- {
- 	struct sock *sk = &bo->sk;
- 	struct bcm_op *op;
--	int notify_enodev = 0;
-+	int sk_err = 0;
- 
--	if (!net_eq(dev_net(dev), sock_net(sk)))
--		return;
-+	lock_sock(sk);
- 
- 	switch (msg) {
- 
- 	case NETDEV_UNREGISTER:
--		lock_sock(sk);
- 
- 		/* rx_ops: remove device specific receive entries */
- 		list_for_each_entry(op, &bo->rx_ops, list) {
- 			if (op->rx_reg_dev == dev)
- 				bcm_rx_unreg(dev, op);
- 
- 			/* release an ANYDEV op's claim (see bcm_rx_handler())
- 			 * on this now confirmed-gone interface.
- 			 */
--			if (!op->ifindex) {
-+			if (!op->ifindex && net_eq(dev_net(dev), sock_net(sk))) {
- 				spin_lock_bh(&op->bcm_rx_update_lock);
- 				if (op->if_detected == dev->ifindex)
- 					op->if_detected = 0;
- 				spin_unlock_bh(&op->bcm_rx_update_lock);
- 			}
- 		}
- 
- 		/* tx_ops: stop device specific cyclic transmissions on the
--		 * vanishing ifindex. Cancelling the timer is enough to stop
-+		 * vanishing device. Cancelling the timer is enough to stop
- 		 * cyclic bcm_can_tx() calls as there is no re-arming.
- 		 */
- 		list_for_each_entry(op, &bo->tx_ops, list)
--			if (op->ifindex == dev->ifindex)
-+			if (op->tx_dev == dev) {
- 				hrtimer_cancel(&op->timer);
-+				netdev_put(op->tx_dev, &op->tx_dev_tracker);
-+				op->tx_dev = NULL;
-+			}
- 
- 		/* remove device reference, if this is our bound device */
--		if (bo->bound && bo->ifindex == dev->ifindex) {
-+		if (bo->bound && bo->dev == dev) {
- #if IS_ENABLED(CONFIG_PROC_FS)
- 			if (sock_net(sk)->can.bcmproc_dir && bo->bcm_proc_read) {
- 				remove_proc_entry(bo->procname, sock_net(sk)->can.bcmproc_dir);
- 				bo->bcm_proc_read = NULL;
- 			}
-@@ -1839,28 +1881,27 @@ static void bcm_notify(struct bcm_sock *bo, unsigned long msg,
- 			 * accessed under lock_sock() so it needs no
- 			 * annotation.
- 			 */
- 			WRITE_ONCE(bo->bound, 0);
- 			bo->ifindex = 0;
--			notify_enodev = 1;
--		}
--
--		release_sock(sk);
--
--		if (notify_enodev) {
--			sk->sk_err = ENODEV;
--			if (!sock_flag(sk, SOCK_DEAD))
--				sk_error_report(sk);
-+			netdev_put(bo->dev, &bo->dev_tracker);
-+			bo->dev = NULL;
-+			sk_err = ENODEV;
- 		}
- 		break;
- 
- 	case NETDEV_DOWN:
--		if (bo->bound && bo->ifindex == dev->ifindex) {
--			sk->sk_err = ENETDOWN;
--			if (!sock_flag(sk, SOCK_DEAD))
--				sk_error_report(sk);
--		}
-+		if (bo->bound && bo->dev == dev)
-+			sk_err = ENETDOWN;
+ 	/* skb_ext_add() returns uninitialized space */
+-	if (csx)
++	if (csx) {
+ 		csx->can_gw_hops = 0;
++		csx->can_ext_flags = 0;
 +	}
-+
-+	release_sock(sk);
-+
-+	if (sk_err) {
-+		sk->sk_err = sk_err;
-+		if (!sock_flag(sk, SOCK_DEAD))
-+			sk_error_report(sk);
- 	}
+ 
+ 	return csx;
  }
  
- static int bcm_notifier(struct notifier_block *nb, unsigned long msg,
- 			void *ptr)
-@@ -1982,10 +2023,14 @@ static int bcm_release(struct socket *sock)
+ static inline struct can_skb_ext *can_skb_ext_find(struct sk_buff *skb)
+diff --git a/include/net/can.h b/include/net/can.h
+index 6db9e826f0e0..6ea9dbaf2186 100644
+--- a/include/net/can.h
++++ b/include/net/can.h
+@@ -9,10 +9,13 @@
+  */
  
- 	/* remove device reference */
- 	if (bo->bound) {
- 		WRITE_ONCE(bo->bound, 0);
- 		bo->ifindex = 0;
-+		if (bo->dev) {
-+			netdev_put(bo->dev, &bo->dev_tracker);
-+			bo->dev = NULL;
-+		}
+ #ifndef _NET_CAN_H
+ #define _NET_CAN_H
+ 
++/* flags for struct can_skb_ext::can_ext_flags */
++#define CAN_EXT_UID BIT(0) /* skb->hash contains a valid CAN skb UID */
++
+ /**
+  * struct can_skb_ext - skb extensions for CAN specific content
+  * @can_iif: ifindex of the first interface the CAN frame appeared on
+  * @can_framelen: cached echo CAN frame length for bql
+  * @can_gw_hops: can-gw CAN frame time-to-live counter
+diff --git a/net/can/af_can.c b/net/can/af_can.c
+index ef435f22ac93..26ce523693c5 100644
+--- a/net/can/af_can.c
++++ b/net/can/af_can.c
+@@ -639,17 +639,22 @@ static int can_rcv_filter(struct can_dev_rcv_lists *dev_rcv_lists, struct sk_buf
  	}
  
- 	sock_orphan(sk);
- 	sock->sk = NULL;
+ 	return matches;
+ }
  
-@@ -2029,25 +2074,32 @@ static int bcm_connect(struct socket *sock, struct sockaddr_unsized *uaddr, int
- 			ret = -ENODEV;
- 			goto fail;
- 		}
+-void can_set_skb_uid(struct sk_buff *skb)
++void can_set_skb_uid(struct sk_buff *skb, struct can_skb_ext *csx)
+ {
+-	/* create non-zero unique skb identifier together with *skb */
++	if (csx->can_ext_flags & CAN_EXT_UID)
++		return;
++
++	/* Overwrite pre-calculated network hashes with a unique CAN UID */
++	skb->hash = 0;
+ 	while (!(skb->hash))
+ 		skb->hash = atomic_inc_return(&skbcounter);
  
- 		bo->ifindex = dev->ifindex;
-+		bo->dev = dev;
-+		netdev_hold(dev, &bo->dev_tracker, GFP_KERNEL);
- 		dev_put(dev);
+ 	skb->sw_hash = 1;
++	csx->can_ext_flags |= CAN_EXT_UID;
+ }
+ EXPORT_SYMBOL(can_set_skb_uid);
  
- 	} else {
- 		/* no interface reference for ifindex = 0 ('any' CAN device) */
- 		bo->ifindex = 0;
-+		bo->dev = NULL;
+ static void can_receive(struct sk_buff *skb, struct net_device *dev)
+ {
+@@ -660,12 +665,10 @@ static void can_receive(struct sk_buff *skb, struct net_device *dev)
+ 
+ 	/* update statistics */
+ 	atomic_long_inc(&pkg_stats->rx_frames);
+ 	atomic_long_inc(&pkg_stats->rx_frames_delta);
+ 
+-	can_set_skb_uid(skb);
+-
+ 	rcu_read_lock();
+ 
+ 	/* deliver the packet to sockets listening on all devices */
+ 	matches = can_rcv_filter(net->can.rx_alldev_list, skb);
+ 
+@@ -685,51 +688,57 @@ static void can_receive(struct sk_buff *skb, struct net_device *dev)
+ }
+ 
+ static int can_rcv(struct sk_buff *skb, struct net_device *dev,
+ 		   struct packet_type *pt, struct net_device *orig_dev)
+ {
+-	if (unlikely(!can_get_ml_priv(dev) ||
+-		     !can_skb_ext_find(skb) || !can_is_can_skb(skb))) {
++	struct can_skb_ext *csx = can_skb_ext_find(skb);
++
++	if (unlikely(!can_get_ml_priv(dev) || !csx || !can_is_can_skb(skb))) {
+ 		pr_warn_once("PF_CAN: dropped non conform CAN skbuff: dev type %d, len %d\n",
+ 			     dev->type, skb->len);
+ 
+ 		kfree_skb_reason(skb, SKB_DROP_REASON_CAN_RX_INVALID_FRAME);
+ 		return NET_RX_DROP;
  	}
  
- #if IS_ENABLED(CONFIG_PROC_FS)
- 	if (net->can.bcmproc_dir) {
- 		/* unique socket address as filename */
- 		sprintf(bo->procname, "%llu", sock_i_ino(sk));
- 		bo->bcm_proc_read = proc_create_net_single(bo->procname, 0644,
- 						     net->can.bcmproc_dir,
- 						     bcm_proc_show, sk);
- 		if (!bo->bcm_proc_read) {
-+			if (bo->dev) {
-+				netdev_put(bo->dev, &bo->dev_tracker);
-+				bo->dev = NULL;
-+			}
- 			ret = -ENOMEM;
- 			goto fail;
- 		}
++	can_set_skb_uid(skb, csx);
+ 	can_receive(skb, dev);
+ 	return NET_RX_SUCCESS;
+ }
+ 
+ static int canfd_rcv(struct sk_buff *skb, struct net_device *dev,
+ 		     struct packet_type *pt, struct net_device *orig_dev)
+ {
+-	if (unlikely(!can_get_ml_priv(dev) ||
+-		     !can_skb_ext_find(skb) || !can_is_canfd_skb(skb))) {
++	struct can_skb_ext *csx = can_skb_ext_find(skb);
++
++	if (unlikely(!can_get_ml_priv(dev) || !csx || !can_is_canfd_skb(skb))) {
+ 		pr_warn_once("PF_CAN: dropped non conform CAN FD skbuff: dev type %d, len %d\n",
+ 			     dev->type, skb->len);
+ 
+ 		kfree_skb_reason(skb, SKB_DROP_REASON_CANFD_RX_INVALID_FRAME);
+ 		return NET_RX_DROP;
  	}
- #endif /* CONFIG_PROC_FS */
+ 
++	can_set_skb_uid(skb, csx);
+ 	can_receive(skb, dev);
+ 	return NET_RX_SUCCESS;
+ }
+ 
+ static int canxl_rcv(struct sk_buff *skb, struct net_device *dev,
+ 		     struct packet_type *pt, struct net_device *orig_dev)
+ {
+-	if (unlikely(!can_get_ml_priv(dev) ||
+-		     !can_skb_ext_find(skb) || !can_is_canxl_skb(skb))) {
++	struct can_skb_ext *csx = can_skb_ext_find(skb);
++
++	if (unlikely(!can_get_ml_priv(dev) || !csx || !can_is_canxl_skb(skb))) {
+ 		pr_warn_once("PF_CAN: dropped non conform CAN XL skbuff: dev type %d, len %d\n",
+ 			     dev->type, skb->len);
+ 
+ 		kfree_skb_reason(skb, SKB_DROP_REASON_CANXL_RX_INVALID_FRAME);
+ 		return NET_RX_DROP;
+ 	}
+ 
++	can_set_skb_uid(skb, csx);
+ 	can_receive(skb, dev);
+ 	return NET_RX_SUCCESS;
+ }
+ 
+ /* af_can protocol functions */
+diff --git a/net/can/gw.c b/net/can/gw.c
+index d9912dea738b..7b49ff6d9c8d 100644
+--- a/net/can/gw.c
++++ b/net/can/gw.c
+@@ -526,10 +526,13 @@ static void can_can_gw_rcv(struct sk_buff *skb, void *data)
+ 	}
+ 
+ 	/* put the incremented hop counter in the cloned skb */
+ 	ncsx->can_gw_hops = csx->can_gw_hops + 1;
+ 
++	/* force a new CAN UID generation for the routed frame */
++	ncsx->can_ext_flags = csx->can_ext_flags & ~CAN_EXT_UID;
++
+ 	/* first processing of this CAN frame -> adjust to private hop limit */
+ 	if (gwj->limit_hops && ncsx->can_gw_hops == 1)
+ 		ncsx->can_gw_hops = max_hops - gwj->limit_hops + 1;
+ 
+ 	nskb->dev = gwj->dst.dev;
 diff --git a/net/can/isotp.c b/net/can/isotp.c
-index 155530aedce2..0835a4758a72 100644
+index d3f79efc9c1e..416ca3293efa 100644
 --- a/net/can/isotp.c
 +++ b/net/can/isotp.c
-@@ -1490,15 +1490,15 @@ static int isotp_release(struct socket *sock)
- 	/* remove current filters & unregister
- 	 * tracked reference so->dev is taken at bind() time with rtnl_lock
- 	 */
- 	if (so->bound && so->dev) {
- 		if (isotp_register_rxid(so))
--			can_rx_unregister(net, so->dev, so->rxid,
-+			can_rx_unregister(dev_net(so->dev), so->dev, so->rxid,
- 					  SINGLE_MASK(so->rxid),
- 					  isotp_rcv, sk);
- 
--		can_rx_unregister(net, so->dev, so->txid,
-+		can_rx_unregister(dev_net(so->dev), so->dev, so->txid,
- 				  SINGLE_MASK(so->txid),
- 				  isotp_rcv_echo, sk);
- 		netdev_put(so->dev, &so->dev_tracker);
+@@ -890,11 +890,11 @@ static void isotp_send_cframe(struct isotp_sock *so)
  	}
  
-@@ -1846,13 +1846,10 @@ static int isotp_getsockopt(struct socket *sock, int level, int optname,
- static void isotp_notify(struct isotp_sock *so, unsigned long msg,
- 			 struct net_device *dev)
- {
- 	struct sock *sk = &so->sk;
+ 	csx->can_iif = dev->ifindex;
  
--	if (!net_eq(dev_net(dev), sock_net(sk)))
--		return;
--
- 	if (so->dev != dev)
- 		return;
+ 	/* set uid in tx skb to identify CF echo frames */
+-	can_set_skb_uid(skb);
++	can_set_skb_uid(skb, csx);
  
- 	switch (msg) {
- 	case NETDEV_UNREGISTER:
-diff --git a/net/can/raw.c b/net/can/raw.c
-index 82d9c0499c95..c5596fc9aac5 100644
---- a/net/can/raw.c
-+++ b/net/can/raw.c
-@@ -300,13 +300,10 @@ static int raw_enable_allfilters(struct net *net, struct net_device *dev,
- static void raw_notify(struct raw_sock *ro, unsigned long msg,
- 		       struct net_device *dev)
- {
- 	struct sock *sk = &ro->sk;
+ 	cf = (struct canfd_frame *)skb->data;
+ 	skb_put_zero(skb, so->ll.mtu);
  
--	if (!net_eq(dev_net(dev), sock_net(sk)))
--		return;
--
- 	if (ro->dev != dev)
- 		return;
+ 	/* create consecutive frame */
+@@ -1221,11 +1221,11 @@ static int isotp_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
+ 	}
  
- 	switch (msg) {
- 	case NETDEV_UNREGISTER:
+ 	csx->can_iif = dev->ifindex;
+ 
+ 	/* set uid in tx skb to identify CF echo frames */
+-	can_set_skb_uid(skb);
++	can_set_skb_uid(skb, csx);
+ 
+ 	so->tx.len = size;
+ 	so->tx.idx = 0;
+ 
+ 	cf = (struct canfd_frame *)skb->data;
 -- 
 2.53.0
 
