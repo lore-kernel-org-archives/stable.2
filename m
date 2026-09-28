@@ -1,118 +1,138 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+Received: from mail-ej2-f41.google.com (mail-ej2-f41.google.com [74.125.228.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A83A34FD266
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 21:33:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790631209; cv=none; b=MT8Bqsevae2dy94amflt8VDRP8x8g72OYOy6hLTpJdWEYdA3CW3r6mEENgNAJ8hVSxEwf4xqm26/+mP/FojyLWiA9NUEi5Tg1fNGY5W3OXLnWOsIgTfGYqugI7tGjBkwOwFnQGEefK3Ce80OKhr5fkhhUPD17l0wiBhBiO5Flcg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790631209; c=relaxed/simple;
-	bh=yQmN9ueNDx7oub64Hh/xzDJO6RCrU+L/hm+XnPcuf0A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VjMKexfUOQLS8aitnYmN7WRDogu0C9m5M1E6YIYQKqboh6MShWiY6iQXQZV4bkqQhPUvcP0N8xXjH42eEnZ4RNv46L9lKtnINcKZgOiWEhDsr7kFuigy8u5aSwkBZX3yMgEslqU2obr1iQaM82fiV5j+uJQTFmGK8x/7tENxHIc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=perenite.com; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=perenite.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 470734D0A12
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 21:35:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.169
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790631308; cv=pass; b=I+UwS6hf4c4yq5OrA1qQBp3DB3QhM8Ig4RLcQZSR9y/3voqk/Agi9y7k4N409o9I9OFn3Bu2NEjhFGaSetykdizQY0d6Ld6m08UX5qN4ZnUHGRxeAIci/Ta7UZvwkNjvGd8aFGSUaS0tplPiLqV3sVHxW6ugSrRvkWB8Vm8GF+g=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790631308; c=relaxed/simple;
+	bh=vzJQ85GPqKFtTeBCXYuHKUzsnPT7TPrKjUdhJU56BoQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=SKZnEB0D8KK5td3O4HIHn37KVN+FK6ujtyXxEtljbNGsbIGAD6UMMkGjOumGJmznUTuZFmfBIafHzR2rM+xOjDdzPTuoKdO4GQf+c8ZXIbkcqwR2ufCpR18gaBz/kj/5FjH88YA6iqL3oShBFfCwoT4sod89xFM+DWImx8qq/qY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=URNxiS6K; arc=pass smtp.client-ip=74.125.228.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4887d06c669so2711395f8f.3
-        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 14:33:25 -0700 (PDT)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="URNxiS6K"
+Received: by mail-ej2-f41.google.com with SMTP id a640c23a62f3a-c2dd363f57aso192895366b.2
+        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 14:35:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790631305; cv=none;
+        d=google.com; s=arc-20260327;
+        b=F1dvEgMKqjCad/ps5nm9pOzHSW54vmED7yuis+C2xznXcB++Zg2iAoVoxZ5o115+VK
+         CVjbG0K5TRUQwc5iYiCdK6nIunY3aTCOVZIbYpOFfqNBO7rIfu81rZDWtFEMeqBTEUwK
+         SFv+PymTLmmSoVlGyVgLzXoPCydn7pxR4zN8WsTBFoIz/3o+O2n1C1eD3vQf20PcOk6M
+         zVpToVPcDY+TEaIprpWeiOFI5jX0JoWMZAv7ytwzjAeHqBTsJpnOJfOPus7C5CVSnF0z
+         mgWGtxjwPvAynWeupxa5hDNn1zGZC83VDM91fefkpatvWc0vqGBpOc696sFhV79qPBpH
+         ra1g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=hKH1VCmfZugQJTpZMRBvxmQ3C0yXJLdq33pyaJF/XR4=;
+        fh=X874K7vpRRfdmJd8ktNtncwhihUXZzeg9IhVmfyLoPY=;
+        b=ox6OLQRUSlEzRibZCKOfnKSRkZr6N1x8GdMgOcobaDrjv1VZRI3QIoraYgysiQ7d//
+         5Gk6fYjMQGFshL1eWTV37HHlDynL8jdWsPy6xIfi481c12bOE7k995jXZftgQ0nANUpV
+         cdOHoMVMvhld5GvRYNpQ/HKpej8mdWu4i6cxMM9mHAbJ72EX7WYaLe8SsJ8fuH44BHuy
+         P5oxeT2EANCnw0LURJXDkHDJmKIQuGGxHBo97OHbhIeP5mKHIlNy7ne+24yeNVrT39Df
+         8sd1l0jfRnu6hucD3wPiPpvz8rguXy0aTx2Rk1daySqWJibu3cT2vuPVFeYB26spXR0v
+         jV9w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790631305; x=1791236105; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hKH1VCmfZugQJTpZMRBvxmQ3C0yXJLdq33pyaJF/XR4=;
+        b=URNxiS6KrB0BjiY8vW5pi3471D4ar4brtKl+SuMRzOHRw3Z9+IVokYEsFRFWaSjOdS
+         gQn3p18H/PPrpgwZ3p4EiD1lPNYZZE0ndHqy3LSU5xz9ACmXZQ1BE5wKeIWAiVeSmWui
+         NpyUGGtZGi50fa350yGn6V398YN/rVJT+ObA1n+0EDt+Ss3P2DqNOs62BO2a44MeWMly
+         b7T+7zzkeWbpGBPDbTDjjL/jrg9FlSHExQ3uskbx/m5Sv1wGqbek8Dy1+K/t6X8Cs2eG
+         SO0vHi/OGWMy5nKmp9s3NCq9hZ66GmleX3bcLfi3TIqEmcEvhtMt3L2zUZiNPe6BAZ8j
+         s3nw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790631203; x=1791236003;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wyL1tn+mP5nVx2w+7Pq20gMgeqZvEvpVrUK6ny4B9pc=;
-        b=kDY884NPixj3agEbP5Tw6Bb+eiePCKvxnLrF3rG5yd+8gjUKX6I2GYsUxrUpqM0wkh
-         wpiUToz3juqPmvBgMksLNPH9y4N6MUJzMOMkt/F4l+EWmeOXQzo62qspvXXZsyyR3YFg
-         o7fi68Qt3UySV0/gmZz2aJ1CZmJKZSysblYQU+gc3xjgEt5KnWZueis5TkdK0UeCAer9
-         mMcmZK0EyTIXCpmWnJPf0tSmcwWtOWcbWdxNIBUElNpsFxaXne4MEmFJLTZsrkOaR+pt
-         AAoxn8syv73wPcOdxt3EC3/2Ri1S9e8Oo8I9xx/Z5xrU3/LAVzb7L0PLkA84Ml3KtsXu
-         Ncwg==
-X-Forwarded-Encrypted: i=1; AKwUvBwzneR7bGEFMBbP23dd2gL9B0eqrY+w/FUzXkcrpcPqX3i6+dUkyncHPCQuy99hhfPOlY3b7m0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI+/r51SBJ70cv+S+yMgnv43lWsoPtroXt4aH6eMcHeJU457cly
-	yQ0fDkd+Eaq0LV8A/RpzN4EXptvCQjwEZvaeS94w4vl7eLSUWlr6hf7/
-X-Gm-Gg: AYBFou3Jt2SADG5JL7NRsU36GSchbNsT9sSY4TJmGWxmdbip8UiFrjOWh8PWFZx7+qF
-	SolnzLsXtigvyS2Muw1a341OU/N1evHq7prGvgTYoWBJL0dpcO4dZUbt5AzUPnBSgWLWB2wm6Mr
-	LE/2ouXLiGVgK6KFUpEBCKbkxICPPM6N11AC+G1LUAFfdu5c/vEdPBbyrikB6N+GGGJM83CujjV
-	YCF+Px9BTFtGsHweYgUmer3wgu11+jjgzFzjmsyu6aCh3RLI5JzsBrH8Ie5M0+i7sO2zh2gxqyz
-	HN3+zGv+F289XYTpKF3XWmK94OMJSaWG1Rv5xJqXJWeBzKKp9km/RxbPZaliEl1vKN8889ucGNv
-	ULJac2cyc+7e5I4Y/wVq7ymqY4lx+xAnmXqSogSEivohQVsLGLNtsKJs0euIdOGGwLAkpJwV2fL
-	UuhdO2WrJtoJT2Lr2OWxnewiPCv1wf73CmyMofbR/7EM2WvFimuPYwCBdQVvHSKvkYcWzw6dAKD
-	Ri0grO/oQ9YYw==
-X-Received: by 2002:a5d:5d12:0:b0:48a:eeef:b4a7 with SMTP id ffacd0b85a97d-48aeeefb641mr1919631f8f.48.1790631203458;
-        Mon, 28 Sep 2026 14:33:23 -0700 (PDT)
-Received: from mac.net ([2001:861:8b92:2c50:ca1:5b1b:d140:af71])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a34a4e9sm25993824f8f.11.2026.09.28.14.33.22
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 28 Sep 2026 14:33:23 -0700 (PDT)
-From: Benoit Masson <yahoo@perenite.com>
-To: Jeff Johnson <jjohnson@kernel.org>
-Cc: linux-wireless@vger.kernel.org,
-	ath12k@lists.infradead.org,
-	stable@vger.kernel.org,
-	Karthikeyan Periyasamy <quic_periyasa@quicinc.com>,
-	Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>,
-	Benoit Masson <yahoo@perenite.com>
-Subject: [PATCH v3] wifi: ath12k: assign device id from the WSI index
-Date: Mon, 28 Sep 2026 23:33:22 +0200
-Message-ID: <20260928213322.98949-1-yahoo@perenite.com>
-X-Mailer: git-send-email 2.54.0
+        d=1e100.net; s=20260707; t=1790631305; x=1791236105;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hKH1VCmfZugQJTpZMRBvxmQ3C0yXJLdq33pyaJF/XR4=;
+        b=cMqD865CYjBTTIiXhd5/tUWEORYWl1RsMBmYcnA2S+w9wx7Q2g+f1Xnn71l0653UYD
+         15mKsqbOlxjQlBsBJNZIIk0u1Kr688rqN1YRRODRXgaxY49gwNkA4S2ybsEiarErnTrN
+         SBhrgLJx1FpBSlUNZVb9tNdQ3QsKA66SISNHHbGR4F26i8/bDX++4sFheGOOqEQKiMQZ
+         Vs8XffJ3GahMW0h0b5yj5+UO7GjozIEzLowwHrbALAEU+Iw+uf7gtqWnW+Hanqe03zeW
+         7AkfjwxwQvvRfh7zh41yRwIl7HXEw3fYW77qUNZYMgy0oCkf+P5mbv9VpuMrhFoKrWQw
+         rDuw==
+X-Forwarded-Encrypted: i=1; AKwUvBzm/XHA0v8qk01GygoudReCIHZiG3+CAqUBuRImrsCSMhhvceaTp5GfHlSkBpLg6gl/kpL5jQ4=@vger.kernel.org
+X-Gm-Message-State: AFuF++ltvazjGDRDWT5jXrdR9sI90qqz3Aua+DzkWnmphvrlrTrXTbLV
+	6UncM1+xqVwj4uhEkuiiwnyI0WxQGdC8O95r8O4+dB489/FSYitBAa3ZyWvJbhlNFojqrkkERQG
+	xCe1hdYSXGxB4KuXJ6PzlFWrqKftirZo=
+X-Gm-Gg: AYBFou1E6z6PFN/Amzo8CqQP8xUowP+LvS+NQEnRt1lI9SAfVyu60629eYcAc6hd7Wf
+	8g64h298CFbwbQ/zpAS6aX3/k6tc8U7sqjzgUGOzeGejegpRHaM1tDuH1VUjT4G0B5KvfQO05PM
+	aOUJlQKGM8eiKNKTYRXkSI8bKtna1v846qwKgk9tVVGWJsFkOvOAEmz4CXUHBhq/Y49wMzcmDu/
+	6eoViUprQ7aq7kjDsBbnd5fJo9PbHbcv3D9fj8xKPT9SxkbdAPRArbGNMWzCFkN88yvLPLr/n3a
+	abFyuiZ4sX2AZu5eWICP7BZy62jXpKGvy8qGliWPJKtqKAGXY3o8N0a0X5ulg0TthY/wxxJL1CI
+	Bloat/V0k18h55xhge3ZVW1P33lLaj5ZqFAhpBzIme91gkKoJHqiYqcd3k/5Fqge9VquERsO31n
+	LMOCbMAigKBorDnoDpyrioYLLds4hcyqTMolAWULvF
+X-Received: by 2002:a17:907:d789:b0:c29:5172:6151 with SMTP id
+ a640c23a62f3a-c2ac263bc06mr1090827066b.45.1790631305354; Mon, 28 Sep 2026
+ 14:35:05 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260928200318.63383-1-meatuni001@gmail.com> <20260928200318.63383-4-meatuni001@gmail.com>
+In-Reply-To: <20260928200318.63383-4-meatuni001@gmail.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Tue, 29 Sep 2026 00:34:29 +0300
+X-Gm-Features: AclHuK_zWLiFRrc6U7vmxR1ZoTbaYKmfPM7Lz80sz5CYaEVPc8AD2uZZsDfOheM
+Message-ID: <CAHp75VcrAo_XACcfcycaGyiEsDniBBzCGMyGLip32KQz82q33Q@mail.gmail.com>
+Subject: Re: [PATCH v2 3/3] platform/x86: hp-bioscfg: return -ERANGE from validate_password_input()
+To: Muhammad Bilal <meatuni001@gmail.com>
+Cc: Jorge Lopez <jorge.lopez2@hp.com>, Hans de Goede <hdegoede@redhat.com>, 
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Devices of a hardware group are added to ag->ab[] in PCI probe
-completion order (ab->device_id = ag->num_probed++), which is not
-stable across boots. The wiphy radio array is built from ag->ab[] and
-the wiphy device is taken from its first entry, so the wiphy sysfs
-path and the mapping of radio indices to bands change on every boot.
+On Mon, Sep 28, 2026 at 11:03=E2=80=AFPM Muhammad Bilal <meatuni001@gmail.c=
+om> wrote:
+>
+> validate_password_input() returns INVALID_BIOS_AUTH (0x0E, positive)
+> on rejection. store_password_instance() skips the store on nonzero
+> ret, but its final "return ret < 0 ? ret : count" treats the positive
+> value as success, so userspace sees count instead of an error.
+>
+> Return -ERANGE, matching the sibling validators for string,
+> enumeration, and integer attribute types.
+>
+> Tested on HP EliteBook 840 G2 (Fedora 44, Linux 7.2.7): writing 999
+> bytes to current_password returned 999 with no error before this fix.
 
-Persisted wireless configurations reference radios by index (e.g.
-OpenWrt/hostapd "radio0"), so such a configuration attaches to a
-random band at each boot. This affects any multi-chip group with
-single-band radios, e.g. TP-Link Archer BE800 (three QCN9274/QCN9224
-radios in one group).
+...
 
-Store each ab in ag->ab[] at its wsi_info.index, which is derived from
-the device tree WSI ring and is therefore deterministic.
-ag->num_probed remains the group device counter. The unassign path is
-unchanged, it already indexes ag->ab[] by ab->device_id.
+>         if (length > MAX_PASSWD_SIZE)
+> -               return INVALID_BIOS_AUTH;
+> +               return -ERANGE;
 
-Suggested-by: Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>
-Fixes: 6f245ea0ec6c ("wifi: ath12k: introduce device group abstraction")
-Cc: stable@vger.kernel.org # 6.14+
-Signed-off-by: Benoit Masson <yahoo@perenite.com>
----
-Changes in v3:
-- Expand the commit message with the problem statement (why this
-  matters for stable).
-- No code change since v2.
+Nope, ERANGE is for integer values. Here is definitely about the size
+of the input string. We have E2BIG for such cases.
 
-Changes in v2:
-- Set ab->device_id from wsi_info.index in ath12k_core_hw_group_assign()
-  instead of reordering pdev_map[] in ath12k_mac_allocate(), as suggested
-  by Rameshkumar. mac.c is no longer modified.
+>         if (password_data->min_password_length > length ||
+>             password_data->max_password_length < length)
+> -               return INVALID_BIOS_AUTH;
+> -       return SUCCESS;
+> +               return -ERANGE;
 
- drivers/net/wireless/ath/ath12k/core.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Ditto.
 
-diff --git a/drivers/net/wireless/ath/ath12k/core.c b/drivers/net/wireless/ath/ath12k/core.c
-index 99bf5cf..6505255 100644
---- a/drivers/net/wireless/ath/ath12k/core.c
-+++ b/drivers/net/wireless/ath/ath12k/core.c
-@@ -2029,7 +2029,8 @@ exit:
- 		goto invalid_group;
- 	}
- 
--	ab->device_id = ag->num_probed++;
-+	ag->num_probed++;
-+	ab->device_id = wsi->index;
- 	ag->ab[ab->device_id] = ab;
- 	ab->ag = ag;
- 
--- 
-2.46.0
+> +       return 0;
+>  }
 
+--=20
+With Best Regards,
+Andy Shevchenko
