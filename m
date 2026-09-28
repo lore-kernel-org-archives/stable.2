@@ -1,243 +1,126 @@
-Received: from mail-dl2-f36.google.com (mail-dl2-f36.google.com [74.125.229.164])
+Received: from mta0.migadu.com (out-29.mta0.migadu.com [91.218.175.29])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9FC736B921
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 00:00:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.164
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F70A346ACE
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 01:08:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.29
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790553660; cv=none; b=XAM/o9T6/ZqAZUYJsW6pWJ67aoq7P++0ZYA4OGqbZwT4+O7BA+z5f5td78RfY32a+J+YFRrV9pUdgS3UZiDP6SIpr5QcPtixwis4D9Q4DWH/Cd3VVxNc8JKPuuWy68JbORXjQ/VJ/CIID6fhLC7MrkUUjsz47d6gfPpvNfFqi48=
+	t=1790557727; cv=none; b=LphuLsYp6aINmFk3QAWHcR8g5YeQ8wQr0VojsaY1S5HejoTfQlUo3HZh5/nqXO2Tia5Aj+VCKcUc6xLMg/hzJskt+fPiJP7yBK7DLVIi8Xz/jAU9zRko5MNa9L8q+Bt+T2cMdtxErmTDYw8j3yNXmoQIIeV/7DoCTyyTd315ZTA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790553660; c=relaxed/simple;
-	bh=xWkv0NihhCtba8cbXTsytw0F5OHSkub8FBy2TOh+/n0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=tocyS5+u3BiSkckYYvG7wntIZhv8R+9vfqcXkzPaQnuSswMFqHIXmvKIg4BS4IMIEia4cxr5GT9QmOhlxhS9uxsxYeOCc+zNMWEoLKv+qy3cRvAT2robVblRgmUjh4zqvy3bWLOtyqQclVhGXnFrNUgqe8RWj40NUNcS98GHQ54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JlHGzwzX; arc=none smtp.client-ip=74.125.229.164
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790557727; c=relaxed/simple;
+	bh=cCng7KpHB8XUHBobAWoNKxFVYmCnEd85zIsuvav0mls=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=C6edXL0P5uViZqsNOMvO4Jy8f9AKnKe92mJilQgpkxn2gkyoGm1PMn7+Y+XHYCll9nT9rs+fg0ptrUWTl7Y4wJDZa6uWnrM1wOi6uz76lpa8fvBQyd7pvwA8N3iz1JeLHQMdre5ejuKo0ICp1ax/e5lPFEZfJtFHxethnd0Nad4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wq89XQMr; arc=none smtp.client-ip=91.218.175.29
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JlHGzwzX"
-Received: by mail-dl2-f36.google.com with SMTP id a92af1059eb24-14373bcc010so2072699c88.1
-        for <stable@vger.kernel.org>; Sun, 27 Sep 2026 17:00:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790553654; x=1791158454; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=b5cgQdvrBNSADM3zuXYKc6bozW58YifUapijoQlKriE=;
-        b=JlHGzwzXcrQgKJrInmJDcWONF29/yJ5zQZsQFMI7jKts8OntGJ5IGd3ns6kdCLRe+r
-         w8dH3kBwL5f9xI6N0FgA19j10pdgz2/s8EbZb2vz4A1njy90UW2sEQ7sfgeT9ohkkpjQ
-         VrlbKsdFBQWm7epF0smaBbd/AzfNpMcp7Ywk6z0mAZa+JwP9vEzucx2jPvmKCcVHTKJ3
-         KJIvQx15E3/uFjggBswfUWW36oAB3zYSTL7EFIR5ih62MLBwVbzaEgqQnPlqicb/ZAF8
-         cTwOQOcarP88rG4fL2SA5C6jirCNWYM97h7zDPMe5zGy9kcAB9ZSGjTb4eGWyE8NRAq5
-         JOkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790553654; x=1791158454;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=b5cgQdvrBNSADM3zuXYKc6bozW58YifUapijoQlKriE=;
-        b=YcsBbDNauRmpQ2FIAX+CoaGNQD5xoIi+Lq6GXemYlw0YiOG5/drmXiBNNDEy3dPnvr
-         juz6w+JysSeFeDW4lw3NNDz7aEHTQv3WrpArfeBv1dc5T56ZBaSO/Fhelj5neFQwhyG8
-         yQpew9h7pEZ3HJydSaayPIz3wYasbehoQUGlYgNenaA6ULA3XNWZCtDrJfT/5eiA3O3w
-         6BpmZ+rp7c9nZ8GtDGppKyseVFJLGZCWZI6BFg+DNJYkE3sKl/K0pmhytZoHe+qyJzAH
-         2QCipTqUON9HaoPDeXzo+H6jutaUSeIcxNJr9uONd+6i4kEcyYSXUfdt0WTkzNUwha+d
-         zwlg==
-X-Forwarded-Encrypted: i=1; AKwUvByHl11CdNmh3Ed570UA3UJj+5x+bI4FzLEzCDepKfwxxCdf8l73yKOuxQfso4hVrctbCmsyCMI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lrPge/IQY47NOIEs5s5NvqZ0DnNHwA+YszWM0u9b0iqJh+X7w8
-	02j2W0kBWHX7SQeXhvMiveKMqWUSVka4QYLFmuvKKzdP1qvu+r0012TN
-X-Gm-Gg: AYBFou3PeWc0SnGQE26kFSrtNusrKPVdebwZ7/YxIESeHUKekC0vho9BqvW0mBnE2A5
-	rqgUarxN4bflYfjY470CpWC+YViAdXOT00HpOR2GXs20vBU0FtyFXfwZa72JKvbdMV1s0bEOgm7
-	Q6d8fB7IMMQPB52jtLeKjf+eNJ18aEf80pCNpVY1dUqmvEaBeS8yVm69u2PjFRpaBmJfYnDNS7M
-	3jg7HQ/wN9GUeSd2nskxJprVGBLjAxwpDRzzujg7d6jAq9iF64OI1s3AZyHgwu7M8qb+Ov6wDH3
-	I993+XwIuY0/UazO6jadVX6oOrjmcQ/wgEchHjlu7dArOqzGzi+VAt+hC4j2CGMxJL5KpmHOOt3
-	By2vWP+VurfKtnqEd4bk5WLiW3zG1f62OYMYWs2b8fSEwL8TYvtBcPSWuY1cullp8KdL2KXRwX2
-	pv/zegOxFBjnc2h96y20eZnJIWQmBoWLoFqsdlOCtV6e1YCs6XrGqPHs0e3vGvtFW/+aM5uIJHq
-	BarZobPfk+itIvwDM4=
-X-Received: by 2002:a05:701b:2406:b0:138:243e:ceb1 with SMTP id a92af1059eb24-146ce1a9961mr7838998c88.6.1790553654259;
-        Sun, 27 Sep 2026 17:00:54 -0700 (PDT)
-Received: from kq.cs.ucr.edu (kq.cs.ucr.edu. [169.235.27.223])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145acc47ab8sm23752109c88.6.2026.09.27.17.00.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 17:00:53 -0700 (PDT)
-From: Zhengchuan Liang <zcliangcn@gmail.com>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Ross Zwisler <zwisler@google.com>,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Peter Zijlstra <peterz@infradead.org>,
-	linux-perf-users@vger.kernel.org,
-	stable@vger.kernel.org,
-	Zhengchuan Liang <zcliangcn@gmail.com>
-Subject: [PATCH 1/1] tracing: Require tracepoint permission for perf function filters
-Date: Sun, 27 Sep 2026 17:00:31 -0700
-Message-Id: <95d3721fa8d4c7a4577ec14e9d7caec4fd0cefcc.1790553331.git.zcliangcn@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1790553331.git.zcliangcn@gmail.com>
-References: <cover.1790553331.git.zcliangcn@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wq89XQMr"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=cCng7KpHB8XUHBobAWoNKxFVYmCnEd85zIsuvav0mls=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790557723; v=1; x=1791162523;
+ b=wq89XQMrfdXXbmDB0iTekAfCvB5yKfZ6PU/iWuwy4GByizw/lrhu/HiGq8ToAqspp6gTzFdk
+ o6/ZhANhPO2LgBisry2VNJHrGmA5rHvtwy5tt6O3MZ7SnwbTqzTFukjiUeGofYcd1XctMpzrYq7
+ HMGZcGk80UqH69xPS4NsR2cs=
+X-Envelope-To: stable@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id cda8e86f05856a5a;
+	Mon, 28 Sep 2026 01:08:42 +0000
+X-Mizu-Trace-ID: cda8e86f05856a5a
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 28 Sep 2026 09:08:37 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Andrea Mayer <andrea.mayer@uniroma2.it>
+Cc: Hui Peng <benquike@gmail.com>, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, dsahern@kernel.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, leitao@debian.org
+Subject: Re: [PATCH net v4] ipv6: sr: enforce exact attribute length for
+ SEG6_ATTR_DST
+Message-ID: <arm-FZQRDwkzas79@fedora>
+References: <20260924093610.3286959-1-benquike@gmail.com>
+ <20260924180016.f1a9947223549a9a88c9a2fe@uniroma2.it>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924180016.f1a9947223549a9a88c9a2fe@uniroma2.it>
 
-Count-only perf tracepoint events can be opened without tracepoint
-permission because they do not sample raw event data. Their SET_FILTER
-ioctl still parses .function predicates. Numeric operands call
-kallsyms_lookup_size_offset(), making ioctl success an oracle for
-recovering the randomized kernel text base. Symbolic operands resolve
-hidden symbol addresses and can also match user-controlled event fields
-against those addresses.
+Hi Andrea,
+On Thu, Sep 24, 2026 at 06:00:16PM +0200, Andrea Mayer wrote:
+> On Thu, 24 Sep 2026 09:36:10 +0000
+> Hui Peng <benquike@gmail.com> wrote:
+> 
+> > In seg6_genl_policy, SEG6_ATTR_DST is defined with .type = NLA_BINARY and
+> > .len = sizeof(struct in6_addr). For NLA_BINARY, .len only enforces the
+> > maximum payload length and permits shorter payloads (e.g., 0 bytes).
+> > When seg6_genl_set_tunsrc() copies sizeof(struct in6_addr) bytes via
+> > kmemdup(val, sizeof(*val), GFP_KERNEL), a short SEG6_ATTR_DST attribute
+> > triggers a 16-byte out-of-bounds read past skb->tail into uninitialized
+> > skb->head memory, which is stored in sdata->tun_src and leaked back to
+> > userspace via SEG6_CMD_GET_TUNSRC.
+> > 
+> > Switch SEG6_ATTR_DST in seg6_genl_policy to
+> > NLA_POLICY_EXACT_LEN(sizeof(struct in6_addr)) so that generic netlink
+> > validation rejects any attribute whose length is not exactly
+> > sizeof(struct in6_addr) with -ERANGE.
+> > 
+> > Tested in QEMU against Linux 7.3.0-rc3 by sending a SEG6_CMD_SET_TUNSRC
+> > Generic Netlink message with a 0-byte SEG6_ATTR_DST attribute followed
+> > by SEG6_CMD_GET_TUNSRC. On the unfixed kernel, SEG6_CMD_SET_TUNSRC
+> > succeeds (err = 0) and SEG6_CMD_GET_TUNSRC leaks 16 bytes of
+> > uninitialized kernel heap memory; with this patch applied,
+> > SEG6_CMD_SET_TUNSRC is rejected by netlink policy validation with
+> > -ERANGE (-34) and tun_src remains zeroed.
+> > 
+> > Fixes: 915d7e5e5930 ("ipv6: sr: add code base for control plane support of SR-IPv6")
+> > Cc: stable@vger.kernel.org
+> > Reviewed-by: Andrea Mayer <andrea.mayer@uniroma2.it>
+> > Reviewed-by: Hangbin Liu <hangbin.liu@linux.dev>
+> > Reviewed-by: Breno Leitao <leitao@debian.org>
+> > Assisted-by: LLM
+> > Signed-off-by: Hui Peng <benquike@gmail.com>
+> > ---
+> > Changes in v4:
+> > - Drop raw hex memory dump string from commit message as suggested by Breno
+> >   Leitao.
+> > - Add Reviewed-by tag from Breno Leitao.
+> > 
+> > Changes in v3:
+> > - Add Reviewed-by tag from Andrea Mayer.
+> > - Send as a fresh standalone thread (no In-Reply-To header) as requested by
+> >   Jakub Kicinski.
+> > 
+> > Changes in v2:
+> > - Drop the redundant nla_len(info->attrs[SEG6_ATTR_DST]) !=
+> >   sizeof(struct in6_addr) check in seg6_genl_set_tunsrc() since
+> >   NLA_POLICY_EXACT_LEN() in seg6_genl_policy already enforces the exact
+> >   length, as pointed out by Hangbin Liu.
+> > 
+> >  net/ipv6/seg6.c | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> > 
+> 
+> The v2 was applied to netdev/net.git (main) as commit 2d959c75c27f
+> ("ipv6: sr: enforce exact attribute length for SEG6_ATTR_DST"):
+> 
+> https://git.kernel.org/netdev/net/c/2d959c75c27f90e9ec489d18ce5ee6b852ad4741
+> 
+> One general note for your future postings, not about this patch which is
+> already applied: please do not repost a patch less than 24 hours after
+> the previous posting. See the "Resending after review" section of
+> Documentation/process/maintainer-netdev.rst:
+> 
+> https://docs.kernel.org/process/maintainer-netdev.html#resending-after-review
 
-Pass the perf origin through filter parsing and require
-perf_allow_tracepoint() before resolving either form of .function
-operand. Ordinary perf count filters and tracefs event filters retain
-their existing behavior.
+It looks like this is a bot sending the patches. It never replies to comments.
+When you suggest changes, it just posts a new version directly. For that
+reason, I've stopped reviewing its patches.
 
-Fixes: e6745a4da964 ("tracing: Add a way to filter function addresses to function names")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Zhengchuan Liang <zcliangcn@gmail.com>
----
- kernel/trace/trace_events_filter.c | 39 ++++++++++++++++++++++--------
- 1 file changed, 29 insertions(+), 10 deletions(-)
-
-diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
-index 2b46ca536045..f99b0f1e32d8 100644
---- a/kernel/trace/trace_events_filter.c
-+++ b/kernel/trace/trace_events_filter.c
-@@ -1625,12 +1625,18 @@ static int filter_pred_fn_call(struct filter_pred *pred, void *event)
- 	}
- }
- 
-+struct event_filter_parse_data {
-+	struct trace_event_call *call;
-+	bool from_perf;
-+};
-+
- /* Called when a predicate is encountered by predicate_parse() */
- static int parse_pred(const char *str, void *data,
- 		      int pos, struct filter_parse_error *pe,
- 		      struct filter_pred **pred_ptr)
- {
--	struct trace_event_call *call = data;
-+	struct event_filter_parse_data *parse_data = data;
-+	struct trace_event_call *call = parse_data->call;
- 	struct ftrace_event_field *field;
- 	struct filter_pred *pred = NULL;
- 	unsigned long offset;
-@@ -1686,6 +1692,12 @@ static int parse_pred(const char *str, void *data,
- 		function = true;
- 		i += len;
- 	}
-+	if (function && parse_data->from_perf) {
-+		/* Both numeric and symbolic operands resolve kernel addresses. */
-+		ret = perf_allow_tracepoint();
-+		if (ret)
-+			return ret;
-+	}
- 
- 	while (isspace(str[i]))
- 		i++;
-@@ -2205,8 +2217,13 @@ static int calc_stack(const char *str, int *parens, int *preds, int *err)
- static int process_preds(struct trace_event_call *call,
- 			 const char *filter_string,
- 			 struct event_filter *filter,
--			 struct filter_parse_error *pe)
-+			 struct filter_parse_error *pe,
-+			 bool from_perf)
- {
-+	struct event_filter_parse_data data = {
-+		.call = call,
-+		.from_perf = from_perf,
-+	};
- 	struct prog_entry *prog;
- 	int nr_parens;
- 	int nr_preds;
-@@ -2232,7 +2249,7 @@ static int process_preds(struct trace_event_call *call,
- 		return -EINVAL;
- 
- 	prog = predicate_parse(filter_string, nr_parens, nr_preds,
--			       parse_pred, call, pe);
-+			       parse_pred, &data, pe);
- 	if (IS_ERR(prog))
- 		return PTR_ERR(prog);
- 
-@@ -2281,7 +2298,8 @@ static int process_system_preds(struct trace_subsystem_dir *dir,
- 		if (!filter->filter_string)
- 			goto fail_mem;
- 
--		err = process_preds(file->event_call, filter_string, filter, pe);
-+		err = process_preds(file->event_call, filter_string, filter, pe,
-+				    false);
- 		if (err) {
- 			filter_disable(file);
- 			parse_error(pe, FILT_ERR_BAD_SUBSYS_FILTER, 0);
-@@ -2377,6 +2395,7 @@ static void create_filter_finish(struct filter_parse_error *pe)
-  * @call: trace_event_call to create a filter for
-  * @filter_string: filter string
-  * @set_str: remember @filter_str and enable detailed error in filter
-+ * @from_perf: require tracepoint permission for function predicates
-  * @filterp: out param for created filter (always updated on return)
-  *           Must be a pointer that references a NULL pointer.
-  *
-@@ -2391,7 +2410,7 @@ static void create_filter_finish(struct filter_parse_error *pe)
-  */
- static int create_filter(struct trace_array *tr,
- 			 struct trace_event_call *call,
--			 char *filter_string, bool set_str,
-+			 char *filter_string, bool set_str, bool from_perf,
- 			 struct event_filter **filterp)
- {
- 	struct filter_parse_error *pe = NULL;
-@@ -2405,7 +2424,7 @@ static int create_filter(struct trace_array *tr,
- 	if (err)
- 		return err;
- 
--	err = process_preds(call, filter_string, *filterp, pe);
-+	err = process_preds(call, filter_string, *filterp, pe, from_perf);
- 	if (err && set_str)
- 		append_filter_err(tr, pe, *filterp);
- 	create_filter_finish(pe);
-@@ -2418,7 +2437,7 @@ int create_event_filter(struct trace_array *tr,
- 			char *filter_str, bool set_str,
- 			struct event_filter **filterp)
- {
--	return create_filter(tr, call, filter_str, set_str, filterp);
-+	return create_filter(tr, call, filter_str, set_str, false, filterp);
- }
- 
- /**
-@@ -2476,7 +2495,7 @@ int apply_event_filter(struct trace_event_file *file, char *filter_string)
- 		return 0;
- 	}
- 
--	err = create_filter(file->tr, call, filter_string, true, &filter);
-+	err = create_filter(file->tr, call, filter_string, true, false, &filter);
- 
- 	/*
- 	 * Always swap the call filter with the new filter
-@@ -2721,7 +2740,7 @@ int ftrace_profile_set_filter(struct perf_event *event, int event_id,
- 	if (event->filter)
- 		return -EEXIST;
- 
--	err = create_filter(NULL, call, filter_str, false, &filter);
-+	err = create_filter(NULL, call, filter_str, false, true, &filter);
- 	if (err)
- 		goto free_filter;
- 
-@@ -2868,7 +2887,7 @@ static __init int ftrace_test_event_filter(void)
- 		int err;
- 
- 		err = create_filter(NULL, &event_ftrace_test_filter,
--				    d->filter, false, &filter);
-+				    d->filter, false, false, &filter);
- 		if (err) {
- 			printk(KERN_INFO
- 			       "Failed to get filter for '%s', err %d\n",
--- 
-2.34.1
-
+Thanks
+Hangbin
