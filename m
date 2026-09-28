@@ -1,193 +1,454 @@
-Received: from mail-vs2-f38.google.com (mail-vs2-f38.google.com [74.125.227.38])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de [81.169.146.218])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8473F4F4747
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 19:28:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.38
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790623730; cv=none; b=PwfZw/xXCLMJ2bmtE2FYfUPqokuURV+FimoLIy+FR5cos5IqxUZu30TRVXSxJpbmq9um+w09vQBXKrvpam1PqxN+3NC9HkYTdspOBx0vhnnpOuRc0XpgbHzr0tgIH82msvWjKpy2FWampncO6CKioWh0vMLKnCrGwD9qt9v3iwk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790623730; c=relaxed/simple;
-	bh=O4uIi9qgIMnPjsFpze9OgXjJoOKWfAVoaOQ1MDw6W24=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=IlRJkoVEP2kFhOO361UnYsl9qNkfBaWXnP1LaXRFmo/QGvP4Eha/CY7xb5wsfyj4lN6WOC0pOzahTH+0xzurLjd4re2Kr6oYCq1Sh1ZVzew3HLXDXrEkKMgNBTN905JHE/rXGPE5TB/GphRp7xGhSmDcHAN/FnE/QdvwLO3zpdA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=ujeAHZXC; arc=none smtp.client-ip=74.125.227.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7E6E4F4748;
+	Mon, 28 Sep 2026 19:30:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.218
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790623830; cv=pass; b=NZqcSjS5UerzKt7ttla9kGfYguDY8mVNpB6HN9rg8vsWaFBH0iiza2e6Jy7Zflgm3i3Drj1ZEGQR3Vi8XmRNP+KQxM6II/EbS5WaSDYAw5xf66l71P3IyHZVUzVlmurFMftfkSRHbw51ywCgnJ02caoeVhKm5luxNFcFVpZBysI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790623830; c=relaxed/simple;
+	bh=R59KFAtskgMCpeDUJXUtTC3mWc4O99QMiIUVOgCV0sA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=HzInVfz9IiYxadteJkCs2qr/ANFNSInAyXnxKBBp01u7KimzjmHXR/PXwTfhq9w13dl1FteYfAUwjpqS1mdENOrKN35jsvSfkgFx//NzPE4aW2ls3xu6r3yPRNkJZ0KrGFKpt/S59HmWTsrPfMiMSeeXz3IhkUYXcB0/89dtrH0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net; spf=fail smtp.mailfrom=hartkopp.net; dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=QdkBkEHj; dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=zU5gc4l5; arc=pass smtp.client-ip=81.169.146.218
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=hartkopp.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="ujeAHZXC"
-Received: by mail-vs2-f38.google.com with SMTP id 71dfb90a1353d-5cdb9cb7feeso1012670e0c.2
-        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 12:28:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1790623726; x=1791228526; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=f4XLiHmjvbY0WMNhbeGvYmwDKn+iLVO18enI78KZT1U=;
-        b=ujeAHZXCofuwKgAeICLb9kvV1n9E+r47D8VgVObLOyXqxCqTWKsnzm29wo6zstlAEb
-         oQnquVN2ifqow7e3G0NZgZWL2bvGI3Daavmgj7IgOOZbjp/B2aOvc70ysTztAIwx4X/X
-         uhoYlK0KP5JYbo3VE/5SPmHOv/ww/x4cckykcKfVQNOy25xJXfg6mAaMXyshTqWvj/+P
-         BW8htB6UCgewzAPuRJfvs3A/soDKRsZNWs5K2SFAv7DpV4ZhJgzxLhgz4hiJgjtHfzwr
-         QMo6NWZjjXJXHG9QC2r1AmirOCJoqXNv/c6F2zP6I16Shtm9h4eYZ8OElq1bNRxZSv55
-         P5Qw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790623726; x=1791228526;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=f4XLiHmjvbY0WMNhbeGvYmwDKn+iLVO18enI78KZT1U=;
-        b=u3fjgtYXZkRImMepzoxcHh/eMH0DQMM4rSYiIlvZiEqyC2h8RXpRleZOlT4EaNL4jp
-         x1eSm8WJZxP2bjZxY4Q9ZVCTbwvOwBQhG8ojZXGmgiD13Pj/brex2HWBodVxIq58/Xdp
-         KlTxPV9MGhNfIS6qWaaTT4twe+E0RfjD3x1XIJfGpgbR5aBAUtIH7mgaWcNa2y6QJ8Kp
-         UlSSPc9XA4CKphADrM/e3nMJkVhoM80hmPtWWLqrdj6qG2La4QJ7AlhrxvU2Ko2Z+8TW
-         SCZzA2j5jImJbzsikND5lKw6bog26qicXAWoQxaw2uuAFnC9yuF96WjMdWRW3AGqJPsu
-         ljjw==
-X-Forwarded-Encrypted: i=1; AKwUvByfN65hl+fEDyxuzY5qBVg5iZC43fUYHdH3y/KPO4RpdvrJudlJ+tdCgFMpF9pw8tyzC7unFOs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI2A7+E9yxHvKMi7GPeGHVs8l6FV80aL6rS8PN0Og22VubF41F4
-	+RR+4NlXesmNeQyrIJxSv/gUyOAe/+4Y+AhXlmu6/VKFbJ48uXg0IndS0n2wj2XcLZw=
-X-Gm-Gg: AYBFou35H4xBTa3N8tw4l4eKLzoROQocmhRl/v6Dep88EymsqnNRtkTZHB3fZ35mfLQ
-	RmNawoSnfjM+D9EtQhDBq+b1LpjzkI+kUD55a9D3kct2TdUSrf5DyhBcwTFaFwGsswJbzgen8vw
-	tn6rdoogZ81/xIeMRH2tYt65R4aWfdW0LmiL28uCBY4jswDZNSnsQl4So7KbYk7zZQwa8sZZyU8
-	1V7UcilbAocXU5VI7EYEPY5KekaKyIhkrbDS5abaBIeT0O8iynvnCEHjUlLHEcTE6M0Bptg4ZG1
-	Nvvos8URW+bPfcB8i12xRrzSbvDRi1XnlKpIhzSYHBDNsjE6zQNTD94EuKgI0hFHQI5akqPrBwl
-	p4JV5pt3iZVy0FNvx1CR5t1tUtorGMnvYiM9sB446WDoNtpTRIPz63CDP/qVdl6MBGKNHGoDEIU
-	ZaN1CZWPQvDBbAUy8Sj0wPPFrywkEDdanJIG7wxFd0XYMF9kp0mh9YdNi0unWrV50syXEUWXI9b
-	6tcMtQU7PPTSQ==
-X-Received: by 2002:a05:6122:25ca:b0:5d1:b41c:8ff1 with SMTP id 71dfb90a1353d-5d1b42bdce3mr337088e0c.15.1790623726416;
-        Mon, 28 Sep 2026 12:28:46 -0700 (PDT)
-Received: from ?IPv6:2606:6d00:11:34bd::5ac? ([2606:6d00:11:34bd::5ac])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5cde664c06esm9993095e0c.16.2026.09.28.12.28.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 12:28:45 -0700 (PDT)
-Message-ID: <59097bca6ad101c160c1d519556fbee378801dcd.camel@ndufresne.ca>
-Subject: Re: [PATCH] media: imagination: e5010: release m2m device on probe
- failure
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: =?UTF-8?Q?=EB=B0=95=EB=AA=85=ED=9B=88?= <mhun512@gmail.com>, Devarsh
- Thakkar <devarsht@ti.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="QdkBkEHj";
+	dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="zU5gc4l5"
+ARC-Seal: i=1; a=rsa-sha256; t=1790623456; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=qXJ306HjPZRmGlwkZ8rOJOU/QXLZ6896Dt+x8asjVqiT9NFnXXXJlGHgX3PM2kXQgD
+    Jq9cQExLYJuS3vvRmFzAvHOnSdcsnANajAOgoh0htjeXybM3tztc9ohSRvGRI7Jk4N/T
+    RtUjCeaYEuJJtLwnobAcy7SXfA9AWEvKzg1K023elwOwIWuhTZUD3yx67mrp5Ufye6bE
+    BL0tACTuHxgzZVs88JkAvJUZY7RYvz6VOvgobe/To+52JtnQOkwbAMnIFstIdDG+daEO
+    MHOB4tW+aGzKOPEyzaao6M05g08J2fjH6D0es1ja3pZyXWqR9QQaLVEpZPGB92v8m/V6
+    SH1Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1790623456;
+    s=strato-dkim-0002; d=strato.com;
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=x41+j2MXyJI/2yK/2r7PEbT8aRSrMIBRFrrZV5PPTDk=;
+    b=oXSx9h4uSe9k8HZZzd/u3A2scDsNz5U4WWIiE1/ZbU0rH59aIjj63XjdIR0Ucaiqn7
+    AA9jrOAeBekANEdVyabwG7BNVTuNbP1ZmPeX04wR/lGXGkmh4eIkzA0HbNb6xROlaZ+q
+    hwJLjcDAXFkVhmWYjrSxkgKPDVxQ1LF5+hyH8wdBPsPh9iTotdhzSi/4mRH5RUQ48F5g
+    xfSKGStHP5z3Im/QZVMfpwirbn8KdnNO2O7tjZpw9qukDJKGeOyHIXliG/Q3Qc1a5aiN
+    ydgidB4bAeTrwWqL85+Dih7dybsthjPK6wOubw9WiNU/ExKS3zOPnMrIn2muCfQYGANQ
+    rSRg==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo00
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1790623456;
+    s=strato-dkim-0002; d=hartkopp.net;
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=x41+j2MXyJI/2yK/2r7PEbT8aRSrMIBRFrrZV5PPTDk=;
+    b=QdkBkEHjQ0OO6bidL2X5gT1zW5vVDUwGbP+y5Wqyb663kjXGtgwyZb1MTDCZK3QFfC
+    kvJGwDY6Y4eaCGeAXOeNqjzzkKG/xvU2eMY5/MciwlDki1mOQti9t8rZKs+5MiDz3xwD
+    7NWbcW0jvkA0khc6RzjYjm2MVb8IUTmmvU3fZxtVMIaqr366vR3W6kwB+uPrPoMoTNsi
+    tMbW9X/zsG6f4RonL5KyWeuMJxsn66d3YfhNLvb4tEZrb9xPeAJILY4lhgS5IAxAv3n6
+    ge9rtxvvSjB/Zc0UaIqCnF+Q3iCRTv1rn+2lPlRb/tqmokYov1PS8WgVM2RxSrP+8V/g
+    BgzQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1790623456;
+    s=strato-dkim-0003; d=hartkopp.net;
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=x41+j2MXyJI/2yK/2r7PEbT8aRSrMIBRFrrZV5PPTDk=;
+    b=zU5gc4l5L1mQfP91Q9h19KqVjh4f5omtlaa9f8xnM4/02BvQ3Hfu8dyc0DJ/eZI4+X
+    RpQyGzmck3arxrUmm2Bg==
+X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjH4JKvMdQv2tTUsMrZpkO3Mw3lZ/t54cFxeEQ7s8bDup0Q=="
+Received: from vivo.lan
+    by smtp.strato.de (RZmta 55.6.2 AUTH)
+    with ESMTPSA id K04b9a28SJOGOz3
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Mon, 28 Sep 2026 21:24:16 +0200 (CEST)
+From: Oliver Hartkopp <socketcan@hartkopp.net>
+To: linux-can@vger.kernel.org
+Cc: Oliver Hartkopp <socketcan@hartkopp.net>,
+	Norbert Szetei <norbert@doyensec.com>,
 	stable@vger.kernel.org
-Date: Mon, 28 Sep 2026 15:28:44 -0400
-In-Reply-To: <20260424-e5010-m2m-probe-unwind-v1-1-mhun512@gmail.com>
-References: <20260424-e5010-m2m-probe-unwind-v1-1-mhun512@gmail.com>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-voi74w9GheclbzmAzMR6"
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+Subject: [PATCH v3 1/3] can: remove CAN filters independent from namespace
+Date: Mon, 28 Sep 2026 21:24:08 +0200
+Message-ID: <20260928192410.71100-2-socketcan@hartkopp.net>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260928192410.71100-1-socketcan@hartkopp.net>
+References: <20260928192410.71100-1-socketcan@hartkopp.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
 
+When the devices namespace is changed the socket namespace and the device
+namespace might differ. The net_eq(dev_net(dev), sock_net(sk)) check in
+the CAN protocols netdev notifiers therefore led to skipping the required
+removal of the CAN filters from the (namespace changed) CAN devices.
 
---=-voi74w9GheclbzmAzMR6
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+This patch removes the namespace equality check in the netdev notifiers for
+BCM, ISOTP and RAW sockets. Since the struct net_device pointer is globally
+unique, the notifier should always process the unregister event and remove
+the CAN filters if it matches the original socket's bound device pointer.
 
-Hi,
+In bcm.c netdevice comparisons were performed by checking the interface
+index (bo->ifindex and op->ifindex) which is not namespace-safe either.
+Introduce tracked netdevice pointers (bo->dev and op->tx_dev) for these
+referenced devices to enable namespace-save device comparisons.
+Additional put all bo->dev accesses in bcm_notify() under lock_sock().
 
-sorry for the long delay, finally getting to this one, comment below...
+In isotp.c the two missing can_rx_unregister() calling sites are converted
+to use dev_net(dev) instead of sock_net(sk) to get the correct namespace.
 
-Le samedi 25 avril 2026 =C3=A0 01:58 +0900, =EB=B0=95=EB=AA=85=ED=9B=88 a =
-=C3=A9crit=C2=A0:
-> From: Myeonghun Pak <mhun512@gmail.com>
->=20
-> The probe path allocates the mem2mem device with v4l2_m2m_init(),
-> but several later failures jump directly to the v4l2_device_unregister()
-> unwind path. Since the driver core does not call .remove() after a failed
-> probe, those paths leak the m2m device.
->=20
-> Route post-v4l2_m2m_init() failures through the existing m2m release step
-> before unregistering the v4l2 device.
->=20
-> Fixes: a1e294045885 ("media: imagination: Add E5010 JPEG Encoder driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-> ---
->  drivers/media/platform/imagination/e5010-jpeg-enc.c | 9 +++++----
->  1 file changed, 5 insertions(+), 4 deletions(-)
->=20
-> diff --git a/drivers/media/platform/imagination/e5010-jpeg-enc.c b/driver=
-s/media/platform/imagination/e5010-jpeg-enc.c
-> index 42ad9ee399..4c250e2275 100644
-> --- a/drivers/media/platform/imagination/e5010-jpeg-enc.c
-> +++ b/drivers/media/platform/imagination/e5010-jpeg-enc.c
-> @@ -1072,14 +1072,14 @@ static int e5010_probe(struct platform_device *pd=
-ev)
->  	if (IS_ERR(e5010->core_base)) {
->  		ret =3D PTR_ERR(e5010->core_base);
->  		dev_err_probe(dev, ret, "Missing 'core' resources area\n");
-> -		goto fail_after_v4l2_register;
-> +		goto fail_after_m2m_init;
->  	}
-> =20
->  	e5010->mmu_base =3D devm_platform_ioremap_resource_byname(pdev, "mmu");
->  	if (IS_ERR(e5010->mmu_base)) {
->  		ret =3D PTR_ERR(e5010->mmu_base);
->  		dev_err_probe(dev, ret, "Missing 'mmu' resources area\n");
-> -		goto fail_after_v4l2_register;
-> +		goto fail_after_m2m_init;
->  	}
-> =20
->  	e5010->last_context_run =3D NULL;
-> @@ -1089,14 +1089,14 @@ static int e5010_probe(struct platform_device *pd=
-ev)
->  			       E5010_MODULE_NAME, e5010);
->  	if (ret) {
->  		dev_err_probe(dev, ret, "failed to register IRQ %d\n", irq);
-> -		goto fail_after_v4l2_register;
-> +		goto fail_after_m2m_init;
->  	}
-> =20
->  	e5010->clk =3D devm_clk_get(dev, NULL);
->  	if (IS_ERR(e5010->clk)) {
->  		ret =3D PTR_ERR(e5010->clk);
->  		dev_err_probe(dev, ret, "failed to get clock\n");
-> -		goto fail_after_v4l2_register;
-> +		goto fail_after_m2m_init;
->  	}
-> =20
->  	pm_runtime_enable(dev);
-> @@ -1113,6 +1113,7 @@ static int e5010_probe(struct platform_device *pdev=
-)
->  	return 0;
-> =20
->  fail_after_video_register_device:
-> +fail_after_m2m_init:
+Fixes: 8e8cda6d737d ("can: initial support for network namespaces")
+Reported-by: Norbert Szetei <norbert@doyensec.com>
+Link: https://lore.kernel.org/linux-can/CEA6A38A-2646-4ADA-95B4-CBAE2F301A8E@doyensec.com/
+Cc: stable@vger.kernel.org
+Signed-off-by: Oliver Hartkopp <socketcan@hartkopp.net>
+---
+ net/can/bcm.c   | 100 ++++++++++++++++++++++++++++++++++++------------
+ net/can/isotp.c |   7 +---
+ net/can/raw.c   |   3 --
+ 3 files changed, 78 insertions(+), 32 deletions(-)
 
-Can't you simply use fail_after_video_register_device label ?
+diff --git a/net/can/bcm.c b/net/can/bcm.c
+index 3d637a1e0ac1..cd3522ec32c0 100644
+--- a/net/can/bcm.c
++++ b/net/can/bcm.c
+@@ -128,18 +128,22 @@ struct bcm_op {
+ 	struct canfd_frame sframe;
+ 	struct canfd_frame last_sframe;
+ 	struct sock *sk;
+ 	struct net_device *rx_reg_dev;
+ 	netdevice_tracker rx_reg_dev_tracker;
++	struct net_device *tx_dev;
++	netdevice_tracker tx_dev_tracker;
+ 	spinlock_t bcm_tx_lock; /* protect tx data and timer updates */
+ 	spinlock_t bcm_rx_update_lock; /* protect filter/timer data updates */
+ };
+ 
+ struct bcm_sock {
+ 	struct sock sk;
+ 	int bound;
+ 	int ifindex;
++	struct net_device *dev;
++	netdevice_tracker dev_tracker;
+ 	struct list_head notifier;
+ 	struct list_head rx_ops;
+ 	struct list_head tx_ops;
+ 	unsigned long dropped_usr_msgs;
+ 	struct proc_dir_entry *bcm_proc_read;
+@@ -933,10 +937,13 @@ static void bcm_free_op_work(struct work_struct *work)
+ 		kfree(op->frames);
+ 
+ 	if ((op->last_frames) && (op->last_frames != &op->last_sframe))
+ 		kfree(op->last_frames);
+ 
++	if (op->tx_dev)
++		netdev_put(op->tx_dev, &op->tx_dev_tracker);
++
+ 	/* the last possible access to op->timer/op->thrtimer has now
+ 	 * happened above via hrtimer_cancel() - op->sk is no longer
+ 	 * needed by any pending timer callback, so drop our reference
+ 	 */
+ 	sock_put(op->sk);
+@@ -1072,10 +1079,11 @@ static int bcm_tx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
+ 			int ifindex, struct sock *sk)
+ {
+ 	struct bcm_sock *bo = bcm_sk(sk);
+ 	struct bcm_op *op;
+ 	struct canfd_frame *cf;
++	struct net_device *tx_dev;
+ 	bool add_op_to_list = false;
+ 	unsigned int i;
+ 	int err;
+ 
+ 	/* we need a real device to send frames */
+@@ -1103,10 +1111,26 @@ static int bcm_tx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
+ 		 * therefore (complexity / locking) it is not supported.
+ 		 */
+ 		if (msg_head->nframes > op->nframes)
+ 			return -E2BIG;
+ 
++		/* Re-resolve and re-hold the target device if a concurrent
++		 * NETDEV_UNREGISTER already cleared it (see bcm_notify()).
++		 * op->ifindex and sock_net(sk) is unchanged.
++		 */
++		if (!op->tx_dev) {
++			tx_dev = dev_get_by_index(sock_net(sk), ifindex);
++			if (tx_dev) {
++				op->tx_dev = tx_dev;
++				netdev_hold(tx_dev, &op->tx_dev_tracker,
++					    GFP_KERNEL);
++				dev_put(tx_dev);
++			} else {
++				return -ENODEV;
++			}
++		}
++
+ 		/* get new CAN frames content into a staging buffer before
+ 		 * locking: validate and normalize the frames there so that
+ 		 * bcm_can_tx() / bcm_tx_timeout_handler() never observe a
+ 		 * partially updated or unvalidated frame in op->frames
+ 		 */
+@@ -1169,10 +1193,22 @@ static int bcm_tx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
+ 
+ 		op = kzalloc(OPSIZ, GFP_KERNEL);
+ 		if (!op)
+ 			return -ENOMEM;
+ 
++		tx_dev = dev_get_by_index(sock_net(sk), ifindex);
++		if (tx_dev) {
++			op->tx_dev = tx_dev;
++			netdev_hold(tx_dev, &op->tx_dev_tracker, GFP_KERNEL);
++			dev_put(tx_dev);
++		} else {
++			/* prepare op->frames for goto free_op */
++			op->frames = &op->sframe;
++			err = -ENODEV;
++			goto free_op;
++		}
++
+ 		spin_lock_init(&op->bcm_tx_lock);
+ 		op->can_id = msg_head->can_id;
+ 		op->cfsiz = CFSIZ(msg_head->flags);
+ 		op->flags = msg_head->flags;
+ 		op->nframes = msg_head->nframes;
+@@ -1184,12 +1220,14 @@ static int bcm_tx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
+ 		if (msg_head->nframes > 1) {
+ 			op->frames = kmalloc_array(msg_head->nframes,
+ 						   op->cfsiz,
+ 						   GFP_KERNEL);
+ 			if (!op->frames) {
+-				kfree(op);
+-				return -ENOMEM;
++				/* prepare op->frames for goto free_op */
++				op->frames = &op->sframe;
++				err = -ENOMEM;
++				goto free_op;
+ 			}
+ 		} else
+ 			op->frames = &op->sframe;
+ 
+ 		for (i = 0; i < msg_head->nframes; i++) {
+@@ -1267,10 +1305,13 @@ static int bcm_tx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
+ 		bcm_tx_start_timer(op);
+ 
+ 	return msg_head->nframes * op->cfsiz + MHSIZ;
+ 
+ free_op:
++	if (op->tx_dev)
++		netdev_put(op->tx_dev, &op->tx_dev_tracker);
++
+ 	if (op->frames != &op->sframe)
+ 		kfree(op->frames);
+ 	kfree(op);
+ 	return err;
+ }
+@@ -1790,46 +1831,47 @@ static int bcm_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
+ static void bcm_notify(struct bcm_sock *bo, unsigned long msg,
+ 		       struct net_device *dev)
+ {
+ 	struct sock *sk = &bo->sk;
+ 	struct bcm_op *op;
+-	int notify_enodev = 0;
++	int sk_err = 0;
+ 
+-	if (!net_eq(dev_net(dev), sock_net(sk)))
+-		return;
++	lock_sock(sk);
+ 
+ 	switch (msg) {
+ 
+ 	case NETDEV_UNREGISTER:
+-		lock_sock(sk);
+ 
+ 		/* rx_ops: remove device specific receive entries */
+ 		list_for_each_entry(op, &bo->rx_ops, list) {
+ 			if (op->rx_reg_dev == dev)
+ 				bcm_rx_unreg(dev, op);
+ 
+ 			/* release an ANYDEV op's claim (see bcm_rx_handler())
+ 			 * on this now confirmed-gone interface.
+ 			 */
+-			if (!op->ifindex) {
++			if (!op->ifindex && net_eq(dev_net(dev), sock_net(sk))) {
+ 				spin_lock_bh(&op->bcm_rx_update_lock);
+ 				if (op->if_detected == dev->ifindex)
+ 					op->if_detected = 0;
+ 				spin_unlock_bh(&op->bcm_rx_update_lock);
+ 			}
+ 		}
+ 
+ 		/* tx_ops: stop device specific cyclic transmissions on the
+-		 * vanishing ifindex. Cancelling the timer is enough to stop
++		 * vanishing device. Cancelling the timer is enough to stop
+ 		 * cyclic bcm_can_tx() calls as there is no re-arming.
+ 		 */
+ 		list_for_each_entry(op, &bo->tx_ops, list)
+-			if (op->ifindex == dev->ifindex)
++			if (op->tx_dev == dev) {
+ 				hrtimer_cancel(&op->timer);
++				netdev_put(op->tx_dev, &op->tx_dev_tracker);
++				op->tx_dev = NULL;
++			}
+ 
+ 		/* remove device reference, if this is our bound device */
+-		if (bo->bound && bo->ifindex == dev->ifindex) {
++		if (bo->bound && bo->dev == dev) {
+ #if IS_ENABLED(CONFIG_PROC_FS)
+ 			if (sock_net(sk)->can.bcmproc_dir && bo->bcm_proc_read) {
+ 				remove_proc_entry(bo->procname, sock_net(sk)->can.bcmproc_dir);
+ 				bo->bcm_proc_read = NULL;
+ 			}
+@@ -1839,28 +1881,27 @@ static void bcm_notify(struct bcm_sock *bo, unsigned long msg,
+ 			 * accessed under lock_sock() so it needs no
+ 			 * annotation.
+ 			 */
+ 			WRITE_ONCE(bo->bound, 0);
+ 			bo->ifindex = 0;
+-			notify_enodev = 1;
+-		}
+-
+-		release_sock(sk);
+-
+-		if (notify_enodev) {
+-			sk->sk_err = ENODEV;
+-			if (!sock_flag(sk, SOCK_DEAD))
+-				sk_error_report(sk);
++			netdev_put(bo->dev, &bo->dev_tracker);
++			bo->dev = NULL;
++			sk_err = ENODEV;
+ 		}
+ 		break;
+ 
+ 	case NETDEV_DOWN:
+-		if (bo->bound && bo->ifindex == dev->ifindex) {
+-			sk->sk_err = ENETDOWN;
+-			if (!sock_flag(sk, SOCK_DEAD))
+-				sk_error_report(sk);
+-		}
++		if (bo->bound && bo->dev == dev)
++			sk_err = ENETDOWN;
++	}
++
++	release_sock(sk);
++
++	if (sk_err) {
++		sk->sk_err = sk_err;
++		if (!sock_flag(sk, SOCK_DEAD))
++			sk_error_report(sk);
+ 	}
+ }
+ 
+ static int bcm_notifier(struct notifier_block *nb, unsigned long msg,
+ 			void *ptr)
+@@ -1982,10 +2023,14 @@ static int bcm_release(struct socket *sock)
+ 
+ 	/* remove device reference */
+ 	if (bo->bound) {
+ 		WRITE_ONCE(bo->bound, 0);
+ 		bo->ifindex = 0;
++		if (bo->dev) {
++			netdev_put(bo->dev, &bo->dev_tracker);
++			bo->dev = NULL;
++		}
+ 	}
+ 
+ 	sock_orphan(sk);
+ 	sock->sk = NULL;
+ 
+@@ -2029,25 +2074,32 @@ static int bcm_connect(struct socket *sock, struct sockaddr_unsized *uaddr, int
+ 			ret = -ENODEV;
+ 			goto fail;
+ 		}
+ 
+ 		bo->ifindex = dev->ifindex;
++		bo->dev = dev;
++		netdev_hold(dev, &bo->dev_tracker, GFP_KERNEL);
+ 		dev_put(dev);
+ 
+ 	} else {
+ 		/* no interface reference for ifindex = 0 ('any' CAN device) */
+ 		bo->ifindex = 0;
++		bo->dev = NULL;
+ 	}
+ 
+ #if IS_ENABLED(CONFIG_PROC_FS)
+ 	if (net->can.bcmproc_dir) {
+ 		/* unique socket address as filename */
+ 		sprintf(bo->procname, "%llu", sock_i_ino(sk));
+ 		bo->bcm_proc_read = proc_create_net_single(bo->procname, 0644,
+ 						     net->can.bcmproc_dir,
+ 						     bcm_proc_show, sk);
+ 		if (!bo->bcm_proc_read) {
++			if (bo->dev) {
++				netdev_put(bo->dev, &bo->dev_tracker);
++				bo->dev = NULL;
++			}
+ 			ret = -ENOMEM;
+ 			goto fail;
+ 		}
+ 	}
+ #endif /* CONFIG_PROC_FS */
+diff --git a/net/can/isotp.c b/net/can/isotp.c
+index 155530aedce2..0835a4758a72 100644
+--- a/net/can/isotp.c
++++ b/net/can/isotp.c
+@@ -1490,15 +1490,15 @@ static int isotp_release(struct socket *sock)
+ 	/* remove current filters & unregister
+ 	 * tracked reference so->dev is taken at bind() time with rtnl_lock
+ 	 */
+ 	if (so->bound && so->dev) {
+ 		if (isotp_register_rxid(so))
+-			can_rx_unregister(net, so->dev, so->rxid,
++			can_rx_unregister(dev_net(so->dev), so->dev, so->rxid,
+ 					  SINGLE_MASK(so->rxid),
+ 					  isotp_rcv, sk);
+ 
+-		can_rx_unregister(net, so->dev, so->txid,
++		can_rx_unregister(dev_net(so->dev), so->dev, so->txid,
+ 				  SINGLE_MASK(so->txid),
+ 				  isotp_rcv_echo, sk);
+ 		netdev_put(so->dev, &so->dev_tracker);
+ 	}
+ 
+@@ -1846,13 +1846,10 @@ static int isotp_getsockopt(struct socket *sock, int level, int optname,
+ static void isotp_notify(struct isotp_sock *so, unsigned long msg,
+ 			 struct net_device *dev)
+ {
+ 	struct sock *sk = &so->sk;
+ 
+-	if (!net_eq(dev_net(dev), sock_net(sk)))
+-		return;
+-
+ 	if (so->dev != dev)
+ 		return;
+ 
+ 	switch (msg) {
+ 	case NETDEV_UNREGISTER:
+diff --git a/net/can/raw.c b/net/can/raw.c
+index 82d9c0499c95..c5596fc9aac5 100644
+--- a/net/can/raw.c
++++ b/net/can/raw.c
+@@ -300,13 +300,10 @@ static int raw_enable_allfilters(struct net *net, struct net_device *dev,
+ static void raw_notify(struct raw_sock *ro, unsigned long msg,
+ 		       struct net_device *dev)
+ {
+ 	struct sock *sk = &ro->sk;
+ 
+-	if (!net_eq(dev_net(dev), sock_net(sk)))
+-		return;
+-
+ 	if (ro->dev != dev)
+ 		return;
+ 
+ 	switch (msg) {
+ 	case NETDEV_UNREGISTER:
+-- 
+2.53.0
 
-Nicolas
-
->  	v4l2_m2m_release(e5010->m2m_dev);
->  fail_after_v4l2_register:
->  	v4l2_device_unregister(&e5010->v4l2_dev);
-
---=-voi74w9GheclbzmAzMR6
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarq/7AAKCRDZQZRRKWBy
-9IZmAP0VR6bu6gTm5GrW5zPbMo2MHKgY6EAy04h+kue45wO+HwD+LGwAIVFAH7ri
-2jBuZaTDoCNv7kwXXm6c9LckfqoGjgM=
-=S2RM
------END PGP SIGNATURE-----
-
---=-voi74w9GheclbzmAzMR6--
