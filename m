@@ -1,190 +1,189 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com [74.125.227.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C44F94E9C08
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 20:12:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790626367; cv=pass; b=S10zGi8m+mQnWsqHY1Yybxkfq3Ukng6CdRVuhyslb6NxHGeAPALP3qfezfiR/pQfxgAxZzKjGxpZhVa/0odyZuswiK3ul0h6/K9Av5u/KJlmjmlasyg8GXvo2634ho8po9mrpqmU31gWS3uR85sd24aI7WlTyQ16eSm2aIv0vbk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790626367; c=relaxed/simple;
-	bh=LYplrdyBy/ve1B9b3/A0Q3qNi6+XTJGeLMxYSFaxX+0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=T1dStIAovz1ZcL2xZh1ddSrRH9BL0kLTCNkprSbodALYTEZOE9hlcgDu0cQy/n92LhHy2O0Luk5f39mhcrygXU1FrSXW0stxCcuGYDTaPuuPkuHAyoisPypOxR4o4OzqG7PjDsN/DSfv33CHZZL6p63ppLPT+26S3cDIYrWxqWk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cFd+iOdL; arc=pass smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 284E53644C9
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 20:18:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790626691; cv=none; b=p6tNEG5tbZN+HHrUr6P3Vq4l1Q3/Vf12zQNqg8o3GlHqdDowGqIzmILpc62+FPssT4L+yicpSEalymfX74UL62UUSdPWumWCu+48hRIVHUSwBbL3xRnDNdhdLVruwBNy5fgFfxz0XO8HRQles+mAKtf1sasVzZvmHS0QyBhRuc0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790626691; c=relaxed/simple;
+	bh=CgZhHGj1pW6833JwW53EB4b6tZGAvoRHquleruZAoaY=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=PfX5mWDiZUkbuNR7UVKZpIj8eYqxCcs50N+n9kMdToeZZmt68wbDIzCUf7s787fNzagk2/qyNbu6hz5DXKPaeX3CrG689GM9qPgxRtFLZWXX8ngqGEeqPkrkljNJyP+AvVAtW/xlPXlVQfVCQdjPl6G5CKOOxhStFEUhuGK0kuI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=dyBCZ3ra; arc=none smtp.client-ip=74.125.227.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cFd+iOdL"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c29703cb470so537644966b.0
-        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 13:12:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790626362; cv=none;
-        d=google.com; s=arc-20260327;
-        b=QWrpbdaOBMnspUaDdM3prHfDduoEGPSeJCAH+i9FRM/Aa+E4uwOW3LxxHjLak4IGBt
-         Cjzn7YO048PWtBrUIH1eFeRXN+RzIr2+/D2aqzl+vTwn/hZ4KWQrD64+1o5MgegW1VBo
-         IL87DxcjlFM/IlBLIwFPwPx2dvTxCZZWLjrK7PFuH+YcDCeji/pgEEd2BrEt9XngpplP
-         9c2XTVcH0ffEfGFVAOAsfswfcEjoT3xHFt04bSoR9sYrnx9kgl3Dwimi/qPU4SmbHkRM
-         svbIw2gwGtPZHbpAez2jtTSpjnrHyQm8DuQPdN/jTyoyKb2rpUYKMGFbPC69t5FlDy0y
-         YqBw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=op3YdKxjJPB63dQXpqOAe1ZN2m+ULaXvCzt5oEDNYyM=;
-        fh=WSdmWuhyWaWnw8jgW2B2eEXI9DIkj4aqSK9XSHNeb7c=;
-        b=C35TWUeQI+/nvs7aS05YPyYDfBdGmCKAXz3ekxupTp+E3pDZq4RUtpP/N3mAXl2Dts
-         wUUmfBEbWL6m27h4GNGFK3VjpyFUjIwJHvLtPsp9h9pe2x/fDW4j2z6jTioVcwfTjNuo
-         ig6O5gl4woL0IQT9irg7d6o68Sg/6wIjAYtMYlglWj555bZrisJueD71IOGOsTlAZJE8
-         mXwvCOy115/nPYrnCnSCAijpnq4btsfCXU752olA6u1YVeXydOXU/C5OpMyJPlVSBsNZ
-         FVWndbDIidzXiATHQAKK4D4xyWCy51CLVbgkXNKV1urGEliiSieOoeIguakhCY4J+oyr
-         fLXg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="dyBCZ3ra"
+Received: by mail-vs2-f43.google.com with SMTP id ada2fe7eead31-7b42996ae72so375959137.0
+        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 13:18:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790626362; x=1791231162; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1790626688; x=1791231488; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=op3YdKxjJPB63dQXpqOAe1ZN2m+ULaXvCzt5oEDNYyM=;
-        b=cFd+iOdLI45sRnZVAbchIr3Yj+myKDsj5iXol4CaUTAd0+IT9u34qXPGCOmkOQjKtM
-         Qid/vorez+NvJnemvwo2x2MWLzXCM3Xxsh/rnJ1LV7A5rNAG8ayU0ePQ9mjpolagtrWl
-         GU+FIAUac8Gr2JfE6YqhQ8UugaeWOzCdJJkDbYBVafvk24vyYsWkWwXGKZPEhHZM6Lia
-         OaPGHcX4RFzw1VUxmAT8LhaEKMV0MQCwXwdOoFLQbbEfT9PRYR3uJrCGuxwJ3pWOHyqZ
-         yf7xtF2SBhqopJXiZFdQhChCd5Ycgcvd0h1F6/0B/LvLh6Yx12O6G8yM2HfBwpaQc3gk
-         U3Qg==
+        bh=P8gb2EQ4YEQM5mnoy3pmR3dgRg6e0zG6BOgph6Y9a+g=;
+        b=dyBCZ3radDp8NPPuky5lRIVeEStjDLSxCR/fe0QOxD3GJKsM7UztGPRF3CyZWb25BL
+         GQkb90LA0Ew0NGGK7fgAoHJcVeqhqsm59g5UbrTQZtQDbGGZMzuNJ7wSK9U9TgihRIae
+         Hb1OPh+2gyW47mHGuDMfYl5yILeUGDfK8ONLgV9IHO3P45f7VroRGCtZWwEpYVWpcGnw
+         rO6N0PAeU2R//L77bnSjGRnl18G8pvaGypsMQ2tJP6zcVs4+UjV8u9j8NE9Q9AwTI/Ia
+         /cLpSG2R7UmXGLgZPx15SLlqKYwcicvLIb8/MIV0PttZ1JfRBQZSD3kuyoDUeRaza/a6
+         2Ctw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790626362; x=1791231162;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1790626688; x=1791231488;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=op3YdKxjJPB63dQXpqOAe1ZN2m+ULaXvCzt5oEDNYyM=;
-        b=AL355nQItjhXWGjdhZCeOcKCQVzNLqfnxz/jKptJ8puQVaemWEvNXQzNZ/VVuNrqdm
-         zUQyA9SQiA7o7doMet8tAMOljhxR4WMx8pBAVTqS1r7D/Mic7nDMOfBC6sP4njpfDt3A
-         WHOME1cWWQdswENAbpO/WMcv59vRv18zbUfQ7lUQWvS0dizNtjwg6CZFTwvN5aXICIrh
-         W3jRrn/g8EjmpgrFw3F6tnm2wIjKODWNWPhqFKrVXp+1Pf2DtiqJNZHs49qeLYTF/cCG
-         bQdIm5Byn70zYUIgFKUpKVfrViJvy2KEUYLp1tSiB9nUMPuKeDIWt3ogNAj+947InQQI
-         4n6Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwutig92n4uqw8Ku+dgzlxniS34469QsTBvirECXxlBCuRQyTGSndTXHlm+4Bl3qyCVZclnh6Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++k7N6lKJdEFsxBWsXci3AH8dM45hPyytLlVtSVUYY1yVNBFJ2F1
-	CJnpBNslncyRYQlRGH/opowGxCn0xRK4U7HHDFkUz0vomAX2wBsCdQ+u7I4a/S4PguExguqyV5r
-	94o49tXc66LlW+bQ0au0pLC34uezuqGs=
-X-Gm-Gg: AYBFou1rwXVsNMhyUB2DURKOW7cH9EH5S48mt+LtiXEgm2NJbDOswxARkdJeeoeNS18
-	B26SXMng9kXGANo4YZrWwDfOwWnxXvYRwWBpEAJNxpIRRbUe7OtM07OLkZK/GExGgN3ET0WsOG4
-	4jiCGmJlNJH320KGBS18j82/xlkDmM4e3nIv44XIjMxQHulZQwIljuZcRBkb/wbtr3fKmz7gmX6
-	+JaLvGA8jHODh73Y9iuN/fpOs1SPqMcAyUUqhp4BU3FXeS3H2xGQBvmFJQLH0Id+IV7wMfV3xqA
-	Bg0+2IbiiA5JpK9qzSNYIbtooEnxBqcPkH16C3DHwz/A6Gaw3re3ugV5D49oU9LkGVHD9oNO8hG
-	Y1ux+VpbVdEV5zPh2eHauNol44V4ePH1826oDquc=
-X-Received: by 2002:a17:907:e8d:b0:c29:f5d8:9c7c with SMTP id
- a640c23a62f3a-c2ac22cb147mr1134942566b.43.1790626361635; Mon, 28 Sep 2026
- 13:12:41 -0700 (PDT)
+        bh=P8gb2EQ4YEQM5mnoy3pmR3dgRg6e0zG6BOgph6Y9a+g=;
+        b=dfhyYfmkeMwkJOjyoknAymvuKOU1ydTgSE6xeCPoUbwsNyxkL9MmSRSdSb+wVqf1Ch
+         beRH+AdRVXq3JLurbz8sd0BttcmzUI4CsmnXO7yTZseeQ/iIuRmTddRZmk0mzTMtLeYK
+         hQmJR56E3fTmHIDXY27kWoUFf56t42n7CkNlDMYyhN+lalfM7G3SGdVi9gIubzIa2EKr
+         sXwiFWM4G97sSIzV+2YchP5tXtzgjAHrgwVJXOb7KXd9DLU8Ysd4uH6AWnztq2vrsii8
+         c0pIw8iacdKUoPx3+AYqmwLLrqaq0wKaKuQ8aUrlRmL+/KqJeRbGr5feY/xiN2Wc6zRY
+         nNpA==
+X-Forwarded-Encrypted: i=1; AKwUvByEWBO7QOOMpw4g1LzEl4fiGH4Uvkmtsi1BmBMqLUJQgAcooyfzH37WqvwUAxt66lW3p70WrYY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIo1gMzZ7YboB5r/hOiL1kr1nukRlmcrF2B9Sho01oNTndcX+ly
+	6uL6sm3WfVfeqbjDDBOqZE5ouYei95BtTK7aRdMziitvGxLwSEjvZ+8xol7NkyYiwANB/Ha0bnh
+	3crLmbvIcEg==
+X-Gm-Gg: AYBFou09fpnF6Kh5uXVpMbwkF2Qc8kcqLLbU9Ve21igS+so7NHWW3lpo/23oILGx0Ob
+	Cd3m/n0HHEfWQ5wjtCau/UpYwjIlEnWxQ89Qwse5mRBYjCimwm0nFBMbsI8X969o7R1hlxGK0f8
+	s8uFNb09pEnZ7ZTWGZL4vRsGRzxQTGZgurC4W4KtB8Dnq+4vXahJKcc2Kwl+oq6VBZfZC4QkuFw
+	WwD02vgjkvaZFWE+4LNifyEPIqdAQ1llhLdMTkIDcZB9toEAnYfzlI1wInFieiRgyRnhnN9UURL
+	3CYIh5pws7KZCm3ox4vqfI20Dt6VhH28AXzCdWDnqQir3sqcKDLkm6HZjwOoJW6gXxYksTDEGjP
+	O9zjqjZW5pZj17ZaaGBlh08AuFIuQgGJmZZeNZT6oQ/GEA0KeYVv8uPN5ZwuG2b7xyi2edBJwUU
+	r5Ls1aNFtRtsCUjrp5QG9DR5rIKI7T+HXy0DwrjLU1DT9b+AU/t99IJQoQ8DwXV7rstbypdrFj/
+	oxDk+lFKx4EwKDxvI9eCITO
+X-Received: by 2002:a05:6102:4497:b0:7af:4a46:4c12 with SMTP id ada2fe7eead31-7b1c4a2ca24mr2719387137.2.1790626687873;
+        Mon, 28 Sep 2026 13:18:07 -0700 (PDT)
+Received: from ?IPv6:2606:6d00:11:34bd::5ac? ([2606:6d00:11:34bd::5ac])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7b39b6a6272sm10681972137.7.2026.09.28.13.18.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 13:18:07 -0700 (PDT)
+Message-ID: <c5bb16dec180576cb7e68221880b5e36b7cb689b.camel@ndufresne.ca>
+Subject: Re: [PATCH v2] media: rockchip: rga: quiesce IRQ before releasing
+ m2m state
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Fan Wu <fanwu01@zju.edu.cn>, jacob-chen@iotwrt.com, 
+	ezequiel@vanguardiasur.com.ar, Sven =?ISO-8859-1?Q?P=FCschel?=
+	 <s.pueschel@pengutronix.de>
+Cc: mchehab@kernel.org, heiko@sntech.de, linux-media@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Mon, 28 Sep 2026 16:18:05 -0400
+In-Reply-To: <20260704084659.612221-1-fanwu01@zju.edu.cn>
+References: <20260704084659.612221-1-fanwu01@zju.edu.cn>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-39ovF+b+wtIn04/R/uu7"
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <9d60ef62-a53c-bb13-ff6a-0a195cf2f6f3@linux.intel.com> <20260919060037.84602-1-meatuni001@gmail.com>
-In-Reply-To: <20260919060037.84602-1-meatuni001@gmail.com>
-From: Muhammad Bilal <meatuni001@gmail.com>
-Date: Tue, 29 Sep 2026 01:12:30 +0500
-X-Gm-Features: AclHuK9JUTRFiE1kmA3vX9iGMdGDyovU-rO_D4_8LNq9x5prseHY4a5bJKiRjAY
-Message-ID: <CADqcGBm5r0+t44E3fyN5Re4+nL8hm+XxY9knQVqGUy0WmqVh9g@mail.gmail.com>
-Subject: Re: [PATCH v4] platform/x86: hp-bioscfg: fix 16-byte heap overflow
- for empty auth token
-To: Jorge Lopez <jorge.lopez2@hp.com>, Hans de Goede <hansg@kernel.org>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>, 
-	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Josh Snyder <josh@code406.com>
+
+
+--=-39ovF+b+wtIn04/R/uu7
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-ping.
+Hi,
 
-On Sat, Sep 19, 2026 at 11:00=E2=80=AFAM Muhammad Bilal <meatuni001@gmail.c=
-om> wrote:
->
-> hp_calculate_security_buffer() special-cases an empty authentication
-> string and returns a fixed 4 bytes (sizeof(u16) * 2). But
-> hp_populate_security_buffer() does not special-case that same input:
-> for any authentication string that does not start with BEAM_PREFIX,
-> including the empty string, it always builds "UTF_PREFIX +
-> authentication" and converts the result to UTF-16, writing a 2-byte
-> length header plus 2 bytes per character of "<utf-16/>" (9 characters),
-> 20 bytes total, regardless of how long "authentication" itself is.
->
-> The caller, hp_set_attribute(), sizes its kmalloc() buffer using
-> hp_calculate_security_buffer()'s return value, so for an empty
-> authentication token it allocates 4 bytes for the security area but
-> hp_populate_security_buffer() then writes 20 bytes into it, causing a
-> 16-byte heap buffer overflow.
->
-> The authentication token used here is the current admin/setup
-> password, which is an empty string by default until one is
-> configured. Any write to a writable BIOS attribute while no admin
-> password has been set reaches this path.
->
-> Fix by removing the special-case early return for an empty string in
-> hp_calculate_security_buffer(). The generic calculation that follows
-> already accounts for the UTF_PREFIX correctly, which naturally yields
-> the same 20 bytes that hp_populate_security_buffer() writes for an empty
-> string, avoiding duplicate logic for special cases.
->
-> Fixes: b2715aa2e135 ("platform/x86: hp-bioscfg: spmobj-attributes")
-> Reported-by: Josh Snyder <josh@code406.com>
-> Closes: https://lore.kernel.org/platform-driver-x86/20260402-hp-bioscfg-o=
-verflow-v1-1-6985f8c9e67c@code406.com/
+Le samedi 04 juillet 2026 =C3=A0 08:46 +0000, Fan Wu a =C3=A9crit=C2=A0:
+> rga_remove() releases the m2m state before the IRQ is freed. The IRQ is
+> devm-managed and is only released once rga_remove() returns, so rga_isr()
+> can still run while the m2m device state is being torn down.
+>=20
+> Store the IRQ number in struct rockchip_rga, unregister the video device
+> first, and free the IRQ before releasing the m2m state so the handler
+> cannot run against the freed state.
+>=20
+> Fixes: f7e7b48e6d79 ("[media] rockchip/rga: v4l2 m2m support")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+
+Again, I don't know if this is a real issue, but seems fair.
+
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+
+Picked, ty
+
+>=20
 > ---
-> Changes in v4:
->   - Straight re-generation against current mainline: v3 was written
->     against a tree state that had a duplicate "authlen =3D strlen(...)"
->     assignment (one copy meant to be removed, one meant to survive),
->     which current mainline does not have. That mismatch is why Ilpo
->     needed "special trickery" to apply v3, and why the manually-applied
->     result ended up with no authlen assignment at all (reported by
->     kernel test robot). The v3 diff itself was fine, as Ilpo confirmed
->     ("authlen is not uninitialized, so only the early return should be
->     dropped"); this is that same one change, regenerated from scratch
->     against the actual current tree so it applies cleanly without manual
->     intervention.
->
-> Changes in v3:
->   - Remove the special-case return entirely instead of adjusting its
->     formula, avoiding code duplication as suggested by Ilpo J=C3=A4rvinen=
-.
->   - Credit Josh Snyder who previously noted this approach.
->
 > Changes in v2:
->   - None for this patch; resubmitted as part of the v2 series.
->
-> Link: https://lore.kernel.org/r/20260803143037.93105-1-meatuni001@gmail.c=
-om [v1]
-> Link: https://lore.kernel.org/r/20260812111829.172273-1-meatuni001@gmail.=
-com [v2]
-> Link: https://lore.kernel.org/r/20260818191120.38556-2-meatuni001@gmail.c=
-om [v3]
+> - Rebased onto media-committers/fixes (Linux 7.2-rc1) so the Media CI
+>   valid-ancestor check passes. The rga driver was rewritten upstream
+>   (rga3 support, external IOMMU, clk_bulk, cmdbuf moved to rga_ctx), so
+>   this is a re-port rather than a pure rebase: the resource freed during
+>   removal is now rga->m2m_dev.
 > ---
->  drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c | 3 ---
->  1 file changed, 3 deletions(-)
->
-> diff --git a/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c b/dri=
-vers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c
-> index 4d94e48..abf8ce2 100644
-> --- a/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c
-> +++ b/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c
-> @@ -47,9 +47,6 @@ size_t hp_calculate_security_buffer(const char *authent=
-ication)
->                 return sizeof(u16) * 2;
->
->         authlen =3D strlen(authentication);
-> -       if (!authlen)
-> -               return sizeof(u16) * 2;
-> -
->         size =3D sizeof(u16) + authlen * sizeof(u16);
->         if (!strstarts(authentication, BEAM_PREFIX))
->                 size +=3D strlen(UTF_PREFIX) * sizeof(u16);
-> --
-> 2.43.0
->
+>  drivers/media/platform/rockchip/rga/rga.c | 4 +++-
+>  drivers/media/platform/rockchip/rga/rga.h | 1 +
+>  2 files changed, 4 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/pl=
+atform/rockchip/rga/rga.c
+> index b3cb6bf8eb86..fbc99462dce2 100644
+> --- a/drivers/media/platform/rockchip/rga/rga.c
+> +++ b/drivers/media/platform/rockchip/rga/rga.c
+> @@ -797,6 +797,7 @@ static int rga_probe(struct platform_device *pdev)
+>  		ret =3D irq;
+>  		goto err_put_clk;
+>  	}
+> +	rga->irq =3D irq;
+> =20
+>  	ret =3D devm_request_irq(rga->dev, irq, rga_isr,
+>  			       rga_has_internal_iommu(rga) ? 0 : IRQF_SHARED,
+> @@ -876,8 +877,9 @@ static void rga_remove(struct platform_device *pdev)
+> =20
+>  	v4l2_info(&rga->v4l2_dev, "Removing\n");
+> =20
+> -	v4l2_m2m_release(rga->m2m_dev);
+>  	video_unregister_device(rga->vfd);
+> +	devm_free_irq(rga->dev, rga->irq, rga);
+> +	v4l2_m2m_release(rga->m2m_dev);
+>  	v4l2_device_unregister(&rga->v4l2_dev);
+> =20
+>  	pm_runtime_disable(rga->dev);
+> diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/pl=
+atform/rockchip/rga/rga.h
+> index bd431534d0d3..7bcdf36c11b4 100644
+> --- a/drivers/media/platform/rockchip/rga/rga.h
+> +++ b/drivers/media/platform/rockchip/rga/rga.h
+> @@ -73,6 +73,7 @@ struct rockchip_rga {
+>  	struct device *dev;
+>  	struct regmap *grf;
+>  	void __iomem *regs;
+> +	int irq;
+>  	struct clk_bulk_data *clks;
+>  	int num_clks;
+>  	struct rockchip_rga_version version;
+
+--=-39ovF+b+wtIn04/R/uu7
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarrLfQAKCRDZQZRRKWBy
+9KCPAPwM1fyw7fD5QEP3/mMmZg+7cHaUSSeU24SoTWd1bUpA9AEA7xkB7orTNjBo
+jdc9UGf06pEwlRtqhefYvUSz8x45Rgg=
+=QwDi
+-----END PGP SIGNATURE-----
+
+--=-39ovF+b+wtIn04/R/uu7--
