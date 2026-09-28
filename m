@@ -1,237 +1,278 @@
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.166])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B994949D595;
-	Mon, 28 Sep 2026 11:09:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.166
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790593758; cv=pass; b=MkhEtrICsu/3/lIj/dlp+akmEkd9RS+/3A6gShe8Jd9zfV0kRpF5qNduUTrnGX/lxphDYHpy2YHyut0bGGIFuoiOmCnDR9o8JYx1DsoBgJ2rj9HL7W831X9KLfl9nVukSgv5kP4TaoHLiCGSFRSzPPJ6EJ7vSDxw9MmrLZjb68U=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790593758; c=relaxed/simple;
-	bh=7lELjSk5u4HXV2UZJwHzp+hM6f0FBs68Wk8RmW/l0Sk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Y2AKxTY6sBxl7wgi33v2UqfDc0TTaPsggUzsNgN5xrl+X8sSro1yZ6aT6iT1dz/HKJDTmNu6FYk1P0ehHPO2k7cHDR8qJdzml18LTxFKJX+KB94QsYXsgtgnUudnZG2UCTlw3XBU8XjKJlhEiFWGoMj4GHZaCpmUb6fPWqMPOjQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net; spf=fail smtp.mailfrom=hartkopp.net; dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=pqonKwJx; dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=VA8TSJE/; arc=pass smtp.client-ip=81.169.146.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=hartkopp.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D68F549DB9B
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 11:09:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790593760; cv=none; b=H1tXWURCUUYveL8lxLG3A5q2Zc9ChqelQHqrl9MpuWQlxGJ2mjP7IuBw01nYmQG08E3tAJyfubjxdVR7Ywx3HtfFZE92zeYgE1gJfFAzgAkT1KD1Uu8NpdDVpaBX52qKWGKEJGQony+R5JKlL+WNi0gKOy3PxDtW36KX1LUkQY0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790593760; c=relaxed/simple;
+	bh=yHJH2/T8bxQU0i27QtjHSnK2maSzNqLK/UbhDNoOjNs=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=b6rAF0DL+9n9ode6n59nNgDhKK7UK8KBW6qtywkfI6jGrqhOfN8UlRhaEtcEgbWLLrgfqW8uxiSiDGs3WwsIBfkT4GcvXton1ZqlnmOgxhLxu+OgVHFLwqoGm90+x0q2gMmRcI9ASzt83jHePYgZPipQR6TI5sqhQbRN6PCXOTM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ShaS44sN; arc=none smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="pqonKwJx";
-	dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="VA8TSJE/"
-ARC-Seal: i=1; a=rsa-sha256; t=1790593746; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=Ya1YCadGji6rMTM6CMEvPU/TkfS1bCGfAfrYS6Fpuat/4pHw9PMf5J1VMC7oYktm3F
-    p7xw6RzcADLqjJ1CENJ/R7PI8KRxr7DdWKi0s8WBlxVfxCOo72MXdFCCy0ATsizyuZy7
-    IOEdtDJ+GH5mxYYk4wjDA0oP1xSo81IzMrAdWpX+TxTQDmln47Ha7a+Q8l3ew+SzPAjy
-    KMXDG4a2mDdWHG5qGw9bJSk5MADFLzoqXDEVWN1OBhqQvAz2dBGNWweksJwQp0n8eJcC
-    AB87O9hQXKC3b3FvUTbdUzmHPBNbRAJOqoUebPCvfT2Vi9B8ViF3bYC29Ir73jUaj1JT
-    bwuA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1790593746;
-    s=strato-dkim-0002; d=strato.com;
-    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=WDPPOnZ8zGMqDVanmkLKG1cHDsWhNsNYgX/67/WGH9k=;
-    b=ryZW1G4L/mHVLmwzCmhXaFouB2AgHMZthOiMFAn8I8UQUESHYx7rFwlr65XaO5y2D4
-    RF4bi6bwT5qI2B9odMjlvDgLGBIcp4GrdMcV5Uz0LQOHY1qzWjwNy/N3kXu9RkNMNuX2
-    +jMnIzFupcZn3W2wMZwNR1SoGyftjTa0DOFaZbqOKlPjr6IWJLwSGmghaI9BbIkB48En
-    U2XDNUQPzH/9cqcQ1zFdGPQyT8gUy4sAqrnvmJXmF6I9Fhjt41HXuzfMApfkwE2qznpm
-    dbqSrjsGV3DlCU4nkeIhwrfKsomb6gq5p9a+3j5mEpKCUbOJntfkaxUj033Vg+3bNz+u
-    eQpA==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1790593746;
-    s=strato-dkim-0002; d=hartkopp.net;
-    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=WDPPOnZ8zGMqDVanmkLKG1cHDsWhNsNYgX/67/WGH9k=;
-    b=pqonKwJxLrSA6qTB7e5B+76O0SJB6ST5UrYibTO772ZGymZNaFETTxU1uFed2MxnAd
-    PFm6hw1RL1dQvWaRHHGARQG8mQrsr9d+Jl7L8qAXYBmmHyNGGfc8pC7YkZIz2fCSE84A
-    +cbEjJnzWvE+rF4g9JntLOkPrnQFayP2IRkiCzj+iVQno6UIoRaI2gTYfyHpDdQnutLv
-    PVvKEGmvt5jT9rKgKkCe5lIoH/ZNdgI/rVWXNX8qj/jtlBKEnz4GRpGMj1GA3KIloZAa
-    itK1LJlcY726629K6bKe4awuTUxMCq8ulSbAQHKFgvjeagLURFgcHVFAfUpyF83Xv1/k
-    Pjjg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1790593746;
-    s=strato-dkim-0003; d=hartkopp.net;
-    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=WDPPOnZ8zGMqDVanmkLKG1cHDsWhNsNYgX/67/WGH9k=;
-    b=VA8TSJE/CpXES/f1z9ZewJyYFpNu602kUuzuZHYIRcWWAN+d65zafQeZP8at6YxCVr
-    rJdKvUauAM27k8tdT8BA==
-X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjH4JKvMdQv2tTUsMrZpkO3Mw3lZ/t54cFxeEQ7s8bDup0Q=="
-Received: from [IPV6:2a00:6020:4a38:6810::989]
-    by smtp.strato.de (RZmta 55.6.2 AUTH)
-    with ESMTPSA id K04b9a28SB95K5c
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Mon, 28 Sep 2026 13:09:05 +0200 (CEST)
-Message-ID: <3a83de0c-8b64-4f14-ac5f-05f4e7f2d41d@hartkopp.net>
-Date: Mon, 28 Sep 2026 13:09:00 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ShaS44sN"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a99cd5115bso4801182a12.3
+        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 04:09:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790593757; x=1791198557; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:date
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AhEmqCbusXo+nqRRJWT3aL6p0OXcgNvckJxMKD5ctqM=;
+        b=ShaS44sN7D+hE9XaB8nXUpLrmFhGr/AdvbKejWpNNt6J+2XRbGbPxpdl8fZBm7osY8
+         W4zRbXSlbaGCWo4X+21vhjreXx5CUYQqWEPRD3ja5/jZ3xYLlfe2fEYAP4Ejp5ShWhj5
+         gNY8kKTinSg5ucTkp5Kdamsg+6TSBvfprJNwttgRvLVFD99Hs0aOxE9muEVifJTZXhkK
+         HZ7873SAAcA58QlJm7V/plUmTDtRD0mXRNSC0/4AJk7JgfYFCU3mW398UdubT6MOnRKJ
+         CIOu2JqyPYiwh30pHfaIoiNY/vsTYCFkGIYa/DVRMbGuAhJUbb9c+c3QAdIE8/ycaGMM
+         aXEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790593757; x=1791198557;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:date
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=AhEmqCbusXo+nqRRJWT3aL6p0OXcgNvckJxMKD5ctqM=;
+        b=DKHRhE5fYx5qQwqSVgj4nsmxASnhLl03tei/H6nJBnarlZJ7ihWI0mv8Uggv+ldYt3
+         3s9Z/+iNyw8JAEVZ0WU+FUa3J4Bcxz+P4ZAY8kA9LbuomDkWOgT6qp2pv4hhkG2gqmVd
+         a2Ll7IuOc+bAP8TUz6yDtFg3iVJWKG01DQiSvofOCjmM2N1VctRPKYVEM+tlAiMMrnjo
+         Kh5ISzMWnUPG6EDQCLzEOHtBIHPjz7DDFMKsmKeC3HFgQvF27inag9oUGp/ZSQAFc9qp
+         tTCuy/OpNs6O62wUBAfUaMCco6J+59X8MhgzhSj2n6c7MjI5ON6u4j3FW1NfDaJMcO0R
+         Njrg==
+X-Forwarded-Encrypted: i=1; AKwUvBwVQ2J1rWXsuff0n4y+izYyIZopFXg0QUM/gPn7LfzEiD3FAsrPsnYm5Dk+yZQucsHXm7LyLdE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJxLfy1/3QfTgYmdrtW4E+vkGiupVlU1BkoSzTmQ4rOcnDHc8FS
+	C9X5+mgEJ9RUB31CsIzL5pDXk9oNwG/NQVIArs3RZrFu/6q7FROiPJ0V
+X-Gm-Gg: AYBFou0P6/qZUK5n3kE+1E+kxOQ8cBMfYZBSXxnweEUHYrjxEVoApc4bOOOXWmWKzkS
+	jhIycOaib9JpcUBGS/3ko7fDaCOzQ2SV3adAkqAGdrsSsHpupv3vyJBolqvo8orPCSf0F25zSn3
+	/39FVx26SEse0znX3pXyti3KfE9QsJyqBSeapdQz8EGgUARujO2l508w56csng3QAB3NrAgK3+A
+	AacX0IrDzb1iVyBsYxhTGvwoN8J/eQk5HioHHFgEPUYR1FicNYRV97PKuoloIvkpKZgE+Fvu3QE
+	F7Jsmo++c749LH3aIv1dJIuFcY1IHUOsXNCCGNPelIdDczFzZPk05rJIpj8qYryFTSvBKOVt7KK
+	BK1juzhzocAR5ObENxkT6CHuM28e818Se13bNh6LNH4IsmI90Mf2mvhB+EhfkNPx7Xcy720grZn
+	r2CXvNErPVl8ro8ljear/TETdxq7lSENg8qKzm
+X-Received: by 2002:a17:907:a2cd:b0:c2d:ca32:2160 with SMTP id a640c23a62f3a-c2dca323569mr320592466b.47.1790593756863;
+        Mon, 28 Sep 2026 04:09:16 -0700 (PDT)
+Received: from milan ([2001:9b1:d5a0:a500::24b])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2ae7356d1csm458142866b.18.2026.09.28.04.09.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 04:09:15 -0700 (PDT)
+From: Uladzislau Rezki <urezki@gmail.com>
+X-Google-Original-From: Uladzislau Rezki <urezki@milan>
+Date: Mon, 28 Sep 2026 13:09:13 +0200
+To: Hao Ge <hao.ge@linux.dev>
+Cc: Suren Baghdasaryan <surenb@google.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Luis Chamberlain <mcgrof@kernel.org>,
+	Petr Pavlu <petr.pavlu@suse.com>,
+	Daniel Gomez <da.gomez@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	Aaron Tomlin <atomlin@atomlin.com>,
+	Kent Overstreet <kent.overstreet@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	linux-modules@vger.kernel.org, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v10 2/6] alloc_tag: clean up the populate failure path
+Message-ID: <arpK2bQrrUMvEvTP@milan>
+References: <20260915070001.113559-1-hao.ge@linux.dev>
+ <20260915070001.113559-3-hao.ge@linux.dev>
+ <CAJuCfpHJSwNhgotMVpmjVvdv=m52_7Kvzpztf0WcN0AaoSeGGw@mail.gmail.com>
+ <60642a7f-2949-428a-8290-40d69c989a77@linux.dev>
+ <CAJuCfpG3d7n=z5WnUQYZsqvrt1pemF8TFvGiGyZGLO7ykVvqAQ@mail.gmail.com>
+ <CAJuCfpGeRdFY6UPF-vXxwHvP2+tN=BKgRkmLR3PMLuWhxgzPRA@mail.gmail.com>
+ <1dff448c-9cbe-4276-bca1-d91283b0c7b4@linux.dev>
+ <b8005c24-ecac-45c4-840a-fd282f9693b5@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 net] net/packet: guard the ll header push in
- packet_rcv_spkt()
-To: Quchaosheng <quchaosheng000406@163.com>,
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Marc Kleine-Budde <mkl@pengutronix.de>,
- stable@vger.kernel.org
-References: <20260928065000.1749383-1-quchaosheng000406@163.com>
- <20260928065000.1749383-2-quchaosheng000406@163.com>
- <a56a3e49-ffdf-4285-bca6-992b12127289@hartkopp.net>
- <20260928080919.1888649-1-quchaosheng000406@163.com>
-Content-Language: en-US
-From: Oliver Hartkopp <socketcan@hartkopp.net>
-In-Reply-To: <20260928080919.1888649-1-quchaosheng000406@163.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <b8005c24-ecac-45c4-840a-fd282f9693b5@linux.dev>
 
+On Thu, Sep 17, 2026 at 10:32:48AM +0800, Hao Ge wrote:
+> Hi Suren、David、Lorenzo
+> 
+> On 2026/9/17 09:12, Hao Ge wrote:
+> > Hi Suren
+> > 
+> > On 2026/9/17 03:07, Suren Baghdasaryan wrote:
+> >> On Wed, Sep 16, 2026 at 9:31 AM Suren Baghdasaryan <surenb@google.com> wrote:
+> >>>
+> >>> On Tue, Sep 15, 2026 at 11:00 PM Hao Ge <hao.ge@linux.dev> wrote:
+> >>>>
+> >>>> Hi Suren
+> >>>>
+> >>>> Thanks for you review.
+> >>>>
+> >>>> On 2026/9/16 05:09, Suren Baghdasaryan wrote:
+> >>>>> On Mon, Sep 14, 2026 at 11:59 PM Hao Ge <hao.ge@linux.dev> wrote:
+> >>>>>>
+> >>>>>> The reservation is already stored in the maple tree when
+> >>>>>> vm_module_tags_populate() fails. A failed load never unloads the
+> >>>>>> module, so nothing releases the entry. Release it and roll
+> >>>>>> module_tags.size back. Without the rollback a concurrent load that
+> >>>>>> already passed needs_section_mem() can reuse the freed gap, skip
+> >>>>>> vm_module_tags_populate() and write to unmapped memory.
+> >>>>>>
+> >>>>>> vmap_pages_range() may have installed some PTEs before failing. A
+> >>>>>> retry to populate the same range would BUG on them, so undo them,
+> >>>>>> but only if vmap actually ran.
+> >>>>>>
+> >>>>>> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
+> >>>>>> Fixes: 0f9b685626da ("alloc_tag: populate memory for module tags as needed")
+> >>>>>
+> >>>>> If a patch fixes two other patches, it likely needs to be split so
+> >>>>> that each part fixes one patch only. But read on please. I'm not sure
+> >>>>> if one of the fixes is correct.
+> >>>>>
+> >>>>
+> >>>> Kept them in one patch because they only make sense together.
+> >>>>
+> >>>> After a failed populate the reservation is released and the
+> >>>> size rolled back, so the next load takes the same gap and calls
+> >>>> vm_module_tags_populate() again, and that retry would trip over
+> >>>> the PTEs the failed vmap left behind.
+> >>>>
+> >>>> Without the rollback a load that already passed needs_section_mem()
+> >>>> just reuses the gap, skips populate and writes to unmapped memory.
+> >>>> So splitting them leaves each half broken.
+> >>>
+> >>> Yeah, that's why I think vmap_pages_range() cleanup should be a
+> >>> completely separate patch with vmap_pages_range() doing cleanup
+> >>> itself.
+> >>>
+> > 
+> > I think I get where you're coming from now.
+> > Thanks for taking the time to explain.
+> > 
+> >>>>
+> >>>>>> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> >>>>>> Cc: stable@vger.kernel.org
+> >>>>>> Signed-off-by: Hao Ge <hao.ge@linux.dev>
+> >>>>>> ---
+> >>>>>>  mm/alloc_tag.c | 10 ++++++++++
+> >>>>>>  1 file changed, 10 insertions(+)
+> >>>>>>
+> >>>>>> diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
+> >>>>>> index 2070e682fe10..95ddf5b743d0 100644
+> >>>>>> --- a/mm/alloc_tag.c
+> >>>>>> +++ b/mm/alloc_tag.c
+> >>>>>> @@ -804,6 +804,13 @@ static int vm_module_tags_populate(void)
+> >>>>>>                                      next_page, PAGE_SHIFT) < 0) {
+> >>>>>>                         release_pages_arg arg = { .pages = next_page };
+> >>>>>>
+> >>>>>> +                       /*
+> >>>>>> +                        * vmap_pages_range() only runs once all pages were
+> >>>>>> +                        * allocated, and it may have installed some mappings
+> >>>>>> +                        * before failing. Undo them.
+> >>>>>
+> >>>>> If vmap_pages_range() failed to map the range, why should we need to
+> >>>>> undo it? If it indeed leaves some partial mapping when failing then I
+> >>>>> would argue that vmap_pages_range() should be undoing these partial
+> >>>>> mappings itself before returning the error.
+> >>>>>
+> >>>> Yeah it does - none of the paths under vmap_pages_range() undo themselves on error.
+> >>>
+> >>> Hmm. I wonder if this behavior is intentional or requires a fix. The
+> >>> only possible reason I can think of is performance but I can't imagine
+> >>> a failure to map is a performance-critical case.
+> >>>
+> >>> +David Hildenbrand (Red Hat), +Lorenzo Stoakes (Oracle) what do you
+> >>
+> >> Huh, my gmail thinks you are still at your previous companies :)
+> >>
+> > 
+> > I manually fixed it on the mailing list for this thread.
+> > 
+> >>> guys think? Shouldn't vmap_pages_range() undo its possible partial
+> >>> mapping when it fails?
+> >>>
+> >>>
+> >>>> pcpu_map_pages does perform cleanup on its own as well. There may be other similar sites.
+> >>>> https://elixir.bootlin.com/linux/v7.3-rc3/source/mm/percpu-vm.c#L255
+> >>>> so I did the same here.
+> >>>>
+> >>>> If we really want vmap_pages_range() to handle this cleanup internally, I believe that would
+> >>>> be a relatively large change, and we would need to consider many more cases. So I think we keep
+> >>>> the current behaviour for now.
+> >>>
+> >>> Yeah, I understand it would require a deeper cut but if that's the
+> >>> right way to handle this we might as well do that. Let's see what MM
+> >>> folks think.
+> >>>
+> > 
+> > Sounds good to me. Let's wait and hear what the MM folks say.
+> > 
+> 
+> I just looked into the call sites for __vmap_pages_range.
+> And I found there's a bug in one vmalloc caller [1].
+> When gfp_mask has __GFP_NOFAIL, the code keeps retrying
+> __vmap_pages_range. If there are leftover PTE mappings,
+> this can trigger a BUG(); [2]
+> https://elixir.bootlin.com/linux/v7.3-rc3/source/mm/vmalloc.c#L3946 [1]
+> https://elixir.bootlin.com/linux/v7.3-rc3/source/mm/vmalloc.c#L121  [2]
+> 
+Indeed the below code is incomplete:
 
+<snip>
+	/*
+	 * page tables allocations ignore external gfp mask, enforce it
+	 * by the scope API
+	 */
+	flags = memalloc_apply_gfp_scope(gfp_mask);
+	do {
+		ret = __vmap_pages_range(addr, addr + size, prot, area->pages,
+				page_shift, nested_gfp);
+		if (nofail && (ret < 0))
+			schedule_timeout_uninterruptible(1);
+	} while (nofail && (ret < 0));
+	memalloc_restore_scope(flags);
+<snip>
 
-On 28.09.26 10:09, Quchaosheng wrote:
-> packet_rcv_spkt() restores the link layer header with
-> 
-> 	skb_push(skb, skb->data - skb_mac_header(skb));
-> 
-> That subtraction is only meaningful when the device actually has a link
-> layer header.  packet_rcv() and tpacket_rcv() both wrap it in
-> dev_has_header(), which is also the predicate the block comment at the
-> top of the file states the restore in terms of; packet_rcv_spkt() does
-> not.  commit d549699048b4 ("net/packet: fix packet receive on L3
-> devices without visible hard header") introduced the helper and changed
-> the two call sites, and this one stayed behind.
-> 
-> A device without a visible ll header can leave skb->mac_header at the
-> 0xFFFF sentinel that __alloc_skb() initialises it to.  A CAN skb does:
-> init_can_skb() sets pkt_type and ip_summed but does not reset the
-> headers, and commit 9f10374bb024 ("can: remove private CAN skb
-> headroom infrastructure") dropped the skb_reset_*_header() calls that
-> used to be there.  skb_mac_header() is then 0xFFFF, the length becomes
-> a large negative number and skb_push() reports it through
-> skb_under_panic() -- from softirq context, so it is a full system panic
-> even with panic_on_oops=0:
-> 
->    skbuff: skb_under_panic: text:ffffffff8bd21bc1 len:-65455 put:-65471 head:... data:... tail:0x50 end:0x180 dev:can0
->    kernel BUG at net/core/skbuff.c:214!
->    RIP: 0010:skb_panic+0x50/0x60
->    Call Trace:
->     <IRQ>
->     skb_push+0x38/0x40
->     packet_rcv_spkt+0xe1/0x170
->     __netif_receive_skb_core.constprop.0+0x7e8/0xd30
->     ...
->    Kernel panic - not syncing: Fatal exception in interrupt
-> 
-> The socket type is reachable: packet_create() accepts SOCK_PACKET
-> alongside SOCK_RAW and SOCK_DGRAM behind the same CAP_NET_RAW check,
-> and neither the socket length nor a capability check keeps it away
-> from a CAN interface.
-> 
-> The missing skb_reset_*_header() calls in init_can_skb() are a
-> regression in their own right and are being fixed separately, but a
-> packet socket should not turn a link layer that did not initialise its
-> mac header into a kernel panic.  Guard the push the way the other two
-> receive paths do.
-> 
-> Tested on v7.3-rc5 under QEMU with a slcan device on a pty, which is
-> the driver RX path: vcan does not reproduce it, because can_send()
-> resets the headers on the way out.  One SOCK_PACKET socket bound to
-> can0 and one frame written into the line discipline panics an
-> unpatched kernel with the trace above; the same image with this patch
-> prints no panic and powers off normally.  Both kernels are this tree,
-> defconfig plus CONFIG_CAN_SLCAN=y, differing only in this hunk.
-> 
-> Fixes: d549699048b4 ("net/packet: fix packet receive on L3 devices without visible hard header")
-> Assisted-by: LLM
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
-> ---
-> Hello Oliver,
-> 
-> Yes -- af_packet.c is the right place, and your question made me cut the
-> patch back, so this is a v2.
-> 
+and it should be fixed. As the __vmap_pages_range() can actually fail
+and leave some installed mappings, we have to perform some cleanups
+on failure or on repeat(if nofail is true).
 
-Thanks for the explanation.
+Below code:
 
-> You are right that the CAN side is already being fixed: I ran zjamg's v2
-> earlier today and verified it holds.  The two are not alternatives to each
-> other.  That patch restores the header initialisations the CAN stack lost,
-> which is the actual regression; this one is the packet socket that should
-> not panic when a link layer hands it an skb whose mac_header was never set.
-> Either one stops the crash on this path, but only the pair leaves the
-> producer correct and the receiver safe.
-> 
-> On your question about where it belongs: packet_rcv_spkt() is the third
-> call site of the same subtraction, and commit d549699048b4 changed the
-> other two to dev_has_header() and left this one alone.  It is still the
-> only one that does the subtraction unconditionally, and it is reachable
-> with SOCK_PACKET.  So this is that commit's missing hunk rather than a
-> second opinion on the CAN fix.
++			/*
++			 * vmap_pages_range() only runs once all pages were
++			 * allocated, and it may have installed some mappings
++			 * before failing. Undo them.
++			 */
++			if (nr == more_pages)
++				vunmap_range(phys_end, phys_end + (nr << PAGE_SHIFT));
 
-Correct!
+we can use but we need to check if partially mapped space is not an
+issue for the vunmap_range(). And it looks like it is not.
 
-> 
-> The v1 had an extra skb_mac_header_was_set(skb) conjunct and this version
-> drops it.  dev_has_header() alone is what the block comment at the top of
-> the file states the restore in terms of, and what packet_rcv() and
-> tpacket_rcv() test; for a device without a visible ll header the documented
-> invariant is that mac_header points at data, so the subtraction is a no-op
-> push and skipping it outright is the same thing.  CAN is the case where
-> that invariant does not hold, which is the panic; the extra conjunct only
-> would have masked it.  I have re-run both kernels with this version.
-> 
-> Details of the re-run, since the earlier numbers were from the v1: v7.3-rc5
-> under QEMU with slcan on a pty, defconfig plus CONFIG_CAN_SLCAN=y, two
-> images from one tree differing only in this hunk.  Unpatched: skb_under_panic
-> len:-65455, packet_rcv_spkt+0xe1, "Kernel panic - not syncing: Fatal
-> exception in interrupt".  With this patch: no panic, powers off normally.
-> checkpatch is clean apart from the unavoidable long line in the quoted trace.
-> 
-> Thanks,
-> Quchaosheng
-> 
->   net/packet/af_packet.c | 9 ++++++++-
->   1 file changed, 8 insertions(+), 1 deletion(-)
-> 
-> diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
-> index 7c83e01526edc..40c67b86a1735 100644
-> --- a/net/packet/af_packet.c
-> +++ b/net/packet/af_packet.c
-> @@ -1911,7 +1911,14 @@ static int packet_rcv_spkt(struct sk_buff *skb, struct net_device *dev,
->   
->   	spkt = &PACKET_SKB_CB(skb)->sa.pkt;
->   
-> -	skb_push(skb, skb->data - skb_mac_header(skb));
-> +	/* Only a device with a visible ll header can have it restored, which is
-> +	 * the test packet_rcv() and tpacket_rcv() already make.  For the others
-> +	 * the header is invisible and the subtraction has no meaning: a producer
-> +	 * that left skb->mac_header at its 0xFFFF sentinel turns it into a huge
-> +	 * negative length that trips skb_under_panic() in softirq context.
-> +	 */
+<snip>
+@@ -3953,8 +3990,15 @@ static void *__vmalloc_area_node(struct vm_struct *area, gfp_t gfp_mask,
+        do {
+                ret = __vmap_pages_range(addr, addr + size, prot, area->pages,
+                                page_shift, nested_gfp);
+-               if (nofail && (ret < 0))
+-                       schedule_timeout_uninterruptible(1);
++               if (ret < 0) {
++                       /*
++                        * __vmap_pages_range() may have installed some mappings
++                        * before failing. Undo them before returning or retrying.
++                        */
++                       vunmap_range(addr, addr + size);
++                       if (nofail)
++                               schedule_timeout_uninterruptible(1);
++               }
+        } while (nofail && (ret < 0));
+        memalloc_restore_scope(flags);
+<snip>
 
-Just a nitpick: AI mostly likes to introduce comments that repeat the 
-argumentation already provided in the commit message itself.
-
-I would suggest to remove this entire comment as the other "if 
-(dev_has_header(dev))" call sites don't have a comment either.
-
-Comments are needed to provide additional information when the code is 
-not obvious - and not the development history including producer 
-failures ;-)
-
-> +	if (dev_has_header(dev))
-> +		skb_push(skb, skb->data - skb_mac_header(skb));
->   
->   	/*
->   	 *	The SOCK_PACKET socket receives _all_ frames.
-
-Many thanks and best regards,
-Oliver
+--
+Uladzislau Rezki
