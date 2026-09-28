@@ -1,34 +1,46 @@
-Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B201A4A5C39;
-	Mon, 28 Sep 2026 11:26:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 436E94A6CD1;
+	Mon, 28 Sep 2026 11:31:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790594818; cv=none; b=UpK3QNLovkdAiUzjcZ0d0wF0lksN/VkvBQZyedwkMfzjtAPBrwt8cg1K5zUEO04MSOqvgJaYJ4ICDSfYpRzsc5L7HXVyoFInaG5RPsg+PQ9vmdP9230lkdE3U4kWd46p070YGauzCrAoeOWb772Ex6kVdjL3pSLWoFLSjfZTKMI=
+	t=1790595109; cv=none; b=jPhjjjCCjl4rHr5PCwh8Qt9SG6pE2yFrogS5l6iHvIDwD1yZYiA7oMpfaxTHf5Owu0VqO9ZgXAf6ipCJE9ydgJNJHJwIRFvLnwg/ygPP2Bq03EzCEfVMkLOVfVisKgmIuQK5zAaf201C+1EYBmTctdNr5JxHLAhy7+wZUgBgyvg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790594818; c=relaxed/simple;
-	bh=SqqSHpTVaFTGp7yew8wil1yGbcjDwt8M5trdScYW15k=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=QSiOG5kfUhIjxBcXb2pT8RYkMrhd1CsQabshSSpEp3t/RTWZo6vDdIg8m+3TzP644xe5958BGH4W8siE9bvhK4wzU9ayd3b0RuRkSTMWoUAWNMa917OxJz4hu2FRpEUhx8icDCg9xA665fsDmny5y+JLl4gxfmP26rjVN3SrMFw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.161.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wCnYj30TrpqyExCAQ--.23692S3;
-	Mon, 28 Sep 2026 19:26:45 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app2 (Coremail) with UTF8SMTPA id zC_KCgA3jnz0TrpqupcSAA--.16008S2;
-	Mon, 28 Sep 2026 19:26:44 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: linusw@kernel.org,
-	brgl@kernel.org
-Cc: linux-gpio@vger.kernel.org,
+	s=arc-20240116; t=1790595109; c=relaxed/simple;
+	bh=UOqKbSPZHSOVoEXxJ2kp5L5KOcGYlTbx97YLZ0qwcP0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iiT2PrEOuoQhi4soLDntOG+hluLN/e4J32OiszIqOETlybQ42KEXZXKn/V2neRAtPeoEem8f3s3ceys9KWfXrSGlanekEpfIx0MkymB7xHGXu+K2jm45Bbin8wSwsA8pDCas5NxlWCeZdmY0QZDRqkbqlHhfZLrgMFSD0rTwSZY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=DqcD67r3; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="DqcD67r3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=cS
+	skOMhCQIMEKA2IYreR7P1RbOAEsdgbgHk3mzfeXJA=; b=DqcD67r3U0x1CIhYlE
+	tznUFoUVDu9ytZWHo1E23ysWiosSBGZM06YHMekzdRJkmqVjhpvptInXYQOh5tFN
+	oyCgVL9fJ8+e+xZFPB1w7RmPVRYBkNAglxz2j1z9MWQQnPgXcPSt3ha9jQGDMATc
+	9grP9yqETFL2mu3Iw0JWlOIKs=
+Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
+	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wD3lz_8T7pqlkwmBQ--.64509S2;
+	Mon, 28 Sep 2026 19:31:09 +0800 (CST)
+From: Quchaosheng <quchaosheng000406@163.com>
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Quchaosheng <quchaosheng000406@163.com>,
+	Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	songl@zju.edu.cn,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH v2] gpio: mpsse: fix race when arming the IRQ poll worker
-Date: Mon, 28 Sep 2026 11:25:46 +0000
-Message-Id: <20260928112546.631440-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	Marc Kleine-Budde <mkl@pengutronix.de>,
+	Oliver Hartkopp <socketcan@hartkopp.net>,
+	stable@vger.kernel.org
+Subject: [PATCH v3 net] net/packet: guard the ll header push in packet_rcv_spkt()
+Date: Mon, 28 Sep 2026 19:31:08 +0800
+Message-ID: <20260928113108.2127215-1-quchaosheng000406@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -36,106 +48,104 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zC_KCgA3jnz0TrpqupcSAA--.16008S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?EQNgHQXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnVvLbuoOKy0xUR2OEh/Lyhmb2J4R14AQ5aua09c1TMHWWZNzjWtWAkItiV16dpR6RS7l
-	FAOxNOXOfvatp8iSH8Sp9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoWxCrW3Aw1UXw48KFyxGFWkKrX_yoW5Xw4kpF
-	ZxKw4rGrs5JryI9Fnxuay0vry5uws5Cry2ga4xWw4xXr4akr90ya4kGr98ZF15uFykCFnx
-	Ar4DKr4xKFsxAFcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
-	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8Tv3UUUUUU==
+X-CM-TRANSID:_____wD3lz_8T7pqlkwmBQ--.64509S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxZF1xArykKw4xAr4rJFyDtrb_yoWrWF4rpa
+	s8KFyDtr4kGr4aqw18uF4DZFyFvF4kJa4fua48G34Yvwn8WryrKFy0krW5uFyUKa18Ga13
+	XF1DW34UAa4DZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piMa0PUUUUU=
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC-x1c0Wq6T-2owwAA3m
 
-gpio_mpsse_irq_enable() schedules a poll worker before adding it to
-priv->workers. gpio_mpsse_disconnect() can miss the worker while
-tearing down the list, after which the worker can access freed priv.
+packet_rcv_spkt() restores the link layer header with
 
-Publish and schedule the worker while holding irq_spin. Set dying under
-the same lock before disconnect tears down the list, so a worker created
-after teardown starts is neither published nor scheduled. Use
-kfree_rcu() for such a worker because irq_enable() runs with the IRQ
-descriptor raw lock held.
+	skb_push(skb, skb->data - skb_mac_header(skb));
 
-This issue was found by an in-house static analysis tool.
+That subtraction is only meaningful when the device actually has a link
+layer header.  packet_rcv() and tpacket_rcv() both wrap it in
+dev_has_header(), which is also the predicate the block comment at the
+top of the file states the restore in terms of; packet_rcv_spkt() does
+not.  commit d549699048b4 ("net/packet: fix packet receive on L3
+devices without visible hard header") introduced the helper and changed
+the two call sites, and this one stayed behind.
 
-Fixes: 179ef1127d7a ("gpio: mpsse: ensure worker is torn down")
+A device without a visible ll header can leave skb->mac_header at the
+0xFFFF sentinel that __alloc_skb() initialises it to.  A CAN skb does:
+init_can_skb() sets pkt_type and ip_summed but does not reset the
+headers, and commit 9f10374bb024 ("can: remove private CAN skb
+headroom infrastructure") dropped the skb_reset_*_header() calls that
+used to be there.  skb_mac_header() is then 0xFFFF, the length becomes
+a large negative number and skb_push() reports it through
+skb_under_panic() -- from softirq context, so it is a full system panic
+even with panic_on_oops=0:
+
+  skbuff: skb_under_panic: text:ffffffff8bd21bc1 len:-65455 put:-65471 head:... data:... tail:0x50 end:0x180 dev:can0
+  kernel BUG at net/core/skbuff.c:214!
+  RIP: 0010:skb_panic+0x50/0x60
+  Call Trace:
+   <IRQ>
+   skb_push+0x38/0x40
+   packet_rcv_spkt+0xe1/0x170
+   __netif_receive_skb_core.constprop.0+0x7e8/0xd30
+   ...
+  Kernel panic - not syncing: Fatal exception in interrupt
+
+The socket type is reachable: packet_create() accepts SOCK_PACKET
+alongside SOCK_RAW and SOCK_DGRAM behind the same CAP_NET_RAW check,
+and neither the socket length nor a capability check keeps it away
+from a CAN interface.
+
+The missing skb_reset_*_header() calls in init_can_skb() are a
+regression in their own right and are being fixed separately, but a
+packet socket should not turn a link layer that did not initialise its
+mac header into a kernel panic.  Guard the push the way the other two
+receive paths do.
+
+Tested on v7.3-rc5 under QEMU with a slcan device on a pty, which is
+the driver RX path: vcan does not reproduce it, because can_send()
+resets the headers on the way out.  One SOCK_PACKET socket bound to
+can0 and one frame written into the line discipline panics an
+unpatched kernel with the trace above; the same image with this patch
+prints no panic and powers off normally.  Both kernels are this tree,
+defconfig plus CONFIG_CAN_SLCAN=y, differing only in this hunk.
+
+Fixes: d549699048b4 ("net/packet: fix packet receive on L3 devices without visible hard header")
+Assisted-by: LLM
 Cc: stable@vger.kernel.org
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
 ---
- drivers/gpio/gpio-mpsse.c | 17 +++++++++++++++--
- 1 file changed, 15 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpio/gpio-mpsse.c b/drivers/gpio/gpio-mpsse.c
-index a859deab2..958d74427 100644
---- a/drivers/gpio/gpio-mpsse.c
-+++ b/drivers/gpio/gpio-mpsse.c
-@@ -10,6 +10,7 @@
- #include <linux/cleanup.h>
- #include <linux/gpio/driver.h>
- #include <linux/mutex.h>
-+#include <linux/rcupdate.h>
- #include <linux/spinlock.h>
- #include <linux/usb.h>
+Hello Oliver,
+
+Removed the comment block, as you suggested.  You are right that the other
+two dev_has_header() call sites do not carry one, and that the block
+comment at the top of the file already states the invariant -- so the
+comment was only restating the commit message.  The hunk is the guard
+alone now, two lines.
+
+No behaviour change from v2: same predicate, same push.  I re-ran the
+QEMU/slcan pair on this exact revision to be sure nothing else moved with
+it -- unpatched still panics with skb_under_panic len:-65455 out of
+packet_rcv_spkt+0xe1 in interrupt, patched prints no panic and powers off
+normally.  checkpatch is clean on the resulting diff.
+
+Thanks for the review,
+Quchaosheng
+ net/packet/af_packet.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+index 7c83e01526ed..a951a1e3c088 100644
+--- a/net/packet/af_packet.c
++++ b/net/packet/af_packet.c
+@@ -1911,7 +1911,8 @@ static int packet_rcv_spkt(struct sk_buff *skb, struct net_device *dev,
  
-@@ -24,6 +25,7 @@ struct mpsse_priv {
- 	raw_spinlock_t irq_spin;     /* protects worker list */
- 	atomic_t irq_type[16];	     /* pin -> edge detection type */
- 	atomic_t irq_enabled;
-+	atomic_t dying;		     /* no new workers after disconnect */
- 	int id;
+ 	spkt = &PACKET_SKB_CB(skb)->sa.pkt;
  
- 	u8 gpio_outputs[2];	     /* Output states for GPIOs [L, H] */
-@@ -46,6 +48,7 @@ struct mpsse_worker {
- 	atomic_t       cancelled;
- 	struct list_head    list;   /* linked list */
- 	struct list_head destroy;   /* teardown linked list */
-+	struct rcu_head      rcu;   /* deferred free for dying path */
- };
+-	skb_push(skb, skb->data - skb_mac_header(skb));
++	if (dev_has_header(dev))
++		skb_push(skb, skb->data - skb_mac_header(skb));
  
- struct bulk_desc {
-@@ -525,10 +528,17 @@ static void gpio_mpsse_irq_enable(struct irq_data *irqd)
- 		worker->priv = priv;
- 		INIT_LIST_HEAD(&worker->list);
- 		INIT_WORK(&worker->work, gpio_mpsse_poll);
--		schedule_work(&worker->work);
- 
--		scoped_guard(raw_spinlock_irqsave, &priv->irq_spin)
-+		scoped_guard(raw_spinlock_irqsave, &priv->irq_spin) {
-+			if (atomic_read(&priv->dying)) {
-+				/* irq_enable() runs under the IRQ descriptor raw lock. */
-+				kfree_rcu(worker, rcu);
-+				return;
-+			}
-+
- 			list_add(&worker->list, &priv->workers);
-+			schedule_work(&worker->work);
-+		}
- 	}
- }
- 
-@@ -704,6 +714,9 @@ static void gpio_mpsse_disconnect(struct usb_interface *intf)
- {
- 	struct mpsse_priv *priv = usb_get_intfdata(intf);
- 
-+	scoped_guard(raw_spinlock_irqsave, &priv->irq_spin)
-+		atomic_set(&priv->dying, 1);
-+
  	/*
- 	 * Lock prevents double-free of worker from here and the teardown
- 	 * step at the beginning of gpio_mpsse_poll
+ 	 *	The SOCK_PACKET socket receives _all_ frames.
+-- 
+2.43.0
 
