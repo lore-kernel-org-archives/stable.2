@@ -1,91 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D67633E37C;
-	Mon, 28 Sep 2026 21:02:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09D763CFF51
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 21:05:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790629365; cv=none; b=BRGfg2XDCIW2n9bLRxJyx+Ln/N/naPhUJzQK0UI+pfgXN0ZhyxCP09zuuIuWu4HJ9q3txHVPsIUJHjJO0gdZqhwsgHoSfljJZY5pbu49fErXhxWOlYPT9+P42JEQJ+W81d5RtBRGAfgPJjOJhcw77zydPRHbpGhNQtQc8ylUG9c=
+	t=1790629512; cv=none; b=MbsHU5mOd1dsH1NKi1QXbOLyapZEqlO49MF0jqQ1CqvRfhKp0JcNaBy29brd6G/mvvsKbnLO074zqiVc63vvTbkxfdT3gZM+LACuSeNUIVU/aaUt28RfzJ5Wz/E11nU4e9PtR/Gl3KOgN6Z8MKALFqvgfCOvg1BYN3dkSE7gpqs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790629365; c=relaxed/simple;
-	bh=YIBTHCMGPr7u/AIAx7AOxyZ4KyASKRxONHbPcn7COCE=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=XzjgB9uKL7DSOnRX+El+d90nSv3K7Xv6FFxKgtZhW4x/CkEVXiXLcD+VJBNaIIB0OIlH3HrM1sKXbEzG7Pcjk+pGP/WW1ABIlfKNzjQNG2dn9UoBsLAqvlQXYbZniRfVTpYm1zD6SlVFxb3IAKe/TDgjRevLQozlPvIllIzj1dQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zo//HJtk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790629512; c=relaxed/simple;
+	bh=bEKlKi/+IZFKOLDzrR1dsce/+n64lxtOKI6KSgMbKVU=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
+	 References:In-Reply-To; b=JJWXwjfJF5fZOHxgspIMmU+t8RwGkI+mz9oiccMdK4PysZRey78oAbz18Iq/i6cPg/nWzA4ePVNiIdVqoR9UuvU/h4//l93SpWRzcoD7973XJKEeSUvIINqWZzNl20visC+EoNiin6rQ+4CguCadshsHdvMhRplK2/GIXkiqcoc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=QdhLavMT; arc=none smtp.client-ip=74.125.229.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zo//HJtk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72D9C1F000FF;
-	Mon, 28 Sep 2026 21:02:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790629364;
-	bh=HZ/WEzkBIU9A05VT2kgF1uov4xnMpyIeWcCto5V+UAM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=Zo//HJtk0ZRMBObe0pGjJ+7D/yPjufR5VbAEon0YR5/LnI4gJzxd+BoQtU7jAlGaO
-	 yCwER3GhPxEzoBVdqpVTCAsAtz9fF/Uh2cvPDcX4MhoNx3zJoliaLHPlC7coEaCrDK
-	 oppvm3CXYrOkUeJDBq8I0klvtz6J/EBIIyk9ewaSNF7wNYx0EO1AvphnK1ZCDv+zLJ
-	 3uvnji23o7GEtvX7mKoBdObHEEhPMRp5hf/KiR9oLOLHtrmD7TienIdFcThAbQtUbt
-	 5cJZbzgJaxWaiTxl9SkLIk71b3FRVBLB1ThLZ+1QKDCgGKiSDYp1ayQrMWfix850X0
-	 FuV1PTyR73VoQ==
-From: Mark Brown <broonie@kernel.org>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: lgirdwood@gmail.com, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org, perex@perex.cz, 
- srini@kernel.org, tiwai@suse.com, vkoul@kernel.org, stable@vger.kernel.org
-In-Reply-To: <20260917164853.2163184-1-vulab@iscas.ac.cn>
-References: <20260917164853.2163184-1-vulab@iscas.ac.cn>
-Subject: Re: [PATCH] ASoC: codecs: wcd9335: Fix SLIM interface device leak
- in wcd9335_slim_status()
-Message-Id: <179060118005.139547.15844525180224544063.b4-ty@b4>
-Date: Mon, 28 Sep 2026 14:13:00 +0100
+	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="QdhLavMT"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-3396cec93b6so4122109eec.3
+        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 14:05:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nexthop.ai; s=google; t=1790629510; x=1791234310; darn=vger.kernel.org;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=SuOpjRo0nMbIZrrhGtIjOTHizEzVqe8lHpeMn+L+x88=;
+        b=QdhLavMTqGXU3Z5a8PzskU/taf9cO5W3uXmP6Tk85uhnxI2IO7/A/+G/xtzFSNY5b7
+         G+p09D9ClPRzih0/WhdPeYdJoh2EHJfwoiNI2Ubk+DI5dWMSzZiX1tvzpgu/75fhHQlM
+         CL3vOYXzE3gveM5qUj2pKSThWL/wThqtI4tebZjSbkGQHL/7l49DMvD/4qx55bWXFpHs
+         gQESL/pPuToUSTAxd4hGR5yvVc2DtQn/QtRJ8Rqiy28TwvB6vp/Xcm5twL6ViorZzJxB
+         wl1Xot2cGCmuEFDsAKXFbialIf4ExWNTQK9d4D/2WU3+jx+p3Ajrq/zJ2pBHYsenzfaa
+         FV7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790629510; x=1791234310;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SuOpjRo0nMbIZrrhGtIjOTHizEzVqe8lHpeMn+L+x88=;
+        b=FxDRYq1pRfhQDVdJD60lkg85KyqEbaNnEyvTbR5r6zMwGCEHdWEXpHC0srlkkbgofB
+         sXI7vugS61QPeXPCm7ScTSH8Wlp1rbQ1gowdVKC8XT8Lzj4yWdEEhIOvtZ1/uLZo3D+V
+         hjpdejIeMk/c+fyMSidiK+Z6U+sYugyaTAQ0Nz0vvhVbrIQhjkjYDyY7IcsdnNFIhBFI
+         2LcYJ3NldooEMyPba1X6DvEabBNGuRITi1DzOFbUGOpE+6SE4EgTOMuVSIdIAoOWfwwk
+         ZjtTvsUftmmrIIs4aU8mzGBDQRFjxB6z4TLkGDgcQ56Vj9/14e/Bahfgxe0xd4Jswohj
+         TaTw==
+X-Forwarded-Encrypted: i=1; AKwUvBxGkiByibFDvAPAMLcWn/IKQEMBGCV0LKKGpEW767cfH8z8NGhmgPdFpv9nw6CNCc2eY4fAXdQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKQyBtyGT3X3G9W+ll6tVFXbs2suF82RsqvlwspHWXG4D5G8BSv
+	eqTeJ2z5K6sdbLpxZf/EcAMqLzQ/o8RzEvj6++EJJckzENmIVNfmdgFQL50ZEv73yHvKz5kDd6F
+	gT1Ikzn8=
+X-Gm-Gg: AYBFou2hO3Lc4uxKNcso+hoS+IzfambX6wKTUl3O5oIPueWP/fJ7B5ZNnVo0W9BGXg+
+	rWkMz/O6j+S24nOJZp4zxkfO+AOSZGdO8fJ3eMNV9wj8ABt3uRMe8SJa3xrBJhHVNP6HXpAZdSY
+	tLdElKrvk6ZkGz9QMRPEmEC2hW8tTVOSNv7c/ZhytZV4CLJkTfaCTMfRZsdtfuBrG/3vik9REhc
+	hNB/CERvrKtX6iR4CkrU/bh0B3kpdOQmTR3pnOkWeH4VIqQ5CuEZNNLteD+OVFkbl/k7domaG9P
+	6C2wSAcKAIPqmY7TH+cBpmaCvJ45qX9f3z23JbhpQMQlNzJ4tndcc8WcyHGU4wELeJQ9uMIN3Wd
+	kJ2Ga6ATX4H7TGYOQpgddFFIzGsEXnagw/NH7t80BuYTo8xium26P2orvxcvfervxw5ULVgmM3G
+	6QZ53nLV+YDCR73FMUCw2PbzWhDe0I94s3kDrwulsdsEHae+Ag9mpJI4ac+3WruiijrPLlaXk=
+X-Received: by 2002:a05:693c:65d1:b0:34a:e7ba:863c with SMTP id 5a478bee46e88-34ae7ba888bmr853763eec.18.1790629509296;
+        Mon, 28 Sep 2026 14:05:09 -0700 (PDT)
+Received: from localhost ([50.145.100.174])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3433628f5basm22264934eec.18.2026.09.28.14.05.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 28 Sep 2026 14:05:08 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1174; i=broonie@kernel.org;
- h=from:subject:message-id; bh=YIBTHCMGPr7u/AIAx7AOxyZ4KyASKRxONHbPcn7COCE=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqutXwQWqY68SZP5CED+FTQSEMkzIdSUM1Sl5Eo
- lCsZIEF6TaJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCarrV8AAKCRAk1otyXVSH
- 0CBAB/99HDxwcX0HGWcGraeAByZixlcAeb6lkQi2HGG/xbxP2ZLwRCv7gtr5wUPCECd4TDqTc87
- ZB9ah035VqSO6XlxujIKAug+ol/Gc6B6z1yyTf5dL4EiYPuxreX7I6Misd9wfwNIhCHhGkcFF3e
- PjzwHBkN0ckL04HKdoT8zNxiERPAp5dYi8RwO0QAjHet994kjAygemTxzS4zpZ+FXzMc6h6x/9x
- Y60dbh7z8V1DF3wr6aANU+D/ZfV3Ai9QhNGaVBl9ORyxANqTY9dbmv7XMU0MGqQcwBJvFvR6oI7
- aESgtxsOmCkzjP8kr+lAoRxFL1y+VHhQMqKINnxv0ld+H1Gs
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 28 Sep 2026 14:05:07 -0700
+Message-Id: <DLR96NR3FB79.2NSK3I6JR8RJO@nexthop.ai>
+Subject: Re: [PATCH] of/overlay: don't pass the changeset's own id to
+ of_overlay_remove()
+From: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
+To: "Rob Herring" <robh@kernel.org>, "Abdurrahman Hussain"
+ <abdurrahman@nexthop.ai>
+Cc: "Saravana Kannan" <saravanak@kernel.org>, "Frank Rowand"
+ <frowand.list@gmail.com>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, "Sashiko AI" <sashiko-bot@kernel.org>,
+ <stable@vger.kernel.org>
+X-Mailer: aerc 0.22.0
+References: <20260917-b4-of-overlay-remove-all-fix-v1-1-920441cecae2@nexthop.ai> <20260928182658.GA185307-robh@kernel.org>
+In-Reply-To: <20260928182658.GA185307-robh@kernel.org>
 
-On Thu, 17 Sep 2026 16:48:53 +0000, Wentao Liang wrote:
-> ASoC: codecs: wcd9335: Fix SLIM interface device leak in wcd9335_slim_status()
+On Mon Sep 28, 2026 at 11:26 AM PDT, Rob Herring wrote:
+> On Thu, Sep 17, 2026 at 07:28:16PM -0700, Abdurrahman Hussain wrote:
+>> of_overlay_remove_all() passes &ovcs->id to of_overlay_remove(), which
+>> zeroes *ovcs_id once the changeset is reverted, before calling
+>> free_overlay_changeset(). Through the aliased pointer that zeroes
+>> ovcs->id itself, so free_overlay_changeset()'s "ovcs->id > 0" guard
+>> is false and both idr_remove() and list_del() are skipped: the
+>> overlay_changeset is kfree()d while still linked in ovcs_list and
+>> registered in ovcs_idr.
+>>
+>> Every overlay removed through of_overlay_remove_all() thus leaves a
+>> dangling list node and idr entry behind. The next ovcs_list iteration
+>> or idr lookup walks freed memory, and the ids are never returned to
+>> the idr. Nothing in-tree calls of_overlay_remove_all() today, but it
+>> is the documented API for removing every overlay in one go
+>> (Documentation/devicetree/overlay-notes.rst), so any module user hits
+>> this deterministically.
+>>
+>> Pass a local copy of the id, like every other of_overlay_remove()
+>> caller does.
+>
+> If every caller passes a local and updating the value is not needed,
+> then we should just update the API to pass the value rather than a
+> reference.
+>
 
-Applied to
+The value is used, just not by much. of_overlay_remove() zeroes
+*ovcs_id only once the changeset is really reverted, and unittest.c
+leans on that: overlay_18 injects a pre-remove notifier error and
+checks ovcs_id survives the -EXDEV, overlay_19 injects a post-remove
+error and checks ovcs_id got zeroed. The return code says the same
+thing, so by value I'd drop those two checks and keep the ret ones.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
+The zeroing is also the double-remove guard, via "if (*ovcs_id =3D=3D 0)
+return 0;". lan966x_pci keeps the id in data->ovcs_id and
+of_overlay_fdt_apply_kunit() removes from a kunit exit action, so both
+would have to clear their own copy or start getting -ENODEV and a
+pr_err() on a second call. Easy enough, but it's a behaviour change,
+not just a signature change.
 
-Thanks!
+> Additionally, if there are no callers we should perhaps just remove the
+> API.
 
-[1/1] ASoC: codecs: wcd9335: Fix SLIM interface device leak in wcd9335_slim_status()
-      https://git.kernel.org/broonie/sound/c/082723fee626
+No in-tree callers, yes. It's the EXPORT_SYMBOL_GPL(), a paragraph in
+overlay-notes.rst and the same paragraph in the zh_CN translation.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+If it goes, the bug here is unreachable and the patch is pointless, so:
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+  1. just remove of_overlay_remove_all() and drop this patch, or
+  2. this one-liner first (only piece that can go to stable), then the
+     removal, then the by-value conversion.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+Which do you want? I'll send 1 unless you think the backport is worth
+having.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+Abdurrahman
