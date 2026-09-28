@@ -1,164 +1,104 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-dl2-f33.google.com (mail-dl2-f33.google.com [74.125.229.161])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78FCB49158B
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 09:42:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790588527; cv=none; b=mv4Us5M1vtZewyXYYvT/ZCN9/8y/kc65m4c4wXOomOjLMs7cIe0K7G5ZeGlYbIuoah65jjBhgMpY60+8abe98+H5V8UIwPJBbVj6q+qxtyZlr9asIuNoud4zVz9q9IOm3Q+ZO50ucGEtkyZ5PUOyy4OuZFFzq3ak7pD185oBvAk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790588527; c=relaxed/simple;
-	bh=h0g2cSklYj+E8R4yu0B0K9XX41R3rWf4QX9cI+EMJpI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KI+loh+QhHEYCXTQ3AbCHFmdqPaPfU4kvZABmN8u/jGvwHk5q7SYnruPhGqzwnyKttPdhQDdRErOo9NaIKnkVZLIo3OCMeA1nAWivlvgqi5xcC16lSG0+0GghkHp9VijcmB95sBUXQ+QreiurK6DBIhkQcEqr3GSh2/6JdoNTIo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TSCzZJ8I; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A00F8493621
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 09:43:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.161
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790588595; cv=pass; b=qswK7K5btB8zEVMe7OyU5pHh0RTSHgm5oQoScHhirjvwY9W29C/cPaGU9soF5Eadl9ytKFAfWkQofYkgTECHYsWj37eLtCDDFdspiLz8LGIstofvp4OA9Eho6LRl6XPXDtR4ADdVzIpAAWT0HnaaeJ/DD2BFBOZpIrGIGrtAJa0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790588595; c=relaxed/simple;
+	bh=mpI86aIPER6aS4vRP5uob5Y2IurH/cMRVH/mKFJ6e0s=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=uAkktJJj6zgJ35M1tqGcZ/EElkA6PE9xUvsE4SITRjRFWsdsp5FghIJAyG/mCcvTq6AAkKwk8EpF8e7nnRqlWnmIotR8AwrOPulxrWqNxBzMa5q8E4UDaKUqVAIefAFT963FnBxjNnCS5sIQSaZbxbQc9SWto0AB7M0kf1eOwd0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fdAcN6Ea; arc=pass smtp.client-ip=74.125.229.161
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TSCzZJ8I"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e71974de4so1530125e9.1
-        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 02:42:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fdAcN6Ea"
+Received: by mail-dl2-f33.google.com with SMTP id a92af1059eb24-1438e88300cso2404249c88.0
+        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 02:43:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790588593; cv=none;
+        d=google.com; s=arc-20260327;
+        b=IiezSDwPMGWxNa61Z4z1gDN7Y5imnhD7zNHHUI5vyLeKk9Vhkycl6aIs9SK9mUBjo7
+         pqC/S1fPADOorBrIhGCgKWTOZ9yMeXXgHoVHiMW70M1poTFVSCMh5TA2Rb9eNbcPXU2R
+         mU3Ih934p1HGkh9Bvhb3e29DkEPbYlB8cRrwutHVMnLmqgkxP11c/PQQnlt5V/NhvKCm
+         Xpp4AbyHw+0fAXEq1UH+y0UY13OWm1la2oeh/LYUtQk3BBC+yYbXFrutsbSQqqK3JtJ/
+         lMLhlFWzxdCveM1kUSpq/R6XpEc4Z9eyBr/axUfYSdnOeftATmZ76yQOnvVbyE726Kkl
+         QdMQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=mpI86aIPER6aS4vRP5uob5Y2IurH/cMRVH/mKFJ6e0s=;
+        fh=U+7JAqfo8bYhet5oa9n6JSap7foMC7UIbmzapl/+7mo=;
+        b=IY9myt7CFgmiAn+ZXyHReWQwjvk1k7aDcJrrMkXH3q+wnEwKJ9vI4K553HygLY54oU
+         VxVGnGnRQtVXVmIvhZVnhfobU/nknbJjlnzd97kBwz2rrRcCd1oW8mR67C3kyzvLFDO4
+         qxugkiyJ4Gg72L7sHiWRSpED1lFI7zLNZqaTJTjsh0f4dCX1xrRHmgboDIVy9WUn69fk
+         Has4ePFF0ubq+u0ovsKWGhvQ51dz+JzjwAhuqRLjzrdJsJdk29lSicSFvsoioMjEoaVR
+         7f4F7Ieies8Hzl2xU/s9uD3lc2YZEwQKvDtgeraoFmVu5MxoKmW5u0bcGb/Yksv1l52D
+         7ztg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790588523; x=1791193323; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jK0+4urBdoRm24BPDR63lzQtxeAkYMsHmBmlA17MxT8=;
-        b=TSCzZJ8ItIRInkzo6x6UAZw1KeCgliKJQXRJfHjwSb9Tdx3+QQmdUflLjEDQpXALRf
-         OGpnh0S9EqgXiMhbsICR+K7ZpZ0tJavqaGuaonmCn7IzrjyykwkuavU45fpTIRFqgq8U
-         P4RlNzUJYmOVeZmn5IF6Nd9kSWWkHKQ4NaUUjdifWugqHgcLwCSkdMtKwvBV/JloaS7W
-         gRkexk5yaVN+6ZM+bw8pauFSfr0qvfVpdX3BtREN8JmGUtfajaf+irhi3MQS+ovMRZ6z
-         d538oF1vx3xi/Vy3nAv2NhQkiehFvGa5KBNfAzL3Yq+a/gPfv3ucdL8rb8C5zI8MNeaw
-         FtYA==
+        d=gmail.com; s=20251104; t=1790588593; x=1791193393; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mpI86aIPER6aS4vRP5uob5Y2IurH/cMRVH/mKFJ6e0s=;
+        b=fdAcN6Eam4buaMrTx/ECHwKzNpnWWjpCyil/UY39tzcMtMOiZiaoiv1z5ziuA0FgcA
+         jG4d3SlEjU71xUItbDkT0ftEHJgy5K/9fpFExWvgxzvbAZId4iS9TNjUTZ/H7UneQf/I
+         aiC19zP/IVR+PNEPv2g7i8CMo5EzaCdJNjdAtj4chtzE6ywZmk6Cqxlt7yomDANuDFNS
+         kAk3Sa7u57qOck2w/FfF3VUzRzlU0SmMv6hV/YhfkW7jyk6r3htKt6uIEH1ITe/24V/H
+         a8cV3dGYuthpPZbc/cADVoFb2JMuxyEdvBWQ0LuWu9H7pZcP+I16eZouDcV8p3GRdTRa
+         6xtw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790588523; x=1791193323;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jK0+4urBdoRm24BPDR63lzQtxeAkYMsHmBmlA17MxT8=;
-        b=ihvLEl0E1qKGXbsQd/EyB0mSek2ZSbYtYuhLKIFxBK9pmdKsaNRNOAXSBT11i5dZDR
-         GnfUh5A5AQzKYSrOxXOT41QyHeWXdLgE1wwwUrf2YaN8Aje2kZCMOW4IFCSV8bUd32hL
-         VIg9tkmdyM0wzq/HorqNE3VNPzJzit7mBbTpNG75XM7E7c3dXw+RlbaywFbJ7tuT/Omx
-         0TEKtUrwD23NFsDXFiQYWiy5Cy7bAr2ZIeYTnJ2JB7Tk579s1W0/v4/z+hIqOnQNwqGu
-         ReeAKA1R6Hw97nqUydxqI4o/ZRsJT/x0OL+me0a3nsy9xZBCX+eCogpg8oz4yOoKBaaI
-         ylUA==
-X-Forwarded-Encrypted: i=1; AKwUvBzi1GKVkAaSofa+rgvRL0U5SyA57e069zryJ1u89ryAbneKrOGixpzY+ZVxPesaYjXzTILvj3c=@vger.kernel.org
-X-Gm-Message-State: AFuF++meoMVgrhUfc8W1eGacMAd8kKuVRTgL0bRpe/bdVTlHCNVBMcWC
-	7fajqJAl0HZVCTmj2z+xPyZ3BXhhIhj65LwpAoJAF2mv93qaC2vwdLct
-X-Gm-Gg: AYBFou170gCWd+fC95RIgNPhv0e4i8v52gsz02/NIt0Y/Fq8VHQh1qydqzOEaaXpB4T
-	PExMAIi6l3fE76FXO60vYKsyEo8gWaTc7Fo+vgqRQWXAU12Z6bMSsK+5ikpW23rojY1oXGL7pMB
-	OGUf0eEfcQge+gvqg3fVqlQfSAvK02x5l3r5Ya0F0e6zlDeUh0+lIoF+a1UN1K8F27B1eP35uwb
-	5SYX6SbmSw+j7HkNGbT1ixIZaqVnFvRZVI/nzRIzTVkSXNn372X0XTAO6p3vo9RUR0UvRZ1YK2u
-	2Lo1Bmbz2et+yk1uq01Syf8DgZH+OGfvI79tx0fVclF3o3FCJjo4OYBdNS88hc7jtXnBrnq2lSs
-	Fzg+tR/9vxWLd9B76uoWEUKm9pomxZnftVa/tCCvTGu85QvQmm8hZitRmhsXYlGcVNscwJm3llH
-	uF11+2enq1/RWv3arTJ+LcU4L/JCpeflX+P6v6jD6KWCGg/y3xsd9JwhPIAhwPnveQWUkDO9RZe
-	Ohc8YsLHGexRTA1KAOazdKfhRGU27Vy7nOHtlqtmmGbjh5GUfZ5LCi2myquHIHNoXSWWNEJJ/if
-	YuSPEg1ujPLGb7VHv67teOgYI/4ux0y91Gne+rKwKYsn2vdBQcoEaBdJPfJDhVaMyTRIDfBhK/W
-	ut+JqKr+kCLhfqt7dRg==
-X-Received: by 2002:a05:600c:548e:b0:49c:f9b8:bae0 with SMTP id 5b1f17b1804b1-49fede023d8mr167183535e9.2.1790588523350;
-        Mon, 28 Sep 2026 02:42:03 -0700 (PDT)
-Received: from ?IPV6:2a02:3100:5d04:affc:2501:4248:c28:faa9? (dynamic-2a02-3100-5d04-affc-2501-4248-0c28-faa9.310.pool.telefonica.de. [2a02:3100:5d04:affc:2501:4248:c28:faa9])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a349fa1sm37984144f8f.8.2026.09.28.02.42.02
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 28 Sep 2026 02:42:02 -0700 (PDT)
-Message-ID: <52f4d7a6-6bbe-41fb-863c-5c71644e20d4@gmail.com>
-Date: Mon, 28 Sep 2026 11:42:01 +0200
+        d=1e100.net; s=20260707; t=1790588593; x=1791193393;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=mpI86aIPER6aS4vRP5uob5Y2IurH/cMRVH/mKFJ6e0s=;
+        b=sD4GTNXCTv3Zn0pKP6WNMj7E1w0GmhBEJTP2LcrzAPEszSxuiAfwf+rWDiZ9FmTKbM
+         c4lGPLT6RYtAkB/cYZxP5LuRMnlzSSySIX7fQ1ap8FB74uwDflH9Iq5878UaoOT9JnZw
+         wcbTL2fMpkVSCzV6wPjXV2J5DgouGY1A/W4lCTUmxeyjVxiMcUMUc9Z2X76KDLKm1UuX
+         dpPhKlHe2C3RHUvHO8aGcWugEzpHUtyB6JuQj15ZNtxEFzDGv9n0NFp+Xg3E4eleVmlN
+         JPxF9nYp54J4HlvPmqlscUpCOROeVZlegX3+dwTD16661npyrQ+mkhu8NxhYkjk0FhUC
+         tL+Q==
+X-Gm-Message-State: AFuF++nLJ0FcRadfiZmyQZ1VqFROIQ8qs4e+aIWq/fRRdkZ5H5lYdwhi
+	nbQcrFQdBq7UbGLXTSFxdJiKDTxU9BonKGD3PEmgsnUPLl6RW6XzY64f7/0wNB2UD14U6J+SARx
+	6ylsnwrr9vR7P7d4gK4AwK7QX54gLKoo4SQ==
+X-Gm-Gg: AYBFou1BYlv8SckTchh/aH6JpEqSZFFz7w73y2HhwPN7fe6VztuyfRLqYX3tEspb99f
+	dyJIMkNGqhDiAObx9BCekPTLnyKIJ+S6fhKwe3+9JpImBpe/Wy4Tw2idiedQCzSklSZsQmME28H
+	si37FPcYTGzVtogrYG/rA9yafDEIKCfzg1stxMAqB7jCIyayPEO5Z7To4+HuLKUNxk6p55vCKUN
+	0R/MIYXu2e7cCTDFETlnTPII3sBQcg0ByQprCrzfmKuS9DzW2OcLtIiXh0LvrCUMdg5qJ37rn5r
+	PSX5YqK5kqReZ6iM2HBKbAAiUrgPZKZbSGK5kRcZMLS9hvNnvSYK
+X-Received: by 2002:a05:701b:21d3:20b0:143:2967:c0b1 with SMTP id
+ a92af1059eb24-146cfdcf205mr8956402c88.25.1790588591827; Mon, 28 Sep 2026
+ 02:43:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] net: hsr: unfold GSO super-packets at the forward
- entry
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, andrew+netdev@lunn.ch,
- shuah@kernel.org, kees@kernel.org, petr.wozniak@gmail.com,
- qingfang.deng@linux.dev, fmaurer@redhat.com, luka.gejak@linux.dev,
- xiaoliang.yang_1@nxp.com, skhawaja@google.com, liuhangbin@gmail.com,
- stable@vger.kernel.org, sdf.kernel@gmail.com
-References: <20260809121455.1745-1-xiexinet@gmail.com>
- <20260809121455.1745-4-xiexinet@gmail.com>
- <20260923104346.ur63K3h2@linutronix.de>
- <2cf54664-c07d-471f-af6d-4b70e09626b4@gmail.com>
- <20260925082954.MYDugnDU@linutronix.de>
- <21bfa8a9-c488-49aa-b2a1-4d282fd51c42@gmail.com>
- <20260928063824.0E3LO1vu@linutronix.de>
-Content-Language: en-GB
-From: Xin Xie <xiexinet@gmail.com>
-Autocrypt: addr=xiexinet@gmail.com; keydata=
- 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
- sNySbH3veZ/55EtlXA==
-In-Reply-To: <20260928063824.0E3LO1vu@linutronix.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: "H. Haechoc" <h.haechoc+kernel@gmail.com>
+Date: Mon, 28 Sep 2026 11:43:00 +0200
+X-Gm-Features: AclHuK-paDNo1_oeMcjcDlsl4kel8Zenvuf3rNe7Gk7QiMd-yfo6tLreNwey0sY
+Message-ID: <CAKp=m=Assw9TBMVQbUPSvr1r6fLWFn3=0iMT9NOJ9iE7C+x78w@mail.gmail.com>
+Subject: [7.2.y] Please backport 41112a787f91 ("PM: hibernate: Freeze kernel
+ threads after image preallocation")
+To: stable@vger.kernel.org
+Cc: Florian Schmaus <flo@geekplace.eu>, "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+Content-Type: text/plain; charset="UTF-8"
 
-> So veth. The test suite is using veth I don't remember that it was (is)
-> a problem there. But then there is no TCP.
-> Wouldn't it be also a problem if you attach veth interface to a bridge
-> and that large TCP skb would have to leave the bridge via a physical
-> port?
+Hello,
 
-When a bridge forwards a GSO skb from veth to a physical port, the
-outgoing TX path handles segmentation. validate_xmit_skb() checks
-whether software segmentation is needed. The networking core performs
-software segmentation as needed and can use hardware segmentation
-offload when available for that skb.
+could you please backport commit 41112a787f91 ("PM: hibernate: Freeze
+kernel threads after image preallocation") to the 7.2.y stable series?
+This commit fixes a regression introduced by commit 783c81098445 ("PM:
+hibernate: call preallocate_image() after freeze
+prepare") during the 7.2 development cycle that breaks hibernation on
+some machines with 8GB of RAM under low-to-moderate memory pressure.
 
-The software HSR/PRP path needs to split the GSO skb earlier. Each
-segment needs its own sequence number and HSR tag or PRP trailer.
-We add these before calling dev_queue_xmit() on the lower device.
-The normal TX segmentation code cannot create these per-frame
-HSR/PRP fields for us.
+The fix applies cleanly to the 7.2.y branch and has been tested on
+7.2.5 and 7.2.6.
 
-TCP is the case I reproduced, but this is not limited to TCP. UDP
-GSO skbs can also pass through veth without being segmented.
-Passing normal PROFINET RT or GOOSE frames through veth does not
-make them GSO skbs. Patch 3 skips segmentation for these frames.
-They still follow the normal HSR/PRP forwarding path.
+Thanks,
 
-> This does not sound like it is limited to hsr. I think it deserves a
-> helper similar to skb_linearize().
-
-Patch 3 already uses the common __skb_gso_segment() helper, then
-passes each segment through normal HSR/PRP forwarding. Do you mean
-a new common wrapper around this helper?
-
--- 
-Xin
+H.
