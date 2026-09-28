@@ -1,301 +1,131 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92689448BA3;
-	Mon, 28 Sep 2026 07:22:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9671230FF36;
+	Mon, 28 Sep 2026 07:26:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790580169; cv=none; b=HLIHxsiJhNMMjoKCJhhODSDK89MJAg/sT8n12Un2NpmVf/dTo+dBQllOSLZEGks+afFW6X4XYOPjuZl0DCseEHTG4KwnuwCspFU0hfMNjclBUMhSzFY7C6vnn7UEkCadsYv2MNrBamUuhLi+Fy+34FD5Fs3jjHDMoVpx/OUPrhw=
+	t=1790580378; cv=none; b=OzHEo2oR1KwqxSVY98Jw+pZLh9m2vspmNKdpzqcqJOFry3ZSrCo8MGQtDhkj3BRV7qmELcLTf7Nm5BKwFbDxH1Y92UWm7XY7jAsLHt3/SX2N5BwQXrU1r6hvzToOOGdQXCqlPnkpC9teG6HeHj6a7MefICqE6KWY0lftgI2+7VE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790580169; c=relaxed/simple;
-	bh=BM42dP6biGLp+7pQuwYJLZMZOnYanD/7h0L+4WgxWuA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lYs6xHXJOHJinC/7yQhsOwd40tFzowZ7euF/FfE3FMwcDIZd5z9kYjZnIw2laniA/4g+kLTavM5vNYHCbziIz0PpVCRVqvAeaj6+XspB2HElHfvYFEjJWUbp5s3EpsGjzjEQZ5Oz+y+Nei71yFa7nhv0OHbc+4qxlD7nUkWyDAM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=VdVbm0/a; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1790580378; c=relaxed/simple;
+	bh=z5Yd3ofejUyoc6HtISU3dTbcxyj8g9BrWUa/kQzVemE=;
+	h=From:Content-Type:Mime-Version:Subject:Message-Id:Date:Cc:To; b=M4UOECtm+EqswzJQ1rWRYW219tUAMk4eqN6+Hz0Cvedo5x8ukxJnVkMe4zOr4HuWguU7PRnezY3fgPzbiy463aF4L8f6zYsUilyDv9K9jL3vuRwwbvRhXwDkDijw4sgCCu7J1lzzvZRXrPxqheFvKsQTMWX7O3oy0yrgKo6E7v4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.pku.edu.cn; spf=pass smtp.mailfrom=stu.pku.edu.cn; dkim=pass (1024-bit key) header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.b=Q1MQgjhY; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.pku.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.pku.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="VdVbm0/a"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68RNK0JG3561189;
-	Mon, 28 Sep 2026 07:22:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=aAtXoF
-	B0noFysjucdBRQnw8AHU5+6B2BxlOaL9AtvMs=; b=VdVbm0/ax+ndBCt4/jUx3a
-	zq3XI1XBM9GS30uzJyw0JfQ2wMhN54Yb/+USdxKRjiRv4KwT94NdUEqnTUQHhA37
-	vkxeHfHxvlijAz3nOET+GsRAl++4bE37HVB/RXvdEYU+wTx9z4O0TpaHWNrqnlm2
-	FkPvbxmwr63gG0jt34SCl6GAxMjMyckjy4SxCcZNKkTscjvKXF7BFOQw4WzTMe3k
-	c6amC7YP0RMJU5xwlyclJmdGCEAi4f1vYgPNR0tqJKdomi46b0T7kEQ6uyYmTa06
-	ct3dvD130fhO0Lu1N+Asz1GleDpt8JvXwZFfuakYXQSvE6pTasgef8trlKqAC+eQ
-	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx3fjyvp5-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 28 Sep 2026 07:22:23 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68S42p13879670;
-	Mon, 28 Sep 2026 07:22:22 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gxtkg40xv-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 28 Sep 2026 07:22:22 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68S7MKb741746854
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 28 Sep 2026 07:22:20 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 98DDD2004E;
-	Mon, 28 Sep 2026 07:22:20 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 87CCE20040;
-	Mon, 28 Sep 2026 07:22:17 +0000 (GMT)
-Received: from [9.124.213.127] (unknown [9.124.213.127])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 28 Sep 2026 07:22:17 +0000 (GMT)
-Message-ID: <95790639-84d0-4cc2-92a8-c97c920b2d22@linux.ibm.com>
-Date: Mon, 28 Sep 2026 12:52:15 +0530
+	dkim=pass (1024-bit key) header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.b="Q1MQgjhY"
+Received: from smtpclient.apple (unknown [124.126.139.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4f50f8e19;
+	Mon, 28 Sep 2026 15:25:58 +0800 (GMT+08:00)
+From: Yuanfu Xie <yuanfuxie@stu.pku.edu.cn>
+Content-Type: text/plain;
+	charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] ovl: fix wrong layer paths in mountinfo for detached
- mount FDs
-To: Amir Goldstein <amir73il@gmail.com>, brauner@kernel.org
-Cc: miklos@szeredi.hu, viro@zeniv.linux.org.uk, jack@suse.cz, shuah@kernel.org,
-        linux-unionfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-        linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org
-References: <20260924112858.51392-1-disgoel@linux.ibm.com>
- <20260924112858.51392-2-disgoel@linux.ibm.com>
- <CAOQ4uxgj3RL2roivmha9yeWToR-s9kaBm8WUK1vJ_q7pWOjxOQ@mail.gmail.com>
-Content-Language: en-GB
-From: Disha Goel <disgoel@linux.ibm.com>
-In-Reply-To: <CAOQ4uxgj3RL2roivmha9yeWToR-s9kaBm8WUK1vJ_q7pWOjxOQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: Z0dqrZ_78sEseHnG83uc_Tt8V1lCtiYg
-X-Proofpoint-GUID: U_2rTDYtnpPqzDe_5sLVt3Uj5cDiAAi8
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDAyOCBTYWx0ZWRfX81WPtjMvj/zz
- mVBe0vR4Uz9jft8ovIsuqH/hkGZFVR7QomBFTFSXbjB/QK8fz4seSWG2ukkpBAzh9to86/k4Xje
- 1MvCLnDoO3x1iIpbQ4BeLcRQ0NMbx/k=
-X-Authority-Analysis: v=2.4 cv=Vv62kO2n c=1 sm=1 tr=0 ts=6aba15af cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VnNF1IyMAAAA:8
- a=VwQbUJbxAAAA:8 a=AlhcxhPrcBOVSj21lkEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDAyOCBTYWx0ZWRfX0zgh6nELTyON
- y1xGnLZsVqyhlc+kAXPau6KJT/xIWswAzZuPrxaCPqIDkqgAIkH7tAw71TnlieOsz1jVZ6wSDiW
- nw1t8cn8L52tSyqJXyRarpnO1IiwYuj4tvS2YTl+jk2iEUrCzc/9AAT7RfGIr+uCZxq5Eg01WYu
- L8gLPvummwdZstm7L7R6kSs4y370KEe11hyx7K/zF1X7DHTSTSiq0oHqAcZtRppuWt+qKa52s+P
- wC3pjcKL+oXq+KQRnYTq7GckP1dGD1LzR5UdzsuZ4eMrHYV3kN5QT5NlcVvLz6fkBRJQgKkaXe8
- SC4EoD4gNvYy7EjGCa/j1gq9D8OzWdtvzSGV+9B5NJmjRTpuF6zpHI4jA/YoYzCNhjcn1R7VrZr
- rdAoBNlxhZO/Qqv+6yGg8RUY+MZ0vbYhBoCsahsF9AeOyoR3Ghh+wgz9gTzEHViRsDBHf5XnhRL
- NFaVwWJSw4MmLzKwjhQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-26_05,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 phishscore=0 bulkscore=0 adultscore=0
- priorityscore=1501 malwarescore=0 clxscore=1015 lowpriorityscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609280028
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
+Subject: [PATCH] 9p: don't decrement a server-owned zero nlink
+Message-Id: <8B490036-EBB0-4A36-AE39-F294F7C79649@stu.pku.edu.cn>
+Date: Mon, 28 Sep 2026 15:25:48 +0800
+Cc: Christian Schoenebeck <linux_oss@crudebyte.com>,
+ v9fs@lists.linux.dev,
+ linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+To: Eric Van Hensbergen <ericvh@kernel.org>,
+ Latchesar Ionkov <lucho@ionkov.net>,
+ Dominique Martinet <asmadeus@codewreck.org>
+X-Mailer: Apple Mail (2.3901.100.1.1.11)
+X-HM-Tid: 0aa0e6e7fd9903a1kunm6258c4181eb549
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSRoeVhpPGU0fH0xDHR4fSFYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKSU9VSklNVUpIQlVDTVlXWRYaDxIVHRRZQVlPS0hVSktISk
+	5MTlVKS0tVSkJLS1kG
+DKIM-Signature: a=rsa-sha256;
+	b=Q1MQgjhYsCBsZcXRPuM3SYmmfK5+wMqaRTXPwRmYj+tib//7ahC9tVLJEjXLQTppRgQiYhcaTzM2Dn2ESdu0/FbzQCuqW7yfDaJsRZ7sKAel8j0ZANQbLdXb+z4009RUbNq9Bj/Zb9RW7rChZK5csRDpOTzXnjAGf2cjWVRMoO0=; c=relaxed/relaxed; s=default; d=stu.pku.edu.cn; v=1;
+	bh=t5LvP+tltYINo1sKhAAn4aqSaeTM4DOIvH0S4xyaEiM=;
+	h=date:mime-version:subject:message-id:from;
 
-On 25/09/26 9:27 pm, Amir Goldstein wrote:
-> On Thu, Sep 24, 2026 at 1:29 PM Disha Goel <disgoel@linux.ibm.com> wrote:
->>
->> When overlayfs layers are passed as detached mount file descriptors
->> (opened with open_tree(OPEN_TREE_CLONE)), ovl_parse_layer() uses d_path()
->> to record the layer's path for display in mountinfo.
->>
->> d_path() walks up the mount tree to the process's filesystem root.  For
->> detached mounts this walk stops at the anonymous namespace root instead
->> of the real system root, producing a short incorrect path like "/l1"
->> instead of the full absolute path.
->>
->> Export mnt_is_anon() from fs/namespace.c to detect detached mounts.  In
->> ovl_parse_layer(), use dentry_path_raw() for detached mounts instead of
->> d_path().  dentry_path_raw() walks the dentry chain independent of mount
->> namespace and returns the correct fs-relative path.  The path is
->> display-only; the actual layer_path used for mounting is always correct.
->>
->> Also fix the set_layers_via_detached_mount_fds selftest: the mountinfo
->> check strings were copy-pasted from the regular (non-detached) test and
->> expected absolute /tmp/ paths, causing the test to always fail.
->>
->> Fixes: a08557d19ef4 ("ovl: specify layers via file descriptors")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Disha Goel <disgoel@linux.ibm.com>
-> 
-> Disha,
-> 
-> Thanks for the report!
-> 
->> ---
->>   fs/namespace.c                                |  9 ++++++++
->>   fs/overlayfs/params.c                         | 14 ++++++++++-
->>   include/linux/mount.h                         |  1 +
->>   .../overlayfs/set_layers_via_fds.c            | 23 +++++++++++--------
->>   4 files changed, 37 insertions(+), 10 deletions(-)
->>
->> diff --git a/fs/namespace.c b/fs/namespace.c
->> index ae5dc64f8b45..9feefa0a517d 100644
->> --- a/fs/namespace.c
->> +++ b/fs/namespace.c
->> @@ -363,6 +363,15 @@ bool __mnt_is_readonly(const struct vfsmount *mnt)
->>   }
->>   EXPORT_SYMBOL_GPL(__mnt_is_readonly);
->>
->> +bool mnt_is_anon(struct vfsmount *mnt)
->> +{
->> +       struct mount *m = real_mount(mnt);
->> +       struct mnt_namespace *ns = READ_ONCE(m->mnt_ns);
->> +
->> +       return !IS_ERR_OR_NULL(ns) && is_anon_ns(ns);
->> +}
->> +EXPORT_SYMBOL_GPL(mnt_is_anon);
->> +
->>   static inline void mnt_inc_writers(struct mount *mnt)
->>   {
->>   #ifdef CONFIG_SMP
->> diff --git a/fs/overlayfs/params.c b/fs/overlayfs/params.c
->> index c93fcaa45d4a..2758ff8426b7 100644
->> --- a/fs/overlayfs/params.c
->> +++ b/fs/overlayfs/params.c
->> @@ -477,7 +477,19 @@ static int ovl_parse_layer(struct fs_context *fc, struct fs_parameter *param,
->>                  layer_path = param->file->f_path;
->>                  path_get(&layer_path);
->>
->> -               layer_name = d_path(&layer_path, buf, PATH_MAX);
->> +               /*
->> +                * For detached mounts (open_tree(OPEN_TREE_CLONE)), d_path()
->> +                * resolves against the anonymous namespace root and returns a
->> +                * short fs-relative path rather than a full system path.  Use
->> +                * dentry_path_raw() instead, which gives the path relative to
->> +                * the filesystem root regardless of mount namespace.  The name
->> +                * is display-only; layer_path itself is always correct.
->> +                */
->> +               if (mnt_is_anon(layer_path.mnt))
->> +                       layer_name = dentry_path_raw(layer_path.dentry,
->> +                                                    buf, PATH_MAX);
->> +               else
->> +                       layer_name = d_path(&layer_path, buf, PATH_MAX);
->>                  if (IS_ERR(layer_name))
->>                          return PTR_ERR(layer_name);
->>
->> diff --git a/include/linux/mount.h b/include/linux/mount.h
->> index acfe7ef86a1b..51e9f228c9d1 100644
->> --- a/include/linux/mount.h
->> +++ b/include/linux/mount.h
->> @@ -78,6 +78,7 @@ extern void mnt_make_shortterm(struct vfsmount *mnt);
->>   extern struct vfsmount *mnt_clone_internal(const struct path *path);
->>   extern bool __mnt_is_readonly(const struct vfsmount *mnt);
->>   extern bool mnt_may_suid(struct vfsmount *mnt);
->> +extern bool mnt_is_anon(struct vfsmount *mnt);
->>
->>   extern struct vfsmount *clone_private_mount(const struct path *path);
->>   int mnt_get_write_access(struct vfsmount *mnt);
->> diff --git a/tools/testing/selftests/filesystems/overlayfs/set_layers_via_fds.c b/tools/testing/selftests/filesystems/overlayfs/set_layers_via_fds.c
->> index 7a293544233d..12d930fe46be 100644
->> --- a/tools/testing/selftests/filesystems/overlayfs/set_layers_via_fds.c
->> +++ b/tools/testing/selftests/filesystems/overlayfs/set_layers_via_fds.c
->> @@ -686,23 +686,28 @@ TEST_F(set_layers_via_fds, set_layers_via_detached_mount_fds)
->>          while (getline(&line, &len, f_mountinfo) != -1) {
->>                  char *haystack = line;
->>
->> -               if (strstr(haystack, "workdir=/tmp/w"))
->> +               /*
->> +                * Detached mount FDs are resolved via dentry_path_raw(),
->> +                * which gives a path relative to the underlying fs root
->> +                * (e.g. "/u/upper", "/l1") rather than a full system path.
->> +                */
->> +               if (strstr(haystack, "upperdir=/u/upper"))
->>                          layers_found[0] = true;
->> -               if (strstr(haystack, "upperdir=/tmp/u"))
->> +               if (strstr(haystack, "workdir=/u/work"))
->>                          layers_found[1] = true;
->> -               if (strstr(haystack, "lowerdir+=/tmp/l1"))
->> +               if (strstr(haystack, "lowerdir+=/l1"))
->>                          layers_found[2] = true;
->> -               if (strstr(haystack, "lowerdir+=/tmp/l2"))
->> +               if (strstr(haystack, "lowerdir+=/l2"))
->>                          layers_found[3] = true;
->> -               if (strstr(haystack, "lowerdir+=/tmp/l3"))
->> +               if (strstr(haystack, "lowerdir+=/l3"))
->>                          layers_found[4] = true;
->> -               if (strstr(haystack, "lowerdir+=/tmp/l4"))
->> +               if (strstr(haystack, "lowerdir+=/l4"))
->>                          layers_found[5] = true;
->> -               if (strstr(haystack, "datadir+=/tmp/d1"))
->> +               if (strstr(haystack, "datadir+=/d1"))
->>                          layers_found[6] = true;
->> -               if (strstr(haystack, "datadir+=/tmp/d2"))
->> +               if (strstr(haystack, "datadir+=/d2"))
->>                          layers_found[7] = true;
->> -               if (strstr(haystack, "datadir+=/tmp/d3"))
->> +               if (strstr(haystack, "datadir+=/d3"))
->>                          layers_found[8] = true;
->>          }
->>          free(line);
->> --
->> 2.45.1
->>
-> 
-> Christian,
-> 
-> I confirm that the test is failing on upstream:
-> 
-> # Starting 1 tests from 1 test cases.
-> #  RUN           set_layers_via_fds.set_layers_via_detached_mount_fds ...
-> # set_layers_via_fds.c:717:set_layers_via_detached_mount_fds:Expected
-> layers_found[i] (0) == true (1)
-> # set_layers_via_fds.c:39:set_layers_via_detached_mount_fds:Expected
-> rmdir("/set_layers_via_fds") (-1) == 0 (0)
-> # set_layers_via_detached_mount_fds: Test terminated by assertion
-> #          FAIL  set_layers_via_fds.set_layers_via_detached_mount_fds
-> not ok 1 set_layers_via_fds.set_layers_via_detached_mount_fds
-> # FAILED: 0 / 1 tests passed.
-> 
-> I could not find a point of regression.
-> Could it be that the test was merged failing?
-> That would be strange.
-> 
-> This is how mountinfo of detached layers look like on upstream:
-> / /set_layers_via_fds rw,relatime - overlay none
-> rw,lowerdir+=/,lowerdir+=/,lowerdir+=/,lowerdir+=/,datadir+=/,datadir+=/,datadir+=/,upperdir=/upper,workdir=/work,uuid=on,metacopy=on
-> 
+A 9P2000.L server can report nlink=3D0 for a regular file that still
+exists.  On a cache=3Dloose or cache=3Dfscache mount, lookup stores that
+value with set_nlink().  A later successful unlink calls
+v9fs_dec_count(), which still calls drop_nlink() for a non-directory.
+drop_nlink() warns, and the unsigned link count wraps to 4294967295.
+fstat() on a descriptor opened before the unlink shows 0 before and
+4294967295 after.
 
-Hi Amir,
+The warning on the unpatched kernel, trimmed:
 
-Thanks for looking into this!
+WARNING: fs/inode.c:408 at drop_nlink+0xac/0xd0, CPU#1: trigger/188
+CPU: 1 UID: 0 PID: 188 Comm: trigger Tainted: G                 N  =
+7.3.0-rc4-00537-ga3ff15db6820 #1 PREEMPT(lazy)
+RIP: 0010:drop_nlink+0xac/0xd0
+Call Trace:
+ <TASK>
+ v9fs_remove+0x529/0x750
+ vfs_unlink+0x2f0/0xbd0
+ filename_unlinkat+0x340/0x6c0
+ __x64_sys_unlink+0x46/0x70
+ do_syscall_64+0xe8/0x4f0
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+ </TASK>
+---[ end trace 0000000000000000 ]---
 
-On my ppc64le system (7.3.0-rc4) I saw dentry_path_raw() giving per-
-directory names like lowerdir+=/l1, upperdir=/u/upper etc., which is why
-I went with the kernel fix. But your observation of lowerdir+=/ for all
-layers is a valid outcome too depending on how d_path() terminates.
+Directories whose cached nlink is at most 2 already skip this
+decrement, because the exported filesystem may not maintain nlink
+(commit ac89b2ef9b559).  cache=3Dnone skips it as well (commit
+574aa0b479947).  cache=3Dmmap does not take this path: it sets neither
+CACHE_META nor CACHE_LOOSE.  A regular file on cache=3Dloose or
+cache=3Dfscache still does.  Its count came from GETATTR and may
+already be zero, so skip the decrement when i_nlink is already 0.
 
-You are right that the test strings (/tmp/l1 etc.) never matched
-detached mount output.
+Verified on 7.3-rc4-00537-ga3ff15db6820 with only this change.  A
+server that advertises nlink=3D0 and accepts the unlink no longer
+warns, and the open descriptor stays at nlink 0.  An honest server
+on the same mount still goes from 1 to 0.  A rejected unlink leaves
+the count unchanged.  cache=3Dnone is unchanged.  With panic_on_warn
+the unpatched kernel panics on the warning; the patched kernel does
+not.
 
-> Whether the suggested solution is what we want for it, I am not sure.
-> I also don't recall if we discussed this at the time and whether
-> there were any decisions about how to present this mountinfo.
-> 
-> Maybe this mountinfo is fine and then we only need to fix the test.
+Fixes: ac89b2ef9b559 ("9p: don't maintain dir i_nlink if the exported fs =
+doesn't either")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yuanfu Xie <yuanfuxie@stu.pku.edu.cn>
+---
+ fs/9p/vfs_inode.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-Happy to send a v2 with just the selftest fix if that is the preferred
-direction.
-
-> Thanks,
-> Amir.
-
--- 
-Regards,
-Disha
+diff --git a/fs/9p/vfs_inode.c b/fs/9p/vfs_inode.c
+index d7e678de0a036..347739b81513f 100644
+--- a/fs/9p/vfs_inode.c
++++ b/fs/9p/vfs_inode.c
+@@ -495,6 +495,12 @@ static int v9fs_at_to_dotl_flags(int flags)
+  * nothing and races with concurrent metadata fetches that may already
+  * have observed the post-unlink value (nlink =3D=3D 0).
+  *
++ * The same applies to a regular file whose cached nlink has already =
+been
++ * driven to zero by the server: in the cached modes the attributes =
+come
++ * from GETATTR and are applied verbatim, so decrementing a link count =
+the
++ * server does not maintain only trips the drop_nlink() WARN_ON and
++ * underflows i_nlink.
++ *
+  * @inode: inode whose nlink is being dropped
+  */
+ static void v9fs_dec_count(struct inode *inode)
+@@ -503,6 +509,8 @@ static void v9fs_dec_count(struct inode *inode)
+=20
+ 	if (!(v9ses->cache & (CACHE_META | CACHE_LOOSE)))
+ 		return;
++	if (inode->i_nlink =3D=3D 0)
++		return;
+ 	if (!S_ISDIR(inode->i_mode) || inode->i_nlink > 2)
+ 		drop_nlink(inode);
+ }
 
