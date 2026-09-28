@@ -1,153 +1,205 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7C454F96AD;
-	Mon, 28 Sep 2026 19:33:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790624014; cv=pass; b=ijXcM7L1Cstb31+KBzSx8VVEiFcSR5jB/DPu8oSMrA9fdpu7h4t00ddJk4d+RjNmu/lWlyuhlJc1WT6PnBTrlkWMpT5zAV+e/CNSYB/yY1fsY+0s4xbky2zUxgFWwZim9V3+nOYy90bhAmAVlV8wuyg/evSWE7VXqZ7fLKmBevQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790624014; c=relaxed/simple;
-	bh=xlBpmG2S8ktOUfyR9BnjBv4YZtFPuPM4pSpKCik+ybo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VhgaHYGHUUGSdIXZbDuOFLzWfocaQ1pgKW/fXUSv8dU2gUQvjsLxOSss1f+jW/bUbK49HH3MupIVtyKPhhJnlIUOxhxwxxNF+Y6gI5apLVglvcYf93bLwbVMphWPUVP0UQbnCchsPyk679wFNJFCFTV81N1P/OeWX9/2eZFUm8g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=f4xShQ8l; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92D2C4D7D54;
+	Mon, 28 Sep 2026 19:45:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790624705; cv=none; b=Z9lOa7IrWtMcht1TmgT3WMOmwWVYNk1jFvBcWg9Mf1GZvJU03pt8U5b01MBe3rgZ4iGFzmRZHThdVfsvnvimO27ubfyAI3oiDCYOqXAR+BCfe/dyQ0NlxNT7elpBS/W/w221RyqY2pcwPjox7a2MCo6j3ImuG16mA2wZbmsl4D8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790624705; c=relaxed/simple;
+	bh=hCvew7md2wIV0ECyy4McQ/lsCTk4EqOcyRtTij05xfQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qjbrTUmf2w2XuVDHPksf9BqG90+UmIWPZDKumYPnDJeqGjtkE/tiVRR+gWRh0Fkuzk3zAoUXabtdybstIu7cH9m1Q+FxjkxAwFmw0cSpfT1C7FgKQCHHKEGwzwUnHY+tf3r/TAk+4noTrDzJ6de749ensKDVibb1OOVRXl00GtM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=g9p7R7QU; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="f4xShQ8l"
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id BD5182022D8;
-	Mon, 28 Sep 2026 21:33:16 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790623996;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=R0e4sLg8VRKC7HcEYnp0BWef6sI/CdcfN6PpzxAScpc=;
-	b=f4xShQ8lr8eFdskt9hdYkPynMnBuOLBOJ35kGMWaoEY5I2elFfWkHxTqwKWyz6soQbvMRI
-	nKhqocY2nlYPEzjYwxC2U4OxJ/jn2sNdWgL1yB6JmVH1Ol2geJI9rrWExwE/C5rcsrlkGx
-	9+5XSjn5a/x85T2Ae9xjiH2FevJXZvwoFaiCljYMC0Lb1k/RtEbbGDyCTUwX05xkFVDHdK
-	wF91gQrM9PYzzokgoLsBQdnBouxSXxDJgRvDliZIa2CYGjcRTZF96LkY+DmoRy02LscO6j
-	UMQ3uwl78aK+RQOqHH30gnx37Tu5bY2RYfLQEKHUiAR1xISbXbolxvPv6/YL4A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790623996;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=R0e4sLg8VRKC7HcEYnp0BWef6sI/CdcfN6PpzxAScpc=;
-	b=I8Zo7pNNNdddJJ7CPJKqL5QFZXOFyrbl7SppO5f4c9mQHbdlHK7FSRL5stZ7EiFfMYOsBl
-	EJxOEZamE0RzXpBpLOMkY38s+bLzx8EnCPfBkWNXmWZngJT6kKyjZbPD6CEQxJnlaIo4kh
-	sdZGwbLOOgvyM/k2twSLEw8f7I8CqWgRXxQNZm6KFsb1LU8B50Sk2f3ZTaywxgn1y/u038
-	ppICllzJDowZ8SudOtisLCrF4VDpCYoS8XdNsVUM89FcKxwQlgyzU2hcB5AuGOKwGivCZP
-	hymqwi4rtSkUAEoCsGlpj1FIgGuvHyfRTUp/p907oGbjLCYi/Ujnux9q0G1BIg==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790623996; a=rsa-sha256;
-	cv=none;
-	b=XxRKr7o26iEduTONaLvtHijxMwwYcHzK8qcUBMewuIFb+KJ4b3aVqd2HYm+KCH06DUi74p
-	SO/ndh0l7GWRReVhD2MMApnTTiWhxRWqAHDD3T+7ng6xXDhRCXitihqi8XAXnS77jNoWSY
-	WuJxMhk2ksWC3jKEdayBzhHwq3+aLonNZ2RjMztix4tETLv/E4r7x3Sw0cipv2NiltP2H6
-	J3lPmPSFsTXkVWWABPmIYTCTJ8DQir0je8MM4e/7f8eiymEqH2VKgIfymY/oCbbfeUJouh
-	y0uWwifMt95P/Q9/pSYcDUV5gZoHgNacfsbv5xhzbApKiLjHWrn2+U8s+0fzJQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1xBH6C-003H6c-1r;
-	Mon, 28 Sep 2026 21:33:16 +0200
-Received: from blackshift.org (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id 53A275B155A;
-	Mon, 28 Sep 2026 19:33:16 +0000 (UTC)
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: netdev@vger.kernel.org
-Cc: davem@davemloft.net,
-	kuba@kernel.org,
-	linux-can@vger.kernel.org,
-	kernel@pengutronix.de,
-	Fan Wu <fanwu01@zju.edu.cn>,
-	stable@vger.kernel.org,
-	Song Li <songl@zju.edu.cn>,
-	Marc Kleine-Budde <mkl@pengutronix.de>
-Subject: [PATCH net 19/22] can: gs_usb: kill RX URBs before destroying the netdevs
-Date: Mon, 28 Sep 2026 20:45:26 +0200
-Message-ID: <20260928193312.553632-20-mkl@pengutronix.de>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260928193312.553632-1-mkl@pengutronix.de>
-References: <20260928193312.553632-1-mkl@pengutronix.de>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="g9p7R7QU"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 91288B07;
+	Mon, 28 Sep 2026 21:43:10 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790624590;
+	bh=hCvew7md2wIV0ECyy4McQ/lsCTk4EqOcyRtTij05xfQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=g9p7R7QU4hq68nKGF89plMhaDxFtRRBK8CGzDRi/zzJNZhmMqVl19k0d1TNTh58M1
+	 mCckzKdKgd4TfO+0zj3kpVO1H2WZJpftALWzwbQbMQC9ielJRiGE9VI6DCbTixF8i0
+	 9/cHlf6JDxitffi57ZW2kSEnSXDuOm1yJrMXusPE=
+Date: Mon, 28 Sep 2026 22:44:59 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Ricardo Ribalda <ribalda@chromium.org>
+Cc: Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@skynet.be>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] media: uvcvideo: Fix bounds for descriptor parsing
+Message-ID: <20260928194459.GH210522@killaraus.ideasonboard.com>
+References: <20260911-uvc-ctrl-bound-v1-1-7b5cfc68bae1@chromium.org>
+ <20260928120252.GB4406@killaraus.ideasonboard.com>
+ <CANiDSCv5pd-3aO0Eb1-rvsAOGNpB4rhpjtnTosU6Ca+xBxN1qQ@mail.gmail.com>
+ <20260928122450.GA166131@killaraus.ideasonboard.com>
+ <CANiDSCuBFLYXFbq7Vox7AhdhftfzC9Ga6FKL-2F1o08cHQjoAA@mail.gmail.com>
+ <20260928124109.GF157191@killaraus.ideasonboard.com>
+ <CANiDSCvvJd0_taNYvHm894kPpyOWQ+TaxC_XRVOs5qrUHod08Q@mail.gmail.com>
+ <20260928184429.GE210522@killaraus.ideasonboard.com>
+ <CANiDSCs8N-m1F7LMuerVbYF8xrBPBeVTg2_UX4p6M7g=9yz_Sg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CANiDSCs8N-m1F7LMuerVbYF8xrBPBeVTg2_UX4p6M7g=9yz_Sg@mail.gmail.com>
 
-From: Fan Wu <fanwu01@zju.edu.cn>
+On Mon, Sep 28, 2026 at 09:03:41PM +0200, Ricardo Ribalda wrote:
+> On Mon, 28 Sept 2026 at 20:44, Laurent Pinchart wrote:
+> > On Mon, Sep 28, 2026 at 04:03:15PM +0200, Ricardo Ribalda wrote:
+> > > On Mon, 28 Sept 2026 at 14:41, Laurent Pinchart wrote:
+> > > > On Mon, Sep 28, 2026 at 02:35:29PM +0200, Ricardo Ribalda wrote:
+> > > > > On Mon, 28 Sept 2026 at 14:24, Laurent Pinchart wrote:
+> > > > > > On Mon, Sep 28, 2026 at 02:10:26PM +0200, Ricardo Ribalda wrote:
+> > > > > > > On Mon, 28 Sept 2026 at 14:02, Laurent Pinchart wrote:
+> > > > > > > > On Fri, Sep 11, 2026 at 01:23:50PM +0000, Ricardo Ribalda wrote:
+> > > > > > > > > uvc_parse_control() passes descriptor by descriptor to
+> > > > > > > > > uvc_parse_standard_control() with the number of bytes remaining in the
+> > > > > > > > > buffer, not the number of bytes of that descriptor.
+> > > > > > > > >
+> > > > > > > > > Because of this, malformed descriptors could leak over the next
+> > > > > > > > > descriptor, leaving malformed data in our structures.
+> > > > > > > >
+> > > > > > > > What issue does this fix in practice ?
+> > > > > > >
+> > > > > > > Look into uvc_parse_standard_control().
+> > > > > > > Let's take the UVC_VC_HEADER
+> > > > > > >
+> > > > > > > Imagine we have a malformed control at the beginning of the descriptor that has:
+> > > > > > >
+> > > > > > > buffer[0] = 3
+> > > > > > > buffer[2] = UVC_VC_HEADER
+> > > > > > > buffer[3] => Beggining of next control
+> > > > > > >
+> > > > > > > With the current code, buffer[3...X] is parsed as UVC_VC_HEADER.
+> > > > > > >
+> > > > > > > What does it fix in practice? It avoids that data outside the controls
+> > > > > > > is parsed as part of the control.
+> > > > > >
+> > > > > > I understand that, but what does it fix in practice ? And have you
+> > > > > > encountered a device that exhibits such a problem ?
+> > > > >
+> > > > > I have not encountered such devices, but even if they do not exist
+> > > > > they are easy to emulate and use for escalation.
+> > > >
+> > > > That's what I'd like to understand, can this be used for any kind of
+> > > > escalation ?
+> > >
+> > > It is very difficult (impossible?) to prove that something is not
+> > > exploitable, especially as the code evolves.
+> >
+> > Regardless of whether or not all the bytes parsed by the
+> > uvc_parse_vendor_control() and uvc_parse_vendor_control() functions are
+> > part of the control descriptor or are split across multiple descriptors,
+> > they all come from the USB descriptors buffer and are all ultimately
+> > under device control.
+> >
+> > As far as I can tell, all this patch does it add a check on buffer[0]
+> > but has no impact on anything else. If a device can supply USB
+> > descriptors data with an invalid buffer[0] that currently causes any
+> > type of issue in the driver, the same device could supply the exact same
+> > USB descriptors with buffer[0] set to a value that will be accepted and
+> > still cause the same issue. Am I missing something ?
+> >
+> > > We could spend hours trying to craft a payload, plus extra time in
+> > > future reviews whenever uvc_parse_vendor_control() changes. It is much
+> > > safer to just enforce the correct bounds now.
+> >
+> > So is your concern only about introducing issues in the future without
+> > noticing ?
+> 
+> My main concerns are that the function's API looks wrong and yes, it
+> could introduce bugs in the future.
 
-gs_usb_disconnect() destroys the channels one by one via
-gs_destroy_candev()/free_candev(). gs_can_close() disposes the RX bulk URBs
-on the shared parent->rx_submitted anchor only when the last active channel
-is closed. With two or more channels up, the earlier channels are freed
-while their RX URBs are still submitted, and a completion in
-gs_usb_receive_bulk_callback() accesses the freed struct gs_can and struct
-net_device.
+I agree there's a quite small risk of introducing future bugs. This is
+what I wanted to know, if there was an actual issue today (as in
+exploitable bugs), or if it was only a forward-looking change.
 
-Fix this by killing the anchored RX URBs in gs_usb_disconnect() before the
-first netdev is destroyed, and in the error path of gs_usb_probe() before
-the previously created netdevs are destroyed.
+> we basically have:
+> parse_field(void *data, size_t total_length)
+> 
+> instead of:
+> parse_field(void *data, size_t field_length)
+> 
+> btw: in parse_field we are ignoring the field_legth in most of the cases.
+> 
+> I am happy to drop the cc and fixes tags if you want to consider this
+> just a boring cleanup
 
-usb_kill_anchored_urbs() waits for running completions and a killed URB
-completes with -ENOENT, so the completion handler returns without
-resubmitting the URB. The kill in gs_can_close() of the last active channel
-then operates on an already empty anchor.
+As it stands, I think the risk of introducing regressions is likely
+smaller. bLength can't be completely off or the USB core would fail
+parsing descriptors. It could be smaller than needed while still
+pointing to the next descriptors, with the control parsing then using
+the first few bytes of the next descriptor, but the chance that would
+result in values that don't cause observable weird effects are slim.
 
-This issue was found by an in-house static analysis tool.
+So I think we can merge this change. I'd drop the backport as we're not
+fixing any existing issue. And maybe avoid "Fix" in the subject, to
+avoid autosel being triggered ?
 
-Fixes: d08e973a77d1 ("can: gs_usb: Added support for the GS_USB CAN devices")
-Cc: stable@vger.kernel.org
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Link: https://patch.msgid.link/20260923070352.487595-1-fanwu01@zju.edu.cn
-Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
----
- drivers/net/can/usb/gs_usb.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+> > > As you said, the risk to break current hardware is low. If it happens
+> > > tis change is small enough to make it easy to revert.
+> > >
+> > > > > We add minimal code and solve a family of bugs. Do you think that it
+> > > > > is a better pattern that uvc_parse_vendor_control() and
+> > > > > uvc_parse_vendor_control() have visibility beyond the control that
+> > > > > they are parsing?
+> > > >
+> > > > I'm concerned that some devices may stop working. The risk is likely
+> > > > small though, but I'd like to understand what we get from this patch to
+> > > > see if it's worth the risk.
+> > > >
+> > > > > > > > > Change the code so we pass the actual length of the descriptor to the
+> > > > > > > > > parser.
+> > > > > > > > >
+> > > > > > > > > Note that this makes the existing check more strict and some devices
+> > > > > > > > > that are wrongly parsed today will not be probed now.
+> > > > > > > > >
+> > > > > > > > > Cc: stable@vger.kernel.org
+> > > > > > > > > Fixes: c0efd232929c ("V4L/DVB (8145a): USB Video Class driver")
+> > > > > > > > > Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+> > > > > > > > > ---
+> > > > > > > > >  drivers/media/usb/uvc/uvc_driver.c | 7 +++++--
+> > > > > > > > >  1 file changed, 5 insertions(+), 2 deletions(-)
+> > > > > > > > >
+> > > > > > > > > diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+> > > > > > > > > index e289cc71ba98..429f1ab19a2a 100644
+> > > > > > > > > --- a/drivers/media/usb/uvc/uvc_driver.c
+> > > > > > > > > +++ b/drivers/media/usb/uvc/uvc_driver.c
+> > > > > > > > > @@ -1248,11 +1248,14 @@ static int uvc_parse_control(struct uvc_device *dev)
+> > > > > > > > >        */
+> > > > > > > > >
+> > > > > > > > >       while (buflen > 2) {
+> > > > > > > > > -             if (uvc_parse_vendor_control(dev, buffer, buflen) ||
+> > > > > > > > > +             if (buflen < buffer[0] || buffer[0] < 3)
+> > > > > > > > > +                     return -EINVAL;
+> > > > > > > > > +
+> > > > > > > > > +             if (uvc_parse_vendor_control(dev, buffer, buffer[0]) ||
+> > > > > > > > >                   buffer[1] != USB_DT_CS_INTERFACE)
+> > > > > > > > >                       goto next_descriptor;
+> > > > > > > > >
+> > > > > > > > > -             ret = uvc_parse_standard_control(dev, buffer, buflen);
+> > > > > > > > > +             ret = uvc_parse_standard_control(dev, buffer, buffer[0]);
+> > > > > > > > >               if (ret < 0)
+> > > > > > > > >                       return ret;
+> > > > > > > > >
+> > > > > > > > >
+> > > > > > > > > ---
+> > > > > > > > > base-commit: 27953c044974baf7e24dee3e9342fe0103dea80c
+> > > > > > > > > change-id: 20260911-uvc-ctrl-bound-9c1940f06fc7
 
-diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_usb.c
-index 3b9b2f104d86..f604358c8259 100644
---- a/drivers/net/can/usb/gs_usb.c
-+++ b/drivers/net/can/usb/gs_usb.c
-@@ -1595,10 +1595,10 @@ static int gs_usb_probe(struct usb_interface *intf,
- 
- 			/* on failure destroy previously created candevs */
- 			icount = i;
-+			usb_kill_anchored_urbs(&parent->rx_submitted);
- 			for (i = 0; i < icount; i++)
- 				gs_destroy_candev(parent->canch[i]);
- 
--			usb_kill_anchored_urbs(&parent->rx_submitted);
- 			kfree(parent);
- 			return rc;
- 		}
-@@ -1636,6 +1636,8 @@ static void gs_usb_disconnect(struct usb_interface *intf)
- 		return;
- 	}
- 
-+	usb_kill_anchored_urbs(&parent->rx_submitted);
-+
- 	for (i = 0; i < parent->channel_cnt; i++)
- 		if (parent->canch[i])
- 			gs_destroy_candev(parent->canch[i]);
 -- 
-2.53.0
+Regards,
 
+Laurent Pinchart
