@@ -1,128 +1,170 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f38.google.com (mail-pz2-f38.google.com [74.125.228.38])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F68E3FB7EB;
-	Mon, 28 Sep 2026 12:09:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BD794BB276
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 12:10:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790597353; cv=none; b=fRMYfoqVMgE0u2/eDMawk7xUqSGg9t3OTgJ1UhIL/tjWeOt8s+tQgah21/zTLrC2nIHssr2vL5JLaQltQpa7lDFblEL6CLaaHwm8EliuByNfIpx5QbFDXX/HCIv+28pAv9EkhC60pD86PNKO5OmKm8iUbKjeT0uajQUtd+ks/u8=
+	t=1790597447; cv=none; b=hwo0AH2yy5PNbIpe4pZqs8evG8DasCZfLKrifCfi0k8j+/aAOwA+2HQdyWPGmsuUbNqDt9vqmryiLixhRtvUy1uAVLUDWybHtqSjzdfeJdBEjEcJpK761T7PJyh2xUkJmRCk+8fIvA4NQzrWmhtQIBtaq79SOOwwRF3xB+yr2gY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790597353; c=relaxed/simple;
-	bh=ZhtTiN8KD7+PCBVbMunI3SXyiYpT/PgLcIE1Jvorxr0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kAjGiSWAbHo1gwvZnf7XyARt296W5zzecHDMBOS2Gm2hj5YrvGAg2bWNR2oLWIaOZG3y7vIq2Vz9pjpsarB5bR6jpdyOwKaooR645MqfL7vhfgIWPflkDMxrHzz8cFESKZPNCi3JIR+BNsC5hzq8GibsATCP3No8Po+74i8h2Tk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cRF4/Ta6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790597447; c=relaxed/simple;
+	bh=hsmTgOXWY31yOiEwYfObS2Rz+k0nCQ4lsbwNkTGpX2A=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=eHNTCOg9vQwZE1g4lMmtF7f8h9o1nE2hNjHpWOiqV0AQVgACIdkDXXdzqyhSyNg+RKUb7CoyV9Px3gUKcBj/dPNsI5ctHUPzNjUQ9QZOk263qcAzA8jEyNEZe6r9Pne8+0p9pQhX96AySzJ3CYGnp1IKeryDN09h/dFAttxsSwo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=RS53vJ63; arc=none smtp.client-ip=74.125.228.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cRF4/Ta6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 141DA1F000FF;
-	Mon, 28 Sep 2026 12:09:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790597351;
-	bh=scWuw41pwIEFku2HqRpmbw+maa4pAQ5w7f1wOR2IJkU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cRF4/Ta6JCrgzQdhqPlqV2OKD/4glovbpqU7vwvjk8W4MChlu/SDB4gEStviUDEgU
-	 gfnFwPvZeTe+oVI817NmzReLyKHYJ7J8JNHz2LYv8sI0QLSHzYkxgyx+nW2NO6nmJW
-	 Ey6iU5I4/0G8akK0KNy7XDyGZLz7GNj7yT4g5O/tqtyualkJwsB/ElYRNqcLAQhWva
-	 o4rOcVjMLCpMWE1BiCTXivUay+PNk+xnBygm/iUftC8t8E3+2wo4Smf8T2aqN3+jVI
-	 S1UIwPPPJf+dqnzEr+x3Cc5ckm/KWW1EcOLSfIhNi2nIanBeeb8JhqOD/zgJDaw0hI
-	 a+Y18RQQLD7bQ==
-Date: Mon, 28 Sep 2026 13:09:08 +0100
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev, Peng Fan <peng.fan@nxp.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] driver core: hand off fwnode ownership when shared
- fwnode owner is rejected
-Message-ID: <20260928-conscious-spectral-manul-19bc10@sudeepholla>
-References: <20260928-driver-core-v1-1-0846bb8e0f32@nxp.com>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="RS53vJ63"
+Received: by mail-pz2-f38.google.com with SMTP id d2e1a72fcca58-881a3a28e72so514789b3a.2
+        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 05:10:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1790597445; x=1791202245; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Zm7WiEcvZgYFQgA/86utiXIUrMSJvOJdKJld1YmBXzI=;
+        b=RS53vJ63mZyxQ69NX5UhnZBEo2X7/McAKSQp6fBl9M0P4O368zY5U5EMwh50jcvgd6
+         zFhyCea1ZPRhCXoeURRWv6M/gSSnNDaD2vwRi4EiQtg7sR/2tW6PCa14QJusK7MSFvo1
+         jFmggh8SEKEQBN4GNJh+AUV83pK4PbJKaOtFk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790597445; x=1791202245;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Zm7WiEcvZgYFQgA/86utiXIUrMSJvOJdKJld1YmBXzI=;
+        b=dsxGQk5+gciVkhmMvF+iHsF0tGA4XPUUjX9846nfNq8hkc5Fmk+U5d1Fo0YribMx+8
+         ysg0AGF+IuLokQ9+89JZubJnB/Kg2QvagmWUdOR7B9r9wH/SdKb3nJK5bHAhi+jnZjSd
+         EBHDElvyzGV3IL65hKuAm+oetfC9vviVWQITiE1ZBPk/wRadv8nJlbQD11MTIj6CkR4M
+         DZNU99BCorIx0vKTAWIapHTZ6Cf/t6TVbIKh9eHULkarc6TWezxMJJ0TsaLAbFKts+M3
+         PKo32Y7SQtDrNCUi/QoYzyjbau7IBa0i2itCEuKdb3l6OytPjhS1WE3HgAh+/ujlPeyH
+         s9Lw==
+X-Forwarded-Encrypted: i=1; AKwUvByNc9SNUCbPVnUB62xdEZBNjh0M+RLVal7YJk3S8a8falZ3AHlDLYDa2pDh6Vpg6h+dXT5vMMM=@vger.kernel.org
+X-Gm-Message-State: AFuF++nm+9tsBP+0cRJynqmJKjyGmRfRZRSsuCJkPxJ7voG3LvxNQLBf
+	FEnAhhYS0o1r1PtJQVWWcZudZhMZQwY41BCBNLRHHTPJeQ0q3oeCtjzqAcLIFBBxOvK0iNmJSnu
+	7YpE=
+X-Gm-Gg: AYBFou3gs82S/XCutG3OTHUAslBTRGCf0rfZQqrdFL0723FQbsbUQcH8q5Jf5cj1o1y
+	E/+uriq2gtw9taMnu7ZUiKHAnpWST/EV90+hq7h8Yy47bI+mLY+ocGWJgnOEkKqE5qgo137cGNz
+	eZnmLVXnLT3J5usCtyqz+GlVGUBEHLVojrOS2vhAY3GdMPBSyZkp4XQbRV8/KmeQO+vjfrcdsIr
+	ugpzdHtYYvMAkN2cgzXVZLB0EwqW+SjdUEN+/f1uZC/6y8329hxNcxmTMSHBzjREXb/dG7n3Xzz
+	QuDYENUgpzWzWIQ3NF9FDH+LAK8hQi8c3bWHGOSTq8qPMiMm2RN0hsxvFZFQnMDOtN4NgnaJ+8S
+	WEslLCg8fd1xq6ILZyX5afyXZX1Ui4vLTrYRyCNvFePKa7cSze6e9EQ3TWAROWMsBsJSv60yYmU
+	Y9URSQIqQJ1IAj3YPuylX7WPfljMpVVyMINtLO6MTLQ0WLAio2pY9zH1IwbZ05qhhzXcEGCqCnE
+	P932L3xXFk3tX71Hupn3iHdmQjoz3YaKTbQLA==
+X-Received: by 2002:a05:6a00:8c4:b0:874:705d:f647 with SMTP id d2e1a72fcca58-87e9be79ef1mr9271338b3a.41.1790597444851;
+        Mon, 28 Sep 2026 05:10:44 -0700 (PDT)
+Received: from mail-dl2-f39.google.com (mail-dl2-f39.google.com. [74.125.229.167])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87feaf950f3sm3974603b3a.44.2026.09.28.05.10.42
+        for <stable@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 28 Sep 2026 05:10:42 -0700 (PDT)
+Received: by mail-dl2-f39.google.com with SMTP id a92af1059eb24-1438cb9b3a3so1639200c88.2
+        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 05:10:42 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByGzAimLE81ZOWkR6CwU+5WQcyGWHuaBYFTpbA6D8uiHildafAqmftbeekJsWJAlRpIAS/pRLk=@vger.kernel.org
+X-Received: by 2002:a05:7022:689b:b0:141:aa71:6e02 with SMTP id
+ a92af1059eb24-146ce2a0f65mr14559278c88.2.1790597441109; Mon, 28 Sep 2026
+ 05:10:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260928-driver-core-v1-1-0846bb8e0f32@nxp.com>
+References: <20260911-uvc-ctrl-bound-v1-1-7b5cfc68bae1@chromium.org> <20260928120252.GB4406@killaraus.ideasonboard.com>
+In-Reply-To: <20260928120252.GB4406@killaraus.ideasonboard.com>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Mon, 28 Sep 2026 14:10:26 +0200
+X-Gmail-Original-Message-ID: <CANiDSCv5pd-3aO0Eb1-rvsAOGNpB4rhpjtnTosU6Ca+xBxN1qQ@mail.gmail.com>
+X-Gm-Features: AclHuK_-lgmEmOmfxcxZ6_9uVZ5ilRo7HifkMu9cud87ufINOQ3FYQtiYfguUNg
+Message-ID: <CANiDSCv5pd-3aO0Eb1-rvsAOGNpB4rhpjtnTosU6Ca+xBxN1qQ@mail.gmail.com>
+Subject: Re: [PATCH] media: uvcvideo: Fix bounds for descriptor parsing
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Hans de Goede <hansg@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@skynet.be>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Sep 28, 2026 at 07:49:01PM +0800, Peng Fan (OSS) wrote:
-> From: Peng Fan <peng.fan@nxp.com>
-> 
-> When multiple devices share the same fwnode (e.g. the SCMI bus creates
-> both "pinctrl" and "pinctrl-imx" devices for SCMI_PROTOCOL_PINCTRL), only
-> the first device registered becomes the fwnode owner (fwnode->dev, set in
+Hi Laurent
 
-This has been rejected in the past. Apart from the trigger in -next,
-anything else has changed ?
 
-> device_add()). If that owner never binds -- for example its driver returns
-> -ENODEV because it is blocklisted on this SoC, or because its driver is
-> not compiled in at all -- then driver_bound() is never called for it, so
-> fwnode_links_purge_suppliers() and fw_devlink_pickup_dangling_consumers()
-> are never run for the fwnode. The child fwnode supplier links (pin group
-> nodes such as lpi2c3grp, uart5grp, ...) stay unsatisfied and every
-> consumer of those child nodes defers probe forever.
-> 
-> On i.MX95 this manifests as a complete boot failure: the generic "pinctrl"
-> SCMI device claims fwnode ownership but its driver returns -ENODEV, while
-> the vendor "pinctrl-imx" device binds successfully. Because
-> dev->fwnode->dev still points at the rejected "pinctrl" device,
-> driver_bound() of "pinctrl-imx" skips the supplier purge and dangling
-> consumer pickup, so all I2C buses, SPI, UART, MMC, USB and PCIe
-> controllers wait forever for their pinctrl suppliers.
-> 
-> Fix this in two places:
-> 
-> 1. In really_probe() failure path: when the driver definitively rejects
->    a device (-ENODEV / -ENXIO), fw_devlink_release_shared_fwnode() is
->    called. If the rejected device is the fwnode owner, it either
->    transfers ownership to an already-bound sibling (and runs the
->    purge/pickup on its behalf) or clears ownership so the next sibling
->    to bind can re-acquire it.
-> 
-> 2. In device_links_driver_bound(): re-acquire the fwnode when it is
->    unowned (!fwnode->dev) or when the current owner has no driver at
->    all (!fwnode->dev->driver, meaning the driver was never compiled in
->    or loaded as a module). This covers the case where probe rejection
->    never happens because no driver ever matches.
-> 
-> fwnode->dev is not serialized by a lock; instead every writer only ever
-> touches a fwnode->dev it already owns (== dev, as device_del() does when
-> it clears ownership) or one that is currently unowned (== NULL, as
-> device_add() does when it claims ownership). This patch follows the same
-> discipline: fw_devlink_release_shared_fwnode() only writes fwnode->dev
-> when this device is the current owner; device_links_driver_bound() only
-> claims fwnode->dev when it is NULL or when the current owner has no
-> driver (and therefore cannot be in the process of binding).
-> 
-> Fixes: f9aa460672c9 ("driver core: Refactor fw_devlink feature")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
-> ---
-> This issue is triggered by 
-> aac4e67d6eb9 ("firmware: arm_scmi: Always create devices for standard protocols")
-> in linux-next next-20260925.
-> 
-> But I think this is a fix to
-> f9aa460672c9 ("driver core: Refactor fw_devlink feature")
-> 
+On Mon, 28 Sept 2026 at 14:02, Laurent Pinchart
+<laurent.pinchart@ideasonboard.com> wrote:
+>
+> Hi Ricardo,
+>
+> Thank you for the patch.
+>
+> On Fri, Sep 11, 2026 at 01:23:50PM +0000, Ricardo Ribalda wrote:
+> > uvc_parse_control() passes descriptor by descriptor to
+> > uvc_parse_standard_control() with the number of bytes remaining in the
+> > buffer, not the number of bytes of that descriptor.
+> >
+> > Because of this, malformed descriptors could leak over the next
+> > descriptor, leaving malformed data in our structures.
+>
+> What issue does this fix in practice ?
 
-Does dropping i.MX specials from list of devices solves the problem ?
-I am more than happy to drop i.MX special in the code and let you
-sort the pinmux mess you guys have created.
+Look into uvc_parse_standard_control().
+Let's take the UVC_VC_HEADER
 
-And also I remember you creating situation disabling cpufreq in the cmdline.
-Will that be ever used on those i.MX platforms ?
+Imagine we have a malformed control at the beginning of the descriptor that has:
 
-I am not against the patch if others are OK.
+buffer[0] = 3
+buffer[2] = UVC_VC_HEADER
+buffer[3] => Beggining of next control
+
+With the current code, buffer[3...X] is parsed as UVC_VC_HEADER.
+
+What does it fix in practice? It avoids that data outside the controls
+is parsed as part of the control.
+
+
+>
+> > Change the code so we pass the actual length of the descriptor to the
+> > parser.
+> >
+> > Note that this makes the existing check more strict and some devices
+> > that are wrongly parsed today will not be probed now.
+> >
+> > Cc: stable@vger.kernel.org
+> > Fixes: c0efd232929c ("V4L/DVB (8145a): USB Video Class driver")
+> > Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+> > ---
+> >  drivers/media/usb/uvc/uvc_driver.c | 7 +++++--
+> >  1 file changed, 5 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+> > index e289cc71ba98..429f1ab19a2a 100644
+> > --- a/drivers/media/usb/uvc/uvc_driver.c
+> > +++ b/drivers/media/usb/uvc/uvc_driver.c
+> > @@ -1248,11 +1248,14 @@ static int uvc_parse_control(struct uvc_device *dev)
+> >        */
+> >
+> >       while (buflen > 2) {
+> > -             if (uvc_parse_vendor_control(dev, buffer, buflen) ||
+> > +             if (buflen < buffer[0] || buffer[0] < 3)
+> > +                     return -EINVAL;
+> > +
+> > +             if (uvc_parse_vendor_control(dev, buffer, buffer[0]) ||
+> >                   buffer[1] != USB_DT_CS_INTERFACE)
+> >                       goto next_descriptor;
+> >
+> > -             ret = uvc_parse_standard_control(dev, buffer, buflen);
+> > +             ret = uvc_parse_standard_control(dev, buffer, buffer[0]);
+> >               if (ret < 0)
+> >                       return ret;
+> >
+> >
+> > ---
+> > base-commit: 27953c044974baf7e24dee3e9342fe0103dea80c
+> > change-id: 20260911-uvc-ctrl-bound-9c1940f06fc7
+>
+> --
+> Regards,
+>
+> Laurent Pinchart
+
+
 
 -- 
-Regards,
-Sudeep
+Ricardo Ribalda
