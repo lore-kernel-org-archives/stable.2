@@ -1,54 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E1C24F4050
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 16:46:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A3804F392E
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 16:46:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790613990; cv=none; b=QKG5CpyZkPMOPxORkDzQylWQhqwWwqeNhw68scmDIdtzTs9OojIAiSh6sOejK/NpJvSRcQXkRsXGrfVUNiUV/2PdsTH05wUxZdf6AtDDqKbtsyvjp7azcn4mNjpw+fy+GjKJo7hLjatKJLPspgEkdo2c5M26o8m2wk7ONmoi0Sk=
+	t=1790613991; cv=none; b=hV8FDbXFlA4JndsZB4/zHiBKPGOYQ/VCmYYGt/yCNdcIhRa/fTKpPOtDKAoiHTeiNrZZ8TIGMh0HylH1mZlHL4RqyIGoiYRT40wYA4w3Jzxih0R92jwDPDdIVLJt7bs6o1BhM7MWZzXQKEzvlb+pruR8u2ZXisHv8iPU9n16IKM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790613990; c=relaxed/simple;
-	bh=IqFRzIZx13rGwBqaPzYgGVXKSKsA2v6VsqeDmpAEIJw=;
+	s=arc-20240116; t=1790613991; c=relaxed/simple;
+	bh=4xMJntxHfn6AwnHN8JU2RmwZiQ3aHB3uDh2MewEkjeU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tfX4TQohvAUDeTqCAJ8EDn8fv/xxn1srWuCUpLFuGBN9NO0r6ZLuxxqG7w35pEZosRpZsS90N5mb8DzevoGb44Ud4gp4DKXVYBGtmuhuF2gzTT8Shp8m4Fvu2jbFkqDlmiMqw7a2PzqJyYipga/Lq36XyRD5manCgK4k2Hdsm7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CVFHjZMI; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=PFg2w0iG3TeI88ndsSymWIEEChXJ9HichYtBazxWoGlZEAbECtZdpYKcvzVb+yuBFjySc/irCmB4f69Djr9lwZUsCHqMCHkr/cBlwB3HZkn0cD591fKasmRLfaVCV4s/8MRBK26F584EumZu1ohd0sA0V1TE19PrwemeKmDtNEw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Aq38rIbH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CVFHjZMI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 020201F00893;
-	Mon, 28 Sep 2026 16:46:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Aq38rIbH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B41B71F000FF;
+	Mon, 28 Sep 2026 16:46:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790613988;
-	bh=C3nom5bLkf5I0bvEvWR34c6/04C5MDrrLot0CB6ied4=;
+	s=k20260515; t=1790613989;
+	bh=WdcjITcVR71rM7DxTLTIh39xUvW5S3Rxo3Jx0Miukg8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CVFHjZMIgTag3SzpeMdMyhR9EN60MNy9MKXRBPM3XzKMdSu9GackqZbptcSt7dSY7
-	 MXoS0jwn+wzTbtScxmxps60xNlvCNj8jOp/QZsHNFKpUL9wT3ADTnj9kgJlO+cKvMQ
-	 J+2HFv44Ih/x4Z2wRGCQUrznTXm1Dd6LG9Wp/hgK0rea+J5Ung5oIAo6Y33RSq70sP
-	 FgPk+vXmm6DQAqLtiX1c1BR45Z5EezZSxSriLiXhgOaxaDmNY61qekjbbgynCAhW/l
-	 ay+mp0lCcAsC9Txh7vxz/mudoT6EJvLnyKIdR2hHlef4CEZsA6rXJB6dYSahdgROkb
-	 HabKsqdcx/yLg==
+	b=Aq38rIbH981z4IWcpB36/Fg1mY/uTuFVGWpAbxc3r6obpcjwj7aCCI1YRADQy0dFW
+	 ljhH3KeKYtGmia0JfAF88MOrppUsP2g72MYbmIJSPvr+0nnIYuaaYFceEoDFp7dCRb
+	 GUv2t4q/IErlalOy86nAy8KDxLwyACye/wUvYDr3GjFIu8PKizKQxgkEi5m97dyS5l
+	 vmEqUu11O/zymYm5C4opfAGzmQfWqf8tfej6O7G//HUgEIQ6tbi5eKoMDmKWYlEbln
+	 dkBUWC/9oRn8a7LmwwPTaCV+YVBLYgp9TSBt1DjFLe+d2VbbB1k0JYCl2baXNx+e13
+	 EvCruGpiYWitA==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Eric Dumazet <edumazet@google.com>,
-	Alexey Kuznetsov <kuznet@ms2.inr.ac.ru>,
-	Hideaki YOSHIFUJI <yoshfuji@linux-ipv6.org>,
-	Marco Elver <elver@google.com>,
-	Alexander Potapenko <glider@google.com>,
-	Dmitry Vyukov <dvyukov@google.com>,
-	Andrew Morton <akpm@linux-foundation.org>
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Benjamin Robin <benjamin.robin@bootlin.com>,
-	"Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	syzbot <syzkaller@googlegroups.com>
-Subject: Re: [PATCH 5.10.y v2 0/3] net: preserve skb_end_offset() in skb_unclone_keeptruesize()
-Date: Mon, 28 Sep 2026 12:46:10 -0400
-Message-ID: <2026-09-28-daily-reply-0011-re-skb-unclone-keeptruesize-v2-5-10@kernel.org>
+	Florian Schmaus <flo@geekplace.eu>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	"H. Haechoc" <h.haechoc+kernel@gmail.com>
+Subject: Re: [7.2.y] Please backport 41112a787f91 ("PM: hibernate: Freeze kernel threads after image preallocation")
+Date: Mon, 28 Sep 2026 12:46:11 -0400
+Message-ID: <2026-09-28-daily-reply-0012-re-hibernate-freeze-kthreads-7-2-already-queued@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260928-cve-2022-49142-v2-0-227dee37e858@bootlin.com>
-References: <20260928-cve-2022-49142-v2-0-227dee37e858@bootlin.com>
+In-Reply-To: <CAKp=m=Assw9TBMVQbUPSvr1r6fLWFn3=0iMT9NOJ9iE7C+x78w@mail.gmail.com>
+References: <CAKp=m=Assw9TBMVQbUPSvr1r6fLWFn3=0iMT9NOJ9iE7C+x78w@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -57,9 +46,10 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> I backported two other patches to make the series apply cleanly.
+> could you please backport commit 41112a787f91 ("PM: hibernate: Freeze
+> kernel threads after image preallocation") to the 7.2.y stable series?
 
-Queued the series for 5.10, thanks.
+It's already queued for 7.2, thanks.
 
 -- 
 Thanks,
