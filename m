@@ -1,34 +1,34 @@
 Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBEC43BE632;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC00F4D7D48;
 	Mon, 28 Sep 2026 20:09:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790626191; cv=none; b=kntwe5nTFEHdEgSrjUdhfX6EiswvvBztgSm0kpUrhb0RucrvDsqxOqr8D0QB7TtbsPCg0eD80I3I1lASBju8d79Kqw08YZ8H27ZdmPz0hh2gA+f60yl0BQ5UbGQvlMwBVJXEudfPxeK3/iUlhVj+GeijcwQKVtYCl/hoBbBztDM=
+	t=1790626193; cv=none; b=SWgzDIdG3HHMMJchLHZ8wSGt0/AYER4qY/RDtTknZYfi7lWF9oUa3Z1kRwrdfwbqweH1vxK9rjJEhdzEhaDYRWHR86RLwXTUnnMoqQoG7tQFKnRxrMu/ceyK/3OgTwQg2bVAQ5w7WBy/vuottblAivrxpHH+r5R2YbZ0p4I1WeE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790626191; c=relaxed/simple;
-	bh=tNo3RGRl0mHjhYe4yo5R9ghVMANq9TkJNE1Z3AXQgVM=;
+	s=arc-20240116; t=1790626193; c=relaxed/simple;
+	bh=aUAMiskV7BBWe1i8QtgrkbKJbU8eawJAi0cyE4KHY8M=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=H8WTF0pOQqL9/rlw5BpSwUsFQAvQ/It5A+1qUZjVNILcrtvgFVup0X0RyXSrt+LWpd6uyt2X4FMXA/zUihrRqWFvNIhJWP1rnV3RLJnI6prdEhKu88gqaGmpQrO01YsV2nZ6V+4zZrRhGHRJnEbMv0fQWrYIggyFYNtmCtiX69g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=IVObg1TE; arc=none smtp.client-ip=143.255.12.172
+	 MIME-Version; b=Yvz35ci4ZkRsgJqub6hRVxWqijazo2pwuUpUAjnb6evqWD5IjDf0eHvt4/3gyUGHqLoxTu4CADI2WDFvvoifCBT3SuIze4zULLr9EnCc6iQtInjEo3r7pFKfERwZgqWNo9RLJo1nVtiHaYtW11FSosnc+YRgrl91sCzpNgLeg6c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=rbU+BLnV; arc=none smtp.client-ip=143.255.12.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="IVObg1TE"
+	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="rbU+BLnV"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=manguebit.org; s=dkim; h=Content-Transfer-Encoding:MIME-Version:References:
 	In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Content-Type:Reply-To:
 	Content-ID:Content-Description;
-	bh=rLblEt6nmUNeeLCVb8Trztt/wB1WKTYrddiQDKv0hho=; b=IVObg1TEjWJomTP7BHHI5QBGtD
-	HX5BzBzsHUC8T63loOVadxz0aeTwJnZOZ2eTQBviGORIG/u+CWpIIVJocgYtfAMrNxS15cD3YHSQ3
-	PuDGxRCdInVifebUgMIESI9+acMY72Y3Jf6hxGfKbWRqGTCz14bIZEBx1KXlE/SWSHWq8stTI5pdd
-	6rhpcZMzYagL2JrNkuLclNwTXImuvXrjhhL0v+DBuf0rsi3ZA3ijzx+PjgjfQLmY8SgW7Je/lT8wt
-	eAHQ/1rYc/9cX2bm/3IFtyYMCmvVcqJC+S0z6qVYL0aoZuZAO2wufwB4eZAv1+Xu6iwe/EcoxMP5q
-	AWPv9zJQ==;
+	bh=t2NhoLZ9pqbNAZyYAKYLTM/ZaoIR3qEMdvPqqh/ziEA=; b=rbU+BLnVeMdmE/YTEqhkLZp6Cm
+	S6rTeQpcJaeOPxmuwY5dep9iXD5DU0sOilo8+5yCVdh/M1uHbH7Q2j5+x16MUdWTDDP12y8V0ya8x
+	HXh5TsKqeN6j9xqqndyfSlipuRshc1D/EHtOY04mGi1MjuvtQleSGc9zkcR4mU7FoRvlAobAW0o5M
+	1kT7+v/V+kZntqy6XLb2yQYZojvlkXq/I0GE/Xw+KAWf7HxCUDwXEafIuK7zovuKmdxA2/zvCJmmv
+	RXpxy40sUt5sQ8qmBO2rMVjJLQTUjJ/zWFcvOZj3fZIudWsHO32SVb7Rt7PdvaYzoLOcTP8w1UCWV
+	PAvuedjA==;
 Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
-	id 1xBHfN-00000002UJW-1VmF;
-	Mon, 28 Sep 2026 17:09:37 -0300
+	id 1xBHfO-00000002UKp-0CAO;
+	Mon, 28 Sep 2026 17:09:38 -0300
 From: Paulo Alcantara <pc@manguebit.org>
 To: linux-cifs@vger.kernel.org,
 	netfs@lists.linux.dev
@@ -41,9 +41,9 @@ Cc: Christian Brauner <brauner@kernel.org>,
 	Tom Talpey <tom@talpey.com>,
 	Bharath SM <bharathsm@microsoft.com>,
 	stable@vger.kernel.org
-Subject: [PATCH 08/15] smb: client: flush dirty data before zeroing a range
-Date: Mon, 28 Sep 2026 17:09:27 -0300
-Message-ID: <20260928200934.1040189-9-pc@manguebit.org>
+Subject: [PATCH 10/15] smb: client: only require read lease for size-extending zero range
+Date: Mon, 28 Sep 2026 17:09:29 -0300
+Message-ID: <20260928200934.1040189-11-pc@manguebit.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260928200934.1040189-1-pc@manguebit.org>
 References: <20260928200934.1040189-1-pc@manguebit.org>
@@ -55,26 +55,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-smb3_zero_range() emulates FALLOC_FL_ZERO_RANGE by invalidating the
-page cache over the target range with truncate_pagecache_range() and
-then issuing FSCTL_SET_ZERO_DATA to the server.
+smb3_zero_range() refuses any FALLOC_FL_ZERO_RANGE that clears
+FALLOC_FL_KEEP_SIZE with -EOPNOTSUPP whenever the inode is not read
+caching:
 
-Dirty data was only flushed conditionally, when the range reached or
-extended EOF.  For a purely interior zero range that does not reach
-EOF, no flush happened, so a dirty folio overlapping the range could
-be written back to the server after the FSCTL and refill the range
-that was just zeroed with stale data.
+	/* if file not oplocked can't be sure whether asking to extend size */
+	rc = -EOPNOTSUPP;
+	if (keep_size == false && !CIFS_CACHE_READ(cifsi))
+		goto zero_range_exit;
 
-Fix this by unconditionally flushing and waiting for dirty data in the
-range before invalidating the page cache and issuing
-FSCTL_SET_ZERO_DATA, exactly as was done for smb3_punch_hole() in
-commit d7d2adcd022b ("smb/client: flush dirty data before punching a
-hole"); the two paths are structurally identical here.
+The read lease is only needed to trust the cached i_size when deciding
+whether the range extends the file. When it is not held, the size can
+instead be fetched from the server, which is authoritative, rather than
+refusing the request outright: query the server's end of file and take
+the larger of it and the cached size for the interior-vs-extend
+decision. The larger of the two is used because the server's end of
+file reflects another client's growth while the cached size reflects
+this client's own writes that may not have reached the server yet;
+using the server size alone would wrongly shrink the file when the
+range flush above left an extending write unwritten.
 
-This is observed as generic/363 randomly reading stale data where a
-zeroed range is expected against Windows Server.
+Rejecting interior ranges is observed as generic/363 randomly failing
+against Windows Server with
 
-Fixes: 91d1dfae4649 ("cifs: Fix FALLOC_FL_ZERO_RANGE to preflush buffered part of target region")
+	do_zero_range: fallocate: Operation not supported
+
+fsx issues an interior, non-KEEP_SIZE zero range while the inode is
+transiently not read caching: the server had just downgraded the file's
+lease from RWH to RH after breaking the write caching, and the ensuing
+handle reopen/revalidation left CIFS_CACHE_READ momentarily clear. The
+range sat well within the server's end of file, so no extend was
+needed, yet the range was refused and fsx aborted. This keeps the
+emulation correct even when a genuine lease break from another client
+leaves the inode without read caching -- the case the -EOPNOTSUPP guard
+turned into a hard failure. The extra round trip only happens on the
+no-lease path; the common cached case is unchanged.
+
+Fixes: 30175628bf7f ("[SMB3] Enable fallocate -z support for SMB3 mounts")
 Reviewed-by: David Howells <dhowells@redhat.com>
 Signed-off-by: Paulo Alcantara <pc@manguebit.org>
 Cc: Christian Brauner <brauner@kernel.org>
@@ -86,31 +103,60 @@ Cc: Tom Talpey <tom@talpey.com>
 Cc: Bharath SM <bharathsm@microsoft.com>
 Cc: stable@vger.kernel.org
 ---
- fs/smb/client/smb2ops.c | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
+ fs/smb/client/smb2ops.c | 26 +++++++++++++++++++++-----
+ 1 file changed, 21 insertions(+), 5 deletions(-)
 
 diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
-index dbab69d1b28a..6e1682dedb87 100644
+index 6e1682dedb87..45d5c66f1ad9 100644
 --- a/fs/smb/client/smb2ops.c
 +++ b/fs/smb/client/smb2ops.c
-@@ -3547,13 +3547,11 @@ static long smb3_zero_range(struct file *file, struct cifs_tcon *tcon,
- 	filemap_invalidate_lock(inode->i_mapping);
+@@ -3520,6 +3520,20 @@ static long smb3_zero_data(struct file *file, struct cifs_tcon *tcon,
+ 			  0, NULL, NULL);
+ }
  
- 	netfs_read_sizes(inode, &i_size, &remote_i_size, &zero_point);
--	if (offset + len >= remote_i_size && offset < i_size) {
--		unsigned long long top = umin(offset + len, i_size);
++static long query_server_eof(const unsigned int xid, struct cifs_tcon *tcon,
++			     struct cifsFileInfo *cfile,
++			     unsigned long long *eof)
++{
++	struct smb2_file_all_info file_inf = {};
++	long rc;
++
++	rc = SMB2_query_info(xid, tcon, cfile->fid.persistent_fid,
++			     cfile->fid.volatile_fid, &file_inf);
++	if (!rc)
++		*eof = le64_to_cpu(file_inf.EndOfFile);
++	return rc;
++}
++
+ static long smb3_zero_range(struct file *file, struct cifs_tcon *tcon,
+ 			    unsigned long long offset, unsigned long long len,
+ 			    bool keep_size)
+@@ -3563,10 +3577,12 @@ static long smb3_zero_range(struct file *file, struct cifs_tcon *tcon,
+ 	truncate_pagecache_range(inode, min(offset, i_size), offset + len - 1);
+ 	netfs_wait_for_outstanding_io(inode);
  
--		rc = filemap_write_and_wait_range(inode->i_mapping, offset, top - 1);
--		if (rc < 0)
--			goto zero_range_exit;
--	}
-+	rc = filemap_write_and_wait_range(inode->i_mapping, offset,
-+					  offset + len - 1);
-+	if (rc < 0)
-+		goto zero_range_exit;
+-	/* if file not oplocked can't be sure whether asking to extend size */
+-	rc = -EOPNOTSUPP;
+-	if (keep_size == false && !CIFS_CACHE_READ(cifsi))
+-		goto zero_range_exit;
++	if (!keep_size && !CIFS_CACHE_READ(cifsi)) {
++		rc = query_server_eof(xid, tcon, cfile, &remote_i_size);
++		if (rc)
++			goto zero_range_exit;
++		i_size = max(i_size, remote_i_size);
++	}
  
+ 	fscache_invalidate(cifs_inode_cookie(inode), NULL,
+ 			   i_size_read(inode), 0);
+@@ -3578,7 +3594,7 @@ static long smb3_zero_range(struct file *file, struct cifs_tcon *tcon,
  	/*
- 	 * We zero the range through ioctl, so we need remove the page caches
+ 	 * do we also need to change the size of the file?
+ 	 */
+-	if (keep_size == false && (unsigned long long)i_size_read(inode) < new_size) {
++	if (!keep_size && i_size < new_size) {
+ 		rc = SMB2_set_eof(xid, tcon, cfile->fid.persistent_fid,
+ 				  cfile->fid.volatile_fid, cfile->pid, new_size);
+ 		if (rc >= 0) {
 -- 
 2.55.0
 
