@@ -1,302 +1,178 @@
-Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E3F24BD7B4
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 15:09:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA49149DB89;
+	Mon, 28 Sep 2026 15:14:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790608165; cv=none; b=ETYVbC8zQHuLH8RSVtDjLG30KccZGdUA2nT7NJxtOIkZ9T+6azp4GmTdhSjSZy7Todxxd4gO3lhNvsd5mYL27SmTAoCFIo153WZRVtj1ytkVcyx4yfOWjVUR9FIcQC1pDYeKK/1SbRw1qE4CYKwfmBibZY3scgVIhk0wd9guQLg=
+	t=1790608474; cv=none; b=DLqPp02440qVSzLUTOm1AKsw4DFGru7uHQ5OGiKTD2MbJkgjB6eD3pfRKCmTuM/Z+e1bMwezJ0hbl0BpdFLlhRUPuNOdbwnRENQPzkJNjdRNSQTva2KqWnQr5sIhjyguJoVdZWcpIE8MkUK5v8+bas/0BEWlCoxkGVmi6v9D9Xo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790608165; c=relaxed/simple;
-	bh=V128fD04ij55ZxJr3/qfR5fWUCfstwSbaVgWF34gnn8=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=daR5iRadFg2OC+7FT9TvdA0Ir8I3dyDezxAQ4VFUHi8gT8o1eLdjUg3pebdfWDj/0JWs+JSv8bifsHaL+TP2XvlIjWTqxEjoioNt5yYhitrQHPniTrjZCFYpbMfDH9vZV1Ww9Cdm6oEFxQKVEghWzN9JSu7lLPFx+g3hBa7q0AE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HSfTL2b5; arc=none smtp.client-ip=74.125.228.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790608474; c=relaxed/simple;
+	bh=hb2cf8q8p9CanWzj9wu3j+yifOA3ZuTQCLGzXZv6/Ds=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gBCq10qiqO+hWGmpjkWaGfdKTmMOjHepzIHcNJM2gyF9dH9vr6MTRJO/Oiu+FSWu0U2V+L/10GUq2N4dBNSSZt6kto1ReUTWiXKOjrcPcMyCvNPtZdyTCz0KgE0XSLKpyr9MKW8fdRg8D3nCrVjzNxsNkSJszgoFEXAfoRBdJBw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=L/P4q+mG; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HSfTL2b5"
-Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2a9edfc851so392464266b.0
-        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 08:09:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790608161; x=1791212961; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7ePUtRIIdzKxmcepIuM7i9rcIIVMHWU1yVMYxV/ojck=;
-        b=HSfTL2b5KQ+6ZIkApzMXSqRHvMcHEhRbILvfNcEJDpptYcJ8RDebTZjLyi/Wu+a1Q8
-         nGjTcp0dFfHqjzkJIann+OD5Pmyk4pd0YAygbIOJS9LqWOg96m/hLnFG0fACfOhiWoIk
-         WQcXMNKbCR/vMnHe/dBKF01UqN+IPUtZxex8DsHebepjNZm7RsTBL4OluB+4R6BEMyeT
-         SflCyzexbVh2F0bpB9tH+LeWmVC4r6YZU/6UjfBtC4vZduLj4daDdlcCZ0XTcsIL4f/L
-         ot1U4xxeLguh60AaICyWOIehp89YVvja7wPqLsIj3DeAYuGAUoi2GFdEEXVOLgWhiW6e
-         kORw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790608161; x=1791212961;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=7ePUtRIIdzKxmcepIuM7i9rcIIVMHWU1yVMYxV/ojck=;
-        b=BTYEECRvkSSnH2DW9GjPm87GXQjgTaSK6w105P9qF2MVrZeaqNFIv2s97famapgbEa
-         PLbgFlniQdW3aWVQ1TL9UsES1hITNh70sFH9f5hnp67pN+88zD6ltAiiBQ/niWOyBQe8
-         bKTXg2qEE+d95mxpyLc3GCpIMteOU/yGbJcDzt9k+hQCojOTiDhmtfIusky1IR7yfr78
-         HO3TY1F1WccZUT6WZRTBOlvjO9mBFQ3+M+Pl83XXSkkJJgoIywNuIZnhlfFkcMJmJNpX
-         gcgA7tmBz2iBpE4ZhnZskNJ20xrHohJW4dqLg3dizsDN50idMLD4WfO0z6q6DKHoGOGn
-         oXDQ==
-X-Forwarded-Encrypted: i=1; AKwUvBydiAvORS+LTwYQvrYovhMTd/NX8OGZimpYGQaxyZDuvu901xnHmTu2uwriHECBkhF8GeOjClA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lXfyBKJE31k94Sb7i6CJTD3X0QU1hjGhN1JFy/QfcFvzaCEvqK
-	i6fwn6mI3ExYHhWr58gVJz0ycmGfi4OAJJEt/ZHy37OgpcyTBJj+IKAuTKze7jz0
-X-Gm-Gg: AYBFou1WU65vAQUO3N10lkQGuB1Tb3J9Rie3O2/Rpg78M5KEO9iHzMRUWYgGKoqoE/5
-	kdq9x62+ZVpg2gsNUwF3Uh7sNQZ3mB7teNOHaH9uB0UX/Q/K11s5viH+fXiT2NQ5Qa2sjWi1+F9
-	dprYCataI8CnTmy8SHsawqOq+wGWLDmeJy0R+rQT3+b+CUXckDjlrXuNdUgveJP1fZstp8rsM7y
-	i/3xACqJqS2SsbHNKmdkL1x6MwzIQLw84xsuPSJ1Reayfc1qxXEpYHasV2ftjfJJ+XAhTwMXjjL
-	xBwvP8hVdMv5NKd27rL1WsRIKnabEgss7eqyvg28dL3XrclDb/UrUk0b7JBqq+Zg9c2H71WKM0/
-	ORIC3KE3T9AbAhf8jPbiiPfITgvsuBy7ce8PiHdpwIwABgXcOmbk4eR12cESG8qLoj9BhJpzesM
-	2RZiAyXxk96MVOEBNrtA/MjIO1zPEPZLEZOUo=
-X-Received: by 2002:a17:907:c602:10b0:c2b:4142:2db1 with SMTP id a640c23a62f3a-c2b41424722mr392606866b.40.1790608160979;
-        Mon, 28 Sep 2026 08:09:20 -0700 (PDT)
-Received: from milan ([2001:9b1:d5a0:a500::24b])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2dbfde3194sm297220266b.4.2026.09.28.08.09.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 08:09:20 -0700 (PDT)
-From: Uladzislau Rezki <urezki@gmail.com>
-X-Google-Original-From: Uladzislau Rezki <urezki@milan>
-Date: Mon, 28 Sep 2026 17:09:18 +0200
-To: Hao Ge <hao.ge@linux.dev>
-Cc: Hao Ge <hao.ge@linux.dev>, Suren Baghdasaryan <surenb@google.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Petr Pavlu <petr.pavlu@suse.com>,
-	Daniel Gomez <da.gomez@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Aaron Tomlin <atomlin@atomlin.com>,
-	Kent Overstreet <kent.overstreet@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	linux-modules@vger.kernel.org, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v10 2/6] alloc_tag: clean up the populate failure path
-Message-ID: <arqDHnBFGKQZm7VU@milan>
-References: <20260915070001.113559-1-hao.ge@linux.dev>
- <20260915070001.113559-3-hao.ge@linux.dev>
- <CAJuCfpHJSwNhgotMVpmjVvdv=m52_7Kvzpztf0WcN0AaoSeGGw@mail.gmail.com>
- <60642a7f-2949-428a-8290-40d69c989a77@linux.dev>
- <CAJuCfpG3d7n=z5WnUQYZsqvrt1pemF8TFvGiGyZGLO7ykVvqAQ@mail.gmail.com>
- <CAJuCfpGeRdFY6UPF-vXxwHvP2+tN=BKgRkmLR3PMLuWhxgzPRA@mail.gmail.com>
- <1dff448c-9cbe-4276-bca1-d91283b0c7b4@linux.dev>
- <b8005c24-ecac-45c4-840a-fd282f9693b5@linux.dev>
- <arpK2bQrrUMvEvTP@milan>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="L/P4q+mG"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68SF5McC1460345;
+	Mon, 28 Sep 2026 15:14:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=sGfRxYoCiAtwA40VVXyn+8HtYoVkam6i2B6+it2F1
+	Xs=; b=L/P4q+mGZHiX9HULZ6QlwjXKXVwV7s0IL2ZWcuLf7NRvo84Awyp77oDCk
+	foCpUZrevY2siu6j4XJQ1r8an2keZCPlCwa+CKfkiSh3D9G6eqEqJf22hiaPEa7W
+	keAMhFuMbynr8nrQ8Yz0OwMKPtjU3WqU5xaM4RbVigT6uKzkKhiQnUPZzg/NKVjf
+	8KUPVhi3vRr5HYAsDdP2d0uFKdFzqlBEGULT8tJrRaJay9oanQ5IR0Sql+MEPLhn
+	AKk7ytRMKb+Kodhuv8Ilk/+F3fE8snM9kRAE2jZwHaURxMpJFIFDZopTXOyW9jps
+	ES7R5pgYaytnB4KfyqhtsJhwAGXWw==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx5s527yk-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 28 Sep 2026 15:14:25 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68SElhgt291043;
+	Mon, 28 Sep 2026 15:14:24 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gxu2y5jgk-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 28 Sep 2026 15:14:24 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68SFEKwQ46596468
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 28 Sep 2026 15:14:20 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 92E7C2004B;
+	Mon, 28 Sep 2026 15:14:20 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 5C66920043;
+	Mon, 28 Sep 2026 15:14:20 +0000 (GMT)
+Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with SMTP;
+	Mon, 28 Sep 2026 15:14:20 +0000 (GMT)
+Received: by tuxmaker.boeblingen.de.ibm.com (Postfix, from userid 55271)
+	id 3D243162099; Mon, 28 Sep 2026 17:14:20 +0200 (CEST)
+From: Alexandra Winter <wintera@linux.ibm.com>
+To: Aswin Karuvally <aswin@linux.ibm.com>, Gerd Bayer <gbayer@linux.ibm.com>,
+        David Miller <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Eric Dumazet <edumazet@google.com>,
+        Andrew Lunn <andrew+netdev@lunn.ch>
+Cc: Julian Ruess <julianr@linux.ibm.com>, netdev@vger.kernel.org,
+        linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>, Simon Horman <horms@kernel.org>,
+        stable@vger.kernel.org
+Subject: [PATCH net v2] s390/ism: Zerorize dmb at allocation
+Date: Mon, 28 Sep 2026 17:14:20 +0200
+Message-ID: <20260928151420.383105-1-wintera@linux.ibm.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <arpK2bQrrUMvEvTP@milan>
+Content-Transfer-Encoding: quoted-printable
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA2MCBTYWx0ZWRfX7eKgsfCG4sg9
+ j+PH2aWuzOwcNAjYhi/oaaQJKM98Py8CaFaIkApAFquaFILJVDpFvfAxDZHtFgfQsooyu7hyzz2
+ efxy8tmvDsA6IXCSpbLG0JVTz1ZgM9s=
+X-Authority-Analysis: v=2.4 cv=HJ5WhYtv c=1 sm=1 tr=0 ts=6aba8451 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=BBuY1RymvebusuJm9ysA:9
+X-Proofpoint-GUID: dMcZZTSGqRxXwav2cgXaw-z_zQg77ZzF
+X-Proofpoint-ORIG-GUID: 3-oriRVOGmAk0BGZMGK3SCxQigrXtEEv
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA2MCBTYWx0ZWRfX8h/T0kHsv3ax
+ Nixg32TQBwZBNN4mG1kEOQ0C2G4pgjHNKCT9k6x6iFj0HDl/fe91UXHVqA/EuKQVkysXl1Xr/Ll
+ ztRdeCcEO0234eUt06Yz54d4y2SHSqw+3N6Skwweu9Nl37gRiM0fitNpugKpA7CM2/WfOE4QS+e
+ paRcBlhZQu/QmRt/c1r46mzwiMz+Xs1gucF6l45xBz8I4WMI3hpnqg5Qtm4KThckvmNfc3Tdnah
+ J94GtbETatdrwH/8hg81NQ8q5ed+bfiB0csZmHnM5iduykMwn6HLEvE5jlHKaRzzrVdNhqjDIFT
+ 8sYmmfvCnffHYXFI9K2kZYsjdGp4gyJ0PAQXP+uM9TXUM2J/mB+GbnhTpcLqD2sToz0IRR2+PrG
+ /Z6vab0Lzo4+B1HC3hiPReiOVnQeTwGtUnRHNEhXsE01/MeL4gO1gm2a0WAusg+UR6mk7riqPEY
+ h24S4d96CQH14lfUJew==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-28_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0 bulkscore=0 clxscore=1015 lowpriorityscore=0
+ spamscore=0 impostorscore=0 phishscore=0 priorityscore=1501 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609280060
 
-On Mon, Sep 28, 2026 at 01:09:13PM +0200, Uladzislau Rezki wrote:
-> On Thu, Sep 17, 2026 at 10:32:48AM +0800, Hao Ge wrote:
-> > Hi Suren、David、Lorenzo
-> > 
-> > On 2026/9/17 09:12, Hao Ge wrote:
-> > > Hi Suren
-> > > 
-> > > On 2026/9/17 03:07, Suren Baghdasaryan wrote:
-> > >> On Wed, Sep 16, 2026 at 9:31 AM Suren Baghdasaryan <surenb@google.com> wrote:
-> > >>>
-> > >>> On Tue, Sep 15, 2026 at 11:00 PM Hao Ge <hao.ge@linux.dev> wrote:
-> > >>>>
-> > >>>> Hi Suren
-> > >>>>
-> > >>>> Thanks for you review.
-> > >>>>
-> > >>>> On 2026/9/16 05:09, Suren Baghdasaryan wrote:
-> > >>>>> On Mon, Sep 14, 2026 at 11:59 PM Hao Ge <hao.ge@linux.dev> wrote:
-> > >>>>>>
-> > >>>>>> The reservation is already stored in the maple tree when
-> > >>>>>> vm_module_tags_populate() fails. A failed load never unloads the
-> > >>>>>> module, so nothing releases the entry. Release it and roll
-> > >>>>>> module_tags.size back. Without the rollback a concurrent load that
-> > >>>>>> already passed needs_section_mem() can reuse the freed gap, skip
-> > >>>>>> vm_module_tags_populate() and write to unmapped memory.
-> > >>>>>>
-> > >>>>>> vmap_pages_range() may have installed some PTEs before failing. A
-> > >>>>>> retry to populate the same range would BUG on them, so undo them,
-> > >>>>>> but only if vmap actually ran.
-> > >>>>>>
-> > >>>>>> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
-> > >>>>>> Fixes: 0f9b685626da ("alloc_tag: populate memory for module tags as needed")
-> > >>>>>
-> > >>>>> If a patch fixes two other patches, it likely needs to be split so
-> > >>>>> that each part fixes one patch only. But read on please. I'm not sure
-> > >>>>> if one of the fixes is correct.
-> > >>>>>
-> > >>>>
-> > >>>> Kept them in one patch because they only make sense together.
-> > >>>>
-> > >>>> After a failed populate the reservation is released and the
-> > >>>> size rolled back, so the next load takes the same gap and calls
-> > >>>> vm_module_tags_populate() again, and that retry would trip over
-> > >>>> the PTEs the failed vmap left behind.
-> > >>>>
-> > >>>> Without the rollback a load that already passed needs_section_mem()
-> > >>>> just reuses the gap, skips populate and writes to unmapped memory.
-> > >>>> So splitting them leaves each half broken.
-> > >>>
-> > >>> Yeah, that's why I think vmap_pages_range() cleanup should be a
-> > >>> completely separate patch with vmap_pages_range() doing cleanup
-> > >>> itself.
-> > >>>
-> > > 
-> > > I think I get where you're coming from now.
-> > > Thanks for taking the time to explain.
-> > > 
-> > >>>>
-> > >>>>>> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> > >>>>>> Cc: stable@vger.kernel.org
-> > >>>>>> Signed-off-by: Hao Ge <hao.ge@linux.dev>
-> > >>>>>> ---
-> > >>>>>>  mm/alloc_tag.c | 10 ++++++++++
-> > >>>>>>  1 file changed, 10 insertions(+)
-> > >>>>>>
-> > >>>>>> diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
-> > >>>>>> index 2070e682fe10..95ddf5b743d0 100644
-> > >>>>>> --- a/mm/alloc_tag.c
-> > >>>>>> +++ b/mm/alloc_tag.c
-> > >>>>>> @@ -804,6 +804,13 @@ static int vm_module_tags_populate(void)
-> > >>>>>>                                      next_page, PAGE_SHIFT) < 0) {
-> > >>>>>>                         release_pages_arg arg = { .pages = next_page };
-> > >>>>>>
-> > >>>>>> +                       /*
-> > >>>>>> +                        * vmap_pages_range() only runs once all pages were
-> > >>>>>> +                        * allocated, and it may have installed some mappings
-> > >>>>>> +                        * before failing. Undo them.
-> > >>>>>
-> > >>>>> If vmap_pages_range() failed to map the range, why should we need to
-> > >>>>> undo it? If it indeed leaves some partial mapping when failing then I
-> > >>>>> would argue that vmap_pages_range() should be undoing these partial
-> > >>>>> mappings itself before returning the error.
-> > >>>>>
-> > >>>> Yeah it does - none of the paths under vmap_pages_range() undo themselves on error.
-> > >>>
-> > >>> Hmm. I wonder if this behavior is intentional or requires a fix. The
-> > >>> only possible reason I can think of is performance but I can't imagine
-> > >>> a failure to map is a performance-critical case.
-> > >>>
-> > >>> +David Hildenbrand (Red Hat), +Lorenzo Stoakes (Oracle) what do you
-> > >>
-> > >> Huh, my gmail thinks you are still at your previous companies :)
-> > >>
-> > > 
-> > > I manually fixed it on the mailing list for this thread.
-> > > 
-> > >>> guys think? Shouldn't vmap_pages_range() undo its possible partial
-> > >>> mapping when it fails?
-> > >>>
-> > >>>
-> > >>>> pcpu_map_pages does perform cleanup on its own as well. There may be other similar sites.
-> > >>>> https://elixir.bootlin.com/linux/v7.3-rc3/source/mm/percpu-vm.c#L255
-> > >>>> so I did the same here.
-> > >>>>
-> > >>>> If we really want vmap_pages_range() to handle this cleanup internally, I believe that would
-> > >>>> be a relatively large change, and we would need to consider many more cases. So I think we keep
-> > >>>> the current behaviour for now.
-> > >>>
-> > >>> Yeah, I understand it would require a deeper cut but if that's the
-> > >>> right way to handle this we might as well do that. Let's see what MM
-> > >>> folks think.
-> > >>>
-> > > 
-> > > Sounds good to me. Let's wait and hear what the MM folks say.
-> > > 
-> > 
-> > I just looked into the call sites for __vmap_pages_range.
-> > And I found there's a bug in one vmalloc caller [1].
-> > When gfp_mask has __GFP_NOFAIL, the code keeps retrying
-> > __vmap_pages_range. If there are leftover PTE mappings,
-> > this can trigger a BUG(); [2]
-> > https://elixir.bootlin.com/linux/v7.3-rc3/source/mm/vmalloc.c#L3946 [1]
-> > https://elixir.bootlin.com/linux/v7.3-rc3/source/mm/vmalloc.c#L121  [2]
-> > 
-> Indeed the below code is incomplete:
-> 
-> <snip>
-> 	/*
-> 	 * page tables allocations ignore external gfp mask, enforce it
-> 	 * by the scope API
-> 	 */
-> 	flags = memalloc_apply_gfp_scope(gfp_mask);
-> 	do {
-> 		ret = __vmap_pages_range(addr, addr + size, prot, area->pages,
-> 				page_shift, nested_gfp);
-> 		if (nofail && (ret < 0))
-> 			schedule_timeout_uninterruptible(1);
-> 	} while (nofail && (ret < 0));
-> 	memalloc_restore_scope(flags);
-> <snip>
-> 
-> and it should be fixed. As the __vmap_pages_range() can actually fail
-> and leave some installed mappings, we have to perform some cleanups
-> on failure or on repeat(if nofail is true).
-> 
-> Below code:
-> 
-> +			/*
-> +			 * vmap_pages_range() only runs once all pages were
-> +			 * allocated, and it may have installed some mappings
-> +			 * before failing. Undo them.
-> +			 */
-> +			if (nr == more_pages)
-> +				vunmap_range(phys_end, phys_end + (nr << PAGE_SHIFT));
-> 
-> we can use but we need to check if partially mapped space is not an
-> issue for the vunmap_range(). And it looks like it is not.
-> 
-> <snip>
-> @@ -3953,8 +3990,15 @@ static void *__vmalloc_area_node(struct vm_struct *area, gfp_t gfp_mask,
->         do {
->                 ret = __vmap_pages_range(addr, addr + size, prot, area->pages,
->                                 page_shift, nested_gfp);
-> -               if (nofail && (ret < 0))
-> -                       schedule_timeout_uninterruptible(1);
-> +               if (ret < 0) {
-> +                       /*
-> +                        * __vmap_pages_range() may have installed some mappings
-> +                        * before failing. Undo them before returning or retrying.
-> +                        */
-> +                       vunmap_range(addr, addr + size);
-> +                       if (nofail)
-> +                               schedule_timeout_uninterruptible(1);
-> +               }
->         } while (nofail && (ret < 0));
->         memalloc_restore_scope(flags);
-> <snip>
-> 
-And looking further. If the __vmap_pages_range()/__vmap_pages_range_noflush()
-and friends fail, a proper cleanups should be done inside, IMO.
+Sashiko reported [1] that 'Missing __GFP_ZERO in folio_alloc() causes
+uninitialized kernel memory to be exposed in the receive message buffer'.
+An ism dmb is receive-only, so the data is not leaked to a remote peer. I=
+n
+general the smc kernel module (dibs client) will only push newly received
+data to userspace. We still should not have uninitialized data in a recei=
+ve
+buffer.
 
-But i am checking callers and see that some do some not:
+Since
+commit 750afb08ca71 ("cross-tree: phase out dma_zalloc_coherent()")
+dma_alloc_coherent no longer required the __GFP_ZERO flag, but when
+commit 83781384a96b ("s390/ism: Properly fix receive message buffer alloc=
+ation")
+switched to folio_alloc(), it should have added back the __GFP_ZERO flag.
 
-<snip hooks.c>
-	__vunmap_range_noflush(
-		vmalloc_shadow(start),
-		vmalloc_shadow(start + clean * PAGE_SIZE));
-	__vunmap_range_noflush(
-		vmalloc_origin(start),
-		vmalloc_origin(start + clean * PAGE_SIZE));
-<snip hooks.c>
+Add __GFP_ZERO flag and state in dibs.h that register_dbm() provides
+a zerorized buffer (dibs_lo already does).
 
-kmsan_ioremap_page_range() it does clean ups;
-kmsan_vmap_pages_range_noflush() looks like does not care in shadow.c;
-__vmalloc_area_node() as noted, it is broken as there is a BUG() on next try if nofail;
-pcpu_map_pages() it does cleanups.
-...
+Link: https://lore.kernel.org/linux-s390/20260903143746.A5CC41F00A3A@smtp=
+.kernel.org/ [1]
+Fixes: 83781384a96b ("s390/ism: Properly fix receive message buffer alloc=
+ation")
+Cc: stable@vger.kernel.org
+Signed-off-by: Alexandra Winter <wintera@linux.ibm.com>
+Reviewed-by: Julian Ruess <julianr@linux.ibm.com>
+---
+v1->v2: CC Stable
+---
+ drivers/s390/net/ism_drv.c | 3 ++-
+ include/linux/dibs.h       | 6 +++---
+ 2 files changed, 5 insertions(+), 4 deletions(-)
 
-and so on.
+diff --git a/drivers/s390/net/ism_drv.c b/drivers/s390/net/ism_drv.c
+index 035b233abb4e..405abd99c820 100644
+--- a/drivers/s390/net/ism_drv.c
++++ b/drivers/s390/net/ism_drv.c
+@@ -256,7 +256,8 @@ static int ism_alloc_dmb(struct ism_dev *ism, struct =
+dibs_dmb *dmb)
+ 		return -EINVAL;
+=20
+ 	folio =3D folio_alloc(GFP_KERNEL | __GFP_NOWARN | __GFP_NOMEMALLOC |
+-			    __GFP_NORETRY, get_order(dmb->dmb_len));
++			    __GFP_NORETRY | __GFP_ZERO,
++			    get_order(dmb->dmb_len));
+=20
+ 	if (!folio) {
+ 		rc =3D -ENOMEM;
+diff --git a/include/linux/dibs.h b/include/linux/dibs.h
+index d3e0777f25ae..0c10c224bcca 100644
+--- a/include/linux/dibs.h
++++ b/include/linux/dibs.h
+@@ -261,12 +261,12 @@ struct dibs_dev_ops {
+ 	 *	@vlan_id: deprecated, ignored if device does not support vlan
+ 	 * Upon return in addition the following fields will be valid:
+ 	 *	@dmb_tok: for usage by remote and local devices and clients
+-	 *	@cpu_addr: allocated buffer
++	 *	@cpu_addr: allocated, zerorized buffer
+ 	 *	@idx: dmb index, unique per dibs device
+ 	 *	@dma_addr: to be used by device driver,if applicable
+ 	 *
+-	 * Allocate a dmb buffer and register it with this device and for this
+-	 * client.
++	 * Allocate and zerorize a dmb buffer and register it with this device
++	 * and for this client.
+ 	 * Return: zero on success
+ 	 */
+ 	int (*register_dmb)(struct dibs_dev *dev, struct dibs_dmb *dmb,
+--=20
+2.53.0
 
---
-Uladzislau Rezki
