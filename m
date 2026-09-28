@@ -1,134 +1,190 @@
-Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1351F3B9930;
-	Mon, 28 Sep 2026 20:09:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790626200; cv=none; b=KRtRiUaDBGRBUOz96KY7OTphCv+PbTyCCLMWrSseC34nII80NkrNtj4a3oGyfgTlvGgVUmKFNQaOojyZdVxd4rHZEy6vBflyVkIX0YGJmsZ0ElqfFgEOgiPM2rmleteLPsAjOqcEuN9Nn6yqYRkbF/g/J/SJbCruzBvycrd6UFU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790626200; c=relaxed/simple;
-	bh=tPhx6NIaPQy7ys87IsfY+wBgTIDHdC6QTZtarcCMYao=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DJNqLZH4pixY3N1PW5NczdzI0B3jKTabtn4KCau9mnTVZCIbya0Oy6Z+wAe1TyPWCPEjwSa/ZSR4Z9DETdUj37CNQm2xra2GVXse34CROIuW3rMq7WQAGN2zgvdqkFUhTUJqwTf1zi9A+9HfImDJ6e4Rd6R8f8xJPgiLfUmYH/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=10wCbwjU; arc=none smtp.client-ip=143.255.12.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C44F94E9C08
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 20:12:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790626367; cv=pass; b=S10zGi8m+mQnWsqHY1Yybxkfq3Ukng6CdRVuhyslb6NxHGeAPALP3qfezfiR/pQfxgAxZzKjGxpZhVa/0odyZuswiK3ul0h6/K9Av5u/KJlmjmlasyg8GXvo2634ho8po9mrpqmU31gWS3uR85sd24aI7WlTyQ16eSm2aIv0vbk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790626367; c=relaxed/simple;
+	bh=LYplrdyBy/ve1B9b3/A0Q3qNi6+XTJGeLMxYSFaxX+0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=T1dStIAovz1ZcL2xZh1ddSrRH9BL0kLTCNkprSbodALYTEZOE9hlcgDu0cQy/n92LhHy2O0Luk5f39mhcrygXU1FrSXW0stxCcuGYDTaPuuPkuHAyoisPypOxR4o4OzqG7PjDsN/DSfv33CHZZL6p63ppLPT+26S3cDIYrWxqWk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cFd+iOdL; arc=pass smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="10wCbwjU"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=manguebit.org; s=dkim; h=Content-Transfer-Encoding:MIME-Version:References:
-	In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Content-Type:Reply-To:
-	Content-ID:Content-Description;
-	bh=weYac4arN+e+Exglx88CO1TIeF/RTILfhffoN84p0LQ=; b=10wCbwjUVRiWjT+pjUCJFgweWl
-	iU4cY6hVgZxItZXDpZ2PRR//Gr3KYB7fQ0B1HBWcV/jYoAJ31wF8MuUyY1+bajtcbeobteXL6uYDx
-	0aEC131X9dxZJN942mAUl0ZIRIuqLDXfrta4Wmn/s77kukasCWGI4ROzeERDRrXu0Wu/GwC16vKkQ
-	jLWR2938Rst8iF/BS8yh3PXenJ43f/VUJko/JFFSu1SdkFOnPfZSt93YlNwu/MLmO3guZJDE4dsnh
-	1t6c0rr7CGW+n4vMWnNid8lWVL/FK/Oqpo8A4/R5ImP32uxjXV7XJnj1YTrSQMxIIOXJscO8kzqXn
-	lYdy/JEA==;
-Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
-	id 1xBHfP-00000002ULP-0EVj;
-	Mon, 28 Sep 2026 17:09:39 -0300
-From: Paulo Alcantara <pc@manguebit.org>
-To: linux-cifs@vger.kernel.org,
-	netfs@lists.linux.dev
-Cc: Christian Brauner <brauner@kernel.org>,
-	David Howells <dhowells@redhat.com>,
-	Matthew Wilcox <willy@infradead.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Tom Talpey <tom@talpey.com>,
-	Bharath SM <bharathsm@microsoft.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 13/15] netfs: zero the tail of a short DIO/unbuffered read
-Date: Mon, 28 Sep 2026 17:09:32 -0300
-Message-ID: <20260928200934.1040189-14-pc@manguebit.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260928200934.1040189-1-pc@manguebit.org>
-References: <20260928200934.1040189-1-pc@manguebit.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cFd+iOdL"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c29703cb470so537644966b.0
+        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 13:12:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790626362; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QWrpbdaOBMnspUaDdM3prHfDduoEGPSeJCAH+i9FRM/Aa+E4uwOW3LxxHjLak4IGBt
+         Cjzn7YO048PWtBrUIH1eFeRXN+RzIr2+/D2aqzl+vTwn/hZ4KWQrD64+1o5MgegW1VBo
+         IL87DxcjlFM/IlBLIwFPwPx2dvTxCZZWLjrK7PFuH+YcDCeji/pgEEd2BrEt9XngpplP
+         9c2XTVcH0ffEfGFVAOAsfswfcEjoT3xHFt04bSoR9sYrnx9kgl3Dwimi/qPU4SmbHkRM
+         svbIw2gwGtPZHbpAez2jtTSpjnrHyQm8DuQPdN/jTyoyKb2rpUYKMGFbPC69t5FlDy0y
+         YqBw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=op3YdKxjJPB63dQXpqOAe1ZN2m+ULaXvCzt5oEDNYyM=;
+        fh=WSdmWuhyWaWnw8jgW2B2eEXI9DIkj4aqSK9XSHNeb7c=;
+        b=C35TWUeQI+/nvs7aS05YPyYDfBdGmCKAXz3ekxupTp+E3pDZq4RUtpP/N3mAXl2Dts
+         wUUmfBEbWL6m27h4GNGFK3VjpyFUjIwJHvLtPsp9h9pe2x/fDW4j2z6jTioVcwfTjNuo
+         ig6O5gl4woL0IQT9irg7d6o68Sg/6wIjAYtMYlglWj555bZrisJueD71IOGOsTlAZJE8
+         mXwvCOy115/nPYrnCnSCAijpnq4btsfCXU752olA6u1YVeXydOXU/C5OpMyJPlVSBsNZ
+         FVWndbDIidzXiATHQAKK4D4xyWCy51CLVbgkXNKV1urGEliiSieOoeIguakhCY4J+oyr
+         fLXg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790626362; x=1791231162; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=op3YdKxjJPB63dQXpqOAe1ZN2m+ULaXvCzt5oEDNYyM=;
+        b=cFd+iOdLI45sRnZVAbchIr3Yj+myKDsj5iXol4CaUTAd0+IT9u34qXPGCOmkOQjKtM
+         Qid/vorez+NvJnemvwo2x2MWLzXCM3Xxsh/rnJ1LV7A5rNAG8ayU0ePQ9mjpolagtrWl
+         GU+FIAUac8Gr2JfE6YqhQ8UugaeWOzCdJJkDbYBVafvk24vyYsWkWwXGKZPEhHZM6Lia
+         OaPGHcX4RFzw1VUxmAT8LhaEKMV0MQCwXwdOoFLQbbEfT9PRYR3uJrCGuxwJ3pWOHyqZ
+         yf7xtF2SBhqopJXiZFdQhChCd5Ycgcvd0h1F6/0B/LvLh6Yx12O6G8yM2HfBwpaQc3gk
+         U3Qg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790626362; x=1791231162;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=op3YdKxjJPB63dQXpqOAe1ZN2m+ULaXvCzt5oEDNYyM=;
+        b=AL355nQItjhXWGjdhZCeOcKCQVzNLqfnxz/jKptJ8puQVaemWEvNXQzNZ/VVuNrqdm
+         zUQyA9SQiA7o7doMet8tAMOljhxR4WMx8pBAVTqS1r7D/Mic7nDMOfBC6sP4njpfDt3A
+         WHOME1cWWQdswENAbpO/WMcv59vRv18zbUfQ7lUQWvS0dizNtjwg6CZFTwvN5aXICIrh
+         W3jRrn/g8EjmpgrFw3F6tnm2wIjKODWNWPhqFKrVXp+1Pf2DtiqJNZHs49qeLYTF/cCG
+         bQdIm5Byn70zYUIgFKUpKVfrViJvy2KEUYLp1tSiB9nUMPuKeDIWt3ogNAj+947InQQI
+         4n6Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwutig92n4uqw8Ku+dgzlxniS34469QsTBvirECXxlBCuRQyTGSndTXHlm+4Bl3qyCVZclnh6Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++k7N6lKJdEFsxBWsXci3AH8dM45hPyytLlVtSVUYY1yVNBFJ2F1
+	CJnpBNslncyRYQlRGH/opowGxCn0xRK4U7HHDFkUz0vomAX2wBsCdQ+u7I4a/S4PguExguqyV5r
+	94o49tXc66LlW+bQ0au0pLC34uezuqGs=
+X-Gm-Gg: AYBFou1rwXVsNMhyUB2DURKOW7cH9EH5S48mt+LtiXEgm2NJbDOswxARkdJeeoeNS18
+	B26SXMng9kXGANo4YZrWwDfOwWnxXvYRwWBpEAJNxpIRRbUe7OtM07OLkZK/GExGgN3ET0WsOG4
+	4jiCGmJlNJH320KGBS18j82/xlkDmM4e3nIv44XIjMxQHulZQwIljuZcRBkb/wbtr3fKmz7gmX6
+	+JaLvGA8jHODh73Y9iuN/fpOs1SPqMcAyUUqhp4BU3FXeS3H2xGQBvmFJQLH0Id+IV7wMfV3xqA
+	Bg0+2IbiiA5JpK9qzSNYIbtooEnxBqcPkH16C3DHwz/A6Gaw3re3ugV5D49oU9LkGVHD9oNO8hG
+	Y1ux+VpbVdEV5zPh2eHauNol44V4ePH1826oDquc=
+X-Received: by 2002:a17:907:e8d:b0:c29:f5d8:9c7c with SMTP id
+ a640c23a62f3a-c2ac22cb147mr1134942566b.43.1790626361635; Mon, 28 Sep 2026
+ 13:12:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <9d60ef62-a53c-bb13-ff6a-0a195cf2f6f3@linux.intel.com> <20260919060037.84602-1-meatuni001@gmail.com>
+In-Reply-To: <20260919060037.84602-1-meatuni001@gmail.com>
+From: Muhammad Bilal <meatuni001@gmail.com>
+Date: Tue, 29 Sep 2026 01:12:30 +0500
+X-Gm-Features: AclHuK9JUTRFiE1kmA3vX9iGMdGDyovU-rO_D4_8LNq9x5prseHY4a5bJKiRjAY
+Message-ID: <CADqcGBm5r0+t44E3fyN5Re4+nL8hm+XxY9knQVqGUy0WmqVh9g@mail.gmail.com>
+Subject: Re: [PATCH v4] platform/x86: hp-bioscfg: fix 16-byte heap overflow
+ for empty auth token
+To: Jorge Lopez <jorge.lopez2@hp.com>, Hans de Goede <hansg@kernel.org>, 
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>, 
+	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Josh Snyder <josh@code406.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The buffered read collector zero-fills the tail of a short read that
-stops below the inode's i_size (netfs_clear_unread()), so a read that
-races an extending write still returns the expected number of bytes.
-The non-buffered collector path does no such thing: it just records
-how much was transferred.
+ping.
 
-Add the same zero-fill for the non-buffered case, gated on
-NETFS_SREQ_CLEAR_TAIL: a subreq's source sets that flag when a short
-result from it is known to be safe to treat as a hole, as opposed to
-NETFS_SREQ_HIT_EOF, which means the read genuinely ran off the end of
-the file and should be reported short as-is. Only CLEAR_TAIL should
-zero-fill here; a real EOF must stay a real short read.
-
-No source currently sets CLEAR_TAIL on an unbuffered/DIO subrequest,
-so this is inert on its own -- a following change teaches cifs to set
-it in the one case that needs it.
-
-Fixes: e2d46f2ec332 ("netfs: Change the read result collector to only use one work item")
-Reviewed-by: David Howells <dhowells@redhat.com>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-Cc: Christian Brauner <brauner@kernel.org>
-Cc: Matthew Wilcox <willy@infradead.org>
-Cc: Namjae Jeon <linkinjeon@kernel.org>
-Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
-Cc: Shyam Prasad N <sprasad@microsoft.com>
-Cc: Tom Talpey <tom@talpey.com>
-Cc: Bharath SM <bharathsm@microsoft.com>
-Cc: stable@vger.kernel.org
----
- fs/netfs/read_collect.c | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
-
-diff --git a/fs/netfs/read_collect.c b/fs/netfs/read_collect.c
-index a94197ef0181..c5bfaf2c6f25 100644
---- a/fs/netfs/read_collect.c
-+++ b/fs/netfs/read_collect.c
-@@ -33,6 +33,22 @@ static void netfs_clear_unread(struct netfs_io_subrequest *subreq)
- 		__set_bit(NETFS_SREQ_HIT_EOF, &subreq->flags);
- }
- 
-+static void netfs_clear_unread_dio(struct netfs_io_subrequest *subreq)
-+{
-+	uoff_t pos = subreq->start + subreq->transferred;
-+	struct netfs_io_request *rreq = subreq->rreq;
-+	size_t fill;
-+
-+	if (pos >= rreq->i_size)
-+		return;
-+
-+	fill = min_t(uoff_t, rreq->i_size - pos,
-+		     subreq->len - subreq->transferred);
-+
-+	netfs_reset_iter(subreq);
-+	subreq->transferred += iov_iter_zero(fill, &subreq->io_iter);
-+}
-+
- /*
-  * Cancel the copy-to-cache mark on a folio.
-  */
-@@ -311,6 +327,14 @@ static void netfs_collect_read_results(struct netfs_io_request *rreq)
- 			    test_bit(NETFS_SREQ_HIT_EOF, &front->flags))
- 				netfs_read_unlock_folios(rreq, &notes);
- 		} else {
-+			if (!(notes & HIT_PENDING) &&
-+			    front->error == 0 &&
-+			    transferred < front->len &&
-+			    test_bit(NETFS_SREQ_CLEAR_TAIL, &front->flags)) {
-+				netfs_clear_unread_dio(front);
-+				transferred = front->transferred;
-+				trace_netfs_sreq(front, netfs_sreq_trace_clear);
-+			}
- 			stream->collected_to = front->start + transferred;
- 			rreq->collected_to = stream->collected_to;
- 		}
--- 
-2.55.0
-
+On Sat, Sep 19, 2026 at 11:00=E2=80=AFAM Muhammad Bilal <meatuni001@gmail.c=
+om> wrote:
+>
+> hp_calculate_security_buffer() special-cases an empty authentication
+> string and returns a fixed 4 bytes (sizeof(u16) * 2). But
+> hp_populate_security_buffer() does not special-case that same input:
+> for any authentication string that does not start with BEAM_PREFIX,
+> including the empty string, it always builds "UTF_PREFIX +
+> authentication" and converts the result to UTF-16, writing a 2-byte
+> length header plus 2 bytes per character of "<utf-16/>" (9 characters),
+> 20 bytes total, regardless of how long "authentication" itself is.
+>
+> The caller, hp_set_attribute(), sizes its kmalloc() buffer using
+> hp_calculate_security_buffer()'s return value, so for an empty
+> authentication token it allocates 4 bytes for the security area but
+> hp_populate_security_buffer() then writes 20 bytes into it, causing a
+> 16-byte heap buffer overflow.
+>
+> The authentication token used here is the current admin/setup
+> password, which is an empty string by default until one is
+> configured. Any write to a writable BIOS attribute while no admin
+> password has been set reaches this path.
+>
+> Fix by removing the special-case early return for an empty string in
+> hp_calculate_security_buffer(). The generic calculation that follows
+> already accounts for the UTF_PREFIX correctly, which naturally yields
+> the same 20 bytes that hp_populate_security_buffer() writes for an empty
+> string, avoiding duplicate logic for special cases.
+>
+> Fixes: b2715aa2e135 ("platform/x86: hp-bioscfg: spmobj-attributes")
+> Reported-by: Josh Snyder <josh@code406.com>
+> Closes: https://lore.kernel.org/platform-driver-x86/20260402-hp-bioscfg-o=
+verflow-v1-1-6985f8c9e67c@code406.com/
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+> ---
+> Changes in v4:
+>   - Straight re-generation against current mainline: v3 was written
+>     against a tree state that had a duplicate "authlen =3D strlen(...)"
+>     assignment (one copy meant to be removed, one meant to survive),
+>     which current mainline does not have. That mismatch is why Ilpo
+>     needed "special trickery" to apply v3, and why the manually-applied
+>     result ended up with no authlen assignment at all (reported by
+>     kernel test robot). The v3 diff itself was fine, as Ilpo confirmed
+>     ("authlen is not uninitialized, so only the early return should be
+>     dropped"); this is that same one change, regenerated from scratch
+>     against the actual current tree so it applies cleanly without manual
+>     intervention.
+>
+> Changes in v3:
+>   - Remove the special-case return entirely instead of adjusting its
+>     formula, avoiding code duplication as suggested by Ilpo J=C3=A4rvinen=
+.
+>   - Credit Josh Snyder who previously noted this approach.
+>
+> Changes in v2:
+>   - None for this patch; resubmitted as part of the v2 series.
+>
+> Link: https://lore.kernel.org/r/20260803143037.93105-1-meatuni001@gmail.c=
+om [v1]
+> Link: https://lore.kernel.org/r/20260812111829.172273-1-meatuni001@gmail.=
+com [v2]
+> Link: https://lore.kernel.org/r/20260818191120.38556-2-meatuni001@gmail.c=
+om [v3]
+> ---
+>  drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c | 3 ---
+>  1 file changed, 3 deletions(-)
+>
+> diff --git a/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c b/dri=
+vers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c
+> index 4d94e48..abf8ce2 100644
+> --- a/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c
+> +++ b/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c
+> @@ -47,9 +47,6 @@ size_t hp_calculate_security_buffer(const char *authent=
+ication)
+>                 return sizeof(u16) * 2;
+>
+>         authlen =3D strlen(authentication);
+> -       if (!authlen)
+> -               return sizeof(u16) * 2;
+> -
+>         size =3D sizeof(u16) + authlen * sizeof(u16);
+>         if (!strstarts(authentication, BEAM_PREFIX))
+>                 size +=3D strlen(UTF_PREFIX) * sizeof(u16);
+> --
+> 2.43.0
+>
