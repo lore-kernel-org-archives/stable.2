@@ -1,89 +1,90 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC10C3F660F;
-	Mon, 28 Sep 2026 05:53:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 210ED3F86EF;
+	Mon, 28 Sep 2026 05:53:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790574816; cv=none; b=Wl+1EPmCAwx+YvN9Wlsda2vQ6jRYluhNHwjds8Y0W7l+Z1oI9Ot9+gJibRQIUmoHfGIV7nsyy5XwvsDYQOHc1Epp17CmAoFjwY0kiMzvV37One4MvlYYQPQtQb31iKx4WTyCMArLvrnLPHE4ftvPo6K5FMZwJVpbAfi2ibe4m1Y=
+	t=1790574819; cv=none; b=nBIKn0yL2PlvSuLVdDi1sFu4azz/UvAo6wggdEvpN3otbpjlgWX+bB1Mz9hMnKYFglFYbwQjXCMqZua/SrnmcRq4Aou/QAJ6f+TDRCoD+fgdCUKVAYj4sBL3VQB7/pj5A6YN60RsSgRKa9MH/2RoI//JtnYe0RBBPySQowMYZVM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790574816; c=relaxed/simple;
-	bh=Sa9ANnMdrvjoHVJJnXkBAd7fZ4XiB5zqaVOy/6+ZTQ0=;
+	s=arc-20240116; t=1790574819; c=relaxed/simple;
+	bh=DunKnc3bPJ58jVAWjZyerYcgdaAXaL1XDTzmmXf9obc=;
 	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=ZLti3oiN/p4l9jiWKcASpagHkZegkXriAtOgyOY21kPRiC1bGMxyn3W+dEfUZJ83iaenGjTAsEWPOp+fCr5eumz38cLAO3lrwnObe9lCaM/3mpKHabwRWZ7Sti6ePNBCGZ7yPGIUE5SvaHKUu4ihjw9AAGor60FWqCliU+Zh8Jc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fcytknhh; arc=none smtp.client-ip=100.103.45.18
+	 Subject:From:To:Cc:Date; b=jsEv/VAKsjFPWzf+gb/LuKrtUuPrCV/aeNJHDPxctBOx0KZNt2X9NXyHPsevUE9dRyiptHbhb+gWhnkU1PjmiMCcvnON6BHCg8PC1b0AcFRNtc2eNN1HEP0FUPq6GrX6kCVHjx3RCIJqgCt3Kmf2UYx184ogisgqyat2pl/seP4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YFgQYIvq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fcytknhh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC2911F000FF;
-	Mon, 28 Sep 2026 05:53:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YFgQYIvq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAAF61F000FF;
+	Mon, 28 Sep 2026 05:53:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790574815;
-	bh=8OzKWCHXZOOd1DMsxhT+yj+4zopcmCme2x/Ty8HYXns=;
+	s=k20260515; t=1790574817;
+	bh=oiaWAk2ChzwSv+/OHxCIuOjma1tWl+GAlbfyo47VIHo=;
 	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=FcytknhhN4Cy27FqochWi4A7hgRvRB3DMBQv/DpUfSX0Y/RnYIm79IGQcH3uqQsYL
-	 RV0sr8phCQY9nrs2veBd3D4sTYbta7LCnUlVx0BRUBSTKsiPS94sVArZD9pHtdD52W
-	 XkYSt8DZ2gDGsKP/3OB2kTdLBprvThktHSoxmvvPuU02KecKikB1WlbP8XsWMPOu+Q
-	 HP+a/ZvJAhtWj5zJqVq/EDHY0U4b5mwySQYpT68UZFTcc8nuYPY4Ea9JStD3WUymBR
-	 /pc26CXy2y3n439l/LrXoHarQ2FfJkjICVZJICMpwtwefUEAxLwZ++NJQSZSWrP7pT
-	 kyiHAJ3gMX6+g==
-Content-Type: multipart/mixed; boundary="===============5440859186137990361=="
+	b=YFgQYIvqNH5Y0lPP6y/Ba0aWrLpu4gI1vjh21V1qIY8jRvSF5FUge7FelPatbAqI7
+	 b1p1msKmXEEjeb17CELxSOGRjThjBWR94m8KCKCve9VokhW2tybgoTFIzwMIR6UUxk
+	 9Xdai2nE/ZG9SDF2NVAuHOXsfpFMH55VJqMoIMkNnMxj7Gv+2ag9WrgjsElI036QyZ
+	 fdrYSCtx9iLkD+Aj1GuilZUGtBmJ54h7pSZ1EMMO4Xbc9t9uQFf07SBZ1mKUHQInY/
+	 pB238vuX+owGxxE+m2FWdGn4DpY5zDSMjnyizHPIMhu7fWaGHjiB24ZUhSgafx3owT
+	 5XqswYVPyXLfQ==
+Content-Type: multipart/mixed; boundary="===============1210779320454498450=="
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <7d7912c1271257cbaf2a35a1ca599dd71407ff370742ad47851cd1b136f27c03@mail.kernel.org>
-In-Reply-To: <552225fc257381fb83d282b3040c6ad363246465.1789982239.git.skb99@linux.ibm.com>
-References: <552225fc257381fb83d282b3040c6ad363246465.1789982239.git.skb99@linux.ibm.com>
-Subject: Re: [PATCH v14 5/5] powerpc/bpf: Move out dummy_tramp_addr after Long branch stub
+Message-Id: <5c4f07d70efb357deef9f256e98298c9ef861831e3ffcfa4bd42fbd9b4b31a5a@mail.kernel.org>
+In-Reply-To: <a8257022057cbb71928c960be589e10b89fc0899.1789982239.git.skb99@linux.ibm.com>
+References: <a8257022057cbb71928c960be589e10b89fc0899.1789982239.git.skb99@linux.ibm.com>
+Subject: Re: [PATCH v14 4/5] powerpc/bpf: fix alignment of long branch trampoline address
 From: bot+bpf-ci@kernel.org
 To: skb99@linux.ibm.com,bpf@vger.kernel.org,linuxppc-dev@lists.ozlabs.org
 Cc: hbathini@linux.ibm.com,maddy@linux.ibm.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,shuah@kernel.org,linux-kselftest@vger.kernel.org,stable@vger.kernel.org,venkat88@linux.ibm.com,yeswanth@linux.ibm.com,skb99@linux.ibm.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Mon, 28 Sep 2026 05:53:34 +0000 (UTC)
+Date: Mon, 28 Sep 2026 05:53:36 +0000 (UTC)
 
---===============5440859186137990361==
+--===============1210779320454498450==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
-> diff --git a/arch/powerpc/net/bpf_jit_comp.c b/arch/powerpc/net/bpf_jit_comp.c
-> index 8ca36a933c7a..c2717f0d9cdd 100644
-> --- a/arch/powerpc/net/bpf_jit_comp.c
-> +++ b/arch/powerpc/net/bpf_jit_comp.c
+> commit 6ef500644d23a07941d6ec45def92b9391c03a10
+> Author: Abhishek Dubey <adubey@linux.ibm.com>
+> Date:   Mon Sep 28 10:43:53 2026 +0530
+>
+>     powerpc/bpf: fix alignment of long branch trampoline address
+>
+>     Ensure the dummy trampoline address field present between the OOL stub
+>     and the long branch stub is 4/8-byte aligned, for memory compatibility
+>     when content loaded to a register.
+>
+>     Reported-by: Hari Bathini <hbathini@linux.ibm.com>
+>     Fixes: d243b62b7bd3 ("powerpc64/bpf: Add support for bpf trampolines")
+>     Cc: stable@vger.kernel.org
+>     Signed-off-by: Abhishek Dubey <adubey@linux.ibm.com>
+>     Signed-off-by: Saket Kumar Bhaskar <skb99@linux.ibm.com>
+>     Tested-by: Yeswanth Krishna Tellakula <yeswanth@linux.ibm.com>
+>     Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
+>     Reviewed-by: Hari Bathini <hbathini@linux.ibm.com>
 
-[ ... ]
+This isn't a bug, but could the changelog say what fails when the slot
+is only 4-byte aligned, and briefly explain why sizing with an
+unconditional NOP and then conditionally dropping it in the final pass
+is safe?
 
-> @@ -1425,10 +1427,12 @@ int bpf_arch_text_poke(void *ip, enum bpf_text_poke_type old_t,
->  	 * 1. Update the address in the long branch stub:
->  	 * If new_addr is out of range, we will have to use the long branch stub, so patch new_addr
->  	 * here. Otherwise, revert to dummy_tramp, but only if we had patched old_addr here.
-> +	 *
-> +	 * dummy_tramp_addr moved to bottom of long branch stub.
->  	 */
+The load-bearing rationale seems to be missing. From the code,
+bpf_jit_binary_pack_alloc() only guarantees 4-byte alignment of the
+final image, so the SZL-sized slot read by the long branch stub and
+rewritten by patch_ulong() from bpf_arch_text_poke() may be only 4-byte
+aligned on ppc64, where an 8-byte access is then not guaranteed to be
+single-copy atomic against a concurrent patch.
 
-This isn't a bug, but the comment "dummy_tramp_addr moved to bottom of
-long branch stub" describes how the layout changed rather than what it
-is now. Once merged, readers have nothing "before" to compare against.
+The non-obvious part of the fix is that the NOP is emitted
+unconditionally in the sizing pass when image is NULL and conditionally
+on the final fimage address in the codegen passes, so the allocated
+buffer may have 4 spare bytes while jited_len reflects the actual size.
 
-The updated diagram above bpf_arch_text_poke() already shows the
-.long <branch_addr>/<dummy_tramp> at the end of the long branch stub.
-
-Could the "moved to bottom" note go into the changelog, with the comment
-instead saying that dummy_tramp_addr is the last SZL bytes of the JITed
-image (so it lives at bpf_func_end - SZL)?
-
->  	if ((new_addr && !is_offset_in_branch_range(new_addr - ip)) ||
->  	    (old_addr && !is_offset_in_branch_range(old_addr - ip)))
-> -		ret = patch_ulong((void *)(bpf_func_end - bpf_jit_long_branch_stub - SZL),
-> +		ret = patch_ulong((void *)(bpf_func_end - SZL), /* SZL: dummy_tramp_addr offset */
->  				  (new_addr && !is_offset_in_branch_range(new_addr - ip)) ?
->  				  (unsigned long)new_addr : (unsigned long)dummy_tramp);
-
-The trailing comment "/* SZL: dummy_tramp_addr offset */" could also be
-clearer. SZL is the size of the field, and the field sits SZL bytes
-before the end of the image. The combination of the expression
-bpf_func_end - SZL and the updated diagram already communicate this.
+The phrase "4/8-byte aligned" also blurs that only the 64-bit case needs
+the NOP since SZL is 4 on ppc32.
 
 
 ---
@@ -91,4 +92,4 @@ AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
 See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
 CI run summary: https://github.com/kernel-patches/bpf/actions/runs/36381917401
---===============5440859186137990361==--
+--===============1210779320454498450==--
