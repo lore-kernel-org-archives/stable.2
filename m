@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68C8C4E73DD;
-	Mon, 28 Sep 2026 15:41:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68B524E73AE;
+	Mon, 28 Sep 2026 15:41:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790610112; cv=none; b=LyRW/LxcmC6hcmxqXgucFXEd6TSK52HUDdTE4hCkNRuX4WdhfivyR1RJF8D5zTkiavvEv5DoGYhUsAMrUQj/RxggwgmKlssRMHcJyGlnYWJEM4fWM/GlvEIf5TtQEAHjV7beGIsca5+SfnfgYl0uyULRrZRSE0nUlElrduFYq4c=
+	t=1790610112; cv=none; b=YzYzotLf/vrb+PKn9D49moqvQL+js8dAZwHOKrFnxouKBX1uAXllDOcjY3gtVoRbkGCBBG0GD06wsxNzS80X68n2f4RWeB7NRQjn1c0slPjIMmKDU54O3uzdEvwOBhEU3vN0KzRjMAoWLsNqv2T654DcgjZn+dFRpfgfS1O5pIg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790610112; c=relaxed/simple;
-	bh=4Xw9kuabujU4yzNhnLtlgulQmVqIM2VNYD3Pol5QHBY=;
+	bh=FQ6PI6aBvOORmKr+YpQs09TPlRqxpWRpj7pxNkw++Rc=;
 	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=NFNAVSmMpaXoEgzaBsE4Ht9Bmnbo9J3IUQUC/4Vxg2ObU1TFowHZwG0nM9N4Wv3U185BmmvLRISQbXlUa+SwJNSNATX+WutytGnOI3bq+eNdImEYwGv86FPK9hvHDDP5+5VR22KyfDqF100pbvL0Rr72kmdPY4LbLCYsTimdH9c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LlevlfPX; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=Goxyr0eW4W1QlHg0FBRaKWT+lPJBlcjlAJ2Y9V4Rup6kXNJXTlkU0Dhw89iyIby/66Wx1JuAGYLrz8wsrIx/olVfIqD0wSpEPylhs0CuQmhVR75iDivaOD6FW+foNMbn4GyPBsh4JGuR/a2K2jfvNmzTxPA9j6rvLchwJ0nSqtQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JVSVAxTW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LlevlfPX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13FC21F00899;
-	Mon, 28 Sep 2026 15:41:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JVSVAxTW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DCAD1F00898;
+	Mon, 28 Sep 2026 15:41:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790610107;
-	bh=Tgf/xz+nv+0X6hvPyf9iZulgauVuwBAMlz+MDk7Nhas=;
+	s=k20260515; t=1790610105;
+	bh=XkcfXbhgmki/IWwXqIyzW9WPSw+AgD/WGJH6WTi1zyk=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=LlevlfPXEEtXLFdGCuusVsKYCXSIK1rTWfvqEoaqxffFO8wVs5QowbGmCIzMmm5ck
-	 gQssCyLXObr7/gk2tDfBn4xIaORSPcUE8DQxQrGgKabAVjRu9tHzN8oGO+LAGb6PT8
-	 D/WmvzPtx+Hw1u8aKdsFWh5rtp1IwYv8/sHhkZECG5I37TyNSo8u1A9h6q8uIzw0cV
-	 5d4ftCbqigtwjSnSQo2CvblDXdhG9IPl6q7iGYmp7a+iAc2QfAPcz9jDsSYlyWjSXh
-	 pE+ZRx3ZRUcrU+8VDttP7AwRMsPFf2I11OTaEZ8zgtzb6/odI8n7rI82s1aixDrTB2
-	 Kpd2UMtLGCAjw==
+	b=JVSVAxTWojgF/SPikETykZ5wWbGVMSsolTRIr7zS11XViylwFY5XoXmc+x0w7ILCA
+	 I62ehViqtDTQRuwyfPy9mOJTbbuLBT57/TIEsK5obDG03YL8KY2DC2AaN/YSJd84ho
+	 0M/glbOBvmmzs09Ct2iDVVFfjb8Uq/o1lG3IprqwF6kOO85bOQljrbImNsDbe+cBmO
+	 56UrH/HwzFf77pp5sPphMUIs03Y5FlxT1gmFSaEO1ZBAoR/Z2M1kfdfGHGwINK9WU3
+	 ip2yco2zH6b3xrCbC7bmPGipDA8rd9OyC9Gr98OKPN8664i47hnNlMl+CdkIf/6vIR
+	 rTdDK+Hi7Zl8w==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 198083924456;
-	Mon, 28 Sep 2026 15:40:33 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 93B483924456;
+	Mon, 28 Sep 2026 15:40:31 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -37,16 +37,15 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH] Bluetooth: hci_core: Serialize fragmented ISO packet
- queueing
+Subject: Re: [PATCH] Bluetooth: Serialize SMP remote OOB data access
 From: patchwork-bot+bluetooth@kernel.org
 Message-Id: 
- <179061003164.4169639.3011615107768318520.git-patchwork-notify@kernel.org>
-Date: Mon, 28 Sep 2026 15:40:31 +0000
-References: <20260926172935.2423925-1-nicoyip.dev@gmail.com>
-In-Reply-To: <20260926172935.2423925-1-nicoyip.dev@gmail.com>
+ <179061003014.4169639.17182222641620066835.git-patchwork-notify@kernel.org>
+Date: Mon, 28 Sep 2026 15:40:30 +0000
+References: <20260927064250.3692041-1-nicoyip.dev@gmail.com>
+In-Reply-To: <20260927064250.3692041-1-nicoyip.dev@gmail.com>
 To: Chengfeng Ye <nicoyip.dev@gmail.com>
-Cc: marcel@holtmann.org, luiz.dentz@gmail.com,
+Cc: marcel@holtmann.org, luiz.dentz@gmail.com, johan.hedberg@intel.com,
  linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org,
  stable@vger.kernel.org
 
@@ -55,22 +54,19 @@ Hello:
 This patch was applied to bluetooth/bluetooth-next.git (master)
 by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
 
-On Sun, 27 Sep 2026 01:29:35 +0800 you wrote:
-> The fragmented path in hci_queue_iso() calls __skb_queue_tail() without
-> holding conn->data_q.lock. The socket lock serializes senders, but the
-> transmit worker can concurrently remove packets from this queue using
-> skb_dequeue().
-> 
-> After an insertion saves the old tail pointer, hci_sched_iso() can dequeue
-> that packet and pass it to the driver. The driver can free the packet
-> before the insertion resumes and writes to the old tail's next pointer,
-> causing a use-after-free. Concurrent updates can also corrupt the queue.
+On Sun, 27 Sep 2026 14:42:50 +0800 you wrote:
+> build_pairing_cmd() looks up remote OOB data and copies its contents
+> without holding hdev->lock, which serializes the list's writers. After
+> SMP finds an entry, a concurrent management Remove Remote OOB Data
+> command can unlink and free it before SMP reads its present flag or
+> copies its random and confirmation values. Removal can also invalidate
+> an entry while the lookup is still traversing the list.
 > 
 > [...]
 
 Here is the summary with links:
-  - Bluetooth: hci_core: Serialize fragmented ISO packet queueing
-    https://git.kernel.org/bluetooth/bluetooth-next/c/1a572db43c05
+  - Bluetooth: Serialize SMP remote OOB data access
+    https://git.kernel.org/bluetooth/bluetooth-next/c/81a2345f1984
 
 You are awesome, thank you!
 -- 
