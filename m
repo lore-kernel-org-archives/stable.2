@@ -1,141 +1,134 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45D2E35201A;
-	Mon, 28 Sep 2026 06:50:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 328852DFA3A;
+	Mon, 28 Sep 2026 06:50:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790578251; cv=none; b=NMr5YlarKHeH8ISDf8T/Ip5d/8/K+HRDVy60G4UWoI8IVQBxDZpWVB0LUFYb0TMebbv2FxwZtcT3p8Em5FgKuRiwugfEge6xBfbldzF/cQmFDKIYo79hu9sR3iRb3NaH4OwgMHDmQpW8G0nBf/sl4aS1kuL5wnmtsamObSX3Jtg=
+	t=1790578259; cv=none; b=gfaGsUBdEYp+rCXC6rcoeZxBk9QaFEre6HrkGSdUSMqVT4gIb99R23WOisRohG+kPNlN/n17RZnSu0EPBdP92zaHidwGjNFu/ztpaU01WyFsFX0tA57+RDVgUvYYvHCuB9TWpA7fE/uViZdc7oyjbI59e6gD0Vg+CWUWRqiVCsk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790578251; c=relaxed/simple;
-	bh=F2fkqk+warAqlcPPl4KiiXVtBr/t+GSWodwfx0lgHlQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tNHd5N7SSvfx/CSCGjIWJxn/i/7nmouBFFPiKOLrbLswuYXMO7xlYqmKQ/acz7VaqMMIESzkMoWxBro1cbAZgqojknFzIjj3hz/0v7mWd5cevKbECysHzVm6WC0qh2sP8frP/bXXMF969FWcRqI+M/dglAb0c+6/LG1ZnuYlG6o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=X5vM0D1k; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790578259; c=relaxed/simple;
+	bh=2E9G4VmDFD6/yu3yb1708hufoVcnZW/LN7zidVbYqPA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=HddLOTZoDBRRZwLQeeJvZjNtLUbl4JtzyBVjNDJ6p7mFyu00lxatUuuHRnF0BP0/08sJeKMxYhWqrqgiGHZ7qVk89SYP0qM6TuAfxDTgeVAj8FEXDM/pNja4NSlUKFdXG2M5A7V9q3E7njJbNS/10oPYA4srhsdIb6CDsaej918=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=F9UBXykz; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="X5vM0D1k"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 7EE0C1A0FD5;
-	Mon, 28 Sep 2026 06:50:47 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 29C566074B;
-	Mon, 28 Sep 2026 06:50:47 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 80AAD102F1E74;
-	Mon, 28 Sep 2026 08:50:13 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790578243; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=fcCndR4hJBCttx8cdfopSI/TUzzp6DbkY/Fy9CVnC8Y=;
-	b=X5vM0D1kBOHu5HqWiZ2dMX/Vp9xsfJhQ55pab6Q3IvULx98hYPpBlV+sdsLkCwZpQk6E//
-	/Rh+gAfr4sLLcM5PxAaAPBBkDkYqv6YTVjONM6aN/eV34FtPgBjjr/nrRFZKi9IedGLTJZ
-	cWEQciLMZxa2OUY6jOpX3kvU0W8TETg/nNen/GLpjzmMXzYncfCBLSucZ2Zuv/4jjFcI0+
-	Fy3UKP7IzOUEmw+3Zcd4vJ6vqbw7n0YR4kO7hgI9jfwUzCOYA0xpEE/b3jDHaIk04HWos/
-	CpJ6Ve67NZgQUuVxT6HE39uDIJ6Udh40uZ9FQ2ovztLbRUmiDgJMmG36+jqzmQ==
-Message-ID: <d9d028e9-240a-4249-bc3f-c47194676fc7@bootlin.com>
-Date: Mon, 28 Sep 2026 08:50:12 +0200
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="F9UBXykz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=tI
+	Mde4K42epJIrlb7se7/az4aigvinEYHEwl4Q4UHOs=; b=F9UBXykzlwXRfhnsjy
+	u6t8cPrrZQ906qFWWSPpmt/NyE0ZBhJpKcYE7LF0HsuxEL0B6ad/ZRpJY/1KbFcW
+	R9Rf9ve8/+NwDAjw8eyfgE+Vc+EVl0LVdUToHTP9Z0XowuMsSwcabWh+f6HGSsjb
+	L3Y9QBxNSf4MgHQ/C+CUncNrg=
+Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wD350wnDrpqY_dYBQ--.60414S3;
+	Mon, 28 Sep 2026 14:50:17 +0800 (CST)
+From: Quchaosheng <quchaosheng000406@163.com>
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Quchaosheng <quchaosheng000406@163.com>,
+	Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Marc Kleine-Budde <mkl@pengutronix.de>,
+	Oliver Hartkopp <socketcan@hartkopp.net>,
+	stable@vger.kernel.org
+Subject: [PATCH net] net/packet: guard the ll header push in packet_rcv_spkt()
+Date: Mon, 28 Sep 2026 14:50:00 +0800
+Message-ID: <20260928065000.1749383-2-quchaosheng000406@163.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260928065000.1749383-1-quchaosheng000406@163.com>
+References: <20260928065000.1749383-1-quchaosheng000406@163.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v5 00/19] net: stmmac: preserve datapath state
- across MTU and resume failures
-To: James Hilliard <james.hilliard1@gmail.com>,
- Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>,
- Heiner Kallweit <hkallweit1@gmail.com>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Christian Marangi <ansuelsmth@gmail.com>,
- Tiezhu Yang <yangtiezhu@loongson.cn>, Huacai Chen <chenhuacai@kernel.org>,
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>,
- Stanislav Fomichev <sdf@fomichev.me>, Suraj Jaiswal
- <quic_jsuraj@quicinc.com>, Richard Cochran <richardcochran@gmail.com>,
- Joao Pinto <Joao.Pinto@synopsys.com>,
- Vladimir Oltean <vladimir.oltean@nxp.com>,
- Ong Boon Leong <boon.leong.ong@intel.com>,
- Voon Weifeng <weifeng.voon@intel.com>,
- "Song, Yoong Siang" <yoong.siang.song@intel.com>,
- Linus Walleij <linusw@kernel.org>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Magnus Karlsson <magnus.karlsson@intel.com>,
- Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
- Simon Horman <horms@kernel.org>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
- <bjorn@kernel.org>, Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>, Chen-Yu Tsai <wens@kernel.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Jose Abreu <Jose.Abreu@synopsys.com>,
- Yao Zi <me@ziyao.cc>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Richard Genoud <richard.genoud@bootlin.com>,
- Alastair D'Silva <alastair@d-silva.org>, Maxime Ripard <mripard@kernel.org>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, bpf@vger.kernel.org,
- ZhaoJinming <zhaojinming@uniontech.com>,
- Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
- Ding Hui <dinghui1111@163.com>, Linkui Xiao <xiaolinkui@kylinos.cn>,
- Linkui Xiao <xiaolinkui@126.com>, linux-tegra@vger.kernel.org,
- linux-sunxi@lists.linux.dev, stable@vger.kernel.org,
- Rayagond Kokatanur <rayagond@vayavyalabs.com>, Ding Hui <dinghui@lixiang.com>
-References: <20260927-submit-stmmac-reset-fixes-v1-v5-0-feec6c14dd06@gmail.com>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20260927-submit-stmmac-reset-fixes-v1-v5-0-feec6c14dd06@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD350wnDrpqY_dYBQ--.60414S3
+X-Coremail-Antispam: 1Uf129KBjvJXoWxZF1xArykKF4fXr45tFy8AFb_yoW5uF1rpa
+	4DKa47Jr1kGr4ftr1xuF4xXF1YyF4rJayfGa48JryFkwn8WryFkFyFyFW5uFyUKFs5Ga1I
+	vryqgw1jy3WkZFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zKjgxrUUUUU=
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC5AnWTGq6Din2bQAA3b
 
-Hi James,
 
-On 9/27/26 23:59, James Hilliard wrote:
-> Keep the stmmac datapath coherent after failed MTU changes or hardware
-> resume without changing the interface's administrative state. Retain the
-> working MTU configuration for rollback, and allow ordinary down/up
-> recovery when hardware cannot be restored.
-> 
-> This revision incorporates the following previously posted fixes as
-> prerequisites:
-> 
-> - Linkui Xiao's v3 MDIO reset GPIO fix:
->   https://lore.kernel.org/r/20260921015727.2643540-1-xiaolinkui@126.com
-> - Ding Hui's v3 DMA descriptor allocation cleanup:
->   https://lore.kernel.org/r/20260919121436.1642724-1-dinghui1111@163.com
-> - Lorenzo Bianconi's v3 EST series, patches 2-4:
->   https://lore.kernel.org/r/20260902-stmmac-est-reapply-after-open-v3-0-e72a6df5a7ef@oss.qualcomm.com
+packet_rcv_spkt() restores the link layer header with
 
-Then please wait for them to be merged.
+	skb_push(skb, skb->data - skb_mac_header(skb));
 
-Also why are you targetting net-next now ?
+That subtraction is only meaningful when the device actually has a link
+layer header and the producer initialised skb->mac_header.  A CAN skb
+does not: init_can_skb() sets pkt_type and ip_summed but leaves
+skb->mac_header at the 0xFFFF sentinel, because 9f10374bb024 ("can:
+remove private CAN skb headroom infrastructure") dropped the
+skb_reset_*_header() calls that used to be there.
 
-And most important, no more than 15 outstanding patches,
-this series alone goes over the limit.
+skb_mac_header() is then 0xFFFF, the length becomes a large negative
+number and skb_push() reports it through skb_under_panic() -- from
+softirq context, so it is a full system panic even with panic_on_oops=0:
 
-You need to split this up, tackle the issues one at a time, even
-if the overall goal is "MTU and resume failures".
+  skbuff: skb_under_panic: text:ffffffffadd28261 len:-65455 put:-65471 head:... data:... tail:0x50 end:0x180 dev:can0
+  kernel BUG at net/core/skbuff.c:214!
+  RIP: 0010:skb_panic+0x50/0x60
+  Call Trace:
+   <TASK>
+   skb_push+0x4d/0x60
+   packet_rcv_spkt+0xe1/0x170
+   ...
+  Kernel panic - not syncing: Fatal exception in interrupt
 
-As you can see there's a lot of backlog in this driver, and if you try
-to address sashiko's review by adding more patches and account for
-all "pre-existing issues", this won't work.
+packet_rcv() and tpacket_rcv() already handle this: both wrap their
+skb_push() in dev_has_header(dev).  packet_rcv_spkt() is the only
+remaining receive path that does the subtraction unconditionally, and it
+is reachable with SOCK_PACKET -- a socket type that still works and that
+no length or capability check keeps away from a CAN interface.
 
-This series already went from a 3-ish series that was
-sent alongside the allwinner glue to 19 patches in about a week.
+The missing skb_reset_*_header() calls in init_can_skb() are a regression
+in their own right and are being fixed separately, but a packet socket
+should not turn a link layer that forgot to initialise its mac header into
+a kernel panic.  Guard the push the same way the other two paths do.
 
-Please think about the people who have to review that :
+Tested on v7.3.0-rc5 under QEMU with a slcan device on a pty (the driver
+RX path is required; vcan resets the headers on the way out and does not
+reproduce it).  A SOCK_PACKET socket on can0 panics an unpatched kernel
+with the trace above and is silent with this patch applied.
 
->  39 files changed, 2390 insertions(+), 808 deletions(-)
+Fixes: 9f10374bb024 ("can: remove private CAN skb headroom infrastructure")
+Assisted-by: LLM
+Cc: stable@vger.kernel.org
+Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
+---
+ net/packet/af_packet.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-Not only the quantity, but the quality of the commit logs, the changelogs
-and the comments. This really feels like the raw output of an LLM and it's
-very hard to read.
-
-Maxime
+diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+index 7c83e0152..ab8e0309e 100644
+--- a/net/packet/af_packet.c
++++ b/net/packet/af_packet.c
+@@ -1911,7 +1911,17 @@ static int packet_rcv_spkt(struct sk_buff *skb, struct net_device *dev,
+ 
+ 	spkt = &PACKET_SKB_CB(skb)->sa.pkt;
+ 
+-	skb_push(skb, skb->data - skb_mac_header(skb));
++	/* The push restores the link layer header, which only exists for
++	 * devices that have one.  A device without a visible ll header
++	 * (ARPHRD_CAN and other L3 types) must not be pushed, and the
++	 * subtraction is meaningless when the producer never initialised
++	 * skb->mac_header -- it then holds the 0xFFFF sentinel and the
++	 * result is a huge negative length that trips skb_under_panic() in
++	 * softirq context.  packet_rcv() and tpacket_rcv() already guard
++	 * this with dev_has_header(); do the same here.
++	 */
++	if (dev_has_header(dev) && skb_mac_header_was_set(skb))
++		skb_push(skb, skb->data - skb_mac_header(skb));
+ 
+ 	/*
+ 	 *	The SOCK_PACKET socket receives _all_ frames.
 
