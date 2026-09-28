@@ -1,41 +1,41 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1907946EF8A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C67246F48F
 	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 08:08:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790582937; cv=none; b=CC7T/IdgzNI78y2T5nfotOchkdYblmxTUP0POCcK5RcJsNWxzSOhspfX3J9CesUaVyWaD85ci8edp9IzRyel8Fuo3Qnt09+z5X7kx6AWJo7hpvUyBToSCyuUoquX36BnR3Kunrl6UumWTpSQoI3t2fABxt5zKeaHPzCuofNNW+w=
+	t=1790582938; cv=none; b=ASET75qt/Dm/jv13M6w/uSCW/Ex+wLCBfwFnzoshcEL1/sB/omiMqbFLjGY/WxZHap5ULu2iTWp/DsrtH7C/nToUNMaiH/9rYcQEfydwZu1TDBxzBlUrdptx+2ZoLuYEj/2DXf16TlrJvcyafy5swzpZIHAJSuBG1E3Alufd1aw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790582937; c=relaxed/simple;
-	bh=a+Cx/K6ziP0SEIDxtX6S676B2BEPAJ05ipAgni4FXrk=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=LwP1zBbdhA7uFwTMTUJ8BJQJW5Bofq3FpoeuVrT8C0dwvscMUYdsRn1IT3nO8gqhrXDEkWXzlKEPLHrXZfigK/vGMCIhQkq4dkLuygj417D1rl9oAGpuJqrLvQYsfeqfrOps7DjOQSWnxQlgxAgjZEkUyYpjVxipP6X5qVbjLBg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=AdeYp/Rh; arc=none smtp.client-ip=185.246.85.4
+	s=arc-20240116; t=1790582938; c=relaxed/simple;
+	bh=vM315X69MnsVM4faOz9yO771vmrJNQVid98bKYaprtI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=iYa6rBmwsE6rzo7YU1D/HQzlbRtZuiteuzGbvZvCwaWbHHEiU86+1WtjhF5nXhpoQUjCSlmSty3DCNZUAokiS0jECwTqNcevkRnHtO5PYOZ4X5WHRA7OJz5LDBEX6YO4sg2eETnzSu5Ffe8Oxa07YgXPDdjJPwX63Ccpy9y8z1Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=26LyvGS/; arc=none smtp.client-ip=185.246.84.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="AdeYp/Rh"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="26LyvGS/"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 8AC7F4E41089;
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 9D1E61A0FD3;
 	Mon, 28 Sep 2026 08:08:54 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 5FF22601BD;
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 6C2F760504;
 	Mon, 28 Sep 2026 08:08:54 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5ADF1102F1EA7;
-	Mon, 28 Sep 2026 10:08:52 +0200 (CEST)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id F3DDB102F1E84;
+	Mon, 28 Sep 2026 10:08:49 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790582933; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=SiH8FKhScuA/RKMb5zAKgAMUR3gPiStPY70Ob7KyrAs=;
-	b=AdeYp/Rh8YMzlNoTgQExGey+OWaAXCul6vAfuPDWGL2CgYY/7GQrFSzmw1UjJKUctN/uSt
-	2bAzOFNd4lAfRlb58nycphOqVdbVL7dK0+yeIFeWttc0GaC1s5Jl53BqDdQ5YqQCdUtfPB
-	roPrYDwuHl6dAU2MfRJGvXwrTdmzLyeQs4yqlGsHVxJ1N31V7M0DcYCOvqSGWaGl79ARHF
-	EH4E4M1ZeMZXZ2HzXRieMEALGPASYWvAYcCU8UolvCkqsr1C8rgfklfOfmLSD6Bawkpy65
-	jWdio5gxwm493+Gl/NUS1eHHVDXnacpLgJxKkaj+r80J9rLkFK+JY7ZdEcpRQw==
-From: "Benjamin Robin (Schneider Electric)" <benjamin.robin@bootlin.com>
-Subject: [PATCH 5.15.y v2 0/2] netfilter: nf_tables: join hook list via
- splice_list_rcu() in commit phase
-Date: Mon, 28 Sep 2026 10:08:48 +0200
-Message-Id: <20260928-cve-2026-52988-5-15-v2-0-519003db6b26@bootlin.com>
+	t=1790582932; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=Ivdi7qFWGBpEbv93m/7l8gdKY5N87xaML9gAMg/uH9w=;
+	b=26LyvGS//W6jRa7XSzrpcZyX4MFvBuPWL7tJjlMMb2HySmmB2TeGFu1LlwYsbV6HM5H/bk
+	C/b4QVf5msOWW/alZ6CNB5OBiOuqBuSww+BxvavXnHz82w81d+cEpokFjxgMS8Kd91STjC
+	zQ20LiIxmn3FtngM+Im87mdxbiHY0hzswvUkk1JT192H/tWicTEWd3aGIPrAK5210EOc2b
+	j3w+/GKFOsRFXyzZjIzLQhmNpd0AqEl2RVb4rowUmk6tQx66hPIu48Ez5kwWhmaDIKNS1/
+	SnB6OFBiFmRhMPW9PfA7G5iTQChyZPhk/08fe9x3KXBk76vu1tzd1vZVXv0A6A==
+From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
+Date: Mon, 28 Sep 2026 10:08:31 +0200
+Subject: [PATCH 5.10.y v2 2/3] net: add skb_set_end_offset() helper
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,43 +44,127 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NwQ6CMBBEf4Xs2SVtcQn15H8YDlAWqVFKWmwkh
- H+34N3jm8zMWyGwtxzgkq3gOdpg3ZhAnTIwQzPeGW2XGJRQpdCK0ETGHZCUrioklITcF7LgUpd
- dw5CWk+fefo7XG1AuKV+g/uXh3T7YzPvl3hxsmJ1fDn2UR/+vKUoUSSeoUWdZ6F5dW+fmpx1z4
- 15Qb9v2BbespFTSAAAA
-X-Change-ID: 20260925-cve-2026-52988-5-15-ef313e696dae
-To: stable@vger.kernel.org, "Paul E. McKenney" <paulmck@kernel.org>, 
- Pablo Neira Ayuso <pablo@netfilter.org>
-Cc: Sasha Levin <sashal@kernel.org>, miguel.gazquez@bootlin.com, 
- thomas.petazzoni@bootlin.com, 
- "Benjamin Robin (Schneider Electric)" <benjamin.robin@bootlin.com>
+Message-Id: <20260928-cve-2022-49142-v2-2-227dee37e858@bootlin.com>
+References: <20260928-cve-2022-49142-v2-0-227dee37e858@bootlin.com>
+In-Reply-To: <20260928-cve-2022-49142-v2-0-227dee37e858@bootlin.com>
+To: stable@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
+ Jakub Kicinski <kuba@kernel.org>, Eric Dumazet <edumazet@google.com>, 
+ Alexey Kuznetsov <kuznet@ms2.inr.ac.ru>, 
+ Hideaki YOSHIFUJI <yoshfuji@linux-ipv6.org>, Marco Elver <elver@google.com>, 
+ Alexander Potapenko <glider@google.com>, Dmitry Vyukov <dvyukov@google.com>, 
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Benjamin Robin <benjamin.robin@bootlin.com>, 
+ "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790582913; l=3045;
+ i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
+ bh=TJh0kqKvXNnSk/2Oqp6cn9F7BMXxwZVvboGx1QkM9ZU=;
+ b=yFZQ1ZML4HTOjf2az/aneBRivtIowGgjDXxujyMxGM1j08NO9K9XXedCMefjLv+n+Znmp2jgP
+ VjEIjgeCwzdD8R7wRa32WXG+jy/I75a+abki1FCFMrq3VNILM7upJ2s
+X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
+ pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
 X-Last-TLS-Session-Version: TLSv1.3
 
-A conflict was resolved: One hunk of upstream commit was not taken since
-not applicable to this kernel version.
-An additional patch was backported, which adds list_splice_rcu(), which is
-required.
+From: Eric Dumazet <edumazet@google.com>
 
-Signed-off-by: Benjamin Robin (Schneider Electric) <benjamin.robin@bootlin.com>
+commit 763087dab97547230a6807c865a6a5ae53a59247 upstream.
+
+We have multiple places where this helper is convenient,
+and plan using it in the following patch.
+
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
 ---
-Changes in v2:
-- Added missing Signed-off-by
-- Link to v1: https://patch.msgid.link/20260925-cve-2026-52988-5-15-v1-0-ef05a24139f2@bootlin.com
+ include/linux/skbuff.h | 10 ++++++++++
+ net/core/skbuff.c      | 19 +++++--------------
+ 2 files changed, 15 insertions(+), 14 deletions(-)
 
----
-Pablo Neira Ayuso (2):
-      rculist: add list_splice_rcu() for private lists
-      netfilter: nf_tables: join hook list via splice_list_rcu() in commit phase
+diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
+index 80de69bf9586..34b6a7e3af8d 100644
+--- a/include/linux/skbuff.h
++++ b/include/linux/skbuff.h
+@@ -1416,6 +1416,11 @@ static inline unsigned int skb_end_offset(const struct sk_buff *skb)
+ {
+ 	return skb->end;
+ }
++
++static inline void skb_set_end_offset(struct sk_buff *skb, unsigned int offset)
++{
++	skb->end = offset;
++}
+ #else
+ static inline unsigned char *skb_end_pointer(const struct sk_buff *skb)
+ {
+@@ -1426,6 +1431,11 @@ static inline unsigned int skb_end_offset(const struct sk_buff *skb)
+ {
+ 	return skb->end - skb->head;
+ }
++
++static inline void skb_set_end_offset(struct sk_buff *skb, unsigned int offset)
++{
++	skb->end = skb->head + offset;
++}
+ #endif
+ 
+ /* Internal */
+diff --git a/net/core/skbuff.c b/net/core/skbuff.c
+index ac2fc4d1f4ea..8118cd4e1b31 100644
+--- a/net/core/skbuff.c
++++ b/net/core/skbuff.c
+@@ -278,7 +278,7 @@ static struct sk_buff *__build_skb_around(struct sk_buff *skb,
+ 	skb->head = data;
+ 	skb->data = data;
+ 	skb_reset_tail_pointer(skb);
+-	skb->end = skb->tail + size;
++	skb_set_end_offset(skb, size);
+ 	skb->mac_header = (typeof(skb->mac_header))~0U;
+ 	skb->transport_header = (typeof(skb->transport_header))~0U;
+ 
+@@ -1686,11 +1686,10 @@ int pskb_expand_head(struct sk_buff *skb, int nhead, int ntail,
+ 	skb->head     = data;
+ 	skb->head_frag = 0;
+ 	skb->data    += off;
++
++	skb_set_end_offset(skb, size);
+ #ifdef NET_SKBUFF_DATA_USES_OFFSET
+-	skb->end      = size;
+ 	off           = nhead;
+-#else
+-	skb->end      = skb->head + size;
+ #endif
+ 	skb->tail	      += off;
+ 	skb_headers_offset_update(skb, nhead);
+@@ -6105,11 +6104,7 @@ static int pskb_carve_inside_header(struct sk_buff *skb, const u32 off,
+ 	skb->head = data;
+ 	skb->data = data;
+ 	skb->head_frag = 0;
+-#ifdef NET_SKBUFF_DATA_USES_OFFSET
+-	skb->end = size;
+-#else
+-	skb->end = skb->head + size;
+-#endif
++	skb_set_end_offset(skb, size);
+ 	skb_set_tail_pointer(skb, skb_headlen(skb));
+ 	skb_headers_offset_update(skb, 0);
+ 	skb->cloned = 0;
+@@ -6249,11 +6244,7 @@ static int pskb_carve_inside_nonlinear(struct sk_buff *skb, const u32 off,
+ 	skb->head = data;
+ 	skb->head_frag = 0;
+ 	skb->data = data;
+-#ifdef NET_SKBUFF_DATA_USES_OFFSET
+-	skb->end = size;
+-#else
+-	skb->end = skb->head + size;
+-#endif
++	skb_set_end_offset(skb, size);
+ 	skb_reset_tail_pointer(skb);
+ 	skb_headers_offset_update(skb, 0);
+ 	skb->cloned   = 0;
 
- include/linux/rculist.h       | 29 +++++++++++++++++++++++++++++
- net/netfilter/nf_tables_api.c |  4 ++--
- 2 files changed, 31 insertions(+), 2 deletions(-)
----
-base-commit: 0248c33e835ecbec3a591f93fdaae53f7b90a4d6
-change-id: 20260925-cve-2026-52988-5-15-ef313e696dae
-
-Best regards,
---  
-Benjamin Robin (Schneider Electric) <benjamin.robin@bootlin.com>
+-- 
+2.55.0
 
