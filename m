@@ -1,121 +1,141 @@
-Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 578F13CC334
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 10:47:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790592457; cv=pass; b=eyO3TUpbDkla2x6TBe7CrIVqZwCGhb0AzuGgBKH4Jiya3opPsBz9+WQxCxhLHxYO+JhVMMCbbbhrt0rJ6mH9nykJuqBLOoAMO5Ju6WzHXw/pvKvsUC4RwgAPWqUsvtPNijgytA5t5xBc/fLQdsT926P2hNocN6QdhteRNQcGkS8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790592457; c=relaxed/simple;
-	bh=Mm1M66WeTKQ1s57nxh5v2LYlxkK3pntIyqualKvqj5g=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qy8sUmukk3ppyeUaiDnlurEyNaFV4zzXO4W6gk6dJC9c7nbgLyU6JY3WPZLrAfWQgGP4XJQX+W+fx2cFGeKI5c5OHXtF0GGOZ+t5QvWjOVcDvsMkTCyKQHlR8EamXixkcy2B0Sv9DPMpPAmvMa1b/5wrCulEfr/Wr2GVDEJE07Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b/xpioFH; arc=pass smtp.client-ip=74.125.229.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD8033CC334;
+	Mon, 28 Sep 2026 10:48:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790592496; cv=none; b=U7In8aDwaKXAui7K5P0fcvHbx/tDzsXBr0k8nxeGKJQPYKzeg6WbOeaBrF1cRTVfCLqf6HSVtkPXgEhVBWVpmbK0BEo2vM8f7J2Z+8n/Vjr/osDCMuwj5Uw4SHpbunU9kqxSbbQICMyZtrk/pWQcGerJaB0flpra8+hBhM6IE8E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790592496; c=relaxed/simple;
+	bh=+Bz5ZeKI9p9R4K5LDmd15LdmSkiP+x186YnkCdjn8kQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=g7iGv8Tgls5lsFZTK6aW4P/ED6TEMqb8NcumSsCdXbVow918otaOiuhrFhSwfjkAqROaIDl38Jk/MMSyMvGXNfLZUW7utbbzdaxUjc41wlWYykaAYcUDUxDhSJzZg9Vcz2NfAmpZ/e5ndZ7Mu0J4BGSmWBkjUKdN+BC4wdLhqAs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aaYuW3r7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b/xpioFH"
-Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-34251480737so162201eec.3
-        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 03:47:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790592454; cv=none;
-        d=google.com; s=arc-20260327;
-        b=k+G0QcWQLRxDTVRlSgzMcCZcic3XBqubRsuj8OSTKIgrqY5idTQG/qtciCnd3Q7BIc
-         kCGsWTP9QXvZkTt+u5SyIfSHbx+B2qq4SyX7au4D+nNwRNtKipV2YfJs/V+8uQ0RBtZH
-         qBR4S2zA1pkDzV/jnza+iLGxSDEEa8uonJkFUPo2sLQLOZkZ7qImvR8TtiJ7qpAJ2KAY
-         4WeuqQxe+LMoO3SpC/YOSOZcMkv2iGSM/8TUJmSAF/MTIQVLBSbDLS1V2fuHsPFHa4N6
-         hE5mXv0h+iInTuDtNAmqA1lB3oF1t7TRZhyoBc6A1qKcDeAHT/cRPpJJCQBTBxPmbBbK
-         byKQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=xoXvmyV23Je7Sf3lv6ued/rbPlsysef4zZiLSakVbJI=;
-        fh=5GskS2k+AfKhiyekJRNMQqHHONfLs9jm8p9rrlzyVh0=;
-        b=dPMYcA7qx9o8kUT0HutUrXlJdMmrUyiFVND/9TJ0QU6j7GiAnM1yoH9HSPoaZNCB3e
-         odFLEUAy8EZ62ox6oBOEW9iETsjdZWi81gpRjVMvVcfiSyzRWBLkRl+lqO0J9UVg//mO
-         mB+eKBag4xh4oKWRHIIx/hiMIz2KcnFYHxaoHqIRySg2N7p5O5Wmbze4EG/UCa4NLsQA
-         GFt/9pZ8Y0VTgdwb6KVnsN6VV7ByiYHrhOVUsorxSXTbw3694jD7uX4eeiKJDAxcHaKN
-         riGS8ZcIV9Bl9H5yJCmAcPxgOr/SMsvFx6b1qKM2MB0zmvVc6eciYLiv+JP+cp/WoEhQ
-         1Nsg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790592454; x=1791197254; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=xoXvmyV23Je7Sf3lv6ued/rbPlsysef4zZiLSakVbJI=;
-        b=b/xpioFHvm+BN9wArcZX4hIPNpQHX4cyrokroIQUjsc6bs/dAJ0kERegN6p214/Un0
-         oNdI7fCV1GRV18cxjWmy8JdQry05oce8BAZnuF+Cs88ZW126mVckjoPmpWlgl33FtFzk
-         9bICcHHLRwbLYFc0dp8UQ6XwXAq8LRnwm/6th6Cfjhm62stPoWFAtlURukmwKoSSGF4u
-         txBMTLTBLML5ZXgVcG4QnQTC81mJafcq8rtXscHmIjHg4TAKUET0GP7NKr7sCrzm5UtV
-         qrqJL88xIB55uiVGtmTbV9ULulOSjyOnBoL6oqDnbAi0ABmVUNVVWfzDtuRlVqQM4lJE
-         dQAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790592454; x=1791197254;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xoXvmyV23Je7Sf3lv6ued/rbPlsysef4zZiLSakVbJI=;
-        b=a49neTBqCrtun4jRxHn0Rj2mERDHaa6ciH8J3sI5+Tl47bhcPtzJ+txLQZCHOy8u4w
-         /PTdtckEa/DR8h6iNh/DBzImuhp8ork75m35PqyQpu8BRq8FqZe4ATH8FQbyR7IWbTP0
-         xWMWm5Gr+IU99byYQNou6sNy4KTCFc4IMTo2kG5hcZMcU02wqAxnkqi8pMmlf29F8RSH
-         kfxEPvrI3s9FcZShk/lc8/p74U685bt9I/vm9/qeoP610a1z87rgfB4R4EAaUiQhlvgq
-         jFLI0bUtDFFUnD0lh1XVvQZrVZnqSoFGeU48bvoZRgy1uKxO02F6+LeJCcptaEhR7xIA
-         5mkg==
-X-Gm-Message-State: AFq9FYLjtfUCLeYwEi067wdqST7W6IDoSKt4ASsj40eXAqkuxDNIwlXg
-	lPMkGrywsv9MgnCQhCksU4RqN0U4zZVrIzih3OOs0h1VZ0Ew6Mo7WqQCNoWOoTfFWOS5DLScuwu
-	qhsPoKAC8BxAHP/OdArhxLmcYsnNGCPA=
-X-Gm-Gg: AYBFou1W0qQu2aDXJZzW9+y/g1ja7pUp7mPUaeSWcyXaWKeHAm7HENwQYWEBFfG6XzN
-	cypLfAXa1T0tyvEnk6fSkFRYM/KnOjOIHEvoVUT/avx7vNkv7aWe0PihznGVuqwu47M4mJj7XEL
-	apb8ewVRLUy7kVjZeGqAUaMGJJiPwZgF4a7STiiJMxzgP0Q6FDQgR0uCQ0iAM3KEDF8eF1J2F+d
-	a5SHnDs5+xJwhvFkffazuEOsAiljctsDukA41j5Zx1JFBc7k46p5zV/kPJ24InDWKKBIqweCSgG
-	cpFkRD5jmGtOJEoiU4c/Tq9aQioAQcOT6eijGdHKf8m30C0HuF3FZawdNavuuMixyHQY84hQKq3
-	OfEajVd6e6SKx1SlUFUWYn4KXqdF0+baEbqDwBBV3cVtofFCytVfuJkRss1fvuutd3VbLDIVM1x
-	3VNL9wTUroBksOCnIznqmi3M8t2Cf4O/7nX0u6iUSVqwj/RmoIscw=
-X-Received: by 2002:a05:7301:dd97:b0:33e:6a79:5a81 with SMTP id
- 5a478bee46e88-3427179721dmr13165594eec.1.1790592453928; Mon, 28 Sep 2026
- 03:47:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aaYuW3r7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0F9E1F00893;
+	Mon, 28 Sep 2026 10:48:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790592494;
+	bh=o0g1CTOhWsATgMjJJ9x3ioR0OzxIZWhzc5jdJqF125k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aaYuW3r7P81i1FZlPVggltd7iVCSBNe48IAgpPH3sq6vWALUuZ3HdfvzPlKVbAKL1
+	 yZxhZPFBJm3JaF7lhvHDuFXihH5qPS42+gpQd9pVQxMnVwgWKaSAm9H6BVTXlPf6G1
+	 eweXZdXJSQelEK8epp7QmdhAhlzMqUbit6LH+7b55U0VFdqEbtM1d8rUwEAkiESSWB
+	 Xzgt1johJzWOECXLdUTR7sQgrDF7kwASnNcUueE1mAOC7ktUhZRO7iTwJT23Lv8UBF
+	 s2HS1xiqTitu6/ScNRbl1f8ukLMpf2VmujI5LNvGqusvrG6ln41tVO9efPQqp5/ynP
+	 FAIMHHgYIbVTw==
+Date: Mon, 28 Sep 2026 11:48:09 +0100
+From: Simon Horman <horms@kernel.org>
+To: Liu Chao <liuc63@xiaopeng.com>
+Cc: netdev@vger.kernel.org, david@ixit.cz, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+	oe-linux-nfc@lists.linux.dev, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net v3] nfc: nci: avoid unbounded skb allocation when
+ max_pkt_payload_len is zero
+Message-ID: <20260928104809.GQ13925@horms.kernel.org>
+References: <20260927115940.3817019-1-liuc63@xiaopeng.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260928104313.204453-1-ojeda@kernel.org>
-In-Reply-To: <20260928104313.204453-1-ojeda@kernel.org>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Mon, 28 Sep 2026 12:47:19 +0200
-X-Gm-Features: AclHuK9xFldCgY5wAGWi7hIMVMU4CRypu09HIdyr23r3ygqim1-2NeqH9nrub44
-Message-ID: <CANiq72kFWBPfM3Kninya=tVcMgZr6OGFTNJMRQnY2tKXFGH++w@mail.gmail.com>
-Subject: Re: [PATCH 1/2] Revert "rust: net: phy: fix off-by-one bit positions
- in device status accessors"
-To: Miguel Ojeda <ojeda@kernel.org>
-Cc: stable@vger.kernel.org, Chunfeng Song <springbreeze@stu.pku.edu.cn>, 
-	FUJITA Tomonori <fujita.tomonori@gmail.com>, Jakub Kicinski <kuba@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260927115940.3817019-1-liuc63@xiaopeng.com>
 
-On Mon, Sep 28, 2026 at 12:43=E2=80=AFPM Miguel Ojeda <ojeda@kernel.org> wr=
-ote:
->
-> This reverts commit 3267aea7cdd5d5c8851718b148cd25ff1a5374ac.
->
-> It was not meant to be backported before 7.1.y -- its tag said:
->
->   Cc: stable@vger.kernel.org # Only 7.1.y and later (requires bindgen's r=
-aw pointer accessors).
->
-> Cc: Chunfeng Song <springbreeze@stu.pku.edu.cn>
-> Cc: FUJITA Tomonori <fujita.tomonori@gmail.com>
-> Cc: Jakub Kicinski <kuba@kernel.org>
-> Link: https://lore.kernel.org/stable/SEWP216MB9770116738884C46F156A686FAF=
-98D2@SEWP216MB977011.KORP216.PROD.OUTLOOK.COM/
-> Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
+On Sun, Sep 27, 2026 at 07:59:40PM +0800, Liu Chao wrote:
+> nci_queue_tx_data_frags() uses conn_info->max_pkt_payload_len as the
+> fragment size.  When that value is zero, frag_len is always zero and
+> total_len never decreases.  The loop then allocates skbs without bound:
+> none of them are freed inside the loop, they accumulate on frags_q, and
+> there is no cond_resched() in the loop body.  A single sendmsg() can
+> therefore consume all allocatable memory, and on CONFIG_PREEMPT_NONE it
+> occupies the CPU long enough to trip the softlockup watchdog:
+> 
+>   watchdog: BUG: soft lockup - CPU#3 stuck for 26s! [kworker/3:1:57]
+>   Workqueue: events rawsock_tx_work [nfc]
+>   Call Trace:
+>    nci_send_data+0x1ca/0x6b0 [nci]
+>    nci_transceive+0xbb/0x170 [nci]
+>    rawsock_tx_work+0xb5/0x1a0 [nfc]
+> 
+> max_pkt_payload_len comes straight from controller-supplied fields with
+> no check for zero, and it is read several times along the TX path while
+> the rx workqueue can update it without any lock held against this path.
+> 
+> Take a single READ_ONCE() snapshot of the limit in nci_send_data(),
+> reject a zero limit there, and pass the snapshot down to
+> nci_queue_tx_data_frags().  The fragmentation decision and the
+> fragmentation loop then consume the same value, so the loop cannot spin
+> on a limit that differs from the one just validated, and no plain read
+> of the field is left in nci_send_data() or nci_queue_tx_data_frags().
+> 
+> Rejecting the zero limit at the entry of the TX data path covers the RF
+> connection as well: ndev->rf_conn_info is allocated with devm_kzalloc(),
+> so its max_pkt_payload_len is zero from the moment the object exists and
+> only becomes usable when an activation notification assigns a
+> controller-supplied value.  Checking where the value is consumed catches
+> every producer of a zero limit -- the initial state, the notification,
+> and any future writer.
+> 
+> The two producers of the field are annotated with WRITE_ONCE() to match
+> the snapshot read; the remaining plain accesses on the HCI path are
+> untouched here, since nci_hci_send_data() loops over a different
+> conn_info instance (ndev->hci_dev->conn_info) and needs its own fix,
+> which is sent separately.
+> 
+> The "failed to fragment tx data packet" print sits on a data path driven
+> by controller/remote data and can fire on every transmit once
+> fragmentation keeps failing.  Rate-limit it so a misbehaving controller
+> cannot flood the log.  Note that with the zero-limit rejection moved into
+> nci_send_data(), a rejected zero limit returns before this print, so the
+> per-sendmsg flood does not occur through that path.
+> 
+> No legitimate configuration is affected: where the NCI spec does mandate
+> a zero Max Data Packet Payload Size -- the NFCEE Direct RF Interface --
+> nci_rf_intf_activated_ntf_packet() takes the "goto listen" shortcut,
+> bypassing the assignment entirely.
+> 
+> While at it, drop the conn_info lookup in nci_queue_tx_data_frags():
+> the caller has already validated the connection, the function now takes
+> everything it needs as arguments, and the lookup was the only use of
+> conn_info left in it.
+> 
+> Fixes: 6a2968aaf50c ("NFC: basic NCI protocol implementation")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
+> ---
+> Changes in v3:
+>   - Snapshot max_pkt_payload_len once in nci_send_data() with
+>     READ_ONCE() and pass it down to nci_queue_tx_data_frags(), as
+>     suggested by Simon Horman, so the fragmentation decision and the
+>     fragmentation loop consume the same value and no plain read of the
+>     field remains on this path (review:
+>     https://lore.kernel.org/netdev/20260925155040.GP13925@horms.kernel.org/)
+>   - Move the zero-limit rejection from nci_queue_tx_data_frags() into
+>     nci_send_data(), so the check runs on the same snapshot the loop
+>     consumes; this also means a rejected zero limit returns before the
+>     "failed to fragment" print rather than triggering it per sendmsg
+>   - Annotate the two producers of the field (RF activation NTF and
+>     CORE_CONN_CREATE_RSP) with WRITE_ONCE() to match the snapshot read
+>   - Drop the now-redundant conn_info lookup in nci_queue_tx_data_frags();
+>     the caller already validated the connection
+>   - Rate-limit the "failed to fragment tx data packet" print, which sits
+>     on a data path driven by remote data, as discussed in the review of
+>     the v2 series
+>   - Keep the v1/v2 subject so the revision is tracked as the same fix
+> 
+> Changes in v2:
+>   - READ_ONCE() snapshot of max_pkt_payload_len in
+>     nci_queue_tx_data_frags(): with the check and the loop reading the
+>     field independently, a store from the rx workqueue in between
+>     could let the loop spin on a value the check had just rejected
 
-Bah, sorry, I forgot to edit the title to tag the branch, let me
-resend the series.
+Thanks for the updates.
 
-Cheers,
-Miguel
+Reviewed-by: Simon Horman <horms@kernel.org>
+
