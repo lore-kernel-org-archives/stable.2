@@ -1,158 +1,90 @@
-Received: from relayaws-01.paragon-software.com (relayaws-01.paragon-software.com [35.157.23.187])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD7BA2D8DD0;
-	Mon, 28 Sep 2026 17:23:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.157.23.187
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FA4F34887B;
+	Mon, 28 Sep 2026 17:30:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790616217; cv=none; b=sCrYQt0f/XDrfbJBMY3YTMqf3CONZquDtYCaUKHippRFPZdLBKl1/t6u2Qge+2mCaiYi2wh5ZxQZKwiGw/gJuJCacDcMyjHZ7jqPEzI8ZovXqa10am50tzaSoFeO2vm3Z0n7sNIFEpo4ujppVLiq6QiC1XkePmBfvI3ZvRLMB/4=
+	t=1790616641; cv=none; b=eLi2cSKbU2pDKpkgZcFFG+mH/OKDHBt9turi5Oc2fogDPpoGdHKfe5xFU/RalS2c2FsBBppF5QGIUWFpuqe22kt49cXVXV7oRobpkWT6kOBqGNbuUWxcF5aL7bupZlOFiwY5fbxbIxTlbPQAJJBqIcGfuJtIQ7anpMGF8oAf4/8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790616217; c=relaxed/simple;
-	bh=vqrAPG2a5N24mPZyIlZ1ZZFFpPG47RYaI2AKAjMgvjE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=U2eAE22Rp3FAZGRO5bnakLIIZNiRuogSwSxsyFmFgkRdjz90wOB4gQfDAEcYls1/Ha45dIdd8Flk920+nllkTu3wns21IweV+Nd10eboOsJtwtqJfVGhk7ftQ5Mzb6GdchYT+n34Ol8HdtVlAs9A1mltZIezC7NW2/wtWaVODoM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com; spf=pass smtp.mailfrom=paragon-software.com; dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b=HjsXUBw/; arc=none smtp.client-ip=35.157.23.187
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paragon-software.com
+	s=arc-20240116; t=1790616641; c=relaxed/simple;
+	bh=XyHFBNcK2+GRBgSI6++eOWm/Z+m0T3srm0wPiCaR08g=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=tI92JOBAEfrAH+gtURwaeuCLdRwEHmmkK62+FdAGeSJPZMImIQae+eJm4b+S1hMZ27FB2kUaBTTVAuhUVyq/tO8bDfHhCQG0Vy+/sSPOLZbs9LGBHo9jjnOG3Z2EFCjKS47xxBqlolBWWt6P4XZyP16COiAJCErJ0ABkPGBJ0DQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EJQA+wu5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b="HjsXUBw/"
-Received: from relayfre-01.paragon-software.com (relayfre-01.paragon-software.com [176.12.100.13])
-	by relayaws-01.paragon-software.com (Postfix) with ESMTPS id 7C26A32C;
-	Mon, 28 Sep 2026 17:24:19 +0000 (UTC)
-Authentication-Results: relayaws-01.paragon-software.com;
-	dkim=pass (1024-bit key; unprotected) header.d=paragon-software.com header.i=@paragon-software.com header.b=HjsXUBw/;
-	dkim-atps=neutral
-Received: from dlg2.mail.paragon-software.com (vdlg-exch-02.paragon-software.com [172.30.1.105])
-	by relayfre-01.paragon-software.com (Postfix) with ESMTPS id 08BF22187;
-	Mon, 28 Sep 2026 17:23:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=paragon-software.com; s=mail; t=1790616206;
-	bh=8wK+Mt7wxK/GvFsTbwxSYIH31MdufPxWj27TEn5fYbA=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To;
-	b=HjsXUBw/YXO5O8K+I54jGtFOzvJewiIbPkFX0dckgswm0nWog1gw7divhg3Ryq3DD
-	 ONNPEtumiKSA3gJl4Ti4D4D11jY1lQ2Z4sQuzZBlLExBQH6eVgVe2Zxh3ZgvWgdwR8
-	 5zj9UOeAj91erCnA1rQTZYSBT/+B+5HBbu4Pc9rQ=
-Received: from [192.168.95.128] (172.30.20.196) by
- vdlg-exch-02.paragon-software.com (172.30.1.105) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.7; Mon, 28 Sep 2026 20:23:24 +0300
-Message-ID: <e7aa6fe8-1284-4b5b-b6e7-ffff610466fc@paragon-software.com>
-Date: Mon, 28 Sep 2026 19:23:23 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EJQA+wu5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98BD31F000FF;
+	Mon, 28 Sep 2026 17:30:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790616639;
+	bh=Fxq0gLjHHRTreXBdZslExAAHYHdWKT1hfYN6yf+KCXU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=EJQA+wu5EvxWK8s7rjFmleZjhGPiL9Gdq7pYC2YRMIFJ3VSgk7VnO08lN1nuG8t++
+	 el2sCC8L8jztOBC3VYEJ1qVNddpM2x0h2yDEXiXGiLqcIdD3rQBPb/w1SLlOI6rfiV
+	 isR0Sqwdsy/QyOYccrAa7NhG1ITCev6lw90CWNB9Jvlf4EoMiOEU4IetWF5nINYDjd
+	 fEdpwI1aGn/ezzKb8Qp9Qjrf3R6FqZIreeU2JV5MU8WPtMqRgRMRmdAzMEZp58pMqF
+	 adCIkfOKAG/4sFezBpVlA1ITSVo+DH1QePVYwfajYVT8x0vs5moeLo5FhBc+uTYaIB
+	 +pVfxMzgEznWA==
+Date: Mon, 28 Sep 2026 07:30:38 -1000
+Message-ID: <990954c20586117100f2a527ebc02820@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Hui Peng <benquike@gmail.com>, Waiman Long <longman@redhat.com>
+Cc: Ridong Chen <ridong.chen@linux.dev>,
+ Guopeng Zhang <guopeng.zhang@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
+ Shuah Khan <shuah@kernel.org>,
+ Chen Ridong <chenridong@huawei.com>,
+ cgroups@vger.kernel.org,
+ linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH v4 3/3] cgroup/cpuset: check sibling effective_xcpus in
+ cpus_excl_conflict()
+In-Reply-To: <20260924042729.1908863-4-benquike@gmail.com>
+References: <20260924042729.1908863-1-benquike@gmail.com>
+ <20260924042729.1908863-4-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] fs/ntfs3: reject an oversized resident attribute on
- the inline iomap path
-To: Michael Bommarito <michael.bommarito@gmail.com>, <ntfs3@lists.linux.dev>
-CC: Mihai Brodschi <m.brodschi@gmail.com>, <linux-fsdevel@vger.kernel.org>,
-	<stable@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-References: <20260711152630.2975127-1-michael.bommarito@gmail.com>
-Content-Language: en-US
-From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-In-Reply-To: <20260711152630.2975127-1-michael.bommarito@gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: vobn-exch-01.paragon-software.com (172.30.72.13) To
- vdlg-exch-02.paragon-software.com (172.30.1.105)
+Content-Type: text/plain; charset=us-ascii
 
-On 7/11/26 17:26, Michael Bommarito wrote:
+Hello, Hui.
 
-> attr_data_get_block_locked() maps a resident attribute as a one-page
-> IOMAP_INLINE extent: it allocates a single page, copies the resident
-> value into it with memcpy(), and hands that page to ntfs_iomap_begin()
-> as the inline data.  The copy length is the on-disk resident value
-> length (res.data_size), and mi_enum_attr() only bounds that length
-> against the MFT record size.  A corrupted volume with MFT records larger
-> than a page can therefore present a resident $DATA whose length exceeds
-> PAGE_SIZE, and the memcpy() then writes past the single destination page.
->
-> Impact: reading or writing a resident file on a mounted crafted NTFS
-> volume whose MFT records are larger than a page overflows the one-page
-> inline buffer in attr_data_get_block_locked() with attacker-controlled
-> bytes.
->
-> Reject such an attribute in attr_data_get_block_locked(), before the
-> page is allocated and the copy is made.
->
-> Fixes: 099ef9ab9203 ("fs/ntfs3: implement iomap-based file operations")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-4-8
-> Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
-> ---
-> Changes since v1:
-> - Reworded the code comment and changelog.  The oversized resident length
->    overflows the single alloc_page() page that attr_data_get_block_locked()
->    copies the resident value into; v1 described the older
->    iomap_write_end_inline() BUG_ON(!iomap_inline_data_valid()), which was
->    removed in 7.2-rc1.  Thanks to Mihai Brodschi for catching the stale
->    reference.  The fix itself is unchanged.
->
-> The unbounded resident length dates to the iomap conversion; only the
-> manifestation changed when the inline buffer became a single alloc_page():
->    - 7.2-rc: the memcpy() into the one-page buffer overflows the page
->      (out-of-bounds write, below).
->    - 7.0..7.1: the buffer was kmemdup()ed at the real size and the oversized
->      length instead tripped BUG_ON(!iomap_inline_data_valid()) in
->      iomap_write_end_inline() (a denial of service).
-> The same data_size > PAGE_SIZE check prevents both, so it is the correct fix
-> across the stable range.
->
-> Reproduced under QEMU + KASAN on 7.2-rc2.  A resident $DATA value length
-> above PAGE_SIZE, as a volume with MFT records larger than a page presents,
-> was supplied while the alloc_page() + memcpy() path ran unchanged; the stock
-> kernel faults with a KASAN out-of-bounds write in
-> attr_data_get_block_locked():
->
->    BUG: KASAN: out-of-bounds in attr_data_get_block_locked
->    Write of size <data_size> by task ...
->     __asan_memcpy
->     attr_data_get_block_locked
->     attr_data_get_block
->     ntfs_iomap_begin
->     iomap_iter
->     iomap_file_buffered_write
->
-> With the patch the same access returns -EINVAL and does not fault.  An
-> in-bounds resident file (control) and a non-resident file are unaffected on
-> both the stock and patched kernels.
->   fs/ntfs3/attrib.c | 15 +++++++++++++++
->   1 file changed, 15 insertions(+)
->
-> diff --git a/fs/ntfs3/attrib.c b/fs/ntfs3/attrib.c
-> index c621a4c582f9e..2f73714a2db97 100644
-> --- a/fs/ntfs3/attrib.c
-> +++ b/fs/ntfs3/attrib.c
-> @@ -1034,6 +1034,21 @@ int attr_data_get_block_locked(struct ntfs_inode *ni, CLST vcn, CLST clen,
->   
->   	if (!attr_b->non_res) {
->   		u32 data_size = le32_to_cpu(attr_b->res.data_size);
-> +
-> +		/*
-> +		 * A resident attribute is copied into a single page below
-> +		 * (alloc_page() + memcpy()) and mapped as a one-page
-> +		 * IOMAP_INLINE extent by ntfs_iomap_begin().  mi_enum_attr()
-> +		 * only bounds the resident value length against the MFT record
-> +		 * size, so a corrupted volume whose records are larger than a
-> +		 * page can report data_size > PAGE_SIZE; copying that many bytes
-> +		 * would overflow the single destination page.  Reject it.
-> +		 */
-> +		if (data_size > PAGE_SIZE) {
-> +			err = -EINVAL;
-> +			goto out;
-> +		}
-> +
->   		*lcn = RESIDENT_LCN;
->   		*len = data_size;
->   		if (res && data_size) {
+The following is a Claude-generated review.
 
-Hello,
+On Thu, Sep 24, 2026 at 04:27:29AM +0000, Hui Peng wrote:
+> In cpus_excl_conflict(), when a valid local partition A1 uses implicit
+> exclusive CPUs (cpuset.cpus set without cpuset.cpus.exclusive, so
+> sibling->exclusive_cpus is empty while sibling->effective_xcpus is
+> populated), a sibling cgroup B1 can still set cpuset.cpus.exclusive on
+> the same CPUs because cpus_excl_conflict() only checks
+> sibling->exclusive_cpus.
 
-The patch was applied, thanks.
+update_exclusive_cpumask() runs compute_trialcs_excpus() before
+validate_change(), and rm_siblings_excl_cpus() already falls back to the
+sibling's effective_xcpus when its exclusive_cpus is empty:
 
-Regards,
-Konstantin
+	sibling_xcpus = cpumask_empty(sibling->exclusive_cpus)
+		      ? sibling->effective_xcpus
+		      : sibling->exclusive_cpus;
 
+	if (cpumask_intersects(excpus, sibling_xcpus)) {
+		cpumask_andnot(excpus, excpus, sibling_xcpus);
+		retval++;
+	}
+
+With A1 a valid partition on 0-3, B1's write of 3-5 hits CPU 3 there and
+fails with -EINVAL before cpus_excl_conflict() is reached, so the added
+check doesn't change the outcome and the new test row should pass without
+the kernel change. Was the write observed to succeed somewhere? That check
+also predates 2a3602030d80, so the Fixes tag wouldn't hold either.
+
+Thanks.
+
+--
+tejun
