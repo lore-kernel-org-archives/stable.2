@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC08148A8C8;
-	Mon, 28 Sep 2026 17:31:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77F0F4D9F7A;
+	Mon, 28 Sep 2026 17:31:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790616683; cv=none; b=n7+fuDYMGLQXu34xkSJ0pHD/RlJijrSQwzcY6Fk+RsT20oDVSj/Y6Tz86inRjgEGNU9sIGpWjhNYE0JtPAFPjrfYX4CUD2ESp07JLbzOt9dfV9qiPbQYo9BvdWb/M5FpfIIP81kkpac4bhAwObxeu9LSkVEelKCpIfjJkmeE+Rk=
+	t=1790616684; cv=none; b=KoOO8Q5TaVWE6t/S5lAA/VF6WM8rQd6bpCB/WuqA7OLjItYD4/+lRe3W0rJJoQv25vaxZTVJpHYEjHceKIE3yW1+/C4nliILpgvDL1NAlr4GksT0Xf7tJwkRkGUgpPbB1nkXYlYsk6ZOuaWeirkYoXhsNHEduykT0djYMmYWvWw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790616683; c=relaxed/simple;
-	bh=10M2Fovlnw6ntLeYI0CF4Uv9gQXDIHADACGer0e1JMM=;
+	s=arc-20240116; t=1790616684; c=relaxed/simple;
+	bh=gtb8dE5DjWNX8LLndwvWwB55+9YgbDbsy5qnxIngP+w=;
 	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=byJt+TKqMluoMUrLdrT9yb5aGiV309GO69me++2bMfhgGo4BOfOFeLaPB1yeR7hd5MZ8FOddn6DgXqUymsSuAQuoAeW+Id/K2vOhiorqKHx2NNqO1QV1swfSkKfA3+cD35sTtUCufyfGZGPUxUV6KQemZ+4yoTamKde2XDOSYaQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NiJXpEY+; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=Ip+P1AJPJAn/QnKAckIH9XKVr+WcDLI4gshTiVBN8HH0QWdS2JW2JSUM7/wFtDCChnaJj26D3w+RKcmHkx1xEdN4vYE3dVybBB8dHt9761TtIIvmvRfox6gu1o36Vij+zRR94cjZzyg4twl4wyKploaVl8TPXfFx/MYF8gCxQkA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f4RaGLWK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NiJXpEY+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A42771F000FF;
-	Mon, 28 Sep 2026 17:31:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f4RaGLWK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A25D1F000FF;
+	Mon, 28 Sep 2026 17:31:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790616681;
-	bh=MK8QA8/oXI+h5EJbxl8CPDpwvDLqlCdIC1oiRys19ys=;
+	s=k20260515; t=1790616683;
+	bh=pHJYtikXFc1vtR98MlddK6htj5JKY/hiF30Xh6nEIVE=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=NiJXpEY+1kLOKlvlrrjYFL/XGXYiLZKgdumbPKrdBo0p7tDNyxZ0I05iDd6gu/zBh
-	 6mSfBA+yh04tXz7ORrzKj+t+f9yiMwYA0ydjmCTrpE2wzfKolKdXsrYK4YtZwuGgvD
-	 VauUcq7KMUTF5BFqzAPR6F3WRtaEmKuNaUOQgnCi0NsUhd9hdrPx7PgjKPAAAaItte
-	 hApQ3NBnRrGgLfqEAyHXg6Ezx/hM+7s57yIyfIneAV+EmvjYOlxFjF0dS2cVbY4G2W
-	 wWjmeCJutiiB3PD1zbTidZBwCPjfokZsAyWbDM0k8/UmqB9EpG0tb5ktwfz3njTDkP
-	 V5BY7u3iJ23nQ==
+	b=f4RaGLWKRoCsV6GG4KLOh6fMDi4ah1JIdK1MBKpu7hjXmO2nrbueJD7zIo0CpJKPA
+	 H88Eo/vbrSK5LwOn7SBtecAwi94cV1p7VAf7ihJKX/NinsBoUs8Zr5S+pKo6xfBDzh
+	 z0ChSz8ZoSAsLDnKQG7EchwPA/8fUnxKNqQ8+3bcZIQj4ShfpTWpJCLaykw5LQpv1M
+	 RBNr5uJ3djA8OBw2i/qBKW3AJmGdd/Hk4dE5vAVBJgerWYuVzTOX9KYCbdUEqudhSM
+	 +VV9TtRG9w0X/Zf7mWirGfKuMl1Gv5UuFNcJN5TFuqVpBYxbHLD/5ypv0l5hXrZarg
+	 mohyTf/X9Vehw==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 938D63924A68;
-	Mon, 28 Sep 2026 17:30:07 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 199113924A68;
+	Mon, 28 Sep 2026 17:30:09 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -37,40 +37,39 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v2] Bluetooth: RFCOMM: free the skb when the DLC has no
- owner
+Subject: Re: [PATCH v4] Bluetooth: SCO: serialise sco_conn lifetime against
+ sco_recv_scodata()
 From: patchwork-bot+bluetooth@kernel.org
 Message-Id: 
- <179061660640.34603.9560704992810045042.git-patchwork-notify@kernel.org>
-Date: Mon, 28 Sep 2026 17:30:06 +0000
-References: <20260915070119.45143-1-skokovmaksimevg@gmail.com>
-In-Reply-To: <20260915070119.45143-1-skokovmaksimevg@gmail.com>
-To: Maxim Skokov <skokovmaksimevg@gmail.com>
-Cc: marcel@holtmann.org, luiz.dentz@gmail.com,
+ <179061660764.34603.5921039762584362076.git-patchwork-notify@kernel.org>
+Date: Mon, 28 Sep 2026 17:30:07 +0000
+References: <20260926212145.1343318-1-qwe.aldo@gmail.com>
+In-Reply-To: <20260926212145.1343318-1-qwe.aldo@gmail.com>
+To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Cc: pav@iki.fi, luiz.dentz@gmail.com, marcel@holtmann.org,
  linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org,
- mikhail.v.gavrilov@gmail.com, stable@vger.kernel.org
+ stable@vger.kernel.org
 
 Hello:
 
 This patch was applied to bluetooth/bluetooth-next.git (master)
 by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
 
-On Tue, 15 Sep 2026 10:00:46 +0300 you wrote:
-> rfcomm_recv_data() hands the skb to d->data_ready() and returns 0
-> without freeing it, so the callback owns the skb from that point on.
-> The tty implementation frees it when the DLC has been detached from its
-> device:
+On Sat, 26 Sep 2026 18:21:45 -0300 you wrote:
+> sco_recv_scodata() upgrades the weak hcon->sco_data back-pointer to a
+> strong reference under hdev->lock:
 > 
->   static void rfcomm_dev_data_ready(struct rfcomm_dlc *dlc,
->                                     struct sk_buff *skb)
->   {
->           struct rfcomm_dev *dev = dlc->owner;
+>     hci_dev_lock(hdev);
+>     hcon = hci_conn_hash_lookup_handle(hdev, handle);
+>     ...
+>     conn = sco_conn_hold_unless_zero(hcon->sco_data);
+>     hci_dev_unlock(hdev);
 > 
 > [...]
 
 Here is the summary with links:
-  - [v2] Bluetooth: RFCOMM: free the skb when the DLC has no owner
-    https://git.kernel.org/bluetooth/bluetooth-next/c/9d1afbf60ed5
+  - [v4] Bluetooth: SCO: serialise sco_conn lifetime against sco_recv_scodata()
+    https://git.kernel.org/bluetooth/bluetooth-next/c/816fb1590a4c
 
 You are awesome, thank you!
 -- 
