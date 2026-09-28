@@ -1,34 +1,34 @@
 Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 752344F55B5;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 774FE4F7CB7;
 	Mon, 28 Sep 2026 20:09:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790626190; cv=none; b=LG0/IOoGVNSsJrsDQhsKCqobruD0XsvJrTdBjK7WpMSGJ9MCFpByd6jeTdbn05a0KC19tSONGG3+z0H946laTiz8n337CACrXx542WPl82XalCB/XCgntzJ+Pdq9mhbl5H32735P5EyQLRfCmSUjhWjMs9DFOu4h/KHm/qIVQeU=
+	t=1790626190; cv=none; b=hFeba+SIylmR9BobrSlaoJBH/0wjY0KbbTst7lQkD2cH33gsw9qYwheUm+dg5Ee/kneHhGJK19N/crR6MkZCSfxSszGzMM2NWsOEJ2IM3iW/Wf5CPPxtrJUk4JGgmJ0Z+pENrVgtp4fKBEAYMfhXO9cnOs558MTmyth8DTP9O04=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790626190; c=relaxed/simple;
-	bh=SjfWwRRL78AZq1F8aO5ICjQNnc2qsi7X4g4S9JvrNNA=;
+	bh=B3s+WgDx02UPtvXc73jhmByRJcAirc8Vuvq8AfMvxLU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Y/EzPZCEILt8GuI+PmNPv1S4Z+aa4eB6VcQdWzUQ3fXU82yuj/OGryGVTGwGsXBfLG3tL/aQnZsoPGhb0Bu6UKgTxAzfuByV2tWSjtkia2Qf1CuHBGQ3gHrvs/XF54f/dC/HqnARxakIcUf2AslQO524NHJysd521Q3uJde6m9U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=OkOCYT/2; arc=none smtp.client-ip=143.255.12.172
+	 MIME-Version; b=SGfsC37UWejJidiLVkvQxlIaOj8GE4k1NfCCkGhR602jP1j4kjqJnBVor5BiRgE4N/W+28W6NjEBvX/IsijiQQAGIGNzH84UFKtv99LUP4Wdv7v3xxBBRu5PN2OeKsD95L8av0eHpAqdyUs2rPVE9SeRRZj0FakpQwOEkkhmVBY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=4KKsU8sD; arc=none smtp.client-ip=143.255.12.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="OkOCYT/2"
+	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="4KKsU8sD"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=manguebit.org; s=dkim; h=Content-Transfer-Encoding:MIME-Version:References:
 	In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Content-Type:Reply-To:
 	Content-ID:Content-Description;
-	bh=iK+XJajufQllYNemxs3SQ/XoqSAgjSfVZ4M9RYI8csY=; b=OkOCYT/2kzgPLc4tgRWhZ5Unzm
-	qz3AZ1WBuOUcrX9D5+JlojIxETeEIeRbqL7W55ChNUUAKtIDnhw6A9O9lu2V4Jz4pCb5zPC1uM0A8
-	fXMZlrfe6r1FfIiaNtQmbq2JLnxasNlcGEzTtuq+tuVeDBdpokG6M38x7Ff5lmMm/Sch5CZoAMF20
-	8bajEAnwDgWnq2CcsabbAdXBc/JCwrOwQxPKBxka+RL5UGYr0UmccJxQeRjYqBn4X1XEWZerCM6X1
-	PWkkyXlbynP8CDQSqhxGaOpoeAp9iX868dNdDC7jQwf5Z8+BycCupRyVl3qh7P/Q6XAMjWCjiKVqA
-	i0ni1FWg==;
+	bh=G8FxK4C8S9BI0IsaPf3E3gc0fflOw7hqGIK46yRd7A8=; b=4KKsU8sDpr6oPV9X4kveAkQELA
+	/oLlKmiJxmxEFcXkqjqt/xT4IumQioKWj8lBemkxEYl1C/Tcwz7sNVG8h37JdnlKxHOxtKb+37I7a
+	F9lezdp5TmjUWoQMKdYyaKXbDWcszSGyK/f0wFk1L0GQPWUkqBD3g8he/x11tHspkfhGcrnpbyNkO
+	+JeV1PLCqo4ORlgDNsnWQVqQRV1h8jl9YD9NwsqL2y2gXA1lpfGiv3ASm3lxZvdVK97OK1yOkvxJg
+	007zE4xBpD0dautrLiCgmB2DGpTNYm2bSfb3Aw/hTmfe7Dc1fSbf/mtSU288vP1QoAnDCYXU0cihs
+	dMfXSQvw==;
 Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
-	id 1xBHfL-00000002UJ2-1Bkt;
-	Mon, 28 Sep 2026 17:09:35 -0300
+	id 1xBHfN-00000002UJR-058t;
+	Mon, 28 Sep 2026 17:09:37 -0300
 From: Paulo Alcantara <pc@manguebit.org>
 To: linux-cifs@vger.kernel.org,
 	netfs@lists.linux.dev
@@ -40,10 +40,11 @@ Cc: Christian Brauner <brauner@kernel.org>,
 	Shyam Prasad N <sprasad@microsoft.com>,
 	Tom Talpey <tom@talpey.com>,
 	Bharath SM <bharathsm@microsoft.com>,
+	Frank Sorenson <sorenson@redhat.com>,
 	stable@vger.kernel.org
-Subject: [PATCH 02/15] smb: client: clear post-EOF pagecache when extending a file via truncate
-Date: Mon, 28 Sep 2026 17:09:21 -0300
-Message-ID: <20260928200934.1040189-3-pc@manguebit.org>
+Subject: [PATCH 07/15] smb: client: drain outstanding I/O before truncating on O_TRUNC open
+Date: Mon, 28 Sep 2026 17:09:26 -0300
+Message-ID: <20260928200934.1040189-8-pc@manguebit.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260928200934.1040189-1-pc@manguebit.org>
 References: <20260928200934.1040189-1-pc@manguebit.org>
@@ -55,22 +56,16 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-cifs_setsize() relied on pagecache_isize_extended() to zero the tail of
-the folio straddling the old EOF, but that helper is a no-op on CIFS
-(i_blkbits is 14), so data dirtied past EOF through an mmap survived and
-became visible once the file was extended.
+cifs_do_truncate() flushes the pagecache with filemap_write_and_wait()
+before resetting the file size to zero, but that does not wait for
+direct/async I/O that was already in flight, which can complete after the
+truncate and reinstate stale data past the new EOF.
 
-When extending, zero the tail of the folio straddling the old EOF with
-netfs_clear_stale_post_eof() instead, mirroring what
-pagecache_isize_extended() does for filesystems with a sub-page block
-size.  Do this before updating i_size so that the helper, which clamps
-its zeroing to the current EOF, zeroes the whole [old_size, offset)
-hole.  truncate_pagecache() is then called as in truncate_setsize(): it
-is essentially a no-op on extend and drops the pagecache beyond the new
-EOF on shrink.
+Drain outstanding netfs I/O with netfs_wait_for_outstanding_io()
+before resizing the file.
 
-Closes: https://sashiko.dev/#/patchset/20260921230755.1133425-1-pc%40manguebit.org
-Fixes: c510edb9734a ("cifs: call pagecache_isize_extended() in cifs_setsize() when extending")
+Reported-by: Frank Sorenson <sorenson@redhat.com>
+Fixes: a8603b52b39f ("smb: client: fix data corruption with concurrent writes and O_TRUNC")
 Reviewed-by: David Howells <dhowells@redhat.com>
 Signed-off-by: Paulo Alcantara <pc@manguebit.org>
 Cc: Christian Brauner <brauner@kernel.org>
@@ -82,47 +77,22 @@ Cc: Tom Talpey <tom@talpey.com>
 Cc: Bharath SM <bharathsm@microsoft.com>
 Cc: stable@vger.kernel.org
 ---
- fs/smb/client/inode.c | 16 +++++++++++-----
- 1 file changed, 11 insertions(+), 5 deletions(-)
+ fs/smb/client/file.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/fs/smb/client/inode.c b/fs/smb/client/inode.c
-index 1fe0ef0a95db..ebc620c166a9 100644
---- a/fs/smb/client/inode.c
-+++ b/fs/smb/client/inode.c
-@@ -3055,13 +3055,20 @@ int cifs_fiemap(struct inode *inode, struct fiemap_extent_info *fei, u64 start,
+diff --git a/fs/smb/client/file.c b/fs/smb/client/file.c
+index 0d428517f454..d3114cb7fbc5 100644
+--- a/fs/smb/client/file.c
++++ b/fs/smb/client/file.c
+@@ -1012,6 +1012,8 @@ static int cifs_do_truncate(const unsigned int xid, struct dentry *dentry)
+ 	}
+ 	mapping_set_error(inode->i_mapping, rc);
  
- void cifs_setsize(struct inode *inode, loff_t offset)
- {
--	loff_t old_size;
-+	loff_t old_size = i_size_read(inode);
- 	u64 blocks = CIFS_INO_BLOCKS(offset);
- 
-+	/*
-+	 * When extending, zero the tail of the folio straddling the old EOF
-+	 * (before updating i_size) so data dirtied past EOF through an mmap
-+	 * isn't exposed.  truncate_pagecache() then drops any pagecache beyond
-+	 * the new EOF, as in truncate_setsize().
-+	 */
-+	if (offset > old_size)
-+		netfs_clear_stale_post_eof(inode, old_size, offset, false);
++	netfs_wait_for_outstanding_io(inode);
 +
- 	spin_lock(&inode->i_lock);
--	old_size = i_size_read(inode);
- 	i_size_write(inode, offset);
--
- 	/*
- 	 * Extending EOF does not allocate the intervening range. Only clamp
- 	 * i_blocks on shrink; allocation growth comes from writes or from the
-@@ -3071,8 +3078,7 @@ void cifs_setsize(struct inode *inode, loff_t offset)
- 		inode->i_blocks = blocks;
- 	spin_unlock(&inode->i_lock);
- 	inode_set_mtime_to_ts(inode, inode_set_ctime_current(inode));
--	if (offset > old_size)
--		pagecache_isize_extended(inode, old_size, offset);
-+
- 	truncate_pagecache(inode, offset);
- 	netfs_wait_for_outstanding_io(inode);
- }
+ 	cfile = find_writable_file(cinode, FIND_FSUID_ONLY);
+ 	rc = cifs_file_flush(xid, inode, cfile);
+ 	if (!rc) {
 -- 
 2.55.0
 
