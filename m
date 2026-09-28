@@ -1,95 +1,133 @@
-Received: from mx.prosyst.ru (m2.prosoftsystems.ru [46.48.77.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+Received: from mail.toke.dk (mail.toke.dk [45.145.95.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D12332472B8;
-	Mon, 28 Sep 2026 12:31:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.48.77.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F5E6221F20;
+	Mon, 28 Sep 2026 12:32:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.145.95.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790598690; cv=none; b=aircaLWHbxlzOd/qMUvBfYYuhRdbME8YJs7DDkJwRjrwAMUlaO4jJepqcyGWFOXZGzV4JMqxRv9AolGY6WRb7RtgLzJtozHJ07Sn8NA4Ly5Q6jcvxmMfa7CR6VX00P8ayXLwdsW84ZOMOUar9oiruRrXqYXbVZoL8ufrYnu2Rjk=
+	t=1790598736; cv=none; b=tIdPVRBhRqN8JxFEsGaAyg7RVkTdyHdayV2nyTBpJjvxbccbXwSF8+r5FgEifQbkwSBJPd+nGsF0Bw3UCr2zrcLBufPrUKOK1tNj+ohIxLiLTilQXWkzGtwVAahkRvH0BkIpC7H95hBqfu5SPNF/Nl/gVt3CcCItdIVnOq3lXiY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790598690; c=relaxed/simple;
-	bh=UG5SjHlGto5qqVq/s9e1BJcnSof4gZlugHBCbCMcOmI=;
-	h=Content-Type:From:To:CC:Subject:Date:Message-ID:References:
-	 In-Reply-To:MIME-Version; b=VCOKwUE+E9xK43em2lA0NK0ypyDs/ra4lsfYwgnfQ1cm+M7ZHKYbNLrwCqqoP4pp5lk78RKsg2HhwTaEQGljbN0ypnCZFCBPHNfsesL2Qlhqlt6GU1sfBxq2gL9Fm9vSGhWeaFUbfRPa/RFsvvs996Iay1VJvhUFhOYRywAwtBs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=prosoftsystems.ru; spf=pass smtp.mailfrom=prosoftsystems.ru; dkim=pass (2048-bit key) header.d=prosoftsystems.ru header.i=@prosoftsystems.ru header.b=sRGG4v6C; arc=none smtp.client-ip=46.48.77.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=prosoftsystems.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=prosoftsystems.ru
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=prosoftsystems.ru header.i=@prosoftsystems.ru header.b="sRGG4v6C"
-Content-Language: ru-RU
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <7E398AB00A657D4F9A1CD3C297450863@prosoftsystems.ru>
-Content-Transfer-Encoding: base64
-DKIM-Signature: v=1; a=rsa-sha256; d=prosoftsystems.ru; s=ps;
-	c=relaxed/relaxed; t=1790598686; h=from:to:date:message-id:subject;
-	bh=UG5SjHlGto5qqVq/s9e1BJcnSof4gZlugHBCbCMcOmI=;
-	b=sRGG4v6C2jFQS6KLIOfu77Ed/iffwoZ5f9WJqc8PFP+cGeuBgf7H6q0H4d/hu1FttSm1WQGlaWy
-	NqtcAWCkgCuZjWwYJfZ+EUc8BbjtJ5AWqQiCCrDNS7TxHsGc1mFKoxc5ECnDmjYK6DyPo3eam4ztK
-	zQBFiB7f995hVR2+boCBMzlC6tdAItMQIZCtPQf1+LvJ9UHe8XUpXFJ84sVe+teo/Lw/e+q7bxpfH
-	+lfH6RL154mbOlbuHLbSnHOc4zeEgpr9PumeWYG84mTwDEbgDDaIFmikEvxoPdOf9MUFxyj82CeNd
-	gAI83edTTLfVRgOXf+DTVdYo0TaaBCvWplRw==
-Received: from echo-2.prosoft.ural.ru (172.21.245.22) by mx.prosoftsystems.ru
- (172.21.240.33) with Microsoft SMTP Server (TLS) id 15.1.396.30; Mon, 28 Sep
- 2026 17:31:25 +0500
-Received: from echo-2.prosoft.ural.ru (172.21.245.22) by
- echo-2.prosoft.ural.ru (172.21.245.22) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.39; Mon, 28 Sep 2026 17:31:17 +0500
-Received: from echo-2.prosoft.ural.ru ([::1]) by echo-2.prosoft.ural.ru
- ([fe80::c1a2:90f7:8820:c669%17]) with mapi id 15.02.1748.039; Mon, 28 Sep
- 2026 17:31:16 +0500
-From: =?utf-8?B?0JbQsNC80LHQsNC60LjQtdCyINCg0LDQtNC40Lkg0KDQuNC60LDRgNC00Lg=?=
- =?utf-8?B?0L3QvtCy0LjRhw==?= <r.zhambakiev@prosoftsystems.ru>
-To: "andrew@lunn.ch" <andrew@lunn.ch>
-CC: "benato.denis96@gmail.com" <benato.denis96@gmail.com>, "petrm@nvidia.com"
-	<petrm@nvidia.com>, "davem@davemloft.net" <davem@davemloft.net>,
-	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>,
-	"u.kleine-koenig@baylibre.com" <u.kleine-koenig@baylibre.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"lvc-project@linuxtesting.org" <lvc-project@linuxtesting.org>,
-	"jacob.e.keller@intel.com" <jacob.e.keller@intel.com>, "pabeni@redhat.com"
-	<pabeni@redhat.com>, "edumazet@google.com" <edumazet@google.com>,
-	"kuba@kernel.org" <kuba@kernel.org>, "stable@vger.kernel.org"
-	<stable@vger.kernel.org>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>
-Subject: Re: [PATCH net 1/3] net: fealnx: fix teardown order in remove
-Thread-Topic: [PATCH net 1/3] net: fealnx: fix teardown order in remove
-Thread-Index: AQHdTBGoaPRFHxtaVUSWHKvuDP/4n7bdm8QAgAYCyQA=
-Date: Mon, 28 Sep 2026 12:31:16 +0000
-Message-ID: <d20c94930acc066f48abb40f82bdfadaa5ca30c2.camel@prosoftsystems.ru>
-References: <20260924104231.110576-1-r.zhambakiev@prosoftsystems.ru>
-	 <95c9fa4a-79e5-47fe-9de5-2c6cd186216d@lunn.ch>
-In-Reply-To: <95c9fa4a-79e5-47fe-9de5-2c6cd186216d@lunn.ch>
-Accept-Language: ru-RU, en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
+	s=arc-20240116; t=1790598736; c=relaxed/simple;
+	bh=Tr3NHHtcAtKS8gIq4c341pfjY04YYQSmxpxy8OIuoic=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=WwKeSdnOInVH5HIDP5wq4UpniSUb2UiG9Bp7LLbeH8ba8bl5gViOz5GMP4TcrwjSiuhnlXcFO4n4lENYrpBnPSZJnb/LcfgO5slhGJP92bTQacoACYeWIiEnW9shl7XnyX0HNhZOq4iAFhMVFXAZl0uAeNjbKD3+StaBmwYy6xo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=toke.dk; spf=pass smtp.mailfrom=toke.dk; arc=none smtp.client-ip=45.145.95.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=toke.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toke.dk
+Authentication-Results: mail.toke.dk; dkim=none
+From: Toke =?utf-8?Q?H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
+To: Yuchao Zhang <ndaugoing@gmail.com>, "David S . Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+ <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>, Jamal Hadi Salim <jhs@mojatatu.com>,
+ Jiri Pirko <jiri@resnulli.us>, cake@lists.bufferbloat.net,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Yuchao Zhang <ndaugoing@gmail.com>
+Subject: Re: [PATCH net v3 2/2] net/sched: sch_cake: validate transport
+ header offset in cake_overhead()
+In-Reply-To: <20260927131009.24250-3-ndaugoing@gmail.com>
+References: <20260927131009.24250-1-ndaugoing@gmail.com>
+ <20260927131009.24250-3-ndaugoing@gmail.com>
+Date: Mon, 28 Sep 2026 14:32:10 +0200
+X-Clacks-Overhead: GNU Terry Pratchett
+Message-ID: <874if9lfp1.fsf@toke.dk>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain
 
-T24gVGh1LCAyMDI2LTA5LTI0IGF0IDE4OjQzICswMjAwLCBBbmRyZXcgTHVubiB3cm90ZToNCj4g
-PiAtLS0NCj4gPiDCoGRyaXZlcnMvbmV0L2V0aGVybmV0L2ZlYWxueC5jIHwgMjkgKysrKysrKysr
-KysrKysrKy0tLS0tLS0tLS0tLS0NCj4gPiDCoDEgZmlsZSBjaGFuZ2VkLCAxNiBpbnNlcnRpb25z
-KCspLCAxMyBkZWxldGlvbnMoLSkNCj4gPiANCj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9uZXQv
-ZXRoZXJuZXQvZmVhbG54LmMNCj4gPiBiL2RyaXZlcnMvbmV0L2V0aGVybmV0L2ZlYWxueC5jDQo+
-ID4gaW5kZXggYmRjMzhhYWM1ODUwLi5kN2NkMTY0NGEzNzUgMTAwNjQ0DQo+ID4gLS0tIGEvZHJp
-dmVycy9uZXQvZXRoZXJuZXQvZmVhbG54LmMNCj4gPiArKysgYi9kcml2ZXJzL25ldC9ldGhlcm5l
-dC9mZWFsbnguYw0KPiA+IEBAIC02NzgsMjAgKzY3OCwyMyBAQCBzdGF0aWMgaW50IGZlYWxueF9p
-bml0X29uZShzdHJ1Y3QgcGNpX2Rldg0KPiA+ICpwZGV2LA0KPiA+IMKgc3RhdGljIHZvaWQgZmVh
-bG54X3JlbW92ZV9vbmUoc3RydWN0IHBjaV9kZXYgKnBkZXYpDQo+ID4gwqB7DQo+ID4gwqDCoMKg
-wqDCoCBzdHJ1Y3QgbmV0X2RldmljZSAqZGV2ID0gcGNpX2dldF9kcnZkYXRhKHBkZXYpOw0KPiA+
-ICvCoMKgwqDCoCBzdHJ1Y3QgbmV0ZGV2X3ByaXZhdGUgKm5wOw0KPiA+ICsNCj4gPiArwqDCoMKg
-wqAgaWYgKCFkZXYpIHsNCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGRldl9lcnIoJnBk
-ZXYtPmRldiwgInJlbW92ZSBmb3IgdW5rbm93biBkZXZpY2VcbiIpOw0KPiA+ICvCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqAgcmV0dXJuOw0KPiA+ICvCoMKgwqDCoCB9DQo+IA0KPiBJIGtub3cgeW91
-IGFyZSBqdXN0IG1vdmluZyBjb2RlIGFyb3VuZCwgYnV0IGlzIHRoYXQgcG9zc2libGU/wqAgV2Ug
-dHJ5DQo+IGF2b2lkIGRlZmVuc2l2ZSBjb2RlLiBJdCBpcyBiZXR0ZXIgdG8gYWN0dWFsbHkgdW5k
-ZXJzdGFuZCB0aGUgY29kZQ0KPiBhbmQgc3RvcCBiYWQgdGhpbmdzIGhhcHBlbmluZy4NCj4gDQo+
-IMKgwqDCoMKgIEFuZHJldw0KPiANClRoYW5rIHlvdSBmb3IgcmV2aWV3Lg0KDQpUaGlzIGlzIGFj
-dHVhbGx5IG5vdCBwb3NzaWJsZSBhcyBzdWNjZXNzZnVsIHByb2JlIGFsd2F5cyBzZXRzIHRoZSBk
-ZXYNCmFuZCBpdCB3aWxsIG5ldmVyIGJlIE5VTEwuIElmIHByb2JlIHJldHVybmVkIGVhcmx5IHdp
-dGggYW4gZXJyb3IsDQpyZW1vdmUgd29udCBiZSBjYWxsZWQgYXQgYWxsLg0KDQpJIHdpbGwgcmVt
-b3ZlIGl0IGlmIHJlZmFjdG9yaW5nIHdpbGwgYmUgYXBwcm92ZWQgaW4gcmVzdWx0IG9mIHRoaXMN
-CnRocmVhZCwgYXMgaXQgaXMgbW9yZSBjb2RlIHF1YWxpdHkgZml4LCB0aGVuIGFuIGVycm9yLg0K
+Yuchao Zhang <ndaugoing@gmail.com> writes:
+
+> In cake_overhead(), the header length up to the transport layer is
+> computed using logic borrowed from qdisc_pkt_len_segs_init():
+>
+> 	/* borrowed from qdisc_pkt_len_segs_init() */
+> 	if (!skb->encapsulation)
+> 		hdr_len = skb_transport_offset(skb);
+> 	else
+> 		hdr_len = skb_inner_transport_offset(skb);
+>
+> However, cake_overhead() does not validate the computed offset:
+>
+> 1. When the transport header was never set, skb->transport_header holds
+>    the sentinel value ~0U. skb_transport_offset() returns ~65535.
+>    skb_header_pointer() subsequently fails, leaving hdr_len as ~65535,
+>    charging ~66 KB per segment to the shaper.
+>    Mirror qdisc_pkt_len_segs_init() by returning cake_calc_overhead()
+>    when unlikely(!skb_transport_header_was_set(skb)).
+>
+> 2. While qdisc_pkt_len_segs_init() runs at the start of __dev_queue_xmit(),
+>    packet headers may be adjusted before cake_overhead() is reached:
+>    - in sch_handle_egress() via tc/BPF egress filters;
+>    - inside cake_enqueue() via cake_classify() -> tcf_classify() (e.g.
+>      act_bpf, act_pedit, act_mpls, act_vlan).
+>    For example, bpf_skb_adjust_room(..., BPF_ADJ_ROOM_MAC) invokes
+>    bpf_skb_net_hdr_pop(), which pulls skb->data forward and re-syncs
+>    transport_header only when it aliased network_header, i.e. when no
+>    transport header had been parsed. If a transport header had been
+>    parsed, its offset is left where it was while skb->data moves forward,
+>    so skb_transport_offset() becomes old_offset - len and can turn
+>    negative. Since hdr_len was declared as unsigned int, a negative offset
+>    wraps around to near UINT_MAX, corrupting header length accounting.
+>
+> Declare hdr_len as int and fall back to cake_calc_overhead(q, len, off) if
+> unlikely(hdr_len < 0).
+>
+> Fixes: a729b7f0bd5b ("sch_cake: Add overhead compensation support to the rate shaper")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yuchao Zhang <ndaugoing@gmail.com>
+> ---
+> v3:
+>  - Split from v2 into a standalone patch with its own Fixes: tag
+>    (a729b7f0bd5b) per Simon Horman and Sashiko review.
+>  - Clarify header mangling ordering (sch_handle_egress() and cake_classify()
+>    before cake_overhead()) rather than inaccurate "post-enqueue mangling"
+>    wording per Sashiko review.
+>  - Link to v2: https://lore.kernel.org/netdev/20260922084124.36858-1-ndaugoing@gmail.com/
+>  - Link to v1: https://lore.kernel.org/netdev/20260917122153.62722-1-ndaugoing@gmail.com/
+>
+>  net/sched/sch_cake.c | 13 ++++++++++---
+>  1 file changed, 10 insertions(+), 3 deletions(-)
+>
+> diff --git a/net/sched/sch_cake.c b/net/sched/sch_cake.c
+> index b0d604a7052a..45969c1b95fc 100644
+> --- a/net/sched/sch_cake.c
+> +++ b/net/sched/sch_cake.c
+> @@ -1413,10 +1413,11 @@ static u32 cake_calc_overhead(struct cake_sched_data *qd, u32 len, u32 off)
+>  static u32 cake_overhead(struct cake_sched_data *q, const struct sk_buff *skb)
+>  {
+>  	const struct skb_shared_info *shinfo = skb_shinfo(skb);
+> -	unsigned int hdr_len, last_len = 0;
+> +	unsigned int last_len = 0;
+>  	u32 off = skb_network_offset(skb);
+>  	u16 segs = qdisc_pkt_segs(skb);
+>  	u32 len = qdisc_pkt_len(skb);
+> +	int hdr_len;
+>  
+>  	WRITE_ONCE(q->avg_netoff, cake_ewma(q->avg_netoff, off << 16, 8));
+>  
+> @@ -1424,10 +1425,16 @@ static u32 cake_overhead(struct cake_sched_data *q, const struct sk_buff *skb)
+>  		return cake_calc_overhead(q, len, off);
+>  
+>  	/* borrowed from qdisc_pkt_len_segs_init() */
+> -	if (!skb->encapsulation)
+> +	if (!skb->encapsulation) {
+> +		if (unlikely(!skb_transport_header_was_set(skb)))
+> +			return cake_calc_overhead(q, len, off);
+>  		hdr_len = skb_transport_offset(skb);
+> -	else
+> +	} else {
+>  		hdr_len = skb_inner_transport_offset(skb);
+> +	}
+> +
+> +	if (unlikely(hdr_len < 0))
+> +		return cake_calc_overhead(q, len, off);
+
+We now have three identical calls to cake_calc_overhead() in the same
+function; let's put these into an 'err' label at the end of the
+function, and turn the early returns into 'goto err' statements.
+
+-Toke
