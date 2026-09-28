@@ -1,43 +1,46 @@
 Received: from www5210.sakura.ne.jp (www5210.sakura.ne.jp [133.167.8.150])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E09464EC665;
-	Mon, 28 Sep 2026 16:44:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B62001E260C;
+	Mon, 28 Sep 2026 16:44:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=133.167.8.150
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790613899; cv=none; b=GYYW8ZK//qn3Xic1LwzfMwNqm34gbISOTTeJmrzJHkkytbl4sLMKU9fK2Erv8NhUN29Nuk1iTcGb0lYWgN8oc04qjX/NTzbTqpZyWpI9rm0cbRm5J/rGmY5jp+gQpAeNS84ZPkTn1N1pSHIQQrAKo2HmaGBQvTFPsK82h7X1j0U=
+	t=1790613900; cv=none; b=eZ4Ga32lvZDIRbXtUqDs9t3YL2qqdqXGF2JneJFEQqeYX4gcYU2qnVdA91o4tvh4DMP3MyPqiRGHFDuUzVfERSYTGv8jeEqZqKdIAYZqE0X6oUg1e1hvjb6lCvNyBNZtfQOo+mbezdrDFkttD44G9eayyWcYus7+zE6YyubRsFk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790613899; c=relaxed/simple;
-	bh=gWQFHOs73qDRXfHN/A480vDvUJBl+N73b3+Fol4Ysrw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nL83KXhay10hnem8wwwBL8UFf+/WkdaZ8ffw4N7u71sQnv3Aug2QMHcoC/iqjSw/BwbdBLdycZC049Z3LOEWaAvTk5d/wBikCwWFE+Oz5IXDLZAcMoDBM8UzZXOP75dQ2Wc+AdVedK//IHkK+uy1ECVhQRRP9kIvYeZVXEpglt4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mgml.me; spf=pass smtp.mailfrom=mgml.me; dkim=pass (2048-bit key) header.d=mgml.me header.i=@mgml.me header.b=Ddia5p1V; arc=none smtp.client-ip=133.167.8.150
+	s=arc-20240116; t=1790613900; c=relaxed/simple;
+	bh=v8iuk/d6hY4fm9sab6tZFLMo8YMgI5+6z4JDgU9D7Bc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=K2bbZu76POJBNHDCE+FSIRxfa1J8xX8R210UGTFkKBdeCBqti7qzaLwOEMgbxPnBsVYtZw2JIfwa/FH7gxypHNCXRj6km52KrPk62D6pLa9jErrY5zuMx2TAF8ffhISGu791UAvRnNmvLwsKkTFUUEdyphbHpo6e6hFVrrB7Esw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mgml.me; spf=pass smtp.mailfrom=mgml.me; dkim=pass (2048-bit key) header.d=mgml.me header.i=@mgml.me header.b=JaW8HApV; arc=none smtp.client-ip=133.167.8.150
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mgml.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mgml.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mgml.me header.i=@mgml.me header.b="Ddia5p1V"
+	dkim=pass (2048-bit key) header.d=mgml.me header.i=@mgml.me header.b="JaW8HApV"
 Received: from fedora ([104.28.225.80])
 	(authenticated bits=0)
-	by www5210.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 68SGijNl080644
+	by www5210.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 68SGijNo080644
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
 	Tue, 29 Sep 2026 01:44:50 +0900 (JST)
 	(envelope-from k@mgml.me)
-DKIM-Signature: a=rsa-sha256; bh=MbSyrRFNzJ0YeVpXN7dw5QAgzDG7WFJnFocIuRI8ccE=;
+DKIM-Signature: a=rsa-sha256; bh=lRFP5ukTvB5ywCx1qtpi0Y4ncEtE/ZOaMkomeF4W5n8=;
         c=relaxed/relaxed; d=mgml.me;
         h=From:Message-ID:To:Subject:Date;
         s=rs20250315; t=1790613890; v=1;
-        b=Ddia5p1VV7bgaNCKXG/EMi5UHoAfMP4/Nygd7/ZmWv5U6Fwl0Fobi8XyOyiSYXah
-         mTRPDDs7jG65alNQPWDep3RF8ZckUrAgKWgNedK0b6XF0wo2crXwKRvcOoXV3mIO
-         UxwKD682dwXvItaqsM1bNTKkXOm+HNvAR0cmkpQpslc+yRFpn1CFbTOMOxbGtDEI
-         Vq+e5gKa5vKfze+WBoSG/AdD5K81tF4dfWza8u/olq2Z4lG4iy4Tu57muO011KbO
-         CK5daEbkKUONmgKSr4NXW70ugyc5zUmnIinpGAlPbD0LIf3RomlTW8w+MySko5sH
-         ERMMFfpBlpOWaIj5Wlam1Q==
+        b=JaW8HApV8TyKz48SVnCnAVBnIYZ+rq4EKwJrzppjaxNqb6uGXbmzkChxTQfXO/mI
+         8K5pKncE3jDgD+WS3igYlAQ2cPKzq8iAXTKwngkxq47CfWP7o6qk4GnqyHtaBuOc
+         Rv9O6hT8JDelgIQqp6tC9Aw9Kd2WzYfv3hlj838DOd21tCFVCStENIkN6IWnaR+6
+         gz48SFxy9wqz5VYCtu6Pl5lz0KWi8DNM6YiyXpHpT4cfkRaZZkoRJ5+loA4EfoqG
+         Du4U/IuD0u16dp4/VaBtpMW8BluXGbHKsj0HYAz+TcxAfpJW82syfmsuY+2df7Tl
+         RqoLZwqwHthIyQmDlLTFEw==
 From: Kenta Akagi <k@mgml.me>
 To: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, stable@vger.kernel.org
 Cc: Paolo Bonzini <pbonzini@redhat.com>, Kenta Akagi <k@mgml.me>
-Subject: [PATCH 5.15.y v4 00/11] KVM: fixes for CVE-2026-46113 and related issues
-Date: Tue, 29 Sep 2026 01:44:16 +0900
-Message-ID: <20260928164427.4699-1-k@mgml.me>
+Subject: [PATCH 5.15.y v4 03/11] KVM: MMU: update comment on the number of page role combinations
+Date: Tue, 29 Sep 2026 01:44:19 +0900
+Message-ID: <20260928164427.4699-4-k@mgml.me>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260928164427.4699-1-k@mgml.me>
+References: <20260928164427.4699-1-k@mgml.me>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,52 +49,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This is a backport of the CVE-2026-46113 and CVE-2026-53359 fixes to 5.15.y.
+From: Paolo Bonzini <pbonzini@redhat.com>
 
-v2: https://lore.kernel.org/all/20260626174620.1819772-1-pbonzini@redhat.com/
-v3: https://lore.kernel.org/stable/20260913155523.7423-1-k@mgml.me/
+commit dc1ce45575b3401102568dd60ba8894849d1d64b upstream.
 
-Changes from v3:
-- Added patches 3-6 to backport the change from gpte_is_8_bytes to has_4_byte_gpte.
-- Adjusted patches 7-8 (patches 3/7 and 4/7 in v3) accordingly.
+Fix the number of bits in the role, and simplify the explanation of
+why several bits or combinations of bits are redundant.
 
-A regression has been reported in the backport of commit 0cb2af2ea66a
-("KVM: x86: Fix shadow paging use-after-free due to unexpected GFN")
-[1], but the corresponding fix has already been merged into 5.15.218 [2].
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+Signed-off-by: Kenta Akagi <k@mgml.me>
+---
+ arch/x86/include/asm/kvm_host.h | 30 ++++++++++++++++++------------
+ 1 file changed, 18 insertions(+), 12 deletions(-)
 
-[1] https://lore.kernel.org/kvm/20260630223723.83727-1-zcgao@amazon.com/
-[2] https://lore.kernel.org/stable/20260825132543.573783299@linuxfoundation.org/
-
-David Matlack (2):
-  KVM: x86/mmu: Use a bool for direct
-  KVM: x86/mmu: Stop passing "direct" to mmu_alloc_root()
-
-Lai Jiangshan (3):
-  KVM: X86: Remove useless code to set role.gpte_is_8_bytes when
-    role.direct
-  KVM: X86: Calculate quadrant when !role.gpte_is_8_bytes
-  KVM: X86: Rename gpte_is_8_bytes to has_4_byte_gpte and invert the
-    direction
-
-Paolo Bonzini (5):
-  KVM: MMU: update comment on the number of page role combinations
-  KVM: x86/mmu: Derive shadow MMU page role from parent
-  KVM: x86/mmu: Always pass 0 for @quadrant when gptes are 8 bytes
-  KVM: x86/mmu: pull call to drop_large_spte() into __link_shadow_page()
-  KVM: x86: Fix shadow paging use-after-free due to unexpected role
-
-Sean Christopherson (1):
-  KVM: x86: Fix shadow paging use-after-free due to unexpected GFN
-
- Documentation/virt/kvm/mmu.rst  |   8 +-
- arch/x86/include/asm/kvm_host.h |  32 +++---
- arch/x86/kvm/mmu/mmu.c          | 184 ++++++++++++++++++++------------
- arch/x86/kvm/mmu/mmutrace.h     |   2 +-
- arch/x86/kvm/mmu/paging_tmpl.h  |  32 +++---
- arch/x86/kvm/mmu/spte.h         |   5 +
- arch/x86/kvm/mmu/tdp_mmu.c      |   2 +-
- 7 files changed, 159 insertions(+), 106 deletions(-)
-
+diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
+index 710c9c87cdf2..2c378064a1db 100644
+--- a/arch/x86/include/asm/kvm_host.h
++++ b/arch/x86/include/asm/kvm_host.h
+@@ -292,19 +292,25 @@ struct kvm_kernel_irq_routing_entry;
+  * the number of unique SPs that can theoretically be created is 2^n, where n
+  * is the number of bits that are used to compute the role.
+  *
+- * But, even though there are 18 bits in the mask below, not all combinations
+- * of modes and flags are possible.  The maximum number of possible upper-level
+- * shadow pages for a single gfn is in the neighborhood of 2^13.
++ * But, even though there are 19 bits in the mask below, not all combinations
++ * of modes and flags are possible:
+  *
+- *   - invalid shadow pages are not accounted.
+- *   - level is effectively limited to four combinations, not 16 as the number
+- *     bits would imply, as 4k SPs are not tracked (allowed to go unsync).
+- *   - level is effectively unused for non-PAE paging because there is exactly
+- *     one upper level (see 4k SP exception above).
+- *   - quadrant is used only for non-PAE paging and is exclusive with
+- *     gpte_is_8_bytes.
+- *   - execonly and ad_disabled are used only for nested EPT, which makes it
+- *     exclusive with quadrant.
++ *   - invalid shadow pages are not accounted, so the bits are effectively 18
++ *
++ *   - quadrant will only be used if gpte_is_8_bytes=0 (non-PAE paging);
++ *     execonly and ad_disabled are only used for nested EPT which has
++ *     gpte_is_8_bytes=1.  Therefore, 2 bits are always unused.
++ *
++ *   - the 4 bits of level are effectively limited to the values 2/3/4/5,
++ *     as 4k SPs are not tracked (allowed to go unsync).  In addition non-PAE
++ *     paging has exactly one upper level, making level completely redundant
++ *     when gpte_is_8_bytes=0.
++ *
++ *   - on top of this, smep_andnot_wp and smap_andnot_wp are only set if
++ *     cr0_wp=0, therefore these three bits only give rise to 5 possibilities.
++ *
++ * Therefore, the maximum number of possible upper-level shadow pages for a
++ * single gfn is a bit less than 2^13.
+  */
+ union kvm_mmu_page_role {
+ 	u32 word;
 -- 
 2.53.0
 
