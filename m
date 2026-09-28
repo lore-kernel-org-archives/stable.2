@@ -1,83 +1,147 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 995B13783C5;
-	Mon, 28 Sep 2026 08:22:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5837746F484;
+	Mon, 28 Sep 2026 08:23:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790583759; cv=none; b=u+yVY5W8DRkKzxaDXoCE8B/MqQ0/PDfN23eGxSo2oCR2Jr66DbsbIn2nnF8+NwYumLenzAFMhuUbVUFa7uVH1qKfcvF82/tgQHhtTP/3p+flc9fk6+33P4j7ZBeRzqy3t1DKO6AT4KT72z3AYQQK2aoLrfeC9uYDbCF/xzAk2v4=
+	t=1790583786; cv=none; b=OAAJQRLyxlBcn+JlMTpVs9KvfXKa1W/KZPKbhg1KIEf468pmimqtohsyEmRELnPpD6pt7MpY4jDZ80kv2UNXU8HFrcPxCjs1Jq4dO/3zhxS2TnOnv6Ky6K2QbI+aP7UxCdcipG/s02JqlE9VvFUqXvG17bZgxKNpfWZzzzMO7uU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790583759; c=relaxed/simple;
-	bh=71VpvoeXO3LpPfDEq7YVyLxqUvtg8NHlN1NDuMr40OY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=slL8x19Xejy1JEFzhkCckXBe29tGNdzJAWj9ViD1qkLLUI4bp+XcFxHsYL9o5IUqf2LAcpGMkTO8Ef/zDMK+xAJK2cXuW22mJFmlCo9ZMTlyK07YdZ9a2UAJBD4oB0hK1C8i0kPP8KlOpCqMjiCzAmgV3jZw6I2r+qA8Ee5D5co=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=JWdt5s4l; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790583786; c=relaxed/simple;
+	bh=1wocS/8MUk0c5FYoePcc+sCMjbYoo1qq/BetZNUrGpM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LTGSHrEPaIlHl08egj35eq5f9ojV8syI7cZKDnvIVu7qy7bahhZtsLKGiFLK4O0QpRT2uXnNuWROl/x671bae9fCf6J7qhkJgbAAfb5H6p+8h7S+3Yjn1y2Nzy+TIMSgqJ0Jr2cOfGz+kkipWvcdbGK43C7BQjAZ52aOll0B/L8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dFCSke2w; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="JWdt5s4l"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=gg
-	VRzXraIyqQBjjF/f4890CVZWneX6nCin74kDHMb2o=; b=JWdt5s4lFdQK7yvKze
-	jCKdCLOHbllxC9AiuC2/U5OjoaUEsvpu/RXR4A8ItD6h01qdT+B03jUwe2cHxSqJ
-	Y2Q9ZgqLQl0phL1S6ToRUXLTX525OqLGmsAgxLcy03zfNLJWqf5AQfHR+Louk5+m
-	tCsQkdRxlWETf1rLHd7eo0yFg=
-Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
-	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wDXX4GjI7pqCAGkBQ--.42849S2;
-	Mon, 28 Sep 2026 16:21:56 +0800 (CST)
-From: Quchaosheng <quchaosheng000406@163.com>
-To: netdev-bot+sinfo@kernel.org
-Cc: Quchaosheng <quchaosheng000406@163.com>,
-	Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Marc Kleine-Budde <mkl@pengutronix.de>,
-	Oliver Hartkopp <socketcan@hartkopp.net>,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dFCSke2w"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790583785; x=1822119785;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=1wocS/8MUk0c5FYoePcc+sCMjbYoo1qq/BetZNUrGpM=;
+  b=dFCSke2wKSJEFP4A6p13L9R1QdcFt/uTCcSZvV7NlkZB+a9dDl9vUAP4
+   11oRMbFoyQRnHMt9Y2wbTSQRNkQgaybImTrKXNPj6xflwYKI/9HYLhiHm
+   Xv3ugrWs+KPzVTM2omrjJaVY7DV7hPyy953YrLvYwLjXILVWrhxkJtNfk
+   Ox12LUDm95smlR2Oba5khLzPhvOIT2y+e1vuZ9U2uNQOye575Ze/2Sc9y
+   PPT/uNGFqe3wtrC28Xxl7WthpycOcsfKq1BfC/dkmVTdtv2i6MxPvFXsr
+   0gzBOhUcj7D1GVYxJm7XrKwBcUaGrHDoCwFr7tQP1XU/xdnl7O8wMJLUY
+   Q==;
+X-CSE-ConnectionGUID: ExkWOPogR+CAwgdL8SewKg==
+X-CSE-MsgGUID: AXsQDLXrT4i0xV5URw6mlg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="108765977"
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="108765977"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 01:23:05 -0700
+X-CSE-ConnectionGUID: U0XgYB7cQzujYAq8DGQ0OQ==
+X-CSE-MsgGUID: WlXpRSZvTRSRmYdNxQYmvA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="274220575"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.42])
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 01:23:02 -0700
+Date: Mon, 28 Sep 2026 11:22:59 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Weigang He <geoffreyhe2@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
+	Conall O'Griofa <conall.ogriofa@amd.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Michal Simek <michal.simek@amd.com>, linux-iio@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: Re: [PATCH v2 net] net/packet: guard the ll header push in packet_rcv_spkt()
-Date: Mon, 28 Sep 2026 16:21:40 +0800
-Message-ID: <20260928082140.1899337-1-quchaosheng000406@163.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <179058331782.31693.12350465700616409287@kernel.org>
-References: <20260928065000.1749383-1-quchaosheng000406@163.com> <20260928065000.1749383-2-quchaosheng000406@163.com> <a56a3e49-ffdf-4285-bca6-992b12127289@hartkopp.net> <20260928080919.1888649-1-quchaosheng000406@163.com> <179058331782.31693.12350465700616409287@kernel.org>
+Subject: Re: [PATCH] iio: adc: xilinx-ams: fix out-of-bounds accesses when
+ parsing channels
+Message-ID: <aroj4-Wag_kxuBxH@ashevche-desk.local>
+References: <20260926055456.3289189-1-geoffreyhe2@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDXX4GjI7pqCAGkBQ--.42849S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrtr18try8GFyrCw48Xr1rtFb_yoWDKrgE9a
-	4kZ34DXw4UJrsxWrWYkr4YyryDGayDA34rWrZ5Xr43Kr95urs8ZanxJr1S9F90yF1xKFsx
-	Gw1FvwsavwsI9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7VUj6nmtUUUUU==
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC5AQ7sGq6I6TdQQAA3g
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260926055456.3289189-1-geoffreyhe2@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Manual code inspection, and nothing reported it before this.
+On Sat, Sep 26, 2026 at 03:54:56PM +1000, Weigang He wrote:
+> ams_parse_firmware() allocates room for ARRAY_SIZE(ams_ps_channels) +
+> ARRAY_SIZE(ams_pl_channels) + ARRAY_SIZE(ams_ctrl_channels) = 51
+> channel specs and lets ams_init_module() fill them for the AMS node and
+> each of its children, without telling it how much room is left.
+> 
+> For the PL-SYSMON node, ams_get_ext_chan() appends one channel per
+> "channel@N" child after the 10 fixed PL channels. The binding allows
+> reg values 20..50, so a PL node can have up to 31 such children, i.e.
+> up to 41 PL channels, while only 31 are budgeted for it. Together with
+> the 13 PS and 7 AMS control channels, this writes past the end of the
+> buffer. Since the modules are filled in device tree order, the fixed
+> channel blocks copied after the PL node can overflow as well.
+> 
+> ams_get_ext_chan() also only checks the upper bound of reg. ext_chan is
+> unsigned, so a reg below 20 makes it wrap and ams_pl_channels[] is read
+> far out of bounds.
+> 
+> Pass the remaining capacity down to ams_init_module() and
+> ams_get_ext_chan() and fail with -EINVAL when a module does not fit,
+> instead of writing past the buffer. Also reject reg values below 20, as
+> the binding requires.
+> 
+> Found by static analysis tool CodeQL.
 
-I was working out what else the CAN skb header regression (9f10374bb024)
-reaches, and the packet socket turned out not to be covered by the CAN
-patch: packet_rcv_spkt() is the one call site of the ll header restore
-that d549699048b4 left without dev_has_header(), and SOCK_PACKET reaches
-it.  It came out of reading the receive paths, not from a scan, a tool
-or a report.
+...
 
-Because nothing had reported it, I built the reproduction before posting
-rather than sending a theoretical path:
+>  	fwnode_for_each_child_node(chan_node, child) {
 
-  v7.3-rc5 under QEMU, slcan on a pty (the driver RX path; vcan resets
-  the headers in can_send() and does not reproduce it), defconfig plus
-  CONFIG_CAN_SLCAN=y, two images from one tree differing only in the
-  hunk.  Unpatched: skb_under_panic len:-65455 out of
-  packet_rcv_spkt+0xe1 and a panic in interrupt.  Patched: no panic.
+It seems better to switch to _scoped() variant at some point.
 
-The v1 had an extra skb_mac_header_was_set() conjunct; v2 drops it after
-Oliver asked whether af_packet.c was the right place for this, and both
-kernels were re-run with the version posted here.
+>  		ret = fwnode_property_read_u32(child, "reg", &reg);
+> -		if (ret || reg > AMS_PL_MAX_EXT_CHANNEL + 30)
+> +		if (ret || reg < 30 - AMS_PL_MAX_FIXED_CHANNEL ||
+> +		    reg > AMS_PL_MAX_EXT_CHANNEL + 30)
+>  			continue;
+>  
+> +		if (num_channels >= max_channels) {
+> +			fwnode_handle_put(child);
+> +			return -EINVAL;
+
+-ECHRNG
+
+> +		}
+
+...
+
+>  	if (fwnode_device_is_compatible(fwnode, "xlnx,zynqmp-ams-ps")) {
+> +		if (max_channels < ARRAY_SIZE(ams_ps_channels))
+> +			return -EINVAL;
+
+ENOSPC?
+
+...
+
+>  	} else if (fwnode_device_is_compatible(fwnode, "xlnx,zynqmp-ams-pl")) {
+> +		if (max_channels < AMS_PL_MAX_FIXED_CHANNEL)
+> +			return -EINVAL;
+
+Ditto.
+
+...
+
+>  	} else if (fwnode_device_is_compatible(fwnode, "xlnx,zynqmp-ams")) {
+> +		if (max_channels < ARRAY_SIZE(ams_ctrl_channels))
+> +			return -EINVAL;
+
+Ditto.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
