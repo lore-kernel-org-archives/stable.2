@@ -1,45 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF4C1503902;
-	Mon, 28 Sep 2026 22:39:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0037750AC28
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 22:39:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790635163; cv=none; b=p94FDp5dfxJx/XOFnuUMXRYAwMbGdr9r0Ovf/2wz4v/ZyS3BdQ1I5tKGuUWwskegxxk4xzt01OtARl9RVGVrHmX8EMKi3qxb0rcsaslQ2PkEtXb7SN4WLSq90E949HitrRKeJdG9FidNuCRAZpNGLJeXaLyttWGMtk4dWhAA3OA=
+	t=1790635164; cv=none; b=ZFIe0oeijqCkuqz6lu7ty47+gMhMZvjXAwPLfkiq14tiRD1G2d9YfCoIK7U1MVoAANjDAhEQyKJrMZ2qiXZCSIg1ian4AZsPpQOErEzLdDXldnm0Qv0mOBqsgcOYoqoJUxZMAD3UxYCFA+wJMaA1kyX37VicRo56tCkgOIxjMkM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790635163; c=relaxed/simple;
-	bh=1XJyeLQmth8y2Pue8ALK5isM/2Ana+M/J4FUGmX3VRU=;
+	s=arc-20240116; t=1790635164; c=relaxed/simple;
+	bh=SthOyFT9Tj11ppcernimxzPQe6mZ1smHL2CHpbnFlqc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KyskPnNbW7UFU2AEZJx/QqM8isWuO1Mr2R6JrLiKBCKV9dvj8qIdsoZ51WpC5hMvFhWyCAJwnC+ArkamtuWJbHgaFILIyRU2qXwotziiNroOo9vfcYerho7gTo+9T9AwjyFdx46XkXW9DYMXkQNuhy80lbWLdsVRl1rof72zbAI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jbf3WGwT; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=j4jW6mNu0l517mH2I5w3U2zEU+J9vEAQNAgw8LEdKh48FlIFj3WVLH12SStcLu7bCBmbWWfsSQ1Tt9qd3g6L5EszDhwGR5Ylei4ZUv2/nhZACBX8OBSWfyP4h1gzKhRXFQRTQ94dwRopknDlpzK9ES2bBrF6nd44ruJVY/1n1ZU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gtxXEKXt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jbf3WGwT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E9921F000FF;
-	Mon, 28 Sep 2026 22:39:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gtxXEKXt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 247621F00898;
+	Mon, 28 Sep 2026 22:39:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790635161;
-	bh=yZVWLq10QP6ozzOGLEiOzZHrsDG3MWGDn12hp7nFEyM=;
+	s=k20260515; t=1790635162;
+	bh=8dzFfy/VK3RC4yMcOOWv8hwt9LtnCh+44OAAaNhYYRk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Jbf3WGwT4gjsrZyd6WMg6L6kxTClEshwP7xzwtYR9LZYlFUdNMuLvH45mzhqky2Au
-	 7Y2vx2gc1483ffxELAGi5uCU4CRoEvlw8gL5S5Kce98HHvndxs+6K4WzWQM1FCfhFh
-	 yr8vBSThsDqLlV/MR/LdO+42444ThoFuKQqKX1hS91PcUISZOqPbYF84nm6A1Glxd/
-	 CwTzLdSarBIdWenr0FLGm+VMc7OUe3HY2Qg3LheMucGW0uqHiRjsy0hr63zJQd/JXL
-	 tW0q+0DI/MqE0CGDK7QKSdS1i2L1Q5i9EBml7Sr5QfjHxeNQhAfp5iTM2aposRkZrd
-	 E01N7QfXdR1aA==
+	b=gtxXEKXtbE/cLjBDR4C5a5duEx+m5FzQJ77ec4E9cGThJ+W1dvjcactcyHwTfVofa
+	 Xr8MCZk9L7RIWs6wqF4AYdDYLhAnJpegiyMJjvbN3ZK181+iwTCDJdqiC2yn3hcfPS
+	 xdR4WL68/DeuIv9PPQ2UBwKbNFETzXdQh1Ko+qza2g2iq6Ry6RL4GV+ux81ZBzTHSJ
+	 7iPd+GwE48i2CDx0MPYSuwqBlxGeQDMUDtqcrfWmCWMyOFF6E96a7moT776r/Sv30a
+	 +Wi0DrOx26Tb5cHQ9FTHeyD/EeL6sj/vR+Nsu7U0Yyn+KsSf5NF4KsZ6eRl7UwWZUm
+	 XWZfiSoP7VOGg==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: gregkh@linuxfoundation.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	rppt@kernel.org,
-	sayalip@linux.ibm.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Luiz Capitulino <luizcap@redhat.com>
-Subject: Re: [PATCH v6.12.y] selftests/mm: hugepage-mremap: fix mapping alignment
-Date: Mon, 28 Sep 2026 18:39:11 -0400
-Message-ID: <2026-09-28-2-daily-reply-0007-re-hugepage-mremap-alignment-6-12-v3@kernel.org>
+	stable@vger.kernel.org,
+	matthew.brost@intel.com,
+	himal.prasad.ghimiray@intel.com,
+	sashiko-bot@kernel.org,
+	viktor_jaegerskuepper@freenet.de
+Subject: Re: FAILED: patch "[PATCH] drm/pagemap: dma-unmap pages before handling migration errors" failed to apply to 7.2-stable tree
+Date: Mon, 28 Sep 2026 18:39:12 -0400
+Message-ID: <2026-09-28-2-daily-reply-0008-re-drm-pagemap-dma-unmap-7-2@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260928131117.231700-1-luizcap@redhat.com>
-References: <20260928131117.231700-1-luizcap@redhat.com>
+In-Reply-To: <40ddcd20-cd79-4280-b3b3-16782d8b1a71@freenet.de>
+References: <2026090928-daisy-vitamins-0900@gregkh> <40ddcd20-cd79-4280-b3b3-16782d8b1a71@freenet.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,14 +48,11 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> commit a914785f6349da754e1226420bf4e51961956769 upstream.
+> The patch below *now* applies to the 7.2-stable tree.
+[...]
+> I hope I got this right because I'm just a user.
 
-a914785f6349 ("selftests/mm: hugetlb-mremap: add setup of HugeTLB pages") is
-Mike's commit, but this patch has you as the author with only your
-Signed-off-by. Could you send a v2 that keeps Mike as the author with his
-Signed-off-by, followed by yours, or otherwise makes the provenance explicit?
-
-The same applies to the 6.18.y v2.
+You did. Queued for 7.2, thanks.
 
 -- 
 Thanks,
