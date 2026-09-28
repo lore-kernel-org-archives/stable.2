@@ -1,133 +1,275 @@
-Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD79C4E8DF5
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 15:54:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED28C4D2EE4
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 16:02:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790610853; cv=none; b=WUfPEsv3mtrm2rPqOZcDE6BLZbFBpZEAQiwTxmM7ELf3O0rSkjxBO7F76MNPicm68mSyvgv/OkvqxPBya4ubQFtnjRef9bfr9l2ynqwsLMk74qm2nDkEF8mRp2KbWemGDii/NyNOS8NeFCmvU/913GN1YK4fnyb195AnRDJhDjU=
+	t=1790611351; cv=none; b=l4UAds49LkY05GBeTAfeVFivKhrDatCH0kdDai4QQx/96sTq7MiUcMJVmHY27GbQCrAc0L8kCwGu/SrKc2m5SHqLRrkMJayJKhQxAb6epDaMXYXX1KOK/VmAwCxj9hHmaZXJtcOs/xZnFmdOUN9zWOZoPz0spOdkpuDNuurxjN8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790610853; c=relaxed/simple;
-	bh=tpRDS3QWQEz+EWPX/708eI/ejVeubEVNFCMjuV09I4g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CS0gZAeQSd488zu1/jLLyQW4hiNTnmBROuFKMBPQ/7Lzj1nG7x9mE8jUEMU0AbRgMk7V+8LPsCyknLYA8aPXDrtpZuTqqCfCney4/XPMzh1OcnRZF97bRxRuExEWD3Q59/ujcX2pPCtmBrDWhTMwYfUQs4/wWRdHWIkJ0FOl8dc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ibllbsM+; arc=none smtp.client-ip=74.125.227.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790611351; c=relaxed/simple;
+	bh=kB2Grr9IfR5u5AI9gvycM4xtP0qy6KezVqhWqRj5hZM=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=QVYXe6zbwusvOcjpk0bLf0dEYm72A/QQd1autrdhg/97NW+J480tUHO6dSWBZuDif2MBThlnh+n4dW69Pyb9fpb0oX1cniAplu9d5SjMxi0DjQVplH/F66yPU2EMxh7uDlgHFNBS1Ma+cnzGUY85Yeh3bNSbj5MRuKhz3PlWL00=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=k1kmipKc; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ibllbsM+"
-Received: by mail-pj2-f40.google.com with SMTP id 98e67ed59e1d1-3a0eeda3e03so935045a91.1
-        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 08:54:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790610850; x=1791215650; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=r2fwOkBrxfItcV7iU7YqqxJNyvpWradYv+am29lYRQI=;
-        b=ibllbsM+vRpIIDgqD5yZhOk+MsIhbuZbpNTKeoahRODos+/uy1RBI63dP98D4Nm3X/
-         TadlFDW93IHO2mkRnuyidyWmtmWaM7WD4dufV/toI2nQhZE/3TfzD83QVYC2/KKc0ORS
-         tkt4w7C94QHZHfGl5lxplnu+PbC9jL3alRt/taqHF6EZ9gzGP+U29cfjc/PMi0fjasRv
-         fvap/9TweqtF4GBMBN5qkUToPZ+7N5bODDcWKzS8BqodBk2vFy6ipMuJzP4ElGbNeoBa
-         FEC8F2Q0e1rc0extEfFsu/EDPMjJY72XDFJisjysfwyjgphN2ryk6C8MipyHMJ6MT8SZ
-         SUTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790610850; x=1791215650;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=r2fwOkBrxfItcV7iU7YqqxJNyvpWradYv+am29lYRQI=;
-        b=XcAfZd7RM/udMZkfBFsNa4TBZhiNKmYDNTkWDreJU5+cC1MCYCN4swrJ/d9GimiWfY
-         eA9RDRLDMIuVE4b0RsxFqmJPtuKJWRRi/D6/yzSJ+9eXDfP3NotYp5ny6tbSEBYFSoOS
-         g4qCH4/+N5A+v0QK/HWRSFm5YMdG7aeV6LQOvHwbQ31ms0Mg5qOHs+oLfwH7xt2vuG/+
-         u+YYk+sTETccBv+US1bqRP5nwxBMrODC0QBu0Es3N4nTKmof33Xe2VWzXcndSSXD7bgm
-         KnmvinJ/GH39rgSRuu1BlKhZWXKQoCBjXxqCGx9BLQX1U1T78VdCu+l+Y0zuBCZj0w9Z
-         I/rw==
-X-Forwarded-Encrypted: i=1; AKwUvBwy5M3olbf73/Go4qsXGiYzZT7Xe3IUG3ZmpzDcV/3FStXhIBG87LG7SZvdr+nUhviSvsMUIa8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLylQqyw8kVRhCMxiaLn7XNNySC9KfV8A4tNim+nksAX7JmaF8R
-	ck+FHd9N4Wtz5PLATnzCINfFtzFghMZwmqIrSZLlBuQLs9BWkrqzFAAz
-X-Gm-Gg: AYBFou3lACeq2ohEy7Z8bSwuDOCGrBSajZtYYKHimdqpk2sETLgjJM6D/iAcgYKw7nj
-	PloITIedumie56VQdKC9yj1IetwdAilEfk4Z0wG2h5dCOKB9WuYam+XHav7/3CVAHKKbezQTah7
-	rgW7Lty/6o998XPVd29FYEq0kOjdomGrpRprNVoIXX3ZmNycJ8lH8mpKg9mUHL4OIwMlMmSvs0V
-	vHS58TyJHbj/cWJGTljD+dlWa0yF9tYiXkHvvtWCcUNIinrWy7Px4SbTK95V/HRyQ0u7pIdjOQF
-	HbJwilJEiN6zqAaHn50ApR4lBWkgz7efR6sDmNCaR/zcVqI9m4IqqOoWNQSzLl+lxiCRXp26i5u
-	IwjE7AJgCcM32OoJpLu421IGO7+ezjoWOUhCv77f5s7Wzu1t8k5qsSNOL2Li94WcDHUarRSN54t
-	AmI3Sc3ddMnixe1u3w06Gi/T383GDle5hriQqwguhExvqbMn5VxgpzdOwJjKKh4coMJUjx3ngg6
-	WdJnCBI8O+Cef5y+H2PuNmm
-X-Received: by 2002:a17:90b:1c83:b0:3a0:cde8:1dd6 with SMTP id 98e67ed59e1d1-3a0cde82a7amr4463595a91.6.1790610849810;
-        Mon, 28 Sep 2026 08:54:09 -0700 (PDT)
-Received: from localhost.localdomain ([43.224.245.233])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4986a1905sm44269a91.13.2026.09.28.08.54.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 08:54:09 -0700 (PDT)
-From: Dongliang Qin <cccccccccccc777777@gmail.com>
-To: Zhu Yanjun <zyjzyj2000@gmail.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>
-Cc: Dongliang Qin <cccccccccccc777777@gmail.com>,
-	linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Bob Pearson <rpearsonhpe@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 4/4] RDMA/rxe: Do not force cleanup on pool timeout
-Date: Mon, 28 Sep 2026 23:53:51 +0800
-Message-ID: <20260928155351.3222978-5-cccccccccccc777777@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260928155351.3222978-1-cccccccccccc777777@gmail.com>
-References: <20260928155351.3222978-1-cccccccccccc777777@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="k1kmipKc"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 3B2DD4E4109A;
+	Mon, 28 Sep 2026 16:02:26 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 05597601BD;
+	Mon, 28 Sep 2026 16:02:26 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2C436103295A7;
+	Mon, 28 Sep 2026 18:02:12 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790611340; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=z+FTNcI1ZVOGKwAwbJoRaB+RsZ8LwvDolH15T9JS/r0=;
+	b=k1kmipKcbgZK4+GJAxsjcIf58jtCIK8Ge5m2VLrsc5Ogh51sBKvy57GnvRupbQn/aowVH2
+	fOZWSMGi/T29Rq3hzIXs3g4wpdEXw/wRKJnRbqcBGGHbCNHV96L/dj3wcE0IL47TJ4v0Xb
+	xdMqzefAm1ro38v6E4yIyy7npBFsltDigNYgMXI+MHxvIKkvcG1f2sued4say67tUtepFn
+	f0hyPinq8oEPPnPg7iossaiTuyf5ByO1x+gWYi11ELovX+eZlhvBig0Zy9iTgB3iWkQhqW
+	NYGugVv040UixzMO5+G0wm3W39CO4fPWo520T9ocP2ddYAJeM6E11rffaUMMcQ==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: Jacky Huang <ychuang3@nuvoton.com>,  Shan-Chun Hung
+ <schung@nuvoton.com>,  Michael Turquette <mturquette@baylibre.com>,
+  Stephen Boyd <sboyd@kernel.org>,  Richard Cochran
+ <richardcochran@gmail.com>,  Arnd Bergmann <arnd@arndb.de>,  Brian Masney
+ <bmasney+clk@redhat.com>,  Jerome Brunet <jbrunet+clk@baylibre.com>,  Rob
+ Herring <robh@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>,  Thomas Petazzoni
+ <thomas.petazzoni@bootlin.com>,  Steam Lin <STLin2@winbond.com>,
+  linux-arm-kernel@lists.infradead.org,  linux-clk@vger.kernel.org,
+  linux-kernel@vger.kernel.org,  Krzysztof Kozlowski <krzk@kernel.org>,
+  devicetree@vger.kernel.org,  stable@vger.kernel.org
+Subject: Re: [PATCH v4 5/6] clk: nuvoton: ma35d1: Use clk_hw pointers as mux
+ parents
+In-Reply-To: <1jeceeaaug.fsf@starbuckisacylon.baylibre.com> (Jerome Brunet's
+	message of "Sun, 27 Sep 2026 19:00:07 +0200")
+References: <20260925-perso-ma35d1-upstream-clk-v4-0-f3697553391f@bootlin.com>
+	<20260925-perso-ma35d1-upstream-clk-v4-5-f3697553391f@bootlin.com>
+	<1jeceeaaug.fsf@starbuckisacylon.baylibre.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Mon, 28 Sep 2026 18:02:12 +0200
+Message-ID: <87h5j974aj.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-The sleepable pool cleanup path waits up to 50 seconds for the last
-reference and then continues cleanup anyway. If a reference is still
-held, that turns a lifetime bug into a use-after-free.
+On 27/09/2026 at 19:00:07 +02, Jerome Brunet <jbrunet@baylibre.com> wrote:
 
-Wait for completion instead. A stuck object is easier to diagnose than
-a stale pointer; the existing non-sleepable path is unchanged.
+> On ven. 25 sept. 2026 at 17:10, Miquel Raynal <miquel.raynal@bootlin.com>=
+ wrote:
+>
+>> The MA35D1 clock provider registers its muxes with parent data
+>> structures filling .fw_name. This is not the ideal approach since that
+>> would require a massive amount of internal clock names declaration in
+>> the DT. Since the DT does not play the game of exposing all these names,
+>> none of the parent lookups performed when instantiating the muxes
+>> succeed. As a result, these muxes get registered as root clocks, leading
+>> to a sadly flat clock tree and no frequency assigned to most of the
+>> peripheral clocks:
+>>
+>>                                  enable  prepare  protect
+>>    clock                          count    count    count        rate
+>>
+>>  usbphy1                             0       0        0        480000000
+>>  usbphy0                             0       0        0        480000000
+>>     husbh1_gate                      0       0        0        480000000
+>>     husbh0_gate                      0       0        0        480000000
+>>     usbh_gate                        0       0        0        480000000
+>>     usbd_gate                        0       0        0        480000000
+>>  syspll                              0       0        0        180000000
+>>  lirc                                0       0        0        32000
+>>     lirc_gate                        0       0        0        32000
+>>  hirc                                0       0        0        12000000
+>>     gtmr_gate                        0       0        0        12000000
+>>     hirc_gate                        0       0        0        12000000
+>>  lxt                                 0       0        0        32768
+>>     rtc_gate                         0       0        0        32768
+>>     lxt_gate                         0       0        0        32768
+>>  hxt                                 0       0        0        24000000
+>>     vpll                             0       0        0        1224000000
+>>        dcup_div                      0       0        0        612000000
+>>     epll                             0       0        0        6000000000
+>>        epll_div8                     0       0        0        750000000
+>>
+>>        epll_div4                     0       0        0        1500000000
+>>        epll_div2                     0       0        0        3000000000
+>>           emac1_gate                 0       0        0        3000000000
+>>
+>>           emac0_gate                 0       0        0        3000000000
+>>
+>>     apll                             0       0        0        6048000000
+>>     ddrpll                           0       0        0        266460000
+>>        ddr_gate                      0       0        0        266460000
+>>        ddr6_gate                     0       0        0        266460000
+>>        ddr0_gate                     0       0        0        266460000
+>>     capll                            0       0        0        2400000000
+>>     hxt_gate                         0       0        0        24000000
+>>  clk_hxt                             0       0        0        24000000
+>>  spi3_mux                            0       0        0        0
+>>     spi3_gate                        0       0        0        0
+>>  spi2_mux                            0       0        0        0
+>>     spi2_gate                        0       0        0        0
+>>  spi1_mux                            0       0        0        0
+>>     spi1_gate                        0       0        0        0
+>>  spi0_mux                            0       0        0        0
+>>     spi0_gate                        0       0        0        0
+>>  i2s1_mux                            0       0        0        0
+>>     i2s1_gate                        0       0        0        0
+>>  i2s0_mux                            0       0        0        0
+>>     i2s0_gate                        0       0        0        0
+>> ...
+>>
+>> Apart from the wrong clock tree representation, it means that none of
+>> the device drivers (spi & i2c in the excerpt above) can actually query
+>> their clock rate, or they would get 0Hz.
+>>
+>> Instead of declaring the parents in the clk_parent_data structure, use
+>> the actual HW clocks to lookup the parents directly: parents are
+>> described by an array of indices into the controller's main clock table
+>> (like in other clock controller drivers), which the "new" mux helper now
+>> resolves.
+>>
+>> The WDT and WWDT muxes list the /4096 children of PCLK3 and PCLK4 among
+>> their possible parents. Those two clocks are now registered by the
+>> previous commit, so their entries in the parent tables are restored
+>> instead of being turned into invalid slots.
+>>
+>>                                  enable  prepare  protect
+>>    clock                          count    count    count        rate
+>>
+>>  usbphy1                             0       0        0        480000000
+>>  usbphy0                             0       0        0        480000000
+>>     husbh1_gate                      0       0        0        480000000
+>>     husbh0_gate                      0       0        0        480000000
+>>     usbh_gate                        0       0        0        480000000
+>>     usbd_gate                        0       0        0        480000000
+>>  syspll                              1       1        0        180000000
+>>     dbg_mux                          0       0        0        180000000
+>>     sdh1_mux                         0       0        0        180000000
+>>        sdh1_gate                     0       0        0        180000000
+>>     sdh0_mux                         0       0        0        180000000
+>>        sdh0_gate                     0       0        0        180000000
+>>     sysclk1_mux                      2       2        0        180000000
+>>        pclk4                         0       0        0        90000000
+>>        pclk3                         0       0        0        90000000
+>>           sspcc_gate                 0       0        0        90000000
+>>           ssmcc_gate                 0       0        0        90000000
+>>        hclk3                         0       0        0        90000000
+>>        pclk2                         0       0        0        180000000
+>>           eadc_div                   0       0        0        90000000
+>>              eadc_gate               0       0        0        90000000
+>>           qei1_gate                  0       0        0        180000000
+>>           ecap1_gate                 0       0        0        180000000
+>>           spi3_mux                   0       0        0        180000000
+>>              spi3_gate               0       0        0        180000000
+>>           spi1_mux                   0       0        0        180000000
+>>              spi1_gate               0       0        0        180000000
+>>           epwm1_gate                 0       0        0        180000000
+>>           i2c5_gate                  0       0        0        180000000
+>>           i2c2_gate                  0       0        0        180000000
+>>        pclk1                         0       0        0        180000000
+>>           qei2_gate                  0       0        0        180000000
+>>           qei0_gate                  0       0        0        180000000
+>>           ecap2_gate                 0       0        0        180000000
+>>           ecap0_gate                 0       0        0        180000000
+>>           spi2_mux                   0       0        0        180000000
+>>              spi2_gate               0       0        0        180000000
+>>           spi0_mux                   0       0        0        180000000
+>>              spi0_gate               0       0        0        180000000
+>>           epwm2_gate                 0       0        0        180000000
+>>           epwm0_gate                 0       0        0        180000000
+>>           i2c4_gate                  0       0        0        180000000
+>>           i2c1_gate                  0       0        0        180000000
+>>        pclk0                         1       1        0        180000000
+>>           adc_div                    0       0        0        90000000
+>>              adc_gate                0       0        0        90000000
+>>           qspi1_mux                  0       0        0        180000000
+>>              qspi1_gate              0       0        0        180000000
+>>           qspi0_mux                  1       1        0        180000000
+>>              qspi0_gate              1       1        0        180000000
+>>
+>>           i2c3_gate                  0       0        0        180000000
+>>           i2c0_gate                  0       0        0        180000000
+>>
+>> Fixes: f50a000b4219 ("clk: nuvoton: Use clk_parent_data instead of strin=
+g for parent clock")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+>> ---
+>>  drivers/clk/nuvoton/clk-ma35d1.c | 626 +++++++++++---------------------=
+-------
+>>  1 file changed, 177 insertions(+), 449 deletions(-)
+>>
+>> diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-=
+ma35d1.c
+>> index c914079cee2d..1a857f28310f 100644
+>> --- a/drivers/clk/nuvoton/clk-ma35d1.c
+>> +++ b/drivers/clk/nuvoton/clk-ma35d1.c
+>> @@ -63,300 +63,49 @@ static DEFINE_SPINLOCK(ma35d1_lock);
+>>  #define PLL_MODE_FRAC           1
+>>  #define PLL_MODE_SS             2
+>>=20=20
+>> -static const struct clk_parent_data ca35clk_sel_clks[] =3D {
+>> -	{ .fw_name =3D "hxt", },
+>> -	{ .fw_name =3D "capll", },
+>> -	{ .fw_name =3D "ddrpll", },
+>> -};
+>> +#define MA35D1_MUX_MAX_PARENTS	10
+>
+> I'm bit puzzled how this was supposed to work before. Most of those
+> inputs are not present in binding doc. The controller was supposed get
+> clocks from itself through DT ???
 
-Fixes: 215d0a755e1b ("RDMA/rxe: Stop lookup of partially built objects")
+No idea why it has been written like that. Just to keep things clear, my
+re-write is a fix, not a cleanup. Without it, the SPI controller does
+not probe and I care about the SPI controller being fixed in this cycle.
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Dongliang Qin <cccccccccccc777777@gmail.com>
----
- drivers/infiniband/sw/rxe/rxe_pool.c | 14 ++------------
- 1 file changed, 2 insertions(+), 12 deletions(-)
+> There is one input documented though. It seems to be hxt, so you should
+> probably continue to use fw_name for this one at least.
 
-diff --git a/drivers/infiniband/sw/rxe/rxe_pool.c b/drivers/infiniband/sw/rxe/rxe_pool.c
-index d9cb682fd71f8..d5ff5d453f5f8 100644
---- a/drivers/infiniband/sw/rxe/rxe_pool.c
-+++ b/drivers/infiniband/sw/rxe/rxe_pool.c
-@@ -178,7 +178,7 @@ int __rxe_cleanup(struct rxe_pool_elem *elem, bool sleepable)
- {
- 	struct rxe_pool *pool = elem->pool;
- 	struct xarray *xa = &pool->xa;
--	int ret, err = 0;
-+	int err = 0;
- 	void *xa_ret;
- 
- 	if (sleepable)
-@@ -201,17 +201,7 @@ int __rxe_cleanup(struct rxe_pool_elem *elem, bool sleepable)
- 	 * return to rdma-core
- 	 */
- 	if (sleepable) {
--		if (!completion_done(&elem->complete)) {
--			ret = wait_for_completion_timeout(&elem->complete,
--					msecs_to_jiffies(50000));
--
--			/* Shouldn't happen. There are still references to
--			 * the object but, rather than deadlock, free the
--			 * object or pass back to rdma-core.
--			 */
--			if (WARN_ON(!ret))
--				err = -ETIMEDOUT;
--		}
-+		wait_for_completion(&elem->complete);
- 	} else {
- 		unsigned long until = jiffies + RXE_POOL_TIMEOUT;
- 
--- 
-2.43.0
+"documented" is maybe a bit strong. There is one reference to a phandle
+named clk_hxt, that's it? I don't think it qualifies as a validated
+binding :)
+
+> That being said, the bindings doc seems wrong. Looking at the driver you
+> should have 4 inputs (hxt, lxt, hirc, lirc), unless those are actually
+> generated on SoC ? Since there is already a DT using these, I suppose it
+> is too late for the last 3 and you'll be stuck pretending they are
+> generated in this controller :/
+
+The TRM identifies:
+- HXT and LXT as external crystal oscillators
+- HIRC and LIRC as internal RC oscillators
+So we want an accurate description, HXT/LXT are worth declaring, but not
+HIRC/LIRC.
+
+There is no way to fix this without a breaking change.
+
+My approach for these clocks:
+- Describe lxt like hxt in the DT. In the driver, I will take it from
+  DT, or fallback to a known base rate otherwise (so no breaking
+  change). This is possible since the TRM itself forces the rate of the
+  two oscillators. I will also ask for clock names in the binding.
+- Fix the name of the output clocks to match the driver (use "hxt"
+  instead of "clk_hxt" in the DT). I could fix the driver instead, but
+  all other clocks would be named differently, which would be
+  strange. So since we anyway *need* a DT update, let's go for a clean
+  naming.
+
+The other patches can still go like they are.
+
+Thanks,
+Miqu=C3=A8l
