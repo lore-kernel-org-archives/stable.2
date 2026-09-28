@@ -1,44 +1,44 @@
 Received: from www5210.sakura.ne.jp (www5210.sakura.ne.jp [133.167.8.150])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E42DC4EFFD3;
-	Mon, 28 Sep 2026 16:45:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D270C4F3EAC;
+	Mon, 28 Sep 2026 16:45:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=133.167.8.150
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790613904; cv=none; b=W+L2HLjM+hgV4vwAWb1kqRvgwz7E8edS48GIITGhsz/celgvyupb9/fZtZjf6dpMMvtp9VAa7beEihndil58ayOISm5cBUtX1iwJ27cfyrwLGzz2eO36mYD3bjIB8UROJYu5RXExAvq1xyCcjm79VhTzV60CuFy17j9ag6q47L8=
+	t=1790613904; cv=none; b=iYjVXCvUHZBYDD3YzNkgwlLHLNGRNRpwzMlmTyGoBT6jEdhVoolJm2ZIJbiQ7AhxS44RXISbU+ycPFgZtkaiIEWnjC7eAzk/NXeZKWOUa8nuQfCEcIclw3YDdXMhPDXSysVvjQjUxTiRUnb/Dxjej6PQx9VHhVT828v4H49PvKQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790613904; c=relaxed/simple;
-	bh=AKfHvxLLirt3cawUOFYry+ypxuH5o/0PwWfjxgKgRp4=;
+	bh=Yz3DUS+IFvQo6aPzOqW2+myeNbLjYQRjqsyOdwh045Y=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bzGjFvrJOAxjNyYWIswoSLl4xm2aFLA8PtB+iP2P++vb3aBk51Jim9cuXU0a21DJt9w7FXu1FjLnev82Q1nBQvYbakoSOqael5KzHLJNpCAkPnAwRWLpJOMETYabzfgBexvnKCWHu6BG38Ix/6ubSnVPiGKWG8GAapISqKbSAeM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mgml.me; spf=pass smtp.mailfrom=mgml.me; dkim=pass (2048-bit key) header.d=mgml.me header.i=@mgml.me header.b=qY0wSOhQ; arc=none smtp.client-ip=133.167.8.150
+	 MIME-Version; b=sDmqKcBMQlnH2qjJSiVx+JvrK5/tROsBSSQ6pdPFQFvKUz8uBNdxeoCdcsf27bDcp/s5S+duU7EYkwDHrpF1qCilAaeQTdnZyDUqsUww5ie9GR0fDN7s7FyK0xzAofn6u2VTz3Qmncgj1Iu/OxqvNCONvG0d1JIDFyVXcf5yrIk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mgml.me; spf=pass smtp.mailfrom=mgml.me; dkim=pass (2048-bit key) header.d=mgml.me header.i=@mgml.me header.b=HRPG+nat; arc=none smtp.client-ip=133.167.8.150
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mgml.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mgml.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mgml.me header.i=@mgml.me header.b="qY0wSOhQ"
+	dkim=pass (2048-bit key) header.d=mgml.me header.i=@mgml.me header.b="HRPG+nat"
 Received: from fedora ([104.28.225.80])
 	(authenticated bits=0)
-	by www5210.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 68SGijNp080644
+	by www5210.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 68SGijNq080644
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
-	Tue, 29 Sep 2026 01:44:50 +0900 (JST)
+	Tue, 29 Sep 2026 01:44:51 +0900 (JST)
 	(envelope-from k@mgml.me)
-DKIM-Signature: a=rsa-sha256; bh=tB7ZuGX+nKWVkPgylIWZb8HlxfExf1xZ2KYg5VteNE8=;
+DKIM-Signature: a=rsa-sha256; bh=kTp+YcUkA56lS5RHOmzs9i27URDUDkF58ooHz3G3/6g=;
         c=relaxed/relaxed; d=mgml.me;
         h=From:Message-ID:To:Subject:Date;
-        s=rs20250315; t=1790613890; v=1;
-        b=qY0wSOhQHL+GQTMKgygjLcHx4K34MJrBxS/I5n1xUHWYQFbyj2JwoGWQfmiOL3uL
-         8xotRc1WgLfiCsBKrLBdQgnuYSNIuhkBqW9Fb4F5nbW27da5PcrIIBA/K/7uUoJJ
-         b3sCGKFJLsNl77gtpIxJLEJvXjNoZ8elJ4B4CuTSVR+Ufk5R4Cs/A4d3MqQkJa8+
-         q8q8WeShTLOf7Tjj6i/i/P7laGaP8uprnzkWIObHnfu5mDGDhBUV2dyjR1wShQ4P
-         FcM9A1SErKgVhEYRthyUa67nP6dgLxzvz9G5Oy1E6c8jt7f/KE1WIzjY7+yw7E6E
-         FEKkaWt2qB6IJFdKek8M9Q==
+        s=rs20250315; t=1790613891; v=1;
+        b=HRPG+natydrtra/gDOD21fTifb5q6kiF5D87CWfRXs0Q2HwI/19vcvR3Fbc4Zh2f
+         FTlMPIOq7Y7hDf0pHeM/vfWc3elxujxM4TO8CSH/m4hsaSJF6CPJxLJJRQxosXIg
+         PDeQIGcPsDBjzQ/splQaNkGM8GapUUC0QSEUBm1ZCQ3Itp0qxtwwvoI0mD0hE/gO
+         hRQF3/amtDurjXBHHklEsPksWGna70EXqGnCUuvJOen1Tc9yTmOiRAR+b0gFOVd7
+         jgFwQAXiTJQPnljIDiAHcUXgfbJzENX5wQCPkpMJ5+By9UUHRGkxnuu5s6Zn3AZ8
+         +PfrN1vAaSAPI7FyRx44Rg==
 From: Kenta Akagi <k@mgml.me>
 To: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, stable@vger.kernel.org
 Cc: Paolo Bonzini <pbonzini@redhat.com>,
         Lai Jiangshan <laijs@linux.alibaba.com>, Kenta Akagi <k@mgml.me>
-Subject: [PATCH 5.15.y v4 04/11] KVM: X86: Remove useless code to set role.gpte_is_8_bytes when role.direct
-Date: Tue, 29 Sep 2026 01:44:20 +0900
-Message-ID: <20260928164427.4699-5-k@mgml.me>
+Subject: [PATCH 5.15.y v4 05/11] KVM: X86: Calculate quadrant when !role.gpte_is_8_bytes
+Date: Tue, 29 Sep 2026 01:44:21 +0900
+Message-ID: <20260928164427.4699-6-k@mgml.me>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260928164427.4699-1-k@mgml.me>
 References: <20260928164427.4699-1-k@mgml.me>
@@ -52,33 +52,35 @@ Content-Transfer-Encoding: 8bit
 
 From: Lai Jiangshan <laijs@linux.alibaba.com>
 
-commit 41e35604eaff2266ba8523787ebe99c5ca4c4045 upstream.
+commit b46a13cb7ea1137b2e01dfaafcacd5cd79db8390 upstream.
 
-role.gpte_is_8_bytes is unused when role.direct; there is no
-point in changing a bit in the role, the value that was set
-when the MMU is initialized is just fine.
+role.quadrant is only valid when gpte size is 4 bytes and only be
+calculated when gpte size is 4 bytes.
+
+Although "vcpu->arch.mmu->root_level <= PT32_ROOT_LEVEL" also means
+gpte size is 4 bytes, but using "!role.gpte_is_8_bytes" is clearer
 
 Signed-off-by: Lai Jiangshan <laijs@linux.alibaba.com>
-Message-Id: <20211118110814.2568-14-jiangshanlai@gmail.com>
+Message-Id: <20211118110814.2568-15-jiangshanlai@gmail.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 Signed-off-by: Kenta Akagi <k@mgml.me>
 ---
- arch/x86/kvm/mmu/mmu.c | 2 --
- 1 file changed, 2 deletions(-)
+ arch/x86/kvm/mmu/mmu.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index 9f193b1620a9..f6ad81b5e637 100644
+index f6ad81b5e637..62e9a7db0183 100644
 --- a/arch/x86/kvm/mmu/mmu.c
 +++ b/arch/x86/kvm/mmu/mmu.c
-@@ -2093,8 +2093,6 @@ static struct kvm_mmu_page *kvm_mmu_get_page(struct kvm_vcpu *vcpu,
- 	role = vcpu->arch.mmu->mmu_role.base;
+@@ -2094,7 +2094,7 @@ static struct kvm_mmu_page *kvm_mmu_get_page(struct kvm_vcpu *vcpu,
  	role.level = level;
  	role.direct = direct;
--	if (role.direct)
--		role.gpte_is_8_bytes = true;
  	role.access = access;
- 	if (!direct_mmu && vcpu->arch.mmu->root_level <= PT32_ROOT_LEVEL) {
+-	if (!direct_mmu && vcpu->arch.mmu->root_level <= PT32_ROOT_LEVEL) {
++	if (!direct_mmu && !role.gpte_is_8_bytes) {
  		quadrant = gaddr >> (PAGE_SHIFT + (PT64_PT_BITS * level));
+ 		quadrant &= (1 << ((PT32_PT_BITS - PT64_PT_BITS) * level)) - 1;
+ 		role.quadrant = quadrant;
 -- 
 2.53.0
 
