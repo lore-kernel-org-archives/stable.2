@@ -1,160 +1,147 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CB8D4DE716
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 15:30:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.99
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790609439; cv=pass; b=nXTs6u0UugXCC9FkK15Vn1tDMH93s0gzfiQ0djsPQvll5mPXPNVNoN8/xuO9sxsqqN6rHzhiuGjRjoE4MM1uoMWpqZt2xwMvM7CFL1YFq5iJ+nVpA9FfAWtYR3gtFMe9mEItf89pEHvPNAgzX6X+EHL5Np2anrRmFx1gDSnAaOg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790609439; c=relaxed/simple;
-	bh=gZgMmy9iAMgkBrxlGAqSHgLuQfDEbw4L61apoLC/Go8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NglhQPDtaQX5SGKg5ERh+S0aBs8itR6Iy/S4JQCII4snVDfPOaIR7tvG1Ks46tpFWak5FVcEBmf12zNdeNlY/bHT7ZYxrhbahKlUKtyKrqfqvuoKb7SKC9p63S10wLtERMXd75AEHWaDtiQ2R9Kz1zve0s+EtGhggjqg+Wg+zZ8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O4XVAUld; arc=pass smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 948A6439F83
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 15:38:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790609904; cv=none; b=FMT6y6lI6nTLmEegOJazilyqU9bk6Tdmqr1lnV861yiKfpxgHpVqgpvSDdO3+lo1U09/ZKDYOEgdSHzj555uPOKioo+22zhGHn/FEyknKK50dptYGpdAOXbhJm/hqo/RiNmKn8R/2S2YYyYhncphM18QXxD/p+gvzXyf1yduYqI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790609904; c=relaxed/simple;
+	bh=XhEbxzOTRkAmA5AexQM2CcjEUVdr2JxncxkriFM2HX0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pWLZ08PaM6J0rfHFiQ2kkOsGjJ+hl26xkvGzUlPEWjY8feOW3oll2WfIIGcHRHrm8b6m+i9EojO9O9xgRGCthJ48/5o0E7BySyGnJo6O0VLGshXA3+K/M4IO8J4whTB4aF1/EA1hUfUA3459yp9NUIfBp5ur06OUmGWwddp4L20=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=s9qKBBN0; arc=none smtp.client-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O4XVAUld"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-482f635552aso2527819f8f.2
-        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 08:30:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790609436; cv=none;
-        d=google.com; s=arc-20260327;
-        b=sG57Tj8AZsbOFQDNy651W6iHqTGp9bfsJyrPU/HqkRrlHt+PYmtCbIRjpB2mR+VGiM
-         W8HhEXOkl+sFeEGS94RPXJQ01kohnu64PD5Mob/CfpO8rHyUTC+ON+0wqibdh6VLkSw2
-         IYpLq3CLmO/Jx5glyWIQAMSUmyJeHgJFQ6RyjhxfrkZN1SD4WNR46og7Vb3zEfY7XZv5
-         Ym2+a8tUT1sbyEc2Ey+84laNepLuAbHReaDPfZp0Hc5KYXoGjybU+FHWpVkFbtOgICu1
-         GORWzxWVxb76E33hCulhIrIcu8Yb3AbM5I1iwoFNc5IdKlQ2gCfEJQEO3jAj7UqLKqh/
-         8BXw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=C1sUtiuOaBXEezf3iViA9gUAl7eyYpT11jnOSB4ZV8M=;
-        fh=JsVAAXUWf+Sp694KLtexPi228w6AF0FTKQbhKP6Fu98=;
-        b=PRoMlWpqIdMm3haU7yNFq/jhykqF6AK7A9cExu3aZqBUgEgJULLUnenrnfZsrKbomK
-         HUhJhYXkmQyiwG1FghJ3Ksyo2h7WUE003xl/DBp8RuyyP50cKVXGtYwTU0RMq97a9upQ
-         eICA3b+YWybbbul2bnB+Y6i52NtZGhKmadHyFVsRFA5gi3ne1x76+NHtKb/Q4n3QU3RF
-         VQyJA2M4lxHCypTPdwqLMq+dihFo+QuM58K/u/a0qhgxQt3wUVPAklxwmDJ7bV7pty/N
-         pC4blhx/BxA/yYYejRgUWlhsRAOg/Lzd5ZVBZ2Vu5O8sV0HjOOyNjwtez5JRVizJdSPY
-         GRWw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="s9qKBBN0"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2dd1dcdcf95so14994505ad.1
+        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 08:38:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790609436; x=1791214236; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=C1sUtiuOaBXEezf3iViA9gUAl7eyYpT11jnOSB4ZV8M=;
-        b=O4XVAUldfBCKV2kbOeqMguuL8bQ6zwlsdrZJr5WfLH1S1IIxFPw6bhuBR7oMP8j3VB
-         gYkXgm27xU+wVSZwHSpYgpxZ/J4VDMP7env5IeMAnvJdh2n9otnPewLJEXfCXRshMGv6
-         mqqgXxqulAqen9z2626QPbJ31HYXfen/z0ZHGVfpqkyoI5sQJhOVNDZ23Dse8e1etmG8
-         uDkVHj5DeQvtmSW1h3rLd+XFiliYfwKRPp/+fXZOpkrgmudH0Z2Zj5C6dItYvGmMcqVu
-         OBH9YcO/UeErO6+rtUd56PmPlpxTvwFRyFJJI03TPmDimj+XDm5c/bKihEq1IiQfrzn/
-         +FoQ==
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1790609900; x=1791214700; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XBU2jM7DrC1QbY7mAZYFQZnTdG21byzKYq2Cu4WLBZU=;
+        b=s9qKBBN0P5zcG5NxoFfmNpEfVwphwCsncEedOTPag7aJzDILn5m5itkvczaXAib0cL
+         jA3TFPk07PbKNrbAHs12Z6ISAmsizc0hQoE4oqZMW7y9Of8vDTfrVhk4SG4mx39VLPdU
+         5cPYqvx2oy4Ki2YDLhxbLxd1QQNUYamsFBBwaVqiKtalhKPG4QF046LWh8B6b3DA08FZ
+         au19WPsKQHlYNYlZEMKG04pCJOXjBo8/nUg+f/RlFE0gJx6OBGFBjb3DZWvQWlBx0HqR
+         k7kexMJOwuVWWjLsIPHOH6KKF8Di0cDTZ+COl8/uYstdDvWOQKwA5LqoV/NDpHlpBWdE
+         2aQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790609436; x=1791214236;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=C1sUtiuOaBXEezf3iViA9gUAl7eyYpT11jnOSB4ZV8M=;
-        b=uxT22si1odaHB+c8pMUiJ9x1MDcgBjYBWIbz+/lfZd0h2H015Yn2uM4q2/D+x9PTSi
-         25AvW2mX7hdmndDvO8snSSzXk3riKxnydMLkwWcOeTLR+onmzpXlUCNtB23LL5/PP+5H
-         oEG1h9D1MrBiYGad1lKyao+5yXDDIAPf9ALLSWwNSc9OjPxqN/iW4qIvHPPqzdBAR350
-         n7XE7KJt3pvvovUkzh3OQtvmotIaB77Q2e30uDb0XFB0cjd7SZPahkvqF5czltjKF2QH
-         avmdUKgWTeDOZmh7DDfgKgZlrRE2WliYixHihFx0k+AucwyOOiCKYZ6iyb4vUnlfVjWX
-         bURg==
-X-Forwarded-Encrypted: i=1; AKwUvByGfV8hexmBMTFKjBJ40Sn4wzCd9iF70gyCKdAVOGhtHHWcBEyxZNpgjre5aRbBLmNaycb1Xs0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKW2TrOaRhz9VwzYRA0u/BUyMZgOYxZxOoHYKgJocvl0sPmuIWc
-	PQ8gwPqNPkk/QJHsME20jbChp1w2VswyMzPOXirRhuWXefbs7ELIYwisgA9OPENA2CL8tAHHYPT
-	j2sX/VX8izhvzhZNCRZq3m1RETUJTltg=
-X-Gm-Gg: AYBFou0tbd+TUpmzujgOXKW47spqBFBBD0t/k6PfxhF6ZdsFhW2PxvgS8VHYmRJfQn7
-	9tHI91VeTCQKO2lam1PRB8qizV7V3Y4T78pdQQyqGDttJUCVz35/lMWZ+zo//YPp1wA1GqGBYKw
-	o4ThHJtVBJFOADlVi+jp6Aa/KZlCnQvGe00oEQwUcNHAJlFI2ZqP3Mq52E7DYUj7u3qAIhywBIq
-	qWdupCmFTcTIvRZfVv7/8KzuoVX7chcEh3C0GsbG/X1eWuG2PEbP/4R6VYXWTqLcKeqPEw7LvBJ
-	fFsX6/FLjIljIchAqT2xK8TVLGSahthO3xnASM73XDuP7sP8jIRaGdqIU1Aj63PAEo9Atw==
-X-Received: by 2002:a05:6000:4202:b0:488:8864:e2cc with SMTP id
- ffacd0b85a97d-4888864e5b2mr12975651f8f.26.1790609435839; Mon, 28 Sep 2026
- 08:30:35 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790609900; x=1791214700;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XBU2jM7DrC1QbY7mAZYFQZnTdG21byzKYq2Cu4WLBZU=;
+        b=y7OqnEJEpKx0Bf/oo0fAEnEhvBXUgljptdduSE/LWQmVmZZH0iaurwazPp5EZWPdsE
+         lUnq+oHsvxKDpu5YcIwmIHFdlgJoQfe5sPeFUWBZKIIfjGqIten921wnihtjL/x/vgIQ
+         hVcYVighcJJhWuanM9aRB/hW5qN8y81OJb4jY54Ffbv47d4GiB8pLO/p3TIthXBOye2r
+         Tn4kZrb//NasHHDFMr9SMBf/g9z86xOybq7TX08lq2bsG7SzWfr+iUAdLdB+jSwm1k8t
+         s+pNFVfReUKZIcLgRRlBDf/b/UK8PoIqU/IpuQ764Fy3zVHkrgKxqC4BuRkoWanEZr2R
+         f4sQ==
+X-Forwarded-Encrypted: i=1; AKwUvBycIsDRvZWDZntcYvGVcPGKIPxu7NLpsSFMI/fptBYQaRxXzL7tqDc/nmOfxrGpN4zbguzk2xA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKIxO9s6idMnoE2fU370AnexhwxSjCdyJo0TzBB/hUXP9o18k8P
+	8d9LNzVhwZBgMWzP2B0/cYXQWiX7bvOiYYOF6FOYJ7qdD0wDZW/op5yxWg5R15fJbnddpAI8vkq
+	djjzYLYE=
+X-Gm-Gg: AYBFou2++VitY07cEUb4YmUOH2mjjdHC/19ThNoS1HvPQ304uvhTuXLVVdVhnmaSFRl
+	Tp6n3We1p5mnH0AdXU1I8vD13RnId2/KRTY2a9Hu6EXCZPGh6QalgDLyD+MEllLP2J0Ru30hBs9
+	uCgr2LT+jooDZ6tQFMTAJW5fUEn4a9cairV+mC4V1YPUER8lp2khhPIbUSu68lKLIQViBq/8zIP
+	GJ+4hGw9aCAFm1ywMfgzoUpXdYxAPXYHtTnHpCoetugG1PEoAPzgEZT0A2MpFfeVYnYarrXoEa0
+	7xAVaHIrc/E132dWsSTIM64TSvgNzps4p9g7xQGTt0A05fPw17/rklU1F0ea5f7mo0HSf4hS0YM
+	wUTNcg1K5kF3HXZ8emL7TKRE3Bv7rQN01LYzADr8/uZw8DjSvEaJglP83KW5UgetlvRVS2odS5U
+	aKRp8WTITh4eNFFg4yxgsA4KeTreNfjgMHiM0BNLnHeRH7UEn4iICd3BpepNYN4ibgQwuhhexGA
+	OhlFc3XEoHxBkT0g5o8kw==
+X-Received: by 2002:a17:902:ebca:b0:2df:9e2d:8629 with SMTP id d9443c01a7336-2df9e2d8cf3mr52153435ad.16.1790609900356;
+        Mon, 28 Sep 2026 08:38:20 -0700 (PDT)
+Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:d08e:5326:b1b4:da35])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df90fbc951sm44209335ad.8.2026.09.28.08.38.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 08:38:19 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: linux-nvme@lists.infradead.org,
+	Keith Busch <kbusch@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Jens Axboe <axboe@kernel.dk>
+Cc: linux-kernel@vger.kernel.org,
+	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
+	stable@vger.kernel.org
+Subject: [PATCH] nvme-rdma: don't complete a request after a bogus remote invalidation
+Date: Tue, 29 Sep 2026 00:38:11 +0900
+Message-ID: <20260928153811.1466359-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <d040bea9-711d-4638-9d64-50516709b41b@grimberg.me>
- <20260912053921.49151-1-kumar.shivam43666@gmail.com> <CA+ysrS+a_fsst35-V0YDD00LWT9NaHkO0A9Zrko9EQ8NEwzRBQ@mail.gmail.com>
-In-Reply-To: <CA+ysrS+a_fsst35-V0YDD00LWT9NaHkO0A9Zrko9EQ8NEwzRBQ@mail.gmail.com>
-From: Shivam Kumar <kumar.shivam43666@gmail.com>
-Date: Mon, 28 Sep 2026 11:30:24 -0400
-X-Gm-Features: AclHuK_EFO-MrMNQ8EFUgp2EHKyxJFqvC1p70t-79Pi28sirn3E3ngQLYs1JnWs
-Message-ID: <CA+ysrS+xp10hJeCKy70BirjEDengQvZw_o6X6fSUAh5kVGYCeA@mail.gmail.com>
-Subject: Re: [PATCH v2] nvmet-tcp: fix a hang on queue teardown with data digest
-To: linux-nvme@lists.infradead.org, Sagi Grimberg <sagi@grimberg.me>, 
-	Keith Busch <kbusch@kernel.org>, Christoph Hellwig <hch@lst.de>, Chaitanya Kulkarni <kch@nvidia.com>
-Cc: Greg KH <greg@kroah.com>, security@kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 21, 2026 at 1:06=E2=80=AFPM Shivam Kumar
-<kumar.shivam43666@gmail.com> wrote:
->
-> On Sat, Sep 12, 2026 at 1:39=E2=80=AFAM Shivam Kumar
-> <kumar.shivam43666@gmail.com> wrote:
-> >
-> > A command that has received all its data but whose data digest is still
-> > outstanding is stalled in NVMET_TCP_RECV_DDGST, where
-> > nvmet_tcp_need_data_in() is false. nvmet_tcp_uninit_data_in_cmds()
-> > therefore skips it during teardown, leaking its submission queue
-> > reference, and nvmet_sq_destroy() then blocks forever waiting on it.
-> >
-> > Release such a command in nvmet_tcp_uninit_data_in_cmds(), and reset
-> > rcv_state after that call.
-> >
-> > Fixes: 872d26a391da ("nvmet-tcp: add NVMe over TCP target driver")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Shivam Kumar <kumar.shivam43666@gmail.com>
-> > ---
-> >  drivers/nvme/target/tcp.c | 10 ++++++++--
-> >  1 file changed, 8 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/nvme/target/tcp.c b/drivers/nvme/target/tcp.c
-> > index e59810175262..3bf344b184e8 100644
-> > --- a/drivers/nvme/target/tcp.c
-> > +++ b/drivers/nvme/target/tcp.c
-> > @@ -1608,6 +1608,11 @@ static void nvmet_tcp_uninit_data_in_cmds(struct=
- nvmet_tcp_queue *queue)
-> >                         nvmet_req_uninit(&cmd->req);
-> >         }
-> >
-> > +       if (queue->rcv_state =3D=3D NVMET_TCP_RECV_DDGST && queue->cmd =
-&&
-> > +           !nvmet_tcp_need_data_in(queue->cmd) &&
-> > +           !(queue->cmd->flags & NVMET_TCP_F_INIT_FAILED))
-> > +               nvmet_req_uninit(&queue->cmd->req);
-> > +
-> >         if (!queue->nr_cmds && nvmet_tcp_need_data_in(&queue->connect))=
- {
-> >                 /* failed in connect */
-> >                 nvmet_req_uninit(&queue->connect.req);
-> > @@ -1636,11 +1641,12 @@ static void nvmet_tcp_release_queue_work(struct=
- work_struct *w)
-> >         nvmet_tcp_restore_socket_callbacks(queue);
-> >         cancel_delayed_work_sync(&queue->tls_handshake_tmo_work);
-> >         cancel_work_sync(&queue->io_work);
-> > -       /* stop accepting incoming data */
-> > -       queue->rcv_state =3D NVMET_TCP_RECV_ERR;
-> >
-> >         nvmet_sq_put_tls_key(&queue->nvme_sq);
-> >         nvmet_tcp_uninit_data_in_cmds(queue);
-> > +       /* stop accepting incoming data */
-> > +       queue->rcv_state =3D NVMET_TCP_RECV_ERR;
-> > +
-> >         nvmet_sq_destroy(&queue->nvme_sq);
-> >         nvmet_cq_put(&queue->nvme_cq);
-> >         cancel_work_sync(&queue->io_work);
-> > --
-> > 2.53.0
-> >
-> Gentle ping on this one.
-Gentle ping.
+When a remote invalidation names an rkey that is not the one we handed out
+for this request, nvme_rdma_process_nvme_rsp() logs and schedules error
+recovery, then falls through to nvme_rdma_end_request().  The request is
+completed with req->mr never invalidated, and nvme_rdma_unmap_data() hands
+it back with ib_mr_pool_put(), which only puts it on a list.  The rkey
+stays valid and still maps the pages the completed read filled, so a
+controller that sent the bogus invalidation can write into those pages
+after pread() has returned.
+
+Return instead, the way the local invalidation path below already does,
+and leave the request for error recovery to cancel.
+
+Fixes: 3ef0279bb0031 ("nvme-rdma: Check remotely invalidated rkey matches our expected rkey")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+Reproduced on soft-RoCE (rxe), two nodes.  The target is modified to answer
+one request with the rkey of another request that is still in flight, and
+then to write 0xBD through the rkey the initiator has just reported as
+bogus.  The NVMETHOSTILE lines are that scaffolding and are not part of
+this patch.  The namespace holds 0x5A and the reader re-checks its buffer
+after pread() has returned.
+
+initiator:
+  nvme nvme0: Bogus remote invalidation for rkey 0x35f4
+target:
+  nvmet_rdma: NVMETHOSTILE forcewr POST LEAKED rkey=0x35f4 addr=0xffff88807ffdd000 len=4096 ret=0 n=1
+  nvmet_rdma: NVMETHOSTILE forcewr DONE ACCEPTED n=1
+initiator:
+  BCHECK[B] CORRUPT iter=350 poll=0ms pre_clean=1 off=0 p1_bytes=4096 p0_bytes=61440
+  BCHECK[B] DONE iters=392 clean_p0=392 ioerr=0 CORRUPT_HITS=1 POST_COMPLETION=1
+
+pre_clean=1 is the buffer intact at the instant pread() returned, and
+p0_bytes=61440 is the remainder of it still holding 0x5A.  0x35f4 is the
+rkey the initiator reported as bogus and the rkey the target then wrote
+through.  With this patch POST_COMPLETION stayed 0 over five runs.
+
+It is a race, so it is probabilistic rather than reliable, and every bogus
+invalidation also trips error recovery, so the corruption arrives together
+with a controller reset.  I only have rxe here; I have not checked how a
+real RoCE HCA responder treats a write through an MR the ULP has stopped
+using.  What I saw is an integrity violation on a buffer that is still
+mapped, not a use-after-free.
+
+Invalidating the MR locally before completing the request, which is what
+the code did before 3ef0279bb0031, also closes it and is the other way to
+go here.
+
+ drivers/nvme/host/rdma.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/nvme/host/rdma.c b/drivers/nvme/host/rdma.c
+index 9cb811a2ce1f7..5b9b540693b51 100644
+--- a/drivers/nvme/host/rdma.c
++++ b/drivers/nvme/host/rdma.c
+@@ -1748,6 +1748,7 @@ static void nvme_rdma_process_nvme_rsp(struct nvme_rdma_queue *queue,
+ 				"Bogus remote invalidation for rkey %#x\n",
+ 				req->mr ? req->mr->rkey : 0);
+ 			nvme_rdma_error_recovery(queue->ctrl);
++			return;
+ 		}
+ 	} else if (req->mr) {
+ 		int ret;
+-- 
+2.43.0
+
