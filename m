@@ -1,130 +1,153 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B80BCD531
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 01:17:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790558281; cv=pass; b=fyVWEcvaYXp3rNkZLNjnNdpOelsxsX8SOmYbpzSwOe1kHRpwFbfSIrvShgXgvJswngtGpZ+KcYmO/JchTpirhsZEdMc1wn8ONmugFTXp3KlQuttTqsqZDPkuwqspl/YnOafWUZzTfPneknu0eaOjXj7KHx1TH7VtZ+7XnJFvLYo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790558281; c=relaxed/simple;
-	bh=0nqgAkzlSPgwqtDRRuI4+mfAWTF0IX7tVXYBeqoqGII=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nKtzUzZvxngfW/ym8E11HFMkPSJqdwIfNes+3+8zrjh7L/ODHtxxrqDzDlUnBEKuOzV804OZeMhMSLiXHN3/FIjD+VnRetgx8jk9zHqKz+nwD7wbSA1vfO82P27g9rO/oW3Gly3W83+apvZ0ynF83xQHXTLd9CYalvYtwCi5dEw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JGKI6jg3; arc=pass smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JGKI6jg3"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccda24afso1279448a91.3
-        for <stable@vger.kernel.org>; Sun, 27 Sep 2026 18:17:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790558276; cv=none;
-        d=google.com; s=arc-20260327;
-        b=XyGRydIypriTPcd4yUYVWcymT0Z8+FKCEuyu6XxUhyQsxdngrBCGPghe9oTSkj8UR9
-         zuUNg7X7YAFa5fi5QDmnV/+17/WYVmlSX7foMM0fQ3uYmkzfBlrV7EpG/L4kbCCoXGDk
-         At0zfhfB3w5eGLiwk8VynGkOb98/n/ZB87uAu0QxtwePjrMTO8Fa1Ga+IkTzGqBRo8P0
-         s1WMWsdS/QibSlUQjjYO3eyNIDwE0bA2+nAY21WTf+B53+dmdu4sisp8ppsKSDs8oq8W
-         Zvde4TjStQddXSzbbZzk5xYDSY36KGADgcDfITpYMfzJ4RrQyxe+qAeTc4I9FcpAlWTI
-         P3Sg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=0nqgAkzlSPgwqtDRRuI4+mfAWTF0IX7tVXYBeqoqGII=;
-        fh=x9PeCDNBRJ7S73doUfbwuUnQTpAm8Qsg6OWR0v2Tfrk=;
-        b=oEl4EQITY9HquvUp3nKMePLeRM00eygKg2RjrnlZ783S5vAtyAdBRGw7/e92dFbfPT
-         v0qSjjwuPovFq1qEcq0j1gtf5P+xzAT90v19MGkj0xfYsnkO2ROd6wczJzz6rNJYK/DF
-         7JvNLzJs1Bd7R5fHDWPmB51fWihNJgCt6vvc0cBnkMAGlUS3Tkm7xs44Upd0FdXfJj6E
-         meQL4SdIaSd4CqnlR31Xm+yPRozp1jneGUB9eUghJe8X92tHyHWZkQOGBxdsUBJL8aAZ
-         h5rv9/udhgMS4weo5A8P5Wfxnp18Mpmjn6nn4NfZUstBBJGM0IvQ0WP122sT9aa65QG0
-         j3Lw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790558276; x=1791163076; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0nqgAkzlSPgwqtDRRuI4+mfAWTF0IX7tVXYBeqoqGII=;
-        b=JGKI6jg32qU7HvvlSYoxFjnAvByO+mb43g3GWBjUljo+LbdH8TCg/qZlan0cz0AYUK
-         TuzS6cwINsUtf+EVB8QQC3JROVY2K6RkKqcMkH01GAdG3EbIsqR06ZVNaqnowGLGJs3c
-         kdL4LJA51u3244uNESzs8J3djYiq1FDkkGNucwPkkuPD7l4Eyn+j+NcOVxmLa7nTjyKK
-         xm+LjCTUpx/MNBG1ybaRFLKke8q+/58UPs2nqR8K+InKNrWfqOFrMtnL84nGGSyc9dvf
-         stQ0QaXg4V1wk4NN3aFWpkta1JH+I/vH986ITm4d/f30QCd6iAKyHj6bo4afoaiuBV3u
-         XHHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790558276; x=1791163076;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0nqgAkzlSPgwqtDRRuI4+mfAWTF0IX7tVXYBeqoqGII=;
-        b=LmvN6+BrfDuvaIXLGVFxV2RK9n0H/2THAD0O47JoPX1OiVn55mqazzYlQkfhv55mF2
-         QZ+VQezSZVvTgbM9zbgQ9dcCI4lue0wgmwn+CUyS1myZ73HZizFYcol+Ld4Bc+xwdOD6
-         A8XSrD5etGmT45zmi8NY50g4jRAWJOZ9WB8DEC8FbPghKGTKHYYBK6vWJqBG4x9Muutx
-         xfCqVg0Z0KaZ95iHpli7E9La4+10Yf/wKEe29A2wVv9a+JYFZjI01clixgtgZMIEm97X
-         SSaYeO/SoRCbvsbppFLv1nul878RidSBDYtf1rCJz2+3vFOwwWhEclxv6OHShI990SYB
-         MTWg==
-X-Forwarded-Encrypted: i=1; AKwUvBwQJO18S04CHZZrfPif8JVrqk+zvUbivZtjfxEUSBiPP4BVj2T76q90syOeWLioGjDS1AphW9Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJy66XRam9gQcVi3DE6bG6kqT3rV7m/NiX6TpwOHR2yVM+Q1XM0
-	1N9+JANhks7zcdjPQ1uvlgi2BZHIxBMhw4UGWUaiizXUhYKdKnGuuMYwh0fk4Vr7tYJMvuhJOkB
-	+OYcMVthO/YC04E7bvFhHPN0HoFlRe7Y=
-X-Gm-Gg: AYBFou3XCO+CmGnjZe0BCoW4SkJLczsXq78qN/+6mEyrDcy6hsWxvMoxd+OKof7fwO/
-	ItdY937L0oX3SduWB5yfSaIfxMp6QUTdigAt0YhXiITkEMxoJNMShVr9yP0cMEChS6WyqQk+4OF
-	K1PiPJPYIF8LcAWHCkUcENVcPYvHIOET1r+GvKpO0GJFBKVvjj2uGv13r9ue9gtehADr36u9Fcv
-	QTIccDke1MKeIIP0VyvU0cwyP1FvJypW2mPk0ljGhLuINIZsZHr//ESRNrT/Yyo9XmTx5Fa6POD
-	I7vvv23evPIRldVxynXSI35Qa1F7iuU96Zv9f/EeOr2eG+qhFW8OCImicLfVVMVmBLLEVNGSsO7
-	9AP0rJVSyyMur
-X-Received: by 2002:a17:90b:4b89:b0:3a0:cc3f:b93a with SMTP id
- 98e67ed59e1d1-3a0cc3fcbf8mr4139825a91.0.1790558275492; Sun, 27 Sep 2026
- 18:17:55 -0700 (PDT)
+Received: from zg8tmja2lje4os43os4xodqa.icoremail.net (zg8tmja2lje4os43os4xodqa.icoremail.net [206.189.79.184])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E08A6547042;
+	Mon, 28 Sep 2026 01:22:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=206.189.79.184
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790558577; cv=none; b=rgsX8Vi7yQnA5B+tzrGKMeSqPBUvBEJycRz2vQ8mnUSUd1iEiCu07FxIhkzIxKljynfrabfNLm9tyw+S8SSBRnmAOIuLfcUEyWaW2MT2NUguGVxGuPnyb+zvT+vUziJs8OZPnvPh0Cb2Pnu0kXMHPACWTi7SDzOb7BPT6n4rdJY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790558577; c=relaxed/simple;
+	bh=MIkKVhn7E9BemvrlXVukR0zmhJ3p4BggWlG2NXzaC48=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=T9rf+bMLWOjNDMWpGnu9HUPtSesmo7nuV2+8ssOcE+hPeb4SDJ2Lx+lYJm+FbUTb6UOXn6qSeOCaUZGoSbwSx/eRG/56sRgNGcKAeRkbVOzX93cQoe0iIAu5XnFK5m0sWlHKrQftc6i9aC4sW1HWVFtolg/xASjbSCHpTmA3KNs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=206.189.79.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wDXKGRYwblqf7g_AQ--.622S3;
+	Mon, 28 Sep 2026 09:22:33 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app3 (Coremail) with UTF8SMTPA id zS_KCgDHiaVYwblqccgaAA--.21770S2;
+	Mon, 28 Sep 2026 09:22:32 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Jiri Slaby <jirislaby@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] serial: imx: cancel RS485 trigger hrtimers in shutdown and remove
+Date: Mon, 28 Sep 2026 01:21:37 +0000
+Message-Id: <20260928012137.612469-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <2026092715-deftly-strainer-c8a3@gregkh>
+References: <20260819021916.442827-1-fanwu01@zju.edu.cn> <2026092332-limes-washhouse-44a5@gregkh> <20260927143550.608878-1-fanwu01@zju.edu.cn> <2026092715-deftly-strainer-c8a3@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260807112818.958190-1-kimjw04271234@gmail.com>
- <CAH+3ta7b7MudRedhFG4xQH6-3ZK9gfkcEPy_aHsAHBwjyK81+w@mail.gmail.com> <apcj7xrcIhEw7lCl@google.com>
-In-Reply-To: <apcj7xrcIhEw7lCl@google.com>
-From: Jinu Kim <kimjw04271234@gmail.com>
-Date: Mon, 28 Sep 2026 10:17:42 +0900
-X-Gm-Features: AclHuK8uKM50viEvYvH7gJtUCOdNx9kwbsg5nfa3655kxX2O_gRVG_nRjZ7rjkE
-Message-ID: <CAH+3ta7zvKzX=8nQeDSE3rz1i81=C5mSCRiXtQuoKkKcw=M58A@mail.gmail.com>
-Subject: Re: [PATCH] KVM: x86: Use active memslots for the per-vCPU MMIO cache
-To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
-Cc: kvm@vger.kernel.org, security@kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zS_KCgDHiaVYwblqccgaAA--.21770S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?VpIAvQXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnbfYAegEspJ+qccDMUwRuturi5AT5DoK0eYNJyhaOWy/zrM0g3c3MjVnG8yRi+Mvb/sN
+	c6t5hI+iBeOhBNyMgpmp9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoWxGFWUXr4fury8Cw1UWFyrXwc_yoWrGF4UpF
+	WDtrZIkrWvqr4avF47AFn7WFyftws3Jry7Gr1rK3Wjv3y3CrWxtF42vFsYvFWqgw1FqFWY
+	kr48JwnxuFyUAFXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUP0b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxM4IIrI8v6xkF7I0E8cxan2IY04v7
+	MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
+	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0E
+	wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JV
+	WxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAI
+	cVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU85l1PUUUUU==
 
-Hi Sean, Paolo,
+On Sun, Sep 27, 2026 at 06:28:42PM +0200, Greg Kroah-Hartman wrote:
+> Sorry, I have no context here as you top-posted and did not include any
+> context.  Please don't do that.  Remember, some of us get 1000+ emails a
+> day...
 
-Thank you again for confirming that this patch was on your list.
+You are right, sorry about that.  Answering your Sep 23 question with
+context this time:
 
-I know I already followed up earlier this month, but as a few weeks have
-passed and I haven't seen any further updates, I thought I'd send a
-gentle ping.
+On Wed, Sep 23, 2026 at 12:17:41PM +0200, Greg Kroah-Hartman wrote:
+> On Wed, Aug 19, 2026 at 02:19:16AM +0000, Fan Wu wrote:
+> > The rs485 delay hrtimers trigger_start_tx and trigger_stop_tx are
+> > embedded in the devm allocated struct imx_port, and their callbacks
+> > reach the port through container_of() and touch registers under the
+> > port lock.  Nothing cancels them synchronously: the tx paths only call
+> > hrtimer_try_to_cancel(), which does not wait for a running callback,
+> > and the bounded wait in imx_uart_shutdown() can give up, force tx_state
+> > to OFF, and leave a timer armed.  After imx_uart_remove() returns, devm
+> > frees the port and a late callback dereferences freed memory.
+> >
+> > Cancel both timers at the end of imx_uart_shutdown(), after the port
+> > lock is dropped and before the clocks are disabled, and again in
+> > imx_uart_remove() before the devm free: serial core does not call the
+> > driver shutdown on every path that reaches remove().
+> >
+> > This issue was found by an in-house static analysis tool.
+> >
+> > Fixes: bd78ecd6056d ("serial: imx: use hrtimers for rs485 delays")
+> >
+> > Assisted-by: Codex:gpt-5.6
+> > Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+> How was this tested?
 
-When you have a chance, could you please let me know if there is any
-update, or if anything else is needed from my side?
+When I sent the patch, it was compile-tested only (CONFIG_SERIAL_IMX=m,
+drivers/tty/serial/imx.o rebuilt with no warnings).  I should have said
+so.  There was no runtime test behind it.
+
+After your mail I built a QEMU/KASAN reproduction (i.MX6UL EVK machine,
+armhf, kernel = this patch's base a13c140cc289 + CONFIG_KASAN).  The
+remove-side race is deterministic on the unpatched base:
+
+  - ttymxc0 is a registered console; configure RS485 via TIOCSRS485 with
+    delay_rts_after_send set (driver clamps it to 100 ms), write() - TX
+    completes and imx_uart_stop_tx() arms trigger_stop_tx
+  - with the port still open, unbind: for console ports
+    tty_port_shutdown() returns early, and serial_core_remove_one_port()
+    never calls the driver .shutdown, so nothing sync-cancels the timer
+  - imx_uart_remove() returns, devres frees struct imx_port, the queued
+    hrtimer expires and the hrtimer core walks the freed object:
+
+BUG: KASAN: slab-use-after-free in rb_erase_linked+0x54/0xa8
+Write of size 4 at addr c4046a8c by task swapper/0
+Call trace:
+ rb_erase_linked from __remove_hrtimer+0x50/0x124
+ __remove_hrtimer from __hrtimer_run_queues+0x198/0x25c
+ __hrtimer_run_queues from hrtimer_interrupt+0x26c/0x624
+ hrtimer_interrupt from arch_timer_handler_phys+0x38/0x40
+ ...
+Allocated by task 1:
+ devm_kmalloc+0x34/0x144
+ imx_uart_probe+0x90/0xacc
+ ...
+Freed by task 1:
+ kfree+0xc8/0x2d8
+ devres_release_all+0x100/0x18c
+ device_unbind_cleanup+0x3c/0xe4
+ device_release_driver_internal+0x23c/0x294
+ unbind_store+0x64/0xa4
+ ...
+The buggy address is located 652 bytes inside of
+ freed 1024-byte region [c4046800, c4046c00)
+
+i.e. the expired timer is still enqueued inside the freed struct imx_port.
+A second report fires from task context via hrtimer_try_to_cancel ->
+rb_erase, same alloc/free stacks.
+
+With the patch applied the same sequence (fd-open unbind, and the
+last-close-then-unbind variant) completes cleanly; repeated RS485
+write/close/unbind cycles on a non-console port stay clean too, with no
+new warnings or hangs.  This is QEMU only - no i.MX hardware test yet,
+so I have not added a Tested-by.  I can send the reproducer initramfs and
+the QEMU command line if that is useful.
 
 Thanks,
-Jinu
+Fan
 
-2026=EB=85=84 9=EC=9B=94 2=EC=9D=BC (=EC=88=98) =EC=98=A4=EC=A0=84 4:13, Se=
-an Christopherson <seanjc@google.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
->
-> On Tue, Sep 01, 2026, Jinu Kim wrote:
-> > Hi Sean, Paolo,
-> >
-> > A friendly ping on this patch.
-> > I originally sent this on August 7, which was fairly late in the 7.2
-> > release cycle, so I held off on pinging during the remainder of the
-> > cycle and the 7.3 merge window.
-> > Now that 7.3-rc1 is out, could you please take a look when you get a ch=
-ance?
-> > Please let me know if you'd prefer that I resend or rebase the patch.
->
-> No RESEND is necessary, this is already on my list of things to grab (or =
-to make
-> sure Paolo grabs).
