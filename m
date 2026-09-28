@@ -1,103 +1,206 @@
-Received: from o1.ptr9745.em.honeycomb.io (o1.ptr9745.em.honeycomb.io [149.72.141.136])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 526D7502D55
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 22:13:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.72.141.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31DD620D4FC;
+	Mon, 28 Sep 2026 22:18:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790633633; cv=none; b=W+Qqn+uZKhUFxLY/FzaByatO3NN4EQAA1gUvaUikXe2+7KDYeVeuY7aB2z+vGzBVVmgBNV1HG47CGBb+1sTR0SvXncXRI97/bK93+v9RBgwmVuqTV7ttI8c9cL9Uk8us2ejDgFBKCUjAXf59rt+bOzE8Kkepzcv5tzEvHnAdSxc=
+	t=1790633941; cv=none; b=V+zabrNuvt00V4Yugx5j9V1iQz3bsrYWfKfhojv/jFFeMVARGactJuvE8YBFAd81V7OtFwbD95r7p3XAiaLyZG6D1CIuooIMyjmL4bDF0SAt2mQEZpsm2sR/4BVs0rVdpom6KVzbH3rRkiq6va6enIRtSABfQRUN+15/DxOtLek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790633633; c=relaxed/simple;
-	bh=LhPr/3N5CT4HP3diIFgEUTiiw9QHBmCdPdCTJgVnTTM=;
-	h=From:Subject:Date:Message-ID:In-Reply-To:References:MIME-Version:
-	 To:Cc:Content-Type; b=OshBKYR59/msOM2U3ihHpZc9dCw9ogXkrXxd6joifd6aY6KJDXkJt9gx1tIEfxkPt2Ey+ezU/8mqZFgjVxiZX9esABV7AWCSmXQlR+uu1pEX3haPnj/NyqZv3inf4wwYmTfVxJ/ST9rnnzhDc9opmp0onej31jLLO1YNCgwSSso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=honeycomb.io; spf=pass smtp.mailfrom=em.honeycomb.io; dkim=pass (2048-bit key) header.d=honeycomb.io header.i=@honeycomb.io header.b=xMqpEhE5; arc=none smtp.client-ip=149.72.141.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=honeycomb.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=em.honeycomb.io
+	s=arc-20240116; t=1790633941; c=relaxed/simple;
+	bh=mN93aZwj0sLL9wZu3aPcOGrz8f4JdIEwsr03/4kf9JU=;
+	h=Date:To:From:Subject:Message-Id; b=UfVWV383Y8hUdBe4zyT/HAcp1sI8dW6lQj2rPynaVkNKGznib0Lal/qya+tMxPx5wUUHX9X1FttLvGDg3BtTQcu4PcJ89F06kmfynvTzt9NiH2VWJs0DIqUQ2cJq8iRueQPphn/cXw4A18jpJ4+L47hCEzZohM0l8QDrPsJ6fQQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=VeBbkUW7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=honeycomb.io header.i=@honeycomb.io header.b="xMqpEhE5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=honeycomb.io;
-	h=from:subject:date:in-reply-to:references:mime-version:to:cc:
-	content-type:content-transfer-encoding:cc:content-type:date:from:subject:to;
-	s=s1; t=1790633630;
-	bh=LhPr/3N5CT4HP3diIFgEUTiiw9QHBmCdPdCTJgVnTTM=;
-	b=xMqpEhE5onvhmJUwCGRu0ueRhvnCyFfpSqVbzGhcC5+thgrQXTKMsshRzAxSO674H8GQ
-	DlhWReUDbIZyOL34PQpjyiggwg2v7AyUl2a5zK84bPO7nrhTfgB0r/LhRqDdPjBB+RzSmP
-	+G2Fl/768QVVZisel2lvZ8ypwMdx4SCKCIGuQBVIE9kRf7+UPNdGe1Yn3Hi3z7o1TD1xoW
-	/XIoZrKn+/35VQ0cc65Ydgv/UXJPEWHVC4ERWIw77M3EcayT7GBZES5x/ECUrFxPmpFZxh
-	gzGCHx2yocdZP5qWnKHUdh2O8WEkEWa1OF6R3l1b+i8vHbFeZ6ybaMlhcmtsiOMA==
-Received: by recvd-canary-7bc664d96-rr7cp with SMTP id recvd-canary-7bc664d96-rr7cp-1-6ABAE69E-A
-	2026-09-28 22:13:50.058278031 +0000 UTC m=+354514.976073350
-Received: from daisy.dens.ffj.family (unknown)
-	by geopod-ismtpd-13 (SG)
-	with ESMTP
-	id GsnC_o2GSBmkpLj7FchG8A
-	Mon, 28 Sep 2026 22:13:50.000 +0000 (UTC)
-From: Liz Fong-Jones <lizf@honeycomb.io>
-Subject: Re: [PATCH] writeback: let foreign flushes reach dying cgwbs
-Date: Mon, 28 Sep 2026 22:13:50 +0000 (UTC)
-Message-ID: <20260928221349.1443179-1-lizf@honeycomb.io>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <ee85445f60194cfbc78897cb6fe744c7@kernel.org>
-References: <20260926-wb-dying-cgwb-flush-v1-1-a8d898085a3a@honeycomb.io> <ee85445f60194cfbc78897cb6fe744c7@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="VeBbkUW7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 711AC1F000FF;
+	Mon, 28 Sep 2026 22:18:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1790633939;
+	bh=9EDQF5uMQpnZxSmk/RgZwWOHVdJB97dJsjv0RzMsKao=;
+	h=Date:To:From:Subject;
+	b=VeBbkUW7m4KtOP9vUAaOSwd5R3Eyk80wAvDXOhwUqWe9nG8temX5Urn+7byIJQD8I
+	 frqE4vm46PNFPoumyEHdAsDcGqp3usBpjfEt1Ne9d74j7q4CwRY88buFDS4X6wg7iz
+	 y9jZ5pZa+bRzasbetDsvBXLmVLGrFGF7bWwnSqQ8=
+Date: Mon, 28 Sep 2026 15:18:59 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,sj@kernel.org,bijan311@gmail.com,kmehltretter@gmail.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-damon-core-preserve-the-quota-passed-to-damon_new_scheme.patch added to mm-new branch
+Message-Id: <20260928221859.711AC1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-SG-EID: 
- =?us-ascii?Q?u001=2ECuH7N2XAoeMR1zrzr=2F6NZrhli2vbKPOHff5fJuZuba6ZIE8QPyIf9mn4Y?=
- =?us-ascii?Q?ezqeFFjUkh=2FeROy4LtnO7KN9jZmeUC5kvTHBdlB?=
- =?us-ascii?Q?Y0OEXhZWKcE3XqZx=2F9VWoKqLYD00fyqtReTCMYv?=
- =?us-ascii?Q?qGuChLBBTQO4UfKoiNfWejExKSbUBMct5f6Nhkx?=
- =?us-ascii?Q?7ONRcD3kE=2FFucycVd2E7g9y6Pq7KTSnaS2aCIV6?=
- =?us-ascii?Q?c0+woAHKPH1N=2FljksE5QwQUTYMxdTf+xynTS=2Fbk?=
- =?us-ascii?Q?XJRV?=
-To: Tejun Heo <tj@kernel.org>
-Cc: Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jens Axboe <axboe@kernel.dk>,
-	Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner
-	<hannes@cmpxchg.org>, Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt
-	<shakeel.butt@linux.dev>, Xin Yin <yinxin.x@bytedance.com>,
-	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org, ian@honeycomb.io, stable@vger.kernel.org
-X-Entity-ID: u001.GRlkmHQ+Ka/CKxmoC/CxTw==
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
 
-Hi Tejun,
 
-On Mon, Sep 28, 2026 at 09:19:37AM -1000, Tejun Heo wrote:
-> Instead of walking bdi->wb_list, can't we update the lifetime rule so that
-> a wb stays on bdi->cgwb_tree until it's actually released? That is, remove
-> it from the tree in cgwb_release_workfn() instead of cgwb_kill() and have
-> the creation paths skip dying wbs. cgroup_writeback_by_id() would then
-> find the dying wb through the regular lookup.
+The patch titled
+     Subject: mm/damon/core: preserve the quota passed to damon_new_scheme()
+has been added to the -mm mm-new branch.  Its filename is
+     mm-damon-core-preserve-the-quota-passed-to-damon_new_scheme.patch
 
-Yes, that's cleaner, thanks for the suggestion. Implemented in v2:
-https://lore.kernel.org/all/20260928-wb-dying-cgwb-flush-v2-1-56b54cda74f2@honeycomb.io/
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-damon-core-preserve-the-quota-passed-to-damon_new_scheme.patch
 
-One edge case: a live memcg whose blkcg association changes needs a new
-wb in the same slot while the killed one is still there, so
-cgwb_create() takes over a dying wb's slot and cgwb_release_workfn()
-uses radix_tree_delete_item() to only remove a wb that still owns it.
-cgwb_bdi_unregister() skips dying wbs so they aren't killed twice.
+This patch will later appear in the mm-new branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-> Note that the blkcg association check in wb_get_lookup() would have to
-> move to the creation side.
+Note, mm-new is a provisional staging ground for work-in-progress
+patches, and acceptance into mm-new is a notification for others take
+notice and to finish up reviews.  Please do not hesitate to respond to
+review feedback and post updated versions to replace or incrementally
+fixup patches in mm-new.
 
-Done, along with a wb_tryget_live() for the creation paths, including
-wb_get_create_current().
+The mm-new branch of mm.git is not included in linux-next
 
-> I don't think this qualifies as a fix. Can you drop the Fixes: and stable
-> tags?
+If a few days of testing in mm-new is successful, the patch will me moved
+into mm.git's mm-unstable branch, which is included in linux-next
 
-Dropped in v2. I'd tagged it because foreign flushes can't reach the
-owning wb in exactly the case where its memcg has gone away, which
-looked like a bug in the original implementation. But we avoided it in
-userspace by syncing after the old container's last write, so agreed, it
-doesn't need to go to stable.
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
-Thanks,
-Liz
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Karl Mehltretter <kmehltretter@gmail.com>
+Subject: mm/damon/core: preserve the quota passed to damon_new_scheme()
+Date: Mon, 28 Sep 2026 01:58:33 -0700
+
+Patch series "mm/damon/core: preserve quota state when constructing
+schemes", v3.
+
+damon_commit_ctx() first commits the running context's parameters to a
+temporary context for validating proposed updates.  Constructing the
+temporary schemes clears the running schemes' quota state because
+damon_new_scheme() initializes the quota passed as a parameter before
+copying it to the new scheme.  Even an update later rejected with -EINVAL
+loses the running quota state.
+
+Initialize the new scheme's copy instead, and add KUnit tests for the
+constructor and for accepted and rejected context updates.
+
+Note: below are test results and changelogs that could be removed from the
+final commit log.
+
+In the v1 live test with damo, a scheme with a plain 64 KiB size quota and
+a 60-second reset interval uses its quota, and a full "damo tune" with
+unchanged parameters then lets it try another 64 KiB within the same
+window.  With the fix, sz_tried stays at 64 KiB.
+
+KUnit was rerun after the rebase on x86-64 and i386. With only patch 2
+applied, the two new tests fail. With the fix, all 46 DAMON KUnit tests
+pass on both architectures.
+
+The v1 DAMON selftests showed no new failures (QEMU TCG guest; the
+wss_estimation test missed its accuracy bounds with and without the fix).
+
+
+This patch (of 2):
+
+damon_commit_ctx() first commits the running context's parameters to a
+temporary context for validating proposed updates.  When
+damon_commit_schemes() creates the temporary schemes, it passes the
+running scheme's quota as the quota parameter of damon_new_scheme().
+
+damon_new_scheme() calls damos_quota_init() on that quota before copying
+it to the new scheme.  This clears the running scheme's effective quota,
+feedback input and charging state.  Even an update rejected with -EINVAL
+loses the running quota state.
+
+For a size quota, this discards the bytes already charged and allows the
+scheme to use a fresh quota before the reset interval has elapsed.  For a
+goal-driven quota, the consist tuner loses its accumulated input and
+restarts from its minimum input.  A time quota loses its throughput
+estimate and falls back to the initial estimate.
+
+The end users will show DAMOS works more or less aggressively than
+expected for online-commit updates of quotas.  DAMON provides best efforts
+by default.  DAMON parameters online commit is supposed to be executed
+only occasionally.  Hence, the issue wouldn't be critical on sane setups. 
+For user_input type quota goals, online commit of the user input score is
+expected to be frequent.  But, for the case commit_schemes_quota_goals
+command is recommended for optimal execution, and it doesn't have this
+bug.
+
+Commit 60bd24f272d0 ("mm/damon/sysfs: test commit input against realistic
+destination") introduced this problem in v6.19 when sysfs validation began
+committing the running context's parameters to a temporary context. 
+Commit b90408ef1163 ("mm/damon/core: safely validate src on
+damon_commit_ctx()") later moved that validation into the core API,
+exposing other callers including DAMON_RECLAIM and DAMON_LRU_SORT.
+
+Sashiko reported the same side effect [1] on the RFC of the core API
+change.
+
+Copy the quota to the new scheme first, then initialize that copy.  Make
+damos_quota_init() return void, since its return value is no longer
+needed.
+
+Link: https://lore.kernel.org/20260928085835.7675-1-sj@kernel.org
+Link: https://lore.kernel.org/20260928085835.7675-2-sj@kernel.org
+Link: https://lore.kernel.org/r/20260702212143.0CB6D1F00A3D@smtp.kernel.org/ [1]
+Fixes: 60bd24f272d0 ("mm/damon/sysfs: test commit input against realistic destination")
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Signed-off-by: SJ Park <sj@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: SJ Park <sj@kernel.org>
+Assisted-by: LLM
+Cc: Bijan Tabatabai <bijan311@gmail.com>
+Cc: <stable@vger.kernel.org>
+---
+
+ mm/damon/core.c |    6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+--- a/mm/damon/core.c~mm-damon-core-preserve-the-quota-passed-to-damon_new_scheme
++++ a/mm/damon/core.c
+@@ -734,7 +734,7 @@ static bool damos_quota_goals_empty(stru
+ }
+ 
+ /* initialize fields of @quota that normally API users wouldn't set */
+-static struct damos_quota *damos_quota_init(struct damos_quota *quota)
++static void damos_quota_init(struct damos_quota *quota)
+ {
+ 	quota->esz = 0;
+ 	quota->total_charged_sz = 0;
+@@ -744,7 +744,6 @@ static struct damos_quota *damos_quota_i
+ 	quota->charge_target_from = NULL;
+ 	quota->charge_addr_from = 0;
+ 	quota->esz_bp = 0;
+-	return quota;
+ }
+ 
+ struct damos *damon_new_scheme(struct damos_access_pattern *pattern,
+@@ -776,7 +775,8 @@ struct damos *damon_new_scheme(struct da
+ 	scheme->last_applied = NULL;
+ 	INIT_LIST_HEAD(&scheme->list);
+ 
+-	scheme->quota = *(damos_quota_init(quota));
++	scheme->quota = *quota;
++	damos_quota_init(&scheme->quota);
+ 	/* quota.goals should be separately set by caller */
+ 	INIT_LIST_HEAD(&scheme->quota.goals);
+ 
+_
+
+Patches currently in -mm which might be from kmehltretter@gmail.com are
+
+mm-damon-core-handle-uninitialized-damos_quota_goal-last_psi_total-fix.patch
+docs-mm-ksm-use-the-renamed-ksm-structure-names.patch
+mm-secretmem-fix-the-enable-parameter-description.patch
+mm-damon-core-preserve-the-quota-passed-to-damon_new_scheme.patch
+mm-damon-tests-core-kunit-test-preservation-of-quota-state.patch
+klist-avoid-accesses-after-waking-klist_remove.patch
+squashfs-fix-fragment-index-table-sizing-overflow-on-32-bit.patch
+squashfs-make-the-fragment-index-table-bounds-check-overflow-safe.patch
+fork-honor-task_structs-declared-alignment.patch
+ocfs2-cluster-hold-a-reference-on-the-heartbeat-thread.patch
+resource-kunit-stop-selecting-get_free_region.patch
+
