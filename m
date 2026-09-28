@@ -1,82 +1,77 @@
-Received: from fhigh-a4-smtp.messagingengine.com (fhigh-a4-smtp.messagingengine.com [103.168.172.155])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f38.google.com (mail-pz2-f38.google.com [74.125.228.38])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD90A2DFA3A;
-	Mon, 28 Sep 2026 05:16:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.155
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 850AB3537F7
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 05:17:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790572569; cv=none; b=QkNXsvyjUC73OdfuFgkPLvebUF/Z8xuuEZ8eCvHDGbjNkpycjTmjsEot+J/e9uxtoQQYD9bHZE7IF/iPxAFdqhczHfLHm6WLfkgUcq5Wy2xM50CwenG71RbUoHq6Dn/WcGbuhorsUKHdezrq7EnScVdkwsmN6p/5Dgvz/G7ZVpk=
+	t=1790572668; cv=none; b=WSoNmhGAPYug+5DPNlCoJZqTWtkmYWbWRK8fmzdxxb5g0Quc7uRJak3EUc6oxBiJI78nlQmb0TBHUKSVER8N+Gz7v/4ZdlEjughz/SLhSnInFF6wai4iRIoiFrQNgmEDY8Ki2EZhmhk6WQOSpE3ncgIhdbYM+8644PUkFrHfmIk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790572569; c=relaxed/simple;
-	bh=jJDP1WGliYUG1BeCYo80zVySbsIovC8dCX9Cz9papEI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uLbCmZHea+U0IbTBmc9Svga7RDBfXL2cO9gqPhmkIGgBrRItgyj4iUfwITR2uGPYuNyTJrozwFhXy3ELEWjSUD4Z65IbcxgMwQPLzpB/jWRpscv6trCYgKnAfRxPqr2nXuLDG0Wgh7Qey+JO/Nrpocww0FDKCcasyMIFufHfK+8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=jNFDsa7+; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=k4cigvjh; arc=none smtp.client-ip=103.168.172.155
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
+	s=arc-20240116; t=1790572668; c=relaxed/simple;
+	bh=2Hq9DFIiqjEZe5IKsdoAZF84k0pJ1/ldPkMnQ9Ooois=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Wpj3aEdNSst8/oaDelp7qY5Kuux5AuhADWCo9nDYuYUTczd85Bps5ZLUFr8YYz/QuqsdPHWCcvWSNpzYrCrF8aE01l+alWJYRbSYjm4He7QBY6+Eb3HWFpDDDEWKexnNMxyfi6Ugoit2zvKcKcNfnjnrJVWVjjTOEp4ENXIwOec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JRRQWyCW; arc=none smtp.client-ip=74.125.228.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="jNFDsa7+";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="k4cigvjh"
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 9216214000A1;
-	Mon, 28 Sep 2026 01:16:06 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Mon, 28 Sep 2026 01:16:06 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1790572566; x=1790658966; bh=Pp2T234dxP
-	iZ9yPXbpgvnQGH/84HEKbpDYLipPtuYok=; b=jNFDsa7+8rauPT1N0xCz6wiDMr
-	/EbZxUgPWaxeDuL2CkFUJKHN/HF8vqGXf+3Z6Qen8gXcqzRAZ80vrhKQaA68Q6mF
-	A4lt2Vn9rg4HtL0Wg1JO7i+IG64kgSRRRYu7Mi8M4xqG8g3oNu8vSFZRghoa3Y7u
-	jZucbqKdefKAwzaQWFYCB9ypAwzi5fqkpmjxWR4QLjzrJhHI+4R1/LzzsQf13tsH
-	Qp2bweFW9wwb96k7xY1goDrBsSF1/jYBAVUjexPEJkDcNXOFxm0T3EaQ6lzua1ZN
-	kffUDCxXfkkwXPxk18ggvhJjIEKplruv0CfjJFG1Ql041Sy52221Hmvd9OsA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1790572566; x=1790658966; bh=Pp2T234dxPiZ9yPXbpgvnQGH/84HEKbpDYL
-	ipPtuYok=; b=k4cigvjhjx0yN3ijY+7o+M6dMFagEYGTbN7/RJ8WC3wKMeL6BKz
-	oIMSB+JCt80sYlM2fhj01UABE4+dbt9LbhyZMOFor/FrYinib8O3pi6dwS6s3LEQ
-	vfbgPdlGfdUWG+QeXCYQRTRD91PK/a6KGJrUT7W2tFN09lS7SER82uxUjkCcp1T3
-	FxhBKg0p6aPMs5S8k44ETbWCmecx7YW2SazeQVrwy/eCnHiDj/qA/LxGUayweW4a
-	xdLF4oDk7U6rMKLy+YYkRK+xpAvyUJBcckVuGNgCpByoS12a3pSRAQEyTLksClaT
-	yKlxqw6cSCz1KPDNrcdws0gDpUfl1cTd9Sw==
-X-ME-Sender: <xms:Fvi5ahiiA1zM2CD6efS7zS7YqVC_oTHNEKOnBz69sxchd2WqXSwXcQ>
-    <xme:Fvi5akjS047xqefcNGovL9fESrbiK1yals3A7m7dBjFKo-8cToUBwLiXsWj9GNdMN
-    3h4bP7ygCQQ15jqsUDDz_n3nTjFXCr3Bs94r0C6UI_RHvqReiI>
-X-ME-Received: <xmr:Fvi5an5Ued8L0zVeDKeEKFOQvJAtuAQXEd4Hjkdmt0e02VKDZ-8H2JyUBHWV8NhwN6i59Uwik2CvCmDK1C_3bmuMOreeH06wTvYdo-bln6Y>
-X-ME-Proxy-Cause: dmFkZTGRRSPD9+vV47KYqoBTk+U3XPaUbLoHWNfqn2ej9m2/UWEVudtX30Nq1rUXt05IbZ
-    ptRMEknEgXXQvgG7C6uZ0IK8i9VIy4XUTJLI5Ti8jQSQ2gklG2QUQKWsCigDTGReLaHNH8
-    hooKYf8joIdtZSAg8hEVbzDdtl8+moFRsAkxbswDMas8fdqG4sVhzEfelGikIHbLD6953B
-    3vsZFx80xq8Oi419kyWYaZCIxWoB9CJqk8bIQ+mL8rSGlkorHikD5omq47y86Qr4JBHy6d
-    yEVbqehUXec+l4bkQlGoy6sDwO0o5mrSKwochNahfyt9ASDpD80u0CmDXVvWewPclknCXM
-    u85qKjmhLEkt0Hb9X6BEMBYEM353YKxTylFSC5RwIQfvnPA2xPYRmKXG915W5uLBEC6ulP
-    tJVluaR9xBGfasdxXDPe9Mneh02UBghN/WZgsM2wALgFNGF8Ts7Utx5vS7LQuww36klRes
-    7PItYG4SG5kjDQJJrqwvL5OAVlkV614/TckBTbPGY89Tacli1QmDUxsPeEN3KAIa/A51nH
-    BkK6fTCv1JTtnHunZ5+29JPFdpMT3eFmB8hfjrzAIoPbHewN59AtIDHtRkC/WqsWWs7m1S
-    utJPWcYp7xoHBvcNRRof9abHDeQQmJcsVIsNAQowh2+plZFxRHXR7pFZyk6Q
-X-ME-Proxy: <xmx:Fvi5amR5ICKqL_VwW6HAfCxQU4VWbpZfh2Fg8TUkeWNQUFdwj0hPIA>
-    <xmx:Fvi5am_FEiUK0GbYK-jUnuQv-8k_5ypT_qlTsgjeChBtku8e6DpSCw>
-    <xmx:Fvi5anpI7CYX7LYQQnLAhxs15HxaSOZsjpk64ik3T4blQuieadq1sA>
-    <xmx:Fvi5asV93VbI0Mv1Sdppa33kQ3VzYWcvsy1yV8PrddFEbuw3OulsYw>
-    <xmx:Fvi5arAg_jskaW0Vp4-CSFXNg_qxZPfp8JiB8pIuPZsQ0xjxoRBkvP0r>
-Feedback-ID: i787e41f1:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 28 Sep 2026 01:16:05 -0400 (EDT)
-Date: Mon, 28 Sep 2026 07:16:03 +0200
-From: Greg KH <greg@kroah.com>
-To: Dairui Zhang <zhangdairui@gmail.com>
-Cc: linux-cifs@vger.kernel.org, Namjae Jeon <linkinjeon@kernel.org>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JRRQWyCW"
+Received: by mail-pz2-f38.google.com with SMTP id 41be03b00d2f7-cc79f8a6170so380984a12.1
+        for <stable@vger.kernel.org>; Sun, 27 Sep 2026 22:17:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790572666; x=1791177466; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iGDgz8iOX6yN9PoA3D3adfZ5p5XVTeyZBwSy3n4uqr4=;
+        b=JRRQWyCWjUutvbSB6TZEzCHiTU1hLdzvlVnTAzGv6YLuw8sr1pQ8BveKBtH571H5s2
+         Qcnm9Kd9zUAXHj48fPnHzL/MKQzZZNvNpftXIRGRYKqiRyAmLEtiKUynDrxeqTu4p3aG
+         IgOU2zJXAJf7LVjGUwgacKm/1RfwJGvKVM3jWh7E7jEcDHKRM3oAUxnWukPu6LiUgHju
+         BI58dTWTNXG2YBVuXj/lhnSHsiBAAO3GXEOUZVkR7779LFAFqMw7gt06dUWbhtJJFs6f
+         3TnzvmKLW1UbsOrEiSCk9CaHoJftJh5oeOwW+bQPlcL3TnEF5cB0K4UC6hfW6xd+t8WI
+         KKIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790572666; x=1791177466;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iGDgz8iOX6yN9PoA3D3adfZ5p5XVTeyZBwSy3n4uqr4=;
+        b=wiKRMsmCWvDM/b/GGdJe+UFABR0ZfcA5cT1v/TIAwPt/KgCO2WNOh9vr3oGbFMc+wG
+         rH1PDLg+KBuunjeQezm6lGU0phozVmIvW5QgPgk4wJzekSAr1M50ke8q8D48M/zIMMDD
+         qW+rqQvpSRpKbSPZmlqN8Y46NbXosPgrq0hth4dOI4wV2wgdWA8fG/mYYwT+tM9h/6Tn
+         MK1ZtdS4ZpQFEhTNBMaDmwjnNGH+pScHIQrgQ/+hVR5dElza6b4biWlffhg1W95KQ1aJ
+         Dc54DYGsE+lSwl24ZZdZckUPnelD2kGLu4FgJp1zAEmxmWMDBs28uKxXmD+3vHGxtNIJ
+         UF3g==
+X-Forwarded-Encrypted: i=1; AKwUvBxesdZfRquK9Tjayg1a2jmFt5ttEfwY+IVK8itYl/002WjDdkqj7Dl05dCETPxTJVdCu2znh24=@vger.kernel.org
+X-Gm-Message-State: AFuF++kLjwp1cQ6s36M9Z3e1lVTpPVIYQ4tw0dujc1z01yob2L3qXEbM
+	zdZg4x6BIHSUy3CS6uDnC5GrnyPyLkDfHADHJtneHxJ6Vequdc5TdQye2Fe/H3FToW9nZw==
+X-Gm-Gg: AYBFou2h+NO4HoTU6W4garGCgY1ht0yBNo2XEtXZICv8SQcVtlOaYSNR4BlDJ4o4O9z
+	81OJRJhi+Q3Hp5HoIhmNpkPVQU2iRlUh7hC3JR4Od/ICBsmrTXzB/iZMVAnY+hPs8RCIF/nmI9I
+	+7nCPAVzdhxgvs+PWO4EjgNAA0V0bmMFympfGI62SJendk5b1LoApQRF3i9LHfN8RRnCZqGoMUd
+	JbAVvOMPVXBXkd6ILlmknk3Wz7ica8A9zNzEUNUmc61/a9SE1q8x2UJ369DEip23J8TmAEcXX9z
+	creOppr0/4wxgWBr3ddxfUbP2AKG0VrF2VCpc1icezoDBHAuE81Y74qwwL9mIcfsYCcla/yHs8j
+	82DRjmUHPxoYkCCzIY8cIpkcHNCNYWdrQLhTp0Vnwpw2zVj2SZJTpPjwHbgtXN8wP6DQyboY39E
+	a8pE4HUaMxjLInAb59Cm5wPmTrZS1EkiEr3KHnh3Dg2cfg0DyerCdWPxewngvuVjT/
+X-Received: by 2002:a05:6a20:3d21:b0:3d0:8abe:9e08 with SMTP id adf61e73a8af0-3de0e6fb52amr10099015637.3.1790572665562;
+        Sun, 27 Sep 2026 22:17:45 -0700 (PDT)
+Received: from localhost ([8.219.43.204])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87feb67dc92sm3512865b3a.51.2026.09.27.22.17.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 22:17:45 -0700 (PDT)
+From: Dairui Zhang <zhangdairui@gmail.com>
+To: linux-cifs@vger.kernel.org
+Cc: Namjae Jeon <linkinjeon@kernel.org>,
 	Steve French <smfrench@gmail.com>,
 	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Tom Talpey <tom@talpey.com>, Paulo Alcantara <pc@manguebit.org>,
+	Tom Talpey <tom@talpey.com>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Dairui Zhang <zhangdairui@gmail.com>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] ksmbd: verify transform SessionId matches the decrypted
- header
-Message-ID: <2026092848-retaining-unlaced-7767@gregkh>
+Subject: [PATCH v3] ksmbd: verify transform SessionId matches the decrypted header
+Date: Mon, 28 Sep 2026 13:17:42 +0800
+Message-ID: <20260928051742.1789650-1-zhangdairui@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260928031300.1782690-1-zhangdairui@gmail.com>
 References: <20260928031300.1782690-1-zhangdairui@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -84,45 +79,223 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260928031300.1782690-1-zhangdairui@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 28, 2026 at 11:13:00AM +0800, Dairui Zhang wrote:
-> The decryption key for an encrypted request is selected by the
-> SessionId in the encryption transform header, but the request is
-> then authorized under the session named in the decrypted inner SMB2
-> header. Nothing compares the two, so on a connection carrying more
-> than one session a client can have a request decrypted with one
-> session's key and executed under another session's identity. Since
-> encrypted requests are also exempt from the signing requirement, the
-> AEAD tag is the only proof of session identity, and it is checked
-> against the wrong session.
-> 
-> Per MS-SMB2 the server must verify that the SessionId in the
-> transform header matches the one in the decrypted SMB2 header and
-> treat a mismatch as a protocol error. Validate the whole decrypted
-> message before dispatching it: the message must be at least one
-> fixed SMB2 header; the first operation must not set
-> SMB2_FLAGS_RELATED_OPERATIONS and its SessionId must match the
-> transform SessionId; each subsequent operation in a compound chain
-> must either set SMB2_FLAGS_RELATED_OPERATIONS or carry the same
-> SessionId; and NextCommand offsets must be 8-byte aligned and within
-> the message. When the encrypted payload is a compression transform,
-> the transform SessionId is saved during decryption and the same
-> validation runs on the decompressed message. (The 8-byte alignment
-> of compound responses is already handled by the existing
-> chained-response padding.)
-> 
-> Reported-by: Dairui Zhang <zhangdairui@gmail.com>
-> Assisted-by: LLM
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Dairui Zhang <zhangdairui@gmail.com>
-> ---
-> v2 -> v3:
-> - Per review, extend the check to the whole decrypted message before
->   dispatch: first-op size/RELATED_OPERATIONS/SessionId rules and
->   per-op compound-chain SessionId and NextCommand validation, shared
->   between the plain and compression paths via a common helper.
+The decryption key for an encrypted request is selected by the
+SessionId in the encryption transform header, but the request is
+then authorized under the session named in the decrypted inner SMB2
+header. Nothing compares the two, so on a connection carrying more
+than one session a client can have a request decrypted with one
+session's key and executed under another session's identity. Since
+encrypted requests are also exempt from the signing requirement, the
+AEAD tag is the only proof of session identity, and it is checked
+against the wrong session.
 
-The "v3" isn't up in the Subject line for some reason :(
+Per MS-SMB2 the server must verify that the SessionId in the
+transform header matches the one in the decrypted SMB2 header and
+treat a mismatch as a protocol error. Validate the whole decrypted
+message before dispatching it: the message must be at least one
+fixed SMB2 header; the first operation must not set
+SMB2_FLAGS_RELATED_OPERATIONS and its SessionId must match the
+transform SessionId; each subsequent operation in a compound chain
+must either set SMB2_FLAGS_RELATED_OPERATIONS or carry the same
+SessionId; and NextCommand offsets must be 8-byte aligned and within
+the message. When the encrypted payload is a compression transform,
+the transform SessionId is saved during decryption and the same
+validation runs on the decompressed message. (The 8-byte alignment
+of compound responses is already handled by the existing
+chained-response padding.)
+
+Reported-by: Dairui Zhang <zhangdairui@gmail.com>
+Assisted-by: LLM
+Cc: stable@vger.kernel.org
+Signed-off-by: Dairui Zhang <zhangdairui@gmail.com>
+---
+v2 -> v3:
+- Per review, extend the check to the whole decrypted message before
+  dispatch: first-op size/RELATED_OPERATIONS/SessionId rules and
+  per-op compound-chain SessionId and NextCommand validation, shared
+  between the plain and compression paths via a common helper.
+v1 -> v2:
+- Cover the compression-transform case.
+- Reject a decrypted SMB2 message smaller than the fixed header
+  before reading its SessionId.
+---
+Resent with the [PATCH v3] subject marker Greg pointed out was
+missing; no code changes from the previous submission.
+---
+ fs/smb/server/compress.c   | 17 +++++++++
+ fs/smb/server/ksmbd_work.h |  4 ++
+ fs/smb/server/smb2pdu.c    | 78 ++++++++++++++++++++++++++++++++++++++
+ fs/smb/server/smb2pdu.h    |  2 +
+ 4 files changed, 101 insertions(+)
+
+diff --git a/fs/smb/server/compress.c b/fs/smb/server/compress.c
+index 5162fb8..b07b140 100644
+--- a/fs/smb/server/compress.c
++++ b/fs/smb/server/compress.c
+@@ -10,6 +10,7 @@
+ 
+ #include "compress.h"
+ #include "smb_common.h"
++#include "smb2pdu.h"
+ #include "../common/compress/lz77.h"
+ 
+ #define SMB_COMPRESS_MIN_LEN	PAGE_SIZE
+@@ -125,6 +126,22 @@ int ksmbd_decompress_work_request(struct ksmbd_work *work)
+ 	if (rc)
+ 		return rc;
+ 
++	/*
++	 * The encryption transform SessionId was saved before the
++	 * compression transform was parsed; the decompressed message must
++	 * pass the same session binding validation as a plain decrypted
++	 * message.
++	 */
++	if (work->tr_sess_id) {
++		rc = ksmbd_check_transform_session(
++				(struct smb2_hdr *)smb_get_msg(out_buf),
++				get_rfc1002_len(out_buf), work->tr_sess_id);
++		if (rc) {
++			kvfree(out_buf);
++			return rc;
++		}
++	}
++
+ 	kvfree(work->request_buf);
+ 	work->request_buf = out_buf;
+ 	return 0;
+diff --git a/fs/smb/server/ksmbd_work.h b/fs/smb/server/ksmbd_work.h
+index 5f1d3eb..3e8bf2a 100644
+--- a/fs/smb/server/ksmbd_work.h
++++ b/fs/smb/server/ksmbd_work.h
+@@ -82,6 +82,10 @@ struct ksmbd_work {
+ 	/* Contiguous SMB2 compression transform owned by this work item. */
+ 	void				*compress_buf;
+ 
++	/* SessionId from the encryption transform header, for the
++	 * post-decompression SessionId check. Zero when unset. */
++	__u64				tr_sess_id;
++
+ 	unsigned char			state;
+ 	/* No response for cancelled request */
+ 	bool                            send_no_response:1;
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index 4cf7083..dbb7dcb 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -10852,6 +10852,62 @@ bool smb3_is_transform_hdr(void *buf)
+ 	return trhdr->ProtocolId == SMB2_TRANSFORM_PROTO_NUM;
+ }
+ 
++/*
++ * Validate the session binding of a decrypted message against the
++ * encryption transform SessionId, per MS-SMB2:
++ *  - the message must be at least one fixed SMB2 header;
++ *  - the first operation must not set SMB2_FLAGS_RELATED_OPERATIONS
++ *    and its SessionId must match the transform SessionId;
++ *  - each following operation in a compound chain must either set
++ *    SMB2_FLAGS_RELATED_OPERATIONS or carry the same SessionId;
++ *  - NextCommand offsets must be 8-byte aligned and inside the message.
++ * Returns 0 on success, -ECONNABORTED on protocol error.
++ */
++int ksmbd_check_transform_session(struct smb2_hdr *hdr,
++				  unsigned int msg_len, __u64 tr_sess_id)
++{
++	struct smb2_hdr *in_hdr = hdr;
++	bool first = true;
++	u32 off = 0, next;
++
++	if (msg_len < sizeof(struct smb2_hdr)) {
++		pr_err_ratelimited("Decrypted message is smaller than SMB2 header\n");
++		return -ECONNABORTED;
++	}
++
++	for (;;) {
++		if (first) {
++			if (in_hdr->Flags & SMB2_FLAGS_RELATED_OPERATIONS) {
++				pr_err_ratelimited("RELATED_OPERATIONS set on first operation\n");
++				return -ECONNABORTED;
++			}
++			if (le64_to_cpu(in_hdr->SessionId) != tr_sess_id) {
++				pr_err_ratelimited("SessionId mismatch between transform and inner header\n");
++				return -ECONNABORTED;
++			}
++			first = false;
++		} else if (!(in_hdr->Flags & SMB2_FLAGS_RELATED_OPERATIONS) &&
++			   le64_to_cpu(in_hdr->SessionId) != tr_sess_id) {
++			pr_err_ratelimited("SessionId mismatch in compound chain\n");
++			return -ECONNABORTED;
++		}
++
++		next = le32_to_cpu(in_hdr->NextCommand);
++		if (!next)
++			return 0;
++		if (next % 8) {
++			pr_err_ratelimited("NextCommand %u is not 8-byte aligned\n", next);
++			return -ECONNABORTED;
++		}
++		off += next;
++		if (off + sizeof(struct smb2_hdr) > msg_len) {
++			pr_err_ratelimited("NextCommand %u is out of the message\n", next);
++			return -ECONNABORTED;
++		}
++		in_hdr = (struct smb2_hdr *)((u8 *)hdr + off);
++	}
++}
++
+ int smb3_decrypt_req(struct ksmbd_work *work)
+ {
+ 	char *buf = work->request_buf;
+@@ -10860,6 +10916,7 @@ int smb3_decrypt_req(struct ksmbd_work *work)
+ 	unsigned int buf_data_size;
+ 	struct smb2_transform_hdr *tr_hdr = smb_get_msg(buf);
+ 	unsigned int original_msg_size;
++	__le32 proto;
+ 	int rc = 0;
+ 
+ 	if (pdu_length < sizeof(struct smb2_transform_hdr)) {
+@@ -10890,6 +10947,27 @@ int smb3_decrypt_req(struct ksmbd_work *work)
+ 	if (rc)
+ 		return rc;
+ 
++	/*
++	 * The decryption key is selected by the transform header SessionId,
++	 * while the request is authorized under the session named in the
++	 * decrypted inner header. Per MS-SMB2 the two must match, so
++	 * validate the whole decrypted message before dispatching it. A
++	 * compression transform payload carries the session id only after
++	 * decompression, so save the transform SessionId for that check
++	 * instead.
++	 */
++	proto = ((struct smb2_hdr *)iov[1].iov_base)->ProtocolId;
++	if (proto == SMB2_PROTO_NUMBER) {
++		rc = ksmbd_check_transform_session(
++				(struct smb2_hdr *)iov[1].iov_base,
++				original_msg_size,
++				le64_to_cpu(tr_hdr->SessionId));
++		if (rc)
++			return rc;
++	} else if (proto == SMB2_COMPRESSION_TRANSFORM_ID) {
++		work->tr_sess_id = le64_to_cpu(tr_hdr->SessionId);
++	}
++
+ 	/* Drop the AEAD authentication tag from the inner RFC1002 frame. */
+ 	memmove(buf + 4, iov[1].iov_base, original_msg_size);
+ 	*(__be32 *)buf = cpu_to_be32(original_msg_size);
+diff --git a/fs/smb/server/smb2pdu.h b/fs/smb/server/smb2pdu.h
+index 1836259..2cdeb56 100644
+--- a/fs/smb/server/smb2pdu.h
++++ b/fs/smb/server/smb2pdu.h
+@@ -399,6 +399,8 @@ struct channel *lookup_chann_list(struct ksmbd_session *sess,
+ void smb3_preauth_hash_rsp(struct ksmbd_work *work);
+ bool smb3_is_transform_hdr(void *buf);
+ int smb3_decrypt_req(struct ksmbd_work *work);
++int ksmbd_check_transform_session(struct smb2_hdr *hdr,
++				  unsigned int msg_len, __u64 tr_sess_id);
+ int smb3_encrypt_resp(struct ksmbd_work *work);
+ bool smb3_11_final_sess_setup_resp(struct ksmbd_work *work);
+ int smb2_set_rsp_credits(struct ksmbd_work *work);
+-- 
+2.53.0
+
