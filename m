@@ -1,111 +1,119 @@
-Received: from mail-dl2-f41.google.com (mail-dl2-f41.google.com [74.125.229.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2786F19CCF5
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 04:38:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.169
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 70C4A35C6B8;
+	Mon, 28 Sep 2026 04:44:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790570331; cv=none; b=itP/Yj5Xwa+LL8LRY32+u9GduW+0wTcc+Q+n+hm1xyMWloh5YV2Dt2gffJfHimzFqIoQHKQurSm4dJdWxV3lfLNYvTCtfSCUN/0GwTGnwb1H2lT5K03RJ5Mjkd7y9KyQxQkgFHth04DHaaiNZ0abd7y0/c+tNvbrv8+REl4g+6E=
+	t=1790570677; cv=none; b=S1YeyBOpyX3o96Pj/RvPGdSUEA1VJsy98plmzCwCLVN8PlZEpU8ya78+bW6gxN45kgfUWuwEnJFd42VA3AUxdShDSSS2JDAURl8XrF0cFVkrHHfAshr9Q0Tw6B0iZcj6IIQeyWZA3I0cEV4FfBAn+wWGcs1dWOvMI90U0CdvVDE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790570331; c=relaxed/simple;
-	bh=oYMPXUg5FRpTGpq/VChufToWIT8D2XYBNz1jqWQZd14=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DR/il3OBpQ50ClpqhXYYHqZ2jKOJOj+id/97KQLVNRxjhATiJLcW3aSGHVYGnzQCsJK8UrHcUBJuy0BqUipeFYbvPEt6Src3CyBF2+D5Op9cc11RTxqE6WqbprVZWuQdZt6ym8YUSxUaiIEwPdfbC1RXCzFrdF81JvWMlzzDcAY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q+S9GrTH; arc=none smtp.client-ip=74.125.229.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q+S9GrTH"
-Received: by mail-dl2-f41.google.com with SMTP id a92af1059eb24-1474c6b7742so932580c88.1
-        for <stable@vger.kernel.org>; Sun, 27 Sep 2026 21:38:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790570328; x=1791175128; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=S9YFNOM35bVSfIS9/7AW72GbBEe1YCeVTQopxAj3TL0=;
-        b=Q+S9GrTHakmOPeFFNUbWxnb7iokwjTb6dKNPNxocRySVeYxMcySNBHP5pWjMFfqFeI
-         T1U3iRA9w5c2Isj9IZeQ/ZMvmxMK0eYpmgbQW6Jpq/mvQkc45mDAnebvBTfG5xnwvLWt
-         nFAia4LO2aYxcG/cwwftKzqy1RznYw7grjJ3GAwHISrkG+32oME39aG1suLcC+cnsP3e
-         8pCLXvmcix9WlPRnA5Hwx1haoQrW0GqjFM6vNZb3uzy3HMAiq/xmHLbssbRKT1ndq9c6
-         +qS50F2g8mvn0rXZIlJOeFImlPbKbq/FnZIrOKRs7kHf9qtGT1dLv6StiEsDCMVzxnmJ
-         DVjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790570328; x=1791175128;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=S9YFNOM35bVSfIS9/7AW72GbBEe1YCeVTQopxAj3TL0=;
-        b=dvKB6g9cteh0BoFBiBT57XC8lHAoqsA+c5mouO6JRdAvA46XmMsUZUfYsl8OeU/euH
-         Qini9+7b8QkOBsj7xvf9QnOH4VldXKhNkapgeeAMUlUvk6013uMyN5/HT6+QThS3vC1o
-         j4/skVCF/WIebvGYMtN2MrSgcYpJ5yfwAHtF0ovlgItwj3mehF54p47N3dc2FNlBnuSu
-         q1nTkTgZ6rTnLSSlN462+Pve5Z+Imi191v9KGSWWALm61cpWX7V1ChviH7JNQ273f57M
-         wNFH1z4beVdCmmIuRAvIEf67EIKPkyBn5yR3/gEJBXWEyii26E7hCZPgFL/kBQhKHU82
-         rKZA==
-X-Forwarded-Encrypted: i=1; AKwUvBwOcLM7NG4q/TOCB977C/w4JUKFm7lNXy/AtX8pWNkXbahoe6gISHvQZfaSMZLDaxICVFEi49s=@vger.kernel.org
-X-Gm-Message-State: AFuF++nirymJd8HB6vTHd9fqrNihScAXKRYzJ0+MK0tYPJrfdF67Ix0X
-	prhw0DS0AMl47iAX7hWc3mCzm2B+VD4LBahaPzjATShALO2wQifKNYmJSTttfMNb
-X-Gm-Gg: AYBFou2AXdaY2xm+h0sDzrI4EQn0flwOouAGenKuwfqoX2JKtRTY8ZledHnkeFcjSR6
-	4nO6KxjAM67uK3Clbiyh+FqGBY0AUQeUbnELV7feCE1UQWyELUnCuA3zVByyVGuXcL50pweNNFx
-	nJWoRuRREgrcVwlwD31hjtIOVq4pqqObo2+E52vB2EtbWj7nCT+Xu/zCJIgtuN1WQ6sONE23VCq
-	jbUKUnMU2YTCrKLwWvDE3j+pX6Sj7Q7BevTGZGFCvWHntt0aHlplHYEpmSKPRKfzWXN3hJJTQX5
-	kclzfdqCMjf0PD2ejPj/YTRS5OrP03/TFVnD1mpAuvtdBFA0CKI/6qx2XaYdVWI41vzCX3NnvtJ
-	43ccATJeKUGMxpUUr7PHMIaNzX7bEUR0phFQTM4Nd6H5Xo3mhSK9TI9Zv6JAqaXvgsxvXnV+wWT
-	D8X50hxoqgPtmQOgD+SPxVJ07wQQyfqdGHethxr0J88ScQoZT8bISn+Z4cOkeaBUxQicTqYhL6P
-	uuN1cyD1+xoV9DW/ulRi1fq6sxP410Ygw2bFFId+A==
-X-Received: by 2002:a05:7022:b048:10b0:144:e658:94f with SMTP id a92af1059eb24-146d0f33db2mr8902859c88.43.1790570328080;
-        Sun, 27 Sep 2026 21:38:48 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:526d:2f94:503b:aada])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-147913a776fsm16358758c88.17.2026.09.27.21.38.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 21:38:47 -0700 (PDT)
-Date: Sun, 27 Sep 2026 21:38:43 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: david@ixit.cz
-Cc: Andi Shyti <andi@etezian.org>, Rob Herring <robh@kernel.org>, 
-	Marco Mattiolo <marco.mattiolo@hotmail.it>, linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	phone-devel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] Input: s6sy761 - fix resume ordering and restore
- sensing
-Message-ID: <arnvS7Hk7uIKKLrZ@google.com>
-References: <20260926-s6sy761-suspend-v2-1-8f00a96ee6e8@ixit.cz>
+	s=arc-20240116; t=1790570677; c=relaxed/simple;
+	bh=P46W6G1ZT706ZpmCDKpZhw42o48WZ51sha4ytinvfNw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ZLzmIrsDBYVBsjAVeGTjXQgy3m2CFTgIIy3jYQwkOc32wSEFsyeCLACXfQLczfrVJ0S93BdNUc6Un5RFIcSM0FfJKwpDB5V5Rqg9Amt+NV//sazaUGMg0pCJub4aMhSmGrElodUNsDpXgwbKlcA0Rs1NKYi//TbqRAQLIVfEA98=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [223.64.68.159])
+	by gateway (Coremail) with SMTP id _____8CxutGy8LlqYWEQAA--.47964S3;
+	Mon, 28 Sep 2026 12:44:34 +0800 (CST)
+Received: from kernelserver (unknown [223.64.68.159])
+	by front1 (Coremail) with SMTP id qMiowJDxg8ys8LlqvfElAA--.52750S3;
+	Mon, 28 Sep 2026 12:44:32 +0800 (CST)
+From: Binbin Zhou <zhoubinbin@loongson.cn>
+To: Binbin Zhou <zhoubb.aaron@gmail.com>,
+	Huacai Chen <chenhuacai@loongson.cn>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Yinbo Zhu <zhuyinbo@loongson.cn>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>,
+	Lukasz Luba <lukasz.luba@arm.com>
+Cc: Huacai Chen <chenhuacai@kernel.org>,
+	Xuerui Wang <kernel@xen0n.name>,
+	loongarch@lists.linux.dev,
+	devicetree@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	Binbin Zhou <zhoubinbin@loongson.cn>,
+	stable@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH v6 1/7] thermal/drivers/loongson2: Correct thermal sensor registration loop
+Date: Mon, 28 Sep 2026 12:44:10 +0800
+Message-ID: <502911659e15a51c4e98c11f3cf476dd5f92e75b.1790561983.git.zhoubinbin@loongson.cn>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <cover.1790561983.git.zhoubinbin@loongson.cn>
+References: <cover.1790561983.git.zhoubinbin@loongson.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260926-s6sy761-suspend-v2-1-8f00a96ee6e8@ixit.cz>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJDxg8ys8LlqvfElAA--.52750S3
+X-CM-SenderInfo: p2kr3uplqex0o6or00hjvr0hdfq/1tbiAgEECGq52vkBHQAAsj
+X-Coremail-Antispam: 1Uk129KBj93XoW7tr1UCFW8ZFy5Jw13Wr43CFX_yoW8Cr1rpF
+	sxC3WYkr98GFs7Z34DArWUXan0ka4ftFW7WF4xWwn5urn3J34fKryrJFW2qa40yFy8XF1Y
+	qrZ0gFWDCayDXrXCm3ZEXasCq-sJn29KB7ZKAUJUUUU7529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUB2b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6r4UJVWxJr1ln4kS14v26r1Y6r17M2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12
+	xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1q
+	6rW5McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64
+	vIr41lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_
+	Jr0_Gr1l4IxYO2xFxVAFwI0_Jrv_JF1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8Gjc
+	xK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0
+	cI8IcVAFwI0_Gr0_Xr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8V
+	AvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E
+	14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxU4ZqXDUUUU
 
-On Sat, Sep 26, 2026 at 10:26:47PM +0200, David Heidelberg via B4 Relay wrote:
-> From: David Heidelberg <david@ixit.cz>
-> 
-> System suspend powers the controller off and resume powers it back on,
-> but the resume path enables the interrupt before s6sy761_power_on()
-> checks the boot. The firmware raises its boot-complete event on the
-> interrupt line, the threaded handler consumes it, s6sy761_power_on()
-> then reads an empty event and resume fails with -ENODEV, skipping the
-> touch function setup:
-> 
-> s6sy761 2-0048: PM: dpm_run_callback(): s6sy761_resume [s6sy761] returns -19
-> 
-> Power the chip on first and only then unmask the interrupt. Once resume
-> completes the boot handshake the chip comes back with sensing off, as
-> at probe where input_open() turns it on, so the touchscreen stays dead
-> after resume. Send SENSE_ON again when the input device is open.
-> 
-> Tested on a Pixel 3 XL over several s2idle cycles: resume succeeds and
-> the touch function and sense status match the pre-suspend state.
-> 
-> Assisted-by: LLM
-> Cc: stable@vger.kernel.org
-> Fixes: 0145a7141e59 ("Input: add support for the Samsung S6SY761 touchscreen")
-> Signed-off-by: David Heidelberg <david@ixit.cz>
+The registration loop in loongson2_thermal_probe() incorrectly uses
+dev_err_probe() when the sensor is not present (-ENODEV). In that case,
+the driver should continue to the next sensor index rather than treating
+it as a fatal error.
 
-Applied, thank you.
+Fix this by correctly handling -ENODEV and only returning on other
+errors. Also add a final check to ensure at least one thermal zone was
+registered.
 
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/cover.1783670011.git.zhoubinbin@loongson.cn?part=2
+Fixes: e7e3a7c35791 ("thermal/drivers/loongson-2: Add thermal management support")
+Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
+---
+ drivers/thermal/loongson2_thermal.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/thermal/loongson2_thermal.c b/drivers/thermal/loongson2_thermal.c
+index 4d40fc706a53..99b7392fc68f 100644
+--- a/drivers/thermal/loongson2_thermal.c
++++ b/drivers/thermal/loongson2_thermal.c
+@@ -160,16 +160,18 @@ static int loongson2_thermal_probe(struct platform_device *pdev)
+ 
+ 	for (i = 0; i <= LOONGSON2_MAX_SENSOR_SEL_NUM; i++) {
+ 		tzd = devm_thermal_of_zone_register(dev, i, data, thermal_ops);
+-
+ 		if (!IS_ERR(tzd))
+ 			break;
+ 
+-		if (PTR_ERR(tzd) != -ENODEV)
++		if (PTR_ERR(tzd) == -ENODEV)
+ 			continue;
+ 
+-		return dev_err_probe(dev, PTR_ERR(tzd), "failed to register");
++		return dev_err_probe(dev, PTR_ERR(tzd), "failed to register sensor %d\n", i);
+ 	}
+ 
++	if (IS_ERR(tzd))
++		return dev_err_probe(dev, -ENODEV, "No thermal sensor registered\n");
++
+ 	ret = devm_request_threaded_irq(dev, irq, NULL, loongson2_thermal_irq_thread,
+ 					IRQF_ONESHOT, "loongson2_thermal", tzd);
+ 	if (ret < 0)
 -- 
-Dmitry
+2.52.0
+
