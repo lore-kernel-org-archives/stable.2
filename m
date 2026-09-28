@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94CA7296BCF;
-	Mon, 28 Sep 2026 12:39:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1009C25524C;
+	Mon, 28 Sep 2026 12:39:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790599169; cv=none; b=jm67YyAHXFzKDc+0Y7DKQQ0u8RHNuDtyMpffJu2qNQj7AbTCeIQeQF/1Szaf33VXoKq8Aqwq7FW1ovLhY8ddiVrxHCQ6YLC4Iw5uVx3SMWV4bcwwai8iGL6i/WilhJHXBjfFsCJ3nlpwPF7LGxGcU9hq2CPt/t/Ux8PaYEWN9HI=
+	t=1790599188; cv=none; b=Ll/9XLwqJn8cNbXR48RuEOvrTwBFE3lrycBvo01Eqy3JUDGe2BBxSaclJcDf40BLUH+ixnc0hzeM6IKs48CcXLzfUahO6jcaGxEsCkiAUen9mlBlg/yTa4MlcEy6Z/bYohgspoNBbo/DapdH81LXR1cpEWKZ/lOtT1SkBtvHdbA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790599169; c=relaxed/simple;
-	bh=DxOA3K04TdGKgV9RBzwq7NMB042SfZvdvrNpiga7nYU=;
+	s=arc-20240116; t=1790599188; c=relaxed/simple;
+	bh=Frc+ADQTxRwKDWaoqMQMlUJQ/gCXB8qyIs31/48aD70=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=YizHgXvNRt9i35idSpsCP+dgPXu6NJiHEJvayrI0AmIpIcpIDA361zitiZmpSwpKHneLEytfcGOfIQC1eetxA3GDmoLqHf6oF1y2m1i1JJ7Qvh1cFpb6MobDDZVYJ2rjNY9gFsFvyjrm0ARr7f44shyh2NAc1lYn0KHG7l1ddeI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nWyYoASU; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=LyESqKw1vyOv8cDjGqMvCzQLUpsxebyQHenZeHr5cHZLV9Z71shQWgc3IuJOrUDJho866p5Z63ffQZZm+ZQvn8E+sqfbVfYPy0WyD1565+Fmt7FM+Vn2sPrjFC9rHD8BoqWmt8pyscyyKocWIHTq/x/FV4xD2VZGM/F8YhILuKY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PmyQ60dA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nWyYoASU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82D541F000FF;
-	Mon, 28 Sep 2026 12:39:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PmyQ60dA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0AAE1F000FF;
+	Mon, 28 Sep 2026 12:39:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790599168;
-	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
+	s=k20260515; t=1790599186;
+	bh=80POjU5WP6ctS0DqN7hA/63JAQ8Agh1hTny2C1kJcvk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nWyYoASU1sR937AvQP2vKlYXcdY/HMVhvCPKSNXzbJ9R+ENQAl0ADFM9iQpWZWdTd
-	 mtWMHKt5Mji2LwgpCOsdUaDZqKkAKz1VRepjfZrS/HbXIhG7ZHLgCrH2ZBB/fyMJCu
-	 DhJIBuyiN2l8p/HoOfoJdK1Jf7IIhPdqqrA/bJBTk9P1e03saWcf9x3+LQ1tdjDDlC
-	 WU11Mc3rkQySmCZi3/oPYgvHL2jEoAgLQpJuWzhe9v+xhyZLbfCqAUB7idLUMT67cT
-	 i2Fp9j8gtLgNaZ13oiPHu5WxQVy7/ludkHPDp0CfdnjQhKUnS+ZC27DyHz2lQyGmRc
-	 th3RJguq4frVw==
+	b=PmyQ60dAkt/uD6wyBgDRM3UFCZTVBM3auopW0Vp6w82r2+mmj8AAcRkDe6Y96e/8m
+	 eZ/jw6skaHjL6fpi5c2clwFEM7B6OBaeAE7CKT1nH/YRE6or8vgIaE5KxUBHZoEOGt
+	 cmWbNwz+wXfvVyXkY1UUYdLjBejJZ8DQ5XKWhBj1L9AYRhFTuUd6hKTbW6ftQM0Nbr
+	 3Edu6LYGs3v5a8LJjOwU8BpiuIf7IKLbrqU0bQLx7ZleDB/XE1oLaR/n2hbkanuKH7
+	 zwi1Q3bV1oW1Udhrc3tpCRMIFBdK0aMKQLRi+Qh7+A3eCyxN7+P9UxNT4Mh5IzGz9h
+	 ukzKRYdQsqzYQ==
 From: netdev-bot+sinfo@kernel.org
-To: Linkui Xiao <xiaolinkui@126.com>
-Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Linkui Xiao <xiaolinkui@kylinos.cn>, stable@vger.kernel.org
-Subject: Re: [PATCH net v4] net: stmmac: do not keep the new TSO MSS cached on
- mapping failures
-Date: Mon, 28 Sep 2026 12:39:27 +0000
-Message-ID: <179059916708.31693.15841769312205825846@kernel.org>
-In-Reply-To: <20260928123422.1698785-1-xiaolinkui@126.com>
-References: <20260928123422.1698785-1-xiaolinkui@126.com>
+To: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
+Cc: anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, intel-wired-lan@lists.osuosl.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ syzbot+ca1ef9e2e234b8d3599b@syzkaller.appspotmail.com, stable@vger.kernel.org
+Subject: 
+ Re: [PATCH net v5] net: e1000: fix warning in iounmap on probe failure
+Date: Mon, 28 Sep 2026 12:39:45 +0000
+Message-ID: <179059918543.31693.4938540014506455007@kernel.org>
+In-Reply-To: <20260928123814.2605-1-nsvatoslav515@gmail.com>
+References: <20260928123814.2605-1-nsvatoslav515@gmail.com>
 Auto-Submitted: auto-generated
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -54,14 +53,6 @@ Hi!
 
 This is an automated message. This series looks like a fix, but its
 commit messages seem to be missing some information:
-
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
-
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
 
  - What hardware the change was tested on. For driver fixes please
    mention the device (and if relevant firmware version) used for
