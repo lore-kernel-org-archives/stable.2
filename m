@@ -1,112 +1,127 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE8FD4E3227
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 14:57:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39AAB4E325E
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 15:00:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790607430; cv=none; b=e/HIyv9uCchX80BeGJuEnwMSl5GkXtz9cuc4LUdLi0TpD+3AsXXqoV+x+fiILZkdG6oFquTAVvYvj1fLCtXkaOA3nhNWAvAgRi3i+cIqARo7Dckz7JNty9n/WrPx+aYAsaOHJBXSIv/vwsBoJ5aK4xJMBqiz2mHsgYubCIdZEOA=
+	t=1790607659; cv=none; b=Yh3hhEnjtY4AWz43t0Mf8Dwv/XOdueBisvQrwt/Fx9zkB1kJBzTIFzmC4zBrWwEIIb2ZtwV6n6HqcYtTixYT/TzZou+QTFY/YarrOcLMfBNgQynvn5hAGfTI+Y7+NL6fj0/DAiAN23fl4bwW69hR7xxzUwm1dvs5TkigfNCFebI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790607430; c=relaxed/simple;
-	bh=hnhQkpKoMw2Zhfw9DM4few3dVnMySo2yIHKJrwxV20g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BZp92/UHky+6MDoX1CNnZyHUNMWXY/U1RX1POxWVifodKrAATmE5jMahsdkB7Sjoq9ohXqX7prfoukDlw1p3he62++FnhC34aPtqDiZUuOF6G6MQ/kvipq03ZMeTL2yb1Z73qBQMRIuwiesHRDLdXl5ajKV8IP+DfOat1nwbeuY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Y/jZ3mG9; arc=none smtp.client-ip=209.85.214.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1790607659; c=relaxed/simple;
+	bh=GXO6lAFxoFQEwQkkMLCI0y+cMQX6YMSHGHt+/E1eEYo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=uPh8DTFXA93bRAW22842GTW4QoAr6+e0rYhI+xUtA+mpVhVbVBlcMFauPa16a/QnJQENq411prjo2ecb44+dIfVVygyr5Ur3itHR+11tH9eaVVCxAEXSn+iv/+h+r5ta/0Yezai0czEFYOKtLUg4Jv19jCwtjii5YQVgBjvROzQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rBpHsL39; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Y/jZ3mG9"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2d3b445a84fso82045ad.1
-        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 07:57:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rBpHsL39"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49fff72474fso9662715e9.3
+        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 08:00:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790607425; x=1791212225; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Go9hn601ofYGhTbmTXvodFkeQSZutx3QY5olFYU9dfU=;
-        b=Y/jZ3mG90k+9/OiYbELY+hpBvAWC2O7pfXFE+zOZk7RNy5sDEYHoKttkUiBS67Spm5
-         yO8lPO3VAQTJD3ieeZULPxFdhiuqTyCfHmZ0qJc+Chr/M7N1CAW8tsZZ+l8QxoETpZfY
-         APjq8dY+T/BSTBXpfsqEYW5cWgETdh/bTH869vAmtD6rN05PkpVluURnkn7r+uTYY/6G
-         kTrom5m27/2dqFQmS4PsjJ/EgiHaGIP29Hzksi4k3ToHFJkuwUFv9vxa5MGO80YyGHj1
-         BqC5YJrgIH4jrFGbbiVbKRT6wgw+m4xfcmzndZRgpSY7V5pYWXG0bs054yOdAYuYoSma
-         rXIQ==
+        d=gmail.com; s=20251104; t=1790607656; x=1791212456; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=PNRLh31Iy3KvKfoOWiJ4SBBap26RwlK370O1RZcEP7U=;
+        b=rBpHsL39O+k1l9AUYeSXFOO3t+89j+XWHx09xnFuyUjXdsG9Z5q6AJQVwnwRB88Mo3
+         1C+K6IxYtpiGJ24Xpec/jbR48xYBnw9uiql4QOinM7ccOLoqpv+oO4EkqKcvOEKcNzpP
+         bJdcNVDAcVtzdNbMbr3gnuAIpH5GunfomdsNp93WNzpliSmpY+kAFTXcj+N8C8t7togX
+         XbGwS52OqhH7ApSlregjT7eo9VQKZNRwBAivFTuYBNU42f0VKmi0kAcI8bjMfKZnX9/D
+         1BPe7rWmoEZfpxZ4oDgewgtIg7PUhAeE3TyJC+ruhP+9+qcp3fVn/VhyAp5MoKyOybXt
+         z0Bg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790607425; x=1791212225;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Go9hn601ofYGhTbmTXvodFkeQSZutx3QY5olFYU9dfU=;
-        b=bn4YlCFaFM/tkSiIgfYAho1UQ1Ee5SxYg8veOzWc5/M7DM4dNhqDzN1rbjQZztBS3Q
-         XkISereF1slsDjB9TkVxhREumL+miufuiht8i9I8vj+xH7M0S/Hg+DqAVk1PE7i399xe
-         qyfiCnijGlGAmxXqflHoIIFyuMng3JshmAUBSrKmK3pJgBHRNtRE2GPckKZHlCAsNfhN
-         jlwy+Nx5OY32YMMg/x+/weQc0qAi6vJRJyUXRvss+6hoMG9l7GAxVsUJfFmMhAunZffV
-         KsMOxT03yojahyk7zHJjDP894s8RP4hUEVzMhIaHU7lSDXU5L2fA8WYG+kisYF6yiAR9
-         y+SA==
-X-Forwarded-Encrypted: i=1; AKwUvBwTXMtig8l/71HqzgJ8TlP8u3K8KKck4P/saPl9JJTHf3F7YJ34OvUD0SFSnulAybOZtgow+kk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLtdWphhlodq10ob1hdwqAvmAhcBHjVZmlfKdUfduZ1Cxmv4BC0
-	GStU+mlRTA+X/KUrIYpngPjrY/5KKWYKIpCu4wdx5WX4m/1T1TXPGmvz+UHpeuO5Kw==
-X-Gm-Gg: AYBFou00kdMhgVTtnyUR/h8roFHUfDgXA5R0Dur93uovLB9kKMyeXCyY1lvvns89XSL
-	AGqF59Roav/vr0olXthaqdjRExs5JfBdYu6fQqJgf0iWX/t7KxQ1XlUmxl8Nd1uQx8bB2uY9i4a
-	QKjGsiNublDRJC5lB5D0/fahC3V3sYrih9fNajyPNwzlbnBXMMmvNBpPCEEL6IYRuiO2WUr+WTK
-	6aP6lfmC2S4Abgc6NfiPv/BYvAOhiDJdUtmSzr0NQnTIFDCY/zC84oS3w9NINwU5Xa6YqB3EBLc
-	/Z8nW8UZUEt8cHAnjT3C4PilRIITc0jyusqxjZowlAS/40QhyWJHzubnbEQueSd7XDWutYcIuQU
-	oI5QmWimBxef3/UcrhCpH1KUimv4ecx0Ih6sDZ9ozMH0KqGsg7GNtagMJ7DeX19d+fQZIc4k2x2
-	sazWXVwWr7upHCo6dKZV+WHc62qi9BcIZx7XBirBD1DvnYkqQLW5M6tmMorgTQyg7Jbaas+GuTm
-	GCeTRzXPfPA8xIYyh/nDemc0zWyz48nbrs7
-X-Received: by 2002:a17:902:d4d2:b0:2df:42af:2f9f with SMTP id d9443c01a7336-2dfa968ef1cmr5442355ad.1.1790607424172;
-        Mon, 28 Sep 2026 07:57:04 -0700 (PDT)
-Received: from google.com (105.211.142.34.bc.googleusercontent.com. [34.142.211.105])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b9feddd0sm7198628a91.2.2026.09.28.07.56.59
+        d=1e100.net; s=20260707; t=1790607656; x=1791212456;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=PNRLh31Iy3KvKfoOWiJ4SBBap26RwlK370O1RZcEP7U=;
+        b=fAkLQ79MV2PC0ulUmUCCYpCezchq2VhqGafgEXOC5NfnLcnQPq/ap/UDqUNWO6/IyC
+         C2jbmHLXu7LT93RXcujYSXL+QzkdIFalUGeMpHAGxR7Xa6m1tbsnrSRuXQmXkSH158S6
+         Tsrk/LeCjgNXUTSIxMcdjs4RrrgGR6Cd/wcyernhyujnMI65d1lL1sTsrQ9XyXvswhO7
+         MghU9Ck1+620ukj6RoF+ThoM2HqUzTqUq5e1sKpXEotUYCHt2bXK9c7VSrtNcQrklwUo
+         af6Jn7IGyTzAe22sssOapnaTgQLvEOWv4xhLBE8oJOSGf7Bq0Qku/QAjPfUq0uYx6ll8
+         GFDw==
+X-Forwarded-Encrypted: i=1; AKwUvBzM9++pykzaTtTtVAeI/R99hZSQhgdWAbiUvzwjpqih62jQCCL0GJkmxrN0IVvbZcH4x4U5bg8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kmmSqX1sUOssYxczmRg/og/ZyIalsvs6eUnR2zbTZVdTc7I43E
+	irm/kSR7TwlzmUy5kunf2sAHdjjg/NfepoRS3kYyz4D0/zfLH5cgufDj
+X-Gm-Gg: AYBFou242LT54rMLLu30EHvafpotQE/OWhjBU0BeEoKduHvwL6PGY7BhYMh7NF1s3C7
+	9uzoMoKCXEDMoRCOW84Vq3LVVlAX9SES34RIUKhn0E2DOmNFqobYxI4FbZM5R7d8nOuIhIsB2jb
+	fZzkRUTJp1YrrEvQcUh5Ulg4r05D6ms6yaGViPavlaXQ3LFZ9oMLaWZJh8eLQ/49Ewa6xBt7a+Q
+	tdelMY/9HjIauqAd+O5+kPOg9ag0aw0fcTRsxI+tenzzAuZS4RFYjbZuEAbFEkV5AK07snEAq0o
+	kAe1Cj0XYkM6VXF3/K65gTTlfXpYM21Hj9GyEmDSvnRXSm1v21CEPtYYHv5YPH/TQZzb0BEwS3g
+	0wubJyS35d7BxSiChZ3cUB907pNxvjSNoShTKsWc+wy9SqHeU7IDsv+w1/MGDsYKkkwHiyLwC5p
+	O8eR7BKxhPoYAVPLi+a4qdjkMoJkkRCFmeseak1ZPbdZo43BqSHlZHadF0PUA1Wh+ls4Yo8nsLn
+	zDj4pD6VE+VsIcLTDW4Z5bD2bY34gi+4fIHI8D3DbyhwT7gT7Sc3JqUUB5iJW8hUdWsvkXhZJ9L
+	W1qq5T5HSJAVh3Bu//kRiQuwbLanfxjesUl67MBFUYRUJQLU
+X-Received: by 2002:a05:600c:3b05:b0:4a0:321:6ddd with SMTP id 5b1f17b1804b1-4a003217170mr61722025e9.34.1790607655941;
+        Mon, 28 Sep 2026 08:00:55 -0700 (PDT)
+Received: from [127.0.1.1] (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a001922102sm151777245e9.15.2026.09.28.08.00.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 07:57:03 -0700 (PDT)
-Date: Mon, 28 Sep 2026 14:56:54 +0000
-From: Pranjal Shrivastava <praan@google.com>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	Jonathan Corbet <corbet@lwn.net>, iommu@lists.linux.dev,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Jean-Philippe Brucker <jpb@kernel.org>,
-	linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
-	Mark Rutland <mark.rutland@arm.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Will Deacon <will@kernel.org>, David Matlack <dmatlack@google.com>,
-	Jean-Philippe Brucker <jean-philippe@linaro.org>,
-	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
-	Nicolin Chen <nicolinc@nvidia.com>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>, patches@lists.linux.dev,
-	Samiullah Khawaja <skhawaja@google.com>,
-	Mostafa Saleh <smostafa@google.com>, stable@vger.kernel.org,
-	Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
-Subject: Re: [PATCH v7 5/9] iommu/arm-smmu-v3: Keep track in arm_smmu_invs if
- range invalidation is used
-Message-ID: <arqANvAwIz6GSXJp@google.com>
-References: <0-v7-e84261bbe7cd+2ea80b-smmu_tlbi_jgg@nvidia.com>
- <5-v7-e84261bbe7cd+2ea80b-smmu_tlbi_jgg@nvidia.com>
+        Mon, 28 Sep 2026 08:00:55 -0700 (PDT)
+From: Franz Schnyder <fra.schnyder@gmail.com>
+Date: Mon, 28 Sep 2026 17:00:46 +0200
+Subject: [PATCH] arm64: dts: freescale: imx95-aquila: Enable I2C_3_DSI1 on
+ Clover board
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <5-v7-e84261bbe7cd+2ea80b-smmu_tlbi_jgg@nvidia.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260928-imx95-aquila-clover-enable-lpi2c8-v1-1-9a9755acb8cf@toradex.com>
+X-B4-Tracking: v=1; b=H4sIAB2BumoC/yXNQQ6CMBBG4auQWTsJHYNQr2JclPqrY2rBVggJ4
+ e5WXX6b91bKSIpMx2qlhFmzDrHA7CrydxdvYL0Uk9RyqK10rM/FNuxekwbHPgwzEiO6PoDDqOI
+ 7RmvMvoE10gqVzphw1eX3OJ3/zlP/gH9/w7RtH2AAF+uFAAAA
+X-Change-ID: 20260928-imx95-aquila-clover-enable-lpi2c8-e71135e91272
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, 
+ Antoine Gouby <antoine.gouby@toradex.com>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Francesco Dolcini <francesco@dolcini.it>, 
+ Franz Schnyder <franz.schnyder@toradex.com>, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
 
-On Mon, Sep 21, 2026 at 08:55:13PM -0300, Jason Gunthorpe wrote:
-> Summarize if any of the inv entries will use range invalidation and if any
-> need ARM_SMMU_OPT_FULL_CONT_RANGE_INV. The next patch will use this to
-> avoid range invalidation pre-calculations unless the range commands will
-> be used.
-> 
-> Reviewed-by: Nicolin Chen <nicolinc@nvidia.com>
-> Reviewed-by: Mostafa Saleh <smostafa@google.com>
-> Tested-by: Nicolin Chen <nicolinc@nvidia.com>
-> Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+From: Franz Schnyder <franz.schnyder@toradex.com>
 
-Reviewed-by: Pranjal Shrivastava <praan@google.com>
+Enable lpi2c8, which is used for the I2C_3_DSI1 signals on the Clover
+carrier board. It was left disabled by mistake in the initial commit.
 
-Thanks,
-Praan
+Fixes: 3f519121e120 ("arm64: dts: freescale: imx95-aquila: Add Clover carrier board")
+Cc: stable@vger.kernel.org
+Signed-off-by: Franz Schnyder <franz.schnyder@toradex.com>
+---
+ arch/arm64/boot/dts/freescale/imx95-aquila-clover.dts | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx95-aquila-clover.dts b/arch/arm64/boot/dts/freescale/imx95-aquila-clover.dts
+index 365bce73eddd3..07bf53240958b 100644
+--- a/arch/arm64/boot/dts/freescale/imx95-aquila-clover.dts
++++ b/arch/arm64/boot/dts/freescale/imx95-aquila-clover.dts
+@@ -197,6 +197,11 @@ &lpi2c5 {
+ 	status = "okay";
+ };
+ 
++/* Aquila I2C_3_DSI1 */
++&lpi2c8 {
++	status = "okay";
++};
++
+ /* Aquila SPI_1 */
+ &lpspi6 {
+ 	pinctrl-names = "default";
+
+---
+base-commit: bf184a29ad1b33bd8922029eb0ca3f2866007258
+change-id: 20260928-imx95-aquila-clover-enable-lpi2c8-e71135e91272
+
+Best regards,
+--  
+Franz Schnyder <franz.schnyder@toradex.com>
+
