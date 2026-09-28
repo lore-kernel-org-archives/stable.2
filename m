@@ -1,134 +1,128 @@
-Received: from relay13.grserver.gr (relay13.grserver.gr [178.156.171.147])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5751C4C6515
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 12:05:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.156.171.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F68E3FB7EB;
+	Mon, 28 Sep 2026 12:09:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790597134; cv=none; b=SjJaPva8P5lP0xE4goXpYtFw4pFPRnZ0A8anmpLFKH9GgpSytbMDYphLW0JVJBS3lJ6G5TzsuFZdfKvzX4I1z34haSVjNonoiCCMk0jJHfcVRu0YktIayMrm4Qf6P6ImNhnMflB02+kkXh+aNz/jJGSjNTxanMHcuRH9dVYKB0g=
+	t=1790597353; cv=none; b=fRMYfoqVMgE0u2/eDMawk7xUqSGg9t3OTgJ1UhIL/tjWeOt8s+tQgah21/zTLrC2nIHssr2vL5JLaQltQpa7lDFblEL6CLaaHwm8EliuByNfIpx5QbFDXX/HCIv+28pAv9EkhC60pD86PNKO5OmKm8iUbKjeT0uajQUtd+ks/u8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790597134; c=relaxed/simple;
-	bh=MKBrTzS2l05J5l8I+d3SYuHXmGWOoVgXwUoJ9w/Tog0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IR6Vr4inmE8DuddjkJGa+MrYP/5QKZMoHmIAIDPi05TJswAS1Rsf/blU7qt3B8tGG5kpwTZRJXjzmoJfEvowkyq0gP1W85Xb0VOTVLcRLLOoo1ngGPSttrzKua3xKepA0gBxA3wjdY5BiV/+vq6Z5fPHXyTanvb84okqIq59ah0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev; spf=pass smtp.mailfrom=antheas.dev; dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b=G3e+zF5F; arc=none smtp.client-ip=178.156.171.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=antheas.dev
+	s=arc-20240116; t=1790597353; c=relaxed/simple;
+	bh=ZhtTiN8KD7+PCBVbMunI3SXyiYpT/PgLcIE1Jvorxr0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kAjGiSWAbHo1gwvZnf7XyARt296W5zzecHDMBOS2Gm2hj5YrvGAg2bWNR2oLWIaOZG3y7vIq2Vz9pjpsarB5bR6jpdyOwKaooR645MqfL7vhfgIWPflkDMxrHzz8cFESKZPNCi3JIR+BNsC5hzq8GibsATCP3No8Po+74i8h2Tk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cRF4/Ta6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b="G3e+zF5F"
-Received: from relay13 (localhost [127.0.0.1])
-	by relay13.grserver.gr (Proxmox) with ESMTP id 37E215E505
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 15:05:31 +0300 (EEST)
-Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by relay13.grserver.gr (Proxmox) with ESMTPS id 0F2035E53C
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 15:05:30 +0300 (EEST)
-Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
-	by linux3247.grserver.gr (Postfix) with ESMTPSA id DC2F71FF794
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 15:05:28 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
-	s=default; t=1790597129;
-	bh=A4QsdSGLThMTI5MSElEpBJcEDDoMm01DSM1lmZ6XAuU=;
-	h=Received:From:Subject:To;
-	b=G3e+zF5FhSX6RtHuOD5kB1hWmipeV46pYiI3+aQ+6NpIqLXvk6a3PHYVj+RO0Lbg3
-	 fBfPuRZCk9qEOoa3wcVoyuhdSPfIJo2dns2etbwVREgKFZP/Ak5pxvUMNMsdJh/8/J
-	 MJXgGtb6eKwXLrlTb/dCuCK41bpnyH6Bizhg7JZWoh/WTyLVM3YMIpk/Du2O2C8vM5
-	 VAbeHhziwnJx9u/+Ct5eWUNa0ihwNQE31aWi8oxEPcZwQoYgzLGhaliS8YDEOOh6X7
-	 9Lu6uQ+oP+MGQQDwiUR9Bk48ElKRXhjSvSpEwF5Ql9/ON+iehYzMWGGsCvFJkd77tU
-	 JvNLk5qFeVHtQ==
-Authentication-Results: linux3247.grserver.gr;
-        spf=pass (sender IP is 74.125.227.169) smtp.mailfrom=lkml@antheas.dev smtp.helo=mail-pj2-f41.google.com
-Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
-Received: by mail-pj2-f41.google.com with SMTP id
- 98e67ed59e1d1-3a0b6200eb0so2145466a91.2
-        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 05:05:28 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AKwUvBwgsF+HKi0cZVQtgJGKTmrNq+bvdYx+2vyKOmmE2i1AjicwY8RtccryqKtHqpwx1ICcEPqWxLk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIjs8Dnk0ScIhffX625g7kWyV617be22hikS7bHC1WSgZfPbIzo
-	Kl/gZe9MTtCc42lq1NZmOG5xdXfo1K8IKQO6rdKFbB5Lja4sUu5QdKdfqcDSo8ffINBaeHYMPzi
-	voXVYqkuNKx8VrMJKpENEQnWTuhSHgcM=
-X-Received: by 2002:a17:90b:5626:b0:39e:6c6a:657d with SMTP id
- 98e67ed59e1d1-3a0bb658b37mr6667450a91.64.1790597127486; Mon, 28 Sep 2026
- 05:05:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cRF4/Ta6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 141DA1F000FF;
+	Mon, 28 Sep 2026 12:09:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790597351;
+	bh=scWuw41pwIEFku2HqRpmbw+maa4pAQ5w7f1wOR2IJkU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cRF4/Ta6JCrgzQdhqPlqV2OKD/4glovbpqU7vwvjk8W4MChlu/SDB4gEStviUDEgU
+	 gfnFwPvZeTe+oVI817NmzReLyKHYJ7J8JNHz2LYv8sI0QLSHzYkxgyx+nW2NO6nmJW
+	 Ey6iU5I4/0G8akK0KNy7XDyGZLz7GNj7yT4g5O/tqtyualkJwsB/ElYRNqcLAQhWva
+	 o4rOcVjMLCpMWE1BiCTXivUay+PNk+xnBygm/iUftC8t8E3+2wo4Smf8T2aqN3+jVI
+	 S1UIwPPPJf+dqnzEr+x3Cc5ckm/KWW1EcOLSfIhNi2nIanBeeb8JhqOD/zgJDaw0hI
+	 a+Y18RQQLD7bQ==
+Date: Mon, 28 Sep 2026 13:09:08 +0100
+From: Sudeep Holla <sudeep.holla@kernel.org>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev, Peng Fan <peng.fan@nxp.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] driver core: hand off fwnode ownership when shared
+ fwnode owner is rejected
+Message-ID: <20260928-conscious-spectral-manul-19bc10@sudeepholla>
+References: <20260928-driver-core-v1-1-0846bb8e0f32@nxp.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260923121640.272509-1-zhangheng@kylinos.cn>
-In-Reply-To: <20260923121640.272509-1-zhangheng@kylinos.cn>
-From: Antheas Kapenekakis <lkml@antheas.dev>
-Date: Mon, 28 Sep 2026 14:05:15 +0200
-X-Gmail-Original-Message-ID: 
- <CAGwozwH7r5vDBAB9k0FX9Pht9TdEaRfYmJg-Km73xX2-_Ws1ug@mail.gmail.com>
-X-Gm-Features: AclHuK_1AHVnYP5CZHjdALXE4b3tsRMGbnzGG5b40QHRCU9DgVZ0Tgtdy4a8Ktw
-Message-ID: 
- <CAGwozwH7r5vDBAB9k0FX9Pht9TdEaRfYmJg-Km73xX2-_Ws1ug@mail.gmail.com>
-Subject: Re: [PATCH] ALSA: hda/realtek: Fix square wave output on ASUS Strix
- G615LR
-To: Zhang Heng <zhangheng@kylinos.cn>
-Cc: perex@perex.cz, tiwai@suse.com, linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Baojun Xu <baojun.xu@ti.com>, Aleksei Arsenev <alesharik4@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-X-PPP-Message-ID: 
- <179059712911.2764334.16042645203000916927@linux3247.grserver.gr>
-X-PPP-Vhost: antheas.dev
-X-Virus-Scanned: clamav-milter 1.4.6 at linux3247.grserver.gr
-X-Virus-Status: Clean
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260928-driver-core-v1-1-0846bb8e0f32@nxp.com>
 
-On Wed, 23 Sept 2026 at 14:17, Zhang Heng <zhangheng@kylinos.cn> wrote:
->
-> ASUS ROG Strix G16 G615LR (PCI SSID 1043:3f20) outputs a loud
-> full-scale square wave from internal speakers since the TAS2781
-> amplifier driver started loading. The quirk was using
-> ALC287_FIXUP_TXNW2781_I2C which chains to the ThinkPad headset
-> jack fixup, but this is an ASUS device that should use
-> ALC287_FIXUP_TXNW2781_I2C_ASUS which chains to ALC294_FIXUP_ASUS_SPK
-> for proper EAPD and pin configuration.
->
-> Fixes: f7cede182c96 ("ALSA: hda/realtek: Add Asus quirk for TAS amplifiers")
+On Mon, Sep 28, 2026 at 07:49:01PM +0800, Peng Fan (OSS) wrote:
+> From: Peng Fan <peng.fan@nxp.com>
+> 
+> When multiple devices share the same fwnode (e.g. the SCMI bus creates
+> both "pinctrl" and "pinctrl-imx" devices for SCMI_PROTOCOL_PINCTRL), only
+> the first device registered becomes the fwnode owner (fwnode->dev, set in
+
+This has been rejected in the past. Apart from the trigger in -next,
+anything else has changed ?
+
+> device_add()). If that owner never binds -- for example its driver returns
+> -ENODEV because it is blocklisted on this SoC, or because its driver is
+> not compiled in at all -- then driver_bound() is never called for it, so
+> fwnode_links_purge_suppliers() and fw_devlink_pickup_dangling_consumers()
+> are never run for the fwnode. The child fwnode supplier links (pin group
+> nodes such as lpi2c3grp, uart5grp, ...) stay unsatisfied and every
+> consumer of those child nodes defers probe forever.
+> 
+> On i.MX95 this manifests as a complete boot failure: the generic "pinctrl"
+> SCMI device claims fwnode ownership but its driver returns -ENODEV, while
+> the vendor "pinctrl-imx" device binds successfully. Because
+> dev->fwnode->dev still points at the rejected "pinctrl" device,
+> driver_bound() of "pinctrl-imx" skips the supplier purge and dangling
+> consumer pickup, so all I2C buses, SPI, UART, MMC, USB and PCIe
+> controllers wait forever for their pinctrl suppliers.
+> 
+> Fix this in two places:
+> 
+> 1. In really_probe() failure path: when the driver definitively rejects
+>    a device (-ENODEV / -ENXIO), fw_devlink_release_shared_fwnode() is
+>    called. If the rejected device is the fwnode owner, it either
+>    transfers ownership to an already-bound sibling (and runs the
+>    purge/pickup on its behalf) or clears ownership so the next sibling
+>    to bind can re-acquire it.
+> 
+> 2. In device_links_driver_bound(): re-acquire the fwnode when it is
+>    unowned (!fwnode->dev) or when the current owner has no driver at
+>    all (!fwnode->dev->driver, meaning the driver was never compiled in
+>    or loaded as a module). This covers the case where probe rejection
+>    never happens because no driver ever matches.
+> 
+> fwnode->dev is not serialized by a lock; instead every writer only ever
+> touches a fwnode->dev it already owns (== dev, as device_del() does when
+> it clears ownership) or one that is currently unowned (== NULL, as
+> device_add() does when it claims ownership). This patch follows the same
+> discipline: fw_devlink_release_shared_fwnode() only writes fwnode->dev
+> when this device is the current owner; device_links_driver_bound() only
+> claims fwnode->dev when it is NULL or when the current owner has no
+> driver (and therefore cannot be in the process of binding).
+> 
+> Fixes: f9aa460672c9 ("driver core: Refactor fw_devlink feature")
 > Cc: stable@vger.kernel.org
-> Cc: Baojun Xu <baojun.xu@ti.com>
-> Cc: Antheas Kapenekakis <lkml@antheas.dev>
-> Reported-by: Aleksei Arsenev <alesharik4@gmail.com>
-> Link: https://bugzilla.kernel.org/show_bug.cgi?id=222045
-> Signed-off-by: Zhang Heng <zhangheng@kylinos.cn>
+> Assisted-by: LLM
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
 > ---
-> Baojun, Antheas: several other ASUS Strix Gxx5 entries (0x3ee0, 0x3ef0,
-> 0x3f00, 0x3f10, 0x3f30) are still using ALC287_FIXUP_TXNW2781_I2C (the
-> non-ASUS variant that chains to the ThinkPad fixup). Could you check
-> whether they also need to be changed to ALC287_FIXUP_TXNW2781_I2C_ASUS?
-> Ideally with testing on the affected hardware if possible.
+> This issue is triggered by 
+> aac4e67d6eb9 ("firmware: arm_scmi: Always create devices for standard protocols")
+> in linux-next next-20260925.
+> 
+> But I think this is a fix to
+> f9aa460672c9 ("driver core: Refactor fw_devlink feature")
+> 
 
-The current quirk is well received for the ally. Perhaps switching to
-ASUS would be simpler but I do not think the device is currently
-problematic. I will defer to Baojun
+Does dropping i.MX specials from list of devices solves the problem ?
+I am more than happy to drop i.MX special in the code and let you
+sort the pinmux mess you guys have created.
 
-Antheas
+And also I remember you creating situation disabling cpufreq in the cmdline.
+Will that be ever used on those i.MX platforms ?
 
-> ---
->  sound/hda/codecs/realtek/alc269.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-> index 39dbd876bc1a..d70e03061c91 100644
-> --- a/sound/hda/codecs/realtek/alc269.c
-> +++ b/sound/hda/codecs/realtek/alc269.c
-> @@ -7964,7 +7964,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
->         SND_PCI_QUIRK(0x1043, 0x3ef0, "ASUS Strix G635LR_LW_LX", ALC287_FIXUP_TXNW2781_I2C),
->         SND_PCI_QUIRK(0x1043, 0x3f00, "ASUS Strix G815LH_LM_LP", ALC287_FIXUP_TXNW2781_I2C),
->         SND_PCI_QUIRK(0x1043, 0x3f10, "ASUS Strix G835LR_LW_LX", ALC287_FIXUP_TXNW2781_I2C),
-> -       SND_PCI_QUIRK(0x1043, 0x3f20, "ASUS Strix G615LR_LW", ALC287_FIXUP_TXNW2781_I2C),
-> +       SND_PCI_QUIRK(0x1043, 0x3f20, "ASUS Strix G615LR_LW", ALC287_FIXUP_TXNW2781_I2C_ASUS),
->         SND_PCI_QUIRK(0x1043, 0x3f30, "ASUS Strix G815LR_LW", ALC287_FIXUP_TXNW2781_I2C),
->         SND_PCI_QUIRK(0x1043, 0x3fd0, "ASUS B3605CVA", ALC245_FIXUP_CS35L41_SPI_2),
->         SND_PCI_QUIRK(0x1043, 0x3ff0, "ASUS B5405CVA", ALC245_FIXUP_CS35L41_SPI_2),
-> --
-> 2.25.1
->
->
+I am not against the patch if others are OK.
 
+-- 
+Regards,
+Sudeep
