@@ -1,132 +1,104 @@
-Received: from mta1.migadu.com (out-84.mta1.migadu.com [95.215.58.84])
+Received: from mail-pz2-f39.google.com (mail-pz2-f39.google.com [74.125.228.39])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06A2A336897
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 01:40:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.84
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6506E2DA76C
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 02:02:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790559658; cv=none; b=K/Oa1e7Rd13jQarojvo5S5EtSdEhthTjdm7qCP9QfzPi0A5EiAonrECW0dk/S97hH384h+jXmOBsciODv0rIlIWUaZDvCH0FxR1lU65/c2K+0rGlt0u1jgmhOXRAiHRGHFwTSCjvL8/UmrYxVRfTjx/g1zRvZkgsG4Tpfyj4WYo=
+	t=1790560935; cv=none; b=VRauKgvqXcoComAs92D7SBGXr9zjcAxexTRWWZO6FsUHNFoVyz+acPHVBSmc0YXczJgtY76BPTFy2ewBRulZWkij3157zvrPnCoHcHuqR2Hj+0ZCoEchjLwDGGXXGmyPnAAoGgIVGh8riJ5DnxdQvl5Lburzels7IfVsmFTbJT0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790559658; c=relaxed/simple;
-	bh=hzHwDE34v1HLmM8SoW5+6io0DFeC9cWq420KEx5tFCc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YUYG3nhXjl9OOP1FML8zhEgP3vu78yziaJ2HNfEmNIEEnf6Yz+xseThcsL0xOJLiKs071pjg4xd/s3ykz2LOfeq6RpFSFQDvBsN6gIF6qy8lVaXRGxLu5yKj5ojgPxdOEwnyCy366Y7OHtof754I1LxJUYVU3CX757/3eQbt0dI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=nQxaTHE7; arc=none smtp.client-ip=95.215.58.84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790560935; c=relaxed/simple;
+	bh=urQbLGCXrd0ZFZeVKewiensfGBXy6svoBuruqY3dA68=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MUf4U7eRjGXdb6o8DEgOxUkEU5DFyqQOqfGsvBygGrUm1JQeoCjgNIey5b9awyuTIGpZ6OIRatixDmW84uyP0LWY27XXIDDTWkI2KMjAUliM3+99FgMw6sdABfkG5UbG6lZYgOc2W8u0YhZyHOKISitRN/ZtoHVMOj/KGHmXMZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sDS3JOxU; arc=none smtp.client-ip=74.125.228.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="nQxaTHE7"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=hzHwDE34v1HLmM8SoW5+6io0DFeC9cWq420KEx5tFCc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790559654; v=1; x=1791164454;
- b=nQxaTHE7BjvQVVY4VZUMZCCjobGsoNBvy8YQqfjXDEe9zMAGre/xHFi3VPukhT2ZGRcMOx5o
- tjIkHaOSJhG/AXvbtpe4/Qy8UkAxdoFgiwlP+J2WLINCWLLd2hHZ3IiC1brYrVgMX2fGJjz1ChP
- GcrMBq4Q93hOab3FAMKIFGec=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 00eae308403adc8e;
-	Mon, 28 Sep 2026 01:40:54 +0000
-X-Mizu-Trace-ID: 00eae308403adc8e
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <93e48fe3-d229-4870-af8a-32431d236211@linux.dev>
-Date: Mon, 28 Sep 2026 09:40:49 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sDS3JOxU"
+Received: by mail-pz2-f39.google.com with SMTP id 41be03b00d2f7-cc7979d1deaso465281a12.1
+        for <stable@vger.kernel.org>; Sun, 27 Sep 2026 19:02:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790560933; x=1791165733; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ASjAUGOmT1ysmFExBD7PO6pvYBzwb00czBt2hidD9U8=;
+        b=sDS3JOxUXnhYUEQ8AWzYnafjzU5CaYdRWCy5KO7z9GP32l3d+CQ3JouXbIIaHnijmV
+         ybagc3WuN7c+zt4SawiNjSPmNy0Kje7D9rUg2h17YVQDjoV+RFq+OXlljp2fYsdjI0DZ
+         SMfJmOH87mNfgFqzg9nUAZaGHlkqVsi1uXWIosbiGe1H+ccbmTxp+uJQHCDt41i7eyU0
+         nMP1kJEmy79W+A+m0lXhaG657Z86k51ZyWicXgmFCSMEoT7GYTOJRxvOdGNKd3UNvIpN
+         w2cnNWjhh7EZ3+jkK2L9pHMED/elCkFnxF3g811t74ozGFbnaqoFE7bpa6An/XFPYOI9
+         Gwsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790560933; x=1791165733;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ASjAUGOmT1ysmFExBD7PO6pvYBzwb00czBt2hidD9U8=;
+        b=cMbH3sHcAY4p6e4SH4GWrABG/BRIykV8yv53e0w59AGRe0bJh2RHnBxilZk7icpyiF
+         Rse42py5wX5ezGc2u+YIdk1LxO9RPr8L3mo9WHQI4KqRFURyGSdwtMM2tRxhU0wpNsU0
+         0dWh1BGEHqLu9A4sPU2cCb3uSYvIbOdOc8s7sgA03uA/nG/vl9K7Bn+3TleMLteq1ANf
+         +/oncUueg8d3lDAYDnpXMX7rGkIXlA6yYc2z6NuqFFYY6AQRnc8d/dfKoJmKR3snihNU
+         3xQlXbttTr5ppZQR9gl0S5xS/D9jdrnYW3mMYOW0DJ8LpYB861Rl8XjyXH0aFLGBXfEs
+         NrQw==
+X-Forwarded-Encrypted: i=1; AKwUvBwjUl8s+Yq3dqkRMoJCY/vz3MBLqy/2g0QBtn8u+MU+5YzdVWSW9GKp43VQNCzL75kHTc5k7ow=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLCJVbOO+Mn1EKaw4n442/DoLUHWa7t4oFpkOb0WhmaZNIy+Ytj
+	dqDSdKO86d9qXZAUbUfYc1JmG/WmiWokd29NkGhjMcsaJUUN6LAd0bzO
+X-Gm-Gg: AYBFou0w3+yCtbYe5GFl4Zsxh+prxrCtLKZJXzGN7fcMT0frlO7UIU8vWFp5Po83cbL
+	hdRgaJevgasrGokZIRtCCCXzVh+Wh/FtUhHrSlXzGXMwpNoxldm3N9Qj5L0WLyoanEvN0iRGNKf
+	hSGiFEMctsiYPgg1fjELhz0w1olWN4ROFHLM5flKpIOXsYqk2RCdpxHV38QYSONDYBBFzPoHIpu
+	RVCl/a5Q+NEErUqls7xHC6OgSqSWIY5XN0TEiMih0gRJ4Ld3yaLdhMUDP5fCVlCKvzPfY4vuQwr
+	hoZq6NNHJ4y/rUNYwWtcrbq76Aga1dcumZQLAWWO2LgGEFU2Kye5BP88GLfeg76EypCcdJEvPME
+	9z86sp6C8ZmcUtQWH7jL3C//t1H43M3zdmXYtAwSAjQ3PZ9/W+WGp/W94Pt7ps3VuExQBwrJxXY
+	sJqG3yJJ0fbQah/iXXU7/Oih5cI2K6DaEj6ithaf4Xn6NcG1bpc0riDMc0QLwzm9mqpZR011Xga
+	upMaoVIKzUMt1ChESE5Fw==
+X-Received: by 2002:a17:90b:2b83:b0:39e:6c6a:208f with SMTP id 98e67ed59e1d1-3a09896d0aamr8645055a91.48.1790560933535;
+        Sun, 27 Sep 2026 19:02:13 -0700 (PDT)
+Received: from osman.mioffice.cn ([43.224.245.178])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0e05d674dsm4631129a91.4.2026.09.27.19.02.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 19:02:13 -0700 (PDT)
+From: Zhan Xusheng <zhanxusheng1024@gmail.com>
+X-Google-Original-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+To: Joel Granados <joel.granados@kernel.org>
+Cc: Zhan Xusheng <zhanxusheng@xiaomi.com>,
+	Kees Cook <kees@kernel.org>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Bradley Morgan <brads@mainlining.org>,
+	linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2 0/2] sysctl: Two jiffies converter regressions from 2dc164a48e6f
+Date: Mon, 28 Sep 2026 10:02:03 +0800
+Message-ID: <20260928020206.977522-1-zhanxusheng@xiaomi.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/3] cgroup/cpuset: prevent activating local partition
- over remote one
-To: Hui Peng <benquike@gmail.com>, Waiman Long <longman@redhat.com>,
- Guopeng Zhang <guopeng.zhang@linux.dev>, Tejun Heo <tj@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>
-Cc: Shuah Khan <shuah@kernel.org>, Chen Ridong <chenridong@huawei.com>,
- cgroups@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260924042729.1908863-1-benquike@gmail.com>
- <20260924042729.1908863-3-benquike@gmail.com>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <20260924042729.1908863-3-benquike@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+
+Yes, the fixes; the tests are already in sysctl-next.
+
+Only the changelogs changed.  1/2 now also names
+proc_dointvec_userhz_jiffies(), and 2/2 labels its reproducer with the
+CONFIG_HZ it needs.  The code is identical to v1.
+
+Based on v7.3-rc4+ (62f4c998b297); applies to sysctl-fixes as well.
+
+Link to v1: https://lore.kernel.org/r/20260922031229.2300283-1-zhanxusheng@xiaomi.com
+
+Zhan Xusheng (2):
+  sysctl: Negate before converting in the int read path
+  time/jiffies: Saturate in mult_hz() instead of wrapping
+
+ kernel/sysctl.c       | 2 +-
+ kernel/time/jiffies.c | 2 ++
+ 2 files changed, 3 insertions(+), 1 deletion(-)
 
 
-
-On 9/24/2026 12:27 PM, Hui Peng wrote:
-> Commit 6da580ec656a ("cgroup/cpuset: Don't allow creation of local
-> partition over a remote one") added a check in update_prstate() to reject
-> creating a top-level local partition whose cs->exclusive_cpus intersects
-> subpartitions_cpus.
-> 
-> However, if a top-level cgroup A1 has a child A1/A2 enabled as a remote
-> partition on a subset of its exclusive CPUs (X2-3 on A1, CX2-3:P2 on
-> A1/A2), and A1 is then set to "root" (P1, becoming "root invalid" via
-> update_prstate() because its exclusive CPUs intersect subpartitions_cpus)
-> followed by expanding its CPUs to include additional non-remote CPUs
-> (CX1-3), update_cpumask() / update_exclusive_cpumask() calls
-> validate_partition() without going through update_prstate(). Because
-> validate_partition() does not check trialcs->exclusive_cpus against
-> subpartitions_cpus, A1 transitions from "root invalid" to a valid local
-> partition over the existing remote partition A1/A2 and triggers:
-> 
->    WARNING: kernel/cgroup/cpuset.c:1943 at update_parent_effective_cpumask+0x189b/0x1fd0
-> 
-> Check trialcs->exclusive_cpus against subpartitions_cpus in
-> validate_partition() when !is_partition_valid(cs), and add a regression
-> test case to tools/testing/selftests/cgroup/test_cpuset_prs.sh.
-> 
-
-Was this message assisted by an LLM?
-
-It would be helpful if you could provide the reproducer as I replied earlier, so 
-that it can be understood more easily and tested.
-
-> Tested in QEMU on Linux 7.3.0-rc3 using
-> tools/testing/selftests/cgroup/test_cpuset_prs.sh.
-> 
-> Fixes: 6da580ec656a ("cgroup/cpuset: Don't allow creation of local partition over a remote one")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
-> ---
->   kernel/cgroup/cpuset.c                            | 4 ++++
->   tools/testing/selftests/cgroup/test_cpuset_prs.sh | 2 ++
->   2 files changed, 6 insertions(+)
-> 
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index 7381fa8502e7..7c5b4a8f1f3a 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -2415,6 +2415,10 @@ static enum prs_errcode validate_partition(struct cpuset *cs, struct cpuset *tri
->   	if (cpumask_empty(trialcs->effective_xcpus))
->   		return PERR_INVCPUS;
->   
-> +	if ((parent == &top_cpuset) && !is_partition_valid(cs) &&
-> +	    cpumask_intersects(trialcs->exclusive_cpus, subpartitions_cpus))
-> +		return PERR_REMOTE;
-> +
->   	if (prstate_housekeeping_conflict(trialcs->partition_root_state,
->   					  trialcs->effective_xcpus))
->   		return PERR_HKEEPING;
-> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> index b732078bf319..4a451350ad84 100755
-> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> @@ -321,6 +321,8 @@ TEST_MATRIX=(
->   	" C1-3:P2  X4:P2    .      .      .    X3:P2    .      .     0 A1:1-2|XA1:1-3|A2:3:XA2:3 A1:P2|A2:P2 1-3"
->   	" C0-3:P2    .      .    C4-6   C0-4     .      .      .     0 A1:0-4|B1:5-6 A1:P2|B1:P0"
->   	" C0-3:P2    .      .    C4-6 C0-4:C0-3  .      .      .     0 A1:0-3|B1:4-6 A1:P2|B1:P0 0-3"
-> +	"   X2-3  CX2-3:P2  .      .  P1:CX1-3   .      .      .     0 A1:1|A2:2-3|XA2:2-3 \
-> +								       A1:P-1|A2:P2 2-3"
->   
->   	# Local partition invalidation tests
->   	" C0-3:X1-3:P2 C1-3:X2-3:P2 C2-3:X3:P2 \
-
+base-commit: 62f4c998b297cf233997a2b4cd6fc2d2df0319c9
 -- 
-Best regards
-Ridong
+2.43.0
 
