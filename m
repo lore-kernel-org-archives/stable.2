@@ -1,62 +1,98 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D88C24718C0;
-	Mon, 28 Sep 2026 08:08:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE8C54503EF
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 08:08:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790582921; cv=none; b=CVWzNL2wxPmSzFTvIfPX01T2nDrJqs0TaZxErgfFpsalWv6c62knU83EWaVGweHwZXqT3ny5t/Oh5AenoHCJ1LXM3pwcCMaF+rdkgmKW95rn43nFoxwM2zj5EB1R3EVBzmfUytr4kO+RB5vlpOrlmXZ8QpHaJELFvrslzR08TrQ=
+	t=1790582926; cv=none; b=tcUW/ByEKKOmW5OS39JlSoKPQJpnLuppTFw+5FEWK0NENqXzRmm+tPx9iyuV7goO3htf7l1eJWoUICYSw8W391SsxJxFXmHhliXliWsrcMvAvVJ8Z/sYiDy8uf3cOW16XBruKI837Br2M5ruxKrx33PxZlSOEpcb4Dua6U/nYI0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790582921; c=relaxed/simple;
-	bh=3dVnxs6JbI2bn5I+yOYXcr8h9inTs9XBVFsS4GOwUAE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CnB9ou0hBecVMFYGEFR7E2qIHaegt9znopzvRFM8+1SLx9kZG/JZWHUPpiL8ekkJVunJU6ikyAMEasNsGyDraYqmsph9HmZxuJzxXs0fRwscO77Py4mlEYD3RC8HXzjR5WluMpJQqCi5pbr8sw1U1bUAPsVMstGQLoF9LvuQr50=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=s5btMnrd; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
+	s=arc-20240116; t=1790582926; c=relaxed/simple;
+	bh=vc4tVWraCoz0CbNQWRQODMon6/OGvck+5dLnEhy8jUs=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=pg/pi1g55yX5INEm1w7Pgp5zZbUXPj4Zq6BtMz/mcm4grPFkS5sNpIGEQX6kSsUn35/JyNraIKyTWgnT+dzdfImOvj4PRfxQLF/6qwTRPbFk6myDMUXbn0X4cfDNOlrnly7/Nc6SqOSEPLlZEnAIhy6wm0xjGQHnUKkoJqZ5OlQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=luGNx0M8; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="s5btMnrd"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=FZO4EZmKDP7sSInyub/MRE8unLA7aembsG6FpM7G2X0=; b=s5btMnrdtsWkkMCqM/Qtlxl6qC
-	l7YCY7xiygTk4/vRJMqCPCYlwj7KZNgxZ8cBor2Uj7pWDExTdMCWdS8NmIRXSbN1hKf6jb0g1XtQP
-	JWiUjz17ck7k2CFFQaqrQLeSKyemjBbJN2/cG20r2+XONNbKM41QrmkhJ9hp+O3gN3D5KR+yrlrR7
-	JlB6JvYzm7jySv0wWgIYYoXnSBLUz1S/GYJp1q5Kc8ediYm0oGf3h78n+F9NGL2f82gCA5p4Yqf5n
-	UTnygTJ7Z7gQu4UtRxdajeZmvBoCrlYmcL3E6TRnjRooX249UKUOKFKOT1OCrgzQDEFHTTU2ReHXg
-	IUs2pE7g==;
-Received: from hch by bombadil.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1xB6Pe-000000001Tp-1MDd;
-	Mon, 28 Sep 2026 08:08:38 +0000
-Date: Mon, 28 Sep 2026 01:08:38 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: "Darrick J. Wong" <djwong@kernel.org>
-Cc: cem@kernel.org, stable@vger.kernel.org, linux-xfs@vger.kernel.org
-Subject: Re: [PATCH 06/12] xfs: don't repair fs summary counters with garbage
-Message-ID: <aroghgv7vDhe2qvp@infradead.org>
-References: <179057612523.479634.11102922479483109602.stgit@frogsfrogsfrogs>
- <179057612724.479634.10486546764392701308.stgit@frogsfrogsfrogs>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="luGNx0M8"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 435B84E41089;
+	Mon, 28 Sep 2026 08:08:43 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 16545601BD;
+	Mon, 28 Sep 2026 08:08:43 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 842E0102F1E84;
+	Mon, 28 Sep 2026 10:08:33 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790582922; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=X0zB5xt9Jhbn01HLQxanXCNeawIfYRuNFsI9KjMMzWQ=;
+	b=luGNx0M8bCby9+sE2M9AGTigy+BYWHu3HBqIB2yBZymiZsOTOMeQVqYrB+eo20BIzYy98s
+	Wm4Qe3C6EHcFNwv16OyHfZ24niD3bbIF6ctpksb7GaORLwdQ2hhbVnSppaWuX5l7yF7Roi
+	82eu3rYJGCWezNPs6O2rljdavMItLAt7e1ansumf0Upqtrv0touQ1rRcznZimqXUYNR6Ql
+	XW0Kl3Wjfovz+S3TJ5F3ST/VyyT43rtFj76dWu4eQzi2Z549t23Wz97dWBvqrAWTpWFver
+	FMIpvo4TKkPcFU85vzMz6gG7Z6PRr6vCiVsd/mxS9x+x6f6yH2B5NhN+z1NbYg==
+From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
+Subject: [PATCH 5.10.y v2 0/3] net: preserve skb_end_offset() in
+ skb_unclone_keeptruesize()
+Date: Mon, 28 Sep 2026 10:08:29 +0200
+Message-Id: <20260928-cve-2022-49142-v2-0-227dee37e858@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179057612724.479634.10486546764392701308.stgit@frogsfrogsfrogs>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNwQ6CMBBEf8Xs2ZLuphTw5H8YDrQuUqPUtNhIC
+ P9uwbPHN5mZt0Dk4DjC6bBA4OSi82MGOh7ADt14Y+GumYEkadmQEjaxyEBCNahIVKUpta6pq1B
+ BHr0C9+6zH16gLFAWM7S/PL7Nne20vW3NwcXJh3k3J9z7/yQJhRTS9NzpWllEczbeTw83FtY/o
+ V3X9QvZ5DaSyAAAAA==
+X-Change-ID: 20260924-cve-2022-49142-75b56682a714
+To: stable@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
+ Jakub Kicinski <kuba@kernel.org>, Eric Dumazet <edumazet@google.com>, 
+ Alexey Kuznetsov <kuznet@ms2.inr.ac.ru>, 
+ Hideaki YOSHIFUJI <yoshfuji@linux-ipv6.org>, Marco Elver <elver@google.com>, 
+ Alexander Potapenko <glider@google.com>, Dmitry Vyukov <dvyukov@google.com>, 
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Benjamin Robin <benjamin.robin@bootlin.com>, 
+ "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ syzbot <syzkaller@googlegroups.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790582913; l=908;
+ i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
+ bh=vc4tVWraCoz0CbNQWRQODMon6/OGvck+5dLnEhy8jUs=;
+ b=3iRF0mpWWLejSjyFDPTCkIj1lhmPnWMm6Nrv0MOBQ94y/jiTHAns2lDT1FzzXdTuToZmIHyE7
+ NyehP0O7jWvCN/jRqUOaR0JJcfNmU7djZeeh8VqcgBYK7uBjzvc8uZB
+X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
+ pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Sun, Sep 27, 2026 at 11:17:23PM -0700, Darrick J. Wong wrote:
-> From: Darrick J. Wong <djwong@kernel.org>
-> 
-> LOLLM noticed that if we scan the filesystem and come up with totally
-> garbage numbers for the summary counters, we don't actually mark the
-> scan incomplete.  Because we don't do this, repair can install the
-> garbage values into the filesystem, making things worse.  Don't do that.
+I backported two other patches to make the series apply cleanly.
 
-Looks good:
+Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
+---
+Changes in v2:
+- Added Signed-off-by tag
+- Link to v1: https://patch.msgid.link/20260924-cve-2022-49142-v1-0-0bfea684c11b@bootlin.com
 
-Reviewed-by: Christoph Hellwig <hch@lst.de>
+---
+Eric Dumazet (3):
+      net: add and use skb_unclone_keeptruesize() helper
+      net: add skb_set_end_offset() helper
+      net: preserve skb_end_offset() in skb_unclone_keeptruesize()
+
+ include/linux/skbuff.h | 26 ++++++++++++++++++++
+ net/core/skbuff.c      | 65 +++++++++++++++++++++++++++++---------------------
+ net/ipv4/tcp_output.c  |  6 ++---
+ 3 files changed, 67 insertions(+), 30 deletions(-)
+---
+base-commit: 1797d8bf8d0c2e74defad605d14e3553d43a3caf
+change-id: 20260924-cve-2022-49142-75b56682a714
+
+Best regards,
+--  
+Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
 
