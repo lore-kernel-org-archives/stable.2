@@ -1,42 +1,72 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 550AE374E73
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 10:49:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C93B46AA88
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 10:53:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790592565; cv=none; b=KmiHLrF0wKYC8ot5YfQM+pQeH56SZ/1lrzPDG0OJwdOho0aWmafgfb+nFU5O/LCRHDg+qznLi5vRung0D9l3e3cpAdpKdmOpwzbYJy2y69r6wCWM4hhjKxMGTDvg+7Bi9gM2TT135OIq/AyN8d78uy7hKqmkIEKPcsQEePlDSlc=
+	t=1790592817; cv=none; b=geT/SPUphnKIby3NlS3i/747K1LRpAaNhhrQjNTysBV7XifZ85KPnJnrV3jFZN6uDkuzrxB34VI4cL9MVXiGgQ4CpKl7O+u9Zr0r1IfGfSglLKCW+V3yFalUkhSHS2FUvLaKrOZ3FNSORrUcdErMVwbjq46HudBU1Sb8NpW6+CA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790592565; c=relaxed/simple;
-	bh=Us176wOm+8+rz2NBzHwXZKWbjOvthf8+VT/A+foQpNU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Im4VAVlhYIrYAMS3p5Mgi+ub1Ur/F0L76q8s8HlZogG2djh0ZNq4NlHN/0kBg6XMWriyxfh47Etu3GrmJysnbzigVUYEZRIbK3LOZERiM7wLeWS02nUVXbx2+5fShl/b/ppApnT49sSjo34qbjoVZZUDGmaCcKitHAlsFwr8ICE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g3T70bCS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790592817; c=relaxed/simple;
+	bh=qkT9OCgkqr2UDi/9gAsgUINV/x1Hovd7tkcNjOTA37g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WIZ03XggE625mj+G6NhgGSkZUKUizC/0GfSs25P6WycLdlmk3O4ZC6fZy8xUh24uLxprPNZ/j5QXPJOSsuEJqoo8w0C5Ir6h6DhGTdAP2kpWpny3EXd9oIDrvtsZBzFQfxY32C20fusUmyau43npFfDut+gA4/zNrcpBpqh4K6o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l+uRVMMw; arc=none smtp.client-ip=74.125.229.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g3T70bCS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2CF81F00893;
-	Mon, 28 Sep 2026 10:49:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790592563;
-	bh=XG3bmLOEI8G01S8/exKbptpBhScG6uqeRlLXCCFlvyw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=g3T70bCSlmo7Hk3cHJRGm2AEfVXrZYbGHaKdU7Zv+LgFUrnsT8gtZcEw6V03YAeTa
-	 JusAhzb2+b7fM32RyN+w/BaCn22We7IacsTEhEZTcnJrBLt3bLYpi5YEZugmxFlei5
-	 eRuIve+F18yAnHruWj2WwgXpL4MRsb7Oy9UexMsVq4+ln0m67xhd652GEVQ6R8adbv
-	 T57+OKzB6TJKmqohzDuwLpYoBx6+gO+miXL1RaB4ACalYhLXh3m6V/6gUzfJLp3Xy3
-	 iRgJYq5NkYUEsBlaHsHZEEfV61zE1AmNEjN+PZQ27+FVMzFjHZAH8+J6ZrchJcsI+F
-	 CsoMdqm1bJ99A==
-From: Miguel Ojeda <ojeda@kernel.org>
-To: stable@vger.kernel.org
-Cc: Miguel Ojeda <ojeda@kernel.org>,
-	Chunfeng Song <springbreeze@stu.pku.edu.cn>,
-	FUJITA Tomonori <fujita.tomonori@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>
-Subject: [PATCH 6.18.y 2/2] rust: net: phy: fix off-by-one bit positions in device status accessors
-Date: Mon, 28 Sep 2026 12:48:55 +0200
-Message-ID: <20260928104855.205416-2-ojeda@kernel.org>
-In-Reply-To: <20260928104855.205416-1-ojeda@kernel.org>
-References: <20260928104855.205416-1-ojeda@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l+uRVMMw"
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8ede3ab7aso482021e87.1
+        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 03:53:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790592814; x=1791197614; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3R0NzwRxoc+Dqyc5P5ehqvEdn0d2HKNjoedIzM2Hkbo=;
+        b=l+uRVMMwoZK5ViEMJzEbSwA0WeIi0H4c79/jX7mSAMJ/e7y632SQogFEpf/+kh6cdA
+         PFKFibcA4Zws5+AT4eYoEG3LK00v/P+qrJIO9Pbl6FkYO4LlI+Mio2Hpw/hTI2lq4SxT
+         czhb5XcxGo8cTgxgfOC+OQZg4+pdIO2rGnDbUrYTnMNjO+tEv1S9PBjOUx9Hquc3IYZY
+         NZnakVg5u1O+sI6cZ+fgx9SlDUgfG5yTavoeyA+QruVgAMqk35NxdLD4Tpc3mKTbCcv4
+         JvP9laNfk6vEoWfJtabMvmXzqUYsA5Do4S3uPYs7oyBUEs0qYABx/q95DUkFAaHKSZJb
+         hBeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790592814; x=1791197614;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3R0NzwRxoc+Dqyc5P5ehqvEdn0d2HKNjoedIzM2Hkbo=;
+        b=2fCxUEsTYFftkjuYM0ABfQQF/W6Ji6oJz41gjEWjbpYRs8Aj6zk37eCK5+EVkiPfJ1
+         NznavGJXHjkpUUnq9+ShtXKbA8UR03ZkD/8hKwrxHwcvmBAai+rzrCxDStqCxKdc9z75
+         AdOy7KN/dOL5RQar8+k5hfE9dfhffLufIjYeogIG2FntqRKsdcHpEFSuWZaNQBuDyE1F
+         zszcPOcOpFzKC8OGTnbBVMc5l9LjJU+DBirAHJeqoMpTzWYL2x8SnoK+3KzKOPnh2Gbu
+         ITAWR6sE9cHg/Tr9/mEJrhi9W7+CTYIeOhoV5Kx1TJYtlLf6Anyzg96u1aUlL2iXgJQW
+         wHiw==
+X-Forwarded-Encrypted: i=1; AKwUvBxfsoigCAJ9jUhon1QUh+CQMkqckqA5aNt5kSS0qP+GbIxLEvc2IFGKWewB2ITmyT2Ha12pXGg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIx6NdDEZB5m648QCic/JlpihACPOCBICVOjuTqJ7Di7rTvmfWE
+	f3BMydFs29z/K5pYAVlzZn+obBWpm+JWq2WOfUD1LEj9gVjO7iOylRUr
+X-Gm-Gg: AYBFou2UMosh2wx1ZKYK+bYyNhzbcb3eoyooH8yxxpfnPu/OxJbEAH7UldyS8t4lgnB
+	T3GiilVRwpgoYYwY45ZhtZHqLFGsBcc+zBDPs43Lu/SIsnCOOICvpafTKWrLzcLDlUhu2FVpCWS
+	FQ6eH1qtM68RTn3/M01AflLjtq4WN+p2miLyzYs5UB99KSuKjerlHFJ8onv6MdJ4oS3tHfNSSAU
+	NBifG5JQa2wqDJ1KarOwDo2PZTJKRepRCmJD/YM/ujvob60vRDjfDySsPeSisJVu2gf9WJ7VNqE
+	Y6e52U+FdNTET9o3gU7ANclfju/6N11kQzm83zqUq2AsIjZVutMyjkVCfrgaqrhQ0L6GL2oNQQa
+	tSoK7vnBRk2wtP83juyo1cTOV3TdD9Ek1juCMel9MONfuVdFmSKj2LKoZSSLiuldMpVymC0jHGS
+	yy5eajN+98irtNtLTj9tfu4lByb115thHcD4U0RwAFQ01pQGxOTSlaUZnhKaBqH5eNEjEUjw6il
+	1DwelsQCmna9KVZSzTLUsY7VcEptXW0S1TM+L1FcOrREJRb
+X-Received: by 2002:a05:6512:3c94:b0:5b4:97db:b740 with SMTP id 2adb3069b0e04-5b8df0db4e5mr4566165e87.20.1790592813333;
+        Mon, 28 Sep 2026 03:53:33 -0700 (PDT)
+Received: from sc-mac-012.corp.sbercloud.ru ([188.191.29.26])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b9debb04f5sm402819e87.35.2026.09.28.03.53.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 03:53:32 -0700 (PDT)
+From: Dmitry Kandybka <d.kandybka@gmail.com>
+To: Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>
+Cc: linux-kbuild@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] kbuild: Makefile.lib: fix offsets generation with debug info
+Date: Mon, 28 Sep 2026 13:53:29 +0300
+Message-ID: <20260928105330.25427-1-d.kandybka@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,99 +75,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit 6fb0a9d9071f1ff0cc5cfc0782302d9c90d642cb upstream.
+When debug information is enabled (e.g. -ggdb3), the assembler
+output file (e.g. kernel/sched/rq-offsets.s) contains additional
+directives such as .ascii with offset info and debug metadata.
 
-The hand-written bitfield offsets in is_link_up(), is_autoneg_enabled()
-and is_autoneg_completed() were correct when the abstraction was
-merged: at that time autoneg, link, and autoneg_complete were at bits
-13, 14, and 15 of struct phy_device's first bitfield unit. Commit
-2796ff1e3dca ("net: phy: add flag is_genphy_driven to struct phy_device")
-later inserted is_genphy_driven just before autoneg, shifting the three
-fields up by one, so the accessors now read:
+For example:
 
-  is_link_up()           reads bit 14 = autoneg
-  is_autoneg_enabled()   reads bit 13 = is_genphy_driven
-  is_autoneg_completed() reads bit 15 = link
+    .ascii "->RQ_nr_pinned $3048 offsetof(struct rq, nr_pinned)"  #
+    ...
+    .ascii "->func); __data = (it_func_ptr)->data; ((void(*)(void *, pro"
 
-The official ax88796b Rust driver uses all three accessors in its
-read_status() implementation, so it inherits the bug.
-phy_attach_direct() sets is_genphy_driven only when it falls back to
-the generic driver, and ax88796b has a real driver, so
-is_genphy_driven stays 0. The broken is_autoneg_enabled() therefore
-reads bit 13 as 0, compares it against AUTONEG_ENABLE (1), and always
-returns false, so read_status() never reaches the
-resolve_aneg_linkmode() call.
+The current sed-offsets macro uses [^ ]* to match constant names,
+which is too permissive and can match unexpected characters when
+debug directives are present. Additionally, the fallback command
+'s:->::; p;' strips '->' from any unmatched line and prints it,
+which causes debug metadata to leak into the generated header
+file (include/generated/rq-offsets.h), breaking the build.
 
-The ordinary bindgen accessors take &self. Calling them through
-(*phydev).link() would create a shared reference to the complete
-bindings::phy_device, which is not appropriate for an object wrapped in
-Opaque.
+Replace [^ ]* with [[:alnum:]_]* to match only valid C identifiers,
+and remove the fallback 's:->::' command so that only successfully
+transformed lines are emitted into the generated header.
 
-Use the bindgen-generated raw accessors (link_raw(), autoneg_raw(),
-and autoneg_complete_raw()) instead. They retain the bit positions and
-endianness handling generated from the C layout without creating a Rust
-reference to the complete phy_device. Drop the hand-written numbers
-together with the TODO comment that marked them as a stopgap.
-
-The raw accessors are only emitted by bindgen 0.71 and later, and were
-added at the Rust-for-Linux project's request, so this fix can only be
-backported to stable branches whose minimum bindgen version is at least
-that, hence the scope on the Cc: stable line below.
-
-Found by a static equivalence audit (C2RustDrv, a C-to-Rust driver
-migration tool) that compares hand-written bitfield offsets against
-the bindgen layout of struct phy_device. Verified by building the
-bindings and checking the generated accessors; no runtime testing was
-possible without PHY hardware.
-
-Fixes: 2796ff1e3dca ("net: phy: add flag is_genphy_driven to struct phy_device")
-Cc: stable@vger.kernel.org # Only 7.1.y and later (requires bindgen's raw pointer accessors).
-Link: https://github.com/rust-lang/rust-bindgen/issues/2674
-Signed-off-by: Chunfeng Song <springbreeze@stu.pku.edu.cn>
-Reviewed-by: FUJITA Tomonori <fujita.tomonori@gmail.com>
-Link: https://patch.msgid.link/20260910055110.167110-1-springbreeze@stu.pku.edu.cn
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ For 6.18.y, re-do the commit manually adjusting the bit numbers to
-  make it work with the `bindgen` version available there as Chunfeng
-  mentions in [1]. - Miguel ]
-Link: https://lore.kernel.org/stable/SEWP216MB9770116738884C46F156A686FAF98D2@SEWP216MB977011.KORP216.PROD.OUTLOOK.COM/ [1]
-Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
+Fixes: 7dd47b95b0f5 ("kbuild: consolidate redundant sed script ASM offset generation")
+Signed-off-by: Dmitry Kandybka <d.kandybka@gmail.com>
 ---
-Chunfeng: I assume you meant a patch like this instead in [1], right?
+ scripts/Makefile.lib | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
- rust/kernel/net/phy.rs | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+diff --git a/scripts/Makefile.lib b/scripts/Makefile.lib
+index 0a4fdd8bd975..32251eb6ca33 100644
+--- a/scripts/Makefile.lib
++++ b/scripts/Makefile.lib
+@@ -493,9 +493,8 @@ quiet_cmd_zstd22_with_size = ZSTD22  $@
+ # the .ascii directive whereas GCC keeps the <space> as-is.
+ define sed-offsets
+ 	's:^[[:space:]]*\.ascii[[:space:]]*"\(.*\)".*:\1:; \
+-	/^->/{s:->#\(.*\):/* \1 */:; \
+-	s:^->\([^ ]*\) [\$$#]*\([^ ]*\) \(.*\):#define \1 \2 /* \3 */:; \
+-	s:->::; p;}'
++	/^->/{s:->#\(.*\):/* \1 */:p; \
++	s:^->\([[:alnum:]_]*\) [\$$#]*\([^ ]*\) \(.*\):#define \1 \2 /* \3 */:p;}'
+ endef
+ 
+ # Use filechk to avoid rebuilds when a header changes, but the resulting file
+-- 
+2.54.0
 
-diff --git a/rust/kernel/net/phy.rs b/rust/kernel/net/phy.rs
-index bf6272d87a7b..5963dbbd54af 100644
---- a/rust/kernel/net/phy.rs
-+++ b/rust/kernel/net/phy.rs
-@@ -130,7 +130,7 @@ pub fn is_link_up(&self) -> bool {
-         // SAFETY: The struct invariant ensures that we may access
-         // this field without additional synchronization.
-         let bit_field = unsafe { &(*self.0.get())._bitfield_1 };
--        bit_field.get(14, 1) == LINK_IS_UP
-+        bit_field.get(15, 1) == LINK_IS_UP
-     }
-
-     /// Gets the current auto-negotiation configuration.
-@@ -142,7 +142,7 @@ pub fn is_autoneg_enabled(&self) -> bool {
-         // SAFETY: The struct invariant ensures that we may access
-         // this field without additional synchronization.
-         let bit_field = unsafe { &(*self.0.get())._bitfield_1 };
--        bit_field.get(13, 1) == u64::from(bindings::AUTONEG_ENABLE)
-+        bit_field.get(14, 1) == u64::from(bindings::AUTONEG_ENABLE)
-     }
-
-     /// Gets the current auto-negotiation state.
-@@ -155,7 +155,7 @@ pub fn is_autoneg_completed(&self) -> bool {
-         // SAFETY: The struct invariant ensures that we may access
-         // this field without additional synchronization.
-         let bit_field = unsafe { &(*self.0.get())._bitfield_1 };
--        bit_field.get(15, 1) == AUTONEG_COMPLETED
-+        bit_field.get(16, 1) == AUTONEG_COMPLETED
-     }
-
-     /// Sets the speed of the PHY.
---
-2.55.0
