@@ -1,41 +1,42 @@
 Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C67246F48F
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 08:08:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED4CD1CD1E4
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 08:08:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790582938; cv=none; b=ASET75qt/Dm/jv13M6w/uSCW/Ex+wLCBfwFnzoshcEL1/sB/omiMqbFLjGY/WxZHap5ULu2iTWp/DsrtH7C/nToUNMaiH/9rYcQEfydwZu1TDBxzBlUrdptx+2ZoLuYEj/2DXf16TlrJvcyafy5swzpZIHAJSuBG1E3Alufd1aw=
+	t=1790582938; cv=none; b=lhMFYmi+jKQ0CbuPon6tHHMsun0+D/nhCTzxftw/rB425aQkwSQUOA14eZlGIdXrrg2sGZZhH0MLwWKUvNd4+/4GrhWvB1kwq1aVht1X7s6gpiSRJ7pQAhx10WPVUHvKHdEbQSfRDG5RRqYEuhW6x5EOtYSpjq6BAs/TpZZb+IM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790582938; c=relaxed/simple;
-	bh=vM315X69MnsVM4faOz9yO771vmrJNQVid98bKYaprtI=;
+	bh=F1SDKxvW39Xfts3CCGkbruTkDPnGtIEuPP5ZI0CXH2Y=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=iYa6rBmwsE6rzo7YU1D/HQzlbRtZuiteuzGbvZvCwaWbHHEiU86+1WtjhF5nXhpoQUjCSlmSty3DCNZUAokiS0jECwTqNcevkRnHtO5PYOZ4X5WHRA7OJz5LDBEX6YO4sg2eETnzSu5Ffe8Oxa07YgXPDdjJPwX63Ccpy9y8z1Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=26LyvGS/; arc=none smtp.client-ip=185.246.84.56
+	 In-Reply-To:To:Cc; b=YRFQG7BAgvZJGv8V1yJaYIdb3Djfy5fCw7OO5RxUY997y9sVh3P+BRFHG7Z+vs/FYxC03seuhBI+6UosXlnCGp4y2euPPapRrTi8nEWDDO/fM+RmriLIhAMiN/i0oF5hQ0ouXZFcms4PyWh8yEfmpliD3Np0LSkjqPMmyTXGEhI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=YFuXX9jm; arc=none smtp.client-ip=185.246.84.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="26LyvGS/"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="YFuXX9jm"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 9D1E61A0FD3;
-	Mon, 28 Sep 2026 08:08:54 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 77D0E1A0FDB;
+	Mon, 28 Sep 2026 08:08:55 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 6C2F760504;
-	Mon, 28 Sep 2026 08:08:54 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id F3DDB102F1E84;
-	Mon, 28 Sep 2026 10:08:49 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 43B4D601BD;
+	Mon, 28 Sep 2026 08:08:55 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4E660102F1EA2;
+	Mon, 28 Sep 2026 10:08:53 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790582932; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1790582934; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=Ivdi7qFWGBpEbv93m/7l8gdKY5N87xaML9gAMg/uH9w=;
-	b=26LyvGS//W6jRa7XSzrpcZyX4MFvBuPWL7tJjlMMb2HySmmB2TeGFu1LlwYsbV6HM5H/bk
-	C/b4QVf5msOWW/alZ6CNB5OBiOuqBuSww+BxvavXnHz82w81d+cEpokFjxgMS8Kd91STjC
-	zQ20LiIxmn3FtngM+Im87mdxbiHY0hzswvUkk1JT192H/tWicTEWd3aGIPrAK5210EOc2b
-	j3w+/GKFOsRFXyzZjIzLQhmNpd0AqEl2RVb4rowUmk6tQx66hPIu48Ez5kwWhmaDIKNS1/
-	SnB6OFBiFmRhMPW9PfA7G5iTQChyZPhk/08fe9x3KXBk76vu1tzd1vZVXv0A6A==
-From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-Date: Mon, 28 Sep 2026 10:08:31 +0200
-Subject: [PATCH 5.10.y v2 2/3] net: add skb_set_end_offset() helper
+	bh=N17WfrwaT8JFq2g8OrV+z5QMuqdT9X2Hthg0tk5gBPE=;
+	b=YFuXX9jms9ekuglkDR5W6j0wB3MM356hp9zlwzz+8KkfBttaj+tvl9vh+S7b8ugTpdeHbr
+	ohaIXzTOHnHeK9DbJJzxQtTBqiRHKJJSzNMYbSzGB+0m2gzwQo1DNyyS0HOdshbAa/sAFA
+	+tPNMWYezpnpHym86+ynwaofveHNCGk5c5WofTu1tLUlGtw78V1A/knBoekqTi+UnlXLYL
+	WruegtG+DGQD7mWFLRg05oczJNfyIHDWDpa4xZL44cEUofhpjiHQSx27SOdf5NnSQW/vCP
+	ShlefIPOopZaSw222QrDXfcns0AR2INdkjVm/92zKu3vjKbOnyN4fV4E+3/TUQ==
+From: "Benjamin Robin (Schneider Electric)" <benjamin.robin@bootlin.com>
+Date: Mon, 28 Sep 2026 10:08:49 +0200
+Subject: [PATCH 5.15.y v2 1/2] rculist: add list_splice_rcu() for private
+ lists
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,126 +45,87 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-cve-2022-49142-v2-2-227dee37e858@bootlin.com>
-References: <20260928-cve-2022-49142-v2-0-227dee37e858@bootlin.com>
-In-Reply-To: <20260928-cve-2022-49142-v2-0-227dee37e858@bootlin.com>
-To: stable@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
- Jakub Kicinski <kuba@kernel.org>, Eric Dumazet <edumazet@google.com>, 
- Alexey Kuznetsov <kuznet@ms2.inr.ac.ru>, 
- Hideaki YOSHIFUJI <yoshfuji@linux-ipv6.org>, Marco Elver <elver@google.com>, 
- Alexander Potapenko <glider@google.com>, Dmitry Vyukov <dvyukov@google.com>, 
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Benjamin Robin <benjamin.robin@bootlin.com>, 
- "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Message-Id: <20260928-cve-2026-52988-5-15-v2-1-519003db6b26@bootlin.com>
+References: <20260928-cve-2026-52988-5-15-v2-0-519003db6b26@bootlin.com>
+In-Reply-To: <20260928-cve-2026-52988-5-15-v2-0-519003db6b26@bootlin.com>
+To: stable@vger.kernel.org, "Paul E. McKenney" <paulmck@kernel.org>, 
+ Pablo Neira Ayuso <pablo@netfilter.org>
+Cc: Sasha Levin <sashal@kernel.org>, miguel.gazquez@bootlin.com, 
+ thomas.petazzoni@bootlin.com, 
+ "Benjamin Robin (Schneider Electric)" <benjamin.robin@bootlin.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790582913; l=3045;
- i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
- bh=TJh0kqKvXNnSk/2Oqp6cn9F7BMXxwZVvboGx1QkM9ZU=;
- b=yFZQ1ZML4HTOjf2az/aneBRivtIowGgjDXxujyMxGM1j08NO9K9XXedCMefjLv+n+Znmp2jgP
- VjEIjgeCwzdD8R7wRa32WXG+jy/I75a+abki1FCFMrq3VNILM7upJ2s
-X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
- pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
 X-Last-TLS-Session-Version: TLSv1.3
 
-From: Eric Dumazet <edumazet@google.com>
+From: Pablo Neira Ayuso <pablo@netfilter.org>
 
-commit 763087dab97547230a6807c865a6a5ae53a59247 upstream.
+[ Upstream commit f902877b635551513729bdf9a8d1422c4aab7741 ]
 
-We have multiple places where this helper is convenient,
-and plan using it in the following patch.
+This patch adds a helper function, list_splice_rcu(), to safely splice
+a private (non-RCU-protected) list into an RCU-protected list.
 
-Signed-off-by: Eric Dumazet <edumazet@google.com>
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
+The function ensures that only the pointer visible to RCU readers
+(prev->next) is updated using rcu_assign_pointer(), while the rest of
+the list manipulations are performed with regular assignments, as the
+source list is private and not visible to concurrent RCU readers.
+
+This is useful for moving elements from a private list into a global
+RCU-protected list, ensuring safe publication for RCU readers.
+Subsystems with some sort of batching mechanism from userspace can
+benefit from this new function.
+
+The function __list_splice_rcu() has been added for clarity and to
+follow the same pattern as in the existing list_splice*() interfaces,
+where there is a check to ensure that the list to splice is not
+empty. Note that __list_splice_rcu() has no documentation for this
+reason.
+
+Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+Signed-off-by: Benjamin Robin (Schneider Electric) <benjamin.robin@bootlin.com>
 ---
- include/linux/skbuff.h | 10 ++++++++++
- net/core/skbuff.c      | 19 +++++--------------
- 2 files changed, 15 insertions(+), 14 deletions(-)
+ include/linux/rculist.h | 29 +++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
 
-diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
-index 80de69bf9586..34b6a7e3af8d 100644
---- a/include/linux/skbuff.h
-+++ b/include/linux/skbuff.h
-@@ -1416,6 +1416,11 @@ static inline unsigned int skb_end_offset(const struct sk_buff *skb)
- {
- 	return skb->end;
+diff --git a/include/linux/rculist.h b/include/linux/rculist.h
+index d29740be4833..ad37c0584c23 100644
+--- a/include/linux/rculist.h
++++ b/include/linux/rculist.h
+@@ -204,6 +204,35 @@ static inline void list_replace_rcu(struct list_head *old,
+ 	old->prev = LIST_POISON2;
  }
-+
-+static inline void skb_set_end_offset(struct sk_buff *skb, unsigned int offset)
-+{
-+	skb->end = offset;
-+}
- #else
- static inline unsigned char *skb_end_pointer(const struct sk_buff *skb)
- {
-@@ -1426,6 +1431,11 @@ static inline unsigned int skb_end_offset(const struct sk_buff *skb)
- {
- 	return skb->end - skb->head;
- }
-+
-+static inline void skb_set_end_offset(struct sk_buff *skb, unsigned int offset)
-+{
-+	skb->end = skb->head + offset;
-+}
- #endif
  
- /* Internal */
-diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-index ac2fc4d1f4ea..8118cd4e1b31 100644
---- a/net/core/skbuff.c
-+++ b/net/core/skbuff.c
-@@ -278,7 +278,7 @@ static struct sk_buff *__build_skb_around(struct sk_buff *skb,
- 	skb->head = data;
- 	skb->data = data;
- 	skb_reset_tail_pointer(skb);
--	skb->end = skb->tail + size;
-+	skb_set_end_offset(skb, size);
- 	skb->mac_header = (typeof(skb->mac_header))~0U;
- 	skb->transport_header = (typeof(skb->transport_header))~0U;
- 
-@@ -1686,11 +1686,10 @@ int pskb_expand_head(struct sk_buff *skb, int nhead, int ntail,
- 	skb->head     = data;
- 	skb->head_frag = 0;
- 	skb->data    += off;
++static inline void __list_splice_rcu(struct list_head *list,
++				     struct list_head *prev,
++				     struct list_head *next)
++{
++	struct list_head *first = list->next;
++	struct list_head *last = list->prev;
 +
-+	skb_set_end_offset(skb, size);
- #ifdef NET_SKBUFF_DATA_USES_OFFSET
--	skb->end      = size;
- 	off           = nhead;
--#else
--	skb->end      = skb->head + size;
- #endif
- 	skb->tail	      += off;
- 	skb_headers_offset_update(skb, nhead);
-@@ -6105,11 +6104,7 @@ static int pskb_carve_inside_header(struct sk_buff *skb, const u32 off,
- 	skb->head = data;
- 	skb->data = data;
- 	skb->head_frag = 0;
--#ifdef NET_SKBUFF_DATA_USES_OFFSET
--	skb->end = size;
--#else
--	skb->end = skb->head + size;
--#endif
-+	skb_set_end_offset(skb, size);
- 	skb_set_tail_pointer(skb, skb_headlen(skb));
- 	skb_headers_offset_update(skb, 0);
- 	skb->cloned = 0;
-@@ -6249,11 +6244,7 @@ static int pskb_carve_inside_nonlinear(struct sk_buff *skb, const u32 off,
- 	skb->head = data;
- 	skb->head_frag = 0;
- 	skb->data = data;
--#ifdef NET_SKBUFF_DATA_USES_OFFSET
--	skb->end = size;
--#else
--	skb->end = skb->head + size;
--#endif
-+	skb_set_end_offset(skb, size);
- 	skb_reset_tail_pointer(skb);
- 	skb_headers_offset_update(skb, 0);
- 	skb->cloned   = 0;
++	last->next = next;
++	first->prev = prev;
++	next->prev = last;
++	rcu_assign_pointer(list_next_rcu(prev), first);
++}
++
++/**
++ * list_splice_rcu - splice a non-RCU list into an RCU-protected list,
++ *                   designed for stacks.
++ * @list:	the non RCU-protected list to splice
++ * @head:	the place in the existing RCU-protected list to splice
++ *
++ * The list pointed to by @head can be RCU-read traversed concurrently with
++ * this function.
++ */
++static inline void list_splice_rcu(struct list_head *list,
++				   struct list_head *head)
++{
++	if (!list_empty(list))
++		__list_splice_rcu(list, head, head->next);
++}
++
+ /**
+  * __list_splice_init_rcu - join an RCU-protected list into an existing list.
+  * @list:	the RCU-protected list to splice
 
 -- 
 2.55.0
