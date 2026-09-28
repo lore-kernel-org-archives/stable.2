@@ -1,77 +1,66 @@
-Received: from zxbjcas.zhaoxin.com (zxbjcas.zhaoxin.com [124.127.214.139])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6534E4848B2;
-	Mon, 28 Sep 2026 08:50:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.127.214.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A25247AF68;
+	Mon, 28 Sep 2026 08:51:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790585424; cv=none; b=E7BWum/WdEyFrQ0z2LLeOkpQJXFs1SoNGwR3Hz/9ebHL0kqNqH4+RxeG1o/3EIhh9OJdXc7NDaJRHip+Na97MIKo27QraMYpuR7hAVZ3CJ+uxQW5yKG5G6JU0E8/rF3WO3syRzSfhB8IEt1/t6uGtOIRIGiRQedqaqsgpTZ4oFA=
+	t=1790585502; cv=none; b=ASfW9G0YKI+j1KAb7wwIH2mobR/pGW6ZMUL5WVq0g08qGAuhGutI7cwUaTFNzqes6d0c1rB4nfSDIYkc0WtjCAZyubieyKO8jseH3hampQ3/ibw3YHULCPdFZHjyPlj3kF+YkHCvAP6PYcgkuehAGeJ8fKi5MKKREMma/U0tjsg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790585424; c=relaxed/simple;
-	bh=C5GDaLXktEPtefgGKegcE6hqUiQsl/W8y0ysgY8wxpE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=r+hPTJrawGVFsOKBpgm+cupI9wMPCuudBJfrN1XIADRx463CfoIx3kUyDU7Ca0t+5jZMfsrb89OqCe8B2XCWgheJJHdkBmEwyVP67yaEO7Y3WxtLoWOU3aBYtPknAJplA/Mp4oWZ9pB7Wfp5CYq+XzQ+9ifJZm3vU35jRYelg9o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zhaoxin.com; spf=pass smtp.mailfrom=zhaoxin.com; arc=none smtp.client-ip=124.127.214.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zhaoxin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zhaoxin.com
-Received: from zhaoxin.com (zxmail.zhaoxin.com [10.28.208.166])
-	by zxbjcas.zhaoxin.com with ESMTP id 68S8mgRA083540;
-	Mon, 28 Sep 2026 16:48:42 +0800 (GMT-8)
-	(envelope-from WeitaoWang-oc@zhaoxin.com)
-Received: from l440.zhaoxin.com (l440.zhaoxin.com [10.29.8.13])
-	by zhaoxin.com (8.30) with ESMTPdb53bc35b7cf779f6b95a27134ef50f4
-	Mon, 28 Sep 2026 16:48:41 +0800
-X-Eyou-Smtpauth: weitaowangoc@zhaoxin.com
-X-Eyou-EnvelopeSender: WeitaoWang-oc@zhaoxin.com
-X-Eyou-From: Weitao Wang <WeitaoWang-oc@zhaoxin.com>
-From: "=?UTF-8?B?V2VpdGFvV2FuZy1vYw==?=" <WeitaoWang-oc@zhaoxin.com>
-To: tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
-        dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
-        den@valinux.co.jp, linux-kernel@vger.kernel.org
-Cc: WeitaoWang@zhaoxin.com, wwt8723@163.com, CobeChen@zhaoxin.com,
-        stable@vger.kernel.org
-Subject: [PATCH] x86/apic/msi: Fix MSI interrupt affinity configuration
-Date: Tue, 29 Sep 2026 00:48:39 +0800
-Message-Id: <20260928164839.6381-1-WeitaoWang-oc@zhaoxin.com>
-X-Mailer: git-send-email 2.32.0
+	s=arc-20240116; t=1790585502; c=relaxed/simple;
+	bh=M7NmYC/Iylm9myghHwqILim55SAUt9QrM+UZYk0eJlw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=U/KYwsd3oa3UZTMi/X+XP+6yKYJWtcfFt0TkChruue3XeG/QJUsABhxZ7hc+F15R1evMCADlGvsBgNxif91FPdLSmTSB1KGx1TFjz18E59gjX9wt8eHkQGUs5/j+s5/ZNm8gZ8bj+BWRW3VaH2CwD/Jw77Bdw9c3p+RE8g/RPw0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=dsfpeBru; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="dsfpeBru"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=M7NmYC/Iylm9myghHwqILim55SAUt9QrM+UZYk0eJlw=; b=dsfpeBruqBhPouBj9kV1gkAc/9
+	ml6DZgFeTrOtjWSm91mT1qMgfXFGHPPJ1cdkXFmvwESj3YTV7+7zGlt0f3sIF1ggmQYI/fTM18TJo
+	BB+hRyY3XexMGNhbCRz8Wlm1L15btzx9oiG33BOEkAltU23n5LKGTFTq3h1N6e4ryf4KMIp+qLKAY
+	/11AYZqcjMKkdpY7BXpS5/Nn0sY40cJRxLU6864pVjE/ClrUYkQN7eZjgaujtZmWk0fh9f14xi/HN
+	9dtrJyrqPtJk6zGxOimjfdH1PP7YXI0rgZMbEhJ6FgS1n9lE+5mOBPeiaLovu1ywaGblML1pzVN0t
+	iAy9rNLA==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xB75G-000000009DG-34gs;
+	Mon, 28 Sep 2026 08:51:38 +0000
+Date: Mon, 28 Sep 2026 01:51:38 -0700
+From: Christoph Hellwig <hch@infradead.org>
+To: Andrea Parri <parri.andrea@gmail.com>
+Cc: Christian Brauner <brauner@kernel.org>,
+	Carlos Maiolino <cem@kernel.org>,
+	"Darrick J . Wong" <djwong@kernel.org>,
+	Joanne Koong <joannelkoong@gmail.com>,
+	Brian Foster <bfoster@redhat.com>,
+	Christoph Hellwig <hch@infradead.org>,
+	Damien Le Moal <dlemoal@kernel.org>, Hannes Reinecke <hare@suse.de>,
+	Daniel Gomez <da.gomez@samsung.com>,
+	Pankaj Raghav <p.raghav@samsung.com>,
+	Dave Chinner <dchinner@redhat.com>, linux-xfs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3 4/4] iomap: don't lose a failed direct I/O bio's error
+ when zeroing the tail
+Message-ID: <aroqmmWadxFTOGWB@infradead.org>
+References: <cover.1790342457.git.parri.andrea@gmail.com>
+ <0cbce1012f5333690be36a9adafb3e190fe2ca77.1790342457.git.parri.andrea@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Eyou-Sender: <weitaowang-oc@zhaoxin.com>
-X-DNSRBL: 
-X-SPAM-SOURCE-CHECK: pass
-X-MAIL:zxbjcas.zhaoxin.com 68S8mgRA083540
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <0cbce1012f5333690be36a9adafb3e190fe2ca77.1790342457.git.parri.andrea@gmail.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-commit b56ebe7c896d ("x86/apic/msi: Fix misconfigured non-maskable MSI
-quirk") try to fix the issue of misconfigured non-maskable MSI quirk.
-For non-maskable MSI interrupts, use the slow path to fix the MSI affinity
-race. Maskable MSI interrupts use the direct path to update configuration
-info. However, the current code logic is the opposite as only maskable
-MSI interrupts will enable reservation mode.
+Looks good:
 
-Fixes: ef8dd01538ea ("genirq/msi: Make interrupt allocation less convoluted")
-Cc: stable@vger.kernel.org
-Signed-off-by: Weitao Wang <WeitaoWang-oc@zhaoxin.com>
----
- arch/x86/kernel/apic/msi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/arch/x86/kernel/apic/msi.c b/arch/x86/kernel/apic/msi.c
-index 66bc5d3e79db..da5f44a80313 100644
---- a/arch/x86/kernel/apic/msi.c
-+++ b/arch/x86/kernel/apic/msi.c
-@@ -62,7 +62,7 @@ msi_set_affinity(struct irq_data *irqd, const struct cpumask *mask, bool force)
- 	 * - The interrupt is not yet started up
- 	 * - The new destination CPU is the same as the old destination CPU
- 	 */
--	if (!irqd_can_reserve(irqd) ||
-+	if (irqd_can_reserve(irqd) ||
- 	    cfg->vector == old_cfg.vector ||
- 	    old_cfg.vector == MANAGED_IRQ_SHUTDOWN_VECTOR ||
- 	    !irqd_is_started(irqd) ||
--- 
-2.32.0
+Reviewed-by: Christoph Hellwig <hch@lst.de>
 
