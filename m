@@ -1,82 +1,51 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7EE631D757
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 04:55:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71F76547046;
+	Mon, 28 Sep 2026 05:12:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790571302; cv=none; b=OZrBt9OFRo/tjZNMtUKcsD7vTnekJNPCyYMGtp/p3gCLbSb26soPULfKI3CutcKF7JY22xZ7PU7MXDtNLcb55LbhlMQuRylYxKWSVwkiGWgSy/a8KkZ9GfPEClAAo9uw2PuqtW35r5FW1GqnhVXwlSH+Obcz+ZYlgG/rluXc0ZY=
+	t=1790572344; cv=none; b=rCnfjjFgmIHt2TlDVKMlc7g+AXgIf4STenACVvLMz9rW6X9OhDyvZV23ejmxrqWRj/kOiRnll5e4n5oL1lD7m3jW6ij/qIC3i5tBlfozMW5bl26Re0YA02DO/lyvpSXOf90hnwbR4oSsll+8xsCSekHYnZrs+bolEyeJIv/BKCU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790571302; c=relaxed/simple;
-	bh=bC4SqqSr3IJPKQYcprE7TOLFqYlzYggv2a8S+aFZi1M=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=icn6g2CxzEh85x+a8r+Gve7XUhTkdh+Cb8rMHh2Ogj/yx9jh0DYmVVdNGOX6V7oRnFeqv2j9hc6QI7+Ylb2EAUoz+lCKr4qGkoiu4DnbVya5dotQVZl3oFaxD/Et1M1Cczvwkm8c8F0MGeLxc/+CVzWbUvkQaxpf1LkyPqq4p4M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lAe/5uzb; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lAe/5uzb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43DA71F000FF
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 04:55:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790571301;
-	bh=/9HwzDg0np3qStQYEZSHfzJXT46+IW1tRSt273TKSsk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=lAe/5uzbg0orL6uWT0CI5RsoK4+PB0xS51g0DCDMo/beS38o0HYb5WCUjo9375vOW
-	 hnytZZm8AE5o4s9CjdC3xAK7ywz3NH2eic+gy2yMJg/HSwYa3Ur/oRX1sOEv1gchg/
-	 0WKTvaYWw7OCv072+to3cTAjyb2vj6+rFJv5L3NjYrP5/FG6PYd7Ljx008oM3wngJ2
-	 FyaFzc1+m/V+2UEL4EQyJMpuirl2uyoIZ4xvCEVeu3nu9MJhtbjcmPSUIvU/bRGR8Q
-	 zD7AqgoNaxef7JWP4yYyPEc2NEgyGHjiZyjWx/+lHT3xJE+qSrfeA5xfiVZgRydDqq
-	 fcFZA0bH0cUww==
-Received: by mail-ej2-f41.google.com with SMTP id a640c23a62f3a-c2dd363f57aso61119366b.2
-        for <stable@vger.kernel.org>; Sun, 27 Sep 2026 21:55:01 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByJXk6sw4rEqdJq9vvE0dQMfBHH2osVHbxK6myDH5YbxjIZwECmOh/3LsE3qtjNwoEbvO3cVYY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mFC0V6S3k01dGrmoBrRMyEvBhQTm7EGIAFQzLnXY3hqhOSC7bT
-	WL1BJhfPHrM9/Y5hjzs/9/uInQBJjHsKhZhkHYp8WaWZw9W/raCv7cUGVtNXYZGSATlL1gpRhxl
-	HSQhs6U5LYsNXzs4hDbJ2Wtl7u9LBr7g=
-X-Received: by 2002:a17:907:7b9e:b0:c29:4970:abec with SMTP id
- a640c23a62f3a-c2ac24cb86cmr1021730066b.19.1790571299622; Sun, 27 Sep 2026
- 21:54:59 -0700 (PDT)
+	s=arc-20240116; t=1790572344; c=relaxed/simple;
+	bh=M7NmYC/Iylm9myghHwqILim55SAUt9QrM+UZYk0eJlw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eXPiHu0HvaPyRucXT6K/27dWrqZF0VXB2PFNJ4U4YJuHmbbXckAfWgXDHR6kPylstTQnlOtsh0JykWELXJzvXe2AnMhiP7ebTImhNM2ramcRhf+FlfazhimTpl0gJc/zE0Zn3mYhN41Y9zD3gPKuU8eJ6zDjYAxWC++VdxASjP4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id 9607668B05; Mon, 28 Sep 2026 07:12:09 +0200 (CEST)
+Date: Mon, 28 Sep 2026 07:12:09 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: Christoph Hellwig <hch@lst.de>, Breno Leitao <leitao@debian.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Keith Busch <kbusch@kernel.org>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	"Martin K . Petersen" <mkp@kernel.org>,
+	Lee Duncan <lduncan@suse.com>, Hannes Reinecke <hare@suse.com>,
+	Nicholas Bellinger <nab@linux-iscsi.org>,
+	linux-nvme@lists.infradead.org, linux-scsi@vger.kernel.org,
+	target-devel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: Re: [PATCH v7 0/4] nvmet: avoid recursive configfs open
+Message-ID: <20260928051209.GB18753@lst.de>
+References: <20260927082011.638723-1-runyu.xiao@seu.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260927063339.1731061-1-zhangdairui@gmail.com>
-In-Reply-To: <20260927063339.1731061-1-zhangdairui@gmail.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Mon, 28 Sep 2026 13:54:47 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd8eaM2iANsAOTTHe5CLdFWBg4nws3w74e3pVbi6ioYXwQ@mail.gmail.com>
-X-Gm-Features: AclHuK_MFl91cj9FmUBRIXALyMi5ag6c3FdBoNJRKPQokRULAz_45Q6sxrBjKBY
-Message-ID: <CAKYAXd8eaM2iANsAOTTHe5CLdFWBg4nws3w74e3pVbi6ioYXwQ@mail.gmail.com>
-Subject: Re: [PATCH] ksmbd: fix OOB read in ksmbd_validate_name_reconnect()
-To: Dairui Zhang <zhangdairui@gmail.com>
-Cc: linux-cifs@vger.kernel.org, Steve French <smfrench@gmail.com>, 
-	Sergey Senozhatsky <senozhatsky@chromium.org>, Tom Talpey <tom@talpey.com>, 
-	Paulo Alcantara <pc@manguebit.org>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260927082011.638723-1-runyu.xiao@seu.edu.cn>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-> @@ -1714,9 +1714,13 @@ int ksmbd_validate_name_reconnect(struct ksmbd_share_config *share,
->                 return -EACCES;
->         }
->
-> -       if (name && strcmp(&ab_pathname[share->path_sz + 1], name)) {
-> -               ksmbd_debug(SMB, "invalid name reconnect %s\n", name);
-> -               ret = -EINVAL;
-> +       if (name) {
-> +               if (strlen(ab_pathname) <= share->path_sz ||
-> +                   ab_pathname[share->path_sz] != '/' ||
-> +                   strcmp(&ab_pathname[share->path_sz + 1], name)) {
-> +                       ksmbd_debug(SMB, "invalid name reconnect %s\n", name);
-> +                       ret = -EINVAL;
-> +               }
-This change adds path length and separator checks, but still does not
-verify that  ab_pathname starts with share->path. A reconnect through
-/srv/b can therefore still accept a durable handle for /srv/a/file
-when the requested name is file. Please check the share path prefix
-and component boundary before comparing the relative name.
+Looks good:
 
-And can you check Sashiko' review comments ?
+Reviewed-by: Christoph Hellwig <hch@lst.de>
 
-https://sashiko.dev/#/patchset/20260927063339.1731061-1-zhangdairui%40gmail.com
-
-Thanks.
