@@ -1,81 +1,89 @@
-Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de [81.169.146.218])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7E6E4F4748;
-	Mon, 28 Sep 2026 19:30:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.218
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A04304FE2D0;
+	Mon, 28 Sep 2026 19:33:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790623830; cv=pass; b=NZqcSjS5UerzKt7ttla9kGfYguDY8mVNpB6HN9rg8vsWaFBH0iiza2e6Jy7Zflgm3i3Drj1ZEGQR3Vi8XmRNP+KQxM6II/EbS5WaSDYAw5xf66l71P3IyHZVUzVlmurFMftfkSRHbw51ywCgnJ02caoeVhKm5luxNFcFVpZBysI=
+	t=1790624004; cv=pass; b=Wn0rjSeTymkisv0iLWwBv9Vrbpi+6+vCG2qWYAZYSN2WkseyJAuas37N+FogqVO1/OnqIt+fI7Df1JwdFzhB37MVYyyeAvrQUUI2w4b8RpzVigarq0eyI0MhMCyHmm6vEtUuhds94x6ykM34MFDdK6RsFgu/uoJlKcLawKeyKlY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790623830; c=relaxed/simple;
-	bh=R59KFAtskgMCpeDUJXUtTC3mWc4O99QMiIUVOgCV0sA=;
+	s=arc-20240116; t=1790624004; c=relaxed/simple;
+	bh=Qq+Ycq3EIdCyP7fRRmpcFsVOd3QQV3bqGdlZRSjk2Ko=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=HzInVfz9IiYxadteJkCs2qr/ANFNSInAyXnxKBBp01u7KimzjmHXR/PXwTfhq9w13dl1FteYfAUwjpqS1mdENOrKN35jsvSfkgFx//NzPE4aW2ls3xu6r3yPRNkJZ0KrGFKpt/S59HmWTsrPfMiMSeeXz3IhkUYXcB0/89dtrH0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net; spf=fail smtp.mailfrom=hartkopp.net; dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=QdkBkEHj; dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=zU5gc4l5; arc=pass smtp.client-ip=81.169.146.218
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=hartkopp.net
+	 MIME-Version; b=uLnc2/DvQSr+YjF5/lxRwjAlqhbV5mIxMviPPW9ltDDxl7/F8TsuVT0JbEeNARxRUOxkvTrW/cHFDlPMVJ4UFO1PgPAyUT8Us43Zzqk8R9Z9xm/fsyv3krIGxjVACbZVB9Q2aUOgHB+o63flo61/SbrGX49qPH1I5Zh1j9jmRgs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=OTnrTIEW; arc=pass smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="QdkBkEHj";
-	dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="zU5gc4l5"
-ARC-Seal: i=1; a=rsa-sha256; t=1790623456; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=qXJ306HjPZRmGlwkZ8rOJOU/QXLZ6896Dt+x8asjVqiT9NFnXXXJlGHgX3PM2kXQgD
-    Jq9cQExLYJuS3vvRmFzAvHOnSdcsnANajAOgoh0htjeXybM3tztc9ohSRvGRI7Jk4N/T
-    RtUjCeaYEuJJtLwnobAcy7SXfA9AWEvKzg1K023elwOwIWuhTZUD3yx67mrp5Ufye6bE
-    BL0tACTuHxgzZVs88JkAvJUZY7RYvz6VOvgobe/To+52JtnQOkwbAMnIFstIdDG+daEO
-    MHOB4tW+aGzKOPEyzaao6M05g08J2fjH6D0es1ja3pZyXWqR9QQaLVEpZPGB92v8m/V6
-    SH1Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1790623456;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
-    From:Subject:Sender;
-    bh=x41+j2MXyJI/2yK/2r7PEbT8aRSrMIBRFrrZV5PPTDk=;
-    b=oXSx9h4uSe9k8HZZzd/u3A2scDsNz5U4WWIiE1/ZbU0rH59aIjj63XjdIR0Ucaiqn7
-    AA9jrOAeBekANEdVyabwG7BNVTuNbP1ZmPeX04wR/lGXGkmh4eIkzA0HbNb6xROlaZ+q
-    hwJLjcDAXFkVhmWYjrSxkgKPDVxQ1LF5+hyH8wdBPsPh9iTotdhzSi/4mRH5RUQ48F5g
-    xfSKGStHP5z3Im/QZVMfpwirbn8KdnNO2O7tjZpw9qukDJKGeOyHIXliG/Q3Qc1a5aiN
-    ydgidB4bAeTrwWqL85+Dih7dybsthjPK6wOubw9WiNU/ExKS3zOPnMrIn2muCfQYGANQ
-    rSRg==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo00
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1790623456;
-    s=strato-dkim-0002; d=hartkopp.net;
-    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
-    From:Subject:Sender;
-    bh=x41+j2MXyJI/2yK/2r7PEbT8aRSrMIBRFrrZV5PPTDk=;
-    b=QdkBkEHjQ0OO6bidL2X5gT1zW5vVDUwGbP+y5Wqyb663kjXGtgwyZb1MTDCZK3QFfC
-    kvJGwDY6Y4eaCGeAXOeNqjzzkKG/xvU2eMY5/MciwlDki1mOQti9t8rZKs+5MiDz3xwD
-    7NWbcW0jvkA0khc6RzjYjm2MVb8IUTmmvU3fZxtVMIaqr366vR3W6kwB+uPrPoMoTNsi
-    tMbW9X/zsG6f4RonL5KyWeuMJxsn66d3YfhNLvb4tEZrb9xPeAJILY4lhgS5IAxAv3n6
-    ge9rtxvvSjB/Zc0UaIqCnF+Q3iCRTv1rn+2lPlRb/tqmokYov1PS8WgVM2RxSrP+8V/g
-    BgzQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1790623456;
-    s=strato-dkim-0003; d=hartkopp.net;
-    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
-    From:Subject:Sender;
-    bh=x41+j2MXyJI/2yK/2r7PEbT8aRSrMIBRFrrZV5PPTDk=;
-    b=zU5gc4l5L1mQfP91Q9h19KqVjh4f5omtlaa9f8xnM4/02BvQ3Hfu8dyc0DJ/eZI4+X
-    RpQyGzmck3arxrUmm2Bg==
-X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjH4JKvMdQv2tTUsMrZpkO3Mw3lZ/t54cFxeEQ7s8bDup0Q=="
-Received: from vivo.lan
-    by smtp.strato.de (RZmta 55.6.2 AUTH)
-    with ESMTPSA id K04b9a28SJOGOz3
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Mon, 28 Sep 2026 21:24:16 +0200 (CEST)
-From: Oliver Hartkopp <socketcan@hartkopp.net>
-To: linux-can@vger.kernel.org
-Cc: Oliver Hartkopp <socketcan@hartkopp.net>,
-	Norbert Szetei <norbert@doyensec.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3 1/3] can: remove CAN filters independent from namespace
-Date: Mon, 28 Sep 2026 21:24:08 +0200
-Message-ID: <20260928192410.71100-2-socketcan@hartkopp.net>
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="OTnrTIEW"
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id D01D5201F2F;
+	Mon, 28 Sep 2026 21:33:15 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1790623995;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=U12IRhUVqyc9ePFqFC43WEcFbnA/BEO9QQoiF0/4eZo=;
+	b=OTnrTIEWFKo09ClvkaBPru6BB94ZbZCmHNZ/K+XFt1Da1nMgMd6WHyO0R8x+AtT0z7EZur
+	3LX4gEHJzR5WqfkHdlFLriLzeWywAsfkUFKC4OpGT1sBZV+zcT5XCJAt4JSe+GmcTV3FUR
+	SujXxUILPJnBDVZEQrAi2nPELXpzOWEqPtiAmMvEwk7CeLmjS4TuG62a3w47ijUuiAErm1
+	x7dA9FOSrOHUwpeBC2/OOidgJj4uHqyZkQ21I8JYqFWs68DF9AYIvfoDN3GDOQbhgwoCjn
+	sodE0Rd3ZWIx4UHAVprDPAf5mutwRUlwnCT5hgIB6l07xq92iXrI3ovoLH9mrw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1790623995;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=U12IRhUVqyc9ePFqFC43WEcFbnA/BEO9QQoiF0/4eZo=;
+	b=OZCNkqRnJ6H3DDpj4YraiJ6z8Y9AkgC5N1K1aTRANHKuX10WzWifB7na1I5DbBIKfRnUHi
+	I9Su/+vHfCZDhDwmUxbgYuVk5NZZMhidLCdY6B3Nfkr0BX+huOtnm7/Qiw7Etl5N6OjNuQ
+	psTWwgnLBAZ4M91OM0laoID6Ir/mJBbjKAKbMaQXdw6impq9h4RZGK/E7E69bhCIAhns7T
+	yCK9RxO3IFxcGcIvPOJ20cqln5T3lOl+lcgyc+hK5eZoNPsG6OrJ4I+S9VD63hghlGDxy9
+	jnxEdtLPIR5dEXP5ZhW6wO1xSk6x4rB9QLzUmh7FajFhA0txxlDXErSDrkCKbA==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790623995; a=rsa-sha256;
+	cv=none;
+	b=VTNNQTIn4iMy5JDlZk38LuNw3A5cD8SxxyAx0V+ujJB5FAqJcuTdMoMFALDjZ343xdhjrt
+	GGC+BSv9Txls2hHr50fsjFkq2SEHD5hLlhzamogWD92UG/zi1kJTMna2/OGEKFxIcywcyU
+	+NJ7sJdYj7U1ylIJkvHBuuALNDw6cmtR8QSvhc6Ei27po6pHmBdZeRxSMJMgDkyDBVkuTq
+	BMoM+M5T36+nlkLk+s5LJWCgyXNlAhp9eH77QfWFwYy/IMttPOFXacs3CLYe0SJXfeVrMA
+	m/JDLRlZa2GvA02CU5QBJsfgVyR/sM48BQdHpHXTYzMsqa4lfqotkEMpSvuKhg==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1xBH6B-003H60-20;
+	Mon, 28 Sep 2026 21:33:15 +0200
+Received: from blackshift.org (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 614A75B154D;
+	Mon, 28 Sep 2026 19:33:15 +0000 (UTC)
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: netdev@vger.kernel.org
+Cc: davem@davemloft.net,
+	kuba@kernel.org,
+	linux-can@vger.kernel.org,
+	kernel@pengutronix.de,
+	Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>,
+	syzbot+e2af46126e0644cbebdd@syzkaller.appspotmail.com,
+	Oleksij Rempel <o.rempel@pengutronix.de>,
+	stable@vger.kernel.org,
+	Marc Kleine-Budde <mkl@pengutronix.de>
+Subject: [PATCH net 06/22] can: j1939: j1939_sk_bind(): fix j1939_ecu leak when re-bind failed
+Date: Mon, 28 Sep 2026 20:45:13 +0200
+Message-ID: <20260928193312.553632-7-mkl@pengutronix.de>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260928192410.71100-1-socketcan@hartkopp.net>
-References: <20260928192410.71100-1-socketcan@hartkopp.net>
+In-Reply-To: <20260928193312.553632-1-mkl@pengutronix.de>
+References: <20260928193312.553632-1-mkl@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -83,372 +91,153 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="us-ascii"
 
-When the devices namespace is changed the socket namespace and the device
-namespace might differ. The net_eq(dev_net(dev), sock_net(sk)) check in
-the CAN protocols netdev notifiers therefore led to skipping the required
-removal of the CAN filters from the (namespace changed) CAN devices.
+From: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
 
-This patch removes the namespace equality check in the netdev notifiers for
-BCM, ISOTP and RAW sockets. Since the struct net_device pointer is globally
-unique, the notifier should always process the unregister event and remove
-the CAN filters if it matches the original socket's bound device pointer.
+syzbot is reporting "struct j1939_ecu" refcount leak, which occurs when
+netdev_hold() is called during ECU creation but the corresponding
+netdev_put() is never executed because the parent "struct j1939_ecu"
+object is leaked.
 
-In bcm.c netdevice comparisons were performed by checking the interface
-index (bo->ifindex and op->ifindex) which is not namespace-safe either.
-Introduce tracked netdevice pointers (bo->dev and op->tx_dev) for these
-referenced devices to enable namespace-save device comparisons.
-Additional put all bo->dev accesses in bcm_notify() under lock_sock().
+  unregister_netdevice: waiting for vxcan1 to become free. Usage count = 3
+  ref_tracker: netdev@ffff8880710f0700 has 1/2 users at
+       __netdev_tracker_alloc include/linux/netdevice.h:4496 [inline]
+       netdev_hold include/linux/netdevice.h:4525 [inline]
+       j1939_ecu_create_locked+0x1c9/0x400 net/can/j1939/bus.c:159
+       j1939_local_ecu_get+0xeb/0x220 net/can/j1939/bus.c:293
+       j1939_sk_bind+0x70a/0xc60 net/can/j1939/socket.c:529
+       __sys_bind_socket net/socket.c:1920 [inline]
+       __sys_bind+0x2e3/0x410 net/socket.c:1951
+       __do_sys_bind net/socket.c:1956 [inline]
+       __se_sys_bind net/socket.c:1954 [inline]
+       __x64_sys_bind+0x7a/0x90 net/socket.c:1954
+       do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+       do_syscall_64+0x174/0x580 arch/x86/entry/syscall_64.c:94
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-In isotp.c the two missing can_rx_unregister() calling sites are converted
-to use dev_net(dev) instead of sock_net(sk) to get the correct namespace.
+  ref_tracker: netdev@ffff8880710f0700 has 1/2 users at
+       __netdev_tracker_alloc include/linux/netdevice.h:4496 [inline]
+       netdev_hold include/linux/netdevice.h:4525 [inline]
+       j1939_priv_create net/can/j1939/main.c:140 [inline]
+       j1939_netdev_start+0x387/0xb20 net/can/j1939/main.c:268
+       j1939_sk_bind+0x946/0xc60 net/can/j1939/socket.c:506
+       __sys_bind_socket net/socket.c:1920 [inline]
+       __sys_bind+0x2e3/0x410 net/socket.c:1951
+       __do_sys_bind net/socket.c:1956 [inline]
+       __se_sys_bind net/socket.c:1954 [inline]
+       __x64_sys_bind+0x7a/0x90 net/socket.c:1954
+       do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+       do_syscall_64+0x174/0x580 arch/x86/entry/syscall_64.c:94
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-Fixes: 8e8cda6d737d ("can: initial support for network namespaces")
-Reported-by: Norbert Szetei <norbert@doyensec.com>
-Link: https://lore.kernel.org/linux-can/CEA6A38A-2646-4ADA-95B4-CBAE2F301A8E@doyensec.com/
+The root cause lies in the error handling of j1939_sk_bind() during a
+re-bind operation (binding an already bound socket to the same interface).
+Currently, the function prematurely drops the old ECU references by calling
+j1939_local_ecu_put() before verifying whether the new configuration can be
+successfully acquired via j1939_local_ecu_get().
+
+If j1939_local_ecu_get() subsequently fails, the function unconditionally
+calls j1939_netdev_stop() and clears jsk->priv. This leaves the socket in a
+half-broken state where the old ECU's refcount has already been decremented
+incompletely, but the socket destruct pathway (j1939_sk_sock_destruct) can
+no longer perform proper cleanup because jsk->priv is NULL. As a result,
+the old "struct j1939_ecu" remains orphaned on the priv->ecus list,
+permanently leaking both the ECU object and the net_device reference held
+inside it.
+
+Fix this by deferring the removal and release of the old ECU references
+until after j1939_local_ecu_get() has successfully acquired the new
+resources. As a side effect of this change, the socket's state no longer
+changes when the re-bind operation failed.
+
+Reported-by: syzbot+e2af46126e0644cbebdd@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=e2af46126e0644cbebdd
+Assisted-by: Gemini-Pro
+Fixes: f214744c8a27 ("can: j1939: j1939_sk_bind(): call j1939_priv_put() immediately when j1939_local_ecu_get() failed")
+Signed-off-by: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+Acked-by: Oleksij Rempel <o.rempel@pengutronix.de>
+Link: https://patch.msgid.link/deb3ac27-5eaf-406a-9bf4-733cc43ecaba@I-love.SAKURA.ne.jp
 Cc: stable@vger.kernel.org
-Signed-off-by: Oliver Hartkopp <socketcan@hartkopp.net>
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- net/can/bcm.c   | 100 ++++++++++++++++++++++++++++++++++++------------
- net/can/isotp.c |   7 +---
- net/can/raw.c   |   3 --
- 3 files changed, 78 insertions(+), 32 deletions(-)
+ net/can/j1939/socket.c | 37 ++++++++++++++++++++++---------------
+ 1 file changed, 22 insertions(+), 15 deletions(-)
 
-diff --git a/net/can/bcm.c b/net/can/bcm.c
-index 3d637a1e0ac1..cd3522ec32c0 100644
---- a/net/can/bcm.c
-+++ b/net/can/bcm.c
-@@ -128,18 +128,22 @@ struct bcm_op {
- 	struct canfd_frame sframe;
- 	struct canfd_frame last_sframe;
+diff --git a/net/can/j1939/socket.c b/net/can/j1939/socket.c
+index 50a598ef5fd4..24efb25c58c3 100644
+--- a/net/can/j1939/socket.c
++++ b/net/can/j1939/socket.c
+@@ -450,6 +450,7 @@ static int j1939_sk_bind(struct socket *sock, struct sockaddr_unsized *uaddr, in
  	struct sock *sk;
- 	struct net_device *rx_reg_dev;
- 	netdevice_tracker rx_reg_dev_tracker;
-+	struct net_device *tx_dev;
-+	netdevice_tracker tx_dev_tracker;
- 	spinlock_t bcm_tx_lock; /* protect tx data and timer updates */
- 	spinlock_t bcm_rx_update_lock; /* protect filter/timer data updates */
- };
+ 	struct net *net;
+ 	int ret = 0;
++	bool was_bound;
  
- struct bcm_sock {
- 	struct sock sk;
- 	int bound;
- 	int ifindex;
-+	struct net_device *dev;
-+	netdevice_tracker dev_tracker;
- 	struct list_head notifier;
- 	struct list_head rx_ops;
- 	struct list_head tx_ops;
- 	unsigned long dropped_usr_msgs;
- 	struct proc_dir_entry *bcm_proc_read;
-@@ -933,10 +937,13 @@ static void bcm_free_op_work(struct work_struct *work)
- 		kfree(op->frames);
+ 	ret = j1939_sk_sanity_check(addr, len);
+ 	if (ret)
+@@ -462,7 +463,8 @@ static int j1939_sk_bind(struct socket *sock, struct sockaddr_unsized *uaddr, in
+ 	net = sock_net(sk);
  
- 	if ((op->last_frames) && (op->last_frames != &op->last_sframe))
- 		kfree(op->last_frames);
- 
-+	if (op->tx_dev)
-+		netdev_put(op->tx_dev, &op->tx_dev_tracker);
-+
- 	/* the last possible access to op->timer/op->thrtimer has now
- 	 * happened above via hrtimer_cancel() - op->sk is no longer
- 	 * needed by any pending timer callback, so drop our reference
- 	 */
- 	sock_put(op->sk);
-@@ -1072,10 +1079,11 @@ static int bcm_tx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
- 			int ifindex, struct sock *sk)
- {
- 	struct bcm_sock *bo = bcm_sk(sk);
- 	struct bcm_op *op;
- 	struct canfd_frame *cf;
-+	struct net_device *tx_dev;
- 	bool add_op_to_list = false;
- 	unsigned int i;
- 	int err;
- 
- 	/* we need a real device to send frames */
-@@ -1103,10 +1111,26 @@ static int bcm_tx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
- 		 * therefore (complexity / locking) it is not supported.
+ 	/* Already bound to an interface? */
+-	if (jsk->state & J1939_SOCK_BOUND) {
++	was_bound = (jsk->state & J1939_SOCK_BOUND);
++	if (was_bound) {
+ 		/* A re-bind() to a different interface is not
+ 		 * supported.
  		 */
- 		if (msg_head->nframes > op->nframes)
- 			return -E2BIG;
- 
-+		/* Re-resolve and re-hold the target device if a concurrent
-+		 * NETDEV_UNREGISTER already cleared it (see bcm_notify()).
-+		 * op->ifindex and sock_net(sk) is unchanged.
-+		 */
-+		if (!op->tx_dev) {
-+			tx_dev = dev_get_by_index(sock_net(sk), ifindex);
-+			if (tx_dev) {
-+				op->tx_dev = tx_dev;
-+				netdev_hold(tx_dev, &op->tx_dev_tracker,
-+					    GFP_KERNEL);
-+				dev_put(tx_dev);
-+			} else {
-+				return -ENODEV;
-+			}
-+		}
-+
- 		/* get new CAN frames content into a staging buffer before
- 		 * locking: validate and normalize the frames there so that
- 		 * bcm_can_tx() / bcm_tx_timeout_handler() never observe a
- 		 * partially updated or unvalidated frame in op->frames
- 		 */
-@@ -1169,10 +1193,22 @@ static int bcm_tx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
- 
- 		op = kzalloc(OPSIZ, GFP_KERNEL);
- 		if (!op)
- 			return -ENOMEM;
- 
-+		tx_dev = dev_get_by_index(sock_net(sk), ifindex);
-+		if (tx_dev) {
-+			op->tx_dev = tx_dev;
-+			netdev_hold(tx_dev, &op->tx_dev_tracker, GFP_KERNEL);
-+			dev_put(tx_dev);
-+		} else {
-+			/* prepare op->frames for goto free_op */
-+			op->frames = &op->sframe;
-+			err = -ENODEV;
-+			goto free_op;
-+		}
-+
- 		spin_lock_init(&op->bcm_tx_lock);
- 		op->can_id = msg_head->can_id;
- 		op->cfsiz = CFSIZ(msg_head->flags);
- 		op->flags = msg_head->flags;
- 		op->nframes = msg_head->nframes;
-@@ -1184,12 +1220,14 @@ static int bcm_tx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
- 		if (msg_head->nframes > 1) {
- 			op->frames = kmalloc_array(msg_head->nframes,
- 						   op->cfsiz,
- 						   GFP_KERNEL);
- 			if (!op->frames) {
--				kfree(op);
--				return -ENOMEM;
-+				/* prepare op->frames for goto free_op */
-+				op->frames = &op->sframe;
-+				err = -ENOMEM;
-+				goto free_op;
- 			}
- 		} else
- 			op->frames = &op->sframe;
- 
- 		for (i = 0; i < msg_head->nframes; i++) {
-@@ -1267,10 +1305,13 @@ static int bcm_tx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
- 		bcm_tx_start_timer(op);
- 
- 	return msg_head->nframes * op->cfsiz + MHSIZ;
- 
- free_op:
-+	if (op->tx_dev)
-+		netdev_put(op->tx_dev, &op->tx_dev_tracker);
-+
- 	if (op->frames != &op->sframe)
- 		kfree(op->frames);
- 	kfree(op);
- 	return err;
- }
-@@ -1790,46 +1831,47 @@ static int bcm_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
- static void bcm_notify(struct bcm_sock *bo, unsigned long msg,
- 		       struct net_device *dev)
- {
- 	struct sock *sk = &bo->sk;
- 	struct bcm_op *op;
--	int notify_enodev = 0;
-+	int sk_err = 0;
- 
--	if (!net_eq(dev_net(dev), sock_net(sk)))
--		return;
-+	lock_sock(sk);
- 
- 	switch (msg) {
- 
- 	case NETDEV_UNREGISTER:
--		lock_sock(sk);
- 
- 		/* rx_ops: remove device specific receive entries */
- 		list_for_each_entry(op, &bo->rx_ops, list) {
- 			if (op->rx_reg_dev == dev)
- 				bcm_rx_unreg(dev, op);
- 
- 			/* release an ANYDEV op's claim (see bcm_rx_handler())
- 			 * on this now confirmed-gone interface.
- 			 */
--			if (!op->ifindex) {
-+			if (!op->ifindex && net_eq(dev_net(dev), sock_net(sk))) {
- 				spin_lock_bh(&op->bcm_rx_update_lock);
- 				if (op->if_detected == dev->ifindex)
- 					op->if_detected = 0;
- 				spin_unlock_bh(&op->bcm_rx_update_lock);
- 			}
+@@ -470,10 +472,6 @@ static int j1939_sk_bind(struct socket *sock, struct sockaddr_unsized *uaddr, in
+ 			ret = -EINVAL;
+ 			goto out_release_sock;
  		}
- 
- 		/* tx_ops: stop device specific cyclic transmissions on the
--		 * vanishing ifindex. Cancelling the timer is enough to stop
-+		 * vanishing device. Cancelling the timer is enough to stop
- 		 * cyclic bcm_can_tx() calls as there is no re-arming.
- 		 */
- 		list_for_each_entry(op, &bo->tx_ops, list)
--			if (op->ifindex == dev->ifindex)
-+			if (op->tx_dev == dev) {
- 				hrtimer_cancel(&op->timer);
-+				netdev_put(op->tx_dev, &op->tx_dev_tracker);
-+				op->tx_dev = NULL;
-+			}
- 
- 		/* remove device reference, if this is our bound device */
--		if (bo->bound && bo->ifindex == dev->ifindex) {
-+		if (bo->bound && bo->dev == dev) {
- #if IS_ENABLED(CONFIG_PROC_FS)
- 			if (sock_net(sk)->can.bcmproc_dir && bo->bcm_proc_read) {
- 				remove_proc_entry(bo->procname, sock_net(sk)->can.bcmproc_dir);
- 				bo->bcm_proc_read = NULL;
- 			}
-@@ -1839,28 +1881,27 @@ static void bcm_notify(struct bcm_sock *bo, unsigned long msg,
- 			 * accessed under lock_sock() so it needs no
- 			 * annotation.
- 			 */
- 			WRITE_ONCE(bo->bound, 0);
- 			bo->ifindex = 0;
--			notify_enodev = 1;
--		}
 -
--		release_sock(sk);
--
--		if (notify_enodev) {
--			sk->sk_err = ENODEV;
--			if (!sock_flag(sk, SOCK_DEAD))
--				sk_error_report(sk);
-+			netdev_put(bo->dev, &bo->dev_tracker);
-+			bo->dev = NULL;
-+			sk_err = ENODEV;
- 		}
- 		break;
+-		/* drop old references */
+-		j1939_jsk_del(priv, jsk);
+-		j1939_local_ecu_put(priv, jsk->addr.src_name, jsk->addr.sa);
+ 	} else {
+ 		struct can_ml_priv *can_ml;
+ 		struct net_device *ndev;
+@@ -519,22 +517,31 @@ static int j1939_sk_bind(struct socket *sock, struct sockaddr_unsized *uaddr, in
+ 		jsk->priv = priv;
+ 	}
  
- 	case NETDEV_DOWN:
--		if (bo->bound && bo->ifindex == dev->ifindex) {
--			sk->sk_err = ENETDOWN;
--			if (!sock_flag(sk, SOCK_DEAD))
--				sk_error_report(sk);
--		}
-+		if (bo->bound && bo->dev == dev)
-+			sk_err = ENETDOWN;
++	/* get new references without dropping old references */
++	ret = j1939_local_ecu_get(priv, addr->can_addr.j1939.name, addr->can_addr.j1939.addr);
++	if (ret) {
++		/* nothing to undo if re-bind() failed */
++		if (!was_bound) {
++			j1939_netdev_stop(priv);
++			jsk->priv = NULL;
++			synchronize_rcu();
++			j1939_priv_put(priv);
++		}
++		goto out_release_sock;
 +	}
 +
-+	release_sock(sk);
++	/* drop old references after re-bind() succeeded */
++	if (was_bound) {
++		j1939_jsk_del(priv, jsk);
++		j1939_local_ecu_put(priv, jsk->addr.src_name, jsk->addr.sa);
++	}
 +
-+	if (sk_err) {
-+		sk->sk_err = sk_err;
-+		if (!sock_flag(sk, SOCK_DEAD))
-+			sk_error_report(sk);
- 	}
- }
+ 	/* set default transmit pgn */
+ 	if (j1939_pgn_is_valid(addr->can_addr.j1939.pgn))
+ 		jsk->pgn_rx_filter = addr->can_addr.j1939.pgn;
+ 	jsk->addr.src_name = addr->can_addr.j1939.name;
+ 	jsk->addr.sa = addr->can_addr.j1939.addr;
  
- static int bcm_notifier(struct notifier_block *nb, unsigned long msg,
- 			void *ptr)
-@@ -1982,10 +2023,14 @@ static int bcm_release(struct socket *sock)
- 
- 	/* remove device reference */
- 	if (bo->bound) {
- 		WRITE_ONCE(bo->bound, 0);
- 		bo->ifindex = 0;
-+		if (bo->dev) {
-+			netdev_put(bo->dev, &bo->dev_tracker);
-+			bo->dev = NULL;
-+		}
- 	}
- 
- 	sock_orphan(sk);
- 	sock->sk = NULL;
- 
-@@ -2029,25 +2074,32 @@ static int bcm_connect(struct socket *sock, struct sockaddr_unsized *uaddr, int
- 			ret = -ENODEV;
- 			goto fail;
- 		}
- 
- 		bo->ifindex = dev->ifindex;
-+		bo->dev = dev;
-+		netdev_hold(dev, &bo->dev_tracker, GFP_KERNEL);
- 		dev_put(dev);
- 
- 	} else {
- 		/* no interface reference for ifindex = 0 ('any' CAN device) */
- 		bo->ifindex = 0;
-+		bo->dev = NULL;
- 	}
- 
- #if IS_ENABLED(CONFIG_PROC_FS)
- 	if (net->can.bcmproc_dir) {
- 		/* unique socket address as filename */
- 		sprintf(bo->procname, "%llu", sock_i_ino(sk));
- 		bo->bcm_proc_read = proc_create_net_single(bo->procname, 0644,
- 						     net->can.bcmproc_dir,
- 						     bcm_proc_show, sk);
- 		if (!bo->bcm_proc_read) {
-+			if (bo->dev) {
-+				netdev_put(bo->dev, &bo->dev_tracker);
-+				bo->dev = NULL;
-+			}
- 			ret = -ENOMEM;
- 			goto fail;
- 		}
- 	}
- #endif /* CONFIG_PROC_FS */
-diff --git a/net/can/isotp.c b/net/can/isotp.c
-index 155530aedce2..0835a4758a72 100644
---- a/net/can/isotp.c
-+++ b/net/can/isotp.c
-@@ -1490,15 +1490,15 @@ static int isotp_release(struct socket *sock)
- 	/* remove current filters & unregister
- 	 * tracked reference so->dev is taken at bind() time with rtnl_lock
- 	 */
- 	if (so->bound && so->dev) {
- 		if (isotp_register_rxid(so))
--			can_rx_unregister(net, so->dev, so->rxid,
-+			can_rx_unregister(dev_net(so->dev), so->dev, so->rxid,
- 					  SINGLE_MASK(so->rxid),
- 					  isotp_rcv, sk);
- 
--		can_rx_unregister(net, so->dev, so->txid,
-+		can_rx_unregister(dev_net(so->dev), so->dev, so->txid,
- 				  SINGLE_MASK(so->txid),
- 				  isotp_rcv_echo, sk);
- 		netdev_put(so->dev, &so->dev_tracker);
- 	}
- 
-@@ -1846,13 +1846,10 @@ static int isotp_getsockopt(struct socket *sock, int level, int optname,
- static void isotp_notify(struct isotp_sock *so, unsigned long msg,
- 			 struct net_device *dev)
- {
- 	struct sock *sk = &so->sk;
- 
--	if (!net_eq(dev_net(dev), sock_net(sk)))
--		return;
+-	/* get new references */
+-	ret = j1939_local_ecu_get(priv, jsk->addr.src_name, jsk->addr.sa);
+-	if (ret) {
+-		j1939_netdev_stop(priv);
+-		jsk->priv = NULL;
+-		synchronize_rcu();
+-		j1939_priv_put(priv);
+-		goto out_release_sock;
+-	}
 -
- 	if (so->dev != dev)
- 		return;
+ 	j1939_jsk_add(priv, jsk);
  
- 	switch (msg) {
- 	case NETDEV_UNREGISTER:
-diff --git a/net/can/raw.c b/net/can/raw.c
-index 82d9c0499c95..c5596fc9aac5 100644
---- a/net/can/raw.c
-+++ b/net/can/raw.c
-@@ -300,13 +300,10 @@ static int raw_enable_allfilters(struct net *net, struct net_device *dev,
- static void raw_notify(struct raw_sock *ro, unsigned long msg,
- 		       struct net_device *dev)
- {
- 	struct sock *sk = &ro->sk;
- 
--	if (!net_eq(dev_net(dev), sock_net(sk)))
--		return;
--
- 	if (ro->dev != dev)
- 		return;
- 
- 	switch (msg) {
- 	case NETDEV_UNREGISTER:
+  out_release_sock: /* fall through */
 -- 
 2.53.0
 
