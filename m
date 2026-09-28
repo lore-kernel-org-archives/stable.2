@@ -1,29 +1,30 @@
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.7])
+Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1F5F35201A;
-	Mon, 28 Sep 2026 06:54:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B66CC369224;
+	Mon, 28 Sep 2026 06:54:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790578456; cv=none; b=SgxJneJ3iLh9tCttHNtFtwAWs16TrQZxLIjdkIvBMtU6tKxxXFx8oet6sdOcCaX42p4+aW0V6TopawPF32pBhWaG2clA0B3pWcc7Ys/1J+AnRxjGSWHLOXO9+I0JRfskxa4XSFGv9MV5ZsfSIgiB4qDfR/a6w1dTVV/KinxPuH0=
+	t=1790578497; cv=none; b=bKTYzienIj/55dKfw9GKpYy53l8mdanMMuSODjqUIm/Yrp+HS+D1+vXtRD/k58UGjgxt2otujAOpLsQ7rw2oPj/KIC2sV47l8qkNEo5NcleXoXBJW2bs4KD1iukFABlOJ2C3yIEohHBhIHT9NayIH4bLa0vzvnhPwcoQFDKnh74=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790578456; c=relaxed/simple;
-	bh=cRExvY2q6wNGMLVPNVeTX9GRZLTpul82LoyBRLUpfsA=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ZzSzwxKmBUdD1PmwxU83ICxpFlld/4qY9J4HGOYag9WaoeFXvpHJ9r9xd34ctcwmhcHtVYjRdf1D+sYN2S22nZnkqZaB3367WcTYk08GVr13wP/J8FnjfhpwHBynOi4FmOnBLLdKggtcLT42cnVDA6InJnupRB6bog0oB/3rKVw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=eujclBaq; arc=none smtp.client-ip=220.197.31.7
+	s=arc-20240116; t=1790578497; c=relaxed/simple;
+	bh=v0Qx0SVkWY4El4gyQblcQ7YByqNzQoPYAWg0Vjn8pto=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=StP4zlgf8ayYWz8OPMgxVHU+aeDnDDM+CKo6ZKtszrNr1AZUtaZUH7IsmqB+0GUK6LbOeqMbkbUwNgQoLXR5GzzRZHyUykx1INqI1yqkDWh6/4RCqOXw0XCYPT7w/JisNGJsPVfqlLlGJ4Lmkth4lD6NTwjQhXv4PYDJ9pqIZRk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=iMvs9S9u; arc=none smtp.client-ip=117.135.210.6
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="eujclBaq"
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="iMvs9S9u"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=ku
-	A+RcV6eslsXCX6SwCHb49hYoGv+BR5GuVAEXcnzck=; b=eujclBaqLDFH1WUKVI
-	hhv7WRE9uH+OWmw/99oAMSS21v65hJZys6JPQ/IJ2ypXIa/nsQj3FwwhxUh4afzg
-	TBhT6B1Tbh+EsXY2ngAE3lTG35RH/I9peGp09qXr07A7kdrDN0u4OLtmUSJvIxM/
-	0Hw/FCrSVjIYW7G67yHt0Xg2Q=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=tj
+	uFWS1aagbpSLzq2GUkwsYPzV+6jqR8uoRndtikMxo=; b=iMvs9S9ue/eMQaf7fZ
+	CAGc/m7/nd+JcrnaKa8IJtVOB4KH6Tc0RLysMI0wUBEUEnFhba+1Mn97OvXR2c9B
+	xjljVh3/KEJvSRbgYFcnbenpwmO+Ts2eFq91jp73cOAqKduKFyzLtDHMQbMh12vg
+	mywnGQPRwdYrDocudV9czPUgk=
 Received: from localhost.localdomain (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PikvCgD31_vUDrpqqwJlAg--.52624S2;
-	Mon, 28 Sep 2026 14:53:08 +0800 (CST)
+	by gzsmtp3 (Coremail) with SMTP id PikvCgD31_vUDrpqqwJlAg--.52624S3;
+	Mon, 28 Sep 2026 14:53:11 +0800 (CST)
 From: Linkui Xiao <xiaolinkui@126.com>
 To: anthony.l.nguyen@intel.com,
 	przemyslaw.kitszel@intel.com,
@@ -37,10 +38,12 @@ Cc: intel-wired-lan@lists.osuosl.org,
 	linux-kernel@vger.kernel.org,
 	Linkui Xiao <xiaolinkui@kylinos.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH iwl-net v2 1/2] ice: detach the VF representor when ice_start_vfs() fails
-Date: Mon, 28 Sep 2026 14:53:05 +0800
-Message-Id: <20260928065306.1514795-1-xiaolinkui@126.com>
+Subject: [PATCH iwl-net v2 2/2] ice: release the VF MSI-X window when ice_start_vfs() fails
+Date: Mon, 28 Sep 2026 14:53:06 +0800
+Message-Id: <20260928065306.1514795-2-xiaolinkui@126.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260928065306.1514795-1-xiaolinkui@126.com>
+References: <20260928065306.1514795-1-xiaolinkui@126.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,104 +51,104 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PikvCgD31_vUDrpqqwJlAg--.52624S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxGFy7Jw4kAF4DZF45GF17ZFb_yoWrAr15pr
-	WkXa4rGr4kJF1agw4Uua18u34F9a4rCFWagr1jkw1fCF45Gr9Ykr4UKry2vF18C39rC3Wa
-	vr4q9rn5u34DA3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UYiiDUUUUU=
-X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBqBQC2Gq6DtSq6QAA3v
+X-CM-TRANSID:PikvCgD31_vUDrpqqwJlAg--.52624S3
+X-Coremail-Antispam: 1Uf129KBjvJXoWxXw48ZFyxZw15WFWDtw4UXFb_yoWrGryxpr
+	Wqqr15Kr4kJF48WrZ7Ww1UZFn5uaySqFW8ury0g3Zakrs8Ar1UtF1Utr12y3W8C397Ca1a
+	vw4q9w1rZr1DJ3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Uy5lnUUUUU=
+X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBlBcC2Gq6DteZhAAA3N
 
 From: Linkui Xiao <xiaolinkui@kylinos.cn>
 
-ice_start_vfs() attaches every VF it brings up to the eswitch with
-ice_eswitch_attach_vf(), but the teardown path only undoes the queue
-mappings and the VF VSI. Nothing calls ice_eswitch_detach_vf() for the
-VFs that were attached before the failure, and the caller, ice_ena_vfs(),
-goes straight to ice_free_vf_entries(), which drops its reference to
-every VF.
+ice_init_vf_vsi_res() reserves the VF MSI-X window with
+ice_virt_get_irqs(), which does bitmap_set() on the PF-wide
+pf->virt_irq_tracker.bm, but nothing hands that window back when VF
+creation fails. ice_virt_free_irqs() is not called anywhere on this
+failure path: not from the release_vsi label of ice_init_vf_vsi_res(),
+not from the ice_eswitch_attach_vf() failure branch, and not from the
+teardown loop of ice_start_vfs(), which only undoes the queue mappings
+and the VF VSI. The caller does not help either, because
+err_unroll_vf_entries -> ice_free_vf_entries() -> ice_put_vf() ->
+ice_sriov_free_vf() only does mutex_destroy() and kfree_rcu().
 
-The port representors created for those VFs therefore outlive the
-failed VF creation:
+The tracker is allocated once per PF in ice_init_virt_irq_tracker() and
+freed only in ice_deinit_virt_irq_tracker(), and ice_set_per_vf_res()
+sizes the VFs from pf->virt_irq_tracker.num_entries rather than from the
+number of free bits. So each failed "echo N > sriov_numvfs" leaks the
+window reserved for every VF that got as far as ice_init_vf_vsi_res(),
+and once the tracker is exhausted ice_virt_get_irqs() keeps returning
+-ENOENT, which means SR-IOV cannot be enabled again without reloading
+the driver. The hardware and the software bookkeeping also end up
+disagreeing, because ice_dis_vf_mappings() clears
+VPINT_ALLOC/VPINT_ALLOC_PCI and re-points GLINT_VECT2FUNC of exactly
+those vectors back at the PF.
 
-  - the representor netdev stays registered and its devlink port stays
-    registered too. That port is embedded in struct ice_vf, so it ends
-    up pointing into the memory that ice_sriov_free_vf() releases;
+Return the window on the failure paths, in the order ice_free_vfs()
+uses: ice_virt_free_irqs() after ice_eswitch_detach_vf() in the teardown
+loop, and right after the VF VSI is released in the two branches that
+fail before the loop can reach that VF.
 
-  - repr->vf keeps pointing at the freed struct ice_vf, and repr->src_vsi
-    at the VF VSI that ice_vf_vsi_release() tore down. The leftover
-    netdev is still visible to the user, so even a plain
-    "ip -s link show" of it reaches ice_repr_get_stats64(), which calls
-    repr->ops.ready() -> ice_check_vf_ready_for_cfg(repr->vf) and then
-    reads repr->src_vsi through ice_update_eth_stats();
+The missing release is older than this change: the teardown loop has
+never returned the window. It turns into an accumulating leak because
+the tracker is now PF-wide and outlives a single SR-IOV enable.
 
-  - the virtchnl ops of that VF, which ice_repr_add_vf() replaced with
-    ice_virtchnl_set_repr_ops(), are never handed back to
-    ice_virtchnl_set_dflt_ops();
-
-  - pf->eswitch.reprs never becomes empty, so ice_eswitch_detach() never
-    calls ice_eswitch_disable_switchdev(). pf->eswitch.is_running stays
-    true, with the bridge offloads and the devlink rate topology still
-    up, and ice_eswitch_release_env() is skipped, so the uplink VSI is
-    left in the switchdev configuration that ice_eswitch_setup_env()
-    gave it.
-
-Detach the representor in the teardown loop the way ice_free_vfs() does,
-ahead of ice_vf_vsi_release(), because ice_repr_rem_vf() and
-ice_eswitch_release_repr() both need repr->src_vsi to still be valid.
-Every VF the teardown loop walks completed ice_eswitch_attach_vf()
-successfully, and ice_eswitch_detach_vf() already returns early for a VF
-without a representor, so no extra condition is needed.
-
-Hold vf->cfg_lock across the teardown of each VF as well, like
-ice_free_vfs() does. The VFs unwound here are the ones that already
-reached set_bit(ICE_VF_STATE_INIT), which is exactly what
-ice_check_vf_ready_for_cfg() checks, so a host administrator can still
-run "ip link set dev <pf> vf N ..." and a VF can still send a mailbox
-message while the loop walks them. Both paths take cfg_lock and then run
-ice_reset_vf(), which gets to ice_eswitch_update_repr() and writes
-through the representor that is being freed, or reach
-ice_vc_process_vf_msg() reading vf->virtchnl_ops while
-ice_virtchnl_set_dflt_ops() hands them back.
-
-Fixes: fff292b47ac1 ("ice: add VF representors one by one")
+Fixes: a203163274a4 ("ice: simplify VF MSI-X managing")
 Cc: stable@vger.kernel.org
 Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
 ---
-v1:
-- Link: https://lore.kernel.org/netdev/20260921031616.3390259-1-xiaolinkui@126.com/
-
 Changes in v2:
-- Hold vf->cfg_lock across the teardown of each VF, the way ice_free_vfs()
-  does, so that a concurrent VF reconfiguration cannot walk through the
-  representor and the virtchnl ops that are being torn down.
+- New patch. Returns the VF MSI-X window that ice_init_vf_vsi_res() reserves
+  when ice_start_vfs() fails. The missing release is older than the
+  representor bug that patch 1/2 fixes, so it stays a separate patch.
   (Sashiko AI review)
-- Patch 2/2 is new and returns the VF MSI-X window that the same failure path
-  reserves. That is a separate, pre-existing bug, so it is not folded in here.
-  (Sashiko AI review)
-- Not carrying over the Reviewed-by from Aleksandr Loktionov, as the code
-  changed after his review.
 
- drivers/net/ethernet/intel/ice/ice_sriov.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/net/ethernet/intel/ice/ice_sriov.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/net/ethernet/intel/ice/ice_sriov.c b/drivers/net/ethernet/intel/ice/ice_sriov.c
-index e04de0215596..95abc6704820 100644
+index 95abc6704820..df84dbe12cba 100644
 --- a/drivers/net/ethernet/intel/ice/ice_sriov.c
 +++ b/drivers/net/ethernet/intel/ice/ice_sriov.c
-@@ -508,8 +508,13 @@ static int ice_start_vfs(struct ice_pf *pf)
- 		if (it_cnt == 0)
- 			break;
+@@ -446,8 +446,10 @@ static int ice_init_vf_vsi_res(struct ice_vf *vf)
+ 		return -ENOMEM;
  
-+		mutex_lock(&vf->cfg_lock);
+ 	vsi = ice_vf_vsi_setup(vf);
+-	if (!vsi)
+-		return -ENOMEM;
++	if (!vsi) {
++		err = -ENOMEM;
++		goto free_irqs;
++	}
+ 
+ 	err = ice_vf_init_host_cfg(vf, vsi);
+ 	if (err)
+@@ -457,6 +459,9 @@ static int ice_init_vf_vsi_res(struct ice_vf *vf)
+ 
+ release_vsi:
+ 	ice_vf_vsi_release(vf);
++free_irqs:
++	ice_virt_free_irqs(pf, vf->first_vector_idx, vf->num_msix);
 +
-+		ice_eswitch_detach_vf(pf, vf);
+ 	return err;
+ }
+ 
+@@ -490,6 +495,8 @@ static int ice_start_vfs(struct ice_pf *pf)
+ 				dev_err(ice_pf_to_dev(pf), "Failed to attach VF %d to eswitch, error %d",
+ 					vf->vf_id, retval);
+ 				ice_vf_vsi_release(vf);
++				ice_virt_free_irqs(pf, vf->first_vector_idx,
++						   vf->num_msix);
+ 				goto teardown;
+ 			}
+ 		}
+@@ -511,6 +518,7 @@ static int ice_start_vfs(struct ice_pf *pf)
+ 		mutex_lock(&vf->cfg_lock);
+ 
+ 		ice_eswitch_detach_vf(pf, vf);
++		ice_virt_free_irqs(pf, vf->first_vector_idx, vf->num_msix);
  		ice_dis_vf_mappings(vf);
  		ice_vf_vsi_release(vf);
-+		mutex_unlock(&vf->cfg_lock);
-+
- 		it_cnt--;
- 	}
- 
+ 		mutex_unlock(&vf->cfg_lock);
 -- 
 2.25.1
 
