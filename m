@@ -1,263 +1,244 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 072114BE424;
-	Mon, 28 Sep 2026 13:22:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67BA44BE424
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 13:23:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790601733; cv=none; b=eDlbXTeSJl6BLKuq+YeMBfeYermKSE8upCuB3cXaZmOwptc6kHAJytmlviPe2+EUOcKLZsBvxyAyJcNXtrltouDObaex53cPyRbHTsx+qg8GQjETM7PewXfsZRvpmlSAEWT/qTfzais/fh7ZXutPPMuhUv9TzOiQcziSQuhgQsA=
+	t=1790601789; cv=none; b=aiXjUazZ3qkYA59cfB4xT9ldLbsyU3QfzLSdvR4d3kfByT82sJi4OVj7yF+uqR9j+KUtwWDICqJfTSfBGBmKXUUnTEZHAWOOHqQ+/2ziBFV9/7G44Ehw9yKVeiwKQslOtQGyuZ700rS1V2kv3wJzl5tRqkZid/wEmYSB/YXD09U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790601733; c=relaxed/simple;
-	bh=fiSr2CurFUF2BEDZCJ0+kLSrqGv7tTF3hIrACQAfctI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EYvnB3zJ7Q9eIb3xPgiJPD5MOErEpLFRWN9zmduwIPexR3FaaqWmI8Y/O397EZQeQ7L4k5QXYZO4wHO85ZrouZPBIhV3tRz4uCEYx48NiZnZb3CRVIfzZFVeBcd1qh7ComFdAVj4QTMaxe320KZVCnAmMlYc8icxGqnwWC4t1NA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZHpAHYcn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790601789; c=relaxed/simple;
+	bh=pizrIKeHoQjsnYL5ZXGAo09+SOFzIbhMyKVL4gpQBR0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SCfbZnBxGHLKdMKdm2YHHtGL2F4dtcFalEJU6NaYtcGbIE8z57Z/PT/jsW5GIZM5s+NsWXxHYTp4xA3tB10jXwgdFgoctDGdaZWhmlOGWBRDg3luMmMAeYY4xq+zVc58bt4ilPw/K9bWL0QHVGx658PQkz33xrA5ZL+7+dxUawg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=eoSTGtzn; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Gr/r/li1; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZHpAHYcn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E44BE1F000FF;
-	Mon, 28 Sep 2026 13:22:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790601731;
-	bh=YgxiOouyDIcVtIkvJV+4mIm0kZ7zolQYdXWab1VZqUE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZHpAHYcndcEZu8BSJSjp5O1bDar72ICptvsb9rE20DDfYoxOMWydTylADv6a25H+a
-	 j7AyKg+QhtsAFhdfIMdQU6HSt5hixP2HJW3jba0LLeEgZwd9eFeRuWUszzb68BDky2
-	 JBrtSMl1PYue+RG3o0wetIBken3nVnEARBrgUK2fLizOT9qqygbWCSl8wtye3vAgi/
-	 kTGi6vNnN5DmscdUxQIR55qNXYKFKIYXoZMAgmxpoanNrIRhrQRUQBiFp7K2hnU4wx
-	 HVrCxnHGAr8w3K4/JUkE2niLrVqb2T42o5El6OaxbBs1ie4PnlNTO6r+YjQh18Mat9
-	 R/R69t1ivu1mA==
-From: Imre Kaloz <kaloz@kernel.org>
-To: Andreas Larsson <andreas@gaisler.com>,
-	"David S. Miller" <davem@davemloft.net>
-Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	"Mike Rapoport (IBM)" <rppt@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	sparclinux@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	nsafran1217 <54966414+nsafran1217@users.noreply.github.com>,
-	stable@vger.kernel.org,
-	Stian Halseth <stian@itx.no>
-Subject: [PATCH v2 2/2] sparc64: flush vmalloc ranges from the D-cache on map and unmap
-Date: Mon, 28 Sep 2026 15:21:02 +0200
-Message-ID: <20260928132102.1707-3-kaloz@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260928132102.1707-1-kaloz@kernel.org>
-References: <20260928132102.1707-1-kaloz@kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="eoSTGtzn";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Gr/r/li1"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68SBAKB01189602
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 13:23:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	guc0q09pgXgZACQ1ISwNuyv5rDXiyX6HQAUQRihUMs0=; b=eoSTGtznprCCnquk
+	sNMPFxiBUfHdwOw5CjVxLwwHRgvOdFf/HAxaOkc0ws8nBx8PubrO3ogsF1Mq3PmN
+	ixIfEzYc82CW2sCEBcdebYKq86X+bolLmVPiYB2TPyctCRdsotbl1O1Jb8caSVI3
+	0Hqf5BKuYRzmoB0pRSapmV1b1ed8ggH2JcK44LpkQtIUtzrJcPibTJVowA7PMo/s
+	bCcj/KQgR+Tag7qRaEv9quRlxlgfWTDduvSkGOOyk0tJ70MRbxFhurCjHZcTVNte
+	V/jGvnNF/MTHX9MYopNlcLxfZg2eMAJHq2W0wg/i426G7Mp0D5HGmoAWo53r8HRS
+	INeRiA==
+Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com [209.85.222.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gynbc0v1a-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 13:23:05 +0000 (GMT)
+Received: by mail-ua1-f71.google.com with SMTP id a1e0cc1a2514c-97e9cc5ac86so253318241.1
+        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 06:23:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790601785; x=1791206585; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=guc0q09pgXgZACQ1ISwNuyv5rDXiyX6HQAUQRihUMs0=;
+        b=Gr/r/li1kCFthxKqoR4lGYJc1l3V88mS+vdsiZf8gHWH8NY/yPgN+CveTKRCfLZUru
+         3V4uL5bu8hkqMiVAQ6TV5gjv+qaweDoL4Az2aw5iSNpN+dXbBuZvZl8VR1VCwrzLcwFa
+         PLO+a8tKqnPgSr5LWXFbrF1E1xREEEkYnRPrASBYcrfdAzEmszfnibEpU6siuMnEI0UW
+         dBQ6LSJ8fQmAtIFHxqJiJLRtVxMDWcwhlmopGMFYmy2CNkYcLK6I34rrAWCW0Y0s0MYj
+         C3XT5JQtPw/2tYivtb+Kg8HVKNiIp4NLD/DdCCl5CBPLbXik2nZIK1egsyoCWG8eDT51
+         af9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790601785; x=1791206585;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=guc0q09pgXgZACQ1ISwNuyv5rDXiyX6HQAUQRihUMs0=;
+        b=oQd7M1RT6eKkz4EOwfN/8EkxezRyzYbOD3zlJlE4z+zEAPleHx2pm89lfkcFgfZ2yv
+         BPsuqezcDkuGsjepT/08ycGrUYsPQ/g7FRGgP8v1ImuPDzoZzkMoOIGBhFQfWU0k/NhQ
+         aU4HoO6IuYfWdpeeIC7d/PRyGlZUOOalVCw3+M3px1aI6QdrI2OmF+C8IC51SYwdbV0c
+         AO6Acdo501B7ev5ToLRIsDRXS7zq2F2UyfXWNRXh/dhe5ANGPXlumCaujCqRvtk/Mtd6
+         MbH28G2EP332G7grHnN4Ll5el8AVdVejeRu0Sonr2bhpBZwRry0+oi16BwlPwWd/Y3Tn
+         KrnA==
+X-Forwarded-Encrypted: i=1; AKwUvBz4trVWxoFCtMXXC90oRoqPTTEtJM40e/HJVysJ9nKAMVI7wdB2iyrMltZmyu0MBZc2rMin3e8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYISZGCSSt4tgF+JlVxKyz0pAyhlK0TivgdJJn8AEyMwvN7nqEu7
+	B8+9TZVdYYe1S8G0+EMX+yxE9PUW1rqp+WNqZesYV/6LgA4NDzg2uZszgJQIGUob6IReOqYybkF
+	CH9WtP2tx61QEAcTQja/EuX3XrYEHPgyp2CHjItn/EmDVOvMf2G1dYVq4CRA=
+X-Gm-Gg: AYBFou0UU+2fsayNRc7DMrcqwv4IicT5ttuG/ylpITA75lN2tRgyYY03PD684h1sie+
+	lhnr1Jzf8AhZqP1v5c98Kd10UhIUChniGEx43aieCU/Y6Oq1NS7v9JOIgfrrzHrCyqS/zTGT0dm
+	DvE+4C2ZPFVAn2k3xzkc0n6IlTIQ3zg2Jq4Z1WLlFPixRtSt/jwwONgN09wUMVfIa9MAqIshTvv
+	jr/I9oY/cBXe+031uNd016d1wIm95YUMuJtHLE1lS2/JTb3N2D+Cq2+oKoHB9Yvv6M1jAVOAKwV
+	Xjx3P9fmzDn2D5eBaUqkMYfkuoQwBlYJkTsG9Jaq6lWeANn1GpEpshl/349jazkTI+/gS7+HlSM
+	nTkooZnoPQCN2pmn+3A==
+X-Received: by 2002:a05:6102:442b:b0:7a7:196a:84e4 with SMTP id ada2fe7eead31-7af1ebf4fa0mr4105651137.28.1790601785034;
+        Mon, 28 Sep 2026 06:23:05 -0700 (PDT)
+X-Received: by 2002:a05:6102:442b:b0:7a7:196a:84e4 with SMTP id ada2fe7eead31-7af1ebf4fa0mr4105631137.28.1790601784507;
+        Mon, 28 Sep 2026 06:23:04 -0700 (PDT)
+Received: from [192.168.10.46] ([37.167.7.199])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00c0d538fsm4208685e9.1.2026.09.28.06.23.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 28 Sep 2026 06:23:03 -0700 (PDT)
+Message-ID: <ed99f62d-cf90-4ba9-89b3-08dbe7f7227e@oss.qualcomm.com>
+Date: Mon, 28 Sep 2026 15:23:01 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 1/7] thermal/drivers/loongson2: Correct thermal sensor
+ registration loop
+To: Binbin Zhou <zhoubb.aaron@gmail.com>
+Cc: Binbin Zhou <zhoubinbin@loongson.cn>,
+        Huacai Chen
+ <chenhuacai@loongson.cn>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Yinbo Zhu <zhuyinbo@loongson.cn>,
+        "Rafael J . Wysocki" <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+        Huacai Chen <chenhuacai@kernel.org>, Xuerui Wang <kernel@xen0n.name>,
+        loongarch@lists.linux.dev, devicetree@vger.kernel.org,
+        linux-pm@vger.kernel.org, stable@vger.kernel.org,
+        Sashiko <sashiko-bot@kernel.org>
+References: <cover.1790561983.git.zhoubinbin@loongson.cn>
+ <502911659e15a51c4e98c11f3cf476dd5f92e75b.1790561983.git.zhoubinbin@loongson.cn>
+ <0aaf7166-378c-47d7-98d4-1004fdaeae7b@oss.qualcomm.com>
+ <CAMpQs4+uWMfFib7MhRcc7o-QMXkFrFCtdcGj04y56u44JL4iOg@mail.gmail.com>
+Content-Language: en-US
+From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+In-Reply-To: <CAMpQs4+uWMfFib7MhRcc7o-QMXkFrFCtdcGj04y56u44JL4iOg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=Sq4Fe/O0 c=1 sm=1 tr=0 ts=6aba6a39 cx=c_pps
+ a=KB4UBwrhAZV1kjiGHFQexw==:117 a=K71sKCzDSiMJbZmyObbiAA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=c92rfblmAAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=84pesApZu4OvMfbIMCsA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=o1xkdb1NAhiiM49bd1HK:22
+ a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-GUID: qPFLx4MP0kAkZcoAbPRS_a1l8q9Zsbdf
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA1MyBTYWx0ZWRfX0S440ObqfS+l
+ BvnOYbp5PGwYWGb4fHK60J1Wnxc8hxxduEfQMWrx1KbeeZnfpzancgAO6vHzbuQhcctORmi32qb
+ sidD6zP+IFuGxNnlCLIRlHxcCdKjZPA/m0naPBBcuoyeYck5OMEQF6Odl23pIrcvg0MQtfG4aGQ
+ RJJjIq7fMqoN8BoBD3RCC3Fxd/l4yKDS6DqCEjVu7uSUwgYCn1W9fExUZ2ZBdRW1XEv56uEcGnr
+ UBMn7/G/UFSI8Bqegt7z0yZyJT2soXlXGBk1V+lCyfgi1UgyDBoBIZp/aXdK5VSaRbiD2zetyTY
+ tw1fernzan9y13qaAJzIYe8vVcLAvNnb+h/qXMYDbE6kKlujn4eMR7dS5z5CLBf8HyY5kDyhhpq
+ 9IGhnRTzPAKSv6pKmaPS1PT4gNpsrXfzA9r9mubGb9YIIchkTjSQx8Fl4bVmIBSpESxqkxYnOIp
+ HPRzAxpuSHhSHKAksag==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA1MyBTYWx0ZWRfX8qCnsmKkWM+A
+ Xga+BLlsnyxtJj6nIMvMW7XKHJCcbrIVvBl6cKgQmwcZrELZvrPsesIrt+uXk3X+pOreai3+J37
+ 5SATOURolZfA9PLbkkwfk87ezlOR5Ss=
+X-Proofpoint-ORIG-GUID: qPFLx4MP0kAkZcoAbPRS_a1l8q9Zsbdf
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-28_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 clxscore=1015 priorityscore=1501 bulkscore=0 malwarescore=0
+ adultscore=0 phishscore=0 spamscore=0 lowpriorityscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609280053
 
-The L1 D-cache of Spitfire and Cheetah is indexed with VA bit 13, but
-flush_cache_vmap() and flush_cache_vunmap() are no-ops. Lines loaded
-through a vmalloc address survive the unmap, and once the page is
-written through the other colour, e.g. zeroed through the linear
-mapping, a later mapping of the old colour reads stale data. Anonymous
-user pages arrive the same way, as tlb_batch_add() does not flush them.
-On UltraSPARC III this corrupts BPF programs and module data.
+On 9/28/26 10:17, Binbin Zhou wrote:
+> Hi Daniel:
+> 
+> Thanks for your review.
+> 
+> On Mon, Sep 28, 2026 at 3:15 PM Daniel Lezcano
+> <daniel.lezcano@oss.qualcomm.com> wrote:
+>>
+>> On 9/28/26 06:44, Binbin Zhou wrote:
+>>> The registration loop in loongson2_thermal_probe() incorrectly uses
+>>> dev_err_probe() when the sensor is not present (-ENODEV). In that case,
+>>> the driver should continue to the next sensor index rather than treating
+>>> it as a fatal error.
+>>>
+>>> Fix this by correctly handling -ENODEV and only returning on other
+>>> errors. Also add a final check to ensure at least one thermal zone was
+>>> registered.
+>>>
+>>> Cc: stable@vger.kernel.org
+>>> Reported-by: Sashiko <sashiko-bot@kernel.org>
+>>> Closes: https://sashiko.dev/#/patchset/cover.1783670011.git.zhoubinbin@loongson.cn?part=2
+>>> Fixes: e7e3a7c35791 ("thermal/drivers/loongson-2: Add thermal management support")
+>>> Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
+>>> ---
+>>>    drivers/thermal/loongson2_thermal.c | 8 +++++---
+>>>    1 file changed, 5 insertions(+), 3 deletions(-)
+>>>
+>>> diff --git a/drivers/thermal/loongson2_thermal.c b/drivers/thermal/loongson2_thermal.c
+>>> index 4d40fc706a53..99b7392fc68f 100644
+>>> --- a/drivers/thermal/loongson2_thermal.c
+>>> +++ b/drivers/thermal/loongson2_thermal.c
+>>> @@ -160,16 +160,18 @@ static int loongson2_thermal_probe(struct platform_device *pdev)
+>>>
+>>>        for (i = 0; i <= LOONGSON2_MAX_SENSOR_SEL_NUM; i++) {
+>>>                tzd = devm_thermal_of_zone_register(dev, i, data, thermal_ops);
+>>> -
+>>>                if (!IS_ERR(tzd))
+>>>                        break;
+>>>
+>>> -             if (PTR_ERR(tzd) != -ENODEV)
+>>> +             if (PTR_ERR(tzd) == -ENODEV)
+>>>                        continue;
+>>>
+>>> -             return dev_err_probe(dev, PTR_ERR(tzd), "failed to register");
+>>> +             return dev_err_probe(dev, PTR_ERR(tzd), "failed to register sensor %d\n", i);
+>>
+>>
+>>>        }
+>>>
+>>> +     if (IS_ERR(tzd))
+>>> +             return dev_err_probe(dev, -ENODEV, "No thermal sensor registered\n");
+>>> +
+>>>        ret = devm_request_threaded_irq(dev, irq, NULL, loongson2_thermal_irq_thread,
+>>>                                        IRQF_ONESHOT, "loongson2_thermal", tzd);
+>>>        if (ret < 0)
+>>
+>>
+>> The [no]error paths are confusing and prone to error, eg: 'if there is
+>> no error then check if there is an error', 'when exiting the loop
+>> without registering any sensor, then we assume tzd is -ENODEV'.
+>>
+>> Please make a less cumbersome and implicit checks here. For example
+>> count the number of sensors and then do the check against.
+> 
+> I thought about it, and you're right—I made the logic here too complicated.
+> Let's use `sensor_count` as the counter. Is the following check logic clearer?
+> 
+>          u32 sensor_count = 0;
+> 
+>          for (unsigned int i = 0; i <= LOONGSON2_MAX_SENSOR_SEL_NUM; i++) {
+>                  tzd = devm_thermal_of_zone_register(dev, i, data,
+> data->chip_data->thermal_ops);
+>                  if (IS_ERR(tzd)) {
+>                          if (PTR_ERR(tzd) == -ENODEV)
+>                                  continue;
+> 
+>                          return dev_err_probe(dev, PTR_ERR(tzd),
+>                                               "failed to register sensor %d", i);
+>                  }
+> 
+>                  sensor_count++;
 
-Flush each page on every CPU on map and unmap, or the whole D-cache in
-one cross call once the range exceeds its size.
+If I'm not mistaken in the previous version, the loop exits at the first 
+registered sensor
 
-flush_cache_vmap() also runs on the vmemmap, from sparse_init() before
-init_IRQ() sets up the cross-call mondo blocks; with the mondo block PA
-still zero, flush_dcache_all()'s cross-call lands on physical address 0
-instead. The vmemmap has no aliases to flush, so skip addresses outside
-vmalloc and module space.
+	if (!IS_ERR(tzd))
+		break;
 
-Link: https://github.com/sparclinux/issues/issues/29#issuecomment-5041121375
-Closes: https://github.com/sparclinux/issues/issues/29
-Suggested-by: nsafran1217 <54966414+nsafran1217@users.noreply.github.com>
-Cc: stable@vger.kernel.org
-Tested-by: Stian Halseth <stian@itx.no> # Sun Fire V240, SPARC T4-1
-Signed-off-by: Imre Kaloz <kaloz@kernel.org>
----
-v2: skip the flush outside vmalloc/module space, since
-    flush_cache_vmap() also runs on the vmemmap during sparse_init()
-    before cross-calls are set up (Stian Halseth); picked up his
-    Tested-by.
+Here all the available sensors are registered
 
- arch/sparc/include/asm/cacheflush_64.h |  6 ++--
- arch/sparc/kernel/smp_64.c             | 18 +++++++++++
- arch/sparc/mm/init_64.c                | 43 ++++++++++++++++++++++++++
- arch/sparc/mm/ultra.S                  | 25 +++++++++++++++
- 4 files changed, 90 insertions(+), 2 deletions(-)
-
-diff --git a/arch/sparc/include/asm/cacheflush_64.h b/arch/sparc/include/asm/cacheflush_64.h
-index 02c969417e7b..54a2d37008e6 100644
---- a/arch/sparc/include/asm/cacheflush_64.h
-+++ b/arch/sparc/include/asm/cacheflush_64.h
-@@ -42,6 +42,8 @@ void smp_flush_dcache_folio_impl(struct folio *folio, int cpu);
- #define smp_flush_dcache_folio_impl(folio, cpu) flush_dcache_folio_impl(folio)
- #endif
- void flush_dcache_page_all(struct mm_struct *mm, struct page *page);
-+void __flush_dcache_all(unsigned long size, unsigned long line_size);
-+void flush_dcache_all(void);
- 
- void __flush_dcache_range(unsigned long start, unsigned long end);
- #define ARCH_IMPLEMENTS_FLUSH_DCACHE_PAGE 1
-@@ -73,9 +75,9 @@ void flush_ptrace_access(struct vm_area_struct *, struct page *,
- #define flush_dcache_mmap_lock(mapping)		do { } while (0)
- #define flush_dcache_mmap_unlock(mapping)	do { } while (0)
- 
--#define flush_cache_vmap(start, end)		do { } while (0)
-+void flush_cache_vmap(unsigned long start, unsigned long end);
- #define flush_cache_vmap_early(start, end)	do { } while (0)
--#define flush_cache_vunmap(start, end)		do { } while (0)
-+#define flush_cache_vunmap(start, end)		flush_cache_vmap(start, end)
- 
- #endif /* !__ASSEMBLER__ */
- 
-diff --git a/arch/sparc/kernel/smp_64.c b/arch/sparc/kernel/smp_64.c
-index 18b6145da591..bebfc44241b3 100644
---- a/arch/sparc/kernel/smp_64.c
-+++ b/arch/sparc/kernel/smp_64.c
-@@ -915,6 +915,7 @@ extern unsigned long xcall_kgdb_capture;
- 
- #ifdef DCACHE_ALIASING_POSSIBLE
- extern unsigned long xcall_flush_dcache_page_cheetah;
-+extern unsigned long xcall_flush_dcache_all;
- #endif
- extern unsigned long xcall_flush_dcache_page_spitfire;
- 
-@@ -1025,6 +1026,23 @@ void flush_dcache_page_all(struct mm_struct *mm, struct page *page)
- 	preempt_enable();
- }
- 
-+#ifdef DCACHE_ALIASING_POSSIBLE
-+void flush_dcache_all(void)
-+{
-+	unsigned long size, line_size;
-+
-+	if (tlb_type == hypervisor)
-+		return;
-+
-+	preempt_disable();
-+	size = local_cpu_data().dcache_size;
-+	line_size = local_cpu_data().dcache_line_size;
-+	smp_cross_call(&xcall_flush_dcache_all, 0, size, line_size);
-+	__flush_dcache_all(size, line_size);
-+	preempt_enable();
-+}
-+#endif
-+
- #ifdef CONFIG_KGDB
- void kgdb_roundup_cpus(void)
- {
-diff --git a/arch/sparc/mm/init_64.c b/arch/sparc/mm/init_64.c
-index 8792e5d92517..3e2096545e52 100644
---- a/arch/sparc/mm/init_64.c
-+++ b/arch/sparc/mm/init_64.c
-@@ -27,6 +27,7 @@
- #include <linux/percpu.h>
- #include <linux/mmzone.h>
- #include <linux/gfp.h>
-+#include <linux/vmalloc.h>
- 
- #include <asm/head.h>
- #include <asm/page.h>
-@@ -234,6 +235,17 @@ void flush_dcache_page_all(struct mm_struct *mm, struct page *page)
- 		__flush_icache_page(page_to_phys(page));
- #endif
- }
-+
-+#ifdef DCACHE_ALIASING_POSSIBLE
-+void flush_dcache_all(void)
-+{
-+	if (tlb_type == hypervisor)
-+		return;
-+
-+	__flush_dcache_all(local_cpu_data().dcache_size,
-+			   local_cpu_data().dcache_line_size);
-+}
-+#endif
- #endif
- 
- #define PG_dcache_dirty		PG_arch_1
-@@ -3072,6 +3084,37 @@ arch_initcall(report_memory);
- #define do_flush_tlb_kernel_range	__flush_tlb_kernel_range
- #endif
- 
-+/*
-+ * The L1 D-cache is indexed with VA bit 13, so lines loaded through a
-+ * vmalloc address outlive the mapping.  Stores through a mapping of the
-+ * other colour do not update them, and a later load through their colour
-+ * returns stale data.  Flush at unmap so vmalloc's lines do not follow
-+ * the page back to the allocator, and at map time since anonymous user
-+ * pages are freed without a flush (see tlb_batch_add()).  Past the
-+ * D-cache size, one whole-cache flush is cheaper than a cross call per
-+ * page.
-+ */
-+void flush_cache_vmap(unsigned long start, unsigned long end)
-+{
-+#ifdef DCACHE_ALIASING_POSSIBLE
-+	/* The vmemmap has no aliases and is mapped before cross calls work. */
-+	if (tlb_type == hypervisor || !is_vmalloc_or_module_addr((void *)start))
-+		return;
-+
-+	if (end - start > cpu_data(raw_smp_processor_id()).dcache_size) {
-+		flush_dcache_all();
-+		return;
-+	}
-+
-+	for (; start < end; start += PAGE_SIZE) {
-+		struct page *page = vmalloc_to_page((void *)start);
-+
-+		if (page)
-+			flush_dcache_page_all(NULL, page);
-+	}
-+#endif
-+}
-+
- void flush_tlb_kernel_range(unsigned long start, unsigned long end)
- {
- 	if (start < HI_OBP_ADDRESS && end > LOW_OBP_ADDRESS) {
-diff --git a/arch/sparc/mm/ultra.S b/arch/sparc/mm/ultra.S
-index 70e658d107e0..ff190670a235 100644
---- a/arch/sparc/mm/ultra.S
-+++ b/arch/sparc/mm/ultra.S
-@@ -242,6 +242,20 @@ __flush_dcache_page:	/* %o0=kaddr, %o1=flush_icache */
- 	retl
- 	 nop
- 
-+	/* Zeroing every D-cache tag invalidates the whole cache on
-+	 * Spitfire and Cheetah alike.
-+	 */
-+	.align		32
-+	.globl		__flush_dcache_all
-+__flush_dcache_all:	/* %o0=D-cache size, %o1=D-cache line size */
-+1:	subcc		%o0, %o1, %o0
-+	stxa		%g0, [%o0] ASI_DCACHE_TAG
-+	membar		#Sync
-+	bne,pt		%icc, 1b
-+	 nop
-+	retl
-+	 nop
-+
- #endif /* DCACHE_ALIASING_POSSIBLE */
- 
- 	.previous
-@@ -801,6 +815,17 @@ xcall_flush_dcache_page_cheetah: /* %g1 == physical page address */
- 	 nop
- 	retry
- 	nop
-+
-+	.align		32
-+	.globl		xcall_flush_dcache_all
-+xcall_flush_dcache_all: /* %g1 == D-cache size, %g7 == D-cache line size */
-+1:	subcc		%g1, %g7, %g1
-+	stxa		%g0, [%g1] ASI_DCACHE_TAG
-+	membar		#Sync
-+	bne,pt		%icc, 1b
-+	 nop
-+	retry
-+	nop
- #endif /* DCACHE_ALIASING_POSSIBLE */
- 
- 	.globl		xcall_flush_dcache_page_spitfire
--- 
-2.47.3
+>                  break;
+>          }
+> 
+>          if (!sensor_count)
+>                  return dev_err_probe(dev, -ENODEV, "no thermal sensor
+> registered");
+> 
+> 
 
