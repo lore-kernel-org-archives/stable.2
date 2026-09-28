@@ -1,170 +1,157 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E08104BB5C5;
-	Mon, 28 Sep 2026 13:08:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72D1D401A25;
+	Mon, 28 Sep 2026 13:08:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790600894; cv=none; b=bZBQ5FX7kUPz16pOEd6U00/ZAPrBE7SIM+Tob7K4XnxBII1uIAyzMD0f9OEBSxRr9RQDXTiVc9BUeWCVLOJhwoFUVuJDUgz/ugRyi3J04Y3Iy0serECiVjBzhUKMEdTps/b0tR75+x8AWtu+13xkfcEM/fXkLje45xLC8v5kDmg=
+	t=1790600937; cv=none; b=CizFIaCwwBkR72vI/7ayg8uat8b7qPF+rimEFJMoejaO58Xj4nC4uGnn9wG3QnPFDMgD1I0kjh5dAdefdN5FVJ4ocrufu8V68F2mlTFuhGDVaCyt3aC7L0DxnTKCVoK7eDC5NIzvBTK5zSB5G6ALezePmI73M/6DbkJGAkTJQWE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790600894; c=relaxed/simple;
-	bh=5Hj9ni/TpoYtr93aWbk+8aZHf1HPKdtjqnX/zK20FhE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sb7Gzp23vSHD1jywV7JWHfDD92aErPlt2VckPWXRPVYEqhQsoBlL4MN2RWzGputNi0mXKSXCydT17nbdZPdLGDCThzcS6YqigrSW+bVobY9HJLM06Ff52iUSb2FKeStE8VdkBzNNp6phY6fRypT571l0atAPeblphxvQK8ncfBE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dR8gqznU; arc=none smtp.client-ip=198.175.65.19
+	s=arc-20240116; t=1790600937; c=relaxed/simple;
+	bh=6qQf4RhaH0BmLuDSzTlP51a6XdeA8jUYoENzUueonkY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mgOGnL8oh/DBbXlEfE+wwYD5zcObvW7UZArU4OUv0p2oeqSRJihkcI0aqYYNnKDkhEDmEAFn2wsAyO+wJXmvJipc42Xo2z7zPi5WU79VSn7C01V1WhA3lSIzikeGggV1ksBRjAWK/9G7pgnKVZk3I7bXCL03c/7nbR9hBzBzWyg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=W2YNCQGB; arc=none smtp.client-ip=192.198.163.11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dR8gqznU"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="W2YNCQGB"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790600893; x=1822136893;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=5Hj9ni/TpoYtr93aWbk+8aZHf1HPKdtjqnX/zK20FhE=;
-  b=dR8gqznUghk9Le6WVaW1C5IoUwcFqUCU4708zjgW1aRakuCXAKQSfm4h
-   pPYyGuGgHV6gaa4DPOuKe3o9xvaXOHRG+62o3RqBY/vYzX3vB0Zjg3xh0
-   mcxd9xKsuKhc4DtGYQXDckt7lXgt6k2C0O0FKAe6XDJQx9u2UzcnfvIkx
-   L5d14R/iPhE3wZU+EUnkhhR34TqNsoragLckdqNOWjCDA7411DfIyTyW8
-   e15nECuQ25TtvA8Zvjf1Ty84wdtFV083dIGgzCpO3Q214EKsh3L8L6GY0
-   TiV+hiNUvkg3TGqTnbywMoHy7yOl7RHntUkv2uw0kQi+/dIf8d/asrmmj
-   g==;
-X-CSE-ConnectionGUID: 2NO5N3zxScKdKeDFlZJCbQ==
-X-CSE-MsgGUID: g4Tqk17OTbOUEnst4hWB1Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="90251926"
+  t=1790600936; x=1822136936;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=6qQf4RhaH0BmLuDSzTlP51a6XdeA8jUYoENzUueonkY=;
+  b=W2YNCQGBLC1Hk09yAbeMso8sI0lx0IirQmGzcHcMksrAGq3cT6eoVwWc
+   bxe/+BSL+lnraPa0vMbZrzLDKlMmyaVYJj1ItZwU4Em+XB2xjaU88FSDA
+   bLP8kP2fU3Q7QHieYzv8dCcTyEV0JQQXo13VE11O43W0WZQeeK2OGkkvY
+   aS5/WHIwODA3L7EuI3+rEFq3ik+5mQvC/t45X1pf7s78zGQVVvfLIAJG4
+   tZ1Bq++yCq0AelMHiJ37/1id/kqV8CLOF2auSOV7uce5E6DxNL++BxzsS
+   AeVduj3/+mRMxmJyaQhZ9qIVmhWt1nKBlzlmgv4bEzk5JTW+r0Mo5PW5X
+   w==;
+X-CSE-ConnectionGUID: 4Jg8rgHpQ/eC9BHfLiNzsg==
+X-CSE-MsgGUID: FpNv0RrVRKuiUFQJXMZkdw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="101867171"
 X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="90251926"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 06:08:13 -0700
-X-CSE-ConnectionGUID: vNPCrckvR2G4WnuKzPkR4w==
-X-CSE-MsgGUID: utS07yfGSJGK+ziMUtQmAg==
+   d="scan'208";a="101867171"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 06:08:55 -0700
+X-CSE-ConnectionGUID: bbK0evoWRcCK758tZKw+VQ==
+X-CSE-MsgGUID: YhqaW/lCSTeUR0cK7c+1FA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="273195135"
-Received: from linux.intel.com ([10.54.29.200])
-  by orviesa010.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 06:08:13 -0700
-Received: from [10.102.89.17] (soc-5CG4396XFD.clients.intel.com [10.102.89.17])
-	by linux.intel.com (Postfix) with ESMTP id 9ECA020B5708;
-	Mon, 28 Sep 2026 06:08:09 -0700 (PDT)
-Message-ID: <1dc822f8-e2f8-4e22-aeba-dc91476c27ad@linux.intel.com>
-Date: Mon, 28 Sep 2026 15:08:09 +0200
+   d="scan'208";a="274270715"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa010.fm.intel.com with ESMTP; 28 Sep 2026 06:08:53 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 3339999; Mon, 28 Sep 2026 15:08:52 +0200 (CEST)
+Date: Mon, 28 Sep 2026 15:08:52 +0200
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Marek Maslanka <mmaslanka@google.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Alan Borzeszkowski <alan.borzeszkowski@linux.intel.com>
+Subject: Re: [PATCH] usb: typec: port-mapper: Only match USB4 port if host
+ interface is available
+Message-ID: <arpm5HpsYGtfbXLs@black.igk.intel.com>
+References: <20260925131650.3777399-1-mmaslanka@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH iwl-net v2 1/2] ice: detach the VF representor when
- ice_start_vfs() fails
-To: Linkui Xiao <xiaolinkui@126.com>, anthony.l.nguyen@intel.com,
- przemyslaw.kitszel@intel.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com
-Cc: intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Linkui Xiao <xiaolinkui@kylinos.cn>,
- stable@vger.kernel.org
-References: <20260928065306.1514795-1-xiaolinkui@126.com>
-Content-Language: pl
-From: Tomasz Lichwala <tomasz.lichwala@linux.intel.com>
-In-Reply-To: <20260928065306.1514795-1-xiaolinkui@126.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260925131650.3777399-1-mmaslanka@google.com>
 
+On Fri, Sep 25, 2026 at 03:16:50PM +0200, Marek Maslanka wrote:
+> typec_port_match() adds a component match for the USB4 port whenever a
+> USB 3.x port that shares the _PLD with the Type-C connector has the
+> "usb4-host-interface" property, regardless of whether a USB4 port can
+> ever be registered for it. The component framework binds the aggregate
+> device only once every match has found its component, so if the USB4
+> port never shows up, the USB 2.0 and USB 3.x ports are not linked to the
+> connector either: the "connector" symlinks are never created and USB
+> devices enumerated on those ports are never linked with the Type-C
+> partner.
+> 
+> This happens in at least two cases:
+> 
+> 1. CONFIG_USB4 is not reachable from the Type-C core, i.e. CONFIG_USB4=n,
+>    or CONFIG_USB4=m with CONFIG_TYPEC=y as in the x86_64 gki_defconfig.
+>    usb4_usb3_port_match() is then a stub that always returns false.
+> 
+> 2. The firmware references a USB4 host interface that is disabled. For
+>    example, on Intel Alder Lake-N (ChromeOS Nissa) the TCSS xHCI USB3
+>    ports (SS01-SS04) reference TDM0/TDM1, whose _STA returns 0 because
+>    the SoC has no integrated Thunderbolt/USB4 and the DMA controllers
+>    are disabled in TCSS DEVEN. No PCI device is enumerated for them.
+> 
+> Only add the USB4 component match if CONFIG_USB4 is reachable and the
+> referenced host interface is available and has been enumerated as a
+> device. The latter mirrors the check in usb_acpi_add_usb4_devlink(), see
+> commit 623dae3e7084 ("usb: acpi: fix boot hang due to early incorrect
+> 'tunneled' USB3 device links").
+> 
+> Fixes: 4fd7a1f0f7f2 ("usb: typec: Connect Type-C port with associated USB4 port")
 
++Alan
 
-On 28.09.2026 08:53, Linkui Xiao wrote:
-> From: Linkui Xiao <xiaolinkui@kylinos.cn>
-> 
-> ice_start_vfs() attaches every VF it brings up to the eswitch with
-> ice_eswitch_attach_vf(), but the teardown path only undoes the queue
-> mappings and the VF VSI. Nothing calls ice_eswitch_detach_vf() for the
-> VFs that were attached before the failure, and the caller, ice_ena_vfs(),
-> goes straight to ice_free_vf_entries(), which drops its reference to
-> every VF.
-> 
-> The port representors created for those VFs therefore outlive the
-> failed VF creation:
-> 
->   - the representor netdev stays registered and its devlink port stays
->     registered too. That port is embedded in struct ice_vf, so it ends
->     up pointing into the memory that ice_sriov_free_vf() releases;
-> 
->   - repr->vf keeps pointing at the freed struct ice_vf, and repr->src_vsi
->     at the VF VSI that ice_vf_vsi_release() tore down. The leftover
->     netdev is still visible to the user, so even a plain
->     "ip -s link show" of it reaches ice_repr_get_stats64(), which calls
->     repr->ops.ready() -> ice_check_vf_ready_for_cfg(repr->vf) and then
->     reads repr->src_vsi through ice_update_eth_stats();
-> 
->   - the virtchnl ops of that VF, which ice_repr_add_vf() replaced with
->     ice_virtchnl_set_repr_ops(), are never handed back to
->     ice_virtchnl_set_dflt_ops();
-> 
->   - pf->eswitch.reprs never becomes empty, so ice_eswitch_detach() never
->     calls ice_eswitch_disable_switchdev(). pf->eswitch.is_running stays
->     true, with the bridge offloads and the devlink rate topology still
->     up, and ice_eswitch_release_env() is skipped, so the uplink VSI is
->     left in the switchdev configuration that ice_eswitch_setup_env()
->     gave it.
-> 
-> Detach the representor in the teardown loop the way ice_free_vfs() does,
-> ahead of ice_vf_vsi_release(), because ice_repr_rem_vf() and
-> ice_eswitch_release_repr() both need repr->src_vsi to still be valid.
-> Every VF the teardown loop walks completed ice_eswitch_attach_vf()
-> successfully, and ice_eswitch_detach_vf() already returns early for a VF
-> without a representor, so no extra condition is needed.
-> 
-> Hold vf->cfg_lock across the teardown of each VF as well, like
-> ice_free_vfs() does. The VFs unwound here are the ones that already
-> reached set_bit(ICE_VF_STATE_INIT), which is exactly what
-> ice_check_vf_ready_for_cfg() checks, so a host administrator can still
-> run "ip link set dev <pf> vf N ..." and a VF can still send a mailbox
-> message while the loop walks them. Both paths take cfg_lock and then run
-> ice_reset_vf(), which gets to ice_eswitch_update_repr() and writes
-> through the representor that is being freed, or reach
-> ice_vc_process_vf_msg() reading vf->virtchnl_ops while
-> ice_virtchnl_set_dflt_ops() hands them back.
-> 
-> Fixes: fff292b47ac1 ("ice: add VF representors one by one")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
+> Signed-off-by: Marek Maslanka <mmaslanka@google.com>
+
+Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+
 > ---
-> v1:
-> - Link: https://lore.kernel.org/netdev/20260921031616.3390259-1-xiaolinkui@126.com/
+>  drivers/usb/typec/port-mapper.c | 21 +++++++++++++++++++--
+>  1 file changed, 19 insertions(+), 2 deletions(-)
 > 
-> Changes in v2:
-> - Hold vf->cfg_lock across the teardown of each VF, the way ice_free_vfs()
->   does, so that a concurrent VF reconfiguration cannot walk through the
->   representor and the virtchnl ops that are being torn down.
->   (Sashiko AI review)
-> - Patch 2/2 is new and returns the VF MSI-X window that the same failure path
->   reserves. That is a separate, pre-existing bug, so it is not folded in here.
->   (Sashiko AI review)
-> - Not carrying over the Reviewed-by from Aleksandr Loktionov, as the code
->   changed after his review.
-> 
->  drivers/net/ethernet/intel/ice/ice_sriov.c | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/drivers/net/ethernet/intel/ice/ice_sriov.c b/drivers/net/ethernet/intel/ice/ice_sriov.c
-> index e04de0215596..95abc6704820 100644
-> --- a/drivers/net/ethernet/intel/ice/ice_sriov.c
-> +++ b/drivers/net/ethernet/intel/ice/ice_sriov.c
-> @@ -508,8 +508,13 @@ static int ice_start_vfs(struct ice_pf *pf)
->  		if (it_cnt == 0)
->  			break;
+> diff --git a/drivers/usb/typec/port-mapper.c b/drivers/usb/typec/port-mapper.c
+> index cdbb7c11d714..3a97b084c3bd 100644
+> --- a/drivers/usb/typec/port-mapper.c
+> +++ b/drivers/usb/typec/port-mapper.c
+> @@ -42,6 +42,23 @@ static int usb4_port_compare(struct device *dev, void *fwnode)
+>  	return usb4_usb3_port_match(dev, fwnode);
+>  }
 >  
-> +		mutex_lock(&vf->cfg_lock);
+> +static bool typec_has_usb4_host_interface(const struct fwnode_handle *fwnode)
+> +{
+> +	if (!IS_REACHABLE(CONFIG_USB4))
+> +		return false;
 > +
-> +		ice_eswitch_detach_vf(pf, vf);
->  		ice_dis_vf_mappings(vf);
->  		ice_vf_vsi_release(vf);
-> +		mutex_unlock(&vf->cfg_lock);
+> +	struct fwnode_handle *nhi_fwnode __free(fwnode_handle) =
+> +		fwnode_find_reference(fwnode, "usb4-host-interface", 0);
 > +
->  		it_cnt--;
+> +	/*
+> +	 * The USB4 port can only appear if the host interface is enabled in
+> +	 * the firmware and has been enumerated as a device. The latter is
+> +	 * the same check as in usb_acpi_add_usb4_devlink().
+> +	 */
+> +	return !IS_ERR(nhi_fwnode) && fwnode_device_is_available(nhi_fwnode) &&
+> +	       nhi_fwnode->dev;
+> +}
+> +
+>  static int typec_port_compare(struct device *dev, void *fwnode)
+>  {
+>  	return device_match_fwnode(dev, fwnode);
+> @@ -64,11 +81,11 @@ static int typec_port_match(struct device *dev, void *data)
+>  				    adev_fwnode);
+>  
+>  		/*
+> -		 * If dev is USB 3.x port, it may have reference to the
+> +		 * If dev is USB 3.x port, it may have reference to an available
+>  		 * USB4 host interface in which case we can also link the
+>  		 * Type-C port with the USB4 port.
+>  		 */
+> -		if (fwnode_property_present(adev_fwnode, "usb4-host-interface"))
+> +		if (typec_has_usb4_host_interface(adev_fwnode))
+>  			component_match_add(&arg->port->dev, &arg->match,
+>  					    usb4_port_compare, adev_fwnode);
 >  	}
->  
+> -- 
+> 2.56.0.rc1.315.gc6ed9934b7-goog
 
-
-Reviewed-by: Tomasz Lichwala <tomasz.lichwala@linux.intel.com>
-
+-- 
+heikki
