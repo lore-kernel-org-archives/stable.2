@@ -1,238 +1,265 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 81E6B35C1A9;
-	Mon, 28 Sep 2026 04:44:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46EF73264C1
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 04:49:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790570679; cv=none; b=uLBWL3oSoIWTY5XnFHNDWE8mwZXAsLLGusfUPuIHygBHERhesXbL1E7V7uK2iDSsb3LY7Wckw/uSZ6kWIyo3zd9t3BT6Hjfp5HS28+DrBWa21xcSD/YMkczaG33wLa0lwID4jmi3cH/Gu60XjcDLAd7DWUqS/cy1ZUwh7HLg7Cg=
+	t=1790570981; cv=none; b=ri3SM6sOrlUz3TeuFWXUf2R4ysrFuD9iVaWh9oiZxORvOzioNb1U0UEEX3QmjQe+1hrMGc9SWeaLUam8x9QlDEYTeBT4lhPrXGbDwv+5B9YN1cEWv/T45KSDifG7JZEFcT/paGjNaGAGVDLqplFIwdhe9n0OZ0iobblftDneES4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790570679; c=relaxed/simple;
-	bh=cxISZUEfztP3S/Z3MHKb5wSSMFmdRBTDTRTsOG5yX2E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hDm69UyL7xKXj9Gs7dlx+EwVbdpRhfUy4QvR7GP8Au8fkAveW5+rkNOio7GZ8nVhvTtdzpKTHh2HMZbdxS6iQbFfnnJ2Bp0PlbPXWics/4KnMyS0LrZjEp1CuLNEb5m8OnfL7Sb96L1ZXwrE113UuG5OIlz9/8sdOJUkAuUWgUM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [223.64.68.159])
-	by gateway (Coremail) with SMTP id _____8AxntK08Llqb2EQAA--.47944S3;
-	Mon, 28 Sep 2026 12:44:36 +0800 (CST)
-Received: from kernelserver (unknown [223.64.68.159])
-	by front1 (Coremail) with SMTP id qMiowJDxg8ys8LlqvfElAA--.52750S5;
-	Mon, 28 Sep 2026 12:44:35 +0800 (CST)
-From: Binbin Zhou <zhoubinbin@loongson.cn>
-To: Binbin Zhou <zhoubb.aaron@gmail.com>,
-	Huacai Chen <chenhuacai@loongson.cn>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Yinbo Zhu <zhuyinbo@loongson.cn>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Zhang Rui <rui.zhang@intel.com>,
-	Lukasz Luba <lukasz.luba@arm.com>
-Cc: Huacai Chen <chenhuacai@kernel.org>,
-	Xuerui Wang <kernel@xen0n.name>,
-	loongarch@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	Binbin Zhou <zhoubinbin@loongson.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v6 3/7] thermal/drivers/loongson2: Fix Loongson-2K2000 trip point programming
-Date: Mon, 28 Sep 2026 12:44:12 +0800
-Message-ID: <da9af5d5cf5f3635556729ae0b853f4502173bd8.1790561983.git.zhoubinbin@loongson.cn>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <cover.1790561983.git.zhoubinbin@loongson.cn>
-References: <cover.1790561983.git.zhoubinbin@loongson.cn>
+	s=arc-20240116; t=1790570981; c=relaxed/simple;
+	bh=QGDJOLvAfspgjbhM3t4N/oMkd5/ABeW0SYZDQhOHVII=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=AjkL01aI8e+ahTs3WLpmyGjZaA+WG7xQJqsB5FwB+4/b5AJ0UCpgoBio4tlqQxs8kce2x66W89iX8u8cl8CE32H2lNJSfuMJWXt3IpHHX8+d98JVFlS/ypxY5eL1RmodyTeJ/wg4BLN1qM1sIWITGIGBs65DHVurZS/QrqjGE8g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.pku.edu.cn; spf=pass smtp.mailfrom=stu.pku.edu.cn; dkim=pass (1024-bit key) header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.b=TM9lrKa5; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.pku.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.pku.edu.cn
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.b="TM9lrKa5"
+Received: from SEWP216MB977011.KORP216.PROD.OUTLOOK.COM (unknown [IPV6:2603:1046:c07:1031:365:be:0:1b])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4f4ad2352;
+	Mon, 28 Sep 2026 12:49:25 +0800 (GMT+08:00)
+From: "springbreeze@stu.pku.edu.cn" <springbreeze@stu.pku.edu.cn>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>
+CC: "patches@lists.linux.dev" <patches@lists.linux.dev>, FUJITA Tomonori
+	<fujita.tomonori@gmail.com>, Jakub Kicinski <kuba@kernel.org>
+Subject: Re: [PATCH 6.18 210/398] rust: net: phy: fix off-by-one bit positions
+ in device status accessors
+Thread-Topic: [PATCH 6.18 210/398] rust: net: phy: fix off-by-one bit
+ positions in device status accessors
+Thread-Index: ATA1NDYz975N8dx4L1GUKeoIbrHRRDI5ODYz2KHU030=
+X-MS-Exchange-MessageSentRepresentingType: 1
+Date: Mon, 28 Sep 2026 04:41:23 +0000
+Message-ID:
+	<SEWP216MB9770116738884C46F156A686FAF98D2@SEWP216MB977011.KORP216.PROD.OUTLOOK.COM>
+References: <20260923140643.441954610@linuxfoundation.org>
+ <20260923140648.864493062@linuxfoundation.org>
+In-Reply-To: <20260923140648.864493062@linuxfoundation.org>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-Exchange-Organization-SCL: -1
+X-MS-TNEF-Correlator:
+X-MS-Exchange-Organization-RecordReviewCfmType: 0
+msip_labels:
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJDxg8ys8LlqvfElAA--.52750S5
-X-CM-SenderInfo: p2kr3uplqex0o6or00hjvr0hdfq/1tbiAQEECGq5yvUCWwAAs5
-X-Coremail-Antispam: 1Uk129KBj93XoW3Xr43JFWfurW7tr1Dtr1fAFc_yoWxGrWUp3
-	43Awn8KF4DXr48uws8Aw18XrWYyry3tr9xZFs7G34fW395C34agFy8tFy0qFWIkFyDJFy2
-	vrWkKFWUua1DW3gCm3ZEXasCq-sJn29KB7ZKAUJUUUUx529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUBab4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r106r15M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVCY1x0267AK
-	xVW8Jr0_Cr1UM2kKe7AKxVWUAVWUtwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
-	AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
-	tVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7V
-	AKI48JMxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY
-	6r1j6r4UMxCIbckI1I0E14v26r126r1DMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7
-	xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xII
-	jxv20xvE14v26ryj6F1UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04
-	k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7Cj
-	xVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jo_M-UUUUU=
+X-HM-Tid: 0aa0e658ab3603a1kunmf34da85d1e2d5e
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCT0tLVk5OGElKGU8fGE8aQlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJTUtIQUpLT01BGEtMQUpLSEpBSE1OQRkeQUtBShlZV1kWGg
+	8SFR0UWUFZT0tIVUpLSUJDQ0xVSktLVUtZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=TM9lrKa5u1C+f+QbrubijWiDan9vMZUMnZFpTfhiDhuTicx3w+f5X5Nom51pQW16he6NkWOz4L0C3rUHUJLFxappbUeCDc0yYo5E7yShxCNyhVKlJpYNE/vQwa0qvvpBs/fQgfJwPNiTd4826XBwgUzNMgQC8EC7a8rpHQ92Gf0=; c=relaxed/relaxed; s=default; d=stu.pku.edu.cn; v=1;
+	bh=WqoXHxpmhcEcB9mb0N88gq9uzq/gBNvVqzcJjupMqeU=;
+	h=date:mime-version:subject:message-id:from;
 
-Loongson-2K2000 uses a different trip point layout than Loongson-2K1000:
-the low 8 bits of the gate value are written to the control register,
-while the high 8 bits are written to separate HI_GATE_HI/LOW registers.
-The gate value is calculated as (temp + 311) * 0x4000 / 820.
-
-Introduce a per-SoC set_trips_regs() callback. Keep the existing
-Loongson-2K1000 logic and add the Loongson-2K2000 implementation.
-Move the common clamping into loongson2_thermal_set_trips() and pass
-Celsius values to the callback.
-
-Cc: stable@vger.kernel.org
-Fixes: 734b5def91b5 ("thermal/drivers/loongson2: Add Loongson-2K2000 support")
-Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
----
- drivers/thermal/loongson2_thermal.c | 77 ++++++++++++++++++++---------
- 1 file changed, 55 insertions(+), 22 deletions(-)
-
-diff --git a/drivers/thermal/loongson2_thermal.c b/drivers/thermal/loongson2_thermal.c
-index bcabca360157..45fe6100134e 100644
---- a/drivers/thermal/loongson2_thermal.c
-+++ b/drivers/thermal/loongson2_thermal.c
-@@ -29,15 +29,23 @@
- 					 LOONGSON2_THSENS_INT_HIGH)
- #define LOONGSON2_THSENS_OUT_MASK	0xFF
- 
-+/* Loongson-2K2000-Specific Registers */
-+#define LS2K2000_THSENS_HI_GATE_HI_REG	0x18
-+#define LS2K2000_THSENS_HI_GATE_LOW_REG	0x1c
-+
- /*
-  * This flag is used to indicate the temperature reading
-  * method of the Loongson-2K2000
-  */
- #define LS2K2000_THSENS_OUT_FLAG	BIT(0)
- 
-+struct loongson2_thermal_data;
-+
- struct loongson2_thermal_chip_data {
- 	unsigned int thermal_sensor_sel;
- 	unsigned int flags;
-+	void (*set_trips_regs)(struct loongson2_thermal_data *data,
-+			       int temp, bool low, bool enable);
- };
- 
- struct loongson2_thermal_data {
-@@ -46,30 +54,40 @@ struct loongson2_thermal_data {
- 	const struct loongson2_thermal_chip_data *chip_data;
- };
- 
--static void loongson2_set_ctrl_regs(struct loongson2_thermal_data *data,
--				    int ctrl_data, bool low, bool enable)
-+static void loongson2_thermal_set_trip_temp(struct loongson2_thermal_data *data,
-+					    int low, int high, bool enable)
- {
--	int reg_ctrl = 0;
--	int reg_off  = data->chip_data->thermal_sensor_sel * 2;
--	int ctrl_reg = low ? LOONGSON2_THSENS_CTRL_LOW_REG : LOONGSON2_THSENS_CTRL_HI_REG;
-+	/* Set low temperature threshold */
-+	data->chip_data->set_trips_regs(data, low, true, enable);
- 
--	reg_ctrl = ctrl_data + HECTO;
--	reg_ctrl |= enable ? 0x100 : 0;
--	writew(reg_ctrl, data->ctrl_reg + ctrl_reg + reg_off);
-+	/* Set high temperature threshold */
-+	data->chip_data->set_trips_regs(data, high, false, enable);
- }
- 
--static int loongson2_thermal_set(struct loongson2_thermal_data *data,
--				 int low, int high, bool enable)
-+static int loongson2_thermal_set_trips(struct thermal_zone_device *tz, int low, int high)
- {
--	/* Set low temperature threshold */
--	loongson2_set_ctrl_regs(data, clamp(low, -40, 125), true, enable);
-+	struct loongson2_thermal_data *data = thermal_zone_device_priv(tz);
- 
--	/* Set high temperature threshold */
--	loongson2_set_ctrl_regs(data, clamp(high, -40, 125), false, enable);
-+	low = clamp(low, -40000, 125000);
-+	high = clamp(high, -40000, 125000);
-+
-+	loongson2_thermal_set_trip_temp(data, low / MILLI, high / MILLI, true);
- 
- 	return 0;
- }
- 
-+static void loongson2_2k1000_set_trips_regs(struct loongson2_thermal_data *data,
-+					    int temp, bool low, bool enable)
-+{
-+	int reg_ctrl = 0;
-+	int reg_off  = data->chip_data->thermal_sensor_sel * 2;
-+	int ctrl_reg = low ? LOONGSON2_THSENS_CTRL_LOW_REG : LOONGSON2_THSENS_CTRL_HI_REG;
-+
-+	reg_ctrl = temp + HECTO;
-+	reg_ctrl |= enable ? 0x100 : 0;
-+	writew(reg_ctrl, data->ctrl_reg + ctrl_reg + reg_off);
-+}
-+
- static int loongson2_2k1000_get_temp(struct thermal_zone_device *tz, int *temp)
- {
- 	int val;
-@@ -81,6 +99,26 @@ static int loongson2_2k1000_get_temp(struct thermal_zone_device *tz, int *temp)
- 	return 0;
- }
- 
-+static void loongson2_2k2000_set_trips_regs(struct loongson2_thermal_data *data,
-+					    int temp, bool low, bool enable)
-+{
-+	int hi_reg, ctrl_reg;
-+	int val = 0, gate;
-+
-+	ctrl_reg = low ? LOONGSON2_THSENS_CTRL_LOW_REG : LOONGSON2_THSENS_CTRL_HI_REG;
-+	gate = (temp + 311) * 0x4000 / 820;
-+
-+	val = gate & 0xff;
-+	val |= enable ? 0x100 : 0;
-+	writel(val, data->ctrl_reg + ctrl_reg);
-+
-+	hi_reg = low ? LS2K2000_THSENS_HI_GATE_LOW_REG : LS2K2000_THSENS_HI_GATE_HI_REG;
-+
-+	val = readl(data->ctrl_reg + hi_reg);
-+	val = (val & ~0xff) | ((gate >> 8) & 0xff);
-+	writel(val, data->ctrl_reg + hi_reg);
-+}
-+
- static int loongson2_2k2000_get_temp(struct thermal_zone_device *tz, int *temp)
- {
- 	int val;
-@@ -104,13 +142,6 @@ static irqreturn_t loongson2_thermal_irq_thread(int irq, void *dev)
- 	return IRQ_HANDLED;
- }
- 
--static int loongson2_thermal_set_trips(struct thermal_zone_device *tz, int low, int high)
--{
--	struct loongson2_thermal_data *data = thermal_zone_device_priv(tz);
--
--	return loongson2_thermal_set(data, low/MILLI, high/MILLI, true);
--}
--
- static const struct thermal_zone_device_ops loongson2_2k1000_of_thermal_ops = {
- 	.get_temp = loongson2_2k1000_get_temp,
- 	.set_trips = loongson2_thermal_set_trips,
-@@ -156,7 +187,7 @@ static int loongson2_thermal_probe(struct platform_device *pdev)
- 
- 	writeb(LOONGSON2_THSENS_INT_EN, data->ctrl_reg + LOONGSON2_THSENS_STATUS_REG);
- 
--	loongson2_thermal_set(data, 0, 0, false);
-+	loongson2_thermal_set_trip_temp(data, 0, 0, false);
- 
- 	for (i = 0; i <= LOONGSON2_MAX_SENSOR_SEL_NUM; i++) {
- 		tzd = devm_thermal_of_zone_register(dev, i, data, thermal_ops);
-@@ -185,11 +216,13 @@ static int loongson2_thermal_probe(struct platform_device *pdev)
- static const struct loongson2_thermal_chip_data loongson2_thermal_ls2k1000_data = {
- 	.thermal_sensor_sel = 0,
- 	.flags = 0,
-+	.set_trips_regs = loongson2_2k1000_set_trips_regs,
- };
- 
- static const struct loongson2_thermal_chip_data loongson2_thermal_ls2k2000_data = {
- 	.thermal_sensor_sel = 0,
- 	.flags = LS2K2000_THSENS_OUT_FLAG,
-+	.set_trips_regs = loongson2_2k2000_set_trips_regs,
- };
- 
- static const struct of_device_id of_loongson2_thermal_match[] = {
--- 
-2.52.0
-
+Hi Greg, Sasha,=0A=
+=0A=
+Please drop the 6.18.y patch as it stands in this review series, or take th=
+e=0A=
+variant below instead.=0A=
+=0A=
+The queued patch fixes the three accessors with the bindgen-generated raw=
+=0A=
+accessors (link_raw(), autoneg_raw(), autoneg_complete_raw()), which bindge=
+n=0A=
+only emits from 0.71 on.  This branch's documented minimum is 0.65.1=0A=
+(scripts/min-tool-version.sh), so the patch applies cleanly but does not=0A=
+build with the minimum supported toolchain.=0A=
+=0A=
+The bug itself is present here: 2796ff1e3dca shifted autoneg, link and=0A=
+autoneg_complete up by one bit, and the hand-written offsets were never=0A=
+updated.  It can be fixed without the raw accessors by correcting the=0A=
+numbers directly:=0A=
+=0A=
+  is_link_up()            15 (was 14)=0A=
+  is_autoneg_enabled()    14 (was 13)=0A=
+  is_autoneg_completed()  16 (was 15)=0A=
+=0A=
+I re-checked the backport against v6.18 (rust/kernel/net/phy.rs blob=0A=
+bf6272d87a7b); the corrected 6.18.y form is below.=0A=
+=0A=
+Thanks,=0A=
+Chunfeng Song=0A=
+=0A=
+=0A=
+________________________________________=0A=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>=0A=
+Sent: Wednesday, September 23, 2026 22:04=0A=
+To: stable@vger.kernel.org <stable@vger.kernel.org>=0A=
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>; patches@lists.linux.de=
+v <patches@lists.linux.dev>; Chunfeng Song <springbreeze@stu.pku.edu.cn>; F=
+UJITA Tomonori <fujita.tomonori@gmail.com>; Jakub Kicinski <kuba@kernel.org=
+>=0A=
+Subject: [PATCH 6.18 210/398] rust: net: phy: fix off-by-one bit positions =
+in device status accessors=0A=
+=0A=
+=0A=
+6.18-stable review patch.=A0 If anyone has any objections, please let me kn=
+ow.=0A=
+=0A=
+------------------=0A=
+=0A=
+From: Chunfeng Song <springbreeze@stu.pku.edu.cn>=0A=
+=0A=
+commit 6fb0a9d9071f1ff0cc5cfc0782302d9c90d642cb upstream.=0A=
+=0A=
+The hand-written bitfield offsets in is_link_up(), is_autoneg_enabled()=0A=
+and is_autoneg_completed() were correct when the abstraction was=0A=
+merged: at that time autoneg, link, and autoneg_complete were at bits=0A=
+13, 14, and 15 of struct phy_device's first bitfield unit. Commit=0A=
+2796ff1e3dca ("net: phy: add flag is_genphy_driven to struct phy_device")=
+=0A=
+later inserted is_genphy_driven just before autoneg, shifting the three=0A=
+fields up by one, so the accessors now read:=0A=
+=0A=
+=A0 is_link_up()=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 reads bit 14 =3D autoneg=0A=
+=A0 is_autoneg_enabled()=A0=A0 reads bit 13 =3D is_genphy_driven=0A=
+=A0 is_autoneg_completed() reads bit 15 =3D link=0A=
+=0A=
+The official ax88796b Rust driver uses all three accessors in its=0A=
+read_status() implementation, so it inherits the bug.=0A=
+phy_attach_direct() sets is_genphy_driven only when it falls back to=0A=
+the generic driver, and ax88796b has a real driver, so=0A=
+is_genphy_driven stays 0. The broken is_autoneg_enabled() therefore=0A=
+reads bit 13 as 0, compares it against AUTONEG_ENABLE (1), and always=0A=
+returns false, so read_status() never reaches the=0A=
+resolve_aneg_linkmode() call.=0A=
+=0A=
+The ordinary bindgen accessors take &self. Calling them through=0A=
+(*phydev).link() would create a shared reference to the complete=0A=
+bindings::phy_device, which is not appropriate for an object wrapped in=0A=
+Opaque.=0A=
+=0A=
+Use the bindgen-generated raw accessors (link_raw(), autoneg_raw(),=0A=
+and autoneg_complete_raw()) instead. They retain the bit positions and=0A=
+endianness handling generated from the C layout without creating a Rust=0A=
+reference to the complete phy_device. Drop the hand-written numbers=0A=
+together with the TODO comment that marked them as a stopgap.=0A=
+=0A=
+The raw accessors are only emitted by bindgen 0.71 and later, and were=0A=
+added at the Rust-for-Linux project's request, so this fix can only be=0A=
+backported to stable branches whose minimum bindgen version is at least=0A=
+that, hence the scope on the Cc: stable line below.=0A=
+=0A=
+Found by a static equivalence audit (C2RustDrv, a C-to-Rust driver=0A=
+migration tool) that compares hand-written bitfield offsets against=0A=
+the bindgen layout of struct phy_device. Verified by building the=0A=
+bindings and checking the generated accessors; no runtime testing was=0A=
+possible without PHY hardware.=0A=
+=0A=
+Fixes: 2796ff1e3dca ("net: phy: add flag is_genphy_driven to struct phy_dev=
+ice")=0A=
+Cc: stable@vger.kernel.org # Only 7.1.y and later (requires bindgen's raw p=
+ointer accessors).=0A=
+Link: https://github.com/rust-lang/rust-bindgen/issues/2674=0A=
+Signed-off-by: Chunfeng Song <springbreeze@stu.pku.edu.cn>=0A=
+Reviewed-by: FUJITA Tomonori <fujita.tomonori@gmail.com>=0A=
+Link: https://patch.msgid.link/20260910055110.167110-1-springbreeze@stu.pku=
+.edu.cn=0A=
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>=0A=
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>=0A=
+---=0A=
+=A0rust/kernel/net/phy.rs | 38 ++++++++++++++++++--------------------=0A=
+=A01 file changed, 18 insertions(+), 20 deletions(-)=0A=
+=0A=
+diff --git a/rust/kernel/net/phy.rs b/rust/kernel/net/phy.rs=0A=
+index 956cda573ddb..c4e7b1d6c6f4 100644=0A=
+--- a/rust/kernel/net/phy.rs=0A=
++++ b/rust/kernel/net/phy.rs=0A=
+@@ -123,39 +123,37 @@ pub fn state(&self) -> DeviceState {=0A=
+=A0=A0=A0=A0 /// Gets the current link state.=0A=
+=A0=A0=A0=A0 ///=0A=
+=A0=A0=A0=A0 /// It returns true if the link is up.=0A=
++=A0=A0=A0 #[inline]=0A=
+=A0=A0=A0=A0 pub fn is_link_up(&self) -> bool {=0A=
+-=A0=A0=A0=A0=A0=A0=A0 const LINK_IS_UP: u64 =3D 1;=0A=
+-=A0=A0=A0=A0=A0=A0=A0 // TODO: the code to access to the bit field will be=
+ replaced with automatically=0A=
+-=A0=A0=A0=A0=A0=A0=A0 // generated code by bindgen when it becomes possibl=
+e.=0A=
+-=A0=A0=A0=A0=A0=A0=A0 // SAFETY: The struct invariant ensures that we may =
+access=0A=
+-=A0=A0=A0=A0=A0=A0=A0 // this field without additional synchronization.=0A=
+-=A0=A0=A0=A0=A0=A0=A0 let bit_field =3D unsafe { &(*self.0.get())._bitfiel=
+d_1 };=0A=
+-=A0=A0=A0=A0=A0=A0=A0 bit_field.get(14, 1) =3D=3D LINK_IS_UP=0A=
++=A0=A0=A0=A0=A0=A0=A0 let phydev =3D self.0.get().cast_const();=0A=
++=A0=A0=A0=A0=A0=A0=A0 // SAFETY: By the type invariant of `Device`, `phyde=
+v` points to a valid=0A=
++=A0=A0=A0=A0=A0=A0=A0 // `struct phy_device`, and there is no concurrent w=
+rite to this field.=0A=
++=A0=A0=A0=A0=A0=A0=A0 let link =3D unsafe { bindings::phy_device::link_raw=
+(phydev) };=0A=
++=A0=A0=A0=A0=A0=A0=A0 link =3D=3D 1=0A=
+=A0=A0=A0=A0 }=0A=
+=A0=0A=
+=A0=A0=A0=A0 /// Gets the current auto-negotiation configuration.=0A=
+=A0=A0=A0=A0 ///=0A=
+=A0=A0=A0=A0 /// It returns true if auto-negotiation is enabled.=0A=
++=A0=A0=A0 #[inline]=0A=
+=A0=A0=A0=A0 pub fn is_autoneg_enabled(&self) -> bool {=0A=
+-=A0=A0=A0=A0=A0=A0=A0 // TODO: the code to access to the bit field will be=
+ replaced with automatically=0A=
+-=A0=A0=A0=A0=A0=A0=A0 // generated code by bindgen when it becomes possibl=
+e.=0A=
+-=A0=A0=A0=A0=A0=A0=A0 // SAFETY: The struct invariant ensures that we may =
+access=0A=
+-=A0=A0=A0=A0=A0=A0=A0 // this field without additional synchronization.=0A=
+-=A0=A0=A0=A0=A0=A0=A0 let bit_field =3D unsafe { &(*self.0.get())._bitfiel=
+d_1 };=0A=
+-=A0=A0=A0=A0=A0=A0=A0 bit_field.get(13, 1) =3D=3D u64::from(bindings::AUTO=
+NEG_ENABLE)=0A=
++=A0=A0=A0=A0=A0=A0=A0 let phydev =3D self.0.get().cast_const();=0A=
++=A0=A0=A0=A0=A0=A0=A0 // SAFETY: By the type invariant of `Device`, `phyde=
+v` points to a valid=0A=
++=A0=A0=A0=A0=A0=A0=A0 // `struct phy_device`, and there is no concurrent w=
+rite to this field.=0A=
++=A0=A0=A0=A0=A0=A0=A0 let autoneg =3D unsafe { bindings::phy_device::auton=
+eg_raw(phydev) };=0A=
++=A0=A0=A0=A0=A0=A0=A0 autoneg =3D=3D bindings::AUTONEG_ENABLE=0A=
+=A0=A0=A0=A0 }=0A=
+=A0=0A=
+=A0=A0=A0=A0 /// Gets the current auto-negotiation state.=0A=
+=A0=A0=A0=A0 ///=0A=
+=A0=A0=A0=A0 /// It returns true if auto-negotiation is completed.=0A=
++=A0=A0=A0 #[inline]=0A=
+=A0=A0=A0=A0 pub fn is_autoneg_completed(&self) -> bool {=0A=
+-=A0=A0=A0=A0=A0=A0=A0 const AUTONEG_COMPLETED: u64 =3D 1;=0A=
+-=A0=A0=A0=A0=A0=A0=A0 // TODO: the code to access to the bit field will be=
+ replaced with automatically=0A=
+-=A0=A0=A0=A0=A0=A0=A0 // generated code by bindgen when it becomes possibl=
+e.=0A=
+-=A0=A0=A0=A0=A0=A0=A0 // SAFETY: The struct invariant ensures that we may =
+access=0A=
+-=A0=A0=A0=A0=A0=A0=A0 // this field without additional synchronization.=0A=
+-=A0=A0=A0=A0=A0=A0=A0 let bit_field =3D unsafe { &(*self.0.get())._bitfiel=
+d_1 };=0A=
+-=A0=A0=A0=A0=A0=A0=A0 bit_field.get(15, 1) =3D=3D AUTONEG_COMPLETED=0A=
++=A0=A0=A0=A0=A0=A0=A0 let phydev =3D self.0.get().cast_const();=0A=
++=A0=A0=A0=A0=A0=A0=A0 // SAFETY: By the type invariant of `Device`, `phyde=
+v` points to a valid=0A=
++=A0=A0=A0=A0=A0=A0=A0 // `struct phy_device`, and there is no concurrent w=
+rite to this field.=0A=
++=A0=A0=A0=A0=A0=A0=A0 let completed =3D unsafe { bindings::phy_device::aut=
+oneg_complete_raw(phydev) };=0A=
++=A0=A0=A0=A0=A0=A0=A0 completed =3D=3D 1=0A=
+=A0=A0=A0=A0 }=0A=
+=A0=0A=
+=A0=A0=A0=A0 /// Sets the speed of the PHY.=0A=
+-- =0A=
+2.55.0=0A=
+=0A=
+=0A=
+=0A=
+=0A=
+=0A=
