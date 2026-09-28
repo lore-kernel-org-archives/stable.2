@@ -1,330 +1,202 @@
-Received: from mail-pj2-f39.google.com (mail-pj2-f39.google.com [74.125.227.167])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-244107.protonmail.ch (mail-244107.protonmail.ch [109.224.244.107])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC73646EC98
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 08:26:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.167
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C8E737C109
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 08:26:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.107
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790583985; cv=none; b=JSXLjHaUKGuVqdhKyevkqCdlynGqltSDSe5+9L18j6I7teYC0SpZ3Sk9Wf4yMHlwspMzG7tJPXDXKnf38YPGUvi9p5sFxUifH4xeoloUzcfh5BoBLRcsL1wcSD/tcDpQO6r+LjnTHv+BTtM/WQfTz73mqwW6CJ82D+D80MJ11Ys=
+	t=1790583990; cv=none; b=QxFHv0B31cjXmbOp0yQekWgRhrWNHz8eUz0DkZZgn97FzakC+TQJqxqASRNuybvAM19btcgnOJYOlwbBxYZaTQw5VkimjTkFu8/UcOML6vm6qO/d6/sRzld+EoaSC8YfzR2pkRYFC+d125jUY7uJQ7gWsLHZHpiZCMoSn3lOvZ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790583985; c=relaxed/simple;
-	bh=hoz2PWbxwglBUqn2GeLOv0PDatT28ZkpNEwAV+Iz7Bc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oZpUMUQR2ul1WrlNcNMd/o7ePa6szxlOFK06UFS7aEFSIWhe/jmtzkRYwOHWBTKS+qR1uIus+aN/5rhcC1iCnzjZrd6IMMhHzGviAn1rrwQSVvX3CsKIGlB0H48BhjiNP+Aek4b0vqTUIaPwF/ZngQVG1T/CgzqDuvvtZAUq/iM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=THth7EM8; arc=none smtp.client-ip=74.125.227.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790583990; c=relaxed/simple;
+	bh=P7BtgL/UITlzotKPROsMnCV1uNmaVSv1Pf9IqIM0swQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=TcIruj4zZIjbgrB0HZwxFFH1ovvSdJ3W4o8XcY4VguLhQue35zq5iT6uRL66/h+OT0NuH4jCJdfCVQbL5Lm16I8q6r75vTxVob9eIzmIyVAnv7DtPFNlyuBqB2UzxPxuTg7/VOvnIUFiN/xIxyAw3NceKwSVgcBRe0qGzfQNpPs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=kXyYzmTU; arc=none smtp.client-ip=109.224.244.107
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="THth7EM8"
-Received: by mail-pj2-f39.google.com with SMTP id 98e67ed59e1d1-3a47d5764feso147582a91.2
-        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 01:26:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790583983; x=1791188783; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=P7TZNITFoQ1twO0nEHJsueQMwqRhiY/RYAx0j8E+QXo=;
-        b=THth7EM88xGjHSpC+9JvdFzpg4fQH5GPTPWXMgPsWqZDTDmw7RN/mJ8qHlwpb7+NPX
-         r8+mT6t7t03sQqV5qQk5i1stOlO2lPJyCGTRH6Zx5ExTk7ixYJUS9qgRlG1jslY5NCLH
-         aY8Rl8sPjWCTb+rZStQ/9zXR8eZI02NeE4TcKcdSkANYJhquWLTD5/N/yG94vXkjqedF
-         Pdb/hTuLiSpdLxtNPwBzzPqPeQOKj87RFq5WOPHCpjQTGLK5WniQvx+iQTJiejCVp4ND
-         KA+ZJ9KEB/bGq1RPy7FCkNrtHxvXrwIS41tYDdulo40ruI2B6wGTe37JSPk7ivAOmERc
-         De+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790583983; x=1791188783;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=P7TZNITFoQ1twO0nEHJsueQMwqRhiY/RYAx0j8E+QXo=;
-        b=qmgROrLFEDjkInsDxHmPabAflm6EcbsVTTBdOXNCY1UT9TmUDZdVI+SspNp5RrjQPh
-         E0yPmQXXSYVrh7geOWwi3kv1DtBOyJgeCraDi1nxkqNF2mDvOPsV6YlQHPqplWD/pjvt
-         klMzdkX9BrWIk5v/VbopRTxXUWszc7qsUWlnWkajuYnBuqZ0AmpSuiaSEz1TXMQgDGAW
-         LDqriShxRR2CJMnzoDxN3O2v+23SwIorfMf2ys7nMQKk9IoUEIj3GGjqnaWB0O1tONnA
-         zD4HNAXx5D5M4mm8+6ftF5r8O7UX6HzF0S7Jt8rSMU5eZbovJfosSyrkkSl1+zylHqdd
-         LM/w==
-X-Forwarded-Encrypted: i=1; AKwUvBwqoiIqTILh39IiCHmQnFyGAre9s0SS2CzUUi2JYo+HkAV60ePQZm8b65ePgO9FPfzXz/zUlkk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLZL35vcwJECi2UZpT1Bcgzg00hAa4DFR+T7pBNSEjijOwzX45G
-	G0fozDcCyLgGLfsZq3Iu81RxsbP4ImzIyGGa/lwdSN47mhlDkVIcXrM5
-X-Gm-Gg: AYBFou2Wk/5BbXqoRyVJtNYM3mZg9vRZdWy0Wvfne0zWY2Xt7Vedzj5Qt8lZ3ZzNsBx
-	wK7RnVZ6ESMPRWN1Rz3qguQInTYb7bsLlUESO6f+IFcAfSkNsku2vlAudWS3q2JUSgAA8EuYycw
-	9GqfpOgEpgEWm3/K5k2yk/L2pozN3EKER+JIyOap4q9XxR309hRmdFwvIrNwwnuHGXBd+ZAv3/H
-	WFL0ii8H6o3OIloeyRbgl61de9K4yxUsNPDOfbmtUzUmHRWyvmfdB/vZxOiGEg9We/pYm0chmJC
-	FtNOXIBaSSxupYNIjbxsTM5Kku8kUdMcEH94uvJGZKBJeiiC6ZYRcnN1jY3W3Cr70bJzwlIyvYA
-	sHb+CyQlKe6ucAj91oWnhvZzGhzn2BCveokY251O/9zNH0BJx2vhe0ExZzWbEA1neAgADdKAf7G
-	kc75YJdivRnnWM+U2jGMZhSlYkOXB++meNXhhw5JJJ551/Tbp/qqEVzVQ/YMiwbgwUncaI5kjLX
-	jHsNNcXwBHWoR5KcORRwbNS3caPrBwDV6wlMrML+g1Oy2lL/C1frtCdNp58ZUPlf7FsgWyHUji/
-	w/Juk1ns
-X-Received: by 2002:a17:90b:39a7:b0:3a0:bbd8:5ba7 with SMTP id 98e67ed59e1d1-3a0bbd879cemr6684055a91.62.1790583983069;
-        Mon, 28 Sep 2026 01:26:23 -0700 (PDT)
-Received: from lenovo-thinkbook.lenovo.com (42-2-127-248.static.netvigator.com. [42.2.127.248])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b8d31b4esm7104456a91.3.2026.09.28.01.24.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 01:26:22 -0700 (PDT)
-From: Yuqi Xu <xuyuqiabc@gmail.com>
-To: netdev@vger.kernel.org,
-	Tung Quang Nguyen <tung.quang.nguyen@est.tech>
-Cc: Jon Maloy <jmaloy@redhat.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Ying Xue <ying.xue@windriver.com>,
-	Paul Gortmaker <paul.gortmaker@windriver.com>,
-	tipc-discussion@lists.sourceforge.net,
-	stable@vger.kernel.org,
-	Vega <vega@nebusec.ai>,
-	Ren Wei <weir@nebusec.ai>,
-	xuyq21@lenovo.com
-Subject: [PATCH net v3 1/1] tipc: destroy topsrv workqueues before closing connections
-Date: Mon, 28 Sep 2026 16:24:38 +0800
-Message-ID: <0b418e09f7a48ea35ed8ec4ecca1e209f3a8604f.1790157006.git.xuyuqiabc@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1790157006.git.xuyuqiabc@gmail.com>
-References: <cover.1790157006.git.xuyuqiabc@gmail.com>
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="kXyYzmTU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+	s=protonmail; t=1790583985; x=1790843185;
+	bh=hzBlXpkFdUd7OlMjJ6b7ENzDd+zYRV1qXvTvij1DgkM=;
+	h=From:Subject:Date:Message-Id:To:Cc:From:To:Cc:Date:Subject:
+	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=kXyYzmTUv5rq2JlBdhfoPD2rWDL3gqApJEBo3rNGi6TmxlljJqfkJICYDiWiB5Onz
+	 3nSMame/Gl4J7OFuVRefe5A8M9U24B5K7ZFyLawS/hM99kWFA59LtOM5+wylf60RLi
+	 v8ti6rCstneKKMxlvhplPGcppxd27j91IU6tmC0fvVlio3hR5EAeozi9W152HAL1vE
+	 rBlGltvvrbf6YTUt1Cv7KPn4OyqTFNyWshAwjdBapLOOb3t9YWCgO2DcK9qw07DReO
+	 0h/yC+Zsch/Oxq3Wh5+RLg9m/kr82K19zOgpAFUMf0egsRZdxYq8hdcyzOnL45Cn2k
+	 MXQf0oxz6mOpw==
+X-Pm-Submission-Id: 4htZCM27g0z2ScDC
+From: Esben Haabendal <esben@geanix.com>
+Subject: [PATCH v10 00/10] io: accel: mma8452: Allow open drain interrupt
+ pin configuration
+Date: Mon, 28 Sep 2026 10:26:16 +0200
+Message-Id: <20260928-mma8452-open-drain-v10-0-b906fb408386@geanix.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XSTWrEMAwF4KsMWddFUiT/dNV7lC4c25nxYpKSl
+ NAy5O71dDMpNnRlbHgfPMm3bk1LTmv3crp1S9rymuepXBCeTl24+OmcVI7loSMgAQZU16u3LKT
+ mjzSpuPg8KYtiTGDsjYSuBC95/ZyX7190w3K83eMaDEorvqECNWCM5JkhaHg9Jz/lr+cwX7v34
+ m30v0HFcDIkN8rIxkll9A/DQtvoi6GR3cigPYOrDD4YSE2D713G4FEi0CC1IUfDNQ0pRrTei4N
+ oQq8rQx8ManfR93kMJGSBU7L1TM3B6Jtr3UwxiBzrUjY4spVhH4YD0zRsMQIaBpOIEGvDHQzUT
+ cMVA8r34NHT2Efzx9j3/Qe7BTAdxgIAAA==
+X-Change-ID: 20250401-mma8452-open-drain-81577c41375c
+To: Jonathan Cameron <jic23@kernel.org>, 
+ Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Martin Kepplinger <martink@posteo.de>, 
+ Sean Nyekjaer <sean@geanix.com>, David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, 
+ Martin Kepplinger <martin.kepplinger@theobroma-systems.com>, 
+ Christoph Muellner <christoph.muellner@theobroma-systems.com>
+Cc: Esben Haabendal <esben@geanix.com>, linux-iio@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Joshua Crofts <joshua.crofts1@gmail.com>, 
+ Andy Shevchenko <andriy.shevchenko@intel.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790583982; l=6172;
+ i=esben@geanix.com; s=20240523; h=from:subject:message-id;
+ bh=P7BtgL/UITlzotKPROsMnCV1uNmaVSv1Pf9IqIM0swQ=;
+ b=Vq3KDyBEmHGIJsgtQkLcVk/mqhy6lWfDF9SdSNSDjmWCgw5F7Cuo9/C2ZgEFq6hJPve+69/YI
+ YhfK5VF/oUbA1JzJdEP8W38Xi5tEIjO9nv/+G5HRg+CEn1jDxSrlXF8
+X-Developer-Key: i=esben@geanix.com; a=ed25519;
+ pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
 
-tipc_topsrv_stop() closed subscriber connections while the topology
-server's send and receive workqueues were still running. Socket
-callbacks and subscription events could then queue more work, and
-in-flight send/recv work could drop the last connection reference
-during the conn_idr walk.
+Extend the mma8452 driver with support for configuration of the
+interrupt line in open-drain mode, which is needed for hardware designs
+where the interrupt line is shared with other chips.
 
-That race produced several teardown failures: refcount_t addition on
-0 from conn_get() on a connection whose release was blocked on
-idr_lock, a subsequent use-after-free in tipc_conn_close(),
-queue_work() on an already destroyed workqueue from the listener
-data-ready callback, and an RCU stall in tipc_topsrv_exit_net()
-while the walk spun under idr_lock.
+Adding drive-open-drain property to mma8452 device-tree node for such
+designs to enable switching pin configuration to open-drain mode.
 
-Clear srv->listener under idr_lock so it acts as a shutdown flag,
-skip queue_work() once it is NULL, destroy the workqueues to flush
-in-flight work, and only then close the remaining connections.
-Refuse tipc_conn_lookup() after that flag is cleared, and drop
-idr_lock when the teardown walk finds no connection, so an
-in-flight subscription event cannot pin idr_in_use while the
-walk holds the lock.
-
-v3 supersedes the narrower in-thread diff Tung Quang Nguyen
-posted on 2026-09-23. It keeps his teardown order and adds the
-lookup refusal and the empty-idr unlock.
-
-Fixes: c5fa7b3cf3cb ("tipc: introduce new TIPC server infrastructure")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: LLM
-Signed-off-by: Yuqi Xu <xuyuqiabc@gmail.com>
-Reviewed-by: Ren Wei <weir@nebusec.ai>
+Signed-off-by: Esben Haabendal <esben@geanix.com>
 ---
+Changes in v10:
+- Fix sp3ling mistake in struct mma8452_data kernel-doc block.
+- Swap ordering of pm_runtime and irq setup in mma8452_probe() to match the
+  order now used in mma8452_remove().
+- Bail out on -EINVAL in mma8452_interrupt() when CONFIG_PM is enabled.
+- Link to v9: https://patch.msgid.link/20260916-mma8452-open-drain-v9-0-0dd24fa2f3d7@geanix.com
+
+Changes in v9:
+- Fix documentation of voltage regulator field(s) in struct mma8452_data
+  kernel-doc block.
+- Fix a couple of nitpicks in struct mma8452_data kernel-doc block.
+- Switch to STANDBY mode before writing to CTRL_REG4.
+- Add patch fixing runtime PM bugs in mma8452_read().
+- Add comment about handling of -EINVAL return value from
+  pm_runtime_get_if_active() in mma8452_interrupt().
+- Fix for race between mma8452_remove() and mma8452_interrupt(), by calling
+  free_irq() before pm_runtime_disable() instead of after.
+- Fix mixing of guards and goto in mma8452_runtime_suspend(). Using guards
+  will be re-introduced later on, when mixing can be avoided.
+- Link to v8: https://patch.msgid.link/20260907-mma8452-open-drain-v8-0-c17407e22118@geanix.com
+
+Changes in v8:
+- Move patch 7 (with Fixes: ...) to go before the non-fixes patches.
+- Rebased from v7.3-rc1 to current iio/togreg branch.
+- Drop patch 8 (identical patch from Sanjay Chitroda already in togreg
+  branch).
+- Add new patch fixing a strangely extra indentation of a comment block.
+- Add new patch adding documentation for struct mma8452_data.
+- Move patch 4 to last in series, and rework the synchronization between
+  suspend/resume and interrupt handler.
+- Link to v7: https://patch.msgid.link/20260831-mma8452-open-drain-v7-0-22946812c928@geanix.com
+
+Changes in v7:
+- Use dev pointer directly in mma8452_runtime_suspend() also.
+- Move struct i2c_client *client definition to patch 4.
+- Drop patch 7 (Drop unneeded lock acquire on read).
+- Link to v6: https://patch.msgid.link/20260825-mma8452-open-drain-v6-0-9b252804ee80@geanix.com
+
+Changes in v6:
+- Prevent interrupt storm if runtime suspend fails to set the device in
+  standby mode by not setting suspended flag to true when failing to
+  activate standby mode and by ensuring PM counter is not leaked in
+  mma8452_interrupt().
+- Don't acquire data->lock in mma8452_read_raw().
+- Add fix for use-after-free in mma8452_probe() error path when CONFIG_PM
+  is enabled.
+- Fix (brown paper bug) build error introduced in v5.
+- Renamed label in mma8452_interrupt().
+- Add patch to return -ENODATA when missing device model information.
+- Link to v5: https://patch.msgid.link/20260819-mma8452-open-drain-v5-0-d8aa590d7c36@geanix.com
+
+Changes in v5:
+- Squashed dev_err_probe() call to one line.
+- Fixed typo in patch 2 title.
+- Added synchronization between runtime suspend and interrupt handler.
+- Link to v4: https://patch.msgid.link/20260812-mma8452-open-drain-v4-0-bfca15d02b59@geanix.com
+
+Changes in v4:
+- Fixed interrupt handler to check runtime PM status before trying to
+  access the chip.
+- Split open-drain support and interrupt sharing into separate patches.
+- Added new patch to reuse existing struct device * through mma8452_probe()
+  function.
+- Print warning message when irq type is not set by firmware.
+- Link to v3: https://patch.msgid.link/20260805-mma8452-open-drain-v3-0-6149f406a409@geanix.com
+
 Changes in v3:
- - This version supersedes the narrower diff Tung Quang Nguyen
-   posted in-thread on 2026-09-23 (replying to v2 1/2, Message-ID
-   DU4P189MB3750BEF36FF7EEBA03E152FFC6822@DU4P189MB3750.EURP189.PROD.OUTLOOK.COM).
-   v3 keeps his teardown order and adds the lookup refusal and the
-   empty-idr unlock.
- - Drop v2 2/2; the idr walk rewrite is not needed once in-flight
-   work is flushed first.
- - v2 Link: https://lore.kernel.org/all/cover.1789960909.git.xuyuqiabc@gmail.com/
+- Reordered patches, swapping #2 and #3.
+- Always add IRQF_SHARED flag.
+- New patch to change it so IQRF_TRIGGER_LOW flag is only added when no
+  trigger type is set by firmware.
+- Link to v2: https://patch.msgid.link/20260715-mma8452-open-drain-v2-0-95be9f5f4795@geanix.com
 
 Changes in v2:
- - Add the exact reproduction command and the stack traces we observe
-   to this changelog, as requested by Tung Quang Nguyen.
- - v1 Link: https://lore.kernel.org/all/cover.1789722780.git.xuyuqiabc@gmail.com/
+- Commit message of patch 2 updated.
+- Operator precedence bug fixed in flags argument to
+  request_threaded_irq().
+- Always check return value of mma8452_set_interrupt_pin_mode(), and just
+  check for non-zero value.
+- Added new patch with optimization of struct mma8452_data ordering.
+- Link to v1: https://patch.msgid.link/20260715-mma8452-open-drain-v1-0-b1dd2a440c60@geanix.com
 
- net/tipc/topsrv.c | 80 ++++++++++++++++++++++++++++++++++++++---------
- 1 file changed, 65 insertions(+), 15 deletions(-)
+To: Jonathan Cameron <jic23@kernel.org>
+To: Lars-Peter Clausen <lars@metafoo.de>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Martin Kepplinger <martink@posteo.de>
+To: Sean Nyekjaer <sean@geanix.com>
+To: David Lechner <dlechner@baylibre.com>
+To: Nuno Sá <nuno.sa@analog.com>
+To: Andy Shevchenko <andy@kernel.org>
+To: Martin Kepplinger <martin.kepplinger@theobroma-systems.com>
+To: Christoph Muellner <christoph.muellner@theobroma-systems.com>
+Cc: linux-iio@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
 
-diff --git a/net/tipc/topsrv.c b/net/tipc/topsrv.c
-index af530c9ed840..82e9f44e2fe4 100644
---- a/net/tipc/topsrv.c
-+++ b/net/tipc/topsrv.c
-@@ -55,7 +55,7 @@
- /**
-  * struct tipc_topsrv - TIPC server structure
-  * @conn_idr: identifier set of connection
-- * @idr_lock: protect the connection identifier set
-+ * @idr_lock: protect the connection identifier set and listener
-  * @idr_in_use: amount of allocated identifier entry
-  * @net: network namespace instance
-  * @awork: accept work item
-@@ -218,6 +218,10 @@ static struct tipc_conn *tipc_conn_lookup(struct tipc_topsrv *s, int conid)
- 	struct tipc_conn *con;
- 
- 	spin_lock_bh(&s->idr_lock);
-+	if (!s->listener) {
-+		spin_unlock_bh(&s->idr_lock);
-+		return NULL;
-+	}
- 	con = idr_find(&s->conn_idr, conid);
- 	if (!connected(con) || !kref_get_unless_zero(&con->kref))
- 		con = NULL;
-@@ -301,10 +305,20 @@ static void tipc_conn_send_to_sock(struct tipc_conn *con)
- static void tipc_conn_send_work(struct work_struct *work)
- {
- 	struct tipc_conn *con = container_of(work, struct tipc_conn, swork);
-+	struct tipc_topsrv *srv;
-+
-+	srv = con->server;
-+	spin_lock_bh(&srv->idr_lock);
-+	if (!srv->listener) {
-+		spin_unlock_bh(&srv->idr_lock);
-+		goto out;
-+	}
-+	spin_unlock_bh(&srv->idr_lock);
- 
- 	if (connected(con))
- 		tipc_conn_send_to_sock(con);
- 
-+out:
- 	conn_put(con);
- }
- 
-@@ -334,8 +348,14 @@ void tipc_topsrv_queue_evt(struct net *net, int conid,
- 	list_add_tail(&e->list, &con->outqueue);
- 	spin_unlock_bh(&con->outqueue_lock);
- 
--	if (queue_work(srv->send_wq, &con->swork))
--		return;
-+	spin_lock_bh(&srv->idr_lock);
-+	if (srv->listener) {
-+		if (queue_work(srv->send_wq, &con->swork)) {
-+			spin_unlock_bh(&srv->idr_lock);
-+			return;
-+		}
-+	}
-+	spin_unlock_bh(&srv->idr_lock);
- err:
- 	conn_put(con);
- }
-@@ -346,14 +366,20 @@ void tipc_topsrv_queue_evt(struct net *net, int conid,
-  */
- static void tipc_conn_write_space(struct sock *sk)
- {
-+	struct tipc_topsrv *srv;
- 	struct tipc_conn *con;
- 
- 	read_lock_bh(&sk->sk_callback_lock);
- 	con = sk->sk_user_data;
- 	if (connected(con)) {
--		conn_get(con);
--		if (!queue_work(con->server->send_wq, &con->swork))
--			conn_put(con);
-+		srv = con->server;
-+		spin_lock_bh(&srv->idr_lock);
-+		if (srv->listener) {
-+			conn_get(con);
-+			if (!queue_work(srv->send_wq, &con->swork))
-+				conn_put(con);
-+		}
-+		spin_unlock_bh(&srv->idr_lock);
- 	}
- 	read_unlock_bh(&sk->sk_callback_lock);
- }
-@@ -418,8 +444,17 @@ static int tipc_conn_rcv_from_sock(struct tipc_conn *con)
- static void tipc_conn_recv_work(struct work_struct *work)
- {
- 	struct tipc_conn *con = container_of(work, struct tipc_conn, rwork);
-+	struct tipc_topsrv *srv;
- 	int count = 0;
- 
-+	srv = con->server;
-+	spin_lock_bh(&srv->idr_lock);
-+	if (!srv->listener) {
-+		spin_unlock_bh(&srv->idr_lock);
-+		goto out;
-+	}
-+	spin_unlock_bh(&srv->idr_lock);
-+
- 	while (connected(con)) {
- 		if (tipc_conn_rcv_from_sock(con))
- 			break;
-@@ -430,6 +465,7 @@ static void tipc_conn_recv_work(struct work_struct *work)
- 			count = 0;
- 		}
- 	}
-+out:
- 	conn_put(con);
- }
- 
-@@ -438,6 +474,7 @@ static void tipc_conn_recv_work(struct work_struct *work)
-  */
- static void tipc_conn_data_ready(struct sock *sk)
- {
-+	struct tipc_topsrv *srv;
- 	struct tipc_conn *con;
- 
- 	trace_sk_data_ready(sk);
-@@ -445,9 +482,14 @@ static void tipc_conn_data_ready(struct sock *sk)
- 	read_lock_bh(&sk->sk_callback_lock);
- 	con = sk->sk_user_data;
- 	if (connected(con)) {
--		conn_get(con);
--		if (!queue_work(con->server->rcv_wq, &con->rwork))
--			conn_put(con);
-+		srv = con->server;
-+		spin_lock_bh(&srv->idr_lock);
-+		if (srv->listener) {
-+			conn_get(con);
-+			if (!queue_work(srv->rcv_wq, &con->rwork))
-+				conn_put(con);
-+		}
-+		spin_unlock_bh(&srv->idr_lock);
- 	}
- 	read_unlock_bh(&sk->sk_callback_lock);
- }
-@@ -503,8 +545,12 @@ static void tipc_topsrv_listener_data_ready(struct sock *sk)
- 
- 	read_lock_bh(&sk->sk_callback_lock);
- 	srv = sk->sk_user_data;
--	if (srv)
--		queue_work(srv->rcv_wq, &srv->awork);
-+	if (srv) {
-+		spin_lock_bh(&srv->idr_lock);
-+		if (srv->listener)
-+			queue_work(srv->rcv_wq, &srv->awork);
-+		spin_unlock_bh(&srv->idr_lock);
-+	}
- 	read_unlock_bh(&sk->sk_callback_lock);
- }
- 
-@@ -700,23 +746,27 @@ static void tipc_topsrv_stop(struct net *net)
- 	struct tipc_conn *con;
- 	int id;
- 
-+	spin_lock_bh(&srv->idr_lock);
-+	srv->listener = NULL;
-+	spin_unlock_bh(&srv->idr_lock);
-+	tipc_topsrv_work_stop(srv);
-+
- 	spin_lock_bh(&srv->idr_lock);
- 	for (id = 0; srv->idr_in_use; id++) {
- 		con = idr_find(&srv->conn_idr, id);
- 		if (con) {
--			conn_get(con);
- 			spin_unlock_bh(&srv->idr_lock);
- 			tipc_conn_close(con);
--			conn_put(con);
- 			spin_lock_bh(&srv->idr_lock);
-+			continue;
- 		}
-+		spin_unlock_bh(&srv->idr_lock);
-+		spin_lock_bh(&srv->idr_lock);
- 	}
- 	__module_get(lsock->ops->owner);
- 	__module_get(lsock->sk->sk_prot_creator->owner);
--	srv->listener = NULL;
- 	spin_unlock_bh(&srv->idr_lock);
- 
--	tipc_topsrv_work_stop(srv);
- 	sock_release(lsock);
- 	idr_destroy(&srv->conn_idr);
- 	kfree(srv);
--- 
-2.55.0
+---
+Esben Haabendal (10):
+      dt-bindings: iio: accel: mma8452: Add drive-open-drain
+      iio: accel: mma8452: Fix use-after-free bug in error error path
+      iio: accel: mma8452: Fix runtime PM bugs in mma8452_read()
+      iio: accel: mma8452: Optimize struct mma8452_data member orders
+      iio: accel: mma8452: Only apply trigger type when not set by firmware
+      iio: accel: mma8452: Fix unintended comment indent
+      iio: accel: mma8452: Add comment block for struct mma8452_data
+      iio: accel: mma8452: Allow open drain interrupt pin configuration
+      iio: accel: mma8452: Use proper error code when missing device model
+      iio: accel: mma8452: Support interrupt sharing
+
+ .../devicetree/bindings/iio/accel/fsl,mma8452.yaml |   6 +
+ drivers/iio/accel/mma8452.c                        | 217 ++++++++++++++++-----
+ 2 files changed, 177 insertions(+), 46 deletions(-)
+---
+base-commit: e5b9e42a20392b669097c8c4aa09c3aed82ba10c
+change-id: 20250401-mma8452-open-drain-81577c41375c
+
+Best regards,
+--  
+Esben Haabendal <esben@geanix.com>
 
