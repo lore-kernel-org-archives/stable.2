@@ -1,161 +1,229 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FFB73DA7FF;
-	Mon, 28 Sep 2026 12:29:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B507C3D16FC
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 12:29:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790598566; cv=none; b=BANGIcXtiPgmntBNhmBD/4OjSG39eyEByG7fOyRcs94abPh2qvWedyGgCHwxkWfH42PhOicfD+NN6QaMyH+qXh0dB9Ny04kx1Iu/CC1M62dRLfE7Lg7jPHpqfuyoO3KFiIN9sqMWAbnmN26fy9fRNb3twRcRsPmVWehm/JTLcpU=
+	t=1790598597; cv=none; b=IoULtGWT1u31h54FsrzEDGqRNiTNH9ysf6Cw1w/JKvJcfcBRKWWIlI7wSTCy3tO3QM1tfdcWJMkg93boA0RCZIJfDu37o98k1AZOE7YTl0sn3+vaJQPBakNpvWQR+4051nVPvTvdngN+b9p71BSCGScgf93ThZm9O87b8zOv8nc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790598566; c=relaxed/simple;
-	bh=lkuepaZa13J5l4gWNouNE5EwAE/GWbHv2BVXt5TcBms=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BwQoOkk2Je5Z4zNNWumFyM4GZAf48JH0sWFTfDDXW+LvWdS5UhdLgWynJ9iikKZoV6QK+bfFT7MtYHi2urL7zEHlwpDtO5ysMvvwQN2f59mWFGxaDU9ktZWIZnCH4vhGdDm/8J2PaHO9Nb8H7ZcJQInioIFg76Qi8GNRomU71Po=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=e7qlTRnS; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1790598597; c=relaxed/simple;
+	bh=op89+ZScDK45ZM/MqsArAmHRw609uQCZI0HYVALP0Mk=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=b4paPnq2vpCbr4V67CooPpDxyuR+2LGSM+YK/TvKYv7npGtYeP9uE+tmizCilXaBaVm+GoehQ/RqSt+JN9b6NxRiILlxwdImW1visbX9dFyITlES1rbAWJyhSrwY8ccg2RkLeYKwbw0Nhkx83PV9w74LRplrejwQbRnaWMWPI3o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ULm6qVx/; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=hkbpztlc; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=MihcKZa4; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=IO9VdcBK; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="e7qlTRnS"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68SBZW4K3971195;
-	Mon, 28 Sep 2026 12:29:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=2Y2Ubg
-	dV+77CAyq+MVK/R24FHgPjixP/AxA2RLOoCjo=; b=e7qlTRnSkaXHbePaVmfJ6e
-	y9UarR2qc3YUr1O1JfHFEf/BLM4k+6vU1SWSYt7ir3+QKfW/JjtnoEnSp4DxIEhy
-	tOiHvYfAPKQh5WIxtmlmUf1K0VY1SDkc2yMEUaNSJm+b9+iw/3hPXDNIkBHFOOa9
-	ZsRwNLwfpfdu5ufMAGJNeZ2AkxmZ+RSQDrBkOnMihV1Wv3zHL0Ri3z92BucuLcaI
-	zTn4RM+qAFOiOEuRk6LTJIPtznj7MNnrshHQ8li5meUUO8i84IxqsSb/6ojD7bZ5
-	4Yinl4TsTwEgeJaef6UkfPM9KNMo2zDFNrEKJBjj/8Z8lt/0NjR3be1Ef5EdlmrQ
-	==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx4fe0yjb-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 28 Sep 2026 12:29:09 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68SBHX9R069407;
-	Mon, 28 Sep 2026 12:29:08 GMT
-Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gxrcpnawc-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 28 Sep 2026 12:29:08 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
-	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68SCT4eP17236386
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 28 Sep 2026 12:29:04 GMT
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id BF4A420049;
-	Mon, 28 Sep 2026 12:29:04 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 93B0B20040;
-	Mon, 28 Sep 2026 12:29:00 +0000 (GMT)
-Received: from localhost.localdomain (unknown [9.124.213.32])
-	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 28 Sep 2026 12:29:00 +0000 (GMT)
-From: Amit Machhiwal <amachhiw@linux.ibm.com>
-To: Madhavan Srinivasan <maddy@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org
-Cc: Amit Machhiwal <amachhiw@linux.ibm.com>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        Michael Ellerman <mpe@ellerman.id.au>,
-        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-        Shrikanth Hegde <sshegde@linux.ibm.com>, kvm-ppc@vger.kernel.org,
-        kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Gautam Menghani <gautam@linux.ibm.com>,
-        Harsh Prateek Bora <harshpb@linux.ibm.com>,
-        R Nageswara Sastry <rnsastry@linux.ibm.com>,
-        Alexander Graf <agraf@suse.de>, linux-hardening@vger.kernel.org,
-        stable@vger.kernel.org, Avi Kivity <avi@redhat.com>
-Subject: [RESEND PATCH 3/3] KVM: PPC: Fix get_d_signext() 12-bit displacement for paired-single D-form
-Date: Mon, 28 Sep 2026 17:58:37 +0530
-Message-ID: <20260928122837.8782-4-amachhiw@linux.ibm.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260928122837.8782-1-amachhiw@linux.ibm.com>
-References: <20260928122837.8782-1-amachhiw@linux.ibm.com>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ULm6qVx/";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="hkbpztlc";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="MihcKZa4";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="IO9VdcBK"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id D72E71FB68;
+	Mon, 28 Sep 2026 12:29:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790598581; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=s/Z7nkODf7QbjYm9KVa0w/NPFgqtLB07eKXTBzj1Igk=;
+	b=ULm6qVx/2mSj7XK1k95Yfs2e7GbIKiPUsZ6js+DXpx9OiCvvklih18dzaEqaZVFEmgvhxI
+	9xUGKQRt6uKG2PcTcWvK6BsHImb6bapWL4V7pQV/w92prQe8ckHZXHqnBZg3RTni1S/pC6
+	IYKDB0XfJ9nw/8zbNEokPVU8Na/R80s=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790598581;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=s/Z7nkODf7QbjYm9KVa0w/NPFgqtLB07eKXTBzj1Igk=;
+	b=hkbpztlcJwAkYQc0AVSrdcl12/RvzHP5rcivy+UrWQt8H42S3zGHikjkLA3zj2hlR9nDmL
+	ryuofTyHnqj0xpDg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790598576; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=s/Z7nkODf7QbjYm9KVa0w/NPFgqtLB07eKXTBzj1Igk=;
+	b=MihcKZa48mr7b8sbHqQPIdIQ0oGH70lhHLwzIlTueIyvY3/L2vBpyNHGuzSpvXJ21yttqs
+	eNBVEvq5whCArDK9GrCA6B5qZMRGaysk6psLNwAdYCoBKKufeZfun3yHTyclXA06wIsewA
+	oGF4o6Wzv1WuF8Y+arotqQ/Jy2UOL8k=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790598576;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=s/Z7nkODf7QbjYm9KVa0w/NPFgqtLB07eKXTBzj1Igk=;
+	b=IO9VdcBKTZhDkgoGTXZu+lDsO+NDhHUvibHrYVXA4xnN9YUBNhr84QlYNZMaF7D3pGkpGm
+	qQk2Rquin0JTVEBA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 56FF0133F1;
+	Mon, 28 Sep 2026 12:29:36 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id m4//CbBdumoaewAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 28 Sep 2026 12:29:36 +0000
+Date: Mon, 28 Sep 2026 14:29:35 +0200
+Message-ID: <87fqyt5zkg.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jared Wuerzburger <jwuerz@gmail.com>
+Cc: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Samuel Dionne-Riel <samuel@dionne-riel.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ALSA: hda/realtek: Fix internal mic on Minisforum V3 and V3 SE
+In-Reply-To: <20260927173237.339476-1-jwuerz@gmail.com>
+References: <20260927173237.339476-1-jwuerz@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=FYWiV5+6 c=1 sm=1 tr=0 ts=6aba5d95 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=WFAfMJoNLMmZCboqhGUA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA0OCBTYWx0ZWRfX2P2BRo1CjjVg
- zWyzmgOJwwPMAt/G9F+rhyITKaHfkTjJQFBsxfv6mOcJmn7/As7ygt2sskVmLrLskz9xfjnxWcP
- LSyTg+UhjNnS/w5a8WsfX89WLJULIa8=
-X-Proofpoint-ORIG-GUID: QeW55F1-NeXaPWm6KxJ_mgznFsazK91V
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA0OCBTYWx0ZWRfX5mY1ak6FMoL2
- OrhPNIwFxQg1BRKRzhHkugITgX+11x6f5JwTinqHbKHu/u7LoOXNa3Cpbj/FVROhrwfNQJHRR/D
- NIctN4d+BT1sdUb6h8CDNJc41r1o6iW0fDxiue4RdfIue23YmZ+KORekZk8dUi1264iGYBlSa4D
- V3ab2mz3purUBauZpq7MYKTeGFHa5Aip5dI9KJyfCGsOMz/bW1aamN9F7+LtE9idJxDsgc6ec3C
- l0KRfPH9I3KmBScfed/9Wxc0tZzPjbkbMQ4RLbCwT5UqsoqP4hrNNqs7xjkUBrj1phPpWq53bCd
- FSvpdEN/JRsRzZ6naB9eb6LJ+z51gvTCpArmgp3zccNZjJyLvcwH1NNf2hl2IZ+kssexMwG/OtN
- bqPWytrKRdWtA/eXov1ddCk5594QiN/THcFn+7L65KX86aFAKx9S5DwECnEhJp/T+TdqJGa3wVT
- tDFr0K+RhYWa3awz+8g==
-X-Proofpoint-GUID: wNslpQ4PfKg_tBauqa648K6_t9rDmket
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-28_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 impostorscore=0 spamscore=0 phishscore=0
- priorityscore=1501 malwarescore=0 bulkscore=0 lowpriorityscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609280048
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Score: -3.30
+X-Spam-Level: 
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	ARC_NA(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid]
+X-Spam-Flag: NO
 
-get_d_signext() has two compounding bugs since its introduction in 2010:
+On Sun, 27 Sep 2026 19:32:37 +0200,
+Jared Wuerzburger wrote:
+> 
+> On the Minisforum V3 and V3 SE (ALC245, PCI SSID 1f4c:e001) the
+> internal digital microphone array never produces any audio. The DMIC
+> pin 0x12 is parsed correctly ("Internal Mic=0x12"), but the headset mic
+> jack pin 0x19 (BIOS pin config 0x04a19050, jack detect enabled) has no
+> presence detect wired on these boards: reading GET_PIN_SENSE on 0x19
+> always returns "present" (as it does on the unused, unconnected pin
+> 0x18), while the headphone jack 0x21 reports correctly.
+> 
+> The generic parser therefore sets up auto-mic switching and, believing
+> an external mic is always plugged in, permanently routes the ADC to the
+> empty jack (mixer 0x23 input 0x19 unmuted, input 0x12 muted). The
+> "Mic Jack" kcontrol reports "on" with nothing plugged in.
+> 
+> Mark pin 0x19 as having no presence detect. The parser then stops
+> auto-switching and exposes a normal "Capture Source" (Internal Mic /
+> Mic) control, which desktop audio stacks drive from their Internal
+> Microphone / Microphone ports. The existing bass speaker DAC routing is
+> kept by chaining to ALC245_FIXUP_BASS_HP_DAC.
+> 
+> Tested on both models with the same pin config applied through a
+> snd-hda-intel patch firmware ([pincfg] 0x19 0x04a19150):
+>  - V3 SE (Ryzen 7 7735U, BIOS 1.03), kernel 7.2.6
+>  - V3 (Ryzen 7 8840U, BIOS 1.06), kernel 7.2.7
+> Both boards report the same codec SSID and the same 0x19 default. On
+> both, the internal mic records at a normal level, headphone jack
+> detection on 0x21 still switches output, and the bass routing is
+> retained (DAC1/DAC2 Playback Volume controls present). A headset mic
+> on the combo jack was not tested (none available); with this change it
+> has to be selected manually. V3 users already report that the jack mic
+> gets no input [1], which is the other symptom of the same broken
+> presence detect.
+> 
+> The patched alc269.c was build-tested with W=1 on tiwai/sound.git
+> for-linus (7.3-rc3) without new warnings.
+> 
+> The diagnosis, the fixup and this changelog were written with the help
+> of an AI coding assistant; I reviewed them and tested the change on the
+> hardware listed above.
+> 
+> Link: https://github.com/mudkipme/awesome-minisforum-v3/issues/14 [1]
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Jared Wuerzburger <jwuerz@gmail.com>
+> ---
+>  sound/hda/codecs/realtek/alc269.c | 14 +++++++++++++-
+>  1 file changed, 13 insertions(+), 1 deletion(-)
+> 
+> diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
+> index 5127a111c..2de91431f 100644
+> --- a/sound/hda/codecs/realtek/alc269.c
+> +++ b/sound/hda/codecs/realtek/alc269.c
+> @@ -4384,6 +4384,7 @@ enum {
+>  	ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN_HEADSET,
+>  	ALC285_LENOVO_DAC_RENAME,
+>  	ALC287_FIXUP_YOGA9_SPEAKER2_TO_DAC1,
+> +	ALC245_FIXUP_MINISFORUM_V3_MIC_NO_PRESENCE,
+>  };
+>  
+>  /* A special fixup for Lenovo C940 and Yoga Duet 7;
+> @@ -7136,6 +7137,15 @@ static const struct hda_fixup alc269_fixups[] = {
+>  		.chained = true,
+>  		.chain_id = ALC287_FIXUP_TXNW2781_I2C,
+>  	},
+> +	[ALC245_FIXUP_MINISFORUM_V3_MIC_NO_PRESENCE] = {
+> +		.type = HDA_FIXUP_PINS,
+> +		.v.pins = (const struct hda_pintbl[]) {
+> +			{ 0x19, 0x04a19150 }, /* headset mic jack, no presence detect */
+> +			{ }
+> +		},
+> +		.chained = true,
+> +		.chain_id = ALC245_FIXUP_BASS_HP_DAC
+> +	},
+>  };
+>  
+>  static const struct hda_quirk alc269_fixup_tbl[] = {
+> @@ -8349,7 +8359,8 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+>  	SND_PCI_QUIRK(0x1ee7, 0x2081, "HONOR MRB-XXX M1020", ALC256_FIXUP_HONOR_MRB_XXX_M1020_AUDIO),
+>  	SND_PCI_QUIRK(0x1f4c, 0xb020, "Minisforum AI X1 Pro",
+>  		      ALC245_FIXUP_MINISFORUM_JACK_DETECT),
+> -	SND_PCI_QUIRK(0x1f4c, 0xe001, "Minisforum V3 (SE)", ALC245_FIXUP_BASS_HP_DAC),
+> +	SND_PCI_QUIRK(0x1f4c, 0xe001, "Minisforum V3 (SE)",
+> +		      ALC245_FIXUP_MINISFORUM_V3_MIC_NO_PRESENCE),
+>  	SND_PCI_QUIRK(0x1f66, 0x0105, "Ayaneo Portable Game Player", ALC287_FIXUP_CS35L41_I2C_2),
+>  	SND_PCI_QUIRK(0x2014, 0x800a, "Positivo ARN50", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
+>  	SND_PCI_QUIRK(0x2039, 0x0001, "Inspur S14-G1", ALC295_FIXUP_CHROME_BOOK),
+> @@ -8579,6 +8590,7 @@ static const struct hda_model_fixup alc269_fixup_models[] = {
+>  	{.id = ALC236_FIXUP_LENOVO_INV_DMIC, .name = "alc236-fixup-lenovo-inv-mic"},
+>  	{.id = ALC2XX_FIXUP_HEADSET_MIC, .name = "alc2xx-fixup-headset-mic"},
+>  	{.id = ALC245_FIXUP_BASS_HP_DAC, .name = "alc245-fixup-bass-hp-dac"},
+> +	{.id = ALC245_FIXUP_MINISFORUM_V3_MIC_NO_PRESENCE, .name = "alc245-minisforum-v3-mic"},
+>  	{.id = ALC256_FIXUP_HONOR_MRB_XXX_M1020_AUDIO, .name = "alc256-honor-mrb-xxx-m1020-audio"},
+>  	{.id = ALC287_FIXUP_LENOVO_LEGION_AW88399, .name = "alc287-lenovo-legion-aw88399"},
+>  	{}
 
-1. The extraction mask 0x8FF silently drops bits 8-10 of the 12-bit D
-   field (PPC ISA bits 21-23), corrupting any displacement that has any
-   of those bits set.
+The addition to alc269_fixup_models[] is nowadays superfluous.  Unless
+you need the addition inevitably, try to avoid it.
 
-2. The sign-magnitude idiom "-(d & 0x7ff)" is wrong for two's-complement:
-   for D=0xFFC (encoding of -4) it returns -252 instead of -4.
+The Assisted-by tag doesn't need to be specific, just telling
+"Assisted-by: LLM" is the preferred.
 
-Together these errors produce a wrong effective address for psq_l, psq_lu,
-psq_st, and psq_stu whenever the displacement is negative or is a positive
-value >= 0x100 with bits 8-10 set — essentially any real-world paired-
-single stack-relative access.
+Last but not least, as this is correcting the existing quirk, please
+point out the commit via Fixes tag, too.
 
-The D field occupies the bottom 12 bits of the instruction word (confirmed
-by the adjacent W and I extractions via inst_get_field(inst,16,16) and
-inst_get_field(inst,17,19)). Replace the open-coded logic with the standard
-sign_extend32(inst & 0xfff, 11), which correctly performs two's-complement
-sign extension from 12 bits to 32 bits.
+Could you resubmit with those corrections?
 
-Fixes: 831317b605e7 ("KVM: PPC: Implement Paired Single emulation")
-Cc: stable@vger.kernel.org
-Signed-off-by: Amit Machhiwal <amachhiw@linux.ibm.com>
----
- arch/powerpc/kvm/book3s_paired_singles.c | 7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
 
-diff --git a/arch/powerpc/kvm/book3s_paired_singles.c b/arch/powerpc/kvm/book3s_paired_singles.c
-index bc39c76c9d9f..532f96293de0 100644
---- a/arch/powerpc/kvm/book3s_paired_singles.c
-+++ b/arch/powerpc/kvm/book3s_paired_singles.c
-@@ -479,12 +479,7 @@ static bool kvmppc_inst_is_paired_single(struct kvm_vcpu *vcpu, u32 inst)
- 
- static int get_d_signext(u32 inst)
- {
--	int d = inst & 0x8ff;
--
--	if (d & 0x800)
--		return -(d & 0x7ff);
--
--	return (d & 0x7ff);
-+	return sign_extend32(inst & 0xfff, 11);
- }
- 
- static int kvmppc_ps_three_in(struct kvm_vcpu *vcpu, bool rc,
--- 
-2.54.0 (Apple Git-157)
+thanks,
 
+Takashi
