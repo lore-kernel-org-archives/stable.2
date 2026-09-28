@@ -1,34 +1,34 @@
 Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 841D74F93AA;
-	Mon, 28 Sep 2026 20:09:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE4734F85CC;
+	Mon, 28 Sep 2026 20:09:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790626195; cv=none; b=QrRt423nJcTUfa2YPjnLn21ihilHy+5qQO911L+btCUuFAH5rlnJ/cZvqBczlyLQsJ660uP4Hy44Goljj1/T/jKm5f7Z7fzx7LIifRoRpeDKPP1wzplZwXhHH8f/ZfuGqY4L6VnmcCvnuHxeO2N1UETH0cOlXfGNx2APl2aQZ0g=
+	t=1790626197; cv=none; b=rC6kIGzK4/vVGZNUEObFwC4nD7ZlWF47DDPd2/v7r9OtzwvpL5E4VBHPJkr7dCr/qsuWPJXtfiM572tAFKdOQ/rNCjteYFde2vGlMc1SQ9h2ot/Ifp+rYHT3s2Y8iM8rS8lrDu1DikbdHWycQKc8qJmOBXIkvUmaWn4imRaqPns=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790626195; c=relaxed/simple;
-	bh=XtgXPbvqvMQ+hskJ2r57H4SaGe5VnYQZyYwLVvA6JTU=;
+	s=arc-20240116; t=1790626197; c=relaxed/simple;
+	bh=MkTWHYtdREfXfoaFmZk0vo5wqTOOBFz2LrAvw/Gl0Fw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CMEAGwABHE3Q7303YaqhOank+oAjbkDNzPKTDDfa5MJgu1sQ/Vp00flSk8D3Te7v0PdGXLADZutSxYbOZPaDOccnN4U09I1NyQ+K+0vt2Zr+s+NB4LKvS+eTu/oBGQ/5/yXDYVo2Ueg4J1GWPsAJfNWxsvx55TMbMS8cNA3i88c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=74EjPrKZ; arc=none smtp.client-ip=143.255.12.172
+	 MIME-Version; b=FoWUsDI59WDkr6nI4JZIlhZiMsPZOwUtP6jBmxxLUNKVUuokk5tWVw9JasaUEzdoEwWYWPf8Gg79YBx7fwIdmv95vD/pNnQQ+H+ngP9dr8pZ/aftt+qk0i7gN8LUoY0QZQ4ndBsy8/IwPenk1IMfWETGKv8DieNDAbW4SWpzY+4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=cA/+/uWv; arc=none smtp.client-ip=143.255.12.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="74EjPrKZ"
+	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="cA/+/uWv"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=manguebit.org; s=dkim; h=Content-Transfer-Encoding:MIME-Version:References:
 	In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Content-Type:Reply-To:
 	Content-ID:Content-Description;
-	bh=V8ox/IuAOvkr7xPfizrxTLdqzpsg8oYewy1FzbkI+nw=; b=74EjPrKZjbky1PhZrdvZCoP8X6
-	tOvE0ieFWM98Mn1UB/FPimLFoGA7FQlwmDD0D5b0zxjW1JTeWVyRRZxI9OArV7TXZtlr2By+Gojnf
-	3YnHmYO7MMDq7ReNRGZhD+ISZqyAn/fjsorJOpG0C+TDFY1xkFesm1ZkXCDwq0orVDDe65aadkWGC
-	Od6fr2cv4c3mdqFbEQ/7mks8/PdoYD+JIYJuSOZu5w8JL2fV7c5XQlQvB6kQ9QqMdm/Co2ZoPYbQv
-	c9o0cAPVgVoUDxmgZLMFf3hWlG7fS9ci4Dg+vzq2dquFp91MOZ4JSeMM7c/ndEiE1555LT7viywCa
-	NUVS4h8A==;
+	bh=kX7TtGQjsAfZtKuoJoTCeQCJ9TeSpuavaoAnWuXEo+c=; b=cA/+/uWvfFUBOFoWtQi7kEpYB3
+	ejwy3g3j42vQzskQYdhDa0OkpVKvXhGsFkSzw5UlEGLK8UNcaG3EnPMFUeDeINrvQMVgyguPNhg7l
+	t/WZK9NVEzfzPZa1dpJmiwloW34a+mzMRnIl89eVqV+Swfpi2zZOn8Rllz8rWsCs7RDNZQs840Dtr
+	kU01iYvrU5TMS7cr7R1ybj14XvShlgrNsH4AGWLberwmg89hzt2FZFqYJRJztqplWR++h7cNUmBDB
+	8iRquzzbp02M9dhc89bFH/C2RmizCDgxAgw0h+2hxMaTvWy51GGYyXwzHDOnVc7vIYHcEhL55gsgM
+	/QmfACVw==;
 Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
-	id 1xBHfN-00000002UJb-2xoV;
-	Mon, 28 Sep 2026 17:09:37 -0300
+	id 1xBHfK-00000002UIx-3wXr;
+	Mon, 28 Sep 2026 17:09:34 -0300
 From: Paulo Alcantara <pc@manguebit.org>
 To: linux-cifs@vger.kernel.org,
 	netfs@lists.linux.dev
@@ -41,9 +41,9 @@ Cc: Christian Brauner <brauner@kernel.org>,
 	Tom Talpey <tom@talpey.com>,
 	Bharath SM <bharathsm@microsoft.com>,
 	stable@vger.kernel.org
-Subject: [PATCH 09/15] smb: client: drain and invalidate before server-side copy/clone
-Date: Mon, 28 Sep 2026 17:09:28 -0300
-Message-ID: <20260928200934.1040189-10-pc@manguebit.org>
+Subject: [PATCH 01/15] netfs: clear post-EOF pagecache when extending a file via write
+Date: Mon, 28 Sep 2026 17:09:20 -0300
+Message-ID: <20260928200934.1040189-2-pc@manguebit.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260928200934.1040189-1-pc@manguebit.org>
 References: <20260928200934.1040189-1-pc@manguebit.org>
@@ -55,38 +55,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-cifs_file_copychunk_range() and the clone (FICLONE) path of
-cifs_remap_file_range() do not serialise the destination page cache
-against the server-side copy the way the other server-side range
-operations (smb3_zero_range(), smb3_punch_hole(), smb3_collapse_range()
-and smb3_insert_range()) do.
+Fix netfs to erase the contents of a hole created after the EOF by an
+ordinary write if dirty data has been previously left there by writes
+through an mmapped region.  Neither the buffered nor the unbuffered/DIO
+write path clears that stale pagecache.
 
-cifs_file_copychunk_range() invalidates the destination range with
-filemap_invalidate_inode(), which takes and drops the mapping's
-invalidate_lock internally, so the lock is no longer held when the
-copychunk ioctl is issued.  It also never drains in-flight netfs I/O on
-the target.  The clone path never takes the invalidate_lock at all (only
-i_rwsem), uses a bare truncate_inode_pages_range() and likewise does not
-drain outstanding I/O.
+Zero the tail of the folio straddling the EOF before an extending
+write.  That is the only folio that can hold data written past the EOF
+through an mmap, as pages wholly beyond the EOF can't be faulted in.
+The folio is zeroed rather than dropped so a concurrent extending write
+can't lose data.
 
-As a result an asynchronous destination writeback can complete after the
-server-side copy/clone has run and reinstate stale data over the region
-just written by the server, corrupting the file.  This is the same class
-of corruption as commit d7d2adcd022b ("smb/client: flush dirty data
-before punching a hole") and has been seen randomly in generic/363
-against Windows Server.
+Both write paths downgrade the i_rwsem to shared, so extending writes
+can run concurrently and the i_size read by the caller may be stale by
+the time the folio is locked.  Re-read i_size under the folio lock and
+clamp the zeroed range up to it, so a racing write that already put
+data into the folio isn't clobbered.
 
-Fix both paths to follow the established ordering: hold the target
-mapping's invalidate_lock across the flush and invalidation of the
-destination and the server ioctl, and call netfs_wait_for_outstanding_io()
-on the target to drain in-flight writes before the ioctl is issued.  Only
-the target inode's invalidate_lock is required, as the source is merely
-flushed and not invalidated; i_rwsem (already held via
-lock_two_nondirectories()) is acquired before the invalidate_lock,
-matching the VFS lock ordering.
+Wait for any writeback on the folio to finish before zeroing it so that
+the pagecache isn't modified while it may still be read by the transport
+during transmission.  Honour IOCB_NOWAIT by returning -EAGAIN rather
+than blocking on the folio lock, on writeback, or in folio_mkclean()'s
+rmap walk when the folio is mapped.
 
-Fixes: 8101d6e112e2 ("cifs: Fix copy offload to flush destination region")
-Fixes: c54fc3a4f375 ("cifs: Fix flushing, invalidation and file size with FICLONE")
+truncate_pagecache() can't be used here: it must be called with the
+i_rwsem held exclusively, but these write paths only hold it shared,
+and it would block unconditionally, breaking IOCB_NOWAIT.
+
+Export the helper so filesystems can clear the same stale data from
+their own truncate paths.
+
+This helper is required by the CIFS client to fix generic/363.
+
+Closes: https://sashiko.dev/#/patchset/20260921230755.1133425-1-pc%40manguebit.org
+Fixes: 938e13a73b24 ("netfs: Implement buffered write API")
+Fixes: 153a9961b551 ("netfs: Implement unbuffered/DIO write support")
 Reviewed-by: David Howells <dhowells@redhat.com>
 Signed-off-by: Paulo Alcantara <pc@manguebit.org>
 Cc: Christian Brauner <brauner@kernel.org>
@@ -98,72 +101,195 @@ Cc: Tom Talpey <tom@talpey.com>
 Cc: Bharath SM <bharathsm@microsoft.com>
 Cc: stable@vger.kernel.org
 ---
- fs/smb/client/cifsfs.c | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
+ Documentation/filesystems/netfs_library.rst | 25 ++++++++
+ fs/netfs/buffered_write.c                   |  9 +++
+ fs/netfs/direct_write.c                     |  9 +++
+ fs/netfs/misc.c                             | 71 +++++++++++++++++++++
+ include/linux/netfs.h                       |  2 +
+ 5 files changed, 116 insertions(+)
 
-diff --git a/fs/smb/client/cifsfs.c b/fs/smb/client/cifsfs.c
-index 6410249f529a..a650c8022d0f 100644
---- a/fs/smb/client/cifsfs.c
-+++ b/fs/smb/client/cifsfs.c
-@@ -1412,6 +1412,7 @@ static loff_t cifs_remap_file_range(struct file *src_file, loff_t off,
- 	 * server could even support copy of range where source = target
- 	 */
- 	lock_two_nondirectories(target_inode, src_inode);
-+	filemap_invalidate_lock(target_inode->i_mapping);
+diff --git a/Documentation/filesystems/netfs_library.rst b/Documentation/filesystems/netfs_library.rst
+index ddd799df6ce3..f2f22076168c 100644
+--- a/Documentation/filesystems/netfs_library.rst
++++ b/Documentation/filesystems/netfs_library.rst
+@@ -451,6 +451,31 @@ one.
+ The inode should be marked ``NETFS_ICTX_SINGLE_NO_UPLOAD`` if this API is to be
+ used.  The writeback function requires the buffer to be of ITER_FOLIOQ type.
  
- 	if (len == 0) {
- 		loff_t src_size = i_size_read(src_inode);
-@@ -1475,6 +1476,7 @@ static loff_t cifs_remap_file_range(struct file *src_file, loff_t off,
- 	cifs_dbg(FYI, "about to discard pages %llx-%llx\n", fstart, fend);
- 	truncate_inode_pages_range(&target_inode->i_data,
- 				   min(fstart, i_size), fend);
-+	netfs_wait_for_outstanding_io(target_inode);
++Clearing Stale Post-EOF Pagecache
++---------------------------------
++
++When a file is extended, data left in the pagecache past the old EOF by a write
++through an mmap must not be exposed as file content.  Netfslib clears this on
++its own write paths, and exports a helper so a filesystem can do the same from,
++for instance, its truncate or fallocate paths::
++
++	int netfs_clear_stale_post_eof(struct inode *inode, uoff_t from,
++				       uoff_t to, bool nowait);
++
++This zeroes any such data within the ``[from, to)`` hole to be made, where @from
++is the current EOF.  Only the folio straddling @from can hold data written past
++the EOF through an mmap, as pages wholly beyond the EOF can't be faulted in, so
++the zeroing is limited to that folio and clamped to the top of the hole.  The
++folio is zeroed rather than dropped so that a concurrent extending write can't
++lose data.  If @nowait is set, it returns ``-EAGAIN`` rather than blocking.
++
++This overlaps with ``pagecache_isize_extended()`` but can't reuse it: that
++helper is keyed on a sub-page block size and is a no-op when the block size is
++``>= PAGE_SIZE`` (as on network filesystems), it runs after ``i_size`` has been
++updated, it can't honour a non-blocking caller, and it doesn't wait for
++writeback.  As both address the same problem, a change to one should probably be
++reflected in the other to keep them in sync.
++
+ High-Level VM API
+ ==================
  
- 	fscache_invalidate(cifs_inode_cookie(target_inode), NULL, i_size, 0);
+diff --git a/fs/netfs/buffered_write.c b/fs/netfs/buffered_write.c
+index 2cdb68e6b16f..cc0561f77bd0 100644
+--- a/fs/netfs/buffered_write.c
++++ b/fs/netfs/buffered_write.c
+@@ -469,6 +469,7 @@ ssize_t netfs_buffered_write_iter_locked(struct kiocb *iocb, struct iov_iter *fr
+ 					 struct netfs_group *netfs_group)
+ {
+ 	struct file *file = iocb->ki_filp;
++	struct inode *inode = file_inode(file);
+ 	ssize_t ret;
  
-@@ -1513,6 +1515,7 @@ static loff_t cifs_remap_file_range(struct file *src_file, loff_t off,
- 	if (rc)
- 		CIFS_I(target_inode)->time = 0;
- unlock:
-+	filemap_invalidate_unlock(target_inode->i_mapping);
- 	/* although unlocking in the reverse order from locking is not
- 	   strictly necessary here it is a little cleaner to be consistent */
- 	unlock_two_nondirectories(src_inode, target_inode);
-@@ -1565,6 +1568,7 @@ ssize_t cifs_file_copychunk_range(unsigned int xid,
- 	 * server could even support copy of range where source = target
- 	 */
- 	lock_two_nondirectories(target_inode, src_inode);
-+	filemap_invalidate_lock(target_inode->i_mapping);
+ 	trace_netfs_write_iter(iocb, from);
+@@ -481,6 +482,14 @@ ssize_t netfs_buffered_write_iter_locked(struct kiocb *iocb, struct iov_iter *fr
+ 	if (ret)
+ 		return ret;
  
- 	cifs_dbg(FYI, "about to flush pages\n");
++	if (iocb->ki_pos > i_size_read(inode)) {
++		ret = netfs_clear_stale_post_eof(inode, i_size_read(inode),
++						 iocb->ki_pos,
++						 iocb->ki_flags & IOCB_NOWAIT);
++		if (ret)
++			return ret;
++	}
++
+ 	return netfs_perform_write(iocb, from, netfs_group);
+ }
+ EXPORT_SYMBOL(netfs_buffered_write_iter_locked);
+diff --git a/fs/netfs/direct_write.c b/fs/netfs/direct_write.c
+index 2361277416c7..36c36bc6c9d2 100644
+--- a/fs/netfs/direct_write.c
++++ b/fs/netfs/direct_write.c
+@@ -359,6 +359,15 @@ ssize_t netfs_unbuffered_write_iter(struct kiocb *iocb, struct iov_iter *from)
+ 	ret = file_update_time(file);
+ 	if (ret < 0)
+ 		goto out;
++
++	if (iocb->ki_pos > i_size_read(inode)) {
++		ret = netfs_clear_stale_post_eof(inode, i_size_read(inode),
++						 iocb->ki_pos,
++						 iocb->ki_flags & IOCB_NOWAIT);
++		if (ret < 0)
++			goto out;
++	}
++
+ 	if (iocb->ki_flags & IOCB_NOWAIT) {
+ 		/* We could block if there are any pages in the range. */
+ 		ret = -EAGAIN;
+diff --git a/fs/netfs/misc.c b/fs/netfs/misc.c
+index f5c1c463f4ff..d93d8571c090 100644
+--- a/fs/netfs/misc.c
++++ b/fs/netfs/misc.c
+@@ -6,6 +6,7 @@
+  */
  
-@@ -1590,11 +1594,15 @@ ssize_t cifs_file_copychunk_range(unsigned int xid,
- 	 * Start at the old EOF when extending so the folio straddling it, which
- 	 * may hold data written past EOF through an mmap, is dropped too.
- 	 */
--	rc = filemap_invalidate_inode(target_inode, true,
--				      min(destoff, i_size_read(target_inode)),
--				      destoff + len - 1);
-+	rc = filemap_write_and_wait_range(target_inode->i_mapping,
-+					  min(destoff, i_size_read(target_inode)),
-+					  destoff + len - 1);
- 	if (rc)
- 		goto unlock;
-+	invalidate_inode_pages2_range(target_inode->i_mapping,
-+				      min(destoff, i_size_read(target_inode)) >> PAGE_SHIFT,
-+				      (destoff + len - 1) >> PAGE_SHIFT);
-+	netfs_wait_for_outstanding_io(target_inode);
+ #include <linux/swap.h>
++#include <linux/rmap.h>
+ #include "internal.h"
  
- 	fscache_invalidate(cifs_inode_cookie(target_inode), NULL,
- 			   i_size_read(target_inode), 0);
-@@ -1626,6 +1634,7 @@ ssize_t cifs_file_copychunk_range(unsigned int xid,
- 	CIFS_I(target_inode)->time = 0;
+ /**
+@@ -582,3 +583,73 @@ void netfs_wait_for_put_ra_refs(struct netfs_io_request *rreq)
+ 	trace_netfs_rreq(rreq, netfs_rreq_trace_waited_put_ra_refs);
+ 	finish_wait(&rreq->waitq, &myself);
+ }
++
++/**
++ * netfs_clear_stale_post_eof - Clear stale pagecache in a to-be-created hole
++ * @inode: The inode to act upon.
++ * @from: The base of the hole to be made (the current EOF).
++ * @to: The top of the hole to be made.
++ * @nowait: True to return -EAGAIN rather than block.
++ *
++ * Before extending a file, zero any data left in the pagecache within the
++ * [@from, @to) hole by a write through an mmap so that it isn't exposed as file
++ * content once the file is extended.  Only the uptodate folio straddling @from
++ * can hold such data as pages wholly beyond the EOF can't be faulted in, so the
++ * zeroing is limited to that folio.  The folio is zeroed rather than dropped so
++ * that a concurrent extending write can't lose data, and the zeroed range is
++ * clamped to the current EOF so it can't clobber data written by such a write.
++ *
++ * pagecache_isize_extended() can't be reused here: it is keyed on a sub-page
++ * block size (a no-op when the block size is >= PAGE_SIZE, as on network
++ * filesystems), runs after i_size is updated, can't honour @nowait, and
++ * doesn't wait for writeback.  Keep the two in sync if either is changed.
++ *
++ * Return: 0 on success, or -EAGAIN if @nowait is set and the folio is mapped
++ * or under writeback and so can't be cleaned without blocking.
++ */
++int netfs_clear_stale_post_eof(struct inode *inode, uoff_t from,
++			       uoff_t to, bool nowait)
++{
++	struct address_space *mapping = inode->i_mapping;
++	fgf_t fgp = FGP_LOCK;
++	struct folio *folio;
++	int ret;
++
++	if (from >= to)
++		return 0;
++
++	if (nowait)
++		fgp |= FGP_NOWAIT;
++
++	folio = __filemap_get_folio(mapping, from >> PAGE_SHIFT, fgp, 0);
++	if (IS_ERR(folio))
++		return PTR_ERR(folio) == -EAGAIN ? -EAGAIN : 0;
++
++	ret = 0;
++	if (nowait && (folio_mapped(folio) || folio_test_writeback(folio))) {
++		ret = -EAGAIN;
++		goto out;
++	}
++
++	folio_wait_writeback(folio);
++
++	if (folio_mkclean(folio))
++		folio_mark_dirty(folio);
++
++	if (folio_test_uptodate(folio)) {
++		uoff_t fpos = folio_pos(folio);
++
++		from = umax(from, i_size_read(inode));
++		if (from < to && from < fpos + folio_size(folio)) {
++			size_t end = umin(to - fpos, folio_size(folio));
++			size_t offset = from - fpos;
++
++			folio_zero_segment(folio, offset, end);
++		}
++	}
++out:
++	folio_unlock(folio);
++	folio_put(folio);
++	return ret;
++}
++EXPORT_SYMBOL(netfs_clear_stale_post_eof);
+diff --git a/include/linux/netfs.h b/include/linux/netfs.h
+index b4dd32863dd4..c7b2ac404853 100644
+--- a/include/linux/netfs.h
++++ b/include/linux/netfs.h
+@@ -397,6 +397,8 @@ ssize_t netfs_unbuffered_write_iter(struct kiocb *iocb, struct iov_iter *from);
+ ssize_t netfs_unbuffered_write_iter_locked(struct kiocb *iocb, struct iov_iter *iter,
+ 					   struct netfs_group *netfs_group);
+ ssize_t netfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from);
++int netfs_clear_stale_post_eof(struct inode *inode, uoff_t from,
++			       uoff_t to, bool nowait);
  
- unlock:
-+	filemap_invalidate_unlock(target_inode->i_mapping);
- 	/* although unlocking in the reverse order from locking is not
- 	 * strictly necessary here it is a little cleaner to be consistent
- 	 */
+ /* Single, monolithic object read/write API. */
+ void netfs_single_mark_inode_dirty(struct inode *inode);
 -- 
 2.55.0
 
