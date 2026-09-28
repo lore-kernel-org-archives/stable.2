@@ -1,77 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com [74.125.229.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5689B3859D4;
-	Mon, 28 Sep 2026 18:27:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6A163845DC
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 18:27:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790620021; cv=none; b=tdTfCD2fEs66hPA/94lp/5MqfEcxM62NEZQqkEndQjujAx3FJyEfZ8+nlULpvxkxHxwJYfmb7LqmUxrtYd0LpwQIDBhOO96ZCupeua9PbyV6mw09pE1l+V5pf+8hM4/fMe1ySPJegZS/CA010CYwT+GX+tyjb1wUJcB0HFR52G8=
+	t=1790620077; cv=none; b=s6QkqMXlWpN378hOJtXJ9EIIwBOXW6mTp+wQkmpL8JUYIlrSoHTjowQQub/ofGlqHOQcrOfryXnkre/sJDsehJnDneYJ2SH4wyQECtOtpVgoOUclASgHPXLT8UPwzlYjZRgiZ0TKTrb5HlfSA1b25e4kXiJgObPR5mHnKkQt3tA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790620021; c=relaxed/simple;
-	bh=A0ssjJSHEKjFlY7vJ1uT8qNAnt8roHHxq1uRpcA6jLA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rBK1/6Y4RvyNL9/iOML6/WT6HfC+gcn3Y8l0WeUirof9ck4PmM6huzIiin5dn99CJs/eZ/1mASX8UPk4qi6FeN3JQcUBhYaYbrBHkfMYOZyJaVhp9ZcpW8cMhTl0AMk8tZEELBC8RuYj6zWLn7uGA0/Zz6k8cH4s6WkVXm+IhlU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=chb2sgtz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790620077; c=relaxed/simple;
+	bh=lA+/qeQ/7Zd4GsOWrL7T4sQMQ721MJmAVOQwV+tc/4c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=UWrJDt7vyPNAcF1vDl1RdxUBhQt7vWSZOTU/IVOVELyUrgAwwwVlVPBVXVrotHppflByTLRXgbON3kvlZtj/Oi+4qJOh3xWID/Z8ZPNYjSXM/KF+GU9PhJ2cJP98ND5eH+YxCC8cyxD7Zd9zVHCZEqfyLIgAh9eoXCY0c0I9Q/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ae5BSqPT; arc=none smtp.client-ip=74.125.229.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="chb2sgtz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC2B81F000FF;
-	Mon, 28 Sep 2026 18:26:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790620019;
-	bh=5VWumWvvkifyy6k7ULM1njiBaWO9+JRGvzCFB/mqVVM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=chb2sgtzjjHiteg5Fn4N+gSYrHJGxly+hk6ZPdC/1GDZUnodh9BHgTV0hmYCq7pjy
-	 01dngRTC78Y4R9xQjHGHhmcNr46422wdeNxUkq9BJe+pZuc18YVYQsz/1Kj+w0nWD4
-	 i1BD+BJxj9Ux70rJ5CoJxXA8egSa1bPPObjZ3znEbFxKrRoGTvwcgUdg1ZxS1mGOGd
-	 l+YufaubCOz/RkKgU3BSi0lAKjh8FJfY94smu9byGSPG7HJiwPT/ZVCgG9ZYztvYqL
-	 4F1k5Kvjhh4vj/49RRCqEE/xZdN6vNuqsuzvkS3vjpVwcJVmeJPjstruv/aWGPzLWl
-	 zp7FgwfQ9f5Rw==
-Date: Mon, 28 Sep 2026 13:26:58 -0500
-From: Rob Herring <robh@kernel.org>
-To: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Cc: Saravana Kannan <saravanak@kernel.org>,
-	Frank Rowand <frowand.list@gmail.com>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Sashiko AI <sashiko-bot@kernel.org>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ae5BSqPT"
+Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-142dd04f7f2so2229379c88.0
+        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 11:27:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790620075; x=1791224875; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nZ+HoXc0R+NK0c3dnqJSfpL5GoUL8PlgcOM7DYKwAo8=;
+        b=ae5BSqPTIhZvyq0+XUTt+qfxQKZIfAQV6ruuLOrEd5WzP3Eww21WNpOu7SRGSKLAoD
+         8TdiW1HJIild+XDs4uCrvImrlcAgU6Ibvc2NO5jDu292ubL/OBIULGHSpaY+i7hPt+y9
+         ApxoMjxxnxzLmgdfCJW4hWeL2/2Dpkd6ItzCEjIM7rE7SvC3AN56BdV7k7s0ubxEYQuo
+         S6+uDnYxhtl90tilLBpLpNUtptjjoFM7kNTqut7uGJMfeoshR4rWAJI3VWOBpLss+7Ek
+         jsnKcmeiR7aIaI9SmO/2AdoLyVILgo/220ILDaBtZjExHJtp45tTHCffzhkHnQdHxhFV
+         R2zA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790620075; x=1791224875;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nZ+HoXc0R+NK0c3dnqJSfpL5GoUL8PlgcOM7DYKwAo8=;
+        b=e+pen9WagaQ9upaoGZoqQgRBkW5aJegtRYu6QSM6yr3CojiDf7BMgyzdNP0OxZ6MDA
+         /olCd6Q8Xn7l9u/AKmYqJxWy2YJ/PAsJmMjoiY/xyKcWwkvCkKAn/nUgm2z2ad7QWMTB
+         fxPcud9GoQ81j+f6JG2Xp/lB6jntLVKxoKVfZ1wlKFF0OjHemk8PItr3n//Iz1o/L4Lp
+         dUtnHkhsHp+V3r1Oszlj/YCsOgwgnPQ5HRcTVmJLAMbR5kXrY/7ckUPWKr1mvtRW47k+
+         dYUlmQvyIH4WMqvU4UgFhIZBSSBeX8C80++jPcSseGbJENOO47KdnBFJ7LHUtXXA8wjd
+         7XHg==
+X-Forwarded-Encrypted: i=1; AKwUvByXwgWATDdIu0CXS049whkSzjU5c6w1lp8xLi+7Z6aRKpea1NgzRfFmoHjnBy75YfiZV8aSUA4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kLdTh2A9OCNh5nqZqToSiI8ICBvI4J0jpSPOPSmMVIc3g+5kDr
+	MXXHH5/mZVyA0KHJV2gcg9AQxxbRcl+fEqsDuhUzHZz7caUHf+7X2S/3
+X-Gm-Gg: AYBFou0M8/2hD+FxbnHluh5E/N5oSavIr8rmnx1pnnIyf4OrquU7k2afBudlcpBde+r
+	NJXHnPR2IU3l37btVFvHPs4cd11X4IIoSeTfObda5wx9djqtLweeKaiWvi4HO+VEV4G4vO3o0ax
+	Pc/fNz6yVjLBqtofg7vX2hbNHH12zQcX7icv1gfhOGFGj1B0MNwHHD8gjCxSOIREXeSwXKIcXCl
+	ZzwJeQUhmTEfYp4Pfl3pE7Sa2fLRLpU2mfB79n0IOGsAfdOFgzaMdK8/xZm5jSKok9nj8bxXsJ/
+	nlS7+dSpNfQYZ1//MsNIPgnk13nb85AAo1NZ0FBPW0TTnI85ReT6Feyvw8dzL1hmVsHLOqUGYsr
+	e4h2FHYMQ0bhJFiT4JnlwJ4LtfqZUAb0Pw1YTnTGpMt7jt+XNKDkGVSYWAolJbT4TKDZ6wE94j3
+	nu0Du+3sWMTjVILF+fkH99oWO4c4LDPUYnUF8S4XVwUwvtiMPKJc0RxVyf/2Ku17CDAg==
+X-Received: by 2002:a05:7022:ff43:b0:13e:68c0:9d7c with SMTP id a92af1059eb24-146ce7780e7mr12379480c88.12.1790620073743;
+        Mon, 28 Sep 2026 11:27:53 -0700 (PDT)
+Received: from localhost ([8.219.239.189])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145acc45f03sm25484014c88.7.2026.09.28.11.27.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 11:27:53 -0700 (PDT)
+From: Dairui Zhang <zhangdairui@gmail.com>
+To: linux-nfs@vger.kernel.org
+Cc: Chuck Lever <cel@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Dairui Zhang <zhangdairui@gmail.com>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] of/overlay: don't pass the changeset's own id to
- of_overlay_remove()
-Message-ID: <20260928182658.GA185307-robh@kernel.org>
-References: <20260917-b4-of-overlay-remove-all-fix-v1-1-920441cecae2@nexthop.ai>
+Subject: [PATCH v2] nfsd: fix READ payload landing one page ahead of the XDR accounting
+Date: Tue, 29 Sep 2026 02:27:49 +0800
+Message-ID: <20260928182749.1835924-1-zhangdairui@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260927094535.1745224-1-zhangdairui@gmail.com>
+References: <20260927094535.1745224-1-zhangdairui@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917-b4-of-overlay-remove-all-fix-v1-1-920441cecae2@nexthop.ai>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 17, 2026 at 07:28:16PM -0700, Abdurrahman Hussain wrote:
-> of_overlay_remove_all() passes &ovcs->id to of_overlay_remove(), which
-> zeroes *ovcs_id once the changeset is reverted, before calling
-> free_overlay_changeset(). Through the aliased pointer that zeroes
-> ovcs->id itself, so free_overlay_changeset()'s "ovcs->id > 0" guard
-> is false and both idr_remove() and list_del() are skipped: the
-> overlay_changeset is kfree()d while still linked in ovcs_list and
-> registered in ovcs_idr.
-> 
-> Every overlay removed through of_overlay_remove_all() thus leaves a
-> dangling list node and idr entry behind. The next ovcs_list iteration
-> or idr lookup walks freed memory, and the ids are never returned to
-> the idr. Nothing in-tree calls of_overlay_remove_all() today, but it
-> is the documented API for removing every overlay in one go
-> (Documentation/devicetree/overlay-notes.rst), so any module user hits
-> this deterministically.
-> 
-> Pass a local copy of the id, like every other of_overlay_remove()
-> caller does.
+nfsd4_encode_readv() computes the in-page offset
+base = page_len & ~PAGE_MASK and passes it to nfsd_iter_read(),
+which writes the file data at that offset into *rq_next_page.
+After each operation rq_next_page is set to page_ptr + 1, so when
+the reply stream is mid-page the data lands one page ahead of where
+the payload accounting continues (in the current page at base).
+The client is then sent the stale tail of the current page -
+previous RPC payloads, since reply pages are reused without
+zeroing - instead of the file data: an info leak and corrupted
+READ results.
 
-If every caller passes a local and updating the value is not needed, 
-then we should just update the API to pass the value rather than a 
-reference.
+Trigger: any compound where a READ follows an op that left the
+stream mid-page, e.g. [PUTFH, READ(100), READ(N)] or READDIR+READ.
 
-Additionally, if there are no callers we should perhaps just remove the 
-API.
+Place the data in the page the accounting is filling,
+buf->pages[page_len >> PAGE_SHIFT], instead of one page ahead. At
+an exact page boundary page_ptr is the empty page after the last
+full one and page_ptr + 1 is one page too far, so this covers that
+case too.
 
-Rob
+Fixes: ed4a567a179e ("NFSD: Update rq_next_page between COMPOUND operations")
+Suggested-by: Chuck Lever <cel@kernel.org>
+Reported-by: Dairui Zhang <zhangdairui@gmail.com>
+Assisted-by: LLM
+Cc: stable@vger.kernel.org
+Signed-off-by: Dairui Zhang <zhangdairui@gmail.com>
+---
+v1 -> v2:
+- Use buf->pages[page_len >> PAGE_SHIFT] for rq_next_page instead of
+  page_ptr with an if (base) guard, per Chuck Lever's review: the
+  guard only covered the mid-page case, while at an exact page
+  boundary page_ptr is the empty page after the last full one and
+  page_ptr + 1 is already two pages past it. The new form matches
+  the accounting xdr_reserve_space_vec() extends.
+- v1: https://lore.kernel.org/linux-nfs/20260927094535.1745224-1-zhangdairui@gmail.com/
+
+From code reading only - I haven't runtime-tested it, and this is
+my first patch to this list. If I've misread the flow somewhere,
+please tell me.
+---
+ fs/nfsd/nfs4xdr.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/fs/nfsd/nfs4xdr.c b/fs/nfsd/nfs4xdr.c
+index 6a0a97d..e4b8285 100644
+--- a/fs/nfsd/nfs4xdr.c
++++ b/fs/nfsd/nfs4xdr.c
+@@ -4933,6 +4933,14 @@ static __be32 nfsd4_encode_readv(struct nfsd4_compoundres *resp,
+ 	__be32 zero = xdr_zero;
+ 	__be32 nfserr;
+ 
++	/*
++	 * The payload accounting continues at
++	 * pages[page_len >> PAGE_SHIFT]; write the data there, not one
++	 * page ahead.
++	 */
++	resp->rqstp->rq_next_page = xdr->buf->pages +
++				    (xdr->buf->page_len >> PAGE_SHIFT);
++
+ 	nfserr = nfsd_iter_read(resp->rqstp, read->rd_fhp, read->rd_nf,
+ 				read->rd_offset, &maxcount, base,
+ 				&read->rd_eof);
+-- 
+2.53.0
+
