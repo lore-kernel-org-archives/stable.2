@@ -1,167 +1,175 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+Received: from mail-oo2-f39.google.com (mail-oo2-f39.google.com [74.125.231.167])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0908A4F3927
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 17:05:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 289764EFFD7
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 17:14:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790615140; cv=none; b=nDm+1qiH8HoY0ypRRfDjQ8V2EwBZ8CLnK7hpXKNoYUScp6yxKpK1zDwEkOC9nOHa2oKK0gwOWpACVQJcuaSOsYCzl/B/ga+JbYFtvyAdm6QdpAdBvVriPC3rt2D9gzea6atiHbcTvIuP620Yz5uvabmjCzsz6LqQpfLGlXAGXWg=
+	t=1790615671; cv=none; b=ZRzF0x3CbyHDttBLqTnYYSGLRxWpgGaJwoOYcAxDDqbDgdKH8kGuXBIKKpmjGyUvLGilPR/twTkQJ7i3hyceYP6rDf1A9IlKrujPVF8ouW6xEnhgjaroyuXDfm+QW1VwwQYZFSAXZu1GYTQygb6o/KWeaFhTJb1swZNhlfLMDoU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790615140; c=relaxed/simple;
-	bh=Q8tvAWP6jumWUL42nIbZpr65seFVkU5veTcSD+6xbwI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nijyDX0Kq7GL8b29JsiXJzdd1xUMV0uppZz6wEaq5miYX/30gGjI6Syg9AFpRVC8Plp1BzXdxkbzud+IT2J0NVJ56moz/sYJBohI8TXkT+7nRw1MyqtQWTb3DWTtMlVganm+Lhpp0wlHxtQjUD96i42Hv39r4yJQ7dCI20+efQY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=wNNPIt+G; arc=none smtp.client-ip=209.85.214.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1790615671; c=relaxed/simple;
+	bh=tehroZN3KtgNHaPozWMKAR0G6Rqm8qcNfVMBdzcofAA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TH4z9Ee+Ti9ORj1htTno9GkCd4/hhJosu3nm+6J4yuOfUj1sRQ83OVjflslBNV9/blVbvtl9WWM2JtE/LkDb8pwuNNT+LaF3SOTr0unaXZjkEhNRNPfhiDS6k4Os6rrG4NLomE70H0Low/2JuWhy+ytx2GQpTgDU2/GNIPzoumk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RSYe76pQ; arc=none smtp.client-ip=74.125.231.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="wNNPIt+G"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2d8facae850so1895ad.0
-        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 10:05:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RSYe76pQ"
+Received: by mail-oo2-f39.google.com with SMTP id 006d021491bc7-6d8d3336db0so367220eaf.1
+        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 10:14:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790615138; x=1791219938; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ban7nhZo4CJqKpPDdVZLRncSMRaeOxomE1+tyNWWrJM=;
-        b=wNNPIt+GFacoYBYtokoiLi8p4Rx7Kc3b2gWlOD3Pctgbr1UnbUYG8Vgsq8OeUJL4rZ
-         yR5OYDQZ5uo21dKPw1NklErCJztdNF7l4vJeYOH5moiQt8EtnslvLbD5znYuD8YTnyUr
-         HLz/svizdOKePgg3e0seT0DOZcdm81P94qo9W9wXNSlBLWXVRt+HMJnB9rvYwuDtmzyZ
-         wa2lTOl8esGikAaLZ+INPepadooUX90atssLQLlf5kubSkRlTl9HFvCAFfxQqKL92Q5o
-         kL+qzmmHPWCcguBIcXBlmahKzHMKh5O7tB2YVomj6A/PoN8ZtpNFI/LL4UZjEjG9ufWE
-         zbGw==
+        d=gmail.com; s=20251104; t=1790615668; x=1791220468; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xvEKnO6S00JYk9QppCVl3/HoC/Fjv0c3U2lycj2T5RE=;
+        b=RSYe76pQcKyuu5SwzFTcq9kPXd5aZnRmnBdqyP37oa1QYRIwezgoUggFcywmCARuUh
+         QNX5EFvVezYqY/zog7oSBkjJ+oZwwp+7FbtXGuArILqdihTUsNToaxpqPCLbt8BdvR3o
+         WUsYujrYeLtBIqeP2Jo4bPWX+kn2+gLv++9cbP39uf+CWPJKxhQWdTRdCnmUUajvPuXT
+         zze27PdPtwVH91STO2I3kY5Beu+a01JvuwvmaK+5/dgFjoKO4ynwz6pboNsOYZ2X4Fwq
+         dSGzeiExPefZLx84Ux+67uNm7bFObLIvEy72bRYr2mrREP96UqdRLjksYQrmD0pig7/t
+         fBMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790615138; x=1791219938;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ban7nhZo4CJqKpPDdVZLRncSMRaeOxomE1+tyNWWrJM=;
-        b=Fb3cF1CkcuUgBvGExeIYKOv/Yua1qTCCjtsmf2yj41vu8aDgqtCL5ZeBbenv/UF2tv
-         LwJBQyfXzlhv359Fz1eiKhR0NO5dC+EQhQ5ovxk3JeooktMC05A8xYiLUikx4AYv/VpA
-         aEUHWW/zv43aATXYi8y+e+H9mw+hqeIahB2q7BzuAdTC89q27vbJ0dYjRCoyKjnYYogu
-         KmDCa6inAVvJxgQVLpPPA2DUG79Z+JGdleIGBk4UwcH9z9pHyvQOj6DRy4VqXlmrEl/+
-         QFSHwPT65PHG2O//0fMjnbZOorIlMWpTkNMvq5lJ0i3kch7TyZnYnU3sUHvFF/fP4/BB
-         PpHA==
-X-Forwarded-Encrypted: i=1; AKwUvBxea7wbSN4nFGzutxsMMmnokI56MdL2RMtTkKYdEN0VHKprvdYvRqUewPMm3T5YQkUGn+BPc1w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLELLxZr7X4uQQ0ssp644r/FLDINWiMK4Mc6QWDHmb73JWZY93k
-	Ov8gQOMsziDack9orALi6YGAFrnT7WbYIRj6kXzzLqX9rQ85AiPaRYCF/PW2ojcJAw==
-X-Gm-Gg: AYBFou0hnYHuVQtGd3HVFEL90IOu4l7INSYh9rqGX3V/adXHFtiFmNmbtXuktG/Uzmg
-	HFJFoDL4e3ozQUhyRmfnfRjbgo/nP77VA2CaWquYLZl32FZT8QzaSvyaVUZBO/GTFa5Jre+K4Sr
-	Yi0cECxfgiLOK8jmxaOT/Jxddw+modXucWRyN4oK+E0yPjCH+0TI40GGtwd4uz64TyBSTG1KVk6
-	uD6tLnlvM2V8YDqhsGKPSdSTKotTecX4RHMmHG6q/XuR7gVdmWVjHKkd8g4YqeRfXZgCbdn7ifL
-	Ip7Va2tm/OUv4sXWTRAJoDsKAUR1hxL3CdadrmoH7ZWNsC4NtdyaAucbLdSNd0ojQJZSZADAoLv
-	EuzIh8FNiWFImfoQoK/KbxdBSXstlD/4HscWXdufA5INfHVBmwTZZlchbCQ3lH/8irZ2RDAs3Ot
-	m72/VzK452Ahv9dmZRO/TpROemgD8Ox88K9/qSmo0PAtsdF0AJzuOO5eMsHCSl2UM9NvhbcNDl7
-	oMkkdauDmvpKA9TS9isZa/V07vYK5+3uSsu
-X-Received: by 2002:a17:903:1aa3:b0:2d5:db38:800f with SMTP id d9443c01a7336-2dfa6227507mr8287085ad.14.1790615137568;
-        Mon, 28 Sep 2026 10:05:37 -0700 (PDT)
-Received: from google.com (105.211.142.34.bc.googleusercontent.com. [34.142.211.105])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df9142b00dsm45359075ad.49.2026.09.28.10.05.32
+        d=1e100.net; s=20260707; t=1790615668; x=1791220468;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xvEKnO6S00JYk9QppCVl3/HoC/Fjv0c3U2lycj2T5RE=;
+        b=ohEFMEkuHVihYredCQ52iykEwhFy0On9IbG1PWHYQwQcSS+x4+UklOC97MDJJObJ31
+         9PNyiZSBOk6y6RNj18Dl1zeKjPIzaT1j9vWbjNgxY0JeeHJNAWgljmiWd5VMGG36o05+
+         N4Sfmt8xEH73lyKaSuYsN4aXiWas6N+Aj7AgQdC80AoyWDnEOrDyRK5x8Uih8i1+C97m
+         YfQQSUwhEQL2qrYiId5eeewRTQecP5wzVyZiexA2uy4Ymu/Nj7I2wxXvWZ+D3Lpk8/hB
+         3ENl0wE6uCLvbmpAEK9reqDQWsm5kgQQDoA643ULG551yDmDGRe0nEo0y5DmAyk9Mdmw
+         UKpg==
+X-Forwarded-Encrypted: i=1; AKwUvBwx1g74zfkOK0+Tz4iUyEGYVmEqVG2npCXhz69PsI4G8PylPoJk9Lay2v/jZ4IcR3lzRaV81JQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lTCw0gFyqAQG/fPOV8yJrzTSlBCzCm9gvNqg/koTHij6fxd0ut
+	92qqV+I1jGgTSbtBKspn/yR9T8WI2MYDu1fJK+aZn4Lgoap7pDRPA7K1
+X-Gm-Gg: AYBFou0JYCOdqxjxfmG5sPbzMty7ZBzVPytbqJLAwKzVAlmQ8GnGjm3q+tZ3QQZ+yk8
+	HH5Ou7HAn1tUocmXJ5W/+0CwLc9jvM6DuMuK9xVJakMI9Yl8W+jvB3nHy3hBoHWrkaVdyEmMfLR
+	93Q9rz6Xr42APrFt8fZmIhFLbxs/3zUlvMT9s7R0ORjGgxlR12SSBzPl52wgU7k/8kyBRQaK7jQ
+	U6a4W0mBQIJ7rydKDeXvnF0hs/3RKq5aq3ayVUQ51+Iow1ATpgdEeXFRLAIq8hihxeepyfqpuO+
+	85iakRBDW8dFH5c30uGJX0VN7QnJXAAHj5jDq36pPAgGO+u+tHuSLQolCqh/LK+E2+OjUEYYSY3
+	rwMFBGV2DjVYkr1eTazf/GwY9RxnS9/q32EA6xtfqoltU8vK1/NvHU2w78hca023i+M90T4MFBK
+	t+Mks4Dqdt+4IxkjiSdbVZDxqLBIPGMIYfzAiODFlZ4TjG+7DiDbP95xt7nkjh/N/xMBBr2D1iy
+	My+2dxKdXmdZVXyK1FmpEVOl1NAF6qCQaE8shdbyw==
+X-Received: by 2002:a05:6820:986:b0:6d8:6049:1247 with SMTP id 006d021491bc7-6d860491701mr3981185eaf.2.1790615667972;
+        Mon, 28 Sep 2026 10:14:27 -0700 (PDT)
+Received: from archlinux.lan ([136.34.156.120])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6d87d9060cbsm5492874eaf.0.2026.09.28.10.14.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 10:05:37 -0700 (PDT)
-Date: Mon, 28 Sep 2026 17:05:29 +0000
-From: Pranjal Shrivastava <praan@google.com>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	Jonathan Corbet <corbet@lwn.net>, iommu@lists.linux.dev,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Jean-Philippe Brucker <jpb@kernel.org>,
-	linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
-	Mark Rutland <mark.rutland@arm.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Will Deacon <will@kernel.org>, David Matlack <dmatlack@google.com>,
-	Jean-Philippe Brucker <jean-philippe@linaro.org>,
-	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
-	Nicolin Chen <nicolinc@nvidia.com>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>, patches@lists.linux.dev,
-	Samiullah Khawaja <skhawaja@google.com>,
-	Mostafa Saleh <smostafa@google.com>, stable@vger.kernel.org,
-	Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
-Subject: Re: [PATCH v7 7/9] iommu/arm-smmu-v3: Populate the tlbi at the top
- of the call chain
-Message-ID: <arqeWXL1jhz9R9-j@google.com>
-References: <0-v7-e84261bbe7cd+2ea80b-smmu_tlbi_jgg@nvidia.com>
- <7-v7-e84261bbe7cd+2ea80b-smmu_tlbi_jgg@nvidia.com>
+        Mon, 28 Sep 2026 10:14:27 -0700 (PDT)
+From: Danish Khateeb <danishkhateeb03@gmail.com>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Beau Belgrave <beaub@linux.microsoft.com>,
+	Shuah Khan <shuah@kernel.org>,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Danish Khateeb <danishkhateeb03@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] tracing/user_events: Handle ioctls from 32-bit tasks
+Date: Mon, 28 Sep 2026 12:14:23 -0500
+Message-ID: <20260928171424.199202-1-danishkhateeb03@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7-v7-e84261bbe7cd+2ea80b-smmu_tlbi_jgg@nvidia.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 21, 2026 at 08:55:15PM -0300, Jason Gunthorpe wrote:
-> Each of these have their own unique situation, populate the tlbi right at
-> the top and pass it into arm_smmu_domain_inv_range(). They will diverge
-> further when the iommupt invalidation scheme is introduced.
-> 
-> Reviewed-by: Nicolin Chen <nicolinc@nvidia.com>
-> Tested-by: Nicolin Chen <nicolinc@nvidia.com>
-> Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
-> ---
->  .../iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c   | 21 ++++----
->  drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c   | 54 ++++++++++---------
->  drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h   | 15 ++++--
->  3 files changed, 51 insertions(+), 39 deletions(-)
-> 
-> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c
-> index 2f76f649dcf1a5..faeec656da9e7f 100644
-> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c
-> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c
-> @@ -140,16 +140,19 @@ static void arm_smmu_mm_arch_invalidate_secondary_tlbs(struct mmu_notifier *mn,
->  {
->  	struct arm_smmu_domain *smmu_domain =
->  		container_of(mn, struct arm_smmu_domain, mmu_notifier);
-> -	size_t size;
-> +	struct arm_smmu_tlbi tlbi = {
-> +		.tgsz_lg2 = smmu_domain->tgsz_lg2,
-> +		.iova = start,
-> +		/*
-> +		 * The mm_types defines vm_end as the first byte after the end
-> +		 * address, different from IOMMU subsystem using the last
-> +		 * address of an address range.
-> +		 */
-> +		.size = end - start,
-> +		.iopte_size = PAGE_SIZE,
-> +	};
->  
-> -	/*
-> -	 * The mm_types defines vm_end as the first byte after the end address,
-> -	 * different from IOMMU subsystem using the last address of an address
-> -	 * range. So do a simple translation here by calculating size correctly.
-> -	 */
-> -	size = end - start;
-> -
-> -	arm_smmu_domain_inv_range(smmu_domain, start, size, PAGE_SIZE, false);
-> +	arm_smmu_domain_tlbi(&tlbi, smmu_domain);
->  }
->  
->  static void arm_smmu_mm_release(struct mmu_notifier *mn, struct mm_struct *mm)
-> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> index b7c9cd074924e4..4062ef2e13fe30 100644
-> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> @@ -2801,25 +2801,13 @@ static void arm_smmu_domain_tlbi_inv(struct arm_smmu_tlbi *tlbi,
->  	}
->  }
->  
-> -void arm_smmu_domain_inv_range(struct arm_smmu_domain *smmu_domain,
-> -			       unsigned long iova, size_t size,
-> -			       unsigned int granule, bool leaf)
-> +void arm_smmu_domain_tlbi(struct arm_smmu_tlbi *tlbi,
-> +			  struct arm_smmu_domain *smmu_domain)
+The DIAG_IOCSREG, DIAG_IOCSDEL and DIAG_IOCSUNREG ioctl numbers are
+defined with pointer types, so their size field is 4 for 32-bit
+userspace and 8 for 64-bit userspace. user_events_data has no
+compat_ioctl handler, so on a 64-bit kernel every one of these ioctls
+from a 32-bit task fails with -ENOTTY and such a task cannot register
+any user events.
 
-A caller re-using the tlbi would overflow the 2-entry range.cmds[], since
-num_cmds is never reset or checked. Should we sanity check num_cmds here?
+struct user_reg and struct user_unreg are packed and only use fixed-size
+fields, so they have the same layout for 32-bit and 64-bit tasks. Add a
+compat_ioctl handler that maps the 32-bit ioctl numbers to the native
+ones and passes the argument through compat_ptr().
 
-Otherwise,
+Fixes: 7f5a08c79df3 ("user_events: Add minimal support for trace_event into ftrace")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
+---
 
-Reviewed-by: Pranjal Shrivastava <praan@google.com>
+Notes:
+    Tested on x86_64 in QEMU (v7.3-rc5 plus this series, KASAN and lockdep):
+    - A 32-bit program that registers and unregisters an event gets -ENOTTY
+      from DIAG_IOCSREG before and works after.
+    - tools/testing/selftests/user_events built with -m32 (with 2/2): all
+      four tests fail before and pass after, in three runs each. The
+      64-bit build passes before and after. No splats.
+    Also built with CONFIG_COMPAT=n on x86_64 and with CONFIG_COMPAT=y on
+    riscv64, both with W=1.
 
-Thanks,
-Praan
+ kernel/trace/trace_events_user.c | 32 ++++++++++++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
+
+diff --git a/kernel/trace/trace_events_user.c b/kernel/trace/trace_events_user.c
+index f658c3a77aa7..07cfbb5a17de 100644
+--- a/kernel/trace/trace_events_user.c
++++ b/kernel/trace/trace_events_user.c
+@@ -8,6 +8,7 @@
+ 
+ #include <linux/bitmap.h>
+ #include <linux/cdev.h>
++#include <linux/compat.h>
+ #include <linux/hashtable.h>
+ #include <linux/list.h>
+ #include <linux/io.h>
+@@ -2737,6 +2738,36 @@ static long user_events_ioctl(struct file *file, unsigned int cmd,
+ 	return ret;
+ }
+ 
++#ifdef CONFIG_COMPAT
++/*
++ * These IOCTLs encode the size of a pointer and thus change their numbers
++ * between 32 and 64 bits. The structs they point to have the same layout.
++ */
++#define DIAG_IOCSREG_COMPAT	_IOWR(DIAG_IOC_MAGIC, 0, compat_uptr_t)
++#define DIAG_IOCSDEL_COMPAT	_IOW(DIAG_IOC_MAGIC, 1, compat_uptr_t)
++#define DIAG_IOCSUNREG_COMPAT	_IOW(DIAG_IOC_MAGIC, 2, compat_uptr_t)
++
++static long user_events_compat_ioctl(struct file *file, unsigned int cmd,
++				     unsigned long uarg)
++{
++	switch (cmd) {
++	case DIAG_IOCSREG_COMPAT:
++		cmd = DIAG_IOCSREG;
++		break;
++	case DIAG_IOCSDEL_COMPAT:
++		cmd = DIAG_IOCSDEL;
++		break;
++	case DIAG_IOCSUNREG_COMPAT:
++		cmd = DIAG_IOCSUNREG;
++		break;
++	}
++
++	return user_events_ioctl(file, cmd, (unsigned long)compat_ptr(uarg));
++}
++#else
++#define user_events_compat_ioctl NULL
++#endif
++
+ /*
+  * Handles the final close of the file from user mode.
+  */
+@@ -2787,6 +2818,7 @@ static const struct file_operations user_data_fops = {
+ 	.write		= user_events_write,
+ 	.write_iter	= user_events_write_iter,
+ 	.unlocked_ioctl	= user_events_ioctl,
++	.compat_ioctl	= user_events_compat_ioctl,
+ 	.release	= user_events_release,
+ };
+ 
+
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+-- 
+2.55.0
+
