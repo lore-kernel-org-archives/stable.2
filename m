@@ -1,172 +1,244 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03F254AA579;
-	Mon, 28 Sep 2026 11:36:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7742B4AAC65;
+	Mon, 28 Sep 2026 11:37:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790595413; cv=none; b=Vx6VlJcZcN4Sqs9JyhkKDWqzKGGMwRbHOH3ILD77z0wue0t0L19vCwUVH53EqW4aYub6qCIdeJ0oaTBFXKS7E32bfYQ2DWMOlpBY1e7qVdTI0EXFLtgnOygIRpNu5il/Fd9Bm9BhPh5OFy1RWcEUo2GFX3g18+GZEgMqiSt0qVE=
+	t=1790595460; cv=none; b=Kq6E4QzumCrr3UnEO/qqmpuxQXG6r0DptBQfcZMeK1JqVE2v9llzkZ4ophTVO6Y7shL7ppDb4OagYy32f6Z9e259xaPykCmwlvHviyTF40wBryREqs3EMBy1AvInke2ZsvIwVGLm6l5YljKftBArIoOtk7lIv6I8eRL5ze5vqAs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790595413; c=relaxed/simple;
-	bh=T5IbdwHsw/qD2EPA4qspcbLgg6+Q2R18K4Hca4xmGAI=;
-	h=From:Content-Type:Mime-Version:Subject:Message-Id:Date:Cc:To; b=kNV18FcQ3w6Li3rK91zJWaK1NvkF5qF21nLIq72m2Cg1CTWf6Jq7Nn95YwBgaBAlVa5ind0hGP/F3/y69O3Bx9D/r5i35wAkMqOvqBEGGTxKf6uQkFnTPM0BOqVBQR5h7tgqdLCP0AIFdbgvGPJc+wAw43FFiElUMZQ3RmTCPI4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.pku.edu.cn; spf=pass smtp.mailfrom=stu.pku.edu.cn; dkim=pass (1024-bit key) header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.b=A6miKgX7; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.pku.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.pku.edu.cn
+	s=arc-20240116; t=1790595460; c=relaxed/simple;
+	bh=+0wbYyylv2W4FDEGmwWMhUk9rw0i2g9ChKu77yaMt9E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=MtjdyVUvSbQkkbeLTyk97wudoLz+RZ8blyAvKXOVt2ftxrhXrEF9nLxXpFckb6L1OFDAsCJ+1aeJa+zVZOJFWLECvOVDpGiSvRe7tDNbHMNbKaFwCeI+dxIijuomaR5RNrY1i7MAAk2ydf57rnacv3zwvsqBSmyR0/PlMjtvEl0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=D1ekfnnU; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.b="A6miKgX7"
-Received: from smtpclient.apple (unknown [IPV6:240e:305:1b9d:c000:658d:22e4:fce7:420c])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4f5ac1a9f;
-	Mon, 28 Sep 2026 19:36:40 +0800 (GMT+08:00)
-From: Yuanfu Xie <yuanfuxie@stu.pku.edu.cn>
-Content-Type: text/plain;
-	charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="D1ekfnnU"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68SBZUtI3374963;
+	Mon, 28 Sep 2026 11:37:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pp1; bh=owG7PdSKZiKgNxplioX22//h+Uij
+	uj+ymNAWo5x5JvU=; b=D1ekfnnUi+GkkiEURWZsxtlG4aeZ8xZQLHUQ5ojtwW3A
+	TmPmf2NWU5t1bLxNl38DiDzNSS28wb75o4Nm4DScY1VkZ4suuMW32KxsOVpeb/il
+	hISuYH4tnoWIjs85+8/zW0rJY+ec3BlL3KpLNgAnZg9VkoeW3mDD4pdckRLoMx+p
+	Jrjwh8CEaZrRlVXXumN8GNh41gQk9/eoRZ+0Dgpn4eln0F+Ss2HGiNwE0VQYNc4u
+	0hbaJPM0J3TmWtiUEsykRBdDeoRAia+Qu7Imq0+QLpYoCzkImV1Tp2glZYuqQiK8
+	Zf0XsDsfkcAONJll5lXdJ8brRMojxFjvcox048uvkA==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx5qr0yy5-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 28 Sep 2026 11:37:23 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68SBHVQJ057241;
+	Mon, 28 Sep 2026 11:37:22 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gxu2y4rsx-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 28 Sep 2026 11:37:22 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68SBbIS545416850
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 28 Sep 2026 11:37:18 GMT
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 95A9A2004E;
+	Mon, 28 Sep 2026 11:37:18 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 8E2772004B;
+	Mon, 28 Sep 2026 11:37:14 +0000 (GMT)
+Received: from localhost.localdomain (unknown [9.124.213.32])
+	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 28 Sep 2026 11:37:14 +0000 (GMT)
+From: Amit Machhiwal <amachhiw@linux.ibm.com>
+To: Madhavan Srinivasan <maddy@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org
+Cc: Amit Machhiwal <amachhiw@linux.ibm.com>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+        Shrikanth Hegde <sshegde@linux.ibm.com>, kvm-ppc@vger.kernel.org,
+        kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Gautam Menghani <gautam@linux.ibm.com>,
+        Harsh Prateek Bora <harshpb@linux.ibm.com>,
+        R Nageswara Sastry <rnsastry@linux.ibm.com>,
+        Alexander Graf <agraf@suse.de>, linux-hardening@vger.kernel.org,
+        stable@vger.kernel.org
+Subject: [PATCH 1/3] KVM: PPC: Book3S HV: Add SRCU protection for virtual-mode HPT hcalls
+Date: Mon, 28 Sep 2026 17:07:01 +0530
+Message-ID: <20260928113704.48912-1-amachhiw@linux.ibm.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
-Subject: [PATCH] ceph: bound the mon command wait
-Message-Id: <7412F740-8826-4790-8BEC-A590DB2BC2E4@stu.pku.edu.cn>
-Date: Mon, 28 Sep 2026 19:36:30 +0800
-Cc: ceph-devel@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-To: Ilya Dryomov <idryomov@gmail.com>,
- Alex Markuze <amarkuze@redhat.com>,
- Viacheslav Dubeyko <slava@dubeyko.com>
-X-Mailer: Apple Mail (2.3901.100.1.1.11)
-X-HM-Tid: 0aa0e7cd833703a1kunmf2fcd2451f9292
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZT0pOVh4ZSxpPSh4fTktOTVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJT0seQUhLTkFKGUIfQRhLS0tBTU5DH0FJSR5PQR0YHkxBT0
-	lLGFlXWRYaDxIVHRRZQVlPS0hVSktJSE5DQ1VKS0tVS1kG
-DKIM-Signature: a=rsa-sha256;
-	b=A6miKgX7OzTI5CY4V5dDBmqXRySp2CFYQoCBiD8wHLF+Oq4KdzRUVacZfODfltptUSluGh+XA/iNnCMP4L9KEaro/9hhJSTRMttOxUiaZdY2dLyAMjLqrH9kCyJBl1qVR+2JLjPHM6WfNK4zr4SMhZAZ9svb/0AuklXUWlRkU1c=; c=relaxed/relaxed; s=default; d=stu.pku.edu.cn; v=1;
-	bh=TvKf7SSMp0T++430PIKppvqUMsgRV/+IYvLvPLLFBgI=;
-	h=date:mime-version:subject:message-id:from;
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA0NiBTYWx0ZWRfX2ZuAdkI5Ussw
+ LRCIBD3UqcTIaz2FA3M4OkX1tJh7W9teybSIPXr5h+iGDBNZTMVZmQkA3taJbjQ3/Wb5gmM+dwg
+ GY/eidcPBCV5pqJaWBvassE74mdblkYY6WyJZBzqv8xDdYa+p3rPVsYW68Kn5Mu5bm6qVx6RUwe
+ LDW5Gyy89bfv632cZLYyXjrzfjMlbJsFmuc865277aWnlcVDmbGiqamSSJ7/Oal5QkZS44tXLZv
+ dJgrxj5sFBPIOXeBO9QrmH0IebbG4rgzZa0luNCEBRfflfuiXoKMAHGT8cE+ge+Ay5I8HbxK1ly
+ rM8dyaSiyAE2+D5RMU5mQh2lJpgxNe9RWK4DwensoMXPi5XL32RDwpgb3iEriU1kxcbSWpmlrNn
+ nnRdjiHBYWVPbtpCAS5MCVguFZ3l7eLGljPoNeObwgowNQiiWP0Ikr6oh+Q2y+mOCjnezacwDPN
+ 9U1Qc0+vzbAb5LI32pA==
+X-Authority-Analysis: v=2.4 cv=SPbXx+vH c=1 sm=1 tr=0 ts=6aba5173 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
+ a=pGLkceISAAAA:8 a=VnNF1IyMAAAA:8 a=DgxhUou5BkHipWTGidQA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: EzQiaEYNpTDL5GYT4jphrLfaa_tpmb1h
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA0NiBTYWx0ZWRfX+yC0UJb1l+QX
+ 8nvjN9+ELBH3xiJK3llmn5/l8R7nL8u18YxS47DgtRKjS19rwnm8wK7z7IYZ1z9nUMVnuHZD2pU
+ NMBjE6sNWsQWX+cq7cdjR/gYnPmTcXU=
+X-Proofpoint-GUID: 431P1MB3VSeFlb-OZeLTUlNfY4df4jFw
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-28_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 clxscore=1011 spamscore=0
+ lowpriorityscore=0 malwarescore=0 adultscore=0 bulkscore=0 impostorscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609280046
 
-ceph_update_snap_trace() reacts to a corrupted snap trace by fencing
-the mount and blocklisting the client through ceph_monc_blocklist_add().
-That issues the "osd blocklist add" mon command and waits for the reply
-synchronously, from the messenger dispatch path, with session->s_mutex
-held.  Dispatch runs in a kworker, where no signal will ever arrive,
-and the wait has no timeout: a monitor that doesn't reply leaves that
-worker asleep holding the mutex for good.  ceph_cap_release_work() and
-anything else queued behind the session mutex pile up on it, and the
-WARN(1, "...do remount to continue") that is supposed to tell the admin
-to remount sits after the wait and never runs.
+The virtual-mode HPT hcall handlers (H_ENTER, H_REMOVE, H_BULK_REMOVE,
+H_CLEAR_REF, H_CLEAR_MOD) call into book3s_hv_rm_mmu.c, which accesses
+memslots via kvm_memslots_raw().  kvm_memslots_raw() uses
+rcu_dereference_raw_check() to bypass SRCU lockdep annotation checking.
+This is safe in real mode because the entire guest entry/exit is wrapped
+in srcu_read_lock/unlock inside kvmppc_run_core() and
+kvmhv_run_single_vcpu().
 
-Bound the mon command wait with CEPH_MONC_PING_TIMEOUT (30s).  That is
-already how long an unanswered monitor keepalive may last before the
-session is reopened.  On timeout the existing error handling takes
-over: the blocklist failure is reported, the warning is issued and the
-mount stays fenced, so the admin can remount as intended.
+However, since commit 6165d5dd99db ("KVM: PPC: Book3S HV: add virtual
+mode handlers for HPT hcalls and page faults"), these same handlers are
+also executed in virtual mode via kvmppc_pseries_do_hcall(), which runs
+after SRCU has already been released on guest exit.
 
-The blocked worker on the unpatched kernel, trimmed:
+A concurrent KVM_SET_USER_MEMORY_REGION deletion or move can therefore
+call synchronize_srcu_expedited() — which does not wait for this thread —
+and then kfree(slot) and vfree(slot->arch.rmap) while the hcall handler
+still holds a raw pointer to the memslot.  lock_rmap() then writes to
+freed vmalloc memory, leading to use-after-free and memory corruption.
+Because kvm_memslots_raw() suppresses lockdep checks, this race is
+entirely silent.
 
-INFO: task kworker/0:1:11 blocked for more than 10 seconds.
-Workqueue: ceph-msgr ceph_con_workfn
-Call Trace:
- <TASK>
- __schedule+0x1850/0x4a80
- schedule+0x7a/0x1f0
- schedule_timeout+0x217/0x250
- __wait_for_common+0x2af/0x460
- wait_for_completion_interruptible+0x1f/0x40
- wait_generic_request+0x1f/0x270
- do_mon_command+0x4b6/0x600
- ceph_monc_blocklist_add+0x88/0x1a0
- ceph_update_snap_trace+0x222/0x3420
- ceph_con_process_message+0x1e5/0x270
- [...]
- </TASK>
+Fix this by factoring out the 7 HPT hcall handlers (H_REMOVE, H_ENTER,
+H_READ, H_CLEAR_MOD, H_CLEAR_REF, H_PROTECT, H_BULK_REMOVE) into a
+helper function, kvmppc_pseries_do_hpt_hcall(), and wrapping its call
+site in srcu_read_lock(&kvm->srcu) / srcu_read_unlock(&kvm->srcu, idx).
+Targeting only the HPT hcalls avoids wrapping non-HPT hcalls that sleep
+(such as H_CONFER, H_REGISTER_VPA, H_PAGE_INIT) or handlers that already
+acquire SRCU internally (such as H_RTAS).
 
-INFO: task kworker/0:0:9 blocked for more than 10 seconds.
-Workqueue: ceph-cap ceph_cap_release_work
- mutex_lock+0xce/0xe0
- [...]
-
-With the watchdog set to panic this ends in "Kernel panic - not
-syncing: hung_task: blocked tasks"; with the production defaults it
-just stays there.  With this patch the same run prints:
-
-ceph: [client 1]: error -5
-ceph: [client 1]: failed to blocklist ...: -110
-[client.1] ceph_update_snap_trace do remount to continue after corrupted =
-snaptrace is fixed
-WARNING: fs/ceph/snap.c:926 at ceph_update_snap_trace+0x2d1/0x3420
-
-(thirty seconds after the snap trace error) and the pending requests
-on the fenced mount fail instead of hanging.
-
-Verified on 7.3-rc4-00537-ga3ff15db6820 with only this change applied:
-the blocklist failure and the warning arrive thirty seconds after the
-snap trace error, and the blocked worker returns.  An unresponsive
-monitor plus a corrupted snap trace used to wedge the mount for good;
-when the wait expires the blocklist attempt returns -ETIMEDOUT, the
-warning fires and the mount stays fenced until remount.
-
-Fixes: a68e564adcaa6 ("ceph: blocklist the kclient when receiving =
-corrupted snap trace")
-Signed-off-by: Yuanfu Xie <yuanfuxie@stu.pku.edu.cn>
+Fixes: 6165d5dd99db ("KVM: PPC: Book3S HV: add virtual mode handlers for HPT hcalls and page faults")
+Cc: stable@vger.kernel.org # v5.14+
+Suggested-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+Signed-off-by: Amit Machhiwal <amachhiw@linux.ibm.com>
 ---
- net/ceph/mon_client.c | 27 ++++++++++++++++++++++++++-
- 1 file changed, 26 insertions(+), 1 deletion(-)
+ arch/powerpc/kvm/book3s_hv.c | 70 ++++++++++++++++++------------------
+ 1 file changed, 35 insertions(+), 35 deletions(-)
 
-diff --git a/net/ceph/mon_client.c b/net/ceph/mon_client.c
-index c56457378d00e..435c7f851ab26 100644
---- a/net/ceph/mon_client.c
-+++ b/net/ceph/mon_client.c
-@@ -705,6 +705,24 @@ static int wait_generic_request(struct =
-ceph_mon_generic_request *req)
- 	return ret;
+diff --git a/arch/powerpc/kvm/book3s_hv.c b/arch/powerpc/kvm/book3s_hv.c
+index dbac3573b2c8..aa51968e206a 100644
+--- a/arch/powerpc/kvm/book3s_hv.c
++++ b/arch/powerpc/kvm/book3s_hv.c
+@@ -1159,6 +1159,38 @@ static long kvmppc_h_rpt_invalidate(struct kvm_vcpu *vcpu,
+ 	return H_SUCCESS;
  }
-=20
-+static int wait_generic_request_timeout(struct ceph_mon_generic_request =
-*req,
-+					unsigned long timeout)
+ 
++static long kvmppc_pseries_do_hpt_hcall(struct kvm_vcpu *vcpu, unsigned long req)
 +{
-+	long ret;
-+
-+	dout("%s greq %p tid %llu\n", __func__, req, req->tid);
-+	ret =3D =
-wait_for_completion_interruptible_timeout(&req->completion,
-+							timeout);
-+	if (ret =3D=3D 0)
-+		ret =3D -ETIMEDOUT;
-+	if (ret < 0) {
-+		cancel_generic_request(req);
-+		return ret;
++	switch (req) {
++	case H_REMOVE:
++		return kvmppc_h_remove(vcpu, kvmppc_get_gpr(vcpu, 4),
++				       kvmppc_get_gpr(vcpu, 5),
++				       kvmppc_get_gpr(vcpu, 6));
++	case H_ENTER:
++		return kvmppc_h_enter(vcpu, kvmppc_get_gpr(vcpu, 4),
++				      kvmppc_get_gpr(vcpu, 5),
++				      kvmppc_get_gpr(vcpu, 6),
++				      kvmppc_get_gpr(vcpu, 7));
++	case H_READ:
++		return kvmppc_h_read(vcpu, kvmppc_get_gpr(vcpu, 4),
++				     kvmppc_get_gpr(vcpu, 5));
++	case H_CLEAR_MOD:
++		return kvmppc_h_clear_mod(vcpu, kvmppc_get_gpr(vcpu, 4),
++					  kvmppc_get_gpr(vcpu, 5));
++	case H_CLEAR_REF:
++		return kvmppc_h_clear_ref(vcpu, kvmppc_get_gpr(vcpu, 4),
++					  kvmppc_get_gpr(vcpu, 5));
++	case H_PROTECT:
++		return kvmppc_h_protect(vcpu, kvmppc_get_gpr(vcpu, 4),
++					kvmppc_get_gpr(vcpu, 5),
++					kvmppc_get_gpr(vcpu, 6));
++	case H_BULK_REMOVE:
++		return kvmppc_h_bulk_remove(vcpu);
 +	}
 +
-+	return req->result; /* completed */
++	return H_FUNCTION;
 +}
 +
- static struct ceph_msg *get_generic_reply(struct ceph_connection *con,
- 					 struct ceph_msg_header *hdr,
- 					 int *skip)
-@@ -1006,7 +1024,14 @@ int do_mon_command_vargs(struct ceph_mon_client =
-*monc, const char *fmt,
- 	send_generic_request(monc, req);
- 	mutex_unlock(&monc->mutex);
-=20
--	ret =3D wait_generic_request(req);
-+	/*
-+	 * ceph_monc_blocklist_add() runs from messenger dispatch, in a
-+	 * kworker, with session->s_mutex held.  No signal arrives =
-there.
-+	 * CEPH_MONC_PING_TIMEOUT is how long an unanswered monitor
-+	 * keepalive may last before the session is reopened; use that
-+	 * so this worker cannot sleep for good.
-+	 */
-+	ret =3D wait_generic_request_timeout(req, =
-CEPH_MONC_PING_TIMEOUT);
- out:
- 	put_generic_request(req);
- 	return ret;
---=20
-2.43.0=
+ int kvmppc_pseries_do_hcall(struct kvm_vcpu *vcpu)
+ {
+ 	struct kvm *kvm = vcpu->kvm;
+@@ -1174,47 +1206,15 @@ int kvmppc_pseries_do_hcall(struct kvm_vcpu *vcpu)
+ 
+ 	switch (req) {
+ 	case H_REMOVE:
+-		ret = kvmppc_h_remove(vcpu, kvmppc_get_gpr(vcpu, 4),
+-					kvmppc_get_gpr(vcpu, 5),
+-					kvmppc_get_gpr(vcpu, 6));
+-		if (ret == H_TOO_HARD)
+-			return RESUME_HOST;
+-		break;
+ 	case H_ENTER:
+-		ret = kvmppc_h_enter(vcpu, kvmppc_get_gpr(vcpu, 4),
+-					kvmppc_get_gpr(vcpu, 5),
+-					kvmppc_get_gpr(vcpu, 6),
+-					kvmppc_get_gpr(vcpu, 7));
+-		if (ret == H_TOO_HARD)
+-			return RESUME_HOST;
+-		break;
+ 	case H_READ:
+-		ret = kvmppc_h_read(vcpu, kvmppc_get_gpr(vcpu, 4),
+-					kvmppc_get_gpr(vcpu, 5));
+-		if (ret == H_TOO_HARD)
+-			return RESUME_HOST;
+-		break;
+ 	case H_CLEAR_MOD:
+-		ret = kvmppc_h_clear_mod(vcpu, kvmppc_get_gpr(vcpu, 4),
+-					kvmppc_get_gpr(vcpu, 5));
+-		if (ret == H_TOO_HARD)
+-			return RESUME_HOST;
+-		break;
+ 	case H_CLEAR_REF:
+-		ret = kvmppc_h_clear_ref(vcpu, kvmppc_get_gpr(vcpu, 4),
+-					kvmppc_get_gpr(vcpu, 5));
+-		if (ret == H_TOO_HARD)
+-			return RESUME_HOST;
+-		break;
+ 	case H_PROTECT:
+-		ret = kvmppc_h_protect(vcpu, kvmppc_get_gpr(vcpu, 4),
+-					kvmppc_get_gpr(vcpu, 5),
+-					kvmppc_get_gpr(vcpu, 6));
+-		if (ret == H_TOO_HARD)
+-			return RESUME_HOST;
+-		break;
+ 	case H_BULK_REMOVE:
+-		ret = kvmppc_h_bulk_remove(vcpu);
++		idx = srcu_read_lock(&kvm->srcu);
++		ret = kvmppc_pseries_do_hpt_hcall(vcpu, req);
++		srcu_read_unlock(&kvm->srcu, idx);
+ 		if (ret == H_TOO_HARD)
+ 			return RESUME_HOST;
+ 		break;
+-- 
+2.54.0 (Apple Git-157)
+
