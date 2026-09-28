@@ -1,134 +1,172 @@
-Received: from mail-pj2-f39.google.com (mail-pj2-f39.google.com [74.125.227.167])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relayaws-01.paragon-software.com (relayaws-01.paragon-software.com [35.157.23.187])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 776C94EB87C
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 17:18:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.167
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 189124F93B5;
+	Mon, 28 Sep 2026 17:22:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.157.23.187
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790615919; cv=none; b=MO6L4GcAF/6dgjwYLpwpS0mxhL62a/fH08BuAV+2VN/aNKIF8Yf7gfxSeuqVVrmHZepQuPmzJq13qQQINtgb51LxbPIHqMEJf+/tWn3CJRiyQdV++r6WlLejBwi+yV09ONGIArHTpLlS7zu83tv+NPLhQ3i/fmt1DyLAyS4bUr8=
+	t=1790616136; cv=none; b=c1uwFbkUa83IwLQGeYzJF3n78ZtM+/hShB5ukcWlJoBajKHCLW8bzmCd8BVnRWC8SOqm4OcqCvd5LdEglIHq+NNVU8vOJAWvcoc1otHB+gurOUE9MKJD5XoNpY893bDrCyB1q9VCNcJe2YhFp/XDwp83cQccQ8yP2U8duSLr3TM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790615919; c=relaxed/simple;
-	bh=tpRDS3QWQEz+EWPX/708eI/ejVeubEVNFCMjuV09I4g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sj7QXWHtDPpJfPREaZOFf61/DY6mejtKhfUBEUuhXWXOdIN8A4tmYxq0dBKBULYVtWDNbd3/9t8ZvTgCK7qeCwPCb3mPzozZusGEXIJZjl293UUOnqZE5TRGrFLCTEEDk1BFLVxox4+R4kHQWcYAvhb8kjFSGnIy7zhvl3ZkK64=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i3nJ6bH/; arc=none smtp.client-ip=74.125.227.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790616136; c=relaxed/simple;
+	bh=5RvctZUCAf0FL3NxVqZcjM6pEbtTPWL0VQnh4iXuH+0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=ZTGEpkiTLBfZUCK8X4EMlYcLtYgEzeNtI69BuRuWj9OIUwGAzFOiC3pAlCJTXq6Bi9vhMQO1SOZIftDVW442WfZsFq3hR4TMrkdVbBoWNOuyqV743adqd58vow0p3hSqeSQ/OE0ixkOBkxPnf4EOrkMemyT6H+edy1rO/SedYGc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com; spf=pass smtp.mailfrom=paragon-software.com; dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b=i0Ea0Jti; arc=none smtp.client-ip=35.157.23.187
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paragon-software.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i3nJ6bH/"
-Received: by mail-pj2-f39.google.com with SMTP id 98e67ed59e1d1-3a49b6bb21eso9272a91.3
-        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 10:18:36 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b="i0Ea0Jti"
+Received: from relayfre-01.paragon-software.com (relayfre-01.paragon-software.com [176.12.100.13])
+	by relayaws-01.paragon-software.com (Postfix) with ESMTPS id 474B032C;
+	Mon, 28 Sep 2026 17:22:48 +0000 (UTC)
+Authentication-Results: relayaws-01.paragon-software.com;
+	dkim=pass (1024-bit key; unprotected) header.d=paragon-software.com header.i=@paragon-software.com header.b=i0Ea0Jti;
+	dkim-atps=neutral
+Received: from dlg2.mail.paragon-software.com (vdlg-exch-02.paragon-software.com [172.30.1.105])
+	by relayfre-01.paragon-software.com (Postfix) with ESMTPS id E181C2187;
+	Mon, 28 Sep 2026 17:21:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790615915; x=1791220715; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=r2fwOkBrxfItcV7iU7YqqxJNyvpWradYv+am29lYRQI=;
-        b=i3nJ6bH/6+SXD9eV+cHZybSoCH83UG6N5pbyqKj15RgHVyAjaBXzjiXSFWvJXRTPw+
-         tR/iNHNfb4iCuRF0U645/YSfuN7xu44FI3J3GVVRSsxPGwHXcLYxPsCur+tOl5rU/GBE
-         0IL8TtHu0XCN5lyAtCHalplWz4/PcrWo1RPU4maHVpOkWGCRHZci1buVHIQZPusLutmV
-         /u32w7fiIYsuyBA7G2QKYmvmWNnnh8vE0SiX0+TJERP/HFICLOgGzEF7eTp7Ch5nJKKq
-         tQBBvSNnEA70/Y3vT8Xu2OmMhgbMIyux6zwjUM0HRgnKXWVfU1keQ51C/cuT7ULb/lqV
-         1BFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790615915; x=1791220715;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=r2fwOkBrxfItcV7iU7YqqxJNyvpWradYv+am29lYRQI=;
-        b=K7pUC5dlu1NVLrxdI0VUODOisOpWyV3sSNPeeihbGrxQ4/Ao6HXYfKjv/dGKA42ICG
-         NHnBWwEOxuhxNMPH/CAHWi24PVaMbpGuvDpzVi47JK2HfuBagCtfgPkl8wpH6OaMXXRa
-         wBJXsEzX+Xn87r5mVu37kdY5N0bVv73tog12lBUMllOV4tGhuMmBrjqlwXbNvr1lerDI
-         8o+5DTxhfYKRVvPl2+oecuai8cG3xqmu9wrAx2POOHHBefS0CM6bC0cEBolFGDog8OUl
-         56g3oXJ38DNvhzcCTDZpL7vr0GCLrbVN3syPxT+JKJlueQfhS+K7YluRTak8zaLsWQSz
-         k9CA==
-X-Forwarded-Encrypted: i=1; AKwUvByjDgc+BxE5ejtXFyUX0jMhYl/1GWZOZ2lLR5CZdhEQ+KlI70C2ZugfoEF6L1orjQ5JVYkpCrk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKMMZd2viYKsmgm0/6cQAkHncRVA5dpAqB+ILJKtR4Tessh4WIt
-	GWufur83o6YixDmwnwkvcf16JMe9UxB3oeVzOJH9MIIJk78ahZoRH69L
-X-Gm-Gg: AYBFou0Lv/dd4TwDzLq9YR0t8v7ZtCAWCnDTxIT+1AagDGyKYpvZrZaASwr1FhEXZ+J
-	LOjTidXR+G4pk4IZ+Y8yYqC/U1FyCy7NTORKL8XBMCtauHSR8P7hcyFCyESZGVhCDPAQPNwTrS5
-	hfNuBmdd9mFXnSPXuJ9dR0nkY6Iys2Lwty37D3+O83DNC4dEY5+I/V3wQiDVcJeMprlMIkSb+NF
-	0fFANdJ5kvUZijryPI8ov9P9rVQ741H7s0aNIQDvS5glzWiPKJlC9DEQF5MDBAFnvzsVt2b74EI
-	+RcmE3vVUdp7CJKJXrRstN4jCP+KdqJAvKtSmRbnRwUQx5x62BA2BRwO6z+gGjBkBjCEOy9QqVh
-	U38DGMcqmQ3YiP5pvPdcPpDa3gFg4b2yvkVz3c0SfajoRigmlaB01r3qo3bA03TKQK48N+wpEwz
-	KzZH7yHF0+hrWVBtxnbTJPCBNf4mwbqOOJjpIMEQG+h78Js/+hmMb7oTdYczZuOHlrDEtlYwAFQ
-	juNrIybj9LSKvMhKZ8+4F9g
-X-Received: by 2002:a17:90b:1c89:b0:3a0:ace4:d2b4 with SMTP id 98e67ed59e1d1-3a0ace4d752mr7661768a91.23.1790615914640;
-        Mon, 28 Sep 2026 10:18:34 -0700 (PDT)
-Received: from localhost.localdomain ([43.224.245.233])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4986bb8f6sm189139a91.0.2026.09.28.10.18.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 10:18:34 -0700 (PDT)
-From: Dongliang Qin <cccccccccccc777777@gmail.com>
-To: Zhu Yanjun <zyjzyj2000@gmail.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>
-Cc: Dongliang Qin <cccccccccccc777777@gmail.com>,
-	linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Bob Pearson <rpearsonhpe@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 4/4] RDMA/rxe: Do not force cleanup on pool timeout
-Date: Tue, 29 Sep 2026 01:17:56 +0800
-Message-ID: <20260928171756.3254016-5-cccccccccccc777777@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260928171756.3254016-1-cccccccccccc777777@gmail.com>
-References: <20260928171756.3254016-1-cccccccccccc777777@gmail.com>
+	d=paragon-software.com; s=mail; t=1790616114;
+	bh=igqSE9WbsAuz84abPqqeKEyX2eYBhV8g04lvS+mTwlY=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To;
+	b=i0Ea0JtiWMbn+Avk+U9Uze5gRhKzKQFL9TYG8rKrh7lzQjFvxbFVkWIZOGU42qeaZ
+	 e5cvOu/NQSde8Vh5VSALwwaqqZoIwEuIij7uK1Pv2gdduSGxL3C+5WwNpWmVwoAluZ
+	 uSMDLEtfzzb8v+EaiKrykCNffdny06U07qmsTPu8=
+Received: from [192.168.95.128] (172.30.20.196) by
+ vdlg-exch-02.paragon-software.com (172.30.1.105) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.7; Mon, 28 Sep 2026 20:21:53 +0300
+Message-ID: <7feaa304-022b-4e50-b20a-de72fb16fd9a@paragon-software.com>
+Date: Mon, 28 Sep 2026 19:21:52 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] fs/ntfs3: fix integer overflow in find_log_rec() causing
+ OOB read
+To: Ibrahim Hashimov <security@auditcode.ai>
+CC: <ntfs3@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>
+References: <20260708224618.1328-1-security@auditcode.ai>
+Content-Language: en-US
+From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+In-Reply-To: <20260708224618.1328-1-security@auditcode.ai>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: vobn-exch-01.paragon-software.com (172.30.72.13) To
+ vdlg-exch-02.paragon-software.com (172.30.1.105)
 
-The sleepable pool cleanup path waits up to 50 seconds for the last
-reference and then continues cleanup anyway. If a reference is still
-held, that turns a lifetime bug into a use-after-free.
+On 7/9/26 00:46, Ibrahim Hashimov wrote:
 
-Wait for completion instead. A stuck object is easier to diagnose than
-a stale pointer; the existing non-sleepable path is unchanged.
+> find_log_rec() validates the on-disk LFS_RECORD_HDR.client_data_len
+> field (`len`, a raw u32 read straight from a mounted $LogFile page)
+> against the log's total available space:
+>
+>      len = le32_to_cpu(rh->client_data_len);
+>      rec_len = len + log->record_header_len;
+>      if (rec_len >= log->total_avail)
+>              return -EINVAL;
+>
+> The addition is unchecked. For len in [0xffffffd0, 0xffffffff] (i.e.
+> log->record_header_len away from UINT_MAX), `rec_len` wraps to a small
+> u32 value that trivially clears the `rec_len >= log->total_avail`
+> guard, so a record whose declared length is actually ~4 GiB is
+> reported as valid and in-page.
+>
+> Because find_log_rec() wrongly accepts the record, its caller
+> read_log_rec_lcb() hands it back to log_replay() as good. On the
+> transaction-table replay leg, log_replay() re-derives the record
+> length directly from the same raw, still-unclamped client_data_len
+> field and uses it to size the restart-table blob:
+>
+>      rec_len = le32_to_cpu(frh->client_data_len);   /* ~0xffffffff */
+>      ...
+>      t16 = le16_to_cpu(lrh->redo_off);
+>      rt  = Add2Ptr(lrh, t16);
+>      t32 = rec_len - t16;                            /* still ~4 GiB */
+>      if (!check_rstbl(rt, t32))
+>              return -EINVAL;
+>
+> check_rstbl()'s own `bytes < ts` bounds guard is defeated because the
+> caller-supplied `bytes` (t32) is itself the poisoned ~4 GiB value, so
+> the guard can never trigger. The subsequent entry-validation loop then
+> walks `rt->used` (also attacker-controlled) entries of
+> sizeof(struct RESTART_TABLE) == 0x18 bytes each straight past the end
+> of the kmalloc(log->page_size) log-page buffer allocated in
+> read_log_page(), producing an out-of-bounds read that is reachable
+> simply by mounting a crafted $LogFile (no genuine dirty-page /
+> crash-recovery state is required). Confirmed via KASAN as a
+> slab-out-of-bounds read in check_rstbl(), called from log_replay() ->
+> ntfs_loadlog_and_replay() -> ntfs_fill_super() -> mount(2).
+>
+> Fix the root cause instead of hardening every downstream consumer of
+> the poisoned length: make the addition in find_log_rec() overflow-safe
+> with check_add_overflow(), mirroring the pattern fs/ntfs3/run.c
+> already uses to validate other attacker-controlled on-disk
+> length/offset arithmetic decoded from MAPPING_PAIRS runs, e.g.:
+>
+>      if (check_add_overflow(vcn64, len, &next_vcn))
+>              return -EINVAL;
+>      ...
+>      if (check_add_overflow(lcn, len, &lcn_end))
+>              return -EINVAL;
+>
+> (fs/ntfs3/run.c, run_unpack()).
+>
+> With the overflow rejected instead of silently wrapped, `rec_len` is
+> only ever a true, non-wrapped sum, so the existing
+> `rec_len >= log->total_avail` check now correctly rejects any
+> oversized record up front. log_replay()'s transaction-table leg then
+> never gets a chance to re-read the poisoned client_data_len, and
+> check_rstbl() is never invoked with an attacker-inflated `bytes` for
+> this path.
+>
+> Verified on a v6.19 KASAN build: mounting a crafted $LogFile whose
+> client_data_len overflows trips a KASAN slab-out-of-bounds-read
+> report in check_rstbl() before this fix; with check_add_overflow()
+> applied, the same image is cleanly rejected during log replay and no
+> KASAN report fires.
+>
+> Fixes: b46acd6a6a62 ("fs/ntfs3: Add NTFS journal")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
+> Assisted-by: AuditCode-AI:2026.07
+> ---
+>   fs/ntfs3/fslog.c | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
+>
+> diff --git a/fs/ntfs3/fslog.c b/fs/ntfs3/fslog.c
+> index f038c799e7ac..e5b63a02b827 100644
+> --- a/fs/ntfs3/fslog.c
+> +++ b/fs/ntfs3/fslog.c
+> @@ -7,6 +7,7 @@
+>
+>   #include <linux/blkdev.h>
+>   #include <linux/fs.h>
+> +#include <linux/overflow.h>
+>   #include <linux/random.h>
+>   #include <linux/slab.h>
+>
+> @@ -2424,7 +2425,8 @@ static int find_log_rec(struct ntfs_log *log, u64 lsn, struct lcb *lcb)
+>           * Check that the length field isn't greater than the total
+>           * available space the log file.
+>           */
+> -       rec_len = len + log->record_header_len;
+> +       if (check_add_overflow(len, log->record_header_len, &rec_len))
+> +               return -EINVAL;
+>          if (rec_len >= log->total_avail)
+>                  return -EINVAL;
+>
+> --
+> 2.50.1 (Apple Git-155)
 
-Fixes: 215d0a755e1b ("RDMA/rxe: Stop lookup of partially built objects")
+Hello,
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Dongliang Qin <cccccccccccc777777@gmail.com>
----
- drivers/infiniband/sw/rxe/rxe_pool.c | 14 ++------------
- 1 file changed, 2 insertions(+), 12 deletions(-)
+Your patch was applied, thanks.
 
-diff --git a/drivers/infiniband/sw/rxe/rxe_pool.c b/drivers/infiniband/sw/rxe/rxe_pool.c
-index d9cb682fd71f8..d5ff5d453f5f8 100644
---- a/drivers/infiniband/sw/rxe/rxe_pool.c
-+++ b/drivers/infiniband/sw/rxe/rxe_pool.c
-@@ -178,7 +178,7 @@ int __rxe_cleanup(struct rxe_pool_elem *elem, bool sleepable)
- {
- 	struct rxe_pool *pool = elem->pool;
- 	struct xarray *xa = &pool->xa;
--	int ret, err = 0;
-+	int err = 0;
- 	void *xa_ret;
- 
- 	if (sleepable)
-@@ -201,17 +201,7 @@ int __rxe_cleanup(struct rxe_pool_elem *elem, bool sleepable)
- 	 * return to rdma-core
- 	 */
- 	if (sleepable) {
--		if (!completion_done(&elem->complete)) {
--			ret = wait_for_completion_timeout(&elem->complete,
--					msecs_to_jiffies(50000));
--
--			/* Shouldn't happen. There are still references to
--			 * the object but, rather than deadlock, free the
--			 * object or pass back to rdma-core.
--			 */
--			if (WARN_ON(!ret))
--				err = -ETIMEDOUT;
--		}
-+		wait_for_completion(&elem->complete);
- 	} else {
- 		unsigned long until = jiffies + RXE_POOL_TIMEOUT;
- 
--- 
-2.43.0
+Regards,
+Konstantin
 
