@@ -1,42 +1,41 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18571469828
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 07:59:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B64646C836
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 08:00:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790582347; cv=none; b=J2qwSiuSvSioCtavU0N6IDWE1bw4BqJBAJnEiQdrgObWAE7XKh9OK1IdhXS4WMcr3BRkyr/wjS/UHGWaqybRMKWOciggxHobyKPXP27X1nWtAlnstPBMeONpwSCJzBss35EDi+96+jzOvjpiMy1gzVgL5spvwQXSXSjhlOHWFCQ=
+	t=1790582438; cv=none; b=bZtDXsB9GtdRqsZHJ+FgobZKL0Q+MuS2K9lALQqz9XI7OiWghIQN3zw474OyhykBw5TMZXpDQfxA4jyT2Wx6y7/Y2IX6HpJ6MZ3baeJYs1xmku8S8GDx34En2e2/1qFugb/ZAH2Ek/kL7y/ALoEQtR3JXznLcirthOPyyRRGISM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790582347; c=relaxed/simple;
-	bh=3W4NBgrl+/+uvd0zacahZXxOp+vkntyxfo7leGlIQhM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=lS+3UhmYttW57FPMTVcw0DpZd1/Z4mOi5LC7xaQ7/v/1E0hCI6+FUY0zSbuOfacv3dtQSZtN9Z1CQxsl8vuR8eXo/nVS1p5PKNPYYeZ+F/AtiUyTwiEdli0kjWx9f5evmzvSGxg3ydfkAIk2M5t5wY6D6uo9XxdrUhhVfOLjFoU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=HeUHL2fd; arc=none smtp.client-ip=185.246.84.56
+	s=arc-20240116; t=1790582438; c=relaxed/simple;
+	bh=GpwWX011HQZjMPJcjOmwRFe7sxtALH15bEdyufXG/yU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=kwCNLoRO0LEER7NxpCT8Ts3rtPV6OhArk1ErpZhwb0o9dYJMKPFwTpGyRM/HjsqSsi4Y1wbBCCjUxXvT/bc+X1bjN9iRWSwi4kYHzcE9d/zQ3NAPGmOEWkIos/CTTOBcRLTLEM6JHNfJeLA0fQRRrrnvAgiR8fIlFj/lOXUOddU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=j7euTmnp; arc=none smtp.client-ip=185.171.202.116
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="HeUHL2fd"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="j7euTmnp"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 4E0F51A0FF7;
-	Mon, 28 Sep 2026 07:59:03 +0000 (UTC)
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 3ED79C5CD51;
+	Mon, 28 Sep 2026 08:01:21 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 1D97C601BD;
-	Mon, 28 Sep 2026 07:59:03 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 74571102F1EAC;
-	Mon, 28 Sep 2026 09:59:01 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 20E4A601BD;
+	Mon, 28 Sep 2026 08:00:32 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 083FE102F1EA6;
+	Mon, 28 Sep 2026 10:00:29 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790582342; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=lo+fp3uIp/MZMNdfvqhab5GBoaeFlln1V3lSeLMKGGQ=;
-	b=HeUHL2fdKHsw9VtYOarWLfaXTnGPX0WpJryG8tYhr257fYfXrUKIiApq0IHpUQI3VY9dgr
-	CGroSCRxYOl4ycN0URqlRtHOuIHhUkotc/9ItYXlzGiL0EybsAM6nrSoXVFa3czRoYDnMQ
-	CCPQdaqCSGs/5nZMXJGG69YCpmq7205yPdxOr6dGh6RYQGldeksqrh3fcV4iDjywBnnc+I
-	gDJ23BBxYaUswsCBAdFHjNi1X5QJNz4bK2OSypkOO3mLh4WWGqwfbQ/7xYY0ee7Gqi9EEg
-	iCllGUUgE0np3dYrKGxMCY2XKNvrU/LYnvAi8bkeEiefPzKZbhB8YcTEJJ6JyA==
+	t=1790582431; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=x1Kn7hDuVKOSi0etVz2INsEnbXmYVcObjNCJBpQwmYs=;
+	b=j7euTmnpkzgA2YkrLz11oHK9cPs5fLOeNHhbZTQBRpEH//Nf/yplkeZNYlNU0k+s68r7bk
+	87YFaRG7pjCrqB6InIWqiX+u+pQjGm0waSPQBdEq6/usEM9DS6CuMrOYSuIadf2g8TaUqJ
+	7mPtwbl4B897lGW0jGjHjPP0sX8TPQRGksDyvRaUle2CpK/m8d+UhhkAu8+4Dmgnf3Mi+V
+	gIlZEk5wsVXwck+XuJ+7uP+g2TTqq5sDMMFYkUWR/CT/bqHK4uOb4GGX1VLzhmndP617i4
+	xW7IhuumuHKINVtUHZFz13AfeERYH/nHnTZ+PfddK08yx2aXkCWyejyw9MKafw==
 From: "Benjamin Robin (Schneider Electric)" <benjamin.robin@bootlin.com>
-Date: Mon, 28 Sep 2026 09:58:47 +0200
-Subject: [PATCH 6.18.y v2 2/2] netfilter: nf_tables: join hook list via
+Subject: [PATCH 6.12.y v2 0/2] netfilter: nf_tables: join hook list via
  splice_list_rcu() in commit phase
+Date: Mon, 28 Sep 2026 10:00:20 +0200
+Message-Id: <20260928-cve-2026-52988-6-12-v2-0-74d198e65cb2@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,9 +44,11 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-cve-2026-52988-6-18-v2-2-6492e680c52a@bootlin.com>
-References: <20260928-cve-2026-52988-6-18-v2-0-6492e680c52a@bootlin.com>
-In-Reply-To: <20260928-cve-2026-52988-6-18-v2-0-6492e680c52a@bootlin.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NzQ6CMBCEX4Xs2SXtyl89+R6Gg20XqVFqWmwkh
+ HcX8O7xm8zMN0Pk4DjCKZshcHLR+WEFOmRg+utwY3R2ZSBBlVBUokmMG2BJqmmwQkkorS6OnVI
+ sWMG6fAXu3Gd/vUCVS8onaH95fOs7m3G73Jq9i6MP065Pcu//NSWJAq0sbN3Ulowuz9r78eGG3
+ PgntMuyfAHoehsJ0gAAAA==
+X-Change-ID: 20260925-cve-2026-52988-6-12-1db43f99e0e9
 To: stable@vger.kernel.org, "Paul E. McKenney" <paulmck@kernel.org>, 
  Pablo Neira Ayuso <pablo@netfilter.org>
 Cc: Sasha Levin <sashal@kernel.org>, miguel.gazquez@bootlin.com, 
@@ -56,50 +57,28 @@ Cc: Sasha Levin <sashal@kernel.org>, miguel.gazquez@bootlin.com,
 X-Mailer: b4 0.15.2
 X-Last-TLS-Session-Version: TLSv1.3
 
-From: Pablo Neira Ayuso <pablo@netfilter.org>
+An additional patch was backported, which adds list_splice_rcu(), which is
+required.
 
-[ Upstream commit a6134e62dba2ea4f760b29d5226907f447c92400 ]
-
-Publish new hooks in the list into the basechain/flowtable using
-splice_list_rcu() to ensure netlink dump list traversal via rcu is safe
-while concurrent ruleset update is going on.
-
-Fixes: 78d9f48f7f44 ("netfilter: nf_tables: add devices to existing flowtable")
-Fixes: b9703ed44ffb ("netfilter: nf_tables: support for adding new devices to an existing netdev chain")
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
 Signed-off-by: Benjamin Robin (Schneider Electric) <benjamin.robin@bootlin.com>
 ---
- net/netfilter/nf_tables_api.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Changes in v2:
+- Added missing Signed-off-by
+- Link to v1: https://patch.msgid.link/20260925-cve-2026-52988-6-12-v1-0-d14d787d2cb5@bootlin.com
 
-diff --git a/net/netfilter/nf_tables_api.c b/net/netfilter/nf_tables_api.c
-index a3a66b6268cd..fa1ee5024d58 100644
---- a/net/netfilter/nf_tables_api.c
-+++ b/net/netfilter/nf_tables_api.c
-@@ -10863,8 +10863,8 @@ static int nf_tables_commit(struct net *net, struct sk_buff *skb)
- 				nft_chain_commit_update(nft_trans_container_chain(trans));
- 				nf_tables_chain_notify(&ctx, NFT_MSG_NEWCHAIN,
- 						       &nft_trans_chain_hooks(trans));
--				list_splice(&nft_trans_chain_hooks(trans),
--					    &nft_trans_basechain(trans)->hook_list);
-+				list_splice_rcu(&nft_trans_chain_hooks(trans),
-+						&nft_trans_basechain(trans)->hook_list);
- 				/* trans destroyed after rcu grace period */
- 			} else {
- 				nft_chain_commit_drop_policy(nft_trans_container_chain(trans));
-@@ -10993,8 +10993,8 @@ static int nf_tables_commit(struct net *net, struct sk_buff *skb)
- 							   nft_trans_flowtable(trans),
- 							   &nft_trans_flowtable_hooks(trans),
- 							   NFT_MSG_NEWFLOWTABLE);
--				list_splice(&nft_trans_flowtable_hooks(trans),
--					    &nft_trans_flowtable(trans)->hook_list);
-+				list_splice_rcu(&nft_trans_flowtable_hooks(trans),
-+						&nft_trans_flowtable(trans)->hook_list);
- 			} else {
- 				nft_clear(net, nft_trans_flowtable(trans));
- 				nf_tables_flowtable_notify(&ctx,
+---
+Pablo Neira Ayuso (2):
+      rculist: add list_splice_rcu() for private lists
+      netfilter: nf_tables: join hook list via splice_list_rcu() in commit phase
 
--- 
-2.55.0
+ include/linux/rculist.h       | 29 +++++++++++++++++++++++++++++
+ net/netfilter/nf_tables_api.c |  8 ++++----
+ 2 files changed, 33 insertions(+), 4 deletions(-)
+---
+base-commit: e2acc2211022246c77740d5df08265cc27eedcc5
+change-id: 20260925-cve-2026-52988-6-12-1db43f99e0e9
+
+Best regards,
+--  
+Benjamin Robin (Schneider Electric) <benjamin.robin@bootlin.com>
 
