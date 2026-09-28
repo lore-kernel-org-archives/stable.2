@@ -1,181 +1,237 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.166])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCA0449DB9B;
-	Mon, 28 Sep 2026 11:08:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790593723; cv=none; b=M0XfoLakbJnQIjb0vRfQHmhGahV9CKBeZde0WyoHfKCaaLWZOrcJMsqTQ8KKmZpkVpE1gMtvvQIi0Njs57U564NHX6dgrx5swK2O80llpRybeooepVS1deBg8mzHdPdhxFZ0XJ8FD61NqMOsGowR3hs9WkLDYEgft2KstYRgKYQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790593723; c=relaxed/simple;
-	bh=yl6osv4k7D3zQoj5wBIbU7ZcwQ1sCs95rhyIq1L/GrU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TrjSApgiNGrWne3+m2ukJ7rZmFF8b5V2BwbDYOMwHjF3xhOct/yrAS2bhPI+mTL6xYw/jyMttYuOM+Pd/rV9BoYAQDNZkwUa8ZxFvdR7xS2WIb7tShyzhFc+ptAZZBlY9/NUY90awIk6AFQrSDMqdM5ZdgwZ5mYvUe91PS39DD4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=jS6qZvYu; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=M9IUB5D0; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=H3MMkU2+; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=11HPE9PE; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B994949D595;
+	Mon, 28 Sep 2026 11:09:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.166
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790593758; cv=pass; b=MkhEtrICsu/3/lIj/dlp+akmEkd9RS+/3A6gShe8Jd9zfV0kRpF5qNduUTrnGX/lxphDYHpy2YHyut0bGGIFuoiOmCnDR9o8JYx1DsoBgJ2rj9HL7W831X9KLfl9nVukSgv5kP4TaoHLiCGSFRSzPPJ6EJ7vSDxw9MmrLZjb68U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790593758; c=relaxed/simple;
+	bh=7lELjSk5u4HXV2UZJwHzp+hM6f0FBs68Wk8RmW/l0Sk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Y2AKxTY6sBxl7wgi33v2UqfDc0TTaPsggUzsNgN5xrl+X8sSro1yZ6aT6iT1dz/HKJDTmNu6FYk1P0ehHPO2k7cHDR8qJdzml18LTxFKJX+KB94QsYXsgtgnUudnZG2UCTlw3XBU8XjKJlhEiFWGoMj4GHZaCpmUb6fPWqMPOjQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net; spf=fail smtp.mailfrom=hartkopp.net; dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=pqonKwJx; dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=VA8TSJE/; arc=pass smtp.client-ip=81.169.146.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=hartkopp.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="jS6qZvYu";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="M9IUB5D0";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="H3MMkU2+";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="11HPE9PE"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id C1AE5226EE;
-	Mon, 28 Sep 2026 11:08:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790593715; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xr/xZeQ5cyTZWsRIm6/m0DTTQKyIaa+hduhVvGYFDMQ=;
-	b=jS6qZvYuUdVoFCHgSQD3wfwWuVjA9pM7IBFXDniP5kK2hL2ZV7cZU7wjQ5jq7H80h+U5nz
-	KVf8ICPoBUiTz3lS3dVAWNc0wFZCuQnoHwc5IWi9srDY99HUbUFcoZda6ebNexAutFL7Mz
-	p0eeJsH4UTA0o7Ged9CmW14t8mUY3Z0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790593715;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xr/xZeQ5cyTZWsRIm6/m0DTTQKyIaa+hduhVvGYFDMQ=;
-	b=M9IUB5D0aR/HJvrf+SIjJJ1gwywQ/SEbpmuDNmR8r8JMAnlN3CussjXHb1nsd7+UNSB4ab
-	UIE9Xwrl3azubIBw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790593711; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xr/xZeQ5cyTZWsRIm6/m0DTTQKyIaa+hduhVvGYFDMQ=;
-	b=H3MMkU2+A3/+lLbBXPjkbi5Cn+IhbY1t86KvifnhoRJoLnfAyNvuZdUWQ2M1nCyeQqx7JY
-	5zRyTWchzbHh957YCU/Z9VOksrh7v2aaMwOtznZ8xTt1MdyNSS+dTkYa+gBfycZ+qGBUCg
-	ddQsVoZtJ+KATSQ8m6xYQI9PEdg95L0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790593711;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xr/xZeQ5cyTZWsRIm6/m0DTTQKyIaa+hduhVvGYFDMQ=;
-	b=11HPE9PE8eprCrSLd3OCEMcP7Fx7Kjvy8inGLHzBoK/bavI0aVo0H8OTN08XspznyT74cN
-	CKAcc4GqhTWoZsCg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B9B39133F1;
-	Mon, 28 Sep 2026 11:08:30 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id zG3UIa5KumqhKAAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Mon, 28 Sep 2026 11:08:30 +0000
-Date: Mon, 28 Sep 2026 12:08:28 +0100
-From: Pedro Falcato <pfalcato@suse.de>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>, Brian Geffon <bgeffon@google.com>, 
-	Minchan Kim <minchan@kernel.org>, Kiryl Shutsemau <kas@kernel.org>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] mm/mremap: fix locked_vm leak by splitting VMA for
- MREMAP_DONTUNMAP
-Message-ID: <arpJfa2ssGZYduRJ@pedro-suse.tail5790ac.ts.net>
-References: <20260920-fix-dontunmap-partial-self-merge-v1-0-6ffb556f8f8b@kernel.org>
- <20260920-fix-dontunmap-partial-self-merge-v1-2-6ffb556f8f8b@kernel.org>
+	dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="pqonKwJx";
+	dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="VA8TSJE/"
+ARC-Seal: i=1; a=rsa-sha256; t=1790593746; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=Ya1YCadGji6rMTM6CMEvPU/TkfS1bCGfAfrYS6Fpuat/4pHw9PMf5J1VMC7oYktm3F
+    p7xw6RzcADLqjJ1CENJ/R7PI8KRxr7DdWKi0s8WBlxVfxCOo72MXdFCCy0ATsizyuZy7
+    IOEdtDJ+GH5mxYYk4wjDA0oP1xSo81IzMrAdWpX+TxTQDmln47Ha7a+Q8l3ew+SzPAjy
+    KMXDG4a2mDdWHG5qGw9bJSk5MADFLzoqXDEVWN1OBhqQvAz2dBGNWweksJwQp0n8eJcC
+    AB87O9hQXKC3b3FvUTbdUzmHPBNbRAJOqoUebPCvfT2Vi9B8ViF3bYC29Ir73jUaj1JT
+    bwuA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1790593746;
+    s=strato-dkim-0002; d=strato.com;
+    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=WDPPOnZ8zGMqDVanmkLKG1cHDsWhNsNYgX/67/WGH9k=;
+    b=ryZW1G4L/mHVLmwzCmhXaFouB2AgHMZthOiMFAn8I8UQUESHYx7rFwlr65XaO5y2D4
+    RF4bi6bwT5qI2B9odMjlvDgLGBIcp4GrdMcV5Uz0LQOHY1qzWjwNy/N3kXu9RkNMNuX2
+    +jMnIzFupcZn3W2wMZwNR1SoGyftjTa0DOFaZbqOKlPjr6IWJLwSGmghaI9BbIkB48En
+    U2XDNUQPzH/9cqcQ1zFdGPQyT8gUy4sAqrnvmJXmF6I9Fhjt41HXuzfMApfkwE2qznpm
+    dbqSrjsGV3DlCU4nkeIhwrfKsomb6gq5p9a+3j5mEpKCUbOJntfkaxUj033Vg+3bNz+u
+    eQpA==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1790593746;
+    s=strato-dkim-0002; d=hartkopp.net;
+    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=WDPPOnZ8zGMqDVanmkLKG1cHDsWhNsNYgX/67/WGH9k=;
+    b=pqonKwJxLrSA6qTB7e5B+76O0SJB6ST5UrYibTO772ZGymZNaFETTxU1uFed2MxnAd
+    PFm6hw1RL1dQvWaRHHGARQG8mQrsr9d+Jl7L8qAXYBmmHyNGGfc8pC7YkZIz2fCSE84A
+    +cbEjJnzWvE+rF4g9JntLOkPrnQFayP2IRkiCzj+iVQno6UIoRaI2gTYfyHpDdQnutLv
+    PVvKEGmvt5jT9rKgKkCe5lIoH/ZNdgI/rVWXNX8qj/jtlBKEnz4GRpGMj1GA3KIloZAa
+    itK1LJlcY726629K6bKe4awuTUxMCq8ulSbAQHKFgvjeagLURFgcHVFAfUpyF83Xv1/k
+    Pjjg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1790593746;
+    s=strato-dkim-0003; d=hartkopp.net;
+    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=WDPPOnZ8zGMqDVanmkLKG1cHDsWhNsNYgX/67/WGH9k=;
+    b=VA8TSJE/CpXES/f1z9ZewJyYFpNu602kUuzuZHYIRcWWAN+d65zafQeZP8at6YxCVr
+    rJdKvUauAM27k8tdT8BA==
+X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjH4JKvMdQv2tTUsMrZpkO3Mw3lZ/t54cFxeEQ7s8bDup0Q=="
+Received: from [IPV6:2a00:6020:4a38:6810::989]
+    by smtp.strato.de (RZmta 55.6.2 AUTH)
+    with ESMTPSA id K04b9a28SB95K5c
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Mon, 28 Sep 2026 13:09:05 +0200 (CEST)
+Message-ID: <3a83de0c-8b64-4f14-ac5f-05f4e7f2d41d@hartkopp.net>
+Date: Mon, 28 Sep 2026 13:09:00 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260920-fix-dontunmap-partial-self-merge-v1-2-6ffb556f8f8b@kernel.org>
-X-Spam-Level: 
-X-Spam-Score: -4.30
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-4.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,pedro-suse.tail5790ac.ts.net:mid,suse.de:email]
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 net] net/packet: guard the ll header push in
+ packet_rcv_spkt()
+To: Quchaosheng <quchaosheng000406@163.com>,
+ Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Marc Kleine-Budde <mkl@pengutronix.de>,
+ stable@vger.kernel.org
+References: <20260928065000.1749383-1-quchaosheng000406@163.com>
+ <20260928065000.1749383-2-quchaosheng000406@163.com>
+ <a56a3e49-ffdf-4285-bca6-992b12127289@hartkopp.net>
+ <20260928080919.1888649-1-quchaosheng000406@163.com>
+Content-Language: en-US
+From: Oliver Hartkopp <socketcan@hartkopp.net>
+In-Reply-To: <20260928080919.1888649-1-quchaosheng000406@163.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sun, Sep 20, 2026 at 03:13:11PM +0100, Lorenzo Stoakes (ARM) wrote:
-> The MREMAP_DONTUNMAP feature is highly unusual in that it permits mremap()
-> operations that keep the original VMA in place.
-> 
-> Historically this has led to a lot of bugs where non-obvious interactions
-> occur between existing mremap() operations and the original VMA.
-> 
-> Fix another of these - partial copies.
-> 
-> The long-standing mremap() partial VMA logic has the baked-in assumption
-> that the originating VMA is unmapped and thus moved.
-> 
-> However MREMAP_DONTUNMAP defeats this by performing a partial copy
-> instead since it keeps the source VMA around.
-> 
-> An mremap(..., MREMAP_DONTUNMAP) operation disallows resizing of the VMA,
-> but the operation can be performed partially:
-> 
->                            |-----------------|
->                            |                 |
->                            |                 v
->                         <------>          <------>
->                         .new_sz.           new_sz
->                      |--.------.--|       |------|
->                      |  .source.  |       | dest |
->                      |--.------.--|       |------|
->                      <------------>
->                          old_sz
-> 
-> The page tables in the specified range are moved, but the original VMA is
-> kept intact.
-> 
-> This interacts poorly with mlock()'d VMAs, as the VMA_LOCKED_BIT flag is
-> cleared for the entire source VMA and set for the entire destination VMA.
-> 
-> This results in an mm->locked_vm leak as the change is therefore not
-> accounted correctly.
-> 
-> The clear solution here is to make the portion of the source VMA which is
-> mremap()'d distinct from the rest of it, a.k.a. split it.
-> 
-> Therefore resolve this issue by splitting it ahead of the rest of the
-> mremap() operation.
-> 
-> In order to make this change re-expose split_vma() in vma.h for
-> CONFIG_MMU (nommu doesn't compile mremap.c and uses a static helper
-> instead).
-> 
-> A quick search of how MREMAP_DONTUNMAP is used in the wild suggests that
-> the partial case is either unused or rarely used, so this should not result
-> in unreasonable VMA proliferation.
-> 
-> Since this makes every mremap() MREMAP_DONTUNMAP operation operate across
-> an entire, distinct, VMA, also eliminate now-redundant code checking for
-> this in dontunmap_complete().
-> 
-> Finally, update the sys_map_count check to account for this case.
-> 
-> Fixes: e346b3813067 ("mm/mremap: add MREMAP_DONTUNMAP to mremap()")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
 
--- 
-Pedro
+On 28.09.26 10:09, Quchaosheng wrote:
+> packet_rcv_spkt() restores the link layer header with
+> 
+> 	skb_push(skb, skb->data - skb_mac_header(skb));
+> 
+> That subtraction is only meaningful when the device actually has a link
+> layer header.  packet_rcv() and tpacket_rcv() both wrap it in
+> dev_has_header(), which is also the predicate the block comment at the
+> top of the file states the restore in terms of; packet_rcv_spkt() does
+> not.  commit d549699048b4 ("net/packet: fix packet receive on L3
+> devices without visible hard header") introduced the helper and changed
+> the two call sites, and this one stayed behind.
+> 
+> A device without a visible ll header can leave skb->mac_header at the
+> 0xFFFF sentinel that __alloc_skb() initialises it to.  A CAN skb does:
+> init_can_skb() sets pkt_type and ip_summed but does not reset the
+> headers, and commit 9f10374bb024 ("can: remove private CAN skb
+> headroom infrastructure") dropped the skb_reset_*_header() calls that
+> used to be there.  skb_mac_header() is then 0xFFFF, the length becomes
+> a large negative number and skb_push() reports it through
+> skb_under_panic() -- from softirq context, so it is a full system panic
+> even with panic_on_oops=0:
+> 
+>    skbuff: skb_under_panic: text:ffffffff8bd21bc1 len:-65455 put:-65471 head:... data:... tail:0x50 end:0x180 dev:can0
+>    kernel BUG at net/core/skbuff.c:214!
+>    RIP: 0010:skb_panic+0x50/0x60
+>    Call Trace:
+>     <IRQ>
+>     skb_push+0x38/0x40
+>     packet_rcv_spkt+0xe1/0x170
+>     __netif_receive_skb_core.constprop.0+0x7e8/0xd30
+>     ...
+>    Kernel panic - not syncing: Fatal exception in interrupt
+> 
+> The socket type is reachable: packet_create() accepts SOCK_PACKET
+> alongside SOCK_RAW and SOCK_DGRAM behind the same CAP_NET_RAW check,
+> and neither the socket length nor a capability check keeps it away
+> from a CAN interface.
+> 
+> The missing skb_reset_*_header() calls in init_can_skb() are a
+> regression in their own right and are being fixed separately, but a
+> packet socket should not turn a link layer that did not initialise its
+> mac header into a kernel panic.  Guard the push the way the other two
+> receive paths do.
+> 
+> Tested on v7.3-rc5 under QEMU with a slcan device on a pty, which is
+> the driver RX path: vcan does not reproduce it, because can_send()
+> resets the headers on the way out.  One SOCK_PACKET socket bound to
+> can0 and one frame written into the line discipline panics an
+> unpatched kernel with the trace above; the same image with this patch
+> prints no panic and powers off normally.  Both kernels are this tree,
+> defconfig plus CONFIG_CAN_SLCAN=y, differing only in this hunk.
+> 
+> Fixes: d549699048b4 ("net/packet: fix packet receive on L3 devices without visible hard header")
+> Assisted-by: LLM
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
+> ---
+> Hello Oliver,
+> 
+> Yes -- af_packet.c is the right place, and your question made me cut the
+> patch back, so this is a v2.
+> 
+
+Thanks for the explanation.
+
+> You are right that the CAN side is already being fixed: I ran zjamg's v2
+> earlier today and verified it holds.  The two are not alternatives to each
+> other.  That patch restores the header initialisations the CAN stack lost,
+> which is the actual regression; this one is the packet socket that should
+> not panic when a link layer hands it an skb whose mac_header was never set.
+> Either one stops the crash on this path, but only the pair leaves the
+> producer correct and the receiver safe.
+> 
+> On your question about where it belongs: packet_rcv_spkt() is the third
+> call site of the same subtraction, and commit d549699048b4 changed the
+> other two to dev_has_header() and left this one alone.  It is still the
+> only one that does the subtraction unconditionally, and it is reachable
+> with SOCK_PACKET.  So this is that commit's missing hunk rather than a
+> second opinion on the CAN fix.
+
+Correct!
+
+> 
+> The v1 had an extra skb_mac_header_was_set(skb) conjunct and this version
+> drops it.  dev_has_header() alone is what the block comment at the top of
+> the file states the restore in terms of, and what packet_rcv() and
+> tpacket_rcv() test; for a device without a visible ll header the documented
+> invariant is that mac_header points at data, so the subtraction is a no-op
+> push and skipping it outright is the same thing.  CAN is the case where
+> that invariant does not hold, which is the panic; the extra conjunct only
+> would have masked it.  I have re-run both kernels with this version.
+> 
+> Details of the re-run, since the earlier numbers were from the v1: v7.3-rc5
+> under QEMU with slcan on a pty, defconfig plus CONFIG_CAN_SLCAN=y, two
+> images from one tree differing only in this hunk.  Unpatched: skb_under_panic
+> len:-65455, packet_rcv_spkt+0xe1, "Kernel panic - not syncing: Fatal
+> exception in interrupt".  With this patch: no panic, powers off normally.
+> checkpatch is clean apart from the unavoidable long line in the quoted trace.
+> 
+> Thanks,
+> Quchaosheng
+> 
+>   net/packet/af_packet.c | 9 ++++++++-
+>   1 file changed, 8 insertions(+), 1 deletion(-)
+> 
+> diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+> index 7c83e01526edc..40c67b86a1735 100644
+> --- a/net/packet/af_packet.c
+> +++ b/net/packet/af_packet.c
+> @@ -1911,7 +1911,14 @@ static int packet_rcv_spkt(struct sk_buff *skb, struct net_device *dev,
+>   
+>   	spkt = &PACKET_SKB_CB(skb)->sa.pkt;
+>   
+> -	skb_push(skb, skb->data - skb_mac_header(skb));
+> +	/* Only a device with a visible ll header can have it restored, which is
+> +	 * the test packet_rcv() and tpacket_rcv() already make.  For the others
+> +	 * the header is invisible and the subtraction has no meaning: a producer
+> +	 * that left skb->mac_header at its 0xFFFF sentinel turns it into a huge
+> +	 * negative length that trips skb_under_panic() in softirq context.
+> +	 */
+
+Just a nitpick: AI mostly likes to introduce comments that repeat the 
+argumentation already provided in the commit message itself.
+
+I would suggest to remove this entire comment as the other "if 
+(dev_has_header(dev))" call sites don't have a comment either.
+
+Comments are needed to provide additional information when the code is 
+not obvious - and not the development history including producer 
+failures ;-)
+
+> +	if (dev_has_header(dev))
+> +		skb_push(skb, skb->data - skb_mac_header(skb));
+>   
+>   	/*
+>   	 *	The SOCK_PACKET socket receives _all_ frames.
+
+Many thanks and best regards,
+Oliver
