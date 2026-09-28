@@ -1,157 +1,231 @@
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C22253CAE60
-	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 18:59:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.204
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790621957; cv=pass; b=eYH3siH7CtJ14D+pqRM0B9bNbzU036vnDyyZswpQ3qvxlyeu4NhFvOkIMMy5oUro8cxyu425tH1fHLndhrjLVx+9gktB1ys6ynpwZxnSOF7FCaUAtB4bXiJLBhFNkfvzW4ROqL60aTRKNGZEHVPBK3vcKz3Q3Os7Iqh3z8Mvojs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790621957; c=relaxed/simple;
-	bh=38U1s8GZuYMNUAkuLxbkuCyOG+w/gVbAI7eJbWfyuKE=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=l+UU7VQ+qKsGoEKdriHlSeQLT1S84j1rv8s6JLbQBYyc/ytmkl7NRNdc3uG3AXzKUO705SBW5gcXGpnLEp5e3L5m/1fx0Uumo1JhcdjK5XdfSZ1jb5Bk4j1cVFhvCv6Llt59ZSTARY4mdA/rM9H5yC6MUsJwsnQ2L6PWNrafUrg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZkVMQ9Cn; arc=pass smtp.client-ip=74.125.229.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A78584E4C58
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 19:03:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.40
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790622241; cv=none; b=fVJi3wvuP+qyJbJttlqHE+sMwbUczn150gH/eR0lQE/tj+s/EtedZUF7aRWafxgNoT7bi8gOnPxlQdr5la18+8S8xe9fw4HY/PhbHjXzZF6752qmasPIiLNq9ZbqgVvcgDpzdsWIUENwKvpbuJAAJXWCnElN7bUIfZyU9Jw9ZoA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790622241; c=relaxed/simple;
+	bh=Ii6su9q+Ms7ruL5ubHuRQW/zkqyBvMkD3ORd5XV/dDM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qE7DQ0VMBB7vdjm9H81vn8Xghh78Dzx2LeHAc4pjgnzzUKbe5rVxVnZLQudlfqBnKTuH7SfoUHLAd1LciXVqksFswh84VIQC4H6DcdbKyZ3s5lLVzgQCWBdgq40duJ7f+Slck+jxCKIVurn2yuOxHsKaj6MBGmUWhaCVXTJutMM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=aheNPTcj; arc=none smtp.client-ip=74.125.228.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZkVMQ9Cn"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b8f80e3f72so1852881e87.0
-        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 11:59:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790621951; cv=none;
-        d=google.com; s=arc-20260327;
-        b=f0r641Ir8VKEPW2yHfGxxw7psLfrFiHEcKqlUQ4LB4A83cQWd2OEaVUa4AWHiA2Kt+
-         YedIPrGsgLfbKDPn98QtXoJpww3ryEaKJMLerV0IGcpmbzi4ECyKs3DZLqvlPpxFVlik
-         pxkzK7wSK0aF3GzPK6DG73/RA0ntUdj5Og0W2asCaF/1eE/hEcNu7UzYAPQMxx1qSx81
-         PW/3bQIu7TEe+JbOBE93FVgDAwu+H4rK9EfgCrW5czO85Y9RUduzjb4ivQ1KQFJkvPb+
-         IxTwlqx7nihcWfxekCmuPuFqHO7Cp/L9xnJRW0FJ/xbDSP2aaNdP/0+bGWN5qEkWO/41
-         0www==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:sender:mime-version
-         :dkim-signature;
-        bh=JJn4UyQhX96Z2Uxh80LSoGTD5a8DL5VMxaJOGjyTlhs=;
-        fh=UrhO8iqon2ZSKygK/7guwXF2fGgpl67Npd15my0teo4=;
-        b=FiQQq6LquXlRv6C52nP6i58DcS7H+leUd/aKyz7pA/zaykEFLuu1Iw6ZkxManJpVeO
-         9ls5cfJwPb1KazC23COHaQwr8T/xfl7odthqTETRAZvIPBUtgUN/6BojEp4WG2A3JDyF
-         CKZ5Sof4hoCY+mRqSfSrRmu4/Cu5IPRBOgfKXXZP0jlL2rFH90krxAs4PG7neeSzzmWu
-         Tx3m4kSNmz6UuETwuO88B8uqhrB1EY39z0Rv1RXWqVNKqbuDC2Ezcls0VCvi7KZ5/u1h
-         9wmfONRiM77B5a/9oKdcrIHBDg/EJN+1eLXgHw4Rbj8i8rthrYJ9OM46Mw3gTw7ZeDHI
-         4uxw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="aheNPTcj"
+Received: by mail-pz2-f40.google.com with SMTP id d2e1a72fcca58-87fd84c0bfeso1316888b3a.3
+        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 12:03:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790621951; x=1791226751; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:sender:mime-version
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JJn4UyQhX96Z2Uxh80LSoGTD5a8DL5VMxaJOGjyTlhs=;
-        b=ZkVMQ9Cn4o+jeVoWjjCwmq9CPcWR7/mF9yEG7Ns8vm6qxN6Zxr+3S2CeeJ376BXJtz
-         GVXAUUQC4m9e5XNrwD3kDMHErMmhNwdXdhjazklqN4PdGNuPuk5BjCf3IriVDoTMLJEx
-         YedorAfXg4T0qn6IGn3W4qmJpR7e2meojy9B53opjP7/4gbT2zvFH0vZ4ovTuE5/0owt
-         by/DTUHfyIoqxLiBI86H8+MjOqF2ySzbHzAQ4QmIBaPyzkHysb1yUPMCvKOpXOEWIdtP
-         fWttTVU2sH5IF9JhWLDO1iSE6HlySw/mVz+kv66d15ZLkztjyHkh9Oo3fh9BKIXMlNCP
-         oWUg==
+        d=chromium.org; s=google; t=1790622239; x=1791227039; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yb4VU0xO3Kw3ynFT3ZuY69A5vTUlTGRQrwm4GlcKD7M=;
+        b=aheNPTcjABxYc8tuOmhwwXEm5U8DA2Txf9bKIovsVrECI4I+2kxu77Q8XXh2BiNx4l
+         w4OIbHP8COKoBGGHTE9A/q+0ohuI9YdYbyjydsq6Mv7mC9M9cPH/Z+0ZJ8yPapl/DTiw
+         qe79On0690rPKGOO3OEN1wE7zgaWHFFtPSXoU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790621951; x=1791226751;
-        h=content-type:cc:to:subject:message-id:date:from:sender:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=JJn4UyQhX96Z2Uxh80LSoGTD5a8DL5VMxaJOGjyTlhs=;
-        b=kGs/wU+aFEki0TO2IPHrwPxGkI2UTdqM01hUIa2r+EdZJ02ewbAsL+HjwN429zP9Lt
-         v6Cc111inyY/dJqHYgHYpa9OHReazFOaOVE8OX7XJdAivW5XtX4ClKUhHoa6bC7GMETL
-         qBKM42KIWxmwTgTPKHHil4vunR14GfGOfx/yE20RJhhGTW2PTtHT76A2nbl9K32R5JtE
-         wI+csvTo5yj/p0Yrj358gmVnfymhCFi2+LG1GSp/s9zZPob88YE48iU6D7vyTtmJwA4v
-         hOaBAU7dVUTwHbY5qsc/0umelHea5w4+0a/WazdgfKpWdZ/PMJlBUPHCl1x6caBiZyH3
-         FZ3g==
-X-Forwarded-Encrypted: i=1; AKwUvBw7F9IKdSsoh7ncMfwdvI9CREPPMxLqxBxevOAT2z9dkfUVBlCbOy4bDmpFGmhNjKTaiCyucNQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJCq/rn3sk0u12DKstSvabny37sCAwpYhWNwmLCG1hTEbRKVaPP
-	lbCuiUoBnXqng1VCC9/uLShJJ8EnJewZn1N9SvuPR3MzVX56zIP2pA1KoxdU1uuF1t7fVlweWGQ
-	QeLUa3BdIty2gF9yJB+2OVChmJGAWZqs=
-X-Gm-Gg: AYBFou11qdxsmvONfdXtPU0IAyKZ/ZuaZLOObNrI1oLDGvBN3h8c0q6WieHHUAdY2cF
-	+QsMXZdmaMUucW/w0Sm+AkIwE+Xif76m/9RVQj3YCducWM+EPCwhY8djN8igO0R2cm0eBiH6gTm
-	BAo+mJcP/6Krxr1Zqumhy2g13nRfBYhACTaF+Q9AWQ5EqZGOJYMUYyb/mePL3DmIqv9f7chBHj8
-	dVbC+dznOJ8DWJtN2xJA90hDHLUlu5wNsuoTcKLUTiswOVrUtwu41OhEjC5rqkPUHlMME+Gt0oL
-	dbAScpuDnbuc/mwtWFZA/K9iXrB1HMnsOIdoHUf5LdBLzXs9+yzXKR/2iR6m2Xh7V9qgjCKIgTT
-	owwLZol4Yfpkz
-X-Received: by 2002:a05:6512:a87:b0:5ae:bd5e:95f7 with SMTP id
- 2adb3069b0e04-5b8df0d42dfmr4907670e87.4.1790621950890; Mon, 28 Sep 2026
- 11:59:10 -0700 (PDT)
-Received: from 254448290189 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 28 Sep 2026 11:59:09 -0700
-Received: from 254448290189 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 28 Sep 2026 11:59:09 -0700
+        d=1e100.net; s=20260707; t=1790622239; x=1791227039;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=yb4VU0xO3Kw3ynFT3ZuY69A5vTUlTGRQrwm4GlcKD7M=;
+        b=Cu4AbwHFBEJTkrB6PxN20Knhite/bZrnL6QQk9ss8nxqi2qbN8DPaMuKn3vFBwxVG3
+         gxV7VDBNhjRqp3k3Lu8fWIDxh4+KXEZ+R87h/XLnkFloGAMkfEzn6dSUXftpqGBNKgMc
+         QNGlLR3WftsZJP//EOd9Pwt9VpUzp0OzEA19jLSWAanvgB7rBhSV9+3VbC+7YkuL77vg
+         vxfqX8S2lSbfntIXYto8GXorp0H9j+I/3wADnA+yePXFG2B4mTdAw4B4krnXpmYN/+lt
+         T88V3RF8NLg3JxgZzlAaNIKLr/CF9zWqKA7gtiAa/wqM2BbIEh9kxv0G7IaezsKoYSdk
+         38wQ==
+X-Forwarded-Encrypted: i=1; AKwUvBww947BvpBg5CGNKzbEBGiiKRcEazHCjrqDXSqEf1jBInIHapnQF597zxyzS655O3cTlgGwI1c=@vger.kernel.org
+X-Gm-Message-State: AFuF++mE5Lvi/JzK3x7hPckZQjm3e9688ymzDThw6OnZn+D+CMWLGdoA
+	Td+Yq3+ParHZCnRTVxdJMAQn7e+2Ex8SpVNI9DQijlM2jQyrUKc0YYXYGn8iIac3hIjyT46+/nY
+	NlPj3Iw==
+X-Gm-Gg: AYBFou3iT3h1prUWVSP5xc8YtkMEiv7hosbl11gwOYR1QWt3kPIPZ2jApwjIWuhwLfv
+	yBfFWG2TGDenprtR3L1SztMVbkRZtbov/uyDJFJHrueS+INOHMUNycXxOH7OgnmdWSoramOI7hN
+	xe4aNav2NXw7x5ayndNrDePIcLP8VDhLalANfGN4oyFHJbF8E1V1wZTOerWg1iE3qd5XxDvPcuk
+	ZNudC5TfW4cGeSFAH1jb88jj05GmgucDdDgmhWDJSqYYevJe9AaupHlpoZRlkdCWEGH7cHspmXM
+	ND5Dmz3fGd+nbN8lRDqEPBM6KSolqZrqBclwn2lzWkvwCOxxGFTwEvHQq5/LWeAymQkAei9DV50
+	Q3OpfhstfwqP33hUBkC7vjHRm4bb5PKbW8rbf3bz4o1oDhN88jNCu7KRIdfSia636uQKSciJgD/
+	4KsN9ynpykd/LO7f0o1OMDU9z6L/MzEFo+UhJClDidgpPhdom/jTjbY29xmTMNskHR3P/bHRaQ3
+	GS3qX/XMWLPQuHV8WSfLGnBcLkhYHjNsN2TnA==
+X-Received: by 2002:a05:6a00:e8e:b0:882:7f85:291d with SMTP id d2e1a72fcca58-8827f855658mr4009936b3a.19.1790622238315;
+        Mon, 28 Sep 2026 12:03:58 -0700 (PDT)
+Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com. [74.125.229.140])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87fea88ed6fsm4498804b3a.31.2026.09.28.12.03.57
+        for <stable@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 28 Sep 2026 12:03:57 -0700 (PDT)
+Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-142dd025d06so2385544c88.1
+        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 12:03:57 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwhDRRpDeLMkVOs2xA0it69ou/kt4zERCG1jB25SFCx4S5M92LJ5LMTSjwifhF8xI9BVSo2mDQ=@vger.kernel.org
+X-Received: by 2002:a05:701b:4243:20b0:144:eb46:be0 with SMTP id
+ a92af1059eb24-146ce67ed9dmr11205429c88.13.1790622236106; Mon, 28 Sep 2026
+ 12:03:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Sender: Vamsi Krishna Kattamuri <kattamurivamsikrishna17@gmail.com>
-From: Vamsi Krishna Kattamuri <kattamurivamsikrishna17@gmail.com>
-Date: Mon, 28 Sep 2026 11:59:09 -0700
-X-Google-Sender-Auth: bfjEdBcSXwRUi8bLWiPkOvkvDYo
-X-Gm-Features: AclHuK8baSSkZv-tT7IrQBt-8uVkNNdEXmB5RveGyZwqKIXYr-qkBIj5G0AoAGo
-Message-ID: <CAANnmVAicVNhy8fMUaFJ_N+b4DnbwpYi1MOL4yMVisix1WCX4w@mail.gmail.com>
-Subject: [PATCH] net: ncsi: clamp filter table counts in GP response handling
-To: netdev@vger.kernel.org, sam@mendozajonas.com
-Cc: fercerpav@gmail.com, davem@davemloft.net, edumazet@google.com, 
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
-	gwshan@linux.vnet.ibm.com, joel@jms.id.au, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
+References: <20260911-uvc-ctrl-bound-v1-1-7b5cfc68bae1@chromium.org>
+ <20260928120252.GB4406@killaraus.ideasonboard.com> <CANiDSCv5pd-3aO0Eb1-rvsAOGNpB4rhpjtnTosU6Ca+xBxN1qQ@mail.gmail.com>
+ <20260928122450.GA166131@killaraus.ideasonboard.com> <CANiDSCuBFLYXFbq7Vox7AhdhftfzC9Ga6FKL-2F1o08cHQjoAA@mail.gmail.com>
+ <20260928124109.GF157191@killaraus.ideasonboard.com> <CANiDSCvvJd0_taNYvHm894kPpyOWQ+TaxC_XRVOs5qrUHod08Q@mail.gmail.com>
+ <20260928184429.GE210522@killaraus.ideasonboard.com>
+In-Reply-To: <20260928184429.GE210522@killaraus.ideasonboard.com>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Mon, 28 Sep 2026 21:03:41 +0200
+X-Gmail-Original-Message-ID: <CANiDSCs8N-m1F7LMuerVbYF8xrBPBeVTg2_UX4p6M7g=9yz_Sg@mail.gmail.com>
+X-Gm-Features: AclHuK96cFmDAaZ7pA9J38bcgxdWVUQY-fBUQnA5y78NAtvlOMQREwr8C3c2N04
+Message-ID: <CANiDSCs8N-m1F7LMuerVbYF8xrBPBeVTg2_UX4p6M7g=9yz_Sg@mail.gmail.com>
+Subject: Re: [PATCH] media: uvcvideo: Fix bounds for descriptor parsing
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Hans de Goede <hansg@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@skynet.be>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-ncsi_rsp_handler_gp() iterates over the MAC address and VLAN filter
-tables using the counts from the Get Parameters response itself,
-rsp->mac_cnt and rsp->vlan_cnt.  The arrays it writes into, however,
-were allocated by the Get Controller Capabilities handler from the
-independent rsp->uc_cnt, rsp->mc_cnt, rsp->mixed_cnt and rsp->vlan_cnt
-fields.
+On Mon, 28 Sept 2026 at 20:44, Laurent Pinchart
+<laurent.pinchart@ideasonboard.com> wrote:
+>
+> On Mon, Sep 28, 2026 at 04:03:15PM +0200, Ricardo Ribalda wrote:
+> > On Mon, 28 Sept 2026 at 14:41, Laurent Pinchart wrote:
+> > > On Mon, Sep 28, 2026 at 02:35:29PM +0200, Ricardo Ribalda wrote:
+> > > > On Mon, 28 Sept 2026 at 14:24, Laurent Pinchart wrote:
+> > > > > On Mon, Sep 28, 2026 at 02:10:26PM +0200, Ricardo Ribalda wrote:
+> > > > > > On Mon, 28 Sept 2026 at 14:02, Laurent Pinchart wrote:
+> > > > > > > On Fri, Sep 11, 2026 at 01:23:50PM +0000, Ricardo Ribalda wrote:
+> > > > > > > > uvc_parse_control() passes descriptor by descriptor to
+> > > > > > > > uvc_parse_standard_control() with the number of bytes remaining in the
+> > > > > > > > buffer, not the number of bytes of that descriptor.
+> > > > > > > >
+> > > > > > > > Because of this, malformed descriptors could leak over the next
+> > > > > > > > descriptor, leaving malformed data in our structures.
+> > > > > > >
+> > > > > > > What issue does this fix in practice ?
+> > > > > >
+> > > > > > Look into uvc_parse_standard_control().
+> > > > > > Let's take the UVC_VC_HEADER
+> > > > > >
+> > > > > > Imagine we have a malformed control at the beginning of the descriptor that has:
+> > > > > >
+> > > > > > buffer[0] = 3
+> > > > > > buffer[2] = UVC_VC_HEADER
+> > > > > > buffer[3] => Beggining of next control
+> > > > > >
+> > > > > > With the current code, buffer[3...X] is parsed as UVC_VC_HEADER.
+> > > > > >
+> > > > > > What does it fix in practice? It avoids that data outside the controls
+> > > > > > is parsed as part of the control.
+> > > > >
+> > > > > I understand that, but what does it fix in practice ? And have you
+> > > > > encountered a device that exhibits such a problem ?
+> > > >
+> > > > I have not encountered such devices, but even if they do not exist
+> > > > they are easy to emulate and use for escalation.
+> > >
+> > > That's what I'd like to understand, can this be used for any kind of
+> > > escalation ?
+> >
+> > It is very difficult (impossible?) to prove that something is not
+> > exploitable, especially as the code evolves.
+>
+> Regardless of whether or not all the bytes parsed by the
+> uvc_parse_vendor_control() and uvc_parse_vendor_control() functions are
+> part of the control descriptor or are split across multiple descriptors,
+> they all come from the USB descriptors buffer and are all ultimately
+> under device control.
+>
+> As far as I can tell, all this patch does it add a check on buffer[0]
+> but has no impact on anything else. If a device can supply USB
+> descriptors data with an invalid buffer[0] that currently causes any
+> type of issue in the driver, the same device could supply the exact same
+> USB descriptors with buffer[0] set to a value that will be accepted and
+> still cause the same issue. Am I missing something ?
+>
+> > We could spend hours trying to craft a payload, plus extra time in
+> > future reviews whenever uvc_parse_vendor_control() changes. It is much
+> > safer to just enforce the correct bounds now.
+>
+> So is your concern only about introducing issues in the future without
+> noticing ?
 
-A malicious or buggy NCSI device can therefore report contradictory
-counts in the two responses - for example a GC response advertising
-a single unicast address filter followed by a GP response with
-mac_cnt = 255.  The GP handler then memcpy()s 255 MAC addresses into
-the 6-byte kzalloc()ed buffer, a heap out-of-bounds write of roughly
-1.5KB of device-controlled data, and the same applies to vlan_cnt
-versus the vids[] array.
+My main concerns are that the function's API looks wrong and yes, it
+could introduce bugs in the future.
 
-The loop indices are additionally used as bit numbers for
-set_bit()/clear_bit() on the u64 filter bitmaps, so any count larger
-than 64 writes out-of-bounds bits into struct ncsi_channel.
+we basically have:
+parse_field(void *data, size_t total_length)
 
-Clamp both loops to the number of entries actually allocated for the
-channel and to the capacity of the bitmap word, mirroring the
-validation the SVF and SMA handlers already apply to their indices.
+instead of:
+parse_field(void *data, size_t field_length)
 
-Fixes: 138635cc27c9 ("net/ncsi: NCSI response packet handler")
-Cc: stable@vger.kernel.org
-Signed-off-by: Vamsi Krishna Kattamuri <kattamurivamsikrishna17@gmail.com>
----
- net/ncsi/ncsi-rsp.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+btw: in parse_field we are ignoring the field_legth in most of the cases.
 
-diff --git a/net/ncsi/ncsi-rsp.c b/net/ncsi/ncsi-rsp.c
-index fbd84bc8026a..fa1ed405dfbb 100644
---- a/net/ncsi/ncsi-rsp.c
-+++ b/net/ncsi/ncsi-rsp.c
-@@ -883,7 +883,9 @@ static int ncsi_rsp_handler_gp(struct ncsi_request *nr)
- 	ncmf = &nc->mac_filter;
- 	spin_lock_irqsave(&nc->lock, flags);
- 	bitmap = &ncmf->bitmap;
--	for (i = 0; i < rsp->mac_cnt; i++, pdata += 6) {
-+	for (i = 0; i < rsp->mac_cnt &&
-+	     i < ncmf->n_uc + ncmf->n_mc + ncmf->n_mixed &&
-+	     i < sizeof(ncmf->bitmap) * 8; i++, pdata += 6) {
- 		if (!(enable & (0x1 << i)))
- 			clear_bit(i, bitmap);
- 		else
-@@ -898,7 +900,8 @@ static int ncsi_rsp_handler_gp(struct ncsi_request *nr)
- 	ncvf = &nc->vlan_filter;
- 	bitmap = &ncvf->bitmap;
- 	spin_lock_irqsave(&nc->lock, flags);
--	for (i = 0; i < rsp->vlan_cnt; i++, pdata += 2) {
-+	for (i = 0; i < rsp->vlan_cnt && i < ncvf->n_vids &&
-+	     i < sizeof(ncvf->bitmap) * 8; i++, pdata += 2) {
- 		if (!(enable & (0x1 << i)))
- 			clear_bit(i, bitmap);
- 		else
+I am happy to drop the cc and fixes tags if you want to consider this
+just a boring cleanup
+
+
+>
+> > As you said, the risk to break current hardware is low. If it happens
+> > tis change is small enough to make it easy to revert.
+> >
+> > > > We add minimal code and solve a family of bugs. Do you think that it
+> > > > is a better pattern that uvc_parse_vendor_control() and
+> > > > uvc_parse_vendor_control() have visibility beyond the control that
+> > > > they are parsing?
+> > >
+> > > I'm concerned that some devices may stop working. The risk is likely
+> > > small though, but I'd like to understand what we get from this patch to
+> > > see if it's worth the risk.
+> > >
+> > > > > > > > Change the code so we pass the actual length of the descriptor to the
+> > > > > > > > parser.
+> > > > > > > >
+> > > > > > > > Note that this makes the existing check more strict and some devices
+> > > > > > > > that are wrongly parsed today will not be probed now.
+> > > > > > > >
+> > > > > > > > Cc: stable@vger.kernel.org
+> > > > > > > > Fixes: c0efd232929c ("V4L/DVB (8145a): USB Video Class driver")
+> > > > > > > > Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+> > > > > > > > ---
+> > > > > > > >  drivers/media/usb/uvc/uvc_driver.c | 7 +++++--
+> > > > > > > >  1 file changed, 5 insertions(+), 2 deletions(-)
+> > > > > > > >
+> > > > > > > > diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+> > > > > > > > index e289cc71ba98..429f1ab19a2a 100644
+> > > > > > > > --- a/drivers/media/usb/uvc/uvc_driver.c
+> > > > > > > > +++ b/drivers/media/usb/uvc/uvc_driver.c
+> > > > > > > > @@ -1248,11 +1248,14 @@ static int uvc_parse_control(struct uvc_device *dev)
+> > > > > > > >        */
+> > > > > > > >
+> > > > > > > >       while (buflen > 2) {
+> > > > > > > > -             if (uvc_parse_vendor_control(dev, buffer, buflen) ||
+> > > > > > > > +             if (buflen < buffer[0] || buffer[0] < 3)
+> > > > > > > > +                     return -EINVAL;
+> > > > > > > > +
+> > > > > > > > +             if (uvc_parse_vendor_control(dev, buffer, buffer[0]) ||
+> > > > > > > >                   buffer[1] != USB_DT_CS_INTERFACE)
+> > > > > > > >                       goto next_descriptor;
+> > > > > > > >
+> > > > > > > > -             ret = uvc_parse_standard_control(dev, buffer, buflen);
+> > > > > > > > +             ret = uvc_parse_standard_control(dev, buffer, buffer[0]);
+> > > > > > > >               if (ret < 0)
+> > > > > > > >                       return ret;
+> > > > > > > >
+> > > > > > > >
+> > > > > > > > ---
+> > > > > > > > base-commit: 27953c044974baf7e24dee3e9342fe0103dea80c
+> > > > > > > > change-id: 20260911-uvc-ctrl-bound-9c1940f06fc7
+>
+> --
+> Regards,
+>
+> Laurent Pinchart
+
+
+
 -- 
-2.47.3
+Ricardo Ribalda
