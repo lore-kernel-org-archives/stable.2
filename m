@@ -1,56 +1,56 @@
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3A9C5013B8;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55F2E5013A4;
 	Mon, 28 Sep 2026 19:33:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790624008; cv=pass; b=JF9XLyODNzwjXS532oGhDtFYK6k/RUX8A2BMJVppvVDj0tAbyA2nptTg10MLGyYVQMYJuawdq49hPVbYhLwNVF9G10qFKNWGHqUc/qHGAL7GowTnv7XCS70m3549AweKLTSbQ+OSWTTs4Vxei/FlI5+7pbikQMLPq6EzgKu/TBw=
+	t=1790624009; cv=pass; b=OZ94PXU/S69ULLTbmOVCKQiP7VEYoSHp2S0mPr8osLd/bj5V5oUCgDyBjoGpuXALErncaDmUsGZMQBQGSQK1FVNbs5mNTMqyNCETaTFBJFHUXwJyhJUcIox1K14zGH0BY79cwNBUYA+HrPk7T41EE9uSCGfAlstRLilT9DvjyUo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790624008; c=relaxed/simple;
-	bh=pCvkEoLFkbqIKhTVTrG4IkVlekysPQ3Td5eIHxJJUvA=;
+	s=arc-20240116; t=1790624009; c=relaxed/simple;
+	bh=nArqHc2m+24XrlritmPUh47M0hDA0KT+FtUgdD0/Saw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QueaqUh00ARDhsTITrGHZTxYInOavrnpddp3O+xox3nyNdgpCOmiQi/en/0rJsai5PLCUZu3+iyfIMvbUntbAFAwCxJwYVO1ZCytVyKA4+w87WjM57+pV1VdHrpAjU4uZ8d9OJgq7CQLa8VfGlg/kKyOoVQuqifHEgnd8ck5xvM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=W8RGS+r5; arc=pass smtp.client-ip=185.203.200.13
+	 MIME-Version; b=QxfWf51A6EUJTcsKa/ZAKiAeUj4E2XiKusRPQoBKOA3th0NKX4l/Zs/LrnTGDrIiAHcXMiDMa9ye7YHhYdPOOVolngg/ZsMobFiwbLx7AhDVij//ZhxkXfuqHzFljexK2XxJEbYsKwxqBTL3s4esLwh5ejKx2W4Yx6+YoaaNCDo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=DspFrtmk; arc=pass smtp.client-ip=185.203.200.13
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="W8RGS+r5"
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="DspFrtmk"
 Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
 	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 3340B202007;
-	Mon, 28 Sep 2026 21:33:16 +0200 (CEST)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id C6401201F24;
+	Mon, 28 Sep 2026 21:33:15 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790623996;
+	s=20260414; t=1790623995;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=UY6/PBTu/e0Zb9SwngmL/6NQDZDNEGA5tfaEEthL7Ww=;
-	b=W8RGS+r58xuVk9GwfMesXmf2W7Kosr5sxn7ulMpB4BJX+txo3CNdp3bX6B+849jrF+MK4b
-	jEXyzai4OnJlOP42yNbfg68aniFio0NNU8LncH1fOmUPdGbXRA5tOz1aP4zYp73uOd2zSI
-	SfjIOKars30RyZCOgAvmRZbzgbVV7+g5UYKsk0/sFznJzahLuGLwPkh2qH4ogt/0S5ij5C
-	NZaiO3xh0ttKZsPOIiB9M0AqLLEd9HO/sm+1efdq1PSAFtT2vE5VWPIzW4MA0LArvYOGY+
-	S+haX3g1F2vw2eFVqFPLeeGTTRot8PHPCRwhYedvz5/7kMFfG658NH7AUtMyKg==
+	bh=WrVm8dfG8EonS9t6k+AS2DXED7dXmRTi8LHEaxXCN/s=;
+	b=DspFrtmkDo6d5jgsuRQOi7DJ9HxwFvB8DP8GVBElHzGtTurehzowJ4ox039kd4PEXxO1tI
+	+QwUn5AFyzfX8GTBDu2JWVKxuRPYH/SlL9orqpEaQjS8vSjSmBBWv+M4negUnlBFd3rIj7
+	g985uDVj/N93ZLs2QVZ7ESxJU2Cax2IrVjWtuP4gDGiZ8+RPqAWTS1XzZmoYKaTv3HpW2U
+	/jC9PBVeEOm+v5MsQMUC/b7bcLHrWOCGXoQ2SOW8sBDu/VPwk/qdc/JkzqrC0fYcSJzAAO
+	8H+I/TjeQV0qmRISH/1xsrRJWsMk/scK0Nacq9VssK3rYCWG8kVnMMXtcA9p0w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790623996;
+	s=20260414; t=1790623995;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=UY6/PBTu/e0Zb9SwngmL/6NQDZDNEGA5tfaEEthL7Ww=;
-	b=SdtEn380W6tRZgQpayBoWLi/6DHR/IRXQS/0F0olkTqhgv0CxVTBYULeAVDQCH0PKGaqoC
-	AkGkop8T1HDYtOPpTCgcnI13BmMDxECVRFzU72pqvIKMlVf46n5ZtPJ9wAoZWk6WFw/qYZ
-	lTUt4tDP7nDjLJRFpEkY6eQM9xdzb4uwuovXAOf3gyt7tP7xxrlSy5cROvJUMnZ9i2Jzjb
-	jVVg8LCLVWjMJzZ9NdIWJFWvyv0shpy/kwETr/NEP6RdPTl0WlTR9Z4NKmg0wz3JvjjJzn
-	v0haDIhWHI46fm0I6tr0Fu/t/m3SM3g6yo+H+A+EFNJQUiuDme5Wf0A1r/RYuQ==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790623996; a=rsa-sha256;
+	bh=WrVm8dfG8EonS9t6k+AS2DXED7dXmRTi8LHEaxXCN/s=;
+	b=borjB9hIk5tuxMAYd0zjxOFCLwRBUTyDopb+LDTIYERB1JBh+ONPQJBM6nu5/eieDkqHOD
+	WWrM9MddbuqKkes3OuGcYOv64hjX0rUO/EBV5LHasB6E8QlqrnGOqKfAkmUVAorKS9ACzr
+	Ja35gkkmfczn5Gty10Mf0LOjVu8tCVAaqgiL364yVb4xK59PewY60Ci5hPU7JbYaQjXQRU
+	JL8JCffQT+Etm45g3+wwGfi6p6i5hmaGWmpmb4Wf01Mmf4on/v+pUjqug3LQwJrHBGWqfw
+	E1KEkwv7VShHni3Z1TehsuMd9gvKqny0umpDj8Yn6dKt/CI1VTlKpi0rTr7m1g==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790623995; a=rsa-sha256;
 	cv=none;
-	b=epZNK/pC1VD3AZUQow31bvgOfnAP6OXRnCtiTfndsJoDS+nvZFo53Y5HFQKUkBG7Kf2XTW
-	LJLmP/Xkc3GXoGNHc6GGHS3Mh1APiiGiL3RmUHJyIY4SG7USF5jkZg69jvKjn24ZmnJjDw
-	IzfXkvk/KMLX7KcvWuPL7qR7uPdQddf1q+nw1URLbyYR4S7qS+V8xPtL2WydDWL4n3RKwH
-	iz+3SN8LUZ7EWTwLsXV3y6sWIT2oZbvdlOaPnWaKj5qZoCJ8Mnk1Fx4wd2NkyQHBjXZDOM
-	kB+YB+tiJWkpLoVhRqiyNmKf1BAM6yy/S523Piohz43nwrwQvdMUNj+gbmAA0Q==
+	b=Vc3d76XsVeZgyTRzAsHOJwwE0X9DM9sXLwPKuePs5rjWDOtZRnRTkKlFDUL5DIqRG9yKHs
+	KXfidz7fJKnd/fvXwtSUV2ofwGReUsYFM2JITWjjz3ye3Idcn+ZaiZVjODifU1hk8hScuV
+	+TfaKGhhAoD23gkeegTGxmLgXd4tOOXdWTdh3XRW6WmQFB1/+Pi2lHrKkjk8M7oRwdrgD5
+	hwgVOcsx9JKN0kADkBgW0hEl2pubQHUWSWOivl5byjk3htabusO5WLHEJEvGjAqHZwyH1G
+	X5qhEBHekXnQDw+zwcygNMzQXOxoxh/VjNqwFODNWSDIOO1m7enxUS9GxBKE3g==
 ARC-Authentication-Results: i=1;
 	ORIGINATING;
 	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
@@ -58,14 +58,14 @@ Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjor
 	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.96)
 	(envelope-from <mkl@pengutronix.de>)
-	id 1xBH6B-003H6D-39;
-	Mon, 28 Sep 2026 21:33:16 +0200
+	id 1xBH6B-003H5y-1t;
+	Mon, 28 Sep 2026 21:33:15 +0200
 Received: from blackshift.org (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(Client did not present a certificate)
 	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id A8FE75B1551;
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 547E85B154C;
 	Mon, 28 Sep 2026 19:33:15 +0000 (UTC)
 From: Marc Kleine-Budde <mkl@pengutronix.de>
 To: netdev@vger.kernel.org
@@ -73,12 +73,15 @@ Cc: davem@davemloft.net,
 	kuba@kernel.org,
 	linux-can@vger.kernel.org,
 	kernel@pengutronix.de,
-	Fan Wu <fanwu01@zju.edu.cn>,
+	zjamg <ndaugoing@gmail.com>,
 	stable@vger.kernel.org,
+	Oliver Hartkopp <socketcan@hartkopp.net>,
+	Quchaosheng <quchaosheng000406@163.com>,
+	Shaunak Datar <shaunakkdatar@gmail.com>,
 	Marc Kleine-Budde <mkl@pengutronix.de>
-Subject: [PATCH net 10/22] can: kvaser_pciefd: fix use-after-free in bec poll timer
-Date: Mon, 28 Sep 2026 20:45:17 +0200
-Message-ID: <20260928193312.553632-11-mkl@pengutronix.de>
+Subject: [PATCH net 05/22] can: dev: init_can_skb(): restore skb header initialization
+Date: Mon, 28 Sep 2026 20:45:12 +0200
+Message-ID: <20260928193312.553632-6-mkl@pengutronix.de>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260928193312.553632-1-mkl@pengutronix.de>
 References: <20260928193312.553632-1-mkl@pengutronix.de>
@@ -90,54 +93,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Fan Wu <fanwu01@zju.edu.cn>
+From: zjamg <ndaugoing@gmail.com>
 
-The bec poll timer is rearmed from the interrupt handler, so the
-timer_delete() call in kvaser_pciefd_remove() neither waits for a
-callback that is already running nor stops the handler from rearming
-the timer until the interrupt is freed later in the same function.
-The timer can therefore still be pending or running when free_candev()
-frees the CAN device, causing a use-after-free in
-kvaser_pciefd_bec_poll_timer().
+Commit 9f10374bb024 ("can: remove private CAN skb headroom infrastructure")
+removed the skb_reset_mac_header()/skb_reset_network_header()/
+skb_reset_transport_header() calls from init_can_skb(). As a result, RX
+skbs from alloc_can_skb() and friends again carry mac_header = 0xFFFF.
+When such an skb reaches packet_rcv_spkt() (SOCK_PACKET), the push length
+calculation overflows and triggers skb_under_panic -> kernel BUG -> full
+machine panic.
 
-Use timer_shutdown_sync() instead, which waits for a running callback
-and makes a later rearm a no-op.  Also drain the timer in
-kvaser_pciefd_teardown_can_ctrls(), which frees the CAN devices on the
-probe error paths.
+The same issue was originally reported in 2014 on linux-can and fixed by
+commit 969439016d2c ("can: add missing initialisations in CAN related
+skbuffs"). packet_rcv_spkt() itself has never been hardened: only
+packet_rcv() and tpacket_rcv() gained dev_has_header() checks in
+commit d549699048b4 ("net/packet: fix packet receive on L3 devices
+without visible hard header").
 
-This issue was found by an in-house static analysis tool.
-
-Fixes: 26ad340e582d ("can: kvaser_pciefd: Add driver for Kvaser PCIEcan devices")
+Fixes: 9f10374bb024 ("can: remove private CAN skb headroom infrastructure")
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Link: https://patch.msgid.link/20260818063832.383829-1-fanwu01@zju.edu.cn
+Reviewed-by: Oliver Hartkopp <socketcan@hartkopp.net>
+Acked-by: Oliver Hartkopp <socketcan@hartkopp.net>
+Signed-off-by: zjamg <ndaugoing@gmail.com>
+Tested-by: Quchaosheng <quchaosheng000406@163.com>
+Link: https://patch.msgid.link/20260917123716.63116-1-ndaugoing@gmail.com
+Reported-by: Shaunak Datar <shaunakkdatar@gmail.com>
+Closes: https://lore.kernel.org/all/20260918151606.765490-1-shaunakkdatar@gmail.com
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- drivers/net/can/kvaser_pciefd/kvaser_pciefd_core.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/net/can/dev/skb.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/net/can/kvaser_pciefd/kvaser_pciefd_core.c b/drivers/net/can/kvaser_pciefd/kvaser_pciefd_core.c
-index d8c9bfb20230..a0597db72086 100644
---- a/drivers/net/can/kvaser_pciefd/kvaser_pciefd_core.c
-+++ b/drivers/net/can/kvaser_pciefd/kvaser_pciefd_core.c
-@@ -1739,6 +1739,7 @@ static void kvaser_pciefd_teardown_can_ctrls(struct kvaser_pciefd *pcie)
- 			iowrite32(0, can->reg_base + KVASER_PCIEFD_KCAN_IEN_REG);
- 			kvaser_pciefd_pwm_stop(can);
- 			kvaser_pciefd_devlink_port_unregister(can);
-+			timer_shutdown_sync(&can->bec_poll_timer);
- 			free_candev(can->can.dev);
- 		}
- 	}
-@@ -1879,7 +1880,7 @@ static void kvaser_pciefd_remove(struct pci_dev *pdev)
- 		struct kvaser_pciefd_can *can = pcie->can[i];
+diff --git a/drivers/net/can/dev/skb.c b/drivers/net/can/dev/skb.c
+index f414b75b5c0d..738d5968dfa6 100644
+--- a/drivers/net/can/dev/skb.c
++++ b/drivers/net/can/dev/skb.c
+@@ -212,6 +212,10 @@ static void init_can_skb(struct sk_buff *skb)
+ {
+ 	skb->pkt_type = PACKET_BROADCAST;
+ 	skb->ip_summed = CHECKSUM_UNNECESSARY;
++
++	skb_reset_mac_header(skb);
++	skb_reset_network_header(skb);
++	skb_reset_transport_header(skb);
+ }
  
- 		unregister_candev(can->can.dev);
--		timer_delete(&can->bec_poll_timer);
-+		timer_shutdown_sync(&can->bec_poll_timer);
- 		kvaser_pciefd_pwm_stop(can);
- 		kvaser_pciefd_devlink_port_unregister(can);
- 	}
+ struct sk_buff *alloc_can_skb(struct net_device *dev, struct can_frame **cf)
 -- 
 2.53.0
 
