@@ -1,237 +1,104 @@
-Received: from mail-pz2-f39.google.com (mail-pz2-f39.google.com [74.125.228.39])
+Received: from mta1.migadu.com (out-9.mta1.migadu.com [95.215.58.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D4E65013A4
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 12:58:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48060522F06
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 13:00:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790686729; cv=none; b=dW0Ay9y329lZQfTgwdrSWwVA5iDSIAXFPYpVvcY03UPYnSkdJPIzOzMcZS4SaJpDWcHfpvLRffjOQwOiIiXznTk2srbQKF7PtVH8u2JKxSqeZuP5kPTS1CnxBkQKU6OTcZRHjGsCFqUu0lsXC8Rg7S16Kr0SnXkTLJPQ1KVi374=
+	t=1790686806; cv=none; b=FtA8RO/En0nDBVdCFO/NYHcfk/TijzEyZpESHwjYe1kE2hI30YKkWGguknUOUZKkLVgjjMambSNxIkDRTWEeXTevQU8E1GW/+K4j/OwppuJ1KgP9tRHwkJ4c4qXXx798cTS2KakCywBT+9U0V8nc/G+eTQEZW+c+Qiv+3056PKc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790686729; c=relaxed/simple;
-	bh=QsvX/9Uae7qLGQUIHlgGcdg1HE+YLgZ1QWvZCXAA3xA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NTF+2fcyGTEg4tNOrELm3PHlT8koAB9j2Eh+NmyOAGCfj4HwSo1vkVvG+UcGVEa+nnjfsc/QX9d7Yk9KXkN+XJRfY52JnXRZce8sqnUHoYjHpnIWf+a0LoywEoa/Hk3r4SA5Rrrnezlo0q/3DlcScwxQLliMsB4vJEuyl4h9uoE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=I4wtw50e; arc=none smtp.client-ip=74.125.228.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+	s=arc-20240116; t=1790686806; c=relaxed/simple;
+	bh=3g9q9xAMofPTtsw+JqswDBxUzsiZn8hnkYRupWW+aWE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=JT3g/WtC8HwrmOAf87ZfnF1140orJHoIVxiM36Y/1QfruqM+UGc7lhJZLNUaeznM02sd6nVnUPJKvWZXyDnamVxG17U5+AYaUwq1yqzES1QcVM2bccUz9Atw+FQ+91uYeLdYeckJXZxLGnqJEHjWj/9/C1LBwKAULbVIvsN/MHs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=nsBQvUTg; arc=none smtp.client-ip=95.215.58.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="I4wtw50e"
-Received: by mail-pz2-f39.google.com with SMTP id 41be03b00d2f7-cc7979d1dedso1224992a12.3
-        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 05:58:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1790686726; x=1791291526; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pUh4O99671nsimpfC56hDaVgU0hoG+9KFPLpUAeDtPs=;
-        b=I4wtw50eAHN+y1rm28WnUAWP3BE2UX+AZ+O+xO5H+A7R2l1eK77+Sui+6Vzz70KMuu
-         Is9z3ClDCurWNzMUeS1Gcts4tWG1yAZsgAyZgLtORTueAxKQoFh4NoOU+wNFPPAaCg+e
-         A5uZXBu+r9GJunmHrl9EkWQFeodIh75KALGHTiWBXoSkZweKz5jpp6L+zpbarDFtd1Ys
-         8H4i9qjGiQnsyuLpMb6cyllvpdVKtZrfCEiUjtURLEdxK3iurb3EY3uNWBxd1xa66IUG
-         GrcX62IOWQJLgiQgJrVFyDEbT+I4voed3a0/rgrICUc7+8V8PM1cjITL9lmz5eNP+sdx
-         QVHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790686726; x=1791291526;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pUh4O99671nsimpfC56hDaVgU0hoG+9KFPLpUAeDtPs=;
-        b=KDCKX53QrUqrqwE61TMWHAJ2PKLZGR/ZgOqnIonJ1R4iXyFXam6cck+6to7DXeB4Zh
-         RiF9T0RQKoCYRAau73bSabFhOhq4sT1AbgEivJPfMGR5FE0d9l2sIJAqrmoeoA8MRuoy
-         uk3j11ljd1zktISRrKlMp0Hpotmtdv+WhlIcQDAKIPHZwFkiHDFIzJrjUvpUvneqGfwp
-         Gt51s9TKDiuQMJN0DLy48sn8+YOLH/pUBCIs0Mj1mZSF7jaGVGDfUDXZDmz7LJzsjoQ0
-         tT7H9MQliNwtK7yE5SJzZS8gKezRNBiEQpyJHeQgKVrHZHef5yW/fS8OXtK5dRrUSDA0
-         znaA==
-X-Forwarded-Encrypted: i=1; AKwUvBw1HcAhWtBD4zUat+9wvyKxv9Jmrmdqzak01IcnLKBo11hVgqqcRwZE3nc2sYSp4Cta2PVP27I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIzamWOFCvuVZYeErAvU+viLmjMRHKIVfnoRUiPUAQ2CSRW+MvJ
-	GHVkDiu4e5J6DDDPsnS054RfZlsMNy+/7yQYa6VnXJwhPegHxXqkzKK4OA/4ogmO6zpy
-X-Gm-Gg: AYBFou1MzzX7m/RQrkdcMZgnKiDrVQXodHv2kjTPDrUx6sQfOSofODItWUsVtFbAgXu
-	pR+6X1NHViDjPJDyK9ydMX5OqnaqoBuvlwaqWTlJuiOCiqLcvtw0Q0HYdNZQgI3KZVdL4vYFduV
-	dF6u0qYe7ett5eSqU6ArHdMGoQNajjxl1foyuN1sJ1FgZ34Jsks8KlUHfI9tPaShFGMyaWnDQoi
-	bzTH+rl1Rsw5svSNrovANjxBAjMP9TWNIqD9z+n4LIFYqe3pRPDT8i7jB7jSY+PnQS1bv4gIYLH
-	IW2rFZmBCNt+vBLJrkTABXcpTb7lDwbKJcM8dmuTjTjb8k8Z4j70KjpmW1MPsFMqApp5VCZcUvf
-	z97bQGIneKMm/u4+HX+5fM2JwiisgYN7V5bOb9HJYEhKXZIoZvTmXgg0/4V5fI0NQJbjuYXiaoe
-	gDPBYRAwIW674+z2OvVwmdyP/9nCygt7uRkuf3sS5b2PlUsDvDJXf49GefSzFxJgxvr2IUuIsKj
-	/kcgiEs+VsX2/YtUmZ/tTKGXhnA4xiX+dko4Qe9
-X-Received: by 2002:a17:90a:ec8e:b0:3a0:345a:3620 with SMTP id 98e67ed59e1d1-3a098df852amr12874873a91.45.1790686725852;
-        Tue, 29 Sep 2026 05:58:45 -0700 (PDT)
-Received: from 954df21a5119.. ([122.51.212.64])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc78794aa7fsm6180113a12.24.2026.09.29.05.58.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 05:58:45 -0700 (PDT)
-From: Zihan Xi <zihanx@nebusec.ai>
-To: netfilter-devel@vger.kernel.org
-Cc: fw@strlen.de,
-	pablo@netfilter.org,
-	phil@nwl.cc,
-	netdev@vger.kernel.org,
-	zihanx@nebusec.ai,
-	stable@vger.kernel.org,
-	Vega <vega@nebusec.ai>,
-	Luxing Yin <root@tr0jan.top>
-Subject: [PATCH nf v5 1/1] netfilter: nf_dup: reject TEE and IPv4/IPv6/netdev nft dup in userns
-Date: Tue, 29 Sep 2026 12:58:32 +0000
-Message-ID: <20260929125832.25316-2-zihanx@nebusec.ai>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260929125832.25316-1-zihanx@nebusec.ai>
-References: <20260929125832.25316-1-zihanx@nebusec.ai>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="nsBQvUTg"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=3g9q9xAMofPTtsw+JqswDBxUzsiZn8hnkYRupWW+aWE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790686802; v=1; x=1791291602;
+ b=nsBQvUTgw4afC26JM4TpKQc76Taz1O8vnzwdu+OqB6EW1fqcHl9sxTBXu3HXekyvTpH1VFEy
+ SFUcMdheleBzBJZK17ye5sV8kU1FCJyzOC22qKaFGZgzRaeY8YX1JVz1Z7xZcDQ0cuwQwXEyuuT
+ 3zn42feT6aQ5lDj6E06/3AaE=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7997d03edf1b4b83;
+	Tue, 29 Sep 2026 13:00:02 +0000
+X-Mizu-Trace-ID: 7997d03edf1b4b83
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5b8e81e2a0bso7823e87.0
+        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 06:00:00 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBz55sMv0BPcTQRsQ1OHuC/sPHDNRx/989M1SyT0fZfoA6LJxzyIqhxVKlLJ46d0RkA1UKwkj1Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKq5X7bh5YgCxZxnbhG/Rkm6+TdlS+siHjezjVwGUnnr6leGNcZ
+	aXNqyIqIsK28Z1HE4Dkaaazh+5bNUcusVpWSyM3bk6j8j7mj2iyhUIYLQ78AHHBfLrgHxEQ+GrQ
+	x8WTBWKae6pbSNAlMIHZFmJW/J48bqcZHhil1jYcK
+X-Received: by 2002:ac2:5b03:0:b0:5ba:3602:4343 with SMTP id
+ 2adb3069b0e04-5ba360245a5mr41833e87.16.1790686800038; Tue, 29 Sep 2026
+ 06:00:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260929093548.3598547-1-maz@kernel.org> <20260929093548.3598547-2-maz@kernel.org>
+In-Reply-To: <20260929093548.3598547-2-maz@kernel.org>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Tue, 29 Sep 2026 13:59:23 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTwZSFUZmavbB4tE-eFxHg9WF80CA230EwvynuNcZQ0prg@mail.gmail.com>
+X-Gm-Features: AclHuK9iOAMxlNpl03FjFTpY7NaQOY39bA66xUuGfPVEXi6mkeEvy65UK09-Y0M
+Message-ID: <CA+EHjTwZSFUZmavbB4tE-eFxHg9WF80CA230EwvynuNcZQ0prg@mail.gmail.com>
+Subject: Re: [PATCH v2 1/7] KVM: arm64: Move OUTSIDE_GUEST_MODE publication
+ past context being saved
+To: Marc Zyngier <maz@kernel.org>
+Cc: kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	Steffen Eiden <seiden@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Oliver Upton <oupton@kernel.org>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Yuchao Zhang <ndaugoing@gmail.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-The packet-duplication frontends can permit repeated packet duplication and
-resource consumption when configured in a network namespace owned by a
-non-initial user namespace. Users with CAP_NET_ADMIN in that namespace can
-configure the affected rules.
+Hi Marc,
 
-No use case for TEE or nft dup in such namespaces has been identified.
-Reject TEE and IPv4/IPv6/netdev nft dup rule or expression setup with
--EPERM there, without adding checks to packet-processing fast paths.
+On Tue, 29 Sep 2026 10:35:42 +0100, Marc Zyngier <maz@kernel.org> wrote:
+[...]
+> Move the publication of OUTSIDE_GUEST_MODE to the point where the state
+> is actually written, and give this write release semantics to ensure the
+> correct ordering.
+>
+> Signed-off-by: Marc Zyngier <maz@kernel.org>
+> Cc: stable@vger.kernel.org
 
-This is a namespace policy restriction, not a general fix for asynchronous
-duplication behavior. Rules remain installable in init_user_ns-owned
-network namespaces, and their existing packet-processing behavior is
-unchanged.
 
-Fixes: cd58bcd9787e ("netfilter: xt_TEE: have cloned packet travel through Xtables too")
-Fixes: 502061f81d3e ("netfilter: nf_tables: add packet duplication to the netdev family")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: LLM
-Co-developed-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
----
-changes in v5:
-  - describe the patch as a non-initial-userns setup restriction, not a
-    general recursion fix; state that init_user_ns behavior is unchanged
-  - remove path-specific trigger details and run-specific metrics from the
-    public commit and cover prose
-  - drop d877f07112f1 from Fixes: because it added a later frontend, not the
-    shared duplication behavior addressed by this restriction
-  - record the v5 build and setup-time validation, distinguishing them from
-    earlier unpatched-baseline and root-OOM runs
-  - v4 Link:
-    https://lore.kernel.org/all/cover.1790408011.git.zihanx@nebusec.ai/
-changes in v4:
-  - add Fixes tags for TEE, IPv4/IPv6 nft dup, and netdev nft dup
-    frontends
-  - clarify that fcd53c51d037 only added a synchronous guard
-  - clarify that this restricts non-initial user namespaces and does not
-    fix asynchronous recursion in init_user_ns-owned network namespaces
-  - state explicitly that the netdev loop was not runtime-reproduced
-  - v3 Link:
-    https://lore.kernel.org/all/cover.1790042930.git.zihanx@nebusec.ai/
-changes in v3:
-  - reroll the fix against the latest nf.git main after no follow-up on v2
-  - add the Co-developed-by trailer and matching Signed-off-by
-  - v2 Link:
-    https://lore.kernel.org/all/cover.1788425393.git.zihanx@nebusec.ai/
-changes in v2:
-  - drop the persistent struct sk_buff::nf_duplicated field and nf_copy()
-    change from v1
-  - disable IPv4/IPv6 duplication in non-initial user namespaces
-  - v1 Link:
-    https://lore.kernel.org/all/cover.1787903722.git.zihanx@nebusec.ai/
----
- net/ipv4/netfilter/nft_dup_ipv4.c | 4 ++++
- net/ipv6/netfilter/nft_dup_ipv6.c | 4 ++++
- net/netfilter/nft_dup_netdev.c    | 4 ++++
- net/netfilter/xt_TEE.c            | 4 ++++
- 4 files changed, 16 insertions(+)
+No Fixes: tag?
 
-diff --git a/net/ipv4/netfilter/nft_dup_ipv4.c b/net/ipv4/netfilter/nft_dup_ipv4.c
-index d53a65ddbd7b..db62e30456e4 100644
---- a/net/ipv4/netfilter/nft_dup_ipv4.c
-+++ b/net/ipv4/netfilter/nft_dup_ipv4.c
-@@ -7,6 +7,7 @@
- #include <linux/init.h>
- #include <linux/module.h>
- #include <linux/netlink.h>
-+#include <linux/user_namespace.h>
- #include <linux/netfilter.h>
- #include <linux/netfilter/nf_tables.h>
- #include <net/netfilter/nf_tables.h>
-@@ -37,6 +38,9 @@ static int nft_dup_ipv4_init(const struct nft_ctx *ctx,
- 	struct nft_dup_ipv4 *priv = nft_expr_priv(expr);
- 	int err;
- 
-+	if (ctx->net->user_ns != &init_user_ns)
-+		return -EPERM;
-+
- 	if (tb[NFTA_DUP_SREG_ADDR] == NULL)
- 		return -EINVAL;
- 
-diff --git a/net/ipv6/netfilter/nft_dup_ipv6.c b/net/ipv6/netfilter/nft_dup_ipv6.c
-index 95ec27b3971c..6219ef57633e 100644
---- a/net/ipv6/netfilter/nft_dup_ipv6.c
-+++ b/net/ipv6/netfilter/nft_dup_ipv6.c
-@@ -7,6 +7,7 @@
- #include <linux/init.h>
- #include <linux/module.h>
- #include <linux/netlink.h>
-+#include <linux/user_namespace.h>
- #include <linux/netfilter.h>
- #include <linux/netfilter/nf_tables.h>
- #include <net/netfilter/nf_tables.h>
-@@ -35,6 +36,9 @@ static int nft_dup_ipv6_init(const struct nft_ctx *ctx,
- 	struct nft_dup_ipv6 *priv = nft_expr_priv(expr);
- 	int err;
- 
-+	if (ctx->net->user_ns != &init_user_ns)
-+		return -EPERM;
-+
- 	if (tb[NFTA_DUP_SREG_ADDR] == NULL)
- 		return -EINVAL;
- 
-diff --git a/net/netfilter/nft_dup_netdev.c b/net/netfilter/nft_dup_netdev.c
-index 06866799e946..8d9dfd18475c 100644
---- a/net/netfilter/nft_dup_netdev.c
-+++ b/net/netfilter/nft_dup_netdev.c
-@@ -7,6 +7,7 @@
- #include <linux/init.h>
- #include <linux/module.h>
- #include <linux/netlink.h>
-+#include <linux/user_namespace.h>
- #include <linux/netfilter.h>
- #include <linux/netfilter/nf_tables.h>
- #include <net/netfilter/nf_tables.h>
-@@ -37,6 +38,9 @@ static int nft_dup_netdev_init(const struct nft_ctx *ctx,
- {
- 	struct nft_dup_netdev *priv = nft_expr_priv(expr);
- 
-+	if (ctx->net->user_ns != &init_user_ns)
-+		return -EPERM;
-+
- 	if (tb[NFTA_DUP_SREG_DEV] == NULL)
- 		return -EINVAL;
- 
-diff --git a/net/netfilter/xt_TEE.c b/net/netfilter/xt_TEE.c
-index 5d34ceb893ed..51c643987526 100644
---- a/net/netfilter/xt_TEE.c
-+++ b/net/netfilter/xt_TEE.c
-@@ -10,6 +10,7 @@
- #include <linux/module.h>
- #include <linux/skbuff.h>
- #include <linux/route.h>
-+#include <linux/user_namespace.h>
- #include <linux/netfilter/x_tables.h>
- #include <net/net_namespace.h>
- #include <net/netns/generic.h>
-@@ -95,6 +96,9 @@ static int tee_tg_check(const struct xt_tgchk_param *par)
- 	struct xt_tee_tginfo *info = par->targinfo;
- 	struct xt_tee_priv *priv;
- 
-+	if (par->net->user_ns != &init_user_ns)
-+		return -EPERM;
-+
- 	/* 0.0.0.0 and :: not allowed */
- 	if (memcmp(&info->gw, &tee_zero_address,
- 		   sizeof(tee_zero_address)) == 0)
--- 
-2.43.0
+[...]
+> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+[...]
+> @@ -1386,6 +1385,12 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
+>
+>               kvm_arch_vcpu_ctxsync_fp(vcpu);
+>
+> +             /*
+> +              * All the state has been synchronised, let advertise
+> +              * we're outside of the guest.
+> +              */
+> +             smp_store_release(&vcpu->mode, OUTSIDE_GUEST_MODE);
 
+Pardon my atomics :), but what does the release pair with? On the halt
+path, the only reader I can find is the cmpxchg() in
+kvm_vcpu_exiting_guest_mode(), and the LPI-disable and MOVALL halts
+then take ap_list_lock or irq_lock. Would WRITE_ONCE() be enough?
+
+Should the early exit path (the kvm_vcpu_exit_request() bail-out) get
+the same treatment? I think that's what Sashiko is trying to say in
+the patch 5 review [1].
+
+nit: "let advertise" -> "publish"?
+
+Cheers,
+/fuad
+
+[1] https://sashiko.dev/#/patchset/20260929093548.3598547-1-maz%40kernel.org?part=5
