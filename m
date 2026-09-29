@@ -1,312 +1,117 @@
-Received: from mta0.migadu.com (out-206.mta0.migadu.com [91.218.175.206])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpdh19-2.aruba.it (smtpdh19-2.aruba.it [62.149.155.149])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B0813B19D1
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 08:20:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 752383D7D64
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 08:23:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.149.155.149
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790670056; cv=none; b=c2xQx8aUaW/JQA2O+bCdkhKhYrYIug6egsL7FxgD43Ov4PrCg/RPNeAhE8eqnagnnjsQs15VazXMwv+G6UexmWPsL874rw+5suMAdhf8yH8Zd0nbrS3PPP64h6kRNBisS4NCKcGjQlgdAsMQiGLpYvbWYoKauEsH31ruCH444K4=
+	t=1790670202; cv=none; b=m0ksqbXJcVchAWazWrFn60U++5PuLEi2a7rMOUSLnaAAjkHqBK2/Ief4OBn3CuzNkoXZRhGblK/d22gIlQ774IlNh58TMbi7Bvr1VsOWv/b+C/3ej0R6YDgj2PK/Qe2wQc1lTvnZDlEa87hSx6ZkqhixHIDHJlK2f4FWMiXVGDM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790670056; c=relaxed/simple;
-	bh=fpRNa2I+DmBqaF8ZhHQ4c09SGKG5OLX8LlAhVqaV/kE=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=o+9nYDOEJgtzKKVRb8u9JvKlRgZJCSnHcH97S3vBcE0S6Xs53yg9H9Iu4eoUeOeA06VBblPkIpTyTW1exAxQpkUh2y+51TGy1AVW5+W1JLispNhGH0awtPjcT69BrejUzErGS0KHHguKtXOfQFveiQndQBY0IhTJXNycQM+UXWY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=glyp3+EF; arc=none smtp.client-ip=91.218.175.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790670202; c=relaxed/simple;
+	bh=hH6wFHZcqV5QAPROldTmx40Jya4IORDEg+KMnchDpqI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sHy7CBEtMZ4wgkYJuFK9FDTQH3Gbc7BEb3ig6IN1SiBtrvtrGWHUHXV1O92yYoBeNFBjM66R9duNV/f/A9R1WhYJDy7niF/KftzqaGBQsKIaXtkmg6/MoWAolWP1EFs6tuvhzTslVQXL9wuyR/t29Ok+FC+eixUAb75R0s8Qgbs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com; spf=pass smtp.mailfrom=enneenne.com; dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b=Nfhuhoxi; arc=none smtp.client-ip=62.149.155.149
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=enneenne.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="glyp3+EF"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=fpRNa2I+DmBqaF8ZhHQ4c09SGKG5OLX8LlAhVqaV/kE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790670049; v=1; x=1791274849;
- b=glyp3+EFt2xA249QLipx0o4Z7hV5tkYJbIBdAt3wUA7AmaMta84VUzxn3uWJQmcuNqyYB5TP
- Sp2N8yIBjLj4t8glm3zfxX6R3890/CfZzvCRX7o+AMe7NFp9tf+PP+iHmuwV8akdU0mRqeO9idp
- uPgJTUrEupOLubAdSgOYaN/I=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9af9c7f7ec312c14;
-	Tue, 29 Sep 2026 08:20:49 +0000
-X-Mizu-Trace-ID: 9af9c7f7ec312c14
-X-Migadu-Flow: FLOW_OUT
-From: Hao Ge <hao.ge@linux.dev>
-To: Suren Baghdasaryan <surenb@google.com>,
-	=Kent Overstreet <kent.overstreet@linux.dev>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Petr Pavlu <petr.pavlu@suse.com>,
-	Daniel Gomez <da.gomez@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Aaron Tomlin <atomlin@atomlin.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Alexander Potapenko <glider@google.com>,
-	Marco Elver <elver@google.com>,
-	Dmitry Vyukov <dvyukov@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Uladzislau Rezki <urezki@gmail.com>
-Cc: linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linux-modules@vger.kernel.org,
-	kasan-dev@googlegroups.com,
-	Hao Ge <hao.ge@linux.dev>,
-	Sashiko <sashiko-bot@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v11 7/7] alloc_tag: fix the /proc/allocinfo lifecycle
-Date: Tue, 29 Sep 2026 16:20:14 +0800
-Message-Id: <20260929082014.160587-8-hao.ge@linux.dev>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260929082014.160587-1-hao.ge@linux.dev>
-References: <20260929082014.160587-1-hao.ge@linux.dev>
+	dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b="Nfhuhoxi"
+Received: from [192.168.0.186] ([101.57.122.26])
+	by Aruba SMTP with ESMTPSA
+	id BT4Ixtaiy5bAIBT4Ix9aTM; Tue, 29 Sep 2026 10:20:08 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aruba.it; s=a1;
+	t=1790670008; bh=hH6wFHZcqV5QAPROldTmx40Jya4IORDEg+KMnchDpqI=;
+	h=Date:MIME-Version:Subject:To:From:Content-Type;
+	b=NfhuhoxiaQB/Y2Fg2Fz1OmknIdOuooek24KcC+a48CAQlWiwFc5rp3aKkGUxN2g5i
+	 Xu3kJN57eX0EkjSADOfWghcXbtW1Vyxy3KElZ0Y3rl7d4f/sPrvlcRB0wiXJICCHqV
+	 JUb0fjCNyOT8q7vw9yMGpDW7Y0Mnx7CYZRugtk4UvVVjo8FQMdqu6/zN3TlYosU7+e
+	 Ky2SAOPK0L+bep3MV71pK7WRc0y9K0miOXCJO1h3n5azs5zoxup07i5JlhmDFSQ2Ki
+	 zwSCBnOL4EtkFdkQHaZQUKZUG7vQ2XcDgh92eiW2Hco2QzdLTxCdIFkn2OFSCHK9jk
+	 XgwAFjpSnRUdQ==
+Message-ID: <c8eb7663-484d-43c7-8092-280a68ecac0d@enneenne.com>
+Date: Tue, 29 Sep 2026 10:20:06 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] pps: generators: don't use the driver's info after
+ unregister
+Content-Language: en-US
+To: Danish Khateeb <danishkhateeb03@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Calvin Owens <calvin@wbinvd.org>, Yibo Tan <lhfff@tju.edu.cn>,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260929022219.212024-1-danishkhateeb03@gmail.com>
+ <20260929022219.212024-3-danishkhateeb03@gmail.com>
+From: Rodolfo Giometti <giometti@enneenne.com>
+In-Reply-To: <20260929022219.212024-3-danishkhateeb03@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CMAE-Envelope: MS4xfFQH/YbabTwp9O6unY4zh0waVgfemXjiMGt4TEBC0Mo7RmL5JYromnZc65EZDNdb7XAhWWKisnI+PWtE4EYvsH/fzRU1acmiU8a/2dQQMuBF8rHb+taX
+ 21zIP4uub9sVhThY5ZBVJ4bkgGYUVzXswf1G/SpgerFrGhhIqGDON6Fbq9BwUr5xMLWJgwVJ6FyFGTRzHWkNmqSlfohvj+72wMHKQvLbYGdwD84MBTOh/Vjm
+ 4FpQXdETfzuBo0xLbWrnEEd0Tmjtj/DFGSfV/6LZ86DP0gFTUYewO3+R/P8cv17EQsjpB3gIAElAxI+dqQFhm9lXdr0dZYityFaQ+U5+mwVgCJ0zf7VY6hJe
+ xd4uLHCxy/7gmAbLIr9ll6AssmRQNz5k/UHVWE1JCRpzHSg8uGS1ywtfmGFZDDIpk+iV20p9
 
-shutdown_mem_profiling() calls remove_proc_entry() from
-reserve_module_tags(), which runs under mod_lock held for write.
-remove_proc_entry() waits for readers, and a reader takes mod_lock for
-read in allocinfo_start():
+On Mon, 28 Sep 2026 21:22:19 -0500, Danish Khateeb wrote:
+> @@ -212,6 +223,15 @@ static void pps_gen_unregister_cdev(struct pps_gen_device *pps_gen)
+>  {
+>  	pr_debug("unregistering pps-gen%d\n", pps_gen->id);
+>  	cdev_device_del(&pps_gen->cdev, &pps_gen->dev);
+> +
+> +	/*
+> +	 * An open file keeps pps_gen around, but the driver may free info as
+> +	 * soon as we return. The sysfs files are gone now, so wait for the
+> +	 * ioctls using info and make later ones fail.
+> +	 */
+> +	scoped_guard(mutex, &pps_gen->info_lock)
+> +		pps_gen->info = NULL;
+> +
+>  	put_device(&pps_gen->dev);
+>  }
 
-  CPU0 (insmod)                      CPU1 (read /proc/allocinfo)
-  ----------------                   ----------------------------
-  reserve_module_tags()
-    down_write(&mod_lock)  [held]
-                                     use_pde()            [in_use++]
-                                     allocinfo_start()
-                                       down_read(&mod_lock)  <- blocks
-    shutdown_mem_profiling()
-      remove_proc_entry()
-        wait for in_use == 0         <- blocks
+This closes the window after the unregister, but what about the one
+just before it? The two generators in the tree stop their timer before
+calling pps_gen_unregister_source(): pps_gen_tio_remove() does
+hrtimer_cancel() and pps_tio_disable(), pps_gen_dummy_exit() does
+timer_delete_sync(). At that point the file and the sysfs "enable"
+attribute are still there, so AFAICS a PPS_GEN_SETENABLE landing in
+between re-arms the timer, and nothing stops it again before tio is
+freed (or the dummy module goes away).
 
-Move remove_proc_entry() to a workqueue.
+I don't think the drivers can fix this on their own: if they unregister
+first, the TIO timer may call pps_gen_event() on a pps_gen that is
+already gone. So I suspect the core has to disable the generator itself
+on unregister, once the file and the sysfs are gone and before clearing
+info. On top of this patch, something like (untested):
 
-The deferred removal also affects alloc_tag_init(). The file is
-created before the type, so on a failure it is still there with
-alloc_tag_cttype NULL or an error pointer, and a reader panics in
-allocinfo_start(). Create the file at the end of alloc_tag_init()
-instead, a failed init leaves nothing behind.
-
-If proc_create() fails, the codetag type and the module tags memory
-leak. Call codetag_unregister_type() and free the memory.
-
-alloc_tag_cttype can now be freed at runtime. alloc_tag_top_users()
-reads it from __show_mem() without locks, read the pointer under
-rcu_read_lock() and take mod_lock before dropping the RCU lock, the
-type stays alive until then. The only caller never sleeps, drop the
-can_sleep argument.
-
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hao Ge <hao.ge@linux.dev>
----
- include/linux/alloc_tag.h |  2 +-
- include/linux/codetag.h   |  2 ++
- lib/codetag.c             | 26 ++++++++++++++++++++
- mm/alloc_tag.c            | 52 +++++++++++++++++++++++++++------------
- mm/show_mem.c             |  2 +-
- 5 files changed, 66 insertions(+), 18 deletions(-)
-
-diff --git a/include/linux/alloc_tag.h b/include/linux/alloc_tag.h
-index 7f2d80a59792..852dc10c00ee 100644
---- a/include/linux/alloc_tag.h
-+++ b/include/linux/alloc_tag.h
-@@ -81,7 +81,7 @@ struct codetag_bytes {
- 	s64 bytes;
- };
- 
--size_t alloc_tag_top_users(struct codetag_bytes *tags, size_t count, bool can_sleep);
-+size_t alloc_tag_top_users(struct codetag_bytes *tags, size_t count);
- 
- static inline struct alloc_tag *ct_to_alloc_tag(struct codetag *ct)
- {
-diff --git a/include/linux/codetag.h b/include/linux/codetag.h
-index a25a085c2df1..0c4e0337b474 100644
---- a/include/linux/codetag.h
-+++ b/include/linux/codetag.h
-@@ -87,6 +87,8 @@ void codetag_to_text(struct seq_buf *out, struct codetag *ct);
- struct codetag_type *
- codetag_register_type(const struct codetag_type_desc *desc);
- 
-+void codetag_unregister_type(struct codetag_type *cttype);
-+
- #if defined(CONFIG_CODE_TAGGING) && defined(CONFIG_MODULES)
- 
- bool codetag_needs_module_section(struct module *mod, const char *name,
-diff --git a/lib/codetag.c b/lib/codetag.c
-index a0b600720afc..46d0904b08b3 100644
---- a/lib/codetag.c
-+++ b/lib/codetag.c
-@@ -429,3 +429,29 @@ codetag_register_type(const struct codetag_type_desc *desc)
- 
- 	return cttype;
- }
-+
-+/**
-+ * codetag_unregister_type - unregister a codetag type
-+ * @cttype: the codetag type to unregister
-+ *
-+ * Undo codetag_register_type() and free @cttype. The caller must make
-+ * sure no lockless reader still uses @cttype, e.g. clear the pointer
-+ * to it and wait for an RCU grace period first.
-+ */
-+void __init codetag_unregister_type(struct codetag_type *cttype)
-+{
-+	struct codetag_module *cmod;
-+	unsigned long id, tmp;
-+
-+	mutex_lock(&codetag_lock);
-+	list_del(&cttype->link);
-+	mutex_unlock(&codetag_lock);
-+
-+	down_write(&cttype->mod_lock);
-+	idr_for_each_entry_ul(&cttype->mod_idr, cmod, tmp, id)
-+		kfree(cmod);
-+	idr_destroy(&cttype->mod_idr);
-+	up_write(&cttype->mod_lock);
-+
-+	kfree(cttype);
-+}
-diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
-index ba8a651769e3..b9af5fe5bba2 100644
---- a/mm/alloc_tag.c
-+++ b/mm/alloc_tag.c
-@@ -15,6 +15,7 @@
- #include <linux/seq_file.h>
- #include <linux/string_choices.h>
- #include <linux/vmalloc.h>
-+#include <linux/workqueue.h>
- #include <linux/kmemleak.h>
- #include <uapi/linux/alloc_tag.h>
- 
-@@ -484,22 +485,28 @@ static const struct proc_ops allocinfo_proc_ops = {
- #endif
- };
- 
--size_t alloc_tag_top_users(struct codetag_bytes *tags, size_t count, bool can_sleep)
-+size_t alloc_tag_top_users(struct codetag_bytes *tags, size_t count)
- {
- 	struct codetag_iterator iter;
-+	struct codetag_type *cttype;
- 	struct codetag *ct;
- 	struct codetag_bytes n;
- 	unsigned int i, nr = 0;
-+	bool locked;
- 
--	if (IS_ERR_OR_NULL(alloc_tag_cttype))
-+	rcu_read_lock();
-+	cttype = READ_ONCE(alloc_tag_cttype);
-+	if (IS_ERR_OR_NULL(cttype)) {
-+		rcu_read_unlock();
- 		return 0;
+--- a/drivers/pps/generators/pps_gen.c
++++ b/drivers/pps/generators/pps_gen.c
+@@ static void pps_gen_unregister_cdev(struct pps_gen_device *pps_gen)
+-	scoped_guard(mutex, &pps_gen->info_lock)
++	scoped_guard(mutex, &pps_gen->info_lock) {
++		if (pps_gen->enabled) {
++			pps_gen->info->enable(pps_gen, false);
++			pps_gen->enabled = false;
++		}
+  		pps_gen->info = NULL;
 +	}
- 
--	if (can_sleep)
--		codetag_lock_module_list(alloc_tag_cttype);
--	else if (!codetag_trylock_module_list(alloc_tag_cttype))
-+	locked = codetag_trylock_module_list(cttype);
-+	rcu_read_unlock();
-+	if (!locked)
- 		return 0;
- 
--	iter = codetag_get_ct_iter(alloc_tag_cttype);
-+	iter = codetag_get_ct_iter(cttype);
- 	while ((ct = codetag_next_ct(&iter))) {
- 		struct alloc_tag_counters counter = alloc_tag_read(ct_to_alloc_tag(ct));
- 
-@@ -520,7 +527,7 @@ size_t alloc_tag_top_users(struct codetag_bytes *tags, size_t count, bool can_sl
- 		}
- 	}
- 
--	codetag_unlock_module_list(alloc_tag_cttype);
-+	codetag_unlock_module_list(cttype);
- 
- 	return nr;
- }
-@@ -591,6 +598,13 @@ void pgalloc_tag_swap(struct folio *new, struct folio *old)
- 	put_page_tag_ref(handle_new);
- }
- 
-+static void remove_allocinfo_file(struct work_struct *work)
-+{
-+	remove_proc_entry(ALLOCINFO_FILE_NAME, NULL);
-+}
-+
-+static DECLARE_WORK(remove_allocinfo_work, remove_allocinfo_file);
-+
- static void shutdown_mem_profiling(bool remove_file)
- {
- 	if (mem_alloc_profiling_enabled())
-@@ -600,7 +614,7 @@ static void shutdown_mem_profiling(bool remove_file)
- 		return;
- 
- 	if (remove_file)
--		remove_proc_entry(ALLOCINFO_FILE_NAME, NULL);
-+		schedule_work(&remove_allocinfo_work);
- 	mem_profiling_support = false;
- }
- 
-@@ -1351,16 +1365,10 @@ static int __init alloc_tag_init(void)
- 		return 0;
- 	}
- 
--	if (!proc_create(ALLOCINFO_FILE_NAME, 0400, NULL, &allocinfo_proc_ops)) {
--		pr_err("Failed to create %s file\n", ALLOCINFO_FILE_NAME);
--		shutdown_mem_profiling(false);
--		return -ENOMEM;
--	}
--
- 	res = alloc_mod_tags_mem();
- 	if (res) {
- 		pr_err("Failed to reserve address space for module tags, errno = %d\n", res);
--		shutdown_mem_profiling(true);
-+		shutdown_mem_profiling(false);
- 		return res;
- 	}
- 
-@@ -1368,10 +1376,22 @@ static int __init alloc_tag_init(void)
- 	if (IS_ERR(alloc_tag_cttype)) {
- 		pr_err("Allocation tags registration failed, errno = %pe\n", alloc_tag_cttype);
- 		free_mod_tags_mem();
--		shutdown_mem_profiling(true);
-+		shutdown_mem_profiling(false);
- 		return PTR_ERR(alloc_tag_cttype);
- 	}
- 
-+	if (!proc_create(ALLOCINFO_FILE_NAME, 0400, NULL, &allocinfo_proc_ops)) {
-+		struct codetag_type *cttype = alloc_tag_cttype;
-+
-+		pr_err("Failed to create %s file\n", ALLOCINFO_FILE_NAME);
-+		shutdown_mem_profiling(false);
-+		WRITE_ONCE(alloc_tag_cttype, NULL);
-+		synchronize_rcu();
-+		codetag_unregister_type(cttype);
-+		free_mod_tags_mem();
-+		return -ENOMEM;
-+	}
-+
- 	return 0;
- }
- module_init(alloc_tag_init);
-diff --git a/mm/show_mem.c b/mm/show_mem.c
-index b938cbcd774a..a2e710404a48 100644
---- a/mm/show_mem.c
-+++ b/mm/show_mem.c
-@@ -439,7 +439,7 @@ void __show_mem(unsigned int filter, const nodemask_t *nodemask,
- 		struct codetag_bytes tags[10];
- 		size_t i, nr;
- 
--		nr = alloc_tag_top_users(tags, ARRAY_SIZE(tags), false);
-+		nr = alloc_tag_top_users(tags, ARRAY_SIZE(tags));
- 		if (nr) {
- 			pr_notice("Memory allocations (profiling is currently turned %s):\n",
- 				mem_alloc_profiling_enabled() ? "on" : "off");
--- 
-2.25.1
 
+Could you add that as its own patch in this series, and test it with
+your unbind/rmmod setup? As a bonus, pps_gen_unregister_source() would
+then do what its kernel-doc promises.
+
+Also, a reader sleeping in PPS_GEN_FETCHEVENT is never woken up by the
+unregister: after 1/2 it no longer touches freed memory, but it now
+sleeps until a signal arrives. Worth a wake-up and an -ENODEV while you
+are there?
+
+1/2 looks good to me; I'll ack the whole series once this is sorted
+out.
+
+Ciao,
+
+Rodolfo
