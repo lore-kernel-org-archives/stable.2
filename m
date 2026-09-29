@@ -1,261 +1,122 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4932A3E1231
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 16:19:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04E5A3DC871;
+	Tue, 29 Sep 2026 16:20:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790698775; cv=none; b=uoGdrVmJhDqzafYMpvwJ0X+4EumiyfiK/5mmU9CERvM+EEU1doO6Q1PPlZNHGzrQyUui9wX2NZ5k+Q2h5RwnKfphbDycj3fPgl161PAROOaxJUjKnQr8fOZkR40tlfghw+TIL+Fi/T72vVl9r5UyPuWgvqbdRCYr9KSMRDIvOpw=
+	t=1790698834; cv=none; b=G4rxAIOarKPtiECkENsdP/GT9mmy505zGo+45ytsoTc7rHLFkyCVUWB/OEe2dG6W4x00Mio7GtxEohsqbS8XJwvXboddMe4Cwa3Rle6nkth6u0tChU8O3SyGxtZ0dbW8SoZ2BLSAZiPLPYc5VVmQYTjzlMPF82EWuA77R8oPuHg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790698775; c=relaxed/simple;
-	bh=ON/Nm199fXt25tUkNXWt6yTI0ajOWyNykjj4e5sjBPY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FFXlvMRXTjF+IqSWkX/tT+M/kb6Tk3er/a304p69MMk4CtbvpHnr+Zjc64tx8pLiZSoiI5K1+dGO4xS4gbJNrO/qjMat9wsQu6Cj7oZT+V08boHPmqI32TNM7bjgDsAYYAu1I7FvlUMXFuWp30XGNHdxRO+rb29EUJ4g/uvywPo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fY+UQnWG; arc=none smtp.client-ip=74.125.229.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790698834; c=relaxed/simple;
+	bh=O2NjalWefRbmMemw6DAf/zj6tTtcp1mid8rM323fVUc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pmhM59qdvRaZasYu+fBmCsNanf4dGGsK0Km6Ix9D/Yuji/2JlnPq7zFj5amKexMOV1UItRz6wmaCt5EPt/gBOkXpesgShDFptzen84bxWnDO5F/AcAItmjIcQFum5EDYpFeRLWkWcLehH6nswV/pAqwAtsL/ThwfE7XYrmz0dRA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=kM8XKP3o; arc=none smtp.client-ip=92.243.27.206
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fY+UQnWG"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-34b48100af4so707420eec.3
-        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 09:19:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790698773; x=1791303573; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ItJcp+tPRukYSHRfLwmMwoYplEEStSxemB80lg82sVU=;
-        b=fY+UQnWGcqpnV6JT4FcuSxidcoOn+HkFM3cieDMRrSZe8eLfjwRurB3s9n3mJMSLST
-         S+sEOXXoOh3kbdp0ULRvoSbLF3VcfDmPKpSGR/A7IqLVdnMeCr9XyBgOi7BaXr96plMq
-         2arFO6B3dlvqCbhuVu5wBOvWm/A5jYAvnecIQOP9URFX0tgmt7Jvh6HEmqmAp6sOlJ8o
-         SlvxaABMXRgpRUm+eNuTrGyy62ibrP0tIgvJE/MA8x34MijEmrzecgssrm4pfGoM8wGs
-         z7iHzXlXojmIBtTu6zl6yD7S2NFuuEhX9xhdnKcFYbgrFZh30LhAUta1ln/ZFptGmgsl
-         LgHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790698773; x=1791303573;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ItJcp+tPRukYSHRfLwmMwoYplEEStSxemB80lg82sVU=;
-        b=2DLgnGT8mq4oSzO0HjLwFNngMfm8lhVx2aohutU2wN+/zlVGUMnOn39UkFOEvJdNf/
-         3jRsOkYARL9k/IpwA7VnP5LPOHxv0vnf6WH1jLIQrh/74QjmfA17MYTSeaqG+V110bpS
-         SxAzSiQJBbABZGE/9JryABlgcvPaws8i7IwLPQxmIwU3x56WfPTRMFMrTibTBEBp7vQw
-         EaHx/rQWt99s03bpeoxKKuck5LL9whqoNErZIvWcOYJ0AJjhtoezj+6yH2qZyKw7RFBM
-         l4GsCiFlC51Hh4+E+G7PYyL0h8fZVNSTMr4Cyuh1QuLaLqKVoFhZjqacSg1U362AoFYk
-         XstA==
-X-Forwarded-Encrypted: i=1; AKwUvBwtP3+H8JLgBLOADR8otaVKg//qGW4CdxpQDl6k0tbdBBsfTZbee3thsL+FvSdIM+411WRNVP0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIdInECDxx039E3fyqtm3aEJg8M4IT3gnjtPL3TUBX/1xYuNXIs
-	7ya2FDwxWOVgl1rTL/KPkKe8PbCJqdjREk09ScrKQ15GL3KgImmHVge8
-X-Gm-Gg: AYBFou3AD/thil+6jjXvfWLe1R6TFr80WIVtz8D+kHNyZuiv39RH9rn5hWnBXP1nh0x
-	J01K799Ktufj5Tq1H+y/q1Y3dwxMIheksnEOL71f9n55sY4W1xwvkfEbh7st+6ZJC0VDuVZQEBL
-	L89S0E3ptWRtA+DEi0WvRhI5MEDNgwUdRellRek98gQHzKRJYnmv9bgaOM6r8CqheMT3uZrVGkg
-	9EvYiSWFMS/JquDgbWYy5w+ug31+Inmg5aU0PnlfSta74NHY+bgfviYUSOHNnrgIDq04TSqCTSF
-	qJsWUNhdYAnDqlBnobwy9qSn3sRvAnuttJSaLB2iWq+Mm9rmUVLwotIpdQxK+n2Z4+dqPbf43g0
-	CoWc4nANTnbeMoN+/eiB6mgN38LF3IEd3k20+dAa93ok1yqPVaAZBbh8IK+UzE1jZrZV73DGksL
-	ep080zy1LA4AVoAbuJojUP32ci3WOiJX2oEPi34ien6eC5BFGGv4t7dx0YR54KHOBSiA==
-X-Received: by 2002:a05:7301:6493:b0:33e:4e63:5d80 with SMTP id 5a478bee46e88-34c44b10683mr200567eec.11.1790698773247;
-        Tue, 29 Sep 2026 09:19:33 -0700 (PDT)
-Received: from localhost ([8.219.235.175])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34c386b6bd9sm488985eec.16.2026.09.29.09.19.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 09:19:32 -0700 (PDT)
-From: Dairui Zhang <zhangdairui@gmail.com>
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: linux-cifs@vger.kernel.org,
-	smfrench@gmail.com,
-	senozhatsky@chromium.org,
-	tom@talpey.com,
-	pc@manguebit.org,
-	stable@vger.kernel.org,
-	Dairui Zhang <zhangdairui@gmail.com>
-Subject: [PATCH v5] ksmbd: verify transform SessionId matches the decrypted header
-Date: Wed, 30 Sep 2026 00:19:30 +0800
-Message-ID: <20260929161930.1894929-1-zhangdairui@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260928162015.1832109-1-zhangdairui@gmail.com>
-References: 
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="kM8XKP3o"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
+	t=1790698825; bh=O2NjalWefRbmMemw6DAf/zj6tTtcp1mid8rM323fVUc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=kM8XKP3oVKpzgbYs35EZGejOuV+EXUZujNOidVao0iIwVe6xD+mvE4T3OgBCp5SoA
+	 tiYTsCLAqQgwoysfQDPcjSEE0S2Q5ccZGzbyTTGaaPPZ1Xudhs9BUeiHXA/ouFM6tt
+	 T+mzb6nwTc3v1/5jCMlSFQpQImbpE+f/LONjTsE2UJtm0ilYmSTetFZcfR3/RlMYFg
+	 kXtA9Ml2WniPnP4SGlzLdN1lvKBVkSBw56nLy5RbngLibcnddEaCFwCb+js0Wsjp8H
+	 6cj+qgCWoTpFAwaOv49EuxASInBEywWM2QoIiPMUBHzrwgt18MjKnCHWNCJxeth13P
+	 xjE9UMrzDCAAQ==
+Received: by extorris.mess.org (Postfix, from userid 1001)
+	id 1C21A40B86; Tue, 29 Sep 2026 17:20:25 +0100 (BST)
+Date: Tue, 29 Sep 2026 17:20:25 +0100
+From: Sean Young <sean@mess.org>
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: Maxim Levitsky <maximlevitsky@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: Re: [PATCH] media: rc: Fix simulated TX timer lifecycle
+Message-ID: <arvlSbG0Z0FGxq3l@extorris.mess.org>
+References: <20260929143105.2170272-1-runyu.xiao@seu.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260929143105.2170272-1-runyu.xiao@seu.edu.cn>
 
-Namjae,
+On Tue, Sep 29, 2026 at 10:31:05PM +0800, Runyu Xiao wrote:
+> The ENE driver only initializes tx_sim_timer when TX simulation is
+> enabled for hardware without native TX support.  However, ene_remove()
+> passes the timer to timer_delete_sync() unconditionally, and
+> ene_tx_sample() uses the global txsim parameter when deciding whether to
+> arm it.  Thus a normal device, or a device with native TX support and
+> txsim enabled, can operate on an uninitialized timer.
+> 
+> Track whether simulation was actually enabled for each device and use
+> that state for timer arming and teardown.  Since the simulation callback
+> rearms the timer, shut it down permanently before freeing the device.
 
-You're right. I missed the decompression step in
-__handle_ksmbd_work(), and the "no decompression step" and
-"no ProtocolId check" claims in the v4 commit message were wrong.
-Sorry for the sloppy reading and the extra work it caused you.
+I think this patch is correct, but I am not sure txsim is really needed
+in the source code. Maybe it's better to just remove txsim module parameter
+and all the related code.
 
-v5 moves the check to __handle_ksmbd_work(), after the existing
-decompression step, so encrypted compression transforms are no
-longer rejected. The transform SessionId is read before
-decryption and verified against the final SMB2 message.
-The compound-walk bounds check now uses subtraction (the
-addition could wrap on 32-bit), and I added the Fixes tag.
 
-From a320c66f1aeb773cf65d2489fae9f982eaf3873f Mon Sep 17 00:00:00 2001
-From: Dairui Zhang <zhangdairui@gmail.com>
-Date: Tue, 29 Sep 2026 22:30:00 +0800
-Subject: [PATCH v5] ksmbd: verify transform SessionId matches the decrypted
- header
+Sean
 
-When an encrypted request comes in, the decryption key is picked by
-the SessionId in the transform header, but the request is then
-authorized under whatever session the decrypted inner header names.
-Nothing ever compares the two, so on a connection with more than
-one session a client can get a request decrypted with one session's
-key and run it as another session. Encrypted requests are exempt
-from signing too, so a valid AEAD tag is the only proof of session
-identity, and it is checked against the wrong session.
-
-MS-SMB2 says the server must check that the transform SessionId
-matches the one in the decrypted SMB2 header and treat a mismatch
-as a protocol error. Add that check in __handle_ksmbd_work() after
-decryption, before dispatching: the message has to be at least one
-fixed SMB2 header, the first operation must not set
-SMB2_FLAGS_RELATED_OPERATIONS and its SessionId must match the
-transform SessionId, and every following non-related operation in
-a compound chain must carry the same SessionId. SessionId ~0 is
-accepted in subsequent operations, same as the existing compound
-session check. NextCommand offsets must be 8-byte aligned and stay
-inside the message; the bounds check is done by subtraction so it
-cannot wrap.
-
-When the decrypted payload is a compression transform, the
-existing decompression step runs first and the decompressed SMB2
-message is checked instead, since a compression transform header
-carries no SessionId.
-
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-Reported-by: Dairui Zhang <zhangdairui@gmail.com>
-Assisted-by: LLM
-Cc: stable@vger.kernel.org
-Signed-off-by: Dairui Zhang <zhangdairui@gmail.com>
----
-v4 -> v5:
-- Move the check into __handle_ksmbd_work(), after the existing
-  decompression step, instead of rejecting encrypted compression
-  transforms in smb3_decrypt_req(), per Namjae's review. The
-  transform SessionId is saved before decryption.
-- Use subtraction for the compound-walk bounds check; the
-  addition form could wrap on 32-bit.
-- Add the Fixes tag and drop the incorrect claims about the
-  decompression step and ProtocolId check from the commit message.
----
- fs/smb/server/server.c  | 16 ++++++++++++
- fs/smb/server/smb2pdu.c | 54 ++++++++++++++++++++++++++++++++++++++++
- fs/smb/server/smb2pdu.h |  1 +
- 3 files changed, 71 insertions(+)
-
-diff --git a/fs/smb/server/server.c b/fs/smb/server/server.c
---- a/fs/smb/server/server.c
-+++ b/fs/smb/server/server.c
-@@ -187,6 +187,16 @@
- 
- 	if (conn->ops->is_transform_hdr &&
- 	    conn->ops->is_transform_hdr(work->request_buf)) {
-+		u64 tr_sess_id;
-+
-+		if (get_rfc1002_len(work->request_buf) <
-+		    sizeof(struct smb2_transform_hdr)) {
-+			ksmbd_conn_abort(conn);
-+			return;
-+		}
-+		tr_sess_id = le64_to_cpu(((struct smb2_transform_hdr *)
-+				smb_get_msg(work->request_buf))->SessionId);
-+
- 		rc = conn->ops->decrypt_req(work);
- 		if (rc < 0) {
- 			ksmbd_conn_abort(conn);
-@@ -215,6 +225,12 @@
- 			ksmbd_conn_abort(conn);
- 			return;
- 		}
-+
-+		rc = ksmbd_check_transform_session(work, tr_sess_id);
-+		if (rc < 0) {
-+			ksmbd_conn_abort(conn);
-+			return;
-+		}
- 	}
- 
- 	if (conn->ops->allocate_rsp_buf(work))
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -12256,6 +12256,60 @@
- 	return trhdr->ProtocolId == SMB2_TRANSFORM_PROTO_NUM;
- }
- 
-+/*
-+ * The decryption key is selected by the transform SessionId, but
-+ * the request is authorized under the session named in the
-+ * decrypted SMB2 header. Per MS-SMB2 the two must match, so check
-+ * the decrypted message and its compound chain before dispatch.
-+ */
-+int ksmbd_check_transform_session(struct ksmbd_work *work, u64 tr_sess_id)
-+{
-+	struct smb2_hdr *hdr = smb_get_msg(work->request_buf);
-+	size_t msg_len = get_rfc1002_len(work->request_buf);
-+	size_t off = 0;
-+	bool first = true;
-+
-+	if (msg_len < sizeof(*hdr)) {
-+		pr_err_ratelimited("Decrypted message is smaller than SMB2 header\n");
-+		return -ECONNABORTED;
-+	}
-+
-+	for (;;) {
-+		u64 sid = le64_to_cpu(hdr->SessionId);
-+		u32 next;
-+
-+		if (first) {
-+			if (hdr->Flags & SMB2_FLAGS_RELATED_OPERATIONS) {
-+				pr_err_ratelimited("RELATED_OPERATIONS set on first operation\n");
-+				return -ECONNABORTED;
-+			}
-+			if (sid != tr_sess_id) {
-+				pr_err_ratelimited("SessionId mismatch between transform and inner header\n");
-+				return -ECONNABORTED;
-+			}
-+			first = false;
-+		} else if (!(hdr->Flags & SMB2_FLAGS_RELATED_OPERATIONS) &&
-+			   sid != ULLONG_MAX && sid != tr_sess_id) {
-+			pr_err_ratelimited("SessionId mismatch in compound chain\n");
-+			return -ECONNABORTED;
-+		}
-+
-+		next = le32_to_cpu(hdr->NextCommand);
-+		if (!next)
-+			return 0;
-+		if (next % 8) {
-+			pr_err_ratelimited("NextCommand %u is not 8-byte aligned\n", next);
-+			return -ECONNABORTED;
-+		}
-+		if (next > msg_len - off - sizeof(*hdr)) {
-+			pr_err_ratelimited("NextCommand %u is out of the message\n", next);
-+			return -ECONNABORTED;
-+		}
-+		off += next;
-+		hdr = (struct smb2_hdr *)((u8 *)smb_get_msg(work->request_buf) + off);
-+	}
-+}
-+
- int smb3_decrypt_req(struct ksmbd_work *work)
- {
- 	char *buf = work->request_buf;
-diff --git a/fs/smb/server/smb2pdu.h b/fs/smb/server/smb2pdu.h
---- a/fs/smb/server/smb2pdu.h
-+++ b/fs/smb/server/smb2pdu.h
-@@ -416,6 +416,7 @@
- void smb3_preauth_hash_rsp(struct ksmbd_work *work);
- bool smb3_is_transform_hdr(void *buf);
- int smb3_decrypt_req(struct ksmbd_work *work);
-+int ksmbd_check_transform_session(struct ksmbd_work *work, u64 tr_sess_id);
- int smb3_encrypt_resp(struct ksmbd_work *work);
- bool smb3_11_final_sess_setup_resp(struct ksmbd_work *work);
- int smb2_set_rsp_credits(struct ksmbd_work *work);
--- 
-2.53.0
+> Fixes: 9ea53b74df9c ("V4L/DVB: STAGING: remove lirc_ene0100 driver")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+> ---
+>  drivers/media/rc/ene_ir.c | 6 ++++--
+>  drivers/media/rc/ene_ir.h | 1 +
+>  2 files changed, 5 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/media/rc/ene_ir.c b/drivers/media/rc/ene_ir.c
+> index 6f7dccc96..9d0279667 100644
+> --- a/drivers/media/rc/ene_ir.c
+> +++ b/drivers/media/rc/ene_ir.c
+> @@ -652,7 +652,7 @@ static void ene_tx_sample(struct ene_device *dev)
+>  	dev->tx_reg = !dev->tx_reg;
+>  exit:
+>  	/* simulate TX done interrupt */
+> -	if (txsim)
+> +	if (dev->tx_sim_enabled)
+>  		mod_timer(&dev->tx_sim_timer, jiffies + HZ / 500);
+>  }
+>  
+> @@ -1032,6 +1032,7 @@ static int ene_probe(struct pnp_dev *pnp_dev, const struct pnp_device_id *id)
+>  
+>  	if (!dev->hw_learning_and_tx_capable && txsim) {
+>  		dev->hw_learning_and_tx_capable = true;
+> +		dev->tx_sim_enabled = true;
+>  		timer_setup(&dev->tx_sim_timer, ene_tx_irqsim, 0);
+>  		pr_warn("Simulation of TX activated\n");
+>  	}
+> @@ -1103,7 +1104,8 @@ static void ene_remove(struct pnp_dev *pnp_dev)
+>  	unsigned long flags;
+>  
+>  	rc_unregister_device(dev->rdev);
+> -	timer_delete_sync(&dev->tx_sim_timer);
+> +	if (dev->tx_sim_enabled)
+> +		timer_shutdown_sync(&dev->tx_sim_timer);
+>  	spin_lock_irqsave(&dev->hw_lock, flags);
+>  	ene_rx_disable(dev);
+>  	ene_rx_restore_hw_buffer(dev);
+> diff --git a/drivers/media/rc/ene_ir.h b/drivers/media/rc/ene_ir.h
+> index c1c44e86e..f44cbc034 100644
+> --- a/drivers/media/rc/ene_ir.h
+> +++ b/drivers/media/rc/ene_ir.h
+> @@ -218,6 +218,7 @@ struct ene_device {
+>  	int tx_done;				/* done transmitting */
+>  						/* one more sample pending*/
+>  	struct completion tx_complete;		/* TX completion */
+> +	bool tx_sim_enabled;			/* simulated TX is enabled */
+>  	struct timer_list tx_sim_timer;
+>  
+>  	/* TX settings */
+> -- 
+> 2.34.1
