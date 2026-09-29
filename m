@@ -1,87 +1,122 @@
-Received: from relay.hostedemail.com (smtprelay0017.hostedemail.com [216.40.44.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09F7F322B9F;
-	Tue, 29 Sep 2026 18:45:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D1D141DDF1
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 18:46:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790707517; cv=none; b=C8GQ+4EGNB59ZdiozFPci/RVVzJVNojSm94wgkWnPPrLuzUMk0JlrV2ioFudealGhDTWWL99L1Aeerd2UudfTSCCUzK5NVV3xOs3MCcilpgyDM/uJ0epVBouUqv87RttJfKXyM4CRxgUiE1XqttSpX3midxL8HYVlW5TRosM/ZQ=
+	t=1790707573; cv=none; b=b838jTB2yJfUOkzPpNtK5lpeZNdhhkO3nU1W5k47G25MXumu6iPBB/TTpdpxH5KGTZ5KSvE5sUAbm7W8Zqejjho2zA0ZShYEHeEhavGFWGN2oR8v2Ck7wTV6Zl9X3iEeVMXl+CJlSRbNzzs6M0saVY9eAuwuCDP6AORB0j9lGQo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790707517; c=relaxed/simple;
-	bh=2JdM+OMPCZBlPoQlhlqezVeWZuDcC5Zlfj3r2CMimOE=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=OJDcQSMkli7iZvoESzTCKdpqp0Zl0lp7YlSmtouiDeLKPXIXxAyQFPMoO9nyk6Vi9FFbn5Iv4yNzZ9FZMhKlrx7F8Rm8+/jS6Ol+2aravher/ANiFqzkgJact1Op8gmuQUa52nFrCv9w8m+FjbpxmLWQRcDP6EfQ2CEHf1F5x+A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=A9s7kt09; arc=none smtp.client-ip=216.40.44.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1790707573; c=relaxed/simple;
+	bh=QYTOuZwLH1x6W7USOpEHQQkx0bm0WifBQRwZLfeyRBg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=f7wGNIaZJ939Z+4aSlNw9A2hW3MoX2Kfanyr85+ruHyGJhH5niPlPqA+N15Fb0aR+JsHrYnXYq5XDwoSrcdIXfQXQwU+qyxMKtZe1oTisYRFs8DZNrPNv4nmbUo5QujvjoDgWnp83TuBRvtame+pVoPWuBFknSz0WyctrhMaKQE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UkO7Pu58; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="A9s7kt09"
-Received: from omf13.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay06.hostedemail.com (Postfix) with ESMTP id B498CA6E7E;
-	Tue, 29 Sep 2026 18:45:07 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf13.hostedemail.com (Postfix) with ESMTPA id D3D5920012;
-	Tue, 29 Sep 2026 18:45:04 +0000 (UTC)
-Date: Tue, 29 Sep 2026 14:45:01 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Zhengchuan Liang <zcliangcn@gmail.com>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Ross Zwisler <zwisler@google.com>,
- linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org, Peter
- Zijlstra <peterz@infradead.org>, linux-perf-users@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH 1/1] tracing: Require tracepoint permission for perf
- function filters
-Message-ID: <20260929144501.3b8dcaa1@fedora>
-In-Reply-To: <95d3721fa8d4c7a4577ec14e9d7caec4fd0cefcc.1790553331.git.zcliangcn@gmail.com>
-References: <cover.1790553331.git.zcliangcn@gmail.com>
-	<95d3721fa8d4c7a4577ec14e9d7caec4fd0cefcc.1790553331.git.zcliangcn@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UkO7Pu58"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65E651F000FF;
+	Tue, 29 Sep 2026 18:46:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790707572;
+	bh=oLF/f7ekDSbXdX7N5+I/KtUQT4Di+Mf7oQvGLdkAr/0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=UkO7Pu58/Gz80w5+l7SDx8cxxWSS60EjJZ5c/95X/9pE78DLDPob5t7Pl7EKwJSJ8
+	 kTeJBxlDsmkwOdD/Z+RDQAvc5P3Kji28osE3++N6Y7XtdyNqYpshf1N0ZaBmt3eIOs
+	 h9PqQ6MwL0y1TG8J1fDpWwWubD4t39Iylit6vim3uS3W6ASg/Nv2dOh4SU/sNH6GOK
+	 vxNc1S+qaGhtC+9+YdcRGE31qcI4CMBhMTKBifsZBOibaP5bybY9W+mNFP2jgomsOd
+	 EK6YFmIMf6cS5h5mOOVzbUplqgX7kswXjBRC8+mvMDvEh8LGLgQoEANI43vFw1eniu
+	 jgl5jRZU0DXQw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Jaewook You <jaewook376@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Johan Hovold <johan@kernel.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Oscar Salvador <osalvador@suse.de>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] mm/hugetlb: preserve mremap address delta when skipping page tables
+Date: Tue, 29 Sep 2026 14:46:09 -0400
+Message-ID: <20260929184609.521274-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026092916-rubber-foe-5410@gregkh>
+References: <2026092916-rubber-foe-5410@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: 4ya17dfarmkk4htb96ob3aha9eommb6e
-X-Rspamd-Server: rspamout04
-X-Rspamd-Queue-Id: D3D5920012
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX18GL/mrHDhEiZ3ZbHV70hICMpCHCUrs18A=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=erBVOtzQymQefzUtqhd4VKSH1rxw2Rm3xOKAGzz55vU=; b=A9s7kt09INscftYVxj+F8EKD/EKmIQbkaztj0PetDyBg5GyrchzpvzN5FZClLbONuAhnpvQTnZIzoO0zUR5N24FNMJOIOlzKpIUmNFY7Tg0kqkdleodNBMzz4VcpgSjdb2qEJfe4EFLdlSavo4PizKqPufEECBNZ4suV1yYW240=
-X-HE-Tag: 1790707504-858915
-X-HE-Meta: U2FsdGVkX18U2j4LHPRsXH7+1ORfjtFwJBdEeS1WZcEaRhTIQfsCCILWYQnB391saFBb5LYQ7oOpnh2j+x2JIT0ZYvfEF++nUziZ+fBB2pl5Lf6hZNHtUf6j9kQGc1Bvppeof1rfyvi69c086ryIUkL7cjLB1avt2KQAsC0v+tpKDLBULZgmaDLV8TwCkoYFwkCIy6dWt1/m0Y5o6cnUai2hhKyfm5LdpZR/07aYrmfbJb875Xm37t9+nlfA8y8D1iFyt9P9mOwCVfYHn4QnStLbsQvLihhsVp81U3LwceRuFnmmgcP3qSwg7DN26n5A6dBMP9re3P96CaqYHIB1PwVyfWovNSFaMYLvq7reiZ1DjvCdcjhphw==
+Content-Transfer-Encoding: 8bit
 
-On Sun, 27 Sep 2026 17:00:31 -0700
-Zhengchuan Liang <zcliangcn@gmail.com> wrote:
+From: Jaewook You <jaewook376@gmail.com>
 
-> Count-only perf tracepoint events can be opened without tracepoint
-> permission because they do not sample raw event data. Their SET_FILTER
-> ioctl still parses .function predicates. Numeric operands call
-> kallsyms_lookup_size_offset(), making ioctl success an oracle for
-> recovering the randomized kernel text base. Symbolic operands resolve
-> hidden symbol addresses and can also match user-controlled event fields
-> against those addresses.
-> 
-> Pass the perf origin through filter parsing and require
-> perf_allow_tracepoint() before resolving either form of .function
-> operand. Ordinary perf count filters and tracefs event filters retain
-> their existing behavior.
-> 
-> Fixes: e6745a4da964 ("tracing: Add a way to filter function addresses to function names")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Zhengchuan Liang <zcliangcn@gmail.com>
-> ---
->  kernel/trace/trace_events_filter.c | 39 ++++++++++++++++++++++--------
+[ Upstream commit 9bdad082d44bdcf93716973dcba6be77e8a06e7b ]
 
-NAK.
+move_hugetlb_page_tables() optimizes mremap() by advancing to the last
+entry in the page table when the source page table does not exist, either
+initially or after unsharing a PMD table.  The common loop increment then
+steps to the first entry in the next page table.
 
-This is a perf issue and not a ftrace issue. It should not touch any
-code in kernel/trace/* for the fix.
+However, the code advances both the source and destination addresses to
+the last entries in their respective page tables, which is wrong.  The
+destination address must be advanced only by the same amount as the source
+address.
 
-Looks to me the code that calls ftrace_profile_set_filter() from
-kernel/events/core.c should not be allowed by unprivileged users.
+If the source and destination offsets within their page tables differ, the
+destination address can be advanced too far, causing follow-up issues.
+Fix this by advancing the destination address by the source advance
+distance.
 
--- Steve
+With a reproducer, we were able to trigger a kernel panic on x86-64.  With
+this fix in place, we can no longer reproduce the issue.
+
+Link: https://lore.kernel.org/20260914132352.472-1-jaewook376@gmail.com
+Fixes: e95a9851787b ("hugetlb: skip to end of PT page mapping when pte not present")
+Fixes: 4ddb4d91b82f ("hugetlb: do not update address in huge_pmd_unshare")
+Signed-off-by: Jaewook You <jaewook376@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Cc: Johan Hovold <johan@kernel.org>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: <stable@vger.kernel.org>
+Assisted-by: LLM
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ mm/hugetlb.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
+
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index 0d98b591bcd1f..93b76353fddda 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -5473,18 +5473,21 @@ int move_hugetlb_page_tables(struct vm_area_struct *vma,
+ 	hugetlb_vma_lock_write(vma);
+ 	i_mmap_lock_write(mapping);
+ 	for (; old_addr < old_end; old_addr += sz, new_addr += sz) {
++		const unsigned long offset_to_last_entry =
++			(old_addr | last_addr_mask) - old_addr;
++
+ 		src_pte = hugetlb_walk(vma, old_addr, sz);
+ 		if (!src_pte) {
+-			old_addr |= last_addr_mask;
+-			new_addr |= last_addr_mask;
++			old_addr += offset_to_last_entry;
++			new_addr += offset_to_last_entry;
+ 			continue;
+ 		}
+ 		if (huge_pte_none(huge_ptep_get(mm, old_addr, src_pte)))
+ 			continue;
+ 
+ 		if (huge_pmd_unshare(&tlb, vma, old_addr, src_pte)) {
+-			old_addr |= last_addr_mask;
+-			new_addr |= last_addr_mask;
++			old_addr += offset_to_last_entry;
++			new_addr += offset_to_last_entry;
+ 			continue;
+ 		}
+ 
+-- 
+2.53.0
+
