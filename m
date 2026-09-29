@@ -1,108 +1,156 @@
-Received: from mx01.omp.ru (mx01.omp.ru [90.154.21.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63DA93A4F58
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 20:22:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.154.21.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 157C33A4F58;
+	Tue, 29 Sep 2026 20:27:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790713333; cv=none; b=INSBsFHXjUnNkVSyVJce4sqhGtphW1tcs2OVNdp9/d2cXJzAwvPBmlABxntQGQhdl8lL+kppGR4lokkpUEhtHnQSiYzPnlb6K4hahTFsrCGwNKIQR/lOP7aRL3WjUZXDz0i/na7bd6SLt6OzomICe2A5jhmzUhWBAuiXWA1LGQs=
+	t=1790713625; cv=none; b=ACEElr9E4koVESeyKbYG9vQEP8ko07vFxk0uxuAGecb56sofJ9BVLkZ9t/KUltRkdkIA8X/DiyKxp72kFaRSQhJSs5Wd36nz1nvARxq+uN/jsP6LBDLB5OT0eUC6ew+6RUZS6Pd5nxRys1S50uXsAfxgysAEA89qjEnnPnp94iI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790713333; c=relaxed/simple;
-	bh=16QhA+eyRwLX1gDXK+tZ3CaEzpv5ZYu1QoOxtI7v2yA=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:CC:References:
-	 In-Reply-To:Content-Type; b=symIOGb4X+dThxMiZ63QeOS5hm/oeWf7A4u3vlM8tw2ATa6CrotfzR6Sma79j9lLG9UAhX4POVOQbEHBNer2phmG6l33LPMpAexvT7NK+amq2SwYrzveujjeRUJOcg/g2MNsPv1zw//tZW7zUVPCvXVHRUNWxlkdq90h/eWhCeM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=omp.ru; spf=pass smtp.mailfrom=omp.ru; arc=none smtp.client-ip=90.154.21.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=omp.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=omp.ru
-Received: from [192.168.2.104] (91.78.6.248) by msexch01.omp.ru (10.188.4.12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.1258.12; Tue, 29 Sep
- 2026 23:22:04 +0300
-Message-ID: <b8916768-87cc-4489-9460-725f2dd438f9@omp.ru>
-Date: Tue, 29 Sep 2026 23:22:04 +0300
+	s=arc-20240116; t=1790713625; c=relaxed/simple;
+	bh=DkHl216R8HsWOjEtGTLQqdSyQom/zGA2tKkvsdwDZYU=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=RB+SthpFZ40/FCCEQNArPBzymemFKzl2/MvjKbYfxOqEBw7LxAltNCKDlKhlhv6eIRz3YqMpMkeo8yKbCbeAYxaYxJz/vh18OcYkV6DReRuEpiz1MxKcdcA00XqKE//uS4nyK72bcZ3HGz2jpcmRp2u6n+FzKi61Um/pRI5Jn3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=TvFU9C9P; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="TvFU9C9P"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1790713618;
+	bh=DkHl216R8HsWOjEtGTLQqdSyQom/zGA2tKkvsdwDZYU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=TvFU9C9Pbg/JzO7ElZRPimssQgIEjJ2O+y47e02mjN7B5re1GnOWJ2BbvYWhNNp17
+	 T1Akjncag7PuCiEoPPfIgVDUzYd3K36JyRBSSy1aiIU5w/msMQugPDcHBt8mH7x1oP
+	 GDfogMllekTuriiWr+Eo8jW4OC4m44QDMWYdGspci/W+OJ7Gdxt1i4mfXicmrZYp37
+	 tcMnhLzHJNNzkkt78qjieaQWD6O7YSwK7vp5kVpiTY+enHh8SPxuR/5uobMpxfg9+2
+	 Y1qT8xbzt77mkxXoZzgqqLW+x64NaHWHoVz8PYVlRYS1Z3VNk+bmFswyYVKDQOFwdL
+	 nR3ngVmlMXtOg==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 4D56F17E0B21;
+	Tue, 29 Sep 2026 22:26:56 +0200 (CEST)
+Message-ID: <90a604622a614a2de95820bdc73372a3e1d7fb41.camel@collabora.com>
+Subject: Re: [PATCH] media: mediatek: vcodec: fix decoder child device leaks
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: Guangshuo Li <lgs201920130244@gmail.com>, Tiffany Lin	
+ <tiffany.lin@mediatek.com>, Andrew-CT Chen <andrew-ct.chen@mediatek.com>, 
+ Yunfei Dong <yunfei.dong@mediatek.com>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Matthias Brugger	 <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno	 <angelogioacchino.delregno@collabora.com>, Hans
+ Verkuil	 <hverkuil+cisco@kernel.org>, Kees Cook <kees@kernel.org>, Tomasz
+ Figa	 <tfiga@chromium.org>, Chen-Yu Tsai <wenst@chromium.org>, Steve Cho	
+ <stevecho@chromium.org>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-mediatek@lists.infradead.org
+Cc: stable@vger.kernel.org
+Date: Tue, 29 Sep 2026 16:26:54 -0400
+In-Reply-To: <20260921090808.336112-1-lgs201920130244@gmail.com>
+References: <20260921090808.336112-1-lgs201920130244@gmail.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-rV4yfsU2n0WfwiE+CTHf"
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.6.y 2/7] net: ravb: Switch to
- SYSTEM_SLEEP_PM_OPS()/RUNTIME_PM_OPS() and pm_ptr()
-From: Sergey Shtylyov <s.shtylyov@omp.ru>
-To: Sasha Levin <sashal@kernel.org>, <stable@vger.kernel.org>
-CC: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>, Geert Uytterhoeven
-	<geert+renesas@glider.be>, Paolo Abeni <pabeni@redhat.com>
-References: <2026090333-maroon-numerate-89b5@gregkh>
- <20260909171431.3234845-1-sashal@kernel.org>
- <20260909171431.3234845-2-sashal@kernel.org>
- <c365b590-0691-461e-a566-fc546c533e56@omp.ru>
-Content-Language: en-US
-Organization: Open Mobile Platform
-In-Reply-To: <c365b590-0691-461e-a566-fc546c533e56@omp.ru>
+
+
+--=-rV4yfsU2n0WfwiE+CTHf
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Le lundi 21 septembre 2026 =C3=A0 17:08 +0800, Guangshuo Li a =C3=A9crit=C2=
+=A0:
+> mtk_vcodec_probe() populates decoder hardware child platform devices on
+> platforms that support decoder subdevices. These children must be
+> removed with of_platform_depopulate() when they are no longer needed.
+>=20
+> If initialization fails after the children have been populated, the
+> probe error path releases the parent decoder resources without
+> depopulating the child devices. This leaves the child platform devices
+> registered.
+>=20
+> The remove path has the same issue and leaves the child devices
+> registered when the parent decoder driver is unbound.
+>=20
+> Depopulate the child devices in the probe error path and in the remove
+> path before tearing down the remaining parent resources.
+>=20
+> The issue was identified by a static analysis tool I developed and
+> confirmed by manual review.
+>=20
+> Fixes: c05bada35f01 ("media: mtk-vcodec: Add to support multi hardware de=
+code")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> ---
+>  .../platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c    | 5 +++++
+>  1 file changed, 5 insertions(+)
+>=20
+> diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_de=
+c_drv.c b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv=
+.c
+> index e936ed8dffba..592685ad522c 100644
+> --- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
+> +++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
+> @@ -517,6 +517,8 @@ static int mtk_vcodec_probe(struct platform_device *p=
+dev)
+>  err_dec_mem_init:
+>  	video_unregister_device(vfd_dec);
+>  err_reg_cont:
+> +	if (dev->vdec_pdata->is_subdev_supported)
+> +		of_platform_depopulate(&pdev->dev);
+>  	if (dev->vdec_pdata->uses_stateless_api)
+>  		media_device_cleanup(&dev->mdev_dec);
+>  	destroy_workqueue(dev->decode_workqueue);
+> @@ -569,6 +571,9 @@ static void mtk_vcodec_dec_remove(struct platform_dev=
+ice *pdev)
+>  {
+>  	struct mtk_vcodec_dec_dev *dev =3D platform_get_drvdata(pdev);
+> =20
+> +	if (dev->vdec_pdata->is_subdev_supported)
+> +		of_platform_depopulate(&pdev->dev);
+> +
+>  	destroy_workqueue(dev->decode_workqueue);
+
+This was first for a reason, please keep first.
+
+Nicolas
+
+> =20
+>  	if (media_devnode_is_registered(dev->mdev_dec.devnode)) {
+
+--=-rV4yfsU2n0WfwiE+CTHf
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: msexch01.omp.ru (10.188.4.12) To msexch01.omp.ru
- (10.188.4.12)
-X-KSE-ServerInfo: msexch01.omp.ru, 9
-X-KSE-AntiSpam-Interceptor-Info: scan successful
-X-KSE-AntiSpam-Version: 6.1.1, Database issued on: 09/29/2026 20:12:50
-X-KSE-AntiSpam-Status: KAS_STATUS_NOT_DETECTED
-X-KSE-AntiSpam-Method: none
-X-KSE-AntiSpam-Rate: 0
-X-KSE-AntiSpam-Info: Lua profiles 206323 [Sep 29 2026]
-X-KSE-AntiSpam-Info: Version: 6.1.1.27
-X-KSE-AntiSpam-Info: Envelope from: s.shtylyov@omp.ru
-X-KSE-AntiSpam-Info: LuaCore: 125 0.3.125
- 408a76d0ab6a6a06c054d212c38932c1e9d7db86
-X-KSE-AntiSpam-Info: {rep_avail}
-X-KSE-AntiSpam-Info: {diag_burst_silent}
-X-KSE-AntiSpam-Info: {Tracking_from_domain_doesnt_match_to}
-X-KSE-AntiSpam-Info:
-	omp.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;127.0.0.199:7.1.2
-X-KSE-AntiSpam-Info: {Tracking_ip_hunter}
-X-KSE-AntiSpam-Info: FromAlignment: s
-X-KSE-AntiSpam-Info: ApMailHostAddress: 91.78.6.248
-X-KSE-AntiSpam-Info: Rate: 0
-X-KSE-AntiSpam-Info: Status: not_detected
-X-KSE-AntiSpam-Info: Method: none
-X-KSE-AntiSpam-Info: Auth:dmarc=temperror header.from=omp.ru;spf=temperror
- smtp.mailfrom=omp.ru;dkim=none
-X-KSE-Antiphishing-Info: Clean
-X-KSE-Antiphishing-ScanningType: Heuristic
-X-KSE-Antiphishing-Method: None
-X-KSE-Antiphishing-Bases: 09/29/2026 20:15:00
-X-KSE-Antivirus-Interceptor-Info: scan successful
-X-KSE-Antivirus-Info: Clean, bases: 9/29/2026 7:14:00 PM
-X-KSE-Attachment-Filter-Triggered-Rules: Clean
-X-KSE-Attachment-Filter-Triggered-Filters: Clean
-X-KSE-BulkMessagesFiltering-Scan-Result: InTheLimit
 
-On 9/29/26 11:01 PM, Sergey Shtylyov wrote:
-> On 9/9/26 8:14 PM, Sasha Levin wrote:
-> 
->> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
->>
->> [ Upstream commit 6ccc22a5afcbac46d55866d72eaba22f43491c00 ]
->>
->> SET_SYSTEM_SLEEP_PM_OPS() and SET_RUNTIME_PM_OPS() are deprecated now
->> and require __maybe_unused protection against unused function warnings.
->> The usage of pm_ptr() and SYSTEM_SLEEP_PM_OPS()/RUNTIME_PM_OPS() allows
->> the compiler to see the functions, thus suppressing the warning. Thus
->> drop the __maybe_unused markings.
->>
->> Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
->> Reviewed-by: Sergey Shtylyov <s.shtylyov@omp.ru>
->> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
->> Signed-off-by: Paolo Abeni <pabeni@redhat.com>
->> Stable-dep-of: 1cb9663789c5 ("net: ravb: serialize PTP clock teardown")
-> 
->    Hm, not exactly obvious how that commit requires this patch... :-)
+-----BEGIN PGP SIGNATURE-----
 
-   Ah, seeing now: you pulled it in to not to have to modify the next one
-in the series. Still doesn't seem necessary, but oh well... :-) 
->> Signed-off-by: Sasha Levin <sashal@kernel.org>
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarwfDgAKCRDZQZRRKWBy
+9FakAP4vcR8SMhV7pVZIdxreL/3W6hen9hQOFj6cC3ZEarcA2wD+LAwK/qdsJ85/
+pSIKX2XUmKWpyl2obUYqdo/NDZ69UQU=
+=Asfv
+-----END PGP SIGNATURE-----
 
-> [...]
-
-MBR, Sergey
+--=-rV4yfsU2n0WfwiE+CTHf--
