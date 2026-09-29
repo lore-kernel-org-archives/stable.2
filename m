@@ -1,326 +1,241 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f38.google.com (mail-pz2-f38.google.com [74.125.228.38])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DD5A3E7BC4
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 08:29:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F38103AF660
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 08:34:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790670554; cv=none; b=uohe9UJixWayudTLJZcesRWl3MAEfUfSuWCoWJZgxhBQu+yJBzvlc4ZYJYlfOQsUt9rDI1sH8crYhQn5JNlK3FKDjs5Q65QsDD94PZlEEdqpLV/2q5rc5ftj4GV3gn3ixPg0Pj4DRp3lvg+g91wcm6me2CBaN8DirYjQhobrDDU=
+	t=1790670894; cv=none; b=qIAP0BRyZD50ONFTAKGGkhJI9AvwgHOOPkalCtGKSI/ZB/2Tb2I6sHlLLE+dx9gf719g2LEiFeKY/cOGeCouEyVwsh63iryVzUnKTjspmwnGOO7ETR5GpZzCaJ9Y//N9c6OJNEMl1m9HGF0h7hhIMuvjJqjs6T4akB2PtDoBNic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790670554; c=relaxed/simple;
-	bh=/J7cNVjTdCs1bmKUj8fP+j0oQEfvtDtPfwN1tniyGXM=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=j+QR4XFqvMzPPJp7RZL05/AN5m9X+Vl+mfsNeNQgzNWUPx9Pwqms7T6o5SBcXvhfk3YOXkCjCB7qZk23/tRGGTb5njpj/aaMp82GRcjQ71NlElsEqeT+rWgWq4n3aRZNy053AHxq4GzlIU+gYaM4IQDXF8d1wbDUiWbt1gL0Y+Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=oZBqnygJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790670894; c=relaxed/simple;
+	bh=t9NO8RLGfg/L6imVOchQWaM9RYI0Kykf/KtwK1c3Mmc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Zl0OEuAelH2mpaKIcFM/15B+iTPeB+COzcBY96K0gRc+Nh2NaDnSxpELU+87lBKcEUk9uEolqT1VXK6nC0Gnz5E0suMriJxuzycNr4w0bYklE2OYV3bfrSyP/zbukYYkMVWjOhekLpKMyltdSdEdQAKmjSd+RaqGSQwLQAdzSWE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=itad8p9b; arc=none smtp.client-ip=74.125.228.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="oZBqnygJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B7851F000FF;
-	Tue, 29 Sep 2026 08:29:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790670552;
-	bh=Xa+++HYcQ3KGjN6zyZxWSRFAF7aVcNk27ziLI/YLf0E=;
-	h=Subject:To:Cc:From:Date;
-	b=oZBqnygJQ7r+I/SrpJxAszjfGv8PmCheGxJutflgXfxaClJycu5zWBUtSFCZV7xFx
-	 wtSpbSni57n5WYa0sD9S2SYOmeTFI6MzUnUkA+VbLQuOKcTJQRhE9FYsfUihdzHzsz
-	 8OILy6rybejeBZeAS0HF3vmbt7QXHx1y+ary1GI8=
-Subject: FAILED: patch "[PATCH] packet: use ubuf_info completion for TX_RING packets" failed to apply to 5.15-stable tree
-To: willemb@google.com,doebel@amazon.de,kleaver@janestreet.com,kuba@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Tue, 29 Sep 2026 10:28:52 +0200
-Message-ID: <2026092952-contents-unworn-2736@gregkh>
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="itad8p9b"
+Received: by mail-pz2-f38.google.com with SMTP id d2e1a72fcca58-882833a9f61so1851274b3a.2
+        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 01:34:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1790670890; x=1791275690; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5cwydG5wsQtN0cZkN780gx8GmDGw8aCnNB0UYeCsBrQ=;
+        b=itad8p9bN7jGgpAetd+Tf0QkhjlP7LRVjtcfO8BZrtiTZfuvNNZcgFsTOjT2uPb0kE
+         6LKEyGcByMA6Onq+YQc5RBIWJ+4m991tHHcNQA5DahQdhRcGEBIMvs9d3rw5IsKLL5sX
+         Dw36+x28LT0vAcU/PurXtr87HYM9H9S/kwm8qusc4L1knYa2mG01MNy6h6RoZXw3WGOK
+         LRMSMjYDirUQ7tTveQgBRUUpiS6f2p3uwJ2l1B/muASFjpqdnQGcgbS6lbewsxSA5zmC
+         Gq5e2hkIgq9G7WLfAJ/MjAB0B3Px2fjMyWtNGSB8SJXwzFuQadn5MV66/NKNUmTM3el/
+         eMNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790670890; x=1791275690;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5cwydG5wsQtN0cZkN780gx8GmDGw8aCnNB0UYeCsBrQ=;
+        b=hkfzwqqsCkbJlEst/R2APiVt432gA0BgRuBgEZIKBSoFeQFTRZ7+trPdRNpgmvokA4
+         0oC4Nt/OomBjmmA3bHjVY+vRTD9cFzztWgjSNE0N7PeS0kosA9aMUoqifSaU2O4o8bBR
+         qmpx5I6Rb1xPW0Zr+6rMcosHb2DujKwzKmCTPIOVp5g872YGDkfeqWj2yWAkPRBkx6uJ
+         JwtEp6ltRsMyjzTzhNxHvJ8qGWdiE9a0PXX/AUeerl1VM4lQu6Fxo8JdKCj4MLB34tUy
+         U4m3/Y+wipLqBI1IZza2d6eFc22zqixK0wqyWOEEROt35anHFUyLAZbczfFWODEOMpLp
+         eQVg==
+X-Forwarded-Encrypted: i=1; AKwUvBznQcS6S8ct0pSVvfk0R7eiGJO+fSxQVqpHjGUZukzZTv3lR71xSul7FIJemgAN/5Pw2dGpst0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lpRpma7ImcPEkpWYlr2R3FohXrvEceRpOW3g9eow4zfm0jNVHJ
+	otCFA9Xz7AhKcQcdyzafl61G7fdTQ7+cC4oBW7RT95jz6DSTwIyjKL1TrKNzDJurKYETvZ/npw4
+	gbRalIvc=
+X-Gm-Gg: AYBFou1Kg5le17DBjV7O3L4qH+bcuCnQ5dGdPcBaMovpImksOB0xpJw4sj6XjNa2XFA
+	gzYro7DSJVRDKWvS4SNJoHI84cTzndaZ5cSwDX8SBnKgJdfNAnudAdi4+eIrmfhhafxEVYi6sH1
+	miYAsMraxV8LocCKgtl3/uE9aWozn/x/XA7U2qS4GJA//1gyeRpmofwH9FKSSeY6wLRF4AyM7rU
+	ABiGp0RkZwbEt5EEzpkjYaNHC46QL1SXc985Ungtuvb0zyY3cnKzaajemi72mTAlHrFhvuf8Abp
+	xzfqIUVrmKxJiVwJUOQ+viVHCF5w9jY/OyP27et13NsBt7XdyFXMpyP+r+V3CgV9V6UjvXJ8zOo
+	Vn47zcU3Z9Pdd47yYstRKd803TEP9dDtwf3+m1n6/xTWOYNYB7WV9D3jHjp7v90iFasTGshkaZE
+	hBEXaGc5XgnC/pzy9dERve/pfcs9PcJ8k9NZK1RuAPlMGgLnxWHoW6SYDQITLmNEYb/n1bf3EAT
+	jtj8Q==
+X-Received: by 2002:aa7:914c:0:b0:881:77d6:8d91 with SMTP id d2e1a72fcca58-88177d69009mr6653281b3a.7.1790670889773;
+        Tue, 29 Sep 2026 01:34:49 -0700 (PDT)
+Received: from yhlee-960QFG.. ([125.131.91.97])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-885e23e9947sm420275b3a.47.2026.09.29.01.34.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 01:34:49 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: linux-nvme@lists.infradead.org,
+	Keith Busch <kbusch@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Jens Axboe <axboe@kernel.dk>
+Cc: linux-kernel@vger.kernel.org,
+	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
+	stable@vger.kernel.org
+Subject: [PATCH] nvme-rdma: reject a second completion for a command already answered
+Date: Tue, 29 Sep 2026 17:34:32 +0900
+Message-ID: <20260929083432.1601397-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+nvme_rdma_process_nvme_rsp() does not always complete the request it just
+looked up.  When the request owns a memory region and the response arrived
+without a remote invalidation, it posts a local invalidation and returns,
+leaving nvme_rdma_inv_rkey_done() to drop the reference later.  Until that
+completion runs the request is still live and its generation counter has
+not advanced, so a controller that sends a second completion for the same
+command_id passes nvme_find_rq() and reaches nvme_rdma_end_request() a
+second time.
 
-The patch below does not apply to the 5.15-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+req->ref is initialised to 2, for the send and the recv completion.  A
+duplicate answer produces three decrements -- the send completion, the
+duplicate itself, and the deferred local invalidation -- and the last of
+them takes the reference count below zero.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+The generation counter added by commit e7006de6c238 ("nvme: code
+command_id with a genctr for use-after-free validation") does not help
+here: it is incremented in nvme_try_complete_req(), so it catches a
+completion that arrives after the command has completed, not a second
+completion that arrives before the first one has finished.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
-git checkout FETCH_HEAD
-git cherry-pick -x 9518405613863d0bf0700927a21367f5942cf058
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092952-contents-unworn-2736@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+Both outcomes are a denial of service.  A duplicate that lands inside the
+window trips the refcount_t saturation warning, which taints the kernel
+and panics it when panic_on_warn is set; one that arrives after the window
+instead trips "got bad command_id" and resets the controller.  In the runs
+below every stray decrement landed on a request that had completed but had
+not yet been reissued, and no KASAN report accompanied any of them, so
+this is not a use-after-free with attacker-controlled reuse.
 
-Possible dependencies:
+Mark a request once its completion has been consumed and refuse a second
+one before it can touch status, result or the reference count.  The flag
+is cleared per submission, beside the refcount it protects, so a reused
+tag always starts clean.  A command whose duplicate is refused still
+terminates normally through the local invalidation that the first response
+posted.
 
+Reproduced against a modified nvmet-rdma that answers one command twice,
+first with a plain SEND and then with SEND_WITH_INV:
 
+  refcount_t: underflow; use-after-free.
+  WARNING: lib/refcount.c:28 at refcount_warn_saturate+0xad/0xe0,
+    CPU#0: kworker/u8:0/12
+  Modules linked in:
+  CPU: 0 UID: 0 PID: 12 Comm: kworker/u8:0 Not tainted
+    7.3.0-rc5-nvmerdma-atk-g72d3fcf802c4-dirty #27 PREEMPT(lazy)
+  Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix,
+    1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+  Workqueue: rxe_wq do_work
+  RIP: 0010:refcount_warn_saturate+0xad/0xe0
+  Call Trace:
+   <IRQ>
+   __ib_process_cq+0xe1/0x390
+   ? __pfx__raw_spin_lock_irq+0x10/0x10
+   ib_poll_handler+0x6e/0x200
+   irq_poll_softirq+0x1df/0x480
+   ? __pfx_irq_poll_softirq+0x10/0x10
+   ? __pfx__raw_spin_lock+0x10/0x10
+   handle_softirqs+0x182/0x5a0
+   ? __pfx_handle_softirqs+0x10/0x10
+   do_softirq+0x3d/0x60
+   </IRQ>
+   <TASK>
+   __local_bh_enable_ip+0x6a/0x70
+   __alloc_skb+0x5f5/0x890
+   ? enqueue_timer+0xe6/0x3f0
+   ? __pfx___alloc_skb+0x10/0x10
+   ? _raw_read_unlock_irqrestore+0x16/0x50
+   rxe_init_packet+0x16b/0x4f0
+   rxe_requester+0xeab/0x51f0
+   ? rxe_completer+0x29e5/0x38c0
+   ? wakeup_preempt_fair+0x5dd/0xdd0
+   ? __pfx_rxe_completer+0x10/0x10
+   ? __pfx_rxe_requester+0x10/0x10
+   ? wakeup_preempt+0x1d5/0x330
+   ? ttwu_do_activate+0x124/0x590
+   ? _raw_spin_lock_irqsave+0x86/0xe0
+   ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+   ? pwq_dec_nr_in_flight+0x2b2/0xc60
+   ? __pfx_rxe_sender+0x10/0x10
+   rxe_sender+0xe/0x30
+   do_work+0x144/0x470
+   process_one_work+0x6b4/0x10e0
+   ? __pfx___schedule+0x10/0x10
+   ? __pfx_process_one_work+0x10/0x10
+   ? _raw_spin_lock_irq+0x81/0xe0
+   ? __pfx_do_work+0x10/0x10
+   ? assign_work+0x11d/0x370
+   worker_thread+0x45b/0xd10
+   ? __pfx_worker_thread+0x10/0x10
+   kthread+0x2c8/0x3b0
+   ? recalc_sigpending+0x15c/0x1e0
+   ? __pfx_kthread+0x10/0x10
+   ret_from_fork+0x36e/0x5a0
+   ? __pfx_ret_from_fork+0x10/0x10
+   ? __switch_to+0x572/0xdd0
+   ? __pfx_kthread+0x10/0x10
+   ret_from_fork_asm+0x1a/0x30
+   </TASK>
+  ---[ end trace 0000000000000000 ]---
 
-thanks,
+The window is narrow and load dependent.  With an idle completion queue
+the local invalidation completes in about 85 us and the second answer
+arrives too late to matter; under concurrent I/O the invalidation
+completion is delayed to milliseconds and the duplicate lands inside it.
+Counting the warning is misleading because REFCOUNT_WARN is WARN_ONCE, so
+the stray decrements were counted directly:
 
-greg k-h
+  unpatched: 18 duplicates accepted inside the window, 18 stray
+             decrements on a zero reference count, 1 warning
+  patched:   5 duplicates landed inside the window, all refused,
+             0 stray decrements, 0 warnings
 
------------------- original commit in Linus's tree ------------------
+Every refused command still completed, and an unmodified target is
+unaffected with register_always set either way.
 
-From 9518405613863d0bf0700927a21367f5942cf058 Mon Sep 17 00:00:00 2001
-From: Willem de Bruijn <willemb@google.com>
-Date: Fri, 18 Sep 2026 20:47:29 -0400
-Subject: [PATCH] packet: use ubuf_info completion for TX_RING packets
-
-tpacket_snd sends skbs with frags pointing into its ring slots. Slots
-are released when skb->destructor is called.
-
-A call to skb_orphan calls skb->destructor before the skb is freed.
-This can cause the slot to be reused while still linked into the skb.
-
-Switch to standard zerocopy completion (ubuf_info) so the slot is only
-released once all references to the payload are freed or copied.
-Restore skb->destructor to standard sock_wfree.
-
-The ubuf_info completion callback can be called with a NULL skb, but
-only from net_zcopy_put and related API, used by zerocopy implementations
-that hold their own reference on the uarg, such as MSG_ZEROCOPY. This
-uarg is only ever completed from skb_zcopy_clear, so skb is always set.
-
-To prevent userspace from aliasing in-flight state on shared ring
-slots, allocate tpacket_uarg per packet, rather than per slot. This
-adds a small allocation to the transmit path. Use standard kmalloc to
-allow backporting to stable kernels.
-
-The uarg holds an sk_wmem_alloc reference, rather than an sk_refcnt
-reference. packet_free_tx_ring waits on sk_wmem_alloc before freeing
-the ring pages. Always allocate vec->deferred for tx_ring so page-backed
-rings also wait on sk_wmem_alloc when skb_copy_ubufs drops page refs
-before calling tpacket_ubuf_complete.
-
-Drop the tx_ring.pg_vec test that tpacket_destruct_skb performed before
-accessing the slot. The sk_wmem_alloc reference now guarantees that the
-slot is valid. The test is also not sufficient by itself, as it reads
-pg_vec without pg_vec_lock, so it can race with packet_set_ring.
-
-As a result a slot is released when its payload is copied, which can
-be before transmission (e.g., in skb_orphan_frags_rx). If copied
-before skb_tx_timestamp() is called, no slot timestamp is recorded,
-similar to when skb_orphan() was called early in the datapath before
-this patch.
-
-Revert the now unused previous skb_zcopy_.._nouarg infra.
-
-Depends on commit 992cc9f94ca9 ("net/packet: defer vmalloc TX_RING
-free until skbs finish").
-
-Reported-by: Katherine Leaver <kleaver@janestreet.com>
-Reported-by: Bjoern Doebel <doebel@amazon.de>
-Closes: https://lore.kernel.org/netdev/20260909085542.3370986-1-doebel@amazon.de/
-Fixes: 5cd8d46ea156 ("packet: copy user buffers before orphan or clone")
+Fixes: 2f122e4f5107 ("nvme-rdma: wait for local invalidation before completing a request")
 Cc: stable@vger.kernel.org
-Signed-off-by: Willem de Bruijn <willemb@google.com>
-Link: https://patch.msgid.link/20260919004748.1463985-3-willemdebruijn.kernel@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+ drivers/nvme/host/rdma.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
-index 421f6fc45451..b14d6be7370b 100644
---- a/include/linux/skbuff.h
-+++ b/include/linux/skbuff.h
-@@ -1834,22 +1834,6 @@ static inline void skb_zcopy_set(struct sk_buff *skb, struct ubuf_info *uarg,
+diff --git a/drivers/nvme/host/rdma.c b/drivers/nvme/host/rdma.c
+index 9cb811a2ce1f7..f96d421518293 100644
+--- a/drivers/nvme/host/rdma.c
++++ b/drivers/nvme/host/rdma.c
+@@ -82,6 +82,7 @@ struct nvme_rdma_request {
+ 	struct nvme_rdma_sgl	data_sgl;
+ 	struct nvme_rdma_sgl	*metadata_sgl;
+ 	bool			use_sig_mr;
++	bool			rsp_seen;
+ };
+ 
+ enum nvme_rdma_queue_flags {
+@@ -1568,6 +1569,7 @@ static int nvme_rdma_map_data(struct nvme_rdma_queue *queue,
+ 
+ 	req->num_sge = 1;
+ 	refcount_set(&req->ref, 2); /* send and recv completions */
++	req->rsp_seen = false;
+ 
+ 	c->common.flags |= NVME_CMD_SGL_METABUF;
+ 
+@@ -1738,6 +1740,15 @@ static void nvme_rdma_process_nvme_rsp(struct nvme_rdma_queue *queue,
  	}
- }
+ 	req = blk_mq_rq_to_pdu(rq);
  
--static inline void skb_zcopy_set_nouarg(struct sk_buff *skb, void *val)
--{
--	skb_shinfo(skb)->destructor_arg = (void *)((uintptr_t) val | 0x1UL);
--	skb_shinfo(skb)->flags |= SKBFL_ZEROCOPY_FRAG;
--}
--
--static inline bool skb_zcopy_is_nouarg(struct sk_buff *skb)
--{
--	return (uintptr_t) skb_shinfo(skb)->destructor_arg & 0x1UL;
--}
--
--static inline void *skb_zcopy_get_nouarg(struct sk_buff *skb)
--{
--	return (void *)((uintptr_t) skb_shinfo(skb)->destructor_arg & ~0x1UL);
--}
--
- static inline void net_zcopy_put(struct ubuf_info *uarg)
- {
- 	if (uarg)
-@@ -1872,8 +1856,7 @@ static inline void skb_zcopy_clear(struct sk_buff *skb, bool zerocopy_success)
- 	struct ubuf_info *uarg = skb_zcopy(skb);
- 
- 	if (uarg) {
--		if (!skb_zcopy_is_nouarg(skb))
--			uarg->ops->complete(skb, uarg, zerocopy_success);
-+		uarg->ops->complete(skb, uarg, zerocopy_success);
- 
- 		skb_shinfo(skb)->flags &= ~SKBFL_ALL_ZEROCOPY;
- 	}
-diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
-index 50cae32ae269..64b501db660a 100644
---- a/net/packet/af_packet.c
-+++ b/net/packet/af_packet.c
-@@ -2530,26 +2530,6 @@ static int tpacket_rcv(struct sk_buff *skb, struct net_device *dev,
- 	goto drop_n_restore;
- }
- 
--static void tpacket_destruct_skb(struct sk_buff *skb)
--{
--	struct packet_sock *po = pkt_sk(skb->sk);
--
--	if (likely(po->tx_ring.pg_vec)) {
--		void *ph;
--		__u32 ts;
--
--		ph = skb_zcopy_get_nouarg(skb);
--
--		ts = __packet_set_timestamp(po, ph, skb);
--		__packet_set_status(po, ph, TP_STATUS_AVAILABLE | ts);
--
--		packet_dec_pending(&po->tx_ring);
--		complete(&po->skb_completion);
--	}
--
--	sock_wfree(skb);
--}
--
- static int __packet_snd_vnet_parse(struct virtio_net_hdr *vnet_hdr, size_t len)
- {
- 	if ((vnet_hdr->flags & VIRTIO_NET_HDR_F_NEEDS_CSUM) &&
-@@ -2589,27 +2569,56 @@ static int packet_snd_vnet_parse(struct msghdr *msg, size_t *len,
- 	return 0;
- }
- 
-+struct tpacket_uarg {
-+	struct ubuf_info	ubuf;
-+	struct packet_sock	*po;
-+	void			*ph;
-+};
-+
-+static void tpacket_ubuf_complete(struct sk_buff *skb, struct ubuf_info *uarg,
-+				  bool success)
-+{
-+	struct tpacket_uarg *tu = container_of(uarg, struct tpacket_uarg, ubuf);
-+	struct packet_sock *po = tu->po;
-+	void *ph = tu->ph;
-+	__u32 ts;
-+
-+	DEBUG_NET_WARN_ON_ONCE(!skb);
-+
-+	if (!refcount_dec_and_test(&uarg->refcnt))
++	if (unlikely(req->rsp_seen)) {
++		dev_err(queue->ctrl->ctrl.device,
++			"Duplicate completion for command_id %#x on QP %#x\n",
++			cqe->command_id, queue->qp->qp_num);
++		nvme_rdma_error_recovery(queue->ctrl);
 +		return;
-+
-+	ts = __packet_set_timestamp(po, ph, skb);
-+	__packet_set_status(po, ph, TP_STATUS_AVAILABLE | ts);
-+
-+	packet_dec_pending(&po->tx_ring);
-+	complete(&po->skb_completion);
-+
-+	kfree(tu);
-+	sk_free(&po->sk);
-+}
-+
-+static const struct ubuf_info_ops tpacket_ubuf_ops = {
-+	.complete = tpacket_ubuf_complete,
-+};
-+
- static int tpacket_fill_skb(struct packet_sock *po, struct sk_buff *skb,
--		void *frame, struct net_device *dev, void *data, int tp_len,
-+		struct net_device *dev, void *data, int tp_len,
- 		__be16 proto, unsigned char *addr, int hlen, int copylen,
- 		int hard_header_len,
- 		const struct sockcm_cookie *sockc)
- {
--	union tpacket_uhdr ph;
- 	int to_write, offset, len, nr_frags, len_max;
- 	struct socket *sock = po->sk.sk_socket;
- 	struct page *page;
- 	int err;
- 
--	ph.raw = frame;
--
- 	skb->protocol = proto;
- 	skb->dev = dev;
- 	skb->priority = sockc->priority;
- 	skb->mark = sockc->mark;
- 	skb_set_delivery_type_by_clockid(skb, sockc->transmit_time, po->sk.sk_clockid);
- 	skb_setup_tx_timestamp(skb, sockc);
--	skb_zcopy_set_nouarg(skb, ph.raw);
- 
- 	skb_reserve(skb, hlen);
- 	skb_reset_network_header(skb);
-@@ -2749,6 +2758,7 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
- 	struct virtio_net_hdr vnet_hdr;
- 	bool has_vnet_hdr = false;
- 	struct sockcm_cookie sockc;
-+	struct tpacket_uarg *uarg;
- 	__be16 proto;
- 	int err, reserve = 0;
- 	void *ph;
-@@ -2876,7 +2886,7 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
- 				err = len_sum;
- 			goto out_status;
- 		}
--		tp_len = tpacket_fill_skb(po, skb, ph, dev, data, tp_len, proto,
-+		tp_len = tpacket_fill_skb(po, skb, dev, data, tp_len, proto,
- 					  addr, hlen, copylen, hard_header_len,
- 					  &sockc);
- 		if (likely(tp_len >= 0) &&
-@@ -2908,7 +2918,24 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
- 			virtio_net_hdr_set_proto(skb, &vnet_hdr);
- 		}
- 
--		skb->destructor = tpacket_destruct_skb;
-+		uarg = kmalloc(sizeof(*uarg), GFP_KERNEL);
-+		if (unlikely(!uarg)) {
-+			if (likely(len_sum > 0))
-+				err = len_sum;
-+			else
-+				err = -ENOMEM;
-+			goto out_status;
-+		}
-+		uarg->po = po;
-+		uarg->ph = ph;
-+		uarg->ubuf.ops = &tpacket_ubuf_ops;
-+		uarg->ubuf.flags = SKBFL_ZEROCOPY_FRAG;
-+		refcount_set(&uarg->ubuf.refcnt, 1);
-+
-+		/* Hold a sk_wmem_alloc reference until completion */
-+		refcount_inc(&po->sk.sk_wmem_alloc);
-+		skb_zcopy_init(skb, &uarg->ubuf);
-+
- 		__packet_set_status(po, ph, TP_STATUS_SENDING);
- 		packet_inc_pending(&po->tx_ring);
- 
-@@ -4486,21 +4513,20 @@ static struct pgv *alloc_pg_vec(struct tpacket_req *req, int order, bool tx_ring
- 	vec->len = block_nr;
- 	pg_vec = vec->pg_vec;
- 
-+	if (tx_ring) {
-+		vec->deferred = kzalloc_obj(*vec->deferred,
-+					    GFP_KERNEL | __GFP_NOWARN);
-+		if (!vec->deferred)
-+			goto out_free_pgvec;
-+		vec->deferred->vec = vec;
-+		INIT_DELAYED_WORK(&vec->deferred->work,
-+				  packet_free_pg_vec_work);
 +	}
++	req->rsp_seen = true;
 +
- 	for (i = 0; i < block_nr; i++) {
- 		pg_vec[i].buffer = alloc_one_pg_vec_page(order);
- 		if (unlikely(!pg_vec[i].buffer))
- 			goto out_free_pgvec;
--
--		if (tx_ring && !vec->deferred &&
--		    is_vmalloc_addr(pg_vec[i].buffer)) {
--			vec->deferred = kzalloc_obj(*vec->deferred,
--						    GFP_KERNEL | __GFP_NOWARN);
--			if (!vec->deferred)
--				goto out_free_pgvec;
--			vec->deferred->vec = vec;
--			INIT_DELAYED_WORK(&vec->deferred->work,
--					  packet_free_pg_vec_work);
--		}
- 	}
+ 	req->status = cqe->status;
+ 	req->result = cqe->result;
  
- out:
+-- 
+2.43.0
 
