@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 556EC390985
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B62A02AD1B
 	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 17:31:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790703091; cv=none; b=AQ/57EuZUyg2MYhdII3T3jiBkAezrVW6rgukanYQPqpnx+4MlWAYAKIvMC8gFEcy9v3hRvtkI3J0Pm63OXtr7zw4vcAvOGRtmLkwZhdYbcX6QgbplSqbEHO96yUbDyHfmFBhsBJj3hvsaLxyvN/kSClGmnUsIK+jmYHxkUMbrgU=
+	t=1790703091; cv=none; b=uTNuFS9WRU4dHstvMjf8U5JYNRJMinifiyP4LCjZJH+SVrKHOG49sKHiysIQWljXcSBO5KlWSMLSWwAdxh7VxSuFo/SNMWsKiYEf+NPXVsnNChZhQFI223Ivko/dxLEVuUN7UoLi8G0N76VE5ng5wqcEkRnRNdBmWG8h03RWJU4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790703091; c=relaxed/simple;
-	bh=83Yl4cYZHijUNK1hxmPU91N6GyT9lsfDApiQDByF1T4=;
+	bh=Um4bmgCuQb0aj3vzt1VMTln13YWDpEN+qgKANPM+3Qk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=W+S9YUIS75TytIsBwwFkwmkZDvl7Cit53rpPzOh1om4zKB57p45v187qL4KIZBXU6v9wQPik3kEEDXhRdu32ZpDrqkKrfm21pq7LsMi6WJ83ebCmjEmqluWg7fV/yt/zUrYhEexOMEEkHT/Nyf2dFPlT9GkscHH2UcS39JtBrg8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gVwL82x7; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=NwLvufYfJU25RVOcc4IYuh0lC9BuS+WzilYxni1JbNiyQuuHeArcOjxBZFomI6wuOz2br/FkO4KJ5YM6DTFsDJeK3Q9NQCYgLOMHtRZqsVjOHB26n6oKtYgAiys+03x7E7m2fWqkn0uvM0AOcNqy8/f9vIvwRhtlO6wAWyQr/xo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R4pUJGrl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gVwL82x7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41BCB1F000FF;
-	Tue, 29 Sep 2026 17:31:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R4pUJGrl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CEE71F00898;
+	Tue, 29 Sep 2026 17:31:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790703088;
-	bh=ynnHZLiSMMPqCBMuOGxLOBcvkKiyJjQ1X9jN8bPVJc8=;
+	s=k20260515; t=1790703089;
+	bh=VVJgpyVPUyTM0LfTcmII5d90CPTQhG59gloT5/o0ge8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gVwL82x7PgfDz/QE8qRFpAPx3hMDfTh5/bfYO6CnRvjj4DHrh79xA9s//emQE63yM
-	 OyvRydfHH2Pk+2Uq/FeOzDA3VJbTotVUAXMTQN1+1gNUPqtgOUPmeudyGMDhaU/qcS
-	 9UrfteiqCvPAFWpV/Rrl50M6jlpPMfFbM9+GnPtJgISJlpaagnrX/KBGsz/0+FAWtI
-	 und5WTGK8QsT6b++R30JXhmLnxUYTebCl4TgWFoK0xcQ3wbUC8QscP6pYdCWV2aZzA
-	 tkcn8siLTzTrTpG0AZvxQLlRX+W1vXuAfCEzLXbjX/9BhSX5oam49rIVq0P67UiQVl
-	 m+cIr7dYt5x6w==
+	b=R4pUJGrlr20FDEiUrUBa7NLPsLKuY6kraNpNqKI+O7bu990XzncInXBAY/iaYMO6d
+	 y+P6/aCvxvuBzFRc2dt6wlXrbY1CODz9zXRkeDKqRnOz4mj+h/ixTHC3aC4W5afrsE
+	 RllmRj7CkaebdKnDMsdtFXMu9eTffPR+MAFXiRgxVMOkLyW3+sr4PtfmyO6HVAzJQs
+	 KBqt19/kEfmKbB9Riz4r/xiw2yjC9/rWMPqAuvvyIqzkVGG1hX8FhSlxaHzOnElhho
+	 VbSa3hexmxsq4JwezYoxzCfFXFjzvtIMQ0cYQx8CuXqQUIwmW6XA/AxUJzpM0TmuPM
+	 vUdT+jl+Rr4zQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
-	Rob Clark <robdclark@gmail.com>,
-	Emil Velikov <emil.velikov@collabora.com>,
-	Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+Cc: Peiyang He <peiyang_he@smail.nju.edu.cn>,
+	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 1/2] drm/virtio: Refactor and optimize job submission code path
-Date: Tue, 29 Sep 2026 13:31:25 -0400
-Message-ID: <20260929173126.284476-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 2/2] drm/virtio: fix memory leak of fence event on execbuffer failure
+Date: Tue, 29 Sep 2026 13:31:26 -0400
+Message-ID: <20260929173126.284476-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092952-wifi-luster-9ed8@gregkh>
+In-Reply-To: <20260929173126.284476-1-sashal@kernel.org>
 References: <2026092952-wifi-luster-9ed8@gregkh>
+ <20260929173126.284476-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,589 +46,84 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+From: Peiyang He <peiyang_he@smail.nju.edu.cn>
 
-[ Upstream commit e4812ab8e6b142e1ce19b50fcf744e20ea9adfe3 ]
+[ Upstream commit b74aad23d99b279bb34d135795f39a6d8ecdc075 ]
 
-Move virtio_gpu_execbuffer_ioctl() into separate virtgpu_submit.c file,
-refactoring and optimizing the code along the way to ease addition of new
-features to the ioctl.
+virtio_gpu_execbuffer_ioctl() reserves a DRM event with
+drm_event_reserve_init() when VIRTGPU_EXECBUF_RING_IDX selects a ring that
+userspace has enabled polling for. virtio_gpu_init_submit() does this
+before the BO handles, the command buffer, the syncobj arrays and the
+in-fence are processed, so every later error path runs with the event
+already pending, including plain argument validation failures such as an
+invalid bo_handle or an in-syncobj that carries no fence.
 
-The optimization is done by using optimal ordering of the job's submission
-steps, reducing code path from the start of the ioctl to the point of
-pushing job to virtio queue. Job's initialization is now performed before
-in-fence is awaited and out-fence setup is made after sending out job to
-virtio.
+On those paths, virtio_gpu_cleanup_submit() drops the out-fence without
+cancelling the event. The fence is freed without ever having been emitted,
+taking the only driver-side pointer to the event with it. Closing the DRM
+file does not help. drm_events_release() unlinks pending events but
+deliberately leaves the freeing to the driver's later drm_send_event(),
+which never runs for an orphaned event, so the allocation is leaked
+permanently.
 
-Reviewed-by: Rob Clark <robdclark@gmail.com>
-Reviewed-by: Emil Velikov <emil.velikov@collabora.com>
-Tested-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+Found when fuzzing the virtio driver with Syzkaller:
+
+	BUG: memory leak
+	unreferenced object 0xffff88802c176e80 (size 96):
+	comm "syz.1.367", pid 10561, jiffies 4294960122
+	hex dump (first 32 bytes):
+		00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+		c8 6e 17 2c 80 88 ff ff 00 00 00 00 00 00 00 00  .n.,............
+	backtrace (crc e1973c6b):
+		kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
+		slab_post_alloc_hook mm/slub.c:4597 [inline]
+		slab_alloc_node mm/slub.c:4917 [inline]
+		__kmalloc_cache_noprof+0x49d/0x6f0 mm/slub.c:5485
+		_kmalloc_noprof include/linux/slab.h:988 [inline]
+		_kzalloc_noprof include/linux/slab.h:1309 [inline]
+		virtio_gpu_fence_event_create drivers/gpu/drm/virtio/virtgpu_submit.c:282 [inline]
+		virtio_gpu_init_submit drivers/gpu/drm/virtio/virtgpu_submit.c:398 [inline]
+		virtio_gpu_execbuffer_ioctl+0xbbf/0x1aa0 drivers/gpu/drm/virtio/virtgpu_submit.c:505
+		drm_ioctl_kernel+0x1f4/0x3e0 drivers/gpu/drm/drm_ioctl.c:817
+		drm_ioctl+0x5f4/0xc70 drivers/gpu/drm/drm_ioctl.c:914
+		vfs_ioctl fs/ioctl.c:51 [inline]
+		__do_sys_ioctl fs/ioctl.c:597 [inline]
+		__se_sys_ioctl fs/ioctl.c:583 [inline]
+		__x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
+		do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+		do_syscall_64+0x116/0x800 arch/x86/entry/syscall_64.c:94
+		entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Fix by cancelling and freeing the DRM event on the execbuffer error path
+before dropping the fence. Clear the fence's event pointer after
+cancellation so it does not retain a dangling pointer.
+
+Fixes: cd7f5ca33585 ("drm/virtio: implement context init: add virtio_gpu_fence_event")
+Cc: stable@vger.kernel.org
+Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
+Assisted-by: Codex:gpt-5.6-luna
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-Link: https://patchwork.freedesktop.org/patch/msgid/20230416115237.798604-2-dmitry.osipenko@collabora.com
-
-[Stable 6.1 adaptation: keep the conditional fence allocation and explicit
-VIRTGPU_EXECBUF_RING_IDX event gating already backported in 98d3e7c5f7575
-when moving execbuffer submission into virtgpu_submit.c.
-
-Keep the fence context at u64 width and retain out_fence until cleanup
-releases the submission reference, avoiding the regressions later fixed
-upstream by 445d336cd1586 and 4556b93f6c026. Initialize out_fence_fd to -1
-before any failing initialization step and check required fence allocation
-before creating an event or sync file.
-
-Retain the dependency's existing helper set and cleanup path so that
-b74aad23d99b279bb34d135795f39a6d8ecdc075 can be cherry-picked cleanly without
-bringing in syncobj support. The event-cancellation fix remains in the
-target commit.]
-
-Stable-dep-of: b74aad23d99b ("drm/virtio: fix memory leak of fence event on execbuffer failure")
+Link: https://patch.msgid.link/D320EAB5680C1411+20260908121323.2405044-1-peiyang_he@smail.nju.edu.cn
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/virtio/Makefile         |   2 +-
- drivers/gpu/drm/virtio/virtgpu_drv.h    |   4 +
- drivers/gpu/drm/virtio/virtgpu_ioctl.c  | 188 ---------------
- drivers/gpu/drm/virtio/virtgpu_submit.c | 301 ++++++++++++++++++++++++
- 4 files changed, 306 insertions(+), 189 deletions(-)
- create mode 100644 drivers/gpu/drm/virtio/virtgpu_submit.c
+ drivers/gpu/drm/virtio/virtgpu_submit.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/virtio/Makefile b/drivers/gpu/drm/virtio/Makefile
-index b99fa4a73b68e..d2e1788a82270 100644
---- a/drivers/gpu/drm/virtio/Makefile
-+++ b/drivers/gpu/drm/virtio/Makefile
-@@ -6,6 +6,6 @@
- virtio-gpu-y := virtgpu_drv.o virtgpu_kms.o virtgpu_gem.o virtgpu_vram.o \
- 	virtgpu_display.o virtgpu_vq.o \
- 	virtgpu_fence.o virtgpu_object.o virtgpu_debugfs.o virtgpu_plane.o \
--	virtgpu_ioctl.o virtgpu_prime.o virtgpu_trace_points.o
-+	virtgpu_ioctl.o virtgpu_prime.o virtgpu_trace_points.o virtgpu_submit.o
- 
- obj-$(CONFIG_DRM_VIRTIO_GPU) += virtio-gpu.o
-diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
-index 1dc92ee7fbdb7..abfeed6252685 100644
---- a/drivers/gpu/drm/virtio/virtgpu_drv.h
-+++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
-@@ -492,4 +492,8 @@ void virtio_gpu_vram_unmap_dma_buf(struct device *dev,
- 				   struct sg_table *sgt,
- 				   enum dma_data_direction dir);
- 
-+/* virtgpu_submit.c */
-+int virtio_gpu_execbuffer_ioctl(struct drm_device *dev, void *data,
-+				struct drm_file *file);
-+
- #endif
-diff --git a/drivers/gpu/drm/virtio/virtgpu_ioctl.c b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-index bc8c1e9a845fd..b24b11f25197d 100644
---- a/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-@@ -38,32 +38,6 @@
- 				    VIRTGPU_BLOB_FLAG_USE_SHAREABLE | \
- 				    VIRTGPU_BLOB_FLAG_USE_CROSS_DEVICE)
- 
--static int virtio_gpu_fence_event_create(struct drm_device *dev,
--					 struct drm_file *file,
--					 struct virtio_gpu_fence *fence,
--					 uint32_t ring_idx)
--{
--	struct virtio_gpu_fence_event *e = NULL;
--	int ret;
--
--	e = kzalloc(sizeof(*e), GFP_KERNEL);
--	if (!e)
--		return -ENOMEM;
--
--	e->event.type = VIRTGPU_EVENT_FENCE_SIGNALED;
--	e->event.length = sizeof(e->event);
--
--	ret = drm_event_reserve_init(dev, file, &e->base, &e->event);
--	if (ret)
--		goto free;
--
--	fence->e = e;
--	return 0;
--free:
--	kfree(e);
--	return ret;
--}
--
- /* Must be called with &virtio_gpu_fpriv.struct_mutex held. */
- static void virtio_gpu_create_context_locked(struct virtio_gpu_device *vgdev,
- 					     struct virtio_gpu_fpriv *vfpriv)
-@@ -104,168 +78,6 @@ static int virtio_gpu_map_ioctl(struct drm_device *dev, void *data,
- 					 &virtio_gpu_map->offset);
- }
- 
--/*
-- * Usage of execbuffer:
-- * Relocations need to take into account the full VIRTIO_GPUDrawable size.
-- * However, the command as passed from user space must *not* contain the initial
-- * VIRTIO_GPUReleaseInfo struct (first XXX bytes)
-- */
--static int virtio_gpu_execbuffer_ioctl(struct drm_device *dev, void *data,
--				 struct drm_file *file)
--{
--	struct drm_virtgpu_execbuffer *exbuf = data;
--	struct virtio_gpu_device *vgdev = dev->dev_private;
--	struct virtio_gpu_fpriv *vfpriv = file->driver_priv;
--	struct virtio_gpu_fence *out_fence;
--	bool drm_fence_event;
--	int ret;
--	uint32_t *bo_handles = NULL;
--	void __user *user_bo_handles = NULL;
--	struct virtio_gpu_object_array *buflist = NULL;
--	struct sync_file *sync_file;
--	int out_fence_fd = -1;
--	void *buf;
--	uint64_t fence_ctx;
--	uint32_t ring_idx;
--
--	fence_ctx = vgdev->fence_drv.context;
--	ring_idx = 0;
--
--	if (vgdev->has_virgl_3d == false)
--		return -ENOSYS;
--
--	if ((exbuf->flags & ~VIRTGPU_EXECBUF_FLAGS))
--		return -EINVAL;
--
--	if ((exbuf->flags & VIRTGPU_EXECBUF_RING_IDX)) {
--		if (exbuf->ring_idx >= vfpriv->num_rings)
--			return -EINVAL;
--
--		if (!vfpriv->base_fence_ctx)
--			return -EINVAL;
--
--		fence_ctx = vfpriv->base_fence_ctx;
--		ring_idx = exbuf->ring_idx;
--	}
--
--	virtio_gpu_create_context(dev, file);
--	if (exbuf->flags & VIRTGPU_EXECBUF_FENCE_FD_IN) {
--		struct dma_fence *in_fence;
--
--		in_fence = sync_file_get_fence(exbuf->fence_fd);
--
--		if (!in_fence)
--			return -EINVAL;
--
--		/*
--		 * Wait if the fence is from a foreign context, or if the fence
--		 * array contains any fence from a foreign context.
--		 */
--		ret = 0;
--		if (!dma_fence_match_context(in_fence, fence_ctx + ring_idx))
--			ret = dma_fence_wait(in_fence, true);
--
--		dma_fence_put(in_fence);
--		if (ret)
--			return ret;
--	}
--
--	if (exbuf->flags & VIRTGPU_EXECBUF_FENCE_FD_OUT) {
--		out_fence_fd = get_unused_fd_flags(O_CLOEXEC);
--		if (out_fence_fd < 0)
--			return out_fence_fd;
--	}
--
--	if (exbuf->num_bo_handles) {
--		bo_handles = kvmalloc_array(exbuf->num_bo_handles,
--					    sizeof(uint32_t), GFP_KERNEL);
--		if (!bo_handles) {
--			ret = -ENOMEM;
--			goto out_unused_fd;
--		}
--
--		user_bo_handles = u64_to_user_ptr(exbuf->bo_handles);
--		if (copy_from_user(bo_handles, user_bo_handles,
--				   exbuf->num_bo_handles * sizeof(uint32_t))) {
--			ret = -EFAULT;
--			goto out_unused_fd;
--		}
--
--		buflist = virtio_gpu_array_from_handles(file, bo_handles,
--							exbuf->num_bo_handles);
--		if (!buflist) {
--			ret = -ENOENT;
--			goto out_unused_fd;
--		}
--		kvfree(bo_handles);
--		bo_handles = NULL;
--	}
--
--	buf = vmemdup_user(u64_to_user_ptr(exbuf->command), exbuf->size);
--	if (IS_ERR(buf)) {
--		ret = PTR_ERR(buf);
--		goto out_unused_fd;
--	}
--
--	if (buflist) {
--		ret = virtio_gpu_array_lock_resv(buflist);
--		if (ret)
--			goto out_memdup;
--	}
--
--	if ((exbuf->flags & VIRTGPU_EXECBUF_RING_IDX) &&
--	    (vfpriv->ring_idx_mask & BIT_ULL(ring_idx)))
--		drm_fence_event = true;
--	else
--		drm_fence_event = false;
--
--	if ((exbuf->flags & VIRTGPU_EXECBUF_FENCE_FD_OUT) ||
--	    exbuf->num_bo_handles ||
--	    drm_fence_event)
--		out_fence = virtio_gpu_fence_alloc(vgdev, fence_ctx, ring_idx);
--	else
--		out_fence = NULL;
--
--	if (drm_fence_event) {
--		ret = virtio_gpu_fence_event_create(dev, file, out_fence, ring_idx);
--		if (ret)
--			goto out_unresv;
--	}
--
--	if (out_fence_fd >= 0) {
--		sync_file = sync_file_create(&out_fence->f);
--		if (!sync_file) {
--			dma_fence_put(&out_fence->f);
--			ret = -ENOMEM;
--			goto out_unresv;
--		}
--
--		exbuf->fence_fd = out_fence_fd;
--		fd_install(out_fence_fd, sync_file->file);
--	}
--
--	virtio_gpu_cmd_submit(vgdev, buf, exbuf->size,
--			      vfpriv->ctx_id, buflist, out_fence);
--	dma_fence_put(&out_fence->f);
--	virtio_gpu_notify(vgdev);
--	return 0;
--
--out_unresv:
--	if (buflist)
--		virtio_gpu_array_unlock_resv(buflist);
--out_memdup:
--	kvfree(buf);
--out_unused_fd:
--	kvfree(bo_handles);
--	if (buflist)
--		virtio_gpu_array_put_free(buflist);
--
--	if (out_fence_fd >= 0)
--		put_unused_fd(out_fence_fd);
--
--	return ret;
--}
--
- static int virtio_gpu_getparam_ioctl(struct drm_device *dev, void *data,
- 				     struct drm_file *file)
- {
 diff --git a/drivers/gpu/drm/virtio/virtgpu_submit.c b/drivers/gpu/drm/virtio/virtgpu_submit.c
-new file mode 100644
-index 0000000000000..3cad6413cad7e
---- /dev/null
+index 3cad6413cad7e..2b54e0c5e8296 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_submit.c
 +++ b/drivers/gpu/drm/virtio/virtgpu_submit.c
-@@ -0,0 +1,301 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright (C) 2015 Red Hat, Inc.
-+ * All Rights Reserved.
-+ *
-+ * Authors:
-+ *    Dave Airlie
-+ *    Alon Levy
-+ */
-+
-+#include <linux/dma-fence-unwrap.h>
-+#include <linux/file.h>
-+#include <linux/sync_file.h>
-+#include <linux/uaccess.h>
-+
-+#include <drm/drm_file.h>
-+#include <drm/virtgpu_drm.h>
-+
-+#include "virtgpu_drv.h"
-+
-+struct virtio_gpu_submit {
-+	struct virtio_gpu_object_array *buflist;
-+	struct drm_virtgpu_execbuffer *exbuf;
-+	struct virtio_gpu_fence *out_fence;
-+	struct virtio_gpu_fpriv *vfpriv;
-+	struct virtio_gpu_device *vgdev;
-+	struct sync_file *sync_file;
-+	struct drm_file *file;
-+	int out_fence_fd;
-+	u64 fence_ctx;
-+	u32 ring_idx;
-+	void *buf;
-+};
-+
-+static int virtio_gpu_dma_fence_wait(struct virtio_gpu_submit *submit,
-+				     struct dma_fence *in_fence)
-+{
-+	u64 context = submit->fence_ctx + submit->ring_idx;
-+
-+	if (dma_fence_match_context(in_fence, context))
-+		return 0;
-+
-+	return dma_fence_wait(in_fence, true);
-+}
-+
-+static int virtio_gpu_fence_event_create(struct drm_device *dev,
-+					 struct drm_file *file,
-+					 struct virtio_gpu_fence *fence,
-+					 u32 ring_idx)
-+{
-+	struct virtio_gpu_fence_event *e = NULL;
-+	int ret;
-+
-+	e = kzalloc(sizeof(*e), GFP_KERNEL);
-+	if (!e)
-+		return -ENOMEM;
-+
-+	e->event.type = VIRTGPU_EVENT_FENCE_SIGNALED;
-+	e->event.length = sizeof(e->event);
-+
-+	ret = drm_event_reserve_init(dev, file, &e->base, &e->event);
-+	if (ret) {
-+		kfree(e);
-+		return ret;
+@@ -295,6 +295,10 @@ int virtio_gpu_execbuffer_ioctl(struct drm_device *dev, void *data,
+ 	virtio_gpu_install_out_fence_fd(&submit);
+ 	virtio_gpu_complete_submit(&submit);
+ cleanup:
++	if (ret && submit.out_fence && submit.out_fence->e) {
++		drm_event_cancel_free(dev, &submit.out_fence->e->base);
++		submit.out_fence->e = NULL;
 +	}
-+
-+	fence->e = e;
-+
-+	return 0;
-+}
-+
-+static int virtio_gpu_init_submit_buflist(struct virtio_gpu_submit *submit)
-+{
-+	struct drm_virtgpu_execbuffer *exbuf = submit->exbuf;
-+	u32 *bo_handles;
-+
-+	if (!exbuf->num_bo_handles)
-+		return 0;
-+
-+	bo_handles = kvmalloc_array(exbuf->num_bo_handles, sizeof(*bo_handles),
-+				    GFP_KERNEL);
-+	if (!bo_handles)
-+		return -ENOMEM;
-+
-+	if (copy_from_user(bo_handles, u64_to_user_ptr(exbuf->bo_handles),
-+			   exbuf->num_bo_handles * sizeof(*bo_handles))) {
-+		kvfree(bo_handles);
-+		return -EFAULT;
-+	}
-+
-+	submit->buflist = virtio_gpu_array_from_handles(submit->file, bo_handles,
-+							exbuf->num_bo_handles);
-+	if (!submit->buflist) {
-+		kvfree(bo_handles);
-+		return -ENOENT;
-+	}
-+
-+	kvfree(bo_handles);
-+
-+	return 0;
-+}
-+
-+static void virtio_gpu_cleanup_submit(struct virtio_gpu_submit *submit)
-+{
-+	if (!IS_ERR(submit->buf))
-+		kvfree(submit->buf);
-+
-+	if (submit->buflist)
-+		virtio_gpu_array_put_free(submit->buflist);
-+
-+	if (submit->out_fence_fd >= 0)
-+		put_unused_fd(submit->out_fence_fd);
-+
-+	if (submit->out_fence)
-+		dma_fence_put(&submit->out_fence->f);
-+
-+	if (submit->sync_file)
-+		fput(submit->sync_file->file);
-+}
-+
-+static void virtio_gpu_submit(struct virtio_gpu_submit *submit)
-+{
-+	virtio_gpu_cmd_submit(submit->vgdev, submit->buf, submit->exbuf->size,
-+			      submit->vfpriv->ctx_id, submit->buflist,
-+			      submit->out_fence);
-+	virtio_gpu_notify(submit->vgdev);
-+}
-+
-+static void virtio_gpu_complete_submit(struct virtio_gpu_submit *submit)
-+{
-+	submit->buf = NULL;
-+	submit->buflist = NULL;
-+	submit->sync_file = NULL;
-+	submit->out_fence_fd = -1;
-+}
-+
-+static int virtio_gpu_init_submit(struct virtio_gpu_submit *submit,
-+				  struct drm_virtgpu_execbuffer *exbuf,
-+				  struct drm_device *dev,
-+				  struct drm_file *file,
-+				  u64 fence_ctx, u32 ring_idx)
-+{
-+	struct virtio_gpu_fpriv *vfpriv = file->driver_priv;
-+	struct virtio_gpu_device *vgdev = dev->dev_private;
-+	struct virtio_gpu_fence *out_fence;
-+	bool drm_fence_event;
-+	int err;
-+
-+	memset(submit, 0, sizeof(*submit));
-+	submit->out_fence_fd = -1;
-+
-+	drm_fence_event = (exbuf->flags & VIRTGPU_EXECBUF_RING_IDX) &&
-+			  (vfpriv->ring_idx_mask & BIT_ULL(ring_idx));
-+
-+	if ((exbuf->flags & VIRTGPU_EXECBUF_FENCE_FD_OUT) ||
-+	    exbuf->num_bo_handles || drm_fence_event) {
-+		out_fence = virtio_gpu_fence_alloc(vgdev, fence_ctx, ring_idx);
-+		if (!out_fence)
-+			return -ENOMEM;
-+	} else {
-+		out_fence = NULL;
-+	}
-+
-+	if (drm_fence_event) {
-+		err = virtio_gpu_fence_event_create(dev, file, out_fence, ring_idx);
-+		if (err) {
-+			dma_fence_put(&out_fence->f);
-+			return err;
-+		}
-+	}
-+
-+	submit->out_fence = out_fence;
-+	submit->fence_ctx = fence_ctx;
-+	submit->ring_idx = ring_idx;
-+	submit->vfpriv = vfpriv;
-+	submit->vgdev = vgdev;
-+	submit->exbuf = exbuf;
-+	submit->file = file;
-+
-+	err = virtio_gpu_init_submit_buflist(submit);
-+	if (err)
-+		return err;
-+
-+	submit->buf = vmemdup_user(u64_to_user_ptr(exbuf->command), exbuf->size);
-+	if (IS_ERR(submit->buf))
-+		return PTR_ERR(submit->buf);
-+
-+	if (exbuf->flags & VIRTGPU_EXECBUF_FENCE_FD_OUT) {
-+		err = get_unused_fd_flags(O_CLOEXEC);
-+		if (err < 0)
-+			return err;
-+
-+		submit->out_fence_fd = err;
-+
-+		submit->sync_file = sync_file_create(&out_fence->f);
-+		if (!submit->sync_file)
-+			return -ENOMEM;
-+	}
-+
-+	return 0;
-+}
-+
-+static int virtio_gpu_wait_in_fence(struct virtio_gpu_submit *submit)
-+{
-+	int ret = 0;
-+
-+	if (submit->exbuf->flags & VIRTGPU_EXECBUF_FENCE_FD_IN) {
-+		struct dma_fence *in_fence =
-+				sync_file_get_fence(submit->exbuf->fence_fd);
-+		if (!in_fence)
-+			return -EINVAL;
-+
-+		/*
-+		 * Wait if the fence is from a foreign context, or if the
-+		 * fence array contains any fence from a foreign context.
-+		 */
-+		ret = virtio_gpu_dma_fence_wait(submit, in_fence);
-+
-+		dma_fence_put(in_fence);
-+	}
-+
-+	return ret;
-+}
-+
-+static void virtio_gpu_install_out_fence_fd(struct virtio_gpu_submit *submit)
-+{
-+	if (submit->sync_file) {
-+		submit->exbuf->fence_fd = submit->out_fence_fd;
-+		fd_install(submit->out_fence_fd, submit->sync_file->file);
-+	}
-+}
-+
-+static int virtio_gpu_lock_buflist(struct virtio_gpu_submit *submit)
-+{
-+	if (submit->buflist)
-+		return virtio_gpu_array_lock_resv(submit->buflist);
-+
-+	return 0;
-+}
-+
-+int virtio_gpu_execbuffer_ioctl(struct drm_device *dev, void *data,
-+				struct drm_file *file)
-+{
-+	struct virtio_gpu_device *vgdev = dev->dev_private;
-+	struct virtio_gpu_fpriv *vfpriv = file->driver_priv;
-+	u64 fence_ctx = vgdev->fence_drv.context;
-+	struct drm_virtgpu_execbuffer *exbuf = data;
-+	struct virtio_gpu_submit submit;
-+	u32 ring_idx = 0;
-+	int ret = -EINVAL;
-+
-+	if (!vgdev->has_virgl_3d)
-+		return -ENOSYS;
-+
-+	if (exbuf->flags & ~VIRTGPU_EXECBUF_FLAGS)
-+		return ret;
-+
-+	if (exbuf->flags & VIRTGPU_EXECBUF_RING_IDX) {
-+		if (exbuf->ring_idx >= vfpriv->num_rings)
-+			return ret;
-+
-+		if (!vfpriv->base_fence_ctx)
-+			return ret;
-+
-+		fence_ctx = vfpriv->base_fence_ctx;
-+		ring_idx = exbuf->ring_idx;
-+	}
-+
-+	virtio_gpu_create_context(dev, file);
-+
-+	ret = virtio_gpu_init_submit(&submit, exbuf, dev, file,
-+				     fence_ctx, ring_idx);
-+	if (ret)
-+		goto cleanup;
-+
-+	/*
-+	 * Await in-fences in the end of the job submission path to
-+	 * optimize the path by proceeding directly to the submission
-+	 * to virtio after the waits.
-+	 */
-+	ret = virtio_gpu_wait_in_fence(&submit);
-+	if (ret)
-+		goto cleanup;
-+
-+	ret = virtio_gpu_lock_buflist(&submit);
-+	if (ret)
-+		goto cleanup;
-+
-+	virtio_gpu_submit(&submit);
-+
-+	/*
-+	 * Set up usr-out data after submitting the job to optimize
-+	 * the job submission path.
-+	 */
-+	virtio_gpu_install_out_fence_fd(&submit);
-+	virtio_gpu_complete_submit(&submit);
-+cleanup:
-+	virtio_gpu_cleanup_submit(&submit);
-+
-+	return ret;
-+}
+ 	virtio_gpu_cleanup_submit(&submit);
+ 
+ 	return ret;
 -- 
 2.53.0
 
