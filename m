@@ -1,172 +1,122 @@
-Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D911251357E
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 14:24:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BCD13AD51A;
+	Tue, 29 Sep 2026 14:25:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790691870; cv=none; b=qqX6t7f1vn6m1jmJWSl34MR2U6rC45DmztQTkZESV0k2Yu2Sud5kWRoUSNSlbQRXmk+UnmhNiMQnEmukbGGWfRB+pfq+EzOg8ffq50fVmrxPL4/eGLL4QLAdieGsoffFQs7MelY9+f+UEkum7JrBsj+zL8xmh4rz6WvuDaDHR+E=
+	t=1790691921; cv=none; b=ErRTQ/wc2k7Y1GTS0krKQlHtnfDIiWH3uHv0rkRWC8Yshk/9XRwyMMrywmRlAWv0vY9KS8ZBhQ9zUadSTq6OpFFAdgboVfB0Clwyb7gEObQXo9t68qqCcBOWTwz9E/JaiTrRQSYSkUpYiKwj/nA4vPfd8eB4nbE4Z6f6LdZBq+M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790691870; c=relaxed/simple;
-	bh=uHpZL76WzFAlN9omYfUfgHBK04zz9UiXwnngsyjxnx0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QLXkV/4/nAA6pgx3kZhayvEI+legQlK/EauyhNjqY864wO0rHz6JhVQLGfFe7dURibjJks2WWOuQO4t9/yX/tLpxC42iOJLUeyVB6aw7BCg+JO2KReyY+jwX0dJX4b8Eybhcs0KxAGSLTiRh2UQ+eILN+ATdkF03abX1lbcwnJg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a9mxQrwi; arc=none smtp.client-ip=74.125.228.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790691921; c=relaxed/simple;
+	bh=TT0Zt52k3q2ow7MKikl7hFJZzV58Jn3m5Ro9MRuThwY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=GGNnHacGQH9kOT9Q8C6w9HBOz0unK8A/EmeOAyX0l7KCE8RyzZ+5wCu2O42Hq/a3JqFGMVZGlair9xsxT7cc4XeY94kHkBL79iRj9iePwPsJ9BVAxpYFxr6tPrrHaaavB15LJr0/RW8YP4WqpjW7VUgWKiap7iSF/k1tfV115GM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PNdaWX3f; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a9mxQrwi"
-Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2af7721e4aso608068666b.1
-        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 07:24:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790691865; x=1791296665; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fJazDxMkWono34PQyfbuzm+nlBT/z7JfOyFwMEhNk2s=;
-        b=a9mxQrwiHo1aKTDzLDFfL7c61Fz0V+o1ijM7J2Wf2b0yAYzbFtGUts/igqJZMPj/Sp
-         DpvPD+vHvYRBbwjF6GSYD2htqu4ztracEXYcv9zcIPZ+m0ocRvtbSJ40vhJ9s1wImhhL
-         Xoj548dadnJitJy3bcAUMUw3mxZ6pub4Y4as/jAM+fxUn9zh9ntoxyn3prZKCM7WXRev
-         1jhS26GJGBsq30Ncip+yu96u1blj9JtLlbCH0cQNSW2GoEY7Or7ktRDxvcMgVpB6n8Gw
-         +k9dnSDRVaZ210IXhQW/KFnUydb2Qfzks6KbEcD+1SchukivAFlIQohRGkUWhtrVgDuc
-         5v9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790691865; x=1791296665;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fJazDxMkWono34PQyfbuzm+nlBT/z7JfOyFwMEhNk2s=;
-        b=mXWCuVLTp8bccYLbsGqEocWbczjGG4319XLSafFKl1291Wj8My77yyGF9/qNGMUA2l
-         s6C2ZsNSD3GKBCUAYgAWcXKygwFZljufQIJpGLLVdp6MATrEygiwXQ8ohd52pHG4Fw5M
-         pNYsvIqCSo9Mp1YZifgsy9aJ2mSfCY1/p9e1vvxE0/sns0S6LC3VQhIjwwLUYfu3DsyA
-         g7WKrXffwo28A/Iu7MG043pg55s04m/FT2kZLL8ePkgShHDQ+OuukfFzMxTCr53zH3NZ
-         tY3FBr/9mHXYtVgf2/yjiRawumZSjSNMGB4Mis+o1g2miv8f3ardDMaIBPIvh/Zmggpp
-         rVJQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwznzMXC65cxwNcMW0FoJTxkfCayzKLATJVRspa7vAWiq0GPjsuJrjLjqe25ZzAwK6MGe3RgBw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mzmdfke9AE8BWcxKTL005JvwGJs5VRwXnuZEyvXJMm2+MQUIiz
-	eDg2qD86z9Xvim5Qv8eYxbwOu57y//5LFAlZoIlh9Wrn3N+/j/3jmWPc
-X-Gm-Gg: AYBFou1F11IiS66e7L+yX3ewkYaT1n3QQSYfd+PHivz50EtDcZdQ1dZYL2hS/8K1SwV
-	PIBqlWKm1hbqi2fNMsIjWx5qwFC/Yv2oYby0cn7aJL8eo3KgdNgL5Oc2/vAoYb9idbfCURSU1hx
-	WYxvbxpNgfj2WO+JMRcbsOO6PwnY3CxSEYJAOfq/Yw/vzRp/0pzW8FgTSCwSrV0FPIH0pkW65ZB
-	ZV57EzrNuTZaDIGyZM3HGqar4otHQ+UBAvGqNi4V2zA25FZkCxPtioTyXB/Q8arSZXPMGalXlA2
-	lbsi/ZDr+WJxJTA6P90O+JyR+gJbBDf9QcMjX3gtrtCkeZ8hqYFJQd4ztALbOr472WZOjty5HrI
-	MbmK9nxZAF2By1iD90efm7x9oVomyRDFM4ehQ02d5NTwT9cKJQQbwNvV5oWcQ5TesdIkzHbn0K1
-	Uw2RMD9apsjU4aiB8+ShJ0sz9SbmxAqbX2n3Wqa5vF34ZZ3crfXUvpIf9ARtL8zNrkKqYuJQmKt
-	zQfZgyzOp69PEAfnBTq5rBMPHX8WSlqv271YOtHeOBi6ANvIP4G0dFprAddirD/wuKnizPjHsvn
-	ZJkuONQPN/ueBNEBU2IcqQ2re2Rc9y0VSDkTgv+WXUkLU0jIiB/L
-X-Received: by 2002:a17:907:e149:b0:c2a:fcb7:62f2 with SMTP id a640c23a62f3a-c2afcb76e12mr569341466b.19.1790691865370;
-        Tue, 29 Sep 2026 07:24:25 -0700 (PDT)
-Received: from [192.168.0.46] ([63.135.75.98])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2dbd3bcacfsm453243466b.74.2026.09.29.07.24.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 29 Sep 2026 07:24:25 -0700 (PDT)
-Message-ID: <0e1a1284-7069-4c46-9f35-57c10c129883@gmail.com>
-Date: Tue, 29 Sep 2026 15:24:24 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PNdaWX3f"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADAE31F000FF;
+	Tue, 29 Sep 2026 14:25:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790691920;
+	bh=85xj1wiXSyoLF/yht4C9mQFJLHCdiogKv9fjMvxDEbU=;
+	h=From:Date:Subject:To:Cc;
+	b=PNdaWX3fJr0zA9do0cpO0iD4bfd9trkRlljYRzLaKUMogzCmXjLituLo6iUb1Zn5e
+	 wOHAhUmUbKOqaYtDZHbGo9GjUH4ag8gM5m8xwGASX00V13oWWrsLWDJD+i49w0pLGu
+	 sX/yhlalW4js8ByOcM+1omnlLPOAeCKhnsgRLnENDRrarUibC7koJ38nShdJObjRia
+	 Iq7eNnJTOFiZTubg0UPUK0/pL1iVV82w2dcmgu2ZM3S8qxAPtTWCH9VnszTJX7cqh0
+	 xZGyGVQpOsuwMGWu8OAdWlVyDfOhUIZ3zO+NIRdzZSQ02PFXQzjF+b11rU6bE1Wd7d
+	 OE2uwldjCYN2Q==
+From: Andreas Hindborg <a.hindborg@kernel.org>
+Date: Tue, 29 Sep 2026 16:25:00 +0200
+Subject: [PATCH] nvme: fix swapped ZRASF zone state values for full and
+ read only
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] Audient EVO4 hardware volume control now requires
- quirk
-To: Takashi Iwai <tiwai@suse.de>, Faaris Ansari <faarisansari@googlemail.com>
-Cc: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org,
- regressions@lists.linux.dev, linux-sound@vger.kernel.org,
- =?UTF-8?Q?C=C3=A1ssio_Gabriel?= <cassiogabrielcontato@gmail.com>,
- Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>
-References: <CANBVYRCL=8QdLxGg4S6qrahrFtwJxhv-aSGpW7-1S=+iOe4ZGA@mail.gmail.com>
- <2026-09-27-daily-reply-0001-re-audient-evo4-mixer-put-errors@kernel.org>
- <CANBVYRAr_ShKGmrt2NoqsDsDEbTXa5DWJbq2oP6wKLWJQpLRWw@mail.gmail.com>
- <2026-09-28-daily-reply-0001-re-audient-evo4-upstream-decision@kernel.org>
- <ee6e9e8f-e174-4872-baee-114d848e8137@gmail.com>
- <2026-09-28-2-daily-reply-0001-re-audient-evo4-channel-3-set-cur@kernel.org>
- <87tsn838gk.wl-tiwai@suse.de> <87mrt01bdg.wl-tiwai@suse.de>
- <87ecec19pa.wl-tiwai@suse.de>
-Content-Language: en-US
-From: Faaris Ansari <faaris.ansari@gmail.com>
-In-Reply-To: <87ecec19pa.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260929-nvme-zns-fabrics-field-fix-v1-1-f99b6ffb49fc@kernel.org>
+X-B4-Tracking: v=1; b=H4sIADvKu2oC/yWMQQrCQBAEvxLm7MC6ZAPxK+JhsunoiK6yo0EM+
+ bujXrqpOtRChqow2jULVcxqeisO201D+STlCNbRmWKIXehjz2W+gt/FeJKhavZXXEbfF6fQTdK
+ mFkmEPHCvcP2L7w9/tudwRn58i7SuHw9B87Z+AAAA
+X-Change-ID: 20260929-nvme-zns-fabrics-field-fix-506fa454e5aa
+To: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
+ Damien Le Moal <damien.lemoal@wdc.com>, 
+ Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>
+Cc: linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Karl Bonde Torp <k.torp@samsung.com>, stable@vger.kernel.org, 
+ Andreas Hindborg <a.hindborg@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1805; i=a.hindborg@kernel.org;
+ h=from:subject:message-id; bh=39griNeA2J0KiajlOS+aLyu1xGxKZDOPR0HfUFHRsds=;
+ b=owEBbQKS/ZANAwAKAfpQKQiqxb3QAcsmYgBqu8pCjVSm53/mKAnzsB6IaZZ0D2CpCsEgMqydj
+ Ww97FRhhguJAjMEAAEKAB0WIQRXitnI2WZ2JirAaob6UCkIqsW90AUCarvKQgAKCRD6UCkIqsW9
+ 0Ax8D/9paMIkK6BptR6CRhOinxpYa+oKyelk9FHZYfAFuU6gWSFUHlzhg2kicu1aGPwz2RB5LQU
+ IbbrcxPd6tjp1NH5yu9PIqef/KZfl7PU6fK/NhIdE1pwdkJnYuxa5mH6qnw2U9uiIOk7JaIUX15
+ qE0UaeetckZBmpNmQVom1SS+FXCk0ky0qf/ZAyIUizPxxPKNR4Efb7Y4BbijBk5PeDjLTP2CpRc
+ /PoePNp6+sim9T/S7Ip5NMWX+cVGoK4Wj/UddJn19zzfeeRqx1Z0uGYzXT+3lPXNNQlcbx2jV/l
+ MXQMkaK3plOS3/jCI4AQcB6LiDQADVz2H2mDXT5lxIxIRGb2o1TCPt7GJmYqkuXtE111lCynVvK
+ O5zO0kAhzhBi62Gew4J0PhxgzSu39FdKUXj9MRBxglGGWy/HmEe83tQSGNu0KwCgFMCbw2trHhv
+ wjXrFj87ot0TjFy1CiTyTxdtiDZu8I+o0tLNv0TyHIRDGJb9dLufrVVnN6Q2h0Wh3NJ0yOlsJR3
+ O9Dk4RpK9sJhqg2cGnvF/i03i35oD5DHy7PiAzvSxnNDAJwp2GOHKzKN6hZNYncPzlc9+b4rWLV
+ 8xKuEK1QFuJxSyGnuuAvKK5gyUQl1MU9Sb4YzjnlPflsN7CQlDWBYvxVvJY3PYXH87T7x27aK1G
+ GdPQxGys4Lx7L7Q==
+X-Developer-Key: i=a.hindborg@kernel.org; a=openpgp;
+ fpr=3108C10F46872E248D1FB221376EB100563EF7A7
 
-Thanks Takashi and Sasha,
+From: Karl Bonde Torp <k.torp@samsung.com>
+
+The Zone Management Receive command Zone Receive Action Specific (ZRASF)
+reporting option values for the Full and Read Only zone states are swapped
+compared to the NVM Express Zoned Namespace Command Set Specification,
+Revision 1.5, Figure 35:
+
+- 5h lists the zones in the ZSF:Full state.
+- 6h lists the zones in the ZSRO:Read Only state.
+
+The nvmet ZNS backend uses these constants to map the ZRASF value received
+from the host to a block layer zone condition when filtering zones in
+Report Zones. Because of the swap, a host asking for full zones was given
+the read only zones, and a host asking for read only zones was given the
+full zones.
+
+Swap the values of NVME_ZRASF_ZONE_STATE_FULL and
+NVME_ZRASF_ZONE_STATE_READONLY to match the specification.
+
+Fixes: aaf2e048af27 ("nvmet: add ZBD over ZNS backend support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Karl Bonde Torp <k.torp@samsung.com>
+---
+Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
+---
+ include/linux/nvme.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/include/linux/nvme.h b/include/linux/nvme.h
+index 91ce434a7e8d..6248711784b3 100644
+--- a/include/linux/nvme.h
++++ b/include/linux/nvme.h
+@@ -1266,8 +1266,8 @@ enum {
+ 	NVME_ZRASF_ZONE_STATE_IMP_OPEN	= 0x02,
+ 	NVME_ZRASF_ZONE_STATE_EXP_OPEN	= 0x03,
+ 	NVME_ZRASF_ZONE_STATE_CLOSED	= 0x04,
+-	NVME_ZRASF_ZONE_STATE_READONLY	= 0x05,
+-	NVME_ZRASF_ZONE_STATE_FULL	= 0x06,
++	NVME_ZRASF_ZONE_STATE_FULL	= 0x05,
++	NVME_ZRASF_ZONE_STATE_READONLY	= 0x06,
+ 	NVME_ZRASF_ZONE_STATE_OFFLINE	= 0x07,
+ 	NVME_REPORT_ZONE_PARTIAL	= 1,
+ };
+
+---
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+change-id: 20260929-nvme-zns-fabrics-field-fix-506fa454e5aa
+
+Best regards,
+--  
+Andreas Hindborg <a.hindborg@kernel.org>
 
 
-> Faaris, please let us know if this (or previous) one actually works
-> for you.  Once after confirmation, I'll submit the proper patch for
-> upstream.
-
-I tested your latest patch where you removed the quirk for the iD14 
-alone, and instead set it for all Audient devices.
-
-I can confirm that this has indeed fixed the problem, and I can now 
-correctly control my hardware volume without problems, thank you!
-
-
-> ... or if you have a chance to test Christian's patch set and verify
-> whether the problem is fixed there, we can avoid other changes:
->    https://lore.kernel.org/20260919151840.24371-1-arc@gmx.li
-I tested Christian's patch alone, without any other changes. The problem 
-still occurred with those patches.
-
-This was also noted by Christian:
-
-> As a matter of fact, I made a similar
-> observation to yours when testing the patch set on the 'sound' kernel tree
-> and the (very sporadic) issue did not disappear after applying the
-> patches.
-And further discussion below:
-
-https://lore.kernel.org/all/CANBVYRAr8iFGFDgdTcDXuQyXt5M4TddZetsG9o1wbFao03R0yw@mail.gmail.com/
-
-
-However, using both patches together (as well as a small patch for 
-alsa-ucm-conf) has made my interface work very well - I'm very happy 
-with these changes :)
-
-
-Thank you for your work, Sasha, Takashi, and Christian,
-
-Faaris
-
-
-On 29/09/2026 14:14, Takashi Iwai wrote:
-> On Tue, 29 Sep 2026 14:38:03 +0200,
-> Takashi Iwai wrote:
->> On Tue, 29 Sep 2026 07:58:03 +0200,
->> Takashi Iwai wrote:
->>> On Tue, 29 Sep 2026 00:39:05 +0200,
->>> Sasha Levin wrote:
->>>>> [   80.940668] usb 3-1: cannot set ctl value: req = 0x1, wValue = 0x203,
->>>>> wIndex = 0xa00, type = 4, data = 0x0/0x81
->>>> [...]
->>>>> numid=4,iface=MIXER,name='EVO4  Playback Volume'
->>>>>     ; type=INTEGER,access=rw---R--,values=4,min=0,max=254,step=0
->>>>>     : values=182,182,0,0
->>>> Thanks, that narrows it down.
->>>>
->>>> Every failure is SET_CUR of the Volume control on feature unit 10, channel 3
->>>> (wValue 0x0203, wIndex 0x0a00). That unit is 'EVO4  Playback Volume' and
->>>> advertises read/write volume on all four channels. mixer_ctl_feature_put()
->>>> writes channels 1 and 2, then returns the channel 3 error, so the hardware
->>>> volume changes while userspace is told the write failed and adds software
->>>> attenuation on top. Faaris sees the same on 7.3-rc5, so this is a mainline
->>>> regression from 87a6f2fa6e6c ("ALSA: usb-audio: Propagate write errors in
->>>> generic mixer put callbacks").
->>> Right.  So a simple fix would be to just to set the IGNORE_CTL_ERROR
->>> quirk flag like below.  One of iD14 models has already this flag, so
->>> it might be safer to set to all Audient devices.
->> ... and below is such a version to cover all Audient devices:
->>
->> Faaris, please let us know if this (or previous) one actually works
->> for you.  Once after confirmation, I'll submit the proper patch for
->> upstream.
-> ... or if you have a chance to test Christian's patch set and verify
-> whether the problem is fixed there, we can avoid other changes:
->    https://lore.kernel.org/20260919151840.24371-1-arc@gmx.li
->
->
-> Takashi
