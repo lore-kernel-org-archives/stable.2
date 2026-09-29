@@ -1,139 +1,108 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx01.omp.ru (mx01.omp.ru [90.154.21.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BAD351D525
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 20:21:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63DA93A4F58
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 20:22:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.154.21.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790713267; cv=none; b=NS9eeD1afpH3ZkcCXm0SrtHnXIO5v44rk9vJVg/3sjGwUUwpHcDvblWsMiMXnWceZCNeRM7RYbBixRV8fJaaDByr+Mq19o0GE23mkIK1ARK1AUEaQzg9cm7wDc2KO/rbQgsuX9k2njPP0TNkw8Dvh2rONiyJFvCb1uPHfXfq+oA=
+	t=1790713333; cv=none; b=INSBsFHXjUnNkVSyVJce4sqhGtphW1tcs2OVNdp9/d2cXJzAwvPBmlABxntQGQhdl8lL+kppGR4lokkpUEhtHnQSiYzPnlb6K4hahTFsrCGwNKIQR/lOP7aRL3WjUZXDz0i/na7bd6SLt6OzomICe2A5jhmzUhWBAuiXWA1LGQs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790713267; c=relaxed/simple;
-	bh=iRjbTkx4Of1Zb8zkJkx1sStZme1vCcPBa5+tPQr/yso=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eNG4DdsCYFmQmLU0pUzWHr/rtC3fDizEAPZDH0qNm6ypsGUHizbSkKTC7wKPrDsWCBTqnXDIzrfJV6TKmEclDTUR31vnEv/jkvFKRhO23zm4pT2Il+7k+qZjFl8Dw+0UN4zezsFSvEWPoaifEmWtZNIxHK78payKaFmwNCd7fj4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i9mXL/t6; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i9mXL/t6"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e4b11so27494695e9.3
-        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 13:21:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790713263; x=1791318063; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zKv2477Z43K69h4lwRjf4ZEKr1l8Bu4ddjI08syiTdw=;
-        b=i9mXL/t6WsFf5SYQqq7la7dFae/STcArk8ZWZM9t5DbPjTvFwWtuGdQIFfyesY1QUX
-         PeGSS6eTmRoth3rT63hHOWeSbkOlWqDU2SFj2LaYideja3E82OTRPnwsXIhLWZv/VGL8
-         psywNfNg8+TswrY2HBzAIkNz/wWCk/BnVNZ+hy/HmNz5jbhgSgA5d614O/FNY13p20pq
-         bgcNOiopmB2GSfp+uSFugHFVV72TV4xWkshXty5E7J4bOI6agiUuD8H6LcQh6putAaMQ
-         wS2eaLg2HqYRj6NAbnS5+d7gcmYkXpXS7rJtvazO+QwvNd+LXq/6n8GWtzENuzAFTAof
-         i+PA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790713263; x=1791318063;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zKv2477Z43K69h4lwRjf4ZEKr1l8Bu4ddjI08syiTdw=;
-        b=jzxk7FMmlGlgJlNzIIZ46Nc2a3UCUQU5ZOQgd7rasUQ6UL8ghpGdJdERFVMtQ1Q1jV
-         Fa22XV7b8x4kPiXGNWmo12S4uS67TKj48jBV27zU95ttbnxYg4UOcwVWjdtNDEY/wvxY
-         IOJH5NFauIosKRk16ty9iHj0zwCd+rkwS+5Gk4K6Vgt35RokP9zEoMDNLrYaC4tAS6e1
-         hUg/7dZJx3ZHjYruEmSoEloxp7i/5KdDDOKD7RyPRl/151J7p8GlVnqwVz+pwgSazJMD
-         0k7GZQdnPkvwO3SXrfdVortthZjsA8yZnvta2ONtMrFQVlBvddf8dFFszmv7Ta/LpdQX
-         vEfQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy6lVuidXzAL6biL+MPIINMZew6kBHmbj6b0qCoTufas3LjceNcmpAedKB44IMib2XeX68ByNY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mx/y4iv2QiqNd0O9VzL52YaCkpD9c5zNSvJi1keQtHotV3xDZh
-	g2Ba5k4JfXrsia9Y50454vEYD44nh1QzTIj4qJOb11B+wmQQxVHz1WQ=
-X-Gm-Gg: AYBFou30TGWza/OJXDyzAUgjP03JqeH0f7RyjEl9F4bStCz3WD+jAQ8z+bRr2kNlVQO
-	vP4BfvRk7C51g9+ZqeieRW1vpyq61i8vENSJ0tewjvhxegptJU1Tmd+1MDE/GKrB81MGSEwLey0
-	5atcSE3s/q83CrJk3luWDTvbbDK+c0cJpjTXWmZZS1618jDFxhNkygH9fGNIwFt2vkwHN3LEM81
-	0gUTUk1nlFacrxANK/D35/FPDhxwJsuC3bw8wzfk6kdxhwXD47i/03Ferr86zx3lKaoMivJKfgb
-	6if3xH3t49MC38T6eM9SRNil+Z5t2D1z8Q/d51/GPEonMwvQM77AhGQLAZ8Q3+GbUotRs44RlZW
-	h0cKapvvlTJnmddWNcHtuNYuCACV90CGuZhozR1oE2DKNP48ZXL6f/nEAZKr/SX4melVuy2f8jp
-	AWXc5E3H9w6yIG4f3YjZkGlidGfdRVbFoBw4JA4CXUiZYo+SaoB/L6BxFPcGwJyu3NnAEikLsIq
-	x6E6HZ8EFaJSezDtAMTDSc+WF2vNGVH3ch7belKUTIp0qHVFinjSubtvVMG8RRcjy5Jijcx4NBW
-	/5QSER4=
-X-Received: by 2002:a05:600c:c494:b0:4a0:1d2:1a8a with SMTP id 5b1f17b1804b1-4a015027518mr3741815e9.16.1790713263399;
-        Tue, 29 Sep 2026 13:21:03 -0700 (PDT)
-Received: from Ubuntu-2604-resolute-amd64-base ([2a01:4f8:13b:86d::2])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cfe13a1sm102947985e9.5.2026.09.29.13.21.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 13:21:02 -0700 (PDT)
-From: Mohammed EL Kadiri <med08elkadiri@gmail.com>
-To: hughd@google.com,
-	baolin.wang@linux.alibaba.com,
-	akpm@linux-foundation.org
-Cc: gabriel@krisman.be,
-	krisman@suse.de,
-	brauner@kernel.org,
-	andrealmeid@igalia.com,
-	linux-mm@kvack.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] shmem: fix unicode_map leak with repeated casefold= option
-Date: Tue, 29 Sep 2026 22:20:35 +0200
-Message-ID: <3a57ec70731165b4b1244fa89bba95c82a666df8.1790712330.git.med08elkadiri@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	s=arc-20240116; t=1790713333; c=relaxed/simple;
+	bh=16QhA+eyRwLX1gDXK+tZ3CaEzpv5ZYu1QoOxtI7v2yA=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:CC:References:
+	 In-Reply-To:Content-Type; b=symIOGb4X+dThxMiZ63QeOS5hm/oeWf7A4u3vlM8tw2ATa6CrotfzR6Sma79j9lLG9UAhX4POVOQbEHBNer2phmG6l33LPMpAexvT7NK+amq2SwYrzveujjeRUJOcg/g2MNsPv1zw//tZW7zUVPCvXVHRUNWxlkdq90h/eWhCeM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=omp.ru; spf=pass smtp.mailfrom=omp.ru; arc=none smtp.client-ip=90.154.21.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=omp.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=omp.ru
+Received: from [192.168.2.104] (91.78.6.248) by msexch01.omp.ru (10.188.4.12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.1258.12; Tue, 29 Sep
+ 2026 23:22:04 +0300
+Message-ID: <b8916768-87cc-4489-9460-725f2dd438f9@omp.ru>
+Date: Tue, 29 Sep 2026 23:22:04 +0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.6.y 2/7] net: ravb: Switch to
+ SYSTEM_SLEEP_PM_OPS()/RUNTIME_PM_OPS() and pm_ptr()
+From: Sergey Shtylyov <s.shtylyov@omp.ru>
+To: Sasha Levin <sashal@kernel.org>, <stable@vger.kernel.org>
+CC: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>, Geert Uytterhoeven
+	<geert+renesas@glider.be>, Paolo Abeni <pabeni@redhat.com>
+References: <2026090333-maroon-numerate-89b5@gregkh>
+ <20260909171431.3234845-1-sashal@kernel.org>
+ <20260909171431.3234845-2-sashal@kernel.org>
+ <c365b590-0691-461e-a566-fc546c533e56@omp.ru>
+Content-Language: en-US
+Organization: Open Mobile Platform
+In-Reply-To: <c365b590-0691-461e-a566-fc546c533e56@omp.ru>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: msexch01.omp.ru (10.188.4.12) To msexch01.omp.ru
+ (10.188.4.12)
+X-KSE-ServerInfo: msexch01.omp.ru, 9
+X-KSE-AntiSpam-Interceptor-Info: scan successful
+X-KSE-AntiSpam-Version: 6.1.1, Database issued on: 09/29/2026 20:12:50
+X-KSE-AntiSpam-Status: KAS_STATUS_NOT_DETECTED
+X-KSE-AntiSpam-Method: none
+X-KSE-AntiSpam-Rate: 0
+X-KSE-AntiSpam-Info: Lua profiles 206323 [Sep 29 2026]
+X-KSE-AntiSpam-Info: Version: 6.1.1.27
+X-KSE-AntiSpam-Info: Envelope from: s.shtylyov@omp.ru
+X-KSE-AntiSpam-Info: LuaCore: 125 0.3.125
+ 408a76d0ab6a6a06c054d212c38932c1e9d7db86
+X-KSE-AntiSpam-Info: {rep_avail}
+X-KSE-AntiSpam-Info: {diag_burst_silent}
+X-KSE-AntiSpam-Info: {Tracking_from_domain_doesnt_match_to}
+X-KSE-AntiSpam-Info:
+	omp.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;127.0.0.199:7.1.2
+X-KSE-AntiSpam-Info: {Tracking_ip_hunter}
+X-KSE-AntiSpam-Info: FromAlignment: s
+X-KSE-AntiSpam-Info: ApMailHostAddress: 91.78.6.248
+X-KSE-AntiSpam-Info: Rate: 0
+X-KSE-AntiSpam-Info: Status: not_detected
+X-KSE-AntiSpam-Info: Method: none
+X-KSE-AntiSpam-Info: Auth:dmarc=temperror header.from=omp.ru;spf=temperror
+ smtp.mailfrom=omp.ru;dkim=none
+X-KSE-Antiphishing-Info: Clean
+X-KSE-Antiphishing-ScanningType: Heuristic
+X-KSE-Antiphishing-Method: None
+X-KSE-Antiphishing-Bases: 09/29/2026 20:15:00
+X-KSE-Antivirus-Interceptor-Info: scan successful
+X-KSE-Antivirus-Info: Clean, bases: 9/29/2026 7:14:00 PM
+X-KSE-Attachment-Filter-Triggered-Rules: Clean
+X-KSE-Attachment-Filter-Triggered-Filters: Clean
+X-KSE-BulkMessagesFiltering-Scan-Result: InTheLimit
 
-Each casefold= option makes shmem_parse_opt_casefold() allocate a
-unicode_map with utf8_load() and store it in ctx->encoding.  When the
-option is given more than once in the same mount, the later call
-overwrites ctx->encoding and the earlier map is never freed.
+On 9/29/26 11:01 PM, Sergey Shtylyov wrote:
+> On 9/9/26 8:14 PM, Sasha Levin wrote:
+> 
+>> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+>>
+>> [ Upstream commit 6ccc22a5afcbac46d55866d72eaba22f43491c00 ]
+>>
+>> SET_SYSTEM_SLEEP_PM_OPS() and SET_RUNTIME_PM_OPS() are deprecated now
+>> and require __maybe_unused protection against unused function warnings.
+>> The usage of pm_ptr() and SYSTEM_SLEEP_PM_OPS()/RUNTIME_PM_OPS() allows
+>> the compiler to see the functions, thus suppressing the warning. Thus
+>> drop the __maybe_unused markings.
+>>
+>> Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+>> Reviewed-by: Sergey Shtylyov <s.shtylyov@omp.ru>
+>> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+>> Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+>> Stable-dep-of: 1cb9663789c5 ("net: ravb: serialize PTP clock teardown")
+> 
+>    Hm, not exactly obvious how that commit requires this patch... :-)
 
-Reproducer:
+   Ah, seeing now: you pulled it in to not to have to modify the next one
+in the series. Still doesn't seem necessary, but oh well... :-) 
+>> Signed-off-by: Sasha Levin <sashal@kernel.org>
 
-  mount -t tmpfs -o casefold,casefold tmpfs /t; umount /t
+> [...]
 
-Repeating this 50000 times grows kmalloc-32 by about 50000 objects,
-and kmemleak reports them as allocated from:
-
-  utf8_load+0x21/0x110
-  shmem_parse_opt_casefold.isra.0+0x65/0x100
-  shmem_parse_one+0x368/0x510
-
-Free the old map before storing the new one, so only the last
-casefold= is kept.  On a normal mount with a single casefold=,
-ctx->encoding is still NULL at that point and utf8_unload(NULL)
-does nothing, so nothing changes there.
-
-With this patch the same loop leaves kmalloc-32 flat and kmemleak
-reports nothing.
-
-Fixes: 58e55efd6c72 ("tmpfs: Add casefold lookup support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mohammed EL Kadiri <med08elkadiri@gmail.com>
----
-This is a separate leak from the remount one fixed in
-https://lore.kernel.org/all/ba38f80f629fd093c77f3a49fdab7b71ee7bbc5f.1790687276.git.med08elkadiri@gmail.com/
-which Gabriel has reviewed; I found it while testing that patch.
-The two apply in either order.  Tested on mm-unstable, alone and
-together: kmalloc-32 stays flat for duplicate casefold=, single
-casefold= and remount, and kmemleak is clean.
-
- mm/shmem.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/mm/shmem.c b/mm/shmem.c
-index 07b2855dfb7b..262f1bcb6144 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -4731,6 +4731,7 @@ static int shmem_parse_opt_casefold(struct fs_context *fc, struct fs_parameter *
- 	pr_info("tmpfs: Using encoding : utf8-%u.%u.%u\n",
- 		unicode_major(version), unicode_minor(version), unicode_rev(version));
- 
-+	utf8_unload(ctx->encoding);
- 	ctx->encoding = encoding;
- 
- 	return 0;
-
-base-commit: 90ddfbd1963659ca4a5d3d7f20717a4222682a8e
--- 
-2.53.0
-
+MBR, Sergey
