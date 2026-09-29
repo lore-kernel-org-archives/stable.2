@@ -1,53 +1,51 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74CF33B774F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 555334E5322;
 	Tue, 29 Sep 2026 09:08:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790672944; cv=none; b=TRRimzuk3zx1sEwSs5a+5Gu7aKHUkdoPUsDZpppFXfzrxsNJeYSXdYHk6zYWpSY0JbopAbK2/v6AyDQ3iB14yz7XG4aaLvPEq+UM8GmWyZ9l9cfLoRY6VM91t9NFoDtYUHxrMuSK5eKZMTJHSCRTZzbtMW2cm8mIjiHSMN1Rwg4=
+	t=1790672948; cv=none; b=rrUSI3rHlgQgkeJXiVXRkkSF0SZo73LMbYshEuWiXT0c4lUGf2YESoPbkLpk3idiow1FrxEhzy/r8DQv7WkxVXU1GAmYTlWGCVl2fCife5dkncMYRcTb6QmImZZKfpQdkvIaHDHSpXBq2rW1KgiLaOULAf3gu53CYTc/woeV8BU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790672944; c=relaxed/simple;
-	bh=OwOTPh3hANp++nk2LZ1Vx+l0Uq61xAzY3starhYQTCY=;
+	s=arc-20240116; t=1790672948; c=relaxed/simple;
+	bh=7mpE35sXrOZtJiDunAyy5ENg+MP4loZ7kGdeDOzUsTU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rm+tVTiE/kmfhTxHEEKvm0Sb4I3tXL1TBHzJLMOFvCkctTzRATXnSe0q1363NCeynfmzR58MCwOJAKjP5+2+pngtQ/0XrBrUVHZoXfHo41EmLLw1J9pUxovIh7Jg/ekhXzDD9bwUuVAZ14sN16HC+t8nNWBp9Oz4azC07xacnbg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YawGZiWe; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=NZ1I8d89j1Kri1aUVIQo2/kCjyL3Y/hUK7A5HLo7g+7o75Ct5yWx1R3UYLFZiHfC/rYGVtog4eIgWcz63ogxGNRQRknM1FYJ/7voVMgqz7M/pIGIsfiSabkiKoCeIr8FmvfhsBb6Cx0uAEd8qMB/iQvT0le/YI08zm1ocFxOY7U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dqwCwEua; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YawGZiWe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28C681F000FF;
-	Tue, 29 Sep 2026 09:08:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dqwCwEua"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CF6F1F00893;
+	Tue, 29 Sep 2026 09:08:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790672927;
-	bh=g0i6ICubraxdZpeoCJJ9/JBLrtCyzoMtB5IfednapMg=;
+	s=k20260515; t=1790672930;
+	bh=/s9X2Wr6mSOW6vSVla2q+5ix5SjbTSWUTwgrOHWsbs4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YawGZiWeykVRUT+F4zaOwrJImWs9JeWfwiTf/gPhtl42mk/2lytn/Bncdn4/nC6Vr
-	 ks/ZfRu20CGgNlVyaEL0Xxb0z+IAO3cKkyHB5jzpMmuav60skRvlUIhq1oFxt1oSU3
-	 KKQ0i6Hdm9xshg5FEJOZaPj3lQvGgpHs6iguuVMd8Bnde0INNFibt2/kYkNRTWrxOY
-	 Ekj9bTxnfMwIXQD3a/qWSmuDjgVX2I6uvpuZ2mNTGKlbqv8rfMDIdEibCjCC1GfieI
-	 pWxRbLfsRT+v1n23zcz0S1UfK0YSOK8bV/Ay6mQ8SXELNv3/Xl86UidFxqaOvEp1SE
-	 D4PSKPzuh9lIA==
+	b=dqwCwEuaO8ERPmQr7HKhkv0lKUIs+T2qgUMKK0xkWzT+f2LAUvZ/UMxSih6q5Ax86
+	 uPR/Se0CUNwAvEVQRr4faOI6sceayxsaWp/2nfkkQNZcHd8P/SR1k2Rp2O+MhrckUT
+	 diKhdizXwhbGJ6x1kSGMH4ujwGmt3BCdJpKAjSa4dxPKLnQHp5zPYhqCop2WmU0rRF
+	 z2LcIu0LFSCuIZIoVw9jiam9h0oVzOhJQHbZo+idj9PkoOAIfoVc8c1ZlpRJxZAQyN
+	 UrZ00DTnBgklVYTGmkev7ABCc9uAqBNdMRXWhaeP8Kk98ozZbWTAsDVGJt3BlwBQrT
+	 2OlLRsdROpEVQ==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Alexander Viro <viro@zeniv.linux.org.uk>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	Wentao Guan <guanwentao@uniontech.com>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Sasha Levin <sashal@kernel.org>,
 	Peter Zijlstra <peterz@infradead.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Wentao Guan <guanwentao@uniontech.com>,
 	Christian Brauner <brauner@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
 	Davidlohr Bueso <dave@stgolabs.net>,
 	Eric Dumazet <edumazet@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
 	Soheil Hassas Yeganeh <soheil@google.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org,
 	Quentin Schulz <quentin.schulz@cherry.de>
-Subject: [STABLE v5.15.y v2 7/9] eventpoll: rename ep_remove_safe() back to ep_remove()
-Date: Tue, 29 Sep 2026 09:07:14 +0000
-Message-ID: <20260929090724.1461557-7-lee@kernel.org>
+Subject: [STABLE v5.15.y v2 8/9] eventpoll: move epi_fget() up
+Date: Tue, 29 Sep 2026 09:07:15 +0000
+Message-ID: <20260929090724.1461557-8-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
 In-Reply-To: <20260929090724.1461557-1-lee@kernel.org>
 References: <20260929090724.1461557-1-lee@kernel.org>
@@ -61,96 +59,100 @@ Content-Transfer-Encoding: 8bit
 
 From: Christian Brauner <brauner@kernel.org>
 
-[ Upstream commit 0bade234723e40e4937be912e105785d6a51464e ]
+[ Upstream commit 86e87059e6d1fd5115a31949726450ed03c1073b ]
 
-The current name is just confusing and doesn't clarify anything.
+We'll need it when removing files so move it up. No functional change.
 
-Link: https://patch.msgid.link/20260423-work-epoll-uaf-v1-4-2470f9eec0f5@kernel.org
+Link: https://patch.msgid.link/20260423-work-epoll-uaf-v1-5-2470f9eec0f5@kernel.org
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 Stable-dep-of: a6dc643c6931 ("eventpoll: fix ep_remove struct eventpoll / struct file UAF")
+[file_ref_get(&file->f_ref) from original commit left as
+ atomic_long_inc_not_zero(&file->f_count) due to v6.12.y missing commit
+ 90ee6ed776c0 ("fs: port files to file_ref") and its dependent commit
+ 08ef26ea9ab3 ("fs: add file_ref")]
 Signed-off-by: Quentin Schulz <quentin.schulz@cherry.de>
 Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-(cherry picked from commit 136e5900ea830dee549e3485c8931ec1c8f6c1b1)
+(cherry picked from commit 7859566c519c75965b57ab2caccf8d6268717c9a)
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- fs/eventpoll.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ fs/eventpoll.c | 56 +++++++++++++++++++++++++-------------------------
+ 1 file changed, 28 insertions(+), 28 deletions(-)
 
 diff --git a/fs/eventpoll.c b/fs/eventpoll.c
-index e666eccbde82..3c5151e08f63 100644
+index 3c5151e08f63..95d31d23db60 100644
 --- a/fs/eventpoll.c
 +++ b/fs/eventpoll.c
-@@ -764,7 +764,7 @@ static bool ep_remove_epi(struct eventpoll *ep, struct epitem *epi)
+@@ -708,6 +708,34 @@ static void ep_free(struct eventpoll *ep)
+ 	kfree_rcu(ep, rcu);
+ }
+ 
++/*
++ * The ffd.file pointer may be in the process of being torn down due to
++ * being closed, but we may not have finished eventpoll_release() yet.
++ *
++ * Normally, even with the atomic_long_inc_not_zero, the file may have
++ * been free'd and then gotten re-allocated to something else (since
++ * files are not RCU-delayed, they are SLAB_TYPESAFE_BY_RCU).
++ *
++ * But for epoll, users hold the ep->mtx mutex, and as such any file in
++ * the process of being free'd will block in eventpoll_release_file()
++ * and thus the underlying file allocation will not be free'd, and the
++ * file re-use cannot happen.
++ *
++ * For the same reason we can avoid a rcu_read_lock() around the
++ * operation - 'ffd.file' cannot go away even if the refcount has
++ * reached zero (but we must still not call out to ->poll() functions
++ * etc).
++ */
++static struct file *epi_fget(const struct epitem *epi)
++{
++	struct file *file;
++
++	file = epi->ffd.file;
++	if (!atomic_long_inc_not_zero(&file->f_count))
++		file = NULL;
++	return file;
++}
++
  /*
-  * ep_remove variant for callers owing an additional reference to the ep
-  */
--static void ep_remove_safe(struct eventpoll *ep, struct epitem *epi)
-+static void ep_remove(struct eventpoll *ep, struct epitem *epi)
- {
- 	struct file *file = epi->ffd.file;
+  * Called with &file->f_lock held,
+  * returns with it released
+@@ -879,34 +907,6 @@ static __poll_t __ep_eventpoll_poll(struct file *file, poll_table *wait, int dep
+ 	return res;
+ }
  
-@@ -811,7 +811,7 @@ static void ep_clear_and_put(struct eventpoll *ep)
- 
- 	/*
- 	 * Walks through the whole tree and try to free each "struct epitem".
--	 * Note that ep_remove_safe() will not remove the epitem in case of a
-+	 * Note that ep_remove() will not remove the epitem in case of a
- 	 * racing eventpoll_release_file(); the latter will do the removal.
- 	 * At this point we are sure no poll callbacks will be lingering around.
- 	 * Since we still own a reference to the eventpoll struct, the loop can't
-@@ -820,7 +820,7 @@ static void ep_clear_and_put(struct eventpoll *ep)
- 	for (rbp = rb_first_cached(&ep->rbr); rbp; rbp = next) {
- 		next = rb_next(rbp);
- 		epi = rb_entry(rbp, struct epitem, rbn);
--		ep_remove_safe(ep, epi);
-+		ep_remove(ep, epi);
- 		cond_resched();
- 	}
- 
-@@ -1585,21 +1585,21 @@ static int ep_insert(struct eventpoll *ep, const struct epoll_event *event,
- 		mutex_unlock(&tep->mtx);
- 
- 	/*
--	 * ep_remove_safe() calls in the later error paths can't lead to
-+	 * ep_remove() calls in the later error paths can't lead to
- 	 * ep_free() as the ep file itself still holds an ep reference.
- 	 */
- 	ep_get(ep);
- 
- 	/* now check if we've created too many backpaths */
- 	if (unlikely(full_check && reverse_path_check())) {
--		ep_remove_safe(ep, epi);
-+		ep_remove(ep, epi);
- 		return -EINVAL;
- 	}
- 
- 	if (epi->event.events & EPOLLWAKEUP) {
- 		error = ep_create_wakeup_source(epi);
- 		if (error) {
--			ep_remove_safe(ep, epi);
-+			ep_remove(ep, epi);
- 			return error;
- 		}
- 	}
-@@ -1623,7 +1623,7 @@ static int ep_insert(struct eventpoll *ep, const struct epoll_event *event,
- 	 * high memory pressure.
- 	 */
- 	if (unlikely(!epq.epi)) {
--		ep_remove_safe(ep, epi);
-+		ep_remove(ep, epi);
- 		return -ENOMEM;
- 	}
- 
-@@ -2302,7 +2302,7 @@ int do_epoll_ctl(int epfd, int op, int fd, struct epoll_event *epds,
- 			 * The eventpoll itself is still alive: the refcount
- 			 * can't go to zero here.
- 			 */
--			ep_remove_safe(ep, epi);
-+			ep_remove(ep, epi);
- 			error = 0;
- 		} else {
- 			error = -ENOENT;
+-/*
+- * The ffd.file pointer may be in the process of being torn down due to
+- * being closed, but we may not have finished eventpoll_release() yet.
+- *
+- * Normally, even with the atomic_long_inc_not_zero, the file may have
+- * been free'd and then gotten re-allocated to something else (since
+- * files are not RCU-delayed, they are SLAB_TYPESAFE_BY_RCU).
+- *
+- * But for epoll, users hold the ep->mtx mutex, and as such any file in
+- * the process of being free'd will block in eventpoll_release_file()
+- * and thus the underlying file allocation will not be free'd, and the
+- * file re-use cannot happen.
+- *
+- * For the same reason we can avoid a rcu_read_lock() around the
+- * operation - 'ffd.file' cannot go away even if the refcount has
+- * reached zero (but we must still not call out to ->poll() functions
+- * etc).
+- */
+-static struct file *epi_fget(const struct epitem *epi)
+-{
+-	struct file *file;
+-
+-	file = epi->ffd.file;
+-	if (!atomic_long_inc_not_zero(&file->f_count))
+-		file = NULL;
+-	return file;
+-}
+-
+ /*
+  * Differs from ep_eventpoll_poll() in that internal callers already have
+  * the ep->mtx so we need to start from depth=1, such that mutex_lock_nested()
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
 
