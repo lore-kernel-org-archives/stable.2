@@ -1,102 +1,142 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C761F3DB64A
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 18:47:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7B6B3DB64A
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 18:47:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790707622; cv=none; b=Sd8eO6zZCRnmQm6sA4/NfGd1nIGWtJ/x/9MtKhgHPBupcGUdjPZ6LbfgnaNmqvzsfLj0EOH5kFRrYTvfhS5ANk+svVLMOkNPHBfBMaCIlTteu5DNJPIOj3RcsxufhDWoDVDb6U3adRtzX9GsD7HFVfguuRvRpeMOVG+OlYm6QQc=
+	t=1790707625; cv=none; b=FP7ireQA5w8A+wdVYQDw3FZ+TnMdEwb2uJWfuZ85gvvLMdHcFG1fQujNnN++KZbN4lQjm32cFp6kkXGNpeJ1NUXyzZU8773lIlOnVyb/c2X5vhX4S5l7EkX9bLbn+rAP+Dv12ZPVbxTXATYsIzBM1QE8AK3tBAISQqC0umn88k8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790707622; c=relaxed/simple;
-	bh=2x/qsyWf6spbxOu1Eh3777efLdHiV+SzjQBwmoW5NCg=;
+	s=arc-20240116; t=1790707625; c=relaxed/simple;
+	bh=8iHoNQk0JeC+S0FSOrCBKEjzXsm4wYoDvcoA70kqhc0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=p+lqnoG8+/ZlouiQbZITPhqmhtRJLCDBeQWfDYfQznGsACyOVn5CITM3wdEELxggQDnygrwfrC2qUWiGEXt+VZeHs3KY3P1XihnKCCNd71JPLXv10DIhhwUGuWWIDEo2wXqgIiAwCy8rv6D8x3LDX6A4SYxFFaT0wzoOsIkkads=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ShxuxQSi; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=BWm5FJKjMGEkGV5I1Sz6CU2WqlrKkqVB3YsuYb8ybJAnNP3zOob+iZBKwmwnah073FKPIoiKDfgr+EEwjb31wwrW25cGSCcVI/iDSIYdOPpu2RyyhFgt53r5BuJn8Q/8ACIQNQJ9eyarlf0iyycylfldTJ2eBdu8TmPSaR5Vh78=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T0ckWSWo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ShxuxQSi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F62F1F000FF;
-	Tue, 29 Sep 2026 18:47:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T0ckWSWo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0EAD1F00893;
+	Tue, 29 Sep 2026 18:47:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790707621;
-	bh=D+x/49x2ZxHii/LQWT/9eWAXeAKFm6PxWp+5WixfN2o=;
+	s=k20260515; t=1790707623;
+	bh=wdsgAX1bh90tCzs/59bsAKWhoL/K8VY4jq0jWzHRM5Y=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ShxuxQSiYXHXoyQmpFpaOG2STeA6GfFzQlc9eE4KduxP30KYVI475qZT8ORhOmxUQ
-	 KvhfRCc0kONecV8083DDqEQ0nzvVr3uODUdpNfC+DWgeZ5F57bdbWa++0dySEaTE24
-	 b673lWJc8aMtPlk7L91RJjiEdDvvDIDLq4DHFtb7brKcdWiOOS+5xr9tvj3m6l6QAD
-	 uautYupm+L1B2NP5ZQB/w3Bvy66IVV0PTA86Ns/aAZpEWgqYTBheuzS+5QlVJJVnlm
-	 SiAhAHmegEG/hEnA+e+8pbc4Vmu0cFn/k0yebXPWb+48VPkbzozBgadBR3E7TV4NRe
-	 lxDpTiW7v0wUw==
+	b=T0ckWSWo6P9Vqu1ToWJRZm4fmhCJuihz0kV4CLwttQkypbVt6luWhscQrBSdEkZCE
+	 3Riq0xIsYJ/9y2nQQUP8HPJ3DADD2+aCPNlyZQcAz8EVbGSzcdqDswBgGwONrPdDaf
+	 t8TCAh284Um4EVh9aWGT4muzsCbTvUQJgpyp+tZvh6nN87TToNPx/UsNyStprypWzV
+	 YfUY4dX5nqKh+oPgS/iShRgS8BeMtcvj4H9A9OX9Ro+UKauXISs0H8F0nNMPPHYqjc
+	 xUMi+HbUQ1nXomog9IbIa3uOZniqyt0fpfWnuoZkC0/8MqhtvtPMdhWXQxFqVgUFnU
+	 GsKJSstp4abWg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Longlong Xia <xialonglong@kylinos.cn>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	David Hildenbrand <david@kernel.org>,
-	Miaohe Lin <linmiaohe@huawei.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Oscar Salvador <osalvador@suse.de>,
+Cc: Matthew Auld <matthew.auld@intel.com>,
+	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] mm/hugetlb: do not dissolve gigantic pages without runtime support
-Date: Tue, 29 Sep 2026 14:46:57 -0400
-Message-ID: <20260929184657.522286-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y] drm/xe/vm: nuke PTs only after unlinking contested VMAs
+Date: Tue, 29 Sep 2026 14:47:01 -0400
+Message-ID: <20260929184701.522410-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260929184657.522286-1-sashal@kernel.org>
-References: <2026092902-struck-raving-0494@gregkh>
- <20260929184657.522286-1-sashal@kernel.org>
+In-Reply-To: <2026092919-qualm-steadily-7858@gregkh>
+References: <2026092919-qualm-steadily-7858@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Longlong Xia <xialonglong@kylinos.cn>
+From: Matthew Auld <matthew.auld@intel.com>
 
-[ Upstream commit a363c62a653cc8b3e21da9545fa4e028ef50f9c3 ]
+[ Upstream commit 24a22fb3c731474b68e986af6804db450fb88617 ]
 
-dissolve_free_hugetlb_folio() doesn't check
-hstate_is_gigantic_no_runtime(h) though remove_hugetlb_folio()/
-update_and_free_hugetlb_folio() silently bail for such folios, so it frees
-a still-listed folio and, on vmemmap restore failure, the
-add_hugetlb_folio() rollback corrupts the free list.
+In xe_vm_close_and_put(), external-BO VMAs are queued on the contested
+list for deferred destruction via xe_vma_destroy_unlocked(). However,
+xe_vm_pt_destroy() was previously invoked before processing contested
+VMAs, destroying vm->pt_root while those VMAs were still linked to their
+respective buffer objects (vm_bo->list.gpuva).
 
-Link: https://lore.kernel.org/20260823044118.1097121-2-xialonglong2025@163.com
-Fixes: 6eb4e88a6d27 ("hugetlb: create remove_hugetlb_page() to separate functionality")
-Signed-off-by: Longlong Xia <xialonglong@kylinos.cn>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Assisted-by: Codex:gpt-5.6-sol
-Acked-by: Muchun Song <muchun.song@linux.dev>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Miaohe Lin <linmiaohe@huawei.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Oscar Salvador <osalvador@suse.de>
-Cc: <stable@vger.kernel.org>
+If a concurrent thread evicts one of those shared buffer objects,
+xe_bo_trigger_rebind() holding only bo->resv walks the BO's VMAs and, in
+fault mode, calls xe_vm_invalidate_vma() -> xe_pt_zap_ptes(). Because
+vm->pt_root[tile->id] is already NULL, dereferencing pt->level causes a
+NULL ptr deref.
+
+Fix this by deferring xe_vm_free_scratch() and xe_vm_pt_destroy() until
+after all contested VMAs have been unlinked and destroyed.
+
+User is reporting hitting a NULL ptr deref in xe_pt_zap_ptes(), which
+could be explained by this race.
+
+Assisted-by: LLM
+Fixes: b06d47be7c83 ("drm/xe: Port Xe to GPUVA")
+Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9290
+Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: <stable@vger.kernel.org> # v6.12+
+Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+Link: https://patch.msgid.link/20260918131034.598078-2-matthew.auld@intel.com
+(cherry picked from commit c2863648959489767f08892fd6e90577d2ea0b6a)
+Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+[ adapted xe_vm_pt_destroy() cleanup to the existing inline page-table destruction loop. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/hugetlb.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/gpu/drm/xe/xe_vm.c | 29 +++++++++++++----------------
+ 1 file changed, 13 insertions(+), 16 deletions(-)
 
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index e1ac2f5dab8f8..aa0fe95f416d0 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -2126,6 +2126,15 @@ int dissolve_free_hugetlb_folio(struct folio *folio)
- 		struct hstate *h = folio_hstate(folio);
- 		bool adjust_surplus = false;
+diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
+index deb4d0314db3a..fa0d7c6414022 100644
+--- a/drivers/gpu/drm/xe/xe_vm.c
++++ b/drivers/gpu/drm/xe/xe_vm.c
+@@ -1678,13 +1678,21 @@ void xe_vm_close_and_put(struct xe_vm *vm)
+ 		vma->gpuva.flags |= XE_VMA_DESTROYED;
+ 	}
  
-+		/*
-+		 * remove_hugetlb_folio()/update_and_free_hugetlb_folio() bail
-+		 * for gigantic hstates without runtime support, so dissolving one
-+		 * here would leave it on the free list and, on vmemmap restore
-+		 * failure, the add_hugetlb_folio() rollback corrupts that list.
-+		 */
-+		if (hstate_is_gigantic_no_runtime(h))
-+			goto out;
++	xe_vm_unlock(vm);
 +
- 		if (!available_huge_pages(h))
- 			goto out;
+ 	/*
+-	 * All vm operations will add shared fences to resv.
+-	 * The only exception is eviction for a shared object,
+-	 * but even so, the unbind when evicted would still
+-	 * install a fence to resv. Hence it's safe to
+-	 * destroy the pagetables immediately.
++	 * Unlink and destroy all contested external-BO VMAs before destroying
++	 * the page tables. Otherwise, concurrent eviction holding only bo->resv
++	 * can walk the BO's VMAs and attempt to invalidate/zap page tables that
++	 * have already been freed.
+ 	 */
++	list_for_each_entry_safe(vma, next_vma, &contested,
++				 combined_links.destroy) {
++		list_del_init(&vma->combined_links.destroy);
++		xe_vma_destroy_unlocked(vma);
++	}
++
++	xe_vm_lock(vm, false);
+ 	xe_vm_free_scratch(vm);
  
+ 	for_each_tile(tile, xe, id) {
+@@ -1695,17 +1703,6 @@ void xe_vm_close_and_put(struct xe_vm *vm)
+ 	}
+ 	xe_vm_unlock(vm);
+ 
+-	/*
+-	 * VM is now dead, cannot re-add nodes to vm->vmas if it's NULL
+-	 * Since we hold a refcount to the bo, we can remove and free
+-	 * the members safely without locking.
+-	 */
+-	list_for_each_entry_safe(vma, next_vma, &contested,
+-				 combined_links.destroy) {
+-		list_del_init(&vma->combined_links.destroy);
+-		xe_vma_destroy_unlocked(vma);
+-	}
+-
+ 	up_write(&vm->lock);
+ 
+ 	down_write(&xe->usm.lock);
 -- 
 2.53.0
 
