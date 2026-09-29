@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0259137BE9F
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 06:46:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 303D23909A2
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 06:47:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790664420; cv=none; b=HbqXrKAbPP185rKVHkUll25VbS4tvlj9TKrEbqx6KYdPtNo8AsxBFWe294zTbPAjKIQxe62x4hHlgn1o0W5vakYsOiaYqRNe65A+qG46uvgWGu81YDIDQC4eB6XPxO1pe5H3AIjZlN5m3w2C18mXLuLKhWHhOrvVrKSbboYUXKY=
+	t=1790664430; cv=none; b=XtIlHS/0dVmVd/LRRFYVdsP+CpPmnHBvQMS9TGxbhOXBVp2YUUOsMgmwVSW4C9ZoRaCzeTOiWGlqrBTIbi5bv7z22FQ5eXb/KZzZwe8llfkjzRYPk5YvP8JfvRK88DeEp0qjhQoa8VVMGHSueNjnsA2LYmqOlFWxOKHcqkZGIgA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790664420; c=relaxed/simple;
-	bh=gClQzmOlIF8HxBydIcrEaYR0DseQWLwFcMUHJvsNj7I=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=pr2WYsHna5x3FgIM4ILBQezA9doOOO0a0ZaSQ0+may57TLYVEGUf2289J2KUe6nCo3B60PUn96liU+kuJPchedBNOgElOOqGmV2UrVDjSkj+FnFZcD0zzblOKcmYTY5grh9I7zybvl25pcNWIgVTaZE3tAkh1g8KJfOAFg7CML4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dXEDCJoO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790664430; c=relaxed/simple;
+	bh=OMSRLPY2rCTxOlK9TwGxpAP0XIuOREC632NTDwByVU8=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=XZNOW5PDOuCBmfyNfy4lF5Oc6ypNzNbtRId4BAm+SkDBf1wFifT1TsIUByoRuL2jeFa11TSOIYljLBM0rWgEJqUKqD3OrBUOqct0PscKP94JQ1XjwGdC9Vq8tEet5s62ty6+2m6vom7WqbKcE8s47VX8xQejglVlNFExa6C7eks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=GP2t82nE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dXEDCJoO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBDD81F00893;
-	Tue, 29 Sep 2026 06:46:57 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="GP2t82nE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69AEA1F00893;
+	Tue, 29 Sep 2026 06:47:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790664418;
-	bh=Gr3dvmClMD5xkk7VDF2t3OclsX16+uD98t67UWLVEbM=;
+	s=korg; t=1790664429;
+	bh=eU4k2fxhnvAAOixgQhLLFqmNEAGmQoALPUeteOx5a2s=;
 	h=Subject:To:Cc:From:Date;
-	b=dXEDCJoOw48n8Aq3EZ8qV3sWw/PvJzKHzC+84GlBMgRCuGcz0qa9a0zNY985GMM1R
-	 hmIBqr1nq6qLZOi2+W3Dsov5p7A1ms9XZzb+AX/X2QAM4MCPShQAtRUN76o99kzIjJ
-	 OgYbfjudN7VG5Gi6Kg39hv6HnFPgh9VPEl6EmdFM=
-Subject: FAILED: patch "[PATCH] ipe: fix use-after-free when auditing a newly loaded policy" failed to apply to 6.12-stable tree
-To: wufan@kernel.org
+	b=GP2t82nEYfWNYkSoOdiBPx+7gzbSoftUKsM7kjUY6tipg0grSKuP2k5S+HBoxZW4q
+	 JdD8Deh6m1kIyACUWLs6l1ZTttZ14V679AWnozGLEUcu8v/mFORL7VcyCm87Zt+vMq
+	 cgpPICDtftCnuqVJp+MY3eUpTxtjdGpyICvKSKRo=
+Subject: FAILED: patch "[PATCH] i2c: qcom-geni: Fix hardcoded clock index in SE_GENI_CLK_SEL" failed to apply to 7.2-stable tree
+To: viken.dadhaniya@oss.qualcomm.com,andi.shyti@kernel.org,mukesh.savaliya@oss.qualcomm.com,stable@vger.kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 29 Sep 2026 08:46:55 +0200
-Message-ID: <2026092955-retrace-denial-b8a2@gregkh>
+Date: Tue, 29 Sep 2026 08:47:06 +0200
+Message-ID: <2026092906-elude-repurpose-c794@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 7.2-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
 git checkout FETCH_HEAD
-git cherry-pick -x 9814077275eca36ebf8d510d2f076d235ff9f51a
+git cherry-pick -x cb97bf3d4f91453b881acaf8e9f0cc47bb40b604
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092955-retrace-denial-b8a2@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092906-elude-repurpose-c794@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,61 +62,116 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 9814077275eca36ebf8d510d2f076d235ff9f51a Mon Sep 17 00:00:00 2001
-From: Fan Wu <wufan@kernel.org>
-Date: Tue, 22 Sep 2026 20:13:48 -0700
-Subject: [PATCH] ipe: fix use-after-free when auditing a newly loaded policy
+From cb97bf3d4f91453b881acaf8e9f0cc47bb40b604 Mon Sep 17 00:00:00 2001
+From: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+Date: Mon, 21 Sep 2026 17:17:01 +0530
+Subject: [PATCH] i2c: qcom-geni: Fix hardcoded clock index in SE_GENI_CLK_SEL
 
-new_policy() audits the policy after ipe_new_policyfs_node() publishes it
-and drops the new directory's inode lock. A concurrent delete can free
-the policy while ipe_audit_policy_load() is still using it.
+qcom_geni_i2c_conf() writes a hardcoded 0 to SE_GENI_CLK_SEL, which
+selects an index from the hardware clock performance table. This always
+picks the first table entry regardless of the actual source clock
+configuration. On platforms where the matching entry is not at index 0,
+the wrong source clock divider is active and the I2C bus runs at an
+incorrect frequency.
 
-Audit the successful load under that lock.
+Use geni_se_clk_freq_match() in geni_i2c_clk_map_idx() to find the
+performance table index for the source clock (32 MHz or 19.2 MHz). Store
+the resolved index in a new clk_idx field in geni_i2c_dev and write it
+to SE_GENI_CLK_SEL instead of the hardcoded 0.
 
-Fixes: f44554b5067b ("audit,ipe: add IPE auditing support")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-[FW: remove model name according to latest guideline]
-Signed-off-by: Fan Wu <wufan@kernel.org>
+Fixes: 37692de5d523 ("i2c: i2c-qcom-geni: Add bus driver for the Qualcomm GENI I2C controller")
+Signed-off-by: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+Cc: <stable@vger.kernel.org> # v4.19+
+Reviewed-by: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
+Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
+Link: https://patch.msgid.link/20260921-i2c-fix-se-clk-conf-v2-1-8b5537ceff2d@oss.qualcomm.com
 
-diff --git a/security/ipe/fs.c b/security/ipe/fs.c
-index 076c111c85c8..847a76afb93d 100644
---- a/security/ipe/fs.c
-+++ b/security/ipe/fs.c
-@@ -159,18 +159,16 @@ static ssize_t new_policy(struct file *f, const char __user *data,
- 	}
+diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-qcom-geni.c
+index e9e41a174c20..6a39e21d5ed4 100644
+--- a/drivers/i2c/busses/i2c-qcom-geni.c
++++ b/drivers/i2c/busses/i2c-qcom-geni.c
+@@ -82,6 +82,9 @@ enum geni_i2c_err_code {
+ #define XFER_TIMEOUT		HZ
+ #define RST_TIMEOUT		HZ
  
- 	rc = ipe_new_policyfs_node(p);
--	if (rc)
--		goto out;
- 
- out:
- 	kfree(copy);
- 	if (rc < 0) {
- 		ipe_free_policy(p);
- 		ipe_audit_policy_load(ERR_PTR(rc));
--	} else {
--		ipe_audit_policy_load(p);
-+		return rc;
- 	}
--	return (rc < 0) ? rc : len;
++#define GENI_SE_CLK_32MHZ	(32 * HZ_PER_MHZ)
++#define GENI_SE_CLK_19P2MHZ	19200000UL
 +
-+	return len;
+ struct geni_i2c_desc {
+ 	bool no_dma_support;
+ 	unsigned int tx_fifo_depth;
+@@ -127,6 +130,7 @@ struct geni_i2c_dev {
+ 	spinlock_t lock;
+ 	u32 clk_freq_out;
+ 	const struct geni_i2c_clk_fld *clk_fld;
++	u32 clk_idx;
+ 	void *dma_buf;
+ 	size_t xfer_len;
+ 	dma_addr_t dma_addr;
+@@ -197,19 +201,44 @@ static const struct geni_i2c_clk_fld geni_i2c_clk_map_32mhz[] = {
+ static int geni_i2c_clk_map_idx(struct geni_i2c_dev *gi2c)
+ {
+ 	const struct geni_i2c_clk_fld *itr;
++	unsigned long res_freq;
+ 
+-	if (clk_get_rate(gi2c->se.clk) == 32 * HZ_PER_MHZ)
++	/*
++	 * Frequency counter tables are calibrated for a specific source
++	 * clock frequency and are not valid for any multiple of it
++	 * (e.g. 64 MHz, 128 MHz).
++	 * Use exact=true and verify res_freq matches req_freq literally
++	 * to reject harmonics: a 64 MHz clock that divides evenly to
++	 * 32 MHz would pass exact matching but produce double the intended
++	 * I2C frequency with these counter values.
++	 */
++	if (!geni_se_clk_freq_match(&gi2c->se, GENI_SE_CLK_32MHZ,
++				    &gi2c->clk_idx, &res_freq, true) &&
++	    res_freq == GENI_SE_CLK_32MHZ) {
+ 		itr = geni_i2c_clk_map_32mhz;
+-	else
++	} else if (!geni_se_clk_freq_match(&gi2c->se, GENI_SE_CLK_19P2MHZ,
++					   &gi2c->clk_idx, &res_freq, true) &&
++		   res_freq == GENI_SE_CLK_19P2MHZ) {
+ 		itr = geni_i2c_clk_map_19p2mhz;
++	} else {
++		dev_err(gi2c->se.dev,
++			"Unsupported SE source clock: must be exactly 32 MHz or 19.2 MHz\n");
++		return -EINVAL;
++	}
+ 
+ 	while (itr->clk_freq_out != 0) {
+ 		if (itr->clk_freq_out == gi2c->clk_freq_out) {
+ 			gi2c->clk_fld = itr;
++			dev_dbg(gi2c->se.dev,
++				"I2C clk selected: freq: %u Hz, clk_idx: %u\n",
++				gi2c->clk_freq_out, gi2c->clk_idx);
+ 			return 0;
+ 		}
+ 		itr++;
+ 	}
++
++	dev_err(gi2c->se.dev, "Unsupported I2C output frequency %u Hz\n", gi2c->clk_freq_out);
++
+ 	return -EINVAL;
  }
  
- static const struct file_operations np_fops = {
-diff --git a/security/ipe/policy_fs.c b/security/ipe/policy_fs.c
-index 9d92d8a14b13..a7aeb57483c6 100644
---- a/security/ipe/policy_fs.c
-+++ b/security/ipe/policy_fs.c
-@@ -481,6 +481,9 @@ int ipe_new_policyfs_node(struct ipe_policy *p)
- 	inode_lock(root);
- 	p->policyfs = policyfs;
- 	root->i_private = p;
-+	/* Only audit signed policies from userspace */
-+	if (p->pkcs7)
-+		ipe_audit_policy_load(p);
- 	inode_unlock(root);
+@@ -219,7 +248,7 @@ static int qcom_geni_i2c_conf(struct geni_se *se, unsigned long freq)
+ 	const struct geni_i2c_clk_fld *itr = gi2c->clk_fld;
+ 	u32 val;
  
- 	return 0;
+-	writel_relaxed(0, gi2c->se.base + SE_GENI_CLK_SEL);
++	writel_relaxed(gi2c->clk_idx, gi2c->se.base + SE_GENI_CLK_SEL);
+ 
+ 	val = (itr->clk_div << CLK_DIV_SHFT) | SER_CLK_EN;
+ 	writel_relaxed(val, gi2c->se.base + GENI_SER_M_CLK_CFG);
+@@ -1111,8 +1140,7 @@ static int geni_i2c_resources_init(struct geni_se *se)
+ 
+ 	ret = geni_i2c_clk_map_idx(gi2c);
+ 	if (ret)
+-		return dev_err_probe(gi2c->se.dev, ret, "Invalid clk frequency %d Hz\n",
+-				     gi2c->clk_freq_out);
++		return ret;
+ 
+ 	return geni_icc_set_bw_ab(&gi2c->se, GENI_DEFAULT_BW, GENI_DEFAULT_BW,
+ 				  Bps_to_icc(gi2c->clk_freq_out));
 
