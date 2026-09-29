@@ -1,117 +1,160 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3792519DEC;
-	Tue, 29 Sep 2026 11:56:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82E313CF1E5
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 11:57:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790682969; cv=none; b=fmacO2BNIhVuKggoslJ5Am1fwGznit12Mh/NO64CJNT8ZdWrGdaYGX/Tmvka9RULdDcHxEEPiYaGbUCCYxSqnlAudsAnNfUcLq6T+pK12NVeJrN8VyRbPiR0uBq+HCUKmDrYVNM1YqMr8gwKaMtBJA9xvRWYqNpBZ1ZEhvK1F8o=
+	t=1790683032; cv=none; b=VcrkWhS2uiP9xpzBNk+PTs6ULeHbk16Y4I1K+FaTF1PD6buz1+eRxe6MZLjwECWh+qhruSv4eeEBTpNjdMWJN/PR5nA32z2fdN8QXNg4+/6vzrmCsSzohm212WkIYT5oeTJbs1yKuQmskpJIN4YNXq2Y7TRqxj73IA4oITa3iV0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790682969; c=relaxed/simple;
-	bh=oi4ecmrtRPGyQ9zN1UpyGc3XPw7K3CaoMg48WodFQB0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pQx3zlk2lcjH0xxNBbP1E8pXw8jhg+MVPTqYOsGM2T3+ZeHCueghIK5Oq/XKpmzR+w84LJemJyHXwvbusirHJzKa6oNKvVDr4c7XcoPDOkaBZvB3uXfxc+vHndLoLh5DwNdivucPoaiVsgesqz+714DLUva4Nr3OOaRZ1OnkA18=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aAfRGdMc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790683032; c=relaxed/simple;
+	bh=9+opDEfsif+MVKv3RjqV0yd1ou9bYbEyLFty/DEl3Uo=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=m/vSDSiCRdkgraX31dtx9chhVzpJnRMT8c86SDZ5sjtf1M7UwEnNrBzB2jlVOmNwWNbhSf5KREA3hCKnlMi2Otqh4t/KuIyaH10iUbP+sQwgx3uKU5z7KGtLkK8t+IYJZoYCeccUEOXtOuGAVOjoZkIJIjgkNMJEFaCmXjzafAY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=DJCVFc7e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aAfRGdMc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71CE31F00893;
-	Tue, 29 Sep 2026 11:56:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790682968;
-	bh=zAcr7k1VFSj0FxGnV2wZTgaTAlECtx8NAJwasJV5ywQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aAfRGdMcWvekHavm3q/uHYK7Ej0wO8vA5AtpIPBUdP4gtxA2dErTsPrWW+Fjb83+I
-	 c2Gs8W0TBEQKMyytzDSlLl5gnaexK6kTt2SCecoJjmzDg9JXtQhj7Tio71pYf6e65t
-	 QFfditMrnvBbf4LiD23zX70P8flC8+78Kp3I6UZCxZaDZltCVPC7XlOwz+faE860lN
-	 UTl5y4EJhNS+BeEgBKH/PjRzQa2QCVv2M5d3HOxOh9XFsBatlfykjyhsmwjCE2bgee
-	 JAANKijL4mMkTi1BPEWHjr9hLU4e9EeH1QGhtaxq7ecHueELulevrmQteCucLlIXqF
-	 E9q8Qv65nf4sw==
-Date: Tue, 29 Sep 2026 13:56:03 +0200
-From: Niklas Cassel <cassel@kernel.org>
-To: hengyul@cs.unc.edu
-Cc: dlemoal@kernel.org, mkp@kernel.org, ipylypiv@google.com,
-	linux-ide@vger.kernel.org, linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] ata: libata-scsi: do not lose CHECK CONDITION for failed
- ATAPI commands
-Message-ID: <arunU96ilIfG7Gt5@ryzen>
-References: <20260924180414.2102946-1-hengyul@cs.unc.edu>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="DJCVFc7e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86D861F000FF;
+	Tue, 29 Sep 2026 11:57:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790683031;
+	bh=xN7xvwpnE93iUIimgiIW8lVeAcyMwlV3g+0cCoiZHUs=;
+	h=Subject:To:Cc:From:Date;
+	b=DJCVFc7eprpuAlRt+vyP48++OBWvzuBl9GQga8NpE6LegjGxzjIlbTsOSo2lr2ZiL
+	 VUN1yfoOapTPRfRy3wbbAHEhrOpgoTJJzO/mSvQkRIb3Tr4C/hutOpc+gDRH8pSZse
+	 Oa8bNnhdAcv+3XgJ3LOBBoJpPMFHsdnDR97dMrd0=
+Subject: FAILED: patch "[PATCH] smb: client: clean up failed cached directory opens" failed to apply to 6.6-stable tree
+To: zihanx@nebusec.ai,pc@manguebit.org,root@tr0jan.top,sorenson@redhat.com,vega@nebusec.ai
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Tue, 29 Sep 2026 13:54:37 +0200
+Message-ID: <2026092937-truce-superhero-2529@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924180414.2102946-1-hengyul@cs.unc.edu>
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-Hello Hengyu,
 
-On Thu, Sep 24, 2026 at 02:04:14PM -0400, hengyul@cs.unc.edu wrote:
-> From: Hengyu Liang <hengyul@cs.unc.edu>
-> 
-> Since commit 2e1d2e65e773 ("ata: libata-scsi: terminate deferred commands
-> on time out"), atapi_qc_complete() sets SAM_STAT_CHECK_CONDITION for a
-> failed command only if cmd->result is zero, so that the DID_TIME_OUT or
-> DID_REQUEUE host byte of a terminated command is preserved.
-> 
-> However, cmd->result can also be non-zero for a regular failed ATAPI
-> command completed through libata EH: ata_eh_analyze_tf() calls
-> ata_eh_decide_disposition(), that is, scsi_check_sense(), on the sense
-> data obtained with REQUEST SENSE, and scsi_check_sense() sets the SCSI
-> midlayer internal byte of the result for some sense codes, e.g.
-> SCSIML_STAT_TGT_FAILURE for ILLEGAL REQUEST with ASC 0x20 (INVALID
-> COMMAND OPERATION CODE) or 0x24 (INVALID FIELD IN CDB), or
-> SCSIML_STAT_MED_ERROR for MEDIUM ERROR with ASC 0x11 (UNRECOVERED READ
-> ERROR). For such commands, atapi_qc_complete() keeps the result as is and
-> the command completes with a GOOD status byte, even though it failed and
-> valid sense data is available.
-> 
-> As a result, passthrough users see these failed ATAPI commands as
-> successful. For example, with the emulated IDE CD-ROM drive of QEMU and
-> no medium loaded, a PLAY AUDIO MSF command issued with SG_IO completes
-> with status 0x00 (and no DRIVER_SENSE) instead of 0x02 (CHECK CONDITION)
-> with sense key ILLEGAL REQUEST, ASC/ASCQ 0x20/0x00, and the CDROM ioctls
-> CDROMPLAYTRKIND, CDROMSUBCHNL, CDROMPAUSE, CDROMRESUME, CDROMPLAYMSF and
-> CDROM_GET_MCN return 0 instead of -ENOMEDIUM or -EOPNOTSUPP.
-> 
-> Fix this by preserving the result only if its host byte is set, and by
-> otherwise completing the command with SAM_STAT_CHECK_CONDITION, as was
-> done before that commit.
-> 
-> Fixes: 2e1d2e65e773 ("ata: libata-scsi: terminate deferred commands on time out")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
-> ---
+The patch below does not apply to the 6.6-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-I think it is better if you set only the status byte with set_status_byte()
-instead of overwriting cmd->result, so that the SCSI midlayer byte set by
-scsi_check_sense() is kept.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Something like:
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git checkout FETCH_HEAD
+git cherry-pick -x d2ff5fb93ea83034025850266b5eed391f96b825
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092937-truce-superhero-2529@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
-diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
-index 8f9aa97a519d..fb5517d51095 100644
---- a/drivers/ata/libata-scsi.c
-+++ b/drivers/ata/libata-scsi.c
-@@ -3059,10 +3059,15 @@ static void atapi_qc_complete(struct ata_queued_cmd *qc)
-                if (qc->cdb[0] == ALLOW_MEDIUM_REMOVAL && qc->dev->sdev)
-                        qc->dev->sdev->locked = 0;
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From d2ff5fb93ea83034025850266b5eed391f96b825 Mon Sep 17 00:00:00 2001
+From: Zihan Xi <zihanx@nebusec.ai>
+Date: Wed, 16 Sep 2026 15:29:27 +0000
+Subject: [PATCH] smb: client: clean up failed cached directory opens
+
+open_cached_dir() sends CREATE and QUERY_INFO as a compound request. If
+the CREATE succeeds but a later command returns an error, the function
+must retain the CREATE FID so common cleanup can issue SMB2_close(). It
+also must not treat a response error as a valid CREATE.
+
+Validate the CREATE response before using its fields, record the FIDs, and
+mark the handle open before handling errors from later compound commands.
+Move the -EREMCHG reconnect handling before response validation so a
+missing response does not hide the reconnect request. Count the handle
+when it is marked open; confirmed close responses decrement the counter,
+while existing close retry behavior remains best effort on transport
+failures.
+
+Fixes: b0f6df737a1c ("cifs: cache FILE_ALL_INFO for the shared root handle")
+Cc: stable@vger.kernel.org
+Reported-by: Vega <vega@nebusec.ai>
+Assisted-by: LLM
+Co-developed-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
+Tested-by: Frank Sorenson <sorenson@redhat.com>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+
+diff --git a/fs/smb/client/cached_dir.c b/fs/smb/client/cached_dir.c
+index 88d5e9a32f28..647fa26da4d2 100644
+--- a/fs/smb/client/cached_dir.c
++++ b/fs/smb/client/cached_dir.c
+@@ -8,6 +8,7 @@
+ #include <linux/namei.h>
+ #include "cifsglob.h"
+ #include "cifsproto.h"
++#include "../common/smb2status.h"
+ #include "cifs_debug.h"
+ #include "smb2proto.h"
+ #include "cached_dir.h"
+@@ -323,25 +324,37 @@ int open_cached_dir(unsigned int xid, struct cifs_tcon *tcon,
+ 	rc = compound_send_recv(xid, ses, server,
+ 				flags, 2, rqst,
+ 				resp_buftype, rsp_iov);
+-	if (rc) {
+-		if (rc == -EREMCHG) {
+-			tcon->need_reconnect = true;
+-			pr_warn_once("server share %s deleted\n",
+-				     tcon->tree_name);
+-		}
++	if (rc == -EREMCHG) {
++		tcon->need_reconnect = true;
++		pr_warn_once("server share %s deleted\n",
++			     tcon->tree_name);
++	}
++
++	if (!rsp_iov[0].iov_base || rsp_iov[0].iov_len < sizeof(*o_rsp)) {
++		if (!rc)
++			rc = -EIO;
+ 		goto oshr_free;
+ 	}
+-	cfid->is_open = true;
+-
+-	spin_lock(&cfids->cfid_list_lock);
  
--               if (cmd->result)
--                       ata_scsi_qc_done(qc, false, 0);
--               else
--                       ata_scsi_qc_done(qc, true, SAM_STAT_CHECK_CONDITION);
-+               /*
-+                * Report CHECK CONDITION unless the command was terminated
-+                * with a host byte set. Only set the status byte, so that the
-+                * SCSI midlayer internal byte, which scsi_check_sense() may
-+                * have set from the sense data, is preserved.
-+                */
-+               if (get_host_byte(cmd) == DID_OK)
-+                       set_status_byte(cmd, SAM_STAT_CHECK_CONDITION);
-+               ata_scsi_qc_done(qc, false, 0);
-                goto schedule_deferred;
-        }
+ 	o_rsp = (struct smb2_create_rsp *)rsp_iov[0].iov_base;
++	if (o_rsp->hdr.Status != STATUS_SUCCESS) {
++		if (!rc)
++			rc = -EIO;
++		goto oshr_free;
++	}
++
+ 	oparms.fid->persistent_fid = o_rsp->PersistentFileId;
+ 	oparms.fid->volatile_fid = o_rsp->VolatileFileId;
+ #ifdef CONFIG_CIFS_DEBUG2
+ 	oparms.fid->mid = le64_to_cpu(o_rsp->hdr.MessageId);
+ #endif /* CIFS_DEBUG2 */
++	cfid->is_open = true;
++	atomic_inc(&tcon->num_remote_opens);
  
++	if (rc)
++		goto oshr_free;
++
++	spin_lock(&cfids->cfid_list_lock);
+ 
+ 	if (o_rsp->OplockLevel != SMB2_OPLOCK_LEVEL_LEASE) {
+ 		spin_unlock(&cfids->cfid_list_lock);
+@@ -408,7 +421,6 @@ int open_cached_dir(unsigned int xid, struct cifs_tcon *tcon,
+ 		close_cached_dir(cfid);
+ 	} else {
+ 		*ret_cfid = cfid;
+-		atomic_inc(&tcon->num_remote_opens);
+ 	}
+ 	kfree(utf16_path);
+ 
+
