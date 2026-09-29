@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5959551B19D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 061ED51C079
 	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 12:10:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790683828; cv=none; b=uCQZW8n+YU90P1KFRF8lPhQ5qWaMA5u2tZYjI0aiqR4xwi+S3Z7gUwveE9K2G9etHU8ZqQh3GHvBvCCf3WyeaMv4J9QGBj35j48qQVzxm2ZaPu9vkxhte30s4Y9LgCEXAp02SxzRVwuaZfz6bwg2c+R0CrUwjl/eEfJu2hr5aWg=
+	t=1790683825; cv=none; b=cx1a0mVPAvhWckM5LAeObilZhKzYZaCGSY1Gz3CKutveeBG+KS2tjKLOQyogGhwge7/KPWnUJhQ3wbIoaGS/yYXYF9zSvr4fRa5rAAOVQk6x/yT8mKSye8RUZLgK7exSlkDAas9itgREdnFcLWbO2D04ALBHOrs1viCeCC1/sS0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790683828; c=relaxed/simple;
-	bh=vUkbxxPBpuyf2wVVjm4bVWKgRRudgP34Vnya18i442A=;
+	s=arc-20240116; t=1790683825; c=relaxed/simple;
+	bh=YiEc6fquk+Aui8uCUZXSkbLumTvIm2G+BzJ5UIl38U0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=R7FNWKlQ3sWSKLSL50CUhUYIlI59fmijDHGJIrNVwcKLOH2ebzTB+JGb+9HcM10bmRCSkwGjldFmN0KRFmM0nRhW8xat2Xb2w9/HYbJODg2rBIU0Y7S3/szs3GI+i1CRkiK7P21qZRglig5l5sKWHB4sc1V9T2N1GVqrfKae5rw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VeXNKNlm; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=GSgMIiruAOnmeCTwZ4g2xK7GItq/md0WjkshUo3NAkO1wIds3SyDYN3HSf1BifnSbPh9STKCRdhm0AcCYTVmezLx7REWEQRrSZxvWiJcF4wkZ+daYyatXJp462b6s0f8ZxED8CLIq2uOX6pMmyZLo9FInVc54C8VwIVcjHP0Fco=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OvtzbP2W; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VeXNKNlm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E007D1F000FF;
-	Tue, 29 Sep 2026 12:10:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OvtzbP2W"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 148B81F00893;
+	Tue, 29 Sep 2026 12:10:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790683823;
-	bh=7TFXatqgW1bruDpAes98F46Jbyp7Lymv6CkQOyMePH0=;
+	s=k20260515; t=1790683822;
+	bh=vz1lVsbEQRtgDcmvJYc4djCyNmQHtnvtDDV6IETssns=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VeXNKNlm0seYb+xcB1g1WQlOzq0VYSbv4dRMe8xEPsc//jouE0dUPOVc9WqRkORNe
-	 +iNagr120dkSMq8TLElbiFGDgALNVxFZxPURFuE+A7rCIR7w9C+eTiZGkbmeKoA8t7
-	 heMvqEKBNqUHyJ367mWlvfV9DAoNSgIvv+XzX5NkHXNUFZ1e2ib/jUDSOULB3n7xgD
-	 791soqcYwM2M0UINNHr8JrVX/hadpd6hUHj/KCdtmwR20jo3v0AO+ICzVtOPCmJCdz
-	 8yCuqP7u5NsGldmT9mZOFbqWrm+5DGFb5TfeQh5EbAtbJb/C1GWcTBoPh5G/a5hLmZ
-	 MqB8vZ7UXXNeQ==
+	b=OvtzbP2W11NPu37Z0WdIJ4ZQece7Tj4YDTFpwxU5KnkhvOX9wg16jpTDSjAAdK0kK
+	 TDcjbxqtfYbyeP1Sk8anJuU5jq+piz/np7nJTwZY+dbKnEwJhsjV7Q39mFMDk+bQGP
+	 3/xIPpz6+PH6CCfpf2c7jS/rYIWFCEmFWwXjFhcGcfEM1aG3RIbAKUU4rO8Y0xTWOu
+	 GTIpJa+xa6/cesrB5VYAneLJfxcVRhAYYNlh55Xr/AqLVbxATbv/Bxfx7i4hruVOlf
+	 3p/YRvrhlVMqEiwG+HFtLfwJEs6dMr97S98RwPT8lgpoGVRk5WGbhBzISkdhcABwSn
+	 ayfpj0vvq9/sw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Waiman Long <longman@redhat.com>,
 	Chen Ridong <chenridong@huawei.com>,
 	Tejun Heo <tj@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/3] cgroup/cpuset: Ensure domain isolated CPUs stay in root or isolated partition
-Date: Tue, 29 Sep 2026 08:10:19 -0400
-Message-ID: <20260929121020.3306361-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/3] cgroup/cpuset: Move up prstate_housekeeping_conflict() helper
+Date: Tue, 29 Sep 2026 08:10:18 -0400
+Message-ID: <20260929121020.3306361-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260929121020.3306361-1-sashal@kernel.org>
+In-Reply-To: <2026092918-captive-docile-ef46@gregkh>
 References: <2026092918-captive-docile-ef46@gregkh>
- <20260929121020.3306361-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,85 +48,78 @@ Content-Transfer-Encoding: 8bit
 
 From: Waiman Long <longman@redhat.com>
 
-[ Upstream commit b1034a690129acd8995137bf4462470b4a2aa690 ]
+[ Upstream commit 6cfeddbf4ade9202849d75c27c4d0c82b42c73d1 ]
 
-Commit 4a74e418881f ("cgroup/cpuset: Check partition conflict with
-housekeeping setup") is supposed to ensure that domain isolated CPUs
-designated by the "isolcpus" boot command line option stay either in
-root partition or in isolated partitions. However, the required check
-wasn't implemented when a remote partition was created or when an
-existing partition changed type from "root" to "isolated".
+Move up the prstate_housekeeping_conflict() helper so that it can be
+used in remote partition code.
 
-Even though this is a relatively minor issue, we still need to add the
-required prstate_housekeeping_conflict() call in the right places to
-ensure that the rule is strictly followed.
-
-The following steps can be used to reproduce the problem before this
-fix.
-
-  # fmt -1 /proc/cmdline | grep isolcpus
-  isolcpus=9
-  # cd /sys/fs/cgroup/
-  # echo +cpuset > cgroup.subtree_control
-  # mkdir test
-  # echo 9 > test/cpuset.cpus
-  # echo isolated > test/cpuset.cpus.partition
-  # cat test/cpuset.cpus.partition
-  isolated
-  # cat test/cpuset.cpus.effective
-  9
-  # echo root > test/cpuset.cpus.partition
-  # cat test/cpuset.cpus.effective
-  9
-  # cat test/cpuset.cpus.partition
-  root
-
-With this fix, the last few steps will become:
-
-  # echo root > test/cpuset.cpus.partition
-  # cat test/cpuset.cpus.effective
-  0-8,10-95
-  # cat test/cpuset.cpus.partition
-  root invalid (partition config conflicts with housekeeping setup)
-
-Reported-by: Chen Ridong <chenridong@huawei.com>
 Signed-off-by: Waiman Long <longman@redhat.com>
 Reviewed-by: Chen Ridong <chenridong@huawei.com>
 Signed-off-by: Tejun Heo <tj@kernel.org>
 Stable-dep-of: 31c88350b7dd ("cgroup/cpuset: Return PERR_NOCPUS in remote_partition_enable() on subpartitions_cpus conflict")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/cgroup/cpuset.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ kernel/cgroup/cpuset.c | 40 ++++++++++++++++++++--------------------
+ 1 file changed, 20 insertions(+), 20 deletions(-)
 
 diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-index 14ad95ef37ed1..17d4ef96794c1 100644
+index 6ab677c002181..14ad95ef37ed1 100644
 --- a/kernel/cgroup/cpuset.c
 +++ b/kernel/cgroup/cpuset.c
-@@ -1627,8 +1627,9 @@ static int remote_partition_enable(struct cpuset *cs, int new_prs,
- 	if (!cpumask_intersects(tmp->new_cpus, cpu_active_mask) ||
- 	    cpumask_subset(top_cpuset.effective_cpus, tmp->new_cpus))
- 		return PERR_INVCPUS;
--	if ((new_prs == PRS_ISOLATED) &&
--	    !isolated_cpus_can_update(tmp->new_cpus, NULL))
-+	if (((new_prs == PRS_ISOLATED) &&
-+	     !isolated_cpus_can_update(tmp->new_cpus, NULL)) ||
-+	    prstate_housekeeping_conflict(new_prs, tmp->new_cpus))
- 		return PERR_HKEEPING;
+@@ -1449,6 +1449,26 @@ static bool isolated_cpus_can_update(struct cpumask *add_cpus,
+ 	return res;
+ }
  
- 	spin_lock_irq(&callback_lock);
-@@ -3109,8 +3110,9 @@ static int update_prstate(struct cpuset *cs, int new_prs)
- 		 * A change in load balance state only, no change in cpumasks.
- 		 * Need to update isolated_cpus.
- 		 */
--		if ((new_prs == PRS_ISOLATED) &&
--		    !isolated_cpus_can_update(cs->effective_xcpus, NULL))
-+		if (((new_prs == PRS_ISOLATED) &&
-+		     !isolated_cpus_can_update(cs->effective_xcpus, NULL)) ||
-+		    prstate_housekeeping_conflict(new_prs, cs->effective_xcpus))
- 			err = PERR_HKEEPING;
- 		else
- 			isolcpus_updated = true;
++/*
++ * prstate_housekeeping_conflict - check for partition & housekeeping conflicts
++ * @prstate: partition root state to be checked
++ * @new_cpus: cpu mask
++ * Return: true if there is conflict, false otherwise
++ *
++ * CPUs outside of boot_hk_cpus, if defined, can only be used in an
++ * isolated partition.
++ */
++static bool prstate_housekeeping_conflict(int prstate, struct cpumask *new_cpus)
++{
++	if (!have_boot_isolcpus)
++		return false;
++
++	if ((prstate != PRS_ISOLATED) && !cpumask_subset(new_cpus, boot_hk_cpus))
++		return true;
++
++	return false;
++}
++
+ static void update_isolation_cpumasks(bool isolcpus_updated)
+ {
+ 	int ret;
+@@ -1751,26 +1771,6 @@ static void remote_cpus_update(struct cpuset *cs, struct cpumask *xcpus,
+ 	remote_partition_disable(cs, tmp);
+ }
+ 
+-/*
+- * prstate_housekeeping_conflict - check for partition & housekeeping conflicts
+- * @prstate: partition root state to be checked
+- * @new_cpus: cpu mask
+- * Return: true if there is conflict, false otherwise
+- *
+- * CPUs outside of boot_hk_cpus, if defined, can only be used in an
+- * isolated partition.
+- */
+-static bool prstate_housekeeping_conflict(int prstate, struct cpumask *new_cpus)
+-{
+-	if (!have_boot_isolcpus)
+-		return false;
+-
+-	if ((prstate != PRS_ISOLATED) && !cpumask_subset(new_cpus, boot_hk_cpus))
+-		return true;
+-
+-	return false;
+-}
+-
+ /**
+  * update_parent_effective_cpumask - update effective_cpus mask of parent cpuset
+  * @cs:      The cpuset that requests change in partition root state
 -- 
 2.53.0
 
