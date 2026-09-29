@@ -1,115 +1,78 @@
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2484C3E024D
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 03:15:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD2B83E1D17;
+	Tue, 29 Sep 2026 03:15:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790651709; cv=none; b=LcW9P47NRGERy8UZ/HkzxHsn9/sTpGAIAy+uNpVufFToWStPWG8xGIS+o9wOp8qGu+4TVYJi2+MqbN3MjQsy/TVysm/t2pbZawxm0JBeiqguw4hTsZrmPyyii3sp3dxML8uQHUsxeeuw3Cxn2R+84LJ+LZ2/eAYvcKmuASNNQkg=
+	t=1790651745; cv=none; b=Nj3yzE47UfBkiFbza+XnrQGV5+vueIFrnN8z5FTXv2Rq68Sz/Zq+zM00dq059h+pdAIBkYhvsSz1+eMlIvUm7/qLJlMekrzt0FpH2SB6TxpFUXP+1DK9knSnPOX8Bs+WbLgFJsK7f3uWv1WqVQx1MKhFMylO+Moy4IcMUeQMJHg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790651709; c=relaxed/simple;
-	bh=7ATZzcjlAbIUysEWPC1sJrxMeSl+5dNimqHb7qWpGJE=;
-	h=From:To:Cc:References:In-Reply-To:Subject:Date:Message-ID:
-	 MIME-Version:Content-Type; b=YMzdfbOygpVTv9rI4ZN43kEoh6JicCQGU7uB4KvwDWRiGVXHzy46Ue6Uth4s8dLQff/YVvKHKYgOd9G3Y09hYp/ejzpJ1OIgkAuOwPfFkFxjSN9a/p4/7Td36bdZKmnctzEqZoyzxUErGhBlydV5BsEFjBHweSA9USigeiy/cZc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.pku.edu.cn; spf=pass smtp.mailfrom=stu.pku.edu.cn; dkim=pass (1024-bit key) header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.b=GImO/piJ; arc=none smtp.client-ip=45.254.49.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.pku.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.pku.edu.cn
+	s=arc-20240116; t=1790651745; c=relaxed/simple;
+	bh=czl7lfZqXst6J0w7kzHyJSCW+ys9hUWlHMIMCDB/ABw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=BMJJyAWBWYH5F6YzF9ESuas6PkU1dsTM20cY8Fthd4S6pt4rcncuwi1rTEauiZU48velnAiDHDoP1Dv44u8gdoTbPlGywH00yewRx3sQzZVeMOiubHu58ELPKxdeEEFx58rZGT5n8NO23uxcyjcOFBwX1+ioWnO1bqcv894Z4cs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CeSHRayK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.b="GImO/piJ"
-Received: from Breeze (unknown [106.120.124.42])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4f6eb5455;
-	Tue, 29 Sep 2026 11:14:51 +0800 (GMT+08:00)
-From: <springbreeze@stu.pku.edu.cn>
-To: "'Miguel Ojeda'" <ojeda@kernel.org>
-Cc: <fujita.tomonori@gmail.com>,
-	<gregkh@linuxfoundation.org>,
-	<kuba@kernel.org>,
-	<patches@lists.linux.dev>,
-	<stable@vger.kernel.org>
-References: <20260928102547.201475-1-ojeda@kernel.org> <20260928105443.205758-1-ojeda@kernel.org>
-In-Reply-To: <20260928105443.205758-1-ojeda@kernel.org>
-Subject: =?gb2312?B?u9i4tDogW1BBVENIIDYuMTggMjEwLzM5OF0gcnVzdDogbmV0OiBwaA==?=
-	=?gb2312?B?eTogZml4IG9mZi1ieS1vbmUgYml0IHBvc2l0aW9ucyBpbiBkZXZpY2Ugc3Q=?=
-	=?gb2312?B?YXR1cyBhY2Nlc3NvcnM=?=
-Date: Tue, 29 Sep 2026 11:14:50 +0800
-Message-ID: <000101dd4fc0$b1871cc0$14955640$@stu.pku.edu.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CeSHRayK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1866E1F0089C;
+	Tue, 29 Sep 2026 03:15:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790651740;
+	bh=hsbCMGZfkkFxPuF39HD6OgcKculliT8JtGPXz8W41vM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=CeSHRayKSuvUNixTz5M1ARLzq/8dWeVaREnMqg8NmdNRqw4im37+CGGeKLmdhPZYl
+	 Tt5S8PaX3BvA1eTqAtFBkHyt58wqEUc6DOu9oIw0vX/9eMqOyDANj2Jzt5iTK7IfRq
+	 MFCyocV3KDjXFCDL8hALls0TaSYMQA+/frn4HhjfO4H3iDVbZIIiTkYHH58ppCvdQ1
+	 9+wpFkDMdy/ZCxoLpd+iF/Vmymbaw4Vd6736k3HUcKDHtLmGPLvbStaHK7MUOn5Efa
+	 wMqCtVHT9BvhEs9msoyvVEm7olDKZSyuz8eJm+/phxLGwlK1d6Bd/w0YQv2Gqan4aC
+	 Z8zgdE9ki7A7A==
+From: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Amit Pundir <amit.pundir@linaro.org>,
+	Molly Sophia <mollysophia379@gmail.com>,
+	Petr Hodina <petr.hodina@protonmail.com>,
+	David Heidelberg <david@ixit.cz>
+Cc: Konrad Dybcio <konradybcio@gmail.com>,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: (subset) [PATCH 0/2] arm64: dts: qcom: sdm845-xiaomi: Recent firmware needs bigger XBL
+Date: Mon, 28 Sep 2026 22:14:40 -0500
+Message-ID: <179065171014.2673486.16148940203428568525.b4-ty@b4>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260916-sdm845-xbl-mem-v1-0-6e3c88507997@ixit.cz>
+References: <20260916-sdm845-xbl-mem-v1-0-6e3c88507997@ixit.cz>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="gb2312"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQIRphZJ1CETCX/ZQSG8ISseq2E43gJFGQowtmoMXaA=
-Content-Language: zh-cn
-X-HM-Tid: 0aa0eb2872a203a1kunmd480f09921ff4c
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDQhkeVkJIGhlLTUtLTRkeT1YeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS01VSklLVUpJT1VPSVlXWRYaDxIVHRRZQVlPS0hVSktISk
-	5MTlVKS0tVSkJLS1kG
-DKIM-Signature: a=rsa-sha256;
-	b=GImO/piJH5Xyc6AOltGYU7Utm1K2tIFz9foMfoGD2ONqzb6G1QGAFtESahsbrUKWH+aS/5JOUSVE1D+GRWrhiH7ZaqVKZ0QP0oDcdIKcOZCueW4ij9eJvSUAWuYWxdupGzugd1mDNA2vWlZnz1j5aioQsCjcX1fgDMg7Q3BaFn0=; c=relaxed/relaxed; s=default; d=stu.pku.edu.cn; v=1;
-	bh=/0/VwX3V1eumlzPFP2EZdkcpd6K+fi16jwBW4u48HT0=;
-	h=date:mime-version:subject:message-id:from;
-
-Hi Miguel,
-
-Yes, that is exactly what I meant -- thanks a lot for taking care of it.
-I re-checked the series against v6.18 and it is correct:
-
-    1d17bf1ae87d (6.18.y today)  ->  bf6272d87a7b (1/2, back to v6.18)
-                                 ->  5963dbbd54af (2/2, offsets =
-15/14/16)
-
-That matches the backport I had prepared locally, so:
-
-Acked-by: Chunfeng Song <springbreeze@stu.pku.edu.cn>
-
-Please keep yourself as the author of 2/2, and of course I am fine with
-your SoB -- the upstream Signed-off-by is enough for me.
-
-One nit, feel free to ignore: 2/2 still carries the upstream paragraph
-starting "Use the bindgen-generated raw accessors ..." and the Cc: =
-stable
-scope line, neither of which matches the diff anymore.  Your bracketed
-note already explains it, but dropping those two bits may read better.
-
-Thanks again,
-Chunfeng
-
------=D3=CA=BC=FE=D4=AD=BC=FE-----
-=B7=A2=BC=FE=C8=CB: Miguel Ojeda <ojeda@kernel.org>=20
-=B7=A2=CB=CD=CA=B1=BC=E4: 2026=C4=EA9=D4=C228=C8=D5 18:55
-=CA=D5=BC=FE=C8=CB: ojeda@kernel.org
-=B3=AD=CB=CD: fujita.tomonori@gmail.com; gregkh@linuxfoundation.org;
-kuba@kernel.org; patches@lists.linux.dev; springbreeze@stu.pku.edu.cn;
-stable@vger.kernel.org
-=D6=F7=CC=E2: Re: [PATCH 6.18 210/398] rust: net: phy: fix off-by-one =
-bit positions
-in device status accessors
-
-On Mon, 28 Sep 2026 12:25:47 +0200 Miguel Ojeda <ojeda@kernel.org> =
-wrote:
->
-> Let me send a quick series using a revert which is clearer, and if=20
-> that is what you meant, then please confirm you are OK with the SoB!
-
-Done:
-
-  =
-https://lore.kernel.org/stable/20260928104855.205416-1-ojeda@kernel.org/
-
-I ended up sending #2 in the series with myself as author just in case, =
-but
-if you somehow had posted it elsewhere, or if you prefer to be listed as
-author, please let us now!
-
-Cheers,
-Miguel
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
 
+On Wed, 16 Sep 2026 00:25:45 +0200, David Heidelberg wrote:
+> Applies to all known Snapdragon 845 Xiaomi devices.
+> 
+> Verified against the vendor trees, only vendor trees with smaller XBL
+> are < Android 9.0.
+> 
+> Needs some Tested-by, I don't own any of these two devices.
+> 
+> [...]
 
+Applied, thanks!
+
+[1/2] arm64: dts: qcom: sdm845-xiaomi-beryllium: Extend the xbl_mem region
+      commit: 511c4fea32708a065e03503c0e4d44f48990c530
+[2/2] arm64: dts: qcom: sdm845-xiaomi-polaris: Extend the xbl_mem region
+      commit: 38458f12419f456b16385c118bcacd76899d99b9
+
+Best regards,
+-- 
+Bjorn Andersson <andersson@kernel.org>
