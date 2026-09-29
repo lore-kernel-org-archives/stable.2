@@ -1,37 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27E9143499F;
-	Tue, 29 Sep 2026 13:32:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 470C73EC830;
+	Tue, 29 Sep 2026 13:32:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790688730; cv=none; b=oF7BzcTFdEGVXWWLN3RC5crEMP7v+2kHL0IZC2H33YtpSMxtmJa3Ry8mQwJ2bvrcj4xjgZTAgpX40TPMqHBVmNDqVBwvw+VOndl1fqyl/WcYKMem5EELd+8zbnVDkN+mxLJQx4DLknRQgILJ+LyOTF6hckQWnaK5YlbiDxoSKI4=
+	t=1790688779; cv=none; b=VCHjM7GmcVwPhy7tPjLExCP03XtHKkYVT3V18JH/SLTAKfKX/NthxqGlPtmox7T9lRuwuoplCqM8xsNAWi1cR/gwCRy+F+sj+IRxfKTTQYh/R4OMdcnus1c9IUTiKPURekvF0j6jJ4PxP4X/pgQx90Ov1hJXro7amD8oz7wlSZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790688730; c=relaxed/simple;
-	bh=mnR880LfQrU5Da8bd4cxMAw/FyvJhSMFDtMv/KYdWUM=;
+	s=arc-20240116; t=1790688779; c=relaxed/simple;
+	bh=XERgZ3+OK1lQuTGAOBOssUmLnqYQAgqZFnS2f6ME8Zg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ruxJhEMkOxt62m/LGrD7DTbg66VxBtPvfn/r5nJmzhzLLtlhVZLYS2Vn1SXbyA9fEUJjXqZuyoatdUgNBHRbClIKLPfhxNWxB7uiiJqggGiCCNK3uwIcc6dbh/6o9m1JXnk9OYKUmWvFYvIYdTYCPRBk0mEua5G7ZURw05MECd0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=L6sH4xqZ; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=qUrAb41JY79/Lm02J4g5TZdZgZW8OoBVEfymD+nHfvqYdfdjxinccac2NmpnWjuTUKEPtBKGZPVdI3NuyuUpGB1/MpHK6+PGYqRj87OJzgUlD4xpiM6NEKZUXhCNbD54O2wCKfhBqtur/vhYQsdtxSrZTNJnk6nVLISomjHSP3w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=qhFhCXRG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="L6sH4xqZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 532DA1F000FF;
-	Tue, 29 Sep 2026 13:32:08 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="qhFhCXRG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 941621F000FF;
+	Tue, 29 Sep 2026 13:32:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790688728;
-	bh=jtbR6LzwwJ3f7q3ueEGAF3rph9maa6+Lh5jtWajzKRM=;
+	s=korg; t=1790688778;
+	bh=2XYvEZHFWs6yFyGF+VEUXWrv2zaJBuJjid9em3m6w08=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=L6sH4xqZ2W2PYKLW8LS9J7tHVqL//icVQrVvXd8wEKnmHTOonqOTjozMSCxTKG+g5
-	 nssriJDplH3kYbS9FhW+AwIUBHvil1QCb+XLLTSZEUceeuKEPjEzLcn0dbhF9W6GoD
-	 BBtHZTv79tTbNBMoplshkUk9d1ct44ZR3mzcYoOg=
-Date: Tue, 29 Sep 2026 15:32:02 +0200
+	b=qhFhCXRGACDQ0OIFm8eJg8NFwydCV2M3zoxaaR5JPFIwuvhTC9mgC35/0PYgFU8Z1
+	 AY/v9JP3+v7idBXmrohRnD0LZ+7CkY8pwYJbrHJDAT2UTVv0tholKo6iGnwzJs7TYy
+	 4UhG9xGnVeQErbViOpw7+JsFUXJVUSUDWqfwm7SQ=
+Date: Tue, 29 Sep 2026 15:32:52 +0200
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: aliresool567@gmail.com
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+To: pip-izony <eeodqql09@gmail.com>
+Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Saranya Gopal <saranya.gopal@intel.com>,
+	Rajaram Regupathy <rajaram.regupathy@intel.com>,
+	Benson Leung <bleung@chromium.org>,
+	Andrei Kuchynski <akuchynski@chromium.org>,
+	Jameson Thies <jthies@google.com>,
+	Kyungtae Kim <Kyungtae.Kim@dartmouth.edu>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] USB: quirks: add USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE for
- GameSir G7 SE
-Message-ID: <2026092941-antacid-primer-20f1@gregkh>
-References: <20260927-master-v1-1-96ff85291b25@gmail.com>
+Subject: Re: [PATCH] usb: typec: ucsi: limit the PDO count to the number of
+ PDOs requested
+Message-ID: <2026092932-arbitrate-snorkel-3fca@gregkh>
+References: <20260927214904.447250-2-eeodqql09@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -40,56 +47,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260927-master-v1-1-96ff85291b25@gmail.com>
+In-Reply-To: <20260927214904.447250-2-eeodqql09@gmail.com>
 
-On Sun, Sep 27, 2026 at 06:54:01PM +0300, Ali via B4 Relay wrote:
-> From: Ali <aliresool567@gmail.com>
+On Sun, Sep 27, 2026 at 05:49:05PM -0400, pip-izony wrote:
+> From: Seungjin Bae <eeodqql09@gmail.com>
 > 
-> The GameSir G7 SE wired controller first enumerates as 3537:10a0 and
-> then re-enumerates in a mode it picks from how the host enumerated it.
+> In ucsi_get_pdos(), the number of PDOs is derived from the data length
+> reported in the CCI register, which is provided by the PPM firmware.
 > 
-> When the configuration descriptor is fetched the Linux way, 9 bytes
-> followed by the full 80, the controller disconnects about 1 ms after
-> its string descriptors have been read, before SET_CONFIGURATION, and
-> comes back as 3537:1082, a generic HID gamepad without force feedback.
+> The function requests at most UCSI_MAX_PDOS PDOs on the first read and
+> PDO_MAX_OBJECTS - UCSI_MAX_PDOS on the second, and ucsi_send_command()
+> only copies that many bytes into the buffer. However, the returned
+> length is taken from the 8 bit CCI data length field and is not bounded
+> by the size of the request.
 > 
-> When the configuration descriptor is fetched in one 255-byte request,
-> as Windows does, it comes back as 3537:1010 in Xbox One (GIP) mode,
-> which xpad already supports, including rumble.
+> If a malicious PPM reports a larger length, e.g. 0xFF, each
+> read is counted as 63 PDOs and ucsi_get_pdos() returns up to 126, beyond
+> PDO_MAX_OBJECTS and the number of PDOs actually read.
 > 
-> Skipping the device qualifier requests (USB_QUIRK_DEVICE_QUALIFIER)
-> makes no difference; the configuration descriptor request size alone
-> decides the mode. Add USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE for the 10a0
-> identity, as is already done for the ShanWan Wireless Gamepad.
+> ucsi_get_src_pdos() stores this value in con->num_pdos, and
+> ucsi_psy_get_voltage_max() and ucsi_psy_get_current_max() use it to
+> index con->src_pdos[con->num_pdos - 1], resulting in an out-of-bounds
+> read. This happens without any userspace action, since
+> ucsi_get_src_pdos() calls ucsi_port_psy_changed() and the resulting
+> uevent reads every property.
 > 
+> Fix this by limiting the count of each read to the number of PDOs
+> requested, so that the returned value always matches the buffer
+> contents and never exceeds PDO_MAX_OBJECTS.
+> 
+> Fixes: b04e1747fbcc ("usb: typec: ucsi: Register USB Power Delivery Capabilities")
 > Cc: stable@vger.kernel.org
-> Assisted-by: claude-opus-5-5
-> Signed-off-by: Ali <aliresool567@gmail.com>
+> Signed-off-by: Seungjin Bae <eeodqql09@gmail.com>
+> ---
+>  drivers/usb/typec/ucsi/ucsi.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
 
-Hi,
-
-This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
-a patch that has triggered this response.  He used to manually respond
-to these common problems, but in order to save his sanity (he kept
-writing the same thing over and over, yet to different people), I was
-created.  Hopefully you will not take offence and will fix the problem
-in your patch and resubmit it so that it can be accepted into the Linux
-kernel tree.
-
-You are receiving this message because of the following common error(s)
-as indicated below:
-
-- It looks like you did not use your "real" name for the patch on either
-  the Signed-off-by: line, or the From: line (both of which have to
-  match).  Please read the kernel file,
-  Documentation/process/submitting-patches.rst for how to do this
-  correctly.
-
-If you wish to discuss this problem further, or you have questions about
-how to resolve this issue, please feel free to respond to this email and
-Greg will reply once he has dug out from the pending patches received
-from other developers.
+Did you forget to add an Assisted-by: tag?
 
 thanks,
 
-greg k-h's patch email bot
+greg k-h
