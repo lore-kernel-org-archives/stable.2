@@ -1,154 +1,174 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70B0331B828;
-	Tue, 29 Sep 2026 14:17:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2923F1891A9
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 14:18:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790691468; cv=none; b=bQY9Y0Mvcz5MyXViBEqcVBYKxp18OkWfXQe643KIYfsyztaq/lyVjct45IcSGuCPxN28+xLFBHI59JnO4kUCiNhQ62JdO7SYaGaKfiR3jskHpj9kAGO7b0FrnQ1ejqd6KVFyogntWenUJ/ZrxxVVHmiTheI3beXbgoFzYam924Y=
+	t=1790691508; cv=none; b=iJ8hR1co9iK1/K/SQcCRk8CoKOL1dEyX1LqxcubRLYeFZts+At0EdWXPE8m34mtPKD3APQzwBZRlAygY0p4Pg4plMfDx5B2UH03wt9J222ys/C8E7EZ8MJdPjHRQOJLRYmhY+k/FUZNHvls1FtKoLND0kTgR9aP5CGZfF6UcHR0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790691468; c=relaxed/simple;
-	bh=g+RuLzf9ELS4t/86sXGH6GZyNNaNljWKql1nJK44Ey8=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=OQR9dyLiVr+IcqjZsaKvnozVKdaNAZXb4Vi/lmaaSWXbtR6Fj/Vxu5cmERFmWqsfOjQCzGoriI/fSAjQvAbmeSoe/cGkDnuJAX5oPoortT8WXwpjK+k32v4/Xrbfn8e0x5+wXqzwfD4IcThY0nn61MhO4xKOwsXZGLpXiRuiyYQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=PbWwFeqv; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1790691508; c=relaxed/simple;
+	bh=5gvFEqbkiiTA7FQivxZyuIoOZ8BI2pX49LbcCYDPnVs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pmUkC/d1xuxrIfStlUE+spPp1LSZoUZixvFX+r9u4wKxYzonCJlouYctH5S1jVKYjOoimZ0oFwdi/w7siZ9Bo/TK6h/KIz10YbFI9bZJ3uVg0vu7qLS5wHeNshaurZ+1BlBOP2k9s6ET/HqplHT3C3x1iNQ0K58ev65FaypEQAs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=CBJ23xMd; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="PbWwFeqv"
-Received: from PC-202605011814.localdomain (unknown [223.112.146.162])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4f83a8454;
-	Tue, 29 Sep 2026 22:17:36 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Clemens Ladisch <clemens@ladisch.de>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] ALSA: usb-audio: Protect Roland control activation
-Date: Tue, 29 Sep 2026 22:17:26 +0800
-Message-Id: <20260929141726.2166899-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <877bk418r3.wl-tiwai@suse.de>
-References: <877bk418r3.wl-tiwai@suse.de>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="CBJ23xMd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790691506;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GbXDTdZnaMARV0PaqG68M0h00pQ3SsjxJmf4zOowgA4=;
+	b=CBJ23xMdQo8bc38di2tTw9U6gvu6mi584ndVh+mXCaiiK0xcyU4jDF+VHxVcvJbzrKqTaf
+	9VHuX2HCS3jLDLaOmJvsug99vfq5AlHF6W39xWkQcQ+JygYsy14DeOUPHGIfD7UtJwBVM6
+	X99fB5DhbRhPBAK5A7iZbuWHAxYg+nc=
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-333-1E2aK-mLPpSo_3tL_hPNLQ-1; Tue, 29 Sep 2026 10:18:24 -0400
+X-MC-Unique: 1E2aK-mLPpSo_3tL_hPNLQ-1
+X-Mimecast-MFC-AGG-ID: 1E2aK-mLPpSo_3tL_hPNLQ_1790691504
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93ae8e7e546so853833685a.1
+        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 07:18:24 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790691504; x=1791296304;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GbXDTdZnaMARV0PaqG68M0h00pQ3SsjxJmf4zOowgA4=;
+        b=JgXmWKoZSxSQQexR5Im1VuBmtL/rIdNeMjB5WFOfSXjU0/QW53PWhWaZUp0jq8jWeE
+         yNznbhvkufeXk9z/4MhxUClmqBWTWfHAHqC5CnZDnZB2aHt+S+LnEsiPgd5/CqCZQikG
+         4iVPHxMHXr/cKB7tVOj1WZ94AzPiFiYo7kJnUZyzKKxdrCZrqXr+r5eWy2OybB/kBOFD
+         dQmnzq9MwxFszcZguh9xnzNi1RZ1ReGNtIbpMr8KarBjLoowi62O0aM9rmy6P/Em5zTk
+         mNXa2oBEjmYEYieUGO1XmfUvcDvHKLoaVCo1jNphCOwgg9Z9VrENrlxPqSC8ImTiZ5Zl
+         jgeQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz1bWCMzhT/L/AeEME+SO1PsFCqkMbYzCC+iY2YA9RPewQxtujMkqngTfRbz1SRhC1HyKOjaxc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mj5Aj/l0VbDlSliC2VzDJsXwg5tR7y0mgMVDzsz/wV/raogebl
+	5fu0L1msha02+WiUjXIOWvLiLIj+/rZbom/e1LtdIARTotfdzXARufgE9aZCFzSmAOHFZdBF3uI
+	bBfG2VlkMR9xAdByJOgr8wl7BbQbFdld0KaexTmeU9mTM0EvWYPAsmvsAE/35b7lMfhMx
+X-Gm-Gg: AYBFou3q8W2++3C3aW6d/PdqREZXDSUygL75dHnuXYH92VlmAuE0UGrc+xksWLC0zO8
+	xJVxRza1oGkVhJyLfkHS5vzYbZ2GPbTqJR0/8aJx+nzeSujM8Z3Lakj1pnVCcJbp0z3ZnUzf+0q
+	Z8xIMRMz1JUhPpgjXnyCtZMUjbntzASibeB9A914xTwtXOcF2oLp/0fU9aM5gg8rWx2Db1Nwu+F
+	0MpCwzRjgvAH/Vb3kq0q/9efgYk67zJelte1bhMkoMA5m15r73v9VBSaqE8JCiPNX5PlBfm7ejV
+	Ub33ro2FRg2pNlMlsKIwGx4ZUzJTAfiMtgkNIlBrBlRaG81n9T8lLDgYcFkrsC1QG62zchSx4bd
+	peYY=
+X-Received: by 2002:a05:620a:404c:b0:939:31b5:4e08 with SMTP id af79cd13be357-93c439c33fbmr2664002185a.0.1790691503758;
+        Tue, 29 Sep 2026 07:18:23 -0700 (PDT)
+X-Received: by 2002:a05:620a:404c:b0:939:31b5:4e08 with SMTP id af79cd13be357-93c439c33fbmr2663993785a.0.1790691503101;
+        Tue, 29 Sep 2026 07:18:23 -0700 (PDT)
+Received: from [192.168.2.110] ([142.172.30.162])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c813a4587sm400548285a.7.2026.09.29.07.18.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 29 Sep 2026 07:18:22 -0700 (PDT)
+Message-ID: <cd4c16d1-d23e-4321-8f2a-6754294b74b1@redhat.com>
+Date: Tue, 29 Sep 2026 10:18:21 -0400
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0ed8734e803a1kunmf51ce1f7242536
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaSEhLVh9NSEMeH0NJH0lPGlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVSkpJVUpPTVVKTUlZV1kWGg8SFR0UWUFZT0tIVUJCSU
-	5LVUpLS1VKQktCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=PbWwFeqvYMzv4mtRDL3SbgjVZvE2bGBR1+JhkvBCcjMwLMyWL0RQb8ItaQM2+KSBLBNqRL9b+bOxE05gr5h4HRSg7qODhT7jc5jOIYRR+i8x58mNgo46nxHGuzZkJkJkol+p1x077cfxm8tRx/Xe/fsBWVWIlBjyUK7p8FNSm0M=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=UuGAtSc5SQWOwedSMWfVbeD/CFuWQuJpbjnzjsdtRwI=;
-	h=date:mime-version:subject:message-id:from;
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6.18.y v2] selftests/mm: hugepage-mremap: fix mapping
+ alignment
+To: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org
+Cc: rppt@kernel.org, sayalip@linux.ibm.com, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+References: <20260928130916.231112-1-luizcap@redhat.com>
+ <2026-09-28-2-daily-reply-0006-re-hugepage-mremap-alignment-6-18-v3@kernel.org>
+Content-Language: en-US
+From: Luiz Capitulino <luizcap@redhat.com>
+In-Reply-To: <2026-09-28-2-daily-reply-0006-re-hugepage-mremap-alignment-6-18-v3@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The USB MIDI driver changes the Roland MIDI Input Mode control's access
-flags directly from the rawmidi open and close paths.  These changes are
-not protected by the ALSA control core and the corresponding notifications
-can race with control access.
 
-Use snd_ctl_activate_id() so that the control core updates the access flags
-and sends the notification under its lock.  Release the USB MIDI mutex
-before calling it because the control write path holds controls_rwsem while
-roland_load_put() takes the USB MIDI mutex.
 
-Keep the state transition and alternate-setting change under the USB MIDI
-mutex; rawmidi's open mutex serializes the enclosing open and close paths.
+On 9/28/26 6:39 PM, Sasha Levin wrote:
+>> commit a914785f6349da754e1226420bf4e51961956769 upstream.
+> 
+> a914785f6349 ("selftests/mm: hugetlb-mremap: add setup of HugeTLB pages") is
+> Mike's commit, but this patch has you as the author with only your
+> Signed-off-by. Could you send a v3 that keeps Mike as the author with his
+> Signed-off-by, followed by yours, or otherwise makes the provenance explicit?
+> 
+> The same applies to the 6.12.y posting.
 
-Fixes: 96f61d9ade82 ("sound: usb-audio: allow switching altsetting on Roland USB MIDI devices")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
-v2:
-- Rebased onto sound.git for-next at 025877a3833d (2026-09-19).
-- Preserved the for-next keep_input_running condition in the input stop path.
+My intent was to explain what was being fixed and why and, as it's a
+partial backport, I decided to author the change. But I'm keeping Mike's
+original changelog & authorship now, can you review it before I post?
+Note that the subject will change as a result.
 
- sound/usb/midi.c | 53 ++++++++++++++++++++++++------------------------
- 1 file changed, 27 insertions(+), 26 deletions(-)
+"""
+From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Date: Mon, 11 May 2026 19:28:25 +0300
+Subject: [PATCH v6.18.y v3] selftests/mm: hugetlb-mremap: add setup of HugeTLB pages
 
-diff --git a/sound/usb/midi.c b/sound/usb/midi.c
-index 0480a9b89..e3d157554 100644
---- a/sound/usb/midi.c
-+++ b/sound/usb/midi.c
-@@ -1150,41 +1150,42 @@ static int substream_open(struct snd_rawmidi_substream *substream, int dir,
- 			  int open)
- {
- 	struct snd_usb_midi *umidi = substream->rmidi->private_data;
--	struct snd_kcontrol *ctl;
-+	struct snd_ctl_elem_id ctl_id;
-+	bool activate_ctl = false;
-+	bool active;
- 
- 	guard(rwsem_read)(&umidi->disc_rwsem);
- 	if (umidi->disconnected)
- 		return open ? -ENODEV : 0;
- 
--	guard(mutex)(&umidi->mutex);
--	if (open) {
--		if (!umidi->opened[0] && !umidi->opened[1]) {
--			if (umidi->roland_load_ctl) {
--				ctl = umidi->roland_load_ctl;
--				ctl->vd[0].access |=
--					SNDRV_CTL_ELEM_ACCESS_INACTIVE;
--				snd_ctl_notify(umidi->card,
--				       SNDRV_CTL_EVENT_MASK_INFO, &ctl->id);
--				update_roland_altsetting(umidi);
-+	scoped_guard(mutex, &umidi->mutex) {
-+		if (open) {
-+			if (!umidi->opened[0] && !umidi->opened[1]) {
-+				if (umidi->roland_load_ctl) {
-+					ctl_id = umidi->roland_load_ctl->id;
-+					activate_ctl = true;
-+					active = false;
-+					update_roland_altsetting(umidi);
-+				}
- 			}
--		}
--		umidi->opened[dir]++;
--		if (umidi->opened[1])
--			snd_usbmidi_input_start(&umidi->list);
--	} else {
--		umidi->opened[dir]--;
--		if (!umidi->opened[1] && !umidi->keep_input_running)
--			snd_usbmidi_input_stop(&umidi->list);
--		if (!umidi->opened[0] && !umidi->opened[1]) {
--			if (umidi->roland_load_ctl) {
--				ctl = umidi->roland_load_ctl;
--				ctl->vd[0].access &=
--					~SNDRV_CTL_ELEM_ACCESS_INACTIVE;
--				snd_ctl_notify(umidi->card,
--				       SNDRV_CTL_EVENT_MASK_INFO, &ctl->id);
-+			umidi->opened[dir]++;
-+			if (umidi->opened[1])
-+				snd_usbmidi_input_start(&umidi->list);
-+		} else {
-+			umidi->opened[dir]--;
-+			if (!umidi->opened[1] && !umidi->keep_input_running)
-+				snd_usbmidi_input_stop(&umidi->list);
-+			if (!umidi->opened[0] && !umidi->opened[1]) {
-+				if (umidi->roland_load_ctl) {
-+					ctl_id = umidi->roland_load_ctl->id;
-+					activate_ctl = true;
-+					active = true;
-+				}
- 			}
- 		}
- 	}
-+	if (activate_ctl)
-+		snd_ctl_activate_id(umidi->card, &ctl_id, active);
- 	return 0;
- }
- 
--- 
-2.34.1
+commit a914785f6349da754e1226420bf4e51961956769 upstream.
+
+hugetlb-mremap test fails if there are no free huge pages prepared by a
+wrapper script.
+
+Add setup of HugeTLB pages to the test and make sure that the original
+settings are restored on the test exit.
+
+Link: https://lore.kernel.org/20260511162840.375890-42-rppt@kernel.org
+Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Tested-by: Luiz Capitulino <luizcap@redhat.com>
+Tested-by: Sarthak Sharma <sarthak.sharma@arm.com>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Barry Song <baohua@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Donet Tom <donettom@linux.ibm.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: John Hubbard <jhubbard@nvidia.com>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: Leon Romanovsky <leon@kernel.org>
+Cc: Liam Howlett <liam@infradead.org>
+Cc: Li Wang <li.wang@linux.dev>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Nico Pache <npache@redhat.com>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Shuah Khan <shuah@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Zi Yan <ziy@nvidia.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+
+[ Backport-notes: this is a partial backport containing only the aligning
+of 'length' to the hugepage size. The hugepage_settings.h include line and
+the hugetlb_setup_default() call are omitted. Without this fix, the
+uffd_register() call always fails on arm64 with 64K base pages and 512 MiB
+default HugeTLB page size causing the test to fail with the error below as
+'length' is 10 MiB and not aligned to the HugeTLB page size.
+
+   # -------------------------
+   # running ./hugepage-mremap
+   # -------------------------
+   # TAP version 13
+   # 1..1
+   # # Map haddr: Returned address is 0x7eaa40000000
+   # # Map daddr: Returned address is 0x7daa40000000
+   # # Map vaddr: Returned address is 0x7faa40000000
+   # Bail out! ioctl-UFFDIO_REGISTER: Invalid argument
+   # # Planned tests != run tests (1 != 0)
+   # # Totals: pass:0 fail:0 xfail:0 xpass:0 skip:0 error:0
+   # [FAIL]
+   not ok 1 hugepage-mremap # exit=1
+   # NOTE: These hugetlb tests provide minimal coverage.  Use
+   #       https://github.com/libhugetlbfs/libhugetlbfs.git for
+   #       hugetlb regression testing.
+   # SKIP ./uffd-wp-mremap
+]
+Signed-off-by: Luiz Capitulino <luizcap@redhat.com>
+"""
+
