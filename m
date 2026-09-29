@@ -1,116 +1,160 @@
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C61812BFC60;
-	Tue, 29 Sep 2026 14:31:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C583175A89
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 14:35:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790692286; cv=none; b=Izy3Ddr12iDHVDGxHrasYghgAVezlqF7xd1itelFDLZxt71noE1DM+otE+14ah8hnzjqDue1cjBZSsL97R9HYXoenBk0rF3tbMtNlvoiPUDux1OOyTfsf3vhW1UT5rtv6US8UpKSFPHsrWvlnJkmj1Le1NRfrbqw/wPeT+nM1DY=
+	t=1790692526; cv=none; b=khu85TGQkVbnFdiT7eDmN7BX62ufsRkcH7kYalnAhmt03qK7hBcghKhC0aUv17w+cnGn+ycW1RfgCX0IPVe2Bqn7nVN5HvB/2QK8W1dXaPmvQhhVExKB5NjJq8yJh6dxNk6bGZXfrilR9gEitNAAIxx/+5gQsPuljLrd5YhVQCM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790692286; c=relaxed/simple;
-	bh=mc0ilMueXZXPuhVX6jYrX0LunRcOPD+Ig24apa308/k=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=lVaNBsjuVKvpm6oyt0tE1DtvLMWrsgJGFJClAW4KvYqIRi842Pgusb7LFlCBHDq7OvIIJPISXwPCsTo7TCqtntTD7SCBFU/B+j1nqbt7T/Ja+Fc9yWY61MUYW2UeMO7/4vid8FTZL3yg4mVQV7jVqbyVetSZMVYLsmqDUl9cHxk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=nl5075lJ; arc=none smtp.client-ip=45.254.49.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1790692526; c=relaxed/simple;
+	bh=AYlzBh7W5S+STdFfHgNG/LWXRVDTaRhcUAANyP6LK7Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=nl8FPeaw9Pm04u18TvbHjVau+8yCtP5rg5eauVUjo5DSqlU6SbwJNySWkl2QeG703MIhcV/yJ9gCb2EviRbUPZ46x0yhzGv9IGQeG2aSsXXV0Wqu4oNGiChPfPC6wqj9yP7SQcy/3VsxmbqOsSzIK7XVHfpFbwsrixLy731ogkc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XkPmxB2n; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="nl5075lJ"
-Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4f83a856d;
-	Tue, 29 Sep 2026 22:31:12 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Maxim Levitsky <maximlevitsky@gmail.com>
-Cc: Sean Young <sean@mess.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH] media: rc: Fix simulated TX timer lifecycle
-Date: Tue, 29 Sep 2026 22:31:05 +0800
-Message-Id: <20260929143105.2170272-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XkPmxB2n"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B068F1F0089B;
+	Tue, 29 Sep 2026 14:35:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790692523;
+	bh=8swRV/kAtiDDPwEbjyoP7VBKCWwMMN4HOdMKMy4YeCY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=XkPmxB2n7kBzoXyjgq6Z9hSbmtQBTfgNl3gHNyFtlSiAnrmq9qjVhg3ukaIebZD9i
+	 sKwN8iEFfZ/KF/3V/LkL7ZgCkf9FYBLArWOflDVpidm3ZMwzmiVmN88ZCYbjRK8Djz
+	 wIJVzo5Q9eSrlvwmKlfBF14zczglBko/PWL00zQZ7qcdPcZ+nY1HgmuNF3LCN67Br0
+	 4UAQ3pt7hdGb63AxO2wM9NH84rj9JKL+KME4pp1KdI59y4ozHiceZE1e6asgUaK32H
+	 N6a1E754pyljATwZLOwzJx+dUqy7BztytnkTUfo4hkVW/5pSRUhS4Jv1hxoepQVzit
+	 i2jYFOkaiutrw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
+	Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] i2c: qcom-geni: Fix hardcoded clock index in SE_GENI_CLK_SEL
+Date: Tue, 29 Sep 2026 10:35:21 -0400
+Message-ID: <20260929143521.3602250-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026092907-manger-seldom-b2ad@gregkh>
+References: <2026092907-manger-seldom-b2ad@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0ed93a9dd03a1kunmdecca74e242d48
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSkJKVh1JHUxOQkIfGB5JHVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=nl5075lJxJ/fPCr70pKfVhRELflboqA/7/pCiO+cMj1BAuNdhJrv/b6jqhdlXhNxVdsYjiMdQQsWpxXtdSf6fhQD10dSvbMOFMmNEjJEtyjCzX5Sk7IHNPJZuqzHAxdlmustOKlmACiHDDhMIeFWvVY7uApx75lZFu9pzNKOpLY=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=E2PrdciCZ3Uc2ciSOa1CzF5S70Ohk9bCqDAdSupoot0=;
-	h=date:mime-version:subject:message-id:from;
 
-The ENE driver only initializes tx_sim_timer when TX simulation is
-enabled for hardware without native TX support.  However, ene_remove()
-passes the timer to timer_delete_sync() unconditionally, and
-ene_tx_sample() uses the global txsim parameter when deciding whether to
-arm it.  Thus a normal device, or a device with native TX support and
-txsim enabled, can operate on an uninitialized timer.
+From: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
 
-Track whether simulation was actually enabled for each device and use
-that state for timer arming and teardown.  Since the simulation callback
-rearms the timer, shut it down permanently before freeing the device.
+[ Upstream commit cb97bf3d4f91453b881acaf8e9f0cc47bb40b604 ]
 
-Fixes: 9ea53b74df9c ("V4L/DVB: STAGING: remove lirc_ene0100 driver")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+qcom_geni_i2c_conf() writes a hardcoded 0 to SE_GENI_CLK_SEL, which
+selects an index from the hardware clock performance table. This always
+picks the first table entry regardless of the actual source clock
+configuration. On platforms where the matching entry is not at index 0,
+the wrong source clock divider is active and the I2C bus runs at an
+incorrect frequency.
+
+Use geni_se_clk_freq_match() in geni_i2c_clk_map_idx() to find the
+performance table index for the source clock (32 MHz or 19.2 MHz). Store
+the resolved index in a new clk_idx field in geni_i2c_dev and write it
+to SE_GENI_CLK_SEL instead of the hardcoded 0.
+
+Fixes: 37692de5d523 ("i2c: i2c-qcom-geni: Add bus driver for the Qualcomm GENI I2C controller")
+Signed-off-by: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+Cc: <stable@vger.kernel.org> # v4.19+
+Reviewed-by: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
+Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
+Link: https://patch.msgid.link/20260921-i2c-fix-se-clk-conf-v2-1-8b5537ceff2d@oss.qualcomm.com
+[ adapted clock initialization to the older driver’s 19.2 MHz-only table and existing probe path. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/rc/ene_ir.c | 6 ++++--
- drivers/media/rc/ene_ir.h | 1 +
- 2 files changed, 5 insertions(+), 2 deletions(-)
+ drivers/i2c/busses/i2c-qcom-geni.c | 33 +++++++++++++++++++++++++-----
+ 1 file changed, 28 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/media/rc/ene_ir.c b/drivers/media/rc/ene_ir.c
-index 6f7dccc96..9d0279667 100644
---- a/drivers/media/rc/ene_ir.c
-+++ b/drivers/media/rc/ene_ir.c
-@@ -652,7 +652,7 @@ static void ene_tx_sample(struct ene_device *dev)
- 	dev->tx_reg = !dev->tx_reg;
- exit:
- 	/* simulate TX done interrupt */
--	if (txsim)
-+	if (dev->tx_sim_enabled)
- 		mod_timer(&dev->tx_sim_timer, jiffies + HZ / 500);
+diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-qcom-geni.c
+index 96b024dc3f20f..66156506ee1a5 100644
+--- a/drivers/i2c/busses/i2c-qcom-geni.c
++++ b/drivers/i2c/busses/i2c-qcom-geni.c
+@@ -77,6 +77,8 @@ enum geni_i2c_err_code {
+ #define XFER_TIMEOUT		HZ
+ #define RST_TIMEOUT		HZ
+ 
++#define GENI_SE_CLK_19P2MHZ	19200000UL
++
+ struct geni_i2c_dev {
+ 	struct geni_se se;
+ 	u32 tx_wm;
+@@ -91,6 +93,7 @@ struct geni_i2c_dev {
+ 	struct clk *core_clk;
+ 	u32 clk_freq_out;
+ 	const struct geni_i2c_clk_fld *clk_fld;
++	u32 clk_idx;
+ 	int suspended;
+ 	void *dma_buf;
+ 	size_t xfer_len;
+@@ -157,13 +160,36 @@ static int geni_i2c_clk_map_idx(struct geni_i2c_dev *gi2c)
+ {
+ 	int i;
+ 	const struct geni_i2c_clk_fld *itr = geni_i2c_clk_map;
++	unsigned long res_freq;
++
++	/*
++	 * Frequency counters are calibrated for a 19.2 MHz source clock
++	 * and are not valid for any multiple of it (e.g. 38.4 MHz).
++	 * Use exact=true and verify res_freq matches req_freq literally
++	 * to reject harmonics that would produce an incorrect I2C frequency.
++	 * ACPI systems have firmware-managed clocks and retain the default index.
++	 */
++	if (!has_acpi_companion(gi2c->se.dev) &&
++	    (geni_se_clk_freq_match(&gi2c->se, GENI_SE_CLK_19P2MHZ,
++				    &gi2c->clk_idx, &res_freq, true) ||
++	     res_freq != GENI_SE_CLK_19P2MHZ)) {
++		dev_err(gi2c->se.dev,
++			"Unsupported SE source clock: must be exactly 19.2 MHz\n");
++		return -EINVAL;
++	}
+ 
+ 	for (i = 0; i < ARRAY_SIZE(geni_i2c_clk_map); i++, itr++) {
+ 		if (itr->clk_freq_out == gi2c->clk_freq_out) {
+ 			gi2c->clk_fld = itr;
++			dev_dbg(gi2c->se.dev,
++				"I2C clk selected: freq: %u Hz, clk_idx: %u\n",
++				gi2c->clk_freq_out, gi2c->clk_idx);
+ 			return 0;
+ 		}
+ 	}
++
++	dev_err(gi2c->se.dev, "Unsupported I2C output frequency %u Hz\n", gi2c->clk_freq_out);
++
+ 	return -EINVAL;
  }
  
-@@ -1032,6 +1032,7 @@ static int ene_probe(struct pnp_dev *pnp_dev, const struct pnp_device_id *id)
+@@ -172,7 +198,7 @@ static void qcom_geni_i2c_conf(struct geni_i2c_dev *gi2c)
+ 	const struct geni_i2c_clk_fld *itr = gi2c->clk_fld;
+ 	u32 val;
  
- 	if (!dev->hw_learning_and_tx_capable && txsim) {
- 		dev->hw_learning_and_tx_capable = true;
-+		dev->tx_sim_enabled = true;
- 		timer_setup(&dev->tx_sim_timer, ene_tx_irqsim, 0);
- 		pr_warn("Simulation of TX activated\n");
- 	}
-@@ -1103,7 +1104,8 @@ static void ene_remove(struct pnp_dev *pnp_dev)
- 	unsigned long flags;
+-	writel_relaxed(0, gi2c->se.base + SE_GENI_CLK_SEL);
++	writel_relaxed(gi2c->clk_idx, gi2c->se.base + SE_GENI_CLK_SEL);
  
- 	rc_unregister_device(dev->rdev);
--	timer_delete_sync(&dev->tx_sim_timer);
-+	if (dev->tx_sim_enabled)
-+		timer_shutdown_sync(&dev->tx_sim_timer);
- 	spin_lock_irqsave(&dev->hw_lock, flags);
- 	ene_rx_disable(dev);
- 	ene_rx_restore_hw_buffer(dev);
-diff --git a/drivers/media/rc/ene_ir.h b/drivers/media/rc/ene_ir.h
-index c1c44e86e..f44cbc034 100644
---- a/drivers/media/rc/ene_ir.h
-+++ b/drivers/media/rc/ene_ir.h
-@@ -218,6 +218,7 @@ struct ene_device {
- 	int tx_done;				/* done transmitting */
- 						/* one more sample pending*/
- 	struct completion tx_complete;		/* TX completion */
-+	bool tx_sim_enabled;			/* simulated TX is enabled */
- 	struct timer_list tx_sim_timer;
+ 	val = (itr->clk_div << CLK_DIV_SHFT) | SER_CLK_EN;
+ 	writel_relaxed(val, gi2c->se.base + GENI_SER_M_CLK_CFG);
+@@ -809,11 +835,8 @@ static int geni_i2c_probe(struct platform_device *pdev)
+ 		return gi2c->irq;
  
- 	/* TX settings */
+ 	ret = geni_i2c_clk_map_idx(gi2c);
+-	if (ret) {
+-		dev_err(dev, "Invalid clk frequency %d Hz: %d\n",
+-			gi2c->clk_freq_out, ret);
++	if (ret)
+ 		return ret;
+-	}
+ 
+ 	gi2c->adap.algo = &geni_i2c_algo;
+ 	init_completion(&gi2c->done);
 -- 
-2.34.1
+2.53.0
+
