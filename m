@@ -1,124 +1,161 @@
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010019.outbound.protection.outlook.com [52.101.193.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11B9C2E7397;
-	Tue, 29 Sep 2026 20:32:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790713944; cv=none; b=lwAgA8ZUxfrpQO/lkFRNM/62Xx9sioDYIitv8dhKo2oFFGnu36iqgpLdGBtE33O99vQ28XCENOKBVEwG/KwLI7Kevx+rEDStCsGYCut41CVooeOKG5Xm+EUEImGlK/5COSfsS/DxSK8iWXIyjjdIWQ7Dwt/8rkNIzbWnwYk1crA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790713944; c=relaxed/simple;
-	bh=SyRbOsqp7ra3/hOFVINyjtCpID/Psn2PVKspaO8Y23E=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=DusxXkPJcnnW2B0uN2XdxT6BQwr1mLYLx5A1N9GFwQWN12pfuwJRCdYjorAUaaUtFiqLdYUfiNBl8kLUXumC7o9kRU7Fmw7jxhDFfUo19sy8Nz8df78wVknWRyLwr2KebhDzXCOrht5FBkjNaJwBdsSb/gVRDkNyIQzs6IEVSoA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=krisman.be; spf=pass smtp.mailfrom=krisman.be; dkim=pass (2048-bit key) header.d=krisman.be header.i=@krisman.be header.b=yWMFwYSs; arc=none smtp.client-ip=80.241.56.161
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=krisman.be
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=krisman.be
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BACAA49620;
+	Tue, 29 Sep 2026 20:32:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.19
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790713979; cv=fail; b=PbN/o8L1pbnB7wRaBLUbXa2AGQVb4Vv0dYqNYFZfoNy5c0eCCzf4PbVZgUO52x0m/dv/sPdVdqf8h10xO8rosJBCnSdjIBGYsLI1znUATUwabJ4nhkJ3evvwgyu7tUdI08jBje/qtrvyDO3RqLbhTt+NdPObRU4hmUNpr76VgNc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790713979; c=relaxed/simple;
+	bh=Mcd+ofT9GwErb+SagCTGhz+BWCxuXQetm20dzw23Sks=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=haOA1lRrKDIq4WFJWM8L7S0qfgOLOmvXnjfYlYnhhlkRC3DlEXa/CuWdhPkq/ODrfBK+ZVVUX6Z99PF2oteiak2smt2SNXf9bGvr/B8hEcN1Iob12hGkIbXArsyuT1AIkLTlvaPscGNYZCA8zZexhEtwnDUAiISuut2IchSMKnU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=appgate.com; spf=pass smtp.mailfrom=appgate.com; dkim=pass (1024-bit key) header.d=appgate.com header.i=@appgate.com header.b=pYML0PQu; arc=fail smtp.client-ip=52.101.193.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=appgate.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=appgate.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=krisman.be header.i=@krisman.be header.b="yWMFwYSs"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4hvVGP72jzzKp1b;
-	Tue, 29 Sep 2026 22:32:13 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=krisman.be; s=MBO0001;
-	t=1790713934;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aMO1TFFilty1lMotj3PlOLCIGv6KB3kYrfoPUAD1Z/c=;
-	b=yWMFwYSsvctbfxkt7eVRBy+y+3biYN91XB5dSY0SloUoKQlZO8CDVN9xzIlQj6p2L3Dl/z
-	bBc4kwbeJ7ae2K32oenVkhiBhdVpZIMqK0pkfPzo7+tOcXVvPAPXZ2ohk4pgQ0ln3344qL
-	OEA0eXMPu33AEt/EoiP0d+XoVZNsXfNpQLqn2wM8ZrPN4+TfX4tWMrmjfHsrUD/I29eoeW
-	DsgvEmUm93vJoij0jfVSpUPN5efHlV4+9RszhD1Tx2YSu81CMQqe6/N5VgF4RD+6/qjcH7
-	35/MTHeaStrsEYMSZ+W19ydqgGH0u87DLIhN5QP8cHTt+LEeZhM+BBgOtMYa8Q==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of gabriel@krisman.be designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=gabriel@krisman.be
-From: Gabriel Krisman Bertazi <gabriel@krisman.be>
-To: Mohammed EL Kadiri <med08elkadiri@gmail.com>, hughd@google.com,
- baolin.wang@linux.alibaba.com, akpm@linux-foundation.org
-Cc: brauner@kernel.org, andrealmeid@igalia.com, linux-mm@kvack.org,
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH] shmem: fix unicode_map leak with repeated casefold= option
-In-Reply-To: <3a57ec70731165b4b1244fa89bba95c82a666df8.1790712330.git.med08elkadiri@gmail.com>
-References: <3a57ec70731165b4b1244fa89bba95c82a666df8.1790712330.git.med08elkadiri@gmail.com>
-Date: Tue, 29 Sep 2026 16:32:08 -0400
-Message-ID: <878q4jyf1z.fsf@mailhost.krisman.be>
+	dkim=pass (1024-bit key) header.d=appgate.com header.i=@appgate.com header.b="pYML0PQu"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GALHi3ApVoTPg/8MZc4dlU+coLclpG0wHAySui2WRpICQGFlKOv9Q5Jw/B7/iu1NC9TT2X2dd+4waFbkDW82l2zSlWL/fmaNY6F1AG+7c6MFgO3vMDodm/tHzNKfZ0tPsyeeBXh3KKtB/Wtxcq4XH+cq5ziEWsyZWh2WRTjj9FvByPJIE0VGGbU+Tfr4fWC4/hrxwF8NK5JkhgcrHzhR8yy2+QGGsX4HlyOSIKhhh36hjKtGeNujfpJldjOP8wi7VPp0c8UfLAGWZnybEzihDrgU16gvhmMP1BqT0sxmW3l29NT71KUlw78/WMf3LALDy7O/GMEJaxirfNY7qL6/Ow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
+ bh=0pNmNLsHD5uO6G7DqiH/wGg0jXsNRt/31ex/F/SOyfY=;
+ b=YSLMkk8rwEiSnoD93Ij2n5aqeG+ca9fpJMrdcl6WqI6gWi+Co8b2Eh+K4+JBNjcuxLza/7dsGZdkwF+Y26dCl4df8wthUcQFCEdJPjbqJxGUwYvP6c2Um74ngz9l0P6NtH5q8fXlgon4vYSUJAjTJNqdc2AQZdNt4ZOA/hmX1VyrtO/FN/LJB+HItEQl6pwfeoMJURQ7JTC6weV7GFrBhsYglmYoKmN1ODiwNK1JefcWytluquNk3py+Z5qBxNZGxeBdVNytWmi1z1MHnqqgFWTl60OZf+5aVDiUUWWOntv5uwh+pPC88/Ly7v4GwLVEqQxc6QgRlJFqo/ZcEcPTeg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=appgate.com; dmarc=pass action=none header.from=appgate.com;
+ dkim=pass header.d=appgate.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=appgate.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0pNmNLsHD5uO6G7DqiH/wGg0jXsNRt/31ex/F/SOyfY=;
+ b=pYML0PQuK2m/FaWcF1ZTAyAeV8WvN0HZe37sdkcbPJvVx6JM9TPSyXb4uyb9S7GAZu4sgBQCnTc0gXc5FSKoecIsdT/251jNNJTWdT5iIn2Mnm+70iXgjrngfL/stZ/AjGjN6lh0H6EUS/95vtgGFYlv7hnP6rzxGE4TjY/+DUY=
+Received: from DS7PR05MB7320.namprd05.prod.outlook.com (2603:10b6:5:2c5::22)
+ by SABPR05MB998952.namprd05.prod.outlook.com (2603:10b6:806:4f0::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
+ 2026 20:32:53 +0000
+Received: from DS7PR05MB7320.namprd05.prod.outlook.com
+ ([fe80::90e8:a175:4ca1:74ec]) by DS7PR05MB7320.namprd05.prod.outlook.com
+ ([fe80::90e8:a175:4ca1:74ec%4]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
+ 20:32:53 +0000
+From: Dave Butler <david.butler@appgate.com>
+To: Alexander Lobakin <aleksander.lobakin@intel.com>, Tony Nguyen
+	<anthony.l.nguyen@intel.com>
+CC: "davem@davemloft.net" <davem@davemloft.net>, "kuba@kernel.org"
+	<kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
+	"edumazet@kernel.org" <edumazet@kernel.org>, "andrew+netdev@lunn.ch"
+	<andrew+netdev@lunn.ch>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"emil.s.tantilov@intel.com" <emil.s.tantilov@intel.com>,
+	"luoxuanqiang@kylinos.cn" <luoxuanqiang@kylinos.cn>,
+	"bryan.fraschetti@canonical.com" <bryan.fraschetti@canonical.com>,
+	"tristan@talencesecurity.com" <tristan@talencesecurity.com>,
+	"tomasz.lichwala@linux.intel.com" <tomasz.lichwala@linux.intel.com>,
+	"horms@kernel.org" <horms@kernel.org>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>, Jacob Keller <jacob.e.keller@intel.com>, Aleksandr
+ Loktionov <aleksandr.loktionov@intel.com>
+Subject: Re: [PATCH net 6/6] iavf: cap advertised max_pkt_size at the
+ single-buffer HW limit
+Thread-Topic: [PATCH net 6/6] iavf: cap advertised max_pkt_size at the
+ single-buffer HW limit
+Thread-Index: AQHdT53CBEJx2voabEC4EKwJRzbAtLblvSaAgAA9gVE=
+Date: Tue, 29 Sep 2026 20:32:53 +0000
+Message-ID:
+ <DS7PR05MB73201A15AD9E0795156F88B18B8C2@DS7PR05MB7320.namprd05.prod.outlook.com>
+References: <20260928230429.495442-1-anthony.l.nguyen@intel.com>
+ <20260928230429.495442-7-anthony.l.nguyen@intel.com>
+ <ab87c498-b1c3-4d0d-b4ba-57e1826592a8@intel.com>
+In-Reply-To: <ab87c498-b1c3-4d0d-b4ba-57e1826592a8@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=appgate.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS7PR05MB7320:EE_|SABPR05MB998952:EE_
+x-ms-office365-filtering-correlation-id: c6669282-9d35-4c3a-df05-08df1e68d65d
+x-appgate-rule-whitelistdomains: triggered
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|23010399003|7416014|1800799024|366016|56012099006|4143699003|10067099003|22082099003|18002099003|38070700021;
+x-microsoft-antispam-message-info:
+ kSNAk1PfuuK3FcQL0hQXYdwoiqDlb0QfFP2ni0knNf3dWmyPwSuzezSNbNzHuFjT/Vk/fdIoktymL+uEM4aCe2JEoW358VQri4zAdNyssQ1v3qxmeHw3KK7Ni1LMwqBVkfbA2qJoHmpWV4UinLvtaxGjdo7O0/W7bQTqkv64+L7NL0ar5QLu7r3QlT206UItALAmTRomz2CSOv7wlIlPSGTTGv8kCf/u1SbdvAj4ncvlVKU5zD1XBYtdMDWASKV1PichswEWzihJWA4AkBim6O61ZYE4ZhUjAZvQuqBpsxhDKMW2k9G42aufc6GAJe90sCdsAOMEow8By9Zxwq2ijKvGfEOp04zQSa0+N/XRSf4oEw4OWFo416HvRJy+eU7LhiNnhaqAHcoL1fzSi/qadQKvTWRFmtJS7fCJhT9rQGvpqmT9LKUOOnQ5qbiZLxXv9Jl93YpaT5sJ9m3SaNasq/+HbZpk8cfHFk0RjTsdhDbkfHkNx0MhgcSVtU0I1KAu5asmyx2/s5LdHI1/9cnfIgMfLEmfYQEr5fXm289KqYBlKN48nAHdqUFIk0liI0WsZdxn18rbXMLDDBD2EUQf/fV7yfM9qFTL3IULRyfJ5Gr9LiYiBvqda+mTqgP9DliyfH0jjXcg8FK4skLo6qvmTCZ5turxi4dDqTQPYpi7T+BsyEpvb8LbaUc9pNCJ9wzJpvCia42jyymNYJqO30jneUZIVWA8effWZe29qCzxIzM=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR05MB7320.namprd05.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(1800799024)(366016)(56012099006)(4143699003)(10067099003)(22082099003)(18002099003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?52XdcIy/3nPAc23do2RFanXfsaZYZhXcBNefLVYFSqqHmD0IyDAk2166nr?=
+ =?iso-8859-1?Q?YV4PeDxrC4hnktdjfU3HidEEDkxVc9YUCVhaYiiZDI3W5UeaPoa8Dea03Y?=
+ =?iso-8859-1?Q?OajiD3MGVCEjA9n1MFrHEsSmlmMiRaY81AZDsq6A96mugD1D6mx9SX8mrp?=
+ =?iso-8859-1?Q?+tN0dfTK01sMzMMHG+FS0vig0d7TTPWhVPVL5PpBvApXh/LmoN8ROC+VEA?=
+ =?iso-8859-1?Q?2HH4VWBWh4gNu/VP6Qbh7mmVvP7X8zxYg1dxMuwVlW6vxNsGps5cnHzF5B?=
+ =?iso-8859-1?Q?mB9Ph6vjr0esPKVKEcFPFBF4KdsiuVAx0MDu9GktBB03po5MsnjDJqbIsW?=
+ =?iso-8859-1?Q?LZcjv+jJ8PXg3xCbodbp/GF8SOheL5T/nU6rTxmXarZgNB3GyZehPp0Cby?=
+ =?iso-8859-1?Q?UZrD8goj4a47GV43yNbfoWHHafdGcsqbnRxuT3PBtGQhYOfFfmXILPw1Fh?=
+ =?iso-8859-1?Q?0dddXOQFHot58CCDFOk3YrD3R0fqrDsmirEtlGcUVfqzhWpEZqBN3krQKN?=
+ =?iso-8859-1?Q?klXO4ni8fjvAttRtXY2vuAdX2eDauBDPFDACSqisF6Vo0jGR7JnaqG2LbF?=
+ =?iso-8859-1?Q?UK2mfEBn/58McRW7uTV3jbC1skTsmV5+Pgpr7cJ9LOCXIk9xsnRVnWQxFd?=
+ =?iso-8859-1?Q?5ne9oIh8hgM4r7fw7qu+yBGJV2Im/WwWbg+c6FKBPirOwYJR5lH1XDBUm2?=
+ =?iso-8859-1?Q?G1t2sNYKdIjqPsSle0V2rQXDEEfEkl5ovb1ZejRTURUa8fjvwXBXFTlcGm?=
+ =?iso-8859-1?Q?+MP3jfQynqgWAHMvQEHUpWWaOv7mx3H7DpToKui9rVzF9j5YcKRK003t3g?=
+ =?iso-8859-1?Q?JXWVR3nWMHpuwJ0XeHqkf/1uf+EOuHpDNWVxsPCbuys+OC1cVpGm1UhhwT?=
+ =?iso-8859-1?Q?Ztof7a3eLOOUQRYCR3H4eL5Xak+8S1r592n/xSJgObjL1Tm7uED+aEgxBA?=
+ =?iso-8859-1?Q?hFDsrToxmPgcUvUe7TQpc/RBcwdQEBxtqocgiduskCwiqF899SwJjvRjKd?=
+ =?iso-8859-1?Q?tbHL92h6XLOzufwS8wwZTfKVjDn+5WKOUUJFtyHwLDJgJjTocUFe2FM6aD?=
+ =?iso-8859-1?Q?SBjLUFS+g7ew2TDre+8e4MATM1CZPnPoZdm9Rqip1Ylpoz5Jvl1sv0M8Xb?=
+ =?iso-8859-1?Q?NRwOOBkHU9hMO5YIsqEilnRFGuO0DzJfzYSwsBifUouTP4ElpBc6KfBDrw?=
+ =?iso-8859-1?Q?jrA2PlY/hl4Q+cyL2rNnJpHIxHgE1boIQ4x7OjDuagKEhPix6b0JpBnTGq?=
+ =?iso-8859-1?Q?4Pw3AWCFSeO7mb50gT3IsikpMCLdXlb40hWvjUoSGwjULbK4rI6dtlBsHp?=
+ =?iso-8859-1?Q?jYfUIU2Gos40LDbKT7vDyJvfvgxwOfeFltxLeEkHneLhASY5FwP8yWWeBZ?=
+ =?iso-8859-1?Q?63Xq6336NVUvhTG5eWea11I9ksK84/sqo0cg9m+cHvkcNYoGhgmR2fsaqH?=
+ =?iso-8859-1?Q?R+NXz3rqDLt1epQ+7TynOMRUNfQx9GKBctymnO8C34zzRzXx2hbwqga2QE?=
+ =?iso-8859-1?Q?b5i8qQuplI4v0AsmPhC1WO0F9q9sGo9MMFsggjiEFff3JEgSjok5rlrB59?=
+ =?iso-8859-1?Q?XgZqMXXn7JMp3Y+RVEDvNp8m9HyVRcKhFt7JxMc2emFF+/rL7Nk5Rrpyfp?=
+ =?iso-8859-1?Q?fDaj5zSxIg36UzBoRoU5Cx2/yzWi5LJX0K4ki6r6HhzLtMv9aazAMUJI3f?=
+ =?iso-8859-1?Q?/MLpnNAHQruZkNeETREofeFDJiXEQla81TvASA7N1ElgvLw1z6WEoB0xAJ?=
+ =?iso-8859-1?Q?z/hR9auvOtzakF6+ucQvF0Qqne0dmhXBnLZtblbwxWMZT+4IQclEZ8WjB8?=
+ =?iso-8859-1?Q?WHRb6mklKA=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Rspamd-Queue-Id: 4hvVGP72jzzKp1b
+X-OriginatorOrg: appgate.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR05MB7320.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c6669282-9d35-4c3a-df05-08df1e68d65d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Sep 2026 20:32:53.1288
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b93e809a-49c5-4a0f-a606-82b846acc30d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: NS+K8E8HwaEOks+XSHwQ/Pfk8OrhsNbMBklvGtknOuLbAR+nuKjLLOEaINEcy0+HQXBUdO1gc0+EVGIXUzd7OgdMFYpliNXz8fPPksL43qM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SABPR05MB998952
 
-Mohammed EL Kadiri <med08elkadiri@gmail.com> writes:
+>> +     max_frame =3D min(max_frame, LIBIE_MAX_RX_BUF_LEN);
+> Shouldn't we cap it to 9728 instead?
 
-> Each casefold= option makes shmem_parse_opt_casefold() allocate a
-> unicode_map with utf8_load() and store it in ctx->encoding.  When the
-> option is given more than once in the same mount, the later call
-> overwrites ctx->encoding and the earlier map is never freed.
->
-> Reproducer:
->
->   mount -t tmpfs -o casefold,casefold tmpfs /t; umount /t
->
-> Repeating this 50000 times grows kmalloc-32 by about 50000 objects,
-> and kmemleak reports them as allocated from:
->
->   utf8_load+0x21/0x110
->   shmem_parse_opt_casefold.isra.0+0x65/0x100
->   shmem_parse_one+0x368/0x510
->
-> Free the old map before storing the new one, so only the last
-> casefold= is kept.  On a normal mount with a single casefold=,
-> ctx->encoding is still NULL at that point and utf8_unload(NULL)
-> does nothing, so nothing changes there.
->
-> With this patch the same loop leaves kmalloc-32 flat and kmemleak
-> reports nothing.
->
-> Fixes: 58e55efd6c72 ("tmpfs: Add casefold lookup support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mohammed EL Kadiri <med08elkadiri@gmail.com>
-> ---
-> This is a separate leak from the remount one fixed in
-> https://lore.kernel.org/all/ba38f80f629fd093c77f3a49fdab7b71ee7bbc5f.1790687276.git.med08elkadiri@gmail.com/
-> which Gabriel has reviewed; I found it while testing that patch.
-> The two apply in either order.  Tested on mm-unstable, alone and
-> together: kmalloc-32 stays flat for duplicate casefold=, single
-> casefold= and remount, and kmemleak is clean.
->
->  mm/shmem.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/mm/shmem.c b/mm/shmem.c
-> index 07b2855dfb7b..262f1bcb6144 100644
-> --- a/mm/shmem.c
-> +++ b/mm/shmem.c
-> @@ -4731,6 +4731,7 @@ static int shmem_parse_opt_casefold(struct fs_context *fc, struct fs_parameter *
->  	pr_info("tmpfs: Using encoding : utf8-%u.%u.%u\n",
->  		unicode_major(version), unicode_minor(version), unicode_rev(version));
->  
-> +	utf8_unload(ctx->encoding);
->  	ctx->encoding = encoding;
+No objection.  To be clear, LIBIE_MAX_RX_BUF_LEN is 9728, so it's
+the same value.
 
-IMO, nack, this is not the right fix.  There is no point in accepting
-multiple casefold parameters and we shouldn't allow it.  If
-ctx->encoding is already set, we should -EINVAL and fail the mount.
+Before 5fa4caff59f2 the cap was IAVF_MAX_RXBUFFER (9728, "largest size for
+single descriptor"), and that same commit replaced it with LIBIE_MAX_RX_BUF=
+_LEN
+(9728U, "The largest size for a single descriptor as per HW").
 
+That said, I'm happy to do whatever.  Just let me know your preference.
 
->  
->  	return 0;
->
-> base-commit: 90ddfbd1963659ca4a5d3d7f20717a4222682a8e
-> -- 
-> 2.53.0
->
-
--- 
-Gabriel Krisman Bertazi
+Intended recipient is public
+The information contained in this electronic mail is confidential informati=
+on intended only for the use of the individual(s) or entity(s) named. If th=
+e reader of the message is not the addressee (or authorized to receive for =
+the addressee), you are hereby notified that any dissemination, distributio=
+n or copying of this communication is strictly prohibited. If you have rece=
+ived this communication in error, please immediately notify the sender by r=
+eply e-mail and/or by telephone and destroy the original message.
