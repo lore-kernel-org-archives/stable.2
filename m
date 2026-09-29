@@ -1,115 +1,160 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 005B43D333E;
-	Tue, 29 Sep 2026 14:41:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 429D151DE01
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 14:42:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790692917; cv=none; b=t9tfGtoES2zyFzYGhmcR5yuBAME1PE0UI72tGpmULFk7h4+SE62i8Sdcpiw/6Qymm0sS7lFxT26ahXA7ime2HVSM9fy4QKMhcF8Dw8b5hjPpRsFzHPQS8ZXe79D6ho6K0FagVwpaHwAcZHzSqmymri5ikqQGMr3AcTsnyY9tKD8=
+	t=1790692952; cv=none; b=P6OE/isxkaScBMi5fV33jbFT8+mLPBpbtUV5IvmOyzIUNPlVFsU0x9HYFFPYcGVWnWpv6xqeylKlrXSIFVcQGjWCRpHdVO/7KNkGalXnloxSsU+88PPuxsrlBhadQuGAPptQTNICqYoN7OGUfpDdiOImrJlcUDu3BAkm2lXt1z4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790692917; c=relaxed/simple;
-	bh=+c3JSCNRlVf7GQPvxqGKsXim9O25iUlh6rMym0DW97o=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QAChzImHCVR3wIMHOb0IrFCedKZid1jzRkHmHJH84h0n+WAYNkLCLVW14RORzweQfTyxi75Wcipe3Nv3w81NoxP1RUHEvioRF11vPjlcqmWT+VP7jbeM2nlKlcKDpjtIRVotVMHrY21kzEbTnpU7gdRT+7xjFGdrKhazajN7qXo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RAihl2lP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790692952; c=relaxed/simple;
+	bh=dT1Z9jt2cFbJrpFqMVvCl4xCih/t7IDiLV/jFXKFwTQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=uwxsh4KG545I/rS9FtoE7t87RKYeqrAPEaHj4eimjeEhZ67yxuwSWk1SWRSRPfdypt8uPTygICFzR5qSvubpHorlm0ovYo0YqkhGHInwMjB/S/iXxD9CSZHp10cUSNeMOKT6/eyIJJo94lWJSLFdS0mEfqQl9DWDiJXtbmvJJWQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HEYeGx5X; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RAihl2lP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A16971F000FF;
-	Tue, 29 Sep 2026 14:41:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HEYeGx5X"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B8581F000FF;
+	Tue, 29 Sep 2026 14:42:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790692911;
-	bh=mEp1E5ZkpK+YzCmL02lu7CoOG9w1iP9j8LGhTzBnrFU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=RAihl2lPJAPALLEiZiOTDo5TmUZMn/dNqVYiqoKmJ2RSToc0qIyUA21ncx/34uvLD
-	 dqqAxt1NwPkguSDbELCnMEFR9RGbll8biNSxSrzRbp1jI1apw08QM1ZgFf4BvUSlly
-	 B3Iio7hQeb6nCDDun5Rn5LCH5FABx336HT+Mm+PfN9vKna9v7xE9Y6v9OFqgWKPSqc
-	 yYA92i6rLhepYXAOl7GeQ1AMnoSBtO9sTrHa9AQ2W6v1EKGnOn8fg984Y5Xy6mSutV
-	 52E3HRLtkOM//b4Y3kaRoyvLL4/LmIcaaCE0OQwlZSIbiF4oCqkkMF2x9yGw/ClBu2
-	 TaCj/o2lGxbvw==
-Message-ID: <f6587a8e-b744-4be9-89d9-dc7079e97e22@kernel.org>
-Date: Tue, 29 Sep 2026 16:41:48 +0200
+	s=k20260515; t=1790692950;
+	bh=mCNLqkmrZ8fclg9a3eMAfjMVxFQzzUxmnOOMOpfeXWw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=HEYeGx5XhjL0BmoVtyVG1C1LIzsWGJ6OSpOsJDXjR79JmF3uqYz5CybfffXWcBsi4
+	 O5+bdbzDLJftlDu+HRiUO6kQ05V3pMAfpcghVFI3Y+tmn4vI+JKy4GP6QqdOyCyPLA
+	 giEq086Gqa7jxH+XpE4e6wBlklA+Wv4V8AaPtzWc47KpynZz+chKQav9DLrhFGYRgs
+	 xIZ7l2V8R+ESR0KksB6BTKXfcOPh34ajUA2/7mHSSi+2X/gBcxyeBUaKzj8cnVFfOZ
+	 UrWOABFNaxXlOLaKoIubj3O4NSfIBbp967rZq30/iI7A89fWYJwRPLhcJJ3hLlb8MN
+	 tjZh2mv6vO43A==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
+	Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] i2c: qcom-geni: Fix hardcoded clock index in SE_GENI_CLK_SEL
+Date: Tue, 29 Sep 2026 10:42:28 -0400
+Message-ID: <20260929144228.3676116-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026092908-grasp-skylight-e539@gregkh>
+References: <2026092908-grasp-skylight-e539@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: uvcvideo: fix output terminal type check for ID
- namespace
-To: raoxu <raoxu@uniontech.com>, laurent.pinchart@ideasonboard.com
-Cc: mchehab@kernel.org, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <ABE1FC11603F6BBE+20260810091624.2159038-1-raoxu@uniontech.com>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <ABE1FC11603F6BBE+20260810091624.2159038-1-raoxu@uniontech.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi,
+From: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
 
-On 10-Aug-26 11:16, raoxu wrote:
-> From: Xu Rao <raoxu@uniontech.com>
-> 
-> Commit 3d9f32e02c2e ("media: uvcvideo: Create an ID namespace for
-> streaming output terminals") added a separate internal ID namespace for
-> streaming output terminals.  The namespace is only valid for those
-> terminals because their descriptor IDs are used by streaming interface
-> bTerminalLink fields, and uvc_stream_for_terminal() intentionally masks
-> the internal namespace bit when matching that link.
-> 
-> The parser currently decides whether to use the namespace with
-> `type & UVC_TT_STREAMING`.  Terminal types are values, not bitmasks.
-> Since UVC_TT_STREAMING is 0x0101, standard non-streaming output terminal
-> types such as UVC_OTT_VENDOR_SPECIFIC, UVC_OTT_DISPLAY and
-> UVC_OTT_MEDIA_TRANSPORT_OUTPUT also make the test true through their
-> 0x0100 bits.
-> 
-> Those terminals can then receive an internal ID that differs from their
-> descriptor ID even though normal UVC descriptor references still use the
-> 8-bit descriptor ID.  This can make later entity lookups fail or hide an
-> entity ID collision that should be handled as a regular UVC descriptor
-> collision.
-> 
-> Use an equality check so that only UVC_TT_STREAMING output terminals
-> enter the separate namespace.  The issue was easy to miss because real
-> streaming output terminals make both the bitwise and equality tests true,
-> so the devices targeted by the original change keep working.
-> 
-> Fixes: 3d9f32e02c2e ("media: uvcvideo: Create an ID namespace for streaming output terminals")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Xu Rao <raoxu@uniontech.com>
+[ Upstream commit cb97bf3d4f91453b881acaf8e9f0cc47bb40b604 ]
 
-Thank you for your patch.
+qcom_geni_i2c_conf() writes a hardcoded 0 to SE_GENI_CLK_SEL, which
+selects an index from the hardware clock performance table. This always
+picks the first table entry regardless of the actual source clock
+configuration. On platforms where the matching entry is not at index 0,
+the wrong source clock divider is active and the I2C bus runs at an
+incorrect frequency.
 
-I have merged this into:
+Use geni_se_clk_freq_match() in geni_i2c_clk_map_idx() to find the
+performance table index for the source clock (32 MHz or 19.2 MHz). Store
+the resolved index in a new clk_idx field in geni_i2c_dev and write it
+to SE_GENI_CLK_SEL instead of the hardcoded 0.
 
-https://gitlab.freedesktop.org/linux-media/users/uvc/-/commits/for-next/
+Fixes: 37692de5d523 ("i2c: i2c-qcom-geni: Add bus driver for the Qualcomm GENI I2C controller")
+Signed-off-by: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+Cc: <stable@vger.kernel.org> # v4.19+
+Reviewed-by: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
+Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
+Link: https://patch.msgid.link/20260921-i2c-fix-se-clk-conf-v2-1-8b5537ceff2d@oss.qualcomm.com
+[ adapted clock initialization to the older driver’s 19.2 MHz-only table and existing probe path. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/i2c/busses/i2c-qcom-geni.c | 33 +++++++++++++++++++++++++-----
+ 1 file changed, 28 insertions(+), 5 deletions(-)
 
-Regards,
-
-Hans
-
-
-
-> ---
->  drivers/media/usb/uvc/uvc_driver.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-> index e289cc71ba98..acfc5797a1c2 100644
-> --- a/drivers/media/usb/uvc/uvc_driver.c
-> +++ b/drivers/media/usb/uvc/uvc_driver.c
-> @@ -1130,7 +1130,7 @@ static int uvc_parse_standard_control(struct uvc_device *dev,
->  		 * so limit usage of this separate namespace to streaming output
->  		 * terminals.
->  		 */
-> -		if (type & UVC_TT_STREAMING)
-> +		if (type == UVC_TT_STREAMING)
->  			id |= UVC_TERM_OUTPUT;
-> 
->  		term = uvc_alloc_new_entity(dev, type | UVC_TERM_OUTPUT,
-> --
-> 2.50.1
+diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-qcom-geni.c
+index f6e46168571f5..aeec075b4501b 100644
+--- a/drivers/i2c/busses/i2c-qcom-geni.c
++++ b/drivers/i2c/busses/i2c-qcom-geni.c
+@@ -77,6 +77,8 @@ enum geni_i2c_err_code {
+ #define XFER_TIMEOUT		HZ
+ #define RST_TIMEOUT		HZ
+ 
++#define GENI_SE_CLK_19P2MHZ	19200000UL
++
+ struct geni_i2c_dev {
+ 	struct geni_se se;
+ 	u32 tx_wm;
+@@ -91,6 +93,7 @@ struct geni_i2c_dev {
+ 	struct clk *core_clk;
+ 	u32 clk_freq_out;
+ 	const struct geni_i2c_clk_fld *clk_fld;
++	u32 clk_idx;
+ 	int suspended;
+ 	void *dma_buf;
+ 	size_t xfer_len;
+@@ -157,13 +160,36 @@ static int geni_i2c_clk_map_idx(struct geni_i2c_dev *gi2c)
+ {
+ 	int i;
+ 	const struct geni_i2c_clk_fld *itr = geni_i2c_clk_map;
++	unsigned long res_freq;
++
++	/*
++	 * Frequency counters are calibrated for a 19.2 MHz source clock
++	 * and are not valid for any multiple of it (e.g. 38.4 MHz).
++	 * Use exact=true and verify res_freq matches req_freq literally
++	 * to reject harmonics that would produce an incorrect I2C frequency.
++	 * ACPI systems have firmware-managed clocks and retain the default index.
++	 */
++	if (!has_acpi_companion(gi2c->se.dev) &&
++	    (geni_se_clk_freq_match(&gi2c->se, GENI_SE_CLK_19P2MHZ,
++				    &gi2c->clk_idx, &res_freq, true) ||
++	     res_freq != GENI_SE_CLK_19P2MHZ)) {
++		dev_err(gi2c->se.dev,
++			"Unsupported SE source clock: must be exactly 19.2 MHz\n");
++		return -EINVAL;
++	}
+ 
+ 	for (i = 0; i < ARRAY_SIZE(geni_i2c_clk_map); i++, itr++) {
+ 		if (itr->clk_freq_out == gi2c->clk_freq_out) {
+ 			gi2c->clk_fld = itr;
++			dev_dbg(gi2c->se.dev,
++				"I2C clk selected: freq: %u Hz, clk_idx: %u\n",
++				gi2c->clk_freq_out, gi2c->clk_idx);
+ 			return 0;
+ 		}
+ 	}
++
++	dev_err(gi2c->se.dev, "Unsupported I2C output frequency %u Hz\n", gi2c->clk_freq_out);
++
+ 	return -EINVAL;
+ }
+ 
+@@ -172,7 +198,7 @@ static void qcom_geni_i2c_conf(struct geni_i2c_dev *gi2c)
+ 	const struct geni_i2c_clk_fld *itr = gi2c->clk_fld;
+ 	u32 val;
+ 
+-	writel_relaxed(0, gi2c->se.base + SE_GENI_CLK_SEL);
++	writel_relaxed(gi2c->clk_idx, gi2c->se.base + SE_GENI_CLK_SEL);
+ 
+ 	val = (itr->clk_div << CLK_DIV_SHFT) | SER_CLK_EN;
+ 	writel_relaxed(val, gi2c->se.base + GENI_SER_M_CLK_CFG);
+@@ -810,11 +836,8 @@ static int geni_i2c_probe(struct platform_device *pdev)
+ 		return gi2c->irq;
+ 
+ 	ret = geni_i2c_clk_map_idx(gi2c);
+-	if (ret) {
+-		dev_err(dev, "Invalid clk frequency %d Hz: %d\n",
+-			gi2c->clk_freq_out, ret);
++	if (ret)
+ 		return ret;
+-	}
+ 
+ 	gi2c->adap.algo = &geni_i2c_algo;
+ 	init_completion(&gi2c->done);
+-- 
+2.53.0
 
