@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FF1E514746
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 11:43:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D939514770
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 11:43:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790682215; cv=none; b=e+2jY+4LO2OM9Z8BNgxNECQYsOgJy7G4aXqRKLSTa4Ez+gA0EDc221P+8S+2CbdxNTcefRaT1ChkDt5sF0Cc15ymhn8PU8jmxZmidVlQsEopgBOB6UOqSQvztwznwZSJ18ZGYnSci8u05mA9BmBq1Cj927OsTkzw5mGH983aFh8=
+	t=1790682218; cv=none; b=VtuuYVeOAaDYwpwUECT/S/klSScve6TqthxCCuZ2ItlPPg3bkL8DFiu7UNDablk6+3WF8Y7n+d6BEYGdhzKbohzVNKesgJudV/W0zucCu01bPnGQdfvbfhhra7f0MNhAkyPa5YCMtRmAPQup0B7PYb4WH8LQxGN1KCy8QMwDXIo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790682215; c=relaxed/simple;
-	bh=Gv9mIZLgkumf8tfva45xuBajwVDO35Zh16saqCkErzI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=INnqWlQQ3TdiDbXrcm1f3G3IzwK1V95baw9LCxZwMHMqmEacH2H6T0J/cNTTIYIvLkMuSi10RSouNtM/UtjVmiT8M7zXZ9a+Ycsd6VvhI6XPsHEVZB21ycZwaC5998xheCD0cpLzTaHw6XPsird+79/H5ejV7JgAAnC98kGYQbc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=SLsYIhMz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790682218; c=relaxed/simple;
+	bh=DgXuW3OJTiutn3GhxzQtO62JvjCDO6trq6NycGnHmbI=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=EZWIuUC8CQ58fktgOHzcZT5fPNv+6J6B7+l5vPoaLApiSE/bqYoeei8LlJZ5chta7Jfczec5Yp+EkjSg9JXJtjyqcXbPP5UbiJfQf/Nf71UeZawOxQDZeoxcWxmbx9N7myUDrImnVMBs4lixpmnW5NUCCs881EjHh11rP/Tb+C8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=imDzS7lB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SLsYIhMz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDA571F000FF;
-	Tue, 29 Sep 2026 11:43:32 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="imDzS7lB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A62841F000FF;
+	Tue, 29 Sep 2026 11:43:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790682213;
-	bh=9NBgbdedeisFR1QGSrJeUuGNDg+Aw06ibe0asKuSw+Q=;
+	s=korg; t=1790682216;
+	bh=1hLa6tkzzIUtvEIW3WZeJk98iGYLzl/IT1ZW43hrlhk=;
 	h=Subject:To:Cc:From:Date;
-	b=SLsYIhMzhOrR5z5NXBZqSF5IMRQ0gjaOzcCZYVlaoJ7ngEFJU7TC6ExzTtX9nhi8Q
-	 pxvzSvljqI0ABQ3xClS7MjA9ZF2brUVdzRrSUIbP6Ml3wWZbk5CgKsQqdIwzjc6Jsa
-	 z0hRgP9Jm+ti31ASmqaQgOvFt6V/1CXELjEmFlno=
-Subject: FAILED: patch "[PATCH] sched/cache: Honor migrate_llc_task semantics in active load" failed to apply to 7.2-stable tree
-To: wanglu.priv@gmail.com,mingo@kernel.org,peterz@infradead.org,stable@kernel.org,tim.c.chen@linux.intel.com,yu.c.chen@intel.com
+	b=imDzS7lBDQkAi5VDC1vEjTFAhZEXVAD/1eP8od3sUXizFNrJhIBnE4vZh+dH6ZSII
+	 CP1JHcRNEvhcXhMunCPXFaSkb43C7k0gGAYbM4+EWGn0S52h4prIJ0BeU4bUhefANG
+	 yd4GDLoir6z85Y8p3w85qIbDUN62hM2ToAxrOnYs=
+Subject: FAILED: patch "[PATCH] sched/cache: Introduce task_struct->sched_cache_grp to fix" failed to apply to 7.2-stable tree
+To: tim.c.chen@linux.intel.com,imv4bel@gmail.com,mingo@kernel.org,peterz@infradead.org,stable@kernel.org,yu.c.chen@intel.com,zenghui.yu@linux.dev
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 29 Sep 2026 13:43:25 +0200
-Message-ID: <2026092925-exponent-unwoven-df57@gregkh>
+Date: Tue, 29 Sep 2026 13:43:27 +0200
+Message-ID: <2026092927-ageless-staple-093f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
 git checkout FETCH_HEAD
-git cherry-pick -x d6013e2465d98d524b030a81c1223882a1bb7e4c
+git cherry-pick -x b636fef85bda7d1bab9c0a45067ab1508d79d946
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092925-exponent-unwoven-df57@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092927-ageless-staple-093f@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,183 +62,538 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From d6013e2465d98d524b030a81c1223882a1bb7e4c Mon Sep 17 00:00:00 2001
-From: Lu Wang <wanglu.priv@gmail.com>
-Date: Mon, 21 Sep 2026 17:37:23 -0700
-Subject: [PATCH] sched/cache: Honor migrate_llc_task semantics in active load
- balance, to fix LLC mis-scheduling bug
+From b636fef85bda7d1bab9c0a45067ab1508d79d946 Mon Sep 17 00:00:00 2001
+From: Tim Chen <tim.c.chen@linux.intel.com>
+Date: Mon, 21 Sep 2026 17:37:25 -0700
+Subject: [PATCH] sched/cache: Introduce task_struct->sched_cache_grp to fix
+ UAF
 
-Cache aware scheduling introduced the migrate_llc_task migration type to direct
-tasks toward their preferred LLC, but its semantics can be lost when passive
-load balance falls back to active load balance (ALB). This may allow ALB to
-select a candidate whose preferred LLC does not match the destination, moving
-it away from its preferred LLC.
+Add a sched_cache_grp pointer to task_struct so that scheduler code
+can access the cache group directly via the task, without going
+through mm->sched_cache_grp.  This decouples the scheduler's hot-path
+accesses from the mm_struct.
 
-Example scenario:
+Each task holds its own refcount on the sched_cache_group, separate
+from the reference held by its mm_struct.  The reference is acquired
+in copy_mm() (fork) and exec_mmap() (exec), and released in exit_mm().
+This fixes the use-after-free when account_mm_sched() reaches the group
+through a task whose mm is being switched, as reported by Hyunwoo:
 
-src_rq has two runnable tasks, p1 and p2. p1 prefers dst_rq (dst_llc), while p2
-prefers src_rq (src_llc). In this case, migrate_llc_task is set because src_rq
-has at least one task, p1, that wants to migrate to dst_rq. In ALB,
-can_migrate_task() finds p2 and returns true for it, thus moving p2 out of its
-preferred LLC.
+  https://lore.kernel.org/lkml/apPb-Dr4nPYuHQOK@v4bel/
 
-Solution:
+Convert all scheduler code in fair.c and exit.c to use
+p->sched_cache_grp instead of p->mm->sched_cache_grp.
 
-The CPU stopper in ALB constructs a fresh lb_env that does not inherit
-migration_type from the passive load-balance pass. Two approaches are
-possible:
+Keep the fork/exec/exit reference management out of the generic mm
+paths: add sched_cache_fork(), sched_cache_fork_cleanup(),
+sched_cache_exec_mmap() and sched_cache_exit_mm() in
+kernel/sched/cache_sched.c (with empty stubs for !CONFIG_SCHED_CACHE),
+so fs/exec.c, kernel/fork.c and kernel/exit.c each call one helper
+instead of open-coding the refcounting under #ifdef.  Also add
+sched_cache_group_get() and task_cache_group_get().
 
-(a) Add a new member to struct rq so ALB can inherit migrate_llc_task
-    from the passive LB that triggered it.
-
-(b) Define a new flag LBF_ACTIVE_LB_LLC and select the stopper callback
-    at kick time to preserve the migration semantics across the
-    asynchronous boundary.
-
-We choose (b) because it avoids passing migration_type through the
-stopper, which would affect the meaning of migration_type for
-delayed-dequeue tasks.
-
-Fixes: e4c9a4cb244a ("sched/cache: Add migrate_llc_task migration type for cache-aware balancing")
-Suggested-by: Chen Yu <yu.c.chen@intel.com>
-Signed-off-by: Lu Wang <wanglu.priv@gmail.com>
+Fixes: df0d98475954 ("sched/cache: Introduce infrastructure for cache-aware load balancing")
+Closes: https://lore.kernel.org/lkml/apPb-Dr4nPYuHQOK@v4bel/
+Closes: https://lore.kernel.org/all/343a7e07-7fad-4979-9c9b-82ec038c293c@linux.dev/
+Reported-by: Hyunwoo Kim <imv4bel@gmail.com>
+Reported-by: Zenghui Yu (Huawei) <zenghui.yu@linux.dev>
+Co-developed-by: Chen Yu <yu.c.chen@intel.com>
+Signed-off-by: Chen Yu <yu.c.chen@intel.com>
 Signed-off-by: Tim Chen <tim.c.chen@linux.intel.com>
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Reviewed-by: Tim Chen <tim.c.chen@linux.intel.com>
-Reviewed-by: Chen Yu <yu.c.chen@intel.com>
-Cc: <stable@kernel.org> # v7.2.x
-Link: https://patch.msgid.link/cb39f64a17fc2b76097264aaec74a2d6dfff4315.1790035273.git.tim.c.chen@linux.intel.com
+Cc: <stable@kernel.org> #7.2.x
+Link: https://patch.msgid.link/ae7081dc54736bf115215f9867abb2711a7403fb.1790035273.git.tim.c.chen@linux.intel.com
 
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index de3d589fa8eb..514bd54ccd56 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -10448,6 +10448,7 @@ enum migration_type {
- #define LBF_SOME_PINNED	0x08
- #define LBF_ACTIVE_LB	0x10
- #define LBF_LLC_PINNED	0x20
-+#define LBF_ACTIVE_LB_LLC	0x40
+diff --git a/fs/exec.c b/fs/exec.c
+index 819643408e6d..a5269b5e00df 100644
+--- a/fs/exec.c
++++ b/fs/exec.c
+@@ -882,6 +882,7 @@ static int exec_mmap(struct linux_binprm *bprm)
+ 	active_mm = tsk->active_mm;
+ 	tsk->active_mm = mm;
+ 	tsk->mm = mm;
++	sched_cache_exec_mmap(tsk, mm);
+ 	mm_init_cid(mm, tsk);
+ 	exec_state = task_exec_state_replace(tsk, exec_state);
+ 	/*
+diff --git a/include/linux/sched.h b/include/linux/sched.h
+index e14ad43522c8..d35ae49a991f 100644
+--- a/include/linux/sched.h
++++ b/include/linux/sched.h
+@@ -1433,6 +1433,7 @@ struct task_struct {
  
- struct lb_env {
- 	struct sched_domain	*sd;
-@@ -10866,6 +10867,21 @@ alb_break_llc(struct lb_env *env)
- 	return false;
- }
+ #ifdef CONFIG_SCHED_CACHE
+ 	struct callback_head		cache_work;
++	struct sched_cache_group __rcu	*sched_cache_grp;
+ 	int				preferred_llc;
+ 	/* 1: task was enqueued to its preferred LLC, 0 otherwise */
+ 	int				pref_llc_queued;
+@@ -2417,10 +2418,23 @@ struct sched_cache_group {
+ 	struct rcu_head rcu;
+ } ____cacheline_aligned_in_smp;
  
-+/*
-+ * Returns true if p's preferred LLC does not match the destination CPU
-+ * under migrate_llc_task semantics. Passive LB passes migrate_llc_task
-+ * in env->migration_type, while active LB carries LBF_ACTIVE_LB_LLC in
-+ * env->flags to avoid overwriting env->migration_type.
-+ */
-+static inline bool
-+migrate_llc_task_wrong_dst(struct task_struct *p, struct lb_env *env)
-+{
-+	return sched_cache_enabled() &&
-+	       (env->migration_type == migrate_llc_task ||
-+		env->flags & LBF_ACTIVE_LB_LLC) &&
-+	       READ_ONCE(p->preferred_llc) != llc_id(env->dst_cpu);
-+}
++struct sched_cache_group *sched_cache_group_get(struct sched_cache_group *grp);
++struct sched_cache_group *task_cache_group_get(struct task_struct *p);
 +
++void sched_cache_fork(struct task_struct *p);
++void sched_cache_fork_cleanup(struct task_struct *p);
++void sched_cache_exec_mmap(struct task_struct *p, struct mm_struct *mm);
++void sched_cache_exit_mm(struct task_struct *p);
++
+ #else
+ 
+ struct sched_cache_group { };
+ 
++static inline void sched_cache_fork(struct task_struct *p) { }
++static inline void sched_cache_fork_cleanup(struct task_struct *p) { }
++static inline void sched_cache_exec_mmap(struct task_struct *p, struct mm_struct *mm) { }
++static inline void sched_cache_exit_mm(struct task_struct *p) { }
++
+ #endif
+ 
+ #ifndef MODULE
+diff --git a/kernel/exit.c b/kernel/exit.c
+index 024350e9b48c..282328d2b4cf 100644
+--- a/kernel/exit.c
++++ b/kernel/exit.c
+@@ -551,37 +551,6 @@ void mm_update_next_owner(struct mm_struct *mm)
+ }
+ #endif /* CONFIG_MEMCG */
+ 
+-#if defined(CONFIG_SCHED_CACHE) && defined(CONFIG_NUMA_BALANCING)
+-/*
+- * Subtract the memory footprint of the current task from
+- * mm.
+- */
+-static void exit_mm_sched_cache(struct mm_struct *mm)
+-{
+-	struct sched_cache_group *grp;
+-	unsigned long fp, sub;
+-
+-	if (!current->total_numa_faults)
+-		return;
+-	/*
+-	 * No lock protection due to performance considerations.
+-	 * Make sure the group footprint does not become
+-	 * negative.
+-	 */
+-	grp = READ_ONCE(mm->sched_cache_grp);
+-	if (!grp)
+-		return;
+-
+-	fp = READ_ONCE(grp->footprint);
+-	sub = min(fp, current->total_numa_faults);
+-	WRITE_ONCE(grp->footprint, fp - sub);
+-}
+-#else
+-static inline void exit_mm_sched_cache(struct mm_struct *mm)
+-{
+-}
+-#endif /* CONFIG_SCHED_CACHE CONFIG_NUMA_BALANCING */
+-
  /*
-  * Check if migrating task p from env->src_cpu to
-  * env->dst_cpu breaks LLC localiy.
-@@ -10894,8 +10910,7 @@ static bool migrate_degrades_llc(struct task_struct *p, struct lb_env *env)
- 	 * run on env->dst_cpu, skip the tasks do not prefer
- 	 * env->dst_cpu, and find the one that prefers.
- 	 */
--	if (env->migration_type == migrate_llc_task &&
--	    READ_ONCE(p->preferred_llc) != llc_id(env->dst_cpu))
-+	if (migrate_llc_task_wrong_dst(p, env))
- 		return true;
+  * Turn us into a lazy TLB process if we
+  * aren't already..
+@@ -594,7 +563,7 @@ static void exit_mm(void)
+ 	if (!mm)
+ 		return;
  
- 	if (can_migrate_llc_task(env, p) != mig_forbid)
-@@ -10917,6 +10932,12 @@ alb_break_llc(struct lb_env *env)
- 	return false;
- }
+-	exit_mm_sched_cache(mm);
++	sched_cache_exit_mm(current);
  
-+static inline bool
-+migrate_llc_task_wrong_dst(struct task_struct *p, struct lb_env *env)
-+{
-+	return false;
-+}
-+
- static inline bool
- migrate_degrades_llc(struct task_struct *p, struct lb_env *env)
- {
-@@ -11016,7 +11037,7 @@ int can_migrate_task(struct task_struct *p, struct lb_env *env)
- 	 * 4) too many balance attempts have failed.
- 	 */
- 	if (env->flags & LBF_ACTIVE_LB)
--		return 1;
-+		return !migrate_llc_task_wrong_dst(p, env);
+ 	mmap_read_lock(mm);
+ 	mmgrab_lazy_tlb(mm);
+diff --git a/kernel/fork.c b/kernel/fork.c
+index 5ef413368912..10f2d05d816a 100644
+--- a/kernel/fork.c
++++ b/kernel/fork.c
+@@ -1599,6 +1599,7 @@ static int copy_mm(u64 clone_flags, struct task_struct *tsk)
  
- 	degrades = migrate_degrades_locality(p, env);
- 	if (!degrades) {
-@@ -13415,6 +13436,20 @@ static int need_active_balance(struct lb_env *env)
- }
- 
- static int active_load_balance_cpu_stop(void *data);
-+static int active_load_balance_llc_cpu_stop(void *data);
-+
-+/*
-+ * migration_type is checked elsewhere to decide migration policy, so
-+ * it shouldn't be repurposed just to flag an LLC-directed active
-+ * balance across the stopper. Pick the callback here instead.
-+ */
-+static inline cpu_stop_fn_t alb_stop_fn(struct lb_env *env)
-+{
-+	if (env->migration_type == migrate_llc_task)
-+		return active_load_balance_llc_cpu_stop;
-+
-+	return active_load_balance_cpu_stop;
-+}
- 
- static int should_we_balance(struct lb_env *env)
- {
-@@ -13760,7 +13795,7 @@ more_balance:
- 	}
- 	if (active_balance) {
- 		stop_one_cpu_nowait(cpu_of(busiest),
--				    active_load_balance_cpu_stop, busiest,
-+				    alb_stop_fn(&env), busiest,
- 				    &busiest->active_balance_work);
- 	}
- 	preempt_enable();
-@@ -13865,7 +13900,7 @@ update_next_balance(struct sched_domain *sd, unsigned long *next_balance)
-  * least 1 task to be running on each physical CPU where possible, and
-  * avoids physical / logical imbalances.
-  */
--static int active_load_balance_cpu_stop(void *data)
-+static int __active_load_balance_cpu_stop(void *data, unsigned int lb_flags)
- {
- 	struct rq *busiest_rq = data;
- 	int busiest_cpu = cpu_of(busiest_rq);
-@@ -13915,7 +13950,7 @@ static int active_load_balance_cpu_stop(void *data)
- 			.src_cpu	= busiest_rq->cpu,
- 			.src_rq		= busiest_rq,
- 			.idle		= CPU_IDLE,
--			.flags		= LBF_ACTIVE_LB,
-+			.flags		= LBF_ACTIVE_LB | lb_flags,
- 		};
- 
- 		schedstat_inc(sd->alb_count);
-@@ -13943,6 +13978,16 @@ out_unlock:
+ 	tsk->mm = mm;
+ 	tsk->active_mm = mm;
++	sched_cache_fork(tsk);
  	return 0;
  }
  
-+static int active_load_balance_cpu_stop(void *data)
+@@ -2602,6 +2603,7 @@ bad_fork_cleanup_io:
+ bad_fork_cleanup_namespaces:
+ 	exit_nsproxy_namespaces(p);
+ bad_fork_cleanup_mm:
++	sched_cache_fork_cleanup(p);
+ 	if (p->mm) {
+ 		mm_clear_owner(p->mm, p);
+ 		mmput(p->mm);
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index f0a9586332fd..974a7dfe3215 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -1478,7 +1478,7 @@ static inline int get_sched_cache_scale(int mul)
+ 	return (1 + (tol - 1) * mul);
+ }
+ 
+-static bool exceed_llc_capacity(struct mm_struct *mm, int cpu)
++static bool exceed_llc_capacity(struct sched_cache_group *grp, int cpu)
+ {
+ #ifdef CONFIG_NUMA_BALANCING
+ 	unsigned long llc, footprint;
+@@ -1492,11 +1492,6 @@ static bool exceed_llc_capacity(struct mm_struct *mm, int cpu)
+ 		return true;
+ 
+ 	if (static_branch_likely(&sched_numa_balancing)) {
+-		struct sched_cache_group *grp = READ_ONCE(mm->sched_cache_grp);
+-
+-		if (!grp)
+-			return true;
+-
+ 		/*
+ 		 * TBD: RDT exclusive LLC ways reserved should be
+ 		 * excluded.
+@@ -1531,10 +1526,9 @@ static bool exceed_llc_capacity(struct mm_struct *mm, int cpu)
+ 	return false;
+ }
+ 
+-static bool invalid_llc_nr(struct mm_struct *mm, struct task_struct *p,
++static bool invalid_llc_nr(struct sched_cache_group *grp, struct task_struct *p,
+ 			   int cpu)
+ {
+-	struct sched_cache_group *grp;
+ 	int scale;
+ 
+ 	if (get_nr_threads(p) <= 1)
+@@ -1548,10 +1542,6 @@ static bool invalid_llc_nr(struct mm_struct *mm, struct task_struct *p,
+ 	if (scale == INT_MAX)
+ 		return false;
+ 
+-	grp = READ_ONCE(mm->sched_cache_grp);
+-	if (!grp)
+-		return true;
+-
+ 	return !fits_capacity((READ_ONCE(grp->nr_running_avg) * cpu_smt_num_threads),
+ 			(scale * per_cpu(sd_llc_size, cpu)));
+ }
+@@ -1723,6 +1713,96 @@ static void sched_cache_group_put(struct sched_cache_group *grp)
+ 	call_rcu(&grp->rcu, sched_cache_group_free_rcu);
+ }
+ 
++DEFINE_FREE(sched_cache_group_put, struct sched_cache_group *,
++	    sched_cache_group_put(_T));
++
++#define rcu_deref_sched_cache_grp(tsk) \
++	rcu_dereference_check((tsk)->sched_cache_grp, (tsk) == current)
++
++static struct sched_cache_group *sched_cache_replace_grp(struct task_struct *p,
++							 struct sched_cache_group *new)
 +{
-+	return __active_load_balance_cpu_stop(data, 0);
++	struct sched_cache_group *old;
++
++	old = rcu_deref_sched_cache_grp(p);
++	rcu_assign_pointer(p->sched_cache_grp, new);
++
++	return old;
 +}
 +
-+static int active_load_balance_llc_cpu_stop(void *data)
++struct sched_cache_group *sched_cache_group_get(struct sched_cache_group *grp)
 +{
-+	return __active_load_balance_cpu_stop(data, LBF_ACTIVE_LB_LLC);
++	/*
++	 * refcount_inc_not_zero() is the acquire primitive for lockless
++	 * (RCU) lookups; plain refcount_inc() would scribble the count if
++	 * it already reached zero. Return NULL in that case.
++	 */
++	if (grp && !refcount_inc_not_zero(&grp->refcnt))
++		grp = NULL;
++
++	return grp;
 +}
 +
- /*
-  * Scale the max sched_balance_rq interval with the number of CPUs in the system.
-  * This trades load-balance latency on larger machines for less cross talk.
++struct sched_cache_group *task_cache_group_get(struct task_struct *p)
++{
++	guard(rcu)();
++	return sched_cache_group_get(rcu_dereference(p->sched_cache_grp));
++}
++
++void sched_cache_fork(struct task_struct *p)
++{
++	/*
++	 * The child takes its own reference on the mm's cache group, separate
++	 * from the reference held by the mm. @p is not yet visible to readers,
++	 * so a plain initializing store is enough.
++	 */
++	RCU_INIT_POINTER(p->sched_cache_grp,
++			 sched_cache_group_get(p->mm->sched_cache_grp));
++}
++
++void sched_cache_fork_cleanup(struct task_struct *p)
++{
++	/*
++	 * A fork that fails after sched_cache_fork() never reaches exit_mm(),
++	 * so drop the reference here. @p never became visible, so there are no
++	 * concurrent readers and the reference we hold keeps the group alive.
++	 */
++	sched_cache_group_put(rcu_access_pointer(p->sched_cache_grp));
++	RCU_INIT_POINTER(p->sched_cache_grp, NULL);
++}
++
++void sched_cache_exec_mmap(struct task_struct *p, struct mm_struct *mm)
++{
++	struct sched_cache_group *old;
++
++	/*
++	 * Acquire the new reference before publishing the pointer, then drop
++	 * the old one. @p is current and the only writer of its own pointer.
++	 */
++	old = sched_cache_replace_grp(p, sched_cache_group_get(mm->sched_cache_grp));
++	sched_cache_group_put(old);
++}
++
++void sched_cache_exit_mm(struct task_struct *p)
++{
++	struct sched_cache_group *grp = sched_cache_replace_grp(p, NULL);
++
++#ifdef CONFIG_NUMA_BALANCING
++	/*
++	 * Subtract this task's footprint from the group before dropping the
++	 * reference, so the group footprint converges as its threads exit.
++	 * Unlocked for performance; clamp to avoid underflow.
++	 */
++	if (grp && p->total_numa_faults) {
++		unsigned long fp = READ_ONCE(grp->footprint);
++		unsigned long sub = min(fp, p->total_numa_faults);
++
++		WRITE_ONCE(grp->footprint, fp - sub);
++	}
++#endif
++	sched_cache_group_put(grp);
++}
++
+ void mm_destroy_sched(struct mm_struct *mm)
+ {
+ 	sched_cache_group_put(mm->sched_cache_grp);
+@@ -1777,15 +1857,10 @@ static unsigned long fraction_mm_sched(struct rq *rq,
+ 	return div64_u64(NICE_0_LOAD * pcpu_sched->runtime, rq->cpu_runtime + 1);
+ }
+ 
+-static int get_pref_llc(struct task_struct *p, struct mm_struct *mm)
++static int get_pref_llc(struct task_struct *p, struct sched_cache_group *grp)
+ {
+ 	int mm_sched_llc = -1, mm_sched_cpu;
+-	struct sched_cache_group *grp;
+ 
+-	if (!mm)
+-		return -1;
+-
+-	grp = READ_ONCE(mm->sched_cache_grp);
+ 	if (!grp)
+ 		return -1;
+ 
+@@ -1819,9 +1894,8 @@ static unsigned int task_running_on_cpu(int cpu, struct task_struct *p);
+ static inline
+ void account_mm_sched(struct rq *rq, struct task_struct *p, s64 delta_exec)
+ {
++	struct sched_cache_group *grp = rcu_dereference_all(p->sched_cache_grp);
+ 	struct sched_cache_time *pcpu_sched;
+-	struct sched_cache_group *grp;
+-	struct mm_struct *mm = p->mm;
+ 	int mm_sched_llc = -1;
+ 	unsigned long epoch;
+ 
+@@ -1832,12 +1906,8 @@ void account_mm_sched(struct rq *rq, struct task_struct *p, s64 delta_exec)
+ 		return;
+ 	/*
+ 	 * init_task, kthreads and user thread created
+-	 * by user_mode_thread() don't have mm.
++	 * by user_mode_thread() don't have a cache group.
+ 	 */
+-	if (!mm)
+-		return;
+-
+-	grp = READ_ONCE(mm->sched_cache_grp);
+ 	if (!grp || !grp->pcpu_sched)
+ 		return;
+ 
+@@ -1855,13 +1925,13 @@ void account_mm_sched(struct rq *rq, struct task_struct *p, s64 delta_exec)
+ 	 * its preferred state.
+ 	 */
+ 	if ((long)(epoch - READ_ONCE(grp->epoch)) > llc_epoch_affinity_timeout ||
+-	    invalid_llc_nr(mm, p, cpu_of(rq)) ||
+-	    exceed_llc_capacity(mm, cpu_of(rq))) {
++	    invalid_llc_nr(grp, p, cpu_of(rq)) ||
++	    exceed_llc_capacity(grp, cpu_of(rq))) {
+ 		if (READ_ONCE(grp->cpu) != -1)
+ 			WRITE_ONCE(grp->cpu, -1);
+ 	}
+ 
+-	mm_sched_llc = get_pref_llc(p, mm);
++	mm_sched_llc = get_pref_llc(p, grp);
+ 
+ 	/* task not on rq accounted later in account_entity_enqueue() */
+ 	if (task_running_on_cpu(rq->cpu, p) &&
+@@ -1874,19 +1944,15 @@ void account_mm_sched(struct rq *rq, struct task_struct *p, s64 delta_exec)
+ 
+ static void task_tick_cache(struct rq *rq, struct task_struct *p)
+ {
++	struct sched_cache_group *grp = rcu_dereference_all(p->sched_cache_grp);
+ 	struct callback_head *work = &p->cache_work;
+-	struct sched_cache_group *grp;
+-	struct mm_struct *mm = p->mm;
+ 	unsigned long epoch;
+ 
+ 	if (!sched_cache_enabled())
+ 		return;
+ 
+-	if (!mm || p->flags & PF_KTHREAD)
+-		return;
+-
+-	grp = READ_ONCE(mm->sched_cache_grp);
+-	if (!grp || !grp->pcpu_sched)
++	if (!grp || p->flags & PF_KTHREAD ||
++	    !grp->pcpu_sched)
+ 		return;
+ 
+ 	epoch = rq->cpu_epoch;
+@@ -1968,14 +2034,13 @@ static inline void update_avg_scale(u64 *avg, u64 sample)
+ 
+ static void task_cache_work(struct callback_head *work)
+ {
++	struct sched_cache_group *grp __free(sched_cache_group_put) = NULL;
++	cpumask_var_t cpus __free(free_cpumask_var) = CPUMASK_VAR_NULL;
+ 	int cpu, m_a_cpu = -1, nr_running = 0, curr_cpu;
+ 	unsigned long next_scan, now = jiffies;
+ 	struct task_struct *p = current, *cur;
+ 	unsigned long curr_m_a_occ = 0;
+-	struct sched_cache_group *grp;
+-	struct mm_struct *mm = p->mm;
+ 	unsigned long m_a_occ = 0;
+-	cpumask_var_t cpus;
+ 
+ 	WARN_ON_ONCE(work != &p->cache_work);
+ 
+@@ -1984,7 +2049,12 @@ static void task_cache_work(struct callback_head *work)
+ 	if (p->flags & PF_EXITING)
+ 		return;
+ 
+-	grp = READ_ONCE(mm->sched_cache_grp);
++	/*
++	 * A reference makes sure grp is not released by others. The rcu
++	 * lock can not be held till after zalloc_cpumask_var() below,
++	 * because the latter might sleep.
++	 */
++	grp = task_cache_group_get(p);
+ 	if (!grp)
+ 		return;
+ 
+@@ -1999,8 +2069,8 @@ static void task_cache_work(struct callback_head *work)
+ 		return;
+ 
+ 	curr_cpu = task_cpu(p);
+-	if (invalid_llc_nr(mm, p, curr_cpu) ||
+-	    exceed_llc_capacity(mm, curr_cpu)) {
++	if (invalid_llc_nr(grp, p, curr_cpu) ||
++	    exceed_llc_capacity(grp, curr_cpu)) {
+ 		if (READ_ONCE(grp->cpu) != -1)
+ 			WRITE_ONCE(grp->cpu, -1);
+ 
+@@ -2033,9 +2103,13 @@ static void task_cache_work(struct callback_head *work)
+ 					m_cpu = i;
+ 				}
+ 
++				/*
++				 * rcu_access_pointer() is used because the
++				 * pointer is only compared, never dereferenced.
++				 */
+ 				cur = rcu_dereference_all(cpu_rq(i)->curr);
+ 				if (cur && !(cur->flags & (PF_EXITING | PF_KTHREAD)) &&
+-				    cur->mm == mm)
++				    rcu_access_pointer(cur->sched_cache_grp) == grp)
+ 					nr_running++;
+ 			}
+ 
+@@ -2081,7 +2155,6 @@ static void task_cache_work(struct callback_head *work)
+ 	}
+ 
+ 	update_avg_scale(&grp->nr_running_avg, nr_running);
+-	free_cpumask_var(cpus);
+ }
+ 
+ void init_sched_mm(struct task_struct *p)
+@@ -2090,6 +2163,13 @@ void init_sched_mm(struct task_struct *p)
+ 
+ 	init_task_work(work, task_cache_work);
+ 	work->next = work;
++	/*
++	 * dup_task_struct() copies the parent's task_struct, including its
++	 * sched_cache_grp, for which the child holds no reference.  Clear it
++	 * here - before copy_mm() runs - so the child never carries a
++	 * borrowed pointer that the fork error path would put.
++	 */
++	RCU_INIT_POINTER(p->sched_cache_grp, NULL);
+ 	/*
+ 	 * Reset new task's preference to avoid
+ 	 * polluting account_llc_enqueue().
+@@ -3890,10 +3970,9 @@ static void task_numa_placement(struct task_struct *p)
+ 			 * heuristic and occasional lost updates are tolerable.
+ 			 *
+ 			 * If a task exits, its corresponding footprint must
+-			 * be subtracted from the mm->sched_cache_grp->footprint,
+-			 * otherwise the mm->sched_cache_grp->footprint will not
+-			 * converge: the exiting thread's footprint remains
+-			 * unchanged/undecayed in mm->sched_cache_grp->footprint.
++			 * be subtracted from p->sched_cache_grp->footprint,
++			 * otherwise the footprint will not converge: the
++			 * exiting thread's footprint remains unchanged/undecayed.
+ 			 * See exit_mm().
+ 			 *
+ 			 * Lost updates and unsynchronized subtraction
+@@ -3901,12 +3980,14 @@ static void task_numa_placement(struct task_struct *p)
+ 			 * go negative. Clamp to zero to prevent the
+ 			 * unsigned footprint from wrapping.
+ 			 */
+-			grp = READ_ONCE(p->mm->sched_cache_grp);
+-			if (!grp)
+-				continue;
++			scoped_guard(rcu) {
++				grp = rcu_dereference(p->sched_cache_grp);
+ 
+-			new_fp = (long)READ_ONCE(grp->footprint) + diff;
+-			WRITE_ONCE(grp->footprint, max(new_fp, 0L));
++				if (grp) {
++					new_fp = (long)READ_ONCE(grp->footprint) + diff;
++					WRITE_ONCE(grp->footprint, max(new_fp, 0L));
++				}
++			}
+ #endif
+ 		}
+ 
+@@ -10855,7 +10936,6 @@ static enum llc_mig can_migrate_llc_task(struct lb_env *env,
+ 					 struct task_struct *p)
+ {
+ 	struct sched_cache_group *grp;
+-	struct mm_struct *mm;
+ 	bool to_pref;
+ 	int cpu, src_cpu, dst_cpu;
+ 
+@@ -10864,11 +10944,7 @@ static enum llc_mig can_migrate_llc_task(struct lb_env *env,
+ 
+ 	src_cpu = env->src_cpu;
+ 	dst_cpu = env->dst_cpu;
+-	mm = p->mm;
+-	if (!mm)
+-		return mig_unrestricted;
+-
+-	grp = READ_ONCE(mm->sched_cache_grp);
++	grp = rcu_dereference_all(p->sched_cache_grp);
+ 	if (!grp)
+ 		return mig_unrestricted;
+ 
+@@ -10877,8 +10953,8 @@ static enum llc_mig can_migrate_llc_task(struct lb_env *env,
+ 		return mig_unrestricted;
+ 
+ 	/* skip cache aware load balance for too many threads */
+-	if (invalid_llc_nr(mm, p, dst_cpu) ||
+-	    exceed_llc_capacity(mm, dst_cpu)) {
++	if (invalid_llc_nr(grp, p, dst_cpu) ||
++	    exceed_llc_capacity(grp, dst_cpu)) {
+ 		if (READ_ONCE(grp->cpu) != -1)
+ 			WRITE_ONCE(grp->cpu, -1);
+ 		return mig_unrestricted;
 
