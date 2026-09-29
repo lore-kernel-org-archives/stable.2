@@ -1,43 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B62A02AD1B
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 17:31:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BCD95452A0;
+	Tue, 29 Sep 2026 17:45:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790703091; cv=none; b=uTNuFS9WRU4dHstvMjf8U5JYNRJMinifiyP4LCjZJH+SVrKHOG49sKHiysIQWljXcSBO5KlWSMLSWwAdxh7VxSuFo/SNMWsKiYEf+NPXVsnNChZhQFI223Ivko/dxLEVuUN7UoLi8G0N76VE5ng5wqcEkRnRNdBmWG8h03RWJU4=
+	t=1790703907; cv=none; b=EgBt/2XqKFpqf0+uXXk4ChMHlWaeqxVb6aLziE2r4RcTQv9wZuHm8JwDci2/tr15BPiRukJtVoRKFkoiH5e97PgnlONzCIdPYbGCsSyrgd1+BcBDflYe+V4ifj1EONY4dxi220B7uMn6M+9k26t34o1jcq23cYvF69qfpXIwY5Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790703091; c=relaxed/simple;
-	bh=Um4bmgCuQb0aj3vzt1VMTln13YWDpEN+qgKANPM+3Qk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NwLvufYfJU25RVOcc4IYuh0lC9BuS+WzilYxni1JbNiyQuuHeArcOjxBZFomI6wuOz2br/FkO4KJ5YM6DTFsDJeK3Q9NQCYgLOMHtRZqsVjOHB26n6oKtYgAiys+03x7E7m2fWqkn0uvM0AOcNqy8/f9vIvwRhtlO6wAWyQr/xo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R4pUJGrl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790703907; c=relaxed/simple;
+	bh=sWonrjviaj1u2Kuk73gM+VSeW7Z4YpSH5hX5WeCvLIM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FjhXn5Ud5sgKUljRoBEtivTgxFGenPvgghS/leylktLGp4o2V+CDEJanPNerF5AVukr3eY+sqIiWbjpP2qv46inRXlgVoS+qGWs3xHypY7v4mTbsUZJA8xIS4MsQ6cHeMmjFjw6iYoE7L+PARJhC2JqWgs3hTs6noV3ywjALybY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I+7G/Zzc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R4pUJGrl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CEE71F00898;
-	Tue, 29 Sep 2026 17:31:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I+7G/Zzc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A03F71F00893;
+	Tue, 29 Sep 2026 17:45:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790703089;
-	bh=VVJgpyVPUyTM0LfTcmII5d90CPTQhG59gloT5/o0ge8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=R4pUJGrlr20FDEiUrUBa7NLPsLKuY6kraNpNqKI+O7bu990XzncInXBAY/iaYMO6d
-	 y+P6/aCvxvuBzFRc2dt6wlXrbY1CODz9zXRkeDKqRnOz4mj+h/ixTHC3aC4W5afrsE
-	 RllmRj7CkaebdKnDMsdtFXMu9eTffPR+MAFXiRgxVMOkLyW3+sr4PtfmyO6HVAzJQs
-	 KBqt19/kEfmKbB9Riz4r/xiw2yjC9/rWMPqAuvvyIqzkVGG1hX8FhSlxaHzOnElhho
-	 VbSa3hexmxsq4JwezYoxzCfFXFjzvtIMQ0cYQx8CuXqQUIwmW6XA/AxUJzpM0TmuPM
-	 vUdT+jl+Rr4zQ==
-From: Sasha Levin <sashal@kernel.org>
+	s=k20260515; t=1790703906;
+	bh=/f1L1WXhS/CTZ8vm1vu+UDBVGgRupRevOzOvLXe9Jo4=;
+	h=From:To:Cc:Subject:Date;
+	b=I+7G/ZzcTmdTkf5lon4xQVfCbdOLOeMtBc0ck+epfO01yRMTZoeabXsoamwWorEvg
+	 3tQkeTS1dV5nAyLKfAyIadPingLepYNOy+GLfXldap9lm8MpX+BUBqnQb1xNaN//mE
+	 E6gyutQZpzX+TiBbSHD0hlguX5c+bqKTYFLyDnIabQK+OEosGH3cX9BBxvj0VRC+4T
+	 ocpa/oOvYAYS3nrcJbTD+mUTKd8PCLgg121WKuQ5hKzrrywJHAHg2k8dpUkWwnCEzH
+	 7ZPaSkCa9WppJvob/T9XygHp6nOHEBq19e47UWxPeXrSNKqNUcSjVsAVqeBAAMec2B
+	 /Zy46d8izc80g==
+From: SJ Park <sj@kernel.org>
 To: stable@vger.kernel.org
-Cc: Peiyang He <peiyang_he@smail.nju.edu.cn>,
-	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] drm/virtio: fix memory leak of fence event on execbuffer failure
-Date: Tue, 29 Sep 2026 13:31:26 -0400
-Message-ID: <20260929173126.284476-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260929173126.284476-1-sashal@kernel.org>
-References: <2026092952-wifi-luster-9ed8@gregkh>
- <20260929173126.284476-1-sashal@kernel.org>
+Cc: damon@lists.linux.dev,
+	Liew Rui Yan <aethernet65535@gmail.com>,
+	SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: [PATCH 6.18.y 1/2] mm/damon/core: allow esz to be set to zero
+Date: Tue, 29 Sep 2026 10:44:55 -0700
+Message-ID: <20260929174456.9251-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,84 +43,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Peiyang He <peiyang_he@smail.nju.edu.cn>
+From: Liew Rui Yan <aethernet65535@gmail.com>
 
-[ Upstream commit b74aad23d99b279bb34d135795f39a6d8ecdc075 ]
+When the temporal quota goal tuner determines that the goal has been
+achieved (score >= 10000), it sets esz_bp to zero so that the esz becomes
+zero.  However, damos_set_effective_quota() clamps the esz to
+min_region_sz when quota->ms is set.
 
-virtio_gpu_execbuffer_ioctl() reserves a DRM event with
-drm_event_reserve_init() when VIRTGPU_EXECBUF_RING_IDX selects a ring that
-userspace has enabled polling for. virtio_gpu_init_submit() does this
-before the BO handles, the command buffer, the syncobj arrays and the
-in-fence are processed, so every later error path runs with the event
-already pending, including plain argument validation failures such as an
-invalid bo_handle or an in-syncobj that carries no fence.
+This is a minor issue, the main problem is that it doesn't match the
+description in the documentation, which state that if the goal has already
+been [over-]achieved, the quota will be set to zero.
 
-On those paths, virtio_gpu_cleanup_submit() drops the out-fence without
-cancelling the event. The fence is freed without ever having been emitted,
-taking the only driver-side pointer to the event with it. Closing the DRM
-file does not help. drm_events_release() unlinks pending events but
-deliberately leaves the freeing to the driver's later drm_send_event(),
-which never runs for an orphaned event, so the allocation is leaked
-permanently.
+Fix this by set quota (esz) as minimum as possible.
 
-Found when fuzzing the virtio driver with Syzkaller:
-
-	BUG: memory leak
-	unreferenced object 0xffff88802c176e80 (size 96):
-	comm "syz.1.367", pid 10561, jiffies 4294960122
-	hex dump (first 32 bytes):
-		00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-		c8 6e 17 2c 80 88 ff ff 00 00 00 00 00 00 00 00  .n.,............
-	backtrace (crc e1973c6b):
-		kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
-		slab_post_alloc_hook mm/slub.c:4597 [inline]
-		slab_alloc_node mm/slub.c:4917 [inline]
-		__kmalloc_cache_noprof+0x49d/0x6f0 mm/slub.c:5485
-		_kmalloc_noprof include/linux/slab.h:988 [inline]
-		_kzalloc_noprof include/linux/slab.h:1309 [inline]
-		virtio_gpu_fence_event_create drivers/gpu/drm/virtio/virtgpu_submit.c:282 [inline]
-		virtio_gpu_init_submit drivers/gpu/drm/virtio/virtgpu_submit.c:398 [inline]
-		virtio_gpu_execbuffer_ioctl+0xbbf/0x1aa0 drivers/gpu/drm/virtio/virtgpu_submit.c:505
-		drm_ioctl_kernel+0x1f4/0x3e0 drivers/gpu/drm/drm_ioctl.c:817
-		drm_ioctl+0x5f4/0xc70 drivers/gpu/drm/drm_ioctl.c:914
-		vfs_ioctl fs/ioctl.c:51 [inline]
-		__do_sys_ioctl fs/ioctl.c:597 [inline]
-		__se_sys_ioctl fs/ioctl.c:583 [inline]
-		__x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
-		do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
-		do_syscall_64+0x116/0x800 arch/x86/entry/syscall_64.c:94
-		entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Fix by cancelling and freeing the DRM event on the execbuffer error path
-before dropping the fence. Clear the fence's event pointer after
-cancellation so it does not retain a dangling pointer.
-
-Fixes: cd7f5ca33585 ("drm/virtio: implement context init: add virtio_gpu_fence_event")
-Cc: stable@vger.kernel.org
-Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
-Assisted-by: Codex:gpt-5.6-luna
-Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-Link: https://patch.msgid.link/D320EAB5680C1411+20260908121323.2405044-1-peiyang_he@smail.nju.edu.cn
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Link: https://lore.kernel.org/20260908135413.97570-1-sj@kernel.org
+Fixes: 8bbde987c2b8 ("mm/damon/core: disallow time-quota setting zero esz")
+Signed-off-by: SJ Park <sj@kernel.org>
+Signed-off-by: Liew Rui Yan <aethernet65535@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: SJ Park <sj@kernel.org>
+Cc: <stable@vger.kernel.org> # v7.1.x
+(cherry picked from commit 90179da203ba8b708c84a12a07cd44be0f346334)
+Signed-off-by: SJ Park <sj@kernel.org>
 ---
- drivers/gpu/drm/virtio/virtgpu_submit.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ mm/damon/core.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/virtio/virtgpu_submit.c b/drivers/gpu/drm/virtio/virtgpu_submit.c
-index 3cad6413cad7e..2b54e0c5e8296 100644
---- a/drivers/gpu/drm/virtio/virtgpu_submit.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_submit.c
-@@ -295,6 +295,10 @@ int virtio_gpu_execbuffer_ioctl(struct drm_device *dev, void *data,
- 	virtio_gpu_install_out_fence_fd(&submit);
- 	virtio_gpu_complete_submit(&submit);
- cleanup:
-+	if (ret && submit.out_fence && submit.out_fence->e) {
-+		drm_event_cancel_free(dev, &submit.out_fence->e->base);
-+		submit.out_fence->e = NULL;
-+	}
- 	virtio_gpu_cleanup_submit(&submit);
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index 6fa02025d2af1..facb1fa1f695f 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -2191,6 +2191,7 @@ static void damos_set_effective_quota(struct damos_quota *quota,
+ {
+ 	unsigned long throughput;
+ 	unsigned long esz = ULONG_MAX;
++	unsigned long esz_time;
  
- 	return ret;
+ 	if (!quota->ms && list_empty(&quota->goals)) {
+ 		quota->esz = quota->sz;
+@@ -2212,8 +2213,8 @@ static void damos_set_effective_quota(struct damos_quota *quota,
+ 							quota->total_charged_ns);
+ 		else
+ 			throughput = PAGE_SIZE * 1024;
+-		esz = min(throughput * quota->ms, esz);
+-		esz = max(ctx->min_sz_region, esz);
++		esz_time = max(throughput * quota->ms, ctx->min_sz_region);
++		esz = min(esz_time, esz);
+ 	}
+ 
+ 	if (quota->sz && quota->sz < esz)
 -- 
-2.53.0
+2.47.3
 
