@@ -1,81 +1,36 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5F1E4ED1BD
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 14:37:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.75.44.102])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 45BA93B0599;
+	Tue, 29 Sep 2026 14:39:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.75.44.102
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790692664; cv=none; b=dJtDXuoH5G9jmnGPlaRZJO0JgTmbE8RPdEe1Zs++qF5ME68IOeLV6MfbBWUUGcvR7Ym0E7fHMif+djvrX8y4bbtoYV58atpDCsaE/DPMl04iUDVjDGxoreCO7yGayQkWsmbrMVTs468cdyrt+5Uneybs9FUzQRNxwvcIN7ZcYrs=
+	t=1790692779; cv=none; b=nUYSFfuwbHWslNKQ2GobALcKtX8T7EXqjT5FDDPNjRTrxTQ6EZnU4zHl0+8CGJQwS9Q4nICvev6Pgqbi2oG/ao6Eih+mqodJ0YTgrIpLb5sKCIcnjV68sufZX3kAt53FPuY3yFkkoIsq4XPPFDkh4Z0J6yTaYSFxUtpxQGuhiCU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790692664; c=relaxed/simple;
-	bh=d27ZelXQKR/wSde/tghjrO0nUulIuc70YQmNVyALwQc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CH4O5KQ+4AbEGu7ccH8NoYkeeSEC8qKJSZ8odFB9g4BO08qFOcmmNsepKPPDys2DM5ksjYsYiIo5iRmjtDCp5mQO7LGvPUvGNz9bGsTQAjGvfhIGNt3uNnFGrYPKoDU4DmqlMkD098LuctcJsuBKbri/YoPldqkNmt1J/CY7R8E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sFh2KhFB; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sFh2KhFB"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e6598dd44so27319675e9.1
-        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 07:37:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790692657; x=1791297457; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pmNAjK5szAdBHkEVJ9XXUgS7YROss1M18tgbGJczwlc=;
-        b=sFh2KhFBSYP0nrtK6uSmTpyUmoWqNOUT2E3ugg8Gf2pyCOfPIWBylWhOBwcLbe/n4R
-         kvLJIuVaIJG6InvFPZEKw31UfqFNMKOtnIzprFeARbxyMDfiYbZBrKLrEQVUpRYdwpdP
-         WCMG+YB3G6CUH++J3LdIvJJVrnPoavOOrv2Zf8BmZOWK0jSGHto4lZL5nRE6CIY6C2oU
-         IK7/0CSsrT/Sn1kNwprHg+8rIEvOvvO9zIzy0o9CLV8b7GAvLcVi25/Qd7g7G6kLsw6G
-         ZgccQdrsopQTbBsLFlOMY3vpOZXCXDrz9fqXEt8Qahd37CKxGYAe6KdyAfYJ9NwgSCiN
-         qa7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790692657; x=1791297457;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pmNAjK5szAdBHkEVJ9XXUgS7YROss1M18tgbGJczwlc=;
-        b=H9omkTegT3Ka5gJ35JfF5sSi5Xv7vtPr1vfouCDcY+AXWDkBOa1NcF82LS1/WOGNOD
-         +bZ2lbM7T6RQiTOWCG3LBvWUbMIRfCItSzXEioOQFLb8FJEQ4UgwtqWb6qDfBObSZXal
-         E/Y8Sbe69K8281BhZ2m6MowBOMagnRHOoFttursEVbID8F+Ceu1JIfMwX0am7mgiXDV9
-         EpOvn45KA6HXAu0yBBuYWqhsB17BZjqX1//z4DdbYvLYaq/T6DKngJGbrch18sraAzAs
-         rjYO5FHftHM087tbwgbgLH73Uag6xYgBMv71yYNZ60uMLsy2eVrNvxGdp/jGcBuPecCE
-         URsA==
-X-Forwarded-Encrypted: i=1; AKwUvBzAdw/W85zEwggkJQOXgUIMWv89HfwVISStPUmshpNxdjmBxFHV9SBkkKawYvuq8HpBYHRkLIY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lvg/W9zgupplgNVIeX1XZYKVGcA56eAW9kLpMYCPToL6Ci/5r6
-	2uK/t9W2PbOOimPO0VWlB/3JiNbuHTjL11yqDgrvivkN5aDyHxTbZtEn
-X-Gm-Gg: AYBFou1aPf7S68E1fLKqmm+4pk/fS4ryxrpgu+wrsF7Bgn3Le+tJXchIURSB3ilySn3
-	Yd99az4p53kyfeB0ElnAlrDhOTdo9mqZcG3vcR7Plp1MtskgWpsxr0cFcD7QYgiFn8JJki6Sak1
-	nILAPR7x4evaepdagWCL9IRn7wFwm1SlRo8W7n0SfgMm7V82A1TP/fd5xMJXvqzI1zO2xGXqYZa
-	FuhODwuGes951nWuC+aeYYSNTYp260EOY7LYyuwL9K3XL+LaytGM/ACfgZvIkm78bq3qBwM77EI
-	Kf78/C0Q/mt4lTKxiLfTI95MHJcxlvyDZecUfxJu/xEPWldJDpn+odZeRvpAmQt04ALUDDsSnxV
-	lgsFDD1KZMrE5nstaQDJ/rGWx/Gs6pdzbYV/zZ9kZGzhC19eSi5XJmOk0K4ZfENt9gP3cSkW+N3
-	G4vwgs4aDq8oT5/8S3R/+ImzPoJ5z+iLVUMDfio/Oh2Pzd4m8tOGB+GMg5sbwevmqhZUFCwVkET
-	VI0tw6LzQFLiPMwWBPQKiiNPcJ6rc/7YPVSNq5O3zIv9RbVXlVWrxLCTYQ=
-X-Received: by 2002:a05:600c:19d3:b0:49e:6777:da79 with SMTP id 5b1f17b1804b1-49fe66fb4a7mr278687585e9.26.1790692656888;
-        Tue, 29 Sep 2026 07:37:36 -0700 (PDT)
-Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cf8f93csm89716995e9.5.2026.09.29.07.37.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 07:37:36 -0700 (PDT)
-From: David Carlier <devnexen@gmail.com>
-To: linux-media@vger.kernel.org
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Antti Laakso <antti.laakso@linux.intel.com>,
-	Sarang Sapre <sarang.sapre@intel.com>,
-	Bingbu Cao <bingbu.cao@intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	s=arc-20240116; t=1790692779; c=relaxed/simple;
+	bh=Iw7mcDx0RpVtRveoaa1tRxCnM6zuA/6aPN81mza5VrE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=mR5CuTBTaQyO4S5Y/A5rfBI+9nK8CZJTGf4KuC51dQs/a0KBrsUITUd8be9Ysqx+V2Vqj7RsmmA91O9Or07lEZTI3ZMGCmjicKptUYtSbqfAnQuOCR1C42ptwna2oMVAn8yyx25vUxPNyQTYDuFTgLu40zOYDzlR7wIKE844CFQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=13.75.44.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wCXn3+ZzbtqOuVGAQ--.5323S3;
+	Tue, 29 Sep 2026 22:39:22 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app2 (Coremail) with UTF8SMTPA id zC_KCgCX8H6YzbtqMeYWAA--.26551S2;
+	Tue, 29 Sep 2026 22:39:21 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: thomas.lendacky@amd.com,
+	john.allen@amd.com
+Cc: herbert@gondor.apana.org.au,
+	davem@davemloft.net,
+	linux-crypto@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	David Carlier <devnexen@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 2/3] media: ipu6: Fix firmware config leak on stream start
-Date: Tue, 29 Sep 2026 15:37:30 +0100
-Message-ID: <20260929143731.43358-3-devnexen@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260929143731.43358-1-devnexen@gmail.com>
-References: <20260929143731.43358-1-devnexen@gmail.com>
+	stable@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>,
+	Song Li <songl@zju.edu.cn>
+Subject: [PATCH v2] crypto: ccp - Fix use-after-free in backlog cmd advancement
+Date: Tue, 29 Sep 2026 14:38:25 +0000
+Message-Id: <20260929143825.21349-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -83,107 +38,303 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zC_KCgCX8H6YzbtqMeYWAA--.26551S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?FMlrnQXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnVvLbuoOKy0xUR2OEh/Lyhl0VXVxchKRVnqmbCwnQwHxX+fnBG59VutvSe69IvMdqgs8
+	/b6IxfG5MXLLFTbHL3+p9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoW3Wr4xXr43ZFyUKF1kWrWrCrX_yoWfWw13pa
+	95AFy5trWkZrWUG39rZ3y8u34fXwnY9FWDK3y8W3WSyw43KFWFgrWxCFWjya4UAFyv9F13
+	JFW29Fy5Cr48ZagCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
+	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU85l1PUUUUU==
 
-ipu6_isys_fwcom_cfg_init() runs on every first stream start and allocates
-the firmware config and queue configs with devm, so each STREAMON/STREAMOFF
-cycle leaks them. They are only needed until ipu6_fw_com_prepare() has
-copied them, so free them right after. Also check the return value, an
-allocation failure would otherwise make ipu6_fw_com_prepare() dereference
-a NULL queue config.
+A CCP_CMD_MAY_BACKLOG command promoted by a queue kthread leaves the
+backlog list and is re-queued only later, by a work running on the
+system workqueue. Until that work runs, the command is on neither
+list, so the flush in ccp*_destroy() cannot reach it: the work then
+uses the ccp_device after it has been released and wakes a queue
+kthread whose task_struct kthread_stop() has already freed.
 
-Fixes: f625e8d7ffc1 ("media: intel/ipu6: input system ABI between firmware and driver")
+The gap between the promotion and the requeue also lets concurrent
+submissions claim the space meant for the backlogged command, so it
+is not actually reserved and cmd_count can grow past MAX_CMD_QLEN.
+
+Promote the backlogged command in ccp_dequeue_cmd() itself: the slot
+freed by the dequeue is transferred to the backlog head under the
+same cmd_lock, so the space is reserved atomically, and the command
+is put on the normal queue only after its advancement callback
+(-EINPROGRESS) has run from the queue kthread, which provides process
+context and keeps the backlog completion ahead of execution. The work
+struct is no longer needed and the unused member is removed from
+ccp_cmd.
+
+Mark the device halting before stopping its queues and suppress the
+promotion wake under cmd_lock once teardown starts, so it cannot wake
+a queue kthread that teardown has already stopped.
+
+This issue was found by an in-house static analysis tool.
+
+Fixes: 63b945091a07 ("crypto: ccp - CCP device driver and interface support")
 Cc: stable@vger.kernel.org
-Signed-off-by: David Carlier <devnexen@gmail.com>
+Assisted-by: Codex:gpt-5.6
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 ---
- drivers/media/pci/intel/ipu6/ipu6-fw-isys.c | 34 +++++++++++++++------
- 1 file changed, 24 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
-index 3cad7d8f9ca9..22452f3916ba 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
-@@ -212,7 +212,6 @@ static int ipu6_isys_fwcom_cfg_init(struct ipu6_isys *isys,
- 	unsigned int max_send_queues, max_sram_blocks, max_devq_size;
- 	struct ipu6_fw_syscom_queue_config *input_queue_cfg;
- 	struct ipu6_fw_syscom_queue_config *output_queue_cfg;
--	struct device *dev = &isys->adev->auxdev.dev;
- 	int type_proxy = IPU6_FW_ISYS_QUEUE_TYPE_PROXY;
- 	int type_dev = IPU6_FW_ISYS_QUEUE_TYPE_DEV;
- 	int type_msg = IPU6_FW_ISYS_QUEUE_TYPE_MSG;
-@@ -222,7 +221,6 @@ static int ipu6_isys_fwcom_cfg_init(struct ipu6_isys *isys,
- 	struct ipu6_fw_isys_fw_config *isys_fw_cfg;
- 	u32 num_in_message_queues;
- 	unsigned int max_streams;
--	unsigned int size;
- 	unsigned int i;
+Link to v1: https://lore.kernel.org/linux-crypto/20260907060415.575656-1-fanwu01@zju.edu.cn/
+
+- transfer the slot freed by the dequeue to the backlogged command
+  under cmd_lock, as suggested by Herbert Xu, and drop the work
+  struct and the per-device workqueue of v1.
+- mark the device halting before stopping its queues and suppress
+  the promotion wake under cmd_lock once teardown starts.
+ drivers/crypto/ccp/ccp-dev-v3.c |  3 ++
+ drivers/crypto/ccp/ccp-dev-v5.c |  3 ++
+ drivers/crypto/ccp/ccp-dev.c    | 88 +++++++++++++++++++--------------
+ drivers/crypto/ccp/ccp-dev.h    |  3 ++
+ include/linux/ccp.h             |  5 +-
+ 5 files changed, 62 insertions(+), 40 deletions(-)
+
+diff --git a/drivers/crypto/ccp/ccp-dev-v3.c b/drivers/crypto/ccp/ccp-dev-v3.c
+index d92de4ad31..c5ab8beb16 100644
+--- a/drivers/crypto/ccp/ccp-dev-v3.c
++++ b/drivers/crypto/ccp/ccp-dev-v3.c
+@@ -501,6 +501,8 @@ static int ccp_init(struct ccp_device *ccp)
+ 	ccp_unregister_rng(ccp);
  
- 	max_streams = isys->pdata->ipdata->max_streams;
-@@ -230,7 +228,7 @@ static int ipu6_isys_fwcom_cfg_init(struct ipu6_isys *isys,
- 	max_sram_blocks = isys->pdata->ipdata->max_sram_blocks;
- 	max_devq_size = isys->pdata->ipdata->max_devq_size;
- 	num_in_message_queues = clamp(num_streams, 1U, max_streams);
--	isys_fw_cfg = devm_kzalloc(dev, sizeof(*isys_fw_cfg), GFP_KERNEL);
-+	isys_fw_cfg = kzalloc_obj(*isys_fw_cfg);
- 	if (!isys_fw_cfg)
- 		return -ENOMEM;
- 
-@@ -242,15 +240,14 @@ static int ipu6_isys_fwcom_cfg_init(struct ipu6_isys *isys,
- 	isys_fw_cfg->num_recv_queues[type_dev] = 0;
- 	isys_fw_cfg->num_recv_queues[type_msg] = 1;
- 
--	size = sizeof(*input_queue_cfg) * max_send_queues;
--	input_queue_cfg = devm_kzalloc(dev, size, GFP_KERNEL);
-+	input_queue_cfg = kzalloc_objs(*input_queue_cfg, max_send_queues);
- 	if (!input_queue_cfg)
--		return -ENOMEM;
-+		goto err_free_fw_cfg;
- 
--	size = sizeof(*output_queue_cfg) * IPU6_N_MAX_RECV_QUEUES;
--	output_queue_cfg = devm_kzalloc(dev, size, GFP_KERNEL);
-+	output_queue_cfg = kzalloc_objs(*output_queue_cfg,
-+					IPU6_N_MAX_RECV_QUEUES);
- 	if (!output_queue_cfg)
--		return -ENOMEM;
-+		goto err_free_input_queue_cfg;
- 
- 	fwcom_cfg->input = input_queue_cfg;
- 	fwcom_cfg->output = output_queue_cfg;
-@@ -315,6 +312,20 @@ static int ipu6_isys_fwcom_cfg_init(struct ipu6_isys *isys,
- 	fwcom_cfg->specific_size = sizeof(*isys_fw_cfg);
- 
- 	return 0;
+ e_kthread:
++	ccp_halt_cmds(ccp);
 +
-+err_free_input_queue_cfg:
-+	kfree(input_queue_cfg);
-+err_free_fw_cfg:
-+	kfree(isys_fw_cfg);
+ 	for (i = 0; i < ccp->cmd_q_count; i++)
+ 		if (ccp->cmd_q[i].kthread)
+ 			kthread_stop(ccp->cmd_q[i].kthread);
+@@ -542,6 +544,7 @@ static void ccp_destroy(struct ccp_device *ccp)
+ 	iowrite32(ccp->qim, ccp->io_regs + IRQ_STATUS_REG);
+ 
+ 	/* Stop the queue kthreads */
++	ccp_halt_cmds(ccp);
+ 	for (i = 0; i < ccp->cmd_q_count; i++)
+ 		if (ccp->cmd_q[i].kthread)
+ 			kthread_stop(ccp->cmd_q[i].kthread);
+diff --git a/drivers/crypto/ccp/ccp-dev-v5.c b/drivers/crypto/ccp/ccp-dev-v5.c
+index dacde9614e..3b09befa45 100644
+--- a/drivers/crypto/ccp/ccp-dev-v5.c
++++ b/drivers/crypto/ccp/ccp-dev-v5.c
+@@ -989,6 +989,8 @@ static int ccp5_init(struct ccp_device *ccp)
+ 	ccp_unregister_rng(ccp);
+ 
+ e_kthread:
++	ccp_halt_cmds(ccp);
 +
-+	return -ENOMEM;
-+}
-+
-+static void ipu6_isys_fwcom_cfg_free(struct ipu6_fw_com_cfg *fwcom_cfg)
-+{
-+	kfree(fwcom_cfg->specific_addr);
-+	kfree(fwcom_cfg->output);
-+	kfree(fwcom_cfg->input);
+ 	for (i = 0; i < ccp->cmd_q_count; i++)
+ 		if (ccp->cmd_q[i].kthread)
+ 			kthread_stop(ccp->cmd_q[i].kthread);
+@@ -1043,6 +1045,7 @@ static void ccp5_destroy(struct ccp_device *ccp)
+ 	}
+ 
+ 	/* Stop the queue kthreads */
++	ccp_halt_cmds(ccp);
+ 	for (i = 0; i < ccp->cmd_q_count; i++)
+ 		if (ccp->cmd_q[i].kthread)
+ 			kthread_stop(ccp->cmd_q[i].kthread);
+diff --git a/drivers/crypto/ccp/ccp-dev.c b/drivers/crypto/ccp/ccp-dev.c
+index aff3348b83..12c210acac 100644
+--- a/drivers/crypto/ccp/ccp-dev.c
++++ b/drivers/crypto/ccp/ccp-dev.c
+@@ -177,6 +177,15 @@ void ccp_del_device(struct ccp_device *ccp)
+ 	write_unlock_irqrestore(&ccp_unit_lock, flags);
  }
  
- static int ipu6_fw_isys_init(struct ipu6_isys *isys, unsigned int num_streams)
-@@ -328,10 +339,13 @@ static int ipu6_fw_isys_init(struct ipu6_isys *isys, unsigned int num_streams)
- 	};
++/* Prevent promotion from waking an idle queue during teardown. */
++void ccp_halt_cmds(struct ccp_device *ccp)
++{
++	unsigned long flags;
++
++	spin_lock_irqsave(&ccp->cmd_lock, flags);
++	ccp->halting = true;
++	spin_unlock_irqrestore(&ccp->cmd_lock, flags);
++}
+ 
+ 
+ int ccp_register_rng(struct ccp_device *ccp)
+@@ -342,41 +351,13 @@ int ccp_enqueue_cmd(struct ccp_cmd *cmd)
+ }
+ EXPORT_SYMBOL_GPL(ccp_enqueue_cmd);
+ 
+-static void ccp_do_cmd_backlog(struct work_struct *work)
+-{
+-	struct ccp_cmd *cmd = container_of(work, struct ccp_cmd, work);
+-	struct ccp_device *ccp = cmd->ccp;
+-	unsigned long flags;
+-	unsigned int i;
+-
+-	cmd->callback(cmd->data, -EINPROGRESS);
+-
+-	spin_lock_irqsave(&ccp->cmd_lock, flags);
+-
+-	ccp->cmd_count++;
+-	list_add_tail(&cmd->entry, &ccp->cmd);
+-
+-	/* Find an idle queue */
+-	for (i = 0; i < ccp->cmd_q_count; i++) {
+-		if (ccp->cmd_q[i].active)
+-			continue;
+-
+-		break;
+-	}
+-
+-	spin_unlock_irqrestore(&ccp->cmd_lock, flags);
+-
+-	/* If we found an idle queue, wake it up */
+-	if (i < ccp->cmd_q_count)
+-		wake_up_process(ccp->cmd_q[i].kthread);
+-}
+-
+ static struct ccp_cmd *ccp_dequeue_cmd(struct ccp_cmd_queue *cmd_q)
+ {
+ 	struct ccp_device *ccp = cmd_q->ccp;
+ 	struct ccp_cmd *cmd = NULL;
+ 	struct ccp_cmd *backlog = NULL;
+ 	unsigned long flags;
++	unsigned int i = ccp->cmd_q_count;
+ 
+ 	spin_lock_irqsave(&ccp->cmd_lock, flags);
+ 
+@@ -391,26 +372,61 @@ static struct ccp_cmd *ccp_dequeue_cmd(struct ccp_cmd_queue *cmd_q)
+ 		return NULL;
+ 	}
+ 
+-	if (ccp->cmd_count) {
++	if (!list_empty(&ccp->cmd)) {
+ 		cmd_q->active = 1;
+ 
+ 		cmd = list_first_entry(&ccp->cmd, struct ccp_cmd, entry);
+ 		list_del(&cmd->entry);
+ 
+-		ccp->cmd_count--;
+-	}
+-
+-	if (!list_empty(&ccp->backlog)) {
++		if (!list_empty(&ccp->backlog)) {
++			/* Transfer the freed slot to the backlogged
++			 * command, so that concurrent submissions cannot
++			 * claim the space meant for it.
++			 */
++			backlog = list_first_entry(&ccp->backlog,
++						   struct ccp_cmd, entry);
++			list_del(&backlog->entry);
++		} else {
++			ccp->cmd_count--;
++		}
++	} else if (!list_empty(&ccp->backlog)) {
++		/* No command is available for execution, but a backlogged
++		 * command is stranded: reserve a slot for it.
++		 */
+ 		backlog = list_first_entry(&ccp->backlog, struct ccp_cmd,
+ 					   entry);
+ 		list_del(&backlog->entry);
++
++		ccp->cmd_count++;
+ 	}
+ 
+ 	spin_unlock_irqrestore(&ccp->cmd_lock, flags);
+ 
+ 	if (backlog) {
+-		INIT_WORK(&backlog->work, ccp_do_cmd_backlog);
+-		schedule_work(&backlog->work);
++		/* Notify the advancement out of the backlog before the
++		 * command is made available for execution; the queue
++		 * kthread provides process context, so no work struct
++		 * is needed.
++		 */
++		backlog->callback(backlog->data, -EINPROGRESS);
++
++		spin_lock_irqsave(&ccp->cmd_lock, flags);
++
++		list_add_tail(&backlog->entry, &ccp->cmd);
++
++		/* Find an idle queue */
++		for (i = 0; i < ccp->cmd_q_count; i++) {
++			if (ccp->cmd_q[i].active)
++				continue;
++
++			break;
++		}
++
++		/* Do not wake an idle queue after teardown has started. */
++		if (!ccp->halting && i < ccp->cmd_q_count)
++			wake_up_process(ccp->cmd_q[i].kthread);
++
++		spin_unlock_irqrestore(&ccp->cmd_lock, flags);
+ 	}
+ 
+ 	return cmd;
+diff --git a/drivers/crypto/ccp/ccp-dev.h b/drivers/crypto/ccp/ccp-dev.h
+index 83350e2d98..ead87c138b 100644
+--- a/drivers/crypto/ccp/ccp-dev.h
++++ b/drivers/crypto/ccp/ccp-dev.h
+@@ -374,6 +374,8 @@ struct ccp_device {
+ 	struct list_head cmd;
+ 	struct list_head backlog;
+ 
++	bool halting;
++
+ 	/* The command queues. These represent the queues available on the
+ 	 * CCP that are available for processing cmds
+ 	 */
+@@ -630,6 +632,7 @@ struct ccp5_desc {
+ 
+ void ccp_add_device(struct ccp_device *ccp);
+ void ccp_del_device(struct ccp_device *ccp);
++void ccp_halt_cmds(struct ccp_device *ccp);
+ 
+ extern void ccp_log_error(struct ccp_device *, unsigned int);
+ 
+diff --git a/include/linux/ccp.h b/include/linux/ccp.h
+index e6c599243f..0386813361 100644
+--- a/include/linux/ccp.h
++++ b/include/linux/ccp.h
+@@ -12,7 +12,6 @@
+ #define __CCP_H__
+ 
+ #include <linux/scatterlist.h>
+-#include <linux/workqueue.h>
+ #include <linux/list.h>
+ #include <crypto/aes.h>
+ #include <crypto/sha1.h>
+@@ -637,7 +636,6 @@ enum ccp_engine {
+ /**
+  * struct ccp_cmd - CCP operation request
+  * @entry: list element (ccp driver use only)
+- * @work: work element used for callbacks (ccp driver use only)
+  * @ccp: CCP device to be run on
+  * @ret: operation return code (ccp driver use only)
+  * @flags: cmd processing flags
+@@ -653,11 +651,10 @@ enum ccp_engine {
+  *     operation.
+  */
+ struct ccp_cmd {
+-	/* The list_head, work_struct, ccp and ret variables are for use
++	/* The list_head, ccp and ret variables are for use
+ 	 * by the CCP driver only.
+ 	 */
+ 	struct list_head entry;
+-	struct work_struct work;
+ 	struct ccp_device *ccp;
  	int ret;
  
--	ipu6_isys_fwcom_cfg_init(isys, &fwcom_cfg, num_streams);
-+	ret = ipu6_isys_fwcom_cfg_init(isys, &fwcom_cfg, num_streams);
-+	if (ret)
-+		return ret;
- 
- 	isys->fwctx = ipu6_fw_com_prepare(&fwcom_cfg, isys->adev,
- 					  isys->pdata->base);
-+	ipu6_isys_fwcom_cfg_free(&fwcom_cfg);
- 	if (!isys->fwctx) {
- 		dev_err(dev, "isys fw com prepare failed\n");
- 		return -EIO;
--- 
-2.55.0
 
