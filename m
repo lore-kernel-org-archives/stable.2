@@ -1,211 +1,215 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7113842640C
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 18:47:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D3AF25392A
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 18:47:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790707639; cv=none; b=Zh0wfbN6CG6gsQjX7oLxHxlCSun4gSiAA6cDJwK9oHQxpcBOg1Zlh6lhXXorAHEOrVk77bddmr6bW+XMUdxu3jRA08LvVfrpJHrNtw67ZjBhxIBysa+afMRulbdhFcPGUO8EHlAis7GTDhXJmzTzfbC7zXOC2H8cm5uSR4cZdgU=
+	t=1790707642; cv=none; b=oDvmoiuNwFsVVEAf+BFEClhMNizAk2f6XYrMCtjbtGT2cgNhlEbwJ+WZy/fXUpq/8hYv6RAFPhxPLz99Fn6CH+lZ+zFn7xeYTnBvmiic+/Mt1NYJ2/+3dBKqsR/GY2GghVUpaD9cDOTc4iZlGdBaHr2ClUMe+HGR2QvY8d0nUSg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790707639; c=relaxed/simple;
-	bh=/iLrLkgT0IQ9+DTkorhhLbXqzGLRVzq2/1HqbQ9M9p0=;
+	s=arc-20240116; t=1790707642; c=relaxed/simple;
+	bh=FXcONuxdN7ewauWyRtj+tu4nP2OjVWhygMMyf83FZXY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BsuYCFLiXw5RZmPvLsTBLp2J/DuohjgIAaxeUaKB+q0E10OqXKKMT/ljpDqT1O1pKhzlEr0/mkpgfAsg0ctkM8tUqbIl//eWG1XOlr+tHGvFSiCwhCR21oVXcXe8T1HkSKfFxgcDY8aVIUlI3froobnn3BWv3EIaZGeTy/XNpZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GD1hegFR; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=prcqT5QCpkR3qnUwRj2rcLSBJGoFyMsaJXQoFnhaGjgs3TJpEsD/x4pqlzL6B//wIqbpNDE5qzDqQn2NYCAT6e7vfZ1C522Dl/6gd1ho/PtYvD5YE58X1D3EUTaiPyQ/rinlyjjuEudPzoDPMe+CdIir25pLXqt0lKFsmrNJH+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MxTYrREg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GD1hegFR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 823361F000FF;
-	Tue, 29 Sep 2026 18:47:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MxTYrREg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC4551F000FF;
+	Tue, 29 Sep 2026 18:47:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790707638;
-	bh=pi8IAqqjkMt83CzvbutgaY4a3EMjW8mjSI7oFkM78eE=;
+	s=k20260515; t=1790707641;
+	bh=V0m6SgkzbUG2xIT0Rj9CCL/0He13SihsG1jxrm0+xqU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GD1hegFRcFFQwvXM3yUN4uC/61T5fVsr2bh3X7MQWausMXlwGtNwdaunlSmyjLWOe
-	 AVQuy85CoiXtL9evbrWgYAidmMubAl6ZKOcllm1SpkwJ5pptua2jmcOKZQkiAgmcy6
-	 27KzEqrRw6PNOGTwP7hONcuO1lUP0Z0SgGWweMenDeiqm+CihasD6bZbBn9sQdFAJZ
-	 aViUMz5i3muaNdvy5Zg4n0Id/uFTv2QyJXwvl0VXiDxLqWdnhas4xSOeRPsPuc0QV5
-	 tbgTWQv/H5gfSfEDVx7KySsvfyUxAbCd1449TyEH+eHzHRMOz2tDXmbl9Fe04L6hnS
-	 KN1VGtdeMJplg==
+	b=MxTYrREgMmeuZa3w26ODE3NdTZ+L0muzAO6PZGC0U0AzMH4khKBC4CJVheE2vH7rp
+	 0rOU6rdU8vXTLbrrONirKqJLzvuR3S6nKQbZdUbcb8n92aVvbWMwNA1S/hXzAjL2MH
+	 BTbNDgjamiC4scr/2BRWENCDT9oA4I0uFeOu6Nsny0/pyvodMLI8WTb2sW9AhuiUFD
+	 JBj4gVPDCAKO/23cHOvjRtSicytKzynDgjvIiBot4k3oxGW6zcnwBHl78gSCVmDaOu
+	 jFjinIpoH86QqQmgJ8OkCYkTLuOGXK/v31idW6vY5C0GCoCdrM+wvrfQ8YKtkvzr24
+	 yZx/44aLoM/Lg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Christian Brauner <brauner@kernel.org>,
-	Karl Mehltretter <kmehltretter@gmail.com>,
-	Jan Kara <jack@suse.cz>,
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Dave Airlie <airlied@redhat.com>,
+	Huang Rui <ray.huang@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] super: make iterate_supers_type() deletion-safe
-Date: Tue, 29 Sep 2026 14:47:16 -0400
-Message-ID: <20260929184716.523333-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] drm/nouveau: switch over to the new pin interface
+Date: Tue, 29 Sep 2026 14:47:18 -0400
+Message-ID: <20260929184719.523576-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092912-expulsion-napped-057f@gregkh>
-References: <2026092912-expulsion-napped-057f@gregkh>
+In-Reply-To: <2026092908-masses-gestate-783f@gregkh>
+References: <2026092908-masses-gestate-783f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Christian Brauner <brauner@kernel.org>
+From: Christian König <christian.koenig@amd.com>
 
-[ Upstream commit 2d2a2d7aa98741b58f54cacc99b52024e4d865f9 ]
+[ Upstream commit 6797cea18d3982fce6a7d63e51b4cea0e3c8eb06 ]
 
-iterate_supers_type() drops sb_lock while invoking the callback and keeps
-only a passive reference to the current superblock. That reference keeps
-the object allocated, but does not keep its s_instances node linked.
+Stop using TTM_PL_FLAG_NO_EVICT.
 
-After the iterator releases s_umount, final teardown can unlink the current
-s_instances node. The iterator then advances through a reinitialized node.
-With the current hlist it stops without visiting the remaining superblocks.
-The unlink moved from generic_shutdown_super() to kill_super_notify(), but
-the cursor lifetime has been unsafe since the helper was introduced.
-
-The CIFS DFS lookup can consequently miss a matching superblock and return
--EINVAL.
-
-Move removal from fs_supers to put_super(), alongside removal from
-super_blocks, so a passive reference keeps both list nodes linked. Keep
-the filesystem module reference until then, since unlinking s_instances
-may touch type->fs_supers.
-
-Make sget_fc() skip SB_DEAD superblocks before invoking test(), and set
-SB_DEAD under sb_lock to serialize with those callbacks. This allows
-kernfs to free its private information after kill_anon_super() returns.
-Keep matching SB_DYING superblocks until SB_DEAD is set so concurrent
-mounts still wait for teardown before retrying.
-
-Fixes: 43e15cdbefea ("new helper: iterate_supers_type()")
-Reported-by: Karl Mehltretter <kmehltretter@gmail.com>
-Closes: https://lore.kernel.org/r/20260903013336.92081-1-kmehltretter@gmail.com
-Suggested-by: Jan Kara <jack@suse.cz>
-Cc: stable@vger.kernel.org
-Tested-by: Karl Mehltretter <kmehltretter@gmail.com>
-[kmehltretter: supplied the commit message]
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-Link: https://patch.msgid.link/20260909193034.7467-1-kmehltretter@gmail.com
-Reviewed-by: Jan Kara <jack@suse.cz>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ Adapted s_passive reference counting to s_count using the existing __put_super() helper. ]
+Signed-off-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Dave Airlie <airlied@redhat.com>
+Reviewed-by: Huang Rui <ray.huang@amd.com>
+Link: https://patchwork.freedesktop.org/patch/391606/?series=81973&rev=1
+Stable-dep-of: 6a6870d3077f ("drm/nouveau: don't bump pin count on failed re-pin in nouveau_bo_pin_locked()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/kernfs/mount.c |  4 ++--
- fs/super.c        | 43 +++++++++++++++++++++++--------------------
- 2 files changed, 25 insertions(+), 22 deletions(-)
+ drivers/gpu/drm/nouveau/nouveau_bo.c   | 48 +++++++-------------------
+ drivers/gpu/drm/nouveau/nouveau_bo.h   |  3 --
+ drivers/gpu/drm/nouveau/nouveau_chan.c |  2 +-
+ 3 files changed, 13 insertions(+), 40 deletions(-)
 
-diff --git a/fs/kernfs/mount.c b/fs/kernfs/mount.c
-index 76eaf64b9d9e0..5d265e63956eb 100644
---- a/fs/kernfs/mount.c
-+++ b/fs/kernfs/mount.c
-@@ -433,8 +433,8 @@ void kernfs_kill_sb(struct super_block *sb)
- 	up_write(&root->kernfs_supers_rwsem);
+diff --git a/drivers/gpu/drm/nouveau/nouveau_bo.c b/drivers/gpu/drm/nouveau/nouveau_bo.c
+index d9106f14fde50..bc3ffd2c942fd 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_bo.c
++++ b/drivers/gpu/drm/nouveau/nouveau_bo.c
+@@ -139,7 +139,7 @@ nouveau_bo_del_ttm(struct ttm_buffer_object *bo)
+ 	struct drm_device *dev = drm->dev;
+ 	struct nouveau_bo *nvbo = nouveau_bo(bo);
  
- 	/*
--	 * Remove the superblock from fs_supers/s_instances
--	 * so we can't find it, before freeing kernfs_super_info.
-+	 * Mark the superblock dead so sget_fc() can't find it,
-+	 * before freeing kernfs_super_info.
- 	 */
- 	kill_anon_super(sb);
- 	kfree(info);
-diff --git a/fs/super.c b/fs/super.c
-index c293b2efebe0a..0877e043a09c6 100644
---- a/fs/super.c
-+++ b/fs/super.c
-@@ -404,11 +404,16 @@ static struct super_block *alloc_super(struct file_system_type *type, int flags,
- static void __put_super(struct super_block *s)
+-	WARN_ON(nvbo->pin_refcnt > 0);
++	WARN_ON(nvbo->bo.pin_count > 0);
+ 	nouveau_bo_del_io_reserve_lru(bo);
+ 	nv10_bo_put_tile_region(dev, nvbo->tile, NULL);
+ 
+@@ -421,9 +421,8 @@ nouveau_bo_placement_set(struct nouveau_bo *nvbo, uint32_t domain,
  {
- 	if (!--s->s_count) {
-+		struct file_system_type *type = s->s_type;
-+
- 		list_del_init(&s->s_list);
-+		hlist_del_init(&s->s_instances);
- 		WARN_ON(s->s_dentry_lru.node);
- 		WARN_ON(s->s_inode_lru.node);
- 		WARN_ON(s->s_mounts);
- 		call_rcu(&s->rcu, destroy_super_rcu);
-+		/* The unlink above may touch type->fs_supers, so drop it last. */
-+		put_filesystem(type);
- 	}
- }
+ 	struct nouveau_drm *drm = nouveau_bdev(nvbo->bo.bdev);
+ 	struct ttm_placement *pl = &nvbo->placement;
+-	uint32_t flags = (nvbo->force_coherent ? TTM_PL_FLAG_UNCACHED :
+-						 TTM_PL_MASK_CACHING) |
+-			 (nvbo->pin_refcnt ? TTM_PL_FLAG_NO_EVICT : 0);
++	uint32_t flags = nvbo->force_coherent ? TTM_PL_FLAG_UNCACHED :
++						TTM_PL_MASK_CACHING;
  
-@@ -434,24 +439,17 @@ static void kill_super_notify(struct super_block *sb)
- 	if (sb->s_flags & SB_DEAD)
- 		return;
- 
--	/*
--	 * Remove it from @fs_supers so it isn't found by new
--	 * sget{_fc}() walkers anymore. Any concurrent mounter still
--	 * managing to grab a temporary reference is guaranteed to
--	 * already see SB_DYING and will wait until we notify them about
--	 * SB_DEAD.
--	 */
--	spin_lock(&sb_lock);
--	hlist_del_init(&sb->s_instances);
--	spin_unlock(&sb_lock);
--
- 	/*
- 	 * Let concurrent mounts know that this thing is really dead.
--	 * We don't need @sb->s_umount here as every concurrent caller
--	 * will see SB_DYING and either discard the superblock or wait
--	 * for SB_DEAD.
-+	 * sget{_fc}() skips SB_DEAD superblocks and calls test() under
-+	 * sb_lock, so set it under sb_lock: once we return no test()
-+	 * runs on this superblock anymore and none will start. Everyone
-+	 * else already saw SB_DYING and either discarded the superblock
-+	 * or waits for SB_DEAD.
- 	 */
-+	spin_lock(&sb_lock);
- 	super_wake(sb, SB_DEAD);
-+	spin_unlock(&sb_lock);
- }
- 
- /**
-@@ -482,7 +480,6 @@ void deactivate_locked_super(struct super_block *s)
- 		list_lru_destroy(&s->s_dentry_lru);
- 		list_lru_destroy(&s->s_inode_lru);
- 
--		put_filesystem(fs);
- 		put_super(s);
- 	} else {
- 		super_unlock_excl(s);
-@@ -668,12 +665,12 @@ void generic_shutdown_super(struct super_block *sb)
- 	}
- 	/*
- 	 * Broadcast to everyone that grabbed a temporary reference to this
--	 * superblock before we removed it from @fs_supers that the superblock
--	 * is dying. Every walker of @fs_supers outside of sget{_fc}() will now
--	 * discard this superblock and treat it as dead.
-+	 * superblock that it is dying. Every walker of @fs_supers outside
-+	 * of sget{_fc}() will now discard this superblock and treat it as
-+	 * dead.
- 	 *
--	 * We leave the superblock on @fs_supers so it can be found by
--	 * sget{_fc}() until we passed sb->kill_sb().
-+	 * sget{_fc}() keeps finding the superblock until SB_DEAD is set, so
-+	 * a concurrent mounter waits until we passed sb->kill_sb().
- 	 */
- 	super_wake(sb, SB_DYING);
- 	super_unlock_excl(sb);
-@@ -752,6 +749,9 @@ struct super_block *sget_fc(struct fs_context *fc,
- 	spin_lock(&sb_lock);
- 	if (test) {
- 		hlist_for_each_entry(old, &fc->fs_type->fs_supers, s_instances) {
-+			/* Only unlinked at the last passive reference. */
-+			if (super_flags(old, SB_DEAD))
-+				continue;
- 			if (test(old, fc))
- 				goto share_extant_sb;
+ 	pl->placement = nvbo->placements;
+ 	set_placement_list(drm, nvbo->placements, &pl->num_placement,
+@@ -457,7 +456,7 @@ nouveau_bo_pin(struct nouveau_bo *nvbo, uint32_t domain, bool contig)
  		}
-@@ -828,6 +828,9 @@ struct super_block *sget(struct file_system_type *type,
- 	spin_lock(&sb_lock);
- 	if (test) {
- 		hlist_for_each_entry(old, &type->fs_supers, s_instances) {
-+			/* Only unlinked at the last passive reference. */
-+			if (super_flags(old, SB_DEAD))
-+				continue;
- 			if (!test(old, data))
- 				continue;
- 			if (user_ns != old->s_user_ns) {
+ 	}
+ 
+-	if (nvbo->pin_refcnt) {
++	if (nvbo->bo.pin_count) {
+ 		bool error = evict;
+ 
+ 		switch (bo->mem.mem_type) {
+@@ -476,7 +475,7 @@ nouveau_bo_pin(struct nouveau_bo *nvbo, uint32_t domain, bool contig)
+ 				 bo->mem.mem_type, domain);
+ 			ret = -EBUSY;
+ 		}
+-		nvbo->pin_refcnt++;
++		ttm_bo_pin(&nvbo->bo);
+ 		goto out;
+ 	}
+ 
+@@ -487,18 +486,12 @@ nouveau_bo_pin(struct nouveau_bo *nvbo, uint32_t domain, bool contig)
+ 			goto out;
+ 	}
+ 
+-	nvbo->pin_refcnt++;
+ 	nouveau_bo_placement_set(nvbo, domain, 0);
+-
+-	/* drop pin_refcnt temporarily, so we don't trip the assertion
+-	 * in nouveau_bo_move() that makes sure we're not trying to
+-	 * move a pinned buffer
+-	 */
+-	nvbo->pin_refcnt--;
+ 	ret = nouveau_bo_validate(nvbo, false, false);
+ 	if (ret)
+ 		goto out;
+-	nvbo->pin_refcnt++;
++
++	ttm_bo_pin(&nvbo->bo);
+ 
+ 	switch (bo->mem.mem_type) {
+ 	case TTM_PL_VRAM:
+@@ -523,30 +516,14 @@ nouveau_bo_unpin(struct nouveau_bo *nvbo)
+ {
+ 	struct nouveau_drm *drm = nouveau_bdev(nvbo->bo.bdev);
+ 	struct ttm_buffer_object *bo = &nvbo->bo;
+-	int ret, ref;
++	int ret;
+ 
+ 	ret = ttm_bo_reserve(bo, false, false, NULL);
+ 	if (ret)
+ 		return ret;
+ 
+-	ref = --nvbo->pin_refcnt;
+-	WARN_ON_ONCE(ref < 0);
+-	if (ref)
+-		goto out;
+-
+-	switch (bo->mem.mem_type) {
+-	case TTM_PL_VRAM:
+-		nouveau_bo_placement_set(nvbo, NOUVEAU_GEM_DOMAIN_VRAM, 0);
+-		break;
+-	case TTM_PL_TT:
+-		nouveau_bo_placement_set(nvbo, NOUVEAU_GEM_DOMAIN_GART, 0);
+-		break;
+-	default:
+-		break;
+-	}
+-
+-	ret = nouveau_bo_validate(nvbo, false, false);
+-	if (ret == 0) {
++	ttm_bo_unpin(&nvbo->bo);
++	if (!nvbo->bo.pin_count) {
+ 		switch (bo->mem.mem_type) {
+ 		case TTM_PL_VRAM:
+ 			drm->gem.vram_available += bo->mem.size;
+@@ -559,9 +536,8 @@ nouveau_bo_unpin(struct nouveau_bo *nvbo)
+ 		}
+ 	}
+ 
+-out:
+ 	ttm_bo_unreserve(bo);
+-	return ret;
++	return 0;
+ }
+ 
+ int
+@@ -1078,7 +1054,7 @@ nouveau_bo_move(struct ttm_buffer_object *bo, bool evict,
+ 	if (ret)
+ 		return ret;
+ 
+-	if (nvbo->pin_refcnt)
++	if (nvbo->bo.pin_count)
+ 		NV_WARN(drm, "Moving pinned object %p!\n", nvbo);
+ 
+ 	if (drm->client.device.info.family < NV_DEVICE_INFO_V0_TESLA) {
+diff --git a/drivers/gpu/drm/nouveau/nouveau_bo.h b/drivers/gpu/drm/nouveau/nouveau_bo.h
+index 2a23c82074362..ff68ded8d590d 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_bo.h
++++ b/drivers/gpu/drm/nouveau/nouveau_bo.h
+@@ -40,9 +40,6 @@ struct nouveau_bo {
+ 
+ 	struct nouveau_drm_tile *tile;
+ 
+-	/* protect by the ttm reservation lock */
+-	int pin_refcnt;
+-
+ 	struct ttm_bo_kmap_obj dma_buf_vmap;
+ };
+ 
+diff --git a/drivers/gpu/drm/nouveau/nouveau_chan.c b/drivers/gpu/drm/nouveau/nouveau_chan.c
+index 9b6f2c1414d72..e48f1f7eb3705 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_chan.c
++++ b/drivers/gpu/drm/nouveau/nouveau_chan.c
+@@ -107,7 +107,7 @@ nouveau_channel_del(struct nouveau_channel **pchan)
+ 		nvif_object_dtor(&chan->push.ctxdma);
+ 		nouveau_vma_del(&chan->push.vma);
+ 		nouveau_bo_unmap(chan->push.buffer);
+-		if (chan->push.buffer && chan->push.buffer->pin_refcnt)
++		if (chan->push.buffer && chan->push.buffer->bo.pin_count)
+ 			nouveau_bo_unpin(chan->push.buffer);
+ 		nouveau_bo_ref(NULL, &chan->push.buffer);
+ 		kfree(chan);
 -- 
 2.53.0
 
