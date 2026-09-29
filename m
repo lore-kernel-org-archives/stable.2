@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A28675172EA
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 11:40:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5397251616A
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 11:41:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790682060; cv=none; b=V1IyN+ZDO6wmEZXeZVH3Ojh/VZ5upXyQE3eKY+aRqcRAEds/ZWW6elTka6O79x2CvidsmtCxhOKCVshmDZc4s4uFJzXdFd7BcZXffXUsy7RJP4nMVS3MwX2YLQD/wvLCQewGzEx1VAm05KGshP8S99+LP8VUcT6oRRlXs92/4qk=
+	t=1790682076; cv=none; b=sPXAYQftAourg8iLydbv59K7eTXvVD3zT1qx3rPxl06+RD5H6Y8DmpYySLtuL3o+u+aI2NDiHoC7oGb56QdMFGYwZm93O5F3NWktkCQvfkFUjaC2wQefP3K629zcgflu0FQXKeyViS3uWOT6eP4EbTzjQ8ek7gZDAlIIY9sN+hQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790682060; c=relaxed/simple;
-	bh=C8PSopHMvmpT1QUhcN9iB0Kx+35aY5+qAKeUEQrkCQM=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=dh1ezKCc5Z2FDaBRZ0O3pDi7CI7XEybmxHBa8lRDLibThmKgIPd2mCZwWzOjZetU0rSdzxqsf1NR6bOCFM3ul7BMw2zXt9nOhZPMBja1P93P8sx+yCHNIC0jADnZaPW0eSqfdxCf8d3alT7WNdtQf8wXMVlLzf5mNAblfDRAV2I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=QCJkvb9T; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790682076; c=relaxed/simple;
+	bh=wYVbLIE60+kAG39oJAcosv2g7Af+A0T+GoWW6lSh90U=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=aQuDuQiPQnsCWsDeIPk9r054Y4My+dGval+FowEqJOsOZK2BouX9KInBzCwxo4XuPw98rMW/pre2BKFpsKf2lYEF+VZIKwcHOOaiia6ae+V/juHIQvOW4inHPicFkwca+akGurtn2TMKK18sibmjbuG7BKSGZjgmnqHSd/6dDRA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=H834hkSN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="QCJkvb9T"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE51D1F000FF;
-	Tue, 29 Sep 2026 11:40:57 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="H834hkSN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A82D11F000FF;
+	Tue, 29 Sep 2026 11:41:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790682058;
-	bh=hQzylNs/71TkkNzAIFRF+pkWzJLl4Wlzk89omEL2VV4=;
+	s=korg; t=1790682075;
+	bh=dsSFojVEctXHvDcVEMeYBJkHuTiv0s6kO+Eeh5YkuVM=;
 	h=Subject:To:Cc:From:Date;
-	b=QCJkvb9T3FdQuSmsqj45t+XkDowy/DFrOfmMTQ6Epi7yQf7KpUxNw5RxaAiC7RH5b
-	 +12JhLXArH+F3PLt6BngW6TKDNeQ6LRzXuYq21kIt44Msi4VoLbGWdJyvBBV5dsG9M
-	 nlrilZ7t/vKMYpMYHtFa4r3H8ZCjoaidZ2Otf5pk=
-Subject: FAILED: patch "[PATCH] RISC-V: KVM: Release unused page after MMU invalidation" failed to apply to 6.12-stable tree
-To: xb@ultrarisc.com,anup@brainfault.org
+	b=H834hkSN84UlGIWAJqpFlxTsZdz6G9FjFfAXVLYHrp0SHuHBQHiFtZbsM6tmygHil
+	 MxumbHKajzyaRvI9y6cyOweQFMXDFfVHdlgH7g1JUvsuPvj3Se5pl8VYkHOEllcqfu
+	 OkwS2pJ5GC5UeufGZj2FZJ6cRSOVBW6sKsd3V158=
+Subject: FAILED: patch "[PATCH] RISC-V: KVM: Fix sdata leak and stale snapshot_addr in" failed to apply to 7.2-stable tree
+To: zhouzongmin@kylinos.cn,anup@brainfault.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 29 Sep 2026 13:40:39 +0200
-Message-ID: <2026092939-uncouple-mummy-4b72@gregkh>
+Date: Tue, 29 Sep 2026 13:41:09 +0200
+Message-ID: <2026092909-encrypt-stainless-6564@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 7.2-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
 git checkout FETCH_HEAD
-git cherry-pick -x ed54fdb460a6e81d5f8f38388d1f10b385dd4a58
+git cherry-pick -x b7749531a9b195f4fd7db92ca3cc49bda1a4dc8d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092939-uncouple-mummy-4b72@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092909-encrypt-stainless-6564@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,59 +62,48 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From ed54fdb460a6e81d5f8f38388d1f10b385dd4a58 Mon Sep 17 00:00:00 2001
-From: Xie Bo <xb@ultrarisc.com>
-Date: Mon, 10 Aug 2026 13:15:43 +0800
-Subject: [PATCH] RISC-V: KVM: Release unused page after MMU invalidation
+From b7749531a9b195f4fd7db92ca3cc49bda1a4dc8d Mon Sep 17 00:00:00 2001
+From: Zongmin Zhou <zhouzongmin@kylinos.cn>
+Date: Wed, 26 Aug 2026 14:41:17 +0800
+Subject: [PATCH] RISC-V: KVM: Fix sdata leak and stale snapshot_addr in
+ snapshot_set_shmem
 
-If an MMU invalidation races with a G-stage fault, the fault handler skips
-installing the page but leaves ret set to zero. As a result,
-kvm_release_faultin_page() treats the page as used and can unnecessarily
-mark it dirty.
+A guest may call SBI_PMU_SNAPSHOT_SET_SHMEM repeatedly. Each call
+overwrites kvpmu->sdata without freeing the old buffer (memory leak),
+and if a later kvm_vcpu_write_guest() fails, the error path frees
+sdata but leaves snapshot_addr stale. A subsequent
+SBI_PMU_COUNTER_START then passes the INVALID_GPA check and crashes
+the host with a NULL buffer in kvm_vcpu_read_guest().
 
-Track the invalidation retry separately and release the page as unused,
-while preserving the existing return value so that the vCPU retries the
-fault.
+Fix this by clearing the previously installed snapshot area before
+installing a new one, which keeps sdata and snapshot_addr consistent.
+The SBI spec suggests a single invocation but defines no error code
+for repeated calls, so KVM must tolerate them.
 
-Fixes: 2ed90cb0938a ("KVM: RISC-V: Retry fault if vma_lookup() results become invalid")
+Fixes: c2f41ddbcdd756 ("RISC-V: KVM: Implement SBI PMU Snapshot feature")
 Cc: stable@vger.kernel.org
-Signed-off-by: Xie Bo <xb@ultrarisc.com>
+Signed-off-by: Zongmin Zhou <zhouzongmin@kylinos.cn>
 Reviewed-by: Anup Patel <anup@brainfault.org>
-Link: https://lore.kernel.org/r/20260810051544.3953925-2-xb@ultrarisc.com
+Link: https://lore.kernel.org/r/20260826064117.58029-1-min_halo@163.com
 Signed-off-by: Anup Patel <anup@brainfault.org>
 
-diff --git a/arch/riscv/kvm/mmu.c b/arch/riscv/kvm/mmu.c
-index 6035b5ec9503..d189fd58d7bf 100644
---- a/arch/riscv/kvm/mmu.c
-+++ b/arch/riscv/kvm/mmu.c
-@@ -627,6 +627,7 @@ int kvm_riscv_mmu_map(struct kvm_vcpu *vcpu, struct kvm_memory_slot *memslot,
- 	int ret;
- 	kvm_pfn_t hfn;
- 	bool is_hugetlb;
-+	bool unused = false;
- 	bool writable;
- 	unsigned int vma_pageshift;
- 	gfn_t gfn = gpa >> PAGE_SHIFT;
-@@ -719,8 +720,10 @@ int kvm_riscv_mmu_map(struct kvm_vcpu *vcpu, struct kvm_memory_slot *memslot,
+diff --git a/arch/riscv/kvm/vcpu_pmu.c b/arch/riscv/kvm/vcpu_pmu.c
+index 6ff741ee7803..cc0c138651bc 100644
+--- a/arch/riscv/kvm/vcpu_pmu.c
++++ b/arch/riscv/kvm/vcpu_pmu.c
+@@ -454,6 +454,14 @@ int kvm_riscv_vcpu_pmu_snapshot_set_shmem(struct kvm_vcpu *vcpu, unsigned long s
+ 		}
+ 	}
  
- 	write_lock(&kvm->mmu_lock);
- 
--	if (mmu_invalidate_retry(kvm, mmu_seq))
-+	if (mmu_invalidate_retry(kvm, mmu_seq)) {
-+		unused = true;
- 		goto out_unlock;
-+	}
- 
- 	/*
- 	 * Check if we are backed by a THP and thus use block mapping if
-@@ -743,7 +746,8 @@ int kvm_riscv_mmu_map(struct kvm_vcpu *vcpu, struct kvm_memory_slot *memslot,
- 		kvm_err("Failed to map in G-stage\n");
- 
- out_unlock:
--	kvm_release_faultin_page(kvm, page, ret && ret != -EEXIST, writable);
-+	kvm_release_faultin_page(kvm, page,
-+				 unused || (ret && ret != -EEXIST), writable);
- 	write_unlock(&kvm->mmu_lock);
- 	return ret;
- }
++	/*
++	 * Clear any previously installed snapshot area to avoid leaking
++	 * the old sdata and to keep sdata/snapshot_addr consistent if
++	 * the re-install fails below.
++	 */
++	if (kvpmu->snapshot_addr != INVALID_GPA)
++		kvm_pmu_clear_snapshot_area(vcpu);
++
+ 	kvpmu->sdata = kzalloc(snapshot_area_size, GFP_ATOMIC | __GFP_ACCOUNT);
+ 	if (!kvpmu->sdata) {
+ 		sbiret = SBI_ERR_FAILURE;
 
