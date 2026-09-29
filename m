@@ -1,132 +1,173 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FE134CDDE4;
-	Tue, 29 Sep 2026 09:36:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 906B832E121
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 09:36:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790674603; cv=none; b=F2eXofcaBtPwPSxt7D/Ohq5GOp7KK/85xDtajMoODGQD09r1u668hMWbdr8E/OXS1jIqrAtg64Gt6Uvcr4gb7nrwDkyygOA8aFjHQfXeLI9plUt+rka21+aC07yeH1VQW4Ar4Obp9mbP6PXNtRClfx9tvEUY0aK35aoZbQlaFFc=
+	t=1790674619; cv=none; b=I6xw4ETfNT6I0GTOdJjakkNqMqHaGPfWy18JuZyCJBu9YcuiPG5DkdNL5nvNPmYE1gbkMMt8C4GMhK0/MHF/xuf75IIGeE/xj9tljTGTvkFRLwbC58RabRjh8MYiPDE/jBwq1+hINlCfzm7M0anMPd6OB1l/9LCh5+1hs0nHAsM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790674603; c=relaxed/simple;
-	bh=5guw0H8KXXcoeLk2Z3fzw6vhyj24zAD5pHFjtwhYKWQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gcoaHbYlseY7wKc4vz83gpYzFeoUO+KvYjvIxFoOhEcvSfDEaKUaZ/B3lwfovl5/nIl0/zsRFd0XtmCetGw/3u+ZT35ayPZGgPwE+UWY81bjIuLXpsG9MK7w2eBnyUD52pb1UUhIpgseHK9T/4qMNzfFFraexdKYb6ZM+NDQOvg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UYI23eZt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790674619; c=relaxed/simple;
+	bh=SDurO6iGOkq0XOf+cNPVutdBRb3Gk9537jEymupZAG4=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ltWNexixkPtTe+CbeKCiDlm7LXURO0nAZUzAJwIj+S4kmsrHdID1WXJLTtQ4oh5+rHAtB7/PE/Ksjakoc3DV6sSe8nX3NNgOvq8mqj4nbv5oNPlvo21eQ8Tzg+xykA9Cd/ArnUVeN1dIVtkfKggvP/55rYJ/eZSMDCqvF+iqUNU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=FM6jCAh5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UYI23eZt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 821E61F0089A;
-	Tue, 29 Sep 2026 09:36:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790674601;
-	bh=f6sEMz+sle2+vRKQR9x7yi93xoB+ZcFnzxRhK6q+PUo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UYI23eZt/xXaG0hcQNuVsIHd5hhQ2VDuJyUpjdaWB9A+uDuqTVObPko0oGFhFZEy+
-	 wDAV4q0TvbqUWta/xzGFvg9sVur3hAWD5y7/dHotJoSpUYiXiVgnMh4XwASpsIPri3
-	 gClEEyIdWWeEi6SuOr32JNO5aKyQYxh2wjWFD5MHMj9h/fs7UMkVVVyJr7edNs6yIu
-	 UCgZAOzmlKblV3zMzqnrtjznj+vqOKSBOOS7/csVIXUrFqA4ZXDKEbXEGKnA/uZdAd
-	 QJCmK0QMl/SYqAMVvpP1umYKfB5s9BQYFTUJLnF9Kl3vk3ZicUWlw4Nn2u+A1ZWAzI
-	 bKzOVxo0lc+zw==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=valley-girl.lan)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xBUGN-0000000ElEa-3EdP;
-	Tue, 29 Sep 2026 09:36:39 +0000
-From: Marc Zyngier <maz@kernel.org>
-To: kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Cc: Steffen Eiden <seiden@linux.ibm.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Oliver Upton <oupton@kernel.org>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Yuchao Zhang <ndaugoing@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 6/7] KVM: arm64: vgic-its: Fix MOVALL handling of source redistributor
-Date: Tue, 29 Sep 2026 10:35:47 +0100
-Message-ID: <20260929093548.3598547-7-maz@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260929093548.3598547-1-maz@kernel.org>
-References: <20260929093548.3598547-1-maz@kernel.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="FM6jCAh5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CF311F000FF;
+	Tue, 29 Sep 2026 09:36:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790674617;
+	bh=rqeEBwl051CD9SwvmHKOf/Zyjd/qem+n0sI2F1GkXaQ=;
+	h=Subject:To:Cc:From:Date;
+	b=FM6jCAh5WmyV/ZD1TVKP0QBapw3RH6sRPogVHdIfmn+K1R+7FCb12JfGASnngNgld
+	 pA0w8xTmBtvxEJcKn+j5BjYxnh4ICJBleTb+yKftKeQ7xvXr9pzoXdYQR1YF27hzo4
+	 RxzKD8b9smA6hrN3n/uI3kRLhV6UQJtyW02aRPvo=
+Subject: FAILED: patch "[PATCH] net: ipconfig: bound DHCP option construction" failed to apply to 6.18-stable tree
+To: xuyuqiabc@gmail.com,horms@kernel.org,pabeni@redhat.com,vega@nebusec.ai,weir@nebusec.ai
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Tue, 29 Sep 2026 11:36:51 +0200
+Message-ID: <2026092951-scholar-stillness-99df@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, seiden@linux.ibm.com, joey.gouly@arm.com, suzuki.poulose@arm.com, oupton@kernel.org, yuzenghui@huawei.com, fuad.tabba@linux.dev, ndaugoing@gmail.com, stable@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-The MOVALL command moves the pending state of all LPIs targeting a given
-redistributor to another one. However, we seem to have lost the
-filtering on the source RD, which means we move all LPIs to the target.
 
-Not quite what the spec mandates.
+The patch below does not apply to the 6.18-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Hack update_affinity() to take an optional source vcpu that is used as a
-filter when non-NULL, restoring the filtering that was performed by
-vgic_copy_lpi_list() back in the days.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Fixes: 11f4f8f3e6e06 ("KVM: arm64: vgic-its: Walk LPI xarray in vgic_its_cmd_handle_movall()")
-Signed-off-by: Marc Zyngier <maz@kernel.org>
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git checkout FETCH_HEAD
+git cherry-pick -x e47a1958e12abc3a17b5231a4f21c8f1bf662e08
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092951-scholar-stillness-99df@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From e47a1958e12abc3a17b5231a4f21c8f1bf662e08 Mon Sep 17 00:00:00 2001
+From: Yuqi Xu <xuyuqiabc@gmail.com>
+Date: Sat, 19 Sep 2026 16:45:27 +0800
+Subject: [PATCH] net: ipconfig: bound DHCP option construction
+
+ic_dhcp_init_options() appends the hostname (option 12), vendor-class
+(option 60) and client-ID (option 61) options into the fixed 312-byte
+bootp_pkt.exten[] buffer.  Only the client-ID branch checked the
+remaining space; the hostname and vendor-class writes were unbounded.
+
+A 64-byte hostname together with the maximum 252-byte dhcpclass=
+identifier needs 18 + (2 + 64) + (2 + 252) = 338 of the 312 available
+bytes even before the terminating END marker, so the vendor-class memcpy
+runs past the end of exten[].  With CONFIG_FORTIFY_SOURCE this is
+reported as a field-spanning write and, when the kernel is booted with
+panic_on_warn=1, aborts boot with a panic.
+
+Route the optional options through a common helper that makes sure the
+option, its 2-byte header and the END marker all fit and drops an option
+that would not.  Configurations with short options keep sending exactly
+the same bytes as before.
+
+Fixes: 130c0f47fdf9 ("ipconfig: send host-name in DHCP requests")
 Cc: stable@vger.kernel.org
----
- arch/arm64/kvm/vgic/vgic-its.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+Reported-by: Vega <vega@nebusec.ai>
+Assisted-by: LLM
+Signed-off-by: Yuqi Xu <xuyuqiabc@gmail.com>
+Reviewed-by: Ren Wei <weir@nebusec.ai>
+Reviewed-by: Simon Horman <horms@kernel.org>
+Link: https://patch.msgid.link/7808dfbfa2162dfd0b19f59aff5742d6e0db2abb.1789798023.git.xuyuqiabc@gmail.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 
-diff --git a/arch/arm64/kvm/vgic/vgic-its.c b/arch/arm64/kvm/vgic/vgic-its.c
-index 9e782a4fea7e5..cc02d9b62bd95 100644
---- a/arch/arm64/kvm/vgic/vgic-its.c
-+++ b/arch/arm64/kvm/vgic/vgic-its.c
-@@ -319,12 +319,16 @@ static int update_lpi_config(struct kvm *kvm, struct vgic_irq *irq,
- 	return ret;
- }
+diff --git a/net/ipv4/ipconfig.c b/net/ipv4/ipconfig.c
+index 155db067eaec..1b8585404a41 100644
+--- a/net/ipv4/ipconfig.c
++++ b/net/ipv4/ipconfig.c
+@@ -676,6 +676,24 @@ static const u8 ic_bootp_cookie[4] = { 99, 130, 83, 99 };
  
--static int update_affinity(struct vgic_irq *irq, struct kvm_vcpu *vcpu)
-+static int update_affinity(struct vgic_irq *irq,
-+			   struct kvm_vcpu *from_vcpu, struct kvm_vcpu *vcpu)
- {
- 	struct its_vlpi_map map;
- 	int ret;
+ #ifdef IPCONFIG_DHCP
  
- 	guard(raw_spinlock_irqsave)(&irq->irq_lock);
-+	if (from_vcpu && irq->target_vcpu != from_vcpu)
-+		return 0;
++static bool __init
++ic_dhcp_add_option(u8 **options, const u8 *end, u8 type, const void *value,
++		   int len)
++{
++	u8 *e = *options;
 +
- 	irq->target_vcpu = vcpu;
++	/* leave room for the option header and the END marker */
++	if (len > U8_MAX || end - e < len + 3)
++		return false;
++
++	*e++ = type;
++	*e++ = len;
++	memcpy(e, value, len);
++	*options = e + len;
++
++	return true;
++}
++
+ static void __init
+ ic_dhcp_init_options(u8 *options, struct ic_device *d)
+ {
+@@ -691,6 +709,7 @@ ic_dhcp_init_options(u8 *options, struct ic_device *d)
+ 		42,	/* NTP servers */
+ 	};
+ 	u8 mt = (ic_servaddr == NONE) ? DHCPDISCOVER : DHCPREQUEST;
++	u8 *end = options + sizeof(((struct bootp_pkt *)0)->exten);
+ 	u8 *e = options;
+ 	int len;
  
- 	if (!irq->hw)
-@@ -362,7 +366,7 @@ static void update_affinity_ite(struct kvm *kvm, struct its_ite *ite)
- 		return;
+@@ -721,31 +740,19 @@ ic_dhcp_init_options(u8 *options, struct ic_device *d)
+ 	e += sizeof(ic_req_params);
  
- 	vcpu = collection_to_vcpu(kvm, ite->collection);
--	update_affinity(ite->irq, vcpu);
-+	update_affinity(ite->irq, NULL, vcpu);
- }
- 
- /*
-@@ -856,7 +860,7 @@ static int vgic_its_cmd_handle_movi(struct kvm *kvm, struct vgic_its *its,
- 
- 	vgic_its_invalidate_cache(its);
- 
--	return update_affinity(ite->irq, vcpu);
-+	return update_affinity(ite->irq, NULL, vcpu);
- }
- 
- static bool __is_visible_gfn_locked(struct vgic_its *its, gpa_t gpa)
-@@ -1383,7 +1387,7 @@ static int vgic_its_cmd_handle_movall(struct kvm *kvm, struct vgic_its *its,
- 		if (!irq)
- 			continue;
- 
--		update_affinity(irq, vcpu2);
-+		update_affinity(irq, vcpu1, vcpu2);
- 
- 		vgic_put_irq(kvm, irq);
+ 	if (ic_host_name_set) {
+-		*e++ = 12;	/* host-name */
+ 		len = strlen(utsname()->nodename);
+-		*e++ = len;
+-		memcpy(e, utsname()->nodename, len);
+-		e += len;
++		ic_dhcp_add_option(&e, end, 12, utsname()->nodename, len);
  	}
--- 
-2.47.3
+ 	if (*vendor_class_identifier) {
+-		pr_info("DHCP: sending class identifier \"%s\"\n",
+-			vendor_class_identifier);
+-		*e++ = 60;	/* Class-identifier */
+ 		len = strlen(vendor_class_identifier);
+-		*e++ = len;
+-		memcpy(e, vendor_class_identifier, len);
+-		e += len;
++		if (ic_dhcp_add_option(&e, end, 60, vendor_class_identifier, len))
++			pr_info("DHCP: sending class identifier \"%s\"\n",
++				vendor_class_identifier);
+ 	}
+ 	len = strlen(dhcp_client_identifier + 1);
+-	/* the minimum length of identifier is 2, include 1 byte type,
+-	 * and can not be larger than the length of options
+-	 */
+-	if (len >= 1 && len < 312 - (e - options) - 1) {
+-		*e++ = 61;
+-		*e++ = len + 1;
+-		memcpy(e, dhcp_client_identifier, len + 1);
+-		e += len + 1;
+-	}
++	/* the minimum length of identifier is 2, include 1 byte type */
++	if (len >= 1)
++		ic_dhcp_add_option(&e, end, 61, dhcp_client_identifier, len + 1);
+ 
+ 	*e++ = 255;	/* End of the list */
+ }
 
