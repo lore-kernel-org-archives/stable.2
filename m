@@ -1,131 +1,161 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013046.outbound.protection.outlook.com [40.93.201.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40E20538D8B;
-	Tue, 29 Sep 2026 16:54:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790700854; cv=none; b=miEViok6Edb+orvrY0YZe/vqp2DpHmx5lk/g5Dcd4jxmFDI9uxWEIxSly8D4+tLfQLLjCUkD7J7BlpwqgQN/c7fFJfrEMqSFuE6sKi4AGdrHszr+wQmfwU/rJCUz3uqgcOyADFloGeBtzxqdsdcn9JeahBJOgTE0heQE2XbZidQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790700854; c=relaxed/simple;
-	bh=Ia2IVFDGm42HX7GPQhOizP29/fjvmxx66wIZ2fGy/Wc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kaIVgrUiCMrJ/hkUYxlLIpiky10eazTsqnlzkbuediKV3jx0lImHsEXYkeZY6IUpEWmtMej+COolsKZUlBbwGRnIEtS83OAcc+T8U8VFlRUsg4HnZNq5JfnUhyi5v5E6u66KplZxiouSOf8cKmg+IAdfqk1P4nUVQATo2lK6sPY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WU2Ik3Jv; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 788DD3EC830;
+	Tue, 29 Sep 2026 16:55:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790700960; cv=fail; b=PkT40OO1XOdYDLnd68DsOXRXYaFsuzxiF2wt+DhvidKUBzAXe0xsoXIneqA+d51oty5Ax8UIbyI9mZzA4EFfrY4OPM5SC9unV7OkuVi9Jzo43XWcCg82bZ9EA6X1DGkZNc5FvXbV6Y7tprTk5nHxsYriNJYFlmqaoXD5oQcYkAA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790700960; c=relaxed/simple;
+	bh=EBqdWD9ILGxafLnLAtN08Dpe+sg3gBkAX5NtXMstqjI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=dTJMRuXIU3IQYI9Eb91iO7ZkWVinUlK/TAFoCuoXM+mjSZSv4AzTE8SlPLFyssPlnJkASK8KLPOxssEgCrz7QgWMa5JwA7pTGlD7H/V52ozwPcJ8DcEVC3wZqhVxjEM3ci4o58D7QXyXQk3zbbVl8XcZAwctRfkBSTN84+v5aa0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=JxbFDc2k; arc=fail smtp.client-ip=40.93.201.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WU2Ik3Jv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790700852; x=1822236852;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=Ia2IVFDGm42HX7GPQhOizP29/fjvmxx66wIZ2fGy/Wc=;
-  b=WU2Ik3JvLkIYX+Mi3MwvAh+HnrGiNgHfapDRwdKCEDbckHl4e7rk1dOK
-   uDaEGUZLNTA8BYFVWPYoGUHcbNoSAzXSAoHQjsInvrVcCxVBQhxCPcb3N
-   Zx9z35t8k8UeG8afS2JEYcypHy/D8fwhgi8IyGsFUPU+Nj5a/GSyAc+Oz
-   a/O+ZneVQCYKgGwLI1x4opTFDLeT5tV4pnLpf9a81Aol+6938pN1es9Hx
-   aatWM7QnVA34GjT7wcCQAYVIOGTSLF2X+7A+3bx7GFZSotwYcFPP273sX
-   lWX74nP5iDYNroZwDqaTmI9OLvVNE3VvNCLKiJoUzeVRxvYsZBerD8CcP
-   g==;
-X-CSE-ConnectionGUID: TlaELfO5SRC7hTM0kuiwyA==
-X-CSE-MsgGUID: g8IRv7wiS36qe5Ir8MXLvw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="102802477"
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="102802477"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 09:53:31 -0700
-X-CSE-ConnectionGUID: P8J40M06RMOC9+c1HacIFw==
-X-CSE-MsgGUID: DX4kZuz6Rz+E8yqSAG6ldA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="274633172"
-Received: from vverma7-desk1.amr.corp.intel.com (HELO [10.125.111.116]) ([10.125.111.116])
-  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 09:53:30 -0700
-Message-ID: <7e945daf-2e1e-468b-8701-db6bbd4ef085@intel.com>
-Date: Tue, 29 Sep 2026 09:53:29 -0700
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="JxbFDc2k"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=sv0X75WsU0MpblFUUUp0blxwTuZH/285+CDFWkXEO4wFmTRslAHw2c4VN5oMKt/yt8MrPQuKRKXM3RN+IxR/YEm3nYAFb644RDzAHsWMe6w+VhGyay4zV1At6ucXw/A9k8SLRbBuxCC23CuKBNfuvEyErdYvB+HuFDLMwPSf8KKxeXGCJM4ItYooBP8buWffTCsyQlsaY1EcnJ+++nqtD/BkYnxErTPAEzTFvJ/WGjTrXKQd5tf0JInezvu4c04IT1omlehsBhTKBZPevHJY3RfTayDqVj+TRpf5c/I+aemJ8lv1jRkaFGN9mqdoRgyVH9OMjRGw0n37+EO+hp4HVQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LrPL7QCnpJZxNKrf9blYKSmhBEnl6uvemNSXMrKavvM=;
+ b=jkPoqrMpFI9aVZvsbSUG3lQZRcjNQnXedxhOH9LgyBFmiZINJIOy3bauRkm614lDaQaXbxH8yEm8/CEYZp1W+P/aRhakCA9/jNt1eRSbWU2XbKygxy59Ng9bi8RC1yVhR7vnd9PhsWCKpvEQDuCqkBOLNKtWjQi2FoEZ2YOw37Q+SL637RJjmC2Rg441V+UyPBqgtg964C3zyXBvasEX+zrT+xuRjS0F0k6aFldABQ+DMJ0XUJzQa/UsWO+px+l2t5lkQ4Fh5Wux3MgdhALr540/CON0zGa9HmRnvL+AYw5+1aeaTu0WR62Ne3v1xJmrLZfSFUM55O5/hKNi61J7+A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LrPL7QCnpJZxNKrf9blYKSmhBEnl6uvemNSXMrKavvM=;
+ b=JxbFDc2kTjujn0O9oLBaLXuP2adQKSeB/xbiL7Cfo9J3r0UprS4ZX0f+/lArzd2sh1nfSWdtl8e7Ms0T70bVg5QefMpKEtjd/mTq3CVjxShrBtWvYGrl8INRK9jTeeY/fCYK+wOiOYowbXloUKWkOZm5D+wEZ9KZ4QX7VFIiYh4=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB6374.namprd12.prod.outlook.com (2603:10b6:8:a3::18) by
+ SJ2PR12MB9240.namprd12.prod.outlook.com (2603:10b6:a03:563::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Tue, 29 Sep
+ 2026 16:55:56 +0000
+Received: from DM4PR12MB6374.namprd12.prod.outlook.com
+ ([fe80::af35:a7a6:6ca:7fcf]) by DM4PR12MB6374.namprd12.prod.outlook.com
+ ([fe80::af35:a7a6:6ca:7fcf%5]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
+ 16:55:56 +0000
+Date: Tue, 29 Sep 2026 12:55:49 -0400
+From: Yazen Ghannam <yazen.ghannam@amd.com>
+To: Vishal Badole <Vishal.Badole@amd.com>
+Cc: bp@alien8.de, tony.luck@intel.com, linux-edac@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] EDAC/amd64: Mask UMC chip select to the four
+ implemented selects
+Message-ID: <20260929165549.GA3082391@yaz-khff2.amd.com>
+References: <20260928180935.472319-1-Vishal.Badole@amd.com>
+ <20260928180935.472319-2-Vishal.Badole@amd.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260928180935.472319-2-Vishal.Badole@amd.com>
+X-ClientProxiedBy: BN1PR13CA0013.namprd13.prod.outlook.com
+ (2603:10b6:408:e2::18) To DM4PR12MB6374.namprd12.prod.outlook.com
+ (2603:10b6:8:a3::18)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/fpu: Free dynamic fpstate on exec()
-To: Guixiong Wei <weiguixiong@bytedance.com>, x86@kernel.org
-Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H . Peter Anvin" <hpa@zytor.com>, "Chang S . Bae"
- <chang.seok.bae@intel.com>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260929151013.81562-2-weiguixiong@bytedance.com>
-From: Dave Hansen <dave.hansen@intel.com>
-Content-Language: en-US
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
-In-Reply-To: <20260929151013.81562-2-weiguixiong@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6374:EE_|SJ2PR12MB9240:EE_
+X-MS-Office365-Filtering-Correlation-Id: f1210258-883d-4ac7-2c2a-08df1e4a87dd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|4143699003|56012099006|10067099003|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	uiDrh68fMcSCZxifEhXsGNOBWFv6QPiSZvqxCrjJz6DfiR93BuHzCuXx82Tw+v9DAk10G4giflsVf6qlU1z1sQbVZiQ7Y+i/82iMsgyRCpBpx6jIz7FgFmQGRV3v9V75ET3xm6WIoSjzRcQCY1LmSFMj5MRAcQ0c4J4cCXC4CBL7OMQEL/l6ZahxeOnBjt5A7YlxntK+ZIHlltgiAsMRb4KnhX40jjbAY/w3nCyMcjIcegBkxGb0HuOTHSQyEZPaNBK4bDnGXoUHMLjgpZjA3d6ZEHkA4OAWB2ZE8uB40p9hyZK4FK3Sm5O7NbTg1Rz8hBcpFtyPgTzOdglpp7xviFdO762VBNLAIjCFdxLmNGyFA1hbTtk0dFs5UJoGet66SIKRcrxpfNRzwnfaDNid/V7wHfPKUww58/GMrJCWZevIIJjyJyP97Zfwx2WikS949pQyQHBKK6EsuafVCUzMrrRcxRgzDUSGZMRWLbRGT6zTUmzV/iUMLqL4Zii/2BMz6+ap9pYMHZBrB99rKksGixBj8NVStMnBZhhu/fuC65JEwSGtZjU6HeTwGPLHIT4V9JPlmQ/GF5H4SpL5eU508KeYw3IE9kIZJ21MAfmxKKtlkIkQAj10/0NMuOqAhQ36AwdBCekg2unKMPgsF7fam5OCJxJ9xjWig0LZ5DqAeEg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB6374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(4143699003)(56012099006)(10067099003)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?0gRSIH1ATiRj6sW3OH8lq+PYQi+fyJAUq8kLE/t+hI2FS7Q2AmQifLZAeQ5B?=
+ =?us-ascii?Q?BmrwGpMv9QnGB51bH3cUtZrZpb/nakwz2zLH6rRjl8zPKfrX0tr3v79AGrYs?=
+ =?us-ascii?Q?aiefFiuFVhPWHt8qh1v7zvU9oxlebXGeGzQ119OryriSSdEIe5luZtVq13gr?=
+ =?us-ascii?Q?0nRp++x5LJiccuzHxlDk7R/tAU1MSuZ5ip0FpJ0sKdfl3hgRgMZpSgC2hA8e?=
+ =?us-ascii?Q?6buP/KLLC+4yW1uaUIgw1CMwEPYNRwkDxYWHnxNzylGn/ObjKWVveU/g9rTP?=
+ =?us-ascii?Q?h9FovH4O/KpS8IuYN2yd4+AFJ5OwkyVYFGc9hWKnON/EJsC5X0uWSe2hQk/Y?=
+ =?us-ascii?Q?3M3dwM5vfnNfZ9LLsgHrtyqj9li8rQxWXD0djqxaaoEYDRNIzXhSGLge/+ID?=
+ =?us-ascii?Q?jFaUkSLvJdvpszGB/WcLHH6q4mkU9R59R3H3anWCIQ8H72iFN0l75erjdS6n?=
+ =?us-ascii?Q?HhRxpWButVVMYzxxqaRFg+oOoMRtdK314tCOt7Yhl3N6sF/DKwn5gkyBGUlO?=
+ =?us-ascii?Q?HB1BtDFnJWl81lHBOXAVHM+hbDCjfEnMv1xfA3iyFNsNkioBOKOjsLTHGegF?=
+ =?us-ascii?Q?JCEAVNVp6NSwZdk9qvALBArvVKtLSAieJO+F7Fiyvl0bAErMmqnZ1w4GRqFD?=
+ =?us-ascii?Q?c+neJ5yBNeuNAc1GkkB4OmKPo3Nd/68oiADJziy6LIk37FYWEuWUh+LgD32J?=
+ =?us-ascii?Q?MhWWaQzen5hoJXqdn4/Nts7/TepWQ9SSIlIr7FsvwiV2YiinScIrscaoClgh?=
+ =?us-ascii?Q?CSBZTb6bzFWJeD8AzzOj3EXLk2GJrpluC4oH3Gxg3Y3OnnF8zXRJ8p3IqG0D?=
+ =?us-ascii?Q?xN1aFfeLA+wMk0uMFet32JCOiV+qBKroIYxy1SK2joyf9rq24S9wtkMB+OT+?=
+ =?us-ascii?Q?JK0R6E1E6bpYdEqYLGGmHH/azl9EaVuFiL2bmCqBzfx3gBgQWLRcsSEN9TZe?=
+ =?us-ascii?Q?6zK7bqikb9UfQVWAg7I8sCvSt44Aqret63JscErRgllx9nPPay62Q8RK1rt4?=
+ =?us-ascii?Q?ndwYmaCaG+aHOlxMM9T7GdHHejpsGydwIei/pFgl/+3TZNIp3GxZVEiwFnqL?=
+ =?us-ascii?Q?2zXOad4ptaJ+AbN4h2Cka6MF2F+Nn8ONqta5x/5K1mgI7Ok/cHPf79+icVYe?=
+ =?us-ascii?Q?WPj8KUMljjMigSDe2kuPo7tiBPnAHKIJ8fPsPPkYj3rofwsYbWuRi0wPuzqG?=
+ =?us-ascii?Q?k/tpOsurtxGZ1BSR4UGbOZnzfuEOj4YEkrnBoVNtn7/tla8xP9dkZthrZ0/L?=
+ =?us-ascii?Q?Qb2WN7RkggMtgBWJCxcnOvRn29QWhsP7gFtEC6kDJMg9507I1tF1zgqt1Amz?=
+ =?us-ascii?Q?+stAZS066ODhEQEw6lHMvWt2w8mepQ8L/fjQG2Ui3H8Gp+EwjUMhD4HW9GEt?=
+ =?us-ascii?Q?5d55BLEkoKnwXYg2ngbzmZh1VtIWWv3UGXVXvewiuua/tEeYC/JrUsZmjuvO?=
+ =?us-ascii?Q?d0Ngi1MqxODAQ/bqSadyiewBoBlqeTcnphbA7D2kHglYGzle2idFus/sggMV?=
+ =?us-ascii?Q?9INI7GN0LnU2LTNDDbHCPa7nYQb2dMbjyaw8guERdMmVKXOPQTY+bsmYskeS?=
+ =?us-ascii?Q?ufLsW6L1OqUP1nf6uGjSYUv1G2rKfCc0FvrGQdouBhZm8225MY0tiaquecqy?=
+ =?us-ascii?Q?n471tgJlcvd+Z0DggBHlYP3KCT+BK6cdqDvThSUZLnR7yb5LQ00pAmDlJpfb?=
+ =?us-ascii?Q?oG2HS1ovZzrTmPZNcW5Ai01Ss+L66FFMDOAob3/2MwPpiFil?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f1210258-883d-4ac7-2c2a-08df1e4a87dd
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 16:55:56.7042
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ns6/UBz3dgB1MRXiJmCmGeW8fu/BqEV1FIgVVzwipq21MdOJQQLxmc7n/aBjkWYtQitmEwWksxT01tEIdkk2oA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9240
 
-On 9/29/26 08:10, Guixiong Wei wrote:
-> Preserve the old fpstate pointer across fpstate_reset() and free it only
-> after fpu_reset_fpstate_regs() has invalidated FPU register ownership.
-> This ordering prevents a context switch from saving FPU registers through
-> a freed fpstate pointer.
+On Mon, Sep 28, 2026 at 11:39:34PM +0530, Vishal Badole wrote:
+> umc_get_err_info() masks the Chip Select from MCA_SYND with 0x7, a
+> leftover from Zen 1 where the architecture reserved space for up to
+> eight chip selects. Only four have ever been implemented, and newer
+> products document this as MCA_SYND_UMC[1:0] = Chip Select.
+> 
+> Since only four csrows are allocated, a syndrome with bit 2 set decodes
+> to an out-of-range csrow and trips:
+> 
+>   EDAC MC0: INTERNAL ERROR: csrow value is out of range (5 >= 4)
+> 
+> Mask with 0x3 to match the four implemented chip selects.
+> 
+> Fixes: 713ad54675fd ("EDAC, amd64: Define and register UMC error decode function")
+> Cc: <stable@vger.kernel.org>
+> Suggested-by: Yazen Ghannam <yazen.ghannam@amd.com>
+> Signed-off-by: Vishal Badole <Vishal.Badole@amd.com>
+> Reviewed-by: Yazen Ghannam <yazen.ghannam@amd.com>
+> ---
+>  drivers/edac/amd64_edac.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/edac/amd64_edac.c b/drivers/edac/amd64_edac.c
+> index 475235c402e8..ec4cc306b726 100644
+> --- a/drivers/edac/amd64_edac.c
+> +++ b/drivers/edac/amd64_edac.c
+> @@ -2802,7 +2802,7 @@ static inline void decode_bus_error(int node_id, struct mce *m)
+>  static void umc_get_err_info(struct mce *m, struct err_info *err)
+>  {
+>  	err->channel = (m->ipid & GENMASK(31, 0)) >> 20;
+> -	err->csrow = m->synd & 0x7;
+> +	err->csrow = m->synd & 0x3;
+>  }
+>  
+>  static void decode_umc_error(int node_id, struct mce *m)
+> -- 
 
-Are there any fpstate_reset() paths where this matters?
+I just noticed that the code comment above this function needs an update
+too.
 
-I mean, the init task, obviously not. It doesn't have a dynamic fpstate.
-During exec() this reset happens while:
-
-	bprm->mm = NULL;
-
-among other things, so I really don't think it's even remotely in the
-context of getting context-switched to.
-
-For clone(), the destination task is also not in any condition to be
-context-switched to.
-
-So why defend against context switching? What am I missing?
+Thanks,
+Yazen
