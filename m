@@ -1,154 +1,200 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51B6B3AE6F5
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 05:34:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E22203F58C2
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 05:43:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790660088; cv=none; b=kxSyIf+kyQ5/2U5ljwr5tcwaA8JElQzUnNbmRNqxPs4n9CJrQC3e1Ss+Akha7WcEa1pZyrgB3G1pUaiVNDgjOldr10OSD944UC3ZMqPtQgNBEMTG+xwGqG6kkrfmcUmdBHwKnLbcxf39hVVtUS2kumwF/zMoRlXn4Ty1HbKQhV4=
+	t=1790660632; cv=none; b=NZpPw/KP521Dv8FMOedYIfyogggJrLliwxc6i3wSaE8G/BuBtk9yH4fTifccYWMf3OvYG/L908zMBU4OxZh9Lo55G+y39DkTuNnZJe+yD5WtPlAcObBYkPNQbc8PuRgIoFcNypsTGvWhhWeg1/kGrNgHDXQWA0KkkQ1DoGnG+wI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790660088; c=relaxed/simple;
-	bh=SjaZfvcnMjlUB/r4CGiIFCGO685RtMUV7DSyAIMhSgo=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=N9j8Lzb/Q3jYE1gEP1lFyUKLDGhqvl99BLKjsvfJNMl76gjCsWBRKqbwJTzqjoWbwkXvuY8FXOX8TYwuo+1RPOjD5OF01uMr+/tfnZE2xn1VXcJ2Jed36rzBZ8SbD/CDRr132MgoShCQmdcR1tvmtZpG8qMXsQJpt3X+KfNtbIY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=WnWnEQOb; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=KqDOltKO; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=zuI/hQ03; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=bmYADGk0; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1790660632; c=relaxed/simple;
+	bh=sQv+3EQ/YpC4KBY6er3ezC/52sPg6K8xe3lTdLTN1/Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eON6cZXLbGHqOxfNu4LLaxwnV2/gPPAYxs0L9rNDwrb0eKjkjQj2e2UVrKBzHBFbSehNtrtliaOi3pC7mTy0cCxhJpa2Y232lt/Kek+Sh5SZCFgVgN2DPdmZyq91PGFGfiAskmj+Cn+ty9YdsOcv8o29KLLjt3KLQ1a92sHZeyk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=w39jUsCJ; arc=none smtp.client-ip=74.125.228.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="WnWnEQOb";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="KqDOltKO";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="zuI/hQ03";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="bmYADGk0"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 4B0EB21C4B;
-	Tue, 29 Sep 2026 05:34:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790660072; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CyCIA/ALCwlqDgVFKzh+aLBduuAD/F4jpZh+nNsQxMY=;
-	b=WnWnEQObIPhYAP3eKCkd9206kfir4S4gyPk/MtUf9SyKVuVROpmpK8EwgoEkWHOClZTBuU
-	crZA9tgp4YwMKrLSq+m/YMxLx0se+xG9sft3AB+bWUJc7cLXK0ZTS70U2S3rAck/jxBNuc
-	1mNmCOGQPOFUed4QdVCC0uyZW8WEpeQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790660072;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CyCIA/ALCwlqDgVFKzh+aLBduuAD/F4jpZh+nNsQxMY=;
-	b=KqDOltKOjZspSME1j/e3zXiPym/Hy/sPRCGqpIY9SAycsvxLJ7WfUJmbEfIkhzpH1a8qiS
-	GYOLuFChzipfI9CQ==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="zuI/hQ03";
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=bmYADGk0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790660068; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CyCIA/ALCwlqDgVFKzh+aLBduuAD/F4jpZh+nNsQxMY=;
-	b=zuI/hQ03j/3osxvJKfT5g7g6equVHvjW+3B3dH5gtlaLAeoAl2ARTkRqFXLsv7de84SUY5
-	WREQ6F5UFMD7+qWPa9zhWARVymN4OnsU4eKvyWkS/2dSF+LkUDHM3/1by+rvD+cwC4qpvl
-	XN8ziFCdrMSHvRRyLpNVZQUAE9+h/6U=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790660068;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CyCIA/ALCwlqDgVFKzh+aLBduuAD/F4jpZh+nNsQxMY=;
-	b=bmYADGk0ftXAWs4TlD6tbFSSj6pbLg/JAELjbCwcYEWaTfGzzpde7QFjCvJN36QkNJ0P8i
-	zVzxyQzWBZUyYwCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EC199133F1;
-	Tue, 29 Sep 2026 05:34:27 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id vsFzMONNu2qMGQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Tue, 29 Sep 2026 05:34:27 +0000
-Date: Tue, 29 Sep 2026 07:34:27 +0200
-Message-ID: <87v77o39jw.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Danish Khateeb <danishkhateeb03@gmail.com>
-Cc: Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Ivan Orlov <ivan.orlov0322@gmail.com>,
-	linux-sound@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="w39jUsCJ"
+Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc797656e5eso1732015a12.3
+        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 22:43:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1790660628; x=1791265428; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Ms7L8HqUGt31K1Ab3M9o1OoA83EPLyzTDgllkVMwSho=;
+        b=w39jUsCJtIkQsLIXVnuptYwv/KryvVQN4yLyVbiRJkfXGg4klGFS/NvQEwSwyobwRp
+         vdU2xbLC6KWjIOGKEAol8KZE/ZdxwOoXltEXaj2CUeyh2MqmJ6+NN+77mkDQlBzLs6kB
+         Z81EsbDboH4rwdfkU5zYR9kL/uIiOJfM9OyKL8Lxdve6+vk2Cw6Ko4JtVpux7sGLl9A9
+         tsAdhhDVyo332DiEvJuMWXXUAmWjw7sBGZ4e/5o/yoQnIZAamIoXmkOSQdQzBMWto/CJ
+         C66jTZAmgGsFW8FMz4RsNqDBpNQwtYbaCGA0SkmGMDKEpl+Q+bA3xuVZBcBwB2legBIv
+         TBnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790660628; x=1791265428;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ms7L8HqUGt31K1Ab3M9o1OoA83EPLyzTDgllkVMwSho=;
+        b=pfSeIdLFGPD78J3biPnvl4EkqCcAZD8ChomNPrb5Hu9g86YsWMxylBEKRvMaxXy32I
+         alcir6x7fKlzQpuJxE4E+ipukSEGgsrYN/fdxSyXuy20p28YK2B2nMU4K/o271XOYRcj
+         O0ZaenXBLMSz2lMwcxlyBFwjEjs873OB4V3bkTTpqlq0PqjLTJ0gKDJVQ3draUTyC4Je
+         8tNHEKgluIsMWambFS7iDGvGrXpkPx1Sl22y/GTaHFc9+jflMLi+0P78XiooKNa782kQ
+         mv2aF6hwZUsOg7hYY49wyCF/PP7h2E2Ls/v9FAay5ghgo9hiwyj9L45lrrZd8f1+jmaW
+         TngQ==
+X-Forwarded-Encrypted: i=1; AKwUvBws+YoORebZ3YO/C0BYgRugi7MeRoxrysN68w0O8rpOVtqxRQpZGW35TYaU4e+RY4WFnDEPtKM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIXULBkD4Gz0oCQmbVah2Ir7gJ9wrzDncxEhPnQlFUOsfMhxs5G
+	FyAvuIODdgElF7FF4ivFF305rzfy9lFWcIyrDXmgX3hjiOi3hvadPpptErNFlyNn7Zc=
+X-Gm-Gg: AYBFou2n6YBE1z5K8gQ2CpsLzanVQPO9VNjnIo4TBKevhDJwSs30frN4m9lgx9p26L4
+	E44zACBDpjk1X5SV+RJh7lWdN5lO3laJ7+4Bc9+zzPjcRlbeSUpnh4QugKPlfCAMfdBwaXyyL0D
+	DWRYFJlXzH1sVyTzl9yktusJIvEyvkFJ4x3hiwKuaOBAvQzN/wWJUWdRizlJfcA1ei9CCoOewzS
+	PZUCJTHxuWZzniZOiyRLTomGDL9wfozn079oxzaqlZJgyl+xs6l71AfT0RAmU2CxHtzhh2zLhMC
+	SZLIKGY8jEedRV8lPTKlOsUo9wfNjySOC4eq1W0wXR0Q/W2sLgkHr/0Iu/7UmeEIQlgjo0lZH0o
+	PYJSlZqAE970KurNxP3c43fEWrgLnk1XG0NWTge5ULSfo6LEhdVs0P59fMMR7Z6LtH7P0TC3jrw
+	Wlhqbzq4SXSvhF3EDX3poLxHvfAe+An07DrpQY4o/tfdusGPnqeBqVKkNpVsdycvsR1lNPgckkq
+	vbwxA==
+X-Received: by 2002:a17:90b:1c92:b0:39e:6c68:c77d with SMTP id 98e67ed59e1d1-3a098e0515cmr13918632a91.51.1790660627617;
+        Mon, 28 Sep 2026 22:43:47 -0700 (PDT)
+Received: from yhlee-960QFG.. ([125.131.91.97])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a49818b39bsm3233581a91.15.2026.09.28.22.43.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 22:43:47 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: haris.iqbal@ionos.com,
+	jinpu.wang@ionos.com
+Cc: Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>,
+	Farhad Alemi <farhad.alemi@berkeley.edu>,
+	linux-rdma@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
+	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] ALSA: timer: Handle userspace-driven timer ioctls from 32-bit tasks
-In-Reply-To: <20260928182352.309457-1-danishkhateeb03@gmail.com>
-References: <20260928182352.309457-1-danishkhateeb03@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+Subject: [PATCH] RDMA/rtrs-clt: Reject a zero queue_depth in the connection response
+Date: Tue, 29 Sep 2026 14:42:22 +0900
+Message-ID: <20260929054222.1576877-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Score: -2.01
-X-Rspamd-Queue-Id: 4B0EB21C4B
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-2.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	TO_DN_SOME(0.00)[];
-	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:mid];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	FREEMAIL_CC(0.00)[suse.com,perex.cz,gmail.com,vger.kernel.org];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:mid]
-X-Spam-Flag: NO
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Mon, 28 Sep 2026 20:23:52 +0200,
-Danish Khateeb wrote:
-> 
-> 32-bit tasks on a 64-bit kernel can't use userspace-driven timers. The
-> compat handler for /dev/snd/timer doesn't list SNDRV_TIMER_IOCTL_CREATE,
-> so creating a timer fails with -ENOTTY. The file returned for a timer
-> has no .compat_ioctl either, so SNDRV_TIMER_IOCTL_TRIGGER fails with
-> -ENOTTY too.
-> 
-> struct snd_timer_uinfo has the same layout for 32-bit and 64-bit tasks,
-> and SNDRV_TIMER_IOCTL_TRIGGER takes no argument, so both commands can
-> be passed through unchanged.
-> 
-> The utimer selftest doesn't catch this when built with -m32: it takes
-> -ENOTTY from SNDRV_TIMER_IOCTL_CREATE to mean CONFIG_SND_UTIMER=n and
-> skips.
-> 
-> Fixes: 37745918e0e7 ("ALSA: timer: Introduce virtual userspace-driven timers")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
+rtrs_rdma_conn_established() stores the queue_depth the server advertises
+in its cid 0 connection response without checking that it is usable.  The
+only bound it ever had was an upper one, dropped in commit 0e8558476faf
+("RDMA/rtrs: Avoid Wtautological-constant-out-of-range-compare") because
+it cannot fail for a u16; a lower bound was never there.  A server that
+reports zero therefore leaves clt_path->queue_depth at 0, and setting up
+the first I/O connection trips
 
-Applied to for-next branch now.  Thanks.
+	if (WARN_ON(!clt_path->queue_depth))
 
+in create_con_cq_qp().  The connect is aborted, but the peer has already
+tainted the kernel, and on a kernel built with panic_on_warn it panics
+outright -- all from one field in the response to a connect.
 
-Takashi
+The rbufs array is sized from the same value one statement earlier, so it
+is also allocated with zero elements, which kzalloc_objs() returns as
+ZERO_SIZE_PTR.  Nothing dereferences it: the WARN aborts the connect
+before any buffer is registered and the path is then freed, and a path
+that already carries a nonzero depth is caught on reconnect by the
+existing "queue depth changed" test.  The WARN is the whole of the damage.
+
+The in-tree server never sends zero -- check_module_params() rejects
+sess_queue_depth < 1 -- so this needs a hostile or broken server, but the
+client should not rely on the peer for that.  Reject it before rbufs is
+sized from it and before it is stored, but after the existing "queue depth
+changed" test, so that a server which drops a nonzero depth to zero across
+a reconnect still takes that path and still disables auto-reconnect.
+
+Reproduced with rnbd-client over soft-RoCE against an rtrs-server patched
+to advertise queue_depth = 0:
+
+  WARNING: drivers/infiniband/ulp/rtrs/rtrs-clt.c:1688 at
+    rtrs_clt_rdma_cm_handler+0x1b27/0x29f0, CPU#0: kworker/u8:5/56
+  Modules linked in:
+  CPU: 0 UID: 0 PID: 56 Comm: kworker/u8:5 Not tainted
+    7.3.0-rc5-nvmerdma-atk-g72d3fcf802c4-dirty #23 PREEMPT(lazy)
+  Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix,
+    1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+  Workqueue: ib_addr process_one_req
+  RIP: 0010:rtrs_clt_rdma_cm_handler+0x1b27/0x29f0
+  Call Trace:
+   <TASK>
+   ? arch_stack_walk+0x94/0xf0
+   ? __pfx_rtrs_clt_rdma_cm_handler+0x10/0x10
+   ? ret_from_fork_asm+0x1a/0x30
+   ? process_one_work+0x6b4/0x10e0
+   ? stack_trace_save+0x8e/0xc0
+   ? __pfx_stack_trace_save+0x10/0x10
+   ? __kasan_slab_free+0x43/0x70
+   ? stack_depot_save_flags+0x29/0x7e0
+   ? worker_thread+0x45b/0xd10
+   ? kthread+0x2c8/0x3b0
+   ? ret_from_fork+0x36e/0x5a0
+   ? _raw_spin_lock_irqsave+0x86/0xe0
+   cma_cm_event_handler+0x3e/0x240
+   addr_handler+0x1e0/0x300
+   ? __pfx_addr_handler+0x10/0x10
+   ? pick_task_fair+0x46f/0x1a60
+   process_one_req+0x10d/0x510
+   ? finish_task_switch.isra.0+0x1d9/0xa70
+   ? __pfx_process_one_req+0x10/0x10
+   process_one_work+0x6b4/0x10e0
+   ? __pfx___schedule+0x10/0x10
+   ? __pfx_process_one_work+0x10/0x10
+   ? _raw_spin_lock_irq+0x81/0xe0
+   ? __pfx_process_one_req+0x10/0x10
+   ? assign_work+0x11d/0x370
+   worker_thread+0x45b/0xd10
+   ? __pfx_worker_thread+0x10/0x10
+   ? __pfx_worker_thread+0x10/0x10
+   kthread+0x2c8/0x3b0
+   ? recalc_sigpending+0x15c/0x1e0
+   ? __pfx_kthread+0x10/0x10
+   ret_from_fork+0x36e/0x5a0
+   ? __pfx_ret_from_fork+0x10/0x10
+   ? __switch_to+0x572/0xdd0
+   ? __pfx_kthread+0x10/0x10
+   ret_from_fork_asm+0x1a/0x30
+   </TASK>
+  ---[ end trace 0000000000000000 ]---
+
+  rtrs_client L2644: <s1>: init_conns() failed: err=-EINVAL
+    path=<invalid address family>@ip:10.0.0.1 [rxe0:1]
+
+With the check in place the same server is refused without a splat, and an
+honest server is unaffected:
+
+  rtrs_client L1870: <s1>: Invalid RTRS message: queue_depth is 0
+  rtrs_client L2649: <s1>: init_conns() failed: err=-ECONNRESET
+    path=<invalid address family>@ip:10.0.0.1 [:0]
+
+Fixes: 6a98d71daea1 ("RDMA/rtrs: client: main functionality")
+Reported-by: Farhad Alemi <farhad.alemi@berkeley.edu>
+Closes: https://lore.kernel.org/linux-rdma/CA+0ovCg_sG8gaZXXj9zmOrpxRt=8+-x9wvycVNUKwWmMbr6-Yg@mail.gmail.com/
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+ drivers/infiniband/ulp/rtrs/rtrs-clt.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/drivers/infiniband/ulp/rtrs/rtrs-clt.c b/drivers/infiniband/ulp/rtrs/rtrs-clt.c
+index eac38b57b00d7..5c2c65c15a65a 100644
+--- a/drivers/infiniband/ulp/rtrs/rtrs-clt.c
++++ b/drivers/infiniband/ulp/rtrs/rtrs-clt.c
+@@ -1866,6 +1866,11 @@ static int rtrs_rdma_conn_established(struct rtrs_clt_con *con,
+ 			return -ECONNRESET;
+ 		}
+ 
++		if (!queue_depth) {
++			rtrs_err(clt, "Invalid RTRS message: queue_depth is 0\n");
++			return -ECONNRESET;
++		}
++
+ 		if (!clt_path->rbufs) {
+ 			clt_path->rbufs = kzalloc_objs(*clt_path->rbufs,
+ 						       queue_depth);
+-- 
+2.43.0
+
