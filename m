@@ -1,172 +1,172 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D804C3F5BFC;
-	Tue, 29 Sep 2026 05:58:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E90923AAF66;
+	Tue, 29 Sep 2026 06:15:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790661496; cv=none; b=qJ65snOZMtk27U82xpz9MQKA/IFTHLD23zE8x66GBW4hiv9+Pe8WWCg/xoiXnldEw7Ktj/2leFMloYRPd+ynzHzZc1dIVij0WvwYcT4htbHmaxLX5v4oNdtOAPvN2WQrEkNegGM5cVTKxHnJDbSPfWdISf3FEjRR4g/UugLXlgM=
+	t=1790662520; cv=none; b=qCDaOB12QEuixb3sd5fSG+8yZHC+Rzqa8Dh97LVB52ll+fdhbpq2Phea64eGk9laUSySuyXAkI+geYkVcgGzT6eOd4NECDeiDwCedHfGMcHVC8Xtkz6Lozb8aw0HcAvGhI0AI6UmMOrjrf2ylydbyXMxe6hyrnelSB3+XPnbnuU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790661496; c=relaxed/simple;
-	bh=dYWTGKEmLy9RCuDX9LBRoIFyt0G1rRI61VU8mKpqEG8=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kn3ddbmr0UN6rICGuFBBKZa7KjWZsE4ZZ3IoTXRZgs0yeir5G9BrkWLdICinhtgKINxuwcLK2Xra1dMxf/ugTOJcPqrHHh5wh9bXQKSt+ArT5arE8bPUWpNdhRgOCQpNOwJsGrOknedybFcUeoUDPaT20a0P2BHGTp6gYXkCs5c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=WtG3rPAX; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=MFAcjth6; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=vEzcR55v; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=MNGEDZBL; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="WtG3rPAX";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="MFAcjth6";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="vEzcR55v";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="MNGEDZBL"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 8215C1F79E;
-	Tue, 29 Sep 2026 05:58:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790661488; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HqOlcpvcIyNFLst/qfqz9TJtK91EoerlTMtFztTgEJE=;
-	b=WtG3rPAXfa9oKArYYfe8zHGwgGKKYuim1N6GvQiEkilp7tqaPmR1e/xYyGbIgthydyX6Pb
-	CXWNrwAAZ/f1Q3kgGGzSnGgIDnKaqrWdTqv68jP4/IO24Wf6ysblNMjYJxk454V5kEPEcZ
-	HbNk7j927Ne55pMUhhGNTsrHFpr0DUM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790661488;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HqOlcpvcIyNFLst/qfqz9TJtK91EoerlTMtFztTgEJE=;
-	b=MFAcjth6jNmE0BbSFRRLjoNYr3dJByXNh+YPeiRo4SrCL2taXqES2hQv2xXmrDT/RBLI2x
-	3rbpyClZLk75qXCA==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=vEzcR55v;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=MNGEDZBL
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790661484; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HqOlcpvcIyNFLst/qfqz9TJtK91EoerlTMtFztTgEJE=;
-	b=vEzcR55vVicyUIC8CrZyFeLKvMnTmP6RkT2VNRtFmPlEKtS2NJRPreTzWo2U/GIb1jkgvc
-	tIRo/RNMAVr5DeksG/CKZJCYDriW/kFaL1tjRRJFLiV/qgdxr68PmOLVL1iMiOIaFftmFK
-	ZGVvxgW0yEtcIh0xPaLecgFBSNy2MSI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790661484;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HqOlcpvcIyNFLst/qfqz9TJtK91EoerlTMtFztTgEJE=;
-	b=MNGEDZBLTCB2hyjz1aB59js81oabbjwbD89TGYNNNYhifI5rtMW2aBh95FO2s5bI2VVSSY
-	yegKggKA8MuFZjDw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1AFC0133F1;
-	Tue, 29 Sep 2026 05:58:04 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id JbwcOGtTu2odMQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Tue, 29 Sep 2026 05:58:04 +0000
-Date: Tue, 29 Sep 2026 07:58:03 +0200
-Message-ID: <87tsn838gk.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Sasha Levin <sashal@kernel.org>
-Cc: Faaris Ansari <faarisansari@googlemail.com>,	stable@vger.kernel.org,
-	regressions@lists.linux.dev,	linux-sound@vger.kernel.org,
-	=?ISO-8859-1?Q?C=E1ssio?= Gabriel <cassiogabrielcontato@gmail.com>,	Takashi
- Iwai <tiwai@suse.com>,	Jaroslav Kysela <perex@perex.cz>,	Faaris Ansari
- <faaris.ansari@gmail.com>
-Subject: Re: [REGRESSION] Audient EVO4 hardware volume control now requires quirk
-In-Reply-To: <2026-09-28-2-daily-reply-0001-re-audient-evo4-channel-3-set-cur@kernel.org>
-References: <CANBVYRCL=8QdLxGg4S6qrahrFtwJxhv-aSGpW7-1S=+iOe4ZGA@mail.gmail.com>
-	<2026-09-27-daily-reply-0001-re-audient-evo4-mixer-put-errors@kernel.org>
-	<CANBVYRAr_ShKGmrt2NoqsDsDEbTXa5DWJbq2oP6wKLWJQpLRWw@mail.gmail.com>
-	<2026-09-28-daily-reply-0001-re-audient-evo4-upstream-decision@kernel.org>
-	<ee6e9e8f-e174-4872-baee-114d848e8137@gmail.com>
-	<2026-09-28-2-daily-reply-0001-re-audient-evo4-channel-3-set-cur@kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	s=arc-20240116; t=1790662520; c=relaxed/simple;
+	bh=/P7PwiwuEP4yHQxftuoqXexct0tzJklqgwFJ2Et95kM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=s1ak0KQsp0D+yagniQjm3k2U7Ddc0WhK9xtnjWyJqnKO/kCBMicEs+RDR8C5+nYVFEkMLBdwri24coPingcskvaRvw7CxJ1wYEJB+812BQb5l4JUhRmFgUu9cEtc2PnQKFp73O6Aw4WppJrcQbvxuX1NNRKizsbeQEdk0vCD2uQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.161.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wBnEz1oV7tqwndFAQ--.37345S3;
+	Tue, 29 Sep 2026 14:15:04 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app1 (Coremail) with UTF8SMTPA id yy_KCgBXqoloV7tqaY4WAA--.27369S2;
+	Tue, 29 Sep 2026 14:15:04 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org
+Cc: alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Vijendar.Mukunda@amd.com,
+	Syed.SabaKareem@amd.com,
+	stable@vger.kernel.org,
+	songl@zju.edu.cn,
+	fanwu01@zju.edu.cn
+Subject: [PATCH v2] ASoC: amd: ps: fix snd_acp63_remove() teardown ordering
+Date: Tue, 29 Sep 2026 06:13:49 +0000
+Message-Id: <20260929061349.3879-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Score: -2.01
-X-Rspamd-Queue-Id: 8215C1F79E
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-2.01 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	MIME_TRACE(0.00)[0:+];
-	URIBL_BLOCKED(0.00)[suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[googlemail.com,vger.kernel.org,lists.linux.dev,gmail.com,suse.com,perex.cz];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:mid]
-X-Spam-Flag: NO
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:yy_KCgBXqoloV7tqaY4WAA--.27369S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?EQBSZwXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnRrXgS1QiyEChzQk8Vd3wxXCJom/K3jHdUmscrYtYM7B6UxpCitQShXrdejT8bDJEo99
+	ud8K5EjMC5kJEwD3ns/N5RPxYw6l01w8CbPzC/8w
+X-Coremail-Antispam: 1Uk129KBj93XoWxXFW3AFW8ArW5KFW3ZFWkAFc_yoW7Jry5pa
+	9xGFWDtrWkJr129a17Wayj9r15A3s3CFy3CrWvkw1xCw1DurZavFZ2yr15ZF95CrWkC3W2
+	yFZ0ga4rWF9xtwcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUXVWUAwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
+	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU818BUUUUUU==
 
-On Tue, 29 Sep 2026 00:39:05 +0200,
-Sasha Levin wrote:
-> 
-> > [   80.940668] usb 3-1: cannot set ctl value: req = 0x1, wValue = 0x203,
-> > wIndex = 0xa00, type = 4, data = 0x0/0x81
-> [...]
-> > numid=4,iface=MIXER,name='EVO4  Playback Volume'
-> >    ; type=INTEGER,access=rw---R--,values=4,min=0,max=254,step=0
-> >    : values=182,182,0,0
-> 
-> Thanks, that narrows it down.
-> 
-> Every failure is SET_CUR of the Volume control on feature unit 10, channel 3
-> (wValue 0x0203, wIndex 0x0a00). That unit is 'EVO4  Playback Volume' and
-> advertises read/write volume on all four channels. mixer_ctl_feature_put()
-> writes channels 1 and 2, then returns the channel 3 error, so the hardware
-> volume changes while userspace is told the write failed and adds software
-> attenuation on top. Faaris sees the same on 7.3-rc5, so this is a mainline
-> regression from 87a6f2fa6e6c ("ALSA: usb-audio: Propagate write errors in
-> generic mixer put callbacks").
+The ACP IRQ handlers dereference the SoundWire, SoundWire DMA, and PDM
+child platform devices, but snd_acp63_remove() unregisters them while
+the interrupt is still held by devres, which frees it only after remove
+returns. An interrupt in this window is a use-after-free.
 
-Right.  So a simple fix would be to just to set the IGNORE_CTL_ERROR
-quirk flag like below.  One of iD14 models has already this flag, so
-it might be safer to set to all Audient devices.
+Mask the ACP interrupt sources and call devm_free_irq() before the
+first child device is unregistered. The masking goes through the new
+acp_hw_ops->disable_interrupts callback, keeping the remove path
+platform-agnostic. The interrupt line is shared, and acp_hw_deinit()
+clears the sources only after the children are gone, which would
+leave the line raised with no handler left to ack it. The window
+predates the tagged refactor, which only reshaped the dereferences.
 
+devm_free_irq() waits for in-flight handlers, but not for work the
+hardirq has already queued: acp63_irq_handler() schedules
+amd_sdw_irq_thread on the SoundWire manager. Draining that work in
+the manager's remove path is a soundwire-side change and follows
+separately.
 
-thanks,
+This issue was found by an in-house static analysis tool.
 
-Takashi
+Fixes: eaf825037d6d ("ASoC: amd: ps: refactor acp child platform device creation code")
+Cc: stable@vger.kernel.org
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+---
 
---- a/sound/usb/quirks.c
-+++ b/sound/usb/quirks.c
-@@ -2690,6 +2690,8 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
- 		   QUIRK_FLAG_DSD_RAW),
- 	DEVICE_FLG(0x2708, 0x0002, /* Audient iD14 */
- 		   QUIRK_FLAG_IGNORE_CTL_ERROR),
-+	DEVICE_FLG(0x2708, 0x0006, /* Audient EV04 */
-+		   QUIRK_FLAG_IGNORE_CTL_ERROR),
- 	DEVICE_FLG(0x2772, 0x0502, /* Musical Fidelity M6s DAC */
- 		   0), /* for avoiding QUIRK_FLAG_DSD_RAW with vendor match */
- 	DEVICE_FLG(0x2912, 0x30c8, /* Audioengine D1 */
+Link to v1: https://lore.kernel.org/linux-sound/20260923092640.502145-1-fanwu01@zju.edu.cn/
+
+- mask ACP interrupt sources via the new acp_hw_ops->disable_interrupts
+  callback instead of open-coding the register writes in
+  snd_acp63_remove(), as suggested by Vijendar Mukunda.
+
+ sound/soc/amd/ps/acp63.h     | 8 ++++++++
+ sound/soc/amd/ps/pci-ps.c    | 2 ++
+ sound/soc/amd/ps/ps-common.c | 2 ++
+ 3 files changed, 12 insertions(+)
+
+diff --git a/sound/soc/amd/ps/acp63.h b/sound/soc/amd/ps/acp63.h
+index 62cb6bef1..d0cfbd4da 100644
+--- a/sound/soc/amd/ps/acp63.h
++++ b/sound/soc/amd/ps/acp63.h
+@@ -294,6 +294,7 @@ struct acp63_dev_data;
+  * struct acp_hw_ops - ACP PCI driver platform specific ops
+  * @acp_init: ACP initialization
+  * @acp_deinit: ACP de-initialization
++ * @disable_interrupts: disable ACP interrupt sources
+  * @acp_get_config: function to read the acp pin configuration
+  * @acp_sdw_dma_irq_thread: ACP SoundWire DMA interrupt thread
+  * acp_suspend: ACP system level suspend callback
+@@ -304,6 +305,7 @@ struct acp63_dev_data;
+ struct acp_hw_ops {
+ 	int (*acp_init)(void __iomem *acp_base, struct device *dev);
+ 	int (*acp_deinit)(void __iomem *acp_base, struct device *dev);
++	void (*disable_interrupts)(void __iomem *acp_base);
+ 	void (*acp_get_config)(struct pci_dev *pci, struct acp63_dev_data *acp_data);
+ 	void (*acp_sdw_dma_irq_thread)(struct acp63_dev_data *acp_data);
+ 	int (*acp_suspend)(struct device *dev);
+@@ -397,6 +399,12 @@ static inline int acp_hw_deinit(struct acp63_dev_data *adata, struct device *dev
+ 	return -EOPNOTSUPP;
+ }
+ 
++static inline void acp_hw_disable_interrupts(struct acp63_dev_data *adata)
++{
++	if (adata && adata->hw_ops && adata->hw_ops->disable_interrupts)
++		ACP_HW_OPS(adata, disable_interrupts)(adata->acp63_base);
++}
++
+ static inline void acp_hw_get_config(struct pci_dev *pci, struct acp63_dev_data *adata)
+ {
+ 	if (adata && adata->hw_ops && adata->hw_ops->acp_get_config)
+diff --git a/sound/soc/amd/ps/pci-ps.c b/sound/soc/amd/ps/pci-ps.c
+index 729f9aaba..b604db494 100644
+--- a/sound/soc/amd/ps/pci-ps.c
++++ b/sound/soc/amd/ps/pci-ps.c
+@@ -738,6 +738,8 @@ static void snd_acp63_remove(struct pci_dev *pci)
+ 	int ret;
+ 
+ 	adata = pci_get_drvdata(pci);
++	acp_hw_disable_interrupts(adata);
++	devm_free_irq(&pci->dev, pci->irq, adata);
+ 	if (adata->sdw) {
+ 		amd_sdw_exit(adata);
+ 		platform_device_unregister(adata->sdw_dma_dev);
+diff --git a/sound/soc/amd/ps/ps-common.c b/sound/soc/amd/ps/ps-common.c
+index 7b4966b75..ea71cdf19 100644
+--- a/sound/soc/amd/ps/ps-common.c
++++ b/sound/soc/amd/ps/ps-common.c
+@@ -248,6 +248,7 @@ void acp63_hw_init_ops(struct acp_hw_ops *hw_ops)
+ {
+ 	hw_ops->acp_init = acp63_init;
+ 	hw_ops->acp_deinit = acp63_deinit;
++	hw_ops->disable_interrupts = acp63_disable_interrupts;
+ 	hw_ops->acp_get_config = acp63_get_config;
+ 	hw_ops->acp_sdw_dma_irq_thread = acp63_sdw_dma_irq_thread;
+ 	hw_ops->acp_suspend = snd_acp63_suspend;
+@@ -484,6 +485,7 @@ void acp70_hw_init_ops(struct acp_hw_ops *hw_ops)
+ {
+ 	hw_ops->acp_init = acp70_init;
+ 	hw_ops->acp_deinit = acp70_deinit;
++	hw_ops->disable_interrupts = acp70_disable_interrupts;
+ 	hw_ops->acp_get_config = acp70_get_config;
+ 	hw_ops->acp_sdw_dma_irq_thread = acp70_sdw_dma_irq_thread;
+ 	hw_ops->acp_suspend = snd_acp70_suspend;
+-- 
+2.34.1
+
