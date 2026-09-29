@@ -1,96 +1,141 @@
-Received: from mx3.wp.pl (mx3.wp.pl [212.77.101.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-227.mta0.migadu.com [91.218.175.227])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBCC03F9A13
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 18:15:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.77.101.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 338AB3CA4A0
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 18:15:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.227
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790705710; cv=none; b=s5Pj2hFUMRpCX2XASk6ePg6ZzKqkp2YMinJkDiWrY2giiCz7r1GvGyeCqJiGnAjL3MKNdeEnuX2LUxf6ghWQy6lXT54XUZmsATHAgq197xR1PKDjl/T/ar6FNPcPC5QZ2cnqZE1GFTJA5SWJgLDk3wgfAN8RZbvA2QamCh9mP6w=
+	t=1790705744; cv=none; b=eumfQnkzqOkc50i/VawZIutMOzWJav+Dah+MAP6iDaAGpNqmRx75aIStlZ551AW35jpTDhepszOecJrYSmZ2BGdC198o3cl7u6/j5KAYhad1v6+ayg5NifEqgZrvWbfC+cP/w2j42NwKTtCR4AvHkgRmuU9ETv+OsKhOWVMGBOY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790705710; c=relaxed/simple;
-	bh=7YlaKSKdk/AQctfnNlh1p80wxyapyt+yadIM352C7/s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OhmTVk2HbmK6YVbZVkIRXpCi+ts2UTAHIOvXJaD0wjVSe0hwDEuVzfseVL4oykcRGmI5rzc17k0hYQ6VfJ6hNjf1fV+viHZVBWOEIPf1IJGCEh9BwBH9chOg8BO1k7Bk/cx2yuL0Gn7eoXXmYDkN6feWWiEC0HE2st3e8ucLqg0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wp.pl; spf=pass smtp.mailfrom=wp.pl; dkim=pass (2048-bit key) header.d=wp.pl header.i=@wp.pl header.b=m97gfN/m; arc=none smtp.client-ip=212.77.101.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wp.pl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wp.pl
+	s=arc-20240116; t=1790705744; c=relaxed/simple;
+	bh=PS53pggHQszgAXTyeJLWzhz2Iy6aaILaNoIH2bVSKrk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fSRXufO7O9VHjCIhxKR1zeFNIM39sz9P47xva4zbp2FUNQV4Xq346FXTl5HeZbDcezXf9BiSGjsZyR43VOSEInsw/smRoMdrC3OVJqdeYWtMJPAbTPU2k9THWOS3Y3e3OvD3KNV70MPvCzMBuTuWAYNHwFDsIkyMcNOYFvtMuo0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=cHbUxT/6; arc=none smtp.client-ip=91.218.175.227
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wp.pl header.i=@wp.pl header.b="m97gfN/m"
-Received: (wp-smtpd smtp.wp.pl 1904 invoked from network); 29 Sep 2026 20:14:58 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wp.pl; s=20241105;
-          t=1790705698; bh=gYAiV4904KKNcflT+EDNb+ZPGPPIrx6h9mgzalGq1F0=;
-          h=From:To:Cc:Subject;
-          b=m97gfN/mdrBxI52wByHwIoCx0jKavQKsfK0HFwKW018doiJzDulNIYtDjWe7M2jHM
-           yx6AhA8K77qQE7reNpoiqIu+BRAVPXtF8BlYfUr/OfFMuQBvlJZES3uagE2khJawHP
-           vxCP4KStBGD5C6iMCfnkGUkIycaIrloFPzHvr9LTLWhPFsSrr3scssTchcMevpUieV
-           fPUrwgx95+Clqg92UKqWfIH/xW834Brt4PHxL+lNn06MTaX7VyhbMMrOh9W5AjZhJL
-           B4AEqEBgItfLNDRavAOdz2sZ+/GQflK+O9XTVmFBoXwVw0J3wSRb4GPnnSxXVeu+M1
-           s1QEaNd7DMD9A==
-Received: from localhost (77-236-6-58.static.play.pl [77.236.6.58])
-          (envelope-sender <stf_xl@wp.pl>)
-          by smtp.wp.pl (WP-SMTPD) with TLS_AES_256_GCM_SHA384 encrypted SMTP
-          for <runyu.xiao@seu.edu.cn>; 29 Sep 2026 20:14:58 +0200
-Date: Tue, 29 Sep 2026 20:14:58 +0200
-From: Stanislaw Gruszka <stf_xl@wp.pl>
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	"John W . Linville" <linville@tuxdriver.com>,
-	Zhu Yi <yi.zhu@intel.com>, linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: Re: [PATCH] wifi: iwlegacy: 3945: protect sysfs TX power update with
- mutex
-Message-ID: <20260929181458.GA17064@wp.pl>
-References: <20260929123329.2135878-1-runyu.xiao@seu.edu.cn>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="cHbUxT/6"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=PS53pggHQszgAXTyeJLWzhz2Iy6aaILaNoIH2bVSKrk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790705740; v=1; x=1791310540;
+ b=cHbUxT/6N5ra0eNZlkn9gvqk2qpnnFroUCW3kiR2Je/QSPmpvmxKCwSuo51/iAGZnAker1BA
+ 2HmMw2ldm6tFFwPd46Od9uoNvSIS+oWmmMCCjy57Q9letEtGRc37sD1ru45+zQpXLI9MYe7QP4j
+ Xf2ky9W2RflgXTpup/mMeTaU=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id df23dbb90d41c39e;
+	Tue, 29 Sep 2026 18:15:27 +0000
+X-Mizu-Trace-ID: df23dbb90d41c39e
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5b8c42da963so963e87.0
+        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 11:15:25 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzBt0SnQ+EY2rCIzMxY6I3FM6yr88MoMdhSqFkr1Xm5ou6IXgzPs2WvEZ5xgEYaCp1VCcKOo+U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJbjO0gDoRXFfMvj/o2sfy0C6uVf6WmgxgpWO9OO3Ha4kVS9Ssr
+	/ltYz4sKZRP/LG7hPls31z7IBffebAYEKOT2bU0d5keWU60sHvSxWWy9vQWerlDnc2Glww9ATuq
+	+Rr5r7DFDhqDMG11RYkRDUXoxbJ9sTG5e4FVEeE90
+X-Received: by 2002:a05:6512:3d04:b0:5b8:d830:be30 with SMTP id
+ 2adb3069b0e04-5ba2f9ac722mr166505e87.16.1790705724240; Tue, 29 Sep 2026
+ 11:15:24 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260929123329.2135878-1-runyu.xiao@seu.edu.cn>
-X-WP-MailID: 5a3024da050e293244fd07980ff6c828
-X-WP-AV: skaner antywirusowy Poczty Wirtualnej Polski
-X-WP-SPAM: NO 0000000 [cSMt]                               
+References: <20260929093548.3598547-1-maz@kernel.org> <20260929093548.3598547-7-maz@kernel.org>
+In-Reply-To: <20260929093548.3598547-7-maz@kernel.org>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Tue, 29 Sep 2026 19:14:48 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTyRRJjhaud-OHyAWh0z4Pj=o-jmvN8tJ=3h+Qrb6Lzm5w@mail.gmail.com>
+X-Gm-Features: AclHuK9Zph6dxjBIAdQsEIxcU3zk8Se6Fy_owHYC72h8LnPnQU2hVuTRl5zAeJ8
+Message-ID: <CA+EHjTyRRJjhaud-OHyAWh0z4Pj=o-jmvN8tJ=3h+Qrb6Lzm5w@mail.gmail.com>
+Subject: Re: [PATCH v2 6/7] KVM: arm64: vgic-its: Fix MOVALL handling of
+ source redistributor
+To: Marc Zyngier <maz@kernel.org>
+Cc: kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	Steffen Eiden <seiden@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Oliver Upton <oupton@kernel.org>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Yuchao Zhang <ndaugoing@gmail.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Sep 29, 2026 at 08:33:29PM +0800, Runyu Xiao wrote:
-> The sysfs tx_power store handler calls il3945_hw_reg_set_txpower(), whose
-> command path requires il->mutex to be held. The callback bypasses the mutex
-> used by the other 3945 control paths, triggering the lockdep assertion and
-> allowing concurrent TX power updates to race with other command or state
-> transitions. Serialize the update with the same mutex.
-> 
-> Fixes: b481de9ca074 ("[IWLWIFI]: add iwlwifi wireless drivers")
+On Tue, 29 Sept 2026 at 10:36, Marc Zyngier <maz@kernel.org> wrote:
+>
+> The MOVALL command moves the pending state of all LPIs targeting a given
+> redistributor to another one. However, we seem to have lost the
+> filtering on the source RD, which means we move all LPIs to the target.
+>
+> Not quite what the spec mandates.
+>
+> Hack update_affinity() to take an optional source vcpu that is used as a
+> filter when non-NULL, restoring the filtering that was performed by
+> vgic_copy_lpi_list() back in the days.
+>
+> Fixes: 11f4f8f3e6e06 ("KVM: arm64: vgic-its: Walk LPI xarray in vgic_its_cmd_handle_movall()")
+> Signed-off-by: Marc Zyngier <maz@kernel.org>
 > Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Acked-by: Stanislaw Gruszka <stf_xl@wp.pl>
+
+Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
+Tested-by: Fuad Tabba < fuad.tabba@linux.dev>
+
+Cheers,
+/fuad
+
 
 > ---
->  drivers/net/wireless/intel/iwlegacy/3945-mac.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/net/wireless/intel/iwlegacy/3945-mac.c b/drivers/net/wireless/intel/iwlegacy/3945-mac.c
-> index cbaf25062..e8cbc2993 100644
-> --- a/drivers/net/wireless/intel/iwlegacy/3945-mac.c
-> +++ b/drivers/net/wireless/intel/iwlegacy/3945-mac.c
-> @@ -3083,10 +3083,13 @@ il3945_store_tx_power(struct device *d, struct device_attribute *attr,
->  	u32 val;
->  
->  	val = simple_strtoul(p, &p, 10);
-> -	if (p == buf)
-> +	if (p == buf) {
->  		IL_INFO(": %s is not in decimal form.\n", buf);
-> -	else
-> +	} else {
-> +		mutex_lock(&il->mutex);
->  		il3945_hw_reg_set_txpower(il, val);
-> +		mutex_unlock(&il->mutex);
-> +	}
->  
->  	return count;
+>  arch/arm64/kvm/vgic/vgic-its.c | 12 ++++++++----
+>  1 file changed, 8 insertions(+), 4 deletions(-)
+>
+> diff --git a/arch/arm64/kvm/vgic/vgic-its.c b/arch/arm64/kvm/vgic/vgic-its.c
+> index 9e782a4fea7e5..cc02d9b62bd95 100644
+> --- a/arch/arm64/kvm/vgic/vgic-its.c
+> +++ b/arch/arm64/kvm/vgic/vgic-its.c
+> @@ -319,12 +319,16 @@ static int update_lpi_config(struct kvm *kvm, struct vgic_irq *irq,
+>         return ret;
 >  }
-> -- 
-> 2.34.1
+>
+> -static int update_affinity(struct vgic_irq *irq, struct kvm_vcpu *vcpu)
+> +static int update_affinity(struct vgic_irq *irq,
+> +                          struct kvm_vcpu *from_vcpu, struct kvm_vcpu *vcpu)
+>  {
+>         struct its_vlpi_map map;
+>         int ret;
+>
+>         guard(raw_spinlock_irqsave)(&irq->irq_lock);
+> +       if (from_vcpu && irq->target_vcpu != from_vcpu)
+> +               return 0;
+> +
+>         irq->target_vcpu = vcpu;
+>
+>         if (!irq->hw)
+> @@ -362,7 +366,7 @@ static void update_affinity_ite(struct kvm *kvm, struct its_ite *ite)
+>                 return;
+>
+>         vcpu = collection_to_vcpu(kvm, ite->collection);
+> -       update_affinity(ite->irq, vcpu);
+> +       update_affinity(ite->irq, NULL, vcpu);
+>  }
+>
+>  /*
+> @@ -856,7 +860,7 @@ static int vgic_its_cmd_handle_movi(struct kvm *kvm, struct vgic_its *its,
+>
+>         vgic_its_invalidate_cache(its);
+>
+> -       return update_affinity(ite->irq, vcpu);
+> +       return update_affinity(ite->irq, NULL, vcpu);
+>  }
+>
+>  static bool __is_visible_gfn_locked(struct vgic_its *its, gpa_t gpa)
+> @@ -1383,7 +1387,7 @@ static int vgic_its_cmd_handle_movall(struct kvm *kvm, struct vgic_its *its,
+>                 if (!irq)
+>                         continue;
+>
+> -               update_affinity(irq, vcpu2);
+> +               update_affinity(irq, vcpu1, vcpu2);
+>
+>                 vgic_put_irq(kvm, irq);
+>         }
+> --
+> 2.47.3
+>
