@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85C384F4043
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85CE55237AE
 	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 14:12:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790691172; cv=none; b=AnBsEl5eLVQg7bmq2uNNOjuX9I4RQ3HK5W1cATqYtds5WhD1MXo0Op7nHyKFcAt99hZof5UCgk8S+q4nTj3g1lpHNaoiUaIJKxbGLJFe0ERUIj8pMhwiib6wl5p4LunjQIWF9ZDLI49gUIEdvcapz0F9hMx7XCJee+C4cGt/AT4=
+	t=1790691173; cv=none; b=X7ULubODHLGd7zEKFx3I71TuH6wGQjHz8RfGO0V2S9tZVZ1w6UX6OGmOxj1DcW9s8dBtaVcy121yf3z05R/GKO1XPNlryoQp5kWIoe3Nu8rqrfnC9VuKXaZCGmPzIyau6saMtQGBPafxZ4ADcxrYN4kkCLZve4i/blxOmu5mBfQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790691172; c=relaxed/simple;
-	bh=DLO+7t3bHpqzoEwg9AltS+fu9p+sRo+N2CiYqa7Vbmc=;
+	s=arc-20240116; t=1790691173; c=relaxed/simple;
+	bh=DnwpKggwQR5Llcy/uB+jXNHGWWWLKpa51E028+eDVCw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=T1FGH4anxwREpeG8FLnR6Jn2VNFfpOj44e1kBH+fEHuvEAD9hL7fNktN5m/6S9Ng2yZ+2JvuApRH2BMvraQDg1BiCJPqpuTBq43vMhxaS6le0cQuz1r2aSk/S04BkrkdllliLlClHDrO53jTHIa91AD9MHTKpxQqgp/jndZALdU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R7U/L8BI; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=mmxJ9og5a97v28bxqJV+C/IRtbvw8qg4N0vi9FCmVN7yHjaj1Nc4DdmRfLXRCmu8lFNVQwQ6LEwKfgMQu4200vYQioRw3gm+VM0wNeL09VFXlxu7AKV/HMXJFNvDfZiikJjr7V6+l+dKNGDWbb2zMfTr0f+hags8bF0VNrHJsSQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iqwq9c8e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R7U/L8BI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBD8D1F00893;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iqwq9c8e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD0A21F0089C;
 	Tue, 29 Sep 2026 14:12:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1790691171;
-	bh=Cjx0NTdOqEmXBP4QViyFD0j1PDJWAaScdECTTEdBvWM=;
+	bh=BBPt/NKARoFAQ+EHARBNBsW3kyGPyivNLQehN4McK2k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=R7U/L8BIJszz6HIUozKp/35no/EyG1IBsn4JVi0mZNxfIP5qCTj9RZ+YaaPUkb0p4
-	 FgFNKPzUGwHkAV6wG5q8dHavUKlcQH+DUJ29EoPymtEeZEPo39mtNMQ0KEpb/vvgWm
-	 RpNndcxUSMd0w4fCgqCT8D96FXAa0+W0pVOqYPK+eUYJWpWogamrIEt6tGIr/17Sd2
-	 GALky0PAb2i6e3yrjGbZplH+ZaNi9FcfDkwqvOCT1g9iLShzw0T1Qwd08ofw7lB9li
-	 gI18jlQ4dQ8ZIx8nTyQi9zpBsN+kePgBArVHepTS2McW3aZy8CdNFM6Ska9VgLAVms
-	 V66JyAYqaNTvA==
+	b=iqwq9c8etT7yEpIF9wbqsTCY3EOKRAfVrCeNe2nKwWmKNJFyws89u486PHMw9fpZN
+	 ewkgaWD5ulXwdEKNU/LB3Z1JpKYDuTmTaCm7mCL762gAwb5i/THuTe1vJsImEQSHhl
+	 Iffemccx8SAyTvQ2Ku4HAlVmGRsASaSsqTLdLtEmnng1cwC0j1Ml303KBIzYU2II+w
+	 RDelDS/nCvnPHE/smgMvIIxBTmnDRrgw/xx86EszwmGDtFgLGVbgvWyiwIn66LF36O
+	 1IenBhOCzOQWS4zVL0Nhz/86QO41RMAnaIBAxGp7W6AsoZeLOM0nTlUrzdEH4wT14k
+	 OJFsOR4N17D4A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Myeonghun Pak <mhun512@gmail.com>,
-	Ijae Kim <ae878000@gmail.com>,
+Cc: Jeremy Kerr <jk@codeconstruct.com.au>,
 	Paolo Abeni <pabeni@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] bna: prevent IOC timer rearm during teardown
-Date: Tue, 29 Sep 2026 10:12:49 -0400
-Message-ID: <20260929141249.3537974-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 3/4] net: mctp: separate key correlation across nets
+Date: Tue, 29 Sep 2026 10:12:47 -0400
+Message-ID: <20260929141248.3537868-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092952-unknotted-program-cc12@gregkh>
-References: <2026092952-unknotted-program-cc12@gregkh>
+In-Reply-To: <20260929141248.3537868-1-sashal@kernel.org>
+References: <2026092919-helpful-hydrogen-8802@gregkh>
+ <20260929141248.3537868-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,78 +46,282 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Myeonghun Pak <mhun512@gmail.com>
+From: Jeremy Kerr <jk@codeconstruct.com.au>
 
-[ Upstream commit 77b1718e39e5c9f6956fb60807326af20baf889d ]
+[ Upstream commit 43e6795574f5d75284a3cb21f5b76a5ffb98e8e6 ]
 
-bna: prevent IOC timer rearm during teardown
+Currently, we lookup sk_keys from the entire struct net_namespace, which
+may contain multiple MCTP net IDs. In those cases we want to distinguish
+between endpoints with the same EID but different net ID.
 
-bnad_pci_remove() and the probe disable_ioceth path call
-timer_delete_sync() for ioc_timer, sem_timer and hb_timer, but not for
-iocpf_timer.  bnad_iocpf_timeout() then takes bnad->bna_lock after
-free_netdev() has freed the struct bnad.
+Add the net ID data to the struct mctp_sk_key, populate on add and
+filter on this during route lookup.
 
-Deleting iocpf_timer last does not fix this.  sem_timer and
-iocpf_timer rearm each other: bnad_iocpf_sem_timeout() can arm
-iocpf_timer, and bnad_iocpf_timeout() arms sem_timer from
-bfa_ioc_hw_sem_get() when the semaphore is busy.
-timer_delete_sync() only waits out its own callback.
-bnad_ioceth_disable() can time out and leave that callback live.
+For the ioctl interface, we use a default net of
+MCTP_INITIAL_DEFAULT_NET (ie., what will be in use for single-net
+configurations), but we'll extend the ioctl interface to provide
+net-specific tag allocation in an upcoming change.
 
-Shut all four IOC timers down with timer_shutdown_sync() on both
-paths, so a later mod_timer() is ignored.
-
-This issue was identified during our ongoing static-analysis research
-while reviewing kernel code.
-
-Fixes: 1d32f7696286 ("bna: IOC failure auto recovery fix")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-Link: https://patch.msgid.link/20260922014605.588040-1-mhun512@gmail.com
+Signed-off-by: Jeremy Kerr <jk@codeconstruct.com.au>
 Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[ inlined bnad_ioc_timers_shutdown() into the existing teardown functions. ]
+Stable-dep-of: 26cc0e69cce0 ("mctp: route: iterate socket tag list in mctp_lookup_prealloc_tag()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ethernet/brocade/bna/bnad.c | 16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
+ include/net/mctp.h         |  2 ++
+ net/mctp/af_mctp.c         |  4 ++--
+ net/mctp/route.c           | 43 +++++++++++++++++++++++++++-----------
+ net/mctp/test/route-test.c |  7 +++++--
+ 4 files changed, 40 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/net/ethernet/brocade/bna/bnad.c b/drivers/net/ethernet/brocade/bna/bnad.c
-index a3b6b9af0b057..437a87b1ed4f9 100644
---- a/drivers/net/ethernet/brocade/bna/bnad.c
-+++ b/drivers/net/ethernet/brocade/bna/bnad.c
-@@ -3745,9 +3745,11 @@ bnad_pci_probe(struct pci_dev *pdev,
- 	bnad_res_free(bnad, &bnad->mod_res_info[0], BNA_MOD_RES_T_MAX);
- disable_ioceth:
- 	bnad_ioceth_disable(bnad);
--	del_timer_sync(&bnad->bna.ioceth.ioc.ioc_timer);
--	del_timer_sync(&bnad->bna.ioceth.ioc.sem_timer);
--	del_timer_sync(&bnad->bna.ioceth.ioc.hb_timer);
-+	/* The IOC timers rearm one another.  Shut down all of them. */
-+	timer_shutdown_sync(&bnad->bna.ioceth.ioc.ioc_timer);
-+	timer_shutdown_sync(&bnad->bna.ioceth.ioc.sem_timer);
-+	timer_shutdown_sync(&bnad->bna.ioceth.ioc.hb_timer);
-+	timer_shutdown_sync(&bnad->bna.ioceth.ioc.iocpf_timer);
- 	spin_lock_irqsave(&bnad->bna_lock, flags);
- 	bna_uninit(bna);
- 	spin_unlock_irqrestore(&bnad->bna_lock, flags);
-@@ -3788,9 +3790,11 @@ bnad_pci_remove(struct pci_dev *pdev)
+diff --git a/include/net/mctp.h b/include/net/mctp.h
+index 357f1cda11e45..84dd6e6ecfc40 100644
+--- a/include/net/mctp.h
++++ b/include/net/mctp.h
+@@ -136,6 +136,7 @@ struct mctp_sock {
+  *    - through an expiry timeout, on a per-socket timer
+  */
+ struct mctp_sk_key {
++	unsigned int	net;
+ 	mctp_eid_t	peer_addr;
+ 	mctp_eid_t	local_addr; /* MCTP_ADDR_ANY for local owned tags */
+ 	__u8		tag; /* incoming tag match; invert TO for local */
+@@ -258,6 +259,7 @@ int mctp_local_output(struct sock *sk, struct mctp_route *rt,
  
- 	mutex_lock(&bnad->conf_mutex);
- 	bnad_ioceth_disable(bnad);
--	del_timer_sync(&bnad->bna.ioceth.ioc.ioc_timer);
--	del_timer_sync(&bnad->bna.ioceth.ioc.sem_timer);
--	del_timer_sync(&bnad->bna.ioceth.ioc.hb_timer);
-+	/* The IOC timers rearm one another.  Shut down all of them. */
-+	timer_shutdown_sync(&bnad->bna.ioceth.ioc.ioc_timer);
-+	timer_shutdown_sync(&bnad->bna.ioceth.ioc.sem_timer);
-+	timer_shutdown_sync(&bnad->bna.ioceth.ioc.hb_timer);
-+	timer_shutdown_sync(&bnad->bna.ioceth.ioc.iocpf_timer);
- 	spin_lock_irqsave(&bnad->bna_lock, flags);
- 	bna_uninit(bna);
- 	spin_unlock_irqrestore(&bnad->bna_lock, flags);
+ void mctp_key_unref(struct mctp_sk_key *key);
+ struct mctp_sk_key *mctp_alloc_local_tag(struct mctp_sock *msk,
++					 unsigned int netid,
+ 					 mctp_eid_t local, mctp_eid_t peer,
+ 					 bool manual, u8 *tagp);
+ 
+diff --git a/net/mctp/af_mctp.c b/net/mctp/af_mctp.c
+index 609e67210e454..844ab1fcc3558 100644
+--- a/net/mctp/af_mctp.c
++++ b/net/mctp/af_mctp.c
+@@ -366,8 +366,8 @@ static int mctp_ioctl_alloctag(struct mctp_sock *msk, unsigned long arg)
+ 	if (ctl.flags)
+ 		return -EINVAL;
+ 
+-	key = mctp_alloc_local_tag(msk, MCTP_ADDR_ANY, ctl.peer_addr,
+-				   true, &tag);
++	key = mctp_alloc_local_tag(msk, MCTP_INITIAL_DEFAULT_NET,
++				   MCTP_ADDR_ANY, ctl.peer_addr, true, &tag);
+ 	if (IS_ERR(key))
+ 		return PTR_ERR(key);
+ 
+diff --git a/net/mctp/route.c b/net/mctp/route.c
+index f633745827ff3..95ba7fce1582d 100644
+--- a/net/mctp/route.c
++++ b/net/mctp/route.c
+@@ -107,9 +107,12 @@ static struct mctp_sock *mctp_lookup_bind(struct net *net, struct sk_buff *skb)
+  * and peer addresses, or either being ANY.
+  */
+ 
+-static bool mctp_key_match(struct mctp_sk_key *key, mctp_eid_t local,
+-			   mctp_eid_t peer, u8 tag)
++static bool mctp_key_match(struct mctp_sk_key *key, unsigned int net,
++			   mctp_eid_t local, mctp_eid_t peer, u8 tag)
+ {
++	if (key->net != net)
++		return false;
++
+ 	if (!mctp_address_matches(key->local_addr, local))
+ 		return false;
+ 
+@@ -126,7 +129,7 @@ static bool mctp_key_match(struct mctp_sk_key *key, mctp_eid_t local,
+  * key exists.
+  */
+ static struct mctp_sk_key *mctp_lookup_key(struct net *net, struct sk_buff *skb,
+-					   mctp_eid_t peer,
++					   unsigned int netid, mctp_eid_t peer,
+ 					   unsigned long *irqflags)
+ 	__acquires(&key->lock)
+ {
+@@ -142,7 +145,7 @@ static struct mctp_sk_key *mctp_lookup_key(struct net *net, struct sk_buff *skb,
+ 	spin_lock_irqsave(&net->mctp.keys_lock, flags);
+ 
+ 	hlist_for_each_entry(key, &net->mctp.keys, hlist) {
+-		if (!mctp_key_match(key, mh->dest, peer, tag))
++		if (!mctp_key_match(key, netid, mh->dest, peer, tag))
+ 			continue;
+ 
+ 		spin_lock(&key->lock);
+@@ -165,6 +168,7 @@ static struct mctp_sk_key *mctp_lookup_key(struct net *net, struct sk_buff *skb,
+ }
+ 
+ static struct mctp_sk_key *mctp_key_alloc(struct mctp_sock *msk,
++					  unsigned int net,
+ 					  mctp_eid_t local, mctp_eid_t peer,
+ 					  u8 tag, gfp_t gfp)
+ {
+@@ -174,6 +178,7 @@ static struct mctp_sk_key *mctp_key_alloc(struct mctp_sock *msk,
+ 	if (!key)
+ 		return NULL;
+ 
++	key->net = net;
+ 	key->peer_addr = peer;
+ 	key->local_addr = local;
+ 	key->tag = tag;
+@@ -219,8 +224,8 @@ static int mctp_key_add(struct mctp_sk_key *key, struct mctp_sock *msk)
+ 	}
+ 
+ 	hlist_for_each_entry(tmp, &net->mctp.keys, hlist) {
+-		if (mctp_key_match(tmp, key->local_addr, key->peer_addr,
+-				   key->tag)) {
++		if (mctp_key_match(tmp, key->net, key->local_addr,
++				   key->peer_addr, key->tag)) {
+ 			spin_lock(&tmp->lock);
+ 			if (tmp->valid)
+ 				rc = -EEXIST;
+@@ -366,6 +371,7 @@ static int mctp_route_input(struct mctp_route *route, struct sk_buff *skb)
+ 	struct net *net = dev_net(skb->dev);
+ 	struct mctp_sock *msk;
+ 	struct mctp_hdr *mh;
++	unsigned int netid;
+ 	unsigned long f;
+ 	u8 tag, flags;
+ 	int rc;
+@@ -390,6 +396,7 @@ static int mctp_route_input(struct mctp_route *route, struct sk_buff *skb)
+ 
+ 	/* grab header, advance data ptr */
+ 	mh = mctp_hdr(skb);
++	netid = mctp_cb(skb)->net;
+ 	skb_pull(skb, sizeof(struct mctp_hdr));
+ 
+ 	ver = mh->ver & MCTP_HDR_VER_MASK;
+@@ -404,7 +411,7 @@ static int mctp_route_input(struct mctp_route *route, struct sk_buff *skb)
+ 	/* lookup socket / reasm context, exactly matching (src,dest,tag).
+ 	 * we hold a ref on the key, and key->lock held.
+ 	 */
+-	key = mctp_lookup_key(net, skb, mh->src, &f);
++	key = mctp_lookup_key(net, skb, netid, mh->src, &f);
+ 
+ 	if (flags & MCTP_HDR_FLAG_SOM) {
+ 		if (key) {
+@@ -418,7 +425,8 @@ static int mctp_route_input(struct mctp_route *route, struct sk_buff *skb)
+ 			 * this lookup requires key->peer to be MCTP_ADDR_ANY,
+ 			 * it doesn't match just any key->peer.
+ 			 */
+-			any_key = mctp_lookup_key(net, skb, MCTP_ADDR_ANY, &f);
++			any_key = mctp_lookup_key(net, skb, netid,
++						  MCTP_ADDR_ANY, &f);
+ 			if (any_key) {
+ 				msk = container_of(any_key->sk,
+ 						   struct mctp_sock, sk);
+@@ -456,7 +464,7 @@ static int mctp_route_input(struct mctp_route *route, struct sk_buff *skb)
+ 		 * packets for this message
+ 		 */
+ 		if (!key) {
+-			key = mctp_key_alloc(msk, mh->dest, mh->src,
++			key = mctp_key_alloc(msk, netid, mh->dest, mh->src,
+ 					     tag, GFP_ATOMIC);
+ 			if (!key) {
+ 				rc = -ENOMEM;
+@@ -660,6 +668,7 @@ static void mctp_reserve_tag(struct net *net, struct mctp_sk_key *key,
+  * it for the socket msk
+  */
+ struct mctp_sk_key *mctp_alloc_local_tag(struct mctp_sock *msk,
++					 unsigned int netid,
+ 					 mctp_eid_t local, mctp_eid_t peer,
+ 					 bool manual, u8 *tagp)
+ {
+@@ -674,7 +683,7 @@ struct mctp_sk_key *mctp_alloc_local_tag(struct mctp_sock *msk,
+ 		peer = MCTP_ADDR_ANY;
+ 
+ 	/* be optimistic, alloc now */
+-	key = mctp_key_alloc(msk, local, peer, 0, GFP_KERNEL);
++	key = mctp_key_alloc(msk, netid, local, peer, 0, GFP_KERNEL);
+ 	if (!key)
+ 		return ERR_PTR(-ENOMEM);
+ 
+@@ -691,6 +700,10 @@ struct mctp_sk_key *mctp_alloc_local_tag(struct mctp_sock *msk,
+ 		 * lock held, they don't change over the lifetime of the key.
+ 		 */
+ 
++		/* tags are net-specific */
++		if (tmp->net != netid)
++			continue;
++
+ 		/* if we don't own the tag, it can't conflict */
+ 		if (tmp->tag & MCTP_HDR_FLAG_TO)
+ 			continue;
+@@ -731,6 +744,7 @@ struct mctp_sk_key *mctp_alloc_local_tag(struct mctp_sock *msk,
+ }
+ 
+ static struct mctp_sk_key *mctp_lookup_prealloc_tag(struct mctp_sock *msk,
++						    unsigned int netid,
+ 						    mctp_eid_t daddr,
+ 						    u8 req_tag, u8 *tagp)
+ {
+@@ -745,6 +759,9 @@ static struct mctp_sk_key *mctp_lookup_prealloc_tag(struct mctp_sock *msk,
+ 	spin_lock_irqsave(&mns->keys_lock, flags);
+ 
+ 	hlist_for_each_entry(tmp, &mns->keys, hlist) {
++		if (tmp->net != netid)
++			continue;
++
+ 		if (tmp->tag != req_tag)
+ 			continue;
+ 
+@@ -928,6 +945,7 @@ int mctp_local_output(struct sock *sk, struct mctp_route *rt,
+ 	struct mctp_sk_key *key;
+ 	struct mctp_hdr *hdr;
+ 	unsigned long flags;
++	unsigned int netid;
+ 	unsigned int mtu;
+ 	mctp_eid_t saddr;
+ 	bool ext_rt;
+@@ -979,16 +997,17 @@ int mctp_local_output(struct sock *sk, struct mctp_route *rt,
+ 		rc = 0;
+ 	}
+ 	spin_unlock_irqrestore(&rt->dev->addrs_lock, flags);
++	netid = READ_ONCE(rt->dev->net);
+ 
+ 	if (rc)
+ 		goto out_release;
+ 
+ 	if (req_tag & MCTP_TAG_OWNER) {
+ 		if (req_tag & MCTP_TAG_PREALLOC)
+-			key = mctp_lookup_prealloc_tag(msk, daddr,
++			key = mctp_lookup_prealloc_tag(msk, netid, daddr,
+ 						       req_tag, &tag);
+ 		else
+-			key = mctp_alloc_local_tag(msk, saddr, daddr,
++			key = mctp_alloc_local_tag(msk, netid, saddr, daddr,
+ 						   false, &tag);
+ 
+ 		if (IS_ERR(key)) {
+diff --git a/net/mctp/test/route-test.c b/net/mctp/test/route-test.c
+index a944490a724d3..a29bb605ee394 100644
+--- a/net/mctp/test/route-test.c
++++ b/net/mctp/test/route-test.c
+@@ -544,6 +544,7 @@ static void mctp_test_route_input_sk_keys(struct kunit *test)
+ 	struct mctp_sock *msk;
+ 	struct socket *sock;
+ 	unsigned long flags;
++	unsigned int net;
+ 	int rc;
+ 	u8 c;
+ 
+@@ -551,6 +552,7 @@ static void mctp_test_route_input_sk_keys(struct kunit *test)
+ 
+ 	dev = mctp_test_create_dev();
+ 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
++	net = READ_ONCE(dev->mdev->net);
+ 
+ 	rt = mctp_test_create_route(&init_net, dev->mdev, 8, 68);
+ 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, rt);
+@@ -562,8 +564,9 @@ static void mctp_test_route_input_sk_keys(struct kunit *test)
+ 	mns = &sock_net(sock->sk)->mctp;
+ 
+ 	/* set the incoming tag according to test params */
+-	key = mctp_key_alloc(msk, params->key_local_addr, params->key_peer_addr,
+-			     params->key_tag, GFP_KERNEL);
++	key = mctp_key_alloc(msk, net, params->key_local_addr,
++			     params->key_peer_addr, params->key_tag,
++			     GFP_KERNEL);
+ 
+ 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, key);
+ 
 -- 
 2.53.0
 
