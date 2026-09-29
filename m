@@ -1,174 +1,199 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2923F1891A9
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 14:18:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 525353D3D18
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 14:22:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790691508; cv=none; b=iJ8hR1co9iK1/K/SQcCRk8CoKOL1dEyX1LqxcubRLYeFZts+At0EdWXPE8m34mtPKD3APQzwBZRlAygY0p4Pg4plMfDx5B2UH03wt9J222ys/C8E7EZ8MJdPjHRQOJLRYmhY+k/FUZNHvls1FtKoLND0kTgR9aP5CGZfF6UcHR0=
+	t=1790691776; cv=none; b=RtgiQBhz+A5Sy8jBywsLMzZmUUeorjmz58Ad3TxNGnVHa20dX31qAoqUb8cLKwVZ8qhF7ddYRfRCGgzJNZbUF3Ekds2tHGFv7nQnOE8330k98hSyr4KMWRytg5L/4rIvKPnxaEo/mhkMKMI30BaXVPwS8B2UYLhhUY50cn3MN5I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790691508; c=relaxed/simple;
-	bh=5gvFEqbkiiTA7FQivxZyuIoOZ8BI2pX49LbcCYDPnVs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pmUkC/d1xuxrIfStlUE+spPp1LSZoUZixvFX+r9u4wKxYzonCJlouYctH5S1jVKYjOoimZ0oFwdi/w7siZ9Bo/TK6h/KIz10YbFI9bZJ3uVg0vu7qLS5wHeNshaurZ+1BlBOP2k9s6ET/HqplHT3C3x1iNQ0K58ev65FaypEQAs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=CBJ23xMd; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790691776; c=relaxed/simple;
+	bh=wx1u5/U13bsgpEqnUiFwi0sZ6hNYN98yhUsbt7WIiGg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=FgTvf0qZ3HGZ2i65TBLClMNnxmCIutrl854UX5siWSCpWgQW1GF4rOAmAuADF2fvtwV4bH/Jx1gzwh/3pFEl+c/mzf/tIUM4vYnenbolDnz4rViWLH7b2aoLAiBAhmn4Lyo9y+iOU0ItBeDb+9arxa8AIWFS12GWZK5hWqfX9OU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZSSrJ5ss; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="CBJ23xMd"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790691506;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GbXDTdZnaMARV0PaqG68M0h00pQ3SsjxJmf4zOowgA4=;
-	b=CBJ23xMdQo8bc38di2tTw9U6gvu6mi584ndVh+mXCaiiK0xcyU4jDF+VHxVcvJbzrKqTaf
-	9VHuX2HCS3jLDLaOmJvsug99vfq5AlHF6W39xWkQcQ+JygYsy14DeOUPHGIfD7UtJwBVM6
-	X99fB5DhbRhPBAK5A7iZbuWHAxYg+nc=
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-333-1E2aK-mLPpSo_3tL_hPNLQ-1; Tue, 29 Sep 2026 10:18:24 -0400
-X-MC-Unique: 1E2aK-mLPpSo_3tL_hPNLQ-1
-X-Mimecast-MFC-AGG-ID: 1E2aK-mLPpSo_3tL_hPNLQ_1790691504
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93ae8e7e546so853833685a.1
-        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 07:18:24 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790691504; x=1791296304;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GbXDTdZnaMARV0PaqG68M0h00pQ3SsjxJmf4zOowgA4=;
-        b=JgXmWKoZSxSQQexR5Im1VuBmtL/rIdNeMjB5WFOfSXjU0/QW53PWhWaZUp0jq8jWeE
-         yNznbhvkufeXk9z/4MhxUClmqBWTWfHAHqC5CnZDnZB2aHt+S+LnEsiPgd5/CqCZQikG
-         4iVPHxMHXr/cKB7tVOj1WZ94AzPiFiYo7kJnUZyzKKxdrCZrqXr+r5eWy2OybB/kBOFD
-         dQmnzq9MwxFszcZguh9xnzNi1RZ1ReGNtIbpMr8KarBjLoowi62O0aM9rmy6P/Em5zTk
-         mNXa2oBEjmYEYieUGO1XmfUvcDvHKLoaVCo1jNphCOwgg9Z9VrENrlxPqSC8ImTiZ5Zl
-         jgeQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz1bWCMzhT/L/AeEME+SO1PsFCqkMbYzCC+iY2YA9RPewQxtujMkqngTfRbz1SRhC1HyKOjaxc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mj5Aj/l0VbDlSliC2VzDJsXwg5tR7y0mgMVDzsz/wV/raogebl
-	5fu0L1msha02+WiUjXIOWvLiLIj+/rZbom/e1LtdIARTotfdzXARufgE9aZCFzSmAOHFZdBF3uI
-	bBfG2VlkMR9xAdByJOgr8wl7BbQbFdld0KaexTmeU9mTM0EvWYPAsmvsAE/35b7lMfhMx
-X-Gm-Gg: AYBFou3q8W2++3C3aW6d/PdqREZXDSUygL75dHnuXYH92VlmAuE0UGrc+xksWLC0zO8
-	xJVxRza1oGkVhJyLfkHS5vzYbZ2GPbTqJR0/8aJx+nzeSujM8Z3Lakj1pnVCcJbp0z3ZnUzf+0q
-	Z8xIMRMz1JUhPpgjXnyCtZMUjbntzASibeB9A914xTwtXOcF2oLp/0fU9aM5gg8rWx2Db1Nwu+F
-	0MpCwzRjgvAH/Vb3kq0q/9efgYk67zJelte1bhMkoMA5m15r73v9VBSaqE8JCiPNX5PlBfm7ejV
-	Ub33ro2FRg2pNlMlsKIwGx4ZUzJTAfiMtgkNIlBrBlRaG81n9T8lLDgYcFkrsC1QG62zchSx4bd
-	peYY=
-X-Received: by 2002:a05:620a:404c:b0:939:31b5:4e08 with SMTP id af79cd13be357-93c439c33fbmr2664002185a.0.1790691503758;
-        Tue, 29 Sep 2026 07:18:23 -0700 (PDT)
-X-Received: by 2002:a05:620a:404c:b0:939:31b5:4e08 with SMTP id af79cd13be357-93c439c33fbmr2663993785a.0.1790691503101;
-        Tue, 29 Sep 2026 07:18:23 -0700 (PDT)
-Received: from [192.168.2.110] ([142.172.30.162])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c813a4587sm400548285a.7.2026.09.29.07.18.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 29 Sep 2026 07:18:22 -0700 (PDT)
-Message-ID: <cd4c16d1-d23e-4321-8f2a-6754294b74b1@redhat.com>
-Date: Tue, 29 Sep 2026 10:18:21 -0400
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZSSrJ5ss"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71CD11F000FF;
+	Tue, 29 Sep 2026 14:22:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790691774;
+	bh=0P0AeNXQAO9RzQFjJiKOia3NAYdpOwrRbwA2AA1vSu4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ZSSrJ5sskotQlGZ4i0vhlx59eaRviYfNxPcY1LR7epC92Igi/Xt04b3Acrxc1gV57
+	 of9shfGnIWyFMX0yyyjKTQu2JWcJAsDhcfrC7VxyHCNAFtgEuVRe7lLCwLyu91rE3n
+	 ryv3IELMEQ5H6fOk3MzN3LPIo/bagn/l6bMKEvWIQpNsKCOOKA/hkmaSVzXlDqF1c4
+	 O6Yt7ozEda021SoX1wfD+IThHUqNMDUAN9wDg1gHet7ElF1qIDKzAlVXvq7xsiA7qL
+	 6d34pw63ol77SZjRYvaXsfHNDaI1Wy5+GVN2J9lE//v6RX4T7qmnzoXV9JTYt0VovZ
+	 yjmbk7rHSWGZA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] fs/ntfs3: Redesign ntfs_create_inode to return error code instead of inode
+Date: Tue, 29 Sep 2026 10:22:52 -0400
+Message-ID: <20260929142253.3582339-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026092906-gestation-filtrate-f5c2@gregkh>
+References: <2026092906-gestation-filtrate-f5c2@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6.18.y v2] selftests/mm: hugepage-mremap: fix mapping
- alignment
-To: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org
-Cc: rppt@kernel.org, sayalip@linux.ibm.com, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-References: <20260928130916.231112-1-luizcap@redhat.com>
- <2026-09-28-2-daily-reply-0006-re-hugepage-mremap-alignment-6-18-v3@kernel.org>
-Content-Language: en-US
-From: Luiz Capitulino <luizcap@redhat.com>
-In-Reply-To: <2026-09-28-2-daily-reply-0006-re-hugepage-mremap-alignment-6-18-v3@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
 
+[ Upstream commit c935c66878867dc87c36c36b21d35d7e7f08adec ]
 
-On 9/28/26 6:39 PM, Sasha Levin wrote:
->> commit a914785f6349da754e1226420bf4e51961956769 upstream.
-> 
-> a914785f6349 ("selftests/mm: hugetlb-mremap: add setup of HugeTLB pages") is
-> Mike's commit, but this patch has you as the author with only your
-> Signed-off-by. Could you send a v3 that keeps Mike as the author with his
-> Signed-off-by, followed by yours, or otherwise makes the provenance explicit?
-> 
-> The same applies to the 6.12.y posting.
+As Al Viro correctly pointed out, there is no need to return
+the whole structure to check the error.
+https://lore.kernel.org/ntfs3/20240322023515.GK538574@ZenIV/
 
-My intent was to explain what was being fixed and why and, as it's a
-partial backport, I decided to author the change. But I'm keeping Mike's
-original changelog & authorship now, can you review it before I post?
-Note that the subject will change as a result.
+Acked-by: Al Viro <viro@zeniv.linux.org.uk>
+Signed-off-by: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
 
-"""
-From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Date: Mon, 11 May 2026 19:28:25 +0300
-Subject: [PATCH v6.18.y v3] selftests/mm: hugetlb-mremap: add setup of HugeTLB pages
+[Stable 6.1 dependency adaptation: retain the user_namespace API and
+existing directory-lock lifetime. Return an integer status from
+ntfs_create_inode and pass it through all four callers. Omit the
+unrelated switch to resident data for newly created regular files.
+The success-only unlock_new_inode epilogue allows target
+1abd643f3783ea8f8e273c18697ff0413aa92dc7 to apply cleanly.]
 
-commit a914785f6349da754e1226420bf4e51961956769 upstream.
+Stable-dep-of: 1abd643f3783 ("fs/ntfs3: use d_instantiate_new() in ntfs_create_inode() and murder syzbot's "WARNING in do_new_mount" saga")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/ntfs3/inode.c   | 18 ++++++++----------
+ fs/ntfs3/namei.c   | 31 ++++++++-----------------------
+ fs/ntfs3/ntfs_fs.h |  9 ++++-----
+ 3 files changed, 20 insertions(+), 38 deletions(-)
 
-hugetlb-mremap test fails if there are no free huge pages prepared by a
-wrapper script.
-
-Add setup of HugeTLB pages to the test and make sure that the original
-settings are restored on the test exit.
-
-Link: https://lore.kernel.org/20260511162840.375890-42-rppt@kernel.org
-Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Tested-by: Luiz Capitulino <luizcap@redhat.com>
-Tested-by: Sarthak Sharma <sarthak.sharma@arm.com>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Barry Song <baohua@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Dev Jain <dev.jain@arm.com>
-Cc: Donet Tom <donettom@linux.ibm.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: John Hubbard <jhubbard@nvidia.com>
-Cc: Lance Yang <lance.yang@linux.dev>
-Cc: Leon Romanovsky <leon@kernel.org>
-Cc: Liam Howlett <liam@infradead.org>
-Cc: Li Wang <li.wang@linux.dev>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Mark Brown <broonie@kernel.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Nico Pache <npache@redhat.com>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Shuah Khan <shuah@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Zi Yan <ziy@nvidia.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-
-[ Backport-notes: this is a partial backport containing only the aligning
-of 'length' to the hugepage size. The hugepage_settings.h include line and
-the hugetlb_setup_default() call are omitted. Without this fix, the
-uffd_register() call always fails on arm64 with 64K base pages and 512 MiB
-default HugeTLB page size causing the test to fail with the error below as
-'length' is 10 MiB and not aligned to the HugeTLB page size.
-
-   # -------------------------
-   # running ./hugepage-mremap
-   # -------------------------
-   # TAP version 13
-   # 1..1
-   # # Map haddr: Returned address is 0x7eaa40000000
-   # # Map daddr: Returned address is 0x7daa40000000
-   # # Map vaddr: Returned address is 0x7faa40000000
-   # Bail out! ioctl-UFFDIO_REGISTER: Invalid argument
-   # # Planned tests != run tests (1 != 0)
-   # # Totals: pass:0 fail:0 xfail:0 xpass:0 skip:0 error:0
-   # [FAIL]
-   not ok 1 hugepage-mremap # exit=1
-   # NOTE: These hugetlb tests provide minimal coverage.  Use
-   #       https://github.com/libhugetlbfs/libhugetlbfs.git for
-   #       hugetlb regression testing.
-   # SKIP ./uffd-wp-mremap
-]
-Signed-off-by: Luiz Capitulino <luizcap@redhat.com>
-"""
+diff --git a/fs/ntfs3/inode.c b/fs/ntfs3/inode.c
+index acd5be0d36c0c..243791cc3c529 100644
+--- a/fs/ntfs3/inode.c
++++ b/fs/ntfs3/inode.c
+@@ -1202,11 +1202,10 @@ ntfs_create_reparse_buffer(struct ntfs_sb_info *sbi, const char *symname,
+ 	return ERR_PTR(err);
+ }
+ 
+-struct inode *ntfs_create_inode(struct user_namespace *mnt_userns,
+-				struct inode *dir, struct dentry *dentry,
+-				const struct cpu_str *uni, umode_t mode,
+-				dev_t dev, const char *symname, u32 size,
+-				struct ntfs_fnd *fnd)
++int ntfs_create_inode(struct user_namespace *mnt_userns, struct inode *dir,
++		      struct dentry *dentry, const struct cpu_str *uni,
++		      umode_t mode, dev_t dev, const char *symname, u32 size,
++		      struct ntfs_fnd *fnd)
+ {
+ 	int err;
+ 	struct super_block *sb = dir->i_sb;
+@@ -1675,14 +1674,13 @@ struct inode *ntfs_create_inode(struct user_namespace *mnt_userns,
+ 	kfree(rp);
+ 
+ out1:
+-	if (err) {
++	if (err)
+ 		ni_unlock(dir_ni);
+-		return ERR_PTR(err);
+-	}
+ 
+-	unlock_new_inode(inode);
++	if (!err)
++		unlock_new_inode(inode);
+ 
+-	return inode;
++	return err;
+ }
+ 
+ int ntfs_link_inode(struct inode *inode, struct dentry *dentry)
+diff --git a/fs/ntfs3/namei.c b/fs/ntfs3/namei.c
+index 9d454b9a9c149..0fecfb1961af8 100644
+--- a/fs/ntfs3/namei.c
++++ b/fs/ntfs3/namei.c
+@@ -105,12 +105,8 @@ static struct dentry *ntfs_lookup(struct inode *dir, struct dentry *dentry,
+ static int ntfs_create(struct user_namespace *mnt_userns, struct inode *dir,
+ 		       struct dentry *dentry, umode_t mode, bool excl)
+ {
+-	struct inode *inode;
+-
+-	inode = ntfs_create_inode(mnt_userns, dir, dentry, NULL, S_IFREG | mode,
+-				  0, NULL, 0, NULL);
+-
+-	return IS_ERR(inode) ? PTR_ERR(inode) : 0;
++	return ntfs_create_inode(mnt_userns, dir, dentry, NULL, S_IFREG | mode,
++				 0, NULL, 0, NULL);
+ }
+ 
+ /*
+@@ -121,12 +117,8 @@ static int ntfs_create(struct user_namespace *mnt_userns, struct inode *dir,
+ static int ntfs_mknod(struct user_namespace *mnt_userns, struct inode *dir,
+ 		      struct dentry *dentry, umode_t mode, dev_t rdev)
+ {
+-	struct inode *inode;
+-
+-	inode = ntfs_create_inode(mnt_userns, dir, dentry, NULL, mode, rdev,
+-				  NULL, 0, NULL);
+-
+-	return IS_ERR(inode) ? PTR_ERR(inode) : 0;
++	return ntfs_create_inode(mnt_userns, dir, dentry, NULL, mode, rdev,
++				 NULL, 0, NULL);
+ }
+ 
+ /*
+@@ -195,12 +187,9 @@ static int ntfs_symlink(struct user_namespace *mnt_userns, struct inode *dir,
+ 			struct dentry *dentry, const char *symname)
+ {
+ 	u32 size = strlen(symname);
+-	struct inode *inode;
+-
+-	inode = ntfs_create_inode(mnt_userns, dir, dentry, NULL, S_IFLNK | 0777,
+-				  0, symname, size, NULL);
+ 
+-	return IS_ERR(inode) ? PTR_ERR(inode) : 0;
++	return ntfs_create_inode(mnt_userns, dir, dentry, NULL, S_IFLNK | 0777,
++				 0, symname, size, NULL);
+ }
+ 
+ /*
+@@ -209,12 +198,8 @@ static int ntfs_symlink(struct user_namespace *mnt_userns, struct inode *dir,
+ static int ntfs_mkdir(struct user_namespace *mnt_userns, struct inode *dir,
+ 		      struct dentry *dentry, umode_t mode)
+ {
+-	struct inode *inode;
+-
+-	inode = ntfs_create_inode(mnt_userns, dir, dentry, NULL, S_IFDIR | mode,
+-				  0, NULL, 0, NULL);
+-
+-	return IS_ERR(inode) ? PTR_ERR(inode) : 0;
++	return ntfs_create_inode(mnt_userns, dir, dentry, NULL, S_IFDIR | mode,
++				 0, NULL, 0, NULL);
+ }
+ 
+ /*
+diff --git a/fs/ntfs3/ntfs_fs.h b/fs/ntfs3/ntfs_fs.h
+index a03dce278221e..a270e03e94bc8 100644
+--- a/fs/ntfs3/ntfs_fs.h
++++ b/fs/ntfs3/ntfs_fs.h
+@@ -701,11 +701,10 @@ int ntfs_sync_inode(struct inode *inode);
+ int ntfs_flush_inodes(struct super_block *sb, struct inode *i1,
+ 		      struct inode *i2);
+ int inode_write_data(struct inode *inode, const void *data, size_t bytes);
+-struct inode *ntfs_create_inode(struct user_namespace *mnt_userns,
+-				struct inode *dir, struct dentry *dentry,
+-				const struct cpu_str *uni, umode_t mode,
+-				dev_t dev, const char *symname, u32 size,
+-				struct ntfs_fnd *fnd);
++int ntfs_create_inode(struct user_namespace *mnt_userns, struct inode *dir,
++		      struct dentry *dentry, const struct cpu_str *uni,
++		      umode_t mode, dev_t dev, const char *symname, u32 size,
++		      struct ntfs_fnd *fnd);
+ int ntfs_link_inode(struct inode *inode, struct dentry *dentry);
+ int ntfs_unlink_inode(struct inode *dir, const struct dentry *dentry);
+ void ntfs_evict_inode(struct inode *inode);
+-- 
+2.53.0
 
