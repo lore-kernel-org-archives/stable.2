@@ -1,161 +1,194 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE64852E073
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 14:12:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 331E04F4043;
+	Tue, 29 Sep 2026 14:13:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790691177; cv=none; b=K5XW5EpGnE9urTWFIQkv7xdGiTmk79mrgneaPn+qB4jQhX0exxO169tVubgk7s2LqYM1rqxXTB1kdde2V917DRNLtnjvweT9omwkN3zx9NYbCIkrQEDGcHbO7bOeh8+h7BjE3k8KvI+zKZC92zzs8KA5OfwVDRC6jDRkRkGbzcA=
+	t=1790691213; cv=none; b=MxD5D/ckacdp2ZOA5UasHM0eJuS8OCCJPOJzJ/0esxU9ZVpotgrd26e/8DxOaoZO7L57blnAf37pn+pQekFn9actmRdGKaSt9ghImiXurDX4Ii73R9yn1v+ZpI7C2F5098e6y0Mje7LvPAg5YYJUwSG/WpWDs3BvRcJXlK+Lps0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790691177; c=relaxed/simple;
-	bh=ofgdAv+e//Rf9PHtyX3BhUqyKL8EBXNVzi78ACLwpFg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=j96IbpdpX1hrrLpMEpbv2qu2fyf5OXia16SY3ZdY8fliUYdPz3n1d8/yHH4fGR78/4p/S3hHmIQ72r+M2F/ph78bPKOcGdbdS5baUkW+ULv5S3PCKfAJ66U7ofNYzLhCuZXuHXoNP3UeuXNrmGmgup+Q7SqELukwnUNUWw+siH0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L1z2zeL5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790691213; c=relaxed/simple;
+	bh=u6WvubjCz+cgkM6Fz1Yzi6CC0HHa7F7n9p7flVoNf6I=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=FGUginpoi38rmPervi1ulmMTBhQChNOxVq5jn3tGrwdgIFyRMPy7gDEdCeMJxqkI+CbluG1mDpM64QV62bE3fWmoAXUZkG6C+XhwPOQ0xtOJNFSRJGnfn7wZlFynUfWm7m2rxk1tX9f6QK1oCXFfl3GdnM9ljV8aXKbsE2z/Alw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ptw+rtCU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L1z2zeL5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCE951F00898;
-	Tue, 29 Sep 2026 14:12:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ptw+rtCU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56A781F000FF;
+	Tue, 29 Sep 2026 14:13:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790691175;
-	bh=5YICqw1eBQmFjhHRJvOfcmXJJKBBeRvCaL9ct9tPO00=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=L1z2zeL5WwB3L3/33x3X6bIUIGjAztnNIxVvi2UBxa4q5VBLQ7CIjUsoCq7hLrxpi
-	 PcFUK56tC+KbNuEtG1RmhTgACKJoT67S6a14gcNyh9DU3FWckdc1sRIszHimfHVwuo
-	 LyG318cjocAchPsQ7I65kIOSXF1rEEeZZJEocl6+xbib0xMrnTrTEbH4LeaF4s/RuY
-	 4p4cYzsqWMrVWh1aEi2DVTef690ow05WhWLDIvzlzgF9lvj4BQCGSu6IDd44C+Mgxu
-	 sXda3Y3H4kX4Gi7x5GxTpQUDZhvm2w7NqdN53dqXaR0wjhAauAb6KVWqHQPZ9VmIIG
-	 BNBvdx0suktZw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Christian Brauner <brauner@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	syzbot+2a13ad6914e6fcec716c@syzkaller.appspotmail.com,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] fs/ntfs3: use d_instantiate_new() in ntfs_create_inode() and murder syzbot's "WARNING in do_new_mount" saga
-Date: Tue, 29 Sep 2026 10:12:52 -0400
-Message-ID: <20260929141252.3538406-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260929141252.3538406-1-sashal@kernel.org>
-References: <2026092905-banter-curable-1b52@gregkh>
- <20260929141252.3538406-1-sashal@kernel.org>
+	s=k20260515; t=1790691211;
+	bh=2Dk0LckhodBoHKrWlTBpRMQHe6Wk8ImTuZYBryUACZo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Ptw+rtCUl02YbGD2eAmr156Rdq4+2BStIyQCChm1r4K5TYo9ZXC4sSL5NzlImWci7
+	 e1Wyo1lSuWTT6EM0h0Dx9hVkvRzAeEeRA+CUVFhBoVxAgwiHcLhMpDySdC3EpAfzr8
+	 4pla3s37orME7jOdl3UU93yXB9bBsWzs6Iw1FwZbpgCgwaVYabZLvWZXIm1rg68qZw
+	 z7UzpR5GuRPnA9DmvHtmzDGrDpflTZ2cSwNHyfqij85jWc8wX47ARa7lCRvzXTWne0
+	 elm5E5Htplv8tyNGcz9umtv9CBW9aatFmzaECL6GqAnQgBTZ1jRXAAzmfOEE8YrDg3
+	 Vzv8QP4jnz2eQ==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xBYaG-0000000Et43-3ZdE;
+	Tue, 29 Sep 2026 14:13:28 +0000
+Date: Tue, 29 Sep 2026 15:13:28 +0100
+Message-ID: <86a4p0403b.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Oliver Upton <oupton@kernel.org>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Yuchao Zhang <ndaugoing@gmail.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/7] KVM: arm64: Move OUTSIDE_GUEST_MODE publication past context being saved
+In-Reply-To: <CA+EHjTwZSFUZmavbB4tE-eFxHg9WF80CA230EwvynuNcZQ0prg@mail.gmail.com>
+References: <20260929093548.3598547-1-maz@kernel.org>
+	<20260929093548.3598547-2-maz@kernel.org>
+	<CA+EHjTwZSFUZmavbB4tE-eFxHg9WF80CA230EwvynuNcZQ0prg@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: fuad.tabba@linux.dev, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, seiden@linux.ibm.com, joey.gouly@arm.com, suzuki.poulose@arm.com, oupton@kernel.org, yuzenghui@huawei.com, ndaugoing@gmail.com, stable@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-From: Christian Brauner <brauner@kernel.org>
+On Tue, 29 Sep 2026 13:59:23 +0100,
+Fuad Tabba <fuad.tabba@linux.dev> wrote:
+>=20
+> Hi Marc,
+>=20
+> On Tue, 29 Sep 2026 10:35:42 +0100, Marc Zyngier <maz@kernel.org> wrote:
+> [...]
+> > Move the publication of OUTSIDE_GUEST_MODE to the point where the state
+> > is actually written, and give this write release semantics to ensure the
+> > correct ordering.
+> >
+> > Signed-off-by: Marc Zyngier <maz@kernel.org>
+> > Cc: stable@vger.kernel.org
+>=20
+>=20
+> No Fixes: tag?
 
-[ Upstream commit 1abd643f3783ea8f8e273c18697ff0413aa92dc7 ]
+No. It's always been fsck'd.
 
-ntfs_create_inode() creates a new inode via ntfs_new_inode(). It hashes
-it with insert_inode_locked() and so it's marked as I_NEW until
-unlock_new_inode().
+>=20
+> [...]
+> > diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+> [...]
+> > @@ -1386,6 +1385,12 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcp=
+u)
+> >
+> >               kvm_arch_vcpu_ctxsync_fp(vcpu);
+> >
+> > +             /*
+> > +              * All the state has been synchronised, let advertise
+> > +              * we're outside of the guest.
+> > +              */
+> > +             smp_store_release(&vcpu->mode, OUTSIDE_GUEST_MODE);
+>=20
+> Pardon my atomics :)
 
-ntfs 3 calls d_instantiate() in between though... Since the dentry was
-already hashed by the lookup before the create any path walk finds it
-without touching the parent's i_rwsem and so can lock the inode.
+This is not an atomic instruction. However, it composes with atomics.
 
-If the inode is a directory unlock_new_inode() calls
-lockdep_annotate_inode_mutex_key() and marks i_rwsem with the
-i_mutex_dir_key class.
+> , but what does the release pair with? On the halt
+> path, the only reader I can find is the cmpxchg() in
+> kvm_vcpu_exiting_guest_mode()
 
-That resets the count and the owner of a lock somebody else may already
-hold by now...
+=46rom Documentation/atomic_t.txt:
 
-syzbot has been spamming us with the same godforsaken bug
+<quote>
+ - RMW operations that have a return value are fully ordered;
 
-  "WARNING in do_new_mount"
+ - RMW operations that are conditional are unordered on FAILURE,
+   otherwise the above rules apply.
+</quote>
 
-since 2023. I can't take it anymore so I went looking. Afaict, syzbot's
-executor chdirs into a freshly mounted ntfs3 image, creates a
-directory and then mounts some pseudofs on it. Everytime the mkdir()
-takes longer than syzbot waits mount() runs concurrently:
+The acquire side of cmpxchg() is therefore interacting with the above
+release, which gives us the required ordering.
 
-  mkdir("./sys")                        mount(NULL, "./sys", "sysfs")
-  ntfs_create_inode()
-    d_instantiate()
-                                        user_path_at() finds the dentry
-                                        do_lock_mount()
-                                          inode_lock(inode)
-                                          namespace_lock()
-    unlock_new_inode()
-      lockdep_annotate_inode_mutex_key()
-        init_rwsem(&inode->i_rwsem)
-                                        unlock_mount()
-                                          inode_unlock(inode)
+However, there is a problem if cmpxchg() fails, as there is no
+ordering in that case, and I'm not sure the smp_mb__before_atomic()
+saves the bacon in that case. It feels we'd need an acquire
+somewhere, a bit like this:
 
-The mount side then releases a lock that according to the rwsem nobody
-holds:
-
-  DEBUG_RWSEMS_WARN_ON((rwsem_owner(sem) != current) && ...):
-  count = 0x0, magic = 0xffff888043a854e8, owner = 0x0,
-  curr 0xffff888000244880, list empty
-  WARNING: CPU: 0 PID: 5346 at kernel/locking/rwsem.c:1368 __up_write
-  Call Trace:
-   inode_unlock include/linux/fs.h:877 [inline]
-   unlock_mount fs/namespace.c:2892 [inline]
-   do_new_mount_fc fs/namespace.c:3828 [inline]
-   do_new_mount+0x777/0xa40 fs/namespace.c:3887
-
-On PREEMPT_RT the same thing shows up as
-
-  DEBUG_LOCKS_WARN_ON(rt_mutex_owner(lock) != current)
-  WARNING: kernel/locking/rtmutex_common.h:193 at rt_mutex_slowunlock
-
-The up_write() underflows the reset count. A following inode_lock() on
-that directory then never returns. A path walk into the new directory
-racing with the mkdir() corrupts the lock the same way via
-inode_lock_shared() in lookup_slow().
-
-Switch to d_instantiate_new() and drop the trailing unlock_new_inode().
-All error paths bail out before that point with I_NEW still set and
-keep using discard_new_inode().
-
-May we never see this fscking bug report again.
-
-Link: https://patch.msgid.link/20260909-work-ntfs3-d_instantiate_new-v1-1-2db697162ce8@kernel.org
-Fixes: 82cae269cfa9 ("fs/ntfs3: Add initialization of super block")
-Reviewed-by: Jan Kara <jack@suse.cz>
-Cc: stable@vger.kernel.org # v5.15+
-Reported-by: syzbot+2a13ad6914e6fcec716c@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/6a9beced.a5e650b3.26d8a.000b.GAE@google.com
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/ntfs3/inode.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
-
-diff --git a/fs/ntfs3/inode.c b/fs/ntfs3/inode.c
-index 98f70c721052b..528fd831d19cb 100644
---- a/fs/ntfs3/inode.c
-+++ b/fs/ntfs3/inode.c
-@@ -1630,10 +1630,10 @@ int ntfs_create_inode(struct user_namespace *mnt_userns, struct inode *dir,
- 	}
- 
- 	/*
--	 * Call 'd_instantiate' after inode->i_op is set
-+	 * Call 'd_instantiate_new' after inode->i_op is set
- 	 * but before finish_open.
+diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
+index 03bfc92864b6e..2efb4febcb235 100644
+--- a/include/linux/kvm_host.h
++++ b/include/linux/kvm_host.h
+@@ -563,9 +563,15 @@ static inline int kvm_vcpu_exiting_guest_mode(struct k=
+vm_vcpu *vcpu)
+ 	 * The memory barrier ensures a previous write to vcpu->requests cannot
+ 	 * be reordered with the read of vcpu->mode.  It pairs with the general
+ 	 * memory barrier following the write of vcpu->mode in VCPU RUN.
++	 *
++	 * cmpxchg() is not ordered when failing, so make sure we perform an
++	 * acquire in that case.
  	 */
--	d_instantiate(dentry, inode);
-+	d_instantiate_new(dentry, inode);
- 
- 	ntfs_save_wsl_perm(inode);
- 	mark_inode_dirty(dir);
-@@ -1682,9 +1682,6 @@ int ntfs_create_inode(struct user_namespace *mnt_userns, struct inode *dir,
- 	if (err)
- 		ni_unlock(dir_ni);
- 
--	if (!err)
--		unlock_new_inode(inode);
--
- 	return err;
+ 	smp_mb__before_atomic();
+-	return cmpxchg(&vcpu->mode, IN_GUEST_MODE, EXITING_GUEST_MODE);
++	if (cmpxchg(&vcpu->mode, IN_GUEST_MODE, EXITING_GUEST_MODE) !=3D IN_GUEST=
+_MODE)
++		return smp_load_acquire(&vcpu->mode);
++
++	return IN_GUEST_MODE;
  }
- 
--- 
-2.53.0
+=20
+ /*
 
+> , and the LPI-disable and MOVALL halts
+> then take ap_list_lock or irq_lock. Would WRITE_ONCE() be enough?
+
+We need a release so that we know for sure that any state stored
+before is visible by the time we can observe OUTSIDE_GUEST_MODE, and
+WRITE_ONCE() doesn't provide that (it can be reordered).
+
+I don't see what taking a lock changes to the ordering requirement.
+
+>
+> Should the early exit path (the kvm_vcpu_exit_request() bail-out) get
+> the same treatment? I think that's what Sashiko is trying to say in
+> the patch 5 review [1].
+
+I don't understand what sashiko is trying to say, but this is clearly
+missing from the patch, see below. Not sure how I missed that one.
+
+diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+index 9a4871cd796bc..1a3a15bc6f55c 100644
+--- a/arch/arm64/kvm/arm.c
++++ b/arch/arm64/kvm/arm.c
+@@ -1333,13 +1333,13 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
+ 		smp_store_mb(vcpu->mode, IN_GUEST_MODE);
+=20
+ 		if (ret <=3D 0 || kvm_vcpu_exit_request(vcpu, &ret)) {
+-			vcpu->mode =3D OUTSIDE_GUEST_MODE;
+ 			isb(); /* Ensure work in x_flush_hwstate is committed */
+ 			if (kvm_vcpu_has_pmu(vcpu))
+ 				kvm_pmu_sync_hwstate(vcpu);
+ 			if (unlikely(!irqchip_in_kernel(vcpu->kvm)))
+ 				kvm_timer_sync_user(vcpu);
+ 			kvm_vgic_sync_hwstate(vcpu);
++			smp_store_release(&vcpu->mode, OUTSIDE_GUEST_MODE);
+ 			local_irq_enable();
+ 			preempt_enable();
+ 			continue;
+
+Thanks,
+
+	M.
+
+--=20
+Without deviation from the norm, progress is not possible.
