@@ -1,42 +1,42 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C904852CCC4;
-	Tue, 29 Sep 2026 14:45:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03AD15383EA;
+	Tue, 29 Sep 2026 14:45:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790693146; cv=none; b=pZR3b432aphqwVJMNvo6xfKnPhJWAJKrGrOu0I14F0ju3j7v54wMJ9J9sLstuEmoLZbTbkzF6tFangbpXJWZp3VIt6LnFH2DLwO4dVt+SB5MW+q9HJI+KoN1iJ6KbbS4kEkFZQM6/CCJHTxNT4nsBKCL4yQntHMwNAn6MqTkuUw=
+	t=1790693160; cv=none; b=cvt15I1gcbXU7us8jMV0OfkaDYE6GYLwVVjruPM1J8opHqc8+pQIptwkK/RuTPrwNlf18P8xmpcrzBDxDLJuulptS5BpC4sY+NUT2GYZbDcZfVmtAJ8LKVq+yVMZ0HtsPJgzI4TSTJKBFUioWA1iGF+5U6Yh7V6/rwttMii4XJA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790693146; c=relaxed/simple;
-	bh=Twb6Vi/4J7ssk0EwkgIgu0lEhcp0CvYGappAxYYsl+Y=;
+	s=arc-20240116; t=1790693160; c=relaxed/simple;
+	bh=+o6KDDUPVIftNI/TFsdAfv69hApClbxYS8uTOCd69dI=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=qD7yVgCQXsoRgEglIFmPMuem6lsYAZ0qdgs/+JBpwYWKH5OELvIjsAoipBLE5e11kxOtOu353ofdIVXynBgDHy/GvvKR18ioVBqFGJxUE2yQ0/LURsUqUmxMtPWNkorX6dXJgJDu1m6bXhQGQsANuDXURB54wPXlZ3K7AUpmV1g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=bWoogI3C; arc=none smtp.client-ip=185.246.85.4
+	 In-Reply-To:To:Cc; b=UThxr40RnggdwFt+VzI9stuJrspyob+PKhPN0RwIhiUUDcFSFpFdgfSagFr9VWT815dbw+Z2puheol28MFkVl0zhRsHcUwdYZi8PpOLAxBBALYU/XYR/OEXcAztX8SXH9Qdski+yIW3jqyr860aOyYPP43ssinEgnwEJncoFzOs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=l+TcVmDs; arc=none smtp.client-ip=185.246.84.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="bWoogI3C"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="l+TcVmDs"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id A49274E410BE;
-	Tue, 29 Sep 2026 14:45:35 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 9C1F61A1064;
+	Tue, 29 Sep 2026 14:45:47 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 799E5601BD;
-	Tue, 29 Sep 2026 14:45:35 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A585910329812;
-	Tue, 29 Sep 2026 16:45:30 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 68CED601BD;
+	Tue, 29 Sep 2026 14:45:47 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E7866103297CB;
+	Tue, 29 Sep 2026 16:45:41 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790693134; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1790693145; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=FI8MM4zLwxVlmw7VDmYSwTBJd8VFU5MfFASzd6xayQ4=;
-	b=bWoogI3CaFjR6U8nd0ppQkYmcXE6298N8V+dpnuvYsLhEfl0sx960SD3XS6nMkIZcZFn28
-	vuwJzEs89FUiquQ3hu3YWwYn98B7ujYHmNdBraNx1iKDNiymU/xValPG04KoA1/+EIKtyA
-	Y8Yy6AaBitGmdlxb0l9zgyh47nPW2TohAzTHgySCXrfo4FPeQTexxwg791ys2e7TAhErI/
-	Se7fy67e64db8S0Kkg3u13CUYXga0WJwsURcurFC9QbUXaTYrjdJgyWDL5BEWkrW7ueBwT
-	aQykMjvH1LHRqm10fUhjkgfH/fV03+bf7S4TfA74YYrnXRPT6OYe/1PXtdzC4A==
+	bh=8g9y2zph+FxBR9T/OKFffD+rZh4FWbOIyfhWABZSmPo=;
+	b=l+TcVmDspjZ2xV4hQiXNMiJsHCMGAzykuGVAE88K7oNrCEgYvnQpZuhl0U/FGn7iMXA7lm
+	+5vMyxjoYLD+dNVSJXg9JN7vFt0pvfy9n6TIn519meHA3F6lfO7iz6j1qt4N9BlNeh1M4a
+	ROsoyoKjIFImiw7TCX9SY7CwLkq1VX3IxTl8eyNlAP/OHK2Ukaye3GOPyqaB8Bh7YE2gqu
+	9tWQvtxw6M3SJ1iDRzpcB1qZLei7pVf7vXysXTmr1geE2VZHDszQ+q0BJuw71oCKLP+nn9
+	I8DqNLgYXtqCe/MrJULxVYwRZ6MYrHfoQwbMsraidLo/7eLfFbJnfBFGBYiM5A==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Tue, 29 Sep 2026 16:44:45 +0200
-Subject: [PATCH v5 2/9] dt-bindings: clock: ma35d1: Document the missing
- crystal inputs
+Date: Tue, 29 Sep 2026 16:44:48 +0200
+Subject: [PATCH v5 5/9] clk: nuvoton: ma35d1: Add missing WDT/WWDT parent
+ clocks
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,7 +45,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260929-perso-ma35d1-upstream-clk-v5-2-68533e935ee4@bootlin.com>
+Message-Id: <20260929-perso-ma35d1-upstream-clk-v5-5-68533e935ee4@bootlin.com>
 References: <20260929-perso-ma35d1-upstream-clk-v5-0-68533e935ee4@bootlin.com>
 In-Reply-To: <20260929-perso-ma35d1-upstream-clk-v5-0-68533e935ee4@bootlin.com>
 To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
@@ -62,64 +62,52 @@ Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
  linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
  openbmc@lists.ozlabs.org, Miquel Raynal <miquel.raynal@bootlin.com>, 
- stable@vger.kernel.org
+ Jacky Huang <ychuang570808@gmail.com>, stable@vger.kernel.org, 
+ Jerome Brunet <jbrunet@baylibre.com>
 X-Mailer: b4 0.14.3
 X-Last-TLS-Session-Version: TLSv1.3
 
-The MA35D1 clock controller takes two crystal oscillator inputs from
-the board:
-- HXT, a high-speed 24 MHz crystal for most of the system
-- LXT, a low-speed 32.768 kHz crytal for the RTC and low power modes
+The WDT and WWDT muxes list PCLK3/4096 and PCLK4/4096 among their
+possible parents, but the driver never registers the corresponding
+clocks, so these parents could never be used.
 
-So far the binding was expecting a single crystal. The example named it
-HXT, but no real definition for it was given. LXT was not even
-described. In order to remain backward compatible, we will continue to
-allow either one (HXT) or two (HXT then LXT) input clocks. I propose to
-give those phandles a name to clarify what these entries expect, but I'm
-not listing the clock-names property in the required block, for backward
-compatibility. The rates are fixed by the TRM, so even if the second
-oscillator is not described, the OS can make an educated guess.
+Add pclk3_div4096 and pclk4_div4096 as fixed factor children of pclk3
+and pclk4 and expose them through the clock provider.
 
-Fixes: 2f8b5eb589cb ("dt-bindings: clock: nuvoton: add binding for ma35d1 clock controller")
+Reported-by: Jacky Huang <ychuang570808@gmail.com>
+Closes: https://lore.kernel.org/linux-clk/b8a8a65b-e302-4747-bc90-4920fc48795a@gmail.com/
+Suggested-by: Jacky Huang <ychuang570808@gmail.com>
+Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock controller")
 Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/linux-clk/b8a8a65b-e302-4747-bc90-4920fc48795a@gmail.com/
+Reviewed-by: Jerome Brunet <jbrunet@baylibre.com>
 Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
- .../devicetree/bindings/clock/nuvoton,ma35d1-clk.yaml    | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
+ drivers/clk/nuvoton/clk-ma35d1.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/clock/nuvoton,ma35d1-clk.yaml b/Documentation/devicetree/bindings/clock/nuvoton,ma35d1-clk.yaml
-index 8f0c43683729..9649feda8d7a 100644
---- a/Documentation/devicetree/bindings/clock/nuvoton,ma35d1-clk.yaml
-+++ b/Documentation/devicetree/bindings/clock/nuvoton,ma35d1-clk.yaml
-@@ -29,7 +29,18 @@ properties:
-     const: 1
+diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-ma35d1.c
+index 6aa42a3e1be3..c914079cee2d 100644
+--- a/drivers/clk/nuvoton/clk-ma35d1.c
++++ b/drivers/clk/nuvoton/clk-ma35d1.c
+@@ -17,7 +17,7 @@
+ static DEFINE_SPINLOCK(ma35d1_lock);
  
-   clocks:
--    maxItems: 1
-+    minItems: 1
-+    maxItems: 2
-+    description:
-+      The controller takes 2 crystal oscillator inputs from the board.
-+      HXT is a 24 MHz crystal feeding the internal PLLs. LXT is a 32.768
-+      kHz crystal, for RTC and low power operations.
-+
-+  clock-names:
-+    minItems: 1
-+    items:
-+      - const: hxt
-+      - const: lxt
+ #define PLL_MAX_NUM		5
+-#define	MA35D1_CLK_COUNT	236
++#define	MA35D1_CLK_COUNT	238
  
-   nuvoton,pll-mode:
-     description:
-@@ -58,6 +69,7 @@ examples:
-         compatible = "nuvoton,ma35d1-clk";
-         reg = <0x40460200 0x100>;
-         #clock-cells = <1>;
--        clocks = <&clk_hxt>;
-+        clocks = <&clk_hxt>, <&clk_lxt>;
-+        clock-names = "hxt", "lxt";
-     };
- ...
+ /* Clock Control Registers Offset */
+ #define REG_CLK_PWRCTL		0x00
+@@ -544,6 +544,8 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
+ 	hws[HCLK3] = ma35d1_clk_fixed_factor(dev, "hclk3", "sysclk1_mux", 1, 2);
+ 	hws[PCLK3] = ma35d1_clk_fixed_factor(dev, "pclk3", "sysclk1_mux", 1, 2);
+ 	hws[PCLK4] = ma35d1_clk_fixed_factor(dev, "pclk4", "sysclk1_mux", 1, 2);
++	hws[PCLK3_DIV4096] = ma35d1_clk_fixed_factor(dev, "pclk3_div4096", "pclk3", 1, 4096);
++	hws[PCLK4_DIV4096] = ma35d1_clk_fixed_factor(dev, "pclk4_div4096", "pclk4", 1, 4096);
+ 
+ 	hws[USBPHY0] = ma35d1_clk_fixed("usbphy0", 480000000);
+ 	hws[USBPHY1] = ma35d1_clk_fixed("usbphy1", 480000000);
 
 -- 
 2.55.0
