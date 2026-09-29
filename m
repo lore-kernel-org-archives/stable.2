@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1892C3D16FC
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 09:39:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AEFF4E322D
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 09:39:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790674752; cv=none; b=DA72pyz0CFNERKO+5Y5E5KWuwczrB7Vc6Fzf9oq7cPD41fW5z9d01iQRFmRC1xTkzv5Z5iuaASSc5/sGRC+Ypf8zXUpmzPBZJdKt3PYR30e2j5Z8YjZr6tR+Fo48RlA35DwCM12Wdh9KvQ2Gph8dSeUMGr7Z1nC3kD19SXErpuA=
+	t=1790674769; cv=none; b=XvZjQZogrO8QIA9SbxJfhCLo/3e1ZnjZcU2I7L/Pgnao+y00QAFPfB3QuzrXvlntCYmUOpIEXdPJLSxpESWqrp6pDCXQqtoOPNTOqo2W5CWVqCq6GyI7hzQP2ntwXwfb2T6Dw1RhHVrWy8ZXZToUSWNP8E7JjjZp58zvyn1ogBw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790674752; c=relaxed/simple;
-	bh=gHKV4tGfCuULRJPQ0YKAfVkBE/QL8mLW3hzAgiuXsUM=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=RDEQWkE5wKq+W4JwabP+OwoZu2Icz6Z6DI1Y3vOToICNLRBMSPmb7vVC6sNa0uzw3R+rPeUdIXEwxdNr+LBvN8KwCIR23jzWvDuhgYqG6I74eXbNL5dX2f6A5YkNcHgHP3yhMiCv4YUD87B4ChLxpQOWzfJmL/pWCrCkqfiQgMA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=esI/dBva; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790674769; c=relaxed/simple;
+	bh=PDQ9nRmQXtzdyQe/dZgsuNeFNodSIky12tJZPccdLq0=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=DptirTC4t4uyE+d4LJ5ML1MMsXv6jRzhqn/VPBAFeETBzyMojBow0Bdn4qkbhvaG82brk0EEGKYB1Dn7/5GthQQh9ky5v4KBWVg3jDQGhWCt4A+A9Z/ZOYNADrwtbBcxSnp08hWICveJYcoGN+tA3rRHRShE61gF6Pa3CHxyGCw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=OKn3oNdO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="esI/dBva"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16ED71F000FF;
-	Tue, 29 Sep 2026 09:39:09 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="OKn3oNdO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A5011F000FF;
+	Tue, 29 Sep 2026 09:39:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790674750;
-	bh=1AqG9LgLZFDnctatHtXyQq1762kZnPuAAvuH79zhzRk=;
+	s=korg; t=1790674768;
+	bh=GYnc2Rl3AzfTDbeL7JQU5bn6ELpEuWoxJ92rtK7bzzU=;
 	h=Subject:To:Cc:From:Date;
-	b=esI/dBvap3qPh3/c/YjAnlWb+oY4lLL8RYUfPAF3Rb9jHL5Zgq6iPfBQiR1rK0scA
-	 cEzTmb+hXokv8qDK2fO4HzWdXUZxBOMgNg3GHfMx4oJHFfAASZpIDzaVGvLtT7CHse
-	 16/xvDvnH9ma+oceia2hzjHWgRXZ84AVK6XgLicU=
-Subject: FAILED: patch "[PATCH] net: usb: lan78xx: Fix URB reference leak in" failed to apply to 5.10-stable tree
-To: vulab@iscas.ac.cn,pabeni@redhat.com
+	b=OKn3oNdO2I139tkrTVFpT+d85I/6LSgJDOoIToEObX8hhj4EE4tIujjx4guaRaZFy
+	 PMOHm6AmVVZ1KpdTMly0G3ek/K8QpNav8VMrl2CLJWQGPRA7jm/8ELyYnHcYkmeUv8
+	 vd7WRd6gIPOB/YcxN3ILPDnOPOBB4B+bjQI7AZfA=
+Subject: FAILED: patch "[PATCH] netfilter: nf_tables: skip expired catchall elements on" failed to apply to 6.6-stable tree
+To: henrymei@tencent.com,corvus@tencent.com,pablo@netfilter.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 29 Sep 2026 11:38:57 +0200
-Message-ID: <2026092957-launder-virtuous-f28b@gregkh>
+Date: Tue, 29 Sep 2026 11:39:22 +0200
+Message-ID: <2026092922-sadly-mace-20a0@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 17741334d00bf5ebd37f8c1c36bc9c146a351deb
+git cherry-pick -x 70194dc37670bd08e44b471389861cc01bd3a3c9
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092957-launder-virtuous-f28b@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092922-sadly-mace-20a0@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,40 +62,77 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 17741334d00bf5ebd37f8c1c36bc9c146a351deb Mon Sep 17 00:00:00 2001
-From: Wentao Liang <vulab@iscas.ac.cn>
-Date: Thu, 17 Sep 2026 11:58:11 +0000
-Subject: [PATCH] net: usb: lan78xx: Fix URB reference leak in
- lan78xx_submit_deferred_urbs()
+From 70194dc37670bd08e44b471389861cc01bd3a3c9 Mon Sep 17 00:00:00 2001
+From: Aohan Mei <henrymei@tencent.com>
+Date: Mon, 14 Sep 2026 19:51:47 +0800
+Subject: [PATCH] netfilter: nf_tables: skip expired catchall elements on
+ insert and delete
 
-usb_get_from_anchor() hands over a reference to the URB, which the caller
-must release. lan78xx_submit_deferred_urbs() never does, so every deferred
-Tx URB keeps an extra reference: the counter grows on each suspend/resume
-cycle and the URBs are never freed when the buffers are released. Drop
-the reference after submitting, and on the path that drops the packet
-instead of submitting it.
+nft_setelem_catchall_insert() looks up duplicates with
+nft_set_elem_active() only, while nft_set_catchall_lookup() and the
+dump path additionally skip expired elements.
 
-Fixes: 5f4cc6e25148 ("lan78xx: Fix race conditions in suspend/resume handling")
+Once a catchall element with a timeout expires, this predicate drift
+makes it invisible to userspace dumps, yet it still blocks
+re-insertion: with NLM_F_EXCL the request fails with -EEXIST, and
+without it the request reports success but silently inserts nothing.
+The stale entry only goes away when the (user-tunable) gc interval
+elapses, so the catchall rule may silently stop matching for an
+arbitrarily long time after its first expiration.
+
+The delete path shows the same drift: nft_setelem_catchall_deactivate()
+picks the first active-next entry in the catchall list, so with an
+expired entry still pending GC it retires the stale entry instead of
+the fresh one, and it deactivates an element that userspace no longer
+sees instead of failing with -ENOENT.
+
+Align both walks with the lookup and dump predicates: only an element
+that is active and not expired counts as a duplicate or delete
+candidate, using the per-netns timestamp taken at transaction start,
+in line with the set backend .insert/.deactivate and catchall GC sync
+paths.
+
+Reported-by: TencentOS Corvus AI <corvus@tencent.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-Link: https://patch.msgid.link/20260917115811.2150119-1-vulab@iscas.ac.cn
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Fixes: aaa31047a6d2 ("netfilter: nftables: add catch-all set element support")
+Assisted-by: CodeBuddy:Kimi-K3
+Signed-off-by: Aohan Mei <henrymei@tencent.com>
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
 
-diff --git a/drivers/net/usb/lan78xx.c b/drivers/net/usb/lan78xx.c
-index cb782d81d84f..5655941f1478 100644
---- a/drivers/net/usb/lan78xx.c
-+++ b/drivers/net/usb/lan78xx.c
-@@ -5239,10 +5239,12 @@ static bool lan78xx_submit_deferred_urbs(struct lan78xx_net *dev)
- 		    !netif_carrier_ok(dev->net) ||
- 		    pipe_halted) {
- 			lan78xx_release_tx_buf(dev, skb);
-+			usb_put_urb(urb);
- 			continue;
+diff --git a/net/netfilter/nf_tables_api.c b/net/netfilter/nf_tables_api.c
+index c0b754a2d45b..b59628e6240c 100644
+--- a/net/netfilter/nf_tables_api.c
++++ b/net/netfilter/nf_tables_api.c
+@@ -6995,11 +6995,14 @@ static int nft_setelem_catchall_insert(const struct net *net,
+ {
+ 	struct nft_set_elem_catchall *catchall;
+ 	u8 genmask = nft_genmask_next(net);
++	u64 tstamp = nft_net_tstamp(net);
+ 	struct nft_set_ext *ext;
+ 
+ 	list_for_each_entry(catchall, &set->catchall_list, list) {
+ 		ext = nft_set_elem_ext(set, catchall->elem);
+-		if (nft_set_elem_active(ext, genmask)) {
++		if (nft_set_elem_active(ext, genmask) &&
++		    !__nft_set_elem_expired(ext, tstamp) &&
++		    !nft_set_elem_is_dead(ext)) {
+ 			*priv = catchall->elem;
+ 			return -EEXIST;
  		}
+@@ -7092,11 +7095,14 @@ static int nft_setelem_catchall_deactivate(const struct net *net,
+ 					   struct nft_set_elem *elem)
+ {
+ 	struct nft_set_elem_catchall *catchall;
++	u64 tstamp = nft_net_tstamp(net);
+ 	struct nft_set_ext *ext;
  
- 		ret = usb_submit_urb(urb, GFP_ATOMIC);
-+		usb_put_urb(urb);
+ 	list_for_each_entry(catchall, &set->catchall_list, list) {
+ 		ext = nft_set_elem_ext(set, catchall->elem);
+-		if (!nft_is_active_next(net, ext))
++		if (!nft_is_active_next(net, ext) ||
++		    __nft_set_elem_expired(ext, tstamp) ||
++		    nft_set_elem_is_dead(ext))
+ 			continue;
  
- 		if (ret == 0) {
- 			netif_trans_update(dev->net);
+ 		kfree(elem->priv);
 
