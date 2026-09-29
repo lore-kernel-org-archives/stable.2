@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6918C51812C
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 11:51:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB1C25172FB
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 11:51:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790682681; cv=none; b=CF48EkRc1dITdwN7Xef+ray/94nrwLzyzm+DyFU1Q7P33x1/2alUHj5TUKQ/SKbN28TKNNopsRt4z4KORkrd+QdavDK3eiHdbnLdtwSPaYMIh3n9t/pzHg228nyXW9n4DHliB+g6l/c1O0/QOir5u+wGPLu9EeWytmpYg48yksk=
+	t=1790682689; cv=none; b=q3D+gsPFkIAA2gYSkpvRzpNMeqbnlGiN1YpDO34ZO/9i+x37dbnpoHj+LpOxIZ04vtOaZCuCZrjbtpcyYOudet9hXio9zTyOu8ipLTl3Huz/uX7VvE6UqhiEvD+E7AZw4U6vmXrNx449ysq2d6Dq/R1pff07b8ADS75aOvfyX0I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790682681; c=relaxed/simple;
-	bh=HPhoHFwwK85HqNQLCQ488ICXUb7hx9vKQUVqaIyUo5A=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=POi7xChl1Ge4yiPMDZwx6oRcjefCIv5U4llWoA7T9KYsPokixEl8V8/pswSFY1RS1OamDViav0XzoGuvSSXHuzLdShwaXQ9CDpiaDDTAqRJp5BX3uig+fERkP3alj0jqkT+rrv+fdRN33tAUhl+iKUB5+W6lZh3jOKQ5FhlnpbI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=vPcU26JR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790682689; c=relaxed/simple;
+	bh=AjS7eyYRvZu1eGxfeK2kn4GODdmzuo7EKIqYriacs00=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=HKRSy3LUBiTyhO2anM3lx72M8crgjhIxatgufW+GM/FO5cvITrZGAf69RLJNj0mTJ51uyd3KNbybvhgiKVd/36mEXAGAg+nglkVtuAqM9IR5v70stNQCnCCkgv1zqYURHPUXpdCvS5Hrus8NdOdBI73q2d6MemZWsmFbvwvKETk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=wKZ/1md3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="vPcU26JR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C44851F000FF;
-	Tue, 29 Sep 2026 11:51:19 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="wKZ/1md3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 413ED1F000FF;
+	Tue, 29 Sep 2026 11:51:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790682680;
-	bh=L5Qj50+IDiIDDl3nFnTpseFVciPRG64w5rXIDaXLXVQ=;
+	s=korg; t=1790682687;
+	bh=DK426hkCx/yx2FUO2DumbmbJ/bySqsHbiyIpTLv3dOM=;
 	h=Subject:To:Cc:From:Date;
-	b=vPcU26JRVFqgdi1Zm1WLjQWxHNkCRwcqZE6E9+n5YiepykyeJReJLX6cML81t/u4H
-	 ifQBkrDtIDDUpGcREiRTc0fNrcjM3/oQtW0rXdxmTIQd8ip3Dc1ZBudVa8ecTmvbfh
-	 FTxX3lRsGxWO5jswLNHSpIRjT42upyt/hevvzrHk=
-Subject: FAILED: patch "[PATCH] smb: client: clean up failed cached directory opens" failed to apply to 5.15-stable tree
-To: zihanx@nebusec.ai,pc@manguebit.org,root@tr0jan.top,sorenson@redhat.com,vega@nebusec.ai
+	b=wKZ/1md3MNI7WciHxaTqKcxgxv5FJddJE1ibEG1rG0KnCaCM9DhsaU8j9VOS2M3TM
+	 Hg4qmfgAYwZKl+HNU7ph8GD4BUmmJ1ClTayVxeFINBtONhal+y91Wr8MMgbPxUTuj+
+	 mXOf8TzlTPn61bdeNgXq0x0yY4XPfmCwvo6VC/bo=
+Subject: FAILED: patch "[PATCH] smb: client: use finish_no_open() for non-regular inodes" failed to apply to 6.18-stable tree
+To: linkinjeon@kernel.org,pc@manguebit.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 29 Sep 2026 13:51:03 +0200
-Message-ID: <2026092903-oyster-vicinity-b159@gregkh>
+Date: Tue, 29 Sep 2026 13:51:22 +0200
+Message-ID: <2026092922-pacifier-unnoticed-68fb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x d2ff5fb93ea83034025850266b5eed391f96b825
+git cherry-pick -x e66cf1625ec4a3fe68346119f371def713fd0a4d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092903-oyster-vicinity-b159@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092922-pacifier-unnoticed-68fb@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,99 +62,204 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From d2ff5fb93ea83034025850266b5eed391f96b825 Mon Sep 17 00:00:00 2001
-From: Zihan Xi <zihanx@nebusec.ai>
-Date: Wed, 16 Sep 2026 15:29:27 +0000
-Subject: [PATCH] smb: client: clean up failed cached directory opens
+From e66cf1625ec4a3fe68346119f371def713fd0a4d Mon Sep 17 00:00:00 2001
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Wed, 23 Sep 2026 20:25:49 +0900
+Subject: [PATCH] smb: client: use finish_no_open() for non-regular inodes
 
-open_cached_dir() sends CREATE and QUERY_INFO as a compound request. If
-the CREATE succeeds but a later command returns an error, the function
-must retain the CREATE FID so common cleanup can issue SMB2_close(). It
-also must not treat a response error as a valid CREATE.
+An O_CREAT open can find an existing symlink or another non-regular
+inode. cifs_atomic_open() calls finish_open() on it and attaches a
+cifsFileInfo. Symlink inodes have no CIFS release operation, so the
+dentry reference held by cifsFileInfo is leaked. FMODE_OPENED also
+prevents the VFS from following the symlink.
 
-Validate the CREATE response before using its fields, record the FIDs, and
-mark the handle open before handling errors from later compound commands.
-Move the -EREMCHG reconnect handling before response validation so a
-missing response does not hide the reconnect request. Count the handle
-when it is marked open; confirmed close responses decrement the counter,
-while existing close retry behavior remains best effort on transport
-failures.
+Track whether cifs_do_create() returned an open server handle. For
+non-regular inodes, close the handle if present, remove the pending
+open, and call finish_no_open() so the VFS can continue the lookup.
+Do not set FMODE_CREATED unless a regular file was opened. For
+O_NOFOLLOW with __O_REGULAR, return -ELOOP before the VFS's
+-EFTYPE check.
 
-Fixes: b0f6df737a1c ("cifs: cache FILE_ALL_INFO for the shared root handle")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: LLM
-Co-developed-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
-Tested-by: Frank Sorenson <sorenson@redhat.com>
+Defer closing a legacy POSIX handle on a non-regular inode until
+after inode lookup. This avoids closing it again if lookup fails.
+
+Fixes: d2c127197dfc ("cifs: implement i_op->atomic_open()")
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+Cc: stable@vger.kernel.org
 
-diff --git a/fs/smb/client/cached_dir.c b/fs/smb/client/cached_dir.c
-index 88d5e9a32f28..647fa26da4d2 100644
---- a/fs/smb/client/cached_dir.c
-+++ b/fs/smb/client/cached_dir.c
-@@ -8,6 +8,7 @@
- #include <linux/namei.h>
- #include "cifsglob.h"
- #include "cifsproto.h"
-+#include "../common/smb2status.h"
- #include "cifs_debug.h"
- #include "smb2proto.h"
- #include "cached_dir.h"
-@@ -323,25 +324,37 @@ replay_again:
- 	rc = compound_send_recv(xid, ses, server,
- 				flags, 2, rqst,
- 				resp_buftype, rsp_iov);
--	if (rc) {
--		if (rc == -EREMCHG) {
--			tcon->need_reconnect = true;
--			pr_warn_once("server share %s deleted\n",
--				     tcon->tree_name);
--		}
-+	if (rc == -EREMCHG) {
-+		tcon->need_reconnect = true;
-+		pr_warn_once("server share %s deleted\n",
-+			     tcon->tree_name);
-+	}
-+
-+	if (!rsp_iov[0].iov_base || rsp_iov[0].iov_len < sizeof(*o_rsp)) {
-+		if (!rc)
-+			rc = -EIO;
- 		goto oshr_free;
+diff --git a/fs/smb/client/dir.c b/fs/smb/client/dir.c
+index 6fa6d48fdfd3..1a56fa4d0e89 100644
+--- a/fs/smb/client/dir.c
++++ b/fs/smb/client/dir.c
+@@ -199,7 +199,7 @@ static int __cifs_do_create(struct inode *dir, struct dentry *direntry,
+ 			    struct tcon_link *tlink, unsigned int oflags,
+ 			    umode_t mode, __u32 *oplock, struct cifs_fid *fid,
+ 			    struct cifs_open_info_data *buf,
+-			    struct inode **inode)
++			    struct inode **inode, bool *opened)
+ {
+ 	int rc = -ENOENT;
+ 	int create_options = CREATE_NOT_DIR;
+@@ -216,6 +216,7 @@ static int __cifs_do_create(struct inode *dir, struct dentry *direntry,
+ 	__le32 lease_flags = 0;
+ 
+ 	*inode = NULL;
++	*opened = false;
+ 	*oplock = 0;
+ 	if (tcon->ses->server->oplocks)
+ 		*oplock = REQ_OPLOCK;
+@@ -232,6 +233,7 @@ static int __cifs_do_create(struct inode *dir, struct dentry *direntry,
+ 				     oflags, oplock, &fid->netfid, xid);
+ 		switch (rc) {
+ 		case 0:
++			*opened = true;
+ 			if (newinode == NULL) {
+ 				/* query inode info */
+ 				goto cifs_create_get_file_info;
+@@ -253,11 +255,9 @@ static int __cifs_do_create(struct inode *dir, struct dentry *direntry,
+ 				/*
+ 				 * The server may allow us to open things like
+ 				 * FIFOs, but the client isn't set up to deal
+-				 * with that. If it's not a regular file, just
+-				 * close it and proceed as if it were a normal
+-				 * lookup.
++				 * with that. Keep the handle until the caller
++				 * can finish the lookup.
+ 				 */
+-				CIFSSMBClose(xid, tcon, fid->netfid);
+ 				goto cifs_create_get_file_info;
+ 			}
+ 			/* success, no need to query */
+@@ -384,6 +384,7 @@ retry_open:
+ 		}
+ 		return rc;
  	}
--	cfid->is_open = true;
--
--	spin_lock(&cfids->cfid_list_lock);
++	*opened = true;
+ 	if (rdwr_for_fscache == 2)
+ 		cifs_invalidate_cache(dir, FSCACHE_INVAL_DIO_WRITE);
  
- 	o_rsp = (struct smb2_create_rsp *)rsp_iov[0].iov_base;
-+	if (o_rsp->hdr.Status != STATUS_SUCCESS) {
-+		if (!rc)
-+			rc = -EIO;
-+		goto oshr_free;
-+	}
-+
- 	oparms.fid->persistent_fid = o_rsp->PersistentFileId;
- 	oparms.fid->volatile_fid = o_rsp->VolatileFileId;
- #ifdef CONFIG_CIFS_DEBUG2
- 	oparms.fid->mid = le64_to_cpu(o_rsp->hdr.MessageId);
- #endif /* CIFS_DEBUG2 */
-+	cfid->is_open = true;
-+	atomic_inc(&tcon->num_remote_opens);
+@@ -475,7 +476,7 @@ cifs_create_set_dentry:
+ 	return rc;
  
-+	if (rc)
-+		goto oshr_free;
-+
-+	spin_lock(&cfids->cfid_list_lock);
- 
- 	if (o_rsp->OplockLevel != SMB2_OPLOCK_LEVEL_LEASE) {
- 		spin_unlock(&cfids->cfid_list_lock);
-@@ -408,7 +421,6 @@ out:
- 		close_cached_dir(cfid);
+ out_err:
+-	if (server->ops->close)
++	if (*opened && server->ops->close)
+ 		server->ops->close(xid, tcon, fid);
+ 	if (newinode)
+ 		iput(newinode);
+@@ -487,7 +488,7 @@ static int cifs_do_create(struct inode *dir, struct dentry *direntry,
+ 			  unsigned int oflags, umode_t mode,
+ 			  __u32 *oplock, struct cifs_fid *fid,
+ 			  struct cifs_open_info_data *buf,
+-			  struct inode **inode)
++			  struct inode **inode, bool *opened)
+ {
+ 	void *page = alloc_dentry_path();
+ 	const char *full_path;
+@@ -496,10 +497,11 @@ static int cifs_do_create(struct inode *dir, struct dentry *direntry,
+ 	full_path = build_path_from_dentry(direntry, page);
+ 	if (IS_ERR(full_path)) {
+ 		rc = PTR_ERR(full_path);
++		*opened = false;
  	} else {
- 		*ret_cfid = cfid;
--		atomic_inc(&tcon->num_remote_opens);
+ 		rc = __cifs_do_create(dir, direntry, full_path, xid,
+ 				      tlink, oflags, mode, oplock,
+-				      fid, buf, inode);
++				      fid, buf, inode, opened);
  	}
- 	kfree(utf16_path);
+ 	free_dentry_path(page);
+ 	return rc;
+@@ -529,6 +531,8 @@ int cifs_atomic_open(struct inode *dir, struct dentry *direntry,
+ 	struct inode *inode;
+ 	unsigned int xid;
+ 	__u32 oplock;
++	bool is_regular;
++	bool opened;
+ 	int rc;
  
+ 	if (unlikely(cifs_forced_shutdown(cifs_sb)))
+@@ -581,12 +585,26 @@ int cifs_atomic_open(struct inode *dir, struct dentry *direntry,
+ 	cifs_add_pending_open(&fid, tlink, &open);
+ 
+ 	rc = cifs_do_create(dir, direntry, xid, tlink, oflags, mode,
+-			    &oplock, &fid, &buf, &inode);
++			    &oplock, &fid, &buf, &inode, &opened);
+ 	if (rc) {
+ 		cifs_del_pending_open(&open);
+ 		goto out;
+ 	}
+ 
++	is_regular = S_ISREG(inode->i_mode);
++	if (!is_regular || !opened) {
++		if (opened && server->ops->close)
++			server->ops->close(xid, tcon, &fid);
++		cifs_del_pending_open(&open);
++		if (S_ISLNK(inode->i_mode) &&
++		    (oflags & (O_NOFOLLOW | __O_REGULAR)) ==
++		    (O_NOFOLLOW | __O_REGULAR) && !(oflags & O_EXCL)) {
++			iput(inode);
++			rc = -ELOOP;
++			goto out;
++		}
++	}
++
+ 	if (d_in_lookup(direntry)) {
+ 		alias = d_splice_alias(inode, direntry);
+ 		if (!IS_ERR_OR_NULL(alias))
+@@ -595,9 +613,15 @@ int cifs_atomic_open(struct inode *dir, struct dentry *direntry,
+ 		d_instantiate(direntry, inode);
+ 	}
+ 
+-	if ((oflags & (O_CREAT | O_EXCL)) == (O_CREAT | O_EXCL))
++	if (is_regular && opened &&
++	    (oflags & (O_CREAT | O_EXCL)) == (O_CREAT | O_EXCL))
+ 		file->f_mode |= FMODE_CREATED;
+ 
++	if (!is_regular || !opened) {
++		rc = finish_no_open(file, NULL);
++		goto out;
++	}
++
+ 	rc = finish_open(file, direntry, generic_file_open);
+ 	if (rc) {
+ 		if (server->ops->close)
+@@ -660,6 +684,7 @@ int cifs_create(struct mnt_idmap *idmap, struct inode *dir,
+ 	struct inode *inode;
+ 	struct cifs_fid fid;
+ 	__u32 oplock;
++	bool opened;
+ 	struct cifs_open_info_data buf = {};
+ 
+ 	cifs_dbg(FYI, "cifs_create parent inode = 0x%p name is: %pd and dentry = 0x%p\n",
+@@ -682,10 +707,10 @@ int cifs_create(struct mnt_idmap *idmap, struct inode *dir,
+ 		server->ops->new_lease_key(&fid);
+ 
+ 	rc = cifs_do_create(dir, direntry, xid, tlink, oflags,
+-			    mode, &oplock, &fid, &buf, &inode);
++			    mode, &oplock, &fid, &buf, &inode, &opened);
+ 	if (!rc) {
+ 		d_instantiate(direntry, inode);
+-		if (server->ops->close)
++		if (opened && server->ops->close)
+ 			server->ops->close(xid, tcon, &fid);
+ 	}
+ 
+@@ -1078,6 +1103,7 @@ int cifs_tmpfile(struct mnt_idmap *idmap, struct inode *dir,
+ 	struct inode *inode;
+ 	unsigned int xid;
+ 	__u32 oplock;
++	bool opened;
+ 	int namelen;
+ 	int rc;
+ 
+@@ -1116,7 +1142,7 @@ int cifs_tmpfile(struct mnt_idmap *idmap, struct inode *dir,
+ 		namelen = scnprintf(name, namesize, CIFS_TMPNAME_PREFIX "%x",
+ 				    atomic_inc_return(&cifs_tmpcounter));
+ 		rc = __cifs_do_create(dir, dentry, path, xid, tlink, oflags,
+-				      mode, &oplock, &fid, NULL, &inode);
++				      mode, &oplock, &fid, NULL, &inode, &opened);
+ 		if (!rc) {
+ 			rc = d_mark_tmpfile_name(file, &QSTR_LEN(name, namelen));
+ 			if (rc) {
 
