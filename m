@@ -1,39 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 238442459E1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE9DA37CD33
 	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 13:52:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790689954; cv=none; b=cnPUW4GqGc4JNBwllj5PAA+sm2/e7KP5BmGHob/mGdEF538L8eNqfy07k0bRLpBc6AUfLfLbhb5R+1KrO5llGp53UNSSzFnVroSKSACFyDyoet4z5LgVc6yOzFQLZJYbJfnLPatOZAiQQk2OAB/Htdx4RWUWzJ0MUxLSIJ8WRPQ=
+	t=1790689955; cv=none; b=FZPYkujSlmK+wpN58WTMZNMu6gCUc4gqoLRFeRKKC2+0wRdebK6e6JFonGcQKB+QN2nMsxdz1NrHvQQpmEVm5x4Gl32irFI/bGp74dHM1wxhNYaBE0x+9+k/VVxPCGT3nWZaehThesSsfVQt/bcFmnAjt8VXAYKMuB52zCFb8LE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790689954; c=relaxed/simple;
-	bh=gh8RMTVuWih0XrpmgD6nUQ0FYH/eNcVt/cp9for0IOU=;
+	s=arc-20240116; t=1790689955; c=relaxed/simple;
+	bh=XRCPqYUjJXRf6MLfVDLPZAJ+WEAtcCGP8dnA0jy6Mxw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VaOj89W4mgqsTQKvLA41x4oNvfpsmX9Vw7+iCA23fvZiald0QczLuEL9z9Ibg/pHkCxEEeUNraLA+cL/i9X4et8OUmhno/ivVNmOLiOOciriDTIspSVnrtGITT2LjRHU4T2zyHdRRX44SCxanCPTDv2qLqzbAeaL/ji8fN8zBQE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mMT8EG3J; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=GMBHHhAIpKo4tAEa5vl4OmsqOCTqg/SNolWapJkmFzop6Ce6NnAoSBOuzro3TCqKr3SdikbbsqurIUf2dPwPs8/GfNqkejBZlUioeLYxwgBAO37aG/5hk+RWnhLAtlCf3u5g7QZZZvX2UIkSAtRrwt8euHejvGqCar/J5ldZXk4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nk1dDbKV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mMT8EG3J"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76FA61F00898;
-	Tue, 29 Sep 2026 13:52:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nk1dDbKV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 366601F0089A;
+	Tue, 29 Sep 2026 13:52:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1790689953;
-	bh=a9GenIquV6UONHamL26TL5uckFjVXfCOrNFyy+RKlV8=;
+	bh=Gwb5It4Uy9w8eNIyqNdPNWlorYJMEBGp4fzEN0sHaDE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mMT8EG3JExyKBlvfSrA1gFZex+r9tebTQN5+ila7IpR9dOWLU/qQaGsriZOy7AwAR
-	 cc59vT1EJT4aZrq04RynqFDJDmBSBpB2FBJ+ZEP2L2Iddj+GtA8AGeypjRu1VsqkYu
-	 l9aB+wPR64037odPT4NlpPuj2bDbc5uAL+IkiMQeYXcp+8EhXEKprU9M+RZYly02us
-	 idRr8+06QPInOjhkS6nGT1WSliheD0FfOt4iGmsP6uDdPXjNnFzY3XvT0cLRJrgGpt
-	 2ro3EzvQXFCqkeyL/jrzQqgHP92dn2JLSFzPVYnj7oznVg7jUepERuv171u7sIZBao
-	 8OdM8YW5Js9gw==
+	b=Nk1dDbKV4O7DutV0P0SGtss0BWjrEMURJD8rMXVHpalC6dTDSBpdN/kS4Hb2t9vdm
+	 AncpixqRWhXSeyFhsxQ41HQwW7N2Qfynk173hm5CtEXi9SmTffuonnWL2dVtfXC3Po
+	 hEAkUNWu8n4VO2kmtq6btbFC5EK8xdkXwj0iDbzy/EHY51QzZMEdBN35pNLeATFLVy
+	 6uGGci9fEk803ExaaiUFNneC1zxD6ftCIAuBXf/8iEd9tQkJ/puVKmre7Us6ZBLgHX
+	 fqTK2ZAmpG6kAy2QAQq4pKiDOjb1D31AiLnrh4VU/4t/NyE1vUnK9Yopyz6HWxEcUo
+	 R7Gd5+p0EsLww==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Christian Brauner <brauner@kernel.org>,
+	Karl Mehltretter <kmehltretter@gmail.com>,
 	Jan Kara <jack@suse.cz>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y 2/3] super: take lock after last reference count
-Date: Tue, 29 Sep 2026 09:52:29 -0400
-Message-ID: <20260929135230.3522081-2-sashal@kernel.org>
+Subject: [PATCH 7.2.y 3/3] super: make iterate_supers_type() deletion-safe
+Date: Tue, 29 Sep 2026 09:52:30 -0400
+Message-ID: <20260929135230.3522081-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260929135230.3522081-1-sashal@kernel.org>
 References: <2026092911-clunky-same-c5c5@gregkh>
@@ -48,184 +49,157 @@ Content-Transfer-Encoding: 8bit
 
 From: Christian Brauner <brauner@kernel.org>
 
-[ Upstream commit 9c486f28994fdfc1a83f5f60129402cf4379957b ]
+[ Upstream commit 2d2a2d7aa98741b58f54cacc99b52024e4d865f9 ]
 
-__put_super() required the caller to hold sb_lock, so put_super()
-wrapped it. The per-device superblock table introduced later drops its
-passive references from contexts that do not hold sb_lock, so make
-put_super() self-locking: drop the count first and take sb_lock only for
-the final list_del.
+iterate_supers_type() drops sb_lock while invoking the callback and keeps
+only a passive reference to the current superblock. That reference keeps
+the object allocated, but does not keep its s_instances node linked.
 
-With the count now dropped outside sb_lock a superblock can briefly sit
-on @super_blocks with s_passive == 0 before it is unlinked, so the list
-walkers (__iterate_supers(), iterate_supers_type(), user_get_super())
-switch to refcount_inc_not_zero() and skip it.
+After the iterator releases s_umount, final teardown can unlink the current
+s_instances node. The iterator then advances through a reinitialized node.
+With the current hlist it stops without visiting the remaining superblocks.
+The unlink moved from generic_shutdown_super() to kill_super_notify(), but
+the cursor lifetime has been unsafe since the helper was introduced.
 
-Link: https://patch.msgid.link/20260616-work-super-bdev_holder_global-v2-3-7df6b864028e@kernel.org
+The CIFS DFS lookup can consequently miss a matching superblock and return
+-EINVAL.
+
+Move removal from fs_supers to put_super(), alongside removal from
+super_blocks, so a passive reference keeps both list nodes linked. Keep
+the filesystem module reference until then, since unlinking s_instances
+may touch type->fs_supers.
+
+Make sget_fc() skip SB_DEAD superblocks before invoking test(), and set
+SB_DEAD under sb_lock to serialize with those callbacks. This allows
+kernfs to free its private information after kill_anon_super() returns.
+Keep matching SB_DYING superblocks until SB_DEAD is set so concurrent
+mounts still wait for teardown before retrying.
+
+Fixes: 43e15cdbefea ("new helper: iterate_supers_type()")
+Reported-by: Karl Mehltretter <kmehltretter@gmail.com>
+Closes: https://lore.kernel.org/r/20260903013336.92081-1-kmehltretter@gmail.com
+Suggested-by: Jan Kara <jack@suse.cz>
+Cc: stable@vger.kernel.org
+Tested-by: Karl Mehltretter <kmehltretter@gmail.com>
+[kmehltretter: supplied the commit message]
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Link: https://patch.msgid.link/20260909193034.7467-1-kmehltretter@gmail.com
 Reviewed-by: Jan Kara <jack@suse.cz>
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-Stable-dep-of: 2d2a2d7aa987 ("super: make iterate_supers_type() deletion-safe")
+[ adjusted kill_super_notify() context for missing device-to-superblock table cleanup. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/super.c | 63 ++++++++++++++++++++++++------------------------------
- 1 file changed, 28 insertions(+), 35 deletions(-)
+ fs/kernfs/mount.c |  4 ++--
+ fs/super.c        | 39 +++++++++++++++++++--------------------
+ 2 files changed, 21 insertions(+), 22 deletions(-)
 
+diff --git a/fs/kernfs/mount.c b/fs/kernfs/mount.c
+index f183a96778b9a..a57399021c8b0 100644
+--- a/fs/kernfs/mount.c
++++ b/fs/kernfs/mount.c
+@@ -434,8 +434,8 @@ void kernfs_kill_sb(struct super_block *sb)
+ 	up_write(&root->kernfs_supers_rwsem);
+ 
+ 	/*
+-	 * Remove the superblock from fs_supers/s_instances
+-	 * so we can't find it, before freeing kernfs_super_info.
++	 * Mark the superblock dead so sget_fc() can't find it,
++	 * before freeing kernfs_super_info.
+ 	 */
+ 	kill_anon_super(sb);
+ 	kfree(info);
 diff --git a/fs/super.c b/fs/super.c
-index dae21bf03e1cd..2399bb3a17527 100644
+index 2399bb3a17527..addf3ad54a583 100644
 --- a/fs/super.c
 +++ b/fs/super.c
-@@ -404,12 +404,17 @@ static struct super_block *alloc_super(struct file_system_type *type, int flags,
- /* Superblock refcounting  */
- 
- /*
-- * Drop a superblock's refcount.  The caller must hold sb_lock.
-+ * Drop a superblock's passive reference.  Must be called WITHOUT sb_lock held;
-+ * put_super() acquires sb_lock itself when the final reference is dropped.
-  */
--static void __put_super(struct super_block *s)
-+void put_super(struct super_block *s)
+@@ -410,15 +410,19 @@ static struct super_block *alloc_super(struct file_system_type *type, int flags,
+ void put_super(struct super_block *s)
  {
  	if (refcount_dec_and_test(&s->s_passive)) {
-+
-+		spin_lock(&sb_lock);
++		struct file_system_type *type = s->s_type;
+ 
+ 		spin_lock(&sb_lock);
  		list_del_init(&s->s_list);
-+		spin_unlock(&sb_lock);
-+
++		hlist_del_init(&s->s_instances);
+ 		spin_unlock(&sb_lock);
+ 
  		WARN_ON(s->s_dentry_lru.node);
  		WARN_ON(s->s_inode_lru.node);
  		WARN_ON(s->s_mounts);
-@@ -417,20 +422,6 @@ static void __put_super(struct super_block *s)
+ 		call_rcu(&s->rcu, destroy_super_rcu);
++		/* The unlink above may touch type->fs_supers, so drop it last. */
++		put_filesystem(type);
  	}
  }
  
--/**
-- *	put_super	-	drop a temporary reference to superblock
-- *	@sb: superblock in question
-- *
-- *	Drops a temporary reference, frees superblock if there's no
-- *	references left.
-- */
--void put_super(struct super_block *sb)
--{
+@@ -430,24 +434,17 @@ static void kill_super_notify(struct super_block *sb)
+ 	if (sb->s_flags & SB_DEAD)
+ 		return;
+ 
+-	/*
+-	 * Remove it from @fs_supers so it isn't found by new
+-	 * sget_fc() walkers anymore. Any concurrent mounter still
+-	 * managing to grab a temporary reference is guaranteed to
+-	 * already see SB_DYING and will wait until we notify them about
+-	 * SB_DEAD.
+-	 */
 -	spin_lock(&sb_lock);
--	__put_super(sb);
+-	hlist_del_init(&sb->s_instances);
 -	spin_unlock(&sb_lock);
--}
 -
- static void kill_super_notify(struct super_block *sb)
- {
- 	lockdep_assert_not_held(&sb->s_umount);
-@@ -479,11 +470,7 @@ void deactivate_locked_super(struct super_block *s)
+ 	/*
+ 	 * Let concurrent mounts know that this thing is really dead.
+-	 * We don't need @sb->s_umount here as every concurrent caller
+-	 * will see SB_DYING and either discard the superblock or wait
+-	 * for SB_DEAD.
++	 * sget_fc() skips SB_DEAD superblocks and calls test() under
++	 * sb_lock, so set it under sb_lock: once we return no test()
++	 * runs on this superblock anymore and none will start. Everyone
++	 * else already saw SB_DYING and either discarded the superblock
++	 * or waits for SB_DEAD.
+ 	 */
++	spin_lock(&sb_lock);
+ 	super_wake(sb, SB_DEAD);
++	spin_unlock(&sb_lock);
+ }
  
- 		kill_super_notify(s);
- 
--		/*
--		 * Since list_lru_destroy() may sleep, we cannot call it from
--		 * put_super(), where we hold the sb_lock. Therefore we destroy
--		 * the lru lists right now.
--		 */
-+		/* list_lru_destroy() may sleep; put_super() callers may not. */
+ /**
+@@ -474,7 +471,6 @@ void deactivate_locked_super(struct super_block *s)
  		list_lru_destroy(&s->s_dentry_lru);
  		list_lru_destroy(&s->s_inode_lru);
  
-@@ -852,14 +839,17 @@ static void __iterate_supers(void (*f)(struct super_block *, void *), void *arg,
- 	struct super_block *sb, *p = NULL;
- 	bool excl = flags & SUPER_ITER_EXCL;
- 
--	guard(spinlock)(&sb_lock);
-+	spin_lock(&sb_lock);
- 
- 	for (sb = first_super(flags);
- 	     !list_entry_is_head(sb, &super_blocks, s_list);
- 	     sb = next_super(sb, flags)) {
- 		if (super_flags(sb, SB_DYING))
- 			continue;
--		refcount_inc(&sb->s_passive);
-+
-+		if (!refcount_inc_not_zero(&sb->s_passive))
-+			continue;
-+
- 		spin_unlock(&sb_lock);
- 
- 		if (flags & SUPER_ITER_UNLOCKED) {
-@@ -869,13 +859,14 @@ static void __iterate_supers(void (*f)(struct super_block *, void *), void *arg,
- 			super_unlock(sb, excl);
+-		put_filesystem(fs);
+ 		put_super(s);
+ 	} else {
+ 		super_unlock_excl(s);
+@@ -661,12 +657,12 @@ void generic_shutdown_super(struct super_block *sb)
+ 	}
+ 	/*
+ 	 * Broadcast to everyone that grabbed a temporary reference to this
+-	 * superblock before we removed it from @fs_supers that the superblock
+-	 * is dying. Every walker of @fs_supers outside of sget_fc() will now
+-	 * discard this superblock and treat it as dead.
++	 * superblock that it is dying. Every walker of @fs_supers outside
++	 * of sget_fc() will now discard this superblock and treat it as
++	 * dead.
+ 	 *
+-	 * We leave the superblock on @fs_supers so it can be found by
+-	 * sget_fc() until we passed sb->kill_sb().
++	 * sget_fc() keeps finding the superblock until SB_DEAD is set, so
++	 * a concurrent mounter waits until we passed sb->kill_sb().
+ 	 */
+ 	super_wake(sb, SB_DYING);
+ 	super_unlock_excl(sb);
+@@ -745,6 +741,9 @@ struct super_block *sget_fc(struct fs_context *fc,
+ 	spin_lock(&sb_lock);
+ 	if (test) {
+ 		hlist_for_each_entry(old, &fc->fs_type->fs_supers, s_instances) {
++			/* Only unlinked at the last passive reference. */
++			if (super_flags(old, SB_DEAD))
++				continue;
+ 			if (test(old, fc))
+ 				goto share_extant_sb;
  		}
- 
--		spin_lock(&sb_lock);
- 		if (p)
--			__put_super(p);
-+			put_super(p);
- 		p = sb;
-+		spin_lock(&sb_lock);
- 	}
-+	spin_unlock(&sb_lock);
- 	if (p)
--		__put_super(p);
-+		put_super(p);
- }
- 
- void iterate_supers(void (*f)(struct super_block *, void *), void *arg)
-@@ -904,7 +895,9 @@ void iterate_supers_type(struct file_system_type *type,
- 		if (super_flags(sb, SB_DYING))
- 			continue;
- 
--		refcount_inc(&sb->s_passive);
-+		if (!refcount_inc_not_zero(&sb->s_passive))
-+			continue;
-+
- 		spin_unlock(&sb_lock);
- 
- 		locked = super_lock_shared(sb);
-@@ -913,14 +906,14 @@ void iterate_supers_type(struct file_system_type *type,
- 			super_unlock_shared(sb);
- 		}
- 
--		spin_lock(&sb_lock);
- 		if (p)
--			__put_super(p);
-+			put_super(p);
- 		p = sb;
-+		spin_lock(&sb_lock);
- 	}
--	if (p)
--		__put_super(p);
- 	spin_unlock(&sb_lock);
-+	if (p)
-+		put_super(p);
- }
- 
- EXPORT_SYMBOL(iterate_supers_type);
-@@ -936,15 +929,17 @@ struct super_block *user_get_super(dev_t dev, bool excl)
- 		if (sb->s_dev != dev)
- 			continue;
- 
--		refcount_inc(&sb->s_passive);
-+		if (!refcount_inc_not_zero(&sb->s_passive))
-+			continue;
-+
- 		spin_unlock(&sb_lock);
- 
- 		locked = super_lock(sb, excl);
- 		if (locked)
- 			return sb;
- 
-+		put_super(sb);
- 		spin_lock(&sb_lock);
--		__put_super(sb);
- 		break;
- 	}
- 	spin_unlock(&sb_lock);
-@@ -1375,9 +1370,7 @@ static struct super_block *bdev_super_lock(struct block_device *bdev, bool excl)
- 	lockdep_assert_not_held(&bdev->bd_disk->open_mutex);
- 
- 	/* Make sure sb doesn't go away from under us */
--	spin_lock(&sb_lock);
- 	refcount_inc(&sb->s_passive);
--	spin_unlock(&sb_lock);
- 
- 	mutex_unlock(&bdev->bd_holder_lock);
- 
 -- 
 2.53.0
 
