@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B543560AC2
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 18:52:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC83A552950
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 18:53:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790707967; cv=none; b=GpUpZLUZ6pkY8V3tKwQOd8SCuAEqXtb/CPOHb4G0ZfWtFDz0ve7kAyHcOUd8udnuFpDn1X+ksnQoU99RAKfq9MBR6LA/QOrNiq2bWZdSTD+J4KyfWLbOfvj8P6VIy9AeZnMGoDUd1QGBcWWUyjplqcROscnY3L6p5zbUwHF9o1s=
+	t=1790707988; cv=none; b=nJ9djiAY/b5pXg4AL5kf0Hs3xLQNJVRKNzVlQ126GoYZ8IwRZoBYeFqnyiETFHr6vOs0/hA+qdAreGIPNJ3BePhYRjnlE5bg9933XZN7fQofmPY8jyU63PAerOlNaJIg+88NYbmH7wukRJDvKF0IahgZQ6iqggkyRqZZ0306USY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790707967; c=relaxed/simple;
-	bh=SxZYS5VdAC4iDdKqqenPLfBb/LUG62Jz/lyNM2m2X24=;
+	s=arc-20240116; t=1790707988; c=relaxed/simple;
+	bh=8JVac3cp08CwTm0sCTRSYUbiAslclXHE401+Wx7rYAQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZmOc7pR8psRoPgoEMvO+y5v8rbLKUlk0FKywmOku4J+h/LfLxvZsHa0w0vFP7Gbl+qicMx61m0VyhsEVM9d8i1sqsgrMLk18YNjywrbesa2wbs20Rje7qIl/H5UVhCDBhIlGWP+d6TA1O1x5NAX3Ola1QsrvKk34BQmX/tgsvmc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O+QzMyl8; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=rQVmIGWoP1VjQHwVGUvsJkRXIEYjaME9NbiwEaN70od/FU26Fe20y1fB3eevL4K4i+b5p3ASTv1Ca0Q4ymOHaMlgaq6ts4/8aIRuxJxobke4KYexJqYvNb6ZXlI9zjZ3ntX+03Jj7dXSlQwikGpNbPtAHhb4R2NkT1yvoRUV52c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GNd/bkfh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O+QzMyl8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A9DB1F000FF;
-	Tue, 29 Sep 2026 18:52:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GNd/bkfh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E74621F000FF;
+	Tue, 29 Sep 2026 18:53:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790707965;
-	bh=ZNq9VyEAnSUsYvGJDDsfpcIidT7kTPb1AfGM2gC1PJc=;
+	s=k20260515; t=1790707986;
+	bh=X/2M6MCYlMwTGx7xyPdknPBO7WLb9bm2VQXIwyq9q1M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=O+QzMyl8hfuNmg4Pnxw7be7uoj2gWmjFoSCmPjimSRn95ksyaSQ6lB1h3R1I53uLz
-	 //0vMJg8w7fT7jHUpw4THKbDDs5DyS8IQG6SKWoOc2RnjZXZxLsvNBTBEDRpk91ods
-	 3jM3w1uVNtUiswSUfrljf0N8jlbf53NxCv7SaOHbvW00kheno5ymCRHEOjpGL/Qfgj
-	 6D/w7ovZ/sS3pacaqmCUltsZT96GA4qXP5AWqJ+ci9D8ExnCTVBFGci1Ch0lgT3R1h
-	 2aWyFqTwhaklHucGJjnwuU0MwjluaLDd16PsRXo7oRI2IpyvRAEvCVObwoiOACPmD1
-	 tpYhqJYVxRpng==
+	b=GNd/bkfhDwPohGdjFKf7UyNNvTu9ST768hHrXhSmv5LgcGFpZYlkp+DUODsJLOcnq
+	 hq2bw4xrEnO+TaxkIzefmAT0kZzgkrf9QzlmqiBlg1XCOgCZpu725Bj3+GPCS2Uyfz
+	 dOv9A7p823a3GZcJNJ6QhsO6J+FrAhPAaTtzvGLO0D+4pZnTYNwLLC2qWwrxdID9Id
+	 MN3hdb2U8QGlWp0uQxGr3Qf9XfEbtT/1YpvoZzq2FMwJDnBp73/zMMIPHv7+a9162G
+	 qcnplPsyvuOI30DycA4gzC3NLPhslpNNsBXIz68t01fA8jNSySAZzT/eezYVIPvssB
+	 ek/JgUgj7ix4Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Wentao Liang <vulab@iscas.ac.cn>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] drm/amd/display: Fix dc stream excess put in dm_update_crtc_state()
-Date: Tue, 29 Sep 2026 14:52:42 -0400
-Message-ID: <20260929185242.537806-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y] mm/damon/vaddr: avoid hw-driven pte updates during damon_hugetlb_mkold()
+Date: Tue, 29 Sep 2026 14:53:04 -0400
+Message-ID: <20260929185304.538930-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260929185242.537806-1-sashal@kernel.org>
-References: <2026092930-agile-pumice-f8e6@gregkh>
- <20260929185242.537806-1-sashal@kernel.org>
+In-Reply-To: <2026092930-coeditor-case-5bbe@gregkh>
+References: <2026092930-coeditor-case-5bbe@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,53 +46,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Wentao Liang <vulab@iscas.ac.cn>
+From: SJ Park <sj@kernel.org>
 
-[ Upstream commit c5fd4eaad50d620c7e09ac2082b2fb55ee54170e ]
+[ Upstream commit 39c0ceedd54557bdc1542de08d22b2ed33e534e4 ]
 
-In dm_update_crtc_state(), when a modeset is required the newly created
-stream is stored in dm_new_crtc_state->stream and an extra reference is
-taken with dc_stream_retain().  The reference returned by
-create_validate_stream_for_sink() is released as an extra reference at
-the skip_modeset label, leaving the stream owned by the new CRTC state.
+damon_hugetlb_mkold() reads the page table entry into a local variable,
+unsets the accessed bit in the variable, and updates the page table entry
+with the updated variable value.  If hardware updates the same page table
+entry in parallel, the hw updates could be lost.  For example,
+hardware-updated dirty bits might be lost.
 
-If amdgpu_dm_check_crtc_color_mgmt() fails afterwards, the code jumps
-to the fail label which releases new_stream again.  Since the extra
-reference was already released at skip_modeset, this drops the
-reference owned by dm_new_crtc_state->stream and the stream is
-released while the atomic state still points to it, leading to a
-premature free of the dc stream.
+Avoid the parallel updates by clearing the page table entry when reading
+it together, using huge_ptep_get_and_clear().  If a parallel write to the
+memory is made after the clearing, the hw will see the page table entry is
+cleared, trigger page fault and wait until it is handled.  The page fault
+handling will wait for damon_hugetlb_mkold() due to the page table lock.
 
-Set new_stream to NULL after releasing the extra reference at the
-skip_modeset label so that a later goto fail cannot release the
-reference owned by the new CRTC state.
+Because hugetlbfs is an in-memory file system and hugetlb pages cannot be
+reclaimed, no critical issue is expected to my best knowledge.  But
+definitely this is a nasty bug that should be fixed sooner rather than
+later.
 
-Fixes: 7cd4b70091a5 ("drm/amd/display: Rework CRTC color management")
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 102a47065a62dc8f6bbbb47cf082a2934282eb08)
-Cc: stable@vger.kernel.org
+The issue was discovered [1] by Sashiko.
+
+Link: https://lore.kernel.org/20260907170358.100168-1-sj@kernel.org
+Link: https://lore.kernel.org/20260830160545.98969-1-sj@kernel.org [1]
+Fixes: 49f4203aae06 ("mm/damon: add access checking for hugetlb pages")
+Signed-off-by: SJ Park <sj@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: <stable@vger.kernel.org> # 5.17.x
+[ preserved CONFIG_MMU_NOTIFIER guards because this branch lacks the mmu_notifier_clear_young() fallback. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ mm/damon/vaddr.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 194b9faa47ae7..29f19d8b39386 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -8446,8 +8446,10 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
+diff --git a/mm/damon/vaddr.c b/mm/damon/vaddr.c
+index c74b3fd1d227a..0a9812eb1047b 100644
+--- a/mm/damon/vaddr.c
++++ b/mm/damon/vaddr.c
+@@ -347,6 +347,7 @@ static void damon_hugetlb_mkold(pte_t *pte, struct mm_struct *mm,
  
- skip_modeset:
- 	/* Release extra reference */
--	if (new_stream)
-+	if (new_stream) {
- 		dc_stream_release(new_stream);
-+		new_stream = NULL;
-+	}
- 	new_stream = NULL;
- 
- 	/*
+ 	if (pte_young(entry)) {
+ 		referenced = true;
++		entry = huge_ptep_get_and_clear(mm, addr, pte, psize);
+ 		entry = pte_mkold(entry);
+ 		set_huge_pte_at(mm, addr, pte, entry, psize);
+ 	}
 -- 
 2.53.0
 
