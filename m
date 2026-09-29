@@ -1,175 +1,93 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A13CC52940C
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 13:52:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D8E452CCD9;
+	Tue, 29 Sep 2026 13:53:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790689958; cv=none; b=Pk40HEfbcsbOgwL5a5dvcUKGgIS4jvJW8B9Px0SUQwCWrT9iVTq4URBhvVg2HbWBArYctD6QV/HGmvlzJJXI3kRb5OAGJfAntqaCtTGqcYd35EclNHzmecaQp90hIsUSQqLAlAMcQt23YC0BJludLdsUl7vWc9aYFqGiY5aYy3E=
+	t=1790690008; cv=none; b=P/qCuctWa9cveJLavE8fqn7BUcSU6DDl7XJf+RW1glID5SUTnrcTNdqB2ZTklWDov4OsvdxwX6ciJXEahwfmJPeWtcvDo/i8sMj4yXRCmTBfX3BipIS/T41kQhoj+MhGSb/5EgjzOh9/sEDznmOr6V3Jzyp8aMiOnlJCaQ35tYQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790689958; c=relaxed/simple;
-	bh=odhkW+JOwDwNWuIunbgYenOKBsMV8ELlBcmSqg2Z8NI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ueiyXlUUIkQg/x4AmlWgdVUctcRk9gfoB+gkoZzP9R6qAlnhpGgDI+2x2wKv6T+96b0+jf3MnpdF2qoaIkvdCB4Y2pm3+3JrfwGHM1W3Z5KE1oIoGAy9GBeRVaFmfYjX4EJfJsAphmXZ0bFr9s+o1Eouis6CpCtOSojOHu77qts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bnY/FEmw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790690008; c=relaxed/simple;
+	bh=70w3EKLMILMaFBQJ/Oy5PxHafQ/QfQ3X8Sz2BQG8k/M=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=Yv8V5jEfQN1PAOblJTkAc4bU+pvFGjsgGTCQtyPpbyuOsOBwsRjS8ogXCOyy560dLuySKk8nv+RKYq1pJbN3Bk35MgMoiPVeBRSfFzKstYtfGwJr82uy9MVXJH3ed/XTl504IMtqJyh55O3ruc/+aSGqaRFWevWBotjJ8+7amw4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AoDM0qoW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bnY/FEmw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B64F41F000FF;
-	Tue, 29 Sep 2026 13:52:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AoDM0qoW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED2B41F00893;
+	Tue, 29 Sep 2026 13:53:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790689952;
-	bh=ZaIAEaBYwfSGYzQ8T4EsxOUf5kIV2Az2NQglkFb+Nb4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bnY/FEmwHoCCtejNWnuSA04wRLZMijgXmbBI6rcGEkrUUKsJOh/11D8wY50yQ6PPr
-	 mxOUsoio4aMTXpLIgN3ENbzir9TYhx8n0ZGPZXhsJzdZblhBVzn45P+pjWpXApVAo1
-	 2OqceOVDNvwr3oal6cc/Dk/O7VNho/OsHVjg2NfdIqf09sNi7kb4dh1uN5bSqySl1g
-	 rjd2aFqATBjOuY5bJkRDEtc8dCAOocVlVA6Syx4maY/m7Yz9jVbrf6GBRzKPkU/CVd
-	 D40SGrqrb4fTgMIZQTUjFKd8M4ylZl1HXDLG7MC6xjJVPkjMhoklP7A5IoIGUhyA31
-	 KGUFJxqaQt4Ug==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Christian Brauner <brauner@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y 1/3] super: convert s_count to refcount_t s_passive
-Date: Tue, 29 Sep 2026 09:52:28 -0400
-Message-ID: <20260929135230.3522081-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092911-clunky-same-c5c5@gregkh>
-References: <2026092911-clunky-same-c5c5@gregkh>
+	s=k20260515; t=1790690007;
+	bh=T7yy7HSKbMPvX0YflCUGb8cY7EyJIdxulN89my8c2iE=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=AoDM0qoWuclmwKFilUsRN/uCiLFzlv93ye0qIdN1pemrVW/ZerrsK51OwQE4ZmZsk
+	 KYVlr4mWpuEYgxUaCc1wUHocP3XaKjkY9X061qsSddJq92/Ct2WjFsr+00tGxwvWIZ
+	 BZBIH6Ebi5kRVWvCSGTRMU7nG4nS/Bv4GjCM1+diA2ZFKTuaSQRddyv4gq2VC+WxTy
+	 ivflwFy480vK22+1YcCxJCGnY6nWiaBU5Z6vIPoKK8zA6fcSOalPtSgaVlYbAmt2y/
+	 v8YPzYDMTxpfDbnUIb1LmJVKoMxuxY0rEJCsjrwfIluUL2aJK40Gqt9+1Q1TVKJXBK
+	 pVxhBymJYtbtQ==
+From: Mark Brown <broonie@kernel.org>
+To: Srinivas Kandagatla <srini@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Liviu Nicoara <lnicoara@thinkoid.org>
+Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Jonathan Marek <jonathan@marek.ca>, Johan Hovold <johan@kernel.org>, 
+ linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <20260929115755.6096-1-lnicoara@thinkoid.org>
+References: <20260929115755.6096-1-lnicoara@thinkoid.org>
+Subject: Re: [PATCH v2] ASoC: codecs: lpass-wsa-macro: rewrite the
+ interpolator volume after enabling clocks
+Message-Id: <179068739600.115027.7662196606588120659.b4-ty@b4>
+Date: Tue, 29 Sep 2026 14:09:56 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1187; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=70w3EKLMILMaFBQJ/Oy5PxHafQ/QfQ3X8Sz2BQG8k/M=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqu8LSim74HhE1l86wgNgF13FStS6QCP1+V3BTm
+ tIaPGBNC4WJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCarvC0gAKCRAk1otyXVSH
+ 0GulB/9G+u74tWE68vXEWpEGaI3aypMLks42rOy5BaXiCz59OW8g4PCXtSpAprjykQUPGV/mUaB
+ wvgG+jIZi52q4s2eYjBkAYymrOoPF9uOmKBFWDEMyMPJV3QQ6Z/s2NJ7ADnyBTJco86Zu0XP7Z3
+ Mzk7vnwbLOAIT3VOCjiSS8WDQ6vGzKsPYM+2lvW7get+x126sp9nwG9eEP89QQTTpqnU2nrtGl8
+ ueyX2c9KlzsidlTl8udrvD2fy3O1i19U857v4QoFKjxxO8wbnsiKGLDaO1rtSPq1G8ft6CQRQiD
+ lAgWv78uec4zROLovQRPGYcPN1mcanqIJhwUBUWthtYn8xjM
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-From: Christian Brauner <brauner@kernel.org>
+On Tue, 29 Sep 2026 07:57:55 -0400, Liviu Nicoara wrote:
+> ASoC: codecs: lpass-wsa-macro: rewrite the interpolator volume after enabling clocks
 
-[ Upstream commit 3ec9800c2d33c783dd3b27d4cc3bb22b9385f828 ]
+Applied to
 
-The superblock carries two counters: s_active, the active reference
-count that keeps the filesystem usable, and s_count, the passive
-reference count that merely keeps the structure itself alive. Turn the
-passive count into a refcount_t and rename it to s_passive to make the
-pairing with s_active obvious.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.3
 
-Everything is still serialized by sb_lock, so there is no functional
-change; the conversion buys the usual refcount_t saturation and
-underflow checking. The following patches start dropping passive
-references without holding sb_lock and make the device-to-superblock
-table hold one passive reference per registered entry, which a plain
-integer cannot support.
+Thanks!
 
-Link: https://patch.msgid.link/20260616-work-super-bdev_holder_global-v2-2-7df6b864028e@kernel.org
-Reviewed-by: Jan Kara <jack@suse.cz>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-Stable-dep-of: 2d2a2d7aa987 ("super: make iterate_supers_type() deletion-safe")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/super.c                     | 18 +++++++++---------
- include/linux/fs/super_types.h |  2 +-
- 2 files changed, 10 insertions(+), 10 deletions(-)
+[1/1] ASoC: codecs: lpass-wsa-macro: rewrite the interpolator volume after enabling clocks
+      https://git.kernel.org/broonie/sound/c/b2047b8cadad
 
-diff --git a/fs/super.c b/fs/super.c
-index a257b154f7f7f..dae21bf03e1cd 100644
---- a/fs/super.c
-+++ b/fs/super.c
-@@ -103,7 +103,7 @@ static bool super_flags(const struct super_block *sb, unsigned int flags)
-  * creation will succeed and SB_BORN is set by vfs_get_tree() or we're
-  * woken and we'll see SB_DYING.
-  *
-- * The caller must have acquired a temporary reference on @sb->s_count.
-+ * The caller must have acquired a temporary reference on @sb->s_passive.
-  *
-  * Return: The function returns true if SB_BORN was set and with
-  *         s_umount held. The function returns false if SB_DYING was
-@@ -368,7 +368,7 @@ static struct super_block *alloc_super(struct file_system_type *type, int flags,
- 	spin_lock_init(&s->s_inode_wblist_lock);
- 	fserror_mount(s);
- 
--	s->s_count = 1;
-+	refcount_set(&s->s_passive, 1);
- 	atomic_set(&s->s_active, 1);
- 	mutex_init(&s->s_vfs_rename_mutex);
- 	lockdep_set_class(&s->s_vfs_rename_mutex, &type->s_vfs_rename_key);
-@@ -408,7 +408,7 @@ static struct super_block *alloc_super(struct file_system_type *type, int flags,
-  */
- static void __put_super(struct super_block *s)
- {
--	if (!--s->s_count) {
-+	if (refcount_dec_and_test(&s->s_passive)) {
- 		list_del_init(&s->s_list);
- 		WARN_ON(s->s_dentry_lru.node);
- 		WARN_ON(s->s_inode_lru.node);
-@@ -530,7 +530,7 @@ static bool grab_super(struct super_block *sb)
- {
- 	bool locked;
- 
--	sb->s_count++;
-+	refcount_inc(&sb->s_passive);
- 	spin_unlock(&sb_lock);
- 	locked = super_lock_excl(sb);
- 	if (locked) {
-@@ -557,7 +557,7 @@ static bool grab_super(struct super_block *sb)
-  *	lock held in read mode in case of success. On successful return,
-  *	the caller must drop the s_umount lock when done.
-  *
-- *	Note that unlike get_super() et.al. this one does *not* bump ->s_count.
-+ *	Note that unlike get_super() et.al. this one does *not* bump ->s_passive.
-  *	The reason why it's safe is that we are OK with doing trylock instead
-  *	of down_read().  There's a couple of places that are OK with that, but
-  *	it's very much not a general-purpose interface.
-@@ -859,7 +859,7 @@ static void __iterate_supers(void (*f)(struct super_block *, void *), void *arg,
- 	     sb = next_super(sb, flags)) {
- 		if (super_flags(sb, SB_DYING))
- 			continue;
--		sb->s_count++;
-+		refcount_inc(&sb->s_passive);
- 		spin_unlock(&sb_lock);
- 
- 		if (flags & SUPER_ITER_UNLOCKED) {
-@@ -904,7 +904,7 @@ void iterate_supers_type(struct file_system_type *type,
- 		if (super_flags(sb, SB_DYING))
- 			continue;
- 
--		sb->s_count++;
-+		refcount_inc(&sb->s_passive);
- 		spin_unlock(&sb_lock);
- 
- 		locked = super_lock_shared(sb);
-@@ -936,7 +936,7 @@ struct super_block *user_get_super(dev_t dev, bool excl)
- 		if (sb->s_dev != dev)
- 			continue;
- 
--		sb->s_count++;
-+		refcount_inc(&sb->s_passive);
- 		spin_unlock(&sb_lock);
- 
- 		locked = super_lock(sb, excl);
-@@ -1376,7 +1376,7 @@ static struct super_block *bdev_super_lock(struct block_device *bdev, bool excl)
- 
- 	/* Make sure sb doesn't go away from under us */
- 	spin_lock(&sb_lock);
--	sb->s_count++;
-+	refcount_inc(&sb->s_passive);
- 	spin_unlock(&sb_lock);
- 
- 	mutex_unlock(&bdev->bd_holder_lock);
-diff --git a/include/linux/fs/super_types.h b/include/linux/fs/super_types.h
-index ef7941e9dc79a..68747182abf9a 100644
---- a/include/linux/fs/super_types.h
-+++ b/include/linux/fs/super_types.h
-@@ -145,7 +145,7 @@ struct super_block {
- 	unsigned long				s_magic;
- 	struct dentry				*s_root;
- 	struct rw_semaphore			s_umount;
--	int					s_count;
-+	refcount_t				s_passive;
- 	atomic_t				s_active;
- #ifdef CONFIG_SECURITY
- 	void					*s_security;
--- 
-2.53.0
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
