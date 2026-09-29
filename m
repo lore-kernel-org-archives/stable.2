@@ -1,138 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9159434B1A2;
-	Tue, 29 Sep 2026 22:34:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5984347C108
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 22:45:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790721293; cv=none; b=VBNYzbm4tVrlFM4D/z7Y6/ICBbk/rLELKxS6mUxoP3v8+EYO6T+swOgElsqD3bozmweS9wFNYxNKjohmq1ObFT/fdI3etbFY/0Vf/IGm6Dz0UCv/GatDnoGveNqEpJpnUenxvT3R4zPir/OV48aSOy2gs+dTBvExeybzvGtZ1UE=
+	t=1790721950; cv=none; b=hY9Omc0bpD9Bu41cxKy6uohuuvcl7P8EEYqdkKJcHvLTRcNZP+UwZsVFD4v2jtywWcQ/i7pcr8uRpFTsADXYD5G083OEbg5/KGVljxmH7yvkcJlUigQWu71FVOF2tgVo8b2F2kITKmoVqWuGaHrjf+LPQa2Wo8FszPbP6Gy+jt0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790721293; c=relaxed/simple;
-	bh=A3kJlSFdcuOCiUm4bW2a0Z+0tSREzC6TX9OwAb3V5kQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GbT6dfyliYfUjKfEss3XK6tLDkJ72yTCi2k9ny30CE9MMs4c05sd6fXBG8csmOZM5ODqcI0BHn2DDW3v4BjkZ0fArdjVPNj59IagKfPDOBIKMb1ZgZEo9jd5uIZ0G8CHYIx6y2xWV88vEL7BY5p8Hp+MtF4BfqReQGtiTrwflkk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d5h736SE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790721950; c=relaxed/simple;
+	bh=BiwMGlo/TiDs1rDpAufMP26cbpdmc+V4yzYFlCJAcnM=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=T9JGpt1XmNtdlrcNDBJOkJBRFxqJxuw+OZhuZiL42R1pF7O/C8KZX9WTY5yxooMMg5KLEFS8QazIkzqDlv3zT0LnaK+/nUfZdCF5lTsfv8kWPhZa3XGJzK36jvVXGWHNKo9HNruy2ggc1jHuw9bhg8Kn/65sPHYjSDKRiIBD0bc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=G4djiRf7; arc=none smtp.client-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d5h736SE"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 8DEED1F000FF;
-	Tue, 29 Sep 2026 22:34:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790721292;
-	bh=7Jv9I+GMANQP9pLmot5B/d4pg1K6Q2hX7SaokF+WT1U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=d5h736SEn23ntG/Au/8e1Mbm1+gX2izYZqg1tBCMtSOlhCpZ1hTRXFtHKeBy47NoH
-	 QLaAaDkUoC5D8FsctjLAKBDYosYM7vyhxB4D8L9byjv800G7f5JEdiZ9zFOfrSMLKj
-	 IoLfARj6hsHBmu8i6PkXuMI0DvdaUZJc+hlnu/VM80AJ966WHZp6lSJ93SIuZb8fhR
-	 4FP48jyp7qGgsSz3zaKbU0pbV5xfbbeZT4kDeScqH4bbIl91gttcRwHlgOfiRy+ZwS
-	 7/aHHmfxFmVZ8HtjeaB6PWt0eTZImPMZo4EbHdDxShk+l2XQt2nOZI88VJUmHUNca2
-	 JOWTra2EFrMJA==
-Date: Wed, 30 Sep 2026 01:34:48 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Yuqi Xu <xuyuqiabc@gmail.com>
-Cc: linux-integrity@vger.kernel.org, Peter Huewe <peterhuewe@gmx.de>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Jerry Snitselaar <jsnitsel@redhat.com>,
-	James Bottomley <James.Bottomley@hansenpartnership.com>,
-	stable@vger.kernel.org, Vega <vega@nebusec.ai>,
-	Ren Wei <weir@nebusec.ai>, xuyq21@lenovo.com
-Subject: Re: [PATCH v2 1/1] tpm: reject duplicate PCR banks in
- tpm2_get_pcr_allocation
-Message-ID: <arw9CHc4mIOm5C6Q@kernel.org>
-References: <cover.1790568982.git.xuyuqiabc@gmail.com>
- <9d27c4513a3c6fc32f9574ba192cd3bfcb2bac98.1790568982.git.xuyuqiabc@gmail.com>
- <arwssp0czGg9XKv7@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="G4djiRf7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790721948; x=1822257948;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=BiwMGlo/TiDs1rDpAufMP26cbpdmc+V4yzYFlCJAcnM=;
+  b=G4djiRf7wxVUlGOH2tiWsae1dopu3nyDTibsSf+uaTT6kYUA2/uJG/gS
+   qxtQ28ep6KJvf5ku+ocn/Laklb06QXhRPkAhrFB4ayDcA6ka8MeWFTg3I
+   494Hxadt9WUFJERyl7r1jhjUG8WRkSwmJ8hBgteN5N2NAEA6gkRrrfIJt
+   0XzsL20H+IVuaIXnTFcLItyBFUwm6QPZi+OY1IM+1WkePoPlR8jsWChr2
+   Z3JiNWRZggWW7b4Bc/k+/3XocyzNyu+p0AKom0g+dQAM4juCXVnw2I9v9
+   qy8xQhNpIt4P70/WQnXkK5Lr56F4a6Hzz2NKuERPhupNemncocE01hTQQ
+   g==;
+X-CSE-ConnectionGUID: yLpdXLVbSCKb0t4VjYUguA==
+X-CSE-MsgGUID: 2e+vii3PTr2LdNx3Tmj2vA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="102126653"
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
+   d="scan'208";a="102126653"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 15:45:48 -0700
+X-CSE-ConnectionGUID: 3RvYXp8FS4evPNhqiAfSYA==
+X-CSE-MsgGUID: x7m8EW9JRiazKjhjlWmVwQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
+   d="scan'208";a="274704128"
+Received: from schen9-mobl4.amr.corp.intel.com (HELO [10.125.111.124]) ([10.125.111.124])
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 15:45:47 -0700
+Message-ID: <850294df0f51d6ccb131557af74d4a42dde00b3a.camel@linux.intel.com>
+Subject: Re: FAILED: patch "[PATCH] sched/cache: Skip kernel threads for
+ cache aware scheduling" failed to apply to 7.2-stable tree
+From: Tim Chen <tim.c.chen@linux.intel.com>
+To: gregkh@linuxfoundation.org, yu.c.chen@intel.com, mingo@kernel.org, 
+	peterz@infradead.org, stable@kernel.org
+Cc: stable@vger.kernel.org
+Date: Tue, 29 Sep 2026 15:45:46 -0700
+In-Reply-To: <2026092935-angelic-kick-1d0a@gregkh>
+References: <2026092935-angelic-kick-1d0a@gregkh>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.1 (3.58.1-1.fc43) 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arwssp0czGg9XKv7@kernel.org>
 
-On Wed, Sep 30, 2026 at 12:25:06AM +0300, Jarkko Sakkinen wrote:
-> On Mon, Sep 28, 2026 at 04:27:00PM +0800, Yuqi Xu wrote:
-> > The TPM2_CAP_PCRS response is external input. tpm2_get_pcr_allocation()
-> > adds every active selection to allocated_banks, while
-> > tpm_sysfs_add_device() has one group slot per distinct hash algorithm.
-> > Eight duplicate selections can therefore write past chip->groups[].
-> > 
-> > The TPM protocol does not allow a hash algorithm to appear twice in
-> > this capability response. Treat a duplicate as a broken TPM and return
-> > -EIO so the chip is not enabled, instead of silently dropping the
-> > extra selection.
-> > 
-> > Fixes: aab73d952402 ("tpm: add sysfs exports for all banks of PCR registers")
-> > Cc: stable@vger.kernel.org
-> > Reported-by: Vega <vega@nebusec.ai>
-> > Assisted-by: LLM
-> > Signed-off-by: Yuqi Xu <xuyuqiabc@gmail.com>
-> > Reviewed-by: Ren Wei <weir@nebusec.ai>
-> > ---
-> > Changes in v2:
-> >  - Return -EIO on a duplicate PCR bank instead of silently ignoring
-> >    it, as requested by Jarkko Sakkinen. A duplicate violates the TPM
-> >    protocol, so the chip is not enabled.
-> >  - v1 Link: https://lore.kernel.org/all/cover.1789800840.git.xuyuqiabc@gmail.com/
-> >  drivers/char/tpm/tpm2-cmd.c | 18 ++++++++++++++++++
-> >  1 file changed, 18 insertions(+)
-> > 
-> > diff --git a/drivers/char/tpm/tpm2-cmd.c b/drivers/char/tpm/tpm2-cmd.c
-> > index ae22295df798..a94f4395c198 100644
-> > --- a/drivers/char/tpm/tpm2-cmd.c
-> > +++ b/drivers/char/tpm/tpm2-cmd.c
-> > @@ -527,6 +527,7 @@ ssize_t tpm2_get_pcr_allocation(struct tpm_chip *chip)
-> >  	u32 rsp_len;
-> >  	int rc;
-> >  	int i = 0;
-> > +	int j;
-> >  
-> >  	struct tpm_buf *buf __free(kfree) = kzalloc(TPM_BUFSIZE, GFP_KERNEL);
-> >  	if (!buf)
-> > @@ -569,6 +570,23 @@ ssize_t tpm2_get_pcr_allocation(struct tpm_chip *chip)
-> >  		pcr_select_offset = memchr_inv(pcr_selection.pcr_select, 0,
-> >  					       pcr_selection.size_of_select);
-> >  		if (pcr_select_offset) {
-> > +			for (j = 0; j < nr_alloc_banks; j++) {
-> > +				if (chip->allocated_banks[j].alg_id == hash_alg)
-> > +					break;
-> > +			}
-> > +
-> > +			/*
-> > +			 * The TPM protocol does not allow the same hash
-> > +			 * algorithm twice.  A duplicate means this device
-> > +			 * is not behaving; do not enable it.
-> > +			 */
-> > +			if (j != nr_alloc_banks) {
-> > +				pr_err("tpm: duplicate PCR bank for algorithm 0x%04x\n",
-> > +				       hash_alg);
-> > +				rc = -EIO;
-> > +				break;
-> > +			}
-> > +
-> >  			chip->allocated_banks[nr_alloc_banks].alg_id = hash_alg;
-> >  
-> >  			rc = tpm2_init_bank_info(chip, nr_alloc_banks);
-> > -- 
-> > 2.55.0
-> > 
-> 
-> Yeah, so in some places like this some of the TPM driver code does
-> return -EFAULT but I'd like to progressively refactor so that any
-> corrupted traffic is always -EIO and use -EFAULT for memory related
-> issues. 
-> 
-> Thank you!
-> 
-> Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+On Tue, 2026-09-29 at 13:43 +0200, gregkh@linuxfoundation.org wrote:
+> The patch below does not apply to the 7.2-stable tree.
+> If someone wants it applied there, or to any other stable or longterm
+> tree, then please email the backport, including the original git commit
+> id to <stable@vger.kernel.org>.
+>=20
+> To reproduce the conflict and resubmit, you may use the following command=
+s:
+>=20
+> git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.gi=
+t/ linux-7.2.y
+> git checkout FETCH_HEAD
+> git cherry-pick -x 65efcccddc83d6a19e8a2e2a6117811e39e589bf
+> # <resolve conflicts, build, test, etc.>
+> git commit -s
+> git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092935-=
+angelic-kick-1d0a@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
+>=20
+> Possible dependencies:
+>=20
 
-WARNING: Reported-by: should be immediately followed by Closes: or Link: with a URL to the report
-#18:
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: LLM
+These patches in upstream needs to be applied first before this patch:
+f0d243a96f268 sched/fair: Avoid creating misfits during cache-aware balanci=
+ng (should be included in stable)
+28f9c0e0a0b94 sched/cache: Decouple sched_cache_group from mm to fix UAF  (=
+just merged in stable)
+b636fef85bda7 sched/cache: Introduce task_struct->sched_cache_grp to fix UA=
+F (should be included in stable)
 
-No need to resend a new version but I'd need a link to the *report* to
-retain reported-by tag here.
+Thanks.
 
-Br, Jarkko
+Tim
+
+>=20
+>=20
+> thanks,
+>=20
+> greg k-h
+>=20
+> ------------------ original commit in Linus's tree ------------------
+>=20
+> From 65efcccddc83d6a19e8a2e2a6117811e39e589bf Mon Sep 17 00:00:00 2001
+> From: Chen Yu <yu.c.chen@intel.com>
+> Date: Mon, 21 Sep 2026 17:37:26 -0700
+> Subject: [PATCH] sched/cache: Skip kernel threads for cache aware schedul=
+ing
+>  to rubustify the code
+>=20
+> Kernel thread should not be covered by cache aware scheduling as
+> it borrows the statistics from the user space thread. Filter the
+> kernel thread in account_mm_sched().
+>=20
+> In theory a kernel thread does not have any valid
+> cache group, so !grp should gate the kernel thread.
+> Add the PF_KTHREAD check explicitly here for safety
+> reasons, to guard against future modifications and
+> to pair with task_tick_cache().
+>=20
+> Fixes: df0d98475954 ("sched/cache: Introduce infrastructure for cache-awa=
+re load balancing")
+> Signed-off-by: Chen Yu <yu.c.chen@intel.com>
+> Signed-off-by: Tim Chen <tim.c.chen@linux.intel.com>
+> Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+> Signed-off-by: Ingo Molnar <mingo@kernel.org>
+> Cc: <stable@kernel.org> # 7.2.x
+> Link: https://patch.msgid.link/058f0c6ea7b991c177a17de347fa3157f25489a7.1=
+790035273.git.tim.c.chen@linux.intel.com
+>=20
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index 974a7dfe3215..57360f5cdde4 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -1907,8 +1907,14 @@ void account_mm_sched(struct rq *rq, struct task_s=
+truct *p, s64 delta_exec)
+>  	/*
+>  	 * init_task, kthreads and user thread created
+>  	 * by user_mode_thread() don't have a cache group.
+> +	 * In theory a kernel thread does not have any valid
+> +	 * cache group, because sched_cache_fork() is not
+> +	 * invoked for a kernel thread - !grp should gate the
+> +	 * kernel thread. Use the PF_KTHREAD check explicitly
+> +	 * here for safety reasons, to guard against future
+> +	 * modifications and to pair with task_tick_cache().
+>  	 */
+> -	if (!grp || !grp->pcpu_sched)
+> +	if (p->flags & PF_KTHREAD || !grp || !grp->pcpu_sched)
+>  		return;
+> =20
+>  	pcpu_sched =3D per_cpu_ptr(grp->pcpu_sched, cpu_of(rq));
