@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2BC2514746
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 11:51:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EDE833EB01
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 11:51:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790682670; cv=none; b=iW09ttfpmajQ7dxQNmOOC/VRrqsvY4StEsaU3zkhPOsCuc0TtWek/XrcpZ8gX0DDCN179bbTXbTd4VUkL5jeFHPHOOQUOW9/IyKUGyk2hRdLRludKD7SlnBSueA9uS9UDaN++ShMJoRIaRXW1AilviaotNN4JsWJRG9k5ZKawdY=
+	t=1790682676; cv=none; b=DgnxdZQUFL1AIkRWxcegCmj4y4tvAFJ66foFp7j185KU0TMYWlAi86wtOwUWZnhfN743P8Zth9MZT33ZT5+IHjkb8m7tJLfQevyg+hwr147C53hnA34Ejhp1YKuVr4JISN8VjzWl/yLedG8rKOPuhZVlj1ZLh2vB3KlYr/4PjPg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790682670; c=relaxed/simple;
-	bh=qnviwbMQQKnm5hlGCNc3SlFbrn3+JLDySSg2r0DW8J4=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ERvsnQGljDg9Lf99Ag23y+L6Vlv5fSp/ofsccMa7Y3zTmhQT72lMrqBnWj+CRYYf9MSZEUecvDiC7TRmyg1/bLsvljd/Pi4SCEOHoGLxhv7nvam7dMkILY9ciA7W7wIrgfWqIzcUwbnDGe+rSzJpEOkAc0NGI3uFTFmuas7n3no=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=RguS72rX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790682676; c=relaxed/simple;
+	bh=NzYQFLC9Dub5+eancGs+h0jVhYrj0WHgPYJ+vd/RTeU=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Gf25RKQGL1wdsoAFCLZDf7URAXS2ljfK2bE3xHCaPnTBKywPjYc3KHP1kzZybgmnfpgk2l6MzE7QSeD3fNluhwHEti9slNuyMRG5pvdGMH+PLjIuDW3rhXIqRMt6DbT7P/un0qTRJHkhbzXbtiZL2j/25GaJPZn/c1DrVZ9hTAM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=XJ269cnk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="RguS72rX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2950E1F000FF;
-	Tue, 29 Sep 2026 11:51:08 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="XJ269cnk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DCB21F000FF;
+	Tue, 29 Sep 2026 11:51:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790682669;
-	bh=1LoFJEy+ih0kfztgZmKCuUWdLfBFdjxiLMMQBiulHII=;
+	s=korg; t=1790682674;
+	bh=yJwm96FI0ZPN19vOqR55d412MC1hzPzyLI3ecl30exM=;
 	h=Subject:To:Cc:From:Date;
-	b=RguS72rX2jaSrOB5SbR40IZEAZr8x+ITreGAhEUawepbwJOeHkEbow8fcmHXR+lbi
-	 7U85ZSsJvBSM8z4wH/Hz+BF3JmezG+Y1xmRzUGuXuN5Bq5FNPqI4TgwSGOU8wNRnra
-	 4UeOUc+PseP+RZE1XzC7uSKoOq6j6bRrSubSZDpk=
-Subject: FAILED: patch "[PATCH] smb: client: close handle after create-context parsing" failed to apply to 5.10-stable tree
+	b=XJ269cnkLKnyKCiyx7eGFTfqudlMCqEYwOjta/7PvP68x+ADQ/w0Q2hd915C+nfEp
+	 uA+EUTtLb7q4bul9LztpgRDHU1lAo0VpLG9/R2jKM1KFgmB/6UmMAPB6O730/rtWgM
+	 AfXf0iwmkXmpcs7tLk8IH6fM29uXJV5P4gp9XLlA=
+Subject: FAILED: patch "[PATCH] smb: client: clean up failed cached directory opens" failed to apply to 6.1-stable tree
 To: zihanx@nebusec.ai,pc@manguebit.org,root@tr0jan.top,sorenson@redhat.com,vega@nebusec.ai
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 29 Sep 2026 13:50:46 +0200
-Message-ID: <2026092946-apron-radio-67f9@gregkh>
+Date: Tue, 29 Sep 2026 13:51:02 +0200
+Message-ID: <2026092902-hacksaw-legwork-e770@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 566820af017e81497fb5e9d3ad6e7ffe2828bc8b
+git cherry-pick -x d2ff5fb93ea83034025850266b5eed391f96b825
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092946-apron-radio-67f9@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092902-hacksaw-legwork-e770@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,21 +62,25 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 566820af017e81497fb5e9d3ad6e7ffe2828bc8b Mon Sep 17 00:00:00 2001
+From d2ff5fb93ea83034025850266b5eed391f96b825 Mon Sep 17 00:00:00 2001
 From: Zihan Xi <zihanx@nebusec.ai>
-Date: Wed, 16 Sep 2026 15:29:26 +0000
-Subject: [PATCH] smb: client: close handle after create-context parsing
- failure
+Date: Wed, 16 Sep 2026 15:29:27 +0000
+Subject: [PATCH] smb: client: clean up failed cached directory opens
 
-SMB2_open() accounts a successful CREATE response as a remote open before
-parsing its create contexts.  If smb2_parse_contexts() rejects malformed
-context data, SMB2_open() returns without closing the handle, leaving the
-server-side handle open and num_remote_opens elevated.
+open_cached_dir() sends CREATE and QUERY_INFO as a compound request. If
+the CREATE succeeds but a later command returns an error, the function
+must retain the CREATE FID so common cleanup can issue SMB2_close(). It
+also must not treat a response error as a valid CREATE.
 
-Close the handle after a post-CREATE context parsing failure so the error
-path releases the remote resource and balances the open count.
+Validate the CREATE response before using its fields, record the FIDs, and
+mark the handle open before handling errors from later compound commands.
+Move the -EREMCHG reconnect handling before response validation so a
+missing response does not hide the reconnect request. Count the handle
+when it is marked open; confirmed close responses decrement the counter,
+while existing close retry behavior remains best effort on transport
+failures.
 
-Fixes: af1689a9b770 ("smb: client: fix potential OOBs in smb2_parse_contexts()")
+Fixes: b0f6df737a1c ("cifs: cache FILE_ALL_INFO for the shared root handle")
 Cc: stable@vger.kernel.org
 Reported-by: Vega <vega@nebusec.ai>
 Assisted-by: LLM
@@ -86,18 +90,71 @@ Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
 Tested-by: Frank Sorenson <sorenson@redhat.com>
 Signed-off-by: Paulo Alcantara <pc@manguebit.org>
 
-diff --git a/fs/smb/client/smb2pdu.c b/fs/smb/client/smb2pdu.c
-index 538d708b0404..3d7ead36d1a0 100644
---- a/fs/smb/client/smb2pdu.c
-+++ b/fs/smb/client/smb2pdu.c
-@@ -3416,6 +3416,9 @@ replay_again:
+diff --git a/fs/smb/client/cached_dir.c b/fs/smb/client/cached_dir.c
+index 88d5e9a32f28..647fa26da4d2 100644
+--- a/fs/smb/client/cached_dir.c
++++ b/fs/smb/client/cached_dir.c
+@@ -8,6 +8,7 @@
+ #include <linux/namei.h>
+ #include "cifsglob.h"
+ #include "cifsproto.h"
++#include "../common/smb2status.h"
+ #include "cifs_debug.h"
+ #include "smb2proto.h"
+ #include "cached_dir.h"
+@@ -323,25 +324,37 @@ replay_again:
+ 	rc = compound_send_recv(xid, ses, server,
+ 				flags, 2, rqst,
+ 				resp_buftype, rsp_iov);
+-	if (rc) {
+-		if (rc == -EREMCHG) {
+-			tcon->need_reconnect = true;
+-			pr_warn_once("server share %s deleted\n",
+-				     tcon->tree_name);
+-		}
++	if (rc == -EREMCHG) {
++		tcon->need_reconnect = true;
++		pr_warn_once("server share %s deleted\n",
++			     tcon->tree_name);
++	}
++
++	if (!rsp_iov[0].iov_base || rsp_iov[0].iov_len < sizeof(*o_rsp)) {
++		if (!rc)
++			rc = -EIO;
+ 		goto oshr_free;
+ 	}
+-	cfid->is_open = true;
+-
+-	spin_lock(&cfids->cfid_list_lock);
  
- 	rc = smb2_parse_contexts(server, &rsp_iov, &oparms->fid->epoch,
- 				 oparms->fid->lease_key, oplock, file_info, posix);
+ 	o_rsp = (struct smb2_create_rsp *)rsp_iov[0].iov_base;
++	if (o_rsp->hdr.Status != STATUS_SUCCESS) {
++		if (!rc)
++			rc = -EIO;
++		goto oshr_free;
++	}
++
+ 	oparms.fid->persistent_fid = o_rsp->PersistentFileId;
+ 	oparms.fid->volatile_fid = o_rsp->VolatileFileId;
+ #ifdef CONFIG_CIFS_DEBUG2
+ 	oparms.fid->mid = le64_to_cpu(o_rsp->hdr.MessageId);
+ #endif /* CIFS_DEBUG2 */
++	cfid->is_open = true;
++	atomic_inc(&tcon->num_remote_opens);
+ 
 +	if (rc)
-+		SMB2_close(xid, tcon, oparms->fid->persistent_fid,
-+			   oparms->fid->volatile_fid);
++		goto oshr_free;
++
++	spin_lock(&cfids->cfid_list_lock);
  
- 	trace_smb3_open_done(xid, rsp->PersistentFileId, tcon->tid, ses->Suid,
- 			     oparms->create_options, oparms->desired_access,
+ 	if (o_rsp->OplockLevel != SMB2_OPLOCK_LEVEL_LEASE) {
+ 		spin_unlock(&cfids->cfid_list_lock);
+@@ -408,7 +421,6 @@ out:
+ 		close_cached_dir(cfid);
+ 	} else {
+ 		*ret_cfid = cfid;
+-		atomic_inc(&tcon->num_remote_opens);
+ 	}
+ 	kfree(utf16_path);
+ 
 
