@@ -1,151 +1,188 @@
-Received: from outbound.ms.icloud.com (ms-2004h-snip4-1.eps.apple.com [57.103.74.142])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E26393D5C12
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 20:37:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.74.142
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6D0E54CF69
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 20:44:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.235
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790714236; cv=none; b=nUNaUtPg2NX2rReidz/OoBBp6oVhnitHKHo3lqZvK/0N8OhJ8VsURgsWEga9Jf905FgetuDT7Wu4ndPZQ5uwrBBZMwIl3eXUPe/z754lvYAUT/onTydtNveJeIYy5hm17WDl1qwIDSYE2nEISLAc07zkI/djtmpvz1ZsWurUH1o=
+	t=1790714668; cv=none; b=pzb60xdEBATf5Jd58/gP4BSp6iu8eQ5v0Vx0rxeZq7S4E97J/yYMcfdO5VnsckGLUgPggEZ0F25BcAnJbUbnrocRIqcWC5BKXu1VYqKIQx6fHOEzvsbe8wi8yGoNNQfxcvsnzUW3v/tAxq2IM/xswEMYEP+M7hCAEZFAGC8V+HU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790714236; c=relaxed/simple;
-	bh=CmlE80pSLORwSx812eu1SFv+69BqG+tG5JfC1lXaUWw=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=gFPAdpgtpupFGJc4xuIWC7sV20iKjVrOgqsbBk8qWjKYG9z/rxoM0Po9GpZsvVDPFE1MLDCJ/laaJXHlMQdG7JDlTSryseMgovdk6lUWTpiHVxQqnmNustGI02bkIkE3XV3ZDlseAgI70P9uH57RCxRJv4e/YbTsapJtUt/Zpqw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lcb.to.it; spf=pass smtp.mailfrom=lcb.to.it; dkim=pass (2048-bit key) header.d=lcb.to.it header.i=@lcb.to.it header.b=Hmma00I1; arc=none smtp.client-ip=57.103.74.142
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lcb.to.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lcb.to.it
+	s=arc-20240116; t=1790714668; c=relaxed/simple;
+	bh=PeMI4feZR80NGYaeOustHzcRf+r5lTpl9KboZo5vxGU=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=BKQYqnnyNTmmbAkQFEZaNH82nTccQn3SdzgkjMqzluR0IcUSQcct35dnhsmRmU1qM4C0DMEVFuvHyxmgTMuCIobg0WCPQ1Gq32GpCmh6hEaHcDvLSkw6J0DOVlnEye+xSERAbaA0Vdd2ux64JIdOlB9cTsmbxkSUiBjiHQ+jrOY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=qLpsls0v; arc=none smtp.client-ip=74.125.230.235
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lcb.to.it header.i=@lcb.to.it header.b="Hmma00I1"
-Received: from outbound.ms.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-west-3a-60-percent-11 (Postfix) with ESMTPS id 1D75818001DC;
-	Tue, 29 Sep 2026 20:37:10 +0000 (UTC)
-X-ICL-RepId: 01a0eee2-b8c6-701d-bd84-4469f180ccb1
-X-ICL-Out-Info: HUtFAUMHWwJACUgATUQeDx5WFlZNRAJCTQhBBkMEWRxBCU0dXwVcEhVdRV4MRR9bHlZWQwxHDkAfeRRQDxkfXV5QDBMLU1ZeE1tWRwIZAkZQSxsOWxcDVxxWRVwYQwldBVccHQBERVsTVRdGCRkIXR0ZCEcfCjADQg5WA0MHRQAtGRxXUFsIUF5NFx0EQ0tfGV1FD15UCFZGWhsCQAMJBEkUTAIJVEYKFgsaHl5UXFFBWhwCWwVdVzBVG1FDQwQcGU1GExlOG1dNWg1AGVgGbRRWFVIEWQ==
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lcb.to.it; s=sig1; t=1790714234; x=1793306234; bh=zmp8SFl84gZRi5OkpkQVvlEiTxHsOKWX9tq1JueGvnA=; h=Message-ID:Date:MIME-Version:Subject:From:To:Content-Type:x-icloud-hme; b=Hmma00I1iCTJetJLa+4lEcU2IJz2CTZSLyP1/eSX7O2Hin+njeiX/5qIFzrt+kQDK74uL3SnlcUh04MdlhLy+vnTjVqWijHsko8nXx0qy0a8+RCxN+3PYVD2Y69zNbWLRuUrTvLUxDZmGGTQmytTTxtliHu8e71gBk+v1SvjlPKUWIOBA/sSihPvkfrmdXYF3cNvP25Dg1dZjV+3f97zit0hRXHLuSOe/i9h90i3kmWTHuNQPVD/gbSvPHDaTh62yeey/PV3n1JSKWy+uTUAWmFPm9cIX4IgY1BRCQlpo2lGHKlOoogPYRN9xls7jzVByl8ZrUj1269tsPCKVBZJ9w==
-mail-alias-created-date: 1748381178872
-Received: from [10.69.1.69] (unknown [17.156.208.39])
-	by p00-icloudmta-asmtp-us-west-3a-60-percent-11 (Postfix) with ESMTPSA id 07A2C1800128;
-	Tue, 29 Sep 2026 20:37:08 +0000 (UTC)
-Message-ID: <3ccd6cc1-4b69-41dc-8f2b-3c7c1cd1626e@lcb.to.it>
-Date: Tue, 29 Sep 2026 22:37:06 +0200
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="qLpsls0v"
+Received: by mail-qk2-f43.google.com with SMTP id d75a77b69052e-52fb76ef1d0so39645601cf.0
+        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 13:44:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1790714665; x=1791319465; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=FiwtqZphJSml0R4L9uG6YdUip66h9uGgkQ6b6jASY4c=;
+        b=qLpsls0v5K8SsbhjxTxqw5PN3tY5A4nNOea37BcJWHtNIOdMnkx/rnVKpgJr+EQHLS
+         zC5gNcaSf8d61CfYbaRAdFXl3JJQOitqEbfSLxG0TE0mVnsFr0pH8CZcGdi3nzKrvvvZ
+         t3Bg0SgeGdQPHE4eHInc7VajPm56DnpPT/HPIqruzGXtaAUzQ8odY28GpCRhgVkMjXjd
+         383Ip7Sk4e6igiofZHVQAyHkjFVVZafzWHrEQK8UuOTSEcZF4MMDGHVijFtngRNDMjNU
+         TWNyeEQZoTYv155JfO9es/s+RXODps5WFPQs/V82VHx8r6b5LT9GulXbVBjy3SlsWPDW
+         HBeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790714665; x=1791319465;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FiwtqZphJSml0R4L9uG6YdUip66h9uGgkQ6b6jASY4c=;
+        b=dZNR52GuOwV+3YWBd451OC8/R0IjEUC7fY2yFbteu28hCQml78tFhSEnef4m7SpPUR
+         iZ6MY8oSpU0zS22sREuRa/zi/cc3jDrVVKHCsW5/F2kF/95aAoJceaOBAYcqP69FUKWE
+         4XskBLtOnw8KaknwuQicWKHUFNzTx/Bpz6y7hLhhAzkaXB9vcflsihpZKDtDyE3sRltL
+         l5yXjK+r5my9HQaz5dMRSZwdU5k+N6t6CXrRghYL63EmHhOJdAPNMpVjxHcFSBXpGVyt
+         ADcN2LJM/GF8y60GtnCApweCGWmN3cTeRn95lBVENb+5HiMb1vic+F/1U1T911YIN2Gu
+         W0+Q==
+X-Forwarded-Encrypted: i=1; AKwUvBx4LSRSGXj+eOLfxXBcJE2QTSO2wl9FPeL8mEc8NLmpwtT0vZstmn90vuHIBbyrzVcC8ktuW5s=@vger.kernel.org
+X-Gm-Message-State: AFuF++lPr0iq7S6o13+L6Gns5ZDExHed/UJxPTYKHiSB4dySzqurf40D
+	aSkQmMthu/tBhPwGSBwThP17b2clO5/59+NlAUOgEG1Fm0Rm2lpnOuiXNWZPMnNesBM=
+X-Gm-Gg: AYBFou05sEEg5E/reha8N0Mph106tJeHWZYTuTpHaGa2kunjQcyshp+4dsMgu7YqC39
+	yv/8I/U2hohHnOToU2ao2y0ws72omkhITU5UpxgrgRCRwt3nRGQSjrqZnRGrqYH9x/jVGac9I9u
+	wja5tzRNVxx/IiRdFpXGbO3KtuuEl6NKBMkeZFdcQ2C/AGDDinxByWsUg+1G+8WZCk+sRix0iLC
+	47wHZdwIssyDLE7kOBmUaF1tEE8dtfA+bZQJ2zDPr47ODQciPjgYk8inuhbaPfdDPIoOCuyRVZE
+	RuxnvfbuUTeyn0xg1wp0KUaN0Rv8IJ8hWtLmQ30RYjS4gNs1Sn9t5xP7k33GkmXKvijkoJ2s8WG
+	Aqh+rLAN+BqHPWoWUN1rbao1bBgdNTC58NLBTof/2+DfCdMnI052bD1rm5lDDrlhQts9sPsWcal
+	iXdayNw3bA+5P5iJFBG6EBQKgaGbD7VIJ0zL22/0Bg0LTmOb0dg+IeK+WQV1HxaJTwxHVep3wdg
+	hlgw2p7yp3fhqyvtHqewWeo
+X-Received: by 2002:a05:622a:229d:b0:530:e429:ea81 with SMTP id d75a77b69052e-5336a4fedd4mr9984921cf.11.1790714665420;
+        Tue, 29 Sep 2026 13:44:25 -0700 (PDT)
+Received: from ?IPv6:2606:6d00:11:34bd::5ac? ([2606:6d00:11:34bd::5ac])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-917987e1439sm3860516d6.21.2026.09.29.13.44.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 13:44:24 -0700 (PDT)
+Message-ID: <b2430afd1f224f12d5b74349399892ad774874c3.camel@ndufresne.ca>
+Subject: Re: [PATCH] media: platform: mtk-mdp3: Fix device reference leak in
+ mdp_comp_init()
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Wentao Liang <vulab@iscas.ac.cn>, angelogioacchino.delregno@collabora.com
+Cc: hverkuil@kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+	linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com,
+ mchehab@kernel.org, 	moudy.ho@mediatek.com, stable@vger.kernel.org
+Date: Tue, 29 Sep 2026 16:44:22 -0400
+In-Reply-To: <20260917100721.2146044-1-vulab@iscas.ac.cn>
+References: <20260917100721.2146044-1-vulab@iscas.ac.cn>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-fdXlNmHJpaX9m6SU1Zhk"
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Input: atkbd - skip deactivate for Lenovo IdeaPad Slim 3
- 14IWC11
-From: Martino Papero <martino.papero@lcb.to.it>
-To: Hans de Goede <hansg@kernel.org>, Iustin Ivan <iustinivan2002@gmail.com>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260911182328.9267-1-iustinivan2002@gmail.com>
- <db8af2fe-481d-454b-a205-4f22cd9b7a0d@kernel.org>
- <f849e969-364c-4138-b4d0-ec761022a32f@lcb.to.it>
-Content-Language: en-US, it-IT
-In-Reply-To: <f849e969-364c-4138-b4d0-ec761022a32f@lcb.to.it>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: 9JlmH3iyPLzgemWWF9Fou-DUGXNdTqPo
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDA4MiBTYWx0ZWRfXzX4PcDGFh85E
- GiqboE8JyjiohHnoEtkhUvhRVaVCRL10/aWKG9PFm+QJogYvicTUtlu0V8BBkjFOx3noM20blfZ
- AzPxJ1jG6IeR4QklnnZzZKgmer6gbQYkkj0KM983MU5qB8loOXIyd+GggkHd6jvv9vHnGvtj8Iw
- rqv2fvdEWiVJ11cKqscjiMqCBoeX3J2KTwqTe4G0rMaAl8PjmcnFcOicDorFkkrevGNf8m4V3vB
- llCzz3WaFNbNaDcdzSYbgjgipip2mCEUZU9GH6zGsRToebWtnLJ+qgB/xP4esIWHHviya6Ck9Vv
- o+4CgMfnaFb8wBX3LGV+8iFibDYxoayUoosjo4G/VJaZwUEXsIoY2vY2GiWcKM=
-X-Authority-Info-Out: v=2.4 cv=K4Ev3iWI c=1 sm=1 tr=0 ts=6abc2177
- cx=c_apl:c_pps:t_out a=kRaGL2Q7qLiahLf3O6OaIA==:117
- a=kRaGL2Q7qLiahLf3O6OaIA==:17 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8
- a=3zCP-tckM5ql3hE0fiwA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: 9JlmH3iyPLzgemWWF9Fou-DUGXNdTqPo
-X-JNJ: AAAAAAABvqZ69FQdBawXlj+s49PQOgiboPcUwYZUMrWYErmdxHFYAdED5eSlp3rj3Y6HN/4Y6WIozw5nZpuw5Vz+kkhZ2YHbFKhCDx9DlF1EmoGF5/X+RgqiTm7lOqddiSeOr5GSlQ2LXaRXTjEF3P2myJRkYJNgvgcKvN6hr4veke+YcuyUKZQVUGv1VTH8bpQTPsciTCUUf6PB+5hkq6+bEallsgChhFJovl2dyWMop2JjBYT/aLH7mKixGPf+1+mCpT0XT/Zr9n09LJFdbbb4fm97OC9yMXZaZarjWqEgdE1uCYG8HFbgZYurEneiy1fqgHg+7cHGgsusIRPVclbiDjVQPVxIpd+BAOSorCTcCw+QAwCiqYeFlsoT5gwjCX5K4uOfzXwEwFXMNubyJHt699gFiF1nsqgUIJSGB4RKsHxfz846iuSXgGYCHV7GJti9ZKPZTYGZezoX++bEeBYAuuJGuTRy1Nep341R2Tum9T13i/zHHN8krmy4a0VyVaX4AWePAy4qo6U5KT71JM12efGSB5tSST+kW8+6gcxZOXef269sNn9zfRjlV1GeasMMuIvMbu7pa2QBylipMwtcVzsxC3dQ0AqCXOsMZH2kqxiXQs03TABFXdHQ1eNSx7uo2jduzfdY8hlZTN3XJsra2padRSKUFdUPWLCeo2Yt9meTcZElfbWx2OX7D7vxtfENlRIhpbbRDpRshCPhEmbAzCzVM37XCrVqFv0T8423O6K9PVT+G86Y1D4VZ2SHJzdPLSW+DDQgROfrK/o8BIuvKLVFG3LaFiXmBn7egxsiIMpbVNBjDy9IwrhTfUwo3bwein15YmWomTnhT2PUCzwpLMUPhD77DFRs9W+2qNHNMCnK6IeWuHykdT63Au9rrJ25s6j6MJhArV26jtUs7Ts/VpMzuIq/7PyuXC4z2LkmruN30tYQtIrGXzl2tOGXvrzRU/xiLqYuH5PavjnjU2Cj5uvtHjC
- U/wAXfKodBAOShx/MlYMZsfU5dQDrJIZ4bdzIBWUQrtABxU1evpcnhFJn/QOclohbQ4IpdKX/0+sto12UQDpD/fHZjegn4DiREimci4SIWM41QSNz2COuNVPH928HSpQFvYdHE37g6E2/xfICk93dcJHdiEQ9xuA2kMe/JEX+a/XsPnwic2sAZffcK7SnqQeTAL1+UbaU0S/eKTawLKQ4Mx0imrsUi19ck1/idm+5LV+ylZfbrVxHI+j6PJ/3zkGVNjB75szX37X0O1h8Iqd60MHu3zS7cz0EXPG7ppWOVGPO7lFLJ0wvCZ4ACuxT8Q+3i2h67xrFcfIOyYjUW+xD/qDchj1vLtCcA9uR4L5tl/KKwPmTr6rK7zQB
 
 
-Il 19/09/26 02:09, Martino Papero ha scritto:
->
-> Il 11/09/26 20:52, Hans de Goede ha scritto:
->> Hi,
->> I'm starting to wonder if we should not just make this behavior the 
->> default.
->>
->> IIRC the whole deactivate thing was added as a workaround for 
->> multi-byte scancodes
->> getting split-up during suspend/resume. I wonder if we can come-up 
->> with some
->> better fix for that ?
->>
->> Regards,
->>
->> Hans
->
->
-> Hi,
->
-> I tested the same atkbd_deactivate_fixup on a Lenovo IdeaPad Slim 3 
-> 15IWC11 (83RR), which was affected by the keyboard issue previously 
-> discussed here:
->
-> https://lore.kernel.org/all/20260628-ideapad-kbd-leds-v1-0-50b421d94927@gmail.com/ 
-> <https://lore.kernel.org/all/20260628-ideapad-kbd-leds-v1-0-50b421d94927@gmail.com/> 
->
->
-> Without any kernel quirk, the internal keyboard does not work. I had 
-> been using:
->
-> |i8042.nopnp=1 i8042.dumbkbd=1|
->
-> which makes the keyboard work, but prevents the Caps Lock LED from 
-> working.
->
-> I built Fedora kernel 7.2.5 with the following additional DMI entry:
->
-> {
->     /* Lenovo IdeaPad Slim 3 15IWC11 (83RR) */
->     .matches = {
->     DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
->     DMI_MATCH(DMI_PRODUCT_NAME, "83RR"),
->     },
->     .callback = atkbd_deactivate_fixup,
-> },|
->
-> I booted this kernel without any i8042 command-line parameters.
->
-> The internal keyboard and Caps Lock LED both work correctly. I also 
-> tested suspend/resume and a cold boot, with no issues so far.
->
-> DMI:
-> LENOVO 83RR
-> LENOVO_MT_83RR_BU_idea_FM_IdeaPad Slim 3 15IWC11
->
-> So it looks like the 83RR can use the same atkbd_deactivate_fixup as 
-> the 83RQ.
->
-> I can test a revised patch if needed.
->
-> Regards,
-> Martino
+--=-fdXlNmHJpaX9m6SU1Zhk
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Le jeudi 17 septembre 2026 =C3=A0 10:07 +0000, Wentao Liang a =C3=A9crit=C2=
+=A0:
+> mdp_comp_init() takes a reference to the component platform device
+> with of_find_device_by_node(), but the error path taken when the
+> clock array cannot be allocated and the one taken for a component
+> without a GCE EOF event return without dropping it.  The caller
+> frees the mdp_comp in those cases, so the reference is leaked.
+>=20
+> Release the reference on both error paths.
+>=20
+> Fixes: c4320f9721fd ("media: platform: mtk-mdp3: dynamically allocate com=
+ponent clocks")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 
-Hi,
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 
-Just following up on this.
+> ---
+>  .../media/platform/mediatek/mdp3/mtk-mdp3-comp.c   | 14 +++++++++++---
+>  1 file changed, 11 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-comp.c b/drive=
+rs/media/platform/mediatek/mdp3/mtk-mdp3-comp.c
+> index 7fcb2fbdd64e..acb2758a7b42 100644
+> --- a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-comp.c
+> +++ b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-comp.c
+> @@ -1730,6 +1730,7 @@ static int mdp_comp_init(struct mdp_dev *mdp, struc=
+t device_node *node,
+>  	struct device *dev =3D &mdp->pdev->dev;
+>  	struct platform_device *pdev_c;
+>  	int clk_ofst;
+> +	int ret;
+>  	int i;
+>  	s32 event;
+> =20
+> @@ -1756,8 +1757,10 @@ static int mdp_comp_init(struct mdp_dev *mdp, stru=
+ct device_node *node,
+>  	comp->clk_num =3D mdp->mdp_data->comp_data[id].info.clk_num;
+>  	comp->clks =3D devm_kzalloc(dev, sizeof(struct clk *) * comp->clk_num,
+>  				  GFP_KERNEL);
+> -	if (!comp->clks)
+> -		return -ENOMEM;
+> +	if (!comp->clks) {
+> +		ret =3D -ENOMEM;
+> +		goto err_put_device;
+> +	}
+> =20
+>  	clk_ofst =3D mdp->mdp_data->comp_data[id].info.clk_ofst;
+> =20
+> @@ -1782,7 +1785,8 @@ static int mdp_comp_init(struct mdp_dev *mdp, struc=
+t device_node *node,
+>  		if (of_property_read_u32_index(node, "mediatek,gce-events",
+>  					       MDP_GCE_EVENT_EOF, &event)) {
+>  			dev_err(dev, "Component id %d has no EOF\n", id);
+> -			return -EINVAL;
+> +			ret =3D -EINVAL;
+> +			goto err_put_device;
+>  		}
+>  	} else {
+>  		event =3D MDP_GCE_NO_EVENT;
+> @@ -1791,6 +1795,10 @@ static int mdp_comp_init(struct mdp_dev *mdp, stru=
+ct device_node *node,
+>  	comp->gce_event[MDP_GCE_EVENT_EOF] =3D event;
+> =20
+>  	return 0;
+> +
+> +err_put_device:
+> +	put_device(&pdev_c->dev);
+> +	return ret;
+>  }
+> =20
+>  static void mdp_comp_deinit(struct mdp_comp *comp)
 
-The 83RR is still working reliably with atkbd_deactivate_fixup after 
-further use, without i8042.nopnp or i8042.dumbkbd.
+--=-fdXlNmHJpaX9m6SU1Zhk
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 
-Would it be useful for me to submit a separate patch adding the Lenovo 
-IdeaPad Slim 3 15IWC11 (83RR) to the atkbd_deactivate_fixup DMI table?
+-----BEGIN PGP SIGNATURE-----
 
-I can prepare and test the patch on the affected hardware. 
-Alternatively, if the generic solution discussed above is preferred, I 
-am happy to test that as well.
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarwjJgAKCRDZQZRRKWBy
+9AzTAP9evVQ/rK1EdzWFKFNoZe85mZQymiN/AnmFnzuCNe0UMAEA2miyExzscQrC
+QApgG4LckhviwoffkCjd3tbgtsQ2eAU=
+=kfwh
+-----END PGP SIGNATURE-----
 
-Regards,
-Martino
-
-
+--=-fdXlNmHJpaX9m6SU1Zhk--
