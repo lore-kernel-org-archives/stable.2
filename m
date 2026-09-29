@@ -1,349 +1,168 @@
-Received: from mail-yx2-f40.google.com (mail-yx2-f40.google.com [74.125.224.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022085.outbound.protection.outlook.com [52.101.126.85])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07BE3395ACC
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 03:23:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.168
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790652202; cv=none; b=MR+loA/aAcRe2vCMnruJeeOHF8rJS1vRTIN6iGFNJMFl4IhBYKozs5bcu6KgJL26rEFoH4VBOACZRuUvJIy81puZMPZM7G4GmaVo/kRV2tTdYGoCfAzRqixPaf2QSVZ+G46lAu8pOT0tPYVzEtj/W0knO0iDtkZLTZ+zxj2tNRI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790652202; c=relaxed/simple;
-	bh=uNQzoL0DkP7LC8m7rn7E+jvjV4AXcM8fLkMcrHglncc=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type; b=AM8npzBbxjPvS0swONnWgemWAsj8VEFqHDv56VVsCCBOO0xHTurLULBw+NyvOVnJ7rrWsGZaRbwKfekTkmql89A6o7LdvoWpoezbiqLaLmybycEp+d2RWus57jom0uGGCmEMBCuNeWN3dMiDUvgBnPgG/qE1/KXhkiOV5mmCp8c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cYnTnGdM; arc=none smtp.client-ip=74.125.224.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69E903EF0D3;
+	Tue, 29 Sep 2026 03:26:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.85
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790652409; cv=fail; b=C7wTqt3QZQ0+mdPDdkUEmlujJ3n8CnIXqyCLhIGaSN/ggND7C1PgkBgPjeCPfmBoQbU/offigv3gJhdQ2mH/MiK3lmo4t1MuH5Vo3TS1NTwkDcq5Mumb5CO4lYa9DzWlVkq5IO9hZmDHCA3I5rpohSesmDfZmZPV2/+5a9wLFEc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790652409; c=relaxed/simple;
+	bh=tbPpjIgRCEQ6NfiDWPqvdplS7Uxz7Ynr7zV1HVEmFy4=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=tHjQrcj3z7I9Tc8fq6Ug/Wx5CapN7RwHVZKNeYSkCi68zekqQ3IVhKfDPJfVBrppngNmGaDXvrVMof9ZI/ewe0vDFAXOp2M/CXGi1FYfpmYdEfuNgyUgK29CCwPwufbnauS/Oyzd/7zsa1EN1DbePfw33rJ9wBu05uWfxLUybeg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; dkim=pass (2048-bit key) header.d=aspeedtech.com header.i=@aspeedtech.com header.b=EXROSext; arc=fail smtp.client-ip=52.101.126.85
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cYnTnGdM"
-Received: by mail-yx2-f40.google.com with SMTP id 956f58d0204a3-67568357b63so2689d50.1
-        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 20:23:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790652200; x=1791257000; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=WEn2fBY4eZ4Yetamg7UIqe5VCu7bhvysFxpD1bcP+Zs=;
-        b=cYnTnGdMORu79CJy2T9Iybxd46E/0PhYfjAjEiukHdgGW7Fd+bs/6oGvYra9UPGYBt
-         goyMwffmYg9l6P3uB7sweqV0r6x2hYrXGBuCFbYEdUNwdND09dMa3g4y/vof06jUBqvG
-         ZvJgVnnLvrEzrQPaRkHUVIuHiDs2iBLwuvYJx+OLboKaK8qXhew9vNrwVEbGVEzwqmbo
-         /xhzU9OlHWtYaf7qjSQQScqnXrh2EKZ5cJ4Pejlh/PnWLZNVf1/DM5qnKzZ1MUjGuY1k
-         O/RqAu0yjuN6rAzT9Ao+5WNZKGLSz45+9lXDAgTsnClJTCVv13U5g2OG3Nn8H6/qzJB7
-         1pWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790652200; x=1791257000;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WEn2fBY4eZ4Yetamg7UIqe5VCu7bhvysFxpD1bcP+Zs=;
-        b=szILFP2wyYOF9QRAr7GKj0f/N4iuA3Nm106+OnxhReJRrroL4lZS2I790B8Pxl7Tfh
-         K+kDmuUVr2ZD13wI1cvL3XUUrKTW9VGTH9sIgm3XjpaB/Px00djuDVobEjnzsPrEjP5F
-         N7pjvyGHJPMOf0S9NPqUvk/xBPtdiJXF94rQtkTTY57HaoN4lnQCMHNL5VdvA2FQLdfs
-         gHdl4spP3ZNG+tYYWGT2pyqF2SX9KNthwN/iPLqyfcn6KlHAYkiaWcn6Z3voxqTLxP/O
-         m4HK0JLCfQi+OisGVxxGY9+FcK/pE57aYhq+DoojZ+vntfsLxdTR2+cI59GtpObMvXam
-         TquA==
-X-Forwarded-Encrypted: i=1; AKwUvBxatJfU2zsgmCWl0IsG7cl9xJmiBi2QmjMH0cqK15OyJZw8RbEnbJHOGzFdzYo5K1Y+EcOgms4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJK+/s7eIAs766vDN6TPR57auvacg7c/z1tZBci1LekMRE8RuoQ
-	fRrBXmSdQg4NAb9KWDx8ssINZlhdCSDZ3+TWPVGuQVqA2T8sqsumzkGc
-X-Gm-Gg: AYBFou0phTNzsWeT1oYk2WlqHcja8LYocNl2ZVAirPQCyPDiUWJv69M9MtfgecAL5OZ
-	5KC2vAZJglHbcFSjf9+jADQEnZBfE/tFRt1jm4Lc6ceDoYAKKF9Lals2uPIMwY+99Jn1VWbZkRr
-	QinJw7RNO6DpXNtACg3RRjzZHQQcwcwV2aRx5WYA2oXm+9HguLeQ/z9BULaKq6WW3cKWsfpi478
-	uuqBwBWmge7xahAkI84pj6WUcSMlL69WDIrT2jhsh7AKnS2zUY0iw/p9NFtkJoh6JqRJBlmMHvJ
-	DKhLNtmaRB7tbZ5+9dhpIveRyvfG2C+TYOFsB29ML6+QVWO+zHiVDzD1Z9qLfsCig68H0ogHPX7
-	3lyj6sZJKiuyiNGCctjsr9HkT3fNSY5a8ufYGEFM+S0cDSSLUt9tbh1TPL8k69Wa68hoLEo41nC
-	7mrir/ds35sp/VQH3ucKi4cF3MWrOk7U/f5R2aq50NUtJwe97NEVO3l/4oj9+fUr7YSU6Rgi37v
-	aqlaOU1UOWLfNuKaWAf2Ec3Po30p3oXQoZrFTaU/3/glUZzyKlL
-X-Received: by 2002:a05:690e:4851:b0:674:17ca:25dd with SMTP id 956f58d0204a3-6755f0bfde8mr512832d50.78.1790652199670;
-        Mon, 28 Sep 2026 20:23:19 -0700 (PDT)
-Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a860e5e9besm54705637b3.11.2026.09.28.20.23.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 20:23:18 -0700 (PDT)
-Date: Mon, 28 Sep 2026 23:23:18 -0400
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: netdev-bot+sashiko@kernel.org, 
- willemdebruijn.kernel@gmail.com
-Cc: netdev@vger.kernel.org, 
- davem@davemloft.net, 
- kuba@kernel.org, 
- edumazet@google.com, 
- pabeni@redhat.com, 
- horms@kernel.org, 
- andrew+netdev@lunn.ch, 
- xietangxin@yeah.net, 
- willemb@google.com, 
- stable@vger.kernel.org
-Message-ID: <willemdebruijn.kernel.1c50b2a7a6f39@gmail.com>
-In-Reply-To: <179064047393.3145.16303551892146530587@kernel.org>
-References: <20260926140506.2335137-1-willemdebruijn.kernel@gmail.com>
- <179064047393.3145.16303551892146530587@kernel.org>
-Subject: Re: [PATCH net v2] net: extend IPv6 exthdr detection of tunneled
- packets
+	dkim=pass (2048-bit key) header.d=aspeedtech.com header.i=@aspeedtech.com header.b="EXROSext"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ygg+K6HIhnI6X6mdVPj1teZKSfZJn2P2bB+Ev0pIfQVNQGU+zezXsi5VactZaxo6+3IsDyV0KAASDQGBXN7N9epCtRsGuVeVg/WnyeR0+6L9fE2XTBWr+P6gJpbZVT/0D5c5AUBYRTXRfJQ64P8o87yaRUs8tZ+6pGuBantnlLTpHmOPsZXJCIxEpzzB5v1aBd6HoZvpMxFfX2op+hG+G+KxSEH6XwpJCIRRlFCZvA1uy50dRNgxbqfQSKIJczRwhQ/leXGomalYwn4HtNiP6C7W/0/EtOJtvJ/z8gD1VEAYM4R4wg9Laan4zNNF63qjwJoav69NuE8PrD0ewYl04Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tbPpjIgRCEQ6NfiDWPqvdplS7Uxz7Ynr7zV1HVEmFy4=;
+ b=XwI7nbZzC6LXuCCtmKhvGAfd0de5/sW9F0WLRQ9uPqL/XVb3uHjd1spX2RZKIRUKCjZ4H2K4jcGLy5Iy9zcCZ43h59VB62pv+ijpTPuxvY48ULVnRF45w54H5oz44JcI7ws5U+pl+o/JeovNs04vjAakQjj+f7u1XUXCpmh/7lJz0TYwGayxVj1H8xEBV3SDRJOkgjDqhT/kuoP57ThgpPq+IXT5VgHpWtYSAHTKTkdHKKPsrZIsD29dCNyp/4JawBNAjXD7CT3Qwe1WfU6EhaeuSw9kPFyjHkx4s51lCJ6DK+ksSdbE96yyKVTtk1Qry1b0JlyT5VbdOlE2SVGlzQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
+ header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tbPpjIgRCEQ6NfiDWPqvdplS7Uxz7Ynr7zV1HVEmFy4=;
+ b=EXROSextef+k6tP+n4y47G5jx/GCGbRENJBZ7Y8pE2nih1UauVC885opVup7k7sq0ForeDBmBU7EfDS73HCImyu5o1au6f+uByPE9uiM9eBMl/rhNXO0MswOPg6MDT4z3qNBIu0F7QRU/xrfPZUPRnpTewS/kBB3dVJEfLPw7Cn6/wPSPtAS/VnJ+P6EIejueeNnlBadFGB2LhCgzFL8ScOHb/auTWi7FaxppVBGddkLPQNXa31JzZ9EeB6c8PPN52JYZKGWjy8L8mSCc4MYeP8uUTDe7LRqaTwNW3rcPeL92L0O2aG9x5dzI/DAHLXYFP36YIoeJPSyyNV5sogiaA==
+Received: from TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com (2603:1096:408::791)
+ by TYNPR06MB8999.apcprd06.prod.outlook.com (2603:1096:405:3c4::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
+ 2026 03:26:43 +0000
+Received: from TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com
+ ([fe80::e00f:6219:946c:195e]) by TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com
+ ([fe80::e00f:6219:946c:195e%4]) with mapi id 15.21.0451.014; Tue, 29 Sep 2026
+ 03:26:43 +0000
+From: Ryan Chen <ryan_chen@aspeedtech.com>
+To: Borislav Petkov <bp@alien8.de>
+CC: Stefan Schaeckeler <sschaeck@cisco.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Tony Luck <tony.luck@intel.com>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "linux-aspeed@lists.ozlabs.org"
+	<linux-aspeed@lists.ozlabs.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "linux-edac@vger.kernel.org"
+	<linux-edac@vger.kernel.org>, Borislav Petkov <bp@suse.de>, Krzysztof
+ Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>
+Subject: RE: [PATCH v3 0/9] Add Aspeed AST2700 SDRAM EDAC support
+Thread-Topic: [PATCH v3 0/9] Add Aspeed AST2700 SDRAM EDAC support
+Thread-Index: AQHdRZyFCcJDuw2op0azvEk4NXStz7be1rUAgAYimjA=
+Date: Tue, 29 Sep 2026 03:26:42 +0000
+Message-ID:
+ <TY2PPF5CB9A1BE6EE1ABEB80D36C3365473F28C2@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
+References: <20260916-edac-v3-0-23e9ed2fbdf9@aspeedtech.com>
+ <20260925054444.GCarYKTAdrrJ5a2VYO@fat_crate.local>
+In-Reply-To: <20260925054444.GCarYKTAdrrJ5a2VYO@fat_crate.local>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=aspeedtech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY2PPF5CB9A1BE6:EE_|TYNPR06MB8999:EE_
+x-ms-office365-filtering-correlation-id: c72ec4b5-eba7-4ebe-1e0d-08df1dd97bb0
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|366016|1800799024|7416014|376014|38070700021|4143699003|10067099003|56012099006|18002099003|22082099003;
+x-microsoft-antispam-message-info:
+ qW2Wwdcl6S5ZE7jhp21B+xcq+k80mnE7QxALxzj6ZjYoYmF6qVvS+9EIfxN23N9PpMdnj1diFjTQltVdsLqzSNHP+MHVRndqX7V40Aa/jFTSeqxy6V/9GQmmn0isny3ZhyCv8jxlpLWusPBAZZGhva84+u+B7Je+AvbBCfLlan/SAOU/mqtB3RmaPU5RTgUmmXnXhX9znHVgzCAFTzD9AneYYOhSDpSYDdS5VFTIa9aNXwn6P/i94C36oJJLac7fNAhXu2Q5cLnj/Dq/bgslCLBtdsQoRTKUXQ4ke5ZU+aSUsDGtnWYinW1SC5oextKc9CctAaNoB9IVUc0AqxOK1TMaOH2llCzc5mqyA+cyM0auvyDdQxqty15UZd/6FtNQ9Dz3iKB8UQRVfW8IvyMK+njF3T1JRZp0pDTQuAGKiRXHnghhlIy44BMm2ZNOsW0wZqQ3hs7FJ9nWaPMylas6jY07aTMOwnjGVTGncRu/9zKl3r0sPuMOCzzpB9ZY/LzGjCqgceuu3aBZ3SZ+X7N+C8hdcCt2mmnBSm3LMYpP6qxXTDDc6dEr5sTWJa9rv60Opos3fUCzxK8+MNRYrEGmoFHAnfUAfmafTSaca5Lsa6qSOWjx8uOH1AdjiVFCbp+V9w6jKsWLY4XZo51Jw0IgZ5858qos+u9HEqZylGlVVmZ0Rh8zwl0JdJOlm9Tn2m7s823hei8U/r6CtwP/bY9yLVwdkNXDhbAC8w0aPw7ubtw=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:zh-tw;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(7416014)(376014)(38070700021)(4143699003)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?aTlVdWVsOE5jZXpwNm43UFMvaWZxekZsUms0RlFFc3l5WGhPZGYrT1lzN0c5?=
+ =?utf-8?B?NXJETEhiME5keWkxVjJuQ2p3SG41ak9oeThZMW9zUFBYYUZmTkpWZFV1VjR5?=
+ =?utf-8?B?NDJveEs3SHJUTEI2eHQ1R1VCZ0kwY2l3a1VvcHNmZjZnZFJocHdSNituOUZY?=
+ =?utf-8?B?Sk5Tck5rVGtSK3dteVYrZkFEZnk5cEJLK3RzUUJlYkN5bGFRQUl6bEdmdnZn?=
+ =?utf-8?B?RGRjUUdDajRYL3lUYUFPcWxGalRXSUhKVzV2M3ppdVhzbEwxRnRaMFJjMXBT?=
+ =?utf-8?B?d0VtKzRzNHN5OFo1UzA1NDBCTjJicFU1U0w3R3ZYTHF4MlFmekVHd2ttN0Fm?=
+ =?utf-8?B?T25wQzdwZWxlRUlHRFVnUlhGR3lvcW5VZjFlZGNGSzFPWHdWdVNBVWVGeERN?=
+ =?utf-8?B?VlJnRDBpaUtIY0l3Q3ZRdTU4Y0NJMDNGY0JaaEVEWDRibW1LREtyZ2d5SDMy?=
+ =?utf-8?B?YmE0d0pNSW9oRElxMS9rZ0cxRS96YlRzbG43cWUweldEQ0JTMUxpZUlMVWNX?=
+ =?utf-8?B?T0FwVmJmNTVqSEUyTHFhcGZIcVhPSmxlSFdMS0JHRkRjVnF5a2p4MkluNVBB?=
+ =?utf-8?B?UkNvbkQ5V1lmZGJoamIxOFY3NlN3U0hrazNiWkpMc2l6ZEc2QzVuaFQ2UE9S?=
+ =?utf-8?B?dXpCR2Y0TlJ5d28zL0NyTWNRYUlvU003enh6RlFERmNEMmJxNTBXcWpaTTZT?=
+ =?utf-8?B?RFgydTJHem1WNlhnMy9CTnA1dDdpNjZNSGpiUDk0Wi9MMHM2cWVjaWwzSHdN?=
+ =?utf-8?B?VWtwdXRVQnFHRDdyVDFLZEluV1Q4SVg3b1Z0TFVZZERNeFo5UWZkYTdJYzFB?=
+ =?utf-8?B?S2hybDBBa29DbXFLN3dNVDhxQ2dmQXNJZkNQYTVaZ0lRNUVHSWFJOXVNUkZj?=
+ =?utf-8?B?TGVmcjhkenB0RW5qeW9IdEV6NHJoVlg5NEZaUDk1R3IxSlJoTWp6RThGYUJE?=
+ =?utf-8?B?WjVnYzV2Z1B2QW5BWmJoc2YvMi9BbzUzSGIxQ2Q3QnFZK05hQXBzNzcwVGRw?=
+ =?utf-8?B?eGpFbVpWZ2RBT2w3aWVUQngwSW5ydGltb2htY1RrUDZKWGkybXg0T1kwN1Zw?=
+ =?utf-8?B?WmorMTlRaGMwWXZjN1FUbGdjVDZTNVpDRDZyRUljTVYyNVlPNlF2d1NOWjl1?=
+ =?utf-8?B?VHpPVU12am9JUWdkZkpGblJZTy9lQmdaRGpvZUJUbnlndnpiQXMrZjZuK005?=
+ =?utf-8?B?dzRzVzAwY0EvUEJDMWpLTG9pRFlNS0dCSFZ4ZE5GMVFHSE12NlE4K2xSSWRB?=
+ =?utf-8?B?V0NsTmlDWmlla041eDNpUSsvTjFpaVFoQUt3ajBmMlFJbGhhalNYc1phUVZu?=
+ =?utf-8?B?WXpVMUkra3U3ZTMvb21pbE5UVG92YUR4RHplUFFVdVpQWGhTOS9JZjA3V3g2?=
+ =?utf-8?B?UEV5cVRDUzN0Zm9nUzdSMFhDbVZnR1N0SXA3R25ycEtkQXJ1OGUyTWMyekVW?=
+ =?utf-8?B?WGZnbHh1YW00cVlpWWNvODRXS3gzQ3lZWWVnSHViVS9pbUZuUDJLSTBWUnZ5?=
+ =?utf-8?B?WlNCb0VKVEQ3WWUvdG5IcTRFUmJwUENjNGE3bHdqZWFjdmo5eFROZU9Mckty?=
+ =?utf-8?B?SjlIcG1CbTZtVmZkTWF5SThZaTRTZCtBQW5WcXk5MElETG5xTXcyQUt6OExo?=
+ =?utf-8?B?NjdibWZBdW9QMVRqYlBPeG5EUmRsYUM0MmoxTnM1aWtabFIyQ3h2SUFpOFh6?=
+ =?utf-8?B?OUF3TDQ0UFJkZzkzck5GaDViRTlBeE03WCtsSzhTUFZLNjdCeUdoMFpxZDFr?=
+ =?utf-8?B?U1c3ay9xY3l6TGIrN2JDYUg2S0NnOHlSYWtlVmo3OUNLUE5QTFg2MzBIQUMr?=
+ =?utf-8?B?T1VYcEQyRTk3N2M1Q0tMZ0FkWWJoQ3JLMThWK29QenF4cXlPcTNzV2NURWlx?=
+ =?utf-8?B?ampCUmU0Q21oMFRuUjQ4cUREdXRXK3c3WDRYSWlnTHdnc3ljeDZjVk5XbUNx?=
+ =?utf-8?B?ekFSSm41ZGh6dGF4eWlpc2lWTGxOMXQ3ZkF5aW91U09aTEQxRGF4NUZ6M3Qz?=
+ =?utf-8?B?Ny9iTEsrY0tKME10VC9DYjVTS0M2RWJSdERtS04wQkxJMVl4R01vWlNQOUlZ?=
+ =?utf-8?B?YmFsSnZGQVFOL2ppWU96VFZxNDlWZmRIR2swVGFIenZLVy9COFREcjBYZDhs?=
+ =?utf-8?B?SmRvS2dJVzJvdSt0cGpFMDlyUnFzYTlHQkRtamVVdENVazJyZCtsbXhZQ2NT?=
+ =?utf-8?B?OWdzWW1xdG8vLzRQRXM4N2tOWFdWbEsrVnMyM0R1TWRjNU1JNjhMelR4aHFh?=
+ =?utf-8?B?RkwxeFhxdTJvMlJHTS92V2pscVZKT2EwSlhqZDhDZS9BcndwSmVHVWc4ODkr?=
+ =?utf-8?B?Tzd0V2Y1MGs5dEl2Q2xEV2F6SU5wcUhjSmEzNStUTUMybitwb0tEQT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: aspeedtech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c72ec4b5-eba7-4ebe-1e0d-08df1dd97bb0
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Sep 2026 03:26:42.9762
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 8epU82AFNkKzIuNRXhIQy1wNheUY1tNkX/cC5axbYvQc8z1wLKL/jnAx+p0GHc6R5flvdamBzugPZAriRWXUDbxj9Sw95rG/zZCsb/zshhI=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYNPR06MB8999
 
-netdev-bot+sashiko@ wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential
-> issue(s) to consider.
-> =
-
-> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 2
-> =
-
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchw=
-ork
-> know by including "pw-bot: cr" as a separate line at the end of your re=
-ply
-> (one such reply per series is enough).
-> =
-
-> - [Medium] net: unnecessary software checksum fallback for outer UDP
->   tunnels
-> - [Low] The old non-encapsulated branch cleared features only for
->   SKB_GSO_TCPV6, or for SKB_GSO_UDP_L4 over IPv6.
-> - [Low] The in-tree NETIF_F_IPV6_CSUM contract
->   (include/linux/skbuff.h:77-86) still says the feature covers only=E2=80=
-=A6
-> =
-
-> --
-> =
-
-> > +static bool skb_has_ipv6_extension_hdr(const struct sk_buff *skb)
-> > +{
-> > +	if (vlan_get_protocol(skb) =3D=3D htons(ETH_P_IPV6)) {
-> > +		if (__skb_has_ipv6_ext_hdr(skb, skb_network_offset(skb)))
-> > +			return true;
-> =
-
-> [Severity: Low]
-> =
-
-> The removed non-encapsulated branch cleared features only for
-> SKB_GSO_TCPV6, or for SKB_GSO_UDP_L4 over IPv6. The new outer check has=
- no
-> gso_type gate. Is it meant to apply to every IPv6 GSO type?
-> =
-
-> SKB_GSO_SCTP is one type whose behaviour changes. sctp_packet_pack()
-> always makes the GSO head CHECKSUM_PARTIAL:
-> =
-
-> net/sctp/output.c:sctp_packet_pack() {
->     ...
-> 	if (gso) {
-> 		...
-> 		goto chksum;
-> 	}
->     ...
-> chksum:
-> 		head->ip_summed =3D CHECKSUM_PARTIAL;
-> 		head->csum_not_inet =3D 1;
->     ...
-> }
-> =
-
-> Take SCTP over IPv6 with IPV6_DSTOPTS or IPV6_RTHDR set.
-> gso_features_check() now clears NETIF_F_IPV6_CSUM. harmonize_features()=
-
-> then sees ip_summed !=3D CHECKSUM_NONE and
-> !can_checksum_protocol(features, ETH_P_IPV6). It strips all of
-> NETIF_F_CSUM_MASK, including NETIF_F_SCTP_CRC, plus NETIF_F_GSO_MASK:
-
-NETIF_F_SCTP_CRC is not part of NETIF_F_CSUM_MASK:
-
-#define NETIF_F_CSUM_MASK       (NETIF_F_IP_CSUM | NETIF_F_IPV6_CSUM | \
-                                 NETIF_F_HW_CSUM)
-
- > validate_xmit_skb()
->   netif_skb_features()
->     gso_features_check()    /* clears NETIF_F_IPV6_CSUM */
->     harmonize_features()    /* clears NETIF_F_CSUM_MASK, NETIF_F_GSO_MA=
-SK */
->   skb_gso_segment()
->     sctp_gso_segment()      /* CRC32c computed in software per segment =
-*/
-> =
-
-> Some devices have NETIF_F_IP_CSUM | NETIF_F_IPV6_CSUM | NETIF_F_SCTP_CR=
-C
-> but no NETIF_F_HW_CSUM. One example is hns3 without
-> HNAE3_DEV_SUPPORT_HW_TX_CSUM_B. On such a device the CRC32c was offload=
-ed
-> before this patch and is computed in software after it. The output is
-> still correct, so only performance is affected.
-> =
-
-> Could the gso_type restriction be kept here? If not, could the commit
-> message say that the check now covers all IPv6 GSO types?
-> =
-
-> > +
-> > +		/* Catch tunnels without skb->encapsulation (e.g., virtio). */
-> > +		if (!skb->encapsulation &&
-> > +		    skb_transport_header_was_set(skb) &&
-> > +		    skb_network_header_len(skb) !=3D sizeof(struct ipv6hdr))
-> > +			return true;
-> > +	}
-> =
-
-> [ ... ]
-> =
-
-> > @@ -3988,8 +4004,7 @@ int skb_csum_hwoffload_help(struct sk_buff *skb=
-,
-> >  		return 0;
-> >  =
-
-> >  	if (features & (NETIF_F_IP_CSUM | NETIF_F_IPV6_CSUM)) {
-> > -		if (vlan_get_protocol(skb) =3D=3D htons(ETH_P_IPV6) &&
-> > -		    skb_network_header_len(skb) !=3D sizeof(struct ipv6hdr))
-> > +		if (skb_has_ipv6_extension_hdr(skb))
-> >  			goto sw_checksum;
-> >  =
-
-> >  		switch (skb->csum_offset) {
-> =
-
-> [Severity: Medium]
-> skb_has_ipv6_extension_hdr() checks the inner IPv6 header whenever
-> skb->encapsulation and the inner network header are set. That is right
-> for gso_features_check(), where the device computes the inner checksum
-> of every segment. Here it is applied regardless of which checksum is
-> being offloaded.
-> =
-
-> The commit message describes the case where this matters: if the inner
-> packet is CHECKSUM_NONE, the device offloads the outer UDP checksum.
-> csum_start then points at the outer UDP header and the device does not
-> need to parse any further.
-> =
-
-> Suppose the inner packet is IPv6 with, say, a Destination Options
-> header. The inner check still returns true, and the outer checksum is
-> now computed in software:
-> =
-
-> validate_xmit_skb()
->   skb_csum_hwoffload_help()
->     skb_has_ipv6_extension_hdr()
->       __skb_has_ipv6_ext_hdr(skb, skb_inner_network_offset(skb))
->                           /* inner nexthdr =3D=3D NEXTHDR_DEST */
->     skb_checksum_help()   /* outer UDP csum in software */
-> =
-
-> Before this patch, skb_csum_hwoffload_help() only compared the outer
-> network header length, so the outer checksum was offloaded.
-> =
-
-> The same regression affects an IPv4 outer header on a NETIF_F_IP_CSUM
-> device. The old test never looked at those packets, because
-> vlan_get_protocol() returned ETH_P_IP.
-> =
-
-> The output is still correct, so this is a performance issue. Whether
-> it triggers depends on the contents of the inner packet.
-> =
-
-> For non-GSO skbs that are not CHECKSUM_PARTIAL,
-> iptunnel_handle_offloads() clears skb->encapsulation. That likely hides=
-
-> this for the common in-tree tunnels, but the helper should not depend
-> on it.
-
-This is the key bit: tunnels disable skb->encapsulation when
-checksumming of outer packet is requested.
-
-This is not only something the "common in-tree tunnels" do, but
-required.
-
-For one, validate_xmit_skb sets either the inner or outer transport
-header to csum_start depending on skb->encapsulation just before
-calling this function.
-
-        if (skb->ip_summed =3D=3D CHECKSUM_PARTIAL) {
-                if (skb->encapsulation)
-                        skb_set_inner_transport_header(skb,
-                                                       skb_checksum_start=
-_offset(skb));
-                else
-                        skb_set_transport_header(skb,
-                                                 skb_checksum_start_offse=
-t(skb));
-                if (skb_csum_hwoffload_help(skb, features))
-                        goto out_kfree_skb;
-        }
-
- =
-
-> Could the inner check be skipped here when the checksum being
-> offloaded is not the inner one? For example, it could be skipped when
-> skb_checksum_start_offset(skb) is below skb_inner_network_offset(skb).
-> =
-
-> Note that validate_xmit_skb() sets inner_transport_header to csum_start=
-
-> just before calling skb_csum_hwoffload_help(). That field therefore
-> cannot tell the two cases apart.
-> =
-
-> [Severity: Low]
-> =
-
-> The NETIF_F_IPV6_CSUM description in include/linux/skbuff.h still says:=
-
-> =
-
->  *     - Driver (device) is only able to checksum plain
->  *	 TCP or UDP packets over IPv6. These are specifically
->  *	 unencapsulated packets of the form IPv6|TCP or
->  *	 IPv6|UDP where the Next Header field in the IPv6
->  *	 header is either TCP or UDP. IPv6 extension headers
->  *	 are not supported with this feature.
-> =
-
-> skb_has_ipv6_extension_hdr() rejects only extension headers in the oute=
-r
-> and first inner IPv6 header. It also skips the length check when
-> skb->encapsulation is set. As a result, skb_csum_hwoffload_help() retur=
-ns
-> 0 for encapsulated packets whose outer nexthdr is GRE, UDP or IPv6.
-> =
-
-> Encapsulated GRE and UDP over IPv6 could already be offloaded before th=
-is
-> patch. The new case is IPv6|IPv6|TCP from ip6_tunnel with encaplimit
-> none. The old network-to-transport length check sent it to
-> skb_checksum_help(). Now it goes to the device.
-> =
-
-> The commit message says:
-> =
-
->   A NETIF_F_IPV6_CSUM device must parse through the outer headers to
->   reach the inner ones.
-> =
-
-> Should this requirement also go into the NETIF_F_IPV6_CSUM documentatio=
-n
-> in skbuff.h? Driver authors who set the bit in hw_enc_features would th=
-en
-> know about it.
-> =
-
-> -- =
-
-> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/pat=
-chset/20260926140506.2335137-1-willemdebruijn.kernel%40gmail.com
-
-
+PiBTdWJqZWN0OiBSZTogW1BBVENIIHYzIDAvOV0gQWRkIEFzcGVlZCBBU1QyNzAwIFNEUkFNIEVE
+QUMgc3VwcG9ydA0KPiANCj4gT24gV2VkLCBTZXAgMTYsIDIwMjYgYXQgMDE6MzA6MzdQTSArMDgw
+MCwgUnlhbiBDaGVuIHdyb3RlOg0KPiA+IEFkZCBFQ0MgZXJyb3IgcmVwb3J0aW5nIGZvciB0aGUg
+QXNwZWVkIEFTVDI3MDAgU29DIHRvIHRoZSBleGlzdGluZw0KPiA+IGFzcGVlZF9lZGFjIGRyaXZl
+ci4NCj4gPg0KPiA+IFRoZSBBU1QyNzAwIG1lbW9yeSBjb250cm9sbGVyIGtlZXBzIHRoZSBzYW1l
+IG92ZXJhbGwgRURBQyBwcm9ncmFtbWluZw0KPiA+IG1vZGVsIGFzIHRoZSBlYXJsaWVyIEFzcGVl
+ZCBCTUMgU29DcywgYnV0IHVzZXMgYSBkaWZmZXJlbnQgcmVnaXN0ZXINCj4gPiBsYXlvdXQsIGEg
+c3BsaXQgaW50ZXJydXB0IHN0YXR1cy9jbGVhci9tYXNrIHNjaGVtZSBhbmQgRERSNC9ERFI1IG1l
+bW9yeS4NCj4gPiBSYXRoZXIgdGhhbiBmb3JrIHRoZSBkcml2ZXIsIHRoZSBleGlzdGluZyBjb2Rl
+IGlzIGZpcnN0IHRpZGllZCBhbmQNCj4gPiBnZW5lcmFsaXNlZCwgdGhlbiB0aGUgQVNUMjcwMCBp
+cyBhZGRlZCBhcyBvbmUgbW9yZSBwZXItU29DIHZhcmlhbnQuDQo+ID4NCj4gPiBQYXRjaGVzIDIt
+NSBhcmUgYnVnIGZpeGVzIGFuZCBjbGVhbnVwcyB0byB0aGUgZXhpc3RpbmcgZHJpdmVyLg0KPiAN
+Cj4gWW91IGFsd2F5cyBwdXQgdGhlIGJ1ZyBmaXhlcyBmaXJzdCBpbiBhIHNldC4gU28gaXQgc2hv
+dWxkIGJlIDEtNCBidWdmaXhlcywgcmVzdCBuZXcNCj4gZmVhdHVyZXMuDQo+IA0KPiAtLQ0KVGhh
+bmtzIHlvdXIgcmV2aWV3Lg0KDQpJJ2xsIHJlb3JkZXIgZm9yIHY0Og0KDQogIDEgIEVEQUMvYXNw
+ZWVkOiBTZXQgdGhlIERJTU0gZ3JhaW4NCiAgMiAgRURBQy9hc3BlZWQ6IEZyZWUgdGhlIGludGVy
+cnVwdCBiZWZvcmUgdGhlIG1lbV9jdGxfaW5mbyBvbiByZW1vdmUNCiAgMyAgRURBQy9hc3BlZWQ6
+IENsZWFuIHVwIHdoaXRlc3BhY2UgYW5kIGluY2x1ZGUgb3JkZXJpbmcNCiAgNCAgRURBQy9hc3Bl
+ZWQ6IEZyZWUgdGhlIG1lbV9jdGxfaW5mbyB1bmNvbmRpdGlvbmFsbHkgb24gcmVtb3ZlDQogIDUg
+IGR0LWJpbmRpbmdzOiBlZGFjOiBhc3BlZWQ6IEFkZCBBU1QyNzAwIFNEUkFNIEVEQUMNCiAgNiAg
+RURBQy9hc3BlZWQ6IFJlcGxhY2UgcmVnbWFwIHdpdGggZGlyZWN0IHJlZ2lzdGVyIGFjY2Vzcw0K
+ICA3ICBFREFDL2FzcGVlZDogQWJzdHJhY3QgU29DIGRpZmZlcmVuY2VzIGJlaGluZCBjaGlwIGRh
+dGENCiAgOCAgRURBQy9hc3BlZWQ6IEFkZCBBU1QyNzAwIHN1cHBvcnQNCiAgOSAgTUFJTlRBSU5F
+UlM6IEFkZCBhIHJldmlld2VyIGZvciB0aGUgQXNwZWVkIEVEQUMgZHJpdmVyDQoNCjEgYW5kIDIg
+Y2FycnkgdGhlIEZpeGVzOiB0YWdzLCAzIGFuZCA0IGFyZSB0aGUgY2xlYW51cHMsIGFuZCA1IG9u
+d2FyZHMNCmlzIHRoZSBBU1QyNzAwIHdvcmsuDQoNClJ5YW4NCg==
