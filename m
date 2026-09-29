@@ -1,98 +1,132 @@
-Received: from mta0.migadu.com (out-229.mta0.migadu.com [91.218.175.229])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2705E3D45FE
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 14:47:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.229
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9FAC1DF748;
+	Tue, 29 Sep 2026 14:48:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790693237; cv=none; b=jD+p0tZnfl+SnXz/GIQuI0FgHlFcb5EtBF9lC2UcK97YOqedhrMguGeIcZSUeGM9XjcRoTZla+g3Fl6uuvoWrH/sjmCmCP9pLW3+8bwvx9rjs1++D6YOfBuQlB2WuZQ3aeLj4hp+mkBtCUy01dCTo16cxBlpQpbFa5li/Qa5khk=
+	t=1790693326; cv=none; b=Eu+AFeJihGB36jvE6bnk0boOPmB56YqfCXYAXE0hKvzoERaoAjno2QWE0+KL3JiO4is4A2hlqpQg61SGGFID2KX4ZtAxy+VNs1uEvfxHvKrEbwd5Ut6Q2zyZifb+nvcG0q6aOH8HNtpVCoANEXs8fVgmYShq2CO/DA5+lOQM3fw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790693237; c=relaxed/simple;
-	bh=PaHoAXPcrpcqQeGw4Tb6R83pqd8LYLw0tH22EeiqQ8E=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=V3F0/0GxEKyJ+qTPwClgXeghCLtw05oikwkGVZ5hE0VueafF93aggaEZJ0Wcz+fj8vAdZVjLhgsQHMDjyGojBZ4P8eG49q3xx8z6AkuHdRrpse2UruUcit11qf/L73jxv+7FsavcPlN4TvndJv486QvA13E+oQuAxbo/G5YDPX8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=KyHbqqjP; arc=none smtp.client-ip=91.218.175.229
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790693326; c=relaxed/simple;
+	bh=L9t2Par57RVjHecI7nYs/b1rSeqUDJVuRULt6+FZQsk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HKPUFCoyXoZx/BUazDr2zDS2NWE05iteDOmV0b03cMsTHCr+6d+l2Fi5uwDjcBfFNqPkUiHLzGCWYrVcKamqYM7FKNoqxmutObl3Ew5CLUrLLc7powSgxC9g7x583gchKlJ6kSvm6kjJrQueIKntFi8GX8jpvUSNRlsekVeb7rM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FVJAU006; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="KyHbqqjP"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=PaHoAXPcrpcqQeGw4Tb6R83pqd8LYLw0tH22EeiqQ8E=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790693231; v=1; x=1791298031;
- b=KyHbqqjPWvtl0nfZ854sy61IxM7VlJfp9BMUTCk7kyqXIcQWgdlKjYmm956T99rVu0xxGGkI
- NGhEjw9GDYwycFBr7wyzBMkxnL2miywpQJFKgTHbxBkCoMO7+3FWqDscqTjh402IY/bn+439spB
- jz4+Lh5pZ6Ca6RWXl56DY9Pg=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 3e25ca576f8389c8;
-	Tue, 29 Sep 2026 14:47:11 +0000
-X-Mizu-Trace-ID: 3e25ca576f8389c8
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5b8ea0ca5baso8722e87.1
-        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 07:47:11 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxO1Mk03NzOxjmpq+SBKzAjzOouYJOmZQJB21XAaNZzruk1VgJNSxb9PARlXBx2/QbivD6h4ao=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKCrtDxmS9cZDAuO+S705naC9Ka1Q3+qyvv/GHq5iV6ph+klpzG
-	F0ELy31PuFWaxYjPxV/iOP6lS0rxuYPTB0S4QepMP88C9h58NNsQXV5qG32Z/CzNjNdbx6nXQjO
-	Aa4BDczrr5N7anchdLyPttGrgTYDtKInTZNGLQA1l
-X-Received: by 2002:a05:6512:4015:b0:5ba:3797:2359 with SMTP id
- 2adb3069b0e04-5ba37972460mr33642e87.2.1790693229297; Tue, 29 Sep 2026
- 07:47:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FVJAU006"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 070621F000FF;
+	Tue, 29 Sep 2026 14:48:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790693324;
+	bh=I9X4U7BvKdhfzPkylrAkQ7XYLNAWNJVOd5c9E00Jn3I=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=FVJAU006/P9MSKnk0RmiD4AM7X4oMnhDDkFLkSzEEcTDgEgyTNBh3JDwLsu40j+N/
+	 BsGdCkdenWxx8MYtMcdrwsnUlzFFzmrjKudeGbStmxoNw6vSHW4X/qMTVuNoGta1Na
+	 klpbXM7CTIVUZVCSTv1CKNulvzLHWwF/Izn9P18p/wVCvPirMuM50dj7KEpEpwUymV
+	 WW/HEre4oeQoixxWAzbRr0dod1gXUnsnmzMboSbkDwYD3Gp+stJdXLGIGep1cpVJfO
+	 ROuccSH56lVZFy3oOWYZRRxX8xHhYvLdsZyDmC/NZLDmk8ohK1qbC5i9j4wAOcjHQp
+	 RwDu8s28YznRA==
+Message-ID: <2724369e-1e16-44dc-8c93-835aec73b415@kernel.org>
+Date: Tue, 29 Sep 2026 16:48:41 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260929093548.3598547-1-maz@kernel.org> <20260929093548.3598547-2-maz@kernel.org>
- <CA+EHjTwZSFUZmavbB4tE-eFxHg9WF80CA230EwvynuNcZQ0prg@mail.gmail.com> <86a4p0403b.wl-maz@kernel.org>
-In-Reply-To: <86a4p0403b.wl-maz@kernel.org>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Tue, 29 Sep 2026 15:46:33 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTyuXSLw8kfRu4QB5+UdrTzc=LVQdWs+SHPvGA1NS-wySQ@mail.gmail.com>
-X-Gm-Features: AclHuK-PJma5Gz1v-jtnuLZMTzpONJmBik9WyxHWow9PmByLldd07rhmiNwGARY
-Message-ID: <CA+EHjTyuXSLw8kfRu4QB5+UdrTzc=LVQdWs+SHPvGA1NS-wySQ@mail.gmail.com>
-Subject: Re: [PATCH v2 1/7] KVM: arm64: Move OUTSIDE_GUEST_MODE publication
- past context being saved
-To: Marc Zyngier <maz@kernel.org>
-Cc: kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	Steffen Eiden <seiden@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Oliver Upton <oupton@kernel.org>, 
-	Zenghui Yu <yuzenghui@huawei.com>, Yuchao Zhang <ndaugoing@gmail.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] media: uvcvideo: preserve status URB interval on resubmit
+To: raoxu <raoxu@uniontech.com>, laurent.pinchart@ideasonboard.com
+Cc: mchehab@kernel.org, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <F0F008459FFA835D+20260813074632.2021311-1-raoxu@uniontech.com>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <F0F008459FFA835D+20260813074632.2021311-1-raoxu@uniontech.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Marc,
+Hi,
 
-On Tue, 29 Sep 2026 15:13:28 +0100, Marc Zyngier <maz@kernel.org> wrote:
-[...]
-> However, there is a problem if cmpxchg() fails, as there is no
-> ordering in that case, and I'm not sure the smp_mb__before_atomic()
-> saves the bacon in that case. It feels we'd need an acquire
-> somewhere, a bit like this:
+On 13-Aug-26 09:46, raoxu wrote:
+> From: Xu Rao <raoxu@uniontech.com>
+> 
+> usb_fill_int_urb() takes an endpoint interval value and stores the
+> period expected by usb_submit_urb() in urb->interval. For high-speed
+> and SuperSpeed interrupt endpoints, it converts the logarithmic
+> descriptor encoding to the corresponding microframe period.
+> 
+> The UVC status URB is initialized once in uvc_status_init(), including
+> the UVC_QUIRK_STATUS_INTERVAL adjustment required by high-speed devices
+> that report bInterval using the old full-speed convention. The first
+> submission therefore carries the intended interval.
+> 
+> Both status resubmit paths, however, overwrite urb->interval with the
+> raw endpoint bInterval before submitting the same URB again. On
+> high-speed and SuperSpeed devices this mixes the descriptor encoding
+> with the already converted URB interval representation. For devices
+> using UVC_QUIRK_STATUS_INTERVAL it also deterministically discards the
+> quirk adjustment after the first status completion, making the
+> workaround effective only for the initial submission.
+> 
+> This has been easy to miss because the initial status submission is
+> correct, full-speed interrupt endpoints do not have the same
+> logarithmic encoding mismatch, and the status endpoint carries
+> relatively infrequent control and streaming notifications rather than
+> the video payload itself. The problem only appears after the status URB
+> has completed and is resubmitted, and the externally visible effect
+> also depends on how the host controller handles the resulting period.
+> 
+> Do not restore bInterval when resubmitting the status URB. Reuse the
+> interval established by usb_fill_int_urb() and usb_submit_urb(), which
+> also preserves the quirk-adjusted value. No additional state or
+> interval conversion is needed because the same URB is being reused.
+> 
+> Fixes: c0efd232929c ("V4L/DVB (8145a): USB Video Class driver")
+> Fixes: e5225c820c05 ("media: uvcvideo: Send a control event when a Control Change interrupt arrives")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Xu Rao <raoxu@uniontech.com>
 
-It doesn't save the bacon. I ran it through herd7 with the LKMM, the
-fold walk in vgic_v3_fold_lr_state() against the list_del() in
-vgic_flush_pending_lpis(): with smp_mb__before_atomic() and a failing
-cmpxchg(), the walk can see the list_del(). With your
-smp_load_acquire() it can't.
+Thank you for your patch.
 
-[...]
-> We need a release so that we know for sure that any state stored
-> before is visible by the time we can observe OUTSIDE_GUEST_MODE, and
-> WRITE_ONCE() doesn't provide that (it can be reordered).
->
-> I don't see what taking a lock changes to the ordering requirement.
+I have merged this into:
 
-The fold walk takes no lock, so the locks on the halt side don't order
-it against the list_del(). herd7 agrees: WRITE_ONCE() with your
-acquire can see the list_del() again.
+https://gitlab.freedesktop.org/linux-media/users/uvc/-/commits/for-next/
 
-[...]
-> I don't understand what sashiko is trying to say, but this is clearly
-> missing from the patch, see below. Not sure how I missed that one.
+Regards,
 
-I don't understand Sashiko half of the time either :) That said, the
-diff looks right to me.
+Hans
 
-Cheers,
-/fuad
+
+> ---
+>  drivers/media/usb/uvc/uvc_ctrl.c   | 1 -
+>  drivers/media/usb/uvc/uvc_status.c | 1 -
+>  2 files changed, 2 deletions(-)
+> 
+> diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
+> index 3ca108b83f1d..6552f541aa0d 100644
+> --- a/drivers/media/usb/uvc/uvc_ctrl.c
+> +++ b/drivers/media/usb/uvc/uvc_ctrl.c
+> @@ -2196,7 +2196,6 @@ static void uvc_ctrl_status_event_work(struct work_struct *work)
+>  		return;
+> 
+>  	/* Resubmit the URB. */
+> -	w->urb->interval = dev->int_ep->desc.bInterval;
+>  	ret = usb_submit_urb(w->urb, GFP_KERNEL);
+>  	if (ret < 0)
+>  		dev_err(&dev->intf->dev,
+> diff --git a/drivers/media/usb/uvc/uvc_status.c b/drivers/media/usb/uvc/uvc_status.c
+> index b632cf5e3fe9..680c6c7f4ad7 100644
+> --- a/drivers/media/usb/uvc/uvc_status.c
+> +++ b/drivers/media/usb/uvc/uvc_status.c
+> @@ -245,7 +245,6 @@ static void uvc_status_complete(struct urb *urb)
+>  	}
+> 
+>  	/* Resubmit the URB. */
+> -	urb->interval = dev->int_ep->desc.bInterval;
+>  	ret = usb_submit_urb(urb, GFP_ATOMIC);
+>  	if (ret < 0)
+>  		dev_err(&dev->intf->dev,
+> --
+> 2.50.1
+
