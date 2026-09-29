@@ -1,75 +1,75 @@
 Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70D01345725
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 14:36:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DEA53CBE69
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 14:37:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790692615; cv=none; b=Wmg/jfQIom50eytO6wD3ZkMYZ7s8hpbnHK3Vrg42j9ftYffR0xOrsJikrOHFKSdBbUeUhl42UKlKAVLCpw3YAHfg7XZeXT5T83ygUdjvIWOcOTsSL77W6OnNlBoVJUu84FwJwY1dDFb07Q8YbXAeoIiE7Frt+jhLFUsUjKkLr5M=
+	t=1790692624; cv=none; b=syWwZ6hHIJl6Spumd7ycD0GoKt81Es2zYdbVXXpDB6wP3mEmf1i7lVLFBTNZq701w9LvNacdYVeILIHCy+fpLCuFAGyhheaoH3WAR4aDcNPgbOh/iiipZVZh3WD2Q4l7V2DOlDHDv5bSMWRm8j02KjrBaMkPc92Ejcf3fAI8Q+M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790692615; c=relaxed/simple;
-	bh=oJj5tRHxXa24x49eDQrlaCEEz5kNaJijRwulDQDl+So=;
+	s=arc-20240116; t=1790692624; c=relaxed/simple;
+	bh=BTknYIxJARgy3GfU50QFZwe7VvSB2sra8BALvCRz9XI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DfcV+5U/xvToWgQMbYXAuUwsFb55vDXZ1gJ+8+yyfngw7JD4DcE/b2xvr6bAw9iyiIPKR7tO/gNGhq25OErOlrrzjIotpO+HrQWVR2LbsOVLd9IbwVACkM1H0Tom7Tl1kcXmJewlx7aiomdq2lNThzpQpxG4Tz+in8ROao3I+QY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wirenboard.com; spf=pass smtp.mailfrom=wirenboard.com; dkim=pass (2048-bit key) header.d=wirenboard.com header.i=@wirenboard.com header.b=Bj8mTEvt; arc=none smtp.client-ip=74.125.225.141
+	 MIME-Version:Content-Type; b=N2f4/SFN6ewyDsKTzDbpAU7gWAQrsSJ0DF6rGvS9z0tYBji8W7s3zokQQhX9pt1zEqNrumetOTOtvdoqVln/2/jYjBF7MhIjVnaF2wcMrz7OTR01+KIv4sy1TfMqLAzthv69iCzu6sSWdwZkbGQSjbUajDKHMJ7KHfKLwaAIcns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wirenboard.com; spf=pass smtp.mailfrom=wirenboard.com; dkim=pass (2048-bit key) header.d=wirenboard.com header.i=@wirenboard.com header.b=hjQ79YAV; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wirenboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wirenboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wirenboard.com header.i=@wirenboard.com header.b="Bj8mTEvt"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-4a00d8bec5aso6268935e9.2
-        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 07:36:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=wirenboard.com header.i=@wirenboard.com header.b="hjQ79YAV"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e66390995so24137025e9.2
+        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 07:37:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=wirenboard.com; s=google; t=1790692611; x=1791297411; darn=vger.kernel.org;
+        d=wirenboard.com; s=google; t=1790692619; x=1791297419; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=cQEi0ZMmNurxfNzMhWWpr+Ah8Bq4EEhV/XWBfJvQlkY=;
-        b=Bj8mTEvtY0JsosAiiZwPd6XK7xY6UvnL8iWlwTu3pukom3R8tNBXRC7wU7aJsDjP4T
-         aChuI+6drhm3jo76Y1+DN0gNBMPLlghfc06Mwy1ADRRjaZv0pD/xBC+quBrA8JFs6igf
-         D8C6q4WGp46jSsgllJmIqUstuj9AHY15GVLon4AdGSatT68hTvhHukgAo34xcZ8FwnSr
-         vfvNToT6pDR+9Oyu6ecxbNJ4g+tWPLehY1kBYUH0k6M76AYlnKqDafXYyt9B2sBk0I/d
-         9QoamThvsWY1d9q6RXiqASWP9C5DBDtZENNmoLWSD6gHKsy0l0BvmghZYLSuUgr2C9yD
-         xjsw==
+        bh=e2N63wpA9NiU09kIvlkMvSeIfrRNpryU66Kez4f8XLA=;
+        b=hjQ79YAV+Q7sRCieorDfNKvajEL3jePReepvEFo9uRfzGH+NsYCrYigiiQ7migAhdN
+         RvJ1+vVXkdM8WmUhHRCUcNcp+KynDfvW3zTDLWXRsdFGt2PNyxJG6qKZmzm1PClE5KxK
+         jmqj4oCDu2zh6OQF7UIRsiS8gmuvwMnU4wOBxC/C+crOR9jT2ZC4CorzYK/fpZhPzl1g
+         JEap8+QaKNuk73Sxe96Hl8z5bF60ZDTUxEPsl2G6UORcDVORGSNzYzQopgzecKXYYhd+
+         4sz17qwgBAzLWLCIW+0UN5TKc4fWycbi9HixdXzOb/4C91wdmX/djbpB1H4yV8ZUzmed
+         3iAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790692611; x=1791297411;
+        d=1e100.net; s=20260707; t=1790692619; x=1791297419;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=cQEi0ZMmNurxfNzMhWWpr+Ah8Bq4EEhV/XWBfJvQlkY=;
-        b=NXinsjSRHG36/PIdYdy61U5VoeFOuNvmi/aLOjryz3e1pSUuzcBNIJ2gHwzTJFqzm8
-         XW7pCRVTszWKPe9KaIdPkbLQ0U2s0V9AQ7YrwsTfaepL/ldiKIdSDs1wkI6mkDNYNlfi
-         xILJHXcI/gYs7+4e4HF/lQN1I3+m26/BFHuLwSz74oHqwSGgUWoIP56RBLhax0ZZWfUu
-         O6vChQulZH8fDq1G6xGYI2NnG11DShmY4zn3tqp92Izx259lkV0lJjQnpqieUNM138kU
-         wa95IaEsextbZHC+KiJkbMDSNd5yKRmhe5Jd3h6fMUrHD0gGI4eKkFY66dTC0JlgJHmc
-         OQNg==
-X-Gm-Message-State: AFuF++kCA/H6A//P4DZbEtvVeBkaFdeqOaIZpdEwOiXlWFth4Yc48kNh
-	IC9/JcZ1wKQpcU+tgW/bv0LlT/7QIfeKun0FV15Xc3hZdNGAblr690L7dFN4YZKcsXs+gkTXPTd
-	qvwj2
-X-Gm-Gg: AYBFou3AkM39/651wyUoHRzSTMqtsPGTv55ggZjIPz3xVJ5OzO8H59DZlkIRxVBisll
-	NGZ0SusRBmOCKXUQcf2uDuFhHtp/wuMfLl1vWnIRkvtHX4GwZ0PRXW63SPIAdqqqv0AklAGhFnG
-	lca2gDNWQ3VVf6nwh/4um9d4xvivIyjyLxhJ6C7rZODLnvikBa6od38yWxW4hi4Jo2+xgMvX5xC
-	v+OzywOk1QdqyhzTCOWbqlSqHh36MYoYo2pAX+pg/vW6AtYVL+hGA1VsJAzl5I3Th8Hvf1gW0lt
-	978WPoG9kpuybaiKxUYMN7oXIEG7Q7AXjNCQplERDADgvDEyjZ+OyPrhgzv07c3YqgN6Cxvx/nA
-	sFWMFdgbWcDqWj7Hc+XOTGTGmyPp+Zzdqlk78edkrn/8I79gu6ICi8Gp6bq92Pjsn8lT1Noxu8P
-	toFdVABsJ5uFBe/98NhZ+yuT0Ip4fQ3tTG4DGwq4pOa59pxu3v5jbxGpYhkwRoRdyAdJSnKSlsX
-	eaw+dR+ERGFBkCbrmn3yijsnRclsOYf
-X-Received: by 2002:a05:600c:8411:b0:49c:fc6e:a3da with SMTP id 5b1f17b1804b1-49fe66ef334mr275664035e9.25.1790692610504;
-        Tue, 29 Sep 2026 07:36:50 -0700 (PDT)
+        bh=e2N63wpA9NiU09kIvlkMvSeIfrRNpryU66Kez4f8XLA=;
+        b=XVeO5Gx0+AfS4HwRoSDtfGoZftFdQuqO+eYxPaIlcx/2WQufaHQ0UzUIMMxQPK1OYd
+         80tJsZsuVImlHbC1i/wJymcu4CtOUfATLYV5VFKLpQSHGyoey0UoYgOU6ArDfo/86hJX
+         0cbY5ituQ8N0tKeXxBUIhnjcPXUBi1Xlhpyz3u1mn2HWANweWMzXSg91QFqLhdXqcb0l
+         6rqUsPUJghmqiaEZKNv1PlLARj2ayK5mrn4pOZ6WbjM9RMLKGkgmZks2xYoTrZDkkjjV
+         16oewNBu6ytDZw9lC+VwvarpF0BEapw8OQmmiQjYMyud+B6JtG+0OinKzmpdyGI0aOcO
+         rf6g==
+X-Gm-Message-State: AFuF++mO4PqvQt+NsspWb8Vsho5FnXvYgYlXlqvF7bHHwbe4oiHYfyp0
+	PI7irU/vFvrYgEaxM6UJ8gHeOZAPqVVMCqzbX3C9XwxK62ple+mwqIk74beg1MQzpOH/rUxXJp8
+	Bv/gs
+X-Gm-Gg: AYBFou2za0wiXIlideYEjEPhH8wtb7nZkEYVCHix6XgFJ0Vj7e0kzfivRw7t9WZk3DW
+	Z+8X9dmSFu1d/wnOqBFNkusfLOO34ogCSs/EkjWLUchWOY9sc81X4AH+Dl6tss1gONng3cwFtF+
+	JkjXDr2LcyjFB+s8lx3qaLqPQ0fbo/g5ukd4t+/w+mXvuCE/moNggydzvyvy/GYpqG7vytUGALE
+	1wxFAGuNS2xnWetGV/IkPTUzqI6JK8JsvPfKqWVi6g190e8e3OEjLJFuMl8pCIP1ngNwe2JD8Na
+	nrNbrUX43tf46rhjsIB58FmXqHH2YrP0ZApq+YAloDDtbf5QYmUR4jenphUQUcAQ9/gkZAGAZbY
+	kI4wVxFthRaGUnh1Kgm56471IQxVg//6h/FhUes57Q6EF6iqwzhzN3reWqWC0B/YWfHDcFnExx6
+	HISyZ2z+rwqbVDxK42HGBBbDc4uTcGAlGHYvYXJjqHqZDyDpYryiCHZiQBlgjcTQeQjeKFp5zq7
+	YDscItKTzcZvLCSU/GiZrWn9/i3StaJcg==
+X-Received: by 2002:a05:600c:4e90:b0:49f:bd0d:59f5 with SMTP id 5b1f17b1804b1-49ff06e506dmr217206665e9.18.1790692619140;
+        Tue, 29 Sep 2026 07:36:59 -0700 (PDT)
 Received: from localhost.localdomain ([85.137.25.106])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cf868b5sm117975385e9.1.2026.09.29.07.36.49
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cf9b150sm78034155e9.7.2026.09.29.07.36.58
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 29 Sep 2026 07:36:50 -0700 (PDT)
+        Tue, 29 Sep 2026 07:36:58 -0700 (PDT)
 From: Ilya Titov <ilya.titov@wirenboard.com>
 To: stable@vger.kernel.org
 Cc: Ilya Titov <ilya.titov@wirenboard.com>,
 	Linus Walleij <linusw@kernel.org>
-Subject: [PATCH 6.6.y] pinctrl: sunxi: keep a shadow copy of the data register output latches
-Date: Tue, 29 Sep 2026 17:36:48 +0300
-Message-ID: <20260929143648.18798-1-ilya.titov@wirenboard.com>
+Subject: [PATCH 6.1.y] pinctrl: sunxi: keep a shadow copy of the data register output latches
+Date: Tue, 29 Sep 2026 17:36:57 +0300
+Message-ID: <20260929143657.18855-1-ilya.titov@wirenboard.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <2026092929-storage-cure-cb51@gregkh>
-References: <2026092929-storage-cure-cb51@gregkh>
+In-Reply-To: <2026092930-ethics-jawless-929e@gregkh>
+References: <2026092930-ethics-jawless-929e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -144,15 +144,15 @@ Signed-off-by: Ilya Titov <ilya.titov@wirenboard.com>
 Signed-off-by: Linus Walleij <linusw@kernel.org>
 (cherry picked from commit a13f7f5d14af9baf34eb12c25962f8d3542b281d)
 ---
-Backport of a13f7f5d14af to 6.6.y.  The only conflict is in
+Backport of a13f7f5d14af to 6.1.y.  The only conflict is in
 sunxi_pinctrl_init_with_variant(): upstream had already converted the "apb"
 clock to devm_clk_get_enabled() by the time this commit moved the request
-ahead of devm_pinctrl_register(), while 6.6.y still does devm_clk_get() +
+ahead of devm_pinctrl_register(), while 6.1.y still does devm_clk_get() +
 clk_prepare_enable() and unwinds through a clk_error label.  Resolved by
 requesting the clock with devm_clk_get_enabled() at the new location --
-available since 6.4 -- so the manual unprepare goes away and the three
-former clk_error gotos land on gpiochip_error instead.  The rest applies
-as-is, and the resulting patch is identical to the one sent for 6.1.y.
+present in 6.1.y -- so the manual unprepare goes away and the three former
+clk_error gotos land on gpiochip_error instead.  The rest applies as-is,
+and the resulting patch is identical to the one sent for 6.6.y.
 
 Tested: the bug was found and the fix verified on a Wiren Board 8.5.1
 (Allwinner T507) running a 6.18-based kernel, where a bit-banged I2C bus
@@ -165,10 +165,10 @@ arm64 allmodconfig, all 26 PINCTRL_SUN* variants, W=1, no new warnings.
  2 files changed, 71 insertions(+), 24 deletions(-)
 
 diff --git a/drivers/pinctrl/sunxi/pinctrl-sunxi.c b/drivers/pinctrl/sunxi/pinctrl-sunxi.c
-index c5b954c9537d..e182812c66fa 100644
+index 508aa911c8d9..c7001f0eb676 100644
 --- a/drivers/pinctrl/sunxi/pinctrl-sunxi.c
 +++ b/drivers/pinctrl/sunxi/pinctrl-sunxi.c
-@@ -792,6 +792,21 @@ static void sunxi_pmx_set(struct pinctrl_dev *pctldev,
+@@ -793,6 +793,21 @@ static void sunxi_pmx_set(struct pinctrl_dev *pctldev,
  	writel((readl(pctl->membase + reg) & ~mask) | config << shift,
  	       pctl->membase + reg);
  
@@ -190,7 +190,7 @@ index c5b954c9537d..e182812c66fa 100644
  	raw_spin_unlock_irqrestore(&pctl->lock, flags);
  }
  
-@@ -948,21 +963,29 @@ static void sunxi_pinctrl_gpio_set(struct gpio_chip *chip,
+@@ -946,21 +961,29 @@ static void sunxi_pinctrl_gpio_set(struct gpio_chip *chip,
  				unsigned offset, int value)
  {
  	struct sunxi_pinctrl *pctl = gpiochip_get_data(chip);
@@ -226,7 +226,7 @@ index c5b954c9537d..e182812c66fa 100644
  
  	raw_spin_unlock_irqrestore(&pctl->lock, flags);
  }
-@@ -1486,7 +1509,7 @@ int sunxi_pinctrl_init_with_variant(struct platform_device *pdev,
+@@ -1484,7 +1507,7 @@ int sunxi_pinctrl_init_with_variant(struct platform_device *pdev,
  	struct pinctrl_pin_desc *pins;
  	struct sunxi_pinctrl *pctl;
  	struct pinmux_ops *pmxops;
@@ -235,7 +235,7 @@ index c5b954c9537d..e182812c66fa 100644
  	struct clk *clk;
  
  	pctl = devm_kzalloc(&pdev->dev, sizeof(*pctl), GFP_KERNEL);
-@@ -1520,6 +1543,37 @@ int sunxi_pinctrl_init_with_variant(struct platform_device *pdev,
+@@ -1518,6 +1541,37 @@ int sunxi_pinctrl_init_with_variant(struct platform_device *pdev,
  	if (!pctl->irq_array)
  		return -ENOMEM;
  
@@ -273,7 +273,7 @@ index c5b954c9537d..e182812c66fa 100644
  	ret = sunxi_pinctrl_build_state(pdev);
  	if (ret) {
  		dev_err(&pdev->dev, "dt probe failed: %d\n", ret);
-@@ -1574,7 +1628,6 @@ int sunxi_pinctrl_init_with_variant(struct platform_device *pdev,
+@@ -1572,7 +1626,6 @@ int sunxi_pinctrl_init_with_variant(struct platform_device *pdev,
  	if (!pctl->chip)
  		return -ENOMEM;
  
@@ -281,7 +281,7 @@ index c5b954c9537d..e182812c66fa 100644
  	pctl->chip->owner = THIS_MODULE;
  	pctl->chip->request = gpiochip_generic_request;
  	pctl->chip->free = gpiochip_generic_free;
-@@ -1607,31 +1660,20 @@ int sunxi_pinctrl_init_with_variant(struct platform_device *pdev,
+@@ -1605,31 +1658,20 @@ int sunxi_pinctrl_init_with_variant(struct platform_device *pdev,
  			goto gpiochip_error;
  	}
  
@@ -315,7 +315,7 @@ index c5b954c9537d..e182812c66fa 100644
  		}
  	}
  
-@@ -1642,7 +1684,7 @@ int sunxi_pinctrl_init_with_variant(struct platform_device *pdev,
+@@ -1640,7 +1682,7 @@ int sunxi_pinctrl_init_with_variant(struct platform_device *pdev,
  	if (!pctl->domain) {
  		dev_err(&pdev->dev, "Couldn't register IRQ domain\n");
  		ret = -ENOMEM;
@@ -324,7 +324,7 @@ index c5b954c9537d..e182812c66fa 100644
  	}
  
  	for (i = 0; i < (pctl->desc->irq_banks * IRQ_PER_BANK); i++) {
-@@ -1674,8 +1716,6 @@ int sunxi_pinctrl_init_with_variant(struct platform_device *pdev,
+@@ -1672,8 +1714,6 @@ int sunxi_pinctrl_init_with_variant(struct platform_device *pdev,
  
  	return 0;
  
