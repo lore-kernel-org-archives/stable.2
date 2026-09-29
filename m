@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E4833C1D7F
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 15:44:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A80EA3DC87A
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 15:50:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790696657; cv=none; b=TvK39D1HR0cKDIXqI9YRdOcc59G8Q293WAnz10CB53H3yurPsqb9B1ZUS+oRClCdlMqMxDOmdsGBHhh5R8W+46mehAtrkm/C6Q/ViHw/TV9csKITgyN3rEKeEmTugLXggfIefNvU3ZLsIPxH1XFIBpaCgKRfuGpQlZkYvIgc8yc=
+	t=1790697034; cv=none; b=qehhQ6yRTrAis9/SoIRCWlmmxod+WIVukN5IFfaV3UYwGCFZUk0CaJtjPPF7s9nD6WV8I66V/IIFtSe77ZwDf/jTdNBSBDT78eD3rLj/NqAZ1oNs7dqgKy50Cl0yFJGrqTCjyfVYHOtfPwSq2DYib1ZlyWDA+3LTT4rfHHvJ/08=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790696657; c=relaxed/simple;
-	bh=LOWgfpif0IcHucuLosxwpXIgu8/p/e3LJiG5/0tWw1s=;
+	s=arc-20240116; t=1790697034; c=relaxed/simple;
+	bh=A6ZpYVKG7wOnqmc+uHCemt07Q00HUmjOYvdAdLsMzkE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=rM1BNp4d2GCdn55hXh6XtdBstk+wnpXmJ+N4j0oww0t8S7bsvl2YyHIwFp9wGgQNVb3TFabLdssTpg2vruNdot/nMjnKlb/7H9bVT4zfmDTGqrQQnwm3QgWid6qiKmeKSJJkSI0GiENPgrdU3cWylvPlJe3z4vOsbyFpoIrMq/o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F5Ze+pJY; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=qom/GxK4e7JDI3XaTlXHXnk7tIwrNLgu5Lk40LkcBGbyoUKcLVcQr4PoC3B7htIolVjrOm+9r2ISE29YS0dVE8heDjlS7Q4nXWfIlWrWz1ycjS3h6rwBBhMSedPJHkdS7NbAZc5wO2Ny81V2ql/Zpkqif+Q0AZfqFkss45mUY0Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a/IG6J5o; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F5Ze+pJY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F0AC1F000FF;
-	Tue, 29 Sep 2026 15:44:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a/IG6J5o"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9467E1F000FF;
+	Tue, 29 Sep 2026 15:50:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790696655;
-	bh=PEQ6G0IyMT375cZddwTHhXHCHj7EsmEyrYl3+x7RGYQ=;
+	s=k20260515; t=1790697033;
+	bh=0RsQ0sAOZttSARouNrlwZ7g808ABWPbshAh+eocH1UA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=F5Ze+pJY+1Mdih3Bbbn9wuz78Zt7MLsETtvwoxyC7YzkPX/YQ26JVykcmqh+vYEJ6
-	 tD3myzh7sUcDlsUQML8Q+1oV94lnBX2LDTokdp9peWKRj2MW4jZMeUDi9OF/fbtIVy
-	 OWSzEMMGnlADWzXcP8PytzOviJpOwg2ye2dVExlzUhD6ns7g4PL/M8JUMaY8VUMVha
-	 8JSa4H8UERIGdB3o02nk2tA8hmCS25z3Rk+B2whAAH2IZJuDnArYo0qYDgxRAt6bQ2
-	 gdxpunrJWehz4Z7C6mxxJp4Qr7IfzXSIhlt4Li/kA3PaSaJX3XaBDUogB6pjYB3Drs
-	 puNxN42W7Fg+w==
+	b=a/IG6J5o/XLM9m4HkcxW+EuY6rGj1abo091wk/K85Y28vLEjsTKswwC9T1/sa9nFJ
+	 B3o9UP6E8lrtpge3GvjF/KAtnrYZnQMd9F3xk35NjYG5fTozQwlHOm7AETIgO7L78q
+	 Eilx/NNn/XlNZJtP6lhWVcBL0cETdtmracNX+nGPNKr92f3h1I8R2qLfWgmO+7WOHf
+	 j8a6rxpA+eQrkBj4yDD8A5W8/FWsTtq8XE0T8FGcRPJwNN2bwXh/+GszopUKNH85md
+	 PXzD2Vv8mdO//ih8yCpBU231jrw0IysJeQyKHTnVl9OA9xHjJcfZvwEVexX/JjSja/
+	 kHc41aK29oBEw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Willem de Bruijn <willemb@google.com>,
@@ -33,12 +33,12 @@ Cc: Willem de Bruijn <willemb@google.com>,
 	jasowangio@gmail.com,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] virtio_net: copy zerocopy frags in start_xmit without NAPI
-Date: Tue, 29 Sep 2026 11:44:13 -0400
-Message-ID: <20260929154413.4090026-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] virtio_net: copy zerocopy frags in start_xmit without NAPI
+Date: Tue, 29 Sep 2026 11:50:31 -0400
+Message-ID: <20260929155031.4095315-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092901-amnesty-primer-ce2f@gregkh>
-References: <2026092901-amnesty-primer-ce2f@gregkh>
+In-Reply-To: <2026092902-afloat-sincerity-a311@gregkh>
+References: <2026092902-afloat-sincerity-a311@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -92,10 +92,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 8 insertions(+)
 
 diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
-index fe0e647808cd7..b98acab38ac4d 100644
+index 23362ef9cb8c3..d2eb3b9bdadf5 100644
 --- a/drivers/net/virtio_net.c
 +++ b/drivers/net/virtio_net.c
-@@ -2429,6 +2429,13 @@ static netdev_tx_t start_xmit(struct sk_buff *skb, struct net_device *dev)
+@@ -1910,6 +1910,13 @@ static netdev_tx_t start_xmit(struct sk_buff *skb, struct net_device *dev)
  	} while (use_napi && kick &&
  	       unlikely(!virtqueue_enable_cb_delayed(sq->vq)));
  
@@ -109,9 +109,9 @@ index fe0e647808cd7..b98acab38ac4d 100644
  	/* timestamp packet in software */
  	skb_tx_timestamp(skb);
  
-@@ -2456,6 +2463,7 @@ static netdev_tx_t start_xmit(struct sk_buff *skb, struct net_device *dev)
- 
- 	check_sq_full_and_disable(vi, dev, sq);
+@@ -1960,6 +1967,7 @@ static netdev_tx_t start_xmit(struct sk_buff *skb, struct net_device *dev)
+ 		}
+ 	}
  
 +kick_vq:
  	if (kick || netif_xmit_stopped(txq)) {
