@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F77A52CCF4
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 14:12:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0920A52E05C
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 14:12:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790691173; cv=none; b=st0oknnZuJgKTFURmgvbJTT1LDRyJqkswsg8aAX7MgzNTkUZVNsZWZiF2Rmp10S7ccMa4rhwjJKc/54yiqgo1yawE9eOVtZquCBUd56DUT8Q0XaVNVGzuK9g6VJ1QLfRjfE13xbjJBGzLKpycU3BSFMaGQ3xhh5gOVypzLFmnps=
+	t=1790691176; cv=none; b=OL5/TSGaEW7qbQgrmTHlq24hQpCBi81xsEkKoTXbeCXqxyk9LCigME2y3qv+XiJDIw1ZYfgZUaupHSF1R5lkEi17+k0dC1yJsFLkIy/NQjBVov1lXEQMC319Po8tMWmg0Dhf4c2mLds6rBfdWa1o8U6FtMoNW0OAdk+IHi5ksLE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790691173; c=relaxed/simple;
-	bh=y5CKzn/ede0YjkqijGd0ecd4375ljsQEVQyPDOkSHdk=;
+	s=arc-20240116; t=1790691176; c=relaxed/simple;
+	bh=SgQQ0gPMif6x1r6ub0aLqCsGo/vJvRsye1n4i1NoWAg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=G2gRGquT2WoJr3o9CEPzHw1faosg84HRuvR5iu0zvB8hPTXKywdB3kVb5rRGYEH2cWXdCIUAXscR3Th58IdIOWe6S/AOY5DsCfAUGqF4TTBc8TFWkbN+Ueios2dyL41MkK9qQa/QocHrABPsJOBQVD7gBlKCAFaUwyXF9lLl+wU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ce88RX6r; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=GOCNKpf0L7LQrHNbrsq63ZhN9sZWtYkZGCycj7h2wkAHvKy55BOKy3gHUXSckVRx7TnJC8ihccUpzZx838AfGbbDv9VvLAOuGdRr1dsda7PWXYjhADbyyI21rnqIrzzHBDttTM9a3MqrfugSF8f8Lz8o/vNs2sLlkAOUgAS/csk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UpSjK33X; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ce88RX6r"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 969C71F000FF;
-	Tue, 29 Sep 2026 14:12:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UpSjK33X"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EDED1F000FF;
+	Tue, 29 Sep 2026 14:12:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790691172;
-	bh=5d3j4oZJbOGHf4Fh1WOMNGVzyhZ1G2+m/HNMTy3caGA=;
+	s=k20260515; t=1790691174;
+	bh=6dvMAfZRlUukoC5hC2zjkQXb38Dg7rD7Wg9bXUS9oNM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ce88RX6rKynbAyabo82UW6YeDLa1ob2kh0gI/4+KFRF1XkpuYSlQt5QdNAw8+qv3j
-	 l/em/aAgR9iNnd9qW89SnK1oAh1ZC4L8DF6vdvEKMF5pCkqWpluQueWYWK9lARggVW
-	 0qYr/zwJpDEeGmC35hQd27BqVpuDvQ9hKkHn0VnJq9jpR//pZPmczOGsPKFn9YzJ2y
-	 KR8lp5Y6ca4pkfgPGe+aCK40Mt0MaOPXPDKre8A+UGvVg+d7H6gx57GYilXfvBVEjP
-	 ZUUQ75VVnmMNv7Qit4l+wrHX6Mu+2NrNi8QEZP4qK9Takhi82GfVQX6+Su7ccv+663
-	 mlBzgzcWE8X8A==
+	b=UpSjK33XfNVyJXeSbuu2KhvUS3icLsUKJio7qrPVp8r0sKWqnCkjOkfiu5iHR22V2
+	 +VvQMvrWyQCfqsCHIVQzUzNrvrTA9QItcsUszZPIqvmAtiJSKSMjQMGTus1/POXDaK
+	 HKXZQilQ5SK8D4a+nJ8thNUxXecfXYx59UAZ8kAX2bOS3cyD12OqrjiBetSCJF2iVH
+	 GaYiWHkbiM6rnX9oZ8SprqkpmIaOC1D4zT5tsgnuU5I1mU6TFbZ8jRiFHYgCgGvxh/
+	 mwsGo++4eERcStcEFCbW0Vz4XC2Qnua/nmzd3hwQXZ1UkbgPS02canT8mqdkJ+H46Z
+	 OwVh8P83k7iLg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Hui Peng <benquike@gmail.com>,
-	Jeremy Kerr <jk@codeconstruct.com.au>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
+	Al Viro <viro@zeniv.linux.org.uk>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 4/4] mctp: route: iterate socket tag list in mctp_lookup_prealloc_tag()
-Date: Tue, 29 Sep 2026 10:12:48 -0400
-Message-ID: <20260929141248.3537868-4-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] fs/ntfs3: Redesign ntfs_create_inode to return error code instead of inode
+Date: Tue, 29 Sep 2026 10:12:51 -0400
+Message-ID: <20260929141252.3538406-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260929141248.3537868-1-sashal@kernel.org>
-References: <2026092919-helpful-hydrogen-8802@gregkh>
- <20260929141248.3537868-1-sashal@kernel.org>
+In-Reply-To: <2026092905-banter-curable-1b52@gregkh>
+References: <2026092905-banter-curable-1b52@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,53 +45,155 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Hui Peng <benquike@gmail.com>
+From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
 
-[ Upstream commit 26cc0e69cce062cd3aa6fae33074684669c35a71 ]
+[ Upstream commit c935c66878867dc87c36c36b21d35d7e7f08adec ]
 
-When a socket transmits a packet with MCTP_TAG_PREALLOC set,
-mctp_lookup_prealloc_tag() iterates over the per-netns &mns->keys list
-and matches netid, req_tag, peer_addr, and manual_alloc, without
-checking whether tmp->sk == &msk->sk. This allows any MCTP socket in the
-same network namespace to use and consume another socket's preallocated
-tag.
+As Al Viro correctly pointed out, there is no need to return
+the whole structure to check the error.
+https://lore.kernel.org/ntfs3/20240322023515.GK538574@ZenIV/
 
-Iterate the socket's own tag list (&msk->keys via sklist) instead of the
-namespace-wide &mns->keys list in mctp_lookup_prealloc_tag(), ensuring
-that only tags allocated by msk are matched.
+Acked-by: Al Viro <viro@zeniv.linux.org.uk>
+Signed-off-by: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
 
-Tested in QEMU against Linux 7.3.0-rc3 by allocating a manual tag
-(0x18) on socket A via SIOCMCTPALLOCTAG for peer EID 9 and sending a
-4-byte message with MCTP_TAG_PREALLOC from socket B in the same network
-namespace. On the unfixed kernel, sendto(sock_b) using socket A's
-preallocated tag succeeds (ret = 4); with this patch applied,
-sendto(sock_b) fails with -ENOENT (errno = 2) while sendto(sock_a)
-succeeds (ret = 4).
+[Stable 6.1 dependency adaptation: retain the user_namespace API and
+existing directory-lock lifetime. Return an integer status from
+ntfs_create_inode and pass it through all four callers. Omit the
+unrelated switch to resident data for newly created regular files.
+The success-only unlock_new_inode epilogue allows target
+1abd643f3783ea8f8e273c18697ff0413aa92dc7 to apply cleanly.]
 
-Fixes: 63ed1aab3d40 ("mctp: Add SIOCMCTP{ALLOC,DROP}TAG ioctls for tag control")
-Suggested-by: Jeremy Kerr <jk@codeconstruct.com.au>
-Cc: stable@vger.kernel.org
-Signed-off-by: Hui Peng <benquike@gmail.com>
-Link: https://patch.msgid.link/20260921051002.1656692-1-benquike@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Stable-dep-of: 1abd643f3783 ("fs/ntfs3: use d_instantiate_new() in ntfs_create_inode() and murder syzbot's "WARNING in do_new_mount" saga")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/mctp/route.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/ntfs3/inode.c   | 18 ++++++++----------
+ fs/ntfs3/namei.c   | 31 ++++++++-----------------------
+ fs/ntfs3/ntfs_fs.h |  9 ++++-----
+ 3 files changed, 20 insertions(+), 38 deletions(-)
 
-diff --git a/net/mctp/route.c b/net/mctp/route.c
-index 95ba7fce1582d..7e2d43184eae4 100644
---- a/net/mctp/route.c
-+++ b/net/mctp/route.c
-@@ -758,7 +758,7 @@ static struct mctp_sk_key *mctp_lookup_prealloc_tag(struct mctp_sock *msk,
+diff --git a/fs/ntfs3/inode.c b/fs/ntfs3/inode.c
+index b8ac0943e9325..98f70c721052b 100644
+--- a/fs/ntfs3/inode.c
++++ b/fs/ntfs3/inode.c
+@@ -1198,11 +1198,10 @@ ntfs_create_reparse_buffer(struct ntfs_sb_info *sbi, const char *symname,
+ 	return ERR_PTR(err);
+ }
  
- 	spin_lock_irqsave(&mns->keys_lock, flags);
+-struct inode *ntfs_create_inode(struct user_namespace *mnt_userns,
+-				struct inode *dir, struct dentry *dentry,
+-				const struct cpu_str *uni, umode_t mode,
+-				dev_t dev, const char *symname, u32 size,
+-				struct ntfs_fnd *fnd)
++int ntfs_create_inode(struct user_namespace *mnt_userns, struct inode *dir,
++		      struct dentry *dentry, const struct cpu_str *uni,
++		      umode_t mode, dev_t dev, const char *symname, u32 size,
++		      struct ntfs_fnd *fnd)
+ {
+ 	int err;
+ 	struct super_block *sb = dir->i_sb;
+@@ -1680,14 +1679,13 @@ struct inode *ntfs_create_inode(struct user_namespace *mnt_userns,
+ 	kfree(rp);
  
--	hlist_for_each_entry(tmp, &mns->keys, hlist) {
-+	hlist_for_each_entry(tmp, &msk->keys, sklist) {
- 		if (tmp->net != netid)
- 			continue;
+ out1:
+-	if (err) {
++	if (err)
+ 		ni_unlock(dir_ni);
+-		return ERR_PTR(err);
+-	}
  
+-	unlock_new_inode(inode);
++	if (!err)
++		unlock_new_inode(inode);
+ 
+-	return inode;
++	return err;
+ }
+ 
+ int ntfs_link_inode(struct inode *inode, struct dentry *dentry)
+diff --git a/fs/ntfs3/namei.c b/fs/ntfs3/namei.c
+index 7b7634b38eea8..c5b15f70e5f02 100644
+--- a/fs/ntfs3/namei.c
++++ b/fs/ntfs3/namei.c
+@@ -105,12 +105,8 @@ static struct dentry *ntfs_lookup(struct inode *dir, struct dentry *dentry,
+ static int ntfs_create(struct user_namespace *mnt_userns, struct inode *dir,
+ 		       struct dentry *dentry, umode_t mode, bool excl)
+ {
+-	struct inode *inode;
+-
+-	inode = ntfs_create_inode(mnt_userns, dir, dentry, NULL, S_IFREG | mode,
+-				  0, NULL, 0, NULL);
+-
+-	return IS_ERR(inode) ? PTR_ERR(inode) : 0;
++	return ntfs_create_inode(mnt_userns, dir, dentry, NULL, S_IFREG | mode,
++				 0, NULL, 0, NULL);
+ }
+ 
+ /*
+@@ -121,12 +117,8 @@ static int ntfs_create(struct user_namespace *mnt_userns, struct inode *dir,
+ static int ntfs_mknod(struct user_namespace *mnt_userns, struct inode *dir,
+ 		      struct dentry *dentry, umode_t mode, dev_t rdev)
+ {
+-	struct inode *inode;
+-
+-	inode = ntfs_create_inode(mnt_userns, dir, dentry, NULL, mode, rdev,
+-				  NULL, 0, NULL);
+-
+-	return IS_ERR(inode) ? PTR_ERR(inode) : 0;
++	return ntfs_create_inode(mnt_userns, dir, dentry, NULL, mode, rdev,
++				 NULL, 0, NULL);
+ }
+ 
+ /*
+@@ -195,12 +187,9 @@ static int ntfs_symlink(struct user_namespace *mnt_userns, struct inode *dir,
+ 			struct dentry *dentry, const char *symname)
+ {
+ 	u32 size = strlen(symname);
+-	struct inode *inode;
+-
+-	inode = ntfs_create_inode(mnt_userns, dir, dentry, NULL, S_IFLNK | 0777,
+-				  0, symname, size, NULL);
+ 
+-	return IS_ERR(inode) ? PTR_ERR(inode) : 0;
++	return ntfs_create_inode(mnt_userns, dir, dentry, NULL, S_IFLNK | 0777,
++				 0, symname, size, NULL);
+ }
+ 
+ /*
+@@ -209,12 +198,8 @@ static int ntfs_symlink(struct user_namespace *mnt_userns, struct inode *dir,
+ static int ntfs_mkdir(struct user_namespace *mnt_userns, struct inode *dir,
+ 		      struct dentry *dentry, umode_t mode)
+ {
+-	struct inode *inode;
+-
+-	inode = ntfs_create_inode(mnt_userns, dir, dentry, NULL, S_IFDIR | mode,
+-				  0, NULL, 0, NULL);
+-
+-	return IS_ERR(inode) ? PTR_ERR(inode) : 0;
++	return ntfs_create_inode(mnt_userns, dir, dentry, NULL, S_IFDIR | mode,
++				 0, NULL, 0, NULL);
+ }
+ 
+ /*
+diff --git a/fs/ntfs3/ntfs_fs.h b/fs/ntfs3/ntfs_fs.h
+index 482958c016444..856fe8673fe71 100644
+--- a/fs/ntfs3/ntfs_fs.h
++++ b/fs/ntfs3/ntfs_fs.h
+@@ -708,11 +708,10 @@ int ntfs_sync_inode(struct inode *inode);
+ int ntfs_flush_inodes(struct super_block *sb, struct inode *i1,
+ 		      struct inode *i2);
+ int inode_write_data(struct inode *inode, const void *data, size_t bytes);
+-struct inode *ntfs_create_inode(struct user_namespace *mnt_userns,
+-				struct inode *dir, struct dentry *dentry,
+-				const struct cpu_str *uni, umode_t mode,
+-				dev_t dev, const char *symname, u32 size,
+-				struct ntfs_fnd *fnd);
++int ntfs_create_inode(struct user_namespace *mnt_userns, struct inode *dir,
++		      struct dentry *dentry, const struct cpu_str *uni,
++		      umode_t mode, dev_t dev, const char *symname, u32 size,
++		      struct ntfs_fnd *fnd);
+ int ntfs_link_inode(struct inode *inode, struct dentry *dentry);
+ int ntfs_unlink_inode(struct inode *dir, const struct dentry *dentry);
+ void ntfs_evict_inode(struct inode *inode);
 -- 
 2.53.0
 
