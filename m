@@ -1,117 +1,123 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FC8052CCFA
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 13:46:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A26452D2A1
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 13:51:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790689574; cv=none; b=kkB0YM2g0eCvVbXLrejv+bnK5AbpVYQ92MFDWBkSJJLoIcihJylyzQYYUYPMMGFj4IXgUsdIYJXVW5Iqf+zzizV2v0e3oXDpb0Ie48uKvb9O9jyH9pu/n/pFzd/ppI9Ud8vp081QA191zxVIEf8PCwBhdZ2fyYGMhwbO05HsdX0=
+	t=1790689885; cv=none; b=TFj1TZWG3ez1wlRO4RRzKAJrkVw8VINFGiLm0bm244HUwPk2Uaxro3lOVg8xXOs7sUDroCRZDLi0nPjFeivKDlkfXexC7FL+8eb/CRJvS+hb92XZ1xH+MiZBMvOtSoEU7oRdmwRfF9w3h9U/feLV8cp5azFBf6iOx9i2TBcHIQQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790689574; c=relaxed/simple;
-	bh=tSBbNhJVVisi1uW+AHXxElgkpdjNniSA5QGoDkH9ivY=;
+	s=arc-20240116; t=1790689885; c=relaxed/simple;
+	bh=wzKYfjiBp8mH6JzZEiPQgLrbhTU4bHjqKRYELeeKYo8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Ylq3iDdW3lJ/LHdyLcc2lp/ugwGgLQ+yJFZIOcvAjgKARaYAy4eE9A+SCR7Cd9DA8cHDiOcQUKQjn/UC/1WJwIRz7j9qOruwzAr8YJylwhRl1oS7ElLRDP8RenjJv9aJ6kQ3mZUGLDXCWR88V9dwTl2eUF421T/5QIh0KaRVJwM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e5qMv/EN; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=rdDsmH1WhrzCBtd2OiSKZdaqd7rdjZBoyt6Dz290XKsGEBBqrry1WTBDsA3BSAm+Y/TP8REmQ9NimQB7RnOw3iurLJhTAWzDP75RM7yuCNePI/ebdvZaUIXUad3lZ85YbszaUfmnAUeCHbzptsfQTwf3SZHXtnp1V8eokT4DrsE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l5nSe/qs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e5qMv/EN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79E0D1F00893;
-	Tue, 29 Sep 2026 13:46:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l5nSe/qs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE9EE1F000FF;
+	Tue, 29 Sep 2026 13:51:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790689571;
-	bh=PUeKhSUp0PamZyF7oH3/ndT/MHd6VhElYvzJzzLOaY4=;
+	s=k20260515; t=1790689883;
+	bh=v/17wVTBQOi+bBhXwQ/uKt2L/8Tej0AzLYO6Uk/+aR4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=e5qMv/ENddbFcrX6mWmzEbpN2O+kxWZOORNdJGbqJjTly6lxfisIW/W9SgoD7m58Q
-	 vWkgh+1D6BDUCfYRqkdDn02C4jJFPbYGxk/o+9QsdlKLR8ZF2UN8y/gF7qNBmBzt4A
-	 pVjXHpwK/MoWlPob9XUt1uAQUtmRWtdWwoO5r6W5kGY7M954AGlVOSVkAH2yTgSndK
-	 Cea0Yf5FV8iaaeqD+cTZpYwM8SnLj5tJYjozY+KFOWDjQuoL6el9R6kRTt5st+vbBD
-	 3gEqe79PSLW9u1P8SCRPz1MTt3v7AW5N7lp5PvdUEP1NLmz7KQ5FSCk3QktJZf7kz7
-	 DuiArNEtlwavw==
+	b=l5nSe/qsNJEaNAB+p0RYKy21A8fwB8Y1T9Z8Z7RyJj/BVBB6Z60Pqv++WAGThqayg
+	 sy3LzSXCgjTRBy46Oj3n8Zt9nvIoFY96P5z0d+HY7RnLCNotyFSR6iIR1vlCpqOeg9
+	 ZXc1RpcBzgc3i4hcmMtbHD9ud3EuP45LEF0jgdcG4oaGUf2bWYW4QcSdUFnoWO31Or
+	 aXONsts7s7I4hSBIjavfOwEnRqefH9MkG6YSJu8Lm9M+VR5GiStSaqXtmbyLoIPc5R
+	 EqmoeHRkTccVV6CO2CcJAzMyIIeAk2CsyLhq8ni+26i5ldpeP6ucFXlw1LFReI755L
+	 ABCyUHLbPCkXA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	=?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
+Cc: Myeonghun Pak <mhun512@gmail.com>,
+	Ijae Kim <ae878000@gmail.com>,
+	Paolo Abeni <pabeni@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y 5/5] landlock: Work around gcc-16 -Wuninitialized warning
-Date: Tue, 29 Sep 2026 09:46:05 -0400
-Message-ID: <20260929134605.3516662-5-sashal@kernel.org>
+Subject: [PATCH 6.1.y] bna: prevent IOC timer rearm during teardown
+Date: Tue, 29 Sep 2026 09:51:21 -0400
+Message-ID: <20260929135121.3518640-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260929134605.3516662-1-sashal@kernel.org>
-References: <2026092944-secrecy-crouch-5bf3@gregkh>
- <20260929134605.3516662-1-sashal@kernel.org>
+In-Reply-To: <2026092952-departed-anyone-2f5b@gregkh>
+References: <2026092952-departed-anyone-2f5b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Arnd Bergmann <arnd@arndb.de>
+From: Myeonghun Pak <mhun512@gmail.com>
 
-[ Upstream commit c4e941bb7654bcbdfb0b6f3341dc2acfdf235c8d ]
+[ Upstream commit 77b1718e39e5c9f6956fb60807326af20baf889d ]
 
-gcc has a bug with -ftrivial-auto-var-init=pattern that produces a
-warning for correct code that uses sparse bitfields:
+bna: prevent IOC timer rearm during teardown
 
-security/landlock/fs.c: In function 'is_access_to_paths_allowed.isra':
-security/landlock/fs.c:767:28: error: '_layer_masks_child1' is used uninitialized [-Werror=uninitialized]
-  767 |         struct layer_masks _layer_masks_child1, _layer_masks_child2;
-      |                            ^~~~~~~~~~~~~~~~~~~
-security/landlock/fs.c:767:28: note: '_layer_masks_child1' declared here
-  767 |         struct layer_masks _layer_masks_child1, _layer_masks_child2;
-      |                            ^~~~~~~~~~~~~~~~~~~
-security/landlock/fs.c: In function 'hook_unix_find':
-security/landlock/fs.c:1649:28: error: 'layer_masks' is used uninitialized [-Werror=uninitialized]
- 1649 |         struct layer_masks layer_masks;
-      |                            ^~~~~~~~~~~
-security/landlock/fs.c:1649:28: note: 'layer_masks' declared here
- 1649 |         struct layer_masks layer_masks;
-      |                            ^~~~~~~~~~~
+bnad_pci_remove() and the probe disable_ioceth path call
+timer_delete_sync() for ioc_timer, sem_timer and hb_timer, but not for
+iocpf_timer.  bnad_iocpf_timeout() then takes bnad->bna_lock after
+free_netdev() has freed the struct bnad.
 
-To work around this, change the definition of struct layer_mask to
-use an explictit padding field.
+Deleting iocpf_timer last does not fix this.  sem_timer and
+iocpf_timer rearm each other: bnad_iocpf_sem_timeout() can arm
+iocpf_timer, and bnad_iocpf_timeout() arms sem_timer from
+bfa_ioc_hw_sem_get() when the semaphore is busy.
+timer_delete_sync() only waits out its own callback.
+bnad_ioceth_disable() can time out and leave that callback live.
 
-Link: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=110743
-Link: https://lore.kernel.org/all/20260619082133.3504146-1-arnd@kernel.org/
-Fixes: a260c0055665 ("landlock: Add a place for flags to layer rules")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-Link: https://patch.msgid.link/20260915201036.3527935-1-arnd@kernel.org
-[mic: Use BITS_PER_TYPE(), fix kdoc warnings, fix commit message
-according to v2 changes]
+Shut all four IOC timers down with timer_shutdown_sync() on both
+paths, so a later mod_timer() is ignored.
+
+This issue was identified during our ongoing static-analysis research
+while reviewing kernel code.
+
+Fixes: 1d32f7696286 ("bna: IOC failure auto recovery fix")
 Cc: stable@vger.kernel.org
-Signed-off-by: Mickaël Salaün <mic@digikod.net>
+Assisted-by: LLM
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Link: https://patch.msgid.link/20260922014605.588040-1-mhun512@gmail.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+[ inlined bnad_ioc_timers_shutdown() into the existing teardown functions. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- security/landlock/access.h | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/net/ethernet/brocade/bna/bnad.c | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
 
-diff --git a/security/landlock/access.h b/security/landlock/access.h
-index bbbb41f41147c..f843835851d01 100644
---- a/security/landlock/access.h
-+++ b/security/landlock/access.h
-@@ -61,6 +61,10 @@ union access_masks_all {
- static_assert(sizeof(typeof_member(union access_masks_all, masks)) ==
- 	      sizeof(typeof_member(union access_masks_all, all)));
+diff --git a/drivers/net/ethernet/brocade/bna/bnad.c b/drivers/net/ethernet/brocade/bna/bnad.c
+index aecdb98f8a9c1..1733ccb89311d 100644
+--- a/drivers/net/ethernet/brocade/bna/bnad.c
++++ b/drivers/net/ethernet/brocade/bna/bnad.c
+@@ -3728,9 +3728,11 @@ bnad_pci_probe(struct pci_dev *pdev,
+ 	bnad_res_free(bnad, &bnad->mod_res_info[0], BNA_MOD_RES_T_MAX);
+ disable_ioceth:
+ 	bnad_ioceth_disable(bnad);
+-	del_timer_sync(&bnad->bna.ioceth.ioc.ioc_timer);
+-	del_timer_sync(&bnad->bna.ioceth.ioc.sem_timer);
+-	del_timer_sync(&bnad->bna.ioceth.ioc.hb_timer);
++	/* The IOC timers rearm one another.  Shut down all of them. */
++	timer_shutdown_sync(&bnad->bna.ioceth.ioc.ioc_timer);
++	timer_shutdown_sync(&bnad->bna.ioceth.ioc.sem_timer);
++	timer_shutdown_sync(&bnad->bna.ioceth.ioc.hb_timer);
++	timer_shutdown_sync(&bnad->bna.ioceth.ioc.iocpf_timer);
+ 	spin_lock_irqsave(&bnad->bna_lock, flags);
+ 	bna_uninit(bna);
+ 	spin_unlock_irqrestore(&bnad->bna_lock, flags);
+@@ -3771,9 +3773,11 @@ bnad_pci_remove(struct pci_dev *pdev)
  
-+#define _LANDLOCK_LAYER_MASK_PADDING                              \
-+	(BITS_PER_TYPE(access_mask_t) - LANDLOCK_NUM_ACCESS_MAX - \
-+	 IS_ENABLED(CONFIG_SECURITY_LANDLOCK_LOG))
-+
- /**
-  * struct layer_mask - The access rights and rule flags for a layer.
-  *
-@@ -81,6 +85,10 @@ struct layer_mask {
- 	 */
- 	access_mask_t quiet : 1;
- #endif /* CONFIG_SECURITY_LANDLOCK_LOG */
-+	/**
-+	 * @__pad: Padding for the compiler's bitfield initialization.
-+	 */
-+	access_mask_t __pad : _LANDLOCK_LAYER_MASK_PADDING;
- } __packed __aligned(sizeof(access_mask_t));
- 
- /*
+ 	mutex_lock(&bnad->conf_mutex);
+ 	bnad_ioceth_disable(bnad);
+-	del_timer_sync(&bnad->bna.ioceth.ioc.ioc_timer);
+-	del_timer_sync(&bnad->bna.ioceth.ioc.sem_timer);
+-	del_timer_sync(&bnad->bna.ioceth.ioc.hb_timer);
++	/* The IOC timers rearm one another.  Shut down all of them. */
++	timer_shutdown_sync(&bnad->bna.ioceth.ioc.ioc_timer);
++	timer_shutdown_sync(&bnad->bna.ioceth.ioc.sem_timer);
++	timer_shutdown_sync(&bnad->bna.ioceth.ioc.hb_timer);
++	timer_shutdown_sync(&bnad->bna.ioceth.ioc.iocpf_timer);
+ 	spin_lock_irqsave(&bnad->bna_lock, flags);
+ 	bna_uninit(bna);
+ 	spin_unlock_irqrestore(&bnad->bna_lock, flags);
 -- 
 2.53.0
 
