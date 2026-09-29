@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82BDC43713C
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 06:41:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01D1F253340
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 06:42:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790664118; cv=none; b=cGo0DL6AMDDaTJVFTUxNfqhkSmyMDiomlSkJm476IJ7xnvTWjFaiP9qvJ1eMW9R+JnoiID1/vouL0Xxfr2XQJuI2XhCxQC9wtELEl1egtDasCVN3/xxQXc9yyDmYyULlAYX92XYw78oQOySeU3mcDJLcYobwEsIj/WJnFh8a95U=
+	t=1790664146; cv=none; b=SfErCSPmRF64//mKXdoHvx7qAz3JR6FpPC2e1Ca/1SLC+hVQd5WPkDzIaC8PabaGo18EtKdY5XgVYZwI3knFZrzpvoQDuPthYw5lhhsr13+ABH/hHeurCUIJlRLqFQA8D41ZuOaCbUjW53fpyQd3L7G4ivX/6WkhvDRiejWcCqI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790664118; c=relaxed/simple;
-	bh=VcG4qacWy9it67LpBkFqFGVrFb5ew6eMZQkeLSE2eKo=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=SgRNr4kZVhqT1YbxHBLwLTb1u0cDcZO0yi7j54WsDgPyfeOIEkU+i89MsDsIzAzfLDQXlbWuYlXSuQ//nyeGLuOoUTBQov0ICodInNNiWDHU85q4ijM3eejQygMcsfRexjLdesVEDsVwiUJiornypG0A6LilxG0cr+Qfh4eDsXE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=wn9foHRo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790664146; c=relaxed/simple;
+	bh=NlP+B1oQVh6g8b0Y7slxBXKao6aNQsWeIBIU3unzxPM=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=eNOIzI93rftHU5H7ExeZEVM0NfL5Qovf+8fNkg5MT1A82u/Gqa/bBOJiWXsXJRyNQlDggyYn/gYPy5p5Gs4jbSsQvIRTJ2AQt810+J1jw+wzuLMJA5Oz/4af2K01KdV65tkkJZgj8YP3uhTq/rgwaTeeVxnP/49kEDw8I/cP8cY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=iTzJtMmD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="wn9foHRo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 876131F000FF;
-	Tue, 29 Sep 2026 06:41:56 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="iTzJtMmD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46CBD1F000FF;
+	Tue, 29 Sep 2026 06:42:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790664117;
-	bh=pnFAjoc5neQsqZHNYtnG5EwMg1iiMP672e3c+Pu6YZc=;
+	s=korg; t=1790664144;
+	bh=Z17yUFPhU2U9C+Os+fcyT6qJQh8SGD1dRWt3tqx/pPg=;
 	h=Subject:To:Cc:From:Date;
-	b=wn9foHRoSvVcePj5LfCAYQ4481Cr4oiB5/YflI/OpRkgn8I/XGhV38LnHU4MgU1Y2
-	 ezF5mqE0WFkEN10rUAY0Q1DoiNZIMXZ3h7p4dE7Mk03FxJWOioUNU9+Z1nRYraiBuC
-	 wsSWxa5M0exIqvHyo4F+2FqG0QXSZLH7Nt57NkIs=
-Subject: FAILED: patch "[PATCH] accel/ivpu: Use separate flag for job timeout" failed to apply to 7.2-stable tree
-To: jakub.pawlak@intel.com,dawid.osuchowski@linux.intel.com,karol.wachowski@linux.intel.com
+	b=iTzJtMmDWeTsMrd3r7PTC1Yhk4XQPloBQHoDEvOZDJbpFHHSAFQeY7sx+ZO9Z6CQL
+	 kNOr++c9KCyw367osR2mbE92+bIu2QXuivPGReoy0dPHmyX5jISYV+/ygQPgJEpvHz
+	 ebMexxBHD0W+yMsGVgum5UJ/ahREAbj4sN6B9Bq8=
+Subject: FAILED: patch "[PATCH] arm64/boot: Disable trapping of PMZR_EL0 writes to EL2" failed to apply to 6.12-stable tree
+To: fuad.tabba@linux.dev,anshuman.khandual@arm.com,oupton@kernel.org,will@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 29 Sep 2026 08:41:54 +0200
-Message-ID: <2026092954-atlantic-improve-65a1@gregkh>
+Date: Tue, 29 Sep 2026 08:42:22 +0200
+Message-ID: <2026092922-crouton-reaffirm-8593@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.2-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 72b782097e534ab48152dd25aaba40dda5f25f9e
+git cherry-pick -x 2bc6b218717b9d08f466f88209251d54bc09b207
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092954-atlantic-improve-65a1@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092922-crouton-reaffirm-8593@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,108 +62,78 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 72b782097e534ab48152dd25aaba40dda5f25f9e Mon Sep 17 00:00:00 2001
-From: Jakub Pawlak <jakub.pawlak@intel.com>
-Date: Mon, 14 Sep 2026 10:43:01 +0200
-Subject: [PATCH] accel/ivpu: Use separate flag for job timeout
+From 2bc6b218717b9d08f466f88209251d54bc09b207 Mon Sep 17 00:00:00 2001
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Tue, 22 Sep 2026 19:14:30 +0100
+Subject: [PATCH] arm64/boot: Disable trapping of PMZR_EL0 writes to EL2
 
-Use separate flag to mark a job timeout as a reason
-of starting context_abort_work. This allows to distinguish
-engine reset reason and clearly adjust reset procedure flow.
+__init_el2_fgt2() writes one mask to both HDFGRTR2_EL2 and HDFGWTR2_EL2.
+PMZR_EL0 is write-only, so its trap bit, nPMZR_EL0, exists only in
+HDFGWTR2_EL2 and is therefore never set: a PMZR_EL0 write from the host
+traps to EL2, where the nVHE hypervisor has no handler and BUG()s. The
+kernel never writes PMZR_EL0, but kernel.perf_user_access=1 has the PMU
+driver set PMUSERENR_EL0.UEN for a task with a user-read event, so a
+write from EL0 reaches the trap and takes the host down without a panic
+message.
 
-The flag is cleared in ivpu_prepare_for_reset(), which every
-recovery and suspend path already funnels through, so that the
-state is clean after recovery.
+Accumulate the HDFGWTR2_EL2 bits separately, as __init_el2_fgt() already
+does for HDFGWTR_EL2, and set nPMZR_EL0 with the other FEAT_PMUv3p9
+bits.
 
-Cc: stable@vger.kernel.org # v7.1+
-Fixes: ade00a6c903f ("accel/ivpu: Perform engine reset instead of device recovery on TDR")
-Signed-off-by: Jakub Pawlak <jakub.pawlak@intel.com>
-Reviewed-by: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>
-Signed-off-by: Karol Wachowski <karol.wachowski@linux.intel.com>
-Link: https://patch.msgid.link/20260914084301.894028-1-karol.wachowski@linux.intel.com
+Fixes: 858c7bfcb35e1 ("arm64/boot: Enable EL2 requirements for FEAT_PMUv3p9")
+Cc: stable@vger.kernel.org
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+Reviewed-by: Anshuman Khandual <anshuman.khandual@arm.com>
+Reviewed-by: Oliver Upton <oupton@kernel.org>
+Signed-off-by: Will Deacon <will@kernel.org>
 
-diff --git a/drivers/accel/ivpu/ivpu_drv.c b/drivers/accel/ivpu/ivpu_drv.c
-index 95120957f42a..8c1c87e69f91 100644
---- a/drivers/accel/ivpu/ivpu_drv.c
-+++ b/drivers/accel/ivpu/ivpu_drv.c
-@@ -515,6 +515,7 @@ void ivpu_prepare_for_reset(struct ivpu_device *vdev)
- {
- 	ivpu_hw_irq_disable(vdev);
- 	disable_irq(vdev->irq);
-+	atomic_set(&vdev->job_timeout_detected, 0);
- 	flush_work(&vdev->irq_dct_work);
- 	flush_work(&vdev->context_abort_work);
- 	flush_work(&vdev->job_destroy_work);
-@@ -710,7 +711,7 @@ static int ivpu_dev_init(struct ivpu_device *vdev)
- 	vdev->context_xa_limit.max = IVPU_USER_CONTEXT_MAX_SSID;
- 	atomic64_set(&vdev->unique_id_counter, 0);
- 	atomic_set(&vdev->job_timeout_counter, 0);
--	atomic_set(&vdev->faults_detected, 0);
-+	atomic_set(&vdev->job_timeout_detected, 0);
- 	xa_init_flags(&vdev->context_xa, XA_FLAGS_ALLOC | XA_FLAGS_LOCK_IRQ);
- 	xa_init_flags(&vdev->submitted_jobs_xa, XA_FLAGS_ALLOC1);
- 	xa_init_flags(&vdev->db_xa, XA_FLAGS_ALLOC1);
-diff --git a/drivers/accel/ivpu/ivpu_drv.h b/drivers/accel/ivpu/ivpu_drv.h
-index 86d7c9966cac..6f4012926478 100644
---- a/drivers/accel/ivpu/ivpu_drv.h
-+++ b/drivers/accel/ivpu/ivpu_drv.h
-@@ -171,7 +171,7 @@ struct ivpu_device {
- 	struct xarray submitted_jobs_xa;
- 	struct ivpu_ipc_consumer job_done_consumer;
- 	atomic_t job_timeout_counter;
--	atomic_t faults_detected;
-+	atomic_t job_timeout_detected;
+diff --git a/Documentation/arch/arm64/booting.rst b/Documentation/arch/arm64/booting.rst
+index 13ef311dace8..3fea4b14ef7c 100644
+--- a/Documentation/arch/arm64/booting.rst
++++ b/Documentation/arch/arm64/booting.rst
+@@ -465,6 +465,7 @@ Before jumping into the kernel, the following conditions must be met:
+     - HDFGWTR2_EL2.nPMICNTR_EL0 (bit 2) must be initialised to 0b1.
+     - HDFGWTR2_EL2.nPMICFILTR_EL0 (bit 3) must be initialised to 0b1.
+     - HDFGWTR2_EL2.nPMUACR_EL1 (bit 4) must be initialised to 0b1.
++    - HDFGWTR2_EL2.nPMZR_EL0 (bit 21) must be initialised to 0b1.
  
- 	atomic64_t unique_id_counter;
+   For CPUs with SPE data source filtering (FEAT_SPE_FDS):
  
-diff --git a/drivers/accel/ivpu/ivpu_job.c b/drivers/accel/ivpu/ivpu_job.c
-index ebb2c865b09a..4689b8ab519d 100644
---- a/drivers/accel/ivpu/ivpu_job.c
-+++ b/drivers/accel/ivpu/ivpu_job.c
-@@ -621,7 +621,6 @@ bool ivpu_job_handle_engine_error(struct ivpu_device *vdev, u32 job_id, u32 job_
- 		 * status and ensure both are handled in the same way
- 		 */
- 		job->file_priv->has_mmu_faults = true;
--		atomic_set(&vdev->faults_detected, 1);
- 		queue_work(system_percpu_wq, &vdev->context_abort_work);
- 		return true;
- 	}
-@@ -1175,10 +1174,10 @@ static int reset_engine_and_mark_faulty_contexts(struct ivpu_device *vdev)
- 		return ret;
+diff --git a/arch/arm64/include/asm/el2_setup.h b/arch/arm64/include/asm/el2_setup.h
+index aa8ec9df8024..87560d8b254e 100644
+--- a/arch/arm64/include/asm/el2_setup.h
++++ b/arch/arm64/include/asm/el2_setup.h
+@@ -418,6 +418,7 @@
+ 	b.lt	.Lskip_fgt2_\@
  
- 	/*
--	 * If faults are detected, ignore guilty contexts from engine reset as NPU may not be stuck
--	 * and could return currently running good context and faulty contexts are already marked
-+	 * If job timeout is detected, read guilty context from engine reset, for other reasons
-+	 * faulty context is already known
- 	 */
--	if (atomic_cmpxchg(&vdev->faults_detected, 1, 0) == 1)
-+	if (atomic_cmpxchg(&vdev->job_timeout_detected, 1, 0) == 0)
- 		return 0;
+ 	mov	x0, xzr
++	mov	x2, xzr
+ 	mrs	x1, id_aa64dfr0_el1
+ 	ubfx	x1, x1, #ID_AA64DFR0_EL1_PMUVer_SHIFT, #4
+ 	cmp	x1, #ID_AA64DFR0_EL1_PMUVer_V3P9
+@@ -426,6 +427,11 @@
+ 	orr	x0, x0, #HDFGRTR2_EL2_nPMICNTR_EL0
+ 	orr	x0, x0, #HDFGRTR2_EL2_nPMICFILTR_EL0
+ 	orr	x0, x0, #HDFGRTR2_EL2_nPMUACR_EL1
++	orr	x2, x2, #HDFGWTR2_EL2_nPMICNTR_EL0
++	orr	x2, x2, #HDFGWTR2_EL2_nPMICFILTR_EL0
++	orr	x2, x2, #HDFGWTR2_EL2_nPMUACR_EL1
++	/* PMZR_EL0 is write-only, so it has no read trap to disable */
++	orr	x2, x2, #HDFGWTR2_EL2_nPMZR_EL0
+ .Lskip_pmuv3p9_\@:
+ 	/* If SPE is implemented, */
+ 	__spe_vers_imp .Lskip_spefds_\@, ID_AA64DFR0_EL1_PMSVer_IMP, x1
+@@ -436,10 +442,11 @@
+ 	cbz	x1, .Lskip_spefds_\@
+ 	/* disable traps of PMSDSFR to EL2. */
+ 	orr	x0, x0, #HDFGRTR2_EL2_nPMSDSFR_EL1
++	orr	x2, x2, #HDFGWTR2_EL2_nPMSDSFR_EL1
  
- 	num_impacted_contexts = resp.payload.engine_reset_done.num_impacted_contexts;
-diff --git a/drivers/accel/ivpu/ivpu_mmu.c b/drivers/accel/ivpu/ivpu_mmu.c
-index 41efd8985fa6..b2025274f91d 100644
---- a/drivers/accel/ivpu/ivpu_mmu.c
-+++ b/drivers/accel/ivpu/ivpu_mmu.c
-@@ -964,7 +964,6 @@ void ivpu_mmu_irq_evtq_handler(struct ivpu_device *vdev)
- 		file_priv = xa_load(&vdev->context_xa, ssid);
- 		if (file_priv) {
- 			if (!READ_ONCE(file_priv->has_mmu_faults)) {
--				atomic_set(&vdev->faults_detected, 1);
- 				ivpu_mmu_dump_event(vdev, event);
- 				WRITE_ONCE(file_priv->has_mmu_faults, true);
- 			}
-diff --git a/drivers/accel/ivpu/ivpu_pm.c b/drivers/accel/ivpu/ivpu_pm.c
-index c1ce8329790e..de0becbfdffb 100644
---- a/drivers/accel/ivpu/ivpu_pm.c
-+++ b/drivers/accel/ivpu/ivpu_pm.c
-@@ -229,6 +229,7 @@ static void ivpu_job_timeout_work(struct work_struct *work)
- 
- 	ivpu_jsm_state_dump(vdev);
- 	ivpu_dev_coredump(vdev);
-+	atomic_set(&vdev->job_timeout_detected, 1);
- 	queue_work(system_percpu_wq, &vdev->context_abort_work);
- }
- 
+ .Lskip_spefds_\@:
+ 	msr_s   SYS_HDFGRTR2_EL2, x0
+-	msr_s   SYS_HDFGWTR2_EL2, x0
++	msr_s   SYS_HDFGWTR2_EL2, x2
+ 	msr_s   SYS_HFGRTR2_EL2, xzr
+ 	msr_s   SYS_HFGWTR2_EL2, xzr
+ 	msr_s   SYS_HFGITR2_EL2, xzr
 
