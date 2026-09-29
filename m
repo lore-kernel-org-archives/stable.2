@@ -1,162 +1,89 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CBB63DCD83
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 15:42:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B1CA3DB626
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 15:42:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790696556; cv=none; b=kYT3Ul4of4YeL78NlGyzpgQwKOi7wAcpxMciE6eAJV0MC24ahAAZpp9ZAgZwnXp6a0gGHN75sNbeezsChkgiZrbkzNRUIpDT8k2XCVIOrGi7hI/XDgEB9DWM186WkBQyBv+zWpEMS4sdegAoF3AJFmJRY/lQC15vgU3CbEAOrcQ=
+	t=1790696556; cv=none; b=DZYbB0BAYK2aDWlTfVZWXoCI/wZPPeh4loWvxhUnMDWeEEuMSyYkPS1eaeFsoX0aaMCZl87lJ6je8ptmXQhoA6zuuoLxVUh1/uaiiue8wtkzUfx+ic4GKqS12d0oOsouGM/rb2SCWNYje6mLbhqmwIZpki/PmVvNaV5Lm8q3K3s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790696556; c=relaxed/simple;
-	bh=vQYC7vUzBjRq20XZwRXQqFIFdwHBF+Qb6ogg+4X5u9E=;
+	bh=4QXoquDZXRZf9HXF9HEiKoKV6gehnCzuWTE3hjyIsMM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Uxg4gR2wtmBHbNG8O9b09+0JYqNMMS3L94gsmykYP9XNVf/m2e/4qr1PGo/Qj3lPyzpzKcXYJZxl7usWAK/8foKoklDvoQjPHaop2H7D6vnPFSyP0C1pfJNHWQf+PhhWeb2qypRp08ogQ/dqmDQZ76dtHOSiCLpCGo/JdT9u0pc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bu0GhvrO; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=PYrgMFK9CX/Yb4ujGzBU/4zyQPEQdeRk4/YqcUo86OFDfxesGUA7bzTi21ZYRigSoj8ry5a/2qKFX8pc1DT2PGWibX5/LOtrxAYuO09NpUFsWb3DRNJwN3ViPAn1hWlwVPDvzZbTu2KDg8wnqLnXIhaFEhrNHd3pljoDoiNIxW8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gin7NMGi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bu0GhvrO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C33E1F000FF;
-	Tue, 29 Sep 2026 15:42:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gin7NMGi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8131C1F00898;
+	Tue, 29 Sep 2026 15:42:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790696553;
-	bh=XYl0YGdw2ePVwaGyiWVKlo1EHJMJo+gktL3mn8iY9xE=;
+	s=k20260515; t=1790696555;
+	bh=nSVcJaGZF0YJgG99KY9w8djrPaU1fQxBZATu8eOpO6g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Bu0GhvrOOHOKJRr7ADFqImeI/o2DbXFff0yS+dsBel7dj+QIb1BaBc4gpPC1Wty40
-	 nQLmvJ3W6XgM4MAhhY/9GqPEq4iFs/m7YV02jv8ZhPFx2aAaYh7llkgxCmqHAQ+6mN
-	 hVSRU3+tzSTVK9l/0Gf9ZQtpeiuSbuKuBfEVqAYg1ibNUngAXz/AUDDE5M6rIy8kLx
-	 IXtRHoyxzl+DxBSZ4M+mR3TibhpCpAPrPuixD5nsbHwIWVO8l+C0S5VQycjsLbXBZ9
-	 Ya3nRWHteClz95kmrI3F0ZG63J/gXP5MmO5qxEHCWOP+oGALGXR1+++zy8/RyYoCSf
-	 FJZivy2kdabKA==
+	b=Gin7NMGi/XRCS01QH40ngpO30UhY/iYX4UV2o0Ivjh6ZMEixt4FcMEGhKoJCT5d68
+	 7vEgZ8jeqgxdiH/aXoc1CgNm7HddChcPi1zHQ528l4FZqWMRVoC4I8W4M1mC8TRm2O
+	 5d489rzuhfhC1OjqKbuuBaE7S/CTp3RDe/lyAk8Br/NJQ0hSQ7hIWCTBa77oKClcqT
+	 cxVi+wFulZXDkcYLAA0qdBaqPxW2hEgkMOSG3NQNqx6KxtYdovURldfAreklERhWWn
+	 JhvAefM0Mhq45Sta3LDVL4hoW6qaAF8Hg1IIYIUxnZL/JHyFEJpvmkmilXKtCxUb36
+	 OwBkT29fNG79w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
-	Hamza Mahfooz <hamza.mahfooz@amd.com>,
+Cc: Wentao Liang <vulab@iscas.ac.cn>,
+	Lijo Lazar <lijo.lazar@amd.com>,
 	Alex Deucher <alexander.deucher@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 1/2] drm/amd/display: Whitespace cleanup
-Date: Tue, 29 Sep 2026 11:42:30 -0400
-Message-ID: <20260929154231.4087621-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] drm/amdgpu: Fix acpi device leak in amdgpu_acpi_enumerate_xcc()
+Date: Tue, 29 Sep 2026 11:42:33 -0400
+Message-ID: <20260929154233.4087662-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092929-evade-cling-0497@gregkh>
-References: <2026092929-evade-cling-0497@gregkh>
+In-Reply-To: <2026092957-folic-dropout-bdd4@gregkh>
+References: <2026092957-folic-dropout-bdd4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+From: Wentao Liang <vulab@iscas.ac.cn>
 
-[ Upstream commit 3335a13535312c9fad4d8d1307a621e6617d6ed8 ]
+[ Upstream commit a997baa61179b450bd55c4810c7ccfed3b753a54 ]
 
-Commit 075e2099c32c ("drm/amd/display: Fix race condition in DPIA AUX
-transfer") was backported to stable, which I noticed because of git
-saying
+amdgpu_acpi_enumerate_xcc() looks up each XCC ACPI device with
+acpi_dev_get_first_match_dev(), which takes a reference to the device.
+The reference is dropped with acpi_dev_put() after the XCC info is
+initialized, but if the kzalloc_obj() allocation of the XCC info fails
+the function returns -ENOMEM without releasing the reference, leaking
+the last reference to the ACPI device.
 
-	linux-6.1/.git/rebase-apply/patch:37154: space before tab in indent.
+Drop the ACPI device reference on the allocation failure path before
+returning.
 
-while applying patch-6.1.21. While fixing the code location that issued
-that warning, improve in few more places.
-
-Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
-Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+Fixes: 4d5275ab0b18 ("drm/amdgpu: Add parsing of acpi xcc objects")
+Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-
-Backport dependency adaptation for Linux 6.1:
-Keep the writeback-connector guard from 87de0a741ef6 while moving the
-notify label to column zero; dropping the guard would undo the existing
-writeback memory-safety fix.
-
-Also clear new_stream after releasing its extra reference at skip_modeset.
-The parent of target c5fd4eaad50d620c7e09ac2082b2fb55ee54170e already
-contains this assignment and the target patch requires it as context.
-The stable tree lacks it. Clearing the local pointer also prevents the
-later color-management failure path from releasing the reference owned
-by dm_new_crtc_state->stream. Retain the other whitespace cleanups; no
-functions are added.
-
-Stable-dep-of: c5fd4eaad50d ("drm/amd/display: Fix dc stream excess put in dm_update_crtc_state()")
+(cherry picked from commit 9211ef48b31ec66999cf55e04d0cbc60cd855fd5)
+Cc: stable@vger.kernel.org
+[ adapted the hunk to the existing kzalloc() failure block with braces and DRM_ERROR() logging. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 27 ++++++++++---------
- 1 file changed, 14 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index bb5e3a6086f2e..b3ee95aa5af0b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -2336,9 +2336,9 @@ static int dm_late_init(void *handle)
- 	 */
- 	params.min_abm_backlight = 0x28F;
- 	/* In the case where abm is implemented on dmcub,
--	* dmcu object will be null.
--	* ABM 2.4 and up are implemented on dmcub.
--	*/
-+	 * dmcu object will be null.
-+	 * ABM 2.4 and up are implemented on dmcub.
-+	 */
- 	if (dmcu) {
- 		if (!dmcu_load_iram(dmcu, params))
- 			return -EINVAL;
-@@ -7077,13 +7077,13 @@ static uint add_fs_modes(struct amdgpu_dm_connector *aconnector)
- 	/* Standard FPS values
- 	 *
- 	 * 23.976       - TV/NTSC
--	 * 24 	        - Cinema
--	 * 25 	        - TV/PAL
-+	 * 24           - Cinema
-+	 * 25           - TV/PAL
- 	 * 29.97        - TV/NTSC
--	 * 30 	        - TV/NTSC
--	 * 48 	        - Cinema HFR
--	 * 50 	        - TV/PAL
--	 * 60 	        - Commonly used
-+	 * 30           - TV/NTSC
-+	 * 48           - Cinema HFR
-+	 * 50           - TV/PAL
-+	 * 60           - Commonly used
- 	 * 48,72,96,120 - Multiples of 24
- 	 */
- 	static const u32 common_rates[] = {
-@@ -7709,7 +7709,7 @@ static void update_freesync_state_on_stream(
- 		return;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+index d484804181756..442fd81f1cf62 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+@@ -1114,6 +1114,7 @@ static int amdgpu_acpi_enumerate_xcc(void)
+ 				   GFP_KERNEL);
+ 		if (!xcc_info) {
+ 			DRM_ERROR("Failed to allocate memory for xcc info\n");
++			acpi_dev_put(acpi_dev);
+ 			return -ENOMEM;
+ 		}
  
- 	spin_lock_irqsave(&adev_to_drm(adev)->event_lock, flags);
--        vrr_params = acrtc->dm_irq_params.vrr_params;
-+	vrr_params = acrtc->dm_irq_params.vrr_params;
- 
- 	if (surface) {
- 		mod_freesync_handle_preflip(
-@@ -8264,7 +8264,7 @@ static void amdgpu_dm_commit_audio(struct drm_device *dev,
- 		if (!drm_atomic_crtc_needs_modeset(new_crtc_state))
- 			continue;
- 
--	notify:
-+notify:
- 		if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
- 			continue;
- 
-@@ -9292,7 +9292,8 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
- skip_modeset:
- 	/* Release extra reference */
- 	if (new_stream)
--		 dc_stream_release(new_stream);
-+		dc_stream_release(new_stream);
-+	new_stream = NULL;
- 
- 	/*
- 	 * We want to do dc stream updates that do not require a
-@@ -10687,7 +10688,7 @@ int amdgpu_dm_process_dmub_aux_transfer_sync(
- 	if (!dc_process_dmub_aux_transfer_async(ctx->dc, link_index, payload)) {
- 		*operation_result = AUX_RET_ERROR_ENGINE_ACQUIRE;
- 		goto out;
-- 	}
-+	}
- 
- 	if (!wait_for_completion_timeout(&adev->dm.dmub_aux_transfer_done, 10 * HZ)) {
- 		DRM_ERROR("wait_for_completion_timeout timeout!");
 -- 
 2.53.0
 
