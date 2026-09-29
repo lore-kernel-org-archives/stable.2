@@ -1,171 +1,337 @@
-Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022077.outbound.protection.outlook.com [52.101.126.77])
+Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CF253E9589;
-	Tue, 29 Sep 2026 06:59:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.77
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790665202; cv=fail; b=WvQXe7QKa0fU2+HoyjOnUxQJj1QGLTdK+C4P70lNEeWbf5HkdMM41+55+BDqkyjr/4tx84irSThB/dxC73wh1IMNYSAQ0wrRSpAmJs89pu7yXUOXXRxCFCabn0T3w4OhBqKdOguosL+BdBXjee8pwJygSIji4S6VCI54G2rhOA0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790665202; c=relaxed/simple;
-	bh=cGFsvbhtGC2iEBzx1wqlInrMm3zsaGJt+9+seihfvRY=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=kwkRojbGPU0zdZ1QpizkyCQ+pmn/kvE0DaGjh6P9u7lhArR2Vl6weQHqVcdk63DbqKCbR+6E1800OgdUle6uy5ZoqbzmAFSFVMui3Pld81ubzJUcCXRhi4+/2D1eNtwZCkdhsqUmEDWd0/yyk57J+tcACR8GGPg3GXyUxmOJMXA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; dkim=pass (2048-bit key) header.d=aspeedtech.com header.i=@aspeedtech.com header.b=BCk43GCP; arc=fail smtp.client-ip=52.101.126.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 509D9394785
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 07:04:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.34
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790665496; cv=none; b=opoLbYOuiu41erQ4nuyPGpfQuSnnqxOxRz6KQPPeBJcREIXSKSEq/a9sHCHIXw/7R/MJAlXN9+9GbSRhcDNG9oDMajqmzrFTQTSEguLeXUUCy9CH+zbOMNS+P4saA6lTmoOCN6tScqfMSr2eW6dgeRReqsbzhQ1FL4iqdZ6rMaA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790665496; c=relaxed/simple;
+	bh=auR4FlAXn/xvrxBV2oQIOKHpmv+OP3vwAWUbDjNlYfk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=bXdPNP9e35T9esVazpSHCK+RQUjfEimT5wl12WYwQsjUs17mw9N9hKZ58tcoCJT2xcTrYfNvdptFaW/KBenNE64ogwc29ulg9JUVxEQHDElD2v1EoTow9igOHhkiIJ/Pn7BhtCQCdlIVD3s+qmziNEYvKPvm0qYq1Nypwnysghs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=kRn6Rq8J; arc=none smtp.client-ip=203.254.224.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aspeedtech.com header.i=@aspeedtech.com header.b="BCk43GCP"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=auhsrscbhkSWmjxFVAHJOEwOAkQaI26Hycfruui1XMG6LtASbYgO989AhEkAvmCZj01pR3/0XhIp203JxH7QCeriWln27TRvkRJItDYGSMMIRrA2bQXl2JL6GSBbReqZvw2Qp/S/v+M3+XQHeFNt0U8GY+CswH4S/Ik1g4rm1oyIw4/pIjbbTByrWL1ix6lE7RXowREdnFoLYmbTB+7YeoiQqU+DPY/z4GJrPcCuq2zs3s1+O0JqguarXrSHhgiJGryuBjEynBn17p5oYiGDushZ9vKGWgThvPRquFadp3NY+77FYrYWlH8y6Z4pMgixJgMY7+I5ERHoNOhFv37j9g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cGFsvbhtGC2iEBzx1wqlInrMm3zsaGJt+9+seihfvRY=;
- b=C7BjL47mUUySRJSS96ZxD0w71Zeaoi/1Y5DzSwo1qE/svbShz9QUqnGujALO9Iysli4hvbheOdGlp0iqbl0I0rQ8RZOvffCS3pZCP8Opk3Px+C+822a2HRLn9NDKHrjZGXNPIIwOhGl9OMb8GAVgCNxtekdQc0TFZGkxVCo8GRe6BDvYMI4Dyvq5vMwkwKQg6YPlQqJUzc01NcfSSsQRi58meelH9jkTzQVkgIG+Q8fYO6bFGUyR9yXlGBObX4m6nTwp0wbmXeuWg5WN5yJz3+UmByDpEEdk8/zObu0gbVYHwbTdfnAe3DZVvcwkTGSRDVGBn8Po8Hc4MzzJV0SDDQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
- header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cGFsvbhtGC2iEBzx1wqlInrMm3zsaGJt+9+seihfvRY=;
- b=BCk43GCPMWX8XwjMSwwQ8Lw9V1U+N6H0671hSJN+ylzh5vRw3gzhdys1FNrNr549vD1DvgVP5c14gTNPKlCZoZH8laqExM5ig+DAOG0PuRLyfXTAxFNOK6j2h0mRh979CrIKX/Zd6rtE/CiiA2NQHg4ekh1Vq6vwpyePz+y/BLfiPSkeDiW3UlW9IzhSgoEUokMi0ZkndUtl17GlIH+h4DFJEdtJ4tchxN1oSXNunjH4gvAU9C4++7H91TcVIdcxJvBfGKQOhwK5fgx3Q5w7dFVzTtNvLPd+IrpDX+JM10Be9wwe/k4u4AgA+9BwYH0HMFnybpVEfwr1FO+v2To8Dw==
-Received: from TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com (2603:1096:408::791)
- by TYSPR06MB6947.apcprd06.prod.outlook.com (2603:1096:400:46c::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
- 2026 06:59:56 +0000
-Received: from TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com
- ([fe80::e00f:6219:946c:195e]) by TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com
- ([fe80::e00f:6219:946c:195e%4]) with mapi id 15.21.0451.014; Tue, 29 Sep 2026
- 06:59:56 +0000
-From: Ryan Chen <ryan_chen@aspeedtech.com>
-To: Borislav Petkov <bp@alien8.de>
-CC: Stefan Schaeckeler <sschaeck@cisco.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Tony Luck <tony.luck@intel.com>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-aspeed@lists.ozlabs.org"
-	<linux-aspeed@lists.ozlabs.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-edac@vger.kernel.org"
-	<linux-edac@vger.kernel.org>, Borislav Petkov <bp@suse.de>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: RE: [PATCH v3 2/9] EDAC/aspeed: Set the DIMM grain
-Thread-Topic: [PATCH v3 2/9] EDAC/aspeed: Set the DIMM grain
-Thread-Index: AQHdRZyG1WT8/e+F90OdDhdaNM60jrbe1uMAgAZdu7A=
-Date: Tue, 29 Sep 2026 06:59:56 +0000
-Message-ID:
- <TY2PPF5CB9A1BE65A0A83662656401CDFC7F28C2@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
-References: <20260916-edac-v3-0-23e9ed2fbdf9@aspeedtech.com>
- <20260916-edac-v3-2-23e9ed2fbdf9@aspeedtech.com>
- <20260925054522.GDarYKcvFR4mLdAhSe@fat_crate.local>
-In-Reply-To: <20260925054522.GDarYKcvFR4mLdAhSe@fat_crate.local>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=aspeedtech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY2PPF5CB9A1BE6:EE_|TYSPR06MB6947:EE_
-x-ms-office365-filtering-correlation-id: bd7c9563-097e-465c-dc92-08df1df744f9
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|366016|23010399003|7416014|1800799024|10067099003|56012099006|6133799003|18002099003|4143699003|22082099003|38070700021;
-x-microsoft-antispam-message-info:
- 9ls6qeGTVRCTqpHfuEa1gwIHztXCVyANfPnLoLg138ifsHEduoqdsXzWCn9C2y0iadJEUENQnQ7BV5z+mAITiqej0NSuAqYTthpLeEtFhXiwpk9HquHGSkQHLvaNgM50phWyqfTAn6PW8wXq7brPxuuQd+8QS7vzvt5bBMf7qd9oKBi/Ym7pioix7P4HL83upjr68y8pa6zwgAMiqu9CjYYoVyEbakY9G8ER6nw1REPIDYTo67xLt7sjIOzXG98alAN0Gyi7yHWL1EvpU3CarLWvMemjxMlt9Nd1AXLBNAxc1AmkTL+drhrh/XqYpLaKcBgqLKxaXUml5CzHIDo9UCVu4EYJq6p5fGxKGQNyxpa31mRgdepWiJSGLjTI7FSpuCI3yr/2z3xCt/SZMJ955JMqddZPuegc/AXG/Rq5cNQmhtXB0N+V71q0nMNc9OA0ExKnDWK3abTvJirZUiXAUnmhp2YX0NnqImA9oQYwAVJZbgqDgrTKR205xbpStUNYtA2YvXHuzY+IjwsZhGN01/psEI76HeBcQEJ9VHOhM6RPi29thia3d80X9iqwZSywHzBOF1pNy2oIy/WIHopXzyg8FIf6gs7S08chFRzJE6SouHpdZGiy81dcXqBjmJh9lgP2IRI+RRLGhN6r6zwiyXAWx+6jMhmUM53wnmp6tEm5z8VYFBwMchSn6X3BrzGPTPHwF2G5i/KyEAXSnWz6gh43k/hPcRRbmuLAhL9Mrc8=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:zh-tw;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(23010399003)(7416014)(1800799024)(10067099003)(56012099006)(6133799003)(18002099003)(4143699003)(22082099003)(38070700021);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?VlJqeStZLzNwRENMTHZubUJDdVVGa2FkNWsxaGp1OFJ6NVJvdWVNRzVJUWhU?=
- =?utf-8?B?RG52aEdGTyt6STVyRzRNMFk2UVA1WXNxNWVSeUtHdWRUa3RKMXpIbFd5UE9H?=
- =?utf-8?B?cGxwc3VxUzBNNGx5VmJNWnFxa09TZWZWOUpaeUYwbC9GdUQ1THJKbit2dUQ2?=
- =?utf-8?B?dTluM2lkMFJKWW45K0pKTzN6UURJZ2o3MUJZaG4xZlI3cVd6ZmZ1K05nUU5r?=
- =?utf-8?B?WFNiWHVyR3JBVXZaR0hMaXRVNXMyUTNGdjB4b0RlODdFeE9jdzVYRWhucmli?=
- =?utf-8?B?TXo2VVIydytPalZNV1E2TklJWGg0azNEV3lzOU4wRHArQlZRYnpjWTRPbHBh?=
- =?utf-8?B?QzZnZ1ZRRzdYb29LWExJdWdSNXMwTXF5RC9DZ2V1MEZQcnVkL0ticGdGZisv?=
- =?utf-8?B?aDNBRE5jUkU2OHQ3b3J1cG1id0NmLzY3WUE1Ukx3RTFOTEtVcTRMbnlPK3Rm?=
- =?utf-8?B?MVpNdGJVeDhRWFFqUEhOYzFwU1o0ZHBsQ0xkVXZMMmZlZW52d0ZWcGwwUG0w?=
- =?utf-8?B?L1NaSW9kL3Jyd0k0cy9RdWZ6eU8yRXBnaG92ZTUyL3ZVeUVqWCtkK1pndnJD?=
- =?utf-8?B?SGtMSTJ2RDZ6ZWdHZkJnaU9FbjlSejVPdXBoVWZXVHFQNi9FVmF1TFRXY2p2?=
- =?utf-8?B?N0dHWXlYbG02K0VlU2FwbGh1SG5LRjdrbkZEclFjMEZzeXlaSUhIY3FxNzVr?=
- =?utf-8?B?bUZWM0RmdEpxdjFCR204T2FiQlVCZ3JHdnJNNWxjejBMYzRxbHVPUlpsVjl2?=
- =?utf-8?B?S1JvanYwcW1HQkd2RHVFR003aXBycC9xR25ZTHhuTHZWWUQwUmJSeU0rdTB4?=
- =?utf-8?B?UUdDSGMzeEt0WXQ1aXplZS9CaGo2Yk5EMnJ0REpZZ1FGcmlwNGMybEUzczRa?=
- =?utf-8?B?cUxBNFpUU3dwR0FHNkY0WlRKMzc1Q0p4TDFucWNxUHlEWXhjT1NYRm1rYmZL?=
- =?utf-8?B?aTltSVhURlRPN1N5YjZlRW5qYVkyYzFzNEsyZjJqNFRnSXh4K0tzRTB6c1RD?=
- =?utf-8?B?ZTFHTTI1cEQyNTY3bkVSeForT0tnSmFMUXhWMXg5dTBOaDVnUjNyWVFYQUFx?=
- =?utf-8?B?UGJlNVI2SjVpS0hTbnFjZENhY01hRTMrVEsvdlVGRFpvcUViZFFOM2dlcTJm?=
- =?utf-8?B?cWR3dzR1UWl5QUZENmpTNWZlS0hxMGV5ZnRJOE5MZk14UXpPcTFiclJGbTUv?=
- =?utf-8?B?ZzFaUUNiYUUxbzkvMDk3UVdqcndLZHpLMGdwS1JQWm1Bb3BUOCtiUjZGNjJ6?=
- =?utf-8?B?bXVjQTVtbW9iWVlmaG00MnMyTG9RaktaRllCWUlYWkRnVFE3dERxd1pCdGt1?=
- =?utf-8?B?allNcW1qaGlQdHJOUHM5ZnpyNnRGTndnR1ZobFFLbnJHWWNxeCtraGlUcHJ0?=
- =?utf-8?B?bmVoOFAxVDlzRGZoc1ljdk5IMHBFSkt4K2FPM2ZYWlRYOTFIUVpkYUJmT3Nn?=
- =?utf-8?B?SmdIOURPMHZ2cGFmcU5ob0llL2NnMlZDeGFRN3ppOGxNSHprc2hTeVlrN2Ex?=
- =?utf-8?B?MGtPV0J5T0FFaEZOdUJ1Y20zbkNGUFJSOEVkVmJZSERXUVh4RWVmeEUxNHRJ?=
- =?utf-8?B?eFNSME16TkxvWEIwaktVOG9YcnRLcGxaQms2cnJSSVY5N3l2djAvTUtPWk9n?=
- =?utf-8?B?d0p4ci9oc1JYbWVObkwyOVNPMVVCZ2hjdmU1NzhhbmJlYWQ1RGtMR3BKT0FE?=
- =?utf-8?B?aWVNODlPTXAvYldKLzNobEVLcWF0Z0ZVd05hRlFOUkVmS0x5MEpDSmkrTEhD?=
- =?utf-8?B?U1VSVlJncEVONkVmcHZTQmExUzJIdDN6YUl4QWxVc1cwalNtRzFJUEVKaE5C?=
- =?utf-8?B?V2RkRUlrODNBVnErZ3d6VitZWUJNN052UG5JdG9Jc2h1R2hpMDdiRFMyWi8x?=
- =?utf-8?B?WlcxWXE1ZHRhMU5WMFpLeVl3bTJnbHZrZUMxdE5hMDh6eDF3dlFnRHErS0FR?=
- =?utf-8?B?Mk5ScEF1QWVKL2E0UkJIc2F4N0JadzVHUE5oMlJ4S1dMM0dGSU16M3hLeERW?=
- =?utf-8?B?b0hhL3d0TVlzWHliTkx5alk0VHZGYTRBZmpQZUtWYUpyeHdhTktJZXRHUHNL?=
- =?utf-8?B?U3g3VmFMZHU3UnJ6SHFtNXhDYis0bFhrWm4yT093YjQxRGtQcU9oZEVodWkv?=
- =?utf-8?B?SGdOYkVRMnRPQjd3S1ZIUktaN01xejdHZlFKeDB1V1FKQ1k2VG1JV2JLQ3hQ?=
- =?utf-8?B?ZkJWdzE0MmVhRzU5dHZsbnN3TkJBVldPbUJOMmdoaDVDajBsZzdVaVFkaGZy?=
- =?utf-8?B?aU1oTVNRM1pLRFNqRUpwelU3d09WblVQQklMWVcySWIxeDlnbGE2RXRrZ0Ja?=
- =?utf-8?B?Yk9yRXVOWlVqMy9URGdWaUFtbktVU0dqOWRZRmsrQVo1ZVVKT3pXQT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="kRn6Rq8J"
+Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
+	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20260929070451epoutp0402c3d2d5b373330f82c377eadd373f22~ZuMbbyMjO0728407284epoutp04z
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 07:04:51 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20260929070451epoutp0402c3d2d5b373330f82c377eadd373f22~ZuMbbyMjO0728407284epoutp04z
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1790665491;
+	bh=FjIhieDjYZodqOSE1Ty33Faspz5K1iiZS8MApjx11h8=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=kRn6Rq8Jj48F/2LYyXxpK4vjpr0kuyScHDQpYcHnkuFTSB464jqor8LwKstAQfFu9
+	 dEmE8SfBAsvu4n/c4mTcEQqDt8JvWtpEolq/eaatVzDFGacUzU4UY6wZl3wTaZJIpd
+	 5urBP13ujIHG4YZe4KCZ748Y4Xnk+/5aYK2WT3/c=
+Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
+	epcas5p2.samsung.com (KnoxPortal) with ESMTPS id
+	20260929070450epcas5p2f095e9c2dd0da98e8f84d7381c9f7de2~ZuMa491c52805328053epcas5p2U;
+	Tue, 29 Sep 2026 07:04:50 +0000 (GMT)
+Received: from epcas5p3.samsung.com (unknown [182.195.38.93]) by
+	epsnrtp03.localdomain (Postfix) with ESMTP id 4hv8Ln5B8gz3hhT4; Tue, 29 Sep
+	2026 07:04:49 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas5p3.samsung.com (KnoxPortal) with ESMTPA id
+	20260929070449epcas5p396bb5866052a71e8ee8b1dd5cded1add~ZuMZthAq31186011860epcas5p3Y;
+	Tue, 29 Sep 2026 07:04:49 +0000 (GMT)
+Received: from [107.122.5.126] (unknown [107.122.5.126]) by
+	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20260929070447epsmtip1156823d524177d52680eb70a22adddeb~ZuMXqYfSS0795207952epsmtip1w;
+	Tue, 29 Sep 2026 07:04:46 +0000 (GMT)
+Message-ID: <5d7501ea-4579-44a5-9a7e-91ef1f10b2bb@samsung.com>
+Date: Tue, 29 Sep 2026 12:34:45 +0530
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: aspeedtech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bd7c9563-097e-465c-dc92-08df1df744f9
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Sep 2026 06:59:56.0916
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 0NP0ydxDgYynW+XENRRcGfVWnjK2GB/XhixC2ItQAtDfTQTJ6AT1Iko2l842fZLrfrm8E2nHvgvp2GBsCQGQbHgueXoUrfSmjQtaeXwTdZQ=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYSPR06MB6947
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] usb: dwc3: gadget: Prevent EP resource conflicts
+ during StartTransfer
+To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+Cc: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+	"linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"jh0801.jung@samsung.com" <jh0801.jung@samsung.com>, "dh10.jung@samsung.com"
+	<dh10.jung@samsung.com>, "akash.m5@samsung.com" <akash.m5@samsung.com>,
+	"hongpooh.kim@samsung.com" <hongpooh.kim@samsung.com>,
+	"eomji.oh@samsung.com" <eomji.oh@samsung.com>, "h10.kim@samsung.com"
+	<h10.kim@samsung.com>, "shijie.cai@samsung.com" <shijie.cai@samsung.com>,
+	"alim.akhtar@samsung.com" <alim.akhtar@samsung.com>,
+	"muhammed.ali@samsung.com" <muhammed.ali@samsung.com>,
+	"thiagu.r@samsung.com" <thiagu.r@samsung.com>, "pritam.sutar@samsung.com"
+	<pritam.sutar@samsung.com>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>
+Content-Language: en-US
+From: Selvarasu Ganesan <selvarasu.g@samsung.com>
+In-Reply-To: <arsnMM-GvuXwBKCX@vbox>
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20260929070449epcas5p396bb5866052a71e8ee8b1dd5cded1add
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-542,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20260227121338epcas5p4baebb406db37f07223545b2f85751bf2
+References: <CGME20260227121338epcas5p4baebb406db37f07223545b2f85751bf2@epcas5p4.samsung.com>
+	<20260227121236.963-1-selvarasu.g@samsung.com>
+	<20260228002711.e442cuxwld4s2f66@synopsys.com>
+	<20260303003955.5lbb6xdrg7tp3zzi@synopsys.com>
+	<08273adc-d8cf-48b3-ba45-853d363af0e6@samsung.com>
+	<20260306214123.3jnlzd2tmtwggch2@synopsys.com>
+	<7f8a7341-3701-4ade-a198-cf86719da931@samsung.com> <arsnMM-GvuXwBKCX@vbox>
 
-PiBTdWJqZWN0OiBSZTogW1BBVENIIHYzIDIvOV0gRURBQy9hc3BlZWQ6IFNldCB0aGUgRElNTSBn
-cmFpbg0KPiANCj4gT24gV2VkLCBTZXAgMTYsIDIwMjYgYXQgMDE6MzA6MzlQTSArMDgwMCwgUnlh
-biBDaGVuIHdyb3RlOg0KPiA+IFRoZSBkcml2ZXIgbmV2ZXIgc2V0cyBkaW1tLT5ncmFpbiwgbGVh
-dmluZyBpdCB6ZXJvLiBTaW5jZSBjb21taXQNCj4gPiAzNzI0YWNlNTgyZDkgKCJFREFDL21jOiBG
-aXggZ3JhaW5fYml0cyBjYWxjdWxhdGlvbiIpDQo+ID4gZWRhY19yYXdfbWNfaGFuZGxlX2Vycm9y
-KCkgcnVucyBXQVJOX09OX09OQ0UoIWUtPmdyYWluKSBhbmQgZm9yY2VzDQo+IHRoZQ0KPiA+IGdy
-YWluIHRvIDEsIHNvIHRoZSBmaXJzdCBFQ0MgZXJyb3IgcmVwb3J0ZWQgb24gYW55IEFzcGVlZCBC
-TUMgU29DDQo+ID4gZW1pdHMgYSB3YXJuaW5nIHNwbGF0LCBlLmcuIG9uIHRoZSBBU1QyNjAwOg0K
-PiA+DQo+ID4gICBXQVJOSU5HOiBDUFU6IDAgUElEOiAwIGF0IGRyaXZlcnMvZWRhYy9lZGFjX21j
-LmM6OTI0DQo+IGVkYWNfcmF3X21jX2hhbmRsZV9lcnJvcisweDRiNC8weDYwNA0KPiA+ICAgLi4u
-DQo+ID4gICBlZGFjX3Jhd19tY19oYW5kbGVfZXJyb3IgZnJvbSBlZGFjX21jX2hhbmRsZV9lcnJv
-cisweDM2NC8weDRhOA0KPiA+ICAgZWRhY19tY19oYW5kbGVfZXJyb3IgZnJvbSBjb3VudF9yZWMr
-MHhkYy8weDEyNA0KPiA+ICAgY291bnRfcmVjIGZyb20gbWNyX2lzcisweDExMC8weDFlOA0KPiAN
-Cj4gQWxsIG9mIHRoYXQgaXMgZmluZSBhbmQgZGFuZHkgYnV0IHlvdSBzaG91bGQgdGFsayBhYm91
-dCB3aHkgdGhlIGdyYWluIGlzIGNob3Nlbg0KPiB0byBiZSAxNiBoZXJlLiBUaGUgd2FybmluZyBp
-cyBqdXN0IHRvIG1ha2UgeW91IGNob29zZSBhIHByb3BlciBncmFpbiBmb3IgeW91cg0KPiBodyBh
-bmQgZG9lc24ndCBuZWVkIHRoYXQgbXVjaCAnc3BsYWluaW4nLg0KDQpHb3QgaXQuDQp2NCB0cmlt
-cyB0aGUgd2FybmluZyBkb3duIHRvIGEgc2VudGVuY2UgYW5kIGV4cGxhaW5zIHRoZSB2YWx1ZQ0K
-aW5zdGVhZDogdGhlIGNvbnRyb2xsZXIgcmVjb3JkcyB0aGUgYWRkcmVzcyBvZiBhIGZhaWxpbmcg
-YWNjZXNzIHdpdGgNCjE2LWJ5dGUgZ3JhbnVsYXJpdHkgLSBNQ1I1OCBhbmQgTUNSNUMgaG9sZCBp
-dCBpbiBiaXRzIFszMDo0XSwgd2l0aCB0aGUNCmxvdyBmb3VyIGJpdHMgcmVzZXJ2ZWQuDQoNCj4g
-DQo+ID4gRml4ZXM6IDliN2U2MjQyZWU0ZSAoIkVEQUMsIGFzcGVlZDogQWRkIGFuIEFzcGVlZCBB
-U1QyNTAwIEVEQUMNCj4gPiBkcml2ZXIiKQ0KPiA+IFNpZ25lZC1vZmYtYnk6IFJ5YW4gQ2hlbiA8
-cnlhbl9jaGVuQGFzcGVlZHRlY2guY29tPg0KPiA+IENjOiBzdGFibGVAdmdlci5rZXJuZWwub3Jn
-DQo+IA0KPiBJcyB0aGlzIHJlYWxseSBzdGFibGUgbWF0ZXJpYWwgYW5kIGlmIHNvLCB3aHk/DQoN
-Ck5vLiBUaGUgZXJyb3IgaXMgc3RpbGwgcmVwb3J0ZWQsIG9ubHkgd2l0aCB0aGUgd3JvbmcgZ3Jh
-bnVsYXJpdHkgYW5kIGENCm9uZS1vZmYgd2FybmluZywgc28gaXQgZG9lc24ndCBtZWV0IHRoZSBi
-YXIgaW4NCnN0YWJsZS1rZXJuZWwtcnVsZXMucnN0LiBJJ2xsIGRyb3AgdGhlIHRhZyBhbmQga2Vl
-cCB0aGUgRml4ZXM6IG9uZS4NCg0KUnlhbg0K
+
+On 9/29/2026 8:38 AM, Thinh Nguyen wrote:
+> On Thu, Sep 24, 2026, Selvarasu Ganesan wrote:
+>> On 3/7/2026 3:11 AM, Thinh Nguyen wrote:
+>>> On Fri, Mar 06, 2026, Selvarasu Ganesan wrote:
+>>>> On 3/3/2026 6:09 AM, Thinh Nguyen wrote:
+>>>>> On Sat, Feb 28, 2026, Thinh Nguyen wrote:
+>>>>>> On Fri, Feb 27, 2026, Selvarasu Ganesan wrote:
+>>>>>>> The below “No resource for ep” warning appears when a StartTransfer
+>>>>>>> command is issued for bulk or interrupt endpoints in
+>>>>>>> `dwc3_gadget_ep_enable` while a previous StartTransfer on the same
+>>>>>>> endpoint is still in progress. The gadget functions drivers can invoke
+>>>>>>> `usb_ep_enable` (which triggers a new StartTransfer command) before the
+>>>>>>> earlier transfer has completed. Because the previous StartTransfer is
+>>>>>>> still active, `dwc3_gadget_ep_disable` can skip the required
+>>>>>>> `EndTransfer` due to `DWC3_EP_DELAY_STOP`, leading to the endpoint
+>>>>>>> resources are busy for previous StartTransfer and warning ("No resource
+>>>>>>> for ep") from dwc3 driver.
+>>>>>>>
+>>>>>>> Additionally, a race condition exists between dwc3_gadget_ep_disable()
+>>>>>>> and dwc3_gadget_ep_queue() when manipulating dep->flags. When
+>>>>>>> dwc3_gadget_ep_disable() calls dwc3_gadget_giveback(), the dwc->lock is
+>>>>>>> temporarily released. If dwc3_gadget_ep_queue() runs in that window, it
+>>>>>>> may set the DWC3_EP_TRANSFER_STARTED flag as part of
+>>>>>>> dwc3_send_gadget_ep_cmd(). When ep_disable resumes, it unconditionally
+>>>>>>> clears all flags except those explicitly masked, potentially clearing
+>>>>>>> DWC3_EP_TRANSFER_STARTED even though a new transfer has started. This
+>>>>>>> leads to "No resource for ep" warnings on subsequent StartTransfer
+>>>>>>> attempts.
+>>>>>>>
+>>>>>>> The underlying framework issue is that usb_ep_disable() is expected to
+>>>>>>> complete pending requests before returning, but is allowed to be called
+>>>>>>> from interrupt context where sleeping to wait for completion is not
+>>>>>>> possible.
+>>>>>>>
+>>>>>>> As temporary workarounds for this framework limitation:
+>>>>>>>
+>>>>>>> 1. In __dwc3_gadget_ep_enable(), add a check for the
+>>>>>>>       DWC3_EP_TRANSFER_STARTED flag before issuing a new StartTransfer.
+>>>>>>>       This prevents a second StartTransfer on an already busy endpoint,
+>>>>>>>       eliminating the resource conflict.
+>>>>>>>
+>>>>>>> 2. In __dwc3_gadget_ep_disable(), preserve the DWC3_EP_TRANSFER_STARTED
+>>>>>>>       flag when masking dep->flags if it is actually set, preventing the
+>>>>>>>       race with dwc3_gadget_ep_queue() from corrupting the flag state.
+>>>>>>>
+>>>>>>> These changes eliminate the "No resource for ep" warnings and potential
+>>>>>>> kernel panics caused by panic_on_warn.
+>>>>>>>
+>>>>>>> dwc3 13200000.dwc3: No resource for ep1out
+>>>>>>> WARNING: CPU: 0 PID: 700 at drivers/usb/dwc3/gadget.c:398 dwc3_send_gadget_ep_cmd+0x2f8/0x76c
+>>>>>>> Call trace:
+>>>>>>> dwc3_send_gadget_ep_cmd+0x2f8/0x76c
+>>>>>>> __dwc3_gadget_ep_enable+0x490/0x7c0
+>>>>>>> dwc3_gadget_ep_enable+0x6c/0xe4
+>>>>>>> usb_ep_enable+0x5c/0x15c
+>>>>>>> mp_eth_stop+0xd4/0x11c
+>>>>>>> __dev_close_many+0x160/0x1c8
+>>>>>>> __dev_change_flags+0xfc/0x220
+>>>>>>> dev_change_flags+0x24/0x70
+>>>>>>> devinet_ioctl+0x434/0x524
+>>>>>>> inet_ioctl+0xa8/0x224
+>>>>>>> sock_do_ioctl+0x74/0x128
+>>>>>>> sock_ioctl+0x3bc/0x468
+>>>>>>> __arm64_sys_ioctl+0xa8/0xe4
+>>>>>>> invoke_syscall+0x58/0x10c
+>>>>>>> el0_svc_common+0xa8/0xdc
+>>>>>>> do_el0_svc+0x1c/0x28
+>>>>>>> el0_svc+0x38/0x88
+>>>>>>> el0t_64_sync_handler+0x70/0xbc
+>>>>>>> el0t_64_sync+0x1a8/0x1ac
+>>>>>>>
+>>>>>>> Cc: stable@vger.kernel.org
+>>>>>>> Signed-off-by: Selvarasu Ganesan <selvarasu.g@samsung.com>
+>>>>>>> ---
+>>>>>>>
+>>>>>>> Note: No Fixes tag is added because this is a workaround for the
+>>>>>>> gadget framework issue where the gadget framework calls usb_ep_disable()
+>>>>>>> in interrupt context without ensuring endpoint flushing completes.
+>>>>>>> A proper fix requires refactoring the framework to make sure
+>>>>>>> usb_ep_disable is invoked in process context.
+>>>>>>>
+>>>>>>> Changes in v3:
+>>>>>>>     - Revised the commit message to detail the real gadget framework issue
+>>>>>>>       pointed out by the reviewer.
+>>>>>>>     - Merged the two fixes for the same ep wringing into one patch.
+>>>>>>> Link to v2: https://protect2.fireeye.com/v1/url?k=dd1a51eb-82a25949-dd1bdaa4-000babff88b5-867f0f86789e003a&q=1&e=b9b4dadf-c903-42b6-bd70-3d09d4ad7c04&u=https%3A%2F%2Flore.kernel.org%2Flinux-usb%2F20251117155920.643-1-selvarasu.g%40samsung.com%2F
+>>>>>>>
+>>>>>>> Changes in v2:
+>>>>>>> - Removed change-id.
+>>>>>>> - Updated commit message.
+>>>>>>> Link to v1: https://protect2.fireeye.com/v1/url?k=a7e00d4e-f85805ec-a7e18601-000babff88b5-fe0fb8c41d582e73&q=1&e=b9b4dadf-c903-42b6-bd70-3d09d4ad7c04&u=https%3A%2F%2Flore.kernel.org%2Flinux-usb%2F20251117152812.622-1-selvarasu.g%40samsung.com%2F
+>>>>>>> ---
+>>>>>>>     drivers/usb/dwc3/gadget.c | 22 ++++++++++++++++++++--
+>>>>>>>     1 file changed, 20 insertions(+), 2 deletions(-)
+>>>>>>>
+>>>>>>> diff --git a/drivers/usb/dwc3/gadget.c b/drivers/usb/dwc3/gadget.c
+>>>>>>> index 0a688904ce8c5..3af1bbfe3d92b 100644
+>>>>>>> --- a/drivers/usb/dwc3/gadget.c
+>>>>>>> +++ b/drivers/usb/dwc3/gadget.c
+>>>>>>> @@ -971,8 +971,9 @@ static int __dwc3_gadget_ep_enable(struct dwc3_ep *dep, unsigned int action)
+>>>>>>>     	 * Issue StartTransfer here with no-op TRB so we can always rely on No
+>>>>>>>     	 * Response Update Transfer command.
+>>>>>>>     	 */
+>>>>>>> -	if (usb_endpoint_xfer_bulk(desc) ||
+>>>>>>> -			usb_endpoint_xfer_int(desc)) {
+>>>>>>> +	if ((usb_endpoint_xfer_bulk(desc) ||
+>>>>>>> +			usb_endpoint_xfer_int(desc)) &&
+>>>>>>> +			!(dep->flags & DWC3_EP_TRANSFER_STARTED)) {
+>>>>>>>     		struct dwc3_gadget_ep_cmd_params params;
+>>>>>>>     		struct dwc3_trb	*trb;
+>>>>>>>     		dma_addr_t trb_dma;
+>>>>>>> @@ -1096,6 +1097,23 @@ static int __dwc3_gadget_ep_disable(struct dwc3_ep *dep)
+>>>>>>>     	 */
+>>>>>>>     	if (dep->flags & DWC3_EP_DELAY_STOP)
+>>>>>>>     		mask |= (DWC3_EP_DELAY_STOP | DWC3_EP_TRANSFER_STARTED);
+>>>>>>> +
+>>>>>>> +	/*
+>>>>>>> +	 * When dwc3_gadget_ep_disable() calls dwc3_gadget_giveback(),
+>>>>>>> +	 * the dwc->lock is temporarily released. If dwc3_gadget_ep_queue()
+>>>>>>> +	 * runs in that window it may set the DWC3_EP_TRANSFER_STARTED flag as
+>>>>>>> +	 * part of dwc3_send_gadget_ep_cmd. The original code cleared the flag
+>>>>>>> +	 * unconditionally in the mask operation, which could overwrite the
+>>>>>>> +	 * concurrent modification.
+>>>>>>> +	 *
+>>>>>>> +	 * As a workaround for the interrupt context constraint where we cannot
+>>>>>>> +	 * wait for endpoint flushing, preserve the DWC3_EP_TRANSFER_STARTED
+>>>>>>> +	 * flag if it is set, avoiding resource conflicts until the framework
+>>>>>>> +	 * is fixed to properly synchronize endpoint lifecycle management.
+>>>>>>> +	 */
+>>>>>>> +	if (dep->flags & DWC3_EP_TRANSFER_STARTED)
+>>>>>>> +		mask |= DWC3_EP_TRANSFER_STARTED;
+>>>>>>> +
+>>>>>>>     	dep->flags &= mask;
+>>>>>>>     
+>>>>>>>     	/* Clear out the ep descriptors for non-ep0 */
+>>>>>>> -- 
+>>>>>>> 2.34.1
+>>>>>>>
+>>>>>> Acked-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+>>>>>>
+>>>>> Oh wait, don't pick this patch up yet.
+>>>>>
+>>>>> This will cause a regression for UAS device. When switching alt-setting
+>>>>> interface for BOT to UASP, the device needs to issue a Start Transfer
+>>>>> command.
+>>>>>
+>>>>> This workaround won't work. Can we fix the usb_ep_disable() interface
+>>>>> and rework this instead?
+>>>>>
+>>>>> BR,
+>>>>> Thinh
+>>>> Hi Thinh,
+>>>>
+>>>> We’re trying to see how this change could cause a regression for UAS
+>>>> devices.
+>>>> Could you explain why the workaround might be a problem for UAS? Are you
+>>>> concerned that it could miss a valid StartTransfer when a previous
+>>>> transfer finishes later than expected as part of ep_disable?
+>>> In UAS, the device controller uses the first PRIME to synchronize with
+>>> the host to determine whether the Start Transfer command can initiate
+>>> the stream. After configuring an endpoint, if we issue the StartTransfer
+>>> command too late, then the device controller may not initiate the
+>>> transfer (sending ERDY), and host will not know when to start the
+>>> transfer.
+>>
+>> HI Thinh,
+>>
+>> Sorry for the delayed response. We're seeing this issue a lot in Exynos
+>> platform, so we want to get it fixed.
+>>
+>> Thanks for the explanation about UASP in last comment.
+>>
+>> We agree that for UASP, the new StartTransfer sent in ep_enable() is
+>> what makes the controller send ERDY for the host's first PRIME. The old
+>> patch skipped that StartTransfer that was wrong. If it is skipped and no
+>> request is queued right away, the controller never sends ERDY for the
+>> first PRIME and the UAS device possible hangs as you mentioned.
+>>
+>> The new patch is simpler, we won't skip it and just trigger it once the
+>> inflight end transfer is done.
+>>
+>> Please see the proposed sequence,
+>>
+>>     1. usb_ep_disable() --> EndTransfer deferred due to pending control
+>> transfer data/status stages (DWC3_EP_DELAY_STOP), old transfer still
+>> active in HW.
+>>     2. usb_ep_enable() on the same endpoint --> instead of issuing the
+>> new StartTransfer, set DWC3_EP_PENDING_START_TRANSFER (New flag) as below,
+>>
+>>     /* __dwc3_gadget_ep_enable() */
+>>     if (dep->flags & (DWC3_EP_DELAY_STOP |
+>>                       DWC3_EP_END_TRANSFER_PENDING |
+>>                       DWC3_EP_TRANSFER_STARTED))
+>>         dep->flags |= DWC3_EP_PENDING_START_TRANSFER;
+>>     else
+>>         ret = dwc3_gadget_ep_start_noop_transfer(dep);   /* unchanged path */
+>>
+>>     3. Control request finishes --> next SETUP --> existing delayed stop
+>> retry in dwc3_ep0_out_start() sends the EndTransfer for all delayed stop
+>> endpoints.
+>>     4. EndTransfer completion and trigger a previously skipped
+>> StartTransfer in ep_enable by checking DWC3_EP_PENDING_START_TRANSFER.
+>>
+>>     /* dwc3_gadget_endpoint_command_complete() */
+>>     if (dep->flags & DWC3_EP_PENDING_START_TRANSFER) {
+>>         dep->flags &= ~DWC3_EP_PENDING_START_TRANSFER;
+>>         dwc3_gadget_ep_start_noop_transfer(dep);
+>>     }
+>>
+>> So the endpoint gets the same start/stop sequence you described, only
+>> sent later, it goes out as soon as the EndTransfer finishes. So this is
+>> high possible of happens before the host's first PRIME arrives. ERDY is
+>> still sent, no UAS regression.
+>>
+>> The below testing log is for the reference. You can see the timestamp
+>> where pending start transfer triggered.
+>>
+>> [ 3273.597476]  Entry __dwc3_gadget_ep_disable
+>> [ 3273.597481]  dwc3_remove_requests ep1out skip stop transfer due to
+>> DWC3_EP_DELAY_STOP
+>> [ 3273.597510]  Entry __dwc3_gadget_ep_enable 1045 dep->name =ep1out
+>> dep->flags =e009
+>> [ 3273.597590]  dwc3_gadget_endpoint_command_complete 3857 dep->name
+>> =ep1out dep->flags =4009 --> Triggered skipped Start transfer when
+>> endpoint command completion is done.
+>>
+> Hi Selvarasu,
+>
+> I just wanted to point out that dwc3_gadget_ep_start_noop_transfer()
+> should only be needed for stream endpoints. I'll take a closer look at
+> the rest of the changes later this week.
+Hi Thinh,
+
+Thanks for you feedback.
+
+Agreed, The dwc3_gadget_ep_start_noop_transfer() should only be needed 
+for stream endpoints.
+
+Thanks,
+Selva
+>
+> Regarding the original comment about avoiding the wait for command
+> completion due to the No Response Update Transfer command does not
+> provide any meaningful performance benefit since it only applies to the
+> initial Start Transfer command.
+>
+> Thanks,
+> Thinh
