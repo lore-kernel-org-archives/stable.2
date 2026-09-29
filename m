@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D93F0514751
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 11:37:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20A5851475B
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 11:38:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790681832; cv=none; b=syBotwAWlL5IHjhCmPLtU24ajM1Wx/9YqmR/gVlBwzoG+i5xk68WnldxC8tfZoKWY4POoZq7cSC3BNRz1Mzxl2bDcxoL31JvdeDLzoLZwQ/M9mAvC+CthP9dsvNd4YHGXcjiWkGcYDyqyfixxPbNVlj6UuLz53UWLUhwPM6AfLc=
+	t=1790681905; cv=none; b=B4S116FFyHrCtqf6H2zMLAwjgwaRywTt3Y6C5g6N0ive3QOCaJ542M85PeE9kl0HNUE0ydudqk9dLMBlCRHaIOvTVHi/mLB6AD3/og311rHOnDiM/JzXgvTdbSdJxgG5rYhwAmNBK/kp7HS07j61lW2YgmW7tcyb0Y3RTQBFtQc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790681832; c=relaxed/simple;
-	bh=/xwNjs3q1MPB64U+UzygToYIfgHblAmb+HY0RhL72NQ=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=r3MLxTMmpmNiJ9fyQCNaHxFkUr/5ltFp9UMGD0fj2EsxmFX6aQT47e4WmU0gbF4LZ/i6WYHsOpvD8lKlCasrR8jPTUMIYGNporWJnDpJlNgnyhJ+sDOIf7J+Yefz8XWHGIzWzrElWR/BQfKAK+KDBV2fuUfRx0vhBEwaO8dMxPI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dPoVbxJV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790681905; c=relaxed/simple;
+	bh=G6N5lyNpl2Mqw3K/vtBhk8hJCxLY5PoC+mKwTfAGvLU=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=FVmuzdLRBe2zak1WOmy+YZLjhnqasWq6X2zksFGcBjoYE/PK0Ti//3DLseCF7zVuMhbquI/VqFgu7N6oC1Onui3vn2tN+vN/E2aQI9/Z5NIg2e+PH/XFYjzy1N/o8tqvNMSP4E0DR20F+W7NH2ny74CnOiVS2Tgq8E6bVXIk6+4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=uyZat6zW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dPoVbxJV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D18441F00893;
-	Tue, 29 Sep 2026 11:37:08 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="uyZat6zW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14F6F1F000FF;
+	Tue, 29 Sep 2026 11:38:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790681829;
-	bh=zOSrjOQJMFx02YMgmJU6CbLAqx7uEIrXvMT/2VvBhNQ=;
+	s=korg; t=1790681903;
+	bh=YPzU5X5NEF10y/zc+7cADxR2TOslOiKsZEHNsz+nqCE=;
 	h=Subject:To:Cc:From:Date;
-	b=dPoVbxJV1CVZy0HyB2XTvYb+BqUOScp+wLdtr7uIJsKUOf965FuO5oTPuYfP4rGL3
-	 t311IVxAAnL8niKM7PMosQAr434Ms+cIbfWzUbArL/SFBnt7cYwvH7EBd+5kiXgqEg
-	 31sTc8YJrQ95eSP4i949/Fc0D8UqHtuQXvNMT/sc=
-Subject: FAILED: patch "[PATCH] s390/pci: Fix leak of struct pci_dev reference in" failed to apply to 6.12-stable tree
-To: schnelle@linux.ibm.com,alifm@linux.ibm.com,bblock@linux.ibm.com,hca@linux.ibm.com
+	b=uyZat6zWma5fN6qQ1q0szRiJI41R7/YgBDa2qw/9lyPRzPU6NFxO+Jx9zIJeAUlwX
+	 2lEe6K7jKzOqdTKV0z7RdhFBiX+UplAIkUzALQ+KxvuM8Udubol6UooVrfEqml1m74
+	 zioHpnczI9UGi80Ru/3fhNlrFtvOLbg6RwOn3k3k=
+Subject: FAILED: patch "[PATCH] KVM: SEV: Do cache maintenance on the source VM during" failed to apply to 6.12-stable tree
+To: seanjc@google.com,fane@google.com,pbonzini@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 29 Sep 2026 13:37:03 +0200
-Message-ID: <2026092903-caption-humbling-b2c8@gregkh>
+Date: Tue, 29 Sep 2026 13:38:18 +0200
+Message-ID: <2026092918-chain-guts-3b79@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 09b7040a1b79f4f61cdad6d9af972e045bb7c498
+git cherry-pick -x 93de2a6a4b91b72607136dd656edf03fb399d27f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092903-caption-humbling-b2c8@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092918-chain-guts-3b79@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,101 +62,58 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 09b7040a1b79f4f61cdad6d9af972e045bb7c498 Mon Sep 17 00:00:00 2001
-From: Niklas Schnelle <schnelle@linux.ibm.com>
-Date: Wed, 16 Sep 2026 17:14:10 +0200
-Subject: [PATCH] s390/pci: Fix leak of struct pci_dev reference in
- zpci_report_status()
+From 93de2a6a4b91b72607136dd656edf03fb399d27f Mon Sep 17 00:00:00 2001
+From: Sean Christopherson <seanjc@google.com>
+Date: Wed, 23 Sep 2026 09:37:21 -0700
+Subject: [PATCH] KVM: SEV: Do cache maintenance on the source VM during
+ intra-host migration
 
-In zpci_report_status(), a reference to the pdev associated with the
-zdev being reported about is acquired using pci_get_slot(). This
-reference needs to be dropped with pci_dev_put(), but this call is
-missing, thus leaking the reference. On subsequent hot unplug, this will
-cause the struct pci_dev to not be released, leaking memory and
-preventing reattach.
+Manually perform cache maintenance on the source VM during intra-host
+migration to ensure no stale data is left in CPU caches after the VM is
+destroyed.  Because the source VM is "converted" to a non-SEV VM, KVM's
+memory reclaim flows won't trigger cache maintenance, e.g. when all guest
+memory is reclaimed in response to detaching from the mmu_notifier.
 
-At the same time, the only existing caller already holds a pdev
-reference. So instead of reacquiring and then dropping another reference,
-simply pass the existing pdev pointer to zpci_report_status(). This gets
-rid of the need for pci_get_slot() as well as the zdev->zbus check.
+Note, relying on the destination VM to do cache maintenance isn't an option
+as KVM doesn't require identical guest memory configurations, i.e. the
+source VM may have access to memory that the destination VM does not.
+Enforcing equivalent memory configurations is infeasible, as it would
+require a *deep* comparison of memslots, e.g. to verify that not only are
+the memslot identical, but what the memslots point at is also identical.
 
+Fixes: b56639318bb2 ("KVM: SEV: Add support for SEV intra host migration")
 Cc: stable@vger.kernel.org
-Fixes: 4ec6054e7321 ("s390/pci: Report PCI error recovery results via SCLP")
-Signed-off-by: Niklas Schnelle <schnelle@linux.ibm.com>
-Reviewed-by: Benjamin Block <bblock@linux.ibm.com>
-Reviewed-by: Farhan Ali <alifm@linux.ibm.com>
-Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
+Reported-by: Stefan Teodorescu <fane@google.com>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Message-ID: <20260923163721.1584779-3-seanjc@google.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 
-diff --git a/arch/s390/pci/pci_event.c b/arch/s390/pci/pci_event.c
-index f317a1465dad..3b4941b65840 100644
---- a/arch/s390/pci/pci_event.c
-+++ b/arch/s390/pci/pci_event.c
-@@ -298,7 +298,7 @@ static pci_ers_result_t zpci_event_attempt_error_recovery(struct pci_dev *pdev,
- 	pci_uevent_ers(pdev, PCI_ERS_RESULT_RECOVERED);
- out_unlock:
- 	device_unlock(&pdev->dev);
--	zpci_report_status(zdev, "recovery", status_str);
-+	zpci_report_status(zdev, pdev, "recovery", status_str);
+diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
+index cdc1c04f60da..63eb2155a774 100644
+--- a/arch/x86/kvm/svm/sev.c
++++ b/arch/x86/kvm/svm/sev.c
+@@ -2048,6 +2048,12 @@ static void sev_migrate_from(struct kvm *dst_kvm, struct kvm *src_kvm)
+ 	src->pages_locked = 0;
+ 	src->es_active = false;
  
- 	return ers_res;
- }
-diff --git a/arch/s390/pci/pci_report.c b/arch/s390/pci/pci_report.c
-index 7030f7052926..867419779219 100644
---- a/arch/s390/pci/pci_report.c
-+++ b/arch/s390/pci/pci_report.c
-@@ -89,7 +89,8 @@ static struct debug_view debug_log_view = {
++	/*
++	 * Do cache maintenance on the source VM as it is no longer an SEV VM,
++	 * i.e. memory reclaim flows won't trigger cache maintenance on the VM.
++	 */
++	sev_writeback_caches(src_kvm);
++
+ 	list_cut_before(&dst->regions_list, &src->regions_list, &src->regions_list);
  
- /**
-  * zpci_report_status - Report the status of operations on a PCI device
-- * @zdev:	The PCI device for which to report status
-+ * @zdev:	The zPCI device for which to report status
-+ * @pdev:	The PCI device associated with the zdev if any, NULL otherwise
-  * @operation:	A string representing the operation reported
-  * @status:	A string representing the status of the operation
-  *
-@@ -103,15 +104,15 @@ static struct debug_view debug_log_view = {
-  *
-  * Return: 0 on success an error code < 0 otherwise.
-  */
--int zpci_report_status(struct zpci_dev *zdev, const char *operation, const char *status)
-+int zpci_report_status(struct zpci_dev *zdev, struct pci_dev *pdev,
-+		       const char *operation, const char *status)
- {
- 	struct zpci_report_error *report;
- 	struct pci_driver *driver = NULL;
--	struct pci_dev *pdev = NULL;
- 	char *buf, *end;
- 	int ret;
- 
--	if (!zdev || !zdev->zbus)
-+	if (!zdev)
- 		return -ENODEV;
- 
- 	/* Protected virtualization hosts get nothing from us */
-@@ -121,8 +122,6 @@ int zpci_report_status(struct zpci_dev *zdev, const char *operation, const char
- 	report = (void *)get_zeroed_page(GFP_KERNEL);
- 	if (!report)
- 		return -ENOMEM;
--	if (zdev->zbus->bus)
--		pdev = pci_get_slot(zdev->zbus->bus, zdev->devfn);
- 	if (pdev)
- 		driver = to_pci_driver(pdev->dev.driver);
- 
-diff --git a/arch/s390/pci/pci_report.h b/arch/s390/pci/pci_report.h
-index e08003d51a97..dd7b0b05001c 100644
---- a/arch/s390/pci/pci_report.h
-+++ b/arch/s390/pci/pci_report.h
-@@ -8,9 +8,11 @@
-  */
- #ifndef __S390_PCI_REPORT_H
- #define __S390_PCI_REPORT_H
-+#include <linux/pci.h>
- 
- struct zpci_dev;
- 
--int zpci_report_status(struct zpci_dev *zdev, const char *operation, const char *status);
-+int zpci_report_status(struct zpci_dev *zdev, struct pci_dev *pdev,
-+		       const char *operation, const char *status);
- 
- #endif /* __S390_PCI_REPORT_H */
+ 	mutex_lock(&sev_mirror_lock);
+@@ -2187,6 +2193,10 @@ int sev_vm_move_enc_context_from(struct kvm *kvm, unsigned int source_fd)
+ 	 * the set of CPUs from the source.  If a CPU was used to run a vCPU in
+ 	 * the source VM but is never used for the destination VM, then the CPU
+ 	 * can only have cached memory that was accessible to the source VM.
++	 * Furthermore, KVM *must* perform cache maintenance on the source VM,
++	 * as the source VM may have access to memory that the destination VM
++	 * does not, i.e. KVM could skip flushes if memory is reclaimed from
++	 * the old VM but not the new VM.
+ 	 */
+ 	if (!zalloc_cpumask_var(&dst_sev->have_run_cpus, GFP_KERNEL_ACCOUNT)) {
+ 		ret = -ENOMEM;
 
