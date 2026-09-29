@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A0953A382F
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 08:25:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BFA53C73C9
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 08:25:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790670315; cv=none; b=SuJcXjIA2Tih3olgYxiNKEGLZfBGeUeYhjAoXAVKLc9UeqGe1RHysCDUPmkv5B74HLmf4UBKxN+4lif/BVwW6N2Uy6dXqvVrg37nEopSVBtdtQe9VjZKdH/hPts9Hm3GGR3yW17W/bjP2nYm5tGW4YT+dhv+SPHMYtKJjZOJC4A=
+	t=1790670326; cv=none; b=MsmfOjZkOeMjq/sybxoNnpQibE5ywbUAxAM50e+pdhg3fju5/wJ7FOThutZfVuKamAu+eGh0hyaRLspghMXdlqvR9JPKytWmarTVmG/eiJjfU4p84WK0zR5n1a5kS50LnFVMlqKVbwIgFlgXpkJ/b2CV/KrkbL5oWz2KzBoMHvg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790670315; c=relaxed/simple;
-	bh=z9RpC5gK1nf/Ttfb3j4ZLfU9FF6DAE9VddjKwwEmmzs=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=V1D3878/ezgPX9WWMUnBGE+P4HLr3bYSapFG1oyRMhCRRbbfBfTC5NudF/0X2eqAvBsmE2BVBMYrssvynk1OvpzeVd3xldH4ncm7XDXT7w+NIgZKWnNkahnPCOlMWprBVBLOFSSsQNQAfYFa2/yrM1tKFhPsIWWp18RzNQWs0/U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=GAQ1ogUR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790670326; c=relaxed/simple;
+	bh=vHF5jRf+IKg1Mzky2nlY+oEWXRmqbH9G6gXhQdcMUSE=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=UTsKjctTsgPqfqR71QY3QAf3bvNQHwdfGPgjvUNMoQIAlFp8r7EpeQcpn0AcN68Iu1i3wpJmsq4Iq1w5iJl2KMv3IH/9WeQC2+CzAyza31ooAILbCw+mlJF0XGGc+5FD0PvP//3nQiWYVDVGQdoUhGX0MPy4gGl0xzFK4wYu41U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=SANPR6c3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="GAQ1ogUR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB58F1F000FF;
-	Tue, 29 Sep 2026 08:25:12 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SANPR6c3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10B251F000FF;
+	Tue, 29 Sep 2026 08:25:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790670313;
-	bh=9MIzzpnsk2Uk2S/hsJLvHOxbCRdfmv1CbPi5F7mAiFc=;
+	s=korg; t=1790670324;
+	bh=FX7gb7tu4Lyq402RrexTo1lEP/mg38aBzgfGlYkjaL0=;
 	h=Subject:To:Cc:From:Date;
-	b=GAQ1ogUR5njgYTzz3xDoeK5SuTK+GYQY5pYYFu9HK1vFOfxTp3sedY7aS7w9MqIwN
-	 7bbKs6AVatKHucYBhLphKwaZa7S0aPXRcJ3luiQbGPAsAEYkNTQ4vpeSInxqVGDZkD
-	 hcPaju/WvS6HlZDqTWUXQ+xKpqitMdZxHgSlc1yU=
-Subject: FAILED: patch "[PATCH] drm/nouveau: don't bump pin count on failed re-pin in" failed to apply to 5.10-stable tree
-To: peiyang_he@smail.nju.edu.cn,lyude@redhat.com
+	b=SANPR6c3barEtkTVu431Ht4NgLhNZiVWXKw6zSswU95UtnKVU2kz/rp9DZedc+WhE
+	 9jnrx/Z8t4pXvbaJVHZPi6GeY9G27wHdviPWpX99xcm9A1hF0XGokYX3j778itTshW
+	 SJWAD+GJWcRh5rJz0PyhzhPymxYtcFwII/jkMM8o=
+Subject: FAILED: patch "[PATCH] drm/xe/vm: nuke PTs only after unlinking contested VMAs" failed to apply to 6.12-stable tree
+To: matthew.auld@intel.com,matthew.brost@intel.com,rodrigo.vivi@intel.com,stable@vger.kernel.org,thomas.hellstrom@linux.intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 29 Sep 2026 10:25:08 +0200
-Message-ID: <2026092908-masses-gestate-783f@gregkh>
+Date: Tue, 29 Sep 2026 10:25:19 +0200
+Message-ID: <2026092919-qualm-steadily-7858@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 6a6870d3077faa501ca97760057ddca22b68418d
+git cherry-pick -x 24a22fb3c731474b68e986af6804db450fb88617
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092908-masses-gestate-783f@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092919-qualm-steadily-7858@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,122 +62,85 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 6a6870d3077faa501ca97760057ddca22b68418d Mon Sep 17 00:00:00 2001
-From: Peiyang He <peiyang_he@smail.nju.edu.cn>
-Date: Fri, 18 Sep 2026 10:53:12 +0800
-Subject: [PATCH] drm/nouveau: don't bump pin count on failed re-pin in
- nouveau_bo_pin_locked()
+From 24a22fb3c731474b68e986af6804db450fb88617 Mon Sep 17 00:00:00 2001
+From: Matthew Auld <matthew.auld@intel.com>
+Date: Fri, 18 Sep 2026 14:10:35 +0100
+Subject: [PATCH] drm/xe/vm: nuke PTs only after unlinking contested VMAs
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-nouveau_bo_pin_locked() checks whether an already pinned BO is in a
-memory domain compatible with a new pin request. When the domains are
-incompatible, it sets -EBUSY but still calls ttm_bo_pin() before
-returning.
+In xe_vm_close_and_put(), external-BO VMAs are queued on the contested
+list for deferred destruction via xe_vma_destroy_unlocked(). However,
+xe_vm_pt_destroy() was previously invoked before processing contested
+VMAs, destroying vm->pt_root while those VMAs were still linked to their
+respective buffer objects (vm_bo->list.gpuva).
 
-Callers treat a failed nouveau_bo_pin() as not having acquired a new pin,
-so the extra pin count is never decreased by a matching unpin.
-This triggers the warning in ttm_bo_release():
+If a concurrent thread evicts one of those shared buffer objects,
+xe_bo_trigger_rebind() holding only bo->resv walks the BO's VMAs and, in
+fault mode, calls xe_vm_invalidate_vma() -> xe_pt_zap_ptes(). Because
+vm->pt_root[tile->id] is already NULL, dereferencing pt->level causes a
+NULL ptr deref.
 
-	WARN_ON_ONCE(bo->pin_count);
+Fix this by deferring xe_vm_free_scratch() and xe_vm_pt_destroy() until
+after all contested VMAs have been unlinked and destroyed.
 
-Found when fuzzing the nouveau driver with a modified Syzkaller:
+User is reporting hitting a NULL ptr deref in xe_pt_zap_ptes(), which
+could be explained by this race.
 
-	WARNING: drivers/gpu/drm/ttm/ttm_bo.c:256 at ttm_bo_release+0x827/0x9e0 drivers/gpu/drm/ttm/ttm_bo.c:256, CPU#1: syz.3.24/2212
-	Modules linked in:
-	CPU: 1 UID: 0 PID: 2212 Comm: syz.3.24 Not tainted 7.2.0 #24 PREEMPT(lazy)
-	nouveau 0000:01:00.0: gsp:msg fn:103 len:0x40/0x20 res:0x19 resp:0x19
-	Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-	RIP: 0010:ttm_bo_release+0x827/0x9e0 drivers/gpu/drm/ttm/ttm_bo.c:256
-	Code: 02 00 0f 85 51 01 00 00 48 8b 7b 08 e8 d2 20 01 00 e9 80 fd ff ff e8 d8 15 c0 fe 90 0f 0b 90 e9 e1 f8 ff ff e8 ca 15 c0 fe 90 <0f> 0b 90 e9 a4 f8 ff ff e8 bc 15 c0 fe be 03 00 00 00 4c 89 e7 e8
-	msg: 00000000: 05 00 d0 c1 04 00 f0 f1 01 30 00 00 2d 90 00 00  .........0..-...
-	RSP: 0018:ffffc9000f5cf710 EFLAGS: 00010293
-	RAX: 0000000000000000 RBX: ffff888018e5d2a8 RCX: ffffffff82bb1b36
-	RDX: ffff888017b68000 RSI: 0000000000000004 RDI: ffff888018e5d2a8
-	msg: 00000010: 19 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-	RBP: ffff88801261c720 R08: 0000000000000001 R09: ffffed10031cba55
-	R10: ffff888018e5d2ab R11: 00000000000000f3 R12: ffff888018e5d290
-	R13: ffff888018e5d2d4 R14: ffff88801b219c18 R15: dffffc0000000000
-	FS:  0000000000000000(0000) GS:ffff8880e0f6f000(0000) knlGS:0000000000000000
-	CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-	CR2: 0000001b31223ffc CR3: 0000000028e00005 CR4: 0000000000770ef0
-	PKRU: 80000000
-	Call Trace:
-	<TASK>
-	kref_put include/linux/kref.h:65 [inline]
-	ttm_bo_put drivers/gpu/drm/ttm/ttm_bo.c:325 [inline]
-	ttm_bo_fini+0x55/0x80 drivers/gpu/drm/ttm/ttm_bo.c:330
-	nouveau_gem_object_del+0xb2/0x1b0 drivers/gpu/drm/nouveau/nouveau_gem.c:90
-	drm_gem_object_free+0x5f/0x90 drivers/gpu/drm/drm_gem.c:1165
-	kref_put include/linux/kref.h:65 [inline]
-	__drm_gem_object_put include/drm/drm_gem.h:562 [inline]
-	drm_gem_object_put include/drm/drm_gem.h:575 [inline]
-	nouveau_abi16_chan_fini.constprop.0+0x44f/0x5a0 drivers/gpu/drm/nouveau/nouveau_abi16.c:195
-	nouveau 0000:01:00.0: syz.2.23[2209]: Unknown handle 0x00000000
-	nouveau_abi16_fini+0x1d0/0x340 drivers/gpu/drm/nouveau/nouveau_abi16.c:225
-	nouveau_drm_postclose+0x18b/0x3e0 drivers/gpu/drm/nouveau/nouveau_drm.c:1284
-	nouveau 0000:01:00.0: syz.2.23[2209]: validate_init
-	drm_file_free.part.0+0x6d6/0xb60 drivers/gpu/drm/drm_file.c:267
-	drm_file_free drivers/gpu/drm/drm_file.c:237 [inline]
-	drm_close_helper.isra.0+0x11a/0x160 drivers/gpu/drm/drm_file.c:290
-	drm_release+0x1ab/0x330 drivers/gpu/drm/drm_file.c:438
-	__fput+0x39c/0xa60 fs/file_table.c:512
-	nouveau 0000:01:00.0: syz.2.23[2209]: validate: -2
-	task_work_run+0x15a/0x230 kernel/task_work.c:233
-	exit_task_work include/linux/task_work.h:40 [inline]
-	do_exit+0x82b/0x25a0 kernel/exit.c:1009
-	do_group_exit+0xc2/0x280 kernel/exit.c:1152
-	get_signal+0x1d6e/0x1f30 kernel/signal.c:3046
-	arch_do_signal_or_restart+0x7d/0x6e0 arch/x86/kernel/signal.c:337
-	__exit_to_user_mode_loop kernel/entry/common.c:66 [inline]
-	exit_to_user_mode_loop+0xdf/0x440 kernel/entry/common.c:101
-	__exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
-	syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
-	syscall_exit_to_user_mode include/linux/entry-common.h:318 [inline]
-	do_syscall_64+0x4f8/0x690 arch/x86/entry/syscall_64.c:100
-	entry_SYSCALL_64_after_hwframe+0x77/0x7f
-	RIP: 0033:0x7f12bac8594d
-	Code: Unable to access opcode bytes at 0x7f12bac85923.
-	RSP: 002b:00007f12b96e70d8 EFLAGS: 00000246 ORIG_RAX: 00000000000000ca
-	RAX: 0000000000000001 RBX: 00007f12baf15fa8 RCX: 00007f12bac8594d
-	RDX: 00000000000f4240 RSI: 0000000000000081 RDI: 00007f12baf15fac
-	RBP: 00007f12baf15fa0 R08: 00007f12baee8000 R09: 0000000000000000
-	R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-	R13: 00007f12baf16038 R14: 0000000000000006 R15: 00007ffe2ed394b0
-	</TASK>
-	irq event stamp: 47867
-	hardirqs last  enabled at (47883): [<ffffffff815cafc6>] __up_console_sem+0x66/0x70 kernel/printk/printk.c:347
-	hardirqs last disabled at (47892): [<ffffffff815cafab>] __up_console_sem+0x4b/0x70 kernel/printk/printk.c:345
-	softirqs last  enabled at (47880): [<ffffffff81434277>] __do_softirq kernel/softirq.c:656 [inline]
-	softirqs last  enabled at (47880): [<ffffffff81434277>] invoke_softirq kernel/softirq.c:496 [inline]
-	softirqs last  enabled at (47880): [<ffffffff81434277>] __irq_exit_rcu+0x137/0x1c0 kernel/softirq.c:735
-	softirqs last disabled at (47875): [<ffffffff81434277>] __do_softirq kernel/softirq.c:656 [inline]
-	softirqs last disabled at (47875): [<ffffffff81434277>] invoke_softirq kernel/softirq.c:496 [inline]
-	softirqs last disabled at (47875): [<ffffffff81434277>] __irq_exit_rcu+0x137/0x1c0 kernel/softirq.c:735
-
-Fix by calling ttm_bo_pin() only when the existing placement is compatible
-with the new pin request. This matches the correct behavior in other DRM
-drivers such as amdgpu_bo_pin() in amdgpu.
-
-Cc: stable@vger.kernel.org
-Fixes: ad76b3f7c7a0 ("drm/nouveau: teach nouveau_bo_pin() how to force a contig vram allocation")
-Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
 Assisted-by: LLM
-Reviewed-by: Lyude Paul <lyude@redhat.com>
-Signed-off-by: Lyude Paul <lyude@redhat.com>
-Link: https://patch.msgid.link/EACEF2F4E098413F+20260918025312.2814889-1-peiyang_he@smail.nju.edu.cn
+Fixes: b06d47be7c83 ("drm/xe: Port Xe to GPUVA")
+Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9290
+Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: <stable@vger.kernel.org> # v6.12+
+Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+Link: https://patch.msgid.link/20260918131034.598078-2-matthew.auld@intel.com
+(cherry picked from commit c2863648959489767f08892fd6e90577d2ea0b6a)
+Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_bo.c b/drivers/gpu/drm/nouveau/nouveau_bo.c
-index 0e8de6d4b36f..6dcb92575eb4 100644
---- a/drivers/gpu/drm/nouveau/nouveau_bo.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_bo.c
-@@ -578,8 +578,9 @@ int nouveau_bo_pin_locked(struct nouveau_bo *nvbo, uint32_t domain, bool contig)
- 				      "0x%08x vs 0x%08x\n", bo,
- 				 bo->resource->mem_type, domain);
- 			ret = -EBUSY;
-+		} else {
-+			ttm_bo_pin(&nvbo->bo);
- 		}
--		ttm_bo_pin(&nvbo->bo);
- 		goto out;
+diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
+index 23952ad8951e..ef20e205a734 100644
+--- a/drivers/gpu/drm/xe/xe_vm.c
++++ b/drivers/gpu/drm/xe/xe_vm.c
+@@ -1947,21 +1947,13 @@ void xe_vm_close_and_put(struct xe_vm *vm)
+ 		vma->gpuva.flags |= XE_VMA_DESTROYED;
  	}
  
+-	/*
+-	 * All vm operations will add shared fences to resv.
+-	 * The only exception is eviction for a shared object,
+-	 * but even so, the unbind when evicted would still
+-	 * install a fence to resv. Hence it's safe to
+-	 * destroy the pagetables immediately.
+-	 */
+-	xe_vm_free_scratch(vm);
+-	xe_vm_pt_destroy(vm);
+ 	xe_vm_unlock(vm);
+ 
+ 	/*
+-	 * VM is now dead, cannot re-add nodes to vm->vmas if it's NULL
+-	 * Since we hold a refcount to the bo, we can remove and free
+-	 * the members safely without locking.
++	 * Unlink and destroy all contested external-BO VMAs before destroying
++	 * the page tables. Otherwise, concurrent eviction holding only bo->resv
++	 * can walk the BO's VMAs and attempt to invalidate/zap page tables that
++	 * have already been freed.
+ 	 */
+ 	list_for_each_entry_safe(vma, next_vma, &contested,
+ 				 combined_links.destroy) {
+@@ -1969,6 +1961,11 @@ void xe_vm_close_and_put(struct xe_vm *vm)
+ 		xe_vma_destroy_unlocked(vma);
+ 	}
+ 
++	xe_vm_lock(vm, false);
++	xe_vm_free_scratch(vm);
++	xe_vm_pt_destroy(vm);
++	xe_vm_unlock(vm);
++
+ 	xe_svm_fini(vm);
+ 
+ 	up_write(&vm->lock);
 
