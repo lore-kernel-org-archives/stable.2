@@ -1,36 +1,36 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 562154E1C92;
-	Tue, 29 Sep 2026 09:36:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FCE847208E;
+	Tue, 29 Sep 2026 09:36:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790674602; cv=none; b=cJjEVjLFhe3qR/YIdL0ATINMrMiufDI1blzvUzseBK+mkY716GLNFI/JVIPh0M7q1WX/aCzL8WUbxwaXlF7kJi4kynF33uqtD5KLiGKKDM1tye2kQH0OL/d/cOYL1pFj4hGW4cW2pxhflce2V5LC5C2fZM+YOLGLMDqXGrencaY=
+	t=1790674603; cv=none; b=XvK8GA33GJf1CplGTxfqQDONKzkAuDQqSQPyLKo3ttc+McjyKMXyzCn9jDH9kLOoCUfCvUPp52DZ5BAyy+rRDXLcluFyPVnzILHax6L6ZzZN3+oYpy3ZD9wItSSXHt5UUZ/uFZLzi6au1mSjwT2Pu/01SNZ5fff//oc11SE3XVI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790674602; c=relaxed/simple;
-	bh=wXH79VRe2k3zUfZQYgmqEV6aoX6o24uoOwxSZftwQxI=;
+	s=arc-20240116; t=1790674603; c=relaxed/simple;
+	bh=K3ON+PSIYZ6AcgA9jqDCpbeTLOL6MADP9ii0sndb/kk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Z9bN+KdjZpD2mM/GabCmdvUHeG88Yyv006zi8UguL1UuAuPZnyWjoaOTrenkOyDObeeEkk451ggFr0z904RJy3USky2yB1wbBHphxS3ZCqmxjWK/DNBbKn9zGSytGCRarVlsFqf6AK+g3ZZ6WBjCbHaXWp1oGYGAArD+VubtDLc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YcSjqq4R; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=rgqosihrVt7mupyy90Cca358JuwSxUXme0/qv0jUaLAfGAWtby3nQfTPZWgioOnpwtbmfTi24rhxOzqGq3zVFDGaaRapJtKFoXq/v84FTNFxDpjLZQrIUez4OpuYNbn/Fmk5Qpg+JirHGy9Bi2zWnrzuZFqwf9VCml4tp+i5laY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RuMtNosN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YcSjqq4R"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 113611F0089B;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RuMtNosN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B6FF1F0089C;
 	Tue, 29 Sep 2026 09:36:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1790674601;
-	bh=WgWgUyqIwCZYbNJUU+AhLYr08CuhiyxlVws3w1/8zMY=;
+	bh=JI7EXFtD8nct3k80/WZ56pI4cZh/f9aZ7DXMwMK2D/8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YcSjqq4RxJ21ikWGFG6m6KbS8CBC9eeUfwrzCva77FwZ+iwr0+SakAModKOrDq+jj
-	 HkOObJJ2EVGrbKZ8W6dbX68rquEJaJir67oPw+M1EvNY8p1iBVeKVLDNRQjWJVCdrX
-	 dTWnUUR2rYXuYTNrqZpOYAOgXg8378ITasJbr3R8bMdU0bFkM9ZPLwrsqQHZ6WGnnx
-	 0z1r7ySZwbTHSxDq732p4tA+AcJbrwikN4P9yp5Zzmn+WgeEGYjaP0dijCEkRjuRez
-	 e8ge5Nv4D2k4XDZGvrpYZ6GC3Yl6KnY4sDPJlO/lW2FYpwPFDohaGcoSnLlk62wEml
-	 fVtoo7Zl1N2tQ==
+	b=RuMtNosNqVo7Pz/5AF6jENaNlrdPjvQBwDFHaCk6Q4l1+iw4Lo0IAhD0NoY5m3Rv+
+	 ouQa14a3LSCQQ+jTuvT1Asq3V5eXZvv0sJKL9nodIy7BwdfdlqlMwoPqTI6yH44DPD
+	 btViPlSjrm0DtwxLTeAdjW0u/L1UPPR6JdyVopf1pMnh4/I+t7s/Qwm157hIdfDOfX
+	 Ter8Y0h4dmYnnKAl4cK5mVIVXzyJNLFVzTPMJp6wBAriin7lrxxxg9e1/YLIF0NYnJ
+	 E7gqONXH6zOWvV9HOJOT6/HQORmOz9PeiLGKmhe+Sa/0msQWAFusGuWBpWLZSanxcJ
+	 bwPTT0jXxtZcA==
 Received: from sofa.misterjones.org ([185.219.108.64] helo=valley-girl.lan)
 	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.98.2)
 	(envelope-from <maz@kernel.org>)
-	id 1xBUGN-0000000ElEa-14PP;
+	id 1xBUGN-0000000ElEa-25iC;
 	Tue, 29 Sep 2026 09:36:39 +0000
 From: Marc Zyngier <maz@kernel.org>
 To: kvmarm@lists.linux.dev,
@@ -43,9 +43,9 @@ Cc: Steffen Eiden <seiden@linux.ibm.com>,
 	Fuad Tabba <fuad.tabba@linux.dev>,
 	Yuchao Zhang <ndaugoing@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v2 4/7] KVM: arm64: vgic: Take a refcount on IRQs referenced by last_lr_irq
-Date: Tue, 29 Sep 2026 10:35:45 +0100
-Message-ID: <20260929093548.3598547-5-maz@kernel.org>
+Subject: [PATCH v2 5/7] KVM: arm64: vgic: Stop the VM when disabling LPIs
+Date: Tue, 29 Sep 2026 10:35:46 +0100
+Message-ID: <20260929093548.3598547-6-maz@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260929093548.3598547-1-maz@kernel.org>
 References: <20260929093548.3598547-1-maz@kernel.org>
@@ -61,57 +61,49 @@ X-SA-Exim-Rcpt-To: kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
 X-SA-Exim-Mail-From: maz@kernel.org
 X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-Referencing the last interrupt inserted in an LR is rather fragile, as
-this interrupt can vanish if a concurrently unmapped LPI.
+Disabling LPIs is pretty nasty, as it directly messes with the AP list
+of the affected CPU, which could be running... This has the potential to
+lead to really bad behaviours, and we should not be doing that.
 
-Solve this by bumping up the refcount on the interrupt when populating
-last_lr_irq, and drop it at vgic_prune_ap_list() time, when LPIs are
-being reclaimed.
+Take example on the way the Active state is handled and simply pause all
+the vcpus so that we are sure they are all in a quiescent state, and the
+state be safely manipulated.
 
-Fixes: 6da5e537f5afe ("KVM: arm64: vgic: Pick EOIcount deactivations from AP-list tail")
-Reported-by: Yuchao Zhang <ndaugoing@gmail.com>
+Nobody has any expectation of performance for this anyway.
+
+Fixes: 96085b949672d ("KVM: arm/arm64: vgic-v3: Retire pending interrupts on disabling LPIs")
 Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
 Tested-by: Fuad Tabba <fuad.tabba@linux.dev>
 Signed-off-by: Marc Zyngier <maz@kernel.org>
 Cc: stable@vger.kernel.org
 ---
- arch/arm64/kvm/vgic/vgic.c | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+ arch/arm64/kvm/vgic/vgic-mmio-v3.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/arch/arm64/kvm/vgic/vgic.c b/arch/arm64/kvm/vgic/vgic.c
-index 425503e0c5825..5cf5a1ef86cdd 100644
---- a/arch/arm64/kvm/vgic/vgic.c
-+++ b/arch/arm64/kvm/vgic/vgic.c
-@@ -853,6 +853,17 @@ static void vgic_prune_ap_list(struct kvm_vcpu *vcpu)
- 		goto retry;
- 	}
+diff --git a/arch/arm64/kvm/vgic/vgic-mmio-v3.c b/arch/arm64/kvm/vgic/vgic-mmio-v3.c
+index 5913a20d83019..adefc42964732 100644
+--- a/arch/arm64/kvm/vgic/vgic-mmio-v3.c
++++ b/arch/arm64/kvm/vgic/vgic-mmio-v3.c
+@@ -303,9 +303,19 @@ static void vgic_mmio_write_v3r_ctlr(struct kvm_vcpu *vcpu,
+ 		if (ctlr != GICR_CTLR_ENABLE_LPIS)
+ 			return;
  
-+	/*
-+	 * Fix the last_lr_irq refcount which was obtained while
-+	 * populating the LRs. This can also result in the LPI being
-+	 * deleted.
-+	 */
-+	irq = *host_data_ptr(last_lr_irq);
-+	if (irq) {
-+		deleted_lpis |= vgic_put_irq_norelease(vcpu->kvm, irq);
-+		*host_data_ptr(last_lr_irq) = NULL;
-+	}
-+
- 	raw_spin_unlock(&vgic_cpu->ap_list_lock);
- 
- 	if (unlikely(deleted_lpis))
-@@ -1018,8 +1029,10 @@ static void vgic_flush_lr_state(struct kvm_vcpu *vcpu)
- 		scoped_guard(raw_spinlock,  &irq->irq_lock) {
- 			if (likely(vgic_target_oracle(irq) == vcpu)) {
- 				vgic_populate_lr(vcpu, irq, count++);
--				if (count == kvm_vgic_global_state.nr_lr)
-+				if (count == kvm_vgic_global_state.nr_lr) {
-+					vgic_get_irq_ref(irq);
- 					*host_data_ptr(last_lr_irq) = irq;
-+				}
- 			}
- 		}
- 
++		/*
++		 * Yes, disabling LPIs is painful, since it can be done from
++		 * a *remote* vcpu! So let's not take any chance, and make
++		 * sure that everybody has written their LRs back to the irq
++		 * structures, and release any reference they would have.
++		 *
++		 * If it hurts, don't do it.
++		 */
++		kvm_arm_halt_guest(vcpu->kvm);
+ 		vgic_flush_pending_lpis(vcpu);
+ 		vgic_its_invalidate_all_caches(vcpu->kvm);
+ 		atomic_set_release(&vgic_cpu->ctlr, 0);
++		kvm_arm_resume_guest(vcpu->kvm);
+ 	} else {
+ 		ctlr = atomic_cmpxchg_acquire(&vgic_cpu->ctlr, 0,
+ 					      GICR_CTLR_ENABLE_LPIS);
 -- 
 2.47.3
 
