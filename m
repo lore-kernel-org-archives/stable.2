@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A4FD568FAB
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 19:30:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E55713A1E80
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 19:30:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790710221; cv=none; b=r5aO4dDHSE5iFJa85hcizfyehU76iR4l3Nj3o+lTpL+r7WIaXVJKKaGAtOr3B4ys9umD2Hy2jLLE9FT07pp75KUhz8IMl6Sl/L4FuaPIG2vLWdI29kD1YCFZS8USr/Gf0/8KT/xobA0/XkQYccvlzO6618QTaQ0cAdRCRR+F4Yw=
+	t=1790710225; cv=none; b=hStNkGUuSxiAq94LeyEUnPEFIZA4i6uE4zi2Nx+bkqRxkUbyGDQR3fuTG5xVAeA8xPr5yE8MsQbKe8ti6rAXpttDNTlXbm4aN6+ANl2z3VtzQt2fK2TFLqLyEyzOGHzxTjIurwpwwRjh+SNOUwR4mcn8DNOCg7l4vlFqtOKDXEU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790710221; c=relaxed/simple;
-	bh=oqptaAjPPJmzdQhwf2fBrn4kQbkGt9GvWKvZQD3+Wqk=;
+	s=arc-20240116; t=1790710225; c=relaxed/simple;
+	bh=19o8g0ByFxsRnIlOLaT8uFqxlT67sp23nG+O+ptkN4g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fVG0TAB7EPKeCHD3A+SC58EFZkd7MvQyWDeKSfcUIQrdNbt2ocvXp+X2IQdi65At1nptqrIIqGB7ZrPan6ZSOb2P8i0jIUzZEuWJj2EUFgeUhniygEsJHebnlbSHUxoqSeACpoDSiSdQmTVpcgk1VT1DM20oo+FDVnqqEyIUgQs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Erhg9+al; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=g4/ozAxi+mndMrHEKldvZvLLU/RIs+1jS5AIezjVt0kIzD4He65qUeonZTRuioQOGmSJfHazJLXX30qcS8gq+pgs30fof9nt8CgTMj8gDwN2mPtnxUEfYfzlH0XSIKsd56mFc1ZZkbGZhM1v5705sPWRS7EE9hJBt//vfvRzVC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l0nuJ+kv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Erhg9+al"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 915F21F00898;
-	Tue, 29 Sep 2026 19:30:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l0nuJ+kv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47D571F000FF;
+	Tue, 29 Sep 2026 19:30:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790710220;
-	bh=QzUp1u/Co7+zws8L4/pAron8wJdcTgPuS/C9qpNqreI=;
+	s=k20260515; t=1790710223;
+	bh=05HUWQr/QgLTdQbWuKSOGQbrN6+ojXx4E0N4btnvXtM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Erhg9+al253zZYORNkyT2Zllw5Ws/x/KzBV3YA8LfMIR7ssMLj4jfAruSaK/NKOy0
-	 PSya8g6wXoZl/4/14Mm1rEvtw53vN2p1TrEu1J4eMKI8T3jNk52FATQyyayK+Lg0/c
-	 xIQmXh7H9/uLAlXluZCk/Lvnh9+g9b/rPPiV3WG2+Pllwcg9WYaUBe8bUWl70TdJ/7
-	 /9ShpWfpQlo4uXwt5crBTqLvrjI6P5uRnsOabRhClBKcJdjWaHCk4RdSceZXPml9mq
-	 vBrQMYjk5CQHt2zrzUsyuBxRHGwY+COOnKCxGxcyDckQ7mZMarw+DihxmX2FLn3gmA
-	 quPyz0Im3l2ZQ==
+	b=l0nuJ+kviHhCUccMTGzjLGZry/Rp0hD5qKEV5exXFjaS32TsA4BWC7zjZJ146ZPhF
+	 hQ/KEeP7/lI1Jw3WliNd6MQczAIZXjrbIU8Ch5Y1QNu3ccIM+B9dv8WJuBdbk6YPqA
+	 c7074MrQxpx9Z6rXlDDemWCFdNdBwbZJfIJA6+TdgHA9/egdlcYNPidtkFl2L+R7pV
+	 Vhylk2EQZUC/QEHTBRHnro76uNvyZlzzyf690C9/+5ahcGCTjG6CZlnsTCHnHONIep
+	 k3+EsPJg0CZ1juOFSretOHkMq1I+/RV4To3fiFnaGm27uCMtn8G7UcxIRMcg25h0T9
+	 Y/tTqVUziBcoA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Christian Brauner <brauner@kernel.org>,
-	Karl Mehltretter <kmehltretter@gmail.com>,
-	Jan Kara <jack@suse.cz>,
+Cc: Imre Deak <imre.deak@intel.com>,
+	Luca Coelho <luciano.coelho@intel.com>,
+	Jani Nikula <jani.nikula@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] super: make iterate_supers_type() deletion-safe
-Date: Tue, 29 Sep 2026 15:30:18 -0400
-Message-ID: <20260929193018.822760-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] drm/i915/dp_mst: Fix configuring TUs for a disconnected stream
+Date: Tue, 29 Sep 2026 15:30:21 -0400
+Message-ID: <20260929193021.823447-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092913-backspace-dislike-85a1@gregkh>
-References: <2026092913-backspace-dislike-85a1@gregkh>
+In-Reply-To: <2026092957-hardening-slingshot-e073@gregkh>
+References: <2026092957-hardening-slingshot-e073@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,166 +46,107 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Christian Brauner <brauner@kernel.org>
+From: Imre Deak <imre.deak@intel.com>
 
-[ Upstream commit 2d2a2d7aa98741b58f54cacc99b52024e4d865f9 ]
+[ Upstream commit a443e0b8d647c1401b110d9f919d8c6cb8607260 ]
 
-iterate_supers_type() drops sb_lock while invoking the callback and keeps
-only a passive reference to the current superblock. That reference keeps
-the object allocated, but does not keep its s_instances node linked.
+During an atomic commit after all the MST stream CRTC state is computed
+the driver ensures that the sum of TUs of all the streams on a given MST
+topology link is within limits (63 for 8b10 and 64 for 128b132b). For a
+disconnected stream the DRM MST core's BW verification doesn't ensure
+this, because the topology state it uses for this is destroyed as soon
+as the stream (i.e. MST connector/port) is disconnected. The driver
+should keep the link state valid even for such disconnected streams, as
+userspace may disable them one-by-one only in a deferred way. Ensure the
+link's sum of TUs stays within limits in this case by simply reusing the
+maximum link BPP limit from the stream's (i.e. CRTC's) old state.
 
-After the iterator releases s_umount, final teardown can unlink the current
-s_instances node. The iterator then advances through a reinitialized node.
-With the current hlist it stops without visiting the remaining superblocks.
-The unlink moved from generic_shutdown_super() to kill_super_notify(), but
-the cursor lifetime has been unsafe since the helper was introduced.
+The disconnection can happen either via the whole topology getting
+disconnected or via only the given stream's port getting disconnected.
+Check for both of these conditions separately, as a connector gets
+unregistered after a link disconnect event only in a deferred way.
 
-The CIFS DFS lookup can consequently miss a matching superblock and return
--EINVAL.
-
-Move removal from fs_supers to put_super(), alongside removal from
-super_blocks, so a passive reference keeps both list nodes linked. Keep
-the filesystem module reference until then, since unlinking s_instances
-may touch type->fs_supers.
-
-Make sget_fc() skip SB_DEAD superblocks before invoking test(), and set
-SB_DEAD under sb_lock to serialize with those callbacks. This allows
-kernfs to free its private information after kill_anon_super() returns.
-Keep matching SB_DYING superblocks until SB_DEAD is set so concurrent
-mounts still wait for teardown before retrying.
-
-Fixes: 43e15cdbefea ("new helper: iterate_supers_type()")
-Reported-by: Karl Mehltretter <kmehltretter@gmail.com>
-Closes: https://lore.kernel.org/r/20260903013336.92081-1-kmehltretter@gmail.com
-Suggested-by: Jan Kara <jack@suse.cz>
-Cc: stable@vger.kernel.org
-Tested-by: Karl Mehltretter <kmehltretter@gmail.com>
-[kmehltretter: supplied the commit message]
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-Link: https://patch.msgid.link/20260909193034.7467-1-kmehltretter@gmail.com
-Reviewed-by: Jan Kara <jack@suse.cz>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ Adapted s_passive reference counting to s_count using the existing __put_super() helper. ]
+Cc: stable@vger.kernel.org # v6.10+
+Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16073
+Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16384
+Reviewed-by: Luca Coelho <luciano.coelho@intel.com>
+Signed-off-by: Imre Deak <imre.deak@intel.com>
+Link: https://patch.msgid.link/20260907174413.741851-2-imre.deak@intel.com
+(cherry picked from commit ee00f8fbb2b202002ab90834e02e9ba372773a36)
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+[ adapted MST field accesses to `mst_port` and `mst_mgr`, reusing a local `crtc` lookup. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/kernfs/mount.c |  4 ++--
- fs/super.c        | 43 +++++++++++++++++++++++--------------------
- 2 files changed, 25 insertions(+), 22 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp_mst.c  | 21 ++++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_dp_mst.h  |  2 ++
+ drivers/gpu/drm/i915/display/intel_link_bw.c |  7 ++++---
+ 3 files changed, 27 insertions(+), 3 deletions(-)
 
-diff --git a/fs/kernfs/mount.c b/fs/kernfs/mount.c
-index 1358c21837f1a..27f88e86a53fc 100644
---- a/fs/kernfs/mount.c
-+++ b/fs/kernfs/mount.c
-@@ -396,8 +396,8 @@ void kernfs_kill_sb(struct super_block *sb)
- 	up_write(&root->kernfs_supers_rwsem);
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index eeaedd979354b..eb0ee759569c3 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -2053,6 +2053,27 @@ bool intel_dp_mst_crtc_needs_modeset(struct intel_atomic_state *state,
+ 	return false;
+ }
  
- 	/*
--	 * Remove the superblock from fs_supers/s_instances
--	 * so we can't find it, before freeing kernfs_super_info.
-+	 * Mark the superblock dead so sget_fc() can't find it,
-+	 * before freeing kernfs_super_info.
- 	 */
- 	kill_anon_super(sb);
- 	kfree(info);
-diff --git a/fs/super.c b/fs/super.c
-index 4e868bbd9b488..9d81956b9588a 100644
---- a/fs/super.c
-+++ b/fs/super.c
-@@ -404,11 +404,16 @@ static struct super_block *alloc_super(struct file_system_type *type, int flags,
- static void __put_super(struct super_block *s)
- {
- 	if (!--s->s_count) {
-+		struct file_system_type *type = s->s_type;
++bool intel_dp_mst_stream_disconnected(struct intel_atomic_state *state,
++				      const struct intel_crtc *crtc)
++{
++	struct intel_connector *connector;
 +
- 		list_del_init(&s->s_list);
-+		hlist_del_init(&s->s_instances);
- 		WARN_ON(s->s_dentry_lru.node);
- 		WARN_ON(s->s_inode_lru.node);
- 		WARN_ON(!list_empty(&s->s_mounts));
- 		call_rcu(&s->rcu, destroy_super_rcu);
-+		/* The unlink above may touch type->fs_supers, so drop it last. */
-+		put_filesystem(type);
- 	}
- }
- 
-@@ -434,24 +439,17 @@ static void kill_super_notify(struct super_block *sb)
- 	if (sb->s_flags & SB_DEAD)
- 		return;
- 
--	/*
--	 * Remove it from @fs_supers so it isn't found by new
--	 * sget{_fc}() walkers anymore. Any concurrent mounter still
--	 * managing to grab a temporary reference is guaranteed to
--	 * already see SB_DYING and will wait until we notify them about
--	 * SB_DEAD.
--	 */
--	spin_lock(&sb_lock);
--	hlist_del_init(&sb->s_instances);
--	spin_unlock(&sb_lock);
--
- 	/*
- 	 * Let concurrent mounts know that this thing is really dead.
--	 * We don't need @sb->s_umount here as every concurrent caller
--	 * will see SB_DYING and either discard the superblock or wait
--	 * for SB_DEAD.
-+	 * sget{_fc}() skips SB_DEAD superblocks and calls test() under
-+	 * sb_lock, so set it under sb_lock: once we return no test()
-+	 * runs on this superblock anymore and none will start. Everyone
-+	 * else already saw SB_DYING and either discarded the superblock
-+	 * or waits for SB_DEAD.
- 	 */
-+	spin_lock(&sb_lock);
- 	super_wake(sb, SB_DEAD);
-+	spin_unlock(&sb_lock);
- }
- 
++	connector = get_connector_in_state_for_crtc(state, crtc);
++	if (!connector)
++		return false;
++
++	if (!connector->mst_port)
++		return false;
++
++	if (!connector->mst_port->mst_mgr.mst_state)
++		return true;
++
++	if (drm_connector_is_unregistered(&connector->base))
++		return true;
++
++	return false;
++}
++
  /**
-@@ -482,7 +480,6 @@ void deactivate_locked_super(struct super_block *s)
- 		list_lru_destroy(&s->s_dentry_lru);
- 		list_lru_destroy(&s->s_inode_lru);
+  * intel_dp_mst_prepare_probe - Prepare an MST link for topology probing
+  * @intel_dp: DP port object
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.h b/drivers/gpu/drm/i915/display/intel_dp_mst.h
+index 8343804ce3f8d..261a97e24d91e 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.h
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.h
+@@ -27,6 +27,8 @@ int intel_dp_mst_atomic_check_link(struct intel_atomic_state *state,
+ 				   struct intel_link_bw_limits *limits);
+ bool intel_dp_mst_crtc_needs_modeset(struct intel_atomic_state *state,
+ 				     struct intel_crtc *crtc);
++bool intel_dp_mst_stream_disconnected(struct intel_atomic_state *state,
++				      const struct intel_crtc *crtc);
+ void intel_dp_mst_prepare_probe(struct intel_dp *intel_dp);
+ bool intel_dp_mst_verify_dpcd_state(struct intel_dp *intel_dp);
  
--		put_filesystem(fs);
- 		put_super(s);
- 	} else {
- 		super_unlock_excl(s);
-@@ -668,12 +665,12 @@ void generic_shutdown_super(struct super_block *sb)
- 	}
- 	/*
- 	 * Broadcast to everyone that grabbed a temporary reference to this
--	 * superblock before we removed it from @fs_supers that the superblock
--	 * is dying. Every walker of @fs_supers outside of sget{_fc}() will now
--	 * discard this superblock and treat it as dead.
-+	 * superblock that it is dying. Every walker of @fs_supers outside
-+	 * of sget{_fc}() will now discard this superblock and treat it as
-+	 * dead.
- 	 *
--	 * We leave the superblock on @fs_supers so it can be found by
--	 * sget{_fc}() until we passed sb->kill_sb().
-+	 * sget{_fc}() keeps finding the superblock until SB_DEAD is set, so
-+	 * a concurrent mounter waits until we passed sb->kill_sb().
- 	 */
- 	super_wake(sb, SB_DYING);
- 	super_unlock_excl(sb);
-@@ -751,6 +748,9 @@ struct super_block *sget_fc(struct fs_context *fc,
- 	spin_lock(&sb_lock);
- 	if (test) {
- 		hlist_for_each_entry(old, &fc->fs_type->fs_supers, s_instances) {
-+			/* Only unlinked at the last passive reference. */
-+			if (super_flags(old, SB_DEAD))
-+				continue;
- 			if (test(old, fc))
- 				goto share_extant_sb;
- 		}
-@@ -834,6 +834,9 @@ struct super_block *sget(struct file_system_type *type,
- 	spin_lock(&sb_lock);
- 	if (test) {
- 		hlist_for_each_entry(old, &type->fs_supers, s_instances) {
-+			/* Only unlinked at the last passive reference. */
-+			if (super_flags(old, SB_DEAD))
-+				continue;
- 			if (!test(old, data))
- 				continue;
- 			if (user_ns != old->s_user_ns) {
+diff --git a/drivers/gpu/drm/i915/display/intel_link_bw.c b/drivers/gpu/drm/i915/display/intel_link_bw.c
+index e7a9b860fac6e..da4f0186311ba 100644
+--- a/drivers/gpu/drm/i915/display/intel_link_bw.c
++++ b/drivers/gpu/drm/i915/display/intel_link_bw.c
+@@ -32,11 +32,12 @@ void intel_link_bw_init_limits(struct intel_atomic_state *state,
+ 	limits->force_fec_pipes = 0;
+ 	limits->bpp_limit_reached_pipes = 0;
+ 	for_each_pipe(display, pipe) {
++		struct intel_crtc *crtc = intel_crtc_for_pipe(i915, pipe);
+ 		const struct intel_crtc_state *crtc_state =
+-			intel_atomic_get_new_crtc_state(state,
+-							intel_crtc_for_pipe(i915, pipe));
++			intel_atomic_get_new_crtc_state(state, crtc);
+ 
+-		if (state->base.duplicated && crtc_state) {
++		if ((state->base.duplicated && crtc_state) ||
++		    intel_dp_mst_stream_disconnected(state, crtc)) {
+ 			limits->max_bpp_x16[pipe] = crtc_state->max_link_bpp_x16;
+ 			if (crtc_state->fec_enable)
+ 				limits->force_fec_pipes |= BIT(pipe);
 -- 
 2.53.0
 
