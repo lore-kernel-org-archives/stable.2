@@ -1,177 +1,448 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [207.46.229.174])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E0D653559E1;
-	Tue, 29 Sep 2026 09:50:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=207.46.229.174
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790675411; cv=none; b=NsCfYP6lFrAgGCaXsQfYrpNiZEUIarpLZeDWCVExELz0H0KJSeRGHekrNAQh9Nu/EOEQL+/qbwD+ER0WG8sqlHTt7fjTO0DVzvNgsAkbAOjQxv4xKdpFuh43iDAaMlQwfdofLlIdDBKSVzI59Eug0Kv4nGdJvX/1LcTXwiUybNU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790675411; c=relaxed/simple;
-	bh=yAYCbIiQcRn8/kObl3S+3BLjEcqsgCjQ+ptO2YGYeRg=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ePSv+nvfCL6MVZZX6I2e2iIB/rhRS8SWtTO/J+BVp1GJH6fTq6k/reEaazBSQNcwanGAGL46UZcGKG4q25/QmNCsCULn1B6gAK3R1Z3hTPQLvRQEh05rqlqLVw5af6ysLsA6YW/I6fjkvrW7sBG7fYTSPayEudZjF4NPgoPfnBk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=207.46.229.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wC3kT68ibtqCEVGAQ--.287S3;
-	Tue, 29 Sep 2026 17:49:49 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app4 (Coremail) with UTF8SMTPA id zi_KCgAHiZ+8ibtqrZIUAA--.38864S2;
-	Tue, 29 Sep 2026 17:49:48 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: linusw@kernel.org,
-	brgl@kernel.org
-Cc: linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	songl@zju.edu.cn,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH v3] gpio: mpsse: fix race when arming the IRQ poll worker
-Date: Tue, 29 Sep 2026 09:36:46 +0000
-Message-Id: <20260929093646.18419-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D87024FC8FA
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 09:53:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.40
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790675641; cv=pass; b=rCcAZIPVqHaUuabZvhiuPX0gWuyoxXcwsxzaDL9ynMY0XIH59KwIvuFTPB3k8LQ3Ls+CxXU4ZMFF9hvsbLkjkOp5RvkfumB7IJnlOUOyAXKc1PYOqj6Yj4WbJLb7DJQozKqJBaTx0Kyfj5dqOgc7iX0UBKNXS/baKo5W2fu+uug=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790675641; c=relaxed/simple;
+	bh=oSIV/xlIxgY5lFIG9Mzt5YOVGmXJaH/VOus1Go845e8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=e1tLPwcJ3OZThSqwOtj4qPCg/QMGeuq7wRleIGPouNc9HJ0f4fykhLHhmz5Kir8TFUYIk8rZgK6tWyQ8z4Nju8yQD7vgyBGjo4jsVtSTUz1oEUd0hH6khO2ZsVn+hFoAsU02f1e/PZxpS+QvBT4xUcbm6Atp36zsWsLh53VhVCY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=vH1TGCnt; arc=pass smtp.client-ip=74.125.228.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="vH1TGCnt"
+Received: by mail-pz2-f40.google.com with SMTP id d2e1a72fcca58-8805988a200so2534117b3a.3
+        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 02:53:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790675637; cv=none;
+        d=google.com; s=arc-20260327;
+        b=hchrfZ6E5m/q2LDj2TCaO5uLfjMMSx0ZMSaxLVye4+wGrgezS+UB7bGzQNfx3r7KdF
+         AWuTuHcaUQA5OuKKjPY+6xoGRPBw9iFV1t1dLUOlHf+Knym76u3ZQJ87NdfmnNeMzcy/
+         M4kWMJaQ3C7uRGmX12i6sHQF56p8gyuFhQX+0PS646Z0FgQsF5/6R8sFP2beffq9ilN8
+         jPczIWWx4qbnwH09mJ0jv65dVov/B20IDdmkq7og0go215+sa3qt+8ydV8iQkBO7K6qz
+         YdA1VoGfQbCWmGnBkQGGF+5HG7QrPKRNS03Ezwsj8d9wFMt+Q7K9v1O63fa/CBOMn8Vq
+         G8jg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=iewnLyDo2R9ssKx1308ONslVKjvX2mIhw6N9D6SJFDY=;
+        fh=7/Uxfe0+H1WgTq9w6vk1OO2QjtUWgWe+0ZaMgmTzX/c=;
+        b=pjfnzexnCdjdUTqbni3niMhy7YcVQBrN3MABF81AKj090I/G5taiYHt0w9me6m9Yqj
+         nNVWcjaUSAUKRjcuM9GLnu8A4F5C97dW7C1E5mB9nBWSyIY6x7M4Hgw4cj2h8RB3jT2B
+         rp/YTzBJ6NozRuZt+BpERR/m4dwbAFFxOLrbziH4s+/QLhZjJLxa66KxsOkiFNMPbAq5
+         1W0h4OkL9XkiCRZAXrW0+njPhygZsrGBt3yPLAsB0LBTG1lCbuxhDchKnyPFLyQc6nU4
+         0uxCf9m3KnH/4w0VcLruRSr/32uda9d/TgwXjNZaqlNNWB1rPAt5VLTYI9tKNR7M4NYp
+         HTFg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=mojatatu.com; s=google; t=1790675637; x=1791280437; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=iewnLyDo2R9ssKx1308ONslVKjvX2mIhw6N9D6SJFDY=;
+        b=vH1TGCntzKe867Vp0jqyk3MumzvYghbjKi0TWOUgckXw8DbYqNAWHnbXmN15cXo0Gj
+         EeUmdBOQJZIS3DWydEqYRtnnuFoGDv/S0AdP2MXze17Z/oYP2EZe2anZocLCoMcHyh3G
+         E8KNc+Q9IXz+sQkkBRdtXGoSeJRyb/WYF36MY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790675637; x=1791280437;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iewnLyDo2R9ssKx1308ONslVKjvX2mIhw6N9D6SJFDY=;
+        b=Oz7RshSm8a0SpBfj6hML2nB4hGGHQBMFRw10plZmD+Oe/bq7iEvQGGq5g1tKU0ZqBQ
+         YLWGntqRloUnH6uTro53uV+frq/QTcWJvQISfqXo9h7TAg8ZpybtxM526iC63ori3aND
+         T+LoZzyQjx6wNqonPzjy/bh+TvTM6HdZD7VVbZ+ydLkGDxtzfzSr9r/1KTsETqDrhdb1
+         WI8p6/1u9R213z7+lM+6T0QUpqdfqbCdEugVYsK1D/ExRe6T3vmN197Knvn/oCSTp8jg
+         XQdsJMzo4NYsMtG/dhp3l4W+3tBFw9QSD8lfo4EhxdBmcWq8dye6u6bklRDOedWDI21l
+         2mwg==
+X-Forwarded-Encrypted: i=1; AKwUvBxIYo5y4wjkWIMqB/nLKwO915pVKj0lsnVeDYqf5odoMNlqEVx8lhI6KQPwjKmP6r3Yb0JmsGM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mqdzmkIvxIf5USD85pSfAnFVibTFLOZqokTc9RIgB1NKmpErHT
+	pPCDHYJcPY10l0twaOdbY5/JgW0H+fZCyZxOp0wnC0tzRLNY4yzHwPOEHG+9U3g78srtk9sCI6v
+	oVy5GfL1A1yXU/9MpB4dQ7SkUfdcZwWTc0l2Gu5k9
+X-Gm-Gg: AYBFou0LoGKbedjoHz+Jp/tgtN6BJsrke1AYC3psEj9f7hufCkcphrVW0Lrd7ppJ0GC
+	lW3yD1aZItVf8/ezt8Y+cJrUGQlN2VgPjn1CSgcee3cmCBQRZQ3AuUyNqAol5pMBEHDQ+mp1SE1
+	BwpluhVcCKd2tgAw/ZJtRtY3lme6/BU54CQ2q4BqL6QlXrQARKkLGb3ZHUM+7ESf4z20KEmFgM8
+	RKq0sN0JNdDtT7PkDR+DhkN+Z4C/MaiaUV3j/rZjme9puSg9Hdnz4kGL0uSu4IJID5BQLNWOURO
+	4bVPTc0GokWxWIEXeXMLTun9NLf15jZpUSiI+Z4vwK4uSYPFeAzUXtwv34XiT3ahtwF3Ec2KhRh
+	KY0QUQ6pLfL31SoiJXvvYCoddyYXjugBPPpbeR+I=
+X-Received: by 2002:a05:6a00:3cd6:b0:882:50af:be21 with SMTP id
+ d2e1a72fcca58-88250afc784mr5701649b3a.48.1790675637093; Tue, 29 Sep 2026
+ 02:53:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zi_KCgAHiZ+8ibtqrZIUAA--.38864S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?NZNojgXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnbpwaw7gRjzR7embn8Pa6gcYp8VY04oJ52CCtY4IcEkz7Q9faqdF111zRRE/A5gXJdwi
-	3eTxn5v9Gp9ctZyEkCzwVWyu4/BhoK61R29ZB6TE
-X-Coremail-Antispam: 1Uk129KBj93XoWxWr1fKFW8CrWkXr45Kr4rZwc_yoWrCF13pF
-	Z0grn5Grs5JryS9FnxuF47ur98uws3Jry7WryxWw4fZr4a9r90ya9YvryY9F1UuFyvkF1Y
-	yrs0grZ7KFZrA3XCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUXVWUAwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
-	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8I_M3UUUUU==
+References: <QDISC-9R8V.v4.20260928081529@mojatatu.com> <179065355672.434549.4187901591797286003@kernel.org>
+In-Reply-To: <179065355672.434549.4187901591797286003@kernel.org>
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+Date: Tue, 29 Sep 2026 05:53:44 -0400
+X-Gm-Features: AclHuK8WoYkKlx66z6wJLWkzne4OrP1pCQEBoEvJhjEF3aR46meA8SDAaZCYl9w
+Message-ID: <CAM0EoM=bPdWP0eNNRW4CYTG=t+qadcsjc_Kd7bmgBzW8Himpsg@mail.gmail.com>
+Subject: Re: [PATCH net v4] net: cap skb->queue_mapping when the tx queue is picked
+To: netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org, pablo@netfilter.org, fw@strlen.de, phil@nwl.cc, 
+	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, 
+	jiri@resnulli.us, vinicius.gomes@intel.com, horms@kernel.org, 
+	xiangxia.m.yue@gmail.com, bigeasy@linutronix.de, clrkwllms@kernel.org, 
+	rostedt@goodmis.org, victor@mojatatu.com, zdi-disclosures@trendmicro.com, 
+	hybris@mojatatu.ai, netfilter-devel@vger.kernel.org, coreteam@netfilter.org, 
+	linux-rt-devel@lists.linux.dev, stable@vger.kernel.org, edumazet@google.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-gpio_mpsse_irq_enable() arms the poll worker before publishing it:
-schedule_work() runs before the worker is added to priv->workers. If
-gpio_mpsse_disconnect() walks the list in that window it misses the
-worker, and once disconnect returns, the USB core frees mpsse_priv
-while the orphaned gpio_mpsse_poll() work keeps accessing it, causing
-a use-after-free.
+On Mon, Sep 28, 2026 at 11:45=E2=80=AFPM <netdev-bot+sashiko@kernel.org> wr=
+ote:
+>
+> Thank you for your contribution! Sashiko AI review found 3 potential
+> issue(s) to consider.
+>
+> Critical: 0 =C2=B7 High: 0 (1) =C2=B7 Medium: 2 =C2=B7 Low: 1
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>
+> - [Medium] skb_at_tc_egress() treats skb->nf_skip_egress &&
+>   !tc_at_ingress as meaning "inside sch_handle_egress()".
 
-Fix this by publishing and arming the worker in one irq_spin
-critical section. Teardown walks the same list under irq_spin, so a
-worker found on the list is guaranteed to be armed, and
-cancel_work_sync() handles it whether it is queued or running.
+will be handled in the rename followup
 
-A worker armed after the disconnect walk would still be missed, so
-also set a new priv->dying flag under irq_spin before the teardown
-walk, and check it in the same critical section, freeing it via
-kfree_rcu() instead when the device is going away, since kfree()
-would be called with the IRQ core's raw spinlock held and may sleep
-on PREEMPT_RT. schedule_work() is safe to call with irq_spin held,
-and the next probe gets a fresh mpsse_priv, so the flag never needs
-to be cleared.
+> - [Medium] The fix keeps skip_txqueue inside one xmit frame only if every
+>   nested __dev_queue_xmit() takes the egress_needed_key branch.
 
-This issue was found by an in-house static analysis tool.
+This is a valid issue but not a regression introduced by us.
+Prior to this patch - the entire egress block is inside if
+(static_branch_unlikely(&egress_needed_key)), and each nested
+__dev_queue_xmit() re reads the key. TBH, the patch makes it more
+observable in that window, but the resulting wrong-queue consequence
+already existed.
+So i will add this as a followup improvement to the renaming thread we
+already captured.
 
-Fixes: 179ef1127d7a ("gpio: mpsse: ensure worker is torn down")
-Cc: stable@vger.kernel.org
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
+> - [Low] After this patch, skb->nf_skip_egress also gates tc behaviour:
+>   skb_at_tc_egress() decides whether tcf_skbedit_act() arms skip_txqueue.
 
-Changes in v2, responding to feedback from Bartosz Golaszewski:
+This documentation nit will be fixed when we send the rename followup.
 
- - Rework the worker disposal to be PREEMPT_RT-safe: v1 called
-   kfree() under priv->irq_spin with the IRQ descriptor's raw
-   spinlock also held (found by Sashiko, relayed by Bartosz); free
-   the never-published worker with kfree_rcu() instead.
- - Recheck the pre-existing GFP_NOWAIT allocation in this irqchip
-   callback: no change needed.
+> Pre-existing issues:
+> - [High] This problem wasn't introduced by this patch, but it is high
+>   severity.
 
-Changes in v3: expand the comment above the deferred free, reword the
-commit message and add this changelog; no functional change since v2.
+We are tracking this issue as a followup.
+Unfortunately the followup cant be sent because it is dependent on
+this commit being merged.
 
-v1: https://lore.kernel.org/linux-gpio/20260923030855.410109-1-fanwu01@zju.edu.cn/
-v2: https://lore.kernel.org/linux-gpio/20260928112546.631440-1-fanwu01@zju.edu.cn/
- drivers/gpio/gpio-mpsse.c | 24 ++++++++++++++++++++++--
- 1 file changed, 22 insertions(+), 2 deletions(-)
+For this reason I dont see any need to respin v5.
 
-diff --git a/drivers/gpio/gpio-mpsse.c b/drivers/gpio/gpio-mpsse.c
-index a859deab2..5ce822c0d 100644
---- a/drivers/gpio/gpio-mpsse.c
-+++ b/drivers/gpio/gpio-mpsse.c
-@@ -10,6 +10,7 @@
- #include <linux/cleanup.h>
- #include <linux/gpio/driver.h>
- #include <linux/mutex.h>
-+#include <linux/rcupdate.h>
- #include <linux/spinlock.h>
- #include <linux/usb.h>
- 
-@@ -24,6 +25,7 @@ struct mpsse_priv {
- 	raw_spinlock_t irq_spin;     /* protects worker list */
- 	atomic_t irq_type[16];	     /* pin -> edge detection type */
- 	atomic_t irq_enabled;
-+	atomic_t dying;		     /* no new workers after disconnect */
- 	int id;
- 
- 	u8 gpio_outputs[2];	     /* Output states for GPIOs [L, H] */
-@@ -46,6 +48,7 @@ struct mpsse_worker {
- 	atomic_t       cancelled;
- 	struct list_head    list;   /* linked list */
- 	struct list_head destroy;   /* teardown linked list */
-+	struct rcu_head      rcu;   /* deferred free for dying path */
- };
- 
- struct bulk_desc {
-@@ -525,10 +528,24 @@ static void gpio_mpsse_irq_enable(struct irq_data *irqd)
- 		worker->priv = priv;
- 		INIT_LIST_HEAD(&worker->list);
- 		INIT_WORK(&worker->work, gpio_mpsse_poll);
--		schedule_work(&worker->work);
- 
--		scoped_guard(raw_spinlock_irqsave, &priv->irq_spin)
-+		scoped_guard(raw_spinlock_irqsave, &priv->irq_spin) {
-+			if (atomic_read(&priv->dying)) {
-+				/*
-+				 * Cannot kfree() here: this callback
-+				 * runs with the IRQ descriptor's raw
-+				 * spinlock held and kfree() may sleep
-+				 * on PREEMPT_RT. The worker is not
-+				 * yet published, so the deferred free
-+				 * is unobservable.
-+				 */
-+				kfree_rcu(worker, rcu);
-+				return;
-+			}
-+
- 			list_add(&worker->list, &priv->workers);
-+			schedule_work(&worker->work);
-+		}
- 	}
- }
- 
-@@ -704,6 +721,9 @@ static void gpio_mpsse_disconnect(struct usb_interface *intf)
- {
- 	struct mpsse_priv *priv = usb_get_intfdata(intf);
- 
-+	scoped_guard(raw_spinlock_irqsave, &priv->irq_spin)
-+		atomic_set(&priv->dying, 1);
-+
- 	/*
- 	 * Lock prevents double-free of worker from here and the teardown
- 	 * step at the beginning of gpio_mpsse_poll
+cheers,
+jamal
 
--- 
-2.34.1
-
+> --
+>
+> net: cap skb->queue_mapping when the tx queue is picked
+>
+> This patch keeps the per-CPU skip_txqueue flag inside the xmit frame that
+> runs sch_handle_egress(). It saves the flag before the hook and restores
+> it afterwards. tcf_skbedit_act() may now arm the flag only when
+> skb_at_tc_egress() reports tc egress. The patch also writes the capped
+> value back into skb->queue_mapping in netdev_tx_queue_mapping(), and
+> builds skb->nf_skip_egress under CONFIG_NET_EGRESS.
+>
+> Link: https://lore.kernel.org/netdev/CANn89iLwYx8nCVf0pCEk_MmEiyC6kQaMwCQ=
+T9WkQVeeNzNQHqQ@mail.gmail.com/
+> Link: https://lore.kernel.org/netdev/179008581937.2160803.711781429057426=
+2942@kernel.org/
+> Link: https://lore.kernel.org/netdev/179033713973.2160803.491457069399439=
+8206@kernel.org/
+> Link: https://lore.kernel.org/netdev/20260925180407.63647514@kernel.org/
+> Link: https://lore.kernel.org/netdev/CANn89i+k-mZKDQVtvws_MEXeuMTAdaCcOXF=
+ZE-RfhcGTu90sjA@mail.gmail.com/
+>
+> [ ... ]
+>
+> > diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
+> > index 84308498a3a8..a3ff380d43f0 100644
+> > --- a/include/linux/skbuff.h
+> > +++ b/include/linux/skbuff.h
+> > @@ -1020,7 +1020,7 @@ struct sk_buff {
+> >  #ifdef CONFIG_NET_REDIRECT
+> >       __u8                    from_ingress:1;
+> >  #endif
+> > -#ifdef CONFIG_NETFILTER_SKIP_EGRESS
+> > +#ifdef CONFIG_NET_EGRESS
+> >       __u8                    nf_skip_egress:1;
+> >  #endif
+>
+> [Severity: Low]
+> This isn't a bug, but skb_at_tc_egress() now reads this bit to gate
+> tcf_skbedit_act(), and the documentation still describes a flag used only
+> by netfilter.
+>
+> The struct sk_buff kernel-doc says:
+>
+>  *      @nf_skip_egress: packet shall skip nf egress - see netfilter_netd=
+ev.h
+>
+> The comment above nf_hook_egress() in include/linux/netfilter_netdev.h
+> says:
+>
+>  * The nf_skip_egress flag controls whether netfilter is applied on egres=
+s.
+>  * It is updated by __netif_receive_skb_core() and __dev_queue_xmit() whe=
+n the
+>
+> Neither comment mentions the tc egress meaning. The second one also leave=
+s
+> out ifb_ri_tasklet() and netkit_prep_forward(), which write the bit too.
+> The new skb_at_tc_egress() has no comment about reusing this bit or about
+> the precondition it depends on.
+>
+> Could these comments be updated along with this change?
+>
+> >  #ifdef CONFIG_SKB_DECRYPTED
+> > diff --git a/include/net/sch_generic.h b/include/net/sch_generic.h
+> > index f35bd06a6bad..1acaadb3e2cf 100644
+> > --- a/include/net/sch_generic.h
+> > +++ b/include/net/sch_generic.h
+> > @@ -810,6 +810,15 @@ static inline bool skb_at_tc_ingress(const struct =
+sk_buff *skb)
+> >  #endif
+> >  }
+> >
+> > +static inline bool skb_at_tc_egress(const struct sk_buff *skb)
+> > +{
+> > +#ifdef CONFIG_NET_EGRESS
+> > +     return skb->nf_skip_egress && !skb_at_tc_ingress(skb);
+>
+> [Severity: Medium]
+> Is nf_skip_egress only ever set around sch_handle_egress()? The commit
+> message says:
+>
+>   "the marker is set only around the single sch_handle_egress() call and
+>   ingress path is guarded by tc_at_ingress"
+>
+> Some other writers seem to leave the bit set on skbs that later reach
+> __dev_queue_xmit().
+>
+> __netif_receive_skb_core() sets the bit before sch_handle_ingress(), but
+> clears it only on the path where the skb survives:
+>
+>                 nf_skip_egress(skb, true);
+>                 skb =3D sch_handle_ingress(skb, &pt_prev, &ret, orig_dev,
+>                                          &another);
+>                 ...
+>                 if (!skb)
+>                         goto out;
+>
+>                 nf_skip_egress(skb, false);
+>
+> An ingress mirred redirect consumes the skb and passes it to
+> dev_queue_xmit() with the bit still set. A mirror does the same with a
+> clone, which copies the bit through the headers group.
+>
+> ifb_ri_tasklet() sets the bit and then calls dev_queue_xmit(). On the
+> from_ingress path it reinjects the skb with tc_skip_classify set, so
+> __netif_receive_skb_core() never resets the bit:
+>
+>                 skb->tc_skip_classify =3D 1;
+>                 ...
+>                 nf_skip_egress(skb, true);
+>
+> netkit_prep_forward() also sets the bit. After that, netkit_xmit() calls
+> skb_do_redirect(), which can reach dev_queue_xmit().
+>
+> In __dev_queue_xmit(), tcx_set_ingress(skb, false) always runs. The only
+> reset of nf_skip_egress is inside the egress_needed_key static branch.
+>
+> Suppose only an ingress clsact is installed, for example one doing
+> "mirred egress redirect dev qc". The skb then reaches qc's root qdisc
+> enqueue with nf_skip_egress=3D1 and tc_at_ingress=3D0. A skbedit queue_ma=
+pping
+> action in a prio, multiq or htb classifier passes skb_at_tc_egress() and
+> calls netdev_xmit_skip_txqueue(true). The v4 changelog says this kind of
+> arming from a transmit-qdisc classifier no longer happens.
+>
+> Nothing seems to consume this stale value today. Every reader inside the
+> static branch saves, clears and restores the flag. The one exception is
+> the static key race described further down.
+>
+> There is also a config effect. nf_skip_egress() is now built under
+> CONFIG_NET_EGRESS instead of CONFIG_NETFILTER_SKIP_EGRESS. With
+> CONFIG_NET_EGRESS=3Dy and CONFIG_NETFILTER_EGRESS=3Dn, the ingress, ifb a=
+nd
+> netkit calls used to compile to nothing. Now they write a bit that
+> skb_at_tc_egress() reads.
+>
+> Should the reasoning in the commit message be revisited? Otherwise the
+> planned rename to skb->skip_egress would carry the same assumption
+> forward.
+>
+> > +#else
+> > +     return false;
+> > +#endif
+> > +}
+>
+> [ ... ]
+>
+> > diff --git a/net/core/dev.c b/net/core/dev.c
+> > index f660fccfc0db..8638c994bbcb 100644
+> > --- a/net/core/dev.c
+> > +++ b/net/core/dev.c
+> > @@ -4404,9 +4404,14 @@ EXPORT_SYMBOL(dev_loopback_xmit);
+> >  static struct netdev_queue *
+> >  netdev_tx_queue_mapping(struct net_device *dev, struct sk_buff *skb)
+> >  {
+> > -     int qm =3D skb_get_queue_mapping(skb);
+> > +     int queue =3D skb_get_queue_mapping(skb);
+> > +     int capped;
+> >
+> > -     return netdev_get_tx_queue(dev, netdev_cap_txqueue(dev, qm));
+> > +     capped =3D netdev_cap_txqueue(dev, queue);
+> > +     if (unlikely(capped !=3D queue))
+> > +             skb_set_queue_mapping(skb, capped);
+> > +
+> > +     return netdev_get_tx_queue(dev, capped);
+> >  }
+>
+> [Severity: High]
+> This is a pre-existing issue and was not introduced by this patch. The
+> commit message leaves it for a separate followup. Can a cls_bpf program o=
+n
+> a transmit qdisc still index past the end of dev->_tx[]?
+>
+> tc_cls_act_is_valid_access() allows writes to __sk_buff queue_mapping.
+> bpf_convert_ctx_access() only drops stores of NO_QUEUE_MAPPING or larger:
+>
+> net/core/filter.c:bpf_convert_ctx_access() {
+>     ...
+>                         if (BPF_CLASS(si->code) =3D=3D BPF_ST && si->imm =
+>=3D NO_QUEUE_MAPPING) {
+>                                 *insn++ =3D BPF_JMP_A(0); /* noop */
+>                                 break;
+>                         }
+>
+>                         if (BPF_CLASS(si->code) =3D=3D BPF_STX)
+>                                 *insn++ =3D BPF_JMP_IMM(BPF_JGE, si->src_=
+reg, NO_QUEUE_MAPPING, 1);
+>                         *insn++ =3D BPF_EMIT_STORE(BPF_H, si, offset);
+>     ...
+> }
+>
+> The stored value is never compared with dev->num_tx_queues or
+> real_num_tx_queues. A program attached under a prio or htb root runs
+> inside q->enqueue(). That is after netdev_core_pick_tx() or
+> netdev_tx_queue_mapping() has already capped the mapping, so the program
+> can store any value up to 0xfffe.
+>
+> On dequeue:
+>
+> qdisc_restart()
+>   txq =3D skb_get_tx_queue(dev, skb)
+>     netdev_get_tx_queue()
+>       DEBUG_NET_WARN_ON_ONCE(index >=3D dev->num_tx_queues);
+>       return &dev->_tx[index];
+>   sch_direct_xmit(skb, q, dev, txq, ...)
+>     HARD_TX_LOCK(dev, txq, cpu)
+>
+> The gso_skb and skb_bad_txq requeue paths in dequeue_skb() also call
+> skb_get_tx_queue().
+>
+> That would take txq->_xmit_lock, write xmit_lock_owner and read txq->stat=
+e
+> in memory past the end of the dev->_tx allocation. Loading the program
+> needs CAP_BPF and CAP_NET_ADMIN, or a delegated BPF token. Even so, the
+> program has passed the verifier and should not be able to corrupt kernel
+> memory.
+>
+> [ ... ]
+>
+> > @@ -4848,21 +4861,25 @@ int __dev_queue_xmit(struct sk_buff *skb, struc=
+t net_device *sb_dev)
+> >       tcx_set_ingress(skb, false);
+> >  #ifdef CONFIG_NET_EGRESS
+> >       if (static_branch_unlikely(&egress_needed_key)) {
+> > +             bool skip_txq;
+> > +
+> >               if (nf_hook_egress_active()) {
+> >                       skb =3D nf_hook_egress(skb, &rc, dev);
+> >                       if (!skb)
+> >                               goto out;
+> >               }
+> >
+> > -             netdev_xmit_skip_txqueue(false);
+> > +             skip_txq =3D netdev_xmit_skip_txqueue(false);
+> >
+> >               nf_skip_egress(skb, true);
+> >               skb =3D sch_handle_egress(skb, &rc, dev);
+> > -             if (!skb)
+> > +             if (!skb) {
+> > +                     netdev_xmit_skip_txqueue(skip_txq);
+> >                       goto out;
+> > +             }
+> >               nf_skip_egress(skb, false);
+> >
+> > -             if (netdev_xmit_txqueue_skipped())
+> > +             if (netdev_xmit_skip_txqueue(skip_txq))
+> >                       txq =3D netdev_tx_queue_mapping(dev, skb);
+> >       }
+> >  #endif
+>
+> [Severity: Medium]
+> Does the flag stay confined to this frame if egress_needed_key is turned
+> off while an outer frame is inside sch_handle_egress()?
+>
+> Each nested __dev_queue_xmit() reads the static key again.
+> net_dec_egress_queue() is a plain static_branch_dec() and does not wait
+> for RCU-bh readers that are already inside the branch. Consider:
+>
+> CPU1                                     CPU2
+> __dev_queue_xmit(qa)
+>   static key is on
+>   skip_txq =3D netdev_xmit_skip_txqueue(false)
+>   nf_skip_egress(skb, true)
+>   sch_handle_egress()
+>                                          clsact_destroy()
+>                                            net_dec_egress_queue()
+>                                              static_branch_dec()
+>     tcf_mirred_forward()
+>       (mirror clone has nf_skip_egress=3D1)
+>       dev_queue_xmit(qc)
+>         static key is off: no save/restore,
+>         no nf_skip_egress reset
+>         q->enqueue() -> prio classifier
+>           tcf_skbedit_act()
+>             skb_at_tc_egress() is true
+>             netdev_xmit_skip_txqueue(true)
+>   nf_skip_egress(skb, false)
+>   netdev_xmit_skip_txqueue(skip_txq) returns true
+>   txq =3D netdev_tx_queue_mapping(dev, skb)
+>
+> In this sequence, qa's surviving skb picks its tx queue from its own
+> queue_mapping, even though it never went through skbedit. For a forwarded
+> packet that value is the ingress rx_queue + 1.
+>
+> The capped write-back in netdev_tx_queue_mapping() still prevents the
+> taprio out-of-bounds access. The result would be a wrong but valid tx
+> queue, and possibly the ratelimited "selects TX queue" warning.
+>
+> The commit message says the flag is now owned by the xmit frame the
+> egress hook runs in. Is this cross-frame leak meant to be covered as well=
+?
+>
+> [ ... ]
+>
+> --
+> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
+set/QDISC-9R8V.v4.20260928081529%40mojatatu.com
