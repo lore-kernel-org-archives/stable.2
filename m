@@ -1,114 +1,243 @@
-Received: from cvsmtppost24.nm.naver.com (cvsmtppost24.nm.naver.com [114.111.35.238])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05EA13A2559
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 17:18:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.111.35.238
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E5994FECE6
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 17:19:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790702287; cv=none; b=GUuCFceQe94+nMN9ADhc4heT4wPkud6+0dYIUzNBsZ+arOhtmU2OUo6Tge2v7jK8QKtbQcLJ7bnKvsyptUxewkv2L7lMXNS+M7W4tAgJFEezJKHe0NRfOAgh2uvQsoPMjQjwGYbk13NUjPbAYU0yIkt5CqtmsoSyfVADcnqMpFQ=
+	t=1790702367; cv=none; b=E0GwZNGpV/34RDsl0OJuI6nfPhAaH4WYAlabGBUjhiFCheZ81YMXnvB3iMGMLEh2nhhHGd+z33BCzHeb8ch12MvZOy29+GPuh4TDR3wREMJQkIyEBFH63tIGx+O16ksgijwavZ8+IPx9uc1hxGmnff3Om9HG4P7uu/KPqtjgGgw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790702287; c=relaxed/simple;
-	bh=Ah+N9JpMko5sERUk9AQw5UhOQPPu+/j0pR/GGXsNR14=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=PVgMof63kPKaS3bSZCLhX8ODLJx/kIzQNMt/LL9bhYBUhDtn+K6Ceq6/RxAEY2Ajvg67S9nhrHAPfzv1pwiY3ZG7DPk5YFzfLbyEX5vrb8EvI90C0icR1skqWjuKu9xdgL9xY2YN00EtW8FVG31iFVyA4xViYlkoFZ8tRDNmHFI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com; spf=pass smtp.mailfrom=naver.com; dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b=nWJpjB9R; arc=none smtp.client-ip=114.111.35.238
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=naver.com
+	s=arc-20240116; t=1790702367; c=relaxed/simple;
+	bh=ik8/aB3zlxQqTHMRhIP3HX3dyr70E5n+4k82K5GV4Tg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=V5OR0/CnLeVMYLkkLo1r/6/Mj5pEDlYuyXZwOYYkL93R3h5zdtK9QqhgkKeaENFHQ5K3Z6J6r/AODYx/FoNOfAoRdxSHEpBNXV54wLUa5qVw5aVdS7hfZ46Vq0FKliC1IetWvhdclaNWGvJFe0lwk1Tz+XAgen1NvonHonYZ+8M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b5yzajQn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b="nWJpjB9R"
-Received: from cvsendbo024.nm ([10.112.24.41])
-  by cvsmtppost24.nm.naver.com with ESMTP id 9D2xNhrCSHarAR6QUtm3eg
-  for <stable@vger.kernel.org>;
-  Tue, 29 Sep 2026 17:07:55 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=naver.com; s=s20171208;
-	t=1790701675; bh=Ah+N9JpMko5sERUk9AQw5UhOQPPu+/j0pR/GGXsNR14=;
-	h=From:To:Subject:Date:Message-ID:From:Subject:Feedback-ID:
-	 X-Works-Security;
-	b=nWJpjB9RyTBrd6th3UTdAN57myUbBX4O+FojFxdAaFWpAEf9SX7hozQXAIEpwZUJj
-	 woswWG5wPLNMVGnR45Nn+z2nLYrVo33bXCdXC78JljalruCAlF4RDzQ873GfJ8maWT
-	 zWEJf68qNvGNavqCtWRdF2hG5y/Bls7ZncOzdDo/9Y/qwhsPpvnHJ/CgHhFdluUeQW
-	 o+IzCeBqD3/04RNnvpM6hhNx2TITPFWFb1ZRYLkbqvxqL8I3hNgFLcJ1HiVPoJBf+z
-	 axcRPEQkIxb/BrIoxirvQ7P+EhthkJZHO9TfFKjzjTNxg4dQMYQLCDLW6SQO8MkIJw
-	 8+14cSl/ExD6g==
-X-Session-ID: 3Ub9UiOHQKWjxSK0PxMgyg
-X-Works-Send-Opt: OsFwpzGdjHmdKHFOMr39Ko3YKBmXjAudFqM9KqMqFxIYkEljxBmwjAg=
-X-Works-Smtp-Source: ednrFoglFqJZ+HmdFqUl+6E=
-Received: from localhost.localdomain ([115.136.205.4])
-  by cvnsmtp012.nm.naver.com with ESMTP id 3Ub9UiOHQKWjxSK0PxMgyg
-  for <multiple recipients>
-  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-  Tue, 29 Sep 2026 17:07:54 -0000
-From: tjdqudcks0424@naver.com
-To: horms@verge.net.au,
-	ja@ssi.bg
-Cc: pablo@netfilter.org,
-	netdev@vger.kernel.org,
-	lvs-devel@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	=?UTF-8?q?=EC=84=B1=EB=B3=91=EC=B0=AC?= <tjdqudcks0424@naver.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net] ipvs: prevent LBLCR destination leak after entry expiry
-Date: Wed, 30 Sep 2026 02:07:46 +0900
-Message-ID: <20260929170747.503223-1-tjdqudcks0424@naver.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b5yzajQn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E1E61F00893;
+	Tue, 29 Sep 2026 17:19:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790702366;
+	bh=2/RVU0MEanfQAKcUjcW94ZO212FTEkjGlYVj9vx73NM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=b5yzajQnsixh1t2mDVMRoChl4NTummUVINNNCDxMcT1h9lsa27JBdd/Purv4QCDnp
+	 D4YWIrxltkF+8VKC486fehygYUwYohUU2hC/DmEaDC4As3PUsA2EdmFWqWv2nwqJs/
+	 FV50AAqH97WBOVrG1ZGmgeYCHpgLaFFtu2EsbnP93vB3jfkthU824VKfSjHDglYIET
+	 j/9rmDOTWuSLxfCVdx4sSxZpxwVXwQfIu9dmCdaLjMMDjmt037MJQsQswMw4WlAKMh
+	 zrzXGQ3/DJyWYMo+xfNc40CZgDlIli9xgOluBnemY84QoQmV76BEqjru1MZw+AeJC8
+	 zXS9TKx1qV65w==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Jinjiang Tu <tujinjiang@huawei.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
+	Minchan Kim <minchan@kernel.org>,
+	Harry Yoo <harry@kernel.org>,
+	Hiroyouki Kamezawa <kamezawa.hiroyu@jp.fujitsu.com>,
+	Jann Horn <jannh@google.com>,
+	Kefeng Wang <wangkefeng.wang@huawei.com>,
+	Larry Woodman <lwoodman@redhat.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Nanyong Sun <sunnanyong@huawei.com>,
+	Rik van Riel <riel@surriel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/2] mm/rmap: fix missing barrier between anon_vma init and vma->anon_vma publish
+Date: Tue, 29 Sep 2026 13:19:21 -0400
+Message-ID: <20260929171921.238186-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260929171921.238186-1-sashal@kernel.org>
+References: <2026092946-footrest-depravity-5e56@gregkh>
+ <20260929171921.238186-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: 성병찬 <tjdqudcks0424@naver.com>
+From: Jinjiang Tu <tujinjiang@huawei.com>
 
-ip_vs_lblcr_schedule() looks up a cache entry under RCU before taking
-svc->sched_lock.  The expiry timer can remove that entry from the hash
-table and erase its destination set before the scheduler takes the lock.
+[ Upstream commit b6ac0b3f6013c168f22cad97e79967accacb08e1 ]
 
-RCU keeps the stale entry itself alive, so the scheduler can continue and
-insert a new destination-set element into it.  Since the entry is already
-unhashed and its set was already erased, no later path finds the new
-element.  Both the element and its destination reference are leaked when
-the parent entry is freed.
+On arm64 server, we find that a task trying to grab the anon_vma lock
+triggers hungtask.
 
-Recheck the address mapping while holding svc->sched_lock and update the
-set only when the hash table still maps the address to the entry obtained
-by the scheduler.
+INFO: task main:2354726 blocked for more than 120 seconds.
+      Tainted: G            E     5.10.0-0021.aarch64 #1
+"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+task:main            state:D stack:    0 pid:2354726 ppid:2350673 flags:0x00000a01
+Call trace:
+ __switch_to+0x7c/0xbc
+ __schedule+0x3b4/0x8a0
+ schedule+0x50/0xe0
+ rwsem_down_write_slowpath+0x3cc/0x6cc
+ down_write+0x60/0x260
+ __anon_vma_prepare+0x6c/0x210
+ do_anonymous_page+0x258/0x660
+ handle_pte_fault+0x188/0x214
+ __handle_mm_fault+0x1b0/0x380
+ handle_mm_fault+0xf4/0x284
+ do_page_fault+0x19c/0x494
+ do_translation_fault+0xcc/0xf8
+ do_mem_abort+0x48/0xac
+ el0_da+0x44/0x80
+ el0_sync_handler+0x88/0xb4
+ el0_sync+0x160/0x180
 
-This was found during an AI-assisted source audit.  Diagnostic-only timing
-instrumentation forced expiry after lookup on a two-vCPU x86-64 QEMU
-guest.  The unmodified code inserted into the stale entry and left one
-element outstanding in each of three runs; kmemleak reported the related
-allocation in one run.  With this change, the same stale-entry condition
-was reached in three runs, but no stale insertion or outstanding element
-remained.
+After analyzing the vmcore, we found the anon_vma->root->rwsem.count is
+-1.  There is another anon_vma whose anon_vma->root->rwsem.count is 1, the
+anon_vma->root->rwsem.owner shows the lock is held, but the stack of the
+task shows the task doesn't hold the anon_vma lock.
 
-An unforced 679-second run processed 65,536 marked packets without hitting
-the race.  The result therefore confirms the lifetime leak and the effect
-of the fix under forced timing, but does not establish practical remote
-resource exhaustion.
+After adding more debugging info, we found __anon_vma_prepare() reuses
+anon_vma and triggers the UAF of anon_vma->root due to missing memory
+barrier, leading to locking and unlocking two different anon_vma->root,
+thus leading to an anon_vma will never be unlocked, and another anon_vma
+couldn't be locked anymore.
 
-Fixes: c5549571f975 ("ipvs: convert lblcr scheduler to rcu")
-Cc: stable@vger.kernel.org
-Signed-off-by: 성병찬 <tjdqudcks0424@naver.com>
+This race requires two adjacent VMAs that are not merged but are
+anon_vma-compatible (e.g., they differ in VMA_ACCESS_FLAGS that can be
+changed by mprotect()).  Two threads fault on each VMA concurrently, both
+calling __anon_vma_prepare() with only mmap_lock held for reading.
+
+    THREAD A                             THREAD B
+__anon_vma_prepare                __anon_vma_prepare
+ find_mergeable_anon_vma() -> NULL
+ anon_vma = anon_vma_alloc();
+   anon_vma->root = anon_vma;
+ // the two stores may be reordered
+ vma->anon_vma = anon_vma;
+                                   // finds A's anon_vma
+                                   anon_vma = find_mergeable_anon_vma(vma);
+                                   anon_vma_lock_write(anon_vma);
+                                     // may still see the old root
+                                     down_write(&anon_vma->root->rwsem);
+                                   anon_vma_unlock_write(anon_vma);
+                                     // see the new root, never unlock old
+                                     up_write(&anon_vma->root->rwsem);
+
+thread A triggers page fault and calls __anon_vma_prepare() to prepare
+anon_vma for the faulting vma.  __anon_vma_prepare() allocates and
+initializes a new anon_vma, and then publishes it to the vma with a plain
+store.  anon_vma_prepare() only requires the mmap_lock to be held for
+reading, so two threads can fault on adjacent VMAs at the same time.
+While thread A publishes a new anon_vma, thread B could find the anon_vma
+via find_mergeable_anon_vma() and then locks anon_vma->root->rwsem.
+
+The store to anon_vma->root in anon_vma_alloc() and the store to
+vma->anon_vma can be reordered.  The anon_vma_lock_write() and spin_lock()
+only provide acquire semantics, which do not prevent prior stores from
+being reordered after them.  The release semantics of the corresponding
+spin_unlock() and anon_vma_unlock_write() come too late, the store to
+vma->anon_vma is already published before they take effect.  As a result,
+thread B can observe the following order:
+
+    vma->anon_vma = anon_vma;
+    anon_vma->root = anon_vma;
+
+The anon_vma slab is SLAB_TYPESAFE_BY_RCU, so a newly allocated anon_vma
+may reuse memory from a previously freed one.  The constructor
+(anon_vma_ctor) does not reset anon_vma->root, and __put_anon_vma()
+doesn't clear it either, so the old root value persists until
+anon_vma_alloc() overwrites it.  If that store isn't visible, thread B
+reads a root that points to the old anon_vma and locks it.
+
+As a result, thread B can call anon_vma_lock_write() with the old root,
+and call anon_vma_unlock_write() with the new root, leading to an anon_vma
+will never be unlocked, and another anon_vma couldn't be locked anymore
+(its count is dropped from 0 to -1 due to wrong unlock).
+
+To fix it, change the plain store `vma->anon_vma = anon_vma` to store
+release, so that the fields of anon_vma are visible before anon_vma is
+published to vma->anon_vma.
+
+At read side, the load of anon_vma and anon_vma->root have address
+dependency.  According to Documentation/memory-barriers.txt and some
+investigations, only Alpha needs address-dependency barriers and it has
+been handled by READ_ONCE() in reusable_anon_vma().
+
+We reproduced this issue in v5.10 with KSM enabled.  The kernel doesn't
+merge commit cf7e7a3503df ("mm: prevent KSM from breaking VMA merging for
+new VMAs"), so there are many adjacent VMAs that aren't merged but are
+compatible for anon_vma.
+
+Without this fix, our production environment could reproduce this issue
+about 2-5 times each month.  After adding a smp_mb() before
+anon_vma_lock_write(anon_vma) in __anon_vma_prepare(), which is different
+to this patch, this issue hasn't been reproduced for one month.
+
+Link: https://lore.kernel.org/20260908122924.554373-1-tujinjiang@huawei.com
+Fixes: 5c341ee1dfc8 ("mm: track the root (oldest) anon_vma")
+Signed-off-by: Jinjiang Tu <tujinjiang@huawei.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Cc: Minchan Kim <minchan@kernel.org>
+Cc: Harry Yoo <harry@kernel.org>
+Cc: Hiroyouki Kamezawa <kamezawa.hiroyu@jp.fujitsu.com>
+Cc: Jann Horn <jannh@google.com>
+Cc: Jinjiang Tu <tujinjiang@huawei.com>
+Cc: Kefeng Wang <wangkefeng.wang@huawei.com>
+Cc: Larry Woodman <lwoodman@redhat.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Nanyong Sun <sunnanyong@huawei.com>
+Cc: Rik van Riel <riel@surriel.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/netfilter/ipvs/ip_vs_lblcr.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ mm/rmap.c | 6 +++++-
+ mm/vma.c  | 8 ++++++++
+ 2 files changed, 13 insertions(+), 1 deletion(-)
 
-diff --git a/net/netfilter/ipvs/ip_vs_lblcr.c b/net/netfilter/ipvs/ip_vs_lblcr.c
-index f53f05ceea36..ef18f3c9d5da 100644
---- a/net/netfilter/ipvs/ip_vs_lblcr.c
-+++ b/net/netfilter/ipvs/ip_vs_lblcr.c
-@@ -686,7 +686,8 @@ ip_vs_lblcr_schedule(struct ip_vs_service *svc, const struct sk_buff *skb,
+diff --git a/mm/rmap.c b/mm/rmap.c
+index 6e684dd0138ec..bc9c66cc950b7 100644
+--- a/mm/rmap.c
++++ b/mm/rmap.c
+@@ -210,7 +210,11 @@ int __anon_vma_prepare(struct vm_area_struct *vma)
+ 	/* page_table_lock to protect against threads */
+ 	spin_lock(&mm->page_table_lock);
+ 	if (likely(!vma->anon_vma)) {
+-		vma->anon_vma = anon_vma;
++		/*
++		 * Make anon_vma fields visible before anon_vma is published.
++		 * Paired with an address dependency in reusable_anon_vma().
++		 */
++		smp_store_release(&vma->anon_vma, anon_vma);
+ 		anon_vma_chain_assign(vma, avc, anon_vma);
+ 		anon_vma_interval_tree_insert(avc, &anon_vma->rb_root);
+ 		anon_vma->num_active_vmas++;
+diff --git a/mm/vma.c b/mm/vma.c
+index 140f7017bb634..3df4cf796c7ff 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -1760,6 +1760,13 @@ static int anon_vma_compatible(struct vm_area_struct *a, struct vm_area_struct *
+  * acceptable for merging, so we can do all of this optimistically. But
+  * we do that READ_ONCE() to make sure that we never re-load the pointer.
+  *
++ * The READ_ONCE() establishes an address dependency between anon_vma and
++ * any access to its fields, which pairs with the assignment to
++ * vma->anon_vma performed with release semantics in __anon_vma_prepare().
++ *
++ * This is especially important as anon_vma's are SLAB_TYPESAFE_BY_RCU so
++ * accessing an uninitialised anon_vma's fields may result in a UAF.
++ *
+  * IOW: that the "list_is_singular()" test on the anon_vma_chain only
+  * matters for the 'stable anon_vma' case (ie the thing we want to avoid
+  * is to return an anon_vma that is "complex" due to having gone through
+@@ -1774,6 +1781,7 @@ static struct anon_vma *reusable_anon_vma(struct vm_area_struct *old,
+ 					  struct vm_area_struct *b)
+ {
+ 	if (anon_vma_compatible(a, b)) {
++		/* Paired with a memory barrier in __anon_vma_prepare(). */
+ 		struct anon_vma *anon_vma = READ_ONCE(old->anon_vma);
  
- 		/* Update our cache entry */
- 		spin_lock_bh(&svc->sched_lock);
--		if (!tbl->dead)
-+		if (!tbl->dead &&
-+		    ip_vs_lblcr_get(svc->af, tbl, &iph->daddr) == en)
- 			ip_vs_dest_set_insert(&en->set, dest, true);
- 		spin_unlock_bh(&svc->sched_lock);
- 		goto out;
+ 		if (anon_vma && list_is_singular(&old->anon_vma_chain))
 -- 
-2.43.0
+2.53.0
 
