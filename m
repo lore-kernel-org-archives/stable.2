@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D61A3B5F5D
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 08:27:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECE892931DF
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 08:27:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790670452; cv=none; b=EO7IgbEhi+PnOdLC4cHXRr5JXwKwOMz901Uex+ZjJsS/0jtsFE4fBxLZMM2A1zhpbCZLDyCjHiHLbex/Uvt1tR6vgSPPF6SaupRY/WCawMtUsCzMAQMwdLEwjbKnAVEDuRtJ/mRk+XFQ25kLY9qrSyU8Nbctnx6k+jeLTgTpltc=
+	t=1790670457; cv=none; b=SgRfa3u1HPIv8JQGfUNdB0ea6ALo+Bf33agwgt8h/wHDCQ0K/yqESrVCM4ry4PjRK8o2pYomh4AhlNAxBJ66qu8dwDAvDsDhwBh6FGtcK2NFZPw7b4ikr5MoOyvjQP5fX1rchV8nhlp6FKnIXjvTT6gquvQ6NOwfcurKKEAHoIA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790670452; c=relaxed/simple;
-	bh=T5L4KVwQB2JqP/PLT3hJVegWukgCty2UN9FECCpwjtU=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=HZxWP67HGivEneMQRxsaB09WDN9AzSoHgHpAuUavrNIvAGfOqiUIYfB7NkZPtx6tbJVZcOJs9noqKG1HVL7/rrSbWZ0BumZUS5CuYoE5SJor1xiiaGQ94EJgDvSLPYez1dAUF0MOsgGofktdL9JrOhw0ADlB5A/kyd/Qwok6BnY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Rhvsgr92; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790670457; c=relaxed/simple;
+	bh=d/lrJjddQLxk43+Ntb2nC/KAVgtjetj3iJzU0+me2Zc=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=SbNsWK8MU1ds0IbJFo+NgdS+PaXGLmQQ34W1RvU6EFKpC/GFqV2OC26h3NhXKFhNbgjfKFVBSUqc21u7+Dom18ZliUfHW0Fk32UST6ePFEA7Ics3BUAqzNMlsnIuVt55CFEefLTe4QnGQqIO2PLQ58C2dmEkTqb1RZ4G8VAMwo8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=EMC6aF6L; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Rhvsgr92"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30A061F00893;
-	Tue, 29 Sep 2026 08:27:30 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="EMC6aF6L"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12F941F000FF;
+	Tue, 29 Sep 2026 08:27:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790670450;
-	bh=jR0lbAoB9o04Qy6o9nT6qxysXeF/DO+qE1NesVmsD08=;
+	s=korg; t=1790670455;
+	bh=044MV3NB9sLvryOvyjoNMiJtLhRuRx9r1UH76GSFRzU=;
 	h=Subject:To:Cc:From:Date;
-	b=Rhvsgr92odVbCE7lke/l4CA9Yv4RGhfyx0LZUcKXon4mMHirl/FJP2IV70lcaOR7d
-	 h9ij+gxoHYGxGSvQO7RD7zN/kNJ1mDCG0zoqJHwrlhXf0OVe82ne+jN7ai5w8HNqMo
-	 9wvssPmIoWBXiBgi7T0XUhWOuS3VO6SxJVJ5qfLo=
-Subject: FAILED: patch "[PATCH] mm/hugetlb: preserve mremap address delta when skipping page" failed to apply to 6.6-stable tree
-To: jaewook376@gmail.com,akpm@linux-foundation.org,david@kernel.org,johan@kernel.org,muchun.song@linux.dev,osalvador@suse.de,stable@vger.kernel.org
+	b=EMC6aF6LrD1k87YUfpUQ4Ppb+mraNuF+nxJC6BkN2lI4YaofujV66gN4xkTpfnBwm
+	 KqBEyBTGV4S0z4GNttMLiEkkWwin5jDCvWmXV61MBvcsB29c0ewKOe44XB7DqjEqD8
+	 iQIuMY8gAvtFvyjMiF6/seHqlqWh/7lhDOCcvjnE=
+Subject: FAILED: patch "[PATCH] mm/damon/vaddr: avoid hw-driven pte updates during" failed to apply to 6.12-stable tree
+To: sj@kernel.org,akpm@linux-foundation.org,baolin.wang@linux.alibaba.com,stable@vger.kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 29 Sep 2026 10:27:17 +0200
-Message-ID: <2026092917-starlit-overlord-5819@gregkh>
+Date: Tue, 29 Sep 2026 10:27:30 +0200
+Message-ID: <2026092930-reversal-glaring-71e8@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 9bdad082d44bdcf93716973dcba6be77e8a06e7b
+git cherry-pick -x 39c0ceedd54557bdc1542de08d22b2ed33e534e4
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092917-starlit-overlord-5819@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092930-reversal-glaring-71e8@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,70 +62,78 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 9bdad082d44bdcf93716973dcba6be77e8a06e7b Mon Sep 17 00:00:00 2001
-From: Jaewook You <jaewook376@gmail.com>
-Date: Mon, 14 Sep 2026 22:23:52 +0900
-Subject: [PATCH] mm/hugetlb: preserve mremap address delta when skipping page
- tables
+From 39c0ceedd54557bdc1542de08d22b2ed33e534e4 Mon Sep 17 00:00:00 2001
+From: SJ Park <sj@kernel.org>
+Date: Mon, 7 Sep 2026 10:03:56 -0700
+Subject: [PATCH] mm/damon/vaddr: avoid hw-driven pte updates during
+ damon_hugetlb_mkold()
 
-move_hugetlb_page_tables() optimizes mremap() by advancing to the last
-entry in the page table when the source page table does not exist, either
-initially or after unsharing a PMD table.  The common loop increment then
-steps to the first entry in the next page table.
+damon_hugetlb_mkold() reads the page table entry into a local variable,
+unsets the accessed bit in the variable, and updates the page table entry
+with the updated variable value.  If hardware updates the same page table
+entry in parallel, the hw updates could be lost.  For example,
+hardware-updated dirty bits might be lost.
 
-However, the code advances both the source and destination addresses to
-the last entries in their respective page tables, which is wrong.  The
-destination address must be advanced only by the same amount as the source
-address.
+Avoid the parallel updates by clearing the page table entry when reading
+it together, using huge_ptep_get_and_clear().  If a parallel write to the
+memory is made after the clearing, the hw will see the page table entry is
+cleared, trigger page fault and wait until it is handled.  The page fault
+handling will wait for damon_hugetlb_mkold() due to the page table lock.
 
-If the source and destination offsets within their page tables differ, the
-destination address can be advanced too far, causing follow-up issues.
-Fix this by advancing the destination address by the source advance
-distance.
+Because hugetlbfs is an in-memory file system and hugetlb pages cannot be
+reclaimed, no critical issue is expected to my best knowledge.  But
+definitely this is a nasty bug that should be fixed sooner rather than
+later.
 
-With a reproducer, we were able to trigger a kernel panic on x86-64.  With
-this fix in place, we can no longer reproduce the issue.
+The issue was discovered [1] by Sashiko.
 
-Link: https://lore.kernel.org/20260914132352.472-1-jaewook376@gmail.com
-Fixes: e95a9851787b ("hugetlb: skip to end of PT page mapping when pte not present")
-Fixes: 4ddb4d91b82f ("hugetlb: do not update address in huge_pmd_unshare")
-Signed-off-by: Jaewook You <jaewook376@gmail.com>
+Link: https://lore.kernel.org/20260907170358.100168-1-sj@kernel.org
+Link: https://lore.kernel.org/20260830160545.98969-1-sj@kernel.org [1]
+Fixes: 49f4203aae06 ("mm/damon: add access checking for hugetlb pages")
+Signed-off-by: SJ Park <sj@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Cc: Johan Hovold <johan@kernel.org>
-Cc: Muchun Song <muchun.song@linux.dev>
-Cc: Oscar Salvador <osalvador@suse.de>
-Cc: <stable@vger.kernel.org>
-Assisted-by: LLM
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: <stable@vger.kernel.org> # 5.17.x
 
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index d28972cd33f5..cea25773a6c9 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -5170,18 +5170,21 @@ int move_hugetlb_page_tables(struct vm_area_struct *vma,
- 	hugetlb_vma_lock_write(vma);
- 	i_mmap_lock_write(mapping);
- 	for (; old_addr < old_end; old_addr += sz, new_addr += sz) {
-+		const unsigned long offset_to_last_entry =
-+			(old_addr | last_addr_mask) - old_addr;
+diff --git a/mm/damon/vaddr.c b/mm/damon/vaddr.c
+index 0648400b2d65..04ee2a2c6a4d 100644
+--- a/mm/damon/vaddr.c
++++ b/mm/damon/vaddr.c
+@@ -293,22 +293,29 @@ static int damon_mkold_pmd_entry(pmd_t *pmd, unsigned long addr,
+ }
+ 
+ #ifdef CONFIG_HUGETLB_PAGE
++static bool damon_hugetlb_ptep_mkold(pte_t *pte, struct mm_struct *mm,
++		struct vm_area_struct *vma, unsigned long addr, pte_t *entry)
++{
++	unsigned long psize = huge_page_size(hstate_vma(vma));
 +
- 		src_pte = hugetlb_walk(vma, old_addr, sz);
- 		if (!src_pte) {
--			old_addr |= last_addr_mask;
--			new_addr |= last_addr_mask;
-+			old_addr += offset_to_last_entry;
-+			new_addr += offset_to_last_entry;
- 			continue;
- 		}
- 		if (huge_pte_none(huge_ptep_get(mm, old_addr, src_pte)))
- 			continue;
++	if (!pte_young(*entry))
++		return false;
++	*entry = huge_ptep_get_and_clear(mm, addr, pte, psize);
++	*entry = pte_mkold(*entry);
++	set_huge_pte_at(mm, addr, pte, *entry, psize);
++	return true;
++}
++
+ static void damon_hugetlb_mkold(pte_t *pte, struct mm_struct *mm,
+ 				struct vm_area_struct *vma, unsigned long addr)
+ {
+ 	bool referenced = false;
+ 	pte_t entry = huge_ptep_get(mm, addr, pte);
+ 	struct folio *folio = pfn_folio(pte_pfn(entry));
+-	unsigned long psize = huge_page_size(hstate_vma(vma));
  
- 		if (huge_pmd_unshare(&tlb, vma, old_addr, src_pte)) {
--			old_addr |= last_addr_mask;
--			new_addr |= last_addr_mask;
-+			old_addr += offset_to_last_entry;
-+			new_addr += offset_to_last_entry;
- 			continue;
- 		}
+ 	folio_get(folio);
  
+-	if (pte_young(entry)) {
+-		referenced = true;
+-		entry = pte_mkold(entry);
+-		set_huge_pte_at(mm, addr, pte, entry, psize);
+-	}
+-
++	referenced = damon_hugetlb_ptep_mkold(pte, mm, vma, addr, &entry);
+ 	if (mmu_notifier_clear_young(mm, addr,
+ 				     addr + huge_page_size(hstate_vma(vma))))
+ 		referenced = true;
 
