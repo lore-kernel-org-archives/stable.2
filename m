@@ -1,140 +1,223 @@
-Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46B1A3F8ECC
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 08:42:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.40
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790671355; cv=pass; b=CizloIGmW1WUDLsxkQpiKRTzBy/Hku6sY5pHuX8Vc2GTJlskiKDI7/9cwhs0vxs/1t3qxbzvHe9usOjMUAmAWF4zR5oGBG08RWCQMWxjfX+U81FpfxH7K81O0JrVd/RhtEF5rbnY6atQkIayLhi2bNMn21j5U/3/e5fH1L0jsnk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790671355; c=relaxed/simple;
-	bh=cq7rlocm9HRXN1IEydAK9bOdaq/peVOU2getKJLN7Kw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jmbnRzpBQMtC73YFl+2aRq/XD7rH/MrtCzV34O8hCEE7CFd32dG89mXxG+nxF1NgHIxjnEYaSjaqH39YleLBioA5bo+0dpvpL3gAUln7RUWWqaZnM+yxaN4ELjocESlV+l9PHaT5ikq5bjG+cuBGQ/zlQdBUWp7i7brSnwZtzhk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=eEMrJF6e; arc=pass smtp.client-ip=74.125.228.40
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CF6B485CE4
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 08:44:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790671443; cv=none; b=sawyyxmKDEy4ZwgqM4flZewbH7yrSEAbfbCqLKi2hYjZQwjaXitXqlKrFV12zTDu2vlKcTrutTWzvzBLITYAbWFpEQFFNrTFNO37rCtpVCcbW3UjUT2/1siaoR3w6H3WEnkdk3Qgy0IDiy25pKKIY2aI4LqUGIH3BuOZJ5examE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790671443; c=relaxed/simple;
+	bh=PW29nh6AHKIAfInJuhHm2rTl7ZNcfWfYAnmTTwkdspk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UXn6/5csuBSEmvqp6krts/87GteddRMU1qbQPsfON+qLFIfm1dM21bhgQLckmn98FcWLt+y6jH0UJLbE5XSYBoH2DouIlA9TCk8fBzh6onoukCK9dsCTLO0c0TF/6zwj+X2n5XE2J3cwYneskj9ZK/+Dqti6dKb07pISZ9Yq+Mo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hrL6QsEX; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hI9m2mjh; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="eEMrJF6e"
-Received: by mail-pz2-f40.google.com with SMTP id 41be03b00d2f7-cc78d45f78fso2323523a12.3
-        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 01:42:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790671351; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TFfeADwfBCCTiGF1E0f6Fa/6VVqLrLrBO2Mxz87Bx00teRXi2ZeLdtUwPahmPvQ7O4
-         Pn5V4K3QymDilQavQDc6aL4B7XJN0bM+L2Kleq+dXbTCLcew0AMaUKoYDRrMfHTAVXeW
-         7pgYL8Pqp6yNDa/PQj/+JSuNx/DVjwU9wueA/ckzcYYky21EGIP3qZ2gbre/vgSaF1Pw
-         N19NBAaA1CEpmF2kSdbRxl7H779usLi/h2/98jriMieAU4cmbTPrgn9tuoBAi9L0tVdQ
-         b0YS+BOg8/yodkG0J7ByMfFmnXKShZ9DhV8al8gxO51GdbHgS1cqBKkyQm/qJYAxiQun
-         NEPg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=cq7rlocm9HRXN1IEydAK9bOdaq/peVOU2getKJLN7Kw=;
-        fh=dIYw5TPw78+w1JH1mrvgbUXN8UF45IjwHPGsWHJfh0E=;
-        b=PE/rP1FJ/oKjfGRYLmxWDS+6YYPhPGGShBkaqblwz4b1naAdGYEK5li9vtbUJG7tTA
-         GvXFFDfhie1IKeuqNysx8T6JKZNGj2S5TW8+sP6viNlwIV1FqISxYVz97HgHmf5JjeUj
-         DK4e0R+sC23B1XI9pfftGg3E2gquzxjF1O9qhPP1NI/3oI5IdxxbxCvbOBPvAnFLu6St
-         wNaCw+pPC1SEax6G7s7Fuym+ysHlUZvXCAxVbGNZ6nb6iN//Vj9x4K8tCmf30l093ism
-         AmlGHrgnDrZCxU/ukik77xI+Iundra6tpTszmQtGW5S2665P+NYzJSimWB6PoetymJxn
-         w2mw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hrL6QsEX";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hI9m2mjh"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68T7TqP02570991
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 08:43:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	IrKwOcgAyyYp97eQvpSA/WpL5HLMDhjcoFZkd6DMhmQ=; b=hrL6QsEX1aXwzaj2
+	/nmBYfgLXBUNlA8EIbp0Q/hWDhvaDrOksMM+nuWhdijbF9KSuiDtuuPBxzp87CEN
+	PO/rFxo6wnvJOxPbCMI3s6Nxe3q7WIlFNx84bSDhLETTzX0+Cak0oI2xgUprLI3e
+	2LmHZ7mw8WtDQAtkA35Wf72wmhWVIEwiFWHT3lz3FNAK5qW5hsR6MIiqY5Y7yBte
+	xZ+iAWWPuYNRVju0Kxw15UQYufFusVKzFByXfC+kd2tn0n5xotO5Y6ljJa8WQZKX
+	dWcxv939+CrjOu0O91Nj3Uz08vRaZPjMthqWdNAq1Su2uy1dE1BN3/ZI18jC/wJG
+	Zk+/NQ==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h02mn9rc2-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 08:43:57 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93a3f673221so1117641385a.0
+        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 01:43:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1790671351; x=1791276151; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=cq7rlocm9HRXN1IEydAK9bOdaq/peVOU2getKJLN7Kw=;
-        b=eEMrJF6eBn3mLB0JLeJrZJGysrjBDHsAXVJp2n9NxYOSwRyreWRQErMoFjrRngE8la
-         LgUxmZKKxDPpZeEj14if1Z08DTwVKvIjoo+IjE751eUyjSDHoCBUcz28T+1klfd6P+iM
-         9Q6ebo3HtK4YfzmyedUpVUe1BwXzO8CT/IMfI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790671351; x=1791276151;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1790671436; x=1791276236; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=cq7rlocm9HRXN1IEydAK9bOdaq/peVOU2getKJLN7Kw=;
-        b=2oB8IotEPsQv/Lf/Y/Bx+8hW+1OskGZdcptFjzhTutHjCqq/m6AjE1gq9HnG7nBlUU
-         rTFJX6KCHUCjNGUwRQ+2SAO2pGhsdNZpJFP6XNRZ9ydrEgCRc+WQA7kTNuk/IeRsdmbZ
-         HBCScWLBjbgGsrAaxcDlRrmOzSnssktKm/OjALyaprBj7TLmfkOW+LB4gBl8ye6SA2ge
-         FgvJxhiP1bAcnysLr4H56uOeSUy4/1M/nAuGG247dwwK+ymrUFTVI7e0D2lqCPSDA+Dr
-         2TnCPi8n1aig6U8+ztFd81vzP7hdYK1YXNOJ7RM70rsfVj8EC5GHOxeiuFBxF28kZLdY
-         G7tw==
-X-Forwarded-Encrypted: i=1; AKwUvBzCW6CyY//bidxCRKZvWXhlA6ckQOuI65lysr0IdP4yPSUc+DouC2rdJheCZQSUgqO+E1DTh9Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++nl+pUXfKWHDUNDyIQBoQkjJUvKG8JXaLItq4Z8xM0vU6znIjfz
-	YMeZB9tZX2l2OVD3ha2hEEH3UZTTzr/h0+o/Fu9Su3nxEDQxBCIkCDsVQX3G9PV0lb6slSXWzor
-	7NuTswhWUvEEoWV41CBoK7XCPtzL5177K6lL5o/j9
-X-Gm-Gg: AYBFou0ri9FeNzWSnd9VqdOhgxQ+xRx/sSyIKhhDYkgnthGitHY1VpJVwpCrQdisC7M
-	+U7Eu7WPY9AaE6gG3TgF/FLinE+AEzDFD1FSuE7rG+2cVUnqj0r0VT5N2fHfa7AB/QVafjzeWa2
-	DYAbd1YkNbOz5/LdYMxHEXE0tY+K43DlrylR2Vv4gp+q4iGhf7rP6GrXJLHKuB6MgYmTNplvPmG
-	+g1TOIPqh1GMcjBfAWOOk1UrhVTP9lrrO6rv7qlbPiaSiPDB+4MTF3ezPiFqWrmX/tDtCYrJN4O
-	7zqttY9sSG9mqJS3kUklhohK+CQR5h/2gCCTdt06C2uA9FG82ya+/NnITCdd9/JGcRpw+lGzd3p
-	LpJCuJVjswUotch75BIYVsOHI9hkJD8cB2A==
-X-Received: by 2002:a05:6a21:e44b:b0:3de:48ca:c565 with SMTP id
- adf61e73a8af0-3de48cacb7dmr5733871637.35.1790671351647; Tue, 29 Sep 2026
- 01:42:31 -0700 (PDT)
+        bh=IrKwOcgAyyYp97eQvpSA/WpL5HLMDhjcoFZkd6DMhmQ=;
+        b=hI9m2mjhFvvbiKUZrdpycZjv/u8moN+vxbpnBn3g7eTVL+cRxnz6/XtJ+U+PKhyyVt
+         bHaS6hNFk3V1JGNopfFlvUdrGraYEUhDRl5DyTSBYwuB9NPlYH1YN191h85IQuG+53XZ
+         atTxo71ieXci3KTp/t82mK6cGQ5jHItmOuoYOzMnO9DFyGSqeA+gf2UlfWunE0ZTqtM9
+         +pb/yv0hCQTyvl5pjlIrVcknwVZVqaTo1uE3nmBaKGsfVRclki9/8wexQNrLwlq0cBhA
+         qKl2X27SgOJrHOtmCGbeWBMC76XUHkOvIs1fMxQu6FJCZQsX/jveVkuIRaqmzEjCwfI9
+         ZaHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790671436; x=1791276236;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IrKwOcgAyyYp97eQvpSA/WpL5HLMDhjcoFZkd6DMhmQ=;
+        b=s+cQpUj4sonazjtd/wh/yOUQo3Adu2t7RZR7QO3G6wm6q2gfIfXdy4GTiOvyMSo+iP
+         EgIUATgHnxqlRyMPXBnmukUvKG9iVolSNAP50f/5xM2xCLwUtVH2TasA8FQXzWfQqZs7
+         X1HNsBgZO0uYqjS70pKJLbUkty0SnjUuYVAyvjZRr/WlQFxd9Fu6QnhDyQlBkQemJJDN
+         VPKZb7Jrkn4vBK6O5iI5nZWqJNGmuEy2lvfcVr0lSFhXMAvWuL0u/UtUM5DR72NGgwRk
+         Uk2AES/zyJychShmRY4bR1O01Sg/zZWGs9MVv1uoy/i1K7FUTll5Db0JZqixIL2+Htvz
+         mABA==
+X-Forwarded-Encrypted: i=1; AKwUvBw/dzqPyvncNDhX3QZEVwu6JKqfkFhdEIS47Qnmb2PR4HtEY4PFBv+hVddfwfz3PTfk7ahUG7s=@vger.kernel.org
+X-Gm-Message-State: AFuF++kS88n9BIymPj8pmTmfIwoY+tRG1mekqAXicuDZzFMT6pgo1BRP
+	sgD91MII+9JOaGqpdMNAhHev/fdczwhObvDlK/VXga7shDWMFY2QVQRTLyNzl13jFAkmnfIahLr
+	bsOCXkFOEPtDgDx9ue9oQxLzsOiXNPE3vIu94IdFemKQ59GLc8awLBRpcioE=
+X-Gm-Gg: AYBFou0k8DjWU4ARX9b4j1iCnzZ4AIdLVjnNwsI6JcVNfKXNjCCDKLE/eieab3pTcrO
+	eU7kViXido75u4KopCl12PhsyHAZ0gWBfHwNxMddlzYDEYDBvfk+851rHXr5EBaI9xCtba5GLmt
+	a0edY7HW4sdYHjyE5GY0YwUcYlpUR49iWeeNYWyEvwoHIes7qRSG6Zs67ErW5+SE5tObNjJXCe+
+	BY7l0nUQOvEmpnuXVXCQex3ga6ukwUpZRTahMc/bkQ3AM2oc3T2414Lc6PGlgUksYUGqLUuRmsl
+	PLUrG6mylQdApeuOSTwZvGD+PQI2vr8xt1DvHVYFil4bxD3PGo1zM6WiZ3rcLV077G21z3cwIv0
+	BO4p7ide48cIsw2Rzv40huLOV96FUsz3nHXARGfrONEC5qea66UwubvY5oQcYPA==
+X-Received: by 2002:a05:620a:8906:b0:939:de48:e41f with SMTP id af79cd13be357-93c4749888cmr2363838985a.31.1790671436415;
+        Tue, 29 Sep 2026 01:43:56 -0700 (PDT)
+X-Received: by 2002:a05:620a:8906:b0:939:de48:e41f with SMTP id af79cd13be357-93c4749888cmr2363836785a.31.1790671435949;
+        Tue, 29 Sep 2026 01:43:55 -0700 (PDT)
+Received: from ?IPV6:2a05:6e02:1041:c10:7d20:e20f:a77f:4ef7? ([2a05:6e02:1041:c10:7d20:e20f:a77f:4ef7])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48af507611csm2211528f8f.22.2026.09.29.01.43.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 29 Sep 2026 01:43:55 -0700 (PDT)
+Message-ID: <a2b8e238-7f40-48fe-85c2-f8e52041b3e6@oss.qualcomm.com>
+Date: Tue, 29 Sep 2026 10:43:53 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <QDISC-JCOT.v1.20260910090924@mojatatu.com> <20260925171834.73b5b367@kernel.org>
- <CAAFAkD80zx12Cskdf8NaF1pkSbLUiYSeTEmvpSR8o6P2d-JEOg@mail.gmail.com> <20260928174738.139f1365@kernel.org>
-In-Reply-To: <20260928174738.139f1365@kernel.org>
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-Date: Tue, 29 Sep 2026 04:42:19 -0400
-X-Gm-Features: AclHuK9fNJKv-Iie2v3MeKnPc47Kd4hGdm_wSNDWT2mtNgLBv9kBpPijpby1J_Y
-Message-ID: <CAM0EoMnqa-K+jR9S7Y7o6PpEnQubOPWqqkxB9qVsTBhHPb5qAg@mail.gmail.com>
-Subject: Re: [PATCH net] net/sched: cls_api: reclaim an empty proto on the
- error path
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Jamal Hadi Salim <hadi@mojatatu.com>, netdev@vger.kernel.org, 
-	Jiri Pirko <jiri@resnulli.us>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Victor Nogueira <victor@mojatatu.com>, stable@vger.kernel.org, 
-	Sashiko <sashiko-bot@kernel.org>, hybris <hybris@mojatatu.ai>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 1/7] thermal/drivers/loongson2: Correct thermal sensor
+ registration loop
+To: Binbin Zhou <zhoubb.aaron@gmail.com>
+Cc: Binbin Zhou <zhoubinbin@loongson.cn>,
+        Huacai Chen
+ <chenhuacai@loongson.cn>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Yinbo Zhu <zhuyinbo@loongson.cn>,
+        "Rafael J . Wysocki" <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+        Huacai Chen <chenhuacai@kernel.org>, Xuerui Wang <kernel@xen0n.name>,
+        loongarch@lists.linux.dev, devicetree@vger.kernel.org,
+        linux-pm@vger.kernel.org, stable@vger.kernel.org,
+        Sashiko <sashiko-bot@kernel.org>
+References: <cover.1790561983.git.zhoubinbin@loongson.cn>
+ <502911659e15a51c4e98c11f3cf476dd5f92e75b.1790561983.git.zhoubinbin@loongson.cn>
+ <0aaf7166-378c-47d7-98d4-1004fdaeae7b@oss.qualcomm.com>
+ <CAMpQs4+uWMfFib7MhRcc7o-QMXkFrFCtdcGj04y56u44JL4iOg@mail.gmail.com>
+ <ed99f62d-cf90-4ba9-89b3-08dbe7f7227e@oss.qualcomm.com>
+ <CAMpQs4+hATFf+0w6Wq09RoZB1JJ5L_GP0aWxcGAeraTW7Gfy0w@mail.gmail.com>
+ <8eba263a-c233-42c5-842e-7487ea36d5aa@oss.qualcomm.com>
+ <CAMpQs4JvLOUv3o8tktg-EOT85KCunY9gJhgxQVkZEXPH_C+4EQ@mail.gmail.com>
+Content-Language: en-US
+From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+In-Reply-To: <CAMpQs4JvLOUv3o8tktg-EOT85KCunY9gJhgxQVkZEXPH_C+4EQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=X9fHu2Te c=1 sm=1 tr=0 ts=6abb7a4d cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
+ a=AP4mLQHTS3Hkw8D5x4QA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-GUID: Kvl5XxegoSB17IFeQckumqaoNkt7QG93
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDAzNCBTYWx0ZWRfX1lymjeJ+h0/h
+ jKZwVbKkb5MhuoKlh4n/rovbdfp01fVTKxjnZT7Kk0MO1I0x8diaSugtds/MEfrZzkQM7GBA6uk
+ B78hOd7ZJJ0I5Y0vz2PhREUdfuwxDBo=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDAzNCBTYWx0ZWRfX1e8aPzr2xyea
+ yM1JstWxawlzFifefKlpFt4QjeKejPdVAAjG001bErO/H/jJz9tPX0ET0a0WELXCfZ7E6duSnfR
+ fe429M7cEkkFCaFpIUofCE4oFVmVY+1nbvwQvj1+MVNMy/08uDGIZSNbDfuRayeVJ80NfsnPHtI
+ wMPiBDqUXE8Z0f27Jt34YH3MiIwLtX49/x2gy1IeaTuYC6+XG33TZGGdF7KAFNlNw5BG+bo79J1
+ oZaPlqVAFMeBovJ2VL30/QuOK2GKj3ZigKyFc/BOv+aCNGfSZiuujNQ6b7bYka2hn7UugzEr9f1
+ SX8miWEX5xeG+G/4aOhKi6ofy2DpQDnpg1iMCX3tn5tlEJM1vMIxuHDEoUYqUmXaciyhMSwoxO7
+ ATL7yduVjQ9yAf7H/wiX3nvDPwptau/OKg3zK0HgAFSHXd4fLfZxbaxVJgBJUjdmHfkmtVKjBvI
+ zXS6kYKPK8MB/B2Yppw==
+X-Proofpoint-ORIG-GUID: Kvl5XxegoSB17IFeQckumqaoNkt7QG93
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-29_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 adultscore=0 suspectscore=0 spamscore=0
+ bulkscore=0 impostorscore=0 phishscore=0 clxscore=1015 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609290034
 
-On Mon, Sep 28, 2026 at 8:47=E2=80=AFPM Jakub Kicinski <kuba@kernel.org> wr=
-ote:
->
-> On Sat, 26 Sep 2026 05:49:57 -0400 Jamal Hadi Salim wrote:
-> > On Fri, Sep 25, 2026 at 8:18=E2=80=AFPM 'Jakub Kicinski' via Hyper-Yiel=
-ding
-> > Back-end Review & Insight System <hybris@mojatatu.com> wrote:
-> > >
-> > > On Thu, 24 Sep 2026 04:32:49 -0400 Jamal Hadi Salim wrote:
-> > > > Tested-by: hybris <hybris@mojatatu.ai>
-> > >
-> > > Please stop adding these tags, they tell us absolutely nothing.
-> >
-> > This says that our _automated_ bot tested and it adds the tag before
-> > we send the patch.
-> > It does more than tdc for a specific patch set (e.g., PoCs for code
-> > paths not reachable via tdc) and it does find issues sometimes before
-> > we send out.
->
-> My main point is what I said - it tells us nothing upstream.
-> It's like a gerrit change-id tag, internal to mojatatu.
->
+On 9/29/26 10:23, Binbin Zhou wrote:
+> Hi Daniel:
+> 
+> On Tue, Sep 29, 2026 at 1:46 PM Daniel Lezcano
+> <daniel.lezcano@oss.qualcomm.com> wrote:
+>>
+>> On 9/29/26 05:06, Binbin Zhou wrote:
+>>> Hi Daniel:
+>>
+>> [ ... ]
+>>
+>>>>>> Please make a less cumbersome and implicit checks here. For example
+>>>>>> count the number of sensors and then do the check against.
+>>>>>
+>>>>> I thought about it, and you're right—I made the logic here too complicated.
+>>>>> Let's use `sensor_count` as the counter. Is the following check logic clearer?
+>>>>>
+>>>>>            u32 sensor_count = 0;
+>>>>>
+>>>>>            for (unsigned int i = 0; i <= LOONGSON2_MAX_SENSOR_SEL_NUM; i++) {
+>>>>>                    tzd = devm_thermal_of_zone_register(dev, i, data,
+>>>>> data->chip_data->thermal_ops);
+>>>>>                    if (IS_ERR(tzd)) {
+>>>>>                            if (PTR_ERR(tzd) == -ENODEV)
+>>>>>                                    continue;
+>>>>>
+>>>>>                            return dev_err_probe(dev, PTR_ERR(tzd),
+>>>>>                                                 "failed to register sensor %d", i);
+>>>>>                    }
+>>>>>
+>>>>>                    sensor_count++;
+>>>>
+>>>> If I'm not mistaken in the previous version, the loop exits at the first
+>>>> registered sensor
+>>>>
+>>>>           if (!IS_ERR(tzd))
+>>>>                   break;
+>>>>
+>>>> Here all the available sensors are registered
+>>>
+>>> The name `sensor_count` might be a bit misleading, but here the loop
+>>> exits after the first success:
+>>>
+>>>                   sensor_count++;
+>>>                   break;
+>>>
+>>> Let’s rename it:
+>>
+>> Can you clarify why only the first sensor found stops the thermal zones
+>> registration ?
+> 
+> This section of code is based on the original version by zhuyinbo; I
+> noticed that you’ve had related discussions about it before[1][2].
+> 
+> I’ve reviewed all Loongson-2K CPUs that support thermal monitoring,
+> and they all have only one temperature sensor, with “SEL” set to 0.
+> 
+> As I understand it, given the current situation, the loop here doesn’t
+> seem necessary—physically, there is only one temperature sensor (even
+> though its SEL value might theoretically be non-zero).
+> `LOONGSON2_MAX_SENSOR_SEL_NUM` does not accurately reflect the number
+> of temperature sensors; it is merely an interrupt input selection, so
+> using it here does not seem entirely appropriate.
+> 
+> Therefore, I believe treating the Loongson-2K thermal driver as a
+> single thermal sensor better aligns with the current hardware
+> behavior.
 
-Fair enough. The idea was to provide confidence that what we post is
-going through some serious testing.
-A couple of times in this flood something slipped through that missed
-a subtle test (which resulted in a Vx) which this bot doesnt miss.
-So implicitly i suppose it means if we dont say "tested-by" it means
-we hae tested it?
+Sure, if the Loongson-2K is only one sensor based board then no need to 
+have this loop.
 
-> > If a human had done the same, wouldn't the protocol be for us to add th=
-is tag?
->
-> LLM !=3D human.
+In the future, if there are more sensors coming with a new board, they 
+can be described in platform private data
 
-Well.. this specific bot is mostly muscle (scripts) than brain. But
-let's see how long that " LLM !=3D human" inequality lasts ;->
 
-cheers,
-jamal
