@@ -1,104 +1,200 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-60.mta1.migadu.com [95.215.58.60])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7BC338A720
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 08:19:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A33038A720
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 08:19:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.60
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790669955; cv=none; b=q8hL2asppDZkkPcfbeu19ba9BUz2C7biVrzaZNT5DIBuBC8Yrsk+FFF3CH//J2K6Uy6NFZQH9VRQotaMunm126azP5Du/zSbsT2RzOZB+JBmsU6J/Fk658LIe0RfXnsweYtUQpd1OxovyFEd47AMxtwJBAfaBUsBvph3Gs7FHTk=
+	t=1790669996; cv=none; b=kqXy4kyA6h0ZmykYCvt/yOEqOmMA05pWBq8dQlDGwKuadQyWZXiSOVhdUlnRrcqykaEHRTpvly/TbouNUt8rVeeveNHREozIyorx2R5K46rzE9obu4WkkKgExPrYJh23WB/osjVtqq91lZ3eWoYfUUzDX6cfx0No/TFXJaDDMm4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790669955; c=relaxed/simple;
-	bh=eApmAyBLowlotPbQYmPPE106PWqMoAFUsPqrn9uxBEE=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=t7EK3VFtPo7flzF7zXXt0LCSVpQIKazt9plPnUN4t2mFmTTeGvNURS4miAK+VnmsCSpDjYXtMrBpIe+ZPAz9D/PZeViA/xkdZheBddivwc9SsqVY6XMJdNgeTWoGqY7hfFv+15egZzoziVAxnA90WFFxf/Lyf43nYJxUAkTDpNM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=OKFtu8kh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790669996; c=relaxed/simple;
+	bh=1hrOUU2WscT9i12+q2dsMTJyNqNUXrCyPWNHR9ygX74=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=ad68evInbZGwLydH7XRSGkd2RMs3QgO2DdhLOwof8t/478gCAQce1/ofshKLQ0zI1ENRJceVgPbnD457GAAjQ+Y6R3EpI25rANikbSsFnmTI7LHHOCy31/1UjnR8hXR19n8gZpowkyhB9tWheg9LOdrMQCD0FUbvpyyz0LjCiFw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=KfBWDei/; arc=none smtp.client-ip=95.215.58.60
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="OKFtu8kh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD98A1F000FF;
-	Tue, 29 Sep 2026 08:19:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790669953;
-	bh=9rUUA++Dv/PE9LLgI1b4wA4+Bs56yMkIWKZnt9gcMiE=;
-	h=Subject:To:Cc:From:Date;
-	b=OKFtu8khYWgYTSXEjrfKrXxd47FBuCkI8r6aOc6s8OsnUAUV7PKBo6SKcpyOlsjeo
-	 XWRe7Rz4EegJry4lO4k52uPq6CI7IE0ep+Di5ukWoUWQS+KK6L30BJ2+ricLrCfp7I
-	 DXaP9OV4NS92dK5nypFwkj7UtcrqEWrm4r5OwfzE=
-Subject: FAILED: patch "[PATCH] drm/amdgpu: Fix acpi device leak in" failed to apply to 6.12-stable tree
-To: vulab@iscas.ac.cn,alexander.deucher@amd.com,lijo.lazar@amd.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Tue, 29 Sep 2026 10:18:57 +0200
-Message-ID: <2026092957-folic-dropout-bdd4@gregkh>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="KfBWDei/"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=1hrOUU2WscT9i12+q2dsMTJyNqNUXrCyPWNHR9ygX74=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790669992; v=1; x=1791274792;
+ b=KfBWDei/udS8PZ0UB4EG9jC5AIU0y6wz559e5+lCRw2IZVIJAtXZI4QITiyglNoIsR2QK+ip
+ bT/DwykHtFn7+KscShbGe15HHOjwZvWavKRIAKAUwu9S+lp+vRRgHYC/T/FhBIi1XXJ2Vh+cIX9
+ +FGtm0xrVoZSeb6agaMewbHw=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 360d4de2e6525221;
+	Tue, 29 Sep 2026 08:19:52 +0000
+X-Mizu-Trace-ID: 360d4de2e6525221
+X-Migadu-Flow: FLOW_OUT
+From: Hao Ge <hao.ge@linux.dev>
+To: Suren Baghdasaryan <surenb@google.com>,
+	=Kent Overstreet <kent.overstreet@linux.dev>,
+	Luis Chamberlain <mcgrof@kernel.org>,
+	Petr Pavlu <petr.pavlu@suse.com>,
+	Daniel Gomez <da.gomez@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	Aaron Tomlin <atomlin@atomlin.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Alexander Potapenko <glider@google.com>,
+	Marco Elver <elver@google.com>,
+	Dmitry Vyukov <dvyukov@google.com>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Michal Hocko <mhocko@suse.com>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Zi Yan <ziy@nvidia.com>,
+	Uladzislau Rezki <urezki@gmail.com>
+Cc: linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	linux-modules@vger.kernel.org,
+	kasan-dev@googlegroups.com,
+	Hao Ge <hao.ge@linux.dev>,
+	Sashiko <sashiko-bot@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH v11 1/7] alloc_tag: move release_module_tags() above reserve_module_tags()
+Date: Tue, 29 Sep 2026 16:20:08 +0800
+Message-Id: <20260929082014.160587-2-hao.ge@linux.dev>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260929082014.160587-1-hao.ge@linux.dev>
+References: <20260929082014.160587-1-hao.ge@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+release_module_tags() is a cleanup helper. reserve_module_tags() can
+also fail after storing the reservation in the maple tree, in which
+case it should call release_module_tags() to undo it. Move the helper
+above reserve_module_tags() so no forward declaration is needed.
 
-The patch below does not apply to the 6.12-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+No functional change.
 
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
-git checkout FETCH_HEAD
-git cherry-pick -x a997baa61179b450bd55c4810c7ccfed3b753a54
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092957-folic-dropout-bdd4@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From a997baa61179b450bd55c4810c7ccfed3b753a54 Mon Sep 17 00:00:00 2001
-From: Wentao Liang <vulab@iscas.ac.cn>
-Date: Wed, 16 Sep 2026 09:54:32 +0000
-Subject: [PATCH] drm/amdgpu: Fix acpi device leak in
- amdgpu_acpi_enumerate_xcc()
-
-amdgpu_acpi_enumerate_xcc() looks up each XCC ACPI device with
-acpi_dev_get_first_match_dev(), which takes a reference to the device.
-The reference is dropped with acpi_dev_put() after the XCC info is
-initialized, but if the kzalloc_obj() allocation of the XCC info fails
-the function returns -ENOMEM without releasing the reference, leaking
-the last reference to the ACPI device.
-
-Drop the ACPI device reference on the allocation failure path before
-returning.
-
-Fixes: 4d5275ab0b18 ("drm/amdgpu: Add parsing of acpi xcc objects")
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 9211ef48b31ec66999cf55e04d0cbc60cd855fd5)
+Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
+Fixes: 0f9b685626da ("alloc_tag: populate memory for module tags as needed")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
 Cc: stable@vger.kernel.org
+Acked-by: Suren Baghdasaryan <surenb@google.com>
+Signed-off-by: Hao Ge <hao.ge@linux.dev>
+---
+ mm/alloc_tag.c | 92 +++++++++++++++++++++++++-------------------------
+ 1 file changed, 46 insertions(+), 46 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-index 7f5abb03be1b..8b8acf98fdfe 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-@@ -1167,8 +1167,10 @@ int amdgpu_acpi_enumerate_xcc(void)
- 		}
+diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
+index b33410310477..2070e682fe10 100644
+--- a/mm/alloc_tag.c
++++ b/mm/alloc_tag.c
+@@ -835,6 +835,52 @@ static int vm_module_tags_populate(void)
+ 	return 0;
+ }
  
- 		xcc_info = kzalloc_obj(struct amdgpu_acpi_xcc_info);
--		if (!xcc_info)
-+		if (!xcc_info) {
-+			acpi_dev_put(acpi_dev);
- 			return -ENOMEM;
++static void release_module_tags(struct module *mod, bool used)
++{
++	MA_STATE(mas, &mod_area_mt, module_tags.size, module_tags.size);
++	struct alloc_tag *start_tag;
++	struct alloc_tag *end_tag;
++	struct module *val;
++
++	mas_lock(&mas);
++	mas_for_each_rev(&mas, val, 0)
++		if (val == mod)
++			break;
++
++	if (!val) /* module not found */
++		goto out;
++
++	if (!used)
++		goto release_area;
++
++	start_tag = (struct alloc_tag *)(module_tags.start_addr + mas.index);
++	end_tag = (struct alloc_tag *)(module_tags.start_addr + mas.last);
++	if (!clean_unused_counters(start_tag, end_tag)) {
++		struct alloc_tag *tag;
++
++		for (tag = start_tag; tag <= end_tag; tag++) {
++			struct alloc_tag_counters counter;
++
++			if (!tag->counters)
++				continue;
++
++			counter = alloc_tag_read(tag);
++			pr_info("%s:%u module %s func:%s has %llu allocated at module unload\n",
++				tag->ct.filename, tag->ct.lineno, tag->ct.modname,
++				tag->ct.function, counter.bytes);
 +		}
++	} else {
++		used = false;
++	}
++release_area:
++	mas_store(&mas, used ? &unloaded_mod : NULL);
++	val = mas_prev_range(&mas, 0);
++	if (val == &prepend_mod)
++		mas_store(&mas, NULL);
++out:
++	mas_unlock(&mas);
++}
++
+ static void *reserve_module_tags(struct module *mod, unsigned long size,
+ 				 unsigned int prepend, unsigned long align)
+ {
+@@ -922,52 +968,6 @@ static void *reserve_module_tags(struct module *mod, unsigned long size,
+ 	return (struct alloc_tag *)(module_tags.start_addr + offset);
+ }
  
- 		INIT_LIST_HEAD(&xcc_info->list);
- 		xcc_info->handle = acpi_device_handle(acpi_dev);
+-static void release_module_tags(struct module *mod, bool used)
+-{
+-	MA_STATE(mas, &mod_area_mt, module_tags.size, module_tags.size);
+-	struct alloc_tag *start_tag;
+-	struct alloc_tag *end_tag;
+-	struct module *val;
+-
+-	mas_lock(&mas);
+-	mas_for_each_rev(&mas, val, 0)
+-		if (val == mod)
+-			break;
+-
+-	if (!val) /* module not found */
+-		goto out;
+-
+-	if (!used)
+-		goto release_area;
+-
+-	start_tag = (struct alloc_tag *)(module_tags.start_addr + mas.index);
+-	end_tag = (struct alloc_tag *)(module_tags.start_addr + mas.last);
+-	if (!clean_unused_counters(start_tag, end_tag)) {
+-		struct alloc_tag *tag;
+-
+-		for (tag = start_tag; tag <= end_tag; tag++) {
+-			struct alloc_tag_counters counter;
+-
+-			if (!tag->counters)
+-				continue;
+-
+-			counter = alloc_tag_read(tag);
+-			pr_info("%s:%u module %s func:%s has %llu allocated at module unload\n",
+-				tag->ct.filename, tag->ct.lineno, tag->ct.modname,
+-				tag->ct.function, counter.bytes);
+-		}
+-	} else {
+-		used = false;
+-	}
+-release_area:
+-	mas_store(&mas, used ? &unloaded_mod : NULL);
+-	val = mas_prev_range(&mas, 0);
+-	if (val == &prepend_mod)
+-		mas_store(&mas, NULL);
+-out:
+-	mas_unlock(&mas);
+-}
+-
+ static int load_module(struct module *mod, struct codetag *start, struct codetag *stop)
+ {
+ 	/* Allocate module alloc_tag percpu counters */
+-- 
+2.25.1
 
