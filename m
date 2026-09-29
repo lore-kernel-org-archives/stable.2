@@ -1,156 +1,124 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 157C33A4F58;
-	Tue, 29 Sep 2026 20:27:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11B9C2E7397;
+	Tue, 29 Sep 2026 20:32:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790713625; cv=none; b=ACEElr9E4koVESeyKbYG9vQEP8ko07vFxk0uxuAGecb56sofJ9BVLkZ9t/KUltRkdkIA8X/DiyKxp72kFaRSQhJSs5Wd36nz1nvARxq+uN/jsP6LBDLB5OT0eUC6ew+6RUZS6Pd5nxRys1S50uXsAfxgysAEA89qjEnnPnp94iI=
+	t=1790713944; cv=none; b=lwAgA8ZUxfrpQO/lkFRNM/62Xx9sioDYIitv8dhKo2oFFGnu36iqgpLdGBtE33O99vQ28XCENOKBVEwG/KwLI7Kevx+rEDStCsGYCut41CVooeOKG5Xm+EUEImGlK/5COSfsS/DxSK8iWXIyjjdIWQ7Dwt/8rkNIzbWnwYk1crA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790713625; c=relaxed/simple;
-	bh=DkHl216R8HsWOjEtGTLQqdSyQom/zGA2tKkvsdwDZYU=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=RB+SthpFZ40/FCCEQNArPBzymemFKzl2/MvjKbYfxOqEBw7LxAltNCKDlKhlhv6eIRz3YqMpMkeo8yKbCbeAYxaYxJz/vh18OcYkV6DReRuEpiz1MxKcdcA00XqKE//uS4nyK72bcZ3HGz2jpcmRp2u6n+FzKi61Um/pRI5Jn3Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=TvFU9C9P; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1790713944; c=relaxed/simple;
+	bh=SyRbOsqp7ra3/hOFVINyjtCpID/Psn2PVKspaO8Y23E=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=DusxXkPJcnnW2B0uN2XdxT6BQwr1mLYLx5A1N9GFwQWN12pfuwJRCdYjorAUaaUtFiqLdYUfiNBl8kLUXumC7o9kRU7Fmw7jxhDFfUo19sy8Nz8df78wVknWRyLwr2KebhDzXCOrht5FBkjNaJwBdsSb/gVRDkNyIQzs6IEVSoA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=krisman.be; spf=pass smtp.mailfrom=krisman.be; dkim=pass (2048-bit key) header.d=krisman.be header.i=@krisman.be header.b=yWMFwYSs; arc=none smtp.client-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=krisman.be
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=krisman.be
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="TvFU9C9P"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1790713618;
-	bh=DkHl216R8HsWOjEtGTLQqdSyQom/zGA2tKkvsdwDZYU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=TvFU9C9Pbg/JzO7ElZRPimssQgIEjJ2O+y47e02mjN7B5re1GnOWJ2BbvYWhNNp17
-	 T1Akjncag7PuCiEoPPfIgVDUzYd3K36JyRBSSy1aiIU5w/msMQugPDcHBt8mH7x1oP
-	 GDfogMllekTuriiWr+Eo8jW4OC4m44QDMWYdGspci/W+OJ7Gdxt1i4mfXicmrZYp37
-	 tcMnhLzHJNNzkkt78qjieaQWD6O7YSwK7vp5kVpiTY+enHh8SPxuR/5uobMpxfg9+2
-	 Y1qT8xbzt77mkxXoZzgqqLW+x64NaHWHoVz8PYVlRYS1Z3VNk+bmFswyYVKDQOFwdL
-	 nR3ngVmlMXtOg==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
+	dkim=pass (2048-bit key) header.d=krisman.be header.i=@krisman.be header.b="yWMFwYSs"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 4D56F17E0B21;
-	Tue, 29 Sep 2026 22:26:56 +0200 (CEST)
-Message-ID: <90a604622a614a2de95820bdc73372a3e1d7fb41.camel@collabora.com>
-Subject: Re: [PATCH] media: mediatek: vcodec: fix decoder child device leaks
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Guangshuo Li <lgs201920130244@gmail.com>, Tiffany Lin	
- <tiffany.lin@mediatek.com>, Andrew-CT Chen <andrew-ct.chen@mediatek.com>, 
- Yunfei Dong <yunfei.dong@mediatek.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Matthias Brugger	 <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno	 <angelogioacchino.delregno@collabora.com>, Hans
- Verkuil	 <hverkuil+cisco@kernel.org>, Kees Cook <kees@kernel.org>, Tomasz
- Figa	 <tfiga@chromium.org>, Chen-Yu Tsai <wenst@chromium.org>, Steve Cho	
- <stevecho@chromium.org>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-mediatek@lists.infradead.org
-Cc: stable@vger.kernel.org
-Date: Tue, 29 Sep 2026 16:26:54 -0400
-In-Reply-To: <20260921090808.336112-1-lgs201920130244@gmail.com>
-References: <20260921090808.336112-1-lgs201920130244@gmail.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-rV4yfsU2n0WfwiE+CTHf"
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4hvVGP72jzzKp1b;
+	Tue, 29 Sep 2026 22:32:13 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=krisman.be; s=MBO0001;
+	t=1790713934;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=aMO1TFFilty1lMotj3PlOLCIGv6KB3kYrfoPUAD1Z/c=;
+	b=yWMFwYSsvctbfxkt7eVRBy+y+3biYN91XB5dSY0SloUoKQlZO8CDVN9xzIlQj6p2L3Dl/z
+	bBc4kwbeJ7ae2K32oenVkhiBhdVpZIMqK0pkfPzo7+tOcXVvPAPXZ2ohk4pgQ0ln3344qL
+	OEA0eXMPu33AEt/EoiP0d+XoVZNsXfNpQLqn2wM8ZrPN4+TfX4tWMrmjfHsrUD/I29eoeW
+	DsgvEmUm93vJoij0jfVSpUPN5efHlV4+9RszhD1Tx2YSu81CMQqe6/N5VgF4RD+6/qjcH7
+	35/MTHeaStrsEYMSZ+W19ydqgGH0u87DLIhN5QP8cHTt+LEeZhM+BBgOtMYa8Q==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of gabriel@krisman.be designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=gabriel@krisman.be
+From: Gabriel Krisman Bertazi <gabriel@krisman.be>
+To: Mohammed EL Kadiri <med08elkadiri@gmail.com>, hughd@google.com,
+ baolin.wang@linux.alibaba.com, akpm@linux-foundation.org
+Cc: brauner@kernel.org, andrealmeid@igalia.com, linux-mm@kvack.org,
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] shmem: fix unicode_map leak with repeated casefold= option
+In-Reply-To: <3a57ec70731165b4b1244fa89bba95c82a666df8.1790712330.git.med08elkadiri@gmail.com>
+References: <3a57ec70731165b4b1244fa89bba95c82a666df8.1790712330.git.med08elkadiri@gmail.com>
+Date: Tue, 29 Sep 2026 16:32:08 -0400
+Message-ID: <878q4jyf1z.fsf@mailhost.krisman.be>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain
+X-Rspamd-Queue-Id: 4hvVGP72jzzKp1b
 
+Mohammed EL Kadiri <med08elkadiri@gmail.com> writes:
 
---=-rV4yfsU2n0WfwiE+CTHf
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Le lundi 21 septembre 2026 =C3=A0 17:08 +0800, Guangshuo Li a =C3=A9crit=C2=
-=A0:
-> mtk_vcodec_probe() populates decoder hardware child platform devices on
-> platforms that support decoder subdevices. These children must be
-> removed with of_platform_depopulate() when they are no longer needed.
->=20
-> If initialization fails after the children have been populated, the
-> probe error path releases the parent decoder resources without
-> depopulating the child devices. This leaves the child platform devices
-> registered.
->=20
-> The remove path has the same issue and leaves the child devices
-> registered when the parent decoder driver is unbound.
->=20
-> Depopulate the child devices in the probe error path and in the remove
-> path before tearing down the remaining parent resources.
->=20
-> The issue was identified by a static analysis tool I developed and
-> confirmed by manual review.
->=20
-> Fixes: c05bada35f01 ("media: mtk-vcodec: Add to support multi hardware de=
-code")
+> Each casefold= option makes shmem_parse_opt_casefold() allocate a
+> unicode_map with utf8_load() and store it in ctx->encoding.  When the
+> option is given more than once in the same mount, the later call
+> overwrites ctx->encoding and the earlier map is never freed.
+>
+> Reproducer:
+>
+>   mount -t tmpfs -o casefold,casefold tmpfs /t; umount /t
+>
+> Repeating this 50000 times grows kmalloc-32 by about 50000 objects,
+> and kmemleak reports them as allocated from:
+>
+>   utf8_load+0x21/0x110
+>   shmem_parse_opt_casefold.isra.0+0x65/0x100
+>   shmem_parse_one+0x368/0x510
+>
+> Free the old map before storing the new one, so only the last
+> casefold= is kept.  On a normal mount with a single casefold=,
+> ctx->encoding is still NULL at that point and utf8_unload(NULL)
+> does nothing, so nothing changes there.
+>
+> With this patch the same loop leaves kmalloc-32 flat and kmemleak
+> reports nothing.
+>
+> Fixes: 58e55efd6c72 ("tmpfs: Add casefold lookup support")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> Signed-off-by: Mohammed EL Kadiri <med08elkadiri@gmail.com>
 > ---
->  .../platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c    | 5 +++++
->  1 file changed, 5 insertions(+)
->=20
-> diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_de=
-c_drv.c b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv=
-.c
-> index e936ed8dffba..592685ad522c 100644
-> --- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
-> +++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
-> @@ -517,6 +517,8 @@ static int mtk_vcodec_probe(struct platform_device *p=
-dev)
->  err_dec_mem_init:
->  	video_unregister_device(vfd_dec);
->  err_reg_cont:
-> +	if (dev->vdec_pdata->is_subdev_supported)
-> +		of_platform_depopulate(&pdev->dev);
->  	if (dev->vdec_pdata->uses_stateless_api)
->  		media_device_cleanup(&dev->mdev_dec);
->  	destroy_workqueue(dev->decode_workqueue);
-> @@ -569,6 +571,9 @@ static void mtk_vcodec_dec_remove(struct platform_dev=
-ice *pdev)
->  {
->  	struct mtk_vcodec_dec_dev *dev =3D platform_get_drvdata(pdev);
-> =20
-> +	if (dev->vdec_pdata->is_subdev_supported)
-> +		of_platform_depopulate(&pdev->dev);
-> +
->  	destroy_workqueue(dev->decode_workqueue);
+> This is a separate leak from the remount one fixed in
+> https://lore.kernel.org/all/ba38f80f629fd093c77f3a49fdab7b71ee7bbc5f.1790687276.git.med08elkadiri@gmail.com/
+> which Gabriel has reviewed; I found it while testing that patch.
+> The two apply in either order.  Tested on mm-unstable, alone and
+> together: kmalloc-32 stays flat for duplicate casefold=, single
+> casefold= and remount, and kmemleak is clean.
+>
+>  mm/shmem.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/mm/shmem.c b/mm/shmem.c
+> index 07b2855dfb7b..262f1bcb6144 100644
+> --- a/mm/shmem.c
+> +++ b/mm/shmem.c
+> @@ -4731,6 +4731,7 @@ static int shmem_parse_opt_casefold(struct fs_context *fc, struct fs_parameter *
+>  	pr_info("tmpfs: Using encoding : utf8-%u.%u.%u\n",
+>  		unicode_major(version), unicode_minor(version), unicode_rev(version));
+>  
+> +	utf8_unload(ctx->encoding);
+>  	ctx->encoding = encoding;
 
-This was first for a reason, please keep first.
+IMO, nack, this is not the right fix.  There is no point in accepting
+multiple casefold parameters and we shouldn't allow it.  If
+ctx->encoding is already set, we should -EINVAL and fail the mount.
 
-Nicolas
 
-> =20
->  	if (media_devnode_is_registered(dev->mdev_dec.devnode)) {
+>  
+>  	return 0;
+>
+> base-commit: 90ddfbd1963659ca4a5d3d7f20717a4222682a8e
+> -- 
+> 2.53.0
+>
 
---=-rV4yfsU2n0WfwiE+CTHf
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarwfDgAKCRDZQZRRKWBy
-9FakAP4vcR8SMhV7pVZIdxreL/3W6hen9hQOFj6cC3ZEarcA2wD+LAwK/qdsJ85/
-pSIKX2XUmKWpyl2obUYqdo/NDZ69UQU=
-=Asfv
------END PGP SIGNATURE-----
-
---=-rV4yfsU2n0WfwiE+CTHf--
+-- 
+Gabriel Krisman Bertazi
