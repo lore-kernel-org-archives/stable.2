@@ -1,148 +1,256 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8B9F23B14DE;
-	Tue, 29 Sep 2026 19:43:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E19B3A168E;
+	Tue, 29 Sep 2026 19:46:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790711039; cv=none; b=GZZiT4hnEbA1UgflPfjd7lGGr0c31T8iEtZdiHICOCLoTAA0T4d/gZiV4jPVsnyL4gqIcIxAYDSRDsNiaX5HWO1YbgvjGbW9U9CVqFuMq6dux5v4WYxlvT+sii6hZbIkuLNLolpOdSVkdI0E6UK9rX23/J0a7M/EV+42e5Cv7zE=
+	t=1790711191; cv=none; b=n+eU9+Fl2vVdRXR+07eLEPUWmAcbkqcTWG+FkLoDl8X2plRB+j4pYgOCbOYKM4Y3U/A358qfVEsJgyH350BL5GbIqaI5euuLGiY5/YZMr7J1Ot3eDGH70hIkYzgM4d/V2YfMxCcp3/lU9hk6Sus1Y5mjba8hstPcs8fudC4ZCOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790711039; c=relaxed/simple;
-	bh=M0Da55fAk3f5sg11hCY0mZN4G1cBSfd5x8sRoxUgQJ4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gUVLBuI6ps1URDqCjxO7Qqm3c7eNFJgwdWIHM8Ht1zrvDSmOiSEabeiawU/KOdfEwvo03y4IHOs7sy32U3/7CdZxtESOhAVCvFs5F6paZk72f0wF1lFXvl5b9MKNOJht18P/En0XIMSCWhW6xJnNeHESFiO7e1m7uwxjFmxtkj0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=X5YInvO1; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1790711191; c=relaxed/simple;
+	bh=wNOk8xmLS9mfWQdlbWGk53cHS/yYHTcUHCw82zhext8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gRwaLCqcFKQyOxClGOGUxhOSW28Zo3vz0wk/HCBRK3lFCU5dSdc4g2q0kvlGj6O5yXDnA8rMDXnNziwCSOn9unkJfqZvZu7yBa3QYtpAI6qQPejswrkO64w2wvGQ/qrhk8KfV6nGSAQac/PlMopWo6wyOJ3PxXZA1QJjfDV9+xY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.li; spf=pass smtp.mailfrom=gmx.li; dkim=pass (2048-bit key) header.d=gmx.li header.i=arc@gmx.li header.b=sUa2I5vB; arc=none smtp.client-ip=212.227.15.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.li
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.li
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="X5YInvO1"
-Received: from jeffbarnes-ThinkPad-P14s-Gen-2i.corp.microsoft.com (unknown [52.167.115.14])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 8964020B7166;
-	Tue, 29 Sep 2026 12:42:56 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 8964020B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1790710978;
-	bh=XSr/FpY6Ep2Y64lvgMS/GCnnKAwRUccneELijM9K4dk=;
-	h=From:To:Cc:Subject:Date:From;
-	b=X5YInvO10SJeiGSwh9q8U8njS2R52RaMF/ewdT7PfgPwRAcbZVaKZqEI8dRBpt8tk
-	 W0/v6GLlABhxJpjDf4l6fVWcmbSzrRS0w2C77FuwsoR69MFLHiO2PlDheP7jD1Ofny
-	 HPj5fSKCYtfmb4tA+0ZELdpJGtD2jh728EJkdGlc=
-From: jeffbarnes@linux.microsoft.com
-To: linux-pci@vger.kernel.org
-Cc: minghuan.Lian@nxp.com,
-	mingkai.hu@nxp.com,
-	roy.zang@nxp.com,
-	lpieralisi@kernel.org,
-	kwilczynski@kernel.org,
-	mani@kernel.org,
-	robh@kernel.org,
-	bhelgaas@google.com,
-	Zhiqiang.Hou@nxp.com,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-arm-kernel@lists.infradead.org,
-	imx@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] PCI: layerscape: use default error response behavior
-Date: Tue, 29 Sep 2026 15:43:39 -0400
-Message-ID: <20260929194339.233271-1-jeffbarnes@linux.microsoft.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=gmx.li header.i=arc@gmx.li header.b="sUa2I5vB"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.li;
+	s=s31663417; t=1790711182; x=1791315982; i=arc@gmx.li;
+	bh=zbsBb7RQcFUC4Q8LWygplP+4ERYzPWKqU800XsMGmNs=;
+	h=X-UI-Sender-Class:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:
+	 cc:content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=sUa2I5vBWDAQp1CSsJZKrp6m5RKmsns4erKpsTnY8Dzjqke/y8vNzESCbRymzgju
+	 YtHC+b+hO+nFXYyBLKEq8sCER4Sy4zu1TR+//mTS9p4DGi+nABOqI5uXryKrEOfVd
+	 BwClQ70ACtshHfwPgUAuAl1sYPSPm0Agk8u4hOzJ92ew4Qy9ijEgIpoxlR7NT7c4x
+	 NH/yK6r8dveNHCfea84K+JS1zfWU1UAOX2O+l0LLFhvk2DD0Pqlbeh7tEZ8KNXC9k
+	 lhDlQtQHQ2rurVGUrs8tyA/bYd7T2f2Rrng4vRs2afSXpZnu8aFBSvgMo2/JWbno4
+	 yRF4L1xPEccXnd6q3w==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1Mirna-1wX3hh3Z4e-00h6vp; Tue, 29
+ Sep 2026 21:46:22 +0200
+Date: Tue, 29 Sep 2026 21:46:22 +0200
+From: Christian Ruppert <arc@gmx.li>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Faaris Ansari <faaris.ansari@gmail.com>,
+	Faaris Ansari <faarisansari@googlemail.com>,
+	Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org,
+	regressions@lists.linux.dev, linux-sound@vger.kernel.org,
+	=?iso-8859-1?Q?C=E1ssio?= Gabriel <cassiogabrielcontato@gmail.com>,
+	Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [REGRESSION] Audient EVO4 hardware volume control now requires
+ quirk
+Message-ID: <arwVedydsKxSgpho@khmer.arcnet>
+References: <2026-09-27-daily-reply-0001-re-audient-evo4-mixer-put-errors@kernel.org>
+ <CANBVYRAr_ShKGmrt2NoqsDsDEbTXa5DWJbq2oP6wKLWJQpLRWw@mail.gmail.com>
+ <2026-09-28-daily-reply-0001-re-audient-evo4-upstream-decision@kernel.org>
+ <ee6e9e8f-e174-4872-baee-114d848e8137@gmail.com>
+ <2026-09-28-2-daily-reply-0001-re-audient-evo4-channel-3-set-cur@kernel.org>
+ <87tsn838gk.wl-tiwai@suse.de>
+ <87mrt01bdg.wl-tiwai@suse.de>
+ <87ecec19pa.wl-tiwai@suse.de>
+ <0e1a1284-7069-4c46-9f35-57c10c129883@gmail.com>
+ <87wls4yvv8.wl-tiwai@suse.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <87wls4yvv8.wl-tiwai@suse.de>
+X-Provags-ID: V03:K1:baq9rQfqwBXkNibhNbxjm5R4ask629iaaj0XqhFEd5sJyef4JLU
+ kuyDLC7/3x3T1/aeh+wtWzqe062lNZDJ2WKo/g5TylR+Nfza3gq1pV7C9VLvTc7EezYxvKa
+ 99Sz3jr/WfrGSkfqKKHQJRjFpzgMlgZ/hd3uHariOP9kleOnFvRWq2GAY9CLYiYkKtXzKBL
+ QLd8jHgJ2/rKpgJ6WNy9A==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:Dj/NKiMwthQ=;AFQpxHVWWXWcDIZKk/F1fF3A7Cc
+ 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
 
-From: Jeff Barnes <jeffbarnes@linux.microsoft.com>
+On Tue, Sep 29, 2026 at 04:28:59PM +0200, Takashi Iwai wrote:
+> On Tue, 29 Sep 2026 16:24:24 +0200,
+> Faaris Ansari wrote:
+> >=20
+> > Thanks Takashi and Sasha,
+> >=20
+> >=20
+> > > Faaris, please let us know if this (or previous) one actually works
+> > > for you.  Once after confirmation, I'll submit the proper patch for
+> > > upstream.
+> >=20
+> > I tested your latest patch where you removed the quirk for the iD14
+> > alone, and instead set it for all Audient devices.
+> >=20
+> > I can confirm that this has indeed fixed the problem, and I can now
+> > correctly control my hardware volume without problems, thank you!
 
-The Layerscape PCIe driver programs PCIE_ABSERR to forward errors from
-outbound non-posted requests to the internal AXI interface.
+On the surface, this does seem to fix the issue but after looking into it
+a bit more in detail, the EVO4 is a bit quirky but its behaviour actually
+coherent and expected. I wonder if this should be fixed by simply
+disabling error propagation or if it's rather an issue with UCMs. The
+situation is as follows:
 
-A PCI configuration access can race with the link going down after
-dw_pcie_other_conf_map_bus() checks the link but before the MMIO access
-is performed. When the resulting Completion Timeout is forwarded to
-AXI, it causes an asynchronous SError and kernel panic.
+- The EVO4 presents two PCM devices, each with four channels ("EVO4 " for
+  playback and "Mic" for capture).
+- In both devices, only the volume of the first two channels can be
+  adjusted (Stereo master playback volume for "EVO4 " and two microphone
+  gains in "Mic").
+- The other two channels of each device are mapped to digital loopback
+  (playback) and the digital mixer matrix output (capture) which don't
+  have volume controls. Trying to adjust these two is thus invalid and the
+  device rightly returns an error.
 
-For example:
+It is true that the "logical" thing would have been to split everything
+into four dual-channel PCM devices, two with adjustable volumes and two
+without. For some reason, Audient didn't make that design choice and as
+things are the situation is perfectly manageable with UCM and correctly
+described in
+https://github.com/alsa-project/alsa-ucm-conf/blob/master/ucm2/USB-Audio/Au=
+dient/Audient-EVO4-HiFi-0006.conf).
 
-  Kernel panic - not syncing: Asynchronous SError Interrupt
-  ...
-  Call trace:
-   arm64_serror_panic+0x78/0x90
-   do_serror+0x84/0x90
-   el1h_64_error_handler+0x30/0x40
-   el1h_64_error+0x68/0x70
-   pci_generic_config_read+0x64/0xb0
-   dw_pcie_rd_other_conf+0x1c/0x68
-   pci_bus_read_config_word+0x68/0x118
-   pcie_capability_read_word+0xa8/0xd8
-   find_device_iter+0x8c/0x160
-   pci_walk_bus+0x60/0xb8
-   find_source_device+0x78/0xb0
-   aer_isr+0x1dc/0x230
+The question is now why the UCM tries to adjust mixer channels which are
+clearly not declared as part of the respective "split channel" in that
+file. I would argue this is rather a bug in UCM (or possibly an overly
+eager "put" function in the generic mixer driver) than in the EVO firmware
+or the error propagation. In practice, the error disappears either way but
+I suspect that at least part of the motivation behind UCM was to address
+exactly this type of issues.
 
-Restore the controller's default error response behavior instead of
-forwarding these errors to AXI.
+This is rather philosophical and my background on UCM is basically nil so
+I would be interested in more educated opinions.
 
-Reproduce the race by instrumenting dw_pcie_rd_other_conf() to call
-map_bus() while the link is up, then schedule a worker on another CPU
-to set PCI_EXP_LNKCTL_LD. Synchronize the CPUs immediately before the
-Link Disable DBI write, then perform readl() using the address returned
-by map_bus() concurrently with the link transition.
+> > > ... or if you have a chance to test Christian's patch set and verify
+> > > whether the problem is fixed there, we can avoid other changes:
+> > >    https://lore.kernel.org/20260919151840.24371-1-arc@gmx.li
+> > I tested Christian's patch alone, without any other changes. The
+> > problem still occurred with those patches.
+> >=20
+> > This was also noted by Christian:
+> >=20
+> > > As a matter of fact, I made a similar
+> > > observation to yours when testing the patch set on the 'sound' kernel=
+ tree
+> > > and the (very sporadic) issue did not disappear after applying the
+> > > patches.
+> > And further discussion below:
+> >=20
+> > https://lore.kernel.org/all/CANBVYRAr8iFGFDgdTcDXuQyXt5M4TddZetsG9o1wbF=
+ao03R0yw@mail.gmail.com/
+> >=20
+> >=20
+> > However, using both patches together (as well as a small patch for
+> > alsa-ucm-conf) has made my interface work very well - I'm very happy
+> > with these changes :)
+> >=20
+> >=20
+> > Thank you for your work, Sasha, Takashi, and Christian,
+> >=20
+> > Faaris
+>=20
+> Thanks for clarification.  Then we need a fix like mine in anyway.
+> I'm going to submit the proper patch.
+>=20
+>=20
+> Takashi
 
-Without this change, the overlapping configuration read results in an
-asynchronous SError and kernel panic. With this change, the same test
-returns 0xffffffff from the configuration read. In this test, AER
-reports a non-fatal Completion Timeout, and no SError or kernel panic
-occurs.
+--=20
+  Christian Ruppert                                             <arc@gmx.li>
 
-This effectively reverts the error response behavior introduced by
-commit 84d897d69938
-("PCI: layerscape: Change default error response behavior").
-
-Fixes: 84d897d69938 ("PCI: layerscape: Change default error response behavior")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jeff Barnes <jeffbarnes@linux.microsoft.com>
----
- drivers/pci/controller/dwc/pci-layerscape.c | 12 ------------
- 1 file changed, 12 deletions(-)
-
-diff --git a/drivers/pci/controller/dwc/pci-layerscape.c b/drivers/pci/controller/dwc/pci-layerscape.c
-index 14d6ac4fc53f..d333f1ae8a41 100644
---- a/drivers/pci/controller/dwc/pci-layerscape.c
-+++ b/drivers/pci/controller/dwc/pci-layerscape.c
-@@ -28,8 +28,6 @@
- 
- /* PEX Internal Configuration Registers */
- #define PCIE_STRFMR1		0x71c /* Symbol Timer & Filter Mask Register1 */
--#define PCIE_ABSERR		0x8d0 /* Bridge Slave Error Response Register */
--#define PCIE_ABSERR_SETTING	0x9401 /* Forward error of non-posted request */
- 
- /* PF Message Command Register */
- #define LS_PCIE_PF_MCR		0x2c
-@@ -103,14 +101,6 @@ static void ls_pcie_drop_msg_tlp(struct ls_pcie *pcie)
- 	iowrite32(val, pci->dbi_base + PCIE_STRFMR1);
- }
- 
--/* Forward error response of outbound non-posted requests */
--static void ls_pcie_fix_error_response(struct ls_pcie *pcie)
--{
--	struct dw_pcie *pci = pcie->pci;
--
--	iowrite32(PCIE_ABSERR_SETTING, pci->dbi_base + PCIE_ABSERR);
--}
--
- static u32 ls_pcie_pf_lut_readl(struct ls_pcie *pcie, u32 off)
- {
- 	if (pcie->big_endian)
-@@ -180,8 +170,6 @@ static int ls_pcie_host_init(struct dw_pcie_rp *pp)
- 	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
- 	struct ls_pcie *pcie = to_ls_pcie(pci);
- 
--	ls_pcie_fix_error_response(pcie);
--
- 	dw_pcie_dbi_ro_wr_en(pci);
- 	ls_pcie_clear_multifunction(pcie);
- 	dw_pcie_dbi_ro_wr_dis(pci);
--- 
-2.43.0
-
+This message is digitally signed with GnuPG.
+GPG/PGP Key fingerprint =3D 4492 2196 75F0 EAA0 981E  B661 1476 F17A 975F 5=
+87B
