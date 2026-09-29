@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D49253B38BC
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 08:23:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 591383CBE8F
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 08:24:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790670236; cv=none; b=tteTdZdQIj986zBbjDDKM+1mCv2XaxICd7D8Zafnw+nCBb/1L0AW3HrfhANrR7vWV3atVpZ8NjKuT3SsRYUtaCOdhRpn/zGzgymsD3VbdShY2Y4FqzLCzgLpnF7KmdLJh4Hk6Dt4WifIjW0MQ3DSpHtZm/g0r9MKQCbL1ptdpos=
+	t=1790670250; cv=none; b=CR4y+jkayXnPxj1u03hacIDM0ogtr99SWUVHdx6xGRdOJX4rCHV3hBuThOkS1aJCEKCO1uOivjCpMuM7+PSG2PEO8/RtyYEWgMLp6gSVfnx+H6iU4eCWiY7FNVGPdxOXDMer7HH2iCvn2dN3A056VQ+9SeoQ2hRDWp7lkgiSTTg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790670236; c=relaxed/simple;
-	bh=h+0fnXeUX5oDE5/BDhL7mDi/L5GG8naLYalmFyamOlE=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=jFh4iZ9rWTkXzQvWSFw3CFKPn3RgP/oK7mi/5uztznXHPBdzIVcEwgdk7pZ434I36n9Kt00YiU9dttvgvhvcB1MO6MIr0SrsZDfyVqkGV5MjRXkvYoGhhX3KWyU1CrL+FwSJ5Ki8KyRlZfyoRqCsQaGdcy7EEJcqrddaO85CDUM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=cR+3GjX+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790670250; c=relaxed/simple;
+	bh=KJVPu8lcH+Zq2hC/ZUZT0X73fl7a5smAr9jUQ50W//I=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=R3vY3A2G+nufyZCMLMfrB3JIj06hAOrx2PL3aBcLm48TVGsah0TGvHLTlvux+e5GAk+vlwXU7+UA6+DXSd8n8h2Tr5tpwg6cSSIrfLU5LWpwK8pt3+90JSaD9gq3cv2LWncX9fgmgs/sSMrLMDGDKB3GdURP74G2bCIPTHvyaaU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=V0us/yiX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="cR+3GjX+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0C171F00898;
-	Tue, 29 Sep 2026 08:23:53 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="V0us/yiX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5874B1F000FF;
+	Tue, 29 Sep 2026 08:24:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790670234;
-	bh=hpZoa7lbgp8TE4eKkucKIU+8iOy9tdHJ3sOMZetpTLk=;
+	s=korg; t=1790670247;
+	bh=gYFP3fL1TLGs0ybvr8Ap4ngfjWNkWCWyLCMSj43sWOQ=;
 	h=Subject:To:Cc:From:Date;
-	b=cR+3GjX+Nh10d6vyQeCfXq4bGdpqGBnt4enDN2nfYtoYrrofHXY+xyNXz3Wmxb5qj
-	 gRYvn123ULZUn7cq1Z5SsnxhDir6Zivfn2GUF4Cbp0J0hxcfGCxQbp0ghMemtV157Z
-	 xJ5t4Mbb6T8Ibz3RDSx+gryBXr5qyb1wHXgF8cHQ=
-Subject: FAILED: patch "[PATCH] drm/amdgpu: Fix vmid_wait fence leak in amdgpu_ring_init()" failed to apply to 5.10-stable tree
-To: vulab@iscas.ac.cn,alexander.deucher@amd.com
+	b=V0us/yiX7lEkXb2v7/UnP1w7RgRwZsJd67VJCRHI7w96Ys2oR1r5nSiFhjeDzMYbH
+	 Rc2BV7JCyZZTeS5Uy/MH9XVabzK2Riqq/KBs4CvKVUeiuvCoY5TDEh1in0cl+CCeak
+	 eViFZG1EOnulgLQBA1su8qclcDD0Y4zSQh/wx03c=
+Subject: FAILED: patch "[PATCH] drm/nouveau/uvmm: fix UAF in nouveau_uvmm_sm when BO is in" failed to apply to 6.6-stable tree
+To: peiyang_he@smail.nju.edu.cn,lyude@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 29 Sep 2026 10:23:40 +0200
-Message-ID: <2026092940-colonize-monopoly-48e2@gregkh>
+Date: Tue, 29 Sep 2026 10:24:02 +0200
+Message-ID: <2026092902-subprime-grandson-c339@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x aea841bc62a76242396610d22d8ff40c13065f64
+git cherry-pick -x 3359a372efb6d585c97019ee1b7f1874442bcebe
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092940-colonize-monopoly-48e2@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092902-subprime-grandson-c339@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,48 +62,179 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From aea841bc62a76242396610d22d8ff40c13065f64 Mon Sep 17 00:00:00 2001
-From: Wentao Liang <vulab@iscas.ac.cn>
-Date: Wed, 16 Sep 2026 10:01:39 +0000
-Subject: [PATCH] drm/amdgpu: Fix vmid_wait fence leak in amdgpu_ring_init()
+From 3359a372efb6d585c97019ee1b7f1874442bcebe Mon Sep 17 00:00:00 2001
+From: Peiyang He <peiyang_he@smail.nju.edu.cn>
+Date: Mon, 7 Sep 2026 13:22:04 +0800
+Subject: [PATCH] drm/nouveau/uvmm: fix UAF in nouveau_uvmm_sm when BO is in
+ TTM_PL_SYSTEM
 
-amdgpu_ring_init() initializes ring->vmid_wait with a reference to the
-stub fence taken via dma_fence_get_stub().  When a later step of the
-initialization fails, e.g. amdgpu_fence_driver_init_ring(), a writeback
-slot allocation or the ring buffer allocation, the function returns an
-error without releasing the stub fence reference and the reference is
-leaked if the ring is torn down without amdgpu_ring_fini().
+nouveau_uvmm_sm() calls op_map(), which passes bo->resource through
+nouveau_mem() to nouveau_uvma_map(). nouveau_uvmm_vmm_map() then reads
+mem->mem.type.
 
-Move the stub fence assignment to the end of the initialization, right
-before the ring is registered with the GPU scheduler, where no further
-failure is possible.  The stub fence is only consumed by command
-submission handling in amdgpu_ids.c once the ring is up and running, so
-nothing reads it during the error-prone part of the initialization.
+But this is only valid when bo->resource is backed by struct nouveau_mem,
+as is the case for VRAM and TT resources. If the BO is left in
+TTM_PL_SYSTEM, bo->resource is only a struct ttm_resource. Treating it
+as struct nouveau_mem makes the mem->mem.type read past the end of the
+resource, causing a KASAN: slab-use-after-free Read in nouveau_uvmm_sm
+report:
 
-Fixes: 48e9fbd1a284 ("drm/amdgpu: initialize the vmid_wait with the stub fence")
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit f2b96986851203e9c50ca0d13aaa3581ca3e8ebd)
+BUG: KASAN: slab-use-after-free in nouveau_uvmm_vmm_map drivers/gpu/drm/nouveau/nouveau_uvmm.c:152 [inline]
+BUG: KASAN: slab-use-after-free in nouveau_uvma_map drivers/gpu/drm/nouveau/nouveau_uvmm.c:199 [inline]
+BUG: KASAN: slab-use-after-free in op_map drivers/gpu/drm/nouveau/nouveau_uvmm.c:849 [inline]
+BUG: KASAN: slab-use-after-free in nouveau_uvmm_sm.constprop.0+0x6ab/0x900 drivers/gpu/drm/nouveau/nouveau_uvmm.c:903
+Read of size 1 at addr ffff888127d3e3a0 by task kworker/0:1/11
+
+CPU: 0 UID: 0 PID: 11 Comm: kworker/0:1 Not tainted 7.2.0 #5 PREEMPT(lazy)
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Workqueue: nouveau_sched_wq_2224 drm_sched_run_job_work
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x95/0xe0 lib/dump_stack.c:120
+ print_address_description mm/kasan/report.c:378 [inline]
+ print_report+0xcb/0x5a0 mm/kasan/report.c:482
+ kasan_report+0xca/0x100 mm/kasan/report.c:595
+ nouveau_uvmm_vmm_map drivers/gpu/drm/nouveau/nouveau_uvmm.c:152 [inline]
+ nouveau_uvma_map drivers/gpu/drm/nouveau/nouveau_uvmm.c:199 [inline]
+ op_map drivers/gpu/drm/nouveau/nouveau_uvmm.c:849 [inline]
+ nouveau_uvmm_sm.constprop.0+0x6ab/0x900 drivers/gpu/drm/nouveau/nouveau_uvmm.c:903
+ nouveau_uvmm_sm_unmap drivers/gpu/drm/nouveau/nouveau_uvmm.c:932 [inline]
+ nouveau_uvmm_bind_job_run+0xd6/0x250 drivers/gpu/drm/nouveau/nouveau_uvmm.c:1532
+ nouveau_job_run drivers/gpu/drm/nouveau/nouveau_sched.c:350 [inline]
+ nouveau_sched_run_job+0x62/0xd0 drivers/gpu/drm/nouveau/nouveau_sched.c:364
+ drm_sched_run_job_work+0x356/0xa10 drivers/gpu/drm/scheduler/sched_main.c:1061
+ process_one_work+0x8a5/0x1900 kernel/workqueue.c:3322
+ process_scheduled_works kernel/workqueue.c:3405 [inline]
+ worker_thread+0x5dd/0xd80 kernel/workqueue.c:3486
+ kthread+0x31d/0x420 kernel/kthread.c:436
+ ret_from_fork+0x662/0x940 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+
+Allocated by task 2224 on cpu 0 at 66.550027s:
+ kasan_save_stack+0x24/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x17/0x60 mm/kasan/common.c:78
+ poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
+ __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
+ kasan_kmalloc include/linux/kasan.h:263 [inline]
+ __do_kmalloc_node mm/slub.c:5334 [inline]
+ __kmalloc_noprof+0x304/0x7c0 mm/slub.c:5359
+ _kmalloc_noprof include/linux/slab.h:992 [inline]
+ dma_resv_list_alloc+0x27/0x90 drivers/dma-buf/dma-resv.c:106
+ dma_resv_reserve_fences+0x60e/0xa30 drivers/dma-buf/dma-resv.c:205
+ ttm_bo_alloc_resource+0x12c/0xbd0 drivers/gpu/drm/ttm/ttm_bo.c:721
+ ttm_bo_validate+0x1bc/0x4a0 drivers/gpu/drm/ttm/ttm_bo.c:856
+ ttm_bo_init_reserved+0x2c3/0x570 drivers/gpu/drm/ttm/ttm_bo.c:970
+ nouveau_bo_init+0x159/0x2c0 drivers/gpu/drm/nouveau/nouveau_bo.c:359
+ nouveau_gem_new+0x234/0x5f0 drivers/gpu/drm/nouveau/nouveau_gem.c:272
+ nouveau_gem_ioctl_new+0x1eb/0x420 drivers/gpu/drm/nouveau/nouveau_gem.c:352
+ drm_ioctl_kernel+0x192/0x350 drivers/gpu/drm/drm_ioctl.c:817
+ drm_ioctl+0x4f8/0xb40 drivers/gpu/drm/drm_ioctl.c:914
+ nouveau_drm_ioctl+0xea/0x2c0 drivers/gpu/drm/nouveau/nouveau_drm.c:1338
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl fs/ioctl.c:583 [inline]
+ __x64_sys_ioctl+0x180/0x1d0 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+ do_syscall_64+0x115/0x690 arch/x86/entry/syscall_64.c:94
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Freed by task 2223 on cpu 0 at 66.554063s:
+ kasan_save_stack+0x24/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x17/0x60 mm/kasan/common.c:78
+ kasan_save_free_info+0x3b/0x60 mm/kasan/generic.c:584
+ poison_slab_object mm/kasan/common.c:253 [inline]
+ __kasan_slab_free+0x61/0x80 mm/kasan/common.c:285
+ kasan_slab_free include/linux/kasan.h:235 [inline]
+ slab_free_hook mm/slub.c:2677 [inline]
+ __rcu_free_sheaf_prepare+0xb6/0x2e0 mm/slub.c:2928
+ rcu_free_sheaf+0x1b/0x120 mm/slub.c:5978
+ rcu_do_batch kernel/rcu/tree.c:2645 [inline]
+ rcu_core+0x521/0x1490 kernel/rcu/tree.c:2897
+ handle_softirqs+0x1b1/0x8a0 kernel/softirq.c:622
+ __do_softirq kernel/softirq.c:656 [inline]
+ invoke_softirq kernel/softirq.c:496 [inline]
+ __irq_exit_rcu+0x137/0x1c0 kernel/softirq.c:735
+ irq_exit_rcu+0x9/0x20 kernel/softirq.c:752
+ instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1062 [inline]
+ sysvec_apic_timer_interrupt+0x70/0x80 arch/x86/kernel/apic/apic.c:1062
+ asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
+
+The buggy address belongs to the object at ffff888127d3e380
+ which belongs to the cache kmalloc-96 of size 96
+The buggy address is located 32 bytes inside of
+ freed 96-byte region [ffff888127d3e380, ffff888127d3e3e0)
+
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x127d3e
+flags: 0x200000000000000(node=0|zone=2)
+page_type: f5(slab)
+raw: 0200000000000000 ffff888100041280 dead000000000122 0000000000000000
+raw: 0000000000000000 0000000000200020 00000000f5000000 0000000000000000
+page dumped because: kasan: bad access detected
+
+Memory state around the buggy address:
+ ffff888127d3e280: 00 00 00 00 00 00 00 00 00 fc fc fc fc fc fc fc
+ ffff888127d3e300: 00 00 00 00 00 00 00 00 00 00 00 fc fc fc fc fc
+>ffff888127d3e380: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
+                               ^
+ ffff888127d3e400: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
+ ffff888127d3e480: 00 00 00 00 00 00 00 00 00 00 fc fc fc fc fc fc
+
+Fix by resetting the placement to the BO's valid domains before
+calling nouveau_bo_validate(), matching the handling in
+nouveau_uvmm_bo_validate(), so map jobs do not run for SYSTEM resources;
+Reject BO that cannot reside in VRAM or GART;
+Also skip op_map() when the GPUVA has been invalidated, matching the
+handling in the unmap and remap paths.
+
+Found when fuzzing the nouveau driver with a modified Syzkaller.
+
+Fixes: b88baab82871 ("drm/nouveau: implement new VM_BIND uAPI")
 Cc: stable@vger.kernel.org
+Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
+Assisted-by: Codex:gpt-5.5
+Reviewed-by: Lyude Paul <lyude@redhat.com>
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+Link: https://patch.msgid.link/0D77BEC410CE0129+20260907052204.1431488-1-peiyang_he@smail.nju.edu.cn
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-index 686c92e96025..5922406d0a03 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-@@ -254,7 +254,6 @@ int amdgpu_ring_init(struct amdgpu_device *adev, struct amdgpu_ring *ring,
- 		ring->adev = adev;
- 		ring->num_hw_submission = sched_hw_submission;
- 		ring->sched_score = sched_score;
--		ring->vmid_wait = dma_fence_get_stub();
+diff --git a/drivers/gpu/drm/nouveau/nouveau_uvmm.c b/drivers/gpu/drm/nouveau/nouveau_uvmm.c
+index fc125fd44a9b..2026fe6b48c6 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_uvmm.c
++++ b/drivers/gpu/drm/nouveau/nouveau_uvmm.c
+@@ -846,6 +846,9 @@ op_map(struct nouveau_uvma *uvma)
+ {
+ 	struct nouveau_bo *nvbo = nouveau_gem_object(uvma->va.gem.obj);
  
- 		ring->idx = adev->num_rings++;
- 		adev->rings[ring->idx] = ring;
-@@ -374,6 +373,7 @@ int amdgpu_ring_init(struct amdgpu_device *adev, struct amdgpu_ring *ring,
++	if (drm_gpuva_invalidated(&uvma->va))
++		return;
++
+ 	nouveau_uvma_map(uvma, nouveau_mem(nvbo->bo.resource));
+ }
  
- 	ring->max_dw = max_dw;
- 	ring->hw_prio = hw_prio;
-+	ring->vmid_wait = dma_fence_get_stub();
+@@ -1232,6 +1235,7 @@ bind_lock_validate(struct nouveau_job *job, struct drm_exec *exec,
  
- 	if (!ring->no_scheduler && ring->funcs->type < AMDGPU_HW_IP_NUM) {
- 		hw_ip = ring->funcs->type;
+ 		drm_gpuva_for_each_op(va_op, op->ops) {
+ 			struct drm_gem_object *obj = op_gem_obj(va_op);
++			struct nouveau_bo *nvbo;
+ 
+ 			if (unlikely(!obj))
+ 				continue;
+@@ -1246,8 +1250,13 @@ bind_lock_validate(struct nouveau_job *job, struct drm_exec *exec,
+ 			if (va_op->op == DRM_GPUVA_OP_UNMAP)
+ 				continue;
+ 
+-			ret = nouveau_bo_validate(nouveau_gem_object(obj),
+-						  true, false);
++			nvbo = nouveau_gem_object(obj);
++			if (!(nvbo->valid_domains &
++			      (NOUVEAU_GEM_DOMAIN_VRAM | NOUVEAU_GEM_DOMAIN_GART)))
++				return -EINVAL;
++
++			nouveau_bo_placement_set(nvbo, nvbo->valid_domains, 0);
++			ret = nouveau_bo_validate(nvbo, true, false);
+ 			if (ret)
+ 				return ret;
+ 		}
 
