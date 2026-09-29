@@ -1,182 +1,154 @@
 Received: from mail-yx2-f40.google.com (mail-yx2-f40.google.com [74.125.224.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EAE85293F7
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 15:04:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 605A753A887
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 15:06:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790694264; cv=none; b=mj/0Ec+7HWpnRoKjXo1DCKOAFBvsDdkEQ3V3t6oiFck3r9UnVPm4H/7Gs7Jb4NH9Ny8F7KGftSrTiuqaT7PbDSd+sHKqjCPWDmYIu+GdpkiYZPKz/wQkaBxALqs1xXIGNIf5OMc5+NGc8jU1iw/kPAngI9smoz+XsB+6h6AxoN8=
+	t=1790694402; cv=none; b=cFC1j8AHGTXPumek1ZMoB4iEJtVO2M3X7E1LUv6AX/dylHUsKMcfMLs+gG5dMhWsrfBIskG3MDNkPDwRfAm6+bbyAgz0awyrDHQcGS6Kqz8PvFeUcKKqyPWMDJnsZCGB79ArGu/xYy8qTRyzaLe6RsOCMXslO+mduo98lTlZHf8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790694264; c=relaxed/simple;
-	bh=ctXSxhL8cB96oM2LlBR4kk7hbE12PJXfiPWlYJLZFo0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=YrjMZBRyKvbCDIuVWThmKJKTGfYVU2ynaAW1LZhbvaUo8Ys+1jsbJcDq3Cu1ZQfzgriNzoIFU9CWNAK+KlGIEE5OyQtgk7G8AKRh3MPpE3/XEx17I3ZamI46P55KSRYmP6pxCmGWHS0TdVUayyhZIU49FnkUPDsZQKroip9speo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dRzkyfQL; arc=none smtp.client-ip=74.125.224.168
+	s=arc-20240116; t=1790694402; c=relaxed/simple;
+	bh=jwEA9tszSdXiqK2lVGbK9zWNHlffeaTYOxNnAuJHg0s=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=qH3OS5uJCm+vypFOixv7ADOkg6nPbkaTx8FLZs+O1Vj83oA1yeW30y+JMO/kznMJY/rXd70RDhds0RsIa2JwTtcdU8qAxk+HVHypu3OW0N5NqyMhpxwKPTutmMBkRDsBnyHXmdPydV02aKFyzGQQrUOrKDRAsY1mKrMooS1LImw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h6GT5t2o; arc=none smtp.client-ip=74.125.224.168
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dRzkyfQL"
-Received: by mail-yx2-f40.google.com with SMTP id 00721157ae682-8ab445ac183so8333407b3.3
-        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 08:04:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h6GT5t2o"
+Received: by mail-yx2-f40.google.com with SMTP id 00721157ae682-8ab4620ecf9so5573757b3.0
+        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 08:06:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790694251; x=1791299051; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=+edsoFX5PqL65dJFkIJ/uSxWsDbol4HH9AaqaASjRno=;
-        b=dRzkyfQLetYpbbmiXtBUtOfaMMMw5wu8Yhdh21W4oOXf7aCPZPlGxbV76gD30R7HI3
-         8I7X+cyR/zVXQuI18na54naOwGZDYwfKC2JZMPTH2TZ1+k/k4l8EleNhEfs0kd03+V2W
-         6XFt2Bky0lGQz1WqD+C8yywbwIJESihqI3U2WbRhuqjwVdXuUzyNaB/zLkuOsyuIci3O
-         m7yBd4m1EY1u+03+GsffFmqopAnuIvfvglIkFMhz0wDLKmmX3IwvBnnd/TJhmOV8UBAL
-         ZnZjDE7yhRxYsg1eSZBy22avhMer3J36whLN7q83vp6tTbAvyFijiiwtv93hKFy2qj4S
-         8tKA==
+        d=gmail.com; s=20251104; t=1790694388; x=1791299188; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=aBbvMtdtXkPr9NqwMjzBWKgQ9hOQ8+AsNzjKBiR/MZM=;
+        b=h6GT5t2oAjpHhnStHfZZs5+v/BGAaWIu/60oc/Jvtrwgq25a5N78TqLWlLY6tAon4h
+         CUKwPT4nszAokGPumvJbv0xMvmD3KJbacNAD4CKQSd+3ue/XjXYvXB81nfL2qRoQmA2X
+         /K7XkENNeq0m7wX+miFKcfZrwHwZM/Nn7TC4VlpXCjqvSCLzqWslN1U9szSJZx1/W4dz
+         KWiToeXr+ZUMsx9/i7ZeQkOGaIm41XisMs6mmxTjZjYrWYqlgmdjdjBVCPeGxBwg9v9q
+         q+O3vyHinS+AHmQy8NviMV8vGooteQFhkUTjtTggt8Zcl8rlDz88/WTcnZIg8DXVix3M
+         ouzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790694251; x=1791299051;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=+edsoFX5PqL65dJFkIJ/uSxWsDbol4HH9AaqaASjRno=;
-        b=TYteBcJySgCsXoc/0XdCeIMlrPmdPzdB0LnkNZxwYQrymb5X3z7al41BlwML8gAFFY
-         D1hJPMTXq2yRS6scvu2bxKKWLWj3AvSN7rT2tjruA8p/i1yaC82TTwhDxev9s/W4npRL
-         Ap3W0hUI1xbqHvye1igIqN37EZQd+WFcs6L0r+OA9dI8q/AmUdBbHzyMLQJOHtGODa+W
-         Sut5EedjanROwQXJEJ9zq58Qv8hdgnVx9jf0T2kp4oWeeC34lJ6/EtKnLhZTD3cwOUqV
-         jsA7/LB6HAa4rzqH9Sj0RwwR7jDougZIq7wrHiMWUUXZfb+3MX9hcO4XNxWGU4kEfp5j
-         Gh7g==
-X-Forwarded-Encrypted: i=1; AKwUvBwGKzKiHlYdQyVWapI9hHDcAry8eE3fRLv/QcSKuXWLEwxXLW1MqGL5BDs8bcRxxda2zeG8b8g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJe/L9XkBXXhpqc/H2v02scHJL6Oq6bcSFKU5o64AuS22p6TCEA
-	7kglhjevN98K5Lopg2Re+e/aaXmm+/svlrzL2gT6JHsVd0TIqSExx0ZB
-X-Gm-Gg: AYBFou0nbbW0qa9LCsDFlpQTH1BNYseP8lmE21EVuFIiZBzjSadJaLN11Z90DY4z6qD
-	nlpnzk65ga2+m/NkRjd0/n4A5uahnNyeiDp9atWEeSOI4NHt7B0TwDhei5urqefFgnQG+4skZpF
-	yyYlPY3WwboyXIkowA/ARIxhLH5FiwTMtg7/c0ZLBgkwF0HZyh6HcoJCx1iT+8GXfgpyvHs1eOq
-	+knRZc8sFOXsmCDWQhoTkTtSYyhUFNtuE+7GemBxbUzWipqh4Gc7kJU7mp14NJ2CFIjEdhrDRLF
-	jO3NS343/2Qr9vyKpSrUdn/Wxf2vpZtyBOM2S7PBUU2+Pgr3KVRP8CIkyrg+IT+nkHB+BwHRWqV
-	maHRStiQyL5m9YtALiYusS3GTLRXLHDV7IBDloAIeOnIdLy/f5U14jLraAcaQAApK6IFVtXwDia
-	1pvdXgdv5u3eikoYc4zFX6wS4sxnMG/LJ9904KUYsz8Ct/h91XlTPyj0HI7AGhwQJCqA==
-X-Received: by 2002:a05:690c:e3e8:b0:841:e9e4:8ab9 with SMTP id 00721157ae682-8a64949ac2dmr92204867b3.25.1790694251364;
-        Tue, 29 Sep 2026 08:04:11 -0700 (PDT)
-Received: from [192.168.18.164] ([2600:8804:5716:d800::2620])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8ab40a699b9sm9871467b3.43.2026.09.29.08.04.09
+        d=1e100.net; s=20260707; t=1790694388; x=1791299188;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aBbvMtdtXkPr9NqwMjzBWKgQ9hOQ8+AsNzjKBiR/MZM=;
+        b=SceUbULDvj+7FDlwd5iKov1zquP+D7Nyv+u1Y5Qdr+cgfBkV61CsOt/XZ42+l743Tj
+         B6VIxVvhEfpWihOdmrglCe+eH+8SCfrSdtvm5XdTxUWL0Ye7HHzLJkDt0vpBkDFO5fcN
+         LDXKcJOwB3KWcjaSpz569uP26o4G5BySAYXdMFFlMXYnv9fDTk3OiufmsCFba9I+5xLu
+         /Sx5Bdhc5WapqbP76BrYBKmAVNQuZ2+qgFXUvIS7vejF/Jv16lV615mH68ECxLrxVmdl
+         fe3lBdpKvGROKsbe5w7CUXlpFHS3+n7S1qlZ7owyj2DY/AY+SUtwshprI3Df1wx72Qzl
+         m/lQ==
+X-Forwarded-Encrypted: i=1; AKwUvBznpwJudPItcjtC98vdKxFvVErAeP+qy9xCybG8y/hDeNUlK6JvGQuaE70YXsjpVN96fkldqsI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIy+hdIflsF7vQfZo/9LV3nhUMzzFF1KjugwFAbGRwgirPVbeld
+	W8rOEgXrk2R3AHcZmJeBfzVTWUr8+mAjhW5BBe4RwQzFcweTXBQdJzMl
+X-Gm-Gg: AYBFou3XEuMdbWkKifaUEzh+Nk9OUeVXnYJ78N3+aF6ZAiytBepjE+/QROEboQDoyPf
+	xM6QKEAbtAy9tnXq36WkOMw82s5m4zcQWi7rsluQjKZCwBkbb/T0d8m1SaGdgs3Z0u4s9nfmJZ0
+	XeCVE1h6XG1NolW/eav2ziM0Jkyxtz2qpJBRSWJZbGWiDvFgcxT9WHLe8wUWoaNUj/HRiqzmisL
+	KCFMQg1XOSaIJEKyOIrwn+TSjn3+nlC51qYAVoc/7qhEP+Lljq+8hPwhCr27rAK16kCqUucwiJx
+	83g25DXjKMyEySpBo3WPbevRjX8x5BlXUxlL6KUDx7IJ2sLlU4uKAtbt/qXFtmGEdsLJ6MzvlV0
+	VY1JTiVXEqAPJ6LQe2lf6fYWCHGA4xIMclnvgor7q25mIIrv35AZjzdvJyI7vS4c0xXr+LvDQf6
+	lW3hFxGHSIINQ0Pt2+PM+tx/uMdrvnNzS0lDNpn0UF+AuBpqgcy08ywbp+Xh2ErPRL6WGizZ911
+	zT6jDUehqFhEvd4QWN9giO5mpPcTrqKzBbFWpCvJZSSQpJglrrM
+X-Received: by 2002:a05:690c:c50f:b0:8a9:a1e9:2659 with SMTP id 00721157ae682-8a9a1e92fcfmr37633367b3.50.1790694387584;
+        Tue, 29 Sep 2026 08:06:27 -0700 (PDT)
+Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a860f9cdb0sm60566977b3.24.2026.09.29.08.06.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 08:04:09 -0700 (PDT)
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-Date: Tue, 29 Sep 2026 10:04:05 -0500
-Subject: [PATCH RESEND] usb: mtu3: don't run gadget completion callbacks
- with interrupts disabled
+        Tue, 29 Sep 2026 08:06:26 -0700 (PDT)
+Date: Tue, 29 Sep 2026 11:06:26 -0400
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: lollipopkit <a@lolli.tech>, 
+ Jens Axboe <axboe@kernel.dk>
+Cc: Pavel Begunkov <asml.silence@gmail.com>, 
+ Willem de Bruijn <willemb@google.com>, 
+ Richard Cochran <richardcochran@gmail.com>, 
+ io-uring@vger.kernel.org, 
+ netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ lollipopkit <a@lolli.tech>, 
+ stable@vger.kernel.org
+Message-ID: <willemdebruijn.kernel.570e0a646f4@gmail.com>
+In-Reply-To: <20260929045433.59435-1-a@lolli.tech>
+References: <20260929045433.59435-1-a@lolli.tech>
+Subject: Re: [PATCH] io_uring/cmd_net: drop unextractable TX_TIMESTAMP skbs
+ instead of requeueing
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260929-usb-mtu3-gadget-completion-callback-fix-v1-1-8b75b48fab96@gmail.com>
-To: Chunfeng Yun <chunfeng.yun@mediatek.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Ryan Brue <ryanbrue.dev@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790694249; l=3859;
- i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
- bh=ctXSxhL8cB96oM2LlBR4kk7hbE12PJXfiPWlYJLZFo0=;
- b=yw9LSE1i8GiNOL28F+XSvLaDLH7wn1idNjPtWu+r9QdBnFtrnSjo5+Rv8f6OF2gtorNSDOtWI
- rwGwjhX4Z1JB8caumEIvOiFYMI3N524g6ZrHKXJhw00Al65rItA0TYm
-X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
- pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 
-mtu3_irq() is a threaded handler, so it runs in process context, but it
-takes mtu->lock with spin_lock_irqsave(). mtu3_req_complete() then drops
-the lock with a plain spin_unlock() around
-usb_gadget_giveback_request(), which leaves hardware interrupts disabled
-across the gadget function's completion callback.
+lollipopkit wrote:
+> SOCKET_URING_OP_TX_TIMESTAMP selects error-queue skbs with
+> skb_has_tx_timestamp() but extracts the timestamp with
+> skb_get_tx_timestamp().  The two use different checks and can disagree:
+> a skb the walk accepted can be rejected with -ENOENT forever.  When
+> that happens the processing loop stops and skb_queue_splice() puts the
+> unprocessed skbs back onto the HEAD of sk_error_queue.  The rejected
+> skb is selected first on every following run, fails again, and blocks
+> every skb behind it: new timestamps keep arriving and keep re-running
+> the command, but nothing is ever delivered again.
+> 
+> The disagreement is reachable without a race.  With
+> SOF_TIMESTAMPING_BIND_PHC the walk never looks at sk_bind_phc, but
+> skb_get_tx_timestamp() converts the hardware timestamp through
+> ptp_convert_timestamp(), which returns 0 when no virtual clock matches
+> sk_bind_phc (for example when the vclock was destroyed after the
+> socket bound to it).  ktime_to_timespec64_cond() then fails and the
+> extractor returns -ENOENT permanently.  Any skb with a non-zero
+> hwtstamp is selected while SOF_TIMESTAMPING_RAW_HARDWARE is set, so a
+> single such skb blocks even the software timestamps queued behind it.
+> 
+> Measured on real hardware, an I219-V (e1000e), using
+> /sys/class/ptp/ptpN/n_vclocks to create and destroy the vclock the
+> socket was bound to: 22 error-queue skbs generated (16 software + 6
+> hardware).  Of the 21 extractor calls, 20 failed with -ENOENT and the
+> one that succeeded delivered 1 software timestamp; deliveries then
+> froze while 8 further sends kept re-running the command, and the
+> remaining 21 skbs (15 software + 6 hardware) sat in the error queue.
+> Both control arms (vclock kept alive; no BIND_PHC) delivered
+> everything.
+> 
+> With this patch applied on top of the CQ-full fix ("io_uring/cmd_net:
+> end TX_TIMESTAMP multishot when the CQ is full"), A/B tested in a KVM
+> guest from a single kernel binary, with the new behaviour behind a
+> test-only runtime switch (the switch is test scaffolding and is not
+> part of this patch).  The guest needs no special hardware: QEMU's igb
+> model emulates hardware TX timestamping (TSYNCTXCTL/TXSTMPL/TXSTMPH)
+> and the igb driver registers a PTP clock, so the guest reproduces the
+> same failure the same way.  The two arms are separate runs with their
+> own sockets and sends; the device holds one pending hardware
+> timestamp, so how many of the 16 sends get a hardware skb varies per
+> run (12 and 8 here).  Switch off: 28 skbs generated (16 software + 12
+> hardware), deliveries froze at 1 and the remaining 27 (15 software +
+> 12 hardware) sat in the error queue.  Switch on: 24 skbs generated (16
+> software + 8 hardware); all 16 software timestamps were delivered, the
+> 8 hardware skbs the extractor rejected with -ENOENT were dropped, and
+> the error queue drained.
+> 
+> recvmsg(MSG_ERRQUEUE) already treats such a skb as skippable:
+> sock_recv_errqueue() dequeues it, returns the error message without a
+> timestamp, and frees it.  Do the same here and keep the deliverable
+> timestamps moving: drop the skb the extractor rejected and continue
+> with the rest of the list.  The CQE-full case keeps its
+> requeue-and-end-multishot behaviour.
+> 
+> Fixes: 9e4ed359b8ef ("io_uring/netcmd: add tx timestamping cmd support")
+> Cc: stable@vger.kernel.org # needs the CQ-full fix above
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: lollipopkit <a@lolli.tech>
 
-That breaks any callback that reaches netif_rx(). Since the threaded
-handler is in neither hardirq nor softirq context, netif_rx() takes its
-local_bh_disable()/local_bh_enable() path, and enabling softirqs with
-interrupts disabled is not allowed:
+Is this a real name?
 
-  WARNING: kernel/softirq.c:430 at __local_bh_enable_ip+0x17c/0x188
-    __local_bh_enable_ip
-    netif_rx
-    rx_complete [u_ether]
-    usb_gadget_giveback_request
-    mtu3_req_complete
-    mtu3_qmu_isr
-    mtu3_irq
-    irq_thread_fn
+https://docs.kernel.org/process/submitting-patches.html#sign-your-work-the-developer-s-certificate-of-origin
 
-With CONFIG_TRACE_IRQFLAGS, __local_bh_enable_ip() ends with an
-unconditional local_irq_enable(), so the plain spin_lock() re-taking
-mtu->lock afterwards runs with interrupts on and is recorded
-SOFTIRQ-ON-W, while mtu3_gadget_queue() takes the same lock from a
-softirq (ncm's tx hrtimer), and lockdep follows up with an inconsistent
-lock state report naming mtu->lock.
-
-The locking was right when mtu3_irq() was a hardirq handler. It stopped
-being right when the handler became threaded without a primary handler;
-dwc3 hit the same thing the same way and fixed it in the controller
-driver, in commit 84918a89d6ef ("usb: dwc3: gadget: Let the interrupt
-handler disable bottom halves.").
-
-mtu->lock is never taken in hardirq context: the only handler is
-threaded and has no primary handler, so disabling softirqs is enough.
-Take it with spin_lock_bh() in mtu3_irq(). The completion callback then
-runs with interrupts enabled and softirqs disabled, which is the context
-netif_rx() expects. The other sites keep spin_lock_irqsave(), which is
-strictly stronger and still correct; several of them really can be
-reached from softirq context.
-
-Both reports need lockdep to be seen, but the context violation is real:
-netif_rx() wants either hardirq/softirq context or interrupts enabled,
-and mtu3 gives it neither. The fallout on a PROVE_LOCKING kernel is not
-cosmetic either - copying a 21 MB file over USB ethernet hung and reset
-this board repeatedly before this change. Once interrupts have been
-left enabled while the thread holds mtu->lock, the tx hrtimer softirq on
-the same CPU spins on it forever, which is the "CPU0: lock(&mtu->lock);
-<Interrupt> lock(&mtu->lock);" scenario lockdep names. The same copy is
-reliable after it.
-
-Fixes: 13118959cb1a ("usb: mtu3: register mtu3_irq by threaded irq")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
----
- drivers/usb/mtu3/mtu3_core.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/usb/mtu3/mtu3_core.c b/drivers/usb/mtu3/mtu3_core.c
-index a40bf5bad2d5..ed0e426645fd 100644
---- a/drivers/usb/mtu3/mtu3_core.c
-+++ b/drivers/usb/mtu3/mtu3_core.c
-@@ -790,10 +790,9 @@ static irqreturn_t mtu3_u2_common_isr(struct mtu3 *mtu)
- static irqreturn_t mtu3_irq(int irq, void *data)
- {
- 	struct mtu3 *mtu = (struct mtu3 *)data;
--	unsigned long flags;
- 	u32 level1;
- 
--	spin_lock_irqsave(&mtu->lock, flags);
-+	spin_lock_bh(&mtu->lock);
- 
- 	/* U3D_LV1ISR is RU */
- 	level1 = mtu3_readl(mtu->mac_base, U3D_LV1ISR);
-@@ -814,7 +813,7 @@ static irqreturn_t mtu3_irq(int irq, void *data)
- 	if (level1 & QMU_INTR)
- 		mtu3_qmu_isr(mtu);
- 
--	spin_unlock_irqrestore(&mtu->lock, flags);
-+	spin_unlock_bh(&mtu->lock);
- 
- 	return IRQ_HANDLED;
- }
-
----
-base-commit: df2908090cda368b01ff43709f51890076c56157
-change-id: 20260913-usb-mtu3-gadget-completion-callback-fix-d334f7e99a17
-
-Best regards,
---
-Ryan Brue <ryanbrue.dev@gmail.com>
--- 
-Ryan Brue <ryanbrue.dev@gmail.com>
-
+"a known identity (sorry, no anonymous contributions.)"
