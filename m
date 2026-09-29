@@ -1,258 +1,301 @@
-Received: from mail-ed2-f32.google.com (mail-ed2-f32.google.com [74.125.228.96])
+Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F217D3E2AD7
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 03:06:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.96
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790651205; cv=pass; b=EwwhxPY7BvNbKSPMXrjgGo89pV1ydW3BLhFALxbYkYI3OtY3HcCtTKJvUmqwZXdihHOqCQtreKQ1+tN8Ky/RMyxg2b+kIJ9kF6PzD9GiCagEdGNDmc7oQHkVvt5KFC6TTPSADmAjCByLgQH2eCVBrXlIaXh4blKgR/50uhTfXbc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790651205; c=relaxed/simple;
-	bh=drFBxzfc6W2PaLGZNBuSoVjThY1JgVwWxNvEN6zvNfc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=UBLzNJx7Nt5MAOLtsVTb9DZe7fu8G4MJbM3RV/O3nzvey0FDDo8JFtJASIyUcCdanVCBlPhxGmyVh/zHlHicaJ6YE34RyZmexzRp5CWW7GuBSEtPDNgl138ppkZnRCtAwzFXPWX67hcKV1gdr+YiWvbi7wFA7XYE1ifsA5D7U3A=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kWrX4yDA; arc=pass smtp.client-ip=74.125.228.96
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FBF33E00A0
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 03:07:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.41
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790651252; cv=none; b=JNP0hYMLnaohQXixgnLiVfKr52emwb0t7TtceBp1CxR2GmIPIpkfFRBuSQ17owuGY5XIoYPF1cXt52cYNnoTT6r8SmHIId95D8/shbHiNHLZMGi5F4/+Vl0kWYtsfYWVS9MfQySuf99mgQh8O4H+99rQgsXQ0kqdOMnnZlN6sZw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790651252; c=relaxed/simple;
+	bh=qDhp3Gl2RurgAJzoCMul2yhpCnoK8vpJ8F27uwCVvmM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NJ0cUANcnZRq3R7dkddPvxas2cnZSx9mRMi1Jor4gD6kwo8uJ2qYidavIZiYfECYfm7LaL0jzDzS4LpLAwyRqyvAyV91BOT7J8H+oPG0Zx56dhj6KBGW1yVy8rllhyX8RwOh3co1jLDX7JxjoIWA6n2THhwInLQh8CYUkzHI+ZU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=IoHZbcLz; arc=none smtp.client-ip=74.125.229.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kWrX4yDA"
-Received: by mail-ed2-f32.google.com with SMTP id 4fb4d7f45d1cf-6acb8b78d6cso52820a12.2
-        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 20:06:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790651198; cv=none;
-        d=google.com; s=arc-20260327;
-        b=jmbN37J084nqaJGmgihKD/tgOTb4LQ+mbUaoVevBue5w/UoeTMrXiFMnC3apjD+dot
-         oZJlA6sUFmAcjPxLAraVHG4FVcFrLB/5TsaoUaqURoigdeqKH0K/FWBnhLPOFbjN242p
-         CVODCmNrn4Ao8syObPOpGOKUDakKZBxoLTyrfq0dMlPzrQMltKYG6RAlpLcBiFuG7n0q
-         ftqFJryi91htqzT4qZyZwYrWA2rb83qR9Sek9d9Rx885qW8/efyKLc1/I3x5f83keETa
-         lOu5BUU1iqsFVIaXl12I+wxGsa65ZW4BP8iLpqZ8PAWfQfYpsI5jW3hN1bnoMtY+gb9Y
-         Z/4g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=GsgcGMq63dxBO6lpCOoish/kEuxevaMsXSsx8TcWvog=;
-        fh=m4N9lzbihGOZYOpTqWJfoYy7hR7FqA2eLS8hslaSTKk=;
-        b=jWozxZ1JQVTbTdg3s7GaxQ3RMBMA7glpHUcxk6sBzKTRdBoveRtkEQvFTUgWJ08Bgu
-         JJY6KSREDlV9SKvr+ewiserhU9ckdgRQJVENkfoHaHlbGB1b4aHumFTZjjbQ/4s9vIcI
-         2phRpyw/taSZGK4P8qmq/FU2ygsvsuEoe3q5cSbE/ii4fYiTiHVNcoVvUb9bDXMYKfcc
-         JrkrJ39COZ4cRmCNrARWjn987yHVqfRzkRTLUf863Kt6l/hubIpLka6BFBFTPh5WVeyY
-         mw/SL5LIzIQJ0qZKLSBaaiTLoXiaQ1hcmYKiE/xI0tpWOJ/sqyPXw8/GM0wUif+PCtr5
-         LQpA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="IoHZbcLz"
+Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-3468ec309afso1313589eec.3
+        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 20:07:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790651198; x=1791255998; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GsgcGMq63dxBO6lpCOoish/kEuxevaMsXSsx8TcWvog=;
-        b=kWrX4yDAa4RF9Glu41S/GnWcgrNxZd8gOe2sNxpzDU7tLw4CGL6aO4lBL1jY8rwAqY
-         NsMxS0KyxvgWvsrSH4uoMKp/KsHCAIph2e/ZoIQsCxRss3uRoHcCVMKS74M26yM4PrLU
-         qGm7/6YB6q6Vl4XT2KXAlBeFIIz/oP/O4URoAFukMEWKMlTezySm053hR/Q79oL/EkOB
-         PMTzmR9w8Mgvxh2XTdwzHBqsm/rpW3kkbzrcm6Am7dlc0qnlnTEKItjMKQqOkc15EjY7
-         6O8caKHkhrKqQo7ZY8L8tJR+1BF+P2GZUOx3olhhXP01sTrge7XiSE7fzwDY0sEMDiy0
-         /ahA==
+        d=trailofbits.com; s=google; t=1790651242; x=1791256042; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=58wR0IFQe7qI6VxnTbwaOMxhMo4vjXI56LcpUV2YHs4=;
+        b=IoHZbcLzqFQ5bb6G6wUbfceYNyg4qeMvAFs5nzZX2FxKeHd7fPaol3eGIIZBLRZtMI
+         92a5ptLmMtqbeJDiIAOBRAokiMxU+wxhUNJY8CKYRtCxqJJd6rBSddL31wUqF8Gv5wA8
+         isdF8/tb+tKg0Z4WP4AB5ja09yyCauhLqut1Ph04IoY3xRB1iakHeVCuda7htMULnolH
+         /DYSmcMZfHzefAIPFSiv/9nWxyfXx0zJ1XX9sQBoXCZanP093EyMdd7VTC7u478Di34j
+         YTU4cb7QMcm7B8c2nDTh2q8+I3mkzvR2AMsEyhsttTyi8DEcrSvT7RNmobQgAu2Dw/BS
+         /WBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790651198; x=1791255998;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GsgcGMq63dxBO6lpCOoish/kEuxevaMsXSsx8TcWvog=;
-        b=DL1X9FfbOxj/2QBaEPOH5Bmu4vYZskqtIc07ttjl4FCy/t0qL84acJSJBjHn5fxr0s
-         1w5RiYT1DJwB8qAm6OglQKGHzx5m1Sub6ZTHaABR47fQbIDkvaDrO4mEGGWUtD/MyZb/
-         swaAtQendkzjGs8GPNp4oIVHHdut3+e7IqBDCLsoYVKyPSM3ufFiMJ4UVohv8B5qjLur
-         1QZu+dBpmI1wLjsWh8WYYVqBm2161eP45RJDHOfC4P0maR3ftpq8zf559ySbQ8Tm4csy
-         eHmNXZjO0r5bH6tpphWIvpWjFVP7Evg3xF7HkQ20txy5yifIzd+hBY3/pHP5KtHyrlIw
-         5uWQ==
-X-Forwarded-Encrypted: i=1; AKwUvByT/GGb3G9B4N6jftN0JF6dzdMMDvIwbu3vUMw5GVS+ilXOyRkIXZt1HLcfh8TLGm0KSJFzIlE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIaGqRlbIC3iXnt8zSuHwSDRTUEKnEji453Oc/4dkHICWEP0/rJ
-	ol95nvA8NHcIaw15hWQgk31kC2SRrFcHTgIcoc7kIcIhNzcNGUao4gsu/FiBi4ZgAHXHpp8Ivpb
-	qtlnmKW+IssCCrPlazrs1QYxHaVePWo8=
-X-Gm-Gg: AYBFou0Dw7RF/LiYHCGKEBxVTYnxYzHfiQrwPl0We/u+lf0BDs19arBQxLWwon0bgRy
-	NI/pQsSZbCFBxWLiktPB9ppTT+mXoeQDQdWjo/lm19ofE7Do0EoRjWgAFeGd0Sx3mR6T8rqJJHe
-	kaqbWdD+JjcrRxtiPlNWiCqa4boI3iLR1tZPLyZJ8MRTXLjeGwh2+Cyl42agAXlYis6DwmPY7ai
-	IZWhEKlDbt+8r9CEdxHhFwKA7knTd0li0uLvT8n0QBRH24Jts6fm8y68KI0hPqzRQ0YgkWf9VeF
-	BTQcGUt4mfeaEi8EZz9WeEL8dNkiJ/gclFSn/L8a/10I0GIkhsS4/fty0RJOTxkbAYqK
-X-Received: by 2002:a05:6402:1d55:b0:6aa:7fb:7678 with SMTP id
- 4fb4d7f45d1cf-6aae8a518b4mr7987012a12.6.1790651197346; Mon, 28 Sep 2026
- 20:06:37 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790651242; x=1791256042;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=58wR0IFQe7qI6VxnTbwaOMxhMo4vjXI56LcpUV2YHs4=;
+        b=T4Nv+vS+pHkLQC9b63/GHmH9YY4IoYniUBx3dCnVAN6nxmNiBxNzWt8o26RPu3AoSK
+         yJDnwTLsGYV/XeXkLmnWIO2pFoGKvjyYvaEh+NO11FapNTOTQH2B3x4V7xnaJsLkqvXj
+         2e1z2zzVl5YAqg3dyUtD7aTAsFQbR+/WXNEfK3UttCg1THGIAaP17uiWpwQGMy8WLOys
+         ODxcIQEjs93Qkumpc0gqqvo0GI8s8CYepUjc9zK089LYiMhVbjNeXksHMgaeMzMOaK08
+         jf7l2D/cQabQWhlYZJLlcO1HHbJpcR5YKV0W9w/mJgK2duIqCUfN5ZYTRQzXemSEH9d4
+         GNig==
+X-Gm-Message-State: AFq9FYIZo8ERfauxtf9m6hALlYNfDIV2yNSAcr9uZWej2+1KtuKl5s2U
+	TZDIW++4DXD+HNX08z10X9HNDBSXt2jhhBjHqw+m3LezWHf229e78Eh+bmThqRZtpkdkYO+ANGJ
+	AUeNVtdg=
+X-Gm-Gg: AYBFou1eodA0GHHGo36dahCGQsry9AxDzmogpfAumk2UJBsnUhPKkHuhWSKzJX/AQcK
+	ont93jjV5stxgrVj1+Aodx+qzB1jtE7vokUpEhNs1wWvHrLDKu2xUncOPDaPjOERBwAN0noFV/k
+	LQPvOdsQxTf3rQ0QQIpstRCTM1+A7q3V+E7/+0F1iT1+spvj1rNi3Au1924l54uXdNYipoDuk1w
+	VJEnzQjRfaXpcd2vlGSGI5wQrTbD5qMMka5YsIiVRdT4I+cdJ4a0DSgQGaOtn1vjj34xucQ2F2L
+	LMpGz7/WHHQ6kaAI8yyGm6J+x+e5Caoh+YA9dTBiEObyiQzX5WFwlme3hty2xBqRWTkw4V4WCoz
+	YwTN9LVUR8z8ldXs06NPXVWE2yhbRwZM7ruFgS5xH5aOvQiw+IzzxoFUN18CtB4IaYQXPecOmgd
+	9ClpY2Kcu4kUjE+LjY7Mn9OesCNmIopOTYGCHNdbXVvPuxewMzOEFu/ZgzNISvnIVq80Y8Q9KDr
+	9stXzNbF2yO+qMGeC6ayZQ5/cy6QUJR3XQS4l1Ou1QC50pmskrWbAaB8SFBq2Fty7hq+jw=
+X-Received: by 2002:a05:7300:d20c:b0:342:9a9:1f6f with SMTP id 5a478bee46e88-342711ab92fmr11542389eec.3.1790651241600;
+        Mon, 28 Sep 2026 20:07:21 -0700 (PDT)
+Received: from localhost.localdomain ([2603:8001:5f01:8bab:3481:cbb6:f339:9e4e])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34141a49febsm33748832eec.2.2026.09.28.20.07.20
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 28 Sep 2026 20:07:21 -0700 (PDT)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: Artem Dinaburg <artem@trailofbits.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Li Ming <ming.li@zohomail.com>,
+	Dan Williams <djbw@kernel.org>,
+	Alison Schofield <alison.schofield@intel.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Ira Weiny <iweiny@kernel.org>,
+	linux-cxl@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	dan.j.williams@intel.com,
+	ira.weiny@intel.com,
+	jonathan.cameron@huawei.com,
+	Li Ming <ming4.li@intel.com>,
+	Jonathan Cameron <Jonathan.Cameron@huawei.com>
+Subject: [PATCH 6.6.y] cxl/mem: Fix no cxl_nvd during pmem region auto-assembling
+Date: Mon, 28 Sep 2026 23:07:16 -0400
+Message-ID: <20260929030716.86736-1-artem@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1790561983.git.zhoubinbin@loongson.cn> <502911659e15a51c4e98c11f3cf476dd5f92e75b.1790561983.git.zhoubinbin@loongson.cn>
- <0aaf7166-378c-47d7-98d4-1004fdaeae7b@oss.qualcomm.com> <CAMpQs4+uWMfFib7MhRcc7o-QMXkFrFCtdcGj04y56u44JL4iOg@mail.gmail.com>
- <ed99f62d-cf90-4ba9-89b3-08dbe7f7227e@oss.qualcomm.com>
-In-Reply-To: <ed99f62d-cf90-4ba9-89b3-08dbe7f7227e@oss.qualcomm.com>
-From: Binbin Zhou <zhoubb.aaron@gmail.com>
-Date: Tue, 29 Sep 2026 11:06:25 +0800
-X-Gm-Features: AclHuK-pCkswqNWZEVmRnm0h2nAuqgvV_q4b0kCJUY7w_QKyo1tWrrar9EH7iE8
-Message-ID: <CAMpQs4+hATFf+0w6Wq09RoZB1JJ5L_GP0aWxcGAeraTW7Gfy0w@mail.gmail.com>
-Subject: Re: [PATCH v6 1/7] thermal/drivers/loongson2: Correct thermal sensor
- registration loop
-To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-Cc: Binbin Zhou <zhoubinbin@loongson.cn>, Huacai Chen <chenhuacai@loongson.cn>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Yinbo Zhu <zhuyinbo@loongson.cn>, "Rafael J . Wysocki" <rafael@kernel.org>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
-	Lukasz Luba <lukasz.luba@arm.com>, Huacai Chen <chenhuacai@kernel.org>, 
-	Xuerui Wang <kernel@xen0n.name>, loongarch@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-pm@vger.kernel.org, stable@vger.kernel.org, 
-	Sashiko <sashiko-bot@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Daniel:
+From: Li Ming <ming4.li@intel.com>
 
-On Mon, Sep 28, 2026 at 9:23=E2=80=AFPM Daniel Lezcano
-<daniel.lezcano@oss.qualcomm.com> wrote:
->
-> On 9/28/26 10:17, Binbin Zhou wrote:
-> > Hi Daniel:
-> >
-> > Thanks for your review.
-> >
-> > On Mon, Sep 28, 2026 at 3:15=E2=80=AFPM Daniel Lezcano
-> > <daniel.lezcano@oss.qualcomm.com> wrote:
-> >>
-> >> On 9/28/26 06:44, Binbin Zhou wrote:
-> >>> The registration loop in loongson2_thermal_probe() incorrectly uses
-> >>> dev_err_probe() when the sensor is not present (-ENODEV). In that cas=
-e,
-> >>> the driver should continue to the next sensor index rather than treat=
-ing
-> >>> it as a fatal error.
-> >>>
-> >>> Fix this by correctly handling -ENODEV and only returning on other
-> >>> errors. Also add a final check to ensure at least one thermal zone wa=
-s
-> >>> registered.
-> >>>
-> >>> Cc: stable@vger.kernel.org
-> >>> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> >>> Closes: https://sashiko.dev/#/patchset/cover.1783670011.git.zhoubinbi=
-n@loongson.cn?part=3D2
-> >>> Fixes: e7e3a7c35791 ("thermal/drivers/loongson-2: Add thermal managem=
-ent support")
-> >>> Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
-> >>> ---
-> >>>    drivers/thermal/loongson2_thermal.c | 8 +++++---
-> >>>    1 file changed, 5 insertions(+), 3 deletions(-)
-> >>>
-> >>> diff --git a/drivers/thermal/loongson2_thermal.c b/drivers/thermal/lo=
-ongson2_thermal.c
-> >>> index 4d40fc706a53..99b7392fc68f 100644
-> >>> --- a/drivers/thermal/loongson2_thermal.c
-> >>> +++ b/drivers/thermal/loongson2_thermal.c
-> >>> @@ -160,16 +160,18 @@ static int loongson2_thermal_probe(struct platf=
-orm_device *pdev)
-> >>>
-> >>>        for (i =3D 0; i <=3D LOONGSON2_MAX_SENSOR_SEL_NUM; i++) {
-> >>>                tzd =3D devm_thermal_of_zone_register(dev, i, data, th=
-ermal_ops);
-> >>> -
-> >>>                if (!IS_ERR(tzd))
-> >>>                        break;
-> >>>
-> >>> -             if (PTR_ERR(tzd) !=3D -ENODEV)
-> >>> +             if (PTR_ERR(tzd) =3D=3D -ENODEV)
-> >>>                        continue;
-> >>>
-> >>> -             return dev_err_probe(dev, PTR_ERR(tzd), "failed to regi=
-ster");
-> >>> +             return dev_err_probe(dev, PTR_ERR(tzd), "failed to regi=
-ster sensor %d\n", i);
-> >>
-> >>
-> >>>        }
-> >>>
-> >>> +     if (IS_ERR(tzd))
-> >>> +             return dev_err_probe(dev, -ENODEV, "No thermal sensor r=
-egistered\n");
-> >>> +
-> >>>        ret =3D devm_request_threaded_irq(dev, irq, NULL, loongson2_th=
-ermal_irq_thread,
-> >>>                                        IRQF_ONESHOT, "loongson2_therm=
-al", tzd);
-> >>>        if (ret < 0)
-> >>
-> >>
-> >> The [no]error paths are confusing and prone to error, eg: 'if there is
-> >> no error then check if there is an error', 'when exiting the loop
-> >> without registering any sensor, then we assume tzd is -ENODEV'.
-> >>
-> >> Please make a less cumbersome and implicit checks here. For example
-> >> count the number of sensors and then do the check against.
-> >
-> > I thought about it, and you're right=E2=80=94I made the logic here too =
-complicated.
-> > Let's use `sensor_count` as the counter. Is the following check logic c=
-learer?
-> >
-> >          u32 sensor_count =3D 0;
-> >
-> >          for (unsigned int i =3D 0; i <=3D LOONGSON2_MAX_SENSOR_SEL_NUM=
-; i++) {
-> >                  tzd =3D devm_thermal_of_zone_register(dev, i, data,
-> > data->chip_data->thermal_ops);
-> >                  if (IS_ERR(tzd)) {
-> >                          if (PTR_ERR(tzd) =3D=3D -ENODEV)
-> >                                  continue;
-> >
-> >                          return dev_err_probe(dev, PTR_ERR(tzd),
-> >                                               "failed to register senso=
-r %d", i);
-> >                  }
-> >
-> >                  sensor_count++;
->
-> If I'm not mistaken in the previous version, the loop exits at the first
-> registered sensor
->
->         if (!IS_ERR(tzd))
->                 break;
->
-> Here all the available sensors are registered
+[ Upstream commit 84ec985944ef34a34a1605b93ce401aa8737af96 ]
 
-The name `sensor_count` might be a bit misleading, but here the loop
-exits after the first success:
+When CXL subsystem is auto-assembling a pmem region during cxl
+endpoint port probing, always hit below calltrace.
 
-                sensor_count++;
-                break;
+ BUG: kernel NULL pointer dereference, address: 0000000000000078
+ #PF: supervisor read access in kernel mode
+ #PF: error_code(0x0000) - not-present page
+ RIP: 0010:cxl_pmem_region_probe+0x22e/0x360 [cxl_pmem]
+ Call Trace:
+  <TASK>
+  ? __die+0x24/0x70
+  ? page_fault_oops+0x82/0x160
+  ? do_user_addr_fault+0x65/0x6b0
+  ? exc_page_fault+0x7d/0x170
+  ? asm_exc_page_fault+0x26/0x30
+  ? cxl_pmem_region_probe+0x22e/0x360 [cxl_pmem]
+  ? cxl_pmem_region_probe+0x1ac/0x360 [cxl_pmem]
+  cxl_bus_probe+0x1b/0x60 [cxl_core]
+  really_probe+0x173/0x410
+  ? __pfx___device_attach_driver+0x10/0x10
+  __driver_probe_device+0x80/0x170
+  driver_probe_device+0x1e/0x90
+  __device_attach_driver+0x90/0x120
+  bus_for_each_drv+0x84/0xe0
+  __device_attach+0xbc/0x1f0
+  bus_probe_device+0x90/0xa0
+  device_add+0x51c/0x710
+  devm_cxl_add_pmem_region+0x1b5/0x380 [cxl_core]
+  cxl_bus_probe+0x1b/0x60 [cxl_core]
 
-Let=E2=80=99s rename it:
+The cxl_nvd of the memdev needs to be available during the pmem region
+probe. Currently the cxl_nvd is registered after the endpoint port probe.
+The endpoint probe, in the case of autoassembly of regions, can cause a
+pmem region probe requiring the not yet available cxl_nvd. Adjust the
+sequence so this dependency is met.
 
-bool registered =3D false;
-...
-for (...) {
-    tzd =3D devm_thermal_of_zone_register(...);
-    if (IS_ERR(tzd)) {
-        if (PTR_ERR(tzd) =3D=3D -ENODEV)
-            continue;
+This requires adding a port parameter to cxl_find_nvdimm_bridge() that
+can be used to query the ancestor root port. The endpoint port is not
+yet available, but will share a common ancestor with its parent, so
+start the query from there instead.
 
-        return dev_err_probe(dev, PTR_ERR(tzd),
-                             "failed to register sensor %d", i);
-    }
+[ Backport to 6.6.y: mapped find_cxl_root() and reference handling to the
+  older struct cxl_port and put_device() APIs. The new early error return
+  explicitly drops parent_port because 6.6.y lacks the scoped cleanup later
+  added by upstream commit dd2617ebd2a6 ("cxl/port: Use __free() to drop
+  put_device() for cxl_port"). ]
 
-    registered =3D true;
-    break;
-}
+Fixes: f17b558d6663 ("cxl/pmem: Refactor nvdimm device registration, delete the workqueue")
+Co-developed-by: Dan Williams <dan.j.williams@intel.com>
+Signed-off-by: Dan Williams <dan.j.williams@intel.com>
+Signed-off-by: Li Ming <ming4.li@intel.com>
+Tested-by: Alison Schofield <alison.schofield@intel.com>
+Reviewed-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
+Reviewed-by: Alison Schofield <alison.schofield@intel.com>
+Link: https://patch.msgid.link/20240612064423.2567625-1-ming4.li@intel.com
+Signed-off-by: Dave Jiang <dave.jiang@intel.com>
+Assisted-by: LLM
+Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+---
+Hi Greg, Sasha, and cxl maintainers,
 
-if (!registered)
-    return dev_err_probe(dev, -ENODEV, "no thermal sensor registered");
->
-> >                  break;
-> >          }
-> >
-> >          if (!sensor_count)
-> >                  return dev_err_probe(dev, -ENODEV, "no thermal sensor
-> > registered");
-> >
-> >
->
+I am working through the small CVE backports still missing from 6.6.y.
+This one addresses CVE-2024-41085. It registers the nvdimm bridge before
+endpoint probing can auto-assemble a pmem region.
 
---=20
-Thanks.
-Binbin
+The fix is already present in 6.12.y, 6.18.y, and 7.2.y, but not in 6.6.y.
+The target-specific adjustment is recorded in the bracketed note above.
+The added error-path put_device() matches the cleanup that current mainline
+performs automatically through its scoped cxl_port reference.
+
+Could you please queue it for 6.6.y?
+
+CVE: CVE-2024-41085
+Upstream: 84ec985944ef34a34a1605b93ce401aa8737af96
+
+AI assistance: An LLM helped identify, adapt, and validate this backport; I
+reviewed the resulting code and validation evidence.
+
+Thanks,
+Artem Dinaburg
+
+ drivers/cxl/core/pmem.c   | 21 ++++++++++++++-------
+ drivers/cxl/core/region.c |  2 +-
+ drivers/cxl/cxl.h         |  4 ++--
+ drivers/cxl/mem.c         | 18 ++++++++++--------
+ 4 files changed, 27 insertions(+), 18 deletions(-)
+
+diff --git a/drivers/cxl/core/pmem.c b/drivers/cxl/core/pmem.c
+index 317b2fbbef668f..1f87ce9191a74d 100644
+--- a/drivers/cxl/core/pmem.c
++++ b/drivers/cxl/core/pmem.c
+@@ -62,16 +62,21 @@ static int match_nvdimm_bridge(struct device *dev, void *data)
+ 	return is_cxl_nvdimm_bridge(dev);
+ }
+ 
+-struct cxl_nvdimm_bridge *cxl_find_nvdimm_bridge(struct cxl_memdev *cxlmd)
++/**
++ * cxl_find_nvdimm_bridge() - find a bridge device relative to a port
++ * @port: any descendant port of an nvdimm-bridge associated
++ *        root-cxl-port
++ */
++struct cxl_nvdimm_bridge *cxl_find_nvdimm_bridge(struct cxl_port *port)
+ {
+-	struct cxl_port *port = find_cxl_root(cxlmd->endpoint);
++	struct cxl_port *root = find_cxl_root(port);
+ 	struct device *dev;
+ 
+-	if (!port)
++	if (!root)
+ 		return NULL;
+ 
+-	dev = device_find_child(&port->dev, NULL, match_nvdimm_bridge);
+-	put_device(&port->dev);
++	dev = device_find_child(&root->dev, NULL, match_nvdimm_bridge);
++	put_device(&root->dev);
+ 
+ 	if (!dev)
+ 		return NULL;
+@@ -244,18 +249,20 @@ static void cxlmd_release_nvdimm(void *_cxlmd)
+ 
+ /**
+  * devm_cxl_add_nvdimm() - add a bridge between a cxl_memdev and an nvdimm
++ * @parent_port: parent port for the (to be added) @cxlmd endpoint port
+  * @cxlmd: cxl_memdev instance that will perform LIBNVDIMM operations
+  *
+  * Return: 0 on success negative error code on failure.
+  */
+-int devm_cxl_add_nvdimm(struct cxl_memdev *cxlmd)
++int devm_cxl_add_nvdimm(struct cxl_port *parent_port,
++			struct cxl_memdev *cxlmd)
+ {
+ 	struct cxl_nvdimm_bridge *cxl_nvb;
+ 	struct cxl_nvdimm *cxl_nvd;
+ 	struct device *dev;
+ 	int rc;
+ 
+-	cxl_nvb = cxl_find_nvdimm_bridge(cxlmd);
++	cxl_nvb = cxl_find_nvdimm_bridge(parent_port);
+ 	if (!cxl_nvb)
+ 		return -ENODEV;
+ 
+diff --git a/drivers/cxl/core/region.c b/drivers/cxl/core/region.c
+index af4f8bbe63c448..97e4a4755ab2f8 100644
+--- a/drivers/cxl/core/region.c
++++ b/drivers/cxl/core/region.c
+@@ -2682,7 +2682,7 @@ static struct cxl_pmem_region *cxl_pmem_region_alloc(struct cxl_region *cxlr)
+ 		 * bridge for one device is the same for all.
+ 		 */
+ 		if (i == 0) {
+-			cxl_nvb = cxl_find_nvdimm_bridge(cxlmd);
++			cxl_nvb = cxl_find_nvdimm_bridge(cxlmd->endpoint);
+ 			if (!cxl_nvb) {
+ 				kfree(cxlr_pmem);
+ 				cxlr_pmem = ERR_PTR(-ENODEV);
+diff --git a/drivers/cxl/cxl.h b/drivers/cxl/cxl.h
+index a7a1b71626de43..59e963e39d31b1 100644
+--- a/drivers/cxl/cxl.h
++++ b/drivers/cxl/cxl.h
+@@ -795,8 +795,8 @@ struct cxl_nvdimm_bridge *devm_cxl_add_nvdimm_bridge(struct device *host,
+ struct cxl_nvdimm *to_cxl_nvdimm(struct device *dev);
+ bool is_cxl_nvdimm(struct device *dev);
+ bool is_cxl_nvdimm_bridge(struct device *dev);
+-int devm_cxl_add_nvdimm(struct cxl_memdev *cxlmd);
+-struct cxl_nvdimm_bridge *cxl_find_nvdimm_bridge(struct cxl_memdev *cxlmd);
++int devm_cxl_add_nvdimm(struct cxl_port *parent_port, struct cxl_memdev *cxlmd);
++struct cxl_nvdimm_bridge *cxl_find_nvdimm_bridge(struct cxl_port *port);
+ 
+ #ifdef CONFIG_CXL_REGION
+ bool is_cxl_pmem_region(struct device *dev);
+diff --git a/drivers/cxl/mem.c b/drivers/cxl/mem.c
+index 317c7548e4e9b4..3400d2f2a5ff92 100644
+--- a/drivers/cxl/mem.c
++++ b/drivers/cxl/mem.c
+@@ -153,6 +153,16 @@ static int cxl_mem_probe(struct device *dev)
+ 		return -ENXIO;
+ 	}
+ 
++	if (resource_size(&cxlds->pmem_res) && IS_ENABLED(CONFIG_CXL_PMEM)) {
++		rc = devm_cxl_add_nvdimm(parent_port, cxlmd);
++		if (rc) {
++			if (rc == -ENODEV)
++				dev_info(dev, "PMEM disabled by platform\n");
++			put_device(&parent_port->dev);
++			return rc;
++		}
++	}
++
+ 	if (dport->rch)
+ 		endpoint_parent = parent_port->uport_dev;
+ 	else
+@@ -173,14 +183,6 @@ static int cxl_mem_probe(struct device *dev)
+ 	if (rc)
+ 		return rc;
+ 
+-	if (resource_size(&cxlds->pmem_res) && IS_ENABLED(CONFIG_CXL_PMEM)) {
+-		rc = devm_cxl_add_nvdimm(cxlmd);
+-		if (rc == -ENODEV)
+-			dev_info(dev, "PMEM disabled by platform\n");
+-		else
+-			return rc;
+-	}
+-
+ 	/*
+ 	 * The kernel may be operating out of CXL memory on this device,
+ 	 * there is no spec defined way to determine whether this device
+-- 
+2.39.5
