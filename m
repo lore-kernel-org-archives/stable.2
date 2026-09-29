@@ -1,42 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 936AB4EFFBA
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 16:21:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C2D151A73A
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 16:21:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790698883; cv=none; b=jwyslqnw2eczWsmYmRYIpo6OzX7Io1yzfN2hMc3sUsXfCFGn+MNAwp3KlUlBCmAJCnHRFGSFWXsr2FgD70hbnfGEcRmjGK9kJo87fIZeoMv14X7rTSd6Xr/8OR0OU4Ko1/x9pIppP9JI1yVEe1i/A982aKZr7JTeNpjgNbNXb/Y=
+	t=1790698883; cv=none; b=Mau4mP3bNuPoKgl/ZKeoDX3+by1L6EWirqmPkasB0LVxo8Dind17fQmdsPNscocXdldGP6jwt1NaUHCHT1iBAHb2wh5DmTJ1T11FWn8JSgompci4hldFNfnHeRqxyuEEJ2BHHuT254+35/R5SnoW9o4WDy22l8F2aIusiu79P0Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790698883; c=relaxed/simple;
-	bh=RqJVI6Il+/2UaN2r27HIbdIiThzfoXgr0yqrn+erPg8=;
+	bh=NP4Fs68ykbqebCBO7rR9DUbLGnUVqFgCRK1yvpsKAIo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rkjRMy0UPbLzagGTsQNIkxiS+mqrYEd+/Nau3euCDoGL6OEhnzaQFLgtUagb/kFPP9bZdVw+LaYiCEAnagcCmK+ha1aijCRSSairAr2NfXaTiML3ocPB4TMDRgSGXz9QsyDf7lHO8qi7YICkvR5S+7tnCK4KKzaRU6LG/Kne6Ng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SGNlS6Cq; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=nZKALHkDKr1zBTu7FqYYGec6W6VSwqwFXIxp7qc2CnElAIyqzQiXcemFYRb51MZ+zY6xF130jOY1KTBJ7//gc2dDOFwfuFz8Z6bmyz/YEE1zYbG2Z9jVDMkwy5MteSD84f0G8lAiAoJZS7qaHJIwoFu9hUIYlr10oaAmJyOrmMY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KWlf3m3b; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SGNlS6Cq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C80761F00893;
-	Tue, 29 Sep 2026 16:21:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KWlf3m3b"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86B3C1F00899;
+	Tue, 29 Sep 2026 16:21:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790698881;
-	bh=vZXG+q9cHzCJmPXqHp0kykhEUnoASckoupPWBD6LhhY=;
+	s=k20260515; t=1790698882;
+	bh=UN2z/8EGJUs6+BmD9CXPxSSvWwL+ZnDzhx8BynnEpzc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SGNlS6CqYh13APPjV9MeGPCUSW2kpKq7nb2IvNfzP+SmqaDLFEZ4Fl/frJlFRR8xV
-	 3hPxioCCtGzgFwP1MHwlbCQHzG8d0gy+h/hn/3cokDDDuiaOvlgCykUsEYIxi0Sg5e
-	 26az9vT8uyd8hwLtg3KrE5fycOpMOIamZ0B1q8pqEx0mVNzgmpnQhMVolrDOz3nvl3
-	 o3b0t3t7qhi1oHfcx5In9+bCeKmGxMUsawtZs7Q89ixB9CAS2cmTz0AcgZfs8Q9yAj
-	 RBl9KmQmyNLDGY3GniHuK3fQMylq8hGjsE4TrQPHjczj9mYFWftqJ+YLeDsbzG5tY/
-	 126uZH5tn6K/g==
+	b=KWlf3m3bqEmo0oxxBWo0BPKzEuAKStUOB8d89Rx1Z6MbpTFLxWJXRa9icZNXHDd1v
+	 zqB46O5aAogO4N4WMQOq2ScBQGELO7Q+U+J+I8baFfE02BJSM0CBOeSCL3UD3DEi4e
+	 cXZfTobA5Bg5idpjXiUjh0nKnYoNWHmLUrvhI4tRm9dtOzV/0tHGq+Mh5QXIlYsCg5
+	 8IqMDHgKi9syaXx8RrDS+hR3h+QJxR+fqqQJmPEnuKr21YWVeGpR8RDwA305Y6I2UN
+	 aLsEnw1q6Ls92QkgvcNtZPMuNb577at/olNDcLuNNFMz8U/UHhsvPCsWLeRg5T782T
+	 WbNBdV5EiljRg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Borislav Petkov <bp@suse.de>,
-	Tony Luck <tony.luck@intel.com>,
+Cc: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
+	"Borislav Petkov (AMD)" <bp@alien8.de>,
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
+	stable@kernel.org,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 1/2] x86/mce: Get rid of machine_check_vector
-Date: Tue, 29 Sep 2026 12:21:18 -0400
-Message-ID: <20260929162119.4190350-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 2/2] x86/mce: Fix hardware debug register corruption on task migration
+Date: Tue, 29 Sep 2026 12:21:19 -0400
+Message-ID: <20260929162119.4190350-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092919-precut-headboard-8c2f@gregkh>
+In-Reply-To: <20260929162119.4190350-1-sashal@kernel.org>
 References: <2026092919-precut-headboard-8c2f@gregkh>
+ <20260929162119.4190350-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,283 +48,120 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Borislav Petkov <bp@suse.de>
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
 
-[ Upstream commit cbe1de162d8297e941f01ac7dd399a11251352bc ]
+[ Upstream commit b8d1d5b63a8ef532038eebd9d97d406860385668 ]
 
-Get rid of the indirect function pointer and use flags settings instead
-to steer execution.
+In exc_machine_check_user(), local_db_save() and local_db_restore() are
+invoked in the outer entry stubs (DEFINE_IDTENTRY_MCE_USER,
+DEFINE_FREDENTRY_MCE, and DEFINE_IDTENTRY_RAW), surrounding
+exc_machine_check_user().
 
-Now that it is not an indirect call any longer, drop the instrumentation
-annotation for objtool too.
+However, exc_machine_check_user() calls irqentry_exit_to_user_mode(), which
+handles pending thread work and may schedule() if TIF_NEED_RESCHED is set. If
+the task migrates to another CPU during schedule(), local_db_restore() runs on
+the new CPU with the dr7 state saved from the old CPU. This corrupts the new
+CPU's DR7 hardware debug register and leaves the old CPU's DR7 disabled.  In
+short, local_db_save() and local_db_restore() pair must be run on the same
+CPU.
 
-No functional changes.
+To fix this, move local_db_save() and local_db_restore() inside
+exc_machine_check_user() and exc_machine_check_kernel(). In
+exc_machine_check_user(), DR7 is saved and restored strictly around
+do_machine_check() to avoid schedule() during migration. In
+exc_machine_check_kernel(), local_db_save() is called at the entry point to
+prevent early memory accesses from triggering nested #DB exceptions, and
+restored on all exits.
 
-Signed-off-by: Borislav Petkov <bp@suse.de>
-Reviewed-by: Tony Luck <tony.luck@intel.com>
-Link: https://lkml.kernel.org/r/20210922165101.18951-3-bp@alien8.de
-
-Stable 5.10 adaptation:
-- Keep the existing kill_it recovery state when moving declarations.
-- Rely on irqentry_nmi_enter()/irqentry_nmi_exit() for IRQ tracing, removing
-  the duplicate tracing and indirect-call instrumentation from the wrapper.
-- Guard direct legacy-handler calls with CONFIG_X86_ANCIENT_MCE and retain
-  the existing initialization declarations in asm/mce.h. This avoids adding
-  no-op handler functions for configurations without ancient MCE support.
-- Publish the P5/Winchip handler flags in their existing initialization
-  functions, retaining the write barrier before enabling machine checks.
-  P5 opt-in and feature checks therefore still precede handler selection.
-
-[ sashal: Reduced backport -- upstream cbe1de162d829 touches 5 file(s), this
-  backport carries 4. Not backported here:
-  arch/x86/include/asm/mce.h
-  This note is generated from the file lists only; see the resolution record
-  for the reasoning. ]
-
-Stable-dep-of: b8d1d5b63a8e ("x86/mce: Fix hardware debug register corruption on task migration")
+Fixes: cd840e424f27 ("x86/entry, mce: Disallow #DB during #MC")
+Assisted-by: LLM
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Acked-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Cc: <stable@kernel.org>
+Link: https://patch.msgid.link/179005109564.388919.3937970081044095776.stgit@devnote2
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/kernel/cpu/mce/core.c     | 64 +++++++++++++++---------------
- arch/x86/kernel/cpu/mce/internal.h | 20 +++++++---
- arch/x86/kernel/cpu/mce/p5.c       |  6 +--
- arch/x86/kernel/cpu/mce/winchip.c  |  6 +--
- 4 files changed, 52 insertions(+), 44 deletions(-)
+ arch/x86/kernel/cpu/mce/core.c | 23 ++++++++++-------------
+ 1 file changed, 10 insertions(+), 13 deletions(-)
 
 diff --git a/arch/x86/kernel/cpu/mce/core.c b/arch/x86/kernel/cpu/mce/core.c
-index 3199dfcb757c4..716c828aa9084 100644
+index 716c828aa9084..6eafd4f3b2ed0 100644
 --- a/arch/x86/kernel/cpu/mce/core.c
 +++ b/arch/x86/kernel/cpu/mce/core.c
-@@ -1312,6 +1312,15 @@ static void queue_task_work(struct mce *m, char *msg, int kill_current_task)
- 	task_work_add(current, &current->mce_kill_me, TWA_RESUME);
- }
- 
-+/* Handle unconfigured int18 (should never happen) */
-+static noinstr void unexpected_machine_check(struct pt_regs *regs)
-+{
-+	instrumentation_begin();
-+	pr_err("CPU#%d: Unexpected int18 (Machine Check)\n",
-+	       smp_processor_id());
-+	instrumentation_end();
-+}
-+
- /*
-  * The actual machine check handler. This only handles real
-  * exceptions when something got corrupted coming in through int 18.
-@@ -1332,36 +1341,45 @@ static void queue_task_work(struct mce *m, char *msg, int kill_current_task)
-  */
- noinstr void do_machine_check(struct pt_regs *regs)
- {
-+	int worst = 0, order, no_way_out, kill_it, lmce;
- 	DECLARE_BITMAP(valid_banks, MAX_NR_BANKS);
- 	DECLARE_BITMAP(toclear, MAX_NR_BANKS);
- 	struct mca_config *cfg = &mca_cfg;
- 	struct mce m, *final;
- 	char *msg = NULL;
--	int worst = 0;
-+
-+#ifdef CONFIG_X86_ANCIENT_MCE
-+	if (unlikely(mce_flags.p5))
-+		return pentium_machine_check(regs);
-+	else if (unlikely(mce_flags.winchip))
-+		return winchip_machine_check(regs);
-+#endif
-+	if (unlikely(!mca_cfg.initialized))
-+		return unexpected_machine_check(regs);
- 
- 	/*
- 	 * Establish sequential order between the CPUs entering the machine
- 	 * check handler.
- 	 */
--	int order = -1;
-+	order = -1;
- 
- 	/*
- 	 * If no_way_out gets set, there is no safe way to recover from this
- 	 * MCE.  If mca_cfg.tolerant is cranked up, we'll try anyway.
- 	 */
--	int no_way_out = 0;
-+	no_way_out = 0;
- 
- 	/*
- 	 * If kill_it gets set, there might be a way to recover from this
- 	 * error.
- 	 */
--	int kill_it = 0;
-+	kill_it = 0;
- 
- 	/*
- 	 * MCEs are always local on AMD. Same is determined by MCG_STATUS_LMCES
- 	 * on Intel.
- 	 */
--	int lmce = 1;
-+	lmce = 1;
- 
- 	this_cpu_inc(mce_exception_count);
- 
-@@ -2009,18 +2027,6 @@ bool filter_mce(struct mce *m)
- 	return false;
- }
- 
--/* Handle unconfigured int18 (should never happen) */
--static noinstr void unexpected_machine_check(struct pt_regs *regs)
--{
--	instrumentation_begin();
--	pr_err("CPU#%d: Unexpected int18 (Machine Check)\n",
--	       smp_processor_id());
--	instrumentation_end();
--}
--
--/* Call the installed machine check handler for this CPU setup. */
--void (*machine_check_vector)(struct pt_regs *) = unexpected_machine_check;
--
+@@ -2030,6 +2030,9 @@ bool filter_mce(struct mce *m)
  static __always_inline void exc_machine_check_kernel(struct pt_regs *regs)
  {
  	irqentry_state_t irq_state;
-@@ -2031,30 +2037,22 @@ static __always_inline void exc_machine_check_kernel(struct pt_regs *regs)
- 	 * Only required when from kernel mode. See
++	unsigned long dr7;
++
++	dr7 = local_db_save();
+ 
+ 	WARN_ON_ONCE(user_mode(regs));
+ 
+@@ -2038,20 +2041,26 @@ static __always_inline void exc_machine_check_kernel(struct pt_regs *regs)
  	 * mce_check_crashing_cpu() for details.
  	 */
--	if (machine_check_vector == do_machine_check &&
--	    mce_check_crashing_cpu())
-+	if (mca_cfg.initialized && mce_check_crashing_cpu())
- 		return;
+ 	if (mca_cfg.initialized && mce_check_crashing_cpu())
+-		return;
++		goto out;
  
  	irq_state = irqentry_nmi_enter(regs);
--	/*
--	 * The call targets are marked noinstr, but objtool can't figure
--	 * that out because it's an indirect call. Annotate it.
--	 */
--	instrumentation_begin();
--	trace_hardirqs_off_finish();
--	machine_check_vector(regs);
--	if (regs->flags & X86_EFLAGS_IF)
--		trace_hardirqs_on_prepare();
--	instrumentation_end();
-+
-+	do_machine_check(regs);
-+
+ 
+ 	do_machine_check(regs);
+ 
  	irqentry_nmi_exit(regs, irq_state);
++out:
++	local_db_restore(dr7);
  }
  
  static __always_inline void exc_machine_check_user(struct pt_regs *regs)
  {
++	unsigned long dr7;
++
  	irqentry_enter_from_user_mode(regs);
--	instrumentation_begin();
--	machine_check_vector(regs);
--	instrumentation_end();
-+
-+	do_machine_check(regs);
-+
+ 
++	dr7 = local_db_save();
+ 	do_machine_check(regs);
++	local_db_restore(dr7);
+ 
  	irqentry_exit_to_user_mode(regs);
  }
- 
-@@ -2121,7 +2119,7 @@ void mcheck_cpu_init(struct cpuinfo_x86 *c)
- 		return;
- 	}
- 
--	machine_check_vector = do_machine_check;
-+	mca_cfg.initialized = 1;
- 
- 	__mcheck_cpu_init_early(c);
- 	__mcheck_cpu_init_generic();
-diff --git a/arch/x86/kernel/cpu/mce/internal.h b/arch/x86/kernel/cpu/mce/internal.h
-index 3a485c0d5791b..65d3e14147599 100644
---- a/arch/x86/kernel/cpu/mce/internal.h
-+++ b/arch/x86/kernel/cpu/mce/internal.h
-@@ -8,9 +8,6 @@
- #include <linux/device.h>
- #include <asm/mce.h>
- 
--/* Pointer to the installed machine check handler for this CPU setup. */
--extern void (*machine_check_vector)(struct pt_regs *);
+@@ -2060,34 +2069,22 @@ static __always_inline void exc_machine_check_user(struct pt_regs *regs)
+ /* MCE hit kernel mode */
+ DEFINE_IDTENTRY_MCE(exc_machine_check)
+ {
+-	unsigned long dr7;
 -
- enum severity_level {
- 	MCE_NO_SEVERITY,
- 	MCE_DEFERRED_SEVERITY,
-@@ -127,7 +124,9 @@ struct mca_config {
- 	      ser			: 1,
- 	      recovery			: 1,
- 	      bios_cmci_threshold	: 1,
--	      __reserved		: 59;
-+	      /* Proper #MC exception handler is set */
-+	      initialized		: 1,
-+	      __reserved		: 58;
+-	dr7 = local_db_save();
+ 	exc_machine_check_kernel(regs);
+-	local_db_restore(dr7);
+ }
  
- 	s8 bootlog;
- 	int tolerant;
-@@ -163,7 +162,13 @@ struct mce_vendor_flags {
- 	/* AMD-style error thresholding banks present. */
- 	amd_threshold		: 1,
- 
--	__reserved_0		: 60;
-+	/* Pentium, family 5-style MCA */
-+	p5			: 1,
-+
-+	/* Centaur Winchip C6-style MCA */
-+	winchip			: 1,
-+
-+	__reserved_0		: 58;
- };
- 
- extern struct mce_vendor_flags mce_flags;
-@@ -196,4 +201,9 @@ __visible bool ex_handler_wrmsr_fault(const struct exception_table_entry *fixup,
- 				      unsigned long error_code,
- 				      unsigned long fault_addr);
- 
-+#ifdef CONFIG_X86_ANCIENT_MCE
-+noinstr void pentium_machine_check(struct pt_regs *regs);
-+noinstr void winchip_machine_check(struct pt_regs *regs);
-+#endif
-+
- #endif /* __X86_MCE_INTERNAL_H__ */
-diff --git a/arch/x86/kernel/cpu/mce/p5.c b/arch/x86/kernel/cpu/mce/p5.c
-index 19e90cae8e97d..97d47082c245e 100644
---- a/arch/x86/kernel/cpu/mce/p5.c
-+++ b/arch/x86/kernel/cpu/mce/p5.c
-@@ -21,7 +21,7 @@
- int mce_p5_enabled __read_mostly;
- 
- /* Machine check handler for Pentium class Intel CPUs: */
--static noinstr void pentium_machine_check(struct pt_regs *regs)
-+noinstr void pentium_machine_check(struct pt_regs *regs)
+ /* The user mode variant. */
+ DEFINE_IDTENTRY_MCE_USER(exc_machine_check)
  {
- 	u32 loaddr, hi, lotype;
- 
-@@ -54,8 +54,8 @@ void intel_p5_mcheck_init(struct cpuinfo_x86 *c)
- 	if (!cpu_has(c, X86_FEATURE_MCE))
- 		return;
- 
--	machine_check_vector = pentium_machine_check;
--	/* Make sure the vector pointer is visible before we enable MCEs: */
-+	mce_flags.p5 = 1;
-+	/* Make sure the handler flag is visible before we enable MCEs: */
- 	wmb();
- 
- 	/* Read registers before enabling: */
-diff --git a/arch/x86/kernel/cpu/mce/winchip.c b/arch/x86/kernel/cpu/mce/winchip.c
-index 9c9f0abd2d7fd..df1ac587cceb3 100644
---- a/arch/x86/kernel/cpu/mce/winchip.c
-+++ b/arch/x86/kernel/cpu/mce/winchip.c
-@@ -17,7 +17,7 @@
- #include "internal.h"
- 
- /* Machine check handler for WinChip C6: */
--static noinstr void winchip_machine_check(struct pt_regs *regs)
-+noinstr void winchip_machine_check(struct pt_regs *regs)
+-	unsigned long dr7;
+-
+-	dr7 = local_db_save();
+ 	exc_machine_check_user(regs);
+-	local_db_restore(dr7);
+ }
+ #else
+ /* 32bit unified entry point */
+ DEFINE_IDTENTRY_RAW(exc_machine_check)
  {
- 	instrumentation_begin();
- 	pr_emerg("CPU0: Machine Check Exception.\n");
-@@ -30,8 +30,8 @@ void winchip_mcheck_init(struct cpuinfo_x86 *c)
- {
- 	u32 lo, hi;
+-	unsigned long dr7;
+-
+-	dr7 = local_db_save();
+ 	if (user_mode(regs))
+ 		exc_machine_check_user(regs);
+ 	else
+ 		exc_machine_check_kernel(regs);
+-	local_db_restore(dr7);
+ }
+ #endif
  
--	machine_check_vector = winchip_machine_check;
--	/* Make sure the vector pointer is visible before we enable MCEs: */
-+	mce_flags.winchip = 1;
-+	/* Make sure the handler flag is visible before we enable MCEs: */
- 	wmb();
- 
- 	rdmsr(MSR_IDT_FCR1, lo, hi);
 -- 
 2.53.0
 
