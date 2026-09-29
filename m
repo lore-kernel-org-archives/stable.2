@@ -1,132 +1,160 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9FAC1DF748;
-	Tue, 29 Sep 2026 14:48:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDDE74CDDEF
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 14:52:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790693326; cv=none; b=Eu+AFeJihGB36jvE6bnk0boOPmB56YqfCXYAXE0hKvzoERaoAjno2QWE0+KL3JiO4is4A2hlqpQg61SGGFID2KX4ZtAxy+VNs1uEvfxHvKrEbwd5Ut6Q2zyZifb+nvcG0q6aOH8HNtpVCoANEXs8fVgmYShq2CO/DA5+lOQM3fw=
+	t=1790693523; cv=none; b=Xkw6FWu5hHCUaW5p/n/Zq8JmgzPVv7GA1+k4rLiChFhJzNC3wYP45jqDHFbKgw8YaCXLGyBMlIs+z/Y8TMxVeBEBO8pME1MGmlCOfVYetYiy+OwwTA0kS7VZGHADbKTU2VuBcZs9arKkk+qkiADqHL3D6yVtc0qvay6QassJJLI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790693326; c=relaxed/simple;
-	bh=L9t2Par57RVjHecI7nYs/b1rSeqUDJVuRULt6+FZQsk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HKPUFCoyXoZx/BUazDr2zDS2NWE05iteDOmV0b03cMsTHCr+6d+l2Fi5uwDjcBfFNqPkUiHLzGCWYrVcKamqYM7FKNoqxmutObl3Ew5CLUrLLc7powSgxC9g7x583gchKlJ6kSvm6kjJrQueIKntFi8GX8jpvUSNRlsekVeb7rM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FVJAU006; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790693523; c=relaxed/simple;
+	bh=6kSKtfaHWO5/wsFapMSJ2jBG+R64nEA+YAyMq8/bqPA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=AtMfTWMVCR5CU+TirksK7IkTLwrTeX35tEGeH8l9PDQebKc0BVPZbkphZJqiWTstZhnS6oiLizKQAhASDDwHRpmgqQ6c4TcpLVWhFuKIRGg5/tKKKICc2PPdwtGQXARfzRQPMuiiyrr4PpYRRX06gl9Rs6EOzdyP2SegEgkeRzg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LUIuoVbX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FVJAU006"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 070621F000FF;
-	Tue, 29 Sep 2026 14:48:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LUIuoVbX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A76B21F000FF;
+	Tue, 29 Sep 2026 14:52:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790693324;
-	bh=I9X4U7BvKdhfzPkylrAkQ7XYLNAWNJVOd5c9E00Jn3I=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=FVJAU006/P9MSKnk0RmiD4AM7X4oMnhDDkFLkSzEEcTDgEgyTNBh3JDwLsu40j+N/
-	 BsGdCkdenWxx8MYtMcdrwsnUlzFFzmrjKudeGbStmxoNw6vSHW4X/qMTVuNoGta1Na
-	 klpbXM7CTIVUZVCSTv1CKNulvzLHWwF/Izn9P18p/wVCvPirMuM50dj7KEpEpwUymV
-	 WW/HEre4oeQoixxWAzbRr0dod1gXUnsnmzMboSbkDwYD3Gp+stJdXLGIGep1cpVJfO
-	 ROuccSH56lVZFy3oOWYZRRxX8xHhYvLdsZyDmC/NZLDmk8ohK1qbC5i9j4wAOcjHQp
-	 RwDu8s28YznRA==
-Message-ID: <2724369e-1e16-44dc-8c93-835aec73b415@kernel.org>
-Date: Tue, 29 Sep 2026 16:48:41 +0200
+	s=k20260515; t=1790693521;
+	bh=diM49B7lVvyCtZDvy8/Xvur4BvcRrg7KqWUxuoC2X20=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=LUIuoVbX5G7qAQViSXEDb+lW2wJjvgq88QcPSrnqjWzQJQDFvm55zynNZ1BbHS/PL
+	 eOz5SXdwEb746EKzRw0OjBDXQPqtDHttpZ0wBzf9SdgHeT4Wlw2Aj9ljOmyGq3KGYV
+	 eKvrytLsUgNevZObv/iydCUw+sR41u1VfuiJ/yWUmQbv/xs7Uwg8ikxPfmnTeNBkpf
+	 E9YlP/iVLrzDY1n6rMCvfqx+23jQL962V0L1YMlcBOo8mPOxVxjczxWL8DJV35jkwH
+	 btS02A1wdPIxidJ9r26/CdnDhOShFF3xCHqrXHWPfGbhz4GgGZszXnBKdoQaKCnjMs
+	 3UxZnUCALS7vA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
+	Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] i2c: qcom-geni: Fix hardcoded clock index in SE_GENI_CLK_SEL
+Date: Tue, 29 Sep 2026 10:51:58 -0400
+Message-ID: <20260929145158.3766757-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026092908-gecko-oblivion-7d8f@gregkh>
+References: <2026092908-gecko-oblivion-7d8f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: uvcvideo: preserve status URB interval on resubmit
-To: raoxu <raoxu@uniontech.com>, laurent.pinchart@ideasonboard.com
-Cc: mchehab@kernel.org, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <F0F008459FFA835D+20260813074632.2021311-1-raoxu@uniontech.com>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <F0F008459FFA835D+20260813074632.2021311-1-raoxu@uniontech.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi,
+From: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
 
-On 13-Aug-26 09:46, raoxu wrote:
-> From: Xu Rao <raoxu@uniontech.com>
-> 
-> usb_fill_int_urb() takes an endpoint interval value and stores the
-> period expected by usb_submit_urb() in urb->interval. For high-speed
-> and SuperSpeed interrupt endpoints, it converts the logarithmic
-> descriptor encoding to the corresponding microframe period.
-> 
-> The UVC status URB is initialized once in uvc_status_init(), including
-> the UVC_QUIRK_STATUS_INTERVAL adjustment required by high-speed devices
-> that report bInterval using the old full-speed convention. The first
-> submission therefore carries the intended interval.
-> 
-> Both status resubmit paths, however, overwrite urb->interval with the
-> raw endpoint bInterval before submitting the same URB again. On
-> high-speed and SuperSpeed devices this mixes the descriptor encoding
-> with the already converted URB interval representation. For devices
-> using UVC_QUIRK_STATUS_INTERVAL it also deterministically discards the
-> quirk adjustment after the first status completion, making the
-> workaround effective only for the initial submission.
-> 
-> This has been easy to miss because the initial status submission is
-> correct, full-speed interrupt endpoints do not have the same
-> logarithmic encoding mismatch, and the status endpoint carries
-> relatively infrequent control and streaming notifications rather than
-> the video payload itself. The problem only appears after the status URB
-> has completed and is resubmitted, and the externally visible effect
-> also depends on how the host controller handles the resulting period.
-> 
-> Do not restore bInterval when resubmitting the status URB. Reuse the
-> interval established by usb_fill_int_urb() and usb_submit_urb(), which
-> also preserves the quirk-adjusted value. No additional state or
-> interval conversion is needed because the same URB is being reused.
-> 
-> Fixes: c0efd232929c ("V4L/DVB (8145a): USB Video Class driver")
-> Fixes: e5225c820c05 ("media: uvcvideo: Send a control event when a Control Change interrupt arrives")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Xu Rao <raoxu@uniontech.com>
+[ Upstream commit cb97bf3d4f91453b881acaf8e9f0cc47bb40b604 ]
 
-Thank you for your patch.
+qcom_geni_i2c_conf() writes a hardcoded 0 to SE_GENI_CLK_SEL, which
+selects an index from the hardware clock performance table. This always
+picks the first table entry regardless of the actual source clock
+configuration. On platforms where the matching entry is not at index 0,
+the wrong source clock divider is active and the I2C bus runs at an
+incorrect frequency.
 
-I have merged this into:
+Use geni_se_clk_freq_match() in geni_i2c_clk_map_idx() to find the
+performance table index for the source clock (32 MHz or 19.2 MHz). Store
+the resolved index in a new clk_idx field in geni_i2c_dev and write it
+to SE_GENI_CLK_SEL instead of the hardcoded 0.
 
-https://gitlab.freedesktop.org/linux-media/users/uvc/-/commits/for-next/
+Fixes: 37692de5d523 ("i2c: i2c-qcom-geni: Add bus driver for the Qualcomm GENI I2C controller")
+Signed-off-by: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+Cc: <stable@vger.kernel.org> # v4.19+
+Reviewed-by: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
+Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
+Link: https://patch.msgid.link/20260921-i2c-fix-se-clk-conf-v2-1-8b5537ceff2d@oss.qualcomm.com
+[ adapted clock initialization to the older driver’s 19.2 MHz-only table and existing probe path. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/i2c/busses/i2c-qcom-geni.c | 33 +++++++++++++++++++++++++-----
+ 1 file changed, 28 insertions(+), 5 deletions(-)
 
-Regards,
-
-Hans
-
-
-> ---
->  drivers/media/usb/uvc/uvc_ctrl.c   | 1 -
->  drivers/media/usb/uvc/uvc_status.c | 1 -
->  2 files changed, 2 deletions(-)
-> 
-> diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
-> index 3ca108b83f1d..6552f541aa0d 100644
-> --- a/drivers/media/usb/uvc/uvc_ctrl.c
-> +++ b/drivers/media/usb/uvc/uvc_ctrl.c
-> @@ -2196,7 +2196,6 @@ static void uvc_ctrl_status_event_work(struct work_struct *work)
->  		return;
-> 
->  	/* Resubmit the URB. */
-> -	w->urb->interval = dev->int_ep->desc.bInterval;
->  	ret = usb_submit_urb(w->urb, GFP_KERNEL);
->  	if (ret < 0)
->  		dev_err(&dev->intf->dev,
-> diff --git a/drivers/media/usb/uvc/uvc_status.c b/drivers/media/usb/uvc/uvc_status.c
-> index b632cf5e3fe9..680c6c7f4ad7 100644
-> --- a/drivers/media/usb/uvc/uvc_status.c
-> +++ b/drivers/media/usb/uvc/uvc_status.c
-> @@ -245,7 +245,6 @@ static void uvc_status_complete(struct urb *urb)
->  	}
-> 
->  	/* Resubmit the URB. */
-> -	urb->interval = dev->int_ep->desc.bInterval;
->  	ret = usb_submit_urb(urb, GFP_ATOMIC);
->  	if (ret < 0)
->  		dev_err(&dev->intf->dev,
-> --
-> 2.50.1
+diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-qcom-geni.c
+index c5477acc6a976..c1ec4261a1ea1 100644
+--- a/drivers/i2c/busses/i2c-qcom-geni.c
++++ b/drivers/i2c/busses/i2c-qcom-geni.c
+@@ -77,6 +77,8 @@ enum geni_i2c_err_code {
+ #define XFER_TIMEOUT		HZ
+ #define RST_TIMEOUT		HZ
+ 
++#define GENI_SE_CLK_19P2MHZ	19200000UL
++
+ struct geni_i2c_dev {
+ 	struct geni_se se;
+ 	u32 tx_wm;
+@@ -91,6 +93,7 @@ struct geni_i2c_dev {
+ 	struct clk *core_clk;
+ 	u32 clk_freq_out;
+ 	const struct geni_i2c_clk_fld *clk_fld;
++	u32 clk_idx;
+ 	int suspended;
+ 	void *dma_buf;
+ 	size_t xfer_len;
+@@ -156,13 +159,36 @@ static int geni_i2c_clk_map_idx(struct geni_i2c_dev *gi2c)
+ {
+ 	int i;
+ 	const struct geni_i2c_clk_fld *itr = geni_i2c_clk_map;
++	unsigned long res_freq;
++
++	/*
++	 * Frequency counters are calibrated for a 19.2 MHz source clock
++	 * and are not valid for any multiple of it (e.g. 38.4 MHz).
++	 * Use exact=true and verify res_freq matches req_freq literally
++	 * to reject harmonics that would produce an incorrect I2C frequency.
++	 * ACPI systems have firmware-managed clocks and retain the default index.
++	 */
++	if (!has_acpi_companion(gi2c->se.dev) &&
++	    (geni_se_clk_freq_match(&gi2c->se, GENI_SE_CLK_19P2MHZ,
++				    &gi2c->clk_idx, &res_freq, true) ||
++	     res_freq != GENI_SE_CLK_19P2MHZ)) {
++		dev_err(gi2c->se.dev,
++			"Unsupported SE source clock: must be exactly 19.2 MHz\n");
++		return -EINVAL;
++	}
+ 
+ 	for (i = 0; i < ARRAY_SIZE(geni_i2c_clk_map); i++, itr++) {
+ 		if (itr->clk_freq_out == gi2c->clk_freq_out) {
+ 			gi2c->clk_fld = itr;
++			dev_dbg(gi2c->se.dev,
++				"I2C clk selected: freq: %u Hz, clk_idx: %u\n",
++				gi2c->clk_freq_out, gi2c->clk_idx);
+ 			return 0;
+ 		}
+ 	}
++
++	dev_err(gi2c->se.dev, "Unsupported I2C output frequency %u Hz\n", gi2c->clk_freq_out);
++
+ 	return -EINVAL;
+ }
+ 
+@@ -171,7 +197,7 @@ static void qcom_geni_i2c_conf(struct geni_i2c_dev *gi2c)
+ 	const struct geni_i2c_clk_fld *itr = gi2c->clk_fld;
+ 	u32 val;
+ 
+-	writel_relaxed(0, gi2c->se.base + SE_GENI_CLK_SEL);
++	writel_relaxed(gi2c->clk_idx, gi2c->se.base + SE_GENI_CLK_SEL);
+ 
+ 	val = (itr->clk_div << CLK_DIV_SHFT) | SER_CLK_EN;
+ 	writel_relaxed(val, gi2c->se.base + GENI_SER_M_CLK_CFG);
+@@ -811,11 +837,8 @@ static int geni_i2c_probe(struct platform_device *pdev)
+ 		return gi2c->irq;
+ 
+ 	ret = geni_i2c_clk_map_idx(gi2c);
+-	if (ret) {
+-		dev_err(dev, "Invalid clk frequency %d Hz: %d\n",
+-			gi2c->clk_freq_out, ret);
++	if (ret)
+ 		return ret;
+-	}
+ 
+ 	gi2c->adap.algo = &geni_i2c_algo;
+ 	init_completion(&gi2c->done);
+-- 
+2.53.0
 
