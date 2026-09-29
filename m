@@ -1,335 +1,536 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.164])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 202883D7D94;
-	Tue, 29 Sep 2026 15:40:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790696443; cv=none; b=WbrQgONNdJXCzZOktDKWBSSIMoQtffjclqlWst+ECixKmpw3aC/0U04Azb2yIzZ6IpObNAHYqgpWDSV9hfGuYl0EFUMSTAF0HWdtswQGcy4lYrhl8iVGf+Db79ZW6m/K4eADaTEiDLc/Ayt6+jiuWs2Db3/UqK20Mi0H2ttRwHQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790696443; c=relaxed/simple;
-	bh=1moNuHHBncGFFeKoSa0BHTqRQx0iefcOhw6cFUq/Xp4=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=DJLvW+8lNyJGPiLXw+ayQF7g82zHDqc3YgYOkhV9tbyhkhggpVMqkDWXmRqlGsNopebp010O9/rmfa1Kw4elc0xzSY8xvxDj/vT3mDZi22cYUrooleRKPOVdPYkqyf6eZeKc22cu4MuQ0v7rL5A0wxxLYoXnAcB4Erp/oqRhSlE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FhW5IXIk; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88C783DAAD9;
+	Tue, 29 Sep 2026 15:41:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.164
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790696500; cv=pass; b=a818IgBByFllnFm5NAoFWgjngtO3rXZjLgXy5YUPeOwQdSZMETJgv9wXgWWHIKkqcx2Ntd2J7kH36dPgYZRvKg10o3RN1sJFHZw3EuUQMLcQf+bkQ7qMyrSJHa/r6sEBWnZIb+ImDsGkeevOaXnrqUIZnaW0HV2wCOGV7e9oWHk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790696500; c=relaxed/simple;
+	bh=kQF+jP1rnEzWxhExVK44ZEoOrbkfzEIKpZuiA3dFR0w=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=hxZZAQnqpg5Gw7EcoC0tGNGI1VNvv8/Oi1AOp2yVN+7ryfPe86N06W896qq0hYo1nYHAl34PzX6usMbmxIDhND1moOZfL3+2xBYKiCXXBKzsI4Z37+vPUzGDpgJiGI4qs9a0AyYoH4WC81ziG9W6E0qGAIdc/5b6Cj0nN/4XcTU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net; spf=fail smtp.mailfrom=hartkopp.net; dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=iTBmuphA; dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=awehtzs+; arc=pass smtp.client-ip=81.169.146.164
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=hartkopp.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FhW5IXIk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 421081F00893;
-	Tue, 29 Sep 2026 15:40:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790696442;
-	bh=0LsyaRjfKEK1HofltBB4yYzmttCl6fGaAL8ADqKmkIE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=FhW5IXIkWBIQ+mGyO5V3ysLN1HHik1nAgFg0Pi3CsnCf4mt9kbaCCJF0hpXoUKfuf
-	 Esd13hgCJrSmpz8viwdBAQWppaCY2AXBTY5BYm2siuOfjUn3ov+RTIIeAnlibJ7nbp
-	 W0TJfc1ZihXFLqFF1q3VUYyHd4k+GEOMgPB2Rrv4pyrW6Vm49MTXibDg90F6MQQDax
-	 8dLIGMtDScRRNBW1+F3uSFoUeyJsdsaA65xs9cQgV9GSO8AxxNB0ZoIKHxLhvyYray
-	 5wF7lhiLvDQAFDjh1nUlnJbgtsIryRhxDmQFM4bmJ2cNE5Udvq54400MW2GllZznyl
-	 6PnyeOCuhnJCQ==
-Subject:
- Re: [PATCH nf 2/2] ipvs: skip cport 0 connections in ip_vs_conn_out_get()
-From: netdev-bot+sashiko@kernel.org
-To: axel.mierczuk@1password.com
-Cc: ja@ssi.bg, horms@verge.net.au, pablo@netfilter.org, fw@strlen.de,
- phil@nwl.cc, netfilter-devel@vger.kernel.org, lvs-devel@vger.kernel.org,
- coreteam@netfilter.org, netdev@vger.kernel.org, w@1wt.eu,
- keith.hoodlet@1password.com, stable@vger.kernel.org, kuba@kernel.org
-Date: Tue, 29 Sep 2026 15:40:40 +0000
-Message-ID: <179069644081.434549.12041373468323144203@kernel.org>
-In-Reply-To: <20260925141115.16126-3-axel.mierczuk@1password.com>
-References: <20260925141115.16126-3-axel.mierczuk@1password.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="iTBmuphA";
+	dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="awehtzs+"
+ARC-Seal: i=1; a=rsa-sha256; t=1790696494; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=qtAUFIocWd7UWWfXdMFylpOnVFfPoPC4g9B1zfLtXAImuid4nzMSUTv9VJCT5ep0qa
+    6Dr9lbe3xMWCt7/fifapNsj4LIi5ulmxDidpnLWrVH4YZdMLtpS8yhAnK67BlkuVr6uD
+    lnDRvamnYWoriHqnD0EGuOcQslkj9QERn1zGUz8zEaaiQ04Pd9zgISjXD7RKea/i/ytU
+    /HDhKqVqvG4MqPJwSww81F4lDXyOTQU15vgj1I8+XCGuqsDTOFJzufr0hei+4kp20wHi
+    FZgjLJGDreXqZT+3Y1QWHMrWCxTj9ITPZujA6iIfvGvZWkwQE/z/GviMHZ7afBwvCbUc
+    mSvw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1790696494;
+    s=strato-dkim-0002; d=strato.com;
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=Ju7+jgrLkAFiW6F7eRGwAj9nwzGcAG7TQ6pqIXS1kDI=;
+    b=O8zF4RdNWhXMNU9gHd74s2k/JHbI/mNo/Mn5VPW6MmOWg2Pb/BR7HUjxupaOLvw1Wf
+    KYGFzsFCExpyWiEFYCEsA7XyfKG95Yo4Y0wGh2IWAVRN+EMAlX5lx6cvLpNOynrXqd04
+    tQJZlUYRA+tSm9RvUdHwUBoe3ybl0kkO4oJ0Acwq5eyB78bBpyoaXJqnIVtQkGDWu5y6
+    BWzQfzSZ83mMiYBiem0xgZfgiMbsQIzzghEjaLzid1G0kulaMXV0Bg8n+KeG7PZckwRz
+    RTNzGmBpVQX72KyYqyP0LtQqS3JsTRcI7n3Ypx7Q3uVQTlBT2kWaYfkQ47dtP3L4PdF2
+    8Biw==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1790696494;
+    s=strato-dkim-0002; d=hartkopp.net;
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=Ju7+jgrLkAFiW6F7eRGwAj9nwzGcAG7TQ6pqIXS1kDI=;
+    b=iTBmuphAVcCgXVjdWAFJLY80z6D6Y78yN9xpXb+y6oThsVnJ7cP7xYp7khz3OPcd/a
+    5//xF3GlJpoW95EpNoAplU1XVNIDRBVcmxv8kxc15bojcjMHXH89ED+gFh1qr3B0gYot
+    lKsLtJQqEn3WmPo4p9fOwSvWmw70DdjS/lxL95A7j0ggT4HZlqqJPLJhoaaIwZDL/ArG
+    BBuLlSqV6QtdtQTlf/5tKFqJIpN+Rfma9opVNVQmrzkBY8aApsjv96mnJUXJUw62y4M0
+    CbHGtYVaq6JbHjHCE0vQkMQJUhJEnjgMJTeuaXNUSk9pFmI8P5cuY0WsBm/lqPQ/YqrU
+    Sr6A==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1790696494;
+    s=strato-dkim-0003; d=hartkopp.net;
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=Ju7+jgrLkAFiW6F7eRGwAj9nwzGcAG7TQ6pqIXS1kDI=;
+    b=awehtzs+wFK5VWpk2CvspB7nbNHoSJVyzaHmigHUqOiIY6tdZ8SX/ImSepLZ3orDZC
+    2OMG/MV4/6PAFpXtzEBw==
+X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjH4JKvMdQv2tTUsMrZpkO3Mw3lZ/t54cFxeEQ7s8bDup0Q=="
+Received: from vivo.lan
+    by smtp.strato.de (RZmta 55.6.2 AUTH)
+    with ESMTPSA id K04b9a28TFfYTeW
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Tue, 29 Sep 2026 17:41:34 +0200 (CEST)
+From: Oliver Hartkopp <socketcan@hartkopp.net>
+To: linux-can@vger.kernel.org
+Cc: Oliver Hartkopp <socketcan@hartkopp.net>,
+	Joerg Willmann <joe@clnt.de>,
+	stable@vger.kernel.org
+Subject: [PATCH v4 3/3] can: fix unique skb identifier regression under RPS
+Date: Tue, 29 Sep 2026 17:41:25 +0200
+Message-ID: <20260929154125.3298-4-socketcan@hartkopp.net>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260929154125.3298-1-socketcan@hartkopp.net>
+References: <20260929154125.3298-1-socketcan@hartkopp.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-
-Thank you for your contribution! Sashiko AI review found 5 potential
-issue(s) to consider.
-
-Critical: 0 · High: 0 · Medium: 4 · Low: 1
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] The new `cp->cport` requirement turns the "update or create"
-  lookup in ip_vs_ftp_out() (net/netfilter/ipvs/ip_vs_ftp.c) into dead…
-- [Medium] ip_vs_new_conn_out() (net/netfilter/ipvs/ip_vs_core.c) rejects
-  only `!vport || !dport`.
-- [Medium] The commit message assumes only templates and NO_CPORT entries
-  have cport 0, but ordinary connections can too.
-- [Medium] The commit rests on the claim "Templates keep cport 0
-  throughout their lifetime", which does not hold for synced templates…
-- [Low] The patch adds a second, separate plain read of cp->cport in
-  ip_vs_conn_out_get().
-
---
-
-ipvs: skip cport 0 connections in ip_vs_conn_out_get()
-
-This patch makes ip_vs_conn_out_get() match only connections with a
-nonzero cp->cport. The goal is to stop out-direction packets sent to
-client port 0 from matching persistence templates, or connections still
-waiting for their client port (IP_VS_CONN_F_NO_CPORT), and then updating
-their state and timeout.
-
-> diff --git a/net/netfilter/ipvs/ip_vs_conn.c b/net/netfilter/ipvs/ip_vs_conn.c
-> index 6fa3e1dc534c3..24dbe34a48275 100644
-> --- a/net/netfilter/ipvs/ip_vs_conn.c
-> +++ b/net/netfilter/ipvs/ip_vs_conn.c
-> @@ -579,7 +579,8 @@ struct ip_vs_conn *ip_vs_conn_out_get(const struct ip_vs_conn_param *p)
->  				    ip_vs_addr_equal(p->af, p->vaddr,
->  						     &cp->caddr) &&
->  				    ip_vs_addr_equal(p->af, p->caddr, saddr) &&
-> -				    p->protocol == cp->protocol) {
-> +				    p->protocol == cp->protocol &&
-> +				    cp->cport) {
-
-[Severity: Medium]
-Does this make the "update or create" lookup in ip_vs_ftp_out() in
-net/netfilter/ipvs/ip_vs_ftp.c unreachable?
-
-ip_vs_ftp_out() looks up with vport 0 on purpose, to find an existing
-IP_VS_CONN_F_NO_CPORT passive data connection:
-
-net/netfilter/ipvs/ip_vs_ftp.c:ip_vs_ftp_out() {
-    ...
-	/* Now update or create a connection entry for it */
-	{
-		struct ip_vs_conn_param p;
-
-		ip_vs_conn_fill_param(cp->ipvs, cp->af,
-				      ipvsh->protocol, &from, port,
-				      &cp->caddr, 0, &p);
-		n_cp = ip_vs_conn_out_get(&p);
-	}
-	if (!n_cp) {
-		...
-		n_cp = ip_vs_conn_new(&p, cp->af, &from, port,
-				      IP_VS_CONN_F_NO_CPORT |
-				      IP_VS_CONN_F_NFCT,
-				      cp->dest, skb->mark);
-		if (!n_cp)
-			return 0;
-    ...
-}
-
-When p->vport is 0, the earlier check in ip_vs_conn_out_get():
-
-	if (p->vport != cp->cport)
-		continue;
-
-only lets through entries with cp->cport == 0. The new cp->cport test
-then rejects every one of them, so this lookup can never return a match.
-
-Suppose a client sends PASV/EPSV again and the server answers with the
-same passive port, for example because it has a fixed or narrow passive
-range. Each such reply now creates a duplicate NO_CPORT entry with the
-same hash key.
-
-Each duplicate increments no_cport_conns[], takes another n_control
-reference on the control connection and adds another conntrack
-expectation. Only one of them ever gets its cport filled. The rest stay
-until the listen timeout.
-
-If conn_count has reached conn_max, ip_vs_conn_new() returns NULL and
-ip_vs_ftp_out() returns 0. The control reply is dropped, where before
-the existing entry would have been reused.
-
-A retransmitted 227/229 segment does not seem to trigger this, because
-cp->app_data is set to IP_VS_FTP_ACTIVE after the first pass. A repeated
-PASV/EPSV command does trigger it.
-
-The commit message says "FTP data connections learn their client port
-from incoming traffic before replies are processed". Doesn't that only
-cover replies on the data connection? This control-channel lookup runs
-before the port is known.
-
-[Severity: Medium]
-Can this lead to a new connection being created for every packet of a
-flow started by a real server towards client port 0?
-
-ip_vs_new_conn_out() in net/netfilter/ipvs/ip_vs_core.c only rejects a
-zero vport or dport:
-
-	if (!vport || !dport)
-		return NULL;
-
-Take a SIP-PE service with conn_out_counter > 0, where a real server
-sends a UDP packet to client port 0. This path:
-
-ip_vs_out_hook()->__ip_vs_rs_conn_out()->ip_vs_sip_conn_out()->
-    ip_vs_new_conn_out()->ip_vs_conn_new()
-
-creates an ordinary hashed connection with cp->cport == 0 and neither
-TEMPLATE nor NO_CPORT set.
-
-Before this patch, the next packet of that flow matched this entry in
-ip_vs_conn_out_get(). With the new cp->cport test it misses. So
-ip_vs_out_hook() falls back to __ip_vs_rs_conn_out() again and creates
-yet another connection.
-
-Each extra connection lives until the UDP timeout. For persistent
-services, each one also takes another n_control reference on the
-template.
-
-__ip_vs_conn_in_get() cannot match these entries either, because a
-cport 0 lookup there requires NO_CPORT.
-
-Linux UDP sockets refuse sendto() to port 0, so in practice this needs a
-raw socket or a non-Linux real server.
-
-Should ip_vs_new_conn_out() also reject a zero cport? Or should the out
-lookup exclude only templates and NO_CPORT entries?
-
-[Severity: Medium]
-The commit message assumes that only templates and NO_CPORT entries have
-cport 0. Does that hold for ordinary MASQ connections scheduled for a
-client that uses source port 0?
-
-ip_vs_schedule() in net/netfilter/ipvs/ip_vs_core.c takes the client
-port directly from the packet:
-
-	cport = pptr[0];
-	...
-	ip_vs_conn_fill_param(svc->ipvs, svc->af, iph->protocol,
-			      caddr, cport, vaddr, vport, &p);
-	cp = ip_vs_conn_new(&p, dest->af, &dest->addr,
-			    dest->port ? dest->port : vport,
-			    flags, dest, skb->mark);
-
-Nothing in the scheduling path rejects source port 0. A remote client
-sending a TCP SYN or UDP packet from port 0 to VIP:vport on a
-non-persistent MASQ service gets an ordinary connection with
-cp->cport == 0.
-
-Before this patch, the real server's reply to client:0 matched this
-connection in ip_vs_conn_out_get() and was SNATed back to VIP:vport. Now
-the lookup rejects it.
-
-With the default nat_icmp_send=0, ip_vs_out_hook() then returns
-NF_ACCEPT. The reply, for example a SYN-ACK or RST, leaves the director
-with the real server's private address and port as its source.
-
-ICMP errors behave the same way. If the real server sends an error that
-quotes client:0->RS:rport, ip_vs_out_icmp() does the reversed lookup
-with vport 0:
-
-	cp = INDIRECT_CALL_1(pp->conn_out_get, ip_vs_conn_out_get_proto,
-			     ipvs, AF_INET, skb, &ciph);
-	if (!cp)
-		return NF_ACCEPT;
-
-This now returns NULL, so neither the outer source nor the embedded
-tuple is reverse-NATed.
-
-__ip_vs_conn_in_get() already could not match such entries. The out
-direction, though, was NATed before this patch.
-
-Would excluding IP_VS_CONN_F_TEMPLATE (and NO_CPORT, if intended) by
-flag avoid this?
-
-[Severity: Low]
-Can the two separate plain reads of cp->cport in ip_vs_conn_out_get()
-see different values?
-
-The lookup holds only rcu_read_lock(). Meanwhile, ip_vs_conn_fill_cport()
-writes cp->cport under cp->lock and the bucket locks, before it updates
-hn->hash_key and moves the node:
-
-	if (!cp->cport) {
-		cp->cport = cport;
-		by_me = true;
-	}
-
-It can also reset cp->cport to 0 on the "Too many ht changes" path.
-
-Suppose a MASQ NO_CPORT connection is getting its cport filled while an
-out-direction packet to client port 0 is looked up. The reader can see
-the old hash_key and read cp->cport == 0 in:
-
-	if (p->vport != cp->cport)
-		continue;
-
-and then read the new nonzero port in the added cp->cport test. The
-entry then matches, and handle_response() runs ip_vs_set_state() and the
-timeout update. That is the NO_CPORT case the commit message says this
-patch closes.
-
-A successful match leaves the loop through goto out, so the seqcount
-retry in ip_vs_rht_for_bucket_retry() is never checked.
-
-Neither side uses READ_ONCE()/WRITE_ONCE(), so KCSAN could also report
-this as a data race.
-
-Would a single snapshot close this window?
-
-	__be16 cport = READ_ONCE(cp->cport);
-
-	if (!cport || p->vport != cport)
-		continue;
-
-[Severity: Medium]
-The commit message says:
-
-    Templates keep cport 0 throughout their lifetime.
-
-Is that true for synced templates that also carry IP_VS_CONN_F_NO_CPORT?
-
-IP_VS_CONN_F_BACKUP_MASK includes both TEMPLATE and NO_CPORT. The
-template check in ip_vs_proc_conn() in net/netfilter/ipvs/ip_vs_sync.c
-only rejects a nonzero cport:
-
-	if (flags & IP_VS_CONN_F_TEMPLATE) {
-		if (param->cport) {
-			IP_VS_DBG(2, "BACKUP, template with cport dropped\n");
-			kfree(param->pe_data);
-			return;
-		}
-	}
-
-So a forged TEMPLATE|NO_CPORT|MASQ record with cport 0 is accepted. It
-is hashed through hn0, counted in no_cport_conns[] and bound to
-ip_vs_nat_xmit().
-
-An incoming packet C:X -> vaddr:vport then goes through:
-
-ip_vs_in_hook()
-  ip_vs_conn_in_get()     <- the cport 0 fallback matches; TEMPLATE
-                             is not excluded
-  ip_vs_nat_xmit()
-    ip_vs_conn_fill_cport(cp, X)
-
-ip_vs_conn_fill_cport() sets cp->cport = X and clears NO_CPORT, but
-leaves TEMPLATE set. It also rehashes hn0 to hash(C, X, vaddr, vport).
-All of this happens before the later "stopping DNAT to local address"
-check in ip_vs_nat_xmit().
-
-Now suppose the forged record also sets daddr == vaddr and
-dport == vport. An out packet vaddr:vport -> C:X then passes the
-hash_key check, the MASQ saddr/sport comparisons and the new cp->cport
-test. handle_response() then runs ip_vs_set_state() and the timeout
-update on the template.
-
-One way to produce that out packet: vaddr is local to the backup and
-the incoming packet has no conntrack entry. The packet is then delivered
-locally, and the local reply or RST goes through ip_vs_out_hook() at
-LOCAL_OUT.
-
-The in-direction fallback already let such a forged template see
-packets before this patch. The out-direction match on the template is
-what reappears here.
-
-Would it be more robust to exclude IP_VS_CONN_F_TEMPLATE explicitly in
-ip_vs_conn_out_get(), and to reject TEMPLATE|NO_CPORT records in
-ip_vs_proc_conn()?
-
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+
+Commit d4fb6514ff8e ("can: use skb hash instead of private variable in
+headroom") moved the per-skb unique identifier used for raw_rcv()
+duplicate detection into skb->hash.
+
+With RPS enabled, get_rps_cpu() calls skb_get_hash() before the frame
+reaches the CAN subsystem. Since CAN skbs have no L3/L4 headers, the
+flow dissector assigns every CAN frame the same non-zero software
+hash. can_set_skb_uid() only generated a new identifier when
+skb->hash was 0, so it kept this constant hash. When the SLAB
+allocator later reused the same skb address, raw_rcv() mistook the
+next legitimate frame for a duplicate and dropped it.
+
+Fix this by storing the CAN UID in the CAN skb extension
+(struct can_skb_ext::can_skb_uid) instead of skb->hash, decoupling it
+from any hash the network stack may compute. can_set_skb_uid() keeps
+its "assign only if unset" behaviour, which preserves UIDs set before
+transmission (e.g. by isotp to identify echo frames) across the local
+loopback path.
+
+Frames whose extension is still shared with another clone (e.g. via
+tc mirred or netem duplicate) are given a private extension copy
+before the UID is assigned, so that independently received clones
+never end up with the same UID.
+
+can-gw and vxcan additionally clear the UID of forwarded/duplicated
+frames so each newly routed frame gets its own unique identifier.
+
+Fixes: d4fb6514ff8e ("can: use skb hash instead of private variable in headroom")
+Reported-by: Joerg Willmann <joe@clnt.de>
+Closes: https://lore.kernel.org/linux-can/2859AD3D-C805-41A0-9036-C5E8EE152419@clnt.de/
+Cc: stable@vger.kernel.org
+Tested-by: Oliver Hartkopp <socketcan@hartkopp.net>
+Signed-off-by: Oliver Hartkopp <socketcan@hartkopp.net>
+
+---
+v2: We need a non-zero UID for the cfecho checks in isotp.c
+    So restore the former while (!(skb->hash)) statement
+v3: omit the problematic use of skb->hash reported by sashiko bot
+v4: address tc mirred or netem duplicate clones suggested by sashiko bot
+---
+ drivers/net/can/vxcan.c  |  3 +++
+ include/linux/can/core.h |  3 ++-
+ include/linux/can/skb.h  |  4 ++-
+ include/net/can.h        |  2 ++
+ net/can/af_can.c         | 57 ++++++++++++++++++++++++++++++----------
+ net/can/gw.c             |  3 +++
+ net/can/isotp.c          | 16 ++++++-----
+ net/can/raw.c            | 10 ++++---
+ 8 files changed, 73 insertions(+), 25 deletions(-)
+
+diff --git a/drivers/net/can/vxcan.c b/drivers/net/can/vxcan.c
+index 9e2e25d02471..51148a81d1d9 100644
+--- a/drivers/net/can/vxcan.c
++++ b/drivers/net/can/vxcan.c
+@@ -77,10 +77,13 @@ static netdev_tx_t vxcan_xmit(struct sk_buff *oskb, struct net_device *dev)
+ 		goto out_unlock;
+ 	}
+ 
+ 	/* reset CAN GW hop counter */
+ 	csx->can_gw_hops = 0;
++	/* start with new CAN skb UID in the other namespace */
++	csx->can_skb_uid = 0;
++
+ 	skb->pkt_type   = PACKET_BROADCAST;
+ 	skb->dev        = peer;
+ 	skb->ip_summed  = CHECKSUM_UNNECESSARY;
+ 
+ 	len = can_skb_get_data_len(skb);
+diff --git a/include/linux/can/core.h b/include/linux/can/core.h
+index 3287232e3cad..2de74c2b78b6 100644
+--- a/include/linux/can/core.h
++++ b/include/linux/can/core.h
+@@ -15,10 +15,11 @@
+ #define _CAN_CORE_H
+ 
+ #include <linux/can.h>
+ #include <linux/skbuff.h>
+ #include <linux/netdevice.h>
++#include <net/can.h>
+ 
+ #define DNAME(dev) ((dev) ? (dev)->name : "any")
+ 
+ /**
+  * struct can_proto - CAN protocol structure
+@@ -56,9 +57,9 @@ extern void can_rx_unregister(struct net *net, struct net_device *dev,
+ 			      canid_t can_id, canid_t mask,
+ 			      void (*func)(struct sk_buff *, void *),
+ 			      void *data);
+ 
+ extern int can_send(struct sk_buff *skb, int loop);
+-void can_set_skb_uid(struct sk_buff *skb);
++void can_set_skb_uid(struct can_skb_ext *csx);
+ void can_sock_destruct(struct sock *sk);
+ 
+ #endif /* !_CAN_CORE_H */
+diff --git a/include/linux/can/skb.h b/include/linux/can/skb.h
+index a70a02967071..5d27843862fc 100644
+--- a/include/linux/can/skb.h
++++ b/include/linux/can/skb.h
+@@ -41,12 +41,14 @@ bool can_dropped_invalid_skb(struct net_device *dev, struct sk_buff *skb);
+ static inline struct can_skb_ext *can_skb_ext_add(struct sk_buff *skb)
+ {
+ 	struct can_skb_ext *csx = skb_ext_add(skb, SKB_EXT_CAN);
+ 
+ 	/* skb_ext_add() returns uninitialized space */
+-	if (csx)
++	if (csx) {
+ 		csx->can_gw_hops = 0;
++		csx->can_skb_uid = 0;
++	}
+ 
+ 	return csx;
+ }
+ 
+ static inline struct can_skb_ext *can_skb_ext_find(struct sk_buff *skb)
+diff --git a/include/net/can.h b/include/net/can.h
+index 6db9e826f0e0..2b8af2598732 100644
+--- a/include/net/can.h
++++ b/include/net/can.h
+@@ -15,14 +15,16 @@
+  * struct can_skb_ext - skb extensions for CAN specific content
+  * @can_iif: ifindex of the first interface the CAN frame appeared on
+  * @can_framelen: cached echo CAN frame length for bql
+  * @can_gw_hops: can-gw CAN frame time-to-live counter
+  * @can_ext_flags: CAN skb extensions flags
++ * @can_skb_uid: CAN skb UID for raw_rcv and isotp echo handling
+  */
+ struct can_skb_ext {
+ 	int	can_iif;
+ 	u16	can_framelen;
+ 	u8	can_gw_hops;
+ 	u8	can_ext_flags;
++	u32	can_skb_uid;
+ };
+ 
+ #endif /* _NET_CAN_H */
+diff --git a/net/can/af_can.c b/net/can/af_can.c
+index ef435f22ac93..4aa233d7e8a1 100644
+--- a/net/can/af_can.c
++++ b/net/can/af_can.c
+@@ -639,17 +639,14 @@ static int can_rcv_filter(struct can_dev_rcv_lists *dev_rcv_lists, struct sk_buf
+ 	}
+ 
+ 	return matches;
+ }
+ 
+-void can_set_skb_uid(struct sk_buff *skb)
++void can_set_skb_uid(struct can_skb_ext *csx)
+ {
+-	/* create non-zero unique skb identifier together with *skb */
+-	while (!(skb->hash))
+-		skb->hash = atomic_inc_return(&skbcounter);
+-
+-	skb->sw_hash = 1;
++	while (!(csx->can_skb_uid))
++		csx->can_skb_uid = atomic_inc_return(&skbcounter);
+ }
+ EXPORT_SYMBOL(can_set_skb_uid);
+ 
+ static void can_receive(struct sk_buff *skb, struct net_device *dev)
+ {
+@@ -660,12 +657,10 @@ static void can_receive(struct sk_buff *skb, struct net_device *dev)
+ 
+ 	/* update statistics */
+ 	atomic_long_inc(&pkg_stats->rx_frames);
+ 	atomic_long_inc(&pkg_stats->rx_frames_delta);
+ 
+-	can_set_skb_uid(skb);
+-
+ 	rcu_read_lock();
+ 
+ 	/* deliver the packet to sockets listening on all devices */
+ 	matches = can_rcv_filter(net->can.rx_alldev_list, skb);
+ 
+@@ -682,54 +677,88 @@ static void can_receive(struct sk_buff *skb, struct net_device *dev)
+ 		atomic_long_inc(&pkg_stats->matches);
+ 		atomic_long_inc(&pkg_stats->matches_delta);
+ 	}
+ }
+ 
++static struct can_skb_ext *can_get_unshared_skb_ext(struct sk_buff *skb,
++						    struct can_skb_ext *csx)
++{
++	/* create unshared CAN skb_extension for netem/mirred skb clones */
++	if (unlikely(skb_cloned(skb)))
++		return skb_ext_add(skb, SKB_EXT_CAN);
++	else
++		return csx;
++}
++
+ static int can_rcv(struct sk_buff *skb, struct net_device *dev,
+ 		   struct packet_type *pt, struct net_device *orig_dev)
+ {
+-	if (unlikely(!can_get_ml_priv(dev) ||
+-		     !can_skb_ext_find(skb) || !can_is_can_skb(skb))) {
++	struct can_skb_ext *csx = can_skb_ext_find(skb);
++
++	if (unlikely(!can_get_ml_priv(dev) || !csx || !can_is_can_skb(skb))) {
+ 		pr_warn_once("PF_CAN: dropped non conform CAN skbuff: dev type %d, len %d\n",
+ 			     dev->type, skb->len);
+ 
+ 		kfree_skb_reason(skb, SKB_DROP_REASON_CAN_RX_INVALID_FRAME);
+ 		return NET_RX_DROP;
+ 	}
+ 
++	csx = can_get_unshared_skb_ext(skb, csx);
++	if (unlikely(!csx)) {
++		kfree_skb_reason(skb, SKB_DROP_REASON_NOMEM);
++		return NET_RX_DROP;
++	}
++
++	can_set_skb_uid(csx);
+ 	can_receive(skb, dev);
+ 	return NET_RX_SUCCESS;
+ }
+ 
+ static int canfd_rcv(struct sk_buff *skb, struct net_device *dev,
+ 		     struct packet_type *pt, struct net_device *orig_dev)
+ {
+-	if (unlikely(!can_get_ml_priv(dev) ||
+-		     !can_skb_ext_find(skb) || !can_is_canfd_skb(skb))) {
++	struct can_skb_ext *csx = can_skb_ext_find(skb);
++
++	if (unlikely(!can_get_ml_priv(dev) || !csx || !can_is_canfd_skb(skb))) {
+ 		pr_warn_once("PF_CAN: dropped non conform CAN FD skbuff: dev type %d, len %d\n",
+ 			     dev->type, skb->len);
+ 
+ 		kfree_skb_reason(skb, SKB_DROP_REASON_CANFD_RX_INVALID_FRAME);
+ 		return NET_RX_DROP;
+ 	}
+ 
++	csx = can_get_unshared_skb_ext(skb, csx);
++	if (unlikely(!csx)) {
++		kfree_skb_reason(skb, SKB_DROP_REASON_NOMEM);
++		return NET_RX_DROP;
++	}
++
++	can_set_skb_uid(csx);
+ 	can_receive(skb, dev);
+ 	return NET_RX_SUCCESS;
+ }
+ 
+ static int canxl_rcv(struct sk_buff *skb, struct net_device *dev,
+ 		     struct packet_type *pt, struct net_device *orig_dev)
+ {
+-	if (unlikely(!can_get_ml_priv(dev) ||
+-		     !can_skb_ext_find(skb) || !can_is_canxl_skb(skb))) {
++	struct can_skb_ext *csx = can_skb_ext_find(skb);
++
++	if (unlikely(!can_get_ml_priv(dev) || !csx || !can_is_canxl_skb(skb))) {
+ 		pr_warn_once("PF_CAN: dropped non conform CAN XL skbuff: dev type %d, len %d\n",
+ 			     dev->type, skb->len);
+ 
+ 		kfree_skb_reason(skb, SKB_DROP_REASON_CANXL_RX_INVALID_FRAME);
+ 		return NET_RX_DROP;
+ 	}
+ 
++	csx = can_get_unshared_skb_ext(skb, csx);
++	if (unlikely(!csx)) {
++		kfree_skb_reason(skb, SKB_DROP_REASON_NOMEM);
++		return NET_RX_DROP;
++	}
++
++	can_set_skb_uid(csx);
+ 	can_receive(skb, dev);
+ 	return NET_RX_SUCCESS;
+ }
+ 
+ /* af_can protocol functions */
+diff --git a/net/can/gw.c b/net/can/gw.c
+index d9912dea738b..54bb5bd3242a 100644
+--- a/net/can/gw.c
++++ b/net/can/gw.c
+@@ -526,10 +526,13 @@ static void can_can_gw_rcv(struct sk_buff *skb, void *data)
+ 	}
+ 
+ 	/* put the incremented hop counter in the cloned skb */
+ 	ncsx->can_gw_hops = csx->can_gw_hops + 1;
+ 
++	/* force a new CAN UID generation for the routed frame */
++	ncsx->can_skb_uid = 0;
++
+ 	/* first processing of this CAN frame -> adjust to private hop limit */
+ 	if (gwj->limit_hops && ncsx->can_gw_hops == 1)
+ 		ncsx->can_gw_hops = max_hops - gwj->limit_hops + 1;
+ 
+ 	nskb->dev = gwj->dst.dev;
+diff --git a/net/can/isotp.c b/net/can/isotp.c
+index d3f79efc9c1e..860c5221e299 100644
+--- a/net/can/isotp.c
++++ b/net/can/isotp.c
+@@ -890,11 +890,11 @@ static void isotp_send_cframe(struct isotp_sock *so)
+ 	}
+ 
+ 	csx->can_iif = dev->ifindex;
+ 
+ 	/* set uid in tx skb to identify CF echo frames */
+-	can_set_skb_uid(skb);
++	can_set_skb_uid(csx);
+ 
+ 	cf = (struct canfd_frame *)skb->data;
+ 	skb_put_zero(skb, so->ll.mtu);
+ 
+ 	/* create consecutive frame */
+@@ -916,11 +916,11 @@ static void isotp_send_cframe(struct isotp_sock *so)
+ 	old_cfecho = READ_ONCE(so->cfecho);
+ 	if (old_cfecho)
+ 		pr_notice_once("can-isotp: cfecho is %08X != 0\n", old_cfecho);
+ 
+ 	/* set consecutive frame echo tag */
+-	WRITE_ONCE(so->cfecho, skb->hash);
++	WRITE_ONCE(so->cfecho, csx->can_skb_uid);
+ 
+ 	/* send frame with local echo enabled */
+ 	can_send_ret = can_send(skb, 1);
+ 	if (can_send_ret) {
+ 		pr_notice_once("can-isotp: %s: can_send_ret %pe\n",
+@@ -968,22 +968,26 @@ static void isotp_create_fframe(struct canfd_frame *cf, struct isotp_sock *so,
+ 
+ static void isotp_rcv_echo(struct sk_buff *skb, void *data)
+ {
+ 	struct sock *sk = (struct sock *)data;
+ 	struct isotp_sock *so = isotp_sk(sk);
++	struct can_skb_ext *csx = can_skb_ext_find(skb);
+ 
+ 	/* only handle my own local echo CF/SF skb's (no FF!) */
+ 	if (skb->sk != sk)
+ 		return;
+ 
++	if (WARN_ON_ONCE(!csx))
++		return;
++
+ 	/* unlike isotp_rcv_fc()/isotp_rcv_cf(), not already under so->rx_lock
+ 	 * (no isotp_rcv() caller here), so take it ourselves
+ 	 */
+ 	spin_lock(&so->rx_lock);
+ 
+ 	/* so->cfecho may since belong to a new transfer; recheck under lock */
+-	if (READ_ONCE(so->cfecho) != skb->hash)
++	if (READ_ONCE(so->cfecho) != csx->can_skb_uid)
+ 		goto out_unlock;
+ 
+ 	/* cancel local echo timeout */
+ 	hrtimer_cancel(&so->echotimer);
+ 
+@@ -1221,11 +1225,11 @@ static int isotp_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
+ 	}
+ 
+ 	csx->can_iif = dev->ifindex;
+ 
+ 	/* set uid in tx skb to identify CF echo frames */
+-	can_set_skb_uid(skb);
++	can_set_skb_uid(csx);
+ 
+ 	so->tx.len = size;
+ 	so->tx.idx = 0;
+ 
+ 	cf = (struct canfd_frame *)skb->data;
+@@ -1260,11 +1264,11 @@ static int isotp_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
+ 			cf->data[SF_PCI_SZ4 + ae] = size;
+ 		else
+ 			cf->data[ae] |= size;
+ 
+ 		/* set CF echo tag for isotp_rcv_echo() (SF-mode) */
+-		WRITE_ONCE(so->cfecho, skb->hash);
++		WRITE_ONCE(so->cfecho, csx->can_skb_uid);
+ 	} else {
+ 		/* send first frame */
+ 
+ 		isotp_create_fframe(cf, so, ae);
+ 
+@@ -1277,11 +1281,11 @@ static int isotp_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
+ 
+ 			/* disable wait for FCs due to activated block size */
+ 			so->txfc.bs = 0;
+ 
+ 			/* set CF echo tag for isotp_rcv_echo() (CF-mode) */
+-			WRITE_ONCE(so->cfecho, skb->hash);
++			WRITE_ONCE(so->cfecho, csx->can_skb_uid);
+ 		} else {
+ 			/* standard flow control check */
+ 			new_state = ISOTP_WAIT_FIRST_FC;
+ 
+ 			/* start timeout for FC */
+diff --git a/net/can/raw.c b/net/can/raw.c
+index 7c48ff36e6cd..7873bfc584ef 100644
+--- a/net/can/raw.c
++++ b/net/can/raw.c
+@@ -75,11 +75,11 @@ MODULE_ALIAS("can-proto-1");
+  * storing the single filter in dfilter, to avoid using dynamic memory.
+  */
+ 
+ struct uniqframe {
+ 	const struct sk_buff *skb;
+-	u32 hash;
++	u32 can_skb_uid;
+ 	unsigned int join_rx_count;
+ };
+ 
+ struct raw_sock {
+ 	struct sock sk;
+@@ -131,16 +131,20 @@ static void raw_rcv(struct sk_buff *oskb, void *data)
+ 	struct sock *sk = (struct sock *)data;
+ 	struct raw_sock *ro = raw_sk(sk);
+ 	enum skb_drop_reason reason;
+ 	struct sockaddr_can *addr;
+ 	struct sk_buff *skb;
++	struct can_skb_ext *csx = can_skb_ext_find(oskb);
+ 	unsigned int *pflags;
+ 
+ 	/* check the received tx sock reference */
+ 	if (!ro->recv_own_msgs && oskb->sk == sk)
+ 		return;
+ 
++	if (WARN_ON_ONCE(!csx))
++		return;
++
+ 	/* make sure to not pass oversized frames to the socket */
+ 	if (!ro->fd_frames && can_is_canfd_skb(oskb))
+ 		return;
+ 
+ 	if (can_is_canxl_skb(oskb)) {
+@@ -163,21 +167,21 @@ static void raw_rcv(struct sk_buff *oskb, void *data)
+ 		}
+ 	}
+ 
+ 	/* eliminate multiple filter matches for the same skb */
+ 	if (this_cpu_ptr(ro->uniq)->skb == oskb &&
+-	    this_cpu_ptr(ro->uniq)->hash == oskb->hash) {
++	    this_cpu_ptr(ro->uniq)->can_skb_uid == csx->can_skb_uid) {
+ 		if (!ro->join_filters)
+ 			return;
+ 
+ 		this_cpu_inc(ro->uniq->join_rx_count);
+ 		/* drop frame until all enabled filters matched */
+ 		if (this_cpu_ptr(ro->uniq)->join_rx_count < ro->count)
+ 			return;
+ 	} else {
+ 		this_cpu_ptr(ro->uniq)->skb = oskb;
+-		this_cpu_ptr(ro->uniq)->hash = oskb->hash;
++		this_cpu_ptr(ro->uniq)->can_skb_uid = csx->can_skb_uid;
+ 		this_cpu_ptr(ro->uniq)->join_rx_count = 1;
+ 		/* drop first frame to check all enabled filters? */
+ 		if (ro->join_filters && ro->count > 1)
+ 			return;
+ 	}
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260925141115.16126-1-axel.mierczuk%401password.com
+2.53.0
+
