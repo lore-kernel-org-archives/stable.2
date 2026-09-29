@@ -1,61 +1,63 @@
 Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37ECD39734E
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 07:25:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A296C392838
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 07:25:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790666726; cv=none; b=rQDtYje97hVmIlJsQRrtyYxv7Mdy2oAD9BHnB0gpK8gNdSPtvp9ZmJfRtwPJgapZHdgBfjeIrof+zHRS2+EYMmqtBISFiOmZ3DGzDIsnJO9+nrwnbnJoaXapau+2q0zcZaTw/NTC2s3bObc6NqYMM0WFUjyBj8sKudilkHtu1CM=
+	t=1790666727; cv=none; b=YoNCmsaBax84Vq/aDu7ENba8M+fqbC/Nc9XRMmbWBweZ6B/pK8cTg06EUOHAEXil4ufcPbFYUYlZE+S+fjqy/f5itrpmXX8JRO9GqWRpJrS/Rg8N9Ckzcmf5S5xs5YS1pYtu2ZTOHjvbTJGgmGCXeo4Tkfua9kmQytRutzjmI0g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790666726; c=relaxed/simple;
+	s=arc-20240116; t=1790666727; c=relaxed/simple;
 	bh=vXiPYU0cSC0MhhcbWDuX8Ks0SSTK1cMIrJrwZV3hEkU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jbzxAmHZspGPcpViBrsqH1rQfD2aqr4eIyjX7A++6kwZi+crmHxfq76fluOlYKYqL7F4ckjv1Z52IsOFxRlHjDZeAfhTYiJaOYHGt0VHOFfWECuRMtELL6aBpYiAy+kXbM1f0usymvVEgwF+rkliuR9tHqbzYGyoTkLa78Sl+4E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=openvz.org; spf=pass smtp.mailfrom=openvz.org; dkim=pass (2048-bit key) header.d=openvz.org header.i=@openvz.org header.b=Z3wYFQA5; arc=none smtp.client-ip=74.125.225.141
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=I5kYk1FLxPnnvF0Oxp66260NAmN6lwxVM8ZGjwQhEmTR42uv7dy0leM1ckeCynnjDJVTjGX3FrylioNWEKjZlNyao1rj7dRBBMkp8PhT4WUZDaeXmfG0dBMathSo87llQmnob0ieL6H+u6zASBov8D3PMaYyKFZKkLIxLXarXpg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=openvz.org; spf=pass smtp.mailfrom=openvz.org; dkim=pass (2048-bit key) header.d=openvz.org header.i=@openvz.org header.b=Q1tJov6s; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=openvz.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openvz.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=openvz.org header.i=@openvz.org header.b="Z3wYFQA5"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e721b5503so36349035e9.0
-        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 00:25:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=openvz.org header.i=@openvz.org header.b="Q1tJov6s"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49d1fb0cf5eso36376615e9.3
+        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 00:25:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=openvz.org; s=google; t=1790666722; x=1791271522; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1LMlP+LKNpavKh20Ow5p/XPiL08oZ6Sei4hnViskqxo=;
-        b=Z3wYFQA53r1Bjwe0XR9oLsWrcIfrnUEyjIt0vXrsjq5ExtTy5anEH2cs9svWCApluV
-         oTRbI49wOWdX+JLhmcUDXqQ1Khvo/HD4AmmSWaehroUJdxQGVeyy2Z8RT/mGbbIh54i5
-         AizkoJ9T++yPhJad+UqZfNin8Fw9wO6ru8Cnac9aLdmqAgnX5yYimi513aVuMbZVukSe
-         0U891KLhWnf3t3slSL/u02yQRMXDghCQ1D+MrrSEr78EtEHzN38vXgm0b62mbKn97oIp
-         Ik+/OcttCrkdVbUbzM3fPfH8FCWLFTZBJMPKd0AHkqYoViU29Ap9ZxRGBhIoBbAXTre2
-         f6XA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790666722; x=1791271522;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=openvz.org; s=google; t=1790666724; x=1791271524; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
         bh=1LMlP+LKNpavKh20Ow5p/XPiL08oZ6Sei4hnViskqxo=;
-        b=J69U5tgpKBzXJN3viTE8Tc50s3wwL3U4y001JTFvoo62pWxRhLbm20Hr3OH1govyMx
-         YxZqXNYzpvf+wKi88YOJ702VTnQj8x+x/yXe0+C+R7b4hHVoFWum0r5WgKHA0FWI5Jvh
-         U1VtQKOJF58ojXcXcZUjbY7AkQzsGjw0T7oRQZbgOb5sRV8qUi/VSRj875cAQnc+rAyX
-         73O9HQQP5jSBpiIWQ5xE6WxwR9YnEeJmJ81xsOtdguOMHKmPhLDkU+7zmbQ/aGV/pqoQ
-         unlWtxpuIwGfCDkLK3ji8T97l8kJonjJFhNQvvsT+B+h6wUoMUD9MzEo79xBgQjlo4Yo
-         X3Ow==
-X-Forwarded-Encrypted: i=1; AKwUvByR3WnwRb7QStdzLxS5ICB7VqZiiy0rB/gJAk1CHE0PL6//qEXEWO1NoApjsPPQHOpZWn8iQDY=@vger.kernel.org
-X-Gm-Message-State: AFuF++m3BTQysjzMOsLyoZ4kPPO0eaA/TjfrRWFpBN5UsgJbi5uxFd4K
-	duE2WVfblx4L0caIPpZEdnIouh9iCuCCklrU8El8E0+uq1cyO7P1nrrtf5FLu2zLLkc=
-X-Gm-Gg: AYBFou2xT0lynOQQDA7CtZYrqy//KgB8TUrb9Ti/QRyytcOh4hqiGaYYJC6JskWoOT7
-	++wa+QE119bCqyvXtwko8Ooo/Kk8hUfepPPt9KUIoagGi4xHzfL6TGA5X7jVeqfANQuZ6cYm5Ex
-	HiQnuKP7RMvDZEKGdkCkGI/NKen1Otr3ofpjjGROLYtvobZnsxJZhreOmfMQsQlYWPMCy2FG4qa
-	PGpc1PlRfFLTKVa9d+3+29lDAaQVPdhk/GREf9X7BYmeBB7CrxnxHyD2I3PpTbeI5AL6X2sA3AE
-	Rn9ZluWVKZNjs/a9lGb8Gs9hUp1foSDfiwDTXMsavRvMXavlu1GQ2X+70+gkjFbPPo7xzfB2vmU
-	kd2zJydc3GOWLeSVI/gJSWg7OQJTHhfahdWIATy4cWcYpXpQHa8TIPI4/xP3j2hsTyKEbfhaHjd
-	BdArGbHFN0cr+fBLy0rxQ6wDo4xfrFw0uNzu/go423Q2866zimzvYrCOzXwNbsXQg7EBo=
-X-Received: by 2002:a05:600c:870e:b0:49f:c1a1:5222 with SMTP id 5b1f17b1804b1-49fe670b208mr275472285e9.33.1790666722300;
-        Tue, 29 Sep 2026 00:25:22 -0700 (PDT)
+        b=Q1tJov6sRlvjnDh0PA60RUbi/fj5qWjKNu0+CQ5Jny2JWGdx1gd82v+Kt6l++Am/ne
+         2n2Wp6Nt49mJFDFVb2Uws9hlCg0Gs3etlCPqySVsubQ14E0ghplljOc+LneBiceQ5LED
+         jswtB2lxDVdHqfc+6z6KjpLQZBMrGBFGtZINLlAQeCOmUBKdBBz9ivZtJ1xs7lpFEGoY
+         fvqTmW4gxJoDlireAHVHZPKMMUHuz/eMedy2DcTV5fs4KSaQWvroyyCSw5VT96AB0W82
+         /KytzMJjdlcf5P4QUue3X31k+1ka1XiRSWxr/cq2qDyEVUSeAmTNOXlCKgpzHbn+0UKD
+         cxAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790666724; x=1791271524;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1LMlP+LKNpavKh20Ow5p/XPiL08oZ6Sei4hnViskqxo=;
+        b=pIlM8ORffKZCXxH06maRsxMcg4OXoYItICCF9CMN2sU4MxCfdd0NhSLINPS/3zLeRq
+         79Fcrc76kaJSiZdRaQAFfrJAQ3KMJ3rdKZin/YlDqGopQfPhW6ro/3jQ0DqP3ePkiHt8
+         tksdY8ntfbFMFugwI/SE6s8pZSaC7GL7dhjmNjDLTSrJcap4F1kGvtZRIZ6NLbvValKL
+         ZLTasvXjxgzwCWCRp7jGp3AX9qFU4a1Kn+kpjgw9OpW7aNi2nrLZbny7/pI3RKaJKP2n
+         zr2tdzaz3bPgmPqnKmCkqrSq/Uv7Ek3UCRFGteISu+ozqhr2ABhdOgklqQAh8hgS3StD
+         RJNw==
+X-Forwarded-Encrypted: i=1; AKwUvByylDYHIsWuT8ti7EWRRNJFLAJJxJhkhdGQcYv5El1lQ2tch/lvcu1uTfEfucVCFi+NCS55CH4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kGvHLQFDxsW2Blw6B4PADs/JR2B7LJnp/XYZzYtkP9+LZHjbi1
+	Yr8UYs9INPUekyc+6CgdVf/yYjQhireZVlZhyL2O5GthWtsNxYYGlay85tqFnAtRWLA=
+X-Gm-Gg: AYBFou2g3dRQW2UpEQu3vQmCiyr6q/4sfYdtRq2QsFR4A8l24H6gH+Bf/JDoZxfDxZT
+	jBqdSfxlJGXcmEx5AN6D9lpxGyO5EGs7ozLE0+5VhNzvdVobHmdc+0bFKgN0ZuiBCw4t4JWEZO/
+	6sf4rfUxXuIt+z2deShrYGtc7GbcOO0Gzt4lnqKcAoUIxoRpNquYNOkemcAt8PFunEuMGoM7gal
+	vo7Bzb0SrvRnBwUC3QYEZKTzlBBpbtgg4LnjR+TQWmGl216iOHX8thTCB3J4QbUdmYHq0e5LGbH
+	rt2STi2igeUwp/zaizaWP4e2qPhXpd2ktklclUl9q0Fmqaxf0TmcObt3gI3DEevp5LHMaTI9hil
+	2PD4QbZHrVW0PkFeGbA51XDfrAeIcBxkkrd4I2GK7GoDrBv5/dNyru/wSpEQOOD1FnYHLiGkuS/
+	wV9+J9wVltbx46MuplRScf/pkh3N2tOlSyN1Vo0Q+4OHVJjzMW/w2KAQAVRr5WR1VLIjo=
+X-Received: by 2002:a05:600c:a16:b0:49f:eddb:bcb1 with SMTP id 5b1f17b1804b1-49feddbbe6dmr228957715e9.25.1790666723961;
+        Tue, 29 Sep 2026 00:25:23 -0700 (PDT)
 Received: from athena.sw.ru ([2a06:5b06:b600:300:5dc9:ac15:6dc5:8646])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cf4598esm58896465e9.0.2026.09.29.00.25.20
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cf4598esm58896465e9.0.2026.09.29.00.25.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 00:25:21 -0700 (PDT)
+        Tue, 29 Sep 2026 00:25:23 -0700 (PDT)
 From: "Denis V. Lunev" <den@openvz.org>
 To: netdev@vger.kernel.org
 Cc: dev@openvswitch.org,
@@ -70,9 +72,11 @@ Cc: dev@openvswitch.org,
 	"Denis V. Lunev" <den@openvz.org>,
 	stable@vger.kernel.org
 Subject: [PATCH net v3] openvswitch: fix soft lockup in the netlink flow dump
-Date: Tue, 29 Sep 2026 09:25:18 +0200
-Message-ID: <20260929072519.2803304-1-den@openvz.org>
+Date: Tue, 29 Sep 2026 09:25:19 +0200
+Message-ID: <20260929072519.2803304-2-den@openvz.org>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260929072519.2803304-1-den@openvz.org>
+References: <20260929072519.2803304-1-den@openvz.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
