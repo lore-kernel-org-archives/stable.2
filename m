@@ -1,215 +1,189 @@
-Received: from mail-qk2-f42.google.com (mail-qk2-f42.google.com [74.125.230.234])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 995024F393A
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 09:28:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.234
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790674099; cv=pass; b=bB0MY3Wm/IIL6iLqmNlrDpQoJ9yIXdW3Wp5GQsj9qFy7WRekXKWCSGm8d3dya8G25yb6orm+PHnoe3yo7kWJVbWAD2WJjZn2K09OLkEyLt985u2OaelT14czuhY7HNhx7RBDZLG0OYME1cl9hWkZNGqLJBAsfv/RABM0kB1Md8w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790674099; c=relaxed/simple;
-	bh=7k54aqi82jIm649ecr4wVLrwDqk43k8dDuyIeGVgB5k=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=S3KtJk1bri83Lno9jq1dSQljwHBTcHP8esgVflLgHgiNgZjQsYIa3/54Pk1HtbSCMW/MbKCwllbUJRzkcsAP4BggROnUr6OWhHRORCcw+iKYixPuUgIduiCBgdG+DetkH8r5IXmdKqKO88qacy1mx371jMJGz7FxNslV4Whb1cI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Zp/JXUNT; arc=pass smtp.client-ip=74.125.230.234
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 737BC4F4725
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 09:30:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790674204; cv=none; b=Lej9wmnUD+TidEa9DLDclAu60I4TLCIBPitZHxSGUfxhtJ0Po4ImxCU6QlOvxwuN+hHJ1FMIPGLnitgm+qJWGQ5q6XXWU/+HJ/FBU6Pvzj2hOk2yOM4MoOcYCLxcAVtxF06h8Djq4qIqIQjHacKn3nISBGnKQjxnKt8ziHvF3VQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790674204; c=relaxed/simple;
+	bh=8G5gXQyXRQwwX7f43Ne7m+CsLz/u4b+l3A+714FBABI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Xd/9oma05MQyAZrx2tCyIf8Mb+itAEXQSHHrPEo0oKJSWxh0q33/m5y+Luogeqwl/5xkY9CEGznvwOO6fgJOzRIUFwo4+7wY7txSAL8/vj7O8d+xyUCYSW95CD9eQjyW2YU+6xuFG3D+V0oGmyEkmgNFYQD+dNoL0zthiM0hHfE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=myc+tZGn; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=a8hkPjvD; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Zp/JXUNT"
-Received: by mail-qk2-f42.google.com with SMTP id af79cd13be357-93c56f7c1c8so374112085a.3
-        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 02:28:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790674088; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Ii6YZTWnaguACGt6UqSMFY1G0zYJJr5vPZ3krioNde+nqMEHBdHHWJ/PQB7sWlBSfd
-         AjdCr/RQykr7gGaUobAl0eW7oNROz4vy7TL5C6g2FK/DDNqx3jW6B33CBCI3emzhicr8
-         nlHaJwefxWW8sZWFLx+Elk8x+1VDnu2JgRvGi0nXRI2sTDenhbErmHbKNscrlgUF/eEN
-         r/I5YdZm4NtQFg32EZHyWz0SiYK4mSVq7hjFoiX2M9wALEgGqBCV/COiZFfVQp4RGDJZ
-         gD4PRqbuSd8t14vWmd49jMKwvALRuEbLRANT3deUQSHvz1pP/ZUgYzpfy/lVfW3ONJwW
-         5jqw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=plBZts7qmMjmmbhkJeYq4DD26rs9avPiOAzmb75d1es=;
-        fh=itHX/R+WZSPvsz37rTmo+9eRGWa+BKjMALmVZWtb18k=;
-        b=WTGTZf64JsffAsUXsUlqmVZqkL4g2MMv5/jmlzp+Foxp8d9sUbmWteQxIvnMcPeByD
-         eOKi8PTI/jxPd81MAtS4K/nwnmOwdnjKrXzpI1URdlgPVVgPLyhEjB8ITrnNm1njKcov
-         hG+8jGOSzC70kJvJombRNcqivO7D2crl3NaYsthk+pu/g9EWBJ1u9UrL3SzDpVWPAr8k
-         RzZRScvnWGjHzmFFY8uePBdjElvIjzdvjrSumHBObyR0g3z5TnnOjG4YJmQpW82wBPTn
-         /pqM8ZXOzd/3ifqpAouLrTRaXpy8Pi81seGMhiahY8GChkhbUJ5hX2WGcisMef48CqnO
-         5mjA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="myc+tZGn";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="a8hkPjvD"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68T7TqmZ2570996
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 09:30:02 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=uopSwhhdcz9IXu3XnYnIyA5siTYr06KZ8SL
+	qrVGutvs=; b=myc+tZGneM4FK7d+SYaxWaJi/68m7QFJ+k7jV5+ZhtIdzRFIlL0
+	/l+dLGSZrYAemY5O/b1TI5tFdT5O7QSQBPo23YijsboocglxUODuWMeLquTSc+kG
+	WEnZhOmfD8NPMlHyjcyW/7EJusRHV/ORgWWlEbaInUHu/w/52dCUVjJGykQ1OnyL
+	NvEefa0AkWzj1Tmr++VHBfI4KiKwXfVAaNahIWGefXYU9hqE/9AWqRH2Ld8CiBp1
+	X3u7Xykk/n6CG/iUrkkSPWBOKzFf+AT8X7dAhEGxLTS3Qr/O+cr0LAHQ80T+KiHQ
+	lxN7PYl4VTus8IcoSjLTM8fAs2F+PubwYSA==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h02mn9xgb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 09:30:02 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3a470ead068so1551467a91.3
+        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 02:30:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790674088; x=1791278888; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=plBZts7qmMjmmbhkJeYq4DD26rs9avPiOAzmb75d1es=;
-        b=Zp/JXUNT6G7FUEhUXSgCCcz6tONfi6AW2CGBt7edjRonH6OaUuhBzu4CbEbKb6/UFo
-         pmxYEuJA7++dFXHkjKoaN+SM/LBcyciQtGd9mtt6BCF6WegikVewsp8gmxv451G2IoQ0
-         3QSU9TPI0M54jp07SeiG1ORWQAIKTGvbHyFMCZCwB6cYH3An6AG6ZvmvrfwgvylQdqgB
-         /eEVNA5q4jiB9GByKs9ePbqCr+HFjRm0Og2ninUvi2d6oE8TCt3tB69ctGrIUUUJb6Fb
-         2q1Sp6PCmd9R5WgPV+eGesmp+tmyptJB/1tTXvDtWQxglGzpHgkv6k2Qqj8x0siibPW6
-         P7dQ==
+        d=oss.qualcomm.com; s=google; t=1790674201; x=1791279001; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uopSwhhdcz9IXu3XnYnIyA5siTYr06KZ8SLqrVGutvs=;
+        b=a8hkPjvDF/U1/cZnuGjxavuA2HviXJB0gGVf0NYl7Sfl+7118u6lNmcOlIYKIWHUNi
+         Dr7e93tvxfSUjQTaEbhU1jIGmbK7OlCqRDogI+naJ4ITglSNBzPx15HSs2qbuPjU5qRI
+         VDAFnA6nSkXHCSbEf5A6hP4bmsqtMZdXTOa/KxbxH1rb55LsKFSu8ibKZgtPRC4Fybtu
+         3T0+e4fcR1BXMx2IszbL+SMixqlb/ytThmeVIx2Yj3NYKEa13rjBENpneDg0Zy7gk9i2
+         T4UgSsxDvkQ7G954cQ5hHEOHZDzUFu0ujy486C7OX5o3NC3JFCki5zEiewjldg7DAM8z
+         WnFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790674088; x=1791278888;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=plBZts7qmMjmmbhkJeYq4DD26rs9avPiOAzmb75d1es=;
-        b=YQpHjKURnltUCJ8GIVmFbSIwi9GN4jGaOhnXbQ+rBf3TGoPQoBmCu+LTGTf1UAagZX
-         IhVP9xYht01xTJVZR8VPrh3AtZ5yfGW12/ISKsCXmAZbjnWGK2XgUFqKnGolc4uZF7yH
-         WbsXwbqc5aSTu0VOKZUqqI4s/4Sy0x+tSoViwYHSW/yPkhnav/Wb7qUL6m1dmCwpL6ix
-         /3nxeHZk/PXKGuM9TBzOttyjIiclM9/WVt41NVjXPeaD7d47BhwRl+hbrcnXWPeRRsh5
-         di4PPD1uRfR+drZsiGbHtjONGmrV9VtmLT8Fxbc2xvKFffF2z+BSqORyqX1nPy346MeF
-         iwcQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzBgv4xIO4NMvokc7EhEoJ1LUTEvWw93+BtUp6ZnRBl+YmOhBREhDpM2/TKmKzmNFieouonJvE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kJsvf+AD+pNRyVpJ6aV3G9Ph1CSWJIy+kI12/9J2/bUqwDJ6gz
-	Etbz0wYQyj/EnslMwwqnc0DN5Cdf1pINRyWIlTOwAxfhhi2zlv7S8j51npeUzHzJEthMahmvfAn
-	HTHLowG2tGv1kT1VEaaXBqqrY1g8lf7jOvykIH7D71AJwbc6PPmo3u4+W82Q=
-X-Gm-Gg: AYBFou28LMCbIdCwfInOWSpwNQ0I2hjKWQHEA8mfqqQ+9bM8M0LhWKm0RRLldOWZA9J
-	KlpdSWn1bIDg/zgX46EJorIzXMxOZrbRsZ0XWpnGp6gY02EvtvydE2fOW330DOCuVJ6VSdTs6Hu
-	72hbkHq61kAfnMtkgt3324YVz+9VShsyLe0EuUTHygG5T0SnGWBThnkdMHt1vO3jxMt0Rxdo/hM
-	ushvDCvYB2XR/0uD5V/V+uqhqQqIqBtwv4CKZT4NcvxcPOAvcvEyu/taiRk+1dvwhf1dV0A+k6V
-	NcpuC1nz/qzMu62/Xpj43Us3xn+6W+7hkFZqN+sHf4jPHPdfFEaA8UckimQBrCiC8G+P5ZuZmqF
-	NvmKh6CFCICit8UbrIggkFFJ4rYXViYSDRGpMH95HX6ls71NsCQPGvbNeQno3sKU97gNC
-X-Received: by 2002:a05:620a:1722:b0:93c:72d2:ccc0 with SMTP id
- af79cd13be357-93c72d2cf2fmr1237507285a.17.1790674087574; Tue, 29 Sep 2026
- 02:28:07 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790674201; x=1791279001;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uopSwhhdcz9IXu3XnYnIyA5siTYr06KZ8SLqrVGutvs=;
+        b=lQ/gAp17291hhQgVPQIJazrpXwvrqLZQv/mOGYIhqzU6e8ndTqyZlQ5xIn/ntV4obV
+         l0nRoKmSJFZ4nMxVLbfNz2dNspvzco7RTshpy54MHEcEtRw0cve4dBzZYvmxmSb4IAuf
+         +izaFFsTdEvn8WWp4LPK647YaWpTjicC6aSPi/GiTQnO8gSj01JlrrzTyrtLDbC4EeNE
+         4OkP9vluWn6G+hupeoqLxGrHzWRV4lquEENxylZsqSmJDwJSnfCr5HjgO93EI2zJ3rqE
+         ZjPj294EbCFk+DMwawXvBcqtP+u/n8vXM5VOi2Vfrs9TjPsmFoIYfdN6nsnjWHJ50bSW
+         uh9A==
+X-Forwarded-Encrypted: i=1; AKwUvBxk+kKZ37x2pdMWrNh9kDmEVNrFnL93cp2EkJaGY9Xrbsqj+BUsUZY+bpQf9qCSFT7SHn0f5gA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKycQkJqC7XSuEjdrkaE/5aNdIXT//dcck2t49I5tUI7Jd+M/vR
+	+FkXmM9+qvI2TOrUuSUCzVxAVkynGPIYsjCU+LuPjlhN29shFewXlA2dRaxHEyQ9k2cPdJW5ri7
+	OruEUfJhB/fHN5p9I9zuc3Om8xLViKC2EpmYsWg2A6nex5Dt7IT9oWIOf4Ko=
+X-Gm-Gg: AYBFou1aIz7W2g8ltoYlX9Ybvfv6spdNFlkbMC34ObT2GcY90h8b+19OfD3yvRbmCle
+	3Ou5g1pzrO8pMK4ovIjhPg36dxglzw8OInfTKlDGOJEF4CjRO0fF08uJ66wkIWWeZ7jkhdQqA3l
+	8YqoVzs/rIE2nCR1ox+sKXA0E1crM8aT/KQBxdjzjr8Q/+v2yUjdG4rkAzm/xtXOiC00rwmuCrO
+	+RL8hqFCO4owYTPrXWIb30JD8l0lOFb+nMTlhvhp4Waq2dfXm37BWB7q+5CKRC5vG3sj2m0zd6X
+	8PVqiBbIIBzVf0j9NOjC63TXSvxPHPYdFVM1d0+AsGiQghQ7wLkMjW3aDppFDFwZeX0lrWgmfT6
+	zbot53wzL35ZrMa8XsXhFl/5K23HGDlPF4yZ3rA==
+X-Received: by 2002:a17:90b:3c92:b0:3a4:7c19:6a0c with SMTP id 98e67ed59e1d1-3a47c196e00mr2108200a91.31.1790674200842;
+        Tue, 29 Sep 2026 02:30:00 -0700 (PDT)
+X-Received: by 2002:a17:90b:3c92:b0:3a4:7c19:6a0c with SMTP id 98e67ed59e1d1-3a47c196e00mr2108188a91.31.1790674200346;
+        Tue, 29 Sep 2026 02:30:00 -0700 (PDT)
+Received: from hu-uaggarwa-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a492da42a3sm2266775a91.2.2026.09.29.02.29.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 02:29:59 -0700 (PDT)
+From: Uttkarsh Aggarwal <uttkarsh.aggarwal@oss.qualcomm.com>
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Hans de Goede <hdegoede@redhat.com>, linux-usb@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+        Uttkarsh Aggarwal <uttkarsh.aggarwal@oss.qualcomm.com>
+Subject: [PATCH v2] usb: typec: ucsi: Set ucsi->connector before enabling notifications
+Date: Tue, 29 Sep 2026 14:59:39 +0530
+Message-Id: <20260929092939.1806907-1-uttkarsh.aggarwal@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260926173315.2452612-1-nicoyip.dev@gmail.com> <arty-oqohbGiefgS@kwain>
-In-Reply-To: <arty-oqohbGiefgS@kwain>
-From: Eric Dumazet <edumazet@google.com>
-Date: Tue, 29 Sep 2026 11:27:54 +0200
-X-Gm-Features: AclHuK9c7PvZwZmPzikTgYtVRuxFtCEpTXGrsvZi1CqGH1BjIm6bN6R2TerIyu8
-Message-ID: <CANn89iLzwsrka1MUS64RKxx9TbKxGdwzB63nzs6v9endCwUahQ@mail.gmail.com>
-Subject: Re: [PATCH net] net-sysfs: release the TX queue tracker before
- allowing reuse
-To: Antoine Tenart <atenart@kernel.org>
-Cc: Chengfeng Ye <nicoyip.dev@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Mark Brown <broonie@kernel.org>, Christian Brauner <brauner@kernel.org>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=X9fHu2Te c=1 sm=1 tr=0 ts=6abb851a cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=aR1d7MnS8zDfWtQP9dEA:9 a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-GUID: mA6ebC8fxFHm1el8g96yCWjfqBXZz3lT
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDAzNyBTYWx0ZWRfX1ZPSKWBn9C4u
+ 3ZH3hW+EeWOok2agIzbfFdi25AEvVfWJrGpIOBlIDzQrsmTuWaUqvoZPAtE77/3yYi72IWbMPRk
+ CJHQUyE/UnstBAvVBgJDJ0h760KitZo=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDAzNyBTYWx0ZWRfX84SkeHEsz5G1
+ WPKuD+76XLU+hjd5MtqP7kdXcm/yT+Pzg4SdawQkgXCK3fRSOr+4PXFh508zrE3zX7rF/iYumY5
+ j0avDdGwrABIwERt1NkSvMPIg8bByTcJ9Tq4G+hPv53/soKx76TsbWUQMIc+MOko+jQeYYJ40uD
+ e2JmeVQfW/m73VYPOWLXVNi4Kmeyg15NpK983kJaKHPtEJ8cnHjoYfgIIoTziAFEsO3USn7JENm
+ QKIEivgtzJu/uoK4c24E5ogd+5+dfkpAe0VUmDLI3kDqavJoF1PzTOQ1ObJxePJMeBpuOpWxpu7
+ wvmUXz2W4sx7o6osvmj9rpCYRqLG9AYYzXOvsnWXEhXq5dHZT3QDxjH72pqvEA19DL8UVDBN2q5
+ tzm4RW+fWVu02McratcEabZHX2xRxlNtIgcP6L0cp1AyY2fH1YDli8J/gQATcBO3psDW2JpTar2
+ TzxXmJBnN1WZ6gbLlWQ==
+X-Proofpoint-ORIG-GUID: mA6ebC8fxFHm1el8g96yCWjfqBXZz3lT
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-29_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 adultscore=0 suspectscore=0 spamscore=0
+ bulkscore=0 impostorscore=0 phishscore=0 clxscore=1011 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609290037
 
-On Tue, Sep 29, 2026 at 10:13=E2=80=AFAM Antoine Tenart <atenart@kernel.org=
-> wrote:
->
-> On Sun, Sep 27, 2026 at 01:33:15AM +0800, Chengfeng Ye wrote:
-> > An interrupted sysfs_rtnl_lock() can drop the last kobject reference to=
- a
-> > removed TX queue without holding RTNL. netdev_queue_release() clears th=
-e
-> > kobject before releasing queue->dev_tracker, allowing the queue to be
-> > re-added while the old release still needs the shared tracker slot:
-> >
-> >   CPU 0                               CPU 1
-> >   netdev_queue_release()
-> >     memset(kobj, 0, sizeof(*kobj))
-> >                                       netdev_queue_add_kobject()
-> >                                         state_initialized is clear
-> >                                         netdev_hold() installs new trac=
-ker
-> >     netdev_put() releases the new tracker
-> >
-> > With CONFIG_NET_DEV_REFCNT_TRACKER enabled, the old tracker is leaked a=
-nd
-> > the new lifetime's tracker is released prematurely. A later queue relea=
-se
-> > then reports a double release. The numeric device references remain
-> > balanced.
-> >
-> > The kernel reported:
-> >
-> >   ref_tracker: reference already released.
-> >   ref_tracker: allocated in:
-> >    netdev_queue_update_kobjects+0x23d/0x5c0
-> >    netif_set_real_num_tx_queues+0x111/0x820
-> >    veth_set_channels+0x327/0x930
-> >    ethtool_set_channels+0x3ee/0x490
-> >   ref_tracker: freed in:
-> >    netdev_queue_release+0xbd/0x130
-> >    kobject_put+0x1f9/0x280
-> >    sysfs_rtnl_lock+0x18b/0x1f0
-> >    xps_rxqs_show+0xad/0x250
-> >   WARNING: lib/ref_tracker.c:322 at ref_tracker_free+0x49e/0x6d0
-> >   Call Trace:
-> >    netdev_queue_release+0xbd/0x130
-> >    kobject_put+0x1f9/0x280
-> >    netdev_queue_update_kobjects+0x3f9/0x5c0
-> >    netif_set_real_num_tx_queues+0x111/0x820
-> >    veth_set_channels+0x327/0x930
-> >    ethtool_set_channels+0x3ee/0x490
-> >
-> > Release the tracker before clearing the kobject. Use a full memory barr=
-ier
-> > to order the tracker access before clearing state_initialized, paired w=
-ith
-> > the control dependency from that check to the new tracker allocation.
-> > Keep the device reference until after the reset so that the queue stora=
-ge
-> > remains alive throughout the callback's accesses.
-> >
-> > Fixes: b0b6fcfa6ad8 ("net-sysfs: remove rtnl_trylock from queue attribu=
-tes")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-> > ---
-> >  net/core/net-sysfs.c | 5 ++++-
-> >  1 file changed, 4 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/net/core/net-sysfs.c b/net/core/net-sysfs.c
-> > index 352173df7578..b9aadc4c000c 100644
-> > --- a/net/core/net-sysfs.c
-> > +++ b/net/core/net-sysfs.c
-> > @@ -1906,8 +1906,11 @@ static void netdev_queue_release(struct kobject =
-*kobj)
-> >  {
-> >       struct netdev_queue *queue =3D to_netdev_queue(kobj);
-> >
-> > +     netdev_tracker_free(queue->dev, &queue->dev_tracker);
-> > +     /* Finish using the tracker before allowing the queue to be re-ad=
-ded. */
-> > +     smp_mb();
->
-> Can't you use smp_wmb() instead as it's used to order two stores?
+In ucsi_init(), ucsi->connector is assigned only after the
+UCSI_SET_NOTIFICATION_ENABLE command completes. But once that command
+is sent, the PPM is free to raise a connector change notification at
+any time, which is handled through:
 
-I do not think smp_wmb() would be enough: ref_tracker_free() only reads
-queue->dev_tracker, it never writes to it. We need to order a load
-before a store; smp_wmb() only orders stores.
+    ucsi_notify_common() -> ucsi_connector_change()
 
-But what does this smp_mb() pair with in netdev_queue_add_kobject()?
+ucsi_connector_change() indexes into ucsi->connector to get the
+connector and schedule its work item. If this notification arrives
+before ucsi_init() reaches the "ucsi->connector = connector;" line,
+ucsi->connector is still NULL and the driver crashes dereferencing it.
 
-The changelog mentions a control dependency, but netdev_hold() is not
-inside the if () clause, and state_initialized is a bitfield, so
-READ_ONCE() is not possible. This works thanks to the early return,
-but it is implicit and fragile.
+Fix this by setting ucsi->connector right after the connectors are
+registered, before notifications are enabled, so it is always valid
+by the time a connector change event can be delivered. Also clear
+ucsi->connector in the err_unregister path so it isn't left pointing
+at freed memory if a later step in ucsi_init() fails.
 
-Please add an explicit smp_mb() in netdev_queue_add_kobject() after
-the state_initialized check, with a comment pointing to
-netdev_queue_release(). This is not a fast path, and will help code
-review/understanding.
+Fixes: 0482c34ec6f8 ("usb: ucsi: Fix ucsi->connector race")
+Cc: stable@vger.kernel.org
+Signed-off-by: Uttkarsh Aggarwal <uttkarsh.aggarwal@oss.qualcomm.com>
+---
+Changes in v2:
+ - Add Fixes tag pointing to 0482c34ec6f8 ("usb: ucsi: Fix ucsi->connector race").
+ - Add Cc: stable@vger.kernel.org.
+ - Link to v1: https://lore.kernel.org/all/20260923060434.2599545-1-uttkarsh.aggarwal@oss.qualcomm.com/
 
-if (unlikely(kobj->state_initialized)) {
-        netdev_warn_once(dev, "Cannot re-add tx queues before their
-removal completed");
-        return -EAGAIN;
-}
-/* Pairs with smp_mb() in netdev_queue_release(): the previous
-* lifetime must be done with queue->dev_tracker before we reuse it.
-*/
-smp_mb();
+ drivers/usb/typec/ucsi/ucsi.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-Also change ( /* Finish using the tracker before allowing the queue to
-be re-added. */)
-to the symmetric one (pairs with smp_mb() in  in netdev_queue_add_kobject()=
-...)
+diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
+index bef3f9b71d71..8f7b73a9f4f4 100644
+--- a/drivers/usb/typec/ucsi/ucsi.c
++++ b/drivers/usb/typec/ucsi/ucsi.c
+@@ -2122,6 +2122,14 @@ static int ucsi_init(struct ucsi *ucsi)
+ 			goto err_unregister;
+ 	}
+ 
++	/*
++	 * Set ucsi->connector before enabling notifications. A connector
++	 * change event can be handled as soon as the notifications are
++	 * enabled below, and ucsi_connector_change() indexes into
++	 * ucsi->connector, so it must not be NULL at that point.
++	 */
++	ucsi->connector = connector;
++
+ 	/* Enable all supported notifications */
+ 	ntfy = ucsi_get_supported_notifications(ucsi);
+ 	command = UCSI_SET_NOTIFICATION_ENABLE | ntfy;
+@@ -2129,7 +2137,6 @@ static int ucsi_init(struct ucsi *ucsi)
+ 	if (ret < 0)
+ 		goto err_unregister;
+ 
+-	ucsi->connector = connector;
+ 	ucsi->ntfy = ntfy;
+ 
+ 	mutex_lock(&ucsi->ppm_lock);
+@@ -2143,6 +2150,7 @@ static int ucsi_init(struct ucsi *ucsi)
+ 	return 0;
+ 
+ err_unregister:
++	ucsi->connector = NULL;
+ 	for (con = connector; con->port; con++)
+ 		ucsi_unregister_port(con);
+ 	for (i = 0; i < ucsi->cap.num_connectors; i++)
+-- 
+2.34.1
 
-pw-bot: cr
