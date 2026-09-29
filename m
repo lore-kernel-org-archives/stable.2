@@ -1,116 +1,107 @@
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f41.google.com (mail-vs2-f41.google.com [74.125.227.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E16D3D0BEC;
-	Tue, 29 Sep 2026 10:03:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F7C94FDA63
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 10:05:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790676204; cv=none; b=fGsQj8tNbw0ks0RR6pTPdoNn7BCv17+9/EKjtDSqZeemcazAGPsDizU4LY5RR1uw19xFDlXHVUjXlvPc6P0tbVH8esuNhTZKaCguqH6MimVlUaJYRjMsVr/F35h1kHiP3kzyOjSNtJ4LL5kwkNw9/xER6QeYWawibJQ5LnwG3FQ=
+	t=1790676313; cv=none; b=u7avHY/3go2K7qwsJ9mk4Wjs0pW2BVjN8494ToUcsH7e77/ldn4D8afyihP3Bo4DrCnVhwUcVrzIo57hd1PGiiL/Fr8uGMmnr3oKKFys92sBB4oZzeSlcchIL5M8aog3rc3Y9jJuSi70So1iQp6W3z689qfFdcG8mBbqy0MG5aE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790676204; c=relaxed/simple;
-	bh=5m8t+DqmOklJ09PVxKp0kK8/O8id53KIQfHN2u983ec=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ANOg4FKtyuXo9gShOl/Zrzt6cDRTa8JB4+rNd2tBzJc+XVKGhU6qBa/TWnovbObDKuKIwxzEeayHFYTIjvOBHFC5mHk2y6fq8n3ZyoTJ5HeB44XKCet8SM8NO6R5tJk7TlYCFQqPxfiWXNcmRE6mlDsL9sxGdub5YMr5FjBD5y0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=g7y+dHa2; arc=none smtp.client-ip=210.61.82.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	s=arc-20240116; t=1790676313; c=relaxed/simple;
+	bh=HO3kMzX3++941hDd+4FiOnTVZEiTsHEAJWUsba7xzCo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=PzQzPsXzfy64bCAnlWcczB5FYSHNicicx6SAawUMTjk5GiyA+mndnd5T60S/6IQnz1imVakuXtLyaaPZuwKTezM66UTz3CNByHQKwRPdr5Qf030AU1TKtr3v7ML6jQ5zX5kct77P0ONMHIuTs9nHiPAass/9YWnnsles5ATHKIs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=EbKRY/5q; arc=none smtp.client-ip=74.125.227.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="g7y+dHa2"
-X-UUID: f7c0bb22bbec11f18dc8c9802ae25ab1-20260929
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:Date:Subject:CC:To:From; bh=dyYbTObh62hi+fWsCU7QOW9sp8JH41mugoLKDlkqq68=;
-	b=g7y+dHa2TSK84tqdvo6a8NdeubMdWavuWlXtN4l9lDYc3w6JIcTx90cDO/JlsF0DA6/ZV0betAf6mWfW3FjqyVQdRQZaEK+PFexVhics5U4xPRe+VHPsosO9S1xI6vChCDkgelnCj4SyHEboVRdEBf6sGpdsg0xB3ugIp2j81Bs=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.20,REQID:2fe61261-c9d3-45a1-be16-804012babc49,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:291e20b,CLOUDID:b5431909-d10d-41b3-a8f1-bc707284d0ce,B
-	ulkID:nil,BulkQuantity:0,SF:102|836|865|888|898,TC:-5,Content:0|15|50|99,E
-	DM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI:0,OSA:0,
-	AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: f7c0bb22bbec11f18dc8c9802ae25ab1-20260929
-Received: from mtkmbs09n2.mediatek.inc [(172.21.101.94)] by mailgw02.mediatek.com
-	(envelope-from <shiming.cheng@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1036863433; Tue, 29 Sep 2026 18:03:06 +0800
-Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
- MTKMBS09N1.mediatek.inc (172.21.101.35) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Tue, 29 Sep 2026 18:03:05 +0800
-Received: from mbjsdccf07.gcn.mediatek.inc (10.15.20.246) by
- mtkmbs11n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Tue, 29 Sep 2026 18:03:03 +0800
-From: Shiming Cheng <shiming.cheng@mediatek.com>
-To: <davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
-	<pabeni@redhat.com>, <horms@kernel.org>, <matthias.bgg@gmail.com>,
-	<angelogioacchino.delregno@collabora.com>, <willemb@google.com>,
-	<daniel.zahka@gmail.com>, <alice@isovalent.com>, <sd@queasysnail.net>,
-	<eilaimemedsnaimel@gmail.com>, <imv4bel@gmail.com>, <nbd@nbd.name>,
-	<dsahern@kernel.org>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-mediatek@lists.infradead.org>
-CC: <stable@vger.kernel.org>, <steffen.klassert@secunet.com>,
-	<lena.wang@mediatek.com>, <shiming.cheng@mediatek.com>
-Subject: [PATCH] net: gro: mark frag_list GRO packets as SKB_GSO_DODGY when a list element exceeds gso_size
-Date: Tue, 29 Sep 2026 18:02:48 +0800
-Message-ID: <20260929100256.23192-1-shiming.cheng@mediatek.com>
-X-Mailer: git-send-email 2.45.2
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="EbKRY/5q"
+Received: by mail-vs2-f41.google.com with SMTP id ada2fe7eead31-795a0ab5227so1249837137.1
+        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 03:05:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=mojatatu.com; s=google; t=1790676304; x=1791281104; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UoyoK9QhTWTjtlh2q64dzZQ7shB0zCBWTARiumkOiSI=;
+        b=EbKRY/5qx2mTAd3MdnsYVSSU3iVPaZ+hMxYWQBF/ZXQuvXovtSYpijcgJF1/wxg9O5
+         Djog+TegeUqewO6V3C6aIhAW+Zno4FcedSfBj3ds/aLurjUGBSkYA4CbfW8EgmEJoKVp
+         5jVy2ykFO3UjywNAD+g68FV2NtJrhUWi2XYh4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790676304; x=1791281104;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UoyoK9QhTWTjtlh2q64dzZQ7shB0zCBWTARiumkOiSI=;
+        b=PQmPqxcO695zfE1SE7t6RA8UwZwiX+k4cFXLgrcL2lqMAxx/jJ+c/FKHQT+JppFjaO
+         dGsrP8wdXhNzyboK5BqubHMDlinsiJZerN9zO94DT7IRlxG4KajY9A5JJ7+eF8G33YjM
+         03PHy32ETayiNy/EjEprSQ2GS3iLis7+aomtH7NVw67EdpYfNn7b54+xCp4/Rr86hqOH
+         gUb0EczPjz1DZhpc5CqUMadXLxCEX8wEcEe0soeokF5AAEVWgew7S92HW95vUNIlFivT
+         W+0dd6RUo6GqPzpdTGulPr4zrihvOLL8CojjkzVW3dkEpWSSvnTMIg0l2/gTRV5J1vFh
+         bDpQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz/d7tdWBTNFwNdRVDAlu9+5Hs7adOrDdGbNySvKbJzI1+KRCgE/YTulKSwNyQ6M+FKnACiN6c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKhGGeesPULc8RMskPMmb1k3luOnIuaaoq0fxnLc/XyOd13JdQF
+	hEpOcXSjsIyoEoxZ87zcFQCEVdLT9IT+mHeUnL+w2cQdXIqBd4CKW3Rhp3iK+GPaAg==
+X-Gm-Gg: AYBFou0B7fTdV10f/JFB1OQI88rZIx3o+wl0wkHFxUT5KVawAn16YTNW9tde1gUnbs5
+	F9IsCbbW8Wr+v9kLCJfLySSKOIumYKHh2eokWUniuknVJW3pI8wUFwVm7+denty1Xi+yq5wLJMH
+	yS2wuReDlMksQyoKU/6SZ8IQZT+Cg0tL1e4YRFO8/PmtB4sy1tXISNIepn0shfau1uOXkgMKiDh
+	vr5uPz6wbA8pA4wn6pvxifLzSAgseoo16sqIhJQ5mxBB7kLcrd2BPsq93jRR6zUl0FAywRuZuCM
+	XlV8etXwWV8PJdGpZyWrO8tqbz490NIGEG90Pws1she/mGyaXHSRCOCcStAW9c3QMViOdhOtvfq
+	mG7tfgwYVSkVUu++W0Fyl8m7/Z871r+eq/Vg+ZJ9FLWGatJ0H9Zkc6D258AQ6NbwDraf6A9szct
+	ozM5WKRHQOoYqbRW862t2jizKlvnr+sK1Y/wUmAz8ZmZ8ORr5Uu9zaGgDLxQ6HQKEpGHmtqfebJ
+	tmlC/wk0Y1LLMITRoc74+XjIvyOP3+6fpI1d1a1gBegHfGsAw==
+X-Received: by 2002:a05:6102:3ec3:b0:7a7:19aa:f0d8 with SMTP id ada2fe7eead31-7af1f621049mr4571207137.37.1790676303901;
+        Tue, 29 Sep 2026 03:05:03 -0700 (PDT)
+Received: from majuu.waya ([184.147.180.207])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7b39b6a6272sm12764792137.7.2026.09.29.03.05.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 03:05:02 -0700 (PDT)
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+To: netdev@vger.kernel.org
+Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
+	Victor Nogueira <victor@mojatatu.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	stable@vger.kernel.org,
+	hybris <hybris@mojatatu.ai>,
+	sashiko-bot@kernel.org
+Subject: [PATCH net 0/2] net/sched: sch_teql: fix shared headroom and header strip
+Date: Tue, 29 Sep 2026 06:04:47 -0400
+Message-Id: <QDISC-6HS9.v1.20260928064754@mojatatu.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-MTK: N
 
-When RX LRO (or similar offload) is enabled, the TCP/IPv4 GRO path may
-aggregate traffic using frag_list. The resulting skb is later segmented
-via the frag_list segmentation path (skb_segment_list()).
+Two pre-existing defects on the teql transmit path, both around
+teql_master_xmit() -> teql_resolve().  The first makes the slave's
+headroom write corrupt a shared skb and strips a userspace-supplied link
+header on retry; the second leaves skb->dev pointing at the teql master
+while the skb is parked on a slave's neighbour arp_queue.
 
-However, some drivers can hand GRO/LRO-aggregated frames to the stack
-where individual frag_list elements are already larger than skb_shinfo(p)
-->gso_size (i.e., an element itself contains multiple MSS worth of
-payload) and may be non-linear (nr_frags > 0). This shape is not
-naturally produced by the software GRO aggregation logic for devices
-without LRO, and can lead to unexpected behavior in the frag_list
-segmentation path.
+Patch 1 fixes the shared-headroom write and the header-strip on retry,
+tracking the header length the slave actually added.
+Patch 2 moves skb->dev = slave ahead of teql_resolve() and restores
+skb->dev at the arp-queue reinjection point, so a parked skb names the
+device whose neighbour took it and is delivered with a link header.
 
-Detect this condition during frag_list aggregation and mark the
-aggregated packet as SKB_GSO_DODGY when a list element’s length exceeds
-gso_size. This forces a more conservative segmentation/linearization
-behavior downstream and avoids relying on assumptions that do not hold
-for LRO-produced aggregates.
+Both are follow-ups to commit dc4b95b8fee9 ("net/sched: sch_teql: restore
+skb->dev on the slave failure path").
 
-No change for normal software GRO aggregation: the new check only
-triggers when skb_shinfo(p)->gso_size is set and a frag_list element
-length exceeds that size.
+Jamal Hadi Salim (2):
+  net/sched: sch_teql: fix shared headroom and header strip on slave
+    retry
+  net/sched: sch_teql: keep skb->dev consistent on the arp-queue path
 
-Fixes: 3a1296a38d0c ("net: Support GRO/GSO fraglist chaining.")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Shiming Cheng <shiming.cheng@mediatek.com>
----
- net/core/gro.c | 3 +++
- 1 file changed, 3 insertions(+)
+ net/core/neighbour.c |  1 +
+ net/sched/sch_teql.c | 34 ++++++++++++++++++++++++++++------
+ 2 files changed, 29 insertions(+), 6 deletions(-)
 
-diff --git a/net/core/gro.c b/net/core/gro.c
-index 29b4d02bf519..e70ecf19b0a7 100644
---- a/net/core/gro.c
-+++ b/net/core/gro.c
-@@ -259,6 +259,9 @@ int skb_gro_receive_list(struct sk_buff *p, struct sk_buff *skb)
- 	skb_shinfo(p)->flags |= skb_shinfo(skb)->flags & SKBFL_SHARED_FRAG;
- 
- 	NAPI_GRO_CB(skb)->same_flow = 1;
-+	/* frag_list element larger than gso_size (already coalesced before list-append) */
-+	if (skb_shinfo(p)->gso_size && skb->len > skb_shinfo(p)->gso_size)
-+		skb_shinfo(p)->gso_type |= SKB_GSO_DODGY;
- 
- 	return 0;
- }
 -- 
-2.45.2
-
+2.43.0
