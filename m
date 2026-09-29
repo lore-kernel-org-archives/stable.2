@@ -1,38 +1,38 @@
-Received: from out28-3.mail.aliyun.com (out28-3.mail.aliyun.com [115.124.28.3])
+Received: from out28-125.mail.aliyun.com (out28-125.mail.aliyun.com [115.124.28.125])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8EE13AD516;
-	Tue, 29 Sep 2026 08:11:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D958239AD34;
+	Tue, 29 Sep 2026 08:12:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.125
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790669519; cv=none; b=oO4mzHCDp+/5gphkLg/qJXAkTtYuDNSqHnWnfYvX6FXRr8dDK8Es0TPboCuir0dRPJOpY9Q3g8ypYNE5wr0lBgYKfpL8gyXHdJdPoze34d1TD70zFER/NHUZQI+u3Eo+piGwf22A9LforGMNVDi06a7hdcYUZZNxurZxM4ICPZA=
+	t=1790669531; cv=none; b=dXUKWzTUd4LCFAlECati79xBg+yW4/+tWejaJ6ftcNshn/Or0tMX8n2vZt1bU32U5PbLGcbkVv5VWAcAAx1GAtq8EGHteylcT67onJ9291fZ9es69UtIibEdy5YslymUK1QQYi9k2tWAyHyc9PqU4gyLYCEZGFyuOlyUOZa57vc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790669519; c=relaxed/simple;
-	bh=YxiwJ+Ofz5uqqOQk3bEWRpxMx2qQBZ4c9JO2fQwANVs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WPMNUhTwgSfd6pKNJj/omd2IJnjvnuQntxMuSZ9+dySfckML4BaMDwaY8eaVskeMa9rEzwNAQx4TTCbJDD/cJyukWRn5/aJ2TAZoBsg8k/Ey/t6Rk0w3+s8U9OLE/flq81lK8dHxIjzDCInfQddnSVb8GKS+Gw16kGv7biTu0GQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=vZHAtVJS; arc=none smtp.client-ip=115.124.28.3
+	s=arc-20240116; t=1790669531; c=relaxed/simple;
+	bh=2imljEwwzqlpnd8NAsxe8XkigXqwhnZYF1YW1xpA1sI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VzkKIebcNW6gM7PMfTXNT9HRAuicenLhucU+B4Gy56ADcof86FGjO0ituXe60T0lH1/63J1ZTR6eBfWOVlNG8k6vtmMxTOJEy78+1jmpreO+7bEdxxboEDQHC7zNPtfUYAGJ631/SWVuXWdbggSFJfeP0bHKLDNmiks0DYO/1Fo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=GWo4mvpA; arc=none smtp.client-ip=115.124.28.125
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="vZHAtVJS"
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="GWo4mvpA"
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=xiaopeng.com; s=default;
-	t=1790669513; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=yNdwn5xy6zu/8shhb//9FSk5g41YR9PBF1d7FFh0UXM=;
-	b=vZHAtVJSKmGonPsEFMDsrp/dbs6fFsDjtOQZ2uyyfyezaIOgVlsPpnIa7j+wt/rmVvRuz7XX6i+NkR5Bah4RvPyR2N4CljpoaFgUscUJmBZs0Oh98RTrJbHo8X5XATlZZXhmDZSLYZijWahi5zBDo0t3/o0KXtJBHaC8BmCvD2E=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07437544|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00590453-0.000327095-0.993768;FP=10266479451471236313|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037071049;MF=liuwb@xiaopeng.com;NM=1;PH=DS;RN=5;RT=5;SR=0;TI=SMTPD_---.jRBNq7R_1790669512;
-Received: from localhost(mailfrom:liuwb@xiaopeng.com fp:SMTPD_---.jRBNq7R_1790669512 cluster:ay29)
+	t=1790669517; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=BkeFtWqy/I7OSt7jQm57adu1C6/ziouesGUA5hrmyzE=;
+	b=GWo4mvpAvSpvK8uwVZv2M8BI6pX9vYT10swbJ1+uosNv+OrPMjYmSWBqWMjrGWYl/rQq6kPp1eBEK0AZdCCvMuJ/9/2icZcjU0No5plXcTIGhRewMUz7cxmRdpTrS+9zVpEzdIGC0PiaMs87BgEsFjDDnriy/ND6vN90zMm7tc8=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436259|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0266958-0.0408523-0.932452;FP=13570289848629609651|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033040074035;MF=liuwb@xiaopeng.com;NM=1;PH=DS;RN=5;RT=5;SR=0;TI=SMTPD_---.jR5Cs3F_1790669516;
+Received: from localhost(mailfrom:liuwb@xiaopeng.com fp:SMTPD_---.jR5Cs3F_1790669516 cluster:ay29)
           by smtp.aliyun-inc.com;
-          Tue, 29 Sep 2026 16:11:52 +0800
+          Tue, 29 Sep 2026 16:11:56 +0800
 From: Weibin Liu <liuwb@xiaopeng.com>
 To: broonie@kernel.org
-Cc: jth@kernel.org,
+Cc: thangaraj.s@microchip.com,
 	linux-spi@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] spi: ch341: handle transfers without a TX or RX buffer
-Date: Tue, 29 Sep 2026 16:11:52 +0800
-Message-ID: <20260929081152.41753-1-liuwb@xiaopeng.com>
+Subject: [PATCH] spi: spi-pci1xxxx: quiesce DMA engines on transfer timeout
+Date: Tue, 29 Sep 2026 16:11:56 +0800
+Message-ID: <20260929081156.42124-1-liuwb@xiaopeng.com>
 X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -42,83 +42,162 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ch341_transfer_one() unconditionally copies from trans->tx_buf into the
-TX packet and hands trans->rx_buf to usb_bulk_msg() for the readback.
+If a DMA-mapped transfer times out waiting for DMA_TERM and neither DMA
+abort interrupt arrived, pci1xxxx_spi_transfer_with_dma() returns
+through the error label while both DMA engines are still enabled, the
+done/abort interrupt status is still armed and the transfer state
+(p->xfer, p->tx_sgl, p->rx_sgl) is still registered.
 
-The SPI core allows half-duplex transfers where either of the buffers
-is NULL, so a transfer without TX data crashes the kernel on the memcpy
-and a transfer without RX data makes usb_bulk_msg() store the received
-data at address 0.
+The ISRs keep firing afterwards: they reprogram the DMA engines from
+p->tx_sgl / p->rx_sgl and signal completion through p->xfer and
+p->spi_xfer_done, all of which the SPI core is free to unmap or reuse
+once transfer_one() has returned, which is a use-after-free. A late
+done interrupt can also start the next transfer queued behind the
+failed one.
 
-Only copy TX data when the transfer carries a TX buffer and fall back
-to the TX packet buffer as a scratch area for the readback when the
-transfer has no RX buffer. The packet buffer is 32 bytes, which covers
-the maximum readback length of 31 bytes, and it is not used by
-anything else while the readback runs.
+Stop both DMA engines, drain the pending done/abort interrupt status
+and synchronize the DMA IRQs before dropping the in-progress state and
+the transfer pointers, and re-enable the engines afterwards so that
+subsequent transfers keep working. Also make the DMA ISRs ignore
+interrupts while no transfer is in progress so that a stray MSI after
+the cleanup can no longer act on the cleared state.
 
-Fixes: 8846739f52af ("spi: add ch341a usb2spi driver")
-Cc: stable@vger.kernel.org # 6.11+
+Fixes: 9538edeb72c9 ("spi: mchp-pci1xxxx: DMA support for copying data to and from SPI Buf")
+Cc: stable@vger.kernel.org # 6.8+
 Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
 ---
 Reviewer notes:
 
-- Both failure modes are reachable from unprivileged userspace through
-  spidev: SPI_IOC_MESSAGE accepts transfers with either of the buffers
-  set to NULL, and the driver passes them on as-is.
-- The readback fallback reuses the 32-byte TX packet buffer, which
-  covers the maximum readback length of 31 bytes. It is only used by
-  ch341_transfer_one() and ch341_set_cs(), both of which run
-  synchronously from the SPI core's transfer handling, so nothing
-  touches the buffer while the readback is in flight.
-- Pre-fix reproducer: open /dev/spidev0.0 and issue a single
-  SPI_IOC_MESSAGE transfer with tx_buf = NULL (memcpy from NULL in
-  ch341_transfer_one()) or with rx_buf = NULL (usb_bulk_msg() stores
-  the readback at address 0).
+- The quiesce sequence only runs on the DMA timeout branch, i.e. when
+  neither DMA_TERM nor the two abort interrupts arrived; all other
+  paths behave as before. Every path still passes through the error
+  label, which now additionally drops the stale p->xfer, p->tx_sgl and
+  p->rx_sgl pointers.
+- Ordering matters: the done/abort status bits are drained under the
+  same spinlocks the ISRs use, then p->spi_xfer_in_progress is dropped
+  and the DMA IRQs are synchronized before the engines are turned back
+  on, so an ISR can never observe a half-cleared state. The ISRs
+  additionally return IRQ_NONE while no transfer is in progress, which
+  also keeps the interrupt accounting right for stray MSIs after the
+  cleanup.
+- readl_poll_timeout() waits at most 1 ms per engine; it only runs
+  after the transfer has already timed out, so the added latency stays
+  on the failure path.
 
-Functionally verified in QEMU on x86_64: a CH341a adapter was emulated
-with gadgetfs + dummy_hcd (the emulated device echoes every SPI stream
-packet's payload back on the bulk IN endpoint). With this patch
-applied the probe completes, and tx-only, rx-only and full-duplex
-transfers issued through spidev succeed, with the full-duplex readback
-matching the sent payload, and without a splat. The emulator and the
-test program are local test tooling and are not part of this
-submission.
+Tested on x86_64: with this patch applied the driver builds, loads and
+unloads cleanly; no PCI1XXXX device is available to exercise the DMA
+timeout path on hardware.
 
- drivers/spi/spi-ch341.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ drivers/spi/spi-pci1xxxx.c | 56 ++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 56 insertions(+)
 
-diff --git a/drivers/spi/spi-ch341.c b/drivers/spi/spi-ch341.c
-index 6448a44a8..6c6eb4ac7 100644
---- a/drivers/spi/spi-ch341.c
-+++ b/drivers/spi/spi-ch341.c
-@@ -78,14 +78,21 @@ static int ch341_transfer_one(struct spi_controller *host,
+diff --git a/drivers/spi/spi-pci1xxxx.c b/drivers/spi/spi-pci1xxxx.c
+index af6ed7849..b296d7f6e 100644
+--- a/drivers/spi/spi-pci1xxxx.c
++++ b/drivers/spi/spi-pci1xxxx.c
+@@ -542,6 +542,7 @@ static int pci1xxxx_spi_transfer_with_dma(struct spi_controller *spi_ctlr,
+ 	struct pci1xxxx_spi_internal *p = spi_controller_get_devdata(spi_ctlr);
+ 	struct pci1xxxx_spi *par = p->parent;
+ 	dma_addr_t tx_dma_addr = 0;
++	unsigned long flags;
+ 	int ret = 0;
+ 	u32 regval;
  
- 	ch341->tx_buf[0] = CH341A_CMD_SPI_STREAM;
+@@ -618,12 +619,58 @@ static int pci1xxxx_spi_transfer_with_dma(struct spi_controller *spi_ctlr,
+ 			p->dma_aborted_wr = false;
+ 			ret = -ECANCELED;
+ 		}
++
++		/*
++		 * A timed out transfer leaves the DMA engines running and
++		 * the done/abort interrupt status armed with p->xfer,
++		 * p->tx_sgl and p->rx_sgl still registered.  Stop the
++		 * engines, drain the pending status and synchronize the
++		 * IRQs before dropping the transfer state, otherwise a
++		 * late interrupt makes the ISRs reprogram the engines
++		 * from or signal completion through memory which the SPI
++		 * core is about to unmap or free.
++		 */
++		writel(SPI_DMA_ENGINE_DIS,
++		       par->dma_offset_bar + SPI_DMA_GLOBAL_WR_ENGINE_EN);
++		writel(SPI_DMA_ENGINE_DIS,
++		       par->dma_offset_bar + SPI_DMA_GLOBAL_RD_ENGINE_EN);
++		if (readl_poll_timeout(par->dma_offset_bar +
++				       SPI_DMA_GLOBAL_WR_ENGINE_EN, regval,
++				       regval == 0x0, 0, USEC_PER_MSEC) ||
++		    readl_poll_timeout(par->dma_offset_bar +
++				       SPI_DMA_GLOBAL_RD_ENGINE_EN, regval,
++				       regval == 0x0, 0, USEC_PER_MSEC))
++			dev_warn(&par->dev->dev,
++				 "SPI DMA engines failed to stop\n");
++
++		spin_lock_irqsave(&par->dma_wr_reg_lock, flags);
++		writel((SPI_DMA_DONE_INT_MASK(p->hw_inst) |
++			SPI_DMA_ABORT_INT_MASK(p->hw_inst)),
++		       par->dma_offset_bar + SPI_DMA_INTR_WR_CLR);
++		spin_unlock_irqrestore(&par->dma_wr_reg_lock, flags);
++		spin_lock_irqsave(&par->dma_rd_reg_lock, flags);
++		writel((SPI_DMA_DONE_INT_MASK(p->hw_inst) |
++			SPI_DMA_ABORT_INT_MASK(p->hw_inst)),
++		       par->dma_offset_bar + SPI_DMA_INTR_RD_CLR);
++		spin_unlock_irqrestore(&par->dma_rd_reg_lock, flags);
++
++		p->spi_xfer_in_progress = false;
++		synchronize_irq(p->irq[1]);
++		synchronize_irq(p->irq[2]);
++
++		writel(SPI_DMA_ENGINE_EN,
++		       par->dma_offset_bar + SPI_DMA_GLOBAL_WR_ENGINE_EN);
++		writel(SPI_DMA_ENGINE_EN,
++		       par->dma_offset_bar + SPI_DMA_GLOBAL_RD_ENGINE_EN);
+ 		goto error;
+ 	}
+ 	ret = 0;
  
--	memcpy(ch341->tx_buf + 1, trans->tx_buf, len - 1);
-+	if (trans->tx_buf)
-+		memcpy(ch341->tx_buf + 1, trans->tx_buf, len - 1);
+ error:
+ 	p->spi_xfer_in_progress = false;
++	p->xfer = NULL;
++	p->tx_sgl = NULL;
++	p->rx_sgl = NULL;
  
- 	ret = usb_bulk_msg(ch341->udev, ch341->write_pipe, ch341->tx_buf, len,
- 			   NULL, CH341_DEFAULT_TIMEOUT);
- 	if (ret)
- 		return ret;
- 
--	return usb_bulk_msg(ch341->udev, ch341->read_pipe, trans->rx_buf,
-+	/*
-+	 * Half-duplex transfers can come without a RX buffer; the packet
-+	 * buffer is not used by anything else during the synchronous
-+	 * transfer, so reuse it as a scratch area for the readback.
-+	 */
-+	return usb_bulk_msg(ch341->udev, ch341->read_pipe,
-+			    trans->rx_buf ? trans->rx_buf : ch341->tx_buf,
- 			    len - 1, NULL, CH341_DEFAULT_TIMEOUT);
+ 	return ret;
  }
+@@ -695,6 +742,9 @@ static irqreturn_t pci1xxxx_spi_isr_dma_rd(int irq, void *dev)
+ 	unsigned long flags;
+ 	u32 regval;
  
++	if (!p->spi_xfer_in_progress)
++		return IRQ_NONE;
++
+ 	/* Clear the DMA RD INT and start spi xfer*/
+ 	regval = readl(p->parent->dma_offset_bar + SPI_DMA_INTR_RD_STS);
+ 	if (regval) {
+@@ -723,6 +773,9 @@ static irqreturn_t pci1xxxx_spi_isr_dma_wr(int irq, void *dev)
+ 	unsigned long flags;
+ 	u32 regval;
+ 
++	if (!p->spi_xfer_in_progress)
++		return IRQ_NONE;
++
+ 	/* Clear the DMA WR INT */
+ 	regval = readl(p->parent->dma_offset_bar + SPI_DMA_INTR_WR_STS);
+ 	if (regval) {
+@@ -755,6 +808,9 @@ static irqreturn_t pci1xxxx_spi_isr_dma(int irq, void *dev)
+ 	irqreturn_t spi_int_fired = IRQ_NONE;
+ 	u32 regval;
+ 
++	if (!p->spi_xfer_in_progress)
++		return IRQ_NONE;
++
+ 	/* Clear the SPI GO_BIT Interrupt */
+ 	regval = readl(p->parent->reg_base + SPI_MST_EVENT_REG_OFFSET(p->hw_inst));
+ 	if (regval & SPI_INTR) {
 
 base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
 prerequisite-patch-id: e48582f6ffe124b3806593af6e22b74682c8a83f
 prerequisite-patch-id: 369f74b9a7ecde56141b13ec671f9200345a3bab
+prerequisite-patch-id: cbf6f60473c80add5b2cddf22d142f35a4e3c834
+prerequisite-patch-id: b35e6ec691cd7a99f1ed86137a0ec101a8510c31
 -- 
 2.50.1
 
