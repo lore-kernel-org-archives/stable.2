@@ -1,44 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B627A50EC10
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 12:46:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E63964BAA0E
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 12:46:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790685976; cv=none; b=Zarhd2c/miQMzmSBOVxpbWhxscu9D4VZZ/gUpVE4WCS3LigxZ81Kfs9BXJV9n9fW7Ug9dQJlFYDcoUIjh5XqFUoaVIPIHhcYWqZ33zg3CAQUen/rHaBn/gLjI2cVovaI/4X5KXLKAYFnoek41OiIEaWZxgmnAdydw7HQc991K94=
+	t=1790685981; cv=none; b=AK70mrsf6r1PWM9YKsQR/NxYQa68CUv7KK63owQDHH7PLbvP2/aSkHeLJ79YvsRe6ZcD0arS4Dy/C1tH/qB/oU1WgeygiMNauiFnAwB1AEPo5HVwLdnSfTUCNrvRdA1+MEyr7FNcNXtERw2+WMiTke74oTfPdLYGyhq+xLihPl0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790685976; c=relaxed/simple;
-	bh=fCf6HPniaKxWE8JP/uTAZEU+uyjaWdBIQJBO/n5dLmk=;
+	s=arc-20240116; t=1790685981; c=relaxed/simple;
+	bh=4C9ZaaqnSbrE93k868LXDj9ks8xtALV65UjqsKXzvfw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cMREvV4VEbCCrbCBltC7CFY2qwYo/sBkuCC7j1SxaGbfbxwWpkzkSLyLFjf4mY8JuO+W4sULxekxbEo1ruF1vQBwM7vFuUVlEyDee1AANEq5v1hb2Zm5V27SRyGFSrfG47wuuJ3BJV78nh6z/aJb7ucYvexSPb2XGc6NT949uUY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TDdiKpAW; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=GWuugtQFtYJIim37SCjja4Pg2B1GbwHdo3Dq1qYJl1q9Q2D2LTRQiPXsgt7HRHt+P9IFTo7TlP8VNSyVSosbwpI59azX0Ewxn5JCIii0bhl6sCt612rNY+k3/aYK/qhsW3FABRZNT89PPd5UkvotjAyRUysg/KXwjz8DHQh/qkw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FP5X/oK7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TDdiKpAW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD4341F00893;
-	Tue, 29 Sep 2026 12:46:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FP5X/oK7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A80BB1F000FF;
+	Tue, 29 Sep 2026 12:46:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790685975;
-	bh=93t8tmwEGcQkdW1y/G7cAYChvX37GB88yepGaMJ7bwc=;
+	s=k20260515; t=1790685979;
+	bh=HwNCE1aeE8BQsVLTjmale9t9X6S5MpVx8kHTxgda00I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TDdiKpAWQnAIAF/ElkLo+CEc+BOysaamKKbD+EWB4n408/kJAKwjmpbgGTJ8yZWKC
-	 8s+EzMKUrlmfQyZYIA3rZd4i342cxKMWpfatFMoMB/IVdPj5LNQo950SP5vOqjOnvi
-	 xciLwCN4jpTNwMwG8FjhcNiGCqKO7kJFELlck5EqCkGUj81gR43DIEc/a3QkguONWG
-	 c0tmGwPH/rDzDTdU020pFsKdA3PtwZi/Rmuxeq0bwuzvaCdHenZc9wNVCRBBcGK6t1
-	 sgOaZ+N83pqLtA7FQxUJM0gDaYKCxVTx6E7R8UAV6yxMIuvJmGnwrNDRj9JnrEP9Sc
-	 4nKf3JsBKR29A==
+	b=FP5X/oK7SDh7hf2OWa+Bsr9hP7UyaAQtE+ZuZHEJedKXtO3qId9+EdXmb+fklt0Va
+	 BGpzJgzhxxOyl5TelIH8A8PnwAGuRSCv90jACP61khrHGetaD0sS9xSvhpvgh8cJGj
+	 4KeT8+0sUWO/dicVsEnUGkJMo1wIBXRgY8+GMqiyEOhuqnV6mGtaGuloScUV29tLVG
+	 wsh5ZMpvDLtfExypSKf32d7Sl9uGSyMFyB3dZHBGznQIRkSizFoWCi5sICDxR7BMvy
+	 qppQ09ednXpTWZ1hDdDbl7LDkUB03+Z3rdCThLMQcKsMiK3K/WZFwL7xnc84xXpwkp
+	 V+a4QWwVjhB6g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Xiang Mei <xmei5@asu.edu>,
-	co+0ea1ac045375cf05@bugs.sh,
-	Simon Horman <horms@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Praveen Talari <praveen.talari@oss.qualcomm.com>,
+	Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
+	Mattijs Korpershoek <mkorpershoek@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] vlan: require the MAC header to be present in __vlan_insert_inner_tag()
-Date: Tue, 29 Sep 2026 08:46:13 -0400
-Message-ID: <20260929124613.3452956-1-sashal@kernel.org>
+Subject: [PATCH 7.2.y 1/4] i2c: qcom-geni: Isolate serial engine setup
+Date: Tue, 29 Sep 2026 08:46:14 -0400
+Message-ID: <20260929124617.3453155-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092953-anatomist-taking-b440@gregkh>
-References: <2026092953-anatomist-taking-b440@gregkh>
+In-Reply-To: <2026092906-elude-repurpose-c794@gregkh>
+References: <2026092906-elude-repurpose-c794@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,61 +49,221 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Xiang Mei <xmei5@asu.edu>
+From: Praveen Talari <praveen.talari@oss.qualcomm.com>
 
-[ Upstream commit ab888242fce4f16f6c4d4c6ec53939ad36aa3b3a ]
+[ Upstream commit d8d3bb127ad119853ddcf5da8f546cf37c3cc346 ]
 
-__vlan_insert_inner_tag() only guarantees head room via skb_cow_head(),
-never that mac_len bytes of MAC header are present.  Its ETH_HLEN
-wrappers - __vlan_insert_tag() under skb_vlan_push(), and
-vlan_insert_tag() under validate_xmit_vlan() on the generic transmit
-path - therefore rewrite the first 16 bytes at skb->data: a 12-byte
-memmove plus two 2-byte stores at +12 and +14.  No caller supplies the
-bound, while the pop helpers use skb_ensure_writable()/pskb_may_pull().
+Moving the serial engine setup to geni_i2c_init() API for a cleaner
+probe function and utilizes the PM runtime API to control resources
+instead of direct clock-related APIs for better resource management.
 
-An IFF_TUN device has hard_header_len == 0, so packet_snd() accepts a
-one-byte AF_PACKET/SOCK_RAW frame.  The first vlan push only sets a
-hwaccel tag; the next - clsact "action vlan push" or
-bpf_skb_vlan_push() - enters the helper with skb->len still 1.  The
-head comes from skbuff_small_head without __GFP_ZERO, so each push
-drags bytes from beyond skb->tail into the frame.  After three the
-one-byte send leaves as 13 bytes carrying 11 bytes of uninitialised
-slab:
+Enables reusability of the serial engine initialization like
+hibernation and deep sleep features where hardware context is lost.
 
-  0000: 5a b3 62 12 80 88 ff ff 00 b3 62 12 81
-           `------------------------------'
-  only 0x5a was sent; the rest is slab, here the top 56 bits of a
-  linear-map address
-
-Require the MAC header the helper rewrites to be present, so such a
-frame is dropped rather than transmitted.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Reported-by: co+0ea1ac045375cf05@bugs.sh
-Signed-off-by: Xiang Mei <xmei5@asu.edu>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Link: https://patch.msgid.link/20260915083152.705309-1-xmei5@asu.edu
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ adjusted context around skb_cow_head(skb, VLAN_HLEN) because the branch lacks upstream meta_len handling. ]
+Signed-off-by: Praveen Talari <praveen.talari@oss.qualcomm.com>
+Acked-by: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Reviewed-by: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
+Tested-by: Mattijs Korpershoek <mkorpershoek@kernel.org>
+Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
+Link: https://lore.kernel.org/r/20260617-enable-i2c-on-sa8255p-v7-2-ad736dbeab57@oss.qualcomm.com
+Stable-dep-of: cb97bf3d4f91 ("i2c: qcom-geni: Fix hardcoded clock index in SE_GENI_CLK_SEL")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/if_vlan.h | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/i2c/busses/i2c-qcom-geni.c | 158 ++++++++++++++---------------
+ 1 file changed, 75 insertions(+), 83 deletions(-)
 
-diff --git a/include/linux/if_vlan.h b/include/linux/if_vlan.h
-index 9551dba15cc25..d403ce386c707 100644
---- a/include/linux/if_vlan.h
-+++ b/include/linux/if_vlan.h
-@@ -356,6 +356,9 @@ static inline int __vlan_insert_inner_tag(struct sk_buff *skb,
- {
- 	struct vlan_ethhdr *veth;
+diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-qcom-geni.c
+index 9a02e57c5a4bd..94403eb707f7c 100644
+--- a/drivers/i2c/busses/i2c-qcom-geni.c
++++ b/drivers/i2c/busses/i2c-qcom-geni.c
+@@ -990,10 +990,77 @@ static int setup_gpi_dma(struct geni_i2c_dev *gi2c)
+ 	return ret;
+ }
  
-+	if (unlikely(!pskb_may_pull(skb, mac_len)))
-+		return -EINVAL;
++static int geni_i2c_init(struct geni_i2c_dev *gi2c)
++{
++	const struct geni_i2c_desc *desc = NULL;
++	u32 proto, tx_depth;
++	bool fifo_disable;
++	int ret;
 +
- 	if (skb_cow_head(skb, VLAN_HLEN) < 0)
- 		return -ENOMEM;
++	ret = pm_runtime_resume_and_get(gi2c->se.dev);
++	if (ret < 0) {
++		dev_err(gi2c->se.dev, "error turning on device :%d\n", ret);
++		return ret;
++	}
++
++	proto = geni_se_read_proto(&gi2c->se);
++	if (proto == GENI_SE_INVALID_PROTO) {
++		ret = geni_load_se_firmware(&gi2c->se, GENI_SE_I2C);
++		if (ret) {
++			dev_err_probe(gi2c->se.dev, ret, "i2c firmware load failed ret: %d\n", ret);
++			goto err;
++		}
++	} else if (proto != GENI_SE_I2C) {
++		ret = dev_err_probe(gi2c->se.dev, -ENXIO, "Invalid proto %d\n", proto);
++		goto err;
++	}
++
++	desc = device_get_match_data(gi2c->se.dev);
++	if (desc && desc->no_dma_support) {
++		fifo_disable = false;
++		gi2c->no_dma = true;
++	} else {
++		fifo_disable = readl_relaxed(gi2c->se.base + GENI_IF_DISABLE_RO) & FIFO_IF_DISABLE;
++	}
++
++	if (fifo_disable) {
++		/* FIFO is disabled, so we can only use GPI DMA */
++		gi2c->gpi_mode = true;
++		ret = setup_gpi_dma(gi2c);
++		if (ret)
++			goto err;
++
++		dev_dbg(gi2c->se.dev, "Using GPI DMA mode for I2C\n");
++	} else {
++		gi2c->gpi_mode = false;
++		tx_depth = geni_se_get_tx_fifo_depth(&gi2c->se);
++
++		/* I2C Master Hub Serial Elements doesn't have the HW_PARAM_0 register */
++		if (!tx_depth && desc)
++			tx_depth = desc->tx_fifo_depth;
++
++		if (!tx_depth) {
++			ret = dev_err_probe(gi2c->se.dev, -EINVAL,
++					    "Invalid TX FIFO depth\n");
++			goto err;
++		}
++
++		gi2c->tx_wm = tx_depth - 1;
++		geni_se_init(&gi2c->se, gi2c->tx_wm, tx_depth);
++		geni_se_config_packing(&gi2c->se, BITS_PER_BYTE,
++				       PACKING_BYTES_PW, true, true, true);
++
++		dev_dbg(gi2c->se.dev, "i2c fifo/se-dma mode. fifo depth:%d\n", tx_depth);
++	}
++
++err:
++	pm_runtime_put(gi2c->se.dev);
++	return ret;
++}
++
+ static int geni_i2c_probe(struct platform_device *pdev)
+ {
+ 	struct geni_i2c_dev *gi2c;
+-	u32 proto, tx_depth, fifo_disable;
+ 	int ret;
+ 	struct device *dev = &pdev->dev;
+ 	const struct geni_i2c_desc *desc = NULL;
+@@ -1073,101 +1140,26 @@ static int geni_i2c_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = clk_prepare_enable(gi2c->core_clk);
+-	if (ret)
+-		return ret;
+-
+-	ret = geni_se_resources_on(&gi2c->se);
+-	if (ret) {
+-		dev_err_probe(dev, ret, "Error turning on resources\n");
+-		goto err_clk;
+-	}
+-	proto = geni_se_read_proto(&gi2c->se);
+-	if (proto == GENI_SE_INVALID_PROTO) {
+-		ret = geni_load_se_firmware(&gi2c->se, GENI_SE_I2C);
+-		if (ret) {
+-			dev_err_probe(dev, ret, "i2c firmware load failed ret: %d\n", ret);
+-			goto err_resources;
+-		}
+-	} else if (proto != GENI_SE_I2C) {
+-		ret = dev_err_probe(dev, -ENXIO, "Invalid proto %d\n", proto);
+-		goto err_resources;
+-	}
+-
+-	if (desc && desc->no_dma_support) {
+-		fifo_disable = false;
+-		gi2c->no_dma = true;
+-	} else {
+-		fifo_disable = readl_relaxed(gi2c->se.base + GENI_IF_DISABLE_RO) & FIFO_IF_DISABLE;
+-	}
+-
+-	if (fifo_disable) {
+-		/* FIFO is disabled, so we can only use GPI DMA */
+-		gi2c->gpi_mode = true;
+-		ret = setup_gpi_dma(gi2c);
+-		if (ret)
+-			goto err_resources;
+-
+-		dev_dbg(dev, "Using GPI DMA mode for I2C\n");
+-	} else {
+-		gi2c->gpi_mode = false;
+-		tx_depth = geni_se_get_tx_fifo_depth(&gi2c->se);
+-
+-		/* I2C Master Hub Serial Elements doesn't have the HW_PARAM_0 register */
+-		if (!tx_depth && desc)
+-			tx_depth = desc->tx_fifo_depth;
+-
+-		if (!tx_depth) {
+-			ret = dev_err_probe(dev, -EINVAL,
+-					    "Invalid TX FIFO depth\n");
+-			goto err_resources;
+-		}
+-
+-		gi2c->tx_wm = tx_depth - 1;
+-		geni_se_init(&gi2c->se, gi2c->tx_wm, tx_depth);
+-		geni_se_config_packing(&gi2c->se, BITS_PER_BYTE,
+-				       PACKING_BYTES_PW, true, true, true);
+-
+-		dev_dbg(dev, "i2c fifo/se-dma mode. fifo depth:%d\n", tx_depth);
+-	}
+-
+-	clk_disable_unprepare(gi2c->core_clk);
+-	ret = geni_se_resources_off(&gi2c->se);
+-	if (ret) {
+-		dev_err_probe(dev, ret, "Error turning off resources\n");
+-		goto err_dma;
+-	}
+-
+-	ret = geni_icc_disable(&gi2c->se);
+-	if (ret)
+-		goto err_dma;
+-
+ 	pm_runtime_set_suspended(gi2c->se.dev);
+ 	pm_runtime_set_autosuspend_delay(gi2c->se.dev, I2C_AUTO_SUSPEND_DELAY);
+ 	pm_runtime_use_autosuspend(gi2c->se.dev);
+ 	pm_runtime_enable(gi2c->se.dev);
+ 
++	ret = geni_i2c_init(gi2c);
++	if (ret < 0) {
++		pm_runtime_disable(gi2c->se.dev);
++		return ret;
++	}
++
+ 	ret = i2c_add_adapter(&gi2c->adap);
+ 	if (ret) {
+ 		dev_err_probe(dev, ret, "Error adding i2c adapter\n");
+ 		pm_runtime_disable(gi2c->se.dev);
+-		goto err_dma;
++		return ret;
+ 	}
+ 
+ 	dev_dbg(dev, "Geni-I2C adaptor successfully added\n");
+ 
+-	return ret;
+-
+-err_resources:
+-	geni_se_resources_off(&gi2c->se);
+-err_clk:
+-	clk_disable_unprepare(gi2c->core_clk);
+-
+-	return ret;
+-
+-err_dma:
+-	release_gpi_dma(gi2c);
+-
+ 	return ret;
+ }
  
 -- 
 2.53.0
