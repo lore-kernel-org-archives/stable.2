@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAEFA3AAF64
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 08:17:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B43923B0AF0
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 08:19:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790669868; cv=none; b=E/G1KogGX0ZozpTszgvreFBlWMwa94wbiC5oHs0CYh6In8EIqjEhToF72ZwZkvYrfvQWWrWvazZe9ixo4ljd4PjEobPKcuXnFM4U6zB73ojAWmmpUu4pqqe2pg5GuhDHpvnJmfQ+F8p0pxcF4dLj3A68EaGYV6dB6EaDJjoXzJo=
+	t=1790669944; cv=none; b=J1yIKNHt93CAqHZpg5EEgA352En2ATcvB00r4cPZNac8dLdnxTN52fAsv71fzMjNCV6QhngrSAkgi6+v/SZ7kFcpDaOjPm6ZTOrawJK4WBCrHN30C/1eg6GtEZF0jw2SJEyZ4Mr2EuQaUppv9Oiqv3ZrqI3sQf2+FraJpcejcKI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790669868; c=relaxed/simple;
-	bh=cYleVkVJGN2es5JrGGmtdU0f5hHXGm4j9NT5z98SmiM=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=rt4OddmRbHLSjblZV8yHzLo1N0aZybuQNGHEJpYgLiFPM80bnFxNMH8rfnzNAXTLVu0+fbkEwWP0OCZmoAwgqmsyXbSN+Fn/8Vl+WVFcEOqX99mtdVStI3oelI9PA1VMHY59eNtL/+8nFDKrGXXCRsjkbnGh5YqRm+vgYZVHL4A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=2eOoHxMF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790669944; c=relaxed/simple;
+	bh=n/Jm4ZGMxhbWhnGBApFYUacHk1vyC69Wbvnz0bnLyyU=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=joB6o6WZczkSLd9+ypM2Xp50SFZcSxBZigFl6uwBcPoH8m2TNdxF3boWbbCJt09PWih6D1ZrEVDFPPvWE/RKSbkEsGzZp8PXy7qTD7qMpbOxPPt0Fq60aI6NQMLcuT8hnTy1kmoxvvhP0XqFtSC6fZbz4FAw+U6HHbloo9bwiws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=2algxLvR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2eOoHxMF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEE501F000FF;
-	Tue, 29 Sep 2026 08:17:45 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2algxLvR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B63B31F000FF;
+	Tue, 29 Sep 2026 08:19:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790669866;
-	bh=Uif83cVQbi/ZjgH9rBIcK5h5oaLB+M28y+B8GKs/swM=;
+	s=korg; t=1790669942;
+	bh=MQhSk10VBET8X1CC54C4yazYC6BljV/YwRS8i/TdEQ4=;
 	h=Subject:To:Cc:From:Date;
-	b=2eOoHxMF4zJD9SQyjSix5b/t9xTR3NVtQTeZg0TdcFQ9CHikuUiGa4m7rn4Ddkjb/
-	 NIIgzBC9HGv5QrH+yyz8l5MAuTwlakdRVaTACfGImypicxcnX5Z5EIDp8vNy3iFaa5
-	 NILkCel5lO4buq0ziJdfTlo31qGuLBUpPD+SqcEY=
-Subject: FAILED: patch "[PATCH] drm/amd/display: Fix dc stream excess put in" failed to apply to 5.15-stable tree
-To: vulab@iscas.ac.cn,alexander.deucher@amd.com
+	b=2algxLvRwfb2Hp19aIrf83F0FpJNLlzv9L1lhc4UN6UjYpFFSHqDESiUn0OpzZuda
+	 +MbbXdyNOeJkvg528gTWXqCYctdn87LF9CE4Hwm/mKHLriH62jOWvISFnPI7XH8X0t
+	 IMjCTgH0BuW/GjjLSqvtBD7pGQQPkzXu7kpBKLDM=
+Subject: FAILED: patch "[PATCH] drm/amdgpu: Fix acpi device leak in" failed to apply to 6.18-stable tree
+To: vulab@iscas.ac.cn,alexander.deucher@amd.com,lijo.lazar@amd.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 29 Sep 2026 10:17:30 +0200
-Message-ID: <2026092930-shrubs-hankering-0ed0@gregkh>
+Date: Tue, 29 Sep 2026 10:18:56 +0200
+Message-ID: <2026092956-elite-error-10d8@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x c5fd4eaad50d620c7e09ac2082b2fb55ee54170e
+git cherry-pick -x a997baa61179b450bd55c4810c7ccfed3b753a54
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092930-shrubs-hankering-0ed0@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092956-elite-error-10d8@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,49 +62,43 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From c5fd4eaad50d620c7e09ac2082b2fb55ee54170e Mon Sep 17 00:00:00 2001
+From a997baa61179b450bd55c4810c7ccfed3b753a54 Mon Sep 17 00:00:00 2001
 From: Wentao Liang <vulab@iscas.ac.cn>
-Date: Wed, 16 Sep 2026 09:49:56 +0000
-Subject: [PATCH] drm/amd/display: Fix dc stream excess put in
- dm_update_crtc_state()
+Date: Wed, 16 Sep 2026 09:54:32 +0000
+Subject: [PATCH] drm/amdgpu: Fix acpi device leak in
+ amdgpu_acpi_enumerate_xcc()
 
-In dm_update_crtc_state(), when a modeset is required the newly created
-stream is stored in dm_new_crtc_state->stream and an extra reference is
-taken with dc_stream_retain().  The reference returned by
-create_validate_stream_for_sink() is released as an extra reference at
-the skip_modeset label, leaving the stream owned by the new CRTC state.
+amdgpu_acpi_enumerate_xcc() looks up each XCC ACPI device with
+acpi_dev_get_first_match_dev(), which takes a reference to the device.
+The reference is dropped with acpi_dev_put() after the XCC info is
+initialized, but if the kzalloc_obj() allocation of the XCC info fails
+the function returns -ENOMEM without releasing the reference, leaking
+the last reference to the ACPI device.
 
-If amdgpu_dm_check_crtc_color_mgmt() fails afterwards, the code jumps
-to the fail label which releases new_stream again.  Since the extra
-reference was already released at skip_modeset, this drops the
-reference owned by dm_new_crtc_state->stream and the stream is
-released while the atomic state still points to it, leading to a
-premature free of the dc stream.
+Drop the ACPI device reference on the allocation failure path before
+returning.
 
-Set new_stream to NULL after releasing the extra reference at the
-skip_modeset label so that a later goto fail cannot release the
-reference owned by the new CRTC state.
-
-Fixes: 7cd4b70091a5 ("drm/amd/display: Rework CRTC color management")
+Fixes: 4d5275ab0b18 ("drm/amdgpu: Add parsing of acpi xcc objects")
+Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 102a47065a62dc8f6bbbb47cf082a2934282eb08)
+(cherry picked from commit 9211ef48b31ec66999cf55e04d0cbc60cd855fd5)
 Cc: stable@vger.kernel.org
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 36d2f86f000a..91fdf3de7202 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -5583,8 +5583,10 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+index 7f5abb03be1b..8b8acf98fdfe 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+@@ -1167,8 +1167,10 @@ int amdgpu_acpi_enumerate_xcc(void)
+ 		}
  
- skip_modeset:
- 	/* Release extra reference */
--	if (new_stream)
-+	if (new_stream) {
- 		dc_stream_release(new_stream);
-+		new_stream = NULL;
-+	}
- 	new_stream = NULL;
+ 		xcc_info = kzalloc_obj(struct amdgpu_acpi_xcc_info);
+-		if (!xcc_info)
++		if (!xcc_info) {
++			acpi_dev_put(acpi_dev);
+ 			return -ENOMEM;
++		}
  
- 	/*
+ 		INIT_LIST_HEAD(&xcc_info->list);
+ 		xcc_info->handle = acpi_device_handle(acpi_dev);
 
