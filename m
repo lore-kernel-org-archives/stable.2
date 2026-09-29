@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08BA03D9DB6
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 06:40:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D1EC3D9DB6
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 06:41:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790664043; cv=none; b=V3FH6D+WjT5C6fYxnxZsJwBUlejDTNBpXAN3AmYjy4KkZZUwdzuw6rK9M1KLb59l5ZPMGol5/shxiZZPfZ3tWo9XKCXw44svoGNu71mi4xwKFAAkP7I1QljQ9ym17+EZwgArIt0fILaRrJ49w7vDaXjYMMkzF6YMQzslr7qXJG0=
+	t=1790664065; cv=none; b=ZUse2aj7jU09BMhp52VRbBcJSk/9oEWiINyzmBNFcZJELX+PhIxs9UMQc4XBk1XFbxrf2LR6Ey0kSHjXo1nVUfRDhCPKfkti9Ke1hu9oZhd2pKBROaoD04VouFSnTJ6bmPI/Gj8aqO4kXpK535VEPSepkU6jH93S7x6M0TlKeYA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790664043; c=relaxed/simple;
-	bh=6DfkNgjsdq+0eXfBVgDcDcwGQ3HhcMz24X/DgX5kWHg=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=pq4Baprt+IAJRuQhqY3mg4VX8voUh0E43M48RMWPXpLxc2UXkEqJHIwTTvfUcEhRjfeVw+TVr91nSkeNFSScPL+GDjlYWMGUWicnRLXiHeq9m88bacSTajfNIJqMMhMiRd2zhqCAZiSfvlqei1FO/NNY7QDqm83354kTKmb1TpE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=vzexG12P; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790664065; c=relaxed/simple;
+	bh=8OaFY6KZGw/OaJDslyYOudcDjpNVStGI0iRoB2dlcYQ=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=PStjXqrupwJUfl6LR8N6ryMCVTuX7VGpomsZETO++uZvg187RAInvaQ8NgC5/dfNwsQUD7sZcjZldNBY9Z7DIn0nVt0MOhmCIxgxBQJGtpuaarmog3+ewfXka5teO5SjLQzRWBoYJ4Io6iSw1K4urjNxDpcMO258XLZ7nTNIqMk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jYLPpDGm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="vzexG12P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58A381F000FF;
-	Tue, 29 Sep 2026 06:40:41 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jYLPpDGm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9480B1F000FF;
+	Tue, 29 Sep 2026 06:41:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790664041;
-	bh=nxbuFRFFydp1/YTJE5NcGdz52GlE8OjW2jBufRZNSCU=;
+	s=korg; t=1790664064;
+	bh=WOn7T07mhdAqGENSjVdUWO42fbn14DxU6eWJcxKTiOQ=;
 	h=Subject:To:Cc:From:Date;
-	b=vzexG12PfB+1E0h8G7MTlXRDuTDOcWCjpGx3QtiXm8V63h9/A1N1MKRCTSI1ZLQNs
-	 mi39cOWX8/F6HDqG4wQ0z1ACR4Acr9E1M0ovBYENMkw5gz9ja/gc9U8iHnYu2Z2mbj
-	 YYfWHWGsKTnFA6ZedbUfPceEtyi8SncB5bg7pI6Q=
-Subject: FAILED: patch "[PATCH] x86/sev: Make vTPM SVSM calls preemption-safe" failed to apply to 6.18-stable tree
-To: huibo.wang@amd.com,bp@alien8.de,sgarzare@redhat.com
+	b=jYLPpDGmQRqiM5Q2ozBsqs4CXnG0z3PqRLoJzWJz743NXoSV4/IRxljIgPSR/4l/0
+	 XZFcJ+sLKTOAVfIm0K1UtcTfWdE+D9zmJ14XSqvLa0nMBEK8N4fUQNGaRGpE4bN/Tz
+	 yojW/TgKABhCCY/jE/DYhiBIyGodLP68EIbeB3hE=
+Subject: FAILED: patch "[PATCH] virtio_net: copy zerocopy frags in start_xmit without NAPI" failed to apply to 6.6-stable tree
+To: willemb@google.com,kuba@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 29 Sep 2026 08:40:39 +0200
-Message-ID: <2026092939-ecard-twirl-6094@gregkh>
+Date: Tue, 29 Sep 2026 08:41:01 +0200
+Message-ID: <2026092901-amnesty-primer-ce2f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 6c43c72748fffd29dec15cd1f31e9a32949bc437
+git cherry-pick -x 07e1a9408b6c2f9d0cfb757b67dabb52da7a32b2
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092939-ecard-twirl-6094@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092901-amnesty-primer-ce2f@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,61 +62,70 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 6c43c72748fffd29dec15cd1f31e9a32949bc437 Mon Sep 17 00:00:00 2001
-From: Melody Wang <huibo.wang@amd.com>
-Date: Mon, 14 Sep 2026 00:57:17 +0000
-Subject: [PATCH] x86/sev: Make vTPM SVSM calls preemption-safe
+From 07e1a9408b6c2f9d0cfb757b67dabb52da7a32b2 Mon Sep 17 00:00:00 2001
+From: Willem de Bruijn <willemb@google.com>
+Date: Fri, 18 Sep 2026 20:47:28 -0400
+Subject: [PATCH] virtio_net: copy zerocopy frags in start_xmit without NAPI
 
-Two functions in the SVSM vTPM guest implementation do not disable
-preemption when fetching the SVSM Calling Area Address (CAA).
+Virtio-net without NAPI frees completed skbs lazily on the next
+start_xmit. Senders waiting for in-flight zerocopy buffers can
+deadlock if they cannot transmit more packets, as then no
+completed packets will be freed.
 
-The SVSM CAA is a per-CPU structure. When a thread is preempted and migrated
-to a different CPU after fetching the per-CPU CAA, the SVSM call will execute
-on the new CPU with the original CPU's CAA. Which is wrong.
+When !use_napi, virtio-net already calls skb_orphan to avoid waiting
+up for transmitted skbs to be freed. For zerocopy packets that
+require deep copying on orphan (i.e. those that do not set
+SKBFL_DONT_ORPHAN, such as PACKET_TX_RING), call skb_orphan_frags
+before orphaning to release the buffers.
 
-Move the CAA fetching operation inside svsm_perform_call_protocol() which
-disables interrupts around the SVSM call and thus runs preemption-safe.
+This fixes the tpacket_snd slot reuse bug on skb_orphan for
+virtio-net, and prevents PACKET_TX_RING from running out of slots.
 
-Fixes: 770de678bc28 ("x86/sev: Add SVSM vTPM probe/send_command functions")
-Signed-off-by: Melody Wang <huibo.wang@amd.com>
-Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Reviewed-by: Stefano Garzarella <sgarzare@redhat.com>
+This fix also touches vhost_net zerocopy packets, which also do not
+set SKBFL_DONT_ORPHAN. This is fine: vhost_net packets only encounter
+virtio-net in nested virtualization, and only if napi_tx is
+explicitly disabled (it has been default-enabled since Linux 4.12).
+In that rare case, copying the frags is desirable anyway to prevent
+holding guest descriptors pinned across unbounded intervals.
+
+This is a prerequisite for the next patch, which converts
+PACKET_TX_RING to standard zerocopy completion. Without this patch
+first, a bounded ring sender can stall indefinitely behind a
+virtio-net virtqueue that cannot reclaim.
+
+Fixes: 5cd8d46ea156 ("packet: copy user buffers before orphan or clone")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/a5bc0d4a2c462a0089109e145c21626b244b2ff0.1789345277.git.huibo.wang@amd.com
+Cc: mst@redhat.com
+Cc: jasowangio@gmail.com
+Signed-off-by: Willem de Bruijn <willemb@google.com>
+Link: https://patch.msgid.link/20260919004748.1463985-2-willemdebruijn.kernel@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
-diff --git a/arch/x86/coco/sev/svsm.c b/arch/x86/coco/sev/svsm.c
-index 916d62cd17dc..2d493d55ff2e 100644
---- a/arch/x86/coco/sev/svsm.c
-+++ b/arch/x86/coco/sev/svsm.c
-@@ -74,6 +74,14 @@ int svsm_perform_call_protocol(struct svsm_call *call)
+diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
+index e34c52d059d3..bf82ef9874ab 100644
+--- a/drivers/net/virtio_net.c
++++ b/drivers/net/virtio_net.c
+@@ -3349,6 +3349,14 @@ static netdev_tx_t start_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	else
+ 		virtqueue_disable_cb(sq->vq);
  
- 	flags = native_local_irq_save();
- 
-+	/*
-+	 * 'caa' is a per-CPU variable. To avoid using a stale or incorrect
-+	 * 'caa' if the task is preempted or migrated to another CPU after it
-+	 * is fetched, always fetch 'caa' and then issue the SVSM call with
-+	 * interrupts disabled. This ensures the correct 'caa' is used.
-+	 */
-+	call->caa = svsm_get_caa();
++	if (!use_napi &&
++	    unlikely(skb_orphan_frags(skb, GFP_ATOMIC))) {
++		DEV_STATS_INC(dev, tx_dropped);
++		dev_kfree_skb_any(skb);
++		kick = !xmit_more || netif_xmit_stopped(txq);
++		goto kick_vq;
++	}
 +
- 	ghcb = __sev_get_ghcb(&state);
+ 	/* timestamp packet in software */
+ 	skb_tx_timestamp(skb);
  
- 	do {
-@@ -321,7 +329,6 @@ int snp_svsm_vtpm_send_command(u8 *buffer)
- {
- 	struct svsm_call call = {};
+@@ -3381,6 +3389,7 @@ static netdev_tx_t start_xmit(struct sk_buff *skb, struct net_device *dev)
  
--	call.caa = svsm_get_caa();
- 	call.rax = SVSM_VTPM_CALL(SVSM_VTPM_CMD);
- 	call.rcx = __pa(buffer);
- 
-@@ -345,7 +352,6 @@ bool snp_svsm_vtpm_probe(void)
- 	if (!snp_vmpl)
- 		return false;
- 
--	call.caa = svsm_get_caa();
- 	call.rax = SVSM_VTPM_CALL(SVSM_VTPM_QUERY);
- 
- 	if (svsm_perform_call_protocol(&call))
+ 	kick = use_napi ? __netdev_tx_sent_queue(txq, skb->len, xmit_more) :
+ 			  !xmit_more || netif_xmit_stopped(txq);
++kick_vq:
+ 	if (kick) {
+ 		if (virtqueue_kick_prepare(sq->vq) && virtqueue_notify(sq->vq)) {
+ 			u64_stats_update_begin(&sq->stats.syncp);
 
