@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC7933B0AE1
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 08:15:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B621E3AFCF1
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 08:15:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790669720; cv=none; b=BDXfhmZbOjpCmsUMLNlm1VgQ5NGBdjuf+Q3JwvWS2W9wysrCR7NRyiGuUXdP6TeOmzEZQdX19E3RAK6oJUyx0EdFulSp35oYNGQT784H6cHjj8xL0612IOeQu4b/otDTgxzBvd2I/Vc1rCtLu7v/HDs1aJiuBufroSVuGMurOCE=
+	t=1790669749; cv=none; b=UvOxMofN+ZjltXflcgDowxRwZJgsRT0/zZ3TP0MX+8p3fSLLhGGthn7ny2kuqzKLAJfvAJDD4jIy/fxGvgRsbv90CVkD4J/29YnTh4qRZJiRRZTwCo/zV92x52PhxgZInew5QamvwYwwe+kgMskiOdN6eLWvvdVbdz4vStYbHos=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790669720; c=relaxed/simple;
-	bh=UeC2cgL0sbrO2tv+woN6ePvXqBK1dCDRwQVWUhDR16g=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=vE3/psZ01Wiij89d3QULnVSHc1lBVrgkUx3591ww0f6iimD36sZDdd8/FHInlw0MTAUq2179XSop/2kwOkEpVaNiPJ01I5gM8FqhdKRN9WNunGggWRBGiz6MWZPen5OhzNRTXYvsXOrjrbLgr2ZhZ2BAEaTkbgaUT2WB5GnZbr8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=K4f9+xcI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790669749; c=relaxed/simple;
+	bh=YdF4mJof0XqZs+KpPAmlOR4G7NNz9W4iRsbMHUHao2E=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=kW/b1KWvJdCRuwIhPotGnIEoVeLltFhMLEUzzC0rU+Un1ih8rq+ww9RPJ8QckzYqOyumxobk9g4cSEttlDe+rK9VideT0uvEOkf3R7SeDnzvfVpfEElpL0okZA4x93CbxJr4obMnynuZzt9K8cpemRKt7EhRifWWd0cveDBYIkE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=vjR/ESDi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="K4f9+xcI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F0461F000FF;
-	Tue, 29 Sep 2026 08:15:16 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="vjR/ESDi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE9851F000FF;
+	Tue, 29 Sep 2026 08:15:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790669716;
-	bh=PIklXHr3FQnuzF8eKeANVagoh9hT4UAIXZ8loxbIus4=;
+	s=korg; t=1790669748;
+	bh=r+q/dSvCPJ20cuEjfzX1SrNz4hcY/zeP9H8rfqSXBIo=;
 	h=Subject:To:Cc:From:Date;
-	b=K4f9+xcIJV2nhFJztG4rcEQIlr24xhf1+M/l0pupL9Rzbf3Nh9DwDLRdDdVP/60zP
-	 AW09wyDLIUGLYCepOoO60u5WtiBCiKSU3N9i0SmmnYUEKLa2kzDEHIsuqOZAGWgImM
-	 NCeAYg2hYmFLw17UTx8nfX9ISTldmeKtel1LkDu4=
-Subject: FAILED: patch "[PATCH] drm/client: fix restore of partially initialized client" failed to apply to 6.12-stable tree
-To: shechenglong@xfusion.com,stable@vger.kernel.org,tzimmermann@suse.de
+	b=vjR/ESDiSbCj8yrIwopcBMYG3XLpdl0i5Eg/R/lJO2EhQ1KeSldkExeqZ0FZ2Yepd
+	 aWUjZKEWOzEpoQIWAhVRnjBqQ+rMYtYhj1ROHJZfqOTUL7ymMU1du2BsVvb/NA7mrK
+	 ajQbdrF73Mis7o2Kr4UpVxU4ThWQn0Afe0oB/F7c=
+Subject: FAILED: patch "[PATCH] drm/i915/quirks: Limit eDP rate to HBR2 on HP Pavilion Plus" failed to apply to 6.18-stable tree
+To: ankit.k.nautiyal@intel.com,annoycc@gmail.com,jani.nikula@intel.com,nemesa.garg@intel.com,stable@vger.kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 29 Sep 2026 10:15:03 +0200
-Message-ID: <2026092903-cofounder-fineness-3637@gregkh>
+Date: Tue, 29 Sep 2026 10:15:42 +0200
+Message-ID: <2026092942-evaluator-keenness-e26b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 1fca688e9443003e33cf30453e7a7560367656c9
+git cherry-pick -x 5271d81f99dd01d983d439930eb056952485e15e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092903-cofounder-fineness-3637@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092942-evaluator-keenness-e26b@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,98 +62,49 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 1fca688e9443003e33cf30453e7a7560367656c9 Mon Sep 17 00:00:00 2001
-From: shechenglong <shechenglong@xfusion.com>
-Date: Mon, 7 Sep 2026 11:51:47 +0800
-Subject: [PATCH] drm/client: fix restore of partially initialized client
+From 5271d81f99dd01d983d439930eb056952485e15e Mon Sep 17 00:00:00 2001
+From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Date: Mon, 7 Sep 2026 09:15:55 +0530
+Subject: [PATCH] drm/i915/quirks: Limit eDP rate to HBR2 on HP Pavilion Plus
+ 14-ew1
 
-I got a null-ptr-deref report when closing a DRM file descriptor:
+The eDP panel on the HP Pavilion Plus Laptop 14-ew1xxx advertises HBR3
+while leaving the TPS4 support bit clear. The output however flickers, once
+link is trained with HBR3.
 
-WARNING: drivers/gpu/drm/drm_atomic.c:2031 at
-__drm_atomic_helper_set_config+0x18e/0x1b0 [drm]
+Until commit 8c9006283e4b ("Revert "drm/i915/dp: Reject HBR3 when sink
+doesn't support TPS4"") such sinks were capped at HBR2 by the TPS4 check
+which incidentally kept this panel stable. That check was reverted because
+other panels legitimately need HBR3 without advertising TPS4, and the
+per-machine QUIRK_EDP_LIMIT_RATE_HBR2 was introduced to handle the affected
+machines instead.
 
-Call Trace:
-drm_client_modeset_commit_atomic+0x16b/0x220 [drm]
-drm_client_modeset_commit_locked+0x56/0x160 [drm]
-drm_client_modeset_commit+0x21/0x40 [drm]
-__drm_fb_helper_restore_fbdev_mode_unlocked.part.0+0x7b/0x80
-drm_fbdev_client_restore+0xe/0x20 [drm_client_lib]
-drm_client_dev_restore+0x9f/0xc0 [drm]
-drm_release+0xc5/0xe0 [drm]
+Add the machine to the list of devices that need the
+QUIRK_EDP_LIMIT_RATE_HBR2.
 
-The warning is followed by a NULL pointer dereference:
+Fixes: 8c9006283e4b ("Revert "drm/i915/dp: Reject HBR3 when sink doesn't support TPS4"")
+Reported-by: Annoy Cc <annoycc@gmail.com>
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16743
+Cc: <stable@vger.kernel.org> # v6.18+
+Tested-by: Annoy Cc <annoycc@gmail.com>
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Reviewed-by: Nemesa Garg <nemesa.garg@intel.com>
+Link: https://patch.msgid.link/20260907034555.2753846-1-ankit.k.nautiyal@intel.com
+(cherry picked from commit 550b703fdbb2a2022faa75b4b11ab135241afbd9)
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 
-BUG: kernel NULL pointer dereference, address: 0000000000000008
-
-RIP:
-__drm_fb_helper_restore_fbdev_mode_unlocked.part.0+0x41/0x80
-[drm_kms_helper]
-
-Call Trace:
-drm_fbdev_client_restore+0xe/0x20 [drm_client_lib]
-drm_client_dev_restore+0x9f/0xc0 [drm]
-drm_release+0xc5/0xe0 [drm]
-__fput+0xdc/0x2b0
-__x64_sys_close+0x39/0x80
-do_syscall_64+0x8d/0x460
-entry_SYSCALL_64_after_hwframe+0x76/0x7e
-
-drm_client_register() adds the DRM client to the device client list
-before invoking the initial hotplug callback. If the hotplug callback
-fails, the client remains registered.
-
-For the fbdev client, a failure during drm_fb_helper_initial_config()
-causes the partially initialized fbdev helper to be cleaned up.
-drm_fb_helper_fini() releases fb_helper->info and leaves it NULL.
-
-The fbdev client therefore remains registered even though there is no
-fully initialized framebuffer device.
-
-Later, when userspace closes the DRM file descriptor, drm_release()
-can invoke the restore callbacks of registered DRM clients:
-
-drm_release()
-drm_client_dev_restore()
-drm_fbdev_client_restore()
-drm_fb_helper_restore_fbdev_mode_unlocked()
-
-drm_fbdev_client_restore() currently restores the fbdev state
-unconditionally. For a partially initialized fbdev client this can
-submit an incomplete modeset state and subsequently access fbdev
-state which has not been initialized, resulting in the warning and
-NULL pointer dereference above.
-
-drm_fbdev_client_unregister() already uses fb_helper->info to
-distinguish a fully probed framebuffer device from a partially
-initialized client.
-
-Use the same condition in drm_fbdev_client_restore() and skip restore
-if no framebuffer device has been successfully initialized.
-
-Signed-off-by: shechenglong <shechenglong@xfusion.com>
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-Fixes: 5d08c44e47b9 ("drm/fbdev: Add memory-agnostic fbdev client")
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: <stable@vger.kernel.org> # v6.13+
-Link: https://patch.msgid.link/20260907035147.1339-1-shechenglong@xfusion.com
-
-diff --git a/drivers/gpu/drm/clients/drm_fbdev_client.c b/drivers/gpu/drm/clients/drm_fbdev_client.c
-index 91d196a397cf..1c16bc1084c4 100644
---- a/drivers/gpu/drm/clients/drm_fbdev_client.c
-+++ b/drivers/gpu/drm/clients/drm_fbdev_client.c
-@@ -42,6 +42,14 @@ static int drm_fbdev_client_restore(struct drm_client_dev *client, bool force)
- {
- 	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
+diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
+index 33245f44c0d5..7d7db774d8c7 100644
+--- a/drivers/gpu/drm/i915/display/intel_quirks.c
++++ b/drivers/gpu/drm/i915/display/intel_quirks.c
+@@ -257,6 +257,9 @@ static struct intel_quirk intel_quirks[] = {
+ 	/* Dell XPS 13 7390 2-in-1 */
+ 	{ 0x8a52, 0x1028, 0x08b0, quirk_edp_limit_rate_hbr2 },
  
-+	/*
-+	 * The client is registered before the initial fbdev probe.
-+	 * If probing failed, the client remains registered but there
-+	 * is no valid fbdev framebuffer to restore.
-+	 */
-+	if (!fb_helper->info || !fb_helper->fb)
-+		return 0;
++	/* HP Pavilion Plus Laptop 14-ew1xxx */
++	{ 0x7d55, 0x103c, 0x8c31, quirk_edp_limit_rate_hbr2 },
 +
- 	drm_fb_helper_restore_fbdev_mode_unlocked(fb_helper, force);
- 
- 	return 0;
+ 	/* Xiaomi Book Pro 14 2026 */
+ 	{ 0xb081, 0x1d72, 0x2424, quirk_disable_psr2 },
+ };
 
