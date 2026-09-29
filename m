@@ -1,121 +1,128 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 249823CA4A0;
-	Tue, 29 Sep 2026 03:57:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69DDC35DA4C;
+	Tue, 29 Sep 2026 04:12:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790654252; cv=none; b=cJwG+1xV5gvUWErL8YWvlowMuX/h6/bT8BV7LJE3BmE9b9dAHGECdTFhCAy2DtYqlAKQw+yRrJXuDhCmFbqwDKOBzU+1tHXYcNc3cvMaVk/mZ5/WufpmngCmOHY9qIy+Z11dZg+W7noHYK/sQfo/cfppikJjCOYJtEbflllzhrE=
+	t=1790655144; cv=none; b=aCJ8T4Tq2QLsJrs05e8A4PyYLEKsvTUx3selemQtOLFPGjI+fqkFcMlGF/mZdukbSmww6xMLFZlLEpuPvZqfKnyrwosAXbCgaKdvtSxhqa/r60XSmU57jCahJMX4RqZiW2TfzLsWzbyIVGmzN6w4W+6PdGqV0ZxmSCbUTdtegiM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790654252; c=relaxed/simple;
-	bh=yfByeOMZtpbUNuuFkWDTJ8P5sGTXNwZSFa75tHTOAFA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ll11GrAZJKtjt77/rR0N8GSA0fABdqMtNtXy2b87s+6vKLQ/7f4fGOJtPeiFO7USsa+4/JojKSkhKFwGsS0FpV4KjOhhBIWfqTxjayEcgn3XTfaDTGzVrRajhsplmeF4N2Eo27yWjfhxUoowJ+rv5PUzLQOmv0w6CuhAIpBQitU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=lVVOLZMT; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790655144; c=relaxed/simple;
+	bh=ylDuBDu4QI9S2OpuStkcQCm6bA9aGvUz/FyWIXhNHKE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ICOlAbBG9Z47A4J1jXnVlAKvTyFHqOk+7IPE27opqxFRsq1RcKuTUoBYeWcgFon+y2cjzLPfEj2AwSv2KSB33m+W8q5SgYMJXqYgRHgW/hVDoI10Mc6X4klr/PNPIdIGwrtJ7ouR+UC0lKYIy51tVSw8aqamFaukt2LvJPl2SMI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W+TxQK+E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="lVVOLZMT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=qW
-	9qfPoo8fYX/EwwTC0Q4IvfBmGgQcmIU1Bg5KLbhlQ=; b=lVVOLZMTsb1q1fBxaQ
-	JUaTcdoLPGtZbKnuz/tRdhdW9s3PG3rMbZq4TXXJ8Cx4cYqM0ci7FHZAmRyv5GNj
-	F03WnAg/h2skN3OnneMtx6oREcsS7jpqgF2eHmp6KrPXV59UCwllsehAqrS9AfIQ
-	O6kJmOrYhrqed3cCHCo5XyIcs=
-Received: from SH-NB-0474.wuqi-tech.com (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD3X7URN7tqaY62BQ--.10925S2;
-	Tue, 29 Sep 2026 11:57:12 +0800 (CST)
-From: Huang Xiangping <huangxiangping88@163.com>
-To: linux-wireless@vger.kernel.org
-Cc: Johannes Berg <johannes@sipsolutions.net>,
-	Huang Xiangping <huangxiangping88@163.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] wifi: cfg80211: process pending events before connect/disconnect requests
-Date: Tue, 29 Sep 2026 11:56:49 +0800
-Message-ID: <20260929035649.33538-1-huangxiangping88@163.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W+TxQK+E"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 0F9B71F000FF;
+	Tue, 29 Sep 2026 04:12:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790655143;
+	bh=elWDGeJrdmDZMcN8zjzenSsyIGQ3ma1CzA6/ecGHT8U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=W+TxQK+E7FTgh7KKZ7/X8Wu5Jkk61i0bbqCv3xfEWp1eLOodTNH2na3w+IiFfGtb0
+	 cEwlFIszaihV9pwDMnnXVqhc8pSnogQrls7q/JoZy4N0V9w9JYIA1WjvoNxoDxASux
+	 zpBGB3DIpTbp8+XmUpXawZmZYZQZ21AJrI7FGNovqtB68KQ2+REF8ka5A954z9hV6+
+	 YibicZaL4z/PonMcSzV7ztaGbJ6S/J0tADqEWp0L/v3c20GKf3rNwVwwEh3ksZLf2w
+	 48KVfAO9MBe+aIIIDbzexjcq9quWzQ1JrAyBewhwUdbeFOuiATFghiAxTgPQnMYG4k
+	 xxXP2oPQY2iCw==
+Date: Mon, 28 Sep 2026 21:12:22 -0700
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: Christoph Hellwig <hch@infradead.org>
+Cc: cem@kernel.org, stable@vger.kernel.org, linux-xfs@vger.kernel.org
+Subject: Re: [PATCH 02/12] xfs: improve dirent bounds checking in scrub and
+ repair
+Message-ID: <20260929041222.GR2705364@frogsfrogsfrogs>
+References: <179057612523.479634.11102922479483109602.stgit@frogsfrogsfrogs>
+ <179057612639.479634.13348969749056583205.stgit@frogsfrogsfrogs>
+ <aroLMeT0OiY37AnN@infradead.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3X7URN7tqaY62BQ--.10925S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXw4fCFyxKry5tr1kAF43ZFb_yoW5Ar43pF
-	y0gFZ3Kwn8Gr13Gwn3AF10gF95Zw4kJa15ZryqgFyYyas0gr18tr4kKF15Ar13Gr93Aa4U
-	Zr40qanrGFyDua7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEO6psUUUUU=
-X-CM-SenderInfo: xkxd0wx0ld0wpslqwmqy6rljoofrz/xtbC+BhdB2q7NxinewAA3Y
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aroLMeT0OiY37AnN@infradead.org>
 
-cfg80211 reports connect results and disconnects through wdev->event_list,
-processed asynchronously by cfg80211_event_work(). The state that
-cfg80211_connect() and cfg80211_disconnect() reason about can therefore
-lag behind what the driver has already reported.
+On Sun, Sep 27, 2026 at 11:37:37PM -0700, Christoph Hellwig wrote:
+> On Sun, Sep 27, 2026 at 11:16:20PM -0700, Darrick J. Wong wrote:
+> > From: Darrick J. Wong <djwong@kernel.org>
+> > 
+> > LOLLM complains that we don't do enough bounds checking of the directory
+> > entries in directory blocks when we're looking for errors or trying to
+> > salvage entries.  Let's improve that with more detailed checks.
+> > 
+> > Cc: <stable@vger.kernel.org> # v4.16
+> > Fixes: ce92d29ddf9908 ("xfs: directory scrubber must walk through data block to offset")
+> > Signed-off-by: "Darrick J. Wong" <djwong@kernel.org>
+> > Assisted-by: LOLLM # finding obvious bugs
+> > ---
+> >  fs/xfs/scrub/dir.c        |   56 +++++++++++++++++++++++++++++++++++++++++----
+> >  fs/xfs/scrub/dir_repair.c |   30 +++++++++++++++++++++++-
+> >  2 files changed, 79 insertions(+), 7 deletions(-)
+> > 
+> > 
+> > diff --git a/fs/xfs/scrub/dir.c b/fs/xfs/scrub/dir.c
+> > index a63eebf39fd496..dd21570378b281 100644
+> > --- a/fs/xfs/scrub/dir.c
+> > +++ b/fs/xfs/scrub/dir.c
+> > @@ -340,6 +340,7 @@ xchk_dir_rec(
+> >  	xfs_dahash_t			hash;
+> >  	struct xfs_dir3_icleaf_hdr	hdr;
+> >  	unsigned int			tag;
+> > +	bool				foundit = false;
+> >  	int				error;
+> >  
+> >  	ASSERT(blk->magic == XFS_DIR2_LEAF1_MAGIC ||
+> > @@ -390,22 +391,60 @@ xchk_dir_rec(
+> >  		xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
+> >  		goto out_relse;
+> >  	}
+> > -	for (;;) {
+> > +	while (iter_off < end) {
+> 
+> Nit: maybe move the iter_off initialization just above this for
+> clarify?
 
-cfg80211_disconnect() relies on that asynchronous processing on purpose:
-when the interface is connected it leaves wdev->u.client.ssid_len alone,
-expecting __cfg80211_disconnected() to clear it later:
+Ok.
 
-	if (!wdev->connected)
-		wdev->u.client.ssid_len = 0;
+> >  		struct xfs_dir2_data_entry	*dep = bp->b_addr + iter_off;
+> >  		struct xfs_dir2_data_unused	*dup = bp->b_addr + iter_off;
+> > +		unsigned int			advance;
+> >  
+> > -		if (iter_off >= end) {
+> > +		/* must have freetag */
+> > +		if (iter_off + offsetof(struct xfs_dir2_data_unused, length) >= end) {
+> 
+> Overly long line.
 
-If userspace reconnects before that deferred clear has run,
-cfg80211_connect() installs the new SSID and the queued EVENT_DISCONNECTED
-then wipes it again, together with wdev->connected, wdev->connect_keys and
-wdev->conn_owner_nlportid.
+Will fix these.
 
-The connection result of the new connection is subsequently processed with
-ssid_len == 0, so the BSS lookup in __cfg80211_connect_result() cannot
-match any BSS and WARN_ON(bss_not_found) triggers, dropping the connection
-result and leaving userspace waiting for a connection that is never
-reported. The same happens in cfg80211_roamed(). The zero ssid_len
-additionally defeats the -EALREADY and connection-owner checks of the
-following request, as both are skipped when ssid_len is zero.
+		/* must have freetag */
+		advance = offsetof(struct xfs_dir2_data_unused, length);
+		if (offset + advance >= end)
+			break;
 
-Fix this by draining the pending events before the connect and disconnect
-handlers inspect the interface state. Both run under the wiphy mutex,
-which cfg80211_process_rdev_events() requires, so no new lock ordering is
-introduced; this mirrors what cfg80211_change_iface() already does.
+> In general it feels like the inner body would benefit from being
+> split into a helper for readability given how big it becomes.
 
-Fixes: 51e13359cd5e ("cfg80211: fix connect/disconnect edge cases")
-Cc: stable@vger.kernel.org
-Signed-off-by: Huang Xiangping <huangxiangping88@163.com>
----
- net/wireless/sme.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+I really wish C had a way to make it so that you could hoist just the
+*dirent walking code* whilst retaining the custom bits of functionality
+(each error handling, and finding dirents).  I don't know of a good way
+to do that in C that doesn't involve cpp.
 
-diff --git a/net/wireless/sme.c b/net/wireless/sme.c
-index 2a719b5c487e..e887c30567ec 100644
---- a/net/wireless/sme.c
-+++ b/net/wireless/sme.c
-@@ -1445,6 +1445,13 @@ int cfg80211_connect(struct cfg80211_registered_device *rdev,
- 
- 	lockdep_assert_wiphy(wdev->wiphy);
- 
-+	/*
-+	 * Pending events may still change the state we're about to reason
-+	 * about (e.g. a deferred disconnect clearing ssid_len), so process
-+	 * them before looking at it.
-+	 */
-+	cfg80211_process_rdev_events(rdev);
-+
- 	/*
- 	 * If we have an ssid_len, we're trying to connect or are
- 	 * already connected, so reject a new SSID unless it's the
-@@ -1551,6 +1558,13 @@ int cfg80211_disconnect(struct cfg80211_registered_device *rdev,
- 
- 	lockdep_assert_wiphy(wdev->wiphy);
- 
-+	/*
-+	 * Pending events may still change the state we're about to reason
-+	 * about (e.g. a deferred disconnect clearing ssid_len), so process
-+	 * them before looking at it.
-+	 */
-+	cfg80211_process_rdev_events(rdev);
-+
- 	kfree_sensitive(wdev->connect_keys);
- 	wdev->connect_keys = NULL;
- 
--- 
-2.53.0
+> That would also ease deduplicating the xchk_fblock_set_corrupt calls.
 
+I prefer to keep those separate because xchk_*_set_corrupt contains a
+tracepoint that captures the callsite, so you can use gdb or other tools
+to go find the exact line in the source code that set the corruption
+flag.
+
+Originally I had a fugly macro that wrapped the exact metadata check so
+that we could stringify it and record that directly in the tracepoint
+buffer but enough people complained that I morphed it into what's there
+now.
+
+--D
