@@ -1,102 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDFB24734FA;
-	Tue, 29 Sep 2026 21:56:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C93D4E06FC
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 22:04:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790718970; cv=none; b=hn40BflwcVVMHhj7JZOxnoUwhG2Bk0csFGEVw46wad1yqv6vv7LEtPM5Uewhq1V6Y/07NIdb7bGS1jLcwA6sbeUb/7QQzV9WUUmtdvKixsgODYVgDyIhCQouXdYVX/OKIhnCCb6fHIa7A0WeO9QAsRbPoJqN2u6HAE94is9QATI=
+	t=1790719455; cv=none; b=pRKjCZKtuEEFqcmzlDFasy5Z0fv54r8Pgsen8qBrHmTi0MuQDJ7hhicwgRH/2716Twwwhm9QzoMcqPu6N18e2vSmgN6IoYAVuFUsZm582OP/aYc5Cu3yxpH2lpY7ooESkGF3iivg6ctouf69Nra1ix/rbHSn6K8/hKI2X5BjBMc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790718970; c=relaxed/simple;
-	bh=GTYa4sjo8bWJP0K/hWSxAeBxrVlKN7Tq8X8LyyHf/18=;
-	h=Date:To:From:Subject:Message-Id; b=RKVcSYNMfG43iVXvjRaCNVoExRmxwtnE4EzsReHiMMKIJGO1hZPdfpjkLKIbp7MsGFtLEXr9Yzv473lNuQw2BfYOPa/64wi41LLu1pxwKT/yp1xaaG5JYzx/1MVN/z2AW/A3jMKIqgfWYy2DKJGOQlYe2vCYHsK/hij5qmByezY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=F0ZrTPnB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790719455; c=relaxed/simple;
+	bh=YxAlMmfVcm2W4cU7DakMAjMJLU1Lttxry7DoFyXpeys=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=XjQCCiAWfCt+uLKxHvIHYWLWq7YcfODClFdELqtqwYmkc56s9FkC6uriCFchGk0UeBrJL7Hr1SaSJCYqHgiIrvIQxx3FjUw52bCKehx6Gt6hW5JglpAsM+/iyjEzCcuo2uPlzhULEkwVcwx4CovFcFyueRuERICchMPLqaBbf3w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--coltonlewis.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=boaIMtN2; arc=none smtp.client-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--coltonlewis.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="F0ZrTPnB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60BEE1F000FF;
-	Tue, 29 Sep 2026 21:56:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="boaIMtN2"
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4cc89e86e9eso7106508b6e.3
+        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 15:04:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1790718968;
-	bh=JpPEopjtDdRriWdDiSbalTqab0kId/zhJ4B4k/frWHw=;
-	h=Date:To:From:Subject;
-	b=F0ZrTPnBISi1gk2fuHyhw7kewLDbgdrisk73BJGumUKoiJ9pknRxr2ffKgx7u2pgC
-	 CWANY7ufYwdfNunDMWSWQRrT7uur0ATDlVolJOQN7oC7g9j1r4tTXHXsOCxUxX+buo
-	 ROE5qRpLMR1FfhbnCVG8ocrF670FoECTxrqYMrkk=
-Date: Tue, 29 Sep 2026 14:56:07 -0700
-To: mm-commits@vger.kernel.org,vishal.l.verma@intel.com,stable@vger.kernel.org,joao.m.martins@oracle.com,dave.jiang@intel.com,alison.schofield@intel.com,yaojiale02@163.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged] dax-device-defer-publishing-the-dynamic-pgmap.patch removed from -mm tree
-Message-Id: <20260929215608.60BEE1F000FF@smtp.kernel.org>
+        d=google.com; s=20251104; t=1790719453; x=1791324253; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1dGp94WLO2gdDysa7HIE4Qlt4fCj3et0VUDMOFJDyak=;
+        b=boaIMtN2F6SKV2UXWEPsvgpSaMqoKNFG/ApU+MhZ+og2UKQrQP7mNh6kTpcpcIzVcS
+         yNkgdsT6pe/Jf8/OfpIbSRozzY6/k0c2U/4TSTds7WBfIK1AivvQh9Bg38Z9Z56++j+k
+         +pHOX8lPnIhBhF6kQo9i798bMg54JxcZqJ1Sftz0uxcLZhkKaD48VjvT9oa+MUS/cNLM
+         pCGCXYP9bQ24ZNQni2pLLVVAZ0SuxFOa6Frnkp493wo6hcw1rjshn5sBnskxjTBnbaUi
+         Z1/qsjSpufk6NvF9kAV+xeZDIwgx4rVTgvpfM3G7stq1mIl+YWgNKFEB6otNjTUuV7H0
+         b9Bg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790719453; x=1791324253;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1dGp94WLO2gdDysa7HIE4Qlt4fCj3et0VUDMOFJDyak=;
+        b=lLmt3Kcu68Ffpl5VXwFPgNHQ+iHIjka1Cf5R+ZHsvZgdbNo5+92FjkaUhuGkgdY/Pm
+         1u/LnKLHc8ui3EejmXvtZBiQFt1V5wYqUjPmh0QvQCZp2oX2xITulzjfRE4fToR63p9/
+         fMlrHUyTm6kIfDUvUBLhPebp3jK/inSj9Weible110bHOFqN77uYCnRn/VmuC4fQVswH
+         I7iZU+VjO5FnoQIDPhacyse5589W0FnHx+oDD6gN2JKvcGB2OslJHzpXrgD9hY2r3EJN
+         54czGpFf6T4+j3sHSbYNamDDW14uf0/TnomNbw7/iCE0tox7/kHVAEcIB9sIkmICwFBV
+         gqQg==
+X-Forwarded-Encrypted: i=1; AKwUvBw9D+/OcKFBltngkiCjgT1XAsZldF0prsA/Cye5nZW3mPGwVmUe1DroN4Ju7iReH9hNiGt2xus=@vger.kernel.org
+X-Gm-Message-State: AFuF++nk5lBv1EiNO/7K6a9FTbe5u5vdN6qQGGYHaJVsoiGyPk9bk/I1
+	bc+UXhMM+sXZpnUEZyvYqrNqEXZJ9NKmFtZ+K7gnCIlKkevVn5hOnAIcO1qztmeIJ34ljSdhlwf
+	gn8DxGVMFqggGUslXwcwBIG4bXA==
+X-Received: from jabgg6.prod.google.com ([2002:a05:6638:6906:b0:5f6:798e:166d])
+ (user=coltonlewis job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6808:1927:b0:4ec:f57c:f81a with SMTP id 5614622812f47-4f074dcd517mr1045481b6e.12.1790719452327;
+ Tue, 29 Sep 2026 15:04:12 -0700 (PDT)
+Date: Tue, 29 Sep 2026 22:04:11 +0000
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20260929220411.3756519-1-coltonlewis@google.com>
+Subject: [PATCH] KVM: arm64: Check ID_AA64DFR0_EL1.PMUVer in reset_pmevtyper()
+From: Colton Lewis <coltonlewis@google.com>
+To: kvmarm@lists.linux.dev
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>, 
+	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Colton Lewis <coltonlewis@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
+When userspace initializes a vCPU with KVM_ARM_VCPU_PMU_V3 but sets
+ID_AA64DFR0_EL1.PMUVer to NI (0) or IMP_DEF (0xf, which is sanitized to
+NI), resetting the vCPU invokes reset_pmevtyper(). Because
+reset_pmevtyper() only checks kvm_vcpu_has_pmu(), it proceeds to call
+kvm_pmu_evtyper_mask(), which reads PMUVer == 0 from ID_AA64DFR0_EL1 and
+triggers a WARN_ONCE("Unknown PMU version 0") in __kvm_pmu_event_mask().
 
-The quilt patch titled
-     Subject: dax/device: defer publishing the dynamic pgmap
-has been removed from the -mm tree.  Its filename was
-     dax-device-defer-publishing-the-dynamic-pgmap.patch
+Check ID_AA64DFR0_EL1.PMUVer directly in reset_pmevtyper() via
+kvm_has_feat() instead of kvm_vcpu_has_pmu() so that PMEVTYPER<n>_EL0
+resets to 0 without querying the event mask when PMUv3 is not exposed to
+the guest.
 
-This patch was dropped because it was merged into mainline or a subsystem tree
-
-------------------------------------------------------
-From: Jiale Yao <yaojiale02@163.com>
-Subject: dax/device: defer publishing the dynamic pgmap
-Date: Sun, 27 Sep 2026 19:47:36 +0800
-
-The dynamic device-dax probe path publishes its devm-allocated pgmap
-before several operations that can still fail.  If one of them fails,
-devres frees the pgmap while dev_dax->pgmap remains non-NULL.  A later
-bind then fails the dynamic-dax invariant check and leaves the device
-unusable until its region is recreated.
-
-Defer assigning dev_dax->pgmap until the final devm action has been
-installed and probe can no longer fail.  A failed probe then never
-publishes the temporary pgmap.
-
-Link: https://lore.kernel.org/20260927114736.1113965-1-yaojiale02@163.com
-Fixes: fc65c4eb0b2a ("device-dax: ensure dev_dax->pgmap is valid for dynamic devices")
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: Vishal Verma <vishal.l.verma@intel.com>
-Cc: Dave Jiang <dave.jiang@intel.com>
-Cc: Alison Schofield <alison.schofield@intel.com>
-Cc: Joao Martins <joao.m.martins@oracle.com>
-Cc: <stable@vger.kernel.org>
+Fixes: bc512d6a9b92 ("KVM: arm64: Make PMEVTYPER<n>_EL0.NSH RES0 if EL2 isn't advertised")
+Suggested-by: Oliver Upton <oupton@kernel.org>
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Colton Lewis <coltonlewis@google.com>
 ---
+ arch/arm64/kvm/sys_regs.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- drivers/dax/device.c |    9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
-
---- a/drivers/dax/device.c~dax-device-defer-publishing-the-dynamic-pgmap
-+++ a/drivers/dax/device.c
-@@ -409,7 +409,6 @@ static int dev_dax_probe(struct dev_dax
- 			return -ENOMEM;
+diff --git a/arch/arm64/kvm/sys_regs.c b/arch/arm64/kvm/sys_regs.c
+index a2f4e769a4282..0bb3c2f10a22c 100644
+--- a/arch/arm64/kvm/sys_regs.c
++++ b/arch/arm64/kvm/sys_regs.c
+@@ -1060,7 +1060,7 @@ static u64 reset_pmevcntr(struct kvm_vcpu *vcpu, const struct sys_reg_desc *r)
+ static u64 reset_pmevtyper(struct kvm_vcpu *vcpu, const struct sys_reg_desc *r)
+ {
+ 	/* This thing will UNDEF, who cares about the reset value? */
+-	if (!kvm_vcpu_has_pmu(vcpu))
++	if (!kvm_has_feat(vcpu->kvm, ID_AA64DFR0_EL1, PMUVer, IMP))
+ 		return 0;
  
- 		pgmap->nr_range = dev_dax->nr_range;
--		dev_dax->pgmap = pgmap;
- 
- 		for (i = 0; i < dev_dax->nr_range; i++) {
- 			struct range *range = &dev_dax->ranges[i].range;
-@@ -450,7 +449,13 @@ static int dev_dax_probe(struct dev_dax
- 		return rc;
- 
- 	run_dax(dax_dev);
--	return devm_add_action_or_reset(dev, dev_dax_kill, dev_dax);
-+	rc = devm_add_action_or_reset(dev, dev_dax_kill, dev_dax);
-+	if (rc)
-+		return rc;
-+
-+	/* Probe can no longer fail; expose the pgmap via dev_dax. */
-+	dev_dax->pgmap = pgmap;
-+	return 0;
- }
- 
- static struct dax_device_driver device_dax_driver = {
-_
-
-Patches currently in -mm which might be from yaojiale02@163.com are
-
+ 	reset_unknown(vcpu, r);
+-- 
+2.56.0.rc1.315.gc6ed9934b7-goog
 
