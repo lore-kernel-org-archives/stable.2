@@ -1,172 +1,91 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24D6B3A901D;
-	Tue, 29 Sep 2026 18:11:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B28A03EC810;
+	Tue, 29 Sep 2026 18:12:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790705500; cv=none; b=kSnzJU8x8CQ1BmUKsmnl0ycyUYmrGUb+xLQwgBnRbCmgkYueaD+5IqLmYGXEo61V0Iy0LDYyLJo8X8Xwf0yJNhliE7yE/JzP5ow9E1ym+bFdZe98KYIYUhvJTd4MfOY+8pNJXy+eOifsZtt6btYA80D4RfP5rBzKwua/BCeBJSk=
+	t=1790705559; cv=none; b=HFWJrAXPT2f8QtBNVQt5JVdf1ltjATRCJKSOMz09L7i2kek9ujZYd4/JZHkmhygGcYsrIvZVA451XjV62z9HYD8VumQH0I/q/Fjupp564nKwpLB2TAJDq/SzPtyIeVZY5qlSn7/jn2xNjRle7qJlTNJpLiJ6EgbiPaLSqpO9+WM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790705500; c=relaxed/simple;
-	bh=ZC/1BAGTEGyUZTJ5wnEnOfra8VAiWtX8d1bOgYEgIQc=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ZFBz1JOP0sGJ/kn/lg/fE64Zkurldx2mZt6Qcrkppzn+j+JtpSbW3ohEiB6HljjN5+XVS5mgZea8rPPivo/NWTvIUb6nshe2+VnoaHMo9IQ1Qb7qrCKlQU4r00yZcLZY5K4Z3fwpImEsd/mcWcLnxdY5B5uhwhk0uQEmWyJjVYg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=08edolbw; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=H3eI1mdw; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=W6FmG3ev; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=qDH59VVG; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1790705559; c=relaxed/simple;
+	bh=1Jp9lC5lmUNbGotDTh5hwpiXsgEODQxozKoH2QRfGVU=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=I0j6FeOMfQS87dSNLzTj2Z0WE1z+T8YSvfasXdBQ5poNkWWdePMYa9zSt9fKh3WUnoX9PjOtejJFxkWdcoQ5MtVZvW1j3GwTTcmtHaES023Nx4DK5v5n5fHpinarn8PygOze6rVMxRLtwUnOYmsM/NSnYAb0lfGQ9MJFBVpknIw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SqxPvboA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="08edolbw";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="H3eI1mdw";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="W6FmG3ev";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="qDH59VVG"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 0CFF41F449;
-	Tue, 29 Sep 2026 18:11:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790705481; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NgcLbakM2L9wTwco9aUXFMr5hk4/sbbU9mjRuZYCqy0=;
-	b=08edolbw8g7+vJPSbYvQQNz2pKRxDjRl7gmMN4O4qjlMYiG849ohRaKyyZXdGC0IH6DreK
-	5WkLp7HcHYcsdPnQsNpAnPT3SuaYjLvtjU3Xg52dCw3DqjDdsui/KEQbiJ8Wqz9Z1VvZkQ
-	BIMxVylgswpkk2egSIgJk4mO/9xDKZw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790705481;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NgcLbakM2L9wTwco9aUXFMr5hk4/sbbU9mjRuZYCqy0=;
-	b=H3eI1mdwMFwiKtdIFXU/IXmBXwy9Dl/AqllhiPZjycPv2IPX31sZzF/ltWR/MtOsR29q9a
-	dxhMoDCYSymetuAw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790705477; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NgcLbakM2L9wTwco9aUXFMr5hk4/sbbU9mjRuZYCqy0=;
-	b=W6FmG3evGc2agAAPPzkZSLth6uDFUBYm+FiMzWxgUjX3oDZlrO+Yolq4NyD2cJfq7RbBgN
-	3kuhNOhLm+SJTxGiwSZG1fZOdH6V53u7tQsMLl6ejQhlg+NdcGu9QN+4ewos8UsFK04o31
-	lMWhGXQzGZ5Z88rt4rAO5eyIDdN8Awg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790705477;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NgcLbakM2L9wTwco9aUXFMr5hk4/sbbU9mjRuZYCqy0=;
-	b=qDH59VVGH0KasGFaV/Jjs1DwcBFPkd47By4LHgmMtlFH8YIksuvEwjDuVJaTFJfryrkHlE
-	aj2ogJ6DHhwMFrAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 96166136D1;
-	Tue, 29 Sep 2026 18:11:16 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 0ZQPG0T/u2oxUQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Tue, 29 Sep 2026 18:11:16 +0000
-Date: Tue, 29 Sep 2026 20:11:16 +0200
-Message-ID: <87a4p0ylkr.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Aaron Kling <webgeek1234@gmail.com>
-Cc: Thierry Reding <thierry.reding@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Thierry Reding <treding@nvidia.com>,
-	linux-sound@vger.kernel.org,
-	linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] ALSA: hda/tegra: Re-enable SDO workaround for Tegra194
-In-Reply-To: <CALHNRZ8RLs6mXkYiZ4qRimmf4WzpWpnJ9racWTPH__Op2Nk8kg@mail.gmail.com>
-References: <20260926-tegra194-hda-sdo-v1-1-f7a636a07a58@gmail.com>
-	<aruc3qx7izFQYOhC@orome>
-	<CALHNRZ8RLs6mXkYiZ4qRimmf4WzpWpnJ9racWTPH__Op2Nk8kg@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SqxPvboA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFED11F000FF;
+	Tue, 29 Sep 2026 18:12:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790705558;
+	bh=AewnJYCmjMlqrdKta+ROW0UgJ4iRfCpECmE8t1Zigxw=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=SqxPvboAcCVhQ5nmddBI/ScbjXz8Y3l5dIY/Buntx3u1v2YFiAp1sS2Pg1YIkPKsc
+	 zMEQiAqYE4H0pLu3DMVOseXq7BMOs5qn9Jp7rK2WnOwhmcfWHp6fbcsZ7krumfz3Fl
+	 B0nAKPKw8qge3Vi4Psr6cj5wc4cCT3s9Y8pYFhe4DzY+E7gTtpLW9wjxlRXdl3s+od
+	 R41GFhUVaTXVlhbtHm/2wBxoqhV9i0d9xO+1XwGWZRFuBrIWKyIjwzgMmhjnB0QuYl
+	 tvAQDRvbr2YBWOwzlY2K1uHI/o0/ZZz3g8kQU+kq1vZhHxCXmrd38khxVDeGXDiRMB
+	 lhXhVR77il9Vg==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Shenghao Ding <shenghao-ding@ti.com>, linux-sound@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Jianhao Xu <jianhao.xu@seu.edu.cn>, 
+ stable@vger.kernel.org
+In-Reply-To: <20260929095920.2092147-1-runyu.xiao@seu.edu.cn>
+References: <20260929095920.2092147-1-runyu.xiao@seu.edu.cn>
+Subject: Re: [PATCH] ASoC: pcm6240: do not free an unrequested IRQ
+Message-Id: <179070079857.463415.5484242725188416666.b4-ty@b4>
+Date: Tue, 29 Sep 2026 17:53:18 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.995];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	URIBL_BLOCKED(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -3.30
-X-Spam-Level: 
-X-Spam-Flag: NO
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1106; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=1Jp9lC5lmUNbGotDTh5hwpiXsgEODQxozKoH2QRfGVU=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqu/+S98vb3UAp4z9/AFUNR8nR5XM+NxRBOmzyv
+ mOGzNIuyx6JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCarv/kgAKCRAk1otyXVSH
+ 0D16B/0eet6QymIpIrsWE8UvaF5S7m6RBevMkEGXOGCRptqw5xZYU/3SH8sp6f/+zudPfEV4MWb
+ cwwyEbvlnHTSVsM68m7rCbb0CtINnkfw14OcEUSxN0OryIM0KckFSParUn622HCDx1T4TYOrsu2
+ qw6WibDEX9Xsrw11LHHph4Thndn3JiiArrWkd0Kjgz4zRq5V1sIg5Xy3BNUAKZOFl+q0o/zNjZX
+ vTVhEoM029N1xd4jZkea73cp1zBVCYPE1Gmodbr17K0FFpR7kecj/AIQDtVYx+NB21+tyZEXXKG
+ AvJkSnhktJqZtia0a8CcJdIex8r0jiO1tUGBeumfCvb/TqoR
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Tue, 29 Sep 2026 19:22:25 +0200,
-Aaron Kling wrote:
-> 
-> On Tue, Sep 29, 2026 at 6:12 AM Thierry Reding
-> <thierry.reding@kernel.org> wrote:
-> >
-> > On Sat, Sep 26, 2026 at 02:24:19AM -0500, Aaron Kling via B4 Relay wrote:
-> > > From: Aaron Kling <webgeek1234@gmail.com>
-> > >
-> > > This workaround was originally added for Tegra194, but no longer gets
-> > > applied for it. Commit 615d43540043 ("ALSA: hda/tegra: fix tegra-hda on
-> > > tegra30 soc") changed the guard to tegra30-hda, which worked because all
-> > > affected archs had the fallback compatible. However, commit 7f0ea5acfc19
-> > > ("arm64: tegra: Use correct compatible string for Tegra194 HDA") removed
-> > > the fallback compatible for Tegra194, causing this to break.
-> > >
-> > > Fixes: 7f0ea5acfc19 ("arm64: tegra: Use correct compatible string for Tegra194 HDA")
-> > > Cc: stable@vger.kernel.org
-> > > Assisted-by: LLM
-> > > Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
-> > > ---
-> > > ALSA: hda/tegra: Re-enable SDO workaround for Tegra194
-> > > ---
-> > >  sound/hda/controllers/tegra.c | 3 ++-
-> > >  1 file changed, 2 insertions(+), 1 deletion(-)
-> >
-> > Maybe we should move this out of of_device_is_compatible() conditionals
-> > and into hda_tegra_soc instead. That would make the checks for this a
-> > lot more consistent and robust.
-> 
-> I received a notification from Takashi Iwai that this has already been
-> picked up, but it was only sent to me and not the list. Not sure why.
-> But looking at -next, it's already there. Not sure if you would want
-> to have that pulled back for updates or do followups later.
+On Tue, 29 Sep 2026 17:59:20 +0800, Runyu Xiao wrote:
+> ASoC: pcm6240: do not free an unrequested IRQ
 
-Ah, I overlooked that your mail had 'Reply-To', and my mailer followed
-it as default.
+Applied to
 
-And yes, the patch was already queued for 7.4.  But if anyone has a
-better alternative, feel free to submit as an incremental fix.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
 
+Thanks!
 
-thanks,
+[1/1] ASoC: pcm6240: do not free an unrequested IRQ
+      https://git.kernel.org/broonie/sound/c/995b96380ba5
 
-Takashi
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
