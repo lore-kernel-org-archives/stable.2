@@ -1,62 +1,57 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1607D4F7CD8;
-	Tue, 29 Sep 2026 18:51:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AD9B560AD4;
+	Tue, 29 Sep 2026 18:51:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790707866; cv=none; b=dax5D/ZTNlfBU8qOzbZuCBZQox4swPyeqyapM/bxwodNs3yx5G35c+33Ab9Ob4VAP8W2sm7MqkJGfTwCveckB6smfbL+U+KxFumy6IMyClILNS9La+Z8zMjlU+RLNlFqC86Fg+iX3UxvFnyscHRxwh3RyWdBmIdsO1bIFOq+3ms=
+	t=1790707869; cv=none; b=Xhp784lLfPQmO85xR6vXFLQuhfVZvt1DYrv9KHawvSNufrLqQMVXoEYomuzxoajuBRuq6y8F1kgDl4z1c2F4EK3XvRzBza7NdPUifhySDJ+mPF0cMQOrIWsL05ZgxxLUS+zo7bzqSv2//Bbz5MlZTlZzIkt9rhOjiQ5p33oh7lU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790707866; c=relaxed/simple;
-	bh=jZARZh/kJWZLMRXMwDt0kf04BNmdlKi28dWs7crjX3U=;
+	s=arc-20240116; t=1790707869; c=relaxed/simple;
+	bh=UcNOhN9av9ri12YYn1dHbrlTQs/pUKtv9rBdSpVFcRk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=blO7NWMmVGLkNAOZ1lQrnDMpLYQxVLkgy1qV5kcVOXEAak9Jko4VLRe9aC0s7OeSuKL+z6ipxyNyFuuSx8L+743mpXEaduvLDIGNeA5gpMF10WGbxDvZ9NZm00cE7WEs6Ttf1NC6XGKLODjX3GOojEcTOsLcd+xikKUC/jNQ4ZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nIC7Hwy4; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=n9BmwZ2BCIHvLX1u8uqoZNMHzHoYKYvYjPio5HKBOCvFsIi1EvOUJutZLTj0JTZbnpZ+Gc3usPJ/zKmmyrLMdV5MHUaEmJNx3ZnRq8xi1x3wA/ReL5/AcoXGZ5FDiMKEQFnavQCNarkC93Ud6bw1j6xFjHABkZXc1tDYnMCwWs8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=epbvt+zp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nIC7Hwy4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C3DD1F00898;
-	Tue, 29 Sep 2026 18:51:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="epbvt+zp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B44441F000FF;
+	Tue, 29 Sep 2026 18:51:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790707864;
-	bh=Fxj2t9HrjooGG/e+u1xUODbbTsALcUEZoywvJj6KxeM=;
+	s=k20260515; t=1790707866;
+	bh=uSBRVfr/kJMhRJtoeRN7vF7rdvtDjZ6MrXLWTgzGBoE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nIC7Hwy4vhv54nXHvMyK1Aob5XAJStNNztMMPfgv20gqCVEx6YgYH0ru0+f4DDlWC
-	 8zkGVOVp21UMk0sUn3zdUzdpvsZ/T/bPRSMHgHXoaYIPz8AjiTlSkOeUGjAy2P4b0q
-	 P595PACawK5QNJSdspqqwBQXhPqw6jumc6ZV+EyUlgQqMAkri3GHxO+7JD6i1YBzfR
-	 6nMWoJjofRb7Dr/l2YM4Rvyj0AnRwHVPpCcW/KYdjQEhg1Aud+q5y4JYZtn471j/UX
-	 Mvx3GJd63awlfhJv/2inuM0FlLHG/3fZ/nwHAT0Qr/KQVow1Yg5ROyo/t1giW+YiSp
-	 bIg2LCjFBUFkQ==
+	b=epbvt+zpvpKeuAjYgDnTi8QyozRcClw0fI0Sz5mF455ElDNG/kVdTLDNtazZdFHMG
+	 PRyquP/Xpo5g3VFDIisAQp7faLBcqXy36cs3Q70dFhhkalX+Y7+7jceMVsNVGN9JGK
+	 ER/HOkYU77OCzpBefv7ZdiWecTd38UIlBuoELoE0AO+w5sBlSu+U9+qgRQg41gKMSU
+	 eeofuAjCq1Dyt3Dv5rQcqNlnpM14/y0mz+sw1Qo4VB50jamBgYRSdSs6FBV3CXOULE
+	 DPzTfd+cJ3PB75BTrBjSnJJ08xO7MevTxitUKD8Bh9LdEqHzInnJfI92WmbJo3Virf
+	 kjpMc4DFRfhIA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
 	Artem Dinaburg <artem@trailofbits.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	John Fastabend <john.fastabend@gmail.com>,
-	KP Singh <kpsingh@kernel.org>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Hao Luo <haoluo@google.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	bpf@vger.kernel.org,
+	Li Ming <ming.li@zohomail.com>,
+	Dan Williams <djbw@kernel.org>,
+	Alison Schofield <alison.schofield@intel.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Ira Weiny <iweiny@kernel.org>,
+	linux-cxl@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	netdev@vger.kernel.org,
-	sdf@google.com,
-	toke@redhat.com
-Subject: Re: [PATCH 6.6.y] bpf: Defer work in bpf_timer_cancel_and_free
-Date: Tue, 29 Sep 2026 14:50:46 -0400
-Message-ID: <2026-09-29-daily-reply-0003-re-bpf-timer-defer-work-6-6@kernel.org>
+	dan.j.williams@intel.com,
+	ira.weiny@intel.com,
+	jonathan.cameron@huawei.com,
+	Li Ming <ming4.li@intel.com>,
+	Jonathan Cameron <Jonathan.Cameron@huawei.com>
+Subject: Re: [PATCH 6.6.y] cxl/mem: Fix no cxl_nvd during pmem region auto-assembling
+Date: Tue, 29 Sep 2026 14:50:47 -0400
+Message-ID: <2026-09-29-daily-reply-0004-re-cxl-mem-nvd-autoassembly-6-6@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260929030524.86560-1-artem@trailofbits.com>
-References: <20260929030524.86560-1-artem@trailofbits.com>
+In-Reply-To: <20260929030716.86736-1-artem@trailofbits.com>
+References: <20260929030716.86736-1-artem@trailofbits.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -65,8 +60,8 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> This one addresses CVE-2024-41045. It defers timer destruction so callbacks
-> cannot deadlock or leave an enqueued timer freed.
+> This one addresses CVE-2024-41085. It registers the nvdimm bridge before
+> endpoint probing can auto-assemble a pmem region.
 
 Queued for 6.6, thanks.
 
