@@ -1,74 +1,85 @@
-Received: from mail-pz2-f39.google.com (mail-pz2-f39.google.com [74.125.228.39])
+Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E65F35C69E
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 03:18:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 299AF43BDB0
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 03:19:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790651916; cv=none; b=bqX8aLQXLsdLueQ/4a6D1I4yuM/STtNq4515C9R6QhH9sd/2MKljB2b8DbGQwnM4kdueQZLF71JRB0NB9J5UFTqugCF96i81I4s0JjU0E+w8CdR1QGqXtiD3WcP1hbuZi9ai6K+puALmlS4vtAWD3xzVmuCvXMNkeCRqjT+b5H4=
+	t=1790651956; cv=none; b=OnDdG76ceX1x+UTPgBNJDvHtS/1mVfYIZ1afj4yjumf9ajz9+Wr11qcpX28LaNFTlHVOuPeE6JnlX+xuu12ur8GB4Ah5UXi1rDXStVSvTXJMv/eoXoNfsrXiJyW0/mv3vVJIoVcWgsisaxhRsSIPgLSaS3Ft/vlxzinISMiocNI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790651916; c=relaxed/simple;
-	bh=EKDr47KhzqbzBu0y2qj53eTrpjPeQM1e3x2qAroiv40=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fnp1CMDPu9lsds0qCdLAtRZi1x+mAZzcz0h4bdKOwyNYL0yZOWNaaSnKVN7img8JgWJC7wDXLl5+EUFoTnmPNJINiz9bVv8dBO+IrkhojwwlqV1JV4Ne6jLOUc4TyzdY8exK4pkMcixRRaXAW3QzGEQoYPqtbTGAoOjUZyI5io0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=qV3Pn5RF; arc=none smtp.client-ip=74.125.228.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	s=arc-20240116; t=1790651956; c=relaxed/simple;
+	bh=cvniDiIc4764cA34CKQl6/w0r0WGSY5lKDDOdu/oDKA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tRnAh65ScHx4v/nKrZlzLAiW6BAwwlFQ/MJDsJ2qlIzffFRpQRqbmhWioCYjWmbboOHWhAwbFMFbAvNAm9wdss+5sKk/dGctxyf2/7/JxmM/v2bpHTjWHgD1VWhbF+y8sRmRN6Eusiyr3UhQbXAxp7g7gec6+vc9nk1+2IyGFZ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=ilGLmRAP; arc=none smtp.client-ip=74.125.229.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="qV3Pn5RF"
-Received: by mail-pz2-f39.google.com with SMTP id 41be03b00d2f7-cc791f087e3so1247787a12.1
-        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 20:18:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="ilGLmRAP"
+Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-34b4f2d90c4so132457eec.2
+        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 20:19:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1790651904; x=1791256704; darn=vger.kernel.org;
+        d=trailofbits.com; s=google; t=1790651946; x=1791256746; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=36VIGgKazBzZZnXWd7vuFJjs2SFoqWZ6NVWhpaNQOGQ=;
-        b=qV3Pn5RFEODHEk0PGcdWCtDcBlcYdb5BdqlXzyKSS6zEK5PGHtJ9eZlgFuqE7ccghZ
-         etvrrPt+d5on2RoqdkPWISLPZ9BnksOiWm33+Glua3oQmnwmWlfCpP9kWXIwGvJpU/Xz
-         +B8XvaIZ5afWJ5pNPRkKSchIsVkLgEJxu5w9Od2LGj5bVZkulDNUHGzrDqzohfY/zihK
-         gCCgiB9RU1HOQrdvUX4l7F+YoRtNFXhFXOScngAshYKqlYYEUe1IJU9yIhLqJGCAJCUc
-         MMzHXga73y0bAnI2GN2CyaaFY/ORZ8DSn/1h/lcV8pxhBnQvyIk17XLLpzNbUFYovh5D
-         VeyQ==
+        bh=rChgDG4+9LHVh/7Fh95cpWNAythLuYoy13f8pIwvxIg=;
+        b=ilGLmRAPqOBK7k5WLuDEdicdftpiXadYdpaMfw+p/Qad9Ip96GFXDbsuQNb36SYEfe
+         qhK1ttpwhAe6ob08aP7YX9JB5fUQDGk8x/IHbHD5n+ypJUIu3ScPI3ZtBSOy8Zzb5wKX
+         A5c74BWAwkH+bZgXFDU1oT0QXj7+/BnLcr6/A1XcsU6XToLIV7YjwLNP7Z3dcLujsHrG
+         643v/husILaQL5gQ+EB5n3uaRHT1Jl1m72NAIJWHedeAm3m0giMN+vYQaTUo35AgiD8K
+         Kfde5SfHeZgfZST3CGHA+xSyvCNzahQ4C8FSTs+VfBff7jZ3EdA5IEUW0UPDjU0Lg5gK
+         Lklg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790651904; x=1791256704;
+        d=1e100.net; s=20260707; t=1790651946; x=1791256746;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=36VIGgKazBzZZnXWd7vuFJjs2SFoqWZ6NVWhpaNQOGQ=;
-        b=xUDFkYO+/6o9il5RmVb8uFykuVovjmF4N+6cWCOpCbjIadAXuaUrvgb6pML1mGjUmO
-         /cmoF3FZrads5EB4NfLyzg1L0DykvGAYkOUS1yS9I6yrrBF8u2poHxXZXhyrfQBHZvM4
-         n7qZd06yx4W0vcrxNO6Fx0PB5HqldJp239UL3rZTzgowAr4KaocUcgUkpp9uKYMUY4fO
-         LxGT7wJNh2Y/BuNF4zIfiaDhP7ZxcVDbm0wqkVxK1oR5yXFtze5ehbgLAblpDfd65uXi
-         x9yb4W4gMVYmE3RB+qSbkHs2Wc+r5/bxibHN9tRDN7mC8zxJMBDMRbIG0By6IIHuoTuy
-         otTw==
-X-Forwarded-Encrypted: i=1; AKwUvBwOuTHob6I0SSK8sSL5q2+18jdMeEfVUtLi/umamtyunEjuJ+fo9WnHnNa+dkaCpaLStljBpDY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKsCwv6KmAwLsd7HrrzJCHIhvcJWg2WO2bNl6+dJoEAgrkzelbz
-	jPliPVUJ53JiPoqTvy3JEF4miW23amPO1PJa9PTl37nm0LB3iSBnat9pMswPThTADbs=
-X-Gm-Gg: AYBFou1uY6CeahVqLVtfUPaUt9FE9DycZPiWEY8mTn/iZ921an0ZME5o2MYiifCCBsM
-	YdVDVWFNgU7u+W4lFUnEQhULDiMOJkA3qTeyNztUKfOfTApwcSkL8YbapgCfrTivATkg9xNjSCD
-	4d4YE4FoR3MSUpDm4dOdgpY7wk/WIodmJ1qGwkTrEt3YYq455NY9e+Qb1pox4Ao80Hq0ks6yIB6
-	36XOgnpPaiFtwX3eL4sjLkkzx5tTV5Xxq91i4kIkBSTcpQG2kfiKW/FaPrQfDbJnERIMa7wQVhd
-	XiPxNDsM9LTiQHrH3l6pzsyCx0I8BpUUD/AGFl6WltJX849ji+lNXBn/zTAaAbV/4tvdyrnmdG2
-	Nx460sYJGwv7LcnbvzLAMX3UC8+2VIg4Tv0uiBlIVGx9QPwbpCR3e9+VvMpAngMqIn6CnxYQhZQ
-	hTuEgb6qaknt70XhYDKxT7YZLfUm07VJy3ouwEY+xqZqzFc5hGDsllpHNgwKZRF9oEKLgT+IV4k
-	zayiw==
-X-Received: by 2002:a17:90b:1a91:b0:3a4:880d:4833 with SMTP id 98e67ed59e1d1-3a4880d48a6mr2106447a91.65.1790651904188;
-        Mon, 28 Sep 2026 20:18:24 -0700 (PDT)
-Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a492b019besm1648627a91.1.2026.09.28.20.18.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 20:18:23 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: Zhu Yanjun <zyjzyj2000@gmail.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>
-Cc: linux-rdma@vger.kernel.org,
+        bh=rChgDG4+9LHVh/7Fh95cpWNAythLuYoy13f8pIwvxIg=;
+        b=2n6uALqSOx5MStXeAWlei6qC6knLq4CjZO9onp5cpYs9fw0rbLLY+wttDfhNUxmB98
+         UHtZ8ZTszzia6G9XxYBSik6vCo2CXpPb5yFuNz3olt1sbFWesz2GkNOcSEbe4LE2AM1k
+         jmerVlgIZ652e3Ikj1FRffDbNK5S0RWi9RyiqWdJOf7uMnACCwARrM0vip1cB9aUQduy
+         9MzTdJlviec9f7wyC+9ATUy+6xPNAbDz9RTgHPv102XQDISljtbpsoef5RG86lnhhe0/
+         sOVmtDAS5AZjr5KgHsr5pOH9UuctNJVdlQQpeXnRaLYsxyx0T6CXmLE521UXF855UUhi
+         exDQ==
+X-Gm-Message-State: AFq9FYI6omOgUqrlhB4kwz8TE48q3d7gj1Jb0dlQhjJ4EYIDbZfwG50v
+	KSGdKDIOj5m0PtcRHmluJ40SEG+/9nnvO8VecOv2bPMpjiw2wM1VvTjYpgXKswVOs1tLhe8eGvd
+	w/MxMpAg=
+X-Gm-Gg: AYBFou3KUTb30OdGRgzSHdElZglhp8dVustMJsRWf0gh6H7t6f+ybYGGsYijLMl15Fp
+	FGWJD5yU5FrqUGXgPnBt6ARlBMg2XWP8r/51yOJ4w/uYbD3squTEIC1R+LB73qXMv/dM5jfZ/Aw
+	KLLaaTtEvrsEoOnrfpcVXtIr6eYl78+U/IMVWHmtMLxNUcYCCsCxO0J8ffTaOf2v/JoIwjILdIB
+	XdcgZu8PpXu9TE9SNnMJGfGwD+u+6mWRZpcDov89BD9hrXITgB2J3xvm52V6JpTroXWCD+R0OWw
+	gPfSAI7MIp2U5OySkg8+284vGxbXwDIF1pEfLPSxquW8mmhEH9NuY3ovKFazb4EjJWoUHcLW/7s
+	pqoNQDKT0Zdi7dtqIgVp7iwPufkuAgUjD3Mbp8xZ+8PbUeXDmtQ3RDc2H1QJf+crUrOk86twh3P
+	TXfe3QR9ywgnJBJ3EeCf4VEF96bOBmHwPPhkjTEHPxqIu6+VSJ6irDJc8V/RydPJcQhaH4Z2A1J
+	3w2+QuV++2Vl2tZjaMiIS7ciIznvJHt2zPBpdQKpsGdu5E3qtZEfRxpWZWX1+Az6A==
+X-Received: by 2002:a05:693c:62dc:b0:33b:ef1f:14b9 with SMTP id 5a478bee46e88-34271a92cb8mr10274241eec.15.1790651946136;
+        Mon, 28 Sep 2026 20:19:06 -0700 (PDT)
+Received: from localhost.localdomain ([2603:8001:5f01:8bab:3481:cbb6:f339:9e4e])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34141a4a00dsm33740601eec.1.2026.09.28.20.19.04
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 28 Sep 2026 20:19:05 -0700 (PDT)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: Artem Dinaburg <artem@trailofbits.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Dan Carpenter <dan.carpenter@linaro.org>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	CK Hu <ck.hu@mediatek.com>,
+	Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	David Airlie <airlied@gmail.com>,
+	Daniel Vetter <daniel@ffwll.ch>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-mediatek@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
-	stable@vger.kernel.org
-Subject: [PATCH] RDMA/rxe: check the PD when invalidating an MR or MW
-Date: Tue, 29 Sep 2026 12:18:11 +0900
-Message-ID: <20260929031811.1550334-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
+	linux-arm-kernel@lists.infradead.org,
+	Simona Vetter <simona@ffwll.ch>,
+	jason-jh.lin@mediatek.com
+Subject: [PATCH 6.6.y] drm/mediatek: Fix potential NULL dereference in mtk_crtc_destroy()
+Date: Mon, 28 Sep 2026 23:19:01 -0400
+Message-ID: <20260929031902.88182-1-artem@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -77,112 +88,70 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-rxe_invalidate_mr() and rxe_invalidate_mw() look the object up by index in
-the device-wide pool and then only compare the key, so a QP can invalidate
-an MR or MW that belongs to a different protection domain on the same rxe
-device.  Both entry points are affected: IB_WR_LOCAL_INV from the requester
-and SEND_WITH_INVALIDATE from the responder, where the rkey comes off the
-wire.
+From: Dan Carpenter <dan.carpenter@linaro.org>
 
-Everything else that resolves one of these objects already refuses a
-foreign PD.  lookup_mr() rejects mr_pd(mr) != pd, rxe_reg_fast_mr() rejects
-qp->ibqp.pd != mr->ibmr.pd, and rxe_check_bind_mw() was given the same
-check in commit fbbe1d5cd7d4 ("RDMA/rxe: Check PDs for memory window
-binds").  Remote access is therefore scoped to a PD while remote
-invalidation is not.
+[ Upstream commit 4018651ba5c409034149f297d3dd3328b91561fd ]
 
-A peer on one connection can invalidate a kernel ULP's fast-reg MR on
-another, which ends that ULP's I/O.  Reject a foreign PD in both
-functions; -EINVAL turns into RESPST_ERR_INVALIDATE_RKEY for the
-responder and a failed work request for the requester.
+In mtk_crtc_create(), if the call to mbox_request_channel() fails then we
+set the "mtk_crtc->cmdq_client.chan" pointer to NULL.  In that situation,
+we do not call cmdq_pkt_create().
 
-The MR side has behaved this way since the driver was merged, where
-do_complete() freed the MR it found by index; rxe_invalidate_mw() arrived
-later carrying the same omission.
+During the cleanup, we need to check if the "mtk_crtc->cmdq_client.chan"
+is NULL first before calling cmdq_pkt_destroy().  Calling
+cmdq_pkt_destroy() is unnecessary if we didn't call cmdq_pkt_create() and
+it will result in a NULL pointer dereference.
 
-Fixes: 8700e3e7c485 ("Soft RoCE driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+[ Backport to 6.6.y: used the older Mediatek CRTC file and helper names. ]
+
+Fixes: 7627122fd1c0 ("drm/mediatek: Add cmdq_handle in mtk_crtc")
+Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Reviewed-by: CK Hu <ck.hu@mediatek.com>
+Link: https://patchwork.kernel.org/project/dri-devel/patch/cc537bd6-837f-4c85-a37b-1a007e268310@stanley.mountain/
+Signed-off-by: Chun-Kuang Hu <chunkuang.hu@kernel.org>
+Assisted-by: LLM
+Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
 ---
-Reproduced on rxe with two protection domains on one device.  PD-A holds the
-attacking QP, nvme-rdma holds PD-B and is running I/O.  The RXEINV/RXEPD lines
-below are instrumentation I added to observe it and are not part of this patch:
-RXEINV prints the two PDs and the MR state inside rxe_invalidate_mr(), and the
-attacker takes the target rkey from rxe_reg_fast_mr() rather than guessing it.
+Hi Greg, Sasha, and drm mediatek maintainers,
 
-Before, a SEND_WITH_INVALIDATE naming nvme-rdma's rkey is accepted:
+I am working through the small CVE backports still missing from 6.6.y.
+This one addresses CVE-2024-53056. It skips command-packet destruction when
+channel setup failed before packet creation.
 
-  RXEPD: hunter: TARGET is a foreign-PD fast-reg MR: rkey=0x29ba mr_pd=00000000185f3e0e (mine: A=00000000d715b639 B=000000001440b63b) iova=0xffff888065174000
-  RXEPD: hunter: firing SEND_WITH_INV from QP-A(PD-A=00000000d715b639) at rkey=0x29ba
-  rdma_rxe: RXEINV: REMOTE entry rxe_resp.c execute() qp=27 wire_rkey=0x29ba
-  rdma_rxe: RXEINV: enter rxe_invalidate_mr qp=27 qp_pd=00000000d715b639 mr_pd=00000000185f3e0e cross_pd=1 key=0x29ba state_before=2
-  rdma_rxe: RXEINV: done  rxe_invalidate_mr key=0x29ba state_after=1 (RXE_MR_STATE_FREE=1)
-  RXEPD: hunter SEND_WITH_INV -> wc.status=0 (success)
+The fix is already present in 6.12.y, 6.18.y, and 7.2.y, but not in 6.6.y.
+This fix also affects 6.1.y, which will need a separate backport; this
+submission contains only the 6.6.y patch.
+The target-specific adjustment is recorded in the bracketed note above.
 
-and nvme-rdma's I/O stops:
+Could you please queue it for 6.6.y?
 
-  nvme nvme0: RECV for CQE 0x00000000448b8c67 failed with status WR flushed (5)
-  nvme nvme0: starting error recovery
-  nvme nvme0: Reconnecting in 10 seconds...
+CVE: CVE-2024-53056
+Upstream: 4018651ba5c409034149f297d3dd3328b91561fd
 
-The controller does not recover, because each reconnect registers a new MR that
-is invalidated the same way.
+AI assistance: An LLM helped identify, adapt, and validate this backport; I
+reviewed the resulting code and validation evidence.
 
-After, the same attack is refused:
+Thanks,
+Artem Dinaburg
 
-  RXEPD: hunter: TARGET is a foreign-PD fast-reg MR: rkey=0x90a0 mr_pd=0000000049ba8cc5 (mine: A=00000000a32c3059 B=000000006c5e8389) iova=0xffff88806bbb0000
-  RXEPD: hunter: firing SEND_WITH_INV from QP-A(PD-A=00000000a32c3059) at rkey=0x90a0
-  RXEPD: hunter SEND_WITH_INV -> wc.status=5 (WR flushed)
+ drivers/gpu/drm/mediatek/mtk_drm_crtc.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-rxe_invalidate_mr() is not reached for a foreign PD, so no cross_pd=1 entry is
-traced (4 before, 0 after), nvme-rdma keeps running,
-
-  BCHECK[D] DONE iters=524 clean_p0=524 ioerr=0 CORRUPT_HITS=0 POST_COMPLETION=0
-
-Only the MR path is exercised above.  The rxe_invalidate_mw() hunk is the same
-omission in the MW path and is fixed for symmetry; I did not reproduce a
-cross-PD MW invalidation.
-
-nvme-rdma's own same-PD invalidations keep working: 3180 of them are traced with the
-check in place.
-
- drivers/infiniband/sw/rxe/rxe_mr.c | 6 ++++++
- drivers/infiniband/sw/rxe/rxe_mw.c | 5 +++++
- 2 files changed, 11 insertions(+)
-
-diff --git a/drivers/infiniband/sw/rxe/rxe_mr.c b/drivers/infiniband/sw/rxe/rxe_mr.c
-index 71d9ea4772890..2da5134560730 100644
---- a/drivers/infiniband/sw/rxe/rxe_mr.c
-+++ b/drivers/infiniband/sw/rxe/rxe_mr.c
-@@ -743,6 +743,12 @@ int rxe_invalidate_mr(struct rxe_qp *qp, u32 key)
- 		goto err_drop_ref;
+diff --git a/drivers/gpu/drm/mediatek/mtk_drm_crtc.c b/drivers/gpu/drm/mediatek/mtk_drm_crtc.c
+index 859dffe4513722..1e8052a0425ee5 100644
+--- a/drivers/gpu/drm/mediatek/mtk_drm_crtc.c
++++ b/drivers/gpu/drm/mediatek/mtk_drm_crtc.c
+@@ -163,9 +163,8 @@ static void mtk_drm_crtc_destroy(struct drm_crtc *crtc)
+ 
+ 	mtk_mutex_put(mtk_crtc->mutex);
+ #if IS_REACHABLE(CONFIG_MTK_CMDQ)
+-	mtk_drm_cmdq_pkt_destroy(&mtk_crtc->cmdq_handle);
+-
+ 	if (mtk_crtc->cmdq_client.chan) {
++		mtk_drm_cmdq_pkt_destroy(&mtk_crtc->cmdq_handle);
+ 		mbox_free_channel(mtk_crtc->cmdq_client.chan);
+ 		mtk_crtc->cmdq_client.chan = NULL;
  	}
- 
-+	if (unlikely(qp->ibqp.pd != mr->ibmr.pd)) {
-+		rxe_dbg_mr(mr, "qp->pd and mr->pd don't match\n");
-+		ret = -EINVAL;
-+		goto err_drop_ref;
-+	}
-+
- 	if (atomic_read(&mr->num_mw) > 0) {
- 		rxe_dbg_mr(mr, "Attempt to invalidate an MR while bound to MWs\n");
- 		ret = -EINVAL;
-diff --git a/drivers/infiniband/sw/rxe/rxe_mw.c b/drivers/infiniband/sw/rxe/rxe_mw.c
-index bddb7a2578313..ab2212eabd71e 100644
---- a/drivers/infiniband/sw/rxe/rxe_mw.c
-+++ b/drivers/infiniband/sw/rxe/rxe_mw.c
-@@ -276,6 +276,11 @@ int rxe_invalidate_mw(struct rxe_qp *qp, u32 rkey)
- 		goto err_drop_ref;
- 	}
- 
-+	if (unlikely(qp->pd != rxe_mw_pd(mw))) {
-+		ret = -EINVAL;
-+		goto err_drop_ref;
-+	}
-+
- 	spin_lock_bh(&mw->lock);
- 
- 	ret = rxe_check_invalidate_mw(qp, mw);
 -- 
-2.43.0
+2.39.5
 
