@@ -1,107 +1,129 @@
-Received: from mail-vs2-f41.google.com (mail-vs2-f41.google.com [74.125.227.41])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F7C94FDA63
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 10:05:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA2233E4117
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 10:06:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790676313; cv=none; b=u7avHY/3go2K7qwsJ9mk4Wjs0pW2BVjN8494ToUcsH7e77/ldn4D8afyihP3Bo4DrCnVhwUcVrzIo57hd1PGiiL/Fr8uGMmnr3oKKFys92sBB4oZzeSlcchIL5M8aog3rc3Y9jJuSi70So1iQp6W3z689qfFdcG8mBbqy0MG5aE=
+	t=1790676369; cv=none; b=k5ddQ5C8TyPYPO4e5Lr2Wt7p1Odrm/KOXr3t3JuWgCsOGJ3xFbvDBt3IS6HmkzpSSXf2ryC3TgW71cp1ER9XR2um4kpuytS+Et47JSW5C9MFLNXLP6YwvyG68007hfupuKEzA7maqRDRi/jRYkVZ3nGt1DZu3eZpA7mR+Ys/QOY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790676313; c=relaxed/simple;
-	bh=HO3kMzX3++941hDd+4FiOnTVZEiTsHEAJWUsba7xzCo=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=PzQzPsXzfy64bCAnlWcczB5FYSHNicicx6SAawUMTjk5GiyA+mndnd5T60S/6IQnz1imVakuXtLyaaPZuwKTezM66UTz3CNByHQKwRPdr5Qf030AU1TKtr3v7ML6jQ5zX5kct77P0ONMHIuTs9nHiPAass/9YWnnsles5ATHKIs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=EbKRY/5q; arc=none smtp.client-ip=74.125.227.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	s=arc-20240116; t=1790676369; c=relaxed/simple;
+	bh=xNlUmKwbQXLSEE3QC0Rx5R5Pncj1II95pqPAg1hd7CY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ftfv3Im1K+gRNpauZHLsdT9Q/QSg4Ztpyy7nwKXNMknEn3Rw49cyWus75bq5GlZcaHJuLrBBA2l/fTVzzMdiVInxTHI2U6TrkTsg3id1WTg3pe6FKRh9i5vlGibDlkvwsHiLGCHUBEfUkxj177ePDPsbl6wNmnjdrZ/SF+bAFEU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=cymnc4JG; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="EbKRY/5q"
-Received: by mail-vs2-f41.google.com with SMTP id ada2fe7eead31-795a0ab5227so1249837137.1
-        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 03:05:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="cymnc4JG"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843c3ee4cfso1936653f8f.2
+        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 03:06:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1790676304; x=1791281104; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UoyoK9QhTWTjtlh2q64dzZQ7shB0zCBWTARiumkOiSI=;
-        b=EbKRY/5qx2mTAd3MdnsYVSSU3iVPaZ+hMxYWQBF/ZXQuvXovtSYpijcgJF1/wxg9O5
-         Djog+TegeUqewO6V3C6aIhAW+Zno4FcedSfBj3ds/aLurjUGBSkYA4CbfW8EgmEJoKVp
-         5jVy2ykFO3UjywNAD+g68FV2NtJrhUWi2XYh4=
+        d=flipper.net; s=google; t=1790676357; x=1791281157; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=G3eWez+V61iDGrqgukhgzGO2U/52pms2AtqUAmMdSCY=;
+        b=cymnc4JGNiJaiBKPvPL7OFk+ctzIgiTlpVb/8UuCxR5YWiGodr28g3sX93MtxcLODB
+         I3/o08LPbxdsviLnAjLpFoGQnTzE9KOs4dnnp3YoaGrTlSoPul3kjggB8aEDAkjPakLh
+         2OqjZKAqYWiwNVCXrCBm7xcecjjXhlI4oN6I8jeHvnDiK59/jZJFZKNHKcnq3QwvpzBH
+         A6+Rr29zp1CnkcXPnA/DcdEjnTPGwL9wCU4EA9c/aa+0wafjKd80KMuraBBgSUVkSF4G
+         e1UDnH6efpgy1ney6YiI2kJDfozsfB6M0SZ/fj9NMlKL12QJihWGqVCErll4cqlUMkxl
+         08Ew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790676304; x=1791281104;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UoyoK9QhTWTjtlh2q64dzZQ7shB0zCBWTARiumkOiSI=;
-        b=PQmPqxcO695zfE1SE7t6RA8UwZwiX+k4cFXLgrcL2lqMAxx/jJ+c/FKHQT+JppFjaO
-         dGsrP8wdXhNzyboK5BqubHMDlinsiJZerN9zO94DT7IRlxG4KajY9A5JJ7+eF8G33YjM
-         03PHy32ETayiNy/EjEprSQ2GS3iLis7+aomtH7NVw67EdpYfNn7b54+xCp4/Rr86hqOH
-         gUb0EczPjz1DZhpc5CqUMadXLxCEX8wEcEe0soeokF5AAEVWgew7S92HW95vUNIlFivT
-         W+0dd6RUo6GqPzpdTGulPr4zrihvOLL8CojjkzVW3dkEpWSSvnTMIg0l2/gTRV5J1vFh
-         bDpQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz/d7tdWBTNFwNdRVDAlu9+5Hs7adOrDdGbNySvKbJzI1+KRCgE/YTulKSwNyQ6M+FKnACiN6c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKhGGeesPULc8RMskPMmb1k3luOnIuaaoq0fxnLc/XyOd13JdQF
-	hEpOcXSjsIyoEoxZ87zcFQCEVdLT9IT+mHeUnL+w2cQdXIqBd4CKW3Rhp3iK+GPaAg==
-X-Gm-Gg: AYBFou0B7fTdV10f/JFB1OQI88rZIx3o+wl0wkHFxUT5KVawAn16YTNW9tde1gUnbs5
-	F9IsCbbW8Wr+v9kLCJfLySSKOIumYKHh2eokWUniuknVJW3pI8wUFwVm7+denty1Xi+yq5wLJMH
-	yS2wuReDlMksQyoKU/6SZ8IQZT+Cg0tL1e4YRFO8/PmtB4sy1tXISNIepn0shfau1uOXkgMKiDh
-	vr5uPz6wbA8pA4wn6pvxifLzSAgseoo16sqIhJQ5mxBB7kLcrd2BPsq93jRR6zUl0FAywRuZuCM
-	XlV8etXwWV8PJdGpZyWrO8tqbz490NIGEG90Pws1she/mGyaXHSRCOCcStAW9c3QMViOdhOtvfq
-	mG7tfgwYVSkVUu++W0Fyl8m7/Z871r+eq/Vg+ZJ9FLWGatJ0H9Zkc6D258AQ6NbwDraf6A9szct
-	ozM5WKRHQOoYqbRW862t2jizKlvnr+sK1Y/wUmAz8ZmZ8ORr5Uu9zaGgDLxQ6HQKEpGHmtqfebJ
-	tmlC/wk0Y1LLMITRoc74+XjIvyOP3+6fpI1d1a1gBegHfGsAw==
-X-Received: by 2002:a05:6102:3ec3:b0:7a7:19aa:f0d8 with SMTP id ada2fe7eead31-7af1f621049mr4571207137.37.1790676303901;
-        Tue, 29 Sep 2026 03:05:03 -0700 (PDT)
-Received: from majuu.waya ([184.147.180.207])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7b39b6a6272sm12764792137.7.2026.09.29.03.05.01
+        d=1e100.net; s=20260707; t=1790676357; x=1791281157;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=G3eWez+V61iDGrqgukhgzGO2U/52pms2AtqUAmMdSCY=;
+        b=xNBLulNifmo8koFtW5KpnIxUgzJVpmLXHHzy8TueA05PY3p10dfmXJDb254UhBuxxr
+         LlcFbmHQ2zsKjPyRkHajK/9DTit2n89E08XVIUtlmeJ6v5f+VMwaplV6587HOY4AxbPy
+         XkqJXVb+OacOlK5S+KOp0KvWdfHMVzFEYqZVQL0+5wnadUinkCwImTUzwuyi67WWzFv3
+         K/Nhj+D3BWIxNJkOXeHEXdXyf276E7pegeV6cJAZj8BTDSrBl88Yu/0Wfqv8BwBIlAWs
+         cC1yQOd+g0ZLhavg+L34NTvFNMMYMhe2rOmLb4BP/9G1fYOblhptWnoD2/rgHRsUJup6
+         VeTg==
+X-Forwarded-Encrypted: i=1; AKwUvBxvZA7K4TSCmb7TrL1vPumNWY3SJEbeFXuP/UdCDOEmiO4hesFC5pRsAkER6m/VTLiEloWYcvA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ8i8s3VJhTjFk1EgcsOt1GjnsgUzbg5wBOH/Sb0qpRmNkpImyV
+	2dzOFka01771baXxOUrE3x7wuY3PIQJkaynCNVr1CPIGW0QgT0dJHBctXok2tdK4zOcBzO0Tdlp
+	qc0LH
+X-Gm-Gg: AYBFou2uvcEj2Uj6w20GRc5g17gQnIZjVmhTO4ozGSzRI/K6XCXzmkJIpMGEEnUE/ef
+	PKg1dJtVt8jnqvGSInM7ajBVXPz3Jivc+7/hmyvTOBDrnffTPF1igQEE2rGje/dwKdsgw1OoPPL
+	0SDVtrQ3eXRyxaG2ych65M1OObX7D+FY/JsHpqXqndXPaI0coX9dmNpdUa9iGb13Rox6ZWYfQ6I
+	Jl+dYJtOcdrHmL9PCJAvhqHlYT1tfyZLlIuPlNVyjqR25+dPCw5+Q0Mm/MbO6FcLD11dXCkQ8fr
+	27GiKMtuEeCAsulrNqj6kKSkNXpG1XouOt9pGy0Q/fNSWN7W6oyfkUCNF+Q8YJiIC5+hBBeRdQx
+	2biEUVyeL6kJx7S9+ignm7nKfB+dmt0HSfDumLoaWN4mjwhO/+ck12ZBLUENSeLiI+YIAnILItp
+	4ASdTZdvLynCtYT5vqvopefCEaHD5apRBQNqc+X+xtwSTc03ZHeb3KWz20kV6oxCWMwDKcMh1rx
+	9/0uvJEtBVg/Pl7
+X-Received: by 2002:a5d:5f87:0:b0:488:87f6:c20c with SMTP id ffacd0b85a97d-48887f6c7bamr16422031f8f.13.1790676357052;
+        Tue, 29 Sep 2026 03:05:57 -0700 (PDT)
+Received: from alchark-surface.localdomain ([5.194.93.183])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48af502f79dsm2954995f8f.6.2026.09.29.03.05.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 03:05:02 -0700 (PDT)
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-To: netdev@vger.kernel.org
-Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
-	Victor Nogueira <victor@mojatatu.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	stable@vger.kernel.org,
-	hybris <hybris@mojatatu.ai>,
-	sashiko-bot@kernel.org
-Subject: [PATCH net 0/2] net/sched: sch_teql: fix shared headroom and header strip
-Date: Tue, 29 Sep 2026 06:04:47 -0400
-Message-Id: <QDISC-6HS9.v1.20260928064754@mojatatu.com>
-X-Mailer: git-send-email 2.34.1
+        Tue, 29 Sep 2026 03:05:56 -0700 (PDT)
+From: Alexey Charkov <alchark@flipper.net>
+Subject: [PATCH 0/4] regulator: of: Fixes to of_regulator_bulk_get_all()
+Date: Tue, 29 Sep 2026 14:05:45 +0400
+Message-Id: <20260929-regulator-get-all-v1-0-e887c66a47f1@flipper.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBG4avIrDugES32KqWLmP6JU4KWSRRBv
+ HvTdvkt3jsoQQWJbtVBik2SLHNBc6nITXYOYHkWk6lNXw9mYEVYo82LckBmGyPbrmtxbb1vHKh
+ 0b4WX/fe8P/5O6/iCy98RnecHY4OSJHUAAAA=
+X-Change-ID: 20260929-regulator-get-all-a553e73ff1ce
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Corentin Labbe <clabbe@baylibre.com>, 
+ Manivannan Sadhasivam <mani@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>
+Cc: linux-kernel@vger.kernel.org, 
+ Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>, 
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+ linux-pci@vger.kernel.org, linux-pm@vger.kernel.org, 
+ Alexey Charkov <alchark@flipper.net>, stable@vger.kernel.org, 
+ Sashiko <sashiko-bot@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1317; i=alchark@flipper.net;
+ h=from:subject:message-id; bh=xNlUmKwbQXLSEE3QC0Rx5R5Pncj1II95pqPAg1hd7CY=;
+ b=owGbwMvMwCW2adGNfoHIK0sZT6slMWTt7m1uqD1g4zN7rbndrd4VWyvdD7x5cufyy9aprxOO/
+ D60+sqcro6JLAxiXAyWYoosc78tsZ1qxDdrl4fHV5g5rEwgQ6RFGhiAgIWBLzcxr9RIx0jPVNtQ
+ z9BIx1jHiIGLUwCmeukBRobtDh+zuZZul7tkFaujVxdmL5/4WlzxqOnZqDDz0BnGiZcZGe7XMsy
+ d4OEXfnvCgVNeb/+yMV/6YH37fsdXfd0/guYB7ewA
+X-Developer-Key: i=alchark@flipper.net; a=openpgp;
+ fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-Two pre-existing defects on the teql transmit path, both around
-teql_master_xmit() -> teql_resolve().  The first makes the slave's
-headroom write corrupt a shared skb and strips a userspace-supplied link
-header on retry; the second leaves skb->dev pointing at the teql master
-while the skb is parked on a slave's neighbour arp_queue.
+of_regulator_bulk_get_all() only fills in the .consumer part of the
+struct regulator_bulk_data for the regulators it gets, leaving .supply as
+garbage, while the rest of the regulator core expects a meaningful name
+there (e.g. for error prints), causing uninitialized memory access in any
+failure paths in the core.
 
-Patch 1 fixes the shared-headroom write and the header-strip on retry,
-tracking the header length the slave actually added.
-Patch 2 moves skb->dev = slave ahead of teql_resolve() and restores
-skb->dev at the arp-queue reinjection point, so a parked skb names the
-device whose neighbour took it and is delivered with a link header.
+It also allocates the supplies array and hands it to callers, but never
+says the callers need to free it (which they don't), causing leaks.
 
-Both are follow-ups to commit dc4b95b8fee9 ("net/sched: sch_teql: restore
-skb->dev on the slave failure path").
+Fix both (the latter in two instances).
 
-Jamal Hadi Salim (2):
-  net/sched: sch_teql: fix shared headroom and header strip on slave
-    retry
-  net/sched: sch_teql: keep skb->dev consistent on the arp-queue path
+Signed-off-by: Alexey Charkov <alchark@flipper.net>
+---
+Alexey Charkov (4):
+      regulator: of: fill in supply names in of_regulator_bulk_get_all()
+      regulator: of: state who owns the array from of_regulator_bulk_get_all()
+      power: sequencing: pcie-m2: Fix leaking array from of_regulator_bulk_get_all()
+      PCI/pwrctrl: generic: Fix leaking array from of_regulator_bulk_get_all()
 
- net/core/neighbour.c |  1 +
- net/sched/sch_teql.c | 34 ++++++++++++++++++++++++++++------
- 2 files changed, 29 insertions(+), 6 deletions(-)
+ drivers/pci/pwrctrl/generic.c             |  1 +
+ drivers/power/sequencing/pwrseq-pcie-m2.c |  2 ++
+ drivers/regulator/of_regulator.c          | 29 ++++++++++++++++++++++-------
+ 3 files changed, 25 insertions(+), 7 deletions(-)
+---
+base-commit: 6375e61c01e93e35ee7acd336a689ac1fae4b509
+change-id: 20260929-regulator-get-all-a553e73ff1ce
 
--- 
-2.43.0
+Best regards,
+--  
+Alexey Charkov <alchark@flipper.net>
+
