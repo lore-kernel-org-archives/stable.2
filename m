@@ -1,161 +1,151 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010019.outbound.protection.outlook.com [52.101.193.19])
+Received: from outbound.ms.icloud.com (ms-2004h-snip4-1.eps.apple.com [57.103.74.142])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BACAA49620;
-	Tue, 29 Sep 2026 20:32:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.19
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790713979; cv=fail; b=PbN/o8L1pbnB7wRaBLUbXa2AGQVb4Vv0dYqNYFZfoNy5c0eCCzf4PbVZgUO52x0m/dv/sPdVdqf8h10xO8rosJBCnSdjIBGYsLI1znUATUwabJ4nhkJ3evvwgyu7tUdI08jBje/qtrvyDO3RqLbhTt+NdPObRU4hmUNpr76VgNc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790713979; c=relaxed/simple;
-	bh=Mcd+ofT9GwErb+SagCTGhz+BWCxuXQetm20dzw23Sks=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=haOA1lRrKDIq4WFJWM8L7S0qfgOLOmvXnjfYlYnhhlkRC3DlEXa/CuWdhPkq/ODrfBK+ZVVUX6Z99PF2oteiak2smt2SNXf9bGvr/B8hEcN1Iob12hGkIbXArsyuT1AIkLTlvaPscGNYZCA8zZexhEtwnDUAiISuut2IchSMKnU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=appgate.com; spf=pass smtp.mailfrom=appgate.com; dkim=pass (1024-bit key) header.d=appgate.com header.i=@appgate.com header.b=pYML0PQu; arc=fail smtp.client-ip=52.101.193.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=appgate.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=appgate.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E26393D5C12
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 20:37:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.74.142
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790714236; cv=none; b=nUNaUtPg2NX2rReidz/OoBBp6oVhnitHKHo3lqZvK/0N8OhJ8VsURgsWEga9Jf905FgetuDT7Wu4ndPZQ5uwrBBZMwIl3eXUPe/z754lvYAUT/onTydtNveJeIYy5hm17WDl1qwIDSYE2nEISLAc07zkI/djtmpvz1ZsWurUH1o=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790714236; c=relaxed/simple;
+	bh=CmlE80pSLORwSx812eu1SFv+69BqG+tG5JfC1lXaUWw=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=gFPAdpgtpupFGJc4xuIWC7sV20iKjVrOgqsbBk8qWjKYG9z/rxoM0Po9GpZsvVDPFE1MLDCJ/laaJXHlMQdG7JDlTSryseMgovdk6lUWTpiHVxQqnmNustGI02bkIkE3XV3ZDlseAgI70P9uH57RCxRJv4e/YbTsapJtUt/Zpqw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lcb.to.it; spf=pass smtp.mailfrom=lcb.to.it; dkim=pass (2048-bit key) header.d=lcb.to.it header.i=@lcb.to.it header.b=Hmma00I1; arc=none smtp.client-ip=57.103.74.142
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lcb.to.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lcb.to.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=appgate.com header.i=@appgate.com header.b="pYML0PQu"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GALHi3ApVoTPg/8MZc4dlU+coLclpG0wHAySui2WRpICQGFlKOv9Q5Jw/B7/iu1NC9TT2X2dd+4waFbkDW82l2zSlWL/fmaNY6F1AG+7c6MFgO3vMDodm/tHzNKfZ0tPsyeeBXh3KKtB/Wtxcq4XH+cq5ziEWsyZWh2WRTjj9FvByPJIE0VGGbU+Tfr4fWC4/hrxwF8NK5JkhgcrHzhR8yy2+QGGsX4HlyOSIKhhh36hjKtGeNujfpJldjOP8wi7VPp0c8UfLAGWZnybEzihDrgU16gvhmMP1BqT0sxmW3l29NT71KUlw78/WMf3LALDy7O/GMEJaxirfNY7qL6/Ow==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=0pNmNLsHD5uO6G7DqiH/wGg0jXsNRt/31ex/F/SOyfY=;
- b=YSLMkk8rwEiSnoD93Ij2n5aqeG+ca9fpJMrdcl6WqI6gWi+Co8b2Eh+K4+JBNjcuxLza/7dsGZdkwF+Y26dCl4df8wthUcQFCEdJPjbqJxGUwYvP6c2Um74ngz9l0P6NtH5q8fXlgon4vYSUJAjTJNqdc2AQZdNt4ZOA/hmX1VyrtO/FN/LJB+HItEQl6pwfeoMJURQ7JTC6weV7GFrBhsYglmYoKmN1ODiwNK1JefcWytluquNk3py+Z5qBxNZGxeBdVNytWmi1z1MHnqqgFWTl60OZf+5aVDiUUWWOntv5uwh+pPC88/Ly7v4GwLVEqQxc6QgRlJFqo/ZcEcPTeg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=appgate.com; dmarc=pass action=none header.from=appgate.com;
- dkim=pass header.d=appgate.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=appgate.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0pNmNLsHD5uO6G7DqiH/wGg0jXsNRt/31ex/F/SOyfY=;
- b=pYML0PQuK2m/FaWcF1ZTAyAeV8WvN0HZe37sdkcbPJvVx6JM9TPSyXb4uyb9S7GAZu4sgBQCnTc0gXc5FSKoecIsdT/251jNNJTWdT5iIn2Mnm+70iXgjrngfL/stZ/AjGjN6lh0H6EUS/95vtgGFYlv7hnP6rzxGE4TjY/+DUY=
-Received: from DS7PR05MB7320.namprd05.prod.outlook.com (2603:10b6:5:2c5::22)
- by SABPR05MB998952.namprd05.prod.outlook.com (2603:10b6:806:4f0::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
- 2026 20:32:53 +0000
-Received: from DS7PR05MB7320.namprd05.prod.outlook.com
- ([fe80::90e8:a175:4ca1:74ec]) by DS7PR05MB7320.namprd05.prod.outlook.com
- ([fe80::90e8:a175:4ca1:74ec%4]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
- 20:32:53 +0000
-From: Dave Butler <david.butler@appgate.com>
-To: Alexander Lobakin <aleksander.lobakin@intel.com>, Tony Nguyen
-	<anthony.l.nguyen@intel.com>
-CC: "davem@davemloft.net" <davem@davemloft.net>, "kuba@kernel.org"
-	<kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
-	"edumazet@kernel.org" <edumazet@kernel.org>, "andrew+netdev@lunn.ch"
-	<andrew+netdev@lunn.ch>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"emil.s.tantilov@intel.com" <emil.s.tantilov@intel.com>,
-	"luoxuanqiang@kylinos.cn" <luoxuanqiang@kylinos.cn>,
-	"bryan.fraschetti@canonical.com" <bryan.fraschetti@canonical.com>,
-	"tristan@talencesecurity.com" <tristan@talencesecurity.com>,
-	"tomasz.lichwala@linux.intel.com" <tomasz.lichwala@linux.intel.com>,
-	"horms@kernel.org" <horms@kernel.org>, "stable@vger.kernel.org"
-	<stable@vger.kernel.org>, Jacob Keller <jacob.e.keller@intel.com>, Aleksandr
- Loktionov <aleksandr.loktionov@intel.com>
-Subject: Re: [PATCH net 6/6] iavf: cap advertised max_pkt_size at the
- single-buffer HW limit
-Thread-Topic: [PATCH net 6/6] iavf: cap advertised max_pkt_size at the
- single-buffer HW limit
-Thread-Index: AQHdT53CBEJx2voabEC4EKwJRzbAtLblvSaAgAA9gVE=
-Date: Tue, 29 Sep 2026 20:32:53 +0000
-Message-ID:
- <DS7PR05MB73201A15AD9E0795156F88B18B8C2@DS7PR05MB7320.namprd05.prod.outlook.com>
-References: <20260928230429.495442-1-anthony.l.nguyen@intel.com>
- <20260928230429.495442-7-anthony.l.nguyen@intel.com>
- <ab87c498-b1c3-4d0d-b4ba-57e1826592a8@intel.com>
-In-Reply-To: <ab87c498-b1c3-4d0d-b4ba-57e1826592a8@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=appgate.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS7PR05MB7320:EE_|SABPR05MB998952:EE_
-x-ms-office365-filtering-correlation-id: c6669282-9d35-4c3a-df05-08df1e68d65d
-x-appgate-rule-whitelistdomains: triggered
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|23010399003|7416014|1800799024|366016|56012099006|4143699003|10067099003|22082099003|18002099003|38070700021;
-x-microsoft-antispam-message-info:
- kSNAk1PfuuK3FcQL0hQXYdwoiqDlb0QfFP2ni0knNf3dWmyPwSuzezSNbNzHuFjT/Vk/fdIoktymL+uEM4aCe2JEoW358VQri4zAdNyssQ1v3qxmeHw3KK7Ni1LMwqBVkfbA2qJoHmpWV4UinLvtaxGjdo7O0/W7bQTqkv64+L7NL0ar5QLu7r3QlT206UItALAmTRomz2CSOv7wlIlPSGTTGv8kCf/u1SbdvAj4ncvlVKU5zD1XBYtdMDWASKV1PichswEWzihJWA4AkBim6O61ZYE4ZhUjAZvQuqBpsxhDKMW2k9G42aufc6GAJe90sCdsAOMEow8By9Zxwq2ijKvGfEOp04zQSa0+N/XRSf4oEw4OWFo416HvRJy+eU7LhiNnhaqAHcoL1fzSi/qadQKvTWRFmtJS7fCJhT9rQGvpqmT9LKUOOnQ5qbiZLxXv9Jl93YpaT5sJ9m3SaNasq/+HbZpk8cfHFk0RjTsdhDbkfHkNx0MhgcSVtU0I1KAu5asmyx2/s5LdHI1/9cnfIgMfLEmfYQEr5fXm289KqYBlKN48nAHdqUFIk0liI0WsZdxn18rbXMLDDBD2EUQf/fV7yfM9qFTL3IULRyfJ5Gr9LiYiBvqda+mTqgP9DliyfH0jjXcg8FK4skLo6qvmTCZ5turxi4dDqTQPYpi7T+BsyEpvb8LbaUc9pNCJ9wzJpvCia42jyymNYJqO30jneUZIVWA8effWZe29qCzxIzM=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR05MB7320.namprd05.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(1800799024)(366016)(56012099006)(4143699003)(10067099003)(22082099003)(18002099003)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?52XdcIy/3nPAc23do2RFanXfsaZYZhXcBNefLVYFSqqHmD0IyDAk2166nr?=
- =?iso-8859-1?Q?YV4PeDxrC4hnktdjfU3HidEEDkxVc9YUCVhaYiiZDI3W5UeaPoa8Dea03Y?=
- =?iso-8859-1?Q?OajiD3MGVCEjA9n1MFrHEsSmlmMiRaY81AZDsq6A96mugD1D6mx9SX8mrp?=
- =?iso-8859-1?Q?+tN0dfTK01sMzMMHG+FS0vig0d7TTPWhVPVL5PpBvApXh/LmoN8ROC+VEA?=
- =?iso-8859-1?Q?2HH4VWBWh4gNu/VP6Qbh7mmVvP7X8zxYg1dxMuwVlW6vxNsGps5cnHzF5B?=
- =?iso-8859-1?Q?mB9Ph6vjr0esPKVKEcFPFBF4KdsiuVAx0MDu9GktBB03po5MsnjDJqbIsW?=
- =?iso-8859-1?Q?LZcjv+jJ8PXg3xCbodbp/GF8SOheL5T/nU6rTxmXarZgNB3GyZehPp0Cby?=
- =?iso-8859-1?Q?UZrD8goj4a47GV43yNbfoWHHafdGcsqbnRxuT3PBtGQhYOfFfmXILPw1Fh?=
- =?iso-8859-1?Q?0dddXOQFHot58CCDFOk3YrD3R0fqrDsmirEtlGcUVfqzhWpEZqBN3krQKN?=
- =?iso-8859-1?Q?klXO4ni8fjvAttRtXY2vuAdX2eDauBDPFDACSqisF6Vo0jGR7JnaqG2LbF?=
- =?iso-8859-1?Q?UK2mfEBn/58McRW7uTV3jbC1skTsmV5+Pgpr7cJ9LOCXIk9xsnRVnWQxFd?=
- =?iso-8859-1?Q?5ne9oIh8hgM4r7fw7qu+yBGJV2Im/WwWbg+c6FKBPirOwYJR5lH1XDBUm2?=
- =?iso-8859-1?Q?G1t2sNYKdIjqPsSle0V2rQXDEEfEkl5ovb1ZejRTURUa8fjvwXBXFTlcGm?=
- =?iso-8859-1?Q?+MP3jfQynqgWAHMvQEHUpWWaOv7mx3H7DpToKui9rVzF9j5YcKRK003t3g?=
- =?iso-8859-1?Q?JXWVR3nWMHpuwJ0XeHqkf/1uf+EOuHpDNWVxsPCbuys+OC1cVpGm1UhhwT?=
- =?iso-8859-1?Q?Ztof7a3eLOOUQRYCR3H4eL5Xak+8S1r592n/xSJgObjL1Tm7uED+aEgxBA?=
- =?iso-8859-1?Q?hFDsrToxmPgcUvUe7TQpc/RBcwdQEBxtqocgiduskCwiqF899SwJjvRjKd?=
- =?iso-8859-1?Q?tbHL92h6XLOzufwS8wwZTfKVjDn+5WKOUUJFtyHwLDJgJjTocUFe2FM6aD?=
- =?iso-8859-1?Q?SBjLUFS+g7ew2TDre+8e4MATM1CZPnPoZdm9Rqip1Ylpoz5Jvl1sv0M8Xb?=
- =?iso-8859-1?Q?NRwOOBkHU9hMO5YIsqEilnRFGuO0DzJfzYSwsBifUouTP4ElpBc6KfBDrw?=
- =?iso-8859-1?Q?jrA2PlY/hl4Q+cyL2rNnJpHIxHgE1boIQ4x7OjDuagKEhPix6b0JpBnTGq?=
- =?iso-8859-1?Q?4Pw3AWCFSeO7mb50gT3IsikpMCLdXlb40hWvjUoSGwjULbK4rI6dtlBsHp?=
- =?iso-8859-1?Q?jYfUIU2Gos40LDbKT7vDyJvfvgxwOfeFltxLeEkHneLhASY5FwP8yWWeBZ?=
- =?iso-8859-1?Q?63Xq6336NVUvhTG5eWea11I9ksK84/sqo0cg9m+cHvkcNYoGhgmR2fsaqH?=
- =?iso-8859-1?Q?R+NXz3rqDLt1epQ+7TynOMRUNfQx9GKBctymnO8C34zzRzXx2hbwqga2QE?=
- =?iso-8859-1?Q?b5i8qQuplI4v0AsmPhC1WO0F9q9sGo9MMFsggjiEFff3JEgSjok5rlrB59?=
- =?iso-8859-1?Q?XgZqMXXn7JMp3Y+RVEDvNp8m9HyVRcKhFt7JxMc2emFF+/rL7Nk5Rrpyfp?=
- =?iso-8859-1?Q?fDaj5zSxIg36UzBoRoU5Cx2/yzWi5LJX0K4ki6r6HhzLtMv9aazAMUJI3f?=
- =?iso-8859-1?Q?/MLpnNAHQruZkNeETREofeFDJiXEQla81TvASA7N1ElgvLw1z6WEoB0xAJ?=
- =?iso-8859-1?Q?z/hR9auvOtzakF6+ucQvF0Qqne0dmhXBnLZtblbwxWMZT+4IQclEZ8WjB8?=
- =?iso-8859-1?Q?WHRb6mklKA=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=lcb.to.it header.i=@lcb.to.it header.b="Hmma00I1"
+Received: from outbound.ms.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-west-3a-60-percent-11 (Postfix) with ESMTPS id 1D75818001DC;
+	Tue, 29 Sep 2026 20:37:10 +0000 (UTC)
+X-ICL-RepId: 01a0eee2-b8c6-701d-bd84-4469f180ccb1
+X-ICL-Out-Info: HUtFAUMHWwJACUgATUQeDx5WFlZNRAJCTQhBBkMEWRxBCU0dXwVcEhVdRV4MRR9bHlZWQwxHDkAfeRRQDxkfXV5QDBMLU1ZeE1tWRwIZAkZQSxsOWxcDVxxWRVwYQwldBVccHQBERVsTVRdGCRkIXR0ZCEcfCjADQg5WA0MHRQAtGRxXUFsIUF5NFx0EQ0tfGV1FD15UCFZGWhsCQAMJBEkUTAIJVEYKFgsaHl5UXFFBWhwCWwVdVzBVG1FDQwQcGU1GExlOG1dNWg1AGVgGbRRWFVIEWQ==
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lcb.to.it; s=sig1; t=1790714234; x=1793306234; bh=zmp8SFl84gZRi5OkpkQVvlEiTxHsOKWX9tq1JueGvnA=; h=Message-ID:Date:MIME-Version:Subject:From:To:Content-Type:x-icloud-hme; b=Hmma00I1iCTJetJLa+4lEcU2IJz2CTZSLyP1/eSX7O2Hin+njeiX/5qIFzrt+kQDK74uL3SnlcUh04MdlhLy+vnTjVqWijHsko8nXx0qy0a8+RCxN+3PYVD2Y69zNbWLRuUrTvLUxDZmGGTQmytTTxtliHu8e71gBk+v1SvjlPKUWIOBA/sSihPvkfrmdXYF3cNvP25Dg1dZjV+3f97zit0hRXHLuSOe/i9h90i3kmWTHuNQPVD/gbSvPHDaTh62yeey/PV3n1JSKWy+uTUAWmFPm9cIX4IgY1BRCQlpo2lGHKlOoogPYRN9xls7jzVByl8ZrUj1269tsPCKVBZJ9w==
+mail-alias-created-date: 1748381178872
+Received: from [10.69.1.69] (unknown [17.156.208.39])
+	by p00-icloudmta-asmtp-us-west-3a-60-percent-11 (Postfix) with ESMTPSA id 07A2C1800128;
+	Tue, 29 Sep 2026 20:37:08 +0000 (UTC)
+Message-ID: <3ccd6cc1-4b69-41dc-8f2b-3c7c1cd1626e@lcb.to.it>
+Date: Tue, 29 Sep 2026 22:37:06 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: appgate.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR05MB7320.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c6669282-9d35-4c3a-df05-08df1e68d65d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Sep 2026 20:32:53.1288
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b93e809a-49c5-4a0f-a606-82b846acc30d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: NS+K8E8HwaEOks+XSHwQ/Pfk8OrhsNbMBklvGtknOuLbAR+nuKjLLOEaINEcy0+HQXBUdO1gc0+EVGIXUzd7OgdMFYpliNXz8fPPksL43qM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SABPR05MB998952
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] Input: atkbd - skip deactivate for Lenovo IdeaPad Slim 3
+ 14IWC11
+From: Martino Papero <martino.papero@lcb.to.it>
+To: Hans de Goede <hansg@kernel.org>, Iustin Ivan <iustinivan2002@gmail.com>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260911182328.9267-1-iustinivan2002@gmail.com>
+ <db8af2fe-481d-454b-a205-4f22cd9b7a0d@kernel.org>
+ <f849e969-364c-4138-b4d0-ec761022a32f@lcb.to.it>
+Content-Language: en-US, it-IT
+In-Reply-To: <f849e969-364c-4138-b4d0-ec761022a32f@lcb.to.it>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: 9JlmH3iyPLzgemWWF9Fou-DUGXNdTqPo
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDA4MiBTYWx0ZWRfXzX4PcDGFh85E
+ GiqboE8JyjiohHnoEtkhUvhRVaVCRL10/aWKG9PFm+QJogYvicTUtlu0V8BBkjFOx3noM20blfZ
+ AzPxJ1jG6IeR4QklnnZzZKgmer6gbQYkkj0KM983MU5qB8loOXIyd+GggkHd6jvv9vHnGvtj8Iw
+ rqv2fvdEWiVJ11cKqscjiMqCBoeX3J2KTwqTe4G0rMaAl8PjmcnFcOicDorFkkrevGNf8m4V3vB
+ llCzz3WaFNbNaDcdzSYbgjgipip2mCEUZU9GH6zGsRToebWtnLJ+qgB/xP4esIWHHviya6Ck9Vv
+ o+4CgMfnaFb8wBX3LGV+8iFibDYxoayUoosjo4G/VJaZwUEXsIoY2vY2GiWcKM=
+X-Authority-Info-Out: v=2.4 cv=K4Ev3iWI c=1 sm=1 tr=0 ts=6abc2177
+ cx=c_apl:c_pps:t_out a=kRaGL2Q7qLiahLf3O6OaIA==:117
+ a=kRaGL2Q7qLiahLf3O6OaIA==:17 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8
+ a=3zCP-tckM5ql3hE0fiwA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: 9JlmH3iyPLzgemWWF9Fou-DUGXNdTqPo
+X-JNJ: AAAAAAABvqZ69FQdBawXlj+s49PQOgiboPcUwYZUMrWYErmdxHFYAdED5eSlp3rj3Y6HN/4Y6WIozw5nZpuw5Vz+kkhZ2YHbFKhCDx9DlF1EmoGF5/X+RgqiTm7lOqddiSeOr5GSlQ2LXaRXTjEF3P2myJRkYJNgvgcKvN6hr4veke+YcuyUKZQVUGv1VTH8bpQTPsciTCUUf6PB+5hkq6+bEallsgChhFJovl2dyWMop2JjBYT/aLH7mKixGPf+1+mCpT0XT/Zr9n09LJFdbbb4fm97OC9yMXZaZarjWqEgdE1uCYG8HFbgZYurEneiy1fqgHg+7cHGgsusIRPVclbiDjVQPVxIpd+BAOSorCTcCw+QAwCiqYeFlsoT5gwjCX5K4uOfzXwEwFXMNubyJHt699gFiF1nsqgUIJSGB4RKsHxfz846iuSXgGYCHV7GJti9ZKPZTYGZezoX++bEeBYAuuJGuTRy1Nep341R2Tum9T13i/zHHN8krmy4a0VyVaX4AWePAy4qo6U5KT71JM12efGSB5tSST+kW8+6gcxZOXef269sNn9zfRjlV1GeasMMuIvMbu7pa2QBylipMwtcVzsxC3dQ0AqCXOsMZH2kqxiXQs03TABFXdHQ1eNSx7uo2jduzfdY8hlZTN3XJsra2padRSKUFdUPWLCeo2Yt9meTcZElfbWx2OX7D7vxtfENlRIhpbbRDpRshCPhEmbAzCzVM37XCrVqFv0T8423O6K9PVT+G86Y1D4VZ2SHJzdPLSW+DDQgROfrK/o8BIuvKLVFG3LaFiXmBn7egxsiIMpbVNBjDy9IwrhTfUwo3bwein15YmWomTnhT2PUCzwpLMUPhD77DFRs9W+2qNHNMCnK6IeWuHykdT63Au9rrJ25s6j6MJhArV26jtUs7Ts/VpMzuIq/7PyuXC4z2LkmruN30tYQtIrGXzl2tOGXvrzRU/xiLqYuH5PavjnjU2Cj5uvtHjC
+ U/wAXfKodBAOShx/MlYMZsfU5dQDrJIZ4bdzIBWUQrtABxU1evpcnhFJn/QOclohbQ4IpdKX/0+sto12UQDpD/fHZjegn4DiREimci4SIWM41QSNz2COuNVPH928HSpQFvYdHE37g6E2/xfICk93dcJHdiEQ9xuA2kMe/JEX+a/XsPnwic2sAZffcK7SnqQeTAL1+UbaU0S/eKTawLKQ4Mx0imrsUi19ck1/idm+5LV+ylZfbrVxHI+j6PJ/3zkGVNjB75szX37X0O1h8Iqd60MHu3zS7cz0EXPG7ppWOVGPO7lFLJ0wvCZ4ACuxT8Q+3i2h67xrFcfIOyYjUW+xD/qDchj1vLtCcA9uR4L5tl/KKwPmTr6rK7zQB
 
->> +     max_frame =3D min(max_frame, LIBIE_MAX_RX_BUF_LEN);
-> Shouldn't we cap it to 9728 instead?
 
-No objection.  To be clear, LIBIE_MAX_RX_BUF_LEN is 9728, so it's
-the same value.
+Il 19/09/26 02:09, Martino Papero ha scritto:
+>
+> Il 11/09/26 20:52, Hans de Goede ha scritto:
+>> Hi,
+>> I'm starting to wonder if we should not just make this behavior the 
+>> default.
+>>
+>> IIRC the whole deactivate thing was added as a workaround for 
+>> multi-byte scancodes
+>> getting split-up during suspend/resume. I wonder if we can come-up 
+>> with some
+>> better fix for that ?
+>>
+>> Regards,
+>>
+>> Hans
+>
+>
+> Hi,
+>
+> I tested the same atkbd_deactivate_fixup on a Lenovo IdeaPad Slim 3 
+> 15IWC11 (83RR), which was affected by the keyboard issue previously 
+> discussed here:
+>
+> https://lore.kernel.org/all/20260628-ideapad-kbd-leds-v1-0-50b421d94927@gmail.com/ 
+> <https://lore.kernel.org/all/20260628-ideapad-kbd-leds-v1-0-50b421d94927@gmail.com/> 
+>
+>
+> Without any kernel quirk, the internal keyboard does not work. I had 
+> been using:
+>
+> |i8042.nopnp=1 i8042.dumbkbd=1|
+>
+> which makes the keyboard work, but prevents the Caps Lock LED from 
+> working.
+>
+> I built Fedora kernel 7.2.5 with the following additional DMI entry:
+>
+> {
+>     /* Lenovo IdeaPad Slim 3 15IWC11 (83RR) */
+>     .matches = {
+>     DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
+>     DMI_MATCH(DMI_PRODUCT_NAME, "83RR"),
+>     },
+>     .callback = atkbd_deactivate_fixup,
+> },|
+>
+> I booted this kernel without any i8042 command-line parameters.
+>
+> The internal keyboard and Caps Lock LED both work correctly. I also 
+> tested suspend/resume and a cold boot, with no issues so far.
+>
+> DMI:
+> LENOVO 83RR
+> LENOVO_MT_83RR_BU_idea_FM_IdeaPad Slim 3 15IWC11
+>
+> So it looks like the 83RR can use the same atkbd_deactivate_fixup as 
+> the 83RQ.
+>
+> I can test a revised patch if needed.
+>
+> Regards,
+> Martino
 
-Before 5fa4caff59f2 the cap was IAVF_MAX_RXBUFFER (9728, "largest size for
-single descriptor"), and that same commit replaced it with LIBIE_MAX_RX_BUF=
-_LEN
-(9728U, "The largest size for a single descriptor as per HW").
 
-That said, I'm happy to do whatever.  Just let me know your preference.
+Hi,
 
-Intended recipient is public
-The information contained in this electronic mail is confidential informati=
-on intended only for the use of the individual(s) or entity(s) named. If th=
-e reader of the message is not the addressee (or authorized to receive for =
-the addressee), you are hereby notified that any dissemination, distributio=
-n or copying of this communication is strictly prohibited. If you have rece=
-ived this communication in error, please immediately notify the sender by r=
-eply e-mail and/or by telephone and destroy the original message.
+Just following up on this.
+
+The 83RR is still working reliably with atkbd_deactivate_fixup after 
+further use, without i8042.nopnp or i8042.dumbkbd.
+
+Would it be useful for me to submit a separate patch adding the Lenovo 
+IdeaPad Slim 3 15IWC11 (83RR) to the atkbd_deactivate_fixup DMI table?
+
+I can prepare and test the patch on the affected hardware. 
+Alternatively, if the generic solution discussed above is preferred, I 
+am happy to test that as well.
+
+Regards,
+Martino
+
+
