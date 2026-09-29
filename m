@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D28364FC8F3
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 16:21:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 936AB4EFFBA
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 16:21:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790698882; cv=none; b=nkJGP8fD64djl+T4OhRHmcyMfqb9nWiLE2fMJE+tDo2ZfLJpaAYy8CEn7WKt/j5h6KlGzzLaw771mv7EueCcTdiZhj84ARrjX/hBSfnHw8xDIejD68ep4Du7idGxt7D8WbKK2d0fVQxIx4xzQu+nx0vxswtcJSy9P23sc2sMozk=
+	t=1790698883; cv=none; b=jwyslqnw2eczWsmYmRYIpo6OzX7Io1yzfN2hMc3sUsXfCFGn+MNAwp3KlUlBCmAJCnHRFGSFWXsr2FgD70hbnfGEcRmjGK9kJo87fIZeoMv14X7rTSd6Xr/8OR0OU4Ko1/x9pIppP9JI1yVEe1i/A982aKZr7JTeNpjgNbNXb/Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790698882; c=relaxed/simple;
-	bh=76xlTv+ol6OhiSkUXPkI2gF7C9sPrLLWk+28bpucoEg=;
+	s=arc-20240116; t=1790698883; c=relaxed/simple;
+	bh=RqJVI6Il+/2UaN2r27HIbdIiThzfoXgr0yqrn+erPg8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QEI4aMKw22E4em8pyAvYPQ7O87m4NbyZmSb7XhMY9F7WyJN/hAjW6IoGCIpYP7H55Gcas5iQiHFf9c+R2gsgE1MknkJKyFv2+OkinjLl+Z34c6LE+EoQderIMwLuu1uTg6Wakf8aH4eIRbXGNuk/ooCfLF6BA0jpG9gp9ZysSiM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IwjCgFc2; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=rkjRMy0UPbLzagGTsQNIkxiS+mqrYEd+/Nau3euCDoGL6OEhnzaQFLgtUagb/kFPP9bZdVw+LaYiCEAnagcCmK+ha1aijCRSSairAr2NfXaTiML3ocPB4TMDRgSGXz9QsyDf7lHO8qi7YICkvR5S+7tnCK4KKzaRU6LG/Kne6Ng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SGNlS6Cq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IwjCgFc2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8F0A1F000FF;
-	Tue, 29 Sep 2026 16:21:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SGNlS6Cq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C80761F00893;
+	Tue, 29 Sep 2026 16:21:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790698878;
-	bh=zIVSfVJaotGNVZVmj+IOHbVZ+rqi3m5tPpDOgD2Z0Mc=;
+	s=k20260515; t=1790698881;
+	bh=vZXG+q9cHzCJmPXqHp0kykhEUnoASckoupPWBD6LhhY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IwjCgFc2nzJVVxozDiUIEfPgBogVPf1acsZKbpVaPc5bHtjc1IYjkWO57j/FkAa4i
-	 rK+Wni56nVDxrMxouxgWQK1js19edFtrwYXi7h/AJie5UP1QfmrJCsu7JS/DqwYdr3
-	 EcbB1Ea27MULBkQnYBqah5aLu/HrdoFQt/Z6iK/ttlCeMNSQe8uGGftcgyEKz1mJb9
-	 CNUxUk7x2Mz5+RKPsUfE2zCgla83eSBwYCbdTdomWgS7bonlfBursPTuogtTtKtdVj
-	 P/zE4IvbZ0hlsCr4+VoAPSvV4RRiHK3CU/2Hmq5KfzXeD9Clp2iUSjavKQd2hAROW7
-	 8Thdis2DvbOig==
+	b=SGNlS6CqYh13APPjV9MeGPCUSW2kpKq7nb2IvNfzP+SmqaDLFEZ4Fl/frJlFRR8xV
+	 3hPxioCCtGzgFwP1MHwlbCQHzG8d0gy+h/hn/3cokDDDuiaOvlgCykUsEYIxi0Sg5e
+	 26az9vT8uyd8hwLtg3KrE5fycOpMOIamZ0B1q8pqEx0mVNzgmpnQhMVolrDOz3nvl3
+	 o3b0t3t7qhi1oHfcx5In9+bCeKmGxMUsawtZs7Q89ixB9CAS2cmTz0AcgZfs8Q9yAj
+	 RBl9KmQmyNLDGY3GniHuK3fQMylq8hGjsE4TrQPHjczj9mYFWftqJ+YLeDsbzG5tY/
+	 126uZH5tn6K/g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Thomas Zimmermann <tzimmermann@suse.de>,
-	Jocelyn Falempe <jfalempe@redhat.com>,
+Cc: Borislav Petkov <bp@suse.de>,
+	Tony Luck <tony.luck@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] drm/client: Pass force parameter to client restore
-Date: Tue, 29 Sep 2026 12:21:15 -0400
-Message-ID: <20260929162116.4190216-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] x86/mce: Get rid of machine_check_vector
+Date: Tue, 29 Sep 2026 12:21:18 -0400
+Message-ID: <20260929162119.4190350-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092903-cofounder-fineness-3637@gregkh>
-References: <2026092903-cofounder-fineness-3637@gregkh>
+In-Reply-To: <2026092919-precut-headboard-8c2f@gregkh>
+References: <2026092919-precut-headboard-8c2f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,447 +45,283 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Thomas Zimmermann <tzimmermann@suse.de>
+From: Borislav Petkov <bp@suse.de>
 
-[ Upstream commit 943240d342f148896733eb6c7b223a08aa1f520a ]
+[ Upstream commit cbe1de162d8297e941f01ac7dd399a11251352bc ]
 
-Add force parameter to client restore and pass value through the
-layers. The only currently used value is false.
+Get rid of the indirect function pointer and use flags settings instead
+to steer execution.
 
-If force is true, the client should restore its display even if it
-does not hold the DRM master lock. This is be required for emergency
-output, such as sysrq.
+Now that it is not an indirect call any longer, drop the instrumentation
+annotation for objtool too.
 
-While at it, inline drm_fb_helper_lastclose(), which is a trivial
-wrapper around drm_fb_helper_restore_fbdev_mode_unlocked().
+No functional changes.
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Jocelyn Falempe <jfalempe@redhat.com>
-Link: https://patch.msgid.link/20251110154616.539328-2-tzimmermann@suse.de
+Signed-off-by: Borislav Petkov <bp@suse.de>
+Reviewed-by: Tony Luck <tony.luck@intel.com>
+Link: https://lkml.kernel.org/r/20210922165101.18951-3-bp@alien8.de
 
-Backport to 6.12: client event handling is still in drm_client.c and
-its declarations are in drm_client.h, so apply the force changes there
-without introducing the later drm_client_event files. Keep the fbdev
-client at its existing path.
+Stable 5.10 adaptation:
+- Keep the existing kill_it recovery state when moving declarations.
+- Rely on irqentry_nmi_enter()/irqentry_nmi_exit() for IRQ tracing, removing
+  the duplicate tracing and indirect-call instrumentation from the wrapper.
+- Guard direct legacy-handler calls with CONFIG_X86_ANCIENT_MCE and retain
+  the existing initialization declarations in asm/mce.h. This avoids adding
+  no-op handler functions for configurations without ancient MCE support.
+- Publish the P5/Winchip handler flags in their existing initialization
+  functions, retaining the write barrier before enabling machine checks.
+  P5 opt-in and feature checks therefore still precede handler selection.
 
-Propagate force through the older DMA, shmem, TTM, Armada, Exynos,
-GMA500, i915, MSM, OMAP, Radeon and Tegra restore callbacks, including
-i915's restore helper and the existing !DRM_FBDEV_EMULATION stub.
-Inline lastclose calls in the older clients using dev->fb_helper to
-preserve their existing helper selection and initialization checks.
-No functions are added.
-
-The generic fbdev restore callback now has the upstream context needed
-by 1fca688e9443003e33cf30453e7a7560367656c9.
-
-[ sashal: Reduced backport -- upstream 943240d342f14 touches 7 file(s), this
-  backport carries 17. Not backported here:
-  drivers/gpu/drm/clients/drm_fbdev_client.c
-  drivers/gpu/drm/drm_client_event.c
-  include/drm/drm_client_event.h
+[ sashal: Reduced backport -- upstream cbe1de162d829 touches 5 file(s), this
+  backport carries 4. Not backported here:
+  arch/x86/include/asm/mce.h
   This note is generated from the file lists only; see the resolution record
   for the reasoning. ]
 
-Stable-dep-of: 1fca688e9443 ("drm/client: fix restore of partially initialized client")
+Stable-dep-of: b8d1d5b63a8e ("x86/mce: Fix hardware debug register corruption on task migration")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/armada/armada_fbdev.c      |  4 ++--
- drivers/gpu/drm/drm_client.c               |  4 ++--
- drivers/gpu/drm/drm_fb_helper.c            | 24 ++++++----------------
- drivers/gpu/drm/drm_fbdev_client.c         |  6 ++++--
- drivers/gpu/drm/drm_fbdev_dma.c            |  4 ++--
- drivers/gpu/drm/drm_fbdev_shmem.c          |  4 ++--
- drivers/gpu/drm/drm_fbdev_ttm.c            |  4 ++--
- drivers/gpu/drm/drm_file.c                 |  2 +-
- drivers/gpu/drm/exynos/exynos_drm_fbdev.c  |  4 ++--
- drivers/gpu/drm/gma500/fbdev.c             |  4 ++--
- drivers/gpu/drm/i915/display/intel_fbdev.c |  8 ++++----
- drivers/gpu/drm/msm/msm_fbdev.c            |  4 ++--
- drivers/gpu/drm/omapdrm/omap_fbdev.c       |  4 ++--
- drivers/gpu/drm/radeon/radeon_fbdev.c      |  4 ++--
- drivers/gpu/drm/tegra/fbdev.c              |  4 ++--
- include/drm/drm_client.h                   | 10 +++++----
- include/drm/drm_fb_helper.h                | 11 ++++------
- 17 files changed, 47 insertions(+), 58 deletions(-)
+ arch/x86/kernel/cpu/mce/core.c     | 64 +++++++++++++++---------------
+ arch/x86/kernel/cpu/mce/internal.h | 20 +++++++---
+ arch/x86/kernel/cpu/mce/p5.c       |  6 +--
+ arch/x86/kernel/cpu/mce/winchip.c  |  6 +--
+ 4 files changed, 52 insertions(+), 44 deletions(-)
 
-diff --git a/drivers/gpu/drm/armada/armada_fbdev.c b/drivers/gpu/drm/armada/armada_fbdev.c
-index e409029638b03..e33ccb9c74778 100644
---- a/drivers/gpu/drm/armada/armada_fbdev.c
-+++ b/drivers/gpu/drm/armada/armada_fbdev.c
-@@ -137,9 +137,9 @@ static void armada_fbdev_client_unregister(struct drm_client_dev *client)
- 	}
+diff --git a/arch/x86/kernel/cpu/mce/core.c b/arch/x86/kernel/cpu/mce/core.c
+index 3199dfcb757c4..716c828aa9084 100644
+--- a/arch/x86/kernel/cpu/mce/core.c
++++ b/arch/x86/kernel/cpu/mce/core.c
+@@ -1312,6 +1312,15 @@ static void queue_task_work(struct mce *m, char *msg, int kill_current_task)
+ 	task_work_add(current, &current->mce_kill_me, TWA_RESUME);
  }
  
--static int armada_fbdev_client_restore(struct drm_client_dev *client)
-+static int armada_fbdev_client_restore(struct drm_client_dev *client, bool force)
- {
--	drm_fb_helper_lastclose(client->dev);
-+	drm_fb_helper_restore_fbdev_mode_unlocked(client->dev->fb_helper, force);
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/drm_client.c b/drivers/gpu/drm/drm_client.c
-index bfedcbf516dbe..b8577ca13d788 100644
---- a/drivers/gpu/drm/drm_client.c
-+++ b/drivers/gpu/drm/drm_client.c
-@@ -244,7 +244,7 @@ void drm_client_dev_hotplug(struct drm_device *dev)
- }
- EXPORT_SYMBOL(drm_client_dev_hotplug);
- 
--void drm_client_dev_restore(struct drm_device *dev)
-+void drm_client_dev_restore(struct drm_device *dev, bool force)
- {
- 	struct drm_client_dev *client;
- 	int ret;
-@@ -257,7 +257,7 @@ void drm_client_dev_restore(struct drm_device *dev)
- 		if (!client->funcs || !client->funcs->restore)
- 			continue;
- 
--		ret = client->funcs->restore(client);
-+		ret = client->funcs->restore(client, force);
- 		drm_dbg_kms(dev, "%s: ret=%d\n", client->name, ret);
- 		if (!ret) /* The first one to return zero gets the privilege to restore */
- 			break;
-diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
-index 91d76e5e2785e..5118c865c470e 100644
---- a/drivers/gpu/drm/drm_fb_helper.c
-+++ b/drivers/gpu/drm/drm_fb_helper.c
-@@ -249,6 +249,7 @@ __drm_fb_helper_restore_fbdev_mode_unlocked(struct drm_fb_helper *fb_helper,
- /**
-  * drm_fb_helper_restore_fbdev_mode_unlocked - restore fbdev configuration
-  * @fb_helper: driver-allocated fbdev helper, can be NULL
-+ * @force: ignore present DRM master
-  *
-  * This helper should be called from fbdev emulation's &drm_client_funcs.restore
-  * callback. It ensures that the user isn't greeted with a black screen when the
-@@ -257,9 +258,9 @@ __drm_fb_helper_restore_fbdev_mode_unlocked(struct drm_fb_helper *fb_helper,
-  * Returns:
-  * 0 on success, or a negative errno code otherwise.
-  */
--int drm_fb_helper_restore_fbdev_mode_unlocked(struct drm_fb_helper *fb_helper)
-+int drm_fb_helper_restore_fbdev_mode_unlocked(struct drm_fb_helper *fb_helper, bool force)
- {
--	return __drm_fb_helper_restore_fbdev_mode_unlocked(fb_helper, false);
-+	return __drm_fb_helper_restore_fbdev_mode_unlocked(fb_helper, force);
- }
- EXPORT_SYMBOL(drm_fb_helper_restore_fbdev_mode_unlocked);
- 
-@@ -1306,9 +1307,9 @@ int drm_fb_helper_set_par(struct fb_info *info)
- 	 * the KDSET IOCTL with KD_TEXT, and only after that drops the master
- 	 * status when exiting.
- 	 *
--	 * In the past this was caught by drm_fb_helper_lastclose(), but on
--	 * modern systems where logind always keeps a drm fd open to orchestrate
--	 * the vt switching, this doesn't work.
-+	 * In the past this was caught by drm_fb_helper_restore_fbdev_mode_unlocked(),
-+	 * but on modern systems where logind always keeps a drm fd open to
-+	 * orchestrate the vt switching, this doesn't work.
- 	 *
- 	 * To not break the userspace ABI we have this special case here, which
- 	 * is only used for the above case. Everything else uses the normal
-@@ -1936,16 +1937,3 @@ int drm_fb_helper_hotplug_event(struct drm_fb_helper *fb_helper)
- 	return 0;
- }
- EXPORT_SYMBOL(drm_fb_helper_hotplug_event);
--
--/**
-- * drm_fb_helper_lastclose - DRM driver lastclose helper for fbdev emulation
-- * @dev: DRM device
-- *
-- * This function is obsolete. Call drm_fb_helper_restore_fbdev_mode_unlocked()
-- * instead.
-- */
--void drm_fb_helper_lastclose(struct drm_device *dev)
--{
--	drm_fb_helper_restore_fbdev_mode_unlocked(dev->fb_helper);
--}
--EXPORT_SYMBOL(drm_fb_helper_lastclose);
-diff --git a/drivers/gpu/drm/drm_fbdev_client.c b/drivers/gpu/drm/drm_fbdev_client.c
-index a09382afe2fb6..175c5eade6860 100644
---- a/drivers/gpu/drm/drm_fbdev_client.c
-+++ b/drivers/gpu/drm/drm_fbdev_client.c
-@@ -25,9 +25,11 @@ static void drm_fbdev_client_unregister(struct drm_client_dev *client)
- 	}
- }
- 
--static int drm_fbdev_client_restore(struct drm_client_dev *client)
-+static int drm_fbdev_client_restore(struct drm_client_dev *client, bool force)
- {
--	drm_fb_helper_lastclose(client->dev);
-+	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
++/* Handle unconfigured int18 (should never happen) */
++static noinstr void unexpected_machine_check(struct pt_regs *regs)
++{
++	instrumentation_begin();
++	pr_err("CPU#%d: Unexpected int18 (Machine Check)\n",
++	       smp_processor_id());
++	instrumentation_end();
++}
 +
-+	drm_fb_helper_restore_fbdev_mode_unlocked(fb_helper, force);
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/drm_fbdev_dma.c b/drivers/gpu/drm/drm_fbdev_dma.c
-index b7ec75770f08d..253266e78c1e5 100644
---- a/drivers/gpu/drm/drm_fbdev_dma.c
-+++ b/drivers/gpu/drm/drm_fbdev_dma.c
-@@ -350,9 +350,9 @@ static void drm_fbdev_dma_client_unregister(struct drm_client_dev *client)
- 	}
- }
- 
--static int drm_fbdev_dma_client_restore(struct drm_client_dev *client)
-+static int drm_fbdev_dma_client_restore(struct drm_client_dev *client, bool force)
+ /*
+  * The actual machine check handler. This only handles real
+  * exceptions when something got corrupted coming in through int 18.
+@@ -1332,36 +1341,45 @@ static void queue_task_work(struct mce *m, char *msg, int kill_current_task)
+  */
+ noinstr void do_machine_check(struct pt_regs *regs)
  {
--	drm_fb_helper_lastclose(client->dev);
-+	drm_fb_helper_restore_fbdev_mode_unlocked(client->dev->fb_helper, force);
++	int worst = 0, order, no_way_out, kill_it, lmce;
+ 	DECLARE_BITMAP(valid_banks, MAX_NR_BANKS);
+ 	DECLARE_BITMAP(toclear, MAX_NR_BANKS);
+ 	struct mca_config *cfg = &mca_cfg;
+ 	struct mce m, *final;
+ 	char *msg = NULL;
+-	int worst = 0;
++
++#ifdef CONFIG_X86_ANCIENT_MCE
++	if (unlikely(mce_flags.p5))
++		return pentium_machine_check(regs);
++	else if (unlikely(mce_flags.winchip))
++		return winchip_machine_check(regs);
++#endif
++	if (unlikely(!mca_cfg.initialized))
++		return unexpected_machine_check(regs);
  
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/drm_fbdev_shmem.c b/drivers/gpu/drm/drm_fbdev_shmem.c
-index e038377449d4f..10e869e90839d 100644
---- a/drivers/gpu/drm/drm_fbdev_shmem.c
-+++ b/drivers/gpu/drm/drm_fbdev_shmem.c
-@@ -216,9 +216,9 @@ static void drm_fbdev_shmem_client_unregister(struct drm_client_dev *client)
- 	}
- }
- 
--static int drm_fbdev_shmem_client_restore(struct drm_client_dev *client)
-+static int drm_fbdev_shmem_client_restore(struct drm_client_dev *client, bool force)
- {
--	drm_fb_helper_lastclose(client->dev);
-+	drm_fb_helper_restore_fbdev_mode_unlocked(client->dev->fb_helper, force);
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/drm_fbdev_ttm.c b/drivers/gpu/drm/drm_fbdev_ttm.c
-index e3f6ae3d7bad9..9fb744d86f2c4 100644
---- a/drivers/gpu/drm/drm_fbdev_ttm.c
-+++ b/drivers/gpu/drm/drm_fbdev_ttm.c
-@@ -257,9 +257,9 @@ static void drm_fbdev_ttm_client_unregister(struct drm_client_dev *client)
- 	}
- }
- 
--static int drm_fbdev_ttm_client_restore(struct drm_client_dev *client)
-+static int drm_fbdev_ttm_client_restore(struct drm_client_dev *client, bool force)
- {
--	drm_fb_helper_lastclose(client->dev);
-+	drm_fb_helper_restore_fbdev_mode_unlocked(client->dev->fb_helper, force);
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
-index e2cf118ff01d3..b58094891fd01 100644
---- a/drivers/gpu/drm/drm_file.c
-+++ b/drivers/gpu/drm/drm_file.c
-@@ -388,7 +388,7 @@ EXPORT_SYMBOL(drm_open);
- 
- static void drm_lastclose(struct drm_device *dev)
- {
--	drm_client_dev_restore(dev);
-+	drm_client_dev_restore(dev, false);
- 
- 	if (dev_is_pci(dev->dev))
- 		vga_switcheroo_process_delayed_switch();
-diff --git a/drivers/gpu/drm/exynos/exynos_drm_fbdev.c b/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
-index b24516998755f..3289563783e25 100644
---- a/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
-+++ b/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
-@@ -149,9 +149,9 @@ static void exynos_drm_fbdev_client_unregister(struct drm_client_dev *client)
- 	}
- }
- 
--static int exynos_drm_fbdev_client_restore(struct drm_client_dev *client)
-+static int exynos_drm_fbdev_client_restore(struct drm_client_dev *client, bool force)
- {
--	drm_fb_helper_lastclose(client->dev);
-+	drm_fb_helper_restore_fbdev_mode_unlocked(client->dev->fb_helper, force);
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/gma500/fbdev.c b/drivers/gpu/drm/gma500/fbdev.c
-index d80a18fde1aa0..1d349d5dab202 100644
---- a/drivers/gpu/drm/gma500/fbdev.c
-+++ b/drivers/gpu/drm/gma500/fbdev.c
-@@ -214,9 +214,9 @@ static void psb_fbdev_client_unregister(struct drm_client_dev *client)
- 	}
- }
- 
--static int psb_fbdev_client_restore(struct drm_client_dev *client)
-+static int psb_fbdev_client_restore(struct drm_client_dev *client, bool force)
- {
--	drm_fb_helper_lastclose(client->dev);
-+	drm_fb_helper_restore_fbdev_mode_unlocked(client->dev->fb_helper, force);
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i915/display/intel_fbdev.c
-index 2420be4c3127e..d0074bd597bf6 100644
---- a/drivers/gpu/drm/i915/display/intel_fbdev.c
-+++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
-@@ -555,7 +555,7 @@ static int intel_fbdev_output_poll_changed(struct drm_device *dev)
- 	return 0;
- }
- 
--static int intel_fbdev_restore_mode(struct drm_i915_private *dev_priv)
-+static int intel_fbdev_restore_mode(struct drm_i915_private *dev_priv, bool force)
- {
- 	struct intel_fbdev *ifbdev = dev_priv->display.fbdev.fbdev;
- 	int ret;
-@@ -566,7 +566,7 @@ static int intel_fbdev_restore_mode(struct drm_i915_private *dev_priv)
- 	if (!ifbdev->vma)
- 		return -ENOMEM;
- 
--	ret = drm_fb_helper_restore_fbdev_mode_unlocked(&ifbdev->helper);
-+	ret = drm_fb_helper_restore_fbdev_mode_unlocked(&ifbdev->helper, force);
- 	if (ret)
- 		return ret;
- 
-@@ -592,12 +592,12 @@ static void intel_fbdev_client_unregister(struct drm_client_dev *client)
- 	}
- }
- 
--static int intel_fbdev_client_restore(struct drm_client_dev *client)
-+static int intel_fbdev_client_restore(struct drm_client_dev *client, bool force)
- {
- 	struct drm_i915_private *dev_priv = to_i915(client->dev);
- 	int ret;
- 
--	ret = intel_fbdev_restore_mode(dev_priv);
-+	ret = intel_fbdev_restore_mode(dev_priv, force);
- 	if (ret)
- 		return ret;
- 
-diff --git a/drivers/gpu/drm/msm/msm_fbdev.c b/drivers/gpu/drm/msm/msm_fbdev.c
-index 174a116fba2bb..4197d5decb425 100644
---- a/drivers/gpu/drm/msm/msm_fbdev.c
-+++ b/drivers/gpu/drm/msm/msm_fbdev.c
-@@ -173,9 +173,9 @@ static void msm_fbdev_client_unregister(struct drm_client_dev *client)
- 	}
- }
- 
--static int msm_fbdev_client_restore(struct drm_client_dev *client)
-+static int msm_fbdev_client_restore(struct drm_client_dev *client, bool force)
- {
--	drm_fb_helper_lastclose(client->dev);
-+	drm_fb_helper_restore_fbdev_mode_unlocked(client->dev->fb_helper, force);
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/omapdrm/omap_fbdev.c b/drivers/gpu/drm/omapdrm/omap_fbdev.c
-index 483dc30d7840f..e544c39ad996c 100644
---- a/drivers/gpu/drm/omapdrm/omap_fbdev.c
-+++ b/drivers/gpu/drm/omapdrm/omap_fbdev.c
-@@ -289,9 +289,9 @@ static void omap_fbdev_client_unregister(struct drm_client_dev *client)
- 	}
- }
- 
--static int omap_fbdev_client_restore(struct drm_client_dev *client)
-+static int omap_fbdev_client_restore(struct drm_client_dev *client, bool force)
- {
--	drm_fb_helper_lastclose(client->dev);
-+	drm_fb_helper_restore_fbdev_mode_unlocked(client->dev->fb_helper, force);
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/radeon/radeon_fbdev.c b/drivers/gpu/drm/radeon/radeon_fbdev.c
-index 0a05b373bd9e4..b118c99e78c87 100644
---- a/drivers/gpu/drm/radeon/radeon_fbdev.c
-+++ b/drivers/gpu/drm/radeon/radeon_fbdev.c
-@@ -300,9 +300,9 @@ static void radeon_fbdev_client_unregister(struct drm_client_dev *client)
- 	}
- }
- 
--static int radeon_fbdev_client_restore(struct drm_client_dev *client)
-+static int radeon_fbdev_client_restore(struct drm_client_dev *client, bool force)
- {
--	drm_fb_helper_lastclose(client->dev);
-+	drm_fb_helper_restore_fbdev_mode_unlocked(client->dev->fb_helper, force);
- 	vga_switcheroo_process_delayed_switch();
- 
- 	return 0;
-diff --git a/drivers/gpu/drm/tegra/fbdev.c b/drivers/gpu/drm/tegra/fbdev.c
-index 08cd471e5aa22..806166d2f885e 100644
---- a/drivers/gpu/drm/tegra/fbdev.c
-+++ b/drivers/gpu/drm/tegra/fbdev.c
-@@ -154,9 +154,9 @@ static void tegra_fbdev_client_unregister(struct drm_client_dev *client)
- 	}
- }
- 
--static int tegra_fbdev_client_restore(struct drm_client_dev *client)
-+static int tegra_fbdev_client_restore(struct drm_client_dev *client, bool force)
- {
--	drm_fb_helper_lastclose(client->dev);
-+	drm_fb_helper_restore_fbdev_mode_unlocked(client->dev->fb_helper, force);
- 
- 	return 0;
- }
-diff --git a/include/drm/drm_client.h b/include/drm/drm_client.h
-index bc0e66f9c4251..a31d65d869b32 100644
---- a/include/drm/drm_client.h
-+++ b/include/drm/drm_client.h
-@@ -47,12 +47,14 @@ struct drm_client_funcs {
- 	 *
- 	 * Note that the core does not guarantee exclusion against concurrent
- 	 * drm_open(). Clients need to ensure this themselves, for example by
--	 * using drm_master_internal_acquire() and
--	 * drm_master_internal_release().
-+	 * using drm_master_internal_acquire() and drm_master_internal_release().
-+	 *
-+	 * If the caller passes force, the client should ignore any present DRM
-+	 * master and restore the display anyway.
- 	 *
- 	 * This callback is optional.
+ 	/*
+ 	 * Establish sequential order between the CPUs entering the machine
+ 	 * check handler.
  	 */
--	int (*restore)(struct drm_client_dev *client);
-+	int (*restore)(struct drm_client_dev *client, bool force);
+-	int order = -1;
++	order = -1;
  
- 	/**
- 	 * @hotplug:
-@@ -123,7 +125,7 @@ void drm_client_register(struct drm_client_dev *client);
+ 	/*
+ 	 * If no_way_out gets set, there is no safe way to recover from this
+ 	 * MCE.  If mca_cfg.tolerant is cranked up, we'll try anyway.
+ 	 */
+-	int no_way_out = 0;
++	no_way_out = 0;
  
- void drm_client_dev_unregister(struct drm_device *dev);
- void drm_client_dev_hotplug(struct drm_device *dev);
--void drm_client_dev_restore(struct drm_device *dev);
-+void drm_client_dev_restore(struct drm_device *dev, bool force);
+ 	/*
+ 	 * If kill_it gets set, there might be a way to recover from this
+ 	 * error.
+ 	 */
+-	int kill_it = 0;
++	kill_it = 0;
  
- /**
-  * struct drm_client_buffer - DRM client buffer
-diff --git a/include/drm/drm_fb_helper.h b/include/drm/drm_fb_helper.h
-index eb825acedf747..f80abb89bad16 100644
---- a/include/drm/drm_fb_helper.h
-+++ b/include/drm/drm_fb_helper.h
-@@ -244,7 +244,8 @@ int drm_fb_helper_set_par(struct fb_info *info);
- int drm_fb_helper_check_var(struct fb_var_screeninfo *var,
- 			    struct fb_info *info);
+ 	/*
+ 	 * MCEs are always local on AMD. Same is determined by MCG_STATUS_LMCES
+ 	 * on Intel.
+ 	 */
+-	int lmce = 1;
++	lmce = 1;
  
--int drm_fb_helper_restore_fbdev_mode_unlocked(struct drm_fb_helper *fb_helper);
-+int drm_fb_helper_restore_fbdev_mode_unlocked(struct drm_fb_helper *fb_helper,
-+					      bool force);
+ 	this_cpu_inc(mce_exception_count);
  
- void drm_fb_helper_unregister_info(struct drm_fb_helper *fb_helper);
- void drm_fb_helper_fill_info(struct fb_info *info,
-@@ -269,7 +270,6 @@ int drm_fb_helper_hotplug_event(struct drm_fb_helper *fb_helper);
- int drm_fb_helper_initial_config(struct drm_fb_helper *fb_helper);
- int drm_fb_helper_debug_enter(struct fb_info *info);
- int drm_fb_helper_debug_leave(struct fb_info *info);
--void drm_fb_helper_lastclose(struct drm_device *dev);
- #else
- static inline void drm_fb_helper_prepare(struct drm_device *dev,
- 					 struct drm_fb_helper *helper,
-@@ -321,7 +321,8 @@ static inline int drm_fb_helper_check_var(struct fb_var_screeninfo *var,
+@@ -2009,18 +2027,6 @@ bool filter_mce(struct mce *m)
+ 	return false;
  }
  
- static inline int
--drm_fb_helper_restore_fbdev_mode_unlocked(struct drm_fb_helper *fb_helper)
-+drm_fb_helper_restore_fbdev_mode_unlocked(struct drm_fb_helper *fb_helper,
-+				       bool force)
- {
- 	return 0;
- }
-@@ -383,10 +384,6 @@ static inline int drm_fb_helper_debug_leave(struct fb_info *info)
- {
- 	return 0;
- }
--
--static inline void drm_fb_helper_lastclose(struct drm_device *dev)
+-/* Handle unconfigured int18 (should never happen) */
+-static noinstr void unexpected_machine_check(struct pt_regs *regs)
 -{
+-	instrumentation_begin();
+-	pr_err("CPU#%d: Unexpected int18 (Machine Check)\n",
+-	       smp_processor_id());
+-	instrumentation_end();
 -}
- #endif
+-
+-/* Call the installed machine check handler for this CPU setup. */
+-void (*machine_check_vector)(struct pt_regs *) = unexpected_machine_check;
+-
+ static __always_inline void exc_machine_check_kernel(struct pt_regs *regs)
+ {
+ 	irqentry_state_t irq_state;
+@@ -2031,30 +2037,22 @@ static __always_inline void exc_machine_check_kernel(struct pt_regs *regs)
+ 	 * Only required when from kernel mode. See
+ 	 * mce_check_crashing_cpu() for details.
+ 	 */
+-	if (machine_check_vector == do_machine_check &&
+-	    mce_check_crashing_cpu())
++	if (mca_cfg.initialized && mce_check_crashing_cpu())
+ 		return;
  
- #endif
+ 	irq_state = irqentry_nmi_enter(regs);
+-	/*
+-	 * The call targets are marked noinstr, but objtool can't figure
+-	 * that out because it's an indirect call. Annotate it.
+-	 */
+-	instrumentation_begin();
+-	trace_hardirqs_off_finish();
+-	machine_check_vector(regs);
+-	if (regs->flags & X86_EFLAGS_IF)
+-		trace_hardirqs_on_prepare();
+-	instrumentation_end();
++
++	do_machine_check(regs);
++
+ 	irqentry_nmi_exit(regs, irq_state);
+ }
+ 
+ static __always_inline void exc_machine_check_user(struct pt_regs *regs)
+ {
+ 	irqentry_enter_from_user_mode(regs);
+-	instrumentation_begin();
+-	machine_check_vector(regs);
+-	instrumentation_end();
++
++	do_machine_check(regs);
++
+ 	irqentry_exit_to_user_mode(regs);
+ }
+ 
+@@ -2121,7 +2119,7 @@ void mcheck_cpu_init(struct cpuinfo_x86 *c)
+ 		return;
+ 	}
+ 
+-	machine_check_vector = do_machine_check;
++	mca_cfg.initialized = 1;
+ 
+ 	__mcheck_cpu_init_early(c);
+ 	__mcheck_cpu_init_generic();
+diff --git a/arch/x86/kernel/cpu/mce/internal.h b/arch/x86/kernel/cpu/mce/internal.h
+index 3a485c0d5791b..65d3e14147599 100644
+--- a/arch/x86/kernel/cpu/mce/internal.h
++++ b/arch/x86/kernel/cpu/mce/internal.h
+@@ -8,9 +8,6 @@
+ #include <linux/device.h>
+ #include <asm/mce.h>
+ 
+-/* Pointer to the installed machine check handler for this CPU setup. */
+-extern void (*machine_check_vector)(struct pt_regs *);
+-
+ enum severity_level {
+ 	MCE_NO_SEVERITY,
+ 	MCE_DEFERRED_SEVERITY,
+@@ -127,7 +124,9 @@ struct mca_config {
+ 	      ser			: 1,
+ 	      recovery			: 1,
+ 	      bios_cmci_threshold	: 1,
+-	      __reserved		: 59;
++	      /* Proper #MC exception handler is set */
++	      initialized		: 1,
++	      __reserved		: 58;
+ 
+ 	s8 bootlog;
+ 	int tolerant;
+@@ -163,7 +162,13 @@ struct mce_vendor_flags {
+ 	/* AMD-style error thresholding banks present. */
+ 	amd_threshold		: 1,
+ 
+-	__reserved_0		: 60;
++	/* Pentium, family 5-style MCA */
++	p5			: 1,
++
++	/* Centaur Winchip C6-style MCA */
++	winchip			: 1,
++
++	__reserved_0		: 58;
+ };
+ 
+ extern struct mce_vendor_flags mce_flags;
+@@ -196,4 +201,9 @@ __visible bool ex_handler_wrmsr_fault(const struct exception_table_entry *fixup,
+ 				      unsigned long error_code,
+ 				      unsigned long fault_addr);
+ 
++#ifdef CONFIG_X86_ANCIENT_MCE
++noinstr void pentium_machine_check(struct pt_regs *regs);
++noinstr void winchip_machine_check(struct pt_regs *regs);
++#endif
++
+ #endif /* __X86_MCE_INTERNAL_H__ */
+diff --git a/arch/x86/kernel/cpu/mce/p5.c b/arch/x86/kernel/cpu/mce/p5.c
+index 19e90cae8e97d..97d47082c245e 100644
+--- a/arch/x86/kernel/cpu/mce/p5.c
++++ b/arch/x86/kernel/cpu/mce/p5.c
+@@ -21,7 +21,7 @@
+ int mce_p5_enabled __read_mostly;
+ 
+ /* Machine check handler for Pentium class Intel CPUs: */
+-static noinstr void pentium_machine_check(struct pt_regs *regs)
++noinstr void pentium_machine_check(struct pt_regs *regs)
+ {
+ 	u32 loaddr, hi, lotype;
+ 
+@@ -54,8 +54,8 @@ void intel_p5_mcheck_init(struct cpuinfo_x86 *c)
+ 	if (!cpu_has(c, X86_FEATURE_MCE))
+ 		return;
+ 
+-	machine_check_vector = pentium_machine_check;
+-	/* Make sure the vector pointer is visible before we enable MCEs: */
++	mce_flags.p5 = 1;
++	/* Make sure the handler flag is visible before we enable MCEs: */
+ 	wmb();
+ 
+ 	/* Read registers before enabling: */
+diff --git a/arch/x86/kernel/cpu/mce/winchip.c b/arch/x86/kernel/cpu/mce/winchip.c
+index 9c9f0abd2d7fd..df1ac587cceb3 100644
+--- a/arch/x86/kernel/cpu/mce/winchip.c
++++ b/arch/x86/kernel/cpu/mce/winchip.c
+@@ -17,7 +17,7 @@
+ #include "internal.h"
+ 
+ /* Machine check handler for WinChip C6: */
+-static noinstr void winchip_machine_check(struct pt_regs *regs)
++noinstr void winchip_machine_check(struct pt_regs *regs)
+ {
+ 	instrumentation_begin();
+ 	pr_emerg("CPU0: Machine Check Exception.\n");
+@@ -30,8 +30,8 @@ void winchip_mcheck_init(struct cpuinfo_x86 *c)
+ {
+ 	u32 lo, hi;
+ 
+-	machine_check_vector = winchip_machine_check;
+-	/* Make sure the vector pointer is visible before we enable MCEs: */
++	mce_flags.winchip = 1;
++	/* Make sure the handler flag is visible before we enable MCEs: */
+ 	wmb();
+ 
+ 	rdmsr(MSR_IDT_FCR1, lo, hi);
 -- 
 2.53.0
 
