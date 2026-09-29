@@ -1,122 +1,148 @@
-Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04E5A3DC871;
-	Tue, 29 Sep 2026 16:20:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5014B4FDE47
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 16:21:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790698834; cv=none; b=G4rxAIOarKPtiECkENsdP/GT9mmy505zGo+45ytsoTc7rHLFkyCVUWB/OEe2dG6W4x00Mio7GtxEohsqbS8XJwvXboddMe4Cwa3Rle6nkth6u0tChU8O3SyGxtZ0dbW8SoZ2BLSAZiPLPYc5VVmQYTjzlMPF82EWuA77R8oPuHg=
+	t=1790698881; cv=none; b=UR7n9HAy1AyZjPrJ+UfksvaiygcCwtHMBzxBQ2ZImIBrvBQ7lhVC5uwNCE+yvu3iSbAu1pCBOGxXlimIHnP63u1R836gOcJdKlR2dUpNB+TqDLLktj50K968nDrbD9sVNixuJVVzTQuKLOC11Z9uJK+p8AZ1j6yqQ8ZxqXPtOpA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790698834; c=relaxed/simple;
-	bh=O2NjalWefRbmMemw6DAf/zj6tTtcp1mid8rM323fVUc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pmhM59qdvRaZasYu+fBmCsNanf4dGGsK0Km6Ix9D/Yuji/2JlnPq7zFj5amKexMOV1UItRz6wmaCt5EPt/gBOkXpesgShDFptzen84bxWnDO5F/AcAItmjIcQFum5EDYpFeRLWkWcLehH6nswV/pAqwAtsL/ThwfE7XYrmz0dRA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=kM8XKP3o; arc=none smtp.client-ip=92.243.27.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
+	s=arc-20240116; t=1790698881; c=relaxed/simple;
+	bh=b8JlDRC2Xvp6bqNptSrPEqW8M7IjxHGUOcuPku8TSVg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=pwbeCdxNGW4NIg3bZqmobHmavxKg0FglXzMxzJpQJtA64izz1r/gGVVO/98aot0LUFyTiQUJoWyPgB62vVPDWWt+N+XIsY/z1LedrcymlgawWytNnAUIQWnTjBlNz4etDWOlqkunqEYow7QPNV/aJcFjukS6bU1P82l9RWH9SJI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OG6blVwV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="kM8XKP3o"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1790698825; bh=O2NjalWefRbmMemw6DAf/zj6tTtcp1mid8rM323fVUc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=kM8XKP3oVKpzgbYs35EZGejOuV+EXUZujNOidVao0iIwVe6xD+mvE4T3OgBCp5SoA
-	 tiYTsCLAqQgwoysfQDPcjSEE0S2Q5ccZGzbyTTGaaPPZ1Xudhs9BUeiHXA/ouFM6tt
-	 T+mzb6nwTc3v1/5jCMlSFQpQImbpE+f/LONjTsE2UJtm0ilYmSTetFZcfR3/RlMYFg
-	 kXtA9Ml2WniPnP4SGlzLdN1lvKBVkSBw56nLy5RbngLibcnddEaCFwCb+js0Wsjp8H
-	 6cj+qgCWoTpFAwaOv49EuxASInBEywWM2QoIiPMUBHzrwgt18MjKnCHWNCJxeth13P
-	 xjE9UMrzDCAAQ==
-Received: by extorris.mess.org (Postfix, from userid 1001)
-	id 1C21A40B86; Tue, 29 Sep 2026 17:20:25 +0100 (BST)
-Date: Tue, 29 Sep 2026 17:20:25 +0100
-From: Sean Young <sean@mess.org>
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: Maxim Levitsky <maximlevitsky@gmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: Re: [PATCH] media: rc: Fix simulated TX timer lifecycle
-Message-ID: <arvlSbG0Z0FGxq3l@extorris.mess.org>
-References: <20260929143105.2170272-1-runyu.xiao@seu.edu.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OG6blVwV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 762E61F00898;
+	Tue, 29 Sep 2026 16:21:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790698878;
+	bh=fE54lW1S8NzkYIRaJrxOz02/+eCUts6YuT2nNXHlyjA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=OG6blVwV/8oXDl4w/Y8F75u94iNyS1hLYULEUCd8srTm1JdBWdHQljWXMpclr+B2D
+	 /3FoYVjNkgZO0wPf9zl43D3P4CiPx+EMiYH/nfHpEGvgM8hNuNAHwJPGj/AlXgc2zg
+	 fBDGEPEnB1JecXcZZnDVLQO2GyvqsEtKdD/kBpb6xALaeTzg5Fzk6Y/q8eYhxeGX40
+	 Inl5sRWjnDy7QKj9Ib30QqOoTlv7kFSiQR97NxRIWvZiELtxi0CF6b0PavfNCza6gA
+	 QGkomStx2Ez6Gtok1OM0kyd9TE5KxlNuN7E4/H/t6RCQKJVdb8GAlgh+DN3TQLqYCI
+	 FqssywiMA/cug==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: shechenglong <shechenglong@xfusion.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/2] drm/client: fix restore of partially initialized client
+Date: Tue, 29 Sep 2026 12:21:16 -0400
+Message-ID: <20260929162116.4190216-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260929162116.4190216-1-sashal@kernel.org>
+References: <2026092903-cofounder-fineness-3637@gregkh>
+ <20260929162116.4190216-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260929143105.2170272-1-runyu.xiao@seu.edu.cn>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 29, 2026 at 10:31:05PM +0800, Runyu Xiao wrote:
-> The ENE driver only initializes tx_sim_timer when TX simulation is
-> enabled for hardware without native TX support.  However, ene_remove()
-> passes the timer to timer_delete_sync() unconditionally, and
-> ene_tx_sample() uses the global txsim parameter when deciding whether to
-> arm it.  Thus a normal device, or a device with native TX support and
-> txsim enabled, can operate on an uninitialized timer.
-> 
-> Track whether simulation was actually enabled for each device and use
-> that state for timer arming and teardown.  Since the simulation callback
-> rearms the timer, shut it down permanently before freeing the device.
+From: shechenglong <shechenglong@xfusion.com>
 
-I think this patch is correct, but I am not sure txsim is really needed
-in the source code. Maybe it's better to just remove txsim module parameter
-and all the related code.
+[ Upstream commit 1fca688e9443003e33cf30453e7a7560367656c9 ]
 
+I got a null-ptr-deref report when closing a DRM file descriptor:
 
-Sean
+WARNING: drivers/gpu/drm/drm_atomic.c:2031 at
+__drm_atomic_helper_set_config+0x18e/0x1b0 [drm]
 
-> Fixes: 9ea53b74df9c ("V4L/DVB: STAGING: remove lirc_ene0100 driver")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-> ---
->  drivers/media/rc/ene_ir.c | 6 ++++--
->  drivers/media/rc/ene_ir.h | 1 +
->  2 files changed, 5 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/media/rc/ene_ir.c b/drivers/media/rc/ene_ir.c
-> index 6f7dccc96..9d0279667 100644
-> --- a/drivers/media/rc/ene_ir.c
-> +++ b/drivers/media/rc/ene_ir.c
-> @@ -652,7 +652,7 @@ static void ene_tx_sample(struct ene_device *dev)
->  	dev->tx_reg = !dev->tx_reg;
->  exit:
->  	/* simulate TX done interrupt */
-> -	if (txsim)
-> +	if (dev->tx_sim_enabled)
->  		mod_timer(&dev->tx_sim_timer, jiffies + HZ / 500);
->  }
->  
-> @@ -1032,6 +1032,7 @@ static int ene_probe(struct pnp_dev *pnp_dev, const struct pnp_device_id *id)
->  
->  	if (!dev->hw_learning_and_tx_capable && txsim) {
->  		dev->hw_learning_and_tx_capable = true;
-> +		dev->tx_sim_enabled = true;
->  		timer_setup(&dev->tx_sim_timer, ene_tx_irqsim, 0);
->  		pr_warn("Simulation of TX activated\n");
->  	}
-> @@ -1103,7 +1104,8 @@ static void ene_remove(struct pnp_dev *pnp_dev)
->  	unsigned long flags;
->  
->  	rc_unregister_device(dev->rdev);
-> -	timer_delete_sync(&dev->tx_sim_timer);
-> +	if (dev->tx_sim_enabled)
-> +		timer_shutdown_sync(&dev->tx_sim_timer);
->  	spin_lock_irqsave(&dev->hw_lock, flags);
->  	ene_rx_disable(dev);
->  	ene_rx_restore_hw_buffer(dev);
-> diff --git a/drivers/media/rc/ene_ir.h b/drivers/media/rc/ene_ir.h
-> index c1c44e86e..f44cbc034 100644
-> --- a/drivers/media/rc/ene_ir.h
-> +++ b/drivers/media/rc/ene_ir.h
-> @@ -218,6 +218,7 @@ struct ene_device {
->  	int tx_done;				/* done transmitting */
->  						/* one more sample pending*/
->  	struct completion tx_complete;		/* TX completion */
-> +	bool tx_sim_enabled;			/* simulated TX is enabled */
->  	struct timer_list tx_sim_timer;
->  
->  	/* TX settings */
-> -- 
-> 2.34.1
+Call Trace:
+drm_client_modeset_commit_atomic+0x16b/0x220 [drm]
+drm_client_modeset_commit_locked+0x56/0x160 [drm]
+drm_client_modeset_commit+0x21/0x40 [drm]
+__drm_fb_helper_restore_fbdev_mode_unlocked.part.0+0x7b/0x80
+drm_fbdev_client_restore+0xe/0x20 [drm_client_lib]
+drm_client_dev_restore+0x9f/0xc0 [drm]
+drm_release+0xc5/0xe0 [drm]
+
+The warning is followed by a NULL pointer dereference:
+
+BUG: kernel NULL pointer dereference, address: 0000000000000008
+
+RIP:
+__drm_fb_helper_restore_fbdev_mode_unlocked.part.0+0x41/0x80
+[drm_kms_helper]
+
+Call Trace:
+drm_fbdev_client_restore+0xe/0x20 [drm_client_lib]
+drm_client_dev_restore+0x9f/0xc0 [drm]
+drm_release+0xc5/0xe0 [drm]
+__fput+0xdc/0x2b0
+__x64_sys_close+0x39/0x80
+do_syscall_64+0x8d/0x460
+entry_SYSCALL_64_after_hwframe+0x76/0x7e
+
+drm_client_register() adds the DRM client to the device client list
+before invoking the initial hotplug callback. If the hotplug callback
+fails, the client remains registered.
+
+For the fbdev client, a failure during drm_fb_helper_initial_config()
+causes the partially initialized fbdev helper to be cleaned up.
+drm_fb_helper_fini() releases fb_helper->info and leaves it NULL.
+
+The fbdev client therefore remains registered even though there is no
+fully initialized framebuffer device.
+
+Later, when userspace closes the DRM file descriptor, drm_release()
+can invoke the restore callbacks of registered DRM clients:
+
+drm_release()
+drm_client_dev_restore()
+drm_fbdev_client_restore()
+drm_fb_helper_restore_fbdev_mode_unlocked()
+
+drm_fbdev_client_restore() currently restores the fbdev state
+unconditionally. For a partially initialized fbdev client this can
+submit an incomplete modeset state and subsequently access fbdev
+state which has not been initialized, resulting in the warning and
+NULL pointer dereference above.
+
+drm_fbdev_client_unregister() already uses fb_helper->info to
+distinguish a fully probed framebuffer device from a partially
+initialized client.
+
+Use the same condition in drm_fbdev_client_restore() and skip restore
+if no framebuffer device has been successfully initialized.
+
+Signed-off-by: shechenglong <shechenglong@xfusion.com>
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fixes: 5d08c44e47b9 ("drm/fbdev: Add memory-agnostic fbdev client")
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: <stable@vger.kernel.org> # v6.13+
+Link: https://patch.msgid.link/20260907035147.1339-1-shechenglong@xfusion.com
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/drm_fbdev_client.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/gpu/drm/drm_fbdev_client.c b/drivers/gpu/drm/drm_fbdev_client.c
+index 175c5eade6860..91a7659ec1c8a 100644
+--- a/drivers/gpu/drm/drm_fbdev_client.c
++++ b/drivers/gpu/drm/drm_fbdev_client.c
+@@ -29,6 +29,14 @@ static int drm_fbdev_client_restore(struct drm_client_dev *client, bool force)
+ {
+ 	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
+ 
++	/*
++	 * The client is registered before the initial fbdev probe.
++	 * If probing failed, the client remains registered but there
++	 * is no valid fbdev framebuffer to restore.
++	 */
++	if (!fb_helper->info || !fb_helper->fb)
++		return 0;
++
+ 	drm_fb_helper_restore_fbdev_mode_unlocked(fb_helper, force);
+ 
+ 	return 0;
+-- 
+2.53.0
+
