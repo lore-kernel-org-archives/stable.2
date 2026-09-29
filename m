@@ -1,122 +1,205 @@
-Received: from out30-133.freemail.mail.aliyun.com (out30-133.freemail.mail.aliyun.com [115.124.30.133])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A8D714A60F;
-	Tue, 29 Sep 2026 01:59:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 346B03D525B;
+	Tue, 29 Sep 2026 02:00:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790647149; cv=none; b=glLy/goI7ZiToaJnDtcASvhf1YfPeR48TTXVnibwTGo8GsPe6dyQCpTueOT0LSJOWZUprfiAOz2ulAXp3dc44npuAchjhDHDWcQEvbumT3zUJWpW+II1tc+m5AX7kRF7oQ0EMSGfpJS58sYSksW7ijp4tbSGJoIyI6PaWA5/4aM=
+	t=1790647261; cv=none; b=g+ger6pEPI5SNVuNgzjhRGDC/29FOhngoD0O8/L58fhe4FTFkcdTeb8Vl4lvtJOYNcVtcGnJe87s/7Kv2EeaUAac3kU6xU+e3D9Rz8HDndw4SKcp5RBO45FTcHeimR/Dp+tmBkSruUVdIrFj0Vc85IG+lXzxyKWGnr+IqSzdYws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790647149; c=relaxed/simple;
-	bh=B5nV/HtbBryxw/8tS+VfkVUXRLsvMEBZHxC2zJCFYn4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YBMcZIc1Vt3OHi+ihqpJMvbfKttGQyON2/rEnLCeOCzApeuC8Nc6CGoXl1f32OPog3MFzCSS7rfm4sjHzCpOJj4ojmNtGpGuU9UexT/DItiXmcXrRLxuriY1s31i4IEmh0ekstunSY+t83Du8b9vLlwY3/Mi0da4yugC8pRPJhM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=FOuK0Nu3; arc=none smtp.client-ip=115.124.30.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1790647261; c=relaxed/simple;
+	bh=IApvHR6u5H1Pl7cj1/Iq37j8LmptrkcNWANo6MPPOtw=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=LqqhCn0zpUgcIrWozm5jwBWDHzisYDGcMIauV2bYwvDlO7wuAlf1WjbGAyYMXi6leoBj9/O43menT3413NclENGCtFhjbU8ApfLeh4ujbdrBu7sPXmYQJ4NdgKZfiOx03vMayJEVt/JJpevFHfcexmuC5SiYaawLZroMouFUs3s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IswdQSpD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="FOuK0Nu3"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1790647143; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=8JRCLmFuMQXFiZMU3Bmuz8WXdz3zgxjaZT2gg9tR8dw=;
-	b=FOuK0Nu3LNOBptHzQKEBEDndqaD4244VN5idxKQ2IVO3ixw69FI3pM5eNjz7Dd//lDTZMUEUgX+RpnPKRW5eBCN9+BNyQac+6UOA/NI1dnIR0swzYoU+xGsNUgDYyJN5aAtVYb1nnCr32aqzp41JeXxQVAdpUGesK89M6EDb+v4=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R281e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=xueshuai@linux.alibaba.com;NM=1;PH=DS;RN=15;SR=0;TI=SMTPD_---0XBrSLRt_1790647141;
-Received: from 30.28.50.44(mailfrom:xueshuai@linux.alibaba.com fp:SMTPD_---0XBrSLRt_1790647141 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 29 Sep 2026 09:59:03 +0800
-Message-ID: <56179353-7e02-40bc-b443-80ab8e6b627d@linux.alibaba.com>
-Date: Tue, 29 Sep 2026 09:59:01 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IswdQSpD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEFA31F000FF;
+	Tue, 29 Sep 2026 02:00:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790647259;
+	bh=xoQ0w4/ryNoyvsxo+4lQ4K7swAFRQCuVLghtmpgkZM8=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=IswdQSpDchpj006rQ6WQoup5wll8+ZIGAwqhXEyhpT4Kc35eHKC0jDUomD+49JlBn
+	 JGRb4+RROWCM+7k/IzCPErR35GVe/n0p0/puqE+YGphnLusnMnjWhINHVpi4m8yoD0
+	 f9ck+qFYlcHJYpA7NqZpcqEycmpgU2c2KTJeTG9M4twtMUow+PAV9vjqW4wQRzaobG
+	 WqPrQ3e/YeH8ORJsD1jXqWAZfDO+V8fsJ86+WeDtsjimL4kI5dlZT/XsSnKAio1Cly
+	 0mxQADMja7ZTGsUajUnmMc0d5adBCGcPgAKrtMHzsmfCEWuchlAB/aXfD0HiQuNQiu
+	 S/EQ/zrEbvjCw==
+Subject:
+ Re: [PATCH net v2 1/3] net: macb: never give hardware a NULL RX buffer
+From: netdev-bot+sashiko@kernel.org
+To: theo.lebrun@bootlin.com
+Cc: conor.dooley@microchip.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, sean.anderson@linux.dev,
+ atenart@kernel.org, edumazet@kernel.org, nicolas.ferre@microchip.com,
+ linux@armlinux.org.uk, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ nb@tipi-net.de, vladimir.kondratiev@mobileye.com, gregory.clement@bootlin.com,
+ tawfik.bayouk@mobileye.com, thomas.petazzoni@bootlin.com,
+ maxime.chevallier@bootlin.com, stable@vger.kernel.org
+Date: Tue, 29 Sep 2026 02:00:58 +0000
+Message-ID: <179064725824.434549.9533834557285217997@kernel.org>
+In-Reply-To: <20260925-macb-close-v2-1-360efa565914@bootlin.com>
+References: <20260925-macb-close-v2-1-360efa565914@bootlin.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ACPI: APEI: accumulate the queued flag across error
- sections
-To: Breno Leitao <leitao@debian.org>, "Rafael J. Wysocki"
- <rafael@kernel.org>, Tony Luck <tony.luck@intel.com>,
- Borislav Petkov <bp@alien8.de>, Hanjun Guo <guohanjun@huawei.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Len Brown <lenb@kernel.org>,
- James Morse <james.morse@arm.com>, Xiaofei Tan <tanxiaofei@huawei.com>
-Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
- linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, kernel-team@meta.com, stable@vger.kernel.org
-References: <20260925-ghes-queued-accumulate-v1-1-df50553957d4@debian.org>
-From: Shuai Xue <xueshuai@linux.alibaba.com>
-In-Reply-To: <20260925-ghes-queued-accumulate-v1-1-df50553957d4@debian.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
+Critical: 0 · High: 1 (1) · Medium: 0 · Low: 0
 
-On 9/25/26 11:09 PM, Breno Leitao wrote:
-> ghes_do_proc() walks every error section of a CPER record, and
-> ghes_handle_arm_hw_error() walks every error-info entry of an ARM
-> processor section.  Both assign to "queued" instead of OR-ing into it,
-> so only the last iteration counts: a later section or entry that queues
-> no memory-failure work clears the flag an earlier one set.
-> 
-> Instead of reassigning the variable at every time, just do an `OR`, so,
-> if there was a single match, it will return "queued" as set.
-> 
-> The comment above the check says "If no memory failure
-> work is queued", which is the semantics this patch implements. I.e, only
-> SIGBUS if there are queue was not handled at all. If we want to SIGBUS
-> if any event was not handled/queued at all, we will need something more
-> sophisticated.
-> 
-> Fixes: 7f17b4a121d0 ("ACPI: APEI: Kick the memory_failure() queue for synchronous errors")
-> Fixes: ccb5ecdc2dde ("ACPI: APEI: fix synchronous external aborts in user-mode")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Breno Leitao <leitao@debian.org>
-> ---
->   drivers/acpi/apei/ghes.c | 6 +++---
->   1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/acpi/apei/ghes.c b/drivers/acpi/apei/ghes.c
-> index fe10ab0e02f68..ec2d5ca51db02 100644
-> --- a/drivers/acpi/apei/ghes.c
-> +++ b/drivers/acpi/apei/ghes.c
-> @@ -603,7 +603,7 @@ static bool ghes_handle_arm_hw_error(struct acpi_hest_generic_data *gdata,
->   		 * and don't filter out 'corrected' error here.
->   		 */
->   		if (is_cache && has_pa) {
-> -			queued = ghes_do_memory_failure(err_info->physical_fault_addr, flags);
-> +			queued |= ghes_do_memory_failure(err_info->physical_fault_addr, flags);
->   			p += err_info->length;
->   			continue;
->   		}
-> @@ -951,11 +951,11 @@ static void ghes_do_proc(struct ghes *ghes,
->   			atomic_notifier_call_chain(&ghes_report_chain, sev, mem_err);
->   
->   			arch_apei_report_mem_error(sev, mem_err);
-> -			queued = ghes_handle_memory_failure(gdata, sev, sync);
-> +			queued |= ghes_handle_memory_failure(gdata, sev, sync);
->   		} else if (guid_equal(sec_type, &CPER_SEC_PCIE)) {
->   			ghes_handle_aer(gdata);
->   		} else if (guid_equal(sec_type, &CPER_SEC_PROC_ARM)) {
-> -			queued = ghes_handle_arm_hw_error(gdata, sev, sync);
-> +			queued |= ghes_handle_arm_hw_error(gdata, sev, sync);
->   		} else if (guid_equal(sec_type, &CPER_SEC_CXL_PROT_ERR)) {
->   			struct cxl_cper_sec_prot_err *prot_err = acpi_hest_get_payload(gdata);
->   
-> 
-> ---
-> base-commit: 587858367581b9c55c3690f4e63382ad622719d4
-> change-id: 20260925-ghes-queued-accumulate-591c8ac3b32d
-> 
-> Best regards,
-> --
-> Breno Leitao <leitao@debian.org>
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Good catch, thanks for the fix.
+- [High] RX can stall permanently once no descriptor is armed (rx_tail ==
+  rx_prepared_head) and refill has failed.
 
-Reviewed-by: Shuai Xue <xueshuai@linux.alibaba.com>
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the patch
+  widens it.
 
-Thanks.
+--
 
-Shuai
+net: macb: never give hardware a NULL RX buffer
 
+This patch sets RX_USED on every GEM RX descriptor in gem_init_rx_ring()
+before the refill. A failed allocation or DMA mapping then cannot leave
+hardware-owned slots pointing at NULL buffers. gem_rx() and
+macb_rx_pending() now also stop once rx_tail reaches rx_prepared_head.
+
+> diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
+> index 8e5c034dc3a48..7f25574928d71 100644
+> --- a/drivers/net/ethernet/cadence/macb_main.c
+> +++ b/drivers/net/ethernet/cadence/macb_main.c
+
+[ ... ]
+
+> @@ -1859,6 +1866,10 @@ static bool macb_rx_pending(struct macb_queue *queue)
+>  	struct macb_dma_desc *desc;
+>  	unsigned int entry;
+>  
+> +	/* No armed descriptor left: nothing can be pending. */
+> +	if (macb_is_gem(bp) && queue->rx_tail == queue->rx_prepared_head)
+> +		return false;
+> +
+
+[Severity: High]
+Can RX on a GEM queue stall for good once every armed descriptor has
+been consumed and gem_rx_refill() keeps failing?
+
+Under memory pressure, the sequence would be:
+
+gem_rx()
+    rx_tail == rx_prepared_head -> break
+    gem_rx_refill()
+        netdev_alloc_skb() or dma_map_single() fails -> break
+macb_rx_poll()
+    napi_complete_done()
+    queue_writel(queue, IER, bp->rx_intr_mask)
+    macb_rx_pending()
+        rx_tail == rx_prepared_head -> return false
+    (no napi_schedule())
+
+At that point every descriptor has RX_USED set. The hardware cannot
+complete a frame, so RCOMP cannot fire. gem_rx_refill() is only called
+from gem_rx() and gem_init_rx_ring(), and no timer or work item retries
+it.
+
+bp->rx_intr_mask is MACB_RX_INT_FLAGS. RXUBR is only added for
+MACB_CAPS_NEEDS_RSTONUBR parts:
+
+    bp->rx_intr_mask = MACB_RX_INT_FLAGS;
+    if (bp->caps & MACB_CAPS_NEEDS_RSTONUBR)
+        bp->rx_intr_mask |= MACB_BIT(RXUBR);
+
+Zynq and the EMAC would still get a retry from macb_interrupt() on each
+incoming frame through RXUBR.
+
+On other GEM variants, is anything left to restart NAPI apart from
+ISR_ROVR, if the controller raises it at all in this state? If not, RX
+on that queue would stay dead after memory recovers, until the
+interface is closed and reopened.
+
+Before this patch, macb_rx_pending() returned true for the stale
+RX_USED slot at rx_tail. NAPI kept rescheduling itself and so kept
+retrying gem_rx_refill().
+
+Later in the series, "net: macb: propagate RX ring refill errors"
+handles the open-time case where nothing gets armed, by making
+macb_open() fail. That commit leaves NAPI, resume and HRESP refill as
+best effort. Its message also notes that with zero armed descriptors
+nothing would ever trigger a refill. So this steady-state case seems
+to remain at the end of the series.
+
+[ ... ]
+
+> @@ -2795,9 +2806,14 @@ static int macb_alloc(struct macb *bp)
+>  
+>  static void gem_init_rx_ring(struct macb_queue *queue)
+>  {
+> +	unsigned int i;
+> +
+>  	queue->rx_tail = 0;
+>  	queue->rx_prepared_head = 0;
+>  
+> +	for (i = 0; i < queue->bp->rx_ring_size; i++)
+> +		macb_rx_desc(queue, i)->addr |= MACB_BIT(RX_USED);
+> +
+>  	gem_rx_refill(queue);
+>  }
+
+[Severity: High]
+This is a pre-existing issue, but this loop seems to widen it.
+macb_hresp_error_task() reinitialises every RX ring without disabling
+or synchronising RX NAPI:
+
+macb_hresp_error_task()
+    queue_writel(queue, IDR, ...)
+    macb_writel(bp, NCR, ctrl & ~(RE | TE))
+    bp->macbgem_ops.mog_init_rings(bp)
+        gem_init_rx_ring()
+
+It calls neither napi_disable() nor napi_synchronize(), and takes no
+lock that gem_rx() also takes. With per-queue IRQs on different CPUs,
+or with threaded NAPI, a gem_rx() poll already running on another CPU
+keeps touching rx_tail, rx_prepared_head, the descriptors and
+rx_skbuff[] at the same time.
+
+The new loop ORs RX_USED into descriptors the hardware still owns
+(valid buffer, ctrl == 0). A concurrent gem_rx() may have passed the
+cursor check using stale values. Could it then see RX_USED with
+ctrl == 0, log "not whole frame pointed by descriptor", and do
+rx_tail++?
+
+Suppose that increment lands after rx_tail = 0 but before
+gem_rx_refill() runs. CIRC_SPACE(0, 1, rx_ring_size) is then 0, so
+refill arms nothing. The whole ring is left RX_USED and RX stalls.
+
+The same race already existed in other forms before this patch. Both
+CPUs can run gem_rx_refill() on the same NULL rx_skbuff[] entry, and
+each allocates and maps an skb. That either leaks one skb or leaves
+desc->addr and rx_skbuff[] out of sync.
+
+The HRESP refill can also take the rx_skbuff[entry] != NULL branch in
+gem_rx_refill() and clear RX_USED on a descriptor whose skb gem_rx() on
+the other CPU is about to unmap and hand to napi_gro_receive(). Once RE
+is re-enabled, wouldn't the hardware DMA into an skb that the stack
+already owns?
+
+Later in the series, "net: macb: quiesce IRQs and drain BH on interface
+close" only covers close and the open error path.
+macb_hresp_error_task() looks unchanged at the end of the series.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260925-macb-close-v2-0-360efa565914%40bootlin.com
