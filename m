@@ -1,129 +1,161 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A82A64F4043
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 14:12:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5254852842D
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 14:12:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790691171; cv=none; b=EIVn7EPY1O/nP4hpOOOPNXHYVdO2FiHS4+yVwYgdHmEyo+2PMgsPTvqxuhbwuPCyp+PdDuuK4GjxXdmoFw5SdkofznMOCJIPjooZb6vy0ZdMbnASm57JEHrxZu3fx51mCjvCpZqi+tqQ0eEKnf06vqwsnWgGyuu/qB1JzUzbK1w=
+	t=1790691171; cv=none; b=aolCQOqqDHNQpl5uiEc3CZoQ+UOkMoOVkrcmTn/yyWtNn7QLEaI2pfA0BipK4e2vA5riOPLhm2jaykFzyfYU0Ax5ZTfJDzRRf0byAoB9lXPghfIJkuZb7OZ63Hg7DIXxm6iq54g++lZqJzu9GgaRbkv/KTXeJBCgqfhJtgimoWw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790691171; c=relaxed/simple;
-	bh=HzyWLq8qgM0vVfKCyeN3wacDLsBacUAQnZqB0lHMnB8=;
+	bh=p50wq0rAIXJuO3Z/NMGPJx7GArDcSWiuhATnGiz8HEs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dJ5fDxswVBLukwiuauzGJ2SPaLZ/3h6q7lJ8em+YdXF+RQxqrWHcotc0GNDdvFcxBmjYN9EVdyosP0swVwzxPdzfBnoufcLfalH6zy5Lkp1EJmx8Hr0Uu41Zvs/SY7zMzS6kaxt2NAwQJLweu5spBTre7brGVf4WHMWgQuXUwtQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fyiBnHYh; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=iYpeTePBOueFSynStJSzOGTbE/aiFPkqDZl3lecIr7RGUo4m1dOvEM5zfXu2RBt5nnFv/xBp1HMP2E+iEZs5p0r5E5sLsfUVWwTiBvA51fQ8pkYizRnjuzjSoyQYYl91oniQg2FPF0UbXEmOk4hCTKBHXB4fHBM+O8TUnO+VI3I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RG6f6NoR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fyiBnHYh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C64291F00898;
-	Tue, 29 Sep 2026 14:12:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RG6f6NoR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E3F61F00899;
+	Tue, 29 Sep 2026 14:12:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1790691169;
-	bh=13D1/xyxgNUT/yRV53sJ2cuh4nsOe5x1ykx6G85Ju3s=;
+	bh=pakLrFDn2fBSzEohAODTxCIgs3CFCnzPxBG6tM15L3g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fyiBnHYhXWgU4yKlrM3JhP0sczy7l3rn/KLdNFIHfSolWB3sg1PBt72TrvcPAgzBs
-	 MJg+WhXIyYvtClOm/3Uk0dHtC6tlgrXTOpy3YsWiSIHwloS6kCNGnaY6S60mN/AgJt
-	 8dX4IZo30Bj4UAT48tbIKLaHhlwtRYbNh9JBv4wabhl3zeiNf0y5GH/YTJYzBr5V+L
-	 JpYROsC337Om/dPtWPt2669OiSkXQruNDpWamrDvh03P1PciSQ1I5gWNab52rrFnRk
-	 HJo2svQm7OdUagARHE5KZf2ILIVY/XFdMRFEkElKf/igxxFBCG+2CojZ2fbC+go6JT
-	 5KBuGGpwzZNlw==
+	b=RG6f6NoR15xl4s2klYptweM+yWChk5SF1VC4jVsxRXforzqXLQq6Hm3MbtPZ0S/TK
+	 IGhQmr3YcPSmXNmnAcj8eEtQIADRksjMkTczMx3SWOLgSbUu6esn5iqGDmxSOvEfq9
+	 dUbiZed6XebjEnUQGqeID9X68Phr01IzVliDxUCLb+/m60eB89AbbmJGwaa/CgaJRL
+	 kNrMH9XrZJALkzRizbwudo1o8LGvVQUqho1cnM/YJDr3wZ0035pHID0ouCva0NY/ck
+	 Ru8GFtmu6cpaLVwZ9Gu/GOTVbVzS6xwosWGvtklMC9YMrgTygf4/+a+PtF6Oj7n4Nv
+	 uDbZeTi21yE0Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
-	Jani Nikula <jani.nikula@intel.com>,
-	Mika Kahola <mika.kahola@intel.com>,
+Cc: Jeremy Kerr <jk@codeconstruct.com.au>,
+	Paolo Abeni <pabeni@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 3/4] drm/i915/psr: Disable PSR2 on Xiaomi Book Pro 14 2026 as a quirk
-Date: Tue, 29 Sep 2026 10:12:44 -0400
-Message-ID: <20260929141245.3537826-3-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/4] net: mctp: avoid confusion over local/peer dest/source addresses
+Date: Tue, 29 Sep 2026 10:12:45 -0400
+Message-ID: <20260929141248.3537868-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260929141245.3537826-1-sashal@kernel.org>
-References: <2026092942-evaluator-keenness-e26b@gregkh>
- <20260929141245.3537826-1-sashal@kernel.org>
+In-Reply-To: <2026092919-helpful-hydrogen-8802@gregkh>
+References: <2026092919-helpful-hydrogen-8802@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jouni Högander <jouni.hogander@intel.com>
+From: Jeremy Kerr <jk@codeconstruct.com.au>
 
-[ Upstream commit 5e79af5db00b2a5f4667aaf16cfe4ecb7759383b ]
+[ Upstream commit ee076b73e576b0a052d5686d873346b285ae50ea ]
 
-Add new quirk (QUIRK_DISABLE_PSR2) for disabling PSR2 as a quirk for
-problematic setups. Apply this newly added quirk on Xiaomi Book Pro 14
-2026.
+We have a double-swap of local and peer addresses in
+mctp_alloc_local_tag; the arguments in both call sites are swapped, but
+there is also a swap in the implementation of alloc_local_tag. This is
+opaque because we're using source/dest address references, which don't
+match the local/peer semantics.
 
-v2: logging adjusted
+Avoid this confusion by naming the arguments as 'local' and 'peer', and
+remove the double swap. The calling order now matches mctp_key_alloc.
 
-Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/7677
-Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
-Acked-by: Jani Nikula <jani.nikula@intel.com>
-Reviewed-by: Mika Kahola <mika.kahola@intel.com>
-Link: https://patch.msgid.link/20260417102350.28328-1-jouni.hogander@intel.com
-Stable-dep-of: 5271d81f99dd ("drm/i915/quirks: Limit eDP rate to HBR2 on HP Pavilion Plus 14-ew1")
+Signed-off-by: Jeremy Kerr <jk@codeconstruct.com.au>
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Stable-dep-of: 26cc0e69cce0 ("mctp: route: iterate socket tag list in mctp_lookup_prealloc_tag()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/i915/display/intel_psr.c    | 3 +++
- drivers/gpu/drm/i915/display/intel_quirks.c | 9 +++++++++
- drivers/gpu/drm/i915/display/intel_quirks.h | 1 +
- 3 files changed, 13 insertions(+)
+ include/net/mctp.h |  4 ++--
+ net/mctp/af_mctp.c |  2 +-
+ net/mctp/route.c   | 16 ++++++++--------
+ 3 files changed, 11 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 3088230fef8b6..b6c5dbe259648 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -668,6 +668,9 @@ static void _psr_init_dpcd(struct intel_dp *intel_dp)
- 	intel_dp->psr.sink_sync_latency =
- 		intel_dp_get_sink_sync_latency(intel_dp);
+diff --git a/include/net/mctp.h b/include/net/mctp.h
+index 2da82878155bb..357f1cda11e45 100644
+--- a/include/net/mctp.h
++++ b/include/net/mctp.h
+@@ -90,7 +90,7 @@ struct mctp_sock {
+ };
  
-+	if (intel_has_quirk(display, QUIRK_DISABLE_PSR2))
-+		return;
-+
- 	if (DISPLAY_VER(display) >= 9 &&
- 	    intel_dp->psr_dpcd[0] >= DP_PSR2_WITH_Y_COORD_IS_SUPPORTED) {
- 		bool y_req = intel_dp->psr_dpcd[1] &
-diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
-index 883f297d4b837..d1c428eeb6083 100644
---- a/drivers/gpu/drm/i915/display/intel_quirks.c
-+++ b/drivers/gpu/drm/i915/display/intel_quirks.c
-@@ -94,6 +94,12 @@ static void quirk_disable_edp_panel_replay(struct intel_dp *intel_dp)
- 	drm_info(display->drm, "Applying disable Panel Replay quirk\n");
+ /* Key for matching incoming packets to sockets or reassembly contexts.
+- * Packets are matched on (src,dest,tag).
++ * Packets are matched on (peer EID, local EID, tag).
+  *
+  * Lifetime / locking requirements:
+  *
+@@ -258,7 +258,7 @@ int mctp_local_output(struct sock *sk, struct mctp_route *rt,
+ 
+ void mctp_key_unref(struct mctp_sk_key *key);
+ struct mctp_sk_key *mctp_alloc_local_tag(struct mctp_sock *msk,
+-					 mctp_eid_t daddr, mctp_eid_t saddr,
++					 mctp_eid_t local, mctp_eid_t peer,
+ 					 bool manual, u8 *tagp);
+ 
+ /* routing <--> device interface */
+diff --git a/net/mctp/af_mctp.c b/net/mctp/af_mctp.c
+index 8f241c92e03d8..609e67210e454 100644
+--- a/net/mctp/af_mctp.c
++++ b/net/mctp/af_mctp.c
+@@ -366,7 +366,7 @@ static int mctp_ioctl_alloctag(struct mctp_sock *msk, unsigned long arg)
+ 	if (ctl.flags)
+ 		return -EINVAL;
+ 
+-	key = mctp_alloc_local_tag(msk, ctl.peer_addr, MCTP_ADDR_ANY,
++	key = mctp_alloc_local_tag(msk, MCTP_ADDR_ANY, ctl.peer_addr,
+ 				   true, &tag);
+ 	if (IS_ERR(key))
+ 		return PTR_ERR(key);
+diff --git a/net/mctp/route.c b/net/mctp/route.c
+index 4d649ba66cfdc..e3c69a1a8761a 100644
+--- a/net/mctp/route.c
++++ b/net/mctp/route.c
+@@ -619,11 +619,11 @@ static void mctp_reserve_tag(struct net *net, struct mctp_sk_key *key,
+ 	refcount_inc(&key->refs);
  }
  
-+static void quirk_disable_psr2(struct intel_display *display)
-+{
-+	intel_set_quirk(display, QUIRK_DISABLE_PSR2);
-+	drm_info(display->drm, "PSR2 support not currently available for this setup, applying disable PSR2 quirk\n");
-+}
-+
- struct intel_quirk {
- 	int device;
- 	int subsystem_vendor;
-@@ -250,6 +256,9 @@ static struct intel_quirk intel_quirks[] = {
+-/* Allocate a locally-owned tag value for (saddr, daddr), and reserve
++/* Allocate a locally-owned tag value for (local, peer), and reserve
+  * it for the socket msk
+  */
+ struct mctp_sk_key *mctp_alloc_local_tag(struct mctp_sock *msk,
+-					 mctp_eid_t daddr, mctp_eid_t saddr,
++					 mctp_eid_t local, mctp_eid_t peer,
+ 					 bool manual, u8 *tagp)
+ {
+ 	struct net *net = sock_net(&msk->sk);
+@@ -633,11 +633,11 @@ struct mctp_sk_key *mctp_alloc_local_tag(struct mctp_sock *msk,
+ 	u8 tagbits;
  
- 	/* Dell XPS 13 7390 2-in-1 */
- 	{ 0x8a52, 0x1028, 0x08b0, quirk_edp_limit_rate_hbr2 },
-+
-+	/* Xiaomi Book Pro 14 2026 */
-+	{ 0xb081, 0x1d72, 0x2424, quirk_disable_psr2 },
- };
+ 	/* for NULL destination EIDs, we may get a response from any peer */
+-	if (daddr == MCTP_ADDR_NULL)
+-		daddr = MCTP_ADDR_ANY;
++	if (peer == MCTP_ADDR_NULL)
++		peer = MCTP_ADDR_ANY;
  
- static const struct intel_dpcd_quirk intel_dpcd_quirks[] = {
-diff --git a/drivers/gpu/drm/i915/display/intel_quirks.h b/drivers/gpu/drm/i915/display/intel_quirks.h
-index 83214eb94b0c4..970a4fe52fafc 100644
---- a/drivers/gpu/drm/i915/display/intel_quirks.h
-+++ b/drivers/gpu/drm/i915/display/intel_quirks.h
-@@ -22,6 +22,7 @@ enum intel_quirk_id {
- 	QUIRK_FW_SYNC_LEN,
- 	QUIRK_EDP_LIMIT_RATE_HBR2,
- 	QUIRK_DISABLE_EDP_PANEL_REPLAY,
-+	QUIRK_DISABLE_PSR2,
- };
+ 	/* be optimistic, alloc now */
+-	key = mctp_key_alloc(msk, saddr, daddr, 0, GFP_KERNEL);
++	key = mctp_key_alloc(msk, local, peer, 0, GFP_KERNEL);
+ 	if (!key)
+ 		return ERR_PTR(-ENOMEM);
  
- void intel_init_quirks(struct intel_display *display);
+@@ -658,8 +658,8 @@ struct mctp_sk_key *mctp_alloc_local_tag(struct mctp_sock *msk,
+ 		if (tmp->tag & MCTP_HDR_FLAG_TO)
+ 			continue;
+ 
+-		if (!(mctp_address_matches(tmp->peer_addr, daddr) &&
+-		      mctp_address_matches(tmp->local_addr, saddr)))
++		if (!(mctp_address_matches(tmp->peer_addr, peer) &&
++		      mctp_address_matches(tmp->local_addr, local)))
+ 			continue;
+ 
+ 		spin_lock(&tmp->lock);
+@@ -951,7 +951,7 @@ int mctp_local_output(struct sock *sk, struct mctp_route *rt,
+ 			key = mctp_lookup_prealloc_tag(msk, daddr,
+ 						       req_tag, &tag);
+ 		else
+-			key = mctp_alloc_local_tag(msk, daddr, saddr,
++			key = mctp_alloc_local_tag(msk, saddr, daddr,
+ 						   false, &tag);
+ 
+ 		if (IS_ERR(key)) {
 -- 
 2.53.0
 
