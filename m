@@ -1,52 +1,53 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5A044C10ED;
-	Tue, 29 Sep 2026 09:08:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74CF33B774F;
+	Tue, 29 Sep 2026 09:08:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790672942; cv=none; b=kBinTUMotw9G5DVgNRdQNMNgfWIf6X6BV+oMi2Gcxk2NHgoY02MXl1iGDthynE6PHLxQH478ZL93vRKqhDLcNUQVRFA1QdCfsDXf6E9UY4zxnX1RA4RvIgWukkQYh86alf4f54bbJ2w2RaRf4T3V26I4Hm6UdNq/mZLEJNM8vDQ=
+	t=1790672944; cv=none; b=TRRimzuk3zx1sEwSs5a+5Gu7aKHUkdoPUsDZpppFXfzrxsNJeYSXdYHk6zYWpSY0JbopAbK2/v6AyDQ3iB14yz7XG4aaLvPEq+UM8GmWyZ9l9cfLoRY6VM91t9NFoDtYUHxrMuSK5eKZMTJHSCRTZzbtMW2cm8mIjiHSMN1Rwg4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790672942; c=relaxed/simple;
-	bh=B7WUxTPxYRhqv/9PX7I5Kblo6ZmbQ3M1s08kGwGRPCo=;
+	s=arc-20240116; t=1790672944; c=relaxed/simple;
+	bh=OwOTPh3hANp++nk2LZ1Vx+l0Uq61xAzY3starhYQTCY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HsWiqO9d0hvS410ifR1hyVwa8p62lkzWg0TvpF5vEimUVlZXCZ9noHviXZDzK4SSLq2QPgm/3Hp+BtO3Zt7B/LX+7S3LjIStgPAziibKw8bQce9H4ye3m0jsYsMjXWhK+VrzOu+zowdrARMD6kEydT49bvu5cbwrOEBvcfSWcLc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Aonc5EYj; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=rm+tVTiE/kmfhTxHEEKvm0Sb4I3tXL1TBHzJLMOFvCkctTzRATXnSe0q1363NCeynfmzR58MCwOJAKjP5+2+pngtQ/0XrBrUVHZoXfHo41EmLLw1J9pUxovIh7Jg/ekhXzDD9bwUuVAZ14sN16HC+t8nNWBp9Oz4azC07xacnbg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YawGZiWe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Aonc5EYj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4622E1F0089A;
-	Tue, 29 Sep 2026 09:08:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YawGZiWe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28C681F000FF;
+	Tue, 29 Sep 2026 09:08:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790672923;
-	bh=q2X4bkxODE5bL9UFrYWe/JpRBf2pcudGkKEKhnJ0Csw=;
+	s=k20260515; t=1790672927;
+	bh=g0i6ICubraxdZpeoCJJ9/JBLrtCyzoMtB5IfednapMg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Aonc5EYjRYNeoKw+9s3bBQf0dgv7Px+SPAthVHr8K4zjoy6duJtv976q1l4U7mypd
-	 m9YG2pmV7lHQnDdtQqRwTTWwXYcH6os/NlDaNcbmd3XxW5oWgrQzaRwtDXm+T2WeMT
-	 oxdwgqxE2zSrQStDBpyiYJHOcbWxozubBXKtd4Gglm+MxnlgMbG3e2HDhl4TtfLqWt
-	 f74jTaDdnSKX3yNui6IkaQdPV83Fm86DNG8H8MbrMwDlqP27qnvuZlDkq4NAgWzfkS
-	 YYYuD2J8yuJVgXD0sSTSJMwyK8DAvGvewCa8tMddjs3tGDz6IkQNN71VvYp7vjXU/f
-	 3tAvXmiolrh0Q==
+	b=YawGZiWeykVRUT+F4zaOwrJImWs9JeWfwiTf/gPhtl42mk/2lytn/Bncdn4/nC6Vr
+	 ks/ZfRu20CGgNlVyaEL0Xxb0z+IAO3cKkyHB5jzpMmuav60skRvlUIhq1oFxt1oSU3
+	 KKQ0i6Hdm9xshg5FEJOZaPj3lQvGgpHs6iguuVMd8Bnde0INNFibt2/kYkNRTWrxOY
+	 Ekj9bTxnfMwIXQD3a/qWSmuDjgVX2I6uvpuZ2mNTGKlbqv8rfMDIdEibCjCC1GfieI
+	 pWxRbLfsRT+v1n23zcz0S1UfK0YSOK8bV/Ay6mQ8SXELNv3/Xl86UidFxqaOvEp1SE
+	 D4PSKPzuh9lIA==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Alexander Viro <viro@zeniv.linux.org.uk>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Jeff Layton <jlayton@kernel.org>,
 	Wentao Guan <guanwentao@uniontech.com>,
-	Christian Brauner <brauner@kernel.org>,
 	Josef Bacik <josef@toxicpanda.com>,
+	Sasha Levin <sashal@kernel.org>,
 	Peter Zijlstra <peterz@infradead.org>,
-	Soheil Hassas Yeganeh <soheil@google.com>,
-	Eric Dumazet <edumazet@google.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Paolo Abeni <pabeni@redhat.com>,
+	Christian Brauner <brauner@kernel.org>,
 	Davidlohr Bueso <dave@stgolabs.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Soheil Hassas Yeganeh <soheil@google.com>,
 	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org,
 	Quentin Schulz <quentin.schulz@cherry.de>
-Subject: [STABLE v5.15.y v2 6/9] eventpoll: drop vestigial __ prefix from ep_remove_{file,epi}()
-Date: Tue, 29 Sep 2026 09:07:13 +0000
-Message-ID: <20260929090724.1461557-6-lee@kernel.org>
+Subject: [STABLE v5.15.y v2 7/9] eventpoll: rename ep_remove_safe() back to ep_remove()
+Date: Tue, 29 Sep 2026 09:07:14 +0000
+Message-ID: <20260929090724.1461557-7-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
 In-Reply-To: <20260929090724.1461557-1-lee@kernel.org>
 References: <20260929090724.1461557-1-lee@kernel.org>
@@ -60,69 +61,96 @@ Content-Transfer-Encoding: 8bit
 
 From: Christian Brauner <brauner@kernel.org>
 
-[ Upstream commit 0feaf644f7180c4a91b6b405a881afbfd958f1cf ]
+[ Upstream commit 0bade234723e40e4937be912e105785d6a51464e ]
 
-With __ep_remove() gone, the double-underscore on __ep_remove_file()
-and __ep_remove_epi() no longer contrasts with a __-less parent and
-just reads as noise. Rename both to ep_remove_file() and
-ep_remove_epi(). No functional change.
+The current name is just confusing and doesn't clarify anything.
 
+Link: https://patch.msgid.link/20260423-work-epoll-uaf-v1-4-2470f9eec0f5@kernel.org
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 Stable-dep-of: a6dc643c6931 ("eventpoll: fix ep_remove struct eventpoll / struct file UAF")
 Signed-off-by: Quentin Schulz <quentin.schulz@cherry.de>
 Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-(cherry picked from commit e40f6d02a75baa0f145e0394a2d9b31b969da247)
+(cherry picked from commit 136e5900ea830dee549e3485c8931ec1c8f6c1b1)
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- fs/eventpoll.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ fs/eventpoll.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
 diff --git a/fs/eventpoll.c b/fs/eventpoll.c
-index 365d833bae20..e666eccbde82 100644
+index e666eccbde82..3c5151e08f63 100644
 --- a/fs/eventpoll.c
 +++ b/fs/eventpoll.c
-@@ -712,7 +712,7 @@ static void ep_free(struct eventpoll *ep)
-  * Called with &file->f_lock held,
-  * returns with it released
+@@ -764,7 +764,7 @@ static bool ep_remove_epi(struct eventpoll *ep, struct epitem *epi)
+ /*
+  * ep_remove variant for callers owing an additional reference to the ep
   */
--static void __ep_remove_file(struct eventpoll *ep, struct epitem *epi,
-+static void ep_remove_file(struct eventpoll *ep, struct epitem *epi,
- 			     struct file *file)
+-static void ep_remove_safe(struct eventpoll *ep, struct epitem *epi)
++static void ep_remove(struct eventpoll *ep, struct epitem *epi)
  {
- 	struct epitems_head *to_free = NULL;
-@@ -736,7 +736,7 @@ static void __ep_remove_file(struct eventpoll *ep, struct epitem *epi,
- 	free_ephead(to_free);
- }
+ 	struct file *file = epi->ffd.file;
  
--static bool __ep_remove_epi(struct eventpoll *ep, struct epitem *epi)
-+static bool ep_remove_epi(struct eventpoll *ep, struct epitem *epi)
- {
- 	lockdep_assert_held(&ep->mtx);
+@@ -811,7 +811,7 @@ static void ep_clear_and_put(struct eventpoll *ep)
  
-@@ -782,9 +782,9 @@ static void ep_remove_safe(struct eventpoll *ep, struct epitem *epi)
- 		spin_unlock(&file->f_lock);
- 		return;
+ 	/*
+ 	 * Walks through the whole tree and try to free each "struct epitem".
+-	 * Note that ep_remove_safe() will not remove the epitem in case of a
++	 * Note that ep_remove() will not remove the epitem in case of a
+ 	 * racing eventpoll_release_file(); the latter will do the removal.
+ 	 * At this point we are sure no poll callbacks will be lingering around.
+ 	 * Since we still own a reference to the eventpoll struct, the loop can't
+@@ -820,7 +820,7 @@ static void ep_clear_and_put(struct eventpoll *ep)
+ 	for (rbp = rb_first_cached(&ep->rbr); rbp; rbp = next) {
+ 		next = rb_next(rbp);
+ 		epi = rb_entry(rbp, struct epitem, rbn);
+-		ep_remove_safe(ep, epi);
++		ep_remove(ep, epi);
+ 		cond_resched();
  	}
--	__ep_remove_file(ep, epi, file);
-+	ep_remove_file(ep, epi, file);
  
--	if (__ep_remove_epi(ep, epi))
-+	if (ep_remove_epi(ep, epi))
- 		WARN_ON_ONCE(ep_refcount_dec_and_test(ep));
- }
+@@ -1585,21 +1585,21 @@ static int ep_insert(struct eventpoll *ep, const struct epoll_event *event,
+ 		mutex_unlock(&tep->mtx);
  
-@@ -1006,8 +1006,8 @@ void eventpoll_release_file(struct file *file)
- 		ep_unregister_pollwait(ep, epi);
+ 	/*
+-	 * ep_remove_safe() calls in the later error paths can't lead to
++	 * ep_remove() calls in the later error paths can't lead to
+ 	 * ep_free() as the ep file itself still holds an ep reference.
+ 	 */
+ 	ep_get(ep);
  
- 		spin_lock(&file->f_lock);
--		__ep_remove_file(ep, epi, file);
--		dispose = __ep_remove_epi(ep, epi);
-+		ep_remove_file(ep, epi, file);
-+		dispose = ep_remove_epi(ep, epi);
+ 	/* now check if we've created too many backpaths */
+ 	if (unlikely(full_check && reverse_path_check())) {
+-		ep_remove_safe(ep, epi);
++		ep_remove(ep, epi);
+ 		return -EINVAL;
+ 	}
  
- 		mutex_unlock(&ep->mtx);
+ 	if (epi->event.events & EPOLLWAKEUP) {
+ 		error = ep_create_wakeup_source(epi);
+ 		if (error) {
+-			ep_remove_safe(ep, epi);
++			ep_remove(ep, epi);
+ 			return error;
+ 		}
+ 	}
+@@ -1623,7 +1623,7 @@ static int ep_insert(struct eventpoll *ep, const struct epoll_event *event,
+ 	 * high memory pressure.
+ 	 */
+ 	if (unlikely(!epq.epi)) {
+-		ep_remove_safe(ep, epi);
++		ep_remove(ep, epi);
+ 		return -ENOMEM;
+ 	}
  
+@@ -2302,7 +2302,7 @@ int do_epoll_ctl(int epfd, int op, int fd, struct epoll_event *epds,
+ 			 * The eventpoll itself is still alive: the refcount
+ 			 * can't go to zero here.
+ 			 */
+-			ep_remove_safe(ep, epi);
++			ep_remove(ep, epi);
+ 			error = 0;
+ 		} else {
+ 			error = -ENOENT;
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
 
