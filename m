@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01EE14F55BC
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 12:46:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95999343D85
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 12:46:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790685982; cv=none; b=q1rg3N4Gzjhg1cqfp2TU2HzWKMSf+sjda3Pfo93fH+yW1wkuH5Wu0Vd+1+gmsRAzD2ztVgzTXAWPJitNrVVbTZYrp4OoImQuVTZ1eQL2p0zirM5rtRiDBT7jYYy8Obuf/8XIDT9H5d0XXPQLzn5eEgh/J7YKLRZDyxXAjJWUVNM=
+	t=1790685984; cv=none; b=RbpT0iFhWL2LN3XXTRl37GBYqycyrEQgUNZsXRQnU8fCJPyqCpj415CiWBf+rGEGWeqMvjurn3/VH0zxt1z2dBeRRGxSsk/HGW8z7gKg9RvDe6OCLJE8mPmX4Ql3uulxBmENnCinmR/bNr4ThLsnX2vgjGpDbdU1uFpZcsKPm+0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790685982; c=relaxed/simple;
-	bh=0BN++PD0Kzpa0ZcWRbkfb9zYX5b8GIWxutDdSmSm5K4=;
+	s=arc-20240116; t=1790685984; c=relaxed/simple;
+	bh=ldeYLu1zMUo9I2kobtt6raH0wdw4aNCBFlwgh/qZxHY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=J3NX5vfBwnNO8Me3Kc7/XYZyaytpGUeX6DmQpsTUTn4CgH7Royn5l/asPvVxk4dUMn/ty6uGn12B/UfL/v3CEeFMlYAHH08d26NDbAkdrU1/Th7gowVXDnaT3uZSZUAlACILnAMb+AfPkhyOG7avX2b66X0Ong7E3w72b01U7XY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aufXOZKM; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=W7kB/x8dbR6I3H6YEvoKMVr20+0o7B1bDQcnNLn3qcbS29cxCau4qtzYFxRg5qBbqigMfwtU+13pXU3iIk+tUybA0Sy6LoilhsvuwJ5r7Y4vrOxZcxrJxmt8gjPVEra1XUIvBAdCZ+IzdQHnb+kdUsAIHlDApFmoCPjnkLg3ZEA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XYzgG0gl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aufXOZKM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA7AB1F0089A;
-	Tue, 29 Sep 2026 12:46:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XYzgG0gl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4F981F00893;
+	Tue, 29 Sep 2026 12:46:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790685980;
-	bh=s97nNl29bP/UejqGBXwtIf6hKJXqgApjmpvas+ZiJOs=;
+	s=k20260515; t=1790685981;
+	bh=teFa8JCVc66jtjszceSpXS3r7ylj/QuK0ApQ9yqc5xc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aufXOZKM6pATLuiY7Ohqt2/+xju+UdnX+u/Me3TCTPnmaCK1+YQmdJxRU3qzpxap5
-	 WNnZPF6mpWvdScREPFxiTOj30lV82nNdzzCUfl3FsBlISO0v+Ymjz5Q9mSHmcoruPA
-	 p+E34zFaA7xIdfg05rkDV42zIFhtdLUjV/ZD+egs+HklA4ClbaPveD3//rai/a6sTn
-	 XFCAHkfU+CgPWW7b9ol8FBAxFeoO5d8D/tkySkxqCYfCnORW3H8cfMLNUnzGPNuH01
-	 7gAOPDEY8LRBt5UM9LrfyEg/dhstTxasn2XXrVmtAStzZ2tnfWyM+bmnedaES1yqa4
-	 qNjCwYouF811A==
+	b=XYzgG0glys+qKuZ59RjQvBPb5aw3yNfcSjD3OCA8DuDZFKSSTQWtzwYW+8vKqen/s
+	 xBaySIlrnFuCHYvUSc+pwSFAo0fuYCcM0Y4NHxv6vREt40rO9odDc0AfWc0aizVCRd
+	 33OKcwXDB92XogHrC5Q5P6VQV13oDgtZGrUSplNcABPODfCEYsv+V2pHLcgCpVOuIV
+	 3KdYx5+HDzlGKXBV8YMW9R6gIQWGLHtRZRQerQgCDq088leANFaJVL0tVwAlV4FDSD
+	 dUEsQwOXr2zePJCNKWMwXLcmolkxfYA4C+Rmr8XH/IZUP4eITCVXnGCcD6m2CEUcHW
+	 MqmFc02Y+CynA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Praveen Talari <praveen.talari@oss.qualcomm.com>,
@@ -34,9 +34,9 @@ Cc: Praveen Talari <praveen.talari@oss.qualcomm.com>,
 	Mattijs Korpershoek <mkorpershoek@kernel.org>,
 	Andi Shyti <andi.shyti@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y 2/4] i2c: qcom-geni: Move resource initialization to separate function
-Date: Tue, 29 Sep 2026 08:46:15 -0400
-Message-ID: <20260929124617.3453155-2-sashal@kernel.org>
+Subject: [PATCH 7.2.y 3/4] i2c: qcom-geni: Store of_device_id data in driver private struct
+Date: Tue, 29 Sep 2026 08:46:16 -0400
+Message-ID: <20260929124617.3453155-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260929124617.3453155-1-sashal@kernel.org>
 References: <2026092906-elude-repurpose-c794@gregkh>
@@ -51,167 +51,143 @@ Content-Transfer-Encoding: 8bit
 
 From: Praveen Talari <praveen.talari@oss.qualcomm.com>
 
-[ Upstream commit ed4b34033db25a0f35bb84289377e1916ffe2329 ]
+[ Upstream commit 692e0c84db5fdd88c242eadc873d498787c94e3e ]
 
-Refactor the resource initialization in geni_i2c_probe() by introducing
-a new geni_i2c_resources_init() function and utilizing the common
-geni_se_resources_init() framework and clock frequency mapping, making the
-probe function cleaner.
+To avoid repeatedly fetching and checking platform data across various
+functions, store the struct of_device_id data directly in the i2c
+private structure. This change enhances code maintainability and reduces
+redundancy.
 
 Signed-off-by: Praveen Talari <praveen.talari@oss.qualcomm.com>
 Acked-by: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
 Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Tested-by: Mattijs Korpershoek <mkorpershoek@kernel.org>
 Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
-Link: https://lore.kernel.org/r/20260617-enable-i2c-on-sa8255p-v7-3-ad736dbeab57@oss.qualcomm.com
+Link: https://lore.kernel.org/r/20260617-enable-i2c-on-sa8255p-v7-5-ad736dbeab57@oss.qualcomm.com
 Stable-dep-of: cb97bf3d4f91 ("i2c: qcom-geni: Fix hardcoded clock index in SE_GENI_CLK_SEL")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/i2c/busses/i2c-qcom-geni.c | 64 +++++++++++-------------------
- 1 file changed, 24 insertions(+), 40 deletions(-)
+ drivers/i2c/busses/i2c-qcom-geni.c | 46 ++++++++++++++++--------------
+ 1 file changed, 24 insertions(+), 22 deletions(-)
 
 diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-qcom-geni.c
-index 94403eb707f7c..a02977a644edf 100644
+index a02977a644edf..abb993e793c37 100644
 --- a/drivers/i2c/busses/i2c-qcom-geni.c
 +++ b/drivers/i2c/busses/i2c-qcom-geni.c
-@@ -107,7 +107,6 @@ struct geni_i2c_dev {
- 	int cur_wr;
- 	int cur_rd;
- 	spinlock_t lock;
--	struct clk *core_clk;
- 	u32 clk_freq_out;
- 	const struct geni_i2c_clk_fld *clk_fld;
- 	void *dma_buf;
-@@ -124,8 +123,6 @@ struct geni_i2c_dev {
+@@ -77,6 +77,11 @@ enum geni_i2c_err_code {
+ #define XFER_TIMEOUT		HZ
+ #define RST_TIMEOUT		HZ
+ 
++struct geni_i2c_desc {
++	bool no_dma_support;
++	unsigned int tx_fifo_depth;
++};
++
+ #define QCOM_I2C_MIN_NUM_OF_MSGS_MULTI_DESC	2
+ 
+ /**
+@@ -120,11 +125,7 @@ struct geni_i2c_dev {
+ 	bool is_tx_multi_desc_xfer;
+ 	u32 num_msgs;
+ 	struct geni_i2c_gpi_multi_desc_xfer i2c_multi_desc_config;
+-};
+-
+-struct geni_i2c_desc {
+-	bool no_dma_support;
+-	unsigned int tx_fifo_depth;
++	const struct geni_i2c_desc *dev_data;
  };
  
- struct geni_i2c_desc {
--	bool has_core_clk;
--	char *icc_ddr;
- 	bool no_dma_support;
- 	unsigned int tx_fifo_depth;
+ struct geni_i2c_err_log {
+@@ -941,15 +942,6 @@ static const struct i2c_algorithm geni_i2c_algo = {
+ 	.functionality = geni_i2c_func,
  };
-@@ -1058,6 +1055,23 @@ static int geni_i2c_init(struct geni_i2c_dev *gi2c)
- 	return ret;
- }
  
-+static int geni_i2c_resources_init(struct geni_i2c_dev *gi2c)
-+{
-+	int ret;
-+
-+	ret = geni_se_resources_init(&gi2c->se);
-+	if (ret)
-+		return ret;
-+
-+	ret = geni_i2c_clk_map_idx(gi2c);
-+	if (ret)
-+		return dev_err_probe(gi2c->se.dev, ret, "Invalid clk frequency %d Hz\n",
-+				     gi2c->clk_freq_out);
-+
-+	return geni_icc_set_bw_ab(&gi2c->se, GENI_DEFAULT_BW, GENI_DEFAULT_BW,
-+				  Bps_to_icc(gi2c->clk_freq_out));
-+}
-+
- static int geni_i2c_probe(struct platform_device *pdev)
+-#ifdef CONFIG_ACPI
+-static const struct acpi_device_id geni_i2c_acpi_match[] = {
+-	{ "QCOM0220"},
+-	{ "QCOM0411" },
+-	{ }
+-};
+-MODULE_DEVICE_TABLE(acpi, geni_i2c_acpi_match);
+-#endif
+-
+ static void release_gpi_dma(struct geni_i2c_dev *gi2c)
  {
- 	struct geni_i2c_dev *gi2c;
-@@ -1077,16 +1091,6 @@ static int geni_i2c_probe(struct platform_device *pdev)
+ 	if (gi2c->rx_c)
+@@ -989,7 +981,6 @@ static int setup_gpi_dma(struct geni_i2c_dev *gi2c)
  
- 	desc = device_get_match_data(&pdev->dev);
- 
--	if (desc && desc->has_core_clk) {
--		gi2c->core_clk = devm_clk_get(dev, "core");
--		if (IS_ERR(gi2c->core_clk))
--			return PTR_ERR(gi2c->core_clk);
--	}
--
--	gi2c->se.clk = devm_clk_get(dev, "se");
--	if (IS_ERR(gi2c->se.clk) && !has_acpi_companion(dev))
--		return PTR_ERR(gi2c->se.clk);
--
- 	ret = device_property_read_u32(dev, "clock-frequency",
- 				       &gi2c->clk_freq_out);
- 	if (ret) {
-@@ -1101,16 +1105,15 @@ static int geni_i2c_probe(struct platform_device *pdev)
- 	if (gi2c->irq < 0)
- 		return gi2c->irq;
- 
--	ret = geni_i2c_clk_map_idx(gi2c);
--	if (ret)
--		return dev_err_probe(dev, ret, "Invalid clk frequency %d Hz\n",
--				     gi2c->clk_freq_out);
--
- 	gi2c->adap.algo = &geni_i2c_algo;
- 	init_completion(&gi2c->done);
- 	spin_lock_init(&gi2c->lock);
- 	platform_set_drvdata(pdev, gi2c);
- 
-+	ret = geni_i2c_resources_init(gi2c);
-+	if (ret)
-+		return ret;
-+
- 	/* Keep interrupts disabled initially to allow for low-power modes */
- 	ret = devm_request_irq(dev, gi2c->irq, geni_i2c_irq, IRQF_NO_AUTOEN,
- 			       dev_name(dev), gi2c);
-@@ -1123,23 +1126,6 @@ static int geni_i2c_probe(struct platform_device *pdev)
- 	gi2c->adap.dev.of_node = dev->of_node;
- 	strscpy(gi2c->adap.name, "Geni-I2C", sizeof(gi2c->adap.name));
- 
--	ret = geni_icc_get(&gi2c->se, desc ? desc->icc_ddr : "qup-memory");
--	if (ret)
--		return ret;
--	/*
--	 * Set the bus quota for core and cpu to a reasonable value for
--	 * register access.
--	 * Set quota for DDR based on bus speed.
--	 */
--	gi2c->se.icc_paths[GENI_TO_CORE].avg_bw = GENI_DEFAULT_BW;
--	gi2c->se.icc_paths[CPU_TO_GENI].avg_bw = GENI_DEFAULT_BW;
--	if (!desc || desc->icc_ddr)
--		gi2c->se.icc_paths[GENI_TO_DDR].avg_bw = Bps_to_icc(gi2c->clk_freq_out);
--
--	ret = geni_icc_set_bw(&gi2c->se);
--	if (ret)
--		return ret;
--
- 	pm_runtime_set_suspended(gi2c->se.dev);
- 	pm_runtime_set_autosuspend_delay(gi2c->se.dev, I2C_AUTO_SUSPEND_DELAY);
- 	pm_runtime_use_autosuspend(gi2c->se.dev);
-@@ -1192,7 +1178,7 @@ static int __maybe_unused geni_i2c_runtime_suspend(struct device *dev)
- 		return ret;
+ static int geni_i2c_init(struct geni_i2c_dev *gi2c)
+ {
+-	const struct geni_i2c_desc *desc = NULL;
+ 	u32 proto, tx_depth;
+ 	bool fifo_disable;
+ 	int ret;
+@@ -1012,8 +1003,7 @@ static int geni_i2c_init(struct geni_i2c_dev *gi2c)
+ 		goto err;
  	}
  
--	clk_disable_unprepare(gi2c->core_clk);
-+	clk_disable_unprepare(gi2c->se.core_clk);
+-	desc = device_get_match_data(gi2c->se.dev);
+-	if (desc && desc->no_dma_support) {
++	if (gi2c->dev_data->no_dma_support) {
+ 		fifo_disable = false;
+ 		gi2c->no_dma = true;
+ 	} else {
+@@ -1033,8 +1023,8 @@ static int geni_i2c_init(struct geni_i2c_dev *gi2c)
+ 		tx_depth = geni_se_get_tx_fifo_depth(&gi2c->se);
  
- 	return geni_icc_disable(&gi2c->se);
- }
-@@ -1206,7 +1192,7 @@ static int __maybe_unused geni_i2c_runtime_resume(struct device *dev)
- 	if (ret)
- 		return ret;
+ 		/* I2C Master Hub Serial Elements doesn't have the HW_PARAM_0 register */
+-		if (!tx_depth && desc)
+-			tx_depth = desc->tx_fifo_depth;
++		if (!tx_depth && gi2c->se.core_clk)
++			tx_depth = gi2c->dev_data->tx_fifo_depth;
  
--	ret = clk_prepare_enable(gi2c->core_clk);
-+	ret = clk_prepare_enable(gi2c->se.core_clk);
- 	if (ret)
- 		goto out_icc_disable;
+ 		if (!tx_depth) {
+ 			ret = dev_err_probe(gi2c->se.dev, -EINVAL,
+@@ -1077,7 +1067,6 @@ static int geni_i2c_probe(struct platform_device *pdev)
+ 	struct geni_i2c_dev *gi2c;
+ 	int ret;
+ 	struct device *dev = &pdev->dev;
+-	const struct geni_i2c_desc *desc = NULL;
  
-@@ -1219,7 +1205,7 @@ static int __maybe_unused geni_i2c_runtime_resume(struct device *dev)
- 	return 0;
+ 	gi2c = devm_kzalloc(dev, sizeof(*gi2c), GFP_KERNEL);
+ 	if (!gi2c)
+@@ -1089,7 +1078,9 @@ static int geni_i2c_probe(struct platform_device *pdev)
+ 	if (IS_ERR(gi2c->se.base))
+ 		return PTR_ERR(gi2c->se.base);
  
- out_clk_disable:
--	clk_disable_unprepare(gi2c->core_clk);
-+	clk_disable_unprepare(gi2c->se.core_clk);
- out_icc_disable:
- 	geni_icc_disable(&gi2c->se);
+-	desc = device_get_match_data(&pdev->dev);
++	gi2c->dev_data = device_get_match_data(&pdev->dev);
++	if (!gi2c->dev_data)
++		return -EINVAL;
  
-@@ -1260,8 +1246,6 @@ static const struct dev_pm_ops geni_i2c_pm_ops = {
+ 	ret = device_property_read_u32(dev, "clock-frequency",
+ 				       &gi2c->clk_freq_out);
+@@ -1245,13 +1236,24 @@ static const struct dev_pm_ops geni_i2c_pm_ops = {
+ 									NULL)
  };
  
++static const struct geni_i2c_desc geni_i2c = {};
++
  static const struct geni_i2c_desc i2c_master_hub = {
--	.has_core_clk = true,
--	.icc_ddr = NULL,
  	.no_dma_support = true,
  	.tx_fifo_depth = 16,
+ };
+ 
++#ifdef CONFIG_ACPI
++static const struct acpi_device_id geni_i2c_acpi_match[] = {
++	{ "QCOM0220", (kernel_ulong_t)&geni_i2c},
++	{ "QCOM0411", (kernel_ulong_t)&geni_i2c},
++	{ }
++};
++MODULE_DEVICE_TABLE(acpi, geni_i2c_acpi_match);
++#endif
++
+ static const struct of_device_id geni_i2c_dt_match[] = {
+-	{ .compatible = "qcom,geni-i2c" },
++	{ .compatible = "qcom,geni-i2c", .data = &geni_i2c },
+ 	{ .compatible = "qcom,geni-i2c-master-hub", .data = &i2c_master_hub },
+ 	{}
  };
 -- 
 2.53.0
