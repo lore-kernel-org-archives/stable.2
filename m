@@ -1,268 +1,167 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03E67522699
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 13:57:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6268C313293
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 14:03:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790690253; cv=none; b=P/RXtgJ3FE+K5T8lIEZ/Rw33zGR1cTZFbRnceoa0LL61VGAWROjyA2OOiq/CghwcI3qczRXwDFq8VDH+d4URS+HgH81b0VD2NEF5lJI1dy34no792xlKtNAf8uNQkwiMcAM3Vu7TiMpQqMsxfnZ7mMnb5JL7b3OY03uAROQfpko=
+	t=1790690583; cv=none; b=dIsN1FTWnuVm3P/SwLngd4o9AG6JwVE793qmA5TVTYAyBqvMRCn0pAXNSCN47BtQLzIQrmjh+rdDS0jt4QkI1aCPTBKnIxSdkzLQT/sSZ5meWJMsJBRLT/UmEcxTrUvRFBhiihk3PUSZrog/ST1xhJUdX6RSnyXugxyX3wNGIYY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790690253; c=relaxed/simple;
-	bh=VaUh/UDtcakQ+Nuw2o9L+tgESa8eIYr/XyMMHbkMFi4=;
+	s=arc-20240116; t=1790690583; c=relaxed/simple;
+	bh=zx2C/md+EOiVl2VpEyu4waz5Bv1Di5dOWFIpbweZ9QQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=C+Gj+9B2wTTERh6NuvSPOr6rCiyBJRBs8Jd259nRP65mfSjqd8+QbNv2kUKu9T9uHwooF1J8rvf9iP0TerpcdxjEy1g7UrtYuWAkEoCiNsFovDt0lEDiymyIYI+zynzs8PYEizDiF/aOC/Ux21idJRde1QtuWseaFfKyv3rldm8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YzBn3/rc; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 MIME-Version; b=okjTy5E8UUfZdj6Gavgw/dy1FzbtfFaBcym2uSclKV7nkiAsvhYiqYGKOSaJW7fuIyrolLpOmcz0sVze0+w+SwBSdXFrKzZt4oPlvAwEjA77JN0pjhMedn0MtnOMFsB+ohdNxbVqCPphbj9qdP7ZXw0LQ8WT/qoer545BCDf24M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZWpLEFfP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YzBn3/rc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790690251; x=1822226251;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=VaUh/UDtcakQ+Nuw2o9L+tgESa8eIYr/XyMMHbkMFi4=;
-  b=YzBn3/rcZkELrZ23uU66xvJOueCQchlh1SVnonjiempoFQ4E8ilKZntr
-   8m7vVTErk/+qznC01oADftruVTHUJRPu6V44thTI16KjpCq5rWqd6DEw7
-   0dNZ4oAcBHAd1lW83fwsthKDUBPDVN5yspEIVgrzRKJxCk4QtUmCBae7r
-   gjnxrgo68Zk3S6GENcHXyfUaLgF/BpcDFCVo8bXKQ04uFBAK36D9wtFsn
-   xgr0Yk3yq9wY0FtReAtaefe5s31F56+xLLnCXDdFYBSRRwDo5MO/+zMt0
-   WVlR75P2p0TeC5y3J8+uqvy081VNTf8aWpy36rWeqKm+mAZyjZxQfXOvs
-   Q==;
-X-CSE-ConnectionGUID: 1YEK+A1VTHitxwRXx6B0NA==
-X-CSE-MsgGUID: wvu22z+BTfedT6835uYNLg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="90462797"
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="90462797"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 06:57:30 -0700
-X-CSE-ConnectionGUID: 2/E23nkmSXC6mnSkCOxFtQ==
-X-CSE-MsgGUID: BJHWlo8sSMaS5qgDChqD6Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="273983595"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO fedora) ([10.245.244.222])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 06:57:28 -0700
-From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZWpLEFfP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 562C31F000FF;
+	Tue, 29 Sep 2026 14:03:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790690581;
+	bh=FXKaX137d+FKHs5jzntpbrzaC2sReLO69+T9TP1Au7Y=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ZWpLEFfPq2CXmD/5YehtJmu8lXzEIDsmB52fu2ZcFb/H3IaRd0bALEx1f9n112UkR
+	 aDHyuZMIo1dbl7zaUAiIRs6GfLH56ahHLHiaVHOZVn96wilGwakIX+6XXbhnBpDnRG
+	 OzO8IEWblpzkNFcZfY9Prg+SwajGPTBYMFqpj1MtgyNa/KCA6LUe59Lb56eXTLjwwh
+	 UNuYZSJ8UTmBG/ifR3LsYk6dYyMkt9oqjzmKM1ME4etEFtDjnX0E7TU+h0i6eOi28w
+	 pvuEFKSa76AwFCi6qumBJ4thXC34gKwXeE3D8PlCZRuUcKZUO/jeg3bBD65dB9PJF+
+	 eanurRYjtDPfQ==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Tangudu Tilak Tirumalesh <tilak.tirumalesh.tangudu@intel.com>,
-	Vinay Belgaumkar <vinay.belgaumkar@intel.com>,
-	Matt Roper <matthew.d.roper@intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Subject: [PATCH 7.2.y] drm/xe: Add wa_14025941587 to xe2, xe3 and xe3p platforms
-Date: Tue, 29 Sep 2026 15:56:28 +0200
-Message-ID: <20260929135628.43167-1-thomas.hellstrom@linux.intel.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <2026092940-reload-script-8bd3@gregkh>
-References: <2026092940-reload-script-8bd3@gregkh>
+Cc: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
+	Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] i2c: qcom-geni: Fix hardcoded clock index in SE_GENI_CLK_SEL
+Date: Tue, 29 Sep 2026 10:02:59 -0400
+Message-ID: <20260929140259.3526507-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026092906-critter-preamble-da49@gregkh>
+References: <2026092906-critter-preamble-da49@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Tangudu Tilak Tirumalesh <tilak.tirumalesh.tangudu@intel.com>
+From: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
 
-Avoid programming the IDLEDLY timer to less than 5 microseconds.
-Apply wa_14025941587 to Graphics Versions 20.01 to 35.11
-and Media Versions 13.01 to 35.03
+[ Upstream commit cb97bf3d4f91453b881acaf8e9f0cc47bb40b604 ]
 
-v2: Use xe_rtp_match_not_sriov_vf, move to local variable
-    Remove warn and other knits            - Matt R
+qcom_geni_i2c_conf() writes a hardcoded 0 to SE_GENI_CLK_SEL, which
+selects an index from the hardware clock performance table. This always
+picks the first table entry regardless of the actual source clock
+configuration. On platforms where the matching entry is not at index 0,
+the wrong source clock divider is active and the I2C bus runs at an
+incorrect frequency.
 
-v3: Add verbose comment - Tejas
+Use geni_se_clk_freq_match() in geni_i2c_clk_map_idx() to find the
+performance table index for the source clock (32 MHz or 19.2 MHz). Store
+the resolved index in a new clk_idx field in geni_i2c_dev and write it
+to SE_GENI_CLK_SEL instead of the hardcoded 0.
 
-v4: Restore IDLE_DLY register on engine reset.
-    Add it to GUC save-restore list. -Vivek
-
-v5: Extend WA to Media Versions 13.01 to 35.03 - Vinay
-
-v6: Avoid clearing inhibit switch - Bala
-    Refactor code accordingly by adding idle_reg_val.
-
-v7: Rebased with the divide-by-zero/overflow guards living in
-    a separate hardening patch.
-
-v8: Preserve the Wa_16023105232 floor (DIV_ROUND_DOWN_ULL) and the
-    maxcnt == 0 guard from the hardening patch. Round up
-    (DIV_ROUND_UP_ULL) the Wa_14025941587 minimum conversion instead,
-    so the tick-quantized delay cannot round back below 5 us.
-
-v9: Evaluate the Wa_16023105232 xe_gt_WARN_ON() against the value
-    read from hardware instead of the Wa_14025941587-bumped value,
-    so it no longer fires on the driver's own floor. Re-check the
-    rounded-up tick value against maxcnt and floor it if tick
-    quantization pushed it back to/above maxcnt, logging via
-    xe_gt_dbg since this is the driver's own value, not a hardware
-    anomaly.
-
-Assisted-by: GitHub_Copilot:claude-opus-4.8
-Signed-off-by: Tangudu Tilak Tirumalesh <tilak.tirumalesh.tangudu@intel.com>
-Reviewed-by: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
-Link: https://patch.msgid.link/20260916100545.779894-3-tilak.tirumalesh.tangudu@intel.com
-Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-(cherry picked from commit 9453c528fc909076468ff10df1c2e334ca5a9b00)
-Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-(cherry picked from commit cc319238e3f6668f867beb381ce93727c69b7317)
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Fixes: 37692de5d523 ("i2c: i2c-qcom-geni: Add bus driver for the Qualcomm GENI I2C controller")
+Signed-off-by: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+Cc: <stable@vger.kernel.org> # v4.19+
+Reviewed-by: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
+Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
+Link: https://patch.msgid.link/20260921-i2c-fix-se-clk-conf-v2-1-8b5537ceff2d@oss.qualcomm.com
+[ Applied initialization error handling in geni_i2c_probe() because geni_i2c_resources_init() is absent. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/xe/xe_guc_ads.c    |  2 +-
- drivers/gpu/drm/xe/xe_hw_engine.c  | 93 ++++++++++++++++++++++++------
- drivers/gpu/drm/xe/xe_wa_oob.rules |  2 +
- 3 files changed, 79 insertions(+), 18 deletions(-)
+ drivers/i2c/busses/i2c-qcom-geni.c | 38 ++++++++++++++++++++++++++----
+ 1 file changed, 33 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_guc_ads.c b/drivers/gpu/drm/xe/xe_guc_ads.c
-index 886bafd31f45..2b42a1bb83b2 100644
---- a/drivers/gpu/drm/xe/xe_guc_ads.c
-+++ b/drivers/gpu/drm/xe/xe_guc_ads.c
-@@ -791,7 +791,7 @@ static unsigned int guc_mmio_regset_write(struct xe_guc_ads *ads,
- 		}
- 	}
+diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-qcom-geni.c
+index 6b2caaaa9437e..307e2e4030af9 100644
+--- a/drivers/i2c/busses/i2c-qcom-geni.c
++++ b/drivers/i2c/busses/i2c-qcom-geni.c
+@@ -77,6 +77,9 @@ enum geni_i2c_err_code {
+ #define XFER_TIMEOUT		HZ
+ #define RST_TIMEOUT		HZ
  
--	if (XE_GT_WA(hwe->gt, 16023105232))
-+	if (XE_GT_WA(hwe->gt, 16023105232) || XE_GT_WA(hwe->gt, 14025941587))
- 		guc_mmio_regset_write_one(ads, regset_map,
- 					  RING_IDLEDLY(hwe->mmio_base),
- 					  count++);
-diff --git a/drivers/gpu/drm/xe/xe_hw_engine.c b/drivers/gpu/drm/xe/xe_hw_engine.c
-index 3c2b150bfc60..ecf691923c7c 100644
---- a/drivers/gpu/drm/xe/xe_hw_engine.c
-+++ b/drivers/gpu/drm/xe/xe_hw_engine.c
-@@ -577,44 +577,103 @@ static void hw_engine_init_early(struct xe_gt *gt, struct xe_hw_engine *hwe,
- 	xe_reg_whitelist_process_engine(hwe);
- }
- 
-+static u32 idledly_floor_ticks(u32 idledly_ns, u32 idledly_units_ps)
-+{
-+	return DIV_ROUND_DOWN_ULL((u64)idledly_ns * 1000, idledly_units_ps);
-+}
++#define GENI_SE_CLK_32MHZ	(32 * HZ_PER_MHZ)
++#define GENI_SE_CLK_19P2MHZ	19200000UL
 +
- static void adjust_idledly(struct xe_hw_engine *hwe)
+ struct geni_i2c_dev {
+ 	struct geni_se se;
+ 	u32 tx_wm;
+@@ -91,6 +94,7 @@ struct geni_i2c_dev {
+ 	struct clk *core_clk;
+ 	u32 clk_freq_out;
+ 	const struct geni_i2c_clk_fld *clk_fld;
++	u32 clk_idx;
+ 	int suspended;
+ 	void *dma_buf;
+ 	size_t xfer_len;
+@@ -165,19 +169,44 @@ static const struct geni_i2c_clk_fld geni_i2c_clk_map_32mhz[] = {
+ static int geni_i2c_clk_map_idx(struct geni_i2c_dev *gi2c)
  {
- 	struct xe_gt *gt = hwe->gt;
--	u32 idledly, maxcnt;
-+	u32 idledly, idledly_hw, idledly_reg_val, maxcnt;
- 	u32 idledly_units_ps = 8 * gt->info.timestamp_base;
- 	u32 maxcnt_units_ns = 640;
--	bool inhibit_switch = 0;
-+	bool inhibit_switch = false;
- 	bool wa_applied = false;
-+	bool clamped_below_maxcnt = false;
-+
-+	if ((!IS_SRIOV_VF(gt_to_xe(gt)) && XE_GT_WA(gt, 16023105232)) ||
-+	    XE_GT_WA(gt, 14025941587)) {
-+		u32 mincnt_idledly_ns = 5000;
+ 	const struct geni_i2c_clk_fld *itr;
++	unsigned long res_freq;
  
--	if (!IS_SRIOV_VF(gt_to_xe(gt)) && XE_GT_WA(gt, 16023105232)) {
- 		/* xe_gt_clock_init() warns and zeroes timestamp_base on unknown crystal clock. */
- 		if (!idledly_units_ps)
- 			return;
+-	if (clk_get_rate(gi2c->se.clk) == 32 * HZ_PER_MHZ)
++	/*
++	 * Frequency counter tables are calibrated for a specific source
++	 * clock frequency and are not valid for any multiple of it
++	 * (e.g. 64 MHz, 128 MHz).
++	 * Use exact=true and verify res_freq matches req_freq literally
++	 * to reject harmonics: a 64 MHz clock that divides evenly to
++	 * 32 MHz would pass exact matching but produce double the intended
++	 * I2C frequency with these counter values.
++	 */
++	if (!geni_se_clk_freq_match(&gi2c->se, GENI_SE_CLK_32MHZ,
++				    &gi2c->clk_idx, &res_freq, true) &&
++	    res_freq == GENI_SE_CLK_32MHZ) {
+ 		itr = geni_i2c_clk_map_32mhz;
+-	else
++	} else if (!geni_se_clk_freq_match(&gi2c->se, GENI_SE_CLK_19P2MHZ,
++					   &gi2c->clk_idx, &res_freq, true) &&
++		   res_freq == GENI_SE_CLK_19P2MHZ) {
+ 		itr = geni_i2c_clk_map_19p2mhz;
++	} else {
++		dev_err(gi2c->se.dev,
++			"Unsupported SE source clock: must be exactly 32 MHz or 19.2 MHz\n");
++		return -EINVAL;
++	}
  
--		idledly = xe_mmio_read32(&gt->mmio, RING_IDLEDLY(hwe->mmio_base));
-+		idledly_reg_val = xe_mmio_read32(&gt->mmio, RING_IDLEDLY(hwe->mmio_base));
- 		maxcnt = xe_mmio_read32(&gt->mmio, RING_PWRCTX_MAXCNT(hwe->mmio_base));
- 
--		inhibit_switch = idledly & INHIBIT_SWITCH_UNTIL_PREEMPTED;
--		idledly = REG_FIELD_GET(IDLE_DELAY, idledly);
-+		inhibit_switch = idledly_reg_val & INHIBIT_SWITCH_UNTIL_PREEMPTED;
-+		idledly = REG_FIELD_GET(IDLE_DELAY, idledly_reg_val);
- 		idledly = DIV_ROUND_CLOSEST_ULL((u64)idledly * idledly_units_ps, 1000);
-+		idledly_hw = idledly;
- 		maxcnt = REG_FIELD_GET(IDLE_WAIT_TIME, maxcnt);
- 		maxcnt *= maxcnt_units_ns;
- 
--		/* Clear the inhibit switch without disturbing a valid delay. */
--		if (inhibit_switch)
-+		/*
-+		 * Wa_14025941587 is applied before Wa_16023105232, which takes
-+		 * priority if the two ever conflict (not expected in practice).
-+		 */
-+		if (XE_GT_WA(gt, 14025941587) &&
-+		    idledly < mincnt_idledly_ns) {
-+			idledly = mincnt_idledly_ns;
- 			wa_applied = true;
-+		}
- 
--		if (xe_gt_WARN_ON(gt, idledly >= maxcnt)) {
--			/* Floor below maxcnt; write 0 to still clear the inhibit bit. */
--			idledly = maxcnt ?
--				DIV_ROUND_DOWN_ULL((u64)(maxcnt - 1) * 1000,
--						   idledly_units_ps) : 0;
--			wa_applied = true;
-+		if (XE_GT_WA(gt, 16023105232)) {
-+			/* Clear the inhibit switch without disturbing a valid delay. */
-+			if (inhibit_switch) {
-+				idledly_reg_val &= ~INHIBIT_SWITCH_UNTIL_PREEMPTED;
-+				wa_applied = true;
-+			}
-+
-+			/* Warn only on the value read from hardware. */
-+			xe_gt_WARN_ON(gt, idledly_hw >= maxcnt);
-+
-+			if (idledly >= maxcnt) {
-+				/* maxcnt may be 0 if IDLE_WAIT_TIME is unprogrammed. */
-+				idledly = maxcnt ? maxcnt - 1 : 0;
-+				clamped_below_maxcnt = true;
-+				wa_applied = true;
-+			}
+ 	while (itr->clk_freq_out != 0) {
+ 		if (itr->clk_freq_out == gi2c->clk_freq_out) {
+ 			gi2c->clk_fld = itr;
++			dev_dbg(gi2c->se.dev,
++				"I2C clk selected: freq: %u Hz, clk_idx: %u\n",
++				gi2c->clk_freq_out, gi2c->clk_idx);
+ 			return 0;
  		}
- 
--		if (wa_applied)
--			xe_mmio_write32(&gt->mmio, RING_IDLEDLY(hwe->mmio_base),
--					REG_FIELD_PREP(IDLE_DELAY, idledly));
-+		if (wa_applied) {
-+			u32 idledly_ticks;
-+
-+			/*
-+			 * Wa_16023105232 requires idledly < maxcnt, so floor
-+			 * that clamp; otherwise round up to guarantee the
-+			 * Wa_14025941587 minimum survives tick quantization.
-+			 */
-+			if (clamped_below_maxcnt)
-+				idledly_ticks = idledly_floor_ticks(idledly, idledly_units_ps);
-+			else
-+				idledly_ticks = DIV_ROUND_UP_ULL((u64)idledly * 1000,
-+								 idledly_units_ps);
-+
-+			/*
-+			 * Tick quantization can still push the rounded-up value
-+			 * to/above maxcnt; re-floor here so Wa_16023105232 keeps
-+			 * priority even in that case.
-+			 */
-+			if (!clamped_below_maxcnt && XE_GT_WA(gt, 16023105232) &&
-+			    (u64)idledly_ticks * idledly_units_ps >= (u64)maxcnt * 1000) {
-+				xe_gt_dbg(gt, "idledly %s: %u ticks would exceed maxcnt=%u, so flooring\n",
-+					  hwe->name, idledly_ticks, maxcnt);
-+				idledly = maxcnt ? maxcnt - 1 : 0;
-+				idledly_ticks = idledly_floor_ticks(idledly, idledly_units_ps);
-+			}
-+
-+			idledly_reg_val &= ~IDLE_DELAY;
-+			idledly_reg_val |= REG_FIELD_PREP(IDLE_DELAY, idledly_ticks);
-+			xe_gt_dbg(gt, "idledly %s: set %u max=%u inh=%u ts=%u\n",
-+				  hwe->name, idledly, maxcnt,
-+				  !!inhibit_switch, gt->info.timestamp_base);
-+			xe_mmio_write32(&gt->mmio,
-+					RING_IDLEDLY(hwe->mmio_base),
-+					idledly_reg_val);
-+		}
+ 		itr++;
  	}
++
++	dev_err(gi2c->se.dev, "Unsupported I2C output frequency %u Hz\n", gi2c->clk_freq_out);
++
+ 	return -EINVAL;
  }
  
-diff --git a/drivers/gpu/drm/xe/xe_wa_oob.rules b/drivers/gpu/drm/xe/xe_wa_oob.rules
-index 132a41859ab7..00c58b3ca9c2 100644
---- a/drivers/gpu/drm/xe/xe_wa_oob.rules
-+++ b/drivers/gpu/drm/xe/xe_wa_oob.rules
-@@ -65,3 +65,5 @@
+@@ -186,7 +215,7 @@ static void qcom_geni_i2c_conf(struct geni_i2c_dev *gi2c)
+ 	const struct geni_i2c_clk_fld *itr = gi2c->clk_fld;
+ 	u32 val;
  
- 14025883347	MEDIA_VERSION_RANGE(1301, 3500)
- 		GRAPHICS_VERSION_RANGE(2004, 3005)
-+14025941587	GRAPHICS_VERSION_RANGE(2001, 3511), FUNC(xe_rtp_match_not_sriov_vf)
-+		MEDIA_VERSION_RANGE(1301, 3503), FUNC(xe_rtp_match_not_sriov_vf)
+-	writel_relaxed(0, gi2c->se.base + SE_GENI_CLK_SEL);
++	writel_relaxed(gi2c->clk_idx, gi2c->se.base + SE_GENI_CLK_SEL);
+ 
+ 	val = (itr->clk_div << CLK_DIV_SHFT) | SER_CLK_EN;
+ 	writel_relaxed(val, gi2c->se.base + GENI_SER_M_CLK_CFG);
+@@ -823,8 +852,7 @@ static int geni_i2c_probe(struct platform_device *pdev)
+ 
+ 	ret = geni_i2c_clk_map_idx(gi2c);
+ 	if (ret)
+-		return dev_err_probe(dev, ret, "Invalid clk frequency %d Hz\n",
+-				     gi2c->clk_freq_out);
++		return ret;
+ 
+ 	gi2c->adap.algo = &geni_i2c_algo;
+ 	init_completion(&gi2c->done);
 -- 
-2.55.0
+2.53.0
 
