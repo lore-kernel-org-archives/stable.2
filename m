@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E87950B43F
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 11:50:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2252E50B43F
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 11:50:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790682648; cv=none; b=lUQ0N4PpXrdq+cGW31l0kATKgjL9ab8897BzyhJJfwlfbFTu2TqSJZ4T/3FXGJav+PM0hKAQU8jlJrOK6l774iRNFTG8cMuIqI03T5rdiY3yRKf/LvWsTeVvCqMyqyfIGVIZt86gkw7T0jRu9QSUV7lPsEivPJEaw1itfzFeiwc=
+	t=1790682651; cv=none; b=i9s/oojAqXgUaUEx1VJAOprHCRuwN01C8YYHpqKrUv7CZomRCclrpbytiuFOsbasJRvqQFGl3zSpoBYWcbkr6SJktaMzILUjlH2QqH3rhxLRjgCOary3nZn9zO3FDGDLf3LSHs9JfthjSJHcj6ZGuwdLcTVLvXMT+vFTPp+5Glo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790682648; c=relaxed/simple;
-	bh=DzgaHvTf6ePiJzAB2e2N7/d64rQcTZljeInXZmgl2Kk=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=OQ6F5JB7RVqJm5ZJs5Y82+DsXl0icFTvXLlinUdoq4RFTFTDujejNDpxRUiQ2qAJmatl3ZG+dXl+0KE7bwMBnbLY2sKGu5WFkz7pIgSAh6NyLDzbtkvYudPUUX2y4ICyxZ09ZCCW+amhGZENeWXB/1ahh5PReVrNPZpeM2UZUVc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=TulboEy+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790682651; c=relaxed/simple;
+	bh=0E7WxkWZp8hPI3oalM2C26C+C8LtfWyoy7ePi2pal2k=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=CLtV/dlDbhK+2vb4AETd/VZnp7CLMLGeX3wGidMEhgbg1cR4MGxsAI46nHt1/h3nENsd6tibF/aLhgI9Y/iU9JeGAGZyTZKzj4rwTFNGSZ12mZ0fcBF3cTnTjf/keqU342rhrQQHG1u6n3Vd44J2Tl45j9AkIc5nN7AQBMcCiFw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=wGqM9Y3b; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="TulboEy+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23F051F00898;
-	Tue, 29 Sep 2026 11:50:45 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="wGqM9Y3b"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7422F1F00898;
+	Tue, 29 Sep 2026 11:50:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790682646;
-	bh=cVa3iKw9MX+4eSYww1Q5YVfmFnS0uQW8yOynW1A2uOE=;
+	s=korg; t=1790682650;
+	bh=rGXd4bWiVrDo7hohpJehg6LiqwshrfZyRj4KBdV4yfU=;
 	h=Subject:To:Cc:From:Date;
-	b=TulboEy+kNRY4ldQSG6znLzuy4uwzXcU149TVcQlnLcp1Z+oJYCG48M1w++hKoN+F
-	 5EGjBWEHQy5YPlBQABnDpJUmTH93leRzk+RHvGInBbOoIwM72n9UJcB8PDHXWkt7Wj
-	 f2pwvkh2ynWHjWcMJBfyOghU91DPBTF1T8354frU=
-Subject: FAILED: patch "[PATCH] smb: client: fix create context out-of-bounds reads" failed to apply to 5.15-stable tree
+	b=wGqM9Y3b8M9POvYpj0QMs5YwGbO2W9674WqMzopeevUvxqj64IN6ZWCgAhKsrEu2a
+	 uxOxEV76P3yORX0ilH7CwakvKsrsVQilYlKbyOkfXd6Bze1uL9MpQxg+8aPneZVErH
+	 HGX0E7N3+tJ5Tknn+s8mp8yBpWrinRWu7T7sSwLg=
+Subject: FAILED: patch "[PATCH] smb: client: close handle after create-context parsing" failed to apply to 6.18-stable tree
 To: zihanx@nebusec.ai,pc@manguebit.org,root@tr0jan.top,sorenson@redhat.com,vega@nebusec.ai
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 29 Sep 2026 13:50:30 +0200
-Message-ID: <2026092930-badly-dust-d0e0@gregkh>
+Date: Tue, 29 Sep 2026 13:50:44 +0200
+Message-ID: <2026092944-consensus-idealism-4247@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 67f4c1c6a1b51e203d986779299824d1c2c590a6
+git cherry-pick -x 566820af017e81497fb5e9d3ad6e7ffe2828bc8b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092930-badly-dust-d0e0@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092944-consensus-idealism-4247@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,33 +62,21 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 67f4c1c6a1b51e203d986779299824d1c2c590a6 Mon Sep 17 00:00:00 2001
+From 566820af017e81497fb5e9d3ad6e7ffe2828bc8b Mon Sep 17 00:00:00 2001
 From: Zihan Xi <zihanx@nebusec.ai>
-Date: Wed, 16 Sep 2026 15:29:24 +0000
-Subject: [PATCH] smb: client: fix create context out-of-bounds reads
+Date: Wed, 16 Sep 2026 15:29:26 +0000
+Subject: [PATCH] smb: client: close handle after create-context parsing
+ failure
 
-smb2_parse_contexts() validates the complete create-context area but
-does not limit each record to its Next field before dispatching it.  A
-malformed chain can therefore expose bytes beyond the current context to
-a handler.  The QFid handler also used a full response-structure cast
-although it only reads DiskFileId.
+SMB2_open() accounts a successful CREATE response as a remote open before
+parsing its create contexts.  If smb2_parse_contexts() rejects malformed
+context data, SMB2_open() returns without closing the handle, leaving the
+server-side handle open and num_remote_opens elevated.
 
-The SMB2/SMB3 lease parsers made the same layout assumption: they read
-LeaseState and LeaseFlags at canonical offsets rather than at
-DataOffset.  A valid non-canonical DataOffset could therefore yield
-unrelated in-bounds data, while a short DataLength was still accepted.
+Close the handle after a post-CREATE context parsing failure so the error
+path releases the remote resource and balances the open count.
 
-Limit each context to its Next value, reject offsets before the context
-header, and reject malformed chains.  Bound the name range by the current
-context and do not dispatch a known handler when DataLength is zero.  Read
-the QFid DiskFileId only when the context data covers that field.  Parse the
-lease context from DataOffset and require DataLength to match the v1 or v2
-lease_context size used by ksmbd.  A size mismatch skips lease parsing
-without failing the open.
-
-Fixes: b8c32dbb0deb ("CIFS: Request SMB2.1 leases")
-Fixes: f047390a097e ("CIFS: Add create lease v2 context for SMB3")
-Fixes: 89a5bfa350fa ("smb3: optimize open to not send query file internal info")
+Fixes: af1689a9b770 ("smb: client: fix potential OOBs in smb2_parse_contexts()")
 Cc: stable@vger.kernel.org
 Reported-by: Vega <vega@nebusec.ai>
 Assisted-by: LLM
@@ -98,155 +86,18 @@ Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
 Tested-by: Frank Sorenson <sorenson@redhat.com>
 Signed-off-by: Paulo Alcantara <pc@manguebit.org>
 
-diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
-index 3464470d3297..aa142420dae2 100644
---- a/fs/smb/client/smb2ops.c
-+++ b/fs/smb/client/smb2ops.c
-@@ -4572,25 +4572,37 @@ smb3_create_lease_buf(u8 *lease_key, u8 oplock, u8 *parent_lease_key, __le32 fla
- static __u8
- smb2_parse_lease_buf(void *buf, __u16 *epoch, char *lease_key)
- {
--	struct create_lease *lc = (struct create_lease *)buf;
-+	struct create_context *cc = buf;
-+	struct lease_context lc;
- 
- 	*epoch = 0; /* not used */
--	if (lc->lcontext.LeaseFlags & SMB2_LEASE_FLAG_BREAK_IN_PROGRESS_LE)
-+	if (le32_to_cpu(cc->DataLength) != sizeof(lc))
-+		return 0;
-+
-+	memcpy(&lc, (u8 *)cc + le16_to_cpu(cc->DataOffset), sizeof(lc));
-+	if (lc.LeaseFlags & SMB2_LEASE_FLAG_BREAK_IN_PROGRESS_LE)
- 		return SMB2_OPLOCK_LEVEL_NOCHANGE;
--	return le32_to_cpu(lc->lcontext.LeaseState);
-+	return le32_to_cpu(lc.LeaseState);
- }
- 
- static __u8
- smb3_parse_lease_buf(void *buf, __u16 *epoch, char *lease_key)
- {
--	struct create_lease_v2 *lc = (struct create_lease_v2 *)buf;
-+	struct create_context *cc = buf;
-+	struct lease_context_v2 lc;
- 
--	*epoch = le16_to_cpu(lc->lcontext.Epoch);
--	if (lc->lcontext.LeaseFlags & SMB2_LEASE_FLAG_BREAK_IN_PROGRESS_LE)
-+	if (le32_to_cpu(cc->DataLength) != sizeof(lc)) {
-+		*epoch = 0;
-+		return 0;
-+	}
-+
-+	memcpy(&lc, (u8 *)cc + le16_to_cpu(cc->DataOffset), sizeof(lc));
-+	*epoch = le16_to_cpu(lc.Epoch);
-+	if (lc.LeaseFlags & SMB2_LEASE_FLAG_BREAK_IN_PROGRESS_LE)
- 		return SMB2_OPLOCK_LEVEL_NOCHANGE;
- 	if (lease_key)
--		memcpy(lease_key, &lc->lcontext.LeaseKey, SMB2_LEASE_KEY_SIZE);
--	return le32_to_cpu(lc->lcontext.LeaseState);
-+		memcpy(lease_key, lc.LeaseKey, SMB2_LEASE_KEY_SIZE);
-+	return le32_to_cpu(lc.LeaseState);
- }
- 
- static unsigned int
 diff --git a/fs/smb/client/smb2pdu.c b/fs/smb/client/smb2pdu.c
-index 880ce12f50c4..4046500dbe93 100644
+index 538d708b0404..3d7ead36d1a0 100644
 --- a/fs/smb/client/smb2pdu.c
 +++ b/fs/smb/client/smb2pdu.c
-@@ -2379,11 +2379,17 @@ create_reconnect_durable_buf(struct cifs_fid *fid)
- static void
- parse_query_id_ctxt(struct create_context *cc, struct smb2_file_all_info *buf)
- {
--	struct create_disk_id_rsp *pdisk_id = (struct create_disk_id_rsp *)cc;
-+	u16 doff = le16_to_cpu(cc->DataOffset);
-+	u32 dlen = le32_to_cpu(cc->DataLength);
-+	u8 *beg;
+@@ -3416,6 +3416,9 @@ replay_again:
  
--	cifs_dbg(FYI, "parse query id context 0x%llx 0x%llx\n",
--		pdisk_id->DiskFileId, pdisk_id->VolumeId);
--	buf->IndexNumber = pdisk_id->DiskFileId;
-+	if (dlen < sizeof(__le64))
-+		return;
-+
-+	beg = (u8 *)cc + doff;
-+	memcpy(&buf->IndexNumber, beg, sizeof(__le64));
-+	cifs_dbg(FYI, "parse query id context 0x%llx\n",
-+		 le64_to_cpu(buf->IndexNumber));
- }
+ 	rc = smb2_parse_contexts(server, &rsp_iov, &oparms->fid->epoch,
+ 				 oparms->fid->lease_key, oplock, file_info, posix);
++	if (rc)
++		SMB2_close(xid, tcon, oparms->fid->persistent_fid,
++			   oparms->fid->volatile_fid);
  
- static void
-@@ -2431,6 +2437,7 @@ int smb2_parse_contexts(struct TCP_Server_Info *server,
- 	struct smb2_create_rsp *rsp = rsp_iov->iov_base;
- 	struct create_context *cc;
- 	size_t rem, off, len;
-+	size_t cc_len;
- 	size_t doff, dlen;
- 	size_t noff, nlen;
- 	char *name;
-@@ -2453,29 +2460,41 @@ int smb2_parse_contexts(struct TCP_Server_Info *server,
- 		buf->IndexNumber = 0;
- 
- 	while (rem >= sizeof(*cc)) {
-+		off = le32_to_cpu(cc->Next);
-+		if (off) {
-+			if ((off & 0x7) || off >= rem || off < sizeof(*cc))
-+				return -EINVAL;
-+			cc_len = off;
-+		} else {
-+			cc_len = rem;
-+		}
-+
- 		doff = le16_to_cpu(cc->DataOffset);
- 		dlen = le32_to_cpu(cc->DataLength);
--		if (check_add_overflow(doff, dlen, &len) || len > rem)
-+		if (doff < sizeof(*cc) ||
-+		    check_add_overflow(doff, dlen, &len) || len > cc_len)
- 			return -EINVAL;
- 
- 		noff = le16_to_cpu(cc->NameOffset);
- 		nlen = le16_to_cpu(cc->NameLength);
--		if (noff + nlen > doff)
-+		if (noff < sizeof(*cc) ||
-+		    check_add_overflow(noff, nlen, &len) || len > cc_len ||
-+		    (dlen && len > doff))
- 			return -EINVAL;
- 
- 		name = (char *)cc + noff;
- 		switch (nlen) {
- 		case 4:
--			if (!strncmp(name, SMB2_CREATE_REQUEST_LEASE, 4)) {
-+			if (dlen && !strncmp(name, SMB2_CREATE_REQUEST_LEASE, 4)) {
- 				*oplock = server->ops->parse_lease_buf(cc, epoch,
- 								       lease_key);
--			} else if (buf &&
-+			} else if (dlen && buf &&
- 				   !strncmp(name, SMB2_CREATE_QUERY_ON_DISK_ID, 4)) {
- 				parse_query_id_ctxt(cc, buf);
- 			}
- 			break;
- 		case 16:
--			if (posix && !memcmp(name, smb3_create_tag_posix, 16))
-+			if (dlen && posix && !memcmp(name, smb3_create_tag_posix, 16))
- 				parse_posix_ctxt(cc, buf, posix);
- 			break;
- 		default:
-@@ -2487,13 +2506,18 @@ int smb2_parse_contexts(struct TCP_Server_Info *server,
- 		}
- 
- 		off = le32_to_cpu(cc->Next);
--		if (!off)
-+		if (!off) {
-+			rem = 0;
- 			break;
-+		}
- 		if (check_sub_overflow(rem, off, &rem))
- 			return -EINVAL;
- 		cc = (struct create_context *)((u8 *)cc + off);
- 	}
- 
-+	if (rem)
-+		return -EINVAL;
-+
- 	if (rsp->OplockLevel != SMB2_OPLOCK_LEVEL_LEASE)
- 		*oplock = rsp->OplockLevel;
- 
+ 	trace_smb3_open_done(xid, rsp->PersistentFileId, tcon->tid, ses->Suid,
+ 			     oparms->create_options, oparms->desired_access,
 
