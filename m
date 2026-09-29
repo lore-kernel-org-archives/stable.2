@@ -1,250 +1,236 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lr2-f34.google.com (mail-lr2-f34.google.com [74.125.230.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86D49395AD3;
-	Tue, 29 Sep 2026 07:06:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8314B3859EC
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 07:16:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.98
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790665565; cv=fail; b=BrPbCwIjNe8LbLrik2+JyiU7gy7yvxtxGyr4x4XN2VddSA3dm6tM1+DAcYkHOZSuCNYLieUZo5PrKbL1BrCpMLmcs4KsTeue101UX1wiKKkgqSkSkxyBnp5BPqtuRPlP5lDjwKXKk+688qATFEtIpYo7DHT7fHA0Kh/W/EakQ08=
+	t=1790666198; cv=pass; b=EgYId8YhfrstX0SAP+kRk8ztEpZgtB+lLveXFdfyYtKf7RC0bSnf7OddQQuB++i7u/rsrEDsiPSAHkWrG5TEJhc3u/whKT5pazPRqZDfg1Gp+K0mHGAk9MdyXEcovX3pZbiMP/WIXMa+T+j6fTqS9pZ4+5LasrV0z8oo2Pwrtc4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790665565; c=relaxed/simple;
-	bh=uSmVN5T/eWDAZDSJp8gbDnE0GaPykH6pvJRRgLM01+4=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=gmh7+djo5bijeQCf7S/JaBS7E3v1dxS/miGlRFJd6jx05gwuaPg+LwSoojE0dD4uuhIVLDI8pJcGGlJQzxDybkm4J2ZmzKFP8rlo1zPtd+7WfTpmvVB2GXciesPnitKss6AdgrxngIQ3phWmr+CCV9DS4JA67BWs5YEs67+kcOA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=h2v/upRL; arc=fail smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790666198; c=relaxed/simple;
+	bh=3FsesW7qrrCUuDxnT67q/DYl7INNeb4HegPSlzYOH6s=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=CEhdw4WqGx09UTBGL5Ic9JKJqOMshRJsT+EUS0h//Q42bkl60Yr9cU7mZe7DYp97CTSb9Ds7wynHgbQBGpBsmNt/SD3qRaXtsaxqFqKNjvkEOrhx60MLUrk7U5UTgMs+A1P0bie+xwqp07NQ/qkAbBnnN4+1+79niDrbQ7nAP88=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cloud.ionos.com; spf=pass smtp.mailfrom=ionos.com; dkim=pass (2048-bit key) header.d=cloud.ionos.com header.i=@cloud.ionos.com header.b=C9y2i9r1; arc=pass smtp.client-ip=74.125.230.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cloud.ionos.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="h2v/upRL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790665563; x=1822201563;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=uSmVN5T/eWDAZDSJp8gbDnE0GaPykH6pvJRRgLM01+4=;
-  b=h2v/upRLXPRGR+/Wk5W1bvqdD/ARfVMEFvQ7oH+qvIMeYPeZzeIBW6CZ
-   j+hEr0rzhZyKJs56ujSmCsJIOlnRKoqytdjKBeOshNhAbnY/4zI5oKzg7
-   lo/poBZsUnTa3H4XMswlbrRFgSFIXVkmPVi0CrX1z7G+J4Xd8iRX0YgEs
-   iAM8IujCMK+t18n0uRDr5E1NXGxcyl07klIYD4hxjO8jLIV6yzitc9euO
-   Z3ib1U7R63PQBrq8mG2XiRLUPr3iepIbqrBFyAwu2E9e/nk7G4NtLlrPc
-   nFLVBKeC1mSZ1VAv4ZSt8JkLodBUN8rWBhaKYHxkmDTPBsqpQG4yzCFF8
-   Q==;
-X-CSE-ConnectionGUID: cawcdjGRSs+CtBiQPp8caQ==
-X-CSE-MsgGUID: zHYpfs6JSyigLSPGoOurWg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="90506010"
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="90506010"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 00:06:03 -0700
-X-CSE-ConnectionGUID: xOHc1UF6Rc2JoSWRjUB7uQ==
-X-CSE-MsgGUID: H1gM2MRhQs6t4b2pLHZYPg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="313233171"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
-  by orviesa001.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 00:06:03 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 29 Sep 2026 00:06:02 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Tue, 29 Sep 2026 00:06:02 -0700
-Received: from DM1PR04CU001.outbound.protection.outlook.com (52.101.61.49) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 29 Sep 2026 00:06:01 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AJFrdt+ksSHObiGGlvm+4/jWGWer5llz9BF3Ak2dBiGDM60StSMVl9GLeLHGzJs9RyvhtRtqSt2xQMpSLyHsjIkDPzIEsTimXMY+TeGN8QXE9Qoc+8y63RyO0rUYh1U8XTwOM7joIy+NEj4GqGOYTnArbgq1qxoyhx2YaIJAgiO0Gsv6JycLa8xAPHkJwxfLrkLgmuVoeBCnk5Mag9mevwghI6Lt4a4PErIcYfZPqJiH3A4lWgr36ulaHpaOYAesr5EK82pFWGlOMZihOlQIxZQxBGvwNGAJcZI8E9vBOmrB21YS0jF5gGKNzYWj/dgE917xByFqnHkwFK3A2Tm5Sg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QiXQWTzal2TQsxYZt24mhvX31R5Vm65qsBG5yz2cIWA=;
- b=pOAo0dpPQdVRQhMBGiiLppB0hHGPDxt00lyQX+gk9N/4Kk4Gwc/V1NVwd6uTH3zBm4f8eVaDOAnLs+09uTPcysFvd68APs+XhaxT8pPxfPMAtPhXhVMyVoEut6gXOPHz2zRfm7R3/d4NGbx2Gdf5IXOnWglR6YKZhm6/VXnvUB1N76RaTDochIQLl4PctUzAyYKhfxFIEXvF/kF4m7skf9zzhL/XNtno3fXS3htl1sDDWnWM3G/TpmRQLn1AxIaykefBOrnORjemXXXO02+bbQ/I8isVf3qe0/qArgjQd5IcqCpubQM3Ia/By8TWLOnUalFSxfgAUhRqFtqJmCQT1A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from IA3PR11MB8986.namprd11.prod.outlook.com (2603:10b6:208:577::21)
- by LV8PR11MB8511.namprd11.prod.outlook.com (2603:10b6:408:1ed::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
- 2026 07:05:59 +0000
-Received: from IA3PR11MB8986.namprd11.prod.outlook.com
- ([fe80::e6f0:6afb:6ef9:ab5c]) by IA3PR11MB8986.namprd11.prod.outlook.com
- ([fe80::e6f0:6afb:6ef9:ab5c%6]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
- 07:05:58 +0000
-From: "Loktionov, Aleksandr" <aleksandr.loktionov@intel.com>
-To: "Craig I. Hagan" <hagan@amazon.com>, "Nguyen, Anthony L"
-	<anthony.l.nguyen@intel.com>, "Kitszel, Przemyslaw"
-	<przemyslaw.kitszel@intel.com>
-CC: Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
-	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	"intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>, Fabio Sabai
-	<sabfabio@amazon.com>, Matt Vollrath <tactii@gmail.com>
-Subject: RE: [PATCH iwl-net v3] e1000e: restore jumbo config after DMoff exit
-Thread-Topic: [PATCH iwl-net v3] e1000e: restore jumbo config after DMoff exit
-Thread-Index: AQHdT406ttcyAnMXPE6zqcyOO8pjAbblIsaA
-Date: Tue, 29 Sep 2026 07:05:58 +0000
-Message-ID: <IA3PR11MB898645A3712F13CE8E6F0B3CE58C2@IA3PR11MB8986.namprd11.prod.outlook.com>
-References: <b6db5335-cb5c-4a91-b823-1a114fce75a1@gmail.com>
- <20260928210552.13266-1-hagan@amazon.com>
-In-Reply-To: <20260928210552.13266-1-hagan@amazon.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA3PR11MB8986:EE_|LV8PR11MB8511:EE_
-x-ms-office365-filtering-correlation-id: 43e896b9-5ebb-476d-3c97-08df1df81d29
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|7416014|366016|376014|23010399003|4143699003|10067099003|11063799006|56012099006|6133799003|22082099003|18002099003|38070700021;
-x-microsoft-antispam-message-info: tmLPyv4pWr5pf/okURl+JnfvggWXub6+YMD99ecRkPhJ377uQo15LyM1NpqXat2xB9Kbkg7kP92QQsI83bqea7UhJAJ11FqvGoim+dVSbYhF9M1SwzguWtJizjXOk43UqlSEAKe1reZF8iLAKqCxb7tTFUR7b1mb+bparSmi1v+/rSc1GJnkZ+R/kEi6qYgdg5nvKN6rYBZpy0fmy4jbrkWuznC4kj9ftJG4FD2uweFDXBSUvXgE+lAeam3BzIOvZtjvvT0Iyz+uwUp76V+TV/N+7+SH2vh1N0WJcQON33llY7FY4dZHdJ1pCm2Upgg9zsJY9sXrakspPjoO1+BYQY4SVoE8/NNbXAnK5ImXswerztrcYOK3OpURH2g5tb+aJ7th24BLNxj/6rQ0jjQU1x4VUdWsWCRwi2NIdCSMLvMjr9vubwQOQNDPbYvm2z//uMJr5Y/RIjrZsC9TkaER/JCSpCmCR99uhnlHnh0AkoiEIvfwKAkioUYGXLBHctP70V/0Q6z4SAhTSVyn26NAQsS3i3/tp/Gu34rLdZzpidHJSQHWPk/7z1gkmcxtP40br66FbzAHcjA/9My8QVeN8tNcoU6/DHviOUODw+NrdQsgIEPniQ01yflgjEga3QpCnAn0tQAPh7aoMRKlbAzJ1RkB5zngJDOLopB8cWo2uO3+sZ5ObjdwDwOBr9lNaA46
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA3PR11MB8986.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(366016)(376014)(23010399003)(4143699003)(10067099003)(11063799006)(56012099006)(6133799003)(22082099003)(18002099003)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?clkNQcb6NLfRIPH4uUdtuqq3S/dDlDHHADTKqqZdofYOwXkJomia+tqs4aGV?=
- =?us-ascii?Q?rVAuZrBVPY0lphrfYuUv8Qf3ZIPJwEev5ODTo0MGD0Zw+zQx1j0MU5ABoFSd?=
- =?us-ascii?Q?zlLuqldsbH7Kd5ATjuL7e+TWc4gfHwGXa1T9yZqiqoejwtuzMxXqRTrO5O/f?=
- =?us-ascii?Q?6OrkLhHav8s5h38GAPk5m02WmqjQipWyRayFkxp3LsngcifNVG5WhnbM0riE?=
- =?us-ascii?Q?Y2NK1d7cSRl7mnjFnprXzKumDB3OF3K6UTdXxXgVii+aH1KH7Ya2ejoXdWJZ?=
- =?us-ascii?Q?EeTMPSeULuhERPJVrXXHz6Xb4gPDn+/RbK+vlZMszHt3jo3tW0RLAIvJzE8j?=
- =?us-ascii?Q?0tuh5e0B7tkRqnzfSVaMhRdm8oNCASlQInLNRkgWjVGNV1vVKuVKp+5V6d0C?=
- =?us-ascii?Q?i6242ETRkIaL5egO1DnvHSijRM2owWmxXSjVd/kbJw2LeMKYiWWacmoPTw/1?=
- =?us-ascii?Q?Q7O2cmqtMa3rPCi76345ebqc7Gf7CahPP0lXVs1BxfSNQDTTuhAg5DZ7Fk9U?=
- =?us-ascii?Q?IwDUUacfwAJsB8VEOlvup/OXFmfx2Sk6Hjm2faOycp5PA9QZcJrpHNXJubm3?=
- =?us-ascii?Q?VpgGxpa26B+g3ltzTXQ3AuxVaIz0bEKobZ+zlU8ORVQd/KroUxuq15UJthOF?=
- =?us-ascii?Q?tzyP9nZ826StsAqwDY1Y1sueXeHfSEppnxM82LYk94bYtLx7UZAxrarl7Pce?=
- =?us-ascii?Q?spDi8CpWD3xSBx+eyXN/h7gntL7CE0eF6qjs5j0oQWF4L5v47P0Q/6lEe2em?=
- =?us-ascii?Q?tg47JXozth9EEvZJt81Cy4CUj5Gn2p4mu3/fJh0di9xFccSawAwIUe1sYQK+?=
- =?us-ascii?Q?xEoVExHMktfQAC3Zv/T4NDmT7jg8YHo4uzhxDNX4q89bv+rnP0JcgxI92lsk?=
- =?us-ascii?Q?jgz4IMAH4XbzLS0PgLC/+Y+Un0x6s6kAVT6Jia/HvcsnN3WOa+jXlfE9uIh/?=
- =?us-ascii?Q?LYSLzfnOgslNqCXR3G6Lya57oAv9STsL5r78vBUns7TvE7eR6nJQAmK5kMnI?=
- =?us-ascii?Q?ibtsfCY+rNeiRJi3OGd2g0NYsL/vh92pgxfiQCqDaT55qTAo/KUGNk9eURZC?=
- =?us-ascii?Q?t0ti6C94TUbrfxbKXkEUvxbkyR+FT34dFGxhjAPrC8fJJK0mfDjp5No3TWeY?=
- =?us-ascii?Q?uj1oKJewMcXw7aOtX0LXAvRH/sHsHpuD+dSlHaAQ6z5I1H83Vm/PS/vxV7wM?=
- =?us-ascii?Q?StW0zHYxtYIUj5/TZAlrdf9nTY3jL0JOxuVcvEx3soh92OHr9DzWaGfrqIVg?=
- =?us-ascii?Q?tmraafJ/F4tT/oq8LadMSN5rUAYij0oG90zdSxcBgzJpHeLqp0auuHdPWudu?=
- =?us-ascii?Q?ZPql8K+kyKiNDyI6t2L5540XOrdnSAVj0v2XeF7t1cgK+rec8qkTmbcnG6mL?=
- =?us-ascii?Q?mVwp+BeaKdZHVenzjds5cZHs/FO4l87pzF6M/n5lsUU49ldKZRRpeBKyVFkw?=
- =?us-ascii?Q?j9Hn/h7BlJ2LQ8LmoGXuymBRLrlSGF+I67cNF8w/on0NBnV5+raVDabs+m10?=
- =?us-ascii?Q?TrGjXiBp+kkA1y9n3igO3MmsTivzEDF8RGavo4CHPpCdbMYKiaz/QJaq6SKf?=
- =?us-ascii?Q?+lUaWQ2zUbi0sCPNklAxFiYF0bIYywFCk5c2wJeB3uyFhV28B6QFiXo+F9yg?=
- =?us-ascii?Q?qpW701zqa18F3p1D6s6+pRwMJiXpSOdV5a7BisXT2kR7Ued1hiUDfo8b/BLk?=
- =?us-ascii?Q?8oo4oK7JEhobisxaYbtZYjUiBHVbKPZfIQcLXyh0Wx8eH9e74GCsK4cYYcCw?=
- =?us-ascii?Q?n3bwTPMU/eJ+nggtSUiejCNftWvU/J4=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=cloud.ionos.com header.i=@cloud.ionos.com header.b="C9y2i9r1"
+Received: by mail-lr2-f34.google.com with SMTP id 38308e7fff4ca-3a662e5f209so2100011fa.0
+        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 00:16:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790666193; cv=none;
+        d=google.com; s=arc-20260327;
+        b=s2ce1S9oAE7ZC+Uu/nLZsr1a75RuYrvzD7oGDdX4cCIgKKvlRjlCreRbp6l+m5M+kT
+         n65XNXV7hgVdHXz2b2CCdbeQYEVSVMqxV6lcjiNvGnx4sN1MicA8Q9aHC0mxktWuVlGu
+         ek8K+buVFSdX5pIJDq3N9Ccl6CynzInfFX0rdKMA+72lD6hjP0kxXVFSwViCdO/20fFd
+         XolwvYh2ESNr3LwLXojz1qQF867hfMuRw4OMDsj3T61NUDJq1s81KUq7upq4zfYz04lZ
+         d+RjNWCB0jY1jiC9DrqpK2yfOttA7yF75PFcHJix6fuLQbw78c6rKZu3RiD/wrg+T/np
+         Leqg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=WhgHZwKUgXgdevQt+gPZYqRRgdry8oanfBmQ6gGzpUM=;
+        fh=Z7YoGaTio0VzEszW49Ps3RZWSKxDgJo8SQi1SiTxMwQ=;
+        b=P8G8D6MJlV7qrG0SBx6NkUwnUAW5B9Nv/nWONneKaNa6DC1SbQX1b9A/hqWLqZO6In
+         ism5mgzWHdFrpAf99cQmISEmO9ZgYgu0AjzJVX12iBIMFjXuNCu4I7clHJ25A2SqjZAE
+         y+A8fQofc7I18LFKL/uGprh2J2EyS9ZZWliSqcL+a8uHzSUZlC+8ZXN75VJCUsDgoudC
+         N9/DhrRYg1CMaurClaIsYnGhGmr/OXpjoj4pIQ3vdpLirZE4LfKJUazMe0XlbJ0Sj/KA
+         eCMfLHGWvQdD5J7qu7yMcCViWanBuPauDn85eaZBSdYpGhWx/EaLi7yvduG4XB5Bh+F9
+         /Xlw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.ionos.com; s=google; t=1790666193; x=1791270993; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WhgHZwKUgXgdevQt+gPZYqRRgdry8oanfBmQ6gGzpUM=;
+        b=C9y2i9r1j+abclBoOnqaI9fatGircUXum24g0sKw3NK7bURGU2AcCfFg11X4S1oimq
+         vE0ApKXR3htEidqDiW7H1dhaOW//Gymqz8yY65NLD/JbZGqbFrTjlKEy9qbNxZDkA388
+         9jSreRK9rWJIsYKGFi6s9WWsTNnCq7l6++7Hk0ob7pfA6Ml+wmKwVzmU6HVcKdUISsvQ
+         SVRcK3hn2aynHjxca4g5C3p5a454Kuq99xjbM3kXYQoiyYbkqd22gEr1i/3ntFv3DSB+
+         OhaSIB774ke6O0Imb8m2BXOj1cPHGbj7ms0kDKV0OpJEFStSZyKkDY5YjjXPmG1YLFPq
+         Gbdw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790666193; x=1791270993;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WhgHZwKUgXgdevQt+gPZYqRRgdry8oanfBmQ6gGzpUM=;
+        b=lvSAT0fdP4TklP0sZxQ3NsY7pJXWZNw00qJUdEE6jZcMDoND/k4uw/PYgHlJq2INW7
+         ks7htlHEUYCkeTE4IrvF7IFHYPnGGdv7oRbuBNAdBK679BMtiKleKKkvgFbt0gHhXAh+
+         eQh8uERsFrVSDUkfzh81Eej4iKEMCrdR8W4zjnWyGN87RehV0cVzX7BHIBJKwZAuzcuJ
+         jwHZ5IgVaV7cN176H1rxoFk1LPRKYbJlpHRpo4FERjy9ZfuwoataPpCiX48ehWzzWFNJ
+         d5VHUCYY4T2g+aHQPzt8AYqpbe/9iwXZy4mVbttBcu3EvSBUrbsI9+zweyw1k+8yrjTP
+         PgrA==
+X-Forwarded-Encrypted: i=1; AKwUvBzYcgltVz372OQVTncqf3l5mzuLjfIkx5hlHN9bpUtCyj44sMwgCW26GjKmkpiyCZnZxv57aA8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL+PJp6VvxHW6MAqIsNIB79/lZHD2FZ4IwUiOvsQi43od4A044S
+	2JOaqEKn6kIM9XGrAN3iMA6pypvfaq4OGvOfQTQWbAzTzEVYsioh4b9xeiTbfN3YTZZhjnV9w5i
+	K9UQ4lgXIzehV/KShDNamv4tTmVwl7C3rTUJeMg+lkA==
+X-Gm-Gg: AYBFou0bunY/KhSb+LF7VDbP0aD3WYQIe93/cbUzCD2gOb7qd3bI47TF67Or+mCn3fd
+	WduuRP4L9V4CJeUTox6rIzygfGi5hqnLags7Dkh2n9hfVF68BLiMbw+qPJGxupcWBMyDF7jjTsH
+	MjMaPZoOprQCsvuPJQ/7iuoBapa5hkTH8ET5BMn7BjdIJAFzDkDRbEzTprksZKWKCjos+hwL1WU
+	3wuh0S4Joksh+2rRlygZEELO4Ja2L38j+uZjRnc3JJWz6s7rXPFJ8Kw7Sfg3SSNNQ25NT3b3Up/
+	ukdai067x6LHuJtzgQj3RG4m3KH1gamcCK4Fj1YgDWnFz6AYeGUViitHYuSYKzict2M=
+X-Received: by 2002:a05:6512:1396:b0:5b8:ea1f:120f with SMTP id
+ 2adb3069b0e04-5b8ea1f12b5mr4002276e87.6.1790666193242; Tue, 29 Sep 2026
+ 00:16:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: PZC9PzztxjXGHqiFrdoI3y5iuvfjS+07sNKov66u1HFdxiTrJWdPLJcjs6XkzTNYZBrPYif8IIYV3QaQcz2VGhWk+H9HMAHCf7tPxvgy/d1Rdc41iaiyYxTX0jJ+mEgo/GWpSq/FjcfmmPBnQoQdUNsbOz+virMWtMWKvCdhRu/WpKiRwtuiZSa6ySilmSaIKKd6bZ+QOa1g5njFizu8Yl/v3ITqvMBMMdcPtAN55cOiMHmUNAq60F/OerDSvD2FF2SOhE6kG+8dYEhf5WyKIat2trOCYIFPgLLUIRTqW2BMaPoldUyMMqgfZ+6q/nDO7HwAFa1QGD33NC0IbTYZLg==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB8986.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 43e896b9-5ebb-476d-3c97-08df1df81d29
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Sep 2026 07:05:58.7608
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: qBNh4A9L9JS3gIlBhKkKQrK7pztB8ujLBunRYkcKV226N2J/x1ez3HfPyaFHph8fEADYHM9ebev3rfxz4EmTQVGQ0U7zZdHboX7lxrcNLVs=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR11MB8511
-X-OriginatorOrg: intel.com
+References: <20260929054222.1576877-1-yhlee@isslab.korea.ac.kr>
+In-Reply-To: <20260929054222.1576877-1-yhlee@isslab.korea.ac.kr>
+From: Jinpu Wang <jinpu.wang@cloud.ionos.com>
+Date: Tue, 29 Sep 2026 09:16:20 +0200
+X-Gm-Features: AclHuK96qQhAQnCyE5jgVePYa6Ry3VCKnc88oqxBv8jb7K_-AxFU1N1PqJnE6f8
+Message-ID: <CAMGffEn6Ou6QhViG+M26iqyVP5vgv3VNPRGO14ydxjeAtc7mQw@mail.gmail.com>
+Subject: Re: [PATCH] RDMA/rtrs-clt: Reject a zero queue_depth in the
+ connection response
+To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Cc: haris.iqbal@ionos.com, Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+	Farhad Alemi <farhad.alemi@berkeley.edu>, linux-rdma@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Hi Yehyeong,
 
+Thx for your patch, there is a fix reviewed already:
+https://lore.kernel.org/linux-rdma/CAMGffEkQ8tZZcrLp2Sc7UyZoqAyBoYMdkPhGvHX=
+7RGqrwSmJzg@mail.gmail.com/
 
-> -----Original Message-----
-> From: Craig I. Hagan <hagan@amazon.com>
-> Sent: Monday, September 28, 2026 11:06 PM
-> To: Nguyen, Anthony L <anthony.l.nguyen@intel.com>; Kitszel,
-> Przemyslaw <przemyslaw.kitszel@intel.com>
-> Cc: Andrew Lunn <andrew+netdev@lunn.ch>; David S . Miller
-> <davem@davemloft.net>; Eric Dumazet <edumazet@google.com>; Jakub
-> Kicinski <kuba@kernel.org>; Paolo Abeni <pabeni@redhat.com>; intel-
-> wired-lan@lists.osuosl.org; netdev@vger.kernel.org; linux-
-> kernel@vger.kernel.org; stable@vger.kernel.org; Fabio Sabai
-> <sabfabio@amazon.com>; Matt Vollrath <tactii@gmail.com>
-> Subject: [PATCH iwl-net v3] e1000e: restore jumbo config after DMoff
-> exit
->=20
-> On an I219 (pch_spt+) at jumbo MTU, after a link partner reset (e.g. a
-> switch reboot) the interface can come back up unable to pass traffic
-> until it is manually reset. Observed on I219-LM (8086:15b7) at MTU
-> 9000.
->=20
-> When the MAC exits the DMoff state on link-up, the watchdog resets
-> only the PHY. A bare PHY reset does not re-run the jumbo-frame
-> workaround (e1000_lv_jumbo_workaround_ich8lan), so the jumbo
-> configuration is left unapplied and traffic stalls. This was seen with
-> NIC runtime PM disabled; if runtime PM were enabled, the device should
-> go through a full reset on resume, avoiding this issue.
->=20
-> Request a full reset (FLAG_RESTART_NOW) instead of the bare PHY reset
-> when the MAC exits DMoff, so the normal reset path re-applies the
-> jumbo-frame configuration.
->=20
-> Fixes: def4ec6dce39 ("e1000e: PCIm function state support")
+On Tue, Sep 29, 2026 at 7:43=E2=80=AFAM Yehyeong Lee <yhlee@isslab.korea.ac=
+.kr> wrote:
+>
+> rtrs_rdma_conn_established() stores the queue_depth the server advertises
+> in its cid 0 connection response without checking that it is usable.  The
+> only bound it ever had was an upper one, dropped in commit 0e8558476faf
+> ("RDMA/rtrs: Avoid Wtautological-constant-out-of-range-compare") because
+> it cannot fail for a u16; a lower bound was never there.  A server that
+> reports zero therefore leaves clt_path->queue_depth at 0, and setting up
+> the first I/O connection trips
+>
+>         if (WARN_ON(!clt_path->queue_depth))
+>
+> in create_con_cq_qp().  The connect is aborted, but the peer has already
+> tainted the kernel, and on a kernel built with panic_on_warn it panics
+> outright -- all from one field in the response to a connect.
+>
+> The rbufs array is sized from the same value one statement earlier, so it
+> is also allocated with zero elements, which kzalloc_objs() returns as
+> ZERO_SIZE_PTR.  Nothing dereferences it: the WARN aborts the connect
+> before any buffer is registered and the path is then freed, and a path
+> that already carries a nonzero depth is caught on reconnect by the
+> existing "queue depth changed" test.  The WARN is the whole of the damage=
+.
+>
+> The in-tree server never sends zero -- check_module_params() rejects
+> sess_queue_depth < 1 -- so this needs a hostile or broken server, but the
+> client should not rely on the peer for that.  Reject it before rbufs is
+> sized from it and before it is stored, but after the existing "queue dept=
+h
+> changed" test, so that a server which drops a nonzero depth to zero acros=
+s
+> a reconnect still takes that path and still disables auto-reconnect.
+>
+> Reproduced with rnbd-client over soft-RoCE against an rtrs-server patched
+> to advertise queue_depth =3D 0:
+>
+>   WARNING: drivers/infiniband/ulp/rtrs/rtrs-clt.c:1688 at
+>     rtrs_clt_rdma_cm_handler+0x1b27/0x29f0, CPU#0: kworker/u8:5/56
+>   Modules linked in:
+>   CPU: 0 UID: 0 PID: 56 Comm: kworker/u8:5 Not tainted
+>     7.3.0-rc5-nvmerdma-atk-g72d3fcf802c4-dirty #23 PREEMPT(lazy)
+>   Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix,
+>     1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+>   Workqueue: ib_addr process_one_req
+>   RIP: 0010:rtrs_clt_rdma_cm_handler+0x1b27/0x29f0
+>   Call Trace:
+>    <TASK>
+>    ? arch_stack_walk+0x94/0xf0
+>    ? __pfx_rtrs_clt_rdma_cm_handler+0x10/0x10
+>    ? ret_from_fork_asm+0x1a/0x30
+>    ? process_one_work+0x6b4/0x10e0
+>    ? stack_trace_save+0x8e/0xc0
+>    ? __pfx_stack_trace_save+0x10/0x10
+>    ? __kasan_slab_free+0x43/0x70
+>    ? stack_depot_save_flags+0x29/0x7e0
+>    ? worker_thread+0x45b/0xd10
+>    ? kthread+0x2c8/0x3b0
+>    ? ret_from_fork+0x36e/0x5a0
+>    ? _raw_spin_lock_irqsave+0x86/0xe0
+>    cma_cm_event_handler+0x3e/0x240
+>    addr_handler+0x1e0/0x300
+>    ? __pfx_addr_handler+0x10/0x10
+>    ? pick_task_fair+0x46f/0x1a60
+>    process_one_req+0x10d/0x510
+>    ? finish_task_switch.isra.0+0x1d9/0xa70
+>    ? __pfx_process_one_req+0x10/0x10
+>    process_one_work+0x6b4/0x10e0
+>    ? __pfx___schedule+0x10/0x10
+>    ? __pfx_process_one_work+0x10/0x10
+>    ? _raw_spin_lock_irq+0x81/0xe0
+>    ? __pfx_process_one_req+0x10/0x10
+>    ? assign_work+0x11d/0x370
+>    worker_thread+0x45b/0xd10
+>    ? __pfx_worker_thread+0x10/0x10
+>    ? __pfx_worker_thread+0x10/0x10
+>    kthread+0x2c8/0x3b0
+>    ? recalc_sigpending+0x15c/0x1e0
+>    ? __pfx_kthread+0x10/0x10
+>    ret_from_fork+0x36e/0x5a0
+>    ? __pfx_ret_from_fork+0x10/0x10
+>    ? __switch_to+0x572/0xdd0
+>    ? __pfx_kthread+0x10/0x10
+>    ret_from_fork_asm+0x1a/0x30
+>    </TASK>
+>   ---[ end trace 0000000000000000 ]---
+>
+>   rtrs_client L2644: <s1>: init_conns() failed: err=3D-EINVAL
+>     path=3D<invalid address family>@ip:10.0.0.1 [rxe0:1]
+>
+> With the check in place the same server is refused without a splat, and a=
+n
+> honest server is unaffected:
+>
+>   rtrs_client L1870: <s1>: Invalid RTRS message: queue_depth is 0
+>   rtrs_client L2649: <s1>: init_conns() failed: err=3D-ECONNRESET
+>     path=3D<invalid address family>@ip:10.0.0.1 [:0]
+>
+> Fixes: 6a98d71daea1 ("RDMA/rtrs: client: main functionality")
+> Reported-by: Farhad Alemi <farhad.alemi@berkeley.edu>
+> Closes: https://lore.kernel.org/linux-rdma/CA+0ovCg_sG8gaZXXj9zmOrpxRt=3D=
+8+-x9wvycVNUKwWmMbr6-Yg@mail.gmail.com/
 > Cc: stable@vger.kernel.org
-> Reported-by: Fabio Sabai <sabfabio@amazon.com>
-> Closes: https://github.com/systemd/systemd/issues/25925
-> Suggested-by: Matt Vollrath <tactii@gmail.com>
-> Reviewed-by: Matt Vollrath <tactii@gmail.com>
-> Tested-by: Matt Vollrath <tactii@gmail.com>
-> Assisted-by: LLM
-> Signed-off-by: Craig I. Hagan <hagan@amazon.com>
+> Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 > ---
-> v3: Correct the Fixes: tag to def4ec6dce39 ("e1000e: PCIm function
->     state support"), which introduced the DMoff-exit bare PHY reset;
->     2e7256f12cdb only added a pre-condition. This lets stable reach
->     the affected trees (v5.3+, including 5.4/5.10). Add Reviewed-by/
->     Tested-by from Matt Vollrath.
-> v2: Rework per review: request a full reset on DMoff exit so the
->     jumbo-frame workaround is re-applied (root cause identified by
->     Matt Vollrath); drop the diagnostic e_info. v1:
->     https://lore.kernel.org/netdev/20260923235832.473-1-
-> hagan@amazon.com/
->=20
->  drivers/net/ethernet/intel/e1000e/netdev.c | 8 +++++---
->  1 file changed, 5 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/net/ethernet/intel/e1000e/netdev.c
-> b/drivers/net/ethernet/intel/e1000e/netdev.c
-> index 844f31ab3..df7da86a8 100644
-> --- a/drivers/net/ethernet/intel/e1000e/netdev.c
-> +++ b/drivers/net/ethernet/intel/e1000e/netdev.c
-> @@ -5264,9 +5264,11 @@ static void e1000_watchdog_task(struct
-> work_struct *work)
->  					usleep_range(10000, 20000);
->  					pcim_state =3D er32(STATUS);
->=20
-> -					/* Checking if MAC exited DMoff
-> state */
-> -					if (!(pcim_state &
-> E1000_STATUS_PCIM_STATE))
-> -						e1000_phy_hw_reset(&adapter-
-> >hw);
-> +					/* MAC exited DMoff; do a full
-> reset. */
-> +					if (!(pcim_state &
-> E1000_STATUS_PCIM_STATE)) {
-> +						adapter->flags |=3D
-> FLAG_RESTART_NOW;
-> +						goto link_up;
-> +					}
->  				}
->  			}
->=20
+>  drivers/infiniband/ulp/rtrs/rtrs-clt.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+>
+> diff --git a/drivers/infiniband/ulp/rtrs/rtrs-clt.c b/drivers/infiniband/=
+ulp/rtrs/rtrs-clt.c
+> index eac38b57b00d7..5c2c65c15a65a 100644
+> --- a/drivers/infiniband/ulp/rtrs/rtrs-clt.c
+> +++ b/drivers/infiniband/ulp/rtrs/rtrs-clt.c
+> @@ -1866,6 +1866,11 @@ static int rtrs_rdma_conn_established(struct rtrs_=
+clt_con *con,
+>                         return -ECONNRESET;
+>                 }
+>
+> +               if (!queue_depth) {
+> +                       rtrs_err(clt, "Invalid RTRS message: queue_depth =
+is 0\n");
+> +                       return -ECONNRESET;
+> +               }
+> +
+>                 if (!clt_path->rbufs) {
+>                         clt_path->rbufs =3D kzalloc_objs(*clt_path->rbufs=
+,
+>                                                        queue_depth);
 > --
-> 2.47.3
-
-Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
-
+> 2.43.0
+>
