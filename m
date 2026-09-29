@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE4E73ACEFF
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 08:28:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE3ED3939BC
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 08:28:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790670522; cv=none; b=DS2JXY4h5jJ3yeV08QskPxVZ8cR1PjdyVqd+wuDsZJP6V6ozfB7ne1ZalTSBfIDTb0EhAREOkcQ9neLa4GZjFZmvABAlOlluba/dOnaQ+AjaxEi4aIaljShhztxM2IjeBkoiYYxlOdElkFk0uk/VXHrD1tfdI1uOaz4xI4kH4lg=
+	t=1790670537; cv=none; b=Y68YsJ/Hhk3KXv9eYWpBMEzoug2eWcREgjTvWpLSTynOo3utgvPoWYirfaUZtZZmskYdNNnLDPaA8WqhElOswiYNxjA0/O66w6Ybf+JbAp/9OopYqNRDQ9oGmHS4M+vi43JoDEpcVJpnz2cmj6r277JAT3NNTUfIZ1kDmc07rOw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790670522; c=relaxed/simple;
-	bh=c/MHbk1ocpM28XmDaScnvwi5iA5BzA9ylNm4CWNjr2A=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=KW4D1kGVnZqm41cbeP2cz5llCTeKgJeuPvtF7jiYZDASLlObQtYA+Ba/Y/8WdA/9sEZIABE/QwccFtVOJEmxHiaLEr5X2+RG/q6IFWgXaE1tG/fsxkg8FDYOwzuoSSfWWPqB5rmUuSM4q2R/m0AxCVCufbyA0Y8nhH9n+IisOAM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=bquOyQLl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790670537; c=relaxed/simple;
+	bh=ikZTeJWjxmAO7qYS5F4MwpaOmxJZ5J7wfJSHpVwzeHY=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=d11Sfnjf2KZ/bV5wjEr3WNjnqeLSXgDe7DWmLXuO6CXmt90TeofhLjwO4wwcM8viWNAPQlmBIkrtycmhf/p6Csk2Zhjegs5Var/qEVYa6VprGfJUmWUNr33dHvaSiC74mtKTgoncv08Knp+LxJ+w4KFUfXnqpluDwU4dcf2rZmA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=wZ+9ego5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="bquOyQLl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E10F01F00893;
-	Tue, 29 Sep 2026 08:28:39 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="wZ+9ego5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22CF31F000FF;
+	Tue, 29 Sep 2026 08:28:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790670520;
-	bh=uIjmbk70BdWQVK8yu3vRCMdx+5SV4Kp7Yt01WLBnE3k=;
+	s=korg; t=1790670535;
+	bh=zz6lh1foxMVAJX0Jkx9m6oeRDbEMp0lOBoxJbWVYb7Q=;
 	h=Subject:To:Cc:From:Date;
-	b=bquOyQLl5q3rCR8nG7txGLsG2vcB/P60kO8nQ0tpqlj3AcStTfexeoyuKZ6UYhmNT
-	 a5mqtVsCldX5ue7ZlqHGA/Zlo5FEpgxx8sHA2dD21aRIJmEWIoT4bVz1GjoD/mKH5g
-	 rWU5N6mtg4zYCvCUno+Ly5RoZ7rJvB0InZIpa5CM=
-Subject: FAILED: patch "[PATCH] PCI: Fix BAR resize for devices on a root bus" failed to apply to 5.10-stable tree
-To: lizf@honeycomb.io,bhelgaas@google.com,ilpo.jarvinen@linux.intel.com
+	b=wZ+9ego55v5VKFT4PIbJZDCFez9L60R0DCdb4qAXebTAWqFr483MeObOSMKKEZjzI
+	 mIjm/NaiI7p8gEjsCuzWbZILQqme+BJFU7S9d0up2DHTBGPjc2fe3AyROaXiNg91XC
+	 eAw+Xj87JGY31pJY1Df3fAZo/TnLrcL1pcNYc+/I=
+Subject: FAILED: patch "[PATCH] packet: use ubuf_info completion for TX_RING packets" failed to apply to 6.12-stable tree
+To: willemb@google.com,doebel@amazon.de,kleaver@janestreet.com,kuba@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 29 Sep 2026 10:28:26 +0200
-Message-ID: <2026092926-pajamas-crux-43e6@gregkh>
+Date: Tue, 29 Sep 2026 10:28:50 +0200
+Message-ID: <2026092950-anyway-haziness-2a11@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x d58384c22739848efe14b34e9586e4f1242f33c0
+git cherry-pick -x 9518405613863d0bf0700927a21367f5942cf058
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092926-pajamas-crux-43e6@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092950-anyway-haziness-2a11@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,124 +62,265 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From d58384c22739848efe14b34e9586e4f1242f33c0 Mon Sep 17 00:00:00 2001
-From: Liz Fong-Jones <lizf@honeycomb.io>
-Date: Fri, 18 Sep 2026 03:56:33 +0000
-Subject: [PATCH] PCI: Fix BAR resize for devices on a root bus
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 9518405613863d0bf0700927a21367f5942cf058 Mon Sep 17 00:00:00 2001
+From: Willem de Bruijn <willemb@google.com>
+Date: Fri, 18 Sep 2026 20:47:29 -0400
+Subject: [PATCH] packet: use ubuf_info completion for TX_RING packets
 
-pci_do_resource_release_and_resize() releases device BARs that share a
-bridge window with the BAR being resized, but when the device sits directly
-on a root bus (pdev->bus->self == NULL) it then skips resource assignment
-entirely and returns success, leaving the BARs it just released unassigned
-(IORESOURCE_UNSET).
+tpacket_snd sends skbs with frags pointing into its ring slots. Slots
+are released when skb->destructor is called.
 
-Skipping pbus_reassign_bridge_resources() is correct in that case -- there
-is no bridge window to adjust -- but the device BARs still have to be
-reassigned. Before the BAR release was consolidated into the PCI core, this
-case worked for amdgpu because the driver released the BARs itself and then
-called pci_assign_unassigned_bus_resources() unconditionally after the
-resize, which assigns unassigned device BARs also on a root bus. Commit
-db92e3fef53e ("drm/amdgpu: Remove driver side BAR release before resize")
-removed that call, so nothing assigns the released BARs anymore.
+A call to skb_orphan calls skb->destructor before the skb is freed.
+This can cause the slot to be reused while still linked into the skb.
 
-This breaks amdgpu completely on the SolidRun HoneyComb LX2K (NXP LX2160A,
-arm64, ACPI), where ACPI doesn't expose the Root Port so the GPU endpoint
-appears directly on a "root bus" of its segment:
+Switch to standard zerocopy completion (ubuf_info) so the slot is only
+released once all references to the payload are freed or copied.
+Restore skb->destructor to standard sock_wfree.
 
-  amdgpu 0004:01:00.0: BAR 0 [mem 0xa400000000-0xa40fffffff 64bit pref]: releasing
-  amdgpu 0004:01:00.0: BAR 2 [mem 0xa410000000-0xa4101fffff 64bit pref]: releasing
-  amdgpu 0004:01:00.0: sw_init of IP block <gmc_v8_0> failed -19
-  amdgpu 0004:01:00.0: amdgpu_device_ip_init failed
-  amdgpu 0004:01:00.0: Fatal error during GPU init
+The ubuf_info completion callback can be called with a NULL skb, but
+only from net_zcopy_put and related API, used by zerocopy implementations
+that hold their own reference on the uarg, such as MSG_ZEROCOPY. This
+uarg is only ever completed from skb_zcopy_clear, so skb is always set.
 
-No error is logged because the resize path reports success; amdgpu then
-finds BAR 0 IORESOURCE_UNSET and bails out with -ENODEV.
+To prevent userspace from aliasing in-flight state on shared ring
+slots, allocate tpacket_uarg per packet, rather than per slot. This
+adds a small allocation to the transmit path. Use standard kmalloc to
+allow backporting to stable kernels.
 
-When there is no upstream bridge, call pci_bus_assign_resources() on the
-root bus to place the BARs released above, using the same alignment-sorted
-algorithm as normal enumeration instead of a manual per-BAR loop. This also
-walks the rest of the hierarchy under the root bus, as
-pci_assign_unassigned_bus_resources() used to for amdgpu before commit
-db92e3fef53e ("drm/amdgpu: Remove driver side BAR release before resize")
-removed that call -- the core-side fix that commit asked for ("such a
-problem should be fixed inside pci_resize_resource() instead").
+The uarg holds an sk_wmem_alloc reference, rather than an sk_refcnt
+reference. packet_free_tx_ring waits on sk_wmem_alloc before freeing
+the ring pages. Always allocate vec->deferred for tx_ring so page-backed
+rings also wait on sk_wmem_alloc when skb_copy_ubufs drops page refs
+before calling tpacket_ubuf_complete.
 
-pci_bus_assign_resources() returns void, so failure is detected by checking
-whether the released BARs are still assigned afterward; if not, roll back
-as in the bridged case. This is stricter than the bridged path -- it fails
-on any unplaced resource, not just required ones -- since a root bus
-typically has one shared window, and failing loudly seemed better than
-leaving something silently unassigned.
+Drop the tx_ring.pg_vec test that tpacket_destruct_skb performed before
+accessing the slot. The sk_wmem_alloc reference now guarantees that the
+slot is valid. The test is also not sufficient by itself, as it reads
+pg_vec without pg_vec_lock, so it can race with packet_set_ring.
 
-The root bus path also had a locking bug that any fix here necessarily
-touches: the old "goto out" jumped to up_read(&pci_bus_sem) without a
-matching down_read() (as does the "goto restore" taken when
-pci_dev_res_add_to_list() fails in the release loop). Take pci_bus_sem
-before the BAR release loop so every path through the function holds it
-exactly once.
+As a result a slot is released when its payload is copied, which can
+be before transmission (e.g., in skb_orphan_frags_rx). If copied
+before skb_tx_timestamp() is called, no slot timestamp is recorded,
+similar to when skb_orphan() was called early in the datapath before
+this patch.
 
-Fixes: 337b1b566db0 ("PCI: Fix restoring BARs on BAR resize rollback path")
-Link: https://bugs.launchpad.net/ubuntu/+source/linux-hwe-7.0/+bug/2159596
-Suggested-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Assisted-by: Claude:claude-fable-5 checkpatch
-Assisted-by: Claude:claude-sonnet-5
-Signed-off-by: Liz Fong-Jones <lizf@honeycomb.io>
-[bhelgaas: commit log]
-Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Revert the now unused previous skb_zcopy_.._nouarg infra.
+
+Depends on commit 992cc9f94ca9 ("net/packet: defer vmalloc TX_RING
+free until skbs finish").
+
+Reported-by: Katherine Leaver <kleaver@janestreet.com>
+Reported-by: Bjoern Doebel <doebel@amazon.de>
+Closes: https://lore.kernel.org/netdev/20260909085542.3370986-1-doebel@amazon.de/
+Fixes: 5cd8d46ea156 ("packet: copy user buffers before orphan or clone")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260918035633.566823-1-lizf@honeycomb.io
+Signed-off-by: Willem de Bruijn <willemb@google.com>
+Link: https://patch.msgid.link/20260919004748.1463985-3-willemdebruijn.kernel@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
-diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
-index e8c94aa1d3c1..ed16ef7c26fa 100644
---- a/drivers/pci/setup-bus.c
-+++ b/drivers/pci/setup-bus.c
-@@ -2380,6 +2380,7 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
- 	struct resource *res = pci_resource_n(pdev, resno);
- 	struct pci_dev_resource *dev_res;
- 	struct pci_bus *bus = pdev->bus;
-+	struct pci_dev *bridge = pci_upstream_bridge(pdev);
- 	struct resource *b_win, *r;
- 	LIST_HEAD(saved);
- 	unsigned int i;
-@@ -2397,6 +2398,8 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
- 	if (ret)
- 		return ret;
+diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
+index 421f6fc45451..b14d6be7370b 100644
+--- a/include/linux/skbuff.h
++++ b/include/linux/skbuff.h
+@@ -1834,22 +1834,6 @@ static inline void skb_zcopy_set(struct sk_buff *skb, struct ubuf_info *uarg,
+ 	}
+ }
  
-+	down_read(&pci_bus_sem);
+-static inline void skb_zcopy_set_nouarg(struct sk_buff *skb, void *val)
+-{
+-	skb_shinfo(skb)->destructor_arg = (void *)((uintptr_t) val | 0x1UL);
+-	skb_shinfo(skb)->flags |= SKBFL_ZEROCOPY_FRAG;
+-}
+-
+-static inline bool skb_zcopy_is_nouarg(struct sk_buff *skb)
+-{
+-	return (uintptr_t) skb_shinfo(skb)->destructor_arg & 0x1UL;
+-}
+-
+-static inline void *skb_zcopy_get_nouarg(struct sk_buff *skb)
+-{
+-	return (void *)((uintptr_t) skb_shinfo(skb)->destructor_arg & ~0x1UL);
+-}
+-
+ static inline void net_zcopy_put(struct ubuf_info *uarg)
+ {
+ 	if (uarg)
+@@ -1872,8 +1856,7 @@ static inline void skb_zcopy_clear(struct sk_buff *skb, bool zerocopy_success)
+ 	struct ubuf_info *uarg = skb_zcopy(skb);
+ 
+ 	if (uarg) {
+-		if (!skb_zcopy_is_nouarg(skb))
+-			uarg->ops->complete(skb, uarg, zerocopy_success);
++		uarg->ops->complete(skb, uarg, zerocopy_success);
+ 
+ 		skb_shinfo(skb)->flags &= ~SKBFL_ALL_ZEROCOPY;
+ 	}
+diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+index 50cae32ae269..64b501db660a 100644
+--- a/net/packet/af_packet.c
++++ b/net/packet/af_packet.c
+@@ -2530,26 +2530,6 @@ static int tpacket_rcv(struct sk_buff *skb, struct net_device *dev,
+ 	goto drop_n_restore;
+ }
+ 
+-static void tpacket_destruct_skb(struct sk_buff *skb)
+-{
+-	struct packet_sock *po = pkt_sk(skb->sk);
+-
+-	if (likely(po->tx_ring.pg_vec)) {
+-		void *ph;
+-		__u32 ts;
+-
+-		ph = skb_zcopy_get_nouarg(skb);
+-
+-		ts = __packet_set_timestamp(po, ph, skb);
+-		__packet_set_status(po, ph, TP_STATUS_AVAILABLE | ts);
+-
+-		packet_dec_pending(&po->tx_ring);
+-		complete(&po->skb_completion);
+-	}
+-
+-	sock_wfree(skb);
+-}
+-
+ static int __packet_snd_vnet_parse(struct virtio_net_hdr *vnet_hdr, size_t len)
+ {
+ 	if ((vnet_hdr->flags & VIRTIO_NET_HDR_F_NEEDS_CSUM) &&
+@@ -2589,27 +2569,56 @@ static int packet_snd_vnet_parse(struct msghdr *msg, size_t *len,
+ 	return 0;
+ }
+ 
++struct tpacket_uarg {
++	struct ubuf_info	ubuf;
++	struct packet_sock	*po;
++	void			*ph;
++};
 +
- 	pci_dev_for_each_resource(pdev, r, i) {
- 		if (i >= PCI_BRIDGE_RESOURCES)
- 			break;
-@@ -2415,13 +2418,21 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
++static void tpacket_ubuf_complete(struct sk_buff *skb, struct ubuf_info *uarg,
++				  bool success)
++{
++	struct tpacket_uarg *tu = container_of(uarg, struct tpacket_uarg, ubuf);
++	struct packet_sock *po = tu->po;
++	void *ph = tu->ph;
++	__u32 ts;
++
++	DEBUG_NET_WARN_ON_ONCE(!skb);
++
++	if (!refcount_dec_and_test(&uarg->refcnt))
++		return;
++
++	ts = __packet_set_timestamp(po, ph, skb);
++	__packet_set_status(po, ph, TP_STATUS_AVAILABLE | ts);
++
++	packet_dec_pending(&po->tx_ring);
++	complete(&po->skb_completion);
++
++	kfree(tu);
++	sk_free(&po->sk);
++}
++
++static const struct ubuf_info_ops tpacket_ubuf_ops = {
++	.complete = tpacket_ubuf_complete,
++};
++
+ static int tpacket_fill_skb(struct packet_sock *po, struct sk_buff *skb,
+-		void *frame, struct net_device *dev, void *data, int tp_len,
++		struct net_device *dev, void *data, int tp_len,
+ 		__be16 proto, unsigned char *addr, int hlen, int copylen,
+ 		int hard_header_len,
+ 		const struct sockcm_cookie *sockc)
+ {
+-	union tpacket_uhdr ph;
+ 	int to_write, offset, len, nr_frags, len_max;
+ 	struct socket *sock = po->sk.sk_socket;
+ 	struct page *page;
+ 	int err;
  
- 	pci_resize_resource_set_size(pdev, resno, size);
+-	ph.raw = frame;
+-
+ 	skb->protocol = proto;
+ 	skb->dev = dev;
+ 	skb->priority = sockc->priority;
+ 	skb->mark = sockc->mark;
+ 	skb_set_delivery_type_by_clockid(skb, sockc->transmit_time, po->sk.sk_clockid);
+ 	skb_setup_tx_timestamp(skb, sockc);
+-	skb_zcopy_set_nouarg(skb, ph.raw);
  
--	if (!bus->self)
--		goto out;
-+	if (bridge) {
-+		ret = pbus_reassign_bridge_resources(bus, res, &saved);
-+		if (ret)
-+			goto restore;
-+	} else {
-+		/* No bridge window to adjust; let the core reassign the bus. */
-+		pci_bus_assign_resources(bus);
+ 	skb_reserve(skb, hlen);
+ 	skb_reset_network_header(skb);
+@@ -2749,6 +2758,7 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
+ 	struct virtio_net_hdr vnet_hdr;
+ 	bool has_vnet_hdr = false;
+ 	struct sockcm_cookie sockc;
++	struct tpacket_uarg *uarg;
+ 	__be16 proto;
+ 	int err, reserve = 0;
+ 	void *ph;
+@@ -2876,7 +2886,7 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
+ 				err = len_sum;
+ 			goto out_status;
+ 		}
+-		tp_len = tpacket_fill_skb(po, skb, ph, dev, data, tp_len, proto,
++		tp_len = tpacket_fill_skb(po, skb, dev, data, tp_len, proto,
+ 					  addr, hlen, copylen, hard_header_len,
+ 					  &sockc);
+ 		if (likely(tp_len >= 0) &&
+@@ -2908,7 +2918,24 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
+ 			virtio_net_hdr_set_proto(skb, &vnet_hdr);
+ 		}
  
--	down_read(&pci_bus_sem);
--	ret = pbus_reassign_bridge_resources(bus, res, &saved);
--	if (ret)
--		goto restore;
-+		list_for_each_entry(dev_res, &saved, list) {
-+			if (!resource_assigned(dev_res->res)) {
-+				ret = -ENOSPC;
-+				goto restore;
-+			}
+-		skb->destructor = tpacket_destruct_skb;
++		uarg = kmalloc(sizeof(*uarg), GFP_KERNEL);
++		if (unlikely(!uarg)) {
++			if (likely(len_sum > 0))
++				err = len_sum;
++			else
++				err = -ENOMEM;
++			goto out_status;
 +		}
++		uarg->po = po;
++		uarg->ph = ph;
++		uarg->ubuf.ops = &tpacket_ubuf_ops;
++		uarg->ubuf.flags = SKBFL_ZEROCOPY_FRAG;
++		refcount_set(&uarg->ubuf.refcnt, 1);
++
++		/* Hold a sk_wmem_alloc reference until completion */
++		refcount_inc(&po->sk.sk_wmem_alloc);
++		skb_zcopy_init(skb, &uarg->ubuf);
++
+ 		__packet_set_status(po, ph, TP_STATUS_SENDING);
+ 		packet_inc_pending(&po->tx_ring);
+ 
+@@ -4486,21 +4513,20 @@ static struct pgv *alloc_pg_vec(struct tpacket_req *req, int order, bool tx_ring
+ 	vec->len = block_nr;
+ 	pg_vec = vec->pg_vec;
+ 
++	if (tx_ring) {
++		vec->deferred = kzalloc_obj(*vec->deferred,
++					    GFP_KERNEL | __GFP_NOWARN);
++		if (!vec->deferred)
++			goto out_free_pgvec;
++		vec->deferred->vec = vec;
++		INIT_DELAYED_WORK(&vec->deferred->work,
++				  packet_free_pg_vec_work);
 +	}
++
+ 	for (i = 0; i < block_nr; i++) {
+ 		pg_vec[i].buffer = alloc_one_pg_vec_page(order);
+ 		if (unlikely(!pg_vec[i].buffer))
+ 			goto out_free_pgvec;
+-
+-		if (tx_ring && !vec->deferred &&
+-		    is_vmalloc_addr(pg_vec[i].buffer)) {
+-			vec->deferred = kzalloc_obj(*vec->deferred,
+-						    GFP_KERNEL | __GFP_NOWARN);
+-			if (!vec->deferred)
+-				goto out_free_pgvec;
+-			vec->deferred->vec = vec;
+-			INIT_DELAYED_WORK(&vec->deferred->work,
+-					  packet_free_pg_vec_work);
+-		}
+ 	}
  
  out:
- 	up_read(&pci_bus_sem);
 
