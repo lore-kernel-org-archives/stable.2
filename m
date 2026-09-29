@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0800A5172FC
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 11:57:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDA0F51A72A
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 11:58:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790683035; cv=none; b=RCVU9upfmgCNCsDPx9ba1y2PbFZK16nLwgIngGTOsFTdt17PItPw5RfUIdXxN6qh2oZA6do7k3jAMD02JMPgk4Mtz8IRkxB96kr9If5zFKl5/Pw1HVjikwWHrdkEVetTwsbJ/Uj6Ird9mIV7xnMhYdAlPIfsWGDlofQikq0mKH8=
+	t=1790683107; cv=none; b=piIBUf5rPGJYtdmbl5ZvMxndsL3qVxjcwn3yURImMvEKHuSOqJOaos1ESmY9z1je47BQNw2pzom5HfyYjAodXdow1srKONhv+/Pg+4rovbnCQELFx3CSVt9sQQOzd0OMFvEhdFWpARZgndxjEsh6QAPaVUXx/TctCds9qNj+z/Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790683035; c=relaxed/simple;
-	bh=msX91dBb4enm21u9FyNWoBenlnDH0AuuCq8sW12TGLs=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=bIpTxZiSNsi4OxShcmYYVxw3MZEJxSStdfZYLbFvWwyZdTtiwGNx2ioMwXRCOnnJ9pvkTlF69BLVKoRcTMTmszy5gI7ij9BFRTAHlhMg3u8ezIpJRPINtFtMqSEDXfFUqg88KwKIeg1qAJvOH2x4dO9nLb+HiEIylN98eXmvSHs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=MWtLu4H2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790683107; c=relaxed/simple;
+	bh=k+pUHR6Ku4xSKkb0xEK7L91ro3MXLATqrWr2nrVGiV4=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=lU7FrOAHtsCqZIV+U4uJ/rZoeNP/AOJ2VLRZH2uyBGoq3smbryXffSxPQAYOU9yt//+XQAdW+AfTIsStJR+l/e2dFZd9mkBf04BXtn2e6y3xTg9FYaA4309FEN/xMRQe2eLKtfNpStCQ+armdjQDAbWmZrHv/Hk0XUS7OIDrX8E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=il2V/6/+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="MWtLu4H2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6154A1F000FF;
-	Tue, 29 Sep 2026 11:57:13 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="il2V/6/+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3DE31F000FF;
+	Tue, 29 Sep 2026 11:58:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790683033;
-	bh=k1bUYdMKl+HfdbeAx/cjd3VYFpd6PQl9/nsCV8aBgKk=;
+	s=korg; t=1790683105;
+	bh=UWKGD9ikPsrTCq4yMizMci9XkdQTDF+y+ZcVSRxWrOA=;
 	h=Subject:To:Cc:From:Date;
-	b=MWtLu4H26KhUCehAxDQC8qmvO4LpYizTHZn28nyIfSxdsYgHYMha+AUw/BlCrbGp9
-	 k/juhhR2EIqoMmwAib3UEnvBGkxxdXiKupiwavxyN5XDzMjd30NHkEERXAc7D0XwI+
-	 SvdWvZmnNFecTj+QATeZqAp5LZHLBsfQE9Uk/cvQ=
-Subject: FAILED: patch "[PATCH] Bluetooth: mgmt: fix race in read_unconf_index_list()" failed to apply to 6.1-stable tree
-To: qwe.aldo@gmail.com,luiz.von.dentz@intel.com
+	b=il2V/6/+K343rm0hVfVrFRKLhA5q0w60iSe0CWBobzvoJhA6mvC5V02MPbW2ALKaf
+	 4ND1Yw3gpQqPfTKEI7d4lf9hTRf4ogM2tM9cK5InRderMq90G8u5MRvMTIXFNAGZQo
+	 k843VzeMw+Pe/uIEF3bbdkyrexnZsXlejf/lfFOU=
+Subject: FAILED: patch "[PATCH] xfs: fix cursor and pointer handling when recovering iunlink" failed to apply to 6.12-stable tree
+To: djwong@kernel.org,cem@kernel.org,hch@lst.de
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 29 Sep 2026 13:55:18 +0200
-Message-ID: <2026092918-appraisal-strive-14ac@gregkh>
+Date: Tue, 29 Sep 2026 13:58:19 +0200
+Message-ID: <2026092919-margarita-pentagram-c4f9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x b5dbb41b212c50c095a4dbee3017a84fe94f033b
+git cherry-pick -x 65f39d09d73718611cee40399179323b5d4ead00
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092918-appraisal-strive-14ac@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092919-margarita-pentagram-c4f9@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,48 +62,94 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From b5dbb41b212c50c095a4dbee3017a84fe94f033b Mon Sep 17 00:00:00 2001
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Date: Tue, 15 Sep 2026 12:59:52 -0300
-Subject: [PATCH] Bluetooth: mgmt: fix race in read_unconf_index_list()
+From 65f39d09d73718611cee40399179323b5d4ead00 Mon Sep 17 00:00:00 2001
+From: "Darrick J. Wong" <djwong@kernel.org>
+Date: Mon, 14 Sep 2026 22:38:38 -0700
+Subject: [PATCH] xfs: fix cursor and pointer handling when recovering iunlink
+ buckets
 
-read_unconf_index_list() counts unconfigured controllers before allocating
-its response, then checks the device flags again while filling it.
+LOLLM pointed out a bug in xlog_recover_iunlink_bucket:
 
-hci_dev_list_lock stabilizes list membership, but it does not serialize the
-per-device flags. During asynchronous controller setup, the worker can set
-HCI_UNCONFIGURED and clear HCI_SETUP between the two passes. A controller
-omitted from the allocation count can then become eligible for the fill
-pass, causing an out-of-bounds write to rp->index[].
+1. We don't null out prev_ip after releasing it, which can lead to UAF
+   problems if the inodegc flush call in the loop fails.
 
-Allocate space for every device on hci_dev_list. Since list membership
-cannot change while hci_dev_list_lock is held, the response remains large
-enough regardless of flag transitions. The reported count and response
-length still include only eligible unconfigured controllers.
+at which point I noticed even more bugs:
 
-Fixes: 73d1df2a7a10 ("Bluetooth: Add support for Read Unconfigured Index List command")
-Cc: stable@vger.kernel.org
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+2. If the inodegc flush inside the loop fails, we also leak @ip.
 
-diff --git a/net/bluetooth/mgmt.c b/net/bluetooth/mgmt.c
-index f740e745ae78..41956cdde982 100644
---- a/net/bluetooth/mgmt.c
-+++ b/net/bluetooth/mgmt.c
-@@ -496,13 +496,9 @@ static int read_unconf_index_list(struct sock *sk, struct hci_dev *hdev,
+3. We set prev_agino to agino having already advanced agino, which
+   results in inodes with i_prev_unlinked set to itself.
+
+4. If we exit the bottom of the loop with prev_ip set, then prev_ip
+   aliases ip and we also set its i_prev_unlinked to itself.
+
+Bugs 3 and 4 introduce loops into the unlinked list, though these loops
+don't surface because we immediately flush each unlinked inode after
+loading it.
+
+Fix all of these issues.
+
+Cc: stable@vger.kernel.org # v6.0
+Fixes: 04755d2e5821b3 ("xfs: refactor xlog_recover_process_iunlinks()")
+Signed-off-by: Darrick J. Wong <djwong@kernel.org>
+Assisted-by: LOLLM # finding obvious bugs
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
+
+diff --git a/fs/xfs/xfs_log_recover.c b/fs/xfs/xfs_log_recover.c
+index e7e49529658b..cf0d610265fe 100644
+--- a/fs/xfs/xfs_log_recover.c
++++ b/fs/xfs/xfs_log_recover.c
+@@ -2736,12 +2736,13 @@ xlog_recover_iunlink_bucket(
+ {
+ 	struct xfs_mount	*mp = pag_mount(pag);
+ 	struct xfs_inode	*prev_ip = NULL;
+-	struct xfs_inode	*ip;
+ 	xfs_agino_t		prev_agino, agino;
+ 	int			error = 0;
  
- 	read_lock(&hci_dev_list_lock);
+ 	agino = be32_to_cpu(agi->agi_unlinked[bucket]);
+ 	while (agino != NULLAGINO) {
++		struct xfs_inode	*ip;
++
+ 		error = xfs_iget(mp, NULL, xfs_agino_to_ino(pag, agino), 0, 0,
+ 				&ip);
+ 		if (error)
+@@ -2750,11 +2751,11 @@ xlog_recover_iunlink_bucket(
+ 		ASSERT(VFS_I(ip)->i_nlink == 0);
+ 		ASSERT(VFS_I(ip)->i_mode != 0);
+ 		xfs_iflags_clear(ip, XFS_IRECOVERY);
+-		agino = ip->i_next_unlinked;
  
--	count = 0;
--	list_for_each_entry(d, &hci_dev_list, list) {
--		if (hci_dev_test_flag(d, HCI_UNCONFIGURED))
--			count++;
--	}
-+	count = list_count_nodes(&hci_dev_list);
+ 		if (prev_ip) {
+ 			ip->i_prev_unlinked = prev_agino;
+ 			xfs_irele(prev_ip);
++			prev_ip = NULL;
  
--	rp_len = sizeof(*rp) + (2 * count);
-+	rp_len = sizeof(*rp) + (sizeof(__le16) * count);
- 	rp = kmalloc(rp_len, GFP_ATOMIC);
- 	if (!rp) {
- 		read_unlock(&hci_dev_list_lock);
+ 			/*
+ 			 * Ensure the inode is removed from the unlinked list
+@@ -2766,18 +2767,20 @@ xlog_recover_iunlink_bucket(
+ 			 * complete.
+ 			 */
+ 			error = xfs_inodegc_flush(mp);
+-			if (error)
+-				break;
++			if (error) {
++				xfs_irele(ip);
++				return error;
++			}
+ 		}
+ 
+ 		prev_agino = agino;
++		agino = ip->i_next_unlinked;
+ 		prev_ip = ip;
+ 	}
+ 
+ 	if (prev_ip) {
+ 		int	error2;
+ 
+-		ip->i_prev_unlinked = prev_agino;
+ 		xfs_irele(prev_ip);
+ 
+ 		error2 = xfs_inodegc_flush(mp);
 
