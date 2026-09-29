@@ -1,123 +1,915 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E135052BE53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B91352BE57
 	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 13:31:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790688682; cv=none; b=gYQKEkTgGwZfgP265RYHjzgB6T8mFKiwOp6fwJILQpvN85OKZ7kCnFWuax4QUDW0LcQA+UBZQ7897L7+NtJ2ZX5Owq/d9ZeSnZOwlPD9+PrqWx+Tojiy6gBRlSlqEKhqyLQYBjNUB6ts9wili1Us/JsjU682njuzX1zJAhRkayQ=
+	t=1790688682; cv=none; b=hcXK3+be9lD+PRI876VPSKRdNZ5r/SlIuRre4cy5TLZgaitO/ZeR638aH42KDbebV8gEEshhkxmM+KlxcvtcL4B573FdMXVDWbJacMfYDV9M8GUvmZOcLaVM2dan2kAJfZTNMW/2TXnbMilbaCR4GQdvn+IwHjsIdaOkcuKHECE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790688682; c=relaxed/simple;
-	bh=e33C9tWq5KkvqphITqNwzsHpy1YK596FvcQ/IuUe/xg=;
+	bh=/JKzmUtxtkohabKsJfcQzwZkRYeJyjLZIQ59aTvJuV4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FAxpNXup2NRgRVwItFUCF150sgkB4yHtQumr+dn7i8RkOKL8bq4yEqK4hnPeLAZl+pvjlM8smqIzd7MlPHfwFIq/Ig5fjimxWcZVcVjAW38ke9KMRsWOy3RyRGwsh1f59kDit4GnO7a+Q5CVaQkkCr4Ro7A1vRo0sry6O44qoNc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dCZ5xyiE; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=VuIJ14WNMF0PuQcb36zDBnfxe58VKiNsgSS6tIfC4A+AEJJaOsd7xwyIKxsttY5neJH+CRYnKW4o4gCd7lD3E5BwiTD1CCknU3Bx1AMmKfIQn9hTsn+WL4TfEoOj4i9Vgru+nsBvtAXHiWXgickOa7ZEPPKqLaFejxPRBwBsl50=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=onwBaz2W; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dCZ5xyiE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 026981F000FF;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="onwBaz2W"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B14D1F00893;
 	Tue, 29 Sep 2026 13:31:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1790688680;
-	bh=aWHOsehV2CXEoQPABhF8vlkMCabK+9iOejjH7Xte1jc=;
+	bh=YMu53VNbfc+dk539fCR4gqPh4CajsvuKP/+904iU2vg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dCZ5xyiEiQFK6HQBqwoA8RqtI47VhTIQoSOlXCRuSY04kF5p5gA+mj4XGKl/sL/TW
-	 J56q25yMh+YGwQ19f64/xgdda4Jzu62svcbt3mJOw4OucQf7Kd32jgGaRXy36PRYA/
-	 v/VybDF0Urf8CGVPSOgYbR/uvHDjt7tytmCmuxYAezntiQAINywguHfif/xLf/mspT
-	 PsMrznARO2Yq161GQ4xoQkDX5m7g5tzxC7KmUJ+kk9Hm7WkhmLvmUZVXdoagxCBXbU
-	 okXkI7VTk45zI4S6sdCtpiL/gFYLua8+jZ6SDqjgGHcGjRWjocyMghKvzo3fJS7wqU
-	 jhPwbTQMMZqQQ==
+	b=onwBaz2WzQqzGwAcZf5SbloMNJve22LdVJhrNvDBOGrsG4uAkj5Hs3JEYeLuzxbxD
+	 XxlGdKFsA+gaswuRvjIQipsVGwUaBzB89DeDW5sIUjd5bGesCsDAVwhq09ifKLiySg
+	 6fZE8pTKRFlWq7R9hw4eMtaKzyICx6NYSuW76prZnHZ5ElzuC6qqdFquPGKU0QotaG
+	 dqkBkxWiqFNIsMWKHXasG5YK2bsZT52L8Tcbr1J899v0i9CkWClxq4ZvDAUyD+SDLB
+	 fmACPB5vlFvYy0h4XdQBD3LfV0HnKJnMRBhRKYUvu7Wt2SwrPgX+amUEeLHoaDsRLd
+	 FyUbzE+Pt7/rA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Myeonghun Pak <mhun512@gmail.com>,
-	Ijae Kim <ae878000@gmail.com>,
-	Paolo Abeni <pabeni@redhat.com>,
+Cc: "Borislav Petkov (AMD)" <bp@alien8.de>,
+	Tom Lendacky <thomas.lendacky@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] bna: prevent IOC timer rearm during teardown
-Date: Tue, 29 Sep 2026 09:31:18 -0400
-Message-ID: <20260929133118.3503962-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 3/5] x86/sev: Carve out the SVSM code into a separate compilation unit
+Date: Tue, 29 Sep 2026 09:31:06 -0400
+Message-ID: <20260929133116.3502913-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092951-corporal-ascension-4e63@gregkh>
-References: <2026092951-corporal-ascension-4e63@gregkh>
+In-Reply-To: <20260929133116.3502913-1-sashal@kernel.org>
+References: <2026092939-ecard-twirl-6094@gregkh>
+ <20260929133116.3502913-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Myeonghun Pak <mhun512@gmail.com>
+From: "Borislav Petkov (AMD)" <bp@alien8.de>
 
-[ Upstream commit 77b1718e39e5c9f6956fb60807326af20baf889d ]
+[ Upstream commit e21279b73ef6c7d27237912c914f2db0c5a74786 ]
 
-bna: prevent IOC timer rearm during teardown
+Move the SVSM-related machinery into a separate compilation unit in
+order to keep sev/core.c slim and "on-topic".
 
-bnad_pci_remove() and the probe disable_ioceth path call
-timer_delete_sync() for ioc_timer, sem_timer and hb_timer, but not for
-iocpf_timer.  bnad_iocpf_timeout() then takes bnad->bna_lock after
-free_netdev() has freed the struct bnad.
+No functional changes.
 
-Deleting iocpf_timer last does not fix this.  sem_timer and
-iocpf_timer rearm each other: bnad_iocpf_sem_timeout() can arm
-iocpf_timer, and bnad_iocpf_timeout() arms sem_timer from
-bfa_ioc_hw_sem_get() when the semaphore is busy.
-timer_delete_sync() only waits out its own callback.
-bnad_ioceth_disable() can time out and leave that callback live.
-
-Shut all four IOC timers down with timer_shutdown_sync() on both
-paths, so a later mod_timer() is ignored.
-
-This issue was identified during our ongoing static-analysis research
-while reviewing kernel code.
-
-Fixes: 1d32f7696286 ("bna: IOC failure auto recovery fix")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-Link: https://patch.msgid.link/20260922014605.588040-1-mhun512@gmail.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[ inlined bnad_ioc_timers_shutdown() into the existing teardown functions. ]
+Reviewed-by: Tom Lendacky <thomas.lendacky@amd.com>
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Link: https://patch.msgid.link/20251204124809.31783-4-bp@kernel.org
+Stable-dep-of: 6c43c72748ff ("x86/sev: Make vTPM SVSM calls preemption-safe")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ethernet/brocade/bna/bnad.c | 16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
+ arch/x86/coco/sev/Makefile   |   2 +-
+ arch/x86/coco/sev/core.c     | 377 -----------------------------------
+ arch/x86/coco/sev/internal.h |  29 +++
+ arch/x86/coco/sev/svsm.c     | 362 +++++++++++++++++++++++++++++++++
+ 4 files changed, 392 insertions(+), 378 deletions(-)
+ create mode 100644 arch/x86/coco/sev/svsm.c
 
-diff --git a/drivers/net/ethernet/brocade/bna/bnad.c b/drivers/net/ethernet/brocade/bna/bnad.c
-index 6cf06a93bedfb..c01c849a8d1aa 100644
---- a/drivers/net/ethernet/brocade/bna/bnad.c
-+++ b/drivers/net/ethernet/brocade/bna/bnad.c
-@@ -3727,9 +3727,11 @@ bnad_pci_probe(struct pci_dev *pdev,
- 	bnad_res_free(bnad, &bnad->mod_res_info[0], BNA_MOD_RES_T_MAX);
- disable_ioceth:
- 	bnad_ioceth_disable(bnad);
--	del_timer_sync(&bnad->bna.ioceth.ioc.ioc_timer);
--	del_timer_sync(&bnad->bna.ioceth.ioc.sem_timer);
--	del_timer_sync(&bnad->bna.ioceth.ioc.hb_timer);
-+	/* The IOC timers rearm one another.  Shut down all of them. */
-+	timer_shutdown_sync(&bnad->bna.ioceth.ioc.ioc_timer);
-+	timer_shutdown_sync(&bnad->bna.ioceth.ioc.sem_timer);
-+	timer_shutdown_sync(&bnad->bna.ioceth.ioc.hb_timer);
-+	timer_shutdown_sync(&bnad->bna.ioceth.ioc.iocpf_timer);
- 	spin_lock_irqsave(&bnad->bna_lock, flags);
- 	bna_uninit(bna);
- 	spin_unlock_irqrestore(&bnad->bna_lock, flags);
-@@ -3770,9 +3772,11 @@ bnad_pci_remove(struct pci_dev *pdev)
+diff --git a/arch/x86/coco/sev/Makefile b/arch/x86/coco/sev/Makefile
+index b2e9ec2f69014..3111a2ee67221 100644
+--- a/arch/x86/coco/sev/Makefile
++++ b/arch/x86/coco/sev/Makefile
+@@ -1,6 +1,6 @@
+ # SPDX-License-Identifier: GPL-2.0
  
- 	mutex_lock(&bnad->conf_mutex);
- 	bnad_ioceth_disable(bnad);
--	del_timer_sync(&bnad->bna.ioceth.ioc.ioc_timer);
--	del_timer_sync(&bnad->bna.ioceth.ioc.sem_timer);
--	del_timer_sync(&bnad->bna.ioceth.ioc.hb_timer);
-+	/* The IOC timers rearm one another.  Shut down all of them. */
-+	timer_shutdown_sync(&bnad->bna.ioceth.ioc.ioc_timer);
-+	timer_shutdown_sync(&bnad->bna.ioceth.ioc.sem_timer);
-+	timer_shutdown_sync(&bnad->bna.ioceth.ioc.hb_timer);
-+	timer_shutdown_sync(&bnad->bna.ioceth.ioc.iocpf_timer);
- 	spin_lock_irqsave(&bnad->bna_lock, flags);
- 	bna_uninit(bna);
- 	spin_unlock_irqrestore(&bnad->bna_lock, flags);
+-obj-y += core.o noinstr.o vc-handle.o
++obj-y += core.o noinstr.o vc-handle.o svsm.o
+ 
+ # Clang 14 and older may fail to respect __no_sanitize_undefined when inlining
+ UBSAN_SANITIZE_noinstr.o	:= n
+diff --git a/arch/x86/coco/sev/core.c b/arch/x86/coco/sev/core.c
+index 19adb17bd09d1..2415410e898ec 100644
+--- a/arch/x86/coco/sev/core.c
++++ b/arch/x86/coco/sev/core.c
+@@ -55,40 +55,6 @@ SYM_PIC_ALIAS(sev_hv_features);
+ u64 sev_secrets_pa __ro_after_init;
+ SYM_PIC_ALIAS(sev_secrets_pa);
+ 
+-/* For early boot SVSM communication */
+-struct svsm_ca boot_svsm_ca_page __aligned(PAGE_SIZE);
+-SYM_PIC_ALIAS(boot_svsm_ca_page);
+-
+-/*
+- * SVSM related information:
+- *   During boot, the page tables are set up as identity mapped and later
+- *   changed to use kernel virtual addresses. Maintain separate virtual and
+- *   physical addresses for the CAA to allow SVSM functions to be used during
+- *   early boot, both with identity mapped virtual addresses and proper kernel
+- *   virtual addresses.
+- */
+-u64 boot_svsm_caa_pa __ro_after_init;
+-SYM_PIC_ALIAS(boot_svsm_caa_pa);
+-
+-DEFINE_PER_CPU(struct svsm_ca *, svsm_caa);
+-DEFINE_PER_CPU(u64, svsm_caa_pa);
+-
+-static inline struct svsm_ca *svsm_get_caa(void)
+-{
+-	if (sev_cfg.use_cas)
+-		return this_cpu_read(svsm_caa);
+-	else
+-		return rip_rel_ptr(&boot_svsm_ca_page);
+-}
+-
+-static inline u64 svsm_get_caa_pa(void)
+-{
+-	if (sev_cfg.use_cas)
+-		return this_cpu_read(svsm_caa_pa);
+-	else
+-		return boot_svsm_caa_pa;
+-}
+-
+ /* AP INIT values as documented in the APM2  section "Processor Initialization State" */
+ #define AP_INIT_CS_LIMIT		0xffff
+ #define AP_INIT_DS_LIMIT		0xffff
+@@ -219,95 +185,6 @@ static u64 __init get_jump_table_addr(void)
+ 	return ret;
+ }
+ 
+-static int svsm_perform_ghcb_protocol(struct ghcb *ghcb, struct svsm_call *call)
+-{
+-	struct es_em_ctxt ctxt;
+-	u8 pending = 0;
+-
+-	vc_ghcb_invalidate(ghcb);
+-
+-	/*
+-	 * Fill in protocol and format specifiers. This can be called very early
+-	 * in the boot, so use rip-relative references as needed.
+-	 */
+-	ghcb->protocol_version = ghcb_version;
+-	ghcb->ghcb_usage       = GHCB_DEFAULT_USAGE;
+-
+-	ghcb_set_sw_exit_code(ghcb, SVM_VMGEXIT_SNP_RUN_VMPL);
+-	ghcb_set_sw_exit_info_1(ghcb, 0);
+-	ghcb_set_sw_exit_info_2(ghcb, 0);
+-
+-	sev_es_wr_ghcb_msr(__pa(ghcb));
+-
+-	svsm_issue_call(call, &pending);
+-
+-	if (pending)
+-		return -EINVAL;
+-
+-	switch (verify_exception_info(ghcb, &ctxt)) {
+-	case ES_OK:
+-		break;
+-	case ES_EXCEPTION:
+-		vc_forward_exception(&ctxt);
+-		fallthrough;
+-	default:
+-		return -EINVAL;
+-	}
+-
+-	return svsm_process_result_codes(call);
+-}
+-
+-static int svsm_perform_call_protocol(struct svsm_call *call)
+-{
+-	struct ghcb_state state;
+-	unsigned long flags;
+-	struct ghcb *ghcb;
+-	int ret;
+-
+-	flags = native_local_irq_save();
+-
+-	if (sev_cfg.ghcbs_initialized)
+-		ghcb = __sev_get_ghcb(&state);
+-	else if (boot_ghcb)
+-		ghcb = boot_ghcb;
+-	else
+-		ghcb = NULL;
+-
+-	do {
+-		ret = ghcb ? svsm_perform_ghcb_protocol(ghcb, call)
+-			   : __pi_svsm_perform_msr_protocol(call);
+-	} while (ret == -EAGAIN);
+-
+-	if (sev_cfg.ghcbs_initialized)
+-		__sev_put_ghcb(&state);
+-
+-	native_local_irq_restore(flags);
+-
+-	return ret;
+-}
+-
+-static inline void __pval_terminate(u64 pfn, bool action, unsigned int page_size,
+-				    int ret, u64 svsm_ret)
+-{
+-	WARN(1, "PVALIDATE failure: pfn: 0x%llx, action: %u, size: %u, ret: %d, svsm_ret: 0x%llx\n",
+-	     pfn, action, page_size, ret, svsm_ret);
+-
+-	sev_es_terminate(SEV_TERM_SET_LINUX, GHCB_TERM_PVALIDATE);
+-}
+-
+-static void svsm_pval_terminate(struct svsm_pvalidate_call *pc, int ret, u64 svsm_ret)
+-{
+-	unsigned int page_size;
+-	bool action;
+-	u64 pfn;
+-
+-	pfn = pc->entry[pc->cur_index].pfn;
+-	action = pc->entry[pc->cur_index].action;
+-	page_size = pc->entry[pc->cur_index].page_size;
+-
+-	__pval_terminate(pfn, action, page_size, ret, svsm_ret);
+-}
+-
+ static void pval_pages(struct snp_psc_desc *desc)
+ {
+ 	struct psc_entry *e;
+@@ -344,152 +221,6 @@ static void pval_pages(struct snp_psc_desc *desc)
+ 	}
+ }
+ 
+-static u64 svsm_build_ca_from_pfn_range(u64 pfn, u64 pfn_end, bool action,
+-					struct svsm_pvalidate_call *pc)
+-{
+-	struct svsm_pvalidate_entry *pe;
+-
+-	/* Nothing in the CA yet */
+-	pc->num_entries = 0;
+-	pc->cur_index   = 0;
+-
+-	pe = &pc->entry[0];
+-
+-	while (pfn < pfn_end) {
+-		pe->page_size = RMP_PG_SIZE_4K;
+-		pe->action    = action;
+-		pe->ignore_cf = 0;
+-		pe->rsvd      = 0;
+-		pe->pfn       = pfn;
+-
+-		pe++;
+-		pfn++;
+-
+-		pc->num_entries++;
+-		if (pc->num_entries == SVSM_PVALIDATE_MAX_COUNT)
+-			break;
+-	}
+-
+-	return pfn;
+-}
+-
+-static int svsm_build_ca_from_psc_desc(struct snp_psc_desc *desc, unsigned int desc_entry,
+-				       struct svsm_pvalidate_call *pc)
+-{
+-	struct svsm_pvalidate_entry *pe;
+-	struct psc_entry *e;
+-
+-	/* Nothing in the CA yet */
+-	pc->num_entries = 0;
+-	pc->cur_index   = 0;
+-
+-	pe = &pc->entry[0];
+-	e  = &desc->entries[desc_entry];
+-
+-	while (desc_entry <= desc->hdr.end_entry) {
+-		pe->page_size = e->pagesize ? RMP_PG_SIZE_2M : RMP_PG_SIZE_4K;
+-		pe->action    = e->operation == SNP_PAGE_STATE_PRIVATE;
+-		pe->ignore_cf = 0;
+-		pe->rsvd      = 0;
+-		pe->pfn       = e->gfn;
+-
+-		pe++;
+-		e++;
+-
+-		desc_entry++;
+-		pc->num_entries++;
+-		if (pc->num_entries == SVSM_PVALIDATE_MAX_COUNT)
+-			break;
+-	}
+-
+-	return desc_entry;
+-}
+-
+-static void svsm_pval_pages(struct snp_psc_desc *desc)
+-{
+-	struct svsm_pvalidate_entry pv_4k[VMGEXIT_PSC_MAX_ENTRY];
+-	unsigned int i, pv_4k_count = 0;
+-	struct svsm_pvalidate_call *pc;
+-	struct svsm_call call = {};
+-	unsigned long flags;
+-	bool action;
+-	u64 pc_pa;
+-	int ret;
+-
+-	/*
+-	 * This can be called very early in the boot, use native functions in
+-	 * order to avoid paravirt issues.
+-	 */
+-	flags = native_local_irq_save();
+-
+-	/*
+-	 * The SVSM calling area (CA) can support processing 510 entries at a
+-	 * time. Loop through the Page State Change descriptor until the CA is
+-	 * full or the last entry in the descriptor is reached, at which time
+-	 * the SVSM is invoked. This repeats until all entries in the descriptor
+-	 * are processed.
+-	 */
+-	call.caa = svsm_get_caa();
+-
+-	pc = (struct svsm_pvalidate_call *)call.caa->svsm_buffer;
+-	pc_pa = svsm_get_caa_pa() + offsetof(struct svsm_ca, svsm_buffer);
+-
+-	/* Protocol 0, Call ID 1 */
+-	call.rax = SVSM_CORE_CALL(SVSM_CORE_PVALIDATE);
+-	call.rcx = pc_pa;
+-
+-	for (i = 0; i <= desc->hdr.end_entry;) {
+-		i = svsm_build_ca_from_psc_desc(desc, i, pc);
+-
+-		do {
+-			ret = svsm_perform_call_protocol(&call);
+-			if (!ret)
+-				continue;
+-
+-			/*
+-			 * Check if the entry failed because of an RMP mismatch (a
+-			 * PVALIDATE at 2M was requested, but the page is mapped in
+-			 * the RMP as 4K).
+-			 */
+-
+-			if (call.rax_out == SVSM_PVALIDATE_FAIL_SIZEMISMATCH &&
+-			    pc->entry[pc->cur_index].page_size == RMP_PG_SIZE_2M) {
+-				/* Save this entry for post-processing at 4K */
+-				pv_4k[pv_4k_count++] = pc->entry[pc->cur_index];
+-
+-				/* Skip to the next one unless at the end of the list */
+-				pc->cur_index++;
+-				if (pc->cur_index < pc->num_entries)
+-					ret = -EAGAIN;
+-				else
+-					ret = 0;
+-			}
+-		} while (ret == -EAGAIN);
+-
+-		if (ret)
+-			svsm_pval_terminate(pc, ret, call.rax_out);
+-	}
+-
+-	/* Process any entries that failed to be validated at 2M and validate them at 4K */
+-	for (i = 0; i < pv_4k_count; i++) {
+-		u64 pfn, pfn_end;
+-
+-		action  = pv_4k[i].action;
+-		pfn     = pv_4k[i].pfn;
+-		pfn_end = pfn + 512;
+-
+-		while (pfn < pfn_end) {
+-			pfn = svsm_build_ca_from_pfn_range(pfn, pfn_end, action, pc);
+-
+-			ret = svsm_perform_call_protocol(&call);
+-			if (ret)
+-				svsm_pval_terminate(pc, ret, call.rax_out);
+-		}
+-	}
+-
+-	native_local_irq_restore(flags);
+-}
+-
+ static void pvalidate_pages(struct snp_psc_desc *desc)
+ {
+ 	struct psc_entry *e;
+@@ -1590,56 +1321,6 @@ static int __init report_snp_info(void)
+ }
+ arch_initcall(report_snp_info);
+ 
+-static void update_attest_input(struct svsm_call *call, struct svsm_attest_call *input)
+-{
+-	/* If (new) lengths have been returned, propagate them up */
+-	if (call->rcx_out != call->rcx)
+-		input->manifest_buf.len = call->rcx_out;
+-
+-	if (call->rdx_out != call->rdx)
+-		input->certificates_buf.len = call->rdx_out;
+-
+-	if (call->r8_out != call->r8)
+-		input->report_buf.len = call->r8_out;
+-}
+-
+-int snp_issue_svsm_attest_req(u64 call_id, struct svsm_call *call,
+-			      struct svsm_attest_call *input)
+-{
+-	struct svsm_attest_call *ac;
+-	unsigned long flags;
+-	u64 attest_call_pa;
+-	int ret;
+-
+-	if (!snp_vmpl)
+-		return -EINVAL;
+-
+-	local_irq_save(flags);
+-
+-	call->caa = svsm_get_caa();
+-
+-	ac = (struct svsm_attest_call *)call->caa->svsm_buffer;
+-	attest_call_pa = svsm_get_caa_pa() + offsetof(struct svsm_ca, svsm_buffer);
+-
+-	*ac = *input;
+-
+-	/*
+-	 * Set input registers for the request and set RDX and R8 to known
+-	 * values in order to detect length values being returned in them.
+-	 */
+-	call->rax = call_id;
+-	call->rcx = attest_call_pa;
+-	call->rdx = -1;
+-	call->r8 = -1;
+-	ret = svsm_perform_call_protocol(call);
+-	update_attest_input(call, input);
+-
+-	local_irq_restore(flags);
+-
+-	return ret;
+-}
+-EXPORT_SYMBOL_GPL(snp_issue_svsm_attest_req);
+-
+ static int snp_issue_guest_request(struct snp_guest_req *req)
+ {
+ 	struct snp_req_data *input = &req->input;
+@@ -1704,64 +1385,6 @@ static int snp_issue_guest_request(struct snp_guest_req *req)
+ 	return ret;
+ }
+ 
+-/**
+- * snp_svsm_vtpm_probe() - Probe if SVSM provides a vTPM device
+- *
+- * Check that there is SVSM and that it supports at least TPM_SEND_COMMAND
+- * which is the only request used so far.
+- *
+- * Return: true if the platform provides a vTPM SVSM device, false otherwise.
+- */
+-static bool snp_svsm_vtpm_probe(void)
+-{
+-	struct svsm_call call = {};
+-
+-	/* The vTPM device is available only if a SVSM is present */
+-	if (!snp_vmpl)
+-		return false;
+-
+-	call.caa = svsm_get_caa();
+-	call.rax = SVSM_VTPM_CALL(SVSM_VTPM_QUERY);
+-
+-	if (svsm_perform_call_protocol(&call))
+-		return false;
+-
+-	/* Check platform commands contains TPM_SEND_COMMAND - platform command 8 */
+-	return call.rcx_out & BIT_ULL(8);
+-}
+-
+-/**
+- * snp_svsm_vtpm_send_command() - Execute a vTPM operation on SVSM
+- * @buffer: A buffer used to both send the command and receive the response.
+- *
+- * Execute a SVSM_VTPM_CMD call as defined by
+- * "Secure VM Service Module for SEV-SNP Guests" Publication # 58019 Revision: 1.00
+- *
+- * All command request/response buffers have a common structure as specified by
+- * the following table:
+- *     Byte      Size       In/Out    Description
+- *     Offset    (Bytes)
+- *     0x000     4          In        Platform command
+- *                          Out       Platform command response size
+- *
+- * Each command can build upon this common request/response structure to create
+- * a structure specific to the command. See include/linux/tpm_svsm.h for more
+- * details.
+- *
+- * Return: 0 on success, -errno on failure
+- */
+-int snp_svsm_vtpm_send_command(u8 *buffer)
+-{
+-	struct svsm_call call = {};
+-
+-	call.caa = svsm_get_caa();
+-	call.rax = SVSM_VTPM_CALL(SVSM_VTPM_CMD);
+-	call.rcx = __pa(buffer);
+-
+-	return svsm_perform_call_protocol(&call);
+-}
+-EXPORT_SYMBOL_GPL(snp_svsm_vtpm_send_command);
+-
+ static struct platform_device sev_guest_device = {
+ 	.name		= "sev-guest",
+ 	.id		= -1,
+diff --git a/arch/x86/coco/sev/internal.h b/arch/x86/coco/sev/internal.h
+index af991f1da0957..039326b5c799e 100644
+--- a/arch/x86/coco/sev/internal.h
++++ b/arch/x86/coco/sev/internal.h
+@@ -66,6 +66,9 @@ extern u64 boot_svsm_caa_pa;
+ 
+ enum es_result verify_exception_info(struct ghcb *ghcb, struct es_em_ctxt *ctxt);
+ void vc_forward_exception(struct es_em_ctxt *ctxt);
++void svsm_pval_pages(struct snp_psc_desc *desc);
++int svsm_perform_call_protocol(struct svsm_call *call);
++bool snp_svsm_vtpm_probe(void);
+ 
+ static inline u64 sev_es_rd_ghcb_msr(void)
+ {
+@@ -87,4 +90,30 @@ enum es_result sev_es_ghcb_handle_msr(struct ghcb *ghcb, struct es_em_ctxt *ctxt
+ u64 get_hv_features(void);
+ 
+ const struct snp_cpuid_table *snp_cpuid_get_table(void);
++
++static inline struct svsm_ca *svsm_get_caa(void)
++{
++	if (sev_cfg.use_cas)
++		return this_cpu_read(svsm_caa);
++	else
++		return rip_rel_ptr(&boot_svsm_ca_page);
++}
++
++static inline u64 svsm_get_caa_pa(void)
++{
++	if (sev_cfg.use_cas)
++		return this_cpu_read(svsm_caa_pa);
++	else
++		return boot_svsm_caa_pa;
++}
++
++static inline void __pval_terminate(u64 pfn, bool action, unsigned int page_size,
++				    int ret, u64 svsm_ret)
++{
++	WARN(1, "PVALIDATE failure: pfn: 0x%llx, action: %u, size: %u, ret: %d, svsm_ret: 0x%llx\n",
++	     pfn, action, page_size, ret, svsm_ret);
++
++	sev_es_terminate(SEV_TERM_SET_LINUX, GHCB_TERM_PVALIDATE);
++}
++
+ #endif /* __X86_COCO_SEV_INTERNAL_H__ */
+diff --git a/arch/x86/coco/sev/svsm.c b/arch/x86/coco/sev/svsm.c
+new file mode 100644
+index 0000000000000..2acf4a76afe7a
+--- /dev/null
++++ b/arch/x86/coco/sev/svsm.c
+@@ -0,0 +1,362 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * SVSM support code
++ */
++
++#include <linux/types.h>
++
++#include <asm/sev.h>
++
++#include "internal.h"
++
++/* For early boot SVSM communication */
++struct svsm_ca boot_svsm_ca_page __aligned(PAGE_SIZE);
++SYM_PIC_ALIAS(boot_svsm_ca_page);
++
++/*
++ * SVSM related information:
++ *   During boot, the page tables are set up as identity mapped and later
++ *   changed to use kernel virtual addresses. Maintain separate virtual and
++ *   physical addresses for the CAA to allow SVSM functions to be used during
++ *   early boot, both with identity mapped virtual addresses and proper kernel
++ *   virtual addresses.
++ */
++u64 boot_svsm_caa_pa __ro_after_init;
++SYM_PIC_ALIAS(boot_svsm_caa_pa);
++
++DEFINE_PER_CPU(struct svsm_ca *, svsm_caa);
++DEFINE_PER_CPU(u64, svsm_caa_pa);
++
++static int svsm_perform_ghcb_protocol(struct ghcb *ghcb, struct svsm_call *call)
++{
++	struct es_em_ctxt ctxt;
++	u8 pending = 0;
++
++	vc_ghcb_invalidate(ghcb);
++
++	/*
++	 * Fill in protocol and format specifiers. This can be called very early
++	 * in the boot, so use rip-relative references as needed.
++	 */
++	ghcb->protocol_version = ghcb_version;
++	ghcb->ghcb_usage       = GHCB_DEFAULT_USAGE;
++
++	ghcb_set_sw_exit_code(ghcb, SVM_VMGEXIT_SNP_RUN_VMPL);
++	ghcb_set_sw_exit_info_1(ghcb, 0);
++	ghcb_set_sw_exit_info_2(ghcb, 0);
++
++	sev_es_wr_ghcb_msr(__pa(ghcb));
++
++	svsm_issue_call(call, &pending);
++
++	if (pending)
++		return -EINVAL;
++
++	switch (verify_exception_info(ghcb, &ctxt)) {
++	case ES_OK:
++		break;
++	case ES_EXCEPTION:
++		vc_forward_exception(&ctxt);
++		fallthrough;
++	default:
++		return -EINVAL;
++	}
++
++	return svsm_process_result_codes(call);
++}
++
++int svsm_perform_call_protocol(struct svsm_call *call)
++{
++	struct ghcb_state state;
++	unsigned long flags;
++	struct ghcb *ghcb;
++	int ret;
++
++	flags = native_local_irq_save();
++
++	if (sev_cfg.ghcbs_initialized)
++		ghcb = __sev_get_ghcb(&state);
++	else if (boot_ghcb)
++		ghcb = boot_ghcb;
++	else
++		ghcb = NULL;
++
++	do {
++		ret = ghcb ? svsm_perform_ghcb_protocol(ghcb, call)
++			   : __pi_svsm_perform_msr_protocol(call);
++	} while (ret == -EAGAIN);
++
++	if (sev_cfg.ghcbs_initialized)
++		__sev_put_ghcb(&state);
++
++	native_local_irq_restore(flags);
++
++	return ret;
++}
++
++static u64 svsm_build_ca_from_pfn_range(u64 pfn, u64 pfn_end, bool action,
++					struct svsm_pvalidate_call *pc)
++{
++	struct svsm_pvalidate_entry *pe;
++
++	/* Nothing in the CA yet */
++	pc->num_entries = 0;
++	pc->cur_index   = 0;
++
++	pe = &pc->entry[0];
++
++	while (pfn < pfn_end) {
++		pe->page_size = RMP_PG_SIZE_4K;
++		pe->action    = action;
++		pe->ignore_cf = 0;
++		pe->rsvd      = 0;
++		pe->pfn       = pfn;
++
++		pe++;
++		pfn++;
++
++		pc->num_entries++;
++		if (pc->num_entries == SVSM_PVALIDATE_MAX_COUNT)
++			break;
++	}
++
++	return pfn;
++}
++
++static int svsm_build_ca_from_psc_desc(struct snp_psc_desc *desc, unsigned int desc_entry,
++				       struct svsm_pvalidate_call *pc)
++{
++	struct svsm_pvalidate_entry *pe;
++	struct psc_entry *e;
++
++	/* Nothing in the CA yet */
++	pc->num_entries = 0;
++	pc->cur_index   = 0;
++
++	pe = &pc->entry[0];
++	e  = &desc->entries[desc_entry];
++
++	while (desc_entry <= desc->hdr.end_entry) {
++		pe->page_size = e->pagesize ? RMP_PG_SIZE_2M : RMP_PG_SIZE_4K;
++		pe->action    = e->operation == SNP_PAGE_STATE_PRIVATE;
++		pe->ignore_cf = 0;
++		pe->rsvd      = 0;
++		pe->pfn       = e->gfn;
++
++		pe++;
++		e++;
++
++		desc_entry++;
++		pc->num_entries++;
++		if (pc->num_entries == SVSM_PVALIDATE_MAX_COUNT)
++			break;
++	}
++
++	return desc_entry;
++}
++
++static void svsm_pval_terminate(struct svsm_pvalidate_call *pc, int ret, u64 svsm_ret)
++{
++	unsigned int page_size;
++	bool action;
++	u64 pfn;
++
++	pfn = pc->entry[pc->cur_index].pfn;
++	action = pc->entry[pc->cur_index].action;
++	page_size = pc->entry[pc->cur_index].page_size;
++
++	__pval_terminate(pfn, action, page_size, ret, svsm_ret);
++}
++
++void svsm_pval_pages(struct snp_psc_desc *desc)
++{
++	struct svsm_pvalidate_entry pv_4k[VMGEXIT_PSC_MAX_ENTRY];
++	unsigned int i, pv_4k_count = 0;
++	struct svsm_pvalidate_call *pc;
++	struct svsm_call call = {};
++	unsigned long flags;
++	bool action;
++	u64 pc_pa;
++	int ret;
++
++	/*
++	 * This can be called very early in the boot, use native functions in
++	 * order to avoid paravirt issues.
++	 */
++	flags = native_local_irq_save();
++
++	/*
++	 * The SVSM calling area (CA) can support processing 510 entries at a
++	 * time. Loop through the Page State Change descriptor until the CA is
++	 * full or the last entry in the descriptor is reached, at which time
++	 * the SVSM is invoked. This repeats until all entries in the descriptor
++	 * are processed.
++	 */
++	call.caa = svsm_get_caa();
++
++	pc = (struct svsm_pvalidate_call *)call.caa->svsm_buffer;
++	pc_pa = svsm_get_caa_pa() + offsetof(struct svsm_ca, svsm_buffer);
++
++	/* Protocol 0, Call ID 1 */
++	call.rax = SVSM_CORE_CALL(SVSM_CORE_PVALIDATE);
++	call.rcx = pc_pa;
++
++	for (i = 0; i <= desc->hdr.end_entry;) {
++		i = svsm_build_ca_from_psc_desc(desc, i, pc);
++
++		do {
++			ret = svsm_perform_call_protocol(&call);
++			if (!ret)
++				continue;
++
++			/*
++			 * Check if the entry failed because of an RMP mismatch (a
++			 * PVALIDATE at 2M was requested, but the page is mapped in
++			 * the RMP as 4K).
++			 */
++
++			if (call.rax_out == SVSM_PVALIDATE_FAIL_SIZEMISMATCH &&
++			    pc->entry[pc->cur_index].page_size == RMP_PG_SIZE_2M) {
++				/* Save this entry for post-processing at 4K */
++				pv_4k[pv_4k_count++] = pc->entry[pc->cur_index];
++
++				/* Skip to the next one unless at the end of the list */
++				pc->cur_index++;
++				if (pc->cur_index < pc->num_entries)
++					ret = -EAGAIN;
++				else
++					ret = 0;
++			}
++		} while (ret == -EAGAIN);
++
++		if (ret)
++			svsm_pval_terminate(pc, ret, call.rax_out);
++	}
++
++	/* Process any entries that failed to be validated at 2M and validate them at 4K */
++	for (i = 0; i < pv_4k_count; i++) {
++		u64 pfn, pfn_end;
++
++		action  = pv_4k[i].action;
++		pfn     = pv_4k[i].pfn;
++		pfn_end = pfn + 512;
++
++		while (pfn < pfn_end) {
++			pfn = svsm_build_ca_from_pfn_range(pfn, pfn_end, action, pc);
++
++			ret = svsm_perform_call_protocol(&call);
++			if (ret)
++				svsm_pval_terminate(pc, ret, call.rax_out);
++		}
++	}
++
++	native_local_irq_restore(flags);
++}
++
++static void update_attest_input(struct svsm_call *call, struct svsm_attest_call *input)
++{
++	/* If (new) lengths have been returned, propagate them up */
++	if (call->rcx_out != call->rcx)
++		input->manifest_buf.len = call->rcx_out;
++
++	if (call->rdx_out != call->rdx)
++		input->certificates_buf.len = call->rdx_out;
++
++	if (call->r8_out != call->r8)
++		input->report_buf.len = call->r8_out;
++}
++
++int snp_issue_svsm_attest_req(u64 call_id, struct svsm_call *call,
++			      struct svsm_attest_call *input)
++{
++	struct svsm_attest_call *ac;
++	unsigned long flags;
++	u64 attest_call_pa;
++	int ret;
++
++	if (!snp_vmpl)
++		return -EINVAL;
++
++	local_irq_save(flags);
++
++	call->caa = svsm_get_caa();
++
++	ac = (struct svsm_attest_call *)call->caa->svsm_buffer;
++	attest_call_pa = svsm_get_caa_pa() + offsetof(struct svsm_ca, svsm_buffer);
++
++	*ac = *input;
++
++	/*
++	 * Set input registers for the request and set RDX and R8 to known
++	 * values in order to detect length values being returned in them.
++	 */
++	call->rax = call_id;
++	call->rcx = attest_call_pa;
++	call->rdx = -1;
++	call->r8 = -1;
++	ret = svsm_perform_call_protocol(call);
++	update_attest_input(call, input);
++
++	local_irq_restore(flags);
++
++	return ret;
++}
++EXPORT_SYMBOL_GPL(snp_issue_svsm_attest_req);
++
++/**
++ * snp_svsm_vtpm_send_command() - Execute a vTPM operation on SVSM
++ * @buffer: A buffer used to both send the command and receive the response.
++ *
++ * Execute a SVSM_VTPM_CMD call as defined by
++ * "Secure VM Service Module for SEV-SNP Guests" Publication # 58019 Revision: 1.00
++ *
++ * All command request/response buffers have a common structure as specified by
++ * the following table:
++ *     Byte      Size       In/Out    Description
++ *     Offset    (Bytes)
++ *     0x000     4          In        Platform command
++ *                          Out       Platform command response size
++ *
++ * Each command can build upon this common request/response structure to create
++ * a structure specific to the command. See include/linux/tpm_svsm.h for more
++ * details.
++ *
++ * Return: 0 on success, -errno on failure
++ */
++int snp_svsm_vtpm_send_command(u8 *buffer)
++{
++	struct svsm_call call = {};
++
++	call.caa = svsm_get_caa();
++	call.rax = SVSM_VTPM_CALL(SVSM_VTPM_CMD);
++	call.rcx = __pa(buffer);
++
++	return svsm_perform_call_protocol(&call);
++}
++EXPORT_SYMBOL_GPL(snp_svsm_vtpm_send_command);
++
++/**
++ * snp_svsm_vtpm_probe() - Probe if SVSM provides a vTPM device
++ *
++ * Check that there is SVSM and that it supports at least TPM_SEND_COMMAND
++ * which is the only request used so far.
++ *
++ * Return: true if the platform provides a vTPM SVSM device, false otherwise.
++ */
++bool snp_svsm_vtpm_probe(void)
++{
++	struct svsm_call call = {};
++
++	/* The vTPM device is available only if a SVSM is present */
++	if (!snp_vmpl)
++		return false;
++
++	call.caa = svsm_get_caa();
++	call.rax = SVSM_VTPM_CALL(SVSM_VTPM_QUERY);
++
++	if (svsm_perform_call_protocol(&call))
++		return false;
++
++	/* Check platform commands contains TPM_SEND_COMMAND - platform command 8 */
++	return call.rcx_out & BIT_ULL(8);
++}
 -- 
 2.53.0
 
