@@ -1,246 +1,203 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-00256a01.pphosted.com (mx0a-00256a01.pphosted.com [148.163.150.240])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76389175A95;
-	Tue, 29 Sep 2026 00:07:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AA578248B
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 00:24:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.150.240
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790640476; cv=none; b=IaxL8uwYAAG+VkCUmLE54Ize6CP/HOALeubIJsr8rKjFKE0I/S2Gs9NmxMU1eJbANwWRrPua1oGmyj4FLegC+ZPVhQWtUoZL/6uipAvzWpmShiYU0HPoFSe0Aukz5DY3jSFP15QBH/1trsIOZssAAZA+mUYSctFHBhPJdhOpjEA=
+	t=1790641461; cv=none; b=ZheVovn9NNjJJm9miw/X79AHbyZ6LAIx163Z7PXJmtFDtgIR1LQOm2wJioxLWs7ebm1flHjpMYIaZU9DpZm6D0H8pNEg0eFcI7nbJMoEbtymUu1Tkek60lB3DhowwWNZ+/sFD1ypUfUSCuCGvPzTp0gLfm8UaEWCaddWFTaYhA4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790640476; c=relaxed/simple;
-	bh=eszMuzjSUoBmMtD7cpQURN1VHH+HMmyvsyMYtwiZ89w=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=m5qFZzC4J0rPC3Mqdvac92hEB2+TDmxqEKqqEKlzYc1Fhjd4V/8v8pjrReZ6me9OecjGAoo18vBBZqLnxOav6zrASa7t5vWY25QOkKltEFknW1GwTXv2zkcBkc0x1Ohy0gv0+40buPCA6Car5BcheEKg8LD43jdIv+6k9Us1T68=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CFX/JoZT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790641461; c=relaxed/simple;
+	bh=Sc6B/LNjsW2P4eo1apjanbcfJFhHR1I9fnaSFJ77sbw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Gu/nH9dyso6LgZydKvVERx61TOpePjjE26jD1ui9Nr88KT6m8wWVOych8cg9/ByIGtI0Q591qzt+hMDYayGxFHjd/kaelCUmquSzCjIgBQNpQJhAmXVMhlzUZ3qf+J59JuZRrvxME+mCSXXn1dNvnyGht94D/s5Zt3jXSBpaxow=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nyu.edu; spf=pass smtp.mailfrom=nyu.edu; dkim=pass (2048-bit key) header.d=nyu.edu header.i=@nyu.edu header.b=poJoXiiP; dkim=pass (2048-bit key) header.d=nyu.edu header.i=@nyu.edu header.b=L+CpYa3J; arc=none smtp.client-ip=148.163.150.240
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nyu.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nyu.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CFX/JoZT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D7031F000FF;
-	Tue, 29 Sep 2026 00:07:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790640475;
-	bh=p6CdxTYFaQ6PkQto7LRrk2p1Wt6bRQTe6yWxfoqoeTQ=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=CFX/JoZTZ3QG7By3JuVgEgUMz//yRHJST72KxFj+6KTGC3PYoZzvksEMOoWbXB7XC
-	 Pv5ECnKOlZxPYT4zMcJ1wic4LoLwDEF/IQRqslaEz4C/T7Z+/uDvdnwi+z2OkIpgSU
-	 tywfewMPdXyKRlxH86zP8DIjzWUlCkymJxbboePWHDOB2hL7dxFMkRvlMBsQDbxbcf
-	 tHh5julaKXysfVCBf63444pmHNq+3KwY+LGZCU8xJpM+S3BqjxkW3avUGHtCWx3S3P
-	 J1PpCACk+w7pgUqV7KNg51wiicqau95I0bbdR/pHZUsutrlV4SF1pVxSokm7zVPrXu
-	 +Sk4A++byWIMg==
-Subject:
- Re: [PATCH net v2] net: extend IPv6 exthdr detection of tunneled packets
-From: netdev-bot+sashiko@kernel.org
-To: willemdebruijn.kernel@gmail.com
-Cc: netdev@vger.kernel.org, davem@davemloft.net, kuba@kernel.org,
- edumazet@google.com, pabeni@redhat.com, horms@kernel.org,
- andrew+netdev@lunn.ch, xietangxin@yeah.net, willemb@google.com,
- stable@vger.kernel.org
-Date: Tue, 29 Sep 2026 00:07:53 +0000
-Message-ID: <179064047393.3145.16303551892146530587@kernel.org>
-In-Reply-To: <20260926140506.2335137-1-willemdebruijn.kernel@gmail.com>
-References: <20260926140506.2335137-1-willemdebruijn.kernel@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=nyu.edu header.i=@nyu.edu header.b="poJoXiiP";
+	dkim=pass (2048-bit key) header.d=nyu.edu header.i=@nyu.edu header.b="L+CpYa3J"
+Received: from pps.filterd (m0380321.ppops.net [127.0.0.1])
+	by mx0b-00256a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68SLfNL4294214
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 20:19:20 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nyu.edu; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=20180315; bh=Y5kiEK+5yijCN+GrhEmUOii6QxUi1ESRYSOq
+	TD/Fb60=; b=poJoXiiPqy+J/el0cYDyqK8Ze2Cum7LNM4/g7VG7bXAp0Yr1hxi7
+	c8D8EncRNEIusvz2X23KFc7NGNgCIQX+zvlC5WKZaqvI3tbva7GlsncBz/ea9L7Q
+	UBt2Sh99RRdhPsoSfyRACCSh8be0r8wLHbcB2DCTK8tXrE1OwKGSVLkf31URCxH4
+	wCkZ6ewkaR1IITHFKnmEd8szTbfrnGIZM0hnV5dTGEzWwODX1z1LmU7TmqPm/dxQ
+	NtXj5025iY+gFtD37sQ8IyV+IEnb+au6vInEdI9KDzst00rVs2C8g1mceBlUYn1H
+	imi+EZb9P+cucHiKg6iTDP9BCSV8T3hM0Q==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0b-00256a01.pphosted.com (PPS) with ESMTPS id 4h00ccsvbq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Mon, 28 Sep 2026 20:19:20 -0400 (EDT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-934956beec8so773559185a.0
+        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 17:19:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nyu.edu; s=nyu-googleapps1; t=1790641159; x=1791245959; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Y5kiEK+5yijCN+GrhEmUOii6QxUi1ESRYSOqTD/Fb60=;
+        b=L+CpYa3JiDfksyp6gdoHqeA53Y6qqWGZ0ciHegEmuLi1wbyUcONEv3urexHEPBn8jU
+         h4O5bp9e3a9JYwsxLTc+vFPvD2eOK0ylf3QBAVj3lOvk6u2I88izMrHzq/T0pGiT3Jhz
+         DvvhP834LLUDVefhxxSkX3u8cRRebhfdQYp+yix9yYXLv3moHMTfjf1PJUXHbHi+DOjQ
+         tdeP95Z0OP9d2Cb+wV4cBw2tqB/KYH8+mVlVeg5vPoYqu5H5kSetmldMZFSCiBreOIkZ
+         CMDfS1Fs/aJouhlEX/MMNMcLwMiaRYRhheRwNQqo3tg482Ia+nFycEVWRyT1nkmfU6aW
+         TMqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790641159; x=1791245959;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Y5kiEK+5yijCN+GrhEmUOii6QxUi1ESRYSOqTD/Fb60=;
+        b=onvmA4/JG48I95bRC/ApIxVqOMg3Oc45msgyFlBwCcABruVzrQg1bUcRwiF+gEm241
+         42kOgRguI40FFctK1ViyKKtlKFrl2JPCOWx/bt/Ih/fSRjIjvWDaJf5gyo6sjhL1AwZc
+         WxvQM33+kSYSuX2GdQymkmCdK3OG13RCe+0Soy9a+VlYBhiUH4Cvwg4F5m0eXdJMW1pZ
+         ZrxeEXFsegOna7IGtrYEq3kWMpz1iK2x/Jw8idKcA8latri42yLbhHWmeG3njJGx2zEz
+         Y+L+Poo+uWIdmkmrWfblFXhAVKHNxN4fnDDl3txYe4FKPofuggJDdwoXjMLoO2kZAXh7
+         0UAg==
+X-Forwarded-Encrypted: i=1; AKwUvBwhxkBtVMs4nGlKBwvcb9qe9QSZt5PLWnB6gNx2A0byYwKsua+FRFrnVnCKboJbR/ejFQXrqqc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lne8kHLvb472Ea9ELSRU2TOWafKJl6vdfiJ/bThiq7TYkMp0Nm
+	PTH+Js5aVdcm4hYl+m1ve30F/5oIA0hAzCsfvAzqOU0T8OSBCfzcl8+F3WQx+9ANZK9bJ+WuWki
+	nkOkaglm9smyH+VxZ8qbl7MwoS2TKFSEmZEA0Eliuj8wJmZDROcyPRGc=
+X-Gm-Gg: AYBFou2iEodPMOmLLUor/8SZj6NtTd+JOYY1q9F5k5/HRhf/zMsgUDY14Qm9YmC048A
+	lezxiDTSWErQv8H2Dx9y7Ibgx5nQvRFZwuK9TUgMyAkkX/H5PgQwPpws2RjxIPhKK2UI50q2PHT
+	mWu3fJM3Gq2EnpMHoGIQUFpIqr4L9K2ZW7UKepkqQy0RB+e9KE5tZ2zLbG9LxjuuwKfTloTeZiB
+	rJg6VqA1C76WbH2aPNWQQ50UOnnVPmoO1E4s02DFDhcJ+PHNlIekZUAoYG27nLWEKPjFyf1bRD9
+	dzpcXIY7n98y/ltJHZyyuPy1y2/+gcJEXzBY25RKpVL8MGOG9d2Il6fWYKKfd7dW9gCSt7B8exP
+	XgRriXZaRe1nVLQgK4+aRJunSMGtlNCnbRac=
+X-Received: by 2002:a05:620a:6c0d:b0:939:de6c:cb45 with SMTP id af79cd13be357-93c43d159a1mr2514690185a.47.1790641159284;
+        Mon, 28 Sep 2026 17:19:19 -0700 (PDT)
+X-Received: by 2002:a05:620a:6c0d:b0:939:de6c:cb45 with SMTP id af79cd13be357-93c43d159a1mr2514686685a.47.1790641158775;
+        Mon, 28 Sep 2026 17:19:18 -0700 (PDT)
+Received: from jerrythepro.nyu.edu (216-165-95-162.natpool.nyu.edu. [216.165.95.162])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c813fee09sm270338085a.24.2026.09.28.17.19.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 17:19:18 -0700 (PDT)
+From: kj2864@nyu.edu
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+        co+6a04efcebe0fc0ce@bugs.sh, Kaho Jiang <kj2864@nyu.edu>,
+        stable@vger.kernel.org
+Subject: [PATCH] media: em28xx: fix double free in em28xx_alloc_urbs
+Date: Mon, 28 Sep 2026 20:19:04 -0400
+Message-ID: <20260929001903.158767-2-kj2864@nyu.edu>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDAwMCBTYWx0ZWRfX6DSye0tm/Ej4
+ YiB5KOM5WhHL3zAQu3rbJ9y4rTc7EAbARCaBTql06WoeoKRPRA0nFK4iuQVCTVu+UB0A71LSvTX
+ BTs/MIfdhaozNYXRZDw48w4nrZP3RjE=
+X-Proofpoint-GUID: d-8DCnzJqEOXlBosuZyfPGeJOEIRnId-
+X-Proofpoint-ORIG-GUID: d-8DCnzJqEOXlBosuZyfPGeJOEIRnId-
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDAwMCBTYWx0ZWRfX6nAAgw3vElJ4
+ HpbxUaMZ/i+9/fEnzQJlYMFONSaFcV+P3C66R+xB6vtUbpLhfMrj3Ja7eaZjPQCl163MSPr9fcK
+ BepYI92pGV34Rr26UaXpxxZEC94pEejBae3m1PHLRy/al+qAYLUTpaAIU3H6rcgLJpq+w4Zx89X
+ glUdVsVf99pcLHVsJM2GXkq52GU2x1zIJNFGPQq/I2xGM/sm8ZwC3F4CX3qQmMpG4R8eda5L4UJ
+ vqv7yWTUriynQRBdTAJXvLx5PHL9kzuX9P/YfuEtyh0mERlbwI08FWveS181JUGYi93pGE1v55Y
+ odFvwvCgKOrvmsCDROvALQkfR18CGZo9etEMtCy81rs7zPU1kQFkOKWd8cRNn4+DoZPVrheQkZV
+ gNzBB1CWvVosf6rf2Hf+8rH9R9fSxZ3SjWp414rVqUHLj3IZRXMeAwR7VqPBnTYwfWB2fzGw0TT
+ tWG31C+EsXTy7xucLQQ==
+X-Authority-Analysis: v=2.4 cv=OcUNnRTY c=1 sm=1 tr=0 ts=6abb0408 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=QttKoHjxDjZciDcJ6FphuQ==:17
+ a=VdqzKS8jKosA:10 a=x7bEGLp0ZPQA:10 a=S0S_EcBMpFAA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Se5WoFf3ZZRiLcel0nel:22 a=Vu6uP2Wp0I46Sktgawq-:22
+ a=VwQbUJbxAAAA:8 a=kj-zqgMp3CcBJFKlVqoA:9 a=PEH46H7Ffwr30OY-TuGO:22
+X-Orig-IP: 209.85.222.200
+X-Proofpoint-Spam-Details: rule=outbound_bp_notspam policy=outbound_bp score=0
+ impostorscore=0 adultscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0
+ priorityscore=1501 clxscore=1011 phishscore=0 bulkscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609290000
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+From: Kaho Jiang <kj2864@nyu.edu>
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 2
+When allocation of usb_bufs->buf[i] fails, em28xx_alloc_urbs()
+explicitly frees all items within usb_bufs->buf before calling
+em28xx_uninit_usb_xfer(), which also frees these items, causing them to be
+freed twice.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+BUG: KASAN: double-free in usb_free_urb.part.0 (drivers/usb/core/urb.c:25 ./include/linux/kref.h:65 drivers/usb/core/urb.c:96)
+Free of addr ffff88802fd37c00 by task kworker/1:2/1182
+Workqueue: events request_module_async
+Call Trace:
+  kasan_report_invalid_free (mm/kasan/report.c:557)
+  check_slab_allocation (mm/kasan/common.c:235)
+  kfree (./include/linux/kasan.h:199 (discriminator 1) mm/slub.c:2693 (discriminator 1) mm/slub.c:6508 (discriminator 1) mm/slub.c:6801 (discriminator 1))
+  usb_free_urb.part.0 (drivers/usb/core/urb.c:25 ./include/linux/kref.h:65 drivers/usb/core/urb.c:96)
+  usb_free_urb (drivers/usb/core/urb.c:95)
+  em28xx_uninit_usb_xfer (drivers/media/usb/em28xx/em28xx-core.c:964)
+  em28xx_alloc_urbs (drivers/media/usb/em28xx/em28xx-core.c:1076)
+  em28xx_dvb_init (drivers/media/usb/em28xx/em28xx-dvb.c:1734 drivers/media/usb/em28xx/em28xx-dvb.c:1698)
+  em28xx_init_extension (drivers/media/usb/em28xx/em28xx-core.c:1248)
+  request_module_async (drivers/media/usb/em28xx/em28xx-cards.c:3685)
+  process_one_work (kernel/workqueue.c:3396)
+  worker_thread (kernel/workqueue.c:3479 kernel/workqueue.c:3560)
+  kthread (kernel/kthread.c:436)
+  ret_from_fork (arch/x86/kernel/process.c:158)
+  ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
+  Allocated by task 1182:
+  kasan_save_stack (mm/kasan/common.c:57)
+  kasan_save_track (mm/kasan/common.c:78)
+  __kasan_kmalloc (mm/kasan/common.c:398 mm/kasan/common.c:415)
+  __kmalloc_noprof (./include/linux/kasan.h:263 mm/slub.c:5414 mm/slub.c:5439)
+  em28xx_alloc_urbs (./include/linux/slab.h:995 ./include/linux/slab.h:1312 drivers/media/usb/em28xx/em28xx-core.c:1081)
+  em28xx_dvb_init (drivers/media/usb/em28xx/em28xx-dvb.c:1734 drivers/media/usb/em28xx/em28xx-dvb.c:1698)
+  em28xx_init_extension (drivers/media/usb/em28xx/em28xx-core.c:1248)
+  request_module_async (drivers/media/usb/em28xx/em28xx-cards.c:3685)
+  process_one_work (kernel/workqueue.c:3396)
+  worker_thread (kernel/workqueue.c:3479 kernel/workqueue.c:3560)
+  kthread (kernel/kthread.c:436)
+  ret_from_fork (arch/x86/kernel/process.c:158)
+  ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
+  Freed by task 1182:
+  kasan_save_stack (mm/kasan/common.c:57)
+  kasan_save_track (mm/kasan/common.c:78)
+  kasan_save_free_info (mm/kasan/generic.c:584)
+  __kasan_slab_free (mm/kasan/common.c:253 mm/kasan/common.c:285)
+  kfree (./include/linux/kasan.h:235 mm/slub.c:2748 mm/slub.c:6508 mm/slub.c:6801)
+  em28xx_alloc_urbs (drivers/media/usb/em28xx/em28xx-core.c:1084)
+  em28xx_dvb_init (drivers/media/usb/em28xx/em28xx-dvb.c:1734 drivers/media/usb/em28xx/em28xx-dvb.c:1698)
+  em28xx_init_extension (drivers/media/usb/em28xx/em28xx-core.c:1248)
+  request_module_async (drivers/media/usb/em28xx/em28xx-cards.c:3685)
+  process_one_work (kernel/workqueue.c:3396)
+  worker_thread (kernel/workqueue.c:3479 kernel/workqueue.c:3560)
+  kthread (kernel/kthread.c:436)
+  ret_from_fork (arch/x86/kernel/process.c:158)
+  ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
 
-- [Medium] net: unnecessary software checksum fallback for outer UDP
-  tunnels
-- [Low] The old non-encapsulated branch cleared features only for
-  SKB_GSO_TCPV6, or for SKB_GSO_UDP_L4 over IPv6.
-- [Low] The in-tree NETIF_F_IPV6_CSUM contract
-  (include/linux/skbuff.h:77-86) still says the feature covers only…
+Remove the explicit cleanup loop and let em28xx_uninit_usb_xfer()
+handle the cleanup.
 
---
+Fixes: d571b592c6206 ("media: em28xx: don't use coherent buffer for DMA transfers")
+Cc: stable@vger.kernel.org
+Reported-by: co+6a04efcebe0fc0ce@bugs.sh
+Assisted-by: LLM
+Signed-off-by: Kaho Jiang <kj2864@nyu.edu>
+---
+ drivers/media/usb/em28xx/em28xx-core.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-net: extend IPv6 exthdr detection of tunneled packets
-
-This patch replaces skb_gso_has_extension_hdr() with
-skb_has_ipv6_extension_hdr(). The new helper checks ipv6_ext_hdr() on the
-outer IPv6 header and, when skb->encapsulation is set, on the inner IPv6
-header, reading both through skb_header_pointer(). gso_features_check()
-and skb_csum_hwoffload_help() now both use it.
-
-> diff --git a/net/core/dev.c b/net/core/dev.c
-> index f660fccfc0dbc..aa74aa60ca2a7 100644
-> --- a/net/core/dev.c
-> +++ b/net/core/dev.c
-> @@ -3818,20 +3818,36 @@ static netdev_features_t dflt_features_check(struct sk_buff *skb,
->  	return vlan_features_check(skb, features);
->  }
->  
-> -static bool skb_gso_has_extension_hdr(const struct sk_buff *skb)
-> -{
-> -	if (!skb->encapsulation)
-> -		return ((skb_shinfo(skb)->gso_type & SKB_GSO_TCPV6 ||
-> -			 (skb_shinfo(skb)->gso_type & SKB_GSO_UDP_L4 &&
-> -			  vlan_get_protocol(skb) == htons(ETH_P_IPV6))) &&
-> -			skb_transport_header_was_set(skb) &&
-> -			skb_network_header_len(skb) != sizeof(struct ipv6hdr));
-
-[ ... ]
-
-> +static bool skb_has_ipv6_extension_hdr(const struct sk_buff *skb)
-> +{
-> +	if (vlan_get_protocol(skb) == htons(ETH_P_IPV6)) {
-> +		if (__skb_has_ipv6_ext_hdr(skb, skb_network_offset(skb)))
-> +			return true;
-
-[Severity: Low]
-
-The removed non-encapsulated branch cleared features only for
-SKB_GSO_TCPV6, or for SKB_GSO_UDP_L4 over IPv6. The new outer check has no
-gso_type gate. Is it meant to apply to every IPv6 GSO type?
-
-SKB_GSO_SCTP is one type whose behaviour changes. sctp_packet_pack()
-always makes the GSO head CHECKSUM_PARTIAL:
-
-net/sctp/output.c:sctp_packet_pack() {
-    ...
-	if (gso) {
-		...
-		goto chksum;
-	}
-    ...
-chksum:
-		head->ip_summed = CHECKSUM_PARTIAL;
-		head->csum_not_inet = 1;
-    ...
-}
-
-Take SCTP over IPv6 with IPV6_DSTOPTS or IPV6_RTHDR set.
-gso_features_check() now clears NETIF_F_IPV6_CSUM. harmonize_features()
-then sees ip_summed != CHECKSUM_NONE and
-!can_checksum_protocol(features, ETH_P_IPV6). It strips all of
-NETIF_F_CSUM_MASK, including NETIF_F_SCTP_CRC, plus NETIF_F_GSO_MASK:
-
-validate_xmit_skb()
-  netif_skb_features()
-    gso_features_check()    /* clears NETIF_F_IPV6_CSUM */
-    harmonize_features()    /* clears NETIF_F_CSUM_MASK, NETIF_F_GSO_MASK */
-  skb_gso_segment()
-    sctp_gso_segment()      /* CRC32c computed in software per segment */
-
-Some devices have NETIF_F_IP_CSUM | NETIF_F_IPV6_CSUM | NETIF_F_SCTP_CRC
-but no NETIF_F_HW_CSUM. One example is hns3 without
-HNAE3_DEV_SUPPORT_HW_TX_CSUM_B. On such a device the CRC32c was offloaded
-before this patch and is computed in software after it. The output is
-still correct, so only performance is affected.
-
-Could the gso_type restriction be kept here? If not, could the commit
-message say that the check now covers all IPv6 GSO types?
-
-> +
-> +		/* Catch tunnels without skb->encapsulation (e.g., virtio). */
-> +		if (!skb->encapsulation &&
-> +		    skb_transport_header_was_set(skb) &&
-> +		    skb_network_header_len(skb) != sizeof(struct ipv6hdr))
-> +			return true;
-> +	}
-
-[ ... ]
-
-> @@ -3988,8 +4004,7 @@ int skb_csum_hwoffload_help(struct sk_buff *skb,
->  		return 0;
->  
->  	if (features & (NETIF_F_IP_CSUM | NETIF_F_IPV6_CSUM)) {
-> -		if (vlan_get_protocol(skb) == htons(ETH_P_IPV6) &&
-> -		    skb_network_header_len(skb) != sizeof(struct ipv6hdr))
-> +		if (skb_has_ipv6_extension_hdr(skb))
->  			goto sw_checksum;
->  
->  		switch (skb->csum_offset) {
-
-[Severity: Medium]
-skb_has_ipv6_extension_hdr() checks the inner IPv6 header whenever
-skb->encapsulation and the inner network header are set. That is right
-for gso_features_check(), where the device computes the inner checksum
-of every segment. Here it is applied regardless of which checksum is
-being offloaded.
-
-The commit message describes the case where this matters: if the inner
-packet is CHECKSUM_NONE, the device offloads the outer UDP checksum.
-csum_start then points at the outer UDP header and the device does not
-need to parse any further.
-
-Suppose the inner packet is IPv6 with, say, a Destination Options
-header. The inner check still returns true, and the outer checksum is
-now computed in software:
-
-validate_xmit_skb()
-  skb_csum_hwoffload_help()
-    skb_has_ipv6_extension_hdr()
-      __skb_has_ipv6_ext_hdr(skb, skb_inner_network_offset(skb))
-                          /* inner nexthdr == NEXTHDR_DEST */
-    skb_checksum_help()   /* outer UDP csum in software */
-
-Before this patch, skb_csum_hwoffload_help() only compared the outer
-network header length, so the outer checksum was offloaded.
-
-The same regression affects an IPv4 outer header on a NETIF_F_IP_CSUM
-device. The old test never looked at those packets, because
-vlan_get_protocol() returned ETH_P_IP.
-
-The output is still correct, so this is a performance issue. Whether
-it triggers depends on the contents of the inner packet.
-
-For non-GSO skbs that are not CHECKSUM_PARTIAL,
-iptunnel_handle_offloads() clears skb->encapsulation. That likely hides
-this for the common in-tree tunnels, but the helper should not depend
-on it.
-
-Could the inner check be skipped here when the checksum being
-offloaded is not the inner one? For example, it could be skipped when
-skb_checksum_start_offset(skb) is below skb_inner_network_offset(skb).
-
-Note that validate_xmit_skb() sets inner_transport_header to csum_start
-just before calling skb_csum_hwoffload_help(). That field therefore
-cannot tell the two cases apart.
-
-[Severity: Low]
-
-The NETIF_F_IPV6_CSUM description in include/linux/skbuff.h still says:
-
- *     - Driver (device) is only able to checksum plain
- *	 TCP or UDP packets over IPv6. These are specifically
- *	 unencapsulated packets of the form IPv6|TCP or
- *	 IPv6|UDP where the Next Header field in the IPv6
- *	 header is either TCP or UDP. IPv6 extension headers
- *	 are not supported with this feature.
-
-skb_has_ipv6_extension_hdr() rejects only extension headers in the outer
-and first inner IPv6 header. It also skips the length check when
-skb->encapsulation is set. As a result, skb_csum_hwoffload_help() returns
-0 for encapsulated packets whose outer nexthdr is GRE, UDP or IPv6.
-
-Encapsulated GRE and UDP over IPv6 could already be offloaded before this
-patch. The new case is IPv6|IPv6|TCP from ip6_tunnel with encaplimit
-none. The old network-to-transport length check sent it to
-skb_checksum_help(). Now it goes to the device.
-
-The commit message says:
-
-  A NETIF_F_IPV6_CSUM device must parse through the outer headers to
-  reach the inner ones.
-
-Should this requirement also go into the NETIF_F_IPV6_CSUM documentation
-in skbuff.h? Driver authors who set the bit in hw_enc_features would then
-know about it.
-
+diff --git a/drivers/media/usb/em28xx/em28xx-core.c b/drivers/media/usb/em28xx/em28xx-core.c
+index 5bbb082dbed9..86c74c55908c 100644
+--- a/drivers/media/usb/em28xx/em28xx-core.c
++++ b/drivers/media/usb/em28xx/em28xx-core.c
+@@ -1080,9 +1080,6 @@ int em28xx_alloc_urbs(struct em28xx *dev, enum em28xx_mode mode, int xfer_bulk,
+ 
+ 		usb_bufs->buf[i] = kzalloc(sb_size, GFP_KERNEL);
+ 		if (!usb_bufs->buf[i]) {
+-			for (i--; i >= 0; i--)
+-				kfree(usb_bufs->buf[i]);
+-
+ 			em28xx_uninit_usb_xfer(dev, mode);
+ 			return -ENOMEM;
+ 		}
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260926140506.2335137-1-willemdebruijn.kernel%40gmail.com
+2.43.0
+
