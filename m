@@ -1,122 +1,102 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D1D141DDF1
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 18:46:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1771025392A
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 18:46:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790707573; cv=none; b=b838jTB2yJfUOkzPpNtK5lpeZNdhhkO3nU1W5k47G25MXumu6iPBB/TTpdpxH5KGTZ5KSvE5sUAbm7W8Zqejjho2zA0ZShYEHeEhavGFWGN2oR8v2Ck7wTV6Zl9X3iEeVMXl+CJlSRbNzzs6M0saVY9eAuwuCDP6AORB0j9lGQo=
+	t=1790707577; cv=none; b=ow/QEpZXdUrXxOeRq215fCUqce7jV+hlv68L/lI/GT56NoVgA78bZuetl6o89R13J4evj+5+RlinRubg7u8Av70Pl9wOZyUZdiflHEbSwc6Z/789zkT4Tcebg78Xp08N/IP7QwI4mfuiN1LwVPacp7MwSPP1b2C7UhRgdmt9TdA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790707573; c=relaxed/simple;
-	bh=QYTOuZwLH1x6W7USOpEHQQkx0bm0WifBQRwZLfeyRBg=;
+	s=arc-20240116; t=1790707577; c=relaxed/simple;
+	bh=14Yq42Dk6J3jqW+dHuaSyvrELogyOPp2B3lg/mkZhms=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=f7wGNIaZJ939Z+4aSlNw9A2hW3MoX2Kfanyr85+ruHyGJhH5niPlPqA+N15Fb0aR+JsHrYnXYq5XDwoSrcdIXfQXQwU+qyxMKtZe1oTisYRFs8DZNrPNv4nmbUo5QujvjoDgWnp83TuBRvtame+pVoPWuBFknSz0WyctrhMaKQE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UkO7Pu58; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Z+QrVpmD87rSKzt+GQkoUJMxKDTS2/JvEZnwgfU8StSfkzg0xIGnSZ9YrJ1Xm5gizG2PyOics8zaMNLbFPk/Sju1jxCL1mXpwt8JFztczKM7uHoAaaSR9fNX6s+WFzaVz6LeHD1rqJ/QFrFyPWW52Vjk+7Bmr1QlMy993F2GL2I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZAXd+vKa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UkO7Pu58"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65E651F000FF;
-	Tue, 29 Sep 2026 18:46:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZAXd+vKa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22BE71F000FF;
+	Tue, 29 Sep 2026 18:46:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790707572;
-	bh=oLF/f7ekDSbXdX7N5+I/KtUQT4Di+Mf7oQvGLdkAr/0=;
+	s=k20260515; t=1790707575;
+	bh=ycNjucG9nDbhoTZetvClJCMFX3pQgKQKYYlB75V6RgY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UkO7Pu58/Gz80w5+l7SDx8cxxWSS60EjJZ5c/95X/9pE78DLDPob5t7Pl7EKwJSJ8
-	 kTeJBxlDsmkwOdD/Z+RDQAvc5P3Kji28osE3++N6Y7XtdyNqYpshf1N0ZaBmt3eIOs
-	 h9PqQ6MwL0y1TG8J1fDpWwWubD4t39Iylit6vim3uS3W6ASg/Nv2dOh4SU/sNH6GOK
-	 vxNc1S+qaGhtC+9+YdcRGE31qcI4CMBhMTKBifsZBOibaP5bybY9W+mNFP2jgomsOd
-	 EK6YFmIMf6cS5h5mOOVzbUplqgX7kswXjBRC8+mvMDvEh8LGLgQoEANI43vFw1eniu
-	 jgl5jRZU0DXQw==
+	b=ZAXd+vKaMHAFDtzpMuKixngnRdsjgfIKZpOevLuenmZYS/Cp3Kas5HwzVO6ZYvYsy
+	 87DF6W4ksmVWnvM/gOwVHwVEBtsbMVOZmhoOuT755/NdTXiJifuitMDdMYulDAYavf
+	 AIn1p7FMNfiXT2hSblVbd+C6/tNJcPlFQ6bKMHLu2nIHigXkIWj0+vV8VVWpKSGp4k
+	 trkHfiAwHWgE39CCuc1miHGdpRg5ku1MrYvRtDfYwGGMtdLTXrCB6EIuiKQ0LBUMny
+	 T8Ts7sk0u2OLgbb7TwtaXzGng10aDVT2Zug8QXiiGUGqoLZ9mKEh9MPnpDYG7Ukvg/
+	 MwzVXObv0G8kQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jaewook You <jaewook376@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Johan Hovold <johan@kernel.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	Oscar Salvador <osalvador@suse.de>,
+Cc: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+	Hamza Mahfooz <hamza.mahfooz@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] mm/hugetlb: preserve mremap address delta when skipping page tables
-Date: Tue, 29 Sep 2026 14:46:09 -0400
-Message-ID: <20260929184609.521274-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] drm/amd/display: Whitespace cleanup
+Date: Tue, 29 Sep 2026 14:46:12 -0400
+Message-ID: <20260929184613.521461-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092916-rubber-foe-5410@gregkh>
-References: <2026092916-rubber-foe-5410@gregkh>
+In-Reply-To: <2026092930-shrubs-hankering-0ed0@gregkh>
+References: <2026092930-shrubs-hankering-0ed0@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jaewook You <jaewook376@gmail.com>
+From: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
 
-[ Upstream commit 9bdad082d44bdcf93716973dcba6be77e8a06e7b ]
+[ Upstream commit 3335a13535312c9fad4d8d1307a621e6617d6ed8 ]
 
-move_hugetlb_page_tables() optimizes mremap() by advancing to the last
-entry in the page table when the source page table does not exist, either
-initially or after unsharing a PMD table.  The common loop increment then
-steps to the first entry in the next page table.
+Commit 075e2099c32c ("drm/amd/display: Fix race condition in DPIA AUX
+transfer") was backported to stable, which I noticed because of git
+saying
 
-However, the code advances both the source and destination addresses to
-the last entries in their respective page tables, which is wrong.  The
-destination address must be advanced only by the same amount as the source
-address.
+	linux-6.1/.git/rebase-apply/patch:37154: space before tab in indent.
 
-If the source and destination offsets within their page tables differ, the
-destination address can be advanced too far, causing follow-up issues.
-Fix this by advancing the destination address by the source advance
-distance.
+while applying patch-6.1.21. While fixing the code location that issued
+that warning, improve in few more places.
 
-With a reproducer, we were able to trigger a kernel panic on x86-64.  With
-this fix in place, we can no longer reproduce the issue.
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 
-Link: https://lore.kernel.org/20260914132352.472-1-jaewook376@gmail.com
-Fixes: e95a9851787b ("hugetlb: skip to end of PT page mapping when pte not present")
-Fixes: 4ddb4d91b82f ("hugetlb: do not update address in huge_pmd_unshare")
-Signed-off-by: Jaewook You <jaewook376@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Cc: Johan Hovold <johan@kernel.org>
-Cc: Muchun Song <muchun.song@linux.dev>
-Cc: Oscar Salvador <osalvador@suse.de>
-Cc: <stable@vger.kernel.org>
-Assisted-by: LLM
+[5.15 dependency adaptation for c5fd4eaad50d620c7e09ac2082b2fb55ee54170e]
+Keep only the dc_stream_release() indentation cleanup at skip_modeset.
+Drop the unrelated comment, FreeSync, audio-label and DPIA AUX changes;
+5.15 lacks the newer FreeSync rate and DPIA AUX implementation.
+
+Also clear new_stream after releasing its extra reference. The target's
+parent already contains this assignment and the target hunk retains it
+as context; whitespace cleanup alone still leaves a cherry-pick conflict.
+The assignment is safe on 5.15 and prevents the later color-management
+error path from releasing the reference owned by the new CRTC state.
+This deliberately brings that reference cleanup into the dependency so
+the supplied target applies without changes. No functions are added.
+
+Stable-dep-of: c5fd4eaad50d ("drm/amd/display: Fix dc stream excess put in dm_update_crtc_state()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/hugetlb.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 0d98b591bcd1f..93b76353fddda 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -5473,18 +5473,21 @@ int move_hugetlb_page_tables(struct vm_area_struct *vma,
- 	hugetlb_vma_lock_write(vma);
- 	i_mmap_lock_write(mapping);
- 	for (; old_addr < old_end; old_addr += sz, new_addr += sz) {
-+		const unsigned long offset_to_last_entry =
-+			(old_addr | last_addr_mask) - old_addr;
-+
- 		src_pte = hugetlb_walk(vma, old_addr, sz);
- 		if (!src_pte) {
--			old_addr |= last_addr_mask;
--			new_addr |= last_addr_mask;
-+			old_addr += offset_to_last_entry;
-+			new_addr += offset_to_last_entry;
- 			continue;
- 		}
- 		if (huge_pte_none(huge_ptep_get(mm, old_addr, src_pte)))
- 			continue;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 9a6c0b17745e5..7d628393415da 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -10483,7 +10483,8 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
+ skip_modeset:
+ 	/* Release extra reference */
+ 	if (new_stream)
+-		 dc_stream_release(new_stream);
++		dc_stream_release(new_stream);
++	new_stream = NULL;
  
- 		if (huge_pmd_unshare(&tlb, vma, old_addr, src_pte)) {
--			old_addr |= last_addr_mask;
--			new_addr |= last_addr_mask;
-+			old_addr += offset_to_last_entry;
-+			new_addr += offset_to_last_entry;
- 			continue;
- 		}
- 
+ 	/*
+ 	 * We want to do dc stream updates that do not require a
 -- 
 2.53.0
 
