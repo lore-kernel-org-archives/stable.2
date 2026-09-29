@@ -1,90 +1,75 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2BDE3D88F2;
-	Tue, 29 Sep 2026 15:31:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 461A13D9DA9
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 15:36:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790695884; cv=none; b=Yhu0r/Al6BvHlTVgTW+qwIyNmw9KpQHsY/c4Ws+6E6xoCrMoz74sBrevEJTPe/j2LztQ1PtRahSed8RHNkbVrwIIL+TZxKGjW10QhpS8pFjtI5FSZM6W4LivWVynXiPs2dOFrK7gdLbLu5Nl78tT/ppBdR334NRhZc75fyTjbWw=
+	t=1790696162; cv=none; b=csdXTPCplolzCUs9jIIv69EZmBvOdyhXl47npKB8cH8t0KzX0vwu4o0SIX5nfvelaG7l/mKYEzrC2IVQffdVywuUWqWP8wqZjnCm7uJgg8DaKPoQEQGx1M+gp+8sH5AkCVzGRoZolizGpDXuls6kvxCP76LK3NAUbqk9eYBudPI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790695884; c=relaxed/simple;
-	bh=2ZewhfadxiSWnz4AaDisoAKtPq56s4kBxyCgZUZbvxk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TZWilaAIC5X5ig+6WxeQ6573JnrLqIxlcRnBsSC5unDpdcN3HY1ldBk+CP6wfqdVPeIwAlZPtLg06XbFjfc2OV4DCdDeDCUaCtbr9KPfZtW68SMTTe5rAHsy3mD8WJ4LuZ7Fn+3ifJExbI/2jNFxwZAk7jbPYy+fjqYl1yKBSn8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TC9Qgybb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790696162; c=relaxed/simple;
+	bh=bxffyEpnLVkP4UoXGAqp9nzrCDo4X4Z5Z1f+WmrnipM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ampsUQX9QEs9Wnc+kZrS4qKM7clbtUD1VwZ54MJ14CKxjp2d+bqDuuLWBcV5axi8DEHvrcJTAMSBca21yZlSHUKK1f6cQ1vDKFvdnBXnUUmqh5feMxxCMn5mgD7/HziNPGpxpLoTJrH/SMeaemUks6TWLMLtylbFEYSHtq+6+qc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lolli.tech; spf=pass smtp.mailfrom=lolli.tech; dkim=pass (2048-bit key) header.d=lolli.tech header.i=@lolli.tech header.b=v+mn6VDc; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=q54qOC7b; arc=none smtp.client-ip=34.202.193.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lolli.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lolli.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TC9Qgybb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2707E1F00899;
-	Tue, 29 Sep 2026 15:31:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790695882;
-	bh=oHuujSasinLI7hEqP77ZK4vcwV+0umrHPRpUO3Iumeo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TC9QgybbOnjrXp5VGy0t4URIje1OCUU3w0BXLWX4GYcVVnu/QB9sgTvo7r1w6hiSP
-	 3f1byAoDAnrAVSp/E5uM+58spjHTArkI3XKpGz+NZ85hrlx92tAxaEqxoJs5el6oCs
-	 hsgPh085ETcZN3pSVAkXNa06bRt5ni8+06JihaFp/tDXqyylISjg8CPR6fEbjKm96O
-	 Yxa3F0KzEXAjkVp5xhyaubeAfTxOHQezLw9YiRLQeu0t8aOMeOT0Rqo0ViJ5NQ5H0U
-	 4QLTk0iquJjorBYbAYvTWejc+J16HbgkJDdYjN2xCj5Q8pFWTBTc0oh0YKCsso37V3
-	 +wrVrX5xjQ1Cw==
-Date: Tue, 29 Sep 2026 16:31:17 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Alexey Charkov <alchark@flipper.net>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	Corentin Labbe <clabbe@baylibre.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	dkim=pass (2048-bit key) header.d=lolli.tech header.i=@lolli.tech header.b="v+mn6VDc";
+	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="q54qOC7b"
+DKIM-Signature: a=rsa-sha256; b=v+mn6VDcEhxYhGuU0sLVevUZocGu0UMNp50Rk7bMDkbqzTuDdl8MhC9SChaDz4UIykq4V/+ca2BJBJGooYBK/twbjSS+RPrkEClCbiR9zP+9FyfRwiAkn2mVUCsNliZ3++V9t+43IvYyKexNf+PeEc7Eha7qvXT0cAC4t5QbZCRbkeadlCrnFUBhSRxbR0WWat3f3GVj2BUWqZvV05/vGZRgDtTeyB62iFklQKu+v/feu/l9vabkD8MTjjKHEUm67jnhDPMyXP5rxhxQj2Fk65sSnprBzR4JBzfFAi8lRoYQKChYEmnZAySdeko2CD4lI3/1m1Q7kJzjGD+fG++uHQ==; s=purelymail3; d=lolli.tech; v=1; bh=bxffyEpnLVkP4UoXGAqp9nzrCDo4X4Z5Z1f+WmrnipM=; h=Received:From:To:Subject:Date;
+DKIM-Signature: a=rsa-sha256; b=q54qOC7bYmchrl0Orlo2Iw+tiJWuMPI3ZUafhQBzfz8538Nbs5Gk+CePnySI4kpm+EZDxnu4XAjwKo2yg+5HK0pvs+bc3QQtRCZBWW1i8aUDS6zbZb5KQ+Za3r6PCzzMOs7U6G8+Sd15/cm1yJtKe/FQKnRMjZ7tg/KjP4+Qo1nI+MgyV/nyIUXx1/kUoEzt4uNsP5C2o335GAOSyZBRR3LB/3knX0oGKBQoHCb8/zD2xGofZQOXcZWcfPAShCArzYKYVhSDUo5gyoW+7IBGiRCECW66PLuODNtjfPWuKHTnKo6CYmjs/wMzL6D/DwYLEkszk4SLQcHWHcu9x7Hi8A==; s=purelymail3; d=purelymail.com; v=1; bh=bxffyEpnLVkP4UoXGAqp9nzrCDo4X4Z5Z1f+WmrnipM=; h=Feedback-ID:Received:From:To:Subject:Date;
+Feedback-ID: 1437734:55302:null:purelymail
+X-Pm-Original-To: stable@vger.kernel.org
+Authentication-Results: purelymail.com; auth=pass
+Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id -366992126;
+          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+          Tue, 29 Sep 2026 15:35:44 +0000 (UTC)
+From: lollipopkit <a@lolli.tech>
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Cc: Jens Axboe <axboe@kernel.dk>,
+	Pavel Begunkov <asml.silence@gmail.com>,
+	Willem de Bruijn <willemb@google.com>,
+	Richard Cochran <richardcochran@gmail.com>,
+	io-uring@vger.kernel.org,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	linux-pci@vger.kernel.org, linux-pm@vger.kernel.org,
-	stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH 0/4] regulator: of: Fixes to of_regulator_bulk_get_all()
-Message-ID: <e8e21dc7-7b83-40cf-a006-ac5bdeb54d16@sirena.org.uk>
-References: <20260929-regulator-get-all-v1-0-e887c66a47f1@flipper.net>
+	stable@vger.kernel.org
+Subject: Re: [PATCH] io_uring/cmd_net: drop unextractable TX_TIMESTAMP skbs
+ instead of requeueing
+Date: Tue, 29 Sep 2026 23:35:28 +0800
+Message-ID: <20260929153426.90278d054c98-a@lolli.tech>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <willemdebruijn.kernel.570e0a646f4@gmail.com>
+References: <20260929045433.59435-1-a@lolli.tech>
+ <willemdebruijn.kernel.570e0a646f4@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="PMup6bLNlrwwEGA2"
-Content-Disposition: inline
-In-Reply-To: <20260929-regulator-get-all-v1-0-e887c66a47f1@flipper.net>
-X-Cookie: 1 bulls, 3 cows.
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-MIME-Autoconverted: from 8bit to quoted-printable by Purelymail
 
+On Tue, 29 Sep 2026 11:06:26 -0400, Willem de Bruijn wrote:
+> lollipopkit wrote:
+>> Assisted-by: Claude:claude-opus-5-5
+>> Signed-off-by: lollipopkit <a@lolli.tech>
+>
+> Is this a real name?
+>
+> https://docs.kernel.org/process/submitting-patches.html#sign-your-work-th=
+e-developer-s-certificate-of-origin
+>
+> "a known identity (sorry, no anonymous contributions.)"
 
---PMup6bLNlrwwEGA2
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+It is not my legal name. It is the handle I have used publicly for
+years, including on GitHub (https://github.com/lollipopkit), and it is
+the identity I sign all my kernel work with. My understanding is that
+this is what d4563201f33a ("Documentation: simplify and clarify DCO
+contribution example language") intended by "known identity".
+The earlier CQ-full fix (3a3d93070c5e) went in under the same name.
 
-On Tue, Sep 29, 2026 at 02:05:45PM +0400, Alexey Charkov wrote:
-
->       regulator: of: fill in supply names in of_regulator_bulk_get_all()
->       regulator: of: state who owns the array from of_regulator_bulk_get_all()
->       power: sequencing: pcie-m2: Fix leaking array from of_regulator_bulk_get_all()
->       PCI/pwrctrl: generic: Fix leaking array from of_regulator_bulk_get_all()
-
-Please don't combine tangentially related patches for multiple
-subsystems into a single series, it just causes problems getting things
-applied.  If there's no actual dependencies send things separately to
-each subsystem.
-
---PMup6bLNlrwwEGA2
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq72cQACgkQJNaLcl1U
-h9BW0Af7BmDivtMYIvX97relpTiu+hGwIUb97C8f4oRuS9CugEDtWDvkDSLJ9FYD
-RZxEeI9p8aFc8EBwjEcSU2GxSO/Hq6t9uyEeNa7eoa7Pdrju11VSMShs8XzouzBB
-WLcPckZE/69EctnAvVyg314wF3lKkrIiwOv9i+HWB8kgVGtOtq5hnt9D13DqOxfG
-F1gj5gqAIr7oOtbfY6l+6wiM0loHXsWCVQ7U0hbG+wmfIEeFZajR//idWRwFWFsP
-hA0jtuQJXcXHSrhgqLnTBru3jty5catTK8W5dgqrHFXCEo5PyMj6dP52/+ZSrrWm
-l6/adbk7CKJVZUsPD22bi7d3EjHCuQ==
-=VEi+
------END PGP SIGNATURE-----
-
---PMup6bLNlrwwEGA2--
+If that is not sufficient for this tree, let me know what you need.
