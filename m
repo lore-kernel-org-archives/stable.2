@@ -1,88 +1,55 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 496392236FA
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 01:33:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49BEB215161;
+	Tue, 29 Sep 2026 01:35:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790645582; cv=none; b=ASK3TxlGsfAkwIh5UFRW98vFJJhIm29VsMu1hyU+SZl82kF1h8REZIlmj9RKegRJJZ7umnRBQYCXuFVI685tcrX94zPkH1V5bYiEwJqnlCVDaL7DOY4hxVFce4lN8RlTedFuzro+ouMznZxmPCqZTdN/05HCeXjMFARZ7JKP8l8=
+	t=1790645727; cv=none; b=mrXOVvfJ17XclsBsJJp/HR3GXXr54K32mrEYF9VOPKLPXuHFi2TpvwdRf872wIPfHVlukuwDuQIuTwXiKrQnb8BQ+kVJsM8FN3HtJK6o1GQ2J7fLlp0cZEUnlT8RurtSD83ftSmlNRLiaYV57GRvCKfP8sNyzHrJHiTKW3z7uTo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790645582; c=relaxed/simple;
-	bh=6VejKzLt3Gr3nB+nx9CMUqtI89w0F9tZjfyzX3CuSos=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=G+8MAH0PPaVJYKBSd/+wX3iq+Gj2b0vm5/OghR/Wrr1xw3S6C39BcG2cm2oIGNW8hcbaT065VAStIX094WUVbcIuANyUaWu2K0qo+yWZ59G+kd29LAR6zbS9OySIz/GjF02f5kVYvMpHdiC4d5cT2qDj+vBM7B1Dz6Iqszy7F7k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MC69ZpmM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790645727; c=relaxed/simple;
+	bh=NJSyGXD2EwTKcLGu1HY9B7Os49k1NqxHt9x5UnhYyvM=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Ydi7bYU7LIabNIIVYBrsA7Oj5EKyrj+L8d5+JW9VXx6XfXtoxpZI2sQw0DnUS9KByvTFe0wAWI9XdMjx2Ql9r4hxs3HPWdqZSAbrm3Tq32+Mt/EhNPBi6TJqxAWxcDQIz3I4mByzJ0ie9DcwOO/FPbpIpjwuSOYgQ4qV6p+zKr0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UQYNSjdV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MC69ZpmM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E67501F000FF
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 01:33:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UQYNSjdV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BBD81F000FF;
+	Tue, 29 Sep 2026 01:35:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790645580;
-	bh=2TzV3oO1/AVpQ0DPkrFZRyPS6Zl8EIf9ZEQeAlWPbTo=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=MC69ZpmMq+cTiZl4kODGR8cXtmO8pe5GKl7gbvHOnDow1sXyjul8OxBMAu63K7ohz
-	 cZ+19qtqfZk53eFzZDpnAy94WE9r3HnkYtaU9VD3LUYLhLlfHpmW0nX0BCY4floEzV
-	 hL+qzHIsKJDTaEM6KKb5MnVNOCD3q0K7h+OcUfecKOlnvSjwEzICLHMExkrVkLR9xD
-	 JXqq+ZurnYt8fp3BMrnup8XdyLehuLjAmo12mGyMHMYvOXVK9suxD5mInAQugVW9Lx
-	 wEJ1cOJnJ0fGfEV7W1YZQER64YmhA4tMevoBnsZiqJYPF/WYKWTJzvljAbk2ggrI3p
-	 nI2ztuR4+L/Ig==
-Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c2afb4e9977so419128666b.1
-        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 18:33:00 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx8C/UMby4tJPPmHro2Um9rFkDXbbPw+pRzFaGzfbAU10vLXUz0qSa/YECqLFuh0zT4NhOqZsk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL6vyr+tA9oELp3Np+vsUpt59B+Pw/n/x+EUr28boxrM/FDkmFn
-	NwxNe6/wBHnSSvOoKGBZwaOCKNTWu8HGiWH8/jpWqGVENkTfGTKeBbup0vAwN+9yAprnrbEpCZF
-	zkO030i9za4B8CZBfFkXZabwNQ1eWuZI=
-X-Received: by 2002:a05:6402:5019:b0:6aa:734a:a081 with SMTP id
- 4fb4d7f45d1cf-6aac8f72887mr12241454a12.24.1790645579601; Mon, 28 Sep 2026
- 18:32:59 -0700 (PDT)
+	s=k20260515; t=1790645725;
+	bh=pCrG0k1yDWx7CtWGccoJCO4e36Yro3RuOIif7AX3wEs=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=UQYNSjdV91mcpdlkgGvkQ4y5QAmUgy9+tHY9OM9D3LIMyRbXXwqyHL0Nv+G5z3OMB
+	 iUXuME4c1lqq6K27hU3V1KdzE0NTuCCIWv6f4DaP8diB4ICG/e67QilwZTmp9cVE77
+	 7CygRoj1DaN6lL67LpioKyx/V1nAnBeeAkbZaCY+j8G3xbzX23TDKpoygT8hvkAfkX
+	 sL+ETpeDJf7i5huSAd93qFYfZ/hCQ7hC39IetjwccEiTIcqp7OVrqadD1rwY9Od4RQ
+	 BPGXSCxZTZxbsNhUd+lPdi4gnUMeQRbAdK0/iN320AVfYxzO/Wpchik4XBS1R2dz6g
+	 5rmqFBWYpL4gw==
+Date: Mon, 28 Sep 2026 18:35:24 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: netdev-bot+sashiko@kernel.org
+Cc: dhowells@redhat.com, netdev@vger.kernel.org, marc.dionne@auristor.com,
+ davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
+ horms@kernel.org, linux-afs@lists.infradead.org,
+ linux-kernel@vger.kernel.org, qotmddnjs@ajou.ac.kr, stable@vger.kernel.org
+Subject: Re: [PATCH net v11 08/17] rxrpc: Fix error handling in
+ rxrpc_send_data()
+Message-ID: <20260928183524.42b4bfc4@kernel.org>
+In-Reply-To: <179052119212.2160803.8225282033493339825@kernel.org>
+References: <20260923133706.1496540-9-dhowells@redhat.com>
+	<179052119212.2160803.8225282033493339825@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260928031300.1782690-1-zhangdairui@gmail.com> <20260928162047.1829104-1-zhangdairui@gmail.com>
-In-Reply-To: <20260928162047.1829104-1-zhangdairui@gmail.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Tue, 29 Sep 2026 10:32:47 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd_mC6ah5o6ctyYcuqj8HFi1nd8tWCxaFHekt43Z21JqdQ@mail.gmail.com>
-X-Gm-Features: AclHuK8hGU17doO-oGN4PpwZ0OPBz2C3qzdOOHTQq_2c_Wq6tiaO7pVa1gl1V54
-Message-ID: <CAKYAXd_mC6ah5o6ctyYcuqj8HFi1nd8tWCxaFHekt43Z21JqdQ@mail.gmail.com>
-Subject: Re: [PATCH] ksmbd: verify transform SessionId matches the decrypted header
-To: Dairui Zhang <zhangdairui@gmail.com>
-Cc: linux-cifs@vger.kernel.org, Steve French <smfrench@gmail.com>, 
-	Sergey Senozhatsky <senozhatsky@chromium.org>, Tom Talpey <tom@talpey.com>, 
-	Paulo Alcantara <pc@manguebit.org>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-> @@ -11663,6 +11722,32 @@ int smb3_decrypt_req(struct ksmbd_work *work)
->         if (rc)
->                 return rc;
->
-> +       /*
-> +        * The decryption key is selected by the transform header SessionId,
-> +        * while the request is authorized under the session named in the
-> +        * decrypted inner header. Per MS-SMB2 the two must match, so
-> +        * validate the decrypted message before dispatching it.
-> +        */
-> +       proto = ((struct smb2_hdr *)iov[1].iov_base)->ProtocolId;
-> +       if (proto == SMB2_PROTO_NUMBER) {
-> +               rc = ksmbd_check_transform_session(
-> +                               (struct smb2_hdr *)iov[1].iov_base,
-> +                               buf_data_size,
-> +                               le64_to_cpu(tr_hdr->SessionId));
-> +               if (rc)
-> +                       return rc;
-> +       } else if (proto == SMB2_COMPRESSION_TRANSFORM_ID) {
-> +               /*
-> +                * There is no decompression step after decryption, so a
-> +                * compression transform would be dispatched as if it were
-> +                * an SMB2 message. ProtocolId is not checked on that path,
-> +                * so a crafted transform could be made to run as a valid
-> +                * command under any session id in the payload.
-> +                */
-> +               pr_err_ratelimited("Encrypted compression transform is not supported\n");
-> +               return -ECONNABORTED;
-__handle_ksmbd_work() decompresses a compression transform after
-decryption via ksmbd_decompress_work_request(). It would regress that
-behavior...
+On Sun, 27 Sep 2026 14:59:52 +0000 netdev-bot+sashiko@kernel.org wrote:
+> - [High] The fix leaves the new -ESHUTDOWN contract incomplete, and this
+>   breaks AFS abort handling.
+
+This one looks like the main blocker for the series, right?
