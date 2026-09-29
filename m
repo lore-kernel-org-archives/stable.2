@@ -1,187 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 962474BFE7B
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 17:19:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790702370; cv=none; b=iTSaYCo7izs55Kr4ZbCYEkS5DVKOP8dxDn/eu95eh8TT7ONoI80oqcqZgLfWcaLN6/bLhiS9duMLDiBSg5ABtItrtL5rHIPqXOuEM3uaJXynU8Sa5xP3EuvZG45YqawPiT+knan/e7IBK2gyvi5nq8nW1s2ZdaLmxExZBEmNAXs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790702370; c=relaxed/simple;
-	bh=YI1W+BxMJcQMS8K7c2BLwJhorA4DcE2GSwOcCCQcjqs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BsOuNx3DvYSy4divNTEReCNNBLE5PmKbaEhlW0qsXuQnVj7NeybW+YSmEsji/5dxrYVY0ahrCrlA74mMaZt81e0gu9xoM1G6s5mfAl+9C/SePLTsgAdblm8U4OnY4+dP+H6ih93P/QM02/SzCybpyuy/Lq7luyjpyMlicE2aHBc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cawpI4cy; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82E2E528432
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 17:22:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790702562; cv=pass; b=oqYE7anwcHZjIRqisDLmu03GA1q+LfXB7n7chHindNdn3H5HGF/k0atOddMCxr0mnmBXTFLXFeJK+EaRfSPLl1Q8cmoBV7EpTgxj4WA4Is5gnF3x+vkRbuVNXuKsBiWA6h8X7gf4ntpiirrBwUxs9wSn4bl0DtDnyJHP3nBwxq4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790702562; c=relaxed/simple;
+	bh=eXyEWE550+ycqkkgf2Pb87Qz+oDiZBp//OZdYRPDZCk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZVI/EYpuR+RYYJbg/mhss9CNncICRugy/6Y1BmZZo58lGSVUVWZkI1O9zOyHsQD/tpBFkbYGztHVwmxL6E6KbujYwp7OVZCWOSv8PEUPrKlVW0I4E+2X03ua94ZuS6wjL8zGvFc7YiD6spg6hNQiJ1DEsfej6HsdWp0WkDLuWUQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ON5ZjlVC; arc=pass smtp.client-ip=74.125.229.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cawpI4cy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96C971F000FF;
-	Tue, 29 Sep 2026 17:19:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790702364;
-	bh=s2EGLICdJVVCalZUQRoq2+W6aJ9xT5tn8Yy1kcMR0+8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cawpI4cywP41mpzeY8si3SpZKDWy9mZjqCMRRIjv6F2PwAiAUa4vsMfk+0nI/jJtF
-	 MQtMMIc4Ulr6+NaIDc+Ls8hNaJ+W3mtdPPNu6GhHuTyRSF2B+rPqxr/gGj4rUz56Id
-	 BNciFcLljC8NnlVzbnQDanfcz0sDixcgvOYxdPNN60kePxDgH1o4z6PmujXJigvkQk
-	 a2/tZSlNBroeLSOyYY3ROIhWGf6F2QRua017VIsGsMXyZk3NItrDJtdca7g/jm0Wsn
-	 cUrJdVlXIoGhGjGVG+lrTpXl7WWU4QjvUNb77gncW891/oZYDQ0LIJQ1oHJ7zwn9J+
-	 Rt6UsUEpAxfEA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
-	Suren Baghdasaryan <surenb@google.com>,
-	"Liam R. Howlett" <Liam.Howlett@oracle.com>,
-	Barry Song <v-songbaohua@oppo.com>,
-	Chris Li <chriscli@google.com>,
-	David Hildenbrand <david@kernel.org>,
-	Harry Yoo <harry.yoo@oracle.com>,
-	Jann Horn <jannh@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Rik van Riel <riel@surriel.com>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Vlastimil Babka <vbabka@suse.cz>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] mm/rmap: allocate anon_vma_chain objects unlocked when possible
-Date: Tue, 29 Sep 2026 13:19:20 -0400
-Message-ID: <20260929171921.238186-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092946-footrest-depravity-5e56@gregkh>
-References: <2026092946-footrest-depravity-5e56@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ON5ZjlVC"
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b8f490bb27so2187315e87.2
+        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 10:22:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790702558; cv=none;
+        d=google.com; s=arc-20260327;
+        b=EHSNv9h8MAdidWxhHt4ykkqbPvZgJW7bVTOFgFmxuj/eccs4D2ES6pCWCEoNH1oM0j
+         J4rOGhbC4wsG2XKH/9QyzTGv+mtHAbGzqju/HqoY5JGvXXNINyNa5Lo+0w0wIGcs6TxR
+         upOGbXOzyYEByR/R6vXw7I1EYefArISxEA6/bl5fkh2YXflBtDQFSXBbKnv2qjfx5PTG
+         ikBztjqIxzdvFkf5ceOT27inTtT/tjClex+p5a/GhLltGREm0R3sLSCvgRjiikg5hIeA
+         ebcqhryjQ0i79Djt36+LHVUsK2EaHhoLbxf4PCnkfj43fskH/RLpdq6r5crFtMAjux59
+         WOdA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=wC73nxIKsVnxmirOrWNj6owYWyTLWTGRvdPe/YEwMgs=;
+        fh=QWPZAKgWTGgXC0JSSUNxwAhXSKLWwLw1r/xxvhy9z6k=;
+        b=Gdgt2XUF5OauSGwTsREWedWgOroQNRfxI3sUFnW5LpaeiGS4Bq3hgMXZCexdxL6usT
+         AyT5k1Jkk+uK5ehF8cPLNmoiOHLORxsGdFXUH8L8WGzuHGpeMWuW5VKxU7cMkIZMImPh
+         HSOtHQWmD+CvgIhaN/aDH3Po/lJUm377aNL1sh1ZqSM3p7Fx+btfLfKLHN90t3dv+Ovc
+         /dg0GNx7aC5SRHtC5WdvrqKs8vTWDURRLBPlXGFocrTN5yofcktjBOUcjPeiLA65NQC+
+         PbT7aUYJgNDGthsICFAmZ6+j73vi0uLZFNYHcGCHMqYHyq1KV2jHASuRZIgFe4GyEmqZ
+         XZBg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790702558; x=1791307358; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wC73nxIKsVnxmirOrWNj6owYWyTLWTGRvdPe/YEwMgs=;
+        b=ON5ZjlVCqB/TYA5/JG+HIffUcoeWHrUc2YnR4RgoPO6MuTy4TVUSzDWTA8NW4GRVbl
+         nygA/N/lNdMooKu58birVRuuHjv/jD9/SPXvlWO+7UtXhImZzyvHwy+EJPKFUiRsVRSB
+         JLHTFE4v5Am8GIq0NyugClwC10zo2hQ6+1lPwpGIoqlbOD0k4KdQHogxTBHGk2fBRGzV
+         uztfTA53KoFVgec9MCIRtY2KsluAdRAbUVgvc5evHqe2NQZ5+mZdnD/Uu0Lz+HdW9wmy
+         fX4Z62p8IhCk+Ssh/y4zZcujA4e6Uw2u9D6PK0Z0479jvsVv2m1NIinONx4GrcxZTPnu
+         IqEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790702558; x=1791307358;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wC73nxIKsVnxmirOrWNj6owYWyTLWTGRvdPe/YEwMgs=;
+        b=krRPbcVdbxq7nB6VH/GR3lQK0qsGwdt8RAm5O/pEWVmXEmTN6dlXGUd4+QZ9K9zVH4
+         MGlXITAa0UTjgHpYL1sW42J5DsZ/xDp9M+WbWR8Jq7qPBvYSb6cTGSVwvDfTfAG16O76
+         /mvomlMxn724tFADkiXv2T+3bFhFtmFGE/Y7SdTWZ1y17/fH5W9ni0rMCfr0kq+st4JC
+         tUD/FQcfbiZmq+zTu5oG7fv5udB26aHLiiBmbjAK3NptcWxtnw5loJFzqNDdLkZ7wCuq
+         L57Hug0dqqD6cUU8/5D95aMHA27BNbwQ7Y/9n+L+YhEPfq+Eoe0yKIeOxYX3V5/PErWE
+         RwOw==
+X-Forwarded-Encrypted: i=1; AKwUvBzJhDbjK4br/7LDmkj1fPtUB0pIqkg/egI1jv36Z6dYvMtroZsReuEb6gLvqsr2RKd51u2cXEU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJhu9AI3NVscN4vInaNNoQ9VNCH803JXuyxPZHQ3oW/aFWXHSE9
+	Ikc19vt/XuhDO8fG4Ax2SQ/1vRysNYGGd2B7H6MgRwc3+6pLLDr5Hjs35ma75bfGKf9s6i66HJv
+	s6KIfnRtGCQCMesVED09FyYGan+EYJt0=
+X-Gm-Gg: AYBFou3dLWVtFBHirUc5Mzyy/4tBwy1RjZlnVqaDk78WuLss3NoHpgCXpitUQlqXkXn
+	J6oH4Zl7OecwkwR89hm8e4tzht6VjeW4Eu0iq9WPVZK0vEStpe8oNj1khBgBV9WkkPnhQvHWt6x
+	hBSFbsgUvQMudGRv5JyPQ9B9YJDdo8of6xGM+l21H4/+RAIGVM0WMkMYdAKOWYG0Kx4WDIyikY+
+	MnLNLWc7T3w7/zTkpAB1w3D5kB3L1C9oFsFrTiysbvlbyeWaRGLPKE1O30EwT8gcAzMPQOQxs/P
+	D6g+Hf7fJ3TvxC4P91yHa2WiQDOsDzllwLv+HJ3d/Tg+l6KzyTpQSORLwZHZMbPeW8+LoBaOc67
+	PNbD0TIW1YoFRdOak/CDmQgMCT0MsbvNI+D4QWzyD6wlT
+X-Received: by 2002:a05:6512:2348:b0:5b8:edb8:fa41 with SMTP id
+ 2adb3069b0e04-5ba3beca9cbmr77162e87.46.1790702557344; Tue, 29 Sep 2026
+ 10:22:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260926-tegra194-hda-sdo-v1-1-f7a636a07a58@gmail.com> <aruc3qx7izFQYOhC@orome>
+In-Reply-To: <aruc3qx7izFQYOhC@orome>
+From: Aaron Kling <webgeek1234@gmail.com>
+Date: Tue, 29 Sep 2026 12:22:25 -0500
+X-Gm-Features: AclHuK9LkfgEQsoTN_f-0RfKykcFSMYOYJZq1Uw5H4JV_On6s3wU6oygXAoVMzw
+Message-ID: <CALHNRZ8RLs6mXkYiZ4qRimmf4WzpWpnJ9racWTPH__Op2Nk8kg@mail.gmail.com>
+Subject: Re: [PATCH] ALSA: hda/tegra: Re-enable SDO workaround for Tegra194
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Thierry Reding <treding@nvidia.com>, linux-sound@vger.kernel.org, 
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+On Tue, Sep 29, 2026 at 6:12=E2=80=AFAM Thierry Reding
+<thierry.reding@kernel.org> wrote:
+>
+> On Sat, Sep 26, 2026 at 02:24:19AM -0500, Aaron Kling via B4 Relay wrote:
+> > From: Aaron Kling <webgeek1234@gmail.com>
+> >
+> > This workaround was originally added for Tegra194, but no longer gets
+> > applied for it. Commit 615d43540043 ("ALSA: hda/tegra: fix tegra-hda on
+> > tegra30 soc") changed the guard to tegra30-hda, which worked because al=
+l
+> > affected archs had the fallback compatible. However, commit 7f0ea5acfc1=
+9
+> > ("arm64: tegra: Use correct compatible string for Tegra194 HDA") remove=
+d
+> > the fallback compatible for Tegra194, causing this to break.
+> >
+> > Fixes: 7f0ea5acfc19 ("arm64: tegra: Use correct compatible string for T=
+egra194 HDA")
+> > Cc: stable@vger.kernel.org
+> > Assisted-by: LLM
+> > Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+> > ---
+> > ALSA: hda/tegra: Re-enable SDO workaround for Tegra194
+> > ---
+> >  sound/hda/controllers/tegra.c | 3 ++-
+> >  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> Maybe we should move this out of of_device_is_compatible() conditionals
+> and into hda_tegra_soc instead. That would make the checks for this a
+> lot more consistent and robust.
 
-[ Upstream commit bfc2b13b05a1343bb60a85d840fd8956731866c5 ]
+I received a notification from Takashi Iwai that this has already been
+picked up, but it was only sent to me and not the list. Not sure why.
+But looking at -next, it's already there. Not sure if you would want
+to have that pulled back for updates or do followups later.
 
-There is no reason to allocate the anon_vma_chain under the anon_vma write
-lock when cloning - we can in fact assign these to the destination VMA
-safely as we hold the exclusive mmap lock and therefore preclude anybody
-else accessing these fields.
-
-We only need take the anon_vma write lock when we link rbtree edges from
-the anon_vma to the newly established AVCs.
-
-This also allows us to eliminate the weird GFP_NOWAIT, GFP_KERNEL dance
-introduced in commit dd34739c03f2 ("mm: avoid anon_vma_chain allocation
-under anon_vma lock"), further simplifying this logic.
-
-This should reduce lock anon_vma contention, and clarifies exactly where
-the anon_vma lock is required.
-
-We cannot adjust __anon_vma_prepare() in the same way as this is only
-protected by VMA read lock, so we have to perform the allocation here
-under the anon_vma write lock and page_table_lock (to protect against
-racing threads), and we wish to retain the lock ordering.
-
-With this change we can simplify cleanup_partial_anon_vmas() even further
-- since we allocate AVC's without any lock taken and do not insert
-anything into the interval tree until after the allocations are tried, we
-can remove all logic pertaining to this and just free up AVC's only.
-
-Link: https://lkml.kernel.org/r/624bf1ac0bde4871fcfca2c8c8e294b6d8f7ae7b.1768746221.git.lorenzo.stoakes@oracle.com
-Signed-off-by: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Reviewed-by: Suren Baghdasaryan <surenb@google.com>
-Reviewed-by: Liam R. Howlett <Liam.Howlett@oracle.com>
-Cc: Barry Song <v-songbaohua@oppo.com>
-Cc: Chris Li <chriscli@google.com>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Harry Yoo <harry.yoo@oracle.com>
-Cc: Jann Horn <jannh@google.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Pedro Falcato <pfalcato@suse.de>
-Cc: Rik van Riel <riel@surriel.com>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Vlastimil Babka <vbabka@suse.cz>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-
-[Stable dependency adaptation for 6.18:
-Keep the split of anon_vma_chain_link() into anon_vma_chain_assign() and
-explicit interval-tree insertion at all three callers. Retain the fork
-change that assigns the chain before taking the anon_vma write lock;
-the interval-tree insertion remains protected by that lock.
-
-Drop the two-pass clone allocation and cleanup_partial_anon_vmas() changes.
-This tree lacks the prerequisite clone assertions, early unfaulted-VMA
-handling, simplified root locking, and partial-clone cleanup. Preserve the
-existing GFP_NOWAIT/GFP_KERNEL fallback, root locking, list traversal,
-reference accounting, and allocation-failure cleanup instead. No new
-functions are introduced.
-
-The helper split supplies the context needed for b6ac0b3f6013 ("mm/rmap:
-fix missing barrier between anon_vma init and vma->anon_vma publish") to
-merge cleanly while retaining this tree's interval-tree API. The memory
-barrier fix itself is left to that target commit.]
-
-Stable-dep-of: b6ac0b3f6013 ("mm/rmap: fix missing barrier between anon_vma init and vma->anon_vma publish")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- mm/rmap.c | 17 ++++++++++-------
- 1 file changed, 10 insertions(+), 7 deletions(-)
-
-diff --git a/mm/rmap.c b/mm/rmap.c
-index c051651de6f9a..6e684dd0138ec 100644
---- a/mm/rmap.c
-+++ b/mm/rmap.c
-@@ -148,14 +148,13 @@ static void anon_vma_chain_free(struct anon_vma_chain *anon_vma_chain)
- 	kmem_cache_free(anon_vma_chain_cachep, anon_vma_chain);
- }
- 
--static void anon_vma_chain_link(struct vm_area_struct *vma,
--				struct anon_vma_chain *avc,
--				struct anon_vma *anon_vma)
-+static void anon_vma_chain_assign(struct vm_area_struct *vma,
-+				  struct anon_vma_chain *avc,
-+				  struct anon_vma *anon_vma)
- {
- 	avc->vma = vma;
- 	avc->anon_vma = anon_vma;
- 	list_add(&avc->same_vma, &vma->anon_vma_chain);
--	anon_vma_interval_tree_insert(avc, &anon_vma->rb_root);
- }
- 
- /**
-@@ -212,7 +211,8 @@ int __anon_vma_prepare(struct vm_area_struct *vma)
- 	spin_lock(&mm->page_table_lock);
- 	if (likely(!vma->anon_vma)) {
- 		vma->anon_vma = anon_vma;
--		anon_vma_chain_link(vma, avc, anon_vma);
-+		anon_vma_chain_assign(vma, avc, anon_vma);
-+		anon_vma_interval_tree_insert(avc, &anon_vma->rb_root);
- 		anon_vma->num_active_vmas++;
- 		allocated = NULL;
- 		avc = NULL;
-@@ -296,7 +296,8 @@ int anon_vma_clone(struct vm_area_struct *dst, struct vm_area_struct *src)
- 		}
- 		anon_vma = pavc->anon_vma;
- 		root = lock_anon_vma_root(root, anon_vma);
--		anon_vma_chain_link(dst, avc, anon_vma);
-+		anon_vma_chain_assign(dst, avc, anon_vma);
-+		anon_vma_interval_tree_insert(avc, &anon_vma->rb_root);
- 
- 		/*
- 		 * Reuse existing anon_vma if it has no vma and only one
-@@ -380,8 +381,10 @@ int anon_vma_fork(struct vm_area_struct *vma, struct vm_area_struct *pvma)
- 	get_anon_vma(anon_vma->root);
- 	/* Mark this anon_vma as the one where our new (COWed) pages go. */
- 	vma->anon_vma = anon_vma;
-+	anon_vma_chain_assign(vma, avc, anon_vma);
-+	/* Now let rmap see it. */
- 	anon_vma_lock_write(anon_vma);
--	anon_vma_chain_link(vma, avc, anon_vma);
-+	anon_vma_interval_tree_insert(avc, &anon_vma->rb_root);
- 	anon_vma->parent->num_children++;
- 	anon_vma_unlock_write(anon_vma);
- 
--- 
-2.53.0
-
+Aaron
