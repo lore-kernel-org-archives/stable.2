@@ -1,90 +1,83 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-oo2-f37.google.com (mail-oo2-f37.google.com [74.125.231.165])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D16F73FF89F
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 18:21:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C34FA53FD2B
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 18:29:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.165
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790706104; cv=none; b=VWcggmtGW8/EQcpkq4TJz1e0SNPG70qEdPvkQtv1rOmQP5I8ikQmVIJY582/DxVCgg6BhDZloZyEoD8H39mf0rtwpwCo7RbEjm5siZEdWqDmhQ1cRQP6H9u8oX5f9mgX5IjUGUrTgTxGF236r9GaW8YT8Xdv4jzVu0wJUCnZ7mo=
+	t=1790706582; cv=none; b=Gg2zQdBqQftkauorH8BjWNiDE+dsdlsc7jQVzSYoVKyxQguMRqC5qAw4GEas0KdUf3p2mP1gSBZMzdtSVBZlR51HdZHlnyUVlcwDPm1sBM9bQ9nqWKJs1xobPLsC0SdWUjeXzvysjWqUw3+5jOD6uOT5mas+3XDR7R2b8PCbums=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790706104; c=relaxed/simple;
-	bh=CP4jlLryAjoI33ocElOZhqE2VCS2aVzTcIdup6lEKC8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=e74gQgzJkNoRdjNvFJZ3hnNfLVxuZ4Rn+rIYtShgrPgEWD/ybY7MtNAJTCPnfvqEK60HXF6h9DVgJvIbTwUiZPB0T5qeqoaudOJDOY5IroHhAqjitdoiZ4T+i/CLch7W9MvdYxJPPzuErZmU0JF7CNdKODE8ZSOdDmbE9UtLUo8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eNBdoDCf; arc=none smtp.client-ip=74.125.225.76
+	s=arc-20240116; t=1790706582; c=relaxed/simple;
+	bh=/5++U61XAoH/VSVR//J0hU1yz7OfZSDFFShlI6bBPSQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZmNuVbBY5c3wTnG+jwC/w9cxt8fmf9sJu/WOq+NyZ2y5ufmjDRtu1oAcK9fKithxFoSrEMTHepW+5R5BW2ZoPW4FkjJBdfFFjRsR5O5RmezUSGUtdlZOMI4k92BPXniuz3dG7rKqvt5dGOLrvyWq+JaW7WCssQxNnwyH6BUcAfY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gd+Ek8qX; arc=none smtp.client-ip=74.125.231.165
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eNBdoDCf"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48435bcf9d9so516639f8f.1
-        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 11:21:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gd+Ek8qX"
+Received: by mail-oo2-f37.google.com with SMTP id 46e09a7af769-8137b129131so3010296a34.2
+        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 11:29:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790706101; x=1791310901; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=asWxT5bycUxVtD+OugmEsRzTNrfaIi0ZXtMhr+mg13Q=;
-        b=eNBdoDCfMP1KCQaZFMeYBItfSdhIv51yu3/NOn0zg3oNx+Vj8hfvQL0mGHc2KFPzEt
-         32vAo5+e7JjnjdJSD8pKo5UDNr3ZvJXrRgwYrSKXq2WdPACeueVHHuUSFYrAA1X2Jv3a
-         zvgxy2sKxCcj9cBLWd0hAp2CNzVrzaebXqtdOxtRhDhMOLcxfiwStm7GXr8p1wZE/rM/
-         Y1LKWiPC8StbYhlVoaBLHdNWXs1NFzsyF2xCgXuHzjZN2g00FwxR3nWp6wvztioi+LAf
-         zB7EaroeOQJI3i5Ao4+84OYXi3wn3Id29sWJumFLtlm0XftTo1zrBKd5p2fUhf9eizZM
-         2PIQ==
+        d=gmail.com; s=20251104; t=1790706579; x=1791311379; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tHysdsRd5NU3JnGkGkLnvGMuzNOaAa664hZky0TTqHs=;
+        b=gd+Ek8qXyOpE9n6Jo1f5u8uKmu0f9afK+GbuncFu6rrXqQ8/7v9oPtwE9XtOphxMdD
+         peCW1l1O6XOvR2biQxyTBz8t7f6uk3/XPKdXwTwel67k8BbsBQxQM4TyNn+MGegVl/ro
+         CuuWfPe3stP3fLwLkm3YVUOfh3+Z5T3TN3KtbI8kfxC6wDn0sxPqC6SEyoIeFUoS0loA
+         UL/sFMIQ9TmeanCr3zXa/8edcPXhpnZL1IAy7wx0a2o8OXSWakX2/lw2vXXZFZYwSIkd
+         sVZXxFrxOiAJ+vQ0Tq7VdCFoiZ6RJdnEMAflNGnoR/QQ4n0xfKN6U060nhUC+civXuh7
+         Fbcg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790706101; x=1791310901;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=asWxT5bycUxVtD+OugmEsRzTNrfaIi0ZXtMhr+mg13Q=;
-        b=F24h/RFedjEsb+jiRTSgneooi9NOC3I5NH1UcTOdR8niTyqtpFV6tqiVRt4KeTVyjo
-         YAvzY7VGLf13+LmJhTtQ4DarZLklpY8kmSEr35w4ESVpnE8TwMDM2KgoBVZ1iP2lwu6w
-         xngboPvRsOA88gbAUJpertgmr7OSw1eEqwsODJaNhe122zlehF23w//2Dq+h5rc8Rnrc
-         nsgXLh174PznPfKB1RCry2lMXqQ1xJK+c30jyl7DjWuoFd5QnIwHuKcpOOEHBznC9TkT
-         f8Fu2sJoB5EkjRixlMCqehR0YB9eebnVZpv768b+uDw00NGmhjGR43JFoa7CFdY4eloV
-         LghQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzXfwnep+UYyEVvIsNqAKyMONJzhLDf7dLvW0EtDcMHMFjnn6u0uM2hSMftnTP+dUPZqy1Am4Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++n18zr5qCyNMXLPlzXDx2cR7dAIKj6MOmcFL4QWVuYD03sIMcj0
-	tzJ2u/8krupgh2wgwHNd742cgiLiT2vqVCz+3p3V6BYYaFhNrq8je6cG
-X-Gm-Gg: AYBFou3qRE1G9mxG5cC6aas4m5SyvPo82q9bSLTh0/Bhfq/LTd4/1bC59vFbxC6djMs
-	g6LAXFjgWRV0JvMfmVuIBSm+siUh1qccXTVDcGIiB5bIHKOOiGCVA94QlO8/nfOXAcPYzB5thxv
-	zIGU2dcjnMrgLoAyA8bkWqzqzyQ9mdLgUcsqIdgSUe7Pw15c4LgPUgNdEMTNifTFR8stmJlKqCS
-	ZA11jzIemkSSk7RrtQa0K7cQ1WICmfxw/e2LiBl1wy8wVzPDzO/e6PF+7mapYrOoD0qaQTxGhWE
-	9dHCbEdeuR/bmT6V7CxIreKY8npZE6xxLusGvfsDw2GlI9/vS0CvV665hnTxyFH+BHFGxzDWbnW
-	kWR2J6rSoQ2v3Sdaq+9SSf2L8ckVEFRoG4JqdJ1X9zt9G6fW6o/cjkBFcovvmDhQo2cAvVmNnUp
-	gTs2fRTWBpasWidEqzVqp9EXpuzOGpmYECU+eVGFeANpc9H25cPAPqt4dEZeRXbMFqcWl+cbv0J
-	NCKJcHOgpJWZ8h3SrUwdh32MKn/+RE=
-X-Received: by 2002:a05:600c:6986:b0:4a0:87d:81e4 with SMTP id 5b1f17b1804b1-4a0087d8302mr80719615e9.1.1790706100902;
-        Tue, 29 Sep 2026 11:21:40 -0700 (PDT)
-Received: from lima-kdev.local ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a014f6c05bsm283385e9.4.2026.09.29.11.21.38
+        d=1e100.net; s=20260707; t=1790706579; x=1791311379;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tHysdsRd5NU3JnGkGkLnvGMuzNOaAa664hZky0TTqHs=;
+        b=m+YjlC1XU4Nzw651ZvZtNzV0KQywx7dK93irlRi8M7l0gC16YxmZdNKa8Jmfi7DzEG
+         hY1AVolP6VmSLK8QLWBh4OLKEdeCC5JH5zfd1NKCX8AM9wrh2C3EViyhOB5QgjpUAlr2
+         mizFonB/mPm6Ymgh8hSDLL6Td2lYfVbFKeafjo7Q+wxNAn+XbzKerJHJA9MH2f0XqgIQ
+         LhM1sQCeYUuLRgHgfb4Q8CsNW/sIjJjYhHH6PZR5+f3ZCUJECr0yMwOfq/emb8dwJswu
+         SDyCB5ZPdZxYt9nP0J33fA+O4YTeXM5yvUUQ6bEBgWEI4eNiyWJSfN86UORi1EY2a70p
+         hTQQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxNplnXuaxLHVJiWDK7hrRXu59dhU4psdjTyZ9GgcuqnDGf8QyfCtpwaTAZKDgxe3O3+5XYvbw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mPltkbhPg/xfLeTY7MDalJ5SClc1/B3e94zsh1Wvo+trHY9avI
+	jX1PZOH5SDsq5/KHDjjl6ndkUrUfJC4vni6OL18dzR9YWPaqSpG8jO8ZFVpbXD2Q
+X-Gm-Gg: AYBFou06fkHhRnZkFNV9yvPyBHnVtNPRn7KCyudY6l54PWTyeq/TmJknK74JFYglK8X
+	ZRiaRUwxci7depQErwNrXkh6C5G0BZpYEukhS0uHGIJgU2EPKmqZNkUlNmR4eWz/hyS1pu8Wcio
+	Kmwnjb3ldSY0OI4/v6o5vHDIME3LNSMJU5Rpg1ML7OS8l+azsdiJowQZEQLhKv0joTQbhNARWLh
+	+9y7DyLbPN41UT5qcpW4RopkuTLG6/9vGGHP8YP3AbWZexgPmH5Z8FplFYzMN+UGMvyST97auAb
+	0bIncpsnRyzr/fgurMlFKrOQoU85M2s76K+k4mQW75y9Zci1Jz8FrtKCOThNMaAvLt6EcwzxbB+
+	xMC5ZrAqt64D3iykuov38XdbKrif21MvYnVNqIowXJ1W29f1q6cGDJPFG8l3srZflRtsEgaK56j
+	NeDQ9d7rcgZ441QBfCc6Wj9q7Kn5ixMbjYxhnNnqEXwoSlqBNKiI0P6RI+7EQgXUTj7D+llM7c0
+	tHRbPZ+G5w3PL/yDbcTLasfpbdCdacDxvQvESwY
+X-Received: by 2002:a05:6808:2385:b0:4d6:9293:9bc3 with SMTP id 5614622812f47-4f06f2dcc17mr348674b6e.61.1790706578607;
+        Tue, 29 Sep 2026 11:29:38 -0700 (PDT)
+Received: from archlinux.lan ([136.34.156.120])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4f0ade01337sm821b6e.8.2026.09.29.11.29.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 11:21:40 -0700 (PDT)
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: tim.c.chen@linux.intel.com
-Cc: KPrateek.Nayak@amd.com,
-	Vishal.Badole@amd.com,
-	justinstitt@google.com,
-	kayracizmeci@gmail.com,
-	klaus.kusche@computerix.info,
+        Tue, 29 Sep 2026 11:29:37 -0700 (PDT)
+From: Danish Khateeb <danishkhateeb03@gmail.com>
+To: Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Marco Elver <elver@google.com>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	linux-perf-users@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev,
-	mario.limonciello@amd.com,
-	mingo@redhat.com,
-	morbo@google.com,
-	nathan@kernel.org,
-	ndesaulniers@google.com,
-	peterz@infradead.org,
-	platform-driver-x86@vger.kernel.org,
-	ricardo.neri@intel.com,
-	stable@vger.kernel.org,
-	x86@kernel.org,
-	yu.c.chen@intel.com
-Subject: Re: [PATCH] sched/cache: Honor asym packing over cache aware scheduling on hybrid system
-Date: Tue, 29 Sep 2026 21:21:37 +0300
-Message-ID: <20260929182137.196669-1-kayracizmeci@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <d7cd3f7d528dff79d2a702543e7d97a44c0c078b.camel@linux.intel.com>
-References: <d7cd3f7d528dff79d2a702543e7d97a44c0c078b.camel@linux.intel.com>
+	Danish Khateeb <danishkhateeb03@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] perf/core: Don't send SIGTRAP after exec removed the event
+Date: Tue, 29 Sep 2026 13:29:35 -0500
+Message-ID: <20260929182935.355892-1-danishkhateeb03@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -93,70 +86,71 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Tim :>,
+A sigtrap event must also set remove_on_exec, so that its SIGTRAP never
+reaches a program after exec. But the signal is sent from task work,
+which only runs on the way back to user space. If the event overflows
+shortly before execve(), the task work can still be pending when the
+task enters execve(), and then runs when execve() returns. By then
+perf_event_exec() has removed the event and the new program has default
+signal handlers, so the SIGTRAP kills it.
 
-> > Let's say when entering can_migrate_llc_task(), dst_cpu is CPU0, while src_cpu is CPU1.
-> > And CPU0 has a bigger asym_prio than CPU1. No SMT. When entering can_migrate_llc_task() and sched_asym()
-> > from there sched_use_asym_prio() returns true without checking if the core is fully idle or not.
+The exec_stress test in the remove_on_exec selftest catches this and
+fails about half the time in a VM. A process that opens a sigtrap event
+on itself and then calls execve() is killed by SIGTRAP in 15% of runs on
+an AMD machine running v7.2, and in half of them in a VM.
 
-> sched_asym() does check whether the destination core is idle in sched_use_asym_prio() for non SMT domain.
-> 
->                   (false for non-SMT sd)           (check idle core)
->        return sd->flags & SD_SHARE_CPUCAPACITY || is_core_idle(cpu);
-> 
-> That is also a pre-condition for setting group_asym_packing.
+perf_event_exit_event() sets PERF_EVENT_STATE_EXIT when it removes the
+event, on exec and on exit. The exit case is already caught by the
+PF_EXITING check in perf_sigtrap(), so an event in that state there was
+removed by exec. Don't send the signal for it.
 
-Sorry for not showing the code earlier, here it is: 
+Fixes: 97ba62b27867 ("perf: Add support for SIGTRAP on perf events")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
+---
 
-static inline bool is_core_idle(int cpu)
-{
-	int sibling;
+Notes:
+    Tested on v7.3-rc5 x86_64 under virtme-ng (KASAN, lockdep, 8 vCPUs on an
+    AMD Zen 3 host):
+    
+    - selftests/perf_events/remove_on_exec: exec_stress failed in 10 of 20
+      runs before, all 20 pass after.
+    - The exec_stress pattern in a loop (30 inheriting children, 50 rounds):
+      a child was killed by SIGTRAP in 20 rounds before, in none after.
+    - Each child opens its own sigtrap + remove_on_exec event and execs:
+      1078 of 2000 children were killed by SIGTRAP before, none after. The
+      same program kills 297 of 2000 children on the bare-metal host running
+      v7.2.6.
+    - sigtrap_threads passes before and after. No new kernel warnings.
+    
+    v7.2 fails the same way in the VM. I did not test kernels older than
+    v7.2. gcc W=1 and sparse show no new warnings.
 
-	for_each_cpu(sibling, cpu_smt_mask(cpu)) {
-		if (cpu == sibling)
-			continue;
+ kernel/events/core.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-		if (!idle_cpu(sibling))
-			return false;
-	}
+diff --git a/kernel/events/core.c b/kernel/events/core.c
+index 634d2ccbab82..948583ffeb53 100644
+--- a/kernel/events/core.c
++++ b/kernel/events/core.c
+@@ -7631,6 +7631,14 @@ static void perf_sigtrap(struct perf_event *event)
+ 	if (current->flags & PF_EXITING)
+ 		return;
+ 
++	/*
++	 * exec() removed the event (remove_on_exec) after this signal was
++	 * queued. The new program has default signal handlers, so a SIGTRAP
++	 * would kill it.
++	 */
++	if (event->state == PERF_EVENT_STATE_EXIT)
++		return;
++
+ 	/*
+ 	 * We'd expect this to only occur if the irq_work is delayed and either
+ 	 * ctx->task or current has changed in the meantime. This can be the
 
-	return true;
-}
-static bool sched_use_asym_prio(struct sched_domain *sd, int cpu)
-{
-	if (!(sd->flags & SD_ASYM_PACKING))
-		return false;
-
-	if (!sched_smt_active())
-		return true;
-
-	return sd->flags & SD_SHARE_CPUCAPACITY || is_core_idle(cpu);
-}
-
-On sched_use_asym_prio(), before the idle check a CPU without SMT returns true.
-But I'm actually wrong on that one because on that one we're laying
-on the idle protection outside to the CPU. If there are not any
-other brothers, and I'm idle then my brother-family
-is idle... Ah I messed up describing this.
-
-But is there are any idle protection outside? I couldn't
-find any. I could be missing something tho.
-
-> > And sched_asym_prefer() comes back true too, so sched_asym() returns true and, we just returned mig_unrestricted.
-> >
-> > I could be missing something, If I'm not tho is that on purpose? If it is, the last paragraph needs to change
-> > since it says that "asym packing tries to migrate task to an empty core" and after that "higher performing idle core"
-
-> I think I did try to point out the idle core aspect in my commit log:
-
-> "When asym packing tries to migrate task to an empty
-> core that has higher priority than source cpu, let asym packing win.
-> Moving tasks to a higher performing idle core will buy more
-> performance than cache co-location."
-
-I know. I was trying to say that if we're not choosing an idle
-core this needs to change.
-
-Thanks,
-Kayra
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+-- 
+2.55.0
 
