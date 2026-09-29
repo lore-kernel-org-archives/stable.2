@@ -1,151 +1,160 @@
-Received: from mail-yx2-f41.google.com (mail-yx2-f41.google.com [74.125.224.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E282652F26B
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 14:58:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE72D50EC1D
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 15:01:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790693897; cv=none; b=mbwwdOe6qBIs9SKK0LYidUd069jzZ8xrY+OhR3GaeTEg4X0gyfopmKkef6RobN6XHr5jPTReUA9gnxo/fEEMLRajcjUUU7S5VcSfHUu3kTszQsLvDE1K12e9hz4nH1T3eHVQSDSTQqVVeS4AmG9cgRgtxP0dQ19alXd+Oc854EA=
+	t=1790694095; cv=none; b=lo2wzcYNF7SZgMOb+1c18eFkSsYZjkCkYCe8a8/A9aX8tAXeMryqFNCaBXwRdaIdAk+stbmrnX8rg1on5GyvW6KpUuUiTTPcjrLfTFeTRmFOJbXMNvP0iKAdubJj9OD0TWovW36pwvTMGRTEoGqPTGB+O0XllnTPyvyD6nwVd18=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790693897; c=relaxed/simple;
-	bh=+Nae+VQCeZSmSPqR0LLrqa4yrCW4mwWubd2DoSBMmm4=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type; b=SzrOunEpmMFDH6rVmDt4wxul+UV3aiDLGbtroSA7p/g6yiMG6sxHwZkcBNiJPOAEBX1/ChISUKdos6QSNQw2iIzEye96XIhjFyerL+cjG1Eygo0lO3bfKpEB33kCavk522MnqJbZGcILdLHqZ1OEw8eDe6L5XUX7D3dqm+GVAc8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rSeO5Rtb; arc=none smtp.client-ip=74.125.224.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790694095; c=relaxed/simple;
+	bh=RNetxmkheqQBRNLASe1MW1OxUP0VzHyX4XPDQpDLDfQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=oc0pLLuR788HZmNYBpMdy2xVUrlKfQgA7DD2R/4pt+3C30naNqHTYEFvBg4Pk4NKV9ISIwBy1kEm7cWlnRXoYzykqC7DTysXtZnbWrsXMZyCwaP1d6xOkFRIt71qMvsiQD9f+Cyrhben7l4O1ece0q4ROPfC/oroYW7cNepCZF0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NXe2LG74; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rSeO5Rtb"
-Received: by mail-yx2-f41.google.com with SMTP id 00721157ae682-8a8288165fbso40258807b3.0
-        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 07:58:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790693886; x=1791298686; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=iS0vI6VPFheNRyG7TeQ5h4c/DL9d1CbeqeEtao3CvUY=;
-        b=rSeO5Rtb4rpBcgalBZME4CzwkFx/cHcUp0pnWTFuvBvuATOZxAqH3QH6niCkqsXk9g
-         /AtGQvGgh3s+nmfVrAamu3+jqmi6YpxtAz646NJhpYkNHfB4liSfKwKXLMO2P+h5eINh
-         3dz3ZBMG8JkrkquaV8rcCUYqOZkpvizKG1TjhtGhunoZIAfhEbrZi4HYW1CkWL5sBW2G
-         wFdLRvymoreXAJtxof1T8M3O0PzjmWiU+eHUH8uiejRVePAAVWm1a/4C5VOWqpt2kU7r
-         jfCoYvyO+A801Zntyd/0oV5ZP4AFedPwB0HNilBmjvZ0VskCut8Lm/Ja5FYe/Fm2uVMN
-         6tMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790693886; x=1791298686;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iS0vI6VPFheNRyG7TeQ5h4c/DL9d1CbeqeEtao3CvUY=;
-        b=ERcTRNgDsnxiddDSzSje0+1bNe6DIu/q8H5888bNwZZigdJC7auTR3Pxg6Wo1wDHpE
-         2ubK8HqzDKHOU4j3SFAcu88i64fk4/VzGj9gJjtzzJ9XywuNUD4yZ+MJCy5LWxBx69l0
-         0Ps+ECQ0kRZeAQ2jA8dEH5CtjBWPp+vxm0o/VixgsQMIVHfp03G3TQwmRSihZYw6BMEc
-         VEhmKnD9UJB1Cjcv1VHXcDepIBcbHmfim27OH6hZk2MlJSxgojTEvCudGTiVwY4thQmv
-         3B1Ns0k0XCzNWhYOipW6nEorpcPuaBY+Qg4uvFp6RE1QPkTOufQ/6r6BnxQlAIrNcNzR
-         B7rg==
-X-Forwarded-Encrypted: i=1; AKwUvBxVVz0PbR98/gFf/m3pP/565Rmaq4jw98W3q95NF22gIHeYozpv5imCXaFLiGsfkqie08W0Wck=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK27ikLjUzmeF3DKc1e8fPp7vYgG46ysWif9CiFsh4nvj4/pe7i
-	4Dl7ci/nHSqCDjhG54rxviofJsRmBRo+gpFkGgEs/+gpeMO+iVp7Fa2L
-X-Gm-Gg: AYBFou3kHhg8fcDUO4A3Rs25a5o6svPO70XYUL+1bWug94jEMp4PGUz6Iv+81qb8H5b
-	Zr2MQ3dwKOXkQ9M7HOXtPViwN4rG4v9u+ifaw7R8syIdGzuHrHe7du0ZvIX0E28uzz8B/vdTjxc
-	NjL0mQBhI0IXwEjsrWeetTb4d/Lezh34eF60yFmMR83wMENzyHryfjMB2c3gimMzI6yLcMmUMMZ
-	2bLoz3WHbScbhTY8E4xVcMKwIqFqnoKqK+A9S1OQDpTPi17Glf0B9R78IG+tSVVvEV95kRWFmFw
-	ubBMPBqaBj9vgqPT+pHIqZkeu5T+2aXEeX8OCUaFIy65LS8XLFh7EsCQGoCh+m+x762LsWl/T5m
-	4Rt+TFTsDVj+gPCoeuzu9XjAjYEwAnad2mFUYqJbeKV5poD4OkRW9LMu5Vq89OABS/Mk/0XVFNw
-	YqBF4ai1Ze+cdR9t84tgL+FnI0DMb2W37So4P2582puq4+VB2pYxY3Kr7ytRC9y6Kf9iHY1xIXc
-	2L7YPGmoVZHjzakqn414e7QUkbckS6Zu11Pi2mcisS908tN/QMi
-X-Received: by 2002:a05:690c:e68d:20b0:8ab:318f:1b61 with SMTP id 00721157ae682-8ab9588cbf2mr959057b3.41.1790693885914;
-        Tue, 29 Sep 2026 07:58:05 -0700 (PDT)
-Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8ab46e3d02bsm6381477b3.29.2026.09.29.07.58.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 07:58:05 -0700 (PDT)
-Date: Tue, 29 Sep 2026 10:58:04 -0400
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: Quchaosheng <quchaosheng000406@163.com>, 
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>
-Cc: Quchaosheng <quchaosheng000406@163.com>, 
- Simon Horman <horms@kernel.org>, 
- netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Marc Kleine-Budde <mkl@pengutronix.de>, 
- Oliver Hartkopp <socketcan@hartkopp.net>, 
- stable@vger.kernel.org
-Message-ID: <willemdebruijn.kernel.24f9b153d245a@gmail.com>
-In-Reply-To: <20260928113108.2127215-1-quchaosheng000406@163.com>
-References: <20260928113108.2127215-1-quchaosheng000406@163.com>
-Subject: Re: [PATCH v3 net] net/packet: guard the ll header push in
- packet_rcv_spkt()
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NXe2LG74"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 765471F00893;
+	Tue, 29 Sep 2026 15:01:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790694085;
+	bh=gfeh6aB2jlspf69sWQU+BXhQXbAxrjb+mR8cga0Zyv4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=NXe2LG74qsdgGNO7QvK3VfU5ffvcV7I+TvVZBTemkEpJoTPF6tpBX5w6D3BKHhqNW
+	 CpnGP//bFM6ztzlv0xocg5mnuPFf15ha9miaXrJKHvbwCIR2IZFTQKQ3Wwpnqv1o8b
+	 khu32gc6vLg8nomG8lpeYhASqqAssLBRLMZLF2qQ9SX3JeIPEOKggs+s1u2ftihbif
+	 fEv5Qwx4fWmyWUNqewW3+S9TRMaVh+oP7jdiPiOd9PeVL8PRLB2Uf3Cok82bWHpSyx
+	 mLP40p5RcXFK0dDrPTlDCwfOh+hKlk0YykBPP1//VudPjAeTbB6TukZBeQYJQNLRPY
+	 so9tNsRg+tmUA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
+	Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] i2c: qcom-geni: Fix hardcoded clock index in SE_GENI_CLK_SEL
+Date: Tue, 29 Sep 2026 11:01:22 -0400
+Message-ID: <20260929150123.3820698-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026092909-prognosis-frostily-21e3@gregkh>
+References: <2026092909-prognosis-frostily-21e3@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Quchaosheng wrote:
-> packet_rcv_spkt() restores the link layer header with
-> 
-> 	skb_push(skb, skb->data - skb_mac_header(skb));
-> 
-> That subtraction is only meaningful when the device actually has a link
-> layer header.  packet_rcv() and tpacket_rcv() both wrap it in
-> dev_has_header(), which is also the predicate the block comment at the
-> top of the file states the restore in terms of; packet_rcv_spkt() does
-> not.  commit d549699048b4 ("net/packet: fix packet receive on L3
-> devices without visible hard header") introduced the helper and changed
-> the two call sites, and this one stayed behind.
-> 
-> A device without a visible ll header can leave skb->mac_header at the
-> 0xFFFF sentinel that __alloc_skb() initialises it to.  A CAN skb does:
-> init_can_skb() sets pkt_type and ip_summed but does not reset the
-> headers, and commit 9f10374bb024 ("can: remove private CAN skb
-> headroom infrastructure") dropped the skb_reset_*_header() calls that
-> used to be there.  skb_mac_header() is then 0xFFFF, the length becomes
-> a large negative number and skb_push() reports it through
-> skb_under_panic() -- from softirq context, so it is a full system panic
-> even with panic_on_oops=0:
-> 
->   skbuff: skb_under_panic: text:ffffffff8bd21bc1 len:-65455 put:-65471 head:... data:... tail:0x50 end:0x180 dev:can0
->   kernel BUG at net/core/skbuff.c:214!
->   RIP: 0010:skb_panic+0x50/0x60
->   Call Trace:
->    <IRQ>
->    skb_push+0x38/0x40
->    packet_rcv_spkt+0xe1/0x170
->    __netif_receive_skb_core.constprop.0+0x7e8/0xd30
->    ...
->   Kernel panic - not syncing: Fatal exception in interrupt
-> 
-> The socket type is reachable: packet_create() accepts SOCK_PACKET
-> alongside SOCK_RAW and SOCK_DGRAM behind the same CAP_NET_RAW check,
-> and neither the socket length nor a capability check keeps it away
-> from a CAN interface.
-> 
-> The missing skb_reset_*_header() calls in init_can_skb() are a
-> regression in their own right and are being fixed separately, but a
-> packet socket should not turn a link layer that did not initialise its
-> mac header into a kernel panic.  Guard the push the way the other two
-> receive paths do.
-> 
-> Tested on v7.3-rc5 under QEMU with a slcan device on a pty, which is
-> the driver RX path: vcan does not reproduce it, because can_send()
-> resets the headers on the way out.  One SOCK_PACKET socket bound to
-> can0 and one frame written into the line discipline panics an
-> unpatched kernel with the trace above; the same image with this patch
-> prints no panic and powers off normally.  Both kernels are this tree,
-> defconfig plus CONFIG_CAN_SLCAN=y, differing only in this hunk.
-> 
-> Fixes: d549699048b4 ("net/packet: fix packet receive on L3 devices without visible hard header")
-> Assisted-by: LLM
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
+From: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
 
-Reviewed-by: Willem de Bruijn <willemb@google.com>
+[ Upstream commit cb97bf3d4f91453b881acaf8e9f0cc47bb40b604 ]
+
+qcom_geni_i2c_conf() writes a hardcoded 0 to SE_GENI_CLK_SEL, which
+selects an index from the hardware clock performance table. This always
+picks the first table entry regardless of the actual source clock
+configuration. On platforms where the matching entry is not at index 0,
+the wrong source clock divider is active and the I2C bus runs at an
+incorrect frequency.
+
+Use geni_se_clk_freq_match() in geni_i2c_clk_map_idx() to find the
+performance table index for the source clock (32 MHz or 19.2 MHz). Store
+the resolved index in a new clk_idx field in geni_i2c_dev and write it
+to SE_GENI_CLK_SEL instead of the hardcoded 0.
+
+Fixes: 37692de5d523 ("i2c: i2c-qcom-geni: Add bus driver for the Qualcomm GENI I2C controller")
+Signed-off-by: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+Cc: <stable@vger.kernel.org> # v4.19+
+Reviewed-by: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
+Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
+Link: https://patch.msgid.link/20260921-i2c-fix-se-clk-conf-v2-1-8b5537ceff2d@oss.qualcomm.com
+[ adapted clock initialization to the older driver’s 19.2 MHz-only table and existing probe path. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/i2c/busses/i2c-qcom-geni.c | 33 +++++++++++++++++++++++++-----
+ 1 file changed, 28 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-qcom-geni.c
+index f0c7b00ac5efe..5af6e9bb53f79 100644
+--- a/drivers/i2c/busses/i2c-qcom-geni.c
++++ b/drivers/i2c/busses/i2c-qcom-geni.c
+@@ -72,6 +72,8 @@ enum geni_i2c_err_code {
+ #define XFER_TIMEOUT		HZ
+ #define RST_TIMEOUT		HZ
+ 
++#define GENI_SE_CLK_19P2MHZ	19200000UL
++
+ struct geni_i2c_dev {
+ 	struct geni_se se;
+ 	u32 tx_wm;
+@@ -85,6 +87,7 @@ struct geni_i2c_dev {
+ 	spinlock_t lock;
+ 	u32 clk_freq_out;
+ 	const struct geni_i2c_clk_fld *clk_fld;
++	u32 clk_idx;
+ 	int suspended;
+ 	void *dma_buf;
+ 	size_t xfer_len;
+@@ -139,13 +142,36 @@ static int geni_i2c_clk_map_idx(struct geni_i2c_dev *gi2c)
+ {
+ 	int i;
+ 	const struct geni_i2c_clk_fld *itr = geni_i2c_clk_map;
++	unsigned long res_freq;
++
++	/*
++	 * Frequency counters are calibrated for a 19.2 MHz source clock
++	 * and are not valid for any multiple of it (e.g. 38.4 MHz).
++	 * Use exact=true and verify res_freq matches req_freq literally
++	 * to reject harmonics that would produce an incorrect I2C frequency.
++	 * ACPI systems have firmware-managed clocks and retain the default index.
++	 */
++	if (!has_acpi_companion(gi2c->se.dev) &&
++	    (geni_se_clk_freq_match(&gi2c->se, GENI_SE_CLK_19P2MHZ,
++				    &gi2c->clk_idx, &res_freq, true) ||
++	     res_freq != GENI_SE_CLK_19P2MHZ)) {
++		dev_err(gi2c->se.dev,
++			"Unsupported SE source clock: must be exactly 19.2 MHz\n");
++		return -EINVAL;
++	}
+ 
+ 	for (i = 0; i < ARRAY_SIZE(geni_i2c_clk_map); i++, itr++) {
+ 		if (itr->clk_freq_out == gi2c->clk_freq_out) {
+ 			gi2c->clk_fld = itr;
++			dev_dbg(gi2c->se.dev,
++				"I2C clk selected: freq: %u Hz, clk_idx: %u\n",
++				gi2c->clk_freq_out, gi2c->clk_idx);
+ 			return 0;
+ 		}
+ 	}
++
++	dev_err(gi2c->se.dev, "Unsupported I2C output frequency %u Hz\n", gi2c->clk_freq_out);
++
+ 	return -EINVAL;
+ }
+ 
+@@ -154,7 +180,7 @@ static void qcom_geni_i2c_conf(struct geni_i2c_dev *gi2c)
+ 	const struct geni_i2c_clk_fld *itr = gi2c->clk_fld;
+ 	u32 val;
+ 
+-	writel_relaxed(0, gi2c->se.base + SE_GENI_CLK_SEL);
++	writel_relaxed(gi2c->clk_idx, gi2c->se.base + SE_GENI_CLK_SEL);
+ 
+ 	val = (itr->clk_div << CLK_DIV_SHFT) | SER_CLK_EN;
+ 	writel_relaxed(val, gi2c->se.base + GENI_SER_M_CLK_CFG);
+@@ -555,11 +581,8 @@ static int geni_i2c_probe(struct platform_device *pdev)
+ 		return gi2c->irq;
+ 
+ 	ret = geni_i2c_clk_map_idx(gi2c);
+-	if (ret) {
+-		dev_err(dev, "Invalid clk frequency %d Hz: %d\n",
+-			gi2c->clk_freq_out, ret);
++	if (ret)
+ 		return ret;
+-	}
+ 
+ 	gi2c->adap.algo = &geni_i2c_algo;
+ 	init_completion(&gi2c->done);
+-- 
+2.53.0
+
