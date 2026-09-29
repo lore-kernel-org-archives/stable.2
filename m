@@ -1,33 +1,37 @@
 Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EABEF515987;
-	Tue, 29 Sep 2026 10:38:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8081B51DB0B;
+	Tue, 29 Sep 2026 10:42:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790678341; cv=none; b=IUtvyytho8xNKEfo1MjHrnxF6C/ypF3D5iijnq+ezHW3eTAcqc6heaML51i2dM44VdIQt8FvdNEIQXf8o2/ekP3RXqyioNDVzsxTH49MOXST0xYn2GQxbXnnNwumkyaJecP/lE/98sC8p1WzcrZ/tR6irDaUHGL2G7yyUK5Y6f4=
+	t=1790678547; cv=none; b=YSXFFS75FVdJQLuarbEDz7AAC6nm8FYxRBeHKGCCoiR4lzfpfDUgTwiHfjOdTV1mrRQjKdk55j7vG1hr9EokJ1Agz9Mz9nbYpDR3FbvCvkNj4gQ5ZjxLijNVe+x8DrHHqIzKiDXq1wdJ4nXrtZppYQYdYxlpv3v4vS2rSgiNgQM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790678341; c=relaxed/simple;
-	bh=+OUhlVYZ0jq6CYLj3jCvatmRk5xzGaVmAfrPyhOkY6g=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=AoXJyO0NY4IZbGGbPdAb6uobX8nL8RgzTpDxNOE587DsNAgZxQ2YQ5lyCOQh34RW6rlqSNPUv8b40RaQZhBHNzJsRFAkKPLZ8lO4I+bP/WwAa0Ei/Ab4DgJzFEX0cPgLR9YAXJXGobfIS1GpOY245diESCHrXjh45pYkCJOo26k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=GphxntBf; arc=none smtp.client-ip=45.254.49.197
+	s=arc-20240116; t=1790678547; c=relaxed/simple;
+	bh=S4c09kf9aEcSEzNcL72zyynKihmSMp2v6pSwv/GmhR8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=M5BgGvRVErgJwC+yf+m5sZKaqnqVVZvCNMgtRAclHXaVQPJKGH3QTDeNYaB4URbtaZufpGBTAzwZ4XF+0whxi7WHwbPmVyTlZbJItGIfj7lgVJ7Y0P3gPCbCTNOpsOb7SQbp5TfaMBMmUENKNgN5CQRL8E9l2Bet2/zQju1goRM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=hYsiSEty; arc=none smtp.client-ip=45.254.49.197
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="GphxntBf"
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="hYsiSEty"
 Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4f7ead550;
-	Tue, 29 Sep 2026 18:38:43 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4f7ead5a1;
+	Tue, 29 Sep 2026 18:42:04 +0800 (GMT+08:00)
 From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Thierry Reding <thierry.reding@gmail.com>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Nagarjuna Kristam <nkristam@nvidia.com>,
+	stable@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	linux-tegra@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: usb: as102: Initialize callback locks before DVB registration
-Date: Tue, 29 Sep 2026 18:38:15 +0800
-Message-Id: <20260929103815.2109376-1-runyu.xiao@seu.edu.cn>
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH] usb: gadget: tegra-xudc: Request IRQ after initialization
+Date: Tue, 29 Sep 2026 18:41:58 +0800
+Message-Id: <20260929104158.2110698-1-runyu.xiao@seu.edu.cn>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -36,57 +40,71 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0ecbed1aa03a1kunm4d1f998a23813d
+X-HM-Tid: 0aa0ecc1e1ad03a1kunmc2bed5a02383e5
 X-HM-MType: 10
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCTxhOVkpLHxoZHx4aS0seH1YeHw
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaHRhPVk8dGU4dT0tPQx9KHVYeHw
 	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
 	xVSktLVUpCS0tZBg++
 DKIM-Signature: a=rsa-sha256;
-	b=GphxntBfOkc/nvV9UNksOkFtEYEG/ZuU16iPDDuz66Atied3Ln3ypEmJBPMYeKnhxWKXU9bWHfc1rMikZrQaW8FeJOvRQtbbMl6InjUB7DufhCf/VvSA1SvfP4PsFD2iQdTQ5Ac4DhUOVVe1XPyMzJy7tbwa8Y/sdlJRb3510ec=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=Uk6UVNkbpeLJaWrzx887ukrH1cneAahKD/1dLIWZl8E=;
+	b=hYsiSEtynBHDLTcBAOX1zAbmqFXPqcoFl7HGUyacfG4ITPgPrrh3Mc+hjN1h+TQTprWP0vebYRRvmdan+M5ewfaXm/OtBMGsWJNWCdXn07en42lFOobGlNoGvo0Q7OYs3mjaPklS6nhH/9XfMXDr8ts0+pFIBjZu5cpy8Ggwv8c=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=7endw89yCm8iJaPJAZ/yCVPBktC/rUJen6QsQpRssFc=;
 	h=date:mime-version:subject:message-id:from;
 
-The AS102 DVB frontend and demux callbacks use bus_adap.lock and sem. DVB
-registration publishes the frontend and demux devices before either lock is
-initialized, allowing a userspace callback to run before the lock is ready.
-Initialize the callback state before registering the adapter.
+tegra_xudc_probe() requests the IRQ before initializing the state used by
+tegra_xudc_irq(). The handler may run immediately and access the event ring
+or lock before they are ready.
 
-Fixes: 41b44e041811 ("[media] staging: as102: Initial import from Abilis")
+Request the IRQ after initializing all handler-visible state and before
+usb_add_gadget_udc() publishes the UDC. That call may bind a gadget driver.
+If UDC registration fails, release the managed IRQ before freeing state.
+
+Fixes: 49db427232fe ("usb: gadget: Add UDC driver for tegra XUSB device mode controller")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 ---
- drivers/media/usb/as102/as102_drv.c | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
+ drivers/usb/gadget/udc/tegra-xudc.c | 17 +++++++++--------
+ 1 file changed, 9 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/media/usb/as102/as102_drv.c b/drivers/media/usb/as102/as102_drv.c
-index 6b1d3528a..f3e2acf8f 100644
---- a/drivers/media/usb/as102/as102_drv.c
-+++ b/drivers/media/usb/as102/as102_drv.c
-@@ -287,6 +287,10 @@ int as102_dvb_register(struct as102_dev_t *as102_dev)
- 	struct device *dev = &as102_dev->bus_adap.usb_dev->dev;
- 	int ret;
+diff --git a/drivers/usb/gadget/udc/tegra-xudc.c b/drivers/usb/gadget/udc/tegra-xudc.c
+index e9d33be028664..5b133b9d65631 100644
+--- a/drivers/usb/gadget/udc/tegra-xudc.c
++++ b/drivers/usb/gadget/udc/tegra-xudc.c
+@@ -3801,14 +3801,6 @@ static int tegra_xudc_probe(struct platform_device *pdev)
+ 	if (xudc->irq < 0)
+ 		return xudc->irq;
  
-+	/* Initialize callback state before registering the DVB adapter. */
-+	mutex_init(&as102_dev->bus_adap.lock);
-+	mutex_init(&as102_dev->sem);
+-	err = devm_request_irq(&pdev->dev, xudc->irq, tegra_xudc_irq, 0,
+-			       dev_name(&pdev->dev), xudc);
+-	if (err < 0) {
+-		dev_err(xudc->dev, "failed to claim IRQ#%u: %d\n", xudc->irq,
+-			err);
+-		return err;
+-	}
+-
+ 	xudc->clks = devm_kcalloc(&pdev->dev, xudc->soc->num_clks, sizeof(*xudc->clks),
+ 				  GFP_KERNEL);
+ 	if (!xudc->clks)
+@@ -3886,9 +3878,18 @@ static int tegra_xudc_probe(struct platform_device *pdev)
+ 	xudc->gadget.name = "tegra-xudc";
+ 	xudc->gadget.max_speed = USB_SPEED_SUPER;
+ 
++	err = devm_request_irq(&pdev->dev, xudc->irq, tegra_xudc_irq, 0,
++			       dev_name(&pdev->dev), xudc);
++	if (err < 0) {
++		dev_err(xudc->dev, "failed to claim IRQ#%u: %d\n", xudc->irq,
++			err);
++		goto free_eps;
++	}
 +
- 	ret = dvb_register_adapter(&as102_dev->dvb_adap,
- 			   as102_dev->name, THIS_MODULE,
- 			   dev, adapter_nr);
-@@ -341,12 +345,6 @@ int as102_dvb_register(struct as102_dev_t *as102_dev)
- 		goto efereg;
+ 	err = usb_add_gadget_udc(&pdev->dev, &xudc->gadget);
+ 	if (err) {
+ 		dev_err(&pdev->dev, "failed to add USB gadget: %d\n", err);
++		devm_free_irq(&pdev->dev, xudc->irq, xudc);
+ 		goto free_eps;
  	}
  
--	/* init bus mutex for token locking */
--	mutex_init(&as102_dev->bus_adap.lock);
--
--	/* init start / stop stream mutex */
--	mutex_init(&as102_dev->sem);
--
- 	/*
- 	 * try to load as102 firmware. If firmware upload failed, we'll be
- 	 * able to upload it later.
 -- 
 2.34.1
+
