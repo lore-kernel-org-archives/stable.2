@@ -1,232 +1,161 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-qk2-f39.google.com (mail-qk2-f39.google.com [74.125.230.231])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1BFB3E2756
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 21:05:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AD3F3F12EB
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 21:06:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.231
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790715945; cv=none; b=GSIngNtQw7S+h4HnxwEHNF9cGfRB7sdtvrLJ1kabE0/RuEZVFgxEMEbDDENpffuFfATFsHwDCF+PRs6a++5N4GeLUYRFk8OxvRmnzTaC2+Dg3PBo0n/BD23VRDIz1vXhx5UpZnCtWSU1brrnJZm7l7ZdlYbdPOxewy8kI97gr18=
+	t=1790715979; cv=none; b=UWUi5iV3cNfLWD+5VGVHFAE09UbwswHt6mjwTSKfIrc4t6VQLSxJiaF9u/yK+vou1xh0eWPDkyx6ATkP6rae7dzLSkc5mFbIodUa2YV4Siln5glByIpBDLfVoj5o8dLQMAbQGivnr3sgo7OnX5fAoRxm60BclrsKvuhAMhAJp1I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790715945; c=relaxed/simple;
-	bh=PfMwD0BNPzsb9kR4Hq409QO4BgNsB19GJKpJBdH8r0Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Z+5Xap1yIXtetx8/YKBDlxeZECJqzz9TlG2nZF4cIzMDf0NaaE+0FxNbFjMtSUcW44UQiIPJNDUz6yGJxR6ZS56dQFFzSsOeMj+Bq/TpktS2ZgkHswQisKWSL9Do6UlkTPqzvcDb3BUdfG1fAUbV0CmriX/E0GNHA/wZAn51e+Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=TZIKY46d; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=NYzlV6Ff; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=YlFe7fYq; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=RHBKHIYr; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1790715979; c=relaxed/simple;
+	bh=mK6Mulvd+6WzWYA6dTVzp3jfz6d98sJor5h6S6M4KlA=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=G6genzeyDUQEOalQmsnFXmJaBSkvIElSiFCyQ7X1DkPZ5Lk0ZkA4Zv9NMYW1tzhabju3KkI7VDG8bjXnhRVgflFr/nbE2bslviC73dwDas4hMfb0BtuOvP4TH03/Ym6GrWbeNF5wZcjo3YDnLBkT3UPLe9R4mWfyuloEGzy5IO4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=to/pfk49; arc=none smtp.client-ip=74.125.230.231
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="TZIKY46d";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="NYzlV6Ff";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="YlFe7fYq";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="RHBKHIYr"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 834D51F397;
-	Tue, 29 Sep 2026 21:05:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1790715924; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0xesfxki1VklwlAd2c0+Evb/L8Qm4cr392/Qeqg7x+U=;
-	b=TZIKY46dSaCXxT3weEGA8gcI5YhS170hoSYygbinvJRrTbnhq4RcTN8jY8n+q42Bc+i8sp
-	okpan4h2sv1pBpHZblPK0NF7rrsRE8jlZ33cApZXWXiIG9rG7yGyOyVYj7PWzg1lbInEp4
-	GJvaHTfyGRPI43YYtv9J6qoNdmmHDeI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1790715924;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0xesfxki1VklwlAd2c0+Evb/L8Qm4cr392/Qeqg7x+U=;
-	b=NYzlV6FfuT8QByVzPKckKCvqvlIBXil3Yh3BP/XW59+HdptIKSmJCz0CfyQ8SdKmOV13bi
-	A1BMHj+mC3VplqAA==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1790715920; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0xesfxki1VklwlAd2c0+Evb/L8Qm4cr392/Qeqg7x+U=;
-	b=YlFe7fYqgQoMs/vwGosxHkXt4z5qQ1JBI4LKzGx6yDp9t69QI/Og9kLloWRCt980Pa7Ta0
-	UaWSaZXxS0IMo116e4xTgfgB+V3lfgM2551R2bnRD1MTEm9PhdrCJZc0BZc7/Hgtqc8ZyM
-	ezSkqKl2vbXR4aBbl30BHxZ9xt9bmI4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1790715920;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0xesfxki1VklwlAd2c0+Evb/L8Qm4cr392/Qeqg7x+U=;
-	b=RHBKHIYrT1xIH6ycSURKGI+aIE7h0nOmHI/CrF7GTLQtu0f31DZxwEj8Ke36o9P0KAm1r1
-	me7U9SrPoyxcRQBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 57FB6136E4;
-	Tue, 29 Sep 2026 21:05:20 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 62ypDBAovGoyBwAAD6G6ig
-	(envelope-from <jack@suse.cz>); Tue, 29 Sep 2026 21:05:20 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id DA7E4A133D; Tue, 29 Sep 2026 23:05:15 +0200 (CEST)
-Date: Tue, 29 Sep 2026 23:05:15 +0200
-From: Jan Kara <jack@suse.cz>
-To: Qiliang Yuan <odys.yuan@gmail.com>
-Cc: Theodore Ts'o <tytso@mit.edu>, Jan Kara <jack@suse.com>, 
-	linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v3] jbd2: fix shrinker scan budget accounting in
- jbd2_journal_shrink_scan()
-Message-ID: <6dgsbca6nebgc2y2sltw4e4guhb5ewo5crn3zz2u2o5j4om534@5ylgozoppy3b>
-References: <20260928-fix-jbd2-shrink-scan-nr-scanned-v3-1-916caaa53420@gmail.com>
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="to/pfk49"
+Received: by mail-qk2-f39.google.com with SMTP id d75a77b69052e-533342a38ebso38668791cf.0
+        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 14:06:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1790715972; x=1791320772; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8LFOvHs5vGrtobfr2ePGnKbAMOPISIpzHqSP7jz8iLA=;
+        b=to/pfk49Pg79h2HQij3Xz0T1LCc4kyltwvU7PQmpkW9TRVpUFoYqqH1omsn6yVMxRO
+         q/UWFkBulkHBeuUtCXXRZXy0hzY4/WTJ1ej5jCmeP+yzMlKir6GQr1lt6LGJo4BHuech
+         NF2PqNv/UfNsPsf8+v2lyB4+YK0PedhdlD35AE8GeeD9/YK7sT71gtlhIXOOLYsggIN7
+         RWDU8zyeYCiC+fZo24Kvc67zgVQX/vBdvTJfflaEFIBy5YBnn+QR4NNrJMRElqmAmSvB
+         RgqmLYt4qSc0CroB2gP6N1Cy8saX+vX8502yQF/78pS7R9feR/cK9rmVXpS4Sv7eFA12
+         PPew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790715972; x=1791320772;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8LFOvHs5vGrtobfr2ePGnKbAMOPISIpzHqSP7jz8iLA=;
+        b=Zv6Mh8561aroE4cVz6BSTsytsN6KuCI6o6nIR9RS1pyqx15bbqqawnJLU3AntbnGli
+         KFz8fIFjW3P/bCeuBVvzHCyp339U9tnqjHqu78DX9RKU/dFiRaIeBugj3YVoEYIZvcPc
+         u4RQ0XOtZn+5IhoU6PVWibT9JWnSebcgnUKqfKp+0qKiMnMws/8KbseoxIPcBeukwRu4
+         3whWsvv535vsU4cHY6uLmFuBwc85Ms4C0VHWr9uXoe2m4O1lPIxMS4ATVLwwwsvFaply
+         9EuMW8fZb92R7zkhazckZhJxKPyKGe/30QOsxY1Pc44yVJXcP5A7+R77ZV2SCgMGCff0
+         Qg6w==
+X-Gm-Message-State: AFuF++mJZhtXOxn5eiu4zYevMcxPAWfdL8pbOA2nDtS47J0J8oE8anmy
+	c1k11qHZaGgrQnmL/szIpujgckaW8fTcdrtMXM3cdUD02Rt0+/NJ7gdADVzyDQO3BRk=
+X-Gm-Gg: AYBFou3LJc3SlLBdVqR0zwQ6YtnCtBxHFcKP8YBCRisd1jK1YgLzyITWSOuakHl9T4a
+	llUrQ3BBDYuVGumyM9s5D3ljWG2IytLnOkMyZ2XJJe/GFnZmghtO1+WMSQKcyXPAV6NNC+C5UmI
+	gtFS916op9XqhC9I9w/Dg+gFXHhZgfwJrLuITCqLELzBgolQshe5M/yRCcdC0FRR0N+oSVZXUTD
+	DFe56NnbN8x/1bI/rKd5J2M3LuzFfYheGfR71RqFAweDLaCQFlQsu7NL+94jvP1Rao586P+cvKD
+	Di6wkaBKbpXOKmeixXIK7TPA6o/DaB90hiYUzTapZoTbUk0eB9xQh9f0MSGWBpx6f808owcDTec
+	1RR2NUHznjmLHxYLOqshdYBHPY7aznmvtRe35NsLeNjzbg2x3ji4xkUywDs+YVcGZMQ5FBoLdgF
+	YM/ntgijjVlL3zSIS5kNoVgYDm6EFKG47UYeU7xDwPrnKVJAPR42aFYPsZbLxySHPRyAAxH6NPM
+	44e4azp6teHvQ==
+X-Received: by 2002:a05:6214:c27:b0:917:9504:374d with SMTP id 6a1803df08f44-91799b6daf0mr7450606d6.36.1790715972169;
+        Tue, 29 Sep 2026 14:06:12 -0700 (PDT)
+Received: from ?IPv6:2606:6d00:11:34bd::5ac? ([2606:6d00:11:34bd::5ac])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-917987e2746sm4263186d6.20.2026.09.29.14.06.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 14:06:10 -0700 (PDT)
+Message-ID: <0741e05902488b491624e5e05098092245242a1a.camel@ndufresne.ca>
+Subject: Re: [PATCH] media: mediatek: vpu: release reserved memory on remove
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Guangshuo Li <lgs201920130244@gmail.com>, Minghsiu Tsai	
+ <minghsiu.tsai@mediatek.com>, Houlong Wei <houlong.wei@mediatek.com>, 
+ Andrew-CT Chen <andrew-ct.chen@mediatek.com>, Tiffany Lin
+ <tiffany.lin@mediatek.com>, Yunfei Dong	 <yunfei.dong@mediatek.com>, Mauro
+ Carvalho Chehab <mchehab@kernel.org>,  Matthias Brugger
+ <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>,  Hans Verkuil
+ <hverkuil@kernel.org>, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org
+Cc: stable@vger.kernel.org
+Date: Tue, 29 Sep 2026 17:06:09 -0400
+In-Reply-To: <20260915121025.2412446-1-lgs201920130244@gmail.com>
+References: <20260915121025.2412446-1-lgs201920130244@gmail.com>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-JBpDEv9eNq9BIPUlwiLE"
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260928-fix-jbd2-shrink-scan-nr-scanned-v3-1-916caaa53420@gmail.com>
-X-Spamd-Result: default: False [-2.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	TAGGED_RCPT(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,imap1.dmz-prg2.suse.org:helo,suse.com:email]
-X-Spam-Flag: NO
-X-Spam-Score: -2.30
-X-Spam-Level: 
 
-On Mon 28-09-26 22:44:21, Qiliang Yuan wrote:
-> jbd2_journal_shrink_checkpoint_list() already tracks its examined
-> checkpoint buffers accurately: it decrements its nr_to_scan in/out
-> parameter for every journal_head walked, whether or not it gets freed.
-> jbd2_journal_shrink_scan(), the shrinker's scan_objects() callback,
-> never surfaces that into sc->nr_scanned.
-> 
-> Because sc->nr_scanned defaults to sc->nr_to_scan before every call,
-> do_shrink_slab() always assumes a full batch was examined and keeps
-> calling scan_objects() until the one-shot budget derived from the
-> (possibly stale) percpu checkpoint count is drained, even when every
-> buffer in the checkpoint list is busy and nothing gets freed.
-> 
-> Derive sc->nr_scanned from the difference between the nr_to_scan value
-> passed in and the value left behind by
-> jbd2_journal_shrink_checkpoint_list(). Trigger SHRINK_STOP on
-> nr_shrunk == 0 (nothing freed) instead of leaving do_shrink_slab() to
-> keep calling us: a checkpoint list full of buffers that are still busy
-> being written back can honestly report a full batch scanned while
-> freeing nothing, and retrying immediately within the same synchronous
-> reclaim pass will not make any of that in-flight writeback complete
-> sooner.
-> 
-> Tested by creating 20000 small files without an explicit sync (to let
-> jbd2's normal 5-second commit timer move them onto the checkpoint list
-> while their buffers are still busy being written back) and then
-> triggering "echo 2 > /proc/sys/vm/drop_caches", tracing jbd2_shrink_*:
-> 
->               scan_objects() calls   calls with nr_shrunk == 0
->   before             176                    176 (100%)
->   after                8                      8 (100%)
-> 
-> Fixes: 4ba3fcdde7e3 ("jbd2,ext4: add a shrinker to release checkpointed buffers")
+
+--=-JBpDEv9eNq9BIPUlwiLE
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Le mardi 15 septembre 2026 =C3=A0 20:10 +0800, Guangshuo Li a =C3=A9crit=C2=
+=A0:
+> mtk_vpu_probe() may assign a reserved memory region to the VPU device
+> with of_reserved_mem_device_init(). The probe failure path releases the
+> assignment with of_reserved_mem_device_release(), but the normal remove
+> path does not perform the corresponding cleanup.
+>=20
+> As a result, removing the VPU driver after a successful probe can leave
+> the reserved memory assignment associated with the device after its
+> lifetime has ended.
+>=20
+> Release the reserved memory assignment after freeing the VPU external
+> firmware memory, matching the cleanup performed by the probe failure
+> path.
+>=20
+> This issue was found by manual code inspection.
+>=20
+> Fixes: 3003a180ef6b ("[media] VPU: mediatek: support Mediatek VPU")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 
-And you're back at v1 so my reviewed-by tag still holds :). Feel free to
-add:
-
-Reviewed-by: Jan Kara <jack@suse.cz>
-
-								Honza
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 
 > ---
-> V2 -> V3:
-> - Rebase onto v7.3-rc5. It already includes Max Kellermann's
->   "jbd2: bound shrinker scans by examined checkpoint buffers"
->   (15cb16496446), which independently fixes the busy-buffer
->   accounting in journal_shrink_one_cp_list()/
->   jbd2_journal_shrink_checkpoint_list() that v2 also touched. Drop
->   the now-redundant checkpoint.c changes; this revision only touches
->   journal.c, reusing the accurate nr_to_scan tracking Kellermann's
->   fix already provides.
-> - Add a Fixes: tag for the commit that introduced
->   jbd2_journal_shrink_scan() without ever setting sc->nr_scanned.
-> - Re-measure test data against the new baseline (176 -> 8 calls,
->   vs the old baseline's 168 -> 7).
-> 
-> V1 -> V2:
-> - Count examined buffers, not just freed ones, in
->   journal_shrink_one_cp_list() (Sashiko AI review finding).
-> - Trigger SHRINK_STOP on nr_shrunk == 0 instead of
->   sc->nr_scanned == 0.
-> 
-> v2: https://lore.kernel.org/r/20260928-fix-jbd2-shrink-scan-nr-scanned-v2-1-7e1efec3afdf@gmail.com
-> v1: https://lore.kernel.org/r/20260928-fix-jbd2-shrink-scan-nr-scanned-v1-1-e6f4016ec699@gmail.com
-> ---
->  fs/jbd2/journal.c | 17 +++++++++++++++++
->  1 file changed, 17 insertions(+)
-> 
-> diff --git a/fs/jbd2/journal.c b/fs/jbd2/journal.c
-> index 00f5a98f3d4fe..a61b7a59c0a0e 100644
-> --- a/fs/jbd2/journal.c
-> +++ b/fs/jbd2/journal.c
-> @@ -1263,10 +1263,27 @@ static unsigned long jbd2_journal_shrink_scan(struct shrinker *shrink,
->  	trace_jbd2_shrink_scan_enter(journal, sc->nr_to_scan, count);
->  
->  	nr_shrunk = jbd2_journal_shrink_checkpoint_list(journal, &nr_to_scan);
-> +	sc->nr_scanned = sc->nr_to_scan - nr_to_scan;
->  
->  	count = percpu_counter_read_positive(&journal->j_checkpoint_jh_count);
->  	trace_jbd2_shrink_scan_exit(journal, nr_to_scan, nr_shrunk, count);
->  
-> +	/*
-> +	 * Give up on this reclaim pass if this call didn't manage to free
-> +	 * anything. This is deliberately based on nr_shrunk, not on
-> +	 * sc->nr_scanned: a checkpoint list can be full of buffers that are
-> +	 * still busy being written back, in which case a call can
-> +	 * legitimately scan (and correctly report through sc->nr_scanned)
-> +	 * a full batch of them without freeing a single one. Retrying
-> +	 * immediately within the same synchronous reclaim pass is not going
-> +	 * to let any of that in-flight writeback complete any sooner, so
-> +	 * there is nothing to gain from letting do_shrink_slab() keep
-> +	 * calling us against the same stale freeable count until its
-> +	 * one-shot scan budget for this priority level is exhausted.
-> +	 */
-> +	if (nr_shrunk == 0)
-> +		return SHRINK_STOP;
-> +
->  	return nr_shrunk;
+>  drivers/media/platform/mediatek/vpu/mtk_vpu.c | 1 +
+>  1 file changed, 1 insertion(+)
+>=20
+> diff --git a/drivers/media/platform/mediatek/vpu/mtk_vpu.c b/drivers/medi=
+a/platform/mediatek/vpu/mtk_vpu.c
+> index 8d8319f0cd22..16b5bdc2f2c0 100644
+> --- a/drivers/media/platform/mediatek/vpu/mtk_vpu.c
+> +++ b/drivers/media/platform/mediatek/vpu/mtk_vpu.c
+> @@ -966,6 +966,7 @@ static void mtk_vpu_remove(struct platform_device *pd=
+ev)
+>  		destroy_workqueue(vpu->wdt.wq);
+>  	vpu_free_ext_mem(vpu, P_FW);
+>  	vpu_free_ext_mem(vpu, D_FW);
+> +	of_reserved_mem_device_release(&pdev->dev);
+>  	mutex_destroy(&vpu->vpu_mutex);
+>  	clk_unprepare(vpu->clk);
 >  }
->  
-> 
-> ---
-> base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
-> change-id: 20260928-fix-jbd2-shrink-scan-nr-scanned-c3098cd901e2
-> 
-> Best regards,
-> -- 
-> Qiliang Yuan <odys.yuan@gmail.com>
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+
+--=-JBpDEv9eNq9BIPUlwiLE
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarwoQQAKCRDZQZRRKWBy
+9LIrAP9JLK9HAtBMScpQ1KexiHDip4nmcCWrHasuo3ANeEljAgEAs60FyYFYBqgL
+Jt8fxtvRcoN2QASZVOg0X0uof6Yp8g4=
+=0P79
+-----END PGP SIGNATURE-----
+
+--=-JBpDEv9eNq9BIPUlwiLE--
