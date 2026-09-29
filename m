@@ -1,138 +1,246 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F72B32E121;
-	Mon, 28 Sep 2026 23:50:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76389175A95;
+	Tue, 29 Sep 2026 00:07:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790639420; cv=none; b=XBwASZMsAAFu3OUHxrGQ9lnlmrrbpkyPV8K3q9Sb5d2jQppG4FcQSlxUkmPmGT+77JV/+NOY36xVC8TQ/2kA+e86FIbhCqMCfLnRQBiO8L7rCcz1GPdoyCTIYuF9278mQTkLRfI3nepPlWIOSI/f1aSiKxVNtOfv1h1Xagb4rUg=
+	t=1790640476; cv=none; b=IaxL8uwYAAG+VkCUmLE54Ize6CP/HOALeubIJsr8rKjFKE0I/S2Gs9NmxMU1eJbANwWRrPua1oGmyj4FLegC+ZPVhQWtUoZL/6uipAvzWpmShiYU0HPoFSe0Aukz5DY3jSFP15QBH/1trsIOZssAAZA+mUYSctFHBhPJdhOpjEA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790639420; c=relaxed/simple;
-	bh=yeLWxwyJTsE4BCXrz9QiRVhSSjNSbYW82lmQRE02QaM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=K1etuYMUw0JzXwYmIsSatOBoRVMMOJVHgDfOXzs3QTtVV9l9HigzY8HARzT2xEKlRWg9llS8PP7mRP0/XRegAFHAgYYgD6DrzGPBCWDLMJenAbKDb7iFZZiTBna7pd4wUFsHG5RkhDujgnagR1umYsBT/PYrjk8+VgSOfxrmdIM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=eaf2k4nM; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790640476; c=relaxed/simple;
+	bh=eszMuzjSUoBmMtD7cpQURN1VHH+HMmyvsyMYtwiZ89w=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=m5qFZzC4J0rPC3Mqdvac92hEB2+TDmxqEKqqEKlzYc1Fhjd4V/8v8pjrReZ6me9OecjGAoo18vBBZqLnxOav6zrASa7t5vWY25QOkKltEFknW1GwTXv2zkcBkc0x1Ohy0gv0+40buPCA6Car5BcheEKg8LD43jdIv+6k9Us1T68=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CFX/JoZT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="eaf2k4nM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790639418; x=1822175418;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=yeLWxwyJTsE4BCXrz9QiRVhSSjNSbYW82lmQRE02QaM=;
-  b=eaf2k4nMaGihudGkHzjSbFs1Q945ENSoLSzEyJjnWxkRKvKXjskIgFTH
-   KTl/1/IL8Cv5SNwsB+hYz8YKBukjzIwPa4RKDQHL8jFFPjWaPoqa/duYg
-   itepGVnyzeAvNiOGidm8T44BYO3QEgpX28AW8aEmX3d0kIpun8aXWXo/g
-   ZR0WGp+N3Gx90Z1GlOYzaWoQwJtOaJMvTGXvz22fmuJzEfdRyV3B3efEe
-   b1sMk6j/zNPkSQ8OZ8B/7s5x6sZdrQPc/0cA+wtatjozSytpuLD6i0HGL
-   pHmkWWKLHHiz5tE92q/jQg5oW/X0MKTBK96g4Hyw93IkYV1sEQanN1Lp/
-   Q==;
-X-CSE-ConnectionGUID: eJLnP4JSTXeE/LULi7o/Eg==
-X-CSE-MsgGUID: bc09Lup2TbaisDqxSSqZGA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="93841819"
-X-IronPort-AV: E=Sophos;i="6.27,129,1787036400"; 
-   d="scan'208";a="93841819"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 16:50:18 -0700
-X-CSE-ConnectionGUID: uJU6kZrTQUiVicpQRe1w5w==
-X-CSE-MsgGUID: zaz9qr0ZTPaGUoHUQd6epQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,129,1787036400"; 
-   d="scan'208";a="283273529"
-Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.111.79]) ([10.125.111.79])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 16:50:16 -0700
-Message-ID: <73faab54-a9df-4053-8012-1ee28f0b2330@intel.com>
-Date: Mon, 28 Sep 2026 16:50:15 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CFX/JoZT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D7031F000FF;
+	Tue, 29 Sep 2026 00:07:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790640475;
+	bh=p6CdxTYFaQ6PkQto7LRrk2p1Wt6bRQTe6yWxfoqoeTQ=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=CFX/JoZTZ3QG7By3JuVgEgUMz//yRHJST72KxFj+6KTGC3PYoZzvksEMOoWbXB7XC
+	 Pv5ECnKOlZxPYT4zMcJ1wic4LoLwDEF/IQRqslaEz4C/T7Z+/uDvdnwi+z2OkIpgSU
+	 tywfewMPdXyKRlxH86zP8DIjzWUlCkymJxbboePWHDOB2hL7dxFMkRvlMBsQDbxbcf
+	 tHh5julaKXysfVCBf63444pmHNq+3KwY+LGZCU8xJpM+S3BqjxkW3avUGHtCWx3S3P
+	 J1PpCACk+w7pgUqV7KNg51wiicqau95I0bbdR/pHZUsutrlV4SF1pVxSokm7zVPrXu
+	 +Sk4A++byWIMg==
+Subject:
+ Re: [PATCH net v2] net: extend IPv6 exthdr detection of tunneled packets
+From: netdev-bot+sashiko@kernel.org
+To: willemdebruijn.kernel@gmail.com
+Cc: netdev@vger.kernel.org, davem@davemloft.net, kuba@kernel.org,
+ edumazet@google.com, pabeni@redhat.com, horms@kernel.org,
+ andrew+netdev@lunn.ch, xietangxin@yeah.net, willemb@google.com,
+ stable@vger.kernel.org
+Date: Tue, 29 Sep 2026 00:07:53 +0000
+Message-ID: <179064047393.3145.16303551892146530587@kernel.org>
+In-Reply-To: <20260926140506.2335137-1-willemdebruijn.kernel@gmail.com>
+References: <20260926140506.2335137-1-willemdebruijn.kernel@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] cxl/acpi: Check ACPI companion before use
-To: Jiale Yao <yaojiale02@163.com>, Davidlohr Bueso <dave@stgolabs.net>,
- Jonathan Cameron <jic23@kernel.org>,
- Alison Schofield <alison.schofield@intel.com>,
- Vishal Verma <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>,
- Ira Weiny <iweiny@kernel.org>, Li Ming <ming.li@zohomail.com>,
- linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-References: <20260926071605.3013893-1-yaojiale02@163.com>
-From: Dave Jiang <dave.jiang@intel.com>
-Content-Language: en-US
-In-Reply-To: <20260926071605.3013893-1-yaojiale02@163.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
+Critical: 0 · High: 0 · Medium: 1 · Low: 2
 
-On 9/26/26 12:16 AM, Jiale Yao wrote:
-> Platform drivers can be forced to match devices outside their ID tables
-> through driver_override.  cxl_acpi_probe() assumes that every bound device
-> has an ACPI companion and dereferences adev->dev.bus without checking the
-> result of ACPI_COMPANION().  Force-binding cxl_acpi to a platform device
-> without a companion therefore causes a NULL pointer dereference.
-> 
-> This was reproduced by setting the driver override for the pcspkr platform
-> device to cxl_acpi and binding it through sysfs:
-> 
->   BUG: kernel NULL pointer dereference, address: 0000000000000280
->   #PF: supervisor read access in kernel mode
->   RIP: cxl_acpi_probe+0xf4/0x220
->   Call Trace:
->    platform_probe+0x4d/0x80
->    really_probe+0x106/0x370
->    device_driver_attach+0x4c/0xa0
->    bind_store+0xd0/0x100
-> 
-> Commit 2b3a5dabe89e ("platform/surface: acpi-notify: Check ACPI
-> companion before use") fixed the same force-binding issue in another
-> platform driver.  Check the companion before setting up the CXL root and
-> return -ENODEV when it is absent.
-> 
-> Fixes: 7d4b5ca2e2cb ("cxl/acpi: Add downstream port data to cxl_port instances")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jiale Yao <yaojiale02@163.com>
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Applied to cxl/next:
-371c2ad16242
+- [Medium] net: unnecessary software checksum fallback for outer UDP
+  tunnels
+- [Low] The old non-encapsulated branch cleared features only for
+  SKB_GSO_TCPV6, or for SKB_GSO_UDP_L4 over IPv6.
+- [Low] The in-tree NETIF_F_IPV6_CSUM contract
+  (include/linux/skbuff.h:77-86) still says the feature covers only…
 
-> ---
-> 
-> Notes:
->     Changes in v2:
->     - Move the ACPI companion assignment immediately before its NULL check.
->     - Reorder local declarations in reverse Christmas tree order.
-> 
->  drivers/cxl/acpi.c | 10 +++++++---
->  1 file changed, 7 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/cxl/acpi.c b/drivers/cxl/acpi.c
-> index 3b818adbd38b..fb09a5ff48c1 100644
-> --- a/drivers/cxl/acpi.c
-> +++ b/drivers/cxl/acpi.c
-> @@ -885,13 +885,17 @@ static int pair_cxl_resource(struct device *dev, void *data)
+--
+
+net: extend IPv6 exthdr detection of tunneled packets
+
+This patch replaces skb_gso_has_extension_hdr() with
+skb_has_ipv6_extension_hdr(). The new helper checks ipv6_ext_hdr() on the
+outer IPv6 header and, when skb->encapsulation is set, on the inner IPv6
+header, reading both through skb_header_pointer(). gso_features_check()
+and skb_csum_hwoffload_help() now both use it.
+
+> diff --git a/net/core/dev.c b/net/core/dev.c
+> index f660fccfc0dbc..aa74aa60ca2a7 100644
+> --- a/net/core/dev.c
+> +++ b/net/core/dev.c
+> @@ -3818,20 +3818,36 @@ static netdev_features_t dflt_features_check(struct sk_buff *skb,
+>  	return vlan_features_check(skb, features);
+>  }
 >  
->  static int cxl_acpi_probe(struct platform_device *pdev)
->  {
-> -	int rc;
-> +	struct cxl_cfmws_context ctx;
-> +	struct acpi_device *adev;
->  	struct resource *cxl_res;
->  	struct cxl_root *cxl_root;
->  	struct cxl_port *root_port;
->  	struct device *host = &pdev->dev;
-> -	struct acpi_device *adev = ACPI_COMPANION(host);
-> -	struct cxl_cfmws_context ctx;
-> +	int rc;
+> -static bool skb_gso_has_extension_hdr(const struct sk_buff *skb)
+> -{
+> -	if (!skb->encapsulation)
+> -		return ((skb_shinfo(skb)->gso_type & SKB_GSO_TCPV6 ||
+> -			 (skb_shinfo(skb)->gso_type & SKB_GSO_UDP_L4 &&
+> -			  vlan_get_protocol(skb) == htons(ETH_P_IPV6))) &&
+> -			skb_transport_header_was_set(skb) &&
+> -			skb_network_header_len(skb) != sizeof(struct ipv6hdr));
+
+[ ... ]
+
+> +static bool skb_has_ipv6_extension_hdr(const struct sk_buff *skb)
+> +{
+> +	if (vlan_get_protocol(skb) == htons(ETH_P_IPV6)) {
+> +		if (__skb_has_ipv6_ext_hdr(skb, skb_network_offset(skb)))
+> +			return true;
+
+[Severity: Low]
+
+The removed non-encapsulated branch cleared features only for
+SKB_GSO_TCPV6, or for SKB_GSO_UDP_L4 over IPv6. The new outer check has no
+gso_type gate. Is it meant to apply to every IPv6 GSO type?
+
+SKB_GSO_SCTP is one type whose behaviour changes. sctp_packet_pack()
+always makes the GSO head CHECKSUM_PARTIAL:
+
+net/sctp/output.c:sctp_packet_pack() {
+    ...
+	if (gso) {
+		...
+		goto chksum;
+	}
+    ...
+chksum:
+		head->ip_summed = CHECKSUM_PARTIAL;
+		head->csum_not_inet = 1;
+    ...
+}
+
+Take SCTP over IPv6 with IPV6_DSTOPTS or IPV6_RTHDR set.
+gso_features_check() now clears NETIF_F_IPV6_CSUM. harmonize_features()
+then sees ip_summed != CHECKSUM_NONE and
+!can_checksum_protocol(features, ETH_P_IPV6). It strips all of
+NETIF_F_CSUM_MASK, including NETIF_F_SCTP_CRC, plus NETIF_F_GSO_MASK:
+
+validate_xmit_skb()
+  netif_skb_features()
+    gso_features_check()    /* clears NETIF_F_IPV6_CSUM */
+    harmonize_features()    /* clears NETIF_F_CSUM_MASK, NETIF_F_GSO_MASK */
+  skb_gso_segment()
+    sctp_gso_segment()      /* CRC32c computed in software per segment */
+
+Some devices have NETIF_F_IP_CSUM | NETIF_F_IPV6_CSUM | NETIF_F_SCTP_CRC
+but no NETIF_F_HW_CSUM. One example is hns3 without
+HNAE3_DEV_SUPPORT_HW_TX_CSUM_B. On such a device the CRC32c was offloaded
+before this patch and is computed in software after it. The output is
+still correct, so only performance is affected.
+
+Could the gso_type restriction be kept here? If not, could the commit
+message say that the check now covers all IPv6 GSO types?
+
 > +
-> +	adev = ACPI_COMPANION(host);
-> +	if (!adev)
-> +		return -ENODEV;
->  
->  	device_lock_set_class(&pdev->dev, &cxl_root_key);
->  	rc = devm_add_action_or_reset(&pdev->dev, cxl_acpi_lock_reset_class,
+> +		/* Catch tunnels without skb->encapsulation (e.g., virtio). */
+> +		if (!skb->encapsulation &&
+> +		    skb_transport_header_was_set(skb) &&
+> +		    skb_network_header_len(skb) != sizeof(struct ipv6hdr))
+> +			return true;
+> +	}
 
+[ ... ]
+
+> @@ -3988,8 +4004,7 @@ int skb_csum_hwoffload_help(struct sk_buff *skb,
+>  		return 0;
+>  
+>  	if (features & (NETIF_F_IP_CSUM | NETIF_F_IPV6_CSUM)) {
+> -		if (vlan_get_protocol(skb) == htons(ETH_P_IPV6) &&
+> -		    skb_network_header_len(skb) != sizeof(struct ipv6hdr))
+> +		if (skb_has_ipv6_extension_hdr(skb))
+>  			goto sw_checksum;
+>  
+>  		switch (skb->csum_offset) {
+
+[Severity: Medium]
+skb_has_ipv6_extension_hdr() checks the inner IPv6 header whenever
+skb->encapsulation and the inner network header are set. That is right
+for gso_features_check(), where the device computes the inner checksum
+of every segment. Here it is applied regardless of which checksum is
+being offloaded.
+
+The commit message describes the case where this matters: if the inner
+packet is CHECKSUM_NONE, the device offloads the outer UDP checksum.
+csum_start then points at the outer UDP header and the device does not
+need to parse any further.
+
+Suppose the inner packet is IPv6 with, say, a Destination Options
+header. The inner check still returns true, and the outer checksum is
+now computed in software:
+
+validate_xmit_skb()
+  skb_csum_hwoffload_help()
+    skb_has_ipv6_extension_hdr()
+      __skb_has_ipv6_ext_hdr(skb, skb_inner_network_offset(skb))
+                          /* inner nexthdr == NEXTHDR_DEST */
+    skb_checksum_help()   /* outer UDP csum in software */
+
+Before this patch, skb_csum_hwoffload_help() only compared the outer
+network header length, so the outer checksum was offloaded.
+
+The same regression affects an IPv4 outer header on a NETIF_F_IP_CSUM
+device. The old test never looked at those packets, because
+vlan_get_protocol() returned ETH_P_IP.
+
+The output is still correct, so this is a performance issue. Whether
+it triggers depends on the contents of the inner packet.
+
+For non-GSO skbs that are not CHECKSUM_PARTIAL,
+iptunnel_handle_offloads() clears skb->encapsulation. That likely hides
+this for the common in-tree tunnels, but the helper should not depend
+on it.
+
+Could the inner check be skipped here when the checksum being
+offloaded is not the inner one? For example, it could be skipped when
+skb_checksum_start_offset(skb) is below skb_inner_network_offset(skb).
+
+Note that validate_xmit_skb() sets inner_transport_header to csum_start
+just before calling skb_csum_hwoffload_help(). That field therefore
+cannot tell the two cases apart.
+
+[Severity: Low]
+
+The NETIF_F_IPV6_CSUM description in include/linux/skbuff.h still says:
+
+ *     - Driver (device) is only able to checksum plain
+ *	 TCP or UDP packets over IPv6. These are specifically
+ *	 unencapsulated packets of the form IPv6|TCP or
+ *	 IPv6|UDP where the Next Header field in the IPv6
+ *	 header is either TCP or UDP. IPv6 extension headers
+ *	 are not supported with this feature.
+
+skb_has_ipv6_extension_hdr() rejects only extension headers in the outer
+and first inner IPv6 header. It also skips the length check when
+skb->encapsulation is set. As a result, skb_csum_hwoffload_help() returns
+0 for encapsulated packets whose outer nexthdr is GRE, UDP or IPv6.
+
+Encapsulated GRE and UDP over IPv6 could already be offloaded before this
+patch. The new case is IPv6|IPv6|TCP from ip6_tunnel with encaplimit
+none. The old network-to-transport length check sent it to
+skb_checksum_help(). Now it goes to the device.
+
+The commit message says:
+
+  A NETIF_F_IPV6_CSUM device must parse through the outer headers to
+  reach the inner ones.
+
+Should this requirement also go into the NETIF_F_IPV6_CSUM documentation
+in skbuff.h? Driver authors who set the bit in hw_enc_features would then
+know about it.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260926140506.2335137-1-willemdebruijn.kernel%40gmail.com
