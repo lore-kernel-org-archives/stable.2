@@ -1,120 +1,194 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 187233C342B
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 23:13:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3404532FA18;
+	Tue, 29 Sep 2026 23:37:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790723601; cv=none; b=UbPRW7D1Yr93xb3LCYmDyhUaL2sxsze4mTZ82pOdwfCIml84Q+8Ec/elcms1ASb0z1d8VkJm2TAF/RO1QwEq9QP89nrvc5EPsZSSIoruYA+6HZkFXkoFnvJczSJ8jx64gyg6TrgiveqnTOLsFzX5DCMbNN2XyOVld7jfHknQdkA=
+	t=1790725038; cv=none; b=AM8yOkaBA6YA2p2tFDSjkcJ8o0sYhtESFEgCWTX3QbCfRpR4LbfUAW5rZehx4qqGqAE/y4p9dFdyWFHavy/cG7NXVReZBymqvzYn4wzidsfUn86u55Hk2C0pqVfAWJimcmth8ZGTybKY75dl1//XcN+FllPKGmOV3PBR4s9W7Ms=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790723601; c=relaxed/simple;
-	bh=/ilIA44JXqtZTmbwZrhsZ6ol+s0bdI8D0orE4ifmMGk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=f4wPg22aS757XY2O6a98xFC3bkWNGwoJN2Xi5cDBd6JFq23vbZAgU2Y62P4tiTGp+gNd51tLa1DoGS7EnxqL8Cda4gbXsaoM5RkPMOEjpgrfJjRyVU+zCz/9nMhGvubvWpRADdYObYzWg8/fKho3v6kmh5dh0+U3IJspbAMybZk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Nkxis1Gc; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Cg+WD3jN; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790725038; c=relaxed/simple;
+	bh=uXvN0o/i49sd09BGH+OHO5km4+lh8+UVoNj8DyAMh2g=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=IV/LoAOU4Y7WSFCpmV4uHYt4T5csUNT5+WmD0M9o51KNjo67TD4hLBz4F43AutxWi0yhOHH6KfCSduCfQNTHJJApSZ6WFegKembplwcVLbq3rvqeKKuD29gXyq1+fC+IrfxOvbxVl2rT+NOPLM3HxjBWyTkauwTU09ktA0sxnok=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M5tMbgrk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Nkxis1Gc";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Cg+WD3jN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790723599;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=UPVYPqcakFBfmTodi2OB9ccSniDcRNe1kpqKnNDDYjE=;
-	b=Nkxis1GcUl4zPcxcOueoNOkkvwgCiheXgp1CcfULUp1s6JPx4viWAz5fNsYRqJzMOS69ES
-	/EJmsYOFbNRB/4FgMfzvpv7zMlGa0oPliE59WyPFn6XigG2BuIr+9bnu3Kfs1ysBnNvO5f
-	pektVq+xNSdyktyd2a/p8VM35Q+I/UE=
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-141-3vzon1l6O9qdnHJjYGaDew-1; Tue, 29 Sep 2026 19:13:17 -0400
-X-MC-Unique: 3vzon1l6O9qdnHJjYGaDew-1
-X-Mimecast-MFC-AGG-ID: 3vzon1l6O9qdnHJjYGaDew_1790723597
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-5333a1b634bso70563101cf.0
-        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 16:13:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790723597; x=1791328397; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UPVYPqcakFBfmTodi2OB9ccSniDcRNe1kpqKnNDDYjE=;
-        b=Cg+WD3jNOaX3ZQFJc4g7V87NWqlRne9RK7uKglKjRwvCxk85y8eeF2BLa9BUjwGBeH
-         UNmfrHek11QdJTkvaF/ot0YklQD2UefRoQeyCpaj8Z99USZ6OfP9fslLMa6f3Xnm/QdR
-         hNzY45ow1B5P66dACVTVT3gQE5N9KdcxMgkt+t+D+k3oHf61tggRNMesTFeZM+AH/UEz
-         +ytRcgodbzAJhbv//3Yq48Bda6bqRjNuWjer2ZJh7CVvFTmAukTTW1OLDrNUhWFNJ5SD
-         VvN3ExN0zIsQiGTjnbAGBgHM7nQIqf/VieF3JyvVlXu25ws3Gv3ohTvfAnRrL5aljGjJ
-         f+PQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790723597; x=1791328397;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UPVYPqcakFBfmTodi2OB9ccSniDcRNe1kpqKnNDDYjE=;
-        b=0GkgaahlAYelkg0NVrA8e7P70Av2t6CGSOy8RAq64U9AYJUwVgPSwxnEIBt0eDZ8kd
-         QNhMtLT7yaFYj5P28+UMKcL4x4RvjFhdhxyBWqZdIL8vJTXrviiyyB/gm6Yn5Fytj0yF
-         gP0BiRj8C2tiIgmNrZ4L8zgj9CiR/LE3RURjDcwKY+8qglsB55SHtq2FubApRrukIGuy
-         8jBXSzgWqAmri9CLaFhDI9DMyRiKPmwAF9G4DhUAR7bgEc4sP0+pkWPFzhkz75/uLqrQ
-         eie7x0t3YiOHWPqFoI+zhhoGdmDXXSQrg8Y2zf/RG1EDBvAzpy1qo3rzXoR3vHFwYeL/
-         C0zQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzVohIGbhSAFbyiQBSUFWi3VS+ynMDbkAf2jcaNCmY4HOYyBk/J/CtxUrn8IFU2fGfimF0KB74=@vger.kernel.org
-X-Gm-Message-State: AFuF++l0xDote1xwG/F+o3FOzOPoMHJUgag1X0FRUVshtNdQFNlxr4JP
-	06rxMXsvQI+HZ/di0CLw7EQArqMUQUcjBVZ0YfdpaUvkXd+FJFn5SV0t9HcqczZ72YOdSNUU0v+
-	jUGT/3pD8vQFnG4OSrUir3SKB4JGLvfQ4rY19DGMm4cSk3wCNJNwcLbA59Q==
-X-Gm-Gg: AYBFou2lWuGGIdeltGuI277b8qFoID6QJCvQjyrZ71/xETFb+LaxXJbMWCFD8ccJ+Ja
-	uYvyeQCmOtv9VA6EogQs58ttJDjFF7myHRVvvQgU0EHl+1MWMlFsjQYtpbUCC6VHIaHEKhrGu2S
-	Agjz8K61IQFfp09ZtPxN6i0w2cj7z/Gg7gI8FU1A/cts7dbI3J4bxei7EYcMWCKb6HeJliQKww1
-	QkuAqXAcy32hMvEYFdgC1fKBvvgQ3hxo6OGrlQA6yJ8fMgIYT86rKhViAZcj0iLS/l/WIotnp7/
-	lBTZG0G3i/kmztxgspOaf9K+4VN1uE4IK6pW7TLKbWvWjQfkZg7BABeZbgmmYi8ZtpOknIIIqLd
-	36EN76zG48dgY1mnYg3DcCXnC+JEHKN7yH3nvfQ==
-X-Received: by 2002:a05:622a:2283:b0:530:cc3c:c62d with SMTP id d75a77b69052e-5336a60c0d2mr15624351cf.44.1790723596718;
-        Tue, 29 Sep 2026 16:13:16 -0700 (PDT)
-X-Received: by 2002:a05:622a:2283:b0:530:cc3c:c62d with SMTP id d75a77b69052e-5336a60c0d2mr15623821cf.44.1790723595987;
-        Tue, 29 Sep 2026 16:13:15 -0700 (PDT)
-Received: from big24.sandeen.net (97-116-156-223.mpls.qwest.net. [97.116.156.223])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53369b67cfbsm6214761cf.16.2026.09.29.16.13.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 16:13:15 -0700 (PDT)
-From: Eric Sandeen <sandeen@redhat.com>
-To: linux-xfs@vger.kernel.org
-Cc: cem@kernel.org,
-	djwong@kernel.org,
-	Eric Sandeen <sandeen@redhat.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] xfs: validate rc_domain in xchk_rtrefcount_mergeable
-Date: Tue, 29 Sep 2026 18:13:05 -0500
-Message-ID: <20260929231305.1368713-1-sandeen@redhat.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M5tMbgrk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA53B1F000FF;
+	Tue, 29 Sep 2026 23:37:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790725036;
+	bh=WHiYLve/r8dKdJur6CLdF1ljoKuGu9MvD9+c1UIePVY=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=M5tMbgrkov2WEkxH+jdoYNwC5CHPdy7Zt3lqertwdfZbF/qqbbbpmEvIr2GgeQMl/
+	 k1X6mb6cu+0cycJhbCZ+xCaA/MQ0l3UblRETJ9399UuLJ1POWo2dxyvoFc4cGGFQd+
+	 R2yMBXQZyZF45DB1hXqD+u/P5UPOus5mVxEyFdvKFOkouW0UzTNDh9a5RL5NXyy0cC
+	 /X9o+GxZEaNOsiKsga+hBawTLGcpXqm8mU45DFdDPS3mDafYy63Gd6gFEjOKZHgSOf
+	 Ar6j0jcUIuNsmq4ymJrfExlkwtTc6dO4uat03Vo4h42GdSQ8WkayyJKq7NRU0xZs7d
+	 XDtEYQVnYKuoA==
+Content-Type: multipart/mixed; boundary="===============6591287826219115497=="
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-Id: <d8aa770b82f03b9cbae1bc84c8505c32d451abde5fe4517a903f1311b940b0d6@mail.kernel.org>
+In-Reply-To: <20260929014206.4175245-1-irogers@google.com>
+References: <20260929014206.4175245-1-irogers@google.com>
+Subject: Re: [PATCH v1] perf/core: Restore header fields in sideband output callbacks
+From: bot+bpf-ci@kernel.org
+To: irogers@google.com,peterz@infradead.org,mingo@redhat.com,acme@kernel.org,namhyung@kernel.org
+Cc: mark.rutland@arm.com,alexander.shishkin@linux.intel.com,jolsa@kernel.org,irogers@google.com,adrian.hunter@intel.com,james.clark@linaro.org,song@kernel.org,ast@kernel.org,linux-perf-users@vger.kernel.org,linux-kernel@vger.kernel.org,bpf@vger.kernel.org,stable@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Tue, 29 Sep 2026 23:37:15 +0000 (UTC)
 
-xchk_refcount_mergeable validates that the domains match, but this
-was omitted from the realtime version of the check; fix it.
+--===============6591287826219115497==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Fixes: c27929670de144 ("xfs: scrub the realtime refcount btree")
-Cc: stable@vger.kernel.org # v6.14
-Signed-off-by: Eric Sandeen <sandeen@redhat.com>
+> diff --git a/kernel/events/core.c b/kernel/events/core.c
+> index db7b76d6b68a..2be915a293ce 100644
+> --- a/kernel/events/core.c
+> +++ b/kernel/events/core.c
+> @@ -9032,6 +9032,11 @@ static void perf_iterate_sb_cpu(perf_iterate_f output, void *data)
+>   *
+>   * For new callers; ensure that account_pmu_sb_event() includes
+>   * your event, otherwise it might not get delivered.
+> + *
+> + * Note: @data is shared across all @output calls, so any fields modified
+> + * incrementally or conditionally (e.g. header.size via
+> + * perf_event_header__init_id()) must be saved and restored by @output,
+> + * or unconditionally re-initialized on each call.
+>   */
+>  static void
+>  perf_iterate_sb(perf_iterate_f output, void *data,
+
+Peter Zijlstra identified that perf_event_switch_output() also modifies
+header.type and header.size before calling perf_event_header__init_id()
+and suggested it might need similar treatment.
+
+Looking at perf_event_switch_output():
+
+    if (event->ctx->task) {
+        se->event_id.header.type = PERF_RECORD_SWITCH;
+        se->event_id.header.size = sizeof(se->event_id.header);
+    } else {
+        se->event_id.header.type = PERF_RECORD_SWITCH_CPU_WIDE;
+        se->event_id.header.size = sizeof(se->event_id);
+        ...
+    }
+    perf_event_header__init_id(&se->event_id.header, &sample, event);
+
+The new comment mentions that fields must be "saved and restored by
+@output, or unconditionally re-initialized on each call."
+perf_event_switch_output() does unconditionally reinitialize both
+header.type and header.size at the start of each callback invocation,
+which should prevent the accumulation bug.
+
+Is this analysis correct, or does perf_event_switch_output() need the
+save/restore pattern as well?
+
+> @@ -9726,6 +9731,7 @@ static void perf_event_mmap_output(struct perf_event *event,
+>  	struct perf_sample_data sample;
+>  	int size = mmap_event->event_id.header.size;
+>  	u32 type = mmap_event->event_id.header.type;
+> +	u16 misc = mmap_event->event_id.header.misc;
+>  	bool use_build_id;
+>  	int ret;
+>
+
+[ ... ]
+
+> @@ -9783,6 +9789,7 @@ static void perf_event_mmap_output(struct perf_event *event,
+>  out:
+>  	mmap_event->event_id.header.size = size;
+>  	mmap_event->event_id.header.type = type;
+> +	mmap_event->event_id.header.misc = misc;
+>  }
+
+[ ... ]
+
+> @@ -10247,6 +10254,7 @@ static void perf_event_ksymbol_output(struct perf_event *event, void *data)
+>  	struct perf_ksymbol_event *ksymbol_event = data;
+>  	struct perf_output_handle handle;
+>  	struct perf_sample_data sample;
+> +	u16 header_size = ksymbol_event->event_id.header.size;
+>  	int ret;
+>
+>  	if (!perf_event_ksymbol_match(event))
+> @@ -10257,13 +10265,15 @@ static void perf_event_ksymbol_output(struct perf_event *event, void *data)
+>  	ret = perf_output_begin(&handle, &sample, event,
+>  				ksymbol_event->event_id.header.size);
+>  	if (ret)
+> -		return;
+> +		goto out;
+>
+>  	perf_output_put(&handle, ksymbol_event->event_id);
+>  	__output_copy(&handle, ksymbol_event->name, ksymbol_event->name_len);
+>  	perf_event__output_id_sample(event, &handle, &sample);
+>
+>  	perf_output_end(&handle);
+> +out:
+> +	ksymbol_event->event_id.header.size = header_size;
+>  }
+
+[ ... ]
+
+> @@ -10337,6 +10347,7 @@ static void perf_event_bpf_output(struct perf_event *event, void *data)
+>  	struct perf_bpf_event *bpf_event = data;
+>  	struct perf_output_handle handle;
+>  	struct perf_sample_data sample;
+> +	u16 header_size = bpf_event->event_id.header.size;
+>  	int ret;
+>
+>  	if (!perf_event_bpf_match(event))
+> @@ -10347,12 +10358,14 @@ static void perf_event_bpf_output(struct perf_event *event, void *data)
+>  	ret = perf_output_begin(&handle, &sample, event,
+>  				bpf_event->event_id.header.size);
+>  	if (ret)
+> -		return;
+> +		goto out;
+>
+>  	perf_output_put(&handle, bpf_event->event_id);
+>  	perf_event__output_id_sample(event, &handle, &sample);
+>
+>  	perf_output_end(&handle);
+> +out:
+> +	bpf_event->event_id.header.size = header_size;
+>  }
+
+[ ... ]
+
+> @@ -10499,6 +10512,7 @@ static void perf_event_text_poke_output(struct perf_event *event, void *data)
+>  	struct perf_text_poke_event *text_poke_event = data;
+>  	struct perf_output_handle handle;
+>  	struct perf_sample_data sample;
+> +	u16 header_size = text_poke_event->event_id.header.size;
+>  	u64 padding = 0;
+>  	int ret;
+>
+> @@ -10510,7 +10524,7 @@ static void perf_event_text_poke_output(struct perf_event *event, void *data)
+>  	ret = perf_output_begin(&handle, &sample, event,
+>  				text_poke_event->event_id.header.size);
+>  	if (ret)
+> -		return;
+> +		goto out;
+>
+>  	perf_output_put(&handle, text_poke_event->event_id);
+>  	perf_output_put(&handle, text_poke_event->old_len);
+> @@ -10525,6 +10539,8 @@ static void perf_event_text_poke_output(struct perf_event *event, void *data)
+>  	perf_event__output_id_sample(event, &handle, &sample);
+>
+>  	perf_output_end(&handle);
+> +out:
+> +	text_poke_event->event_id.header.size = header_size;
+>  }
+
+
 ---
- fs/xfs/scrub/rtrefcount.c | 2 ++
- 1 file changed, 2 insertions(+)
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-diff --git a/fs/xfs/scrub/rtrefcount.c b/fs/xfs/scrub/rtrefcount.c
-index 3d916d71a135..460e3f094adf 100644
---- a/fs/xfs/scrub/rtrefcount.c
-+++ b/fs/xfs/scrub/rtrefcount.c
-@@ -379,6 +379,8 @@ xchk_rtrefcount_mergeable(
- 	if (r1->rc_blockcount == 0)
- 		return false;
- 
-+	if (r1->rc_domain != r2->rc_domain)
-+		return false;
- 	if (r1->rc_startblock + r1->rc_blockcount != r2->rc_startblock)
- 		return false;
- 	if (r1->rc_refcount != r2->rc_refcount)
--- 
-2.55.0
-
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/36643934404
+--===============6591287826219115497==--
