@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 349D037D101
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 06:45:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3D9337BE9F
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 06:45:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790664307; cv=none; b=oOL5wVzgOUdvrmgKkmnz87vsXMD9jymVAroGcQsQYJED9a2l7rbaChU/UAmY+LpJvj/e0KNAypIRjAL7xrGN8UMILNXqKxacuAby0qCwze2+m5H68A74pYeqvskhq/j2GQARPbtqCOR0fMjLUe4i1/AixAUGe/o0kGu7SO1t6UA=
+	t=1790664316; cv=none; b=OO0gC7KYUzL75wCZbs4slXpZKpMPKHQKK3ZJDsHlvRjOVIUOFSC4dYl45v2zm2JmmerpMmd4UduL9rTVvWu5IOMIUuT4I32IIdDRrR3TJDtvVn86zsevsl3QJrl0vA9PSejZTRtGbY80f5SsD8EmiZ0qFd514GU1HR8VxnQOfdM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790664307; c=relaxed/simple;
-	bh=nsLReEc8bkocP/pCi8bh6U8EA3R9DR4DRG10EmCQEHU=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=tfzv0z+FVoQetHkP3ib2YwxiNUvizBYssM/vObvQSvU9WzD+kyRVGZpqQ6mHNFwZfu5avsPXtbPXp6YfwR6DdPtl2G8qVpzBcif1dRQZh1QW530dCVr9bvYPGz00z/1IGshQO8Cj6cq1e/c7MZDOz900RvTRp4XSR6aHd6E9/2Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=bPr7mBZP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790664316; c=relaxed/simple;
+	bh=JJiFqcwy7iksmIP4fSJ1ayrreVUXRP6ZVNdgrpGSleo=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=WQ6ywpP3onCFTRWDl0Br72gsopjMfgSpw6zS0zhSF5Acqa7Ik+PeK+I3/IVtVB6dq8iucB4KN5UlyuL6Ve/vPgQUm5RR58Pri8ljIe86XIihaJ+gHg0yRnJMexukKf4tVk6UxR8gL+nZA7HmgUnnjHMKjcFNBj/UwRYOUNlNkDc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=XwUvgZ8w; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="bPr7mBZP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68FE01F000FF;
-	Tue, 29 Sep 2026 06:45:05 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="XwUvgZ8w"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F04121F00893;
+	Tue, 29 Sep 2026 06:45:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790664306;
-	bh=bsFssnSB+BZkftqyITunBFl7VSRwsC98dauAkHMMzkM=;
+	s=korg; t=1790664314;
+	bh=RnD7uoWSvStXApCcf2zbpcPlnxwlzp8iwFC9Gej0Rys=;
 	h=Subject:To:Cc:From:Date;
-	b=bPr7mBZPmHkptAu4IGzoOkKZj7/GwtOeVv7LoCovf42tulkMGCfngijtMLc8dPhCE
-	 +8AHtvmbONCODHuv/12XF/IClsR5y6LuvW1fSfa7FgKFdqBPxLol2YyrbG6IsT8iBw
-	 iSLQvZ0EVwyNPc4on6F06AtcO0An9JQprF/c7ZWs=
-Subject: FAILED: patch "[PATCH] writeback: bound cleanup_offline_cgwb() rescans by rotating" failed to apply to 5.10-stable tree
-To: perf.patrick.lu@gmail.com,brauner@kernel.org,jack@suse.cz,roman.gushchin@linux.dev,tj@kernel.org
+	b=XwUvgZ8wRqrrlA1HJT8YrzcBETd2wrIal7ZjZUKR5I3Q/C2DAixPwaYZ7zn+ysHkW
+	 9BxSnBMk+xDHwhXsk0O5XZQJSFra7YzvO33n5XNM3iU2q4Ky7/2uuK8XQ58utQ0Upi
+	 cCpVqgCbVDrv8WUWC2bTaXop1bbiFscjoaDgV9GE=
+Subject: FAILED: patch "[PATCH] super: make iterate_supers_type() deletion-safe" failed to apply to 7.2-stable tree
+To: brauner@kernel.org,jack@suse.cz,kmehltretter@gmail.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 29 Sep 2026 08:44:55 +0200
-Message-ID: <2026092955-municipal-nebula-4546@gregkh>
+Date: Tue, 29 Sep 2026 08:45:11 +0200
+Message-ID: <2026092911-clunky-same-c5c5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 7.2-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
 git checkout FETCH_HEAD
-git cherry-pick -x f6988c90671e83db79df1b7b9d6fdb0e5947fd84
+git cherry-pick -x 2d2a2d7aa98741b58f54cacc99b52024e4d865f9
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092955-municipal-nebula-4546@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092911-clunky-same-c5c5@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,85 +62,157 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From f6988c90671e83db79df1b7b9d6fdb0e5947fd84 Mon Sep 17 00:00:00 2001
-From: "Patrick Lu (Anthropic)" <perf.patrick.lu@gmail.com>
-Date: Fri, 11 Sep 2026 18:49:49 +0000
-Subject: [PATCH] writeback: bound cleanup_offline_cgwb() rescans by rotating
- scanned inodes
+From 2d2a2d7aa98741b58f54cacc99b52024e4d865f9 Mon Sep 17 00:00:00 2001
+From: Christian Brauner <brauner@kernel.org>
+Date: Wed, 9 Sep 2026 21:30:34 +0200
+Subject: [PATCH] super: make iterate_supers_type() deletion-safe
 
-cleanup_offline_cgwb() prepares at most WB_MAX_INODES_PER_ISW inodes
-per call and is called again until the dying wb is drained, but every
-call walks wb->b_attached and then wb->b_dirty_time from the same end.
-Inodes already prepared (they stay on the list with I_WB_SWITCH set
-until the switch worker runs) and inodes that cannot be switched
-(I_FREEING, I_WILL_FREE, !SB_ACTIVE, DAX, already on the target wb)
-stay where they are, so each pass rescans a growing run of them under
-wb->list_lock and a full drain is quadratic in the number of inodes on
-the list. With ~17M inodes attached to one dying cgwb we saw this end
-in soft lockups, with CPUs reported stuck for 21-48s.
+iterate_supers_type() drops sb_lock while invoking the callback and keeps
+only a passive reference to the current superblock. That reference keeps
+the object allocated, but does not keep its s_instances node linked.
 
-Walk both lists from the oldest end and move every scanned inode to
-the newest end, so the next pass starts where the previous one stopped
-and the drain becomes linear. b_attached is unordered, so nobody sees
-the reorder there. b_dirty_time is ordered by dirtied_when, but the
-oldest unscanned inode stays at the end move_expired_inodes() picks
-from, sync takes the whole list regardless of order, and prepared
-inodes leave the list as soon as the switch work runs and get a new
-dirtied_time_when on the new wb anyway, so the only inodes left out of
-order are the ones that can never switch (DAX), and only on the dying
-wb.
+After the iterator releases s_umount, final teardown can unlink the current
+s_instances node. The iterator then advances through a reinitialized node.
+With the current hlist it stops without visiting the remaining superblocks.
+The unlink moved from generic_shutdown_super() to kill_super_notify(), but
+the cursor lifetime has been unsafe since the helper was introduced.
 
-Fixes: c22d70a162d3 ("writeback, cgroup: release dying cgwbs by switching attached inodes")
+The CIFS DFS lookup can consequently miss a matching superblock and return
+-EINVAL.
+
+Move removal from fs_supers to put_super(), alongside removal from
+super_blocks, so a passive reference keeps both list nodes linked. Keep
+the filesystem module reference until then, since unlinking s_instances
+may touch type->fs_supers.
+
+Make sget_fc() skip SB_DEAD superblocks before invoking test(), and set
+SB_DEAD under sb_lock to serialize with those callbacks. This allows
+kernfs to free its private information after kill_anon_super() returns.
+Keep matching SB_DYING superblocks until SB_DEAD is set so concurrent
+mounts still wait for teardown before retrying.
+
+Fixes: 43e15cdbefea ("new helper: iterate_supers_type()")
+Reported-by: Karl Mehltretter <kmehltretter@gmail.com>
+Closes: https://lore.kernel.org/r/20260903013336.92081-1-kmehltretter@gmail.com
+Suggested-by: Jan Kara <jack@suse.cz>
 Cc: stable@vger.kernel.org
-Acked-by: Tejun Heo <tj@kernel.org>
-Acked-by: Roman Gushchin <roman.gushchin@linux.dev>
-Signed-off-by: Patrick Lu (Anthropic) <perf.patrick.lu@gmail.com>
-Link: https://patch.msgid.link/20260911-wb-cgwb-rotate-v2-1-a9ab253a1295@gmail.com
+Tested-by: Karl Mehltretter <kmehltretter@gmail.com>
+[kmehltretter: supplied the commit message]
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Link: https://patch.msgid.link/20260909193034.7467-1-kmehltretter@gmail.com
 Reviewed-by: Jan Kara <jack@suse.cz>
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-diff --git a/fs/fs-writeback.c b/fs/fs-writeback.c
-index e744f9f9d43f..ea3eb40bf828 100644
---- a/fs/fs-writeback.c
-+++ b/fs/fs-writeback.c
-@@ -727,19 +727,34 @@ static bool isw_prepare_wbs_switch(struct bdi_writeback *new_wb,
- 				   struct inode_switch_wbs_context *isw,
- 				   struct list_head *list, int *nr)
+diff --git a/fs/kernfs/mount.c b/fs/kernfs/mount.c
+index f183a96778b9..a57399021c8b 100644
+--- a/fs/kernfs/mount.c
++++ b/fs/kernfs/mount.c
+@@ -434,8 +434,8 @@ void kernfs_kill_sb(struct super_block *sb)
+ 	up_write(&root->kernfs_supers_rwsem);
+ 
+ 	/*
+-	 * Remove the superblock from fs_supers/s_instances
+-	 * so we can't find it, before freeing kernfs_super_info.
++	 * Mark the superblock dead so sget_fc() can't find it,
++	 * before freeing kernfs_super_info.
+ 	 */
+ 	kill_anon_super(sb);
+ 	kfree(info);
+diff --git a/fs/super.c b/fs/super.c
+index 01db6124e409..e41cae9e5c62 100644
+--- a/fs/super.c
++++ b/fs/super.c
+@@ -433,15 +433,19 @@ static struct super_block *alloc_super(struct file_system_type *type, int flags,
+ void put_super(struct super_block *s)
  {
--	struct inode *inode;
-+	struct inode *inode, *tmp;
-+	LIST_HEAD(scanned);
-+	bool full = false;
-+
-+	/*
-+	 * Walk from the oldest end and move scanned inodes to the newest
-+	 * end, so the next scan resumes at unscanned inodes instead of
-+	 * re-walking an ever-growing run of prepared and skipped ones.
-+	 * For b_dirty_time this keeps the oldest unscanned inode at the
-+	 * end move_expired_inodes() picks from; b_attached is unordered.
-+	 */
-+	list_for_each_entry_safe_reverse(inode, tmp, list, i_io_list) {
-+		list_move(&inode->i_io_list, &scanned);
+ 	if (refcount_dec_and_test(&s->s_passive)) {
++		struct file_system_type *type = s->s_type;
  
--	list_for_each_entry(inode, list, i_io_list) {
- 		if (!inode_prepare_wbs_switch(inode, new_wb))
- 			continue;
+ 		spin_lock(&sb_lock);
+ 		list_del_init(&s->s_list);
++		hlist_del_init(&s->s_instances);
+ 		spin_unlock(&sb_lock);
  
- 		isw->inodes[*nr] = inode;
- 		(*nr)++;
- 
--		if (*nr >= WB_MAX_INODES_PER_ISW - 1)
--			return true;
-+		if (*nr >= WB_MAX_INODES_PER_ISW - 1) {
-+			full = true;
-+			break;
-+		}
+ 		WARN_ON(s->s_dentry_lru.node);
+ 		WARN_ON(s->s_inode_lru.node);
+ 		WARN_ON(s->s_mounts);
+ 		call_rcu(&s->rcu, destroy_super_rcu);
++		/* The unlink above may touch type->fs_supers, so drop it last. */
++		put_filesystem(type);
  	}
--	return false;
-+	list_splice(&scanned, list);
-+
-+	return full;
+ }
+ 
+@@ -558,17 +562,6 @@ static void kill_super_notify(struct super_block *sb)
+ 	if (sb->s_flags & SB_DEAD)
+ 		return;
+ 
+-	/*
+-	 * Remove it from @fs_supers so it isn't found by new
+-	 * sget_fc() walkers anymore. Any concurrent mounter still
+-	 * managing to grab a temporary reference is guaranteed to
+-	 * already see SB_DYING and will wait until we notify them about
+-	 * SB_DEAD.
+-	 */
+-	spin_lock(&sb_lock);
+-	hlist_del_init(&sb->s_instances);
+-	spin_unlock(&sb_lock);
+-
+ 	/* Drop sget_fc()'s claim; a never-registered entry stays with the sb. */
+ 	if (sb->s_super_dev->sd_dev) {
+ 		super_dev_put(sb->s_super_dev);
+@@ -577,11 +570,15 @@ static void kill_super_notify(struct super_block *sb)
+ 
+ 	/*
+ 	 * Let concurrent mounts know that this thing is really dead.
+-	 * We don't need @sb->s_umount here as every concurrent caller
+-	 * will see SB_DYING and either discard the superblock or wait
+-	 * for SB_DEAD.
++	 * sget_fc() skips SB_DEAD superblocks and calls test() under
++	 * sb_lock, so set it under sb_lock: once we return no test()
++	 * runs on this superblock anymore and none will start. Everyone
++	 * else already saw SB_DYING and either discarded the superblock
++	 * or waits for SB_DEAD.
+ 	 */
++	spin_lock(&sb_lock);
+ 	super_wake(sb, SB_DEAD);
++	spin_unlock(&sb_lock);
  }
  
  /**
+@@ -608,7 +605,6 @@ void deactivate_locked_super(struct super_block *s)
+ 		list_lru_destroy(&s->s_dentry_lru);
+ 		list_lru_destroy(&s->s_inode_lru);
+ 
+-		put_filesystem(fs);
+ 		put_super(s);
+ 	} else {
+ 		super_unlock_excl(s);
+@@ -795,12 +791,12 @@ void generic_shutdown_super(struct super_block *sb)
+ 	}
+ 	/*
+ 	 * Broadcast to everyone that grabbed a temporary reference to this
+-	 * superblock before we removed it from @fs_supers that the superblock
+-	 * is dying. Every walker of @fs_supers outside of sget_fc() will now
+-	 * discard this superblock and treat it as dead.
++	 * superblock that it is dying. Every walker of @fs_supers outside
++	 * of sget_fc() will now discard this superblock and treat it as
++	 * dead.
+ 	 *
+-	 * We leave the superblock on @fs_supers so it can be found by
+-	 * sget_fc() until we passed sb->kill_sb().
++	 * sget_fc() keeps finding the superblock until SB_DEAD is set, so
++	 * a concurrent mounter waits until we passed sb->kill_sb().
+ 	 */
+ 	super_wake(sb, SB_DYING);
+ 	super_unlock_excl(sb);
+@@ -879,6 +875,9 @@ struct super_block *sget_fc(struct fs_context *fc,
+ 	spin_lock(&sb_lock);
+ 	if (test) {
+ 		hlist_for_each_entry(old, &fc->fs_type->fs_supers, s_instances) {
++			/* Only unlinked at the last passive reference. */
++			if (super_flags(old, SB_DEAD))
++				continue;
+ 			if (test(old, fc))
+ 				goto share_extant_sb;
+ 		}
 
