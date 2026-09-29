@@ -1,148 +1,122 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7AE73B47F1
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 15:42:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E4833C1D7F
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 15:44:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790696562; cv=none; b=u67dcK+F+uiR94oT/C0l62hUZKBLzCizl9Nix/YjcossT8C6KHwjDNo93V5CwHfGG6gzM4iUXIrmkIccr0JLsFC4yFWZsoBt0Z54K81r5tonRBUBE/BIF1T462TR4vmGk7Se2hAdlWbNX2EiY+62RfRaD7AJy05h3UP4Gnz0uX8=
+	t=1790696657; cv=none; b=TvK39D1HR0cKDIXqI9YRdOcc59G8Q293WAnz10CB53H3yurPsqb9B1ZUS+oRClCdlMqMxDOmdsGBHhh5R8W+46mehAtrkm/C6Q/ViHw/TV9csKITgyN3rEKeEmTugLXggfIefNvU3ZLsIPxH1XFIBpaCgKRfuGpQlZkYvIgc8yc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790696562; c=relaxed/simple;
-	bh=uGeossOX1aGKK7thuud9mTVGEMLVtdKzFI/wYtSeWNA=;
+	s=arc-20240116; t=1790696657; c=relaxed/simple;
+	bh=LOWgfpif0IcHucuLosxwpXIgu8/p/e3LJiG5/0tWw1s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rSYAtljwBRTpMVJ2J3mcUQBWrGaKHps+mKutlAl/Re4MjqgQMh3J+Qa+POxsA75bliDz+8dL6Vz3UcO53sgtGCrxb6pqvd/D+qP22vSEym9MbORl13ef4eORfDHQhCXKzz/iuiEk51C2imELEa5DV+hu+Dd6dTezRq3e3tQZlv0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L4QHmuAL; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=rM1BNp4d2GCdn55hXh6XtdBstk+wnpXmJ+N4j0oww0t8S7bsvl2YyHIwFp9wGgQNVb3TFabLdssTpg2vruNdot/nMjnKlb/7H9bVT4zfmDTGqrQQnwm3QgWid6qiKmeKSJJkSI0GiENPgrdU3cWylvPlJe3z4vOsbyFpoIrMq/o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F5Ze+pJY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L4QHmuAL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E545C1F00899;
-	Tue, 29 Sep 2026 15:42:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F5Ze+pJY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F0AC1F000FF;
+	Tue, 29 Sep 2026 15:44:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790696560;
-	bh=hQlnbSnLaVXXEN6yTtVVEJm4Csf8AKlf7RIYXRl3Y9I=;
+	s=k20260515; t=1790696655;
+	bh=PEQ6G0IyMT375cZddwTHhXHCHj7EsmEyrYl3+x7RGYQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=L4QHmuAL2TXdb/IeXf2wX9EPNIEN/dgZjCjZ+XZLtsWrkCXJjBcXFwp1jOirGTaLT
-	 hjszYF4/eq6zVgG4xf+cDaO4bz1IEKX3luqu4xBaTkfv3U15qCEzMPJxBs57QsQpaL
-	 r4nD1dFvgCHLnKY3AWknH45cgYYWwUHUNAk4kC0W7D+58Dpfxqvpw1lbFwmYnxAJ+5
-	 XYBPTbgycQ0Diav3Ad5anL920MkDyHApOttMtGydOvCI0AuI0gsg7sD++5jAMWtq5P
-	 Q+oYIVfmK7D0nWfP7WpqslNZIpGO4T3cVCwOMnw/nX04E0A2X3nGdMfAu5b6bXM2NA
-	 8VjinuMyxvJqg==
+	b=F5Ze+pJY+1Mdih3Bbbn9wuz78Zt7MLsETtvwoxyC7YzkPX/YQ26JVykcmqh+vYEJ6
+	 tD3myzh7sUcDlsUQML8Q+1oV94lnBX2LDTokdp9peWKRj2MW4jZMeUDi9OF/fbtIVy
+	 OWSzEMMGnlADWzXcP8PytzOviJpOwg2ye2dVExlzUhD6ns7g4PL/M8JUMaY8VUMVha
+	 8JSa4H8UERIGdB3o02nk2tA8hmCS25z3Rk+B2whAAH2IZJuDnArYo0qYDgxRAt6bQ2
+	 gdxpunrJWehz4Z7C6mxxJp4Qr7IfzXSIhlt4Li/kA3PaSaJX3XaBDUogB6pjYB3Drs
+	 puNxN42W7Fg+w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: shechenglong <shechenglong@xfusion.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
+Cc: Willem de Bruijn <willemb@google.com>,
+	mst@redhat.com,
+	jasowangio@gmail.com,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 3/3] drm/client: fix restore of partially initialized client
-Date: Tue, 29 Sep 2026 11:42:36 -0400
-Message-ID: <20260929154236.4087907-3-sashal@kernel.org>
+Subject: [PATCH 6.6.y] virtio_net: copy zerocopy frags in start_xmit without NAPI
+Date: Tue, 29 Sep 2026 11:44:13 -0400
+Message-ID: <20260929154413.4090026-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260929154236.4087907-1-sashal@kernel.org>
-References: <2026092902-autistic-bonnet-dcb5@gregkh>
- <20260929154236.4087907-1-sashal@kernel.org>
+In-Reply-To: <2026092901-amnesty-primer-ce2f@gregkh>
+References: <2026092901-amnesty-primer-ce2f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: shechenglong <shechenglong@xfusion.com>
+From: Willem de Bruijn <willemb@google.com>
 
-[ Upstream commit 1fca688e9443003e33cf30453e7a7560367656c9 ]
+[ Upstream commit 07e1a9408b6c2f9d0cfb757b67dabb52da7a32b2 ]
 
-I got a null-ptr-deref report when closing a DRM file descriptor:
+Virtio-net without NAPI frees completed skbs lazily on the next
+start_xmit. Senders waiting for in-flight zerocopy buffers can
+deadlock if they cannot transmit more packets, as then no
+completed packets will be freed.
 
-WARNING: drivers/gpu/drm/drm_atomic.c:2031 at
-__drm_atomic_helper_set_config+0x18e/0x1b0 [drm]
+When !use_napi, virtio-net already calls skb_orphan to avoid waiting
+up for transmitted skbs to be freed. For zerocopy packets that
+require deep copying on orphan (i.e. those that do not set
+SKBFL_DONT_ORPHAN, such as PACKET_TX_RING), call skb_orphan_frags
+before orphaning to release the buffers.
 
-Call Trace:
-drm_client_modeset_commit_atomic+0x16b/0x220 [drm]
-drm_client_modeset_commit_locked+0x56/0x160 [drm]
-drm_client_modeset_commit+0x21/0x40 [drm]
-__drm_fb_helper_restore_fbdev_mode_unlocked.part.0+0x7b/0x80
-drm_fbdev_client_restore+0xe/0x20 [drm_client_lib]
-drm_client_dev_restore+0x9f/0xc0 [drm]
-drm_release+0xc5/0xe0 [drm]
+This fixes the tpacket_snd slot reuse bug on skb_orphan for
+virtio-net, and prevents PACKET_TX_RING from running out of slots.
 
-The warning is followed by a NULL pointer dereference:
+This fix also touches vhost_net zerocopy packets, which also do not
+set SKBFL_DONT_ORPHAN. This is fine: vhost_net packets only encounter
+virtio-net in nested virtualization, and only if napi_tx is
+explicitly disabled (it has been default-enabled since Linux 4.12).
+In that rare case, copying the frags is desirable anyway to prevent
+holding guest descriptors pinned across unbounded intervals.
 
-BUG: kernel NULL pointer dereference, address: 0000000000000008
+This is a prerequisite for the next patch, which converts
+PACKET_TX_RING to standard zerocopy completion. Without this patch
+first, a bounded ring sender can stall indefinitely behind a
+virtio-net virtqueue that cannot reclaim.
 
-RIP:
-__drm_fb_helper_restore_fbdev_mode_unlocked.part.0+0x41/0x80
-[drm_kms_helper]
-
-Call Trace:
-drm_fbdev_client_restore+0xe/0x20 [drm_client_lib]
-drm_client_dev_restore+0x9f/0xc0 [drm]
-drm_release+0xc5/0xe0 [drm]
-__fput+0xdc/0x2b0
-__x64_sys_close+0x39/0x80
-do_syscall_64+0x8d/0x460
-entry_SYSCALL_64_after_hwframe+0x76/0x7e
-
-drm_client_register() adds the DRM client to the device client list
-before invoking the initial hotplug callback. If the hotplug callback
-fails, the client remains registered.
-
-For the fbdev client, a failure during drm_fb_helper_initial_config()
-causes the partially initialized fbdev helper to be cleaned up.
-drm_fb_helper_fini() releases fb_helper->info and leaves it NULL.
-
-The fbdev client therefore remains registered even though there is no
-fully initialized framebuffer device.
-
-Later, when userspace closes the DRM file descriptor, drm_release()
-can invoke the restore callbacks of registered DRM clients:
-
-drm_release()
-drm_client_dev_restore()
-drm_fbdev_client_restore()
-drm_fb_helper_restore_fbdev_mode_unlocked()
-
-drm_fbdev_client_restore() currently restores the fbdev state
-unconditionally. For a partially initialized fbdev client this can
-submit an incomplete modeset state and subsequently access fbdev
-state which has not been initialized, resulting in the warning and
-NULL pointer dereference above.
-
-drm_fbdev_client_unregister() already uses fb_helper->info to
-distinguish a fully probed framebuffer device from a partially
-initialized client.
-
-Use the same condition in drm_fbdev_client_restore() and skip restore
-if no framebuffer device has been successfully initialized.
-
-Signed-off-by: shechenglong <shechenglong@xfusion.com>
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-Fixes: 5d08c44e47b9 ("drm/fbdev: Add memory-agnostic fbdev client")
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: <stable@vger.kernel.org> # v6.13+
-Link: https://patch.msgid.link/20260907035147.1339-1-shechenglong@xfusion.com
+Fixes: 5cd8d46ea156 ("packet: copy user buffers before orphan or clone")
+Cc: stable@vger.kernel.org
+Cc: mst@redhat.com
+Cc: jasowangio@gmail.com
+Signed-off-by: Willem de Bruijn <willemb@google.com>
+Link: https://patch.msgid.link/20260919004748.1463985-2-willemdebruijn.kernel@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ omitted the xmit_more-based kick assignment to use 6.6’s existing kick initialization and notification condition. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/clients/drm_fbdev_client.c | 8 ++++++++
+ drivers/net/virtio_net.c | 8 ++++++++
  1 file changed, 8 insertions(+)
 
-diff --git a/drivers/gpu/drm/clients/drm_fbdev_client.c b/drivers/gpu/drm/clients/drm_fbdev_client.c
-index c8327c66a4abc..935cd85032229 100644
---- a/drivers/gpu/drm/clients/drm_fbdev_client.c
-+++ b/drivers/gpu/drm/clients/drm_fbdev_client.c
-@@ -30,6 +30,14 @@ static int drm_fbdev_client_restore(struct drm_client_dev *client, bool force)
- {
- 	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
+diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
+index fe0e647808cd7..b98acab38ac4d 100644
+--- a/drivers/net/virtio_net.c
++++ b/drivers/net/virtio_net.c
+@@ -2429,6 +2429,13 @@ static netdev_tx_t start_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	} while (use_napi && kick &&
+ 	       unlikely(!virtqueue_enable_cb_delayed(sq->vq)));
  
-+	/*
-+	 * The client is registered before the initial fbdev probe.
-+	 * If probing failed, the client remains registered but there
-+	 * is no valid fbdev framebuffer to restore.
-+	 */
-+	if (!fb_helper->info || !fb_helper->fb)
-+		return 0;
++	if (!use_napi &&
++	    unlikely(skb_orphan_frags(skb, GFP_ATOMIC))) {
++		DEV_STATS_INC(dev, tx_dropped);
++		dev_kfree_skb_any(skb);
++		goto kick_vq;
++	}
 +
- 	drm_fb_helper_restore_fbdev_mode_unlocked(fb_helper, force);
+ 	/* timestamp packet in software */
+ 	skb_tx_timestamp(skb);
  
- 	return 0;
+@@ -2456,6 +2463,7 @@ static netdev_tx_t start_xmit(struct sk_buff *skb, struct net_device *dev)
+ 
+ 	check_sq_full_and_disable(vi, dev, sq);
+ 
++kick_vq:
+ 	if (kick || netif_xmit_stopped(txq)) {
+ 		if (virtqueue_kick_prepare(sq->vq) && virtqueue_notify(sq->vq)) {
+ 			u64_stats_update_begin(&sq->stats.syncp);
 -- 
 2.53.0
 
