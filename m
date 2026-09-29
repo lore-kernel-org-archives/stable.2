@@ -1,180 +1,635 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1FFD53F6A6
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 17:27:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 556EC390985
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 17:31:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790702850; cv=none; b=JbzMHtal941rBORGvGBiQBq6ksDVLzPeMwjUf5ET3faKtpSBOPKdtIGmRvZR67fJj0Q8+NOcvnPdxMFlzY4oSVj6A4SDB2G9wswrJm2Pe8NT1JZHaM6vGvJxwx24jsZjgxQ66nrxb+4GKN7LW74soaQuzp9/4wctMf+91clKxBY=
+	t=1790703091; cv=none; b=AQ/57EuZUyg2MYhdII3T3jiBkAezrVW6rgukanYQPqpnx+4MlWAYAKIvMC8gFEcy9v3hRvtkI3J0Pm63OXtr7zw4vcAvOGRtmLkwZhdYbcX6QgbplSqbEHO96yUbDyHfmFBhsBJj3hvsaLxyvN/kSClGmnUsIK+jmYHxkUMbrgU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790702850; c=relaxed/simple;
-	bh=XAr0ib5BIPLtsY2IvBczHBGu8cAfEMxCkyCJpApDgVo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=K03NKGILTdxoPdsEZW8K8ttAoBB3GKEbIpCKkco+JYgbpd8fLMXrbfzPFMjPDbpcDJWhKx7NCkaYCEbvVXeWJq+lUoZ2B0LVO29f8H8lOSfJ3J9YnC98pN3EHE58w+ZsJpMUQ3KQ+4rm7mMan+h+rWxgOtWMYXWDJEuXl1PB0f8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=b0PhfIzm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hUD5+ZOw; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790703091; c=relaxed/simple;
+	bh=83Yl4cYZHijUNK1hxmPU91N6GyT9lsfDApiQDByF1T4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=W+S9YUIS75TytIsBwwFkwmkZDvl7Cit53rpPzOh1om4zKB57p45v187qL4KIZBXU6v9wQPik3kEEDXhRdu32ZpDrqkKrfm21pq7LsMi6WJ83ebCmjEmqluWg7fV/yt/zUrYhEexOMEEkHT/Nyf2dFPlT9GkscHH2UcS39JtBrg8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gVwL82x7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="b0PhfIzm";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hUD5+ZOw"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68TCqmTC613838
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 17:27:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	u3SUEE7AbKzsNjWqdW9tpkLCiHmZCXAa87H/nM0eXMM=; b=b0PhfIzmOk/QmqOk
-	FVyf9GPr4FheKSIazX6ZpB5hFQNl6tKAh5GNR/d/ZVbzld3wLYDvfdGjOyQ3voKI
-	XJfEGMIT36vPoGXzXRJFpyFaCryKIreS5dNbSqvqXRR1TsW+odAvrfpYModnZuhA
-	dZDb6IvoP4Sc6Fk06dQRWW2Xbp5ITvRx3P4n94xXEaatFET1PQFBtZlq2xEvIpH/
-	9XxzPTSFCkSyf4/AWpb1CxgjGQguInWfBvsNK5rYdhbQ5+kBbjEI7kXOh1lQPPzA
-	NA6GdmQ7BdgKVKd9JLAKEPxGFoYWVT/utozk0x0IY+o1HAP93KM7G4qSUQdprqbB
-	z1KXMg==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h03ew3ueh-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 17:27:27 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc1bbd7d6e6so3133335a12.3
-        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 10:27:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790702847; x=1791307647; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=u3SUEE7AbKzsNjWqdW9tpkLCiHmZCXAa87H/nM0eXMM=;
-        b=hUD5+ZOw9duAcXWgrj+h1HLpr5mz/H/Ga4fOH6wz9OGDeraqHCDG0ImFKqcHJgM7Nl
-         ka0s3sjt33uFU7UEh7UvPigM64YSckhAkb1CaWFlPZFq3HJhesl9Vhmm8sJ9MZ8SbnBw
-         hRCV5DYBcVprgZNG/zy7+JMHS6Hs06pc2IdzagMqiTo+3WIjWZ9nrq8r19F00n3JR5PZ
-         OR5Qh+HLIpor2VxO/S6+Ah4EN6Mt1ss/p19nJfsIhuU650DrGdTfmofoDsqlU6nTWX+6
-         ts/4SeWCC3PVddWyQ49IsmGUwawDhlNAqur4JPzMqIHitMui1YW9eXnI6PFY0BxZGvBt
-         JGHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790702847; x=1791307647;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=u3SUEE7AbKzsNjWqdW9tpkLCiHmZCXAa87H/nM0eXMM=;
-        b=gXnD7cDD2jRmbHcFrKUCKFbXCbCAOZqppRMyhGB++Q75J0uITraicrpbnReL98ruQP
-         P2eiFvXE3Ma2JoMsLSHyxJKzWCeapdb4gWwzudlQ8XExZoFA2c41ZoK3Dv7+JKlnxV/p
-         rDnm08hN9xz0V0Vrhf1VE0Iv6pjYtiEac2t0Tx+LxWpqrAwew6uj1WfGHPEQO8K80nLt
-         a7Mp5jVAF3hL6cDLvtHuKOCgom1KJFxABVVCGYPn/1idrDLSCvMMKFbP08m8CWyXDijI
-         ZwNrzvI/4qFlxmA0Em5mpiRHgNphES/dE266VjFmP1/c9WjmQeTXHR9v7ngHwD89144G
-         IWUw==
-X-Forwarded-Encrypted: i=1; AKwUvBySBIS1RroFyi6Gja+bgm0OR097F+jf6E0d6KxQlQ08IsHvely7Vc5U0ZJbttKhPRNvrlfubfA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lncTQ2s/S6yqcYviXzHBgKMIPLjCdsOFDHUNq3cOYWHzjZwVMA
-	JaZML2/5lO3nY1QZiaMaKCk/WNYKTEzdvMGhhFv4T5stfhhRyzWeCS1SCixd2DWYvAkWrZ6L91B
-	9NuMdJW6De48S31UPY0vOJ0svFn1H5IoK8tPeKOF+qJ/trSB76KPMYpkTZDI=
-X-Gm-Gg: AYBFou1NPu3iEbTXOU+eOw1xWwC6vANWbKaSWUvrQASPMbAj7cf/2sYZvekzckZmnqW
-	nqkSEU3JOnHT+1pVUlimyG23jOZQGcAEWCSXn9jCxosHhN+b4UUxEXCgNBwS/QSeAzVqAu8NBwl
-	tWoORi3cJ0w0DiV3g/ZgljFLB92adPlU1rd4q7qTFCiGe1MuUyTXus80644dHZuABwJUhC3F+je
-	E1xYi4nYgVLq8uIuaYmecZYtftYsHoCPhwjvjj8Jsh0lffc9JN7/Z7F6TVpF9ftR+u1pO0pvUSi
-	+dJD7Yh5uhLwJcWeItykkFOhhCADtUhdvgkK1qfaaiiVJxfibdjunQ+xBeQpgeUKxWfSw2kuCWh
-	dGcjWnFW/yiE3HpsRoNqIr/gOhT7jw+z/0Tj2ypjJnlM=
-X-Received: by 2002:a05:6a21:398f:b0:3dd:85aa:d26a with SMTP id adf61e73a8af0-3de0e7f02e6mr14024783637.34.1790702846557;
-        Tue, 29 Sep 2026 10:27:26 -0700 (PDT)
-X-Received: by 2002:a05:6a21:398f:b0:3dd:85aa:d26a with SMTP id adf61e73a8af0-3de0e7f02e6mr14024769637.34.1790702846060;
-        Tue, 29 Sep 2026 10:27:26 -0700 (PDT)
-Received: from [192.168.1.3] ([122.164.83.157])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8868c9d62afsm280619b3a.44.2026.09.29.10.27.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 29 Sep 2026 10:27:25 -0700 (PDT)
-Message-ID: <b77e8d79-fc90-4bf8-835e-23e84198a008@oss.qualcomm.com>
-Date: Tue, 29 Sep 2026 22:57:07 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gVwL82x7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41BCB1F000FF;
+	Tue, 29 Sep 2026 17:31:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790703088;
+	bh=ynnHZLiSMMPqCBMuOGxLOBcvkKiyJjQ1X9jN8bPVJc8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=gVwL82x7PgfDz/QE8qRFpAPx3hMDfTh5/bfYO6CnRvjj4DHrh79xA9s//emQE63yM
+	 OyvRydfHH2Pk+2Uq/FeOzDA3VJbTotVUAXMTQN1+1gNUPqtgOUPmeudyGMDhaU/qcS
+	 9UrfteiqCvPAFWpV/Rrl50M6jlpPMfFbM9+GnPtJgISJlpaagnrX/KBGsz/0+FAWtI
+	 und5WTGK8QsT6b++R30JXhmLnxUYTebCl4TgWFoK0xcQ3wbUC8QscP6pYdCWV2aZzA
+	 tkcn8siLTzTrTpG0AZvxQLlRX+W1vXuAfCEzLXbjX/9BhSX5oam49rIVq0P67UiQVl
+	 m+cIr7dYt5x6w==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+	Rob Clark <robdclark@gmail.com>,
+	Emil Velikov <emil.velikov@collabora.com>,
+	Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] drm/virtio: Refactor and optimize job submission code path
+Date: Tue, 29 Sep 2026 13:31:25 -0400
+Message-ID: <20260929173126.284476-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026092952-wifi-luster-9ed8@gregkh>
+References: <2026092952-wifi-luster-9ed8@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: (subset) [PATCH 00/11] Add a few minor enhancements to the
- Qualcomm IPQ GCC drivers.
-To: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-        Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Georgi Djakov <djakov@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Varadarajan Narayanan <quic_varada@quicinc.com>,
-        Dmitry Baryshkov <lumag@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Gokul Sriram Palanisamy <quic_gokulsri@quicinc.com>,
-        Sricharan Ramabadhran <quic_srichara@quicinc.com>,
-        Kathiravan T <quic_kathirav@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-pm@vger.kernel.org, stable@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-References: <20260921-ipq_clk_changes-v1-0-d242e3d49648@oss.qualcomm.com>
- <179065171028.2673486.10540547681271836423.b4-ty@b4>
-Content-Language: en-US
-From: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
-In-Reply-To: <179065171028.2673486.10540547681271836423.b4-ty@b4>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDA2OSBTYWx0ZWRfX+Vwwjr2Iqxbd
- TsJUAp9ciVr+3YO6p1MX9bE8Prw7V9RxhDpe9+BIqT7qL1nKR6xrKfp379brLS4QgVtHedXZWdq
- uC5ssDsBzcha+dnqSrhk8Q/cgKBmQKU=
-X-Authority-Analysis: v=2.4 cv=IIOXmQvG c=1 sm=1 tr=0 ts=6abbf4ff cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=1HAn/k65X8NeSyO5TsuCIQ==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=NSf5Sc59ZZly-qZ_PXUA:9 a=QEXdDO2ut3YA:10 a=bFCP_H2QrGi7Okbo017w:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDA2OSBTYWx0ZWRfXxjHCY7b3Z/4x
- Vf1SDg39OElzu6dUqmWgNrNR5+7A+QVEIFU/KpqfZGPjrdEz64u1rN2rMnOelRXCqE+uSaDO/WE
- XOATSOU2/mahxS34WmqfkbZmCbNkmJYUMHmQHwWwgfoLId3AdJGD/Q4XKKZsQA7149lTEUTA2ry
- lG1RBS8lUrV6f/JhqDibZFA+Cg7KJXHPk1KkFfsvxhJxlzVICTTb2EFWZBH4aT1T9R3YfQDkq3O
- TEVe1M7DABq4SV2R0M0oIGBzroJ6mEyMRIUpdW/yYmOjsIuv+XOwbRETt338bkxmaV2ryUjQyr4
- 2/OqrBYc4xk+Ch+68ZCtjp7UbrbE7vezxsQY+AfUOIEszHckotx2eVickyHu9LkQF9uG8CYNs7x
- 6SBowWlivk6UWiq4skoR/jsxOgrEid/CRLmzsa0GwHmyShic6a9kFe9NnaPwZcS0dnqlxbB1cVl
- yprKEMW17Fm3FFZe9rQ==
-X-Proofpoint-GUID: 0SRA3_R2sY1N8B14vbSbAT-u-A3FueaK
-X-Proofpoint-ORIG-GUID: 0SRA3_R2sY1N8B14vbSbAT-u-A3FueaK
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-29_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 lowpriorityscore=0 clxscore=1015
- impostorscore=0 adultscore=0 bulkscore=0 malwarescore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609290069
+Content-Transfer-Encoding: 8bit
 
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 
-On 9/29/2026 8:44 AM, Bjorn Andersson wrote:
-> On Mon, 21 Sep 2026 11:49:33 +0530, Kathiravan Thirumoorthy wrote:
->> This series adds USB, NSS, and clock-related updates for several
->> Qualcomm IPQ SoCs, including:
->>
->>    - Configure the USB UTMI reference clock to 24 MHz on IPQ5018,
->>      IPQ5210, and IPQ5332 to fix USB enumeration issues.
->>    - Wire the USB3 PHY PIPE clocks to GCC on IPQ5424 and IPQ9574.
->>    - Add NSS MEMNOC clocks and corresponding clock and ICC IDs for
->>      IPQ5424.
->>    - Connect the IPQ5424 PPE clock to GCC and document the required
->>      clock input ordering.
->>    - Add UNIPHY XPCS reset definitions required for NSS support on
->>      IPQ5210.
->>    - Fix IPA-related typos in the IPQ5424 APSS clock driver.
->>
->> [...]
-> Applied, thanks!
->
-> [01/11] clk: qcom: ipq5018: add 24MHz rate for USB UTMI clock
->          commit: 0fe2995196a5973e226f506c9ec705f0dccec82f
-> [02/11] clk: qcom: ipq5332: add 24MHz rate for USB UTMI clock
->          commit: 33e6a4864ddc4824f8a9505a97232b7879eb5528
-> [03/11] clk: qcom: ipq5210: add 24MHz rate for USB UTMI clock
->          commit: 0336b65aef4721edbc01073dffdf9bc12673f0e5
-> [04/11] arm64: dts: qcom: ipq9574: Wire up USB3 PHY PIPE clock to GCC
->          commit: 117d8d40be1ded4f35f3252efa83607a7134d5e0
+[ Upstream commit e4812ab8e6b142e1ce19b50fcf744e20ea9adfe3 ]
 
-Thanks Bjorn. Patch 10/11 and 11/11 are independent of the IPQ5424 
-dt-binding discussion. Since those patches are not bug fixes, added into 
-the last part of the series. Can you pick those patches as well for v7.4?
+Move virtio_gpu_execbuffer_ioctl() into separate virtgpu_submit.c file,
+refactoring and optimizing the code along the way to ease addition of new
+features to the ioctl.
 
->
-> Best regards,
+The optimization is done by using optimal ordering of the job's submission
+steps, reducing code path from the start of the ioctl to the point of
+pushing job to virtio queue. Job's initialization is now performed before
+in-fence is awaited and out-fence setup is made after sending out job to
+virtio.
+
+Reviewed-by: Rob Clark <robdclark@gmail.com>
+Reviewed-by: Emil Velikov <emil.velikov@collabora.com>
+Tested-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Link: https://patchwork.freedesktop.org/patch/msgid/20230416115237.798604-2-dmitry.osipenko@collabora.com
+
+[Stable 6.1 adaptation: keep the conditional fence allocation and explicit
+VIRTGPU_EXECBUF_RING_IDX event gating already backported in 98d3e7c5f7575
+when moving execbuffer submission into virtgpu_submit.c.
+
+Keep the fence context at u64 width and retain out_fence until cleanup
+releases the submission reference, avoiding the regressions later fixed
+upstream by 445d336cd1586 and 4556b93f6c026. Initialize out_fence_fd to -1
+before any failing initialization step and check required fence allocation
+before creating an event or sync file.
+
+Retain the dependency's existing helper set and cleanup path so that
+b74aad23d99b279bb34d135795f39a6d8ecdc075 can be cherry-picked cleanly without
+bringing in syncobj support. The event-cancellation fix remains in the
+target commit.]
+
+Stable-dep-of: b74aad23d99b ("drm/virtio: fix memory leak of fence event on execbuffer failure")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/virtio/Makefile         |   2 +-
+ drivers/gpu/drm/virtio/virtgpu_drv.h    |   4 +
+ drivers/gpu/drm/virtio/virtgpu_ioctl.c  | 188 ---------------
+ drivers/gpu/drm/virtio/virtgpu_submit.c | 301 ++++++++++++++++++++++++
+ 4 files changed, 306 insertions(+), 189 deletions(-)
+ create mode 100644 drivers/gpu/drm/virtio/virtgpu_submit.c
+
+diff --git a/drivers/gpu/drm/virtio/Makefile b/drivers/gpu/drm/virtio/Makefile
+index b99fa4a73b68e..d2e1788a82270 100644
+--- a/drivers/gpu/drm/virtio/Makefile
++++ b/drivers/gpu/drm/virtio/Makefile
+@@ -6,6 +6,6 @@
+ virtio-gpu-y := virtgpu_drv.o virtgpu_kms.o virtgpu_gem.o virtgpu_vram.o \
+ 	virtgpu_display.o virtgpu_vq.o \
+ 	virtgpu_fence.o virtgpu_object.o virtgpu_debugfs.o virtgpu_plane.o \
+-	virtgpu_ioctl.o virtgpu_prime.o virtgpu_trace_points.o
++	virtgpu_ioctl.o virtgpu_prime.o virtgpu_trace_points.o virtgpu_submit.o
+ 
+ obj-$(CONFIG_DRM_VIRTIO_GPU) += virtio-gpu.o
+diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
+index 1dc92ee7fbdb7..abfeed6252685 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_drv.h
++++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
+@@ -492,4 +492,8 @@ void virtio_gpu_vram_unmap_dma_buf(struct device *dev,
+ 				   struct sg_table *sgt,
+ 				   enum dma_data_direction dir);
+ 
++/* virtgpu_submit.c */
++int virtio_gpu_execbuffer_ioctl(struct drm_device *dev, void *data,
++				struct drm_file *file);
++
+ #endif
+diff --git a/drivers/gpu/drm/virtio/virtgpu_ioctl.c b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
+index bc8c1e9a845fd..b24b11f25197d 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_ioctl.c
++++ b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
+@@ -38,32 +38,6 @@
+ 				    VIRTGPU_BLOB_FLAG_USE_SHAREABLE | \
+ 				    VIRTGPU_BLOB_FLAG_USE_CROSS_DEVICE)
+ 
+-static int virtio_gpu_fence_event_create(struct drm_device *dev,
+-					 struct drm_file *file,
+-					 struct virtio_gpu_fence *fence,
+-					 uint32_t ring_idx)
+-{
+-	struct virtio_gpu_fence_event *e = NULL;
+-	int ret;
+-
+-	e = kzalloc(sizeof(*e), GFP_KERNEL);
+-	if (!e)
+-		return -ENOMEM;
+-
+-	e->event.type = VIRTGPU_EVENT_FENCE_SIGNALED;
+-	e->event.length = sizeof(e->event);
+-
+-	ret = drm_event_reserve_init(dev, file, &e->base, &e->event);
+-	if (ret)
+-		goto free;
+-
+-	fence->e = e;
+-	return 0;
+-free:
+-	kfree(e);
+-	return ret;
+-}
+-
+ /* Must be called with &virtio_gpu_fpriv.struct_mutex held. */
+ static void virtio_gpu_create_context_locked(struct virtio_gpu_device *vgdev,
+ 					     struct virtio_gpu_fpriv *vfpriv)
+@@ -104,168 +78,6 @@ static int virtio_gpu_map_ioctl(struct drm_device *dev, void *data,
+ 					 &virtio_gpu_map->offset);
+ }
+ 
+-/*
+- * Usage of execbuffer:
+- * Relocations need to take into account the full VIRTIO_GPUDrawable size.
+- * However, the command as passed from user space must *not* contain the initial
+- * VIRTIO_GPUReleaseInfo struct (first XXX bytes)
+- */
+-static int virtio_gpu_execbuffer_ioctl(struct drm_device *dev, void *data,
+-				 struct drm_file *file)
+-{
+-	struct drm_virtgpu_execbuffer *exbuf = data;
+-	struct virtio_gpu_device *vgdev = dev->dev_private;
+-	struct virtio_gpu_fpriv *vfpriv = file->driver_priv;
+-	struct virtio_gpu_fence *out_fence;
+-	bool drm_fence_event;
+-	int ret;
+-	uint32_t *bo_handles = NULL;
+-	void __user *user_bo_handles = NULL;
+-	struct virtio_gpu_object_array *buflist = NULL;
+-	struct sync_file *sync_file;
+-	int out_fence_fd = -1;
+-	void *buf;
+-	uint64_t fence_ctx;
+-	uint32_t ring_idx;
+-
+-	fence_ctx = vgdev->fence_drv.context;
+-	ring_idx = 0;
+-
+-	if (vgdev->has_virgl_3d == false)
+-		return -ENOSYS;
+-
+-	if ((exbuf->flags & ~VIRTGPU_EXECBUF_FLAGS))
+-		return -EINVAL;
+-
+-	if ((exbuf->flags & VIRTGPU_EXECBUF_RING_IDX)) {
+-		if (exbuf->ring_idx >= vfpriv->num_rings)
+-			return -EINVAL;
+-
+-		if (!vfpriv->base_fence_ctx)
+-			return -EINVAL;
+-
+-		fence_ctx = vfpriv->base_fence_ctx;
+-		ring_idx = exbuf->ring_idx;
+-	}
+-
+-	virtio_gpu_create_context(dev, file);
+-	if (exbuf->flags & VIRTGPU_EXECBUF_FENCE_FD_IN) {
+-		struct dma_fence *in_fence;
+-
+-		in_fence = sync_file_get_fence(exbuf->fence_fd);
+-
+-		if (!in_fence)
+-			return -EINVAL;
+-
+-		/*
+-		 * Wait if the fence is from a foreign context, or if the fence
+-		 * array contains any fence from a foreign context.
+-		 */
+-		ret = 0;
+-		if (!dma_fence_match_context(in_fence, fence_ctx + ring_idx))
+-			ret = dma_fence_wait(in_fence, true);
+-
+-		dma_fence_put(in_fence);
+-		if (ret)
+-			return ret;
+-	}
+-
+-	if (exbuf->flags & VIRTGPU_EXECBUF_FENCE_FD_OUT) {
+-		out_fence_fd = get_unused_fd_flags(O_CLOEXEC);
+-		if (out_fence_fd < 0)
+-			return out_fence_fd;
+-	}
+-
+-	if (exbuf->num_bo_handles) {
+-		bo_handles = kvmalloc_array(exbuf->num_bo_handles,
+-					    sizeof(uint32_t), GFP_KERNEL);
+-		if (!bo_handles) {
+-			ret = -ENOMEM;
+-			goto out_unused_fd;
+-		}
+-
+-		user_bo_handles = u64_to_user_ptr(exbuf->bo_handles);
+-		if (copy_from_user(bo_handles, user_bo_handles,
+-				   exbuf->num_bo_handles * sizeof(uint32_t))) {
+-			ret = -EFAULT;
+-			goto out_unused_fd;
+-		}
+-
+-		buflist = virtio_gpu_array_from_handles(file, bo_handles,
+-							exbuf->num_bo_handles);
+-		if (!buflist) {
+-			ret = -ENOENT;
+-			goto out_unused_fd;
+-		}
+-		kvfree(bo_handles);
+-		bo_handles = NULL;
+-	}
+-
+-	buf = vmemdup_user(u64_to_user_ptr(exbuf->command), exbuf->size);
+-	if (IS_ERR(buf)) {
+-		ret = PTR_ERR(buf);
+-		goto out_unused_fd;
+-	}
+-
+-	if (buflist) {
+-		ret = virtio_gpu_array_lock_resv(buflist);
+-		if (ret)
+-			goto out_memdup;
+-	}
+-
+-	if ((exbuf->flags & VIRTGPU_EXECBUF_RING_IDX) &&
+-	    (vfpriv->ring_idx_mask & BIT_ULL(ring_idx)))
+-		drm_fence_event = true;
+-	else
+-		drm_fence_event = false;
+-
+-	if ((exbuf->flags & VIRTGPU_EXECBUF_FENCE_FD_OUT) ||
+-	    exbuf->num_bo_handles ||
+-	    drm_fence_event)
+-		out_fence = virtio_gpu_fence_alloc(vgdev, fence_ctx, ring_idx);
+-	else
+-		out_fence = NULL;
+-
+-	if (drm_fence_event) {
+-		ret = virtio_gpu_fence_event_create(dev, file, out_fence, ring_idx);
+-		if (ret)
+-			goto out_unresv;
+-	}
+-
+-	if (out_fence_fd >= 0) {
+-		sync_file = sync_file_create(&out_fence->f);
+-		if (!sync_file) {
+-			dma_fence_put(&out_fence->f);
+-			ret = -ENOMEM;
+-			goto out_unresv;
+-		}
+-
+-		exbuf->fence_fd = out_fence_fd;
+-		fd_install(out_fence_fd, sync_file->file);
+-	}
+-
+-	virtio_gpu_cmd_submit(vgdev, buf, exbuf->size,
+-			      vfpriv->ctx_id, buflist, out_fence);
+-	dma_fence_put(&out_fence->f);
+-	virtio_gpu_notify(vgdev);
+-	return 0;
+-
+-out_unresv:
+-	if (buflist)
+-		virtio_gpu_array_unlock_resv(buflist);
+-out_memdup:
+-	kvfree(buf);
+-out_unused_fd:
+-	kvfree(bo_handles);
+-	if (buflist)
+-		virtio_gpu_array_put_free(buflist);
+-
+-	if (out_fence_fd >= 0)
+-		put_unused_fd(out_fence_fd);
+-
+-	return ret;
+-}
+-
+ static int virtio_gpu_getparam_ioctl(struct drm_device *dev, void *data,
+ 				     struct drm_file *file)
+ {
+diff --git a/drivers/gpu/drm/virtio/virtgpu_submit.c b/drivers/gpu/drm/virtio/virtgpu_submit.c
+new file mode 100644
+index 0000000000000..3cad6413cad7e
+--- /dev/null
++++ b/drivers/gpu/drm/virtio/virtgpu_submit.c
+@@ -0,0 +1,301 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright (C) 2015 Red Hat, Inc.
++ * All Rights Reserved.
++ *
++ * Authors:
++ *    Dave Airlie
++ *    Alon Levy
++ */
++
++#include <linux/dma-fence-unwrap.h>
++#include <linux/file.h>
++#include <linux/sync_file.h>
++#include <linux/uaccess.h>
++
++#include <drm/drm_file.h>
++#include <drm/virtgpu_drm.h>
++
++#include "virtgpu_drv.h"
++
++struct virtio_gpu_submit {
++	struct virtio_gpu_object_array *buflist;
++	struct drm_virtgpu_execbuffer *exbuf;
++	struct virtio_gpu_fence *out_fence;
++	struct virtio_gpu_fpriv *vfpriv;
++	struct virtio_gpu_device *vgdev;
++	struct sync_file *sync_file;
++	struct drm_file *file;
++	int out_fence_fd;
++	u64 fence_ctx;
++	u32 ring_idx;
++	void *buf;
++};
++
++static int virtio_gpu_dma_fence_wait(struct virtio_gpu_submit *submit,
++				     struct dma_fence *in_fence)
++{
++	u64 context = submit->fence_ctx + submit->ring_idx;
++
++	if (dma_fence_match_context(in_fence, context))
++		return 0;
++
++	return dma_fence_wait(in_fence, true);
++}
++
++static int virtio_gpu_fence_event_create(struct drm_device *dev,
++					 struct drm_file *file,
++					 struct virtio_gpu_fence *fence,
++					 u32 ring_idx)
++{
++	struct virtio_gpu_fence_event *e = NULL;
++	int ret;
++
++	e = kzalloc(sizeof(*e), GFP_KERNEL);
++	if (!e)
++		return -ENOMEM;
++
++	e->event.type = VIRTGPU_EVENT_FENCE_SIGNALED;
++	e->event.length = sizeof(e->event);
++
++	ret = drm_event_reserve_init(dev, file, &e->base, &e->event);
++	if (ret) {
++		kfree(e);
++		return ret;
++	}
++
++	fence->e = e;
++
++	return 0;
++}
++
++static int virtio_gpu_init_submit_buflist(struct virtio_gpu_submit *submit)
++{
++	struct drm_virtgpu_execbuffer *exbuf = submit->exbuf;
++	u32 *bo_handles;
++
++	if (!exbuf->num_bo_handles)
++		return 0;
++
++	bo_handles = kvmalloc_array(exbuf->num_bo_handles, sizeof(*bo_handles),
++				    GFP_KERNEL);
++	if (!bo_handles)
++		return -ENOMEM;
++
++	if (copy_from_user(bo_handles, u64_to_user_ptr(exbuf->bo_handles),
++			   exbuf->num_bo_handles * sizeof(*bo_handles))) {
++		kvfree(bo_handles);
++		return -EFAULT;
++	}
++
++	submit->buflist = virtio_gpu_array_from_handles(submit->file, bo_handles,
++							exbuf->num_bo_handles);
++	if (!submit->buflist) {
++		kvfree(bo_handles);
++		return -ENOENT;
++	}
++
++	kvfree(bo_handles);
++
++	return 0;
++}
++
++static void virtio_gpu_cleanup_submit(struct virtio_gpu_submit *submit)
++{
++	if (!IS_ERR(submit->buf))
++		kvfree(submit->buf);
++
++	if (submit->buflist)
++		virtio_gpu_array_put_free(submit->buflist);
++
++	if (submit->out_fence_fd >= 0)
++		put_unused_fd(submit->out_fence_fd);
++
++	if (submit->out_fence)
++		dma_fence_put(&submit->out_fence->f);
++
++	if (submit->sync_file)
++		fput(submit->sync_file->file);
++}
++
++static void virtio_gpu_submit(struct virtio_gpu_submit *submit)
++{
++	virtio_gpu_cmd_submit(submit->vgdev, submit->buf, submit->exbuf->size,
++			      submit->vfpriv->ctx_id, submit->buflist,
++			      submit->out_fence);
++	virtio_gpu_notify(submit->vgdev);
++}
++
++static void virtio_gpu_complete_submit(struct virtio_gpu_submit *submit)
++{
++	submit->buf = NULL;
++	submit->buflist = NULL;
++	submit->sync_file = NULL;
++	submit->out_fence_fd = -1;
++}
++
++static int virtio_gpu_init_submit(struct virtio_gpu_submit *submit,
++				  struct drm_virtgpu_execbuffer *exbuf,
++				  struct drm_device *dev,
++				  struct drm_file *file,
++				  u64 fence_ctx, u32 ring_idx)
++{
++	struct virtio_gpu_fpriv *vfpriv = file->driver_priv;
++	struct virtio_gpu_device *vgdev = dev->dev_private;
++	struct virtio_gpu_fence *out_fence;
++	bool drm_fence_event;
++	int err;
++
++	memset(submit, 0, sizeof(*submit));
++	submit->out_fence_fd = -1;
++
++	drm_fence_event = (exbuf->flags & VIRTGPU_EXECBUF_RING_IDX) &&
++			  (vfpriv->ring_idx_mask & BIT_ULL(ring_idx));
++
++	if ((exbuf->flags & VIRTGPU_EXECBUF_FENCE_FD_OUT) ||
++	    exbuf->num_bo_handles || drm_fence_event) {
++		out_fence = virtio_gpu_fence_alloc(vgdev, fence_ctx, ring_idx);
++		if (!out_fence)
++			return -ENOMEM;
++	} else {
++		out_fence = NULL;
++	}
++
++	if (drm_fence_event) {
++		err = virtio_gpu_fence_event_create(dev, file, out_fence, ring_idx);
++		if (err) {
++			dma_fence_put(&out_fence->f);
++			return err;
++		}
++	}
++
++	submit->out_fence = out_fence;
++	submit->fence_ctx = fence_ctx;
++	submit->ring_idx = ring_idx;
++	submit->vfpriv = vfpriv;
++	submit->vgdev = vgdev;
++	submit->exbuf = exbuf;
++	submit->file = file;
++
++	err = virtio_gpu_init_submit_buflist(submit);
++	if (err)
++		return err;
++
++	submit->buf = vmemdup_user(u64_to_user_ptr(exbuf->command), exbuf->size);
++	if (IS_ERR(submit->buf))
++		return PTR_ERR(submit->buf);
++
++	if (exbuf->flags & VIRTGPU_EXECBUF_FENCE_FD_OUT) {
++		err = get_unused_fd_flags(O_CLOEXEC);
++		if (err < 0)
++			return err;
++
++		submit->out_fence_fd = err;
++
++		submit->sync_file = sync_file_create(&out_fence->f);
++		if (!submit->sync_file)
++			return -ENOMEM;
++	}
++
++	return 0;
++}
++
++static int virtio_gpu_wait_in_fence(struct virtio_gpu_submit *submit)
++{
++	int ret = 0;
++
++	if (submit->exbuf->flags & VIRTGPU_EXECBUF_FENCE_FD_IN) {
++		struct dma_fence *in_fence =
++				sync_file_get_fence(submit->exbuf->fence_fd);
++		if (!in_fence)
++			return -EINVAL;
++
++		/*
++		 * Wait if the fence is from a foreign context, or if the
++		 * fence array contains any fence from a foreign context.
++		 */
++		ret = virtio_gpu_dma_fence_wait(submit, in_fence);
++
++		dma_fence_put(in_fence);
++	}
++
++	return ret;
++}
++
++static void virtio_gpu_install_out_fence_fd(struct virtio_gpu_submit *submit)
++{
++	if (submit->sync_file) {
++		submit->exbuf->fence_fd = submit->out_fence_fd;
++		fd_install(submit->out_fence_fd, submit->sync_file->file);
++	}
++}
++
++static int virtio_gpu_lock_buflist(struct virtio_gpu_submit *submit)
++{
++	if (submit->buflist)
++		return virtio_gpu_array_lock_resv(submit->buflist);
++
++	return 0;
++}
++
++int virtio_gpu_execbuffer_ioctl(struct drm_device *dev, void *data,
++				struct drm_file *file)
++{
++	struct virtio_gpu_device *vgdev = dev->dev_private;
++	struct virtio_gpu_fpriv *vfpriv = file->driver_priv;
++	u64 fence_ctx = vgdev->fence_drv.context;
++	struct drm_virtgpu_execbuffer *exbuf = data;
++	struct virtio_gpu_submit submit;
++	u32 ring_idx = 0;
++	int ret = -EINVAL;
++
++	if (!vgdev->has_virgl_3d)
++		return -ENOSYS;
++
++	if (exbuf->flags & ~VIRTGPU_EXECBUF_FLAGS)
++		return ret;
++
++	if (exbuf->flags & VIRTGPU_EXECBUF_RING_IDX) {
++		if (exbuf->ring_idx >= vfpriv->num_rings)
++			return ret;
++
++		if (!vfpriv->base_fence_ctx)
++			return ret;
++
++		fence_ctx = vfpriv->base_fence_ctx;
++		ring_idx = exbuf->ring_idx;
++	}
++
++	virtio_gpu_create_context(dev, file);
++
++	ret = virtio_gpu_init_submit(&submit, exbuf, dev, file,
++				     fence_ctx, ring_idx);
++	if (ret)
++		goto cleanup;
++
++	/*
++	 * Await in-fences in the end of the job submission path to
++	 * optimize the path by proceeding directly to the submission
++	 * to virtio after the waits.
++	 */
++	ret = virtio_gpu_wait_in_fence(&submit);
++	if (ret)
++		goto cleanup;
++
++	ret = virtio_gpu_lock_buflist(&submit);
++	if (ret)
++		goto cleanup;
++
++	virtio_gpu_submit(&submit);
++
++	/*
++	 * Set up usr-out data after submitting the job to optimize
++	 * the job submission path.
++	 */
++	virtio_gpu_install_out_fence_fd(&submit);
++	virtio_gpu_complete_submit(&submit);
++cleanup:
++	virtio_gpu_cleanup_submit(&submit);
++
++	return ret;
++}
+-- 
+2.53.0
+
