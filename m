@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97FA752BE4C
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 13:31:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0AD04FD7B2
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 13:31:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790688679; cv=none; b=ryKE86a2T8Uhsjv/juvPR1vY0PFNWF7dfYxSpieKennex5Rk5cwMJ/yxW0aXsbz8NIM5twUaeDRV4/c5CK3OJyMGPgbgm49d6GjMZ1rxJ8CkIBmdb7JctOj/NzApa9pcbttfEDbInWGhqcoTfovrzyhAxYYX8+ZxZ4bwlIyww18=
+	t=1790688680; cv=none; b=GeQykrDExHZcca994Nzzt/DKPUH3AF7fhmjmKKlZIaN5Uj4Ghbfm5q0FqXEppV1eFON2avtCkW4M9cs+p2wQz/tMqKDuJkScbt2w2clu6/umTNXwcnv7QkHjI7xjrDf+xZZ4nqUHdi9sy7msfA1b06EbWax6xkXVE8M87Exco1o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790688679; c=relaxed/simple;
-	bh=UdPm6YNoWzPdyvV5eoEU+L+yV5zvkTc8YpptS208jU8=;
+	s=arc-20240116; t=1790688680; c=relaxed/simple;
+	bh=nu4nmJ4a33yS9VXGtGzV2Hcw/2v0pF13vAK6CqVopSk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QYzCaqwfVjsHUOujvAqokge3kyirT8VAeR7GYnF5UyAj/jwXbAGQmeZ108d3h3/L+W9kQmAdx6OPQxsBk2fOjKOlHXdKE5Za48IFxBuwYaVwaM7TjgUuI9ysndRYVC6/NDkaCio7tIwtvZzMgUn3z6uMJ013SffYmWfRLVnLw3g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mR2QUGNB; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=sI8VTpz//V8y/qakRfhCQSYACAehdX6zd1dxA1Wam4VpVNBtiWLzkCfienEhbf/DgUbv1jDPlqFRWJ3a57i+yudzt+E6qrrrZzebfV1l4zhny1MvADDL4cGQTtMQfBy/FdrLIoceCldXSSFURSL8BfBcQnPBRB3PQr+M1VK2Aos=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L4isD6wm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mR2QUGNB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A3901F000FF;
-	Tue, 29 Sep 2026 13:31:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L4isD6wm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEA1D1F00898;
+	Tue, 29 Sep 2026 13:31:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790688678;
-	bh=Px6hYUX+k3ZAIgbE3XvTdJG39FkBidZEQQ6E2tOtTYk=;
+	s=k20260515; t=1790688679;
+	bh=tiuje6PTvAlkD0kY8vSyb35VZmBXAPwlfOFp86TY8ww=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mR2QUGNB04/Xh6TpIK5Yh7Q9eGZueRVqaiWm5QYH8/Wj+MC8EOOKnOvU2noyEVQJc
-	 lB2ZZ8v+nHGIfm/Fz1jQZtdO574f31EdlWNhn4BJGuOuVFh8+fqAy+66+3vjIj6HR/
-	 HYxTFK/tzGFuxlLxCnc7kFGIXbASxg66+avvOiYn/pTdphsU4oJjGuEWKw7AABv2ri
-	 jQCdEv5YPq3XUVpy572pY/WSUA9K4HlyyvFJqxoI1oS9yH/Xt/GgHuRQ4L4OSjIXf6
-	 22FSGjskAsVoDZxHKSuol+pS+WB6mgaf1xm40FndKeojIE8LfRR1cyavcX5PLcZMfk
-	 Pwj203cLgll4A==
+	b=L4isD6wmSQVSX8ACvyfDEe9TUW5f6lSs5vhrmU/TXVYN4WCTvofPLwaNAWCdnq6nH
+	 Dged1pXZ/qCS2YTYZsJz3itcbG/VKyQwyWnYMLthg53OM+JUup/L1/fsj/nadIP/Yk
+	 QohL2qQP294CxY+t9N6NkYuC8INye0yvEDchBg3hDnPLFf6jrIcdPJ+vqGacMgRgck
+	 +LmDqQzhw4VixKEmXZwLxfft4N8ZTBMiVFfWah+Ih+Pq17QSpePo596rQSUuLgOTx3
+	 HaX7rx9TGriL4b2UhtRv8w2X96tdQvYIbJ8pT9zIJCJZjBGLUiSYRn+yECv2bnnqhd
+	 LDCOqBWqjCjwQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: "Borislav Petkov (AMD)" <bp@alien8.de>,
 	Tom Lendacky <thomas.lendacky@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/5] x86/sev: Move the internal header
-Date: Tue, 29 Sep 2026 09:31:04 -0400
-Message-ID: <20260929133116.3502913-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/5] x86/sev: Add internal header guards
+Date: Tue, 29 Sep 2026 09:31:05 -0400
+Message-ID: <20260929133116.3502913-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092939-ecard-twirl-6094@gregkh>
+In-Reply-To: <20260929133116.3502913-1-sashal@kernel.org>
 References: <2026092939-ecard-twirl-6094@gregkh>
+ <20260929133116.3502913-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,111 +48,35 @@ Content-Transfer-Encoding: 8bit
 
 From: "Borislav Petkov (AMD)" <bp@alien8.de>
 
-[ Upstream commit c1e8980fabf5d0106992a430284fac28bba053a6 ]
+[ Upstream commit f01c6489ad6ceb8d06eae0c5123fc6cf39276ff1 ]
 
-Move the internal header out of the usual include/asm/ include path
-because having an "internal" header there doesn't really make it
-internal - quite the opposite - that's the normal arch include path.
-
-So move where it belongs and make it really internal.
-
-No functional changes.
+All headers need guards ifdeffery.
 
 Reviewed-by: Tom Lendacky <thomas.lendacky@amd.com>
 Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Link: https://lore.kernel.org/r/20251204145716.GDaTGhTEHNOtSdTkEe@fat_crate.local
+Link: https://patch.msgid.link/20251204124809.31783-3-bp@kernel.org
 Stable-dep-of: 6c43c72748ff ("x86/sev: Make vTPM SVSM calls preemption-safe")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/boot/startup/sev-startup.c                          | 3 ++-
- arch/x86/coco/sev/core.c                                     | 3 ++-
- arch/x86/{include/asm/sev-internal.h => coco/sev/internal.h} | 0
- arch/x86/coco/sev/noinstr.c                                  | 3 ++-
- arch/x86/coco/sev/vc-handle.c                                | 3 ++-
- 5 files changed, 8 insertions(+), 4 deletions(-)
- rename arch/x86/{include/asm/sev-internal.h => coco/sev/internal.h} (100%)
+ arch/x86/coco/sev/internal.h | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/arch/x86/boot/startup/sev-startup.c b/arch/x86/boot/startup/sev-startup.c
-index 09725428d3e65..789e99d38d17b 100644
---- a/arch/x86/boot/startup/sev-startup.c
-+++ b/arch/x86/boot/startup/sev-startup.c
-@@ -27,7 +27,6 @@
- #include <asm/cpu_entry_area.h>
- #include <asm/stacktrace.h>
- #include <asm/sev.h>
--#include <asm/sev-internal.h>
- #include <asm/insn-eval.h>
- #include <asm/fpu/xcr.h>
- #include <asm/processor.h>
-@@ -41,6 +40,8 @@
- #include <asm/cpuid/api.h>
- #include <asm/cmdline.h>
+diff --git a/arch/x86/coco/sev/internal.h b/arch/x86/coco/sev/internal.h
+index c58c47c68ab6f..af991f1da0957 100644
+--- a/arch/x86/coco/sev/internal.h
++++ b/arch/x86/coco/sev/internal.h
+@@ -1,4 +1,6 @@
+ /* SPDX-License-Identifier: GPL-2.0 */
++#ifndef __X86_COCO_SEV_INTERNAL_H__
++#define __X86_COCO_SEV_INTERNAL_H__
  
-+#include "../../coco/sev/internal.h"
-+
- /* Include code shared with pre-decompression boot stage */
- #include "sev-shared.c"
+ #define DR7_RESET_VALUE        0x400
  
-diff --git a/arch/x86/coco/sev/core.c b/arch/x86/coco/sev/core.c
-index d20e9cc065a87..19adb17bd09d1 100644
---- a/arch/x86/coco/sev/core.c
-+++ b/arch/x86/coco/sev/core.c
-@@ -31,7 +31,6 @@
- #include <asm/cpu_entry_area.h>
- #include <asm/stacktrace.h>
- #include <asm/sev.h>
--#include <asm/sev-internal.h>
- #include <asm/insn-eval.h>
- #include <asm/fpu/xcr.h>
- #include <asm/processor.h>
-@@ -46,6 +45,8 @@
- #include <asm/cmdline.h>
- #include <asm/msr.h>
+@@ -85,3 +87,4 @@ enum es_result sev_es_ghcb_handle_msr(struct ghcb *ghcb, struct es_em_ctxt *ctxt
+ u64 get_hv_features(void);
  
-+#include "internal.h"
-+
- /* Bitmap of SEV features supported by the hypervisor */
- u64 sev_hv_features __ro_after_init;
- SYM_PIC_ALIAS(sev_hv_features);
-diff --git a/arch/x86/include/asm/sev-internal.h b/arch/x86/coco/sev/internal.h
-similarity index 100%
-rename from arch/x86/include/asm/sev-internal.h
-rename to arch/x86/coco/sev/internal.h
-diff --git a/arch/x86/coco/sev/noinstr.c b/arch/x86/coco/sev/noinstr.c
-index 422ce72f51d58..5afd663a1c217 100644
---- a/arch/x86/coco/sev/noinstr.c
-+++ b/arch/x86/coco/sev/noinstr.c
-@@ -16,7 +16,8 @@
- #include <asm/msr.h>
- #include <asm/ptrace.h>
- #include <asm/sev.h>
--#include <asm/sev-internal.h>
-+
-+#include "internal.h"
- 
- static __always_inline bool on_vc_stack(struct pt_regs *regs)
- {
-diff --git a/arch/x86/coco/sev/vc-handle.c b/arch/x86/coco/sev/vc-handle.c
-index 7fc136a353347..c54f2a032e392 100644
---- a/arch/x86/coco/sev/vc-handle.c
-+++ b/arch/x86/coco/sev/vc-handle.c
-@@ -23,7 +23,6 @@
- #include <asm/init.h>
- #include <asm/stacktrace.h>
- #include <asm/sev.h>
--#include <asm/sev-internal.h>
- #include <asm/insn-eval.h>
- #include <asm/fpu/xcr.h>
- #include <asm/processor.h>
-@@ -35,6 +34,8 @@
- #include <asm/apic.h>
- #include <asm/cpuid/api.h>
- 
-+#include "internal.h"
-+
- static enum es_result vc_slow_virt_to_phys(struct ghcb *ghcb, struct es_em_ctxt *ctxt,
- 					   unsigned long vaddr, phys_addr_t *paddr)
- {
+ const struct snp_cpuid_table *snp_cpuid_get_table(void);
++#endif /* __X86_COCO_SEV_INTERNAL_H__ */
 -- 
 2.53.0
 
