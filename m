@@ -1,145 +1,154 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 291B3569F1C
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 19:30:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD50B569F13
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 19:30:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790710215; cv=none; b=HJ62XMAfqcnLu8R8cDd0SUjHjdyYDJU/y8yxqQIhFQRpqUh6TvfO6u+8018g7xfTWcGaSOe9vU/x0xfWY7s82uAAoHkOWDjVq5ATkQ06cjVQ2IaIARlSjLrSWEQETwMghu+KFBZZRQCrxxZyFm6uZLb/jLwYrrpg/hrCC2093bE=
+	t=1790710217; cv=none; b=UvCzzdTWFX/yTjutF6TxeJ4P5WruHFfqoASX5X3FeCWIgzZYtmDOp9RLUIKZP3OTZed0cwvFAD/IZxrPi/v/4jP8Uo/vB/UZcF41gWcZZrC/5+BU8bb9eeiRqk0qmCwAtBpVC8Rr0HNyOLqtJwjlMnsgm324hQOFP8RywgmpRD4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790710215; c=relaxed/simple;
-	bh=/jPO7EX8Jpbxpq42kTWhdOsivEyeotAgIMdWWaDR0qk=;
+	s=arc-20240116; t=1790710217; c=relaxed/simple;
+	bh=rhbbeVzOfGJ55GpdkLsk8s8SngK0vLuIFhzBzWfowYk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gTfoiZ/jM3+Td8RHP8CfId4nPtYdxLCZwIljCYw2nFs7ucV/rrDZ9V5lKvPiRfBfR09TVkv4tCtbTNJypZwlMXHM7cQu71EJLHwMm6O67Nvui3XVbM/cxgTG3el5sdLbLrIbYZ3zUkIimlpE3aGJ6of9Cn1ef6Blf2d9CAA6FcU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S3LFx8SO; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=F7t5cdiAk/9WQs+SmIzr210MxMcOYfPj7kw1a8CcEF+fQE2HiI8yIkSGHbErd+x1q6XM6n+OFbaTKqgfJUdrB/HHDRwRGBtcGsimD+BX0xutpz062CTLtgv6gOsHl+Ntg02mFELDOriLULhQ2GVMu8hYpPdzklT5QbbKNQ1t3LM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PaBJ1K9N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S3LFx8SO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCC701F00893;
-	Tue, 29 Sep 2026 19:30:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PaBJ1K9N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E9AE1F00898;
+	Tue, 29 Sep 2026 19:30:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790710213;
-	bh=asI48kjUrIbzbp200BVaNLUDZ0Km9e0+TdBhTJXaFd8=;
+	s=k20260515; t=1790710215;
+	bh=0eBE2ZOwGsX8wQyYNyfFf/5HGV++W3BqRPaU/aZyRAs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=S3LFx8SOm6teKG5oLmvTVhqA8CzFRI9jh/rjSLnMFz0ZKNf2oTOUKinbRZVjWfMDB
-	 HXa5O2ubgi86FJP1TA4CA+MUG0J7bJglh6huJKvyCU6PhbCk/KLBBut9JcBHj5s84X
-	 tj/nsOfS5xuo+2fWwA6CBM0bVKrBjfgKqS68hGjGVYE7Hq5N+h/zxTjyWlaTAefCxc
-	 ZylseOpTiMRfFOUgWlCxye6o+U79M8dFoWAl/iDJRXoHNRX8zNAPDit42LbibmfYf2
-	 A62wJdY83hEVANWXYf4sEwobLyuHpbiEG6JDOoSBIcQhuUSQDtB51N2tUnd2IswjIx
-	 8R1ahLUJ03OEg==
+	b=PaBJ1K9Nem7hwdKdyuKb3Aj5KGFZFJlnECDbyAbhldgBFrcOLVrNRDYoFOnM+5Bp+
+	 tEPeLafUEZ8vGJcUE85IBY3+35cvAmzONTfCmZEYGCXwjTq38vval6SmzsnUNcX7na
+	 rpf4pi76Yd/USWv6q9wNWZxgTjVrKCybvTjlakZl4y8IXqV77x88H1mHuGcrGmImMP
+	 HFyGmSQgc/0eAHTP1g2njpZ+5tsZfHBB0Uu5eR3lviany7+ZLfIuXC677IOBwLF/qw
+	 U8tXzN/UhP8g8dtus8dx3QOM+WgzDtAeYKHRuBOC18Ia+SufCp695m1nZSEMkT/mly
+	 pfEAUqUCXqeFw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jinjiang Tu <tujinjiang@huawei.com>,
+Cc: Usama Arif <usamaarif642@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Kefeng Wang <wangkefeng.wang@huawei.com>,
 	David Hildenbrand <david@redhat.com>,
 	Oscar Salvador <osalvador@suse.de>,
-	Kefeng Wang <wangkefeng.wang@huawei.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
 	Muchun Song <muchun.song@linux.dev>,
-	Nanyong Sun <sunnanyong@huawei.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
+	Rik van Riel <riel@surriel.com>,
+	SeongJae Park <sj@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/3] mm/hugetlb: fix surplus pages in dissolve_free_huge_page()
-Date: Tue, 29 Sep 2026 15:30:09 -0400
-Message-ID: <20260929193011.822493-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/3] mm/hugetlb: create hstate_is_gigantic_no_runtime helper
+Date: Tue, 29 Sep 2026 15:30:10 -0400
+Message-ID: <20260929193011.822493-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092904-charbroil-reroute-765c@gregkh>
+In-Reply-To: <20260929193011.822493-1-sashal@kernel.org>
 References: <2026092904-charbroil-reroute-765c@gregkh>
+ <20260929193011.822493-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jinjiang Tu <tujinjiang@huawei.com>
+From: Usama Arif <usamaarif642@gmail.com>
 
-[ Upstream commit cb402bbdabcaa5a765068c5b8673bbfc1c264242 ]
+[ Upstream commit a743e0af503a633e4ca68a100d9b2a1a071fe8ae ]
 
-In dissolve_free_huge_page(), free huge pages are dissolved without
-adjusting surplus count. However, free huge pages may be accounted as
-surplus pages, and will lead to wrong surplus count.
+This is a common condition used to skip operations that cannot be
+performed on gigantic pages when runtime support is disabled.  This helper
+is introduced as the condition will exist even more when allowing
+"overcommit" of gigantic hugepages.  No functional change intended with
+this patch.
 
-I reproduce this issue on qemu. The steps are:
-1) Node1 is memory-less at first. Hot-add memory to node1 by executing
-the two commands in qemu monitor:
-  object_add memory-backend-ram,id=mem1,size=1G
-  device_add pc-dimm,id=dimm1,memdev=mem1,node=1
-2) online one memory block of Node1 with：
-  echo online_movable > /sys/devices/system/node/node1/memoryX/state
-3) create 64 huge pages for node1
-4) run a program to reserve (don't consume) all the huge pages
-5) echo 0 > nr_huge_pages for node1. After this step, free huge pages in
-Node1 are surplus.
-6) create 80 huge pages for node0
-7) offline memory of node1, The memory range to offline contains the free
-surplus huge pages created in step3) ~ step5)
-  echo offline > /sys/devices/system/node/node1/memoryX/state
-8) kill the program in step 4)
-
-The result:
-           Node0     Node1
-total       80        0
-free        80        0
-surplus     0         61
-
-To fix it, adjust surplus when destroying huge pages if the node has
-surplus pages in dissolve_free_hugetlb_folio().
-
-The result with this patch:
-           Node0     Node1
-total       80        0
-free        80        0
-surplus     0         0
-
-Link: https://lkml.kernel.org/r/20250304132106.2872754-1-tujinjiang@huawei.com
-Fixes: c8721bbbdd36 ("mm: memory-hotplug: enable memory hotplug to handle hugepage")
-Signed-off-by: Jinjiang Tu <tujinjiang@huawei.com>
+Link: https://lkml.kernel.org/r/20251009172433.4158118-1-usamaarif642@gmail.com
+Signed-off-by: Usama Arif <usamaarif642@gmail.com>
+Suggested-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Shakeel Butt <shakeel.butt@linux.dev>
+Reviewed-by: Kefeng Wang <wangkefeng.wang@huawei.com>
 Acked-by: David Hildenbrand <david@redhat.com>
 Acked-by: Oscar Salvador <osalvador@suse.de>
-Cc: Jinjiang Tu <tujinjiang@huawei.com>
-Cc: Kefeng Wang <wangkefeng.wang@huawei.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
 Cc: Muchun Song <muchun.song@linux.dev>
-Cc: Nanyong Sun <sunnanyong@huawei.com>
+Cc: Rik van Riel <riel@surriel.com>
+Cc: SeongJae Park <sj@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Stable-dep-of: a363c62a653c ("mm/hugetlb: do not dissolve gigantic pages without runtime support")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/hugetlb.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ mm/hugetlb.c | 21 ++++++++++++++++-----
+ 1 file changed, 16 insertions(+), 5 deletions(-)
 
 diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 0d98b591bcd1f..7ddf872081c41 100644
+index 7ddf872081c41..738e1c9f7c588 100644
 --- a/mm/hugetlb.c
 +++ b/mm/hugetlb.c
-@@ -2201,6 +2201,8 @@ int dissolve_free_hugetlb_folio(struct folio *folio)
+@@ -104,6 +104,17 @@ static void hugetlb_free_folio(struct folio *folio)
+ 	folio_put(folio);
+ }
  
- 	if (!folio_ref_count(folio)) {
- 		struct hstate *h = folio_hstate(folio);
-+		bool adjust_surplus = false;
++/*
++ * Check if the hstate represents gigantic pages but gigantic page
++ * runtime support is not available. This is a common condition used to
++ * skip operations that cannot be performed on gigantic pages when runtime
++ * support is disabled.
++ */
++static inline bool hstate_is_gigantic_no_runtime(struct hstate *h)
++{
++	return hstate_is_gigantic(h) && !gigantic_page_runtime_supported();
++}
 +
- 		if (!available_huge_pages(h))
- 			goto out;
+ static inline bool subpool_is_free(struct hugepage_subpool *spool)
+ {
+ 	if (spool->count)
+@@ -1594,7 +1605,7 @@ static void remove_hugetlb_folio(struct hstate *h, struct folio *folio,
+ 	VM_BUG_ON_FOLIO(hugetlb_cgroup_from_folio_rsvd(folio), folio);
  
-@@ -2223,7 +2225,9 @@ int dissolve_free_hugetlb_folio(struct folio *folio)
- 			goto retry;
- 		}
+ 	lockdep_assert_held(&hugetlb_lock);
+-	if (hstate_is_gigantic(h) && !gigantic_page_runtime_supported())
++	if (hstate_is_gigantic_no_runtime(h))
+ 		return;
  
--		remove_hugetlb_folio(h, folio, false);
-+		if (h->surplus_huge_pages_node[folio_nid(folio)])
-+			adjust_surplus = true;
-+		remove_hugetlb_folio(h, folio, adjust_surplus);
- 		h->max_huge_pages--;
- 		spin_unlock_irq(&hugetlb_lock);
+ 	list_del(&folio->lru);
+@@ -1656,7 +1667,7 @@ static void __update_and_free_hugetlb_folio(struct hstate *h,
+ {
+ 	bool clear_flag = folio_test_hugetlb_vmemmap_optimized(folio);
  
-@@ -2243,7 +2247,7 @@ int dissolve_free_hugetlb_folio(struct folio *folio)
- 			rc = hugetlb_vmemmap_restore_folio(h, folio);
- 			if (rc) {
- 				spin_lock_irq(&hugetlb_lock);
--				add_hugetlb_folio(h, folio, false);
-+				add_hugetlb_folio(h, folio, adjust_surplus);
- 				h->max_huge_pages++;
- 				goto out;
- 			}
+-	if (hstate_is_gigantic(h) && !gigantic_page_runtime_supported())
++	if (hstate_is_gigantic_no_runtime(h))
+ 		return;
+ 
+ 	/*
+@@ -2564,7 +2575,7 @@ static void return_unused_surplus_pages(struct hstate *h,
+ 	/* Uncommit the reservation */
+ 	h->resv_huge_pages -= unused_resv_pages;
+ 
+-	if (hstate_is_gigantic(h) && !gigantic_page_runtime_supported())
++	if (hstate_is_gigantic_no_runtime(h))
+ 		goto out;
+ 
+ 	/*
+@@ -3493,7 +3504,7 @@ static void __init hugetlb_init_hstates(void)
+ 		 * - If CMA allocation is possible, we can not demote
+ 		 *   HUGETLB_PAGE_ORDER or smaller size pages.
+ 		 */
+-		if (hstate_is_gigantic(h) && !gigantic_page_runtime_supported())
++		if (hstate_is_gigantic_no_runtime(h))
+ 			continue;
+ 		if (hugetlb_cma_size && h->order <= HUGETLB_PAGE_ORDER)
+ 			continue;
+@@ -3938,7 +3949,7 @@ static ssize_t __nr_hugepages_store_common(bool obey_mempolicy,
+ 	int err;
+ 	nodemask_t nodes_allowed, *n_mask;
+ 
+-	if (hstate_is_gigantic(h) && !gigantic_page_runtime_supported())
++	if (hstate_is_gigantic_no_runtime(h))
+ 		return -EINVAL;
+ 
+ 	if (nid == NUMA_NO_NODE) {
 -- 
 2.53.0
 
