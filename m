@@ -1,160 +1,182 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f40.google.com (mail-yx2-f40.google.com [74.125.224.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE72D50EC1D
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 15:01:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EAE85293F7
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 15:04:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790694095; cv=none; b=lo2wzcYNF7SZgMOb+1c18eFkSsYZjkCkYCe8a8/A9aX8tAXeMryqFNCaBXwRdaIdAk+stbmrnX8rg1on5GyvW6KpUuUiTTPcjrLfTFeTRmFOJbXMNvP0iKAdubJj9OD0TWovW36pwvTMGRTEoGqPTGB+O0XllnTPyvyD6nwVd18=
+	t=1790694264; cv=none; b=mj/0Ec+7HWpnRoKjXo1DCKOAFBvsDdkEQ3V3t6oiFck3r9UnVPm4H/7Gs7Jb4NH9Ny8F7KGftSrTiuqaT7PbDSd+sHKqjCPWDmYIu+GdpkiYZPKz/wQkaBxALqs1xXIGNIf5OMc5+NGc8jU1iw/kPAngI9smoz+XsB+6h6AxoN8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790694095; c=relaxed/simple;
-	bh=RNetxmkheqQBRNLASe1MW1OxUP0VzHyX4XPDQpDLDfQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=oc0pLLuR788HZmNYBpMdy2xVUrlKfQgA7DD2R/4pt+3C30naNqHTYEFvBg4Pk4NKV9ISIwBy1kEm7cWlnRXoYzykqC7DTysXtZnbWrsXMZyCwaP1d6xOkFRIt71qMvsiQD9f+Cyrhben7l4O1ece0q4ROPfC/oroYW7cNepCZF0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NXe2LG74; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790694264; c=relaxed/simple;
+	bh=ctXSxhL8cB96oM2LlBR4kk7hbE12PJXfiPWlYJLZFo0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=YrjMZBRyKvbCDIuVWThmKJKTGfYVU2ynaAW1LZhbvaUo8Ys+1jsbJcDq3Cu1ZQfzgriNzoIFU9CWNAK+KlGIEE5OyQtgk7G8AKRh3MPpE3/XEx17I3ZamI46P55KSRYmP6pxCmGWHS0TdVUayyhZIU49FnkUPDsZQKroip9speo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dRzkyfQL; arc=none smtp.client-ip=74.125.224.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NXe2LG74"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 765471F00893;
-	Tue, 29 Sep 2026 15:01:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790694085;
-	bh=gfeh6aB2jlspf69sWQU+BXhQXbAxrjb+mR8cga0Zyv4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NXe2LG74qsdgGNO7QvK3VfU5ffvcV7I+TvVZBTemkEpJoTPF6tpBX5w6D3BKHhqNW
-	 CpnGP//bFM6ztzlv0xocg5mnuPFf15ha9miaXrJKHvbwCIR2IZFTQKQ3Wwpnqv1o8b
-	 khu32gc6vLg8nomG8lpeYhASqqAssLBRLMZLF2qQ9SX3JeIPEOKggs+s1u2ftihbif
-	 fEv5Qwx4fWmyWUNqewW3+S9TRMaVh+oP7jdiPiOd9PeVL8PRLB2Uf3Cok82bWHpSyx
-	 mLP40p5RcXFK0dDrPTlDCwfOh+hKlk0YykBPP1//VudPjAeTbB6TukZBeQYJQNLRPY
-	 so9tNsRg+tmUA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
-	Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] i2c: qcom-geni: Fix hardcoded clock index in SE_GENI_CLK_SEL
-Date: Tue, 29 Sep 2026 11:01:22 -0400
-Message-ID: <20260929150123.3820698-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092909-prognosis-frostily-21e3@gregkh>
-References: <2026092909-prognosis-frostily-21e3@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dRzkyfQL"
+Received: by mail-yx2-f40.google.com with SMTP id 00721157ae682-8ab445ac183so8333407b3.3
+        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 08:04:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790694251; x=1791299051; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=+edsoFX5PqL65dJFkIJ/uSxWsDbol4HH9AaqaASjRno=;
+        b=dRzkyfQLetYpbbmiXtBUtOfaMMMw5wu8Yhdh21W4oOXf7aCPZPlGxbV76gD30R7HI3
+         8I7X+cyR/zVXQuI18na54naOwGZDYwfKC2JZMPTH2TZ1+k/k4l8EleNhEfs0kd03+V2W
+         6XFt2Bky0lGQz1WqD+C8yywbwIJESihqI3U2WbRhuqjwVdXuUzyNaB/zLkuOsyuIci3O
+         m7yBd4m1EY1u+03+GsffFmqopAnuIvfvglIkFMhz0wDLKmmX3IwvBnnd/TJhmOV8UBAL
+         ZnZjDE7yhRxYsg1eSZBy22avhMer3J36whLN7q83vp6tTbAvyFijiiwtv93hKFy2qj4S
+         8tKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790694251; x=1791299051;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=+edsoFX5PqL65dJFkIJ/uSxWsDbol4HH9AaqaASjRno=;
+        b=TYteBcJySgCsXoc/0XdCeIMlrPmdPzdB0LnkNZxwYQrymb5X3z7al41BlwML8gAFFY
+         D1hJPMTXq2yRS6scvu2bxKKWLWj3AvSN7rT2tjruA8p/i1yaC82TTwhDxev9s/W4npRL
+         Ap3W0hUI1xbqHvye1igIqN37EZQd+WFcs6L0r+OA9dI8q/AmUdBbHzyMLQJOHtGODa+W
+         Sut5EedjanROwQXJEJ9zq58Qv8hdgnVx9jf0T2kp4oWeeC34lJ6/EtKnLhZTD3cwOUqV
+         jsA7/LB6HAa4rzqH9Sj0RwwR7jDougZIq7wrHiMWUUXZfb+3MX9hcO4XNxWGU4kEfp5j
+         Gh7g==
+X-Forwarded-Encrypted: i=1; AKwUvBwGKzKiHlYdQyVWapI9hHDcAry8eE3fRLv/QcSKuXWLEwxXLW1MqGL5BDs8bcRxxda2zeG8b8g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJe/L9XkBXXhpqc/H2v02scHJL6Oq6bcSFKU5o64AuS22p6TCEA
+	7kglhjevN98K5Lopg2Re+e/aaXmm+/svlrzL2gT6JHsVd0TIqSExx0ZB
+X-Gm-Gg: AYBFou0nbbW0qa9LCsDFlpQTH1BNYseP8lmE21EVuFIiZBzjSadJaLN11Z90DY4z6qD
+	nlpnzk65ga2+m/NkRjd0/n4A5uahnNyeiDp9atWEeSOI4NHt7B0TwDhei5urqefFgnQG+4skZpF
+	yyYlPY3WwboyXIkowA/ARIxhLH5FiwTMtg7/c0ZLBgkwF0HZyh6HcoJCx1iT+8GXfgpyvHs1eOq
+	+knRZc8sFOXsmCDWQhoTkTtSYyhUFNtuE+7GemBxbUzWipqh4Gc7kJU7mp14NJ2CFIjEdhrDRLF
+	jO3NS343/2Qr9vyKpSrUdn/Wxf2vpZtyBOM2S7PBUU2+Pgr3KVRP8CIkyrg+IT+nkHB+BwHRWqV
+	maHRStiQyL5m9YtALiYusS3GTLRXLHDV7IBDloAIeOnIdLy/f5U14jLraAcaQAApK6IFVtXwDia
+	1pvdXgdv5u3eikoYc4zFX6wS4sxnMG/LJ9904KUYsz8Ct/h91XlTPyj0HI7AGhwQJCqA==
+X-Received: by 2002:a05:690c:e3e8:b0:841:e9e4:8ab9 with SMTP id 00721157ae682-8a64949ac2dmr92204867b3.25.1790694251364;
+        Tue, 29 Sep 2026 08:04:11 -0700 (PDT)
+Received: from [192.168.18.164] ([2600:8804:5716:d800::2620])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8ab40a699b9sm9871467b3.43.2026.09.29.08.04.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 08:04:09 -0700 (PDT)
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+Date: Tue, 29 Sep 2026 10:04:05 -0500
+Subject: [PATCH RESEND] usb: mtu3: don't run gadget completion callbacks
+ with interrupts disabled
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260929-usb-mtu3-gadget-completion-callback-fix-v1-1-8b75b48fab96@gmail.com>
+To: Chunfeng Yun <chunfeng.yun@mediatek.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Ryan Brue <ryanbrue.dev@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790694249; l=3859;
+ i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
+ bh=ctXSxhL8cB96oM2LlBR4kk7hbE12PJXfiPWlYJLZFo0=;
+ b=yw9LSE1i8GiNOL28F+XSvLaDLH7wn1idNjPtWu+r9QdBnFtrnSjo5+Rv8f6OF2gtorNSDOtWI
+ rwGwjhX4Z1JB8caumEIvOiFYMI3N524g6ZrHKXJhw00Al65rItA0TYm
+X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
+ pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 
-From: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+mtu3_irq() is a threaded handler, so it runs in process context, but it
+takes mtu->lock with spin_lock_irqsave(). mtu3_req_complete() then drops
+the lock with a plain spin_unlock() around
+usb_gadget_giveback_request(), which leaves hardware interrupts disabled
+across the gadget function's completion callback.
 
-[ Upstream commit cb97bf3d4f91453b881acaf8e9f0cc47bb40b604 ]
+That breaks any callback that reaches netif_rx(). Since the threaded
+handler is in neither hardirq nor softirq context, netif_rx() takes its
+local_bh_disable()/local_bh_enable() path, and enabling softirqs with
+interrupts disabled is not allowed:
 
-qcom_geni_i2c_conf() writes a hardcoded 0 to SE_GENI_CLK_SEL, which
-selects an index from the hardware clock performance table. This always
-picks the first table entry regardless of the actual source clock
-configuration. On platforms where the matching entry is not at index 0,
-the wrong source clock divider is active and the I2C bus runs at an
-incorrect frequency.
+  WARNING: kernel/softirq.c:430 at __local_bh_enable_ip+0x17c/0x188
+    __local_bh_enable_ip
+    netif_rx
+    rx_complete [u_ether]
+    usb_gadget_giveback_request
+    mtu3_req_complete
+    mtu3_qmu_isr
+    mtu3_irq
+    irq_thread_fn
 
-Use geni_se_clk_freq_match() in geni_i2c_clk_map_idx() to find the
-performance table index for the source clock (32 MHz or 19.2 MHz). Store
-the resolved index in a new clk_idx field in geni_i2c_dev and write it
-to SE_GENI_CLK_SEL instead of the hardcoded 0.
+With CONFIG_TRACE_IRQFLAGS, __local_bh_enable_ip() ends with an
+unconditional local_irq_enable(), so the plain spin_lock() re-taking
+mtu->lock afterwards runs with interrupts on and is recorded
+SOFTIRQ-ON-W, while mtu3_gadget_queue() takes the same lock from a
+softirq (ncm's tx hrtimer), and lockdep follows up with an inconsistent
+lock state report naming mtu->lock.
 
-Fixes: 37692de5d523 ("i2c: i2c-qcom-geni: Add bus driver for the Qualcomm GENI I2C controller")
-Signed-off-by: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
-Cc: <stable@vger.kernel.org> # v4.19+
-Reviewed-by: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
-Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
-Link: https://patch.msgid.link/20260921-i2c-fix-se-clk-conf-v2-1-8b5537ceff2d@oss.qualcomm.com
-[ adapted clock initialization to the older driver’s 19.2 MHz-only table and existing probe path. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+The locking was right when mtu3_irq() was a hardirq handler. It stopped
+being right when the handler became threaded without a primary handler;
+dwc3 hit the same thing the same way and fixed it in the controller
+driver, in commit 84918a89d6ef ("usb: dwc3: gadget: Let the interrupt
+handler disable bottom halves.").
+
+mtu->lock is never taken in hardirq context: the only handler is
+threaded and has no primary handler, so disabling softirqs is enough.
+Take it with spin_lock_bh() in mtu3_irq(). The completion callback then
+runs with interrupts enabled and softirqs disabled, which is the context
+netif_rx() expects. The other sites keep spin_lock_irqsave(), which is
+strictly stronger and still correct; several of them really can be
+reached from softirq context.
+
+Both reports need lockdep to be seen, but the context violation is real:
+netif_rx() wants either hardirq/softirq context or interrupts enabled,
+and mtu3 gives it neither. The fallout on a PROVE_LOCKING kernel is not
+cosmetic either - copying a 21 MB file over USB ethernet hung and reset
+this board repeatedly before this change. Once interrupts have been
+left enabled while the thread holds mtu->lock, the tx hrtimer softirq on
+the same CPU spins on it forever, which is the "CPU0: lock(&mtu->lock);
+<Interrupt> lock(&mtu->lock);" scenario lockdep names. The same copy is
+reliable after it.
+
+Fixes: 13118959cb1a ("usb: mtu3: register mtu3_irq by threaded irq")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
 ---
- drivers/i2c/busses/i2c-qcom-geni.c | 33 +++++++++++++++++++++++++-----
- 1 file changed, 28 insertions(+), 5 deletions(-)
+ drivers/usb/mtu3/mtu3_core.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-qcom-geni.c
-index f0c7b00ac5efe..5af6e9bb53f79 100644
---- a/drivers/i2c/busses/i2c-qcom-geni.c
-+++ b/drivers/i2c/busses/i2c-qcom-geni.c
-@@ -72,6 +72,8 @@ enum geni_i2c_err_code {
- #define XFER_TIMEOUT		HZ
- #define RST_TIMEOUT		HZ
- 
-+#define GENI_SE_CLK_19P2MHZ	19200000UL
-+
- struct geni_i2c_dev {
- 	struct geni_se se;
- 	u32 tx_wm;
-@@ -85,6 +87,7 @@ struct geni_i2c_dev {
- 	spinlock_t lock;
- 	u32 clk_freq_out;
- 	const struct geni_i2c_clk_fld *clk_fld;
-+	u32 clk_idx;
- 	int suspended;
- 	void *dma_buf;
- 	size_t xfer_len;
-@@ -139,13 +142,36 @@ static int geni_i2c_clk_map_idx(struct geni_i2c_dev *gi2c)
+diff --git a/drivers/usb/mtu3/mtu3_core.c b/drivers/usb/mtu3/mtu3_core.c
+index a40bf5bad2d5..ed0e426645fd 100644
+--- a/drivers/usb/mtu3/mtu3_core.c
++++ b/drivers/usb/mtu3/mtu3_core.c
+@@ -790,10 +790,9 @@ static irqreturn_t mtu3_u2_common_isr(struct mtu3 *mtu)
+ static irqreturn_t mtu3_irq(int irq, void *data)
  {
- 	int i;
- 	const struct geni_i2c_clk_fld *itr = geni_i2c_clk_map;
-+	unsigned long res_freq;
-+
-+	/*
-+	 * Frequency counters are calibrated for a 19.2 MHz source clock
-+	 * and are not valid for any multiple of it (e.g. 38.4 MHz).
-+	 * Use exact=true and verify res_freq matches req_freq literally
-+	 * to reject harmonics that would produce an incorrect I2C frequency.
-+	 * ACPI systems have firmware-managed clocks and retain the default index.
-+	 */
-+	if (!has_acpi_companion(gi2c->se.dev) &&
-+	    (geni_se_clk_freq_match(&gi2c->se, GENI_SE_CLK_19P2MHZ,
-+				    &gi2c->clk_idx, &res_freq, true) ||
-+	     res_freq != GENI_SE_CLK_19P2MHZ)) {
-+		dev_err(gi2c->se.dev,
-+			"Unsupported SE source clock: must be exactly 19.2 MHz\n");
-+		return -EINVAL;
-+	}
+ 	struct mtu3 *mtu = (struct mtu3 *)data;
+-	unsigned long flags;
+ 	u32 level1;
  
- 	for (i = 0; i < ARRAY_SIZE(geni_i2c_clk_map); i++, itr++) {
- 		if (itr->clk_freq_out == gi2c->clk_freq_out) {
- 			gi2c->clk_fld = itr;
-+			dev_dbg(gi2c->se.dev,
-+				"I2C clk selected: freq: %u Hz, clk_idx: %u\n",
-+				gi2c->clk_freq_out, gi2c->clk_idx);
- 			return 0;
- 		}
- 	}
-+
-+	dev_err(gi2c->se.dev, "Unsupported I2C output frequency %u Hz\n", gi2c->clk_freq_out);
-+
- 	return -EINVAL;
+-	spin_lock_irqsave(&mtu->lock, flags);
++	spin_lock_bh(&mtu->lock);
+ 
+ 	/* U3D_LV1ISR is RU */
+ 	level1 = mtu3_readl(mtu->mac_base, U3D_LV1ISR);
+@@ -814,7 +813,7 @@ static irqreturn_t mtu3_irq(int irq, void *data)
+ 	if (level1 & QMU_INTR)
+ 		mtu3_qmu_isr(mtu);
+ 
+-	spin_unlock_irqrestore(&mtu->lock, flags);
++	spin_unlock_bh(&mtu->lock);
+ 
+ 	return IRQ_HANDLED;
  }
- 
-@@ -154,7 +180,7 @@ static void qcom_geni_i2c_conf(struct geni_i2c_dev *gi2c)
- 	const struct geni_i2c_clk_fld *itr = gi2c->clk_fld;
- 	u32 val;
- 
--	writel_relaxed(0, gi2c->se.base + SE_GENI_CLK_SEL);
-+	writel_relaxed(gi2c->clk_idx, gi2c->se.base + SE_GENI_CLK_SEL);
- 
- 	val = (itr->clk_div << CLK_DIV_SHFT) | SER_CLK_EN;
- 	writel_relaxed(val, gi2c->se.base + GENI_SER_M_CLK_CFG);
-@@ -555,11 +581,8 @@ static int geni_i2c_probe(struct platform_device *pdev)
- 		return gi2c->irq;
- 
- 	ret = geni_i2c_clk_map_idx(gi2c);
--	if (ret) {
--		dev_err(dev, "Invalid clk frequency %d Hz: %d\n",
--			gi2c->clk_freq_out, ret);
-+	if (ret)
- 		return ret;
--	}
- 
- 	gi2c->adap.algo = &geni_i2c_algo;
- 	init_completion(&gi2c->done);
+
+---
+base-commit: df2908090cda368b01ff43709f51890076c56157
+change-id: 20260913-usb-mtu3-gadget-completion-callback-fix-d334f7e99a17
+
+Best regards,
+--
+Ryan Brue <ryanbrue.dev@gmail.com>
 -- 
-2.53.0
+Ryan Brue <ryanbrue.dev@gmail.com>
 
