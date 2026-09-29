@@ -1,33 +1,33 @@
-Received: from mta1.migadu.com (out-163.mta1.migadu.com [95.215.58.163])
+Received: from mta0.migadu.com (out-206.mta0.migadu.com [91.218.175.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03C9D3B27F7
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 08:20:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.163
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B0813B19D1
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 08:20:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790670049; cv=none; b=JHxx0ni8Tdt15SJNgWmVw42iVgtKpCvzzyFtKFy2kTxgb+PVP1AbRUXgVyEctdN3MjtD0EfHt+CH6v2Y5G5E45cjTfuEmdXQf3mxXnvoxUGbeEDEipjLr3LJ2b8o/kGmHISsDQMxXkIq4f6QM1+ydVjjiTPU5Jw1RD94yQJ0h5M=
+	t=1790670056; cv=none; b=c2xQx8aUaW/JQA2O+bCdkhKhYrYIug6egsL7FxgD43Ov4PrCg/RPNeAhE8eqnagnnjsQs15VazXMwv+G6UexmWPsL874rw+5suMAdhf8yH8Zd0nbrS3PPP64h6kRNBisS4NCKcGjQlgdAsMQiGLpYvbWYoKauEsH31ruCH444K4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790670049; c=relaxed/simple;
-	bh=N0ff/iGVp+b52+6AW1hzofKLKiwU3Q/JuQflNfL6tR8=;
+	s=arc-20240116; t=1790670056; c=relaxed/simple;
+	bh=fpRNa2I+DmBqaF8ZhHQ4c09SGKG5OLX8LlAhVqaV/kE=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=R7/HWdcoz4KMrqmeDS16ng+Di34WtZq8dfNTkocAK5nKsfop1mVQVTFn2zLiPzs4Yd7puik0iWMimsc0JfW56XBn4Mr8lT+9YZc4WYGy6qCrz92L2vjOR0tP/6ADexba0Z7ED8KKRo4fhM5HxF+Brnb4KD0yVSJEclcFjuW0HMs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wY8aVxj4; arc=none smtp.client-ip=95.215.58.163
+	 MIME-Version; b=o+9nYDOEJgtzKKVRb8u9JvKlRgZJCSnHcH97S3vBcE0S6Xs53yg9H9Iu4eoUeOeA06VBblPkIpTyTW1exAxQpkUh2y+51TGy1AVW5+W1JLispNhGH0awtPjcT69BrejUzErGS0KHHguKtXOfQFveiQndQBY0IhTJXNycQM+UXWY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=glyp3+EF; arc=none smtp.client-ip=91.218.175.206
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wY8aVxj4"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="glyp3+EF"
 X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=N0ff/iGVp+b52+6AW1hzofKLKiwU3Q/JuQflNfL6tR8=;
+DKIM-Signature: a=rsa-sha256; bh=fpRNa2I+DmBqaF8ZhHQ4c09SGKG5OLX8LlAhVqaV/kE=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790670042; v=1; x=1791274842;
- b=wY8aVxj4JpcVF/SXqQM/e3Qda2pFi+YyPDKB71tB4ZiJmKwjBK7a+hBExwF0kO4h0BWcNbgq
- APjmev3X1DDydKKguV84f63chjw6jKx3YOGRXy0aljHZ6WX57Z1vgjlBtVfrn11RalqAGhcQnhK
- dG2PKVfF4aEqZZL491SUYIls=
+ t=1790670049; v=1; x=1791274849;
+ b=glyp3+EFt2xA249QLipx0o4Z7hV5tkYJbIBdAt3wUA7AmaMta84VUzxn3uWJQmcuNqyYB5TP
+ Sp2N8yIBjLj4t8glm3zfxX6R3890/CfZzvCRX7o+AMe7NFp9tf+PP+iHmuwV8akdU0mRqeO9idp
+ uPgJTUrEupOLubAdSgOYaN/I=
 X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b8917535a4169c27;
-	Tue, 29 Sep 2026 08:20:41 +0000
-X-Mizu-Trace-ID: b8917535a4169c27
+Received: by smtp.migadu.com with ESMTPS id 9af9c7f7ec312c14;
+	Tue, 29 Sep 2026 08:20:49 +0000
+X-Mizu-Trace-ID: 9af9c7f7ec312c14
 X-Migadu-Flow: FLOW_OUT
 From: Hao Ge <hao.ge@linux.dev>
 To: Suren Baghdasaryan <surenb@google.com>,
@@ -54,9 +54,9 @@ Cc: linux-mm@kvack.org,
 	Hao Ge <hao.ge@linux.dev>,
 	Sashiko <sashiko-bot@kernel.org>,
 	stable@vger.kernel.org
-Subject: [PATCH v11 6/7] alloc_tag: skip percpu counter allocation when profiling is disabled
-Date: Tue, 29 Sep 2026 16:20:13 +0800
-Message-Id: <20260929082014.160587-7-hao.ge@linux.dev>
+Subject: [PATCH v11 7/7] alloc_tag: fix the /proc/allocinfo lifecycle
+Date: Tue, 29 Sep 2026 16:20:14 +0800
+Message-Id: <20260929082014.160587-8-hao.ge@linux.dev>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20260929082014.160587-1-hao.ge@linux.dev>
 References: <20260929082014.160587-1-hao.ge@linux.dev>
@@ -68,73 +68,245 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-After shutdown_mem_profiling() clears mem_profiling_support,
-needs_section_mem() returns false, so later modules have their codetag
-section placed as regular data and never enter the alloc_tag maple tree.
-codetag_load_module() still called load_module(), which allocated a percpu
-counter for every tag; release_module_tags() could not find these modules
-on unload, so the counters leaked.
+shutdown_mem_profiling() calls remove_proc_entry() from
+reserve_module_tags(), which runs under mod_lock held for write.
+remove_proc_entry() waits for readers, and a reader takes mod_lock for
+read in allocinfo_start():
 
-Return -EOPNOTSUPP from load_module() when profiling is off:
-codetag_module_init() drops the module's cmod, no counters are allocated
-and the module loads without its tags. codetag_unload_module() now always
-calls free_section_mem(), since a module whose module_load() returned
--EOPNOTSUPP is not in the idr but may still hold a reserved section.
+  CPU0 (insmod)                      CPU1 (read /proc/allocinfo)
+  ----------------                   ----------------------------
+  reserve_module_tags()
+    down_write(&mod_lock)  [held]
+                                     use_pde()            [in_use++]
+                                     allocinfo_start()
+                                       down_read(&mod_lock)  <- blocks
+    shutdown_mem_profiling()
+      remove_proc_entry()
+        wait for in_use == 0         <- blocks
+
+Move remove_proc_entry() to a workqueue.
+
+The deferred removal also affects alloc_tag_init(). The file is
+created before the type, so on a failure it is still there with
+alloc_tag_cttype NULL or an error pointer, and a reader panics in
+allocinfo_start(). Create the file at the end of alloc_tag_init()
+instead, a failed init leaves nothing behind.
+
+If proc_create() fails, the codetag type and the module tags memory
+leak. Call codetag_unregister_type() and free the memory.
+
+alloc_tag_cttype can now be freed at runtime. alloc_tag_top_users()
+reads it from __show_mem() without locks, read the pointer under
+rcu_read_lock() and take mod_lock before dropping the RCU lock, the
+type stays alive until then. The only caller never sleeps, drop the
+can_sleep argument.
 
 Reported-by: Sashiko <sashiko-bot@kernel.org>
 Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
 Cc: stable@vger.kernel.org
-Suggested-by: Suren Baghdasaryan <surenb@google.com>
-Acked-by: Suren Baghdasaryan <surenb@google.com>
 Signed-off-by: Hao Ge <hao.ge@linux.dev>
 ---
- lib/codetag.c  | 10 ++++++++--
- mm/alloc_tag.c |  4 ++++
- 2 files changed, 12 insertions(+), 2 deletions(-)
+ include/linux/alloc_tag.h |  2 +-
+ include/linux/codetag.h   |  2 ++
+ lib/codetag.c             | 26 ++++++++++++++++++++
+ mm/alloc_tag.c            | 52 +++++++++++++++++++++++++++------------
+ mm/show_mem.c             |  2 +-
+ 5 files changed, 66 insertions(+), 18 deletions(-)
 
+diff --git a/include/linux/alloc_tag.h b/include/linux/alloc_tag.h
+index 7f2d80a59792..852dc10c00ee 100644
+--- a/include/linux/alloc_tag.h
++++ b/include/linux/alloc_tag.h
+@@ -81,7 +81,7 @@ struct codetag_bytes {
+ 	s64 bytes;
+ };
+ 
+-size_t alloc_tag_top_users(struct codetag_bytes *tags, size_t count, bool can_sleep);
++size_t alloc_tag_top_users(struct codetag_bytes *tags, size_t count);
+ 
+ static inline struct alloc_tag *ct_to_alloc_tag(struct codetag *ct)
+ {
+diff --git a/include/linux/codetag.h b/include/linux/codetag.h
+index a25a085c2df1..0c4e0337b474 100644
+--- a/include/linux/codetag.h
++++ b/include/linux/codetag.h
+@@ -87,6 +87,8 @@ void codetag_to_text(struct seq_buf *out, struct codetag *ct);
+ struct codetag_type *
+ codetag_register_type(const struct codetag_type_desc *desc);
+ 
++void codetag_unregister_type(struct codetag_type *cttype);
++
+ #if defined(CONFIG_CODE_TAGGING) && defined(CONFIG_MODULES)
+ 
+ bool codetag_needs_module_section(struct module *mod, const char *name,
 diff --git a/lib/codetag.c b/lib/codetag.c
-index a9cda4c962a3..a0b600720afc 100644
+index a0b600720afc..46d0904b08b3 100644
 --- a/lib/codetag.c
 +++ b/lib/codetag.c
-@@ -240,7 +240,9 @@ static int codetag_module_init(struct codetag_type *cttype, struct module *mod)
+@@ -429,3 +429,29 @@ codetag_register_type(const struct codetag_type_desc *desc)
  
- 	if (err < 0) {
- 		kfree(cmod);
--		return err;
-+		/* -EOPNOTSUPP means we can load the module without its tag. */
-+		if (err != -EOPNOTSUPP)
-+			return err;
- 	}
- 
- 	return 0;
-@@ -388,7 +390,11 @@ void codetag_unload_module(struct module *mod)
- 			++cttype->content_id;
- 		}
- 		up_write(&cttype->mod_lock);
--		if (found && cttype->desc.free_section_mem)
-+		/*
-+		 * A module whose module_load() returned -EOPNOTSUPP is not
-+		 * in the idr but may still hold reserved section memory.
-+		 */
-+		if (cttype->desc.free_section_mem)
- 			cttype->desc.free_section_mem(mod, true);
- 	}
- 	mutex_unlock(&codetag_lock);
+ 	return cttype;
+ }
++
++/**
++ * codetag_unregister_type - unregister a codetag type
++ * @cttype: the codetag type to unregister
++ *
++ * Undo codetag_register_type() and free @cttype. The caller must make
++ * sure no lockless reader still uses @cttype, e.g. clear the pointer
++ * to it and wait for an RCU grace period first.
++ */
++void __init codetag_unregister_type(struct codetag_type *cttype)
++{
++	struct codetag_module *cmod;
++	unsigned long id, tmp;
++
++	mutex_lock(&codetag_lock);
++	list_del(&cttype->link);
++	mutex_unlock(&codetag_lock);
++
++	down_write(&cttype->mod_lock);
++	idr_for_each_entry_ul(&cttype->mod_idr, cmod, tmp, id)
++		kfree(cmod);
++	idr_destroy(&cttype->mod_idr);
++	up_write(&cttype->mod_lock);
++
++	kfree(cttype);
++}
 diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
-index 605c0016f646..ba8a651769e3 100644
+index ba8a651769e3..b9af5fe5bba2 100644
 --- a/mm/alloc_tag.c
 +++ b/mm/alloc_tag.c
-@@ -981,6 +981,10 @@ static int load_module(struct module *mod, struct codetag *start, struct codetag
- 	struct alloc_tag *stop_tag;
- 	struct alloc_tag *tag;
+@@ -15,6 +15,7 @@
+ #include <linux/seq_file.h>
+ #include <linux/string_choices.h>
+ #include <linux/vmalloc.h>
++#include <linux/workqueue.h>
+ #include <linux/kmemleak.h>
+ #include <uapi/linux/alloc_tag.h>
  
-+	/* Profiling disabled: load the module without its tags. */
-+	if (!mem_profiling_support)
-+		return -EOPNOTSUPP;
-+
- 	/* percpu counters for core allocations are already statically allocated */
- 	if (!mod)
+@@ -484,22 +485,28 @@ static const struct proc_ops allocinfo_proc_ops = {
+ #endif
+ };
+ 
+-size_t alloc_tag_top_users(struct codetag_bytes *tags, size_t count, bool can_sleep)
++size_t alloc_tag_top_users(struct codetag_bytes *tags, size_t count)
+ {
+ 	struct codetag_iterator iter;
++	struct codetag_type *cttype;
+ 	struct codetag *ct;
+ 	struct codetag_bytes n;
+ 	unsigned int i, nr = 0;
++	bool locked;
+ 
+-	if (IS_ERR_OR_NULL(alloc_tag_cttype))
++	rcu_read_lock();
++	cttype = READ_ONCE(alloc_tag_cttype);
++	if (IS_ERR_OR_NULL(cttype)) {
++		rcu_read_unlock();
  		return 0;
++	}
+ 
+-	if (can_sleep)
+-		codetag_lock_module_list(alloc_tag_cttype);
+-	else if (!codetag_trylock_module_list(alloc_tag_cttype))
++	locked = codetag_trylock_module_list(cttype);
++	rcu_read_unlock();
++	if (!locked)
+ 		return 0;
+ 
+-	iter = codetag_get_ct_iter(alloc_tag_cttype);
++	iter = codetag_get_ct_iter(cttype);
+ 	while ((ct = codetag_next_ct(&iter))) {
+ 		struct alloc_tag_counters counter = alloc_tag_read(ct_to_alloc_tag(ct));
+ 
+@@ -520,7 +527,7 @@ size_t alloc_tag_top_users(struct codetag_bytes *tags, size_t count, bool can_sl
+ 		}
+ 	}
+ 
+-	codetag_unlock_module_list(alloc_tag_cttype);
++	codetag_unlock_module_list(cttype);
+ 
+ 	return nr;
+ }
+@@ -591,6 +598,13 @@ void pgalloc_tag_swap(struct folio *new, struct folio *old)
+ 	put_page_tag_ref(handle_new);
+ }
+ 
++static void remove_allocinfo_file(struct work_struct *work)
++{
++	remove_proc_entry(ALLOCINFO_FILE_NAME, NULL);
++}
++
++static DECLARE_WORK(remove_allocinfo_work, remove_allocinfo_file);
++
+ static void shutdown_mem_profiling(bool remove_file)
+ {
+ 	if (mem_alloc_profiling_enabled())
+@@ -600,7 +614,7 @@ static void shutdown_mem_profiling(bool remove_file)
+ 		return;
+ 
+ 	if (remove_file)
+-		remove_proc_entry(ALLOCINFO_FILE_NAME, NULL);
++		schedule_work(&remove_allocinfo_work);
+ 	mem_profiling_support = false;
+ }
+ 
+@@ -1351,16 +1365,10 @@ static int __init alloc_tag_init(void)
+ 		return 0;
+ 	}
+ 
+-	if (!proc_create(ALLOCINFO_FILE_NAME, 0400, NULL, &allocinfo_proc_ops)) {
+-		pr_err("Failed to create %s file\n", ALLOCINFO_FILE_NAME);
+-		shutdown_mem_profiling(false);
+-		return -ENOMEM;
+-	}
+-
+ 	res = alloc_mod_tags_mem();
+ 	if (res) {
+ 		pr_err("Failed to reserve address space for module tags, errno = %d\n", res);
+-		shutdown_mem_profiling(true);
++		shutdown_mem_profiling(false);
+ 		return res;
+ 	}
+ 
+@@ -1368,10 +1376,22 @@ static int __init alloc_tag_init(void)
+ 	if (IS_ERR(alloc_tag_cttype)) {
+ 		pr_err("Allocation tags registration failed, errno = %pe\n", alloc_tag_cttype);
+ 		free_mod_tags_mem();
+-		shutdown_mem_profiling(true);
++		shutdown_mem_profiling(false);
+ 		return PTR_ERR(alloc_tag_cttype);
+ 	}
+ 
++	if (!proc_create(ALLOCINFO_FILE_NAME, 0400, NULL, &allocinfo_proc_ops)) {
++		struct codetag_type *cttype = alloc_tag_cttype;
++
++		pr_err("Failed to create %s file\n", ALLOCINFO_FILE_NAME);
++		shutdown_mem_profiling(false);
++		WRITE_ONCE(alloc_tag_cttype, NULL);
++		synchronize_rcu();
++		codetag_unregister_type(cttype);
++		free_mod_tags_mem();
++		return -ENOMEM;
++	}
++
+ 	return 0;
+ }
+ module_init(alloc_tag_init);
+diff --git a/mm/show_mem.c b/mm/show_mem.c
+index b938cbcd774a..a2e710404a48 100644
+--- a/mm/show_mem.c
++++ b/mm/show_mem.c
+@@ -439,7 +439,7 @@ void __show_mem(unsigned int filter, const nodemask_t *nodemask,
+ 		struct codetag_bytes tags[10];
+ 		size_t i, nr;
+ 
+-		nr = alloc_tag_top_users(tags, ARRAY_SIZE(tags), false);
++		nr = alloc_tag_top_users(tags, ARRAY_SIZE(tags));
+ 		if (nr) {
+ 			pr_notice("Memory allocations (profiling is currently turned %s):\n",
+ 				mem_alloc_profiling_enabled() ? "on" : "off");
 -- 
 2.25.1
 
