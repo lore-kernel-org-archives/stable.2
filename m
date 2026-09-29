@@ -1,338 +1,95 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE48252BE3E
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 13:31:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27E9143499F;
+	Tue, 29 Sep 2026 13:32:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790688690; cv=none; b=Qtp7plMBZM86jHTDCSD2arwSkQwHl4ebGHyaejHBInOf7CbW7mstbLEGvxdzN10/RwXXa+fAO0PJAAHe4PoIUyGDX0H8uDjApvxtQ7Y2VQ+NGTQxyTNQJONgGNenDNJPzHrplXGuQ5mqQgVl41kL9R9Q/ABCfhWAIsGYAdYo3zk=
+	t=1790688730; cv=none; b=oF7BzcTFdEGVXWWLN3RC5crEMP7v+2kHL0IZC2H33YtpSMxtmJa3Ry8mQwJ2bvrcj4xjgZTAgpX40TPMqHBVmNDqVBwvw+VOndl1fqyl/WcYKMem5EELd+8zbnVDkN+mxLJQx4DLknRQgILJ+LyOTF6hckQWnaK5YlbiDxoSKI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790688690; c=relaxed/simple;
-	bh=bpHmE2raesb9QSaMSNRytuspRZ2YDnv3EwiQfKcpopI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ux5ydpOHjNDB8vCX1R5Ua1reEOBClVKL+Z1WVQUpD1LhWaxbzzMyciOcd95nRhQbxA0RPunbHbFFm8xxVKYwtz8nu3bRG/fKmRyZthvhtp/0A9nQxUsxnyIlDRsCt3i5taeMrdwf3WPmmjI+szKFsrKg9fMXWS5OI9HkxVoVfCs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HigyNv62; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790688730; c=relaxed/simple;
+	bh=mnR880LfQrU5Da8bd4cxMAw/FyvJhSMFDtMv/KYdWUM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ruxJhEMkOxt62m/LGrD7DTbg66VxBtPvfn/r5nJmzhzLLtlhVZLYS2Vn1SXbyA9fEUJjXqZuyoatdUgNBHRbClIKLPfhxNWxB7uiiJqggGiCCNK3uwIcc6dbh/6o9m1JXnk9OYKUmWvFYvIYdTYCPRBk0mEua5G7ZURw05MECd0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=L6sH4xqZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HigyNv62"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6704D1F000FF;
-	Tue, 29 Sep 2026 13:31:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790688685;
-	bh=Np4QC2pXf0NpVyWSVAEjQTw3WJVMupMk91qgyI2zlY4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HigyNv62JWf+cD6pfQnyyQosIOaXZuwZAdhz9o8cLAw2fRPlwYSg0NSUzv6UMPIpu
-	 Qp1f1h5ZE1su4Ua1nd0mNrXZ64Sliv5BxtcK0CA5I9mP251FahaMqAL+SutXDR/naY
-	 1ZAXAiQmqb3dWyP9t6Bc52KPfa4SDOKbrIOtLC0HhwMF2Ow+QG6v5NeFGp8n6Mlb16
-	 6H13fcc5LH4MdWLNcz2mdbWv4v4d6zQv4Q2qKapLxlsMuzIXVkQysssCGMvF7ZryGX
-	 gE+7ZtTalMmJS7X1dhRLlkTHzcvlSXpH0p5Wtwg3ERr5znu74YCQ6SdE4Lv20aPQJT
-	 UCLWVljkkLaYA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Jeff Layton <jlayton@kernel.org>,
-	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/3] fs/ntfs3: remove atomic_open
-Date: Tue, 29 Sep 2026 09:31:22 -0400
-Message-ID: <20260929133124.3504204-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092904-porthole-attire-bdfd@gregkh>
-References: <2026092904-porthole-attire-bdfd@gregkh>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="L6sH4xqZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 532DA1F000FF;
+	Tue, 29 Sep 2026 13:32:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790688728;
+	bh=jtbR6LzwwJ3f7q3ueEGAF3rph9maa6+Lh5jtWajzKRM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=L6sH4xqZ2W2PYKLW8LS9J7tHVqL//icVQrVvXd8wEKnmHTOonqOTjozMSCxTKG+g5
+	 nssriJDplH3kYbS9FhW+AwIUBHvil1QCb+XLLTSZEUceeuKEPjEzLcn0dbhF9W6GoD
+	 BBtHZTv79tTbNBMoplshkUk9d1ct44ZR3mzcYoOg=
+Date: Tue, 29 Sep 2026 15:32:02 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: aliresool567@gmail.com
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] USB: quirks: add USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE for
+ GameSir G7 SE
+Message-ID: <2026092941-antacid-primer-20f1@gregkh>
+References: <20260927-master-v1-1-96ff85291b25@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260927-master-v1-1-96ff85291b25@gmail.com>
 
-From: Jeff Layton <jlayton@kernel.org>
+On Sun, Sep 27, 2026 at 06:54:01PM +0300, Ali via B4 Relay wrote:
+> From: Ali <aliresool567@gmail.com>
+> 
+> The GameSir G7 SE wired controller first enumerates as 3537:10a0 and
+> then re-enumerates in a mode it picks from how the host enumerated it.
+> 
+> When the configuration descriptor is fetched the Linux way, 9 bytes
+> followed by the full 80, the controller disconnects about 1 ms after
+> its string descriptors have been read, before SET_CONFIGURATION, and
+> comes back as 3537:1082, a generic HID gamepad without force feedback.
+> 
+> When the configuration descriptor is fetched in one 255-byte request,
+> as Windows does, it comes back as 3537:1010 in Xbox One (GIP) mode,
+> which xpad already supports, including rumble.
+> 
+> Skipping the device qualifier requests (USB_QUIRK_DEVICE_QUALIFIER)
+> makes no difference; the configuration descriptor request size alone
+> decides the mode. Add USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE for the 10a0
+> identity, as is already done for the ShanWan Wireless Gamepad.
+> 
+> Cc: stable@vger.kernel.org
+> Assisted-by: claude-opus-5-5
+> Signed-off-by: Ali <aliresool567@gmail.com>
 
-[ Upstream commit 93b4d70f6a4129fcfad18deae248bf89c129d1b5 ]
+Hi,
 
-atomic_open is an optional VFS operation, and is primarily for network
-filesystems. NFS (for instance) can just send an open call for the last
-path component rather than doing a lookup and then having to follow that
-up with an open when it doesn't have a dentry in cache.
+This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
+a patch that has triggered this response.  He used to manually respond
+to these common problems, but in order to save his sanity (he kept
+writing the same thing over and over, yet to different people), I was
+created.  Hopefully you will not take offence and will fix the problem
+in your patch and resubmit it so that it can be accepted into the Linux
+kernel tree.
 
-ntfs3 is a local filesystem however, and its atomic_open just does a
-typical lookup + open, but in a convoluted way. atomic_open will also
-make directory leases more difficult to implement on the filesystem.
+You are receiving this message because of the following common error(s)
+as indicated below:
 
-Remove ntfs_atomic_open.
+- It looks like you did not use your "real" name for the patch on either
+  the Signed-off-by: line, or the From: line (both of which have to
+  match).  Please read the kernel file,
+  Documentation/process/submitting-patches.rst for how to do this
+  correctly.
 
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
-Signed-off-by: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+If you wish to discuss this problem further, or you have questions about
+how to resolve this issue, please feel free to respond to this email and
+Greg will reply once he has dug out from the pending patches received
+from other developers.
 
-Backport preparation for 1abd643f3783ea8f8e273c18697ff0413aa92dc7:
+thanks,
 
-Remove the stable version of ntfs_atomic_open(), which still uses
-mnt_idmap(file->f_path.mnt), while retaining the surrounding stable fixes.
-
-Fold in the error-return conversion from c935c66878867 for
-ntfs_create_inode(), its declaration, and its four remaining callers.
-Keep the existing file allocation behavior; the unrelated resident-file
-creation change from that commit is not needed here.
-
-Use the existing inode timestamp setters when restoring creation times.
-These equivalent assignments and the error-return cleanup provide the
-context needed for the target to apply unchanged. Keep d_instantiate()
-and the successful unlock_new_inode() here for the target to replace.
-
-Stable-dep-of: 1abd643f3783 ("fs/ntfs3: use d_instantiate_new() in ntfs_create_inode() and murder syzbot's "WARNING in do_new_mount" saga")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/ntfs3/inode.c   |  28 +++++------
- fs/ntfs3/namei.c   | 121 +++------------------------------------------
- fs/ntfs3/ntfs_fs.h |   9 ++--
- 3 files changed, 25 insertions(+), 133 deletions(-)
-
-diff --git a/fs/ntfs3/inode.c b/fs/ntfs3/inode.c
-index fff604cd95279..ce08d44d0d250 100644
---- a/fs/ntfs3/inode.c
-+++ b/fs/ntfs3/inode.c
-@@ -1230,15 +1230,13 @@ ntfs_create_reparse_buffer(struct ntfs_sb_info *sbi, const char *symname,
-  * - ntfs_mknod
-  * - ntfs_symlink
-  * - ntfs_mkdir
-- * - ntfs_atomic_open
-  *
-- * NOTE: if fnd != NULL (ntfs_atomic_open) then @dir is locked
-+ * NOTE: if fnd != NULL then @dir is locked
-  */
--struct inode *ntfs_create_inode(struct mnt_idmap *idmap, struct inode *dir,
--				struct dentry *dentry,
--				const struct cpu_str *uni, umode_t mode,
--				dev_t dev, const char *symname, u32 size,
--				struct ntfs_fnd *fnd)
-+int ntfs_create_inode(struct mnt_idmap *idmap, struct inode *dir,
-+		      struct dentry *dentry, const struct cpu_str *uni,
-+		      umode_t mode, dev_t dev, const char *symname, u32 size,
-+		      struct ntfs_fnd *fnd)
- {
- 	int err;
- 	struct super_block *sb = dir->i_sb;
-@@ -1705,9 +1703,11 @@ struct inode *ntfs_create_inode(struct mnt_idmap *idmap, struct inode *dir,
- 	d_instantiate(dentry, inode);
- 
- 	/* Set original time. inode times (i_ctime) may be changed in ntfs_init_acl. */
--	inode->i_atime = inode->i_mtime =
--		inode_set_ctime_to_ts(inode, ni->i_crtime);
--	dir->i_mtime = inode_set_ctime_to_ts(dir, ni->i_crtime);
-+	inode_set_atime_to_ts(inode, ni->i_crtime);
-+	inode_set_ctime_to_ts(inode, ni->i_crtime);
-+	inode_set_mtime_to_ts(inode, ni->i_crtime);
-+	inode_set_mtime_to_ts(dir, ni->i_crtime);
-+	inode_set_ctime_to_ts(dir, ni->i_crtime);
- 
- 	mark_inode_dirty(dir);
- 	mark_inode_dirty(inode);
-@@ -1748,12 +1748,10 @@ struct inode *ntfs_create_inode(struct mnt_idmap *idmap, struct inode *dir,
- 	if (!fnd)
- 		ni_unlock(dir_ni);
- 
--	if (err)
--		return ERR_PTR(err);
--
--	unlock_new_inode(inode);
-+	if (!err)
-+		unlock_new_inode(inode);
- 
--	return inode;
-+	return err;
- }
- 
- int ntfs_link_inode(struct inode *inode, struct dentry *dentry)
-diff --git a/fs/ntfs3/namei.c b/fs/ntfs3/namei.c
-index dc41b80cfc584..f435be439a37a 100644
---- a/fs/ntfs3/namei.c
-+++ b/fs/ntfs3/namei.c
-@@ -107,12 +107,8 @@ static struct dentry *ntfs_lookup(struct inode *dir, struct dentry *dentry,
- static int ntfs_create(struct mnt_idmap *idmap, struct inode *dir,
- 		       struct dentry *dentry, umode_t mode, bool excl)
- {
--	struct inode *inode;
--
--	inode = ntfs_create_inode(idmap, dir, dentry, NULL, S_IFREG | mode, 0,
--				  NULL, 0, NULL);
--
--	return IS_ERR(inode) ? PTR_ERR(inode) : 0;
-+	return ntfs_create_inode(idmap, dir, dentry, NULL, S_IFREG | mode, 0,
-+				 NULL, 0, NULL);
- }
- 
- /*
-@@ -123,12 +119,8 @@ static int ntfs_create(struct mnt_idmap *idmap, struct inode *dir,
- static int ntfs_mknod(struct mnt_idmap *idmap, struct inode *dir,
- 		      struct dentry *dentry, umode_t mode, dev_t rdev)
- {
--	struct inode *inode;
--
--	inode = ntfs_create_inode(idmap, dir, dentry, NULL, mode, rdev, NULL, 0,
--				  NULL);
--
--	return IS_ERR(inode) ? PTR_ERR(inode) : 0;
-+	return ntfs_create_inode(idmap, dir, dentry, NULL, mode, rdev, NULL, 0,
-+				 NULL);
- }
- 
- /*
-@@ -200,15 +192,12 @@ static int ntfs_symlink(struct mnt_idmap *idmap, struct inode *dir,
- 			struct dentry *dentry, const char *symname)
- {
- 	u32 size = strlen(symname);
--	struct inode *inode;
- 
- 	if (unlikely(ntfs3_forced_shutdown(dir->i_sb)))
- 		return -EIO;
- 
--	inode = ntfs_create_inode(idmap, dir, dentry, NULL, S_IFLNK | 0777, 0,
--				  symname, size, NULL);
--
--	return IS_ERR(inode) ? PTR_ERR(inode) : 0;
-+	return ntfs_create_inode(idmap, dir, dentry, NULL, S_IFLNK | 0777, 0,
-+				 symname, size, NULL);
- }
- 
- /*
-@@ -217,12 +206,8 @@ static int ntfs_symlink(struct mnt_idmap *idmap, struct inode *dir,
- static int ntfs_mkdir(struct mnt_idmap *idmap, struct inode *dir,
- 		      struct dentry *dentry, umode_t mode)
- {
--	struct inode *inode;
--
--	inode = ntfs_create_inode(idmap, dir, dentry, NULL, S_IFDIR | mode, 0,
--				  NULL, 0, NULL);
--
--	return IS_ERR(inode) ? PTR_ERR(inode) : 0;
-+	return ntfs_create_inode(idmap, dir, dentry, NULL, S_IFDIR | mode, 0,
-+				 NULL, 0, NULL);
- }
- 
- /*
-@@ -353,95 +338,6 @@ static int ntfs_rename(struct mnt_idmap *idmap, struct inode *dir,
- 	return err;
- }
- 
--/*
-- * ntfs_atomic_open
-- *
-- * inode_operations::atomic_open
-- */
--static int ntfs_atomic_open(struct inode *dir, struct dentry *dentry,
--			    struct file *file, u32 flags, umode_t mode)
--{
--	int err;
--	struct inode *inode;
--	struct ntfs_fnd *fnd = NULL;
--	struct ntfs_inode *ni = ntfs_i(dir);
--	struct dentry *d = NULL;
--	struct cpu_str *uni = __getname();
--	bool locked = false;
--
--	if (!uni)
--		return -ENOMEM;
--
--	err = ntfs_nls_to_utf16(ni->mi.sbi, dentry->d_name.name,
--				dentry->d_name.len, uni, NTFS_NAME_LEN,
--				UTF16_HOST_ENDIAN);
--	if (err < 0)
--		goto out;
--
--#ifdef CONFIG_NTFS3_FS_POSIX_ACL
--	if (IS_POSIXACL(dir)) {
--		/*
--		 * Load in cache current acl to avoid ni_lock(dir):
--		 * ntfs_create_inode -> ntfs_init_acl -> posix_acl_create ->
--		 * ntfs_get_acl -> ntfs_get_acl_ex -> ni_lock
--		 */
--		struct posix_acl *p = get_inode_acl(dir, ACL_TYPE_DEFAULT);
--
--		if (IS_ERR(p)) {
--			err = PTR_ERR(p);
--			goto out;
--		}
--		posix_acl_release(p);
--	}
--#endif
--
--	if (d_in_lookup(dentry)) {
--		ni_lock_dir(ni);
--		locked = true;
--		fnd = fnd_get();
--		if (!fnd) {
--			err = -ENOMEM;
--			goto out1;
--		}
--
--		d = d_splice_alias(dir_search_u(dir, uni, fnd), dentry);
--		if (IS_ERR(d)) {
--			err = PTR_ERR(d);
--			d = NULL;
--			goto out2;
--		}
--
--		if (d)
--			dentry = d;
--	}
--
--	if (!(flags & O_CREAT) || d_really_is_positive(dentry)) {
--		err = finish_no_open(file, d);
--		goto out2;
--	}
--
--	file->f_mode |= FMODE_CREATED;
--
--	/*
--	 * fnd contains tree's path to insert to.
--	 * If fnd is not NULL then dir is locked.
--	 */
--	inode = ntfs_create_inode(mnt_idmap(file->f_path.mnt), dir, dentry, uni,
--				  mode, 0, NULL, 0, fnd);
--	err = IS_ERR(inode) ? PTR_ERR(inode) :
--			      finish_open(file, dentry, ntfs_file_open);
--	dput(d);
--
--out2:
--	fnd_put(fnd);
--out1:
--	if (locked)
--		ni_unlock(ni);
--out:
--	__putname(uni);
--	return err;
--}
--
- struct dentry *ntfs3_get_parent(struct dentry *child)
- {
- 	struct inode *inode = d_inode(child);
-@@ -607,7 +503,6 @@ const struct inode_operations ntfs_dir_inode_operations = {
- 	.setattr	= ntfs3_setattr,
- 	.getattr	= ntfs_getattr,
- 	.listxattr	= ntfs_listxattr,
--	.atomic_open	= ntfs_atomic_open,
- 	.fiemap		= ntfs_fiemap,
- };
- 
-diff --git a/fs/ntfs3/ntfs_fs.h b/fs/ntfs3/ntfs_fs.h
-index 5e7536ad0b94c..acfa2a2f7e517 100644
---- a/fs/ntfs3/ntfs_fs.h
-+++ b/fs/ntfs3/ntfs_fs.h
-@@ -714,11 +714,10 @@ int ntfs_sync_inode(struct inode *inode);
- int ntfs_flush_inodes(struct super_block *sb, struct inode *i1,
- 		      struct inode *i2);
- int inode_write_data(struct inode *inode, const void *data, size_t bytes);
--struct inode *ntfs_create_inode(struct mnt_idmap *idmap, struct inode *dir,
--				struct dentry *dentry,
--				const struct cpu_str *uni, umode_t mode,
--				dev_t dev, const char *symname, u32 size,
--				struct ntfs_fnd *fnd);
-+int ntfs_create_inode(struct mnt_idmap *idmap, struct inode *dir,
-+		      struct dentry *dentry, const struct cpu_str *uni,
-+		      umode_t mode, dev_t dev, const char *symname, u32 size,
-+		      struct ntfs_fnd *fnd);
- int ntfs_link_inode(struct inode *inode, struct dentry *dentry);
- int ntfs_unlink_inode(struct inode *dir, const struct dentry *dentry);
- void ntfs_evict_inode(struct inode *inode);
--- 
-2.53.0
-
+greg k-h's patch email bot
