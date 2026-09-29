@@ -1,160 +1,148 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 429D151DE01
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 14:42:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE7FD5237AA
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 14:45:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790692952; cv=none; b=P6OE/isxkaScBMi5fV33jbFT8+mLPBpbtUV5IvmOyzIUNPlVFsU0x9HYFFPYcGVWnWpv6xqeylKlrXSIFVcQGjWCRpHdVO/7KNkGalXnloxSsU+88PPuxsrlBhadQuGAPptQTNICqYoN7OGUfpDdiOImrJlcUDu3BAkm2lXt1z4=
+	t=1790693140; cv=none; b=Lf2k1zSacIkzt8ToHFu13oF9NBj1Rp6Vblfqs0BeQY3hXzwdqm1+G/J1KOUEpRvp4BXe5FqUvDa7aU2ad20qyy19nM+JfY+egVA5eM8ACaNoYwKEQviVaoij1oF8Z3MigbT1v3uEI48DpocUmY89V6RmkT1YuIzMNIeF+PUDxIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790692952; c=relaxed/simple;
-	bh=dT1Z9jt2cFbJrpFqMVvCl4xCih/t7IDiLV/jFXKFwTQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=uwxsh4KG545I/rS9FtoE7t87RKYeqrAPEaHj4eimjeEhZ67yxuwSWk1SWRSRPfdypt8uPTygICFzR5qSvubpHorlm0ovYo0YqkhGHInwMjB/S/iXxD9CSZHp10cUSNeMOKT6/eyIJJo94lWJSLFdS0mEfqQl9DWDiJXtbmvJJWQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HEYeGx5X; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790693140; c=relaxed/simple;
+	bh=7CgUo0n0PBA9fOmf74rRVAYxvkxnw795XCEf4T+ttfo=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=VcfBL6euHMXRxEFB2V/6AAY/ILWTpZ9i3EiErJfELUhztYUYdyGaMHejuNpk8y4bEzNPK4clejHm1RgPJUc6HIwztlUvhGSL86MHMoYuMoLW7wE0AUr7ybEdz8f2XzSQtk/vrXl/aA2IxRf6pJH0bD0HHjsvESIXsdDaMJsowrI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=LuuB+fBb; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HEYeGx5X"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B8581F000FF;
-	Tue, 29 Sep 2026 14:42:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790692950;
-	bh=mCNLqkmrZ8fclg9a3eMAfjMVxFQzzUxmnOOMOpfeXWw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HEYeGx5XhjL0BmoVtyVG1C1LIzsWGJ6OSpOsJDXjR79JmF3uqYz5CybfffXWcBsi4
-	 O5+bdbzDLJftlDu+HRiUO6kQ05V3pMAfpcghVFI3Y+tmn4vI+JKy4GP6QqdOyCyPLA
-	 giEq086Gqa7jxH+XpE4e6wBlklA+Wv4V8AaPtzWc47KpynZz+chKQav9DLrhFGYRgs
-	 xIZ7l2V8R+ESR0KksB6BTKXfcOPh34ajUA2/7mHSSi+2X/gBcxyeBUaKzj8cnVFfOZ
-	 UrWOABFNaxXlOLaKoIubj3O4NSfIBbp967rZq30/iI7A89fWYJwRPLhcJJ3hLlb8MN
-	 tjZh2mv6vO43A==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
-	Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] i2c: qcom-geni: Fix hardcoded clock index in SE_GENI_CLK_SEL
-Date: Tue, 29 Sep 2026 10:42:28 -0400
-Message-ID: <20260929144228.3676116-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092908-grasp-skylight-e539@gregkh>
-References: <2026092908-grasp-skylight-e539@gregkh>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="LuuB+fBb"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 914134E410B4;
+	Tue, 29 Sep 2026 14:45:28 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 56A48601BD;
+	Tue, 29 Sep 2026 14:45:28 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 59075103282F2;
+	Tue, 29 Sep 2026 16:45:16 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790693126; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=HnE/nEINBntspdikCM9SocywhfFVbUfdzqo6gj4+tUE=;
+	b=LuuB+fBb3tqUEXEHcLEkKkhrUmC4yd0n7JHXARbMCDuQiFyVNnUxqcKpP61Ain1Paf7zZo
+	lCxL7xePLBv9Ju1E/ToZh9iPXvj9x/IVtG0/sRneN+wnaktDri7XALJAJRIE5wjN4BHmKz
+	/fTrgcfLCHkHm2doSSaFQdlyMaoi8jP8m3DbzYVCKYuwqrcI3iTNDIYWw6v1CSmOJWFjzF
+	m7msFlGAyilmVSQY2Us9yTr3k8PXm4S7gpSPQQljL3tvNa48Hph9Wa38wpPWUueIqs5HMa
+	VTDeHt95oglI/aG5X7M20pvVafTgPb8XtIf7y1b1nImePCIjmM/ruPW99MWSbg==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+Subject: [PATCH v5 0/9] clk: nuvoton: ma35d1: Fix mux parenting and
+ peripheral clock rates
+Date: Tue, 29 Sep 2026 16:44:43 +0200
+Message-Id: <20260929-perso-ma35d1-upstream-clk-v5-0-68533e935ee4@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43NQW7DIBCF4atErDsVAwHjrHqPKosxHhrU2FjgW
+ K0i3704m7aKFGX5P2m+uYrCOXIRh91VZF5iiWmsYV52wp9o/GCIfW2hpLLSoYaJc0kwkDY9wmU
+ qc2YawJ8/wRpPPngkZztR76fMIX7d7Pdj7VMsc8rft1cLbusz6oKAwI1jwxYbxfTWpTSf4/jq0
+ yA2d1G/VqvwkaVAgpJt6LUi10l5b+m/lnlk6WqF0BE3LJUkd2/tn7b2m6Vt2xijdYvhv7Wu6w8
+ vERdpqAEAAA==
+X-Change-ID: 20260813-perso-ma35d1-upstream-clk-65cacfc1a86b
+To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Chi-Fang Li <cfli0@nuvoton.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Andrew Jeffery <andrew@codeconstruct.com.au>, 
+ Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
+ Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
+ Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
+ openbmc@lists.ozlabs.org, Miquel Raynal <miquel.raynal@bootlin.com>, 
+ stable@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>, 
+ Jacky Huang <ychuang570808@gmail.com>, Jerome Brunet <jbrunet@baylibre.com>
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+I am in possession of an MA35D1 NuMaker board. The SPI controller has
+been contributed, but at this stage it does not work with the current
+clock driver.
 
-[ Upstream commit cb97bf3d4f91453b881acaf8e9f0cc47bb40b604 ]
+The clock controller registers its muxes with .fw_name parent data,
+which requires every internal clock name to be declared in the DT. As
+the DT does not declare them, all parent lookups fail: muxes end up
+registered as root clocks and most peripherals read a zero rate.
 
-qcom_geni_i2c_conf() writes a hardcoded 0 to SE_GENI_CLK_SEL, which
-selects an index from the hardware clock performance table. This always
-picks the first table entry regardless of the actual source clock
-configuration. On platforms where the matching entry is not at index 0,
-the wrong source clock divider is active and the I2C bus runs at an
-incorrect frequency.
+This conversion exposed a first issue with the WDT/WWDT parents which
+were actually missing in the clock driver. I am not using these clocks
+myself but it is worth fixing.
 
-Use geni_se_clk_freq_match() in geni_i2c_clk_map_idx() to find the
-performance table index for the source clock (32 MHz or 19.2 MHz). Store
-the resolved index in a new clk_idx field in geni_i2c_dev and write it
-to SE_GENI_CLK_SEL instead of the hardcoded 0.
+The second round of reviews raised another problem with the
+crystals. HXT and LXT are external crystal oscillators wired on the
+board, while HIRC and LIRC are on-chip RC oscillators. HXT was poorly
+described (and incorrectly exposed through the DT) while LXT was not
+even documented. The series now also takes the two crystal inputs from
+the DT: they get documented in the bindings, described in the boards and
+looked up by the driver.
 
-Fixes: 37692de5d523 ("i2c: i2c-qcom-geni: Add bus driver for the Qualcomm GENI I2C controller")
-Signed-off-by: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
-Cc: <stable@vger.kernel.org> # v4.19+
-Reviewed-by: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
-Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
-Link: https://patch.msgid.link/20260921-i2c-fix-se-clk-conf-v2-1-8b5537ceff2d@oss.qualcomm.com
-[ adapted clock initialization to the older driver’s 19.2 MHz-only table and existing probe path. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+The clock tree now looks much more accurate.
+
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
- drivers/i2c/busses/i2c-qcom-geni.c | 33 +++++++++++++++++++++++++-----
- 1 file changed, 28 insertions(+), 5 deletions(-)
+Changes in v5:
+- Fix the bindings wrt HXT and LXT.
+- Fix the DT descriptions of HXT and LXT.
+- Collect tags.
+- Link to v4: https://lore.kernel.org/r/20260925-perso-ma35d1-upstream-clk-v4-0-f3697553391f@bootlin.com
 
-diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-qcom-geni.c
-index f6e46168571f5..aeec075b4501b 100644
---- a/drivers/i2c/busses/i2c-qcom-geni.c
-+++ b/drivers/i2c/busses/i2c-qcom-geni.c
-@@ -77,6 +77,8 @@ enum geni_i2c_err_code {
- #define XFER_TIMEOUT		HZ
- #define RST_TIMEOUT		HZ
- 
-+#define GENI_SE_CLK_19P2MHZ	19200000UL
-+
- struct geni_i2c_dev {
- 	struct geni_se se;
- 	u32 tx_wm;
-@@ -91,6 +93,7 @@ struct geni_i2c_dev {
- 	struct clk *core_clk;
- 	u32 clk_freq_out;
- 	const struct geni_i2c_clk_fld *clk_fld;
-+	u32 clk_idx;
- 	int suspended;
- 	void *dma_buf;
- 	size_t xfer_len;
-@@ -157,13 +160,36 @@ static int geni_i2c_clk_map_idx(struct geni_i2c_dev *gi2c)
- {
- 	int i;
- 	const struct geni_i2c_clk_fld *itr = geni_i2c_clk_map;
-+	unsigned long res_freq;
-+
-+	/*
-+	 * Frequency counters are calibrated for a 19.2 MHz source clock
-+	 * and are not valid for any multiple of it (e.g. 38.4 MHz).
-+	 * Use exact=true and verify res_freq matches req_freq literally
-+	 * to reject harmonics that would produce an incorrect I2C frequency.
-+	 * ACPI systems have firmware-managed clocks and retain the default index.
-+	 */
-+	if (!has_acpi_companion(gi2c->se.dev) &&
-+	    (geni_se_clk_freq_match(&gi2c->se, GENI_SE_CLK_19P2MHZ,
-+				    &gi2c->clk_idx, &res_freq, true) ||
-+	     res_freq != GENI_SE_CLK_19P2MHZ)) {
-+		dev_err(gi2c->se.dev,
-+			"Unsupported SE source clock: must be exactly 19.2 MHz\n");
-+		return -EINVAL;
-+	}
- 
- 	for (i = 0; i < ARRAY_SIZE(geni_i2c_clk_map); i++, itr++) {
- 		if (itr->clk_freq_out == gi2c->clk_freq_out) {
- 			gi2c->clk_fld = itr;
-+			dev_dbg(gi2c->se.dev,
-+				"I2C clk selected: freq: %u Hz, clk_idx: %u\n",
-+				gi2c->clk_freq_out, gi2c->clk_idx);
- 			return 0;
- 		}
- 	}
-+
-+	dev_err(gi2c->se.dev, "Unsupported I2C output frequency %u Hz\n", gi2c->clk_freq_out);
-+
- 	return -EINVAL;
- }
- 
-@@ -172,7 +198,7 @@ static void qcom_geni_i2c_conf(struct geni_i2c_dev *gi2c)
- 	const struct geni_i2c_clk_fld *itr = gi2c->clk_fld;
- 	u32 val;
- 
--	writel_relaxed(0, gi2c->se.base + SE_GENI_CLK_SEL);
-+	writel_relaxed(gi2c->clk_idx, gi2c->se.base + SE_GENI_CLK_SEL);
- 
- 	val = (itr->clk_div << CLK_DIV_SHFT) | SER_CLK_EN;
- 	writel_relaxed(val, gi2c->se.base + GENI_SER_M_CLK_CFG);
-@@ -810,11 +836,8 @@ static int geni_i2c_probe(struct platform_device *pdev)
- 		return gi2c->irq;
- 
- 	ret = geni_i2c_clk_map_idx(gi2c);
--	if (ret) {
--		dev_err(dev, "Invalid clk frequency %d Hz: %d\n",
--			gi2c->clk_freq_out, ret);
-+	if (ret)
- 		return ret;
--	}
- 
- 	gi2c->adap.algo = &geni_i2c_algo;
- 	init_completion(&gi2c->done);
+Changes in v4:
+- I forgot to bump the clock counter in the driver after adding the two
+  new clocks in the bindings. Sashiko will keep complaining about the
+  incoherency though. Since binding and driver changes should be kept
+  separated, I cannot do both at the same time.
+- Link to v3: https://lore.kernel.org/r/20260925-perso-ma35d1-upstream-clk-v3-0-ffbae7e020a8@bootlin.com
+
+Changes in v3:
+- Drop the number of clocks from the binding, set it in the driver only
+- Split the binding/driver patches completely
+- Link to v2: https://lore.kernel.org/r/20260921-perso-ma35d1-upstream-clk-v2-0-209fd32a8b00@bootlin.com
+
+Changes in v2:
+- New patch 1/3: register the missing WDT/WWDT parent clocks
+- New patch 3/3: harden the code
+- Link to v1: https://lore.kernel.org/r/20260813-perso-ma35d1-upstream-clk-v1-1-e78e5e6172ea@bootlin.com
+
+---
+Miquel Raynal (9):
+      clk: nuvoton: ma35d1: Keep the clock count in the driver
+      dt-bindings: clock: ma35d1: Document the missing crystal inputs
+      dt-bindings: clock: ma35d1: Drop CLK_MAX_IDX define
+      dt-bindings: clock: ma35d1: Add missing WDT/WWDT parent clocks
+      clk: nuvoton: ma35d1: Add missing WDT/WWDT parent clocks
+      clk: nuvoton: ma35d1: Use clk_hw pointers as mux parents
+      clk: nuvoton: ma35d1: Avoid possible error pointer dereferencing
+      clk: nuvoton: ma35d1: get HXT/LXT from DT
+      arm64: dts: nuvoton: ma35d1: Add LXT crystal and correct HXT name
+
+ .../bindings/clock/nuvoton,ma35d1-clk.yaml         |  16 +-
+ arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts    |   9 +-
+ arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts    |   9 +-
+ arch/arm64/boot/dts/nuvoton/ma35d1.dtsi            |   3 +-
+ drivers/clk/nuvoton/clk-ma35d1-divider.c           |   3 +
+ drivers/clk/nuvoton/clk-ma35d1-pll.c               |   3 +
+ drivers/clk/nuvoton/clk-ma35d1.c                   | 656 +++++++--------------
+ include/dt-bindings/clock/nuvoton,ma35d1-clk.h     |   3 +-
+ 8 files changed, 246 insertions(+), 456 deletions(-)
+---
+base-commit: c5137d373338693fc18f03824782c7d383bfd57a
+change-id: 20260813-perso-ma35d1-upstream-clk-65cacfc1a86b
+
+Best regards,
 -- 
-2.53.0
+Miquel Raynal <miquel.raynal@bootlin.com>
 
