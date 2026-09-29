@@ -1,101 +1,131 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90F363D565F
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 16:45:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40E20538D8B;
+	Tue, 29 Sep 2026 16:54:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790700313; cv=none; b=SVACx32Cyu6HFtvrG3uNG5iW0fqR+PLL/VyrNnXL/zMLstzkGUUHg+pWtu8ldLrm3SGsf4xrapRT189OPwf6x1/2ien7V42AY5yqLkP/akPKTnBhP5HN0FlVxosL13ywTua5q7jMXplk5WagChiSdfjNKwEJYq8IzevRWczgIdU=
+	t=1790700854; cv=none; b=miEViok6Edb+orvrY0YZe/vqp2DpHmx5lk/g5Dcd4jxmFDI9uxWEIxSly8D4+tLfQLLjCUkD7J7BlpwqgQN/c7fFJfrEMqSFuE6sKi4AGdrHszr+wQmfwU/rJCUz3uqgcOyADFloGeBtzxqdsdcn9JeahBJOgTE0heQE2XbZidQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790700313; c=relaxed/simple;
-	bh=pzAzdR9BiH1mdON2VztnIv4S20nrfvEj1ZZ9bTFcoOw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Y9dcmu7lQOnlwCn9VgNjSMwufSqi9gQ+3El+4ltHuAut7IRLD93qYmbTX4IGQ1ycGd2GdnlPjuOaLbkVpusK0WuEBApVhX5YpOrViyLqGqyM50IR7I2JuPJ2cBnO3LyjRiNAl44eIqz/ufaHvVD0eppUbjM7VyHKB+SsJIi+rMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=c8BEuzcj; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	s=arc-20240116; t=1790700854; c=relaxed/simple;
+	bh=Ia2IVFDGm42HX7GPQhOizP29/fjvmxx66wIZ2fGy/Wc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kaIVgrUiCMrJ/hkUYxlLIpiky10eazTsqnlzkbuediKV3jx0lImHsEXYkeZY6IUpEWmtMej+COolsKZUlBbwGRnIEtS83OAcc+T8U8VFlRUsg4HnZNq5JfnUhyi5v5E6u66KplZxiouSOf8cKmg+IAdfqk1P4nUVQATo2lK6sPY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WU2Ik3Jv; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="c8BEuzcj"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ffbd83a92so25989845e9.0
-        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 09:45:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1790700309; x=1791305109; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Q9JXGfEXa1TAeD9LIbvvMLuTX8tLs2uHeRrwmi+1sAA=;
-        b=c8BEuzcjrX4AVbLCCR7BIL/5B5S63QqVq8Pqotkge9Cq+yLyEhoqOIR8V520egSps5
-         6fBH7CCX1yBFwnZMTDpxFZhXPL8scqYh3+fjabRM8Zw5n8cXlU4xWkX74bwT1tthsTPR
-         dz6A+ZHACZRK60Ks3iPmf8CFqFn2Y9TEVCBbZfiFnIEOD58g48D2fTrIaS/fYwM8EFN1
-         6v+j4aYRoibmkkMrKMzEuskzdygn0teiX3sU2PDY1OydALQcBqdWqOiHJSKkMd5Gh8W5
-         bap1rBvueGB5HtpagZ+QnE8xSL4nQoHWpgeTWuMksVMBcaDszDW2Zhqi5jwVWlY+VvU5
-         6KFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790700309; x=1791305109;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Q9JXGfEXa1TAeD9LIbvvMLuTX8tLs2uHeRrwmi+1sAA=;
-        b=VMUmX10kopxhbUSOVw4M39cLkDeJMxit1nyu7xjQU2ZhUUx7Wpa3h3KCkJkqOLHL6e
-         tpmiWVCRCYo0ktEBH3umHxvw9ELHOyCnWst5lXyb4WyUeHg6oHXHsZOC5/Eff1JvutP0
-         /xgcWgJeGjAl+NDbtxZzFyMSRycKLlayG4SsIjnAb0zX8KvVnFxwXRJzzddD2RDgHpO5
-         ziFYz7iwjSFxzGJNbxKHt9YR2TYfGnidoPrFvijCALzj/IA3+8kHLFDZyGTnDS9wwjot
-         La3zrI3gbir8umhNr33fluAwCpmlRvv0pwuToa7OFm4frHWY2BPwnTsggVyji46lYbXy
-         2FcQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw7p+rQNXQgyT6iQ65A1l5DvryPvzja03glo4bEH3i7cZPZdfnPtHRgW1O0gIIrlDFY9xMW1x8=@vger.kernel.org
-X-Gm-Message-State: AFuF++l7txeXC2RI3Gu/E5pECFOR5tDlb11xn0Y/+1yFmk/OPHkLyR1g
-	r5R2FYaZwLngB+Wm+1lt1bOi+pmmxug1i9mL5krshdgwF0wnZ+GnLa0FOpGm4LRdH3o=
-X-Gm-Gg: AYBFou1e5b0P0pSWVpPwFmIeypOEtv/pZ+hpC7qKjM4LdQdqCGeel26DlgcLsmlnPWH
-	VzLN8er9T0N7uWyeghdFjWSVtkf8CxNUVzZbLRjhbTQwOVP8AvMLYTB+pYtxizDxTlpWOwi04C6
-	iQ2OB+m1iiCHs0tqJVty0yV9Y29BV7CBOp60vwxFos+FRirswpUoYSl3INmxAb7H0YiqNxyGivG
-	Pq/B5YppdB8AcfFWguV6shInMIf1UrRXsZw9Z2DuojEOESmIm0gJVcRd3dCgZlXsLHop1BRgEsS
-	nD2ulgjMf4HmXkL0tV3fizQ+s4vX+ZS4sOZfA7SqEWGDBYZDsAJzGcWgu0FbaBKnk/xedbn434h
-	nlbyMT2YzACr05mfx6z3P5t/TlTGQy51ngzK+GfLg8ICCkXMqe7Oopf2zMxjwaZp47cSeeFHxQx
-	k/Mr/XyHZjKWZIHMYVHFrO5Uxcr89KXX1lN6YAvFqyzXE+stl9YCHRIKMwizMMG8QLJA==
-X-Received: by 2002:a05:600c:3b14:b0:4a0:12d6:33b6 with SMTP id 5b1f17b1804b1-4a012d633bamr34824815e9.8.1790700308596;
-        Tue, 29 Sep 2026 09:45:08 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F ([2620:10d:c092:500::5:5c0])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cfecb39sm98759315e9.7.2026.09.29.09.45.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 09:45:08 -0700 (PDT)
-Date: Tue, 29 Sep 2026 12:45:06 -0400
-From: Gregory Price <gourry@gourry.net>
-To: Dave Jiang <dave.jiang@intel.com>
-Cc: linux-cxl@vger.kernel.org, dave@stgolabs.net, jic23@kernel.org, 
-	alison.schofield@intel.com, ming.li@zohomail.com, icheng@nvidia.com, stable@vger.kernel.org, 
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Subject: Re: [PATCH v2 1/2] cxl/port: Clear cached dport pointers when a
- dport is removed
-Message-ID: <arvrAEJ14KRtypKt@gourry-fedora-PF4VCD3F>
-References: <20260928230341.2315153-1-dave.jiang@intel.com>
- <20260928230341.2315153-2-dave.jiang@intel.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WU2Ik3Jv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790700852; x=1822236852;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=Ia2IVFDGm42HX7GPQhOizP29/fjvmxx66wIZ2fGy/Wc=;
+  b=WU2Ik3JvLkIYX+Mi3MwvAh+HnrGiNgHfapDRwdKCEDbckHl4e7rk1dOK
+   uDaEGUZLNTA8BYFVWPYoGUHcbNoSAzXSAoHQjsInvrVcCxVBQhxCPcb3N
+   Zx9z35t8k8UeG8afS2JEYcypHy/D8fwhgi8IyGsFUPU+Nj5a/GSyAc+Oz
+   a/O+ZneVQCYKgGwLI1x4opTFDLeT5tV4pnLpf9a81Aol+6938pN1es9Hx
+   aatWM7QnVA34GjT7wcCQAYVIOGTSLF2X+7A+3bx7GFZSotwYcFPP273sX
+   lWX74nP5iDYNroZwDqaTmI9OLvVNE3VvNCLKiJoUzeVRxvYsZBerD8CcP
+   g==;
+X-CSE-ConnectionGUID: TlaELfO5SRC7hTM0kuiwyA==
+X-CSE-MsgGUID: g8IRv7wiS36qe5Ir8MXLvw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="102802477"
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
+   d="scan'208";a="102802477"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 09:53:31 -0700
+X-CSE-ConnectionGUID: P8J40M06RMOC9+c1HacIFw==
+X-CSE-MsgGUID: DX4kZuz6Rz+E8yqSAG6ldA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
+   d="scan'208";a="274633172"
+Received: from vverma7-desk1.amr.corp.intel.com (HELO [10.125.111.116]) ([10.125.111.116])
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 09:53:30 -0700
+Message-ID: <7e945daf-2e1e-468b-8701-db6bbd4ef085@intel.com>
+Date: Tue, 29 Sep 2026 09:53:29 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260928230341.2315153-2-dave.jiang@intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/fpu: Free dynamic fpstate on exec()
+To: Guixiong Wei <weiguixiong@bytedance.com>, x86@kernel.org
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ "H . Peter Anvin" <hpa@zytor.com>, "Chang S . Bae"
+ <chang.seok.bae@intel.com>, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260929151013.81562-2-weiguixiong@bytedance.com>
+From: Dave Hansen <dave.hansen@intel.com>
+Content-Language: en-US
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ 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
+In-Reply-To: <20260929151013.81562-2-weiguixiong@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 28, 2026 at 04:03:40PM -0700, Dave Jiang wrote:
-> Switch decoders cache dport pointers in cxlsd->target[], and nothing
-> clears them when a dport is freed. Readers then dereference freed memory.
-> 
-> KASAN caught it under a cxl_test load/unload loop with concurrent sysfs
-> reads (abbreviated).
-> 
-> Clear the matching slots from cxl_dport_remove(), walking the port's
-> decoders the way cxl_port_update_decoder_targets() does on the add side.
-> Scan all nr_targets slots, the target[] allocation size, and clear every
-> hit.
-> 
-> Fixes: 8330671c57c7 ("cxl: Add helper to delete dport")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Dave Jiang <dave.jiang@intel.com>
-> Assisted-by: LLM
-> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+On 9/29/26 08:10, Guixiong Wei wrote:
+> Preserve the old fpstate pointer across fpstate_reset() and free it only
+> after fpu_reset_fpstate_regs() has invalidated FPU register ownership.
+> This ordering prevents a context switch from saving FPU registers through
+> a freed fpstate pointer.
 
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Are there any fpstate_reset() paths where this matters?
+
+I mean, the init task, obviously not. It doesn't have a dynamic fpstate.
+During exec() this reset happens while:
+
+	bprm->mm = NULL;
+
+among other things, so I really don't think it's even remotely in the
+context of getting context-switched to.
+
+For clone(), the destination task is also not in any condition to be
+context-switched to.
+
+So why defend against context switching? What am I missing?
