@@ -1,185 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D99F349AA30
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 08:44:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A909A37646A;
+	Tue, 29 Sep 2026 08:45:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790671498; cv=none; b=GsMxTlEUTkZyr9AXQUk9DuYScR3J7UxUtB9f8Xq6vk+cdtgPWQwax935QOKzQj9z+NIv/+52Bnm1gcDyqgy3/Fw8Ob75xHqhw2zuWF6t/F2qQv7udWkB5Y1Ocd/Wf3bg6WOcI79cl8Y24nbp3nYqKSK+gxKTEQ4QpGedLZAYeWM=
+	t=1790671568; cv=none; b=ePdVB6btmt/klcUrQ54PZMWmBkIz3kJazO3fKNCkEpyZSsMHi4op397Anv34AE48OJkMqMS281OmVMvW8NvlgHvRAgrFcyh0N317lNK9kPwEU4aF+wGJ1DJVPIq5SJvSbLRLfYnntCRMuAXG07O9ZYM//4HoRIYI7cPKpLYdkis=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790671498; c=relaxed/simple;
-	bh=9Jf6te3HZrb/2Lf0UWJdbtoP9EfXWbS8uGp7Cex3+F4=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=G07A3Ie/Dkyim/MicjX51xGpl9YwR5THvQN5GagXI+5oNPnwOmn49BF83w9FuyFSYJUVBVrNMlp+OEftpFhbUS62oyHkKDusc9JUAB80VPUk/NKiGMoWSfhh0TTxK8iVw4bv7QrKnAWEmujcRLRAAo7njoh7usfIJWeBwZ2B8BE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=kyod2NNF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790671568; c=relaxed/simple;
+	bh=zVXnvAODcsRMwtc5Ve0GHN6mqgMaT/qRrnY0nZCnoWg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=PyUS+tMtaJONwcKdeC3A2YGHF6IvUrqjWN+yEPABD3OAyZoQc0siRDkIXfWKH6OUmkwfWWYC1w8CAKPWYNVCQ2Ur51rndjVaZBeYi3VpIn0kHmuATDJugZLcyikNalQcYmCtCtrhrpx7Cc2ZTDmefyS/1cfT52MFyvG/NqJgSSo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=Tz6rJNcp; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="kyod2NNF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A529A1F00898;
-	Tue, 29 Sep 2026 08:44:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790671486;
-	bh=wudjgRvFMTsYvdfD1jsiybJWZi6qAhln+qFPk/JXJto=;
-	h=Subject:To:Cc:From:Date;
-	b=kyod2NNFCKztvU52z2wgy0ti9Nrp9YvYMpKDXW37XWnCJy0IS9wF1+mXMf6RoDiIC
-	 UQzVCXD0RrcCOjsj0gPBWiNJaRy5xEyax5j7R3xqd0fqRGPOTJrzA1SqEHUaJunBCc
-	 7Lm2ffYVW2Mh9ZytkpOqHVAqpU0KYNd3DPRLnO+c=
-Subject: FAILED: patch "[PATCH] PCI: Fix BAR resize for devices on a root bus" failed to apply to 6.18-stable tree
-To: lizf@honeycomb.io,bhelgaas@google.com,ilpo.jarvinen@linux.intel.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Tue, 29 Sep 2026 10:43:07 +0200
-Message-ID: <2026092907-providing-residual-6198@gregkh>
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="Tz6rJNcp"
+Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4f7a99efd;
+	Tue, 29 Sep 2026 16:45:48 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Jaroslav Kysela <perex@perex.cz>
+Cc: Takashi Iwai <tiwai@suse.com>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH] ALSA: sgio2audio: Only free successfully requested IRQs
+Date: Tue, 29 Sep 2026 16:45:40 +0800
+Message-Id: <20260929084540.2065213-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0ec576e4803a1kunmfd8c80b1232056
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaQh8YVktMQ0hCSkxPSU8fTFYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
+	xVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=Tz6rJNcpM02mCxEx7jdlXB7CqSvD9rGurTfeMfEN0ZOrPHB7YHJCoXO5wOSKh4Tb06ibF1ZPZshDdmL4MZiK/1MvLloUEIlPxlR7cgm7i1BFdPHKSUxWIFcxlO8ebMopdZtZ63kXBefCspLCt+RO4KWLjrhzJZa2Fu1cQ5jKZFY=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=1DoaAJ+PtDJjV2KHwCMFLpMYQai8I3RTFRw3D3/GEFE=;
+	h=date:mime-version:subject:message-id:from;
 
+snd_sgio2audio_create() calls snd_sgio2audio_free() when an IRQ
+request fails. The cleanup helper currently walks the complete IRQ table,
+including entries whose request_irq() calls have not been attempted yet.
+free_irq() then receives an IRQ and dev_id pair that was never registered.
 
-The patch below does not apply to the 6.18-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Pass the number of successfully requested IRQs to the cleanup helper on
+the request failure path, while retaining the full-table cleanup for
+teardown after all requests have succeeded.
 
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
-git checkout FETCH_HEAD
-git cherry-pick -x d58384c22739848efe14b34e9586e4f1242f33c0
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092907-providing-residual-6198@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From d58384c22739848efe14b34e9586e4f1242f33c0 Mon Sep 17 00:00:00 2001
-From: Liz Fong-Jones <lizf@honeycomb.io>
-Date: Fri, 18 Sep 2026 03:56:33 +0000
-Subject: [PATCH] PCI: Fix BAR resize for devices on a root bus
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-pci_do_resource_release_and_resize() releases device BARs that share a
-bridge window with the BAR being resized, but when the device sits directly
-on a root bus (pdev->bus->self == NULL) it then skips resource assignment
-entirely and returns success, leaving the BARs it just released unassigned
-(IORESOURCE_UNSET).
-
-Skipping pbus_reassign_bridge_resources() is correct in that case -- there
-is no bridge window to adjust -- but the device BARs still have to be
-reassigned. Before the BAR release was consolidated into the PCI core, this
-case worked for amdgpu because the driver released the BARs itself and then
-called pci_assign_unassigned_bus_resources() unconditionally after the
-resize, which assigns unassigned device BARs also on a root bus. Commit
-db92e3fef53e ("drm/amdgpu: Remove driver side BAR release before resize")
-removed that call, so nothing assigns the released BARs anymore.
-
-This breaks amdgpu completely on the SolidRun HoneyComb LX2K (NXP LX2160A,
-arm64, ACPI), where ACPI doesn't expose the Root Port so the GPU endpoint
-appears directly on a "root bus" of its segment:
-
-  amdgpu 0004:01:00.0: BAR 0 [mem 0xa400000000-0xa40fffffff 64bit pref]: releasing
-  amdgpu 0004:01:00.0: BAR 2 [mem 0xa410000000-0xa4101fffff 64bit pref]: releasing
-  amdgpu 0004:01:00.0: sw_init of IP block <gmc_v8_0> failed -19
-  amdgpu 0004:01:00.0: amdgpu_device_ip_init failed
-  amdgpu 0004:01:00.0: Fatal error during GPU init
-
-No error is logged because the resize path reports success; amdgpu then
-finds BAR 0 IORESOURCE_UNSET and bails out with -ENODEV.
-
-When there is no upstream bridge, call pci_bus_assign_resources() on the
-root bus to place the BARs released above, using the same alignment-sorted
-algorithm as normal enumeration instead of a manual per-BAR loop. This also
-walks the rest of the hierarchy under the root bus, as
-pci_assign_unassigned_bus_resources() used to for amdgpu before commit
-db92e3fef53e ("drm/amdgpu: Remove driver side BAR release before resize")
-removed that call -- the core-side fix that commit asked for ("such a
-problem should be fixed inside pci_resize_resource() instead").
-
-pci_bus_assign_resources() returns void, so failure is detected by checking
-whether the released BARs are still assigned afterward; if not, roll back
-as in the bridged case. This is stricter than the bridged path -- it fails
-on any unplaced resource, not just required ones -- since a root bus
-typically has one shared window, and failing loudly seemed better than
-leaving something silently unassigned.
-
-The root bus path also had a locking bug that any fix here necessarily
-touches: the old "goto out" jumped to up_read(&pci_bus_sem) without a
-matching down_read() (as does the "goto restore" taken when
-pci_dev_res_add_to_list() fails in the release loop). Take pci_bus_sem
-before the BAR release loop so every path through the function holds it
-exactly once.
-
-Fixes: 337b1b566db0 ("PCI: Fix restoring BARs on BAR resize rollback path")
-Link: https://bugs.launchpad.net/ubuntu/+source/linux-hwe-7.0/+bug/2159596
-Suggested-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Assisted-by: Claude:claude-fable-5 checkpatch
-Assisted-by: Claude:claude-sonnet-5
-Signed-off-by: Liz Fong-Jones <lizf@honeycomb.io>
-[bhelgaas: commit log]
-Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Fixes: 862c2c0a61c5 ("ALSA: ALSA driver for SGI O2 audio board")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260918035633.566823-1-lizf@honeycomb.io
+Assisted-by: LLM
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+---
+ sound/mips/sgio2audio.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
-index e8c94aa1d3c1..ed16ef7c26fa 100644
---- a/drivers/pci/setup-bus.c
-+++ b/drivers/pci/setup-bus.c
-@@ -2380,6 +2380,7 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
- 	struct resource *res = pci_resource_n(pdev, resno);
- 	struct pci_dev_resource *dev_res;
- 	struct pci_bus *bus = pdev->bus;
-+	struct pci_dev *bridge = pci_upstream_bridge(pdev);
- 	struct resource *b_win, *r;
- 	LIST_HEAD(saved);
- 	unsigned int i;
-@@ -2397,6 +2398,8 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
- 	if (ret)
- 		return ret;
+diff --git a/sound/mips/sgio2audio.c b/sound/mips/sgio2audio.c
+index 497d84cff..35648b0b9 100644
+--- a/sound/mips/sgio2audio.c
++++ b/sound/mips/sgio2audio.c
+@@ -742,7 +742,8 @@ static struct {
  
-+	down_read(&pci_bus_sem);
-+
- 	pci_dev_for_each_resource(pdev, r, i) {
- 		if (i >= PCI_BRIDGE_RESOURCES)
- 			break;
-@@ -2415,13 +2418,21 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
+ /* ALSA driver */
  
- 	pci_resize_resource_set_size(pdev, resno, size);
+-static int snd_sgio2audio_free(struct snd_sgio2audio *chip)
++static int snd_sgio2audio_free(struct snd_sgio2audio *chip,
++			       unsigned int irq_count)
+ {
+ 	int i;
  
--	if (!bus->self)
--		goto out;
-+	if (bridge) {
-+		ret = pbus_reassign_bridge_resources(bus, res, &saved);
-+		if (ret)
-+			goto restore;
-+	} else {
-+		/* No bridge window to adjust; let the core reassign the bus. */
-+		pci_bus_assign_resources(bus);
+@@ -752,7 +753,7 @@ static int snd_sgio2audio_free(struct snd_sgio2audio *chip)
+ 	writeq(0, &mace->perif.audio.control);
  
--	down_read(&pci_bus_sem);
--	ret = pbus_reassign_bridge_resources(bus, res, &saved);
--	if (ret)
--		goto restore;
-+		list_for_each_entry(dev_res, &saved, list) {
-+			if (!resource_assigned(dev_res->res)) {
-+				ret = -ENOSPC;
-+				goto restore;
-+			}
-+		}
-+	}
+ 	/* release IRQ's */
+-	for (i = 0; i < ARRAY_SIZE(snd_sgio2_isr_table); i++)
++	for (i = 0; i < irq_count; i++)
+ 		free_irq(snd_sgio2_isr_table[i].irq,
+ 			 &chip->channel[snd_sgio2_isr_table[i].idx]);
  
- out:
- 	up_read(&pci_bus_sem);
-
+@@ -768,7 +769,7 @@ static int snd_sgio2audio_dev_free(struct snd_device *device)
+ {
+ 	struct snd_sgio2audio *chip = device->device_data;
+ 
+-	return snd_sgio2audio_free(chip);
++	return snd_sgio2audio_free(chip, ARRAY_SIZE(snd_sgio2_isr_table));
+ }
+ 
+ static const struct snd_device_ops ops = {
+@@ -819,7 +820,7 @@ static int snd_sgio2audio_create(struct snd_card *card,
+ 				0,
+ 				snd_sgio2_isr_table[i].desc,
+ 				&chip->channel[snd_sgio2_isr_table[i].idx])) {
+-			snd_sgio2audio_free(chip);
++			snd_sgio2audio_free(chip, i);
+ 			printk(KERN_ERR "sgio2audio: cannot allocate irq %d\n",
+ 			       snd_sgio2_isr_table[i].irq);
+ 			return -EBUSY;
+@@ -843,13 +844,13 @@ static int snd_sgio2audio_create(struct snd_card *card,
+ 	/* initialize the AD1843 codec */
+ 	err = ad1843_init(&chip->ad1843);
+ 	if (err < 0) {
+-		snd_sgio2audio_free(chip);
++		snd_sgio2audio_free(chip, ARRAY_SIZE(snd_sgio2_isr_table));
+ 		return err;
+ 	}
+ 
+ 	err = snd_device_new(card, SNDRV_DEV_LOWLEVEL, chip, &ops);
+ 	if (err < 0) {
+-		snd_sgio2audio_free(chip);
++		snd_sgio2audio_free(chip, ARRAY_SIZE(snd_sgio2_isr_table));
+ 		return err;
+ 	}
+ 	*rchip = chip;
+-- 
+2.34.1
