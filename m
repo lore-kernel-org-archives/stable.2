@@ -1,51 +1,44 @@
-Received: from mta-65-225.siemens.flowmailer.net (mta-65-225.siemens.flowmailer.net [185.136.65.225])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F53651B18A
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 12:09:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.65.225
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5959551B19D
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 12:10:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790683760; cv=none; b=RI3IEFvNw5K/BVDyA9FsMENV0RhbzM9ZYCFRsug11BjrvAwZWsMN03rNJKumtSpcPXQFPSA8wr5m6AwS5pCEmsRSHAAZN0nXKAKj35d8aJlOqhW5jXYIKzJDnabMzhDc28DBJBzLl0YobOKrOSB4N3pgSu6bLBP3LbeLvAcwHj0=
+	t=1790683828; cv=none; b=uCQZW8n+YU90P1KFRF8lPhQ5qWaMA5u2tZYjI0aiqR4xwi+S3Z7gUwveE9K2G9etHU8ZqQh3GHvBvCCf3WyeaMv4J9QGBj35j48qQVzxm2ZaPu9vkxhte30s4Y9LgCEXAp02SxzRVwuaZfz6bwg2c+R0CrUwjl/eEfJu2hr5aWg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790683760; c=relaxed/simple;
-	bh=6by20oj5Sm27uGqJktQWmBO+tebvgUpW1j8HXlv2amM=;
+	s=arc-20240116; t=1790683828; c=relaxed/simple;
+	bh=vUkbxxPBpuyf2wVVjm4bVWKgRRudgP34Vnya18i442A=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MOsJlW+zhXUD/V0mSGrddtJ/P4y7aDsT3mdyeZanvVJKMMW6b5ISoV6t21kozFWlafXAbmJb8UadaomdiaRBJjlhR6xpCpXTyc2BjhoAtbsoWy3gLCfckAz8VkWbZOX36YjGrYBfRZmwV8Hi/e0e8++TJ//zia+Y8lClYI0M10g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b=YhQW2uzw; arc=none smtp.client-ip=185.136.65.225
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
+	 MIME-Version; b=R7FNWKlQ3sWSKLSL50CUhUYIlI59fmijDHGJIrNVwcKLOH2ebzTB+JGb+9HcM10bmRCSkwGjldFmN0KRFmM0nRhW8xat2Xb2w9/HYbJODg2rBIU0Y7S3/szs3GI+i1CRkiK7P21qZRglig5l5sKWHB4sc1V9T2N1GVqrfKae5rw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VeXNKNlm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b="YhQW2uzw"
-Received: by mta-65-225.siemens.flowmailer.net with ESMTPSA id 20260929120905e98aae67ea00020768
-        for <stable@vger.kernel.org>;
-        Tue, 29 Sep 2026 14:09:06 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm1;
- d=siemens.com; i=alexander.sverdlin@siemens.com;
- h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc:References:In-Reply-To;
- bh=vSa5iB3gEL2BxzPYUz6WJJhAlmEP7d4CNVX19nfmE84=;
- b=YhQW2uzwOPH2pHlK8ZqnsKX3nvQSUZmGlWJECJULtIlDZGOVPzi4yC3tHW1ATscKGx90PT
- MvUN/pt4UPyKkc4N8CDQzBLrmkPpiAAprbADOap6ZdN4cRjAOTQXP2aRqNBsxFPgcdg9utzg
- FIT4GUeV+wjjgnXhn4KC7UGSGacQ7fbfkcuBxiSiXUyilqOOUO+KbEbPA3kc4+mVONOwgZKQ
- 1NxiiKxIwc78p8ceoj3Iw9UOFyWeTQZEfUvFLpfYlDRJ0Mjw7XsOYCPfc8OKRLt19GdSagnh
- mN0Y5JJ9buVeck+zFEO5hA6cHP/ernkJzoPcUrJaNKc9N0qeJR++b8HQ==;
-From: "A. Sverdlin" <alexander.sverdlin@siemens.com>
-To: linux-leds@vger.kernel.org
-Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
-	Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	Andrew Lunn <andrew@lunn.ch>,
-	"Mike Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	=?UTF-8?q?Marek=20Beh=C3=BAn?= <kabel@kernel.org>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v3 2/4] leds: trigger: netdev: Access net_dev under trigger_data->lock in the worker
-Date: Tue, 29 Sep 2026 14:08:52 +0200
-Message-ID: <20260929120902.2793138-3-alexander.sverdlin@siemens.com>
-In-Reply-To: <20260929120902.2793138-1-alexander.sverdlin@siemens.com>
-References: <20260929120902.2793138-1-alexander.sverdlin@siemens.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VeXNKNlm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E007D1F000FF;
+	Tue, 29 Sep 2026 12:10:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790683823;
+	bh=7TFXatqgW1bruDpAes98F46Jbyp7Lymv6CkQOyMePH0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=VeXNKNlm0seYb+xcB1g1WQlOzq0VYSbv4dRMe8xEPsc//jouE0dUPOVc9WqRkORNe
+	 +iNagr120dkSMq8TLElbiFGDgALNVxFZxPURFuE+A7rCIR7w9C+eTiZGkbmeKoA8t7
+	 heMvqEKBNqUHyJ367mWlvfV9DAoNSgIvv+XzX5NkHXNUFZ1e2ib/jUDSOULB3n7xgD
+	 791soqcYwM2M0UINNHr8JrVX/hadpd6hUHj/KCdtmwR20jo3v0AO+ICzVtOPCmJCdz
+	 8yCuqP7u5NsGldmT9mZOFbqWrm+5DGFb5TfeQh5EbAtbJb/C1GWcTBoPh5G/a5hLmZ
+	 MqB8vZ7UXXNeQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Waiman Long <longman@redhat.com>,
+	Chen Ridong <chenridong@huawei.com>,
+	Tejun Heo <tj@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/3] cgroup/cpuset: Ensure domain isolated CPUs stay in root or isolated partition
+Date: Tue, 29 Sep 2026 08:10:19 -0400
+Message-ID: <20260929121020.3306361-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260929121020.3306361-1-sashal@kernel.org>
+References: <2026092918-captive-docile-ef46@gregkh>
+ <20260929121020.3306361-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -53,69 +46,88 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Flowmailer-Platform: Siemens
-Feedback-ID: 519:519-456497:519-21489:flowmailer
 
-From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+From: Waiman Long <longman@redhat.com>
 
-netdev_trig_work() dereferences trigger_data->net_dev without the lock,
-while set_device_name() and netdev_trig_notify() dev_put() and replace it
-under trigger_data->lock.  On NETDEV_UNREGISTER the worker can run
-dev_get_stats() on a netdev being freed (UAF).
+[ Upstream commit b1034a690129acd8995137bf4462470b4a2aa690 ]
 
-Take trigger_data->lock in the worker.  cancel_delayed_work_sync() must
-then never run under that lock.
+Commit 4a74e418881f ("cgroup/cpuset: Check partition conflict with
+housekeeping setup") is supposed to ensure that domain isolated CPUs
+designated by the "isolcpus" boot command line option stay either in
+root partition or in isolated partitions. However, the required check
+wasn't implemented when a remote partition was created or when an
+existing partition changed type from "root" to "isolated".
 
-Cc: stable@vger.kernel.org
-Closes: https://lore.kernel.org/all/20260914142116.6DAC51F000FF@smtp.kernel.org/
-Fixes: 06f502f57d0d ("leds: trigger: Introduce a NETDEV trigger")
-Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+Even though this is a relatively minor issue, we still need to add the
+required prstate_housekeeping_conflict() call in the right places to
+ensure that the rule is strictly followed.
+
+The following steps can be used to reproduce the problem before this
+fix.
+
+  # fmt -1 /proc/cmdline | grep isolcpus
+  isolcpus=9
+  # cd /sys/fs/cgroup/
+  # echo +cpuset > cgroup.subtree_control
+  # mkdir test
+  # echo 9 > test/cpuset.cpus
+  # echo isolated > test/cpuset.cpus.partition
+  # cat test/cpuset.cpus.partition
+  isolated
+  # cat test/cpuset.cpus.effective
+  9
+  # echo root > test/cpuset.cpus.partition
+  # cat test/cpuset.cpus.effective
+  9
+  # cat test/cpuset.cpus.partition
+  root
+
+With this fix, the last few steps will become:
+
+  # echo root > test/cpuset.cpus.partition
+  # cat test/cpuset.cpus.effective
+  0-8,10-95
+  # cat test/cpuset.cpus.partition
+  root invalid (partition config conflicts with housekeeping setup)
+
+Reported-by: Chen Ridong <chenridong@huawei.com>
+Signed-off-by: Waiman Long <longman@redhat.com>
+Reviewed-by: Chen Ridong <chenridong@huawei.com>
+Signed-off-by: Tejun Heo <tj@kernel.org>
+Stable-dep-of: 31c88350b7dd ("cgroup/cpuset: Return PERR_NOCPUS in remote_partition_enable() on subpartitions_cpus conflict")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Changelog:
-v3:
-- explicit mutex_lock()/mutex_unlock() instead of guard()
+ kernel/cgroup/cpuset.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
- drivers/leds/trigger/ledtrig-netdev.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/leds/trigger/ledtrig-netdev.c b/drivers/leds/trigger/ledtrig-netdev.c
-index e2a6c95a0dc97..d62a7b0168523 100644
---- a/drivers/leds/trigger/ledtrig-netdev.c
-+++ b/drivers/leds/trigger/ledtrig-netdev.c
-@@ -683,9 +683,12 @@ static void netdev_trig_work(struct work_struct *work)
- 	unsigned long interval;
- 	int invert;
+diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+index 14ad95ef37ed1..17d4ef96794c1 100644
+--- a/kernel/cgroup/cpuset.c
++++ b/kernel/cgroup/cpuset.c
+@@ -1627,8 +1627,9 @@ static int remote_partition_enable(struct cpuset *cs, int new_prs,
+ 	if (!cpumask_intersects(tmp->new_cpus, cpu_active_mask) ||
+ 	    cpumask_subset(top_cpuset.effective_cpus, tmp->new_cpus))
+ 		return PERR_INVCPUS;
+-	if ((new_prs == PRS_ISOLATED) &&
+-	    !isolated_cpus_can_update(tmp->new_cpus, NULL))
++	if (((new_prs == PRS_ISOLATED) &&
++	     !isolated_cpus_can_update(tmp->new_cpus, NULL)) ||
++	    prstate_housekeeping_conflict(new_prs, tmp->new_cpus))
+ 		return PERR_HKEEPING;
  
-+	mutex_lock(&trigger_data->lock);
-+
- 	/* If we dont have a device, insure we are off */
- 	if (!trigger_data->net_dev) {
- 		led_set_brightness(trigger_data->led_cdev, LED_OFF);
-+		mutex_unlock(&trigger_data->lock);
- 		return;
- 	}
- 
-@@ -693,8 +696,10 @@ static void netdev_trig_work(struct work_struct *work)
- 	if (!test_bit(TRIGGER_NETDEV_TX, &trigger_data->mode) &&
- 	    !test_bit(TRIGGER_NETDEV_RX, &trigger_data->mode) &&
- 	    !test_bit(TRIGGER_NETDEV_TX_ERR, &trigger_data->mode) &&
--	    !test_bit(TRIGGER_NETDEV_RX_ERR, &trigger_data->mode))
-+	    !test_bit(TRIGGER_NETDEV_RX_ERR, &trigger_data->mode)) {
-+		mutex_unlock(&trigger_data->lock);
- 		return;
-+	}
- 
- 	dev_stats = dev_get_stats(trigger_data->net_dev, &temp);
- 	new_activity =
-@@ -735,6 +740,8 @@ static void netdev_trig_work(struct work_struct *work)
- 
- 	schedule_delayed_work(&trigger_data->work,
- 			(atomic_read(&trigger_data->interval)*2));
-+
-+	mutex_unlock(&trigger_data->lock);
- }
- 
- static int netdev_trig_activate(struct led_classdev *led_cdev)
+ 	spin_lock_irq(&callback_lock);
+@@ -3109,8 +3110,9 @@ static int update_prstate(struct cpuset *cs, int new_prs)
+ 		 * A change in load balance state only, no change in cpumasks.
+ 		 * Need to update isolated_cpus.
+ 		 */
+-		if ((new_prs == PRS_ISOLATED) &&
+-		    !isolated_cpus_can_update(cs->effective_xcpus, NULL))
++		if (((new_prs == PRS_ISOLATED) &&
++		     !isolated_cpus_can_update(cs->effective_xcpus, NULL)) ||
++		    prstate_housekeeping_conflict(new_prs, cs->effective_xcpus))
+ 			err = PERR_HKEEPING;
+ 		else
+ 			isolcpus_updated = true;
 -- 
-2.55.0
+2.53.0
 
