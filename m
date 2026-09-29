@@ -1,37 +1,37 @@
-Received: from relay.smtp-ext.broadcom.com (lpdvsmtp10.broadcom.com [192.19.144.205])
+Received: from relay.smtp-ext.broadcom.com (relay.smtp-ext.broadcom.com [192.19.144.207])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53DB83CAA55;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 546653DA5DC;
 	Tue, 29 Sep 2026 20:10:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.19.144.205
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.19.144.207
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790712634; cv=none; b=OTmpBc8a74a0sfAmR0T14iLnV9BDSzTVfxIgbMSeRRUQtn26M9YdwEYIVpdoSAkoBE8q7mAKrkkh8rYGELQz6avihZ6p5Umzeou9wREXSyZjlwN9dKPXxnDe2bhThmOp/dUmw4VvokyNXGu9rOa6fETvZih0oYV+wagdr0iZAOc=
+	t=1790712634; cv=none; b=m0ZbixyaYQ8CWcWU10qVDZbY0oMf5CMLZRYF2KNrcNtayIjJP//klG6sSuQiOgHRg4vE573+9FaIiccmXr99SyAw4Vl3cNAl8Z5oLlYSv0AUtsCTcS8wywKshZZxt6ZdTlMgzS/tmlky2DnXQ8a03CALlHrgGK13SGAn0hl4aOY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790712634; c=relaxed/simple;
 	bh=Sicuho4icjfTu0+nBtNXBidKVp2riLNXWxAlEonvAQE=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=fPJkKgtAXcmHsa2Iwc3CF+G3WtsYukD3pIiAn49lD4+G6abmUoABBY5uDL8a4trALzCukxuya2HavaP+oqwQstn+fVIRFnQrkx2gtUrB+scFohqMT4sFS5Dv3AODhPOF4UUo2hqi81bj4wcf8ppCDtq+yOWD2IKzjomWHBbLb4g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=uT43RoLa; arc=none smtp.client-ip=192.19.144.205
+	 MIME-Version; b=seYjz4JoN52G7IdPuXM1vThVg3lD6Trp8Uvd5f3sn8zFbdvQufRYmnVAZ3B+YsDp6CV/ZVQ7+7ONqarrDFpmmaKcUQqqweWQhnW1A8S3W21v+AYlrFAwRpXy+3IcEIWVmPSqs2Way5zs0ZB/YQrNtJgGzSWM8JIn/q73BwzhKaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=roLIJiSx; arc=none smtp.client-ip=192.19.144.207
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="uT43RoLa"
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="roLIJiSx"
 Received: from mail-lvn-it-01.broadcom.com (mail-lvn-it-01.lvn.broadcom.net [10.36.132.253])
-	by relay.smtp-ext.broadcom.com (Postfix) with ESMTP id 34342C0003C7;
+	by relay.smtp-ext.broadcom.com (Postfix) with ESMTP id 50BE2C0003C7;
 	Tue, 29 Sep 2026 13:10:32 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 relay.smtp-ext.broadcom.com 34342C0003C7
+DKIM-Filter: OpenDKIM Filter v2.11.0 relay.smtp-ext.broadcom.com 50BE2C0003C7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=broadcom.com;
 	s=dkimrelay; t=1790712632;
 	bh=Sicuho4icjfTu0+nBtNXBidKVp2riLNXWxAlEonvAQE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=uT43RoLaG+efdaH+uz/34jGk3IDxoL5QTR8XVk01pPOxkHNKHtX8Yn+2O9sM4MQNX
-	 8KZhhnSi4wATZ2duVj40Xe/K/F0ooZph1YuHb3SzzjcoR8dLM4KoInHQHIonsPMXDZ
-	 oNUviXNm2dr3GH8VmDeN0iQKsBivy/uRbJYJ/0X0=
+	b=roLIJiSxplEeYDDzJeg3SayNl+C7synq++bDARBaxoT0UXpjrEW3G+MqT5HFiMj1o
+	 E3Y9/yqlEHrx8Mu6nLCsc3p6wuLw9/AwEGgXQfsQw2oJvGPgkBrVZJh/hOWDu3oDjt
+	 5V2/gDT+pFkTMzV8y5Po0Qa277xbiebpzl0VSQFU=
 Received: from stbirv-lnx-1.igp.broadcom.net (stbirv-lnx-1.igp.broadcom.net [10.67.48.32])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mail-lvn-it-01.broadcom.com (Postfix) with ESMTPSA id C791DA88;
+	by mail-lvn-it-01.broadcom.com (Postfix) with ESMTPSA id E97E8A8A;
 	Tue, 29 Sep 2026 13:10:31 -0700 (PDT)
 From: Florian Fainelli <florian.fainelli@broadcom.com>
 To: stable@vger.kernel.org
@@ -44,9 +44,9 @@ Cc: Florian Eckert <fe@dev.tdt.de>,
 	Lukasz Luba <lukasz.luba@arm.com>,
 	linux-pm@vger.kernel.org (open list:THERMAL),
 	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH stable 6.1] tools/thermal/tmon: Fix compilation warning for wrong format
-Date: Tue, 29 Sep 2026 13:10:23 -0700
-Message-Id: <20260929201024.319015-2-florian.fainelli@broadcom.com>
+Subject: [PATCH stable 6.6] tools/thermal/tmon: Fix compilation warning for wrong format
+Date: Tue, 29 Sep 2026 13:10:24 -0700
+Message-Id: <20260929201024.319015-3-florian.fainelli@broadcom.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260929201024.319015-1-florian.fainelli@broadcom.com>
 References: <20260929201024.319015-1-florian.fainelli@broadcom.com>
