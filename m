@@ -1,33 +1,33 @@
-Received: from mta-65-226.siemens.flowmailer.net (mta-65-226.siemens.flowmailer.net [185.136.65.226])
+Received: from mta-64-228.siemens.flowmailer.net (mta-64-228.siemens.flowmailer.net [185.136.64.228])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5307051AFFF
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40B7E51AFFD
 	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 12:09:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.65.226
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.64.228
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790683753; cv=none; b=spGFAV1wyGOyy3YThaDEagQwuhWP58iXeT/jcbdje10tVlVG5sh2zTo3W1jyy6Yq5ii1S1xXIOHxg9yaaHANkQ7GoSb8TTXQCU30n11dvxViooh0jPku3+Sbft4Cm5NEKxebtIZmk4DgF/zPOkDkOr/oAASxH7wKdNbhYuQmzV4=
+	t=1790683753; cv=none; b=N5QhbVuxVH4eTd8VUStWYppkKqFX9+L94Uz4scJ677Qsi52elrVTdmdRmeMk2uvv7y9DbIezGZLQ/NJ+OcJFT0CuzWgAMgCSuzzA3A1Q9e2639oRTNo+98cXI9iek5Hdr0ncEN9xMk52LsOL3ctQaKlCjH4qt8OsoKw3PlN62Ik=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790683753; c=relaxed/simple;
-	bh=9My6T7dhrRjKjjULBgnqKemP5B5ptkwb7o+36I76Lpk=;
+	bh=5eQizxKK9NuYLh8sm1blsIP6nlT5QAXKPTApBxVkzCg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GCdUGnmqAhcsFJ+pCoPC8/pl4W66DKCXFLLBYL3sbXp7rZj24Erw0xET9+VjbFcsHO+Q/luBttD41z6AL9yUwa5fufJrtaZ7klTcfOq29HutMcIYYV4G7NcVFQ9qBvTiLIvaaL0uyaLKDrsRDZea+bo5izrP9mhiFZzu2j4Vct4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b=gG3OJBfV; arc=none smtp.client-ip=185.136.65.226
+	 MIME-Version; b=FQiCUwH4wKLa6ACKE5knvijw5AlpdVVIeZ9SMfXByV+123c4aG7obP0F9RwO3uXEUtrzSBPL61DLnTO6vIljIdCAHHVtuns0NpOyLTNUf3KAM3YNQCNItmOTq+Sci8pHG1w8UcQflaxRp9F9OsYfWSiarC10RIJJBo+Mi9xp/dQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b=EaAR2F0D; arc=none smtp.client-ip=185.136.64.228
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b="gG3OJBfV"
-Received: by mta-65-226.siemens.flowmailer.net with ESMTPSA id 2026092912090608d51ab5a200020763
+	dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b="EaAR2F0D"
+Received: by mta-64-228.siemens.flowmailer.net with ESMTPSA id 20260929120905054d550c71000207c3
         for <stable@vger.kernel.org>;
-        Tue, 29 Sep 2026 14:09:06 +0200
+        Tue, 29 Sep 2026 14:09:05 +0200
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm1;
  d=siemens.com; i=alexander.sverdlin@siemens.com;
  h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc:References:In-Reply-To;
- bh=RYfAQwUTjJ88zEAux1WUvfibzUlt0ZznGPY3HNek2b0=;
- b=gG3OJBfVT71MhL8zZtpDSCGCzEI0a1yl0I5YJjzddA8lQuJolyrTZXpWcyZiM55GxUi5pJ
- VDgqkNWVlmllCtnDlZYR9LxTzy2OKwtJnlaPR+BLskFtKkGFDXiYp74ypFzkHqC5n4J0+XuP
- ZQPyWI5TK3ERoRJPldLNtb20PLJ5cUTb4r55ZzBDZCrXoPijwk5rNFG3m7iyVdm/nkF8DiWl
- 8pt9M3jdp/ZHs3fzymVd6EZHF2OL5PyGNBDDtaGeEHmUzy8xIGkUfeVR70ni5jxK1TaznMos
- 8NiHoLobh2x9yMEgB6aIA7r1dLOKC+AJseP1pVnUwxCoY4V/lWYNR2bQ==;
+ bh=D6Ufe1MknHNgW3U5Ph4TDlWqQIvp7PRTpmjTSC8ykEA=;
+ b=EaAR2F0DfdcA5u4bHBYu2C3ZBGoT4UXD8xvofpgd+CuP7jGgouF7k0O+Vgncn+n38/D2md
+ GMVPMAH8LrcIZGcQGxg8ziCKhbQYqrdkc3uLeInKY+J2Z73AD6qsgTybFytDywL+Lu08voUZ
+ vA1AKMKtIG7phNjxdkTa2PPeFeXFjzzjAuxn7VF5gs3QJLhPvJrnp15AZHbX3/NeE/S9ESec
+ WlqU6e40i+Gd3p3RYbbMPLr1bppBV928dIz6HAWet73MdLzwNfmsRxS5S4+GpZgfoZ/zeddO
+ LQAcBderdtN6tTvPmdikRU0HnpdCDMbGbwXTygr1obyGRDjWrcVO+bYw==;
 From: "A. Sverdlin" <alexander.sverdlin@siemens.com>
 To: linux-leds@vger.kernel.org
 Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
@@ -41,9 +41,9 @@ Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
 	Christian Marangi <ansuelsmth@gmail.com>,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v3 3/4] leds: trigger: netdev: Fix sysfs_update_group() races
-Date: Tue, 29 Sep 2026 14:08:53 +0200
-Message-ID: <20260929120902.2793138-4-alexander.sverdlin@siemens.com>
+Subject: [PATCH v3 1/4] leds: trigger: netdev: Put netdev on activate error path
+Date: Tue, 29 Sep 2026 14:08:51 +0200
+Message-ID: <20260929120902.2793138-2-alexander.sverdlin@siemens.com>
 In-Reply-To: <20260929120902.2793138-1-alexander.sverdlin@siemens.com>
 References: <20260929120902.2793138-1-alexander.sverdlin@siemens.com>
 Precedence: bulk
@@ -58,192 +58,61 @@ Feedback-ID: 519:519-456497:519-21489:flowmailer
 
 From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
 
-The link_speed attribute group was listed in netdev_led_trigger.groups,
-so the LED core creates and destroys it via device_add_groups() /
-device_remove_groups() in led_trigger_set() (under trigger_lock), while
-the trigger also refreshes it with sysfs_update_group() from
-netdev_trig_notify() and device_name writes.  With no shared lock this was
-observed as a sysfs splat when the trigger is re-armed during PHY link-up:
-
-  sysfs: cannot create duplicate filename '...green:lan/link_10'
-
-    CPU 0 (led_trigger_set)        CPU 1 (linkwatch workqueue)
-    -----------------------        ---------------------------
-    activate():
-      register_netdevice_notifier()
-    .                              netdev_trig_notify(NETDEV_CHANGE):
-    .                                sysfs_update_group() creates "link_10"
-    device_add_groups()
-      creates "link_10"  <- EEXIST!
-
-The mirror case (device_remove_groups() racing the notifier) leaves an
-orphaned sysfs file pointing at freed trigger_data, i.e. a UAF.
-
-Manage the group in the trigger: drop it from netdev_led_trigger.groups
-and create/destroy it in activate()/deactivate(), so the LED core never
-touches it.  The two remaining refreshers, netdev_trig_notify() and
-device_name_store(), are serialized against each other by a dedicated
-attr_lock, and the is_visible callback takes trigger_data->lock for its
-supported_link_modes read.  sysfs_update_group() is never called under
-trigger_data->lock, so it cannot deadlock against a concurrent link_*
-store that takes that lock.
+When hw control is active, set_device_name() takes a reference on the
+netdev via dev_get_by_name(). The register_netdevice_notifier() failure
+path frees trigger_data without dropping it, leaking the netdev.
 
 Cc: stable@vger.kernel.org
-Fixes: 06cdca014eca ("leds: trigger: netdev: Display only supported link speed attribute")
+Closes: https://lore.kernel.org/all/20260914140045.B8F4C1F000FF@smtp.kernel.org/
+Fixes: 0316cc5629d1 ("leds: trigger: netdev: init mode if hw control already active")
 Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
 ---
 Changelog:
 v3:
-- changed guard() to scoped_guard() and dev_put() to unset_device_name()
-v2:
-- this patch is a combined rework of patches 1&2 from v1
+- introduced unset_device_name() as a counterpart of set_device_name()
 
- drivers/leds/trigger/ledtrig-netdev.c | 74 +++++++++++++++++----------
- 1 file changed, 47 insertions(+), 27 deletions(-)
+ drivers/leds/trigger/ledtrig-netdev.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/leds/trigger/ledtrig-netdev.c b/drivers/leds/trigger/ledtrig-netdev.c
-index d62a7b0168523..b27a453bbb859 100644
+index 5b0132484594c..e2a6c95a0dc97 100644
 --- a/drivers/leds/trigger/ledtrig-netdev.c
 +++ b/drivers/leds/trigger/ledtrig-netdev.c
-@@ -57,6 +57,8 @@
- 
- struct led_netdev_data {
- 	struct mutex lock;
-+	/* Serializes link_speed group refreshes; never taken by attr stores */
-+	struct mutex attr_lock;
- 
- 	struct delayed_work work;
- 	struct notifier_block notifier;
-@@ -343,8 +345,9 @@ static ssize_t device_name_store(struct device *dev,
- 	if (ret < 0)
- 		return ret;
- 
--	/* Refresh link_speed visibility */
--	sysfs_update_group(&dev->kobj, &netdev_trig_link_speed_attrs_group);
-+	/* Serialize the link_speed visibility refresh against netdev_trig_notify() */
-+	scoped_guard(mutex, &trigger_data->attr_lock)
-+		sysfs_update_group(&dev->kobj, &netdev_trig_link_speed_attrs_group);
- 
- 	return size;
- }
-@@ -551,22 +554,23 @@ static umode_t netdev_trig_link_speed_visible(struct kobject *kobj,
- 	 * Stop at the first matching entry as we care only to check if a particular
- 	 * speed is supported and not the kind.
- 	 */
--	for_each_set_bit(mode, supported_link_modes, __ETHTOOL_LINK_MODE_MASK_NBITS) {
--		struct ethtool_link_ksettings link_ksettings;
--
--		ethtool_params_from_link_mode(&link_ksettings, mode);
--
--		CHECK_LINK_MODE_ATTR(10);
--		CHECK_LINK_MODE_ATTR(100);
--		CHECK_LINK_MODE_ATTR(1000);
--		CHECK_LINK_MODE_ATTR(2500);
--		CHECK_LINK_MODE_ATTR(5000);
--		CHECK_LINK_MODE_ATTR(10000);
--		CHECK_LINK_MODE_ATTR(25000);
--		CHECK_LINK_MODE_ATTR(40000);
--		CHECK_LINK_MODE_ATTR(50000);
--		CHECK_LINK_MODE_ATTR(100000);
--	}
-+	scoped_guard(mutex, &trigger_data->lock)
-+		for_each_set_bit(mode, supported_link_modes, __ETHTOOL_LINK_MODE_MASK_NBITS) {
-+			struct ethtool_link_ksettings link_ksettings;
-+
-+			ethtool_params_from_link_mode(&link_ksettings, mode);
-+
-+			CHECK_LINK_MODE_ATTR(10);
-+			CHECK_LINK_MODE_ATTR(100);
-+			CHECK_LINK_MODE_ATTR(1000);
-+			CHECK_LINK_MODE_ATTR(2500);
-+			CHECK_LINK_MODE_ATTR(5000);
-+			CHECK_LINK_MODE_ATTR(10000);
-+			CHECK_LINK_MODE_ATTR(25000);
-+			CHECK_LINK_MODE_ATTR(40000);
-+			CHECK_LINK_MODE_ATTR(50000);
-+			CHECK_LINK_MODE_ATTR(100000);
-+		}
- 
+@@ -324,6 +324,13 @@ static int set_device_name(struct led_netdev_data *trigger_data,
  	return 0;
  }
-@@ -610,7 +614,6 @@ static const struct attribute_group netdev_trig_attrs_group = {
  
- static const struct attribute_group *netdev_trig_groups[] = {
- 	&netdev_trig_attrs_group,
--	&netdev_trig_link_speed_attrs_group,
- 	NULL,
- };
- 
-@@ -658,10 +661,6 @@ static int netdev_trig_notify(struct notifier_block *nb,
- 		fallthrough;
- 	case NETDEV_CHANGE:
- 		get_device_state(trigger_data);
--		/* Refresh link_speed visibility */
--		if (evt == NETDEV_CHANGE)
--			sysfs_update_group(&led_cdev->dev->kobj,
--					   &netdev_trig_link_speed_attrs_group);
- 		break;
- 	}
- 
-@@ -669,6 +668,12 @@ static int netdev_trig_notify(struct notifier_block *nb,
- 
- 	mutex_unlock(&trigger_data->lock);
- 
-+	if (evt == NETDEV_CHANGE) {
-+		scoped_guard(mutex, &trigger_data->attr_lock)
-+			sysfs_update_group(&led_cdev->dev->kobj,
-+					   &netdev_trig_link_speed_attrs_group);
-+	}
++static void unset_device_name(struct led_netdev_data *trigger_data)
++{
++	dev_put(trigger_data->net_dev);
++	trigger_data->net_dev = NULL;
++	trigger_data->device_name[0] = 0;
++}
 +
- 	return NOTIFY_DONE;
- }
- 
-@@ -756,6 +761,7 @@ static int netdev_trig_activate(struct led_classdev *led_cdev)
- 		return -ENOMEM;
- 
- 	mutex_init(&trigger_data->lock);
-+	mutex_init(&trigger_data->attr_lock);
- 
- 	trigger_data->notifier.notifier_call = netdev_trig_notify;
- 	trigger_data->notifier.priority = 10;
-@@ -789,12 +795,23 @@ static int netdev_trig_activate(struct led_classdev *led_cdev)
- 
+ static ssize_t device_name_store(struct device *dev,
+ 				 struct device_attribute *attr, const char *buf,
+ 				 size_t size)
+@@ -776,8 +783,10 @@ static int netdev_trig_activate(struct led_classdev *led_cdev)
  	led_set_trigger_data(led_cdev, trigger_data);
  
-+	rc = sysfs_create_group(&led_cdev->dev->kobj,
-+				&netdev_trig_link_speed_attrs_group);
-+	if (rc)
-+		goto err_free;
-+
  	rc = register_netdevice_notifier(&trigger_data->notifier);
--	if (rc) {
--		unset_device_name(trigger_data);
--		kfree(trigger_data);
--	}
-+	if (rc)
-+		goto err_remove_group;
-+
-+	return 0;
+-	if (rc)
++	if (rc) {
++		unset_device_name(trigger_data);
+ 		kfree(trigger_data);
++	}
  
-+err_remove_group:
-+	sysfs_remove_group(&led_cdev->dev->kobj,
-+			   &netdev_trig_link_speed_attrs_group);
-+err_free:
-+	unset_device_name(trigger_data);
-+	kfree(trigger_data);
  	return rc;
  }
+@@ -790,7 +799,7 @@ static void netdev_trig_deactivate(struct led_classdev *led_cdev)
  
-@@ -804,6 +821,9 @@ static void netdev_trig_deactivate(struct led_classdev *led_cdev)
- 
- 	unregister_netdevice_notifier(&trigger_data->notifier);
- 
-+	sysfs_remove_group(&led_cdev->dev->kobj,
-+			   &netdev_trig_link_speed_attrs_group);
-+
  	cancel_delayed_work_sync(&trigger_data->work);
  
- 	unset_device_name(trigger_data);
+-	dev_put(trigger_data->net_dev);
++	unset_device_name(trigger_data);
+ 
+ 	kfree(trigger_data);
+ }
 -- 
 2.55.0
 
