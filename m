@@ -1,160 +1,103 @@
-Received: from mail-qk2-f38.google.com (mail-qk2-f38.google.com [74.125.230.230])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1939A3EDAD2
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 11:59:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.230
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85A9851AFFF;
+	Tue, 29 Sep 2026 12:02:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790683160; cv=none; b=Rn0tIsnckMZGzrMRuyaMy7rgETbMUo0VlKppWyT9Bv+Im2PZP52iDtWfAZM9OgrdxoKIAPDzkQByEKwPSARVvBO11bqZr03dVgwwJ3WP2elyTZjXw/Lj0u9mBAiFmh96UCsP6tYNTj/Xl8OSkPXDk28BJfxZhtPDn9pH3jCyer0=
+	t=1790683350; cv=none; b=WPDbEuEPnG0hkJxWLnf0wxn1wouowEJ+qNpMQac4MnrA15bvijZLw5tYEiXEPVo0mB9M5+NhE+dkxIvG++WSJX4AkPseOUNQn+oMzpMDBnnQkAKGMjBEfIHU/d2eh9KNLw2+sHEAG4mqTTLhUBgI90nPg+dpP5JZ9Lchh7/sFx8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790683160; c=relaxed/simple;
-	bh=vVvDrY//xdBNbp6iPJngokdTuFS+NhXaql31Vv+iJbc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rgh8D9CGkCUpB2xSzlDBngz4gUPoHEmCsRGmCtgdjDswiRg7LbRv6dHe0FGDy28xZxvixC3cfygeNlVutjmjSzE3xWEDH2XkxS5y7NcdPmIvnYs0nr4PIlnpSGuwiepGPAsq/fH0vgLSxPZ5rIa2o9SV1VmUXuHe+o3iZwPI49E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org; spf=none smtp.mailfrom=thinkoid.org; dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b=NTTemChe; arc=none smtp.client-ip=74.125.230.230
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=thinkoid.org
+	s=arc-20240116; t=1790683350; c=relaxed/simple;
+	bh=wJ9PVLSIq6X7O5ZhoJEWBuB6leO8e2NgoslQ6mcWslI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Kr8hct0MICMaVJ+dGOQ5ZbB6tGSIGEWQS8gujNEjMUXCa/Bk2rtG8um4zBnzYkbg+qJExqr0t498VrKgn1KvcXK0YtW3pwBNb/c9gZGh45GBYDbbPYASOUCBgxhIKOcWtgtpXo7FXVO2wTd2I4qLFTBAIOCJYSrO+roTblpJX0E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FTuNMHlS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b="NTTemChe"
-Received: by mail-qk2-f38.google.com with SMTP id d75a77b69052e-5333729ca3dso27058951cf.3
-        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 04:59:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=thinkoid-org.20251104.gappssmtp.com; s=20251104; t=1790683157; x=1791287957; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DlgScPHdiLebmGaCvP48bU4gXKNbLya/+el4EaXYdkE=;
-        b=NTTemChe7dfixuN74dxTKB7C8sNyxI9FeiN4dmeX7yCelWMUCBnUXZsYugKVVqI3Y3
-         iEbDYAUv/zaedKY1NP7/LqRq7ZGgL1Xx3gSjHRpLtJpLu6tklL199d2NpJs9WUY8zH7y
-         i/sMcoWAd6YmZFgN+dGNhZjO88/fFCbfOcglRLF75QK7njpqt78m8Gc6RtLewLTI5Y/G
-         Y9pqSIMliKGpuxEzTlHnCci50tE+tIA1Jw+LRJDEisuJJzAMCFlhzH9KiZLS6hWOfibd
-         i1X4PBYO7v0EOfKOYWaPV3EBqCIKwvb4CjCM2MZhZTvEe4iSLzKu9sgs8uyYW5dHjwUq
-         nRZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790683157; x=1791287957;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DlgScPHdiLebmGaCvP48bU4gXKNbLya/+el4EaXYdkE=;
-        b=LcTLhT2VuifpOf9WXLsgiDJDzJFS1kAofkANsjCzmoxoOt3OwsIgc5oAIAzjjvxoF3
-         NAJfa7PflDEg7tfJMqu7K5QC4IGLKo7hEVBNa1QR5CMsNl0KardmBIE0bZ1hdK7EbSJr
-         IG9qPDjBcc+VCePwwE8NPi5cgJhk3H03SqioPeJ2IJZ3ChqoNoIycHs1lB7qxu4eoVKd
-         OFNEUWERs2LbeuyGMUBlScLlk4WZiGj4/S3nVwipyeUo+p9JsphsgjpeNzx5Tg5u8h9K
-         Lr55JaQZEDvemuNJsFHbL1+EUIgxX2A22+5vsEm8mckRX7ly5eBiaZ9qoXI6rGPkd7J+
-         8w0w==
-X-Forwarded-Encrypted: i=1; AKwUvBxICw30QtZFi5AY7txYcmqejH8mfcCrJjgtkJL7G9wRtCmyEqEE0Z28B+e2dxheliUUYlzBn7w=@vger.kernel.org
-X-Gm-Message-State: AFuF++n8Zv21IhdFNcT1lRgQaQAvlI6qOuq31TCSj5nYlHINIcjehqD/
-	Rjc8KbmbJWmhP/EVCagixfflN8KbtyY36FXsMBtg1/Eojd2Zyi6Z8EExMyo97UNWbAQ=
-X-Gm-Gg: AYBFou1McsmOU8LRtf9jFGIScaymKVi4fsogvJT3eqbKQoSvwdnOTkbZBgwTKPCC/I0
-	XLGQNSIWRFxTsaOhvSocScOj4RBZ8DubVkva+mHpmZGxVDGAKN9Z0s6lU4tCbd2wAmFw8oCQV8n
-	6aCqZ0DXA9A/l50xMZ383zO+jdweIymmHnMFxfyzN9dn8e69NdfcgUCWeepB97yNEIYhpVJ75xH
-	01hh0syT8cfN/PBTqewzhhF8zUVcyKFmGkiGZBkpoXdmLiPFJntERYFbez44+BK4Yi7RiL0uoC+
-	zBnOEOMBUXdQmszmm0A9wDICWYiA7dmYLrjhubtZ06cQ2xfDJpyfh6Dk09kQ0huR19wmDGa2R3k
-	V57lgH6LhiFjPVnmuhKFsymw/cEGcfPmgD5K2bWxKTR+HY6zgdDgezBxmBYWtwnSfYv5uW0DN2W
-	dQVenD69wFtdv/Eh2xlfcl9VW6Z+vZW4tkzJLzOxZWpMShKtA=
-X-Received: by 2002:a05:622a:130a:b0:533:4b39:4e28 with SMTP id d75a77b69052e-5334b395abcmr86308001cf.33.1790683156815;
-        Tue, 29 Sep 2026 04:59:16 -0700 (PDT)
-Received: from armok ([2605:a601:a61d:7a00::2])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5332225a696sm84460381cf.14.2026.09.29.04.59.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 04:59:16 -0700 (PDT)
-From: Liviu Nicoara <lnicoara@thinkoid.org>
-To: Srinivas Kandagatla <srini@kernel.org>,
-	Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Jonathan Marek <jonathan@marek.ca>,
-	Johan Hovold <johan@kernel.org>,
-	linux-sound@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Liviu Nicoara <lnicoara@thinkoid.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] ASoC: codecs: lpass-wsa-macro: rewrite the interpolator volume after enabling clocks
-Date: Tue, 29 Sep 2026 07:57:55 -0400
-Message-ID: <20260929115755.6096-1-lnicoara@thinkoid.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FTuNMHlS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 441161F00893;
+	Tue, 29 Sep 2026 12:02:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790683349;
+	bh=QFu4TV/Yh3C4ZczXnV817/jCqQsTVBiQDypj9KNrY7k=;
+	h=From:Subject:Date:To:Cc;
+	b=FTuNMHlSaS8ULO6fO+IxVQ8pwc6Fpu/XBRMky3Qzgqi0n1t4v4dA2RVXN1bKEmWXD
+	 0M+L0wGfmTsVk+zzJGWRlxP1+0PbvAQbr8YKz2YrRp+xepCWrGhj3c5DVd2oVEVSNG
+	 WapUhfEF7AHp0PN4ux9M/rIbMKjcVsutZ9VBvj4h9EYtt32ryY6mjWk+W61ntQQMC0
+	 3bcUAZr6p741FWPwFax74hLvYRT5ck7Vbymsny/ZYVZKoUrlcUiYm6t9svriS81Fqu
+	 Bz/WpgVTd8m0RtHwCLRMMAhGlwE/qorFmGyzIBPcWURk22PZgkmqNkafSb2+ZnTuGR
+	 jzAVudzGFoPHw==
+From: Linus Walleij <linusw@kernel.org>
+Subject: [PATCH 0/3] media: mali-c55: Fix IRQ lifetime and wake handling
+Date: Tue, 29 Sep 2026 14:02:23 +0200
+Message-Id: <20260929-mali-c55-irq-supend-resume-v1-0-e3af34afff12@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MwQqDMAwA0F+RnA2kHXXOXxEPVbMtoJ0mKAPx3
+ y0e3+UdYKzCBk1xgPIuJr+U4coChm9MH0YZs8GTr+jlapzjJDiEgKIr2rZwGlHZtpnxQX2gZ/R
+ EzkEOFuW3/O+87c7zAl0pO/VsAAAA
+X-Change-ID: 20260918-mali-c55-irq-supend-resume-30b507a20011
+To: Li Youhong <dayou5941@163.com>, 
+ Daniel Scally <dan.scally@ideasonboard.com>, 
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Hans Verkuil <hverkuil+cisco@kernel.org>, 
+ Nayden Kanchev <nayden.kanchev@arm.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Linus Walleij <linusw@kernel.org>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.16.0
 
-Commit 902f497a1ff5 ("ASoC: codecs: lpass-wsa-macro: remove useless
-gain read/write sequence") removed the read and write of the digital
-volume register in wsa_macro_enable_interpolator(), on the grounds that
-writing back the value just read does nothing. The comment above it,
-"apply gain after int clk is enabled", was left in place.
+This is essentially my reply with the "proper fix" for:
+https://lore.kernel.org/linux-media/20260903025526.2657105-1-dayou5941@163.com/
 
-On the Dell XPS 13 9345 (X1E80100, four WSA8845 amplifiers on two WSA
-macros) the write does something: a volume change made while the path
-is idle does not take effect when playback starts. Lowering the digital
-volume from 81 to 63 with nothing playing, then playing a test tone,
-gave about the same level as before the change. With the rewrite
-restored, lowering it from 81 to 69 while idle played audibly quieter,
-and restoring 81 while idle brought the level back. Changes made during
-playback take effect with or without the rewrite.
+Keep the Mali-C55 interrupt requested for the driver's lifetime instead
+of changing interrupt ownership along with the runtime power state.
+Synchronize and disable the IRQ before power-off, and enable it after
+power-on. Hold a PM reference until probe installs the IRQ, and stop
+runtime PM and drain the IRQ before removing the media entities.
 
-The register already holds the new value when this happens. Without the
-rewrite, after an idle change from 69 to 81, playback stayed at the old
-level while the register, read from the hardware through /dev/mem, held
-the new one (0xfd). Writing that same value back through /dev/mem
-brought the level up at once.
+Allow platforms to mark the ISP as a wakeup source. Hold a runtime PM
+reference while IRQ wake is armed, resuming an idle ISP if needed and
+preserving an active ISP's configuration. Balance the reference on resume
+and failure. Hibernation still uses the power-down path.
 
-This is the behaviour described in commit 46188db080bd ("ASoC: codecs:
-lpass-wsa-macro: fix compander volume hack"): "the volume registers
-still need to be written after enabling clocks in order for any prior
-updates to take effect." The value read comes from the register cache,
-so the write pushes the last requested volume to the hardware once its
-clock runs.
+Wake events require a configured stream and an input that remains active
+during system sleep. The internal TPG shares the ISP's power state;
+external sensors and receivers need their own wake support. An idle
+pipeline is not started by this series. Hardware wake remains untested.
 
-Restore the rewrite in the interpolator's POST_PMU event only. The mix
-path event removed later in the same series is not brought back.
+The first patch extends the binding with the standard wakeup-source
+property. The second patch updates the driver IRQ and PM handling. The
+third patch retains ISP power while IRQ wake is armed.
 
-Fixes: 902f497a1ff5 ("ASoC: codecs: lpass-wsa-macro: remove useless gain read/write sequence")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Liviu Nicoara <lnicoara@thinkoid.org>
+Tested on the Renesas RZ/V2H board with the other in-flight patches
+(DTS changes and the TPG enablement) doing full suspend/resume cycles
+with wakeup from RTC and NMI and capturing images before and
+after the test.
+
+Assisted-by: LLM
+Signed-off-by: Linus Walleij <linusw@kernel.org>
 ---
+Linus Walleij (3):
+      dt-bindings: media: mali-c55: Allow wakeup source
+      media: mali-c55: Keep IRQ requested during suspend
+      media: mali-c55: Keep ISP powered while IRQ wake is armed
 
-Notes:
-    Changes in v2:
-    - Cc stable (Johan Hovold).
-    - Add the /dev/mem read and rewrite from the v1 review.
-    - Link to v1: https://lore.kernel.org/all/20260924125940.22665-1-lnicoara@thinkoid.org/
-    
-    Tested on v7.2.6 on the machine above, by listening. This function is
-    unchanged between v7.2 and for-next; the driver's clocks moved to the
-    PM clock framework in cd054a6e272c after v7.2, which was not tested
-    here. Build-tested on broonie/for-next (arm64 defconfig).
+ .../devicetree/bindings/media/arm,mali-c55.yaml    |  2 +
+ .../media/platform/arm/mali-c55/mali-c55-core.c    | 96 +++++++++++++++++-----
+ 2 files changed, 78 insertions(+), 20 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260918-mali-c55-irq-supend-resume-30b507a20011
 
- sound/soc/codecs/lpass-wsa-macro.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/sound/soc/codecs/lpass-wsa-macro.c b/sound/soc/codecs/lpass-wsa-macro.c
-index 4242366601a5..899c8bee4645 100644
---- a/sound/soc/codecs/lpass-wsa-macro.c
-+++ b/sound/soc/codecs/lpass-wsa-macro.c
-@@ -1849,6 +1849,7 @@ static int wsa_macro_enable_interpolator(struct snd_soc_dapm_widget *w,
- 					 int event)
- {
- 	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
-+	unsigned int gain;
- 	u16 gain_reg;
- 	u16 reg;
- 	struct wsa_macro *wsa = snd_soc_component_get_drvdata(component);
-@@ -1890,6 +1891,8 @@ static int wsa_macro_enable_interpolator(struct snd_soc_dapm_widget *w,
- 					CDC_WSA_RX_PGA_HALF_DB_MASK,
- 					CDC_WSA_RX_PGA_HALF_DB_ENABLE);
- 		}
-+		gain = snd_soc_component_read(component, gain_reg);
-+		snd_soc_component_write(component, gain_reg, gain);
- 		wsa_macro_config_ear_spkr_gain(component, wsa,
- 						event, gain_reg);
- 		break;
-
-base-commit: 1f9b1774f65c6670a37000390e6c43309248a345
--- 
-2.55.0
+Best regards,
+--  
+Linus Walleij <linusw@kernel.org>
 
