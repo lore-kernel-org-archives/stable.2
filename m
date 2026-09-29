@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 751AE37B02A
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 06:45:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F05F53905E0
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 06:46:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790664335; cv=none; b=Ihvu1uAmFk1qBSrWxzoZxv9QxAoxlxNZ2HepU9z1ia38qb7XS5/EsOoRw1tNBvDd01HGDllDYKCvmG/s07NiMkUi+Pspr0Zf2u9/eUdMBzD0GsrVMy6uieEzK9iokP502jvuu6So8vj24INRMfusiK0/sY/6Kt4+BcSPlt8xsOg=
+	t=1790664374; cv=none; b=BRMOOMr8SLCqTC8FOilCoWkSVQNs8BgzdV2dYbe7f58QaedUx8vmrueVJ+5eQDAupAm/lzNqr4S9Fb0WQrLX1bxEGSS1uWeiyW7oL8TdzXgFfl8HduAN6JUQHKK9wofKCUWs2Y8RrG8tKOsUrFL9XctguC+D9Bo7jSaMhoc7S6M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790664335; c=relaxed/simple;
-	bh=2DLpn2iGHUWbrhmHQgnrpGvPQe8NKlshXmKbUx31QoY=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=CEMk7hz5fA+MNucu5rl/vmiRdgDItR2Zu9UNXQBLTxdFZXBBFuqrzCxCpOnurNdx2qE5hIx+wvHj45JM/Q+OsnJ874GQVl4au4srn4LJ5djIFeoBDZsN8uq05SMI63s3RHWlVwUOF9AtpUZUd8RYUUgseVck90PFcfZ/ogPjYdM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=FHtrpko5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790664374; c=relaxed/simple;
+	bh=hyhN5L0zkJ+KhCydSz1ujwDpJbOojL7k2dvzsUpIIGk=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=E5EYcDDCelOZLs+wlmMFPA2x4Q+IpLQxx1DilUjeYsc2LWFkvp5cIHj5jyPu7iXD79Wu1j3FrIEOvOAaTlqxyxjI4Z/gfUAfB+8CvdjPCtlyrJfBrrGlxwGLrhDnoJ4FV9itT/rh8iLokMkbYOZryVd79wUEFFgWU+AbzAkElA4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=X0r2UrKu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="FHtrpko5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8F7E1F00893;
-	Tue, 29 Sep 2026 06:45:33 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="X0r2UrKu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 559691F000FF;
+	Tue, 29 Sep 2026 06:46:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790664334;
-	bh=KI0skSW4q5EdrkTu9VMuquWI8YcXooKrnBYX2YUQUAU=;
+	s=korg; t=1790664372;
+	bh=A/ZaHxZYAMeId5jnPBMqC/+2TFEX/Wpsh9nGOU58/Os=;
 	h=Subject:To:Cc:From:Date;
-	b=FHtrpko5bcsnpbkOauLDDc0W8ryBcxXW+EmznKrNOVPEatYgLGq9qmLm7QimEfKGq
-	 w4lb3kJEA0Z+AOfhi6C5E3+8hiR6tO0pvoqpOjL48ckTfADnlaEtQj1kdn+yNxLyFu
-	 gxB3Iov/HDbcYXAKhxyVfJKYlcjDfjwgG0FXdUyg=
-Subject: FAILED: patch "[PATCH] super: make iterate_supers_type() deletion-safe" failed to apply to 5.10-stable tree
-To: brauner@kernel.org,jack@suse.cz,kmehltretter@gmail.com
+	b=X0r2UrKuwJAXR9M+vzkc4rBZGxzo1P2Y/sI3+0I9yOS2SYJucWILgrHlGv+3Q6o1I
+	 B8Gj7QsqAgcMkYUWJ4cKdjWNWyqYZVFASyKHVRCxzIIQfO8VW1qWLebxe8vherYqXc
+	 sXOb3Y0kBh4edMAq9ZR3PpWuZAt0fdGM+NFo5RqU=
+Subject: FAILED: patch "[PATCH] selftests/cgroup: account for zswap shrinker writeback" failed to apply to 7.2-stable tree
+To: joshua.hahnjy@gmail.com,akpm@linux-foundation.org,krushchavan@outlook.com,nphamcs@gmail.com,stable@vger.kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 29 Sep 2026 08:45:17 +0200
-Message-ID: <2026092917-creole-rigging-0a14@gregkh>
+Date: Tue, 29 Sep 2026 08:46:10 +0200
+Message-ID: <2026092910-trash-gossip-19f6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 7.2-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
 git checkout FETCH_HEAD
-git cherry-pick -x 2d2a2d7aa98741b58f54cacc99b52024e4d865f9
+git cherry-pick -x 8c7fdc0b4c64d6583fff3e8f7696237a16ff7c29
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092917-creole-rigging-0a14@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092910-trash-gossip-19f6@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,157 +62,102 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 2d2a2d7aa98741b58f54cacc99b52024e4d865f9 Mon Sep 17 00:00:00 2001
-From: Christian Brauner <brauner@kernel.org>
-Date: Wed, 9 Sep 2026 21:30:34 +0200
-Subject: [PATCH] super: make iterate_supers_type() deletion-safe
+From 8c7fdc0b4c64d6583fff3e8f7696237a16ff7c29 Mon Sep 17 00:00:00 2001
+From: Joshua Hahn <joshua.hahnjy@gmail.com>
+Date: Wed, 2 Sep 2026 12:45:20 -0700
+Subject: [PATCH] selftests/cgroup: account for zswap shrinker writeback
 
-iterate_supers_type() drops sb_lock while invoking the callback and keeps
-only a passive reference to the current superblock. That reference keeps
-the object allocated, but does not keep its s_instances node linked.
+The test_no_invasive_cgroup_shrink selftest checks that when a cgroup has
+zswapped out more memory than memory.zswap.max, it does not trigger
+writeback for other cgroups.  To do this, it compares the writeback count
+in a control cgroup and makes sure that it is 0, and then checks the
+writeback count in an aggressor cgroup who does expect to see writeback.
 
-After the iterator releases s_umount, final teardown can unlink the current
-s_instances node. The iterator then advances through a reinitialized node.
-With the current hlist it stops without visiting the remaining superblocks.
-The unlink moved from generic_shutdown_super() to kill_super_notify(), but
-the cursor lifetime has been unsafe since the helper was introduced.
+However, when the zswap shrinker is enabled, the victim cgroup can see
+legitimate writebacks not triggered by the aggressor.  In some Meta CI
+tests, we have seen this failure mode happen.
 
-The CIFS DFS lookup can consequently miss a matching superblock and return
--EINVAL.
+Instead of checking that the victim cgroup has 0 writeback, compare the
+writeback values before and after the aggressor runs and check that the
+victim cgroup did not perform any additional writeback.  Note that this
+can still lead to probabilistic failures if writebacks take longer than
+5 seconds, but this should fix the systematic failure case and make
+"not ok test_no_invasive_cgroup_shrink" less likely.
 
-Move removal from fs_supers to put_super(), alongside removal from
-super_blocks, so a passive reference keeps both list nodes linked. Keep
-the filesystem module reference until then, since unlinking s_instances
-may touch type->fs_supers.
+Link: https://lore.kernel.org/20260902194521.3652178-1-joshua.hahnjy@gmail.com
+Fixes: b5ba474f3f51 ("zswap: shrink zswap pool based on memory pressure")
+Signed-off-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Krush Chavan <krushchavan@outlook.com>
+Suggested-by: Nhat Pham <nphamcs@gmail.com>
+Cc: <stable@vger.kernel.org>
 
-Make sget_fc() skip SB_DEAD superblocks before invoking test(), and set
-SB_DEAD under sb_lock to serialize with those callbacks. This allows
-kernfs to free its private information after kill_anon_super() returns.
-Keep matching SB_DYING superblocks until SB_DEAD is set so concurrent
-mounts still wait for teardown before retrying.
-
-Fixes: 43e15cdbefea ("new helper: iterate_supers_type()")
-Reported-by: Karl Mehltretter <kmehltretter@gmail.com>
-Closes: https://lore.kernel.org/r/20260903013336.92081-1-kmehltretter@gmail.com
-Suggested-by: Jan Kara <jack@suse.cz>
-Cc: stable@vger.kernel.org
-Tested-by: Karl Mehltretter <kmehltretter@gmail.com>
-[kmehltretter: supplied the commit message]
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-Link: https://patch.msgid.link/20260909193034.7467-1-kmehltretter@gmail.com
-Reviewed-by: Jan Kara <jack@suse.cz>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-
-diff --git a/fs/kernfs/mount.c b/fs/kernfs/mount.c
-index f183a96778b9..a57399021c8b 100644
---- a/fs/kernfs/mount.c
-+++ b/fs/kernfs/mount.c
-@@ -434,8 +434,8 @@ void kernfs_kill_sb(struct super_block *sb)
- 	up_write(&root->kernfs_supers_rwsem);
+diff --git a/tools/testing/selftests/cgroup/test_zswap.c b/tools/testing/selftests/cgroup/test_zswap.c
+index 609c48f38524..8df54b59513a 100644
+--- a/tools/testing/selftests/cgroup/test_zswap.c
++++ b/tools/testing/selftests/cgroup/test_zswap.c
+@@ -20,6 +20,7 @@ static int page_size;
  
- 	/*
--	 * Remove the superblock from fs_supers/s_instances
--	 * so we can't find it, before freeing kernfs_super_info.
-+	 * Mark the superblock dead so sget_fc() can't find it,
-+	 * before freeing kernfs_super_info.
- 	 */
- 	kill_anon_super(sb);
- 	kfree(info);
-diff --git a/fs/super.c b/fs/super.c
-index 01db6124e409..e41cae9e5c62 100644
---- a/fs/super.c
-+++ b/fs/super.c
-@@ -433,15 +433,19 @@ static struct super_block *alloc_super(struct file_system_type *type, int flags,
- void put_super(struct super_block *s)
+ #define PATH_ZSWAP "/sys/module/zswap"
+ #define PATH_ZSWAP_ENABLED "/sys/module/zswap/parameters/enabled"
++#define PATH_ZSWAP_SHRINKER_ENABLED "/sys/module/zswap/parameters/shrinker_enabled"
+ #define PATH_ZSWAP_STORED_PAGES "/sys/kernel/debug/zswap/stored_pages"
+ 
+ static int read_int(const char *path, size_t *value)
+@@ -444,6 +445,16 @@ static int test_zswap_writeback_disabled(const char *root)
+ 	return test_zswap_writeback(root, false);
+ }
+ 
++static bool zswap_shrinker_enabled(void)
++{
++	char value[2];
++
++	if (read_text(PATH_ZSWAP_SHRINKER_ENABLED, value, sizeof(value)) <= 0)
++		return 0;
++
++	return value[0] == 'Y';
++}
++
+ /*
+  * When trying to store a memcg page in zswap, if the memcg hits its memory
+  * limit in zswap, writeback should affect only the zswapped pages of that
+@@ -453,6 +464,7 @@ static int test_no_invasive_cgroup_shrink(const char *root)
  {
- 	if (refcount_dec_and_test(&s->s_passive)) {
-+		struct file_system_type *type = s->s_type;
+ 	int ret = KSFT_FAIL;
+ 	unsigned int off;
++	long zswpwb_before, zswpwb_after, zswpwb_target;
+ 	size_t allocation_size = page_size * 1024;
+ 	unsigned int nr_pages = allocation_size / page_size;
+ 	char zswap_max_buf[32], mem_max_buf[32];
+@@ -488,6 +500,14 @@ static int test_no_invasive_cgroup_shrink(const char *root)
+ 	if (cg_read_key_long(zw_group, "memory.stat", "zswapped") < 1)
+ 		goto out;
  
- 		spin_lock(&sb_lock);
- 		list_del_init(&s->s_list);
-+		hlist_del_init(&s->s_instances);
- 		spin_unlock(&sb_lock);
- 
- 		WARN_ON(s->s_dentry_lru.node);
- 		WARN_ON(s->s_inode_lru.node);
- 		WARN_ON(s->s_mounts);
- 		call_rcu(&s->rcu, destroy_super_rcu);
-+		/* The unlink above may touch type->fs_supers, so drop it last. */
-+		put_filesystem(type);
++	/* If the shrinker is enabled, try to let the writebacks finish first */
++	if (zswap_shrinker_enabled())
++		sleep(5);
++
++	zswpwb_before = get_cg_wb_count(zw_group);
++	if (zswpwb_before < 0)
++		goto out;
++
+ 	/* Push wb_group memory into zswap with hard-to-compress data to trigger wb */
+ 	if (cg_enter_current(wb_group))
+ 		goto out;
+@@ -500,9 +520,13 @@ static int test_no_invasive_cgroup_shrink(const char *root)
+ 		getrandom(&wb_allocation[off], page_size/4, 0);
  	}
- }
  
-@@ -558,17 +562,6 @@ static void kill_super_notify(struct super_block *sb)
- 	if (sb->s_flags & SB_DEAD)
- 		return;
- 
--	/*
--	 * Remove it from @fs_supers so it isn't found by new
--	 * sget_fc() walkers anymore. Any concurrent mounter still
--	 * managing to grab a temporary reference is guaranteed to
--	 * already see SB_DYING and will wait until we notify them about
--	 * SB_DEAD.
--	 */
--	spin_lock(&sb_lock);
--	hlist_del_init(&sb->s_instances);
--	spin_unlock(&sb_lock);
--
- 	/* Drop sget_fc()'s claim; a never-registered entry stays with the sb. */
- 	if (sb->s_super_dev->sd_dev) {
- 		super_dev_put(sb->s_super_dev);
-@@ -577,11 +570,15 @@ static void kill_super_notify(struct super_block *sb)
- 
- 	/*
- 	 * Let concurrent mounts know that this thing is really dead.
--	 * We don't need @sb->s_umount here as every concurrent caller
--	 * will see SB_DYING and either discard the superblock or wait
--	 * for SB_DEAD.
-+	 * sget_fc() skips SB_DEAD superblocks and calls test() under
-+	 * sb_lock, so set it under sb_lock: once we return no test()
-+	 * runs on this superblock anymore and none will start. Everyone
-+	 * else already saw SB_DYING and either discarded the superblock
-+	 * or waits for SB_DEAD.
- 	 */
-+	spin_lock(&sb_lock);
- 	super_wake(sb, SB_DEAD);
-+	spin_unlock(&sb_lock);
- }
- 
- /**
-@@ -608,7 +605,6 @@ void deactivate_locked_super(struct super_block *s)
- 		list_lru_destroy(&s->s_dentry_lru);
- 		list_lru_destroy(&s->s_inode_lru);
- 
--		put_filesystem(fs);
- 		put_super(s);
- 	} else {
- 		super_unlock_excl(s);
-@@ -795,12 +791,12 @@ void generic_shutdown_super(struct super_block *sb)
- 	}
- 	/*
- 	 * Broadcast to everyone that grabbed a temporary reference to this
--	 * superblock before we removed it from @fs_supers that the superblock
--	 * is dying. Every walker of @fs_supers outside of sget_fc() will now
--	 * discard this superblock and treat it as dead.
-+	 * superblock that it is dying. Every walker of @fs_supers outside
-+	 * of sget_fc() will now discard this superblock and treat it as
-+	 * dead.
- 	 *
--	 * We leave the superblock on @fs_supers so it can be found by
--	 * sget_fc() until we passed sb->kill_sb().
-+	 * sget_fc() keeps finding the superblock until SB_DEAD is set, so
-+	 * a concurrent mounter waits until we passed sb->kill_sb().
- 	 */
- 	super_wake(sb, SB_DYING);
- 	super_unlock_excl(sb);
-@@ -879,6 +875,9 @@ struct super_block *sget_fc(struct fs_context *fc,
- 	spin_lock(&sb_lock);
- 	if (test) {
- 		hlist_for_each_entry(old, &fc->fs_type->fs_supers, s_instances) {
-+			/* Only unlinked at the last passive reference. */
-+			if (super_flags(old, SB_DEAD))
-+				continue;
- 			if (test(old, fc))
- 				goto share_extant_sb;
- 		}
+-	/* Verify that only zswapped memory from gwb_group has been written back */
+-	if (wait_for_writeback(wb_group, 5000) > 0 && get_cg_wb_count(zw_group) == 0)
++	/* Verify that only zswapped memory from wb_group has been written back */
++	zswpwb_target = wait_for_writeback(wb_group, 5000);
++	zswpwb_after = get_cg_wb_count(zw_group);
++
++	if (zswpwb_target > 0 && zswpwb_before == zswpwb_after)
+ 		ret = KSFT_PASS;
++
+ out:
+ 	cg_enter_current(root);
+ 	if (zw_group) {
 
