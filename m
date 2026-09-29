@@ -1,152 +1,105 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from out28-3.mail.aliyun.com (out28-3.mail.aliyun.com [115.124.28.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 463EE3A901D;
-	Tue, 29 Sep 2026 07:59:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 366973E40FE;
+	Tue, 29 Sep 2026 08:01:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790668767; cv=none; b=a44S0U38tCjj1PgfUqzHYwS/PmkVX7W1Je4Ml63qFe0HFxFAEvKaUJiIfSsQx/1D7fR6bGsBMXCBwqPX+hDOOEE/41gAUo9zqSq0MH7tpaJmebBK/gtV7Jt9m1x8xyg/FeZhjlHxAL/UkO0+FtCUbbIerY1BuU4BtJx81Hut2/U=
+	t=1790668901; cv=none; b=LZZpb9n/eTXaXfFWNfZ5h+TZiiDIKUrv9ylJenifB7Gdg73olZ3jn8/cw/Fh9W3YY33uQmcsKEo/OmNkZokWW8TKrr2Wd+A00tldO+1yOnqVV6apdUsEruRbbKQnEykgMZfMpiZkIx1Aj0LDeXHhekRbGFSKm8ovDDbhjcSLkWI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790668767; c=relaxed/simple;
-	bh=XatRpQaf0QzysXxX+7yxAEVKzUZoXkival6gfjqGo4U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=adE3sZ6RIKDwhghCGD9r0/5hfwIB7M/kcjnA/sIQJZEvkQKx1Qb8cNBnuJHmoISE4LlrzDym3CWCHD4j8ky9s79Zvg+s2g+eLx9mvCC90+Ys2JyyJbPngWphyVjiaQmcIr+n+ku6Zq6bhyzALzyQpoBlmW/xOUnLSmc90V6Et70=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=FZrVLgXk; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1790668901; c=relaxed/simple;
+	bh=FevbvR1Zg9k5Qy6r7fWziA3yOcFsBtehL5Iq3oXCDN8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Frpx3rQ18uRzBxedZbM28FldtMolQXvm/OjJuHzRSQt0w6IbQqSl0JG9ljvNCsrJuUHNA87YUo2Tq0P/SMEXOFWwCUkb8SPALLcm2VQEXHob5MiEGi2s2+Lumeo0xbd+bFPMntTup4UyhHgWeFHvc+g3gWB4HG0+02LEzrdl/eU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=uDnfHbSd; arc=none smtp.client-ip=115.124.28.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="FZrVLgXk"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68T7ZhLG3344955;
-	Tue, 29 Sep 2026 07:59:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=vNnz6B
-	VUPMu+4LfEGiTwwlWfV6MDi2XPBEGzS7tQZuM=; b=FZrVLgXkNwrxwXoZCeQ+tP
-	aHaEhiTJ9zwf+hENEKks0pZAgOXtIXX/gUvskvhH6iT3Ma6VhJbY/qv+Lsa6v86I
-	3q9B3b6zz89ADpRVlW2/5eNYFs/Tkxj4jZQUUysuyZcSKyuLWFJbht3JoSdAU7+s
-	lE0W5G6PmhoQTF0YiBm3IU2WProrh8blAo51OJ2uUm2GDwXCd5USFoSXsYRAHFky
-	FvDKRqCDpwx6v4n+LY/gfj0/W1k7AqZTFeIxvQ5d+OU4JlJznEAXJSjRRNa8tnJa
-	2ibn/J+eOupe9xY0us4M8+sUfuGAHa9ay11V6ZEhuMRGbn93KIg1phlRe/i+SsxA
-	==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx3fk5hqj-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 29 Sep 2026 07:59:17 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68T7WTV81399784;
-	Tue, 29 Sep 2026 07:59:17 GMT
-Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gxrcpryr0-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 29 Sep 2026 07:59:17 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
-	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68T7xCtE30671386
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 29 Sep 2026 07:59:12 GMT
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 3B4EF2004B;
-	Tue, 29 Sep 2026 07:59:12 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id B46D020040;
-	Tue, 29 Sep 2026 07:59:11 +0000 (GMT)
-Received: from [9.111.133.97] (unknown [9.111.133.97])
-	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Tue, 29 Sep 2026 07:59:11 +0000 (GMT)
-Message-ID: <b6352a09-c9d8-44ee-850d-24731bdda69e@linux.ibm.com>
-Date: Tue, 29 Sep 2026 09:59:11 +0200
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="uDnfHbSd"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1790668888; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=Ocj5Dw2czsY2Kug2CQGjyPGMTvL96e0VdEymMseMCB8=;
+	b=uDnfHbSd4ebfTvRnS0IYB23Tm/VBlrFCfkUll0hxX9P4ZgA+B58atZjjry/5SOoRT4lcGH6icwWAoapGhX63gBG6m7kdYduG/iM2+9kYpnz1vkSrr1U0JTPauYpS36FIv5lXDeDeqoe0IqzLd52X3sqW5TpcXO5QMz829j85ZxI=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07437829|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0106428-0.00121216-0.988145;FP=10218751077233724657|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033032053168;MF=liuwb@xiaopeng.com;NM=1;PH=DS;RN=7;RT=7;SR=0;TI=SMTPD_---.jR9XL0d_1790668886;
+Received: from localhost(mailfrom:liuwb@xiaopeng.com fp:SMTPD_---.jR9XL0d_1790668886 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Tue, 29 Sep 2026 16:01:27 +0800
+From: Weibin Liu <liuwb@xiaopeng.com>
+To: broonie@kernel.org
+Cc: wentong.wu@intel.com,
+	lixu.zhang@intel.com,
+	sakari.ailus@linux.intel.com,
+	linux-spi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] spi: ljca: validate the response length before copying the data
+Date: Tue, 29 Sep 2026 16:01:26 +0800
+Message-ID: <20260929080126.4168981-1-liuwb@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2] s390/ism: Zerorize dmb at allocation
-To: netdev-bot+sinfo@kernel.org
-Cc: Aswin Karuvally <aswin@linux.ibm.com>, Gerd Bayer <gbayer@linux.ibm.com>,
-        David Miller <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Eric Dumazet <edumazet@google.com>,
-        Andrew Lunn <andrew+netdev@lunn.ch>,
-        Julian Ruess <julianr@linux.ibm.com>, netdev@vger.kernel.org,
-        linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Alexander Gordeev
- <agordeev@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>, Simon Horman <horms@kernel.org>,
-        stable@vger.kernel.org
-References: <20260928151420.383105-1-wintera@linux.ibm.com>
- <179060878011.31693.9560616938197921438@kernel.org>
-Content-Language: en-US
-From: Alexandra Winter <wintera@linux.ibm.com>
-In-Reply-To: <179060878011.31693.9560616938197921438@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: Dq6oxlTlGgjWbDKUF6Laq3E-DEFTiGtJ
-X-Proofpoint-GUID: LX339yYhOmkuhCuHNvupgdyJPLuVlVi2
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDAzMCBTYWx0ZWRfX47Pt4eTPiKPy
- k/EjrQWQ5DFOE5LGiGPiwvninrOXwRGSXCRjqFH3lXuFu0a5sA61VN0ZmmrxhVxKCSaUkvNB/r1
- jRKqPFCslJ9CeFSoCHuXhIgKFQlWiro=
-X-Authority-Analysis: v=2.4 cv=Vv62kO2n c=1 sm=1 tr=0 ts=6abb6fd6 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8
- a=xiR1IYxcKOTdaxYgfMsA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDAzMCBTYWx0ZWRfX0pt70fkGDxW7
- XXk7PMNpleH0FxCYJPO0P3hb1eC0nmUm9xoKCOByjBW2UA6MpCxo6CFVqmZfwCghNpXzuZsQpcB
- 1KQtp/fNXINRc2DHeuyHMFydoeQpxCDxVy91xxub3VqE6iwUzhDQlgR1CL8ypCR08h/xhlGEo+c
- fl7/RA+8pK4S43FOPx4s0c7XWymbeZXiUnKFTT6SqXjKf7GEnCxHPd6guMij9pzZm00n8iywLD9
- O82L692RZrKzuWWW6T9Og5nS3hffGowxRuaOEo7HmWHdzwNL5E0n29B1psYjoi2+qxUp29t4nOE
- bnKoXiwivQzgDUMEYOz1kqbL/+ulUCg2k++HOs7AaH/0KWGgXeW3er8Gsve66n7+0fV6WWaBrrv
- fG2f5dEpGICanDZWcSod4Pf3QSErX0ajVjHP5FL34DDf1w5r5X7idTHxc60CNUb43heQCbX7TXR
- 7rOZ1wOTQTVYOmAYEEg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-29_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 phishscore=0 bulkscore=0 adultscore=0
- priorityscore=1501 malwarescore=0 clxscore=1011 lowpriorityscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609290030
+Content-Transfer-Encoding: 8bit
 
+ljca_spi_read_write() only checks that the response from the adapter
+carries the packet header and a non-zero payload length before copying
+r_packet->len bytes from the response into the transfer buffer.
 
+The payload length is taken from the packet the device sent back and is
+neither bounded by the number of bytes actually received nor by the
+size of the requested transfer: a misbehaving adapter can announce a
+payload larger than what it actually sent, and the memcpy then reads
+past the end of the 60-byte input buffer and writes past the end of the
+caller's transfer buffer.
 
-On 28.09.26 17:19, netdev-bot+sinfo@kernel.org wrote:
-> Hi!
-> 
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
-> 
->  - Whether the issue was actually triggered, or is only theoretical
->    (e.g. found by code inspection). If it was triggered please include
->    the symptoms, like the stack trace or error messages.
-> 
-> Please do not repost the series just to address the above. Instead,
-> reply to this email with the missing information, so that reviewers
-> can take it into account. If the series needs another revision for
-> other reasons, please include the information in the commit messages
-> then.
-> 
-> The evaluation is done by an LLM so it may be wrong, if you think
-> that is the case please reply and explain.
+Reject responses whose announced payload is not fully contained in the
+received data or exceeds the requested transfer length.
 
+Fixes: caee8e38da67 ("spi: Add support for Intel LJCA USB SPI driver")
+Cc: stable@vger.kernel.org # 6.8+
+Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
+---
+Reviewer notes:
 
-For reference:
+- r_packet->len is a device-controlled field; the old code only
+  required it to be non-zero before memcpy()ing that many bytes into
+  the caller's buffer. The receive buffer is LJCA_SPI_BUF_SIZE (60)
+  bytes, so an announced payload larger than what the adapter actually
+  sent already reads past the end of the input buffer, independently
+  of the transfer length.
+- The new check bounds the payload by both the number of bytes
+  actually received (ret) and the requested transfer length (len), so
+  the copy stays inside both buffers.
 
-On 28.09.26 17:14, Alexandra Winter wrote:
-> Sashiko reported [1] that 'Missing __GFP_ZERO in folio_alloc() causes
-> uninitialized kernel memory to be exposed in the receive message buffer'.
-> An ism dmb is receive-only, so the data is not leaked to a remote peer. In
-> general the smc kernel module (dibs client) will only push newly received
-> data to userspace. We still should not have uninitialized data in a receive
-> buffer.
+Tested on x86_64: with this patch applied the driver builds, loads and
+unloads cleanly; no LJCA adapter is available to exercise the SPI
+transfer path on hardware.
 
+ drivers/spi/spi-ljca.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-As mentioned in the commit message this issue was reported by Sashiko and found
-valid by me. I do not see a simple reproducer.
+diff --git a/drivers/spi/spi-ljca.c b/drivers/spi/spi-ljca.c
+index 0c6e6248d..bd07e5df9 100644
+--- a/drivers/spi/spi-ljca.c
++++ b/drivers/spi/spi-ljca.c
+@@ -105,7 +105,8 @@ static int ljca_spi_read_write(struct ljca_spi_dev *ljca_spi, const u8 *w_data,
+ 			    (u8 *)r_packet, LJCA_SPI_BUF_SIZE);
+ 	if (ret < 0)
+ 		return ret;
+-	else if (ret < sizeof(*r_packet) || r_packet->len <= 0)
++	else if (ret < sizeof(*r_packet) + r_packet->len ||
++		 r_packet->len <= 0 || r_packet->len > len)
+ 		return -EIO;
+ 
+ 	if (r_data)
 
-Alexandra
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+prerequisite-patch-id: e48582f6ffe124b3806593af6e22b74682c8a83f
+prerequisite-patch-id: 369f74b9a7ecde56141b13ec671f9200345a3bab
+prerequisite-patch-id: cbf6f60473c80add5b2cddf22d142f35a4e3c834
+-- 
+2.50.1
+
