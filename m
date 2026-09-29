@@ -1,67 +1,71 @@
-Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11021120.outbound.protection.outlook.com [40.107.74.120])
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013045.outbound.protection.outlook.com [40.107.159.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0216831E844;
-	Tue, 29 Sep 2026 01:43:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.120
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 654D833EB01;
+	Tue, 29 Sep 2026 01:43:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.45
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790646201; cv=fail; b=P8B8lE0DW2zvvcl9OtCAuTsQmo8vc/BTP6JhERd5tFPZ+FkpSTaNpxlNmDoWRIZ9VpY9uMdL9ADI6x6vmENNmvb5Xa1iHUsqouJnwAdcN9nKdBiXR2rX6eUH8IuKR1QEKI2wEKy/tW9+MwIzEqqC6bVC4Mv2TFhyFpNs1iPznZA=
+	t=1790646204; cv=fail; b=RSmRR7eWUSbizcbno1+EuJyezvWz2aHAr+v1TVMQNt0+ihodok+vVR6oUl5xhJvKZSMdaZe08i4GH1rb20U4uyb03mHMYhvCQGJOfjhKVTPulFT8X4CDf5AJgG3g88cb/BwWIlGJU8csDPHHlEPrq35nR8EUe6M1LbgMwUWVDkE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790646201; c=relaxed/simple;
-	bh=2f5eEEa13aPtmAEwJtWPcDfXRDtsBZ48FH9SDYPALtY=;
+	s=arc-20240116; t=1790646204; c=relaxed/simple;
+	bh=Rk252cLddjqu9PJ5O4kVOn9dhX9gsEEgsCEz1EMgDMQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=ZTS0HL+90zderohdmXhIGey7vMQXT28oAjlkErmCSGk+BYfY/eSNlOs7B2dVfDBxEHEewquJ3lpx3rt3+Row30j+R3PUex85Z/CC9FmcpL3cTbCF7yE3EqbXXX/3nbdQmNJ+XkGRFqoratRPxJB0H1cSzT2fli0YxAR8uJjkVmI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp; spf=pass smtp.mailfrom=valinux.co.jp; dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b=SivLL40L; arc=fail smtp.client-ip=40.107.74.120
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
+	 Content-Disposition:In-Reply-To:MIME-Version; b=atU47g8WyCdI8l1fewqXvpWUJZKdRaqI1wqlBt5mFPF1+o/uFNUvSndFxz5W3ZUiqFt6n0F/np+OKGzLAow+W7JrZRTI9HO+McnA+zBZ4dbD17Hx67YmIK1LekwO3waBh5+JNePTZ5dAa8B1AlCxiuueEM2u6011Eg42TuPo+TM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=DoHozmpQ; arc=fail smtp.client-ip=40.107.159.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b="SivLL40L"
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="DoHozmpQ"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pOYVVMOs+I7XWuGQixmULea94CiXD0bHlzHUCbprgzu/C1ykOSdfsIyWNgAAwC1Qtfit2hn3BiGQW13ugGudCuEgQcN5IVP6qwJgOK+wltqUcH7vZjaKwiEhmCW1ihJg9+NVcLiqwU6fmOQ0g/qkodj3hUIZEt4N4jELPNkro0p1dwp/YYcN8zBoCXKAj+MjCxqokydmsJsAmLPff0ae6DftGiFW0nour1eabrXMaYM4lkdtFyMte7gMlrXMx3gnhQsemDHuXe/VvlNJvtd70B8wJdGmmCM+yd2sKAH0ppU5K//MBWkSXzPIn9IWOGS8GAI++g9+w3+Q0LPmLyGAWA==
+ b=vo0bLyMDmcsWfMo3rFexcRIOHnXgTiPOveQ7gRCSjw1/XU7xKYPf6oGqY/gGB5UZGciNGSZNU8euIflZMHOgpKa13d0cOoNLMQE7/fjoShsuABelmu+SKLITQVQ3is3HRUt+XR0KsSOzJrNJE3cfPwO5EqM4lF2YRnDm9JyRLs6hCgikvMYKCWKR+eNUFcG4LgquClPZcfllNMcxN1dDOXdZgnsLHaGhERNMonmBkXvudbWhwNLD80p7+4f8SwLNP2s6MYy5VHrAymsaFALrlOGhfeB7b2IzTBIGztDdTP6JlSEu5Ef33ne3FlDo8C0NWED5YqnRdaybxE3WmiQPPQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3hbGk2jSQ8e77bB25dKlOlED3DlQA1UxFXI3t8dzcTI=;
- b=TS3svjKdeqidQG1c0PWtx6vw1XRcaAGm8nduCMCqWhonHPEUsF9YmUfP9jBQfcEgzOTAs8PckomMCeBwqFJZ0VZzVhwgCPsOX0ya+StX7uJhpR58y0nwyd/pmMjQfKkYR7wodSBxh/jPcEkZmIxalUL9XzhXjwQyJSSB/RzQvCJf+yVhhY4/YVLeaeSyApLMnRu/oCidD0vwdorYQLDTW3AK13C4hahd/mDOCn4Qzu84d743lXuGTWEZ/+cjfVhToSX9m5aV3iyNwWKX/fgh0KB+kaIBjq/ekpqhZMI3B4RVffsGH0iHfQA2pPLRlSWHYF7eHiiDXKhycGyW+yIl+Q==
+ bh=nDumGtNlxVezepwRXgjrcjZAsAOmuecRXHXfvCius64=;
+ b=l4El9jG+gChKpa9vBtdr6vYOPWbV4KtTJakH+qNZS2q2mLVD/THenatcjAAnnUWqAuyR+3kT/hnbeLvWgd6wsHmDEgImXs2d9f2X3q5mGQcXD3rzT2VaCKthCw8yYAUA40qr89AK5+MG8qM3R/xsO1kCxj3SYfOHMd0GWWdzQn0YKE722nKrIQibF9OWI87fX/qGlmY8WPNEfZxqjvPZfiBCMBaO8wotWS8kw2DbGiGtYlNB71rOIc7Q3UN4NXJbI63MvbK/UmnGhUVmcljWef7KagfPSMJGVqarkhRa8r50qWpbmQh035p6lS8aAVnsyQbxFJdKZJ+zPQ6GEur/zA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
- header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
- s=selector1;
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3hbGk2jSQ8e77bB25dKlOlED3DlQA1UxFXI3t8dzcTI=;
- b=SivLL40L7578+e8QdeBGZ8ptR6Fw8ei+kv5xMONrISZchFjPstXxEtn0MMc+59ijYbCTnaEfk6b0fZU4zYWm7rSkOp18j7U2VxB30Hzix05QrYHjOd9kBrkE3KymxdthdwksZugzoNhl0SJznFQUX80ELfO+6xzbaS9CybZ1Kds=
+ bh=nDumGtNlxVezepwRXgjrcjZAsAOmuecRXHXfvCius64=;
+ b=DoHozmpQ/vbEhzaVRQ0tfYVCN723FCQ7JITCpVutv+cF7L0jvoqR75EIxeuoWbrrbRyVxgq4mk/RphtHzNNwPO+l6G9AjYjbSyFfqFG10YpjG2EDZeOKZk6LD7Cu5mXRK5pLpnT6bzJ3uYdWxMPrCunYBvV2c3u33vqgeoFaFbIoa4JviuZC0BXrCg1HSnNTUz4f1iMICzV1uiYwb9dFJ2sxKpMLYTmyRj3L4P/L7yjggtsxf++xNtZJIkX6GKVi+EIPAT9nzVA5dVoE3UxrOuOjs/9Mh2s3Pv6GFUPYfYJvY3q604XeOa/czau4Sj+nPWbePNAxblH9tGTda/A+gw==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=valinux.co.jp;
-Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:325::11)
- by TYCP286MB2243.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:13a::6) with
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
+ by VI0PR04MB11671.eurprd04.prod.outlook.com (2603:10a6:800:302::6) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.21; Tue, 29 Sep
- 2026 01:43:14 +0000
-Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- ([fe80::cce5:2aa8:53f9:dba9]) by TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- ([fe80::cce5:2aa8:53f9:dba9%5]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
- 01:43:14 +0000
-Date: Tue, 29 Sep 2026 10:43:12 +0900
-From: Koichiro Den <den@valinux.co.jp>
-To: Logan Gunthorpe <logang@deltatee.com>, Jon Mason <jdmason@kudzu.us>, 
-	Dave Jiang <dave.jiang@intel.com>
-Cc: Allen Hubbe <allenbh@gmail.com>, Frank Li <Frank.Li@kernel.org>, 
-	fuyuanli <fuyuanli0722@gmail.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Nicholas Bellinger <nab@linux-iscsi.org>, Joey Zhang <joey.zhang@microchip.com>, ntb@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v3 06/15] NTB: ntb_transport: Avoid losing QP link-up
- requests
-Message-ID: <gw2vwqm3eyhnourifbkaq7t6zl55wq7int34pnprwjr4vi452s@yxuxrirpu76p>
-References: <20260928152550.3354675-1-den@valinux.co.jp>
- <20260928152550.3354675-7-den@valinux.co.jp>
- <49bb5e64-4428-4133-b201-e7475fd07f1d@deltatee.com>
-Content-Type: text/plain; charset=us-ascii
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
+ 2026 01:43:17 +0000
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
+ 01:43:17 +0000
+Date: Tue, 29 Sep 2026 09:47:42 +0800
+From: Peng Fan <peng.fan@oss.nxp.com>
+To: Sudeep Holla <sudeep.holla@kernel.org>,
+	Cristian Marussi <cristian.marussi@arm.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev, Peng Fan <peng.fan@nxp.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] driver core: hand off fwnode ownership when shared
+ fwnode owner is rejected
+Message-ID: <arsYvrYaQIr1lwbT@shlinux89>
+References: <20260928-driver-core-v1-1-0846bb8e0f32@nxp.com>
+ <20260928-conscious-spectral-manul-19bc10@sudeepholla>
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <49bb5e64-4428-4133-b201-e7475fd07f1d@deltatee.com>
-X-ClientProxiedBy: TYCP301CA0047.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:400:384::11) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:325::11)
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260928-conscious-spectral-manul-19bc10@sudeepholla>
+X-ClientProxiedBy: MA5PR01CA0293.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:21b::17) To AM8PR04MB7874.eurprd04.prod.outlook.com
+ (2603:10a6:20b:24d::9)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,130 +73,224 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY7P286MB6866:EE_|TYCP286MB2243:EE_
-X-MS-Office365-Filtering-Correlation-Id: 28fc991f-5751-4b10-9d05-08df1dcb06f3
+X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|VI0PR04MB11671:EE_
+X-MS-Office365-Filtering-Correlation-Id: e7299794-980a-486e-d49e-08df1dcb0897
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|7416014|376014|366016|1800799024|23010399003|6133799003|56012099006|4143699003|18002099003|22082099003|10067099003;
+	BCL:0;ARA:13230040|1800799024|376014|7416014|19092799006|23010399003|366016|10067099003|56012099006|11063799006|3023799007|6133799003|4143699003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	IDYGU47LOeFtXWYs5xKmttpA9Ifiv5HsKgmNBASmdlzFmt2NN7SJ9qrJnfYymYTfgxNLD3KFjs5awXS+Fiq/IM7gnRNF9Df0BFiTyiPP6/ShBk4vbgoW2iYFb8Hz0J7q3kx9yNUgK8yQAPlewOgSFi1Ps/KFvDCkGGupkUHLpbZZoYHzSWdYa2wpqP1T2rBbRd+LfwtLAVvRqdWD4QP6m5o1pWZ06qQ3uONACOKIZFz50Cd/kXETcSa2zD/Rd2FYyawhdwgsTgYnhTZcQAZ2+vclXYU6LFr07VNw/ZXBaUALWJu7fbqz1zm1+iIy/Ll5U1hsSTodOuyCi+vBTqRIp3IO3/OljcxlOt+sxClcQedpul5Kss21F7Xai1h/SUliOxozSg/SAWZ6PTFnOSozkaWshfE0ZysYXnZZLqjsLfUjNp+1ptM40NP8dAeg/HPNEAw5yWbSUwfL4X6CHWiEm1RvissC6+KTjSgAIQTHU9K7hiIxuQlSIfZkL4F9CQ0Zqgf0MRfMlgtyrwIOO4EWAZLH0A9AWXcx4PSktDrhO5kHn+Gg1/tql9rxntzOHmy5u+Oa3v/kVm9Ea17RIyeawXKP76NloWycoqUZMQoHpDKErZUsr9bUq0RrQjKCu173
+	jaNah2j3exzWwJYvCWyglOx66/3UNsnWfOvRAtDIlTbrO+LUlMJrVVqHSKfOE0QtgULQTQRNpvuhno6+giPmPoHaI80zaiDQ1JVbLOnb4eELF9BzEzEO7Owc2m2j8b22f/uKvMtWWzp+aCiev/FuH5TplB8hyuRdL7WFdoHrHsBrG2P/Uw7+J5EQLPG2UhIFA9Cw0D21/73Nb3vg0KJZT75d2goUbBnpyPDwuVYU8FxGWsqobq7cbGkeadxR9ElJpXA24DgEH5ohqrklb1RQhBXvntLOSYErrolwEwSpE9R5kBv8GQULNEYQhoisF7E+kO9qxcsb5zPnUovPfu0QsggdWfIR7mLXckCfwi3wjAOuqSBfsEzTQdvs2gLCTFDkmB6sRgj43XXjaXi5xOSrtA5yUnS5YGExktL6gpop0EoT//RT50AuTfsZveZRTHvucJ3glMgifaMBsOxs5mcsxxgcPQ3EWGT87t569trN9ZGerEmfaOkHCrso8/p2eCWecaOi3EYTKusHj7AnQvrEFszH+LRi38Dg7amkCRQcZvSChmVuw1vZbwSlpiqiEFPEvRQuMezXxAjWwLD9ijk5r7xiwuMMy746kgkP3kD4foDNBrWuIFg08/5J0IQQExZ0
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(7416014)(376014)(366016)(1800799024)(23010399003)(6133799003)(56012099006)(4143699003)(18002099003)(22082099003)(10067099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(19092799006)(23010399003)(366016)(10067099003)(56012099006)(11063799006)(3023799007)(6133799003)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?KFKABSF++RoZzGHqgjXhyMJSdz2bfSc3y/I7BAOK1/lVEmZpCzeia8T8EBzZ?=
- =?us-ascii?Q?yNKVmrQ1kYpkoqMHtysXjy9tOVunn2IuDrLPYKG4qaeNLCJxhA735AWKg0jF?=
- =?us-ascii?Q?Q2XTWRmmfoBr+FyfNiiLkFwbC5ncD+rkxIO3vd5/rM+OMK8wMAVSchqOIikE?=
- =?us-ascii?Q?UBRdSuYFxR6OSJyk3jKMr6lSZYhaGjJaHEygiT6lGZ04Ogb3fuVrF1otowAz?=
- =?us-ascii?Q?fnDdc/x341+E4ZISvALu23L2d0nTqtk48064S1o4/oGIXO10Ev3GdceUk3kP?=
- =?us-ascii?Q?757v0AAv6Ax8uxv3SGUxLilgO9hj85IDq90Dj4ORfnJJJIYPF/0XYxeFQXmU?=
- =?us-ascii?Q?69aNBMLQOjdFsFg+zMuFA69OTbkV0V7rHdNRJbpOu0IQjYvstOzQ+uq9nKng?=
- =?us-ascii?Q?uPUhxp4WmH5xzfd/IfNSfshZcrYP7YE/AoHhLqW3oOGV4MNyz+IGNGJ8Yjac?=
- =?us-ascii?Q?0D/MfXmdmrymjMap6Xy31NNOjhlX3h3uSBpMgdQzMZLsNL6sjAXea25v+pYD?=
- =?us-ascii?Q?XSAYxsca0iTq/fP6ksJK7j8MkOPRttl6/7mKktcSr9YK6I/Lv3Z7rlQlwaA6?=
- =?us-ascii?Q?SSIieIyMQztgfZISGa+Wm1Tol+Cs7HZ0FHuDaSYDUMGn4hXaVMv4X6KMx5Os?=
- =?us-ascii?Q?ZKsKUhMT8eBrAZfdeZ9LHffSKMFN8Y8C8+8WIguyvHq8IQxJljWHw6B/bSlQ?=
- =?us-ascii?Q?3M/de3u9qd3gIuD4W6mbNMtbbMxCzCgHKVkKwA2cdMENLd09pEDnjRt4RpxQ?=
- =?us-ascii?Q?414/WtBJgpuyT6DE1w7Eq4JRrTqiW7iDwyjGUZ5sH0bhe6W9jU0wSQjxhGnF?=
- =?us-ascii?Q?aHNJ+EgoueiqyVE8VkhklMquxiRlf1Zrq58rxE7ESiu1IBW6BzyhiaREZfHl?=
- =?us-ascii?Q?hn3I2dcMvdZpJDicvoIXvzUKuPwiKqtn3BDBbEGIkXE/RXPmF/OFJCimK7W2?=
- =?us-ascii?Q?jUB6cgrB5smRUaXY1mromUmz5/W3/DXiAOMposmcwpNHGkOKfZZXkOUv4U9M?=
- =?us-ascii?Q?eR9Kd/CRHHtt/eI55JjWO1cpmjdIjz2b9r5nK1ofX0+7z8ILWynmLAQo2tnZ?=
- =?us-ascii?Q?IwDIQYvqGedqANSIfwu5UMnRk/smq6nMjNzD1C8sBIlVwX+5TBYlTMEXVag5?=
- =?us-ascii?Q?+0e2pYftVaw2xYKAmVVAH4Zeoyy7fEVsI3IiMLC909E1yXjlHjh0VqJmpyNX?=
- =?us-ascii?Q?rmOQn7RyHHGXg/ogG72ofFs/OX5uS/1hnqXFnI1xnKlRgvnocbOUFX8oD2RB?=
- =?us-ascii?Q?nyUxAm4iP+jRosv/C2FPITRh31yYo6mqr+6DoTeQ8lK7lcKnf32kOuslZ+1g?=
- =?us-ascii?Q?Yy9QkKM8x3SeRSu/+r7yokaQWYutGksfNa4c/Q2FZO8Bm2e4SatH+qKApM5/?=
- =?us-ascii?Q?W/8Bu62YbDvq/3SQhQ2EfCrfpdtedcAsa9wWZzNF3BWwhrub8KCeVmltwFJT?=
- =?us-ascii?Q?e9Y1NmvCTmwrIhvmSbTerROt7dsq83Ez3bpZpPy7RDlW+6Xf5V6hM0m84a/9?=
- =?us-ascii?Q?fB+92ZN01YCNhiVXJ/NHpcsmrvR1kmda5BqnPUhfYRDq0qfDHk/ILaASNnhz?=
- =?us-ascii?Q?lvZEbmzZElM+SS+o1TZbGGzBlCRP3udBdYU6cbWdcd5JXz1scrnyPn4+41+B?=
- =?us-ascii?Q?Poh66OwEi9t+kANW0vWAPLxPTH8TVYWE99oJEYqZINRf+0MygGZd3x/Pfqv4?=
- =?us-ascii?Q?acGnIfZt5Zu9+SRdD0MfmBxkvQUgjU3MNrxCBgbwq2VKW2lpYwMXS38Aq5Gl?=
- =?us-ascii?Q?rsUM2hIl7PqYWRuERsN0iNpsejwPxKHwdbWAa/R0ak4WE1jYixkg?=
-X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-Network-Message-Id: 28fc991f-5751-4b10-9d05-08df1dcb06f3
-X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+	=?utf-8?B?QzhpUHAxSWFRRkFGd28zU0FZZndvWEhmTDdhM0dVakkvNnFIY0d1VEdSVEgy?=
+ =?utf-8?B?aHBnekZ6eVFtT3pYNExQUVE1VklUOUJWZ3AxNFFUVGJKaWFnNGF2VituTzQ0?=
+ =?utf-8?B?TGtGdmN5cGdiZmdtblVjdmdwQ2VqWm5kWkFlUGtPcHZNOS9lWFN2RU5mN2x3?=
+ =?utf-8?B?UHpZR1pqMW9zYXEyMVZudU41YUYwazYxVkdxTnQwOUVic1ZhQUxPbmF5N09R?=
+ =?utf-8?B?NFQyMnVxWFVIWVdkZ0RjN3VudUxzc1pBL0RpRFlITUxydDZNdmZHdzdGMVNG?=
+ =?utf-8?B?elc5WSs4dFdNbytQRGVrRm9vV1BlTVpnbjRvRzhwMi84TXk1Mlp5SW9FMTFB?=
+ =?utf-8?B?cmZoMGE5NEY4VTlQa2xjelhiU2J1VmZ5T2NCZlo1RkI5UzRmUEtySWlGRkNF?=
+ =?utf-8?B?WjRRSzY4SFNtaHRqSi91ZUlMMmFNSHhBdzZCeUYreDAzLy9LZkVMejA1QmNO?=
+ =?utf-8?B?dXFTbC9DbWUrRG4xWnB3aFJDWHhRTVhNTnFMZnZQMndYbEtDWG52MXV5b29Z?=
+ =?utf-8?B?bVB3aE5UOTRkVkNGekZQU0k0U2NndW12KzZPaEVVNmo3VFJUWVRSZHpmdXlU?=
+ =?utf-8?B?NHlweHRwYUtzSTJIaG93dUtzMld4ZTRkZWxhS29idHFQSHphQURPeTJiVzVU?=
+ =?utf-8?B?amJEeTdCc2dCWjZ6OVJVWkowd1FQVUxGNWVWZjRRZXZtem42ZU9MVi9mbGxE?=
+ =?utf-8?B?NWxrT1JDcEZSMTh0V1RYemJ4ZXl6VTl2ajh4ajJtNFpZRERVS3FlKzJGalVm?=
+ =?utf-8?B?eGZ2MWluMWc3VUFqbVYweFlyNHd1Z0pYMEpqanBzNUI3cTVzMmZPN0VjWWg3?=
+ =?utf-8?B?UWIwdXplYmhCb1IzeENuRnI0YUZZTmxBT0h0SDBzaWdxRTdhRjVQR1B1OFRi?=
+ =?utf-8?B?aVg5Y2cvNUZkRlJMdmpWY29hVkhSYVVEZnJPcHpCU2dFWUVwOXB3ekhCNExS?=
+ =?utf-8?B?RFlWakE2bnlFc2FlTzRjek9CMG50a2ZYaXhtbVFkM2NvTi9ucEJhSU5ONVNx?=
+ =?utf-8?B?WDFyaHliV0JJaVhaM0NGTDh3ZXRVeDZ1ZmZDbXUweTZBQzczNlpoTE5zZkZU?=
+ =?utf-8?B?Y0wrVW4zdzNPZ001STFXMytqdXpqYmpIZXkvRHhSUE85dlMzVldVSms2TGpV?=
+ =?utf-8?B?NkIxbXpxdVJzMjc3TUxZZExyS2NsaG9FQ0ZmNndHVXYveCtzTytBTWxHMHdh?=
+ =?utf-8?B?SWIxVUR2eXE3dHJ6QWxWRFgzc3RveTcrM1NScEt6WDdQR2I3Und5TVVQaEZO?=
+ =?utf-8?B?Y2tKbS8wSkJFR3pHazR2V2dGOGU1clRVdktyQ2F2Z1VUVjh6bjB5VDUvOHFC?=
+ =?utf-8?B?Uzl4ejBobDhCRWFYdzVTb3hXZTE4WCt5R3Y5emxxWms2UUdhT1h5MStuN001?=
+ =?utf-8?B?czhmRVhQSllxbFNnNzBDTWcyMDZtV3VTMytYVVJLb0orb3VVZEJjL0EzUk84?=
+ =?utf-8?B?ZjcyeFZOWDZ1MTgwSG1HaXluRDF1bElWc1VoRUNXeDVRdmw0dWNJTmtKTWxs?=
+ =?utf-8?B?OWhiTU11THlIankzM3FQR3JnZzdtcGhISGpSS1BCZ1U5RHlZR0VLTitWUTFQ?=
+ =?utf-8?B?SUhqUUx3NkxhYVBmTTR0WjJYTmZwT3l5Z2RkNXI4QUhxM0R5R3FJUytlUGhw?=
+ =?utf-8?B?cVdaUEFVSWtGWUx0WjJyazUvQjNBeWVtZC9yZHFvYmNOdFI5VFluaWJOaCtu?=
+ =?utf-8?B?SEhuZXBvS2ZNWlU0MDJ0d3hKU2ZLVURYY20xeDFRVTg4Y2hRUVBvYjAydFRI?=
+ =?utf-8?B?dTdVNzlPblRkTFU2RHpiVFpqSENMYWxCVkhUb3Q0M1lqRWExREc2NVMwNHNL?=
+ =?utf-8?B?aHBtSER3ZmZhY0YyNVpYV2F0V2tNQ3djKzI1VjE3L2wzNUdZTFVNOW9La01v?=
+ =?utf-8?B?S0FpS3EvZXRDZTBGY0RJV1RwdFdVYkE3WVVQYm9oNUxFSjRpYkxQV0xUem13?=
+ =?utf-8?B?TDcwNTV2NXlleFRWN21JQ21PYmRHSFVKazJQV005dlhUb3FvdkxacG4yeExX?=
+ =?utf-8?B?WStTeHlaYmg3TzZvcHo4elpQZU4vakJodVJJSTdHWlo3eWpPbTBKUk44a0hK?=
+ =?utf-8?B?RkpqbGZuR0Mwa3duSjJmUmlGMDM2bmJMZjFSL3VUQjBOUjMveEFnSnVrT0RL?=
+ =?utf-8?B?UTVFU3lqZDdMNEVnNUg5QUVsUWdBWHlrVHhnK1dBTncvTnUyb1FiczVTRXVl?=
+ =?utf-8?B?K0srRHllMVdBek5ENUVrTkFzOGdMd0lOc2NnaFo4RWdHbjMzRWxvSEdrN0ZL?=
+ =?utf-8?B?c2ZyS3VGZC9wK1RaL3A1a2piUmdjNVFnazUzMHhkUGtURWRUUUZmSUl5c1dr?=
+ =?utf-8?B?YzkvdnV6SlQ3K0JHVEhoM3Zleng5R3NNRHJXcDNxYUxrMWtTaXBmaURFYldD?=
+ =?utf-8?Q?hna/FN+neUukgLcGFEu8KyDPY1FTUh70LBhth?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e7299794-980a-486e-d49e-08df1dcb0897
+X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 01:43:14.3147
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 01:43:17.1866
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 99uChwWFpNbzMXE2ZMQ22Tk5WcD9Oh4wkUGqPWmglyn3ns4ARoP4THaTpX6yNRK+veNIPNmAnxPbGzRRWHDxIA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCP286MB2243
+X-MS-Exchange-CrossTenant-UserPrincipalName: M9930mOTI5u2XCfOzJmXFfAzo79C8AH5AAmM4jxIpA24v8iT+/NHjS2UkjwzTj8q1UJhb/s8vmW8Isg4sS+szFSjPy1zEj7EcjaICXgTeMFCLX4lJlgOKnLMJjpzYmXw
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB11671
 
-On Mon, Sep 28, 2026 at 10:57:12AM -0600, Logan Gunthorpe wrote:
-> 
-> 
-> On 2026-09-28 09:25, Koichiro Den wrote:
-> > ntb_netdev_open() can call ntb_transport_link_up() while the transport
-> > worker is completing setup on another CPU. Concurrent transport setup
-> > and a client link-up request can both read the other's flag as false and
-> > leave QP link work unqueued. The QP then stays down until another link
-> > event or client link-up request.
-> > 
-> > This is the store-buffering pattern described in
-> > tools/memory-model/Documentation/recipes.txt ("Store buffering").
-> > 
-> > Add a full barrier between the store and load on each side.
-> > 
-> > Fixes: fce8a7bb5b4b ("PCI-Express Non-Transparent Bridge Support")
-> > Cc: stable@vger.kernel.org
-> > Reported-by: Sashiko <sashiko-bot@kernel.org>
-> > Link: https://lore.kernel.org/r/20260907144701.702E41F00A3A@smtp.kernel.org/
-> > Signed-off-by: Koichiro Den <den@valinux.co.jp>
-> 
-> Thanks, I find smp_mb calls difficult to understand, but I think these
-> are correct. I expect I ran into this problem a few times back when I
-> was working on this code and had no idea the cause or how to fix it.
-> 
-> I have one minor suggestion below for the comment, other than that:
-> 
-> Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
+Hi Sudeep,
 
-Hi Logan, thanks for the review.
+On Mon, Sep 28, 2026 at 01:09:08PM +0100, Sudeep Holla wrote:
+>On Mon, Sep 28, 2026 at 07:49:01PM +0800, Peng Fan (OSS) wrote:
+>> From: Peng Fan <peng.fan@nxp.com>
+>> 
+>> When multiple devices share the same fwnode (e.g. the SCMI bus creates
+>> both "pinctrl" and "pinctrl-imx" devices for SCMI_PROTOCOL_PINCTRL), only
+>> the first device registered becomes the fwnode owner (fwnode->dev, set in
+>
+>This has been rejected in the past. Apart from the trigger in -next,
+>anything else has changed ?
 
-> 
-> 
-> > diff --git a/drivers/ntb/ntb_transport.c b/drivers/ntb/ntb_transport.c
-> > index 51d9e9969065..d290e5869c21 100644
-> > --- a/drivers/ntb/ntb_transport.c
-> > +++ b/drivers/ntb/ntb_transport.c
-> > @@ -1101,6 +1101,12 @@ static void ntb_transport_link_work(struct work_struct *work)
-> >  	/* Publish the link only after every QP has been set up. */
-> >  	atomic_set_release(&nt->link_is_up, true);
-> >  
-> > +	/*
-> > +	 * Prevent both sides from missing each other's flag. Pairs with
-> > +	 * the barrier in ntb_transport_link_up().
-> > +	 */
-> > +	smp_mb();
-> > +
-> 
-> I don't find this comment all that easy to understand. Can we expand it
-> a little? Maybe something like:
-> 
->  Order the link_is_up store before the client_ready loads below, so
->  that this path or ntb_transport_link_up() is guaranteed to see the
->  other's flag. Pairs with smp_mb() in ntb_transport_link_up().
+When both pinctrl-scmi.c and pinctrl-imx-scmi.c are built into the
+kernel Image, both drivers call module_scmi_driver() at init time, which
+goes through:
+  scmi_driver_register()
+    → scmi_protocol_table_register(id_table)
+      → scmi_protocol_device_request()
+        → scmi_device_request_notifier()
+          → scmi_create_protocol_devices(fwnode, ..., "pinctrl-imx")
+So the on-demand path already creates both "pinctrl" and "pinctrl-imx"
+devices for protocol@19, sharing the same fwnode, regardless of
+scmi_std_id_table. aac4e67d6eb9 just added a second path that does
+the same thing earlier - the fundamental problem existed before it.
 
-That's great. I think we can use it as-is.
+This issue has been here for 2 years.
+I proposed a patch in scmi side [1][2], but never made into mainline. 
+[1] https://lore.kernel.org/all/CAGETcx87Stfkru9gJrc1sf=PtFGLY7=jrfFaCzK5Z4hq+2TCzg@mail.gmail.com/
+[2] https://lore.kernel.org/arm-scmi/ZryUgTOVr_haiHuh@pluto/
 
-I've gone through Sashiko's feedback on v3, and I don't think another respin is
-needed for those points.
+The issue is not specific to pinctrl w/o imx.
 
-Jon, Dave, if v3 looks good to you, could you apply it with the comment updated
-as Logan suggested? Of course, I'm happy to send v4 with that change if you'd
-prefer.
+The problem is that two devices share one fwnode, the first one registered
+claims fwnode->dev, and if it never binds, driver_bound() of the second
+device skips the dangling consumer pickup because fwnode->dev != dev.
 
-Best regards,
-Koichiro
+>
+>> device_add()). If that owner never binds -- for example its driver returns
+>> -ENODEV because it is blocklisted on this SoC, or because its driver is
+>> not compiled in at all -- then driver_bound() is never called for it, so
+>> fwnode_links_purge_suppliers() and fw_devlink_pickup_dangling_consumers()
+>> are never run for the fwnode. The child fwnode supplier links (pin group
+>> nodes such as lpi2c3grp, uart5grp, ...) stay unsatisfied and every
+>> consumer of those child nodes defers probe forever.
+>> 
+>> On i.MX95 this manifests as a complete boot failure: the generic "pinctrl"
+>> SCMI device claims fwnode ownership but its driver returns -ENODEV, while
+>> the vendor "pinctrl-imx" device binds successfully. Because
+>> dev->fwnode->dev still points at the rejected "pinctrl" device,
+>> driver_bound() of "pinctrl-imx" skips the supplier purge and dangling
+>> consumer pickup, so all I2C buses, SPI, UART, MMC, USB and PCIe
+>> controllers wait forever for their pinctrl suppliers.
+>> 
+>> Fix this in two places:
+>> 
+>> 1. In really_probe() failure path: when the driver definitively rejects
+>>    a device (-ENODEV / -ENXIO), fw_devlink_release_shared_fwnode() is
+>>    called. If the rejected device is the fwnode owner, it either
+>>    transfers ownership to an already-bound sibling (and runs the
+>>    purge/pickup on its behalf) or clears ownership so the next sibling
+>>    to bind can re-acquire it.
+>> 
+>> 2. In device_links_driver_bound(): re-acquire the fwnode when it is
+>>    unowned (!fwnode->dev) or when the current owner has no driver at
+>>    all (!fwnode->dev->driver, meaning the driver was never compiled in
+>>    or loaded as a module). This covers the case where probe rejection
+>>    never happens because no driver ever matches.
+>> 
+>> fwnode->dev is not serialized by a lock; instead every writer only ever
+>> touches a fwnode->dev it already owns (== dev, as device_del() does when
+>> it clears ownership) or one that is currently unowned (== NULL, as
+>> device_add() does when it claims ownership). This patch follows the same
+>> discipline: fw_devlink_release_shared_fwnode() only writes fwnode->dev
+>> when this device is the current owner; device_links_driver_bound() only
+>> claims fwnode->dev when it is NULL or when the current owner has no
+>> driver (and therefore cannot be in the process of binding).
+>> 
+>> Fixes: f9aa460672c9 ("driver core: Refactor fw_devlink feature")
+>> Cc: stable@vger.kernel.org
+>> Assisted-by: LLM
+>> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+>> ---
+>> This issue is triggered by 
+>> aac4e67d6eb9 ("firmware: arm_scmi: Always create devices for standard protocols")
+>> in linux-next next-20260925.
+>> 
+>> But I think this is a fix to
+>> f9aa460672c9 ("driver core: Refactor fw_devlink feature")
+>> 
+>
+>Does dropping i.MX specials from list of devices solves the problem ?
 
-> 
-> 
-> Thanks,
-> 
-> Logan
-> 
+No - dropping "pinctrl-imx" from scmi_std_id_table would not fix it
+when both drivers are built-in, because scmi_protocol_device_request()
+from the driver registration path still creates both devices.
+
+>I am more than happy to drop i.MX special in the code and let you
+>sort the pinmux mess you guys have created.
+
+I understand the concern about platform-specific code in the standard
+table. But the issue is not specific to pinctrl-imx - it is a generic
+fw_devlink gap that affects any bus creating multiple devices per fwnode.
+The same structural pattern exists for SCMI_PROTOCOL_PERF ("perf" +
+"cpufreq") and SCMI_PROTOCOL_SENSOR ("hwmon" + "iiodev").
+
+Cristian also shared his insights before, in [3].
+
+"
+....while other drivers exists that share the usage of the same protocol
+(HWMON/IIO GENPD/CPUFREQ), they use the same protocol to achieve different
+things in different subsytems...and they are anyway impacted (even to a less
+degree) by this fw_devlink issue AFAIU so the problem indeed exist also
+out of pinctrl-imx
+"
+
+[3] https://lore.kernel.org/all/Z65U2SMwSiOFYC0v@pluto/
+
+>
+>And also I remember you creating situation disabling cpufreq in the cmdline.
+>Will that be ever used on those i.MX platforms ?
+
+For the PERF pair, both drivers bind successfully today so there is no
+issue in practice. But if "perf" (the fwnode owner) fails probe while
+"cpufreq" binds, the same fwnode ownership deadlock occurs. This is not
+about disabling cpufreq - it is about the owner device failing to bind
+for any reason.
+
+>
+>I am not against the patch if others are OK.
+
+Thanks. The patch fixes a generic fw_devlink gap in driver_bound()
+where a device binding successfully on a shared fwnode cannot resolve
+dangling consumers of child fwnodes because it is not the fwnode owner.
+The fix follows the existing fwnode->dev ownership discipline (only
+writing fwnode->dev when it is NULL, owned by self, or owned by a
+driverless device) and handles all three scenarios:
+1. Owner probe rejected (-ENODEV/-ENXIO) - owner hands off in
+really_probe() failure path
+2. Owner rejected earlier, fwnode now unowned - sibling re-acquires
+in driver_bound()
+3. Owner's driver never compiled/loaded - sibling takes over from
+driverless owner in driver_bound()
+
+
+If driver core maintainers have better solution for the case that
+multiple devices share one fwnode, I would appreciate.
+
+Thanks
+Peng
+
+>
+>-- 
+>Regards,
+>Sudeep
+>
+>
