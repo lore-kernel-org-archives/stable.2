@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75E614746BB
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 08:38:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61B5C3AAF64
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 08:41:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790671120; cv=none; b=pidz14wmEDhj4e/HbWHbqtFG9ZXfrqoE6iNrMSvwbQu+MtE4adIuUxgELEMHMcs9wpTdeVNzdXha0Zsmaw3PIW5CGcpSrXTPUkjQ4NxYkus27/RqM0AcE7WEakks2OTWiBMBRGETtog1I9I7huOp6IAt49rmyvoxHRw42pjpiSs=
+	t=1790671269; cv=none; b=MLVzWJ7czZ5Rsfq6tou9eKrLg7oOumnJjefUCTqXFPEBrUjvVQ2rRNg1HQ/EvlOzfPomHniqV2raiOahZVLb8ipuDFIsMgNivnvOPvJ30mLA7hQwRe7BXREIYT9vE+JR4LvK0UwQW5m6EQ1rZ5x87Iz6XMZ9zF7n/RnWPfCGyoE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790671120; c=relaxed/simple;
-	bh=nfzVxh6bsG5YW2inbxE0qnNs8g+fwsRQUa3CtDNetkI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=C+LR6/D1t3azQqjJ9yI/f+buljzBmW3wJyu4b1vGxKX5/DXgiMw5E0ptqMAFASS7BHyFDkrZuP77ibWMrn6XGuu0CuDTXOh5aRRHv/h0AiuDs/K8nDCHZd2LilEVbagx7rHlK57GXbNk1d/zB/kxuAE+Zz1p767NSw86NeKvGRI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=odO7ZL1C; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790671269; c=relaxed/simple;
+	bh=+k9YrN80vIeRqDyUWCMeFdQ9nTKJqQq9t8OAxHdZGFY=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=VTKp5rGLjgpZdXC5ZnehF3tQU/nG38QlpjRYeXR8MoweaZyL3/Gwo59Xsmm6C9C+d8SzJVJhZdQraZ2ohI7z81SOQBRkgWMxWAwVDBe20uizTa9JLMyqmy6osXtd02Aw/hB09epAFEJwU2kGvO4S2tR4l9Xx6TeMEcmXVk0wnRg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=EQ4nXQEe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="odO7ZL1C"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 842491F00893;
-	Tue, 29 Sep 2026 08:38:38 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="EQ4nXQEe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A0CC1F00893;
+	Tue, 29 Sep 2026 08:41:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790671119;
-	bh=NuPU03yGxnfbNWtQ5ROo9WuxGxiH25c63dOoHmyQDNM=;
+	s=korg; t=1790671268;
+	bh=WwN7sK9wan8ETkf9PeIfS4O9EbHduHFZDEO8jkddr1c=;
 	h=Subject:To:Cc:From:Date;
-	b=odO7ZL1CdwPKktG3uF9zm5J9/kieezJYkxo1e8M4vcExUsDXWHmuQEjlyfEf0jK4G
-	 PN2+BD7LiDH3hbLhjwRLUgf/FjlPo0eD/HYpVN5WQ2PcJ6lWHtBFpUwusmiXNKjlFD
-	 I3fFYE9Ekfm1bHij2aZXNJBHLadZepLEpTZcanis=
-Subject: FAILED: patch "[PATCH] drm/amd/display: Relax DML frame limit with UBSAN" failed to apply to 7.2-stable tree
-To: alex.hung@amd.com,alexander.deucher@amd.com,sunpeng.li@amd.com
+	b=EQ4nXQEe0DlhkKHYvkZmZESkZAHvFA63QI35jPETHTVaMsQtv/ugV0TgZDNBkKelg
+	 ClQGxlNMKAfWNdKSiOlmJaSKmVy6eF+a2cpYFvtOIVxyA/5Al3DDLZ5+6LvOMEv37G
+	 3z6I8qOJNymOnmlu9S18ttmNpsZshzqQxgeoCvU8=
+Subject: FAILED: patch "[PATCH] mm/hugetlb: do not dissolve gigantic pages without runtime" failed to apply to 6.18-stable tree
+To: xialonglong@kylinos.cn,akpm@linux-foundation.org,david@kernel.org,linmiaohe@huawei.com,mhocko@suse.com,muchun.song@linux.dev,osalvador@suse.de,stable@vger.kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 29 Sep 2026 10:38:33 +0200
-Message-ID: <2026092933-finally-retired-eb54@gregkh>
+Date: Tue, 29 Sep 2026 10:41:02 +0200
+Message-ID: <2026092902-struck-raving-0494@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.2-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 0fd5e9ddf362b1253b3c94b858371f90400e5c4a
+git cherry-pick -x a363c62a653cc8b3e21da9545fa4e028ef50f9c3
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092933-finally-retired-eb54@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092902-struck-raving-0494@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,56 +62,48 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 0fd5e9ddf362b1253b3c94b858371f90400e5c4a Mon Sep 17 00:00:00 2001
-From: Alex Hung <alex.hung@amd.com>
-Date: Wed, 23 Sep 2026 11:31:18 -0600
-Subject: [PATCH] drm/amd/display: Relax DML frame limit with UBSAN
+From a363c62a653cc8b3e21da9545fa4e028ef50f9c3 Mon Sep 17 00:00:00 2001
+From: Longlong Xia <xialonglong@kylinos.cn>
+Date: Sun, 23 Aug 2026 12:40:51 +0800
+Subject: [PATCH] mm/hugetlb: do not dissolve gigantic pages without runtime
+ support
 
-[WHY]
-UBSAN instrumentation adds checks and handler calls and increases
-stack usage in the large DML calculation functions, similar to
-KASAN and KCSAN. With UBSAN enabled these files exceed the default
--Wframe-larger-than limit and fail to build when -Werror is in effect.
+dissolve_free_hugetlb_folio() doesn't check
+hstate_is_gigantic_no_runtime(h) though remove_hugetlb_folio()/
+update_and_free_hugetlb_folio() silently bail for such folios, so it frees
+a still-listed folio and, on vmemmap restore failure, the
+add_hugetlb_folio() rollback corrupts the free list.
 
-Reproduced with LLVM (make LLVM=1, clang 19.1.1), CONFIG_UBSAN=y,
-CONFIG_GCOV_PROFILE_ALL=y and CONFIG_DRM_AMDGPU_WERROR=y on x86_64.
+Link: https://lore.kernel.org/20260823044118.1097121-2-xialonglong2025@163.com
+Fixes: 6eb4e88a6d27 ("hugetlb: create remove_hugetlb_page() to separate functionality")
+Signed-off-by: Longlong Xia <xialonglong@kylinos.cn>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Assisted-by: Codex:gpt-5.6-sol
+Acked-by: Muchun Song <muchun.song@linux.dev>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Miaohe Lin <linmiaohe@huawei.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: <stable@vger.kernel.org>
 
-[HOW]
-Include CONFIG_UBSAN in the sanitizer check that selects the
-higher per-file frame warning limit in the dml and dml2_0
-Makefiles.
-
-Suggested-by: Leo Li <sunpeng.li@amd.com>
-Assisted-by: Copilot:Claude-Opus-5.5
-Signed-off-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit ebf8b0fd8508b744f85a8eee82b745b1d3502dd0)
-Cc: stable@vger.kernel.org
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-index 10d4ace04d4f..096520bd27c6 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-@@ -29,7 +29,7 @@ dml_ccflags := $(CC_FLAGS_FPU)
- dml_rcflags := $(CC_FLAGS_NO_FPU)
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index 4f6f58bf3db6..d28972cd33f5 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -1967,6 +1967,15 @@ int dissolve_free_hugetlb_folio(struct folio *folio)
+ 		struct hstate *h = folio_hstate(folio);
+ 		bool adjust_surplus = false;
  
- ifneq ($(CONFIG_FRAME_WARN),0)
--    ifeq ($(filter y,$(CONFIG_KASAN)$(CONFIG_KCSAN)),y)
-+    ifeq ($(filter y,$(CONFIG_KASAN)$(CONFIG_KCSAN)$(CONFIG_UBSAN)),y)
-         ifeq ($(CONFIG_CC_IS_CLANG)$(CONFIG_COMPILE_TEST),yy)
-             frame_warn_limit := 4096
-         else
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/Makefile b/drivers/gpu/drm/amd/display/dc/dml2_0/Makefile
-index 5388bf094fbc..4d682e92df1d 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/Makefile
-@@ -28,7 +28,7 @@ dml2_ccflags := $(CC_FLAGS_FPU)
- dml2_rcflags := $(CC_FLAGS_NO_FPU)
++		/*
++		 * remove_hugetlb_folio()/update_and_free_hugetlb_folio() bail
++		 * for gigantic hstates without runtime support, so dissolving one
++		 * here would leave it on the free list and, on vmemmap restore
++		 * failure, the add_hugetlb_folio() rollback corrupts that list.
++		 */
++		if (hstate_is_gigantic_no_runtime(h))
++			goto out;
++
+ 		if (!available_huge_pages(h))
+ 			goto out;
  
- ifneq ($(CONFIG_FRAME_WARN),0)
--    ifeq ($(filter y,$(CONFIG_KASAN)$(CONFIG_KCSAN)),y)
-+    ifeq ($(filter y,$(CONFIG_KASAN)$(CONFIG_KCSAN)$(CONFIG_UBSAN)),y)
-         ifeq ($(CONFIG_CC_IS_CLANG)$(CONFIG_COMPILE_TEST),yy)
-             frame_warn_limit := 4096
-         else
 
