@@ -1,90 +1,67 @@
-Received: from mta-64-225.siemens.flowmailer.net (mta-64-225.siemens.flowmailer.net [185.136.64.225])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B488F516174
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 12:08:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.64.225
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 752F75172E3;
+	Tue, 29 Sep 2026 12:08:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790683699; cv=none; b=ZusbVeIsGAnXddaadrJhgP2CeiR7WIlqBonOvBnueY7bKbT+NnGlQS24YZaBHBn3hDD/ZxH066mrnF5q8ynUa4/vEOGi7x851FjByFgDoQh8HBb7kTbzUvXjwplvs9I/HMXQfzdYrkDD8gKkvQw1yS60n82xU/mJOPCyvssSMF4=
+	t=1790683730; cv=none; b=uINU87GFuxUO+f/VLIh94Ouagr+sDeNwwucZDLu8omYDbDYw5ebMDvdE53gG+QWIqXqcQqHDpa3YuIKZfgaGar0k9VOtvbYpXgx1DCnZ8NSdr8isB4WsmmbE5/UZ1fNeBLLtlcDctQKUpYxhm7MrKzMQzbY5bveaThDw2jOXmCc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790683699; c=relaxed/simple;
-	bh=+VcecVkrJmOeZYvZbQBA7c3562muptPNCkTt8WujQYI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lvmHd42QTiUDE2402E9gjtXJBd5gFVvrY6yvaLE1iCwnmbCjSjwJWq/IXTGjO47Z9nOZ3XvdIuT2+ZRPs+ao1Lmi/jbSavz0O6xLqz00PS7UrCw9Qawp8CXObpdDWrnLHmF4/jg+0SASiPkowTjlHBycnzhEYRrtD9FLZVl/JlQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b=oKWfA0/G; arc=none smtp.client-ip=185.136.64.225
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
+	s=arc-20240116; t=1790683730; c=relaxed/simple;
+	bh=T80pmibn7aSi6N9hDzJvCBDoLXDCN4HDH9fhrQVJ60g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=D8UFlty1mvDCPktu/PlzU/e/65bshuwjJgbdKWBvrnBkOF8Bft9B4BznMKn5CqnVQ645m0kkMOn35rkFoP7FXxxznsR/+NQaOCSi8trXAI2lm1BvMua9+9neA9UXlWdOVMGhDTsWjmE7vvjtb44bH63RfQVcvhGrjkK7Zc6n3LM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kCiFkXLh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b="oKWfA0/G"
-Received: by mta-64-225.siemens.flowmailer.net with ESMTPSA id 20260929120810e8880ea4cb00020708
-        for <stable@vger.kernel.org>;
-        Tue, 29 Sep 2026 14:08:10 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm1;
- d=siemens.com; i=alexander.sverdlin@siemens.com;
- h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc;
- bh=Kax74zXCxtPAbpTr1V6NBQYRh6q4iQaKKcO5IgxtslY=;
- b=oKWfA0/GAs7LaWlq7k+pknMp/aWFhvvvx/fHUFgipwR7Unn/hB/WwSXc0sDj5/oRc5cvjP
- cC2/Gopgd0hnkDqtMY5iZ0LsAPVFOhqzeBwxOCLrfWjB5pzYWZ+d6WTHUqe0TVyI3L7BshPm
- kk3L5ljYwdAI02a11AuQmDYEg+c7XStBInrrkhzYCpsH7Z1Wz3uiZZGXgBRkMLPobqiCWKD+
- ObyswWmuhIYGWB9HRfFp20a/GbsdssNRG9mMlA18FaOzM8+VpNQuavNAj4g9dt5Tele5b1uz
- T2DqWpfLbLJvFgiXa9q9YuIqXBhmoKMwVjpTu6dCbwmtlunCy4PQk0/Q==;
-From: "A. Sverdlin" <alexander.sverdlin@siemens.com>
-To: linux-pwm@vger.kernel.org
-Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
-	"Philip, Avinash" <avinashphilip@ti.com>,
-	Thierry Reding <thierry.reding@avionic-design.de>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] pwm: tiehrpwm: Clear period on disable to allow reconfiguration
-Date: Tue, 29 Sep 2026 14:08:02 +0200
-Message-ID: <20260929120806.2790355-1-alexander.sverdlin@siemens.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kCiFkXLh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3A3F1F000FF;
+	Tue, 29 Sep 2026 12:08:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790683729;
+	bh=ZCAoLYZlSrLohEk+mBrzJi43HvKosm2TxiN/tMhp9/s=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=kCiFkXLhQKyNv/5Npt6GxQ6y/fvhK7QAXn3t77gsH8H7DB/NKWfzqWrXfBOOBiQwL
+	 O3aacWVK8qVSzY14AmmC2vP3jDbN4EtWl3xe9R6F7Sdd3LPXl2QboBA8tV2VKur4BJ
+	 RGNvP4FLYi+9lITJZzPMzvn4jyLBvkUwC81pslZYi4TTjzjxxxvodIHHCexPaDrFP8
+	 rCbGfXyuPffBLw6si6/FpJYK/a3z0QHm0l4AqqGpaMECLiCVoIsQURLpQDfHtcBUmh
+	 1lVZd3x8w16LuJZDLDqMg+N7WHoWM0SZuzMSQrJaOGYu/lkvO9uujOrUsvzPcxPj4E
+	 RNr6g9il7MoAA==
+From: netdev-bot+sinfo@kernel.org
+To: Sabrina Dubroca <sd@queasysnail.net>
+Cc: netdev@vger.kernel.org, jiayuan.chen@linux.dev,
+ Hyunwoo Kim <imv4bel@gmail.com>, stable@vger.kernel.org
+Subject: Re: [PATCH net v2] strparser: make sure __strp_recv isn't running
+ before tearing down the parser
+Date: Tue, 29 Sep 2026 12:08:48 +0000
+Message-ID: <179068372824.31693.4401867477449994158@kernel.org>
+In-Reply-To: 
+ <f06217a9b95b7027286c7df21336e67e334c3e6e.1790674872.git.sd@queasysnail.net>
+References: 
+ <f06217a9b95b7027286c7df21336e67e334c3e6e.1790674872.git.sd@queasysnail.net>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Flowmailer-Platform: Siemens
-Feedback-ID: 519:519-456497:519-21489:flowmailer
 
-From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+Hi!
 
-Both channels share one period register, so ehrpwm_pwm_config() rejects a
-period differing from the sibling's period_cycles[]. That value was cleared
-only in .free(), not in .disable(), so a stopped channel kept blocking the
-sibling from switching to a new frequency. Clear it in .disable() too.
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-Testcase:
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
-  cd /sys/class/pwm/pwmchip0; echo 0 > export; echo 1 > export
-  for p in pwm0 pwm1; do
-    echo 1000000 > $p/period; echo 500000 > $p/duty_cycle
-    echo 1 > $p/enable; echo 0 > $p/enable; echo 2000000 > $p/period
-  done
-  echo 1 > pwm0/enable	# before: -EINVAL, after: succeeds
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
-Fixes: 01b2d4536f02 ("pwm: pwm-tiehrpwm: Fix conflicting channel period setting")
-Cc: stable@vger.kernel.org
-Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
----
- drivers/pwm/pwm-tiehrpwm.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/pwm/pwm-tiehrpwm.c b/drivers/pwm/pwm-tiehrpwm.c
-index 3a53489f0b982..e3407d0a1f7fe 100644
---- a/drivers/pwm/pwm-tiehrpwm.c
-+++ b/drivers/pwm/pwm-tiehrpwm.c
-@@ -358,6 +358,9 @@ static void ehrpwm_pwm_disable(struct pwm_chip *chip, struct pwm_device *pwm)
- 
- 	/* Disable clock on PWM disable */
- 	pm_runtime_put_sync(pwmchip_parent(chip));
-+
-+	/* A disabled channel must not constrain the sibling's period */
-+	pc->period_cycles[pwm->hwpwm] = 0;
- }
- 
- static void ehrpwm_pwm_free(struct pwm_chip *chip, struct pwm_device *pwm)
--- 
-2.55.0
-
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
