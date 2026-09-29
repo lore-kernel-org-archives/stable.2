@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9996E516141
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 11:39:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32F77516141
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 11:39:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790681960; cv=none; b=ebCsmKWX7ZQYxV8O2kRQGp9eyVvhjC2qfpLHb4iGhPsHE+x0R+aunWD5OVFkJfcHo3zoNCHq+ADtv8efEg+izs5dZ9dN4cwDDgpuli+mTAn7tInkxtblCtKiLZufl/E53tQ2lzmeUsOn8j81iwI+J3G8mpoXo4Dbo016mRSyii0=
+	t=1790681963; cv=none; b=X2468b904oj7UggyTAGgQQfhOi9ZMWNFMlEEhBj8zY6zhS38HV+y7+yWyPDyqDF5VcVZGBR50J2+Jk/0qWMWY3RhGqcxEgkRKa1QUZJ0bn+MweNMZx9bX+jHQ/gaBBPmItQBaJQgaXyenqNy4T88k+bTVe5VSOrwjkfTqj9M2hU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790681960; c=relaxed/simple;
-	bh=JanSAvyKYDBdN5FEFSV9De1noAg59B3bTZhPxE+KFLU=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=CrpGr6/ptLEm/6buFZW41RI/CxwwMCLoaUv4hbH8dik7DVd4u1rskP7jSR27rb81c78AeW6M6uB6xVeXAiY0i3KjWbC3cCvht23WMpikMMIwT5L/BYp+u/OKbRgumw6FmgsWCWQpKg0WcST7sY55bex0pAaz7+VSjA6rtGwbeys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=HI5p2GEB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790681963; c=relaxed/simple;
+	bh=GaGW+EtvxN5WMf3iVgnnD9I7KyPfTCRHlqd3un2v2YU=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=PkOg+Sy8QrVTMxJSmq+u3vRcRv8b9DfEaX03DR7sgipJD7SlhtzwmSkNGZlRuCsWJxUvwfmR5/GMZ0lhXbb+FmWnYdVUzeWz4KgKJhKL2YZQgzKOtZz3bQaSxVgj2Hn3J7yuybaLGxnjuDatxxYEqD2QH0t92f+hxpJb61qU0XY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=IQjuraU/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="HI5p2GEB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A97691F000FF;
-	Tue, 29 Sep 2026 11:39:18 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="IQjuraU/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BCF21F000FF;
+	Tue, 29 Sep 2026 11:39:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790681959;
-	bh=juTiuKjlbR0mroRnPiI8lu7UHr506GKpiukEPN02oGc=;
+	s=korg; t=1790681962;
+	bh=Zskr09KeBOuJd0K3cAexAOElset8GnLNglPSXBUsNgc=;
 	h=Subject:To:Cc:From:Date;
-	b=HI5p2GEB2CtUKTE+nnnTCS3s8C46tJtcRA7bSTNRDvVUoMzxl/1FoIDZ0XgVTjLtn
-	 CfCm9UHe2UqnXyypNVBppVjbNq/GUKN33T/V4ASWQBcySyyRAflF5WTOkV6svpKs0r
-	 sAx4u1/g7aNyk8yoRcsXSU/n+Z+z0DKlYPleVizE=
-Subject: FAILED: patch "[PATCH] KVM: x86: Re-pend GET_NESTED_STATE_PAGES if getting said" failed to apply to 5.10-stable tree
+	b=IQjuraU/UmIanMSB3sVsVr0CqoHWuKCCqr/kTEP2XLZuoCMBL5Cfci8EgSbiiIE10
+	 KoU0oTHG7S3VuYufJxzBBF7PKJrxowmtgL9EY5WjRsJFq0AF1ztNOPFA6Yyyt4dtQX
+	 LFYLzhv0fcbDWDlg9+M+3HAaZfy/yV/izW+Jkd/c=
+Subject: FAILED: patch "[PATCH] KVM: x86: Re-pend GET_NESTED_STATE_PAGES if getting said" failed to apply to 5.15-stable tree
 To: seanjc@google.com,fane@google.com,rkskek9254@gmail.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Tue, 29 Sep 2026 13:38:47 +0200
-Message-ID: <2026092947-navigator-fastness-f0da@gregkh>
+Message-ID: <2026092947-deflector-impound-8267@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 10180a277549339020b08000206092c07e0bff5a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092947-navigator-fastness-f0da@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092947-deflector-impound-8267@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
