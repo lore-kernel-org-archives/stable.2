@@ -1,197 +1,155 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C22B644237B;
-	Tue, 29 Sep 2026 08:35:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B028E47885C
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 08:36:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790670931; cv=none; b=ZYkB0+1RgtWw1Dblxqmoab+C13hKHdIxjLyarm6d0xPuRX5qjlYy7iTONMy+x+GamP9BuKdfxlcMidTurugcSrij1oeA2A5XPyqcrdr7f63+io+uzPbz1fKDLt6rZJAvmYoDnhf85mJKUbN2I3ZLs2QGDwmo4qPyu8rvM7mfYiM=
+	t=1790670968; cv=none; b=q6Jr4v3yn90BCjC76gxLkeZS/oagtrCzIgrW+274vZ97RZuWm4GYnEXeF/9AJLLpNQ2kLBDy5H57sdd66O0kyTnzuzg1wWdEGnsAKihFXHu9/nY5ff2Q1tvLfp78LiorjWvUJQgVjmyCD7utLEUEzAetnBLKSfZnpPsOue+en3o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790670931; c=relaxed/simple;
-	bh=kNdKZLl6i7jqrQV3FjlqFRTok3uN4f7E2c8tVW1je+k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C69kGf5BpOiMpZk+ptqN78IGg6qNSye8N7hqRRJ17jy3JKpWbpA5e3uncwGVknVjlfbJXSdWAUhtIrej1AiaJ0RK2fDZO/nyA19U43MlbM1p5hjfW1/LeXW9An/O8CnHfXHNj6VXTgFqCpXfCX+a6asRH+h7f3wvzBKTX5Zm/yw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bzv5DjUY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790670968; c=relaxed/simple;
+	bh=uFGEwYiJrDN/Z7EAP8133zwq7c0qTcISrSiAHeLNl4M=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=jSqAhbccG2ZlLzRmQxA5hQLy8KrMnSlolG9FhJzK7ZHAepEoept3gTz2byNwc0xLU6DN2Kw4YmSscsHXvNvtM3hWVUCnEIcA0XtwUHM2Hdq0PhY0witkmxbP3E/3vmeOB89uWwSthFBDWTdvNVsPXY2zUQvmCxFuvtGevBYjV20=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=DEO6cD0N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bzv5DjUY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13BE91F000FF;
-	Tue, 29 Sep 2026 08:35:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790670926;
-	bh=2NyRzIReUFpHHyp3XlwggkALVWJPA/gL7KG202E2vU8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bzv5DjUYSZqxbWHy24p82D5CELfUCgHWSnWaAvnxovZhlX7ZEwP88pnXG7ARxlzzT
-	 dezGTV1dC+/D5HDSKe0BjJW4Okyxd26ohnjCal4+9PLVat3dYe6HfY+7Vyp9gBSE/h
-	 161zqvJE5i5xSizFkgxXoZdNX/G+OYgqPivPkvZTbUNu12gSnUpqG6DFIBsFsXbpeV
-	 rRJeg21n2N2boDEpwDqOroqpFCL0sR8qQVycmV7+aREl+UYrQ9LXKMF+9pzsFSQOyx
-	 G+ZQiRjD3caN1YIxcd5JU8H+122P3kKWHo0wFtyyJfNMOk+J5MhlSXyTDebY8QoRW0
-	 NksM1glalOQ7Q==
-Date: Tue, 29 Sep 2026 09:35:21 +0100
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Peng Fan <peng.fan@oss.nxp.com>
-Cc: Cristian Marussi <cristian.marussi@arm.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev, Peng Fan <peng.fan@nxp.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] driver core: hand off fwnode ownership when shared
- fwnode owner is rejected
-Message-ID: <20260929-abstract-accomplished-lynx-3edcbc@sudeepholla>
-References: <20260928-driver-core-v1-1-0846bb8e0f32@nxp.com>
- <20260928-conscious-spectral-manul-19bc10@sudeepholla>
- <arsYvrYaQIr1lwbT@shlinux89>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="DEO6cD0N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E48A71F000FF;
+	Tue, 29 Sep 2026 08:36:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790670963;
+	bh=0+os+B4IVHX480mySghtQ25/k+k35IRu7D9P2s1UKV0=;
+	h=Subject:To:Cc:From:Date;
+	b=DEO6cD0N7nsafU7riXXv0T9EZZD3mhZP4GWqmKyZCnjoek9klLBVtxXCfBiRkBAov
+	 4WPcfsH76WoQbiCKmdpdPuZY2HfW1+eF8Huey+sP/Y7RztJN9lhQahqvlWhIP2qh3H
+	 AXUnaVgINhCjsLAEGnGLkdO2AyVVaxAGs2s5fTWk=
+Subject: FAILED: patch "[PATCH] drm/i915/dp_mst: Fix configuring TUs for a disconnected" failed to apply to 6.12-stable tree
+To: imre.deak@intel.com,jani.nikula@intel.com,luciano.coelho@intel.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Tue, 29 Sep 2026 10:35:57 +0200
+Message-ID: <2026092957-hardening-slingshot-e073@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <arsYvrYaQIr1lwbT@shlinux89>
-
-On Tue, Sep 29, 2026 at 09:47:42AM +0800, Peng Fan wrote:
-> Hi Sudeep,
-> 
-> On Mon, Sep 28, 2026 at 01:09:08PM +0100, Sudeep Holla wrote:
-> >On Mon, Sep 28, 2026 at 07:49:01PM +0800, Peng Fan (OSS) wrote:
-> >> From: Peng Fan <peng.fan@nxp.com>
-> >> 
-> >> When multiple devices share the same fwnode (e.g. the SCMI bus creates
-> >> both "pinctrl" and "pinctrl-imx" devices for SCMI_PROTOCOL_PINCTRL), only
-> >> the first device registered becomes the fwnode owner (fwnode->dev, set in
-> >
-> >This has been rejected in the past. Apart from the trigger in -next,
-> >anything else has changed ?
-> 
-> When both pinctrl-scmi.c and pinctrl-imx-scmi.c are built into the
-> kernel Image, both drivers call module_scmi_driver() at init time, which
-> goes through:
->   scmi_driver_register()
->     → scmi_protocol_table_register(id_table)
->       → scmi_protocol_device_request()
->         → scmi_device_request_notifier()
->           → scmi_create_protocol_devices(fwnode, ..., "pinctrl-imx")
-> So the on-demand path already creates both "pinctrl" and "pinctrl-imx"
-
-Yes, but this particular device is i.MX specific issue as it should
-have never been there. So I will discard that in any future discussion.
-Use the SCMI pinmux driver and get rid of SCMI pinctrl-imx.
-
-> devices for protocol@19, sharing the same fwnode, regardless of
-> scmi_std_id_table. aac4e67d6eb9 just added a second path that does
-> the same thing earlier - the fundamental problem existed before it.
-> 
-> This issue has been here for 2 years.
-
-Thanks for clarifying this. You initial email seem to directly blame
-the commit in -next. Please don't bring that commit into discussion then.
-It was completely misleading.
-
-> I proposed a patch in scmi side [1][2], but never made into mainline.
-> [1] https://lore.kernel.org/all/CAGETcx87Stfkru9gJrc1sf=PtFGLY7=jrfFaCzK5Z4hq+2TCzg@mail.gmail.com/
-> [2] https://lore.kernel.org/arm-scmi/ZryUgTOVr_haiHuh@pluto/
-> 
-> The issue is not specific to pinctrl w/o imx.
-> 
-
-Agreed. Perf/cpufreq is another possible issue you have brought up IIRC.
-Since cpufreq must not have dependency like pinmux, we should be able to solve
-it in some other way.
-
-> The problem is that two devices share one fwnode, the first one registered
-> claims fwnode->dev, and if it never binds, driver_bound() of the second
-> device skips the dangling consumer pickup because fwnode->dev != dev.
-> 
-
-Agreed, but it shouldn't be the normal case unless there is a strong need
-and there is the dependency you mention or you mess up by creating duplicate
-devices like pinmux-imx. That's you own doing, sorry.
 
 
-[...]
+The patch below does not apply to the 6.12-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-> >
-> >Does dropping i.MX specials from list of devices solves the problem ?
-> 
-> No - dropping "pinctrl-imx" from scmi_std_id_table would not fix it
-> when both drivers are built-in, because scmi_protocol_device_request()
-> from the driver registration path still creates both devices.
-> 
+To reproduce the conflict and resubmit, you may use the following commands:
 
-OK, thanks for the confirmation.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git checkout FETCH_HEAD
+git cherry-pick -x a443e0b8d647c1401b110d9f919d8c6cb8607260
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092957-hardening-slingshot-e073@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
-> >I am more than happy to drop i.MX special in the code and let you
-> >sort the pinmux mess you guys have created.
-> 
-> I understand the concern about platform-specific code in the standard
-> table. But the issue is not specific to pinctrl-imx - it is a generic
-> fw_devlink gap that affects any bus creating multiple devices per fwnode.
-> The same structural pattern exists for SCMI_PROTOCOL_PERF ("perf" +
-> "cpufreq") and SCMI_PROTOCOL_SENSOR ("hwmon" + "iiodev").
-> 
+Possible dependencies:
 
-Yes perf/cpufreq case I recall and we should be able to work out something.
-Sensor has no dependency like pinmux and shouldn't be a problem. Have you
-faced real issue with it ?
 
-> Cristian also shared his insights before, in [3].
-> 
-> "
-> ....while other drivers exists that share the usage of the same protocol
-> (HWMON/IIO GENPD/CPUFREQ), they use the same protocol to achieve different
-> things in different subsytems...and they are anyway impacted (even to a less
-> degree) by this fw_devlink issue AFAIU so the problem indeed exist also
-> out of pinctrl-imx
-> "
-> 
-> [3] https://lore.kernel.org/all/Z65U2SMwSiOFYC0v@pluto/
-> 
 
-I agree and that's what I mean above.
+thanks,
 
-> >
-> >And also I remember you creating situation disabling cpufreq in the cmdline.
-> >Will that be ever used on those i.MX platforms ?
-> 
-> For the PERF pair, both drivers bind successfully today so there is no
-> issue in practice. But if "perf" (the fwnode owner) fails probe while
-> "cpufreq" binds, the same fwnode ownership deadlock occurs. This is not
-> about disabling cpufreq - it is about the owner device failing to bind
-> for any reason.
-> 
+greg k-h
 
-Thanks for the explanation.
+------------------ original commit in Linus's tree ------------------
 
-> >
-> >I am not against the patch if others are OK.
-> 
-> Thanks. The patch fixes a generic fw_devlink gap in driver_bound()
-> where a device binding successfully on a shared fwnode cannot resolve
-> dangling consumers of child fwnodes because it is not the fwnode owner.
-> The fix follows the existing fwnode->dev ownership discipline (only
-> writing fwnode->dev when it is NULL, owned by self, or owned by a
-> driverless device) and handles all three scenarios:
-> 1. Owner probe rejected (-ENODEV/-ENXIO) - owner hands off in
-> really_probe() failure path
-> 2. Owner rejected earlier, fwnode now unowned - sibling re-acquires
-> in driver_bound()
-> 3. Owner's driver never compiled/loaded - sibling takes over from
-> driverless owner in driver_bound()
-> 
-> 
-> If driver core maintainers have better solution for the case that
-> multiple devices share one fwnode, I would appreciate.
-> 
+From a443e0b8d647c1401b110d9f919d8c6cb8607260 Mon Sep 17 00:00:00 2001
+From: Imre Deak <imre.deak@intel.com>
+Date: Mon, 7 Sep 2026 20:44:13 +0300
+Subject: [PATCH] drm/i915/dp_mst: Fix configuring TUs for a disconnected
+ stream
 
-IIRC, they don't want to use 2 device pointing to same fwnode.
+During an atomic commit after all the MST stream CRTC state is computed
+the driver ensures that the sum of TUs of all the streams on a given MST
+topology link is within limits (63 for 8b10 and 64 for 128b132b). For a
+disconnected stream the DRM MST core's BW verification doesn't ensure
+this, because the topology state it uses for this is destroyed as soon
+as the stream (i.e. MST connector/port) is disconnected. The driver
+should keep the link state valid even for such disconnected streams, as
+userspace may disable them one-by-one only in a deferred way. Ensure the
+link's sum of TUs stays within limits in this case by simply reusing the
+maximum link BPP limit from the stream's (i.e. CRTC's) old state.
 
--- 
-Regards,
-Sudeep
+The disconnection can happen either via the whole topology getting
+disconnected or via only the given stream's port getting disconnected.
+Check for both of these conditions separately, as a connector gets
+unregistered after a link disconnect event only in a deferred way.
+
+Cc: stable@vger.kernel.org # v6.10+
+Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16073
+Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16384
+Reviewed-by: Luca Coelho <luciano.coelho@intel.com>
+Signed-off-by: Imre Deak <imre.deak@intel.com>
+Link: https://patch.msgid.link/20260907174413.741851-2-imre.deak@intel.com
+(cherry picked from commit ee00f8fbb2b202002ab90834e02e9ba372773a36)
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index 9e65b4a1c71d..fb3942f56b1f 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -2168,6 +2168,27 @@ bool intel_dp_mst_crtc_needs_modeset(struct intel_atomic_state *state,
+ 	return false;
+ }
+ 
++bool intel_dp_mst_stream_disconnected(struct intel_atomic_state *state,
++				      const struct intel_crtc *crtc)
++{
++	struct intel_connector *connector;
++
++	connector = get_connector_in_state_for_crtc(state, crtc);
++	if (!connector)
++		return false;
++
++	if (!connector->mst.dp)
++		return false;
++
++	if (!connector->mst.dp->mst.mgr.mst_state)
++		return true;
++
++	if (drm_connector_is_unregistered(&connector->base))
++		return true;
++
++	return false;
++}
++
+ /**
+  * intel_dp_mst_prepare_probe - Prepare an MST link for topology probing
+  * @intel_dp: DP port object
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.h b/drivers/gpu/drm/i915/display/intel_dp_mst.h
+index ab09b487c6bb..8ce89242c05c 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.h
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.h
+@@ -28,6 +28,8 @@ int intel_dp_mst_atomic_check_link(struct intel_atomic_state *state,
+ 				   struct intel_link_bw_limits *limits);
+ bool intel_dp_mst_crtc_needs_modeset(struct intel_atomic_state *state,
+ 				     struct intel_crtc *crtc);
++bool intel_dp_mst_stream_disconnected(struct intel_atomic_state *state,
++				      const struct intel_crtc *crtc);
+ void intel_dp_mst_prepare_probe(struct intel_dp *intel_dp);
+ bool intel_dp_mst_verify_dpcd_state(struct intel_dp *intel_dp);
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_link_bw.c b/drivers/gpu/drm/i915/display/intel_link_bw.c
+index b47474a3e9fe..e71e76d6fd3e 100644
+--- a/drivers/gpu/drm/i915/display/intel_link_bw.c
++++ b/drivers/gpu/drm/i915/display/intel_link_bw.c
+@@ -64,7 +64,8 @@ void intel_link_bw_init_limits(struct intel_atomic_state *state,
+ 			intel_atomic_get_new_crtc_state(state, crtc);
+ 		int forced_bpp_x16 = get_forced_link_bpp_x16(state, crtc);
+ 
+-		if (state->base.duplicated && crtc_state) {
++		if ((state->base.duplicated && crtc_state) ||
++		    intel_dp_mst_stream_disconnected(state, crtc)) {
+ 			limits->max_bpp_x16[pipe] = crtc_state->max_link_bpp_x16;
+ 			if (intel_dsc_enabled_on_link(crtc_state))
+ 				limits->link_dsc_pipes |= BIT(pipe);
+
