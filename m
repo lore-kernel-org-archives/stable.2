@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20D0A3B05B8
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 08:23:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D49253B38BC
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 08:23:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790670227; cv=none; b=GH/rGKR6Nu/I0JpGW6gsAB63GgW/hLCr0lf4H+B9rZCsdQc798DIPlSXtAj0cyvNbdUChC3U7ly63BzbIB1aCuov6it1xEwZeQpTg9acwlrz8CS2I45o+IukPxo82CmPSVbDWhVKTz4l9iOtTjziwoLpIhqvitCn9q2EW2R2RMM=
+	t=1790670236; cv=none; b=tteTdZdQIj986zBbjDDKM+1mCv2XaxICd7D8Zafnw+nCBb/1L0AW3HrfhANrR7vWV3atVpZ8NjKuT3SsRYUtaCOdhRpn/zGzgymsD3VbdShY2Y4FqzLCzgLpnF7KmdLJh4Hk6Dt4WifIjW0MQ3DSpHtZm/g0r9MKQCbL1ptdpos=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790670227; c=relaxed/simple;
-	bh=UWheQ2nWoLtBMNL6cXivQEGBmB8BQUI2JkHJ0NzWFoU=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Vf33q301tE7MJHiUN0Ydtxo031Zp8/i/JHao4/DRBuPFrkqoOHanZx4jV95t1YDqKWGBLSHBUmTdZWUnyiXJbE5Chq5ywWlDpRuhrmXs958z8GWFXJVj/p0B6j29ay+rgRzR8MbZPmvpydFD5e/L4s3U9Mqrzw1FyAJmnZPRT10=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=kCyhqHJz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790670236; c=relaxed/simple;
+	bh=h+0fnXeUX5oDE5/BDhL7mDi/L5GG8naLYalmFyamOlE=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=jFh4iZ9rWTkXzQvWSFw3CFKPn3RgP/oK7mi/5uztznXHPBdzIVcEwgdk7pZ434I36n9Kt00YiU9dttvgvhvcB1MO6MIr0SrsZDfyVqkGV5MjRXkvYoGhhX3KWyU1CrL+FwSJ5Ki8KyRlZfyoRqCsQaGdcy7EEJcqrddaO85CDUM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=cR+3GjX+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="kCyhqHJz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FC2A1F008A0;
-	Tue, 29 Sep 2026 08:23:45 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="cR+3GjX+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0C171F00898;
+	Tue, 29 Sep 2026 08:23:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790670226;
-	bh=qw2hYfx8VroVVTsxV4IfcWCFVgFKdaQVyNgBuPXDB4Y=;
+	s=korg; t=1790670234;
+	bh=hpZoa7lbgp8TE4eKkucKIU+8iOy9tdHJ3sOMZetpTLk=;
 	h=Subject:To:Cc:From:Date;
-	b=kCyhqHJzuRnKOgkm8aqUlJy7OzngljpN6bOsPO1o8TLjRKSEgWGS1+SGdURa1quVU
-	 bSdMRbczmmrRktw4dGf2StJOq8xspW3KNmRIITt7i6R2bsf7l9da9rLMVsw4tlz5RS
-	 aRhUr5ar/QOGszdrdZE+tdoq2WyeGGJAzhJORPlo=
-Subject: FAILED: patch "[PATCH] drm/amdgpu: Fix vmid_wait fence leak in amdgpu_ring_init()" failed to apply to 5.15-stable tree
+	b=cR+3GjX+Nh10d6vyQeCfXq4bGdpqGBnt4enDN2nfYtoYrrofHXY+xyNXz3Wmxb5qj
+	 gRYvn123ULZUn7cq1Z5SsnxhDir6Zivfn2GUF4Cbp0J0hxcfGCxQbp0ghMemtV157Z
+	 xJ5t4Mbb6T8Ibz3RDSx+gryBXr5qyb1wHXgF8cHQ=
+Subject: FAILED: patch "[PATCH] drm/amdgpu: Fix vmid_wait fence leak in amdgpu_ring_init()" failed to apply to 5.10-stable tree
 To: vulab@iscas.ac.cn,alexander.deucher@amd.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Tue, 29 Sep 2026 10:23:40 +0200
-Message-ID: <2026092940-transfer-galore-d90b@gregkh>
+Message-ID: <2026092940-colonize-monopoly-48e2@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x aea841bc62a76242396610d22d8ff40c13065f64
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092940-transfer-galore-d90b@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092940-colonize-monopoly-48e2@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
