@@ -1,55 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13FB0568559
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 19:47:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7032A568FC7
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 19:47:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790711263; cv=none; b=EJ58SUd0brunRkwTEsY77JsCe6S/GJ95lY8yymDnSVwEvjvx839ok0bB4YKe9Sn2eCDd9zFXv8Ujw/7WdkbnlLzJ/ROEieV6cZFoDIoxJQMJHvvJ/xa17idxwB76vpakQ9pi8XLPR0k3JR+/6Lv/tl15YuzfdINgLTRLq0bj7KY=
+	t=1790711267; cv=none; b=IokK43xj0feL6jzPMMcatJRV7hCu8HN1V1J61j2hA+1C1WEor+lkyB51x/F46uz+z3x4BGjKgOsxN4N25DyQg8T/pQrfkvC9T27BZlFx5bgAx+cKE4717Stca+VdUsd2IVk6ItENMz+3LqCOu0gEoQOdoezBXjSBUCZ/pIF6TNU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790711263; c=relaxed/simple;
-	bh=f4GSGa/M+HYBtW4goeyPvxMWSqOUox3JDKd5TUuNUyU=;
+	s=arc-20240116; t=1790711267; c=relaxed/simple;
+	bh=1rCT3f64h3ePQ13TLHc+ciqo6ZLfaDRQF95bDkJ1UJM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QcY7x8nU7UTYcFV3Pnpz+JCq5nNkzozc3OtkJV7ICEglW9qJsWAOv4HlEfaeH0+YWQh7O6LTRRqqw64xz0TghG3rrl+1Z0gnVC0Mr4Qm4DDDxdx0QEVeC09+s9S9fryFQp3gMbgMQ3i/aD3zNpyyfdaxi4nHPWO+UHbQFcgtOWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ekMXMptT; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=nFAXZivUovV0ksJT246579SEjiAY1F9WCMBZsxevDUVIYSrcGmw9+dP5c/Vp4A7stKkuh4CcJrV1jeCVX7tLCEWZm6UNQ4kC7h9y55H/gEh33vf0OPez6Ev7vCxOQTsbsslDEbI7nvIzpVhVD1DpnUKLXeHPC2woi0iPncjMQMU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JRkKGsCY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ekMXMptT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F3B31F00893;
-	Tue, 29 Sep 2026 19:47:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JRkKGsCY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75C7D1F00893;
+	Tue, 29 Sep 2026 19:47:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790711261;
-	bh=m4YA4p21VGZoiYdcU3NWs3lIA+bwtBv1cwYRJiH/auk=;
+	s=k20260515; t=1790711266;
+	bh=tO4jP0sLJJHPHrBABAHG5A90U9Kwqwy+lADBdqLlvKg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ekMXMptT0CdJMvVDIZPUUcNK49H2urvGfbtYbQT84Z7NdgR84imDl8HHn4wZYAOIC
-	 +evZujkzihuiu20nK4EiBUJNgwwB/ubPNjtJtDKzZ0NZpoa6PzD+V+crbjsoM/dEq2
-	 DsGjPtZlvSHyNYvZNpOLmyo/UEc422k+jiRGc5E1jTH4+QqKyruc9YsHoPgHLx3l5g
-	 HR//qUHllhKEGE2nnW6+4z3UnHqble9+T1vjDQhCLGMbFcLlBlf2wRwd3LpCqNmRIN
-	 pLeCx1+LkhfOlw719ZTqSKbmELzWGcTS73TaUb2+JDbq1GVdyR39RDYrFFYPaeZnCc
-	 H65MiPUkn/tQQ==
+	b=JRkKGsCYZ1fA1S4EOLluiYwNB8V6KFK1OzYXiS7BqQotWiV3pteaw8scP5YdX3jpy
+	 fOVgbUJZ6TW1Wnur7jx1ywYkXmqLFKxMsa0/CGy6zMOgoPjAtAx2FpPihB6uuz5kRZ
+	 AgC7JwNHq4p5VEcfTl6trms6ssZx3U5E1wZRtETm22Wu9G96CAVuzeEy5Hct+J6TcB
+	 XeyRRhNcZ9lGIXCzBoxhP7zk8sbjOkCk6yqBg0JpTA5Lq/bfOV0kwojDfwb8CbNLUV
+	 KNA5krPDfbg8MIGp9fzKItq22W9I4aoqTv8vbm2KQWi7iJDsj9krMBV3f0ZYHJAiCo
+	 aOvLuDqivghyg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jinjiang Tu <tujinjiang@huawei.com>,
+Cc: SJ Park <sj@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
-	Minchan Kim <minchan@kernel.org>,
-	Harry Yoo <harry@kernel.org>,
-	Hiroyouki Kamezawa <kamezawa.hiroyu@jp.fujitsu.com>,
-	Jann Horn <jannh@google.com>,
-	Kefeng Wang <wangkefeng.wang@huawei.com>,
-	Larry Woodman <lwoodman@redhat.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Nanyong Sun <sunnanyong@huawei.com>,
-	Rik van Riel <riel@surriel.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] mm/rmap: fix missing barrier between anon_vma init and vma->anon_vma publish
-Date: Tue, 29 Sep 2026 15:47:38 -0400
-Message-ID: <20260929194738.835617-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 2/2] mm/damon/vaddr: avoid hw-driven pte updates during damon_hugetlb_mkold()
+Date: Tue, 29 Sep 2026 15:47:42 -0400
+Message-ID: <20260929194742.835805-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092951-evil-unethical-a5b2@gregkh>
-References: <2026092951-evil-unethical-a5b2@gregkh>
+In-Reply-To: <20260929194742.835805-1-sashal@kernel.org>
+References: <2026092931-carat-unheard-5a1d@gregkh>
+ <20260929194742.835805-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -58,186 +47,82 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jinjiang Tu <tujinjiang@huawei.com>
+From: SJ Park <sj@kernel.org>
 
-[ Upstream commit b6ac0b3f6013c168f22cad97e79967accacb08e1 ]
+[ Upstream commit 39c0ceedd54557bdc1542de08d22b2ed33e534e4 ]
 
-On arm64 server, we find that a task trying to grab the anon_vma lock
-triggers hungtask.
+damon_hugetlb_mkold() reads the page table entry into a local variable,
+unsets the accessed bit in the variable, and updates the page table entry
+with the updated variable value.  If hardware updates the same page table
+entry in parallel, the hw updates could be lost.  For example,
+hardware-updated dirty bits might be lost.
 
-INFO: task main:2354726 blocked for more than 120 seconds.
-      Tainted: G            E     5.10.0-0021.aarch64 #1
-"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-task:main            state:D stack:    0 pid:2354726 ppid:2350673 flags:0x00000a01
-Call trace:
- __switch_to+0x7c/0xbc
- __schedule+0x3b4/0x8a0
- schedule+0x50/0xe0
- rwsem_down_write_slowpath+0x3cc/0x6cc
- down_write+0x60/0x260
- __anon_vma_prepare+0x6c/0x210
- do_anonymous_page+0x258/0x660
- handle_pte_fault+0x188/0x214
- __handle_mm_fault+0x1b0/0x380
- handle_mm_fault+0xf4/0x284
- do_page_fault+0x19c/0x494
- do_translation_fault+0xcc/0xf8
- do_mem_abort+0x48/0xac
- el0_da+0x44/0x80
- el0_sync_handler+0x88/0xb4
- el0_sync+0x160/0x180
+Avoid the parallel updates by clearing the page table entry when reading
+it together, using huge_ptep_get_and_clear().  If a parallel write to the
+memory is made after the clearing, the hw will see the page table entry is
+cleared, trigger page fault and wait until it is handled.  The page fault
+handling will wait for damon_hugetlb_mkold() due to the page table lock.
 
-After analyzing the vmcore, we found the anon_vma->root->rwsem.count is
--1.  There is another anon_vma whose anon_vma->root->rwsem.count is 1, the
-anon_vma->root->rwsem.owner shows the lock is held, but the stack of the
-task shows the task doesn't hold the anon_vma lock.
+Because hugetlbfs is an in-memory file system and hugetlb pages cannot be
+reclaimed, no critical issue is expected to my best knowledge.  But
+definitely this is a nasty bug that should be fixed sooner rather than
+later.
 
-After adding more debugging info, we found __anon_vma_prepare() reuses
-anon_vma and triggers the UAF of anon_vma->root due to missing memory
-barrier, leading to locking and unlocking two different anon_vma->root,
-thus leading to an anon_vma will never be unlocked, and another anon_vma
-couldn't be locked anymore.
+The issue was discovered [1] by Sashiko.
 
-This race requires two adjacent VMAs that are not merged but are
-anon_vma-compatible (e.g., they differ in VMA_ACCESS_FLAGS that can be
-changed by mprotect()).  Two threads fault on each VMA concurrently, both
-calling __anon_vma_prepare() with only mmap_lock held for reading.
-
-    THREAD A                             THREAD B
-__anon_vma_prepare                __anon_vma_prepare
- find_mergeable_anon_vma() -> NULL
- anon_vma = anon_vma_alloc();
-   anon_vma->root = anon_vma;
- // the two stores may be reordered
- vma->anon_vma = anon_vma;
-                                   // finds A's anon_vma
-                                   anon_vma = find_mergeable_anon_vma(vma);
-                                   anon_vma_lock_write(anon_vma);
-                                     // may still see the old root
-                                     down_write(&anon_vma->root->rwsem);
-                                   anon_vma_unlock_write(anon_vma);
-                                     // see the new root, never unlock old
-                                     up_write(&anon_vma->root->rwsem);
-
-thread A triggers page fault and calls __anon_vma_prepare() to prepare
-anon_vma for the faulting vma.  __anon_vma_prepare() allocates and
-initializes a new anon_vma, and then publishes it to the vma with a plain
-store.  anon_vma_prepare() only requires the mmap_lock to be held for
-reading, so two threads can fault on adjacent VMAs at the same time.
-While thread A publishes a new anon_vma, thread B could find the anon_vma
-via find_mergeable_anon_vma() and then locks anon_vma->root->rwsem.
-
-The store to anon_vma->root in anon_vma_alloc() and the store to
-vma->anon_vma can be reordered.  The anon_vma_lock_write() and spin_lock()
-only provide acquire semantics, which do not prevent prior stores from
-being reordered after them.  The release semantics of the corresponding
-spin_unlock() and anon_vma_unlock_write() come too late, the store to
-vma->anon_vma is already published before they take effect.  As a result,
-thread B can observe the following order:
-
-    vma->anon_vma = anon_vma;
-    anon_vma->root = anon_vma;
-
-The anon_vma slab is SLAB_TYPESAFE_BY_RCU, so a newly allocated anon_vma
-may reuse memory from a previously freed one.  The constructor
-(anon_vma_ctor) does not reset anon_vma->root, and __put_anon_vma()
-doesn't clear it either, so the old root value persists until
-anon_vma_alloc() overwrites it.  If that store isn't visible, thread B
-reads a root that points to the old anon_vma and locks it.
-
-As a result, thread B can call anon_vma_lock_write() with the old root,
-and call anon_vma_unlock_write() with the new root, leading to an anon_vma
-will never be unlocked, and another anon_vma couldn't be locked anymore
-(its count is dropped from 0 to -1 due to wrong unlock).
-
-To fix it, change the plain store `vma->anon_vma = anon_vma` to store
-release, so that the fields of anon_vma are visible before anon_vma is
-published to vma->anon_vma.
-
-At read side, the load of anon_vma and anon_vma->root have address
-dependency.  According to Documentation/memory-barriers.txt and some
-investigations, only Alpha needs address-dependency barriers and it has
-been handled by READ_ONCE() in reusable_anon_vma().
-
-We reproduced this issue in v5.10 with KSM enabled.  The kernel doesn't
-merge commit cf7e7a3503df ("mm: prevent KSM from breaking VMA merging for
-new VMAs"), so there are many adjacent VMAs that aren't merged but are
-compatible for anon_vma.
-
-Without this fix, our production environment could reproduce this issue
-about 2-5 times each month.  After adding a smp_mb() before
-anon_vma_lock_write(anon_vma) in __anon_vma_prepare(), which is different
-to this patch, this issue hasn't been reproduced for one month.
-
-Link: https://lore.kernel.org/20260908122924.554373-1-tujinjiang@huawei.com
-Fixes: 5c341ee1dfc8 ("mm: track the root (oldest) anon_vma")
-Signed-off-by: Jinjiang Tu <tujinjiang@huawei.com>
+Link: https://lore.kernel.org/20260907170358.100168-1-sj@kernel.org
+Link: https://lore.kernel.org/20260830160545.98969-1-sj@kernel.org [1]
+Fixes: 49f4203aae06 ("mm/damon: add access checking for hugetlb pages")
+Signed-off-by: SJ Park <sj@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Cc: Minchan Kim <minchan@kernel.org>
-Cc: Harry Yoo <harry@kernel.org>
-Cc: Hiroyouki Kamezawa <kamezawa.hiroyu@jp.fujitsu.com>
-Cc: Jann Horn <jannh@google.com>
-Cc: Jinjiang Tu <tujinjiang@huawei.com>
-Cc: Kefeng Wang <wangkefeng.wang@huawei.com>
-Cc: Larry Woodman <lwoodman@redhat.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Nanyong Sun <sunnanyong@huawei.com>
-Cc: Rik van Riel <riel@surriel.com>
-Cc: <stable@vger.kernel.org>
-[ adjusted context for mm/mmap.c and the existing anon_vma_chain_link() helper. ]
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: <stable@vger.kernel.org> # 5.17.x
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/mmap.c | 8 ++++++++
- mm/rmap.c | 6 +++++-
- 2 files changed, 13 insertions(+), 1 deletion(-)
+ mm/damon/vaddr.c | 21 ++++++++++++++-------
+ 1 file changed, 14 insertions(+), 7 deletions(-)
 
-diff --git a/mm/mmap.c b/mm/mmap.c
-index 4d5e9d085f0a3..b2869a8034ddd 100644
---- a/mm/mmap.c
-+++ b/mm/mmap.c
-@@ -1287,6 +1287,13 @@ static int anon_vma_compatible(struct vm_area_struct *a, struct vm_area_struct *
-  * acceptable for merging, so we can do all of this optimistically. But
-  * we do that READ_ONCE() to make sure that we never re-load the pointer.
-  *
-+ * The READ_ONCE() establishes an address dependency between anon_vma and
-+ * any access to its fields, which pairs with the assignment to
-+ * vma->anon_vma performed with release semantics in __anon_vma_prepare().
-+ *
-+ * This is especially important as anon_vma's are SLAB_TYPESAFE_BY_RCU so
-+ * accessing an uninitialised anon_vma's fields may result in a UAF.
-+ *
-  * IOW: that the "list_is_singular()" test on the anon_vma_chain only
-  * matters for the 'stable anon_vma' case (ie the thing we want to avoid
-  * is to return an anon_vma that is "complex" due to having gone through
-@@ -1299,6 +1306,7 @@ static int anon_vma_compatible(struct vm_area_struct *a, struct vm_area_struct *
- static struct anon_vma *reusable_anon_vma(struct vm_area_struct *old, struct vm_area_struct *a, struct vm_area_struct *b)
- {
- 	if (anon_vma_compatible(a, b)) {
-+		/* Paired with a memory barrier in __anon_vma_prepare(). */
- 		struct anon_vma *anon_vma = READ_ONCE(old->anon_vma);
+diff --git a/mm/damon/vaddr.c b/mm/damon/vaddr.c
+index 59d3a634aa412..ca4fc845c9fb7 100644
+--- a/mm/damon/vaddr.c
++++ b/mm/damon/vaddr.c
+@@ -332,22 +332,29 @@ static int damon_mkold_pmd_entry(pmd_t *pmd, unsigned long addr,
+ }
  
- 		if (anon_vma && list_is_singular(&old->anon_vma_chain))
-diff --git a/mm/rmap.c b/mm/rmap.c
-index a5da7abd15d3d..d96a4679dfd91 100644
---- a/mm/rmap.c
-+++ b/mm/rmap.c
-@@ -206,7 +206,11 @@ int __anon_vma_prepare(struct vm_area_struct *vma)
- 	/* page_table_lock to protect against threads */
- 	spin_lock(&mm->page_table_lock);
- 	if (likely(!vma->anon_vma)) {
--		vma->anon_vma = anon_vma;
-+		/*
-+		 * Make anon_vma fields visible before anon_vma is published.
-+		 * Paired with an address dependency in reusable_anon_vma().
-+		 */
-+		smp_store_release(&vma->anon_vma, anon_vma);
- 		anon_vma_chain_link(vma, avc, anon_vma);
- 		anon_vma->num_active_vmas++;
- 		allocated = NULL;
+ #ifdef CONFIG_HUGETLB_PAGE
++static bool damon_hugetlb_ptep_mkold(pte_t *pte, struct mm_struct *mm,
++		struct vm_area_struct *vma, unsigned long addr, pte_t *entry)
++{
++	unsigned long psize = huge_page_size(hstate_vma(vma));
++
++	if (!pte_young(*entry))
++		return false;
++	*entry = huge_ptep_get_and_clear(mm, addr, pte, psize);
++	*entry = pte_mkold(*entry);
++	set_huge_pte_at(mm, addr, pte, *entry, psize);
++	return true;
++}
++
+ static void damon_hugetlb_mkold(pte_t *pte, struct mm_struct *mm,
+ 				struct vm_area_struct *vma, unsigned long addr)
+ {
+ 	bool referenced = false;
+ 	pte_t entry = huge_ptep_get(mm, addr, pte);
+ 	struct folio *folio = pfn_folio(pte_pfn(entry));
+-	unsigned long psize = huge_page_size(hstate_vma(vma));
+ 
+ 	folio_get(folio);
+ 
+-	if (pte_young(entry)) {
+-		referenced = true;
+-		entry = pte_mkold(entry);
+-		set_huge_pte_at(mm, addr, pte, entry, psize);
+-	}
+-
++	referenced = damon_hugetlb_ptep_mkold(pte, mm, vma, addr, &entry);
+ 	if (mmu_notifier_clear_young(mm, addr,
+ 				     addr + huge_page_size(hstate_vma(vma))))
+ 		referenced = true;
 -- 
 2.53.0
 
