@@ -1,112 +1,85 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-1-114.ptr.blmpb.com (va-1-114.ptr.blmpb.com [209.127.230.114])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B38263B5F5D
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 09:26:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1262341057
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 09:26:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.114
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790673975; cv=none; b=TF5wwd2b2SzPMVpLr2NqsSRMPwxnh13DEPyfVgBpuI/kDjrhDM32PfqLTjuPxHvbITRT/tqHeQIysD+PdenEHmBPvJsOyCaeg9QC8Q5YiMc70AguJ/kCNDh3uoMIKIXoi1AAMNe2jiuKUlcdmQLezDN7e/UKSOLJUPnK48zCo48=
+	t=1790673977; cv=none; b=kbzUsQOI+VQPzaM9Y2OU2OxGkl9jex/vjQzaSHXkqkC6vvteVtS7UO3GkRUAogClKjg4kJhOZip57BjcTYsCKuEXL47EHKDmu0wnD8oUJnHBffDya6ZbFAacfOfzC0fY6IjOUgOgUWcbr+CakhH8aiTUbNPv1eANL63wHKYMPbA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790673975; c=relaxed/simple;
-	bh=oMRLZlJaub3svmMIuiIcjKlD2yG/KCKsdl6F4bnq7Qc=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=AoInltkunbMsLCRbzpw+hfai08x8JJrWqhzp3cmQ4NHjXTJWxhm6WUHYWqAxvewULNsW2agfp8ykvS/48+5OMY89WwdyLsY0Q9XuKHMKIx5UJYBcqnRXylQRT7AvBfeUJ8Esdul6bfvGyzDa+27aorFUqHaOIcvx7JdCY1gKeds=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=b8CZAwX1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790673977; c=relaxed/simple;
+	bh=dE6mRWx2T0gb0Lonp1XJbF84cgeLN2z625cxUjDsFVA=;
+	h=To:Message-Id:Content-Type:Cc:Subject:Mime-Version:From:Date; b=Sze4Z7RwVzr5ucQtOMy3wUjRyYRkz5BrTcXV0MFy+VFvbq2fo1ywY6ku0xVBrm2EGEnmSBzV6X0uSBEAjFtXjsj3I/HjnvatgtLR9UCcz8SSPFripnVmbAo4+Lxx6cyPFyILWynZjXL5b95kNi9LgCFb89xx5NmV4WaTPy+7feg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=E1oYkDyb; arc=none smtp.client-ip=209.127.230.114
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="b8CZAwX1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 644781F000FF;
-	Tue, 29 Sep 2026 09:26:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790673969;
-	bh=GWO5lcpxioXxvj25LEkjEv88jMn3pW3LjwveBilXX2A=;
-	h=Subject:To:Cc:From:Date;
-	b=b8CZAwX1Aq0XEtYkP0CFInlmAb1SK7QlCbPxm/H+cGpZ+oDivOuS4cgVjkbHe/9I1
-	 2PcCTGPZg5OHz2cR6xfe4qVBNrUv0cNVK1+KPup/dzzR2CO9Fbi2HzFvExyl3dETfT
-	 kRNIDMffTXuTu04zOwNvKS+Oik/fc6u1qYiJx45o=
-Subject: FAILED: patch "[PATCH] net/sched: act_ct: remove 'add_helper' dead code" failed to apply to 6.12-stable tree
-To: i.maximets@ovn.org,aconole@redhat.com,jhs@mojatatu.com,kuba@kernel.org,lucien.xin@gmail.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Tue, 29 Sep 2026 11:25:56 +0200
-Message-ID: <2026092956-canine-emblem-38a5@gregkh>
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="E1oYkDyb"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1790673843; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=X9o+2/Ax/kfeSEtGR9Uwqu9diBOxx2zKNjv4SBV/Gd8=;
+ b=E1oYkDybpLVnvEzMWTvWvsGgzxqddB5O0GU4ulGx3M0dEFP8mrs47G+lqL+IbISl3rSbLq
+ q1oXCzGBmBVLaYSBSbpvqBa8antym6Er5nDYb8SdO5Az7070YY9lKb1sg5l2bGyKagLRec
+ huSSa0aBjIRfyHVccfqf13+L4JPGavxq/NO6rikibygSwh1e+0A/apOyuNSRy6x/Se7UHs
+ Hyg+wBKXA1hkRNFIW2eVPGy7MWuB/3B8yiLLj4u1qqv2Gi+Tm4Mn5Aq4WqdCfd+jIwLl0v
+ FTuFraqAX3kiFes41Tid+ta2iy/uH8/l3nmSyxgmGHQwJH0S5Nh7NWoZnK8l/g==
+Content-Transfer-Encoding: 7bit
+X-Lms-Return-Path: <lba+26abb83b2+142286+vger.kernel.org+weiguixiong@bytedance.com>
+X-Original-From: Guixiong Wei <weiguixiong@bytedance.com>
+X-Mailer: git-send-email 2.50.1
+To: <weiguixiong@bytedance.com>
+Message-Id: <20260929092342.91295-2-weiguixiong@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+Cc: <stable@vger.kernel.org>, "Yijia Wang" <wangyijia.yeah@bytedance.com>
+Subject: [PATCH] platform/x86/intel-uncore-freq: Continue restoring limits on resume
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+From: "Guixiong Wei" <weiguixiong@bytedance.com>
+Date: Tue, 29 Sep 2026 17:23:43 +0800
 
+The PM notifier iterates over every uncore frequency instance to restore
+user-configured MSR_UNCORE_RATIO_LIMIT values after resume. Entries that
+have never been configured legitimately have stored_uncore_data set to
+zero.
 
-The patch below does not apply to the 6.12-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+The refactoring that split common and enumeration code changed the
+iteration from active control CPUs to all allocated instances. It also
+changed the skip for an invalid or unconfigured entry from continue to
+return, causing that entry to terminate the entire restore operation.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+On a multi-package or multi-die system, configuring only a later instance
+therefore leaves its limit unrestored after suspend, hibernation, or
+restore if an earlier entry is invalid or unconfigured.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
-git checkout FETCH_HEAD
-git cherry-pick -x 00df72e39f306e2f7adb68528a5c92109da6a0a9
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092956-canine-emblem-38a5@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+Use continue to skip only the current entry and restore all remaining
+configured instances.
 
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 00df72e39f306e2f7adb68528a5c92109da6a0a9 Mon Sep 17 00:00:00 2001
-From: Ilya Maximets <i.maximets@ovn.org>
-Date: Mon, 21 Sep 2026 16:55:47 +0200
-Subject: [PATCH] net/sched: act_ct: remove 'add_helper' dead code
-
-This variable can only become 'true' when the connection is not
-confirmed, but it is only checked when it is confirmed.  So, it can be
-treated as being always false and just removed.
-
-Fixes: a21b06e73191 ("net: sched: add helper support in act_ct")
+Fixes: dbce412a7733 ("platform/x86/intel-uncore-freq: Split common and enumeration part")
 Cc: stable@vger.kernel.org
-Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
-Reviewed-by: Aaron Conole <aconole@redhat.com>
-Reviewed-by: Xin Long <lucien.xin@gmail.com>
-Reviewed-by: Jamal Hadi Salim <jhs@mojatatu.com>
-Link: https://patch.msgid.link/20260921145655.3167436-6-i.maximets@ovn.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Tested-by: Yijia Wang <wangyijia.yeah@bytedance.com>
+Signed-off-by: Guixiong Wei <weiguixiong@bytedance.com>
+---
+ drivers/platform/x86/intel/uncore-frequency/uncore-frequency.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/net/sched/act_ct.c b/net/sched/act_ct.c
-index e72143d36b11..f62051ec9d57 100644
---- a/net/sched/act_ct.c
-+++ b/net/sched/act_ct.c
-@@ -986,7 +986,6 @@ TC_INDIRECT_SCOPE int tcf_ct_act(struct sk_buff *skb, const struct tc_action *a,
- 	struct nf_hook_state state;
- 	int nh_ofs, err, retval;
- 	struct tcf_ct_params *p;
--	bool add_helper = false;
- 	bool skb_is_ours = false;
- 	bool skip_add = false;
- 	bool defrag = false;
-@@ -1096,14 +1095,14 @@ TC_INDIRECT_SCOPE int tcf_ct_act(struct sk_buff *skb, const struct tc_action *a,
- 		err = __nf_ct_try_assign_helper(ct, p->tmpl, GFP_ATOMIC);
- 		if (err)
- 			goto drop;
--		add_helper = true;
-+
- 		if (nat && !nfct_seqadj(ct)) {
- 			if (!nfct_seqadj_ext_add(ct))
- 				goto drop;
- 		}
- 	}
+diff --git a/drivers/platform/x86/intel/uncore-frequency/uncore-frequency.c b/drivers/platform/x86/intel/uncore-frequency/uncore-frequency.c
+index 667f2c8b9594a..c44e7e38cae25 100644
+--- a/drivers/platform/x86/intel/uncore-frequency/uncore-frequency.c
++++ b/drivers/platform/x86/intel/uncore-frequency/uncore-frequency.c
+@@ -211,7 +211,7 @@ static int uncore_pm_notify(struct notifier_block *nb, unsigned long mode,
+ 			struct uncore_data *data = &uncore_instances[i];
  
--	if (nf_ct_is_confirmed(ct) ? ((!cached && !skip_add) || add_helper) : commit) {
-+	if (nf_ct_is_confirmed(ct) ? (!cached && !skip_add) : commit) {
- 		err = nf_ct_helper(skb, ct, ctinfo, family);
- 		if (err != NF_ACCEPT)
- 			goto nf_error;
-
+ 			if (!data || !data->valid || !data->stored_uncore_data)
+-				return 0;
++				continue;
+ 
+ 			wrmsrq_on_cpu(data->control_cpu, MSR_UNCORE_RATIO_LIMIT,
+ 				      data->stored_uncore_data);
+-- 
+2.50.1 (Apple Git-155)
