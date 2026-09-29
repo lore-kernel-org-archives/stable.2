@@ -1,164 +1,110 @@
-Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52F5E3DCD99
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 04:55:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790657726; cv=none; b=NCTeZDuTptmm76ZiuI7k2yJOmUD48rUf/BgEGCTWBjvt9yBEQFkbssZ23nTg68F1qWwWA7CHwqJjBcQD2VMl6PWsmV/koKDRH8AX0AWA2iXhD2OyABq7J0FglUUgBHzLyrxYoNb1wTI+FBsufkOJmMlnlfW6tADvhD4d1OtRFR4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790657726; c=relaxed/simple;
-	bh=DQy9kMeP46ETkmDAA5NHAlK2UZeyCZDRJAADxhAESiE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=B3w7+B8QxX5fkrMkGHoSU1uvNZGpYbu7yNu4pSKIaSaz0PvBDcLgeHTtYXUEPKjOHs+izdhJVmWgCd9+1Hi0SdXukxaErHK92IJlvdTMJhOmgLHs/npHIXuO8/1YqUW2j0jruorFB1ViLJ5Or1tnWQCP4P6lLhvaMiIK5bbcczo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lolli.tech; spf=pass smtp.mailfrom=lolli.tech; dkim=pass (2048-bit key) header.d=lolli.tech header.i=@lolli.tech header.b=RLXnHLDl; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=3rZUOArk; arc=none smtp.client-ip=34.202.193.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lolli.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lolli.tech
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93BB33BE632
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 05:13:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790658823; cv=pass; b=Qf5GDZ0mgrThK2+CHD+BbJLc8R1sFD7O6V/ltw1DVLjfpmPKgetVSbFtyN+mCo4nEyb+vP0baHcX8NYuUZ0yEAVbZWu5CcP2xJyqyMv4OEZTlPgHTEQkneydEiQNM1hZ2ZB6XpwRfPuYDZmL9uo3dTOjtbR7s6XJC0ho6KuB9ds=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790658823; c=relaxed/simple;
+	bh=XhKkM1Fzuw43vycp3rNOw+pMnftgNR09wN8bT1caJoY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=U+SL868If3YAa9J2Uuabkeos1BPrNSrecNuhrJOcmIgVyDWogqrR0o/vZcppQY36T13pHsFqheZTu6XoT/LV2x7qaZRYpy1ORzAD+OI96P0gHaL3rHsWBS9Zq+9c4ya2YdIbQAwRpljpqk7mVPDOYfz8e5iBu61dwiX1rIRWJyM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pzlumpsh; arc=pass smtp.client-ip=74.125.229.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lolli.tech header.i=@lolli.tech header.b="RLXnHLDl";
-	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="3rZUOArk"
-DKIM-Signature: a=rsa-sha256; b=RLXnHLDlVdsRyqYcSA6XB+bss/sVXboUDxzKw9R2b9MhnTg/SzsRXAF9uE2cPO9BCYV0eZiaQYEZmuMoypBlL+V7ZgWu7ZCT0qr+FeBcIczl+PH2UyLSuetMSqo9lvZPXArnYJOg2uybOA9+xZs4F0aNxrVjdU4hA2C04VmRpUdyol/msIPH6LaLhTIcoNyWRoc3ED+hARUQFocmS+mJEH6EiQvGrc0xvBdf4Uy6Zz36EQMZu8BHEM1Sjlb9Yh/JP/t4iUKpPgmVsL+IIgVUvSU/HYAdZZ0ByJ+ADyRR+GlPuWaWDtfp523a6EwuAwY5casUH5TUdqnsbJlnoiWHNA==; s=purelymail3; d=lolli.tech; v=1; bh=DQy9kMeP46ETkmDAA5NHAlK2UZeyCZDRJAADxhAESiE=; h=Received:From:To:Subject:Date;
-DKIM-Signature: a=rsa-sha256; b=3rZUOArkBleziwM4FQ5wYPYkk6gZZRmDmiigk8AaEVHGOW1vSpyHccBfFu9ChDwyzy+yq+U04Zt/c4fM6VC3g/5KhNwVqDxQB/tGmsq/nJKFhrhlFBGNtRiGpHhAXsO8/ZrWDeFHfbsk2pwUEd98YIjqc3qXODeKgo8Yi95+G6hTzkfaZk9+fy/oX/hIBdgi6ByndPkdlU7lIQ9eAhVF3OK77RSOwly5jgJNCs39pgsKOdK9Whei8NF0V7SXP8wfzet8hSzAakQBgi9KUuniC6jrvELhuJG3Vi5/5pjp/ElLmZDHihuXblJWryYXheBy/CKZMLxITNxsNbg4mUI4kA==; s=purelymail3; d=purelymail.com; v=1; bh=DQy9kMeP46ETkmDAA5NHAlK2UZeyCZDRJAADxhAESiE=; h=Feedback-ID:Received:From:To:Subject:Date;
-Feedback-ID: 1437734:55302:null:purelymail
-X-Pm-Original-To: stable@vger.kernel.org
-Authentication-Results: purelymail.com; auth=pass
-Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 1755747678;
-          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-          Tue, 29 Sep 2026 04:55:08 +0000 (UTC)
-From: lollipopkit <a@lolli.tech>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: Pavel Begunkov <asml.silence@gmail.com>,
-	Willem de Bruijn <willemb@google.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	io-uring@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lollipopkit <a@lolli.tech>,
-	stable@vger.kernel.org
-Subject: [PATCH] io_uring/cmd_net: drop unextractable TX_TIMESTAMP skbs instead of requeueing
-Date: Tue, 29 Sep 2026 12:54:33 +0800
-Message-ID: <20260929045433.59435-1-a@lolli.tech>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pzlumpsh"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33e4e75342aso262341eec.1
+        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 22:13:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790658820; cv=none;
+        d=google.com; s=arc-20260327;
+        b=pYNTi3gsAvYMc+m6ewt1Y+Dz324Vv5D+8kWMfP8XbsEZo+OAPbeOq6ijlTTqaKVr1I
+         l/UFxtGQZqNKDW06Jiy+31MXBm/LR2JRJtikdoj7yBe2QOQP2CE+LRZpgqV6CgmvPFHl
+         hsvBHoSAmrunt8PJl39cfRyb+f8MO7RhlXVQ8FyZxBApsDAvX1AqFraIGNmqhP2gaTT5
+         A8Z70/S7bemT5ESaQTETQa+SH7or9bEazK77KUmdqJAf8+ra3HFgxUWu3CTgLrBZfKN9
+         317LstN3vsdCQq4ZHNk4/pyZb0b1YKA8o+xmL0nzsbkVIv/+vD+nlffS6+gdrKUAxcj4
+         O5sQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=XhKkM1Fzuw43vycp3rNOw+pMnftgNR09wN8bT1caJoY=;
+        fh=5GskS2k+AfKhiyekJRNMQqHHONfLs9jm8p9rrlzyVh0=;
+        b=ITTZn689Dm4Y86cVdtWcGdRzNON5jLsMAdnOt8bimHO/jjZqWz6fBwGzoz0Khs5HnX
+         OAFix2wsuFmPXlzj2kwmMCF0suTWRNr8lmIONUJfpSvHYTC66e4F9R6jn5JVH+eab8SD
+         X+3vk72kYEkZQWDfqgngDzjsBMbAvprGJJNJbx9LxxwXlZizhEC5v8XrqIVx7sPqIWGU
+         X4HR9V97GRyUjThD56l5qmDpWKGf3MExJCTq2f5b8ei5THq9L3zRsVK/NUMtY9Ip9QyA
+         9RS1K21CaY5qkEVqLFR5JO++aST682erCspj0vlXqCXBKkHbwrzqvwaVbMPKevBKXr9u
+         C71w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790658820; x=1791263620; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=XhKkM1Fzuw43vycp3rNOw+pMnftgNR09wN8bT1caJoY=;
+        b=pzlumpshljnwMz44N8xldVwUahQilQJ7puOd8Z9D7+pMNBuUFTlr7CQd7VDjedY7rN
+         7vwr3HyiOsDIaIV5lPib9faD3kgT1opSvgH1LNiomZFvIy2jWBh2ZdZCSaNPUtmtd6jU
+         r9Q1PRtugoWdlhOMcY3aCs1obx708osTCCpmuDXSktmDGC/cBr56ze+8QxdcRD5P/BGo
+         Lh03b5VXJphAq8vgF9OWX5liHJFHw2wxL//qyxaBzhNeCbQwzCJbSmYkt19gWwPAT1nN
+         IAsR+si8e+HNhZFm+Y8fGbxG9hEiQOJvQlI1Iz0vBK9LF4/rzUmbYnUkUiTs5EljGKcY
+         r2pA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790658820; x=1791263620;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XhKkM1Fzuw43vycp3rNOw+pMnftgNR09wN8bT1caJoY=;
+        b=bpHqGdedPsGP/+FvfJROGr36FSP6ifAnsmfOSvqjuDQSMyMMSqiTLli4YiUgiwEabi
+         MIny4yyPhhHM+jgAiIsH+BRp3b39d+0pzZnNciaPiCY6NYeIEMyhBy8jNs96Fg1W99XD
+         Z5JiaoxbcJJonIqlCVCjI1kbWfx55uhmfUWmf/LY70vAxdnTo1hSg04u8mcmhyJlli7/
+         iCbm1hAOecznvzR55SlgsrSHZQwN9XXxM8ksgsVdM2BA88INcrgaYYJL2I1+BkSP1br8
+         mfV9c7lPU7f4r2wwdAJw8SREICwq0+dztr0W+1xw1Tvo5rAjafC161t4kl26BL2OIXRD
+         FTqw==
+X-Gm-Message-State: AFq9FYIcWqnnxoPIgOkhPaIVMG1MlexEDwRTPMGcFrCQf1cNL3yXMiJG
+	14lvX2F5bFc9/p9q5Zekx2OVQZ9afvqXXk5VOiDahpY4NoUIeP5BieZxJeYWUrKLXW4DfVEJYf+
+	8W2K21PYHKkO4RythiKrqshUnP1y75gs=
+X-Gm-Gg: AYBFou11Jtpr3LRpJccyn1cZuOY8ZEn3R91zg3RO5Yu6RMVDDKhJxkbr6AUV9kQYQS8
+	h0vqot13eusrB3oZPahFVQJEu9HDG1GcW8ZD9J6TPzcSbNOf12DD/DgNUC2Cw+nY+sqZGSCa4P5
+	V1VzjSajbFHXHDXBELtPUcngT8OvE53hsHAKC5bKmpeH/JPXQbRTLTbTZw3OcVyGJ2QujM5enw1
+	xuxF52LnOJ9ZFydl3XH/FvchnI98A5DQGmnAfo1e7MAkJ5ektd2t/3P3S7ooYY0rhqq+3Je3zMf
+	eaS+friV/xZsvRSVE/YyvIV1rtsskLOrlcIAQdzytoNS9PmRW+E4g30mJRyYKzOQK5QttLAMoan
+	BWti/8RFSuPo65XUwdO6CBFLuRbMKK/Ztxi57KBW0hJoS/Uumh2l3FKF2/pn8cUcm4ZgdiazWKi
+	ZFq3oda1ZMdNa95LLdOCmrrY2OVu23wKXMEhrPaRS4P3Zx+CoXfCw=
+X-Received: by 2002:a05:693c:4099:b0:33b:ee8a:2061 with SMTP id
+ 5a478bee46e88-3427169bcc5mr21939468eec.1.1790658820349; Mon, 28 Sep 2026
+ 22:13:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260928104855.205416-1-ojeda@kernel.org> <20260928104855.205416-2-ojeda@kernel.org>
+In-Reply-To: <20260928104855.205416-2-ojeda@kernel.org>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Tue, 29 Sep 2026 07:13:27 +0200
+X-Gm-Features: AclHuK9GzLjndk0mMRwHVa6Cw8VP7RAODD9JN9IpJOnw25Uowvke0Yaoule5oaU
+Message-ID: <CANiq72nVAr1_1mpGNmpjQHNKL3fvRTN20iivY3L9eqc0JKJ3KQ@mail.gmail.com>
+Subject: Re: [PATCH 6.18.y 2/2] rust: net: phy: fix off-by-one bit positions
+ in device status accessors
+To: Miguel Ojeda <ojeda@kernel.org>
+Cc: stable@vger.kernel.org, Chunfeng Song <springbreeze@stu.pku.edu.cn>, 
+	FUJITA Tomonori <fujita.tomonori@gmail.com>, Jakub Kicinski <kuba@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-MIME-Autoconverted: from 8bit to quoted-printable by Purelymail
-Content-Type: text/plain; charset=UTF-8
 
-SOCKET_URING_OP_TX_TIMESTAMP selects error-queue skbs with
-skb_has_tx_timestamp() but extracts the timestamp with
-skb_get_tx_timestamp().  The two use different checks and can disagree:
-a skb the walk accepted can be rejected with -ENOENT forever.  When
-that happens the processing loop stops and skb_queue_splice() puts the
-unprocessed skbs back onto the HEAD of sk_error_queue.  The rejected
-skb is selected first on every following run, fails again, and blocks
-every skb behind it: new timestamps keep arriving and keep re-running
-the command, but nothing is ever delivered again.
+On Mon, Sep 28, 2026 at 12:49=E2=80=AFPM Miguel Ojeda <ojeda@kernel.org> wr=
+ote:
+>
+> Chunfeng: I assume you meant a patch like this instead in [1], right?
 
-The disagreement is reachable without a race.  With
-SOF_TIMESTAMPING_BIND_PHC the walk never looks at sk_bind_phc, but
-skb_get_tx_timestamp() converts the hardware timestamp through
-ptp_convert_timestamp(), which returns 0 when no virtual clock matches
-sk_bind_phc (for example when the vclock was destroyed after the
-socket bound to it).  ktime_to_timespec64_cond() then fails and the
-extractor returns -ENOENT permanently.  Any skb with a non-zero
-hwtstamp is selected while SOF_TIMESTAMPING_RAW_HARDWARE is set, so a
-single such skb blocks even the software timestamps queued behind it.
+From the other thread:
 
-Measured on real hardware, an I219-V (e1000e), using
-/sys/class/ptp/ptpN/n_vclocks to create and destroy the vclock the
-socket was bound to: 22 error-queue skbs generated (16 software + 6
-hardware).  Of the 21 extractor calls, 20 failed with -ENOENT and the
-one that succeeded delivered 1 software timestamp; deliveries then
-froze while 8 further sends kept re-running the command, and the
-remaining 21 skbs (15 software + 6 hardware) sat in the error queue.
-Both control arms (vclock kept alive; no BIND_PHC) delivered
-everything.
+Acked-by: Chunfeng Song <springbreeze@stu.pku.edu.cn>
 
-With this patch applied on top of the CQ-full fix ("io_uring/cmd_net:
-end TX_TIMESTAMP multishot when the CQ is full"), A/B tested in a KVM
-guest from a single kernel binary, with the new behaviour behind a
-test-only runtime switch (the switch is test scaffolding and is not
-part of this patch).  The guest needs no special hardware: QEMU's igb
-model emulates hardware TX timestamping (TSYNCTXCTL/TXSTMPL/TXSTMPH)
-and the igb driver registers a PTP clock, so the guest reproduces the
-same failure the same way.  The two arms are separate runs with their
-own sockets and sends; the device holds one pending hardware
-timestamp, so how many of the 16 sends get a hardware skb varies per
-run (12 and 8 here).  Switch off: 28 skbs generated (16 software + 12
-hardware), deliveries froze at 1 and the remaining 27 (15 software +
-12 hardware) sat in the error queue.  Switch on: 24 skbs generated (16
-software + 8 hardware); all 16 software timestamps were delivered, the
-8 hardware skbs the extractor rejected with -ENOENT were dropped, and
-the error queue drained.
-
-recvmsg(MSG_ERRQUEUE) already treats such a skb as skippable:
-sock_recv_errqueue() dequeues it, returns the error message without a
-timestamp, and frees it.  Do the same here and keep the deliverable
-timestamps moving: drop the skb the extractor rejected and continue
-with the rest of the list.  The CQE-full case keeps its
-requeue-and-end-multishot behaviour.
-
-Fixes: 9e4ed359b8ef ("io_uring/netcmd: add tx timestamping cmd support")
-Cc: stable@vger.kernel.org # needs the CQ-full fix above
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: lollipopkit <a@lolli.tech>
----
-This applies on top of axboe/for-next (3769bc31a5b7).  The CQ-full fix
-is 3a3d93070c5e in io_uring-7.3; the two touch adjacent lines of the
-same loop, hence the stable note.
-
-Reproducer: a single-file liburing program that runs the three arms
-(destroyed vclock, live vclock, no BIND_PHC) against any NIC with
-hardware TX timestamps, plus a KVM guest setup using QEMU's igb model.
-Happy to post it or turn it into a selftest if that is useful.
-
-One behaviour change worth calling out: skb_has_tx_timestamp() and
-skb_get_tx_timestamp() read sk_tsflags independently, so a concurrent
-setsockopt(SO_TIMESTAMPING) can also make the extractor reject a skb
-the walk selected.  Before this patch that skb was delivered on a later
-run; now it is dropped, as recvmsg(MSG_ERRQUEUE) would.  With a thread
-switching sk_tsflags about 800k times against 20000 sends on loopback,
-this patch dropped 320 such timestamps.  Reading sk_tsflags once per
-run and passing it to both helpers removes that case (0 rejections, 0
-lost in the same test); it changes both helpers' signatures in
-net/socket.c, so I left it out of this fix.  I can send it as a
-preceding patch if you prefer the two together.
-
- io_uring/cmd_net.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
-
-diff --git a/io_uring/cmd_net.c b/io_uring/cmd_net.c
-index 90d4ec7cc761..406fbe8b7d52 100644
---- a/io_uring/cmd_net.c
-+++ b/io_uring/cmd_net.c
-@@ -138,6 +138,21 @@ static int io_uring_cmd_timestamp(struct socket *sock,
- =09=09if (!skb)
- =09=09=09break;
- =09=09ret =3D io_process_timestamp_skb(cmd, sk, skb, issue_flags);
-+=09=09if (ret && ret !=3D -ENOBUFS) {
-+=09=09=09/*
-+=09=09=09 * The walk selected this skb, but skb_get_tx_timestamp()
-+=09=09=09 * cannot extract a timestamp from it: the two use
-+=09=09=09 * different checks.  Splicing it back would put it at
-+=09=09=09 * the head of sk_error_queue, where every later run
-+=09=09=09 * selects it first and fails on it again, so nothing
-+=09=09=09 * behind it is ever delivered.  recvmsg(MSG_ERRQUEUE)
-+=09=09=09 * frees such a skb without reporting a timestamp; drop
-+=09=09=09 * it here as well.
-+=09=09=09 */
-+=09=09=09__skb_dequeue(&list);
-+=09=09=09kfree_skb(skb);
-+=09=09=09continue;
-+=09=09}
- =09=09if (ret)
- =09=09=09break;
- =09=09__skb_dequeue(&list);
-
-base-commit: 3769bc31a5b79ec406df085592fd9dc14ce7df12
---=20
-2.54.0
-
+Cheers,
+Miguel
