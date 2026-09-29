@@ -1,125 +1,172 @@
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F34BC3F5BFC
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 05:52:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D804C3F5BFC;
+	Tue, 29 Sep 2026 05:58:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790661179; cv=none; b=RGuWL0Sjy90qs50c7w6x+HJWIOt2/wQysietOJL33UCkpjw1qxXgU0aTjs+PpXQDniAu6fHNDXawVxVE5rqQ3d34ymICoadTa5i67Fa7lOoA4ngBSdgbi26xWMmeOsp+lCjaievQ5KNjfN6/+KPPYtFAdodB0IUinrAy+YuMjTA=
+	t=1790661496; cv=none; b=qJ65snOZMtk27U82xpz9MQKA/IFTHLD23zE8x66GBW4hiv9+Pe8WWCg/xoiXnldEw7Ktj/2leFMloYRPd+ynzHzZc1dIVij0WvwYcT4htbHmaxLX5v4oNdtOAPvN2WQrEkNegGM5cVTKxHnJDbSPfWdISf3FEjRR4g/UugLXlgM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790661179; c=relaxed/simple;
-	bh=7e4sXeFJ3QQFNwKsifPZ++1Lx7HnmX4ToYVT7DdVoRI=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=l6QRoUvzJTGAvAzuameoPYORKiQWw+0OPsd27CprkpaGNwHhizVEfKm1nlb/6U7brhePaLRen70bMeJ9YZdnnaV2kz7dsYS5ekBJJ2NENfz7C0pn0RHzPD5r0gx7liRzd+D3MVgPmbBTSH+cBX8ryxEUp0XU9KJfZe7AttKoR1o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--shrutiss.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=gOJnlLgG; arc=none smtp.client-ip=209.85.210.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--shrutiss.bounces.google.com
+	s=arc-20240116; t=1790661496; c=relaxed/simple;
+	bh=dYWTGKEmLy9RCuDX9LBRoIFyt0G1rRI61VU8mKpqEG8=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=kn3ddbmr0UN6rICGuFBBKZa7KjWZsE4ZZ3IoTXRZgs0yeir5G9BrkWLdICinhtgKINxuwcLK2Xra1dMxf/ugTOJcPqrHHh5wh9bXQKSt+ArT5arE8bPUWpNdhRgOCQpNOwJsGrOknedybFcUeoUDPaT20a0P2BHGTp6gYXkCs5c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=WtG3rPAX; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=MFAcjth6; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=vEzcR55v; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=MNGEDZBL; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="gOJnlLgG"
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-86917d18880so2853092b3a.0
-        for <stable@vger.kernel.org>; Mon, 28 Sep 2026 22:52:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790661177; x=1791265977; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Fd7XnyqI//p9q3JxaL37a85VvYx8Nu6XtCLQZOYJTA4=;
-        b=gOJnlLgGRN4pFi1AZ1GYgm92IO62uj3oLEVwXcH0Ue4bYcjH78mvM+AkFonFOSYMGz
-         CN2xCg2DjFvx2UOZYBMhpOv0j5hG9r3zEYLh6MVVvKZ2/ByEbeWWl2RgXhxXUOwuwRyA
-         MgXFSFOdEpKwOgc90Jt7WCsw/Yy/q3zYkTVerSjLDiZsYK8g7zqjMMpwdB5H29SzVlvb
-         LK0uVMLLrmWjlovXZNcnBB1dwh+2Ye7WxNAKOiBbBLQyepsZh52bj3izHxj2DRdKsAlZ
-         4eJLreKwlnhjvqyieqrbTPPmKel29uKHp+BO93uZChhaZnz3DDrVxdD0RbgmTk70IvVK
-         3y8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790661177; x=1791265977;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Fd7XnyqI//p9q3JxaL37a85VvYx8Nu6XtCLQZOYJTA4=;
-        b=GPs/hDPrDuUxLgnk3MxVL3Q1qLSqg1pvNkqs9OcAAfl47BWUz2Sn0pxPQj7YuRNbwP
-         NxDjbO4Y14r1e1yCB7CZDNza9W5JferDf2N/kNb7HaiBCykN8AbfnUSX8+bFgl0RvoCa
-         EF8bHWksVJuWf/9xoKtDMdMesa3zDqakQ+XDcLZdr8MTEhzzDChbKCyyTFyNj0m2/xI6
-         N9XBQeHbY7TYTcECvnEdx3N6k75cXZAQzTWK+zlvaCO0ZjqH8rhze4mM2K+/62azECKU
-         rve4Q9bwSOWuACTk4XbZynpSDWjDWoJcya5M3qZZMijNjRmkR/mKC7VU6DfN0jRbci3w
-         vfLw==
-X-Forwarded-Encrypted: i=1; AKwUvByFaAje0LJDOgaA10O5wnnFIigXTo0iOyrHisYVqrpWysWHyp9sUg6LD9cyLlKYOsKol6pMnbk=@vger.kernel.org
-X-Gm-Message-State: AFuF++mvC30aq7vPA7p5k31GlN8EMooV6oN7Fy68i5GsPd6eWUwthKMP
-	OQ2Cf1CKKHkqbWN0zx7fCv1wck/NbjvI8ZI5T7miKiSPuJGXCz9CZXS9aZ+8wuV8qNEMvc8Z8Xh
-	WX9c/uphdaFY5rg==
-X-Received: from pfje18.prod.google.com ([2002:a05:6a00:d2:b0:880:eb99:bc26])
- (user=shrutiss job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a00:408e:b0:87d:f382:14af with SMTP id d2e1a72fcca58-87e9cc174b4mr12314938b3a.1.1790661177115;
- Mon, 28 Sep 2026 22:52:57 -0700 (PDT)
-Date: Tue, 29 Sep 2026 05:52:55 +0000
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="WtG3rPAX";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="MFAcjth6";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="vEzcR55v";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="MNGEDZBL"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 8215C1F79E;
+	Tue, 29 Sep 2026 05:58:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790661488; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HqOlcpvcIyNFLst/qfqz9TJtK91EoerlTMtFztTgEJE=;
+	b=WtG3rPAXfa9oKArYYfe8zHGwgGKKYuim1N6GvQiEkilp7tqaPmR1e/xYyGbIgthydyX6Pb
+	CXWNrwAAZ/f1Q3kgGGzSnGgIDnKaqrWdTqv68jP4/IO24Wf6ysblNMjYJxk454V5kEPEcZ
+	HbNk7j927Ne55pMUhhGNTsrHFpr0DUM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790661488;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HqOlcpvcIyNFLst/qfqz9TJtK91EoerlTMtFztTgEJE=;
+	b=MFAcjth6jNmE0BbSFRRLjoNYr3dJByXNh+YPeiRo4SrCL2taXqES2hQv2xXmrDT/RBLI2x
+	3rbpyClZLk75qXCA==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=vEzcR55v;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=MNGEDZBL
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790661484; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HqOlcpvcIyNFLst/qfqz9TJtK91EoerlTMtFztTgEJE=;
+	b=vEzcR55vVicyUIC8CrZyFeLKvMnTmP6RkT2VNRtFmPlEKtS2NJRPreTzWo2U/GIb1jkgvc
+	tIRo/RNMAVr5DeksG/CKZJCYDriW/kFaL1tjRRJFLiV/qgdxr68PmOLVL1iMiOIaFftmFK
+	ZGVvxgW0yEtcIh0xPaLecgFBSNy2MSI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790661484;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HqOlcpvcIyNFLst/qfqz9TJtK91EoerlTMtFztTgEJE=;
+	b=MNGEDZBLTCB2hyjz1aB59js81oabbjwbD89TGYNNNYhifI5rtMW2aBh95FO2s5bI2VVSSY
+	yegKggKA8MuFZjDw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1AFC0133F1;
+	Tue, 29 Sep 2026 05:58:04 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id JbwcOGtTu2odMQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Tue, 29 Sep 2026 05:58:04 +0000
+Date: Tue, 29 Sep 2026 07:58:03 +0200
+Message-ID: <87tsn838gk.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Sasha Levin <sashal@kernel.org>
+Cc: Faaris Ansari <faarisansari@googlemail.com>,	stable@vger.kernel.org,
+	regressions@lists.linux.dev,	linux-sound@vger.kernel.org,
+	=?ISO-8859-1?Q?C=E1ssio?= Gabriel <cassiogabrielcontato@gmail.com>,	Takashi
+ Iwai <tiwai@suse.com>,	Jaroslav Kysela <perex@perex.cz>,	Faaris Ansari
+ <faaris.ansari@gmail.com>
+Subject: Re: [REGRESSION] Audient EVO4 hardware volume control now requires quirk
+In-Reply-To: <2026-09-28-2-daily-reply-0001-re-audient-evo4-channel-3-set-cur@kernel.org>
+References: <CANBVYRCL=8QdLxGg4S6qrahrFtwJxhv-aSGpW7-1S=+iOe4ZGA@mail.gmail.com>
+	<2026-09-27-daily-reply-0001-re-audient-evo4-mixer-put-errors@kernel.org>
+	<CANBVYRAr_ShKGmrt2NoqsDsDEbTXa5DWJbq2oP6wKLWJQpLRWw@mail.gmail.com>
+	<2026-09-28-daily-reply-0001-re-audient-evo4-upstream-decision@kernel.org>
+	<ee6e9e8f-e174-4872-baee-114d848e8137@gmail.com>
+	<2026-09-28-2-daily-reply-0001-re-audient-evo4-channel-3-set-cur@kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260929055255.1380202-1-shrutiss@google.com>
-Subject: [PATCH] x86/apic/savic: Forward APIC_SPIV writes to the hypervisor
-From: shrutiss@google.com
-To: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	Neeraj Upadhyay <Neeraj.Upadhyay@amd.com>
-Cc: "H . Peter Anvin" <hpa@zytor.com>, Kishon Vijay Abraham I <kvijayab@amd.com>, Tianyu Lan <tiala@microsoft.com>, 
-	linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev, kvm@vger.kernel.org, 
-	stable@vger.kernel.org, jxgao@google.com
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Score: -2.01
+X-Rspamd-Queue-Id: 8215C1F79E
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-2.01 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	MIME_TRACE(0.00)[0:+];
+	URIBL_BLOCKED(0.00)[suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[googlemail.com,vger.kernel.org,lists.linux.dev,gmail.com,suse.com,perex.cz];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:mid]
+X-Spam-Flag: NO
 
-From: Shruti <shrutiss@google.com>
+On Tue, 29 Sep 2026 00:39:05 +0200,
+Sasha Levin wrote:
+> 
+> > [   80.940668] usb 3-1: cannot set ctl value: req = 0x1, wValue = 0x203,
+> > wIndex = 0xa00, type = 4, data = 0x0/0x81
+> [...]
+> > numid=4,iface=MIXER,name='EVO4  Playback Volume'
+> >    ; type=INTEGER,access=rw---R--,values=4,min=0,max=254,step=0
+> >    : values=182,182,0,0
+> 
+> Thanks, that narrows it down.
+> 
+> Every failure is SET_CUR of the Volume control on feature unit 10, channel 3
+> (wValue 0x0203, wIndex 0x0a00). That unit is 'EVO4  Playback Volume' and
+> advertises read/write volume on all four channels. mixer_ctl_feature_put()
+> writes channels 1 and 2, then returns the channel 3 error, so the hardware
+> volume changes while userspace is told the write failed and adds software
+> attenuation on top. Faaris sees the same on 7.3-rc5, so this is a mainline
+> regression from 87a6f2fa6e6c ("ALSA: usb-audio: Propagate write errors in
+> generic mixer put callbacks").
 
-For Secure AVIC (SAVIC) guests, the hypervisor (KVM) emulates the LAPIC
-timer and LVT registers, while the guest's APIC backing page is kept in
-encrypted guest-private memory that the hypervisor cannot read.
+Right.  So a simple fix would be to just to set the IGNORE_CTL_ERROR
+quirk flag like below.  One of iD14 models has already this flag, so
+it might be safer to set to all Audient devices.
 
-Currently, savic_write() updates APIC_SPIV (Spurious Interrupt Vector
-Register) only in the guest's private APIC backing page without
-notifying the hypervisor. Because the hypervisor never sees the guest
-set the APIC Software Enable bit (APIC_SPIV_APIC_ENABLED) in APIC_SPIV,
-it continues to treat the vCPU's Local APIC as software-disabled.
 
-When the hypervisor sees a vCPU's APIC as software-disabled, it forcibly
-masks all LVT writes (including APIC_LVTT for the local timer) and drops
-timer and fixed interrupts for that vCPU. On SMP guests, where secondary
-CPUs (APs) start with their emulated APIC reset to software-disabled,
-this prevents APs from receiving local timer interrupts and leaves them
-hung in idle (HLT) during boot.
+thanks,
 
-Forward APIC_SPIV writes to the hypervisor via savic_ghcb_msr_write() in
-addition to updating the guest's APIC backing page so the hypervisor's
-APIC state stays in sync with the guest.
+Takashi
 
-Fixes: c822f58a4fab ("x86/apic: Populate .read()/.write() callbacks of Secure AVIC driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shruti <shrutiss@google.com>
----
- arch/x86/kernel/apic/x2apic_savic.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/arch/x86/kernel/apic/x2apic_savic.c b/arch/x86/kernel/apic/x2apic_savic.c
-index dbc5678bc3b6..1ef4c5b6c494 100644
---- a/arch/x86/kernel/apic/x2apic_savic.c
-+++ b/arch/x86/kernel/apic/x2apic_savic.c
-@@ -214,7 +214,6 @@ static void savic_write(u32 reg, u32 data)
- 		break;
- 	case APIC_TASKPRI:
- 	case APIC_EOI:
--	case APIC_SPIV:
- 	case SAVIC_NMI_REQ:
- 	case APIC_ESR:
- 	case APIC_ECTRL:
-@@ -223,6 +222,10 @@ static void savic_write(u32 reg, u32 data)
- 	case APIC_EILVTn(0) ... APIC_EILVTn(3):
- 		apic_set_reg(ap, reg, data);
- 		break;
-+	case APIC_SPIV:
-+		savic_ghcb_msr_write(reg, data);
-+		apic_set_reg(ap, reg, data);
-+		break;
- 	case APIC_ICR:
- 		savic_icr_write(data, 0);
- 		break;
--- 
-2.55.0.1082.g2b9226bbc0-goog
-
+--- a/sound/usb/quirks.c
++++ b/sound/usb/quirks.c
+@@ -2690,6 +2690,8 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
+ 		   QUIRK_FLAG_DSD_RAW),
+ 	DEVICE_FLG(0x2708, 0x0002, /* Audient iD14 */
+ 		   QUIRK_FLAG_IGNORE_CTL_ERROR),
++	DEVICE_FLG(0x2708, 0x0006, /* Audient EV04 */
++		   QUIRK_FLAG_IGNORE_CTL_ERROR),
+ 	DEVICE_FLG(0x2772, 0x0502, /* Musical Fidelity M6s DAC */
+ 		   0), /* for avoiding QUIRK_FLAG_DSD_RAW with vendor match */
+ 	DEVICE_FLG(0x2912, 0x30c8, /* Audioengine D1 */
