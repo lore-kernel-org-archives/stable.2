@@ -1,42 +1,76 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A48531B80E
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 16:21:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5692051CF72
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 16:27:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.40
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790698887; cv=none; b=lQxnMQrG5KtnOSdFbqp4RdOC6ydrIn2ISfW6oiC7PzRUigndpVQbN39QrBQi/HOAjxSHfppVJqu3Up6Y8K7WQZwxhEPPdg6tF+ovy1+34lVVARpZOMwLyJa+c41yKXkdNCulJ0asQOw6WH5Eb62GC4tCSxhzdkPrfxITMZmStHk=
+	t=1790699278; cv=none; b=hu0jpMdMmfiVElxUuNzLu+7gqXqKk+9++yd+TrNNXJfryTYikmHHO6qMWsFzW13U+z9Icab7dW1qnPujap8zfHXA+8Gz/VJ5Nul/4CuG2hrZNYG9hOukSNZb0xt8eKE5gk02eL0Vo6g32c0LrDGKxUHzNlrXO5WWnpIZk+CA/lc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790698887; c=relaxed/simple;
-	bh=fmt56eNz4o4k4BTHuDwwlI6v26pt/WiY2ngfKNS1itE=;
+	s=arc-20240116; t=1790699278; c=relaxed/simple;
+	bh=gq9sRaDwfOSOR9U05J47ThC+bJA+gjzx/O2KwmU30p0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AZonSk20NfZRE2fKY9RQIN4H4nulm7qCT1NwBglTjvCDLaaZgmn1PtrPxkUV650ItFE/1GMXMaK5gAL3UVa+z+apmJEGCBFJRabdZlkXlC6jjDRLWRoBNWMu6WULRr1o//OYaxVukuOd4op/IMADv8MFRMRCmIOG7G/rvWzw2nM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UwoXvnQs; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=U7z597W4P+59QrGMwnon3afgPQZJGJ2A/xdpVfp642u4RuUq+B0F3uF82KRjJJ7TV3iS06L8b5dmlwkdATRehDucievx1iAcQECucXTYYEQhZ0pZjhyFX07A61NzsuGrLYjTdVyamfAcivFiz+1Qfl+X5EFkZSAgehwMkrgzmcY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Blqr3WTv; arc=none smtp.client-ip=74.125.228.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UwoXvnQs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F3471F000FF;
-	Tue, 29 Sep 2026 16:21:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790698884;
-	bh=37zzft9qQzyTXZX/Nk3912JwbwzlxeDI1Dagc35ENto=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UwoXvnQsAV54DxiwnjABXntp+EF3fTdjRtFwOdH8yCXkSQwd8BrGCgwB28zIpoFnO
-	 SI4HzCnXgS76RZrCaloYlXygKwRGbB2iyA7jz3covZrIFbwyCCt2610BrQQEpjlxZS
-	 MNlCFeOdJHpDDNJ4SRUErw5wnUHTtAGBsWWceJQ7a0P/m5Pzbw3FdHEuOcbAqsauNi
-	 r1Y5fstF1/s3j247fV6iVERt6/j+jhsQb2rDqaL/BfS/rN34NnuG8bKOmvwAtgVFyZ
-	 gFr8Hr+OktpOfZgZcq0SJDs9SA6tVx+dU5sreyOa/I0t3Wm+o97pnHX01YENh92b9y
-	 lcECeDdFwwYDA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Jani Nikula <jani.nikula@intel.com>,
-	Imre Deak <imre.deak@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] drm/i915/mst: add mst sub-struct to struct intel_dp
-Date: Tue, 29 Sep 2026 12:21:21 -0400
-Message-ID: <20260929162122.4190498-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Blqr3WTv"
+Received: by mail-pz2-f40.google.com with SMTP id 41be03b00d2f7-cc78d45f78fso2696034a12.3
+        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 09:27:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790699277; x=1791304077; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nMLJtBtu1McmX8NW+POn2C9MT++VFKrT899CQzM8ZpQ=;
+        b=Blqr3WTv1VnJUzfjEe0EGRc76RYO+EoxuO5/+fmfudHKlAjdCc5ROsBt/lYbRaN39O
+         oSYSyJAKTecA0Eo1Obz0I+vOO67axZaJ7mFLMXLTouSU3ULyggKq1CwtU1AQXwwt2GI8
+         DhwYUIeCNbFrte1d15s84O8ixkB3bKqrPOvSEu/ciLnbr5lFykkx8axFku/MOmUHiga8
+         RIIg6aBcmeBx1CB43Sf9Hz4hcZS49eO++DjmQTr5yJq3kYq1ndH0K2V7HWxLd58UJsck
+         6rw9ID0MVeEzUjOULd+Sr5OYN5fT4GZi+PBf9XfrZHoy8GwxarTb+uTWnI5Q9z3KCZmx
+         bqJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790699277; x=1791304077;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nMLJtBtu1McmX8NW+POn2C9MT++VFKrT899CQzM8ZpQ=;
+        b=xPd71esloIeB5gSysicB0Q/+jcHlX3xDqPJjyJsGVSAYbwmGIbUWqaC5xEi2ABrtti
+         /8vkEirlfR9Ip19EQMwmMkkH22W5PFATxz8NxLBVr1NrhUcFHZsMr2fuwL9zcmU8/Spd
+         0jsEtM/gNsnTl2epX7SVojmZQqrGFs4Lr1U73iccHeOni3CpaZDN6xhLhDYKF7oh1fCD
+         HoBRY5JtjQw6l8DR1G8e28sYZFqXW3rNyBbbP40P4RJg4qFyEvlOWQJEpzlXQ1glZxbt
+         NEFF5v4v7/sjWTJXYW2uoiIbHe53usGImy3HcxJl0F+AevbTG8UkbWrxnUZcIhaHq4Jq
+         gvdA==
+X-Forwarded-Encrypted: i=1; AKwUvBxEOs3RxAEOQEByPEiDwK2OnWZb6+FEow/jb4u3c7/m0UkRd3hxgYNVysMx9+GPMYZOF5SmkCg=@vger.kernel.org
+X-Gm-Message-State: AFuF++l2wwOpXOK6MYn3GypiTAPcvwUoL6MAnhiM54XVrutFEb5XPgLq
+	JEnTqxFWEy7gJcfvzq8WDhwzJaMoaefc1n/gamjpuSds17XWV9sr7nPLFKNsSY8RcFQL+Q==
+X-Gm-Gg: AYBFou0fmd2ZSiwQ0CDrekcfrI59Cwyv1pl21M04l0ncIMHhqJLxg8cHT+ZSHmrSUvp
+	DKbwBwGoQ5DWcF5c3zYNZnsSJ8mn1mljd8DKM2plzzK6FCLTVu15Q+s1KnpAYrMt1h1gFTE8/0N
+	uolhwvYtrLyPLVL7t5fh3LE/KxKEsnJ4L8gtFQGrMBiJbqzJTGKODqQvAD6X9KPDe9BAtLb0oP6
+	Y/GB2vgLNVntHp46RGDCtq++v7rDyLCEPDDkTKi1K3Vs9vzCaaUCYKcpe59fXhGdxb966W03NOl
+	Rfdko3x4VUeHyij01mmNMb9DgWW2bkqFjVPMf/bYp+rsw7zY8sKSgUReJySYtEgeFUqGJhepHwL
+	8m1dgmpxg2SQC8CeVZmEN8AzZKqHl+94AkwOD/IAOQitOTxO0q0cJEGRthHa+IZ4XtP2SAIy0js
+	Ecja1Fu6zKtSf/s/Syo7X69iPXCyEOT1XyYH4JaJ1azjoR4JA34alMa/21vD4vaqP5Puo=
+X-Received: by 2002:a05:6300:6ccc:10b0:3de:456a:6e02 with SMTP id adf61e73a8af0-3de456a73bfmr5446096637.47.1790699276636;
+        Tue, 29 Sep 2026 09:27:56 -0700 (PDT)
+Received: from localhost ([8.219.235.175])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc7d2b2974asm113238a12.11.2026.09.29.09.27.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 09:27:56 -0700 (PDT)
+From: Dairui Zhang <zhangdairui@gmail.com>
+To: Chuck Lever <cel@kernel.org>
+Cc: linux-nfs@vger.kernel.org,
+	jlayton@kernel.org,
+	neil@brown.name,
+	stable@vger.kernel.org,
+	Dairui Zhang <zhangdairui@gmail.com>
+Subject: [PATCH v3] nfsd: fix READ payload landing one page ahead of the XDR accounting
+Date: Wed, 30 Sep 2026 00:27:52 +0800
+Message-ID: <20260929162752.1895270-1-zhangdairui@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092954-aliens-penalty-0786@gregkh>
-References: <2026092954-aliens-penalty-0786@gregkh>
+In-Reply-To: <20260928182749.1835924-1-zhangdairui@gmail.com>
+References: 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,944 +79,81 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jani Nikula <jani.nikula@intel.com>
+From a4eb1e6b98f6246af5f37ba5bf48b8f8a1a54224 Mon Sep 17 00:00:00 2001
+From: Dairui Zhang <zhangdairui@gmail.com>
+Date: Tue, 29 Sep 2026 03:14:22 +0800
+Subject: [PATCH v3] nfsd: fix READ payload landing one page ahead of the XDR
+ accounting
 
-[ Upstream commit abf874a328a885592a6bfe6f7db463974e14b615 ]
+nfsd4_encode_readv() computes the in-page offset
+base = page_len & ~PAGE_MASK and passes it to nfsd_iter_read(),
+which writes the file data at that offset into *rq_next_page.
+After each operation rq_next_page is set to page_ptr + 1, so when
+the reply stream is mid-page the data lands one page ahead of where
+the payload accounting continues (in the current page at base).
+The client is then sent the stale tail of the current page -
+previous RPC payloads, since reply pages are reused without
+zeroing - instead of the file data: an info leak and corrupted
+READ results.
 
-Move active_mst_links, mst_encoders[], and mst_mgr members of struct
-intel_dp under an mst sub-struct to group mst related things together.
+Trigger: any compound where a READ follows an op that left the
+stream mid-page, e.g. [PUTFH, READ(100), READ(N)] or READDIR+READ.
 
-Rename them active_links, stream_encoders[] and mgr for clarity.
+Place the data in the page the accounting is filling,
+buf->pages[page_len >> PAGE_SHIFT], instead of one page ahead. At
+an exact page boundary page_ptr is the empty page after the last
+full one and page_ptr + 1 is one page too far, so this covers that
+case too.
 
-Note that is_mst and mst_detect are not included, as they're also
-relevant for non-mst. The sub-struct is for active mst.
-
-Cc: Imre Deak <imre.deak@intel.com>
-Reviewed-by: Imre Deak <imre.deak@intel.com>
-Link: https://patchwork.freedesktop.org/patch/msgid/6f282f90bfe2dd9162e2dee8f681c84313971992.1740746939.git.jani.nikula@intel.com
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-
-[ Backport to 6.12: retain the stable MST implementations, i915
-  device references, bandwidth calculations and helper signatures.
-  Update the corresponding field accesses in those implementations
-  instead of importing newer upstream refactors.
-
-  Fold in the connector MST field grouping from aa389adeaa856
-  ("drm/i915/mst: add mst sub-struct to struct intel_connector"),
-  including the stable-only users in link training and PSR. This
-  provides connector->mst.dp and connector->mst.port as required
-  by acbe9a3b60b9 ("drm/i915/dp_mst: Fix configuring FEC for a
-  disconnected stream"), so that target applies unchanged.
-  No functions or behavioral changes are introduced here. ]
-
-Stable-dep-of: acbe9a3b60b9 ("drm/i915/dp_mst: Fix configuring FEC for a disconnected stream")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 0d32a6bbb8e7bf ("NFSD: Fix zero NFSv4 READ results when RQ_SPLICE_OK is not set")
+Suggested-by: Chuck Lever <cel@kernel.org>
+Reported-by: Dairui Zhang <zhangdairui@gmail.com>
+Assisted-by: LLM
+Cc: stable@vger.kernel.org
+Signed-off-by: Dairui Zhang <zhangdairui@gmail.com>
 ---
- .../gpu/drm/i915/display/intel_connector.c    |   4 +-
- drivers/gpu/drm/i915/display/intel_ddi.c      |   4 +-
- .../drm/i915/display/intel_display_debugfs.c  |   8 +-
- .../drm/i915/display/intel_display_types.h    |  18 +-
- drivers/gpu/drm/i915/display/intel_dp.c       |  36 ++--
- drivers/gpu/drm/i915/display/intel_dp_hdcp.c  |   6 +-
- .../drm/i915/display/intel_dp_link_training.c |   4 +-
- drivers/gpu/drm/i915/display/intel_dp_mst.c   | 154 +++++++++---------
- drivers/gpu/drm/i915/display/intel_hdcp.c     |   8 +-
- drivers/gpu/drm/i915/display/intel_psr.c      |   2 +-
- 10 files changed, 123 insertions(+), 121 deletions(-)
+v1 -> v2:
+- Use buf->pages[page_len >> PAGE_SHIFT] for rq_next_page instead of
+  page_ptr + 1, per Chuck Lever's review. The if (base) guard in v1
+  only covered the mid-page case.
+- v1: https://lore.kernel.org/linux-nfs/20260927094535.1745224-1-zhangdairui@gmail.com/
 
-diff --git a/drivers/gpu/drm/i915/display/intel_connector.c b/drivers/gpu/drm/i915/display/intel_connector.c
-index c65887870ddc2..6143a9625e5e2 100644
---- a/drivers/gpu/drm/i915/display/intel_connector.c
-+++ b/drivers/gpu/drm/i915/display/intel_connector.c
-@@ -103,8 +103,8 @@ void intel_connector_destroy(struct drm_connector *connector)
+v2 -> v3:
+- Drop the comment above the new assignment, per Chuck Lever's
+  review. No functional change from v2.
+- Correct the Fixes tag: the bug in this form starts with
+  0d32a6bbb8e7bf (v6.6), when base was hoisted before the
+  reserve. The earlier rq_vec form is not affected.
+
+Tested on 7.2.6 in a QEMU guest. The test file tags every 4K page
+with its index. A raw COMPOUND{PUTFH, READ(0,100), READ(4096,4096)}
+forces the readv path (readcount=2); ftrace confirmed
+nfsd_iter_read for both READs.
+
+Unpatched, the second READ returns stale page contents instead of
+the file data (heap bytes in one run, zeros in another). The first
+READ only looked correct because the stale page happened to hold
+the same page-0 content. Patched, both READs return the expected
+bytes. A localhost v4.1 mount with 128K/1M dd reads (splice path)
+gives identical md5 before and after.
+- v2: https://lore.kernel.org/linux-nfs/20260928182749.1835924-1-zhangdairui@gmail.com/
+---
+ fs/nfsd/nfs4xdr.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/fs/nfsd/nfs4xdr.c b/fs/nfsd/nfs4xdr.c
+--- a/fs/nfsd/nfs4xdr.c
++++ b/fs/nfsd/nfs4xdr.c
+@@ -4933,6 +4933,9 @@ static __be32 nfsd4_encode_readv(struct nfsd4_compoundres *resp,
+ 	__be32 zero = xdr_zero;
+ 	__be32 nfserr;
  
- 	drm_connector_cleanup(connector);
- 
--	if (intel_connector->port)
--		drm_dp_mst_put_port_malloc(intel_connector->port);
-+	if (intel_connector->mst.port)
-+		drm_dp_mst_put_port_malloc(intel_connector->mst.port);
- 
- 	kfree(connector);
- }
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index 5b24460c01341..0eace4d21d5da 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -2585,7 +2585,7 @@ static void mtl_ddi_pre_enable_dp(struct intel_atomic_state *state,
- 	 * Train Display Port" step.  Note that steps that are specific to
- 	 * MST will be handled by intel_mst_pre_enable_dp() before/after it
- 	 * calls into this function.  Also intel_mst_pre_enable_dp() only calls
--	 * us when active_mst_links==0, so any steps designated for "single
-+	 * us when mst.active_links==0, so any steps designated for "single
- 	 * stream or multi-stream master transcoder" can just be performed
- 	 * unconditionally here.
- 	 *
-@@ -2674,7 +2674,7 @@ static void tgl_ddi_pre_enable_dp(struct intel_atomic_state *state,
- 	 * Train Display Port" step.  Note that steps that are specific to
- 	 * MST will be handled by intel_mst_pre_enable_dp() before/after it
- 	 * calls into this function.  Also intel_mst_pre_enable_dp() only calls
--	 * us when active_mst_links==0, so any steps designated for "single
-+	 * us when mst.active_links==0, so any steps designated for "single
- 	 * stream or multi-stream master transcoder" can just be performed
- 	 * unconditionally here.
- 	 */
-diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-index f5f618199d398..c6e98bb57827c 100644
---- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-@@ -275,7 +275,7 @@ static void intel_connector_info(struct seq_file *m,
- 	switch (connector->connector_type) {
- 	case DRM_MODE_CONNECTOR_DisplayPort:
- 	case DRM_MODE_CONNECTOR_eDP:
--		if (intel_connector->mst_port)
-+		if (intel_connector->mst.dp)
- 			intel_dp_mst_info(m, intel_connector);
- 		else
- 			intel_dp_info(m, intel_connector);
-@@ -288,7 +288,7 @@ static void intel_connector_info(struct seq_file *m,
- 	}
- 
- 	seq_puts(m, "\tHDCP version: ");
--	if (intel_connector->mst_port) {
-+	if (intel_connector->mst.dp) {
- 		intel_hdcp_info(m, intel_connector, true);
- 		seq_puts(m, "\tMST Hub HDCP version: ");
- 	}
-@@ -766,7 +766,7 @@ static int i915_dp_mst_info(struct seq_file *m, void *unused)
- 		seq_printf(m, "MST Source Port [ENCODER:%d:%s]\n",
- 			   dig_port->base.base.base.id,
- 			   dig_port->base.base.name);
--		drm_dp_mst_dump_topology(m, &dig_port->dp.mst_mgr);
-+		drm_dp_mst_dump_topology(m, &dig_port->dp.mst.mgr);
- 	}
- 	drm_connector_list_iter_end(&conn_iter);
- 
-@@ -1533,7 +1533,7 @@ void intel_connector_debugfs_add(struct intel_connector *connector)
- 	}
- 
- 	if (DISPLAY_VER(i915) >= 11 &&
--	    ((connector_type == DRM_MODE_CONNECTOR_DisplayPort && !connector->mst_port) ||
-+	    ((connector_type == DRM_MODE_CONNECTOR_DisplayPort && !connector->mst.dp) ||
- 	     connector_type == DRM_MODE_CONNECTOR_eDP)) {
- 		debugfs_create_file("i915_dsc_fec_support", 0644, root,
- 				    connector, &i915_dsc_fec_support_fops);
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index 992945b37190e..af44a9124bb05 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -647,10 +647,6 @@ struct intel_connector {
- 	   state of connector->polled in case hotplug storm detection changes it */
- 	u8 polled;
- 
--	struct drm_dp_mst_port *port;
--
--	struct intel_dp *mst_port;
--
- 	bool force_bigjoiner_enable;
- 
- 	struct {
-@@ -662,6 +658,11 @@ struct intel_connector {
- 		u8 dsc_decompression_enabled:1;
- 	} dp;
- 
-+	struct {
-+		struct drm_dp_mst_port *port;
-+		struct intel_dp *dp;
-+	} mst;
++	resp->rqstp->rq_next_page = xdr->buf->pages +
++				    (xdr->buf->page_len >> PAGE_SHIFT);
 +
- 	/* Work struct to schedule a uevent on link train failure */
- 	struct work_struct modeset_retry_work;
- 
-@@ -1832,7 +1833,6 @@ struct intel_dp {
- 	struct intel_pps pps;
- 
- 	bool is_mst;
--	int active_mst_links;
- 	enum drm_dp_mst_mode mst_detect;
- 
- 	/* connector directly attached - won't be use for modeset in mst world */
-@@ -1842,9 +1842,11 @@ struct intel_dp {
- 	struct drm_dp_tunnel *tunnel;
- 	bool tunnel_suspended:1;
- 
--	/* mst connector list */
--	struct intel_dp_mst_encoder *mst_encoders[I915_MAX_PIPES];
--	struct drm_dp_mst_topology_mgr mst_mgr;
-+	struct {
-+		struct intel_dp_mst_encoder *stream_encoders[I915_MAX_PIPES];
-+		struct drm_dp_mst_topology_mgr mgr;
-+		int active_links;
-+	} mst;
- 
- 	u32 (*get_aux_clock_divider)(struct intel_dp *dp, int index);
- 	/*
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index bb5a2a40b64c6..63c335d3d9ce8 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1290,7 +1290,7 @@ bool intel_dp_has_dsc(const struct intel_connector *connector)
- 	if (!HAS_DSC(i915))
- 		return false;
- 
--	if (connector->mst_port && !HAS_DSC_MST(i915))
-+	if (connector->mst.dp && !HAS_DSC_MST(i915))
- 		return false;
- 
- 	if (connector->base.connector_type == DRM_MODE_CONNECTOR_eDP &&
-@@ -3016,7 +3016,7 @@ intel_dp_queue_modeset_retry_for_link(struct intel_atomic_state *state,
- 		if (!conn_state->base.crtc)
- 			continue;
- 
--		if (connector->mst_port == intel_dp)
-+		if (connector->mst.dp == intel_dp)
- 			intel_dp_queue_modeset_retry_work(connector);
- 	}
- }
-@@ -3236,8 +3236,8 @@ intel_dp_sink_set_dsc_passthrough(const struct intel_connector *connector,
- 				  bool enable)
- {
- 	struct drm_i915_private *i915 = to_i915(connector->base.dev);
--	struct drm_dp_aux *aux = connector->port ?
--				 connector->port->passthrough_aux : NULL;
-+	struct drm_dp_aux *aux = connector->mst.port ?
-+				 connector->mst.port->passthrough_aux : NULL;
- 
- 	if (!aux)
- 		return;
-@@ -3264,7 +3264,7 @@ static int intel_dp_dsc_aux_ref_count(struct intel_atomic_state *state,
- 	 * On SST the decompression AUX device won't be shared, each connector
- 	 * uses for this its own AUX targeting the sink device.
- 	 */
--	if (!connector->mst_port)
-+	if (!connector->mst.dp)
- 		return connector->dp.dsc_decompression_enabled ? 1 : 0;
- 
- 	for_each_oldnew_connector_in_state(&state->base, _connector_iter,
-@@ -3272,7 +3272,7 @@ static int intel_dp_dsc_aux_ref_count(struct intel_atomic_state *state,
- 		const struct intel_connector *
- 			connector_iter = to_intel_connector(_connector_iter);
- 
--		if (connector_iter->mst_port != connector->mst_port)
-+		if (connector_iter->mst.dp != connector->mst.dp)
- 			continue;
- 
- 		if (!connector_iter->dp.dsc_decompression_enabled)
-@@ -4291,7 +4291,7 @@ intel_dp_mst_configure(struct intel_dp *intel_dp)
- 	if (intel_dp->is_mst)
- 		intel_dp_mst_prepare_probe(intel_dp);
- 
--	drm_dp_mst_topology_mgr_set_mst(&intel_dp->mst_mgr, intel_dp->is_mst);
-+	drm_dp_mst_topology_mgr_set_mst(&intel_dp->mst.mgr, intel_dp->is_mst);
- 
- 	/* Avoid stale info on the next detect cycle. */
- 	intel_dp->mst_detect = DRM_DP_SST;
-@@ -4306,9 +4306,9 @@ intel_dp_mst_disconnect(struct intel_dp *intel_dp)
- 		return;
- 
- 	drm_dbg_kms(&i915->drm, "MST device may have disappeared %d vs %d\n",
--		    intel_dp->is_mst, intel_dp->mst_mgr.mst_state);
-+		    intel_dp->is_mst, intel_dp->mst.mgr.mst_state);
- 	intel_dp->is_mst = false;
--	drm_dp_mst_topology_mgr_set_mst(&intel_dp->mst_mgr, intel_dp->is_mst);
-+	drm_dp_mst_topology_mgr_set_mst(&intel_dp->mst.mgr, intel_dp->is_mst);
- }
- 
- static bool
-@@ -5154,7 +5154,7 @@ intel_dp_mst_hpd_irq(struct intel_dp *intel_dp, u8 *esi, u8 *ack)
- {
- 	bool handled = false;
- 
--	drm_dp_mst_hpd_irq_handle_event(&intel_dp->mst_mgr, esi, ack, &handled);
-+	drm_dp_mst_hpd_irq_handle_event(&intel_dp->mst.mgr, esi, ack, &handled);
- 
- 	if (esi[1] & DP_CP_IRQ) {
- 		intel_hdcp_handle_cp_irq(intel_dp->attached_connector);
-@@ -5203,7 +5203,7 @@ intel_dp_check_mst_status(struct intel_dp *intel_dp)
- 	bool link_ok = true;
- 	bool reprobe_needed = false;
- 
--	drm_WARN_ON_ONCE(&i915->drm, intel_dp->active_mst_links < 0);
-+	drm_WARN_ON_ONCE(&i915->drm, intel_dp->mst.active_links < 0);
- 
- 	for (;;) {
- 		u8 esi[4] = {};
-@@ -5219,7 +5219,7 @@ intel_dp_check_mst_status(struct intel_dp *intel_dp)
- 
- 		drm_dbg_kms(&i915->drm, "DPRX ESI: %4ph\n", esi);
- 
--		if (intel_dp->active_mst_links > 0 && link_ok &&
-+		if (intel_dp->mst.active_links > 0 && link_ok &&
- 		    esi[3] & LINK_STATUS_CHANGED) {
- 			if (!intel_dp_mst_link_status(intel_dp))
- 				link_ok = false;
-@@ -5242,7 +5242,7 @@ intel_dp_check_mst_status(struct intel_dp *intel_dp)
- 			drm_dbg_kms(&i915->drm, "Failed to ack ESI\n");
- 
- 		if (ack[1] & (DP_DOWN_REP_MSG_RDY | DP_UP_REQ_MSG_RDY))
--			drm_dp_mst_hpd_irq_send_new_request(&intel_dp->mst_mgr);
-+			drm_dp_mst_hpd_irq_send_new_request(&intel_dp->mst.mgr);
- 	}
- 
- 	if (!link_ok || intel_dp->link.force_retrain)
-@@ -5340,7 +5340,7 @@ static bool intel_dp_has_connector(struct intel_dp *intel_dp,
- 
- 	/* MST */
- 	for_each_pipe(i915, pipe) {
--		encoder = &intel_dp->mst_encoders[pipe]->base;
-+		encoder = &intel_dp->mst.stream_encoders[pipe]->base;
- 		if (conn_state->best_encoder == &encoder->base)
- 			return true;
- 	}
-@@ -6421,7 +6421,7 @@ static int intel_dp_connector_atomic_check(struct drm_connector *conn,
- 		return ret;
- 
- 	if (intel_dp_mst_source_support(intel_dp)) {
--		ret = drm_dp_mst_root_conn_atomic_check(conn_state, &intel_dp->mst_mgr);
-+		ret = drm_dp_mst_root_conn_atomic_check(conn_state, &intel_dp->mst.mgr);
- 		if (ret)
- 			return ret;
- 	}
-@@ -7000,7 +7000,7 @@ void intel_dp_mst_suspend(struct drm_i915_private *dev_priv)
- 			continue;
- 
- 		if (intel_dp->is_mst)
--			drm_dp_mst_topology_mgr_suspend(&intel_dp->mst_mgr);
-+			drm_dp_mst_topology_mgr_suspend(&intel_dp->mst.mgr);
- 	}
- }
- 
-@@ -7023,11 +7023,11 @@ void intel_dp_mst_resume(struct drm_i915_private *dev_priv)
- 		if (!intel_dp_mst_source_support(intel_dp))
- 			continue;
- 
--		ret = drm_dp_mst_topology_mgr_resume(&intel_dp->mst_mgr,
-+		ret = drm_dp_mst_topology_mgr_resume(&intel_dp->mst.mgr,
- 						     true);
- 		if (ret) {
- 			intel_dp->is_mst = false;
--			drm_dp_mst_topology_mgr_set_mst(&intel_dp->mst_mgr,
-+			drm_dp_mst_topology_mgr_set_mst(&intel_dp->mst.mgr,
- 							false);
- 		}
- 	}
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_hdcp.c b/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
-index 3425b36431431..c31b78255d22c 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
-@@ -702,10 +702,10 @@ int intel_dp_hdcp_get_remote_capability(struct intel_connector *connector,
- 
- 	*hdcp_capable = false;
- 	*hdcp2_capable = false;
--	if (!connector->mst_port)
-+	if (!connector->mst.dp)
- 		return -EINVAL;
- 
--	aux = &connector->port->aux;
-+	aux = &connector->mst.port->aux;
- 	ret =  _intel_dp_hdcp2_get_capability(aux, hdcp2_capable);
- 	if (ret)
- 		drm_dbg_kms(&i915->drm,
-@@ -881,7 +881,7 @@ int intel_dp_hdcp_init(struct intel_digital_port *dig_port,
- 	if (!is_hdcp_supported(dev_priv, port))
- 		return 0;
- 
--	if (intel_connector->mst_port)
-+	if (intel_connector->mst.dp)
- 		return intel_hdcp_init(intel_connector, dig_port,
- 				       &intel_dp_mst_hdcp_shim);
- 	else if (!intel_dp_is_edp(intel_dp))
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-index 5d8f93d4cdc6a..e112f9b4a89ef 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-@@ -1692,8 +1692,8 @@ void intel_dp_128b132b_sdp_crc16(struct intel_dp *intel_dp,
- 
- static struct intel_dp *intel_connector_to_intel_dp(struct intel_connector *connector)
- {
--	if (connector->mst_port)
--		return connector->mst_port;
-+	if (connector->mst.dp)
-+		return connector->mst.dp;
- 	else
- 		return enc_to_intel_dp(intel_attached_encoder(connector));
- }
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index eeaedd979354b..4e66fade6301e 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -183,7 +183,7 @@ static int intel_dp_mst_find_vcpi_slots_for_bpp(struct intel_encoder *encoder,
- 	int max_dpt_bpp;
- 	int ret = 0;
- 
--	mst_state = drm_atomic_get_mst_topology_state(state, &intel_dp->mst_mgr);
-+	mst_state = drm_atomic_get_mst_topology_state(state, &intel_dp->mst.mgr);
- 	if (IS_ERR(mst_state))
- 		return PTR_ERR(mst_state);
- 
-@@ -197,7 +197,7 @@ static int intel_dp_mst_find_vcpi_slots_for_bpp(struct intel_encoder *encoder,
- 		crtc_state->fec_enable = !intel_dp_is_uhbr(crtc_state);
- 	}
- 
--	mst_state->pbn_div = drm_dp_get_vc_payload_bw(&intel_dp->mst_mgr,
-+	mst_state->pbn_div = drm_dp_get_vc_payload_bw(&intel_dp->mst.mgr,
- 						      crtc_state->port_clock,
- 						      crtc_state->lane_count);
- 
-@@ -283,8 +283,8 @@ static int intel_dp_mst_find_vcpi_slots_for_bpp(struct intel_encoder *encoder,
- 		drm_WARN_ON(&i915->drm, remote_tu < crtc_state->dp_m_n.tu);
- 		crtc_state->dp_m_n.tu = remote_tu;
- 
--		slots = drm_dp_atomic_find_time_slots(state, &intel_dp->mst_mgr,
--						      connector->port,
-+		slots = drm_dp_atomic_find_time_slots(state, &intel_dp->mst.mgr,
-+						      connector->mst.port,
- 						      crtc_state->pbn);
- 		if (slots == -EDEADLK)
- 			return slots;
-@@ -423,7 +423,7 @@ static int intel_dp_mst_update_slots(struct intel_encoder *encoder,
- 	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
- 	struct intel_dp_mst_encoder *intel_mst = enc_to_mst(encoder);
- 	struct intel_dp *intel_dp = &intel_mst->primary->dp;
--	struct drm_dp_mst_topology_mgr *mgr = &intel_dp->mst_mgr;
-+	struct drm_dp_mst_topology_mgr *mgr = &intel_dp->mst.mgr;
- 	struct drm_dp_mst_topology_state *topology_state;
- 	u8 link_coding_cap = intel_dp_is_uhbr(crtc_state) ?
- 		DP_CAP_ANSI_128B132B : DP_CAP_ANSI_8B10B;
-@@ -453,8 +453,8 @@ hblank_expansion_quirk_needs_dsc(const struct intel_connector *connector,
- {
- 	const struct drm_display_mode *adjusted_mode =
- 		&crtc_state->hw.adjusted_mode;
--	bool is_uhbr_sink = connector->mst_port &&
--			    drm_dp_128b132b_supported(connector->mst_port->dpcd);
-+	bool is_uhbr_sink = connector->mst.dp &&
-+			    drm_dp_128b132b_supported(connector->mst.dp->dpcd);
- 	int hblank_limit = is_uhbr_sink ? 500 : 300;
- 
- 	if (!connector->dp.dsc_hblank_expansion_quirk)
-@@ -708,7 +708,7 @@ intel_dp_mst_transcoder_mask(struct intel_atomic_state *state,
- 		const struct intel_crtc_state *crtc_state;
- 		struct intel_crtc *crtc;
- 
--		if (connector->mst_port != mst_port || !conn_state->base.crtc)
-+		if (connector->mst.dp != mst_port || !conn_state->base.crtc)
- 			continue;
- 
- 		crtc = to_intel_crtc(conn_state->base.crtc);
-@@ -736,12 +736,12 @@ static u8 get_pipes_downstream_of_mst_port(struct intel_atomic_state *state,
- 		if (!conn_state->base.crtc)
- 			continue;
- 
--		if (&connector->mst_port->mst_mgr != mst_mgr)
-+		if (&connector->mst.dp->mst.mgr != mst_mgr)
- 			continue;
- 
--		if (connector->port != parent_port &&
-+		if (connector->mst.port != parent_port &&
- 		    !drm_dp_mst_port_downstream_of_parent(mst_mgr,
--							  connector->port,
-+							  connector->mst.port,
- 							  parent_port))
- 			continue;
- 
-@@ -893,7 +893,7 @@ intel_dp_mst_atomic_topology_check(struct intel_connector *connector,
- 		struct intel_crtc_state *crtc_state;
- 		struct intel_crtc *crtc;
- 
--		if (connector_iter->mst_port != connector->mst_port ||
-+		if (connector_iter->mst.dp != connector->mst.dp ||
- 		    connector_iter == connector)
- 			continue;
- 
-@@ -943,15 +943,15 @@ intel_dp_mst_atomic_check(struct drm_connector *connector,
- 
- 	if (intel_connector_needs_modeset(state, connector)) {
- 		ret = intel_dp_tunnel_atomic_check_state(state,
--							 intel_connector->mst_port,
-+							 intel_connector->mst.dp,
- 							 intel_connector);
- 		if (ret)
- 			return ret;
- 	}
- 
- 	return drm_dp_atomic_release_time_slots(&state->base,
--						&intel_connector->mst_port->mst_mgr,
--						intel_connector->port);
-+						&intel_connector->mst.dp->mst.mgr,
-+						intel_connector->mst.port);
- }
- 
- static void clear_act_sent(struct intel_encoder *encoder,
-@@ -974,7 +974,7 @@ static void wait_for_act_sent(struct intel_encoder *encoder,
- 				  DP_TP_STATUS_ACT_SENT, 1))
- 		drm_err(&i915->drm, "Timed out waiting for ACT sent\n");
- 
--	drm_dp_check_act_status(&intel_dp->mst_mgr);
-+	drm_dp_check_act_status(&intel_dp->mst.mgr);
- }
- 
- static void intel_mst_disable_dp(struct intel_atomic_state *state,
-@@ -990,9 +990,9 @@ static void intel_mst_disable_dp(struct intel_atomic_state *state,
- 	struct drm_i915_private *i915 = to_i915(connector->base.dev);
- 
- 	drm_dbg_kms(&i915->drm, "active links %d\n",
--		    intel_dp->active_mst_links);
-+		    intel_dp->mst.active_links);
- 
--	if (intel_dp->active_mst_links == 1)
-+	if (intel_dp->mst.active_links == 1)
- 		intel_dp->link_trained = false;
- 
- 	intel_hdcp_disable(intel_mst->connector);
-@@ -1011,19 +1011,19 @@ static void intel_mst_post_disable_dp(struct intel_atomic_state *state,
- 	struct intel_connector *connector =
- 		to_intel_connector(old_conn_state->connector);
- 	struct drm_dp_mst_topology_state *old_mst_state =
--		drm_atomic_get_old_mst_topology_state(&state->base, &intel_dp->mst_mgr);
-+		drm_atomic_get_old_mst_topology_state(&state->base, &intel_dp->mst.mgr);
- 	struct drm_dp_mst_topology_state *new_mst_state =
--		drm_atomic_get_new_mst_topology_state(&state->base, &intel_dp->mst_mgr);
-+		drm_atomic_get_new_mst_topology_state(&state->base, &intel_dp->mst.mgr);
- 	const struct drm_dp_mst_atomic_payload *old_payload =
--		drm_atomic_get_mst_payload_state(old_mst_state, connector->port);
-+		drm_atomic_get_mst_payload_state(old_mst_state, connector->mst.port);
- 	struct drm_dp_mst_atomic_payload *new_payload =
--		drm_atomic_get_mst_payload_state(new_mst_state, connector->port);
-+		drm_atomic_get_mst_payload_state(new_mst_state, connector->mst.port);
- 	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
- 	struct intel_crtc *pipe_crtc;
- 	bool last_mst_stream;
- 
--	intel_dp->active_mst_links--;
--	last_mst_stream = intel_dp->active_mst_links == 0;
-+	intel_dp->mst.active_links--;
-+	last_mst_stream = intel_dp->mst.active_links == 0;
- 	drm_WARN_ON(&dev_priv->drm,
- 		    DISPLAY_VER(dev_priv) >= 12 && last_mst_stream &&
- 		    !intel_dp_mst_is_master_trans(old_crtc_state));
-@@ -1038,7 +1038,7 @@ static void intel_mst_post_disable_dp(struct intel_atomic_state *state,
- 
- 	intel_disable_transcoder(old_crtc_state);
- 
--	drm_dp_remove_payload_part1(&intel_dp->mst_mgr, new_mst_state, new_payload);
-+	drm_dp_remove_payload_part1(&intel_dp->mst.mgr, new_mst_state, new_payload);
- 
- 	clear_act_sent(encoder, old_crtc_state);
- 
-@@ -1048,7 +1048,7 @@ static void intel_mst_post_disable_dp(struct intel_atomic_state *state,
- 
- 	wait_for_act_sent(encoder, old_crtc_state);
- 
--	drm_dp_remove_payload_part2(&intel_dp->mst_mgr, new_mst_state,
-+	drm_dp_remove_payload_part2(&intel_dp->mst.mgr, new_mst_state,
- 				    old_payload, new_payload);
- 
- 	intel_ddi_disable_transcoder_func(old_crtc_state);
-@@ -1070,7 +1070,7 @@ static void intel_mst_post_disable_dp(struct intel_atomic_state *state,
- 	 * Power down mst path before disabling the port, otherwise we end
- 	 * up getting interrupts from the sink upon detecting link loss.
- 	 */
--	drm_dp_send_power_updown_phy(&intel_dp->mst_mgr, connector->port,
-+	drm_dp_send_power_updown_phy(&intel_dp->mst.mgr, connector->mst.port,
- 				     false);
- 
- 	/*
-@@ -1096,7 +1096,7 @@ static void intel_mst_post_disable_dp(struct intel_atomic_state *state,
- 						  old_crtc_state, NULL);
- 
- 	drm_dbg_kms(&dev_priv->drm, "active links %d\n",
--		    intel_dp->active_mst_links);
-+		    intel_dp->mst.active_links);
- }
- 
- static void intel_mst_post_pll_disable_dp(struct intel_atomic_state *state,
-@@ -1108,7 +1108,7 @@ static void intel_mst_post_pll_disable_dp(struct intel_atomic_state *state,
- 	struct intel_digital_port *dig_port = intel_mst->primary;
- 	struct intel_dp *intel_dp = &dig_port->dp;
- 
--	if (intel_dp->active_mst_links == 0 &&
-+	if (intel_dp->mst.active_links == 0 &&
- 	    dig_port->base.post_pll_disable)
- 		dig_port->base.post_pll_disable(state, encoder, old_crtc_state, old_conn_state);
- }
-@@ -1122,7 +1122,7 @@ static void intel_mst_pre_pll_enable_dp(struct intel_atomic_state *state,
- 	struct intel_digital_port *dig_port = intel_mst->primary;
- 	struct intel_dp *intel_dp = &dig_port->dp;
- 
--	if (intel_dp->active_mst_links == 0)
-+	if (intel_dp->mst.active_links == 0)
- 		dig_port->base.pre_pll_enable(state, &dig_port->base,
- 						    pipe_config, NULL);
- 	else
-@@ -1155,7 +1155,7 @@ static void intel_mst_reprobe_topology(struct intel_dp *intel_dp,
- 					       crtc_state->port_clock, crtc_state->lane_count))
- 		return;
- 
--	drm_dp_mst_topology_queue_probe(&intel_dp->mst_mgr);
-+	drm_dp_mst_topology_queue_probe(&intel_dp->mst.mgr);
- 
- 	intel_mst_set_probed_link_params(intel_dp,
- 					 crtc_state->port_clock, crtc_state->lane_count);
-@@ -1173,7 +1173,7 @@ static void intel_mst_pre_enable_dp(struct intel_atomic_state *state,
- 	struct intel_connector *connector =
- 		to_intel_connector(conn_state->connector);
- 	struct drm_dp_mst_topology_state *mst_state =
--		drm_atomic_get_new_mst_topology_state(&state->base, &intel_dp->mst_mgr);
-+		drm_atomic_get_new_mst_topology_state(&state->base, &intel_dp->mst.mgr);
- 	int ret;
- 	bool first_mst_stream;
- 
-@@ -1182,18 +1182,18 @@ static void intel_mst_pre_enable_dp(struct intel_atomic_state *state,
- 	 */
- 	connector->encoder = encoder;
- 	intel_mst->connector = connector;
--	first_mst_stream = intel_dp->active_mst_links == 0;
-+	first_mst_stream = intel_dp->mst.active_links == 0;
- 	drm_WARN_ON(&dev_priv->drm,
- 		    DISPLAY_VER(dev_priv) >= 12 && first_mst_stream &&
- 		    !intel_dp_mst_is_master_trans(pipe_config));
- 
- 	drm_dbg_kms(&dev_priv->drm, "active links %d\n",
--		    intel_dp->active_mst_links);
-+		    intel_dp->mst.active_links);
- 
- 	if (first_mst_stream)
- 		intel_dp_set_power(intel_dp, DP_SET_POWER_D0);
- 
--	drm_dp_send_power_updown_phy(&intel_dp->mst_mgr, connector->port, true);
-+	drm_dp_send_power_updown_phy(&intel_dp->mst.mgr, connector->mst.port, true);
- 
- 	intel_dp_sink_enable_decompression(state, connector, pipe_config);
- 
-@@ -1204,10 +1204,10 @@ static void intel_mst_pre_enable_dp(struct intel_atomic_state *state,
- 		intel_mst_reprobe_topology(intel_dp, pipe_config);
- 	}
- 
--	intel_dp->active_mst_links++;
-+	intel_dp->mst.active_links++;
- 
--	ret = drm_dp_add_payload_part1(&intel_dp->mst_mgr, mst_state,
--				       drm_atomic_get_mst_payload_state(mst_state, connector->port));
-+	ret = drm_dp_add_payload_part1(&intel_dp->mst.mgr, mst_state,
-+				       drm_atomic_get_mst_payload_state(mst_state, connector->mst.port));
- 	if (ret < 0)
- 		intel_dp_queue_modeset_retry_for_link(state, &dig_port->base, pipe_config);
- 
-@@ -1269,9 +1269,9 @@ static void intel_mst_enable_dp(struct intel_atomic_state *state,
- 	struct intel_connector *connector = to_intel_connector(conn_state->connector);
- 	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
- 	struct drm_dp_mst_topology_state *mst_state =
--		drm_atomic_get_new_mst_topology_state(&state->base, &intel_dp->mst_mgr);
-+		drm_atomic_get_new_mst_topology_state(&state->base, &intel_dp->mst.mgr);
- 	enum transcoder trans = pipe_config->cpu_transcoder;
--	bool first_mst_stream = intel_dp->active_mst_links == 1;
-+	bool first_mst_stream = intel_dp->mst.active_links == 1;
- 	struct intel_crtc *pipe_crtc;
- 	int ret;
- 
-@@ -1298,16 +1298,16 @@ static void intel_mst_enable_dp(struct intel_atomic_state *state,
- 		     TRANS_DDI_DP_VC_PAYLOAD_ALLOC);
- 
- 	drm_dbg_kms(&dev_priv->drm, "active links %d\n",
--		    intel_dp->active_mst_links);
-+		    intel_dp->mst.active_links);
- 
- 	wait_for_act_sent(encoder, pipe_config);
- 
- 	if (first_mst_stream)
- 		intel_ddi_wait_for_fec_status(encoder, pipe_config, true);
- 
--	ret = drm_dp_add_payload_part2(&intel_dp->mst_mgr,
-+	ret = drm_dp_add_payload_part2(&intel_dp->mst.mgr,
- 				       drm_atomic_get_mst_payload_state(mst_state,
--									connector->port));
-+									connector->mst.port));
- 	if (ret < 0)
- 		intel_dp_queue_modeset_retry_for_link(state, &dig_port->base, pipe_config);
- 
-@@ -1363,7 +1363,7 @@ static int intel_dp_mst_get_ddc_modes(struct drm_connector *connector)
- {
- 	struct intel_connector *intel_connector = to_intel_connector(connector);
- 	struct drm_i915_private *i915 = to_i915(intel_connector->base.dev);
--	struct intel_dp *intel_dp = intel_connector->mst_port;
-+	struct intel_dp *intel_dp = intel_connector->mst.dp;
- 	const struct drm_edid *drm_edid;
- 	int ret;
- 
-@@ -1373,7 +1373,7 @@ static int intel_dp_mst_get_ddc_modes(struct drm_connector *connector)
- 	if (!intel_display_driver_check_access(i915))
- 		return drm_edid_connector_add_modes(connector);
- 
--	drm_edid = drm_dp_mst_edid_read(connector, &intel_dp->mst_mgr, intel_connector->port);
-+	drm_edid = drm_dp_mst_edid_read(connector, &intel_dp->mst.mgr, intel_connector->mst.port);
- 
- 	ret = intel_connector_update_modes(connector, drm_edid);
- 
-@@ -1389,14 +1389,14 @@ intel_dp_mst_connector_late_register(struct drm_connector *connector)
- 	int ret;
- 
- 	ret = drm_dp_mst_connector_late_register(connector,
--						 intel_connector->port);
-+						 intel_connector->mst.port);
- 	if (ret < 0)
- 		return ret;
- 
- 	ret = intel_connector_register(connector);
- 	if (ret < 0)
- 		drm_dp_mst_connector_early_unregister(connector,
--						      intel_connector->port);
-+						      intel_connector->mst.port);
- 
- 	return ret;
- }
-@@ -1408,7 +1408,7 @@ intel_dp_mst_connector_early_unregister(struct drm_connector *connector)
- 
- 	intel_connector_unregister(connector);
- 	drm_dp_mst_connector_early_unregister(connector,
--					      intel_connector->port);
-+					      intel_connector->mst.port);
- }
- 
- static const struct drm_connector_funcs intel_dp_mst_connector_funcs = {
-@@ -1435,9 +1435,9 @@ intel_dp_mst_mode_valid_ctx(struct drm_connector *connector,
- {
- 	struct drm_i915_private *dev_priv = to_i915(connector->dev);
- 	struct intel_connector *intel_connector = to_intel_connector(connector);
--	struct intel_dp *intel_dp = intel_connector->mst_port;
--	struct drm_dp_mst_topology_mgr *mgr = &intel_dp->mst_mgr;
--	struct drm_dp_mst_port *port = intel_connector->port;
-+	struct intel_dp *intel_dp = intel_connector->mst.dp;
-+	struct drm_dp_mst_topology_mgr *mgr = &intel_dp->mst.mgr;
-+	struct drm_dp_mst_port *port = intel_connector->mst.port;
- 	const int min_bpp = 18;
- 	int max_dotclk = to_i915(connector->dev)->display.cdclk.max_dotclk_freq;
- 	int max_rate, mode_rate, max_lanes, max_link_clock;
-@@ -1548,10 +1548,10 @@ static struct drm_encoder *intel_mst_atomic_best_encoder(struct drm_connector *c
- 	struct drm_connector_state *connector_state = drm_atomic_get_new_connector_state(state,
- 											 connector);
- 	struct intel_connector *intel_connector = to_intel_connector(connector);
--	struct intel_dp *intel_dp = intel_connector->mst_port;
-+	struct intel_dp *intel_dp = intel_connector->mst.dp;
- 	struct intel_crtc *crtc = to_intel_crtc(connector_state->crtc);
- 
--	return &intel_dp->mst_encoders[crtc->pipe]->base.base;
-+	return &intel_dp->mst.stream_encoders[crtc->pipe]->base.base;
- }
- 
- static int
-@@ -1560,7 +1560,7 @@ intel_dp_mst_detect(struct drm_connector *connector,
- {
- 	struct drm_i915_private *i915 = to_i915(connector->dev);
- 	struct intel_connector *intel_connector = to_intel_connector(connector);
--	struct intel_dp *intel_dp = intel_connector->mst_port;
-+	struct intel_dp *intel_dp = intel_connector->mst.dp;
- 
- 	if (!intel_display_device_enabled(i915))
- 		return connector_status_disconnected;
-@@ -1571,8 +1571,8 @@ intel_dp_mst_detect(struct drm_connector *connector,
- 	if (!intel_display_driver_check_access(i915))
- 		return connector->status;
- 
--	return drm_dp_mst_detect_port(connector, ctx, &intel_dp->mst_mgr,
--				      intel_connector->port);
-+	return drm_dp_mst_detect_port(connector, ctx, &intel_dp->mst.mgr,
-+				      intel_connector->mst.port);
- }
- 
- static const struct drm_connector_helper_funcs intel_dp_mst_connector_helper_funcs = {
-@@ -1661,10 +1661,10 @@ static bool detect_dsc_hblank_expansion_quirk(const struct intel_connector *conn
- 	 * A logical port's OUI (at least for affected sinks) is all 0, so
- 	 * instead of that the parent port's OUI is used for identification.
- 	 */
--	if (drm_dp_mst_port_is_logical(connector->port)) {
--		aux = drm_dp_mst_aux_for_parent(connector->port);
-+	if (drm_dp_mst_port_is_logical(connector->mst.port)) {
-+		aux = drm_dp_mst_aux_for_parent(connector->mst.port);
- 		if (!aux)
--			aux = &connector->mst_port->aux;
-+			aux = &connector->mst.dp->aux;
- 	}
- 
- 	if (drm_dp_read_dpcd_caps(aux, dpcd) < 0)
-@@ -1698,7 +1698,7 @@ static struct drm_connector *intel_dp_add_mst_connector(struct drm_dp_mst_topolo
- 							struct drm_dp_mst_port *port,
- 							const char *pathprop)
- {
--	struct intel_dp *intel_dp = container_of(mgr, struct intel_dp, mst_mgr);
-+	struct intel_dp *intel_dp = container_of(mgr, struct intel_dp, mst.mgr);
- 	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
- 	struct drm_device *dev = dig_port->base.base.dev;
- 	struct drm_i915_private *dev_priv = to_i915(dev);
-@@ -1713,8 +1713,8 @@ static struct drm_connector *intel_dp_add_mst_connector(struct drm_dp_mst_topolo
- 
- 	intel_connector->get_hw_state = intel_dp_mst_get_hw_state;
- 	intel_connector->sync_state = intel_dp_connector_sync_state;
--	intel_connector->mst_port = intel_dp;
--	intel_connector->port = port;
-+	intel_connector->mst.dp = intel_dp;
-+	intel_connector->mst.port = port;
- 	drm_dp_mst_get_port_malloc(port);
- 
- 	intel_dp_init_modeset_retry_work(intel_connector);
-@@ -1737,7 +1737,7 @@ static struct drm_connector *intel_dp_add_mst_connector(struct drm_dp_mst_topolo
- 
- 	for_each_pipe(dev_priv, pipe) {
- 		struct drm_encoder *enc =
--			&intel_dp->mst_encoders[pipe]->base.base;
-+			&intel_dp->mst.stream_encoders[pipe]->base.base;
- 
- 		ret = drm_connector_attach_encoder(&intel_connector->base, enc);
- 		if (ret)
-@@ -1763,7 +1763,7 @@ static struct drm_connector *intel_dp_add_mst_connector(struct drm_dp_mst_topolo
- static void
- intel_dp_mst_poll_hpd_irq(struct drm_dp_mst_topology_mgr *mgr)
- {
--	struct intel_dp *intel_dp = container_of(mgr, struct intel_dp, mst_mgr);
-+	struct intel_dp *intel_dp = container_of(mgr, struct intel_dp, mst.mgr);
- 
- 	intel_hpd_trigger_irq(dp_to_dig_port(intel_dp));
- }
-@@ -1833,14 +1833,14 @@ intel_dp_create_fake_mst_encoders(struct intel_digital_port *dig_port)
- 	enum pipe pipe;
- 
- 	for_each_pipe(dev_priv, pipe)
--		intel_dp->mst_encoders[pipe] = intel_dp_create_fake_mst_encoder(dig_port, pipe);
-+		intel_dp->mst.stream_encoders[pipe] = intel_dp_create_fake_mst_encoder(dig_port, pipe);
- 	return true;
- }
- 
- int
- intel_dp_mst_encoder_active_links(struct intel_digital_port *dig_port)
- {
--	return dig_port->dp.active_mst_links;
-+	return dig_port->dp.mst.active_links;
- }
- 
- int
-@@ -1860,14 +1860,14 @@ intel_dp_mst_encoder_init(struct intel_digital_port *dig_port, int conn_base_id)
- 	if (DISPLAY_VER(i915) < 11 && port == PORT_E)
- 		return 0;
- 
--	intel_dp->mst_mgr.cbs = &mst_cbs;
-+	intel_dp->mst.mgr.cbs = &mst_cbs;
- 
- 	/* create encoders */
- 	intel_dp_create_fake_mst_encoders(dig_port);
--	ret = drm_dp_mst_topology_mgr_init(&intel_dp->mst_mgr, &i915->drm,
-+	ret = drm_dp_mst_topology_mgr_init(&intel_dp->mst.mgr, &i915->drm,
- 					   &intel_dp->aux, 16, 3, conn_base_id);
- 	if (ret) {
--		intel_dp->mst_mgr.cbs = NULL;
-+		intel_dp->mst.mgr.cbs = NULL;
- 		return ret;
- 	}
- 
-@@ -1876,7 +1876,7 @@ intel_dp_mst_encoder_init(struct intel_digital_port *dig_port, int conn_base_id)
- 
- bool intel_dp_mst_source_support(struct intel_dp *intel_dp)
- {
--	return intel_dp->mst_mgr.cbs;
-+	return intel_dp->mst.mgr.cbs;
- }
- 
- void
-@@ -1887,10 +1887,10 @@ intel_dp_mst_encoder_cleanup(struct intel_digital_port *dig_port)
- 	if (!intel_dp_mst_source_support(intel_dp))
- 		return;
- 
--	drm_dp_mst_topology_mgr_destroy(&intel_dp->mst_mgr);
-+	drm_dp_mst_topology_mgr_destroy(&intel_dp->mst.mgr);
- 	/* encoders will get killed by normal cleanup */
- 
--	intel_dp->mst_mgr.cbs = NULL;
-+	intel_dp->mst.mgr.cbs = NULL;
- }
- 
- bool intel_dp_mst_is_master_trans(const struct intel_crtc_state *crtc_state)
-@@ -1921,11 +1921,11 @@ intel_dp_mst_add_topology_state_for_connector(struct intel_atomic_state *state,
- {
- 	struct drm_dp_mst_topology_state *mst_state;
- 
--	if (!connector->mst_port)
-+	if (!connector->mst.dp)
- 		return 0;
- 
- 	mst_state = drm_atomic_get_mst_topology_state(&state->base,
--						      &connector->mst_port->mst_mgr);
-+						      &connector->mst.dp->mst.mgr);
- 	if (IS_ERR(mst_state))
- 		return PTR_ERR(mst_state);
- 
-@@ -2023,7 +2023,7 @@ bool intel_dp_mst_crtc_needs_modeset(struct intel_atomic_state *state,
- 		const struct intel_crtc_state *old_crtc_state;
- 		struct intel_crtc *crtc_iter;
- 
--		if (connector->mst_port != crtc_connector->mst_port ||
-+		if (connector->mst.dp != crtc_connector->mst.dp ||
- 		    !conn_state->crtc)
- 			continue;
- 
-@@ -2046,7 +2046,7 @@ bool intel_dp_mst_crtc_needs_modeset(struct intel_atomic_state *state,
- 		 * case.
- 		 */
- 		if (connector->dp.dsc_decompression_aux ==
--		    &connector->mst_port->aux)
-+		    &connector->mst.dp->aux)
- 			return true;
- 	}
- 
-@@ -2107,7 +2107,7 @@ bool intel_dp_mst_verify_dpcd_state(struct intel_dp *intel_dp)
- 	if (!intel_dp->is_mst)
- 		return true;
- 
--	ret = drm_dp_dpcd_readb(intel_dp->mst_mgr.aux, DP_MSTM_CTRL, &val);
-+	ret = drm_dp_dpcd_readb(intel_dp->mst.mgr.aux, DP_MSTM_CTRL, &val);
- 
- 	/* Adjust the expected register value for SST + SideBand. */
- 	if (ret < 0 || val != (DP_MST_EN | DP_UP_REQ_EN | DP_UPSTREAM_IS_SRC)) {
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
-index ccc48dc146892..fb4aa8e05bafd 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-@@ -62,13 +62,13 @@ static int intel_conn_to_vcpi(struct intel_atomic_state *state,
- 	int vcpi = 0;
- 
- 	/* For HDMI this is forced to be 0x0. For DP SST also this is 0x0. */
--	if (!connector->port)
-+	if (!connector->mst.port)
- 		return 0;
--	mgr = connector->port->mgr;
-+	mgr = connector->mst.port->mgr;
- 
- 	drm_modeset_lock(&mgr->base.lock, state->base.acquire_ctx);
- 	mst_state = to_drm_dp_mst_topology_state(mgr->base.state);
--	payload = drm_atomic_get_mst_payload_state(mst_state, connector->port);
-+	payload = drm_atomic_get_mst_payload_state(mst_state, connector->mst.port);
- 	if (drm_WARN_ON(mgr->dev, !payload))
- 		goto out;
- 
-@@ -137,7 +137,7 @@ intel_hdcp_required_content_stream(struct intel_atomic_state *state,
- 		data->k++;
- 
- 		/* if there is only one active stream */
--		if (dig_port->dp.active_mst_links <= 1)
-+		if (dig_port->dp.mst.active_links <= 1)
- 			break;
- 	}
- 	drm_connector_list_iter_end(&conn_iter);
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 5173f5759ce88..c9f71d4f2320d 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -3928,7 +3928,7 @@ void intel_psr_connector_debugfs_add(struct intel_connector *connector)
- 	/* TODO: Add support for MST connectors as well. */
- 	if ((connector->base.connector_type != DRM_MODE_CONNECTOR_eDP &&
- 	     connector->base.connector_type != DRM_MODE_CONNECTOR_DisplayPort) ||
--	    connector->mst_port)
-+	    connector->mst.dp)
- 		return;
- 
- 	debugfs_create_file("i915_psr_sink_status", 0444, root,
+ 	nfserr = nfsd_iter_read(resp->rqstp, read->rd_fhp, read->rd_nf,
+ 				read->rd_offset, &maxcount, base,
+ 				&read->rd_eof);
 -- 
 2.53.0
 
