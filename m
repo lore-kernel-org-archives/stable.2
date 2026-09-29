@@ -1,172 +1,114 @@
-Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A9D54E9C10
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 15:10:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C1173BC68E;
+	Tue, 29 Sep 2026 15:13:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790694668; cv=none; b=JlHzSGxCKOZeBE1L4iGwgWjopMXySFhxLMRIY+jzMKK0+RTe82OvNyNPM7JwfLky/PV/R57ZPShrHZraATncKRHotz1KfhNnacENKczydGTrFMrIqQxTMpSCKjhaVdDDF6SXik/TAGmdWDfnQR7Xj2sbgtYxHakrpac6K/OXQio=
+	t=1790694815; cv=none; b=kwke0WaUqt3pGhHdWqvjzxcMehhTwkk6g4DX5uuTqB43W+FvLNIVLQGLPdnn63Fm4G3AbUfMwBLySBPU2zsS5n1Nl984+DNAJO1zCdgL0lxPBoFoitk3Tr6ympi15QwFERw5OaxmCAwPzHyQX0X/IHFvHDSLKTXLNkr0TItClSk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790694668; c=relaxed/simple;
-	bh=JOeaS9aUeBrTQEvyJy9Zvse1y4Ni9NeQZu5p2BMSjbc=;
-	h=Content-Type:To:Subject:Mime-Version:From:Date:Cc:Message-Id; b=BwNHPyTHbiOe3w+8XOrKA17wLaIYAavE03UiB2F7inIoQ8EgemItiaIJyaiS3DNJ5j+tJXGjJddGew8V/SnE+01ywE7+BoUdkbyz5Kmx7G+rvhU5/4nH6M4Gm5svWDsEwHFgMU11WVxOJxGY0V05DFiigbMRfHapES6050T+4bs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=I2Xkefmb; arc=none smtp.client-ip=209.127.230.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1790694815; c=relaxed/simple;
+	bh=WTVdWqAWN6jaCu3/M0m4sLjNLMvpGfXrLMrB8aZs+No=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JwOuOqAsIPMIctN515aKTet6lXOyYOLZtVmdKlioN00Cvhhffvz+s4pDDs8JQOGHK7tUCRZMHwic0vYBtxpHmZkddDTTmNNrKIlyxwvqA0Kj+zcdA6fPIN+7Ryfcs4Iwds6ov39AwcUr7/IRYKR7XYfDwtLGahsHom8hhRurX9k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UrUTZ3IR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="I2Xkefmb"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1790694638; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=O3IJCO3Fxa+KIWY5We9OpQjzjeolrtdQXzDOuRowT8k=;
- b=I2XkefmbFfmQpL440lQWV3tlrRHyscqqfYz16Cdy7RzsLyQBkV7h05w2bgadcACFs840Ic
- tgpPfAmlHyPHFMpXf72FQXJIe6gXfDBeNdVc7XlgGgwRjgpqXQc2GlGb8RbTM21ngjuEsj
- RpI3mkltFy42I+HqQHRJwqybJP8g06pKJg93nfRe2roEvVFzaHpyjRmDudlRPf2f0evD0h
- meso99d7f1ou7kcKTjridkw5doC4HKHBE9angLrG566Q+nZ8K+eUqW2KpNcNXKdY/oOozU
- UCnDnIMKMDKEw/QgiVARD1Rbjtc8fNxzsY8WcWPD7t3dMoBEbEZAGuH0ynhnXw==
-Content-Type: text/plain; charset=UTF-8
-To: <x86@kernel.org>
-Subject: [PATCH] x86/fpu: Free dynamic fpstate on exec()
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UrUTZ3IR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F1BD1F000FF;
+	Tue, 29 Sep 2026 15:13:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790694800;
+	bh=j71LnEqVH+pnurWlxEZb2howKkEzojL7sj8VLJRzEKw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=UrUTZ3IRCYQpCUfW4VYJgYculZvSJWbANrAo+hb3x+LMZz6lI+8tbIGsI/kCGhOJK
+	 wlU1UZom27rpnZQFzUlzxSqPo+AwnzLOA50BOK8nNyF9vE/XZnuXfT+OWc8aY0jWcn
+	 pY7bzqREPKujWRSIEuYgwBQE7mf9PI5Rn0RSzJMZqCFHqZmixbsmHSh/haw6POfDRU
+	 BSzD0YPZM1DFTLzazepzlm4pSLZbpS8dx+HuGiwGCfxoihDrUY9Q3DjqfcyIIv4VNs
+	 KPLKrLIXqI2XhM9JOhGpk9eSM3cEOt5u+wA5fCk1DBaz/QND2LTl4BvUNtf10h10+E
+	 QRYlSSUVPJO9A==
+Message-ID: <6534f8fc-6222-4524-881b-d0be69d461ce@kernel.org>
+Date: Tue, 29 Sep 2026 17:13:17 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] media: uvcvideo: Fix NULL deref on events for
+ uninitialized controls
+To: Wei Jie LAW <98lawweijie@gmail.com>, laurent.pinchart@ideasonboard.com,
+ mchehab@kernel.org
+Cc: guennadi.liakhovetski@linux.intel.com, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, ribalda@chromium.org
+References: <20260907121844.2592492-1-98lawweijie@gmail.com>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <20260907121844.2592492-1-98lawweijie@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Lms-Return-Path: <lba+26abbd4ec+58b1c1+vger.kernel.org+weiguixiong@bytedance.com>
-From: "Guixiong Wei" <weiguixiong@bytedance.com>
-Date: Tue, 29 Sep 2026 23:10:06 +0800
-X-Mailer: git-send-email 2.50.1
-Cc: "Guixiong Wei" <weiguixiong@bytedance.com>, 
-	"Thomas Gleixner" <tglx@kernel.org>, "Ingo Molnar" <mingo@redhat.com>, 
-	"Borislav Petkov" <bp@alien8.de>, 
-	"Dave Hansen" <dave.hansen@linux.intel.com>, 
-	"H . Peter Anvin" <hpa@zytor.com>, 
-	"Chang S . Bae" <chang.seok.bae@intel.com>, 
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Message-Id: <20260929151013.81562-2-weiguixiong@bytedance.com>
-X-Original-From: Guixiong Wei <weiguixiong@bytedance.com>
 
-The fpstate embedded in struct fpu only accommodates the default
-xfeatures. When a task first uses a dynamically enabled xfeature,
-fpstate_realloc() installs a larger fpstate allocated with vzalloc().
+Hi,
 
-fpu_flush_thread() resets fpu->fpstate to the embedded fpstate on exec()
-without freeing the dynamically allocated one. Once the pointer is
-overwritten, arch_release_task_struct() cannot free the allocation when
-the task exits.
+On 7-Sep-26 14:18, Wei Jie LAW wrote:
+> From: Wei Jie Law <98lawweijie@gmail.com>
+> 
+> A null-ptr-deref exists in v6.12.105 and upstream. KASAN crash log:
+> 
+>   KASAN: null-ptr-deref in range [0x0000000000000080-0x0000000000000087]
+>   Workqueue: events uvc_ctrl_status_event_work
+>   RIP: 0010:uvc_ctrl_status_event+0x105/0x280
+>    uvc_ctrl_status_event_work+0x82/0x240
+>    process_one_work+0x66f/0x10b0
+> 
+> XU controls are initialized lazily, on the first UVCIOC_CTRL_MAP or
+> UVCIOC_CTRL_QUERY.  Until then ctrl->info is all zeroes, so
+> info.mappings is not a valid list head, list_empty() returns false, and
+> uvc_ctrl_status_event() walks it from a NULL next pointer.
+> 
+> Fixes: e5225c820c05 ("media: uvcvideo: Send a control event when a Control Change interrupt arrives")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wei Jie Law <98lawweijie@gmail.com>
+> Assisted-by: Claude:claude-opus-5
+> Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
 
-Preserve the old fpstate pointer across fpstate_reset() and free it only
-after fpu_reset_fpstate_regs() has invalidated FPU register ownership.
-This ordering prevents a context switch from saving FPU registers through
-a freed fpstate pointer.
+Thank you for your patch.
 
-Make fpstate_free() operate on the fpstate pointer itself so it can free
-the detached allocation. Use it for the existing reallocation and task
-release paths as well.
+I have merged this into:
 
-On an AMX-capable system, 1000 iterations of requesting XTILEDATA
-permission, executing TILEZERO and calling execve() on the same image
-left 1000 16 KiB allocations attributed to __xfd_enable_feature() in
-/proc/vmallocinfo. None remained after this change.
+https://gitlab.freedesktop.org/linux-media/users/uvc/-/commits/for-next/
 
-Fixes: 500afbf645a0 ("x86/fpu/xstate: Add fpstate_realloc()/free()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guixiong Wei <weiguixiong@bytedance.com>
----
- arch/x86/include/asm/fpu/api.h |  6 +++---
- arch/x86/kernel/fpu/core.c     | 11 ++++++++++-
- arch/x86/kernel/fpu/xstate.c   | 10 ++++------
- arch/x86/kernel/process.c      |  2 +-
- 4 files changed, 18 insertions(+), 11 deletions(-)
+Regards,
 
-diff --git a/arch/x86/include/asm/fpu/api.h b/arch/x86/include/asm/fpu/api.h
-index 90c63fe19c0fb..3e0c3b7dce73b 100644
---- a/arch/x86/include/asm/fpu/api.h
-+++ b/arch/x86/include/asm/fpu/api.h
-@@ -123,11 +123,11 @@ extern void fpu__resume_cpu(void);
- DECLARE_PER_CPU(bool, kernel_fpu_allowed);
- DECLARE_PER_CPU(struct fpu *, fpu_fpregs_owner_ctx);
- 
--/* Process cleanup */
-+/* Dynamic fpstate cleanup */
- #ifdef CONFIG_X86_64
--extern void fpstate_free(struct fpu *fpu);
-+extern void fpstate_free(struct fpstate *fpstate);
- #else
--static inline void fpstate_free(struct fpu *fpu) { }
-+static inline void fpstate_free(struct fpstate *fpstate) { }
- #endif
- 
- /* fpstate-related functions which are exported to KVM */
-diff --git a/arch/x86/kernel/fpu/core.c b/arch/x86/kernel/fpu/core.c
-index d1aeecd57f5ed..08f5c77d990aa 100644
---- a/arch/x86/kernel/fpu/core.c
-+++ b/arch/x86/kernel/fpu/core.c
-@@ -866,8 +866,17 @@ void fpu__clear_user_states(struct fpu *fpu)
- 
- void fpu_flush_thread(void)
- {
--	fpstate_reset(x86_task_fpu(current));
-+	struct fpu *fpu = x86_task_fpu(current);
-+	struct fpstate *oldfpstate = fpu->fpstate;
-+
-+	fpstate_reset(fpu);
- 	fpu_reset_fpstate_regs();
-+
-+	/*
-+	 * Free the old state only after register state ownership has been
-+	 * invalidated. Otherwise, a context switch could save into it.
-+	 */
-+	fpstate_free(oldfpstate);
- }
- /*
-  * Load FPU context before returning to userspace.
-diff --git a/arch/x86/kernel/fpu/xstate.c b/arch/x86/kernel/fpu/xstate.c
-index a7b6524a9dea2..ea3736a74fd43 100644
---- a/arch/x86/kernel/fpu/xstate.c
-+++ b/arch/x86/kernel/fpu/xstate.c
-@@ -1556,10 +1556,10 @@ static int __init xfd_update_static_branch(void)
- }
- arch_initcall(xfd_update_static_branch)
- 
--void fpstate_free(struct fpu *fpu)
-+void fpstate_free(struct fpstate *fpstate)
- {
--	if (fpu->fpstate && fpu->fpstate != &fpu->__fpstate)
--		vfree(fpu->fpstate);
-+	if (fpstate && fpstate->is_valloc)
-+		vfree(fpstate);
- }
- 
- /**
-@@ -1640,9 +1640,7 @@ static int fpstate_realloc(u64 xfeatures, unsigned int ksize,
- 		xfd_update_state(fpu->fpstate);
- 	fpregs_unlock();
- 
--	/* Only free valloc'ed state */
--	if (curfps && curfps->is_valloc)
--		vfree(curfps);
-+	fpstate_free(curfps);
- 
- 	return 0;
- }
-diff --git a/arch/x86/kernel/process.c b/arch/x86/kernel/process.c
-index 346c438ac8801..b7306f257f4b0 100644
---- a/arch/x86/kernel/process.c
-+++ b/arch/x86/kernel/process.c
-@@ -118,7 +118,7 @@ int arch_dup_task_struct(struct task_struct *dst, struct task_struct *src)
- void arch_release_task_struct(struct task_struct *tsk)
- {
- 	if (fpu_state_size_dynamic() && !(tsk->flags & (PF_KTHREAD | PF_USER_WORKER)))
--		fpstate_free(x86_task_fpu(tsk));
-+		fpstate_free(x86_task_fpu(tsk)->fpstate);
- }
- #endif
- 
+Hans
 
-base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
--- 
-2.50.1 (Apple Git-155)
+
+
+> 
+> ---
+> Changes in v2:
+> - dropped comments in code based on review received
+> - add Reviewed-by from Ricardo Ribalda
+> - drop the former [2/2] patch as it is a duplicate (out-of-bounds read in
+>   uvc_ctrl_status_event()): already handled by
+>   https://lore.kernel.org/linux-media/20260813-uvc-status-11-v1-1-2cf43e9590b0@chromium.org/
+> 
+> v1: https://lore.kernel.org/all/20260907062819.2519878-2-98lawweijie@gmail.com/
+> ---
+>  drivers/media/usb/uvc/uvc_ctrl.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
+> index 3ca108b83f1d..ea28c4e819bd 100644
+> --- a/drivers/media/usb/uvc/uvc_ctrl.c
+> +++ b/drivers/media/usb/uvc/uvc_ctrl.c
+> @@ -2209,7 +2209,7 @@ bool uvc_ctrl_status_event_async(struct urb *urb, struct uvc_video_chain *chain,
+>  	struct uvc_device *dev = chain->dev;
+>  	struct uvc_ctrl_work *w = &dev->async_ctrl;
+>  
+> -	if (list_empty(&ctrl->info.mappings))
+> +	if (!ctrl->initialized || list_empty(&ctrl->info.mappings))
+>  		return false;
+>  
+>  	w->data = data;
+
