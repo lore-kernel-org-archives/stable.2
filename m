@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CB37349CD8
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 06:48:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F5D9349CD8
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 06:49:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790664529; cv=none; b=ljpp8YLAdE7fPDibVIogoe2q/i47htT+otny4XfxyWD9GBFnwqN31K+XOqpLqq+ANalQGzx2FXZif1IVWuyuE3DrL9zOA0LeoTEKpyB0r+e1/xOCM7RBjhapHyzW4TixN5ige13socixOUiwBL1sXx9IDT3zlYCUoFNjy63BZ5s=
+	t=1790664563; cv=none; b=PUOP5OfMNIw3vRSfMJWfJjSCTeRyDcI8jUWgcxxgvo/fzsRFfp+TWZreUEWnfWv+ifo/uayYHPGJKGGalke2XAe66DuaiXpSY2SHeUHTlS+WcuFEk8mn/RpKLAPWO2EurloIC4nNrLx6QHtW2I+OP9z0ZONRLm0vcJ2PV1ufXfM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790664529; c=relaxed/simple;
-	bh=1Phkk8+XzpLQHH1fIS/H9h7/u+LT38z4A7LdKpR39Oc=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=LXlD9RP7GlV0pTR3kAbs00Odd8kvdias/ToYQwtPOCnND0fZMmtVlRvBa/4pUIo2tu4sSeHtiV8JT1qeDymwh2NzusULAAHygJDsTNKtFVP0DSDefu5sLAyNOMoIbFY4JRdNIyfptN9bk6Sxcan9a8+q6JcbYGHkuk5navhzkT0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=E1PIY6Id; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790664563; c=relaxed/simple;
+	bh=Zsown7g98dyNfvCo8IXK2kTDMs7iBcTOwWLL/LupEDA=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=HrK1pCMHmJV+C9sqzNLY52s2iqyn7XpBg4p4ViBW67CsuAJ7MrGVBBJwe2hcDK9eSMT8lIVWDjsfo8oV7p7QWe4mZar59g3D1MamzpFFCFawG3UGp2RGgftTHIlTLbKMy630PuQ9p9wBTZ7KrGzH/UxQrNCCrIF1zyFTZbiuvkQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=G5dQGBkP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="E1PIY6Id"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27A461F000FF;
-	Tue, 29 Sep 2026 06:48:46 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="G5dQGBkP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AE251F000FF;
+	Tue, 29 Sep 2026 06:49:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790664527;
-	bh=X57z54hxNCfSjiX9+LKAX3UovwlWV0kIqvJc9EHXWcM=;
+	s=korg; t=1790664562;
+	bh=0GqiA2brZ/kYRKsAuK/m6xTW50R+NhXTIh+KyyjSCUg=;
 	h=Subject:To:Cc:From:Date;
-	b=E1PIY6Id1FvTnWMbzkopzg6WoxGVtn9zhJXszyFXUMciQL6gYStIsIrTUE5GObFr4
-	 TcQZc2EJDOiDJ9WyewYi4lXc9K+J4zhvrYs0kTy1AU4bOnnqFBu3yc9/fHVqp14f88
-	 5MXZlha+JZoyy5/qxtZ7z4txTBaG/ZD6CErRI0R4=
-Subject: FAILED: patch "[PATCH] landlock: Work around gcc-16 -Wuninitialized warning" failed to apply to 7.2-stable tree
-To: arnd@arndb.de,mic@digikod.net
+	b=G5dQGBkPVzvjeMSVMB/LCuWSlaWCvlYJdY5s32XkiqITmLA4V114SMb8XsDRmdATB
+	 XheQo//kxouOZapz8d1bGZWnhYhSmL5GoA3Os0gCX32+v5xRi1lrd23Ca/o42NB2dh
+	 lU+YkrCvkfcxtty8/+PqB79JKOepbCLzUKMpn/Zg=
+Subject: FAILED: patch "[PATCH] mctp: route: iterate socket tag list in" failed to apply to 6.6-stable tree
+To: benquike@gmail.com,jk@codeconstruct.com.au,kuba@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 29 Sep 2026 08:48:44 +0200
-Message-ID: <2026092944-secrecy-crouch-5bf3@gregkh>
+Date: Tue, 29 Sep 2026 08:49:19 +0200
+Message-ID: <2026092919-dawdler-dodge-debe@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.2-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x c4e941bb7654bcbdfb0b6f3341dc2acfdf235c8d
+git cherry-pick -x 26cc0e69cce062cd3aa6fae33074684669c35a71
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092944-secrecy-crouch-5bf3@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092919-dawdler-dodge-debe@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,69 +62,49 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From c4e941bb7654bcbdfb0b6f3341dc2acfdf235c8d Mon Sep 17 00:00:00 2001
-From: Arnd Bergmann <arnd@arndb.de>
-Date: Tue, 15 Sep 2026 22:10:30 +0200
-Subject: [PATCH] landlock: Work around gcc-16 -Wuninitialized warning
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 26cc0e69cce062cd3aa6fae33074684669c35a71 Mon Sep 17 00:00:00 2001
+From: Hui Peng <benquike@gmail.com>
+Date: Mon, 21 Sep 2026 05:10:01 +0000
+Subject: [PATCH] mctp: route: iterate socket tag list in
+ mctp_lookup_prealloc_tag()
 
-gcc has a bug with -ftrivial-auto-var-init=pattern that produces a
-warning for correct code that uses sparse bitfields:
+When a socket transmits a packet with MCTP_TAG_PREALLOC set,
+mctp_lookup_prealloc_tag() iterates over the per-netns &mns->keys list
+and matches netid, req_tag, peer_addr, and manual_alloc, without
+checking whether tmp->sk == &msk->sk. This allows any MCTP socket in the
+same network namespace to use and consume another socket's preallocated
+tag.
 
-security/landlock/fs.c: In function 'is_access_to_paths_allowed.isra':
-security/landlock/fs.c:767:28: error: '_layer_masks_child1' is used uninitialized [-Werror=uninitialized]
-  767 |         struct layer_masks _layer_masks_child1, _layer_masks_child2;
-      |                            ^~~~~~~~~~~~~~~~~~~
-security/landlock/fs.c:767:28: note: '_layer_masks_child1' declared here
-  767 |         struct layer_masks _layer_masks_child1, _layer_masks_child2;
-      |                            ^~~~~~~~~~~~~~~~~~~
-security/landlock/fs.c: In function 'hook_unix_find':
-security/landlock/fs.c:1649:28: error: 'layer_masks' is used uninitialized [-Werror=uninitialized]
- 1649 |         struct layer_masks layer_masks;
-      |                            ^~~~~~~~~~~
-security/landlock/fs.c:1649:28: note: 'layer_masks' declared here
- 1649 |         struct layer_masks layer_masks;
-      |                            ^~~~~~~~~~~
+Iterate the socket's own tag list (&msk->keys via sklist) instead of the
+namespace-wide &mns->keys list in mctp_lookup_prealloc_tag(), ensuring
+that only tags allocated by msk are matched.
 
-To work around this, change the definition of struct layer_mask to
-use an explictit padding field.
+Tested in QEMU against Linux 7.3.0-rc3 by allocating a manual tag
+(0x18) on socket A via SIOCMCTPALLOCTAG for peer EID 9 and sending a
+4-byte message with MCTP_TAG_PREALLOC from socket B in the same network
+namespace. On the unfixed kernel, sendto(sock_b) using socket A's
+preallocated tag succeeds (ret = 4); with this patch applied,
+sendto(sock_b) fails with -ENOENT (errno = 2) while sendto(sock_a)
+succeeds (ret = 4).
 
-Link: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=110743
-Link: https://lore.kernel.org/all/20260619082133.3504146-1-arnd@kernel.org/
-Fixes: a260c0055665 ("landlock: Add a place for flags to layer rules")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-Link: https://patch.msgid.link/20260915201036.3527935-1-arnd@kernel.org
-[mic: Use BITS_PER_TYPE(), fix kdoc warnings, fix commit message
-according to v2 changes]
+Fixes: 63ed1aab3d40 ("mctp: Add SIOCMCTP{ALLOC,DROP}TAG ioctls for tag control")
+Suggested-by: Jeremy Kerr <jk@codeconstruct.com.au>
 Cc: stable@vger.kernel.org
-Signed-off-by: Mickaël Salaün <mic@digikod.net>
+Signed-off-by: Hui Peng <benquike@gmail.com>
+Link: https://patch.msgid.link/20260921051002.1656692-1-benquike@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
-diff --git a/security/landlock/access.h b/security/landlock/access.h
-index bbbb41f41147..f843835851d0 100644
---- a/security/landlock/access.h
-+++ b/security/landlock/access.h
-@@ -61,6 +61,10 @@ union access_masks_all {
- static_assert(sizeof(typeof_member(union access_masks_all, masks)) ==
- 	      sizeof(typeof_member(union access_masks_all, all)));
+diff --git a/net/mctp/route.c b/net/mctp/route.c
+index b19c63a5691a..e7c95eeacb48 100644
+--- a/net/mctp/route.c
++++ b/net/mctp/route.c
+@@ -825,7 +825,7 @@ static struct mctp_sk_key *mctp_lookup_prealloc_tag(struct mctp_sock *msk,
  
-+#define _LANDLOCK_LAYER_MASK_PADDING                              \
-+	(BITS_PER_TYPE(access_mask_t) - LANDLOCK_NUM_ACCESS_MAX - \
-+	 IS_ENABLED(CONFIG_SECURITY_LANDLOCK_LOG))
-+
- /**
-  * struct layer_mask - The access rights and rule flags for a layer.
-  *
-@@ -81,6 +85,10 @@ struct layer_mask {
- 	 */
- 	access_mask_t quiet : 1;
- #endif /* CONFIG_SECURITY_LANDLOCK_LOG */
-+	/**
-+	 * @__pad: Padding for the compiler's bitfield initialization.
-+	 */
-+	access_mask_t __pad : _LANDLOCK_LAYER_MASK_PADDING;
- } __packed __aligned(sizeof(access_mask_t));
+ 	spin_lock_irqsave(&mns->keys_lock, flags);
  
- /*
+-	hlist_for_each_entry(tmp, &mns->keys, hlist) {
++	hlist_for_each_entry(tmp, &msk->keys, sklist) {
+ 		if (tmp->net != netid)
+ 			continue;
+ 
 
