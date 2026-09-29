@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9F5B5187DF
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 11:49:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1994F518150
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 11:50:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790682592; cv=none; b=KmdEaHiR7SOV/wIJz+zINZM/Aqz9LTIFTfPacrR0BT2eJIN92ysEgJNQSuM7wq28NYhAUFxZ3SAo0VC4TuoUFv+zsq2Z1FI/dxfeZGe6zcbDom3hPxbNLNSlviu6/AuAfJfkeEoaH2KDLPmLywUkZKDl23AUk067EdBM3VEJJxc=
+	t=1790682605; cv=none; b=ZrUYTPJEoKlhKhqKneltHPyI7o5iECJd06fCtBlpzPO7ovaHxMG7HUb31uZ1MV1hdR/Y0c2cVAUI0/r+ustxPrwTZVxrray6vEpmupw+wbJOXmPtEDykDdQuSAd6Sbh3STh4zzPNqDWjZUzau77Kv4Q+3vuPnXkS+fUU4ZrrJJ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790682592; c=relaxed/simple;
-	bh=PY9uVZExFC3Baf/5umJcC9OHeawUCq0vNhempoDWWeM=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=iVHrb2SY9j3XUiE5j7kWZP4XUAfU3sAC7ucBbF5b/NJgEYs040HLP4qQLprvUTYbLGDNfjXoEP/E/YntTzorarYLEkiOXuRUToK8CcsweK8uolvhpUPpbCZ5HAod43tmkD3r9JiEcPkbnKMiW8/0sxDSSX+iiLFyWZk5r5o5jM4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=b5ETxVEp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790682605; c=relaxed/simple;
+	bh=X4gU4OSkXZ3pw0eNbiglhHm41ZL0B54FcEx/l8VdafI=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=oSLtC6E/ShvUAu/2AKAxEWDk4ijk/9VC0zoWVzG3EGfVDbV9VS/q+6NkxM/6LEiTJsuAHWfcfR+H8aBHLLcDgDMFGcSiSMaR3yJiJ8iphWrK7CRdWA5Bdloni7KE6rr93nxcIg9MDmRo98uRxMXTvspw/6rKMm31p0ZX1YJ/HIs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=0MupkMCm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="b5ETxVEp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F3241F00893;
-	Tue, 29 Sep 2026 11:49:50 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="0MupkMCm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D3211F000FF;
+	Tue, 29 Sep 2026 11:50:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790682590;
-	bh=JT94RmuSaTZBReTc+nU6RM2tobitZejW9dbWXEYvKk0=;
+	s=korg; t=1790682604;
+	bh=cRNn1hMR9O5B7ci2yvlyXsW5kt5L8Wk14YSAVTLg+0s=;
 	h=Subject:To:Cc:From:Date;
-	b=b5ETxVEpAOGSxfpqKy0QAKkFloqWSxIQ7TKmsL+zkiM2gIOLF2e1a37a39kPxnlKJ
-	 BkY+RgHU5Tiif4W1iZv0NaUFqZpFeA84/XEJE9Rp7cpLcuhHBiTRdRLXN/pLlH+nZ5
-	 M0noHx9YyewP2GOGpISY/J5axXk+/w/CHUKmNclc=
-Subject: FAILED: patch "[PATCH] Bluetooth: ISO: release unused CIS holds after channel attach" failed to apply to 6.6-stable tree
+	b=0MupkMCmzWpRlkg/HAKcU4lyg0QeZ8PJRkLexzJAGIE3E21X3m4S3rZpLpjf5DiEn
+	 15DvjZZWoupZcpOLqd3TtI64Bba8aCUlNFMTBAy0U1rmgLbl1OPa31A6OU3BuiKfdT
+	 Z13XuZDELzYXucT5ECUGl0ml+ALOYC0yOdm+WThg=
+Subject: FAILED: patch "[PATCH] Bluetooth: mgmt: fix race in read_unconf_index_list()" failed to apply to 5.15-stable tree
 To: qwe.aldo@gmail.com,luiz.von.dentz@intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 29 Sep 2026 13:49:37 +0200
-Message-ID: <2026092937-animate-footing-cd66@gregkh>
+Date: Tue, 29 Sep 2026 13:49:58 +0200
+Message-ID: <2026092958-cathouse-visiting-7f57@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 0fcd4dad555c96e0bd3a1b8c569f989be85c7341
+git cherry-pick -x b5dbb41b212c50c095a4dbee3017a84fe94f033b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092937-animate-footing-cd66@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092958-cathouse-visiting-7f57@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,57 +62,48 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 0fcd4dad555c96e0bd3a1b8c569f989be85c7341 Mon Sep 17 00:00:00 2001
+From b5dbb41b212c50c095a4dbee3017a84fe94f033b Mon Sep 17 00:00:00 2001
 From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Date: Tue, 15 Sep 2026 13:04:30 -0300
-Subject: [PATCH] Bluetooth: ISO: release unused CIS holds after channel attach
+Date: Tue, 15 Sep 2026 12:59:52 -0300
+Subject: [PATCH] Bluetooth: mgmt: fix race in read_unconf_index_list()
 
-hci_bind_cis() and hci_connect_cis() return one hci_conn hold for the
-ISO layer.  A new channel association consumes that hold, which is
-eventually released by iso_conn_free().
+read_unconf_index_list() counts unconfigured controllers before allocating
+its response, then checks the device flags again while filling it.
 
-There are two cases where iso_chan_add() does not create an association:
-it returns success when the socket is already attached to the same
-iso_conn, and it returns -EBUSY when another socket is attached.  The
-hold returned for the current call is unused in both cases.  This occurs
-when deferred setup calls iso_connect_cis() again for its existing
-socket, or when another socket attempts to reuse the CIS.
+hci_dev_list_lock stabilizes list membership, but it does not serialize the
+per-device flags. During asynchronous controller setup, the worker can set
+HCI_UNCONFIGURED and clear HCI_SETUP between the two passes. A controller
+omitted from the allocation count can then become eligible for the fill
+pass, causing an out-of-bounds write to rp->index[].
 
-Detect the idempotent case while the connection is locked and release
-the unused hold after iso_chan_add().  Also release it on -EBUSY.  Do not
-drop it for other errors: a newly allocated iso_conn releases the
-transferred hold when its last temporary reference is put.
+Allocate space for every device on hci_dev_list. Since list membership
+cannot change while hci_dev_list_lock is held, the response remains large
+enough regardless of flag transitions. The reported count and response
+length still include only eligible unconfigured controllers.
 
-Fixes: 69997d50ec57 ("Bluetooth: ISO: handle bound CIS cleanup via hci_conn")
+Fixes: 73d1df2a7a10 ("Bluetooth: Add support for Read Unconfigured Index List command")
 Cc: stable@vger.kernel.org
 Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 
-diff --git a/net/bluetooth/iso.c b/net/bluetooth/iso.c
-index eb99653f33f9..7657c2a0abbf 100644
---- a/net/bluetooth/iso.c
-+++ b/net/bluetooth/iso.c
-@@ -496,6 +496,7 @@ static int iso_connect_cis(struct sock *sk)
- 	struct hci_dev  *hdev;
- 	bdaddr_t src, dst;
- 	u8 src_type;
-+	bool already_attached;
- 	int err;
+diff --git a/net/bluetooth/mgmt.c b/net/bluetooth/mgmt.c
+index f740e745ae78..41956cdde982 100644
+--- a/net/bluetooth/mgmt.c
++++ b/net/bluetooth/mgmt.c
+@@ -496,13 +496,9 @@ static int read_unconf_index_list(struct sock *sk, struct hci_dev *hdev,
  
- 	lock_sock(sk);
-@@ -568,8 +569,14 @@ static int iso_connect_cis(struct sock *sk)
- 		goto unlock;
- 	}
+ 	read_lock(&hci_dev_list_lock);
  
-+	iso_conn_lock(conn);
-+	already_attached = iso_pi(sk)->conn == conn && conn->sk == sk;
-+	iso_conn_unlock(conn);
-+
- 	err = iso_chan_add(conn, sk, NULL);
- 	iso_conn_put(conn);
-+	if (already_attached || err == -EBUSY)
-+		hci_conn_drop(hcon);
- 	if (err)
- 		goto unlock;
+-	count = 0;
+-	list_for_each_entry(d, &hci_dev_list, list) {
+-		if (hci_dev_test_flag(d, HCI_UNCONFIGURED))
+-			count++;
+-	}
++	count = list_count_nodes(&hci_dev_list);
  
+-	rp_len = sizeof(*rp) + (2 * count);
++	rp_len = sizeof(*rp) + (sizeof(__le16) * count);
+ 	rp = kmalloc(rp_len, GFP_ATOMIC);
+ 	if (!rp) {
+ 		read_unlock(&hci_dev_list_lock);
 
