@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B621E3AFCF1
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 08:15:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A78E33AE6EB
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 08:16:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790669749; cv=none; b=UvOxMofN+ZjltXflcgDowxRwZJgsRT0/zZ3TP0MX+8p3fSLLhGGthn7ny2kuqzKLAJfvAJDD4jIy/fxGvgRsbv90CVkD4J/29YnTh4qRZJiRRZTwCo/zV92x52PhxgZInew5QamvwYwwe+kgMskiOdN6eLWvvdVbdz4vStYbHos=
+	t=1790669761; cv=none; b=M87ZMNZ+krDUaTrjeFCYcmorzBwnrkgoiKVVd9PZ0QnWyNqStfU14gAIxBuyR4yAgtieyM0UK78cJG9zkR/gm7NRBVXoJCIWuZ9rya5miDQS3xM1FL0PQZgSxm/yvbOUURD5h1Vup8vk0dr1JS2sfsSmlVdFLemd8iX++eTNNNI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790669749; c=relaxed/simple;
-	bh=YdF4mJof0XqZs+KpPAmlOR4G7NNz9W4iRsbMHUHao2E=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=kW/b1KWvJdCRuwIhPotGnIEoVeLltFhMLEUzzC0rU+Un1ih8rq+ww9RPJ8QckzYqOyumxobk9g4cSEttlDe+rK9VideT0uvEOkf3R7SeDnzvfVpfEElpL0okZA4x93CbxJr4obMnynuZzt9K8cpemRKt7EhRifWWd0cveDBYIkE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=vjR/ESDi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790669761; c=relaxed/simple;
+	bh=5+anLP49U/Us6iRhleMNmvTDQoSD1yOU4k8nyiqTlr8=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=KmJP4rRaou1nc/osd7xLHv/0RXvm0ad6i5K3IK9/hgU//vXaUQfQ8buvmpCOwkzdPqkvDADD/mtinZvd0qCwi9oaNUZL10c1sqq679gI4pB/vTKHSHH4lrrfbfPniex0Lvw37lKXFAlnSbTyTZEjL6gIHaZ03FeXxYAfFAXxyJE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=SJXU7WCG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="vjR/ESDi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE9851F000FF;
-	Tue, 29 Sep 2026 08:15:47 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SJXU7WCG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC37A1F000FF;
+	Tue, 29 Sep 2026 08:15:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790669748;
-	bh=r+q/dSvCPJ20cuEjfzX1SrNz4hcY/zeP9H8rfqSXBIo=;
+	s=korg; t=1790669760;
+	bh=uxnFzSrmXREHnNOcV4819TJTAUQbRGKHzbhAQNNGbps=;
 	h=Subject:To:Cc:From:Date;
-	b=vjR/ESDiSbCj8yrIwopcBMYG3XLpdl0i5Eg/R/lJO2EhQ1KeSldkExeqZ0FZ2Yepd
-	 aWUjZKEWOzEpoQIWAhVRnjBqQ+rMYtYhj1ROHJZfqOTUL7ymMU1du2BsVvb/NA7mrK
-	 ajQbdrF73Mis7o2Kr4UpVxU4ThWQn0Afe0oB/F7c=
-Subject: FAILED: patch "[PATCH] drm/i915/quirks: Limit eDP rate to HBR2 on HP Pavilion Plus" failed to apply to 6.18-stable tree
-To: ankit.k.nautiyal@intel.com,annoycc@gmail.com,jani.nikula@intel.com,nemesa.garg@intel.com,stable@vger.kernel.org
+	b=SJXU7WCGdrSb24/Xu9KeLlenOjRYIdzz6uGAsUEle6ofepzqoor6op3v2VxdO9iUV
+	 wvDEYeFaAg3Qj2HDM6bjAXy1eDXCZGXzx78o/4JtFFSNCTOizT+31TFJwkOTlRHOit
+	 LLsthq+6WrRNFZnkfTqj7a6CuIixY3WQib9w6b2Y=
+Subject: FAILED: patch "[PATCH] drm/i915/dp_mst: Fix configuring FEC for a disconnected" failed to apply to 6.12-stable tree
+To: imre.deak@intel.com,jani.nikula@intel.com,luciano.coelho@intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 29 Sep 2026 10:15:42 +0200
-Message-ID: <2026092942-evaluator-keenness-e26b@gregkh>
+Date: Tue, 29 Sep 2026 10:15:54 +0200
+Message-ID: <2026092954-aliens-penalty-0786@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 5271d81f99dd01d983d439930eb056952485e15e
+git cherry-pick -x acbe9a3b60b9a6ace8ef11fe898f586251c84592
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092942-evaluator-keenness-e26b@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092954-aliens-penalty-0786@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,49 +62,52 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 5271d81f99dd01d983d439930eb056952485e15e Mon Sep 17 00:00:00 2001
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Date: Mon, 7 Sep 2026 09:15:55 +0530
-Subject: [PATCH] drm/i915/quirks: Limit eDP rate to HBR2 on HP Pavilion Plus
- 14-ew1
+From acbe9a3b60b9a6ace8ef11fe898f586251c84592 Mon Sep 17 00:00:00 2001
+From: Imre Deak <imre.deak@intel.com>
+Date: Mon, 7 Sep 2026 20:44:12 +0300
+Subject: [PATCH] drm/i915/dp_mst: Fix configuring FEC for a disconnected
+ stream
 
-The eDP panel on the HP Pavilion Plus Laptop 14-ew1xxx advertises HBR3
-while leaving the TPS4 support bit clear. The output however flickers, once
-link is trained with HBR3.
+During an atomic commit after all the MST stream CRTC state is computed
+the driver ensures that the FEC is configured the same way (enabled or
+disabled) for all the streams on a given MST topology's link.
+drm_dp_mst_port_downstream_of_parent() used to determine if a stream is
+downstream of an MST port will return false if the whole topology is
+disconnected, since in that case it can't verify that the port/
+parent_port passed to it is in the given MST topology. This is a problem
+during the above FEC configuration check, since
+intel_dp_mst_check_dsc_change()->get_pipes_downstream_of_mst_ports()
+will not return all the stream CRTCs/pipes for the topology as expected.
+Since passing parent_port==NULL to get_pipes_downstream_of_mst_port()
+is meant to return all the streams for the given topology (i.e. mst_mgr)
+skip checking if an MST port is downstream of a parent port in this
+case.
 
-Until commit 8c9006283e4b ("Revert "drm/i915/dp: Reject HBR3 when sink
-doesn't support TPS4"") such sinks were capped at HBR2 by the TPS4 check
-which incidentally kept this panel stable. That check was reverted because
-other panels legitimately need HBR3 without advertising TPS4, and the
-per-machine QUIRK_EDP_LIMIT_RATE_HBR2 was introduced to handle the affected
-machines instead.
+This fixes a problem where the FEC configuration check explained above
+failed to ensure that all streams' FEC is configured the same way if the
+topology was disconnected, leading to a FEC state mismatch error.
 
-Add the machine to the list of devices that need the
-QUIRK_EDP_LIMIT_RATE_HBR2.
-
-Fixes: 8c9006283e4b ("Revert "drm/i915/dp: Reject HBR3 when sink doesn't support TPS4"")
-Reported-by: Annoy Cc <annoycc@gmail.com>
-Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16743
-Cc: <stable@vger.kernel.org> # v6.18+
-Tested-by: Annoy Cc <annoycc@gmail.com>
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Reviewed-by: Nemesa Garg <nemesa.garg@intel.com>
-Link: https://patch.msgid.link/20260907034555.2753846-1-ankit.k.nautiyal@intel.com
-(cherry picked from commit 550b703fdbb2a2022faa75b4b11ab135241afbd9)
+Cc: stable@vger.kernel.org # v6.10+
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16073
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16384
+Reviewed-by: Luca Coelho <luciano.coelho@intel.com>
+Signed-off-by: Imre Deak <imre.deak@intel.com>
+Link: https://patch.msgid.link/20260907174413.741851-1-imre.deak@intel.com
+(cherry picked from commit 270681fbffbba2b6ccf5b7e3c34b8b563b36167f)
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 
-diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
-index 33245f44c0d5..7d7db774d8c7 100644
---- a/drivers/gpu/drm/i915/display/intel_quirks.c
-+++ b/drivers/gpu/drm/i915/display/intel_quirks.c
-@@ -257,6 +257,9 @@ static struct intel_quirk intel_quirks[] = {
- 	/* Dell XPS 13 7390 2-in-1 */
- 	{ 0x8a52, 0x1028, 0x08b0, quirk_edp_limit_rate_hbr2 },
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index 57daed0b0b36..9e65b4a1c71d 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -852,7 +852,8 @@ static u8 get_pipes_downstream_of_mst_port(struct intel_atomic_state *state,
+ 		if (&connector->mst.dp->mst.mgr != mst_mgr)
+ 			continue;
  
-+	/* HP Pavilion Plus Laptop 14-ew1xxx */
-+	{ 0x7d55, 0x103c, 0x8c31, quirk_edp_limit_rate_hbr2 },
-+
- 	/* Xiaomi Book Pro 14 2026 */
- 	{ 0xb081, 0x1d72, 0x2424, quirk_disable_psr2 },
- };
+-		if (connector->mst.port != parent_port &&
++		if (parent_port &&
++		    connector->mst.port != parent_port &&
+ 		    !drm_dp_mst_port_downstream_of_parent(mst_mgr,
+ 							  connector->mst.port,
+ 							  parent_port))
 
