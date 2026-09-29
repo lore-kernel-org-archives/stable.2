@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF70637F32C
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 11:43:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 634254FD289
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 11:43:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790682202; cv=none; b=qamzUY3bZmmCQvp4iQAHaYuJFIwY5ZGlgjVvLv8ZwVo0R5IyWfFb0uO7aJTaRJOmfIeyKnbfJ+Tk7eycXO2+E6b6Q76CTOUTHUDez386GPc08U+Dr51SvwK8oFL8obsPxsgJWI2GALbheUB5bK2SP/9M10L0oidHJys7jT73jwM=
+	t=1790682207; cv=none; b=qGvbLAuzN1fKJITQ1JBzmsoJRiRthQ70p66j/WKbKNlfPGsI666iuyKc0ITL0eEMziPTmBpZCtCUeXd+dEgcwFxiO5RAiowBXKNt4ffOzcKB3Bal6G5UGqcpb0mA3hY96V8W8iCSt104F5KHaofrIIilEkuo00VACaEqZ8g5+wU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790682202; c=relaxed/simple;
-	bh=8jCyDeuIxJ8wf0vJYv9Kkiq9ih+EBnntGkeavxfC6pg=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=q6UdAcsADMjSCdycndZuGU1GCV5/f+aMaLxJ5tn1H2l8lw0HEgnMQ4H2PTjY9TEAxDi7hIy0snfTV1ETBb825kcG4BXcn2MzVryMk73mir9NPXvIKF8ECI/XzUTIWZaawPdzKtaitfjacto6u/klyKrqBJGAcPcImHjQ2Bxj44c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=wCYZ+rQ5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790682207; c=relaxed/simple;
+	bh=jGy6BphkkbdDND6SRd11s0o/Q2KIR28PLH2Sqrmv7+o=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=dQsjqWb3ZSRfYG41Uw7bJwI99VzkfacxTErOBeq5xLfkOy6JiDFqQta1Nn4nLWq41gafpmqIffyrgvNfZFcSJ+P60at8Vd9KtuQ9H3iU6gO11t+3yZYmhnXTIjLXvQ9GGRlO7CTK1kxHMwEIR4TwWiykXGF7BdPbH63jklpl7ls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hbfXG61r; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="wCYZ+rQ5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7B7D1F000FF;
-	Tue, 29 Sep 2026 11:43:19 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hbfXG61r"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 853A21F000FF;
+	Tue, 29 Sep 2026 11:43:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790682200;
-	bh=nZgHhhQ5GbGblwvyRM7s6yAIQhN0WUqMtoLcLoJtgpE=;
+	s=korg; t=1790682206;
+	bh=aT5RQB1pq3ZqDT0kML1sDpCgIRo7PlVQeKuImR8Wopw=;
 	h=Subject:To:Cc:From:Date;
-	b=wCYZ+rQ5J8fLrkB9fMR8QI41jWtFHP+lNcyA/DvQT5sYBgThplrtMcCN6srKIFVcD
-	 pDUdY/U4b/b1+Qpg6SS1zWSdgpbpi8Z0fb+kBkIcvXBM/iVurE+q6iExPXlgYoCElL
-	 Ysi90gyiyWU1ny1l1XHp0+LlHfps2oG3fF9LMwLQ=
-Subject: FAILED: patch "[PATCH] sched_ext: Add a size argument to scx_bpf_cid_topo() so" failed to apply to 7.2-stable tree
-To: tj@kernel.org,arighi@nvidia.com
+	b=hbfXG61rkSFHdl+/0MXgsCOeyAGY/KOYHD69bY7FM489qu4WureThoYkdbQDE4ZoC
+	 txhVrXPdRLhpeuRkCKECCj3YfCu4hlEGoNOw1kz7eYu/bgTbQJjQpmoH6EF2h3hZmY
+	 IO4bLY26SIGjprqqalY2ijC/LlEHmWcv5EfAEUcs=
+Subject: FAILED: patch "[PATCH] sched_ext: Don't run ops.dequeue() with a DSQ lock held" failed to apply to 7.2-stable tree
+To: fangqiurong@kylinos.cn,arighi@nvidia.com,tj@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 29 Sep 2026 13:43:14 +0200
-Message-ID: <2026092914-daughter-crudeness-399c@gregkh>
+Date: Tue, 29 Sep 2026 13:43:17 +0200
+Message-ID: <2026092917-xerox-existing-569f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
 git checkout FETCH_HEAD
-git cherry-pick -x 94480606a677deb68d5622cf0ded88626514b3f2
+git cherry-pick -x cb86607ada73185f321baa7f9d94a08a3a40bbf5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092914-daughter-crudeness-399c@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092917-xerox-existing-569f@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,107 +62,203 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 94480606a677deb68d5622cf0ded88626514b3f2 Mon Sep 17 00:00:00 2001
-From: Tejun Heo <tj@kernel.org>
-Date: Sat, 26 Sep 2026 09:23:02 -1000
-Subject: [PATCH] sched_ext: Add a size argument to scx_bpf_cid_topo() so
- struct scx_cid_topo can grow
+From cb86607ada73185f321baa7f9d94a08a3a40bbf5 Mon Sep 17 00:00:00 2001
+From: fangqiurong <fangqiurong@kylinos.cn>
+Date: Thu, 17 Sep 2026 15:52:41 +0800
+Subject: [PATCH] sched_ext: Don't run ops.dequeue() with a DSQ lock held
 
-scx_bpf_cid_topo() copies struct scx_cid_topo into a buffer the BPF program
-sized from its own vmlinux.h while the verifier sizes the write from the
-running kernel's BTF. The struct may grow and each growth then breaks every
-scheduler built against the older layout, rejected at load or written past
-its buffer. This is the usual hole for a struct handed to BPF, closed
-elsewhere with a size argument, and it was missed here.
+ops.dequeue() is invoked with the source user DSQ's lock still held on
+the consume and move paths (scx_consume_dispatch_q(),
+move_task_between_dsqs()). A BPF scheduler which locks the source user
+DSQ from ops.dequeue() - e.g. by iterating it with bpf_iter_scx_dsq -
+self-deadlocks.
 
-Take the buffer size, copy the smaller of it and the kernel's struct and set
-the rest to -1. Accesses to the copy are CO-RE relocated, so the struct can
-grow by appending fields, which its comment now states. The kfunc changes in
-place: the cid interface is still being finalized and no released scheduler
-uses the current form.
+ops.dequeue() can only call the "any" kfuncs and none of them can lock a
+builtin DSQ, so the global and bypass paths can't deadlock; however,
+all DSQ locks share one lockdep class, so iterating any user DSQ from
+ops.dequeue() on those paths trips the recursion check.
 
-Fixes: e9b55af47edf ("sched_ext: Add topological CPU IDs (cids)")
-Cc: stable@vger.kernel.org # v7.2+
+Move the invocation after the DSQ unlock on all three paths.
+SCX_TASK_IN_CUSTODY is cleared under the lock serializing the transfer
+so that the callback is invoked exactly once.
+
+Fixes: ebf1ccff79c4 ("sched_ext: Fix ops.dequeue() semantics")
+Cc: stable@vger.kernel.org # v7.1+
+Acked-by: Andrea Righi <arighi@nvidia.com>
+Signed-off-by: fangqiurong <fangqiurong@kylinos.cn>
 Signed-off-by: Tejun Heo <tj@kernel.org>
-Reviewed-by: Andrea Righi <arighi@nvidia.com>
 
-diff --git a/kernel/sched/ext/cid.c b/kernel/sched/ext/cid.c
-index 39f88deb94bc..d4d5f537832a 100644
---- a/kernel/sched/ext/cid.c
-+++ b/kernel/sched/ext/cid.c
-@@ -912,30 +912,36 @@ bool scx_cmask_empty(const struct scx_cmask *m)
- /**
-  * scx_bpf_cid_topo - Copy out per-cid topology info
-  * @cid: cid to look up
-- * @out__uninit: where to copy the topology info; fully written by this call
-+ * @out: where to copy the topology info
-+ * @out__sz: size of @out, the program's sizeof(struct scx_cid_topo)
-  * @aux: implicit BPF argument to access bpf_prog_aux hidden from BPF progs
-  *
-- * Fill @out__uninit with the topology info for @cid. Trigger scx_error() if
-- * @cid is out of range. If @cid is valid but in the no-topo section, all fields
-- * are set to -1. All fields are also set to -1 when no cid tables have been
-- * published yet, which a program may observe while racing the root enable.
-+ * Fill @out with the topology info for @cid. Trigger scx_error() if @cid is out
-+ * of range. If @cid is valid but in the no-topo section, all fields are set to
-+ * -1. All fields are also set to -1 when no cid tables have been published yet,
-+ * which a program may observe while racing the root enable.
-+ *
-+ * The program's struct may be older or newer than the kernel's. The smaller of
-+ * @out__sz and the kernel's size is copied and the rest of @out is set to -1.
-  */
--__bpf_kfunc void scx_bpf_cid_topo(s32 cid, struct scx_cid_topo *out__uninit,
-+__bpf_kfunc void scx_bpf_cid_topo(s32 cid, struct scx_cid_topo *out, size_t out__sz,
- 				  const struct bpf_prog_aux *aux)
- {
-+	size_t len = min(out__sz, sizeof(*out));
- 	struct scx_cid_topo *topo;
- 	struct scx_sched *sch;
- 
-+	/* the error cases and fields the kernel lacks read as -1 */
-+	memset(out, 0xff, out__sz);
-+
- 	guard(rcu)();
- 
- 	sch = scx_prog_sched(aux);
- 	topo = rcu_dereference(scx_cid_topo);
--	if (unlikely(!sch) || !cid_valid(sch, cid) || unlikely(!topo)) {
--		*out__uninit = SCX_CID_TOPO_NEG;
-+	if (unlikely(!sch) || !cid_valid(sch, cid) || unlikely(!topo))
- 		return;
--	}
- 
--	*out__uninit = topo[cid];
-+	memcpy(out, &topo[cid], len);
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index e207ccd17164..f568fd9973f6 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -1499,27 +1499,22 @@ static inline bool task_scx_migrating(struct task_struct *p)
+ 	return p->scx.sticky_cpu >= 0;
  }
  
- __bpf_kfunc_end_defs();
-diff --git a/kernel/sched/ext/types.h b/kernel/sched/ext/types.h
-index 943d8d429a2c..139176cf9fc6 100644
---- a/kernel/sched/ext/types.h
-+++ b/kernel/sched/ext/types.h
-@@ -70,6 +70,10 @@ enum scx_consts {
-  * smaller shards if the LLC exceeds the target size. No-topo cids are packed
-  * into their own max-sized shards.
-  *
-+ * New fields are appended, never inserted: scx_bpf_cid_topo() copies this
-+ * struct out sized by the program's own layout, and an older program's copy
-+ * must stay a prefix of the kernel's.
-+ *
-  * @core_cid: first cid of this cid's core (smt-sibling group)
-  * @core_idx: global index of that core, in [0, nr_cores_at_init)
-  * @llc_cid: first cid of this cid's LLC
-diff --git a/tools/sched_ext/include/scx/common.bpf.h b/tools/sched_ext/include/scx/common.bpf.h
-index 2ddb01a059fd..22f24ebef8a9 100644
---- a/tools/sched_ext/include/scx/common.bpf.h
-+++ b/tools/sched_ext/include/scx/common.bpf.h
-@@ -106,7 +106,7 @@ u64 scx_bpf_now(void) __ksym __weak;
- void scx_bpf_events(struct scx_event_stats *events, size_t events__sz) __ksym __weak;
- s32 scx_bpf_cpu_to_cid(s32 cpu) __ksym __weak;
- s32 scx_bpf_cid_to_cpu(s32 cid) __ksym __weak;
--void scx_bpf_cid_topo(s32 cid, struct scx_cid_topo *out) __ksym __weak;
-+void scx_bpf_cid_topo(s32 cid, struct scx_cid_topo *out, size_t out__sz) __ksym __weak;
- void scx_bpf_kick_cid(s32 cid, u64 flags) __ksym __weak;
- s32 scx_bpf_task_cid(const struct task_struct *p) __ksym __weak;
- s32 scx_bpf_this_cid(void) __ksym __weak;
+-/*
+- * Call ops.dequeue() if the task is in BPF custody and not migrating.
+- * Clears %SCX_TASK_IN_CUSTODY when the callback is invoked.
+- */
+-static void call_task_dequeue(struct scx_sched *sch, struct rq *rq,
+-			      struct task_struct *p, u64 deq_flags)
++/* Must be called under the lock serializing @p's custody transfers. */
++static bool task_leave_custody(struct task_struct *p)
+ {
+ 	if (!(p->scx.flags & SCX_TASK_IN_CUSTODY) || task_scx_migrating(p))
+-		return;
+-
+-	if (SCX_HAS_OP(sch, dequeue))
+-		SCX_CALL_OP_TASK(sch, dequeue, rq, p, deq_flags);
++		return false;
+ 
+ 	p->scx.flags &= ~SCX_TASK_IN_CUSTODY;
++	return true;
+ }
+ 
+ static void rq_owned_post_enq(struct scx_sched *sch, struct rq *rq,
+ 			      struct scx_dispatch_q *dsq, struct task_struct *p,
+ 			      u64 enq_flags)
+ {
+-	call_task_dequeue(sch, rq, p, 0);
++	if (task_leave_custody(p) && SCX_HAS_OP(sch, dequeue))
++		SCX_CALL_OP_TASK(sch, dequeue, rq, p, 0);
+ 
+ 	/*
+ 	 * Only local inserts get the wakeup treatment below. Rejects kick the
+@@ -1705,20 +1700,28 @@ static void scx_dispatch_enqueue(struct scx_sched *sch, struct rq *rq,
+ 	if (is_rq_owned) {
+ 		rq_owned_post_enq(sch, rq, dsq, p, enq_flags);
+ 	} else {
++		bool call_dequeue = false;
++
+ 		/*
+ 		 * Global and bypass DSQs are terminal - the task leaves the
+-		 * scheduler's custody, so ops.dequeue() fires here. It can run
++		 * scheduler's custody, so ops.dequeue() fires. It can run
+ 		 * without @p's rq lock (finish_dispatch() passes the dispatch
+ 		 * rq); that's safe because dequeue_task_scx() waits on
+ 		 * SCX_OPSS_DISPATCHING (see the ops_state note above) and so
+ 		 * can't race it. A non-terminal DSQ keeps the task in custody.
++		 * The custody transfer happens under @dsq->lock so that later
++		 * consumers see the flag clear; the callback runs after
++		 * @dsq->lock is dropped because it may lock a DSQ itself.
+ 		 */
+ 		if (dsq->id == SCX_DSQ_GLOBAL || dsq->id == SCX_DSQ_BYPASS)
+-			call_task_dequeue(sch, rq, p, 0);
++			call_dequeue = task_leave_custody(p);
+ 		else
+ 			p->scx.flags |= SCX_TASK_IN_CUSTODY;
+ 
+ 		raw_spin_unlock(&dsq->lock);
++
++		if (call_dequeue && SCX_HAS_OP(sch, dequeue))
++			SCX_CALL_OP_TASK(sch, dequeue, rq, p, 0);
+ 	}
+ 
+ 	/*
+@@ -2215,7 +2218,7 @@ retry:
+ 		/*
+ 		 * A queued task must always be in BPF scheduler's custody. If
+ 		 * SCX_TASK_IN_CUSTODY is clear, finish_dispatch() on another
+-		 * CPU has already passed call_task_dequeue() (which clears the
++		 * CPU has already passed task_leave_custody() (which clears the
+ 		 * flag), but has not yet written SCX_OPSS_NONE. That final
+ 		 * store does not require this rq's lock, so retrying with
+ 		 * cpu_relax() is bounded: we will observe NONE (or DISPATCHING,
+@@ -2263,7 +2266,8 @@ retry:
+ 	 * NONE but the task may still have %SCX_TASK_IN_CUSTODY set until
+ 	 * it is enqueued on the destination.
+ 	 */
+-	call_task_dequeue(sch, rq, p, deq_flags);
++	if (task_leave_custody(p) && SCX_HAS_OP(sch, dequeue))
++		SCX_CALL_OP_TASK(sch, dequeue, rq, p, deq_flags);
+ }
+ 
+ static bool dequeue_task_scx(struct rq *rq, struct task_struct *p, int core_deq_flags)
+@@ -2379,14 +2383,10 @@ static void wakeup_preempt_scx(struct rq *rq, struct task_struct *p, int wake_fl
+ }
+ 
+ void scx_move_local_task_to_local_dsq(struct scx_sched *sch, struct task_struct *p,
+-				      u64 enq_flags, struct scx_dispatch_q *src_dsq,
+-				      struct rq *dst_rq)
++				      u64 enq_flags, struct rq *dst_rq)
+ {
+ 	struct scx_dispatch_q *dst_dsq = scx_resolve_local_dsq(sch, dst_rq, p, &enq_flags);
+ 
+-	/* @p is on @dst_rq, an rq-owned @src_dsq is covered by the rq lock */
+-	if (!dsq_is_rq_owned(src_dsq))
+-		lockdep_assert_held(&src_dsq->lock);
+ 	lockdep_assert_rq_held(dst_rq);
+ 
+ 	WARN_ON_ONCE(p->scx.holding_cpu >= 0);
+@@ -2634,8 +2634,8 @@ static struct rq *move_task_between_dsqs(struct scx_sched *sch,
+ 		/* @p is going from a non-local DSQ to a local DSQ */
+ 		if (src_rq == dst_rq) {
+ 			scx_task_unlink_from_dsq(p, src_dsq);
+-			scx_move_local_task_to_local_dsq(sch, p, enq_flags, src_dsq, dst_rq);
+ 			raw_spin_unlock(&src_dsq->lock);
++			scx_move_local_task_to_local_dsq(sch, p, enq_flags, dst_rq);
+ 		} else {
+ 			raw_spin_unlock(&src_dsq->lock);
+ 			move_remote_task_to_local_dsq(sch, p, enq_flags, src_rq, dst_rq);
+@@ -2685,8 +2685,8 @@ retry:
+ 
+ 		if (rq == task_rq) {
+ 			scx_task_unlink_from_dsq(p, dsq);
+-			scx_move_local_task_to_local_dsq(sch, p, enq_flags, dsq, rq);
+ 			raw_spin_unlock(&dsq->lock);
++			scx_move_local_task_to_local_dsq(sch, p, enq_flags, rq);
+ 			return true;
+ 		}
+ 
+diff --git a/kernel/sched/ext/internal.h b/kernel/sched/ext/internal.h
+index 115c96fbf932..d150de10a5c9 100644
+--- a/kernel/sched/ext/internal.h
++++ b/kernel/sched/ext/internal.h
+@@ -2065,8 +2065,7 @@ void scx_dispatch_dequeue(struct rq *rq, struct task_struct *p);
+ void scx_do_enqueue_task(struct rq *rq, struct task_struct *p, u64 enq_flags,
+ 			 int sticky_cpu);
+ void scx_move_local_task_to_local_dsq(struct scx_sched *sch, struct task_struct *p,
+-				      u64 enq_flags, struct scx_dispatch_q *src_dsq,
+-				      struct rq *dst_rq);
++				      u64 enq_flags, struct rq *dst_rq);
+ bool scx_consume_dispatch_q(struct scx_sched *sch, struct rq *rq,
+ 			    struct scx_dispatch_q *dsq, u64 enq_flags);
+ bool scx_consume_global_dsq(struct scx_sched *sch, struct rq *rq);
+diff --git a/kernel/sched/ext/sub.c b/kernel/sched/ext/sub.c
+index a30c965b175d..3036190b0662 100644
+--- a/kernel/sched/ext/sub.c
++++ b/kernel/sched/ext/sub.c
+@@ -555,8 +555,8 @@ static void scx_rescue_timerfn(struct timer_list *timer)
+ 				     scx.dsq_list.node);
+ 		scx_task_unlink_from_dsq(p, &rq->scx.rescue.dsq);
+ 		scx_rescue_admit(rq, p, slice);
+-		scx_move_local_task_to_local_dsq(scx_task_sched(p), p, SCX_ENQ_IGNORE_CAPS,
+-						 &rq->scx.rescue.dsq, rq);
++		scx_move_local_task_to_local_dsq(scx_task_sched(p), p,
++						 SCX_ENQ_IGNORE_CAPS, rq);
+ 		if (sched_class_above(&ext_sched_class, rq->curr->sched_class))
+ 			resched_curr(rq);
+ 	} else if (p->scx.dsq && rq->scx.rescue.budget > 2 * scx_rescue_quantum_ns) {
+@@ -572,7 +572,7 @@ static void scx_rescue_timerfn(struct timer_list *timer)
+ 		scx_task_unlink_from_dsq(p, &rq->scx.local_dsq);
+ 		scx_move_local_task_to_local_dsq(scx_task_sched(p), p,
+ 					SCX_ENQ_HEAD | SCX_ENQ_PREEMPT | SCX_ENQ_IGNORE_CAPS,
+-					&rq->scx.local_dsq, rq);
++					rq);
+ 	}
+ out_arm:
+ 	scx_rescue_timer_arm(rq);
+@@ -596,8 +596,8 @@ void scx_rescue_flush(struct rq *rq)
+ 	/* and flush out all pending ones */
+ 	list_for_each_entry_safe(p, n, &rq->scx.rescue.dsq.list, scx.dsq_list.node) {
+ 		scx_task_unlink_from_dsq(p, &rq->scx.rescue.dsq);
+-		scx_move_local_task_to_local_dsq(scx_task_sched(p), p, SCX_ENQ_IGNORE_CAPS,
+-						 &rq->scx.rescue.dsq, rq);
++		scx_move_local_task_to_local_dsq(scx_task_sched(p), p,
++						 SCX_ENQ_IGNORE_CAPS, rq);
+ 	}
+ 
+ 	timer_delete(&rq->scx.rescue.timer);
 
