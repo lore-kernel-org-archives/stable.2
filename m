@@ -1,88 +1,139 @@
-Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35A71379C39
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 16:32:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25F133CB2C7;
+	Tue, 29 Sep 2026 16:33:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790699523; cv=none; b=F7jcMJUs8qcm90axyNK5A5xM9M7WUdJjvvfwON62dCGoMdKrgF+UT3fna9EAdX0H+SKnXBJOWF6g0PoSIXS5qu0V+v4+ELWwkqzg7vzBzbd6wEqRBiqT8ONBWAHtO8U1gNCVIrKU/WYu67f2sLICyd0uROK/+5dX8g07OnqW96Y=
+	t=1790699587; cv=none; b=oZOrzFdrlah5rnO/rNTrUfRsPuw8jRybVnnAAlMmLHDEm//H8zR76J7Afmo8odkdpgmlQ1nVaiyTuJ18ym2tkobGFLa67wPXFPwQdIpoQUXI80q1tpnIInPpO46Tz3DHg8C4g/Tgj7soEKJmlVRroTvpHXuLCsPi3pYFsX/ng+k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790699523; c=relaxed/simple;
-	bh=dE6mRWx2T0gb0Lonp1XJbF84cgeLN2z625cxUjDsFVA=;
-	h=Cc:To:Subject:Date:From:Message-Id:Mime-Version:Content-Type; b=HpSl6WGGKd0lRi1vuEOfxk/JjWElrQOcnGuqPvkj2a2v2kqAT4kkZ6iv4dylY0w0aHACf4Ds9AMq+P8ZGqm5SVQLvHTm5L/EcFvpUz1TyH1mZfzvHUFDuTmwJkAPHrL7xj515cYk+X7F7RdnQHA4ftPRyhpr1wZwT3KDsR6aPgU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=fJgvkVJi; arc=none smtp.client-ip=209.127.230.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1790699587; c=relaxed/simple;
+	bh=0RUTTWkAztuBE6kNH8F0KG1K63UvbLEBc1iYCnmJwiQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=F9m6L9WjaXz/YXcwmTVSleZxUGPMj5G05H/jpu1KYJVo+4gaSNBiGHI1LkVlXrliEl1TyBgaFTp5wuMK2vlr0sh9dxiD8Gjmw69tEFIxhRHE3+ZCiN9q3m+VcZ29F7aKCwNpq61qadaf/n0L6IhUQkJ2GqsM3FIoti3hqN8RBQA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AqdKaM/C; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="fJgvkVJi"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1790699516; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=X9o+2/Ax/kfeSEtGR9Uwqu9diBOxx2zKNjv4SBV/Gd8=;
- b=fJgvkVJiPoutQveVcB9nrXKBDdH5Njo7xj3qkCB6m8TL7JO39lTMCYISy1Xsfq6lzMPxXv
- NlSNvpsnXTBk9fNTep0HhCLyB6Hsog52PwTIHtOVdnkhCSveywwkb9yGsVC+QqTWS7bHDm
- 0TF6JoCHO1dCVYhKWasPYStmyrh98dg9bwOzPNk01ahtanNToxtjyocbEswNKLJOd/4/kF
- 1YUozvCFT4Knqn/Q1lJKhBDIxAtnJ+fmvro41rM9qfApKyRolC/BFLwW4aNfIRzKAJySMz
- UI+0kQO0zEBc1BTONO+tjGWS7p5e+OT39cbuPAthgysu7UYuxwgQ5oXeYE/maA==
-X-Original-From: Guixiong Wei <weiguixiong@bytedance.com>
-Content-Transfer-Encoding: 7bit
-Cc: <hansg@kernel.org>, <ilpo.jarvinen@linux.intel.com>, 
-	<rafael.j.wysocki@intel.com>, <platform-driver-x86@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>, <wangyijia.yeah@bytedance.com>, 
-	"Guixiong Wei" <weiguixiong@bytedance.com>, <stable@vger.kernel.org>
-X-Mailer: git-send-email 2.50.1
-To: <srinivas.pandruvada@linux.intel.com>
-Subject: [PATCH] platform/x86/intel-uncore-freq: Continue restoring limits on resume
-Date: Wed, 30 Sep 2026 00:31:34 +0800
-X-Lms-Return-Path: <lba+26abbe7fa+f5574e+vger.kernel.org+weiguixiong@bytedance.com>
-From: "Guixiong Wei" <weiguixiong@bytedance.com>
-Message-Id: <20260929163133.14326-2-weiguixiong@bytedance.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AqdKaM/C"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B6AFEC4AF0B;
+	Tue, 29 Sep 2026 16:33:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790699586;
+	bh=0RUTTWkAztuBE6kNH8F0KG1K63UvbLEBc1iYCnmJwiQ=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=AqdKaM/C9shv7K4p87qMEdsdgC6ywFh2ZnedXGpLU6O74lFpfhYYX5UZtMawuMsnJ
+	 LgEwStb8FyzfqKJOcoIpG5H9Ym/A0Ol/MKcm/bCRDAiMBNmUJq4DKkhA9fBy+8TmXS
+	 8JBOgKGwCB4+xIYddejgj7NMlhoh5pqZ8YJatMQZchRei5FuzLYAdXxfSOj0Qhtl67
+	 F9VZL+MDLTw0pjc7WGuJELeuUGsuwuTAms87HSuSCPDXs3hgE3oYSVyLV2QLkkdlrT
+	 jhNWxRX6GvFZHqQIKxH7ftdrJ3qXCP8cOQ08sXeGoq+brW2q/oBm8VXFb5r7POT20U
+	 EkWEfqdByUMSw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 918DBCA5FA5;
+	Tue, 29 Sep 2026 16:33:06 +0000 (UTC)
+From: Jerome Mohm via B4 Relay <devnull+jrmmhm.kernel.eldare.de@kernel.org>
+Date: Tue, 29 Sep 2026 18:33:04 +0200
+Subject: [PATCH net] vsock/bpf: release sock lock while waiting for data in
+ recvmsg
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260929-kbh3-1-022-fix-v1-1-cc97cc95d269@eldare.de>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMwQrCMBAFf6W8swubjVjqr4iHtN3YVYiStCKU/
+ nujHmdgZkXRbFpwblZkfVuxZ6rgDg2GKaSbko2VISwn7qSjRz95csQiFO1D/sgh+NhGbh1q9Mp
+ a9W94QdIZ178sS3/XYf6usG07HflYVHcAAAA=
+X-Change-ID: 20260929-kbh3-1-022-fix-340aa3f7f071
+To: Stefano Garzarella <sgarzare@redhat.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, 
+ Bobby Eshleman <bobby.eshleman@bytedance.com>, 
+ "Michael S. Tsirkin" <mst@redhat.com>
+Cc: virtualization@lists.linux.dev, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, stable@vger.kernel.org, 
+ Jerome Mohm <jrmmhm.kernel@eldare.de>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790699585; l=2593;
+ i=jrmmhm.kernel@eldare.de; s=20260928; h=from:subject:message-id;
+ bh=4IPBHLtgo8ghTbbKAwJ8yZ9NmPZQTYBQyUYCEEc51UE=;
+ b=a5k/85Mme7ztf5MTcaik5O/66KyvJ3vqg/NckJwjUvqqNN5AX0f09Nk7mbJKtmd2bED+s22s3
+ o2QNttsa+atCbSNoqOIKaMTU4xeuiPQ5/JHuHN5r0C3z65nhuT8jNyQ
+X-Developer-Key: i=jrmmhm.kernel@eldare.de; a=ed25519;
+ pk=xRCxNXbnNottaHpmvPDAOC9NuMJxqKo24abkehKRVlo=
+X-Endpoint-Received: by B4 Relay for jrmmhm.kernel@eldare.de/20260928 with
+ auth_id=1075
+X-Original-From: Jerome Mohm <jrmmhm.kernel@eldare.de>
+Reply-To: jrmmhm.kernel@eldare.de
 
-The PM notifier iterates over every uncore frequency instance to restore
-user-configured MSR_UNCORE_RATIO_LIMIT values after resume. Entries that
-have never been configured legitimately have stored_uncore_data set to
-zero.
+From: Jerome Mohm <jrmmhm.kernel@eldare.de>
 
-The refactoring that split common and enumeration code changed the
-iteration from active control CPUs to all allocated instances. It also
-changed the skip for an invalid or unconfigured entry from continue to
-return, causing that entry to terminate the entire restore operation.
+vsock_bpf_recvmsg() takes lock_sock(sk) and holds it across the whole
+receive loop, including vsock_msg_wait_data(), which sleeps in
+wait_woken() without dropping the lock. When data arrives, the
+transport's delivery context (the vsock-loopback worker, or the
+virtio/vhost rx path) calls virtio_transport_recv_pkt() -> lock_sock()
+on the same socket and blocks. That context is the only one that would
+queue the skb and call sk_data_ready() to wake the reader, so neither
+side makes progress. A blocking recv() hangs until a signal arrives (a
+finite SO_RCVTIMEO also breaks it); while it lasts the shared delivery
+worker is stalled, so all vsock rx on that transport stops, not only
+the affected socket. The hung-task watchdog reports the worker blocked
+in D state:
 
-On a multi-package or multi-die system, configuring only a later instance
-therefore leaves its limit unrestored after suspend, hibernation, or
-restore if an earlier entry is invalid or unconfigured.
+  INFO: task kworker/1:3:107 blocked for more than 5 seconds.
+  task:kworker/1:3 state:D Workqueue: vsock-loopback vsock_loopback_work
+  Call Trace:
+   __schedule
+   schedule
+   __lock_sock
+   lock_sock_nested
+   virtio_transport_recv_pkt
+   vsock_loopback_work
 
-Use continue to skip only the current entry and restore all remaining
-configured instances.
+The reader holds the same sk_lock-AF_VSOCK it is waiting on, taken in
+vsock_bpf_recvmsg().
 
-Fixes: dbce412a7733 ("platform/x86/intel-uncore-freq: Split common and enumeration part")
+This code is based on net/unix/unix_bpf.c, whose unix_msg_wait_data()
+drops u->iolock around wait_woken() and re-takes it afterwards. The
+vsock port substituted lock_sock() for that serialisation lock but
+omitted the unlock and relock. tcp_bpf and the native
+vsock_connectible_wait_data() both drop the lock across the wait;
+vsock_bpf is the only one that does not.
+
+Release the socket lock around the wait and re-acquire it before
+re-checking for data, so the caller's locking is unchanged.
+
+Fixes: 634f1a7110b4 ("vsock: support sockmap")
 Cc: stable@vger.kernel.org
-Tested-by: Yijia Wang <wangyijia.yeah@bytedance.com>
-Signed-off-by: Guixiong Wei <weiguixiong@bytedance.com>
+Assisted-by: LLM
+Signed-off-by: Jerome Mohm <jrmmhm.kernel@eldare.de>
 ---
- drivers/platform/x86/intel/uncore-frequency/uncore-frequency.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ net/vmw_vsock/vsock_bpf.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/platform/x86/intel/uncore-frequency/uncore-frequency.c b/drivers/platform/x86/intel/uncore-frequency/uncore-frequency.c
-index 667f2c8b9594a..c44e7e38cae25 100644
---- a/drivers/platform/x86/intel/uncore-frequency/uncore-frequency.c
-+++ b/drivers/platform/x86/intel/uncore-frequency/uncore-frequency.c
-@@ -211,7 +211,7 @@ static int uncore_pm_notify(struct notifier_block *nb, unsigned long mode,
- 			struct uncore_data *data = &uncore_instances[i];
- 
- 			if (!data || !data->valid || !data->stored_uncore_data)
--				return 0;
-+				continue;
- 
- 			wrmsrq_on_cpu(data->control_cpu, MSR_UNCORE_RATIO_LIMIT,
- 				      data->stored_uncore_data);
--- 
-2.50.1 (Apple Git-155)
+diff --git a/net/vmw_vsock/vsock_bpf.c b/net/vmw_vsock/vsock_bpf.c
+index 9049d2648646..bb7d81a95baa 100644
+--- a/net/vmw_vsock/vsock_bpf.c
++++ b/net/vmw_vsock/vsock_bpf.c
+@@ -50,7 +50,9 @@ static bool vsock_msg_wait_data(struct sock *sk, struct sk_psock *psock, long ti
+ 	sk_set_bit(SOCKWQ_ASYNC_WAITDATA, sk);
+ 	ret = vsock_has_data(sk, psock);
+ 	if (!ret) {
++		release_sock(sk);
+ 		wait_woken(&wait, TASK_INTERRUPTIBLE, timeo);
++		lock_sock(sk);
+ 		ret = vsock_has_data(sk, psock);
+ 	}
+ 	sk_clear_bit(SOCKWQ_ASYNC_WAITDATA, sk);
+
+---
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+change-id: 20260929-kbh3-1-022-fix-340aa3f7f071
+
+Best regards,
+--  
+Jerome Mohm <jrmmhm.kernel@eldare.de>
+
+
