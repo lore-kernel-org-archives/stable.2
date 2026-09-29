@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C32A514770
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 11:43:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FF1E514746
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 11:43:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790682210; cv=none; b=s0/mJAiFUO3O5vDiTfMkVKGUThwYTL6anKIwyY+zt7z/vlCG8MOv0myXEr/7lcO8UUWbZj94jUD3dR8+hCPiGDvkujE5v8M3fjtaC1LT/x5hJrRXQD9t6gFsdkYx5Nr1T09J+xAewCnC8Ddd68qPXbnG3mQbm+psfe2dEEiM624=
+	t=1790682215; cv=none; b=e+2jY+4LO2OM9Z8BNgxNECQYsOgJy7G4aXqRKLSTa4Ez+gA0EDc221P+8S+2CbdxNTcefRaT1ChkDt5sF0Cc15ymhn8PU8jmxZmidVlQsEopgBOB6UOqSQvztwznwZSJ18ZGYnSci8u05mA9BmBq1Cj927OsTkzw5mGH983aFh8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790682210; c=relaxed/simple;
-	bh=nGelux3qL8y17/fNXQ9n8PK1l/WQQ3FydasJbxxGef4=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=hBmcSsdM8Gu3SRnuWnIBiB46cZybTdfliXs8ZgiVzSneHWaybCk5RsmxFaqUnaUvK8JrBzaoxRxxBfjilTiPKqZ9eHAeZWGZxcYtZRChTIUNgA+yTaTj0XVmm2HkBd0pRJZ2cgERDsgIh5vi8I1guXuh/XZo6EYcHhOqHE5m1NE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=beY1SSOn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790682215; c=relaxed/simple;
+	bh=Gv9mIZLgkumf8tfva45xuBajwVDO35Zh16saqCkErzI=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=INnqWlQQ3TdiDbXrcm1f3G3IzwK1V95baw9LCxZwMHMqmEacH2H6T0J/cNTTIYIvLkMuSi10RSouNtM/UtjVmiT8M7zXZ9a+Ycsd6VvhI6XPsHEVZB21ycZwaC5998xheCD0cpLzTaHw6XPsird+79/H5ejV7JgAAnC98kGYQbc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=SLsYIhMz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="beY1SSOn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61E5F1F000FF;
-	Tue, 29 Sep 2026 11:43:28 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SLsYIhMz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDA571F000FF;
+	Tue, 29 Sep 2026 11:43:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790682208;
-	bh=586ypL+wvE9FbCNe1Au+wAVLcf6fjJzfPGMlBECRh2Y=;
+	s=korg; t=1790682213;
+	bh=9NBgbdedeisFR1QGSrJeUuGNDg+Aw06ibe0asKuSw+Q=;
 	h=Subject:To:Cc:From:Date;
-	b=beY1SSOnZB0/WdvlO4DhnIn06+9nxi1HvKNSIfwRsdZwJ6AjizSCr33czwxAIxI/l
-	 6+b3cWSOHBgvsa0mBvTXkXl1KS1SMlT9yIgkGAGhXGEomWSGnIFe2TyFAPTmPo0iE+
-	 NB+B0rcTY+aOap7gHJgnNvCFPZFSs58R1wlFi2UQ=
-Subject: FAILED: patch "[PATCH] sched_ext: Wait for SCX_OPSS_DISPATCHING before reenqueueing" failed to apply to 7.2-stable tree
-To: tj@kernel.org,arighi@nvidia.com
+	b=SLsYIhMzhOrR5z5NXBZqSF5IMRQ0gjaOzcCZYVlaoJ7ngEFJU7TC6ExzTtX9nhi8Q
+	 pxvzSvljqI0ABQ3xClS7MjA9ZF2brUVdzRrSUIbP6Ml3wWZbk5CgKsQqdIwzjc6Jsa
+	 z0hRgP9Jm+ti31ASmqaQgOvFt6V/1CXELjEmFlno=
+Subject: FAILED: patch "[PATCH] sched/cache: Honor migrate_llc_task semantics in active load" failed to apply to 7.2-stable tree
+To: wanglu.priv@gmail.com,mingo@kernel.org,peterz@infradead.org,stable@kernel.org,tim.c.chen@linux.intel.com,yu.c.chen@intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 29 Sep 2026 13:43:20 +0200
-Message-ID: <2026092920-protector-confused-2f3e@gregkh>
+Date: Tue, 29 Sep 2026 13:43:25 +0200
+Message-ID: <2026092925-exponent-unwoven-df57@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
 git checkout FETCH_HEAD
-git cherry-pick -x 7de9a6fb44eae4f05e68c805d58b9c618815adfa
+git cherry-pick -x d6013e2465d98d524b030a81c1223882a1bb7e4c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092920-protector-confused-2f3e@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092925-exponent-unwoven-df57@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,91 +62,183 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 7de9a6fb44eae4f05e68c805d58b9c618815adfa Mon Sep 17 00:00:00 2001
-From: Tejun Heo <tj@kernel.org>
-Date: Tue, 15 Sep 2026 12:34:44 -1000
-Subject: [PATCH] sched_ext: Wait for SCX_OPSS_DISPATCHING before reenqueueing
- a task
+From d6013e2465d98d524b030a81c1223882a1bb7e4c Mon Sep 17 00:00:00 2001
+From: Lu Wang <wanglu.priv@gmail.com>
+Date: Mon, 21 Sep 2026 17:37:23 -0700
+Subject: [PATCH] sched/cache: Honor migrate_llc_task semantics in active load
+ balance, to fix LLC mis-scheduling bug
 
-ebf1ccff79c4 ("sched_ext: Fix ops.dequeue() semantics") moved the final
-ops_state store in scx_dispatch_enqueue() after the DSQ unlock so that the
-custody update and ops.dequeue() precede it. A task can thus be found on a
-DSQ while still SCX_OPSS_DISPATCHING.
+Cache aware scheduling introduced the migrate_llc_task migration type to direct
+tasks toward their preferred LLC, but its semantics can be lost when passive
+load balance falls back to active load balance (ALB). This may allow ALB to
+select a candidate whose preferred LLC does not match the destination, moving
+it away from its preferred LLC.
 
-The dequeue and core-sched pick paths wait for the state to clear in
-ops_dequeue() but the reenqueue paths don't. A reenqueue in that window runs
-ops.enqueue() and sets SCX_OPSS_QUEUED before the dispatch has completed.
-The dispatcher's final store then overwrites it with SCX_OPSS_NONE and
-finish_dispatch() drops every later dispatch of the task.
+Example scenario:
 
-Wait for SCX_OPSS_DISPATCHING to clear before dequeueing a task for
-reenqueue, the same way ops_dequeue() does.
+src_rq has two runnable tasks, p1 and p2. p1 prefers dst_rq (dst_llc), while p2
+prefers src_rq (src_llc). In this case, migrate_llc_task is set because src_rq
+has at least one task, p1, that wants to migrate to dst_rq. In ALB,
+can_migrate_task() finds p2 and returns true for it, thus moving p2 out of its
+preferred LLC.
 
-Fixes: ebf1ccff79c4 ("sched_ext: Fix ops.dequeue() semantics")
-Cc: stable@vger.kernel.org # v7.1+
-Signed-off-by: Tejun Heo <tj@kernel.org>
-Reviewed-by: Andrea Righi <arighi@nvidia.com>
+Solution:
 
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index 70b711c4de6e..725b890fcab9 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -4404,6 +4404,17 @@ static bool local_task_should_reenq(struct rq *rq, struct task_struct *p,
- 	return *reenq_flags & SCX_REENQ_ANY;
+The CPU stopper in ALB constructs a fresh lb_env that does not inherit
+migration_type from the passive load-balance pass. Two approaches are
+possible:
+
+(a) Add a new member to struct rq so ALB can inherit migrate_llc_task
+    from the passive LB that triggered it.
+
+(b) Define a new flag LBF_ACTIVE_LB_LLC and select the stopper callback
+    at kick time to preserve the migration semantics across the
+    asynchronous boundary.
+
+We choose (b) because it avoids passing migration_type through the
+stopper, which would affect the meaning of migration_type for
+delayed-dequeue tasks.
+
+Fixes: e4c9a4cb244a ("sched/cache: Add migrate_llc_task migration type for cache-aware balancing")
+Suggested-by: Chen Yu <yu.c.chen@intel.com>
+Signed-off-by: Lu Wang <wanglu.priv@gmail.com>
+Signed-off-by: Tim Chen <tim.c.chen@linux.intel.com>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Signed-off-by: Ingo Molnar <mingo@kernel.org>
+Reviewed-by: Tim Chen <tim.c.chen@linux.intel.com>
+Reviewed-by: Chen Yu <yu.c.chen@intel.com>
+Cc: <stable@kernel.org> # v7.2.x
+Link: https://patch.msgid.link/cb39f64a17fc2b76097264aaec74a2d6dfff4315.1790035273.git.tim.c.chen@linux.intel.com
+
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index de3d589fa8eb..514bd54ccd56 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -10448,6 +10448,7 @@ enum migration_type {
+ #define LBF_SOME_PINNED	0x08
+ #define LBF_ACTIVE_LB	0x10
+ #define LBF_LLC_PINNED	0x20
++#define LBF_ACTIVE_LB_LLC	0x40
+ 
+ struct lb_env {
+ 	struct sched_domain	*sd;
+@@ -10866,6 +10867,21 @@ alb_break_llc(struct lb_env *env)
+ 	return false;
  }
  
 +/*
-+ * The dispatcher stores the final ops_state after dropping the DSQ lock, so @p
-+ * can be found on a DSQ while still %SCX_OPSS_DISPATCHING. Reenqueueing @p
-+ * before that store lands would have it clobber the new %SCX_OPSS_QUEUED.
++ * Returns true if p's preferred LLC does not match the destination CPU
++ * under migrate_llc_task semantics. Passive LB passes migrate_llc_task
++ * in env->migration_type, while active LB carries LBF_ACTIVE_LB_LLC in
++ * env->flags to avoid overwriting env->migration_type.
 + */
-+void scx_reenq_wait_dispatching(struct task_struct *p)
++static inline bool
++migrate_llc_task_wrong_dst(struct task_struct *p, struct lb_env *env)
 +{
-+	if (unlikely(atomic_long_read_acquire(&p->scx.ops_state) == SCX_OPSS_DISPATCHING))
-+		wait_ops_state(p, SCX_OPSS_DISPATCHING);
++	return sched_cache_enabled() &&
++	       (env->migration_type == migrate_llc_task ||
++		env->flags & LBF_ACTIVE_LB_LLC) &&
++	       READ_ONCE(p->preferred_llc) != llc_id(env->dst_cpu);
 +}
 +
- static u32 reenq_local(struct scx_sched *sch, struct rq *rq, u64 reenq_flags)
+ /*
+  * Check if migrating task p from env->src_cpu to
+  * env->dst_cpu breaks LLC localiy.
+@@ -10894,8 +10910,7 @@ static bool migrate_degrades_llc(struct task_struct *p, struct lb_env *env)
+ 	 * run on env->dst_cpu, skip the tasks do not prefer
+ 	 * env->dst_cpu, and find the one that prefers.
+ 	 */
+-	if (env->migration_type == migrate_llc_task &&
+-	    READ_ONCE(p->preferred_llc) != llc_id(env->dst_cpu))
++	if (migrate_llc_task_wrong_dst(p, env))
+ 		return true;
+ 
+ 	if (can_migrate_llc_task(env, p) != mig_forbid)
+@@ -10917,6 +10932,12 @@ alb_break_llc(struct lb_env *env)
+ 	return false;
+ }
+ 
++static inline bool
++migrate_llc_task_wrong_dst(struct task_struct *p, struct lb_env *env)
++{
++	return false;
++}
++
+ static inline bool
+ migrate_degrades_llc(struct task_struct *p, struct lb_env *env)
  {
- 	LIST_HEAD(tasks);
-@@ -4447,6 +4458,7 @@ static u32 reenq_local(struct scx_sched *sch, struct rq *rq, u64 reenq_flags)
- 		if (!local_task_should_reenq(rq, p, &reenq_flags, &reason))
- 			continue;
+@@ -11016,7 +11037,7 @@ int can_migrate_task(struct task_struct *p, struct lb_env *env)
+ 	 * 4) too many balance attempts have failed.
+ 	 */
+ 	if (env->flags & LBF_ACTIVE_LB)
+-		return 1;
++		return !migrate_llc_task_wrong_dst(p, env);
  
-+		scx_reenq_wait_dispatching(p);
- 		scx_dispatch_dequeue(rq, p);
+ 	degrades = migrate_degrades_locality(p, env);
+ 	if (!degrades) {
+@@ -13415,6 +13436,20 @@ static int need_active_balance(struct lb_env *env)
+ }
  
- 		if (WARN_ON_ONCE(p->scx.flags & SCX_TASK_REENQ_REASON_MASK))
-@@ -4570,6 +4582,7 @@ static void reenq_user(struct rq *rq, struct scx_dispatch_q *dsq, u64 reenq_flag
- 		}
+ static int active_load_balance_cpu_stop(void *data);
++static int active_load_balance_llc_cpu_stop(void *data);
++
++/*
++ * migration_type is checked elsewhere to decide migration policy, so
++ * it shouldn't be repurposed just to flag an LLC-directed active
++ * balance across the stopper. Pick the callback here instead.
++ */
++static inline cpu_stop_fn_t alb_stop_fn(struct lb_env *env)
++{
++	if (env->migration_type == migrate_llc_task)
++		return active_load_balance_llc_cpu_stop;
++
++	return active_load_balance_cpu_stop;
++}
  
- 		/* @p is on @dsq, its rq and @dsq are locked */
-+		scx_reenq_wait_dispatching(p);
- 		dispatch_dequeue_locked(p, dsq);
- 		raw_spin_unlock(&dsq->lock);
+ static int should_we_balance(struct lb_env *env)
+ {
+@@ -13760,7 +13795,7 @@ more_balance:
+ 	}
+ 	if (active_balance) {
+ 		stop_one_cpu_nowait(cpu_of(busiest),
+-				    active_load_balance_cpu_stop, busiest,
++				    alb_stop_fn(&env), busiest,
+ 				    &busiest->active_balance_work);
+ 	}
+ 	preempt_enable();
+@@ -13865,7 +13900,7 @@ update_next_balance(struct sched_domain *sd, unsigned long *next_balance)
+  * least 1 task to be running on each physical CPU where possible, and
+  * avoids physical / logical imbalances.
+  */
+-static int active_load_balance_cpu_stop(void *data)
++static int __active_load_balance_cpu_stop(void *data, unsigned int lb_flags)
+ {
+ 	struct rq *busiest_rq = data;
+ 	int busiest_cpu = cpu_of(busiest_rq);
+@@ -13915,7 +13950,7 @@ static int active_load_balance_cpu_stop(void *data)
+ 			.src_cpu	= busiest_rq->cpu,
+ 			.src_rq		= busiest_rq,
+ 			.idle		= CPU_IDLE,
+-			.flags		= LBF_ACTIVE_LB,
++			.flags		= LBF_ACTIVE_LB | lb_flags,
+ 		};
  
-diff --git a/kernel/sched/ext/internal.h b/kernel/sched/ext/internal.h
-index 3464e0f113c1..115c96fbf932 100644
---- a/kernel/sched/ext/internal.h
-+++ b/kernel/sched/ext/internal.h
-@@ -2078,6 +2078,7 @@ void scx_kick_cpu(struct scx_sched *sch, s32 cpu, u64 flags);
- u64 __scx_bpf_now(struct rq *rq);
- void schedule_dsq_reenq(struct scx_sched *sch, struct scx_dispatch_q *dsq,
- 			u64 reenq_flags, struct rq *locked_rq);
-+void scx_reenq_wait_dispatching(struct task_struct *p);
- int __scx_init_task(struct scx_sched *sch, struct task_struct *p,
- 		    struct cgroup *cgrp, bool fork);
- void scx_enable_task(struct scx_sched *sch, struct task_struct *p);
-diff --git a/kernel/sched/ext/sub.c b/kernel/sched/ext/sub.c
-index f7aeb1488566..a30c965b175d 100644
---- a/kernel/sched/ext/sub.c
-+++ b/kernel/sched/ext/sub.c
-@@ -801,6 +801,7 @@ void scx_reenq_reject(struct rq *rq)
- 		if (WARN_ON_ONCE(p->migration_pending))
- 			continue;
+ 		schedstat_inc(sd->alb_count);
+@@ -13943,6 +13978,16 @@ out_unlock:
+ 	return 0;
+ }
  
-+		scx_reenq_wait_dispatching(p);
- 		scx_dispatch_dequeue(rq, p);
- 
- 		if (WARN_ON_ONCE(p->scx.flags & SCX_TASK_REENQ_REASON_MASK))
++static int active_load_balance_cpu_stop(void *data)
++{
++	return __active_load_balance_cpu_stop(data, 0);
++}
++
++static int active_load_balance_llc_cpu_stop(void *data)
++{
++	return __active_load_balance_cpu_stop(data, LBF_ACTIVE_LB_LLC);
++}
++
+ /*
+  * Scale the max sched_balance_rq interval with the number of CPUs in the system.
+  * This trades load-balance latency on larger machines for less cross talk.
 
