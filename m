@@ -1,159 +1,179 @@
-Received: from mta1.migadu.com (out-131.mta1.migadu.com [95.215.58.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3814D4E73AF
-	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 09:42:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 788E04F7CCD
+	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 09:44:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790674957; cv=none; b=biqb4KmfrOShmHCP2RDaAo3f1t8/gEwKnja+Wru1Djf5wqxKj4P80H+YJjI9ypvkCGZzuVj5TGeKZNjl0Zwu/SQPj0aDrkbxAEo3zCcdkuKIAKc+tL8DZIYAaEr14UzPONLMwokgOe10wV+jRjWfYvCZ7hWBNSjk/msNg9faexI=
+	t=1790675097; cv=none; b=gzStSDfFAdj3lNZpyWffdmBpIbtjCEOYBrUILqjNA21ZC1HN5PevKaFpJ4PGVHSw7Yikp/y6By/LphwUD6wJmZZmfREwEgxNgjwH7ycVTUpMucatDgr4QGgW3TbbheJ3IH/RY+CiDWNsiv5gwUUSz5e3weuQ/HbKsCjya+HHExE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790674957; c=relaxed/simple;
-	bh=hjbnwEvt8ydnYEKvUzHxUCMmyQW3dNWvlnyx2W86n8A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Vrj+5oDJw/JL7QXDzplK20MmrlO501wODzGlBV6WjbineSeWTnpGh83qYZupEzZmDb2kSoI2PzvsS2C1N/FY/9D7hJOIG+jQ57bChehLtHGp//BooHxTfiIggs5zuoWx0McXBukTkF3MLld/5bR+KrEOMsLeoLu/w7hvXLurFso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=oAYgTB2g; arc=none smtp.client-ip=95.215.58.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790675097; c=relaxed/simple;
+	bh=7Ds7wx3FdMCajhqkJ0optwMHEz3Q9LJH/HG/N/qcqG4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=pk/lfrZPlXptOhyw8Wg2qNuKrffGvewBb5y4fjknthEowUjKbsUBvBKTu9CaQnJXQhqsDd9JjSIo3+wV3Oo+x6F5wCIpzrArZcQnVX7MvS3dqHxrQGHFKSGF8ZNUyXooWZcFLcRFaA3nR4TrjDKZB53/ICPOF4siZrNpuANnmPs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=d7TesFhe; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="oAYgTB2g"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=hjbnwEvt8ydnYEKvUzHxUCMmyQW3dNWvlnyx2W86n8A=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790674953; v=1; x=1791279753;
- b=oAYgTB2gjkMQK7vODX+VyaWW6lNw1a+fJyDtbrnA7fA+9L60dOrgJAXIE8tITZsjptKpVu2a
- 0RIz4QuHfM5IaDuGs/AJ//ZPhpm7GqEZwNPA1D0J8jvwzf4YAHNWJLHfV/9D3wBL8a6Iga9W6XJ
- mChaSZQ15gnpSfDUIDD8HzuQ=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 3290ea20537c19e2;
-	Tue, 29 Sep 2026 09:42:32 +0000
-X-Mizu-Trace-ID: 3290ea20537c19e2
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <8d3bdc29-7195-42de-91d7-960d6ba81c06@linux.dev>
-Date: Tue, 29 Sep 2026 17:42:22 +0800
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="d7TesFhe"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790675095; x=1822211095;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=7Ds7wx3FdMCajhqkJ0optwMHEz3Q9LJH/HG/N/qcqG4=;
+  b=d7TesFhe+OEO4yHEzf2/Y+jUP70sFDuTnzEPxczD+qE5xbyoiANt9vE0
+   cauiap1yvOe/bJuH9FV/e+VeKMIWYJX1EV243QFKllbFG4+AqP74AWm9T
+   vB5q+w29sLVeFYhxSoYx/m/Ab24/QtxsscRssijmlbrdGmneWF9Kze02H
+   GCaGwEiwYyg6AfNd9kRmz9En8bULLPQ2IOdG1JajopZGEacUL+uIla3E4
+   igZ4sOvsGNulhzjxz+ypCbYkx6JR/eMTdC4nTnR2lF82/jtKLLG9Qj38y
+   7ZyOLPkNe5ZfrZiHg60JtJCJBbP0Lp03DSC9OgKnd9bEgvZRI9z0oSBLu
+   g==;
+X-CSE-ConnectionGUID: JVVRtq6dTOu++Q69XdBAwg==
+X-CSE-MsgGUID: nayVPNqnSRG5y2eJ8VwwHQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="91250041"
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
+   d="scan'208";a="91250041"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 02:44:53 -0700
+X-CSE-ConnectionGUID: eDMezrlLQBGaEDtgW/5wxg==
+X-CSE-MsgGUID: g8gNl2WwQViAqFEokUQP7w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
+   d="scan'208";a="283414942"
+Received: from mjarzebo-mobl1.ger.corp.intel.com (HELO jhogande-mobl3.intel.com) ([10.245.246.120])
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 02:44:51 -0700
+From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/8] drm/i915/psr: Clear selective fetch area when duplicating plane state
+Date: Tue, 29 Sep 2026 12:44:27 +0300
+Message-ID: <20260929094434.77129-2-jouni.hogander@intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260929094434.77129-1-jouni.hogander@intel.com>
+References: <20260929094434.77129-1-jouni.hogander@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2] ipv4: Fix device use-after-free in ip_mc_output()
-To: Chengfeng Ye <nicoyip.dev@gmail.com>, David Ahern <dsahern@kernel.org>,
- Ido Schimmel <idosch@nvidia.com>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Martin KaFai Lau <kafai@fb.com>, Wei Wang <weiwan@google.com>
-Cc: Hangbin Liu <hangbin.liu@linux.dev>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260928162534.2122207-1-nicoyip.dev@gmail.com>
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-In-Reply-To: <20260928162534.2122207-1-nicoyip.dev@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Content-Transfer-Encoding: 8bit
 
+We are currently not clearing selective fetch area when duplicating plane
+state. This is causing problem when plane is re-used for another
+purpose. Fix this by clearing selective fetch area when duplicating plane
+state.
 
-On 9/29/26 12:25 AM, Chengfeng Ye wrote:
-> ip_mc_output() reads rt->dst.dev and stores it in skb->dev without RCU
+Now as the state is cleared we need to ensure we have consistent selective
+fetch area in plane state on full update. Earlier this was relying on
+selective fetch area being copied from old state on state duplicate. Now
+this isn't true anymore as we are clearing it. Tackle this by setting full
+plane area as selective fetch area for each plane on full update. Rename
+the label as skip_su_area_calc as the loop setting the plane selective
+fetch area is not skipped anymore.
 
+Move also psr2_sel_fetch_pipe_state_supported check after psr2_su_area
+initialization. The loop is run on full update as well now and it needs
+initialized psr2_su_area. Clip_area_update is only touching rect height and
+x1/x2 are left untouched.
 
-Could you take a look at this thread ?
+Don't set the area at all for planes not intersecting with the selective
+update area. It is already zero sized after plane state duplicate.
 
-https://lore.kernel.org/netdev/ahveCu-zzFlpeVut@v4bel/
+Fixes: efab47658a6c ("drm/i915/display/psr: Calculate selective fetch plane registers")
+Cc: <stable@vger.kernel.org> # v5.12+
+Assisted-by: GitHub-Copilot:claude-opus-5
+Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_plane.c |  1 +
+ drivers/gpu/drm/i915/display/intel_psr.c   | 24 ++++++++++------------
+ 2 files changed, 12 insertions(+), 13 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_plane.c b/drivers/gpu/drm/i915/display/intel_plane.c
+index 25ca049009efb..f908eabe604bb 100644
+--- a/drivers/gpu/drm/i915/display/intel_plane.c
++++ b/drivers/gpu/drm/i915/display/intel_plane.c
+@@ -140,6 +140,7 @@ intel_plane_duplicate_state(struct drm_plane *plane)
+ 	intel_state->dpt_vma = NULL;
+ 	intel_state->fence_id = -1;
+ 	intel_state->damage = DRM_RECT_INIT(0, 0, 0, 0);
++	intel_state->psr2_sel_fetch_area = DRM_RECT_INIT(0, 0, 0, 0);
+ 
+ 	/* add reference to fb */
+ 	if (intel_state->hw.fb)
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index f1d48b69a18fa..f620c44ee4008 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -2920,16 +2920,16 @@ int intel_psr2_sel_fetch_update(struct intel_atomic_state *state,
+ 	if (!crtc_state->enable_psr2_sel_fetch)
+ 		return 0;
+ 
+-	if (!psr2_sel_fetch_pipe_state_supported(crtc_state)) {
+-		full_update = true;
+-		goto skip_sel_fetch_set_loop;
+-	}
+-
+ 	crtc_state->psr2_su_area.x1 = 0;
+ 	crtc_state->psr2_su_area.y1 = -1;
+ 	crtc_state->psr2_su_area.x2 = drm_rect_width(&display_area);
+ 	crtc_state->psr2_su_area.y2 = -1;
+ 
++	if (!psr2_sel_fetch_pipe_state_supported(crtc_state)) {
++		full_update = true;
++		goto skip_su_area_calc;
++	}
++
+ 	/*
+ 	 * Calculate minimal selective fetch area of each plane and calculate
+ 	 * the pipe damaged area.
+@@ -3013,7 +3013,7 @@ int intel_psr2_sel_fetch_update(struct intel_atomic_state *state,
+ 	}
+ 
+ 	if (full_update)
+-		goto skip_sel_fetch_set_loop;
++		goto skip_su_area_calc;
+ 
+ 	intel_psr_apply_su_area_workarounds(crtc_state);
+ 
+@@ -3049,6 +3049,11 @@ int intel_psr2_sel_fetch_update(struct intel_atomic_state *state,
+ 			break;
+ 	} while (su_area_changed);
+ 
++skip_su_area_calc:
++	if (full_update)
++		clip_area_update(&crtc_state->psr2_su_area, &display_area,
++				 &display_area);
++
+ 	/*
+ 	 * Now that we have the pipe damaged area check if it intersect with
+ 	 * every plane, if it does set the plane selective fetch area.
+@@ -3065,8 +3070,6 @@ int intel_psr2_sel_fetch_update(struct intel_atomic_state *state,
+ 		inter = crtc_state->psr2_su_area;
+ 		sel_fetch_area = &new_plane_state->psr2_sel_fetch_area;
+ 		if (!drm_rect_intersect(&inter, &new_plane_state->uapi.dst)) {
+-			sel_fetch_area->y1 = -1;
+-			sel_fetch_area->y2 = -1;
+ 			/*
+ 			 * if plane sel fetch was previously enabled ->
+ 			 * disable it
+@@ -3106,11 +3109,6 @@ int intel_psr2_sel_fetch_update(struct intel_atomic_state *state,
+ 		}
+ 	}
+ 
+-skip_sel_fetch_set_loop:
+-	if (full_update)
+-		clip_area_update(&crtc_state->psr2_su_area, &display_area,
+-				 &display_area);
+-
+ 	psr2_man_trk_ctl_calc(crtc_state, full_update);
+ 	crtc_state->pipe_srcsz_early_tpt =
+ 		psr2_pipe_srcsz_early_tpt_calc(crtc_state, full_update);
+-- 
+2.43.0
 
-It seems there are still a lot of similar paths to be considered.
-
-
-> protection.  dst_dev_put() can concurrently replace the destination device
-> and release the old device after an RCU grace period, leaving the multicast
-> output path with a stale skb->dev.
->
-> The stale device can be dereferenced by the post-routing path.  In
-> particular, a socket using IP_PMTUDISC_PROBE reaches ip_skb_dst_mtu() from
-> ip_finish_output() and reads the freed device's MTU.
->
-> KASAN reported:
->
->    BUG: KASAN: slab-use-after-free in ip_skb_dst_mtu+0x634/0x740
->    Read of size 4 at addr ffff88810921c038 by task poc/98
->    Call Trace:
->     ip_skb_dst_mtu+0x634/0x740
->     __ip_finish_output.part.0+0x22/0x2c0
->     ip_mc_output+0x287/0x930
->     ip_send_skb+0x11d/0x150
->     udp_send_skb+0x63e/0xdf0
->     udp_sendmsg+0x1235/0x1da0
->     __sys_sendto+0x32c/0x3a0
->
->    Freed by task 99:
->     kfree+0x131/0x3c0
->     device_release+0xc8/0x240
->     kobject_put+0x14d/0x280
->     netdev_run_todo+0x4cb/0xc70
->     rtnl_dellink+0x362/0xa90
->
-> Protect the whole multicast output path with an RCU read-side critical
-> section, as ip_output() already does.  Load the destination device through
-> skb_dst_dev_rcu() and keep it protected through the post-routing hooks and
-> ip_finish_output().
->
-> Fixes: 4a6ce2b6f2ec ("net: introduce a new function dst_dev_put()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-> ---
-> Changes in v2:
-> - Protect the whole ip_mc_output() path instead of only the MTU read.
-> - Load the destination device with skb_dst_dev_rcu(), matching ip_output().
-> - Use the commit that made dst device replacement RCU-protected as Fixes.
->
-> Link: https://lore.kernel.org/r/20260927071051.3693368-1-nicoyip.dev@gmail.com/ [v1]
->
->   net/ipv4/ip_output.c | 19 +++++++++++++------
->   1 file changed, 13 insertions(+), 6 deletions(-)
->
-> diff --git a/net/ipv4/ip_output.c b/net/ipv4/ip_output.c
-> index a24cc8ee11d3..cf44597896cd 100644
-> --- a/net/ipv4/ip_output.c
-> +++ b/net/ipv4/ip_output.c
-> @@ -367,8 +367,11 @@ static int ip_mc_finish_output(struct net *net, struct sock *sk,
->   int ip_mc_output(struct net *net, struct sock *sk, struct sk_buff *skb)
->   {
->   	struct rtable *rt = skb_rtable(skb);
-> -	struct net_device *dev = rt->dst.dev;
-> +	struct net_device *dev;
-> +	int ret;
->   
-> +	rcu_read_lock();
-> +	dev = skb_dst_dev_rcu(skb);
->   	/*
->   	 *	If the indicated interface is up and running, send the packet.
->   	 */
-> @@ -406,7 +409,8 @@ int ip_mc_output(struct net *net, struct sock *sk, struct sk_buff *skb)
->   
->   		if (ip_hdr(skb)->ttl == 0) {
->   			kfree_skb(skb);
-> -			return 0;
-> +			ret = 0;
-> +			goto out;
->   		}
->   	}
->   
-> @@ -418,10 +422,13 @@ int ip_mc_output(struct net *net, struct sock *sk, struct sk_buff *skb)
->   				ip_mc_finish_output);
->   	}
->   
-> -	return NF_HOOK_COND(NFPROTO_IPV4, NF_INET_POST_ROUTING,
-> -			    net, sk, skb, NULL, skb->dev,
-> -			    ip_finish_output,
-> -			    !(IPCB(skb)->flags & IPSKB_REROUTED));
-> +	ret = NF_HOOK_COND(NFPROTO_IPV4, NF_INET_POST_ROUTING,
-> +			   net, sk, skb, NULL, skb->dev,
-> +			   ip_finish_output,
-> +			   !(IPCB(skb)->flags & IPSKB_REROUTED));
-> +out:
-> +	rcu_read_unlock();
-> +	return ret;
->   }
->   
->   int ip_output(struct net *net, struct sock *sk, struct sk_buff *skb)
