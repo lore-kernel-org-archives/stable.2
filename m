@@ -1,42 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5254852842D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68A8752CCE5
 	for <stable@vger.kernel.org>; Tue, 29 Sep 2026 14:12:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790691171; cv=none; b=aolCQOqqDHNQpl5uiEc3CZoQ+UOkMoOVkrcmTn/yyWtNn7QLEaI2pfA0BipK4e2vA5riOPLhm2jaykFzyfYU0Ax5ZTfJDzRRf0byAoB9lXPghfIJkuZb7OZ63Hg7DIXxm6iq54g++lZqJzu9GgaRbkv/KTXeJBCgqfhJtgimoWw=
+	t=1790691171; cv=none; b=fWgGOXZg5eZbQKFhD+dBMIcWo5k4pQTUJpUvoJuRaXfkpB5wTsg4LYq9Sgq05JYP3JBDAyxANIWsL1cSqRCAqzcGTWfE299UGAFdKEFmnG0x31Ad4MK1ipj7C3pgAFpRyWYSFGZZ7gCiIVQr6ClD6OzyJOYrVEK0KJ6GGvSEMNc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790691171; c=relaxed/simple;
-	bh=p50wq0rAIXJuO3Z/NMGPJx7GArDcSWiuhATnGiz8HEs=;
+	bh=9N1F5istDqE0mS50NCZTlPTLfHoRo2M0dglBEkrZFJo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iYpeTePBOueFSynStJSzOGTbE/aiFPkqDZl3lecIr7RGUo4m1dOvEM5zfXu2RBt5nnFv/xBp1HMP2E+iEZs5p0r5E5sLsfUVWwTiBvA51fQ8pkYizRnjuzjSoyQYYl91oniQg2FPF0UbXEmOk4hCTKBHXB4fHBM+O8TUnO+VI3I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RG6f6NoR; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=syLzeF+SdnUlC1koDDblSxFcQS+sx3UBYcbpwaYgFDpUGJY/WWjKXHMa29FSkxqUQ0pec2mwYF8N5D825t30R1+UWhHzSmrXUvd6rUs9CDBb0nwR77JtWE2Dyn9zbqOVIlW3DGYDyl/9OTfKyHoDr4HiKnbkGvCE+GD5uE2janc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eUH9EtKj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RG6f6NoR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E3F61F00899;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eUH9EtKj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99D301F0089B;
 	Tue, 29 Sep 2026 14:12:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790691169;
-	bh=pakLrFDn2fBSzEohAODTxCIgs3CFCnzPxBG6tM15L3g=;
+	s=k20260515; t=1790691170;
+	bh=N6l2gC1eBBXQSJyd7pwfY3Xx4lYy2EFO/kkUQO5vbuw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RG6f6NoR15xl4s2klYptweM+yWChk5SF1VC4jVsxRXforzqXLQq6Hm3MbtPZ0S/TK
-	 IGhQmr3YcPSmXNmnAcj8eEtQIADRksjMkTczMx3SWOLgSbUu6esn5iqGDmxSOvEfq9
-	 dUbiZed6XebjEnUQGqeID9X68Phr01IzVliDxUCLb+/m60eB89AbbmJGwaa/CgaJRL
-	 kNrMH9XrZJALkzRizbwudo1o8LGvVQUqho1cnM/YJDr3wZ0035pHID0ouCva0NY/ck
-	 Ru8GFtmu6cpaLVwZ9Gu/GOTVbVzS6xwosWGvtklMC9YMrgTygf4/+a+PtF6Oj7n4Nv
-	 uDbZeTi21yE0Q==
+	b=eUH9EtKjUMQztfU06EIjZfj10+Q2cuL9ir8FBBOt0pUYw1CCim8WqUH5HCL1BBAXB
+	 b2Jd8QOMI+7GVH9CvqmCwLsAk6uZq1ff+XJmeqvA7OSmdvRvzBi9XoQhs5+nomysoK
+	 YSCI4OWGvex+YFrO9eyu2pkEBzDLy8Wk0+IoohozROxMR4+1fhRHpSh63qEYEYKN+K
+	 6sh5Vk9V/tGjKvnplTGU+JFF9T3Ty12fKEArBuRM6kt4GaKwmGPdc955189HRsPGkz
+	 ArhVnf6llHn2zrgh9V5YwIKyoKfKr2bm7qxHXUNuyBl1FoY7289SOpHhFsv5R6WTkH
+	 +EObzyMI+j6MQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jeremy Kerr <jk@codeconstruct.com.au>,
-	Paolo Abeni <pabeni@redhat.com>,
+Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
+	Annoy Cc <annoycc@gmail.com>,
+	Nemesa Garg <nemesa.garg@intel.com>,
+	Jani Nikula <jani.nikula@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 1/4] net: mctp: avoid confusion over local/peer dest/source addresses
+Subject: [PATCH 6.18.y 4/4] drm/i915/quirks: Limit eDP rate to HBR2 on HP Pavilion Plus 14-ew1
 Date: Tue, 29 Sep 2026 10:12:45 -0400
-Message-ID: <20260929141248.3537868-1-sashal@kernel.org>
+Message-ID: <20260929141245.3537826-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092919-helpful-hydrogen-8802@gregkh>
-References: <2026092919-helpful-hydrogen-8802@gregkh>
+In-Reply-To: <20260929141245.3537826-1-sashal@kernel.org>
+References: <2026092942-evaluator-keenness-e26b@gregkh>
+ <20260929141245.3537826-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,117 +48,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jeremy Kerr <jk@codeconstruct.com.au>
+From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 
-[ Upstream commit ee076b73e576b0a052d5686d873346b285ae50ea ]
+[ Upstream commit 5271d81f99dd01d983d439930eb056952485e15e ]
 
-We have a double-swap of local and peer addresses in
-mctp_alloc_local_tag; the arguments in both call sites are swapped, but
-there is also a swap in the implementation of alloc_local_tag. This is
-opaque because we're using source/dest address references, which don't
-match the local/peer semantics.
+The eDP panel on the HP Pavilion Plus Laptop 14-ew1xxx advertises HBR3
+while leaving the TPS4 support bit clear. The output however flickers, once
+link is trained with HBR3.
 
-Avoid this confusion by naming the arguments as 'local' and 'peer', and
-remove the double swap. The calling order now matches mctp_key_alloc.
+Until commit 8c9006283e4b ("Revert "drm/i915/dp: Reject HBR3 when sink
+doesn't support TPS4"") such sinks were capped at HBR2 by the TPS4 check
+which incidentally kept this panel stable. That check was reverted because
+other panels legitimately need HBR3 without advertising TPS4, and the
+per-machine QUIRK_EDP_LIMIT_RATE_HBR2 was introduced to handle the affected
+machines instead.
 
-Signed-off-by: Jeremy Kerr <jk@codeconstruct.com.au>
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-Stable-dep-of: 26cc0e69cce0 ("mctp: route: iterate socket tag list in mctp_lookup_prealloc_tag()")
+Add the machine to the list of devices that need the
+QUIRK_EDP_LIMIT_RATE_HBR2.
+
+Fixes: 8c9006283e4b ("Revert "drm/i915/dp: Reject HBR3 when sink doesn't support TPS4"")
+Reported-by: Annoy Cc <annoycc@gmail.com>
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16743
+Cc: <stable@vger.kernel.org> # v6.18+
+Tested-by: Annoy Cc <annoycc@gmail.com>
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Reviewed-by: Nemesa Garg <nemesa.garg@intel.com>
+Link: https://patch.msgid.link/20260907034555.2753846-1-ankit.k.nautiyal@intel.com
+(cherry picked from commit 550b703fdbb2a2022faa75b4b11ab135241afbd9)
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/net/mctp.h |  4 ++--
- net/mctp/af_mctp.c |  2 +-
- net/mctp/route.c   | 16 ++++++++--------
- 3 files changed, 11 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/i915/display/intel_quirks.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/include/net/mctp.h b/include/net/mctp.h
-index 2da82878155bb..357f1cda11e45 100644
---- a/include/net/mctp.h
-+++ b/include/net/mctp.h
-@@ -90,7 +90,7 @@ struct mctp_sock {
+diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
+index d1c428eeb6083..988d0de8645cf 100644
+--- a/drivers/gpu/drm/i915/display/intel_quirks.c
++++ b/drivers/gpu/drm/i915/display/intel_quirks.c
+@@ -257,6 +257,9 @@ static struct intel_quirk intel_quirks[] = {
+ 	/* Dell XPS 13 7390 2-in-1 */
+ 	{ 0x8a52, 0x1028, 0x08b0, quirk_edp_limit_rate_hbr2 },
+ 
++	/* HP Pavilion Plus Laptop 14-ew1xxx */
++	{ 0x7d55, 0x103c, 0x8c31, quirk_edp_limit_rate_hbr2 },
++
+ 	/* Xiaomi Book Pro 14 2026 */
+ 	{ 0xb081, 0x1d72, 0x2424, quirk_disable_psr2 },
  };
- 
- /* Key for matching incoming packets to sockets or reassembly contexts.
-- * Packets are matched on (src,dest,tag).
-+ * Packets are matched on (peer EID, local EID, tag).
-  *
-  * Lifetime / locking requirements:
-  *
-@@ -258,7 +258,7 @@ int mctp_local_output(struct sock *sk, struct mctp_route *rt,
- 
- void mctp_key_unref(struct mctp_sk_key *key);
- struct mctp_sk_key *mctp_alloc_local_tag(struct mctp_sock *msk,
--					 mctp_eid_t daddr, mctp_eid_t saddr,
-+					 mctp_eid_t local, mctp_eid_t peer,
- 					 bool manual, u8 *tagp);
- 
- /* routing <--> device interface */
-diff --git a/net/mctp/af_mctp.c b/net/mctp/af_mctp.c
-index 8f241c92e03d8..609e67210e454 100644
---- a/net/mctp/af_mctp.c
-+++ b/net/mctp/af_mctp.c
-@@ -366,7 +366,7 @@ static int mctp_ioctl_alloctag(struct mctp_sock *msk, unsigned long arg)
- 	if (ctl.flags)
- 		return -EINVAL;
- 
--	key = mctp_alloc_local_tag(msk, ctl.peer_addr, MCTP_ADDR_ANY,
-+	key = mctp_alloc_local_tag(msk, MCTP_ADDR_ANY, ctl.peer_addr,
- 				   true, &tag);
- 	if (IS_ERR(key))
- 		return PTR_ERR(key);
-diff --git a/net/mctp/route.c b/net/mctp/route.c
-index 4d649ba66cfdc..e3c69a1a8761a 100644
---- a/net/mctp/route.c
-+++ b/net/mctp/route.c
-@@ -619,11 +619,11 @@ static void mctp_reserve_tag(struct net *net, struct mctp_sk_key *key,
- 	refcount_inc(&key->refs);
- }
- 
--/* Allocate a locally-owned tag value for (saddr, daddr), and reserve
-+/* Allocate a locally-owned tag value for (local, peer), and reserve
-  * it for the socket msk
-  */
- struct mctp_sk_key *mctp_alloc_local_tag(struct mctp_sock *msk,
--					 mctp_eid_t daddr, mctp_eid_t saddr,
-+					 mctp_eid_t local, mctp_eid_t peer,
- 					 bool manual, u8 *tagp)
- {
- 	struct net *net = sock_net(&msk->sk);
-@@ -633,11 +633,11 @@ struct mctp_sk_key *mctp_alloc_local_tag(struct mctp_sock *msk,
- 	u8 tagbits;
- 
- 	/* for NULL destination EIDs, we may get a response from any peer */
--	if (daddr == MCTP_ADDR_NULL)
--		daddr = MCTP_ADDR_ANY;
-+	if (peer == MCTP_ADDR_NULL)
-+		peer = MCTP_ADDR_ANY;
- 
- 	/* be optimistic, alloc now */
--	key = mctp_key_alloc(msk, saddr, daddr, 0, GFP_KERNEL);
-+	key = mctp_key_alloc(msk, local, peer, 0, GFP_KERNEL);
- 	if (!key)
- 		return ERR_PTR(-ENOMEM);
- 
-@@ -658,8 +658,8 @@ struct mctp_sk_key *mctp_alloc_local_tag(struct mctp_sock *msk,
- 		if (tmp->tag & MCTP_HDR_FLAG_TO)
- 			continue;
- 
--		if (!(mctp_address_matches(tmp->peer_addr, daddr) &&
--		      mctp_address_matches(tmp->local_addr, saddr)))
-+		if (!(mctp_address_matches(tmp->peer_addr, peer) &&
-+		      mctp_address_matches(tmp->local_addr, local)))
- 			continue;
- 
- 		spin_lock(&tmp->lock);
-@@ -951,7 +951,7 @@ int mctp_local_output(struct sock *sk, struct mctp_route *rt,
- 			key = mctp_lookup_prealloc_tag(msk, daddr,
- 						       req_tag, &tag);
- 		else
--			key = mctp_alloc_local_tag(msk, daddr, saddr,
-+			key = mctp_alloc_local_tag(msk, saddr, daddr,
- 						   false, &tag);
- 
- 		if (IS_ERR(key)) {
 -- 
 2.53.0
 
