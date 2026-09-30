@@ -1,60 +1,45 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 886D523ABBE
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 17:43:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C26BE515976;
+	Wed, 30 Sep 2026 17:43:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790790185; cv=none; b=KkyL31tuKy/SW9NAQ2pWh8cqmn73Yf2iM6RF4fTGkONscuy54KIfMyAredwZRs0J6PSTtB1sWRnPvGAzt/sT/0XFe3uUnEUfTp03mWm+hPBJ3TbKkKWs2hb9aM0YCxuhGZKhkM94DlVKGZA2XMvyrA/GHPMfGCB1YGqr7DkEBRw=
+	t=1790790186; cv=none; b=GNIkj3ztYsOkmBDB5z8mDUON0K0ixZvFbllflNZSYSr69+g4NgHu+jApVWUjB/FbM0eIE9Wnm87GLRzYlg1TnSPUCvEx3dEPVc2QCdk+L54wfE3k5DFwkNnGaCgwkQQKmYUVnbdPZ584P75bmeqOeJXx4WFXhrVjcnGmjlA/P5Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790790185; c=relaxed/simple;
-	bh=9TJCI0aGpT3MNwcDd0bQURQkN943szThLXmLYQcoxR0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=KzLSRYu2WgwDyY5Y6pm1wJHLVmS2FQWfmu4uVlbsPoo3gfyLiZa6LCxpNv9I9P4gfjluLfJBcVqhbMqgh18ez4jDCxfmR9wHA9GeWcBLzZ0g99MCb45ueM5Zl5tOUeFeZ3ox113qa2jt8e+40K1o09lgn+nvbDmOoC5HjlZ8Z8o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jd8JcEHM; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790790186; c=relaxed/simple;
+	bh=Duga2fRLKC0hl1DDICMTgY5MY1+AxG5U85S4Me2xkK8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=SCWsofI7fZD+GNurjCNxam/BoGb6jXAYVsdteqK2nHiQrQpyhROtiAkD+yR433UR5BkIiW9+vESW7VXyw6ctLmXLetIunbHIriLQWt1WW4XBe2h0LF3sWHWPSD/EHnKZrgkc8vIhpgxPsB+CvlAaEMAa8ZLgze2/aPgRCswPJug=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=sodL24D+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jd8JcEHM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790790184; x=1822326184;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=9TJCI0aGpT3MNwcDd0bQURQkN943szThLXmLYQcoxR0=;
-  b=jd8JcEHMitkpbqLVo2Cye3TyeSma5+ECh1+ZnkxyJwHEswF3nzGI4PY6
-   nTRtvXilEdfbPTarmKGF3QeLq92SoNaE4yBf/0W+XM3K5fAyNc96Bf6xN
-   QjXJ1bKN3N3poCmucV9gHy6QxSbuBbcZUiwT5RMfkt0IUQxPVjloFZ+ZW
-   J+FKTf0gBHNx0f4IRQR4FBv3MYpexfuOYw4Ezt/YJLSPSstl2me+F98OI
-   Cksuu1j5mE36VgxiOxCpQVN8b7BLBzyiVbztc6totP0o5PZQCFrXrElAX
-   8KOPpXTWydfV3jx8zzhzqcp1uwdSaKVWOlmoE97qj+M+ExzRNX/dKn8E9
-   w==;
-X-CSE-ConnectionGUID: 2XXgS63qRfKHOv8n3t2zFw==
-X-CSE-MsgGUID: A4TQreERToy1Ynuez4ikrA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="91633299"
-X-IronPort-AV: E=Sophos;i="6.27,133,1787036400"; 
-   d="scan'208";a="91633299"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 10:42:52 -0700
-X-CSE-ConnectionGUID: at8FuPuyRi696BpxAHw3iQ==
-X-CSE-MsgGUID: XZwnvEkKTFy5lGqvaBYNUA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,133,1787036400"; 
-   d="scan'208";a="303684025"
-Received: from b04f130c83f2.jf.intel.com ([10.165.154.98])
-  by fmviesa001.fm.intel.com with ESMTP; 30 Sep 2026 10:42:52 -0700
-From: Tim Chen <tim.c.chen@linux.intel.com>
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: Tim Chen <tim.c.chen@linux.intel.com>,
-	Chen Yu <yu.c.chen@intel.com>,
-	Lu Wang <wanglu.priv@gmail.com>,
-	Davi Chaves Azevedo <davichazbh@gmail.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 7.2.y 0/7] Fixes for cache aware scheduling
-Date: Wed, 30 Sep 2026 10:48:02 -0700
-Message-Id: <cover.1790790344.git.tim.c.chen@linux.intel.com>
-X-Mailer: git-send-email 2.32.0
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="sodL24D+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28B201F000FF;
+	Wed, 30 Sep 2026 17:43:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790790184;
+	bh=c9WrdLOyHQf/VnMb7XH7QOY9wF2XLBFXYnExTsUsuQ0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=sodL24D+ZMU9d/omnzefHfUeyeQTqCrAVeR8ddsEoAjebeEjFCyizioZo/9fe4mL0
+	 gceFQZkc+APG367fhi6R7gUDlv+qZn4LrNjlqhYa9eyDrAdftyeSz0a+2KIvnaWm0Q
+	 80+1MizC8fp0qQx8odpz1iiUyY13iAqAynpOen0M=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Sashiko <sashiko-bot@kernel.org>,
+	"Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
+	Sang-Heon Jeon <ekffu200098@gmail.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12 733/877] bootconfig: Fix integer overflow in initrd size check
+Date: Wed, 30 Sep 2026 17:27:24 +0200
+Message-ID: <20260930152430.506731042@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260930152414.738996857@linuxfoundation.org>
+References: <20260930152414.738996857@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -63,55 +48,108 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Greg,
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-Here is a series of patches backported to v7.2.8 (commit 9a66fdc0d7fd)
-to fix cache aware scheduling.
-The original commit ids in upstream are listed as below.
-Upstream commit ids are also listed at the beginning of commit log of each patch:
+------------------
 
-commit f0d243a96f26 ("sched/fair: Avoid creating misfits during cache-aware balancing")
-commit 0d6526f82c3c ("sched/cache: Keep nr_pref_llc_running in the runnable domain, to fix LLC mis-scheduling bug")
-commit d6013e2465d9 ("sched/cache: Honor migrate_llc_task semantics in active load balance, to fix LLC mis-scheduling bug")
-commit 28f9c0e0a0b9 ("sched/cache: Decouple sched_cache_group from mm to fix UAF")
-commit b636fef85bda ("sched/cache: Introduce task_struct->sched_cache_grp to fix UAF")
-commit 65efcccddc83 ("sched/cache: Skip kernel threads for cache aware scheduling to rubustify the code")
-commit 3cb0243767fd ("sched/cache: Refresh LLC capacity across CPU hotplug, to fix capacity underestimation bug")
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
 
-Thanks.
+[ Upstream commit 7812d6dab0698001e50e8c2f901e17da3eb6f429 ]
 
-Tim
+Sashiko reported that in get_boot_config_from_initrd(), a crafted initrd
+with a huge bootconfig size (such as 0xFFFFFFFF) can cause the pointer
+arithmetic:
 
-Chen Yu (1):
-  sched/cache: Skip kernel threads for cache aware scheduling to
-    rubustify the code
+    data = ((void *)hdr) - size;
 
-Davi Chaves Azevedo (1):
-  sched/cache: Refresh LLC capacity across CPU hotplug, to fix capacity
-    underestimation bug
+to wrap around on 32-bit systems (or when pointer subtraction overflows).
+Because data wraps around, the subsequent bounds check:
 
-Lu Wang (1):
-  sched/cache: Honor migrate_llc_task semantics in active load balance,
-    to fix LLC mis-scheduling bug
+    if ((unsigned long)data < initrd_start)
 
-Tim Chen (4):
-  sched/fair: Avoid creating misfits during cache-aware balancing
-  sched/cache: Keep nr_pref_llc_running in the runnable domain, to fix
-    LLC mis-scheduling bug
-  sched/cache: Decouple sched_cache_group from mm to fix UAF
-  sched/cache: Introduce task_struct->sched_cache_grp to fix UAF
+evaluates to false, bypassing the check. The kernel then calls
+xbc_calc_checksum(data, size), which attempts to read 4GB of memory,
+hitting unmapped pages and triggering a fatal kernel page fault during
+early boot. Furthermore, on 64-bit systems with an initrd > 4.29 GB, an
+unbounded 32-bit size can similarly bypass the initrd_start check.
 
- drivers/base/cacheinfo.c       |  11 +-
- fs/exec.c                      |   1 +
- include/linux/mm_types.h       |  15 +-
- include/linux/sched.h          |  20 +-
- include/linux/sched/topology.h |   4 +-
- kernel/exit.c                  |  28 +-
- kernel/fork.c                  |   2 +
- kernel/sched/fair.c            | 467 +++++++++++++++++++++++++++------
- kernel/sched/topology.c        |  22 +-
- 9 files changed, 432 insertions(+), 138 deletions(-)
+Fix this by:
+1. Ensuring the initrd is at least large enough to contain the bootconfig
+   footer and verifying hdr is within the initrd bounds.
+2. Checking that size does not exceed XBC_DATA_MAX and does not exceed
+   the available space between initrd_start and hdr before performing
+   pointer subtraction.
 
--- 
-2.32.0
+Link: https://lore.kernel.org/all/178905333479.213925.1358412668943562406.stgit@devnote2/
+
+Fixes: de462e5f1071 ("bootconfig: Fix to remove bootconfig data from initrd while boot")
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260910010137.EE0431F000FF@smtp.kernel.org/
+Assisted-by: Antigravity:gemini-3.8-flash
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Reviewed-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+[ Adjusted context to preserve the existing u32 *hdr pointer and le32_to_cpu() header reads. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ init/main.c |   25 +++++++++++++++----------
+ 1 file changed, 15 insertions(+), 10 deletions(-)
+
+--- a/init/main.c
++++ b/init/main.c
+@@ -270,7 +270,8 @@ static void * __init get_boot_config_fro
+ 	u32 *hdr;
+ 	int i;
+ 
+-	if (!initrd_end)
++	if (!initrd_end || initrd_end < initrd_start ||
++	    initrd_end - initrd_start < BOOTCONFIG_MAGIC_LEN + 8)
+ 		return NULL;
+ 
+ 	data = (char *)initrd_end - BOOTCONFIG_MAGIC_LEN;
+@@ -287,16 +288,26 @@ static void * __init get_boot_config_fro
+ 
+ found:
+ 	hdr = (u32 *)(data - 8);
++	if ((unsigned long)hdr < initrd_start)
++		return NULL;
++
+ 	size = le32_to_cpu(hdr[0]);
+ 	csum = le32_to_cpu(hdr[1]);
+ 
+-	data = ((void *)hdr) - size;
+-	if ((unsigned long)data < initrd_start) {
+-		pr_err("bootconfig size %d is greater than initrd size %ld\n",
++	if (size > XBC_DATA_MAX) {
++		pr_err("bootconfig size %u is greater than max size %d\n",
++			size, XBC_DATA_MAX);
++		return NULL;
++	}
++
++	if (size > ((unsigned long)hdr - initrd_start)) {
++		pr_err("bootconfig size %u is greater than initrd size %lu\n",
+ 			size, initrd_end - initrd_start);
+ 		return NULL;
+ 	}
+ 
++	data = ((void *)hdr) - size;
++
+ 	if (xbc_calc_checksum(data, size) != csum) {
+ 		pr_err("bootconfig checksum failed\n");
+ 		return NULL;
+@@ -399,12 +410,6 @@ static void __init setup_boot_config(voi
+ 		return;
+ 	}
+ 
+-	if (size >= XBC_DATA_MAX) {
+-		pr_err("bootconfig size %ld greater than max size %d\n",
+-			(long)size, XBC_DATA_MAX);
+-		return;
+-	}
+-
+ 	ret = xbc_init(data, size, &msg, &pos);
+ 	if (ret < 0) {
+ 		if (pos < 0)
+
 
