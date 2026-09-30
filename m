@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFD5A46D577;
-	Wed, 30 Sep 2026 16:20:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B14AD503BDA;
+	Wed, 30 Sep 2026 16:20:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790785263; cv=none; b=jWdjZd1fFQF8+bjA1+laLWpkgMFTZMYYEQxIoiG1toaIjrNhgrm/rGk9VyNjnW5nRQNGAUJnA1/CeLXMQDI0jZGBP6NFnog/kBdqHqluPVTgotmyBxtjtl2pJMVFcGx2FOD2FHEzyQUvHUy5FqgrKX2nCTGjWqO+zuzB9lSG8HQ=
+	t=1790785265; cv=none; b=toT5w8UFrnnxXZyT6sSjJkJ08RwBmQBoKIpQlpyWfNXAscuaf13SrmGytNxv4ns8WI/iswJo3IcHZ0klqyRgDLAY9wR+unluvD+zUGAkqGaA107yaKp8LB71tLxVndmLg87Jc81FxxJ0MLN3AeOIwSwS/xARNXFYVn2XjwapZhQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790785263; c=relaxed/simple;
-	bh=h4ijwx041hOL3M7lbFWiDZOs5M7oAJz22FbumbctlHw=;
+	s=arc-20240116; t=1790785265; c=relaxed/simple;
+	bh=650VYKvvdVCuYCxzyiJD34mRsT+XEaRk9REKNNQZTwg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sXHUzKScwvJvHKHnEN92/8q5Po2+i/JW4pdkBSQAYhyM/uGcHaUMQIbj69XV5pZ3viHPM9AcNLSa+IQDKv7UIofsG5NWXWgdysdz7GRjTrlexlHyArxqhS7Ag5AffKUMrFLBBL4wQbhL63uiRPxJ/h1+Q3yHVn15jAMVePmSHtI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=18akoHvx; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=NmQ2vDQ2pSOWNbtloTWSt/R9URc09nqYAeJSLXusofwRSSqBbMgyih6fwrv16CtTjveXAzRqZBRBtK++1ygTY9Ky8XBv0C5wIYbZXQHIycLwN/mEhDrqmoyf89YXYTXcC6Dg9o7Ys/qaY9utkjG6HAY1mwjqdl+iTCUd3RdTMlU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=NyLWkbhD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="18akoHvx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C40CE1F00893;
-	Wed, 30 Sep 2026 16:20:53 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="NyLWkbhD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90B761F000FF;
+	Wed, 30 Sep 2026 16:20:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790785254;
-	bh=9Jf5mZWwCud0qLSzqNZ8vAQFJOsin+WVJljOCxZh5gg=;
+	s=korg; t=1790785257;
+	bh=iivw1xHJj2tCOcMhHEPV+mCRfAxkyQP5GM1TmghqMb4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=18akoHvxM4rIYhwyKg8/pAJOd7mLHoXTQEHC5PDD37tETYWmH630/+/oaZRpU48P8
-	 wRIJIY7JRBKmeNH+fpF63sqeqD49MhuzrtVxyCnAeXb8rJPAs4MJeUUxPHsq5vDBgV
-	 NelAnZo782TwbJvlyHS7TtJ8MwnYNwQt9zu2e0Y8=
+	b=NyLWkbhDHwMQ+eu00euNIjIKm/NotB8y7wzL+eFya9EkVcQLx5XCxXR6usAuN4td4
+	 F5mC1VqEmkD5u7OuYJWg3zrGUJd1KM6taghHDaNSMi6f4QD6iF2I4qOtgvG7gpQYIV
+	 L25NgB+wvN1DfMHxRFC07+U9W+BIXOzvQmjIAEuY=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Linfeng Sun <linfeng.sun.dev@gmail.com>,
 	"Michael S. Tsirkin" <mst@redhat.com>,
+	Andrew Stellman <astellman@stellman-greene.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 442/982] vdpa_sim_blk: reject out-of-range sector starts
-Date: Wed, 30 Sep 2026 17:19:38 +0200
-Message-ID: <20260930152426.287175379@linuxfoundation.org>
+Subject: [PATCH 6.1 443/982] virtio-pci: return IRQ_HANDLED after non-zero ISR
+Date: Wed, 30 Sep 2026 17:19:39 +0200
+Message-ID: <20260930152426.308462321@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152416.775402466@linuxfoundation.org>
 References: <20260930152416.775402466@linuxfoundation.org>
@@ -51,58 +51,60 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Linfeng Sun <linfeng.sun.dev@gmail.com>
+From: Andrew Stellman <astellman@stellman-greene.com>
 
-[ Upstream commit 0a8693f00c408d85f086ad85d29e7030bf1e2055 ]
+[ Upstream commit 93fa09455fb1a9624b73d42ac1f83771f4818e80 ]
 
-vdpasim_blk_check_range() logs an invalid start sector but continues
-validating the request.  The subsequent unsigned capacity subtraction can
-underflow and let an out-of-range buffer offset reach the data path.
+vp_interrupt() reads the ISR before dispatching config-change and
+vring handling. Reading the ISR also clears it, so once the read
+returns non-zero the interrupt was from this device and has already
+been consumed.
 
-The invalid offset is used by three request paths.  VIRTIO_BLK_T_OUT
-copies guest data to blk->buffer + offset through
-vringh_iov_pull_iotlb(), causing an out-of-bounds write in
-_copy_from_iter() or memcpy().  VIRTIO_BLK_T_IN copies from
-blk->buffer + offset to the guest through vringh_iov_push_iotlb(),
-causing an out-of-bounds read in _copy_to_iter().
-VIRTIO_BLK_T_WRITE_ZEROES passes blk->buffer + offset to memset(),
-causing an out-of-bounds write.
+Currently vp_interrupt() returns the result of vp_vring_interrupt().
+For a config-change interrupt with no vring work, that can return
+IRQ_NONE even though the ISR was non-zero and the interrupt was
+handled.
 
-Reject starts at or beyond the capacity before the subtraction.  Treat the
-capacity boundary as invalid because the IN and OUT paths round byte counts
-down to sectors for validation but later copy the original byte counts.  A
-sub-sector request at the capacity boundary would otherwise still access
-past the end of the buffer.
+Call vp_vring_interrupt() for any queue work, but once the ISR is
+non-zero return IRQ_HANDLED.
 
-I found this bug myself, though the patch was written with AI assistance.
+Tested with QEMU virtio-blk-pci forced to INTx using vectors=0 and
+pci=nomsi. On an idle device, 200 config-change interrupts were
+generated using QMP block_resize.
 
-Fixes: 7d189f617f83 ("vdpa_sim_blk: implement ramdisk behaviour")
-Assisted-by: OpenAI-Codex:GPT-5
-Signed-off-by: Linfeng Sun <linfeng.sun.dev@gmail.com>
+Before this change, irq_handler_exit reported ret=unhandled and
+/proc/irq/11/spurious increased from 0 to 200 unhandled interrupts.
+After this change, irq_handler_exit reported ret=handled and the
+unhandled count remained at 0.
+
+The issue was found during an LLM-assisted Quality Playbook review.
+
+Fixes: 77cf524654a8 ("virtio_pci: split up vp_interrupt")
+Suggested-by: Michael S. Tsirkin <mst@redhat.com>
+Assisted-by: LLM
+Signed-off-by: Andrew Stellman <astellman@stellman-greene.com>
+Message-ID: <20260904141318.30278-1-astellman@stellman-greene.com>
 Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-Message-ID: <20260901094800.25475-1-linfeng.sun.dev@gmail.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/vdpa/vdpa_sim/vdpa_sim_blk.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/virtio/virtio_pci_common.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/vdpa/vdpa_sim/vdpa_sim_blk.c b/drivers/vdpa/vdpa_sim/vdpa_sim_blk.c
-index f745926237a88..8b5b04a0b85ce 100644
---- a/drivers/vdpa/vdpa_sim/vdpa_sim_blk.c
-+++ b/drivers/vdpa/vdpa_sim/vdpa_sim_blk.c
-@@ -49,10 +49,11 @@ static char vdpasim_blk_id[VIRTIO_BLK_ID_BYTES] = "vdpa_blk_sim";
- static bool vdpasim_blk_check_range(struct vdpasim *vdpasim, u64 start_sector,
- 				    u64 num_sectors, u64 max_sectors)
- {
--	if (start_sector > VDPASIM_BLK_CAPACITY) {
-+	if (start_sector >= VDPASIM_BLK_CAPACITY) {
- 		dev_dbg(&vdpasim->vdpa.dev,
- 			"starting sector exceeds the capacity - start: 0x%llx capacity: 0x%x\n",
- 			start_sector, VDPASIM_BLK_CAPACITY);
-+		return false;
- 	}
+diff --git a/drivers/virtio/virtio_pci_common.c b/drivers/virtio/virtio_pci_common.c
+index 6bfb67d4866c3..578806c4c2ae1 100644
+--- a/drivers/virtio/virtio_pci_common.c
++++ b/drivers/virtio/virtio_pci_common.c
+@@ -96,7 +96,9 @@ static irqreturn_t vp_interrupt(int irq, void *opaque)
+ 	if (isr & VIRTIO_PCI_ISR_CONFIG)
+ 		vp_config_changed(irq, opaque);
  
- 	if (num_sectors > max_sectors) {
+-	return vp_vring_interrupt(irq, opaque);
++	vp_vring_interrupt(irq, opaque);
++
++	return IRQ_HANDLED;
+ }
+ 
+ static int vp_request_msix_vectors(struct virtio_device *vdev, int nvectors,
 -- 
 2.53.0
 
