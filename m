@@ -1,91 +1,129 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAAFA51EDFF
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 21:25:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64C034CDDE9
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 21:26:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790803510; cv=none; b=dwxPe7anF2HNAhHak2BqQvTTkg6tq5T0eFmSjFKmEvVMRwxw+WgbXjE3yJH4SEfw43aLdZeXx6rYPirjNiG0VkO26/fdItSgwNYEKS9J1OrGF5zR+qnVZhphpqwXoFKCYon2/ChHX/MNFvhO+MWCrnozGuBu1BbhKwOxesPrBnc=
+	t=1790803568; cv=none; b=m2nRGJ862X7LsHI34CsEsYDue99+ybj9WlLtAfsqQu8NuLGdaCdvNzXImL9jtOsLQHwQ+9WywMyceyqdc5p6mOlbjizOEJnKZHIoPuyUqkUHjgHjXpXmZ21mH/bKKwaWbVjFvmDcoCXBOfwuVY22ER/QSRf5jCFH0VOZVi4Sbzo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790803510; c=relaxed/simple;
-	bh=3lIGjgENVnTxg/YClf8dCOFUdN1jOhQKNMJP+7C+JEc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=H8EzhzBWQeAcnIRtkDzDTFFu35zquCgs8SG7tAVrFDxodtJXvRTvMIArEV8lGfBQuUgcY5Nyjz7qenm2ukkiSmiyBqo1dM3Fe/F4gvEpw70V95x1/6Urq169eln2TGozaoI/q2ZOj42iiSwoBmH1dIlcql2WDBIawNJueDx7p8s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TRvRfPFK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790803568; c=relaxed/simple;
+	bh=iXpeLJ2IQz6dj06pIp8CpdyiSrvgdjV2iaNmpg8p4ck=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=h0giWS44/w8I2uafOrkP8UdP8SlbQIJaZttQkw9SMsoBIma4OormHDdVNKC/4+aT8tEhNaEfk0wtdCRMPzSZ5Vr/slTNVoWbzAuRn6p5P8ZdOlL8jmx4VvU3BwX2iaiKS1ZT143VbqVPScsxOgc23ipwNjsewGjGu229ro7gRDs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NsVxrfn2; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TRvRfPFK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C93F81F00899;
-	Wed, 30 Sep 2026 21:25:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790803508;
-	bh=9qoUag57gXpsNK7t+nQZaNrMhzhaTzbE8hWyi4t9LRo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TRvRfPFKftT6g7qBqHhR3jHldbXNKPFnLm5ja1KyYiodwM3hed4taTedXAyfHJ4aB
-	 x8O2HIJI1OHuLuh4o5+5tF9w72VUuowkR3QJTrE+W+I6ILAbgKEDjIxLFPzRpSsvqK
-	 j4QQAeDTklKdytMB+5lWj+k1S71/odSY9+skBWpsbNNmfMsLAOFfpxBkFZXA4khMq2
-	 J+3QjV9/eLmSWSsqj/qsaf3iDORj+wq01dgyY4nTZsyV/qvckNuo+wifFgqK0mfwc1
-	 ZTdaa9J8EoBpz4jrLWzW/0dbgF6hIpBKdjlQaN6SP2bqpn4Eu72BcteWAiE7Y2gg7G
-	 rU8sy7Fz73RrA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Sean Christopherson <seanjc@google.com>,
-	Jinwoo Lee <rkskek9254@gmail.com>,
-	Stefan Teodorescu <fane@google.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] KVM: x86: Re-pend GET_NESTED_STATE_PAGES if getting said pages fails
-Date: Wed, 30 Sep 2026 17:25:05 -0400
-Message-ID: <20260930212505.3176940-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260930212505.3176940-1-sashal@kernel.org>
-References: <2026092946-laxative-rival-2080@gregkh>
- <20260930212505.3176940-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NsVxrfn2"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6c0fce17so31929165e9.1
+        for <stable@vger.kernel.org>; Wed, 30 Sep 2026 14:26:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790803564; x=1791408364; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6NcEBo2bS8P+fcdvedqvJ3Az2pTigqmXIzaSqCZiwQc=;
+        b=NsVxrfn2Kljkmos8XO1C4TcS63vOjOpRnApgTy+8RX/0eZ5tiYSQZ+DSYvtv8OFqwR
+         KCyb/UI4nPc23lkbaYA+3GqL1O2o6EHU8il03ie9jKkcg2Q1kK9gNTk7xRUvQiEdbTHf
+         Juhh2qiKRVNEvF8/lDV6f8CJv9/MSXEoDllGrwwZM08eVe6VTceAOJtCS+G4MuBcTdhL
+         G1y9o5CJarQu3i9y0iNVxTYPNY59GWmepUTaEm5lQix4DROPQgNlPCD4Y2zOiNfcZOAO
+         2WOPdEGb8Uu2Muyr7ozNvxIQL+E/zjnFKw8BVHw9WAhoQxo8HnjEFaxh/+MrwQRnyhXh
+         1iDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790803564; x=1791408364;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6NcEBo2bS8P+fcdvedqvJ3Az2pTigqmXIzaSqCZiwQc=;
+        b=GVvdBXD+iqB+NlqwTBZ1cFr3RiqrQpxX+/3Khmd5ydb21kJnEXHnhoaAkKLj79uXZK
+         m9itpvSwmhbrnSzeRZUScEfQp8MT/wUScwshq3WmBPzVKBK55T4wBLGWvdMyAnhxrX4D
+         dF2oJcuH41zbpZpqWK9EpFl8RPTNbk/gJNQhQ6YAo1istNvigL0zQUyzbAvClPYwVA85
+         sRbyvAoQWXDCJgute5tbgOd4fBONlQhFirJ5pIXE9M/mdZuu2HgLUlBorKvrTLie92Ev
+         gCRfG9LmBEg5Ukhq0qyQMK11IHAn18omd8EfW/B2+l5mDgAnM2vOtu+mW//Jued2Kvga
+         W9Tg==
+X-Forwarded-Encrypted: i=1; AKwUvByQOu7UxDpTtdTdijn6Rdn+l83DDrRQDbFKGTemIS5fePHiIhPIjmQqCzOFvG58NCAmmxKGyQA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLU4NGNWkMO3sp1w7u990qZOzflkFpHyhE/uZ2BaUFN3i6bpbJE
+	qNMheZi3Y8UD/k4p+KBIlV1xxRBTcIG/iOYhRIgoEtMhbF2zjanOPjRh
+X-Gm-Gg: AYBFou3hC9RIpKyaCyqkjxSojCBXcFejQ6TFw88fPViSNbUqAzz415Xtv6GjYlFQIuS
+	dkLf/6uHmXoFilXbmBCqX1imDyr/Ax9bm0esJTjxDXnJlXK4WiU/+GUpE/UwGoy/yio3ji2HjbS
+	8JbCcUX9bYECfLb7wZALjBXEAa48049lfnRa7u8ePEg+6m1xqW3+5cg/aZ8gGK264EqZ0rSf7WI
+	BP+yApmFSiJgPIr7w03Te9By9HgzWXAz33AOM+ONWbqeUV9xKBNZILOvi0HEn5AWZk8dOr9O3qB
+	5WtoGf8UE8CAxOQEDVfmmFRnZDbzuUK1kUe0UxVMNXHOBrQwTveCFN0eem4xKhvmf9jXf0O3fNq
+	00t4/7rMP909a9YvnvVaNYiaVoF4ReBoqb5GYoXx8d7umxedG6whTA4niovVuMZ6q7co0nBEvcc
+	k8FcgLxKVjJURmylsYSdc3PKyd7hO+JEspy5iAoGo0AUpTtPB6Qja790mLm/I=
+X-Received: by 2002:a05:6000:40ca:b0:488:6561:b324 with SMTP id ffacd0b85a97d-48b024dc409mr4686934f8f.9.1790803564433;
+        Wed, 30 Sep 2026 14:26:04 -0700 (PDT)
+Received: from gmail.com ([83.231.69.9])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b068bd8c9sm1825610f8f.2.2026.09.30.14.26.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 14:26:04 -0700 (PDT)
+Date: Wed, 30 Sep 2026 23:26:01 +0200
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+To: Imre Kaloz <kaloz@kernel.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
+	David Rientjes <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Jann Horn <jannh@google.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/slab: sample slab_state once in kmem_cache_destroy()
+Message-ID: <ar153_VaZlIY3qeQ@gmail.com>
+References: <20260930195110.13296-1-kaloz@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260930195110.13296-1-kaloz@kernel.org>
 
-From: Sean Christopherson <seanjc@google.com>
+On Wed, Sep 30, 2026 at 09:51:09PM +0200, Imre Kaloz wrote:
+> kmem_cache_destroy() tests slab_state >= FULL for sysfs_slab_unlink()
+> and again in kmem_cache_release() for sysfs_slab_release(), with the
+> cache already off slab_caches in between. If slab_late_init() runs in
+> that gap it sets slab_state to FULL but never calls sysfs_slab_add() for
+> the unlinked cache, so kmem_cache_release() ends up in kobject_put() on
+> a kobject that was never initialized:
+>
+>   WARNING: lib/kobject.c:734 at kobject_put+0x64/0x2c0, CPU#1: kworker/u8:3/55
+>   kobject: '(null)' ((____ptrval____)): is not initialized, yet kobject_put() is being called.
+>   refcount_t: underflow; use-after-free.
+>   kobject_put+0x64/0x2c0
+>   sysfs_slab_release+0xc/0x20
+>   kmem_cache_destroy+0x104/0x1e0
+>   bioset_exit+0x13c/0x1e0
+>   disk_release+0x54/0x140
+>   put_disk+0x18/0x40
+>   floppy_async_init+0xbec/0xd10
+>
+> Seen on sparc64 at boot, where the asynchronous floppy init tears down
+> its bio slab while the late initcalls are running.
+>
+> Read slab_state once, under slab_mutex which slab_late_init() holds when
+> it sets FULL, and use the result for both the unlink and the release.
+> The kobject flags (state_initialized, state_in_sysfs) were considered as
+> the key instead, but slab_state is what cache creation and
+> slab_late_init() decide on.
 
-[ Upstream commit 10180a277549339020b08000206092c07e0bff5a ]
+the enum has nothing between UP and FULL, and the create path skips
+sysfs_slab_add() while slab_state <= UP, so both tests are the one that
+decides whether the kobject exists, and a false value cannot skip a
+kobject_put() that was owed.
 
-Re-pend GET_NESTED_STATE_PAGES before exiting to userspace if getting the
-nested pages fails in the KVM_RUN path.  If userspace re-runs the vCPU, and
-vmcs02 holds valid PFNs from the *previous* run of L2, then KVM could
-re-enter L2 with stale, unpinned PFNs mapped into e.g. the vAPIC page.
+it would read better to me if the changelog said that. otherwise LGTM.
 
-Note, both SVM and VMX (as of commit 11722439fb20 ("KVM: nVMX: Ensure
-KVM_REQ_GET_NESTED_STATE_PAGES is cleared on VM-Exit") ensure the request
-is cleared on VM-Exit (including the "forced" case), i.e. there is no risk
-of double-mapping due to emulated VMLAUNCH/VMRESUME/VMRUN *and* the request
-trying to map the nested pages.
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
 
-Fixes: 671ddc700fd0 ("KVM: nVMX: Don't leak L1 MMIO regions to L2")
-Cc: stable@vger.kernel.org
-Reported-by: Jinwoo Lee <rkskek9254@gmail.com>
-Closes: https://lore.kernel.org/all/20260813043932.3214460-1-rkskek9254@gmail.com
-Reported-by: Stefan Teodorescu <fane@google.com>
-Link: https://patch.msgid.link/20260921211608.1030158-2-seanjc@google.com
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- arch/x86/kvm/x86.c | 1 +
- 1 file changed, 1 insertion(+)
+> debugfs_slab_release() is not part of the race: it only looks the cache
+> up by name in the debugfs root and does nothing before that root exists.
+>
+> Fixes: 4ec10268ed98 ("mm, slab: unlink slabinfo, sysfs and debugfs immediately")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Imre Kaloz <kaloz@kernel.org>
 
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index d5686a1ee3287..302328a64e273 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -10659,6 +10659,7 @@ static int vcpu_enter_guest(struct kvm_vcpu *vcpu)
- 
- 		if (kvm_check_request(KVM_REQ_GET_NESTED_STATE_PAGES, vcpu)) {
- 			if (unlikely(!kvm_nested_call(get_nested_state_pages)(vcpu))) {
-+				kvm_make_request(KVM_REQ_GET_NESTED_STATE_PAGES, vcpu);
- 				r = 0;
- 				goto out;
- 			}
--- 
-2.53.0
-
+--
+cheers,
+jose a. p-a
