@@ -1,230 +1,223 @@
-Received: from fout-b1-smtp.messagingengine.com (fout-b1-smtp.messagingengine.com [202.12.124.144])
+Received: from fhigh-b8-smtp.messagingengine.com (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB33F329391
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 13:21:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.144
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A30964FB9C6
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 13:21:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.159
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790774481; cv=none; b=BxuRZ2gs0xdCzbJFW9MdqgaPCH/wI49X0ar++Y/zMsweFou9KQ/yZpYKXHjEmTRbQCv+Vwdys2OjDOjnNSkxVXyd9rx60mhmCa00drBaRqvsIgW2C4Elxc4h3p7oEwFdVxDDiw83yugHm5R0sLF8RSydj7RvVeBk2PlpoHb0cY0=
+	t=1790774510; cv=none; b=UEn0eabflX8N14NPVzUtXy1ANWve+LeU/4Fpg8qdN3h07yXInJNuALpAYlc1Cy4Q1mevmPCpWaFpbM1k+1FkvBMysho91xE7UxdtoKWU9JBC4rdci7U7WoINPJOEmMoCcbNH8cXEWzexhQ9DoEzsb8zoqX3lMACQxsdQx+rHC6E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790774481; c=relaxed/simple;
-	bh=6zkmbP5vAFh0bgJ0QO4MvuBoHJcQ+b6AuxOLSJ8+vZg=;
+	s=arc-20240116; t=1790774510; c=relaxed/simple;
+	bh=NkJfm7tW/QwWAWG9aMc385Ui6QzhY3F+KO3ozj2cWjY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=O8LqS2xMFTP5EbLWjuKXy9POjTJ/efHJN+DKwaF5WfWLUPy8VSarpno1iz/pydssYHHBQkZ61ZCasLbXGhMHL8QiopjvNY6mzjDjUU0lJPtRD59tt+3HxC/QpKkAEsinQNVBZNiv3foGbgSG5jsHbvXzGAP5qLo9ZxZrKwPNwoI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=G9XZI6C8; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Ndrh+9x5; arc=none smtp.client-ip=202.12.124.144
+	 Content-Type:Content-Disposition:In-Reply-To; b=O0q4g8yHyupbqu3gjPPpf+bsBnUbD/yahoaB3O0L4g5oKYru7kiSF9fbglA9KhssercYaHTm1Rjb878J8b1gcpcWcOdfHM2IEsZi3Oz3wcCTfT9CvamMdqU1Ta15tpRft7KAAdHcAEtXhZ2HVPJhswN8loXw2MMHTD9ieyEdlHI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=YgM4Mb9H; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=A3Nm3qUw; arc=none smtp.client-ip=202.12.124.159
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="G9XZI6C8";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Ndrh+9x5"
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfout.stl.internal (Postfix) with ESMTP id 326AB1D006C8;
-	Wed, 30 Sep 2026 09:21:05 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-01.internal (MEProxy); Wed, 30 Sep 2026 09:21:05 -0400
+	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="YgM4Mb9H";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="A3Nm3qUw"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id F29B97A0769;
+	Wed, 30 Sep 2026 09:21:41 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-04.internal (MEProxy); Wed, 30 Sep 2026 09:21:42 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1790774465; x=1790860865; bh=sXaqN8gzlz
-	sdDBfumD0SlxjIPEM5MoXHXBHme4xwZYQ=; b=G9XZI6C8203coYzu2zJcA95h+t
-	NOSO2iY/ytVOB5dL67qzTyhjQ31LuLHxAFSO/PWFPDT6KA3BV6Y8EwoNX5xGl8nO
-	3rF2TzNcqToiG37p+tRfKpRvOjcceXopm2wgFsP/BwKai6QJUKFg09E4uV7hJHkw
-	4sgmLwAFNbLod4caQChZEb0lUQgn4k4tuXjna2oeQy1VHSNKWldngo1CR2lE1kyh
-	BfycVzMLMD0bfQvinGpPtElxUwntA57TRJrL8Wn1kw7QQgAfyABJPs2yLDweD+8k
-	iJ6GBWaBvcnJpKrMM8I0WQp4Ad8NWpqg7MW3Uf4lU2BUFJ27QiKVU/6hzNNQ==
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1790774501;
+	 x=1790860901; bh=9XjWkAeTy0bOx43jZ3pattGqsmparqpu3VF27sBPjvc=; b=
+	YgM4Mb9HzAKNuUynlfD7qM0zFGK0P20FvoQac1KxF3zSlqHo9eJxW8/OFNuhuWJX
+	pBGUUtbTuoOprqfx6fJ8ER7awa2CmbNxEm1HfnQg25Md6PptEO5n4UNbN3E2ETIP
+	ftZVNmmOcA4HxixPDG40T9w/l+H4N/1CjrxQjZA2Gn6f4zdnQYwUdNWZ+r6iirqR
+	Aftnd99+9DSIy9cxdy3SLie+OVImkBEGUziF8ByITdBsZIeZ1Tp1O2izHSezC+Zq
+	HrFPMfRIo1wS+usOFJUR9fT/Sclq0JBj/207VLHa83QpC3e/bL07W0CYOAuaF65P
+	ZfA4Hb/YGtlJ25IwI4yw4A==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1790774465; x=1790860865; bh=sXaqN8gzlzsdDBfumD0SlxjIPEM5MoXHXBH
-	me4xwZYQ=; b=Ndrh+9x5rnvdPBu5mkbQQnL7SKaQQc2Iappmp7MI8VFESIswUpI
-	UJF1K5il7pUHCmFblCQFDNtw9xGithfC23+pviv7525ZHawwcasVAEhzWeckqWeX
-	uLrECsDRzKmojNmogbi+vtucFZRzLxh2jPKSy8L3WiJinDcly/MeXmJEk0H2IihZ
-	6qnC/n1twREXTl1FHOPmwpO82fmAugLgavOBJSrCFKLu+KWj3dCiF5qaaQ4l8DIw
-	xhNxv74VZYjzY3JnEmyu3RBMF7ihPvFVYuAgvMoVtBs00okb7vZeyZoUJEiG4cJN
-	LPkVCZsRd5FAUsqOrKNlHslcEaky9ieRtIA==
-X-ME-Sender: <xms:wAy9athOtMRIM5WdMucBN3vAyE8ObyApEKRtDxeelp9xsN9WenV9HA>
-    <xme:wAy9alGjMO-0OZFL-HeaNDzGg8tPvRdImeBaCMMoXbsg4aIRn6soxneJQgpwTwHOn
-    fkUcuQPu5BSJuw5byJ6jm629jIV-7z3x9QxUW1Xh5SohDk1Xg>
-X-ME-Received: <xmr:wAy9ansnOrNhMr4XraEtG69kE3khyZfoQI-2pRvjv0dLCu_TixAcwVCY8w1Q3Iu_9yVfHPO-4qIYY5xCwIcYOA-a9J8Z1XZ7RqDVamyY8Ks>
-X-ME-Proxy-Cause: dmFkZTGKLk5OqqOT/HiVSR/OQlFqYHDwtF03gvROP4n5lI4H3D4aiL9rwinpFdqg9AUT8q
-    rcyAL/amPIn0Kc2NN5cg11gqEVmT4v3kC4gPYfxc7m0DW+nbegO0vhZERILAwCKksReDBz
-    mh01w41kZoUWd6dPPVfGxSSLSxp2MFgfQt0BuGYPCDnjLb68mDdPjUwJbADqOupnNrgM9W
-    SMHFd0clnE4G0rE8GSUeezCkLZcnS/lS9KWopn7GwMcMHXnu9l7X6K87kaICQdcAsG4sRp
-    X8GgAIBWpakpBrCbScUg2KyWncExUSY+xZlRaK00oDjTgs1xpdG+DSz5UEX6SJYsFxWBaX
-    lSeicO8bZnuWPz7naFI5YdHIbaene1F1zQYSqaBNxfJXd2583ac0GsySRgn17EWysfLtsq
-    f23c9+kHur1ebZ54GbPYgD57mkJvFeaVar/p7fwrAtn6uBBfJBUl2UAUw6YgYoDLfFqGUm
-    ZnvOMTxqZmxTZjPaQaG3zidJ4+mm5KgVT1kn4obJLTm+G8C+ZAJnXE/rCOI9rg44qAjQd+
-    6FHfvC7q0/jbp9cKaFw91mmLaeJDdLchRtK1zlr+fPK6J+z3oUX++xTj+AYsul2MfKqQuA
-    XUNsW4A2ENUlMhl5D/rC4vX/u+RwH7ZGM87+7ihnfA5M9C7A+4L5hs2Vs5Dw
-X-ME-Proxy: <xmx:wAy9aufIoXdqv1ew48cku7U0lEhzFkOowTBjvt8N-Rp9FHyMBdUxCA>
-    <xmx:wAy9all9FmU-GnE52oShn7rY75S_EO66aZs-66eZz0XmTZ3SmO4fpw>
-    <xmx:wAy9apBlr70TUouLK4IO1Ntbrdod8WTzQQlcWIMIcZEIA2N2C6T_wQ>
-    <xmx:wAy9anNgKGM2k8kwCoJou9b-oGnaAKODFQG1dtK2HEAaHck_E8nLCQ>
-    <xmx:wQy9amH5F-BC01xaB9APpU1X62nNgGqEtP0ZKyY814CnZBPhlAYYknBb>
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790774501; x=
+	1790860901; bh=9XjWkAeTy0bOx43jZ3pattGqsmparqpu3VF27sBPjvc=; b=A
+	3Nm3qUwX+NepN3haxruXJyVCL6i6jvlJcM4+WiW28pa4sPi6Wygy8jeF8FuZZxTW
+	JJaa8XzrxA9KL6q+tvcesDBM2Ev/PKg2AHaoFJF2IhVhFJSrC2TSYp8qeY1pGuLC
+	9kfmeXSjJNajTaxrb3D84b51GYsdX5P7nX4HPGr2cwm/q0GPpPMDD/Orzjabjafd
+	AkjgWTYbdrfWs6zYIqx+YonlazCef08uZXobozRVs06eIDvouRZ6tyJRccwxu971
+	1u+AP892YmgfcnpDihs0XACdYNxJq6IP0ToNRu1MsOGrwhNsUTYmgJhEUjPqUJiy
+	kt0C6iqnydnDWXecBfT6g==
+X-ME-Sender: <xms:5Qy9aoDl9Q07TjWdpkTSpjbZ-qZQCe0lXlCB1Guz_FpfrwCLp5Ijgw>
+    <xme:5Qy9asH0kaIjOHhkoWIJvsgkFG3rvd3YKaQQ_K-qucMppV8syPTJxeVI9ahVq1PFT
+    taG6tmSyQ5y4MzK5n6vkdRJI3I-q-9BkM_GcPAHBKWlVCsUGvU>
+X-ME-Received: <xmr:5Qy9aq0ygaD8ysGmNZEudChfbIr6T47fqu2UrIMEqI5Zfwvo7sjayCfCplTWQh-5g3iGxgIKi1zy4Ny-9rzvCdcFxwp4ajlPApvkCZHKru0>
+X-ME-Proxy-Cause: dmFkZTEp+JKKein/yNkDD1FN5UrDsSzLQeYbwOeakA6Bxg+PFl2TFWArrDVkqjX6TPB/JO
+    H8gQJHYjBg+IwqnDdsbJk8GSvy//cf72s9ifFh2VOiNo1le2AvJgL/+nEU0RyDtYRPzT2V
+    5wHYJAKDpXnCnuujndrEts9cJBqd2SECWqzeAHfxupHrxTgGVq2OHCZm5nZeKnCX27L89c
+    38wPNROgEjRwhycOhPRViu3zaxbmcvBmY7o4zOddnTo9KjX4Mx/ji0zcLVmzRs23KH1131
+    +YpjDV64FY5Pw95PijMpLPAtxNsyHPWaugi0/TkMVjI7F9SuFOUrH70+i+yMnfEkrDoEbW
+    +3XPWZJ+uz7qa5H31e6EXjtgyzCjjll5/Rq/6kwyYer18Nh37iuOdTBXmFePxtvcy9c5wb
+    BkbOvp8rm7dfeW+zysqQCY333EKbdv80daBuPSBjypmNPBbQxBrtUP0jQ0YzcPM4/RavrP
+    j+cZEBCyDH/H00SYqDzpGbnCvBZc2mptTNk1wqum2TSBnGZYuXfRuiX6AAjEQwXLVJJO/k
+    sgneHUvKw40dWy8A5ZhZ8LHcoMswteIqJbdieg5yZ/s8lEcLqbV1Di7kv7DFlN9vYAMZiY
+    KlFjNe9wlHnAmuFi/Lf5IaXML+pWreQ56VZ3sIm6iIcOemdFacYY8ULpo/tQ
+X-ME-Proxy: <xmx:5Qy9alPTBFOdEFaVKz2pIMouxHT75Lios5QEdHuxEErVt6-VhbZoTA>
+    <xmx:5Qy9aiaaB0N7N1YtmJ6Un1mi7Sz6Bnbrcvgo5zBeaEe4acBixXUKdw>
+    <xmx:5Qy9arxELcDrZeb0g5seVSelafJoA4BZ3KCZ0xKQ8BFfFlBb1O1z0A>
+    <xmx:5Qy9apNNR2G1gTz0zJL9ZSIIZuI3JxfiO85qtRBfsoOxrrCK43tadg>
+    <xmx:5Qy9agEsac1EmOSmc5uANBulIUfAwoCmC5FR5cyx57J14-WXJB8uP81E>
 Feedback-ID: i787e41f1:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 30 Sep 2026 09:21:04 -0400 (EDT)
-Date: Wed, 30 Sep 2026 15:20:59 +0200
+ 30 Sep 2026 09:21:41 -0400 (EDT)
+Date: Wed, 30 Sep 2026 15:21:36 +0200
 From: Greg KH <greg@kroah.com>
 To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org, Namjae Jeon <linkinjeon@kernel.org>,
-	Kanishka De Silva <kpskanna1915@gmail.com>,
-	Farhad Alemi <farhad.alemi@berkeley.edu>
-Subject: Re: [PATCH 6.12.y 2/2] ksmbd: prevent out-of-bounds reads in share
- config responses
-Message-ID: <2026093055-rink-mace-ba4c@gregkh>
-References: <2026091411-perish-luster-7e07@gregkh>
- <20260914141551.61407-1-sashal@kernel.org>
- <20260914141551.61407-2-sashal@kernel.org>
+Cc: stable@vger.kernel.org, Nemesa Garg <nemesa.garg@intel.com>,
+	Jouni =?iso-8859-1?Q?H=F6gander?= <jouni.hogander@intel.com>,
+	Animesh Manna <animesh.manna@intel.com>,
+	Jani Nikula <jani.nikula@intel.com>
+Subject: Re: [PATCH 6.12.y] drm/i915/display: Clear SEL_FETCH_PLANE_CTL on
+ plane disable
+Message-ID: <2026093029-unaltered-smudge-83af@gregkh>
+References: <2026090953-gravel-panama-02e2@gregkh>
+ <20260912142353.2927508-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20260914141551.61407-2-sashal@kernel.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260912142353.2927508-1-sashal@kernel.org>
 
-On Mon, Sep 14, 2026 at 10:15:51AM -0400, Sasha Levin wrote:
-> From: Namjae Jeon <linkinjeon@kernel.org>
+On Sat, Sep 12, 2026 at 10:23:53AM -0400, Sasha Levin wrote:
+> From: Nemesa Garg <nemesa.garg@intel.com>
 > 
-> [ Upstream commit f25e93768fcc5d8287e50b1ec52a42e4c276df34 ]
+> [ Upstream commit 7f1172a2ac0d7e50850785e2e65789c8aac8411a ]
 > 
-> Validate IPC share configuration payload sizes before consuming
-> variable-length fields. Bound veto list parsing and account for
-> the separator byte when deriving the path length.
+> icl_plane_disable_sel_fetch_arm() wrote SEL_FETCH_PLANE_CTL = 0 only when
+> crtc_state->enable_psr2_sel_fetch was set. If a plane was disabled after
+> selective fetch had been turned off, the guard fired early and left the
+> register's enable bit set in hardware.
 > 
-> Fixes: a677ebd8ca2f ("ksmbd: validate payload size in ipc response")
-> Reported-by: Kanishka De Silva <kpskanna1915@gmail.com>
-> Reported-by: Farhad Alemi <farhad.alemi@berkeley.edu>
-> Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+> The bit is harmless until selective fetch is re-enabled.  When it is, the
+> hardware resumes fetching for the now-disabled plane and keeps its old DDB
+> range reserved.
+> 
+> i9xx_cursor_disable_sel_fetch_arm() has the same guard on SEL_FETCH_CUR_CTL
+> and is fixed the same way.
+> 
+> v2: Add same check for cursor also. [sashiko]
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: b1f5279b5981 ("drm/i915/psr: Move plane sel fetch configuration into plane source files")
+> Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8739
+> Assisted-by: GitHub-Copilot:claude-opus-4.6
+> Signed-off-by: Nemesa Garg <nemesa.garg@intel.com>
+> Reviewed-by: Jouni Högander <jouni.hogander@intel.com>
+> Signed-off-by: Animesh Manna <animesh.manna@intel.com>
+> Link: https://patch.msgid.link/20260818095149.2172935-1-nemesa.garg@intel.com
+> (cherry picked from commit 600a7c9d40e5e0c5544f42d1c9592c8d15224dc0)
+> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+> [ Adjusted context for missing pixel-normalizer code in icl_plane_disable_arm(). ]
 > Signed-off-by: Sasha Levin <sashal@kernel.org>
 > ---
->  fs/smb/server/mgmt/share_config.c | 40 +++++++++++++++++++++----------
->  fs/smb/server/transport_ipc.c     | 21 ++++++++++------
->  2 files changed, 41 insertions(+), 20 deletions(-)
+>  drivers/gpu/drm/i915/display/intel_cursor.c       | 15 ++++++++++-----
+>  .../gpu/drm/i915/display/skl_universal_plane.c    | 15 ++++++++++-----
+>  2 files changed, 20 insertions(+), 10 deletions(-)
 > 
-> diff --git a/fs/smb/server/mgmt/share_config.c b/fs/smb/server/mgmt/share_config.c
-> index 97b0bbd619979..e34e86cce0fc3 100644
-> --- a/fs/smb/server/mgmt/share_config.c
-> +++ b/fs/smb/server/mgmt/share_config.c
-> @@ -88,9 +88,9 @@ static struct ksmbd_share_config *__share_lookup(const char *name)
+> diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/drm/i915/display/intel_cursor.c
+> index aeadb834d3328..104009cf5f412 100644
+> --- a/drivers/gpu/drm/i915/display/intel_cursor.c
+> +++ b/drivers/gpu/drm/i915/display/intel_cursor.c
+> @@ -530,13 +530,18 @@ static int i9xx_check_cursor(struct intel_crtc_state *crtc_state,
+>  }
 >  
->  static int parse_veto_list(struct ksmbd_share_config *share,
->  			   char *veto_list,
-> -			   int veto_list_sz)
-> +			   size_t veto_list_sz)
+>  static void i9xx_cursor_disable_sel_fetch_arm(struct intel_dsb *dsb,
+> -					      struct intel_plane *plane,
+> -					      const struct intel_crtc_state *crtc_state)
+> +					      struct intel_plane *plane)
 >  {
-> -	int sz = 0;
-> +	size_t sz;
+>  	struct intel_display *display = to_intel_display(plane->base.dev);
+>  	enum pipe pipe = plane->pipe;
 >  
->  	if (!veto_list_sz)
->  		return 0;
-> @@ -98,7 +98,7 @@ static int parse_veto_list(struct ksmbd_share_config *share,
->  	while (veto_list_sz > 0) {
->  		struct ksmbd_veto_pattern *p;
+> -	if (!crtc_state->enable_psr2_sel_fetch)
+> +	/*
+> +	 * Clear this whenever the hardware has selective fetch, not just when
+> +	 * the current state uses it. The cursor may have been enabled with
+> +	 * selective fetch earlier and had its enable bit orphaned when the
+> +	 * feature was switched off.
+> +	 */
+> +	if (!HAS_PSR2_SEL_FETCH(display))
+>  		return;
 >  
-> -		sz = strlen(veto_list);
-> +		sz = strnlen(veto_list, veto_list_sz);
->  		if (!sz)
->  			break;
->  
-> @@ -106,7 +106,7 @@ static int parse_veto_list(struct ksmbd_share_config *share,
->  		if (!p)
->  			return -ENOMEM;
->  
-> -		p->pattern = kstrdup(veto_list, KSMBD_DEFAULT_GFP);
-> +		p->pattern = kstrndup(veto_list, sz, KSMBD_DEFAULT_GFP);
->  		if (!p->pattern) {
->  			kfree(p);
->  			return -ENOMEM;
-> @@ -114,6 +114,9 @@ static int parse_veto_list(struct ksmbd_share_config *share,
->  
->  		list_add(&p->list, &share->veto_list);
->  
-> +		if (sz == veto_list_sz)
-> +			break;
-> +
->  		veto_list += sz + 1;
->  		veto_list_sz -= (sz + 1);
+>  	intel_de_write_dsb(display, dsb, SEL_FETCH_CUR_CTL(pipe), 0);
+> @@ -588,7 +593,7 @@ static void i9xx_cursor_update_sel_fetch_arm(struct intel_dsb *dsb,
+>  		if (crtc_state->enable_psr2_su_region_et)
+>  			wa_16021440873(dsb, plane, crtc_state, plane_state);
+>  		else
+> -			i9xx_cursor_disable_sel_fetch_arm(dsb, plane, crtc_state);
+> +			i9xx_cursor_disable_sel_fetch_arm(dsb, plane);
 >  	}
-> @@ -165,17 +168,28 @@ static struct ksmbd_share_config *share_config_request(struct ksmbd_work *work,
->  	}
+>  }
 >  
->  	if (!test_share_config_flag(share, KSMBD_SHARE_FLAG_PIPE)) {
-> -		int path_len = PATH_MAX;
-> -
-> -		if (resp->payload_sz)
-> -			path_len = resp->payload_sz - resp->veto_list_sz;
-> +		size_t path_len;
+> @@ -699,7 +704,7 @@ static void i9xx_cursor_update_arm(struct intel_dsb *dsb,
+>  	if (plane_state)
+>  		i9xx_cursor_update_sel_fetch_arm(dsb, plane, crtc_state, plane_state);
+>  	else
+> -		i9xx_cursor_disable_sel_fetch_arm(dsb, plane, crtc_state);
+> +		i9xx_cursor_disable_sel_fetch_arm(dsb, plane);
 >  
-> -		share->path = kstrndup(ksmbd_share_config_path(resp), path_len,
-> -				      KSMBD_DEFAULT_GFP);
-> -		if (!share->path) {
-> -			ret = -ENOMEM;
-> +		if (resp->payload_sz <= resp->veto_list_sz) {
-> +			ret = -EINVAL;
->  		} else {
-> -			ret = 0;
-> +			path_len = resp->payload_sz - resp->veto_list_sz;
-> +			if (resp->veto_list_sz)
-> +				path_len--;
-> +
-> +			if (!path_len) {
-> +				ret = -EINVAL;
-> +			} else {
-> +				share->path = kstrndup(
-> +					ksmbd_share_config_path(resp),
-> +					path_len, KSMBD_DEFAULT_GFP);
-> +				if (!share->path)
-> +					ret = -ENOMEM;
-> +				else
-> +					ret = 0;
-> +			}
-> +		}
-> +		if (share->path) {
->  			share->path_sz = strlen(share->path);
->  			while (share->path_sz > 1 &&
->  			       share->path[share->path_sz - 1] == '/')
-> diff --git a/fs/smb/server/transport_ipc.c b/fs/smb/server/transport_ipc.c
-> index a0b9b3def3346..10847d1cda4ac 100644
-> --- a/fs/smb/server/transport_ipc.c
-> +++ b/fs/smb/server/transport_ipc.c
-> @@ -524,14 +524,21 @@ static int ipc_validate_msg(struct ipc_msg_table_entry *entry)
->  		if (entry->msg_sz < sizeof(struct ksmbd_share_config_response))
->  			return -EINVAL;
+>  	if (plane->cursor.base != base ||
+>  	    plane->cursor.size != fbc_ctl ||
+> diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+> index 7f77a76309bd5..52a38d3ada24d 100644
+> --- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
+> +++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+> @@ -770,13 +770,18 @@ skl_plane_disable_arm(struct intel_dsb *dsb,
+>  }
 >  
-> -		if (resp->payload_sz) {
-> -			if (resp->payload_sz < resp->veto_list_sz)
-> -				return -EINVAL;
-> +		if (strnlen(resp->share_name, sizeof(resp->share_name)) ==
-> +		    sizeof(resp->share_name))
-> +			return -EINVAL;
+>  static void icl_plane_disable_sel_fetch_arm(struct intel_dsb *dsb,
+> -					    struct intel_plane *plane,
+> -					    const struct intel_crtc_state *crtc_state)
+> +					    struct intel_plane *plane)
+>  {
+>  	struct intel_display *display = to_intel_display(plane->base.dev);
+>  	enum pipe pipe = plane->pipe;
 >  
-> -			if (check_add_overflow(sizeof(struct ksmbd_share_config_response),
-> -					       resp->payload_sz, &msg_sz))
-> -				return -EINVAL;
-> -		}
-> +		if (resp->veto_list_sz > resp->payload_sz)
-> +			return -EINVAL;
-> +
-> +		if (resp->flags != KSMBD_SHARE_FLAG_INVALID &&
-> +		    !(resp->flags & KSMBD_SHARE_FLAG_PIPE) &&
-> +		    resp->payload_sz <= resp->veto_list_sz)
-> +			return -EINVAL;
-> +
-> +		if (check_add_overflow(sizeof(struct ksmbd_share_config_response),
-> +				       resp->payload_sz, &msg_sz))
-> +			return -EINVAL;
->  		break;
->  	}
->  	case KSMBD_EVENT_LOGIN_REQUEST_EXT:
+> -	if (!crtc_state->enable_psr2_sel_fetch)
+> +	/*
+> +	 * Clear this whenever the hardware has selective fetch, not just when
+> +	 * the current state uses it. The plane may have been enabled with
+> +	 * selective fetch earlier and had its enable bit orphaned when the
+> +	 * feature was switched off.
+> +	 */
+> +	if (!HAS_PSR2_SEL_FETCH(display))
+>  		return;
+>  
+>  	intel_de_write_dsb(display, dsb, SEL_FETCH_PLANE_CTL(pipe, plane->id), 0);
+> @@ -797,7 +802,7 @@ icl_plane_disable_arm(struct intel_dsb *dsb,
+>  
+>  	skl_write_plane_wm(dsb, plane, crtc_state);
+>  
+> -	icl_plane_disable_sel_fetch_arm(dsb, plane, crtc_state);
+> +	icl_plane_disable_sel_fetch_arm(dsb, plane);
+>  	intel_de_write_dsb(display, dsb, PLANE_CTL(pipe, plane_id), 0);
+>  	intel_de_write_dsb(display, dsb, PLANE_SURF(pipe, plane_id), 0);
+>  }
+> @@ -1512,7 +1517,7 @@ static void icl_plane_update_sel_fetch_arm(struct intel_dsb *dsb,
+>  		intel_de_write_dsb(display, dsb, SEL_FETCH_PLANE_CTL(pipe, plane->id),
+>  				   SEL_FETCH_PLANE_CTL_ENABLE);
+>  	else
+> -		icl_plane_disable_sel_fetch_arm(dsb, plane, crtc_state);
+> +		icl_plane_disable_sel_fetch_arm(dsb, plane);
+>  }
+>  
+>  static void
 > -- 
 > 2.53.0
 > 
 > 
 
-Series did not apply
+did not apply.  Also is not in 6.18 :(
