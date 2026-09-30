@@ -1,364 +1,258 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EAEF46AF10
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 14:05:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9E934EF157
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 14:06:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.235
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790777173; cv=none; b=Ovq4vWLGkCw7XUcIXAQRq6zhbSq4QL6Sw8xckm4+0rC2UijS+FO+E/0eVL5OSkz7p7X/W6PvnsXOj+MqpnwjlLJ8F5kYqbFVOCPkVkcZnDqIB9i8aQ9VjoHN2m5GUteCLsE4urbJFVtax3Ge9rEwokoryP18Vu35rJSfuibx5cg=
+	t=1790777216; cv=none; b=nOPUoTnygvqh+eZpog7bT+1B9wUgflnbIyjHt3JdJwUUEZXc+1LYcHyKcOm5L0PwOTZgv2BrPQK0FBYR8X57TayrixELCOMEc7aa28hAjkTZGd0LRdNbVymhBSiB5FUno0LYXey22ZIVaZ80L2ovtGHsmHKDJtYsasMKyLJ1Yn8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790777173; c=relaxed/simple;
-	bh=+EGFDjBfiety9vJyFEXsND640HoLhlHTbFSAp1K22TI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=U5KViGD0Ku40gSF+TwGzQrlhWZbO3wnvNZBjRaQ6iwT3Jq0UTIaceS/o5V26U85urmKeUTkXM/YLXcIyIDrZ0Hg1vjEV7eZHm7qKw6JaLdt13H6GjleN2np2qwfmGUjsxpD1JzhjIRc+iywwcZi62Jqr9XWa/A4L3M+yE3YWgcI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ls4YDbAd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790777216; c=relaxed/simple;
+	bh=50T+JAlL6z3Wrn6dCykboyTKkez7ZOAT5v3pv1z/NBg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ADrWqmjgsVd6JidMqcJZ0JTuyUe2SiqFhGd3abqiAvOsBYERIac7dsRbT02MgLmHDpYDYtXXlkLSiwdTRCu0AGT9s4+kG3tATIiaD6/HoGbvMdvLvH+0bvXEwFzMy7OKrJVXzv1KsVFH63opnA+sAzkuiectY9fysRqwMAeWPGM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=LAqXN0F6; arc=none smtp.client-ip=74.125.230.235
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ls4YDbAd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3847D1F000FF;
-	Wed, 30 Sep 2026 14:05:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790777147;
-	bh=t4pLWiSXDdFSRpvLVYC1Y7xOW5cLnsqSJfzy8TQctaU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ls4YDbAdCKFPb5JM64h9Ufd/pm2Jmksoud/b1e9McsGgeBTUtDW7N41E83hSFhtIl
-	 nVpUtF2R+c5GF8PeYHCtOnyqtXlo4Gtukk0Vtk/1THB879bFDSgEGqLJs1nKJc1fyN
-	 2OoTFJZiKUfjVBHKSww6CXbbjlbg++mGM3mmVd2VQM79pvr8/oSnJNfbH/QY9ynq+K
-	 QLoKejEoC26uFMgpLGuaYnG30ocfBfrxNzVgoYKB3vCuoM9q2CfBBh9Ux5iwEQOPx0
-	 +I1gBeFArXfkrDePqk2wjXxzVkvdQpFAjI4Md8XGJkdxkVztzhazmHdxqHvRhs5cEP
-	 W5/PcbnT7KAGw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Marc Zyngier <maz@kernel.org>,
-	Shen Yongchao <grayhat@foxmail.com>,
-	Karl Mehltretter <kmehltretter@gmail.com>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Wei-Lin Chang <weilin.chang@arm.com>,
-	Oliver Upton <oupton@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] KVM: arm64: nv: Fix life cycle of the nested_mmus array
-Date: Wed, 30 Sep 2026 10:05:44 -0400
-Message-ID: <20260930140544.1825262-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092949-diary-sheath-2e53@gregkh>
-References: <2026092949-diary-sheath-2e53@gregkh>
+	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="LAqXN0F6"
+Received: by mail-qk2-f43.google.com with SMTP id af79cd13be357-93ca50c8ba6so89435485a.2
+        for <stable@vger.kernel.org>; Wed, 30 Sep 2026 07:06:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cmpxchg.org; s=google; t=1790777205; x=1791382005; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=w7/ZyRNe756x2qIILuqRWig+Ez86Z+PdUS4umWMDN+k=;
+        b=LAqXN0F6Syg2SfKbIR6Ve+BbBGcWojLkcX+tnrbWOUfSUMaFj3Rn43onzCEBqGSOEg
+         aRQ6ou3PX/OJExLHHcGaPxsLFG3kGVQQoEfsBw4cwd5sdDCAb4OtZ/dgD4PbyQytrwSk
+         NEPhvL4cINzOF0cIxK8+Px1z3xMWo2jFH3sBWsCpkZsROGy15/T0La3pDgSFgvHQ/aPk
+         kUWILozL++wMIfeaMDcYg787S98R0igfcW0g58H7Iowsg1Po8Vi4d96QjgmPGzFXvntn
+         25Fqf3xepM+3oUGqg0PiJ309q4x1Emz49OoIqIjHjwo8LAjQGXmpwxOhbLMQ35HdkzfN
+         GFpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790777205; x=1791382005;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=w7/ZyRNe756x2qIILuqRWig+Ez86Z+PdUS4umWMDN+k=;
+        b=NCmqeZClZGvg+JbZpflOqRcyygpa3K56ueDwKVL4nekeZ+vUOb2tNicnv7gSddwBGW
+         j2SSBwpdtfzPfr0Nbt5afPVQlvazzh3rSm8qk2BAi7GTa1+FfpTu0JUr4PmuWQAygoz3
+         rLvMPD0HB5+1ccsjv6Ws125zFewnjwII4vSW8yP5Dnqpv0AHBTN8T8k06xdisbn6n6r1
+         3Mv/GSuTNjAZ1WLFnuB/tu/o6Y2nP90TgAMWpbzUgC9FrntnunGuIwJas72Ts+z5MUwk
+         rGeuUg1dOVopkltMN7QaTdwJrLzckSA/81KgI5bfhX12YZ/xYJgEvkiAmOmf+bfgeyRd
+         eoiA==
+X-Forwarded-Encrypted: i=1; AKwUvBwGHDrxfIdswM93a2KGvLbjUj6GsUvNSvLpFsvg2FY6Yvwx3jEUq/+5mwABOuWv3DFFEanfvhA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nB8VrDJBdJ0ApimMX4LrPETZVNZx7j66PN2mJ7Ly6jVoB+CMAT
+	kHa2MxxxAhitSogw1ESfJL9NpJ+dXQiA0zIEUe6Ez9bBH6NZ4Ak6gjVB11u7kmyQc+Q=
+X-Gm-Gg: AYBFou3hi1rJs/U+ivnd+ZaYTu/AHKac/9FPckSrLT2XwMHOQ3k+b7QkusXO/u5yra9
+	IamrS5Jx+rWibQMJdNEQxFHSH6wq+Cgrmk5cF59yqOQdA8obBLwapZOMvuspeRT4OjC7Ophcd7m
+	7nXPi9FebbxSENEwLTiIpe3mnmqERBv8uJWrsJooIn764iKc5Ay3v4CrxxSYfmou9WnIXsGUPfb
+	0CeKe6Dsjgd49A5MbRYka48wbfVS4ZilQNNDJn/HTnlbw1+AlvaAJ5hbn76O9X25sFE+gG60brh
+	wXenLyaAeVKny+NhzUjiqQjURCmrf80opog7PjwEWTMuJiqmpXbgngQTabCcRe8DCZRPSIu5/l1
+	Cm+CNgpFlVLeDvJjR5zTtJlcLlS8XNOAd0uTv56+jxuMebedUqclgL9ji18Fisc6knGmMnpQCbs
+	6+L480B+q0r4+YP/P3yyqmaSV4AN9Z91MSSTYbXTBCdpPvd4r5DK/coEd1AtuamOyZ+IqZ7M+B5
+	/frzIE=
+X-Received: by 2002:a05:620a:1a20:b0:939:f89:3688 with SMTP id af79cd13be357-93ca973661dmr258616985a.42.1790777203446;
+        Wed, 30 Sep 2026 07:06:43 -0700 (PDT)
+Received: from localhost ([2603:7001:f100:500:365a:60ff:fe62:ff29])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ca83283besm122303285a.40.2026.09.30.07.06.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 07:06:42 -0700 (PDT)
+Date: Wed, 30 Sep 2026 10:06:38 -0400
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Kiryl Shutsemau <kirill@shutemov.name>
+Cc: Harry Yoo <harry@kernel.org>, Vlastimil Babka <vbabka@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Zi Yan <ziy@nvidia.com>, Shakeel Butt <shakeel.butt@linux.dev>,
+	Usama Arif <usama.arif@linux.dev>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	kernel-team@meta.com
+Subject: Re: [PATCH] mm: page_alloc: make defrag_mode retries follow the
+ promoted order
+Message-ID: <ar0Xbs9mEu-vUHvc@cmpxchg.org>
+References: <20260929174553.175333-1-kirill@shutemov.name>
+ <arv8J7ysrdazJmfY@thinkstation>
+ <ar0NRMxps8UErXaQ@thinkstation>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ar0NRMxps8UErXaQ@thinkstation>
 
-From: Marc Zyngier <maz@kernel.org>
+On Wed, Sep 30, 2026 at 02:32:12PM +0100, Kiryl Shutsemau wrote:
+> On Tue, Sep 29, 2026 at 07:39:41PM +0100, Harry Yoo wrote:
+> > On Tue, Sep 29, 2026 at 06:45:51PM +0100, Kiryl Shutsemau wrote:
+> > > From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+> > > 
+> > > Since commit 7e8756d7ad22 ("mm: page_alloc: fix non-movable reclaim
+> > > storm in defrag_mode"), direct reclaim and compaction for non-movable
+> > > requests under defrag_mode run at pageblock_order, to produce the whole
+> > > blocks that ALLOC_NOFRAGMENT needs.
+> > 
+> > > The retry decisions that follow still use the request order.
+> > 
+> > Indeed, good catch!
+> > 
+> > > An order-0 request can therefore retry
+> > > indefinitely without ever reaching the ALLOC_NOFRAGMENT fallback:
+> > > 
+> > > - Reclaim at pageblock_order gives up after one pass as soon as a zone
+> > >   looks compaction_ready(), and do_try_to_free_pages() then returns 1
+> > >   even though nothing was reclaimed. It returns before the retry that
+> > >   would reclaim memory.low-protected cgroups, so when most memory is
+> > >   protected, the pass that did run finds next to nothing.
+> > >
+> > > - Compaction at pageblock_order fails or is deferred.
+> > > 
+> > > - should_reclaim_retry() takes the reported progress as progress for
+> > >   the order-0 request and resets no_progress_loops. The request
+> > >   retries.
+> > 
+> > Makes sense to me.
+> > 
+> > > Order 1-3 requests loop the same way, and should_compact_retry() also
+> > > checks their pageblock_order compaction result against the request
+> > > order.
+> > > 
+> > > On a production host (64G, defrag_mode, memory.low covering most of the
+> > > workload), 95% of direct reclaim runs were order-9 runs that returned 1
+> > > with nothing reclaimed, at up to 60k runs per second. Across ~200M
+> > > should_reclaim_retry() calls in a day, no_progress_loops never left 0.
+> > > The spinning allocations were SLUB slab refills for inode and dentry
+> > > caches. The time spent registers as memory pressure, and pressure-based
+> > > OOM killing takes down both workloads and system services.
+> > > 
+> > > Treat promoted requests like costly orders:
+> > > 
+> > > - Reclaim progress does not reset no_progress_loops for them.
+> > > 
+> > > - should_compact_retry() checks the compaction result at the promoted
+> > >   order. It does not retry COMPACT_SKIPPED, since the request can fall
+> > >   back, and it does not escalate compaction to COMPACT_PRIO_SYNC_FULL.
+> > > 
+> > > When the fallback is taken, reset the retry counters, so that the
+> > > fallback attempt gets a full retry budget before the OOM killer is
+> > > considered.
+> > > 
+> > > In a VM reproducer (32G, defrag_mode, inode churn under memory.low):
+> > > 
+> > >                                         before    after
+> > >     should_reclaim_retry() calls           63M     293k
+> > >     peak memory pressure (PSI some avg10)  99%      12%
+> > > 
+> > > File creation runs 5.7x faster.
+> > > 
+> > > Fixes: 7e8756d7ad22 ("mm: page_alloc: fix non-movable reclaim storm in defrag_mode")
 
-[ Upstream commit 33346f8960c7bb6a3b4e273b5cfe25c5a8be349f ]
+Thanks for fixing this. Ironically, the same workload blowing up again
+that I tested the old fix again for 3 weeks :(
 
-The nested_mmus array holds the shadow page tables that are used when
-a guest is running a nested context. These structures are allocated on
-VCPU_INIT for whole guest, which implies that they may have to be
-relocated as the array grows.
+Back then, the problem was: allocating thread is spinning on a goal it
+doesn't help accomplish.
 
-Should a VCPU_INIT occur whilst a vcpu is actively running an L2 and
-that the allocation requires relocation, that vcpu will still be
-running with a pointer to the previous structure, which will have been
-freed.
+Now the problem is: allocating thread spinning and helping, but goal
+is not achievable.
 
-Fix this by turning the array of structures to an array of pointers,
-which is now allocated at VM creation, sized to the absolute maximum
-that KVM can handle.
+> > > Cc: <stable@vger.kernel.org>
+> > > Assisted-by: LLM
+> > > Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> > > ---
+> > >  mm/page_alloc.c | 85 ++++++++++++++++++++++++++++++++-----------------
+> > >  1 file changed, 56 insertions(+), 29 deletions(-)
+> > > 
+> > > diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+> > > index 12fac9084c48..608487672d93 100644
+> > > --- a/mm/page_alloc.c
+> > > +++ b/mm/page_alloc.c
+> > > @@ -4127,6 +4127,31 @@ __alloc_pages_may_oom(gfp_t gfp_mask, unsigned int order,
+> > >  	return page;
+> > >  }
+> > >  
+> > > +/*
+> > > + * If fallbacks are not permitted (defrag_mode), we either need to
+> > > + * reclaim space in a block of matching type, or clear out an entire
+> > > + * block to allow __rmqueue_claim() to convert.
+> > > + *
+> > > + * Reclaim by itself is primarily freeing space in movable blocks,
+> > > + * since that's where the LRU pages live. So this works for movable
+> > > + * requests, but not for others.
+> > > + *
+> > > + * For those, promote the order of reclaim and compaction to help make
+> > > + * blocks, instead of spinning in reclaim alone unproductively. Retry
+> > > + * decisions based on the outcome of that work - reclaim progress and
+> > > + * compaction results - must account for the promotion as well, see
+> > > + * should_reclaim_retry() and should_compact_retry().
+> > > + */
+> > > +static inline unsigned int nofrag_promote_order(unsigned int order,
+> > > +						unsigned int alloc_flags,
+> > > +						const struct alloc_context *ac)
+> > > +{
+> > > +	if ((alloc_flags & ALLOC_NOFRAGMENT) && ac->migratetype != MIGRATE_MOVABLE)
+> > > +		return max(order, pageblock_order);
+> > > +
+> > > +	return order;
+> > > +}
+> > 
+> > I think we should start distinguishing order and compact/reclaim_order
+> > in __alloc_pages_slowpath(). Silently overriding it makes it harder to
+> > follow and easy to make a mistake.
+> 
+> Agreed, four callers recomputing the same thing is asking for a
+> mismatch.
+> 
+> I would rather not grow this patch, it has to go to stable.
+> 
+> I will look into a cleanup on top: __alloc_pages_slowpath() computes the
+> promoted order once per iteration and passes it to direct
+> reclaim/compaction and the two retry helpers next to the request order,
+> so the helpers stop knowing about defrag_mode.
 
-In turn, each VCPU_INIT contributes S2_MMU_PER_VCPU to the pool. No
-reallocation is ever performed, and the life cycle of each object is
-much clearer:
++1
 
-- the nested_mmus array is allocated in kvm_init_nested(), and freed
-  in kvm_arch_destroy_vm()
+All they really need to know is the split into requested order vs
+production order (reclaim_order, compaction_order).
 
-- s2_mmu structures are allocated in kvm_vcpu_init_nested(), and freed
-  on kvm_arch_flush_shadow_all()
+> > > @@ -4299,7 +4316,7 @@ should_compact_retry(gfp_t gfp_mask, struct alloc_context *ac, int order,
+> > >  	/*
+> > >  	 * Compaction failed. Retry with increasing priority.
+> > >  	 */
+> > > -	min_priority = (order > PAGE_ALLOC_COSTLY_ORDER) ?
+> > > +	min_priority = (compact_order > PAGE_ALLOC_COSTLY_ORDER) ?
+> > >  			MIN_COMPACT_COSTLY_PRIORITY : MIN_COMPACT_PRIORITY;
+> > 
+> > This would change how hard we try to compact with defrag_mode in direct
+> > compaction as it won't try compaction with MIN_COMPACT_PRIORITY anymore.
+> > 
+> > It doesn't make much sense to change that as part of this fix?
+> 
+> It is a choice between compacting harder and falling back, which
+> fragments a block.
+> 
+> It is a judgement call on what defrag_mode means.
+> 
+> It would also mean that order-0 allocation request promoted to pageblock
+> can trigger SYNC_FULL compaction. I cannot say I understand the
+> implications. Will give it a try with the reproducer.
+> 
+> Johannes, Vlastimil, any comments here?
 
-Finally, the freeing of vcpu->arch.vncr_array is made consistent
-rather than being done on some failure paths, but not others.
+I would leave this one with requested order unless the reproducer
+disagrees.
 
-Fixes: 4f128f8e1aaa ("KVM: arm64: nv: Support multiple nested Stage-2 mmu structures")
-Reported-by: Shen Yongchao <grayhat@foxmail.com>
-Reported-by: Karl Mehltretter <kmehltretter@gmail.com>
-Suggested-by: Karl Mehltretter <kmehltretter@gmail.com>
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Link: https://lore.kernel.org/r/20260803224405.41468-1-kmehltretter@gmail.com
-Signed-off-by: Marc Zyngier <maz@kernel.org>
-Cc: stable@vger.kernel.org
-Reviewed-by: Wei-Lin Chang <weilin.chang@arm.com>
-Link: https://patch.msgid.link/20260911162203.1919330-2-maz@kernel.org
-Signed-off-by: Oliver Upton <oupton@kernel.org>
-[ added the missing err_uninit_mmu cleanup path required by the older VM initialization code. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- arch/arm64/include/asm/kvm_host.h   |  2 +-
- arch/arm64/include/asm/kvm_nested.h |  2 +-
- arch/arm64/kvm/arm.c                | 12 +++-
- arch/arm64/kvm/nested.c             | 89 +++++++++++++----------------
- 4 files changed, 52 insertions(+), 53 deletions(-)
+There is a risk of defrag_mode self defeating over time by raising the
+bar for fallbacks but not high enough. Every fallback we let through
+will make it harder down the line to compact towards that higher bar.
 
-diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-index feff0d13f052c..ca26460bde651 100644
---- a/arch/arm64/include/asm/kvm_host.h
-+++ b/arch/arm64/include/asm/kvm_host.h
-@@ -307,7 +307,7 @@ struct kvm_arch {
- 	 * Stage 2 paging state for VMs with nested S2 using a virtual
- 	 * VMID.
- 	 */
--	struct kvm_s2_mmu *nested_mmus;
-+	struct kvm_s2_mmu **nested_mmus;
- 	size_t nested_mmus_size;
- 	int nested_mmus_next;
- 
-diff --git a/arch/arm64/include/asm/kvm_nested.h b/arch/arm64/include/asm/kvm_nested.h
-index b9d86614994db..30d4c8ae28d3e 100644
---- a/arch/arm64/include/asm/kvm_nested.h
-+++ b/arch/arm64/include/asm/kvm_nested.h
-@@ -65,7 +65,7 @@ static inline u64 translate_ttbr0_el2_to_ttbr0_el1(u64 ttbr0)
- 
- extern bool forward_smc_trap(struct kvm_vcpu *vcpu);
- extern bool forward_debug_exception(struct kvm_vcpu *vcpu);
--extern void kvm_init_nested(struct kvm *kvm);
-+extern int kvm_init_nested(struct kvm *kvm);
- extern int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu);
- extern void kvm_init_nested_s2_mmu(struct kvm_s2_mmu *mmu);
- extern struct kvm_s2_mmu *lookup_s2_mmu(struct kvm_vcpu *vcpu);
-diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-index 5d2435dd76f35..6a26367943320 100644
---- a/arch/arm64/kvm/arm.c
-+++ b/arch/arm64/kvm/arm.c
-@@ -176,8 +176,6 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
- 	mutex_unlock(&kvm->lock);
- #endif
- 
--	kvm_init_nested(kvm);
--
- 	ret = kvm_share_hyp(kvm, kvm + 1);
- 	if (ret)
- 		return ret;
-@@ -192,6 +190,10 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
- 	if (ret)
- 		goto err_free_cpumask;
- 
-+	ret = kvm_init_nested(kvm);
-+	if (ret)
-+		goto err_uninit_mmu;
-+
- 	if (is_protected_kvm_enabled()) {
- 		/*
- 		 * If any failures occur after this is successful, make sure to
-@@ -199,7 +201,7 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
- 		 */
- 		ret = pkvm_init_host_vm(kvm);
- 		if (ret)
--			goto err_free_cpumask;
-+			goto err_uninit_mmu;
- 	}
- 
- 	kvm_vgic_early_init(kvm);
-@@ -215,6 +217,9 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
- 
- 	return 0;
- 
-+err_uninit_mmu:
-+	kvm_uninit_stage2_mmu(kvm);
-+	kvfree(kvm->arch.nested_mmus);
- err_free_cpumask:
- 	free_cpumask_var(kvm->arch.supported_cpus);
- err_unshare_kvm:
-@@ -271,6 +276,7 @@ void kvm_arch_destroy_vm(struct kvm *kvm)
- 
- 	kvm_unshare_hyp(kvm, kvm + 1);
- 
-+	kvfree(kvm->arch.nested_mmus);
- 	kvm_arm_teardown_hypercalls(kvm);
- }
- 
-diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-index 869209e8bd1cf..144b72743a5c6 100644
---- a/arch/arm64/kvm/nested.c
-+++ b/arch/arm64/kvm/nested.c
-@@ -44,10 +44,14 @@ struct vncr_tlb {
-  */
- #define S2_MMU_PER_VCPU		2
- 
--void kvm_init_nested(struct kvm *kvm)
-+int kvm_init_nested(struct kvm *kvm)
- {
--	kvm->arch.nested_mmus = NULL;
-+	kvm->arch.nested_mmus = kvmalloc_objs(struct kvm_s2_mmu *,
-+					      KVM_MAX_VCPUS * S2_MMU_PER_VCPU,
-+					      GFP_KERNEL_ACCOUNT);
- 	kvm->arch.nested_mmus_size = 0;
-+
-+	return kvm->arch.nested_mmus ? 0 : -ENOMEM;
- }
- 
- static int init_nested_s2_mmu(struct kvm *kvm, struct kvm_s2_mmu *mmu)
-@@ -68,8 +72,9 @@ static int init_nested_s2_mmu(struct kvm *kvm, struct kvm_s2_mmu *mmu)
- int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu)
- {
- 	struct kvm *kvm = vcpu->kvm;
--	struct kvm_s2_mmu *tmp;
--	int num_mmus, ret = 0;
-+	int num_mmus;
-+
-+	lockdep_assert_held(&kvm->arch.config_lock);
- 
- 	if (test_bit(KVM_ARM_VCPU_HAS_EL2_E2H0, kvm->arch.vcpu_features) &&
- 	    !cpus_have_final_cap(ARM64_HAS_HCR_NV1))
-@@ -82,51 +87,40 @@ int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu)
- 	if (!vcpu->arch.ctxt.vncr_array)
- 		return -ENOMEM;
- 
--	/*
--	 * Let's treat memory allocation failures as benign: If we fail to
--	 * allocate anything, return an error and keep the allocated array
--	 * alive. Userspace may try to recover by intializing the vcpu
--	 * again, and there is no reason to affect the whole VM for this.
--	 */
- 	num_mmus = atomic_read(&kvm->online_vcpus) * S2_MMU_PER_VCPU;
- 
- 	if (num_mmus > kvm->arch.nested_mmus_size) {
--		tmp = kvcalloc(num_mmus, sizeof(*tmp), GFP_KERNEL_ACCOUNT);
--		if (!tmp)
--			return -ENOMEM;
--
--		write_lock(&kvm->mmu_lock);
-+		struct kvm_s2_mmu *tmp;
-+		int i, ret = 0;
- 
--		if (kvm->arch.nested_mmus_size) {
--			memcpy(tmp, kvm->arch.nested_mmus,
--			       size_mul(sizeof(*tmp), kvm->arch.nested_mmus_size));
-+		tmp = kvzalloc_objs(*tmp, S2_MMU_PER_VCPU, GFP_KERNEL_ACCOUNT);
-+		if (!tmp)
-+			ret = -ENOMEM;
- 
--			for (int i = 0; i < kvm->arch.nested_mmus_size; i++)
--				tmp[i].pgt->mmu = &tmp[i];
-+		for (i = 0; !ret && i < S2_MMU_PER_VCPU; i++) {
-+			ret = init_nested_s2_mmu(kvm, &tmp[i]);
-+			if (ret)
-+				break;
- 		}
- 
--		swap(kvm->arch.nested_mmus, tmp);
--
--		write_unlock(&kvm->mmu_lock);
--
--		kvfree(tmp);
--	}
-+		if (ret) {
-+			while (--i >= 0)
-+				kvm_free_stage2_pgd(&tmp[i]);
- 
--	for (int i = kvm->arch.nested_mmus_size; !ret && i < num_mmus; i++)
--		ret = init_nested_s2_mmu(kvm, &kvm->arch.nested_mmus[i]);
-+			kvfree(tmp);
-+			free_page((unsigned long)vcpu->arch.ctxt.vncr_array);
-+			vcpu->arch.ctxt.vncr_array = NULL;
-+			return ret;
-+		}
- 
--	if (ret) {
--		for (int i = kvm->arch.nested_mmus_size; i < num_mmus; i++)
--			kvm_free_stage2_pgd(&kvm->arch.nested_mmus[i]);
-+		guard(write_lock)(&kvm->mmu_lock);
- 
--		free_page((unsigned long)vcpu->arch.ctxt.vncr_array);
--		vcpu->arch.ctxt.vncr_array = NULL;
-+		for (i = 0; i < S2_MMU_PER_VCPU; i++)
-+			kvm->arch.nested_mmus[i + kvm->arch.nested_mmus_size] = &tmp[i];
- 
--		return ret;
-+		kvm->arch.nested_mmus_size += S2_MMU_PER_VCPU;
- 	}
- 
--	kvm->arch.nested_mmus_size = num_mmus;
--
- 	return 0;
- }
- 
-@@ -620,7 +614,7 @@ void kvm_s2_mmu_iterate_by_vmid(struct kvm *kvm, u16 vmid,
- 	write_lock(&kvm->mmu_lock);
- 
- 	for (int i = 0; i < kvm->arch.nested_mmus_size; i++) {
--		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
-+		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
- 
- 		if (!kvm_s2_mmu_valid(mmu))
- 			continue;
-@@ -662,7 +656,7 @@ struct kvm_s2_mmu *lookup_s2_mmu(struct kvm_vcpu *vcpu)
- 	 *   if S2 translation is disabled.
- 	 */
- 	for (int i = 0; i < kvm->arch.nested_mmus_size; i++) {
--		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
-+		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
- 
- 		if (!kvm_s2_mmu_valid(mmu))
- 			continue;
-@@ -701,7 +695,7 @@ static struct kvm_s2_mmu *get_s2_mmu_nested(struct kvm_vcpu *vcpu)
- 	for (i = kvm->arch.nested_mmus_next;
- 	     i < (kvm->arch.nested_mmus_size + kvm->arch.nested_mmus_next);
- 	     i++) {
--		s2_mmu = &kvm->arch.nested_mmus[i % kvm->arch.nested_mmus_size];
-+		s2_mmu = kvm->arch.nested_mmus[i % kvm->arch.nested_mmus_size];
- 
- 		if (atomic_read(&s2_mmu->refcnt) == 0)
- 			break;
-@@ -1136,7 +1130,7 @@ void kvm_nested_s2_wp(struct kvm *kvm)
- 	lockdep_assert_held_write(&kvm->mmu_lock);
- 
- 	for (i = 0; i < kvm->arch.nested_mmus_size; i++) {
--		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
-+		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
- 
- 		if (kvm_s2_mmu_valid(mmu))
- 			kvm_stage2_wp_range(mmu, 0, kvm_phys_size(mmu));
-@@ -1152,7 +1146,7 @@ void kvm_nested_s2_unmap(struct kvm *kvm, bool may_block)
- 	lockdep_assert_held_write(&kvm->mmu_lock);
- 
- 	for (i = 0; i < kvm->arch.nested_mmus_size; i++) {
--		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
-+		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
- 
- 		if (kvm_s2_mmu_valid(mmu))
- 			kvm_stage2_unmap_range(mmu, 0, kvm_phys_size(mmu), may_block);
-@@ -1168,7 +1162,7 @@ void kvm_nested_s2_flush(struct kvm *kvm)
- 	lockdep_assert_held_write(&kvm->mmu_lock);
- 
- 	for (i = 0; i < kvm->arch.nested_mmus_size; i++) {
--		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
-+		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
- 
- 		if (kvm_s2_mmu_valid(mmu))
- 			kvm_stage2_flush_range(mmu, 0, kvm_phys_size(mmu));
-@@ -1177,16 +1171,15 @@ void kvm_nested_s2_flush(struct kvm *kvm)
- 
- void kvm_arch_flush_shadow_all(struct kvm *kvm)
- {
--	int i;
--
--	for (i = 0; i < kvm->arch.nested_mmus_size; i++) {
--		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
-+	for (int i = kvm->arch.nested_mmus_size - 1; i >= 0; i--) {
-+		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
- 
- 		if (!WARN_ON(atomic_read(&mmu->refcnt)))
- 			kvm_free_stage2_pgd(mmu);
-+
-+		if ((i % S2_MMU_PER_VCPU) == 0)
-+			kvfree(mmu);
- 	}
--	kvfree(kvm->arch.nested_mmus);
--	kvm->arch.nested_mmus = NULL;
- 	kvm->arch.nested_mmus_size = 0;
- 	kvm_uninit_stage2_mmu(kvm);
- }
--- 
-2.53.0
-
+There is also a non-zero risk of connecting order-0 request contexts
+to SYNC compaction which they haven't done before 7e8756d7ad22. But
+you traced the problem to retrying, not sync compaction itself.
