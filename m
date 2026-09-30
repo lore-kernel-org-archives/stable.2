@@ -1,85 +1,79 @@
-Received: from zxbjcas.zhaoxin.com (zxbjcas.zhaoxin.com [124.127.214.139])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB8B543DEB1;
-	Wed, 30 Sep 2026 07:53:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.127.214.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AED431D375
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 07:53:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790754798; cv=none; b=VWpxvefCMIpxehR6Zeq1OARHQwyKZ5tQWCg2AQ8MROyPGrJfnL3mDYe/RTQnjURZ+552LkI9GblGIMbajwauXmr9L5Dq+UX7iwK70Xf8bx+LhHR11KTTe1mdYVVhndd3gsd80bHRePXFQpLRd5YXX4MGvbV5B+h17eod9RHYI08=
+	t=1790754840; cv=none; b=UfKfBts/4rFyvWeH/cAOqYocG7NIZm5sq3XJxFB+hbzkBzBhmZ8kRuhlDNr9vda4i3gnVC/Fuz88XXvkZiJIRuoYwQi5lYTZIPY/uLg6NCuNA+0JzypahNVR4qicYCOX/uhvpMJ766r7ahPVsoL07hMr6XjsI8Lv14xWzBp2GJA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790754798; c=relaxed/simple;
-	bh=l/huL85Muhhw619ot6PGQrERTL6C1cXK8DTbTlcclME=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=uLt+4LEIs4NPEg0JVj/lC4k8hX1B1tS7O/hfXPal9piKetWnMr2YBGPzD0Cm0o/vBj34PnhguA8yJdMUW5j8VR+jfNn44ujxZu7NKLQMCBBVlbKrROIHLImBZjVThh2HGi5D0MPgyXQBXNIajMNpqgUqEn85IB6zPsz6YzBxO6Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zhaoxin.com; spf=pass smtp.mailfrom=zhaoxin.com; arc=none smtp.client-ip=124.127.214.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zhaoxin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zhaoxin.com
-Received: from zhaoxin.com ([10.28.140.201])
-	by zxbjcas.zhaoxin.com with ESMTP id 68U7qFVR024112;
-	Wed, 30 Sep 2026 15:52:15 +0800 (GMT-8)
-	(envelope-from WeitaoWang-oc@zhaoxin.com)
-Received: from l440.zhaoxin.com (l440.zhaoxin.com [10.29.8.13])
-	by zhaoxin.com (8.30) with ESMTP3afab7396dc9d04bb008f43b0e4e50f6
-	Wed, 30 Sep 2026 15:52:14 +0800
-X-Eyou-Smtpauth: weitaowangoc@zhaoxin.com
-X-Eyou-EnvelopeSender: WeitaoWang-oc@zhaoxin.com
-X-Eyou-From: Weitao Wang <WeitaoWang-oc@zhaoxin.com>
-From: "=?UTF-8?B?V2VpdGFvV2FuZy1vYw==?=" <WeitaoWang-oc@zhaoxin.com>
-To: tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
-        dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
-        den@valinux.co.jp, linux-kernel@vger.kernel.org
-Cc: WeitaoWang@zhaoxin.com, wwt8723@163.com, CobeChen@zhaoxin.com,
-        stable@vger.kernel.org
-Subject: [PATCH v2] x86/apic/msi: Fix MSI interrupt affinity configuration
-Date: Wed, 30 Sep 2026 23:52:13 +0800
-Message-Id: <20260930155213.4380-1-WeitaoWang-oc@zhaoxin.com>
-X-Mailer: git-send-email 2.32.0
+	s=arc-20240116; t=1790754840; c=relaxed/simple;
+	bh=kme3tdZ1U+Tgn9vwCyFoV3w7eCQqGn1Lw+epSPi0aO8=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BpY8StREFh2AH2CUCJSIAMk09BogjMWGCb7xsZVhXm77oJc2CGDpUnRzbWLosjDrydjPKmb30wF/CWZm0ex6Z2Iz3vwwn1v10/e+FRCW6EesNpifT6MvZ4n+0O4QjtjUBDfPlWhlTw+Ou2c+nV0AOX6NcbypQtQfP1usfwMs3XY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZUUxkOtg; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZUUxkOtg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CDF31F00893
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 07:53:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790754839;
+	bh=kme3tdZ1U+Tgn9vwCyFoV3w7eCQqGn1Lw+epSPi0aO8=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=ZUUxkOtgzhi1Q9N62ORXiHk/J3rf2zvdX2UOKTcMkQYhx9W0FZVO7uiIwJSBMjUCS
+	 ttu09aKi/NMV640uKB02QdKg0C5urdSYtQXCkA7zxmsDhg0aa5qj8g7Uap/+2QeAYb
+	 LIpk5dhMZjxezm6f3lq0m3eqskHddWL0BdYa5AiPBy8LoCk2Sg+bVBc8qLnk2HwgTF
+	 3xGltqxpEDpwVtQsn5d6qzH/QIaHR+L3pMRKiTiRkI7/X2DWE07zwtc+oUl21UYMEj
+	 rcERDx0VjDTXdcHUUT9jLDrlv1b4CLQa+ItiSiv5Bp+ZAlbB6FeKo7wq8V3C5cEbSN
+	 LAV2PqPbYF6kQ==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5ba3e27d525so262766e87.1
+        for <stable@vger.kernel.org>; Wed, 30 Sep 2026 00:53:58 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBx2X66yiI2LV5JVY64hch2RKeZ7Q1kNJ2mGQIa2zyl3Yk1PoE3Nfq61dTMOuiQmVY/LTXJKkKM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIDDNZiXF7/q/SBs0VbJPAw9/HwzFWdTVx2XJKnmR4uzZ0D8Of5
+	JebeftZrcXqTqmQ+k1gOO9rmGVKkS6+7GVjTACF3pGdYy5GE+pO1lafQOm51DpKsDuuOd8PL+lB
+	j8NK8Nk8IWVBufITm6RQh1CHwCPl5IRmRL340jTgosA==
+X-Received: by 2002:a05:6512:31cf:b0:5ba:3c49:6ccf with SMTP id
+ 2adb3069b0e04-5ba402b853bmr239606e87.1.1790754837737; Wed, 30 Sep 2026
+ 00:53:57 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 30 Sep 2026 00:53:55 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 30 Sep 2026 00:53:55 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260929-gpio-shared-fwnode-lookup-v1-0-57d54811de1a@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Eyou-Sender: <weitaowang-oc@zhaoxin.com>
-X-DNSRBL: 
-X-SPAM-SOURCE-CHECK: pass
-X-MAIL:zxbjcas.zhaoxin.com 68U7qFVR024112
+References: <20260929-gpio-shared-fwnode-lookup-v1-0-57d54811de1a@oss.qualcomm.com>
+Date: Wed, 30 Sep 2026 00:53:55 -0700
+X-Gmail-Original-Message-ID: <CAMRc=Mdrd+=5x7OBAK=EtjwtGH+rvJQk_GnzRXNnmzoDnUXBTw@mail.gmail.com>
+X-Gm-Features: AclHuK-bKs-DiLDJzi14gqE5ctPrjcYpWHqNaXVB07vwyWRRN1rks3MP-AEwIX0
+Message-ID: <CAMRc=Mdrd+=5x7OBAK=EtjwtGH+rvJQk_GnzRXNnmzoDnUXBTw@mail.gmail.com>
+Subject: Re: [PATCH 0/2] gpio: shared: fix no-device, fwnode-based lookup
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-commit b56ebe7c896d ("x86/apic/msi: Fix misconfigured non-maskable MSI
-quirk") try to fix the issue of misconfigured non-maskable MSI quirk.
-For non-maskable MSI interrupts, use the slow path to fix the MSI affinity
-race. Maskable MSI interrupts use the direct path to update configuration
-info. However, the current code logic is the opposite as only maskable
-MSI interrupts will enable reservation mode. Therefore, when using the
-reservation mode in the function msi_set_affinity() to decide whether
-to take the direct update path, polarity inversion is required.
+On Tue, 29 Sep 2026 14:32:02 +0200, Bartosz Golaszewski
+<bartosz.golaszewski@oss.qualcomm.com> said:
+> Abel reported to me a crash on Eliza linked to fwnode GPIO lookup for
+> shared GPIOs. The second patch fixes the issue, the first fixes another
+> problem the clanker found during review.
+>
+> Tested that the issue no longer happens and that sharing of GPIOs still
+> works on Qualcomm Eliza.
+>
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> ---
 
-Fixes: b56ebe7c896d ("x86/apic/msi: Fix misconfigured non-maskable MSI quirk")
-Reviewed-by: Koichiro Den <den@valinux.co.jp>
-Cc: stable@vger.kernel.org
-Signed-off-by: Weitao Wang <WeitaoWang-oc@zhaoxin.com>
----
-Changes in v2:
- - Change the Fixes tag to b56ebe7c896d ("x86/apic/msi: Fix misconfigured
-   non-maskable MSI quirk")
- - Update commit messages for clarity
+Please disregard this version. I need to account for multiple fwnode requests
+for the same con_id which currently fails.
 
- arch/x86/kernel/apic/msi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I'll send a v2.
 
-diff --git a/arch/x86/kernel/apic/msi.c b/arch/x86/kernel/apic/msi.c
-index 66bc5d3e79db..da5f44a80313 100644
---- a/arch/x86/kernel/apic/msi.c
-+++ b/arch/x86/kernel/apic/msi.c
-@@ -62,7 +62,7 @@ msi_set_affinity(struct irq_data *irqd, const struct cpumask *mask, bool force)
- 	 * - The interrupt is not yet started up
- 	 * - The new destination CPU is the same as the old destination CPU
- 	 */
--	if (!irqd_can_reserve(irqd) ||
-+	if (irqd_can_reserve(irqd) ||
- 	    cfg->vector == old_cfg.vector ||
- 	    old_cfg.vector == MANAGED_IRQ_SHUTDOWN_VECTOR ||
- 	    !irqd_is_started(irqd) ||
--- 
-2.32.0
-
+Bart
