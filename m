@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1230C37107E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D53B536B90D
 	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 02:34:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790735661; cv=none; b=gsrew1gaL0Amg7FXHmkG22Gn1zv0yxtgIvayrP0TrS4lce/iR5kd9yzA2A/B/uUcPUp3tWunBKD4KsVkYjdYBhpMGDymUZyohkTHjQ+R5OJt/QAyHZw2h6cebXyzJzBkyYRB8Xl5849onpqnDWFLWHb+NT5cWp0y3CzsTt9RkAU=
+	t=1790735665; cv=none; b=IYz3pnrZ2eUiPPv6l2nvYTut3KPu/qy8vMWupGv6LBjSJSsF4949d78oo4I9nk9sGCUTpDExkhjU43sBkmQ+jdniwZfhntdlr+VgNp3S7lLhgFba8jtJdWJiZli1kizdSdmCYH40nxRAM7NCHQcfN6ACdbBzflFDTTX4ES9BhdY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790735661; c=relaxed/simple;
-	bh=B929RPjgoOKNX3vzqNTFre08OPaf1mZDUAEJ30Y2iEg=;
+	s=arc-20240116; t=1790735665; c=relaxed/simple;
+	bh=Cw/urw1AylpLE/HmOflDc8K+61IRGdaGVpoAO/a4P8s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BmiVR9WAQOLuT1L8HO4zsA2CPyiD7sL9Yjqmk3wMAg6/BoIKhQmkoxc+OzSyJ7C97UjZ9oV8SRYG3uUv1TS8d4ziLKswxvK7oxSMSIFlMDAS+u+tXSLlhO04M2x1sFcJwBRb4fivOCcPuxvV6dOHxf3AdY8/DXP6iUk1JNh4vdw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eczBW6WI; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=iwEoIV0kOiWrgAVpgq3/tvUVwQji7m3j1mECL+q20sxQ/Kl3cyYRQBkXVYzV46pt8WgO/BUz3nwdZ9Q9XtxZOsWFjVj85PveLK0ANBYiMNSSSMPbQHojnD5krtvAK4D8GBJNbYdEU3AmXpr4t7vwNemFqRb0BvP1P0zXlmoxAt8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lif1iMtb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eczBW6WI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A27F01F008A0;
-	Wed, 30 Sep 2026 02:34:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lif1iMtb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E40961F0089F;
+	Wed, 30 Sep 2026 02:34:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790735651;
-	bh=MCvKlYAfhGk1ybBKQhUyurDRItXj+UK9tBtZCJrN6lQ=;
+	s=k20260515; t=1790735650;
+	bh=2wIYlIVFCRW/HwFZjfLl3Lptgf5jrcxXkxpcnwjKeF0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eczBW6WI4owb7CYgBKWIQscCQK+wH11q3BCByAHzEHHoTdbue6/nzIeSf9RuVA6jK
-	 TAu4d4pl/adx5lCPFYCe8Wo7lQ8mWW3rCu+wWB4vHWl02mqLpK+VUplNBtxejjxZC+
-	 B7tuhDQ5tQGg55NqqJ6zhzyfFClBP87ae7bgU1MLkRt/ceo3sLPb324eOqm8mcb0y6
-	 wqz8LXKJlgCk6jHriuH5ESY6LuQ7XOkPCu8/6M0NCIdwaINN8zy6cFJ4YgwCk14guL
-	 4pm/pC4HlIdMIVJNNSZZOLSKuNOkF1TvcS5EJyBiU6VcXE5a03MLwaBmi9FKceEhzc
-	 va0RAhjJ915jw==
+	b=lif1iMtbM577zgCqM4er9nzGHTGqoLw811xZMzgtocNm/yUTOEZDL5A/58CBN6l45
+	 GIfiXhSGAcaGIh1i9fwQFKUd0vcFILVD4j8jql5GZsMiMhEjgUkXX8eAoSE06wgTIP
+	 jpdSZ4vd4b9oO+CxOgVko1hq/yg/CZXt0GNt5cPyotxAjkknX1gZiMaxue+JQ2cSuS
+	 p8iHPNM5ZR2BZbur3YMd9Owis5nrcDs3DLrwXw11H4G6pk98BHrmfH2Ykk0YKLWGra
+	 URr/+mVt+C7vg96fxMV+hFQODN+gvt96eFdM7yRHjdIo4/wu1AdmUOLIOcVaJqxEL+
+	 wGxUocCDXvgvQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Bastien Nocera <hadess@hadess.net>,
-	Jiri Kosina <jkosina@suse.com>,
+Cc: Marcus Folkesson <marcus.folkesson@gmail.com>,
+	Jiri Kosina <jkosina@suse.cz>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/3] HID: hid-alps: Use pm_ptr instead of #ifdef CONFIG_PM
-Date: Tue, 29 Sep 2026 22:34:07 -0400
-Message-ID: <20260930023408.3421577-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/3] HID: hid-alps: use default remove for hid device
+Date: Tue, 29 Sep 2026 22:34:06 -0400
+Message-ID: <20260930023408.3421577-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260930023408.3421577-1-sashal@kernel.org>
+In-Reply-To: <2026092958-confirm-underfed-6c0b@gregkh>
 References: <2026092958-confirm-underfed-6c0b@gregkh>
- <20260930023408.3421577-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,37 +45,45 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Bastien Nocera <hadess@hadess.net>
+From: Marcus Folkesson <marcus.folkesson@gmail.com>
 
-[ Upstream commit 5e130f58629a2819c9d053507ad368160d25eb65 ]
+[ Upstream commit 989f7cc94f1174269282a4a46bb735c7f11527de ]
 
-This increases build coverage and allows to drop an #ifdef.
+hid_device_remove() will call hid_hw_stop() as default .remove function
+if no function is specified.
 
-Signed-off-by: Bastien Nocera <hadess@hadess.net>
-Signed-off-by: Jiri Kosina <jkosina@suse.com>
+Signed-off-by: Marcus Folkesson <marcus.folkesson@gmail.com>
+Signed-off-by: Jiri Kosina <jkosina@suse.cz>
 Stable-dep-of: aa9dde93e05a ("HID: alps: unregister DualPoint Stick input device on remove")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hid/hid-alps.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ drivers/hid/hid-alps.c | 6 ------
+ 1 file changed, 6 deletions(-)
 
 diff --git a/drivers/hid/hid-alps.c b/drivers/hid/hid-alps.c
-index d4fb5ca6bf73e..b2966c6598e18 100644
+index cd60a52b9beb9..d4fb5ca6bf73e 100644
 --- a/drivers/hid/hid-alps.c
 +++ b/drivers/hid/hid-alps.c
-@@ -843,10 +843,8 @@ static struct hid_driver alps_driver = {
+@@ -823,11 +823,6 @@ static int alps_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 	return 0;
+ }
+ 
+-static void alps_remove(struct hid_device *hdev)
+-{
+-	hid_hw_stop(hdev);
+-}
+-
+ static const struct hid_device_id alps_id[] = {
+ 	{ HID_DEVICE(HID_BUS_ANY, HID_GROUP_ANY,
+ 		USB_VENDOR_ID_ALPS_JP, HID_DEVICE_ID_ALPS_U1_DUAL) },
+@@ -845,7 +840,6 @@ static struct hid_driver alps_driver = {
+ 	.name = "hid-alps",
+ 	.id_table		= alps_id,
+ 	.probe			= alps_probe,
+-	.remove			= alps_remove,
  	.raw_event		= alps_raw_event,
  	.input_mapping		= alps_input_mapping,
  	.input_configured	= alps_input_configured,
--#ifdef CONFIG_PM
--	.resume			= alps_post_resume,
--	.reset_resume		= alps_post_reset,
--#endif
-+	.resume			= pm_ptr(alps_post_resume),
-+	.reset_resume		= pm_ptr(alps_post_reset),
- };
- 
- module_hid_driver(alps_driver);
 -- 
 2.53.0
 
