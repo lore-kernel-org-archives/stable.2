@@ -1,38 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A2D41FDE31;
-	Wed, 30 Sep 2026 15:39:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B23794F68A7;
+	Wed, 30 Sep 2026 15:40:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790782802; cv=none; b=hfVw0qZLKu4ziCLbyw5uthtIi4W82hq40D8+drU0PuVUsL+ioq3WY5yj8DrNegPbvzPTZ7q9NhsQNHbWnlr0pddxiqsUrpSJmX3Ceag5pI6wIrYj8vnLaQ/nqW79XHQl1w/4tW3ZCvVX6jG9W6geU33gBGjVMK3q/35WgSaptQg=
+	t=1790782808; cv=none; b=Ae7CCf9kGRFpQmoDAixJggK+IlL/zPKYUZ2Sw/IMcSd7BjEcelJNdHb/zvL5yvSdFoxy5KEsfdJBHLuGqWlI3y0cGA8D0ub08N6sQU8MOSa89g2GfxSvWx3VqFx6Dn/CYImThiIi/rynqV8D/yIxU4tDk4GuwgNLtjpI/luLs3E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790782802; c=relaxed/simple;
-	bh=Aep3AyEp2UYFPIYWtzWVAaM/7ufIBunjroHn6c3zb7g=;
+	s=arc-20240116; t=1790782808; c=relaxed/simple;
+	bh=v3qKhVq91mSaaT+rz4/kUPVrORHj/IkSIW4IrNuniB8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eA+nHsvjFudPlBstwImtKX07GdHvRHaH6+pU0QbePrQXp5fsHH5zC8Ts9c5OXpYRNEVgvd7Ru+kmnzNhBORNS/eLFEW0q57C0G5BUuuCD4qv2veezOVyh7sYER2ES1T4YmNdyd31QUWQ1N6Xa3djdp15cGw8zXnvh1/eJ8Gyf2c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=09Md8wl8; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=I7zqswM/i4tciKOtGTO2zJeTekazUL/JQjBgNrOKNYinGBDQOVrLQly2uqMlUUPRw4+msLZQjI+4Kp2lhqhO26uOO0ZGgNElIHIIYR9enQ6gKLgLH4KxCr4JLgiasTJxGjFZb9rFKmGaOxumbRY0SutJZuIP2yxPw6bCSfpH7Nc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=u3npgKVY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="09Md8wl8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 128361F00898;
-	Wed, 30 Sep 2026 15:39:56 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="u3npgKVY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C35D01F000FF;
+	Wed, 30 Sep 2026 15:40:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790782797;
-	bh=CYiBaUVWANdz+MeeJzFw/3vXqRXuCLMv6DWrEuONzjM=;
+	s=korg; t=1790782803;
+	bh=UJyEvpSGBnWTmaiIDHu1rZKnDqFzzeX6W+3cijuecOY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=09Md8wl8PRmVaWN1+6+5VJmDfc4vZb6tvk9mDSGV7Af83MiwgPOM8LDHLntc5MZUN
-	 YsHowATwodsrVJMjcJfS8gHS/yrof7HTFE1A3/AGIyBxTK1N7kYQqYYdtJY2xDE9md
-	 PzSjAJVJyg3J7Cw+eK7AW2NLjJcAA+hd6wpaTNPg=
+	b=u3npgKVYOplEO38PQUIby290o8yGM70NGv9r8hR0pQSYlkzRtRaQU996xhlhRQKkp
+	 VsaOZ0l+QEC0Qm97kx2vfDEpeLdnMe0uYbEKQF8rNZBVztA1QGMksj5O3YvMGK8k3+
+	 tzXgTwl/AhNN2bzNWa6SQyp0cQC1i0PLcLSq5TLE=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Minhong He <heminhong@kylinos.cn>,
+	Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
+	Michal Swiatkowski <michal.swiatkowski@linux.intel.com>,
+	Tony Nguyen <anthony.l.nguyen@intel.com>,
 	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 174/595] phonet: check register_netdevice_notifier() error in phonet_device_init()
-Date: Wed, 30 Sep 2026 17:21:07 +0200
-Message-ID: <20260930152351.483715262@linuxfoundation.org>
+	Sasha Levin <sashal@kernel.org>,
+	Rinitha S <sx.rinitha@intel.com>
+Subject: [PATCH 5.10 176/595] ice: pass the return value of skb_checksum_help()
+Date: Wed, 30 Sep 2026 17:21:09 +0200
+Message-ID: <20260930152351.525966592@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152347.700140858@linuxfoundation.org>
 References: <20260930152347.700140858@linuxfoundation.org>
@@ -51,85 +54,85 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Minhong He <heminhong@kylinos.cn>
+From: Michal Swiatkowski <michal.swiatkowski@linux.intel.com>
 
-[ Upstream commit d1ff66b66151c14b084e88040512a064b1c1e493 ]
+[ Upstream commit 2d19302f628853742c4828381abbd668c1315598 ]
 
-phonet_device_init() registers a netdevice notifier before calling
-phonet_netlink_register(), but does not check whether notifier
-registration succeeded. On failure, netlink setup still proceeds and
-init may return success without the notifier in place.
+skb_checksum_help() can fail. Pass its return value back to the caller.
 
-Also, the existing phonet_netlink_register() failure path called
-phonet_device_exit(), which runs rtnl_unregister_all() even though
-rtnl_register_many() already unwound any partial registration. Calling
-the full exit helper on a partial init is not correct.
+Commonize this software path in goto.
 
-Check each registration error, including proc_create_net(), and unwind
-only the steps that have succeeded so far, in reverse order.
+Instead of just returning error try calculating software checksum first.
+There is a check for TSO in checksum_sw_fb.
 
-Signed-off-by: Minhong He <heminhong@kylinos.cn>
-Link: https://patch.msgid.link/20260721093956.162617-1-heminhong@kylinos.cn
+Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
+Signed-off-by: Michal Swiatkowski <michal.swiatkowski@linux.intel.com>
+Tested-by: Rinitha S <sx.rinitha@intel.com> (A Contingent worker at Intel)
+Signed-off-by: Tony Nguyen <anthony.l.nguyen@intel.com>
+Link: https://patch.msgid.link/20260717185340.3595286-4-anthony.l.nguyen@intel.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/phonet/pn_dev.c | 30 ++++++++++++++++++++++++------
- 1 file changed, 24 insertions(+), 6 deletions(-)
+ drivers/net/ethernet/intel/ice/ice_txrx.c | 20 +++++++++-----------
+ 1 file changed, 9 insertions(+), 11 deletions(-)
 
-diff --git a/net/phonet/pn_dev.c b/net/phonet/pn_dev.c
-index 2c48dcf6a7400..50d85de598119 100644
---- a/net/phonet/pn_dev.c
-+++ b/net/phonet/pn_dev.c
-@@ -336,16 +336,34 @@ static struct pernet_operations phonet_net_ops = {
- /* Initialize Phonet devices list */
- int __init phonet_device_init(void)
- {
--	int err = register_pernet_subsys(&phonet_net_ops);
-+	int err;
-+
-+	err = register_pernet_subsys(&phonet_net_ops);
- 	if (err)
- 		return err;
+diff --git a/drivers/net/ethernet/intel/ice/ice_txrx.c b/drivers/net/ethernet/intel/ice/ice_txrx.c
+index 7734264d570db..0d5568a36cdd9 100644
+--- a/drivers/net/ethernet/intel/ice/ice_txrx.c
++++ b/drivers/net/ethernet/intel/ice/ice_txrx.c
+@@ -1932,7 +1932,7 @@ int ice_tx_csum(struct ice_tx_buf *first, struct ice_tx_offload_params *off)
+ 			ret = ipv6_skip_exthdr(skb, exthdr - skb->data,
+ 					       &l4_proto, &frag_off);
+ 			if (ret < 0)
+-				return -1;
++				goto checksum_sw_fb;
+ 		}
  
--	proc_create_net("pnresource", 0, init_net.proc_net, &pn_res_seq_ops,
--			sizeof(struct seq_net_private));
--	register_netdevice_notifier(&phonet_device_notifier);
-+	if (!proc_create_net("pnresource", 0, init_net.proc_net,
-+			     &pn_res_seq_ops, sizeof(struct seq_net_private))) {
-+		err = -ENOMEM;
-+		goto err_pernet;
-+	}
+ 		/* define outer transport */
+@@ -1951,11 +1951,7 @@ int ice_tx_csum(struct ice_tx_buf *first, struct ice_tx_offload_params *off)
+ 			l4.hdr = skb_inner_network_header(skb);
+ 			break;
+ 		default:
+-			if (first->tx_flags & ICE_TX_FLAGS_TSO)
+-				return -1;
+-
+-			skb_checksum_help(skb);
+-			return 0;
++			goto checksum_sw_fb;
+ 		}
+ 
+ 		/* compute outer L3 header size */
+@@ -2014,7 +2010,7 @@ int ice_tx_csum(struct ice_tx_buf *first, struct ice_tx_offload_params *off)
+ 			ipv6_skip_exthdr(skb, exthdr - skb->data, &l4_proto,
+ 					 &frag_off);
+ 	} else {
+-		return -1;
++		goto checksum_sw_fb;
+ 	}
+ 
+ 	/* compute inner L3 header size */
+@@ -2043,15 +2039,17 @@ int ice_tx_csum(struct ice_tx_buf *first, struct ice_tx_offload_params *off)
+ 		break;
+ 
+ 	default:
+-		if (first->tx_flags & ICE_TX_FLAGS_TSO)
+-			return -1;
+-		skb_checksum_help(skb);
+-		return 0;
++		goto checksum_sw_fb;
+ 	}
+ 
+ 	off->td_cmd |= cmd;
+ 	off->td_offset |= offset;
+ 	return 1;
 +
-+	err = register_netdevice_notifier(&phonet_device_notifier);
-+	if (err)
-+		goto err_proc;
-+
- 	err = phonet_netlink_register();
- 	if (err)
--		phonet_device_exit();
-+		goto err_notifier;
-+
-+	return 0;
-+
-+err_notifier:
-+	unregister_netdevice_notifier(&phonet_device_notifier);
-+err_proc:
-+	remove_proc_entry("pnresource", init_net.proc_net);
-+err_pernet:
-+	unregister_pernet_subsys(&phonet_net_ops);
- 	return err;
++checksum_sw_fb:
++	if (first->tx_flags & ICE_TX_FLAGS_TSO)
++		return -1;
++	return skb_checksum_help(skb);
  }
  
-@@ -353,8 +371,8 @@ void phonet_device_exit(void)
- {
- 	rtnl_unregister_all(PF_PHONET);
- 	unregister_netdevice_notifier(&phonet_device_notifier);
--	unregister_pernet_subsys(&phonet_net_ops);
- 	remove_proc_entry("pnresource", init_net.proc_net);
-+	unregister_pernet_subsys(&phonet_net_ops);
- }
- 
- int phonet_route_add(struct net_device *dev, u8 daddr)
+ /**
 -- 
 2.53.0
 
