@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37CED4CE67C
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 12:45:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9369488210
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 12:45:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790772338; cv=none; b=NGcLWmqAXmxTixnHyW21YmTQD3ryFblIjf0V5Z2FF5HgH4a9Jyr+xmbB6ce4wLzoo8CvOhJuwi9FmQrxnrE5aUlKBXCYodrTXCjnz3aECHVmwk2wHZmtVZ2daLFpPUwkckhRfXzD9a5X+UHr304RnwaorV/wPRrFLVojX738bok=
+	t=1790772345; cv=none; b=Icw62cK6WjZqAScUL3ETe7NFPTVDiuqefJ54S+V7r0mboHDxKVsSWZee5wwhAw7ULtmEfOi//kuNuqshh4jdt/YI5l7XuEcbJ3Z2s1LqZm3l71eACAySiqtntua3kyvFySPSI3bTisPLwivfSiqXwBfJ7nNKIE0W8csYwZinvd8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790772338; c=relaxed/simple;
-	bh=g3Fns4igBoxpBkMGz9gM/SOnkdYopBJK9HmHTQn6J84=;
+	s=arc-20240116; t=1790772345; c=relaxed/simple;
+	bh=tpMGQpsVVwUzcLseu3MQ+Yq7jwCjPVAGkHjUKmNHbDw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GfcOMeVpC8fHVF20UftrygOlE74t5TYfDHYJ/PebzBVc3MRNnDh8GtZaj67gpQWn4q0W8jIARWv5A+yvc08V3czws/4fNOAY8oEJkBt+sc6XeI0JMBsZrRKIIutPEx10oMIJso+Aw2YiJX51fnwWsbIa0gQjFhJO4J4CwQQyM+0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gG15KNCM; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=eatkBa+uYC2c9iy/YyquS+0q2+bURV7/zVWKpKVgxosZD+YCSJuvgQOB/0mvs3qJSXA6kpmb4JA5/lFTa87qDs0wPLRExtgtdL/zkgz06VdAbanJqSfDhESM3wwGPCmoVYPhxrJFTZj0SBEr3Qa7B7wmyh5ga+9b9L3rdAUL2ZY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YM5FhsUq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gG15KNCM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBCD41F00898;
-	Wed, 30 Sep 2026 12:45:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YM5FhsUq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A81CC1F000FF;
+	Wed, 30 Sep 2026 12:45:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790772335;
-	bh=6eFOWuPQ5rtUBztCbeEIbOlONpTH5Ts0gkHSrowPogI=;
+	s=k20260515; t=1790772344;
+	bh=h3rXky3B26JTli4AKmR34Lc+XHqb3bTzs50jqr7bF6s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gG15KNCM4A6kfPW90R2szMieEF7aMo+vIe+91F2dvbFWkVJNUA1eh55yqVZMm1Xar
-	 1GVbTJXbXj10KE8JWJHA6GzfIU/s1eYcvCWarxQPqHzC/qnCEECOaRthh+jXnXhdI1
-	 1MyUfw/VPeS6+1UBsuIIKad3+/tllXcQBK+xe6hpckYhiVvFeDsKbDj+OmJ1dNVs/Y
-	 jrIwe0bI1uiJjYABzd+8otC9BIZn8pobn1dTPeNaX8G9veUkkZEVkJ+zhVQ2oLJdIn
-	 eYtF2J1qyGz+eiNJRpM2XklR313jBKk5oMiI5kTydKgH3krE543TrUXwOTOxcWNvC0
-	 PnC0eMsQvwZpg==
+	b=YM5FhsUqTKCoQ3sG6yn1hXQYf7lh8Hrai/UesRBZL+aFTgPryePW7GO2MjMJBtk1R
+	 bJqx4E/BsmbTDpwvyEV2HbN40xmBXSsLyGfur8FJgDlwZ/Ji3jdv98qYbdJX464ifv
+	 LaQ85OMXcLU+Kb2zi8NsFswS/EdSoow0oK3B9VVHJPbbq0pG6T45CiyOOBoexd4r4e
+	 RPVEMx0LP9wKJtWD/1Zmo0/WPUyKALKn9fokMJ8jMabVe7avb10YtjPtEZJZobA0pt
+	 gGP666FQbnCilZ+Os4u/Fg+U8ipkjEdAN095W0n3ZmYZQlveJnYT3bf+W/wcZaFfCb
+	 azRprY5EXo+Ng==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Marc Zyngier <maz@kernel.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Wei-Lin Chang <weilin.chang@arm.com>,
-	Oliver Upton <oupton@kernel.org>,
+Cc: Sean Christopherson <seanjc@google.com>,
+	Stefan Teodorescu <fane@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y 2/2] KVM: arm64: nv: Delay freeing of shadow S2 structures until VM destruction
-Date: Wed, 30 Sep 2026 08:45:32 -0400
-Message-ID: <20260930124532.1670714-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y] KVM: SEV: Do cache maintenance on the source VM during intra-host migration
+Date: Wed, 30 Sep 2026 08:45:42 -0400
+Message-ID: <20260930124542.1671035-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260930124532.1670714-1-sashal@kernel.org>
-References: <2026092944-padlock-brunette-089e@gregkh>
- <20260930124532.1670714-1-sashal@kernel.org>
+In-Reply-To: <2026092918-providing-domelike-5f91@gregkh>
+References: <2026092918-providing-domelike-5f91@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,106 +46,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Marc Zyngier <maz@kernel.org>
+From: Sean Christopherson <seanjc@google.com>
 
-[ Upstream commit e5843f4effaa2ffac3e789ecd4456403564961d4 ]
+[ Upstream commit 93de2a6a4b91b72607136dd656edf03fb399d27f ]
 
-We free the shadow S2 structures from kvm_arch_flush_shadow_all(), which
-is a Bad Idea(tm). Freeing the page tables is fair game (this is what
-this callback is for), but freeing the container that could still be
-referenced by another part of the system is not great.
+Manually perform cache maintenance on the source VM during intra-host
+migration to ensure no stale data is left in CPU caches after the VM is
+destroyed.  Because the source VM is "converted" to a non-SEV VM, KVM's
+memory reclaim flows won't trigger cache maintenance, e.g. when all guest
+memory is reclaimed in response to detaching from the mmu_notifier.
 
-Instead, grow separate destructors that gets called when we tear the VM
-down for good. From there, we can nuke both the individual MMUs as well
-as the global array that points to them, safe in the knowledge that the
-vcpus themselves have been destroyed already.
+Note, relying on the destination VM to do cache maintenance isn't an option
+as KVM doesn't require identical guest memory configurations, i.e. the
+source VM may have access to memory that the destination VM does not.
+Enforcing equivalent memory configurations is infeasible, as it would
+require a *deep* comparison of memslots, e.g. to verify that not only are
+the memslot identical, but what the memslots point at is also identical.
 
-Fixes: 4f128f8e1aaac ("KVM: arm64: nv: Support multiple nested Stage-2 mmu structures")
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Signed-off-by: Marc Zyngier <maz@kernel.org>
+Fixes: b56639318bb2 ("KVM: SEV: Add support for SEV intra host migration")
 Cc: stable@vger.kernel.org
-Reviewed-by: Wei-Lin Chang <weilin.chang@arm.com>
-Link: https://patch.msgid.link/20260911162203.1919330-3-maz@kernel.org
-Signed-off-by: Oliver Upton <oupton@kernel.org>
+Reported-by: Stefan Teodorescu <fane@google.com>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Message-ID: <20260923163721.1584779-3-seanjc@google.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+[ Replaced unavailable sev_writeback_caches(src_kvm) with wbinvd_on_all_cpus(). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm64/include/asm/kvm_nested.h |  1 +
- arch/arm64/kvm/arm.c                |  4 ++--
- arch/arm64/kvm/nested.c             | 15 ++++++++++-----
- 3 files changed, 13 insertions(+), 7 deletions(-)
+ arch/x86/kvm/svm/sev.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/arch/arm64/include/asm/kvm_nested.h b/arch/arm64/include/asm/kvm_nested.h
-index 5b8edb2e8a87d..586026e859030 100644
---- a/arch/arm64/include/asm/kvm_nested.h
-+++ b/arch/arm64/include/asm/kvm_nested.h
-@@ -67,6 +67,7 @@ static inline u64 translate_ttbr0_el2_to_ttbr0_el1(u64 ttbr0)
- extern bool forward_smc_trap(struct kvm_vcpu *vcpu);
- extern bool forward_debug_exception(struct kvm_vcpu *vcpu);
- extern int kvm_init_nested(struct kvm *kvm);
-+extern void kvm_destroy_nested(struct kvm *kvm);
- extern int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu);
- extern void kvm_init_nested_s2_mmu(struct kvm_s2_mmu *mmu);
- extern struct kvm_s2_mmu *lookup_s2_mmu(struct kvm_vcpu *vcpu);
-diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-index 42191d8446b84..ad04ef4bb8211 100644
---- a/arch/arm64/kvm/arm.c
-+++ b/arch/arm64/kvm/arm.c
-@@ -282,7 +282,7 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
+diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
+index 0ba286bd50c27..2bc25a89f36b3 100644
+--- a/arch/x86/kvm/svm/sev.c
++++ b/arch/x86/kvm/svm/sev.c
+@@ -1723,6 +1723,12 @@ static void sev_migrate_from(struct kvm *dst_kvm, struct kvm *src_kvm)
+ 	src->pages_locked = 0;
+ 	src->es_active = false;
  
- err_uninit_mmu:
- 	kvm_uninit_stage2_mmu(kvm);
--	kvfree(kvm->arch.nested_mmus);
-+	kvm_destroy_nested(kvm);
- err_free_cpumask:
- 	free_cpumask_var(kvm->arch.supported_cpus);
- err_unshare_kvm:
-@@ -340,7 +340,7 @@ void kvm_arch_destroy_vm(struct kvm *kvm)
- 
- 	kvm_unshare_hyp(kvm, kvm + 1);
- 
--	kvfree(kvm->arch.nested_mmus);
-+	kvm_destroy_nested(kvm);
- 	kvm_arm_teardown_hypercalls(kvm);
- }
- 
-diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-index 7b7264ef17639..dbee96b1f797b 100644
---- a/arch/arm64/kvm/nested.c
-+++ b/arch/arm64/kvm/nested.c
-@@ -54,6 +54,15 @@ int kvm_init_nested(struct kvm *kvm)
- 	return kvm->arch.nested_mmus ? 0 : -ENOMEM;
- }
- 
-+void kvm_destroy_nested(struct kvm *kvm)
-+{
-+	for (int i = 0; i < kvm->arch.nested_mmus_size; i+= S2_MMU_PER_VCPU)
-+		kvfree(kvm->arch.nested_mmus[i]);
++	/*
++	 * Do cache maintenance on the source VM as it is no longer an SEV VM,
++	 * i.e. memory reclaim flows won't trigger cache maintenance on the VM.
++	 */
++	wbinvd_on_all_cpus();
 +
-+	kvm->arch.nested_mmus_size = 0;
-+	kvfree(kvm->arch.nested_mmus);
-+}
-+
- static int init_nested_s2_mmu(struct kvm *kvm, struct kvm_s2_mmu *mmu)
- {
- 	/*
-@@ -1307,16 +1316,12 @@ void kvm_nested_s2_flush(struct kvm *kvm)
+ 	list_cut_before(&dst->regions_list, &src->regions_list, &src->regions_list);
  
- void kvm_arch_flush_shadow_all(struct kvm *kvm)
- {
--	for (int i = kvm->arch.nested_mmus_size - 1; i >= 0; i--) {
-+	for (int i = 0; i < kvm->arch.nested_mmus_size; i++) {
- 		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
- 
- 		if (!WARN_ON(atomic_read(&mmu->refcnt)))
- 			kvm_free_stage2_pgd(mmu);
--
--		if ((i % S2_MMU_PER_VCPU) == 0)
--			kvfree(mmu);
- 	}
--	kvm->arch.nested_mmus_size = 0;
- 	kvm_uninit_stage2_mmu(kvm);
- }
- 
+ 	mutex_lock(&sev_mirror_lock);
 -- 
 2.53.0
 
