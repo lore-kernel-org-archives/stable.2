@@ -1,251 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f37.google.com (mail-pz2-f37.google.com [74.125.228.37])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E465D1FDA61;
-	Wed, 30 Sep 2026 00:45:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25DE4282F2A
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 00:47:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790729128; cv=none; b=fADJUR7QEfiVwewWB4uCs7Fbh/m/nFaCyhJoKce4HiMwRUkBhJeiybCVcuOBpvhIqI6v5q3C/LDTLky7c4uMqfFrB+QGCRIlO73a4An4woq9BpqwLvpSvHtzOe5Rk3226oQmQ/HycidPTfhaaSxEijoPqOEt+YBjmfLIh2Bc54A=
+	t=1790729279; cv=none; b=A6tZyc9u0o1Wbqa/rLKFQeVYr4jnXqPEi2ipCLbE9zL1CcLUs/bjyDGh7vDoc/WQEsvYjlcMe6JQTAA4NohBFX0bUSMtIlK3pK9Z+8QxxeWF99ekeH8AsOrDMKzWwvfK1gmn0lmak2dMkfk0/e53MKYeTxwOf+/RUo4aX7cnmEo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790729128; c=relaxed/simple;
-	bh=7BOYHI88SA0DozVV0KMd7sxd3tZ1p5ofAmLGJCdIsL4=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=NuRAAzBlJHTyH7PWxIqjHWnrY/IeM7iK1s3EAvVqFsNg9vpXUOSHr82JaeAbzz0ak75C03frkPTVmtgs88X6LU8cgCXRfzlwOgbZsQtd+bX7nCm4MiGO3bhJvwI4wBYbuKJjFJsTkLTY0T1hLfTjNk8kIqiOmn2io+kn+EI4/hg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uje6ISMF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790729279; c=relaxed/simple;
+	bh=IkJ9vtM6s7ZyhaUSNWu4KEIRoo54ySib6eoHDno0ZzI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HSU8KuBrfJue8NMbToR2hBL0J9cTght4aul1Ncv5DffnRLIGTrnu/cgB4hKa5PD/Szif5Uoc9+GL8M842o6bJjQmTlMvlQ1O6k8aAWXFKk3CuPekbA43c/cLgRDiMaEyn002YhZwba9H2D4mzOvEUcYw4IRqRjthVpBYjyS2Fd4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=SN8deThB; arc=none smtp.client-ip=74.125.228.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uje6ISMF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C8A31F000FF;
-	Wed, 30 Sep 2026 00:45:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790729126;
-	bh=u1ktL/jKzc01ML/FizVUorthZ3kGPeOlQztsjmc/cWo=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Uje6ISMFbNkEe9HMtAi5uF5TpAu19p6NF1A9TfUNzkPBOnIpunfrhnZWG0efy8vyT
-	 4Q0JvSRUvFmTs+e5+09EVmhQzgGnhTaqkSSbT6A4veCvDsqZwXKWb1Zxgzy87SqR/I
-	 WCbFPUTYHaGTkHBknQNer7VK9JjHfCWv/RkeFuAWzdW+OQ8eCnvRYoyO5skGdcmVfm
-	 R53W2jiGR9eehwcqKcCRTb/QFQ86zQgnOamve1IhQW1+13PWTEfy4lohOS0AnRds/8
-	 VL3uOUbDYyR5F1yanYBIRBSzMx63/QtTjnI5rktG8EMtC0i5fLKVp2gxWPZGccolDR
-	 UqXQ+HlkJqbiQ==
-Subject: Re: [PATCH net] net/smc: serialize link group free work scheduling
-From: netdev-bot+sashiko@kernel.org
-To: nicoyip.dev@gmail.com
-Cc: alibuda@linux.alibaba.com, dust.li@linux.alibaba.com,
- sidraya@linux.ibm.com, mjambigi@linux.ibm.com, tonylu@linux.alibaba.com,
- guwen@linux.alibaba.com, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, kgraul@linux.ibm.com,
- ubraun@linux.ibm.com, linux-rdma@vger.kernel.org, linux-s390@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Wed, 30 Sep 2026 00:45:25 +0000
-Message-ID: <179072912501.434549.7831981029772644673@kernel.org>
-In-Reply-To: <20260927074520.3694663-1-nicoyip.dev@gmail.com>
-References: <20260927074520.3694663-1-nicoyip.dev@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="SN8deThB"
+Received: by mail-pz2-f37.google.com with SMTP id d2e1a72fcca58-885f0eca6c4so471673b3a.1
+        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 17:47:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1790729276; x=1791334076; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:mail-followup-to:message-id:subject:cc:to:from:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=40g7gQiOI5yVws2P9bf3jH4EWpMijZlz7/Un3g1hMDI=;
+        b=SN8deThBfTLAfxUrRXB8NfVFKSg9BKBgSG/I1r+g+TtwdY0D7V/IRkCTZX96sa+J0X
+         8ZKeCS7kCi3JfcjJfBxvGMm9lsBKjHVEz50fZXJ/Q/6bzMOnpaApDANQ1Q/nLLlVBYr3
+         D/M916tqwvnRiQwingSCKNlvUuhDCs88/oaIAudgv8ddcBzY0rzDIOwT0rdJzoaqBoq5
+         Ho46T91/dZ4XJz9ghF+3sGEX21313eRIMwuPDDivStBzjtT/mQ9X3xjNvk2w1X8MJmxl
+         NX9gQEZgjTgo0Qjdt430U9ArWSIISZkyvIQpmFlFj1kQRetxkvACFNI/g5viJEGUKNws
+         /I5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790729276; x=1791334076;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:mail-followup-to:message-id:subject:cc:to:from:date
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=40g7gQiOI5yVws2P9bf3jH4EWpMijZlz7/Un3g1hMDI=;
+        b=SPvexgdRruAvRXnZUmh/vaOU2gV4srMvu8L1bS/KMfoEmiOdEGf9cJ/dedF1e/wnLX
+         WPIXRV3b2YQ/u7wWQRoiPnd7Wa1P+zrxFsPMn01LhZEM37Zs/RZH8XrqUTpPsjzew6KP
+         vVCLfNWDm6R4S86rOiY4ZAf4V2Ku0uYE9kv/iyRlAU3bdl4hokrXWMM49+s5MYZgrBPK
+         MW7Xytfqt/xDJzALwypOdjv67OQJ3HlrMjayyY1rE2Wxo1/+I9TwU5DAcWSqmUoneuMh
+         VVw0QHWfEAWY1Ew3uPvXsa4t7aKxByesa3O4T8jxZhel3MbbXn+RDPFKdJvuS46Dtl5H
+         UwMw==
+X-Forwarded-Encrypted: i=1; AKwUvBxKN5lIY+opYKv1VjnK2DQbCo9fpvVq+DRml73h1aEsdv4ddDxwtQcoe1VzSr+XRk+lhvvCGq4=@vger.kernel.org
+X-Gm-Message-State: AFuF++ns6VYAbKe5c6EtRvLHDfcNFnqKPrajifW+DvAjWDxE3ZGyM2ix
+	q1fkFPDdJkORINn3CRTyGsHJO4PyPpKVvF81SXbHDOtBDfjun2ExTM+7sadeve+63jU=
+X-Gm-Gg: AYBFou0BBVkLPl9p6Ei//OZGTunkxMgQdkY4r4w4TD9LfmWl/UJWcDFMBEMlrEYp4xZ
+	zi7XsrjusZ5Ea1xdNtg4sGroDBCVy2G52aO3Zybu70s+IqVuwczhnCiPVTVjHFl9OXgwj9K9U+0
+	4N6YOadUtNPZCA/LXXvImgA9gSro4+aMVTBf4kCd3VOV48kbQ0k2tsYfCiYNgrC77KkNt19CIMK
+	hY8IPfBOPVN44PAkvh/9X5Y93XBoN8QyWWvUkZ2/DZyWVR/vkTj5RDMFZUPo33d9KqjvgPcSciI
+	mKvJEYXWdUMGL+43+9Gp22ebpfmD+fr5UI6RSQqwX2TMamv28nod8RHmxbsjJhWNt+44wleazpO
+	XYTVWqHrc70hPPOidZKtsGtTIbTzqjGE1ogdzChfXz+5Uibsg8d0BY+KW6KmiZ3+efNiqlbp88A
+	VTAKjR9/IQRqqRuIP1SEIqTPesSwQ4Dvll/Rw2ZrGE27ClGv2RV9NCBkwwwlNdJAXPk6lG5A8bm
+	wb+WhpcuX5hONnr/C4Smrc=
+X-Received: by 2002:a05:6a00:1906:b0:869:f065:f499 with SMTP id d2e1a72fcca58-886c3eb14a7mr659287b3a.25.1790729276326;
+        Tue, 29 Sep 2026 17:47:56 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:48::])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8868ba02d02sm560259b3a.21.2026.09.29.17.47.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 17:47:55 -0700 (PDT)
+Date: Tue, 29 Sep 2026 17:47:54 -0700
+From: Joe Damato <joe@dama.to>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: andrew+netdev@lunn.ch, anthony.l.nguyen@intel.com, davem@davemloft.net,
+	edumazet@google.com, intel-wired-lan@lists.osuosl.org,
+	kuba@kernel.org, linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org, pabeni@redhat.com,
+	przemyslaw.kitszel@intel.com, sln@onemain.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ixgbevf: fix xfrm_state reference leak in
+ ixgbevf_ipsec_rx()
+Message-ID: <arxcOtu89COHAncp@devvm20253.cco0.facebook.com>
+Mail-Followup-To: Joe Damato <joe@dama.to>,
+	Wentao Liang <vulab@iscas.ac.cn>, andrew+netdev@lunn.ch,
+	anthony.l.nguyen@intel.com, davem@davemloft.net,
+	edumazet@google.com, intel-wired-lan@lists.osuosl.org,
+	kuba@kernel.org, linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org, pabeni@redhat.com,
+	przemyslaw.kitszel@intel.com, sln@onemain.com,
+	stable@vger.kernel.org
+References: <20260917111418.2148632-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917111418.2148632-1-vulab@iscas.ac.cn>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On Thu, Sep 17, 2026 at 11:14:18AM +0000, Wentao Liang wrote:
+> ixgbevf_ipsec_find_rx_state() returns the state with an extra reference,
+> which is handed over to the secpath on the success path. When
+> secpath_set() fails, the state has not been stored anywhere yet and the
+> reference is dropped on the floor.
+> 
+> Release it before returning.
+> 
+> Fixes: 0062e7cc955e0 ("ixgbevf: add VF IPsec offload code")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+>  drivers/net/ethernet/intel/ixgbevf/ipsec.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
 
-Critical: 0 · High: 1 (1) · Medium: 1 · Low: 0
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] The fix is incomplete.
-- [Medium] The patch treats lgr_lock as the lock for lgr->freeing (the
-  new comment reads 'protects lgr->freeing').
-
-Pre-existing issues:
-- [High] Separately from the pending-timer rearm this patch fixes, a
-  free_work callback that has already started can race with lgr teardown…
-
---
-
-net/smc: serialize link group free work scheduling
-
-This patch takes the link group list lock in smc_lgr_schedule_free_work()
-around the lgr->freeing check and the mod_delayed_work() call. The goal is
-to stop a concurrent smc_lgr_free_work() from setting freeing and cancelling
-the work between the check and the rearm, which would leave a timer pending
-on a freed link group.
-
-> diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
-> index 9974149659c2f..8feb486ada562 100644
-> --- a/net/smc/smc_core.c
-> +++ b/net/smc/smc_core.c
-> @@ -80,6 +80,10 @@ static void smc_ibdev_cnt_dec(struct smc_link *lnk)
->  
->  static void smc_lgr_schedule_free_work(struct smc_link_group *lgr)
->  {
-> +	spinlock_t *lgr_lock; /* protects lgr->freeing */
-
-[Severity: Medium]
-Is lgr_lock enough to protect lgr->freeing? freeing is a 1-bit bitfield,
-and it shares a u8 with sync_err and terminating:
-
-net/smc/smc_core.h:struct smc_link_group {
-	...
-	u8			sync_err : 1;	/* lgr no longer fits to peer */
-	u8			terminating : 1;/* lgr is terminating */
-	u8			freeing : 1;	/* lgr is being freed */
-	...
-}
-
-Both neighbouring bits are written without lgr_lock. One example is
-smc_clc_wait_msg():
-
-	smc->conn.lgr->sync_err = 1;
-	smc_lgr_terminate_sched(smc->conn.lgr);
-
-Another is __smc_lgr_terminate():
-
-	lgr->terminating = 1;
-
-Each of these stores is a read-modify-write of the whole byte.
-smc_smcd_terminate() and smc_lgr_free_work() set freeing = 1 under
-lgr_lock. Can a concurrent sync_err or terminating store write back a stale
-byte and lose that freeing = 1?
-
-In the sync_err case, smc_lgr_terminate_sched() then returns early because
-the lgr is already unlinked, so freeing is never set again.
-
-Consider a later smc_conn_free() that passed its unlocked list_empty()
-check before the unlink. Once __smc_lgr_terminate() has cancelled
-free_work, that call could reach smc_lgr_schedule_free_work() with
-conns_num == 0. It would read freeing == 0 under the new lock and rearm the
-timer on an lgr that is about to be freed.
-
-Would it work better to give freeing its own storage (for example a bool),
-or to make every writer of that byte hold lgr_lock?
-
-> +
-> +	smc_lgr_list_head(lgr, &lgr_lock);
-> +	spin_lock_bh(lgr_lock);
->  	/* client link group creation always follows the server link group
->  	 * creation. For client use a somewhat higher removal delay time,
->  	 * otherwise there is a risk of out-of-sync link groups.
-> @@ -90,6 +94,7 @@ static void smc_lgr_schedule_free_work(struct smc_link_group *lgr)
->  						SMC_LGR_FREE_DELAY_CLNT :
->  						SMC_LGR_FREE_DELAY_SERV);
->  	}
-> +	spin_unlock_bh(lgr_lock);
->  }
-
-[Severity: High]
-Does this fully close the rearm race? The commit message says a rearm
-"either precedes the freeing transition and is caught by the subsequent
-cancellation, or sees freeing set and is skipped". That only holds if every
-teardown path sets lgr->freeing under lgr_lock before it cancels free_work.
-
-smc_lgr_cleanup_early() unlinks the lgr under lgr_lock but never sets
-freeing:
-
-net/smc/smc_core.c:smc_lgr_cleanup_early() {
-	...
-	spin_lock_bh(lgr_lock);
-	/* do not use this link group for new connections */
-	if (!list_empty(&lgr->list))
-		list_del_init(&lgr->list);
-	spin_unlock_bh(lgr_lock);
-	__smc_lgr_terminate(lgr, true);
-}
-
-__smc_lgr_terminate() then cancels only once, outside the lock. It sets
-terminating, not freeing:
-
-net/smc/smc_core.c:__smc_lgr_terminate() {
-	if (lgr->terminating)
-		return;	/* lgr already terminating */
-	/* cancel free_work sync, will terminate when lgr->freeing is set */
-	cancel_delayed_work(&lgr->free_work);
-	lgr->terminating = 1;
-	...
-	smc_lgr_cleanup(lgr);
-	smc_lgr_free(lgr);
-}
-
-On an SMC-D server, smc_listen_work() drops smc_server_lgr_pending after
-it sends the ACCEPT. A second connection (conn2) from the same peer can
-then join the first-contact lgr.
-
-If the first connection then fails (no CONFIRM, or a DECLINE), teardown
-goes through:
-
-smc_listen_work()->smc_listen_decline()->smc_conn_abort()->
-    smc_lgr_cleanup_early()->__smc_lgr_terminate()
-
-Meanwhile conn2 can be freed on another CPU:
-
-CPU0 (conn1 abort)                CPU1 (smc_conn_free(conn2))
-                                  !list_empty(&lgr->list) is true
-                                  smc_lgr_unregister_conn(conn2)
-smc_lgr_cleanup_early()
-  list_del_init(&lgr->list)
-  __smc_lgr_terminate()
-    cancel_delayed_work()
-    lgr->terminating = 1
-                                  lgr->conns_num == 0
-                                  smc_lgr_schedule_free_work()
-                                    spin_lock_bh(lgr_lock)
-                                    lgr->freeing == 0
-                                    mod_delayed_work()
-    smc_lgr_free()
-                                  smc_lgr_put() drops last reference
-
-This would leave free_work's timer pending on a kfree'd lgr, which is the
-same __run_timers use-after-free as in the KASAN report.
-
-Should smc_lgr_cleanup_early() set lgr->freeing under lgr_lock? Or should
-smc_lgr_schedule_free_work() also skip the rearm when the lgr is unlinked
-or terminating?
-
-[Severity: High]
-This is a pre-existing issue and was not introduced by this patch. Can a
-smc_lgr_free_work() callback that has already started running race with
-lgr teardown?
-
-smc_lgr_free_work() holds no reference on the lgr and dereferences it
-straight away:
-
-net/smc/smc_core.c:smc_lgr_free_work() {
-	...
-	smc_lgr_list_head(lgr, &lgr_lock);
-	spin_lock_bh(lgr_lock);
-	if (lgr->freeing) {
-	...
-}
-
-Suppose the idle timer fires and the worker starts, but is delayed before
-this point (by preemption, or on PREEMPT_RT). A teardown can then set
-freeing and reach __smc_lgr_terminate(). Examples are smc_smcd_terminate()
-from an ISM peer shutdown event in smcd_handle_sw_event(),
-smc_lgr_terminate_sched(), and smc_smcd_terminate_all() or
-smc_smcr_terminate_all(). The only cancellation there is:
-
-	cancel_delayed_work(&lgr->free_work);
-
-That call neither cancels nor waits for a callback that is already
-running.
-
-With no connections left, smc_lgr_free() destroys lgr->tx_wq. free_work is
-on system_percpu_wq, so this does not drain it. smc_lgr_put() then calls
-__smc_lgr_free(), which frees the lgr.
-
-When the worker resumes, it takes spin_lock_bh() on a lock pointer loaded
-from freed memory. If the stale freeing bit reads 0, it also calls
-list_del_init() and smc_lgr_free() a second time.
-
-Should teardown use cancel_delayed_work_sync() where the context allows,
-or should the queued work hold its own lgr reference?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260927074520.3694663-1-nicoyip.dev%40gmail.com
+Reviewed-by: Joe Damato <joe@dama.to>
