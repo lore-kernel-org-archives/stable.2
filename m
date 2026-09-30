@@ -1,59 +1,51 @@
-Received: from pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.35.192.45])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2DE23988F1;
-	Wed, 30 Sep 2026 04:23:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.35.192.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 183E43655CE;
+	Wed, 30 Sep 2026 04:24:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790742229; cv=none; b=lh+j9srww16irO4JwrMiyaJfzT5CX3yuSVz1jvwhMiBDBnK8vOI13QrdoyEGfKnC259mlktpkr9++51zyq4Y8trhzYNodVmEAQBXBn91snQOumMBktfQ+nE34oJZwcY7u5d+lFCqwCjisSXWzRRoT8wlRSoq/lzybnDW7SpsaI4=
+	t=1790742274; cv=none; b=EUHVUt6IXsFA3WCG8DLGQvVe25Itrw0SPer1RjMVrXVAIsOJRdsNeMIYjK6+JtmyAbpEychrqo0ZnFp8dfRrAzjwAomBuXKi90tlAPGUv6AsTMsiRVRtvTiFGXzLaE9F9LK1wYe5ETCgpWMzt0pC77sc7UZrRBgNW8TEZB+Nswg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790742229; c=relaxed/simple;
-	bh=tEvoVm92SRcc3wR2MAis5aion0yu5fgJNFcw/tBO724=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Wc1FXdvmMEmxnodbuOVA4UKUP57WPCgBfR/KyFp4qA36EOjJ/5WGo+alOA6L5mGADZjxXlk3s+xFBdZZHEfTPkGulSHp7AX1fgPGYwm6e5lMQgIOXd5xctMuwaoAjRA57Gx6GYUdaY3MjUCHXNvokTWExJW3X4+BGfV/KDGeYPI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=MkPkekU5; arc=none smtp.client-ip=52.35.192.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="MkPkekU5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1790742226; x=1822278226;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=RQ6LqhJbtStj/8tHMNPMmnW3TQt00oYBZzWuVKWCB3Q=;
-  b=MkPkekU582gC53PSM1CoPia5UWPvOuE3oMzmgA1SIwNtySYw+58tOogn
-   K70KFW3r0AGTsY8zffuMiW1VsS0OZh0AsLfie50qjN8Hwk15MiGcPEkAk
-   O2tb+zrMtirAMBWzoVsjUGLMX1bvCZsXxrbxYUfXzN9n/vnU9HFnNZgxu
-   FcD2ZWL1rCfEknBzt6CWKUH/crKrTiltUWU/cc/dqSr8FF/nKcpxiec7I
-   7zK0INTFRrqlYTilYSRfLVXBJ+Zd072X+jlG4gQgBR/P+1ocX5quVQT6u
-   b4SHpAek0XqJOsoenchqPTyyFWWxJtOZm8ze8KP3M6TZcfpCTT499vJdP
-   w==;
-X-CSE-ConnectionGUID: cdD7yDeQRGqxoLYNo2TGHg==
-X-CSE-MsgGUID: aIOTW6p8QnOm+r5EJIID6w==
-X-IronPort-AV: E=Sophos;i="6.27,130,1787011200"; 
-   d="scan'208";a="29768869"
-Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
-  by internal-pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 04:23:45 +0000
-Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.234:20470]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.2.150:2525] with esmtp (Farcaster)
- id 1ec46623-0066-4971-b55b-0db7cef9ddf5; Wed, 30 Sep 2026 04:23:45 +0000 (UTC)
-X-Farcaster-Flow-ID: 1ec46623-0066-4971-b55b-0db7cef9ddf5
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Wed, 30 Sep 2026 04:23:45 +0000
-Received: from 6c7e67c92ceb.amazon.com (10.187.170.60) by
- EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Wed, 30 Sep 2026 04:23:45 +0000
-From: Nathan Gao <zcgao@amazon.com>
-To: Ming Lei <tom.leiming@gmail.com>, Jens Axboe <axboe@kernel.dk>
-CC: <linux-block@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>, Nathan Gao <zcgao@amazon.com>
-Subject: [PATCH] ublk: return from ublk_wait_dev_ready_and_lock() on group exit
-Date: Tue, 29 Sep 2026 21:23:35 -0700
-Message-ID: <20260930042335.16199-1-zcgao@amazon.com>
-X-Mailer: git-send-email 2.54.0
+	s=arc-20240116; t=1790742274; c=relaxed/simple;
+	bh=KR0/nM7LaLz/NqsHot+0o4kSpKKt0bQVhOnDcP6AcIo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=H4VNa7FI+Ghr+Q2frLiHjTyseQKDldAqudTmWeQ5/JiVBXjdkLlRQ5pL57OntGQwQZtlOdnzydEaEPP/01UNtjUQptZdlCuQsWLrRkFfMGsmGgQ2R//DjdmJPf4QEmRZG23Jm37H82LnzbiOHqLvQ9DdKdVBmer3c2esFbH0iYM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: d06aa3eabc8611f19a56ed5b684f684d-20260930
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:68fac968-8661-42c1-bda2-4a029c0e5f17,IP:0,U
+	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:-25
+X-CID-META: VersionHash:7db8b62,CLOUDID:ec27ba03910cf2d188a2a8dced6161bb,BulkI
+	D:nil,BulkQuantity:0,SF:102|123|136|850|865|898,TC:nil,Content:0|15|50|99,
+	EDM:-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI
+	:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: d06aa3eabc8611f19a56ed5b684f684d-20260930
+X-User: fengchenguang@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <fengchenguang@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 387389142; Wed, 30 Sep 2026 12:24:23 +0800
+From: fengchenguang@kylinos.cn
+To: vikash.garodia@oss.qualcomm.com,
+	dikshita.agarwal@oss.qualcomm.com,
+	bod@kernel.org,
+	mchehab@kernel.org
+Cc: linux-media@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Chenguang Feng <fengchenguang@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: venus: vdec: Clear streamon flags on streaming errors
+Date: Wed, 30 Sep 2026 12:24:17 +0800
+Message-Id: <20260930042417.191675-1-fengchenguang@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -61,86 +53,67 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D036UWC003.ant.amazon.com (10.13.139.214) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-START_DEV and END_USER_RECOVERY wait in ublk_wait_dev_ready_and_lock()
-until the server has issued a FETCH for every I/O tag. ublk defers both
-commands to io-wq, so the wait runs on one of the server's io-wq
-workers.
+From: Chenguang Feng <fengchenguang@kylinos.cn>
 
-If the server is killed after fetching only some of the tags, the device
-can never become ready, and the wait can only end on a signal. The
-worker receives the SIGKILL too, but io-wq workers consume it without
-exiting and then run the queued command anyway, so the wait starts with
-no signal pending and never wakes up. Meanwhile the dying server waits
-for that worker in io_wq_put_and_exit(), because io_uring_files_cancel()
-does not cancel a uring_cmd on a non-io_uring file.
+The decoder only clears inst->streamon_out and inst->streamon_cap on
+the success path.  When vdec_start_output() runs with the decoder in
+the INIT or CAPTURE_SETUP state, it still sets streamon_out at its
+done: label even if venus_helper_process_initial_out_bufs() failed,
+and the error path of vdec_start_streaming() does not reset the
+flags.  vdec_stop_streaming() skips the clearing as well whenever
+the hfi flush fails.
 
-The server is left unkillable in D state, and a warning shows up in
-dmesg from WARN_ON_ONCE(time_after(jiffies, warn_timeout)) in
-io_wq_exit_workers():
+In both cases the driver and vb2 disagree about the streaming state:
+vdec_decoder_cmd() and delayed_process_buf_func() keep going as if
+the queue were still streaming, and a later capture streamon assumes
+the output queue is streaming too.
 
-  WARNING: io_uring/io-wq.c:1373 at io_wq_put_and_exit+0x10f/0x2d0, CPU#5: kublk/215924
-  Call Trace:
-   io_uring_clean_tctx+0x85/0xb0
-   io_uring_cancel_generic+0x171/0x340
-   do_exit+0xb7/0x470
-   do_group_exit+0x2c/0x80
-   get_signal+0x8f8/0x940
-   arch_do_signal_or_restart+0x24/0xf0
-   exit_to_user_mode_loop+0xed/0x440
-   do_syscall_64+0x22d/0x500
-   entry_SYSCALL_64_after_hwframe+0x76/0x7e
+The encoder clears both flags unconditionally in the same
+situations, so make the decoder do the same and print an error when
+the flush fails.
 
-tools/testing/selftests/ublk/test_generic_17.sh, which kills the server
-part-way through a recovery fetch, hits this in a few percent of runs.
-
-Fix it by returning -EINTR at the top of the wait loop once
-SIGNAL_GROUP_EXIT is set. The flag lives in the signal_struct shared by
-all threads, is set before SIGKILL is sent to each of them, and is never
-cleared, so the worker still sees it after its SIGKILL is gone. If the
-kill arrives after the check, the worker is woken with SIGKILL pending
-and the wait is interrupted as before.
-
-The hang goes back to commit fa8e442e832a ("ublk: honor
-IO_URING_F_NONBLOCK for handling control command"), which moved these
-commands onto io-wq; before it, the wait ran in the thread that receives
-the fatal signal.
-
-Fixes: fa8e442e832a ("ublk: honor IO_URING_F_NONBLOCK for handling control command")
+Fixes: beac82904a87 ("media: venus: make decoder compliant with stateful codec API")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Nathan Gao <zcgao@amazon.com>
+Signed-off-by: Chenguang Feng <fengchenguang@kylinos.cn>
 ---
-Tested on v7.3-rc5: unpatched, test_generic_17.sh hangs within 3-45
-iterations; patched, 150 iterations with no hang.
+ drivers/media/platform/qcom/venus/vdec.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
- drivers/block/ublk_drv.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/drivers/block/ublk_drv.c b/drivers/block/ublk_drv.c
-index 66eb55e7162e..dac3084cb86a 100644
---- a/drivers/block/ublk_drv.c
-+++ b/drivers/block/ublk_drv.c
-@@ -4440,6 +4440,14 @@ static bool ublk_validate_user_pid(struct ublk_device *ub, pid_t ublksrv_pid)
- static int ublk_wait_dev_ready_and_lock(struct ublk_device *ub)
- {
- 	while (true) {
-+		/*
-+		 * A dying server can never make the device ready. On an io-wq
-+		 * worker the SIGKILL may already have been consumed, so check
-+		 * the group exit flag rather than signal_pending().
-+		 */
-+		if (READ_ONCE(current->signal->flags) & SIGNAL_GROUP_EXIT)
-+			return -EINTR;
+diff --git a/drivers/media/platform/qcom/venus/vdec.c b/drivers/media/platform/qcom/venus/vdec.c
+index 6a43ea191da1..b25d9299f4d2 100644
+--- a/drivers/media/platform/qcom/venus/vdec.c
++++ b/drivers/media/platform/qcom/venus/vdec.c
+@@ -1217,6 +1217,10 @@ static int vdec_start_streaming(struct vb2_queue *q, unsigned int count)
+ 	vdec_pm_put(inst, false);
+ error:
+ 	venus_helper_buffers_done(inst, q->type, VB2_BUF_STATE_QUEUED);
++	if (q->type == V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE)
++		inst->streamon_out = 0;
++	else
++		inst->streamon_cap = 0;
+ 	mutex_unlock(&inst->lock);
+ 	return ret;
+ }
+@@ -1297,15 +1301,14 @@ static void vdec_stop_streaming(struct vb2_queue *q)
+ 
+ 	inst->session_error = 0;
+ 
+-	if (ret)
+-		goto unlock;
+-
+ 	if (q->type == V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE)
+ 		inst->streamon_out = 0;
+ 	else
+ 		inst->streamon_cap = 0;
+ 
+-unlock:
++	if (ret)
++		dev_err(inst->core->dev_dec, "dec: failed to stop streaming: %d\n", ret);
 +
- 		if (wait_var_event_interruptible(&ub->nr_queue_ready,
- 						 ublk_dev_ready(ub)))
- 			return -EINTR;
-
-base-commit: 551c722f40809618230001baccf219193e22fc5a
+ 	mutex_unlock(&inst->lock);
+ }
+ 
 -- 
-2.50.1
+2.25.1
 
