@@ -1,40 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94F1E50257E;
-	Wed, 30 Sep 2026 15:37:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD3F535C68C;
+	Wed, 30 Sep 2026 15:37:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790782675; cv=none; b=QSfwIhyuClK/+L74B6JiQ9BIUzBOMQCA2eaD1ELPQBfBr8xYQ6YdfPuvs3c44+vOi7QAdS2IMlDWeVS1sKDe4ijr3P2kN6Y9mKAJfYURRKY5dvSMfHYD3wxwmWe+wPiYIZ1K005YAuXnCPGuGWFPc6L8xMElBIPoBsbFRgdVyjg=
+	t=1790782683; cv=none; b=U6Y5lFg3jTE/jNG6jbunrmX6QhsHHEr0TeWP0/n9PWy0fWY7fKrQ7C9ZV+eKlK+bQ5f1wuEzbzMzl8TiftIpsZREiBe9f4VDtAh6slQhd5H45WyaRDtva1Gk6qGogmKnupxVTO9TRaef6P0Xjt/4HIhnwqJdEsK+7cGxcFHpzYQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790782675; c=relaxed/simple;
-	bh=yzYSpI064NLod9HmvEve2N5NRKv7Chhyic2/4COKiLA=;
+	s=arc-20240116; t=1790782683; c=relaxed/simple;
+	bh=rqB1hoi+uuueK1E6LJGwH18eUBlK628TrpUIFdrJ4lQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=D/dufH5IJ198FCMvofyRxEjjKvb+ODevjSLJGpNSf03pDHc2rR+BqHPiAJ9ok2JUpHHDyf6awgWOdAoNHEo7itMq+8H21WiMimXKXgt+kERS7A4OI/zdfQFZDom+k7G7DznpyH/OQt6AHdhKTlutWmYtQ4uOWBpmz3NFXNk2gss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=fzCsis3z; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ar8LinFMf/OdsqknIlWn7HokYUsFtjWqZS1xdUL4nLZMKVlXNgjf1hqYQpcU0mdDh88cEAIY8LJ5hO9GT8kqm7XMpSSw2IKkwfpRjQyzQ8AtwZjxR+STguf9XQqTBWzXAuWtpFvg78Ex+Ohf+Ux8uOGIbCK4fcTKadJPJ6XsOEA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=mR3JKgWG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="fzCsis3z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10B181F000FF;
-	Wed, 30 Sep 2026 15:37:45 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="mR3JKgWG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C35451F00893;
+	Wed, 30 Sep 2026 15:37:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790782666;
-	bh=f/l32nSlUFpu8jFjB/SjTrUkThOY355y2h/ijT+jtKw=;
+	s=korg; t=1790782672;
+	bh=iW+oWpa+QtB9pbKLvWa4isK1E2Mz8szwQbkFnPreS0U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fzCsis3zoqZOtvdNQyR4fbXloaWSr3NpegITz4lAlu/ZYflU+5njZ4wIg8iVp7gwK
-	 L6clKKa0oxdTFZajDi3lmI5qVX0wWI/AnEENfhpGNCWUGH+bL93r5susOjQYSe76mQ
-	 BkacodQF8tVek/db9Zs/9tFCaLlWbAI4eOAUzM8Q=
+	b=mR3JKgWGqF+T/Ulmy4Vv48hUhI12jczzTkcEvewRnbsyjlfOjqcL/96RcV96QFfin
+	 UywTb+ANtqCQ2kY9Vq4dApn1pz37eSd4JOtXvLEHqzDf3VLbk5HeybbxSylUvklEMe
+	 VREamFpAjpvXybv08AS5nEAQAnHx49W6344GDzGI=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Alice Mikityanska <alice@isovalent.com>,
-	Davide Caratti <dcaratti@redhat.com>,
-	Willem de Bruijn <willemb@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
+	Li Yichao <liyichao.1@bytedance.com>,
+	Zhang Tianci <zhangtianci.1997@bytedance.com>,
+	Miklos Szeredi <mszeredi@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 128/595] net/sched: act_csum: dont mangle UDP tunnel GSO packets
-Date: Wed, 30 Sep 2026 17:20:21 +0200
-Message-ID: <20260930152350.492363604@linuxfoundation.org>
+Subject: [PATCH 5.10 130/595] fuse: set ff->flock only on success
+Date: Wed, 30 Sep 2026 17:20:23 +0200
+Message-ID: <20260930152350.534169936@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152347.700140858@linuxfoundation.org>
 References: <20260930152347.700140858@linuxfoundation.org>
@@ -53,57 +52,36 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Alice Mikityanska <alice@isovalent.com>
+From: Zhang Tianci <zhangtianci.1997@bytedance.com>
 
-[ Upstream commit 9bcb30b389ec5888590cb6ec58c7a3b80fe49a11 ]
+[ Upstream commit 71947173cef279be5eed209ec28f8c11f9d73159 ]
 
-Similar to commit add641e7dee3 ("sched: act_csum: don't mangle TCP and
-UDP GSO packets"), UDP tunnel GSO packets going through act_csum
-shouldn't have their checksum calculated at this point, because it will
-be done after segmentation. Setting the checksum in act_csum modifies
-skb->ip_summed and prevents inner IP csum offload from kicking in,
-resulting in a packet with a bad checksum.
+If FUSE_SETLK fails (e.g., due to EWOULDBLOCK), we shall not set
+FUSE_RELEASE_FLOCK_UNLOCK in fuse_file_release().
 
-Add UDP tunnel GSO packets to the exceptions, and also add UDP GSO
-(SKB_GSO_UDP_L4), as the same logic as in the commit mentioned above
-applies to UDP GSO too.
-
-Signed-off-by: Alice Mikityanska <alice@isovalent.com>
-Reviewed-by: Davide Caratti <dcaratti@redhat.com>
-Reviewed-by: Willem de Bruijn <willemb@google.com>
-Link: https://patch.msgid.link/20260611192955.604661-2-alice.kernel@fastmail.im
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Reported-by: Li Yichao <liyichao.1@bytedance.com>
+Signed-off-by: Zhang Tianci <zhangtianci.1997@bytedance.com>
+Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/sched/act_csum.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ fs/fuse/file.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/net/sched/act_csum.c b/net/sched/act_csum.c
-index 107dc690de051..39836a30867fa 100644
---- a/net/sched/act_csum.c
-+++ b/net/sched/act_csum.c
-@@ -257,7 +257,9 @@ static int tcf_csum_ipv4_udp(struct sk_buff *skb, unsigned int ihl,
- 	const struct iphdr *iph;
- 	u16 ul;
+diff --git a/fs/fuse/file.c b/fs/fuse/file.c
+index a8c080b485d03..956c01a42d31a 100644
+--- a/fs/fuse/file.c
++++ b/fs/fuse/file.c
+@@ -2570,8 +2570,9 @@ static int fuse_file_flock(struct file *file, int cmd, struct file_lock *fl)
+ 		struct fuse_file *ff = file->private_data;
  
--	if (skb_is_gso(skb) && skb_shinfo(skb)->gso_type & SKB_GSO_UDP)
-+	if (skb_is_gso(skb) && skb_shinfo(skb)->gso_type &
-+	    (SKB_GSO_UDP | SKB_GSO_UDP_L4 |
-+	     SKB_GSO_UDP_TUNNEL | SKB_GSO_UDP_TUNNEL_CSUM))
- 		return 1;
+ 		/* emulate flock with POSIX locks */
+-		ff->flock = true;
+ 		err = fuse_setlk(file, fl, 1);
++		if (!err)
++			ff->flock = true;
+ 	}
  
- 	/*
-@@ -313,7 +315,9 @@ static int tcf_csum_ipv6_udp(struct sk_buff *skb, unsigned int ihl,
- 	const struct ipv6hdr *ip6h;
- 	u16 ul;
- 
--	if (skb_is_gso(skb) && skb_shinfo(skb)->gso_type & SKB_GSO_UDP)
-+	if (skb_is_gso(skb) && skb_shinfo(skb)->gso_type &
-+	    (SKB_GSO_UDP | SKB_GSO_UDP_L4 |
-+	     SKB_GSO_UDP_TUNNEL | SKB_GSO_UDP_TUNNEL_CSUM))
- 		return 1;
- 
- 	/*
+ 	return err;
 -- 
 2.53.0
 
