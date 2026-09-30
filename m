@@ -1,113 +1,105 @@
-Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECE123A3816;
-	Wed, 30 Sep 2026 07:44:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.190.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D878395AD3;
+	Wed, 30 Sep 2026 07:45:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790754266; cv=none; b=o0mxStsfnLLF2JBagfiImgHlB5NC0tRgDrg9dkUSZ/hhhUSJHU8F73R53m327auIjaLj0zDrOvIo/9+sPwW3yN8GS4pNIPKjt+zfiH6uInlDfU83MlmLBvtEnFGitZUbVN0EtOJS2OgagtokRtkEjoF5JqYhJEhUpOI+N7eRB/M=
+	t=1790754313; cv=none; b=TEYLMxToImJZ6YVhfmaYtGsMwnBTriLLeoY3a1GcNIotmfLBws5aMEtYMhtfMWSWi0vCYU1hpzn9SagsrZO//vyAfCtRA8nNBiYoOb/uXafoRvz8SjbaSmohLrxkihuFoqJClsO1eaAWVX/zjfXunU99GwNDYB1BNPB2wZIIH5A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790754266; c=relaxed/simple;
-	bh=/weW6rnVijy8vSTemtwP1eLFyLUfnmqKLwbzit3/6oA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XN9rSGIkIGp3Y8lXIqIZXsda6bHTtp135dtyXIFVEd0GZz22XAlxng8zTtWpr+eR9GZ8kordjH59+ZgRiTti10XLQlP/2VVhKa4HwTbRYkZcHOvXkyKfHEjnu1DFiNfTPhO48xhtqZ/0S9y4Ms1E2U5ufVcnnnd2Cxin7AAMBMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org; spf=pass smtp.mailfrom=netfilter.org; dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b=YSnhgYPl; arc=none smtp.client-ip=217.70.190.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
+	s=arc-20240116; t=1790754313; c=relaxed/simple;
+	bh=LD2eEWzPPDtNqJdIoFhBZvPz9oTL3nR1ZEqgoKkyMwM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=JOXrmBf4DZI8eoHYdL21xoDP8LbGl3yepWEu8e9mZcNvRGZpIUagmNSyaoj/9kq8T41jJ0UqJoZ+IwaGmiL5BIzmW/X3RCbt5W2Qi+seS617YMOMeedFtixrpHKkyVV1OiJc6liWbitOM6Vxv67J+EenNC1WpnIesZ3scbdplfM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=mNjhto0Q; arc=none smtp.client-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b="YSnhgYPl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
-	s=2025; t=1790754261;
-	bh=Ge8bwGslcUKX3/2Xkn6n3BQLAuDJsMDCpJIOuOrcxt4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YSnhgYPlFgDzPEadIKqNJ1Fs0uET8Yr4uUIP/+YV5jQKX7T3tL8LEswYe+DyMzAnr
-	 ndFzhirkFtrOwh9dXSXMz6u4klK96e3wPVfNsbflHZo0GX1UklZol9m9nrjo6hiqD1
-	 vWVZfp/ZpfBX8BcWbmqd07OeJG9xDVfs0oi2j0SGLLVNLdpi5LXkqAXbpZfF0ZH/mJ
-	 bzUyWktZedoscAIZP/vVbc1zHiEPgnPEBzk2oMNCgGZWg/sWvqrOWIko0rVUQGjqXl
-	 0E7JHt8RNuflOLqgQU6FsmkJxQlVKPPcwMXYrUKI10gF+DCpdbFDX6KXlr3y3jwjhu
-	 PmpNi6VUGBZQA==
-Received: from netfilter.org (mail-agni [217.70.190.124])
-	by mail.netfilter.org (Postfix) with UTF8SMTPSA id 3E8B1608AC;
-	Wed, 30 Sep 2026 09:44:21 +0200 (CEST)
-Date: Wed, 30 Sep 2026 09:44:18 +0200
-From: Pablo Neira Ayuso <pablo@netfilter.org>
-To: tjdqudcks0424@naver.com
-Cc: horms@verge.net.au, ja@ssi.bg, netdev@vger.kernel.org,
-	lvs-devel@vger.kernel.org, netfilter-devel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net] ipvs: prevent LBLCR destination leak after entry
- expiry
-Message-ID: <ary90qdwBnCVwv0p@chamomile>
-References: <20260929170747.503223-1-tjdqudcks0424@naver.com>
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="mNjhto0Q"
+Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4f9ce890a;
+	Wed, 30 Sep 2026 15:44:59 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Marcel Holtmann <marcel@holtmann.org>
+Cc: Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Tedd Ho-Jeong An <tedd.an@intel.com>,
+	Kiran K <kiran.k@intel.com>,
+	linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH] Bluetooth: btintel_pcie: use managed IRQ teardown
+Date: Wed, 30 Sep 2026 15:44:53 +0800
+Message-Id: <20260930074453.2944525-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260929170747.503223-1-tjdqudcks0424@naver.com>
+X-HM-Tid: 0aa0f1461caa03a1kunm177f496726ffee
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZTUkfVhpIS04aTk0eGUtMHVYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pPSExVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=mNjhto0Q6/0h+VdMMjvbpc5wOl6/gGelcX2ZEi8UTxYRgBCWhBzhBtNcqzWMVDrWQ+xP+2fu0V9TYfIa6tPJtJ5NWxkobnER0+imGl9jrZBjBeqpsbF+0EN/Bnu6yB8/saB7jTnoHyBmqAzmNF1gwo6Ai4LRs12D+C3yfMgQ17Q=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=Kldygyuza09FJbiu9Dxn2VxKHwsFITS3Z7kKFrpBHUU=;
+	h=date:mime-version:subject:message-id:from;
 
-Please, stop posting fixes for patches that already exist.
+The PCIe driver registers its MSI-X handlers with
+devm_request_threaded_irq(), but remove() uses free_irq() directly. The
+devres actions then retain registrations and attempt to release them again
+during device cleanup.
 
-If you want to use a LLM to fix bugs that's great, but you have to
-track what is going on the mailing list already.
+Use devm_free_irq() for the remove path and for already registered vectors
+when a later setup request fails. This removes the managed resource at the
+same time as the IRQ is released and keeps MSI-X vector teardown ordered
+after IRQ ownership is gone.
 
-Thank you.
+Fixes: c2b636b3f788 ("Bluetooth: btintel_pcie: Add support for PCIe transport")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+---
+ drivers/bluetooth/btintel_pcie.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-On Wed, Sep 30, 2026 at 02:07:46AM +0900, tjdqudcks0424@naver.com wrote:
-> From: 성병찬 <tjdqudcks0424@naver.com>
-> 
-> ip_vs_lblcr_schedule() looks up a cache entry under RCU before taking
-> svc->sched_lock.  The expiry timer can remove that entry from the hash
-> table and erase its destination set before the scheduler takes the lock.
-> 
-> RCU keeps the stale entry itself alive, so the scheduler can continue and
-> insert a new destination-set element into it.  Since the entry is already
-> unhashed and its set was already erased, no later path finds the new
-> element.  Both the element and its destination reference are leaked when
-> the parent entry is freed.
-> 
-> Recheck the address mapping while holding svc->sched_lock and update the
-> set only when the hash table still maps the address to the entry obtained
-> by the scheduler.
-> 
-> This was found during an AI-assisted source audit.  Diagnostic-only timing
-> instrumentation forced expiry after lookup on a two-vCPU x86-64 QEMU
-> guest.  The unmodified code inserted into the stale entry and left one
-> element outstanding in each of three runs; kmemleak reported the related
-> allocation in one run.  With this change, the same stale-entry condition
-> was reached in three runs, but no stale insertion or outstanding element
-> remained.
-> 
-> An unforced 679-second run processed 65,536 marked packets without hitting
-> the race.  The result therefore confirms the lifetime leak and the effect
-> of the fix under forced timing, but does not establish practical remote
-> resource exhaustion.
-> 
-> Fixes: c5549571f975 ("ipvs: convert lblcr scheduler to rcu")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: 성병찬 <tjdqudcks0424@naver.com>
-> ---
->  net/netfilter/ipvs/ip_vs_lblcr.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/net/netfilter/ipvs/ip_vs_lblcr.c b/net/netfilter/ipvs/ip_vs_lblcr.c
-> index f53f05ceea36..ef18f3c9d5da 100644
-> --- a/net/netfilter/ipvs/ip_vs_lblcr.c
-> +++ b/net/netfilter/ipvs/ip_vs_lblcr.c
-> @@ -686,7 +686,8 @@ ip_vs_lblcr_schedule(struct ip_vs_service *svc, const struct sk_buff *skb,
->  
->  		/* Update our cache entry */
->  		spin_lock_bh(&svc->sched_lock);
-> -		if (!tbl->dead)
-> +		if (!tbl->dead &&
-> +		    ip_vs_lblcr_get(svc->af, tbl, &iph->daddr) == en)
->  			ip_vs_dest_set_insert(&en->set, dest, true);
->  		spin_unlock_bh(&svc->sched_lock);
->  		goto out;
-> -- 
-> 2.43.0
-> 
+diff --git a/drivers/bluetooth/btintel_pcie.c b/drivers/bluetooth/btintel_pcie.c
+index 005c77a4f..f8901df7c 100644
+--- a/drivers/bluetooth/btintel_pcie.c
++++ b/drivers/bluetooth/btintel_pcie.c
+@@ -1750,7 +1750,7 @@ static irqreturn_t btintel_pcie_irq_msix_handler(int irq, void *dev_id)
+ static int btintel_pcie_setup_irq(struct btintel_pcie_data *data)
+ {
+ 	int err;
+-	int num_irqs, i;
++	int num_irqs, i, j;
+ 
+ 	for (i = 0; i < BTINTEL_PCIE_MSIX_VEC_MAX; i++)
+ 		data->msix_entries[i].entry = i;
+@@ -1779,6 +1779,10 @@ static int btintel_pcie_setup_irq(struct btintel_pcie_data *data)
+ 						KBUILD_MODNAME,
+ 						msix_entry);
+ 		if (err) {
++			for (j = 0; j < i; j++)
++				devm_free_irq(&data->pdev->dev,
++					      data->msix_entries[j].vector,
++					      &data->msix_entries[j]);
+ 			pci_free_irq_vectors(data->pdev);
+ 			data->alloc_vecs = 0;
+ 			return err;
+@@ -3101,7 +3105,7 @@ static void btintel_pcie_remove(struct pci_dev *pdev)
+ 		struct msix_entry *msix_entry;
+ 
+ 		msix_entry = &data->msix_entries[i];
+-		free_irq(msix_entry->vector, msix_entry);
++		devm_free_irq(&pdev->dev, msix_entry->vector, msix_entry);
+ 	}
+ 
+ 	pci_free_irq_vectors(pdev);
+-- 
+2.34.1
