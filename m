@@ -1,41 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFD6B3C9EE5;
-	Wed, 30 Sep 2026 19:12:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C3243CF21F;
+	Wed, 30 Sep 2026 19:12:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790795526; cv=none; b=iDspan/qMmdas4rH56XY83o0jmMSUJvVkBO01k+r+W8QXIEPDKrgcD4MtqiUO0AZgLDX1N3VZVI8PdfcHHCCiK40CwzUgz8tNDQGGzurUkpNRd944UobObRsxCGiTYO/NLth39TROd8wrKbhxskWs35tQUcEH8DYaw4PkusCh1s=
+	t=1790795527; cv=none; b=ETJ1/G2M2KjB0s9hx3ZNCsqaS9aPnVjd3U7wUYL+hjN18W6EYWFx/akD7jn/2o/MG30i+KEhHNCRKh6J5BwQrl6vMKQQh3d3Tji5uaA87qREOKkuUswG+/GbFbQ/Wr22qKwvEmWhrz7j4UW3dz/+OoG8vTaPgYYCRAzTSwXOD+8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790795526; c=relaxed/simple;
-	bh=RNB4HbdZyuHNpXfmq3aW6tpPtk4g68zZNHRgbGJOuOk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZnbGLbkZRSLpixn7gNQZQPnlHrHS5bHORIBZ2UDLJ/SgtFJhTY0sxQpizR1TelYZdzhf53qsy3e028yfBWohV4BZzBqQy46Up+C3ANMHxxtSkscMpFZwJZOzg4vHsuACZDNUgmtLeVPRTOOKBvmUKQnKuQc1jcSP018c8dsLfxc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FialyL22; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790795527; c=relaxed/simple;
+	bh=oiywEbxAD7u1G2a0vls4Ey7nUjsN/TgVNe0aieC4nG0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=GvjtViEMsOXLMoPz7zvctL8NMRkr2AYapt/yqx8fU0KRsL4RvycskoEa11v8zBfgwM+8IJ0mcO9N1msiOIioCT7fubVr0ObBI/F3jURiY/Xy/jSK0OgwGh09F7g5zsXNzc3cv3P0jCUIqh541JSLCeGj7tqy1cN8cCV+Sz1Gf7Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=N1ZyKDpP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FialyL22"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2629B1F00898;
-	Wed, 30 Sep 2026 19:12:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790795524;
-	bh=R7FY6iGEbdC8VvXJOzgQl4yOzwMqqjbySG58ASrbo5I=;
-	h=From:To:Cc:Subject:Date;
-	b=FialyL22oi+89WtzIxShkpjSWZea17beeTGoOXF7txeDUI8PzK6X57l0utGwoJOoE
-	 mVvyw0p5QmSZveLiLKRFiHhq8oXOjIuYyR+akuQYN+AV59kUhkJirw0NUQdY5oz1qi
-	 OecqxTegYR7xK8pHp7ccYF9B+yupIcUgCIvNItLblCgF0om9wZqMlUR+Glkfv1ZSLS
-	 fXn0veO3IC/wVn5vpMw+puO0+G0o6xQ430jMQCVh651fbBR31wyI9Tlt9UEBZahHUx
-	 otpHlxBefAs93/VqeBVz3NwHikomXNG+MeM7jW4JwVIAL6u6hRmDA+AwlnkrMXsLPt
-	 l/G4CzaglDCFA==
-From: Imre Kaloz <kaloz@kernel.org>
-To: Bjorn Helgaas <bhelgaas@google.com>
-Cc: linux-pci@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	stable@vger.kernel.org,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Subject: [PATCH] PCI: Disable MSI for ULi M1575 EHCI controller
-Date: Wed, 30 Sep 2026 21:10:58 +0200
-Message-ID: <20260930191100.6127-1-kaloz@kernel.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="N1ZyKDpP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A46E11F000FF;
+	Wed, 30 Sep 2026 19:12:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790795526;
+	bh=N7LWrj9rBTOBYByz+3bowzkWiM4OGmJL1hZ3KxybBEU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=N1ZyKDpPOXtjqXkQVHUL2Th5k2HWstA2WWo3GLVNlAxia4GxF/uj2gTva7wywJDiR
+	 0orlQ74zytTkxU4VlSs9CkaOw7WdFt9K3jsPaAWnzF9JXs4DmdY5Gk3eOChrH13VOa
+	 dYrSKpAcvIQzKy4V+PYEQusaFCdDXdKGovU54nUk=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Paolo Abeni <pabeni@redhat.com>,
+	Aaron Conole <aconole@redhat.com>,
+	Ilya Maximets <i.maximets@ovn.org>,
+	Eelco Chaudron <echaudro@redhat.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6 0592/1193] openvswitch: fix wrong flag value in get_ipv6_ext_hdrs()
+Date: Wed, 30 Sep 2026 17:21:16 +0200
+Message-ID: <20260930152447.398654943@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260930152434.301151190@linuxfoundation.org>
+References: <20260930152434.301151190@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,70 +50,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-With MSI, the ULi M1575 EHCI controller (10b9:5239) intermittently stops
-executing its asynchronous schedule. Control transfers time out ("device
-not accepting address", "device descriptor read/64"), the port is handed
-to the companion OHCI controller and the device ends up at full speed. On
-a configured hub the stall shows up as hub descriptor and status read
-failures. Only re-initializing the controller recovers it.
+6.6-stable review patch.  If anyone has any objections, please let me know.
 
-On a Sun Ultra 45, 65 of 800 controller initializations stalled with MSI
-and none of 200 with INTx. Each initialization is an unbind and bind of
-ehci-pci on the EHCI function, with MSI or INTx selected through its
-msi_bus attribute; with this quirk, 0 of 100 cycles of the same loop
-stalled. The stall reproduces on a kernel that already contains
-commit 0b60557230ad ("usb: ehci: Prevent missed ehci interrupts with
-edge-triggered MSI").
+------------------
 
-The OHCI functions (10b9:5237) keep MSI. They showed no stall, and the
-hub enumerated through them on MSI during the EHCI failures, so only the
-EHCI function is quirked.
+From: Eelco Chaudron <echaudro@redhat.com>
 
-The illumos EHCI driver also disables MSI on this chip, in
-ehci_register_intrs_and_init_mutex() in
-usr/src/uts/common/io/usb/hcd/ehci/ehci_util.c.
+[ Upstream commit e184a4a6f423550a25adce867036cdb1ff471745 ]
 
-Until USB HCDs started trying MSI first in v5.9, the controller always
-used INTx. Disable MSI so it uses INTx again on this chipset.
+The ESP and AH cases in get_ipv6_ext_hdrs() used IPPROTO_FRAGMENT instead
+of OFPIEH12_FRAG when checking for out-of-order extension headers, causing
+the fragment header to not be recognised as a valid predecessor.
 
-Fixes: 306c54d0edb6 ("usb: hcd: Try MSI interrupts on PCI devices")
-Cc: stable@vger.kernel.org
-Signed-off-by: Imre Kaloz <kaloz@kernel.org>
+The original code used IPPROTO_FRAGMENT (44) as a bitmask constant where
+OFPIEH12_FRAG (1 << 4 = 16) was intended.  IPPROTO_FRAGMENT encodes bits
+2, 3 and 5 (OFPIEH12_AUTH | OFPIEH12_DEST | OFPIEH12_ROUTER), but not
+bit 4 (OFPIEH12_FRAG).  This caused incorrect OFPIEH12_UNSEQ verdicts in
+both the ESP and AH arms: the ESP arm failed to whitelist OFPIEH12_FRAG,
+while the AH arm accidentally whitelisted OFPIEH12_AUTH.
+
+With the fix, a packet with two AH headers now also gets OFPIEH12_UNSEQ
+in addition to OFPIEH12_UNREP, matching the ESP arm which already sets
+UNSEQ on a repeat, which is the intended behavior.
+
+Fixes: 28a3f0601727 ("net: openvswitch: IPv6: Add IPv6 extension header support")
+Reported-by: Paolo Abeni <pabeni@redhat.com>
+Reviewed-by: Aaron Conole <aconole@redhat.com>
+Reviewed-by: Ilya Maximets <i.maximets@ovn.org>
+Signed-off-by: Eelco Chaudron <echaudro@redhat.com>
+Link: https://patch.msgid.link/1b1582eb07550d71f3cbe210e5cb31eeb8d0ad86.1788876917.git.echaudro@redhat.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
+ net/openvswitch/flow.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Notes:
-    lspci -nnv of the EHCI function on the Ultra 45, taken with this quirk
-    active, so MSI shows Enable-:
-    
-    0000:05:1c.3 USB controller [0c03]: ULi Electronics Inc. USB 2.0 Controller [10b9:5239] (rev 01) (prog-if 20 [EHCI])
-    	Subsystem: ULi Electronics Inc. Device [10b9:5238]
-    	Device tree node: /sys/firmware/devicetree/base/pci@1e,600000/pci@0/pci@1/pci@0/usb@1c,3
-    	Flags: bus master, 66MHz, medium devsel, latency 64, IRQ 00000006
-    	Memory at 00206000 (32-bit, non-prefetchable) [size=8K]
-    	Capabilities: [50] Power Management version 2
-    	Capabilities: [58] Debug port: BAR=1 offset=0090
-    	Capabilities: [78] MSI: Enable- Count=1/1 Maskable- 64bit-
-    	Kernel driver in use: ehci-pci
-    	Kernel modules: ehci_pci
-
- drivers/pci/quirks.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-index de9bbccda21f..9fb530a08fda 100644
---- a/drivers/pci/quirks.c
-+++ b/drivers/pci/quirks.c
-@@ -1941,6 +1941,8 @@ DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_ATI, 0x4388, quirk_no_msi);
- DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_ATI, 0x4389, quirk_no_msi);
- DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_ATI, 0x438a, quirk_no_msi);
- DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_ATI, 0x438b, quirk_no_msi);
-+/* ULi M1575 EHCI (10b9:5239): MSI stalls the async schedule */
-+DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_AL, 0x5239, quirk_no_msi);
- 
- static void quirk_pcie_mch(struct pci_dev *pdev)
- {
-
-base-commit: fe2ec83746e501645709761605c2464a44fd2929
+diff --git a/net/openvswitch/flow.c b/net/openvswitch/flow.c
+index 52e261ce91e8e..45e8b24bfe1e1 100644
+--- a/net/openvswitch/flow.c
++++ b/net/openvswitch/flow.c
+@@ -292,7 +292,7 @@ static void get_ipv6_ext_hdrs(struct sk_buff *skb, struct ipv6hdr *nh,
+ 			if (*ext_hdrs & OFPIEH12_ESP)
+ 				*ext_hdrs |= OFPIEH12_UNREP;
+ 			if ((*ext_hdrs & ~(OFPIEH12_HOP | OFPIEH12_DEST |
+-					   OFPIEH12_ROUTER | IPPROTO_FRAGMENT |
++					   OFPIEH12_ROUTER | OFPIEH12_FRAG |
+ 					   OFPIEH12_AUTH | OFPIEH12_UNREP)) ||
+ 			    dest_options_header_count >= 2) {
+ 				*ext_hdrs |= OFPIEH12_UNSEQ;
+@@ -305,7 +305,7 @@ static void get_ipv6_ext_hdrs(struct sk_buff *skb, struct ipv6hdr *nh,
+ 				*ext_hdrs |= OFPIEH12_UNREP;
+ 			if ((*ext_hdrs &
+ 			     ~(OFPIEH12_HOP | OFPIEH12_DEST | OFPIEH12_ROUTER |
+-			       IPPROTO_FRAGMENT | OFPIEH12_UNREP)) ||
++			       OFPIEH12_FRAG | OFPIEH12_UNREP)) ||
+ 			    dest_options_header_count >= 2) {
+ 				*ext_hdrs |= OFPIEH12_UNSEQ;
+ 			}
 -- 
-2.47.3
+2.53.0
+
+
 
